@@ -22,11 +22,9 @@ PROTO_1:
        12 CAPTURE                          VAL R0
        13 NAMECALL                         R2 R2 K3 ["Connect"]
        15 CALL                             R2 2 0
-       16 DUPTABLE                         R2 K5 [{"Percent"}]
-       17 LOADN                            R3 0
-       18 SETTABLEKS                       R3 R2 K4 ["Percent"]
-       20 SETTABLEKS                       R2 R0 K6 ["State"]
-       22 RETURN                           R0 0
+       16 DUPTABLE                         R2 K6 [{["Percent"] = 0}]
+       17 SETTABLEKS                       R2 R0 K7 ["State"]
+       19 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["State"]
@@ -99,17 +97,15 @@ PROTO_5:
        10 CAPTURE                          VAL R3
        11 GETUPVAL                         R8 0
        12 GETTABLEKS                       R8 R8 K0 ["new"]
-       14 DUPTABLE                         R9 K8 [{"AllowCancel", "Description", "Name", "OnCancel", "OnFinish", "OnStart", "OnStep"}]
-       15 LOADB                            R10 1
-       16 SETTABLEKS                       R10 R9 K1 ["AllowCancel"]
-       18 SETTABLEKS                       R1 R9 K2 ["Description"]
-       20 SETTABLEKS                       R0 R9 K3 ["Name"]
-       22 SETTABLEKS                       R6 R9 K4 ["OnCancel"]
-       24 SETTABLEKS                       R7 R9 K5 ["OnFinish"]
-       26 SETTABLEKS                       R4 R9 K6 ["OnStart"]
-       28 SETTABLEKS                       R5 R9 K7 ["OnStep"]
-       30 CALL                             R8 1 -1
-       31 RETURN                           R8 -1
+       14 DUPTABLE                         R9 K9 [{["AllowCancel"] = True, ["Description"], ["Name"], ["OnCancel"], ["OnFinish"], ["OnStart"], ["OnStep"]}]
+       15 SETTABLEKS                       R1 R9 K3 ["Description"]
+       17 SETTABLEKS                       R0 R9 K4 ["Name"]
+       19 SETTABLEKS                       R6 R9 K5 ["OnCancel"]
+       21 SETTABLEKS                       R7 R9 K6 ["OnFinish"]
+       23 SETTABLEKS                       R4 R9 K7 ["OnStart"]
+       25 SETTABLEKS                       R5 R9 K8 ["OnStep"]
+       27 CALL                             R8 1 -1
+       28 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -119,7 +119,7 @@ PROTO_4:
        40 LOADN                            R6 0
        41 LOADN                            R7 0
        42 LOADN                            R8 0
-       43 LOADN                            R9 255
+       43 LOADN                            R9 -1
        44 LOADN                            R10 0
        45 LOADN                            R11 0
        46 LOADN                            R12 0
@@ -187,149 +187,111 @@ PROTO_4:
       124 GETUPVAL                         R17 1
       125 GETTABLEKS                       R17 R17 K13 ["createElement"]
       127 LOADK                            R18 K22 ["SphereHandleAdornment"]
-      128 DUPTABLE                         R19 K30 [{"Adornee", "AlwaysOnTop", "ref", "Color3", "Radius", "Transparency", "ZIndex"}]
-      129 GETTABLEKS                       R20 R0 K31 ["adornee"]
+      128 DUPTABLE                         R19 K34 [{["Adornee"], ["AlwaysOnTop"] = True, ["ref"], ["Color3"], ["Radius"] = 0.11, ["Transparency"] = 0, ["ZIndex"] = -1}]
+      129 GETTABLEKS                       R20 R0 K35 ["adornee"]
       131 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      133 LOADB                            R20 1
-      134 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      136 SETTABLEKS                       R7 R19 K25 ["ref"]
-      138 GETIMPORT                        R20 K32 [Color3.new]
-      140 LOADN                            R21 0
-      141 LOADN                            R22 0
-      142 LOADN                            R23 0
-      143 CALL                             R20 3 1
-      144 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      146 LOADK                            R20 K33 [0.11]
-      147 SETTABLEKS                       R20 R19 K27 ["Radius"]
-      149 LOADN                            R20 0
-      150 SETTABLEKS                       R20 R19 K28 ["Transparency"]
-      152 LOADN                            R20 255
-      153 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      155 CALL                             R17 2 1
-      156 SETTABLEKS                       R17 R16 K15 ["Border"]
-      158 GETUPVAL                         R17 1
-      159 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      161 LOADK                            R18 K22 ["SphereHandleAdornment"]
-      162 NEWTABLE                         R19 16 0
-      164 GETTABLEKS                       R20 R0 K31 ["adornee"]
-      166 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      168 LOADB                            R20 1
-      169 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      171 GETTABLEKS                       R20 R0 K34 ["color"]
-      173 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      175 LOADK                            R20 K35 [0.1]
-      176 SETTABLEKS                       R20 R19 K27 ["Radius"]
-      178 GETTABLEKS                       R20 R0 K36 ["transparency"]
-      180 SETTABLEKS                       R20 R19 K28 ["Transparency"]
-      182 LOADN                            R20 1
-      183 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      185 SETTABLEKS                       R6 R19 K25 ["ref"]
-      187 GETUPVAL                         R20 1
-      188 GETTABLEKS                       R20 R20 K37 ["Event"]
-      190 GETTABLEKS                       R20 R20 K38 ["MouseEnter"]
-      192 SETTABLE                         R2 R19 R20
-      193 GETUPVAL                         R20 1
-      194 GETTABLEKS                       R20 R20 K37 ["Event"]
-      196 GETTABLEKS                       R20 R20 K39 ["MouseLeave"]
-      198 SETTABLE                         R3 R19 R20
-      199 CALL                             R17 2 1
-      200 SETTABLEKS                       R17 R16 K16 ["Sphere"]
-      202 GETUPVAL                         R17 1
-      203 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      205 LOADK                            R18 K22 ["SphereHandleAdornment"]
-      206 DUPTABLE                         R19 K40 [{"Adornee", "AlwaysOnTop", "Color3", "Radius", "Transparency", "ZIndex", "ref"}]
-      207 GETTABLEKS                       R20 R0 K31 ["adornee"]
-      209 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      211 LOADB                            R20 0
-      212 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      214 GETTABLEKS                       R20 R0 K34 ["color"]
-      216 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      218 LOADK                            R20 K35 [0.1]
-      219 SETTABLEKS                       R20 R19 K27 ["Radius"]
-      221 GETTABLEKS                       R20 R0 K41 ["transparencyOverModel"]
-      223 SETTABLEKS                       R20 R19 K28 ["Transparency"]
-      225 LOADN                            R20 2
-      226 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      228 SETTABLEKS                       R8 R19 K25 ["ref"]
-      230 CALL                             R17 2 1
-      231 SETTABLEKS                       R17 R16 K17 ["SphereOverModel"]
-      233 MOVE                             R17 R4
-      234 JUMPIFNOT                        R17 ; [+32]
-      235 GETUPVAL                         R17 1
-      236 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      238 LOADK                            R18 K42 ["LineHandleAdornment"]
-      239 DUPTABLE                         R19 K45 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "ZIndex", "ref"}]
-      240 GETTABLEKS                       R20 R0 K31 ["adornee"]
-      242 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      244 LOADB                            R20 1
-      245 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      247 LOADK                            R20 K46 [0.25]
-      248 SETTABLEKS                       R20 R19 K43 ["Length"]
-      250 LOADN                            R20 3
-      251 SETTABLEKS                       R20 R19 K44 ["Thickness"]
-      253 GETIMPORT                        R20 K32 [Color3.new]
-      255 LOADN                            R21 1
-      256 LOADN                            R22 0
-      257 LOADN                            R23 0
-      258 CALL                             R20 3 1
-      259 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      261 LOADN                            R20 3
-      262 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      264 SETTABLEKS                       R9 R19 K25 ["ref"]
-      266 CALL                             R17 2 1
-      267 SETTABLEKS                       R17 R16 K18 ["X"]
-      269 MOVE                             R17 R4
-      270 JUMPIFNOT                        R17 ; [+32]
-      271 GETUPVAL                         R17 1
-      272 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      274 LOADK                            R18 K42 ["LineHandleAdornment"]
-      275 DUPTABLE                         R19 K45 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "ZIndex", "ref"}]
-      276 GETTABLEKS                       R20 R0 K31 ["adornee"]
-      278 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      280 LOADB                            R20 1
-      281 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      283 LOADK                            R20 K46 [0.25]
-      284 SETTABLEKS                       R20 R19 K43 ["Length"]
-      286 LOADN                            R20 3
-      287 SETTABLEKS                       R20 R19 K44 ["Thickness"]
-      289 GETIMPORT                        R20 K32 [Color3.new]
-      291 LOADN                            R21 0
-      292 LOADN                            R22 1
-      293 LOADN                            R23 0
-      294 CALL                             R20 3 1
-      295 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      297 LOADN                            R20 3
-      298 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      300 SETTABLEKS                       R10 R19 K25 ["ref"]
-      302 CALL                             R17 2 1
-      303 SETTABLEKS                       R17 R16 K19 ["Y"]
-      305 MOVE                             R17 R4
-      306 JUMPIFNOT                        R17 ; [+32]
-      307 GETUPVAL                         R17 1
-      308 GETTABLEKS                       R17 R17 K13 ["createElement"]
-      310 LOADK                            R18 K42 ["LineHandleAdornment"]
-      311 DUPTABLE                         R19 K45 [{"Adornee", "AlwaysOnTop", "Length", "Thickness", "Color3", "ZIndex", "ref"}]
-      312 GETTABLEKS                       R20 R0 K31 ["adornee"]
-      314 SETTABLEKS                       R20 R19 K23 ["Adornee"]
-      316 LOADB                            R20 1
-      317 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
-      319 LOADK                            R20 K46 [0.25]
-      320 SETTABLEKS                       R20 R19 K43 ["Length"]
-      322 LOADN                            R20 3
-      323 SETTABLEKS                       R20 R19 K44 ["Thickness"]
-      325 GETIMPORT                        R20 K32 [Color3.new]
-      327 LOADN                            R21 0
-      328 LOADN                            R22 0
-      329 LOADN                            R23 1
-      330 CALL                             R20 3 1
-      331 SETTABLEKS                       R20 R19 K26 ["Color3"]
-      333 LOADN                            R20 3
-      334 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      336 SETTABLEKS                       R11 R19 K25 ["ref"]
-      338 CALL                             R17 2 1
-      339 SETTABLEKS                       R17 R16 K20 ["Z"]
-      341 CALL                             R13 3 -1
-      342 RETURN                           R13 -1
+      133 SETTABLEKS                       R7 R19 K26 ["ref"]
+      135 GETIMPORT                        R20 K36 [Color3.new]
+      137 LOADN                            R21 0
+      138 LOADN                            R22 0
+      139 LOADN                            R23 0
+      140 CALL                             R20 3 1
+      141 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      143 CALL                             R17 2 1
+      144 SETTABLEKS                       R17 R16 K15 ["Border"]
+      146 GETUPVAL                         R17 1
+      147 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      149 LOADK                            R18 K22 ["SphereHandleAdornment"]
+      150 NEWTABLE                         R19 16 0
+      152 GETTABLEKS                       R20 R0 K35 ["adornee"]
+      154 SETTABLEKS                       R20 R19 K23 ["Adornee"]
+      156 LOADB                            R20 1
+      157 SETTABLEKS                       R20 R19 K24 ["AlwaysOnTop"]
+      159 GETTABLEKS                       R20 R0 K37 ["color"]
+      161 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      163 LOADK                            R20 K38 [0.1]
+      164 SETTABLEKS                       R20 R19 K28 ["Radius"]
+      166 GETTABLEKS                       R20 R0 K39 ["transparency"]
+      168 SETTABLEKS                       R20 R19 K30 ["Transparency"]
+      170 LOADN                            R20 1
+      171 SETTABLEKS                       R20 R19 K32 ["ZIndex"]
+      173 SETTABLEKS                       R6 R19 K26 ["ref"]
+      175 GETUPVAL                         R20 1
+      176 GETTABLEKS                       R20 R20 K40 ["Event"]
+      178 GETTABLEKS                       R20 R20 K41 ["MouseEnter"]
+      180 SETTABLE                         R2 R19 R20
+      181 GETUPVAL                         R20 1
+      182 GETTABLEKS                       R20 R20 K40 ["Event"]
+      184 GETTABLEKS                       R20 R20 K42 ["MouseLeave"]
+      186 SETTABLE                         R3 R19 R20
+      187 CALL                             R17 2 1
+      188 SETTABLEKS                       R17 R16 K16 ["Sphere"]
+      190 GETUPVAL                         R17 1
+      191 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      193 LOADK                            R18 K22 ["SphereHandleAdornment"]
+      194 DUPTABLE                         R19 K45 [{["Adornee"], ["AlwaysOnTop"] = False, ["Color3"], ["Radius"] = 0.1, ["Transparency"], ["ZIndex"] = 2, ["ref"]}]
+      195 GETTABLEKS                       R20 R0 K35 ["adornee"]
+      197 SETTABLEKS                       R20 R19 K23 ["Adornee"]
+      199 GETTABLEKS                       R20 R0 K37 ["color"]
+      201 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      203 GETTABLEKS                       R20 R0 K46 ["transparencyOverModel"]
+      205 SETTABLEKS                       R20 R19 K30 ["Transparency"]
+      207 SETTABLEKS                       R8 R19 K26 ["ref"]
+      209 CALL                             R17 2 1
+      210 SETTABLEKS                       R17 R16 K17 ["SphereOverModel"]
+      212 MOVE                             R17 R4
+      213 JUMPIFNOT                        R17 ; [+20]
+      214 GETUPVAL                         R17 1
+      215 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      217 LOADK                            R18 K47 ["LineHandleAdornment"]
+      218 DUPTABLE                         R19 K52 [{["Adornee"], ["AlwaysOnTop"] = True, ["Length"] = 0.25, ["Thickness"] = 3, ["Color3"], ["ZIndex"] = 3, ["ref"]}]
+      219 GETTABLEKS                       R20 R0 K35 ["adornee"]
+      221 SETTABLEKS                       R20 R19 K23 ["Adornee"]
+      223 GETIMPORT                        R20 K36 [Color3.new]
+      225 LOADN                            R21 1
+      226 LOADN                            R22 0
+      227 LOADN                            R23 0
+      228 CALL                             R20 3 1
+      229 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      231 SETTABLEKS                       R9 R19 K26 ["ref"]
+      233 CALL                             R17 2 1
+      234 SETTABLEKS                       R17 R16 K18 ["X"]
+      236 MOVE                             R17 R4
+      237 JUMPIFNOT                        R17 ; [+20]
+      238 GETUPVAL                         R17 1
+      239 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      241 LOADK                            R18 K47 ["LineHandleAdornment"]
+      242 DUPTABLE                         R19 K52 [{["Adornee"], ["AlwaysOnTop"] = True, ["Length"] = 0.25, ["Thickness"] = 3, ["Color3"], ["ZIndex"] = 3, ["ref"]}]
+      243 GETTABLEKS                       R20 R0 K35 ["adornee"]
+      245 SETTABLEKS                       R20 R19 K23 ["Adornee"]
+      247 GETIMPORT                        R20 K36 [Color3.new]
+      249 LOADN                            R21 0
+      250 LOADN                            R22 1
+      251 LOADN                            R23 0
+      252 CALL                             R20 3 1
+      253 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      255 SETTABLEKS                       R10 R19 K26 ["ref"]
+      257 CALL                             R17 2 1
+      258 SETTABLEKS                       R17 R16 K19 ["Y"]
+      260 MOVE                             R17 R4
+      261 JUMPIFNOT                        R17 ; [+20]
+      262 GETUPVAL                         R17 1
+      263 GETTABLEKS                       R17 R17 K13 ["createElement"]
+      265 LOADK                            R18 K47 ["LineHandleAdornment"]
+      266 DUPTABLE                         R19 K52 [{["Adornee"], ["AlwaysOnTop"] = True, ["Length"] = 0.25, ["Thickness"] = 3, ["Color3"], ["ZIndex"] = 3, ["ref"]}]
+      267 GETTABLEKS                       R20 R0 K35 ["adornee"]
+      269 SETTABLEKS                       R20 R19 K23 ["Adornee"]
+      271 GETIMPORT                        R20 K36 [Color3.new]
+      273 LOADN                            R21 0
+      274 LOADN                            R22 0
+      275 LOADN                            R23 1
+      276 CALL                             R20 3 1
+      277 SETTABLEKS                       R20 R19 K27 ["Color3"]
+      279 SETTABLEKS                       R11 R19 K26 ["ref"]
+      281 CALL                             R17 2 1
+      282 SETTABLEKS                       R17 R16 K20 ["Z"]
+      284 CALL                             R13 3 -1
+      285 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

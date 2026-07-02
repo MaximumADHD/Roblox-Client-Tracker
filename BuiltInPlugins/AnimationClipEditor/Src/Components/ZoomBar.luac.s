@@ -2,7 +2,7 @@ PROTO_0:
         0 GETTABLEKS                       R4 R0 K1 ["MaxValue"]
         2 GETTABLEKS                       R5 R0 K2 ["MinValue"]
         4 SUB                              R3 R4 R5
-        5 SUBRK                            R2 R0 K3 ["math"]
+        5 SUBRK                            R2 K0 [1] R3
         6 LOADN                            R3 0
         7 LOADN                            R4 1
         8 FASTCALL                         MATH_CLAMP ; [+2]
@@ -68,7 +68,7 @@ PROTO_3:
         7 ORK                              R3 R4 K1 [0]
         8 MUL                              R4 R2 R3
         9 SETTABLEKS                       R4 R0 K4 ["MinValue"]
-       11 SUBRK                            R5 R5 K3 ["Zoom"]
+       11 SUBRK                            R5 K5 [1] R3
        12 MUL                              R6 R2 R3
        13 ADD                              R4 R5 R6
        14 SETTABLEKS                       R4 R0 K6 ["MaxValue"]
@@ -128,7 +128,7 @@ PROTO_6:
         1 GETTABLEKS                       R1 R1 K0 ["MinValue"]
         3 GETUPVAL                         R3 0
         4 GETTABLEKS                       R3 R3 K2 ["MaxValue"]
-        6 SUBRK                            R2 R1 K3 ["math"]
+        6 SUBRK                            R2 K1 [1] R3
         7 GETUPVAL                         R3 0
         8 LOADN                            R6 0
         9 ADD                              R7 R1 R2
@@ -171,86 +171,82 @@ PROTO_7:
 PROTO_8:
         0 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
         2 GETTABLEKS                       R4 R1 K1 ["UserInputType"]
-        4 JUMPIFNOTEQ                      R3 R4 ; [+57]
+        4 JUMPIFNOTEQ                      R3 R4 ; [+54]
         6 GETUPVAL                         R3 0
-        7 DUPTABLE                         R5 K5 [{"Zooming"}]
-        8 LOADB                            R6 1
-        9 SETTABLEKS                       R6 R5 K4 ["Zooming"]
-       11 NAMECALL                         R3 R3 K6 ["setState"]
-       13 CALL                             R3 2 0
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R3 R3 K7 ["props"]
-       17 GETTABLEKS                       R3 R3 K8 ["Direction"]
-       19 GETUPVAL                         R4 1
-       20 GETTABLEKS                       R4 R4 K9 ["HORIZONTAL"]
-       22 JUMPIFNOTEQ                      R3 R4 ; [+19]
-       24 GETUPVAL                         R3 0
-       25 GETTABLEKS                       R6 R1 K10 ["Position"]
-       27 GETTABLEKS                       R6 R6 K11 ["X"]
-       29 GETTABLEKS                       R7 R0 K12 ["AbsolutePosition"]
-       31 GETTABLEKS                       R7 R7 K11 ["X"]
-       33 SUB                              R5 R6 R7
-       34 GETUPVAL                         R7 2
-       35 GETTABLEKS                       R7 R7 K14 ["SCROLL_BAR_SIZE"]
-       37 MULK                             R6 R7 K13 [2]
-       38 ADD                              R4 R5 R6
-       39 SETTABLEKS                       R4 R3 K15 ["ClickOffset"]
-       41 JUMP                             ; [+17]
-       42 GETUPVAL                         R3 0
-       43 GETTABLEKS                       R6 R1 K10 ["Position"]
-       45 GETTABLEKS                       R6 R6 K16 ["Y"]
-       47 GETTABLEKS                       R7 R0 K12 ["AbsolutePosition"]
-       49 GETTABLEKS                       R7 R7 K16 ["Y"]
-       51 SUB                              R5 R6 R7
-       52 GETUPVAL                         R7 2
-       53 GETTABLEKS                       R7 R7 K14 ["SCROLL_BAR_SIZE"]
-       55 MULK                             R6 R7 K13 [2]
-       56 ADD                              R4 R5 R6
-       57 SETTABLEKS                       R4 R3 K15 ["ClickOffset"]
-       59 GETUPVAL                         R3 0
-       60 SETTABLEKS                       R2 R3 K17 ["ZoomFunc"]
-       62 RETURN                           R0 0
+        7 DUPTABLE                         R5 K6 [{["Zooming"] = True}]
+        8 NAMECALL                         R3 R3 K7 ["setState"]
+       10 CALL                             R3 2 0
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K8 ["props"]
+       14 GETTABLEKS                       R3 R3 K9 ["Direction"]
+       16 GETUPVAL                         R4 1
+       17 GETTABLEKS                       R4 R4 K10 ["HORIZONTAL"]
+       19 JUMPIFNOTEQ                      R3 R4 ; [+19]
+       21 GETUPVAL                         R3 0
+       22 GETTABLEKS                       R6 R1 K11 ["Position"]
+       24 GETTABLEKS                       R6 R6 K12 ["X"]
+       26 GETTABLEKS                       R7 R0 K13 ["AbsolutePosition"]
+       28 GETTABLEKS                       R7 R7 K12 ["X"]
+       30 SUB                              R5 R6 R7
+       31 GETUPVAL                         R7 2
+       32 GETTABLEKS                       R7 R7 K15 ["SCROLL_BAR_SIZE"]
+       34 MULK                             R6 R7 K14 [2]
+       35 ADD                              R4 R5 R6
+       36 SETTABLEKS                       R4 R3 K16 ["ClickOffset"]
+       38 JUMP                             ; [+17]
+       39 GETUPVAL                         R3 0
+       40 GETTABLEKS                       R6 R1 K11 ["Position"]
+       42 GETTABLEKS                       R6 R6 K17 ["Y"]
+       44 GETTABLEKS                       R7 R0 K13 ["AbsolutePosition"]
+       46 GETTABLEKS                       R7 R7 K17 ["Y"]
+       48 SUB                              R5 R6 R7
+       49 GETUPVAL                         R7 2
+       50 GETTABLEKS                       R7 R7 K15 ["SCROLL_BAR_SIZE"]
+       52 MULK                             R6 R7 K14 [2]
+       53 ADD                              R4 R5 R6
+       54 SETTABLEKS                       R4 R3 K16 ["ClickOffset"]
+       56 GETUPVAL                         R3 0
+       57 SETTABLEKS                       R2 R3 K18 ["ZoomFunc"]
+       59 RETURN                           R0 0
 
 PROTO_9:
         0 GETIMPORT                        R2 K3 [Enum.UserInputType.MouseButton1]
         2 GETTABLEKS                       R3 R1 K1 ["UserInputType"]
-        4 JUMPIFNOTEQ                      R2 R3 ; [+54]
+        4 JUMPIFNOTEQ                      R2 R3 ; [+51]
         6 GETUPVAL                         R2 0
-        7 DUPTABLE                         R4 K5 [{"Scrolling"}]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K4 ["Scrolling"]
-       11 NAMECALL                         R2 R2 K6 ["setState"]
-       13 CALL                             R2 2 0
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R2 R2 K7 ["props"]
-       17 GETTABLEKS                       R2 R2 K8 ["Direction"]
-       19 GETUPVAL                         R3 1
-       20 GETTABLEKS                       R3 R3 K9 ["HORIZONTAL"]
-       22 JUMPIFNOTEQ                      R2 R3 ; [+19]
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R5 R1 K10 ["Position"]
-       27 GETTABLEKS                       R5 R5 K11 ["X"]
-       29 GETTABLEKS                       R6 R0 K12 ["AbsolutePosition"]
-       31 GETTABLEKS                       R6 R6 K11 ["X"]
-       33 SUB                              R4 R5 R6
-       34 GETUPVAL                         R6 2
-       35 GETTABLEKS                       R6 R6 K14 ["SCROLL_BAR_SIZE"]
-       37 MULK                             R5 R6 K13 [2]
-       38 ADD                              R3 R4 R5
-       39 SETTABLEKS                       R3 R2 K15 ["ClickOffset"]
-       41 RETURN                           R0 0
-       42 GETUPVAL                         R2 0
-       43 GETTABLEKS                       R5 R1 K10 ["Position"]
-       45 GETTABLEKS                       R5 R5 K16 ["Y"]
-       47 GETTABLEKS                       R6 R0 K12 ["AbsolutePosition"]
-       49 GETTABLEKS                       R6 R6 K16 ["Y"]
-       51 SUB                              R4 R5 R6
-       52 GETUPVAL                         R6 2
-       53 GETTABLEKS                       R6 R6 K14 ["SCROLL_BAR_SIZE"]
-       55 MULK                             R5 R6 K13 [2]
-       56 ADD                              R3 R4 R5
-       57 SETTABLEKS                       R3 R2 K15 ["ClickOffset"]
-       59 RETURN                           R0 0
+        7 DUPTABLE                         R4 K6 [{["Scrolling"] = True}]
+        8 NAMECALL                         R2 R2 K7 ["setState"]
+       10 CALL                             R2 2 0
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K8 ["props"]
+       14 GETTABLEKS                       R2 R2 K9 ["Direction"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K10 ["HORIZONTAL"]
+       19 JUMPIFNOTEQ                      R2 R3 ; [+19]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R5 R1 K11 ["Position"]
+       24 GETTABLEKS                       R5 R5 K12 ["X"]
+       26 GETTABLEKS                       R6 R0 K13 ["AbsolutePosition"]
+       28 GETTABLEKS                       R6 R6 K12 ["X"]
+       30 SUB                              R4 R5 R6
+       31 GETUPVAL                         R6 2
+       32 GETTABLEKS                       R6 R6 K15 ["SCROLL_BAR_SIZE"]
+       34 MULK                             R5 R6 K14 [2]
+       35 ADD                              R3 R4 R5
+       36 SETTABLEKS                       R3 R2 K16 ["ClickOffset"]
+       38 RETURN                           R0 0
+       39 GETUPVAL                         R2 0
+       40 GETTABLEKS                       R5 R1 K11 ["Position"]
+       42 GETTABLEKS                       R5 R5 K17 ["Y"]
+       44 GETTABLEKS                       R6 R0 K13 ["AbsolutePosition"]
+       46 GETTABLEKS                       R6 R6 K17 ["Y"]
+       48 SUB                              R4 R5 R6
+       49 GETUPVAL                         R6 2
+       50 GETTABLEKS                       R6 R6 K15 ["SCROLL_BAR_SIZE"]
+       52 MULK                             R5 R6 K14 [2]
+       53 ADD                              R3 R4 R5
+       54 SETTABLEKS                       R3 R2 K16 ["ClickOffset"]
+       56 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -292,83 +288,69 @@ PROTO_10:
 
 PROTO_11:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"Zooming", "Scrolling"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["Zooming"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["Scrolling"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = False, ["Scrolling"] = False}]
+        2 NAMECALL                         R0 R0 K4 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Hovering"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["Hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Hovering"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["Hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_14:
-        0 DUPTABLE                         R1 K3 [{"Scrolling", "Zooming", "Hovering"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Scrolling"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["Zooming"]
-        7 LOADB                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["Hovering"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 LOADN                            R1 0
-       13 SETTABLEKS                       R1 R0 K5 ["MinValue"]
-       15 LOADN                            R1 1
-       16 SETTABLEKS                       R1 R0 K6 ["MaxValue"]
-       18 NEWCLOSURE                       R1 P0
+        0 DUPTABLE                         R1 K4 [{[1] = False, ["Zooming"] = False, ["Hovering"] = False}]
+        1 SETTABLEKS                       R1 R0 K5 ["state"]
+        3 LOADN                            R1 0
+        4 SETTABLEKS                       R1 R0 K6 ["MinValue"]
+        6 LOADN                            R1 1
+        7 SETTABLEKS                       R1 R0 K7 ["MaxValue"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          UPVAL U0
+       12 SETTABLEKS                       R1 R0 K8 ["updateMin"]
+       14 NEWCLOSURE                       R1 P1
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K9 ["updateMax"]
+       18 NEWCLOSURE                       R1 P2
        19 CAPTURE                          VAL R0
-       20 CAPTURE                          UPVAL U0
-       21 SETTABLEKS                       R1 R0 K7 ["updateMin"]
-       23 NEWCLOSURE                       R1 P1
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R1 R0 K8 ["updateMax"]
-       27 NEWCLOSURE                       R1 P2
-       28 CAPTURE                          VAL R0
-       29 SETTABLEKS                       R1 R0 K9 ["updateMiddle"]
-       31 NEWCLOSURE                       R1 P3
-       32 CAPTURE                          VAL R0
-       33 SETTABLEKS                       R1 R0 K10 ["dragMiddle"]
-       35 NEWCLOSURE                       R1 P4
-       36 CAPTURE                          VAL R0
-       37 CAPTURE                          UPVAL U1
-       38 CAPTURE                          UPVAL U0
-       39 SETTABLEKS                       R1 R0 K11 ["onZoomBegan"]
-       41 NEWCLOSURE                       R1 P5
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          UPVAL U1
-       44 CAPTURE                          UPVAL U0
-       45 SETTABLEKS                       R1 R0 K12 ["onScrollBegan"]
-       47 NEWCLOSURE                       R1 P6
+       20 SETTABLEKS                       R1 R0 K10 ["updateMiddle"]
+       22 NEWCLOSURE                       R1 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K11 ["dragMiddle"]
+       26 NEWCLOSURE                       R1 P4
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U1
+       29 CAPTURE                          UPVAL U0
+       30 SETTABLEKS                       R1 R0 K12 ["onZoomBegan"]
+       32 NEWCLOSURE                       R1 P5
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          UPVAL U1
+       35 CAPTURE                          UPVAL U0
+       36 SETTABLEKS                       R1 R0 K13 ["onScrollBegan"]
+       38 NEWCLOSURE                       R1 P6
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          UPVAL U1
+       41 SETTABLEKS                       R1 R0 K14 ["onInputChanged"]
+       43 NEWCLOSURE                       R1 P7
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R1 R0 K15 ["onInputEnded"]
+       47 NEWCLOSURE                       R1 P8
        48 CAPTURE                          VAL R0
-       49 CAPTURE                          UPVAL U1
-       50 SETTABLEKS                       R1 R0 K13 ["onInputChanged"]
-       52 NEWCLOSURE                       R1 P7
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R1 R0 K14 ["onInputEnded"]
-       56 NEWCLOSURE                       R1 P8
-       57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R1 R0 K15 ["mouseEnter"]
-       60 NEWCLOSURE                       R1 P9
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R1 R0 K16 ["mouseLeave"]
-       64 RETURN                           R0 0
+       49 SETTABLEKS                       R1 R0 K16 ["mouseEnter"]
+       51 NEWCLOSURE                       R1 P9
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R1 R0 K17 ["mouseLeave"]
+       55 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R2 0
@@ -702,7 +684,7 @@ PROTO_20:
       382 GETUPVAL                         R22 4
       383 DUPTABLE                         R23 K66 [{"Rotation", "OnActivated"}]
       384 JUMPIFNOT                        R15 ; [+2]
-      385 LOADN                            R24 14
+      385 LOADN                            R24 270
       386 JUMP                             ; [+1]
       387 LOADN                            R24 0
       388 SETTABLEKS                       R24 R23 K52 ["Rotation"]

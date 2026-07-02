@@ -123,103 +123,101 @@ PROTO_13:
         9 RETURN                           R0 1
 
 PROTO_14:
-        0 DUPTABLE                         R0 K6 [{"isActivated", "mouse", "SetItem", "GetItem", "OnSetItem", "Events"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["isActivated"]
-        4 GETUPVAL                         R1 0
-        5 CALL                             R1 0 1
-        6 SETTABLEKS                       R1 R0 K1 ["mouse"]
-        8 DUPCLOSURE                       R1 K7 [PROTO_0]
-        9 SETTABLEKS                       R1 R0 K2 ["SetItem"]
-       11 DUPCLOSURE                       R1 K8 [PROTO_1]
-       12 SETTABLEKS                       R1 R0 K3 ["GetItem"]
-       14 DUPCLOSURE                       R1 K9 [PROTO_2]
-       15 SETTABLEKS                       R1 R0 K4 ["OnSetItem"]
-       17 DUPTABLE                         R1 K12 [{"Unload", "Deactivate"}]
-       18 GETIMPORT                        R2 K15 [Instance.new]
-       20 LOADK                            R3 K16 ["BindableEvent"]
-       21 CALL                             R2 1 1
-       22 SETTABLEKS                       R2 R1 K10 ["Unload"]
-       24 GETIMPORT                        R2 K15 [Instance.new]
-       26 LOADK                            R3 K16 ["BindableEvent"]
-       27 CALL                             R2 1 1
-       28 SETTABLEKS                       R2 R1 K11 ["Deactivate"]
-       30 SETTABLEKS                       R1 R0 K5 ["Events"]
-       32 NEWTABLE                         R1 0 0
-       34 GETUPVAL                         R2 1
-       35 GETTABLEKS                       R2 R2 K17 ["fn"]
-       37 NEWCLOSURE                       R3 P3
-       38 CAPTURE                          VAL R1
-       39 CALL                             R2 1 1
-       40 SETTABLEKS                       R2 R0 K18 ["Invoke"]
-       42 GETUPVAL                         R2 1
-       43 GETTABLEKS                       R2 R2 K17 ["fn"]
-       45 NEWCLOSURE                       R3 P4
-       46 CAPTURE                          VAL R1
-       47 CALL                             R2 1 1
-       48 SETTABLEKS                       R2 R0 K19 ["OnInvoke"]
-       50 GETTABLEKS                       R2 R0 K5 ["Events"]
-       52 GETTABLEKS                       R2 R2 K10 ["Unload"]
-       54 GETTABLEKS                       R2 R2 K20 ["Event"]
-       56 SETTABLEKS                       R2 R0 K21 ["Unloading"]
-       58 GETTABLEKS                       R2 R0 K5 ["Events"]
-       60 GETTABLEKS                       R2 R2 K11 ["Deactivate"]
-       62 GETTABLEKS                       R2 R2 K20 ["Event"]
-       64 SETTABLEKS                       R2 R0 K22 ["Deactivation"]
-       66 GETUPVAL                         R2 1
-       67 GETTABLEKS                       R2 R2 K17 ["fn"]
-       69 NEWCLOSURE                       R3 P5
-       70 CAPTURE                          VAL R0
-       71 CALL                             R2 1 1
-       72 SETTABLEKS                       R2 R0 K23 ["IsActivated"]
-       74 GETUPVAL                         R2 1
-       75 GETTABLEKS                       R2 R2 K17 ["fn"]
-       77 NEWCLOSURE                       R3 P6
-       78 CAPTURE                          VAL R0
-       79 CALL                             R2 1 1
-       80 SETTABLEKS                       R2 R0 K24 ["Activate"]
-       82 GETUPVAL                         R2 1
-       83 GETTABLEKS                       R2 R2 K17 ["fn"]
-       85 NEWCLOSURE                       R3 P7
-       86 CAPTURE                          VAL R0
-       87 CALL                             R2 1 1
-       88 SETTABLEKS                       R2 R0 K11 ["Deactivate"]
-       90 GETUPVAL                         R2 1
-       91 GETTABLEKS                       R2 R2 K17 ["fn"]
-       93 NEWCLOSURE                       R3 P8
-       94 CAPTURE                          VAL R0
-       95 CALL                             R2 1 1
-       96 SETTABLEKS                       R2 R0 K25 ["GetMouse"]
-       98 GETUPVAL                         R2 1
-       99 GETTABLEKS                       R2 R2 K17 ["fn"]
-      101 CALL                             R2 0 1
-      102 SETTABLEKS                       R2 R0 K26 ["GetAttribute"]
-      104 GETUPVAL                         R2 1
-      105 GETTABLEKS                       R2 R2 K17 ["fn"]
-      107 CALL                             R2 0 1
-      108 SETTABLEKS                       R2 R0 K27 ["SetAttribute"]
-      110 GETUPVAL                         R2 1
-      111 GETTABLEKS                       R2 R2 K17 ["fn"]
-      113 CALL                             R2 0 1
-      114 SETTABLEKS                       R2 R0 K14 ["new"]
-      116 GETUPVAL                         R2 1
-      117 GETTABLEKS                       R2 R2 K17 ["fn"]
-      119 DUPCLOSURE                       R3 K28 [PROTO_10]
-      120 CALL                             R2 1 1
-      121 SETTABLEKS                       R2 R0 K29 ["GetPluginComponent"]
-      123 GETUPVAL                         R2 1
-      124 GETTABLEKS                       R2 R2 K17 ["fn"]
-      126 DUPCLOSURE                       R3 K30 [PROTO_11]
-      127 CALL                             R2 1 1
-      128 SETTABLEKS                       R2 R0 K31 ["CreateQWidgetPluginGui"]
-      130 GETUPVAL                         R2 1
-      131 GETTABLEKS                       R2 R2 K17 ["fn"]
-      133 NEWCLOSURE                       R3 P11
-      134 CAPTURE                          UPVAL U1
-      135 CAPTURE                          VAL R0
-      136 CALL                             R2 1 1
-      137 SETTABLEKS                       R2 R0 K32 ["use"]
-      139 RETURN                           R0 1
+        0 DUPTABLE                         R0 K7 [{[1] = False, ["mouse"], ["SetItem"], ["GetItem"], ["OnSetItem"], ["Events"]}]
+        1 GETUPVAL                         R1 0
+        2 CALL                             R1 0 1
+        3 SETTABLEKS                       R1 R0 K2 ["mouse"]
+        5 DUPCLOSURE                       R1 K8 [PROTO_0]
+        6 SETTABLEKS                       R1 R0 K3 ["SetItem"]
+        8 DUPCLOSURE                       R1 K9 [PROTO_1]
+        9 SETTABLEKS                       R1 R0 K4 ["GetItem"]
+       11 DUPCLOSURE                       R1 K10 [PROTO_2]
+       12 SETTABLEKS                       R1 R0 K5 ["OnSetItem"]
+       14 DUPTABLE                         R1 K13 [{"Unload", "Deactivate"}]
+       15 GETIMPORT                        R2 K16 [Instance.new]
+       17 LOADK                            R3 K17 ["BindableEvent"]
+       18 CALL                             R2 1 1
+       19 SETTABLEKS                       R2 R1 K11 ["Unload"]
+       21 GETIMPORT                        R2 K16 [Instance.new]
+       23 LOADK                            R3 K17 ["BindableEvent"]
+       24 CALL                             R2 1 1
+       25 SETTABLEKS                       R2 R1 K12 ["Deactivate"]
+       27 SETTABLEKS                       R1 R0 K6 ["Events"]
+       29 NEWTABLE                         R1 0 0
+       31 GETUPVAL                         R2 1
+       32 GETTABLEKS                       R2 R2 K18 ["fn"]
+       34 NEWCLOSURE                       R3 P3
+       35 CAPTURE                          VAL R1
+       36 CALL                             R2 1 1
+       37 SETTABLEKS                       R2 R0 K19 ["Invoke"]
+       39 GETUPVAL                         R2 1
+       40 GETTABLEKS                       R2 R2 K18 ["fn"]
+       42 NEWCLOSURE                       R3 P4
+       43 CAPTURE                          VAL R1
+       44 CALL                             R2 1 1
+       45 SETTABLEKS                       R2 R0 K20 ["OnInvoke"]
+       47 GETTABLEKS                       R2 R0 K6 ["Events"]
+       49 GETTABLEKS                       R2 R2 K11 ["Unload"]
+       51 GETTABLEKS                       R2 R2 K21 ["Event"]
+       53 SETTABLEKS                       R2 R0 K22 ["Unloading"]
+       55 GETTABLEKS                       R2 R0 K6 ["Events"]
+       57 GETTABLEKS                       R2 R2 K12 ["Deactivate"]
+       59 GETTABLEKS                       R2 R2 K21 ["Event"]
+       61 SETTABLEKS                       R2 R0 K23 ["Deactivation"]
+       63 GETUPVAL                         R2 1
+       64 GETTABLEKS                       R2 R2 K18 ["fn"]
+       66 NEWCLOSURE                       R3 P5
+       67 CAPTURE                          VAL R0
+       68 CALL                             R2 1 1
+       69 SETTABLEKS                       R2 R0 K24 ["IsActivated"]
+       71 GETUPVAL                         R2 1
+       72 GETTABLEKS                       R2 R2 K18 ["fn"]
+       74 NEWCLOSURE                       R3 P6
+       75 CAPTURE                          VAL R0
+       76 CALL                             R2 1 1
+       77 SETTABLEKS                       R2 R0 K25 ["Activate"]
+       79 GETUPVAL                         R2 1
+       80 GETTABLEKS                       R2 R2 K18 ["fn"]
+       82 NEWCLOSURE                       R3 P7
+       83 CAPTURE                          VAL R0
+       84 CALL                             R2 1 1
+       85 SETTABLEKS                       R2 R0 K12 ["Deactivate"]
+       87 GETUPVAL                         R2 1
+       88 GETTABLEKS                       R2 R2 K18 ["fn"]
+       90 NEWCLOSURE                       R3 P8
+       91 CAPTURE                          VAL R0
+       92 CALL                             R2 1 1
+       93 SETTABLEKS                       R2 R0 K26 ["GetMouse"]
+       95 GETUPVAL                         R2 1
+       96 GETTABLEKS                       R2 R2 K18 ["fn"]
+       98 CALL                             R2 0 1
+       99 SETTABLEKS                       R2 R0 K27 ["GetAttribute"]
+      101 GETUPVAL                         R2 1
+      102 GETTABLEKS                       R2 R2 K18 ["fn"]
+      104 CALL                             R2 0 1
+      105 SETTABLEKS                       R2 R0 K28 ["SetAttribute"]
+      107 GETUPVAL                         R2 1
+      108 GETTABLEKS                       R2 R2 K18 ["fn"]
+      110 CALL                             R2 0 1
+      111 SETTABLEKS                       R2 R0 K15 ["new"]
+      113 GETUPVAL                         R2 1
+      114 GETTABLEKS                       R2 R2 K18 ["fn"]
+      116 DUPCLOSURE                       R3 K29 [PROTO_10]
+      117 CALL                             R2 1 1
+      118 SETTABLEKS                       R2 R0 K30 ["GetPluginComponent"]
+      120 GETUPVAL                         R2 1
+      121 GETTABLEKS                       R2 R2 K18 ["fn"]
+      123 DUPCLOSURE                       R3 K31 [PROTO_11]
+      124 CALL                             R2 1 1
+      125 SETTABLEKS                       R2 R0 K32 ["CreateQWidgetPluginGui"]
+      127 GETUPVAL                         R2 1
+      128 GETTABLEKS                       R2 R2 K18 ["fn"]
+      130 NEWCLOSURE                       R3 P11
+      131 CAPTURE                          UPVAL U1
+      132 CAPTURE                          VAL R0
+      133 CALL                             R2 1 1
+      134 SETTABLEKS                       R2 R0 K33 ["use"]
+      136 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

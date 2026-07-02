@@ -24,21 +24,19 @@ PROTO_1:
        14 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"Focused"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Focused"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["mouseEnter"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["mouseLeave"]
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R1 R1 K5 ["createRef"]
-       17 CALL                             R1 0 1
-       18 SETTABLEKS                       R1 R0 K6 ["textBoxRef"]
-       20 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["mouseEnter"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["mouseLeave"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K6 ["createRef"]
+       14 CALL                             R1 0 1
+       15 SETTABLEKS                       R1 R0 K7 ["textBoxRef"]
+       17 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -84,33 +82,29 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K1 [{"Focused"}]
-        2 LOADB                            R4 1
-        3 SETTABLEKS                       R4 R3 K0 ["Focused"]
-        5 NAMECALL                         R1 R1 K2 ["setState"]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 MOVE                             R2 R0
-       10 LOADB                            R3 1
-       11 CALL                             R1 2 0
-       12 RETURN                           R0 0
+        1 DUPTABLE                         R3 K2 [{[1] = True}]
+        2 NAMECALL                         R1 R1 K3 ["setState"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 MOVE                             R2 R0
+        7 LOADB                            R3 1
+        8 CALL                             R1 2 0
+        9 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["unmounting"]
-        3 JUMPIF                           R2 ; [+13]
+        3 JUMPIF                           R2 ; [+10]
         4 GETUPVAL                         R2 0
-        5 DUPTABLE                         R4 K2 [{"Focused"}]
-        6 LOADB                            R5 0
-        7 SETTABLEKS                       R5 R4 K1 ["Focused"]
-        9 NAMECALL                         R2 R2 K3 ["setState"]
-       11 CALL                             R2 2 0
-       12 GETUPVAL                         R2 1
-       13 MOVE                             R3 R0
-       14 LOADB                            R4 0
-       15 MOVE                             R5 R1
-       16 CALL                             R2 3 0
-       17 RETURN                           R0 0
+        5 DUPTABLE                         R4 K3 [{["Focused"] = False}]
+        6 NAMECALL                         R2 R2 K4 ["setState"]
+        8 CALL                             R2 2 0
+        9 GETUPVAL                         R2 1
+       10 MOVE                             R3 R0
+       11 LOADB                            R4 0
+       12 MOVE                             R5 R1
+       13 CALL                             R2 3 0
+       14 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -140,108 +134,106 @@ PROTO_9:
        41 GETUPVAL                         R15 0
        42 GETTABLEKS                       R15 R15 K15 ["createElement"]
        44 GETUPVAL                         R16 1
-       45 DUPTABLE                         R17 K19 [{"Style", "Size", "BackgroundColor3", "BorderColor3", "LayoutOrder"}]
-       46 LOADK                            R18 K20 ["BorderBox"]
-       47 SETTABLEKS                       R18 R17 K16 ["Style"]
-       49 SETTABLEKS                       R4 R17 K3 ["Size"]
-       51 GETTABLEKS                       R18 R9 K21 ["backgroundColor"]
-       53 SETTABLEKS                       R18 R17 K17 ["BackgroundColor3"]
-       55 SETTABLEKS                       R13 R17 K18 ["BorderColor3"]
-       57 SETTABLEKS                       R7 R17 K6 ["LayoutOrder"]
-       59 DUPTABLE                         R18 K23 [{"Padding", "Text"}]
-       60 GETUPVAL                         R19 0
-       61 GETTABLEKS                       R19 R19 K15 ["createElement"]
-       63 LOADK                            R20 K24 ["UIPadding"]
-       64 DUPTABLE                         R21 K27 [{"PaddingLeft", "PaddingRight"}]
+       45 DUPTABLE                         R17 K20 [{["Style"] = "BorderBox", ["Size"], ["BackgroundColor3"], ["BorderColor3"], ["LayoutOrder"]}]
+       46 SETTABLEKS                       R4 R17 K3 ["Size"]
+       48 GETTABLEKS                       R18 R9 K21 ["backgroundColor"]
+       50 SETTABLEKS                       R18 R17 K18 ["BackgroundColor3"]
+       52 SETTABLEKS                       R13 R17 K19 ["BorderColor3"]
+       54 SETTABLEKS                       R7 R17 K6 ["LayoutOrder"]
+       56 DUPTABLE                         R18 K23 [{"Padding", "Text"}]
+       57 GETUPVAL                         R19 0
+       58 GETTABLEKS                       R19 R19 K15 ["createElement"]
+       60 LOADK                            R20 K24 ["UIPadding"]
+       61 DUPTABLE                         R21 K27 [{"PaddingLeft", "PaddingRight"}]
+       62 GETUPVAL                         R22 2
+       63 SETTABLEKS                       R22 R21 K25 ["PaddingLeft"]
        65 GETUPVAL                         R22 2
-       66 SETTABLEKS                       R22 R21 K25 ["PaddingLeft"]
-       68 GETUPVAL                         R22 2
-       69 SETTABLEKS                       R22 R21 K26 ["PaddingRight"]
-       71 CALL                             R19 2 1
-       72 SETTABLEKS                       R19 R18 K22 ["Padding"]
-       74 GETUPVAL                         R19 0
-       75 GETTABLEKS                       R19 R19 K15 ["createElement"]
-       77 LOADK                            R20 K28 ["TextBox"]
-       78 NEWTABLE                         R21 32 0
-       80 GETIMPORT                        R22 K31 [UDim2.new]
-       82 LOADN                            R23 1
-       83 LOADN                            R24 0
-       84 LOADN                            R25 1
-       85 LOADN                            R26 0
-       86 CALL                             R22 4 1
-       87 SETTABLEKS                       R22 R21 K3 ["Size"]
-       89 LOADN                            R22 1
-       90 SETTABLEKS                       R22 R21 K32 ["BackgroundTransparency"]
-       92 LOADN                            R22 0
-       93 SETTABLEKS                       R22 R21 K33 ["BorderSizePixel"]
-       95 LOADB                            R22 1
-       96 SETTABLEKS                       R22 R21 K34 ["ClipsDescendants"]
-       98 SETTABLEKS                       R14 R21 K14 ["ClearTextOnFocus"]
-      100 GETTABLEKS                       R22 R2 K35 ["font"]
-      102 SETTABLEKS                       R22 R21 K36 ["Font"]
-      104 GETTABLEKS                       R22 R9 K37 ["textSize"]
-      106 SETTABLEKS                       R22 R21 K38 ["TextSize"]
-      108 GETTABLEKS                       R22 R9 K39 ["textColor"]
-      110 SETTABLEKS                       R22 R21 K40 ["TextColor3"]
-      112 SETTABLEKS                       R5 R21 K4 ["Text"]
-      114 SETTABLEKS                       R6 R21 K5 ["TextXAlignment"]
-      116 SETTABLEKS                       R12 R21 K41 ["TextEditable"]
-      118 GETUPVAL                         R22 0
-      119 GETTABLEKS                       R22 R22 K42 ["Ref"]
-      121 GETTABLEKS                       R23 R0 K43 ["textBoxRef"]
-      123 SETTABLE                         R23 R21 R22
-      124 GETUPVAL                         R22 0
-      125 GETTABLEKS                       R22 R22 K44 ["Change"]
-      127 GETTABLEKS                       R22 R22 K4 ["Text"]
-      129 JUMPIFNOT                        R12 ; [+3]
-      130 NEWCLOSURE                       R23 P0
-      131 CAPTURE                          VAL R10
-      132 JUMPIF                           R23 ; [+1]
-      133 LOADNIL                          R23
-      134 SETTABLE                         R23 R21 R22
-      135 GETUPVAL                         R22 0
-      136 GETTABLEKS                       R22 R22 K45 ["Event"]
-      138 GETTABLEKS                       R22 R22 K7 ["Focused"]
-      140 JUMPIFNOT                        R12 ; [+4]
-      141 NEWCLOSURE                       R23 P1
-      142 CAPTURE                          VAL R0
-      143 CAPTURE                          VAL R11
-      144 JUMPIF                           R23 ; [+1]
-      145 LOADNIL                          R23
-      146 SETTABLE                         R23 R21 R22
-      147 GETUPVAL                         R22 0
-      148 GETTABLEKS                       R22 R22 K45 ["Event"]
-      150 GETTABLEKS                       R22 R22 K46 ["FocusLost"]
-      152 JUMPIFNOT                        R12 ; [+4]
-      153 NEWCLOSURE                       R23 P2
-      154 CAPTURE                          VAL R0
-      155 CAPTURE                          VAL R11
-      156 JUMPIF                           R23 ; [+1]
-      157 LOADNIL                          R23
-      158 SETTABLE                         R23 R21 R22
-      159 GETUPVAL                         R22 0
-      160 GETTABLEKS                       R22 R22 K45 ["Event"]
-      162 GETTABLEKS                       R22 R22 K47 ["MouseEnter"]
-      164 JUMPIFNOT                        R12 ; [+3]
-      165 GETTABLEKS                       R23 R0 K48 ["mouseEnter"]
-      167 JUMPIF                           R23 ; [+1]
-      168 LOADNIL                          R23
-      169 SETTABLE                         R23 R21 R22
-      170 GETUPVAL                         R22 0
-      171 GETTABLEKS                       R22 R22 K45 ["Event"]
-      173 GETTABLEKS                       R22 R22 K49 ["MouseLeave"]
-      175 JUMPIFNOT                        R12 ; [+3]
-      176 GETTABLEKS                       R23 R0 K50 ["mouseLeave"]
-      178 JUMPIF                           R23 ; [+1]
-      179 LOADNIL                          R23
-      180 SETTABLE                         R23 R21 R22
-      181 GETUPVAL                         R23 0
-      182 GETTABLEKS                       R23 R23 K51 ["Children"]
-      184 GETTABLE                         R22 R1 R23
-      185 CALL                             R19 3 1
-      186 SETTABLEKS                       R19 R18 K4 ["Text"]
-      188 CALL                             R15 3 -1
-      189 RETURN                           R15 -1
+       66 SETTABLEKS                       R22 R21 K26 ["PaddingRight"]
+       68 CALL                             R19 2 1
+       69 SETTABLEKS                       R19 R18 K22 ["Padding"]
+       71 GETUPVAL                         R19 0
+       72 GETTABLEKS                       R19 R19 K15 ["createElement"]
+       74 LOADK                            R20 K28 ["TextBox"]
+       75 NEWTABLE                         R21 32 0
+       77 GETIMPORT                        R22 K31 [UDim2.new]
+       79 LOADN                            R23 1
+       80 LOADN                            R24 0
+       81 LOADN                            R25 1
+       82 LOADN                            R26 0
+       83 CALL                             R22 4 1
+       84 SETTABLEKS                       R22 R21 K3 ["Size"]
+       86 LOADN                            R22 1
+       87 SETTABLEKS                       R22 R21 K32 ["BackgroundTransparency"]
+       89 LOADN                            R22 0
+       90 SETTABLEKS                       R22 R21 K33 ["BorderSizePixel"]
+       92 LOADB                            R22 1
+       93 SETTABLEKS                       R22 R21 K34 ["ClipsDescendants"]
+       95 SETTABLEKS                       R14 R21 K14 ["ClearTextOnFocus"]
+       97 GETTABLEKS                       R22 R2 K35 ["font"]
+       99 SETTABLEKS                       R22 R21 K36 ["Font"]
+      101 GETTABLEKS                       R22 R9 K37 ["textSize"]
+      103 SETTABLEKS                       R22 R21 K38 ["TextSize"]
+      105 GETTABLEKS                       R22 R9 K39 ["textColor"]
+      107 SETTABLEKS                       R22 R21 K40 ["TextColor3"]
+      109 SETTABLEKS                       R5 R21 K4 ["Text"]
+      111 SETTABLEKS                       R6 R21 K5 ["TextXAlignment"]
+      113 SETTABLEKS                       R12 R21 K41 ["TextEditable"]
+      115 GETUPVAL                         R22 0
+      116 GETTABLEKS                       R22 R22 K42 ["Ref"]
+      118 GETTABLEKS                       R23 R0 K43 ["textBoxRef"]
+      120 SETTABLE                         R23 R21 R22
+      121 GETUPVAL                         R22 0
+      122 GETTABLEKS                       R22 R22 K44 ["Change"]
+      124 GETTABLEKS                       R22 R22 K4 ["Text"]
+      126 JUMPIFNOT                        R12 ; [+3]
+      127 NEWCLOSURE                       R23 P0
+      128 CAPTURE                          VAL R10
+      129 JUMPIF                           R23 ; [+1]
+      130 LOADNIL                          R23
+      131 SETTABLE                         R23 R21 R22
+      132 GETUPVAL                         R22 0
+      133 GETTABLEKS                       R22 R22 K45 ["Event"]
+      135 GETTABLEKS                       R22 R22 K7 ["Focused"]
+      137 JUMPIFNOT                        R12 ; [+4]
+      138 NEWCLOSURE                       R23 P1
+      139 CAPTURE                          VAL R0
+      140 CAPTURE                          VAL R11
+      141 JUMPIF                           R23 ; [+1]
+      142 LOADNIL                          R23
+      143 SETTABLE                         R23 R21 R22
+      144 GETUPVAL                         R22 0
+      145 GETTABLEKS                       R22 R22 K45 ["Event"]
+      147 GETTABLEKS                       R22 R22 K46 ["FocusLost"]
+      149 JUMPIFNOT                        R12 ; [+4]
+      150 NEWCLOSURE                       R23 P2
+      151 CAPTURE                          VAL R0
+      152 CAPTURE                          VAL R11
+      153 JUMPIF                           R23 ; [+1]
+      154 LOADNIL                          R23
+      155 SETTABLE                         R23 R21 R22
+      156 GETUPVAL                         R22 0
+      157 GETTABLEKS                       R22 R22 K45 ["Event"]
+      159 GETTABLEKS                       R22 R22 K47 ["MouseEnter"]
+      161 JUMPIFNOT                        R12 ; [+3]
+      162 GETTABLEKS                       R23 R0 K48 ["mouseEnter"]
+      164 JUMPIF                           R23 ; [+1]
+      165 LOADNIL                          R23
+      166 SETTABLE                         R23 R21 R22
+      167 GETUPVAL                         R22 0
+      168 GETTABLEKS                       R22 R22 K45 ["Event"]
+      170 GETTABLEKS                       R22 R22 K49 ["MouseLeave"]
+      172 JUMPIFNOT                        R12 ; [+3]
+      173 GETTABLEKS                       R23 R0 K50 ["mouseLeave"]
+      175 JUMPIF                           R23 ; [+1]
+      176 LOADNIL                          R23
+      177 SETTABLE                         R23 R21 R22
+      178 GETUPVAL                         R23 0
+      179 GETTABLEKS                       R23 R23 K51 ["Children"]
+      181 GETTABLE                         R22 R1 R23
+      182 CALL                             R19 3 1
+      183 SETTABLEKS                       R19 R18 K4 ["Text"]
+      185 CALL                             R15 3 -1
+      186 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

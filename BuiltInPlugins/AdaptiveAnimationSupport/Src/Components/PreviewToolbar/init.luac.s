@@ -72,123 +72,109 @@ PROTO_6:
        37 GETIMPORT                        R5 K6 [table.clone]
        39 MOVE                             R6 R1
        40 CALL                             R5 1 1
-       41 DUPTABLE                         R8 K8 [{"Type"}]
-       42 LOADK                            R9 K9 ["Separator"]
-       43 SETTABLEKS                       R9 R8 K7 ["Type"]
-       45 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
-       47 MOVE                             R7 R5
-       48 GETIMPORT                        R6 K11 [table.insert]
-       50 CALL                             R6 2 0
-       51 GETTABLEKS                       R6 R0 K0 ["localization"]
-       53 DUPTABLE                         R9 K17 [{"Type", "Tooltip", "TooltipDescription", "Icon", "OnClick", "Enabled"}]
-       54 LOADK                            R10 K18 ["Button"]
-       55 SETTABLEKS                       R10 R9 K7 ["Type"]
-       57 LOADK                            R12 K19 ["Toolbar"]
-       58 LOADK                            R13 K20 ["AutoAll"]
-       59 NAMECALL                         R10 R6 K21 ["getText"]
-       61 CALL                             R10 3 1
-       62 SETTABLEKS                       R10 R9 K12 ["Tooltip"]
-       64 LOADK                            R12 K19 ["Toolbar"]
-       65 LOADK                            R13 K22 ["AutoAllTooltip"]
-       66 NAMECALL                         R10 R6 K21 ["getText"]
-       68 CALL                             R10 3 1
-       69 SETTABLEKS                       R10 R9 K13 ["TooltipDescription"]
-       71 GETUPVAL                         R10 2
-       72 GETTABLEKS                       R10 R10 K23 ["MAGIC"]
-       74 SETTABLEKS                       R10 R9 K14 ["Icon"]
-       76 NEWCLOSURE                       R10 P3
-       77 CAPTURE                          VAL R0
-       78 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-       80 NOT                              R10 R3
-       81 SETTABLEKS                       R10 R9 K16 ["Enabled"]
-       83 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-       85 MOVE                             R8 R5
-       86 GETIMPORT                        R7 K11 [table.insert]
-       88 CALL                             R7 2 0
-       89 DUPTABLE                         R9 K8 [{"Type"}]
-       90 LOADK                            R10 K9 ["Separator"]
-       91 SETTABLEKS                       R10 R9 K7 ["Type"]
-       93 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-       95 MOVE                             R8 R5
-       96 GETIMPORT                        R7 K11 [table.insert]
-       98 CALL                             R7 2 0
-       99 DUPTABLE                         R9 K17 [{"Type", "Tooltip", "TooltipDescription", "Icon", "OnClick", "Enabled"}]
-      100 LOADK                            R10 K18 ["Button"]
-      101 SETTABLEKS                       R10 R9 K7 ["Type"]
-      103 LOADK                            R12 K19 ["Toolbar"]
-      104 LOADK                            R13 K24 ["ResetAll"]
-      105 NAMECALL                         R10 R6 K21 ["getText"]
-      107 CALL                             R10 3 1
-      108 SETTABLEKS                       R10 R9 K12 ["Tooltip"]
-      110 LOADK                            R12 K19 ["Toolbar"]
-      111 LOADK                            R13 K25 ["ResetAllTooltip"]
-      112 NAMECALL                         R10 R6 K21 ["getText"]
-      114 CALL                             R10 3 1
-      115 SETTABLEKS                       R10 R9 K13 ["TooltipDescription"]
-      117 GETUPVAL                         R10 2
-      118 GETTABLEKS                       R10 R10 K26 ["RESET"]
-      120 SETTABLEKS                       R10 R9 K14 ["Icon"]
-      122 NEWCLOSURE                       R10 P4
-      123 CAPTURE                          VAL R0
-      124 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-      126 NOT                              R10 R3
-      127 SETTABLEKS                       R10 R9 K16 ["Enabled"]
-      129 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      131 MOVE                             R8 R5
-      132 GETIMPORT                        R7 K11 [table.insert]
-      134 CALL                             R7 2 0
-      135 DUPTABLE                         R9 K29 [{"Type", "Text", "Tooltip", "Style", "OnClick"}]
-      136 LOADK                            R10 K30 ["TextButton"]
-      137 SETTABLEKS                       R10 R9 K7 ["Type"]
-      139 LOADK                            R12 K31 ["Mode"]
-      140 LOADK                            R13 K32 ["Edit"]
-      141 NAMECALL                         R10 R6 K21 ["getText"]
-      143 CALL                             R10 3 1
-      144 SETTABLEKS                       R10 R9 K27 ["Text"]
-      146 LOADK                            R12 K31 ["Mode"]
-      147 LOADK                            R13 K32 ["Edit"]
-      148 NAMECALL                         R10 R6 K21 ["getText"]
-      150 CALL                             R10 3 1
-      151 SETTABLEKS                       R10 R9 K12 ["Tooltip"]
-      153 LOADK                            R10 K33 ["Round"]
-      154 SETTABLEKS                       R10 R9 K28 ["Style"]
-      156 NEWCLOSURE                       R10 P5
-      157 CAPTURE                          VAL R0
-      158 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-      160 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
-      162 MOVE                             R8 R5
-      163 GETIMPORT                        R7 K11 [table.insert]
-      165 CALL                             R7 2 0
-      166 GETUPVAL                         R7 1
-      167 GETTABLEKS                       R7 R7 K34 ["createElement"]
-      169 GETUPVAL                         R8 1
-      170 GETTABLEKS                       R8 R8 K35 ["Fragment"]
-      172 NEWTABLE                         R9 0 0
-      174 DUPTABLE                         R10 K37 [{"Toolbar", "PreviewPlayback"}]
-      175 GETUPVAL                         R11 1
-      176 GETTABLEKS                       R11 R11 K34 ["createElement"]
-      178 GETUPVAL                         R12 3
-      179 GETTABLEKS                       R12 R12 K19 ["Toolbar"]
-      181 DUPTABLE                         R13 K40 [{"InitialPosition", "HorizontalItems"}]
-      182 LOADK                            R14 K41 ["Center"]
-      183 SETTABLEKS                       R14 R13 K38 ["InitialPosition"]
-      185 SETTABLEKS                       R5 R13 K39 ["HorizontalItems"]
-      187 CALL                             R11 2 1
-      188 SETTABLEKS                       R11 R10 K19 ["Toolbar"]
-      190 GETTABLEKS                       R11 R0 K1 ["model"]
-      192 JUMPIFNOT                        R11 ; [+14]
-      193 GETUPVAL                         R11 1
-      194 GETTABLEKS                       R11 R11 K34 ["createElement"]
-      196 GETUPVAL                         R12 4
-      197 DUPTABLE                         R13 K44 [{"model", "animationId", "isPlaying"}]
-      198 GETTABLEKS                       R14 R0 K1 ["model"]
-      200 SETTABLEKS                       R14 R13 K1 ["model"]
-      202 SETTABLEKS                       R2 R13 K42 ["animationId"]
-      204 SETTABLEKS                       R3 R13 K43 ["isPlaying"]
-      206 CALL                             R11 2 1
-      207 SETTABLEKS                       R11 R10 K36 ["PreviewPlayback"]
-      209 CALL                             R7 3 -1
-      210 RETURN                           R7 -1
+       41 DUPTABLE                         R8 K9 [{["Type"] = "Separator"}]
+       42 FASTCALL2                        TABLE_INSERT R5 R8 ; [+4]
+       44 MOVE                             R7 R5
+       45 GETIMPORT                        R6 K11 [table.insert]
+       47 CALL                             R6 2 0
+       48 GETTABLEKS                       R6 R0 K0 ["localization"]
+       50 DUPTABLE                         R9 K18 [{["Type"] = "Button", ["Tooltip"], ["TooltipDescription"], ["Icon"], ["OnClick"], ["Enabled"]}]
+       51 LOADK                            R12 K19 ["Toolbar"]
+       52 LOADK                            R13 K20 ["AutoAll"]
+       53 NAMECALL                         R10 R6 K21 ["getText"]
+       55 CALL                             R10 3 1
+       56 SETTABLEKS                       R10 R9 K13 ["Tooltip"]
+       58 LOADK                            R12 K19 ["Toolbar"]
+       59 LOADK                            R13 K22 ["AutoAllTooltip"]
+       60 NAMECALL                         R10 R6 K21 ["getText"]
+       62 CALL                             R10 3 1
+       63 SETTABLEKS                       R10 R9 K14 ["TooltipDescription"]
+       65 GETUPVAL                         R10 2
+       66 GETTABLEKS                       R10 R10 K23 ["MAGIC"]
+       68 SETTABLEKS                       R10 R9 K15 ["Icon"]
+       70 NEWCLOSURE                       R10 P3
+       71 CAPTURE                          VAL R0
+       72 SETTABLEKS                       R10 R9 K16 ["OnClick"]
+       74 NOT                              R10 R3
+       75 SETTABLEKS                       R10 R9 K17 ["Enabled"]
+       77 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+       79 MOVE                             R8 R5
+       80 GETIMPORT                        R7 K11 [table.insert]
+       82 CALL                             R7 2 0
+       83 DUPTABLE                         R9 K9 [{["Type"] = "Separator"}]
+       84 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+       86 MOVE                             R8 R5
+       87 GETIMPORT                        R7 K11 [table.insert]
+       89 CALL                             R7 2 0
+       90 DUPTABLE                         R9 K18 [{["Type"] = "Button", ["Tooltip"], ["TooltipDescription"], ["Icon"], ["OnClick"], ["Enabled"]}]
+       91 LOADK                            R12 K19 ["Toolbar"]
+       92 LOADK                            R13 K24 ["ResetAll"]
+       93 NAMECALL                         R10 R6 K21 ["getText"]
+       95 CALL                             R10 3 1
+       96 SETTABLEKS                       R10 R9 K13 ["Tooltip"]
+       98 LOADK                            R12 K19 ["Toolbar"]
+       99 LOADK                            R13 K25 ["ResetAllTooltip"]
+      100 NAMECALL                         R10 R6 K21 ["getText"]
+      102 CALL                             R10 3 1
+      103 SETTABLEKS                       R10 R9 K14 ["TooltipDescription"]
+      105 GETUPVAL                         R10 2
+      106 GETTABLEKS                       R10 R10 K26 ["RESET"]
+      108 SETTABLEKS                       R10 R9 K15 ["Icon"]
+      110 NEWCLOSURE                       R10 P4
+      111 CAPTURE                          VAL R0
+      112 SETTABLEKS                       R10 R9 K16 ["OnClick"]
+      114 NOT                              R10 R3
+      115 SETTABLEKS                       R10 R9 K17 ["Enabled"]
+      117 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      119 MOVE                             R8 R5
+      120 GETIMPORT                        R7 K11 [table.insert]
+      122 CALL                             R7 2 0
+      123 DUPTABLE                         R9 K31 [{["Type"] = "TextButton", ["Text"], ["Tooltip"], ["Style"] = "Round", ["OnClick"]}]
+      124 LOADK                            R12 K32 ["Mode"]
+      125 LOADK                            R13 K33 ["Edit"]
+      126 NAMECALL                         R10 R6 K21 ["getText"]
+      128 CALL                             R10 3 1
+      129 SETTABLEKS                       R10 R9 K28 ["Text"]
+      131 LOADK                            R12 K32 ["Mode"]
+      132 LOADK                            R13 K33 ["Edit"]
+      133 NAMECALL                         R10 R6 K21 ["getText"]
+      135 CALL                             R10 3 1
+      136 SETTABLEKS                       R10 R9 K13 ["Tooltip"]
+      138 NEWCLOSURE                       R10 P5
+      139 CAPTURE                          VAL R0
+      140 SETTABLEKS                       R10 R9 K16 ["OnClick"]
+      142 FASTCALL2                        TABLE_INSERT R5 R9 ; [+4]
+      144 MOVE                             R8 R5
+      145 GETIMPORT                        R7 K11 [table.insert]
+      147 CALL                             R7 2 0
+      148 GETUPVAL                         R7 1
+      149 GETTABLEKS                       R7 R7 K34 ["createElement"]
+      151 GETUPVAL                         R8 1
+      152 GETTABLEKS                       R8 R8 K35 ["Fragment"]
+      154 NEWTABLE                         R9 0 0
+      156 DUPTABLE                         R10 K37 [{"Toolbar", "PreviewPlayback"}]
+      157 GETUPVAL                         R11 1
+      158 GETTABLEKS                       R11 R11 K34 ["createElement"]
+      160 GETUPVAL                         R12 3
+      161 GETTABLEKS                       R12 R12 K19 ["Toolbar"]
+      163 DUPTABLE                         R13 K41 [{["InitialPosition"] = "Center", ["HorizontalItems"]}]
+      164 SETTABLEKS                       R5 R13 K40 ["HorizontalItems"]
+      166 CALL                             R11 2 1
+      167 SETTABLEKS                       R11 R10 K19 ["Toolbar"]
+      169 GETTABLEKS                       R11 R0 K1 ["model"]
+      171 JUMPIFNOT                        R11 ; [+14]
+      172 GETUPVAL                         R11 1
+      173 GETTABLEKS                       R11 R11 K34 ["createElement"]
+      175 GETUPVAL                         R12 4
+      176 DUPTABLE                         R13 K44 [{"model", "animationId", "isPlaying"}]
+      177 GETTABLEKS                       R14 R0 K1 ["model"]
+      179 SETTABLEKS                       R14 R13 K1 ["model"]
+      181 SETTABLEKS                       R2 R13 K42 ["animationId"]
+      183 SETTABLEKS                       R3 R13 K43 ["isPlaying"]
+      185 CALL                             R11 2 1
+      186 SETTABLEKS                       R11 R10 K36 ["PreviewPlayback"]
+      188 CALL                             R7 3 -1
+      189 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

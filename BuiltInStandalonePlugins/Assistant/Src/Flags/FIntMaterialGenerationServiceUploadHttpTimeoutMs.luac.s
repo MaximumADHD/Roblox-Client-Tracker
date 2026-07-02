@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["MaterialGenerationServiceUploadHttpTimeoutMs"]
-        3 LOADN                            R3 152
+        3 LOADN                            R3 15000
         4 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
         6 CALL                             R0 3 0
         7 RETURN                           R0 0
@@ -18,6 +18,6 @@ MAIN:
        13 CALL                             R1 1 0
        14 GETTABLEKS                       R1 R0 K9 ["createFInt"]
        16 LOADK                            R2 K10 ["MaterialGenerationServiceUploadHttpTimeoutMs"]
-       17 LOADN                            R3 152
+       17 LOADN                            R3 15000
        18 CALL                             R1 2 -1
        19 RETURN                           R1 -1

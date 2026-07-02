@@ -1,37 +1,27 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K11 [{"_plugin", "_isMock", "_session", "_state", "_errorMessages", "_useLocation", "_filePath", "_instances", "_uploadConnection", "onStateChanged", "onErrorsChanged"}]
+        0 DUPTABLE                         R2 K12 [{[1], ["_isMock"], ["_session"] = , ["_state"], ["_errorMessages"], ["_useLocation"] = , ["_filePath"] = , ["_instances"] = , ["_uploadConnection"] = , ["onStateChanged"], ["onErrorsChanged"]}]
         1 SETTABLEKS                       R0 R2 K0 ["_plugin"]
         3 SETTABLEKS                       R1 R2 K1 ["_isMock"]
-        5 LOADNIL                          R3
-        6 SETTABLEKS                       R3 R2 K2 ["_session"]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R3 R3 K12 ["state"]
-       11 GETTABLEKS                       R3 R3 K13 ["closed"]
-       13 SETTABLEKS                       R3 R2 K3 ["_state"]
-       15 NEWTABLE                         R3 0 0
-       17 SETTABLEKS                       R3 R2 K4 ["_errorMessages"]
-       19 LOADNIL                          R3
-       20 SETTABLEKS                       R3 R2 K5 ["_useLocation"]
-       22 LOADNIL                          R3
-       23 SETTABLEKS                       R3 R2 K6 ["_filePath"]
-       25 LOADNIL                          R3
-       26 SETTABLEKS                       R3 R2 K7 ["_instances"]
-       28 LOADNIL                          R3
-       29 SETTABLEKS                       R3 R2 K8 ["_uploadConnection"]
-       31 GETUPVAL                         R3 1
-       32 GETTABLEKS                       R3 R3 K14 ["new"]
-       34 CALL                             R3 0 1
-       35 SETTABLEKS                       R3 R2 K9 ["onStateChanged"]
-       37 GETUPVAL                         R3 1
-       38 GETTABLEKS                       R3 R3 K14 ["new"]
-       40 CALL                             R3 0 1
-       41 SETTABLEKS                       R3 R2 K10 ["onErrorsChanged"]
-       43 GETUPVAL                         R5 0
-       44 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       46 MOVE                             R4 R2
-       47 GETIMPORT                        R3 K16 [setmetatable]
-       49 CALL                             R3 2 1
-       50 RETURN                           R3 1
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K13 ["state"]
+        8 GETTABLEKS                       R3 R3 K14 ["closed"]
+       10 SETTABLEKS                       R3 R2 K4 ["_state"]
+       12 NEWTABLE                         R3 0 0
+       14 SETTABLEKS                       R3 R2 K5 ["_errorMessages"]
+       16 GETUPVAL                         R3 1
+       17 GETTABLEKS                       R3 R3 K15 ["new"]
+       19 CALL                             R3 0 1
+       20 SETTABLEKS                       R3 R2 K10 ["onStateChanged"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K15 ["new"]
+       25 CALL                             R3 0 1
+       26 SETTABLEKS                       R3 R2 K11 ["onErrorsChanged"]
+       28 GETUPVAL                         R5 0
+       29 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       31 MOVE                             R4 R2
+       32 GETIMPORT                        R3 K17 [setmetatable]
+       34 CALL                             R3 2 1
+       35 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -184,7 +174,7 @@ PROTO_12:
        33 CALL                             R1 1 1
        34 JUMP                             ; [+1]
        35 LOADNIL                          R1
-       36 JUMPIF                           R1 ; [+42]
+       36 JUMPIF                           R1 ; [+39]
        37 NEWTABLE                         R4 1 0
        39 GETTABLEKS                       R6 R0 K0 ["_filePath"]
        41 GETIMPORT                        R7 K8 [string.match]
@@ -196,50 +186,48 @@ PROTO_12:
        49 JUMP                             ; [+1]
        50 LOADK                            R5 K10 [""]
        51 GETUPVAL                         R6 1
-       52 DUPTABLE                         R8 K14 [{"httpResponse", "simpleErrorMessage", "operationId"}]
+       52 DUPTABLE                         R8 K15 [{["httpResponse"], ["simpleErrorMessage"], ["operationId"] = -1}]
        53 NEWTABLE                         R9 0 0
        55 SETTABLEKS                       R9 R8 K11 ["httpResponse"]
        57 GETUPVAL                         R9 2
-       58 GETTABLEKS                       R9 R9 K15 ["ErrorCode"]
-       60 GETTABLEKS                       R9 R9 K16 ["CorruptedFile"]
+       58 GETTABLEKS                       R9 R9 K16 ["ErrorCode"]
+       60 GETTABLEKS                       R9 R9 K17 ["CorruptedFile"]
        62 SETTABLEKS                       R9 R8 K12 ["simpleErrorMessage"]
-       64 LOADN                            R9 255
-       65 SETTABLEKS                       R9 R8 K13 ["operationId"]
-       67 NAMECALL                         R6 R6 K17 ["JSONEncode"]
-       69 CALL                             R6 2 1
-       70 SETTABLE                         R6 R4 R5
-       71 NAMECALL                         R2 R0 K18 ["_setErrors"]
-       73 CALL                             R2 2 0
-       74 NAMECALL                         R2 R0 K19 ["_importFailed"]
-       76 CALL                             R2 1 0
-       77 LOADNIL                          R2
-       78 RETURN                           R2 1
-       79 LOADB                            R2 0
-       80 SETTABLEKS                       R2 R1 K20 ["AddModelToInventory"]
-       82 LOADB                            R2 1
-       83 SETTABLEKS                       R2 R1 K21 ["MergeMeshes"]
-       85 NAMECALL                         R2 R1 K22 ["GetDescendants"]
-       87 CALL                             R2 1 3
-       88 FORGPREP                         R2
-       89 LOADK                            R9 K23 ["AnimationImportData"]
-       90 NAMECALL                         R7 R6 K24 ["IsA"]
-       92 CALL                             R7 2 1
-       93 JUMPIFNOT                        R7 ; [+3]
-       94 LOADB                            R7 0
-       95 SETTABLEKS                       R7 R6 K25 ["ShouldImport"]
-       97 FORGLOOP                         R2 2 ; [-9]
-       99 GETUPVAL                         R2 3
-      100 CALL                             R2 0 1
-      101 JUMPIFNOT                        R2 ; [+2]
-      102 LOADB                            R2 1
-      103 RETURN                           R2 1
-      104 GETUPVAL                         R4 4
-      105 GETTABLEKS                       R4 R4 K26 ["state"]
-      107 GETTABLEKS                       R4 R4 K27 ["location"]
-      109 NAMECALL                         R2 R0 K28 ["_setState"]
-      111 CALL                             R2 2 0
-      112 LOADNIL                          R2
-      113 RETURN                           R2 1
+       64 NAMECALL                         R6 R6 K18 ["JSONEncode"]
+       66 CALL                             R6 2 1
+       67 SETTABLE                         R6 R4 R5
+       68 NAMECALL                         R2 R0 K19 ["_setErrors"]
+       70 CALL                             R2 2 0
+       71 NAMECALL                         R2 R0 K20 ["_importFailed"]
+       73 CALL                             R2 1 0
+       74 LOADNIL                          R2
+       75 RETURN                           R2 1
+       76 LOADB                            R2 0
+       77 SETTABLEKS                       R2 R1 K21 ["AddModelToInventory"]
+       79 LOADB                            R2 1
+       80 SETTABLEKS                       R2 R1 K22 ["MergeMeshes"]
+       82 NAMECALL                         R2 R1 K23 ["GetDescendants"]
+       84 CALL                             R2 1 3
+       85 FORGPREP                         R2
+       86 LOADK                            R9 K24 ["AnimationImportData"]
+       87 NAMECALL                         R7 R6 K25 ["IsA"]
+       89 CALL                             R7 2 1
+       90 JUMPIFNOT                        R7 ; [+3]
+       91 LOADB                            R7 0
+       92 SETTABLEKS                       R7 R6 K26 ["ShouldImport"]
+       94 FORGLOOP                         R2 2 ; [-9]
+       96 GETUPVAL                         R2 3
+       97 CALL                             R2 0 1
+       98 JUMPIFNOT                        R2 ; [+2]
+       99 LOADB                            R2 1
+      100 RETURN                           R2 1
+      101 GETUPVAL                         R4 4
+      102 GETTABLEKS                       R4 R4 K27 ["state"]
+      104 GETTABLEKS                       R4 R4 K28 ["location"]
+      106 NAMECALL                         R2 R0 K29 ["_setState"]
+      108 CALL                             R2 2 0
+      109 LOADNIL                          R2
+      110 RETURN                           R2 1
 
 PROTO_13:
         0 GETUPVAL                         R3 0
@@ -427,69 +415,59 @@ MAIN:
        77 LOADK                            R16 K24 ["ExportController"]
        78 NAMECALL                         R14 R7 K25 ["extend"]
        80 CALL                             R14 2 1
-       81 DUPTABLE                         R15 K31 [{"closed", "loading", "importing", "location", "failed"}]
-       82 LOADK                            R16 K26 ["closed"]
-       83 SETTABLEKS                       R16 R15 K26 ["closed"]
-       85 LOADK                            R16 K27 ["loading"]
-       86 SETTABLEKS                       R16 R15 K27 ["loading"]
-       88 LOADK                            R16 K28 ["importing"]
-       89 SETTABLEKS                       R16 R15 K28 ["importing"]
-       91 LOADK                            R16 K29 ["location"]
-       92 SETTABLEKS                       R16 R15 K29 ["location"]
-       94 LOADK                            R16 K30 ["failed"]
-       95 SETTABLEKS                       R16 R15 K30 ["failed"]
-       97 SETTABLEKS                       R15 R14 K32 ["state"]
-       99 DUPCLOSURE                       R15 K33 [PROTO_0]
-      100 CAPTURE                          VAL R14
-      101 CAPTURE                          VAL R13
-      102 SETTABLEKS                       R15 R14 K34 ["new"]
-      104 DUPCLOSURE                       R15 K35 [PROTO_1]
-      105 CAPTURE                          VAL R14
-      106 SETTABLEKS                       R15 R14 K36 ["mock"]
-      108 DUPCLOSURE                       R15 K37 [PROTO_2]
-      109 SETTABLEKS                       R15 R14 K38 ["getState"]
-      111 DUPCLOSURE                       R15 K39 [PROTO_3]
-      112 SETTABLEKS                       R15 R14 K40 ["_setState"]
-      114 DUPCLOSURE                       R15 K41 [PROTO_4]
-      115 SETTABLEKS                       R15 R14 K42 ["_setErrors"]
-      117 DUPCLOSURE                       R15 K43 [PROTO_5]
-      118 SETTABLEKS                       R15 R14 K44 ["getErrors"]
-      120 DUPCLOSURE                       R15 K45 [PROTO_6]
-      121 SETTABLEKS                       R15 R14 K46 ["setUseLocation"]
-      123 DUPCLOSURE                       R15 K47 [PROTO_8]
+       81 DUPTABLE                         R15 K31 [{["closed"] = "closed", ["loading"] = "loading", ["importing"] = "importing", ["location"] = "location", ["failed"] = "failed"}]
+       82 SETTABLEKS                       R15 R14 K32 ["state"]
+       84 DUPCLOSURE                       R15 K33 [PROTO_0]
+       85 CAPTURE                          VAL R14
+       86 CAPTURE                          VAL R13
+       87 SETTABLEKS                       R15 R14 K34 ["new"]
+       89 DUPCLOSURE                       R15 K35 [PROTO_1]
+       90 CAPTURE                          VAL R14
+       91 SETTABLEKS                       R15 R14 K36 ["mock"]
+       93 DUPCLOSURE                       R15 K37 [PROTO_2]
+       94 SETTABLEKS                       R15 R14 K38 ["getState"]
+       96 DUPCLOSURE                       R15 K39 [PROTO_3]
+       97 SETTABLEKS                       R15 R14 K40 ["_setState"]
+       99 DUPCLOSURE                       R15 K41 [PROTO_4]
+      100 SETTABLEKS                       R15 R14 K42 ["_setErrors"]
+      102 DUPCLOSURE                       R15 K43 [PROTO_5]
+      103 SETTABLEKS                       R15 R14 K44 ["getErrors"]
+      105 DUPCLOSURE                       R15 K45 [PROTO_6]
+      106 SETTABLEKS                       R15 R14 K46 ["setUseLocation"]
+      108 DUPCLOSURE                       R15 K47 [PROTO_8]
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R3
+      111 CAPTURE                          VAL R11
+      112 SETTABLEKS                       R15 R14 K48 ["startImport"]
+      114 DUPCLOSURE                       R15 K49 [PROTO_10]
+      115 CAPTURE                          VAL R14
+      116 SETTABLEKS                       R15 R14 K50 ["startVersionedImport"]
+      118 DUPCLOSURE                       R15 K51 [PROTO_11]
+      119 DUPCLOSURE                       R16 K52 [PROTO_12]
+      120 CAPTURE                          VAL R2
+      121 CAPTURE                          VAL R4
+      122 CAPTURE                          VAL R8
+      123 CAPTURE                          VAL R11
       124 CAPTURE                          VAL R14
-      125 CAPTURE                          VAL R3
-      126 CAPTURE                          VAL R11
-      127 SETTABLEKS                       R15 R14 K48 ["startImport"]
-      129 DUPCLOSURE                       R15 K49 [PROTO_10]
-      130 CAPTURE                          VAL R14
-      131 SETTABLEKS                       R15 R14 K50 ["startVersionedImport"]
-      133 DUPCLOSURE                       R15 K51 [PROTO_11]
-      134 DUPCLOSURE                       R16 K52 [PROTO_12]
-      135 CAPTURE                          VAL R2
-      136 CAPTURE                          VAL R4
-      137 CAPTURE                          VAL R8
-      138 CAPTURE                          VAL R11
+      125 SETTABLEKS                       R16 R14 K53 ["_loadSession"]
+      127 DUPCLOSURE                       R16 K54 [PROTO_13]
+      128 CAPTURE                          VAL R14
+      129 SETTABLEKS                       R16 R14 K55 ["_importFailed"]
+      131 DUPCLOSURE                       R16 K56 [PROTO_14]
+      132 SETTABLEKS                       R16 R14 K57 ["cancelImport"]
+      134 DUPCLOSURE                       R16 K58 [PROTO_15]
+      135 CAPTURE                          VAL R14
+      136 SETTABLEKS                       R16 R14 K59 ["_isClosed"]
+      138 DUPCLOSURE                       R16 K60 [PROTO_16]
       139 CAPTURE                          VAL R14
-      140 SETTABLEKS                       R16 R14 K53 ["_loadSession"]
-      142 DUPCLOSURE                       R16 K54 [PROTO_13]
+      140 SETTABLEKS                       R16 R14 K61 ["_close"]
+      142 DUPCLOSURE                       R16 K62 [PROTO_19]
       143 CAPTURE                          VAL R14
-      144 SETTABLEKS                       R16 R14 K55 ["_importFailed"]
-      146 DUPCLOSURE                       R16 K56 [PROTO_14]
-      147 SETTABLEKS                       R16 R14 K57 ["cancelImport"]
-      149 DUPCLOSURE                       R16 K58 [PROTO_15]
-      150 CAPTURE                          VAL R14
-      151 SETTABLEKS                       R16 R14 K59 ["_isClosed"]
-      153 DUPCLOSURE                       R16 K60 [PROTO_16]
-      154 CAPTURE                          VAL R14
-      155 SETTABLEKS                       R16 R14 K61 ["_close"]
-      157 DUPCLOSURE                       R16 K62 [PROTO_19]
-      158 CAPTURE                          VAL R14
-      159 CAPTURE                          VAL R9
-      160 CAPTURE                          VAL R11
-      161 CAPTURE                          VAL R10
-      162 CAPTURE                          VAL R3
-      163 SETTABLEKS                       R16 R14 K63 ["_doImport"]
-      165 DUPCLOSURE                       R16 K64 [PROTO_20]
-      166 SETTABLEKS                       R16 R14 K65 ["destroy"]
-      168 RETURN                           R14 1
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R10
+      147 CAPTURE                          VAL R3
+      148 SETTABLEKS                       R16 R14 K63 ["_doImport"]
+      150 DUPCLOSURE                       R16 K64 [PROTO_20]
+      151 SETTABLEKS                       R16 R14 K65 ["destroy"]
+      153 RETURN                           R14 1

@@ -1,33 +1,31 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["visualizationModeToggled"]
-        2 DUPTABLE                         R3 K5 [{"actionSource", "visualizationModeCategory", "visualizationMode", "isEnabled"}]
-        3 LOADK                            R4 K6 ["plugin_action"]
-        4 SETTABLEKS                       R4 R3 K1 ["actionSource"]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R4 R4 K7 ["name"]
-        9 SETTABLEKS                       R4 R3 K2 ["visualizationModeCategory"]
-       11 GETUPVAL                         R4 2
-       12 GETTABLEKS                       R4 R4 K7 ["name"]
-       14 SETTABLEKS                       R4 R3 K3 ["visualizationMode"]
-       16 GETUPVAL                         R5 2
-       17 GETTABLEKS                       R5 R5 K8 ["enabled"]
-       19 NOT                              R4 R5
-       20 SETTABLEKS                       R4 R3 K4 ["isEnabled"]
-       22 NAMECALL                         R0 R0 K9 ["report"]
-       24 CALL                             R0 3 0
-       25 GETUPVAL                         R0 3
-       26 GETTABLEKS                       R0 R0 K10 ["OnVisualizationModeToggle"]
-       28 GETUPVAL                         R1 1
-       29 GETTABLEKS                       R1 R1 K7 ["name"]
-       31 GETUPVAL                         R2 2
-       32 GETTABLEKS                       R2 R2 K7 ["name"]
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R4 R4 K8 ["enabled"]
-       37 NOT                              R3 R4
-       38 LOADB                            R4 1
-       39 CALL                             R0 4 0
-       40 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["actionSource"] = "plugin_action", ["visualizationModeCategory"], ["visualizationMode"], ["isEnabled"]}]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K7 ["name"]
+        6 SETTABLEKS                       R4 R3 K3 ["visualizationModeCategory"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K7 ["name"]
+       11 SETTABLEKS                       R4 R3 K4 ["visualizationMode"]
+       13 GETUPVAL                         R5 2
+       14 GETTABLEKS                       R5 R5 K8 ["enabled"]
+       16 NOT                              R4 R5
+       17 SETTABLEKS                       R4 R3 K5 ["isEnabled"]
+       19 NAMECALL                         R0 R0 K9 ["report"]
+       21 CALL                             R0 3 0
+       22 GETUPVAL                         R0 3
+       23 GETTABLEKS                       R0 R0 K10 ["OnVisualizationModeToggle"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K7 ["name"]
+       28 GETUPVAL                         R2 2
+       29 GETTABLEKS                       R2 R2 K7 ["name"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLEKS                       R4 R4 K8 ["enabled"]
+       34 NOT                              R3 R4
+       35 LOADB                            R4 1
+       36 CALL                             R0 4 0
+       37 RETURN                           R0 0
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
@@ -76,34 +74,30 @@ PROTO_1:
        61 GETUPVAL                         R17 1
        62 GETTABLEKS                       R17 R17 K16 ["createElement"]
        64 GETUPVAL                         R18 2
-       65 DUPTABLE                         R19 K24 [{"ActionId", "Text", "StatusTip", "IconName", "Checked", "Enabled", "OnTrigger"}]
+       65 DUPTABLE                         R19 K26 [{["ActionId"], ["Text"], ["StatusTip"], ["IconName"] = "", ["Checked"], ["Enabled"] = True, ["OnTrigger"]}]
        66 SETTABLEKS                       R14 R19 K17 ["ActionId"]
        68 SETTABLEKS                       R15 R19 K18 ["Text"]
        70 SETTABLEKS                       R16 R19 K19 ["StatusTip"]
-       72 LOADK                            R20 K25 [""]
-       73 SETTABLEKS                       R20 R19 K20 ["IconName"]
-       75 GETTABLEKS                       R20 R13 K26 ["enabled"]
-       77 SETTABLEKS                       R20 R19 K21 ["Checked"]
-       79 LOADB                            R20 1
-       80 SETTABLEKS                       R20 R19 K22 ["Enabled"]
-       82 NEWCLOSURE                       R20 P0
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R13
-       86 CAPTURE                          VAL R0
-       87 SETTABLEKS                       R20 R19 K23 ["OnTrigger"]
-       89 CALL                             R17 2 1
-       90 SETTABLE                         R17 R1 R14
-       91 FORGLOOP                         R9 2 ; [-68]
-       93 FORGLOOP                         R4 2 ; [-75]
-       95 GETUPVAL                         R4 1
-       96 GETTABLEKS                       R4 R4 K16 ["createElement"]
-       98 GETUPVAL                         R5 1
-       99 GETTABLEKS                       R5 R5 K27 ["Fragment"]
-      101 NEWTABLE                         R6 0 0
-      103 MOVE                             R7 R1
-      104 CALL                             R4 3 -1
-      105 RETURN                           R4 -1
+       72 GETTABLEKS                       R20 R13 K27 ["enabled"]
+       74 SETTABLEKS                       R20 R19 K22 ["Checked"]
+       76 NEWCLOSURE                       R20 P0
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R8
+       79 CAPTURE                          VAL R13
+       80 CAPTURE                          VAL R0
+       81 SETTABLEKS                       R20 R19 K25 ["OnTrigger"]
+       83 CALL                             R17 2 1
+       84 SETTABLE                         R17 R1 R14
+       85 FORGLOOP                         R9 2 ; [-62]
+       87 FORGLOOP                         R4 2 ; [-69]
+       89 GETUPVAL                         R4 1
+       90 GETTABLEKS                       R4 R4 K16 ["createElement"]
+       92 GETUPVAL                         R5 1
+       93 GETTABLEKS                       R5 R5 K28 ["Fragment"]
+       95 NEWTABLE                         R6 0 0
+       97 MOVE                             R7 R1
+       98 CALL                             R4 3 -1
+       99 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

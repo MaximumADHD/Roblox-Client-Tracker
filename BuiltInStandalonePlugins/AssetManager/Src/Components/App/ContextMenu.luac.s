@@ -23,51 +23,49 @@ PROTO_1:
        20 LOADNIL                          R3
        21 SETTABLEKS                       R3 R2 K2 ["Position"]
        23 GETUPVAL                         R4 3
-       24 JUMPIFNOT                        R4 ; [+63]
+       24 JUMPIFNOT                        R4 ; [+60]
        25 GETUPVAL                         R5 3
        26 LENGTH                           R4 R5
        27 LOADN                            R5 0
-       28 JUMPIFNOTLT                      R5 R4 ; [+59]
+       28 JUMPIFNOTLT                      R5 R4 ; [+56]
        30 NEWTABLE                         R3 1 0
        32 GETUPVAL                         R4 3
        33 GETUPVAL                         R5 0
        34 GETTABLEKS                       R5 R5 K0 ["createElement"]
        36 GETUPVAL                         R6 1
        37 GETTABLEKS                       R6 R6 K9 ["Menu"]
-       39 DUPTABLE                         R7 K17 [{"isOpen", "items", "size", "width", "side", "align", "onPressedOutside"}]
-       40 LOADB                            R8 1
-       41 SETTABLEKS                       R8 R7 K10 ["isOpen"]
-       43 GETUPVAL                         R8 3
-       44 SETTABLEKS                       R8 R7 K11 ["items"]
-       46 GETUPVAL                         R8 1
-       47 GETTABLEKS                       R8 R8 K18 ["Enums"]
-       49 GETTABLEKS                       R8 R8 K19 ["InputSize"]
-       51 GETTABLEKS                       R8 R8 K20 ["XSmall"]
-       53 SETTABLEKS                       R8 R7 K12 ["size"]
-       55 GETIMPORT                        R8 K23 [UDim.new]
-       57 LOADN                            R9 0
-       58 GETUPVAL                         R10 4
-       59 GETTABLEKS                       R10 R10 K24 ["ContextMenuWidth"]
-       61 CALL                             R8 2 1
-       62 SETTABLEKS                       R8 R7 K13 ["width"]
-       64 GETUPVAL                         R8 1
-       65 GETTABLEKS                       R8 R8 K18 ["Enums"]
-       67 GETTABLEKS                       R8 R8 K25 ["PopoverSide"]
-       69 GETTABLEKS                       R8 R8 K26 ["Bottom"]
-       71 SETTABLEKS                       R8 R7 K14 ["side"]
-       73 GETUPVAL                         R8 1
-       74 GETTABLEKS                       R8 R8 K18 ["Enums"]
-       76 GETTABLEKS                       R8 R8 K27 ["PopoverAlign"]
-       78 GETTABLEKS                       R8 R8 K28 ["Start"]
-       80 SETTABLEKS                       R8 R7 K15 ["align"]
-       82 GETUPVAL                         R8 5
-       83 SETTABLEKS                       R8 R7 K16 ["onPressedOutside"]
-       85 CALL                             R5 2 1
-       86 SETTABLE                         R5 R3 R4
-       87 JUMP                             ; [+1]
-       88 LOADNIL                          R3
-       89 CALL                             R0 3 -1
-       90 RETURN                           R0 -1
+       39 DUPTABLE                         R7 K18 [{["isOpen"] = True, ["items"], ["size"], ["width"], ["side"], ["align"], ["onPressedOutside"]}]
+       40 GETUPVAL                         R8 3
+       41 SETTABLEKS                       R8 R7 K12 ["items"]
+       43 GETUPVAL                         R8 1
+       44 GETTABLEKS                       R8 R8 K19 ["Enums"]
+       46 GETTABLEKS                       R8 R8 K20 ["InputSize"]
+       48 GETTABLEKS                       R8 R8 K21 ["XSmall"]
+       50 SETTABLEKS                       R8 R7 K13 ["size"]
+       52 GETIMPORT                        R8 K24 [UDim.new]
+       54 LOADN                            R9 0
+       55 GETUPVAL                         R10 4
+       56 GETTABLEKS                       R10 R10 K25 ["ContextMenuWidth"]
+       58 CALL                             R8 2 1
+       59 SETTABLEKS                       R8 R7 K14 ["width"]
+       61 GETUPVAL                         R8 1
+       62 GETTABLEKS                       R8 R8 K19 ["Enums"]
+       64 GETTABLEKS                       R8 R8 K26 ["PopoverSide"]
+       66 GETTABLEKS                       R8 R8 K27 ["Bottom"]
+       68 SETTABLEKS                       R8 R7 K15 ["side"]
+       70 GETUPVAL                         R8 1
+       71 GETTABLEKS                       R8 R8 K19 ["Enums"]
+       73 GETTABLEKS                       R8 R8 K28 ["PopoverAlign"]
+       75 GETTABLEKS                       R8 R8 K29 ["Start"]
+       77 SETTABLEKS                       R8 R7 K16 ["align"]
+       79 GETUPVAL                         R8 5
+       80 SETTABLEKS                       R8 R7 K17 ["onPressedOutside"]
+       82 CALL                             R5 2 1
+       83 SETTABLE                         R5 R3 R4
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R3
+       86 CALL                             R0 3 -1
+       87 RETURN                           R0 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

@@ -13,21 +13,7 @@ MAIN:
        13 GETTABLEKS                       R2 R0 K5 ["Src"]
        15 GETTABLEKS                       R2 R2 K6 ["Types"]
        17 CALL                             R1 1 1
-       18 DUPTABLE                         R2 K14 [{"FailedUrl", "FailedToImportMap", "FailedToUploadFromFileMap", "FailedToUploadTooLarge", "FailedToInsertAssetManager", "MissingMaterial", "None"}]
-       19 LOADK                            R3 K7 ["FailedUrl"]
-       20 SETTABLEKS                       R3 R2 K7 ["FailedUrl"]
-       22 LOADK                            R3 K8 ["FailedToImportMap"]
-       23 SETTABLEKS                       R3 R2 K8 ["FailedToImportMap"]
-       25 LOADK                            R3 K9 ["FailedToUploadFromFileMap"]
-       26 SETTABLEKS                       R3 R2 K9 ["FailedToUploadFromFileMap"]
-       28 LOADK                            R3 K10 ["FailedToUploadTooLarge"]
-       29 SETTABLEKS                       R3 R2 K10 ["FailedToUploadTooLarge"]
-       31 LOADK                            R3 K11 ["FailedToInsertAssetManager"]
-       32 SETTABLEKS                       R3 R2 K11 ["FailedToInsertAssetManager"]
-       34 LOADK                            R3 K12 ["MissingMaterial"]
-       35 SETTABLEKS                       R3 R2 K12 ["MissingMaterial"]
-       37 LOADK                            R3 K13 ["None"]
-       38 SETTABLEKS                       R3 R2 K13 ["None"]
-       40 DUPCLOSURE                       R3 K15 [PROTO_0]
-       41 CAPTURE                          VAL R2
-       42 RETURN                           R3 1
+       18 DUPTABLE                         R2 K14 [{["FailedUrl"] = "FailedUrl", ["FailedToImportMap"] = "FailedToImportMap", ["FailedToUploadFromFileMap"] = "FailedToUploadFromFileMap", ["FailedToUploadTooLarge"] = "FailedToUploadTooLarge", ["FailedToInsertAssetManager"] = "FailedToInsertAssetManager", ["MissingMaterial"] = "MissingMaterial", ["None"] = "None"}]
+       19 DUPCLOSURE                       R3 K15 [PROTO_0]
+       20 CAPTURE                          VAL R2
+       21 RETURN                           R3 1

@@ -49,143 +49,141 @@ PROTO_5:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K6 [{"Size", "BackgroundTransparency"}]
-        9 GETIMPORT                        R6 K9 [UDim2.new]
+        8 DUPTABLE                         R5 K7 [{["Size"], ["BackgroundTransparency"] = 1}]
+        9 GETIMPORT                        R6 K10 [UDim2.new]
        11 LOADN                            R7 1
        12 LOADN                            R8 0
        13 LOADN                            R9 1
        14 LOADN                            R10 0
        15 CALL                             R6 4 1
        16 SETTABLEKS                       R6 R5 K4 ["Size"]
-       18 LOADN                            R6 1
-       19 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       21 DUPTABLE                         R6 K15 [{"AssetConfig", "AssetTypeSelection", "AssetValidation", "AssetUpload", "AssetUploadResult"}]
-       22 GETUPVAL                         R8 1
-       23 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
-       25 GETTABLEKS                       R8 R8 K17 ["CONFIGURE_ASSET"]
-       27 JUMPIFEQ                         R2 R8 ; [+2]
-       29 LOADB                            R7 0 +1
-       30 LOADB                            R7 1
-       31 JUMPIFNOT                        R7 ; [+43]
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       35 GETUPVAL                         R8 2
-       36 DUPTABLE                         R9 K25 [{"Size", "assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
-       37 GETIMPORT                        R10 K9 [UDim2.new]
-       39 LOADN                            R11 1
-       40 LOADN                            R12 0
-       41 LOADN                            R13 1
-       42 LOADN                            R14 0
-       43 CALL                             R10 4 1
-       44 SETTABLEKS                       R10 R9 K4 ["Size"]
-       46 GETTABLEKS                       R10 R1 K18 ["assetId"]
-       48 SETTABLEKS                       R10 R9 K18 ["assetId"]
-       50 GETTABLEKS                       R10 R1 K19 ["assetTypeEnum"]
-       52 SETTABLEKS                       R10 R9 K19 ["assetTypeEnum"]
-       54 GETTABLEKS                       R10 R1 K20 ["onClose"]
-       56 SETTABLEKS                       R10 R9 K20 ["onClose"]
-       58 GETTABLEKS                       R10 R1 K21 ["pluginGui"]
-       60 SETTABLEKS                       R10 R9 K21 ["pluginGui"]
-       62 GETTABLEKS                       R10 R1 K22 ["owner"]
-       64 SETTABLEKS                       R10 R9 K22 ["owner"]
-       66 GETTABLEKS                       R10 R1 K23 ["groupId"]
-       68 SETTABLEKS                       R10 R9 K23 ["groupId"]
-       70 GETTABLEKS                       R10 R1 K24 ["setOwner"]
-       72 SETTABLEKS                       R10 R9 K24 ["setOwner"]
-       74 CALL                             R7 2 1
-       75 SETTABLEKS                       R7 R6 K10 ["AssetConfig"]
-       77 GETUPVAL                         R8 1
-       78 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
-       80 GETTABLEKS                       R8 R8 K26 ["ASSET_TYPE_SELECTION"]
-       82 JUMPIFEQ                         R2 R8 ; [+2]
-       84 LOADB                            R7 0 +1
-       85 LOADB                            R7 1
-       86 JUMPIFNOT                        R7 ; [+19]
-       87 GETUPVAL                         R7 0
-       88 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       90 GETUPVAL                         R8 3
-       91 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
-       92 GETIMPORT                        R10 K9 [UDim2.new]
-       94 LOADN                            R11 1
-       95 LOADN                            R12 0
-       96 LOADN                            R13 1
-       97 LOADN                            R14 0
-       98 CALL                             R10 4 1
-       99 SETTABLEKS                       R10 R9 K4 ["Size"]
-      101 GETTABLEKS                       R10 R1 K20 ["onClose"]
-      103 SETTABLEKS                       R10 R9 K20 ["onClose"]
-      105 CALL                             R7 2 1
-      106 SETTABLEKS                       R7 R6 K11 ["AssetTypeSelection"]
-      108 GETUPVAL                         R8 4
-      109 CALL                             R8 0 1
-      110 JUMPIF                           R8 ; [+24]
-      111 GETUPVAL                         R7 5
-      112 MOVE                             R8 R2
-      113 CALL                             R7 1 1
-      114 JUMPIFNOT                        R7 ; [+21]
-      115 GETUPVAL                         R7 0
-      116 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      118 GETUPVAL                         R8 6
-      119 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
-      120 GETIMPORT                        R10 K9 [UDim2.new]
-      122 LOADN                            R11 1
-      123 LOADN                            R12 0
-      124 LOADN                            R13 1
-      125 LOADN                            R14 0
-      126 CALL                             R10 4 1
-      127 SETTABLEKS                       R10 R9 K4 ["Size"]
-      129 GETTABLEKS                       R10 R1 K20 ["onClose"]
-      131 SETTABLEKS                       R10 R9 K20 ["onClose"]
-      133 CALL                             R7 2 1
-      134 JUMP                             ; [+1]
-      135 LOADNIL                          R7
-      136 SETTABLEKS                       R7 R6 K12 ["AssetValidation"]
-      138 GETUPVAL                         R8 1
-      139 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
-      141 GETTABLEKS                       R8 R8 K28 ["UPLOADING_ASSET"]
-      143 JUMPIFEQ                         R2 R8 ; [+2]
-      145 LOADB                            R7 0 +1
-      146 LOADB                            R7 1
-      147 JUMPIFNOT                        R7 ; [+19]
-      148 GETUPVAL                         R7 0
-      149 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      151 GETUPVAL                         R8 7
-      152 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
-      153 GETIMPORT                        R10 K9 [UDim2.new]
-      155 LOADN                            R11 1
-      156 LOADN                            R12 0
-      157 LOADN                            R13 1
-      158 LOADN                            R14 0
-      159 CALL                             R10 4 1
-      160 SETTABLEKS                       R10 R9 K4 ["Size"]
-      162 GETTABLEKS                       R10 R1 K20 ["onClose"]
-      164 SETTABLEKS                       R10 R9 K20 ["onClose"]
-      166 CALL                             R7 2 1
-      167 SETTABLEKS                       R7 R6 K13 ["AssetUpload"]
-      169 GETUPVAL                         R8 1
-      170 GETTABLEKS                       R8 R8 K16 ["SCREENS"]
-      172 GETTABLEKS                       R8 R8 K29 ["UPLOAD_ASSET_RESULT"]
-      174 JUMPIFEQ                         R2 R8 ; [+2]
-      176 LOADB                            R7 0 +1
-      177 LOADB                            R7 1
-      178 JUMPIFNOT                        R7 ; [+19]
-      179 GETUPVAL                         R7 0
-      180 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      182 GETUPVAL                         R8 8
-      183 DUPTABLE                         R9 K27 [{"Size", "onClose"}]
-      184 GETIMPORT                        R10 K9 [UDim2.new]
-      186 LOADN                            R11 1
-      187 LOADN                            R12 0
-      188 LOADN                            R13 1
-      189 LOADN                            R14 0
-      190 CALL                             R10 4 1
-      191 SETTABLEKS                       R10 R9 K4 ["Size"]
-      193 GETTABLEKS                       R10 R1 K20 ["onClose"]
-      195 SETTABLEKS                       R10 R9 K20 ["onClose"]
-      197 CALL                             R7 2 1
-      198 SETTABLEKS                       R7 R6 K14 ["AssetUploadResult"]
-      200 CALL                             R3 3 -1
-      201 RETURN                           R3 -1
+       18 DUPTABLE                         R6 K16 [{"AssetConfig", "AssetTypeSelection", "AssetValidation", "AssetUpload", "AssetUploadResult"}]
+       19 GETUPVAL                         R8 1
+       20 GETTABLEKS                       R8 R8 K17 ["SCREENS"]
+       22 GETTABLEKS                       R8 R8 K18 ["CONFIGURE_ASSET"]
+       24 JUMPIFEQ                         R2 R8 ; [+2]
+       26 LOADB                            R7 0 +1
+       27 LOADB                            R7 1
+       28 JUMPIFNOT                        R7 ; [+43]
+       29 GETUPVAL                         R7 0
+       30 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       32 GETUPVAL                         R8 2
+       33 DUPTABLE                         R9 K26 [{"Size", "assetId", "assetTypeEnum", "onClose", "pluginGui", "owner", "groupId", "setOwner"}]
+       34 GETIMPORT                        R10 K10 [UDim2.new]
+       36 LOADN                            R11 1
+       37 LOADN                            R12 0
+       38 LOADN                            R13 1
+       39 LOADN                            R14 0
+       40 CALL                             R10 4 1
+       41 SETTABLEKS                       R10 R9 K4 ["Size"]
+       43 GETTABLEKS                       R10 R1 K19 ["assetId"]
+       45 SETTABLEKS                       R10 R9 K19 ["assetId"]
+       47 GETTABLEKS                       R10 R1 K20 ["assetTypeEnum"]
+       49 SETTABLEKS                       R10 R9 K20 ["assetTypeEnum"]
+       51 GETTABLEKS                       R10 R1 K21 ["onClose"]
+       53 SETTABLEKS                       R10 R9 K21 ["onClose"]
+       55 GETTABLEKS                       R10 R1 K22 ["pluginGui"]
+       57 SETTABLEKS                       R10 R9 K22 ["pluginGui"]
+       59 GETTABLEKS                       R10 R1 K23 ["owner"]
+       61 SETTABLEKS                       R10 R9 K23 ["owner"]
+       63 GETTABLEKS                       R10 R1 K24 ["groupId"]
+       65 SETTABLEKS                       R10 R9 K24 ["groupId"]
+       67 GETTABLEKS                       R10 R1 K25 ["setOwner"]
+       69 SETTABLEKS                       R10 R9 K25 ["setOwner"]
+       71 CALL                             R7 2 1
+       72 SETTABLEKS                       R7 R6 K11 ["AssetConfig"]
+       74 GETUPVAL                         R8 1
+       75 GETTABLEKS                       R8 R8 K17 ["SCREENS"]
+       77 GETTABLEKS                       R8 R8 K27 ["ASSET_TYPE_SELECTION"]
+       79 JUMPIFEQ                         R2 R8 ; [+2]
+       81 LOADB                            R7 0 +1
+       82 LOADB                            R7 1
+       83 JUMPIFNOT                        R7 ; [+19]
+       84 GETUPVAL                         R7 0
+       85 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       87 GETUPVAL                         R8 3
+       88 DUPTABLE                         R9 K28 [{"Size", "onClose"}]
+       89 GETIMPORT                        R10 K10 [UDim2.new]
+       91 LOADN                            R11 1
+       92 LOADN                            R12 0
+       93 LOADN                            R13 1
+       94 LOADN                            R14 0
+       95 CALL                             R10 4 1
+       96 SETTABLEKS                       R10 R9 K4 ["Size"]
+       98 GETTABLEKS                       R10 R1 K21 ["onClose"]
+      100 SETTABLEKS                       R10 R9 K21 ["onClose"]
+      102 CALL                             R7 2 1
+      103 SETTABLEKS                       R7 R6 K12 ["AssetTypeSelection"]
+      105 GETUPVAL                         R8 4
+      106 CALL                             R8 0 1
+      107 JUMPIF                           R8 ; [+24]
+      108 GETUPVAL                         R7 5
+      109 MOVE                             R8 R2
+      110 CALL                             R7 1 1
+      111 JUMPIFNOT                        R7 ; [+21]
+      112 GETUPVAL                         R7 0
+      113 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      115 GETUPVAL                         R8 6
+      116 DUPTABLE                         R9 K28 [{"Size", "onClose"}]
+      117 GETIMPORT                        R10 K10 [UDim2.new]
+      119 LOADN                            R11 1
+      120 LOADN                            R12 0
+      121 LOADN                            R13 1
+      122 LOADN                            R14 0
+      123 CALL                             R10 4 1
+      124 SETTABLEKS                       R10 R9 K4 ["Size"]
+      126 GETTABLEKS                       R10 R1 K21 ["onClose"]
+      128 SETTABLEKS                       R10 R9 K21 ["onClose"]
+      130 CALL                             R7 2 1
+      131 JUMP                             ; [+1]
+      132 LOADNIL                          R7
+      133 SETTABLEKS                       R7 R6 K13 ["AssetValidation"]
+      135 GETUPVAL                         R8 1
+      136 GETTABLEKS                       R8 R8 K17 ["SCREENS"]
+      138 GETTABLEKS                       R8 R8 K29 ["UPLOADING_ASSET"]
+      140 JUMPIFEQ                         R2 R8 ; [+2]
+      142 LOADB                            R7 0 +1
+      143 LOADB                            R7 1
+      144 JUMPIFNOT                        R7 ; [+19]
+      145 GETUPVAL                         R7 0
+      146 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      148 GETUPVAL                         R8 7
+      149 DUPTABLE                         R9 K28 [{"Size", "onClose"}]
+      150 GETIMPORT                        R10 K10 [UDim2.new]
+      152 LOADN                            R11 1
+      153 LOADN                            R12 0
+      154 LOADN                            R13 1
+      155 LOADN                            R14 0
+      156 CALL                             R10 4 1
+      157 SETTABLEKS                       R10 R9 K4 ["Size"]
+      159 GETTABLEKS                       R10 R1 K21 ["onClose"]
+      161 SETTABLEKS                       R10 R9 K21 ["onClose"]
+      163 CALL                             R7 2 1
+      164 SETTABLEKS                       R7 R6 K14 ["AssetUpload"]
+      166 GETUPVAL                         R8 1
+      167 GETTABLEKS                       R8 R8 K17 ["SCREENS"]
+      169 GETTABLEKS                       R8 R8 K30 ["UPLOAD_ASSET_RESULT"]
+      171 JUMPIFEQ                         R2 R8 ; [+2]
+      173 LOADB                            R7 0 +1
+      174 LOADB                            R7 1
+      175 JUMPIFNOT                        R7 ; [+19]
+      176 GETUPVAL                         R7 0
+      177 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      179 GETUPVAL                         R8 8
+      180 DUPTABLE                         R9 K28 [{"Size", "onClose"}]
+      181 GETIMPORT                        R10 K10 [UDim2.new]
+      183 LOADN                            R11 1
+      184 LOADN                            R12 0
+      185 LOADN                            R13 1
+      186 LOADN                            R14 0
+      187 CALL                             R10 4 1
+      188 SETTABLEKS                       R10 R9 K4 ["Size"]
+      190 GETTABLEKS                       R10 R1 K21 ["onClose"]
+      192 SETTABLEKS                       R10 R9 K21 ["onClose"]
+      194 CALL                             R7 2 1
+      195 SETTABLEKS                       R7 R6 K15 ["AssetUploadResult"]
+      197 CALL                             R3 3 -1
+      198 RETURN                           R3 -1
 
 PROTO_6:
         0 MOVE                             R2 R0

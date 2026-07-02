@@ -31,152 +31,134 @@ PROTO_0:
        44 SETTABLEKS                       R8 R7 K15 ["PaddingRight"]
        46 CALL                             R5 2 1
        47 SETTABLEKS                       R5 R4 K3 ["Padding"]
-       49 GETUPVAL                         R6 2
-       50 JUMPIFNOT                        R6 ; [+12]
-       51 GETUPVAL                         R5 1
-       52 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       54 GETUPVAL                         R6 3
-       55 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
-       56 NAMECALL                         R8 R3 K21 ["getNextOrder"]
-       58 CALL                             R8 1 1
-       59 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-       61 CALL                             R5 2 1
-       62 JUMP                             ; [+1]
-       63 LOADNIL                          R5
-       64 SETTABLEKS                       R5 R4 K4 ["TextScraperSection"]
-       66 GETUPVAL                         R5 1
-       67 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       69 GETUPVAL                         R6 4
-       70 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
-       71 NAMECALL                         R8 R3 K21 ["getNextOrder"]
-       73 CALL                             R8 1 1
-       74 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-       76 CALL                             R5 2 1
-       77 SETTABLEKS                       R5 R4 K5 ["CloudTableSection"]
-       79 GETUPVAL                         R5 1
-       80 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       82 GETUPVAL                         R6 5
-       83 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
-       84 NAMECALL                         R8 R3 K21 ["getNextOrder"]
-       86 CALL                             R8 1 1
-       87 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-       89 CALL                             R5 2 1
-       90 SETTABLEKS                       R5 R4 K6 ["EmbeddedTableSection"]
-       92 GETUPVAL                         R5 1
-       93 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       95 GETUPVAL                         R6 6
-       96 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
-       97 NAMECALL                         R8 R3 K21 ["getNextOrder"]
-       99 CALL                             R8 1 1
-      100 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-      102 CALL                             R5 2 1
-      103 SETTABLEKS                       R5 R4 K7 ["ImageLocalizationSection"]
-      105 GETUPVAL                         R5 1
-      106 GETTABLEKS                       R5 R5 K10 ["createElement"]
-      108 LOADK                            R6 K22 ["Frame"]
-      109 DUPTABLE                         R7 K26 [{"BackgroundColor3", "BorderSizePixel", "LayoutOrder", "Size"}]
-      110 GETTABLEKS                       R8 R2 K27 ["MainBackground"]
-      112 SETTABLEKS                       R8 R7 K23 ["BackgroundColor3"]
-      114 LOADN                            R8 0
-      115 SETTABLEKS                       R8 R7 K24 ["BorderSizePixel"]
-      117 NAMECALL                         R8 R3 K21 ["getNextOrder"]
-      119 CALL                             R8 1 1
-      120 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-      122 GETIMPORT                        R8 K29 [UDim2.new]
-      124 LOADN                            R9 1
-      125 LOADN                            R10 0
-      126 LOADN                            R11 0
-      127 GETTABLEKS                       R12 R2 K30 ["EmptyFrameHeight"]
-      129 CALL                             R8 4 1
-      130 SETTABLEKS                       R8 R7 K25 ["Size"]
-      132 CALL                             R5 2 1
-      133 SETTABLEKS                       R5 R4 K8 ["ExtendedBackground"]
-      135 GETUPVAL                         R5 1
-      136 GETTABLEKS                       R5 R5 K10 ["createElement"]
-      138 LOADK                            R6 K22 ["Frame"]
-      139 DUPTABLE                         R7 K33 [{"Size", "BackgroundTransparency", "Position"}]
-      140 GETIMPORT                        R8 K29 [UDim2.new]
-      142 LOADN                            R9 1
-      143 LOADN                            R10 0
-      144 LOADN                            R11 1
-      145 LOADN                            R12 0
-      146 CALL                             R8 4 1
-      147 SETTABLEKS                       R8 R7 K25 ["Size"]
-      149 LOADN                            R8 1
-      150 SETTABLEKS                       R8 R7 K31 ["BackgroundTransparency"]
-      152 GETIMPORT                        R8 K29 [UDim2.new]
-      154 LOADN                            R9 0
-      155 LOADN                            R10 0
-      156 LOADN                            R11 0
-      157 LOADN                            R12 0
-      158 CALL                             R8 4 1
-      159 SETTABLEKS                       R8 R7 K32 ["Position"]
-      161 DUPTABLE                         R8 K37 [{"MessageFrame", "ScrollingFrame", "ProgressSpinner"}]
-      162 GETUPVAL                         R9 1
-      163 GETTABLEKS                       R9 R9 K10 ["createElement"]
-      165 GETUPVAL                         R10 7
-      166 CALL                             R9 1 1
-      167 SETTABLEKS                       R9 R8 K34 ["MessageFrame"]
-      169 GETUPVAL                         R9 1
-      170 GETTABLEKS                       R9 R9 K10 ["createElement"]
-      172 LOADK                            R10 K35 ["ScrollingFrame"]
-      173 DUPTABLE                         R11 K44 [{"BackgroundColor3", "BackgroundTransparency", "BorderColor3", "BorderSizePixel", "CanvasSize", "ClipsDescendants", "ScrollBarImageTransparency", "ScrollBarImageColor3", "ScrollingDirection", "Size"}]
-      174 GETTABLEKS                       R12 R2 K45 ["ScrollingFrameackground"]
-      176 SETTABLEKS                       R12 R11 K23 ["BackgroundColor3"]
-      178 LOADN                            R12 0
-      179 SETTABLEKS                       R12 R11 K31 ["BackgroundTransparency"]
-      181 GETTABLEKS                       R12 R2 K46 ["ScrollBarBorderColor"]
-      183 SETTABLEKS                       R12 R11 K38 ["BorderColor3"]
-      185 LOADN                            R12 1
-      186 SETTABLEKS                       R12 R11 K24 ["BorderSizePixel"]
-      188 GETIMPORT                        R12 K29 [UDim2.new]
-      190 LOADN                            R13 1
-      191 LOADN                            R14 0
-      192 LOADN                            R15 0
-      193 GETTABLEKS                       R16 R2 K47 ["ScrollingFrameCanvasHeight"]
-      195 CALL                             R12 4 1
-      196 SETTABLEKS                       R12 R11 K39 ["CanvasSize"]
-      198 LOADB                            R12 1
-      199 SETTABLEKS                       R12 R11 K40 ["ClipsDescendants"]
-      201 LOADN                            R12 0
-      202 SETTABLEKS                       R12 R11 K41 ["ScrollBarImageTransparency"]
-      204 GETTABLEKS                       R12 R2 K48 ["ScrollBarColor"]
-      206 SETTABLEKS                       R12 R11 K42 ["ScrollBarImageColor3"]
-      208 GETIMPORT                        R12 K51 [Enum.ScrollingDirection.XY]
-      210 SETTABLEKS                       R12 R11 K43 ["ScrollingDirection"]
-      212 GETIMPORT                        R12 K29 [UDim2.new]
-      214 LOADN                            R13 1
-      215 LOADN                            R14 0
-      216 LOADN                            R15 1
-      217 GETTABLEKS                       R17 R2 K53 ["ScrollingFrameHeight"]
-      219 SUBK                             R16 R17 K52 [1]
-      220 CALL                             R12 4 1
-      221 SETTABLEKS                       R12 R11 K25 ["Size"]
-      223 DUPTABLE                         R12 K55 [{"Container"}]
-      224 GETUPVAL                         R13 1
-      225 GETTABLEKS                       R13 R13 K10 ["createElement"]
-      227 GETUPVAL                         R14 8
-      228 DUPTABLE                         R15 K60 [{"Style", "AutomaticSize", "HorizontalAlignment", "Layout"}]
-      229 LOADK                            R16 K61 ["Box"]
-      230 SETTABLEKS                       R16 R15 K56 ["Style"]
-      232 GETIMPORT                        R16 K63 [Enum.AutomaticSize.Y]
-      234 SETTABLEKS                       R16 R15 K57 ["AutomaticSize"]
-      236 GETIMPORT                        R16 K65 [Enum.HorizontalAlignment.Left]
-      238 SETTABLEKS                       R16 R15 K58 ["HorizontalAlignment"]
-      240 GETIMPORT                        R16 K68 [Enum.FillDirection.Vertical]
-      242 SETTABLEKS                       R16 R15 K59 ["Layout"]
-      244 MOVE                             R16 R4
-      245 CALL                             R13 3 1
-      246 SETTABLEKS                       R13 R12 K54 ["Container"]
-      248 CALL                             R9 3 1
-      249 SETTABLEKS                       R9 R8 K35 ["ScrollingFrame"]
-      251 GETUPVAL                         R9 1
-      252 GETTABLEKS                       R9 R9 K10 ["createElement"]
-      254 GETUPVAL                         R10 9
-      255 CALL                             R9 1 1
-      256 SETTABLEKS                       R9 R8 K36 ["ProgressSpinner"]
-      258 CALL                             R5 3 -1
-      259 RETURN                           R5 -1
+       49 GETUPVAL                         R5 1
+       50 GETTABLEKS                       R5 R5 K10 ["createElement"]
+       52 GETUPVAL                         R6 2
+       53 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
+       54 NAMECALL                         R8 R3 K21 ["getNextOrder"]
+       56 CALL                             R8 1 1
+       57 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
+       59 CALL                             R5 2 1
+       60 SETTABLEKS                       R5 R4 K4 ["TextScraperSection"]
+       62 GETUPVAL                         R5 1
+       63 GETTABLEKS                       R5 R5 K10 ["createElement"]
+       65 GETUPVAL                         R6 3
+       66 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
+       67 NAMECALL                         R8 R3 K21 ["getNextOrder"]
+       69 CALL                             R8 1 1
+       70 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
+       72 CALL                             R5 2 1
+       73 SETTABLEKS                       R5 R4 K5 ["CloudTableSection"]
+       75 GETUPVAL                         R5 1
+       76 GETTABLEKS                       R5 R5 K10 ["createElement"]
+       78 GETUPVAL                         R6 4
+       79 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
+       80 NAMECALL                         R8 R3 K21 ["getNextOrder"]
+       82 CALL                             R8 1 1
+       83 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
+       85 CALL                             R5 2 1
+       86 SETTABLEKS                       R5 R4 K6 ["EmbeddedTableSection"]
+       88 GETUPVAL                         R5 1
+       89 GETTABLEKS                       R5 R5 K10 ["createElement"]
+       91 GETUPVAL                         R6 5
+       92 DUPTABLE                         R7 K20 [{"LayoutOrder"}]
+       93 NAMECALL                         R8 R3 K21 ["getNextOrder"]
+       95 CALL                             R8 1 1
+       96 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
+       98 CALL                             R5 2 1
+       99 SETTABLEKS                       R5 R4 K7 ["ImageLocalizationSection"]
+      101 GETUPVAL                         R5 1
+      102 GETTABLEKS                       R5 R5 K10 ["createElement"]
+      104 LOADK                            R6 K22 ["Frame"]
+      105 DUPTABLE                         R7 K27 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"], ["Size"]}]
+      106 GETTABLEKS                       R8 R2 K28 ["MainBackground"]
+      108 SETTABLEKS                       R8 R7 K23 ["BackgroundColor3"]
+      110 NAMECALL                         R8 R3 K21 ["getNextOrder"]
+      112 CALL                             R8 1 1
+      113 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
+      115 GETIMPORT                        R8 K30 [UDim2.new]
+      117 LOADN                            R9 1
+      118 LOADN                            R10 0
+      119 LOADN                            R11 0
+      120 GETTABLEKS                       R12 R2 K31 ["EmptyFrameHeight"]
+      122 CALL                             R8 4 1
+      123 SETTABLEKS                       R8 R7 K26 ["Size"]
+      125 CALL                             R5 2 1
+      126 SETTABLEKS                       R5 R4 K8 ["ExtendedBackground"]
+      128 GETUPVAL                         R5 1
+      129 GETTABLEKS                       R5 R5 K10 ["createElement"]
+      131 LOADK                            R6 K22 ["Frame"]
+      132 DUPTABLE                         R7 K35 [{["Size"], ["BackgroundTransparency"] = 1, ["Position"]}]
+      133 GETIMPORT                        R8 K30 [UDim2.new]
+      135 LOADN                            R9 1
+      136 LOADN                            R10 0
+      137 LOADN                            R11 1
+      138 LOADN                            R12 0
+      139 CALL                             R8 4 1
+      140 SETTABLEKS                       R8 R7 K26 ["Size"]
+      142 GETIMPORT                        R8 K30 [UDim2.new]
+      144 LOADN                            R9 0
+      145 LOADN                            R10 0
+      146 LOADN                            R11 0
+      147 LOADN                            R12 0
+      148 CALL                             R8 4 1
+      149 SETTABLEKS                       R8 R7 K34 ["Position"]
+      151 DUPTABLE                         R8 K39 [{"MessageFrame", "ScrollingFrame", "ProgressSpinner"}]
+      152 GETUPVAL                         R9 1
+      153 GETTABLEKS                       R9 R9 K10 ["createElement"]
+      155 GETUPVAL                         R10 6
+      156 CALL                             R9 1 1
+      157 SETTABLEKS                       R9 R8 K36 ["MessageFrame"]
+      159 GETUPVAL                         R9 1
+      160 GETTABLEKS                       R9 R9 K10 ["createElement"]
+      162 LOADK                            R10 K37 ["ScrollingFrame"]
+      163 DUPTABLE                         R11 K47 [{["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderColor3"], ["BorderSizePixel"] = 1, ["CanvasSize"], ["ClipsDescendants"] = True, ["ScrollBarImageTransparency"] = 0, ["ScrollBarImageColor3"], ["ScrollingDirection"], ["Size"]}]
+      164 GETTABLEKS                       R12 R2 K48 ["ScrollingFrameackground"]
+      166 SETTABLEKS                       R12 R11 K23 ["BackgroundColor3"]
+      168 GETTABLEKS                       R12 R2 K49 ["ScrollBarBorderColor"]
+      170 SETTABLEKS                       R12 R11 K40 ["BorderColor3"]
+      172 GETIMPORT                        R12 K30 [UDim2.new]
+      174 LOADN                            R13 1
+      175 LOADN                            R14 0
+      176 LOADN                            R15 0
+      177 GETTABLEKS                       R16 R2 K50 ["ScrollingFrameCanvasHeight"]
+      179 CALL                             R12 4 1
+      180 SETTABLEKS                       R12 R11 K41 ["CanvasSize"]
+      182 GETTABLEKS                       R12 R2 K51 ["ScrollBarColor"]
+      184 SETTABLEKS                       R12 R11 K45 ["ScrollBarImageColor3"]
+      186 GETIMPORT                        R12 K54 [Enum.ScrollingDirection.XY]
+      188 SETTABLEKS                       R12 R11 K46 ["ScrollingDirection"]
+      190 GETIMPORT                        R12 K30 [UDim2.new]
+      192 LOADN                            R13 1
+      193 LOADN                            R14 0
+      194 LOADN                            R15 1
+      195 GETTABLEKS                       R17 R2 K55 ["ScrollingFrameHeight"]
+      197 SUBK                             R16 R17 K33 [1]
+      198 CALL                             R12 4 1
+      199 SETTABLEKS                       R12 R11 K26 ["Size"]
+      201 DUPTABLE                         R12 K57 [{"Container"}]
+      202 GETUPVAL                         R13 1
+      203 GETTABLEKS                       R13 R13 K10 ["createElement"]
+      205 GETUPVAL                         R14 7
+      206 DUPTABLE                         R15 K63 [{["Style"] = "Box", ["AutomaticSize"], ["HorizontalAlignment"], ["Layout"]}]
+      207 GETIMPORT                        R16 K65 [Enum.AutomaticSize.Y]
+      209 SETTABLEKS                       R16 R15 K60 ["AutomaticSize"]
+      211 GETIMPORT                        R16 K67 [Enum.HorizontalAlignment.Left]
+      213 SETTABLEKS                       R16 R15 K61 ["HorizontalAlignment"]
+      215 GETIMPORT                        R16 K70 [Enum.FillDirection.Vertical]
+      217 SETTABLEKS                       R16 R15 K62 ["Layout"]
+      219 MOVE                             R16 R4
+      220 CALL                             R13 3 1
+      221 SETTABLEKS                       R13 R12 K56 ["Container"]
+      223 CALL                             R9 3 1
+      224 SETTABLEKS                       R9 R8 K37 ["ScrollingFrame"]
+      226 GETUPVAL                         R9 1
+      227 GETTABLEKS                       R9 R9 K10 ["createElement"]
+      229 GETUPVAL                         R10 8
+      230 CALL                             R9 1 1
+      231 SETTABLEKS                       R9 R8 K38 ["ProgressSpinner"]
+      233 CALL                             R5 3 -1
+      234 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -228,32 +210,27 @@ MAIN:
        84 GETTABLEKS                       R14 R14 K15 ["Components"]
        86 GETTABLEKS                       R14 R14 K21 ["TextScraperSection"]
        88 CALL                             R13 1 1
-       89 GETIMPORT                        R14 K23 [game]
-       91 LOADK                            R16 K24 ["LocalizationToolsUpdateTextScraperUI"]
-       92 NAMECALL                         R14 R14 K25 ["GetFastFlag"]
+       89 GETTABLEKS                       R14 R1 K22 ["PureComponent"]
+       91 LOADK                            R16 K23 ["MainView"]
+       92 NAMECALL                         R14 R14 K24 ["extend"]
        94 CALL                             R14 2 1
-       95 GETTABLEKS                       R15 R1 K26 ["PureComponent"]
-       97 LOADK                            R17 K27 ["MainView"]
-       98 NAMECALL                         R15 R15 K28 ["extend"]
-      100 CALL                             R15 2 1
-      101 DUPCLOSURE                       R16 K29 [PROTO_0]
-      102 CAPTURE                          VAL R4
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          VAL R14
-      105 CAPTURE                          VAL R13
-      106 CAPTURE                          VAL R10
-      107 CAPTURE                          VAL R11
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R7
-      111 CAPTURE                          VAL R8
-      112 SETTABLEKS                       R16 R15 K30 ["render"]
-      114 MOVE                             R16 R5
-      115 DUPTABLE                         R17 K32 [{"Stylizer"}]
-      116 GETTABLEKS                       R18 R3 K31 ["Stylizer"]
-      118 SETTABLEKS                       R18 R17 K31 ["Stylizer"]
-      120 CALL                             R16 1 1
-      121 MOVE                             R17 R15
-      122 CALL                             R16 1 1
-      123 MOVE                             R15 R16
-      124 RETURN                           R15 1
+       95 DUPCLOSURE                       R15 K25 [PROTO_0]
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          VAL R13
+       99 CAPTURE                          VAL R10
+      100 CAPTURE                          VAL R11
+      101 CAPTURE                          VAL R12
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R7
+      104 CAPTURE                          VAL R8
+      105 SETTABLEKS                       R15 R14 K26 ["render"]
+      107 MOVE                             R15 R5
+      108 DUPTABLE                         R16 K28 [{"Stylizer"}]
+      109 GETTABLEKS                       R17 R3 K27 ["Stylizer"]
+      111 SETTABLEKS                       R17 R16 K27 ["Stylizer"]
+      113 CALL                             R15 1 1
+      114 MOVE                             R16 R14
+      115 CALL                             R15 1 1
+      116 MOVE                             R14 R15
+      117 RETURN                           R14 1

@@ -1,20 +1,16 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showMenu"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["showMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showMenu"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -28,12 +24,10 @@ PROTO_2:
        12 NAMECALL                         R0 R0 K3 ["__pushCursor"]
        14 CALL                             R0 2 0
        15 GETUPVAL                         R0 0
-       16 DUPTABLE                         R2 K5 [{"hovering"}]
-       17 LOADB                            R3 1
-       18 SETTABLEKS                       R3 R2 K4 ["hovering"]
-       20 NAMECALL                         R0 R0 K6 ["setState"]
-       22 CALL                             R0 2 0
-       23 RETURN                           R0 0
+       16 DUPTABLE                         R2 K6 [{["hovering"] = True}]
+       17 NAMECALL                         R0 R0 K7 ["setState"]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -46,31 +40,27 @@ PROTO_3:
        11 NAMECALL                         R0 R0 K2 ["__popCursor"]
        13 CALL                             R0 1 0
        14 GETUPVAL                         R0 0
-       15 DUPTABLE                         R2 K4 [{"hovering"}]
-       16 LOADB                            R3 0
-       17 SETTABLEKS                       R3 R2 K3 ["hovering"]
-       19 NAMECALL                         R0 R0 K5 ["setState"]
-       21 CALL                             R0 2 0
-       22 RETURN                           R0 0
+       15 DUPTABLE                         R2 K5 [{["hovering"] = False}]
+       16 NAMECALL                         R0 R0 K6 ["setState"]
+       18 CALL                             R0 2 0
+       19 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K1 [{"showMenu"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["showMenu"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K0 ["showMenu"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K3 ["hideMenu"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K4 ["mouseEnter"]
-       18 NEWCLOSURE                       R1 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R1 R0 K5 ["mouseLeave"]
-       22 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K0 ["showMenu"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K4 ["hideMenu"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K5 ["mouseEnter"]
+       15 NEWCLOSURE                       R1 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K6 ["mouseLeave"]
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -390,15 +380,15 @@ PROTO_14:
        73 GETUPVAL                         R13 0
        74 GETTABLEKS                       R13 R13 K8 ["createElement"]
        76 LOADK                            R14 K31 ["ImageLabel"]
-       77 DUPTABLE                         R15 K32 [{"Size", "Position", "AnchorPoint", "Image", "ImageColor3", "BackgroundTransparency"}]
-       78 GETIMPORT                        R16 K34 [UDim2.new]
+       77 DUPTABLE                         R15 K33 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"], ["ImageColor3"], ["BackgroundTransparency"] = 1}]
+       78 GETIMPORT                        R16 K35 [UDim2.new]
        80 LOADN                            R17 0
        81 LOADN                            R18 9
        82 LOADN                            R19 0
        83 LOADN                            R20 8
        84 CALL                             R16 4 1
        85 SETTABLEKS                       R16 R15 K5 ["Size"]
-       87 GETIMPORT                        R16 K34 [UDim2.new]
+       87 GETIMPORT                        R16 K35 [UDim2.new]
        89 LOADK                            R17 K13 [0.5]
        90 LOADN                            R18 0
        91 LOADK                            R19 K13 [0.5]
@@ -410,40 +400,36 @@ PROTO_14:
        99 LOADK                            R18 K13 [0.5]
       100 CALL                             R16 2 1
       101 SETTABLEKS                       R16 R15 K14 ["AnchorPoint"]
-      103 GETTABLEKS                       R16 R8 K35 ["plusIcon"]
+      103 GETTABLEKS                       R16 R8 K36 ["plusIcon"]
       105 SETTABLEKS                       R16 R15 K16 ["Image"]
       107 JUMPIFNOT                        R5 ; [+3]
-      108 GETTABLEKS                       R16 R8 K36 ["hoveredPlusIconColor"]
+      108 GETTABLEKS                       R16 R8 K37 ["hoveredPlusIconColor"]
       110 JUMPIF                           R16 ; [+2]
-      111 GETTABLEKS                       R16 R8 K37 ["plusIconColor"]
+      111 GETTABLEKS                       R16 R8 K38 ["plusIconColor"]
       113 SETTABLEKS                       R16 R15 K19 ["ImageColor3"]
-      115 LOADN                            R16 1
-      116 SETTABLEKS                       R16 R15 K20 ["BackgroundTransparency"]
-      118 CALL                             R13 2 1
-      119 SETTABLEKS                       R13 R12 K27 ["PlusIcon"]
-      121 MOVE                             R13 R4
-      122 JUMPIFNOT                        R13 ; [+15]
-      123 GETUPVAL                         R13 0
-      124 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      126 GETUPVAL                         R14 1
-      127 DUPTABLE                         R15 K40 [{"Actions", "OnMenuOpened"}]
-      128 NAMECALL                         R16 R0 K41 ["makeTrackActions"]
-      130 CALL                             R16 1 1
-      131 SETTABLEKS                       R16 R15 K38 ["Actions"]
-      133 GETTABLEKS                       R16 R0 K42 ["hideMenu"]
-      135 SETTABLEKS                       R16 R15 K39 ["OnMenuOpened"]
-      137 CALL                             R13 2 1
-      138 SETTABLEKS                       R13 R12 K28 ["TrackMenu"]
-      140 GETUPVAL                         R13 0
-      141 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      143 GETUPVAL                         R14 2
-      144 DUPTABLE                         R15 K44 [{"TextKey"}]
-      145 LOADK                            R16 K45 ["AddTrackButton"]
-      146 SETTABLEKS                       R16 R15 K43 ["TextKey"]
-      148 CALL                             R13 2 1
-      149 SETTABLEKS                       R13 R12 K29 ["Tooltip"]
-      151 CALL                             R9 3 -1
-      152 RETURN                           R9 -1
+      115 CALL                             R13 2 1
+      116 SETTABLEKS                       R13 R12 K27 ["PlusIcon"]
+      118 MOVE                             R13 R4
+      119 JUMPIFNOT                        R13 ; [+15]
+      120 GETUPVAL                         R13 0
+      121 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      123 GETUPVAL                         R14 1
+      124 DUPTABLE                         R15 K41 [{"Actions", "OnMenuOpened"}]
+      125 NAMECALL                         R16 R0 K42 ["makeTrackActions"]
+      127 CALL                             R16 1 1
+      128 SETTABLEKS                       R16 R15 K39 ["Actions"]
+      130 GETTABLEKS                       R16 R0 K43 ["hideMenu"]
+      132 SETTABLEKS                       R16 R15 K40 ["OnMenuOpened"]
+      134 CALL                             R13 2 1
+      135 SETTABLEKS                       R13 R12 K28 ["TrackMenu"]
+      137 GETUPVAL                         R13 0
+      138 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      140 GETUPVAL                         R14 2
+      141 DUPTABLE                         R15 K46 [{["TextKey"] = "AddTrackButton"}]
+      142 CALL                             R13 2 1
+      143 SETTABLEKS                       R13 R12 K29 ["Tooltip"]
+      145 CALL                             R9 3 -1
+      146 RETURN                           R9 -1
 
 PROTO_15:
         0 DUPTABLE                         R2 K1 [{"RootInstance"}]

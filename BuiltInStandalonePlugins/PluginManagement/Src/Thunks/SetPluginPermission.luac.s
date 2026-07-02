@@ -31,20 +31,18 @@ PROTO_0:
        41 CALL                             R3 3 0
        42 GETUPVAL                         R5 3
        43 GETUPVAL                         R6 1
-       44 GETUPVAL                         R7 4
-       45 CALL                             R5 2 -1
-       46 NAMECALL                         R3 R0 K15 ["dispatch"]
-       48 CALL                             R3 -1 0
-       49 RETURN                           R0 0
+       44 CALL                             R5 1 -1
+       45 NAMECALL                         R3 R0 K15 ["dispatch"]
+       47 CALL                             R3 -1 0
+       48 RETURN                           R0 0
 
 PROTO_1:
-        0 NEWCLOSURE                       R4 P0
-        1 CAPTURE                          VAL R2
+        0 NEWCLOSURE                       R3 P0
+        1 CAPTURE                          VAL R1
         2 CAPTURE                          VAL R0
-        3 CAPTURE                          VAL R3
+        3 CAPTURE                          VAL R2
         4 CAPTURE                          UPVAL U0
-        5 CAPTURE                          VAL R1
-        6 RETURN                           R4 1
+        5 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

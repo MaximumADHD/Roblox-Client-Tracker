@@ -3,46 +3,16 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R0 K2 [{"currentData", "providerFunction"}]
-        1 DUPTABLE                         R1 K18 [{"maxTriangles", "maxDrawCalls", "defaultMaxTriangles", "defaultMaxDrawCalls", "maxTotalRenderMs", "maxTotalTaskMs", "defaultMaxRenderMs", "defaultMaxTaskMs", "triangleCount", "drawCallCount", "renderThreadAverageMs", "taskThreadAverageMs", "isEditDM", "microprofilerVisible", "automaticGraphicsQuality"}]
-        2 LOADK                            R2 K19 [1000000]
-        3 SETTABLEKS                       R2 R1 K3 ["maxTriangles"]
-        5 LOADN                            R2 232
-        6 SETTABLEKS                       R2 R1 K4 ["maxDrawCalls"]
-        8 LOADK                            R2 K19 [1000000]
-        9 SETTABLEKS                       R2 R1 K5 ["defaultMaxTriangles"]
-       11 LOADN                            R2 232
-       12 SETTABLEKS                       R2 R1 K6 ["defaultMaxDrawCalls"]
-       14 LOADN                            R2 14
-       15 SETTABLEKS                       R2 R1 K7 ["maxTotalRenderMs"]
-       17 LOADN                            R2 14
-       18 SETTABLEKS                       R2 R1 K8 ["maxTotalTaskMs"]
-       20 LOADN                            R2 14
-       21 SETTABLEKS                       R2 R1 K9 ["defaultMaxRenderMs"]
-       23 LOADN                            R2 14
-       24 SETTABLEKS                       R2 R1 K10 ["defaultMaxTaskMs"]
-       26 LOADN                            R2 0
-       27 SETTABLEKS                       R2 R1 K11 ["triangleCount"]
-       29 LOADN                            R2 0
-       30 SETTABLEKS                       R2 R1 K12 ["drawCallCount"]
-       32 LOADN                            R2 0
-       33 SETTABLEKS                       R2 R1 K13 ["renderThreadAverageMs"]
-       35 LOADN                            R2 0
-       36 SETTABLEKS                       R2 R1 K14 ["taskThreadAverageMs"]
-       38 LOADB                            R2 1
-       39 SETTABLEKS                       R2 R1 K15 ["isEditDM"]
-       41 LOADB                            R2 0
-       42 SETTABLEKS                       R2 R1 K16 ["microprofilerVisible"]
-       44 LOADN                            R2 0
-       45 SETTABLEKS                       R2 R1 K17 ["automaticGraphicsQuality"]
-       47 SETTABLEKS                       R1 R0 K0 ["currentData"]
-       49 DUPCLOSURE                       R1 K20 [PROTO_0]
-       50 SETTABLEKS                       R1 R0 K1 ["providerFunction"]
-       52 GETUPVAL                         R3 0
-       53 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       55 MOVE                             R2 R0
-       56 GETIMPORT                        R1 K22 [setmetatable]
-       58 CALL                             R1 2 0
-       59 RETURN                           R0 1
+        1 DUPTABLE                         R1 K24 [{["maxTriangles"] = 1000000, ["maxDrawCalls"] = 1000, ["defaultMaxTriangles"] = 1000000, ["defaultMaxDrawCalls"] = 1000, ["maxTotalRenderMs"] = 14, ["maxTotalTaskMs"] = 14, ["defaultMaxRenderMs"] = 14, ["defaultMaxTaskMs"] = 14, ["triangleCount"] = 0, ["drawCallCount"] = 0, ["renderThreadAverageMs"] = 0, ["taskThreadAverageMs"] = 0, ["isEditDM"] = True, ["microprofilerVisible"] = False, ["automaticGraphicsQuality"] = 0}]
+        2 SETTABLEKS                       R1 R0 K0 ["currentData"]
+        4 DUPCLOSURE                       R1 K25 [PROTO_0]
+        5 SETTABLEKS                       R1 R0 K1 ["providerFunction"]
+        7 GETUPVAL                         R3 0
+        8 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       10 MOVE                             R2 R0
+       11 GETIMPORT                        R1 K27 [setmetatable]
+       13 CALL                             R1 2 0
+       14 RETURN                           R0 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["currentData"]

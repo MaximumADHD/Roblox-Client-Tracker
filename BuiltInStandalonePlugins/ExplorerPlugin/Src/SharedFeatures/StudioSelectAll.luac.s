@@ -128,20 +128,18 @@ PROTO_9:
         1 JUMPIFEQKNIL                     R0 ; [+2]
         3 RETURN                           R0 0
         4 LOADNIL                          R0
-        5 DUPTABLE                         R1 K2 [{"connection", "thread"}]
-        6 LOADNIL                          R2
-        7 SETTABLEKS                       R2 R1 K0 ["connection"]
-        9 GETIMPORT                        R2 K5 [task.defer]
-       11 NEWCLOSURE                       R3 P0
-       12 CAPTURE                          REF R0
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          UPVAL U2
-       15 CALL                             R2 1 1
-       16 SETTABLEKS                       R2 R1 K1 ["thread"]
-       18 MOVE                             R0 R1
-       19 SETUPVAL                         R0 0
-       20 CLOSEUPVALS                      R0
-       21 RETURN                           R0 0
+        5 DUPTABLE                         R1 K3 [{[1] = , ["thread"]}]
+        6 GETIMPORT                        R2 K6 [task.defer]
+        8 NEWCLOSURE                       R3 P0
+        9 CAPTURE                          REF R0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U2
+       12 CALL                             R2 1 1
+       13 SETTABLEKS                       R2 R1 K2 ["thread"]
+       15 MOVE                             R0 R1
+       16 SETUPVAL                         R0 0
+       17 CLOSEUPVALS                      R0
+       18 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0

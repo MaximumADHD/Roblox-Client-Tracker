@@ -9,18 +9,14 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["recordChange"]
-        2 DUPTABLE                         R3 K4 [{"Name", "DisplayName", "DoChange"}]
-        3 LOADK                            R4 K5 ["StyleEditor/SetSyleRulePropertyType"]
-        4 SETTABLEKS                       R4 R3 K1 ["Name"]
-        6 LOADK                            R4 K6 ["StyleEditor - Set StyleRule Property Type"]
-        7 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          UPVAL U0
-       11 CAPTURE                          UPVAL U1
-       12 CAPTURE                          UPVAL U2
-       13 SETTABLEKS                       R4 R3 K3 ["DoChange"]
-       15 CALL                             R2 1 0
-       16 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["Name"] = "StyleEditor/SetSyleRulePropertyType", ["DisplayName"] = "StyleEditor - Set StyleRule Property Type", ["DoChange"]}]
+        3 NEWCLOSURE                       R4 P0
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 SETTABLEKS                       R4 R3 K5 ["DoChange"]
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
 
 PROTO_2:
         0 LOADNIL                          R3

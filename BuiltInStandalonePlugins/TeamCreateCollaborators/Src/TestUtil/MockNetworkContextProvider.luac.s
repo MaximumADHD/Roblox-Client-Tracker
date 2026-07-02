@@ -129,6 +129,32 @@ PROTO_9:
         6 RETURN                           R1 -1
 
 PROTO_10:
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R2 R2 K0 ["networkDelay"]
+        3 CALL                             R2 0 0
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K1 ["networkFailure"]
+        7 CALL                             R2 0 1
+        8 JUMPIFNOT                        R2 ; [+4]
+        9 MOVE                             R2 R1
+       10 LOADK                            R3 K2 ["Mock network failure"]
+       11 CALL                             R2 1 -1
+       12 RETURN                           R2 -1
+       13 MOVE                             R2 R0
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K3 ["getUniverseConfigurationResponse"]
+       17 CALL                             R2 1 -1
+       18 RETURN                           R2 -1
+
+PROTO_11:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["defer"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R1 1 -1
+        6 RETURN                           R1 -1
+
+PROTO_12:
         0 GETUPVAL                         R0 1
         1 GETUPVAL                         R1 2
         2 GETTABLEKS                       R1 R1 K0 ["mockNetworkConfig"]
@@ -138,7 +164,7 @@ PROTO_10:
         7 SETUPVAL                         R0 0
         8 RETURN                           R0 0
 
-PROTO_11:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useEffect"]
         3 NEWCLOSURE                       R2 P0
@@ -153,7 +179,7 @@ PROTO_11:
        14 GETUPVAL                         R2 4
        15 GETTABLEKS                       R2 R2 K2 ["Provider"]
        17 DUPTABLE                         R3 K4 [{"value"}]
-       18 DUPTABLE                         R4 K10 [{"postProfileInsights", "postGetTrustedFriendsLink", "postSendRequestToNewParent", "postSendRequestToAllParents", "getUniverseConfiguration"}]
+       18 DUPTABLE                         R4 K11 [{"postProfileInsights", "postGetTrustedFriendsLink", "postSendRequestToNewParent", "postSendRequestToAllParents", "getUniverseConfiguration", "getUniverseName"}]
        19 GETUPVAL                         R5 5
        20 SETTABLEKS                       R5 R4 K5 ["postProfileInsights"]
        22 GETUPVAL                         R5 6
@@ -164,10 +190,12 @@ PROTO_11:
        29 SETTABLEKS                       R5 R4 K8 ["postSendRequestToAllParents"]
        31 GETUPVAL                         R5 9
        32 SETTABLEKS                       R5 R4 K9 ["getUniverseConfiguration"]
-       34 SETTABLEKS                       R4 R3 K3 ["value"]
-       36 GETTABLEKS                       R4 R0 K11 ["children"]
-       38 CALL                             R1 3 -1
-       39 RETURN                           R1 -1
+       34 GETUPVAL                         R5 10
+       35 SETTABLEKS                       R5 R4 K10 ["getUniverseName"]
+       37 SETTABLEKS                       R4 R3 K3 ["value"]
+       39 GETTABLEKS                       R4 R0 K12 ["children"]
+       41 CALL                             R1 3 -1
+       42 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -197,37 +225,37 @@ MAIN:
        41 GETTABLEKS                       R7 R0 K9 ["Src"]
        43 GETTABLEKS                       R7 R7 K14 ["Types"]
        45 CALL                             R6 1 1
-       46 DUPTABLE                         R7 K17 [{"latencySec", "failureRate"}]
-       47 LOADN                            R8 0
-       48 SETTABLEKS                       R8 R7 K15 ["latencySec"]
-       50 LOADN                            R8 0
-       51 SETTABLEKS                       R8 R7 K16 ["failureRate"]
-       53 LOADNIL                          R8
-       54 NEWCLOSURE                       R9 P0
+       46 DUPTABLE                         R7 K18 [{["latencySec"] = 0, ["failureRate"] = 0}]
+       47 LOADNIL                          R8
+       48 NEWCLOSURE                       R9 P0
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          REF R8
+       51 NEWCLOSURE                       R10 P1
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          REF R8
+       54 NEWCLOSURE                       R11 P2
        55 CAPTURE                          VAL R2
        56 CAPTURE                          REF R8
-       57 NEWCLOSURE                       R10 P1
+       57 NEWCLOSURE                       R12 P3
        58 CAPTURE                          VAL R2
        59 CAPTURE                          REF R8
-       60 NEWCLOSURE                       R11 P2
+       60 NEWCLOSURE                       R13 P4
        61 CAPTURE                          VAL R2
        62 CAPTURE                          REF R8
-       63 NEWCLOSURE                       R12 P3
+       63 NEWCLOSURE                       R14 P5
        64 CAPTURE                          VAL R2
        65 CAPTURE                          REF R8
-       66 NEWCLOSURE                       R13 P4
-       67 CAPTURE                          VAL R2
+       66 NEWCLOSURE                       R15 P6
+       67 CAPTURE                          VAL R1
        68 CAPTURE                          REF R8
-       69 NEWCLOSURE                       R14 P5
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          REF R8
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          VAL R7
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R9
-       76 CAPTURE                          VAL R10
-       77 CAPTURE                          VAL R11
-       78 CAPTURE                          VAL R12
-       79 CAPTURE                          VAL R13
-       80 CLOSEUPVALS                      R8
-       81 RETURN                           R14 1
+       69 CAPTURE                          VAL R5
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R3
+       72 CAPTURE                          VAL R9
+       73 CAPTURE                          VAL R10
+       74 CAPTURE                          VAL R11
+       75 CAPTURE                          VAL R12
+       76 CAPTURE                          VAL R13
+       77 CAPTURE                          VAL R14
+       78 CLOSEUPVALS                      R8
+       79 RETURN                           R15 1

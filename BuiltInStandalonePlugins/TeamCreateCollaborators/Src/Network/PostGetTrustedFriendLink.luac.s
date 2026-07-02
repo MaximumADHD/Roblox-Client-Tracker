@@ -45,36 +45,34 @@ PROTO_2:
        25 GETUPVAL                         R3 2
        26 NAMECALL                         R3 R3 K8 ["GetUserId"]
        28 CALL                             R3 1 1
-       29 DUPTABLE                         R4 K13 [{"Method", "Url", "Headers", "Body"}]
-       30 LOADK                            R5 K14 ["POST"]
-       31 SETTABLEKS                       R5 R4 K9 ["Method"]
-       33 SETTABLEKS                       R2 R4 K10 ["Url"]
-       35 NEWTABLE                         R5 4 0
+       29 DUPTABLE                         R4 K14 [{["Method"] = "POST", ["Url"], ["Headers"], ["Body"]}]
+       30 SETTABLEKS                       R2 R4 K11 ["Url"]
+       32 NEWTABLE                         R5 4 0
+       34 LOADK                            R6 K15 ["application/json"]
+       35 SETTABLEKS                       R6 R5 K16 ["Content-Type"]
        37 LOADK                            R6 K15 ["application/json"]
-       38 SETTABLEKS                       R6 R5 K16 ["Content-Type"]
-       40 LOADK                            R6 K15 ["application/json"]
-       41 SETTABLEKS                       R6 R5 K17 ["Accept"]
-       43 FASTCALL1                        TOSTRING R3 ; [+3]
-       44 MOVE                             R7 R3
-       45 GETIMPORT                        R6 K19 [tostring]
-       47 CALL                             R6 1 1
-       48 SETTABLEKS                       R6 R5 K20 ["robloxctx-authenticated-userid"]
-       50 SETTABLEKS                       R5 R4 K11 ["Headers"]
-       52 SETTABLEKS                       R1 R4 K12 ["Body"]
-       54 GETUPVAL                         R5 3
-       55 GETTABLEKS                       R5 R5 K21 ["Request"]
-       57 MOVE                             R6 R4
-       58 CALL                             R5 1 1
-       59 DUPCLOSURE                       R7 K22 [PROTO_0]
-       60 CAPTURE                          UPVAL U4
-       61 CAPTURE                          UPVAL U5
-       62 NAMECALL                         R5 R5 K23 ["andThen"]
-       64 CALL                             R5 2 1
-       65 DUPCLOSURE                       R7 K24 [PROTO_1]
-       66 CAPTURE                          UPVAL U5
-       67 NAMECALL                         R5 R5 K25 ["catch"]
-       69 CALL                             R5 2 -1
-       70 RETURN                           R5 -1
+       38 SETTABLEKS                       R6 R5 K17 ["Accept"]
+       40 FASTCALL1                        TOSTRING R3 ; [+3]
+       41 MOVE                             R7 R3
+       42 GETIMPORT                        R6 K19 [tostring]
+       44 CALL                             R6 1 1
+       45 SETTABLEKS                       R6 R5 K20 ["robloxctx-authenticated-userid"]
+       47 SETTABLEKS                       R5 R4 K12 ["Headers"]
+       49 SETTABLEKS                       R1 R4 K13 ["Body"]
+       51 GETUPVAL                         R5 3
+       52 GETTABLEKS                       R5 R5 K21 ["Request"]
+       54 MOVE                             R6 R4
+       55 CALL                             R5 1 1
+       56 DUPCLOSURE                       R7 K22 [PROTO_0]
+       57 CAPTURE                          UPVAL U4
+       58 CAPTURE                          UPVAL U5
+       59 NAMECALL                         R5 R5 K23 ["andThen"]
+       61 CALL                             R5 2 1
+       62 DUPCLOSURE                       R7 K24 [PROTO_1]
+       63 CAPTURE                          UPVAL U5
+       64 NAMECALL                         R5 R5 K25 ["catch"]
+       66 CALL                             R5 2 -1
+       67 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

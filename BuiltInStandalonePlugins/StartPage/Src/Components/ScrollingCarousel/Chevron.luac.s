@@ -85,9 +85,9 @@ PROTO_1:
       106 SETTABLEKS                       R11 R10 K5 ["Size"]
       108 GETIMPORT                        R11 K16 [UDim2.new]
       110 LOADK                            R12 K29 [0.5]
-      111 LOADN                            R13 238
+      111 LOADN                            R13 -18
       112 LOADK                            R14 K29 [0.5]
-      113 LOADN                            R15 238
+      113 LOADN                            R15 -18
       114 CALL                             R11 4 1
       115 SETTABLEKS                       R11 R10 K6 ["Position"]
       117 GETUPVAL                         R11 2

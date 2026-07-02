@@ -76,36 +76,24 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K14 [{"editPlaceId", "editDevProductId", "editSecretId", "editSecretFormName", "editSecretFormValue", "editSecretFormDomain"}]
-       24 LOADN                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["editPlaceId"]
-       27 LOADNIL                          R4
-       28 SETTABLEKS                       R4 R3 K9 ["editDevProductId"]
-       30 LOADNIL                          R4
-       31 SETTABLEKS                       R4 R3 K10 ["editSecretId"]
-       33 LOADNIL                          R4
-       34 SETTABLEKS                       R4 R3 K11 ["editSecretFormName"]
-       36 LOADNIL                          R4
-       37 SETTABLEKS                       R4 R3 K12 ["editSecretFormValue"]
-       39 LOADNIL                          R4
-       40 SETTABLEKS                       R4 R3 K13 ["editSecretFormDomain"]
-       42 GETTABLEKS                       R4 R2 K15 ["createReducer"]
-       44 MOVE                             R5 R3
-       45 DUPTABLE                         R6 K21 [{"ResetStore", "SetEditPlaceId", "SetEditDevProductId", "SetEditSecretId", "SetEditSecretFormField"}]
-       46 DUPCLOSURE                       R7 K22 [PROTO_0]
-       47 CAPTURE                          VAL R3
-       48 SETTABLEKS                       R7 R6 K16 ["ResetStore"]
-       50 DUPCLOSURE                       R7 K23 [PROTO_1]
-       51 CAPTURE                          VAL R1
-       52 SETTABLEKS                       R7 R6 K17 ["SetEditPlaceId"]
-       54 DUPCLOSURE                       R7 K24 [PROTO_2]
-       55 CAPTURE                          VAL R1
-       56 SETTABLEKS                       R7 R6 K18 ["SetEditDevProductId"]
-       58 DUPCLOSURE                       R7 K25 [PROTO_3]
-       59 CAPTURE                          VAL R1
-       60 SETTABLEKS                       R7 R6 K19 ["SetEditSecretId"]
-       62 DUPCLOSURE                       R7 K26 [PROTO_4]
-       63 CAPTURE                          VAL R1
-       64 SETTABLEKS                       R7 R6 K20 ["SetEditSecretFormField"]
-       66 CALL                             R4 2 -1
-       67 RETURN                           R4 -1
+       23 DUPTABLE                         R3 K16 [{["editPlaceId"] = 0, ["editDevProductId"] = , ["editSecretId"] = , ["editSecretFormName"] = , ["editSecretFormValue"] = , ["editSecretFormDomain"] = }]
+       24 GETTABLEKS                       R4 R2 K17 ["createReducer"]
+       26 MOVE                             R5 R3
+       27 DUPTABLE                         R6 K23 [{"ResetStore", "SetEditPlaceId", "SetEditDevProductId", "SetEditSecretId", "SetEditSecretFormField"}]
+       28 DUPCLOSURE                       R7 K24 [PROTO_0]
+       29 CAPTURE                          VAL R3
+       30 SETTABLEKS                       R7 R6 K18 ["ResetStore"]
+       32 DUPCLOSURE                       R7 K25 [PROTO_1]
+       33 CAPTURE                          VAL R1
+       34 SETTABLEKS                       R7 R6 K19 ["SetEditPlaceId"]
+       36 DUPCLOSURE                       R7 K26 [PROTO_2]
+       37 CAPTURE                          VAL R1
+       38 SETTABLEKS                       R7 R6 K20 ["SetEditDevProductId"]
+       40 DUPCLOSURE                       R7 K27 [PROTO_3]
+       41 CAPTURE                          VAL R1
+       42 SETTABLEKS                       R7 R6 K21 ["SetEditSecretId"]
+       44 DUPCLOSURE                       R7 K28 [PROTO_4]
+       45 CAPTURE                          VAL R1
+       46 SETTABLEKS                       R7 R6 K22 ["SetEditSecretFormField"]
+       48 CALL                             R4 2 -1
+       49 RETURN                           R4 -1

@@ -38,40 +38,32 @@ MAIN:
        54 NAMECALL                         R7 R7 K20 ["GetService"]
        56 CALL                             R7 2 1
        57 ORK                              R6 R7 K16 []
-       58 DUPTABLE                         R7 K29 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
-       59 GETIMPORT                        R8 K30 [plugin]
+       58 DUPTABLE                         R7 K31 [{["plugin"], ["pluginName"] = "ConvertToPackage", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["extraTriggers"]}]
+       59 GETIMPORT                        R8 K32 [plugin]
        61 SETTABLEKS                       R8 R7 K21 ["plugin"]
-       63 LOADK                            R8 K31 ["ConvertToPackage"]
-       64 SETTABLEKS                       R8 R7 K22 ["pluginName"]
-       66 SETTABLEKS                       R5 R7 K23 ["translationResourceTable"]
-       68 SETTABLEKS                       R4 R7 K24 ["fallbackResourceTable"]
-       70 LOADNIL                          R8
-       71 SETTABLEKS                       R8 R7 K25 ["overrideLocaleId"]
-       73 LOADNIL                          R8
-       74 SETTABLEKS                       R8 R7 K26 ["localizationNamespace"]
-       76 LOADB                            R8 1
-       77 SETTABLEKS                       R8 R7 K27 ["noToolbar"]
-       79 NEWTABLE                         R8 1 0
-       81 DUPCLOSURE                       R10 K32 [PROTO_0]
-       82 CAPTURE                          VAL R6
-       83 ORK                              R9 R10 K16 []
-       84 SETTABLEKS                       R9 R8 K33 ["PackageUIService.OnOpenConvertToPackagePlugin"]
-       86 SETTABLEKS                       R8 R7 K28 ["extraTriggers"]
-       88 GETTABLEKS                       R8 R3 K34 ["build"]
-       90 MOVE                             R9 R7
-       91 CALL                             R8 1 1
-       92 GETTABLEKS                       R9 R8 K35 ["pluginLoader"]
-       94 NAMECALL                         R9 R9 K36 ["waitForUserInteraction"]
-       96 CALL                             R9 1 1
-       97 JUMPIF                           R9 ; [+1]
-       98 RETURN                           R0 0
-       99 GETIMPORT                        R10 K1 [require]
-      101 GETIMPORT                        R11 K3 [script]
-      103 GETTABLEKS                       R11 R11 K4 ["Parent"]
-      105 GETTABLEKS                       R11 R11 K37 ["main"]
-      107 CALL                             R10 1 1
-      108 MOVE                             R11 R10
-      109 GETIMPORT                        R12 K30 [plugin]
-      111 MOVE                             R13 R8
-      112 CALL                             R11 2 0
-      113 RETURN                           R0 0
+       63 SETTABLEKS                       R5 R7 K24 ["translationResourceTable"]
+       65 SETTABLEKS                       R4 R7 K25 ["fallbackResourceTable"]
+       67 NEWTABLE                         R8 1 0
+       69 DUPCLOSURE                       R10 K33 [PROTO_0]
+       70 CAPTURE                          VAL R6
+       71 ORK                              R9 R10 K16 []
+       72 SETTABLEKS                       R9 R8 K34 ["PackageUIService.OnOpenConvertToPackagePlugin"]
+       74 SETTABLEKS                       R8 R7 K30 ["extraTriggers"]
+       76 GETTABLEKS                       R8 R3 K35 ["build"]
+       78 MOVE                             R9 R7
+       79 CALL                             R8 1 1
+       80 GETTABLEKS                       R9 R8 K36 ["pluginLoader"]
+       82 NAMECALL                         R9 R9 K37 ["waitForUserInteraction"]
+       84 CALL                             R9 1 1
+       85 JUMPIF                           R9 ; [+1]
+       86 RETURN                           R0 0
+       87 GETIMPORT                        R10 K1 [require]
+       89 GETIMPORT                        R11 K3 [script]
+       91 GETTABLEKS                       R11 R11 K4 ["Parent"]
+       93 GETTABLEKS                       R11 R11 K38 ["main"]
+       95 CALL                             R10 1 1
+       96 MOVE                             R11 R10
+       97 GETIMPORT                        R12 K32 [plugin]
+       99 MOVE                             R13 R8
+      100 CALL                             R11 2 0
+      101 RETURN                           R0 0

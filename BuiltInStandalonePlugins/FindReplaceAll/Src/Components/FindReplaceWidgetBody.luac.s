@@ -129,43 +129,41 @@ PROTO_11:
 PROTO_12:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["Frame"]
-        2 DUPTABLE                         R4 K5 [{"BackgroundTransparency", "Position", "Size", "ZIndex"}]
-        3 LOADN                            R5 1
-        4 SETTABLEKS                       R5 R4 K1 ["BackgroundTransparency"]
-        6 GETTABLEKS                       R5 R0 K6 ["getBinding"]
-        8 CALL                             R5 0 1
-        9 DUPCLOSURE                       R7 K7 [PROTO_11]
-       10 NAMECALL                         R5 R5 K8 ["map"]
-       12 CALL                             R5 2 1
-       13 SETTABLEKS                       R5 R4 K2 ["Position"]
-       15 GETIMPORT                        R5 K11 [UDim2.new]
-       17 LOADN                            R6 1
-       18 LOADN                            R7 0
-       19 LOADN                            R8 0
-       20 GETUPVAL                         R9 1
-       21 GETTABLEKS                       R9 R9 K12 ["resultRowHeight"]
-       23 CALL                             R5 4 1
-       24 SETTABLEKS                       R5 R4 K3 ["Size"]
-       26 GETUPVAL                         R5 2
-       27 GETTABLEKS                       R5 R5 K4 ["ZIndex"]
-       29 SETTABLEKS                       R5 R4 K4 ["ZIndex"]
-       31 GETUPVAL                         R5 0
-       32 GETUPVAL                         R6 3
-       33 DUPTABLE                         R7 K17 [{"visibleNodeObservable", "hoveredObservable", "textLabelRef", "resultManager"}]
-       34 SETTABLEKS                       R0 R7 K13 ["visibleNodeObservable"]
-       36 GETUPVAL                         R8 2
-       37 GETTABLEKS                       R8 R8 K16 ["resultManager"]
-       39 GETTABLEKS                       R8 R8 K14 ["hoveredObservable"]
-       41 SETTABLEKS                       R8 R7 K14 ["hoveredObservable"]
-       43 GETUPVAL                         R9 4
-       44 GETTABLE                         R8 R9 R1
-       45 SETTABLEKS                       R8 R7 K15 ["textLabelRef"]
-       47 GETUPVAL                         R8 2
-       48 GETTABLEKS                       R8 R8 K16 ["resultManager"]
-       50 SETTABLEKS                       R8 R7 K16 ["resultManager"]
-       52 CALL                             R5 2 -1
-       53 CALL                             R2 -1 1
-       54 RETURN                           R2 1
+        2 DUPTABLE                         R4 K6 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["ZIndex"]}]
+        3 GETTABLEKS                       R5 R0 K7 ["getBinding"]
+        5 CALL                             R5 0 1
+        6 DUPCLOSURE                       R7 K8 [PROTO_11]
+        7 NAMECALL                         R5 R5 K9 ["map"]
+        9 CALL                             R5 2 1
+       10 SETTABLEKS                       R5 R4 K3 ["Position"]
+       12 GETIMPORT                        R5 K12 [UDim2.new]
+       14 LOADN                            R6 1
+       15 LOADN                            R7 0
+       16 LOADN                            R8 0
+       17 GETUPVAL                         R9 1
+       18 GETTABLEKS                       R9 R9 K13 ["resultRowHeight"]
+       20 CALL                             R5 4 1
+       21 SETTABLEKS                       R5 R4 K4 ["Size"]
+       23 GETUPVAL                         R5 2
+       24 GETTABLEKS                       R5 R5 K5 ["ZIndex"]
+       26 SETTABLEKS                       R5 R4 K5 ["ZIndex"]
+       28 GETUPVAL                         R5 0
+       29 GETUPVAL                         R6 3
+       30 DUPTABLE                         R7 K18 [{"visibleNodeObservable", "hoveredObservable", "textLabelRef", "resultManager"}]
+       31 SETTABLEKS                       R0 R7 K14 ["visibleNodeObservable"]
+       33 GETUPVAL                         R8 2
+       34 GETTABLEKS                       R8 R8 K17 ["resultManager"]
+       36 GETTABLEKS                       R8 R8 K15 ["hoveredObservable"]
+       38 SETTABLEKS                       R8 R7 K15 ["hoveredObservable"]
+       40 GETUPVAL                         R9 4
+       41 GETTABLE                         R8 R9 R1
+       42 SETTABLEKS                       R8 R7 K16 ["textLabelRef"]
+       44 GETUPVAL                         R8 2
+       45 GETTABLEKS                       R8 R8 K17 ["resultManager"]
+       47 SETTABLEKS                       R8 R7 K17 ["resultManager"]
+       49 CALL                             R5 2 -1
+       50 CALL                             R2 -1 1
+       51 RETURN                           R2 1
 
 PROTO_13:
         0 GETUPVAL                         R1 0

@@ -9,10 +9,6 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["TestUtils"]
        13 GETTABLEKS                       R2 R2 K8 ["TestMatch"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K12 [{"displayName", "testMatch", "testTimeout"}]
-       17 LOADK                            R3 K13 ["AssetManager/Src"]
-       18 SETTABLEKS                       R3 R2 K9 ["displayName"]
-       20 SETTABLEKS                       R1 R2 K10 ["testMatch"]
-       22 LOADN                            R3 16
-       23 SETTABLEKS                       R3 R2 K11 ["testTimeout"]
-       25 RETURN                           R2 1
+       16 DUPTABLE                         R2 K14 [{["displayName"] = "AssetManager/Src", ["testMatch"], ["testTimeout"] = 10000}]
+       17 SETTABLEKS                       R1 R2 K11 ["testMatch"]
+       19 RETURN                           R2 1

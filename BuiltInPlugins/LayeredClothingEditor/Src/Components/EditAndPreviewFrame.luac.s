@@ -8,32 +8,28 @@ PROTO_0:
        12 GETUPVAL                         R7 0
        13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
-       16 DUPTABLE                         R9 K13 [{"Title", "PromptText", "NextButtonText", "BackButtonText", "NextButtonEnabled", "BackButtonEnabled", "HasBackButton", "GoToNext", "GoToPrevious"}]
-       17 LOADK                            R12 K14 ["Editor"]
-       18 LOADK                            R13 K15 ["EditAndPreview"]
-       19 NAMECALL                         R10 R6 K16 ["getText"]
+       16 DUPTABLE                         R9 K14 [{["Title"], ["PromptText"], ["NextButtonText"], ["BackButtonText"], ["NextButtonEnabled"], ["BackButtonEnabled"] = True, ["HasBackButton"] = True, ["GoToNext"], ["GoToPrevious"]}]
+       17 LOADK                            R12 K15 ["Editor"]
+       18 LOADK                            R13 K16 ["EditAndPreview"]
+       19 NAMECALL                         R10 R6 K17 ["getText"]
        21 CALL                             R10 3 1
        22 SETTABLEKS                       R10 R9 K7 ["Title"]
        24 SETTABLEKS                       R3 R9 K2 ["PromptText"]
-       26 LOADK                            R12 K17 ["Flow"]
-       27 LOADK                            R13 K18 ["Next"]
-       28 NAMECALL                         R10 R6 K16 ["getText"]
+       26 LOADK                            R12 K18 ["Flow"]
+       27 LOADK                            R13 K19 ["Next"]
+       28 NAMECALL                         R10 R6 K17 ["getText"]
        30 CALL                             R10 3 1
        31 SETTABLEKS                       R10 R9 K8 ["NextButtonText"]
-       33 LOADK                            R12 K17 ["Flow"]
-       34 LOADK                            R13 K19 ["Back"]
-       35 NAMECALL                         R10 R6 K16 ["getText"]
+       33 LOADK                            R12 K18 ["Flow"]
+       34 LOADK                            R13 K20 ["Back"]
+       35 NAMECALL                         R10 R6 K17 ["getText"]
        37 CALL                             R10 3 1
        38 SETTABLEKS                       R10 R9 K9 ["BackButtonText"]
        40 SETTABLEKS                       R2 R9 K10 ["NextButtonEnabled"]
-       42 LOADB                            R10 1
-       43 SETTABLEKS                       R10 R9 K11 ["BackButtonEnabled"]
-       45 LOADB                            R10 1
-       46 SETTABLEKS                       R10 R9 K12 ["HasBackButton"]
-       48 SETTABLEKS                       R4 R9 K3 ["GoToNext"]
-       50 SETTABLEKS                       R5 R9 K4 ["GoToPrevious"]
-       52 CALL                             R7 2 -1
-       53 RETURN                           R7 -1
+       42 SETTABLEKS                       R4 R9 K3 ["GoToNext"]
+       44 SETTABLEKS                       R5 R9 K4 ["GoToPrevious"]
+       46 CALL                             R7 2 -1
+       47 RETURN                           R7 -1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["selectItem"]

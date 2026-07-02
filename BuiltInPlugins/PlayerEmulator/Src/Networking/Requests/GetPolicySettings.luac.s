@@ -154,46 +154,20 @@ MAIN:
        31 GETTABLEKS                       R4 R4 K10 ["Thunks"]
        33 GETTABLEKS                       R4 R4 K11 ["InitPolicySettingStatus"]
        35 CALL                             R3 1 1
-       36 GETIMPORT                        R4 K13 [game]
-       38 LOADK                            R6 K14 ["PlayerEmulatorPolicyServiceEndpointMigrationEnabled2"]
-       39 LOADB                            R7 0
-       40 NAMECALL                         R4 R4 K15 ["DefineFastFlag"]
-       42 CALL                             R4 3 0
-       43 LOADNIL                          R4
-       44 LOADNIL                          R5
-       45 GETIMPORT                        R6 K13 [game]
-       47 LOADK                            R8 K14 ["PlayerEmulatorPolicyServiceEndpointMigrationEnabled2"]
-       48 NAMECALL                         R6 R6 K16 ["GetFastFlag"]
-       50 CALL                             R6 2 1
-       51 JUMPIFNOT                        R6 ; [+13]
-       52 GETTABLEKS                       R6 R2 K17 ["BuildUrl"]
-       54 LOADK                            R7 K18 ["apis"]
-       55 LOADK                            R8 K19 ["player-policy-service/v1/player-policy-all-values"]
-       56 CALL                             R6 2 1
-       57 MOVE                             R4 R6
-       58 GETTABLEKS                       R6 R2 K17 ["BuildUrl"]
-       60 LOADK                            R7 K18 ["apis"]
-       61 LOADK                            R8 K20 ["player-policy-service/v1/player-policy-client"]
-       62 CALL                             R6 2 1
-       63 MOVE                             R5 R6
-       64 JUMP                             ; [+12]
-       65 GETTABLEKS                       R6 R2 K17 ["BuildUrl"]
-       67 LOADK                            R7 K21 ["gameinternationalization"]
-       68 LOADK                            R8 K22 ["v1/player-policies/all-values"]
-       69 CALL                             R6 2 1
-       70 MOVE                             R4 R6
-       71 GETTABLEKS                       R6 R2 K17 ["BuildUrl"]
-       73 LOADK                            R7 K21 ["gameinternationalization"]
-       74 LOADK                            R8 K23 ["v1/player-policies-client"]
-       75 CALL                             R6 2 1
-       76 MOVE                             R5 R6
-       77 NEWCLOSURE                       R6 P0
-       78 CAPTURE                          REF R5
-       79 CAPTURE                          VAL R1
-       80 CAPTURE                          VAL R3
-       81 NEWCLOSURE                       R7 P1
-       82 CAPTURE                          REF R4
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R6
-       85 CLOSEUPVALS                      R4
-       86 RETURN                           R7 1
+       36 GETTABLEKS                       R4 R2 K12 ["BuildUrl"]
+       38 LOADK                            R5 K13 ["apis"]
+       39 LOADK                            R6 K14 ["player-policy-service/v1/player-policy-all-values"]
+       40 CALL                             R4 2 1
+       41 GETTABLEKS                       R5 R2 K12 ["BuildUrl"]
+       43 LOADK                            R6 K13 ["apis"]
+       44 LOADK                            R7 K15 ["player-policy-service/v1/player-policy-client"]
+       45 CALL                             R5 2 1
+       46 DUPCLOSURE                       R6 K16 [PROTO_2]
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R3
+       50 DUPCLOSURE                       R7 K17 [PROTO_6]
+       51 CAPTURE                          VAL R4
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R6
+       54 RETURN                           R7 1

@@ -252,89 +252,75 @@ PROTO_7:
        11 GETUPVAL                         R5 0
        12 GETTABLEKS                       R5 R5 K5 ["createElement"]
        14 GETUPVAL                         R6 1
-       15 DUPTABLE                         R7 K13 [{"Padding", "Buttons", "HorizontalAlignment", "Title", "ButtonClicked", "ShowPressed", "LayoutOrder"}]
-       16 LOADN                            R8 10
-       17 SETTABLEKS                       R8 R7 K6 ["Padding"]
-       19 NEWTABLE                         R8 0 5
-       21 DUPTABLE                         R9 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-       22 LOADK                            R12 K18 ["General"]
-       23 LOADK                            R13 K19 ["PresetDefault"]
-       24 NAMECALL                         R10 R2 K20 ["getText"]
-       26 CALL                             R10 3 1
-       27 SETTABLEKS                       R10 R9 K14 ["Name"]
-       29 SETTABLEKS                       R4 R9 K15 ["Enabled"]
-       31 GETTABLEKS                       R10 R0 K21 ["createDefaultModel"]
-       33 SETTABLEKS                       R10 R9 K16 ["Value"]
-       35 LOADB                            R10 1
-       36 SETTABLEKS                       R10 R9 K11 ["ShowPressed"]
-       38 SETTABLEKS                       R3 R9 K2 ["Mouse"]
-       40 DUPTABLE                         R10 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-       41 LOADK                            R13 K18 ["General"]
-       42 LOADK                            R14 K22 ["PresetClassicScale"]
-       43 NAMECALL                         R11 R2 K20 ["getText"]
-       45 CALL                             R11 3 1
-       46 SETTABLEKS                       R11 R10 K14 ["Name"]
-       48 SETTABLEKS                       R4 R10 K15 ["Enabled"]
-       50 GETTABLEKS                       R11 R0 K23 ["createClassicModel1"]
-       52 SETTABLEKS                       R11 R10 K16 ["Value"]
-       54 LOADB                            R11 1
-       55 SETTABLEKS                       R11 R10 K11 ["ShowPressed"]
-       57 SETTABLEKS                       R3 R10 K2 ["Mouse"]
-       59 DUPTABLE                         R11 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-       60 LOADK                            R14 K18 ["General"]
-       61 LOADK                            R15 K24 ["PresetFullClassic"]
-       62 NAMECALL                         R12 R2 K20 ["getText"]
-       64 CALL                             R12 3 1
-       65 SETTABLEKS                       R12 R11 K14 ["Name"]
-       67 SETTABLEKS                       R4 R11 K15 ["Enabled"]
-       69 GETTABLEKS                       R12 R0 K25 ["createClassicModel2"]
-       71 SETTABLEKS                       R12 R11 K16 ["Value"]
-       73 LOADB                            R12 1
-       74 SETTABLEKS                       R12 R11 K11 ["ShowPressed"]
-       76 SETTABLEKS                       R3 R11 K2 ["Mouse"]
-       78 DUPTABLE                         R12 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-       79 LOADK                            R15 K18 ["General"]
-       80 LOADK                            R16 K26 ["PresetRthro"]
-       81 NAMECALL                         R13 R2 K20 ["getText"]
-       83 CALL                             R13 3 1
-       84 SETTABLEKS                       R13 R12 K14 ["Name"]
-       86 SETTABLEKS                       R4 R12 K15 ["Enabled"]
-       88 GETTABLEKS                       R13 R0 K27 ["createRthroModel"]
-       90 SETTABLEKS                       R13 R12 K16 ["Value"]
-       92 LOADB                            R13 1
-       93 SETTABLEKS                       R13 R12 K11 ["ShowPressed"]
-       95 SETTABLEKS                       R3 R12 K2 ["Mouse"]
-       97 DUPTABLE                         R13 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-       98 LOADK                            R16 K18 ["General"]
-       99 LOADK                            R17 K28 ["PresetPlayerChoice"]
-      100 NAMECALL                         R14 R2 K20 ["getText"]
-      102 CALL                             R14 3 1
-      103 SETTABLEKS                       R14 R13 K14 ["Name"]
-      105 SETTABLEKS                       R4 R13 K15 ["Enabled"]
-      107 GETTABLEKS                       R14 R0 K29 ["createPlayerChoiceModel"]
-      109 SETTABLEKS                       R14 R13 K16 ["Value"]
-      111 LOADB                            R14 1
-      112 SETTABLEKS                       R14 R13 K11 ["ShowPressed"]
-      114 SETTABLEKS                       R3 R13 K2 ["Mouse"]
-      116 SETLIST                          R8 R9 5 [1]
-      118 SETTABLEKS                       R8 R7 K7 ["Buttons"]
-      120 GETIMPORT                        R8 K32 [Enum.HorizontalAlignment.Left]
-      122 SETTABLEKS                       R8 R7 K8 ["HorizontalAlignment"]
-      124 LOADK                            R10 K18 ["General"]
-      125 LOADK                            R11 K33 ["TitlePresets"]
-      126 NAMECALL                         R8 R2 K20 ["getText"]
-      128 CALL                             R8 3 1
-      129 SETTABLEKS                       R8 R7 K9 ["Title"]
-      131 NEWCLOSURE                       R8 P0
-      132 CAPTURE                          VAL R0
-      133 SETTABLEKS                       R8 R7 K10 ["ButtonClicked"]
-      135 LOADB                            R8 1
-      136 SETTABLEKS                       R8 R7 K11 ["ShowPressed"]
-      138 GETTABLEKS                       R8 R0 K0 ["props"]
-      140 GETTABLEKS                       R8 R8 K12 ["LayoutOrder"]
-      142 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
-      144 CALL                             R5 2 -1
-      145 RETURN                           R5 -1
+       15 DUPTABLE                         R7 K15 [{["Padding"] = 10, ["Buttons"], ["HorizontalAlignment"], ["Title"], ["ButtonClicked"], ["ShowPressed"] = True, ["LayoutOrder"]}]
+       16 NEWTABLE                         R8 0 5
+       18 DUPTABLE                         R9 K19 [{["Name"], ["Enabled"], ["Value"], ["ShowPressed"] = True, ["Mouse"]}]
+       19 LOADK                            R12 K20 ["General"]
+       20 LOADK                            R13 K21 ["PresetDefault"]
+       21 NAMECALL                         R10 R2 K22 ["getText"]
+       23 CALL                             R10 3 1
+       24 SETTABLEKS                       R10 R9 K16 ["Name"]
+       26 SETTABLEKS                       R4 R9 K17 ["Enabled"]
+       28 GETTABLEKS                       R10 R0 K23 ["createDefaultModel"]
+       30 SETTABLEKS                       R10 R9 K18 ["Value"]
+       32 SETTABLEKS                       R3 R9 K2 ["Mouse"]
+       34 DUPTABLE                         R10 K19 [{["Name"], ["Enabled"], ["Value"], ["ShowPressed"] = True, ["Mouse"]}]
+       35 LOADK                            R13 K20 ["General"]
+       36 LOADK                            R14 K24 ["PresetClassicScale"]
+       37 NAMECALL                         R11 R2 K22 ["getText"]
+       39 CALL                             R11 3 1
+       40 SETTABLEKS                       R11 R10 K16 ["Name"]
+       42 SETTABLEKS                       R4 R10 K17 ["Enabled"]
+       44 GETTABLEKS                       R11 R0 K25 ["createClassicModel1"]
+       46 SETTABLEKS                       R11 R10 K18 ["Value"]
+       48 SETTABLEKS                       R3 R10 K2 ["Mouse"]
+       50 DUPTABLE                         R11 K19 [{["Name"], ["Enabled"], ["Value"], ["ShowPressed"] = True, ["Mouse"]}]
+       51 LOADK                            R14 K20 ["General"]
+       52 LOADK                            R15 K26 ["PresetFullClassic"]
+       53 NAMECALL                         R12 R2 K22 ["getText"]
+       55 CALL                             R12 3 1
+       56 SETTABLEKS                       R12 R11 K16 ["Name"]
+       58 SETTABLEKS                       R4 R11 K17 ["Enabled"]
+       60 GETTABLEKS                       R12 R0 K27 ["createClassicModel2"]
+       62 SETTABLEKS                       R12 R11 K18 ["Value"]
+       64 SETTABLEKS                       R3 R11 K2 ["Mouse"]
+       66 DUPTABLE                         R12 K19 [{["Name"], ["Enabled"], ["Value"], ["ShowPressed"] = True, ["Mouse"]}]
+       67 LOADK                            R15 K20 ["General"]
+       68 LOADK                            R16 K28 ["PresetRthro"]
+       69 NAMECALL                         R13 R2 K22 ["getText"]
+       71 CALL                             R13 3 1
+       72 SETTABLEKS                       R13 R12 K16 ["Name"]
+       74 SETTABLEKS                       R4 R12 K17 ["Enabled"]
+       76 GETTABLEKS                       R13 R0 K29 ["createRthroModel"]
+       78 SETTABLEKS                       R13 R12 K18 ["Value"]
+       80 SETTABLEKS                       R3 R12 K2 ["Mouse"]
+       82 DUPTABLE                         R13 K19 [{["Name"], ["Enabled"], ["Value"], ["ShowPressed"] = True, ["Mouse"]}]
+       83 LOADK                            R16 K20 ["General"]
+       84 LOADK                            R17 K30 ["PresetPlayerChoice"]
+       85 NAMECALL                         R14 R2 K22 ["getText"]
+       87 CALL                             R14 3 1
+       88 SETTABLEKS                       R14 R13 K16 ["Name"]
+       90 SETTABLEKS                       R4 R13 K17 ["Enabled"]
+       92 GETTABLEKS                       R14 R0 K31 ["createPlayerChoiceModel"]
+       94 SETTABLEKS                       R14 R13 K18 ["Value"]
+       96 SETTABLEKS                       R3 R13 K2 ["Mouse"]
+       98 SETLIST                          R8 R9 5 [1]
+      100 SETTABLEKS                       R8 R7 K8 ["Buttons"]
+      102 GETIMPORT                        R8 K34 [Enum.HorizontalAlignment.Left]
+      104 SETTABLEKS                       R8 R7 K9 ["HorizontalAlignment"]
+      106 LOADK                            R10 K20 ["General"]
+      107 LOADK                            R11 K35 ["TitlePresets"]
+      108 NAMECALL                         R8 R2 K22 ["getText"]
+      110 CALL                             R8 3 1
+      111 SETTABLEKS                       R8 R7 K10 ["Title"]
+      113 NEWCLOSURE                       R8 P0
+      114 CAPTURE                          VAL R0
+      115 SETTABLEKS                       R8 R7 K11 ["ButtonClicked"]
+      117 GETTABLEKS                       R8 R0 K0 ["props"]
+      119 GETTABLEKS                       R8 R8 K14 ["LayoutOrder"]
+      121 SETTABLEKS                       R8 R7 K14 ["LayoutOrder"]
+      123 CALL                             R5 2 -1
+      124 RETURN                           R5 -1
 
 PROTO_8:
         0 DUPTABLE                         R2 K1 [{"boundaries"}]

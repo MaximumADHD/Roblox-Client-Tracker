@@ -1,43 +1,35 @@
 PROTO_0:
         0 NEWTABLE                         R0 0 4
-        2 DUPTABLE                         R1 K2 [{"Name", "Key"}]
+        2 DUPTABLE                         R1 K3 [{[1], ["Key"] = "name"}]
         3 GETUPVAL                         R2 0
-        4 LOADK                            R4 K3 ["AssetMetadataTable"]
-        5 LOADK                            R5 K4 ["ColumnName"]
-        6 NAMECALL                         R2 R2 K5 ["getText"]
+        4 LOADK                            R4 K4 ["AssetMetadataTable"]
+        5 LOADK                            R5 K5 ["ColumnName"]
+        6 NAMECALL                         R2 R2 K6 ["getText"]
         8 CALL                             R2 3 1
         9 SETTABLEKS                       R2 R1 K0 ["Name"]
-       11 LOADK                            R2 K6 ["name"]
-       12 SETTABLEKS                       R2 R1 K1 ["Key"]
-       14 DUPTABLE                         R2 K2 [{"Name", "Key"}]
-       15 GETUPVAL                         R3 0
-       16 LOADK                            R5 K3 ["AssetMetadataTable"]
-       17 LOADK                            R6 K7 ["ColumnOwner"]
-       18 NAMECALL                         R3 R3 K5 ["getText"]
-       20 CALL                             R3 3 1
-       21 SETTABLEKS                       R3 R2 K0 ["Name"]
-       23 LOADK                            R3 K8 ["owner"]
-       24 SETTABLEKS                       R3 R2 K1 ["Key"]
-       26 DUPTABLE                         R3 K2 [{"Name", "Key"}]
-       27 GETUPVAL                         R4 0
-       28 LOADK                            R6 K3 ["AssetMetadataTable"]
-       29 LOADK                            R7 K9 ["ColumnId"]
-       30 NAMECALL                         R4 R4 K5 ["getText"]
-       32 CALL                             R4 3 1
-       33 SETTABLEKS                       R4 R3 K0 ["Name"]
-       35 LOADK                            R4 K10 ["id"]
-       36 SETTABLEKS                       R4 R3 K1 ["Key"]
-       38 DUPTABLE                         R4 K2 [{"Name", "Key"}]
-       39 GETUPVAL                         R5 0
-       40 LOADK                            R7 K3 ["AssetMetadataTable"]
-       41 LOADK                            R8 K11 ["ColumnType"]
-       42 NAMECALL                         R5 R5 K5 ["getText"]
-       44 CALL                             R5 3 1
-       45 SETTABLEKS                       R5 R4 K0 ["Name"]
-       47 LOADK                            R5 K12 ["type"]
-       48 SETTABLEKS                       R5 R4 K1 ["Key"]
-       50 SETLIST                          R0 R1 4 [1]
-       52 RETURN                           R0 1
+       11 DUPTABLE                         R2 K8 [{[1], ["Key"] = "owner"}]
+       12 GETUPVAL                         R3 0
+       13 LOADK                            R5 K4 ["AssetMetadataTable"]
+       14 LOADK                            R6 K9 ["ColumnOwner"]
+       15 NAMECALL                         R3 R3 K6 ["getText"]
+       17 CALL                             R3 3 1
+       18 SETTABLEKS                       R3 R2 K0 ["Name"]
+       20 DUPTABLE                         R3 K11 [{[1], ["Key"] = "id"}]
+       21 GETUPVAL                         R4 0
+       22 LOADK                            R6 K4 ["AssetMetadataTable"]
+       23 LOADK                            R7 K12 ["ColumnId"]
+       24 NAMECALL                         R4 R4 K6 ["getText"]
+       26 CALL                             R4 3 1
+       27 SETTABLEKS                       R4 R3 K0 ["Name"]
+       29 DUPTABLE                         R4 K14 [{[1], ["Key"] = "type"}]
+       30 GETUPVAL                         R5 0
+       31 LOADK                            R7 K4 ["AssetMetadataTable"]
+       32 LOADK                            R8 K15 ["ColumnType"]
+       33 NAMECALL                         R5 R5 K6 ["getText"]
+       35 CALL                             R5 3 1
+       36 SETTABLEKS                       R5 R4 K0 ["Name"]
+       38 SETLIST                          R0 R1 4 [1]
+       40 RETURN                           R0 1
 
 PROTO_1:
         0 NEWTABLE                         R0 0 0
@@ -203,7 +195,7 @@ PROTO_4:
        20 LOADN                            R3 1
        21 LENGTH                           R5 R0
        22 MODK                             R4 R5 K4 [8]
-       23 SUBRK                            R1 R4 K4 [8]
+       23 SUBRK                            R1 K4 [8] R4
        24 LOADN                            R2 1
        25 FORNPREP                         R1
        26 NEWTABLE                         R6 0 0
@@ -250,69 +242,65 @@ PROTO_6:
        35 CALL                             R4 1 2
        36 GETUPVAL                         R6 1
        37 GETTABLEKS                       R6 R6 K4 ["useState"]
-       39 DUPTABLE                         R7 K7 [{"index", "order"}]
-       40 LOADN                            R8 3
-       41 SETTABLEKS                       R8 R7 K5 ["index"]
-       43 GETIMPORT                        R8 K11 [Enum.SortDirection.Descending]
-       45 SETTABLEKS                       R8 R7 K6 ["order"]
-       47 CALL                             R6 1 2
-       48 GETUPVAL                         R8 1
-       49 GETTABLEKS                       R8 R8 K1 ["useMemo"]
-       51 NEWCLOSURE                       R9 P2
-       52 CAPTURE                          VAL R3
-       53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R6
-       55 NEWTABLE                         R10 0 3
-       57 MOVE                             R11 R2
-       58 MOVE                             R12 R3
-       59 MOVE                             R13 R6
-       60 SETLIST                          R10 R11 3 [1]
-       62 CALL                             R8 2 1
-       63 GETUPVAL                         R9 1
-       64 GETTABLEKS                       R9 R9 K1 ["useMemo"]
-       66 NEWCLOSURE                       R10 P3
-       67 CAPTURE                          VAL R8
-       68 CAPTURE                          VAL R4
-       69 NEWTABLE                         R11 0 2
-       71 MOVE                             R12 R8
-       72 MOVE                             R13 R4
-       73 SETLIST                          R11 R12 2 [1]
-       75 CALL                             R9 2 1
-       76 GETUPVAL                         R10 1
-       77 GETTABLEKS                       R10 R10 K12 ["createElement"]
-       79 GETUPVAL                         R11 2
-       80 DUPTABLE                         R12 K24 [{"Rows", "Columns", "PageIndex", "PageCount", "PageSize", "SortIndex", "SortOrder", "OnPageChange", "OnSortChange", "Size", "AutomaticSize"}]
-       81 SETTABLEKS                       R9 R12 K13 ["Rows"]
-       83 SETTABLEKS                       R2 R12 K14 ["Columns"]
-       85 SETTABLEKS                       R4 R12 K15 ["PageIndex"]
-       87 LENGTH                           R17 R3
-       88 ADDK                             R16 R17 K25 [8]
-       89 SUBK                             R15 R16 K26 [1]
-       90 IDIVK                            R14 R15 K25 [8]
-       91 FASTCALL2K                       MATH_MAX R14 K26 ; [+4]
-       93 LOADK                            R15 K26 [1]
-       94 GETIMPORT                        R13 K29 [math.max]
-       96 CALL                             R13 2 1
-       97 SETTABLEKS                       R13 R12 K16 ["PageCount"]
-       99 LOADN                            R13 8
-      100 SETTABLEKS                       R13 R12 K17 ["PageSize"]
-      102 GETTABLEKS                       R13 R6 K5 ["index"]
-      104 SETTABLEKS                       R13 R12 K18 ["SortIndex"]
-      106 GETTABLEKS                       R13 R6 K6 ["order"]
-      108 SETTABLEKS                       R13 R12 K19 ["SortOrder"]
-      110 SETTABLEKS                       R5 R12 K20 ["OnPageChange"]
-      112 NEWCLOSURE                       R13 P4
-      113 CAPTURE                          VAL R7
-      114 SETTABLEKS                       R13 R12 K21 ["OnSortChange"]
-      116 GETIMPORT                        R13 K32 [UDim2.fromScale]
-      118 LOADN                            R14 1
-      119 LOADN                            R15 0
-      120 CALL                             R13 2 1
-      121 SETTABLEKS                       R13 R12 K22 ["Size"]
-      123 GETIMPORT                        R13 K34 [Enum.AutomaticSize.Y]
-      125 SETTABLEKS                       R13 R12 K23 ["AutomaticSize"]
-      127 CALL                             R10 2 -1
-      128 RETURN                           R10 -1
+       39 DUPTABLE                         R7 K8 [{["index"] = 3, ["order"]}]
+       40 GETIMPORT                        R8 K12 [Enum.SortDirection.Descending]
+       42 SETTABLEKS                       R8 R7 K7 ["order"]
+       44 CALL                             R6 1 2
+       45 GETUPVAL                         R8 1
+       46 GETTABLEKS                       R8 R8 K1 ["useMemo"]
+       48 NEWCLOSURE                       R9 P2
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R6
+       52 NEWTABLE                         R10 0 3
+       54 MOVE                             R11 R2
+       55 MOVE                             R12 R3
+       56 MOVE                             R13 R6
+       57 SETLIST                          R10 R11 3 [1]
+       59 CALL                             R8 2 1
+       60 GETUPVAL                         R9 1
+       61 GETTABLEKS                       R9 R9 K1 ["useMemo"]
+       63 NEWCLOSURE                       R10 P3
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R4
+       66 NEWTABLE                         R11 0 2
+       68 MOVE                             R12 R8
+       69 MOVE                             R13 R4
+       70 SETLIST                          R11 R12 2 [1]
+       72 CALL                             R9 2 1
+       73 GETUPVAL                         R10 1
+       74 GETTABLEKS                       R10 R10 K13 ["createElement"]
+       76 GETUPVAL                         R11 2
+       77 DUPTABLE                         R12 K26 [{["Rows"], ["Columns"], ["PageIndex"], ["PageCount"], ["PageSize"] = 8, ["SortIndex"], ["SortOrder"], ["OnPageChange"], ["OnSortChange"], ["Size"], ["AutomaticSize"]}]
+       78 SETTABLEKS                       R9 R12 K14 ["Rows"]
+       80 SETTABLEKS                       R2 R12 K15 ["Columns"]
+       82 SETTABLEKS                       R4 R12 K16 ["PageIndex"]
+       84 LENGTH                           R17 R3
+       85 ADDK                             R16 R17 K19 [8]
+       86 SUBK                             R15 R16 K27 [1]
+       87 IDIVK                            R14 R15 K19 [8]
+       88 FASTCALL2K                       MATH_MAX R14 K27 ; [+4]
+       90 LOADK                            R15 K27 [1]
+       91 GETIMPORT                        R13 K30 [math.max]
+       93 CALL                             R13 2 1
+       94 SETTABLEKS                       R13 R12 K17 ["PageCount"]
+       96 GETTABLEKS                       R13 R6 K5 ["index"]
+       98 SETTABLEKS                       R13 R12 K20 ["SortIndex"]
+      100 GETTABLEKS                       R13 R6 K7 ["order"]
+      102 SETTABLEKS                       R13 R12 K21 ["SortOrder"]
+      104 SETTABLEKS                       R5 R12 K22 ["OnPageChange"]
+      106 NEWCLOSURE                       R13 P4
+      107 CAPTURE                          VAL R7
+      108 SETTABLEKS                       R13 R12 K23 ["OnSortChange"]
+      110 GETIMPORT                        R13 K33 [UDim2.fromScale]
+      112 LOADN                            R14 1
+      113 LOADN                            R15 0
+      114 CALL                             R13 2 1
+      115 SETTABLEKS                       R13 R12 K24 ["Size"]
+      117 GETIMPORT                        R13 K35 [Enum.AutomaticSize.Y]
+      119 SETTABLEKS                       R13 R12 K25 ["AutomaticSize"]
+      121 CALL                             R10 2 -1
+      122 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

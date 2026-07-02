@@ -1,16 +1,14 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K5 [{"characterMetadataLoadedVersion", "characters", "convertedCharacters", "worldModels", "selection"}]
-        1 LOADN                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["characterMetadataLoadedVersion"]
-        4 NEWTABLE                         R1 0 0
-        6 SETTABLEKS                       R1 R0 K1 ["characters"]
-        8 NEWTABLE                         R1 0 0
-       10 SETTABLEKS                       R1 R0 K2 ["convertedCharacters"]
-       12 NEWTABLE                         R1 0 0
-       14 SETTABLEKS                       R1 R0 K3 ["worldModels"]
-       16 NEWTABLE                         R1 0 0
-       18 SETTABLEKS                       R1 R0 K4 ["selection"]
-       20 RETURN                           R0 1
+        0 DUPTABLE                         R0 K6 [{[1] = 0, ["characters"], ["convertedCharacters"], ["worldModels"], ["selection"]}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K2 ["characters"]
+        5 NEWTABLE                         R1 0 0
+        7 SETTABLEKS                       R1 R0 K3 ["convertedCharacters"]
+        9 NEWTABLE                         R1 0 0
+       11 SETTABLEKS                       R1 R0 K4 ["worldModels"]
+       13 NEWTABLE                         R1 0 0
+       15 SETTABLEKS                       R1 R0 K5 ["selection"]
+       17 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

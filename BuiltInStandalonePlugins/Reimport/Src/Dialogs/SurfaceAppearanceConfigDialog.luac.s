@@ -46,102 +46,96 @@ PROTO_4:
         4 GETTABLEKS                       R3 R0 K1 ["configData"]
         6 JUMPIFNOT                        R3 ; [+3]
         7 GETTABLEKS                       R2 R0 K1 ["configData"]
-        9 JUMP                             ; [+10]
-       10 DUPTABLE                         R2 K5 [{"filepath", "preset", "creatorId"}]
-       11 LOADNIL                          R3
-       12 SETTABLEKS                       R3 R2 K2 ["filepath"]
-       14 LOADNIL                          R3
-       15 SETTABLEKS                       R3 R2 K3 ["preset"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K4 ["creatorId"]
-       20 GETUPVAL                         R3 1
-       21 GETTABLEKS                       R3 R3 K6 ["useState"]
-       23 GETTABLEKS                       R4 R2 K2 ["filepath"]
-       25 CALL                             R3 1 2
-       26 GETUPVAL                         R5 1
-       27 GETTABLEKS                       R5 R5 K6 ["useState"]
-       29 GETTABLEKS                       R7 R2 K4 ["creatorId"]
-       31 ORK                              R6 R7 K7 []
-       32 CALL                             R5 1 2
-       33 NEWCLOSURE                       R7 P0
-       34 CAPTURE                          VAL R3
-       35 CAPTURE                          VAL R5
-       36 CAPTURE                          VAL R0
-       37 JUMPIFNOTEQKNIL                  R3 ; [+2]
-       39 LOADB                            R8 0 +1
-       40 LOADB                            R8 1
-       41 GETUPVAL                         R9 2
-       42 GETUPVAL                         R10 3
-       43 DUPTABLE                         R11 K12 [{"canSave", "doSaveConfig", "doReimport", "onClose"}]
-       44 SETTABLEKS                       R8 R11 K8 ["canSave"]
-       46 SETTABLEKS                       R7 R11 K9 ["doSaveConfig"]
-       48 GETTABLEKS                       R12 R0 K10 ["doReimport"]
-       50 SETTABLEKS                       R12 R11 K10 ["doReimport"]
-       52 GETTABLEKS                       R12 R0 K11 ["onClose"]
-       54 SETTABLEKS                       R12 R11 K11 ["onClose"]
-       56 NEWTABLE                         R12 0 1
-       58 GETUPVAL                         R13 2
-       59 GETUPVAL                         R14 4
-       60 NEWTABLE                         R15 0 0
-       62 NEWTABLE                         R16 0 2
-       64 DUPTABLE                         R17 K15 [{"label", "content"}]
-       65 GETUPVAL                         R19 5
-       66 CALL                             R19 0 1
-       67 JUMPIFNOT                        R19 ; [+6]
-       68 LOADK                            R20 K16 ["ConfigDialog"]
-       69 LOADK                            R21 K17 ["FilePath"]
-       70 NAMECALL                         R18 R1 K18 ["getText"]
-       72 CALL                             R18 3 1
-       73 JUMP                             ; [+1]
-       74 LOADK                            R18 K19 ["File Path"]
-       75 SETTABLEKS                       R18 R17 K13 ["label"]
-       77 GETUPVAL                         R18 2
-       78 GETUPVAL                         R19 6
-       79 DUPTABLE                         R20 K22 [{"filepath", "doPickFile", "onFilepathChanged"}]
-       80 SETTABLEKS                       R3 R20 K2 ["filepath"]
-       82 DUPCLOSURE                       R21 K23 [PROTO_1]
-       83 CAPTURE                          UPVAL U7
-       84 SETTABLEKS                       R21 R20 K20 ["doPickFile"]
-       86 NEWCLOSURE                       R21 P2
-       87 CAPTURE                          VAL R4
-       88 SETTABLEKS                       R21 R20 K21 ["onFilepathChanged"]
-       90 CALL                             R18 2 1
-       91 SETTABLEKS                       R18 R17 K14 ["content"]
-       93 GETUPVAL                         R19 8
-       94 CALL                             R19 0 1
-       95 JUMPIFNOT                        R19 ; [+35]
-       96 DUPTABLE                         R18 K15 [{"label", "content"}]
-       97 GETUPVAL                         R20 5
-       98 CALL                             R20 0 1
-       99 JUMPIFNOT                        R20 ; [+6]
-      100 LOADK                            R21 K16 ["ConfigDialog"]
-      101 LOADK                            R22 K24 ["Creator"]
-      102 NAMECALL                         R19 R1 K18 ["getText"]
-      104 CALL                             R19 3 1
-      105 JUMP                             ; [+1]
-      106 LOADK                            R19 K24 ["Creator"]
-      107 SETTABLEKS                       R19 R18 K13 ["label"]
-      109 GETUPVAL                         R19 2
-      110 GETUPVAL                         R20 9
-      111 DUPTABLE                         R21 K28 [{"size", "value", "onItemChanged"}]
-      112 GETUPVAL                         R22 10
-      113 GETTABLEKS                       R22 R22 K29 ["Enums"]
-      115 GETTABLEKS                       R22 R22 K30 ["InputSize"]
-      117 GETTABLEKS                       R22 R22 K31 ["Small"]
-      119 SETTABLEKS                       R22 R21 K25 ["size"]
-      121 SETTABLEKS                       R5 R21 K26 ["value"]
-      123 NEWCLOSURE                       R22 P3
-      124 CAPTURE                          VAL R6
-      125 SETTABLEKS                       R22 R21 K27 ["onItemChanged"]
-      127 CALL                             R19 2 1
-      128 SETTABLEKS                       R19 R18 K14 ["content"]
-      130 JUMP                             ; [+1]
-      131 LOADNIL                          R18
-      132 SETLIST                          R16 R17 2 [1]
-      134 CALL                             R13 3 -1
-      135 SETLIST                          R12 R13 -1 [1]
-      137 CALL                             R9 3 -1
-      138 RETURN                           R9 -1
+        9 JUMP                             ; [+1]
+       10 DUPTABLE                         R2 K6 [{["filepath"] = , ["preset"] = , ["creatorId"] = }]
+       11 GETUPVAL                         R3 1
+       12 GETTABLEKS                       R3 R3 K7 ["useState"]
+       14 GETTABLEKS                       R4 R2 K2 ["filepath"]
+       16 CALL                             R3 1 2
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R5 R5 K7 ["useState"]
+       20 GETTABLEKS                       R7 R2 K5 ["creatorId"]
+       22 ORK                              R6 R7 K3 []
+       23 CALL                             R5 1 2
+       24 NEWCLOSURE                       R7 P0
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R5
+       27 CAPTURE                          VAL R0
+       28 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       30 LOADB                            R8 0 +1
+       31 LOADB                            R8 1
+       32 GETUPVAL                         R9 2
+       33 GETUPVAL                         R10 3
+       34 DUPTABLE                         R11 K12 [{"canSave", "doSaveConfig", "doReimport", "onClose"}]
+       35 SETTABLEKS                       R8 R11 K8 ["canSave"]
+       37 SETTABLEKS                       R7 R11 K9 ["doSaveConfig"]
+       39 GETTABLEKS                       R12 R0 K10 ["doReimport"]
+       41 SETTABLEKS                       R12 R11 K10 ["doReimport"]
+       43 GETTABLEKS                       R12 R0 K11 ["onClose"]
+       45 SETTABLEKS                       R12 R11 K11 ["onClose"]
+       47 NEWTABLE                         R12 0 1
+       49 GETUPVAL                         R13 2
+       50 GETUPVAL                         R14 4
+       51 NEWTABLE                         R15 0 0
+       53 NEWTABLE                         R16 0 2
+       55 DUPTABLE                         R17 K15 [{"label", "content"}]
+       56 GETUPVAL                         R19 5
+       57 CALL                             R19 0 1
+       58 JUMPIFNOT                        R19 ; [+6]
+       59 LOADK                            R20 K16 ["ConfigDialog"]
+       60 LOADK                            R21 K17 ["FilePath"]
+       61 NAMECALL                         R18 R1 K18 ["getText"]
+       63 CALL                             R18 3 1
+       64 JUMP                             ; [+1]
+       65 LOADK                            R18 K19 ["File Path"]
+       66 SETTABLEKS                       R18 R17 K13 ["label"]
+       68 GETUPVAL                         R18 2
+       69 GETUPVAL                         R19 6
+       70 DUPTABLE                         R20 K22 [{"filepath", "doPickFile", "onFilepathChanged"}]
+       71 SETTABLEKS                       R3 R20 K2 ["filepath"]
+       73 DUPCLOSURE                       R21 K23 [PROTO_1]
+       74 CAPTURE                          UPVAL U7
+       75 SETTABLEKS                       R21 R20 K20 ["doPickFile"]
+       77 NEWCLOSURE                       R21 P2
+       78 CAPTURE                          VAL R4
+       79 SETTABLEKS                       R21 R20 K21 ["onFilepathChanged"]
+       81 CALL                             R18 2 1
+       82 SETTABLEKS                       R18 R17 K14 ["content"]
+       84 GETUPVAL                         R19 8
+       85 CALL                             R19 0 1
+       86 JUMPIFNOT                        R19 ; [+35]
+       87 DUPTABLE                         R18 K15 [{"label", "content"}]
+       88 GETUPVAL                         R20 5
+       89 CALL                             R20 0 1
+       90 JUMPIFNOT                        R20 ; [+6]
+       91 LOADK                            R21 K16 ["ConfigDialog"]
+       92 LOADK                            R22 K24 ["Creator"]
+       93 NAMECALL                         R19 R1 K18 ["getText"]
+       95 CALL                             R19 3 1
+       96 JUMP                             ; [+1]
+       97 LOADK                            R19 K24 ["Creator"]
+       98 SETTABLEKS                       R19 R18 K13 ["label"]
+      100 GETUPVAL                         R19 2
+      101 GETUPVAL                         R20 9
+      102 DUPTABLE                         R21 K28 [{"size", "value", "onItemChanged"}]
+      103 GETUPVAL                         R22 10
+      104 GETTABLEKS                       R22 R22 K29 ["Enums"]
+      106 GETTABLEKS                       R22 R22 K30 ["InputSize"]
+      108 GETTABLEKS                       R22 R22 K31 ["Small"]
+      110 SETTABLEKS                       R22 R21 K25 ["size"]
+      112 SETTABLEKS                       R5 R21 K26 ["value"]
+      114 NEWCLOSURE                       R22 P3
+      115 CAPTURE                          VAL R6
+      116 SETTABLEKS                       R22 R21 K27 ["onItemChanged"]
+      118 CALL                             R19 2 1
+      119 SETTABLEKS                       R19 R18 K14 ["content"]
+      121 JUMP                             ; [+1]
+      122 LOADNIL                          R18
+      123 SETLIST                          R16 R17 2 [1]
+      125 CALL                             R13 3 -1
+      126 SETLIST                          R12 R13 -1 [1]
+      128 CALL                             R9 3 -1
+      129 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

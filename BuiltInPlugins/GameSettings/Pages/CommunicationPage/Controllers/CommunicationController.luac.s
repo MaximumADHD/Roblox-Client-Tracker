@@ -99,29 +99,24 @@ PROTO_8:
        14 GETTABLEKS                       R4 R2 K6 ["responseBody"]
        16 GETTABLEKS                       R4 R4 K8 ["isUniverseEnabledForAvatarVideo"]
        18 SETTABLEKS                       R4 R3 K3 ["videoEnabled"]
-       20 GETUPVAL                         R5 0
-       21 CALL                             R5 0 1
-       22 JUMPIFNOT                        R5 ; [+5]
-       23 GETTABLEKS                       R4 R2 K6 ["responseBody"]
-       25 GETTABLEKS                       R4 R4 K9 ["isChatGroupsApiEnabled"]
-       27 JUMP                             ; [+1]
-       28 LOADNIL                          R4
-       29 SETTABLEKS                       R4 R3 K4 ["chatGroupApiEnabled"]
-       31 GETTABLEKS                       R4 R3 K2 ["audioEnabled"]
-       33 JUMPIFNOT                        R4 ; [+17]
-       34 GETIMPORT                        R4 K11 [game]
-       36 LOADK                            R6 K12 ["VoiceChatService"]
-       37 NAMECALL                         R4 R4 K13 ["GetService"]
-       39 CALL                             R4 2 1
-       40 GETIMPORT                        R5 K11 [game]
-       42 LOADK                            R7 K14 ["ServiceVisibilityService"]
-       43 NAMECALL                         R5 R5 K13 ["GetService"]
-       45 CALL                             R5 2 1
-       46 MOVE                             R8 R4
-       47 LOADB                            R9 1
-       48 NAMECALL                         R6 R5 K15 ["SetServiceVisibilityPreference"]
-       50 CALL                             R6 3 0
-       51 RETURN                           R3 1
+       20 GETTABLEKS                       R4 R2 K6 ["responseBody"]
+       22 GETTABLEKS                       R4 R4 K9 ["isChatGroupsApiEnabled"]
+       24 SETTABLEKS                       R4 R3 K4 ["chatGroupApiEnabled"]
+       26 GETTABLEKS                       R4 R3 K2 ["audioEnabled"]
+       28 JUMPIFNOT                        R4 ; [+17]
+       29 GETIMPORT                        R4 K11 [game]
+       31 LOADK                            R6 K12 ["VoiceChatService"]
+       32 NAMECALL                         R4 R4 K13 ["GetService"]
+       34 CALL                             R4 2 1
+       35 GETIMPORT                        R5 K11 [game]
+       37 LOADK                            R7 K14 ["ServiceVisibilityService"]
+       38 NAMECALL                         R5 R5 K13 ["GetService"]
+       40 CALL                             R5 2 1
+       41 MOVE                             R8 R4
+       42 LOADB                            R9 1
+       43 NAMECALL                         R6 R5 K15 ["SetServiceVisibilityPreference"]
+       45 CALL                             R6 3 0
+       46 RETURN                           R3 1
 
 PROTO_9:
         0 NEWTABLE                         R5 0 0
@@ -154,53 +149,38 @@ PROTO_9:
        40 CALL                             R6 3 1
        41 NAMECALL                         R6 R6 K8 ["await"]
        43 CALL                             R6 1 0
-       44 GETUPVAL                         R6 0
-       45 CALL                             R6 0 1
-       46 JUMPIFNOT                        R6 ; [+12]
-       47 JUMPIFEQKNIL                     R4 ; [+11]
-       49 SETTABLEKS                       R4 R5 K0 ["optIn"]
-       51 MOVE                             R8 R1
-       52 MOVE                             R9 R5
-       53 NAMECALL                         R6 R0 K10 ["chatGroupUniverseSettingsPOST"]
-       55 CALL                             R6 3 1
-       56 NAMECALL                         R6 R6 K8 ["await"]
-       58 CALL                             R6 1 0
-       59 RETURN                           R0 0
+       44 JUMPIFEQKNIL                     R4 ; [+11]
+       46 SETTABLEKS                       R4 R5 K0 ["optIn"]
+       48 MOVE                             R8 R1
+       49 MOVE                             R9 R5
+       50 NAMECALL                         R6 R0 K10 ["chatGroupUniverseSettingsPOST"]
+       52 CALL                             R6 3 1
+       53 NAMECALL                         R6 R6 K8 ["await"]
+       55 CALL                             R6 1 0
+       56 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
-        1 GETIMPORT                        R0 K1 [script]
-        3 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        5 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        7 GETTABLEKS                       R0 R0 K2 ["Parent"]
-        9 GETTABLEKS                       R0 R0 K2 ["Parent"]
-       11 GETIMPORT                        R1 K4 [require]
-       13 GETTABLEKS                       R2 R0 K5 ["Src"]
-       15 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       17 GETTABLEKS                       R2 R2 K7 ["getFFlagGameSettingsEnableChatGroupApiSetting"]
-       19 CALL                             R1 1 1
-       20 NEWTABLE                         R2 16 0
-       22 SETTABLEKS                       R2 R2 K8 ["__index"]
-       24 DUPCLOSURE                       R3 K9 [PROTO_0]
-       25 CAPTURE                          VAL R2
-       26 SETTABLEKS                       R3 R2 K10 ["new"]
-       28 DUPCLOSURE                       R3 K11 [PROTO_1]
-       29 SETTABLEKS                       R3 R2 K12 ["voiceUniverseSettingsPOST"]
-       31 DUPCLOSURE                       R3 K13 [PROTO_2]
-       32 SETTABLEKS                       R3 R2 K14 ["avatarVideoUniverseSettingsPOST"]
-       34 DUPCLOSURE                       R3 K15 [PROTO_3]
-       35 SETTABLEKS                       R3 R2 K16 ["chatGroupUniverseSettingsPOST"]
-       37 DUPCLOSURE                       R3 K17 [PROTO_4]
-       38 SETTABLEKS                       R3 R2 K18 ["voiceUniverseSettingsGET"]
-       40 DUPCLOSURE                       R3 K19 [PROTO_5]
-       41 SETTABLEKS                       R3 R2 K20 ["voiceUserSettingsGET"]
-       43 DUPCLOSURE                       R3 K21 [PROTO_6]
-       44 SETTABLEKS                       R3 R2 K22 ["getAvatarChatEnabled"]
-       46 DUPCLOSURE                       R3 K23 [PROTO_7]
-       47 DUPCLOSURE                       R4 K24 [PROTO_8]
-       48 CAPTURE                          VAL R1
-       49 SETTABLEKS                       R4 R2 K25 ["getAvatarChatSettings"]
-       51 DUPCLOSURE                       R4 K26 [PROTO_9]
-       52 CAPTURE                          VAL R1
-       53 SETTABLEKS                       R4 R2 K27 ["setAvatarChatSettings"]
-       55 RETURN                           R2 1
+        1 NEWTABLE                         R0 16 0
+        3 SETTABLEKS                       R0 R0 K0 ["__index"]
+        5 DUPCLOSURE                       R1 K1 [PROTO_0]
+        6 CAPTURE                          VAL R0
+        7 SETTABLEKS                       R1 R0 K2 ["new"]
+        9 DUPCLOSURE                       R1 K3 [PROTO_1]
+       10 SETTABLEKS                       R1 R0 K4 ["voiceUniverseSettingsPOST"]
+       12 DUPCLOSURE                       R1 K5 [PROTO_2]
+       13 SETTABLEKS                       R1 R0 K6 ["avatarVideoUniverseSettingsPOST"]
+       15 DUPCLOSURE                       R1 K7 [PROTO_3]
+       16 SETTABLEKS                       R1 R0 K8 ["chatGroupUniverseSettingsPOST"]
+       18 DUPCLOSURE                       R1 K9 [PROTO_4]
+       19 SETTABLEKS                       R1 R0 K10 ["voiceUniverseSettingsGET"]
+       21 DUPCLOSURE                       R1 K11 [PROTO_5]
+       22 SETTABLEKS                       R1 R0 K12 ["voiceUserSettingsGET"]
+       24 DUPCLOSURE                       R1 K13 [PROTO_6]
+       25 SETTABLEKS                       R1 R0 K14 ["getAvatarChatEnabled"]
+       27 DUPCLOSURE                       R1 K15 [PROTO_7]
+       28 DUPCLOSURE                       R2 K16 [PROTO_8]
+       29 SETTABLEKS                       R2 R0 K17 ["getAvatarChatSettings"]
+       31 DUPCLOSURE                       R2 K18 [PROTO_9]
+       32 SETTABLEKS                       R2 R0 K19 ["setAvatarChatSettings"]
+       34 RETURN                           R0 1

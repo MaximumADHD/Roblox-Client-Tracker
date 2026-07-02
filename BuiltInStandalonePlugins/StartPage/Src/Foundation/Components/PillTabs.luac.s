@@ -57,24 +57,22 @@ PROTO_2:
        13 GETUPVAL                         R4 2
        14 GETTABLEKS                       R4 R4 K4 ["createElement"]
        16 GETUPVAL                         R5 3
-       17 DUPTABLE                         R6 K7 [{"LayoutOrder", "tag"}]
+       17 DUPTABLE                         R6 K8 [{["LayoutOrder"], ["tag"] = "row gap-medium auto-xy"}]
        18 GETTABLEKS                       R7 R0 K5 ["LayoutOrder"]
        20 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
-       22 LOADK                            R7 K8 ["auto-xy row gap-medium"]
-       23 SETTABLEKS                       R7 R6 K6 ["tag"]
-       25 GETUPVAL                         R7 4
-       26 GETTABLEKS                       R7 R7 K9 ["map"]
-       28 GETTABLEKS                       R8 R0 K1 ["tabs"]
-       30 NEWCLOSURE                       R9 P0
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          UPVAL U2
-       33 CAPTURE                          UPVAL U5
-       34 CAPTURE                          VAL R2
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R3
-       37 CALL                             R7 2 -1
-       38 CALL                             R4 -1 -1
-       39 RETURN                           R4 -1
+       22 GETUPVAL                         R7 4
+       23 GETTABLEKS                       R7 R7 K9 ["map"]
+       25 GETTABLEKS                       R8 R0 K1 ["tabs"]
+       27 NEWCLOSURE                       R9 P0
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          UPVAL U5
+       31 CAPTURE                          VAL R2
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          VAL R3
+       34 CALL                             R7 2 -1
+       35 CALL                             R4 -1 -1
+       36 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

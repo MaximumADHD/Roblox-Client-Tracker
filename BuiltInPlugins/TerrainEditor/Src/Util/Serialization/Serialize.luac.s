@@ -14,12 +14,12 @@ PROTO_0:
        14 MOVE                             R13 R11
        15 GETIMPORT                        R12 K1 [typeof]
        17 CALL                             R12 1 1
-       18 JUMPIFNOTEQKS                    R12 K2 ["CFrame"] ; [+64]
+       18 JUMPIFNOTEQKS                    R12 K2 ["CFrame"] ; [+61]
        20 GETTABLEKS                       R12 R11 K3 ["Position"]
        22 GETTABLEKS                       R13 R11 K4 ["XVector"]
        24 GETTABLEKS                       R14 R11 K5 ["YVector"]
        26 GETTABLEKS                       R15 R11 K6 ["ZVector"]
-       28 DUPTABLE                         R16 K20 [{"x", "y", "z", "r00", "r10", "r20", "r01", "r11", "r21", "r02", "r12", "r22", "serializedType"}]
+       28 DUPTABLE                         R16 K20 [{["x"], ["y"], ["z"], ["r00"], ["r10"], ["r20"], ["r01"], ["r11"], ["r21"], ["r02"], ["r12"], ["r22"], ["serializedType"] = "CFrame"}]
        29 GETTABLEKS                       R17 R12 K21 ["X"]
        31 SETTABLEKS                       R17 R16 K7 ["x"]
        33 GETTABLEKS                       R17 R12 K22 ["Y"]
@@ -44,49 +44,45 @@ PROTO_0:
        71 SETTABLEKS                       R17 R16 K17 ["r12"]
        73 GETTABLEKS                       R17 R15 K23 ["Z"]
        75 SETTABLEKS                       R17 R16 K18 ["r22"]
-       77 LOADK                            R17 K2 ["CFrame"]
-       78 SETTABLEKS                       R17 R16 K19 ["serializedType"]
-       80 GETTABLE                         R17 R1 R5
-       81 SETTABLE                         R16 R17 R10
-       82 JUMP                             ; [+51]
-       83 FASTCALL1                        TYPEOF R11 ; [+3]
-       84 MOVE                             R13 R11
-       85 GETIMPORT                        R12 K1 [typeof]
-       87 CALL                             R12 1 1
-       88 JUMPIFNOTEQKS                    R12 K24 ["Vector3"] ; [+20]
-       90 DUPTABLE                         R12 K25 [{"x", "y", "z", "serializedType"}]
-       91 GETTABLEKS                       R13 R11 K21 ["X"]
-       93 SETTABLEKS                       R13 R12 K7 ["x"]
-       95 GETTABLEKS                       R13 R11 K22 ["Y"]
-       97 SETTABLEKS                       R13 R12 K8 ["y"]
-       99 GETTABLEKS                       R13 R11 K23 ["Z"]
-      101 SETTABLEKS                       R13 R12 K9 ["z"]
-      103 LOADK                            R13 K24 ["Vector3"]
-      104 SETTABLEKS                       R13 R12 K19 ["serializedType"]
-      106 GETTABLE                         R13 R1 R5
-      107 SETTABLE                         R12 R13 R10
-      108 JUMP                             ; [+25]
-      109 FASTCALL1                        TYPEOF R11 ; [+3]
-      110 MOVE                             R13 R11
-      111 GETIMPORT                        R12 K1 [typeof]
-      113 CALL                             R12 1 1
-      114 JUMPIFNOTEQKS                    R12 K26 ["EnumItem"] ; [+17]
-      116 DUPTABLE                         R12 K28 [{"name", "serializedType"}]
-      117 GETTABLEKS                       R13 R11 K29 ["Name"]
-      119 SETTABLEKS                       R13 R12 K27 ["name"]
-      121 GETTABLEKS                       R14 R11 K30 ["EnumType"]
-      123 FASTCALL1                        TOSTRING R14 ; [+2]
-      124 GETIMPORT                        R13 K32 [tostring]
-      126 CALL                             R13 1 1
-      127 SETTABLEKS                       R13 R12 K19 ["serializedType"]
-      129 GETTABLE                         R13 R1 R5
-      130 SETTABLE                         R12 R13 R10
-      131 JUMP                             ; [+2]
-      132 GETTABLE                         R12 R1 R5
-      133 SETTABLE                         R11 R12 R10
-      134 FORGLOOP                         R7 2 ; [-122]
-      136 FORGLOOP                         R2 2 ; [-131]
-      138 RETURN                           R1 1
+       77 GETTABLE                         R17 R1 R5
+       78 SETTABLE                         R16 R17 R10
+       79 JUMP                             ; [+48]
+       80 FASTCALL1                        TYPEOF R11 ; [+3]
+       81 MOVE                             R13 R11
+       82 GETIMPORT                        R12 K1 [typeof]
+       84 CALL                             R12 1 1
+       85 JUMPIFNOTEQKS                    R12 K24 ["Vector3"] ; [+17]
+       87 DUPTABLE                         R12 K25 [{["x"], ["y"], ["z"], ["serializedType"] = "Vector3"}]
+       88 GETTABLEKS                       R13 R11 K21 ["X"]
+       90 SETTABLEKS                       R13 R12 K7 ["x"]
+       92 GETTABLEKS                       R13 R11 K22 ["Y"]
+       94 SETTABLEKS                       R13 R12 K8 ["y"]
+       96 GETTABLEKS                       R13 R11 K23 ["Z"]
+       98 SETTABLEKS                       R13 R12 K9 ["z"]
+      100 GETTABLE                         R13 R1 R5
+      101 SETTABLE                         R12 R13 R10
+      102 JUMP                             ; [+25]
+      103 FASTCALL1                        TYPEOF R11 ; [+3]
+      104 MOVE                             R13 R11
+      105 GETIMPORT                        R12 K1 [typeof]
+      107 CALL                             R12 1 1
+      108 JUMPIFNOTEQKS                    R12 K26 ["EnumItem"] ; [+17]
+      110 DUPTABLE                         R12 K28 [{"name", "serializedType"}]
+      111 GETTABLEKS                       R13 R11 K29 ["Name"]
+      113 SETTABLEKS                       R13 R12 K27 ["name"]
+      115 GETTABLEKS                       R14 R11 K30 ["EnumType"]
+      117 FASTCALL1                        TOSTRING R14 ; [+2]
+      118 GETIMPORT                        R13 K32 [tostring]
+      120 CALL                             R13 1 1
+      121 SETTABLEKS                       R13 R12 K19 ["serializedType"]
+      123 GETTABLE                         R13 R1 R5
+      124 SETTABLE                         R12 R13 R10
+      125 JUMP                             ; [+2]
+      126 GETTABLE                         R12 R1 R5
+      127 SETTABLE                         R11 R12 R10
+      128 FORGLOOP                         R7 2 ; [-116]
+      130 FORGLOOP                         R2 2 ; [-125]
+      132 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

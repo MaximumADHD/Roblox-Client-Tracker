@@ -34,20 +34,18 @@ PROTO_0:
        45 MOVE                             R5 R0
        46 NAMECALL                         R3 R2 K14 ["AutoRig"]
        48 CALL                             R3 2 0
-       49 DUPTABLE                         R4 K20 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
+       49 DUPTABLE                         R4 K21 [{["_model"], ["_ikControls"], ["_attachments"], ["_selectedPart"] = , ["_hrd"]}]
        50 SETTABLEKS                       R0 R4 K15 ["_model"]
        52 NEWTABLE                         R5 0 0
        54 SETTABLEKS                       R5 R4 K16 ["_ikControls"]
        56 NEWTABLE                         R5 0 0
        58 SETTABLEKS                       R5 R4 K17 ["_attachments"]
-       60 LOADNIL                          R5
-       61 SETTABLEKS                       R5 R4 K18 ["_selectedPart"]
-       63 SETTABLEKS                       R2 R4 K19 ["_hrd"]
-       65 GETUPVAL                         R5 2
-       66 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       68 GETIMPORT                        R3 K22 [setmetatable]
-       70 CALL                             R3 2 1
-       71 RETURN                           R3 1
+       60 SETTABLEKS                       R2 R4 K20 ["_hrd"]
+       62 GETUPVAL                         R5 2
+       63 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       65 GETIMPORT                        R3 K23 [setmetatable]
+       67 CALL                             R3 2 1
+       68 RETURN                           R3 1
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [pairs]
@@ -457,129 +455,99 @@ MAIN:
        40 LOADK                            R7 K14 ["RunService"]
        41 NAMECALL                         R5 R5 K15 ["GetService"]
        43 CALL                             R5 2 1
-       44 DUPTABLE                         R6 K31 [{"Head", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm", "LeftFoot", "RightFoot", "LeftLowerLeg", "RightLowerLeg", "LeftUpperLeg", "RightUpperLeg", "UpperTorso", "LowerTorso"}]
-       45 LOADK                            R7 K16 ["Head"]
-       46 SETTABLEKS                       R7 R6 K16 ["Head"]
-       48 LOADK                            R7 K21 ["LeftUpperArm"]
-       49 SETTABLEKS                       R7 R6 K17 ["LeftHand"]
-       51 LOADK                            R7 K22 ["RightUpperArm"]
-       52 SETTABLEKS                       R7 R6 K18 ["RightHand"]
-       54 LOADK                            R7 K21 ["LeftUpperArm"]
-       55 SETTABLEKS                       R7 R6 K19 ["LeftLowerArm"]
-       57 LOADK                            R7 K22 ["RightUpperArm"]
-       58 SETTABLEKS                       R7 R6 K20 ["RightLowerArm"]
-       60 LOADK                            R7 K29 ["UpperTorso"]
-       61 SETTABLEKS                       R7 R6 K21 ["LeftUpperArm"]
-       63 LOADK                            R7 K29 ["UpperTorso"]
-       64 SETTABLEKS                       R7 R6 K22 ["RightUpperArm"]
-       66 LOADK                            R7 K27 ["LeftUpperLeg"]
-       67 SETTABLEKS                       R7 R6 K23 ["LeftFoot"]
-       69 LOADK                            R7 K28 ["RightUpperLeg"]
-       70 SETTABLEKS                       R7 R6 K24 ["RightFoot"]
-       72 LOADK                            R7 K27 ["LeftUpperLeg"]
-       73 SETTABLEKS                       R7 R6 K25 ["LeftLowerLeg"]
-       75 LOADK                            R7 K28 ["RightUpperLeg"]
-       76 SETTABLEKS                       R7 R6 K26 ["RightLowerLeg"]
-       78 LOADK                            R7 K27 ["LeftUpperLeg"]
-       79 SETTABLEKS                       R7 R6 K27 ["LeftUpperLeg"]
-       81 LOADK                            R7 K28 ["RightUpperLeg"]
-       82 SETTABLEKS                       R7 R6 K28 ["RightUpperLeg"]
-       84 LOADK                            R7 K29 ["UpperTorso"]
-       85 SETTABLEKS                       R7 R6 K29 ["UpperTorso"]
-       87 LOADK                            R7 K30 ["LowerTorso"]
-       88 SETTABLEKS                       R7 R6 K30 ["LowerTorso"]
-       90 DUPTABLE                         R7 K47 [{"Root", "Waist", "Neck", "LeftWrist", "LeftAnkle", "RightWrist", "RightAnkle", "RightShoulder", "RightElbow", "LeftShoulder", "LeftElbow", "LeftKnee", "LeftHip", "RightKnee", "RightHip"}]
-       91 GETIMPORT                        R8 K50 [CFrame.identity]
-       93 SETTABLEKS                       R8 R7 K32 ["Root"]
-       95 GETIMPORT                        R8 K50 [CFrame.identity]
-       97 SETTABLEKS                       R8 R7 K33 ["Waist"]
-       99 GETIMPORT                        R8 K50 [CFrame.identity]
-      101 SETTABLEKS                       R8 R7 K34 ["Neck"]
-      103 GETIMPORT                        R8 K50 [CFrame.identity]
-      105 SETTABLEKS                       R8 R7 K35 ["LeftWrist"]
-      107 GETIMPORT                        R8 K50 [CFrame.identity]
-      109 SETTABLEKS                       R8 R7 K36 ["LeftAnkle"]
-      111 GETIMPORT                        R8 K50 [CFrame.identity]
-      113 SETTABLEKS                       R8 R7 K37 ["RightWrist"]
-      115 GETIMPORT                        R8 K50 [CFrame.identity]
-      117 SETTABLEKS                       R8 R7 K38 ["RightAnkle"]
-      119 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      121 LOADK                            R9 K53 [0.408]
-      122 LOADK                            R10 K54 [0.326]
-      123 LOADK                            R11 K55 [0.48]
-      124 CALL                             R8 3 1
-      125 SETTABLEKS                       R8 R7 K39 ["RightShoulder"]
-      127 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      129 LOADK                            R9 K56 [1.165]
-      130 LOADK                            R10 K57 [-0.111]
-      131 LOADK                            R11 K58 [-0.342]
-      132 CALL                             R8 3 1
-      133 SETTABLEKS                       R8 R7 K40 ["RightElbow"]
-      135 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      137 LOADK                            R9 K53 [0.408]
-      138 LOADK                            R10 K59 [-0.326]
-      139 LOADK                            R11 K60 [-0.48]
-      140 CALL                             R8 3 1
-      141 SETTABLEKS                       R8 R7 K41 ["LeftShoulder"]
-      143 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      145 LOADK                            R9 K56 [1.165]
-      146 LOADK                            R10 K61 [0.111]
-      147 LOADK                            R11 K62 [0.342]
-      148 CALL                             R8 3 1
-      149 SETTABLEKS                       R8 R7 K42 ["LeftElbow"]
-      151 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      153 LOADK                            R9 K63 [-1.398]
-      154 LOADK                            R10 K64 [-0.098]
-      155 LOADK                            R11 K65 [0.119]
-      156 CALL                             R8 3 1
-      157 SETTABLEKS                       R8 R7 K43 ["LeftKnee"]
-      159 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      161 LOADK                            R9 K66 [0.561]
-      162 LOADK                            R10 K67 [-0.018]
-      163 LOADK                            R11 K68 [0.031]
-      164 CALL                             R8 3 1
-      165 SETTABLEKS                       R8 R7 K44 ["LeftHip"]
-      167 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      169 LOADK                            R9 K69 [-1.399]
-      170 LOADK                            R10 K70 [0.055]
-      171 LOADK                            R11 K71 [-0.066]
-      172 CALL                             R8 3 1
-      173 SETTABLEKS                       R8 R7 K45 ["RightKnee"]
-      175 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
-      177 LOADK                            R9 K66 [0.561]
-      178 LOADK                            R10 K72 [0.018]
-      179 LOADK                            R11 K73 [-0.031]
-      180 CALL                             R8 3 1
-      181 SETTABLEKS                       R8 R7 K46 ["RightHip"]
-      183 DUPCLOSURE                       R8 K74 [PROTO_0]
-      184 CAPTURE                          VAL R2
-      185 CAPTURE                          VAL R3
-      186 CAPTURE                          VAL R0
-      187 SETTABLEKS                       R8 R0 K75 ["new"]
-      189 DUPCLOSURE                       R8 K76 [PROTO_1]
-      190 SETTABLEKS                       R8 R0 K77 ["cleanUp"]
-      192 DUPCLOSURE                       R8 K78 [PROTO_2]
-      193 CAPTURE                          VAL R7
-      194 DUPCLOSURE                       R9 K79 [PROTO_3]
-      195 SETTABLEKS                       R9 R0 K80 ["getOrCreateIKControl"]
-      197 DUPCLOSURE                       R9 K81 [PROTO_4]
-      198 DUPCLOSURE                       R10 K82 [PROTO_5]
-      199 CAPTURE                          VAL R2
-      200 SETTABLEKS                       R10 R0 K83 ["getJoint"]
-      202 DUPCLOSURE                       R10 K84 [PROTO_6]
-      203 CAPTURE                          VAL R6
-      204 SETTABLEKS                       R10 R0 K85 ["setupIKControl"]
-      206 DUPCLOSURE                       R10 K86 [PROTO_7]
-      207 CAPTURE                          VAL R8
-      208 CAPTURE                          VAL R5
-      209 CAPTURE                          VAL R4
-      210 SETTABLEKS                       R10 R0 K87 ["solve"]
-      212 DUPCLOSURE                       R10 K88 [PROTO_8]
-      213 DUPCLOSURE                       R11 K89 [PROTO_9]
-      214 CAPTURE                          VAL R10
-      215 SETTABLEKS                       R11 R0 K90 ["getTransforms"]
-      217 DUPCLOSURE                       R11 K91 [PROTO_10]
-      218 SETTABLEKS                       R11 R0 K92 ["getSelectedPart"]
-      220 DUPCLOSURE                       R11 K93 [PROTO_11]
-      221 SETTABLEKS                       R11 R0 K94 ["getModel"]
-      223 RETURN                           R0 1
+       44 DUPTABLE                         R6 K31 [{["Head"] = "Head", ["LeftHand"] = "LeftUpperArm", ["RightHand"] = "RightUpperArm", ["LeftLowerArm"] = "LeftUpperArm", ["RightLowerArm"] = "RightUpperArm", ["LeftUpperArm"] = "UpperTorso", ["RightUpperArm"] = "UpperTorso", ["LeftFoot"] = "LeftUpperLeg", ["RightFoot"] = "RightUpperLeg", ["LeftLowerLeg"] = "LeftUpperLeg", ["RightLowerLeg"] = "RightUpperLeg", ["LeftUpperLeg"] = "LeftUpperLeg", ["RightUpperLeg"] = "RightUpperLeg", ["UpperTorso"] = "UpperTorso", ["LowerTorso"] = "LowerTorso"}]
+       45 DUPTABLE                         R7 K47 [{"Root", "Waist", "Neck", "LeftWrist", "LeftAnkle", "RightWrist", "RightAnkle", "RightShoulder", "RightElbow", "LeftShoulder", "LeftElbow", "LeftKnee", "LeftHip", "RightKnee", "RightHip"}]
+       46 GETIMPORT                        R8 K50 [CFrame.identity]
+       48 SETTABLEKS                       R8 R7 K32 ["Root"]
+       50 GETIMPORT                        R8 K50 [CFrame.identity]
+       52 SETTABLEKS                       R8 R7 K33 ["Waist"]
+       54 GETIMPORT                        R8 K50 [CFrame.identity]
+       56 SETTABLEKS                       R8 R7 K34 ["Neck"]
+       58 GETIMPORT                        R8 K50 [CFrame.identity]
+       60 SETTABLEKS                       R8 R7 K35 ["LeftWrist"]
+       62 GETIMPORT                        R8 K50 [CFrame.identity]
+       64 SETTABLEKS                       R8 R7 K36 ["LeftAnkle"]
+       66 GETIMPORT                        R8 K50 [CFrame.identity]
+       68 SETTABLEKS                       R8 R7 K37 ["RightWrist"]
+       70 GETIMPORT                        R8 K50 [CFrame.identity]
+       72 SETTABLEKS                       R8 R7 K38 ["RightAnkle"]
+       74 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+       76 LOADK                            R9 K53 [0.408]
+       77 LOADK                            R10 K54 [0.326]
+       78 LOADK                            R11 K55 [0.48]
+       79 CALL                             R8 3 1
+       80 SETTABLEKS                       R8 R7 K39 ["RightShoulder"]
+       82 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+       84 LOADK                            R9 K56 [1.165]
+       85 LOADK                            R10 K57 [-0.111]
+       86 LOADK                            R11 K58 [-0.342]
+       87 CALL                             R8 3 1
+       88 SETTABLEKS                       R8 R7 K40 ["RightElbow"]
+       90 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+       92 LOADK                            R9 K53 [0.408]
+       93 LOADK                            R10 K59 [-0.326]
+       94 LOADK                            R11 K60 [-0.48]
+       95 CALL                             R8 3 1
+       96 SETTABLEKS                       R8 R7 K41 ["LeftShoulder"]
+       98 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      100 LOADK                            R9 K56 [1.165]
+      101 LOADK                            R10 K61 [0.111]
+      102 LOADK                            R11 K62 [0.342]
+      103 CALL                             R8 3 1
+      104 SETTABLEKS                       R8 R7 K42 ["LeftElbow"]
+      106 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      108 LOADK                            R9 K63 [-1.398]
+      109 LOADK                            R10 K64 [-0.098]
+      110 LOADK                            R11 K65 [0.119]
+      111 CALL                             R8 3 1
+      112 SETTABLEKS                       R8 R7 K43 ["LeftKnee"]
+      114 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      116 LOADK                            R9 K66 [0.561]
+      117 LOADK                            R10 K67 [-0.018]
+      118 LOADK                            R11 K68 [0.031]
+      119 CALL                             R8 3 1
+      120 SETTABLEKS                       R8 R7 K44 ["LeftHip"]
+      122 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      124 LOADK                            R9 K69 [-1.399]
+      125 LOADK                            R10 K70 [0.055]
+      126 LOADK                            R11 K71 [-0.066]
+      127 CALL                             R8 3 1
+      128 SETTABLEKS                       R8 R7 K45 ["RightKnee"]
+      130 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      132 LOADK                            R9 K66 [0.561]
+      133 LOADK                            R10 K72 [0.018]
+      134 LOADK                            R11 K73 [-0.031]
+      135 CALL                             R8 3 1
+      136 SETTABLEKS                       R8 R7 K46 ["RightHip"]
+      138 DUPCLOSURE                       R8 K74 [PROTO_0]
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R3
+      141 CAPTURE                          VAL R0
+      142 SETTABLEKS                       R8 R0 K75 ["new"]
+      144 DUPCLOSURE                       R8 K76 [PROTO_1]
+      145 SETTABLEKS                       R8 R0 K77 ["cleanUp"]
+      147 DUPCLOSURE                       R8 K78 [PROTO_2]
+      148 CAPTURE                          VAL R7
+      149 DUPCLOSURE                       R9 K79 [PROTO_3]
+      150 SETTABLEKS                       R9 R0 K80 ["getOrCreateIKControl"]
+      152 DUPCLOSURE                       R9 K81 [PROTO_4]
+      153 DUPCLOSURE                       R10 K82 [PROTO_5]
+      154 CAPTURE                          VAL R2
+      155 SETTABLEKS                       R10 R0 K83 ["getJoint"]
+      157 DUPCLOSURE                       R10 K84 [PROTO_6]
+      158 CAPTURE                          VAL R6
+      159 SETTABLEKS                       R10 R0 K85 ["setupIKControl"]
+      161 DUPCLOSURE                       R10 K86 [PROTO_7]
+      162 CAPTURE                          VAL R8
+      163 CAPTURE                          VAL R5
+      164 CAPTURE                          VAL R4
+      165 SETTABLEKS                       R10 R0 K87 ["solve"]
+      167 DUPCLOSURE                       R10 K88 [PROTO_8]
+      168 DUPCLOSURE                       R11 K89 [PROTO_9]
+      169 CAPTURE                          VAL R10
+      170 SETTABLEKS                       R11 R0 K90 ["getTransforms"]
+      172 DUPCLOSURE                       R11 K91 [PROTO_10]
+      173 SETTABLEKS                       R11 R0 K92 ["getSelectedPart"]
+      175 DUPCLOSURE                       R11 K93 [PROTO_11]
+      176 SETTABLEKS                       R11 R0 K94 ["getModel"]
+      178 RETURN                           R0 1

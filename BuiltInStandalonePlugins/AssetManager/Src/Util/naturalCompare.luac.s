@@ -110,13 +110,13 @@ PROTO_1:
       117 LENGTH                           R15 R13
       118 JUMPIFEQ                         R14 R15 ; [+7]
       120 JUMPIFNOTLT                      R14 R15 ; [+3]
-      122 LOADN                            R16 255
+      122 LOADN                            R16 -1
       123 RETURN                           R16 1
       124 LOADN                            R16 1
       125 RETURN                           R16 1
       126 JUMPIFEQ                         R12 R13 ; [+82]
       128 JUMPIFNOTLT                      R12 R13 ; [+3]
-      130 LOADN                            R16 255
+      130 LOADN                            R16 -1
       131 RETURN                           R16 1
       132 LOADN                            R16 1
       133 RETURN                           R16 1
@@ -153,7 +153,7 @@ PROTO_1:
       174 MOVE                             R11 R12
       175 JUMPIFEQ                         R10 R11 ; [+7]
       177 JUMPIFNOTLT                      R10 R11 ; [+3]
-      179 LOADN                            R12 255
+      179 LOADN                            R12 -1
       180 RETURN                           R12 1
       181 LOADN                            R12 1
       182 RETURN                           R12 1
@@ -186,7 +186,7 @@ PROTO_1:
       212 LOADN                            R6 0
       213 RETURN                           R6 1
       214 JUMPIFNOTLT                      R2 R3 ; [+3]
-      216 LOADN                            R6 255
+      216 LOADN                            R6 -1
       217 RETURN                           R6 1
       218 LOADN                            R6 1
       219 RETURN                           R6 1

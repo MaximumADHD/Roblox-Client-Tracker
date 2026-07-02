@@ -9,59 +9,49 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+8]
-        3 DUPTABLE                         R0 K2 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
-        4 LOADB                            R1 1
-        5 SETTABLEKS                       R1 R0 K0 ["canCreateAvatarLook"]
-        7 LOADB                            R1 1
-        8 SETTABLEKS                       R1 R0 K1 ["canCreateMakeupLook"]
-       10 RETURN                           R0 1
-       11 GETUPVAL                         R0 1
-       12 GETTABLEKS                       R0 R0 K3 ["getFeatureAccessUrl"]
-       14 CALL                             R0 0 1
-       15 DUPTABLE                         R1 K7 [{"Url", "Method", "Headers"}]
-       16 SETTABLEKS                       R0 R1 K4 ["Url"]
-       18 LOADK                            R2 K8 ["GET"]
-       19 SETTABLEKS                       R2 R1 K5 ["Method"]
-       21 NEWTABLE                         R2 1 0
-       23 LOADK                            R3 K9 ["application/json"]
-       24 SETTABLEKS                       R3 R2 K10 ["Content-Type"]
-       26 SETTABLEKS                       R2 R1 K6 ["Headers"]
-       28 GETUPVAL                         R2 2
-       29 GETTABLEKS                       R2 R2 K11 ["requestInternal"]
-       31 MOVE                             R3 R1
-       32 CALL                             R2 1 1
-       33 NAMECALL                         R3 R2 K12 ["await"]
-       35 CALL                             R3 1 2
-       36 GETIMPORT                        R5 K14 [pcall]
-       38 NEWCLOSURE                       R6 P0
-       39 CAPTURE                          UPVAL U3
-       40 CAPTURE                          VAL R4
-       41 CALL                             R5 1 2
-       42 JUMPIFNOT                        R5 ; [+1]
-       43 JUMPIF                           R3 ; [+13]
-       44 GETUPVAL                         R7 4
-       45 LOADK                            R9 K15 ["marketplaceLookAccessFailure"]
-       46 NAMECALL                         R7 R7 K16 ["report"]
-       48 CALL                             R7 2 0
-       49 DUPTABLE                         R7 K2 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
-       50 LOADB                            R8 0
-       51 SETTABLEKS                       R8 R7 K0 ["canCreateAvatarLook"]
-       53 LOADB                            R8 0
-       54 SETTABLEKS                       R8 R7 K1 ["canCreateMakeupLook"]
-       56 RETURN                           R7 1
-       57 DUPTABLE                         R7 K2 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
-       58 GETTABLEKS                       R9 R6 K17 ["avatarLookStudioCreation"]
-       60 JUMPIFEQKB                       R9 TRUE ; [+2]
-       62 LOADB                            R8 0 +1
-       63 LOADB                            R8 1
-       64 SETTABLEKS                       R8 R7 K0 ["canCreateAvatarLook"]
-       66 GETTABLEKS                       R9 R6 K18 ["makeupLookStudioCreation"]
-       68 JUMPIFEQKB                       R9 TRUE ; [+2]
-       70 LOADB                            R8 0 +1
-       71 LOADB                            R8 1
-       72 SETTABLEKS                       R8 R7 K1 ["canCreateMakeupLook"]
-       74 RETURN                           R7 1
+        2 JUMPIFNOT                        R0 ; [+2]
+        3 DUPTABLE                         R0 K3 [{[1] = True, ["canCreateMakeupLook"] = True}]
+        4 RETURN                           R0 1
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K4 ["getFeatureAccessUrl"]
+        8 CALL                             R0 0 1
+        9 DUPTABLE                         R1 K9 [{["Url"], ["Method"] = "GET", ["Headers"]}]
+       10 SETTABLEKS                       R0 R1 K5 ["Url"]
+       12 NEWTABLE                         R2 1 0
+       14 LOADK                            R3 K10 ["application/json"]
+       15 SETTABLEKS                       R3 R2 K11 ["Content-Type"]
+       17 SETTABLEKS                       R2 R1 K8 ["Headers"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K12 ["requestInternal"]
+       22 MOVE                             R3 R1
+       23 CALL                             R2 1 1
+       24 NAMECALL                         R3 R2 K13 ["await"]
+       26 CALL                             R3 1 2
+       27 GETIMPORT                        R5 K15 [pcall]
+       29 NEWCLOSURE                       R6 P0
+       30 CAPTURE                          UPVAL U3
+       31 CAPTURE                          VAL R4
+       32 CALL                             R5 1 2
+       33 JUMPIFNOT                        R5 ; [+1]
+       34 JUMPIF                           R3 ; [+7]
+       35 GETUPVAL                         R7 4
+       36 LOADK                            R9 K16 ["marketplaceLookAccessFailure"]
+       37 NAMECALL                         R7 R7 K17 ["report"]
+       39 CALL                             R7 2 0
+       40 DUPTABLE                         R7 K19 [{[1] = False, ["canCreateMakeupLook"] = False}]
+       41 RETURN                           R7 1
+       42 DUPTABLE                         R7 K20 [{"canCreateAvatarLook", "canCreateMakeupLook"}]
+       43 GETTABLEKS                       R9 R6 K21 ["avatarLookStudioCreation"]
+       45 JUMPIFEQKB                       R9 TRUE ; [+2]
+       47 LOADB                            R8 0 +1
+       48 LOADB                            R8 1
+       49 SETTABLEKS                       R8 R7 K0 ["canCreateAvatarLook"]
+       51 GETTABLEKS                       R9 R6 K22 ["makeupLookStudioCreation"]
+       53 JUMPIFEQKB                       R9 TRUE ; [+2]
+       55 LOADB                            R8 0 +1
+       56 LOADB                            R8 1
+       57 SETTABLEKS                       R8 R7 K2 ["canCreateMakeupLook"]
+       59 RETURN                           R7 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

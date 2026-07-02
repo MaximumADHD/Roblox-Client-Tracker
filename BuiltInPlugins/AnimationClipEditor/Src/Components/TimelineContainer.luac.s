@@ -1,5 +1,5 @@
 PROTO_0:
-        0 LOADN                            R1 255
+        0 LOADN                            R1 -1
         1 LOADN                            R2 1
         2 JUMPIFNOTLT                      R2 R0 ; [+4]
         4 ADDK                             R1 R1 K0 [1]
@@ -15,7 +15,7 @@ PROTO_1:
         5 DIV                              R4 R5 R0
         6 LOADN                            R6 10
         7 MOVE                             R8 R4
-        8 LOADN                            R9 255
+        8 LOADN                            R9 -1
         9 LOADN                            R10 1
        10 JUMPIFNOTLT                      R10 R8 ; [+4]
        12 ADDK                             R9 R9 K1 [1]
@@ -265,7 +265,7 @@ PROTO_9:
        64 DIV                              R18 R19 R14
        65 LOADN                            R20 10
        66 MOVE                             R22 R18
-       67 LOADN                            R23 255
+       67 LOADN                            R23 -1
        68 LOADN                            R24 1
        69 JUMPIFNOTLT                      R24 R22 ; [+4]
        71 ADDK                             R23 R23 K17 [1]
@@ -299,180 +299,164 @@ PROTO_9:
       108 GETUPVAL                         R14 1
       109 GETTABLEKS                       R14 R14 K26 ["createElement"]
       111 LOADK                            R15 K27 ["Frame"]
-      112 DUPTABLE                         R16 K33 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3", "BorderColor3", "ZIndex"}]
-      113 GETIMPORT                        R17 K36 [UDim2.new]
+      112 DUPTABLE                         R16 K34 [{["Size"], ["LayoutOrder"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["BorderColor3"], ["ZIndex"]}]
+      113 GETIMPORT                        R17 K37 [UDim2.new]
       115 LOADN                            R18 1
       116 LOADN                            R19 0
       117 LOADN                            R20 0
       118 GETUPVAL                         R22 0
-      119 GETTABLEKS                       R22 R22 K37 ["TIMELINE_HEIGHT"]
+      119 GETTABLEKS                       R22 R22 K38 ["TIMELINE_HEIGHT"]
       121 ADDK                             R21 R22 K17 [1]
       122 CALL                             R17 4 1
       123 SETTABLEKS                       R17 R16 K28 ["Size"]
       125 SETTABLEKS                       R8 R16 K7 ["LayoutOrder"]
-      127 LOADN                            R17 0
-      128 SETTABLEKS                       R17 R16 K29 ["BorderSizePixel"]
-      130 GETTABLEKS                       R17 R2 K38 ["timelineTheme"]
-      132 GETTABLEKS                       R17 R17 K39 ["backgroundColor"]
-      134 SETTABLEKS                       R17 R16 K30 ["BackgroundColor3"]
-      136 GETTABLEKS                       R17 R2 K40 ["borderColor"]
-      138 SETTABLEKS                       R17 R16 K31 ["BorderColor3"]
-      140 GETTABLEKS                       R17 R1 K32 ["ZIndex"]
-      142 SETTABLEKS                       R17 R16 K32 ["ZIndex"]
-      144 DUPTABLE                         R17 K44 [{"Timeline", "ToggleEditorButton", "KeyboardListener"}]
-      145 GETUPVAL                         R18 1
-      146 GETTABLEKS                       R18 R18 K26 ["createElement"]
-      148 GETUPVAL                         R19 2
-      149 DUPTABLE                         R20 K54 [{"StartTick", "EndTick", "LastTick", "MajorInterval", "MinorInterval", "Position", "Height", "Width", "TickHeightScale", "SmallTickHeightScale", "TimelineUnit", "OnInputBegan", "OnDragMoved", "AnimationData", "FrameRate", "ZIndex"}]
-      150 SETTABLEKS                       R3 R20 K2 ["StartTick"]
-      152 SETTABLEKS                       R4 R20 K3 ["EndTick"]
-      154 SETTABLEKS                       R5 R20 K4 ["LastTick"]
-      156 SETTABLEKS                       R12 R20 K45 ["MajorInterval"]
-      158 SETTABLEKS                       R13 R20 K46 ["MinorInterval"]
-      160 GETIMPORT                        R21 K36 [UDim2.new]
-      162 LOADN                            R22 0
-      163 GETTABLEKS                       R24 R0 K0 ["props"]
-      165 GETTABLEKS                       R24 R24 K15 ["TrackPadding"]
-      167 DIVK                             R23 R24 K55 [2]
-      168 LOADN                            R24 0
-      169 LOADN                            R25 0
-      170 CALL                             R21 4 1
-      171 SETTABLEKS                       R21 R20 K47 ["Position"]
-      173 GETUPVAL                         R21 0
-      174 GETTABLEKS                       R21 R21 K37 ["TIMELINE_HEIGHT"]
-      176 SETTABLEKS                       R21 R20 K48 ["Height"]
-      178 GETTABLEKS                       R22 R9 K14 ["X"]
-      180 GETTABLEKS                       R23 R0 K0 ["props"]
-      182 GETTABLEKS                       R23 R23 K15 ["TrackPadding"]
-      184 SUB                              R21 R22 R23
-      185 SETTABLEKS                       R21 R20 K49 ["Width"]
-      187 LOADK                            R21 K56 [0.7]
-      188 SETTABLEKS                       R21 R20 K50 ["TickHeightScale"]
-      190 LOADK                            R21 K57 [0.3]
-      191 SETTABLEKS                       R21 R20 K51 ["SmallTickHeightScale"]
-      193 SETTABLEKS                       R7 R20 K6 ["TimelineUnit"]
-      195 GETTABLEKS                       R21 R0 K58 ["onTimelineClicked"]
-      197 SETTABLEKS                       R21 R20 K52 ["OnInputBegan"]
-      199 GETTABLEKS                       R21 R0 K59 ["onScrubberMoved"]
-      201 SETTABLEKS                       R21 R20 K53 ["OnDragMoved"]
-      203 SETTABLEKS                       R10 R20 K9 ["AnimationData"]
-      205 SETTABLEKS                       R6 R20 K5 ["FrameRate"]
-      207 LOADN                            R21 2
-      208 SETTABLEKS                       R21 R20 K32 ["ZIndex"]
-      210 CALL                             R18 2 1
-      211 SETTABLEKS                       R18 R17 K41 ["Timeline"]
-      213 GETUPVAL                         R18 1
-      214 GETTABLEKS                       R18 R18 K26 ["createElement"]
-      216 GETUPVAL                         R19 3
-      217 DUPTABLE                         R20 K63 [{"ZIndex", "AnchorPoint", "Size", "Position", "Style", "OnClick"}]
-      218 LOADN                            R21 1
-      219 SETTABLEKS                       R21 R20 K32 ["ZIndex"]
-      221 GETIMPORT                        R21 K65 [Vector2.new]
-      223 LOADK                            R22 K66 [0.5]
-      224 LOADK                            R23 K66 [0.5]
-      225 CALL                             R21 2 1
-      226 SETTABLEKS                       R21 R20 K60 ["AnchorPoint"]
-      228 GETIMPORT                        R21 K68 [UDim2.fromOffset]
-      230 GETUPVAL                         R22 0
-      231 GETTABLEKS                       R22 R22 K69 ["TOGGLE_EDITOR_BUTTON_WIDTH"]
-      233 GETUPVAL                         R23 0
-      234 GETTABLEKS                       R23 R23 K70 ["TOGGLE_EDITOR_BUTTON_HEIGHT"]
-      236 CALL                             R21 2 1
-      237 SETTABLEKS                       R21 R20 K28 ["Size"]
-      239 GETIMPORT                        R21 K68 [UDim2.fromOffset]
-      241 GETTABLEKS                       R23 R0 K0 ["props"]
-      243 GETTABLEKS                       R23 R23 K15 ["TrackPadding"]
-      245 DIVK                             R22 R23 K71 [4]
-      246 GETUPVAL                         R24 0
-      247 GETTABLEKS                       R24 R24 K37 ["TIMELINE_HEIGHT"]
-      249 DIVK                             R23 R24 K55 [2]
-      250 CALL                             R21 2 1
-      251 SETTABLEKS                       R21 R20 K47 ["Position"]
-      253 GETTABLEKS                       R21 R2 K72 ["button"]
-      255 GETTABLEKS                       R21 R21 K73 ["MediaControl"]
-      257 SETTABLEKS                       R21 R20 K61 ["Style"]
-      259 GETTABLEKS                       R21 R1 K74 ["OnToggleEditorClicked"]
-      261 SETTABLEKS                       R21 R20 K62 ["OnClick"]
-      263 DUPTABLE                         R21 K78 [{"Image", "Tooltip", "TeachingCallout"}]
-      264 GETUPVAL                         R22 1
-      265 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      267 LOADK                            R23 K79 ["ImageLabel"]
-      268 DUPTABLE                         R24 K82 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Image", "ImageColor3"}]
-      269 LOADN                            R25 1
-      270 SETTABLEKS                       R25 R24 K80 ["BackgroundTransparency"]
-      272 GETIMPORT                        R25 K36 [UDim2.new]
-      274 LOADN                            R26 0
-      275 GETUPVAL                         R27 0
-      276 GETTABLEKS                       R27 R27 K69 ["TOGGLE_EDITOR_BUTTON_WIDTH"]
-      278 LOADN                            R28 0
-      279 GETUPVAL                         R29 0
-      280 GETTABLEKS                       R29 R29 K70 ["TOGGLE_EDITOR_BUTTON_HEIGHT"]
-      282 CALL                             R25 4 1
-      283 SETTABLEKS                       R25 R24 K28 ["Size"]
-      285 GETIMPORT                        R25 K36 [UDim2.new]
-      287 LOADK                            R26 K66 [0.5]
-      288 LOADN                            R27 0
-      289 LOADK                            R28 K66 [0.5]
-      290 LOADN                            R29 0
-      291 CALL                             R25 4 1
-      292 SETTABLEKS                       R25 R24 K47 ["Position"]
-      294 GETIMPORT                        R25 K65 [Vector2.new]
-      296 LOADK                            R26 K66 [0.5]
-      297 LOADK                            R27 K66 [0.5]
-      298 CALL                             R25 2 1
-      299 SETTABLEKS                       R25 R24 K60 ["AnchorPoint"]
-      301 JUMPIFNOT                        R11 ; [+5]
-      302 GETTABLEKS                       R25 R2 K83 ["curveTheme"]
-      304 GETTABLEKS                       R25 R25 K84 ["dopesheetButton"]
-      306 JUMP                             ; [+4]
-      307 GETTABLEKS                       R25 R2 K83 ["curveTheme"]
-      309 GETTABLEKS                       R25 R25 K85 ["curveEditorButton"]
-      311 SETTABLEKS                       R25 R24 K75 ["Image"]
-      313 GETTABLEKS                       R25 R2 K86 ["playbackTheme"]
-      315 GETTABLEKS                       R25 R25 K87 ["iconColor"]
-      317 SETTABLEKS                       R25 R24 K81 ["ImageColor3"]
-      319 CALL                             R22 2 1
-      320 SETTABLEKS                       R22 R21 K75 ["Image"]
-      322 GETUPVAL                         R22 1
-      323 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      325 GETUPVAL                         R23 4
-      326 DUPTABLE                         R24 K89 [{"TextKey"}]
-      327 JUMPIFNOT                        R11 ; [+2]
-      328 LOADK                            R25 K90 ["GoToDopesheetEditor"]
-      329 JUMP                             ; [+1]
-      330 LOADK                            R25 K91 ["GoToCurveEditor"]
-      331 SETTABLEKS                       R25 R24 K88 ["TextKey"]
-      333 CALL                             R22 2 1
-      334 SETTABLEKS                       R22 R21 K76 ["Tooltip"]
-      336 GETUPVAL                         R22 1
-      337 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      339 GETUPVAL                         R23 5
-      340 DUPTABLE                         R24 K95 [{"Offset", "DefinitionId", "LocationId"}]
-      341 GETIMPORT                        R25 K65 [Vector2.new]
-      343 LOADN                            R26 0
-      344 LOADN                            R27 6
-      345 CALL                             R25 2 1
-      346 SETTABLEKS                       R25 R24 K92 ["Offset"]
-      348 LOADK                            R25 K96 ["CurveEditorCallout"]
-      349 SETTABLEKS                       R25 R24 K93 ["DefinitionId"]
-      351 LOADK                            R25 K42 ["ToggleEditorButton"]
-      352 SETTABLEKS                       R25 R24 K94 ["LocationId"]
-      354 CALL                             R22 2 1
-      355 SETTABLEKS                       R22 R21 K77 ["TeachingCallout"]
-      357 CALL                             R18 3 1
-      358 SETTABLEKS                       R18 R17 K42 ["ToggleEditorButton"]
-      360 GETUPVAL                         R18 1
-      361 GETTABLEKS                       R18 R18 K26 ["createElement"]
-      363 GETUPVAL                         R19 6
-      364 DUPTABLE                         R20 K98 [{"OnKeyPressed"}]
-      365 NEWCLOSURE                       R21 P0
-      366 CAPTURE                          UPVAL U7
-      367 CAPTURE                          VAL R0
-      368 SETTABLEKS                       R21 R20 K97 ["OnKeyPressed"]
-      370 CALL                             R18 2 1
-      371 SETTABLEKS                       R18 R17 K43 ["KeyboardListener"]
-      373 CALL                             R14 3 -1
-      374 RETURN                           R14 -1
+      127 GETTABLEKS                       R17 R2 K39 ["timelineTheme"]
+      129 GETTABLEKS                       R17 R17 K40 ["backgroundColor"]
+      131 SETTABLEKS                       R17 R16 K31 ["BackgroundColor3"]
+      133 GETTABLEKS                       R17 R2 K41 ["borderColor"]
+      135 SETTABLEKS                       R17 R16 K32 ["BorderColor3"]
+      137 GETTABLEKS                       R17 R1 K33 ["ZIndex"]
+      139 SETTABLEKS                       R17 R16 K33 ["ZIndex"]
+      141 DUPTABLE                         R17 K45 [{"Timeline", "ToggleEditorButton", "KeyboardListener"}]
+      142 GETUPVAL                         R18 1
+      143 GETTABLEKS                       R18 R18 K26 ["createElement"]
+      145 GETUPVAL                         R19 2
+      146 DUPTABLE                         R20 K58 [{["StartTick"], ["EndTick"], ["LastTick"], ["MajorInterval"], ["MinorInterval"], ["Position"], ["Height"], ["Width"], ["TickHeightScale"] = 0.7, ["SmallTickHeightScale"] = 0.3, ["TimelineUnit"], ["OnInputBegan"], ["OnDragMoved"], ["AnimationData"], ["FrameRate"], ["ZIndex"] = 2}]
+      147 SETTABLEKS                       R3 R20 K2 ["StartTick"]
+      149 SETTABLEKS                       R4 R20 K3 ["EndTick"]
+      151 SETTABLEKS                       R5 R20 K4 ["LastTick"]
+      153 SETTABLEKS                       R12 R20 K46 ["MajorInterval"]
+      155 SETTABLEKS                       R13 R20 K47 ["MinorInterval"]
+      157 GETIMPORT                        R21 K37 [UDim2.new]
+      159 LOADN                            R22 0
+      160 GETTABLEKS                       R24 R0 K0 ["props"]
+      162 GETTABLEKS                       R24 R24 K15 ["TrackPadding"]
+      164 DIVK                             R23 R24 K57 [2]
+      165 LOADN                            R24 0
+      166 LOADN                            R25 0
+      167 CALL                             R21 4 1
+      168 SETTABLEKS                       R21 R20 K48 ["Position"]
+      170 GETUPVAL                         R21 0
+      171 GETTABLEKS                       R21 R21 K38 ["TIMELINE_HEIGHT"]
+      173 SETTABLEKS                       R21 R20 K49 ["Height"]
+      175 GETTABLEKS                       R22 R9 K14 ["X"]
+      177 GETTABLEKS                       R23 R0 K0 ["props"]
+      179 GETTABLEKS                       R23 R23 K15 ["TrackPadding"]
+      181 SUB                              R21 R22 R23
+      182 SETTABLEKS                       R21 R20 K50 ["Width"]
+      184 SETTABLEKS                       R7 R20 K6 ["TimelineUnit"]
+      186 GETTABLEKS                       R21 R0 K59 ["onTimelineClicked"]
+      188 SETTABLEKS                       R21 R20 K55 ["OnInputBegan"]
+      190 GETTABLEKS                       R21 R0 K60 ["onScrubberMoved"]
+      192 SETTABLEKS                       R21 R20 K56 ["OnDragMoved"]
+      194 SETTABLEKS                       R10 R20 K9 ["AnimationData"]
+      196 SETTABLEKS                       R6 R20 K5 ["FrameRate"]
+      198 CALL                             R18 2 1
+      199 SETTABLEKS                       R18 R17 K42 ["Timeline"]
+      201 GETUPVAL                         R18 1
+      202 GETTABLEKS                       R18 R18 K26 ["createElement"]
+      204 GETUPVAL                         R19 3
+      205 DUPTABLE                         R20 K64 [{["ZIndex"] = 1, ["AnchorPoint"], ["Size"], ["Position"], ["Style"], ["OnClick"]}]
+      206 GETIMPORT                        R21 K66 [Vector2.new]
+      208 LOADK                            R22 K67 [0.5]
+      209 LOADK                            R23 K67 [0.5]
+      210 CALL                             R21 2 1
+      211 SETTABLEKS                       R21 R20 K61 ["AnchorPoint"]
+      213 GETIMPORT                        R21 K69 [UDim2.fromOffset]
+      215 GETUPVAL                         R22 0
+      216 GETTABLEKS                       R22 R22 K70 ["TOGGLE_EDITOR_BUTTON_WIDTH"]
+      218 GETUPVAL                         R23 0
+      219 GETTABLEKS                       R23 R23 K71 ["TOGGLE_EDITOR_BUTTON_HEIGHT"]
+      221 CALL                             R21 2 1
+      222 SETTABLEKS                       R21 R20 K28 ["Size"]
+      224 GETIMPORT                        R21 K69 [UDim2.fromOffset]
+      226 GETTABLEKS                       R23 R0 K0 ["props"]
+      228 GETTABLEKS                       R23 R23 K15 ["TrackPadding"]
+      230 DIVK                             R22 R23 K72 [4]
+      231 GETUPVAL                         R24 0
+      232 GETTABLEKS                       R24 R24 K38 ["TIMELINE_HEIGHT"]
+      234 DIVK                             R23 R24 K57 [2]
+      235 CALL                             R21 2 1
+      236 SETTABLEKS                       R21 R20 K48 ["Position"]
+      238 GETTABLEKS                       R21 R2 K73 ["button"]
+      240 GETTABLEKS                       R21 R21 K74 ["MediaControl"]
+      242 SETTABLEKS                       R21 R20 K62 ["Style"]
+      244 GETTABLEKS                       R21 R1 K75 ["OnToggleEditorClicked"]
+      246 SETTABLEKS                       R21 R20 K63 ["OnClick"]
+      248 DUPTABLE                         R21 K79 [{"Image", "Tooltip", "TeachingCallout"}]
+      249 GETUPVAL                         R22 1
+      250 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      252 LOADK                            R23 K80 ["ImageLabel"]
+      253 DUPTABLE                         R24 K83 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["Image"], ["ImageColor3"]}]
+      254 GETIMPORT                        R25 K37 [UDim2.new]
+      256 LOADN                            R26 0
+      257 GETUPVAL                         R27 0
+      258 GETTABLEKS                       R27 R27 K70 ["TOGGLE_EDITOR_BUTTON_WIDTH"]
+      260 LOADN                            R28 0
+      261 GETUPVAL                         R29 0
+      262 GETTABLEKS                       R29 R29 K71 ["TOGGLE_EDITOR_BUTTON_HEIGHT"]
+      264 CALL                             R25 4 1
+      265 SETTABLEKS                       R25 R24 K28 ["Size"]
+      267 GETIMPORT                        R25 K37 [UDim2.new]
+      269 LOADK                            R26 K67 [0.5]
+      270 LOADN                            R27 0
+      271 LOADK                            R28 K67 [0.5]
+      272 LOADN                            R29 0
+      273 CALL                             R25 4 1
+      274 SETTABLEKS                       R25 R24 K48 ["Position"]
+      276 GETIMPORT                        R25 K66 [Vector2.new]
+      278 LOADK                            R26 K67 [0.5]
+      279 LOADK                            R27 K67 [0.5]
+      280 CALL                             R25 2 1
+      281 SETTABLEKS                       R25 R24 K61 ["AnchorPoint"]
+      283 JUMPIFNOT                        R11 ; [+5]
+      284 GETTABLEKS                       R25 R2 K84 ["curveTheme"]
+      286 GETTABLEKS                       R25 R25 K85 ["dopesheetButton"]
+      288 JUMP                             ; [+4]
+      289 GETTABLEKS                       R25 R2 K84 ["curveTheme"]
+      291 GETTABLEKS                       R25 R25 K86 ["curveEditorButton"]
+      293 SETTABLEKS                       R25 R24 K76 ["Image"]
+      295 GETTABLEKS                       R25 R2 K87 ["playbackTheme"]
+      297 GETTABLEKS                       R25 R25 K88 ["iconColor"]
+      299 SETTABLEKS                       R25 R24 K82 ["ImageColor3"]
+      301 CALL                             R22 2 1
+      302 SETTABLEKS                       R22 R21 K76 ["Image"]
+      304 GETUPVAL                         R22 1
+      305 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      307 GETUPVAL                         R23 4
+      308 DUPTABLE                         R24 K90 [{"TextKey"}]
+      309 JUMPIFNOT                        R11 ; [+2]
+      310 LOADK                            R25 K91 ["GoToDopesheetEditor"]
+      311 JUMP                             ; [+1]
+      312 LOADK                            R25 K92 ["GoToCurveEditor"]
+      313 SETTABLEKS                       R25 R24 K89 ["TextKey"]
+      315 CALL                             R22 2 1
+      316 SETTABLEKS                       R22 R21 K77 ["Tooltip"]
+      318 GETUPVAL                         R22 1
+      319 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      321 GETUPVAL                         R23 5
+      322 DUPTABLE                         R24 K97 [{["Offset"], ["DefinitionId"] = "CurveEditorCallout", ["LocationId"] = "ToggleEditorButton"}]
+      323 GETIMPORT                        R25 K66 [Vector2.new]
+      325 LOADN                            R26 0
+      326 LOADN                            R27 6
+      327 CALL                             R25 2 1
+      328 SETTABLEKS                       R25 R24 K93 ["Offset"]
+      330 CALL                             R22 2 1
+      331 SETTABLEKS                       R22 R21 K78 ["TeachingCallout"]
+      333 CALL                             R18 3 1
+      334 SETTABLEKS                       R18 R17 K43 ["ToggleEditorButton"]
+      336 GETUPVAL                         R18 1
+      337 GETTABLEKS                       R18 R18 K26 ["createElement"]
+      339 GETUPVAL                         R19 6
+      340 DUPTABLE                         R20 K99 [{"OnKeyPressed"}]
+      341 NEWCLOSURE                       R21 P0
+      342 CAPTURE                          UPVAL U7
+      343 CAPTURE                          VAL R0
+      344 SETTABLEKS                       R21 R20 K98 ["OnKeyPressed"]
+      346 CALL                             R18 2 1
+      347 SETTABLEKS                       R18 R17 K44 ["KeyboardListener"]
+      349 CALL                             R14 3 -1
+      350 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

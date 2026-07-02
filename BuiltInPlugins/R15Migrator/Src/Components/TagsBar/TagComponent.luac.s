@@ -26,58 +26,52 @@ PROTO_1:
        28 SETTABLEKS                       R6 R5 K13 ["HorizontalAlignment"]
        30 GETIMPORT                        R6 K18 [Enum.VerticalAlignment.Center]
        32 SETTABLEKS                       R6 R5 K16 ["VerticalAlignment"]
-       34 DUPTABLE                         R6 K20 [{"Left", "Right"}]
-       35 LOADN                            R7 6
-       36 SETTABLEKS                       R7 R6 K14 ["Left"]
-       38 LOADN                            R7 6
-       39 SETTABLEKS                       R7 R6 K19 ["Right"]
-       41 SETTABLEKS                       R6 R5 K3 ["Padding"]
-       43 LOADN                            R6 6
-       44 SETTABLEKS                       R6 R5 K21 ["Spacing"]
-       46 GETUPVAL                         R6 0
-       47 GETTABLEKS                       R6 R6 K22 ["Tag"]
-       49 LOADK                            R7 K23 ["Secondary"]
-       50 SETTABLE                         R7 R5 R6
-       51 DUPTABLE                         R6 K26 [{"Label", "CloseButton"}]
-       52 GETUPVAL                         R7 0
-       53 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       55 GETUPVAL                         R8 2
-       56 DUPTABLE                         R9 K28 [{"AutomaticSize", "LayoutOrder", "Text"}]
-       57 GETIMPORT                        R10 K7 [Enum.AutomaticSize.XY]
-       59 SETTABLEKS                       R10 R9 K5 ["AutomaticSize"]
-       61 LOADN                            R10 1
-       62 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       64 GETTABLEKS                       R10 R2 K22 ["Tag"]
-       66 GETTABLEKS                       R10 R10 K24 ["Label"]
-       68 SETTABLEKS                       R10 R9 K27 ["Text"]
-       70 CALL                             R7 2 1
-       71 SETTABLEKS                       R7 R6 K24 ["Label"]
-       73 GETUPVAL                         R7 0
-       74 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       76 LOADK                            R8 K29 ["ImageButton"]
-       77 NEWTABLE                         R9 8 0
-       79 LOADN                            R10 1
-       80 SETTABLEKS                       R10 R9 K30 ["BackgroundTransparency"]
-       82 LOADN                            R10 2
-       83 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       85 GETIMPORT                        R10 K33 [UDim2.fromOffset]
-       87 LOADN                            R11 12
-       88 LOADN                            R12 12
-       89 CALL                             R10 2 1
-       90 SETTABLEKS                       R10 R9 K34 ["Size"]
-       92 LOADK                            R10 K35 ["rbxasset://textures/StudioSharedUI/clear-hover.png"]
-       93 SETTABLEKS                       R10 R9 K36 ["Image"]
-       95 GETUPVAL                         R10 0
-       96 GETTABLEKS                       R10 R10 K37 ["Event"]
-       98 GETTABLEKS                       R10 R10 K38 ["MouseButton1Click"]
-      100 NEWCLOSURE                       R11 P0
-      101 CAPTURE                          VAL R0
-      102 CAPTURE                          VAL R2
-      103 SETTABLE                         R11 R9 R10
-      104 CALL                             R7 2 1
-      105 SETTABLEKS                       R7 R6 K25 ["CloseButton"]
-      107 CALL                             R3 3 -1
-      108 RETURN                           R3 -1
+       34 DUPTABLE                         R6 K21 [{["Left"] = 6, ["Right"] = 6}]
+       35 SETTABLEKS                       R6 R5 K3 ["Padding"]
+       37 LOADN                            R6 6
+       38 SETTABLEKS                       R6 R5 K22 ["Spacing"]
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K23 ["Tag"]
+       43 LOADK                            R7 K24 ["Secondary"]
+       44 SETTABLE                         R7 R5 R6
+       45 DUPTABLE                         R6 K27 [{"Label", "CloseButton"}]
+       46 GETUPVAL                         R7 0
+       47 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       49 GETUPVAL                         R8 2
+       50 DUPTABLE                         R9 K30 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Text"]}]
+       51 GETIMPORT                        R10 K7 [Enum.AutomaticSize.XY]
+       53 SETTABLEKS                       R10 R9 K5 ["AutomaticSize"]
+       55 GETTABLEKS                       R10 R2 K23 ["Tag"]
+       57 GETTABLEKS                       R10 R10 K25 ["Label"]
+       59 SETTABLEKS                       R10 R9 K29 ["Text"]
+       61 CALL                             R7 2 1
+       62 SETTABLEKS                       R7 R6 K25 ["Label"]
+       64 GETUPVAL                         R7 0
+       65 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       67 LOADK                            R8 K31 ["ImageButton"]
+       68 NEWTABLE                         R9 8 0
+       70 LOADN                            R10 1
+       71 SETTABLEKS                       R10 R9 K32 ["BackgroundTransparency"]
+       73 LOADN                            R10 2
+       74 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+       76 GETIMPORT                        R10 K35 [UDim2.fromOffset]
+       78 LOADN                            R11 12
+       79 LOADN                            R12 12
+       80 CALL                             R10 2 1
+       81 SETTABLEKS                       R10 R9 K36 ["Size"]
+       83 LOADK                            R10 K37 ["rbxasset://textures/StudioSharedUI/clear-hover.png"]
+       84 SETTABLEKS                       R10 R9 K38 ["Image"]
+       86 GETUPVAL                         R10 0
+       87 GETTABLEKS                       R10 R10 K39 ["Event"]
+       89 GETTABLEKS                       R10 R10 K40 ["MouseButton1Click"]
+       91 NEWCLOSURE                       R11 P0
+       92 CAPTURE                          VAL R0
+       93 CAPTURE                          VAL R2
+       94 SETTABLE                         R11 R9 R10
+       95 CALL                             R7 2 1
+       96 SETTABLEKS                       R7 R6 K26 ["CloseButton"]
+       98 CALL                             R3 3 -1
+       99 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

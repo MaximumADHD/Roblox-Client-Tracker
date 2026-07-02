@@ -1,86 +1,50 @@
 PROTO_0:
         0 DUPTABLE                         R0 K3 [{"Metadata", "Events", "Instances"}]
-        1 DUPTABLE                         R1 K12 [{"Name", "StartTick", "EndTick", "Looping", "Priority", "FrameRate", "Guid", "IkTargets"}]
-        2 LOADK                            R2 K13 [""]
-        3 SETTABLEKS                       R2 R1 K4 ["Name"]
-        5 LOADN                            R2 0
-        6 SETTABLEKS                       R2 R1 K5 ["StartTick"]
-        8 LOADN                            R2 0
-        9 SETTABLEKS                       R2 R1 K6 ["EndTick"]
-       11 LOADB                            R2 0
-       12 SETTABLEKS                       R2 R1 K7 ["Looping"]
-       14 GETIMPORT                        R2 K17 [Enum.AnimationPriority.Core]
-       16 SETTABLEKS                       R2 R1 K8 ["Priority"]
-       18 LOADN                            R2 30
-       19 SETTABLEKS                       R2 R1 K9 ["FrameRate"]
-       21 GETUPVAL                         R2 0
-       22 NAMECALL                         R2 R2 K18 ["GenerateGUID"]
-       24 CALL                             R2 1 1
-       25 SETTABLEKS                       R2 R1 K10 ["Guid"]
+        1 DUPTABLE                         R1 K16 [{["Name"] = "", ["StartTick"] = 0, ["EndTick"] = 0, ["Looping"] = False, ["Priority"], ["FrameRate"] = 30, ["Guid"], ["IkTargets"]}]
+        2 GETIMPORT                        R2 K20 [Enum.AnimationPriority.Core]
+        4 SETTABLEKS                       R2 R1 K11 ["Priority"]
+        6 GETUPVAL                         R2 0
+        7 NAMECALL                         R2 R2 K21 ["GenerateGUID"]
+        9 CALL                             R2 1 1
+       10 SETTABLEKS                       R2 R1 K14 ["Guid"]
+       12 NEWTABLE                         R2 0 0
+       14 SETTABLEKS                       R2 R1 K15 ["IkTargets"]
+       16 SETTABLEKS                       R1 R0 K0 ["Metadata"]
+       18 DUPTABLE                         R1 K25 [{"NamedKeyframes", "Keyframes", "Data"}]
+       19 NEWTABLE                         R2 0 0
+       21 SETTABLEKS                       R2 R1 K22 ["NamedKeyframes"]
+       23 NEWTABLE                         R2 0 0
+       25 SETTABLEKS                       R2 R1 K23 ["Keyframes"]
        27 NEWTABLE                         R2 0 0
-       29 SETTABLEKS                       R2 R1 K11 ["IkTargets"]
-       31 SETTABLEKS                       R1 R0 K0 ["Metadata"]
-       33 DUPTABLE                         R1 K22 [{"NamedKeyframes", "Keyframes", "Data"}]
-       34 NEWTABLE                         R2 0 0
-       36 SETTABLEKS                       R2 R1 K19 ["NamedKeyframes"]
-       38 NEWTABLE                         R2 0 0
-       40 SETTABLEKS                       R2 R1 K20 ["Keyframes"]
-       42 NEWTABLE                         R2 0 0
-       44 SETTABLEKS                       R2 R1 K21 ["Data"]
-       46 SETTABLEKS                       R1 R0 K1 ["Events"]
-       48 DUPTABLE                         R1 K24 [{"Root"}]
-       49 DUPTABLE                         R2 K26 [{"Tracks"}]
-       50 NEWTABLE                         R3 0 0
-       52 SETTABLEKS                       R3 R2 K25 ["Tracks"]
-       54 SETTABLEKS                       R2 R1 K23 ["Root"]
-       56 SETTABLEKS                       R1 R0 K2 ["Instances"]
-       58 RETURN                           R0 1
+       29 SETTABLEKS                       R2 R1 K24 ["Data"]
+       31 SETTABLEKS                       R1 R0 K1 ["Events"]
+       33 DUPTABLE                         R1 K27 [{"Root"}]
+       34 DUPTABLE                         R2 K29 [{"Tracks"}]
+       35 NEWTABLE                         R3 0 0
+       37 SETTABLEKS                       R3 R2 K28 ["Tracks"]
+       39 SETTABLEKS                       R2 R1 K26 ["Root"]
+       41 SETTABLEKS                       R1 R0 K2 ["Instances"]
+       43 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R0 K2 [{"Type", "Tracks"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["Type"]
-        4 NEWTABLE                         R1 0 0
-        6 SETTABLEKS                       R1 R0 K1 ["Tracks"]
-        8 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = , ["Tracks"]}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K2 ["Tracks"]
+        5 RETURN                           R0 1
 
 PROTO_2:
-        0 DUPTABLE                         R1 K2 [{"Type", "IsCurveTrack"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["IsCurveTrack"] = False}]
         1 SETTABLEKS                       R0 R1 K0 ["Type"]
-        3 LOADB                            R2 0
-        4 SETTABLEKS                       R2 R1 K1 ["IsCurveTrack"]
-        6 RETURN                           R1 1
+        3 RETURN                           R1 1
 
 PROTO_3:
-        0 DUPTABLE                         R1 K6 [{"Name", "Instance", "Depth", "Expanded", "Selected", "Type"}]
-        1 LOADK                            R2 K7 [""]
-        2 SETTABLEKS                       R2 R1 K0 ["Name"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["Instance"]
-        7 LOADN                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["Depth"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["Expanded"]
-       13 LOADB                            R2 0
-       14 SETTABLEKS                       R2 R1 K4 ["Selected"]
-       16 SETTABLEKS                       R0 R1 K5 ["Type"]
-       18 RETURN                           R1 1
+        0 DUPTABLE                         R1 K10 [{[1] = "", ["Instance"] = , ["Depth"] = 0, ["Expanded"] = False, ["Selected"] = False, ["Type"]}]
+        1 SETTABLEKS                       R0 R1 K9 ["Type"]
+        3 RETURN                           R1 1
 
 PROTO_4:
-        0 DUPTABLE                         R0 K6 [{"Value", "EasingStyle", "EasingDirection", "InterpolationMode", "LeftSlope", "RightSlope"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["Value"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["EasingStyle"]
-        7 LOADNIL                          R1
-        8 SETTABLEKS                       R1 R0 K2 ["EasingDirection"]
-       10 LOADNIL                          R1
-       11 SETTABLEKS                       R1 R0 K3 ["InterpolationMode"]
-       13 LOADNIL                          R1
-       14 SETTABLEKS                       R1 R0 K4 ["LeftSlope"]
-       16 LOADNIL                          R1
-       17 SETTABLEKS                       R1 R0 K5 ["RightSlope"]
-       19 RETURN                           R0 1
+        0 DUPTABLE                         R0 K7 [{[1] = , ["EasingStyle"] = , ["EasingDirection"] = , ["InterpolationMode"] = , ["LeftSlope"] = , ["RightSlope"] = }]
+        1 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -135,29 +135,27 @@ PROTO_4:
       110 RETURN                           R2 1
 
 PROTO_5:
-        0 DUPTABLE                         R2 K1 [{"maxTileHeight"}]
-        1 LOADN                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["maxTileHeight"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["onClickBack"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onClickSubcategory"]
-       14 NEWCLOSURE                       R2 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R2 R0 K5 ["onTileSizeChanged"]
-       18 NEWCLOSURE                       R2 P3
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          UPVAL U0
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          UPVAL U2
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          UPVAL U5
-       26 SETTABLEKS                       R2 R0 K6 ["getSubcategoryElements"]
-       28 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = 0}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["onClickBack"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onClickSubcategory"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K6 ["onTileSizeChanged"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          UPVAL U0
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          UPVAL U2
+       20 CAPTURE                          UPVAL U3
+       21 CAPTURE                          UPVAL U4
+       22 CAPTURE                          UPVAL U5
+       23 SETTABLEKS                       R2 R0 K7 ["getSubcategoryElements"]
+       25 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -195,90 +193,68 @@ PROTO_6:
        49 GETUPVAL                         R14 1
        50 GETTABLEKS                       R14 R14 K15 ["createElement"]
        52 GETUPVAL                         R15 2
-       53 DUPTABLE                         R16 K29 [{"AutoSizeCanvas", "AutomaticCanvasSize", "CanvasSize", "Layout", "EnableScrollBarBackground", "Padding", "Size", "Spacing"}]
-       54 LOADB                            R17 1
-       55 SETTABLEKS                       R17 R16 K22 ["AutoSizeCanvas"]
-       57 GETIMPORT                        R17 K33 [Enum.AutomaticSize.Y]
-       59 SETTABLEKS                       R17 R16 K23 ["AutomaticCanvasSize"]
-       61 GETIMPORT                        R17 K36 [UDim2.new]
-       63 LOADN                            R18 1
-       64 LOADN                            R19 0
-       65 LOADN                            R20 0
-       66 LOADN                            R21 0
-       67 CALL                             R17 4 1
-       68 SETTABLEKS                       R17 R16 K24 ["CanvasSize"]
-       70 GETIMPORT                        R17 K39 [Enum.FillDirection.Vertical]
-       72 SETTABLEKS                       R17 R16 K25 ["Layout"]
-       74 LOADB                            R17 1
-       75 SETTABLEKS                       R17 R16 K26 ["EnableScrollBarBackground"]
-       77 GETUPVAL                         R17 3
-       78 GETTABLEKS                       R17 R17 K40 ["MAIN_VIEW_PADDING"]
-       80 SETTABLEKS                       R17 R16 K27 ["Padding"]
-       82 SETTABLEKS                       R6 R16 K5 ["Size"]
-       84 GETIMPORT                        R17 K42 [UDim.new]
-       86 LOADN                            R18 0
-       87 GETUPVAL                         R19 4
-       88 CALL                             R17 2 1
-       89 SETTABLEKS                       R17 R16 K28 ["Spacing"]
-       91 DUPTABLE                         R17 K45 [{"BackButton", "InnerGrid"}]
-       92 GETUPVAL                         R18 1
-       93 GETTABLEKS                       R18 R18 K15 ["createElement"]
-       95 GETUPVAL                         R19 5
-       96 DUPTABLE                         R20 K49 [{"LayoutOrder", "OnClick", "Style", "Text"}]
-       97 LOADN                            R21 1
-       98 SETTABLEKS                       R21 R20 K3 ["LayoutOrder"]
-      100 GETTABLEKS                       R21 R0 K50 ["onClickBack"]
-      102 SETTABLEKS                       R21 R20 K46 ["OnClick"]
-      104 LOADK                            R21 K51 ["Unobtrusive"]
-      105 SETTABLEKS                       R21 R20 K47 ["Style"]
-      107 SETTABLEKS                       R9 R20 K48 ["Text"]
-      109 CALL                             R18 2 1
-      110 SETTABLEKS                       R18 R17 K43 ["BackButton"]
-      112 GETUPVAL                         R18 1
-      113 GETTABLEKS                       R18 R18 K15 ["createElement"]
-      115 GETUPVAL                         R19 6
-      116 DUPTABLE                         R20 K54 [{"AutomaticSize", "CutOffs", "ItemHeight", "LayoutOrder", "Size"}]
-      117 GETIMPORT                        R21 K33 [Enum.AutomaticSize.Y]
-      119 SETTABLEKS                       R21 R20 K31 ["AutomaticSize"]
-      121 NEWTABLE                         R21 0 3
-      123 DUPTABLE                         R22 K57 [{"ColumnCount", "MinWidth"}]
-      124 LOADN                            R23 1
-      125 SETTABLEKS                       R23 R22 K55 ["ColumnCount"]
-      127 LOADN                            R23 0
-      128 SETTABLEKS                       R23 R22 K56 ["MinWidth"]
-      130 DUPTABLE                         R23 K57 [{"ColumnCount", "MinWidth"}]
-      131 LOADN                            R24 2
-      132 SETTABLEKS                       R24 R23 K55 ["ColumnCount"]
-      134 LOADN                            R24 120
-      135 SETTABLEKS                       R24 R23 K56 ["MinWidth"]
-      137 DUPTABLE                         R24 K57 [{"ColumnCount", "MinWidth"}]
-      138 LOADN                            R25 3
-      139 SETTABLEKS                       R25 R24 K55 ["ColumnCount"]
-      141 LOADN                            R25 224
-      142 SETTABLEKS                       R25 R24 K56 ["MinWidth"]
-      144 SETLIST                          R21 R22 3 [1]
-      146 SETTABLEKS                       R21 R20 K52 ["CutOffs"]
-      148 GETIMPORT                        R21 K42 [UDim.new]
-      150 LOADN                            R22 0
-      151 GETTABLEKS                       R23 R2 K58 ["maxTileHeight"]
-      153 CALL                             R21 2 1
-      154 SETTABLEKS                       R21 R20 K53 ["ItemHeight"]
-      156 LOADN                            R21 2
-      157 SETTABLEKS                       R21 R20 K3 ["LayoutOrder"]
-      159 GETIMPORT                        R21 K36 [UDim2.new]
-      161 LOADN                            R22 1
-      162 LOADN                            R23 0
-      163 LOADN                            R24 0
-      164 LOADN                            R25 0
-      165 CALL                             R21 4 1
-      166 SETTABLEKS                       R21 R20 K5 ["Size"]
-      168 MOVE                             R21 R8
-      169 CALL                             R18 3 1
-      170 SETTABLEKS                       R18 R17 K44 ["InnerGrid"]
-      172 CALL                             R14 3 1
-      173 SETTABLEKS                       R14 R13 K20 ["ScrollingFrame"]
-      175 CALL                             R10 3 -1
-      176 RETURN                           R10 -1
+       53 DUPTABLE                         R16 K30 [{["AutoSizeCanvas"] = True, ["AutomaticCanvasSize"], ["CanvasSize"], ["Layout"], ["EnableScrollBarBackground"] = True, ["Padding"], ["Size"], ["Spacing"]}]
+       54 GETIMPORT                        R17 K34 [Enum.AutomaticSize.Y]
+       56 SETTABLEKS                       R17 R16 K24 ["AutomaticCanvasSize"]
+       58 GETIMPORT                        R17 K37 [UDim2.new]
+       60 LOADN                            R18 1
+       61 LOADN                            R19 0
+       62 LOADN                            R20 0
+       63 LOADN                            R21 0
+       64 CALL                             R17 4 1
+       65 SETTABLEKS                       R17 R16 K25 ["CanvasSize"]
+       67 GETIMPORT                        R17 K40 [Enum.FillDirection.Vertical]
+       69 SETTABLEKS                       R17 R16 K26 ["Layout"]
+       71 GETUPVAL                         R17 3
+       72 GETTABLEKS                       R17 R17 K41 ["MAIN_VIEW_PADDING"]
+       74 SETTABLEKS                       R17 R16 K28 ["Padding"]
+       76 SETTABLEKS                       R6 R16 K5 ["Size"]
+       78 GETIMPORT                        R17 K43 [UDim.new]
+       80 LOADN                            R18 0
+       81 GETUPVAL                         R19 4
+       82 CALL                             R17 2 1
+       83 SETTABLEKS                       R17 R16 K29 ["Spacing"]
+       85 DUPTABLE                         R17 K46 [{"BackButton", "InnerGrid"}]
+       86 GETUPVAL                         R18 1
+       87 GETTABLEKS                       R18 R18 K15 ["createElement"]
+       89 GETUPVAL                         R19 5
+       90 DUPTABLE                         R20 K52 [{["LayoutOrder"] = 1, ["OnClick"], ["Style"] = "Unobtrusive", ["Text"]}]
+       91 GETTABLEKS                       R21 R0 K53 ["onClickBack"]
+       93 SETTABLEKS                       R21 R20 K48 ["OnClick"]
+       95 SETTABLEKS                       R9 R20 K51 ["Text"]
+       97 CALL                             R18 2 1
+       98 SETTABLEKS                       R18 R17 K44 ["BackButton"]
+      100 GETUPVAL                         R18 1
+      101 GETTABLEKS                       R18 R18 K15 ["createElement"]
+      103 GETUPVAL                         R19 6
+      104 DUPTABLE                         R20 K57 [{["AutomaticSize"], ["CutOffs"], ["ItemHeight"], ["LayoutOrder"] = 2, ["Size"]}]
+      105 GETIMPORT                        R21 K34 [Enum.AutomaticSize.Y]
+      107 SETTABLEKS                       R21 R20 K32 ["AutomaticSize"]
+      109 NEWTABLE                         R21 0 3
+      111 DUPTABLE                         R22 K61 [{["ColumnCount"] = 1, ["MinWidth"] = 0}]
+      112 DUPTABLE                         R23 K63 [{["ColumnCount"] = 2, ["MinWidth"] = 376}]
+      113 DUPTABLE                         R24 K66 [{["ColumnCount"] = 3, ["MinWidth"] = 736}]
+      114 SETLIST                          R21 R22 3 [1]
+      116 SETTABLEKS                       R21 R20 K54 ["CutOffs"]
+      118 GETIMPORT                        R21 K43 [UDim.new]
+      120 LOADN                            R22 0
+      121 GETTABLEKS                       R23 R2 K67 ["maxTileHeight"]
+      123 CALL                             R21 2 1
+      124 SETTABLEKS                       R21 R20 K55 ["ItemHeight"]
+      126 GETIMPORT                        R21 K37 [UDim2.new]
+      128 LOADN                            R22 1
+      129 LOADN                            R23 0
+      130 LOADN                            R24 0
+      131 LOADN                            R25 0
+      132 CALL                             R21 4 1
+      133 SETTABLEKS                       R21 R20 K5 ["Size"]
+      135 MOVE                             R21 R8
+      136 CALL                             R18 3 1
+      137 SETTABLEKS                       R18 R17 K45 ["InnerGrid"]
+      139 CALL                             R14 3 1
+      140 SETTABLEKS                       R14 R13 K20 ["ScrollingFrame"]
+      142 CALL                             R10 3 -1
+      143 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

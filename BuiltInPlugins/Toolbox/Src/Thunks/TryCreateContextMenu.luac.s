@@ -77,75 +77,73 @@ PROTO_1:
        91 GETTABLEKS                       R16 R16 K22 ["Type"]
        93 CALL                             R15 1 1
        94 MOVE                             R14 R15
-       95 DUPTABLE                         R15 K32 [{"Category", "SortType", "CreatorId", "CreatorType", "SearchKeyword", "Position", "SearchId", "ViewInBrowser"}]
-       96 GETIMPORT                        R17 K35 [Enum.AssetType]
-       98 NAMECALL                         R18 R17 K36 ["GetEnumItems"]
+       95 DUPTABLE                         R15 K33 [{["Category"], ["SortType"], ["CreatorId"], ["CreatorType"], ["SearchKeyword"], ["Position"], ["SearchId"], ["ViewInBrowser"] = True}]
+       96 GETIMPORT                        R17 K36 [Enum.AssetType]
+       98 NAMECALL                         R18 R17 K37 ["GetEnumItems"]
       100 CALL                             R18 1 1
-      101 GETIMPORT                        R19 K38 [ipairs]
+      101 GETIMPORT                        R19 K39 [ipairs]
       103 MOVE                             R20 R18
       104 CALL                             R19 1 3
       105 FORGPREP_INEXT                   R19
-      106 GETTABLEKS                       R24 R23 K39 ["Value"]
+      106 GETTABLEKS                       R24 R23 K40 ["Value"]
       108 JUMPIFNOTEQ                      R24 R3 ; [+4]
-      110 GETTABLEKS                       R16 R23 K40 ["Name"]
+      110 GETTABLEKS                       R16 R23 K41 ["Name"]
       112 JUMP                             ; [+3]
       113 FORGLOOP                         R19 2 [inext] ; [-8]
       115 LOADNIL                          R16
       116 SETTABLEKS                       R16 R15 K24 ["Category"]
-      118 GETTABLEKS                       R16 R12 K41 ["sort"]
+      118 GETTABLEKS                       R16 R12 K42 ["sort"]
       120 SETTABLEKS                       R16 R15 K25 ["SortType"]
       122 GETUPVAL                         R16 0
       123 GETTABLEKS                       R16 R16 K21 ["Creator"]
       125 GETTABLEKS                       R16 R16 K1 ["Id"]
       127 SETTABLEKS                       R16 R15 K26 ["CreatorId"]
-      129 GETIMPORT                        R17 K42 [Enum.CreatorType]
+      129 GETIMPORT                        R17 K43 [Enum.CreatorType]
       131 MOVE                             R18 R14
-      132 NAMECALL                         R19 R17 K36 ["GetEnumItems"]
+      132 NAMECALL                         R19 R17 K37 ["GetEnumItems"]
       134 CALL                             R19 1 1
-      135 GETIMPORT                        R20 K38 [ipairs]
+      135 GETIMPORT                        R20 K39 [ipairs]
       137 MOVE                             R21 R19
       138 CALL                             R20 1 3
       139 FORGPREP_INEXT                   R20
-      140 GETTABLEKS                       R25 R24 K39 ["Value"]
+      140 GETTABLEKS                       R25 R24 K40 ["Value"]
       142 JUMPIFNOTEQ                      R25 R18 ; [+4]
-      144 GETTABLEKS                       R16 R24 K40 ["Name"]
+      144 GETTABLEKS                       R16 R24 K41 ["Name"]
       146 JUMP                             ; [+3]
       147 FORGLOOP                         R20 2 [inext] ; [-8]
       149 LOADNIL                          R16
       150 SETTABLEKS                       R16 R15 K27 ["CreatorType"]
-      152 GETTABLEKS                       R16 R12 K43 ["searchKeyword"]
+      152 GETTABLEKS                       R16 R12 K44 ["searchKeyword"]
       154 SETTABLEKS                       R16 R15 K28 ["SearchKeyword"]
       156 SETTABLEKS                       R13 R15 K29 ["Position"]
-      158 GETTABLEKS                       R16 R12 K44 ["searchId"]
+      158 GETTABLEKS                       R16 R12 K45 ["searchId"]
       160 SETTABLEKS                       R16 R15 K30 ["SearchId"]
-      162 LOADB                            R16 1
-      163 SETTABLEKS                       R16 R15 K31 ["ViewInBrowser"]
-      165 GETUPVAL                         R17 0
-      166 GETTABLEKS                       R17 R17 K21 ["Creator"]
-      168 JUMPIFNOT                        R17 ; [+6]
-      169 GETUPVAL                         R16 0
-      170 GETTABLEKS                       R16 R16 K21 ["Creator"]
-      172 GETTABLEKS                       R16 R16 K1 ["Id"]
-      174 JUMPIF                           R16 ; [+1]
-      175 LOADNIL                          R16
-      176 GETUPVAL                         R17 5
-      177 GETTABLEKS                       R17 R17 K45 ["getCategoryForPageInfo"]
-      179 MOVE                             R18 R6
-      180 CALL                             R17 1 1
-      181 GETUPVAL                         R18 6
-      182 GETTABLEKS                       R18 R18 K46 ["tryCreateContextMenu"]
-      184 GETUPVAL                         R19 7
-      185 MOVE                             R20 R2
-      186 MOVE                             R21 R3
-      187 MOVE                             R22 R8
-      188 GETUPVAL                         R23 8
-      189 GETUPVAL                         R24 9
-      190 MOVE                             R25 R11
-      191 MOVE                             R26 R17
-      192 MOVE                             R27 R15
-      193 MOVE                             R28 R16
-      194 CALL                             R18 10 0
-      195 RETURN                           R0 0
+      162 GETUPVAL                         R17 0
+      163 GETTABLEKS                       R17 R17 K21 ["Creator"]
+      165 JUMPIFNOT                        R17 ; [+6]
+      166 GETUPVAL                         R16 0
+      167 GETTABLEKS                       R16 R16 K21 ["Creator"]
+      169 GETTABLEKS                       R16 R16 K1 ["Id"]
+      171 JUMPIF                           R16 ; [+1]
+      172 LOADNIL                          R16
+      173 GETUPVAL                         R17 5
+      174 GETTABLEKS                       R17 R17 K46 ["getCategoryForPageInfo"]
+      176 MOVE                             R18 R6
+      177 CALL                             R17 1 1
+      178 GETUPVAL                         R18 6
+      179 GETTABLEKS                       R18 R18 K47 ["tryCreateContextMenu"]
+      181 GETUPVAL                         R19 7
+      182 MOVE                             R20 R2
+      183 MOVE                             R21 R3
+      184 MOVE                             R22 R8
+      185 GETUPVAL                         R23 8
+      186 GETUPVAL                         R24 9
+      187 MOVE                             R25 R11
+      188 MOVE                             R26 R17
+      189 MOVE                             R27 R15
+      190 MOVE                             R28 R16
+      191 CALL                             R18 10 0
+      192 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R5 P0

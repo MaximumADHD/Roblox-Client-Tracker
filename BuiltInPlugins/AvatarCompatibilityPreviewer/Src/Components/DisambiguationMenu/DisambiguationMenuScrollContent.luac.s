@@ -135,58 +135,56 @@ PROTO_3:
        37 GETUPVAL                         R2 1
        38 GETTABLEKS                       R2 R2 K11 ["createElement"]
        40 GETUPVAL                         R3 6
-       41 DUPTABLE                         R4 K17 [{"tag", "Size", "scroll", "sizeConstraint", "LayoutOrder"}]
-       42 LOADK                            R5 K18 ["size-full min-h-0"]
-       43 SETTABLEKS                       R5 R4 K12 ["tag"]
-       45 GETIMPORT                        R5 K21 [UDim2.new]
-       47 LOADN                            R6 1
-       48 LOADN                            R7 0
-       49 LOADN                            R8 0
-       50 GETTABLEKS                       R9 R0 K22 ["scrollHeight"]
-       52 CALL                             R5 4 1
-       53 SETTABLEKS                       R5 R4 K13 ["Size"]
-       55 DUPTABLE                         R5 K28 [{"ScrollingDirection", "AutomaticCanvasSize", "CanvasSize", "scrollBarVisibility", "VerticalScrollBarInset"}]
-       56 GETIMPORT                        R6 K31 [Enum.ScrollingDirection.Y]
-       58 SETTABLEKS                       R6 R5 K23 ["ScrollingDirection"]
-       60 GETIMPORT                        R6 K33 [Enum.AutomaticSize.Y]
-       62 SETTABLEKS                       R6 R5 K24 ["AutomaticCanvasSize"]
-       64 GETIMPORT                        R6 K35 [UDim2.fromScale]
-       66 LOADN                            R7 0
-       67 LOADN                            R8 1
-       68 CALL                             R6 2 1
-       69 SETTABLEKS                       R6 R5 K25 ["CanvasSize"]
-       71 GETUPVAL                         R6 7
-       72 GETTABLEKS                       R6 R6 K36 ["Auto"]
-       74 SETTABLEKS                       R6 R5 K26 ["scrollBarVisibility"]
-       76 GETIMPORT                        R6 K39 [Enum.ScrollBarInset.Always]
-       78 SETTABLEKS                       R6 R5 K27 ["VerticalScrollBarInset"]
-       80 SETTABLEKS                       R5 R4 K14 ["scroll"]
-       82 DUPTABLE                         R5 K41 [{"MaxSize"}]
-       83 GETIMPORT                        R6 K43 [Vector2.new]
-       85 GETTABLEKS                       R7 R0 K44 ["dialogWidth"]
-       87 GETTABLEKS                       R8 R0 K22 ["scrollHeight"]
-       89 CALL                             R6 2 1
-       90 SETTABLEKS                       R6 R5 K40 ["MaxSize"]
-       92 SETTABLEKS                       R5 R4 K15 ["sizeConstraint"]
-       94 GETTABLEKS                       R5 R0 K45 ["layoutOrder"]
-       96 SETTABLEKS                       R5 R4 K16 ["LayoutOrder"]
-       98 DUPTABLE                         R5 K47 [{"Content"}]
-       99 GETUPVAL                         R6 1
-      100 GETTABLEKS                       R6 R6 K11 ["createElement"]
-      102 GETUPVAL                         R7 8
-      103 DUPTABLE                         R8 K48 [{"tag"}]
-      104 GETUPVAL                         R10 9
-      105 CALL                             R10 0 1
-      106 JUMPIFNOT                        R10 ; [+2]
-      107 LOADK                            R9 K49 ["col size-full-0 auto-y padding-right-large"]
-      108 JUMP                             ; [+1]
-      109 LOADK                            R9 K50 ["col size-full-0 auto-y"]
-      110 SETTABLEKS                       R9 R8 K12 ["tag"]
-      112 MOVE                             R9 R1
-      113 CALL                             R6 3 1
-      114 SETTABLEKS                       R6 R5 K46 ["Content"]
-      116 CALL                             R2 3 -1
-      117 RETURN                           R2 -1
+       41 DUPTABLE                         R4 K18 [{["tag"] = "min-h-0 size-full", ["Size"], ["scroll"], ["sizeConstraint"], ["LayoutOrder"]}]
+       42 GETIMPORT                        R5 K21 [UDim2.new]
+       44 LOADN                            R6 1
+       45 LOADN                            R7 0
+       46 LOADN                            R8 0
+       47 GETTABLEKS                       R9 R0 K22 ["scrollHeight"]
+       49 CALL                             R5 4 1
+       50 SETTABLEKS                       R5 R4 K14 ["Size"]
+       52 DUPTABLE                         R5 K28 [{"ScrollingDirection", "AutomaticCanvasSize", "CanvasSize", "scrollBarVisibility", "VerticalScrollBarInset"}]
+       53 GETIMPORT                        R6 K31 [Enum.ScrollingDirection.Y]
+       55 SETTABLEKS                       R6 R5 K23 ["ScrollingDirection"]
+       57 GETIMPORT                        R6 K33 [Enum.AutomaticSize.Y]
+       59 SETTABLEKS                       R6 R5 K24 ["AutomaticCanvasSize"]
+       61 GETIMPORT                        R6 K35 [UDim2.fromScale]
+       63 LOADN                            R7 0
+       64 LOADN                            R8 1
+       65 CALL                             R6 2 1
+       66 SETTABLEKS                       R6 R5 K25 ["CanvasSize"]
+       68 GETUPVAL                         R6 7
+       69 GETTABLEKS                       R6 R6 K36 ["Auto"]
+       71 SETTABLEKS                       R6 R5 K26 ["scrollBarVisibility"]
+       73 GETIMPORT                        R6 K39 [Enum.ScrollBarInset.Always]
+       75 SETTABLEKS                       R6 R5 K27 ["VerticalScrollBarInset"]
+       77 SETTABLEKS                       R5 R4 K15 ["scroll"]
+       79 DUPTABLE                         R5 K41 [{"MaxSize"}]
+       80 GETIMPORT                        R6 K43 [Vector2.new]
+       82 GETTABLEKS                       R7 R0 K44 ["dialogWidth"]
+       84 GETTABLEKS                       R8 R0 K22 ["scrollHeight"]
+       86 CALL                             R6 2 1
+       87 SETTABLEKS                       R6 R5 K40 ["MaxSize"]
+       89 SETTABLEKS                       R5 R4 K16 ["sizeConstraint"]
+       91 GETTABLEKS                       R5 R0 K45 ["layoutOrder"]
+       93 SETTABLEKS                       R5 R4 K17 ["LayoutOrder"]
+       95 DUPTABLE                         R5 K47 [{"Content"}]
+       96 GETUPVAL                         R6 1
+       97 GETTABLEKS                       R6 R6 K11 ["createElement"]
+       99 GETUPVAL                         R7 8
+      100 DUPTABLE                         R8 K48 [{"tag"}]
+      101 GETUPVAL                         R10 9
+      102 CALL                             R10 0 1
+      103 JUMPIFNOT                        R10 ; [+2]
+      104 LOADK                            R9 K49 ["col size-full-0 auto-y padding-right-large"]
+      105 JUMP                             ; [+1]
+      106 LOADK                            R9 K50 ["col size-full-0 auto-y"]
+      107 SETTABLEKS                       R9 R8 K12 ["tag"]
+      109 MOVE                             R9 R1
+      110 CALL                             R6 3 1
+      111 SETTABLEKS                       R6 R5 K46 ["Content"]
+      113 CALL                             R2 3 -1
+      114 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

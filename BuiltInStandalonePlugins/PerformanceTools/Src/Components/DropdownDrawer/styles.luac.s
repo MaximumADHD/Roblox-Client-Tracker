@@ -16,16 +16,12 @@ MAIN:
        22 NEWTABLE                         R6 0 2
        24 MOVE                             R7 R2
        25 LOADK                            R8 K11 [">> .UseDownArrow"]
-       26 DUPTABLE                         R9 K13 [{"Image"}]
-       27 LOADK                            R10 K14 ["$DownArrow"]
-       28 SETTABLEKS                       R10 R9 K12 ["Image"]
-       30 CALL                             R7 2 1
-       31 MOVE                             R8 R2
-       32 LOADK                            R9 K15 [">> .UseUpArrow"]
-       33 DUPTABLE                         R10 K13 [{"Image"}]
-       34 LOADK                            R11 K16 ["$UpArrow"]
-       35 SETTABLEKS                       R11 R10 K12 ["Image"]
-       37 CALL                             R8 2 -1
-       38 SETLIST                          R6 R7 -1 [1]
-       40 CALL                             R3 3 -1
-       41 RETURN                           R3 -1
+       26 DUPTABLE                         R9 K14 [{["Image"] = "$DownArrow"}]
+       27 CALL                             R7 2 1
+       28 MOVE                             R8 R2
+       29 LOADK                            R9 K15 [">> .UseUpArrow"]
+       30 DUPTABLE                         R10 K17 [{["Image"] = "$UpArrow"}]
+       31 CALL                             R8 2 -1
+       32 SETLIST                          R6 R7 -1 [1]
+       34 CALL                             R3 3 -1
+       35 RETURN                           R3 -1

@@ -13,33 +13,31 @@ PROTO_0:
        16 GETIMPORT                        R3 K5 [warn]
        18 LOADK                            R4 K6 ["no searchId in pageInfo, analytics won't be tracked for asset"]
        19 CALL                             R3 1 0
-       20 DUPTABLE                         R3 K14 [{"category", "currentCategory", "page", "sort", "searchId", "searchKeyword", "toolboxTab", "isTopKeyword"}]
-       21 LOADK                            R4 K15 ["Studio"]
-       22 SETTABLEKS                       R4 R3 K7 ["category"]
-       24 GETUPVAL                         R4 1
-       25 GETTABLEKS                       R4 R4 K16 ["getCategoryForPageInfo"]
-       27 MOVE                             R5 R2
-       28 CALL                             R4 1 1
-       29 SETTABLEKS                       R4 R3 K8 ["currentCategory"]
-       31 GETTABLEKS                       R4 R2 K17 ["targetPage"]
-       33 SETTABLEKS                       R4 R3 K9 ["page"]
-       35 GETUPVAL                         R4 1
-       36 GETTABLEKS                       R4 R4 K18 ["getSortTypeForPageInfo"]
-       38 MOVE                             R5 R2
-       39 CALL                             R4 1 1
-       40 SETTABLEKS                       R4 R3 K10 ["sort"]
-       42 GETTABLEKS                       R4 R2 K3 ["searchId"]
-       44 SETTABLEKS                       R4 R3 K3 ["searchId"]
-       46 GETTABLEKS                       R4 R2 K19 ["searchTerm"]
-       48 SETTABLEKS                       R4 R3 K11 ["searchKeyword"]
-       50 GETUPVAL                         R4 1
-       51 GETTABLEKS                       R4 R4 K20 ["getCurrentTab"]
-       53 MOVE                             R5 R2
-       54 CALL                             R4 1 1
-       55 SETTABLEKS                       R4 R3 K12 ["toolboxTab"]
-       57 GETTABLEKS                       R4 R2 K13 ["isTopKeyword"]
-       59 SETTABLEKS                       R4 R3 K13 ["isTopKeyword"]
-       61 RETURN                           R3 1
+       20 DUPTABLE                         R3 K15 [{["category"] = "Studio", ["currentCategory"], ["page"], ["sort"], ["searchId"], ["searchKeyword"], ["toolboxTab"], ["isTopKeyword"]}]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K16 ["getCategoryForPageInfo"]
+       24 MOVE                             R5 R2
+       25 CALL                             R4 1 1
+       26 SETTABLEKS                       R4 R3 K9 ["currentCategory"]
+       28 GETTABLEKS                       R4 R2 K17 ["targetPage"]
+       30 SETTABLEKS                       R4 R3 K10 ["page"]
+       32 GETUPVAL                         R4 1
+       33 GETTABLEKS                       R4 R4 K18 ["getSortTypeForPageInfo"]
+       35 MOVE                             R5 R2
+       36 CALL                             R4 1 1
+       37 SETTABLEKS                       R4 R3 K11 ["sort"]
+       39 GETTABLEKS                       R4 R2 K3 ["searchId"]
+       41 SETTABLEKS                       R4 R3 K3 ["searchId"]
+       43 GETTABLEKS                       R4 R2 K19 ["searchTerm"]
+       45 SETTABLEKS                       R4 R3 K12 ["searchKeyword"]
+       47 GETUPVAL                         R4 1
+       48 GETTABLEKS                       R4 R4 K20 ["getCurrentTab"]
+       50 MOVE                             R5 R2
+       51 CALL                             R4 1 1
+       52 SETTABLEKS                       R4 R3 K13 ["toolboxTab"]
+       54 GETTABLEKS                       R4 R2 K14 ["isTopKeyword"]
+       56 SETTABLEKS                       R4 R3 K14 ["isTopKeyword"]
+       58 RETURN                           R3 1
 
 PROTO_1:
         0 DUPCLOSURE                       R0 K0 [PROTO_0]

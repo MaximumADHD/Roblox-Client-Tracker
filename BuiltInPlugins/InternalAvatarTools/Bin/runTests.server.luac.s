@@ -30,7 +30,7 @@ MAIN:
        30 JUMPIF                           R3 ; [+4]
        31 GETTABLEKS                       R3 R2 K10 ["RunTests"]
        33 CALL                             R3 0 1
-       34 JUMPIFNOT                        R3 ; [+71]
+       34 JUMPIFNOT                        R3 ; [+65]
        35 GETIMPORT                        R3 K4 [require]
        37 GETTABLEKS                       R4 R0 K11 ["Packages"]
        39 GETTABLEKS                       R4 R4 K12 ["Dev"]
@@ -48,38 +48,34 @@ MAIN:
        60 JUMPIF                           R7 ; [+1]
        61 MOVE                             R7 R6
        62 GETTABLEKS                       R8 R0 K6 ["Src"]
-       64 DUPTABLE                         R9 K24 [{"showTimingInfo", "testNamePattern", "extraEnvironment"}]
-       65 LOADB                            R10 0
-       66 SETTABLEKS                       R10 R9 K21 ["showTimingInfo"]
-       68 LOADNIL                          R10
-       69 SETTABLEKS                       R10 R9 K22 ["testNamePattern"]
-       71 NEWTABLE                         R10 0 0
-       73 SETTABLEKS                       R10 R9 K23 ["extraEnvironment"]
-       75 GETIMPORT                        R10 K26 [print]
-       77 LOADK                            R12 K27 ["----- All "]
-       78 GETTABLEKS                       R13 R0 K28 ["Name"]
-       80 LOADK                            R14 K29 [" Tests ------"]
-       81 CONCAT                           R11 R12 R14
-       82 CALL                             R10 1 0
-       83 GETIMPORT                        R10 K4 [require]
-       85 GETIMPORT                        R11 K1 [script]
-       87 GETTABLEKS                       R11 R11 K2 ["Parent"]
-       89 GETTABLEKS                       R11 R11 K30 ["defineLuaFlags"]
-       91 CALL                             R10 1 0
-       92 NEWTABLE                         R12 0 1
-       94 MOVE                             R13 R8
-       95 SETLIST                          R12 R13 1 [1]
-       97 MOVE                             R13 R7
-       98 MOVE                             R14 R9
-       99 NAMECALL                         R10 R4 K31 ["run"]
-      101 CALL                             R10 4 0
-      102 GETIMPORT                        R10 K26 [print]
-      104 LOADK                            R11 K32 ["----------------------------------"]
-      105 CALL                             R10 1 0
-      106 GETTABLEKS                       R3 R2 K9 ["RunningUnderCLI"]
-      108 CALL                             R3 0 1
-      109 JUMPIFNOT                        R3 ; [+4]
-      110 GETIMPORT                        R3 K34 [pcall]
-      112 DUPCLOSURE                       R4 K35 [PROTO_0]
-      113 CALL                             R3 1 0
-      114 RETURN                           R0 0
+       64 DUPTABLE                         R9 K26 [{["showTimingInfo"] = False, ["testNamePattern"] = , ["extraEnvironment"]}]
+       65 NEWTABLE                         R10 0 0
+       67 SETTABLEKS                       R10 R9 K25 ["extraEnvironment"]
+       69 GETIMPORT                        R10 K28 [print]
+       71 LOADK                            R12 K29 ["----- All "]
+       72 GETTABLEKS                       R13 R0 K30 ["Name"]
+       74 LOADK                            R14 K31 [" Tests ------"]
+       75 CONCAT                           R11 R12 R14
+       76 CALL                             R10 1 0
+       77 GETIMPORT                        R10 K4 [require]
+       79 GETIMPORT                        R11 K1 [script]
+       81 GETTABLEKS                       R11 R11 K2 ["Parent"]
+       83 GETTABLEKS                       R11 R11 K32 ["defineLuaFlags"]
+       85 CALL                             R10 1 0
+       86 NEWTABLE                         R12 0 1
+       88 MOVE                             R13 R8
+       89 SETLIST                          R12 R13 1 [1]
+       91 MOVE                             R13 R7
+       92 MOVE                             R14 R9
+       93 NAMECALL                         R10 R4 K33 ["run"]
+       95 CALL                             R10 4 0
+       96 GETIMPORT                        R10 K28 [print]
+       98 LOADK                            R11 K34 ["----------------------------------"]
+       99 CALL                             R10 1 0
+      100 GETTABLEKS                       R3 R2 K9 ["RunningUnderCLI"]
+      102 CALL                             R3 0 1
+      103 JUMPIFNOT                        R3 ; [+4]
+      104 GETIMPORT                        R3 K36 [pcall]
+      106 DUPCLOSURE                       R4 K37 [PROTO_0]
+      107 CALL                             R3 1 0
+      108 RETURN                           R0 0

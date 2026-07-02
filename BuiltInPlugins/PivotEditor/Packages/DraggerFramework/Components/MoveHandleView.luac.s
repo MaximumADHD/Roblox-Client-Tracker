@@ -70,10 +70,10 @@ PROTO_1:
        83 NEWTABLE                         R12 4 0
        85 GETUPVAL                         R13 5
        86 CALL                             R13 0 1
-       87 JUMPIFNOT                        R13 ; [+74]
+       87 JUMPIFNOT                        R13 ; [+65]
        88 GETTABLEKS                       R13 R0 K0 ["props"]
        90 GETTABLEKS                       R13 R13 K19 ["Tail"]
-       92 JUMPIFNOT                        R13 ; [+69]
+       92 JUMPIFNOT                        R13 ; [+60]
        93 ADD                              R2 R2 R4
        94 LOADN                            R4 0
        95 GETTABLEKS                       R16 R0 K0 ["props"]
@@ -93,260 +93,236 @@ PROTO_1:
       113 GETUPVAL                         R17 6
       114 GETTABLEKS                       R17 R17 K26 ["createElement"]
       116 LOADK                            R18 K27 ["CylinderHandleAdornment"]
-      117 DUPTABLE                         R19 K36 [{"Adornee", "ZIndex", "Radius", "Height", "CFrame", "Color3", "AlwaysOnTop", "Transparency", "AdornCullingMode"}]
+      117 DUPTABLE                         R19 K38 [{["Adornee"], ["ZIndex"] = 0, ["Radius"], ["Height"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.5, ["AdornCullingMode"]}]
       118 GETUPVAL                         R20 4
-      119 GETTABLEKS                       R20 R20 K37 ["Terrain"]
+      119 GETTABLEKS                       R20 R20 K39 ["Terrain"]
       121 SETTABLEKS                       R20 R19 K28 ["Adornee"]
-      123 LOADN                            R20 0
-      124 SETTABLEKS                       R20 R19 K29 ["ZIndex"]
-      126 SETTABLEKS                       R15 R19 K30 ["Radius"]
-      128 SETTABLEKS                       R13 R19 K31 ["Height"]
-      130 GETTABLEKS                       R21 R0 K0 ["props"]
-      132 GETTABLEKS                       R21 R21 K11 ["Axis"]
-      134 GETIMPORT                        R22 K14 [CFrame.new]
-      136 LOADN                            R23 0
-      137 LOADN                            R24 0
-      138 LOADN                            R26 0
-      139 MULK                             R27 R13 K38 [0.5]
-      140 ADD                              R25 R26 R27
-      141 CALL                             R22 3 1
-      142 MUL                              R20 R21 R22
-      143 SETTABLEKS                       R20 R19 K12 ["CFrame"]
-      145 GETTABLEKS                       R20 R0 K0 ["props"]
-      147 GETTABLEKS                       R20 R20 K39 ["Color"]
-      149 SETTABLEKS                       R20 R19 K32 ["Color3"]
-      151 LOADB                            R20 1
-      152 SETTABLEKS                       R20 R19 K33 ["AlwaysOnTop"]
-      154 LOADK                            R20 K38 [0.5]
-      155 SETTABLEKS                       R20 R19 K34 ["Transparency"]
-      157 GETUPVAL                         R20 7
-      158 SETTABLEKS                       R20 R19 K35 ["AdornCullingMode"]
-      160 CALL                             R17 2 1
-      161 SETTABLE                         R17 R12 R16
-      162 GETUPVAL                         R13 1
-      163 CALL                             R13 0 1
-      164 JUMPIF                           R13 ; [+93]
-      165 GETTABLEKS                       R13 R0 K0 ["props"]
-      167 GETTABLEKS                       R13 R13 K10 ["Hovered"]
-      169 JUMPIF                           R13 ; [+88]
-      170 GETUPVAL                         R13 6
-      171 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      173 LOADK                            R14 K27 ["CylinderHandleAdornment"]
-      174 DUPTABLE                         R15 K40 [{"Adornee", "ZIndex", "Radius", "Height", "CFrame", "Color3", "AlwaysOnTop", "AdornCullingMode"}]
-      175 GETUPVAL                         R16 4
-      176 GETTABLEKS                       R16 R16 K37 ["Terrain"]
-      178 SETTABLEKS                       R16 R15 K28 ["Adornee"]
-      180 LOADN                            R16 0
-      181 SETTABLEKS                       R16 R15 K29 ["ZIndex"]
-      183 SETTABLEKS                       R3 R15 K30 ["Radius"]
-      185 SETTABLEKS                       R2 R15 K31 ["Height"]
-      187 GETTABLEKS                       R17 R0 K0 ["props"]
-      189 GETTABLEKS                       R17 R17 K11 ["Axis"]
-      191 GETIMPORT                        R18 K14 [CFrame.new]
-      193 LOADN                            R19 0
-      194 LOADN                            R20 0
-      195 MULK                             R23 R2 K38 [0.5]
-      196 ADD                              R22 R4 R23
-      197 MINUS                            R21 R22
-      198 CALL                             R18 3 1
-      199 MUL                              R16 R17 R18
-      200 SETTABLEKS                       R16 R15 K12 ["CFrame"]
-      202 GETTABLEKS                       R16 R0 K0 ["props"]
-      204 GETTABLEKS                       R16 R16 K39 ["Color"]
-      206 SETTABLEKS                       R16 R15 K32 ["Color3"]
-      208 LOADB                            R16 0
-      209 SETTABLEKS                       R16 R15 K33 ["AlwaysOnTop"]
-      211 GETUPVAL                         R16 7
-      212 SETTABLEKS                       R16 R15 K35 ["AdornCullingMode"]
-      214 CALL                             R13 2 1
-      215 SETTABLEKS                       R13 R12 K41 ["Shaft"]
-      217 GETTABLEKS                       R13 R0 K0 ["props"]
-      219 GETTABLEKS                       R13 R13 K9 ["Thin"]
-      221 JUMPIF                           R13 ; [+36]
-      222 GETUPVAL                         R13 6
-      223 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      225 LOADK                            R14 K42 ["ConeHandleAdornment"]
-      226 DUPTABLE                         R15 K40 [{"Adornee", "ZIndex", "Radius", "Height", "CFrame", "Color3", "AlwaysOnTop", "AdornCullingMode"}]
-      227 GETUPVAL                         R16 4
-      228 GETTABLEKS                       R16 R16 K37 ["Terrain"]
-      230 SETTABLEKS                       R16 R15 K28 ["Adornee"]
-      232 LOADN                            R16 0
-      233 SETTABLEKS                       R16 R15 K29 ["ZIndex"]
-      235 LOADN                            R17 3
-      236 MUL                              R16 R17 R3
-      237 SETTABLEKS                       R16 R15 K30 ["Radius"]
-      239 SETTABLEKS                       R6 R15 K31 ["Height"]
-      241 SETTABLEKS                       R8 R15 K12 ["CFrame"]
-      243 GETTABLEKS                       R16 R0 K0 ["props"]
-      245 GETTABLEKS                       R16 R16 K39 ["Color"]
-      247 SETTABLEKS                       R16 R15 K32 ["Color3"]
-      249 LOADB                            R16 0
-      250 SETTABLEKS                       R16 R15 K33 ["AlwaysOnTop"]
-      252 GETUPVAL                         R16 7
-      253 SETTABLEKS                       R16 R15 K35 ["AdornCullingMode"]
-      255 CALL                             R13 2 1
-      256 SETTABLEKS                       R13 R12 K43 ["Head"]
-      258 GETTABLEKS                       R14 R0 K0 ["props"]
-      260 GETTABLEKS                       R14 R14 K10 ["Hovered"]
-      262 JUMPIFNOT                        R14 ; [+2]
-      263 LOADN                            R13 0
-      264 JUMP                             ; [+5]
-      265 GETTABLEKS                       R14 R0 K0 ["props"]
-      267 GETTABLEKS                       R14 R14 K34 ["Transparency"]
-      269 ORK                              R13 R14 K4 [0]
-      270 GETTABLEKS                       R14 R0 K0 ["props"]
-      272 GETTABLEKS                       R14 R14 K33 ["AlwaysOnTop"]
-      274 JUMPIFNOT                        R14 ; [+129]
-      275 GETUPVAL                         R15 1
-      276 CALL                             R15 0 1
-      277 JUMPIFNOT                        R15 ; [+2]
-      278 LOADK                            R14 K41 ["Shaft"]
-      279 JUMP                             ; [+1]
-      280 LOADK                            R14 K44 ["DimmedShaft"]
-      281 GETUPVAL                         R15 6
-      282 GETTABLEKS                       R15 R15 K26 ["createElement"]
-      284 LOADK                            R16 K27 ["CylinderHandleAdornment"]
-      285 DUPTABLE                         R17 K36 [{"Adornee", "ZIndex", "Radius", "Height", "CFrame", "Color3", "AlwaysOnTop", "Transparency", "AdornCullingMode"}]
-      286 GETUPVAL                         R18 4
-      287 GETTABLEKS                       R18 R18 K37 ["Terrain"]
-      289 SETTABLEKS                       R18 R17 K28 ["Adornee"]
-      291 LOADN                            R18 0
-      292 SETTABLEKS                       R18 R17 K29 ["ZIndex"]
-      294 SETTABLEKS                       R3 R17 K30 ["Radius"]
-      296 SETTABLEKS                       R2 R17 K31 ["Height"]
-      298 GETTABLEKS                       R19 R0 K0 ["props"]
-      300 GETTABLEKS                       R19 R19 K11 ["Axis"]
-      302 GETIMPORT                        R20 K14 [CFrame.new]
-      304 LOADN                            R21 0
-      305 LOADN                            R22 0
-      306 MULK                             R25 R2 K38 [0.5]
-      307 ADD                              R24 R4 R25
-      308 MINUS                            R23 R24
-      309 CALL                             R20 3 1
-      310 MUL                              R18 R19 R20
-      311 SETTABLEKS                       R18 R17 K12 ["CFrame"]
-      313 GETTABLEKS                       R18 R0 K0 ["props"]
-      315 GETTABLEKS                       R18 R18 K39 ["Color"]
-      317 SETTABLEKS                       R18 R17 K32 ["Color3"]
-      319 LOADB                            R18 1
-      320 SETTABLEKS                       R18 R17 K33 ["AlwaysOnTop"]
-      322 GETUPVAL                         R19 1
-      323 CALL                             R19 0 1
-      324 JUMPIFNOT                        R19 ; [+2]
-      325 MOVE                             R18 R13
-      326 JUMP                             ; [+8]
-      327 GETTABLEKS                       R19 R0 K0 ["props"]
-      329 GETTABLEKS                       R19 R19 K10 ["Hovered"]
-      331 JUMPIFNOT                        R19 ; [+2]
-      332 LOADN                            R18 0
-      333 JUMP                             ; [+1]
-      334 LOADK                            R18 K45 [0.45]
-      335 SETTABLEKS                       R18 R17 K34 ["Transparency"]
-      337 GETUPVAL                         R18 7
-      338 SETTABLEKS                       R18 R17 K35 ["AdornCullingMode"]
-      340 CALL                             R15 2 1
-      341 SETTABLE                         R15 R12 R14
-      342 GETTABLEKS                       R15 R0 K0 ["props"]
-      344 GETTABLEKS                       R15 R15 K9 ["Thin"]
-      346 JUMPIF                           R15 ; [+128]
-      347 GETUPVAL                         R16 1
-      348 CALL                             R16 0 1
-      349 JUMPIFNOT                        R16 ; [+2]
-      350 LOADK                            R15 K43 ["Head"]
-      351 JUMP                             ; [+1]
-      352 LOADK                            R15 K46 ["DimmedHead"]
-      353 GETUPVAL                         R16 6
-      354 GETTABLEKS                       R16 R16 K26 ["createElement"]
-      356 LOADK                            R17 K42 ["ConeHandleAdornment"]
-      357 DUPTABLE                         R18 K36 [{"Adornee", "ZIndex", "Radius", "Height", "CFrame", "Color3", "AlwaysOnTop", "Transparency", "AdornCullingMode"}]
-      358 GETUPVAL                         R19 4
-      359 GETTABLEKS                       R19 R19 K37 ["Terrain"]
-      361 SETTABLEKS                       R19 R18 K28 ["Adornee"]
-      363 LOADN                            R19 0
-      364 SETTABLEKS                       R19 R18 K29 ["ZIndex"]
-      366 LOADN                            R20 3
-      367 MUL                              R19 R20 R3
-      368 SETTABLEKS                       R19 R18 K30 ["Radius"]
-      370 SETTABLEKS                       R6 R18 K31 ["Height"]
-      372 SETTABLEKS                       R8 R18 K12 ["CFrame"]
-      374 GETTABLEKS                       R19 R0 K0 ["props"]
-      376 GETTABLEKS                       R19 R19 K39 ["Color"]
-      378 SETTABLEKS                       R19 R18 K32 ["Color3"]
-      380 LOADB                            R19 1
-      381 SETTABLEKS                       R19 R18 K33 ["AlwaysOnTop"]
-      383 GETUPVAL                         R20 1
-      384 CALL                             R20 0 1
-      385 JUMPIFNOT                        R20 ; [+2]
-      386 MOVE                             R19 R13
-      387 JUMP                             ; [+8]
-      388 GETTABLEKS                       R20 R0 K0 ["props"]
-      390 GETTABLEKS                       R20 R20 K10 ["Hovered"]
-      392 JUMPIFNOT                        R20 ; [+2]
-      393 LOADN                            R19 0
-      394 JUMP                             ; [+1]
-      395 LOADK                            R19 K45 [0.45]
-      396 SETTABLEKS                       R19 R18 K34 ["Transparency"]
-      398 GETUPVAL                         R19 7
-      399 SETTABLEKS                       R19 R18 K35 ["AdornCullingMode"]
-      401 CALL                             R16 2 1
-      402 SETTABLE                         R16 R12 R15
-      403 JUMP                             ; [+71]
-      404 GETTABLEKS                       R14 R0 K0 ["props"]
-      406 GETTABLEKS                       R14 R14 K9 ["Thin"]
-      408 JUMPIF                           R14 ; [+66]
-      409 GETUPVAL                         R14 6
-      410 GETTABLEKS                       R14 R14 K26 ["createElement"]
-      412 GETUPVAL                         R15 6
-      413 GETTABLEKS                       R15 R15 K47 ["Portal"]
-      415 DUPTABLE                         R16 K49 [{"target"}]
-      416 GETUPVAL                         R17 8
-      417 SETTABLEKS                       R17 R16 K48 ["target"]
-      419 DUPTABLE                         R17 K51 [{"MoveToolScreenspaceHandle"}]
-      420 GETUPVAL                         R18 6
-      421 GETTABLEKS                       R18 R18 K26 ["createElement"]
-      423 LOADK                            R19 K52 ["ScreenGui"]
-      424 NEWTABLE                         R20 0 0
-      426 DUPTABLE                         R21 K54 [{"Frame"}]
-      427 GETUPVAL                         R22 6
-      428 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      430 LOADK                            R23 K53 ["Frame"]
-      431 DUPTABLE                         R24 K59 [{"BorderSizePixel", "BackgroundColor3", "Position", "Size", "AdornCullingMode"}]
-      432 LOADN                            R25 0
-      433 SETTABLEKS                       R25 R24 K55 ["BorderSizePixel"]
-      435 GETTABLEKS                       R25 R0 K0 ["props"]
-      437 GETTABLEKS                       R25 R25 K39 ["Color"]
-      439 SETTABLEKS                       R25 R24 K56 ["BackgroundColor3"]
-      441 GETIMPORT                        R25 K61 [UDim2.new]
-      443 LOADN                            R26 0
-      444 GETTABLEKS                       R28 R10 K62 ["X"]
-      446 SUBK                             R27 R28 K8 [3]
-      447 LOADN                            R28 0
-      448 GETTABLEKS                       R30 R10 K63 ["Y"]
-      450 SUBK                             R29 R30 K8 [3]
-      451 CALL                             R25 4 1
-      452 SETTABLEKS                       R25 R24 K57 ["Position"]
-      454 GETIMPORT                        R25 K61 [UDim2.new]
-      456 LOADN                            R26 0
-      457 LOADN                            R27 6
-      458 LOADN                            R28 0
-      459 LOADN                            R29 6
-      460 CALL                             R25 4 1
-      461 SETTABLEKS                       R25 R24 K58 ["Size"]
-      463 GETUPVAL                         R25 7
-      464 SETTABLEKS                       R25 R24 K35 ["AdornCullingMode"]
-      466 CALL                             R22 2 1
-      467 SETTABLEKS                       R22 R21 K53 ["Frame"]
-      469 CALL                             R18 3 1
-      470 SETTABLEKS                       R18 R17 K50 ["MoveToolScreenspaceHandle"]
-      472 CALL                             R14 3 1
-      473 SETTABLEKS                       R14 R12 K64 ["ScreenBox"]
-      475 GETUPVAL                         R14 6
-      476 GETTABLEKS                       R14 R14 K26 ["createElement"]
-      478 LOADK                            R15 K65 ["Folder"]
-      479 NEWTABLE                         R16 0 0
-      481 MOVE                             R17 R12
-      482 CALL                             R14 3 -1
-      483 RETURN                           R14 -1
+      123 SETTABLEKS                       R15 R19 K30 ["Radius"]
+      125 SETTABLEKS                       R13 R19 K31 ["Height"]
+      127 GETTABLEKS                       R21 R0 K0 ["props"]
+      129 GETTABLEKS                       R21 R21 K11 ["Axis"]
+      131 GETIMPORT                        R22 K14 [CFrame.new]
+      133 LOADN                            R23 0
+      134 LOADN                            R24 0
+      135 LOADN                            R26 0
+      136 MULK                             R27 R13 K36 [0.5]
+      137 ADD                              R25 R26 R27
+      138 CALL                             R22 3 1
+      139 MUL                              R20 R21 R22
+      140 SETTABLEKS                       R20 R19 K12 ["CFrame"]
+      142 GETTABLEKS                       R20 R0 K0 ["props"]
+      144 GETTABLEKS                       R20 R20 K40 ["Color"]
+      146 SETTABLEKS                       R20 R19 K32 ["Color3"]
+      148 GETUPVAL                         R20 7
+      149 SETTABLEKS                       R20 R19 K37 ["AdornCullingMode"]
+      151 CALL                             R17 2 1
+      152 SETTABLE                         R17 R12 R16
+      153 GETUPVAL                         R13 1
+      154 CALL                             R13 0 1
+      155 JUMPIF                           R13 ; [+81]
+      156 GETTABLEKS                       R13 R0 K0 ["props"]
+      158 GETTABLEKS                       R13 R13 K10 ["Hovered"]
+      160 JUMPIF                           R13 ; [+76]
+      161 GETUPVAL                         R13 6
+      162 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      164 LOADK                            R14 K27 ["CylinderHandleAdornment"]
+      165 DUPTABLE                         R15 K42 [{["Adornee"], ["ZIndex"] = 0, ["Radius"], ["Height"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = False, ["AdornCullingMode"]}]
+      166 GETUPVAL                         R16 4
+      167 GETTABLEKS                       R16 R16 K39 ["Terrain"]
+      169 SETTABLEKS                       R16 R15 K28 ["Adornee"]
+      171 SETTABLEKS                       R3 R15 K30 ["Radius"]
+      173 SETTABLEKS                       R2 R15 K31 ["Height"]
+      175 GETTABLEKS                       R17 R0 K0 ["props"]
+      177 GETTABLEKS                       R17 R17 K11 ["Axis"]
+      179 GETIMPORT                        R18 K14 [CFrame.new]
+      181 LOADN                            R19 0
+      182 LOADN                            R20 0
+      183 MULK                             R23 R2 K36 [0.5]
+      184 ADD                              R22 R4 R23
+      185 MINUS                            R21 R22
+      186 CALL                             R18 3 1
+      187 MUL                              R16 R17 R18
+      188 SETTABLEKS                       R16 R15 K12 ["CFrame"]
+      190 GETTABLEKS                       R16 R0 K0 ["props"]
+      192 GETTABLEKS                       R16 R16 K40 ["Color"]
+      194 SETTABLEKS                       R16 R15 K32 ["Color3"]
+      196 GETUPVAL                         R16 7
+      197 SETTABLEKS                       R16 R15 K37 ["AdornCullingMode"]
+      199 CALL                             R13 2 1
+      200 SETTABLEKS                       R13 R12 K43 ["Shaft"]
+      202 GETTABLEKS                       R13 R0 K0 ["props"]
+      204 GETTABLEKS                       R13 R13 K9 ["Thin"]
+      206 JUMPIF                           R13 ; [+30]
+      207 GETUPVAL                         R13 6
+      208 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      210 LOADK                            R14 K44 ["ConeHandleAdornment"]
+      211 DUPTABLE                         R15 K42 [{["Adornee"], ["ZIndex"] = 0, ["Radius"], ["Height"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = False, ["AdornCullingMode"]}]
+      212 GETUPVAL                         R16 4
+      213 GETTABLEKS                       R16 R16 K39 ["Terrain"]
+      215 SETTABLEKS                       R16 R15 K28 ["Adornee"]
+      217 LOADN                            R17 3
+      218 MUL                              R16 R17 R3
+      219 SETTABLEKS                       R16 R15 K30 ["Radius"]
+      221 SETTABLEKS                       R6 R15 K31 ["Height"]
+      223 SETTABLEKS                       R8 R15 K12 ["CFrame"]
+      225 GETTABLEKS                       R16 R0 K0 ["props"]
+      227 GETTABLEKS                       R16 R16 K40 ["Color"]
+      229 SETTABLEKS                       R16 R15 K32 ["Color3"]
+      231 GETUPVAL                         R16 7
+      232 SETTABLEKS                       R16 R15 K37 ["AdornCullingMode"]
+      234 CALL                             R13 2 1
+      235 SETTABLEKS                       R13 R12 K45 ["Head"]
+      237 GETTABLEKS                       R14 R0 K0 ["props"]
+      239 GETTABLEKS                       R14 R14 K10 ["Hovered"]
+      241 JUMPIFNOT                        R14 ; [+2]
+      242 LOADN                            R13 0
+      243 JUMP                             ; [+5]
+      244 GETTABLEKS                       R14 R0 K0 ["props"]
+      246 GETTABLEKS                       R14 R14 K35 ["Transparency"]
+      248 ORK                              R13 R14 K4 [0]
+      249 GETTABLEKS                       R14 R0 K0 ["props"]
+      251 GETTABLEKS                       R14 R14 K33 ["AlwaysOnTop"]
+      253 JUMPIFNOT                        R14 ; [+117]
+      254 GETUPVAL                         R15 1
+      255 CALL                             R15 0 1
+      256 JUMPIFNOT                        R15 ; [+2]
+      257 LOADK                            R14 K43 ["Shaft"]
+      258 JUMP                             ; [+1]
+      259 LOADK                            R14 K46 ["DimmedShaft"]
+      260 GETUPVAL                         R15 6
+      261 GETTABLEKS                       R15 R15 K26 ["createElement"]
+      263 LOADK                            R16 K27 ["CylinderHandleAdornment"]
+      264 DUPTABLE                         R17 K47 [{["Adornee"], ["ZIndex"] = 0, ["Radius"], ["Height"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"], ["AdornCullingMode"]}]
+      265 GETUPVAL                         R18 4
+      266 GETTABLEKS                       R18 R18 K39 ["Terrain"]
+      268 SETTABLEKS                       R18 R17 K28 ["Adornee"]
+      270 SETTABLEKS                       R3 R17 K30 ["Radius"]
+      272 SETTABLEKS                       R2 R17 K31 ["Height"]
+      274 GETTABLEKS                       R19 R0 K0 ["props"]
+      276 GETTABLEKS                       R19 R19 K11 ["Axis"]
+      278 GETIMPORT                        R20 K14 [CFrame.new]
+      280 LOADN                            R21 0
+      281 LOADN                            R22 0
+      282 MULK                             R25 R2 K36 [0.5]
+      283 ADD                              R24 R4 R25
+      284 MINUS                            R23 R24
+      285 CALL                             R20 3 1
+      286 MUL                              R18 R19 R20
+      287 SETTABLEKS                       R18 R17 K12 ["CFrame"]
+      289 GETTABLEKS                       R18 R0 K0 ["props"]
+      291 GETTABLEKS                       R18 R18 K40 ["Color"]
+      293 SETTABLEKS                       R18 R17 K32 ["Color3"]
+      295 GETUPVAL                         R19 1
+      296 CALL                             R19 0 1
+      297 JUMPIFNOT                        R19 ; [+2]
+      298 MOVE                             R18 R13
+      299 JUMP                             ; [+8]
+      300 GETTABLEKS                       R19 R0 K0 ["props"]
+      302 GETTABLEKS                       R19 R19 K10 ["Hovered"]
+      304 JUMPIFNOT                        R19 ; [+2]
+      305 LOADN                            R18 0
+      306 JUMP                             ; [+1]
+      307 LOADK                            R18 K48 [0.45]
+      308 SETTABLEKS                       R18 R17 K35 ["Transparency"]
+      310 GETUPVAL                         R18 7
+      311 SETTABLEKS                       R18 R17 K37 ["AdornCullingMode"]
+      313 CALL                             R15 2 1
+      314 SETTABLE                         R15 R12 R14
+      315 GETTABLEKS                       R15 R0 K0 ["props"]
+      317 GETTABLEKS                       R15 R15 K9 ["Thin"]
+      319 JUMPIF                           R15 ; [+119]
+      320 GETUPVAL                         R16 1
+      321 CALL                             R16 0 1
+      322 JUMPIFNOT                        R16 ; [+2]
+      323 LOADK                            R15 K45 ["Head"]
+      324 JUMP                             ; [+1]
+      325 LOADK                            R15 K49 ["DimmedHead"]
+      326 GETUPVAL                         R16 6
+      327 GETTABLEKS                       R16 R16 K26 ["createElement"]
+      329 LOADK                            R17 K44 ["ConeHandleAdornment"]
+      330 DUPTABLE                         R18 K47 [{["Adornee"], ["ZIndex"] = 0, ["Radius"], ["Height"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"], ["AdornCullingMode"]}]
+      331 GETUPVAL                         R19 4
+      332 GETTABLEKS                       R19 R19 K39 ["Terrain"]
+      334 SETTABLEKS                       R19 R18 K28 ["Adornee"]
+      336 LOADN                            R20 3
+      337 MUL                              R19 R20 R3
+      338 SETTABLEKS                       R19 R18 K30 ["Radius"]
+      340 SETTABLEKS                       R6 R18 K31 ["Height"]
+      342 SETTABLEKS                       R8 R18 K12 ["CFrame"]
+      344 GETTABLEKS                       R19 R0 K0 ["props"]
+      346 GETTABLEKS                       R19 R19 K40 ["Color"]
+      348 SETTABLEKS                       R19 R18 K32 ["Color3"]
+      350 GETUPVAL                         R20 1
+      351 CALL                             R20 0 1
+      352 JUMPIFNOT                        R20 ; [+2]
+      353 MOVE                             R19 R13
+      354 JUMP                             ; [+8]
+      355 GETTABLEKS                       R20 R0 K0 ["props"]
+      357 GETTABLEKS                       R20 R20 K10 ["Hovered"]
+      359 JUMPIFNOT                        R20 ; [+2]
+      360 LOADN                            R19 0
+      361 JUMP                             ; [+1]
+      362 LOADK                            R19 K48 [0.45]
+      363 SETTABLEKS                       R19 R18 K35 ["Transparency"]
+      365 GETUPVAL                         R19 7
+      366 SETTABLEKS                       R19 R18 K37 ["AdornCullingMode"]
+      368 CALL                             R16 2 1
+      369 SETTABLE                         R16 R12 R15
+      370 JUMP                             ; [+68]
+      371 GETTABLEKS                       R14 R0 K0 ["props"]
+      373 GETTABLEKS                       R14 R14 K9 ["Thin"]
+      375 JUMPIF                           R14 ; [+63]
+      376 GETUPVAL                         R14 6
+      377 GETTABLEKS                       R14 R14 K26 ["createElement"]
+      379 GETUPVAL                         R15 6
+      380 GETTABLEKS                       R15 R15 K50 ["Portal"]
+      382 DUPTABLE                         R16 K52 [{"target"}]
+      383 GETUPVAL                         R17 8
+      384 SETTABLEKS                       R17 R16 K51 ["target"]
+      386 DUPTABLE                         R17 K54 [{"MoveToolScreenspaceHandle"}]
+      387 GETUPVAL                         R18 6
+      388 GETTABLEKS                       R18 R18 K26 ["createElement"]
+      390 LOADK                            R19 K55 ["ScreenGui"]
+      391 NEWTABLE                         R20 0 0
+      393 DUPTABLE                         R21 K57 [{"Frame"}]
+      394 GETUPVAL                         R22 6
+      395 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      397 LOADK                            R23 K56 ["Frame"]
+      398 DUPTABLE                         R24 K62 [{["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Position"], ["Size"], ["AdornCullingMode"]}]
+      399 GETTABLEKS                       R25 R0 K0 ["props"]
+      401 GETTABLEKS                       R25 R25 K40 ["Color"]
+      403 SETTABLEKS                       R25 R24 K59 ["BackgroundColor3"]
+      405 GETIMPORT                        R25 K64 [UDim2.new]
+      407 LOADN                            R26 0
+      408 GETTABLEKS                       R28 R10 K65 ["X"]
+      410 SUBK                             R27 R28 K8 [3]
+      411 LOADN                            R28 0
+      412 GETTABLEKS                       R30 R10 K66 ["Y"]
+      414 SUBK                             R29 R30 K8 [3]
+      415 CALL                             R25 4 1
+      416 SETTABLEKS                       R25 R24 K60 ["Position"]
+      418 GETIMPORT                        R25 K64 [UDim2.new]
+      420 LOADN                            R26 0
+      421 LOADN                            R27 6
+      422 LOADN                            R28 0
+      423 LOADN                            R29 6
+      424 CALL                             R25 4 1
+      425 SETTABLEKS                       R25 R24 K61 ["Size"]
+      427 GETUPVAL                         R25 7
+      428 SETTABLEKS                       R25 R24 K37 ["AdornCullingMode"]
+      430 CALL                             R22 2 1
+      431 SETTABLEKS                       R22 R21 K56 ["Frame"]
+      433 CALL                             R18 3 1
+      434 SETTABLEKS                       R18 R17 K53 ["MoveToolScreenspaceHandle"]
+      436 CALL                             R14 3 1
+      437 SETTABLEKS                       R14 R12 K67 ["ScreenBox"]
+      439 GETUPVAL                         R14 6
+      440 GETTABLEKS                       R14 R14 K26 ["createElement"]
+      442 LOADK                            R15 K68 ["Folder"]
+      443 NEWTABLE                         R16 0 0
+      445 MOVE                             R17 R12
+      446 CALL                             R14 3 -1
+      447 RETURN                           R14 -1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["Scale"]

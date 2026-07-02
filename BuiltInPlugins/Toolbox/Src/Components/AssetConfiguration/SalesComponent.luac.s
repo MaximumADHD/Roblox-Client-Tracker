@@ -105,7 +105,7 @@ PROTO_2:
       102 GETUPVAL                         R19 2
       103 GETTABLEKS                       R19 R19 K22 ["createElement"]
       105 LOADK                            R20 K37 ["TextLabel"]
-      106 DUPTABLE                         R21 K45 [{"Size", "BackgroundTransparency", "TextColor3", "BorderSizePixel", "Font", "TextSize", "Text", "TextXAlignment", "LayoutOrder"}]
+      106 DUPTABLE                         R21 K47 [{["Size"], ["BackgroundTransparency"] = 1, ["TextColor3"], ["BorderSizePixel"] = 0, ["Font"], ["TextSize"], ["Text"], ["TextXAlignment"], ["LayoutOrder"]}]
       107 GETIMPORT                        R22 K36 [UDim2.new]
       109 LOADN                            R23 1
       110 LOADN                            R24 0
@@ -113,27 +113,23 @@ PROTO_2:
       112 LOADN                            R26 24
       113 CALL                             R22 4 1
       114 SETTABLEKS                       R22 R21 K30 ["Size"]
-      116 LOADN                            R22 1
-      117 SETTABLEKS                       R22 R21 K38 ["BackgroundTransparency"]
-      119 SETTABLEKS                       R12 R21 K39 ["TextColor3"]
-      121 LOADN                            R22 0
-      122 SETTABLEKS                       R22 R21 K40 ["BorderSizePixel"]
-      124 GETUPVAL                         R22 5
-      125 GETTABLEKS                       R22 R22 K46 ["FONT"]
-      127 SETTABLEKS                       R22 R21 K41 ["Font"]
-      129 GETUPVAL                         R22 5
-      130 GETTABLEKS                       R22 R22 K47 ["FONT_SIZE_SMALL"]
-      132 SETTABLEKS                       R22 R21 K42 ["TextSize"]
-      134 SETTABLEKS                       R10 R21 K43 ["Text"]
-      136 GETIMPORT                        R22 K50 [Enum.TextXAlignment.Left]
-      138 SETTABLEKS                       R22 R21 K44 ["TextXAlignment"]
-      140 NAMECALL                         R22 R14 K32 ["getNextOrder"]
-      142 CALL                             R22 1 1
-      143 SETTABLEKS                       R22 R21 K20 ["LayoutOrder"]
-      145 CALL                             R19 2 1
-      146 SETTABLEKS                       R19 R18 K25 ["Label"]
-      148 CALL                             R15 3 -1
-      149 RETURN                           R15 -1
+      116 SETTABLEKS                       R12 R21 K40 ["TextColor3"]
+      118 GETUPVAL                         R22 5
+      119 GETTABLEKS                       R22 R22 K48 ["FONT"]
+      121 SETTABLEKS                       R22 R21 K43 ["Font"]
+      123 GETUPVAL                         R22 5
+      124 GETTABLEKS                       R22 R22 K49 ["FONT_SIZE_SMALL"]
+      126 SETTABLEKS                       R22 R21 K44 ["TextSize"]
+      128 SETTABLEKS                       R10 R21 K45 ["Text"]
+      130 GETIMPORT                        R22 K52 [Enum.TextXAlignment.Left]
+      132 SETTABLEKS                       R22 R21 K46 ["TextXAlignment"]
+      134 NAMECALL                         R22 R14 K32 ["getNextOrder"]
+      136 CALL                             R22 1 1
+      137 SETTABLEKS                       R22 R21 K20 ["LayoutOrder"]
+      139 CALL                             R19 2 1
+      140 SETTABLEKS                       R19 R18 K25 ["Label"]
+      142 CALL                             R15 3 -1
+      143 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

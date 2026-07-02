@@ -20,46 +20,44 @@ MAIN:
        15 GETTABLEKS                       R2 R2 K7 ["defineLuaFlags"]
        17 CALL                             R1 1 0
        18 GETTABLEKS                       R1 R0 K5 ["Src"]
-       20 GETTABLEKS                       R2 R0 K8 ["Packages"]
-       22 GETIMPORT                        R3 K4 [require]
-       24 GETTABLEKS                       R4 R0 K5 ["Src"]
-       26 GETTABLEKS                       R4 R4 K9 ["Util"]
-       28 GETTABLEKS                       R4 R4 K10 ["isCli"]
-       30 CALL                             R3 1 1
-       31 LOADB                            R4 0
-       32 MOVE                             R5 R3
-       33 CALL                             R5 0 1
-       34 JUMPIFNOT                        R5 ; [+1]
-       35 LOADB                            R4 1
-       36 JUMPIFNOT                        R4 ; [+37]
-       37 GETIMPORT                        R5 K4 [require]
-       39 GETTABLEKS                       R6 R0 K8 ["Packages"]
-       41 GETTABLEKS                       R6 R6 K11 ["Dev"]
-       43 GETTABLEKS                       R6 R6 K12 ["TestEZ"]
-       45 CALL                             R5 1 1
-       46 GETTABLEKS                       R6 R5 K13 ["TestBootstrap"]
-       48 GETTABLEKS                       R7 R5 K14 ["Reporters"]
-       50 GETTABLEKS                       R7 R7 K15 ["TextReporterQuiet"]
-       52 GETIMPORT                        R8 K17 [print]
-       54 LOADK                            R10 K18 ["----- All "]
-       55 GETTABLEKS                       R11 R0 K19 ["Name"]
-       57 LOADK                            R12 K20 [" Tests ------"]
-       58 CONCAT                           R9 R10 R12
-       59 CALL                             R8 1 0
-       60 NEWTABLE                         R10 0 2
-       62 MOVE                             R11 R1
-       63 MOVE                             R12 R2
-       64 SETLIST                          R10 R11 2 [1]
-       66 MOVE                             R11 R7
-       67 NAMECALL                         R8 R6 K21 ["run"]
-       69 CALL                             R8 3 0
-       70 GETIMPORT                        R8 K17 [print]
-       72 LOADK                            R9 K22 ["----------------------------------"]
-       73 CALL                             R8 1 0
-       74 MOVE                             R5 R3
-       75 CALL                             R5 0 1
-       76 JUMPIFNOT                        R5 ; [+4]
-       77 GETIMPORT                        R5 K24 [pcall]
-       79 DUPCLOSURE                       R6 K25 [PROTO_0]
-       80 CALL                             R5 1 0
-       81 RETURN                           R0 0
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K8 ["Util"]
+       26 GETTABLEKS                       R3 R3 K9 ["isCli"]
+       28 CALL                             R2 1 1
+       29 LOADB                            R3 0
+       30 MOVE                             R4 R2
+       31 CALL                             R4 0 1
+       32 JUMPIFNOT                        R4 ; [+1]
+       33 LOADB                            R3 1
+       34 JUMPIFNOT                        R3 ; [+36]
+       35 GETIMPORT                        R4 K4 [require]
+       37 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       39 GETTABLEKS                       R5 R5 K11 ["Dev"]
+       41 GETTABLEKS                       R5 R5 K12 ["TestEZ"]
+       43 CALL                             R4 1 1
+       44 GETTABLEKS                       R5 R4 K13 ["TestBootstrap"]
+       46 GETTABLEKS                       R6 R4 K14 ["Reporters"]
+       48 GETTABLEKS                       R6 R6 K15 ["TextReporterQuiet"]
+       50 GETIMPORT                        R7 K17 [print]
+       52 LOADK                            R9 K18 ["----- All "]
+       53 GETTABLEKS                       R10 R0 K19 ["Name"]
+       55 LOADK                            R11 K20 [" Tests ------"]
+       56 CONCAT                           R8 R9 R11
+       57 CALL                             R7 1 0
+       58 NEWTABLE                         R9 0 1
+       60 MOVE                             R10 R1
+       61 SETLIST                          R9 R10 1 [1]
+       63 MOVE                             R10 R6
+       64 NAMECALL                         R7 R5 K21 ["run"]
+       66 CALL                             R7 3 0
+       67 GETIMPORT                        R7 K17 [print]
+       69 LOADK                            R8 K22 ["----------------------------------"]
+       70 CALL                             R7 1 0
+       71 MOVE                             R4 R2
+       72 CALL                             R4 0 1
+       73 JUMPIFNOT                        R4 ; [+4]
+       74 GETIMPORT                        R4 K24 [pcall]
+       76 DUPCLOSURE                       R5 K25 [PROTO_0]
+       77 CALL                             R4 1 0
+       78 RETURN                           R0 0

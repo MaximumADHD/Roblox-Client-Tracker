@@ -30,19 +30,17 @@ PROTO_0:
        41 GETUPVAL                         R5 1
        42 GETTABLEKS                       R5 R5 K15 ["createElement"]
        44 GETUPVAL                         R6 2
-       45 DUPTABLE                         R7 K18 [{"ControlPoints", "Tag"}]
+       45 DUPTABLE                         R7 K19 [{["ControlPoints"], ["Tag"] = "CurveLinePath2D"}]
        46 SETTABLEKS                       R3 R7 K16 ["ControlPoints"]
-       48 LOADK                            R8 K19 ["CurveLinePath2D"]
-       49 SETTABLEKS                       R8 R7 K17 ["Tag"]
-       51 CALL                             R5 2 -1
-       52 RETURN                           R5 -1
+       48 CALL                             R5 2 -1
+       49 RETURN                           R5 -1
 
 PROTO_1:
         0 NEWTABLE                         R3 2 0
         2 GETTABLEKS                       R5 R0 K0 ["keypoints"]
         4 LENGTH                           R4 R5
         5 LOADN                            R5 0
-        6 JUMPIFNOTLT                      R5 R4 ; [+46]
+        6 JUMPIFNOTLT                      R5 R4 ; [+43]
         8 GETUPVAL                         R5 0
         9 GETTABLEKS                       R5 R5 K1 ["plotToAbsolutePosition"]
        11 GETTABLEKS                       R7 R0 K0 ["keypoints"]
@@ -53,59 +51,55 @@ PROTO_1:
        17 GETUPVAL                         R6 1
        18 GETTABLEKS                       R6 R6 K2 ["createElement"]
        20 GETUPVAL                         R7 2
-       21 DUPTABLE                         R8 K5 [{"ControlPoints", "Tag"}]
+       21 DUPTABLE                         R8 K6 [{["ControlPoints"], ["Tag"] = "EndLinePath2D"}]
        22 NEWTABLE                         R9 0 2
-       24 GETIMPORT                        R10 K8 [Path2DControlPoint.new]
-       26 GETIMPORT                        R11 K11 [UDim2.fromOffset]
+       24 GETIMPORT                        R10 K9 [Path2DControlPoint.new]
+       26 GETIMPORT                        R11 K12 [UDim2.fromOffset]
        28 LOADN                            R12 0
-       29 GETTABLEKS                       R13 R5 K12 ["Y"]
+       29 GETTABLEKS                       R13 R5 K13 ["Y"]
        31 CALL                             R11 2 -1
        32 CALL                             R10 -1 1
-       33 GETIMPORT                        R11 K8 [Path2DControlPoint.new]
-       35 GETIMPORT                        R12 K11 [UDim2.fromOffset]
-       37 GETTABLEKS                       R13 R5 K13 ["X"]
-       39 GETTABLEKS                       R14 R5 K12 ["Y"]
+       33 GETIMPORT                        R11 K9 [Path2DControlPoint.new]
+       35 GETIMPORT                        R12 K12 [UDim2.fromOffset]
+       37 GETTABLEKS                       R13 R5 K14 ["X"]
+       39 GETTABLEKS                       R14 R5 K13 ["Y"]
        41 CALL                             R12 2 -1
        42 CALL                             R11 -1 -1
        43 SETLIST                          R9 R10 -1 [1]
        45 SETTABLEKS                       R9 R8 K3 ["ControlPoints"]
-       47 LOADK                            R9 K14 ["EndLinePath2D"]
-       48 SETTABLEKS                       R9 R8 K4 ["Tag"]
-       50 CALL                             R6 2 1
-       51 SETTABLEKS                       R6 R3 K15 ["EndLineLeft"]
-       53 LOADN                            R5 0
-       54 JUMPIFNOTLT                      R5 R4 ; [+47]
-       56 GETUPVAL                         R5 0
-       57 GETTABLEKS                       R5 R5 K1 ["plotToAbsolutePosition"]
-       59 GETTABLEKS                       R7 R0 K0 ["keypoints"]
-       61 GETTABLE                         R6 R7 R4
-       62 MOVE                             R7 R1
-       63 MOVE                             R8 R2
-       64 CALL                             R5 3 1
-       65 GETUPVAL                         R6 1
-       66 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       68 GETUPVAL                         R7 2
-       69 DUPTABLE                         R8 K5 [{"ControlPoints", "Tag"}]
-       70 NEWTABLE                         R9 0 2
-       72 GETIMPORT                        R10 K8 [Path2DControlPoint.new]
-       74 GETIMPORT                        R11 K11 [UDim2.fromOffset]
-       76 GETTABLEKS                       R12 R5 K13 ["X"]
-       78 GETTABLEKS                       R13 R5 K12 ["Y"]
-       80 CALL                             R11 2 -1
-       81 CALL                             R10 -1 1
-       82 GETIMPORT                        R11 K8 [Path2DControlPoint.new]
-       84 GETIMPORT                        R12 K11 [UDim2.fromOffset]
-       86 GETTABLEKS                       R13 R2 K13 ["X"]
-       88 GETTABLEKS                       R14 R5 K12 ["Y"]
-       90 CALL                             R12 2 -1
-       91 CALL                             R11 -1 -1
-       92 SETLIST                          R9 R10 -1 [1]
-       94 SETTABLEKS                       R9 R8 K3 ["ControlPoints"]
-       96 LOADK                            R9 K14 ["EndLinePath2D"]
-       97 SETTABLEKS                       R9 R8 K4 ["Tag"]
-       99 CALL                             R6 2 1
-      100 SETTABLEKS                       R6 R3 K16 ["EndLineRight"]
-      102 RETURN                           R3 1
+       47 CALL                             R6 2 1
+       48 SETTABLEKS                       R6 R3 K15 ["EndLineLeft"]
+       50 LOADN                            R5 0
+       51 JUMPIFNOTLT                      R5 R4 ; [+44]
+       53 GETUPVAL                         R5 0
+       54 GETTABLEKS                       R5 R5 K1 ["plotToAbsolutePosition"]
+       56 GETTABLEKS                       R7 R0 K0 ["keypoints"]
+       58 GETTABLE                         R6 R7 R4
+       59 MOVE                             R7 R1
+       60 MOVE                             R8 R2
+       61 CALL                             R5 3 1
+       62 GETUPVAL                         R6 1
+       63 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       65 GETUPVAL                         R7 2
+       66 DUPTABLE                         R8 K6 [{["ControlPoints"], ["Tag"] = "EndLinePath2D"}]
+       67 NEWTABLE                         R9 0 2
+       69 GETIMPORT                        R10 K9 [Path2DControlPoint.new]
+       71 GETIMPORT                        R11 K12 [UDim2.fromOffset]
+       73 GETTABLEKS                       R12 R5 K14 ["X"]
+       75 GETTABLEKS                       R13 R5 K13 ["Y"]
+       77 CALL                             R11 2 -1
+       78 CALL                             R10 -1 1
+       79 GETIMPORT                        R11 K9 [Path2DControlPoint.new]
+       81 GETIMPORT                        R12 K12 [UDim2.fromOffset]
+       83 GETTABLEKS                       R13 R2 K14 ["X"]
+       85 GETTABLEKS                       R14 R5 K13 ["Y"]
+       87 CALL                             R12 2 -1
+       88 CALL                             R11 -1 -1
+       89 SETLIST                          R9 R10 -1 [1]
+       91 SETTABLEKS                       R9 R8 K3 ["ControlPoints"]
+       93 CALL                             R6 2 1
+       94 SETTABLEKS                       R6 R3 K16 ["EndLineRight"]
+       96 RETURN                           R3 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -145,17 +139,15 @@ PROTO_3:
        27 GETUPVAL                         R5 3
        28 GETTABLEKS                       R5 R5 K5 ["createElement"]
        30 GETUPVAL                         R6 4
-       31 DUPTABLE                         R7 K8 [{"Size", "BackgroundTransparency"}]
-       32 GETIMPORT                        R8 K11 [UDim2.fromScale]
+       31 DUPTABLE                         R7 K9 [{["Size"], ["BackgroundTransparency"] = 1}]
+       32 GETIMPORT                        R8 K12 [UDim2.fromScale]
        34 LOADN                            R9 1
        35 LOADN                            R10 1
        36 CALL                             R8 2 1
        37 SETTABLEKS                       R8 R7 K6 ["Size"]
-       39 LOADN                            R8 1
-       40 SETTABLEKS                       R8 R7 K7 ["BackgroundTransparency"]
-       42 MOVE                             R8 R4
-       43 CALL                             R5 3 -1
-       44 RETURN                           R5 -1
+       39 MOVE                             R8 R4
+       40 CALL                             R5 3 -1
+       41 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

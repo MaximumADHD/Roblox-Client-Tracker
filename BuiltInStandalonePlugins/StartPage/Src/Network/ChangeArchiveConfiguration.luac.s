@@ -91,28 +91,26 @@ MAIN:
        51 GETTABLEKS                       R6 R3 K17 ["RobloxAPI"]
        53 GETTABLEKS                       R6 R6 K18 ["Url"]
        55 GETTABLEKS                       R7 R5 K19 ["new"]
-       57 DUPTABLE                         R8 K22 [{"isInternal", "loggingLevel"}]
-       58 LOADB                            R9 1
-       59 SETTABLEKS                       R9 R8 K20 ["isInternal"]
-       61 SETTABLEKS                       R1 R8 K21 ["loggingLevel"]
-       63 CALL                             R7 1 1
-       64 GETIMPORT                        R8 K5 [require]
-       66 GETTABLEKS                       R9 R0 K6 ["Src"]
-       68 GETTABLEKS                       R9 R9 K12 ["Network"]
-       70 GETTABLEKS                       R9 R9 K23 ["GameCache"]
-       72 CALL                             R8 1 1
-       73 NEWTABLE                         R9 1 0
-       75 LOADK                            R10 K24 ["application/json"]
-       76 SETTABLEKS                       R10 R9 K25 ["Content-Type"]
-       78 GETIMPORT                        R10 K27 [game]
-       80 LOADK                            R12 K28 ["HttpService"]
-       81 NAMECALL                         R10 R10 K29 ["GetService"]
-       83 CALL                             R10 2 1
-       84 DUPCLOSURE                       R11 K30 [PROTO_2]
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R9
-       90 CAPTURE                          VAL R8
-       91 RETURN                           R11 1
+       57 DUPTABLE                         R8 K23 [{["isInternal"] = True, ["loggingLevel"]}]
+       58 SETTABLEKS                       R1 R8 K22 ["loggingLevel"]
+       60 CALL                             R7 1 1
+       61 GETIMPORT                        R8 K5 [require]
+       63 GETTABLEKS                       R9 R0 K6 ["Src"]
+       65 GETTABLEKS                       R9 R9 K12 ["Network"]
+       67 GETTABLEKS                       R9 R9 K24 ["GameCache"]
+       69 CALL                             R8 1 1
+       70 NEWTABLE                         R9 1 0
+       72 LOADK                            R10 K25 ["application/json"]
+       73 SETTABLEKS                       R10 R9 K26 ["Content-Type"]
+       75 GETIMPORT                        R10 K28 [game]
+       77 LOADK                            R12 K29 ["HttpService"]
+       78 NAMECALL                         R10 R10 K30 ["GetService"]
+       80 CALL                             R10 2 1
+       81 DUPCLOSURE                       R11 K31 [PROTO_2]
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R4
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R8
+       88 RETURN                           R11 1

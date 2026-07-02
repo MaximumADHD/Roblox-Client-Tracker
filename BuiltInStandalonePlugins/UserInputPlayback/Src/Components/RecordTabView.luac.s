@@ -45,66 +45,54 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R2 0
-        1 DUPTABLE                         R4 K3 [{"SaveRecordingDialogVisible", "SaveRecordingDialogMessageLocalizationKey", "SaveRecordingDialogMessageLocalizationArgs"}]
-        2 LOADB                            R5 1
-        3 SETTABLEKS                       R5 R4 K0 ["SaveRecordingDialogVisible"]
-        5 SETTABLEKS                       R0 R4 K1 ["SaveRecordingDialogMessageLocalizationKey"]
-        7 SETTABLEKS                       R1 R4 K2 ["SaveRecordingDialogMessageLocalizationArgs"]
-        9 NAMECALL                         R2 R2 K4 ["setState"]
-       11 CALL                             R2 2 0
-       12 RETURN                           R0 0
+        1 DUPTABLE                         R4 K4 [{[1] = True, ["SaveRecordingDialogMessageLocalizationKey"], ["SaveRecordingDialogMessageLocalizationArgs"]}]
+        2 SETTABLEKS                       R0 R4 K2 ["SaveRecordingDialogMessageLocalizationKey"]
+        4 SETTABLEKS                       R1 R4 K3 ["SaveRecordingDialogMessageLocalizationArgs"]
+        6 NAMECALL                         R2 R2 K5 ["setState"]
+        8 CALL                             R2 2 0
+        9 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"SaveRecordingDialogVisible"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["SaveRecordingDialogVisible"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["onSaveRecordingDialogCancel"]
-       11 CALL                             R0 0 0
-       12 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K4 ["onSaveRecordingDialogCancel"]
+        8 CALL                             R0 0 0
+        9 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K1 [{"SaveRecordingDialogVisible"}]
-        2 LOADB                            R4 0
-        3 SETTABLEKS                       R4 R3 K0 ["SaveRecordingDialogVisible"]
-        5 NAMECALL                         R1 R1 K2 ["setState"]
-        7 CALL                             R1 2 0
-        8 GETUPVAL                         R1 1
-        9 GETTABLEKS                       R1 R1 K3 ["onSaveRecordingDialogSave"]
-       11 MOVE                             R2 R0
-       12 CALL                             R1 1 0
-       13 RETURN                           R0 0
+        1 DUPTABLE                         R3 K2 [{[1] = False}]
+        2 NAMECALL                         R1 R1 K3 ["setState"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R1 R1 K4 ["onSaveRecordingDialogSave"]
+        8 MOVE                             R2 R0
+        9 CALL                             R1 1 0
+       10 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K3 [{"SaveRecordingDialogVisible", "SaveRecordingDialogMessageLocalizationKey", "SaveRecordingDialogMessageLocalizationArgs"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["SaveRecordingDialogVisible"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["SaveRecordingDialogMessageLocalizationKey"]
-        7 LOADNIL                          R2
-        8 SETTABLEKS                       R2 R1 K2 ["SaveRecordingDialogMessageLocalizationArgs"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 NEWCLOSURE                       R1 P0
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U0
+        0 DUPTABLE                         R1 K5 [{[1] = False, ["SaveRecordingDialogMessageLocalizationKey"] = , ["SaveRecordingDialogMessageLocalizationArgs"] = }]
+        1 SETTABLEKS                       R1 R0 K6 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 SETTABLEKS                       R1 R0 K7 ["onRecordingButtonClicked"]
+        9 NEWCLOSURE                       R1 P1
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K8 ["setSaveRecordingDialogVisible"]
+       13 NEWCLOSURE                       R1 P2
+       14 CAPTURE                          VAL R0
        15 CAPTURE                          UPVAL U1
-       16 SETTABLEKS                       R1 R0 K5 ["onRecordingButtonClicked"]
-       18 NEWCLOSURE                       R1 P1
+       16 SETTABLEKS                       R1 R0 K9 ["onSaveRecordingDialogCancel"]
+       18 NEWCLOSURE                       R1 P3
        19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R1 R0 K6 ["setSaveRecordingDialogVisible"]
-       22 NEWCLOSURE                       R1 P2
-       23 CAPTURE                          VAL R0
-       24 CAPTURE                          UPVAL U1
-       25 SETTABLEKS                       R1 R0 K7 ["onSaveRecordingDialogCancel"]
-       27 NEWCLOSURE                       R1 P3
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U1
-       30 SETTABLEKS                       R1 R0 K8 ["onSaveRecordingDialogSave"]
-       32 RETURN                           R0 0
+       20 CAPTURE                          UPVAL U1
+       21 SETTABLEKS                       R1 R0 K10 ["onSaveRecordingDialogSave"]
+       23 RETURN                           R0 0
 
 PROTO_5:
         0 DUPTABLE                         R1 K4 [{"SetEmulationDeviceId", "SetEmulationDeviceOrientation", "SetCurrentScreenSize", "SetSaveRecordingDialogVisible"}]
@@ -257,123 +245,103 @@ PROTO_7:
       158 GETUPVAL                         R13 2
       159 GETTABLEKS                       R13 R13 K20 ["createElement"]
       161 GETUPVAL                         R14 4
-      162 DUPTABLE                         R15 K52 [{"LayoutOrder", "Disabled", "RoduxStoreContext"}]
-      163 LOADN                            R16 1
-      164 SETTABLEKS                       R16 R15 K50 ["LayoutOrder"]
-      166 SETTABLEKS                       R8 R15 K18 ["Disabled"]
-      168 LOADK                            R16 K53 ["recordTabFilter"]
-      169 SETTABLEKS                       R16 R15 K51 ["RoduxStoreContext"]
-      171 CALL                             R13 2 1
-      172 SETTABLEKS                       R13 R12 K45 ["FilterSettings"]
-      174 GETUPVAL                         R13 2
-      175 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      177 GETUPVAL                         R14 5
-      178 DUPTABLE                         R15 K54 [{"LayoutOrder"}]
-      179 LOADN                            R16 2
-      180 SETTABLEKS                       R16 R15 K50 ["LayoutOrder"]
-      182 CALL                             R13 2 1
-      183 SETTABLEKS                       R13 R12 K46 ["DeviceEmulationInfoGroup"]
-      185 GETUPVAL                         R13 2
-      186 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      188 GETUPVAL                         R14 3
-      189 DUPTABLE                         R15 K56 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
-      190 LOADN                            R16 3
-      191 SETTABLEKS                       R16 R15 K50 ["LayoutOrder"]
-      193 LOADK                            R16 K57 ["CornerBox"]
-      194 SETTABLEKS                       R16 R15 K55 ["Style"]
-      196 GETIMPORT                        R16 K59 [UDim2.fromOffset]
-      198 GETTABLEKS                       R17 R2 K60 ["UIGroupWidthPx"]
-      200 LOADN                            R18 0
-      201 CALL                             R16 2 1
-      202 SETTABLEKS                       R16 R15 K21 ["Size"]
-      204 GETIMPORT                        R16 K34 [Enum.AutomaticSize.Y]
-      206 SETTABLEKS                       R16 R15 K22 ["AutomaticSize"]
-      208 GETIMPORT                        R16 K38 [Enum.FillDirection.Vertical]
-      210 SETTABLEKS                       R16 R15 K24 ["Layout"]
-      212 GETIMPORT                        R16 K40 [UDim.new]
-      214 LOADN                            R17 0
-      215 GETTABLEKS                       R18 R2 K35 ["PaddingPx"]
-      217 CALL                             R16 2 1
-      218 SETTABLEKS                       R16 R15 K25 ["Spacing"]
-      220 GETTABLEKS                       R16 R2 K35 ["PaddingPx"]
-      222 SETTABLEKS                       R16 R15 K23 ["Padding"]
-      224 GETIMPORT                        R16 K62 [Enum.HorizontalAlignment.Center]
-      226 SETTABLEKS                       R16 R15 K26 ["HorizontalAlignment"]
-      228 GETIMPORT                        R16 K44 [Enum.VerticalAlignment.Top]
-      230 SETTABLEKS                       R16 R15 K27 ["VerticalAlignment"]
-      232 DUPTABLE                         R16 K65 [{"Button", "StatusTextLabel"}]
-      233 GETUPVAL                         R17 2
-      234 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      236 GETUPVAL                         R18 6
-      237 DUPTABLE                         R19 K69 [{"Size", "LayoutOrder", "Style", "StyleModifier", "Text", "OnClick"}]
-      238 GETTABLEKS                       R20 R2 K70 ["PrimaryButtonSize"]
-      240 SETTABLEKS                       R20 R19 K21 ["Size"]
-      242 LOADN                            R20 1
-      243 SETTABLEKS                       R20 R19 K50 ["LayoutOrder"]
-      245 LOADK                            R20 K71 ["RoundPrimaryRecordButton"]
-      246 SETTABLEKS                       R20 R19 K55 ["Style"]
-      248 SETTABLEKS                       R7 R19 K66 ["StyleModifier"]
-      250 SETTABLEKS                       R6 R19 K67 ["Text"]
-      252 GETTABLEKS                       R20 R0 K72 ["onRecordingButtonClicked"]
-      254 SETTABLEKS                       R20 R19 K68 ["OnClick"]
-      256 NEWTABLE                         R20 0 1
-      258 GETUPVAL                         R21 2
-      259 GETTABLEKS                       R21 R21 K20 ["createElement"]
-      261 GETUPVAL                         R22 7
-      262 DUPTABLE                         R23 K74 [{"Cursor"}]
-      263 LOADK                            R24 K75 ["PointingHand"]
-      264 SETTABLEKS                       R24 R23 K73 ["Cursor"]
-      266 CALL                             R21 2 -1
-      267 SETLIST                          R20 R21 -1 [1]
-      269 CALL                             R17 3 1
-      270 SETTABLEKS                       R17 R16 K63 ["Button"]
-      272 GETUPVAL                         R17 2
-      273 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      275 GETUPVAL                         R18 8
-      276 DUPTABLE                         R19 K78 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "Style", "TextXAlignment", "TextYAlignment"}]
-      277 SETTABLEKS                       R5 R19 K67 ["Text"]
-      279 GETIMPORT                        R20 K80 [UDim2.fromScale]
-      281 LOADN                            R21 1
-      282 LOADN                            R22 0
-      283 CALL                             R20 2 1
-      284 SETTABLEKS                       R20 R19 K21 ["Size"]
-      286 GETIMPORT                        R20 K34 [Enum.AutomaticSize.Y]
-      288 SETTABLEKS                       R20 R19 K22 ["AutomaticSize"]
-      290 LOADN                            R20 2
-      291 SETTABLEKS                       R20 R19 K50 ["LayoutOrder"]
-      293 LOADK                            R20 K64 ["StatusTextLabel"]
-      294 SETTABLEKS                       R20 R19 K55 ["Style"]
-      296 GETIMPORT                        R20 K81 [Enum.TextXAlignment.Left]
-      298 SETTABLEKS                       R20 R19 K76 ["TextXAlignment"]
-      300 GETIMPORT                        R20 K82 [Enum.TextYAlignment.Top]
-      302 SETTABLEKS                       R20 R19 K77 ["TextYAlignment"]
-      304 CALL                             R17 2 1
-      305 SETTABLEKS                       R17 R16 K64 ["StatusTextLabel"]
-      307 CALL                             R13 3 1
-      308 SETTABLEKS                       R13 R12 K47 ["RecordingButtonContainer"]
-      310 GETTABLEKS                       R13 R4 K83 ["SaveRecordingDialogVisible"]
-      312 JUMPIFNOT                        R13 ; [+29]
-      313 GETUPVAL                         R13 2
-      314 GETTABLEKS                       R13 R13 K20 ["createElement"]
-      316 GETUPVAL                         R14 9
-      317 DUPTABLE                         R15 K89 [{"DefaultInputValue", "OnSaveButtonPressed", "OnCancelButtonPressed", "MessageLocalizationKey", "MessageLocalizationArgs"}]
-      318 LOADK                            R18 K6 ["RecordTabView"]
-      319 LOADK                            R19 K90 ["DefaultRecordingName"]
-      320 NAMECALL                         R16 R3 K8 ["getText"]
-      322 CALL                             R16 3 1
-      323 SETTABLEKS                       R16 R15 K84 ["DefaultInputValue"]
-      325 GETTABLEKS                       R16 R0 K91 ["onSaveRecordingDialogSave"]
-      327 SETTABLEKS                       R16 R15 K85 ["OnSaveButtonPressed"]
-      329 GETTABLEKS                       R16 R0 K92 ["onSaveRecordingDialogCancel"]
-      331 SETTABLEKS                       R16 R15 K86 ["OnCancelButtonPressed"]
-      333 GETTABLEKS                       R16 R4 K93 ["SaveRecordingDialogMessageLocalizationKey"]
-      335 SETTABLEKS                       R16 R15 K87 ["MessageLocalizationKey"]
-      337 GETTABLEKS                       R16 R4 K94 ["SaveRecordingDialogMessageLocalizationArgs"]
-      339 SETTABLEKS                       R16 R15 K88 ["MessageLocalizationArgs"]
-      341 CALL                             R13 2 1
-      342 SETTABLEKS                       R13 R12 K48 ["ChooseRecordingNamePopUp"]
-      344 CALL                             R9 3 -1
-      345 RETURN                           R9 -1
+      162 DUPTABLE                         R15 K54 [{["LayoutOrder"] = 1, ["Disabled"], ["RoduxStoreContext"] = "recordTabFilter"}]
+      163 SETTABLEKS                       R8 R15 K18 ["Disabled"]
+      165 CALL                             R13 2 1
+      166 SETTABLEKS                       R13 R12 K45 ["FilterSettings"]
+      168 GETUPVAL                         R13 2
+      169 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      171 GETUPVAL                         R14 5
+      172 DUPTABLE                         R15 K56 [{["LayoutOrder"] = 2}]
+      173 CALL                             R13 2 1
+      174 SETTABLEKS                       R13 R12 K46 ["DeviceEmulationInfoGroup"]
+      176 GETUPVAL                         R13 2
+      177 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      179 GETUPVAL                         R14 3
+      180 DUPTABLE                         R15 K60 [{["LayoutOrder"] = 3, ["Style"] = "CornerBox", ["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"], ["Padding"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
+      181 GETIMPORT                        R16 K62 [UDim2.fromOffset]
+      183 GETTABLEKS                       R17 R2 K63 ["UIGroupWidthPx"]
+      185 LOADN                            R18 0
+      186 CALL                             R16 2 1
+      187 SETTABLEKS                       R16 R15 K21 ["Size"]
+      189 GETIMPORT                        R16 K34 [Enum.AutomaticSize.Y]
+      191 SETTABLEKS                       R16 R15 K22 ["AutomaticSize"]
+      193 GETIMPORT                        R16 K38 [Enum.FillDirection.Vertical]
+      195 SETTABLEKS                       R16 R15 K24 ["Layout"]
+      197 GETIMPORT                        R16 K40 [UDim.new]
+      199 LOADN                            R17 0
+      200 GETTABLEKS                       R18 R2 K35 ["PaddingPx"]
+      202 CALL                             R16 2 1
+      203 SETTABLEKS                       R16 R15 K25 ["Spacing"]
+      205 GETTABLEKS                       R16 R2 K35 ["PaddingPx"]
+      207 SETTABLEKS                       R16 R15 K23 ["Padding"]
+      209 GETIMPORT                        R16 K65 [Enum.HorizontalAlignment.Center]
+      211 SETTABLEKS                       R16 R15 K26 ["HorizontalAlignment"]
+      213 GETIMPORT                        R16 K44 [Enum.VerticalAlignment.Top]
+      215 SETTABLEKS                       R16 R15 K27 ["VerticalAlignment"]
+      217 DUPTABLE                         R16 K68 [{"Button", "StatusTextLabel"}]
+      218 GETUPVAL                         R17 2
+      219 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      221 GETUPVAL                         R18 6
+      222 DUPTABLE                         R19 K73 [{["Size"], ["LayoutOrder"] = 1, ["Style"] = "RoundPrimaryRecordButton", ["StyleModifier"], ["Text"], ["OnClick"]}]
+      223 GETTABLEKS                       R20 R2 K74 ["PrimaryButtonSize"]
+      225 SETTABLEKS                       R20 R19 K21 ["Size"]
+      227 SETTABLEKS                       R7 R19 K70 ["StyleModifier"]
+      229 SETTABLEKS                       R6 R19 K71 ["Text"]
+      231 GETTABLEKS                       R20 R0 K75 ["onRecordingButtonClicked"]
+      233 SETTABLEKS                       R20 R19 K72 ["OnClick"]
+      235 NEWTABLE                         R20 0 1
+      237 GETUPVAL                         R21 2
+      238 GETTABLEKS                       R21 R21 K20 ["createElement"]
+      240 GETUPVAL                         R22 7
+      241 DUPTABLE                         R23 K78 [{["Cursor"] = "PointingHand"}]
+      242 CALL                             R21 2 -1
+      243 SETLIST                          R20 R21 -1 [1]
+      245 CALL                             R17 3 1
+      246 SETTABLEKS                       R17 R16 K66 ["Button"]
+      248 GETUPVAL                         R17 2
+      249 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      251 GETUPVAL                         R18 8
+      252 DUPTABLE                         R19 K81 [{["Text"], ["Size"], ["AutomaticSize"], ["LayoutOrder"] = 2, ["Style"] = "StatusTextLabel", ["TextXAlignment"], ["TextYAlignment"]}]
+      253 SETTABLEKS                       R5 R19 K71 ["Text"]
+      255 GETIMPORT                        R20 K83 [UDim2.fromScale]
+      257 LOADN                            R21 1
+      258 LOADN                            R22 0
+      259 CALL                             R20 2 1
+      260 SETTABLEKS                       R20 R19 K21 ["Size"]
+      262 GETIMPORT                        R20 K34 [Enum.AutomaticSize.Y]
+      264 SETTABLEKS                       R20 R19 K22 ["AutomaticSize"]
+      266 GETIMPORT                        R20 K84 [Enum.TextXAlignment.Left]
+      268 SETTABLEKS                       R20 R19 K79 ["TextXAlignment"]
+      270 GETIMPORT                        R20 K85 [Enum.TextYAlignment.Top]
+      272 SETTABLEKS                       R20 R19 K80 ["TextYAlignment"]
+      274 CALL                             R17 2 1
+      275 SETTABLEKS                       R17 R16 K67 ["StatusTextLabel"]
+      277 CALL                             R13 3 1
+      278 SETTABLEKS                       R13 R12 K47 ["RecordingButtonContainer"]
+      280 GETTABLEKS                       R13 R4 K86 ["SaveRecordingDialogVisible"]
+      282 JUMPIFNOT                        R13 ; [+29]
+      283 GETUPVAL                         R13 2
+      284 GETTABLEKS                       R13 R13 K20 ["createElement"]
+      286 GETUPVAL                         R14 9
+      287 DUPTABLE                         R15 K92 [{"DefaultInputValue", "OnSaveButtonPressed", "OnCancelButtonPressed", "MessageLocalizationKey", "MessageLocalizationArgs"}]
+      288 LOADK                            R18 K6 ["RecordTabView"]
+      289 LOADK                            R19 K93 ["DefaultRecordingName"]
+      290 NAMECALL                         R16 R3 K8 ["getText"]
+      292 CALL                             R16 3 1
+      293 SETTABLEKS                       R16 R15 K87 ["DefaultInputValue"]
+      295 GETTABLEKS                       R16 R0 K94 ["onSaveRecordingDialogSave"]
+      297 SETTABLEKS                       R16 R15 K88 ["OnSaveButtonPressed"]
+      299 GETTABLEKS                       R16 R0 K95 ["onSaveRecordingDialogCancel"]
+      301 SETTABLEKS                       R16 R15 K89 ["OnCancelButtonPressed"]
+      303 GETTABLEKS                       R16 R4 K96 ["SaveRecordingDialogMessageLocalizationKey"]
+      305 SETTABLEKS                       R16 R15 K90 ["MessageLocalizationKey"]
+      307 GETTABLEKS                       R16 R4 K97 ["SaveRecordingDialogMessageLocalizationArgs"]
+      309 SETTABLEKS                       R16 R15 K91 ["MessageLocalizationArgs"]
+      311 CALL                             R13 2 1
+      312 SETTABLEKS                       R13 R12 K48 ["ChooseRecordingNamePopUp"]
+      314 CALL                             R9 3 -1
+      315 RETURN                           R9 -1
 
 PROTO_8:
         0 DUPTABLE                         R2 K1 [{"PluginState"}]

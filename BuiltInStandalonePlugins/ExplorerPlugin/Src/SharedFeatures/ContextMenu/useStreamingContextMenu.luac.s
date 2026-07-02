@@ -1,13 +1,11 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"type", "instanceId"}]
-        2 LOADK                            R3 K3 ["streamIn"]
-        3 SETTABLEKS                       R3 R2 K0 ["type"]
-        5 GETUPVAL                         R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["instanceId"]
-        8 NAMECALL                         R0 R0 K4 ["Fire"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = "streamIn", ["instanceId"]}]
+        2 GETUPVAL                         R3 1
+        3 SETTABLEKS                       R3 R2 K2 ["instanceId"]
+        5 NAMECALL                         R0 R0 K4 ["Fire"]
+        7 CALL                             R0 2 0
+        8 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

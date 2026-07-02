@@ -1,8 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"type"}]
-        1 LOADK                            R1 K2 ["allowed"]
-        2 SETTABLEKS                       R1 R0 K0 ["type"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = "allowed"}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -56,24 +54,20 @@ PROTO_4:
        22 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R0 K2 [{"ok", "errors"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["ok"]
-        4 NEWTABLE                         R1 0 1
-        6 LOADK                            R2 K3 ["Not implemented"]
-        7 SETLIST                          R1 R2 1 [1]
-        9 SETTABLEKS                       R1 R0 K1 ["errors"]
-       11 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = False, ["errors"]}]
+        1 NEWTABLE                         R1 0 1
+        3 LOADK                            R2 K4 ["Not implemented"]
+        4 SETLIST                          R1 R2 1 [1]
+        6 SETTABLEKS                       R1 R0 K2 ["errors"]
+        8 RETURN                           R0 1
 
 PROTO_6:
-        0 DUPTABLE                         R0 K2 [{"ok", "errors"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["ok"]
-        4 NEWTABLE                         R1 0 1
-        6 LOADK                            R2 K3 ["Not implemented"]
-        7 SETLIST                          R1 R2 1 [1]
-        9 SETTABLEKS                       R1 R0 K1 ["errors"]
-       11 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = False, ["errors"]}]
+        1 NEWTABLE                         R1 0 1
+        3 LOADK                            R2 K4 ["Not implemented"]
+        4 SETLIST                          R1 R2 1 [1]
+        6 SETTABLEKS                       R1 R0 K2 ["errors"]
+        8 RETURN                           R0 1
 
 PROTO_7:
         0 LOADB                            R0 0
@@ -141,16 +135,14 @@ PROTO_8:
        86 RETURN                           R11 -1
 
 PROTO_9:
-        0 DUPTABLE                         R0 K2 [{"completed", "ugcValidationResponse"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["completed"]
-        4 DUPTABLE                         R1 K5 [{"errors", "pieces"}]
-        5 NEWTABLE                         R2 0 0
-        7 SETTABLEKS                       R2 R1 K3 ["errors"]
-        9 NEWTABLE                         R2 0 0
-       11 SETTABLEKS                       R2 R1 K4 ["pieces"]
-       13 SETTABLEKS                       R1 R0 K1 ["ugcValidationResponse"]
-       15 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = True, ["ugcValidationResponse"]}]
+        1 DUPTABLE                         R1 K6 [{"errors", "pieces"}]
+        2 NEWTABLE                         R2 0 0
+        4 SETTABLEKS                       R2 R1 K4 ["errors"]
+        6 NEWTABLE                         R2 0 0
+        8 SETTABLEKS                       R2 R1 K5 ["pieces"]
+       10 SETTABLEKS                       R1 R0 K2 ["ugcValidationResponse"]
+       12 RETURN                           R0 1
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -168,42 +160,28 @@ PROTO_10:
        19 RETURN                           R1 -1
 
 PROTO_11:
-        0 DUPTABLE                         R0 K2 [{"completed", "ugcValidationResponse"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["completed"]
-        4 DUPTABLE                         R1 K5 [{"errors", "pieces"}]
-        5 NEWTABLE                         R2 0 3
-        7 DUPTABLE                         R3 K8 [{"assetType", "error"}]
-        8 GETIMPORT                        R4 K12 [Enum.AssetType.Head]
-       10 SETTABLEKS                       R4 R3 K6 ["assetType"]
-       12 DUPTABLE                         R4 K15 [{"type", "message"}]
-       13 LOADK                            R5 K14 ["message"]
-       14 SETTABLEKS                       R5 R4 K13 ["type"]
-       16 LOADK                            R5 K16 ["Your brain gets smart, but your head gets dumb"]
-       17 SETTABLEKS                       R5 R4 K14 ["message"]
-       19 SETTABLEKS                       R4 R3 K7 ["error"]
-       21 DUPTABLE                         R4 K8 [{"assetType", "error"}]
-       22 LOADNIL                          R5
-       23 SETTABLEKS                       R5 R4 K6 ["assetType"]
-       25 DUPTABLE                         R5 K15 [{"type", "message"}]
-       26 LOADK                            R6 K14 ["message"]
-       27 SETTABLEKS                       R6 R5 K13 ["type"]
-       29 LOADK                            R6 K17 ["Full body error"]
-       30 SETTABLEKS                       R6 R5 K14 ["message"]
-       32 SETTABLEKS                       R5 R4 K7 ["error"]
-       34 DUPTABLE                         R5 K8 [{"assetType", "error"}]
-       35 GETIMPORT                        R6 K19 [Enum.AssetType.LeftArm]
-       37 SETTABLEKS                       R6 R5 K6 ["assetType"]
-       39 DUPTABLE                         R6 K20 [{"type"}]
-       40 LOADK                            R7 K21 ["notFound"]
-       41 SETTABLEKS                       R7 R6 K13 ["type"]
-       43 SETTABLEKS                       R6 R5 K7 ["error"]
-       45 SETLIST                          R2 R3 3 [1]
-       47 SETTABLEKS                       R2 R1 K3 ["errors"]
-       49 NEWTABLE                         R2 0 0
-       51 SETTABLEKS                       R2 R1 K4 ["pieces"]
-       53 SETTABLEKS                       R1 R0 K1 ["ugcValidationResponse"]
-       55 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = True, ["ugcValidationResponse"]}]
+        1 DUPTABLE                         R1 K6 [{"errors", "pieces"}]
+        2 NEWTABLE                         R2 0 3
+        4 DUPTABLE                         R3 K9 [{"assetType", "error"}]
+        5 GETIMPORT                        R4 K13 [Enum.AssetType.Head]
+        7 SETTABLEKS                       R4 R3 K7 ["assetType"]
+        9 DUPTABLE                         R4 K17 [{["type"] = "message", ["message"] = "Your brain gets smart, but your head gets dumb"}]
+       10 SETTABLEKS                       R4 R3 K8 ["error"]
+       12 DUPTABLE                         R4 K19 [{["assetType"] = , ["error"]}]
+       13 DUPTABLE                         R5 K21 [{["type"] = "message", ["message"] = "Full body error"}]
+       14 SETTABLEKS                       R5 R4 K8 ["error"]
+       16 DUPTABLE                         R5 K9 [{"assetType", "error"}]
+       17 GETIMPORT                        R6 K23 [Enum.AssetType.LeftArm]
+       19 SETTABLEKS                       R6 R5 K7 ["assetType"]
+       21 DUPTABLE                         R6 K25 [{["type"] = "notFound"}]
+       22 SETTABLEKS                       R6 R5 K8 ["error"]
+       24 SETLIST                          R2 R3 3 [1]
+       26 SETTABLEKS                       R2 R1 K4 ["errors"]
+       28 NEWTABLE                         R2 0 0
+       30 SETTABLEKS                       R2 R1 K5 ["pieces"]
+       32 SETTABLEKS                       R1 R0 K2 ["ugcValidationResponse"]
+       34 RETURN                           R0 1
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -232,16 +210,14 @@ PROTO_14:
        11 RETURN                           R1 -1
 
 PROTO_15:
-        0 DUPTABLE                         R0 K2 [{"completed", "ugcValidationResponse"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["completed"]
-        4 DUPTABLE                         R1 K5 [{"errors", "pieces"}]
-        5 NEWTABLE                         R2 0 0
-        7 SETTABLEKS                       R2 R1 K3 ["errors"]
-        9 NEWTABLE                         R2 0 0
-       11 SETTABLEKS                       R2 R1 K4 ["pieces"]
-       13 SETTABLEKS                       R1 R0 K1 ["ugcValidationResponse"]
-       15 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = False, ["ugcValidationResponse"]}]
+        1 DUPTABLE                         R1 K6 [{"errors", "pieces"}]
+        2 NEWTABLE                         R2 0 0
+        4 SETTABLEKS                       R2 R1 K4 ["errors"]
+        6 NEWTABLE                         R2 0 0
+        8 SETTABLEKS                       R2 R1 K5 ["pieces"]
+       10 SETTABLEKS                       R1 R0 K2 ["ugcValidationResponse"]
+       12 RETURN                           R0 1
 
 PROTO_16:
         0 GETUPVAL                         R1 0
@@ -255,26 +231,20 @@ PROTO_16:
        11 RETURN                           R1 -1
 
 PROTO_17:
-        0 DUPTABLE                         R0 K2 [{"completed", "ugcValidationResponse"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["completed"]
-        4 DUPTABLE                         R1 K5 [{"errors", "pieces"}]
-        5 NEWTABLE                         R2 0 1
-        7 DUPTABLE                         R3 K8 [{"assetType", "error"}]
-        8 GETIMPORT                        R4 K12 [Enum.AssetType.Head]
-       10 SETTABLEKS                       R4 R3 K6 ["assetType"]
-       12 DUPTABLE                         R4 K15 [{"type", "message"}]
-       13 LOADK                            R5 K14 ["message"]
-       14 SETTABLEKS                       R5 R4 K13 ["type"]
-       16 LOADK                            R5 K16 ["Your brain gets smart, but your head gets dumb"]
-       17 SETTABLEKS                       R5 R4 K14 ["message"]
-       19 SETTABLEKS                       R4 R3 K7 ["error"]
-       21 SETLIST                          R2 R3 1 [1]
-       23 SETTABLEKS                       R2 R1 K3 ["errors"]
-       25 NEWTABLE                         R2 0 0
-       27 SETTABLEKS                       R2 R1 K4 ["pieces"]
-       29 SETTABLEKS                       R1 R0 K1 ["ugcValidationResponse"]
-       31 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = False, ["ugcValidationResponse"]}]
+        1 DUPTABLE                         R1 K6 [{"errors", "pieces"}]
+        2 NEWTABLE                         R2 0 1
+        4 DUPTABLE                         R3 K9 [{"assetType", "error"}]
+        5 GETIMPORT                        R4 K13 [Enum.AssetType.Head]
+        7 SETTABLEKS                       R4 R3 K7 ["assetType"]
+        9 DUPTABLE                         R4 K17 [{["type"] = "message", ["message"] = "Your brain gets smart, but your head gets dumb"}]
+       10 SETTABLEKS                       R4 R3 K8 ["error"]
+       12 SETLIST                          R2 R3 1 [1]
+       14 SETTABLEKS                       R2 R1 K4 ["errors"]
+       16 NEWTABLE                         R2 0 0
+       18 SETTABLEKS                       R2 R1 K5 ["pieces"]
+       20 SETTABLEKS                       R1 R0 K2 ["ugcValidationResponse"]
+       22 RETURN                           R0 1
 
 PROTO_18:
         0 GETUPVAL                         R1 0

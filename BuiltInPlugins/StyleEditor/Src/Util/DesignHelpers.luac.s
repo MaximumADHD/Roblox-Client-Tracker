@@ -332,20 +332,16 @@ PROTO_9:
 PROTO_10:
         0 LOADNIL                          R1
         1 GETUPVAL                         R2 0
-        2 DUPTABLE                         R3 K3 [{"Name", "DisplayName", "DoChange"}]
-        3 LOADK                            R4 K4 ["StyleEditor.Add Design"]
-        4 SETTABLEKS                       R4 R3 K0 ["Name"]
-        6 LOADK                            R4 K5 ["Style Editor - Add Design"]
-        7 SETTABLEKS                       R4 R3 K1 ["DisplayName"]
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          REF R1
-       11 CAPTURE                          UPVAL U1
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R4 R3 K2 ["DoChange"]
-       16 CALL                             R2 1 0
-       17 CLOSEUPVALS                      R1
-       18 RETURN                           R1 1
+        2 DUPTABLE                         R3 K5 [{[1] = "StyleEditor.Add Design", ["DisplayName"] = "Style Editor - Add Design", ["DoChange"]}]
+        3 NEWCLOSURE                       R4 P0
+        4 CAPTURE                          REF R1
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R4 R3 K4 ["DoChange"]
+       10 CALL                             R2 1 0
+       11 CLOSEUPVALS                      R1
+       12 RETURN                           R1 1
 
 PROTO_11:
         0 GETUPVAL                         R0 0

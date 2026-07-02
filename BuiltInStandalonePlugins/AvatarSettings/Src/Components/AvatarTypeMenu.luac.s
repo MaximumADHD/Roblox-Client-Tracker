@@ -35,47 +35,43 @@ PROTO_1:
        16 DUPTABLE                         R5 K5 [{"Selector"}]
        17 GETUPVAL                         R6 0
        18 GETUPVAL                         R7 4
-       19 DUPTABLE                         R8 K15 [{"TextWrapped", "TextXAlignment", "AutomaticSize", "Selected", "Key", "Text", "Description", "Disabled", "OnClick"}]
-       20 LOADB                            R9 1
-       21 SETTABLEKS                       R9 R8 K6 ["TextWrapped"]
-       23 GETIMPORT                        R9 K18 [Enum.TextXAlignment.Left]
-       25 SETTABLEKS                       R9 R8 K7 ["TextXAlignment"]
-       27 GETIMPORT                        R9 K20 [Enum.AutomaticSize.XY]
-       29 SETTABLEKS                       R9 R8 K8 ["AutomaticSize"]
-       31 GETUPVAL                         R10 5
-       32 GETTABLEKS                       R10 R10 K21 ["value"]
-       34 JUMPIFEQ                         R10 R0 ; [+2]
-       36 LOADB                            R9 0 +1
-       37 LOADB                            R9 1
-       38 SETTABLEKS                       R9 R8 K9 ["Selected"]
-       40 GETTABLEKS                       R9 R0 K22 ["Name"]
-       42 SETTABLEKS                       R9 R8 K10 ["Key"]
-       44 GETUPVAL                         R9 6
-       45 LOADK                            R11 K23 ["AvatarTypeSelector"]
-       46 MOVE                             R12 R1
-       47 NAMECALL                         R9 R9 K24 ["getText"]
-       49 CALL                             R9 3 1
-       50 SETTABLEKS                       R9 R8 K11 ["Text"]
-       52 GETUPVAL                         R9 6
-       53 LOADK                            R11 K23 ["AvatarTypeSelector"]
-       54 MOVE                             R13 R1
-       55 LOADK                            R14 K12 ["Description"]
-       56 CONCAT                           R12 R13 R14
-       57 NAMECALL                         R9 R9 K24 ["getText"]
-       59 CALL                             R9 3 1
-       60 SETTABLEKS                       R9 R8 K12 ["Description"]
-       62 LOADB                            R9 0
-       63 SETTABLEKS                       R9 R8 K13 ["Disabled"]
-       65 NEWCLOSURE                       R9 P0
-       66 CAPTURE                          UPVAL U7
-       67 CAPTURE                          UPVAL U5
-       68 CAPTURE                          UPVAL U8
-       69 CAPTURE                          UPVAL U9
-       70 SETTABLEKS                       R9 R8 K14 ["OnClick"]
-       72 CALL                             R6 2 1
-       73 SETTABLEKS                       R6 R5 K4 ["Selector"]
-       75 CALL                             R2 3 -1
-       76 RETURN                           R2 -1
+       19 DUPTABLE                         R8 K17 [{["TextWrapped"] = True, ["TextXAlignment"], ["AutomaticSize"], ["Selected"], ["Key"], ["Text"], ["Description"], ["Disabled"] = False, ["OnClick"]}]
+       20 GETIMPORT                        R9 K20 [Enum.TextXAlignment.Left]
+       22 SETTABLEKS                       R9 R8 K8 ["TextXAlignment"]
+       24 GETIMPORT                        R9 K22 [Enum.AutomaticSize.XY]
+       26 SETTABLEKS                       R9 R8 K9 ["AutomaticSize"]
+       28 GETUPVAL                         R10 5
+       29 GETTABLEKS                       R10 R10 K23 ["value"]
+       31 JUMPIFEQ                         R10 R0 ; [+2]
+       33 LOADB                            R9 0 +1
+       34 LOADB                            R9 1
+       35 SETTABLEKS                       R9 R8 K10 ["Selected"]
+       37 GETTABLEKS                       R9 R0 K24 ["Name"]
+       39 SETTABLEKS                       R9 R8 K11 ["Key"]
+       41 GETUPVAL                         R9 6
+       42 LOADK                            R11 K25 ["AvatarTypeSelector"]
+       43 MOVE                             R12 R1
+       44 NAMECALL                         R9 R9 K26 ["getText"]
+       46 CALL                             R9 3 1
+       47 SETTABLEKS                       R9 R8 K12 ["Text"]
+       49 GETUPVAL                         R9 6
+       50 LOADK                            R11 K25 ["AvatarTypeSelector"]
+       51 MOVE                             R13 R1
+       52 LOADK                            R14 K13 ["Description"]
+       53 CONCAT                           R12 R13 R14
+       54 NAMECALL                         R9 R9 K26 ["getText"]
+       56 CALL                             R9 3 1
+       57 SETTABLEKS                       R9 R8 K13 ["Description"]
+       59 NEWCLOSURE                       R9 P0
+       60 CAPTURE                          UPVAL U7
+       61 CAPTURE                          UPVAL U5
+       62 CAPTURE                          UPVAL U8
+       63 CAPTURE                          UPVAL U9
+       64 SETTABLEKS                       R9 R8 K16 ["OnClick"]
+       66 CALL                             R6 2 1
+       67 SETTABLEKS                       R6 R5 K4 ["Selector"]
+       69 CALL                             R2 3 -1
+       70 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -138,7 +134,7 @@ PROTO_2:
        76 SETTABLEKS                       R13 R12 K22 ["AutomaticSize"]
        78 GETIMPORT                        R13 K25 [UDim2.new]
        80 LOADN                            R14 1
-       81 LOADN                            R15 208
+       81 LOADN                            R15 -48
        82 LOADN                            R16 0
        83 LOADN                            R17 36
        84 CALL                             R13 4 1

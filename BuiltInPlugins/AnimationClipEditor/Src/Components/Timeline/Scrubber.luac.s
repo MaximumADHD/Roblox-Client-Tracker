@@ -13,82 +13,78 @@ PROTO_0:
        21 GETTABLE                         R10 R1 R11
        22 JUMPIF                           R10 ; [+2]
        23 NEWTABLE                         R10 0 0
-       25 JUMPIFNOT                        R6 ; [+35]
+       25 JUMPIFNOT                        R6 ; [+32]
        26 MOVE                             R12 R10
        27 GETUPVAL                         R13 0
        28 GETTABLEKS                       R13 R13 K10 ["createElement"]
        30 LOADK                            R14 K11 ["ImageLabel"]
-       31 DUPTABLE                         R15 K16 [{"Image", "ImageColor3", "BackgroundTransparency", "Size"}]
-       32 GETTABLEKS                       R16 R2 K17 ["scrubberTheme"]
-       34 GETTABLEKS                       R16 R16 K18 ["image"]
+       31 DUPTABLE                         R15 K17 [{["Image"], ["ImageColor3"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       32 GETTABLEKS                       R16 R2 K18 ["scrubberTheme"]
+       34 GETTABLEKS                       R16 R16 K19 ["image"]
        36 SETTABLEKS                       R16 R15 K12 ["Image"]
-       38 GETTABLEKS                       R16 R2 K17 ["scrubberTheme"]
-       40 GETTABLEKS                       R16 R16 K19 ["backgroundColor"]
+       38 GETTABLEKS                       R16 R2 K18 ["scrubberTheme"]
+       40 GETTABLEKS                       R16 R16 K20 ["backgroundColor"]
        42 SETTABLEKS                       R16 R15 K13 ["ImageColor3"]
-       44 LOADN                            R16 1
-       45 SETTABLEKS                       R16 R15 K14 ["BackgroundTransparency"]
-       47 GETIMPORT                        R16 K22 [UDim2.new]
-       49 LOADN                            R17 1
-       50 LOADN                            R18 0
-       51 LOADN                            R19 1
-       52 LOADN                            R20 0
-       53 CALL                             R16 4 1
-       54 SETTABLEKS                       R16 R15 K15 ["Size"]
-       56 CALL                             R13 2 -1
-       57 FASTCALL                         TABLE_INSERT ; [+2]
-       58 GETIMPORT                        R11 K25 [table.insert]
-       60 CALL                             R11 -1 0
-       61 MOVE                             R12 R10
-       62 GETUPVAL                         R13 0
-       63 GETTABLEKS                       R13 R13 K10 ["createElement"]
-       65 LOADK                            R14 K26 ["Frame"]
-       66 DUPTABLE                         R15 K29 [{"Position", "Size", "BackgroundColor3", "AnchorPoint", "BorderSizePixel"}]
-       67 GETIMPORT                        R16 K22 [UDim2.new]
-       69 LOADK                            R17 K30 [0.5]
-       70 LOADN                            R18 0
-       71 LOADN                            R19 0
-       72 LOADN                            R20 0
-       73 CALL                             R16 4 1
-       74 SETTABLEKS                       R16 R15 K2 ["Position"]
-       76 GETIMPORT                        R16 K22 [UDim2.new]
-       78 LOADN                            R17 0
-       79 MOVE                             R18 R9
-       80 LOADN                            R19 0
-       81 MOVE                             R20 R5
-       82 CALL                             R16 4 1
-       83 SETTABLEKS                       R16 R15 K15 ["Size"]
-       85 GETTABLEKS                       R16 R2 K17 ["scrubberTheme"]
-       87 GETTABLEKS                       R16 R16 K19 ["backgroundColor"]
-       89 SETTABLEKS                       R16 R15 K27 ["BackgroundColor3"]
-       91 GETIMPORT                        R16 K32 [Vector2.new]
-       93 LOADK                            R17 K30 [0.5]
-       94 LOADN                            R18 0
-       95 CALL                             R16 2 1
-       96 SETTABLEKS                       R16 R15 K6 ["AnchorPoint"]
-       98 LOADN                            R16 0
-       99 SETTABLEKS                       R16 R15 K28 ["BorderSizePixel"]
-      101 CALL                             R13 2 -1
-      102 FASTCALL                         TABLE_INSERT ; [+2]
-      103 GETIMPORT                        R11 K25 [table.insert]
-      105 CALL                             R11 -1 0
-      106 GETUPVAL                         R11 0
-      107 GETTABLEKS                       R11 R11 K10 ["createElement"]
-      109 LOADK                            R12 K26 ["Frame"]
-      110 NEWTABLE                         R13 8 0
-      112 LOADN                            R14 1
-      113 SETTABLEKS                       R14 R13 K14 ["BackgroundTransparency"]
-      115 SETTABLEKS                       R3 R13 K2 ["Position"]
-      117 SETTABLEKS                       R4 R13 K15 ["Size"]
-      119 SETTABLEKS                       R8 R13 K7 ["ZIndex"]
-      121 SETTABLEKS                       R7 R13 K6 ["AnchorPoint"]
-      123 GETUPVAL                         R14 0
-      124 GETTABLEKS                       R14 R14 K33 ["Event"]
-      126 GETTABLEKS                       R14 R14 K34 ["InputBegan"]
-      128 GETTABLEKS                       R15 R0 K35 ["onDragBegan"]
-      130 SETTABLE                         R15 R13 R14
-      131 MOVE                             R14 R10
-      132 CALL                             R11 3 -1
-      133 RETURN                           R11 -1
+       44 GETIMPORT                        R16 K23 [UDim2.new]
+       46 LOADN                            R17 1
+       47 LOADN                            R18 0
+       48 LOADN                            R19 1
+       49 LOADN                            R20 0
+       50 CALL                             R16 4 1
+       51 SETTABLEKS                       R16 R15 K16 ["Size"]
+       53 CALL                             R13 2 -1
+       54 FASTCALL                         TABLE_INSERT ; [+2]
+       55 GETIMPORT                        R11 K26 [table.insert]
+       57 CALL                             R11 -1 0
+       58 MOVE                             R12 R10
+       59 GETUPVAL                         R13 0
+       60 GETTABLEKS                       R13 R13 K10 ["createElement"]
+       62 LOADK                            R14 K27 ["Frame"]
+       63 DUPTABLE                         R15 K31 [{["Position"], ["Size"], ["BackgroundColor3"], ["AnchorPoint"], ["BorderSizePixel"] = 0}]
+       64 GETIMPORT                        R16 K23 [UDim2.new]
+       66 LOADK                            R17 K32 [0.5]
+       67 LOADN                            R18 0
+       68 LOADN                            R19 0
+       69 LOADN                            R20 0
+       70 CALL                             R16 4 1
+       71 SETTABLEKS                       R16 R15 K2 ["Position"]
+       73 GETIMPORT                        R16 K23 [UDim2.new]
+       75 LOADN                            R17 0
+       76 MOVE                             R18 R9
+       77 LOADN                            R19 0
+       78 MOVE                             R20 R5
+       79 CALL                             R16 4 1
+       80 SETTABLEKS                       R16 R15 K16 ["Size"]
+       82 GETTABLEKS                       R16 R2 K18 ["scrubberTheme"]
+       84 GETTABLEKS                       R16 R16 K20 ["backgroundColor"]
+       86 SETTABLEKS                       R16 R15 K28 ["BackgroundColor3"]
+       88 GETIMPORT                        R16 K34 [Vector2.new]
+       90 LOADK                            R17 K32 [0.5]
+       91 LOADN                            R18 0
+       92 CALL                             R16 2 1
+       93 SETTABLEKS                       R16 R15 K6 ["AnchorPoint"]
+       95 CALL                             R13 2 -1
+       96 FASTCALL                         TABLE_INSERT ; [+2]
+       97 GETIMPORT                        R11 K26 [table.insert]
+       99 CALL                             R11 -1 0
+      100 GETUPVAL                         R11 0
+      101 GETTABLEKS                       R11 R11 K10 ["createElement"]
+      103 LOADK                            R12 K27 ["Frame"]
+      104 NEWTABLE                         R13 8 0
+      106 LOADN                            R14 1
+      107 SETTABLEKS                       R14 R13 K14 ["BackgroundTransparency"]
+      109 SETTABLEKS                       R3 R13 K2 ["Position"]
+      111 SETTABLEKS                       R4 R13 K16 ["Size"]
+      113 SETTABLEKS                       R8 R13 K7 ["ZIndex"]
+      115 SETTABLEKS                       R7 R13 K6 ["AnchorPoint"]
+      117 GETUPVAL                         R14 0
+      118 GETTABLEKS                       R14 R14 K35 ["Event"]
+      120 GETTABLEKS                       R14 R14 K36 ["InputBegan"]
+      122 GETTABLEKS                       R15 R0 K37 ["onDragBegan"]
+      124 SETTABLE                         R15 R13 R14
+      125 MOVE                             R14 R10
+      126 CALL                             R11 3 -1
+      127 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -46,54 +46,40 @@ MAIN:
        25 NEWTABLE                         R4 8 0
        27 MOVE                             R5 R2
        28 LOADK                            R6 K11 ["AvailableImages"]
-       29 DUPTABLE                         R7 K19 [{"Open", "OpenLarge", "Cleanup", "Error", "Success", "File", "Warning"}]
-       30 LOADN                            R8 1
-       31 SETTABLEKS                       R8 R7 K12 ["Open"]
-       33 LOADN                            R8 2
-       34 SETTABLEKS                       R8 R7 K13 ["OpenLarge"]
-       36 LOADN                            R8 3
-       37 SETTABLEKS                       R8 R7 K14 ["Cleanup"]
-       39 LOADN                            R8 4
-       40 SETTABLEKS                       R8 R7 K15 ["Error"]
-       42 LOADN                            R8 5
-       43 SETTABLEKS                       R8 R7 K16 ["Success"]
-       45 LOADN                            R8 6
-       46 SETTABLEKS                       R8 R7 K17 ["File"]
-       48 LOADN                            R8 7
-       49 SETTABLEKS                       R8 R7 K18 ["Warning"]
-       51 CALL                             R5 2 1
-       52 SETTABLEKS                       R5 R4 K11 ["AvailableImages"]
-       54 NEWTABLE                         R6 8 0
-       56 GETTABLEKS                       R7 R5 K12 ["Open"]
-       58 LOADK                            R8 K20 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Standard/Open.png"]
-       59 SETTABLE                         R8 R6 R7
-       60 GETTABLEKS                       R7 R5 K13 ["OpenLarge"]
-       62 LOADK                            R8 K21 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Large/Open.png"]
-       63 SETTABLE                         R8 R6 R7
-       64 GETTABLEKS                       R7 R5 K14 ["Cleanup"]
-       66 LOADK                            R8 K22 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Cleanup.png"]
-       67 SETTABLE                         R8 R6 R7
-       68 GETTABLEKS                       R7 R5 K15 ["Error"]
-       70 LOADK                            R8 K23 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Error.png"]
-       71 SETTABLE                         R8 R6 R7
-       72 GETTABLEKS                       R7 R5 K16 ["Success"]
-       74 LOADK                            R8 K24 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Success.png"]
-       75 SETTABLE                         R8 R6 R7
-       76 GETTABLEKS                       R7 R5 K17 ["File"]
-       78 LOADK                            R8 K25 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/File.png"]
-       79 SETTABLE                         R8 R6 R7
-       80 GETTABLEKS                       R7 R5 K18 ["Warning"]
-       82 LOADK                            R8 K26 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Warning.png"]
-       83 SETTABLE                         R8 R6 R7
-       84 SETTABLEKS                       R6 R4 K27 ["_Uris"]
-       86 DUPCLOSURE                       R6 K28 [PROTO_0]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R3
-       89 SETTABLEKS                       R6 R4 K29 ["get"]
-       91 DUPCLOSURE                       R6 K30 [PROTO_1]
-       92 CAPTURE                          VAL R4
-       93 SETTABLEKS                       R6 R4 K31 ["getLight"]
-       95 DUPCLOSURE                       R6 K32 [PROTO_2]
-       96 CAPTURE                          VAL R4
-       97 SETTABLEKS                       R6 R4 K33 ["getDark"]
-       99 RETURN                           R4 1
+       29 DUPTABLE                         R7 K26 [{["Open"] = 1, ["OpenLarge"] = 2, ["Cleanup"] = 3, ["Error"] = 4, ["Success"] = 5, ["File"] = 6, ["Warning"] = 7}]
+       30 CALL                             R5 2 1
+       31 SETTABLEKS                       R5 R4 K11 ["AvailableImages"]
+       33 NEWTABLE                         R6 8 0
+       35 GETTABLEKS                       R7 R5 K12 ["Open"]
+       37 LOADK                            R8 K27 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Standard/Open.png"]
+       38 SETTABLE                         R8 R6 R7
+       39 GETTABLEKS                       R7 R5 K14 ["OpenLarge"]
+       41 LOADK                            R8 K28 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Large/Open.png"]
+       42 SETTABLE                         R8 R6 R7
+       43 GETTABLEKS                       R7 R5 K16 ["Cleanup"]
+       45 LOADK                            R8 K29 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Cleanup.png"]
+       46 SETTABLE                         R8 R6 R7
+       47 GETTABLEKS                       R7 R5 K18 ["Error"]
+       49 LOADK                            R8 K30 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Error.png"]
+       50 SETTABLE                         R8 R6 R7
+       51 GETTABLEKS                       R7 R5 K20 ["Success"]
+       53 LOADK                            R8 K31 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Success.png"]
+       54 SETTABLE                         R8 R6 R7
+       55 GETTABLEKS                       R7 R5 K22 ["File"]
+       57 LOADK                            R8 K32 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/File.png"]
+       58 SETTABLE                         R8 R6 R7
+       59 GETTABLEKS                       R7 R5 K24 ["Warning"]
+       61 LOADK                            R8 K33 ["rbxasset://studio_svg_textures/Shared/Alerts/%s/Standard/Warning.png"]
+       62 SETTABLE                         R8 R6 R7
+       63 SETTABLEKS                       R6 R4 K34 ["_Uris"]
+       65 DUPCLOSURE                       R6 K35 [PROTO_0]
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R3
+       68 SETTABLEKS                       R6 R4 K36 ["get"]
+       70 DUPCLOSURE                       R6 K37 [PROTO_1]
+       71 CAPTURE                          VAL R4
+       72 SETTABLEKS                       R6 R4 K38 ["getLight"]
+       74 DUPCLOSURE                       R6 K39 [PROTO_2]
+       75 CAPTURE                          VAL R4
+       76 SETTABLEKS                       R6 R4 K40 ["getDark"]
+       78 RETURN                           R4 1

@@ -21,9 +21,9 @@ PROTO_1:
        17 SETTABLEKS                       R5 R4 K4 ["suggestions"]
        19 GETIMPORT                        R5 K12 [UDim2.new]
        21 LOADN                            R6 0
-       22 LOADN                            R7 144
+       22 LOADN                            R7 400
        23 LOADN                            R8 0
-       24 LOADN                            R9 144
+       24 LOADN                            R9 400
        25 CALL                             R5 4 1
        26 SETTABLEKS                       R5 R4 K5 ["Size"]
        28 GETTABLEKS                       R5 R0 K13 ["props"]

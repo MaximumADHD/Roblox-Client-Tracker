@@ -6,16 +6,12 @@ PROTO_0:
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K0 ["GROUPS_ROLES_USERS_URL"]
         9 GETTABLEKS                       R3 R3 K2 ["Url"]
-       11 LOADN                            R4 57
+       11 LOADN                            R4 12345
        12 MOVE                             R5 R0
        13 CALL                             R3 2 1
-       14 DUPTABLE                         R4 K5 [{"limit", "sortOrder"}]
-       15 LOADK                            R5 K6 ["100"]
-       16 SETTABLEKS                       R5 R4 K3 ["limit"]
-       18 LOADK                            R5 K7 ["Asc"]
-       19 SETTABLEKS                       R5 R4 K4 ["sortOrder"]
-       21 CALL                             R1 3 -1
-       22 RETURN                           R1 -1
+       14 DUPTABLE                         R4 K7 [{["limit"] = "100", ["sortOrder"] = "Asc"}]
+       15 CALL                             R1 3 -1
+       16 RETURN                           R1 -1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
@@ -188,96 +184,84 @@ MAIN:
        84 GETTABLEKS                       R11 R11 K21 ["Prefix"]
        86 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
        88 GETTABLEKS                       R12 R12 K22 ["Url"]
-       90 LOADN                            R13 57
+       90 LOADN                            R13 12345
        91 LOADK                            R14 K23 [99088180]
        92 CALL                             R12 2 1
-       93 DUPTABLE                         R13 K26 [{"limit", "sortOrder"}]
-       94 LOADK                            R14 K27 ["100"]
-       95 SETTABLEKS                       R14 R13 K24 ["limit"]
-       97 LOADK                            R14 K28 ["Asc"]
-       98 SETTABLEKS                       R14 R13 K25 ["sortOrder"]
-      100 CALL                             R10 3 1
-      101 MOVE                             R11 R8
-      102 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      104 GETTABLEKS                       R12 R12 K21 ["Prefix"]
-      106 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      108 GETTABLEKS                       R13 R13 K22 ["Url"]
-      110 LOADN                            R14 57
-      111 LOADK                            R15 K29 [99088181]
-      112 CALL                             R13 2 1
-      113 DUPTABLE                         R14 K26 [{"limit", "sortOrder"}]
-      114 LOADK                            R15 K27 ["100"]
-      115 SETTABLEKS                       R15 R14 K24 ["limit"]
-      117 LOADK                            R15 K28 ["Asc"]
-      118 SETTABLEKS                       R15 R14 K25 ["sortOrder"]
-      120 CALL                             R11 3 1
-      121 MOVE                             R12 R8
-      122 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      124 GETTABLEKS                       R13 R13 K21 ["Prefix"]
-      126 GETTABLEKS                       R14 R6 K20 ["GROUPS_ROLES_USERS_URL"]
-      128 GETTABLEKS                       R14 R14 K22 ["Url"]
-      130 LOADN                            R15 57
-      131 LOADN                            R16 0
-      132 CALL                             R14 2 1
-      133 DUPTABLE                         R15 K26 [{"limit", "sortOrder"}]
-      134 LOADK                            R16 K27 ["100"]
-      135 SETTABLEKS                       R16 R15 K24 ["limit"]
-      137 LOADK                            R16 K28 ["Asc"]
-      138 SETTABLEKS                       R16 R15 K25 ["sortOrder"]
-      140 CALL                             R12 3 1
-      141 MOVE                             R13 R7
-      142 GETTABLEKS                       R14 R6 K30 ["GROUPS_USERS_ROLES_URL"]
-      144 GETTABLEKS                       R14 R14 K21 ["Prefix"]
-      146 GETTABLEKS                       R15 R6 K30 ["GROUPS_USERS_ROLES_URL"]
-      148 GETTABLEKS                       R15 R15 K22 ["Url"]
-      150 LOADN                            R16 0
-      151 CALL                             R15 1 -1
-      152 CALL                             R13 -1 1
-      153 MOVE                             R14 R7
-      154 GETTABLEKS                       R15 R6 K31 ["GROUPS_ROLES_URL"]
-      156 GETTABLEKS                       R15 R15 K21 ["Prefix"]
-      158 GETTABLEKS                       R16 R6 K31 ["GROUPS_ROLES_URL"]
-      160 GETTABLEKS                       R16 R16 K22 ["Url"]
-      162 LOADN                            R17 57
-      163 CALL                             R16 1 -1
-      164 CALL                             R14 -1 1
-      165 DUPTABLE                         R15 K33 [{"apis"}]
-      166 NEWTABLE                         R16 2 0
-      168 GETTABLEKS                       R17 R6 K34 ["UNIVERSES_SEARCH_TEST_URL"]
-      170 LOADK                            R18 K35 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
-      171 SETTABLE                         R18 R16 R17
-      172 GETTABLEKS                       R17 R6 K36 ["UNIVERSES_PERMISSIONS_TEST_URL"]
-      174 LOADK                            R18 K37 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
-      175 SETTABLE                         R18 R16 R17
-      176 SETTABLEKS                       R16 R15 K32 ["apis"]
-      178 DUPCLOSURE                       R16 K38 [PROTO_1]
-      179 CAPTURE                          VAL R15
-      180 SETTABLEKS                       R16 R15 K39 ["new"]
-      182 DUPCLOSURE                       R16 K40 [PROTO_2]
-      183 SETTABLEKS                       R16 R15 K41 ["parseJson"]
-      185 DUPCLOSURE                       R16 K42 [PROTO_3]
-      186 CAPTURE                          VAL R3
-      187 SETTABLEKS                       R16 R15 K43 ["request"]
-      189 DUPCLOSURE                       R16 K44 [PROTO_4]
-      190 CAPTURE                          VAL R6
-      191 CAPTURE                          VAL R10
-      192 CAPTURE                          VAL R11
-      193 CAPTURE                          VAL R12
-      194 CAPTURE                          VAL R14
-      195 CAPTURE                          VAL R13
-      196 LOADNIL                          R17
-      197 DUPTABLE                         R18 K46 [{"Networking", "mock"}]
-      198 GETTABLEKS                       R20 R2 K47 ["isCli"]
-      200 CALL                             R20 0 1
-      201 JUMPIFNOT                        R20 ; [+2]
-      202 MOVE                             R19 R15
-      203 JUMP                             ; [+1]
-      204 MOVE                             R19 R5
-      205 SETTABLEKS                       R19 R18 K15 ["Networking"]
-      207 NEWCLOSURE                       R19 P5
-      208 CAPTURE                          VAL R16
-      209 CAPTURE                          REF R17
-      210 SETTABLEKS                       R19 R18 K45 ["mock"]
-      212 MOVE                             R17 R18
-      213 CLOSEUPVALS                      R17
-      214 RETURN                           R17 1
+       93 DUPTABLE                         R13 K28 [{["limit"] = "100", ["sortOrder"] = "Asc"}]
+       94 CALL                             R10 3 1
+       95 MOVE                             R11 R8
+       96 GETTABLEKS                       R12 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+       98 GETTABLEKS                       R12 R12 K21 ["Prefix"]
+      100 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      102 GETTABLEKS                       R13 R13 K22 ["Url"]
+      104 LOADN                            R14 12345
+      105 LOADK                            R15 K29 [99088181]
+      106 CALL                             R13 2 1
+      107 DUPTABLE                         R14 K28 [{["limit"] = "100", ["sortOrder"] = "Asc"}]
+      108 CALL                             R11 3 1
+      109 MOVE                             R12 R8
+      110 GETTABLEKS                       R13 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      112 GETTABLEKS                       R13 R13 K21 ["Prefix"]
+      114 GETTABLEKS                       R14 R6 K20 ["GROUPS_ROLES_USERS_URL"]
+      116 GETTABLEKS                       R14 R14 K22 ["Url"]
+      118 LOADN                            R15 12345
+      119 LOADN                            R16 0
+      120 CALL                             R14 2 1
+      121 DUPTABLE                         R15 K28 [{["limit"] = "100", ["sortOrder"] = "Asc"}]
+      122 CALL                             R12 3 1
+      123 MOVE                             R13 R7
+      124 GETTABLEKS                       R14 R6 K30 ["GROUPS_USERS_ROLES_URL"]
+      126 GETTABLEKS                       R14 R14 K21 ["Prefix"]
+      128 GETTABLEKS                       R15 R6 K30 ["GROUPS_USERS_ROLES_URL"]
+      130 GETTABLEKS                       R15 R15 K22 ["Url"]
+      132 LOADN                            R16 0
+      133 CALL                             R15 1 -1
+      134 CALL                             R13 -1 1
+      135 MOVE                             R14 R7
+      136 GETTABLEKS                       R15 R6 K31 ["GROUPS_ROLES_URL"]
+      138 GETTABLEKS                       R15 R15 K21 ["Prefix"]
+      140 GETTABLEKS                       R16 R6 K31 ["GROUPS_ROLES_URL"]
+      142 GETTABLEKS                       R16 R16 K22 ["Url"]
+      144 LOADN                            R17 12345
+      145 CALL                             R16 1 -1
+      146 CALL                             R14 -1 1
+      147 DUPTABLE                         R15 K33 [{"apis"}]
+      148 NEWTABLE                         R16 2 0
+      150 GETTABLEKS                       R17 R6 K34 ["UNIVERSES_SEARCH_TEST_URL"]
+      152 LOADK                            R18 K35 ["{\"id\":0,\"name\":\"test place\",\"description\":null,\"isArchived\":false,\"rootPlaceId\":0,\"isActive\":false,\"privacyType\":\"Private\",\"creatorType\":\"User\",\"creatorTargetId\":123,\"creatorName\":\"testCreator\",\"created\":\"2024-09-10T21:14:20.017Z\",\"updated\":\"2024-09-10T21:14:21.953Z\"}"]
+      153 SETTABLE                         R18 R16 R17
+      154 GETTABLEKS                       R17 R6 K36 ["UNIVERSES_PERMISSIONS_TEST_URL"]
+      156 LOADK                            R18 K37 ["{\"data\":[{\"userId\":\"1234\",\"userName\":\"testuser\",\"action\":\"Edit\",\"allowedPermissions\":\"Edit\"}]}"]
+      157 SETTABLE                         R18 R16 R17
+      158 SETTABLEKS                       R16 R15 K32 ["apis"]
+      160 DUPCLOSURE                       R16 K38 [PROTO_1]
+      161 CAPTURE                          VAL R15
+      162 SETTABLEKS                       R16 R15 K39 ["new"]
+      164 DUPCLOSURE                       R16 K40 [PROTO_2]
+      165 SETTABLEKS                       R16 R15 K41 ["parseJson"]
+      167 DUPCLOSURE                       R16 K42 [PROTO_3]
+      168 CAPTURE                          VAL R3
+      169 SETTABLEKS                       R16 R15 K43 ["request"]
+      171 DUPCLOSURE                       R16 K44 [PROTO_4]
+      172 CAPTURE                          VAL R6
+      173 CAPTURE                          VAL R10
+      174 CAPTURE                          VAL R11
+      175 CAPTURE                          VAL R12
+      176 CAPTURE                          VAL R14
+      177 CAPTURE                          VAL R13
+      178 LOADNIL                          R17
+      179 DUPTABLE                         R18 K46 [{"Networking", "mock"}]
+      180 GETTABLEKS                       R20 R2 K47 ["isCli"]
+      182 CALL                             R20 0 1
+      183 JUMPIFNOT                        R20 ; [+2]
+      184 MOVE                             R19 R15
+      185 JUMP                             ; [+1]
+      186 MOVE                             R19 R5
+      187 SETTABLEKS                       R19 R18 K15 ["Networking"]
+      189 NEWCLOSURE                       R19 P5
+      190 CAPTURE                          VAL R16
+      191 CAPTURE                          REF R17
+      192 SETTABLEKS                       R19 R18 K45 ["mock"]
+      194 MOVE                             R17 R18
+      195 CLOSEUPVALS                      R17
+      196 RETURN                           R17 1

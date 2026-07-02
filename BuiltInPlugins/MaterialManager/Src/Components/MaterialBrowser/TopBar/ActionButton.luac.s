@@ -16,35 +16,33 @@ PROTO_0:
        22 GETUPVAL                         R5 1
        23 GETTABLEKS                       R5 R5 K8 ["createElement"]
        25 GETUPVAL                         R6 2
-       26 DUPTABLE                         R7 K14 [{"LayoutOrder", "OnClick", "Size", "Style", "StyleModifier"}]
+       26 DUPTABLE                         R7 K15 [{["LayoutOrder"], ["OnClick"], ["Size"], ["Style"] = "Round", ["StyleModifier"]}]
        27 GETTABLEKS                       R8 R1 K9 ["LayoutOrder"]
        29 SETTABLEKS                       R8 R7 K9 ["LayoutOrder"]
        31 GETTABLEKS                       R8 R1 K10 ["OnClick"]
        33 SETTABLEKS                       R8 R7 K10 ["OnClick"]
        35 SETTABLEKS                       R3 R7 K11 ["Size"]
-       37 LOADK                            R8 K15 ["Round"]
-       38 SETTABLEKS                       R8 R7 K12 ["Style"]
-       40 SETTABLEKS                       R4 R7 K13 ["StyleModifier"]
-       42 DUPTABLE                         R8 K18 [{"Image", "Tooltip"}]
-       43 GETUPVAL                         R9 1
-       44 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       46 GETUPVAL                         R10 3
-       47 DUPTABLE                         R11 K19 [{"Style", "StyleModifier"}]
-       48 GETTABLEKS                       R12 R1 K20 ["ImageStyle"]
-       50 SETTABLEKS                       R12 R11 K12 ["Style"]
-       52 SETTABLEKS                       R4 R11 K13 ["StyleModifier"]
-       54 CALL                             R9 2 1
-       55 SETTABLEKS                       R9 R8 K16 ["Image"]
-       57 GETUPVAL                         R9 1
-       58 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       60 GETUPVAL                         R10 4
-       61 DUPTABLE                         R11 K22 [{"Text"}]
-       62 GETTABLEKS                       R12 R1 K23 ["TooltipText"]
-       64 SETTABLEKS                       R12 R11 K21 ["Text"]
-       66 CALL                             R9 2 1
-       67 SETTABLEKS                       R9 R8 K17 ["Tooltip"]
-       69 CALL                             R5 3 -1
-       70 RETURN                           R5 -1
+       37 SETTABLEKS                       R4 R7 K14 ["StyleModifier"]
+       39 DUPTABLE                         R8 K18 [{"Image", "Tooltip"}]
+       40 GETUPVAL                         R9 1
+       41 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       43 GETUPVAL                         R10 3
+       44 DUPTABLE                         R11 K19 [{"Style", "StyleModifier"}]
+       45 GETTABLEKS                       R12 R1 K20 ["ImageStyle"]
+       47 SETTABLEKS                       R12 R11 K12 ["Style"]
+       49 SETTABLEKS                       R4 R11 K14 ["StyleModifier"]
+       51 CALL                             R9 2 1
+       52 SETTABLEKS                       R9 R8 K16 ["Image"]
+       54 GETUPVAL                         R9 1
+       55 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       57 GETUPVAL                         R10 4
+       58 DUPTABLE                         R11 K22 [{"Text"}]
+       59 GETTABLEKS                       R12 R1 K23 ["TooltipText"]
+       61 SETTABLEKS                       R12 R11 K21 ["Text"]
+       63 CALL                             R9 2 1
+       64 SETTABLEKS                       R9 R8 K17 ["Tooltip"]
+       66 CALL                             R5 3 -1
+       67 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

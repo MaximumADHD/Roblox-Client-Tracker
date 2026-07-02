@@ -2,34 +2,30 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 DUPTABLE                         R2 K6 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar"}]
+        5 DUPTABLE                         R2 K8 [{["plugin"], ["pluginName"] = "ModerationDialog", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True}]
         6 SETTABLEKS                       R0 R2 K1 ["plugin"]
-        8 LOADK                            R3 K7 ["ModerationDialog"]
-        9 SETTABLEKS                       R3 R2 K2 ["pluginName"]
-       11 GETUPVAL                         R3 1
-       12 SETTABLEKS                       R3 R2 K3 ["translationResourceTable"]
-       14 GETUPVAL                         R3 2
-       15 SETTABLEKS                       R3 R2 K4 ["fallbackResourceTable"]
-       17 LOADB                            R3 1
-       18 SETTABLEKS                       R3 R2 K5 ["noToolbar"]
-       20 GETUPVAL                         R4 3
-       21 GETTABLEKS                       R4 R4 K8 ["get"]
-       23 CALL                             R4 0 1
-       24 GETUPVAL                         R5 3
-       25 GETTABLEKS                       R5 R5 K9 ["Standalone"]
-       27 JUMPIFEQ                         R4 R5 ; [+2]
-       29 LOADB                            R3 0 +1
-       30 LOADB                            R3 1
-       31 JUMPIFNOT                        R3 ; [+9]
-       32 GETUPVAL                         R4 4
-       33 GETTABLEKS                       R4 R4 K10 ["build"]
-       35 MOVE                             R5 R2
-       36 CALL                             R4 1 1
-       37 MOVE                             R5 R1
-       38 MOVE                             R6 R0
-       39 MOVE                             R7 R4
-       40 CALL                             R5 2 0
-       41 RETURN                           R0 0
+        8 GETUPVAL                         R3 1
+        9 SETTABLEKS                       R3 R2 K4 ["translationResourceTable"]
+       11 GETUPVAL                         R3 2
+       12 SETTABLEKS                       R3 R2 K5 ["fallbackResourceTable"]
+       14 GETUPVAL                         R4 3
+       15 GETTABLEKS                       R4 R4 K9 ["get"]
+       17 CALL                             R4 0 1
+       18 GETUPVAL                         R5 3
+       19 GETTABLEKS                       R5 R5 K10 ["Standalone"]
+       21 JUMPIFEQ                         R4 R5 ; [+2]
+       23 LOADB                            R3 0 +1
+       24 LOADB                            R3 1
+       25 JUMPIFNOT                        R3 ; [+9]
+       26 GETUPVAL                         R4 4
+       27 GETTABLEKS                       R4 R4 K11 ["build"]
+       29 MOVE                             R5 R2
+       30 CALL                             R4 1 1
+       31 MOVE                             R5 R1
+       32 MOVE                             R6 R0
+       33 MOVE                             R7 R4
+       34 CALL                             R5 2 0
+       35 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -251,29 +251,25 @@ MAIN:
        21 LOADK                            R4 K10 ["buildTreeItems requires FFlagEnableAssetQualityValidation"]
        22 GETIMPORT                        R2 K12 [assert]
        24 CALL                             R2 2 0
-       25 DUPTABLE                         R2 K15 [{"Image", "Size"}]
-       26 LOADK                            R3 K16 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png"]
-       27 SETTABLEKS                       R3 R2 K13 ["Image"]
-       29 GETIMPORT                        R3 K19 [UDim2.new]
-       31 LOADN                            R4 0
-       32 LOADN                            R5 14
-       33 LOADN                            R6 0
-       34 LOADN                            R7 14
-       35 CALL                             R3 4 1
-       36 SETTABLEKS                       R3 R2 K14 ["Size"]
-       38 DUPTABLE                         R3 K15 [{"Image", "Size"}]
-       39 LOADK                            R4 K20 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Warning.png"]
-       40 SETTABLEKS                       R4 R3 K13 ["Image"]
-       42 GETIMPORT                        R4 K19 [UDim2.new]
-       44 LOADN                            R5 0
-       45 LOADN                            R6 14
-       46 LOADN                            R7 0
-       47 LOADN                            R8 14
-       48 CALL                             R4 4 1
-       49 SETTABLEKS                       R4 R3 K14 ["Size"]
-       51 DUPCLOSURE                       R4 K21 [PROTO_0]
-       52 DUPCLOSURE                       R5 K22 [PROTO_1]
-       53 DUPCLOSURE                       R6 K23 [PROTO_4]
-       54 CAPTURE                          VAL R2
-       55 CAPTURE                          VAL R3
-       56 RETURN                           R6 1
+       25 DUPTABLE                         R2 K16 [{["Image"] = "rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png", ["Size"]}]
+       26 GETIMPORT                        R3 K19 [UDim2.new]
+       28 LOADN                            R4 0
+       29 LOADN                            R5 14
+       30 LOADN                            R6 0
+       31 LOADN                            R7 14
+       32 CALL                             R3 4 1
+       33 SETTABLEKS                       R3 R2 K15 ["Size"]
+       35 DUPTABLE                         R3 K21 [{["Image"] = "rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Warning.png", ["Size"]}]
+       36 GETIMPORT                        R4 K19 [UDim2.new]
+       38 LOADN                            R5 0
+       39 LOADN                            R6 14
+       40 LOADN                            R7 0
+       41 LOADN                            R8 14
+       42 CALL                             R4 4 1
+       43 SETTABLEKS                       R4 R3 K15 ["Size"]
+       45 DUPCLOSURE                       R4 K22 [PROTO_0]
+       46 DUPCLOSURE                       R5 K23 [PROTO_1]
+       47 DUPCLOSURE                       R6 K24 [PROTO_4]
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R3
+       50 RETURN                           R6 1

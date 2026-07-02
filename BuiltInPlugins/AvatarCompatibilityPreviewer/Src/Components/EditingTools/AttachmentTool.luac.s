@@ -716,23 +716,21 @@ PROTO_11:
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
-        8 DUPTABLE                         R4 K6 [{"name", "worldModel", "points", "generallyEquivalentPointNames", "additionalToolbarItems"}]
-        9 LOADK                            R5 K7 ["AttachmentTool"]
-       10 SETTABLEKS                       R5 R4 K2 ["name"]
-       12 GETTABLEKS                       R5 R0 K0 ["worldModel"]
-       14 SETTABLEKS                       R5 R4 K0 ["worldModel"]
-       16 SETTABLEKS                       R1 R4 K3 ["points"]
-       18 NEWTABLE                         R5 0 1
-       20 NEWTABLE                         R6 0 2
-       22 LOADK                            R7 K8 ["HairAttachment"]
-       23 LOADK                            R8 K9 ["HatAttachment"]
-       24 SETLIST                          R6 R7 2 [1]
-       26 SETLIST                          R5 R6 1 [1]
-       28 SETTABLEKS                       R5 R4 K4 ["generallyEquivalentPointNames"]
-       30 GETTABLEKS                       R5 R0 K5 ["additionalToolbarItems"]
-       32 SETTABLEKS                       R5 R4 K5 ["additionalToolbarItems"]
-       34 CALL                             R2 2 -1
-       35 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K7 [{["name"] = "AttachmentTool", [2], ["points"], ["generallyEquivalentPointNames"], ["additionalToolbarItems"]}]
+        9 GETTABLEKS                       R5 R0 K0 ["worldModel"]
+       11 SETTABLEKS                       R5 R4 K0 ["worldModel"]
+       13 SETTABLEKS                       R1 R4 K4 ["points"]
+       15 NEWTABLE                         R5 0 1
+       17 NEWTABLE                         R6 0 2
+       19 LOADK                            R7 K8 ["HairAttachment"]
+       20 LOADK                            R8 K9 ["HatAttachment"]
+       21 SETLIST                          R6 R7 2 [1]
+       23 SETLIST                          R5 R6 1 [1]
+       25 SETTABLEKS                       R5 R4 K5 ["generallyEquivalentPointNames"]
+       27 GETTABLEKS                       R5 R0 K6 ["additionalToolbarItems"]
+       29 SETTABLEKS                       R5 R4 K6 ["additionalToolbarItems"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -117,112 +117,108 @@ PROTO_2:
        21 SETLIST                          R6 R7 1 [1]
        23 CALL                             R4 2 -1
        24 CALL                             R2 -1 0
-       25 DUPTABLE                         R4 K8 [{"instance", "assetType"}]
+       25 DUPTABLE                         R4 K9 [{["instance"], ["assetType"] = "Body"}]
        26 SETTABLEKS                       R1 R4 K6 ["instance"]
-       28 LOADK                            R5 K9 ["Body"]
-       29 SETTABLEKS                       R5 R4 K7 ["assetType"]
-       31 FASTCALL2                        TABLE_INSERT R0 R4 ; [+4]
-       33 MOVE                             R3 R0
-       34 GETIMPORT                        R2 K12 [table.insert]
-       36 CALL                             R2 2 0
-       37 GETUPVAL                         R2 4
-       38 GETTABLEKS                       R2 R2 K13 ["equippedItems"]
-       40 LOADNIL                          R3
-       41 LOADNIL                          R4
-       42 FORGPREP                         R2
-       43 GETTABLEKS                       R7 R6 K14 ["item"]
-       45 GETTABLEKS                       R7 R7 K15 ["source"]
-       47 GETUPVAL                         R8 3
-       48 GETTABLEKS                       R8 R8 K16 ["SOURCE_INSTANCE"]
-       50 JUMPIFNOTEQ                      R7 R8 ; [+127]
-       52 GETTABLEKS                       R9 R6 K14 ["item"]
-       54 GETTABLEKS                       R9 R9 K15 ["source"]
-       56 GETUPVAL                         R10 3
-       57 GETTABLEKS                       R10 R10 K16 ["SOURCE_INSTANCE"]
-       59 JUMPIFEQ                         R9 R10 ; [+2]
-       61 LOADB                            R8 0 +1
-       62 LOADB                            R8 1
-       63 GETUPVAL                         R9 3
-       64 GETTABLEKS                       R9 R9 K17 ["LUAU_ANALYZE_ERROR"]
-       66 FASTCALL2                        ASSERT R8 R9 ; [+3]
-       68 GETIMPORT                        R7 K19 [assert]
-       70 CALL                             R7 2 0
-       71 GETTABLEKS                       R7 R6 K20 ["palette"]
-       73 GETTABLEKS                       R7 R7 K21 ["Key"]
-       75 JUMPIFNOTEQKS                    R7 K22 ["Shoes"] ; [+21]
-       77 GETUPVAL                         R7 5
-       78 GETTABLEKS                       R8 R6 K14 ["item"]
-       80 GETTABLEKS                       R8 R8 K6 ["instance"]
-       82 CALL                             R7 1 1
-       83 JUMPIFEQKNIL                     R7 ; [+94]
-       85 DUPTABLE                         R10 K8 [{"instance", "assetType"}]
-       86 SETTABLEKS                       R7 R10 K6 ["instance"]
-       88 LOADK                            R11 K22 ["Shoes"]
-       89 SETTABLEKS                       R11 R10 K7 ["assetType"]
-       91 FASTCALL2                        TABLE_INSERT R0 R10 ; [+4]
-       93 MOVE                             R9 R0
-       94 GETIMPORT                        R8 K12 [table.insert]
-       96 CALL                             R8 2 0
-       97 GETTABLEKS                       R7 R6 K20 ["palette"]
-       99 GETTABLEKS                       R7 R7 K23 ["PublishAssetType"]
-      101 JUMPIFEQKNIL                     R7 ; [+76]
-      103 GETTABLEKS                       R9 R6 K20 ["palette"]
-      105 GETTABLEKS                       R9 R9 K23 ["PublishAssetType"]
-      107 JUMPIFNOTEQKNIL                  R9 ; [+2]
-      109 LOADB                            R8 0 +1
-      110 LOADB                            R8 1
-      111 GETUPVAL                         R9 3
-      112 GETTABLEKS                       R9 R9 K17 ["LUAU_ANALYZE_ERROR"]
-      114 FASTCALL2                        ASSERT R8 R9 ; [+3]
-      116 GETIMPORT                        R7 K19 [assert]
-      118 CALL                             R7 2 0
-      119 GETTABLEKS                       R7 R6 K14 ["item"]
-      121 GETTABLEKS                       R7 R7 K6 ["instance"]
-      123 NAMECALL                         R7 R7 K1 ["Clone"]
-      125 CALL                             R7 1 1
-      126 GETUPVAL                         R8 1
-      127 MOVE                             R9 R7
-      128 NEWTABLE                         R10 0 1
-      130 LOADK                            R11 K24 ["Handle"]
-      131 SETLIST                          R10 R11 1 [1]
-      133 CALL                             R8 2 0
-      134 GETUPVAL                         R8 6
-      135 MOVE                             R9 R7
-      136 CALL                             R8 1 1
-      137 JUMPIFEQKNIL                     R8 ; [+3]
-      139 SETTABLEKS                       R8 R7 K25 ["Name"]
-      141 LOADK                            R11 K26 ["ValueBase"]
-      142 LOADB                            R12 1
-      143 NAMECALL                         R9 R7 K27 ["FindFirstChildWhichIsA"]
-      145 CALL                             R9 3 1
-      146 JUMPIFEQKNIL                     R9 ; [+5]
-      148 NAMECALL                         R10 R9 K28 ["Destroy"]
-      150 CALL                             R10 1 0
-      151 JUMPBACK                         ; [-11]
-      152 NAMECALL                         R9 R7 K29 ["GetAttributes"]
-      154 CALL                             R9 1 3
-      155 FORGPREP                         R9
-      156 MOVE                             R16 R12
-      157 LOADNIL                          R17
-      158 NAMECALL                         R14 R7 K30 ["SetAttribute"]
-      160 CALL                             R14 3 0
-      161 FORGLOOP                         R9 1 ; [-6]
-      163 DUPTABLE                         R11 K8 [{"instance", "assetType"}]
-      164 SETTABLEKS                       R7 R11 K6 ["instance"]
-      166 GETTABLEKS                       R12 R6 K20 ["palette"]
-      168 GETTABLEKS                       R12 R12 K23 ["PublishAssetType"]
-      170 SETTABLEKS                       R12 R11 K7 ["assetType"]
-      172 FASTCALL2                        TABLE_INSERT R0 R11 ; [+4]
-      174 MOVE                             R10 R0
-      175 GETIMPORT                        R9 K12 [table.insert]
-      177 CALL                             R9 2 0
-      178 FORGLOOP                         R2 2 ; [-136]
-      180 GETIMPORT                        R2 K32 [table.sort]
-      182 MOVE                             R3 R0
-      183 NEWCLOSURE                       R4 P0
-      184 CAPTURE                          UPVAL U7
-      185 CALL                             R2 2 0
-      186 RETURN                           R0 1
+       28 FASTCALL2                        TABLE_INSERT R0 R4 ; [+4]
+       30 MOVE                             R3 R0
+       31 GETIMPORT                        R2 K12 [table.insert]
+       33 CALL                             R2 2 0
+       34 GETUPVAL                         R2 4
+       35 GETTABLEKS                       R2 R2 K13 ["equippedItems"]
+       37 LOADNIL                          R3
+       38 LOADNIL                          R4
+       39 FORGPREP                         R2
+       40 GETTABLEKS                       R7 R6 K14 ["item"]
+       42 GETTABLEKS                       R7 R7 K15 ["source"]
+       44 GETUPVAL                         R8 3
+       45 GETTABLEKS                       R8 R8 K16 ["SOURCE_INSTANCE"]
+       47 JUMPIFNOTEQ                      R7 R8 ; [+124]
+       49 GETTABLEKS                       R9 R6 K14 ["item"]
+       51 GETTABLEKS                       R9 R9 K15 ["source"]
+       53 GETUPVAL                         R10 3
+       54 GETTABLEKS                       R10 R10 K16 ["SOURCE_INSTANCE"]
+       56 JUMPIFEQ                         R9 R10 ; [+2]
+       58 LOADB                            R8 0 +1
+       59 LOADB                            R8 1
+       60 GETUPVAL                         R9 3
+       61 GETTABLEKS                       R9 R9 K17 ["LUAU_ANALYZE_ERROR"]
+       63 FASTCALL2                        ASSERT R8 R9 ; [+3]
+       65 GETIMPORT                        R7 K19 [assert]
+       67 CALL                             R7 2 0
+       68 GETTABLEKS                       R7 R6 K20 ["palette"]
+       70 GETTABLEKS                       R7 R7 K21 ["Key"]
+       72 JUMPIFNOTEQKS                    R7 K22 ["Shoes"] ; [+18]
+       74 GETUPVAL                         R7 5
+       75 GETTABLEKS                       R8 R6 K14 ["item"]
+       77 GETTABLEKS                       R8 R8 K6 ["instance"]
+       79 CALL                             R7 1 1
+       80 JUMPIFEQKNIL                     R7 ; [+91]
+       82 DUPTABLE                         R10 K23 [{["instance"], ["assetType"] = "Shoes"}]
+       83 SETTABLEKS                       R7 R10 K6 ["instance"]
+       85 FASTCALL2                        TABLE_INSERT R0 R10 ; [+4]
+       87 MOVE                             R9 R0
+       88 GETIMPORT                        R8 K12 [table.insert]
+       90 CALL                             R8 2 0
+       91 GETTABLEKS                       R7 R6 K20 ["palette"]
+       93 GETTABLEKS                       R7 R7 K24 ["PublishAssetType"]
+       95 JUMPIFEQKNIL                     R7 ; [+76]
+       97 GETTABLEKS                       R9 R6 K20 ["palette"]
+       99 GETTABLEKS                       R9 R9 K24 ["PublishAssetType"]
+      101 JUMPIFNOTEQKNIL                  R9 ; [+2]
+      103 LOADB                            R8 0 +1
+      104 LOADB                            R8 1
+      105 GETUPVAL                         R9 3
+      106 GETTABLEKS                       R9 R9 K17 ["LUAU_ANALYZE_ERROR"]
+      108 FASTCALL2                        ASSERT R8 R9 ; [+3]
+      110 GETIMPORT                        R7 K19 [assert]
+      112 CALL                             R7 2 0
+      113 GETTABLEKS                       R7 R6 K14 ["item"]
+      115 GETTABLEKS                       R7 R7 K6 ["instance"]
+      117 NAMECALL                         R7 R7 K1 ["Clone"]
+      119 CALL                             R7 1 1
+      120 GETUPVAL                         R8 1
+      121 MOVE                             R9 R7
+      122 NEWTABLE                         R10 0 1
+      124 LOADK                            R11 K25 ["Handle"]
+      125 SETLIST                          R10 R11 1 [1]
+      127 CALL                             R8 2 0
+      128 GETUPVAL                         R8 6
+      129 MOVE                             R9 R7
+      130 CALL                             R8 1 1
+      131 JUMPIFEQKNIL                     R8 ; [+3]
+      133 SETTABLEKS                       R8 R7 K26 ["Name"]
+      135 LOADK                            R11 K27 ["ValueBase"]
+      136 LOADB                            R12 1
+      137 NAMECALL                         R9 R7 K28 ["FindFirstChildWhichIsA"]
+      139 CALL                             R9 3 1
+      140 JUMPIFEQKNIL                     R9 ; [+5]
+      142 NAMECALL                         R10 R9 K29 ["Destroy"]
+      144 CALL                             R10 1 0
+      145 JUMPBACK                         ; [-11]
+      146 NAMECALL                         R9 R7 K30 ["GetAttributes"]
+      148 CALL                             R9 1 3
+      149 FORGPREP                         R9
+      150 MOVE                             R16 R12
+      151 LOADNIL                          R17
+      152 NAMECALL                         R14 R7 K31 ["SetAttribute"]
+      154 CALL                             R14 3 0
+      155 FORGLOOP                         R9 1 ; [-6]
+      157 DUPTABLE                         R11 K32 [{"instance", "assetType"}]
+      158 SETTABLEKS                       R7 R11 K6 ["instance"]
+      160 GETTABLEKS                       R12 R6 K20 ["palette"]
+      162 GETTABLEKS                       R12 R12 K24 ["PublishAssetType"]
+      164 SETTABLEKS                       R12 R11 K7 ["assetType"]
+      166 FASTCALL2                        TABLE_INSERT R0 R11 ; [+4]
+      168 MOVE                             R10 R0
+      169 GETIMPORT                        R9 K12 [table.insert]
+      171 CALL                             R9 2 0
+      172 FORGLOOP                         R2 2 ; [-133]
+      174 GETIMPORT                        R2 K34 [table.sort]
+      176 MOVE                             R3 R0
+      177 NEWCLOSURE                       R4 P0
+      178 CAPTURE                          UPVAL U7
+      179 CALL                             R2 2 0
+      180 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

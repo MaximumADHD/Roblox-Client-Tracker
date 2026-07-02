@@ -448,36 +448,32 @@ PROTO_22:
 
 PROTO_23:
         0 NEWTABLE                         R2 0 1
-        2 DUPTABLE                         R3 K3 [{"name", "creatorType", "creatorId"}]
-        3 LOADK                            R6 K4 ["General"]
-        4 LOADK                            R7 K5 ["Me"]
-        5 NAMECALL                         R4 R1 K6 ["getText"]
+        2 DUPTABLE                         R3 K4 [{[1], ["creatorType"] = "User", ["creatorId"]}]
+        3 LOADK                            R6 K5 ["General"]
+        4 LOADK                            R7 K6 ["Me"]
+        5 NAMECALL                         R4 R1 K7 ["getText"]
         7 CALL                             R4 3 1
         8 SETTABLEKS                       R4 R3 K0 ["name"]
-       10 LOADK                            R4 K7 ["User"]
-       11 SETTABLEKS                       R4 R3 K1 ["creatorType"]
-       13 GETUPVAL                         R4 0
-       14 CALL                             R4 0 1
-       15 SETTABLEKS                       R4 R3 K2 ["creatorId"]
-       17 SETLIST                          R2 R3 1 [1]
-       19 GETIMPORT                        R3 K9 [ipairs]
-       21 MOVE                             R4 R0
-       22 CALL                             R3 1 3
-       23 FORGPREP_INEXT                   R3
-       24 DUPTABLE                         R10 K11 [{"name", "creatorId", "creatorType", "item"}]
-       25 GETTABLEKS                       R11 R7 K0 ["name"]
-       27 SETTABLEKS                       R11 R10 K0 ["name"]
-       29 GETTABLEKS                       R11 R7 K12 ["id"]
-       31 SETTABLEKS                       R11 R10 K2 ["creatorId"]
-       33 LOADK                            R11 K13 ["Group"]
-       34 SETTABLEKS                       R11 R10 K1 ["creatorType"]
-       36 SETTABLEKS                       R7 R10 K10 ["item"]
-       38 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
-       40 MOVE                             R9 R2
-       41 GETIMPORT                        R8 K16 [table.insert]
-       43 CALL                             R8 2 0
-       44 FORGLOOP                         R3 2 [inext] ; [-21]
-       46 RETURN                           R2 1
+       10 GETUPVAL                         R4 0
+       11 CALL                             R4 0 1
+       12 SETTABLEKS                       R4 R3 K3 ["creatorId"]
+       14 SETLIST                          R2 R3 1 [1]
+       16 GETIMPORT                        R3 K9 [ipairs]
+       18 MOVE                             R4 R0
+       19 CALL                             R3 1 3
+       20 FORGPREP_INEXT                   R3
+       21 DUPTABLE                         R10 K12 [{[1], ["creatorId"], ["creatorType"] = "Group", ["item"]}]
+       22 GETTABLEKS                       R11 R7 K0 ["name"]
+       24 SETTABLEKS                       R11 R10 K0 ["name"]
+       26 GETTABLEKS                       R11 R7 K13 ["id"]
+       28 SETTABLEKS                       R11 R10 K3 ["creatorId"]
+       30 SETTABLEKS                       R7 R10 K11 ["item"]
+       32 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       34 MOVE                             R9 R2
+       35 GETIMPORT                        R8 K16 [table.insert]
+       37 CALL                             R8 2 0
+       38 FORGLOOP                         R3 2 [inext] ; [-18]
+       40 RETURN                           R2 1
 
 PROTO_24:
         0 GETUPVAL                         R1 0
@@ -850,58 +846,56 @@ PROTO_34:
        12 GETUPVAL                         R5 1
        13 GETTABLEKS                       R5 R5 K2 ["BodyScaleTypes"]
        15 GETTABLEKS                       R5 R5 K3 ["Unknown"]
-       17 JUMPIFNOTEQ                      R3 R5 ; [+16]
+       17 JUMPIFNOTEQ                      R3 R5 ; [+13]
        19 MOVE                             R6 R4
        20 LOADK                            R9 K4 ["AssetConfig"]
        21 LOADK                            R10 K5 ["BodyScaleValidationErrorUnknown"]
-       22 DUPTABLE                         R11 K7 [{"scaleTypes"}]
-       23 LOADK                            R12 K8 ["AvatarPartScaleType: Classic | ProportionsNormal | ProportionsSlender"]
-       24 SETTABLEKS                       R12 R11 K6 ["scaleTypes"]
-       26 NAMECALL                         R7 R1 K9 ["getText"]
-       28 CALL                             R7 4 -1
-       29 FASTCALL                         TABLE_INSERT ; [+2]
-       30 GETIMPORT                        R5 K12 [table.insert]
-       32 CALL                             R5 -1 0
-       33 RETURN                           R4 1
-       34 JUMPIFNOTEQKNIL                  R2 ; [+12]
-       36 MOVE                             R6 R4
-       37 LOADK                            R9 K4 ["AssetConfig"]
-       38 LOADK                            R10 K13 ["BodyScaleValidationErrorHumanoidMissing"]
-       39 NAMECALL                         R7 R1 K9 ["getText"]
-       41 CALL                             R7 3 -1
-       42 FASTCALL                         TABLE_INSERT ; [+2]
-       43 GETIMPORT                        R5 K12 [table.insert]
-       45 CALL                             R5 -1 0
-       46 RETURN                           R4 1
-       47 MOVE                             R5 R2
-       48 LOADNIL                          R6
-       49 LOADNIL                          R7
-       50 FORGPREP                         R5
-       51 GETUPVAL                         R12 1
-       52 GETTABLEKS                       R12 R12 K14 ["BodyScaleDefaults"]
-       54 GETTABLE                         R11 R12 R3
-       55 GETTABLE                         R10 R11 R8
-       56 JUMPIFEQ                         R9 R10 ; [+25]
-       58 MOVE                             R12 R4
-       59 LOADK                            R15 K4 ["AssetConfig"]
-       60 LOADK                            R16 K15 ["BodyScaleValidationErrorNotDefaultValue"]
-       61 DUPTABLE                         R17 K19 [{"scaleName", "defaultValue", "scaleType"}]
-       62 GETUPVAL                         R19 1
-       63 GETTABLEKS                       R19 R19 K20 ["bodyScaleNameToString"]
-       65 GETTABLE                         R18 R19 R8
-       66 SETTABLEKS                       R18 R17 K16 ["scaleName"]
-       68 SETTABLEKS                       R10 R17 K17 ["defaultValue"]
-       70 LOADK                            R19 K21 ["AvatarPartScaleType "]
-       71 MOVE                             R20 R3
-       72 CONCAT                           R18 R19 R20
-       73 SETTABLEKS                       R18 R17 K18 ["scaleType"]
-       75 NAMECALL                         R13 R1 K9 ["getText"]
-       77 CALL                             R13 4 -1
-       78 FASTCALL                         TABLE_INSERT ; [+2]
-       79 GETIMPORT                        R11 K12 [table.insert]
-       81 CALL                             R11 -1 0
-       82 FORGLOOP                         R5 2 ; [-32]
-       84 RETURN                           R4 1
+       22 DUPTABLE                         R11 K8 [{["scaleTypes"] = "AvatarPartScaleType: Classic | ProportionsNormal | ProportionsSlender"}]
+       23 NAMECALL                         R7 R1 K9 ["getText"]
+       25 CALL                             R7 4 -1
+       26 FASTCALL                         TABLE_INSERT ; [+2]
+       27 GETIMPORT                        R5 K12 [table.insert]
+       29 CALL                             R5 -1 0
+       30 RETURN                           R4 1
+       31 JUMPIFNOTEQKNIL                  R2 ; [+12]
+       33 MOVE                             R6 R4
+       34 LOADK                            R9 K4 ["AssetConfig"]
+       35 LOADK                            R10 K13 ["BodyScaleValidationErrorHumanoidMissing"]
+       36 NAMECALL                         R7 R1 K9 ["getText"]
+       38 CALL                             R7 3 -1
+       39 FASTCALL                         TABLE_INSERT ; [+2]
+       40 GETIMPORT                        R5 K12 [table.insert]
+       42 CALL                             R5 -1 0
+       43 RETURN                           R4 1
+       44 MOVE                             R5 R2
+       45 LOADNIL                          R6
+       46 LOADNIL                          R7
+       47 FORGPREP                         R5
+       48 GETUPVAL                         R12 1
+       49 GETTABLEKS                       R12 R12 K14 ["BodyScaleDefaults"]
+       51 GETTABLE                         R11 R12 R3
+       52 GETTABLE                         R10 R11 R8
+       53 JUMPIFEQ                         R9 R10 ; [+25]
+       55 MOVE                             R12 R4
+       56 LOADK                            R15 K4 ["AssetConfig"]
+       57 LOADK                            R16 K15 ["BodyScaleValidationErrorNotDefaultValue"]
+       58 DUPTABLE                         R17 K19 [{"scaleName", "defaultValue", "scaleType"}]
+       59 GETUPVAL                         R19 1
+       60 GETTABLEKS                       R19 R19 K20 ["bodyScaleNameToString"]
+       62 GETTABLE                         R18 R19 R8
+       63 SETTABLEKS                       R18 R17 K16 ["scaleName"]
+       65 SETTABLEKS                       R10 R17 K17 ["defaultValue"]
+       67 LOADK                            R19 K21 ["AvatarPartScaleType "]
+       68 MOVE                             R20 R3
+       69 CONCAT                           R18 R19 R20
+       70 SETTABLEKS                       R18 R17 K18 ["scaleType"]
+       72 NAMECALL                         R13 R1 K9 ["getText"]
+       74 CALL                             R13 4 -1
+       75 FASTCALL                         TABLE_INSERT ; [+2]
+       76 GETIMPORT                        R11 K12 [table.insert]
+       78 CALL                             R11 -1 0
+       79 FORGLOOP                         R5 2 ; [-32]
+       81 RETURN                           R4 1
 
 PROTO_35:
         0 GETUPVAL                         R2 0

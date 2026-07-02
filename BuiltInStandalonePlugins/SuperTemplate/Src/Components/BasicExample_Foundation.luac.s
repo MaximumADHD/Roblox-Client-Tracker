@@ -10,46 +10,38 @@ PROTO_0:
        11 GETUPVAL                         R3 0
        12 GETTABLEKS                       R3 R3 K3 ["createElement"]
        14 GETUPVAL                         R4 3
-       15 DUPTABLE                         R5 K5 [{"tag"}]
-       16 LOADK                            R6 K6 ["size-full-full col align-y-center align-x-center padding-medium bg-surface-200"]
-       17 SETTABLEKS                       R6 R5 K4 ["tag"]
-       19 DUPTABLE                         R6 K9 [{"OptionalContent", "VersionLabel"}]
-       20 GETTABLEKS                       R8 R0 K10 ["showContent"]
-       22 JUMPIFNOT                        R8 ; [+17]
-       23 GETUPVAL                         R7 0
-       24 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       26 GETUPVAL                         R8 4
-       27 DUPTABLE                         R9 K13 [{"Text", "tag", "LayoutOrder"}]
-       28 LOADK                            R10 K14 ["Kangaroos are great!"]
-       29 SETTABLEKS                       R10 R9 K11 ["Text"]
-       31 LOADK                            R10 K15 ["padding-small auto-xy bg-action-standard content-action-standard text-heading-medium radius-small"]
-       32 SETTABLEKS                       R10 R9 K4 ["tag"]
-       34 MOVE                             R10 R2
-       35 CALL                             R10 0 1
-       36 SETTABLEKS                       R10 R9 K12 ["LayoutOrder"]
-       38 CALL                             R7 2 1
-       39 JUMP                             ; [+1]
-       40 LOADNIL                          R7
-       41 SETTABLEKS                       R7 R6 K7 ["OptionalContent"]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       46 GETUPVAL                         R8 4
-       47 DUPTABLE                         R9 K13 [{"Text", "tag", "LayoutOrder"}]
-       48 LOADK                            R11 K16 ["Version: %*"]
-       49 GETUPVAL                         R13 5
-       50 NAMECALL                         R11 R11 K17 ["format"]
-       52 CALL                             R11 2 1
-       53 MOVE                             R10 R11
-       54 SETTABLEKS                       R10 R9 K11 ["Text"]
-       56 LOADK                            R10 K18 ["padding-small auto-xy bg-action-standard content-action-standard text-body-small radius-small"]
-       57 SETTABLEKS                       R10 R9 K4 ["tag"]
-       59 MOVE                             R10 R2
-       60 CALL                             R10 0 1
-       61 SETTABLEKS                       R10 R9 K12 ["LayoutOrder"]
-       63 CALL                             R7 2 1
-       64 SETTABLEKS                       R7 R6 K8 ["VersionLabel"]
-       66 CALL                             R3 3 -1
-       67 RETURN                           R3 -1
+       15 DUPTABLE                         R5 K6 [{["tag"] = "col align-x-center align-y-center size-full-full padding-medium bg-surface-200"}]
+       16 DUPTABLE                         R6 K9 [{"OptionalContent", "VersionLabel"}]
+       17 GETTABLEKS                       R8 R0 K10 ["showContent"]
+       19 JUMPIFNOT                        R8 ; [+11]
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       23 GETUPVAL                         R8 4
+       24 DUPTABLE                         R9 K15 [{["Text"] = "Kangaroos are great!", ["tag"] = "auto-xy padding-small text-heading-medium radius-small bg-action-standard content-action-standard", ["LayoutOrder"]}]
+       25 MOVE                             R10 R2
+       26 CALL                             R10 0 1
+       27 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
+       29 CALL                             R7 2 1
+       30 JUMP                             ; [+1]
+       31 LOADNIL                          R7
+       32 SETTABLEKS                       R7 R6 K7 ["OptionalContent"]
+       34 GETUPVAL                         R7 0
+       35 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       37 GETUPVAL                         R8 4
+       38 DUPTABLE                         R9 K17 [{["Text"], ["tag"] = "auto-xy padding-small text-body-small radius-small bg-action-standard content-action-standard", ["LayoutOrder"]}]
+       39 LOADK                            R11 K18 ["Version: %*"]
+       40 GETUPVAL                         R13 5
+       41 NAMECALL                         R11 R11 K19 ["format"]
+       43 CALL                             R11 2 1
+       44 MOVE                             R10 R11
+       45 SETTABLEKS                       R10 R9 K11 ["Text"]
+       47 MOVE                             R10 R2
+       48 CALL                             R10 0 1
+       49 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
+       51 CALL                             R7 2 1
+       52 SETTABLEKS                       R7 R6 K8 ["VersionLabel"]
+       54 CALL                             R3 3 -1
+       55 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

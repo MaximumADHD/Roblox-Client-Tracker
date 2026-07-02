@@ -22,22 +22,18 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K4 [{"Url", "Method", "Headers", "Body"}]
-        2 LOADK                            R4 K5 ["https://apis.sitetest1.robloxlabs.com/image-localization-api/v1/image-localization/ingest"]
-        3 SETTABLEKS                       R4 R3 K0 ["Url"]
-        5 LOADK                            R4 K6 ["POST"]
-        6 SETTABLEKS                       R4 R3 K1 ["Method"]
-        8 NEWTABLE                         R4 1 0
-       10 LOADK                            R5 K7 ["application/json"]
-       11 SETTABLEKS                       R5 R4 K8 ["Content-Type"]
-       13 SETTABLEKS                       R4 R3 K2 ["Headers"]
-       15 SETTABLEKS                       R0 R3 K3 ["Body"]
-       17 NAMECALL                         R1 R1 K9 ["RequestInternal"]
-       19 CALL                             R1 2 1
-       20 DUPCLOSURE                       R4 K10 [PROTO_0]
-       21 NAMECALL                         R2 R1 K11 ["Start"]
-       23 CALL                             R2 2 0
-       24 RETURN                           R0 0
+        1 DUPTABLE                         R3 K6 [{[1] = "https://apis.sitetest1.robloxlabs.com/image-localization-api/v1/image-localization/ingest", ["Method"] = "POST", ["Headers"], ["Body"]}]
+        2 NEWTABLE                         R4 1 0
+        4 LOADK                            R5 K7 ["application/json"]
+        5 SETTABLEKS                       R5 R4 K8 ["Content-Type"]
+        7 SETTABLEKS                       R4 R3 K4 ["Headers"]
+        9 SETTABLEKS                       R0 R3 K5 ["Body"]
+       11 NAMECALL                         R1 R1 K9 ["RequestInternal"]
+       13 CALL                             R1 2 1
+       14 DUPCLOSURE                       R4 K10 [PROTO_0]
+       15 NAMECALL                         R2 R1 K11 ["Start"]
+       17 CALL                             R2 2 0
+       18 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -116,126 +112,114 @@ PROTO_6:
        16 GETUPVAL                         R5 0
        17 GETTABLEKS                       R5 R5 K8 ["createElement"]
        19 GETUPVAL                         R6 1
-       20 DUPTABLE                         R7 K11 [{"LayoutOrder", "AutomaticSize", "Padding"}]
-       21 LOADN                            R8 2
-       22 SETTABLEKS                       R8 R7 K7 ["LayoutOrder"]
-       24 GETIMPORT                        R8 K14 [Enum.AutomaticSize.XY]
-       26 SETTABLEKS                       R8 R7 K9 ["AutomaticSize"]
-       28 DUPTABLE                         R8 K17 [{"Top", "Left"}]
-       29 GETTABLEKS                       R9 R2 K18 ["PaddingTop"]
-       31 SETTABLEKS                       R9 R8 K15 ["Top"]
-       33 GETTABLEKS                       R9 R2 K19 ["LeftIndent"]
-       35 SETTABLEKS                       R9 R8 K16 ["Left"]
-       37 SETTABLEKS                       R8 R7 K10 ["Padding"]
-       39 DUPTABLE                         R8 K21 [{"Upload"}]
-       40 GETUPVAL                         R9 0
-       41 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       43 GETUPVAL                         R10 2
-       44 DUPTABLE                         R11 K24 [{"Title", "TitleWidth"}]
-       45 LOADK                            R14 K25 ["ImageLocalizationSection"]
-       46 LOADK                            R15 K26 ["UploadButtonLabel"]
-       47 NAMECALL                         R12 R3 K27 ["getText"]
-       49 CALL                             R12 3 1
-       50 SETTABLEKS                       R12 R11 K22 ["Title"]
-       52 GETTABLEKS                       R12 R2 K28 ["LabelWidth"]
-       54 SETTABLEKS                       R12 R11 K23 ["TitleWidth"]
-       56 DUPTABLE                         R12 K30 [{"ButtonContainer"}]
-       57 GETUPVAL                         R13 0
-       58 GETTABLEKS                       R13 R13 K8 ["createElement"]
-       60 LOADK                            R14 K31 ["Frame"]
-       61 DUPTABLE                         R15 K34 [{"BackgroundTransparency", "Size"}]
-       62 LOADN                            R16 1
-       63 SETTABLEKS                       R16 R15 K32 ["BackgroundTransparency"]
-       65 GETIMPORT                        R16 K37 [UDim2.new]
-       67 LOADN                            R17 0
-       68 GETTABLEKS                       R18 R2 K38 ["ButtonWidth"]
-       70 LOADN                            R19 1
-       71 LOADN                            R20 0
-       72 CALL                             R16 4 1
-       73 SETTABLEKS                       R16 R15 K33 ["Size"]
-       75 DUPTABLE                         R16 K40 [{"Button"}]
-       76 GETUPVAL                         R17 0
-       77 GETTABLEKS                       R17 R17 K8 ["createElement"]
-       79 GETUPVAL                         R18 3
-       80 DUPTABLE                         R19 K46 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "Text"}]
-       81 GETIMPORT                        R20 K48 [Vector2.new]
-       83 LOADK                            R21 K49 [0.5]
-       84 LOADK                            R22 K49 [0.5]
-       85 CALL                             R20 2 1
-       86 SETTABLEKS                       R20 R19 K41 ["AnchorPoint"]
-       88 GETTABLEKS                       R20 R0 K50 ["uploadImageAssetIds"]
-       90 SETTABLEKS                       R20 R19 K42 ["OnClick"]
-       92 GETIMPORT                        R20 K37 [UDim2.new]
-       94 LOADK                            R21 K49 [0.5]
-       95 LOADN                            R22 0
-       96 LOADK                            R23 K49 [0.5]
-       97 LOADN                            R24 0
-       98 CALL                             R20 4 1
-       99 SETTABLEKS                       R20 R19 K43 ["Position"]
-      101 GETIMPORT                        R20 K37 [UDim2.new]
-      103 LOADN                            R21 1
-      104 LOADN                            R22 0
-      105 LOADN                            R23 0
-      106 GETTABLEKS                       R24 R2 K51 ["ButtonHeight"]
-      108 CALL                             R20 4 1
-      109 SETTABLEKS                       R20 R19 K33 ["Size"]
-      111 LOADK                            R20 K52 ["TextButton"]
-      112 SETTABLEKS                       R20 R19 K44 ["Style"]
-      114 LOADK                            R22 K25 ["ImageLocalizationSection"]
-      115 LOADK                            R23 K53 ["UploadButton"]
-      116 NAMECALL                         R20 R3 K27 ["getText"]
-      118 CALL                             R20 3 1
-      119 SETTABLEKS                       R20 R19 K45 ["Text"]
-      121 NEWTABLE                         R20 0 1
-      123 GETUPVAL                         R21 0
-      124 GETTABLEKS                       R21 R21 K8 ["createElement"]
-      126 GETUPVAL                         R22 4
-      127 DUPTABLE                         R23 K55 [{"Cursor"}]
-      128 LOADK                            R24 K56 ["PointingHand"]
-      129 SETTABLEKS                       R24 R23 K54 ["Cursor"]
-      131 CALL                             R21 2 -1
-      132 SETLIST                          R20 R21 -1 [1]
-      134 CALL                             R17 3 1
-      135 SETTABLEKS                       R17 R16 K39 ["Button"]
-      137 CALL                             R13 3 1
-      138 SETTABLEKS                       R13 R12 K29 ["ButtonContainer"]
-      140 CALL                             R9 3 1
-      141 SETTABLEKS                       R9 R8 K20 ["Upload"]
-      143 CALL                             R5 3 1
-      144 GETUPVAL                         R6 0
-      145 GETTABLEKS                       R6 R6 K8 ["createElement"]
-      147 GETUPVAL                         R7 1
-      148 DUPTABLE                         R8 K58 [{"LayoutOrder", "AutomaticSize", "Padding", "Spacing"}]
-      149 SETTABLEKS                       R4 R8 K7 ["LayoutOrder"]
-      151 GETIMPORT                        R9 K14 [Enum.AutomaticSize.XY]
-      153 SETTABLEKS                       R9 R8 K9 ["AutomaticSize"]
-      155 DUPTABLE                         R9 K59 [{"Top"}]
-      156 GETTABLEKS                       R10 R2 K18 ["PaddingTop"]
-      158 SETTABLEKS                       R10 R9 K15 ["Top"]
-      160 SETTABLEKS                       R9 R8 K10 ["Padding"]
-      162 GETTABLEKS                       R9 R2 K57 ["Spacing"]
-      164 SETTABLEKS                       R9 R8 K57 ["Spacing"]
-      166 DUPTABLE                         R9 K62 [{"SectionLabel", "Content"}]
-      167 GETUPVAL                         R10 0
-      168 GETTABLEKS                       R10 R10 K8 ["createElement"]
-      170 GETUPVAL                         R11 5
-      171 DUPTABLE                         R12 K63 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-      172 GETIMPORT                        R13 K14 [Enum.AutomaticSize.XY]
-      174 SETTABLEKS                       R13 R12 K9 ["AutomaticSize"]
-      176 LOADN                            R13 1
-      177 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
-      179 LOADK                            R13 K64 ["Label"]
-      180 SETTABLEKS                       R13 R12 K44 ["Style"]
-      182 LOADK                            R15 K25 ["ImageLocalizationSection"]
-      183 LOADK                            R16 K60 ["SectionLabel"]
-      184 NAMECALL                         R13 R3 K27 ["getText"]
-      186 CALL                             R13 3 1
-      187 SETTABLEKS                       R13 R12 K45 ["Text"]
-      189 CALL                             R10 2 1
-      190 SETTABLEKS                       R10 R9 K60 ["SectionLabel"]
-      192 SETTABLEKS                       R5 R9 K61 ["Content"]
-      194 CALL                             R6 3 -1
-      195 RETURN                           R6 -1
+       20 DUPTABLE                         R7 K12 [{["LayoutOrder"] = 2, ["AutomaticSize"], ["Padding"]}]
+       21 GETIMPORT                        R8 K15 [Enum.AutomaticSize.XY]
+       23 SETTABLEKS                       R8 R7 K10 ["AutomaticSize"]
+       25 DUPTABLE                         R8 K18 [{"Top", "Left"}]
+       26 GETTABLEKS                       R9 R2 K19 ["PaddingTop"]
+       28 SETTABLEKS                       R9 R8 K16 ["Top"]
+       30 GETTABLEKS                       R9 R2 K20 ["LeftIndent"]
+       32 SETTABLEKS                       R9 R8 K17 ["Left"]
+       34 SETTABLEKS                       R8 R7 K11 ["Padding"]
+       36 DUPTABLE                         R8 K22 [{"Upload"}]
+       37 GETUPVAL                         R9 0
+       38 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       40 GETUPVAL                         R10 2
+       41 DUPTABLE                         R11 K25 [{"Title", "TitleWidth"}]
+       42 LOADK                            R14 K26 ["ImageLocalizationSection"]
+       43 LOADK                            R15 K27 ["UploadButtonLabel"]
+       44 NAMECALL                         R12 R3 K28 ["getText"]
+       46 CALL                             R12 3 1
+       47 SETTABLEKS                       R12 R11 K23 ["Title"]
+       49 GETTABLEKS                       R12 R2 K29 ["LabelWidth"]
+       51 SETTABLEKS                       R12 R11 K24 ["TitleWidth"]
+       53 DUPTABLE                         R12 K31 [{"ButtonContainer"}]
+       54 GETUPVAL                         R13 0
+       55 GETTABLEKS                       R13 R13 K8 ["createElement"]
+       57 LOADK                            R14 K32 ["Frame"]
+       58 DUPTABLE                         R15 K36 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       59 GETIMPORT                        R16 K39 [UDim2.new]
+       61 LOADN                            R17 0
+       62 GETTABLEKS                       R18 R2 K40 ["ButtonWidth"]
+       64 LOADN                            R19 1
+       65 LOADN                            R20 0
+       66 CALL                             R16 4 1
+       67 SETTABLEKS                       R16 R15 K35 ["Size"]
+       69 DUPTABLE                         R16 K42 [{"Button"}]
+       70 GETUPVAL                         R17 0
+       71 GETTABLEKS                       R17 R17 K8 ["createElement"]
+       73 GETUPVAL                         R18 3
+       74 DUPTABLE                         R19 K49 [{["AnchorPoint"], ["OnClick"], ["Position"], ["Size"], ["Style"] = "TextButton", ["Text"]}]
+       75 GETIMPORT                        R20 K51 [Vector2.new]
+       77 LOADK                            R21 K52 [0.5]
+       78 LOADK                            R22 K52 [0.5]
+       79 CALL                             R20 2 1
+       80 SETTABLEKS                       R20 R19 K43 ["AnchorPoint"]
+       82 GETTABLEKS                       R20 R0 K53 ["uploadImageAssetIds"]
+       84 SETTABLEKS                       R20 R19 K44 ["OnClick"]
+       86 GETIMPORT                        R20 K39 [UDim2.new]
+       88 LOADK                            R21 K52 [0.5]
+       89 LOADN                            R22 0
+       90 LOADK                            R23 K52 [0.5]
+       91 LOADN                            R24 0
+       92 CALL                             R20 4 1
+       93 SETTABLEKS                       R20 R19 K45 ["Position"]
+       95 GETIMPORT                        R20 K39 [UDim2.new]
+       97 LOADN                            R21 1
+       98 LOADN                            R22 0
+       99 LOADN                            R23 0
+      100 GETTABLEKS                       R24 R2 K54 ["ButtonHeight"]
+      102 CALL                             R20 4 1
+      103 SETTABLEKS                       R20 R19 K35 ["Size"]
+      105 LOADK                            R22 K26 ["ImageLocalizationSection"]
+      106 LOADK                            R23 K55 ["UploadButton"]
+      107 NAMECALL                         R20 R3 K28 ["getText"]
+      109 CALL                             R20 3 1
+      110 SETTABLEKS                       R20 R19 K48 ["Text"]
+      112 NEWTABLE                         R20 0 1
+      114 GETUPVAL                         R21 0
+      115 GETTABLEKS                       R21 R21 K8 ["createElement"]
+      117 GETUPVAL                         R22 4
+      118 DUPTABLE                         R23 K58 [{["Cursor"] = "PointingHand"}]
+      119 CALL                             R21 2 -1
+      120 SETLIST                          R20 R21 -1 [1]
+      122 CALL                             R17 3 1
+      123 SETTABLEKS                       R17 R16 K41 ["Button"]
+      125 CALL                             R13 3 1
+      126 SETTABLEKS                       R13 R12 K30 ["ButtonContainer"]
+      128 CALL                             R9 3 1
+      129 SETTABLEKS                       R9 R8 K21 ["Upload"]
+      131 CALL                             R5 3 1
+      132 GETUPVAL                         R6 0
+      133 GETTABLEKS                       R6 R6 K8 ["createElement"]
+      135 GETUPVAL                         R7 1
+      136 DUPTABLE                         R8 K60 [{"LayoutOrder", "AutomaticSize", "Padding", "Spacing"}]
+      137 SETTABLEKS                       R4 R8 K7 ["LayoutOrder"]
+      139 GETIMPORT                        R9 K15 [Enum.AutomaticSize.XY]
+      141 SETTABLEKS                       R9 R8 K10 ["AutomaticSize"]
+      143 DUPTABLE                         R9 K61 [{"Top"}]
+      144 GETTABLEKS                       R10 R2 K19 ["PaddingTop"]
+      146 SETTABLEKS                       R10 R9 K16 ["Top"]
+      148 SETTABLEKS                       R9 R8 K11 ["Padding"]
+      150 GETTABLEKS                       R9 R2 K59 ["Spacing"]
+      152 SETTABLEKS                       R9 R8 K59 ["Spacing"]
+      154 DUPTABLE                         R9 K64 [{"SectionLabel", "Content"}]
+      155 GETUPVAL                         R10 0
+      156 GETTABLEKS                       R10 R10 K8 ["createElement"]
+      158 GETUPVAL                         R11 5
+      159 DUPTABLE                         R12 K66 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Style"] = "Label", ["Text"]}]
+      160 GETIMPORT                        R13 K15 [Enum.AutomaticSize.XY]
+      162 SETTABLEKS                       R13 R12 K10 ["AutomaticSize"]
+      164 LOADK                            R15 K26 ["ImageLocalizationSection"]
+      165 LOADK                            R16 K62 ["SectionLabel"]
+      166 NAMECALL                         R13 R3 K28 ["getText"]
+      168 CALL                             R13 3 1
+      169 SETTABLEKS                       R13 R12 K48 ["Text"]
+      171 CALL                             R10 2 1
+      172 SETTABLEKS                       R10 R9 K62 ["SectionLabel"]
+      174 SETTABLEKS                       R5 R9 K63 ["Content"]
+      176 CALL                             R6 3 -1
+      177 RETURN                           R6 -1
 
 PROTO_7:
         0 DUPTABLE                         R2 K1 [{"IsBusy"}]

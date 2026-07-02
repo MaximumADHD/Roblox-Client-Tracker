@@ -57,14 +57,12 @@ PROTO_0:
        84 GETUPVAL                         R3 0
        85 GETTABLEKS                       R3 R3 K10 ["createElement"]
        87 GETUPVAL                         R4 2
-       88 DUPTABLE                         R5 K19 [{"DisplayOrder", "ZIndexBehavior"}]
-       89 LOADN                            R6 2
-       90 SETTABLEKS                       R6 R5 K17 ["DisplayOrder"]
-       92 GETIMPORT                        R6 K22 [Enum.ZIndexBehavior.Sibling]
-       94 SETTABLEKS                       R6 R5 K18 ["ZIndexBehavior"]
-       96 MOVE                             R6 R2
-       97 CALL                             R3 3 -1
-       98 RETURN                           R3 -1
+       88 DUPTABLE                         R5 K20 [{["DisplayOrder"] = 2, ["ZIndexBehavior"]}]
+       89 GETIMPORT                        R6 K23 [Enum.ZIndexBehavior.Sibling]
+       91 SETTABLEKS                       R6 R5 K19 ["ZIndexBehavior"]
+       93 MOVE                             R6 R2
+       94 CALL                             R3 3 -1
+       95 RETURN                           R3 -1
 
 PROTO_1:
         0 DUPTABLE                         R2 K5 [{"Refreshed", "SelectedObject", "Path2DToolMode", "ControlPoints", "SelectedControlPointIndex"}]

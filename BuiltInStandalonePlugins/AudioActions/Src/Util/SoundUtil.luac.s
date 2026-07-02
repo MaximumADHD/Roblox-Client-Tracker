@@ -1,6 +1,6 @@
 PROTO_0:
         0 MUL                              R4 R2 R1
-        1 SUBRK                            R6 R0 K2 [NULL]
+        1 SUBRK                            R6 K0 [1] R2
         2 MUL                              R5 R6 R0
         3 ADD                              R3 R4 R5
         4 RETURN                           R3 1
@@ -22,7 +22,7 @@ PROTO_2:
         8 SUB                              R6 R2 R0
         9 SUB                              R7 R1 R0
        10 DIV                              R5 R6 R7
-       11 SUBRK                            R4 R0 K5 [NULL]
+       11 SUBRK                            R4 K0 [1] R5
        12 FASTCALL2K                       MATH_POW R4 K1 ; [+4]
        14 LOADK                            R5 K1 [2]
        15 GETIMPORT                        R3 K4 [math.pow]
@@ -158,7 +158,7 @@ PROTO_8:
        18 FORNPREP                         R4
        19 DIVK                             R8 R6 K6 [100]
        20 MUL                              R9 R8 R2
-       21 SUBRK                            R11 R7 K8 ["LinearSquare"]
+       21 SUBRK                            R11 K7 [1] R8
        22 MUL                              R10 R11 R1
        23 ADD                              R7 R9 R10
        24 JUMPIFNOTLE                      R2 R7 ; [+3]
@@ -176,7 +176,7 @@ PROTO_8:
        39 FORNPREP                         R4
        40 DIVK                             R8 R6 K6 [100]
        41 MUL                              R9 R8 R2
-       42 SUBRK                            R11 R7 K8 ["LinearSquare"]
+       42 SUBRK                            R11 K7 [1] R8
        43 MUL                              R10 R11 R1
        44 ADD                              R7 R9 R10
        45 JUMPIFNOTLE                      R2 R7 ; [+3]
@@ -188,7 +188,7 @@ PROTO_8:
        53 SUB                              R11 R7 R1
        54 SUB                              R12 R2 R1
        55 DIV                              R10 R11 R12
-       56 SUBRK                            R9 R7 K10 [2]
+       56 SUBRK                            R9 K7 [1] R10
        57 FASTCALL2K                       MATH_POW R9 K10 ; [+4]
        59 LOADK                            R10 K10 [2]
        60 GETIMPORT                        R8 K13 [math.pow]
@@ -204,7 +204,7 @@ PROTO_8:
        73 FORNPREP                         R4
        74 DIVK                             R8 R6 K6 [100]
        75 MUL                              R9 R8 R2
-       76 SUBRK                            R11 R7 K8 ["LinearSquare"]
+       76 SUBRK                            R11 K7 [1] R8
        77 MUL                              R10 R11 R1
        78 ADD                              R7 R9 R10
        79 JUMPIFNOTLE                      R2 R7 ; [+3]
@@ -220,7 +220,7 @@ PROTO_8:
        92 SUB                              R13 R7 R1
        93 SUB                              R14 R2 R1
        94 DIV                              R12 R13 R14
-       95 SUBRK                            R11 R7 K12 ["pow"]
+       95 SUBRK                            R11 K7 [1] R12
        96 FASTCALL2K                       MATH_POW R11 K10 ; [+4]
        98 LOADK                            R12 K10 [2]
        99 GETIMPORT                        R10 K13 [math.pow]

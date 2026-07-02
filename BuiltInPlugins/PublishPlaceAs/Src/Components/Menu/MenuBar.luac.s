@@ -42,48 +42,42 @@ PROTO_1:
        49 GETUPVAL                         R15 0
        50 GETTABLEKS                       R15 R15 K14 ["createElement"]
        52 GETUPVAL                         R16 1
-       53 DUPTABLE                         R17 K27 [{"Title", "Selected", "ShowError", "ShowWarning", "OnClicked"}]
-       54 LOADK                            R20 K28 ["MenuItem"]
+       53 DUPTABLE                         R17 K28 [{["Title"], ["Selected"], ["ShowError"] = False, ["ShowWarning"] = False, ["OnClicked"]}]
+       54 LOADK                            R20 K29 ["MenuItem"]
        55 MOVE                             R21 R12
-       56 NAMECALL                         R18 R3 K29 ["getText"]
+       56 NAMECALL                         R18 R3 K30 ["getText"]
        58 CALL                             R18 3 1
        59 SETTABLEKS                       R18 R17 K23 ["Title"]
        61 JUMPIFEQ                         R4 R11 ; [+2]
        63 LOADB                            R18 0 +1
        64 LOADB                            R18 1
        65 SETTABLEKS                       R18 R17 K3 ["Selected"]
-       67 LOADB                            R18 0
-       68 SETTABLEKS                       R18 R17 K24 ["ShowError"]
-       70 LOADB                            R18 0
-       71 SETTABLEKS                       R18 R17 K25 ["ShowWarning"]
-       73 NEWCLOSURE                       R18 P0
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R11
-       76 SETTABLEKS                       R18 R17 K26 ["OnClicked"]
-       78 CALL                             R15 2 -1
-       79 FASTCALL                         TABLE_INSERT ; [+2]
-       80 GETIMPORT                        R13 K31 [table.insert]
-       82 CALL                             R13 -1 0
-       83 FORGLOOP                         R8 2 [inext] ; [-36]
-       85 GETUPVAL                         R8 0
-       86 GETTABLEKS                       R8 R8 K14 ["createElement"]
-       88 LOADK                            R9 K32 ["Frame"]
-       89 DUPTABLE                         R10 K36 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
-       90 GETIMPORT                        R11 K38 [UDim2.new]
-       92 LOADN                            R12 0
-       93 GETTABLEKS                       R13 R2 K39 ["MENU_BAR_WIDTH"]
-       95 LOADN                            R14 1
-       96 LOADN                            R15 0
-       97 CALL                             R11 4 1
-       98 SETTABLEKS                       R11 R10 K33 ["Size"]
-      100 GETTABLEKS                       R11 R2 K40 ["menuBar"]
-      102 GETTABLEKS                       R11 R11 K41 ["backgroundColor"]
-      104 SETTABLEKS                       R11 R10 K34 ["BackgroundColor3"]
-      106 LOADN                            R11 0
-      107 SETTABLEKS                       R11 R10 K35 ["BorderSizePixel"]
-      109 MOVE                             R11 R7
-      110 CALL                             R8 3 -1
-      111 RETURN                           R8 -1
+       67 NEWCLOSURE                       R18 P0
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R11
+       70 SETTABLEKS                       R18 R17 K27 ["OnClicked"]
+       72 CALL                             R15 2 -1
+       73 FASTCALL                         TABLE_INSERT ; [+2]
+       74 GETIMPORT                        R13 K32 [table.insert]
+       76 CALL                             R13 -1 0
+       77 FORGLOOP                         R8 2 [inext] ; [-30]
+       79 GETUPVAL                         R8 0
+       80 GETTABLEKS                       R8 R8 K14 ["createElement"]
+       82 LOADK                            R9 K33 ["Frame"]
+       83 DUPTABLE                         R10 K38 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+       84 GETIMPORT                        R11 K40 [UDim2.new]
+       86 LOADN                            R12 0
+       87 GETTABLEKS                       R13 R2 K41 ["MENU_BAR_WIDTH"]
+       89 LOADN                            R14 1
+       90 LOADN                            R15 0
+       91 CALL                             R11 4 1
+       92 SETTABLEKS                       R11 R10 K34 ["Size"]
+       94 GETTABLEKS                       R11 R2 K42 ["menuBar"]
+       96 GETTABLEKS                       R11 R11 K43 ["backgroundColor"]
+       98 SETTABLEKS                       R11 R10 K35 ["BackgroundColor3"]
+      100 MOVE                             R11 R7
+      101 CALL                             R8 3 -1
+      102 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

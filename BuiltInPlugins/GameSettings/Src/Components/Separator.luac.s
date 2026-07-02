@@ -4,10 +4,10 @@ PROTO_0:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K9 [{"Size", "Position", "BackgroundColor3", "BorderSizePixel", "LayoutOrder"}]
+        8 DUPTABLE                         R5 K10 [{["Size"], ["Position"], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
         9 GETTABLEKS                       R6 R1 K4 ["Size"]
        11 JUMPIF                           R6 ; [+7]
-       12 GETIMPORT                        R6 K12 [UDim2.new]
+       12 GETIMPORT                        R6 K13 [UDim2.new]
        14 LOADN                            R7 1
        15 LOADN                            R8 0
        16 LOADN                            R9 0
@@ -16,15 +16,13 @@ PROTO_0:
        19 SETTABLEKS                       R6 R5 K4 ["Size"]
        21 GETTABLEKS                       R6 R1 K5 ["Position"]
        23 SETTABLEKS                       R6 R5 K5 ["Position"]
-       25 GETTABLEKS                       R6 R2 K13 ["separator"]
+       25 GETTABLEKS                       R6 R2 K14 ["separator"]
        27 SETTABLEKS                       R6 R5 K6 ["BackgroundColor3"]
-       29 LOADN                            R6 0
-       30 SETTABLEKS                       R6 R5 K7 ["BorderSizePixel"]
-       32 GETTABLEKS                       R7 R1 K8 ["LayoutOrder"]
-       34 ORK                              R6 R7 K14 [1]
-       35 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       37 CALL                             R3 2 -1
-       38 RETURN                           R3 -1
+       29 GETTABLEKS                       R7 R1 K9 ["LayoutOrder"]
+       31 ORK                              R6 R7 K15 [1]
+       32 SETTABLEKS                       R6 R5 K9 ["LayoutOrder"]
+       34 CALL                             R3 2 -1
+       35 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

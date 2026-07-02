@@ -38,145 +38,125 @@ PROTO_4:
        16 GETTABLEKS                       R8 R1 K6 ["OnSavePressed"]
        18 GETTABLEKS                       R9 R1 K7 ["OnCancelPressed"]
        20 GETUPVAL                         R11 0
-       21 JUMPIFNOT                        R11 ; [+17]
-       22 DUPTABLE                         R10 K11 [{"text", "onActivated", "variant"}]
-       23 LOADK                            R13 K12 ["Buttons"]
-       24 LOADK                            R14 K13 ["Cancel"]
-       25 NAMECALL                         R11 R3 K14 ["getText"]
+       21 JUMPIFNOT                        R11 ; [+14]
+       22 DUPTABLE                         R10 K12 [{["text"], ["onActivated"], ["variant"] = "Standard"}]
+       23 LOADK                            R13 K13 ["Buttons"]
+       24 LOADK                            R14 K14 ["Cancel"]
+       25 NAMECALL                         R11 R3 K15 ["getText"]
        27 CALL                             R11 3 1
        28 SETTABLEKS                       R11 R10 K8 ["text"]
        30 NEWCLOSURE                       R11 P0
        31 CAPTURE                          VAL R9
        32 CAPTURE                          VAL R5
        33 SETTABLEKS                       R11 R10 K9 ["onActivated"]
-       35 LOADK                            R11 K15 ["Standard"]
-       36 SETTABLEKS                       R11 R10 K10 ["variant"]
-       38 JUMP                             ; [+16]
-       39 DUPTABLE                         R10 K19 [{"Name", "OnPressed", "Style"}]
-       40 LOADK                            R13 K12 ["Buttons"]
-       41 LOADK                            R14 K13 ["Cancel"]
-       42 NAMECALL                         R11 R3 K14 ["getText"]
-       44 CALL                             R11 3 1
-       45 SETTABLEKS                       R11 R10 K16 ["Name"]
-       47 NEWCLOSURE                       R11 P1
-       48 CAPTURE                          VAL R9
-       49 CAPTURE                          VAL R5
-       50 SETTABLEKS                       R11 R10 K17 ["OnPressed"]
-       52 LOADK                            R11 K13 ["Cancel"]
-       53 SETTABLEKS                       R11 R10 K18 ["Style"]
-       55 GETUPVAL                         R12 0
-       56 JUMPIFNOT                        R12 ; [+20]
-       57 DUPTABLE                         R11 K21 [{"text", "isDisabled", "onActivated", "variant"}]
-       58 LOADK                            R14 K12 ["Buttons"]
-       59 LOADK                            R15 K22 ["Save"]
-       60 NAMECALL                         R12 R3 K14 ["getText"]
-       62 CALL                             R12 3 1
-       63 SETTABLEKS                       R12 R11 K8 ["text"]
-       65 NOT                              R12 R7
-       66 SETTABLEKS                       R12 R11 K20 ["isDisabled"]
-       68 NEWCLOSURE                       R12 P2
-       69 CAPTURE                          VAL R7
-       70 CAPTURE                          VAL R8
-       71 SETTABLEKS                       R12 R11 K9 ["onActivated"]
-       73 LOADK                            R12 K23 ["Emphasis"]
-       74 SETTABLEKS                       R12 R11 K10 ["variant"]
-       76 JUMP                             ; [+30]
-       77 DUPTABLE                         R11 K26 [{"Name", "Default", "OnPressed", "Style", "StyleModifier"}]
-       78 LOADK                            R14 K12 ["Buttons"]
-       79 LOADK                            R15 K22 ["Save"]
-       80 NAMECALL                         R12 R3 K14 ["getText"]
-       82 CALL                             R12 3 1
-       83 SETTABLEKS                       R12 R11 K16 ["Name"]
-       85 LOADB                            R12 1
-       86 SETTABLEKS                       R12 R11 K24 ["Default"]
-       88 NEWCLOSURE                       R12 P3
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R8
-       91 SETTABLEKS                       R12 R11 K17 ["OnPressed"]
-       93 JUMPIFNOT                        R7 ; [+2]
-       94 LOADK                            R12 K27 ["Active"]
-       95 JUMP                             ; [+1]
-       96 LOADK                            R12 K28 ["Passive"]
-       97 SETTABLEKS                       R12 R11 K18 ["Style"]
-       99 JUMPIF                           R7 ; [+4]
-      100 GETUPVAL                         R12 1
-      101 GETTABLEKS                       R12 R12 K29 ["Disabled"]
-      103 JUMP                             ; [+1]
-      104 LOADNIL                          R12
-      105 SETTABLEKS                       R12 R11 K25 ["StyleModifier"]
-      107 GETUPVAL                         R12 2
-      108 GETTABLEKS                       R12 R12 K30 ["createElement"]
-      110 LOADK                            R13 K31 ["Frame"]
-      111 DUPTABLE                         R14 K37 [{"BackgroundColor3", "BorderSizePixel", "Size", "ZIndex", "BorderColor3"}]
-      112 GETTABLEKS                       R15 R2 K38 ["backgroundColor"]
-      114 SETTABLEKS                       R15 R14 K32 ["BackgroundColor3"]
-      116 LOADN                            R15 1
-      117 SETTABLEKS                       R15 R14 K33 ["BorderSizePixel"]
-      119 GETIMPORT                        R15 K41 [UDim2.fromScale]
-      121 LOADN                            R16 1
-      122 LOADN                            R17 1
-      123 CALL                             R15 2 1
-      124 SETTABLEKS                       R15 R14 K34 ["Size"]
-      126 LOADN                            R15 2
-      127 SETTABLEKS                       R15 R14 K35 ["ZIndex"]
-      129 GETTABLEKS                       R15 R2 K42 ["footer"]
-      131 GETTABLEKS                       R15 R15 K43 ["border"]
-      133 SETTABLEKS                       R15 R14 K36 ["BorderColor3"]
-      135 DUPTABLE                         R15 K46 [{"Gradient", "ButtonBar"}]
-      136 GETUPVAL                         R16 2
-      137 GETTABLEKS                       R16 R16 K30 ["createElement"]
-      139 LOADK                            R17 K47 ["ImageLabel"]
-      140 DUPTABLE                         R18 K54 [{"Size", "AnchorPoint", "Image", "ImageRectSize", "BorderSizePixel", "BackgroundTransparency", "ImageColor3", "ImageTransparency", "ZIndex"}]
-      141 GETIMPORT                        R19 K56 [UDim2.new]
-      143 LOADN                            R20 1
-      144 LOADN                            R21 0
-      145 LOADN                            R22 0
-      146 GETTABLEKS                       R23 R2 K42 ["footer"]
-      148 GETTABLEKS                       R23 R23 K57 ["gradientSize"]
-      150 CALL                             R19 4 1
-      151 SETTABLEKS                       R19 R18 K34 ["Size"]
-      153 GETIMPORT                        R19 K59 [Vector2.new]
-      155 LOADN                            R20 0
-      156 LOADN                            R21 1
-      157 CALL                             R19 2 1
-      158 SETTABLEKS                       R19 R18 K48 ["AnchorPoint"]
-      160 GETUPVAL                         R19 3
-      161 GETTABLEKS                       R19 R19 K60 ["GRADIENT_IMAGE"]
-      163 SETTABLEKS                       R19 R18 K49 ["Image"]
-      165 GETUPVAL                         R19 3
-      166 GETTABLEKS                       R19 R19 K61 ["GRADIENT_RECT_SIZE"]
-      168 SETTABLEKS                       R19 R18 K50 ["ImageRectSize"]
-      170 LOADN                            R19 0
-      171 SETTABLEKS                       R19 R18 K33 ["BorderSizePixel"]
-      173 LOADN                            R19 1
-      174 SETTABLEKS                       R19 R18 K51 ["BackgroundTransparency"]
-      176 GETTABLEKS                       R19 R2 K42 ["footer"]
-      178 GETTABLEKS                       R19 R19 K62 ["gradient"]
-      180 SETTABLEKS                       R19 R18 K52 ["ImageColor3"]
-      182 GETTABLEKS                       R19 R2 K42 ["footer"]
-      184 GETTABLEKS                       R19 R19 K63 ["gradientTransparency"]
-      186 SETTABLEKS                       R19 R18 K53 ["ImageTransparency"]
-      188 LOADN                            R19 1
-      189 SETTABLEKS                       R19 R18 K35 ["ZIndex"]
-      191 CALL                             R16 2 1
-      192 SETTABLEKS                       R16 R15 K44 ["Gradient"]
-      194 GETUPVAL                         R16 2
-      195 GETTABLEKS                       R16 R16 K30 ["createElement"]
-      197 GETUPVAL                         R17 4
-      198 DUPTABLE                         R18 K65 [{"ZIndex", "Buttons", "HorizontalAlignment"}]
-      199 LOADN                            R19 2
-      200 SETTABLEKS                       R19 R18 K35 ["ZIndex"]
-      202 NEWTABLE                         R19 0 2
-      204 MOVE                             R20 R10
-      205 MOVE                             R21 R11
-      206 SETLIST                          R19 R20 2 [1]
-      208 SETTABLEKS                       R19 R18 K12 ["Buttons"]
-      210 GETIMPORT                        R19 K68 [Enum.HorizontalAlignment.Right]
-      212 SETTABLEKS                       R19 R18 K64 ["HorizontalAlignment"]
-      214 CALL                             R16 2 1
-      215 SETTABLEKS                       R16 R15 K45 ["ButtonBar"]
-      217 CALL                             R12 3 -1
-      218 RETURN                           R12 -1
+       35 JUMP                             ; [+13]
+       36 DUPTABLE                         R10 K19 [{["Name"], ["OnPressed"], ["Style"] = "Cancel"}]
+       37 LOADK                            R13 K13 ["Buttons"]
+       38 LOADK                            R14 K14 ["Cancel"]
+       39 NAMECALL                         R11 R3 K15 ["getText"]
+       41 CALL                             R11 3 1
+       42 SETTABLEKS                       R11 R10 K16 ["Name"]
+       44 NEWCLOSURE                       R11 P1
+       45 CAPTURE                          VAL R9
+       46 CAPTURE                          VAL R5
+       47 SETTABLEKS                       R11 R10 K17 ["OnPressed"]
+       49 GETUPVAL                         R12 0
+       50 JUMPIFNOT                        R12 ; [+17]
+       51 DUPTABLE                         R11 K22 [{["text"], ["isDisabled"], ["onActivated"], ["variant"] = "Emphasis"}]
+       52 LOADK                            R14 K13 ["Buttons"]
+       53 LOADK                            R15 K23 ["Save"]
+       54 NAMECALL                         R12 R3 K15 ["getText"]
+       56 CALL                             R12 3 1
+       57 SETTABLEKS                       R12 R11 K8 ["text"]
+       59 NOT                              R12 R7
+       60 SETTABLEKS                       R12 R11 K20 ["isDisabled"]
+       62 NEWCLOSURE                       R12 P2
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R8
+       65 SETTABLEKS                       R12 R11 K9 ["onActivated"]
+       67 JUMP                             ; [+27]
+       68 DUPTABLE                         R11 K27 [{["Name"], ["Default"] = True, ["OnPressed"], ["Style"], ["StyleModifier"]}]
+       69 LOADK                            R14 K13 ["Buttons"]
+       70 LOADK                            R15 K23 ["Save"]
+       71 NAMECALL                         R12 R3 K15 ["getText"]
+       73 CALL                             R12 3 1
+       74 SETTABLEKS                       R12 R11 K16 ["Name"]
+       76 NEWCLOSURE                       R12 P3
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R8
+       79 SETTABLEKS                       R12 R11 K17 ["OnPressed"]
+       81 JUMPIFNOT                        R7 ; [+2]
+       82 LOADK                            R12 K28 ["Active"]
+       83 JUMP                             ; [+1]
+       84 LOADK                            R12 K29 ["Passive"]
+       85 SETTABLEKS                       R12 R11 K18 ["Style"]
+       87 JUMPIF                           R7 ; [+4]
+       88 GETUPVAL                         R12 1
+       89 GETTABLEKS                       R12 R12 K30 ["Disabled"]
+       91 JUMP                             ; [+1]
+       92 LOADNIL                          R12
+       93 SETTABLEKS                       R12 R11 K26 ["StyleModifier"]
+       95 GETUPVAL                         R12 2
+       96 GETTABLEKS                       R12 R12 K31 ["createElement"]
+       98 LOADK                            R13 K32 ["Frame"]
+       99 DUPTABLE                         R14 K40 [{["BackgroundColor3"], ["BorderSizePixel"] = 1, ["Size"], ["ZIndex"] = 2, ["BorderColor3"]}]
+      100 GETTABLEKS                       R15 R2 K41 ["backgroundColor"]
+      102 SETTABLEKS                       R15 R14 K33 ["BackgroundColor3"]
+      104 GETIMPORT                        R15 K44 [UDim2.fromScale]
+      106 LOADN                            R16 1
+      107 LOADN                            R17 1
+      108 CALL                             R15 2 1
+      109 SETTABLEKS                       R15 R14 K36 ["Size"]
+      111 GETTABLEKS                       R15 R2 K45 ["footer"]
+      113 GETTABLEKS                       R15 R15 K46 ["border"]
+      115 SETTABLEKS                       R15 R14 K39 ["BorderColor3"]
+      117 DUPTABLE                         R15 K49 [{"Gradient", "ButtonBar"}]
+      118 GETUPVAL                         R16 2
+      119 GETTABLEKS                       R16 R16 K31 ["createElement"]
+      121 LOADK                            R17 K50 ["ImageLabel"]
+      122 DUPTABLE                         R18 K58 [{["Size"], ["AnchorPoint"], ["Image"], ["ImageRectSize"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1, ["ImageColor3"], ["ImageTransparency"], ["ZIndex"] = 1}]
+      123 GETIMPORT                        R19 K60 [UDim2.new]
+      125 LOADN                            R20 1
+      126 LOADN                            R21 0
+      127 LOADN                            R22 0
+      128 GETTABLEKS                       R23 R2 K45 ["footer"]
+      130 GETTABLEKS                       R23 R23 K61 ["gradientSize"]
+      132 CALL                             R19 4 1
+      133 SETTABLEKS                       R19 R18 K36 ["Size"]
+      135 GETIMPORT                        R19 K63 [Vector2.new]
+      137 LOADN                            R20 0
+      138 LOADN                            R21 1
+      139 CALL                             R19 2 1
+      140 SETTABLEKS                       R19 R18 K51 ["AnchorPoint"]
+      142 GETUPVAL                         R19 3
+      143 GETTABLEKS                       R19 R19 K64 ["GRADIENT_IMAGE"]
+      145 SETTABLEKS                       R19 R18 K52 ["Image"]
+      147 GETUPVAL                         R19 3
+      148 GETTABLEKS                       R19 R19 K65 ["GRADIENT_RECT_SIZE"]
+      150 SETTABLEKS                       R19 R18 K53 ["ImageRectSize"]
+      152 GETTABLEKS                       R19 R2 K45 ["footer"]
+      154 GETTABLEKS                       R19 R19 K66 ["gradient"]
+      156 SETTABLEKS                       R19 R18 K56 ["ImageColor3"]
+      158 GETTABLEKS                       R19 R2 K45 ["footer"]
+      160 GETTABLEKS                       R19 R19 K67 ["gradientTransparency"]
+      162 SETTABLEKS                       R19 R18 K57 ["ImageTransparency"]
+      164 CALL                             R16 2 1
+      165 SETTABLEKS                       R16 R15 K47 ["Gradient"]
+      167 GETUPVAL                         R16 2
+      168 GETTABLEKS                       R16 R16 K31 ["createElement"]
+      170 GETUPVAL                         R17 4
+      171 DUPTABLE                         R18 K69 [{["ZIndex"] = 2, ["Buttons"], ["HorizontalAlignment"]}]
+      172 NEWTABLE                         R19 0 2
+      174 MOVE                             R20 R10
+      175 MOVE                             R21 R11
+      176 SETLIST                          R19 R20 2 [1]
+      178 SETTABLEKS                       R19 R18 K13 ["Buttons"]
+      180 GETIMPORT                        R19 K72 [Enum.HorizontalAlignment.Right]
+      182 SETTABLEKS                       R19 R18 K68 ["HorizontalAlignment"]
+      184 CALL                             R16 2 1
+      185 SETTABLEKS                       R16 R15 K48 ["ButtonBar"]
+      187 CALL                             R12 3 -1
+      188 RETURN                           R12 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0

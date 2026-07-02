@@ -1,38 +1,30 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"dragging"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["dragging"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"dragging"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["dragging"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovering"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovering"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -63,28 +55,24 @@ PROTO_5:
         1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["scrollArea"]
-        6 DUPTABLE                         R1 K4 [{"dragging", "hovering"}]
-        7 LOADB                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["dragging"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["hovering"]
-       13 SETTABLEKS                       R1 R0 K5 ["state"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R1 R0 K6 ["onDragStarted"]
-       19 NEWCLOSURE                       R1 P1
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R1 R0 K7 ["onDragEnded"]
-       23 NEWCLOSURE                       R1 P2
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R1 R0 K8 ["mouseEnter"]
-       27 NEWCLOSURE                       R1 P3
-       28 CAPTURE                          VAL R0
-       29 SETTABLEKS                       R1 R0 K9 ["mouseLeave"]
-       31 NEWCLOSURE                       R1 P4
-       32 CAPTURE                          VAL R0
-       33 SETTABLEKS                       R1 R0 K10 ["scroll"]
-       35 RETURN                           R0 0
+        6 DUPTABLE                         R1 K5 [{["dragging"] = False, ["hovering"] = False}]
+        7 SETTABLEKS                       R1 R0 K6 ["state"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K7 ["onDragStarted"]
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K8 ["onDragEnded"]
+       17 NEWCLOSURE                       R1 P2
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K9 ["mouseEnter"]
+       21 NEWCLOSURE                       R1 P3
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K10 ["mouseLeave"]
+       25 NEWCLOSURE                       R1 P4
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R1 R0 K11 ["scroll"]
+       29 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
@@ -249,7 +237,7 @@ PROTO_12:
       149 GETIMPORT                        R25 K28 [UDim2.new]
       151 LOADN                            R26 1
       152 LOADN                            R27 0
-      153 DIVRK                            R28 R47 K8 ["dragging"]
+      153 DIVRK                            R28 K47 [1] R8
       154 LOADN                            R29 0
       155 CALL                             R25 4 1
       156 SETTABLEKS                       R25 R24 K3 ["Size"]
@@ -287,59 +275,55 @@ PROTO_12:
       204 CALL                             R18 3 1
       205 SETTABLEKS                       R18 R17 K21 ["ScrollArea"]
       207 MOVE                             R18 R12
-      208 JUMPIFNOT                        R18 ; [+14]
+      208 JUMPIFNOT                        R18 ; [+11]
       209 GETUPVAL                         R18 0
       210 GETTABLEKS                       R18 R18 K14 ["createElement"]
       212 GETUPVAL                         R19 2
-      213 DUPTABLE                         R20 K54 [{"Rotation", "OnActivated"}]
-      214 LOADN                            R21 0
-      215 SETTABLEKS                       R21 R20 K52 ["Rotation"]
-      217 NEWCLOSURE                       R21 P4
-      218 CAPTURE                          VAL R1
-      219 CAPTURE                          VAL R7
-      220 SETTABLEKS                       R21 R20 K53 ["OnActivated"]
-      222 CALL                             R18 2 1
-      223 SETTABLEKS                       R18 R17 K22 ["UpButton"]
-      225 MOVE                             R18 R12
-      226 JUMPIFNOT                        R18 ; [+30]
-      227 GETUPVAL                         R18 0
-      228 GETTABLEKS                       R18 R18 K14 ["createElement"]
-      230 GETUPVAL                         R19 2
-      231 DUPTABLE                         R20 K55 [{"Rotation", "Position", "AnchorPoint", "OnActivated"}]
-      232 LOADN                            R21 180
-      233 SETTABLEKS                       R21 R20 K52 ["Rotation"]
-      235 GETIMPORT                        R21 K28 [UDim2.new]
-      237 LOADN                            R22 0
-      238 LOADN                            R23 0
-      239 LOADN                            R24 1
-      240 LOADN                            R25 0
-      241 CALL                             R21 4 1
-      242 SETTABLEKS                       R21 R20 K5 ["Position"]
-      244 GETIMPORT                        R21 K31 [Vector2.new]
-      246 LOADN                            R22 0
-      247 LOADN                            R23 1
-      248 CALL                             R21 2 1
-      249 SETTABLEKS                       R21 R20 K4 ["AnchorPoint"]
-      251 NEWCLOSURE                       R21 P5
-      252 CAPTURE                          VAL R1
-      253 CAPTURE                          VAL R7
-      254 SETTABLEKS                       R21 R20 K53 ["OnActivated"]
-      256 CALL                             R18 2 1
-      257 SETTABLEKS                       R18 R17 K23 ["DownButton"]
-      259 MOVE                             R18 R9
-      260 JUMPIFNOT                        R18 ; [+14]
-      261 GETUPVAL                         R18 0
-      262 GETTABLEKS                       R18 R18 K14 ["createElement"]
-      264 GETUPVAL                         R19 3
-      265 DUPTABLE                         R20 K58 [{"OnDragMoved", "OnDragEnded"}]
-      266 GETTABLEKS                       R21 R0 K59 ["scroll"]
-      268 SETTABLEKS                       R21 R20 K56 ["OnDragMoved"]
-      270 GETTABLEKS                       R21 R0 K60 ["onDragEnded"]
-      272 SETTABLEKS                       R21 R20 K57 ["OnDragEnded"]
-      274 CALL                             R18 2 1
-      275 SETTABLEKS                       R18 R17 K24 ["DragTarget"]
-      277 CALL                             R14 3 -1
-      278 RETURN                           R14 -1
+      213 DUPTABLE                         R20 K55 [{["Rotation"] = 0, ["OnActivated"]}]
+      214 NEWCLOSURE                       R21 P4
+      215 CAPTURE                          VAL R1
+      216 CAPTURE                          VAL R7
+      217 SETTABLEKS                       R21 R20 K54 ["OnActivated"]
+      219 CALL                             R18 2 1
+      220 SETTABLEKS                       R18 R17 K22 ["UpButton"]
+      222 MOVE                             R18 R12
+      223 JUMPIFNOT                        R18 ; [+27]
+      224 GETUPVAL                         R18 0
+      225 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      227 GETUPVAL                         R19 2
+      228 DUPTABLE                         R20 K57 [{["Rotation"] = 180, ["Position"], ["AnchorPoint"], ["OnActivated"]}]
+      229 GETIMPORT                        R21 K28 [UDim2.new]
+      231 LOADN                            R22 0
+      232 LOADN                            R23 0
+      233 LOADN                            R24 1
+      234 LOADN                            R25 0
+      235 CALL                             R21 4 1
+      236 SETTABLEKS                       R21 R20 K5 ["Position"]
+      238 GETIMPORT                        R21 K31 [Vector2.new]
+      240 LOADN                            R22 0
+      241 LOADN                            R23 1
+      242 CALL                             R21 2 1
+      243 SETTABLEKS                       R21 R20 K4 ["AnchorPoint"]
+      245 NEWCLOSURE                       R21 P5
+      246 CAPTURE                          VAL R1
+      247 CAPTURE                          VAL R7
+      248 SETTABLEKS                       R21 R20 K54 ["OnActivated"]
+      250 CALL                             R18 2 1
+      251 SETTABLEKS                       R18 R17 K23 ["DownButton"]
+      253 MOVE                             R18 R9
+      254 JUMPIFNOT                        R18 ; [+14]
+      255 GETUPVAL                         R18 0
+      256 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      258 GETUPVAL                         R19 3
+      259 DUPTABLE                         R20 K60 [{"OnDragMoved", "OnDragEnded"}]
+      260 GETTABLEKS                       R21 R0 K61 ["scroll"]
+      262 SETTABLEKS                       R21 R20 K58 ["OnDragMoved"]
+      264 GETTABLEKS                       R21 R0 K62 ["onDragEnded"]
+      266 SETTABLEKS                       R21 R20 K59 ["OnDragEnded"]
+      268 CALL                             R18 2 1
+      269 SETTABLEKS                       R18 R17 K24 ["DragTarget"]
+      271 CALL                             R14 3 -1
+      272 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

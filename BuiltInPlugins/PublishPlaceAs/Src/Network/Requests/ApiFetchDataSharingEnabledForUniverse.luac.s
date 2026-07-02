@@ -42,27 +42,25 @@ PROTO_1:
         6 LOADK                            R3 K1 ["The universe must exist to fetch its data sharing setting"]
         7 GETIMPORT                        R1 K3 [assert]
         9 CALL                             R1 2 0
-       10 DUPTABLE                         R1 K6 [{"Url", "Method"}]
+       10 DUPTABLE                         R1 K7 [{["Url"], ["Method"] = "GET"}]
        11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R2 R2 K7 ["BuildRobloxUrl"]
-       14 LOADK                            R3 K8 ["apis"]
-       15 LOADK                            R4 K9 ["resource-settings/v1/universes:batchGet?universeIds=%d"]
+       12 GETTABLEKS                       R2 R2 K8 ["BuildRobloxUrl"]
+       14 LOADK                            R3 K9 ["apis"]
+       15 LOADK                            R4 K10 ["resource-settings/v1/universes:batchGet?universeIds=%d"]
        16 MOVE                             R5 R0
        17 CALL                             R2 3 1
        18 SETTABLEKS                       R2 R1 K4 ["Url"]
-       20 LOADK                            R2 K10 ["GET"]
-       21 SETTABLEKS                       R2 R1 K5 ["Method"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K11 ["RequestInternal"]
-       26 MOVE                             R3 R1
-       27 CALL                             R2 1 1
-       28 NEWCLOSURE                       R4 P0
-       29 CAPTURE                          UPVAL U1
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          UPVAL U2
-       32 NAMECALL                         R2 R2 K12 ["andThen"]
-       34 CALL                             R2 2 -1
-       35 RETURN                           R2 -1
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K11 ["RequestInternal"]
+       23 MOVE                             R3 R1
+       24 CALL                             R2 1 1
+       25 NEWCLOSURE                       R4 P0
+       26 CAPTURE                          UPVAL U1
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U2
+       29 NAMECALL                         R2 R2 K12 ["andThen"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

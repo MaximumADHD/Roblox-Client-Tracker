@@ -12,82 +12,78 @@ PROTO_0:
        20 GETUPVAL                         R7 0
        21 GETTABLEKS                       R7 R7 K7 ["createElement"]
        23 LOADK                            R8 K8 ["Frame"]
-       24 DUPTABLE                         R9 K11 [{"BackgroundTransparency", "Size"}]
-       25 LOADN                            R10 1
-       26 SETTABLEKS                       R10 R9 K9 ["BackgroundTransparency"]
-       28 GETIMPORT                        R10 K14 [UDim2.new]
-       30 LOADN                            R11 1
-       31 LOADN                            R12 0
-       32 LOADN                            R13 1
-       33 LOADN                            R14 0
-       34 CALL                             R10 4 1
-       35 JUMPIF                           R10 ; [+9]
-       36 GETIMPORT                        R10 K14 [UDim2.new]
-       38 LOADN                            R11 1
-       39 LOADN                            R12 0
-       40 LOADN                            R13 0
-       41 GETUPVAL                         R14 1
-       42 GETTABLEKS                       R14 R14 K15 ["ASSET_VOTING_HEIGHT"]
-       44 CALL                             R10 4 1
-       45 SETTABLEKS                       R10 R9 K10 ["Size"]
-       47 DUPTABLE                         R10 K18 [{"UIListLayout", "Votes"}]
-       48 GETUPVAL                         R11 0
-       49 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       51 LOADK                            R12 K16 ["UIListLayout"]
-       52 DUPTABLE                         R13 K23 [{"SortOrder", "HorizontalAlignment", "FillDirection", "Padding"}]
-       53 GETIMPORT                        R14 K26 [Enum.SortOrder.LayoutOrder]
-       55 SETTABLEKS                       R14 R13 K19 ["SortOrder"]
-       57 GETIMPORT                        R14 K28 [Enum.HorizontalAlignment.Left]
-       59 SETTABLEKS                       R14 R13 K20 ["HorizontalAlignment"]
-       61 GETIMPORT                        R14 K30 [Enum.FillDirection.Horizontal]
-       63 SETTABLEKS                       R14 R13 K21 ["FillDirection"]
-       65 GETIMPORT                        R14 K32 [UDim.new]
-       67 LOADN                            R15 0
-       68 GETUPVAL                         R16 1
-       69 GETTABLEKS                       R16 R16 K33 ["ASSET_INNER_PADDING"]
-       71 CALL                             R14 2 1
-       72 SETTABLEKS                       R14 R13 K22 ["Padding"]
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K16 ["UIListLayout"]
-       77 GETUPVAL                         R11 0
-       78 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       80 GETUPVAL                         R12 2
-       81 DUPTABLE                         R13 K41 [{"Voting", "TextSize", "AutomaticSize", "Font", "Size", "VerticalAlignment", "Padding", "IncludeVoteCount", "VoteCountHeight"}]
-       82 DUPTABLE                         R14 K42 [{"UpVotes", "DownVotes", "VoteCount", "UpVotePercent"}]
-       83 SETTABLEKS                       R3 R14 K3 ["UpVotes"]
-       85 SETTABLEKS                       R4 R14 K4 ["DownVotes"]
-       87 SETTABLEKS                       R5 R14 K5 ["VoteCount"]
-       89 SETTABLEKS                       R6 R14 K6 ["UpVotePercent"]
-       91 SETTABLEKS                       R14 R13 K34 ["Voting"]
-       93 GETUPVAL                         R14 1
-       94 GETTABLEKS                       R14 R14 K43 ["ASSET_VOTE_COUNT_FONT_SIZE"]
-       96 SETTABLEKS                       R14 R13 K35 ["TextSize"]
-       98 GETIMPORT                        R14 K45 [Enum.AutomaticSize.X]
-      100 SETTABLEKS                       R14 R13 K36 ["AutomaticSize"]
-      102 GETUPVAL                         R14 1
-      103 GETTABLEKS                       R14 R14 K46 ["FONT"]
-      105 SETTABLEKS                       R14 R13 K37 ["Font"]
-      107 GETIMPORT                        R14 K14 [UDim2.new]
-      109 LOADN                            R15 0
-      110 LOADN                            R16 0
-      111 LOADN                            R17 0
-      112 LOADN                            R18 0
-      113 CALL                             R14 4 1
-      114 SETTABLEKS                       R14 R13 K10 ["Size"]
-      116 GETIMPORT                        R14 K48 [Enum.VerticalAlignment.Center]
-      118 SETTABLEKS                       R14 R13 K38 ["VerticalAlignment"]
-      120 GETUPVAL                         R14 1
-      121 GETTABLEKS                       R14 R14 K49 ["ASSET_VOTE_COUNT_HORIZONTAL_PADDING"]
-      123 SETTABLEKS                       R14 R13 K22 ["Padding"]
-      125 LOADB                            R14 1
-      126 SETTABLEKS                       R14 R13 K39 ["IncludeVoteCount"]
-      128 GETUPVAL                         R14 1
-      129 GETTABLEKS                       R14 R14 K50 ["ASSET_VOTE_COUNT_HEIGHT"]
-      131 SETTABLEKS                       R14 R13 K40 ["VoteCountHeight"]
-      133 CALL                             R11 2 1
-      134 SETTABLEKS                       R11 R10 K17 ["Votes"]
-      136 CALL                             R7 3 -1
-      137 RETURN                           R7 -1
+       24 DUPTABLE                         R9 K12 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       25 GETIMPORT                        R10 K15 [UDim2.new]
+       27 LOADN                            R11 1
+       28 LOADN                            R12 0
+       29 LOADN                            R13 1
+       30 LOADN                            R14 0
+       31 CALL                             R10 4 1
+       32 JUMPIF                           R10 ; [+9]
+       33 GETIMPORT                        R10 K15 [UDim2.new]
+       35 LOADN                            R11 1
+       36 LOADN                            R12 0
+       37 LOADN                            R13 0
+       38 GETUPVAL                         R14 1
+       39 GETTABLEKS                       R14 R14 K16 ["ASSET_VOTING_HEIGHT"]
+       41 CALL                             R10 4 1
+       42 SETTABLEKS                       R10 R9 K11 ["Size"]
+       44 DUPTABLE                         R10 K19 [{"UIListLayout", "Votes"}]
+       45 GETUPVAL                         R11 0
+       46 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       48 LOADK                            R12 K17 ["UIListLayout"]
+       49 DUPTABLE                         R13 K24 [{"SortOrder", "HorizontalAlignment", "FillDirection", "Padding"}]
+       50 GETIMPORT                        R14 K27 [Enum.SortOrder.LayoutOrder]
+       52 SETTABLEKS                       R14 R13 K20 ["SortOrder"]
+       54 GETIMPORT                        R14 K29 [Enum.HorizontalAlignment.Left]
+       56 SETTABLEKS                       R14 R13 K21 ["HorizontalAlignment"]
+       58 GETIMPORT                        R14 K31 [Enum.FillDirection.Horizontal]
+       60 SETTABLEKS                       R14 R13 K22 ["FillDirection"]
+       62 GETIMPORT                        R14 K33 [UDim.new]
+       64 LOADN                            R15 0
+       65 GETUPVAL                         R16 1
+       66 GETTABLEKS                       R16 R16 K34 ["ASSET_INNER_PADDING"]
+       68 CALL                             R14 2 1
+       69 SETTABLEKS                       R14 R13 K23 ["Padding"]
+       71 CALL                             R11 2 1
+       72 SETTABLEKS                       R11 R10 K17 ["UIListLayout"]
+       74 GETUPVAL                         R11 0
+       75 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       77 GETUPVAL                         R12 2
+       78 DUPTABLE                         R13 K43 [{["Voting"], ["TextSize"], ["AutomaticSize"], ["Font"], ["Size"], ["VerticalAlignment"], ["Padding"], ["IncludeVoteCount"] = True, ["VoteCountHeight"]}]
+       79 DUPTABLE                         R14 K44 [{"UpVotes", "DownVotes", "VoteCount", "UpVotePercent"}]
+       80 SETTABLEKS                       R3 R14 K3 ["UpVotes"]
+       82 SETTABLEKS                       R4 R14 K4 ["DownVotes"]
+       84 SETTABLEKS                       R5 R14 K5 ["VoteCount"]
+       86 SETTABLEKS                       R6 R14 K6 ["UpVotePercent"]
+       88 SETTABLEKS                       R14 R13 K35 ["Voting"]
+       90 GETUPVAL                         R14 1
+       91 GETTABLEKS                       R14 R14 K45 ["ASSET_VOTE_COUNT_FONT_SIZE"]
+       93 SETTABLEKS                       R14 R13 K36 ["TextSize"]
+       95 GETIMPORT                        R14 K47 [Enum.AutomaticSize.X]
+       97 SETTABLEKS                       R14 R13 K37 ["AutomaticSize"]
+       99 GETUPVAL                         R14 1
+      100 GETTABLEKS                       R14 R14 K48 ["FONT"]
+      102 SETTABLEKS                       R14 R13 K38 ["Font"]
+      104 GETIMPORT                        R14 K15 [UDim2.new]
+      106 LOADN                            R15 0
+      107 LOADN                            R16 0
+      108 LOADN                            R17 0
+      109 LOADN                            R18 0
+      110 CALL                             R14 4 1
+      111 SETTABLEKS                       R14 R13 K11 ["Size"]
+      113 GETIMPORT                        R14 K50 [Enum.VerticalAlignment.Center]
+      115 SETTABLEKS                       R14 R13 K39 ["VerticalAlignment"]
+      117 GETUPVAL                         R14 1
+      118 GETTABLEKS                       R14 R14 K51 ["ASSET_VOTE_COUNT_HORIZONTAL_PADDING"]
+      120 SETTABLEKS                       R14 R13 K23 ["Padding"]
+      122 GETUPVAL                         R14 1
+      123 GETTABLEKS                       R14 R14 K52 ["ASSET_VOTE_COUNT_HEIGHT"]
+      125 SETTABLEKS                       R14 R13 K42 ["VoteCountHeight"]
+      127 CALL                             R11 2 1
+      128 SETTABLEKS                       R11 R10 K18 ["Votes"]
+      130 CALL                             R7 3 -1
+      131 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

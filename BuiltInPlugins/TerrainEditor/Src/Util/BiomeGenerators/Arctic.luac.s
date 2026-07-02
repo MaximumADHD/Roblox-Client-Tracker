@@ -47,7 +47,7 @@ PROTO_0:
        54 MOVE                             R16 R5
        55 GETIMPORT                        R13 K5 [Vector3.new]
        57 CALL                             R13 3 1
-       58 LOADN                            R14 180
+       58 LOADN                            R14 436
        59 LOADN                            R15 2
        60 CALL                             R12 3 -1
        61 CALL                             R11 -1 1
@@ -94,7 +94,7 @@ PROTO_0:
       105 CALL                             R18 -1 1
       106 MULK                             R17 R18 K18 [0.025]
       107 ADD                              R15 R16 R17
-      108 SUBRK                            R17 R19 K1 ["Y"]
+      108 SUBRK                            R17 K19 [1] R1
       109 SUBK                             R18 R7 K13 [0.1]
       110 JUMPIFNOTLT                      R17 R18 ; [+4]
       112 GETIMPORT                        R16 K23 [Enum.Material.Glacier]

@@ -13,91 +13,85 @@ PROTO_0:
        19 GETTABLEKS                       R8 R8 K7 ["createElement"]
        21 GETUPVAL                         R9 1
        22 GETUPVAL                         R10 2
-       23 DUPTABLE                         R11 K14 [{"LayoutOrder", "BorderColor3", "BorderSizePixel", "Padding", "Style", "StyleModifier", "Size"}]
+       23 DUPTABLE                         R11 K16 [{["LayoutOrder"], ["BorderColor3"], ["BorderSizePixel"] = 1, ["Padding"], ["Style"] = "SubtleBox", ["StyleModifier"], ["Size"]}]
        24 SETTABLEKS                       R5 R11 K8 ["LayoutOrder"]
-       26 GETTABLEKS                       R12 R6 K15 ["Border"]
+       26 GETTABLEKS                       R12 R6 K17 ["Border"]
        28 SETTABLEKS                       R12 R11 K9 ["BorderColor3"]
-       30 LOADN                            R12 1
-       31 SETTABLEKS                       R12 R11 K10 ["BorderSizePixel"]
-       33 GETTABLEKS                       R12 R6 K16 ["HeaderCellPadding"]
-       35 SETTABLEKS                       R12 R11 K11 ["Padding"]
-       37 LOADK                            R12 K17 ["SubtleBox"]
-       38 SETTABLEKS                       R12 R11 K5 ["Style"]
-       40 JUMPIFNOT                        R7 ; [+3]
-       41 GETTABLEKS                       R12 R1 K12 ["StyleModifier"]
-       43 JUMPIF                           R12 ; [+1]
-       44 LOADNIL                          R12
-       45 SETTABLEKS                       R12 R11 K12 ["StyleModifier"]
-       47 GETIMPORT                        R12 K20 [UDim2.new]
-       49 GETTABLEKS                       R13 R4 K21 ["Scale"]
-       51 GETTABLEKS                       R14 R4 K22 ["Offset"]
-       53 LOADN                            R15 1
-       54 LOADN                            R16 0
-       55 CALL                             R12 4 1
-       56 SETTABLEKS                       R12 R11 K13 ["Size"]
-       58 GETTABLEKS                       R12 R1 K23 ["WrapperProps"]
-       60 CALL                             R10 2 1
-       61 DUPTABLE                         R11 K27 [{"Text", "Icon", "Tooltip"}]
-       62 GETUPVAL                         R12 0
-       63 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       65 GETUPVAL                         R13 3
-       66 DUPTABLE                         R14 K30 [{"Text", "Size", "TextXAlignment", "TextTruncate"}]
-       67 SETTABLEKS                       R2 R14 K24 ["Text"]
-       69 GETIMPORT                        R15 K32 [UDim2.fromScale]
-       71 LOADN                            R16 1
-       72 LOADN                            R17 1
-       73 CALL                             R15 2 1
-       74 SETTABLEKS                       R15 R14 K13 ["Size"]
-       76 GETIMPORT                        R15 K35 [Enum.TextXAlignment.Left]
-       78 SETTABLEKS                       R15 R14 K28 ["TextXAlignment"]
-       80 GETIMPORT                        R15 K37 [Enum.TextTruncate.AtEnd]
-       82 SETTABLEKS                       R15 R14 K29 ["TextTruncate"]
-       84 CALL                             R12 2 1
-       85 SETTABLEKS                       R12 R11 K24 ["Text"]
-       87 MOVE                             R12 R3
-       88 JUMPIFNOT                        R12 ; [+45]
-       89 GETUPVAL                         R12 0
-       90 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       92 GETUPVAL                         R13 4
-       93 DUPTABLE                         R14 K43 [{"ImageColor3", "Image", "Size", "Position", "Rotation", "AnchorPoint"}]
-       94 GETTABLEKS                       R15 R6 K44 ["IconColor"]
-       96 SETTABLEKS                       R15 R14 K38 ["ImageColor3"]
-       98 LOADK                            R15 K45 ["rbxasset://textures/DeveloperFramework/Table/sort_arrow.png"]
-       99 SETTABLEKS                       R15 R14 K39 ["Image"]
-      101 GETIMPORT                        R15 K47 [UDim2.fromOffset]
-      103 LOADN                            R16 6
-      104 LOADN                            R17 8
-      105 CALL                             R15 2 1
-      106 SETTABLEKS                       R15 R14 K13 ["Size"]
-      108 GETIMPORT                        R15 K20 [UDim2.new]
-      110 LOADN                            R16 1
-      111 LOADN                            R17 246
-      112 LOADN                            R18 0
-      113 LOADN                            R19 8
-      114 CALL                             R15 4 1
-      115 SETTABLEKS                       R15 R14 K40 ["Position"]
-      117 GETIMPORT                        R16 K50 [Enum.SortDirection.Descending]
-      119 JUMPIFNOTEQ                      R3 R16 ; [+3]
-      121 LOADN                            R15 166
-      122 JUMP                             ; [+1]
-      123 LOADN                            R15 90
-      124 SETTABLEKS                       R15 R14 K41 ["Rotation"]
-      126 GETIMPORT                        R15 K52 [Vector2.new]
-      128 LOADN                            R16 1
-      129 LOADN                            R17 0
-      130 CALL                             R15 2 1
-      131 SETTABLEKS                       R15 R14 K42 ["AnchorPoint"]
-      133 CALL                             R12 2 1
-      134 SETTABLEKS                       R12 R11 K25 ["Icon"]
-      136 GETUPVAL                         R12 0
-      137 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      139 GETUPVAL                         R13 5
-      140 DUPTABLE                         R14 K53 [{"Text"}]
-      141 SETTABLEKS                       R2 R14 K24 ["Text"]
-      143 CALL                             R12 2 1
-      144 SETTABLEKS                       R12 R11 K26 ["Tooltip"]
-      146 CALL                             R8 3 -1
-      147 RETURN                           R8 -1
+       30 GETTABLEKS                       R12 R6 K18 ["HeaderCellPadding"]
+       32 SETTABLEKS                       R12 R11 K12 ["Padding"]
+       34 JUMPIFNOT                        R7 ; [+3]
+       35 GETTABLEKS                       R12 R1 K14 ["StyleModifier"]
+       37 JUMPIF                           R12 ; [+1]
+       38 LOADNIL                          R12
+       39 SETTABLEKS                       R12 R11 K14 ["StyleModifier"]
+       41 GETIMPORT                        R12 K21 [UDim2.new]
+       43 GETTABLEKS                       R13 R4 K22 ["Scale"]
+       45 GETTABLEKS                       R14 R4 K23 ["Offset"]
+       47 LOADN                            R15 1
+       48 LOADN                            R16 0
+       49 CALL                             R12 4 1
+       50 SETTABLEKS                       R12 R11 K15 ["Size"]
+       52 GETTABLEKS                       R12 R1 K24 ["WrapperProps"]
+       54 CALL                             R10 2 1
+       55 DUPTABLE                         R11 K28 [{"Text", "Icon", "Tooltip"}]
+       56 GETUPVAL                         R12 0
+       57 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       59 GETUPVAL                         R13 3
+       60 DUPTABLE                         R14 K31 [{"Text", "Size", "TextXAlignment", "TextTruncate"}]
+       61 SETTABLEKS                       R2 R14 K25 ["Text"]
+       63 GETIMPORT                        R15 K33 [UDim2.fromScale]
+       65 LOADN                            R16 1
+       66 LOADN                            R17 1
+       67 CALL                             R15 2 1
+       68 SETTABLEKS                       R15 R14 K15 ["Size"]
+       70 GETIMPORT                        R15 K36 [Enum.TextXAlignment.Left]
+       72 SETTABLEKS                       R15 R14 K29 ["TextXAlignment"]
+       74 GETIMPORT                        R15 K38 [Enum.TextTruncate.AtEnd]
+       76 SETTABLEKS                       R15 R14 K30 ["TextTruncate"]
+       78 CALL                             R12 2 1
+       79 SETTABLEKS                       R12 R11 K25 ["Text"]
+       81 MOVE                             R12 R3
+       82 JUMPIFNOT                        R12 ; [+42]
+       83 GETUPVAL                         R12 0
+       84 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       86 GETUPVAL                         R13 4
+       87 DUPTABLE                         R14 K45 [{["ImageColor3"], ["Image"] = "rbxasset://textures/DeveloperFramework/Table/sort_arrow.png", ["Size"], ["Position"], ["Rotation"], ["AnchorPoint"]}]
+       88 GETTABLEKS                       R15 R6 K46 ["IconColor"]
+       90 SETTABLEKS                       R15 R14 K39 ["ImageColor3"]
+       92 GETIMPORT                        R15 K48 [UDim2.fromOffset]
+       94 LOADN                            R16 6
+       95 LOADN                            R17 8
+       96 CALL                             R15 2 1
+       97 SETTABLEKS                       R15 R14 K15 ["Size"]
+       99 GETIMPORT                        R15 K21 [UDim2.new]
+      101 LOADN                            R16 1
+      102 LOADN                            R17 -10
+      103 LOADN                            R18 0
+      104 LOADN                            R19 8
+      105 CALL                             R15 4 1
+      106 SETTABLEKS                       R15 R14 K42 ["Position"]
+      108 GETIMPORT                        R16 K51 [Enum.SortDirection.Descending]
+      110 JUMPIFNOTEQ                      R3 R16 ; [+3]
+      112 LOADN                            R15 -90
+      113 JUMP                             ; [+1]
+      114 LOADN                            R15 90
+      115 SETTABLEKS                       R15 R14 K43 ["Rotation"]
+      117 GETIMPORT                        R15 K53 [Vector2.new]
+      119 LOADN                            R16 1
+      120 LOADN                            R17 0
+      121 CALL                             R15 2 1
+      122 SETTABLEKS                       R15 R14 K44 ["AnchorPoint"]
+      124 CALL                             R12 2 1
+      125 SETTABLEKS                       R12 R11 K26 ["Icon"]
+      127 GETUPVAL                         R12 0
+      128 GETTABLEKS                       R12 R12 K7 ["createElement"]
+      130 GETUPVAL                         R13 5
+      131 DUPTABLE                         R14 K54 [{"Text"}]
+      132 SETTABLEKS                       R2 R14 K25 ["Text"]
+      134 CALL                             R12 2 1
+      135 SETTABLEKS                       R12 R11 K27 ["Tooltip"]
+      137 CALL                             R8 3 -1
+      138 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

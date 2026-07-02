@@ -1,147 +1,117 @@
 PROTO_0:
-        0 JUMPIF                           R0 ; [+8]
-        1 DUPTABLE                         R1 K2 [{"scope", "key"}]
-        2 LOADK                            R2 K3 [""]
-        3 SETTABLEKS                       R2 R1 K0 ["scope"]
-        5 LOADK                            R2 K3 [""]
-        6 SETTABLEKS                       R2 R1 K1 ["key"]
-        8 RETURN                           R1 1
-        9 GETIMPORT                        R1 K6 [DateTime.now]
-       11 CALL                             R1 0 1
-       12 GETTABLEKS                       R1 R1 K7 ["UnixTimestamp"]
-       14 SUB                              R2 R1 R0
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K8 ["MINUTE_IN_SECONDS"]
-       18 JUMPIFNOTLT                      R2 R3 ; [+9]
-       20 DUPTABLE                         R3 K2 [{"scope", "key"}]
-       21 GETUPVAL                         R4 1
-       22 SETTABLEKS                       R4 R3 K0 ["scope"]
-       24 LOADK                            R4 K9 ["Now"]
-       25 SETTABLEKS                       R4 R3 K1 ["key"]
-       27 RETURN                           R3 1
-       28 GETUPVAL                         R3 0
-       29 GETTABLEKS                       R3 R3 K10 ["HOUR_IN_SECONDS"]
-       31 JUMPIFNOTLT                      R2 R3 ; [+26]
-       33 GETUPVAL                         R6 0
-       34 GETTABLEKS                       R6 R6 K8 ["MINUTE_IN_SECONDS"]
-       36 DIV                              R5 R2 R6
-       37 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-       38 GETIMPORT                        R4 K13 [math.floor]
-       40 CALL                             R4 1 1
-       41 FASTCALL1                        TOSTRING R4 ; [+2]
-       42 GETIMPORT                        R3 K15 [tostring]
-       44 CALL                             R3 1 1
-       45 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-       46 GETUPVAL                         R5 2
-       47 SETTABLEKS                       R5 R4 K0 ["scope"]
-       49 LOADK                            R5 K19 ["Minutes"]
-       50 SETTABLEKS                       R5 R4 K1 ["key"]
-       52 LOADK                            R5 K20 ["minutes"]
-       53 SETTABLEKS                       R5 R4 K16 ["paramName"]
-       55 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-       57 RETURN                           R4 1
-       58 GETUPVAL                         R3 0
-       59 GETTABLEKS                       R3 R3 K21 ["DAY_IN_SECONDS"]
-       61 JUMPIFNOTLT                      R2 R3 ; [+26]
-       63 GETUPVAL                         R6 0
-       64 GETTABLEKS                       R6 R6 K10 ["HOUR_IN_SECONDS"]
-       66 DIV                              R5 R2 R6
-       67 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-       68 GETIMPORT                        R4 K13 [math.floor]
-       70 CALL                             R4 1 1
-       71 FASTCALL1                        TOSTRING R4 ; [+2]
-       72 GETIMPORT                        R3 K15 [tostring]
-       74 CALL                             R3 1 1
-       75 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-       76 GETUPVAL                         R5 2
-       77 SETTABLEKS                       R5 R4 K0 ["scope"]
-       79 LOADK                            R5 K22 ["Hours"]
-       80 SETTABLEKS                       R5 R4 K1 ["key"]
-       82 LOADK                            R5 K23 ["hours"]
-       83 SETTABLEKS                       R5 R4 K16 ["paramName"]
-       85 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-       87 RETURN                           R4 1
-       88 GETUPVAL                         R3 0
-       89 GETTABLEKS                       R3 R3 K24 ["WEEK_IN_SECONDS"]
-       91 JUMPIFNOTLT                      R2 R3 ; [+26]
-       93 GETUPVAL                         R6 0
-       94 GETTABLEKS                       R6 R6 K21 ["DAY_IN_SECONDS"]
-       96 DIV                              R5 R2 R6
-       97 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-       98 GETIMPORT                        R4 K13 [math.floor]
-      100 CALL                             R4 1 1
-      101 FASTCALL1                        TOSTRING R4 ; [+2]
-      102 GETIMPORT                        R3 K15 [tostring]
-      104 CALL                             R3 1 1
-      105 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-      106 GETUPVAL                         R5 2
-      107 SETTABLEKS                       R5 R4 K0 ["scope"]
-      109 LOADK                            R5 K25 ["Days"]
-      110 SETTABLEKS                       R5 R4 K1 ["key"]
-      112 LOADK                            R5 K26 ["days"]
-      113 SETTABLEKS                       R5 R4 K16 ["paramName"]
-      115 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-      117 RETURN                           R4 1
-      118 GETUPVAL                         R3 0
-      119 GETTABLEKS                       R3 R3 K27 ["MONTH_IN_SECONDS"]
-      121 JUMPIFNOTLT                      R2 R3 ; [+26]
-      123 GETUPVAL                         R6 0
-      124 GETTABLEKS                       R6 R6 K24 ["WEEK_IN_SECONDS"]
-      126 DIV                              R5 R2 R6
-      127 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-      128 GETIMPORT                        R4 K13 [math.floor]
-      130 CALL                             R4 1 1
-      131 FASTCALL1                        TOSTRING R4 ; [+2]
-      132 GETIMPORT                        R3 K15 [tostring]
-      134 CALL                             R3 1 1
-      135 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-      136 GETUPVAL                         R5 2
-      137 SETTABLEKS                       R5 R4 K0 ["scope"]
-      139 LOADK                            R5 K28 ["Weeks"]
-      140 SETTABLEKS                       R5 R4 K1 ["key"]
-      142 LOADK                            R5 K29 ["weeks"]
-      143 SETTABLEKS                       R5 R4 K16 ["paramName"]
-      145 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-      147 RETURN                           R4 1
-      148 GETUPVAL                         R3 0
-      149 GETTABLEKS                       R3 R3 K30 ["YEAR_IN_SECONDS"]
-      151 JUMPIFNOTLT                      R2 R3 ; [+26]
-      153 GETUPVAL                         R6 0
-      154 GETTABLEKS                       R6 R6 K27 ["MONTH_IN_SECONDS"]
-      156 DIV                              R5 R2 R6
-      157 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-      158 GETIMPORT                        R4 K13 [math.floor]
-      160 CALL                             R4 1 1
-      161 FASTCALL1                        TOSTRING R4 ; [+2]
-      162 GETIMPORT                        R3 K15 [tostring]
-      164 CALL                             R3 1 1
-      165 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-      166 GETUPVAL                         R5 2
-      167 SETTABLEKS                       R5 R4 K0 ["scope"]
-      169 LOADK                            R5 K31 ["Months"]
-      170 SETTABLEKS                       R5 R4 K1 ["key"]
-      172 LOADK                            R5 K32 ["months"]
-      173 SETTABLEKS                       R5 R4 K16 ["paramName"]
-      175 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-      177 RETURN                           R4 1
-      178 GETUPVAL                         R6 0
-      179 GETTABLEKS                       R6 R6 K30 ["YEAR_IN_SECONDS"]
-      181 DIV                              R5 R2 R6
-      182 FASTCALL1                        MATH_FLOOR R5 ; [+2]
-      183 GETIMPORT                        R4 K13 [math.floor]
-      185 CALL                             R4 1 1
-      186 FASTCALL1                        TOSTRING R4 ; [+2]
-      187 GETIMPORT                        R3 K15 [tostring]
-      189 CALL                             R3 1 1
-      190 DUPTABLE                         R4 K18 [{"scope", "key", "paramName", "paramValue"}]
-      191 GETUPVAL                         R5 2
-      192 SETTABLEKS                       R5 R4 K0 ["scope"]
-      194 LOADK                            R5 K33 ["Years"]
-      195 SETTABLEKS                       R5 R4 K1 ["key"]
-      197 LOADK                            R5 K34 ["years"]
-      198 SETTABLEKS                       R5 R4 K16 ["paramName"]
-      200 SETTABLEKS                       R3 R4 K17 ["paramValue"]
-      202 RETURN                           R4 1
+        0 JUMPIF                           R0 ; [+2]
+        1 DUPTABLE                         R1 K3 [{[1] = "", ["key"] = ""}]
+        2 RETURN                           R1 1
+        3 GETIMPORT                        R1 K6 [DateTime.now]
+        5 CALL                             R1 0 1
+        6 GETTABLEKS                       R1 R1 K7 ["UnixTimestamp"]
+        8 SUB                              R2 R1 R0
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K8 ["MINUTE_IN_SECONDS"]
+       12 JUMPIFNOTLT                      R2 R3 ; [+6]
+       14 DUPTABLE                         R3 K10 [{[1], ["key"] = "Now"}]
+       15 GETUPVAL                         R4 1
+       16 SETTABLEKS                       R4 R3 K0 ["scope"]
+       18 RETURN                           R3 1
+       19 GETUPVAL                         R3 0
+       20 GETTABLEKS                       R3 R3 K11 ["HOUR_IN_SECONDS"]
+       22 JUMPIFNOTLT                      R2 R3 ; [+20]
+       24 GETUPVAL                         R6 0
+       25 GETTABLEKS                       R6 R6 K8 ["MINUTE_IN_SECONDS"]
+       27 DIV                              R5 R2 R6
+       28 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+       29 GETIMPORT                        R4 K14 [math.floor]
+       31 CALL                             R4 1 1
+       32 FASTCALL1                        TOSTRING R4 ; [+2]
+       33 GETIMPORT                        R3 K16 [tostring]
+       35 CALL                             R3 1 1
+       36 DUPTABLE                         R4 K21 [{[1], ["key"] = "Minutes", ["paramName"] = "minutes", ["paramValue"]}]
+       37 GETUPVAL                         R5 2
+       38 SETTABLEKS                       R5 R4 K0 ["scope"]
+       40 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+       42 RETURN                           R4 1
+       43 GETUPVAL                         R3 0
+       44 GETTABLEKS                       R3 R3 K22 ["DAY_IN_SECONDS"]
+       46 JUMPIFNOTLT                      R2 R3 ; [+20]
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K11 ["HOUR_IN_SECONDS"]
+       51 DIV                              R5 R2 R6
+       52 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+       53 GETIMPORT                        R4 K14 [math.floor]
+       55 CALL                             R4 1 1
+       56 FASTCALL1                        TOSTRING R4 ; [+2]
+       57 GETIMPORT                        R3 K16 [tostring]
+       59 CALL                             R3 1 1
+       60 DUPTABLE                         R4 K25 [{[1], ["key"] = "Hours", ["paramName"] = "hours", ["paramValue"]}]
+       61 GETUPVAL                         R5 2
+       62 SETTABLEKS                       R5 R4 K0 ["scope"]
+       64 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+       66 RETURN                           R4 1
+       67 GETUPVAL                         R3 0
+       68 GETTABLEKS                       R3 R3 K26 ["WEEK_IN_SECONDS"]
+       70 JUMPIFNOTLT                      R2 R3 ; [+20]
+       72 GETUPVAL                         R6 0
+       73 GETTABLEKS                       R6 R6 K22 ["DAY_IN_SECONDS"]
+       75 DIV                              R5 R2 R6
+       76 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+       77 GETIMPORT                        R4 K14 [math.floor]
+       79 CALL                             R4 1 1
+       80 FASTCALL1                        TOSTRING R4 ; [+2]
+       81 GETIMPORT                        R3 K16 [tostring]
+       83 CALL                             R3 1 1
+       84 DUPTABLE                         R4 K29 [{[1], ["key"] = "Days", ["paramName"] = "days", ["paramValue"]}]
+       85 GETUPVAL                         R5 2
+       86 SETTABLEKS                       R5 R4 K0 ["scope"]
+       88 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+       90 RETURN                           R4 1
+       91 GETUPVAL                         R3 0
+       92 GETTABLEKS                       R3 R3 K30 ["MONTH_IN_SECONDS"]
+       94 JUMPIFNOTLT                      R2 R3 ; [+20]
+       96 GETUPVAL                         R6 0
+       97 GETTABLEKS                       R6 R6 K26 ["WEEK_IN_SECONDS"]
+       99 DIV                              R5 R2 R6
+      100 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+      101 GETIMPORT                        R4 K14 [math.floor]
+      103 CALL                             R4 1 1
+      104 FASTCALL1                        TOSTRING R4 ; [+2]
+      105 GETIMPORT                        R3 K16 [tostring]
+      107 CALL                             R3 1 1
+      108 DUPTABLE                         R4 K33 [{[1], ["key"] = "Weeks", ["paramName"] = "weeks", ["paramValue"]}]
+      109 GETUPVAL                         R5 2
+      110 SETTABLEKS                       R5 R4 K0 ["scope"]
+      112 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+      114 RETURN                           R4 1
+      115 GETUPVAL                         R3 0
+      116 GETTABLEKS                       R3 R3 K34 ["YEAR_IN_SECONDS"]
+      118 JUMPIFNOTLT                      R2 R3 ; [+20]
+      120 GETUPVAL                         R6 0
+      121 GETTABLEKS                       R6 R6 K30 ["MONTH_IN_SECONDS"]
+      123 DIV                              R5 R2 R6
+      124 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+      125 GETIMPORT                        R4 K14 [math.floor]
+      127 CALL                             R4 1 1
+      128 FASTCALL1                        TOSTRING R4 ; [+2]
+      129 GETIMPORT                        R3 K16 [tostring]
+      131 CALL                             R3 1 1
+      132 DUPTABLE                         R4 K37 [{[1], ["key"] = "Months", ["paramName"] = "months", ["paramValue"]}]
+      133 GETUPVAL                         R5 2
+      134 SETTABLEKS                       R5 R4 K0 ["scope"]
+      136 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+      138 RETURN                           R4 1
+      139 GETUPVAL                         R6 0
+      140 GETTABLEKS                       R6 R6 K34 ["YEAR_IN_SECONDS"]
+      142 DIV                              R5 R2 R6
+      143 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+      144 GETIMPORT                        R4 K14 [math.floor]
+      146 CALL                             R4 1 1
+      147 FASTCALL1                        TOSTRING R4 ; [+2]
+      148 GETIMPORT                        R3 K16 [tostring]
+      150 CALL                             R3 1 1
+      151 DUPTABLE                         R4 K40 [{[1], ["key"] = "Years", ["paramName"] = "years", ["paramValue"]}]
+      152 GETUPVAL                         R5 2
+      153 SETTABLEKS                       R5 R4 K0 ["scope"]
+      155 SETTABLEKS                       R3 R4 K20 ["paramValue"]
+      157 RETURN                           R4 1
 
 PROTO_1:
         0 JUMPIF                           R0 ; [+2]

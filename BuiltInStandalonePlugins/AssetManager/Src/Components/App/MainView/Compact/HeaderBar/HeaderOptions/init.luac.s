@@ -3,30 +3,24 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["View"]
-        6 DUPTABLE                         R3 K4 [{"LayoutOrder", "tag"}]
+        6 DUPTABLE                         R3 K5 [{["LayoutOrder"], ["tag"] = "row align-y-center gap-xsmall auto-xy"}]
         7 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         9 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       11 LOADK                            R4 K5 ["row auto-xy gap-xsmall align-y-center"]
-       12 SETTABLEKS                       R4 R3 K3 ["tag"]
-       14 DUPTABLE                         R4 K8 [{"MenuButton", "ImportButton"}]
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       18 GETUPVAL                         R6 2
-       19 DUPTABLE                         R7 K9 [{"LayoutOrder"}]
-       20 LOADN                            R8 1
-       21 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       23 CALL                             R5 2 1
-       24 SETTABLEKS                       R5 R4 K6 ["MenuButton"]
-       26 GETUPVAL                         R5 0
-       27 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       29 GETUPVAL                         R6 3
-       30 DUPTABLE                         R7 K9 [{"LayoutOrder"}]
-       31 LOADN                            R8 2
-       32 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       34 CALL                             R5 2 1
-       35 SETTABLEKS                       R5 R4 K7 ["ImportButton"]
-       37 CALL                             R1 3 -1
-       38 RETURN                           R1 -1
+       11 DUPTABLE                         R4 K8 [{"MenuButton", "ImportButton"}]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       15 GETUPVAL                         R6 2
+       16 DUPTABLE                         R7 K10 [{["LayoutOrder"] = 1}]
+       17 CALL                             R5 2 1
+       18 SETTABLEKS                       R5 R4 K6 ["MenuButton"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       23 GETUPVAL                         R6 3
+       24 DUPTABLE                         R7 K12 [{["LayoutOrder"] = 2}]
+       25 CALL                             R5 2 1
+       26 SETTABLEKS                       R5 R4 K7 ["ImportButton"]
+       28 CALL                             R1 3 -1
+       29 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

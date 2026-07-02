@@ -42,24 +42,12 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K6 ["Packages"]
        18 GETTABLEKS                       R3 R3 K8 ["Cryo"]
        20 CALL                             R2 1 1
-       21 DUPTABLE                         R3 K15 [{"QuantizeWarning", "Saved", "Loaded", "ClippedWarning", "InvalidAnimation", "CannotPasteError"}]
-       22 LOADB                            R4 0
-       23 SETTABLEKS                       R4 R3 K9 ["QuantizeWarning"]
-       25 LOADB                            R4 0
-       26 SETTABLEKS                       R4 R3 K10 ["Saved"]
-       28 LOADB                            R4 0
-       29 SETTABLEKS                       R4 R3 K11 ["Loaded"]
-       31 LOADB                            R4 0
-       32 SETTABLEKS                       R4 R3 K12 ["ClippedWarning"]
-       34 LOADB                            R4 0
-       35 SETTABLEKS                       R4 R3 K13 ["InvalidAnimation"]
-       37 LOADB                            R4 0
-       38 SETTABLEKS                       R4 R3 K14 ["CannotPasteError"]
-       40 GETTABLEKS                       R4 R1 K16 ["createReducer"]
-       42 MOVE                             R5 R3
-       43 DUPTABLE                         R6 K18 [{"SetNotification"}]
-       44 DUPCLOSURE                       R7 K19 [PROTO_0]
-       45 CAPTURE                          VAL R2
-       46 SETTABLEKS                       R7 R6 K17 ["SetNotification"]
-       48 CALL                             R4 2 -1
-       49 RETURN                           R4 -1
+       21 DUPTABLE                         R3 K16 [{["QuantizeWarning"] = False, ["Saved"] = False, ["Loaded"] = False, ["ClippedWarning"] = False, ["InvalidAnimation"] = False, ["CannotPasteError"] = False}]
+       22 GETTABLEKS                       R4 R1 K17 ["createReducer"]
+       24 MOVE                             R5 R3
+       25 DUPTABLE                         R6 K19 [{"SetNotification"}]
+       26 DUPCLOSURE                       R7 K20 [PROTO_0]
+       27 CAPTURE                          VAL R2
+       28 SETTABLEKS                       R7 R6 K18 ["SetNotification"]
+       30 CALL                             R4 2 -1
+       31 RETURN                           R4 -1

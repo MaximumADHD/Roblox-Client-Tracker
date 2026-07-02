@@ -68,388 +68,356 @@ PROTO_5:
        17 NEWCLOSURE                       R16 P3
        18 CAPTURE                          VAL R4
        19 CAPTURE                          UPVAL U3
-       20 GETUPVAL                         R17 4
-       21 GETTABLEKS                       R17 R17 K0 ["NOTAGEVERIFIED"]
-       23 JUMPIFNOTEQ                      R0 R17 ; [+37]
-       25 LOADK                            R19 K1 ["SafetyAgeCheckDialog"]
-       26 LOADK                            R20 K2 ["Title"]
-       27 NAMECALL                         R17 R2 K3 ["getText"]
-       29 CALL                             R17 3 1
-       30 MOVE                             R7 R17
-       31 LOADK                            R19 K1 ["SafetyAgeCheckDialog"]
-       32 LOADK                            R20 K4 ["Body"]
-       33 NAMECALL                         R17 R2 K3 ["getText"]
-       35 CALL                             R17 3 1
-       36 MOVE                             R8 R17
-       37 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-       38 LOADK                            R20 K8 ["DialogButton"]
-       39 LOADK                            R21 K9 ["Continue"]
-       40 NAMECALL                         R18 R2 K3 ["getText"]
-       42 CALL                             R18 3 1
-       43 SETTABLEKS                       R18 R17 K5 ["label"]
-       45 SETTABLEKS                       R14 R17 K6 ["onActivated"]
-       47 MOVE                             R9 R17
-       48 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-       49 LOADK                            R20 K8 ["DialogButton"]
-       50 LOADK                            R21 K10 ["Cancel"]
-       51 NAMECALL                         R18 R2 K3 ["getText"]
-       53 CALL                             R18 3 1
-       54 SETTABLEKS                       R18 R17 K5 ["label"]
-       56 LOADNIL                          R18
-       57 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-       59 MOVE                             R10 R17
-       60 RETURN                           R7 6
-       61 GETUPVAL                         R17 4
-       62 GETTABLEKS                       R17 R17 K11 ["OUTSIDEAGEBUCKET"]
-       64 JUMPIFEQ                         R0 R17 ; [+11]
-       66 GETUPVAL                         R17 4
-       67 GETTABLEKS                       R17 R17 K12 ["OUTSIDEAGEBUCKETTCPC"]
-       69 JUMPIFEQ                         R0 R17 ; [+6]
-       71 GETUPVAL                         R17 4
-       72 GETTABLEKS                       R17 R17 K13 ["OUTSIDEOWNERAGEBUCKET"]
-       74 JUMPIFNOTEQ                      R0 R17 ; [+203]
-       76 JUMPIFNOT                        R1 ; [+157]
-       77 GETTABLEKS                       R17 R1 K14 ["canAddTrustedFriends"]
-       79 JUMPIFNOT                        R17 ; [+22]
-       80 GETTABLEKS                       R17 R1 K15 ["canAskParent"]
-       82 JUMPIFNOT                        R17 ; [+19]
-       83 LOADK                            R19 K16 ["SafetyEstablishTrustDialog"]
-       84 LOADK                            R20 K2 ["Title"]
-       85 NAMECALL                         R17 R2 K3 ["getText"]
-       87 CALL                             R17 3 1
-       88 MOVE                             R7 R17
-       89 LOADK                            R19 K16 ["SafetyEstablishTrustDialog"]
-       90 LOADK                            R20 K4 ["Body"]
-       91 NAMECALL                         R17 R2 K3 ["getText"]
-       93 CALL                             R17 3 1
-       94 MOVE                             R8 R17
-       95 LOADK                            R17 K17 ["%*/canAddTrustedFriends/canAskParent"]
-       96 MOVE                             R19 R0
-       97 NAMECALL                         R17 R17 K18 ["format"]
-       99 CALL                             R17 2 1
-      100 MOVE                             R12 R17
-      101 JUMP                             ; [+99]
-      102 GETTABLEKS                       R17 R1 K14 ["canAddTrustedFriends"]
-      104 JUMPIFNOT                        R17 ; [+22]
-      105 GETTABLEKS                       R17 R1 K15 ["canAskParent"]
-      107 JUMPIF                           R17 ; [+19]
-      108 LOADK                            R19 K16 ["SafetyEstablishTrustDialog"]
-      109 LOADK                            R20 K19 ["Over16.Title"]
-      110 NAMECALL                         R17 R2 K3 ["getText"]
-      112 CALL                             R17 3 1
-      113 MOVE                             R7 R17
-      114 LOADK                            R19 K16 ["SafetyEstablishTrustDialog"]
-      115 LOADK                            R20 K20 ["Over16.Body"]
-      116 NAMECALL                         R17 R2 K3 ["getText"]
-      118 CALL                             R17 3 1
-      119 MOVE                             R8 R17
-      120 LOADK                            R17 K21 ["%*/canAddTrustedFriends/cannotAskParent"]
-      121 MOVE                             R19 R0
-      122 NAMECALL                         R17 R17 K18 ["format"]
-      124 CALL                             R17 2 1
-      125 MOVE                             R12 R17
-      126 JUMP                             ; [+74]
-      127 GETTABLEKS                       R17 R1 K14 ["canAddTrustedFriends"]
-      129 JUMPIF                           R17 ; [+22]
-      130 GETTABLEKS                       R17 R1 K15 ["canAskParent"]
-      132 JUMPIFNOT                        R17 ; [+19]
-      133 LOADK                            R19 K22 ["SafetyAddTFRestrictedDialog"]
-      134 LOADK                            R20 K23 ["Under16.Title"]
-      135 NAMECALL                         R17 R2 K3 ["getText"]
-      137 CALL                             R17 3 1
-      138 MOVE                             R7 R17
-      139 LOADK                            R19 K22 ["SafetyAddTFRestrictedDialog"]
-      140 LOADK                            R20 K24 ["Under16.Body"]
-      141 NAMECALL                         R17 R2 K3 ["getText"]
-      143 CALL                             R17 3 1
-      144 MOVE                             R8 R17
-      145 LOADK                            R17 K25 ["%*/cannotAddTrustedFriends/canAskParent"]
-      146 MOVE                             R19 R0
-      147 NAMECALL                         R17 R17 K18 ["format"]
-      149 CALL                             R17 2 1
-      150 MOVE                             R12 R17
-      151 JUMP                             ; [+49]
-      152 GETTABLEKS                       R17 R1 K14 ["canAddTrustedFriends"]
-      154 JUMPIF                           R17 ; [+46]
-      155 GETTABLEKS                       R17 R1 K15 ["canAskParent"]
-      157 JUMPIF                           R17 ; [+43]
-      158 LOADK                            R19 K22 ["SafetyAddTFRestrictedDialog"]
-      159 LOADK                            R20 K19 ["Over16.Title"]
-      160 NAMECALL                         R17 R2 K3 ["getText"]
-      162 CALL                             R17 3 1
-      163 MOVE                             R7 R17
-      164 LOADK                            R19 K22 ["SafetyAddTFRestrictedDialog"]
-      165 LOADK                            R20 K20 ["Over16.Body"]
-      166 NAMECALL                         R17 R2 K3 ["getText"]
-      168 CALL                             R17 3 1
-      169 MOVE                             R8 R17
-      170 LOADK                            R17 K26 ["%*/cannotAddTrustedFriends/cannotAskParent"]
-      171 MOVE                             R19 R0
-      172 NAMECALL                         R17 R17 K18 ["format"]
-      174 CALL                             R17 2 1
-      175 MOVE                             R12 R17
-      176 GETUPVAL                         R17 5
-      177 CALL                             R17 0 1
-      178 JUMPIFNOT                        R17 ; [+2]
-      179 LOADNIL                          R9
-      180 JUMP                             ; [+9]
-      181 DUPTABLE                         R17 K27 [{"label"}]
-      182 LOADK                            R20 K8 ["DialogButton"]
-      183 LOADK                            R21 K28 ["OK"]
-      184 NAMECALL                         R18 R2 K3 ["getText"]
-      186 CALL                             R18 3 1
-      187 SETTABLEKS                       R18 R17 K5 ["label"]
-      189 MOVE                             R9 R17
-      190 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      191 LOADK                            R20 K8 ["DialogButton"]
-      192 LOADK                            R21 K29 ["ViewDetails"]
-      193 NAMECALL                         R18 R2 K3 ["getText"]
-      195 CALL                             R18 3 1
-      196 SETTABLEKS                       R18 R17 K5 ["label"]
-      198 SETTABLEKS                       R16 R17 K6 ["onActivated"]
-      200 MOVE                             R10 R17
-      201 GETTABLEKS                       R17 R1 K14 ["canAddTrustedFriends"]
-      203 JUMPIFNOT                        R17 ; [+12]
-      204 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      205 LOADK                            R20 K8 ["DialogButton"]
-      206 LOADK                            R21 K30 ["AddTF"]
-      207 NAMECALL                         R18 R2 K3 ["getText"]
-      209 CALL                             R18 3 1
-      210 SETTABLEKS                       R18 R17 K5 ["label"]
-      212 SETTABLEKS                       R13 R17 K6 ["onActivated"]
-      214 MOVE                             R9 R17
-      215 JUMP                             ; [+1]
-      216 LOADNIL                          R9
-      217 GETTABLEKS                       R17 R1 K15 ["canAskParent"]
-      219 JUMPIFNOT                        R17 ; [+12]
-      220 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      221 LOADK                            R20 K8 ["DialogButton"]
-      222 LOADK                            R21 K31 ["GetPermission"]
-      223 NAMECALL                         R18 R2 K3 ["getText"]
-      225 CALL                             R18 3 1
-      226 SETTABLEKS                       R18 R17 K5 ["label"]
-      228 SETTABLEKS                       R15 R17 K6 ["onActivated"]
-      230 MOVE                             R10 R17
-      231 JUMP                             ; [+28]
-      232 LOADNIL                          R10
-      233 JUMP                             ; [+26]
-      234 LOADK                            R19 K32 ["SafetyOtherCollaboratorsPreventTrustDialog"]
-      235 LOADK                            R20 K2 ["Title"]
-      236 NAMECALL                         R17 R2 K3 ["getText"]
-      238 CALL                             R17 3 1
-      239 MOVE                             R7 R17
-      240 LOADK                            R19 K32 ["SafetyOtherCollaboratorsPreventTrustDialog"]
-      241 LOADK                            R20 K4 ["Body"]
-      242 NAMECALL                         R17 R2 K3 ["getText"]
-      244 CALL                             R17 3 1
-      245 MOVE                             R8 R17
-      246 GETUPVAL                         R17 5
-      247 CALL                             R17 0 1
-      248 JUMPIFNOT                        R17 ; [+2]
-      249 LOADNIL                          R9
-      250 JUMP                             ; [+9]
-      251 DUPTABLE                         R17 K27 [{"label"}]
-      252 LOADK                            R20 K8 ["DialogButton"]
-      253 LOADK                            R21 K33 ["Close"]
-      254 NAMECALL                         R18 R2 K3 ["getText"]
-      256 CALL                             R18 3 1
-      257 SETTABLEKS                       R18 R17 K5 ["label"]
-      259 MOVE                             R9 R17
-      260 GETUPVAL                         R17 5
-      261 CALL                             R17 0 1
-      262 JUMPIFNOT                        R17 ; [+11]
-      263 LOADK                            R17 K34 ["%* %*"]
-      264 MOVE                             R19 R8
-      265 LOADK                            R22 K35 ["Safety"]
-      266 LOADK                            R23 K36 ["NonBlockingAddendum"]
-      267 NAMECALL                         R20 R2 K3 ["getText"]
-      269 CALL                             R20 3 1
-      270 NAMECALL                         R17 R17 K18 ["format"]
-      272 CALL                             R17 3 1
-      273 MOVE                             R8 R17
-      274 GETUPVAL                         R17 5
-      275 CALL                             R17 0 1
-      276 MOVE                             R11 R17
-      277 RETURN                           R7 6
-      278 GETUPVAL                         R17 4
-      279 GETTABLEKS                       R17 R17 K37 ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"]
-      281 JUMPIFNOTEQ                      R0 R17 ; [+26]
-      283 LOADK                            R19 K32 ["SafetyOtherCollaboratorsPreventTrustDialog"]
-      284 LOADK                            R20 K2 ["Title"]
-      285 NAMECALL                         R17 R2 K3 ["getText"]
-      287 CALL                             R17 3 1
-      288 MOVE                             R7 R17
-      289 LOADK                            R19 K32 ["SafetyOtherCollaboratorsPreventTrustDialog"]
-      290 LOADK                            R20 K4 ["Body"]
+       20 JUMPIFNOTEQKS                    R0 K0 ["NotAgeVerified"] ; [+34]
+       22 LOADK                            R19 K1 ["SafetyAgeCheckDialog"]
+       23 LOADK                            R20 K2 ["Title"]
+       24 NAMECALL                         R17 R2 K3 ["getText"]
+       26 CALL                             R17 3 1
+       27 MOVE                             R7 R17
+       28 LOADK                            R19 K1 ["SafetyAgeCheckDialog"]
+       29 LOADK                            R20 K4 ["Body"]
+       30 NAMECALL                         R17 R2 K3 ["getText"]
+       32 CALL                             R17 3 1
+       33 MOVE                             R8 R17
+       34 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+       35 LOADK                            R20 K8 ["DialogButton"]
+       36 LOADK                            R21 K9 ["Continue"]
+       37 NAMECALL                         R18 R2 K3 ["getText"]
+       39 CALL                             R18 3 1
+       40 SETTABLEKS                       R18 R17 K5 ["label"]
+       42 SETTABLEKS                       R14 R17 K6 ["onActivated"]
+       44 MOVE                             R9 R17
+       45 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+       46 LOADK                            R20 K8 ["DialogButton"]
+       47 LOADK                            R21 K12 ["Cancel"]
+       48 NAMECALL                         R18 R2 K3 ["getText"]
+       50 CALL                             R18 3 1
+       51 SETTABLEKS                       R18 R17 K5 ["label"]
+       53 MOVE                             R10 R17
+       54 RETURN                           R7 6
+       55 JUMPIFEQKS                       R0 K13 ["OutsideAgeBucket"] ; [+5]
+       57 JUMPIFEQKS                       R0 K14 ["OutsideAgeBucketTcPc"] ; [+3]
+       59 JUMPIFNOTEQKS                    R0 K15 ["OutsideOwnerAgeBucket"] ; [+203]
+       61 JUMPIFNOT                        R1 ; [+157]
+       62 GETTABLEKS                       R17 R1 K16 ["canAddTrustedFriends"]
+       64 JUMPIFNOT                        R17 ; [+22]
+       65 GETTABLEKS                       R17 R1 K17 ["canAskParent"]
+       67 JUMPIFNOT                        R17 ; [+19]
+       68 LOADK                            R19 K18 ["SafetyEstablishTrustDialog"]
+       69 LOADK                            R20 K2 ["Title"]
+       70 NAMECALL                         R17 R2 K3 ["getText"]
+       72 CALL                             R17 3 1
+       73 MOVE                             R7 R17
+       74 LOADK                            R19 K18 ["SafetyEstablishTrustDialog"]
+       75 LOADK                            R20 K4 ["Body"]
+       76 NAMECALL                         R17 R2 K3 ["getText"]
+       78 CALL                             R17 3 1
+       79 MOVE                             R8 R17
+       80 LOADK                            R17 K19 ["%*/canAddTrustedFriends/canAskParent"]
+       81 MOVE                             R19 R0
+       82 NAMECALL                         R17 R17 K20 ["format"]
+       84 CALL                             R17 2 1
+       85 MOVE                             R12 R17
+       86 JUMP                             ; [+99]
+       87 GETTABLEKS                       R17 R1 K16 ["canAddTrustedFriends"]
+       89 JUMPIFNOT                        R17 ; [+22]
+       90 GETTABLEKS                       R17 R1 K17 ["canAskParent"]
+       92 JUMPIF                           R17 ; [+19]
+       93 LOADK                            R19 K18 ["SafetyEstablishTrustDialog"]
+       94 LOADK                            R20 K21 ["Over16.Title"]
+       95 NAMECALL                         R17 R2 K3 ["getText"]
+       97 CALL                             R17 3 1
+       98 MOVE                             R7 R17
+       99 LOADK                            R19 K18 ["SafetyEstablishTrustDialog"]
+      100 LOADK                            R20 K22 ["Over16.Body"]
+      101 NAMECALL                         R17 R2 K3 ["getText"]
+      103 CALL                             R17 3 1
+      104 MOVE                             R8 R17
+      105 LOADK                            R17 K23 ["%*/canAddTrustedFriends/cannotAskParent"]
+      106 MOVE                             R19 R0
+      107 NAMECALL                         R17 R17 K20 ["format"]
+      109 CALL                             R17 2 1
+      110 MOVE                             R12 R17
+      111 JUMP                             ; [+74]
+      112 GETTABLEKS                       R17 R1 K16 ["canAddTrustedFriends"]
+      114 JUMPIF                           R17 ; [+22]
+      115 GETTABLEKS                       R17 R1 K17 ["canAskParent"]
+      117 JUMPIFNOT                        R17 ; [+19]
+      118 LOADK                            R19 K24 ["SafetyAddTFRestrictedDialog"]
+      119 LOADK                            R20 K25 ["Under16.Title"]
+      120 NAMECALL                         R17 R2 K3 ["getText"]
+      122 CALL                             R17 3 1
+      123 MOVE                             R7 R17
+      124 LOADK                            R19 K24 ["SafetyAddTFRestrictedDialog"]
+      125 LOADK                            R20 K26 ["Under16.Body"]
+      126 NAMECALL                         R17 R2 K3 ["getText"]
+      128 CALL                             R17 3 1
+      129 MOVE                             R8 R17
+      130 LOADK                            R17 K27 ["%*/cannotAddTrustedFriends/canAskParent"]
+      131 MOVE                             R19 R0
+      132 NAMECALL                         R17 R17 K20 ["format"]
+      134 CALL                             R17 2 1
+      135 MOVE                             R12 R17
+      136 JUMP                             ; [+49]
+      137 GETTABLEKS                       R17 R1 K16 ["canAddTrustedFriends"]
+      139 JUMPIF                           R17 ; [+46]
+      140 GETTABLEKS                       R17 R1 K17 ["canAskParent"]
+      142 JUMPIF                           R17 ; [+43]
+      143 LOADK                            R19 K24 ["SafetyAddTFRestrictedDialog"]
+      144 LOADK                            R20 K21 ["Over16.Title"]
+      145 NAMECALL                         R17 R2 K3 ["getText"]
+      147 CALL                             R17 3 1
+      148 MOVE                             R7 R17
+      149 LOADK                            R19 K24 ["SafetyAddTFRestrictedDialog"]
+      150 LOADK                            R20 K22 ["Over16.Body"]
+      151 NAMECALL                         R17 R2 K3 ["getText"]
+      153 CALL                             R17 3 1
+      154 MOVE                             R8 R17
+      155 LOADK                            R17 K28 ["%*/cannotAddTrustedFriends/cannotAskParent"]
+      156 MOVE                             R19 R0
+      157 NAMECALL                         R17 R17 K20 ["format"]
+      159 CALL                             R17 2 1
+      160 MOVE                             R12 R17
+      161 GETUPVAL                         R17 4
+      162 CALL                             R17 0 1
+      163 JUMPIFNOT                        R17 ; [+2]
+      164 LOADNIL                          R9
+      165 JUMP                             ; [+9]
+      166 DUPTABLE                         R17 K29 [{"label"}]
+      167 LOADK                            R20 K8 ["DialogButton"]
+      168 LOADK                            R21 K30 ["OK"]
+      169 NAMECALL                         R18 R2 K3 ["getText"]
+      171 CALL                             R18 3 1
+      172 SETTABLEKS                       R18 R17 K5 ["label"]
+      174 MOVE                             R9 R17
+      175 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      176 LOADK                            R20 K8 ["DialogButton"]
+      177 LOADK                            R21 K31 ["ViewDetails"]
+      178 NAMECALL                         R18 R2 K3 ["getText"]
+      180 CALL                             R18 3 1
+      181 SETTABLEKS                       R18 R17 K5 ["label"]
+      183 SETTABLEKS                       R16 R17 K6 ["onActivated"]
+      185 MOVE                             R10 R17
+      186 GETTABLEKS                       R17 R1 K16 ["canAddTrustedFriends"]
+      188 JUMPIFNOT                        R17 ; [+12]
+      189 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      190 LOADK                            R20 K8 ["DialogButton"]
+      191 LOADK                            R21 K32 ["AddTF"]
+      192 NAMECALL                         R18 R2 K3 ["getText"]
+      194 CALL                             R18 3 1
+      195 SETTABLEKS                       R18 R17 K5 ["label"]
+      197 SETTABLEKS                       R13 R17 K6 ["onActivated"]
+      199 MOVE                             R9 R17
+      200 JUMP                             ; [+1]
+      201 LOADNIL                          R9
+      202 GETTABLEKS                       R17 R1 K17 ["canAskParent"]
+      204 JUMPIFNOT                        R17 ; [+12]
+      205 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      206 LOADK                            R20 K8 ["DialogButton"]
+      207 LOADK                            R21 K33 ["GetPermission"]
+      208 NAMECALL                         R18 R2 K3 ["getText"]
+      210 CALL                             R18 3 1
+      211 SETTABLEKS                       R18 R17 K5 ["label"]
+      213 SETTABLEKS                       R15 R17 K6 ["onActivated"]
+      215 MOVE                             R10 R17
+      216 JUMP                             ; [+28]
+      217 LOADNIL                          R10
+      218 JUMP                             ; [+26]
+      219 LOADK                            R19 K34 ["SafetyOtherCollaboratorsPreventTrustDialog"]
+      220 LOADK                            R20 K2 ["Title"]
+      221 NAMECALL                         R17 R2 K3 ["getText"]
+      223 CALL                             R17 3 1
+      224 MOVE                             R7 R17
+      225 LOADK                            R19 K34 ["SafetyOtherCollaboratorsPreventTrustDialog"]
+      226 LOADK                            R20 K4 ["Body"]
+      227 NAMECALL                         R17 R2 K3 ["getText"]
+      229 CALL                             R17 3 1
+      230 MOVE                             R8 R17
+      231 GETUPVAL                         R17 4
+      232 CALL                             R17 0 1
+      233 JUMPIFNOT                        R17 ; [+2]
+      234 LOADNIL                          R9
+      235 JUMP                             ; [+9]
+      236 DUPTABLE                         R17 K29 [{"label"}]
+      237 LOADK                            R20 K8 ["DialogButton"]
+      238 LOADK                            R21 K35 ["Close"]
+      239 NAMECALL                         R18 R2 K3 ["getText"]
+      241 CALL                             R18 3 1
+      242 SETTABLEKS                       R18 R17 K5 ["label"]
+      244 MOVE                             R9 R17
+      245 GETUPVAL                         R17 4
+      246 CALL                             R17 0 1
+      247 JUMPIFNOT                        R17 ; [+11]
+      248 LOADK                            R17 K36 ["%* %*"]
+      249 MOVE                             R19 R8
+      250 LOADK                            R22 K37 ["Safety"]
+      251 LOADK                            R23 K38 ["NonBlockingAddendum"]
+      252 NAMECALL                         R20 R2 K3 ["getText"]
+      254 CALL                             R20 3 1
+      255 NAMECALL                         R17 R17 K20 ["format"]
+      257 CALL                             R17 3 1
+      258 MOVE                             R8 R17
+      259 GETUPVAL                         R17 4
+      260 CALL                             R17 0 1
+      261 MOVE                             R11 R17
+      262 RETURN                           R7 6
+      263 JUMPIFNOTEQKS                    R0 K39 ["OtherCollaboratorSettingsPreventTrust"] ; [+23]
+      265 LOADK                            R19 K34 ["SafetyOtherCollaboratorsPreventTrustDialog"]
+      266 LOADK                            R20 K2 ["Title"]
+      267 NAMECALL                         R17 R2 K3 ["getText"]
+      269 CALL                             R17 3 1
+      270 MOVE                             R7 R17
+      271 LOADK                            R19 K34 ["SafetyOtherCollaboratorsPreventTrustDialog"]
+      272 LOADK                            R20 K4 ["Body"]
+      273 NAMECALL                         R17 R2 K3 ["getText"]
+      275 CALL                             R17 3 1
+      276 MOVE                             R8 R17
+      277 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      278 LOADK                            R20 K8 ["DialogButton"]
+      279 LOADK                            R21 K35 ["Close"]
+      280 NAMECALL                         R18 R2 K3 ["getText"]
+      282 CALL                             R18 3 1
+      283 SETTABLEKS                       R18 R17 K5 ["label"]
+      285 MOVE                             R9 R17
+      286 RETURN                           R7 6
+      287 JUMPIFNOTEQKS                    R0 K40 ["TooManyCollaborators"] ; [+42]
+      289 LOADK                            R19 K41 ["SafetyGroupTooLargeDialog"]
+      290 LOADK                            R20 K2 ["Title"]
       291 NAMECALL                         R17 R2 K3 ["getText"]
       293 CALL                             R17 3 1
-      294 MOVE                             R8 R17
-      295 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      296 LOADK                            R20 K8 ["DialogButton"]
-      297 LOADK                            R21 K33 ["Close"]
-      298 NAMECALL                         R18 R2 K3 ["getText"]
-      300 CALL                             R18 3 1
-      301 SETTABLEKS                       R18 R17 K5 ["label"]
-      303 LOADNIL                          R18
-      304 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-      306 MOVE                             R9 R17
-      307 RETURN                           R7 6
-      308 GETUPVAL                         R17 4
-      309 GETTABLEKS                       R17 R17 K38 ["TOOMANYCOLLABORATORS"]
-      311 JUMPIFNOTEQ                      R0 R17 ; [+42]
-      313 LOADK                            R19 K39 ["SafetyGroupTooLargeDialog"]
-      314 LOADK                            R20 K2 ["Title"]
-      315 NAMECALL                         R17 R2 K3 ["getText"]
-      317 CALL                             R17 3 1
-      318 MOVE                             R7 R17
-      319 LOADK                            R19 K39 ["SafetyGroupTooLargeDialog"]
-      320 LOADK                            R20 K4 ["Body"]
-      321 NAMECALL                         R17 R2 K3 ["getText"]
-      323 CALL                             R17 3 1
-      324 MOVE                             R8 R17
-      325 GETUPVAL                         R17 5
-      326 CALL                             R17 0 1
-      327 JUMPIFNOT                        R17 ; [+11]
-      328 LOADK                            R17 K34 ["%* %*"]
-      329 MOVE                             R19 R8
-      330 LOADK                            R22 K35 ["Safety"]
-      331 LOADK                            R23 K36 ["NonBlockingAddendum"]
-      332 NAMECALL                         R20 R2 K3 ["getText"]
-      334 CALL                             R20 3 1
-      335 NAMECALL                         R17 R17 K18 ["format"]
-      337 CALL                             R17 3 1
-      338 MOVE                             R8 R17
-      339 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      340 LOADK                            R20 K8 ["DialogButton"]
-      341 LOADK                            R21 K40 ["AskParent"]
-      342 NAMECALL                         R18 R2 K3 ["getText"]
-      344 CALL                             R18 3 1
-      345 SETTABLEKS                       R18 R17 K5 ["label"]
-      347 SETTABLEKS                       R15 R17 K6 ["onActivated"]
-      349 MOVE                             R9 R17
-      350 GETUPVAL                         R17 5
-      351 CALL                             R17 0 1
-      352 MOVE                             R11 R17
-      353 RETURN                           R7 6
-      354 GETUPVAL                         R17 4
-      355 GETTABLEKS                       R17 R17 K41 ["PARENTALCONSENTBLOCK"]
-      357 JUMPIFNOTEQ                      R0 R17 ; [+25]
-      359 LOADK                            R19 K42 ["SafetyParentalConsentBlockedDialog"]
-      360 LOADK                            R20 K2 ["Title"]
-      361 NAMECALL                         R17 R2 K3 ["getText"]
-      363 CALL                             R17 3 1
-      364 MOVE                             R7 R17
-      365 LOADK                            R19 K42 ["SafetyParentalConsentBlockedDialog"]
-      366 LOADK                            R20 K4 ["Body"]
-      367 NAMECALL                         R17 R2 K3 ["getText"]
-      369 CALL                             R17 3 1
-      370 MOVE                             R8 R17
-      371 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      372 LOADK                            R20 K8 ["DialogButton"]
-      373 LOADK                            R21 K43 ["AskAgain"]
-      374 NAMECALL                         R18 R2 K3 ["getText"]
-      376 CALL                             R18 3 1
-      377 SETTABLEKS                       R18 R17 K5 ["label"]
-      379 SETTABLEKS                       R15 R17 K6 ["onActivated"]
-      381 MOVE                             R9 R17
-      382 RETURN                           R7 6
-      383 GETUPVAL                         R17 4
-      384 GETTABLEKS                       R17 R17 K44 ["OWNERNOTAGEVERIFIED"]
-      386 JUMPIFNOTEQ                      R0 R17 ; [+26]
-      388 LOADK                            R19 K45 ["SafetyOwnerAgeCheckDialog"]
-      389 LOADK                            R20 K2 ["Title"]
+      294 MOVE                             R7 R17
+      295 LOADK                            R19 K41 ["SafetyGroupTooLargeDialog"]
+      296 LOADK                            R20 K4 ["Body"]
+      297 NAMECALL                         R17 R2 K3 ["getText"]
+      299 CALL                             R17 3 1
+      300 MOVE                             R8 R17
+      301 GETUPVAL                         R17 4
+      302 CALL                             R17 0 1
+      303 JUMPIFNOT                        R17 ; [+11]
+      304 LOADK                            R17 K36 ["%* %*"]
+      305 MOVE                             R19 R8
+      306 LOADK                            R22 K37 ["Safety"]
+      307 LOADK                            R23 K38 ["NonBlockingAddendum"]
+      308 NAMECALL                         R20 R2 K3 ["getText"]
+      310 CALL                             R20 3 1
+      311 NAMECALL                         R17 R17 K20 ["format"]
+      313 CALL                             R17 3 1
+      314 MOVE                             R8 R17
+      315 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      316 LOADK                            R20 K8 ["DialogButton"]
+      317 LOADK                            R21 K42 ["AskParent"]
+      318 NAMECALL                         R18 R2 K3 ["getText"]
+      320 CALL                             R18 3 1
+      321 SETTABLEKS                       R18 R17 K5 ["label"]
+      323 SETTABLEKS                       R15 R17 K6 ["onActivated"]
+      325 MOVE                             R9 R17
+      326 GETUPVAL                         R17 4
+      327 CALL                             R17 0 1
+      328 MOVE                             R11 R17
+      329 RETURN                           R7 6
+      330 JUMPIFNOTEQKS                    R0 K43 ["ParentalConsentBlock"] ; [+25]
+      332 LOADK                            R19 K44 ["SafetyParentalConsentBlockedDialog"]
+      333 LOADK                            R20 K2 ["Title"]
+      334 NAMECALL                         R17 R2 K3 ["getText"]
+      336 CALL                             R17 3 1
+      337 MOVE                             R7 R17
+      338 LOADK                            R19 K44 ["SafetyParentalConsentBlockedDialog"]
+      339 LOADK                            R20 K4 ["Body"]
+      340 NAMECALL                         R17 R2 K3 ["getText"]
+      342 CALL                             R17 3 1
+      343 MOVE                             R8 R17
+      344 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      345 LOADK                            R20 K8 ["DialogButton"]
+      346 LOADK                            R21 K45 ["AskAgain"]
+      347 NAMECALL                         R18 R2 K3 ["getText"]
+      349 CALL                             R18 3 1
+      350 SETTABLEKS                       R18 R17 K5 ["label"]
+      352 SETTABLEKS                       R15 R17 K6 ["onActivated"]
+      354 MOVE                             R9 R17
+      355 RETURN                           R7 6
+      356 JUMPIFNOTEQKS                    R0 K46 ["OwnerNotAgeVerified"] ; [+23]
+      358 LOADK                            R19 K47 ["SafetyOwnerAgeCheckDialog"]
+      359 LOADK                            R20 K2 ["Title"]
+      360 NAMECALL                         R17 R2 K3 ["getText"]
+      362 CALL                             R17 3 1
+      363 MOVE                             R7 R17
+      364 LOADK                            R19 K47 ["SafetyOwnerAgeCheckDialog"]
+      365 LOADK                            R20 K4 ["Body"]
+      366 NAMECALL                         R17 R2 K3 ["getText"]
+      368 CALL                             R17 3 1
+      369 MOVE                             R8 R17
+      370 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      371 LOADK                            R20 K8 ["DialogButton"]
+      372 LOADK                            R21 K35 ["Close"]
+      373 NAMECALL                         R18 R2 K3 ["getText"]
+      375 CALL                             R18 3 1
+      376 SETTABLEKS                       R18 R17 K5 ["label"]
+      378 MOVE                             R9 R17
+      379 RETURN                           R7 6
+      380 JUMPIFNOTEQKS                    R0 K48 ["OccRetriesExhausted"] ; [+23]
+      382 LOADK                            R19 K49 ["SafetyServerErrorDialog"]
+      383 LOADK                            R20 K2 ["Title"]
+      384 NAMECALL                         R17 R2 K3 ["getText"]
+      386 CALL                             R17 3 1
+      387 MOVE                             R7 R17
+      388 LOADK                            R19 K49 ["SafetyServerErrorDialog"]
+      389 LOADK                            R20 K4 ["Body"]
       390 NAMECALL                         R17 R2 K3 ["getText"]
       392 CALL                             R17 3 1
-      393 MOVE                             R7 R17
-      394 LOADK                            R19 K45 ["SafetyOwnerAgeCheckDialog"]
-      395 LOADK                            R20 K4 ["Body"]
-      396 NAMECALL                         R17 R2 K3 ["getText"]
-      398 CALL                             R17 3 1
-      399 MOVE                             R8 R17
-      400 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      401 LOADK                            R20 K8 ["DialogButton"]
-      402 LOADK                            R21 K33 ["Close"]
-      403 NAMECALL                         R18 R2 K3 ["getText"]
-      405 CALL                             R18 3 1
-      406 SETTABLEKS                       R18 R17 K5 ["label"]
-      408 LOADNIL                          R18
-      409 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-      411 MOVE                             R9 R17
-      412 RETURN                           R7 6
-      413 GETUPVAL                         R17 4
-      414 GETTABLEKS                       R17 R17 K46 ["OCCRETRIESEXHAUSTED"]
-      416 JUMPIFNOTEQ                      R0 R17 ; [+26]
-      418 LOADK                            R19 K47 ["SafetyServerErrorDialog"]
-      419 LOADK                            R20 K2 ["Title"]
-      420 NAMECALL                         R17 R2 K3 ["getText"]
-      422 CALL                             R17 3 1
-      423 MOVE                             R7 R17
-      424 LOADK                            R19 K47 ["SafetyServerErrorDialog"]
-      425 LOADK                            R20 K4 ["Body"]
-      426 NAMECALL                         R17 R2 K3 ["getText"]
-      428 CALL                             R17 3 1
-      429 MOVE                             R8 R17
-      430 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      431 LOADK                            R20 K8 ["DialogButton"]
-      432 LOADK                            R21 K28 ["OK"]
-      433 NAMECALL                         R18 R2 K3 ["getText"]
-      435 CALL                             R18 3 1
-      436 SETTABLEKS                       R18 R17 K5 ["label"]
-      438 LOADNIL                          R18
-      439 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-      441 MOVE                             R9 R17
-      442 RETURN                           R7 6
-      443 GETUPVAL                         R17 4
-      444 GETTABLEKS                       R17 R17 K48 ["AGEVERIFICATIONCOUNTRYBLOCKED"]
-      446 JUMPIFNOTEQ                      R0 R17 ; [+37]
-      448 LOADK                            R19 K49 ["SafetyCountryAgeCheckBlocked"]
-      449 LOADK                            R20 K2 ["Title"]
-      450 NAMECALL                         R17 R2 K3 ["getText"]
-      452 CALL                             R17 3 1
-      453 MOVE                             R7 R17
-      454 LOADK                            R19 K49 ["SafetyCountryAgeCheckBlocked"]
-      455 LOADK                            R20 K4 ["Body"]
-      456 NAMECALL                         R17 R2 K3 ["getText"]
-      458 CALL                             R17 3 1
-      459 MOVE                             R8 R17
-      460 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      461 LOADK                            R20 K8 ["DialogButton"]
-      462 LOADK                            R21 K28 ["OK"]
-      463 NAMECALL                         R18 R2 K3 ["getText"]
-      465 CALL                             R18 3 1
-      466 SETTABLEKS                       R18 R17 K5 ["label"]
-      468 LOADNIL                          R18
-      469 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-      471 MOVE                             R9 R17
-      472 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      473 LOADK                            R20 K8 ["DialogButton"]
-      474 LOADK                            R21 K29 ["ViewDetails"]
-      475 NAMECALL                         R18 R2 K3 ["getText"]
-      477 CALL                             R18 3 1
-      478 SETTABLEKS                       R18 R17 K5 ["label"]
-      480 SETTABLEKS                       R16 R17 K6 ["onActivated"]
-      482 MOVE                             R10 R17
-      483 RETURN                           R7 6
-      484 LOADK                            R19 K50 ["SafetyDefaultBlockedDialog"]
-      485 LOADK                            R20 K2 ["Title"]
-      486 NAMECALL                         R17 R2 K3 ["getText"]
-      488 CALL                             R17 3 1
-      489 MOVE                             R7 R17
-      490 LOADK                            R19 K50 ["SafetyDefaultBlockedDialog"]
-      491 LOADK                            R20 K4 ["Body"]
-      492 NAMECALL                         R17 R2 K3 ["getText"]
-      494 CALL                             R17 3 1
-      495 MOVE                             R8 R17
-      496 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
-      497 LOADK                            R20 K8 ["DialogButton"]
-      498 LOADK                            R21 K28 ["OK"]
-      499 NAMECALL                         R18 R2 K3 ["getText"]
-      501 CALL                             R18 3 1
-      502 SETTABLEKS                       R18 R17 K5 ["label"]
-      504 LOADNIL                          R18
-      505 SETTABLEKS                       R18 R17 K6 ["onActivated"]
-      507 MOVE                             R9 R17
-      508 RETURN                           R7 6
+      393 MOVE                             R8 R17
+      394 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      395 LOADK                            R20 K8 ["DialogButton"]
+      396 LOADK                            R21 K30 ["OK"]
+      397 NAMECALL                         R18 R2 K3 ["getText"]
+      399 CALL                             R18 3 1
+      400 SETTABLEKS                       R18 R17 K5 ["label"]
+      402 MOVE                             R9 R17
+      403 RETURN                           R7 6
+      404 JUMPIFNOTEQKS                    R0 K50 ["AgeVerificationCountryBlocked"] ; [+34]
+      406 LOADK                            R19 K51 ["SafetyCountryAgeCheckBlocked"]
+      407 LOADK                            R20 K2 ["Title"]
+      408 NAMECALL                         R17 R2 K3 ["getText"]
+      410 CALL                             R17 3 1
+      411 MOVE                             R7 R17
+      412 LOADK                            R19 K51 ["SafetyCountryAgeCheckBlocked"]
+      413 LOADK                            R20 K4 ["Body"]
+      414 NAMECALL                         R17 R2 K3 ["getText"]
+      416 CALL                             R17 3 1
+      417 MOVE                             R8 R17
+      418 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      419 LOADK                            R20 K8 ["DialogButton"]
+      420 LOADK                            R21 K30 ["OK"]
+      421 NAMECALL                         R18 R2 K3 ["getText"]
+      423 CALL                             R18 3 1
+      424 SETTABLEKS                       R18 R17 K5 ["label"]
+      426 MOVE                             R9 R17
+      427 DUPTABLE                         R17 K7 [{"label", "onActivated"}]
+      428 LOADK                            R20 K8 ["DialogButton"]
+      429 LOADK                            R21 K31 ["ViewDetails"]
+      430 NAMECALL                         R18 R2 K3 ["getText"]
+      432 CALL                             R18 3 1
+      433 SETTABLEKS                       R18 R17 K5 ["label"]
+      435 SETTABLEKS                       R16 R17 K6 ["onActivated"]
+      437 MOVE                             R10 R17
+      438 RETURN                           R7 6
+      439 LOADK                            R19 K52 ["SafetyDefaultBlockedDialog"]
+      440 LOADK                            R20 K2 ["Title"]
+      441 NAMECALL                         R17 R2 K3 ["getText"]
+      443 CALL                             R17 3 1
+      444 MOVE                             R7 R17
+      445 LOADK                            R19 K52 ["SafetyDefaultBlockedDialog"]
+      446 LOADK                            R20 K4 ["Body"]
+      447 NAMECALL                         R17 R2 K3 ["getText"]
+      449 CALL                             R17 3 1
+      450 MOVE                             R8 R17
+      451 DUPTABLE                         R17 K11 [{["label"], ["onActivated"] = }]
+      452 LOADK                            R20 K8 ["DialogButton"]
+      453 LOADK                            R21 K30 ["OK"]
+      454 NAMECALL                         R18 R2 K3 ["getText"]
+      456 CALL                             R18 3 1
+      457 SETTABLEKS                       R18 R17 K5 ["label"]
+      459 MOVE                             R9 R17
+      460 RETURN                           R7 6
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -595,139 +563,133 @@ PROTO_13:
       105 CALL                             R13 7 6
       106 GETUPVAL                         R19 5
       107 GETUPVAL                         R20 6
-      108 DUPTABLE                         R21 K24 [{"uri", "type", "title", "description", "primaryAction", "secondaryAction", "tertiaryAction", "escapeAction", "showIndeterminateProgressIndicator"}]
+      108 DUPTABLE                         R21 K26 [{["uri"], ["type"] = "Default", ["title"], ["description"], ["primaryAction"], ["secondaryAction"], ["tertiaryAction"], ["escapeAction"], ["showIndeterminateProgressIndicator"] = False}]
       109 GETTABLEKS                       R22 R0 K15 ["uri"]
       111 SETTABLEKS                       R22 R21 K15 ["uri"]
-      113 LOADK                            R22 K25 ["Default"]
-      114 SETTABLEKS                       R22 R21 K16 ["type"]
-      116 SETTABLEKS                       R13 R21 K17 ["title"]
-      118 SETTABLEKS                       R14 R21 K18 ["description"]
-      120 JUMPIFEQKNIL                     R15 ; [+26]
-      122 DUPTABLE                         R22 K28 [{"uri", "text", "onActivated"}]
-      123 GETUPVAL                         R23 7
-      124 GETTABLEKS                       R23 R23 K29 ["child"]
-      126 GETTABLEKS                       R24 R0 K15 ["uri"]
-      128 LOADK                            R26 K30 ["%*/Primary"]
-      129 MOVE                             R28 R18
-      130 NAMECALL                         R26 R26 K31 ["format"]
-      132 CALL                             R26 2 1
-      133 MOVE                             R25 R26
-      134 CALL                             R23 2 1
-      135 SETTABLEKS                       R23 R22 K15 ["uri"]
-      137 GETTABLEKS                       R23 R15 K32 ["label"]
-      139 SETTABLEKS                       R23 R22 K26 ["text"]
-      141 NEWCLOSURE                       R23 P2
-      142 CAPTURE                          VAL R15
-      143 CAPTURE                          VAL R12
-      144 SETTABLEKS                       R23 R22 K27 ["onActivated"]
-      146 JUMP                             ; [+1]
-      147 LOADNIL                          R22
-      148 SETTABLEKS                       R22 R21 K19 ["primaryAction"]
-      150 JUMPIFEQKNIL                     R16 ; [+26]
-      152 DUPTABLE                         R22 K28 [{"uri", "text", "onActivated"}]
-      153 GETUPVAL                         R23 7
-      154 GETTABLEKS                       R23 R23 K29 ["child"]
-      156 GETTABLEKS                       R24 R0 K15 ["uri"]
-      158 LOADK                            R26 K33 ["%*/Secondary"]
-      159 MOVE                             R28 R18
-      160 NAMECALL                         R26 R26 K31 ["format"]
-      162 CALL                             R26 2 1
-      163 MOVE                             R25 R26
-      164 CALL                             R23 2 1
-      165 SETTABLEKS                       R23 R22 K15 ["uri"]
-      167 GETTABLEKS                       R23 R16 K32 ["label"]
-      169 SETTABLEKS                       R23 R22 K26 ["text"]
-      171 NEWCLOSURE                       R23 P3
-      172 CAPTURE                          VAL R16
-      173 CAPTURE                          VAL R12
-      174 SETTABLEKS                       R23 R22 K27 ["onActivated"]
-      176 JUMP                             ; [+1]
-      177 LOADNIL                          R22
-      178 SETTABLEKS                       R22 R21 K20 ["secondaryAction"]
-      180 GETUPVAL                         R23 8
-      181 CALL                             R23 0 1
-      182 JUMPIFNOT                        R23 ; [+33]
-      183 JUMPIFNOT                        R17 ; [+32]
-      184 DUPTABLE                         R22 K35 [{"uri", "text", "disabled", "onActivated"}]
-      185 GETUPVAL                         R23 7
-      186 GETTABLEKS                       R23 R23 K29 ["child"]
-      188 GETTABLEKS                       R24 R0 K15 ["uri"]
-      190 LOADK                            R26 K36 ["%*/Tertiary"]
-      191 MOVE                             R28 R18
-      192 NAMECALL                         R26 R26 K31 ["format"]
-      194 CALL                             R26 2 1
-      195 MOVE                             R25 R26
-      196 CALL                             R23 2 1
-      197 SETTABLEKS                       R23 R22 K15 ["uri"]
-      199 LOADK                            R25 K37 ["DialogButton"]
-      200 LOADK                            R26 K38 ["RemindMeLater"]
-      201 NAMECALL                         R23 R2 K39 ["getText"]
-      203 CALL                             R23 3 1
-      204 SETTABLEKS                       R23 R22 K26 ["text"]
-      206 NOT                              R23 R7
-      207 SETTABLEKS                       R23 R22 K34 ["disabled"]
-      209 NEWCLOSURE                       R23 P4
-      210 CAPTURE                          VAL R5
-      211 CAPTURE                          VAL R0
-      212 CAPTURE                          VAL R12
-      213 SETTABLEKS                       R23 R22 K27 ["onActivated"]
-      215 JUMP                             ; [+1]
-      216 LOADNIL                          R22
-      217 SETTABLEKS                       R22 R21 K21 ["tertiaryAction"]
-      219 GETUPVAL                         R23 9
-      220 CALL                             R23 0 1
-      221 JUMPIFNOT                        R23 ; [+20]
-      222 DUPTABLE                         R22 K41 [{"uri", "onClose"}]
-      223 GETUPVAL                         R23 7
-      224 GETTABLEKS                       R23 R23 K29 ["child"]
-      226 GETTABLEKS                       R24 R0 K15 ["uri"]
-      228 LOADK                            R26 K42 ["%*/Escape"]
-      229 MOVE                             R28 R18
-      230 NAMECALL                         R26 R26 K31 ["format"]
-      232 CALL                             R26 2 1
-      233 MOVE                             R25 R26
-      234 CALL                             R23 2 1
-      235 SETTABLEKS                       R23 R22 K15 ["uri"]
-      237 NEWCLOSURE                       R23 P5
-      238 CAPTURE                          VAL R12
-      239 SETTABLEKS                       R23 R22 K40 ["onClose"]
-      241 JUMP                             ; [+1]
-      242 LOADNIL                          R22
-      243 SETTABLEKS                       R22 R21 K22 ["escapeAction"]
-      245 LOADB                            R22 0
-      246 SETTABLEKS                       R22 R21 K23 ["showIndeterminateProgressIndicator"]
-      248 DUPTABLE                         R22 K44 [{"Checkbox"}]
-      249 GETUPVAL                         R24 8
-      250 CALL                             R24 0 1
-      251 JUMPIFNOT                        R24 ; [+32]
-      252 JUMPIFNOT                        R17 ; [+31]
-      253 GETUPVAL                         R23 5
-      254 GETUPVAL                         R24 10
-      255 DUPTABLE                         R25 K49 [{"label", "isChecked", "onActivated", "size", "testId", "LayoutOrder"}]
-      256 LOADK                            R28 K50 ["Safety"]
-      257 LOADK                            R29 K51 ["EnforcementDateAcknowledgement"]
-      258 NAMECALL                         R26 R2 K39 ["getText"]
-      260 CALL                             R26 3 1
-      261 SETTABLEKS                       R26 R25 K32 ["label"]
-      263 SETTABLEKS                       R7 R25 K45 ["isChecked"]
-      265 NEWCLOSURE                       R26 P6
-      266 CAPTURE                          VAL R8
-      267 CAPTURE                          VAL R7
-      268 SETTABLEKS                       R26 R25 K27 ["onActivated"]
-      270 GETUPVAL                         R26 11
-      271 GETTABLEKS                       R26 R26 K52 ["Small"]
-      273 SETTABLEKS                       R26 R25 K46 ["size"]
-      275 LOADK                            R26 K53 ["--safety-dialog-checkbox"]
-      276 SETTABLEKS                       R26 R25 K47 ["testId"]
-      278 MOVE                             R26 R3
-      279 CALL                             R26 0 1
-      280 SETTABLEKS                       R26 R25 K48 ["LayoutOrder"]
-      282 CALL                             R23 2 1
-      283 JUMP                             ; [+1]
-      284 LOADNIL                          R23
-      285 SETTABLEKS                       R23 R22 K43 ["Checkbox"]
-      287 CALL                             R19 3 -1
-      288 RETURN                           R19 -1
+      113 SETTABLEKS                       R13 R21 K18 ["title"]
+      115 SETTABLEKS                       R14 R21 K19 ["description"]
+      117 JUMPIFEQKNIL                     R15 ; [+26]
+      119 DUPTABLE                         R22 K29 [{"uri", "text", "onActivated"}]
+      120 GETUPVAL                         R23 7
+      121 GETTABLEKS                       R23 R23 K30 ["child"]
+      123 GETTABLEKS                       R24 R0 K15 ["uri"]
+      125 LOADK                            R26 K31 ["%*/Primary"]
+      126 MOVE                             R28 R18
+      127 NAMECALL                         R26 R26 K32 ["format"]
+      129 CALL                             R26 2 1
+      130 MOVE                             R25 R26
+      131 CALL                             R23 2 1
+      132 SETTABLEKS                       R23 R22 K15 ["uri"]
+      134 GETTABLEKS                       R23 R15 K33 ["label"]
+      136 SETTABLEKS                       R23 R22 K27 ["text"]
+      138 NEWCLOSURE                       R23 P2
+      139 CAPTURE                          VAL R15
+      140 CAPTURE                          VAL R12
+      141 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      143 JUMP                             ; [+1]
+      144 LOADNIL                          R22
+      145 SETTABLEKS                       R22 R21 K20 ["primaryAction"]
+      147 JUMPIFEQKNIL                     R16 ; [+26]
+      149 DUPTABLE                         R22 K29 [{"uri", "text", "onActivated"}]
+      150 GETUPVAL                         R23 7
+      151 GETTABLEKS                       R23 R23 K30 ["child"]
+      153 GETTABLEKS                       R24 R0 K15 ["uri"]
+      155 LOADK                            R26 K34 ["%*/Secondary"]
+      156 MOVE                             R28 R18
+      157 NAMECALL                         R26 R26 K32 ["format"]
+      159 CALL                             R26 2 1
+      160 MOVE                             R25 R26
+      161 CALL                             R23 2 1
+      162 SETTABLEKS                       R23 R22 K15 ["uri"]
+      164 GETTABLEKS                       R23 R16 K33 ["label"]
+      166 SETTABLEKS                       R23 R22 K27 ["text"]
+      168 NEWCLOSURE                       R23 P3
+      169 CAPTURE                          VAL R16
+      170 CAPTURE                          VAL R12
+      171 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      173 JUMP                             ; [+1]
+      174 LOADNIL                          R22
+      175 SETTABLEKS                       R22 R21 K21 ["secondaryAction"]
+      177 GETUPVAL                         R23 8
+      178 CALL                             R23 0 1
+      179 JUMPIFNOT                        R23 ; [+33]
+      180 JUMPIFNOT                        R17 ; [+32]
+      181 DUPTABLE                         R22 K36 [{"uri", "text", "disabled", "onActivated"}]
+      182 GETUPVAL                         R23 7
+      183 GETTABLEKS                       R23 R23 K30 ["child"]
+      185 GETTABLEKS                       R24 R0 K15 ["uri"]
+      187 LOADK                            R26 K37 ["%*/Tertiary"]
+      188 MOVE                             R28 R18
+      189 NAMECALL                         R26 R26 K32 ["format"]
+      191 CALL                             R26 2 1
+      192 MOVE                             R25 R26
+      193 CALL                             R23 2 1
+      194 SETTABLEKS                       R23 R22 K15 ["uri"]
+      196 LOADK                            R25 K38 ["DialogButton"]
+      197 LOADK                            R26 K39 ["RemindMeLater"]
+      198 NAMECALL                         R23 R2 K40 ["getText"]
+      200 CALL                             R23 3 1
+      201 SETTABLEKS                       R23 R22 K27 ["text"]
+      203 NOT                              R23 R7
+      204 SETTABLEKS                       R23 R22 K35 ["disabled"]
+      206 NEWCLOSURE                       R23 P4
+      207 CAPTURE                          VAL R5
+      208 CAPTURE                          VAL R0
+      209 CAPTURE                          VAL R12
+      210 SETTABLEKS                       R23 R22 K28 ["onActivated"]
+      212 JUMP                             ; [+1]
+      213 LOADNIL                          R22
+      214 SETTABLEKS                       R22 R21 K22 ["tertiaryAction"]
+      216 GETUPVAL                         R23 9
+      217 CALL                             R23 0 1
+      218 JUMPIFNOT                        R23 ; [+20]
+      219 DUPTABLE                         R22 K42 [{"uri", "onClose"}]
+      220 GETUPVAL                         R23 7
+      221 GETTABLEKS                       R23 R23 K30 ["child"]
+      223 GETTABLEKS                       R24 R0 K15 ["uri"]
+      225 LOADK                            R26 K43 ["%*/Escape"]
+      226 MOVE                             R28 R18
+      227 NAMECALL                         R26 R26 K32 ["format"]
+      229 CALL                             R26 2 1
+      230 MOVE                             R25 R26
+      231 CALL                             R23 2 1
+      232 SETTABLEKS                       R23 R22 K15 ["uri"]
+      234 NEWCLOSURE                       R23 P5
+      235 CAPTURE                          VAL R12
+      236 SETTABLEKS                       R23 R22 K41 ["onClose"]
+      238 JUMP                             ; [+1]
+      239 LOADNIL                          R22
+      240 SETTABLEKS                       R22 R21 K23 ["escapeAction"]
+      242 DUPTABLE                         R22 K45 [{"Checkbox"}]
+      243 GETUPVAL                         R24 8
+      244 CALL                             R24 0 1
+      245 JUMPIFNOT                        R24 ; [+29]
+      246 JUMPIFNOT                        R17 ; [+28]
+      247 GETUPVAL                         R23 5
+      248 GETUPVAL                         R24 10
+      249 DUPTABLE                         R25 K51 [{["label"], ["isChecked"], ["onActivated"], ["size"], ["testId"] = "--safety-dialog-checkbox", ["LayoutOrder"]}]
+      250 LOADK                            R28 K52 ["Safety"]
+      251 LOADK                            R29 K53 ["EnforcementDateAcknowledgement"]
+      252 NAMECALL                         R26 R2 K40 ["getText"]
+      254 CALL                             R26 3 1
+      255 SETTABLEKS                       R26 R25 K33 ["label"]
+      257 SETTABLEKS                       R7 R25 K46 ["isChecked"]
+      259 NEWCLOSURE                       R26 P6
+      260 CAPTURE                          VAL R8
+      261 CAPTURE                          VAL R7
+      262 SETTABLEKS                       R26 R25 K28 ["onActivated"]
+      264 GETUPVAL                         R26 11
+      265 GETTABLEKS                       R26 R26 K54 ["Small"]
+      267 SETTABLEKS                       R26 R25 K47 ["size"]
+      269 MOVE                             R26 R3
+      270 CALL                             R26 0 1
+      271 SETTABLEKS                       R26 R25 K50 ["LayoutOrder"]
+      273 CALL                             R23 2 1
+      274 JUMP                             ; [+1]
+      275 LOADNIL                          R23
+      276 SETTABLEKS                       R23 R22 K44 ["Checkbox"]
+      278 CALL                             R19 3 -1
+      279 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -802,68 +764,41 @@ MAIN:
       124 GETTABLEKS                       R20 R20 K24 ["Flags"]
       126 GETTABLEKS                       R20 R20 K30 ["getFStringStudioSafetyVerifyAgeUrlPath"]
       128 CALL                             R19 1 1
-      129 DUPTABLE                         R20 K44 [{"INVALID", "NOTAGEVERIFIED", "OUTSIDEAGEBUCKET", "PCBLOCK", "OUTSIDEOWNERAGEBUCKET", "TOOMANYCOLLABORATORS", "OCCRETRIESEXHAUSTED", "PARENTALCONSENTBLOCK", "ERROR", "OWNERNOTAGEVERIFIED", "OUTSIDEAGEBUCKETTCPC", "OTHERCOLLABORATORSETTINGSPREVENTTRUST", "AGEVERIFICATIONCOUNTRYBLOCKED"}]
-      130 LOADK                            R21 K45 ["Invalid"]
-      131 SETTABLEKS                       R21 R20 K31 ["INVALID"]
-      133 LOADK                            R21 K46 ["NotAgeVerified"]
-      134 SETTABLEKS                       R21 R20 K32 ["NOTAGEVERIFIED"]
-      136 LOADK                            R21 K47 ["OutsideAgeBucket"]
-      137 SETTABLEKS                       R21 R20 K33 ["OUTSIDEAGEBUCKET"]
-      139 LOADK                            R21 K48 ["PcBlock"]
-      140 SETTABLEKS                       R21 R20 K34 ["PCBLOCK"]
-      142 LOADK                            R21 K49 ["OutsideOwnerAgeBucket"]
-      143 SETTABLEKS                       R21 R20 K35 ["OUTSIDEOWNERAGEBUCKET"]
-      145 LOADK                            R21 K50 ["TooManyCollaborators"]
-      146 SETTABLEKS                       R21 R20 K36 ["TOOMANYCOLLABORATORS"]
-      148 LOADK                            R21 K51 ["OccRetriesExhausted"]
-      149 SETTABLEKS                       R21 R20 K37 ["OCCRETRIESEXHAUSTED"]
-      151 LOADK                            R21 K52 ["ParentalConsentBlock"]
-      152 SETTABLEKS                       R21 R20 K38 ["PARENTALCONSENTBLOCK"]
-      154 LOADK                            R21 K53 ["Error"]
-      155 SETTABLEKS                       R21 R20 K39 ["ERROR"]
-      157 LOADK                            R21 K54 ["OwnerNotAgeVerified"]
-      158 SETTABLEKS                       R21 R20 K40 ["OWNERNOTAGEVERIFIED"]
-      160 LOADK                            R21 K55 ["OutsideAgeBucketTcPc"]
-      161 SETTABLEKS                       R21 R20 K41 ["OUTSIDEAGEBUCKETTCPC"]
-      163 LOADK                            R21 K56 ["OtherCollaboratorSettingsPreventTrust"]
-      164 SETTABLEKS                       R21 R20 K42 ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"]
-      166 LOADK                            R21 K57 ["AgeVerificationCountryBlocked"]
-      167 SETTABLEKS                       R21 R20 K43 ["AGEVERIFICATIONCOUNTRYBLOCKED"]
-      169 DUPCLOSURE                       R21 K58 [PROTO_5]
-      170 CAPTURE                          VAL R9
-      171 CAPTURE                          VAL R19
-      172 CAPTURE                          VAL R17
-      173 CAPTURE                          VAL R18
-      174 CAPTURE                          VAL R20
-      175 CAPTURE                          VAL R16
-      176 DUPCLOSURE                       R22 K59 [PROTO_13]
-      177 CAPTURE                          VAL R7
-      178 CAPTURE                          VAL R8
-      179 CAPTURE                          VAL R10
-      180 CAPTURE                          VAL R4
-      181 CAPTURE                          VAL R21
-      182 CAPTURE                          VAL R11
-      183 CAPTURE                          VAL R1
-      184 CAPTURE                          VAL R9
-      185 CAPTURE                          VAL R16
-      186 CAPTURE                          VAL R14
-      187 CAPTURE                          VAL R12
-      188 CAPTURE                          VAL R13
-      189 MOVE                             R24 R15
-      190 CALL                             R24 0 1
-      191 JUMPIFNOT                        R24 ; [+18]
-      192 GETIMPORT                        R23 K62 [table.freeze]
-      194 DUPTABLE                         R24 K65 [{"uri", "component"}]
-      195 GETTABLEKS                       R25 R9 K66 ["fromWidget"]
-      197 LOADK                            R26 K67 ["Safety"]
-      198 LOADK                            R27 K68 ["AgeGatingDialog"]
-      199 CALL                             R25 2 1
-      200 SETTABLEKS                       R25 R24 K63 ["uri"]
-      202 GETTABLEKS                       R25 R4 K69 ["memo"]
-      204 MOVE                             R26 R22
-      205 CALL                             R25 1 1
-      206 SETTABLEKS                       R25 R24 K64 ["component"]
-      208 CALL                             R23 1 1
-      209 RETURN                           R23 1
-      210 LOADNIL                          R23
-      211 RETURN                           R23 1
+      129 DUPTABLE                         R20 K57 [{["INVALID"] = "Invalid", ["NOTAGEVERIFIED"] = "NotAgeVerified", ["OUTSIDEAGEBUCKET"] = "OutsideAgeBucket", ["PCBLOCK"] = "PcBlock", ["OUTSIDEOWNERAGEBUCKET"] = "OutsideOwnerAgeBucket", ["TOOMANYCOLLABORATORS"] = "TooManyCollaborators", ["OCCRETRIESEXHAUSTED"] = "OccRetriesExhausted", ["PARENTALCONSENTBLOCK"] = "ParentalConsentBlock", ["ERROR"] = "Error", ["OWNERNOTAGEVERIFIED"] = "OwnerNotAgeVerified", ["OUTSIDEAGEBUCKETTCPC"] = "OutsideAgeBucketTcPc", ["OTHERCOLLABORATORSETTINGSPREVENTTRUST"] = "OtherCollaboratorSettingsPreventTrust", ["AGEVERIFICATIONCOUNTRYBLOCKED"] = "AgeVerificationCountryBlocked"}]
+      130 DUPCLOSURE                       R21 K58 [PROTO_5]
+      131 CAPTURE                          VAL R9
+      132 CAPTURE                          VAL R19
+      133 CAPTURE                          VAL R17
+      134 CAPTURE                          VAL R18
+      135 CAPTURE                          VAL R16
+      136 DUPCLOSURE                       R22 K59 [PROTO_13]
+      137 CAPTURE                          VAL R7
+      138 CAPTURE                          VAL R8
+      139 CAPTURE                          VAL R10
+      140 CAPTURE                          VAL R4
+      141 CAPTURE                          VAL R21
+      142 CAPTURE                          VAL R11
+      143 CAPTURE                          VAL R1
+      144 CAPTURE                          VAL R9
+      145 CAPTURE                          VAL R16
+      146 CAPTURE                          VAL R14
+      147 CAPTURE                          VAL R12
+      148 CAPTURE                          VAL R13
+      149 MOVE                             R24 R15
+      150 CALL                             R24 0 1
+      151 JUMPIFNOT                        R24 ; [+18]
+      152 GETIMPORT                        R23 K62 [table.freeze]
+      154 DUPTABLE                         R24 K65 [{"uri", "component"}]
+      155 GETTABLEKS                       R25 R9 K66 ["fromWidget"]
+      157 LOADK                            R26 K67 ["Safety"]
+      158 LOADK                            R27 K68 ["AgeGatingDialog"]
+      159 CALL                             R25 2 1
+      160 SETTABLEKS                       R25 R24 K63 ["uri"]
+      162 GETTABLEKS                       R25 R4 K69 ["memo"]
+      164 MOVE                             R26 R22
+      165 CALL                             R25 1 1
+      166 SETTABLEKS                       R25 R24 K64 ["component"]
+      168 CALL                             R23 1 1
+      169 RETURN                           R23 1
+      170 LOADNIL                          R23
+      171 RETURN                           R23 1

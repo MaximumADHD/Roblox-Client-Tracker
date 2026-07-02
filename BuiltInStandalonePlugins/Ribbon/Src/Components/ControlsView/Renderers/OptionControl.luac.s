@@ -313,19 +313,13 @@ MAIN:
        82 GETTABLEKS                       R13 R0 K12 ["Src"]
        84 GETTABLEKS                       R13 R13 K22 ["Types"]
        86 CALL                             R12 1 1
-       87 DUPTABLE                         R13 K26 [{"Enabled", "Icon", "Visible"}]
-       88 LOADB                            R14 1
-       89 SETTABLEKS                       R14 R13 K23 ["Enabled"]
-       91 LOADNIL                          R14
-       92 SETTABLEKS                       R14 R13 K24 ["Icon"]
-       94 LOADB                            R14 1
-       95 SETTABLEKS                       R14 R13 K25 ["Visible"]
-       97 DUPCLOSURE                       R14 K27 [PROTO_1]
-       98 CAPTURE                          VAL R10
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R13
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R5
-      104 CAPTURE                          VAL R6
-      105 RETURN                           R14 1
+       87 DUPTABLE                         R13 K28 [{["Enabled"] = True, ["Icon"] = , ["Visible"] = True}]
+       88 DUPCLOSURE                       R14 K29 [PROTO_1]
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R13
+       92 CAPTURE                          VAL R7
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R5
+       95 CAPTURE                          VAL R6
+       96 RETURN                           R14 1

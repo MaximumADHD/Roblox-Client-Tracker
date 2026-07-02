@@ -1,20 +1,16 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovering"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovering"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isHovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
@@ -40,23 +36,21 @@ PROTO_3:
        11 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K1 [{"isHovering"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isHovering"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onMouseEnter"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onMouseLeave"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K5 ["onInputBegan"]
-       18 NEWCLOSURE                       R1 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R1 R0 K6 ["onToggle"]
-       22 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onMouseEnter"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onMouseLeave"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["onInputBegan"]
+       15 NEWCLOSURE                       R1 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K7 ["onToggle"]
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -225,9 +219,9 @@ PROTO_5:
       242 SETTABLEKS                       R27 R26 K37 ["Position"]
       244 GETIMPORT                        R27 K20 [UDim2.new]
       246 LOADN                            R28 1
-      247 SUBRK                            R29 R75 K15 ["Indent"]
+      247 SUBRK                            R29 K75 [-5] R15
       248 LOADN                            R30 1
-      249 LOADN                            R31 252
+      249 LOADN                            R31 -4
       250 CALL                             R27 4 1
       251 SETTABLEKS                       R27 R26 K23 ["Size"]
       253 GETIMPORT                        R27 K77 [Enum.TextTruncate.AtEnd]
@@ -285,9 +279,9 @@ PROTO_5:
       326 SETTABLEKS                       R27 R26 K37 ["Position"]
       328 GETIMPORT                        R27 K20 [UDim2.new]
       330 LOADN                            R28 1
-      331 LOADN                            R29 246
+      331 LOADN                            R29 -10
       332 LOADN                            R30 1
-      333 LOADN                            R31 252
+      333 LOADN                            R31 -4
       334 CALL                             R27 4 1
       335 SETTABLEKS                       R27 R26 K23 ["Size"]
       337 GETIMPORT                        R27 K77 [Enum.TextTruncate.AtEnd]

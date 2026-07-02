@@ -2,44 +2,30 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K3 [{"LayoutOrder", "tag"}]
+        4 DUPTABLE                         R3 K4 [{["LayoutOrder"], ["tag"] = "row align-x-left align-y-center gap-medium auto-xy padding-medium radius-medium"}]
         5 GETTABLEKS                       R4 R0 K1 ["LayoutOrder"]
         7 SETTABLEKS                       R4 R3 K1 ["LayoutOrder"]
-        9 LOADK                            R4 K4 ["row align-x-left align-y-center radius-medium padding-medium gap-medium auto-xy"]
-       10 SETTABLEKS                       R4 R3 K2 ["tag"]
-       12 DUPTABLE                         R4 K7 [{"Image", "Text"}]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       16 GETUPVAL                         R6 2
-       17 DUPTABLE                         R7 K8 [{"LayoutOrder", "Image", "tag"}]
-       18 LOADN                            R8 1
-       19 SETTABLEKS                       R8 R7 K1 ["LayoutOrder"]
-       21 LOADK                            R8 K9 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/StudioLogo.png"]
-       22 SETTABLEKS                       R8 R7 K5 ["Image"]
-       24 LOADK                            R8 K10 ["size-600 content-default"]
-       25 SETTABLEKS                       R8 R7 K2 ["tag"]
-       27 CALL                             R5 2 1
-       28 SETTABLEKS                       R5 R4 K5 ["Image"]
-       30 GETTABLEKS                       R6 R0 K11 ["isCollapsed"]
-       32 JUMPIFNOT                        R6 ; [+2]
-       33 LOADNIL                          R5
-       34 JUMP                             ; [+18]
-       35 GETUPVAL                         R5 0
-       36 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       38 GETUPVAL                         R6 2
-       39 DUPTABLE                         R7 K13 [{"Size", "LayoutOrder", "Image", "tag"}]
-       40 GETUPVAL                         R8 3
-       41 SETTABLEKS                       R8 R7 K12 ["Size"]
-       43 LOADN                            R8 2
-       44 SETTABLEKS                       R8 R7 K1 ["LayoutOrder"]
-       46 LOADK                            R8 K14 ["rbxasset://textures/StartPage/RobloxStudioLockup.png"]
-       47 SETTABLEKS                       R8 R7 K5 ["Image"]
-       49 LOADK                            R8 K15 ["content-default"]
-       50 SETTABLEKS                       R8 R7 K2 ["tag"]
-       52 CALL                             R5 2 1
-       53 SETTABLEKS                       R5 R4 K6 ["Text"]
-       55 CALL                             R1 3 -1
-       56 RETURN                           R1 -1
+        9 DUPTABLE                         R4 K7 [{"Image", "Text"}]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       13 GETUPVAL                         R6 2
+       14 DUPTABLE                         R7 K11 [{["LayoutOrder"] = 1, ["Image"] = "rbxasset://studio_svg_textures/Lua/StartPage/Dark/Medium/StudioLogo.png", ["tag"] = "size-600 content-default"}]
+       15 CALL                             R5 2 1
+       16 SETTABLEKS                       R5 R4 K5 ["Image"]
+       18 GETTABLEKS                       R6 R0 K12 ["isCollapsed"]
+       20 JUMPIFNOT                        R6 ; [+2]
+       21 LOADNIL                          R5
+       22 JUMP                             ; [+9]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       26 GETUPVAL                         R6 2
+       27 DUPTABLE                         R7 K17 [{["Size"], ["LayoutOrder"] = 2, ["Image"] = "rbxasset://textures/StartPage/RobloxStudioLockup.png", ["tag"] = "content-default"}]
+       28 GETUPVAL                         R8 3
+       29 SETTABLEKS                       R8 R7 K13 ["Size"]
+       31 CALL                             R5 2 1
+       32 SETTABLEKS                       R5 R4 K6 ["Text"]
+       34 CALL                             R1 3 -1
+       35 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -56,121 +42,113 @@ PROTO_2:
         5 CALL                             R2 1 1
         6 DUPTABLE                         R3 K3 [{"StudioLogo", "NewButton"}]
         7 GETUPVAL                         R5 2
-        8 JUMPIFNOT                        R5 ; [+14]
+        8 JUMPIFNOT                        R5 ; [+11]
         9 GETUPVAL                         R4 3
        10 GETTABLEKS                       R4 R4 K4 ["createElement"]
        12 GETUPVAL                         R5 4
-       13 DUPTABLE                         R6 K7 [{"LayoutOrder", "isCollapsed"}]
-       14 LOADN                            R7 1
-       15 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
-       17 GETTABLEKS                       R7 R0 K6 ["isCollapsed"]
-       19 SETTABLEKS                       R7 R6 K6 ["isCollapsed"]
-       21 CALL                             R4 2 1
-       22 JUMP                             ; [+1]
-       23 LOADNIL                          R4
-       24 SETTABLEKS                       R4 R3 K1 ["StudioLogo"]
-       26 GETUPVAL                         R4 3
-       27 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       29 GETUPVAL                         R5 5
-       30 DUPTABLE                         R6 K7 [{"LayoutOrder", "isCollapsed"}]
-       31 LOADN                            R7 2
-       32 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
-       34 GETTABLEKS                       R7 R0 K6 ["isCollapsed"]
-       36 SETTABLEKS                       R7 R6 K6 ["isCollapsed"]
-       38 CALL                             R4 2 1
-       39 SETTABLEKS                       R4 R3 K2 ["NewButton"]
-       41 GETTABLEKS                       R4 R0 K8 ["pages"]
-       43 LOADNIL                          R5
-       44 LOADNIL                          R6
-       45 FORGPREP                         R4
-       46 GETTABLEKS                       R10 R0 K9 ["selectedPage"]
-       48 JUMPIFEQ                         R10 R8 ; [+2]
-       50 LOADB                            R9 0 +1
-       51 LOADB                            R9 1
-       52 MOVE                             R11 R3
-       53 GETUPVAL                         R12 3
-       54 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       56 GETUPVAL                         R13 6
-       57 DUPTABLE                         R14 K14 [{"LayoutOrder", "onActivated", "isActive", "icon", "isCollapsed", "text"}]
-       58 ADDK                             R15 R7 K15 [2]
-       59 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
-       61 NEWCLOSURE                       R15 P0
-       62 CAPTURE                          VAL R0
-       63 CAPTURE                          VAL R8
-       64 SETTABLEKS                       R15 R14 K10 ["onActivated"]
-       66 SETTABLEKS                       R9 R14 K11 ["isActive"]
-       68 JUMPIFNOT                        R9 ; [+3]
-       69 GETTABLEKS                       R15 R8 K16 ["ActiveIcon"]
-       71 JUMP                             ; [+2]
-       72 GETTABLEKS                       R15 R8 K17 ["Icon"]
-       74 SETTABLEKS                       R15 R14 K12 ["icon"]
-       76 GETTABLEKS                       R15 R0 K6 ["isCollapsed"]
-       78 SETTABLEKS                       R15 R14 K6 ["isCollapsed"]
-       80 LOADK                            R17 K18 ["Plugin"]
-       81 GETTABLEKS                       R18 R8 K19 ["TextKey"]
-       83 NAMECALL                         R15 R2 K20 ["getText"]
-       85 CALL                             R15 3 1
-       86 SETTABLEKS                       R15 R14 K13 ["text"]
-       88 CALL                             R12 2 -1
-       89 FASTCALL                         TABLE_INSERT ; [+2]
-       90 GETIMPORT                        R10 K23 [table.insert]
-       92 CALL                             R10 -1 0
-       93 FORGLOOP                         R4 2 ; [-48]
-       95 GETUPVAL                         R4 3
-       96 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       98 GETUPVAL                         R5 7
-       99 DUPTABLE                         R6 K26 [{"Size", "tag"}]
-      100 GETTABLEKS                       R8 R0 K6 ["isCollapsed"]
-      102 JUMPIFNOT                        R8 ; [+2]
-      103 GETUPVAL                         R7 8
-      104 JUMP                             ; [+1]
-      105 GETUPVAL                         R7 9
-      106 SETTABLEKS                       R7 R6 K24 ["Size"]
-      108 LOADK                            R7 K27 ["padding-medium col auto-x flex-x-fill"]
-      109 SETTABLEKS                       R7 R6 K25 ["tag"]
-      111 DUPTABLE                         R7 K30 [{"TopGroup", "Collapse"}]
-      112 GETUPVAL                         R8 3
-      113 GETTABLEKS                       R8 R8 K4 ["createElement"]
-      115 GETUPVAL                         R9 7
-      116 DUPTABLE                         R10 K31 [{"LayoutOrder", "tag"}]
-      117 MOVE                             R11 R1
-      118 CALL                             R11 0 1
-      119 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-      121 LOADK                            R11 K32 ["col gap-small grow flex-x-fill auto-xy"]
-      122 SETTABLEKS                       R11 R10 K25 ["tag"]
-      124 MOVE                             R11 R3
-      125 CALL                             R8 3 1
-      126 SETTABLEKS                       R8 R7 K28 ["TopGroup"]
-      128 GETUPVAL                         R8 3
-      129 GETTABLEKS                       R8 R8 K4 ["createElement"]
-      131 GETUPVAL                         R9 6
-      132 DUPTABLE                         R10 K33 [{"LayoutOrder", "icon", "onActivated", "text", "isCollapsed"}]
-      133 MOVE                             R11 R1
-      134 CALL                             R11 0 1
-      135 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-      137 GETTABLEKS                       R12 R0 K6 ["isCollapsed"]
-      139 JUMPIFNOT                        R12 ; [+2]
-      140 LOADK                            R11 K34 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarOpen.png"]
-      141 JUMP                             ; [+1]
-      142 LOADK                            R11 K35 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarCollapse.png"]
-      143 SETTABLEKS                       R11 R10 K12 ["icon"]
-      145 GETTABLEKS                       R11 R0 K36 ["toggleIsCollapsed"]
-      147 SETTABLEKS                       R11 R10 K10 ["onActivated"]
-      149 LOADK                            R13 K18 ["Plugin"]
-      150 GETTABLEKS                       R15 R0 K6 ["isCollapsed"]
-      152 JUMPIFNOT                        R15 ; [+2]
-      153 LOADK                            R14 K37 ["PageMenu.Open"]
-      154 JUMP                             ; [+1]
-      155 LOADK                            R14 K38 ["PageMenu.Hide"]
-      156 NAMECALL                         R11 R2 K20 ["getText"]
-      158 CALL                             R11 3 1
-      159 SETTABLEKS                       R11 R10 K13 ["text"]
-      161 GETTABLEKS                       R11 R0 K6 ["isCollapsed"]
-      163 SETTABLEKS                       R11 R10 K6 ["isCollapsed"]
-      165 CALL                             R8 2 1
-      166 SETTABLEKS                       R8 R7 K29 ["Collapse"]
-      168 CALL                             R4 3 -1
-      169 RETURN                           R4 -1
+       13 DUPTABLE                         R6 K8 [{["LayoutOrder"] = 1, ["isCollapsed"]}]
+       14 GETTABLEKS                       R7 R0 K7 ["isCollapsed"]
+       16 SETTABLEKS                       R7 R6 K7 ["isCollapsed"]
+       18 CALL                             R4 2 1
+       19 JUMP                             ; [+1]
+       20 LOADNIL                          R4
+       21 SETTABLEKS                       R4 R3 K1 ["StudioLogo"]
+       23 GETUPVAL                         R4 3
+       24 GETTABLEKS                       R4 R4 K4 ["createElement"]
+       26 GETUPVAL                         R5 5
+       27 DUPTABLE                         R6 K10 [{["LayoutOrder"] = 2, ["isCollapsed"]}]
+       28 GETTABLEKS                       R7 R0 K7 ["isCollapsed"]
+       30 SETTABLEKS                       R7 R6 K7 ["isCollapsed"]
+       32 CALL                             R4 2 1
+       33 SETTABLEKS                       R4 R3 K2 ["NewButton"]
+       35 GETTABLEKS                       R4 R0 K11 ["pages"]
+       37 LOADNIL                          R5
+       38 LOADNIL                          R6
+       39 FORGPREP                         R4
+       40 GETTABLEKS                       R10 R0 K12 ["selectedPage"]
+       42 JUMPIFEQ                         R10 R8 ; [+2]
+       44 LOADB                            R9 0 +1
+       45 LOADB                            R9 1
+       46 MOVE                             R11 R3
+       47 GETUPVAL                         R12 3
+       48 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       50 GETUPVAL                         R13 6
+       51 DUPTABLE                         R14 K17 [{"LayoutOrder", "onActivated", "isActive", "icon", "isCollapsed", "text"}]
+       52 ADDK                             R15 R7 K9 [2]
+       53 SETTABLEKS                       R15 R14 K5 ["LayoutOrder"]
+       55 NEWCLOSURE                       R15 P0
+       56 CAPTURE                          VAL R0
+       57 CAPTURE                          VAL R8
+       58 SETTABLEKS                       R15 R14 K13 ["onActivated"]
+       60 SETTABLEKS                       R9 R14 K14 ["isActive"]
+       62 JUMPIFNOT                        R9 ; [+3]
+       63 GETTABLEKS                       R15 R8 K18 ["ActiveIcon"]
+       65 JUMP                             ; [+2]
+       66 GETTABLEKS                       R15 R8 K19 ["Icon"]
+       68 SETTABLEKS                       R15 R14 K15 ["icon"]
+       70 GETTABLEKS                       R15 R0 K7 ["isCollapsed"]
+       72 SETTABLEKS                       R15 R14 K7 ["isCollapsed"]
+       74 LOADK                            R17 K20 ["Plugin"]
+       75 GETTABLEKS                       R18 R8 K21 ["TextKey"]
+       77 NAMECALL                         R15 R2 K22 ["getText"]
+       79 CALL                             R15 3 1
+       80 SETTABLEKS                       R15 R14 K16 ["text"]
+       82 CALL                             R12 2 -1
+       83 FASTCALL                         TABLE_INSERT ; [+2]
+       84 GETIMPORT                        R10 K25 [table.insert]
+       86 CALL                             R10 -1 0
+       87 FORGLOOP                         R4 2 ; [-48]
+       89 GETUPVAL                         R4 3
+       90 GETTABLEKS                       R4 R4 K4 ["createElement"]
+       92 GETUPVAL                         R5 7
+       93 DUPTABLE                         R6 K29 [{["Size"], ["tag"] = "col flex-x-fill auto-x padding-medium"}]
+       94 GETTABLEKS                       R8 R0 K7 ["isCollapsed"]
+       96 JUMPIFNOT                        R8 ; [+2]
+       97 GETUPVAL                         R7 8
+       98 JUMP                             ; [+1]
+       99 GETUPVAL                         R7 9
+      100 SETTABLEKS                       R7 R6 K26 ["Size"]
+      102 DUPTABLE                         R7 K32 [{"TopGroup", "Collapse"}]
+      103 GETUPVAL                         R8 3
+      104 GETTABLEKS                       R8 R8 K4 ["createElement"]
+      106 GETUPVAL                         R9 7
+      107 DUPTABLE                         R10 K34 [{["LayoutOrder"], ["tag"] = "col flex-x-fill grow gap-small auto-xy"}]
+      108 MOVE                             R11 R1
+      109 CALL                             R11 0 1
+      110 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
+      112 MOVE                             R11 R3
+      113 CALL                             R8 3 1
+      114 SETTABLEKS                       R8 R7 K30 ["TopGroup"]
+      116 GETUPVAL                         R8 3
+      117 GETTABLEKS                       R8 R8 K4 ["createElement"]
+      119 GETUPVAL                         R9 6
+      120 DUPTABLE                         R10 K35 [{"LayoutOrder", "icon", "onActivated", "text", "isCollapsed"}]
+      121 MOVE                             R11 R1
+      122 CALL                             R11 0 1
+      123 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
+      125 GETTABLEKS                       R12 R0 K7 ["isCollapsed"]
+      127 JUMPIFNOT                        R12 ; [+2]
+      128 LOADK                            R11 K36 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarOpen.png"]
+      129 JUMP                             ; [+1]
+      130 LOADK                            R11 K37 ["rbxasset://studio_svg_textures/Lua/StartPage/Dark/Large/SidebarCollapse.png"]
+      131 SETTABLEKS                       R11 R10 K15 ["icon"]
+      133 GETTABLEKS                       R11 R0 K38 ["toggleIsCollapsed"]
+      135 SETTABLEKS                       R11 R10 K13 ["onActivated"]
+      137 LOADK                            R13 K20 ["Plugin"]
+      138 GETTABLEKS                       R15 R0 K7 ["isCollapsed"]
+      140 JUMPIFNOT                        R15 ; [+2]
+      141 LOADK                            R14 K39 ["PageMenu.Open"]
+      142 JUMP                             ; [+1]
+      143 LOADK                            R14 K40 ["PageMenu.Hide"]
+      144 NAMECALL                         R11 R2 K22 ["getText"]
+      146 CALL                             R11 3 1
+      147 SETTABLEKS                       R11 R10 K16 ["text"]
+      149 GETTABLEKS                       R11 R0 K7 ["isCollapsed"]
+      151 SETTABLEKS                       R11 R10 K7 ["isCollapsed"]
+      153 CALL                             R8 2 1
+      154 SETTABLEKS                       R8 R7 K31 ["Collapse"]
+      156 CALL                             R4 3 -1
+      157 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

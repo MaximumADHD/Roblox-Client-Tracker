@@ -18,43 +18,39 @@ PROTO_0:
        28 GETUPVAL                         R15 1
        29 GETTABLEKS                       R15 R15 K9 ["createElement"]
        31 GETUPVAL                         R16 2
-       32 DUPTABLE                         R17 K15 [{"Adornee", "AlwaysOnTop", "Color", "LineThickness", "Lines", "Scale", "Size", "Transform", "Transparency"}]
+       32 DUPTABLE                         R17 K16 [{[1], ["AlwaysOnTop"] = True, ["Color"], ["LineThickness"], ["Lines"], ["Scale"], ["Size"], ["Transform"], ["Transparency"]}]
        33 SETTABLEKS                       R1 R17 K0 ["Adornee"]
-       35 LOADB                            R18 1
-       36 SETTABLEKS                       R18 R17 K14 ["AlwaysOnTop"]
-       38 SETTABLEKS                       R2 R17 K1 ["Color"]
-       40 SETTABLEKS                       R3 R17 K2 ["LineThickness"]
-       42 SETTABLEKS                       R4 R17 K3 ["Lines"]
-       44 SETTABLEKS                       R5 R17 K4 ["Scale"]
-       46 SETTABLEKS                       R6 R17 K5 ["Size"]
-       48 SETTABLEKS                       R7 R17 K6 ["Transform"]
-       50 SETTABLEKS                       R8 R17 K7 ["Transparency"]
-       52 CALL                             R15 2 1
-       53 SETTABLEKS                       R15 R14 K11 ["OnTopBox"]
-       55 GETUPVAL                         R15 1
-       56 GETTABLEKS                       R15 R15 K9 ["createElement"]
-       58 GETUPVAL                         R16 2
-       59 DUPTABLE                         R17 K15 [{"Adornee", "AlwaysOnTop", "Color", "LineThickness", "Lines", "Scale", "Size", "Transform", "Transparency"}]
-       60 SETTABLEKS                       R1 R17 K0 ["Adornee"]
-       62 LOADB                            R18 0
-       63 SETTABLEKS                       R18 R17 K14 ["AlwaysOnTop"]
-       65 SETTABLEKS                       R2 R17 K1 ["Color"]
-       67 SETTABLEKS                       R3 R17 K2 ["LineThickness"]
-       69 SETTABLEKS                       R4 R17 K3 ["Lines"]
-       71 SETTABLEKS                       R5 R17 K4 ["Scale"]
-       73 SETTABLEKS                       R6 R17 K5 ["Size"]
-       75 SETTABLEKS                       R7 R17 K6 ["Transform"]
-       77 SETTABLEKS                       R8 R17 K7 ["Transparency"]
-       79 CALL                             R15 2 1
-       80 SETTABLEKS                       R15 R14 K12 ["InTopBox"]
-       82 CALL                             R11 3 1
-       83 SETTABLEKS                       R11 R10 K16 ["RegionVisual"]
-       85 GETIMPORT                        R11 K18 [game]
-       87 LOADK                            R13 K19 ["CoreGui"]
-       88 NAMECALL                         R11 R11 K20 ["GetService"]
-       90 CALL                             R11 2 -1
-       91 CALL                             R9 -1 -1
-       92 RETURN                           R9 -1
+       35 SETTABLEKS                       R2 R17 K1 ["Color"]
+       37 SETTABLEKS                       R3 R17 K2 ["LineThickness"]
+       39 SETTABLEKS                       R4 R17 K3 ["Lines"]
+       41 SETTABLEKS                       R5 R17 K4 ["Scale"]
+       43 SETTABLEKS                       R6 R17 K5 ["Size"]
+       45 SETTABLEKS                       R7 R17 K6 ["Transform"]
+       47 SETTABLEKS                       R8 R17 K7 ["Transparency"]
+       49 CALL                             R15 2 1
+       50 SETTABLEKS                       R15 R14 K11 ["OnTopBox"]
+       52 GETUPVAL                         R15 1
+       53 GETTABLEKS                       R15 R15 K9 ["createElement"]
+       55 GETUPVAL                         R16 2
+       56 DUPTABLE                         R17 K18 [{[1], ["AlwaysOnTop"] = False, ["Color"], ["LineThickness"], ["Lines"], ["Scale"], ["Size"], ["Transform"], ["Transparency"]}]
+       57 SETTABLEKS                       R1 R17 K0 ["Adornee"]
+       59 SETTABLEKS                       R2 R17 K1 ["Color"]
+       61 SETTABLEKS                       R3 R17 K2 ["LineThickness"]
+       63 SETTABLEKS                       R4 R17 K3 ["Lines"]
+       65 SETTABLEKS                       R5 R17 K4 ["Scale"]
+       67 SETTABLEKS                       R6 R17 K5 ["Size"]
+       69 SETTABLEKS                       R7 R17 K6 ["Transform"]
+       71 SETTABLEKS                       R8 R17 K7 ["Transparency"]
+       73 CALL                             R15 2 1
+       74 SETTABLEKS                       R15 R14 K12 ["InTopBox"]
+       76 CALL                             R11 3 1
+       77 SETTABLEKS                       R11 R10 K19 ["RegionVisual"]
+       79 GETIMPORT                        R11 K21 [game]
+       81 LOADK                            R13 K22 ["CoreGui"]
+       82 NAMECALL                         R11 R11 K23 ["GetService"]
+       84 CALL                             R11 2 -1
+       85 CALL                             R9 -1 -1
+       86 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

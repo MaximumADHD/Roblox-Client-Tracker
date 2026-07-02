@@ -49,32 +49,20 @@ PROTO_3:
         8 JUMPIF                           R3 ; [+9]
         9 GETUPVAL                         R3 0
        10 CALL                             R3 0 1
-       11 JUMPIF                           R3 ; [+17]
+       11 JUMPIF                           R3 ; [+8]
        12 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
        14 NAMECALL                         R3 R3 K2 ["isShiftKeyDown"]
        16 CALL                             R3 1 1
-       17 JUMPIFNOT                        R3 ; [+11]
-       18 DUPTABLE                         R3 K6 [{"X", "Y", "Z"}]
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K3 ["X"]
-       22 LOADB                            R4 1
-       23 SETTABLEKS                       R4 R3 K4 ["Y"]
-       25 LOADB                            R4 1
-       26 SETTABLEKS                       R4 R3 K5 ["Z"]
-       28 RETURN                           R3 1
-       29 NEWTABLE                         R3 0 3
-       31 DUPTABLE                         R4 K7 [{"X"}]
-       32 LOADB                            R5 1
-       33 SETTABLEKS                       R5 R4 K3 ["X"]
-       35 DUPTABLE                         R5 K8 [{"Y"}]
-       36 LOADB                            R6 1
-       37 SETTABLEKS                       R6 R5 K4 ["Y"]
-       39 DUPTABLE                         R6 K9 [{"Z"}]
-       40 LOADB                            R7 1
-       41 SETTABLEKS                       R7 R6 K5 ["Z"]
-       43 SETLIST                          R3 R4 3 [1]
-       45 GETTABLE                         R4 R3 R2
-       46 RETURN                           R4 1
+       17 JUMPIFNOT                        R3 ; [+2]
+       18 DUPTABLE                         R3 K7 [{["X"] = True, ["Y"] = True, ["Z"] = True}]
+       19 RETURN                           R3 1
+       20 NEWTABLE                         R3 0 3
+       22 DUPTABLE                         R4 K8 [{["X"] = True}]
+       23 DUPTABLE                         R5 K9 [{["Y"] = True}]
+       24 DUPTABLE                         R6 K10 [{["Z"] = True}]
+       25 SETLIST                          R3 R4 3 [1]
+       27 GETTABLE                         R4 R3 R2
+       28 RETURN                           R4 1
 
 PROTO_4:
         0 GETTABLEKS                       R5 R0 K1 ["_max"]

@@ -112,136 +112,116 @@ PROTO_3:
        18 GETUPVAL                         R10 0
        19 GETTABLEKS                       R10 R10 K9 ["createElement"]
        21 LOADK                            R11 K10 ["Frame"]
-       22 DUPTABLE                         R12 K14 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
-       23 LOADN                            R13 1
-       24 SETTABLEKS                       R13 R12 K11 ["BackgroundTransparency"]
-       26 GETIMPORT                        R13 K17 [UDim2.new]
-       28 LOADN                            R14 0
-       29 GETUPVAL                         R15 1
-       30 GETTABLEKS                       R15 R15 K18 ["TIME_DISPLAY_WIDTH"]
-       32 LOADN                            R16 1
-       33 LOADN                            R17 0
-       34 CALL                             R13 4 1
-       35 SETTABLEKS                       R13 R12 K12 ["Size"]
-       37 GETTABLEKS                       R13 R1 K13 ["LayoutOrder"]
-       39 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
-       41 DUPTABLE                         R13 K23 [{"Layout", "CurrentFrameBox", "DividerLabel", "EndFrameBox"}]
-       42 GETUPVAL                         R14 0
-       43 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       45 LOADK                            R15 K24 ["UIListLayout"]
-       46 DUPTABLE                         R16 K29 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
-       47 GETIMPORT                        R17 K32 [Enum.FillDirection.Horizontal]
-       49 SETTABLEKS                       R17 R16 K25 ["FillDirection"]
-       51 GETIMPORT                        R17 K34 [Enum.HorizontalAlignment.Left]
-       53 SETTABLEKS                       R17 R16 K26 ["HorizontalAlignment"]
-       55 GETIMPORT                        R17 K35 [Enum.SortOrder.LayoutOrder]
-       57 SETTABLEKS                       R17 R16 K27 ["SortOrder"]
-       59 GETIMPORT                        R17 K37 [Enum.VerticalAlignment.Center]
-       61 SETTABLEKS                       R17 R16 K28 ["VerticalAlignment"]
-       63 CALL                             R14 2 1
-       64 SETTABLEKS                       R14 R13 K19 ["Layout"]
-       66 GETUPVAL                         R14 0
-       67 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       69 GETUPVAL                         R15 2
-       70 DUPTABLE                         R16 K42 [{"Size", "Text", "TextXAlignment", "LayoutOrder", "ClearTextOnFocus", "FocusChanged"}]
-       71 GETIMPORT                        R17 K17 [UDim2.new]
-       73 LOADN                            R18 0
-       74 LOADN                            R19 40
-       75 LOADN                            R20 1
-       76 LOADN                            R21 250
-       77 CALL                             R17 4 1
-       78 SETTABLEKS                       R17 R16 K12 ["Size"]
-       80 GETUPVAL                         R17 3
-       81 GETTABLEKS                       R17 R17 K43 ["formatTime"]
-       83 MOVE                             R18 R4
-       84 MOVE                             R19 R6
-       85 MOVE                             R20 R3
-       86 CALL                             R17 3 1
-       87 SETTABLEKS                       R17 R16 K38 ["Text"]
-       89 GETIMPORT                        R17 K44 [Enum.TextXAlignment.Left]
-       91 SETTABLEKS                       R17 R16 K39 ["TextXAlignment"]
-       93 LOADN                            R17 0
-       94 SETTABLEKS                       R17 R16 K13 ["LayoutOrder"]
-       96 LOADB                            R17 0
-       97 SETTABLEKS                       R17 R16 K40 ["ClearTextOnFocus"]
-       99 GETTABLEKS                       R17 R0 K45 ["setCurrentTime"]
-      101 SETTABLEKS                       R17 R16 K41 ["FocusChanged"]
-      103 DUPTABLE                         R17 K47 [{"Tooltip"}]
-      104 GETUPVAL                         R18 0
-      105 GETTABLEKS                       R18 R18 K9 ["createElement"]
-      107 GETUPVAL                         R19 4
-      108 DUPTABLE                         R20 K49 [{"TextKey"}]
-      109 LOADK                            R21 K20 ["CurrentFrameBox"]
-      110 SETTABLEKS                       R21 R20 K48 ["TextKey"]
-      112 CALL                             R18 2 1
-      113 SETTABLEKS                       R18 R17 K46 ["Tooltip"]
-      115 CALL                             R14 3 1
-      116 SETTABLEKS                       R14 R13 K20 ["CurrentFrameBox"]
-      118 GETUPVAL                         R14 0
-      119 GETTABLEKS                       R14 R14 K9 ["createElement"]
-      121 LOADK                            R15 K50 ["TextLabel"]
-      122 DUPTABLE                         R16 K54 [{"Text", "TextSize", "Font", "Size", "BackgroundTransparency", "LayoutOrder", "TextColor3"}]
-      123 LOADK                            R17 K55 ["/"]
-      124 SETTABLEKS                       R17 R16 K38 ["Text"]
-      126 GETTABLEKS                       R17 R7 K56 ["textSize"]
-      128 SETTABLEKS                       R17 R16 K51 ["TextSize"]
-      130 GETTABLEKS                       R17 R2 K57 ["font"]
-      132 SETTABLEKS                       R17 R16 K52 ["Font"]
-      134 GETIMPORT                        R17 K17 [UDim2.new]
-      136 LOADN                            R18 0
-      137 LOADN                            R19 12
-      138 LOADN                            R20 1
-      139 LOADN                            R21 0
-      140 CALL                             R17 4 1
-      141 SETTABLEKS                       R17 R16 K12 ["Size"]
-      143 LOADN                            R17 1
-      144 SETTABLEKS                       R17 R16 K11 ["BackgroundTransparency"]
-      146 LOADN                            R17 1
-      147 SETTABLEKS                       R17 R16 K13 ["LayoutOrder"]
-      149 GETTABLEKS                       R17 R8 K58 ["iconColor"]
-      151 SETTABLEKS                       R17 R16 K53 ["TextColor3"]
-      153 CALL                             R14 2 1
-      154 SETTABLEKS                       R14 R13 K21 ["DividerLabel"]
-      156 GETUPVAL                         R14 0
-      157 GETTABLEKS                       R14 R14 K9 ["createElement"]
-      159 GETUPVAL                         R15 2
-      160 DUPTABLE                         R16 K59 [{"Size", "Text", "TextXAlignment", "LayoutOrder", "ClearTextOnFocus", "FocusChanged", "ReadOnly"}]
-      161 GETIMPORT                        R17 K17 [UDim2.new]
-      163 LOADN                            R18 0
-      164 LOADN                            R19 40
-      165 LOADN                            R20 1
-      166 LOADN                            R21 250
-      167 CALL                             R17 4 1
-      168 SETTABLEKS                       R17 R16 K12 ["Size"]
-      170 GETUPVAL                         R17 3
-      171 GETTABLEKS                       R17 R17 K43 ["formatTime"]
-      173 MOVE                             R18 R5
-      174 MOVE                             R19 R6
-      175 MOVE                             R20 R3
-      176 CALL                             R17 3 1
-      177 SETTABLEKS                       R17 R16 K38 ["Text"]
-      179 GETIMPORT                        R17 K44 [Enum.TextXAlignment.Left]
-      181 SETTABLEKS                       R17 R16 K39 ["TextXAlignment"]
-      183 LOADN                            R17 2
-      184 SETTABLEKS                       R17 R16 K13 ["LayoutOrder"]
-      186 LOADB                            R17 0
-      187 SETTABLEKS                       R17 R16 K40 ["ClearTextOnFocus"]
-      189 GETTABLEKS                       R17 R0 K60 ["setEndTime"]
-      191 SETTABLEKS                       R17 R16 K41 ["FocusChanged"]
-      193 SETTABLEKS                       R9 R16 K8 ["ReadOnly"]
-      195 DUPTABLE                         R17 K47 [{"Tooltip"}]
-      196 GETUPVAL                         R18 0
-      197 GETTABLEKS                       R18 R18 K9 ["createElement"]
-      199 GETUPVAL                         R19 4
-      200 DUPTABLE                         R20 K49 [{"TextKey"}]
-      201 LOADK                            R21 K22 ["EndFrameBox"]
-      202 SETTABLEKS                       R21 R20 K48 ["TextKey"]
-      204 CALL                             R18 2 1
-      205 SETTABLEKS                       R18 R17 K46 ["Tooltip"]
-      207 CALL                             R14 3 1
-      208 SETTABLEKS                       R14 R13 K22 ["EndFrameBox"]
-      210 CALL                             R10 3 -1
-      211 RETURN                           R10 -1
+       22 DUPTABLE                         R12 K15 [{["BackgroundTransparency"] = 1, ["Size"], ["LayoutOrder"]}]
+       23 GETIMPORT                        R13 K18 [UDim2.new]
+       25 LOADN                            R14 0
+       26 GETUPVAL                         R15 1
+       27 GETTABLEKS                       R15 R15 K19 ["TIME_DISPLAY_WIDTH"]
+       29 LOADN                            R16 1
+       30 LOADN                            R17 0
+       31 CALL                             R13 4 1
+       32 SETTABLEKS                       R13 R12 K13 ["Size"]
+       34 GETTABLEKS                       R13 R1 K14 ["LayoutOrder"]
+       36 SETTABLEKS                       R13 R12 K14 ["LayoutOrder"]
+       38 DUPTABLE                         R13 K24 [{"Layout", "CurrentFrameBox", "DividerLabel", "EndFrameBox"}]
+       39 GETUPVAL                         R14 0
+       40 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       42 LOADK                            R15 K25 ["UIListLayout"]
+       43 DUPTABLE                         R16 K30 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
+       44 GETIMPORT                        R17 K33 [Enum.FillDirection.Horizontal]
+       46 SETTABLEKS                       R17 R16 K26 ["FillDirection"]
+       48 GETIMPORT                        R17 K35 [Enum.HorizontalAlignment.Left]
+       50 SETTABLEKS                       R17 R16 K27 ["HorizontalAlignment"]
+       52 GETIMPORT                        R17 K36 [Enum.SortOrder.LayoutOrder]
+       54 SETTABLEKS                       R17 R16 K28 ["SortOrder"]
+       56 GETIMPORT                        R17 K38 [Enum.VerticalAlignment.Center]
+       58 SETTABLEKS                       R17 R16 K29 ["VerticalAlignment"]
+       60 CALL                             R14 2 1
+       61 SETTABLEKS                       R14 R13 K20 ["Layout"]
+       63 GETUPVAL                         R14 0
+       64 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       66 GETUPVAL                         R15 2
+       67 DUPTABLE                         R16 K45 [{["Size"], ["Text"], ["TextXAlignment"], ["LayoutOrder"] = 0, ["ClearTextOnFocus"] = False, ["FocusChanged"]}]
+       68 GETIMPORT                        R17 K18 [UDim2.new]
+       70 LOADN                            R18 0
+       71 LOADN                            R19 40
+       72 LOADN                            R20 1
+       73 LOADN                            R21 -6
+       74 CALL                             R17 4 1
+       75 SETTABLEKS                       R17 R16 K13 ["Size"]
+       77 GETUPVAL                         R17 3
+       78 GETTABLEKS                       R17 R17 K46 ["formatTime"]
+       80 MOVE                             R18 R4
+       81 MOVE                             R19 R6
+       82 MOVE                             R20 R3
+       83 CALL                             R17 3 1
+       84 SETTABLEKS                       R17 R16 K39 ["Text"]
+       86 GETIMPORT                        R17 K47 [Enum.TextXAlignment.Left]
+       88 SETTABLEKS                       R17 R16 K40 ["TextXAlignment"]
+       90 GETTABLEKS                       R17 R0 K48 ["setCurrentTime"]
+       92 SETTABLEKS                       R17 R16 K44 ["FocusChanged"]
+       94 DUPTABLE                         R17 K50 [{"Tooltip"}]
+       95 GETUPVAL                         R18 0
+       96 GETTABLEKS                       R18 R18 K9 ["createElement"]
+       98 GETUPVAL                         R19 4
+       99 DUPTABLE                         R20 K52 [{["TextKey"] = "CurrentFrameBox"}]
+      100 CALL                             R18 2 1
+      101 SETTABLEKS                       R18 R17 K49 ["Tooltip"]
+      103 CALL                             R14 3 1
+      104 SETTABLEKS                       R14 R13 K21 ["CurrentFrameBox"]
+      106 GETUPVAL                         R14 0
+      107 GETTABLEKS                       R14 R14 K9 ["createElement"]
+      109 LOADK                            R15 K53 ["TextLabel"]
+      110 DUPTABLE                         R16 K58 [{["Text"] = "/", ["TextSize"], ["Font"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["TextColor3"]}]
+      111 GETTABLEKS                       R17 R7 K59 ["textSize"]
+      113 SETTABLEKS                       R17 R16 K55 ["TextSize"]
+      115 GETTABLEKS                       R17 R2 K60 ["font"]
+      117 SETTABLEKS                       R17 R16 K56 ["Font"]
+      119 GETIMPORT                        R17 K18 [UDim2.new]
+      121 LOADN                            R18 0
+      122 LOADN                            R19 12
+      123 LOADN                            R20 1
+      124 LOADN                            R21 0
+      125 CALL                             R17 4 1
+      126 SETTABLEKS                       R17 R16 K13 ["Size"]
+      128 GETTABLEKS                       R17 R8 K61 ["iconColor"]
+      130 SETTABLEKS                       R17 R16 K57 ["TextColor3"]
+      132 CALL                             R14 2 1
+      133 SETTABLEKS                       R14 R13 K22 ["DividerLabel"]
+      135 GETUPVAL                         R14 0
+      136 GETTABLEKS                       R14 R14 K9 ["createElement"]
+      138 GETUPVAL                         R15 2
+      139 DUPTABLE                         R16 K63 [{["Size"], ["Text"], ["TextXAlignment"], ["LayoutOrder"] = 2, ["ClearTextOnFocus"] = False, ["FocusChanged"], ["ReadOnly"]}]
+      140 GETIMPORT                        R17 K18 [UDim2.new]
+      142 LOADN                            R18 0
+      143 LOADN                            R19 40
+      144 LOADN                            R20 1
+      145 LOADN                            R21 -6
+      146 CALL                             R17 4 1
+      147 SETTABLEKS                       R17 R16 K13 ["Size"]
+      149 GETUPVAL                         R17 3
+      150 GETTABLEKS                       R17 R17 K46 ["formatTime"]
+      152 MOVE                             R18 R5
+      153 MOVE                             R19 R6
+      154 MOVE                             R20 R3
+      155 CALL                             R17 3 1
+      156 SETTABLEKS                       R17 R16 K39 ["Text"]
+      158 GETIMPORT                        R17 K47 [Enum.TextXAlignment.Left]
+      160 SETTABLEKS                       R17 R16 K40 ["TextXAlignment"]
+      162 GETTABLEKS                       R17 R0 K64 ["setEndTime"]
+      164 SETTABLEKS                       R17 R16 K44 ["FocusChanged"]
+      166 SETTABLEKS                       R9 R16 K8 ["ReadOnly"]
+      168 DUPTABLE                         R17 K50 [{"Tooltip"}]
+      169 GETUPVAL                         R18 0
+      170 GETTABLEKS                       R18 R18 K9 ["createElement"]
+      172 GETUPVAL                         R19 4
+      173 DUPTABLE                         R20 K65 [{["TextKey"] = "EndFrameBox"}]
+      174 CALL                             R18 2 1
+      175 SETTABLEKS                       R18 R17 K49 ["Tooltip"]
+      177 CALL                             R14 3 1
+      178 SETTABLEKS                       R14 R13 K23 ["EndFrameBox"]
+      180 CALL                             R10 3 -1
+      181 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

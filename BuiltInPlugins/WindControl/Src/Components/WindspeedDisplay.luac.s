@@ -25,7 +25,7 @@ PROTO_1:
         1 JUMPIFNOTLT                      R0 R1 ; [+3]
         3 LOADN                            R1 0
         4 RETURN                           R1 1
-        5 LOADN                            R2 232
+        5 LOADN                            R2 1000
         6 DIVK                             R3 R0 K0 [3]
         7 FASTCALL2                        MATH_POW R2 R3 ; [+3]
         9 GETIMPORT                        R1 K3 [math.pow]
@@ -73,7 +73,7 @@ PROTO_6:
         0 LOADN                            R1 1
         1 LOADN                            R2 0
         2 DIVK                             R5 R0 K2 [180]
-        3 SUBRK                            R4 R1 K5 ["GlobalWind"]
+        3 SUBRK                            R4 K1 [0.5] R5
         4 MULK                             R3 R4 K0 [3.14159265358979]
         5 GETIMPORT                        R4 K4 [workspace]
         7 GETTABLEKS                       R4 R4 K5 ["GlobalWind"]
@@ -90,7 +90,7 @@ PROTO_6:
        27 GETTABLEKS                       R6 R6 K5 ["GlobalWind"]
        29 GETTABLEKS                       R6 R6 K8 ["Unit"]
        31 GETTABLEKS                       R6 R6 K9 ["Y"]
-       33 LOADN                            R7 255
+       33 LOADN                            R7 -1
        34 LOADN                            R8 1
        35 FASTCALL                         MATH_CLAMP ; [+2]
        36 GETIMPORT                        R5 K12 [math.clamp]
@@ -187,7 +187,7 @@ PROTO_8:
        12 CALL                             R0 2 1
        13 LOADN                            R1 0
        14 JUMPIFNOTLT                      R1 R0 ; [+25]
-       16 LOADN                            R2 166
+       16 LOADN                            R2 -90
        17 LOADN                            R5 180
        18 GETUPVAL                         R6 0
        19 GETTABLEKS                       R6 R6 K0 ["props"]
@@ -315,7 +315,7 @@ PROTO_12:
         6 GETUPVAL                         R0 0
         7 GETTABLEKS                       R0 R0 K1 ["isChangingPitch"]
         9 JUMPIFNOT                        R0 ; [+2]
-       10 LOADN                            R0 166
+       10 LOADN                            R0 -90
        11 RETURN                           R0 1
        12 LOADK                            R0 K2 [-0.1]
        13 RETURN                           R0 1
@@ -324,7 +324,7 @@ PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["isChangingYaw"]
         3 JUMPIFNOT                        R0 ; [+2]
-        4 LOADN                            R0 103
+        4 LOADN                            R0 359
         5 RETURN                           R0 1
         6 GETUPVAL                         R0 0
         7 GETTABLEKS                       R0 R0 K1 ["isChangingPitch"]
@@ -372,55 +372,49 @@ PROTO_14:
        48 RETURN                           R0 1
 
 PROTO_15:
-        0 DUPTABLE                         R3 K3 [{"isEditingText", "isChangingPitch", "isChangingYaw"}]
-        1 LOADB                            R4 0
-        2 SETTABLEKS                       R4 R3 K0 ["isEditingText"]
-        4 LOADB                            R4 0
-        5 SETTABLEKS                       R4 R3 K1 ["isChangingPitch"]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R3 K2 ["isChangingYaw"]
-       10 NAMECALL                         R1 R0 K4 ["setState"]
-       12 CALL                             R1 2 0
-       13 LOADB                            R1 0
-       14 SETTABLEKS                       R1 R0 K5 ["isHoldingSlider"]
-       16 NEWCLOSURE                       R1 P0
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K6 ["setisChangingPitch"]
-       20 NEWCLOSURE                       R1 P1
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R1 R0 K7 ["setisChangingYaw"]
-       24 NEWCLOSURE                       R1 P2
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R1 R0 K8 ["setIsScaling"]
-       28 NEWCLOSURE                       R1 P3
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R1 R0 K9 ["setWindSpeed"]
-       32 DUPCLOSURE                       R1 K10 [PROTO_6]
-       33 SETTABLEKS                       R1 R0 K11 ["setWindYaw"]
-       35 DUPCLOSURE                       R1 K12 [PROTO_7]
-       36 SETTABLEKS                       R1 R0 K13 ["setWindPitch"]
-       38 NEWCLOSURE                       R1 P6
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R1 R0 K14 ["getWindPitch"]
-       42 NEWCLOSURE                       R1 P7
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R1 R0 K15 ["getWindYaw"]
-       46 NEWCLOSURE                       R1 P8
-       47 CAPTURE                          VAL R0
-       48 SETTABLEKS                       R1 R0 K16 ["setCurrentValue"]
-       50 NEWCLOSURE                       R1 P9
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R1 R0 K17 ["getCurrentValueText"]
-       54 NEWCLOSURE                       R1 P10
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R1 R0 K18 ["getSliderMinValue"]
-       58 NEWCLOSURE                       R1 P11
-       59 CAPTURE                          VAL R0
-       60 SETTABLEKS                       R1 R0 K19 ["getSliderMaxValue"]
-       62 NEWCLOSURE                       R1 P12
-       63 CAPTURE                          VAL R0
-       64 SETTABLEKS                       R1 R0 K20 ["getSliderCurrentValue"]
-       66 RETURN                           R0 0
+        0 DUPTABLE                         R3 K4 [{[1] = False, ["isChangingPitch"] = False, ["isChangingYaw"] = False}]
+        1 NAMECALL                         R1 R0 K5 ["setState"]
+        3 CALL                             R1 2 0
+        4 LOADB                            R1 0
+        5 SETTABLEKS                       R1 R0 K6 ["isHoldingSlider"]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K7 ["setisChangingPitch"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K8 ["setisChangingYaw"]
+       15 NEWCLOSURE                       R1 P2
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K9 ["setIsScaling"]
+       19 NEWCLOSURE                       R1 P3
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R1 R0 K10 ["setWindSpeed"]
+       23 DUPCLOSURE                       R1 K11 [PROTO_6]
+       24 SETTABLEKS                       R1 R0 K12 ["setWindYaw"]
+       26 DUPCLOSURE                       R1 K13 [PROTO_7]
+       27 SETTABLEKS                       R1 R0 K14 ["setWindPitch"]
+       29 NEWCLOSURE                       R1 P6
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R1 R0 K15 ["getWindPitch"]
+       33 NEWCLOSURE                       R1 P7
+       34 CAPTURE                          VAL R0
+       35 SETTABLEKS                       R1 R0 K16 ["getWindYaw"]
+       37 NEWCLOSURE                       R1 P8
+       38 CAPTURE                          VAL R0
+       39 SETTABLEKS                       R1 R0 K17 ["setCurrentValue"]
+       41 NEWCLOSURE                       R1 P9
+       42 CAPTURE                          VAL R0
+       43 SETTABLEKS                       R1 R0 K18 ["getCurrentValueText"]
+       45 NEWCLOSURE                       R1 P10
+       46 CAPTURE                          VAL R0
+       47 SETTABLEKS                       R1 R0 K19 ["getSliderMinValue"]
+       49 NEWCLOSURE                       R1 P11
+       50 CAPTURE                          VAL R0
+       51 SETTABLEKS                       R1 R0 K20 ["getSliderMaxValue"]
+       53 NEWCLOSURE                       R1 P12
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R1 R0 K21 ["getSliderCurrentValue"]
+       57 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R1 0
@@ -440,7 +434,7 @@ PROTO_16:
        18 JUMPIFNOTLT                      R0 R3 ; [+3]
        20 LOADN                            R2 0
        21 JUMP                             ; [+7]
-       22 LOADN                            R3 232
+       22 LOADN                            R3 1000
        23 DIVK                             R4 R0 K4 [3]
        24 FASTCALL2                        MATH_POW R3 R4 ; [+3]
        26 GETIMPORT                        R2 K7 [math.pow]
@@ -457,45 +451,39 @@ PROTO_17:
 
 PROTO_18:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+8]
+        1 JUMPIF                           R0 ; [+5]
         2 GETUPVAL                         R0 1
-        3 DUPTABLE                         R2 K1 [{"isEditingText"}]
-        4 LOADB                            R3 1
-        5 SETTABLEKS                       R3 R2 K0 ["isEditingText"]
-        7 NAMECALL                         R0 R0 K2 ["setState"]
-        9 CALL                             R0 2 0
-       10 RETURN                           R0 0
+        3 DUPTABLE                         R2 K2 [{[1] = True}]
+        4 NAMECALL                         R0 R0 K3 ["setState"]
+        6 CALL                             R0 2 0
+        7 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K1 [{"isEditingText"}]
-        2 LOADB                            R4 0
-        3 SETTABLEKS                       R4 R3 K0 ["isEditingText"]
-        5 NAMECALL                         R1 R1 K2 ["setState"]
-        7 CALL                             R1 2 0
-        8 FASTCALL1                        TONUMBER R0 ; [+3]
-        9 MOVE                             R2 R0
-       10 GETIMPORT                        R1 K4 [tonumber]
-       12 CALL                             R1 1 1
-       13 JUMPIFEQKNIL                     R1 ; [+6]
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K5 ["setCurrentValue"]
-       18 MOVE                             R3 R1
-       19 CALL                             R2 1 0
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R3 R2 K6 ["textFieldCount"]
-       23 ADDK                             R3 R3 K7 [1]
-       24 SETTABLEKS                       R3 R2 K6 ["textFieldCount"]
-       26 RETURN                           R0 0
+        1 DUPTABLE                         R3 K2 [{[1] = False}]
+        2 NAMECALL                         R1 R1 K3 ["setState"]
+        4 CALL                             R1 2 0
+        5 FASTCALL1                        TONUMBER R0 ; [+3]
+        6 MOVE                             R2 R0
+        7 GETIMPORT                        R1 K5 [tonumber]
+        9 CALL                             R1 1 1
+       10 JUMPIFEQKNIL                     R1 ; [+6]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K6 ["setCurrentValue"]
+       15 MOVE                             R3 R1
+       16 CALL                             R2 1 0
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R3 R2 K7 ["textFieldCount"]
+       20 ADDK                             R3 R3 K8 [1]
+       21 SETTABLEKS                       R3 R2 K7 ["textFieldCount"]
+       23 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isEditingText"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isEditingText"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -537,194 +525,188 @@ PROTO_21:
        58 GETUPVAL                         R13 0
        59 GETTABLEKS                       R13 R13 K8 ["createElement"]
        61 GETUPVAL                         R14 1
-       62 DUPTABLE                         R15 K34 [{"LayoutOrder", "Size", "OnClick"}]
-       63 LOADN                            R16 1
-       64 SETTABLEKS                       R16 R15 K32 ["LayoutOrder"]
-       66 GETTABLEKS                       R16 R2 K35 ["ButtonSize"]
-       68 SETTABLEKS                       R16 R15 K9 ["Size"]
-       70 GETTABLEKS                       R16 R0 K36 ["setIsScaling"]
-       72 SETTABLEKS                       R16 R15 K33 ["OnClick"]
-       74 DUPTABLE                         R16 K38 [{"TextLabel1"}]
-       75 GETUPVAL                         R17 0
-       76 GETTABLEKS                       R17 R17 K8 ["createElement"]
-       78 GETUPVAL                         R18 2
-       79 DUPTABLE                         R19 K43 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
-       80 GETIMPORT                        R20 K45 [Enum.TextXAlignment.Left]
-       82 SETTABLEKS                       R20 R19 K39 ["TextXAlignment"]
-       84 LOADK                            R22 K2 ["WindspeedDisplay"]
-       85 LOADK                            R23 K46 ["Speed"]
-       86 NAMECALL                         R20 R3 K47 ["getText"]
-       88 CALL                             R20 3 1
-       89 SETTABLEKS                       R20 R19 K40 ["Text"]
-       91 GETTABLEKS                       R20 R2 K48 ["ButtonTextSize"]
-       93 SETTABLEKS                       R20 R19 K41 ["TextSize"]
-       95 GETTABLEKS                       R21 R1 K5 ["isChangingYaw"]
-       97 JUMPIF                           R21 ; [+6]
-       98 GETTABLEKS                       R21 R1 K4 ["isChangingPitch"]
-      100 JUMPIF                           R21 ; [+3]
-      101 GETTABLEKS                       R20 R2 K49 ["activeLabelColor"]
-      103 JUMP                             ; [+2]
-      104 GETTABLEKS                       R20 R2 K50 ["inactiveLabelColor"]
-      106 SETTABLEKS                       R20 R19 K42 ["TextColor"]
-      108 CALL                             R17 2 1
-      109 SETTABLEKS                       R17 R16 K37 ["TextLabel1"]
-      111 CALL                             R13 3 1
-      112 SETTABLEKS                       R13 R12 K28 ["Button1"]
-      114 GETUPVAL                         R13 0
-      115 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      117 GETUPVAL                         R14 1
-      118 DUPTABLE                         R15 K34 [{"LayoutOrder", "Size", "OnClick"}]
-      119 LOADN                            R16 2
-      120 SETTABLEKS                       R16 R15 K32 ["LayoutOrder"]
-      122 GETTABLEKS                       R16 R2 K35 ["ButtonSize"]
-      124 SETTABLEKS                       R16 R15 K9 ["Size"]
-      126 GETTABLEKS                       R16 R0 K51 ["setisChangingYaw"]
-      128 SETTABLEKS                       R16 R15 K33 ["OnClick"]
-      130 DUPTABLE                         R16 K53 [{"TextLabel2"}]
-      131 GETUPVAL                         R17 0
-      132 GETTABLEKS                       R17 R17 K8 ["createElement"]
-      134 GETUPVAL                         R18 2
-      135 DUPTABLE                         R19 K43 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
-      136 GETIMPORT                        R20 K45 [Enum.TextXAlignment.Left]
-      138 SETTABLEKS                       R20 R19 K39 ["TextXAlignment"]
-      140 LOADK                            R22 K2 ["WindspeedDisplay"]
-      141 LOADK                            R23 K54 ["Yaw"]
-      142 NAMECALL                         R20 R3 K47 ["getText"]
-      144 CALL                             R20 3 1
-      145 SETTABLEKS                       R20 R19 K40 ["Text"]
-      147 GETTABLEKS                       R20 R2 K48 ["ButtonTextSize"]
-      149 SETTABLEKS                       R20 R19 K41 ["TextSize"]
-      151 GETTABLEKS                       R21 R1 K5 ["isChangingYaw"]
-      153 JUMPIFNOT                        R21 ; [+3]
-      154 GETTABLEKS                       R20 R2 K49 ["activeLabelColor"]
-      156 JUMP                             ; [+2]
-      157 GETTABLEKS                       R20 R2 K50 ["inactiveLabelColor"]
-      159 SETTABLEKS                       R20 R19 K42 ["TextColor"]
-      161 CALL                             R17 2 1
-      162 SETTABLEKS                       R17 R16 K52 ["TextLabel2"]
-      164 CALL                             R13 3 1
-      165 SETTABLEKS                       R13 R12 K29 ["Button2"]
-      167 GETUPVAL                         R13 0
-      168 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      170 GETUPVAL                         R14 1
-      171 DUPTABLE                         R15 K34 [{"LayoutOrder", "Size", "OnClick"}]
-      172 LOADN                            R16 3
-      173 SETTABLEKS                       R16 R15 K32 ["LayoutOrder"]
-      175 GETTABLEKS                       R16 R2 K35 ["ButtonSize"]
-      177 SETTABLEKS                       R16 R15 K9 ["Size"]
-      179 GETTABLEKS                       R16 R0 K55 ["setisChangingPitch"]
-      181 SETTABLEKS                       R16 R15 K33 ["OnClick"]
-      183 DUPTABLE                         R16 K57 [{"TextLabel3"}]
-      184 GETUPVAL                         R17 0
-      185 GETTABLEKS                       R17 R17 K8 ["createElement"]
-      187 GETUPVAL                         R18 2
-      188 DUPTABLE                         R19 K43 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
-      189 GETIMPORT                        R20 K45 [Enum.TextXAlignment.Left]
-      191 SETTABLEKS                       R20 R19 K39 ["TextXAlignment"]
-      193 LOADK                            R22 K2 ["WindspeedDisplay"]
-      194 LOADK                            R23 K58 ["Pitch"]
-      195 NAMECALL                         R20 R3 K47 ["getText"]
-      197 CALL                             R20 3 1
-      198 SETTABLEKS                       R20 R19 K40 ["Text"]
-      200 GETTABLEKS                       R20 R2 K48 ["ButtonTextSize"]
-      202 SETTABLEKS                       R20 R19 K41 ["TextSize"]
-      204 GETTABLEKS                       R21 R1 K4 ["isChangingPitch"]
-      206 JUMPIFNOT                        R21 ; [+3]
-      207 GETTABLEKS                       R20 R2 K49 ["activeLabelColor"]
-      209 JUMP                             ; [+2]
-      210 GETTABLEKS                       R20 R2 K50 ["inactiveLabelColor"]
-      212 SETTABLEKS                       R20 R19 K42 ["TextColor"]
-      214 CALL                             R17 2 1
-      215 SETTABLEKS                       R17 R16 K56 ["TextLabel3"]
-      217 CALL                             R13 3 1
-      218 SETTABLEKS                       R13 R12 K30 ["Button3"]
-      220 CALL                             R9 3 1
-      221 SETTABLEKS                       R9 R8 K12 ["ButtonPanel"]
-      223 GETUPVAL                         R9 0
-      224 GETTABLEKS                       R9 R9 K8 ["createElement"]
-      226 GETUPVAL                         R10 3
-      227 DUPTABLE                         R11 K64 [{"Min", "Max", "Value", "Size", "Position", "OnValueChanged", "OnChangeBegan"}]
-      228 GETTABLEKS                       R12 R0 K65 ["getSliderMinValue"]
-      230 CALL                             R12 0 1
-      231 SETTABLEKS                       R12 R11 K59 ["Min"]
-      233 GETTABLEKS                       R12 R0 K66 ["getSliderMaxValue"]
-      235 CALL                             R12 0 1
-      236 SETTABLEKS                       R12 R11 K60 ["Max"]
-      238 GETTABLEKS                       R12 R0 K67 ["getSliderCurrentValue"]
-      240 CALL                             R12 0 1
-      241 SETTABLEKS                       R12 R11 K61 ["Value"]
-      243 GETTABLEKS                       R12 R2 K13 ["Slider"]
-      245 GETTABLEKS                       R12 R12 K9 ["Size"]
-      247 SETTABLEKS                       R12 R11 K9 ["Size"]
-      249 GETTABLEKS                       R12 R2 K13 ["Slider"]
-      251 GETTABLEKS                       R12 R12 K10 ["Position"]
-      253 SETTABLEKS                       R12 R11 K10 ["Position"]
-      255 NEWCLOSURE                       R12 P0
-      256 CAPTURE                          VAL R0
-      257 SETTABLEKS                       R12 R11 K62 ["OnValueChanged"]
-      259 DUPCLOSURE                       R12 K68 [PROTO_17]
-      260 CAPTURE                          UPVAL U4
-      261 SETTABLEKS                       R12 R11 K63 ["OnChangeBegan"]
-      263 CALL                             R9 2 1
-      264 SETTABLEKS                       R9 R8 K13 ["Slider"]
-      266 GETUPVAL                         R9 0
-      267 GETTABLEKS                       R9 R9 K8 ["createElement"]
-      269 GETUPVAL                         R10 1
-      270 DUPTABLE                         R11 K69 [{"Size", "Position", "OnClick"}]
-      271 GETTABLEKS                       R12 R2 K70 ["TextLabel"]
-      273 GETTABLEKS                       R12 R12 K9 ["Size"]
-      275 SETTABLEKS                       R12 R11 K9 ["Size"]
-      277 GETTABLEKS                       R12 R2 K70 ["TextLabel"]
-      279 GETTABLEKS                       R12 R12 K10 ["Position"]
-      281 SETTABLEKS                       R12 R11 K10 ["Position"]
-      283 NEWCLOSURE                       R12 P2
-      284 CAPTURE                          VAL R4
-      285 CAPTURE                          VAL R0
-      286 SETTABLEKS                       R12 R11 K33 ["OnClick"]
-      288 DUPTABLE                         R12 K72 [{"TextLabel", "ValueEditTextBox"}]
-      289 NOT                              R13 R4
-      290 JUMPIFNOT                        R13 ; [+21]
-      291 GETUPVAL                         R13 0
-      292 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      294 GETUPVAL                         R14 2
-      295 DUPTABLE                         R15 K75 [{"Text", "Style", "ref"}]
-      296 GETTABLEKS                       R16 R0 K76 ["getCurrentValueText"]
-      298 CALL                             R16 0 1
-      299 SETTABLEKS                       R16 R15 K40 ["Text"]
-      301 GETTABLEKS                       R16 R2 K70 ["TextLabel"]
-      303 GETTABLEKS                       R16 R16 K73 ["Style"]
-      305 SETTABLEKS                       R16 R15 K73 ["Style"]
-      307 GETTABLEKS                       R16 R0 K77 ["textLabelRef"]
-      309 SETTABLEKS                       R16 R15 K74 ["ref"]
-      311 CALL                             R13 2 1
-      312 SETTABLEKS                       R13 R12 K70 ["TextLabel"]
-      314 MOVE                             R13 R4
-      315 JUMPIFNOT                        R13 ; [+27]
-      316 GETUPVAL                         R13 0
-      317 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      319 GETUPVAL                         R14 5
-      320 DUPTABLE                         R15 K80 [{"Text", "Size", "OnTextConfirmed", "OnEditCanceled"}]
-      321 GETTABLEKS                       R16 R0 K76 ["getCurrentValueText"]
-      323 CALL                             R16 0 1
-      324 SETTABLEKS                       R16 R15 K40 ["Text"]
-      326 GETIMPORT                        R16 K24 [UDim2.fromScale]
-      328 LOADN                            R17 1
-      329 LOADN                            R18 1
-      330 CALL                             R16 2 1
-      331 SETTABLEKS                       R16 R15 K9 ["Size"]
-      333 NEWCLOSURE                       R16 P3
-      334 CAPTURE                          VAL R0
-      335 CAPTURE                          UPVAL U4
-      336 SETTABLEKS                       R16 R15 K78 ["OnTextConfirmed"]
-      338 NEWCLOSURE                       R16 P4
-      339 CAPTURE                          VAL R0
-      340 SETTABLEKS                       R16 R15 K79 ["OnEditCanceled"]
-      342 CALL                             R13 2 1
-      343 SETTABLEKS                       R13 R12 K71 ["ValueEditTextBox"]
-      345 CALL                             R9 3 1
-      346 SETTABLEKS                       R9 R8 K14 ["Pane"]
-      348 CALL                             R5 3 -1
-      349 RETURN                           R5 -1
+       62 DUPTABLE                         R15 K35 [{["LayoutOrder"] = 1, ["Size"], ["OnClick"]}]
+       63 GETTABLEKS                       R16 R2 K36 ["ButtonSize"]
+       65 SETTABLEKS                       R16 R15 K9 ["Size"]
+       67 GETTABLEKS                       R16 R0 K37 ["setIsScaling"]
+       69 SETTABLEKS                       R16 R15 K34 ["OnClick"]
+       71 DUPTABLE                         R16 K39 [{"TextLabel1"}]
+       72 GETUPVAL                         R17 0
+       73 GETTABLEKS                       R17 R17 K8 ["createElement"]
+       75 GETUPVAL                         R18 2
+       76 DUPTABLE                         R19 K44 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
+       77 GETIMPORT                        R20 K46 [Enum.TextXAlignment.Left]
+       79 SETTABLEKS                       R20 R19 K40 ["TextXAlignment"]
+       81 LOADK                            R22 K2 ["WindspeedDisplay"]
+       82 LOADK                            R23 K47 ["Speed"]
+       83 NAMECALL                         R20 R3 K48 ["getText"]
+       85 CALL                             R20 3 1
+       86 SETTABLEKS                       R20 R19 K41 ["Text"]
+       88 GETTABLEKS                       R20 R2 K49 ["ButtonTextSize"]
+       90 SETTABLEKS                       R20 R19 K42 ["TextSize"]
+       92 GETTABLEKS                       R21 R1 K5 ["isChangingYaw"]
+       94 JUMPIF                           R21 ; [+6]
+       95 GETTABLEKS                       R21 R1 K4 ["isChangingPitch"]
+       97 JUMPIF                           R21 ; [+3]
+       98 GETTABLEKS                       R20 R2 K50 ["activeLabelColor"]
+      100 JUMP                             ; [+2]
+      101 GETTABLEKS                       R20 R2 K51 ["inactiveLabelColor"]
+      103 SETTABLEKS                       R20 R19 K43 ["TextColor"]
+      105 CALL                             R17 2 1
+      106 SETTABLEKS                       R17 R16 K38 ["TextLabel1"]
+      108 CALL                             R13 3 1
+      109 SETTABLEKS                       R13 R12 K28 ["Button1"]
+      111 GETUPVAL                         R13 0
+      112 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      114 GETUPVAL                         R14 1
+      115 DUPTABLE                         R15 K53 [{["LayoutOrder"] = 2, ["Size"], ["OnClick"]}]
+      116 GETTABLEKS                       R16 R2 K36 ["ButtonSize"]
+      118 SETTABLEKS                       R16 R15 K9 ["Size"]
+      120 GETTABLEKS                       R16 R0 K54 ["setisChangingYaw"]
+      122 SETTABLEKS                       R16 R15 K34 ["OnClick"]
+      124 DUPTABLE                         R16 K56 [{"TextLabel2"}]
+      125 GETUPVAL                         R17 0
+      126 GETTABLEKS                       R17 R17 K8 ["createElement"]
+      128 GETUPVAL                         R18 2
+      129 DUPTABLE                         R19 K44 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
+      130 GETIMPORT                        R20 K46 [Enum.TextXAlignment.Left]
+      132 SETTABLEKS                       R20 R19 K40 ["TextXAlignment"]
+      134 LOADK                            R22 K2 ["WindspeedDisplay"]
+      135 LOADK                            R23 K57 ["Yaw"]
+      136 NAMECALL                         R20 R3 K48 ["getText"]
+      138 CALL                             R20 3 1
+      139 SETTABLEKS                       R20 R19 K41 ["Text"]
+      141 GETTABLEKS                       R20 R2 K49 ["ButtonTextSize"]
+      143 SETTABLEKS                       R20 R19 K42 ["TextSize"]
+      145 GETTABLEKS                       R21 R1 K5 ["isChangingYaw"]
+      147 JUMPIFNOT                        R21 ; [+3]
+      148 GETTABLEKS                       R20 R2 K50 ["activeLabelColor"]
+      150 JUMP                             ; [+2]
+      151 GETTABLEKS                       R20 R2 K51 ["inactiveLabelColor"]
+      153 SETTABLEKS                       R20 R19 K43 ["TextColor"]
+      155 CALL                             R17 2 1
+      156 SETTABLEKS                       R17 R16 K55 ["TextLabel2"]
+      158 CALL                             R13 3 1
+      159 SETTABLEKS                       R13 R12 K29 ["Button2"]
+      161 GETUPVAL                         R13 0
+      162 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      164 GETUPVAL                         R14 1
+      165 DUPTABLE                         R15 K59 [{["LayoutOrder"] = 3, ["Size"], ["OnClick"]}]
+      166 GETTABLEKS                       R16 R2 K36 ["ButtonSize"]
+      168 SETTABLEKS                       R16 R15 K9 ["Size"]
+      170 GETTABLEKS                       R16 R0 K60 ["setisChangingPitch"]
+      172 SETTABLEKS                       R16 R15 K34 ["OnClick"]
+      174 DUPTABLE                         R16 K62 [{"TextLabel3"}]
+      175 GETUPVAL                         R17 0
+      176 GETTABLEKS                       R17 R17 K8 ["createElement"]
+      178 GETUPVAL                         R18 2
+      179 DUPTABLE                         R19 K44 [{"TextXAlignment", "Text", "TextSize", "TextColor"}]
+      180 GETIMPORT                        R20 K46 [Enum.TextXAlignment.Left]
+      182 SETTABLEKS                       R20 R19 K40 ["TextXAlignment"]
+      184 LOADK                            R22 K2 ["WindspeedDisplay"]
+      185 LOADK                            R23 K63 ["Pitch"]
+      186 NAMECALL                         R20 R3 K48 ["getText"]
+      188 CALL                             R20 3 1
+      189 SETTABLEKS                       R20 R19 K41 ["Text"]
+      191 GETTABLEKS                       R20 R2 K49 ["ButtonTextSize"]
+      193 SETTABLEKS                       R20 R19 K42 ["TextSize"]
+      195 GETTABLEKS                       R21 R1 K4 ["isChangingPitch"]
+      197 JUMPIFNOT                        R21 ; [+3]
+      198 GETTABLEKS                       R20 R2 K50 ["activeLabelColor"]
+      200 JUMP                             ; [+2]
+      201 GETTABLEKS                       R20 R2 K51 ["inactiveLabelColor"]
+      203 SETTABLEKS                       R20 R19 K43 ["TextColor"]
+      205 CALL                             R17 2 1
+      206 SETTABLEKS                       R17 R16 K61 ["TextLabel3"]
+      208 CALL                             R13 3 1
+      209 SETTABLEKS                       R13 R12 K30 ["Button3"]
+      211 CALL                             R9 3 1
+      212 SETTABLEKS                       R9 R8 K12 ["ButtonPanel"]
+      214 GETUPVAL                         R9 0
+      215 GETTABLEKS                       R9 R9 K8 ["createElement"]
+      217 GETUPVAL                         R10 3
+      218 DUPTABLE                         R11 K69 [{"Min", "Max", "Value", "Size", "Position", "OnValueChanged", "OnChangeBegan"}]
+      219 GETTABLEKS                       R12 R0 K70 ["getSliderMinValue"]
+      221 CALL                             R12 0 1
+      222 SETTABLEKS                       R12 R11 K64 ["Min"]
+      224 GETTABLEKS                       R12 R0 K71 ["getSliderMaxValue"]
+      226 CALL                             R12 0 1
+      227 SETTABLEKS                       R12 R11 K65 ["Max"]
+      229 GETTABLEKS                       R12 R0 K72 ["getSliderCurrentValue"]
+      231 CALL                             R12 0 1
+      232 SETTABLEKS                       R12 R11 K66 ["Value"]
+      234 GETTABLEKS                       R12 R2 K13 ["Slider"]
+      236 GETTABLEKS                       R12 R12 K9 ["Size"]
+      238 SETTABLEKS                       R12 R11 K9 ["Size"]
+      240 GETTABLEKS                       R12 R2 K13 ["Slider"]
+      242 GETTABLEKS                       R12 R12 K10 ["Position"]
+      244 SETTABLEKS                       R12 R11 K10 ["Position"]
+      246 NEWCLOSURE                       R12 P0
+      247 CAPTURE                          VAL R0
+      248 SETTABLEKS                       R12 R11 K67 ["OnValueChanged"]
+      250 DUPCLOSURE                       R12 K73 [PROTO_17]
+      251 CAPTURE                          UPVAL U4
+      252 SETTABLEKS                       R12 R11 K68 ["OnChangeBegan"]
+      254 CALL                             R9 2 1
+      255 SETTABLEKS                       R9 R8 K13 ["Slider"]
+      257 GETUPVAL                         R9 0
+      258 GETTABLEKS                       R9 R9 K8 ["createElement"]
+      260 GETUPVAL                         R10 1
+      261 DUPTABLE                         R11 K74 [{"Size", "Position", "OnClick"}]
+      262 GETTABLEKS                       R12 R2 K75 ["TextLabel"]
+      264 GETTABLEKS                       R12 R12 K9 ["Size"]
+      266 SETTABLEKS                       R12 R11 K9 ["Size"]
+      268 GETTABLEKS                       R12 R2 K75 ["TextLabel"]
+      270 GETTABLEKS                       R12 R12 K10 ["Position"]
+      272 SETTABLEKS                       R12 R11 K10 ["Position"]
+      274 NEWCLOSURE                       R12 P2
+      275 CAPTURE                          VAL R4
+      276 CAPTURE                          VAL R0
+      277 SETTABLEKS                       R12 R11 K34 ["OnClick"]
+      279 DUPTABLE                         R12 K77 [{"TextLabel", "ValueEditTextBox"}]
+      280 NOT                              R13 R4
+      281 JUMPIFNOT                        R13 ; [+21]
+      282 GETUPVAL                         R13 0
+      283 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      285 GETUPVAL                         R14 2
+      286 DUPTABLE                         R15 K80 [{"Text", "Style", "ref"}]
+      287 GETTABLEKS                       R16 R0 K81 ["getCurrentValueText"]
+      289 CALL                             R16 0 1
+      290 SETTABLEKS                       R16 R15 K41 ["Text"]
+      292 GETTABLEKS                       R16 R2 K75 ["TextLabel"]
+      294 GETTABLEKS                       R16 R16 K78 ["Style"]
+      296 SETTABLEKS                       R16 R15 K78 ["Style"]
+      298 GETTABLEKS                       R16 R0 K82 ["textLabelRef"]
+      300 SETTABLEKS                       R16 R15 K79 ["ref"]
+      302 CALL                             R13 2 1
+      303 SETTABLEKS                       R13 R12 K75 ["TextLabel"]
+      305 MOVE                             R13 R4
+      306 JUMPIFNOT                        R13 ; [+27]
+      307 GETUPVAL                         R13 0
+      308 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      310 GETUPVAL                         R14 5
+      311 DUPTABLE                         R15 K85 [{"Text", "Size", "OnTextConfirmed", "OnEditCanceled"}]
+      312 GETTABLEKS                       R16 R0 K81 ["getCurrentValueText"]
+      314 CALL                             R16 0 1
+      315 SETTABLEKS                       R16 R15 K41 ["Text"]
+      317 GETIMPORT                        R16 K24 [UDim2.fromScale]
+      319 LOADN                            R17 1
+      320 LOADN                            R18 1
+      321 CALL                             R16 2 1
+      322 SETTABLEKS                       R16 R15 K9 ["Size"]
+      324 NEWCLOSURE                       R16 P3
+      325 CAPTURE                          VAL R0
+      326 CAPTURE                          UPVAL U4
+      327 SETTABLEKS                       R16 R15 K83 ["OnTextConfirmed"]
+      329 NEWCLOSURE                       R16 P4
+      330 CAPTURE                          VAL R0
+      331 SETTABLEKS                       R16 R15 K84 ["OnEditCanceled"]
+      333 CALL                             R13 2 1
+      334 SETTABLEKS                       R13 R12 K76 ["ValueEditTextBox"]
+      336 CALL                             R9 3 1
+      337 SETTABLEKS                       R9 R8 K14 ["Pane"]
+      339 CALL                             R5 3 -1
+      340 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,30 +1,26 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R0 R0 K4 ["Modal"]
-       13 GETTABLEKS                       R1 R0 K5 ["onTooltipTriggered"]
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R2 R2 K6 ["assetId"]
-       18 GETUPVAL                         R3 2
-       19 GETTABLEKS                       R3 R3 K7 ["TOOLTIP_TYPE"]
-       21 GETTABLEKS                       R3 R3 K8 ["HIGH_QUALITY_BADGE"]
-       23 CALL                             R1 2 0
-       24 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R0 R0 K5 ["Modal"]
+       10 GETTABLEKS                       R1 R0 K6 ["onTooltipTriggered"]
+       12 GETUPVAL                         R2 1
+       13 GETTABLEKS                       R2 R2 K7 ["assetId"]
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K8 ["TOOLTIP_TYPE"]
+       18 GETTABLEKS                       R3 R3 K9 ["HIGH_QUALITY_BADGE"]
+       20 CALL                             R1 2 0
+       21 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -42,25 +38,23 @@ PROTO_2:
        17 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K1 [{"isHovered"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          VAL R1
-        9 CAPTURE                          UPVAL U0
-       10 SETTABLEKS                       R2 R0 K3 ["onMouseEnter"]
-       12 NEWCLOSURE                       R2 P1
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R2 R0 K4 ["onMouseLeave"]
-       16 NEWCLOSURE                       R2 P2
-       17 CAPTURE                          UPVAL U1
-       18 CAPTURE                          VAL R0
-       19 CAPTURE                          UPVAL U2
-       20 CAPTURE                          UPVAL U3
-       21 SETTABLEKS                       R2 R0 K5 ["onActivated"]
-       23 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          VAL R1
+        6 CAPTURE                          UPVAL U0
+        7 SETTABLEKS                       R2 R0 K4 ["onMouseEnter"]
+        9 NEWCLOSURE                       R2 P1
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R2 R0 K5 ["onMouseLeave"]
+       13 NEWCLOSURE                       R2 P2
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          UPVAL U2
+       17 CAPTURE                          UPVAL U3
+       18 SETTABLEKS                       R2 R0 K6 ["onActivated"]
+       20 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

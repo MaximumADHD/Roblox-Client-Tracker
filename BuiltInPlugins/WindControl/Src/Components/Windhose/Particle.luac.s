@@ -19,14 +19,14 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R5 R0 K1 ["mass"]
-        2 DIVRK                            R4 R0 K5 [0.00015]
+        2 DIVRK                            R4 K0 [1] R5
         3 GETTABLEKS                       R5 R0 K2 ["force"]
         5 MUL                              R3 R4 R5
         6 SETTABLEKS                       R3 R0 K3 ["acceleration"]
         8 GETTABLEKS                       R3 R0 K4 ["velocity"]
        10 LOADK                            R6 K5 [0.00015]
        11 MUL                              R5 R6 R1
-       12 SUBRK                            R4 R0 K5 [0.00015]
+       12 SUBRK                            R4 K0 [1] R5
        13 MUL                              R3 R3 R4
        14 SETTABLEKS                       R3 R0 K4 ["velocity"]
        16 GETTABLEKS                       R4 R0 K4 ["velocity"]

@@ -1,21 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K5 [{"_callback", "_heartbeatConnection", "_latestKeyPress", "_holdTime", "_sendTime"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["_callback"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["_heartbeatConnection"]
-        7 LOADNIL                          R1
-        8 SETTABLEKS                       R1 R0 K2 ["_latestKeyPress"]
-       10 LOADN                            R1 0
-       11 SETTABLEKS                       R1 R0 K3 ["_holdTime"]
-       13 LOADN                            R1 0
-       14 SETTABLEKS                       R1 R0 K4 ["_sendTime"]
-       16 GETUPVAL                         R3 0
-       17 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       19 MOVE                             R2 R0
-       20 GETIMPORT                        R1 K7 [setmetatable]
-       22 CALL                             R1 2 0
-       23 RETURN                           R0 1
+        0 DUPTABLE                         R0 K7 [{[1] = , ["_heartbeatConnection"] = , ["_latestKeyPress"] = , ["_holdTime"] = 0, ["_sendTime"] = 0}]
+        1 GETUPVAL                         R3 0
+        2 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        4 MOVE                             R2 R0
+        5 GETIMPORT                        R1 K9 [setmetatable]
+        7 CALL                             R1 2 0
+        8 RETURN                           R0 1
 
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["_reset"]

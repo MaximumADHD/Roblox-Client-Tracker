@@ -151,21 +151,17 @@ PROTO_6:
        37 MOVE                             R6 R9
        38 MOVE                             R7 R10
        39 MOVE                             R8 R11
-       40 DUPTABLE                         R9 K9 [{"responseCode", "responseBody"}]
-       41 LOADN                            R10 200
-       42 SETTABLEKS                       R10 R9 K7 ["responseCode"]
-       44 DUPTABLE                         R10 K13 [{"events", "nextCursor", "hasMore"}]
-       45 SETTABLEKS                       R6 R10 K10 ["events"]
-       47 SETTABLEKS                       R7 R10 K11 ["nextCursor"]
-       49 LOADNIL                          R11
-       50 SETTABLEKS                       R11 R10 K12 ["hasMore"]
-       52 SETTABLEKS                       R10 R9 K8 ["responseBody"]
-       54 GETIMPORT                        R10 K15 [spawn]
-       56 NEWCLOSURE                       R11 P0
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R9
-       59 CALL                             R10 1 0
-       60 RETURN                           R0 0
+       40 DUPTABLE                         R9 K10 [{["responseCode"] = 200, ["responseBody"]}]
+       41 DUPTABLE                         R10 K15 [{["events"], ["nextCursor"], ["hasMore"] = }]
+       42 SETTABLEKS                       R6 R10 K11 ["events"]
+       44 SETTABLEKS                       R7 R10 K12 ["nextCursor"]
+       46 SETTABLEKS                       R10 R9 K9 ["responseBody"]
+       48 GETIMPORT                        R10 K17 [spawn]
+       50 NEWCLOSURE                       R11 P0
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R9
+       53 CALL                             R10 1 0
+       54 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R6 0

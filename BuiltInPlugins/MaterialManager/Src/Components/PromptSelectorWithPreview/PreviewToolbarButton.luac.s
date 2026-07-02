@@ -1,33 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"isHovered"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isHovered"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onHovered"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onHoverEnded"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onHovered"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onHoverEnded"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -81,16 +75,16 @@ PROTO_3:
        73 GETUPVAL                         R11 1
        74 GETTABLEKS                       R11 R11 K27 ["createElement"]
        76 LOADK                            R12 K31 ["Frame"]
-       77 DUPTABLE                         R13 K35 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "BorderSizePixel", "BackgroundColor3"}]
-       78 GETIMPORT                        R14 K37 [Vector2.new]
-       80 LOADK                            R15 K38 [0.5]
-       81 LOADK                            R16 K38 [0.5]
+       77 DUPTABLE                         R13 K36 [{["AnchorPoint"], ["Position"], ["Size"], ["BackgroundTransparency"], ["BorderSizePixel"] = 1, ["BackgroundColor3"]}]
+       78 GETIMPORT                        R14 K38 [Vector2.new]
+       80 LOADK                            R15 K39 [0.5]
+       81 LOADK                            R16 K39 [0.5]
        82 CALL                             R14 2 1
        83 SETTABLEKS                       R14 R13 K32 ["AnchorPoint"]
        85 GETIMPORT                        R14 K10 [UDim2.new]
-       87 LOADK                            R15 K38 [0.5]
+       87 LOADK                            R15 K39 [0.5]
        88 LOADN                            R16 0
-       89 LOADK                            R17 K38 [0.5]
+       89 LOADK                            R17 K39 [0.5]
        90 LOADN                            R18 0
        91 CALL                             R14 4 1
        92 SETTABLEKS                       R14 R13 K33 ["Position"]
@@ -101,58 +95,52 @@ PROTO_3:
        99 MOVE                             R18 R4
       100 CALL                             R14 4 1
       101 SETTABLEKS                       R14 R13 K11 ["Size"]
-      103 GETTABLEKS                       R15 R2 K39 ["isHovered"]
+      103 GETTABLEKS                       R15 R2 K40 ["isHovered"]
       105 JUMPIFNOT                        R15 ; [+2]
       106 LOADN                            R14 0
       107 JUMP                             ; [+1]
       108 LOADN                            R14 1
       109 SETTABLEKS                       R14 R13 K16 ["BackgroundTransparency"]
-      111 LOADN                            R14 1
-      112 SETTABLEKS                       R14 R13 K17 ["BorderSizePixel"]
-      114 GETTABLEKS                       R14 R3 K40 ["ToolbarButtonBackgroundColor"]
-      116 SETTABLEKS                       R14 R13 K34 ["BackgroundColor3"]
-      118 DUPTABLE                         R14 K41 [{"Icon"}]
-      119 GETUPVAL                         R15 1
-      120 GETTABLEKS                       R15 R15 K27 ["createElement"]
-      122 LOADK                            R16 K42 ["ImageLabel"]
-      123 DUPTABLE                         R17 K44 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "BorderSizePixel", "Image", "ImageColor3"}]
-      124 GETIMPORT                        R18 K37 [Vector2.new]
-      126 LOADK                            R19 K38 [0.5]
-      127 LOADK                            R20 K38 [0.5]
-      128 CALL                             R18 2 1
-      129 SETTABLEKS                       R18 R17 K32 ["AnchorPoint"]
-      131 GETIMPORT                        R18 K10 [UDim2.new]
-      133 LOADK                            R19 K38 [0.5]
-      134 LOADN                            R20 0
-      135 LOADK                            R21 K38 [0.5]
-      136 LOADN                            R22 0
-      137 CALL                             R18 4 1
-      138 SETTABLEKS                       R18 R17 K33 ["Position"]
-      140 GETIMPORT                        R18 K10 [UDim2.new]
-      142 LOADN                            R19 0
-      143 MOVE                             R20 R5
-      144 LOADN                            R21 0
-      145 MOVE                             R22 R5
-      146 CALL                             R18 4 1
-      147 SETTABLEKS                       R18 R17 K11 ["Size"]
-      149 LOADN                            R18 1
-      150 SETTABLEKS                       R18 R17 K16 ["BackgroundTransparency"]
-      152 LOADN                            R18 1
-      153 SETTABLEKS                       R18 R17 K17 ["BorderSizePixel"]
-      155 GETTABLEKS                       R18 R1 K26 ["Icon"]
-      157 SETTABLEKS                       R18 R17 K24 ["Image"]
-      159 GETTABLEKS                       R19 R2 K39 ["isHovered"]
-      161 JUMPIFNOT                        R19 ; [+3]
-      162 GETTABLEKS                       R18 R3 K45 ["ButtonIconHoveredColor"]
-      164 JUMPIF                           R18 ; [+2]
-      165 GETTABLEKS                       R18 R3 K46 ["ButtonIconColor"]
-      167 SETTABLEKS                       R18 R17 K43 ["ImageColor3"]
-      169 CALL                             R15 2 1
-      170 SETTABLEKS                       R15 R14 K26 ["Icon"]
-      172 CALL                             R11 3 1
-      173 SETTABLEKS                       R11 R10 K29 ["Background"]
-      175 CALL                             R7 3 -1
-      176 RETURN                           R7 -1
+      111 GETTABLEKS                       R14 R3 K41 ["ToolbarButtonBackgroundColor"]
+      113 SETTABLEKS                       R14 R13 K35 ["BackgroundColor3"]
+      115 DUPTABLE                         R14 K42 [{"Icon"}]
+      116 GETUPVAL                         R15 1
+      117 GETTABLEKS                       R15 R15 K27 ["createElement"]
+      119 LOADK                            R16 K43 ["ImageLabel"]
+      120 DUPTABLE                         R17 K45 [{["AnchorPoint"], ["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 1, ["Image"], ["ImageColor3"]}]
+      121 GETIMPORT                        R18 K38 [Vector2.new]
+      123 LOADK                            R19 K39 [0.5]
+      124 LOADK                            R20 K39 [0.5]
+      125 CALL                             R18 2 1
+      126 SETTABLEKS                       R18 R17 K32 ["AnchorPoint"]
+      128 GETIMPORT                        R18 K10 [UDim2.new]
+      130 LOADK                            R19 K39 [0.5]
+      131 LOADN                            R20 0
+      132 LOADK                            R21 K39 [0.5]
+      133 LOADN                            R22 0
+      134 CALL                             R18 4 1
+      135 SETTABLEKS                       R18 R17 K33 ["Position"]
+      137 GETIMPORT                        R18 K10 [UDim2.new]
+      139 LOADN                            R19 0
+      140 MOVE                             R20 R5
+      141 LOADN                            R21 0
+      142 MOVE                             R22 R5
+      143 CALL                             R18 4 1
+      144 SETTABLEKS                       R18 R17 K11 ["Size"]
+      146 GETTABLEKS                       R18 R1 K26 ["Icon"]
+      148 SETTABLEKS                       R18 R17 K24 ["Image"]
+      150 GETTABLEKS                       R19 R2 K40 ["isHovered"]
+      152 JUMPIFNOT                        R19 ; [+3]
+      153 GETTABLEKS                       R18 R3 K46 ["ButtonIconHoveredColor"]
+      155 JUMPIF                           R18 ; [+2]
+      156 GETTABLEKS                       R18 R3 K47 ["ButtonIconColor"]
+      158 SETTABLEKS                       R18 R17 K44 ["ImageColor3"]
+      160 CALL                             R15 2 1
+      161 SETTABLEKS                       R15 R14 K26 ["Icon"]
+      163 CALL                             R11 3 1
+      164 SETTABLEKS                       R11 R10 K29 ["Background"]
+      166 CALL                             R7 3 -1
+      167 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

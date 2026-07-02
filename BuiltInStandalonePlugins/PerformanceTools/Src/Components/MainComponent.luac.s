@@ -45,56 +45,54 @@ PROTO_2:
        30 GETUPVAL                         R10 0
        31 GETTABLEKS                       R10 R10 K7 ["createElement"]
        33 LOADK                            R11 K8 ["Frame"]
-       34 DUPTABLE                         R12 K12 [{"AutomaticSize", "Size", "BackgroundTransparency"}]
-       35 GETIMPORT                        R13 K15 [Enum.AutomaticSize.Y]
+       34 DUPTABLE                         R12 K13 [{["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1}]
+       35 GETIMPORT                        R13 K16 [Enum.AutomaticSize.Y]
        37 SETTABLEKS                       R13 R12 K9 ["AutomaticSize"]
-       39 GETIMPORT                        R13 K18 [UDim2.fromScale]
+       39 GETIMPORT                        R13 K19 [UDim2.fromScale]
        41 LOADN                            R14 1
        42 LOADN                            R15 0
        43 CALL                             R13 2 1
        44 SETTABLEKS                       R13 R12 K10 ["Size"]
-       46 LOADN                            R13 1
-       47 SETTABLEKS                       R13 R12 K11 ["BackgroundTransparency"]
-       49 DUPTABLE                         R13 K20 [{"ThermometerWrapper"}]
-       50 JUMPIF                           R1 ; [+51]
-       51 GETUPVAL                         R14 0
-       52 GETTABLEKS                       R14 R14 K7 ["createElement"]
-       54 GETUPVAL                         R15 4
-       55 DUPTABLE                         R16 K30 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "IsEditMode", "MicroprofilerVisible", "AutomaticGraphicsQuality", "OnOpenSettings", "OnToggleMicroprofiler"}]
-       56 GETTABLEKS                       R18 R9 K32 ["drawCallCount"]
-       58 ORK                              R17 R18 K31 [0]
-       59 SETTABLEKS                       R17 R16 K21 ["DrawCallCount"]
-       61 GETTABLEKS                       R18 R9 K33 ["triangleCount"]
-       63 ORK                              R17 R18 K31 [0]
-       64 SETTABLEKS                       R17 R16 K22 ["TriangleCount"]
-       66 GETTABLEKS                       R18 R9 K34 ["renderThreadAverageMs"]
-       68 ORK                              R17 R18 K31 [0]
-       69 SETTABLEKS                       R17 R16 K23 ["RenderThreadAverageMs"]
-       71 GETTABLEKS                       R18 R9 K35 ["taskThreadAverageMs"]
-       73 ORK                              R17 R18 K31 [0]
-       74 SETTABLEKS                       R17 R16 K24 ["TaskThreadAverageMs"]
-       76 GETTABLEKS                       R17 R9 K36 ["isEditDM"]
-       78 SETTABLEKS                       R17 R16 K25 ["IsEditMode"]
-       80 GETTABLEKS                       R17 R9 K37 ["microprofilerVisible"]
-       82 SETTABLEKS                       R17 R16 K26 ["MicroprofilerVisible"]
-       84 GETTABLEKS                       R17 R9 K38 ["automaticGraphicsQuality"]
-       86 SETTABLEKS                       R17 R16 K27 ["AutomaticGraphicsQuality"]
-       88 NEWCLOSURE                       R17 P0
-       89 CAPTURE                          VAL R3
-       90 CAPTURE                          UPVAL U5
-       91 CAPTURE                          VAL R2
-       92 SETTABLEKS                       R17 R16 K28 ["OnOpenSettings"]
-       94 NEWCLOSURE                       R17 P1
-       95 CAPTURE                          VAL R3
-       96 CAPTURE                          UPVAL U6
-       97 CAPTURE                          VAL R5
-       98 SETTABLEKS                       R17 R16 K29 ["OnToggleMicroprofiler"]
-      100 CALL                             R14 2 1
-      101 JUMPIF                           R14 ; [+1]
-      102 LOADNIL                          R14
-      103 SETTABLEKS                       R14 R13 K19 ["ThermometerWrapper"]
-      105 CALL                             R10 3 -1
-      106 RETURN                           R10 -1
+       46 DUPTABLE                         R13 K21 [{"ThermometerWrapper"}]
+       47 JUMPIF                           R1 ; [+51]
+       48 GETUPVAL                         R14 0
+       49 GETTABLEKS                       R14 R14 K7 ["createElement"]
+       51 GETUPVAL                         R15 4
+       52 DUPTABLE                         R16 K31 [{"DrawCallCount", "TriangleCount", "RenderThreadAverageMs", "TaskThreadAverageMs", "IsEditMode", "MicroprofilerVisible", "AutomaticGraphicsQuality", "OnOpenSettings", "OnToggleMicroprofiler"}]
+       53 GETTABLEKS                       R18 R9 K33 ["drawCallCount"]
+       55 ORK                              R17 R18 K32 [0]
+       56 SETTABLEKS                       R17 R16 K22 ["DrawCallCount"]
+       58 GETTABLEKS                       R18 R9 K34 ["triangleCount"]
+       60 ORK                              R17 R18 K32 [0]
+       61 SETTABLEKS                       R17 R16 K23 ["TriangleCount"]
+       63 GETTABLEKS                       R18 R9 K35 ["renderThreadAverageMs"]
+       65 ORK                              R17 R18 K32 [0]
+       66 SETTABLEKS                       R17 R16 K24 ["RenderThreadAverageMs"]
+       68 GETTABLEKS                       R18 R9 K36 ["taskThreadAverageMs"]
+       70 ORK                              R17 R18 K32 [0]
+       71 SETTABLEKS                       R17 R16 K25 ["TaskThreadAverageMs"]
+       73 GETTABLEKS                       R17 R9 K37 ["isEditDM"]
+       75 SETTABLEKS                       R17 R16 K26 ["IsEditMode"]
+       77 GETTABLEKS                       R17 R9 K38 ["microprofilerVisible"]
+       79 SETTABLEKS                       R17 R16 K27 ["MicroprofilerVisible"]
+       81 GETTABLEKS                       R17 R9 K39 ["automaticGraphicsQuality"]
+       83 SETTABLEKS                       R17 R16 K28 ["AutomaticGraphicsQuality"]
+       85 NEWCLOSURE                       R17 P0
+       86 CAPTURE                          VAL R3
+       87 CAPTURE                          UPVAL U5
+       88 CAPTURE                          VAL R2
+       89 SETTABLEKS                       R17 R16 K29 ["OnOpenSettings"]
+       91 NEWCLOSURE                       R17 P1
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          UPVAL U6
+       94 CAPTURE                          VAL R5
+       95 SETTABLEKS                       R17 R16 K30 ["OnToggleMicroprofiler"]
+       97 CALL                             R14 2 1
+       98 JUMPIF                           R14 ; [+1]
+       99 LOADNIL                          R14
+      100 SETTABLEKS                       R14 R13 K20 ["ThermometerWrapper"]
+      102 CALL                             R10 3 -1
+      103 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

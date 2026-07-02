@@ -62,35 +62,27 @@ PROTO_4:
        28 CALL                             R5 4 1
        29 SETTABLEKS                       R5 R4 K4 ["Size"]
        31 NEWTABLE                         R5 0 2
-       33 DUPTABLE                         R6 K21 [{"Key", "Text", "Style"}]
-       34 LOADB                            R7 0
-       35 SETTABLEKS                       R7 R6 K18 ["Key"]
-       37 LOADK                            R9 K9 ["Dialog"]
-       38 LOADK                            R10 K22 ["Cancel"]
-       39 NAMECALL                         R7 R1 K11 ["getText"]
-       41 CALL                             R7 3 1
-       42 SETTABLEKS                       R7 R6 K19 ["Text"]
-       44 LOADK                            R7 K23 ["Round"]
-       45 SETTABLEKS                       R7 R6 K20 ["Style"]
-       47 DUPTABLE                         R7 K21 [{"Key", "Text", "Style"}]
-       48 LOADB                            R8 1
-       49 SETTABLEKS                       R8 R7 K18 ["Key"]
-       51 LOADK                            R10 K9 ["Dialog"]
-       52 LOADK                            R11 K24 ["Confirm"]
-       53 NAMECALL                         R8 R1 K11 ["getText"]
-       55 CALL                             R8 3 1
-       56 SETTABLEKS                       R8 R7 K19 ["Text"]
-       58 LOADK                            R8 K25 ["RoundPrimary"]
-       59 SETTABLEKS                       R8 R7 K20 ["Style"]
-       61 SETLIST                          R5 R6 2 [1]
-       63 SETTABLEKS                       R5 R4 K5 ["Buttons"]
-       65 NEWCLOSURE                       R5 P0
-       66 CAPTURE                          VAL R0
-       67 SETTABLEKS                       R5 R4 K6 ["OnButtonClicked"]
-       69 GETTABLEKS                       R5 R0 K26 ["onClose"]
-       71 SETTABLEKS                       R5 R4 K7 ["OnClose"]
-       73 CALL                             R2 2 -1
-       74 RETURN                           R2 -1
+       33 DUPTABLE                         R6 K23 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+       34 LOADK                            R9 K9 ["Dialog"]
+       35 LOADK                            R10 K24 ["Cancel"]
+       36 NAMECALL                         R7 R1 K11 ["getText"]
+       38 CALL                             R7 3 1
+       39 SETTABLEKS                       R7 R6 K20 ["Text"]
+       41 DUPTABLE                         R7 K27 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+       42 LOADK                            R10 K9 ["Dialog"]
+       43 LOADK                            R11 K28 ["Confirm"]
+       44 NAMECALL                         R8 R1 K11 ["getText"]
+       46 CALL                             R8 3 1
+       47 SETTABLEKS                       R8 R7 K20 ["Text"]
+       49 SETLIST                          R5 R6 2 [1]
+       51 SETTABLEKS                       R5 R4 K5 ["Buttons"]
+       53 NEWCLOSURE                       R5 P0
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R5 R4 K6 ["OnButtonClicked"]
+       57 GETTABLEKS                       R5 R0 K29 ["onClose"]
+       59 SETTABLEKS                       R5 R4 K7 ["OnClose"]
+       61 CALL                             R2 2 -1
+       62 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

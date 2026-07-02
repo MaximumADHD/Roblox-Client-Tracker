@@ -282,92 +282,88 @@ PROTO_9:
       187 GETTABLEKS                       R19 R19 K28 ["Fragment"]
       189 NEWTABLE                         R20 0 0
       191 DUPTABLE                         R21 K33 [{"MinBoundingBox", "MaxBoundingBox", "Ruler", "InvalidPartsHint"}]
-      192 JUMPIFNOT                        R16 ; [+29]
-      193 JUMPIF                           R14 ; [+28]
+      192 JUMPIFNOT                        R16 ; [+26]
+      193 JUMPIF                           R14 ; [+25]
       194 GETUPVAL                         R22 1
       195 GETTABLEKS                       R22 R22 K27 ["createElement"]
       197 GETUPVAL                         R23 9
-      198 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
-      199 GETTABLEKS                       R25 R9 K40 ["CFrame"]
+      198 DUPTABLE                         R24 K40 [{["BoundingBoxCFrame"], ["BoundingBoxSize"], ["IsValid"], ["Inside"] = True, ["AllValid"], ["Size"]}]
+      199 GETTABLEKS                       R25 R9 K41 ["CFrame"]
       201 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
       203 GETTABLEKS                       R25 R9 K18 ["Size"]
       205 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
       207 SETTABLEKS                       R12 R24 K36 ["IsValid"]
-      209 LOADB                            R25 1
-      210 SETTABLEKS                       R25 R24 K37 ["Inside"]
-      212 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      214 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      216 GETTABLEKS                       R25 R25 K17 ["minSize"]
-      218 SETTABLEKS                       R25 R24 K18 ["Size"]
-      220 CALL                             R22 2 1
-      221 JUMP                             ; [+1]
-      222 LOADNIL                          R22
-      223 SETTABLEKS                       R22 R21 K29 ["MinBoundingBox"]
-      225 JUMPIFNOT                        R16 ; [+29]
-      226 JUMPIF                           R14 ; [+28]
-      227 GETUPVAL                         R22 1
-      228 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      230 GETUPVAL                         R23 9
-      231 DUPTABLE                         R24 K39 [{"BoundingBoxCFrame", "BoundingBoxSize", "IsValid", "Inside", "AllValid", "Size"}]
-      232 GETTABLEKS                       R25 R9 K40 ["CFrame"]
-      234 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
-      236 GETTABLEKS                       R25 R9 K18 ["Size"]
-      238 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
-      240 SETTABLEKS                       R13 R24 K36 ["IsValid"]
-      242 LOADB                            R25 0
-      243 SETTABLEKS                       R25 R24 K37 ["Inside"]
-      245 SETTABLEKS                       R14 R24 K38 ["AllValid"]
-      247 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      249 GETTABLEKS                       R25 R25 K19 ["maxSize"]
-      251 SETTABLEKS                       R25 R24 K18 ["Size"]
-      253 CALL                             R22 2 1
-      254 JUMP                             ; [+1]
-      255 LOADNIL                          R22
-      256 SETTABLEKS                       R22 R21 K30 ["MaxBoundingBox"]
-      258 JUMPIFNOT                        R16 ; [+27]
-      259 JUMPIF                           R14 ; [+26]
-      260 GETUPVAL                         R22 1
-      261 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      263 GETUPVAL                         R23 10
-      264 DUPTABLE                         R24 K43 [{"ItemName", "Size", "CFrame", "SizeBounds"}]
-      265 LOADK                            R27 K44 ["AvatarSizeRuler"]
-      266 LOADK                            R28 K45 ["AvatarLabel"]
-      267 NAMECALL                         R25 R1 K46 ["getText"]
-      269 CALL                             R25 3 1
-      270 SETTABLEKS                       R25 R24 K41 ["ItemName"]
-      272 GETTABLEKS                       R25 R9 K18 ["Size"]
-      274 SETTABLEKS                       R25 R24 K18 ["Size"]
-      276 GETTABLEKS                       R25 R9 K40 ["CFrame"]
-      278 SETTABLEKS                       R25 R24 K40 ["CFrame"]
-      280 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
-      282 SETTABLEKS                       R25 R24 K42 ["SizeBounds"]
-      284 CALL                             R22 2 1
-      285 JUMP                             ; [+1]
-      286 LOADNIL                          R22
-      287 SETTABLEKS                       R22 R21 K31 ["Ruler"]
-      289 JUMPIFNOT                        R16 ; [+18]
-      290 JUMPIFNOT                        R14 ; [+17]
-      291 GETIMPORT                        R23 K48 [next]
-      293 GETTABLEKS                       R24 R11 K49 ["invalidBodyParts"]
-      295 CALL                             R23 1 1
-      296 JUMPIFNOT                        R23 ; [+11]
-      297 GETUPVAL                         R22 1
-      298 GETTABLEKS                       R22 R22 K27 ["createElement"]
-      300 GETUPVAL                         R23 11
-      301 DUPTABLE                         R24 K50 [{"invalidBodyParts"}]
-      302 GETTABLEKS                       R25 R11 K49 ["invalidBodyParts"]
-      304 SETTABLEKS                       R25 R24 K49 ["invalidBodyParts"]
-      306 CALL                             R22 2 1
-      307 JUMP                             ; [+1]
-      308 LOADNIL                          R22
-      309 SETTABLEKS                       R22 R21 K32 ["InvalidPartsHint"]
-      311 CALL                             R18 3 1
-      312 GETTABLEKS                       R19 R0 K51 ["Container"]
-      314 JUMPIF                           R19 ; [+1]
-      315 GETUPVAL                         R19 12
-      316 LOADK                            R20 K52 ["AvatarSizingHint"]
-      317 CALL                             R17 3 -1
-      318 RETURN                           R17 -1
+      209 SETTABLEKS                       R14 R24 K39 ["AllValid"]
+      211 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      213 GETTABLEKS                       R25 R25 K17 ["minSize"]
+      215 SETTABLEKS                       R25 R24 K18 ["Size"]
+      217 CALL                             R22 2 1
+      218 JUMP                             ; [+1]
+      219 LOADNIL                          R22
+      220 SETTABLEKS                       R22 R21 K29 ["MinBoundingBox"]
+      222 JUMPIFNOT                        R16 ; [+26]
+      223 JUMPIF                           R14 ; [+25]
+      224 GETUPVAL                         R22 1
+      225 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      227 GETUPVAL                         R23 9
+      228 DUPTABLE                         R24 K43 [{["BoundingBoxCFrame"], ["BoundingBoxSize"], ["IsValid"], ["Inside"] = False, ["AllValid"], ["Size"]}]
+      229 GETTABLEKS                       R25 R9 K41 ["CFrame"]
+      231 SETTABLEKS                       R25 R24 K34 ["BoundingBoxCFrame"]
+      233 GETTABLEKS                       R25 R9 K18 ["Size"]
+      235 SETTABLEKS                       R25 R24 K35 ["BoundingBoxSize"]
+      237 SETTABLEKS                       R13 R24 K36 ["IsValid"]
+      239 SETTABLEKS                       R14 R24 K39 ["AllValid"]
+      241 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      243 GETTABLEKS                       R25 R25 K19 ["maxSize"]
+      245 SETTABLEKS                       R25 R24 K18 ["Size"]
+      247 CALL                             R22 2 1
+      248 JUMP                             ; [+1]
+      249 LOADNIL                          R22
+      250 SETTABLEKS                       R22 R21 K30 ["MaxBoundingBox"]
+      252 JUMPIFNOT                        R16 ; [+27]
+      253 JUMPIF                           R14 ; [+26]
+      254 GETUPVAL                         R22 1
+      255 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      257 GETUPVAL                         R23 10
+      258 DUPTABLE                         R24 K46 [{"ItemName", "Size", "CFrame", "SizeBounds"}]
+      259 LOADK                            R27 K47 ["AvatarSizeRuler"]
+      260 LOADK                            R28 K48 ["AvatarLabel"]
+      261 NAMECALL                         R25 R1 K49 ["getText"]
+      263 CALL                             R25 3 1
+      264 SETTABLEKS                       R25 R24 K44 ["ItemName"]
+      266 GETTABLEKS                       R25 R9 K18 ["Size"]
+      268 SETTABLEKS                       R25 R24 K18 ["Size"]
+      270 GETTABLEKS                       R25 R9 K41 ["CFrame"]
+      272 SETTABLEKS                       R25 R24 K41 ["CFrame"]
+      274 GETTABLEKS                       R25 R11 K16 ["sizeBounds"]
+      276 SETTABLEKS                       R25 R24 K45 ["SizeBounds"]
+      278 CALL                             R22 2 1
+      279 JUMP                             ; [+1]
+      280 LOADNIL                          R22
+      281 SETTABLEKS                       R22 R21 K31 ["Ruler"]
+      283 JUMPIFNOT                        R16 ; [+18]
+      284 JUMPIFNOT                        R14 ; [+17]
+      285 GETIMPORT                        R23 K51 [next]
+      287 GETTABLEKS                       R24 R11 K52 ["invalidBodyParts"]
+      289 CALL                             R23 1 1
+      290 JUMPIFNOT                        R23 ; [+11]
+      291 GETUPVAL                         R22 1
+      292 GETTABLEKS                       R22 R22 K27 ["createElement"]
+      294 GETUPVAL                         R23 11
+      295 DUPTABLE                         R24 K53 [{"invalidBodyParts"}]
+      296 GETTABLEKS                       R25 R11 K52 ["invalidBodyParts"]
+      298 SETTABLEKS                       R25 R24 K52 ["invalidBodyParts"]
+      300 CALL                             R22 2 1
+      301 JUMP                             ; [+1]
+      302 LOADNIL                          R22
+      303 SETTABLEKS                       R22 R21 K32 ["InvalidPartsHint"]
+      305 CALL                             R18 3 1
+      306 GETTABLEKS                       R19 R0 K54 ["Container"]
+      308 JUMPIF                           R19 ; [+1]
+      309 GETUPVAL                         R19 12
+      310 LOADK                            R20 K55 ["AvatarSizingHint"]
+      311 CALL                             R17 3 -1
+      312 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

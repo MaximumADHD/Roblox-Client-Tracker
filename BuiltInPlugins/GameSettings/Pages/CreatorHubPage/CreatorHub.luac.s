@@ -86,7 +86,7 @@ PROTO_5:
        82 GETUPVAL                         R7 0
        83 GETTABLEKS                       R7 R7 K0 ["createElement"]
        85 GETUPVAL                         R8 5
-       86 DUPTABLE                         R9 K39 [{"LayoutOrder", "Text", "TextXAlignment", "Size", "AutomaticSize", "Font", "TextSize", "Style", "TextWrapped"}]
+       86 DUPTABLE                         R9 K41 [{["LayoutOrder"], ["Text"], ["TextXAlignment"], ["Size"], ["AutomaticSize"], ["Font"], ["TextSize"], ["Style"] = "SubText", ["TextWrapped"] = True}]
        87 GETUPVAL                         R10 2
        88 NAMECALL                         R10 R10 K8 ["getNextOrder"]
        90 CALL                             R10 1 1
@@ -111,14 +111,10 @@ PROTO_5:
       122 GETTABLEKS                       R10 R10 K33 ["Subtitle"]
       124 GETTABLEKS                       R10 R10 K29 ["TextSize"]
       126 SETTABLEKS                       R10 R9 K29 ["TextSize"]
-      128 LOADK                            R10 K40 ["SubText"]
-      129 SETTABLEKS                       R10 R9 K37 ["Style"]
-      131 LOADB                            R10 1
-      132 SETTABLEKS                       R10 R9 K38 ["TextWrapped"]
-      134 CALL                             R7 2 1
-      135 SETTABLEKS                       R7 R6 K24 ["Description"]
-      137 CALL                             R3 3 -1
-      138 RETURN                           R3 -1
+      128 CALL                             R7 2 1
+      129 SETTABLEKS                       R7 R6 K24 ["Description"]
+      131 CALL                             R3 3 -1
+      132 RETURN                           R3 -1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -160,178 +156,170 @@ PROTO_6:
        51 GETUPVAL                         R8 1
        52 GETTABLEKS                       R8 R8 K11 ["createElement"]
        54 GETUPVAL                         R9 5
-       55 DUPTABLE                         R10 K41 [{"LayoutOrder", "Style", "Text", "TextSize", "TextXAlignment", "AutomaticSize"}]
-       56 LOADN                            R11 1
-       57 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
-       59 LOADK                            R11 K34 ["Title"]
-       60 SETTABLEKS                       R11 R10 K37 ["Style"]
-       62 GETUPVAL                         R11 6
-       63 LOADK                            R13 K42 ["CreatorHub"]
-       64 LOADK                            R14 K43 ["PageTitle"]
-       65 NAMECALL                         R11 R11 K44 ["getText"]
-       67 CALL                             R11 3 1
-       68 SETTABLEKS                       R11 R10 K38 ["Text"]
-       70 LOADN                            R11 30
-       71 SETTABLEKS                       R11 R10 K39 ["TextSize"]
-       73 GETIMPORT                        R11 K45 [Enum.TextXAlignment.Left]
-       75 SETTABLEKS                       R11 R10 K40 ["TextXAlignment"]
-       77 GETIMPORT                        R11 K47 [Enum.AutomaticSize.XY]
-       79 SETTABLEKS                       R11 R10 K14 ["AutomaticSize"]
-       81 CALL                             R8 2 1
-       82 SETTABLEKS                       R8 R7 K34 ["Title"]
-       84 GETUPVAL                         R8 1
-       85 GETTABLEKS                       R8 R8 K11 ["createElement"]
-       87 GETUPVAL                         R9 5
-       88 DUPTABLE                         R10 K49 [{"LayoutOrder", "Text", "TextXAlignment", "Size", "AutomaticSize", "Font", "TextSize"}]
-       89 LOADN                            R11 2
-       90 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
-       92 GETUPVAL                         R11 6
-       93 LOADK                            R13 K42 ["CreatorHub"]
-       94 LOADK                            R14 K35 ["AdditionalSettings"]
-       95 NAMECALL                         R11 R11 K44 ["getText"]
-       97 CALL                             R11 3 1
-       98 SETTABLEKS                       R11 R10 K38 ["Text"]
-      100 GETIMPORT                        R11 K45 [Enum.TextXAlignment.Left]
-      102 SETTABLEKS                       R11 R10 K40 ["TextXAlignment"]
-      104 GETIMPORT                        R11 K30 [UDim2.fromScale]
-      106 LOADN                            R12 1
-      107 LOADN                            R13 0
-      108 CALL                             R11 2 1
-      109 SETTABLEKS                       R11 R10 K16 ["Size"]
-      111 GETIMPORT                        R11 K25 [Enum.AutomaticSize.Y]
-      113 SETTABLEKS                       R11 R10 K14 ["AutomaticSize"]
-      115 GETTABLEKS                       R11 R1 K50 ["fontStyle"]
-      117 GETTABLEKS                       R11 R11 K51 ["Subtitle"]
-      119 GETTABLEKS                       R11 R11 K48 ["Font"]
-      121 SETTABLEKS                       R11 R10 K48 ["Font"]
-      123 GETTABLEKS                       R11 R1 K50 ["fontStyle"]
-      125 GETTABLEKS                       R11 R11 K51 ["Subtitle"]
-      127 GETTABLEKS                       R11 R11 K39 ["TextSize"]
-      129 SETTABLEKS                       R11 R10 K39 ["TextSize"]
-      131 CALL                             R8 2 1
-      132 SETTABLEKS                       R8 R7 K35 ["AdditionalSettings"]
-      134 CALL                             R4 3 1
-      135 SETTABLEKS                       R4 R3 K2 ["HeaderGroup"]
-      137 MOVE                             R4 R2
-      138 GETUPVAL                         R5 6
-      139 LOADK                            R7 K42 ["CreatorHub"]
-      140 LOADK                            R8 K52 ["AccessLocation"]
-      141 NAMECALL                         R5 R5 K44 ["getText"]
-      143 CALL                             R5 3 1
-      144 GETUPVAL                         R6 6
-      145 LOADK                            R8 K42 ["CreatorHub"]
-      146 LOADK                            R9 K3 ["Access"]
-      147 NAMECALL                         R6 R6 K44 ["getText"]
-      149 CALL                             R6 3 1
-      150 GETUPVAL                         R7 7
-      151 GETTABLEKS                       R7 R7 K53 ["OpenExperienceAccess"]
-      153 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      155 CALL                             R7 1 -1
-      156 CALL                             R4 -1 1
-      157 SETTABLEKS                       R4 R3 K3 ["Access"]
-      159 MOVE                             R4 R2
-      160 GETUPVAL                         R5 6
-      161 LOADK                            R7 K42 ["CreatorHub"]
-      162 LOADK                            R8 K55 ["ConfigureSettingsLocation"]
-      163 NAMECALL                         R5 R5 K44 ["getText"]
-      165 CALL                             R5 3 1
-      166 GETUPVAL                         R6 6
-      167 LOADK                            R8 K42 ["CreatorHub"]
-      168 LOADK                            R9 K56 ["ConfigureSettings"]
-      169 NAMECALL                         R6 R6 K44 ["getText"]
-      171 CALL                             R6 3 1
-      172 GETUPVAL                         R7 7
-      173 GETTABLEKS                       R7 R7 K57 ["OpenExperienceSettings"]
-      175 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      177 CALL                             R7 1 -1
-      178 CALL                             R4 -1 1
-      179 SETTABLEKS                       R4 R3 K4 ["GeneralSettings"]
-      181 MOVE                             R4 R2
-      182 GETUPVAL                         R5 6
-      183 LOADK                            R7 K42 ["CreatorHub"]
-      184 LOADK                            R8 K58 ["ContentMaturityLocation"]
-      185 NAMECALL                         R5 R5 K44 ["getText"]
-      187 CALL                             R5 3 1
-      188 GETUPVAL                         R6 6
-      189 LOADK                            R8 K42 ["CreatorHub"]
-      190 LOADK                            R9 K5 ["ContentMaturity"]
-      191 NAMECALL                         R6 R6 K44 ["getText"]
-      193 CALL                             R6 3 1
-      194 GETUPVAL                         R7 7
-      195 GETTABLEKS                       R7 R7 K59 ["OpenExperienceQuestionnaire"]
-      197 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      199 CALL                             R7 1 -1
-      200 CALL                             R4 -1 1
-      201 SETTABLEKS                       R4 R3 K5 ["ContentMaturity"]
-      203 MOVE                             R4 R2
-      204 GETUPVAL                         R5 6
-      205 LOADK                            R7 K42 ["CreatorHub"]
-      206 LOADK                            R8 K60 ["PlacesLocation"]
-      207 NAMECALL                         R5 R5 K44 ["getText"]
-      209 CALL                             R5 3 1
-      210 GETUPVAL                         R6 6
-      211 LOADK                            R8 K42 ["CreatorHub"]
-      212 LOADK                            R9 K6 ["Places"]
-      213 NAMECALL                         R6 R6 K44 ["getText"]
-      215 CALL                             R6 3 1
-      216 GETUPVAL                         R7 7
-      217 GETTABLEKS                       R7 R7 K61 ["OpenPlaceConfiguration"]
-      219 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      221 CALL                             R7 1 -1
-      222 CALL                             R4 -1 1
-      223 SETTABLEKS                       R4 R3 K6 ["Places"]
-      225 MOVE                             R4 R2
-      226 GETUPVAL                         R5 6
-      227 LOADK                            R7 K42 ["CreatorHub"]
-      228 LOADK                            R8 K62 ["MonetizationLocation"]
-      229 NAMECALL                         R5 R5 K44 ["getText"]
-      231 CALL                             R5 3 1
-      232 GETUPVAL                         R6 6
-      233 LOADK                            R8 K42 ["CreatorHub"]
-      234 LOADK                            R9 K7 ["Monetization"]
-      235 NAMECALL                         R6 R6 K44 ["getText"]
-      237 CALL                             R6 3 1
-      238 GETUPVAL                         R7 7
-      239 GETTABLEKS                       R7 R7 K63 ["OpenDevProductSettings"]
-      241 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      243 CALL                             R7 1 -1
-      244 CALL                             R4 -1 1
-      245 SETTABLEKS                       R4 R3 K7 ["Monetization"]
-      247 MOVE                             R4 R2
-      248 GETUPVAL                         R5 6
-      249 LOADK                            R7 K42 ["CreatorHub"]
-      250 LOADK                            R8 K64 ["EngagementLocation"]
-      251 NAMECALL                         R5 R5 K44 ["getText"]
-      253 CALL                             R5 3 1
-      254 GETUPVAL                         R6 6
-      255 LOADK                            R8 K42 ["CreatorHub"]
-      256 LOADK                            R9 K8 ["Engagement"]
-      257 NAMECALL                         R6 R6 K44 ["getText"]
-      259 CALL                             R6 3 1
-      260 GETUPVAL                         R7 7
-      261 GETTABLEKS                       R7 R7 K65 ["OpenBadgesSettings"]
-      263 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      265 CALL                             R7 1 -1
-      266 CALL                             R4 -1 1
-      267 SETTABLEKS                       R4 R3 K8 ["Engagement"]
-      269 MOVE                             R4 R2
-      270 GETUPVAL                         R5 6
-      271 LOADK                            R7 K42 ["CreatorHub"]
-      272 LOADK                            R8 K66 ["LocalizationLocation"]
-      273 NAMECALL                         R5 R5 K44 ["getText"]
-      275 CALL                             R5 3 1
-      276 GETUPVAL                         R6 6
-      277 LOADK                            R8 K42 ["CreatorHub"]
-      278 LOADK                            R9 K9 ["Localization"]
-      279 NAMECALL                         R6 R6 K44 ["getText"]
-      281 CALL                             R6 3 1
-      282 GETUPVAL                         R7 7
-      283 GETTABLEKS                       R7 R7 K67 ["OpenLocalizationSettings"]
-      285 GETTABLEKS                       R8 R0 K54 ["GameId"]
-      287 CALL                             R7 1 -1
-      288 CALL                             R4 -1 1
-      289 SETTABLEKS                       R4 R3 K9 ["Localization"]
-      291 RETURN                           R3 1
+       55 DUPTABLE                         R10 K43 [{["LayoutOrder"] = 1, ["Style"] = "Title", ["Text"], ["TextSize"] = 30, ["TextXAlignment"], ["AutomaticSize"]}]
+       56 GETUPVAL                         R11 6
+       57 LOADK                            R13 K44 ["CreatorHub"]
+       58 LOADK                            R14 K45 ["PageTitle"]
+       59 NAMECALL                         R11 R11 K46 ["getText"]
+       61 CALL                             R11 3 1
+       62 SETTABLEKS                       R11 R10 K39 ["Text"]
+       64 GETIMPORT                        R11 K47 [Enum.TextXAlignment.Left]
+       66 SETTABLEKS                       R11 R10 K42 ["TextXAlignment"]
+       68 GETIMPORT                        R11 K49 [Enum.AutomaticSize.XY]
+       70 SETTABLEKS                       R11 R10 K14 ["AutomaticSize"]
+       72 CALL                             R8 2 1
+       73 SETTABLEKS                       R8 R7 K34 ["Title"]
+       75 GETUPVAL                         R8 1
+       76 GETTABLEKS                       R8 R8 K11 ["createElement"]
+       78 GETUPVAL                         R9 5
+       79 DUPTABLE                         R10 K52 [{["LayoutOrder"] = 2, ["Text"], ["TextXAlignment"], ["Size"], ["AutomaticSize"], ["Font"], ["TextSize"]}]
+       80 GETUPVAL                         R11 6
+       81 LOADK                            R13 K44 ["CreatorHub"]
+       82 LOADK                            R14 K35 ["AdditionalSettings"]
+       83 NAMECALL                         R11 R11 K46 ["getText"]
+       85 CALL                             R11 3 1
+       86 SETTABLEKS                       R11 R10 K39 ["Text"]
+       88 GETIMPORT                        R11 K47 [Enum.TextXAlignment.Left]
+       90 SETTABLEKS                       R11 R10 K42 ["TextXAlignment"]
+       92 GETIMPORT                        R11 K30 [UDim2.fromScale]
+       94 LOADN                            R12 1
+       95 LOADN                            R13 0
+       96 CALL                             R11 2 1
+       97 SETTABLEKS                       R11 R10 K16 ["Size"]
+       99 GETIMPORT                        R11 K25 [Enum.AutomaticSize.Y]
+      101 SETTABLEKS                       R11 R10 K14 ["AutomaticSize"]
+      103 GETTABLEKS                       R11 R1 K53 ["fontStyle"]
+      105 GETTABLEKS                       R11 R11 K54 ["Subtitle"]
+      107 GETTABLEKS                       R11 R11 K51 ["Font"]
+      109 SETTABLEKS                       R11 R10 K51 ["Font"]
+      111 GETTABLEKS                       R11 R1 K53 ["fontStyle"]
+      113 GETTABLEKS                       R11 R11 K54 ["Subtitle"]
+      115 GETTABLEKS                       R11 R11 K40 ["TextSize"]
+      117 SETTABLEKS                       R11 R10 K40 ["TextSize"]
+      119 CALL                             R8 2 1
+      120 SETTABLEKS                       R8 R7 K35 ["AdditionalSettings"]
+      122 CALL                             R4 3 1
+      123 SETTABLEKS                       R4 R3 K2 ["HeaderGroup"]
+      125 MOVE                             R4 R2
+      126 GETUPVAL                         R5 6
+      127 LOADK                            R7 K44 ["CreatorHub"]
+      128 LOADK                            R8 K55 ["AccessLocation"]
+      129 NAMECALL                         R5 R5 K46 ["getText"]
+      131 CALL                             R5 3 1
+      132 GETUPVAL                         R6 6
+      133 LOADK                            R8 K44 ["CreatorHub"]
+      134 LOADK                            R9 K3 ["Access"]
+      135 NAMECALL                         R6 R6 K46 ["getText"]
+      137 CALL                             R6 3 1
+      138 GETUPVAL                         R7 7
+      139 GETTABLEKS                       R7 R7 K56 ["OpenExperienceAccess"]
+      141 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      143 CALL                             R7 1 -1
+      144 CALL                             R4 -1 1
+      145 SETTABLEKS                       R4 R3 K3 ["Access"]
+      147 MOVE                             R4 R2
+      148 GETUPVAL                         R5 6
+      149 LOADK                            R7 K44 ["CreatorHub"]
+      150 LOADK                            R8 K58 ["ConfigureSettingsLocation"]
+      151 NAMECALL                         R5 R5 K46 ["getText"]
+      153 CALL                             R5 3 1
+      154 GETUPVAL                         R6 6
+      155 LOADK                            R8 K44 ["CreatorHub"]
+      156 LOADK                            R9 K59 ["ConfigureSettings"]
+      157 NAMECALL                         R6 R6 K46 ["getText"]
+      159 CALL                             R6 3 1
+      160 GETUPVAL                         R7 7
+      161 GETTABLEKS                       R7 R7 K60 ["OpenExperienceSettings"]
+      163 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      165 CALL                             R7 1 -1
+      166 CALL                             R4 -1 1
+      167 SETTABLEKS                       R4 R3 K4 ["GeneralSettings"]
+      169 MOVE                             R4 R2
+      170 GETUPVAL                         R5 6
+      171 LOADK                            R7 K44 ["CreatorHub"]
+      172 LOADK                            R8 K61 ["ContentMaturityLocation"]
+      173 NAMECALL                         R5 R5 K46 ["getText"]
+      175 CALL                             R5 3 1
+      176 GETUPVAL                         R6 6
+      177 LOADK                            R8 K44 ["CreatorHub"]
+      178 LOADK                            R9 K5 ["ContentMaturity"]
+      179 NAMECALL                         R6 R6 K46 ["getText"]
+      181 CALL                             R6 3 1
+      182 GETUPVAL                         R7 7
+      183 GETTABLEKS                       R7 R7 K62 ["OpenExperienceQuestionnaire"]
+      185 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      187 CALL                             R7 1 -1
+      188 CALL                             R4 -1 1
+      189 SETTABLEKS                       R4 R3 K5 ["ContentMaturity"]
+      191 MOVE                             R4 R2
+      192 GETUPVAL                         R5 6
+      193 LOADK                            R7 K44 ["CreatorHub"]
+      194 LOADK                            R8 K63 ["PlacesLocation"]
+      195 NAMECALL                         R5 R5 K46 ["getText"]
+      197 CALL                             R5 3 1
+      198 GETUPVAL                         R6 6
+      199 LOADK                            R8 K44 ["CreatorHub"]
+      200 LOADK                            R9 K6 ["Places"]
+      201 NAMECALL                         R6 R6 K46 ["getText"]
+      203 CALL                             R6 3 1
+      204 GETUPVAL                         R7 7
+      205 GETTABLEKS                       R7 R7 K64 ["OpenPlaceConfiguration"]
+      207 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      209 CALL                             R7 1 -1
+      210 CALL                             R4 -1 1
+      211 SETTABLEKS                       R4 R3 K6 ["Places"]
+      213 MOVE                             R4 R2
+      214 GETUPVAL                         R5 6
+      215 LOADK                            R7 K44 ["CreatorHub"]
+      216 LOADK                            R8 K65 ["MonetizationLocation"]
+      217 NAMECALL                         R5 R5 K46 ["getText"]
+      219 CALL                             R5 3 1
+      220 GETUPVAL                         R6 6
+      221 LOADK                            R8 K44 ["CreatorHub"]
+      222 LOADK                            R9 K7 ["Monetization"]
+      223 NAMECALL                         R6 R6 K46 ["getText"]
+      225 CALL                             R6 3 1
+      226 GETUPVAL                         R7 7
+      227 GETTABLEKS                       R7 R7 K66 ["OpenDevProductSettings"]
+      229 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      231 CALL                             R7 1 -1
+      232 CALL                             R4 -1 1
+      233 SETTABLEKS                       R4 R3 K7 ["Monetization"]
+      235 MOVE                             R4 R2
+      236 GETUPVAL                         R5 6
+      237 LOADK                            R7 K44 ["CreatorHub"]
+      238 LOADK                            R8 K67 ["EngagementLocation"]
+      239 NAMECALL                         R5 R5 K46 ["getText"]
+      241 CALL                             R5 3 1
+      242 GETUPVAL                         R6 6
+      243 LOADK                            R8 K44 ["CreatorHub"]
+      244 LOADK                            R9 K8 ["Engagement"]
+      245 NAMECALL                         R6 R6 K46 ["getText"]
+      247 CALL                             R6 3 1
+      248 GETUPVAL                         R7 7
+      249 GETTABLEKS                       R7 R7 K68 ["OpenBadgesSettings"]
+      251 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      253 CALL                             R7 1 -1
+      254 CALL                             R4 -1 1
+      255 SETTABLEKS                       R4 R3 K8 ["Engagement"]
+      257 MOVE                             R4 R2
+      258 GETUPVAL                         R5 6
+      259 LOADK                            R7 K44 ["CreatorHub"]
+      260 LOADK                            R8 K69 ["LocalizationLocation"]
+      261 NAMECALL                         R5 R5 K46 ["getText"]
+      263 CALL                             R5 3 1
+      264 GETUPVAL                         R6 6
+      265 LOADK                            R8 K44 ["CreatorHub"]
+      266 LOADK                            R9 K9 ["Localization"]
+      267 NAMECALL                         R6 R6 K46 ["getText"]
+      269 CALL                             R6 3 1
+      270 GETUPVAL                         R7 7
+      271 GETTABLEKS                       R7 R7 K70 ["OpenLocalizationSettings"]
+      273 GETTABLEKS                       R8 R0 K57 ["GameId"]
+      275 CALL                             R7 1 -1
+      276 CALL                             R4 -1 1
+      277 SETTABLEKS                       R4 R3 K9 ["Localization"]
+      279 RETURN                           R3 1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -351,23 +339,19 @@ PROTO_7:
        17 GETUPVAL                         R5 1
        18 GETTABLEKS                       R5 R5 K3 ["createElement"]
        20 GETUPVAL                         R6 6
-       21 DUPTABLE                         R7 K10 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "ShowHeader", "CreateChildren"}]
+       21 DUPTABLE                         R7 K12 [{["SettingsLoadJobs"], ["SettingsSaveJobs"], ["Title"], ["PageId"] = "CreatorHub", ["ShowHeader"] = False, ["CreateChildren"]}]
        22 GETUPVAL                         R8 7
        23 SETTABLEKS                       R8 R7 K4 ["SettingsLoadJobs"]
        25 GETUPVAL                         R8 8
        26 SETTABLEKS                       R8 R7 K5 ["SettingsSaveJobs"]
-       28 LOADK                            R10 K11 ["CreatorHub"]
-       29 LOADK                            R11 K12 ["PageTitle"]
-       30 NAMECALL                         R8 R3 K13 ["getText"]
+       28 LOADK                            R10 K8 ["CreatorHub"]
+       29 LOADK                            R11 K13 ["PageTitle"]
+       30 NAMECALL                         R8 R3 K14 ["getText"]
        32 CALL                             R8 3 1
        33 SETTABLEKS                       R8 R7 K6 ["Title"]
-       35 LOADK                            R8 K11 ["CreatorHub"]
-       36 SETTABLEKS                       R8 R7 K7 ["PageId"]
-       38 LOADB                            R8 0
-       39 SETTABLEKS                       R8 R7 K8 ["ShowHeader"]
-       41 SETTABLEKS                       R4 R7 K9 ["CreateChildren"]
-       43 CALL                             R5 2 -1
-       44 RETURN                           R5 -1
+       35 SETTABLEKS                       R4 R7 K11 ["CreateChildren"]
+       37 CALL                             R5 2 -1
+       38 RETURN                           R5 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

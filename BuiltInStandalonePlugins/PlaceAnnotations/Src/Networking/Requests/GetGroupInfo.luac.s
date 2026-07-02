@@ -20,22 +20,20 @@ PROTO_2:
        12 CALL                             R3 1 -1
        13 CALL                             R1 -1 1
        14 GETUPVAL                         R2 2
-       15 DUPTABLE                         R4 K5 [{"Method", "Url", "Headers"}]
-       16 LOADK                            R5 K6 ["GET"]
-       17 SETTABLEKS                       R5 R4 K3 ["Method"]
-       19 SETTABLEKS                       R1 R4 K2 ["Url"]
-       21 GETUPVAL                         R5 3
-       22 SETTABLEKS                       R5 R4 K4 ["Headers"]
-       24 NAMECALL                         R2 R2 K7 ["request"]
-       26 CALL                             R2 2 1
-       27 DUPCLOSURE                       R4 K8 [PROTO_0]
-       28 CAPTURE                          UPVAL U4
-       29 NAMECALL                         R2 R2 K9 ["andThen"]
-       31 CALL                             R2 2 1
-       32 DUPCLOSURE                       R4 K10 [PROTO_1]
-       33 NAMECALL                         R2 R2 K11 ["catch"]
-       35 CALL                             R2 2 -1
-       36 RETURN                           R2 -1
+       15 DUPTABLE                         R4 K6 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+       16 SETTABLEKS                       R1 R4 K2 ["Url"]
+       18 GETUPVAL                         R5 3
+       19 SETTABLEKS                       R5 R4 K5 ["Headers"]
+       21 NAMECALL                         R2 R2 K7 ["request"]
+       23 CALL                             R2 2 1
+       24 DUPCLOSURE                       R4 K8 [PROTO_0]
+       25 CAPTURE                          UPVAL U4
+       26 NAMECALL                         R2 R2 K9 ["andThen"]
+       28 CALL                             R2 2 1
+       29 DUPCLOSURE                       R4 K10 [PROTO_1]
+       30 NAMECALL                         R2 R2 K11 ["catch"]
+       32 CALL                             R2 2 -1
+       33 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -62,23 +60,21 @@ MAIN:
        37 CALL                             R3 1 1
        38 GETTABLEKS                       R3 R3 K7 ["Networking"]
        40 GETTABLEKS                       R4 R3 K11 ["new"]
-       42 DUPTABLE                         R5 K13 [{"isInternal"}]
-       43 LOADB                            R6 1
-       44 SETTABLEKS                       R6 R5 K12 ["isInternal"]
-       46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K15 [game]
-       49 LOADK                            R7 K16 ["HttpService"]
-       50 NAMECALL                         R5 R5 K17 ["GetService"]
-       52 CALL                             R5 2 1
-       53 NEWTABLE                         R6 1 0
-       55 LOADK                            R7 K18 ["application/json"]
-       56 SETTABLEKS                       R7 R6 K19 ["Content-Type"]
-       58 DUPCLOSURE                       R7 K20 [PROTO_2]
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R5
-       64 SETGLOBAL                        R7 K21 ["GetGroupInfo"]
-       66 GETGLOBAL                        R7 K21 ["GetGroupInfo"]
-       68 RETURN                           R7 1
+       42 DUPTABLE                         R5 K14 [{["isInternal"] = True}]
+       43 CALL                             R4 1 1
+       44 GETIMPORT                        R5 K16 [game]
+       46 LOADK                            R7 K17 ["HttpService"]
+       47 NAMECALL                         R5 R5 K18 ["GetService"]
+       49 CALL                             R5 2 1
+       50 NEWTABLE                         R6 1 0
+       52 LOADK                            R7 K19 ["application/json"]
+       53 SETTABLEKS                       R7 R6 K20 ["Content-Type"]
+       55 DUPCLOSURE                       R7 K21 [PROTO_2]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R5
+       61 SETGLOBAL                        R7 K22 ["GetGroupInfo"]
+       63 GETGLOBAL                        R7 K22 ["GetGroupInfo"]
+       65 RETURN                           R7 1

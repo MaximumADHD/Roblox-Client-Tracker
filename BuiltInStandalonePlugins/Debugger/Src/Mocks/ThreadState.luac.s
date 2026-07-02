@@ -1,22 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K7 [{"ThreadId", "ThreadName", "isValid", "Populated", "PopulatableType", "callstack", "FrameCount"}]
+        0 DUPTABLE                         R3 K10 [{[1], ["ThreadName"], ["isValid"], ["Populated"] = False, ["PopulatableType"] = "ThreadState", ["callstack"], ["FrameCount"] = 0}]
         1 SETTABLEKS                       R0 R3 K0 ["ThreadId"]
         3 SETTABLEKS                       R1 R3 K1 ["ThreadName"]
         5 SETTABLEKS                       R2 R3 K2 ["isValid"]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R3 K3 ["Populated"]
-       10 LOADK                            R4 K8 ["ThreadState"]
-       11 SETTABLEKS                       R4 R3 K4 ["PopulatableType"]
-       13 NEWTABLE                         R4 0 0
-       15 SETTABLEKS                       R4 R3 K5 ["callstack"]
-       17 LOADN                            R4 0
-       18 SETTABLEKS                       R4 R3 K6 ["FrameCount"]
-       20 GETUPVAL                         R6 0
-       21 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       23 MOVE                             R5 R3
-       24 GETIMPORT                        R4 K10 [setmetatable]
-       26 CALL                             R4 2 0
-       27 RETURN                           R3 1
+        7 NEWTABLE                         R4 0 0
+        9 SETTABLEKS                       R4 R3 K7 ["callstack"]
+       11 GETUPVAL                         R6 0
+       12 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       14 MOVE                             R5 R3
+       15 GETIMPORT                        R4 K12 [setmetatable]
+       17 CALL                             R4 2 0
+       18 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["callstack"]

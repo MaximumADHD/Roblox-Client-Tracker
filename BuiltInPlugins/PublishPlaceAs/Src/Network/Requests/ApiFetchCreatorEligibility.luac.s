@@ -21,37 +21,33 @@ PROTO_0:
        27 RETURN                           R2 1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K3 [{"Url", "Method", "Body"}]
+        0 DUPTABLE                         R2 K4 [{[1], ["Method"] = "POST", ["Body"]}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K4 ["BuildRobloxUrl"]
-        4 LOADK                            R4 K5 ["apis"]
-        5 LOADK                            R5 K6 ["experience-guidelines-service/v1beta1/multi-creator-eligibility"]
+        2 GETTABLEKS                       R3 R3 K5 ["BuildRobloxUrl"]
+        4 LOADK                            R4 K6 ["apis"]
+        5 LOADK                            R5 K7 ["experience-guidelines-service/v1beta1/multi-creator-eligibility"]
         6 CALL                             R3 2 1
         7 SETTABLEKS                       R3 R2 K0 ["Url"]
-        9 LOADK                            R3 K7 ["POST"]
-       10 SETTABLEKS                       R3 R2 K1 ["Method"]
-       12 GETUPVAL                         R3 1
-       13 DUPTABLE                         R5 K11 [{"action", "universeId", "userIds"}]
-       14 LOADN                            R6 1
-       15 SETTABLEKS                       R6 R5 K8 ["action"]
-       17 SETTABLEKS                       R0 R5 K9 ["universeId"]
-       19 NEWTABLE                         R6 0 1
-       21 MOVE                             R7 R1
-       22 SETLIST                          R6 R7 1 [1]
-       24 SETTABLEKS                       R6 R5 K10 ["userIds"]
-       26 NAMECALL                         R3 R3 K12 ["JSONEncode"]
-       28 CALL                             R3 2 1
-       29 SETTABLEKS                       R3 R2 K2 ["Body"]
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R3 R3 K13 ["Request"]
-       34 MOVE                             R4 R2
-       35 CALL                             R3 1 1
-       36 NEWCLOSURE                       R5 P0
-       37 CAPTURE                          UPVAL U1
-       38 CAPTURE                          VAL R0
-       39 NAMECALL                         R3 R3 K14 ["andThen"]
-       41 CALL                             R3 2 -1
-       42 RETURN                           R3 -1
+        9 GETUPVAL                         R3 1
+       10 DUPTABLE                         R5 K12 [{["action"] = 1, ["universeId"], ["userIds"]}]
+       11 SETTABLEKS                       R0 R5 K10 ["universeId"]
+       13 NEWTABLE                         R6 0 1
+       15 MOVE                             R7 R1
+       16 SETLIST                          R6 R7 1 [1]
+       18 SETTABLEKS                       R6 R5 K11 ["userIds"]
+       20 NAMECALL                         R3 R3 K13 ["JSONEncode"]
+       22 CALL                             R3 2 1
+       23 SETTABLEKS                       R3 R2 K3 ["Body"]
+       25 GETUPVAL                         R3 0
+       26 GETTABLEKS                       R3 R3 K14 ["Request"]
+       28 MOVE                             R4 R2
+       29 CALL                             R3 1 1
+       30 NEWCLOSURE                       R5 P0
+       31 CAPTURE                          UPVAL U1
+       32 CAPTURE                          VAL R0
+       33 NAMECALL                         R3 R3 K15 ["andThen"]
+       35 CALL                             R3 2 -1
+       36 RETURN                           R3 -1
 
 PROTO_2:
         0 NEWTABLE                         R1 0 0

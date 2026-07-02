@@ -45,16 +45,14 @@ PROTO_2:
        19 SETTABLEKS                       R1 R0 K6 ["Design"]
        21 GETUPVAL                         R1 3
        22 GETTABLEKS                       R1 R1 K0 ["new"]
-       24 DUPTABLE                         R2 K10 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       24 DUPTABLE                         R2 K11 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PlaceVersionHistory"}]
        25 GETUPVAL                         R3 4
        26 SETTABLEKS                       R3 R2 K7 ["stringResourceTable"]
        28 GETUPVAL                         R3 5
        29 SETTABLEKS                       R3 R2 K8 ["translationResourceTable"]
-       31 LOADK                            R3 K11 ["PlaceVersionHistory"]
-       32 SETTABLEKS                       R3 R2 K9 ["pluginName"]
-       34 CALL                             R1 1 1
-       35 SETTABLEKS                       R1 R0 K12 ["Localization"]
-       37 RETURN                           R0 1
+       31 CALL                             R1 1 1
+       32 SETTABLEKS                       R1 R0 K12 ["Localization"]
+       34 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -278,44 +276,36 @@ MAIN:
       138 GETTABLEKS                       R28 R0 K18 ["Src"]
       140 GETTABLEKS                       R28 R28 K37 ["Types"]
       142 CALL                             R27 1 1
-      143 DUPTABLE                         R28 K42 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      144 LOADK                            R29 K43 ["Standalone"]
-      145 SETTABLEKS                       R29 R28 K38 ["DataModel"]
-      147 LOADK                            R29 K2 ["PlaceVersionHistory"]
-      148 SETTABLEKS                       R29 R28 K39 ["PluginId"]
-      150 LOADK                            R29 K44 ["Actions"]
-      151 SETTABLEKS                       R29 R28 K40 ["Category"]
-      153 LOADK                            R29 K45 ["Toggle"]
-      154 SETTABLEKS                       R29 R28 K41 ["ItemId"]
-      156 DUPCLOSURE                       R29 K46 [PROTO_0]
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          VAL R19
-      159 CAPTURE                          VAL R24
-      160 CAPTURE                          VAL R14
-      161 SETGLOBAL                        R29 K47 ["App"]
-      163 DUPCLOSURE                       R29 K48 [PROTO_4]
-      164 CAPTURE                          VAL R16
-      165 CAPTURE                          VAL R28
-      166 CAPTURE                          VAL R17
-      167 CAPTURE                          VAL R2
-      168 CAPTURE                          VAL R7
-      169 CAPTURE                          VAL R8
-      170 CAPTURE                          VAL R9
-      171 CAPTURE                          VAL R10
-      172 CAPTURE                          VAL R11
-      173 CAPTURE                          VAL R6
-      174 CAPTURE                          VAL R4
-      175 CAPTURE                          VAL R3
-      176 CAPTURE                          VAL R12
-      177 CAPTURE                          VAL R20
-      178 CAPTURE                          VAL R21
-      179 CAPTURE                          VAL R22
-      180 CAPTURE                          VAL R23
-      181 CAPTURE                          VAL R25
-      182 CAPTURE                          VAL R26
-      183 CAPTURE                          VAL R1
-      184 CAPTURE                          VAL R24
-      185 CAPTURE                          VAL R14
-      186 SETGLOBAL                        R29 K49 ["MainPlugin"]
-      188 GETGLOBAL                        R29 K49 ["MainPlugin"]
-      190 RETURN                           R29 1
+      143 DUPTABLE                         R28 K45 [{["DataModel"] = "Standalone", ["PluginId"] = "PlaceVersionHistory", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      144 DUPCLOSURE                       R29 K46 [PROTO_0]
+      145 CAPTURE                          VAL R2
+      146 CAPTURE                          VAL R19
+      147 CAPTURE                          VAL R24
+      148 CAPTURE                          VAL R14
+      149 SETGLOBAL                        R29 K47 ["App"]
+      151 DUPCLOSURE                       R29 K48 [PROTO_4]
+      152 CAPTURE                          VAL R16
+      153 CAPTURE                          VAL R28
+      154 CAPTURE                          VAL R17
+      155 CAPTURE                          VAL R2
+      156 CAPTURE                          VAL R7
+      157 CAPTURE                          VAL R8
+      158 CAPTURE                          VAL R9
+      159 CAPTURE                          VAL R10
+      160 CAPTURE                          VAL R11
+      161 CAPTURE                          VAL R6
+      162 CAPTURE                          VAL R4
+      163 CAPTURE                          VAL R3
+      164 CAPTURE                          VAL R12
+      165 CAPTURE                          VAL R20
+      166 CAPTURE                          VAL R21
+      167 CAPTURE                          VAL R22
+      168 CAPTURE                          VAL R23
+      169 CAPTURE                          VAL R25
+      170 CAPTURE                          VAL R26
+      171 CAPTURE                          VAL R1
+      172 CAPTURE                          VAL R24
+      173 CAPTURE                          VAL R14
+      174 SETGLOBAL                        R29 K49 ["MainPlugin"]
+      176 GETGLOBAL                        R29 K49 ["MainPlugin"]
+      178 RETURN                           R29 1

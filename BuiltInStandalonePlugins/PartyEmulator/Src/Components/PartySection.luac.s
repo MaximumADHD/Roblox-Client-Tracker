@@ -25,50 +25,46 @@ PROTO_0:
        36 GETTABLEKS                       R3 R3 K4 ["createElement"]
        38 GETUPVAL                         R4 3
        39 GETTABLEKS                       R4 R4 K9 ["View"]
-       41 DUPTABLE                         R5 K11 [{"tag", "LayoutOrder"}]
-       42 LOADK                            R6 K12 ["size-full-0 auto-y col gap-small bg-surface-100 radius-medium"]
-       43 SETTABLEKS                       R6 R5 K10 ["tag"]
-       45 GETTABLEKS                       R6 R0 K7 ["LayoutOrder"]
-       47 SETTABLEKS                       R6 R5 K7 ["LayoutOrder"]
-       49 DUPTABLE                         R6 K15 [{"Header", "PlayersContainer"}]
-       50 GETUPVAL                         R7 1
-       51 GETTABLEKS                       R7 R7 K4 ["createElement"]
-       53 GETUPVAL                         R8 4
-       54 DUPTABLE                         R9 K20 [{"partyName", "playerCount", "showDeleteButton", "partyId", "LayoutOrder"}]
-       55 GETTABLEKS                       R10 R0 K16 ["partyName"]
-       57 SETTABLEKS                       R10 R9 K16 ["partyName"]
-       59 GETTABLEKS                       R11 R0 K2 ["players"]
-       61 LENGTH                           R10 R11
-       62 SETTABLEKS                       R10 R9 K17 ["playerCount"]
-       64 GETTABLEKS                       R11 R0 K19 ["partyId"]
-       66 GETUPVAL                         R12 5
-       67 GETTABLEKS                       R12 R12 K21 ["UNASSIGNED_PARTY_ID"]
-       69 JUMPIFNOTEQ                      R11 R12 ; [+2]
-       71 LOADB                            R10 0 +1
-       72 LOADB                            R10 1
-       73 SETTABLEKS                       R10 R9 K18 ["showDeleteButton"]
-       75 GETTABLEKS                       R10 R0 K19 ["partyId"]
-       77 SETTABLEKS                       R10 R9 K19 ["partyId"]
-       79 MOVE                             R10 R1
-       80 CALL                             R10 0 1
-       81 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
-       83 CALL                             R7 2 1
-       84 SETTABLEKS                       R7 R6 K13 ["Header"]
-       86 GETUPVAL                         R7 1
-       87 GETTABLEKS                       R7 R7 K4 ["createElement"]
-       89 GETUPVAL                         R8 3
-       90 GETTABLEKS                       R8 R8 K9 ["View"]
-       92 DUPTABLE                         R9 K11 [{"tag", "LayoutOrder"}]
-       93 LOADK                            R10 K22 ["size-full-0 auto-y col gap-small padding-small"]
-       94 SETTABLEKS                       R10 R9 K10 ["tag"]
-       96 MOVE                             R10 R1
-       97 CALL                             R10 0 1
-       98 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
-      100 MOVE                             R10 R2
-      101 CALL                             R7 3 1
-      102 SETTABLEKS                       R7 R6 K14 ["PlayersContainer"]
-      104 CALL                             R3 3 -1
-      105 RETURN                           R3 -1
+       41 DUPTABLE                         R5 K12 [{["tag"] = "col gap-small size-full-0 auto-y radius-medium bg-surface-100", ["LayoutOrder"]}]
+       42 GETTABLEKS                       R6 R0 K7 ["LayoutOrder"]
+       44 SETTABLEKS                       R6 R5 K7 ["LayoutOrder"]
+       46 DUPTABLE                         R6 K15 [{"Header", "PlayersContainer"}]
+       47 GETUPVAL                         R7 1
+       48 GETTABLEKS                       R7 R7 K4 ["createElement"]
+       50 GETUPVAL                         R8 4
+       51 DUPTABLE                         R9 K20 [{"partyName", "playerCount", "showDeleteButton", "partyId", "LayoutOrder"}]
+       52 GETTABLEKS                       R10 R0 K16 ["partyName"]
+       54 SETTABLEKS                       R10 R9 K16 ["partyName"]
+       56 GETTABLEKS                       R11 R0 K2 ["players"]
+       58 LENGTH                           R10 R11
+       59 SETTABLEKS                       R10 R9 K17 ["playerCount"]
+       61 GETTABLEKS                       R11 R0 K19 ["partyId"]
+       63 GETUPVAL                         R12 5
+       64 GETTABLEKS                       R12 R12 K21 ["UNASSIGNED_PARTY_ID"]
+       66 JUMPIFNOTEQ                      R11 R12 ; [+2]
+       68 LOADB                            R10 0 +1
+       69 LOADB                            R10 1
+       70 SETTABLEKS                       R10 R9 K18 ["showDeleteButton"]
+       72 GETTABLEKS                       R10 R0 K19 ["partyId"]
+       74 SETTABLEKS                       R10 R9 K19 ["partyId"]
+       76 MOVE                             R10 R1
+       77 CALL                             R10 0 1
+       78 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
+       80 CALL                             R7 2 1
+       81 SETTABLEKS                       R7 R6 K13 ["Header"]
+       83 GETUPVAL                         R7 1
+       84 GETTABLEKS                       R7 R7 K4 ["createElement"]
+       86 GETUPVAL                         R8 3
+       87 GETTABLEKS                       R8 R8 K9 ["View"]
+       89 DUPTABLE                         R9 K23 [{["tag"] = "col gap-small size-full-0 auto-y padding-small", ["LayoutOrder"]}]
+       90 MOVE                             R10 R1
+       91 CALL                             R10 0 1
+       92 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
+       94 MOVE                             R10 R2
+       95 CALL                             R7 3 1
+       96 SETTABLEKS                       R7 R6 K14 ["PlayersContainer"]
+       98 CALL                             R3 3 -1
+       99 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

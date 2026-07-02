@@ -52,41 +52,35 @@ PROTO_4:
         2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 DUPTABLE                         R4 K3 [{"Items"}]
         5 NEWTABLE                         R5 0 1
-        7 DUPTABLE                         R6 K7 [{"Id", "Label", "Children"}]
-        8 LOADK                            R7 K8 ["AccessoryType"]
-        9 SETTABLEKS                       R7 R6 K4 ["Id"]
-       11 LOADK                            R9 K9 ["Plugin"]
-       12 LOADK                            R10 K10 ["InputAccesoryType"]
-       13 NAMECALL                         R7 R1 K11 ["getText"]
-       15 CALL                             R7 3 1
-       16 SETTABLEKS                       R7 R6 K5 ["Label"]
-       18 NEWTABLE                         R7 0 1
-       20 DUPTABLE                         R8 K14 [{"Id", "Label", "Schema", "Value"}]
-       21 LOADK                            R9 K8 ["AccessoryType"]
-       22 SETTABLEKS                       R9 R8 K4 ["Id"]
-       24 LOADK                            R11 K9 ["Plugin"]
-       25 LOADK                            R12 K15 ["AccesoryType"]
-       26 NAMECALL                         R9 R1 K11 ["getText"]
-       28 CALL                             R9 3 1
-       29 SETTABLEKS                       R9 R8 K5 ["Label"]
-       31 DUPTABLE                         R9 K17 [{"Type", "Items"}]
-       32 LOADK                            R10 K18 ["Select"]
-       33 SETTABLEKS                       R10 R9 K16 ["Type"]
-       35 GETUPVAL                         R10 0
-       36 CALL                             R10 0 1
-       37 SETTABLEKS                       R10 R9 K2 ["Items"]
-       39 SETTABLEKS                       R9 R8 K12 ["Schema"]
-       41 NAMECALL                         R9 R0 K19 ["inferAccessoryType"]
-       43 CALL                             R9 1 1
-       44 GETTABLEKS                       R9 R9 K20 ["Name"]
-       46 SETTABLEKS                       R9 R8 K13 ["Value"]
-       48 SETLIST                          R7 R8 1 [1]
-       50 SETTABLEKS                       R7 R6 K6 ["Children"]
-       52 SETLIST                          R5 R6 1 [1]
-       54 SETTABLEKS                       R5 R4 K2 ["Items"]
-       56 NAMECALL                         R2 R0 K21 ["setState"]
-       58 CALL                             R2 2 0
-       59 RETURN                           R0 0
+        7 DUPTABLE                         R6 K8 [{["Id"] = "AccessoryType", ["Label"], ["Children"]}]
+        8 LOADK                            R9 K9 ["Plugin"]
+        9 LOADK                            R10 K10 ["InputAccesoryType"]
+       10 NAMECALL                         R7 R1 K11 ["getText"]
+       12 CALL                             R7 3 1
+       13 SETTABLEKS                       R7 R6 K6 ["Label"]
+       15 NEWTABLE                         R7 0 1
+       17 DUPTABLE                         R8 K14 [{["Id"] = "AccessoryType", ["Label"], ["Schema"], ["Value"]}]
+       18 LOADK                            R11 K9 ["Plugin"]
+       19 LOADK                            R12 K15 ["AccesoryType"]
+       20 NAMECALL                         R9 R1 K11 ["getText"]
+       22 CALL                             R9 3 1
+       23 SETTABLEKS                       R9 R8 K6 ["Label"]
+       25 DUPTABLE                         R9 K18 [{["Type"] = "Select", ["Items"]}]
+       26 GETUPVAL                         R10 0
+       27 CALL                             R10 0 1
+       28 SETTABLEKS                       R10 R9 K2 ["Items"]
+       30 SETTABLEKS                       R9 R8 K12 ["Schema"]
+       32 NAMECALL                         R9 R0 K19 ["inferAccessoryType"]
+       34 CALL                             R9 1 1
+       35 GETTABLEKS                       R9 R9 K20 ["Name"]
+       37 SETTABLEKS                       R9 R8 K13 ["Value"]
+       39 SETLIST                          R7 R8 1 [1]
+       41 SETTABLEKS                       R7 R6 K7 ["Children"]
+       43 SETLIST                          R5 R6 1 [1]
+       45 SETTABLEKS                       R5 R4 K2 ["Items"]
+       47 NAMECALL                         R2 R0 K21 ["setState"]
+       49 CALL                             R2 2 0
+       50 RETURN                           R0 0
 
 PROTO_5:
         0 NAMECALL                         R1 R0 K0 ["GetChildren"]

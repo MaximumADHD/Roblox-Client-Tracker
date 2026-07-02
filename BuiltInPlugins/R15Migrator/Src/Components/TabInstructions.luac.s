@@ -29,7 +29,7 @@ PROTO_0:
        45 GETUPVAL                         R11 0
        46 GETTABLEKS                       R11 R11 K6 ["createElement"]
        48 GETUPVAL                         R12 2
-       49 DUPTABLE                         R13 K32 [{"Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextProps", "LinkMap"}]
+       49 DUPTABLE                         R13 K34 [{["Text"], ["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"], ["TextProps"], ["LinkMap"]}]
        50 SETTABLEKS                       R5 R13 K25 ["Text"]
        52 GETIMPORT                        R14 K15 [UDim2.new]
        54 LOADN                            R15 1
@@ -38,30 +38,26 @@ PROTO_0:
        57 LOADN                            R18 0
        58 CALL                             R14 4 1
        59 SETTABLEKS                       R14 R13 K7 ["Size"]
-       61 GETIMPORT                        R14 K34 [Enum.AutomaticSize.Y]
+       61 GETIMPORT                        R14 K36 [Enum.AutomaticSize.Y]
        63 SETTABLEKS                       R14 R13 K26 ["AutomaticSize"]
-       65 LOADN                            R14 1
-       66 SETTABLEKS                       R14 R13 K27 ["BackgroundTransparency"]
-       68 LOADB                            R14 1
-       69 SETTABLEKS                       R14 R13 K28 ["TextWrapped"]
-       71 GETIMPORT                        R14 K35 [Enum.TextXAlignment.Center]
-       73 SETTABLEKS                       R14 R13 K29 ["TextXAlignment"]
-       75 GETIMPORT                        R14 K36 [Enum.TextYAlignment.Center]
-       77 SETTABLEKS                       R14 R13 K30 ["TextYAlignment"]
-       79 DUPTABLE                         R14 K39 [{"TextSize", "Font"}]
-       80 GETTABLEKS                       R15 R6 K37 ["TextSize"]
-       82 SETTABLEKS                       R15 R14 K37 ["TextSize"]
-       84 GETTABLEKS                       R15 R6 K38 ["Font"]
-       86 SETTABLEKS                       R15 R14 K38 ["Font"]
-       88 SETTABLEKS                       R14 R13 K31 ["TextProps"]
-       90 MOVE                             R14 R3
-       91 JUMPIF                           R14 ; [+2]
-       92 NEWTABLE                         R14 0 0
-       94 SETTABLEKS                       R14 R13 K2 ["LinkMap"]
-       96 CALL                             R11 2 1
-       97 SETTABLEKS                       R11 R10 K23 ["InstructionsLabel"]
-       99 CALL                             R7 3 -1
-      100 RETURN                           R7 -1
+       65 GETIMPORT                        R14 K37 [Enum.TextXAlignment.Center]
+       67 SETTABLEKS                       R14 R13 K31 ["TextXAlignment"]
+       69 GETIMPORT                        R14 K38 [Enum.TextYAlignment.Center]
+       71 SETTABLEKS                       R14 R13 K32 ["TextYAlignment"]
+       73 DUPTABLE                         R14 K41 [{"TextSize", "Font"}]
+       74 GETTABLEKS                       R15 R6 K39 ["TextSize"]
+       76 SETTABLEKS                       R15 R14 K39 ["TextSize"]
+       78 GETTABLEKS                       R15 R6 K40 ["Font"]
+       80 SETTABLEKS                       R15 R14 K40 ["Font"]
+       82 SETTABLEKS                       R14 R13 K33 ["TextProps"]
+       84 MOVE                             R14 R3
+       85 JUMPIF                           R14 ; [+2]
+       86 NEWTABLE                         R14 0 0
+       88 SETTABLEKS                       R14 R13 K2 ["LinkMap"]
+       90 CALL                             R11 2 1
+       91 SETTABLEKS                       R11 R10 K23 ["InstructionsLabel"]
+       93 CALL                             R7 3 -1
+       94 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

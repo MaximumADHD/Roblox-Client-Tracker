@@ -17,15 +17,13 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K9 ["Parent"]
        27 GETTABLEKS                       R4 R4 K10 ["StoryMiddleware"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K16 [{"name", "storyRoots", "mapStory", "roact", "reactRoblox"}]
-       31 LOADK                            R5 K2 ["Dialog"]
-       32 SETTABLEKS                       R5 R4 K11 ["name"]
-       34 NEWTABLE                         R5 0 1
-       36 GETTABLEKS                       R6 R0 K17 ["Src"]
-       38 GETTABLEKS                       R6 R6 K18 ["Components"]
-       40 SETLIST                          R5 R6 1 [1]
-       42 SETTABLEKS                       R5 R4 K12 ["storyRoots"]
-       44 SETTABLEKS                       R3 R4 K13 ["mapStory"]
-       46 SETTABLEKS                       R1 R4 K14 ["roact"]
-       48 SETTABLEKS                       R2 R4 K15 ["reactRoblox"]
-       50 RETURN                           R4 1
+       30 DUPTABLE                         R4 K16 [{["name"] = "Dialog", ["storyRoots"], ["mapStory"], ["roact"], ["reactRoblox"]}]
+       31 NEWTABLE                         R5 0 1
+       33 GETTABLEKS                       R6 R0 K17 ["Src"]
+       35 GETTABLEKS                       R6 R6 K18 ["Components"]
+       37 SETLIST                          R5 R6 1 [1]
+       39 SETTABLEKS                       R5 R4 K12 ["storyRoots"]
+       41 SETTABLEKS                       R3 R4 K13 ["mapStory"]
+       43 SETTABLEKS                       R1 R4 K14 ["roact"]
+       45 SETTABLEKS                       R2 R4 K15 ["reactRoblox"]
+       47 RETURN                           R4 1

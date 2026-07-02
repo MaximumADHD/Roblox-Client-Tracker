@@ -25,7 +25,7 @@ PROTO_1:
        19 NAMECALL                         R4 R4 K6 ["getMaxSoftSnaps"]
        21 CALL                             R4 1 1
        22 NEWTABLE                         R5 0 2
-       24 LOADN                            R6 255
+       24 LOADN                            R6 -1
        25 LOADN                            R7 1
        26 SETLIST                          R5 R6 2 [1]
        28 GETUPVAL                         R6 0
@@ -185,31 +185,29 @@ PROTO_8:
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["_primaryObject"]
-        2 JUMPIFNOT                        R1 ; [+37]
+        2 JUMPIFNOT                        R1 ; [+34]
         3 GETTABLEKS                       R1 R0 K1 ["_draggerContext"]
         5 NAMECALL                         R1 R1 K2 ["getAnalytics"]
         7 CALL                             R1 1 1
         8 LOADK                            R3 K3 ["setPivot"]
-        9 DUPTABLE                         R4 K9 [{"gridSize", "rotateIncrement", "toolName", "handleId", "pivotType"}]
+        9 DUPTABLE                         R4 K10 [{["gridSize"], ["rotateIncrement"], ["toolName"], ["handleId"] = "Move", ["pivotType"]}]
        10 GETTABLEKS                       R5 R0 K1 ["_draggerContext"]
-       12 NAMECALL                         R5 R5 K10 ["getGridSize"]
+       12 NAMECALL                         R5 R5 K11 ["getGridSize"]
        14 CALL                             R5 1 1
        15 SETTABLEKS                       R5 R4 K4 ["gridSize"]
        17 GETTABLEKS                       R5 R0 K1 ["_draggerContext"]
-       19 NAMECALL                         R5 R5 K11 ["getRotateIncrement"]
+       19 NAMECALL                         R5 R5 K12 ["getRotateIncrement"]
        21 CALL                             R5 1 1
        22 SETTABLEKS                       R5 R4 K5 ["rotateIncrement"]
-       24 GETTABLEKS                       R5 R0 K12 ["_analyticsName"]
+       24 GETTABLEKS                       R5 R0 K13 ["_analyticsName"]
        26 SETTABLEKS                       R5 R4 K6 ["toolName"]
-       28 LOADK                            R5 K13 ["Move"]
-       29 SETTABLEKS                       R5 R4 K7 ["handleId"]
-       31 GETUPVAL                         R5 0
-       32 GETTABLEKS                       R6 R0 K0 ["_primaryObject"]
-       34 CALL                             R5 1 1
-       35 SETTABLEKS                       R5 R4 K8 ["pivotType"]
-       37 NAMECALL                         R1 R1 K14 ["sendEvent"]
-       39 CALL                             R1 3 0
-       40 RETURN                           R0 0
+       28 GETUPVAL                         R5 0
+       29 GETTABLEKS                       R6 R0 K0 ["_primaryObject"]
+       31 CALL                             R5 1 1
+       32 SETTABLEKS                       R5 R4 K9 ["pivotType"]
+       34 NAMECALL                         R1 R1 K14 ["sendEvent"]
+       36 CALL                             R1 3 0
+       37 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerContext"]

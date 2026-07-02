@@ -1,23 +1,15 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K5 [{"Name", "Tooltip", "Icon", "Enabled", "Click"}]
-        1 LOADK                            R1 K6 [""]
-        2 SETTABLEKS                       R1 R0 K0 ["Name"]
-        4 LOADK                            R1 K6 [""]
-        5 SETTABLEKS                       R1 R0 K1 ["Tooltip"]
-        7 LOADK                            R1 K6 [""]
-        8 SETTABLEKS                       R1 R0 K2 ["Icon"]
-       10 LOADB                            R1 0
-       11 SETTABLEKS                       R1 R0 K3 ["Enabled"]
-       13 GETUPVAL                         R1 0
-       14 GETTABLEKS                       R1 R1 K7 ["new"]
-       16 CALL                             R1 0 1
-       17 SETTABLEKS                       R1 R0 K4 ["Click"]
-       19 GETUPVAL                         R3 1
-       20 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       22 MOVE                             R2 R0
-       23 GETIMPORT                        R1 K9 [setmetatable]
-       25 CALL                             R1 2 0
-       26 RETURN                           R0 1
+        0 DUPTABLE                         R0 K7 [{[1] = "", ["Tooltip"] = "", ["Icon"] = "", ["Enabled"] = False, ["Click"]}]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K8 ["new"]
+        4 CALL                             R1 0 1
+        5 SETTABLEKS                       R1 R0 K6 ["Click"]
+        7 GETUPVAL                         R3 1
+        8 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       10 MOVE                             R2 R0
+       11 GETIMPORT                        R1 K10 [setmetatable]
+       13 CALL                             R1 2 0
+       14 RETURN                           R0 1
 
 PROTO_1:
         0 SETTABLEKS                       R1 R0 K0 ["Enabled"]
@@ -83,31 +75,27 @@ PROTO_5:
        37 LOADK                            R4 K9 ["Unexpected table provided for widgetInfo, expected an array"]
        38 GETIMPORT                        R2 K5 [assert]
        40 CALL                             R2 2 0
-       41 DUPTABLE                         R2 K14 [{"Name", "Title", "ZIndexBehavior", "Enabled"}]
-       42 LOADK                            R3 K15 [""]
-       43 SETTABLEKS                       R3 R2 K10 ["Name"]
-       45 SETTABLEKS                       R0 R2 K11 ["Title"]
-       47 GETIMPORT                        R3 K18 [Enum.ZIndexBehavior.Global]
-       49 SETTABLEKS                       R3 R2 K12 ["ZIndexBehavior"]
-       51 LOADB                            R3 1
-       52 SETTABLEKS                       R3 R2 K13 ["Enabled"]
-       54 NEWTABLE                         R3 0 0
-       56 GETIMPORT                        R4 K20 [pairs]
-       58 MOVE                             R5 R2
-       59 CALL                             R4 1 3
-       60 FORGPREP_NEXT                    R4
-       61 GETUPVAL                         R9 0
-       62 GETTABLEKS                       R9 R9 K21 ["new"]
-       64 CALL                             R9 0 1
-       65 SETTABLE                         R9 R3 R7
-       66 FORGLOOP                         R4 2 ; [-6]
-       68 SETTABLEKS                       R3 R2 K22 ["_signals"]
-       70 GETUPVAL                         R6 1
-       71 FASTCALL2                        SETMETATABLE R2 R6 ; [+4]
-       73 MOVE                             R5 R2
-       74 GETIMPORT                        R4 K24 [setmetatable]
-       76 CALL                             R4 2 0
-       77 RETURN                           R2 1
+       41 DUPTABLE                         R2 K16 [{["Name"] = "", ["Title"], ["ZIndexBehavior"], ["Enabled"] = True}]
+       42 SETTABLEKS                       R0 R2 K12 ["Title"]
+       44 GETIMPORT                        R3 K19 [Enum.ZIndexBehavior.Global]
+       46 SETTABLEKS                       R3 R2 K13 ["ZIndexBehavior"]
+       48 NEWTABLE                         R3 0 0
+       50 GETIMPORT                        R4 K21 [pairs]
+       52 MOVE                             R5 R2
+       53 CALL                             R4 1 3
+       54 FORGPREP_NEXT                    R4
+       55 GETUPVAL                         R9 0
+       56 GETTABLEKS                       R9 R9 K22 ["new"]
+       58 CALL                             R9 0 1
+       59 SETTABLE                         R9 R3 R7
+       60 FORGLOOP                         R4 2 ; [-6]
+       62 SETTABLEKS                       R3 R2 K23 ["_signals"]
+       64 GETUPVAL                         R6 1
+       65 FASTCALL2                        SETMETATABLE R2 R6 ; [+4]
+       67 MOVE                             R5 R2
+       68 GETIMPORT                        R4 K25 [setmetatable]
+       70 CALL                             R4 2 0
+       71 RETURN                           R2 1
 
 PROTO_6:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
@@ -137,15 +125,13 @@ PROTO_6:
        32 RETURN                           R2 1
 
 PROTO_7:
-        0 DUPTABLE                         R0 K1 [{"Name"}]
-        1 LOADK                            R1 K2 [""]
-        2 SETTABLEKS                       R1 R0 K0 ["Name"]
-        4 GETUPVAL                         R3 0
-        5 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-        7 MOVE                             R2 R0
-        8 GETIMPORT                        R1 K4 [setmetatable]
-       10 CALL                             R1 2 0
-       11 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = ""}]
+        1 GETUPVAL                         R3 0
+        2 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        4 MOVE                             R2 R0
+        5 GETIMPORT                        R1 K4 [setmetatable]
+        7 CALL                             R1 2 0
+        8 RETURN                           R0 1
 
 PROTO_8:
         0 GETUPVAL                         R2 0

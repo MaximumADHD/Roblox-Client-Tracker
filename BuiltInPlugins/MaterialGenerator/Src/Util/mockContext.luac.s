@@ -53,29 +53,27 @@ PROTO_2:
        54 GETUPVAL                         R8 4
        55 GETTABLEKS                       R8 R8 K13 ["createElement"]
        57 GETUPVAL                         R9 8
-       58 DUPTABLE                         R10 K15 [{"enabled"}]
-       59 LOADB                            R11 1
-       60 SETTABLEKS                       R11 R10 K14 ["enabled"]
-       62 CALL                             R8 2 -1
-       63 SETLIST                          R4 R5 -1 [1]
-       65 MOVE                             R5 R1
-       66 JUMPIF                           R5 ; [+2]
-       67 NEWTABLE                         R5 0 0
-       69 CALL                             R3 2 1
-       70 GETUPVAL                         R4 9
-       71 GETTABLEKS                       R4 R4 K16 ["provideMockContext"]
-       73 GETUPVAL                         R5 1
-       74 DUPTABLE                         R6 K18 [{"ContextStack"}]
-       75 GETUPVAL                         R7 4
-       76 GETTABLEKS                       R7 R7 K13 ["createElement"]
-       78 GETUPVAL                         R8 10
-       79 DUPTABLE                         R9 K20 [{"providers"}]
-       80 SETTABLEKS                       R3 R9 K19 ["providers"]
-       82 MOVE                             R10 R0
-       83 CALL                             R7 3 1
-       84 SETTABLEKS                       R7 R6 K17 ["ContextStack"]
-       86 CALL                             R4 2 -1
-       87 RETURN                           R4 -1
+       58 DUPTABLE                         R10 K16 [{["enabled"] = True}]
+       59 CALL                             R8 2 -1
+       60 SETLIST                          R4 R5 -1 [1]
+       62 MOVE                             R5 R1
+       63 JUMPIF                           R5 ; [+2]
+       64 NEWTABLE                         R5 0 0
+       66 CALL                             R3 2 1
+       67 GETUPVAL                         R4 9
+       68 GETTABLEKS                       R4 R4 K17 ["provideMockContext"]
+       70 GETUPVAL                         R5 1
+       71 DUPTABLE                         R6 K19 [{"ContextStack"}]
+       72 GETUPVAL                         R7 4
+       73 GETTABLEKS                       R7 R7 K13 ["createElement"]
+       75 GETUPVAL                         R8 10
+       76 DUPTABLE                         R9 K21 [{"providers"}]
+       77 SETTABLEKS                       R3 R9 K20 ["providers"]
+       79 MOVE                             R10 R0
+       80 CALL                             R7 3 1
+       81 SETTABLEKS                       R7 R6 K18 ["ContextStack"]
+       83 CALL                             R4 2 -1
+       84 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -147,67 +147,45 @@ MAIN:
        67 GETTABLEKS                       R13 R3 K19 ["SetOwnershipTransferText"]
        69 CALL                             R12 1 1
        70 GETTABLEKS                       R13 R1 K20 ["createReducer"]
-       72 DUPTABLE                         R14 K33 [{"enabled", "mode", "screen", "rig", "errorText", "accessoryType", "animationId", "colorMap", "metalnessMap", "normalMap", "roughnessMap", "ownershipTransferText"}]
-       73 LOADB                            R15 0
-       74 SETTABLEKS                       R15 R14 K21 ["enabled"]
-       76 LOADNIL                          R15
-       77 SETTABLEKS                       R15 R14 K22 ["mode"]
-       79 LOADNIL                          R15
-       80 SETTABLEKS                       R15 R14 K23 ["screen"]
-       82 LOADNIL                          R15
-       83 SETTABLEKS                       R15 R14 K24 ["rig"]
-       85 LOADNIL                          R15
-       86 SETTABLEKS                       R15 R14 K25 ["errorText"]
-       88 GETIMPORT                        R15 K37 [Enum.AccessoryType.Unknown]
-       90 SETTABLEKS                       R15 R14 K26 ["accessoryType"]
-       92 LOADNIL                          R15
-       93 SETTABLEKS                       R15 R14 K27 ["animationId"]
-       95 LOADNIL                          R15
-       96 SETTABLEKS                       R15 R14 K28 ["colorMap"]
-       98 LOADNIL                          R15
-       99 SETTABLEKS                       R15 R14 K29 ["metalnessMap"]
-      101 LOADNIL                          R15
-      102 SETTABLEKS                       R15 R14 K30 ["normalMap"]
-      104 LOADNIL                          R15
-      105 SETTABLEKS                       R15 R14 K31 ["roughnessMap"]
-      107 LOADK                            R15 K38 [""]
-      108 SETTABLEKS                       R15 R14 K32 ["ownershipTransferText"]
-      110 NEWTABLE                         R15 16 0
-      112 GETTABLEKS                       R16 R4 K39 ["name"]
-      114 DUPCLOSURE                       R17 K40 [PROTO_0]
-      115 CAPTURE                          VAL R2
-      116 SETTABLE                         R17 R15 R16
-      117 GETTABLEKS                       R16 R5 K39 ["name"]
-      119 DUPCLOSURE                       R17 K41 [PROTO_1]
-      120 CAPTURE                          VAL R2
-      121 SETTABLE                         R17 R15 R16
-      122 GETTABLEKS                       R16 R6 K39 ["name"]
-      124 DUPCLOSURE                       R17 K42 [PROTO_2]
-      125 CAPTURE                          VAL R2
-      126 SETTABLE                         R17 R15 R16
-      127 GETTABLEKS                       R16 R7 K39 ["name"]
-      129 DUPCLOSURE                       R17 K43 [PROTO_3]
-      130 CAPTURE                          VAL R2
-      131 SETTABLE                         R17 R15 R16
-      132 GETTABLEKS                       R16 R8 K39 ["name"]
-      134 DUPCLOSURE                       R17 K44 [PROTO_4]
-      135 CAPTURE                          VAL R2
-      136 SETTABLE                         R17 R15 R16
-      137 GETTABLEKS                       R16 R11 K39 ["name"]
-      139 DUPCLOSURE                       R17 K45 [PROTO_5]
-      140 CAPTURE                          VAL R2
-      141 SETTABLE                         R17 R15 R16
-      142 GETTABLEKS                       R16 R9 K39 ["name"]
-      144 DUPCLOSURE                       R17 K46 [PROTO_6]
-      145 CAPTURE                          VAL R2
-      146 SETTABLE                         R17 R15 R16
-      147 GETTABLEKS                       R16 R10 K39 ["name"]
-      149 DUPCLOSURE                       R17 K47 [PROTO_7]
-      150 CAPTURE                          VAL R2
-      151 SETTABLE                         R17 R15 R16
-      152 GETTABLEKS                       R16 R12 K39 ["name"]
-      154 DUPCLOSURE                       R17 K48 [PROTO_8]
-      155 CAPTURE                          VAL R2
-      156 SETTABLE                         R17 R15 R16
-      157 CALL                             R13 2 1
-      158 RETURN                           R13 1
+       72 DUPTABLE                         R14 K36 [{["enabled"] = False, ["mode"] = , ["screen"] = , ["rig"] = , ["errorText"] = , ["accessoryType"], ["animationId"] = , ["colorMap"] = , ["metalnessMap"] = , ["normalMap"] = , ["roughnessMap"] = , ["ownershipTransferText"] = ""}]
+       73 GETIMPORT                        R15 K40 [Enum.AccessoryType.Unknown]
+       75 SETTABLEKS                       R15 R14 K28 ["accessoryType"]
+       77 NEWTABLE                         R15 16 0
+       79 GETTABLEKS                       R16 R4 K41 ["name"]
+       81 DUPCLOSURE                       R17 K42 [PROTO_0]
+       82 CAPTURE                          VAL R2
+       83 SETTABLE                         R17 R15 R16
+       84 GETTABLEKS                       R16 R5 K41 ["name"]
+       86 DUPCLOSURE                       R17 K43 [PROTO_1]
+       87 CAPTURE                          VAL R2
+       88 SETTABLE                         R17 R15 R16
+       89 GETTABLEKS                       R16 R6 K41 ["name"]
+       91 DUPCLOSURE                       R17 K44 [PROTO_2]
+       92 CAPTURE                          VAL R2
+       93 SETTABLE                         R17 R15 R16
+       94 GETTABLEKS                       R16 R7 K41 ["name"]
+       96 DUPCLOSURE                       R17 K45 [PROTO_3]
+       97 CAPTURE                          VAL R2
+       98 SETTABLE                         R17 R15 R16
+       99 GETTABLEKS                       R16 R8 K41 ["name"]
+      101 DUPCLOSURE                       R17 K46 [PROTO_4]
+      102 CAPTURE                          VAL R2
+      103 SETTABLE                         R17 R15 R16
+      104 GETTABLEKS                       R16 R11 K41 ["name"]
+      106 DUPCLOSURE                       R17 K47 [PROTO_5]
+      107 CAPTURE                          VAL R2
+      108 SETTABLE                         R17 R15 R16
+      109 GETTABLEKS                       R16 R9 K41 ["name"]
+      111 DUPCLOSURE                       R17 K48 [PROTO_6]
+      112 CAPTURE                          VAL R2
+      113 SETTABLE                         R17 R15 R16
+      114 GETTABLEKS                       R16 R10 K41 ["name"]
+      116 DUPCLOSURE                       R17 K49 [PROTO_7]
+      117 CAPTURE                          VAL R2
+      118 SETTABLE                         R17 R15 R16
+      119 GETTABLEKS                       R16 R12 K41 ["name"]
+      121 DUPCLOSURE                       R17 K50 [PROTO_8]
+      122 CAPTURE                          VAL R2
+      123 SETTABLE                         R17 R15 R16
+      124 CALL                             R13 2 1
+      125 RETURN                           R13 1

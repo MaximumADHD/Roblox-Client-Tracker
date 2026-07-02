@@ -13,9 +13,7 @@ MAIN:
        20 GETTABLEKS                       R2 R2 K8 ["createStyleRule"]
        22 MOVE                             R3 R2
        23 LOADK                            R4 K9 [".Component-RootContainerInputContextProvider"]
-       24 DUPTABLE                         R5 K11 [{"BackgroundColor3"}]
-       25 LOADK                            R6 K12 ["$BlueprintBackgroundColor"]
-       26 SETTABLEKS                       R6 R5 K10 ["BackgroundColor3"]
-       28 NEWTABLE                         R6 0 0
-       30 CALL                             R3 3 -1
-       31 RETURN                           R3 -1
+       24 DUPTABLE                         R5 K12 [{["BackgroundColor3"] = "$BlueprintBackgroundColor"}]
+       25 NEWTABLE                         R6 0 0
+       27 CALL                             R3 3 -1
+       28 RETURN                           R3 -1

@@ -69,50 +69,40 @@ PROTO_0:
        84 CALL                             R13 3 1
        85 MOVE                             R10 R13
        86 LOADNIL                          R13
-       87 JUMPIFNOT                        R7 ; [+45]
-       88 DUPTABLE                         R16 K21 [{"PluginId", "ItemId"}]
-       89 LOADK                            R17 K22 ["StartPage"]
-       90 SETTABLEKS                       R17 R16 K19 ["PluginId"]
-       92 LOADK                            R17 K23 ["SafetyDialog"]
-       93 SETTABLEKS                       R17 R16 K20 ["ItemId"]
-       95 DUPTABLE                         R17 K29 [{"Type", "Title", "Description", "PrimaryButton", "SecondaryButton"}]
-       96 LOADK                            R18 K30 ["Critical"]
-       97 SETTABLEKS                       R18 R17 K24 ["Type"]
-       99 SETTABLEKS                       R7 R17 K25 ["Title"]
-      101 SETTABLEKS                       R8 R17 K26 ["Description"]
-      103 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
-      104 DUPTABLE                         R19 K21 [{"PluginId", "ItemId"}]
-      105 LOADK                            R20 K22 ["StartPage"]
-      106 SETTABLEKS                       R20 R19 K19 ["PluginId"]
-      108 SETTABLEKS                       R11 R19 K20 ["ItemId"]
-      110 SETTABLEKS                       R19 R18 K31 ["Uri"]
-      112 SETTABLEKS                       R9 R18 K32 ["Text"]
-      114 SETTABLEKS                       R18 R17 K27 ["PrimaryButton"]
-      116 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
-      117 DUPTABLE                         R19 K21 [{"PluginId", "ItemId"}]
-      118 LOADK                            R20 K22 ["StartPage"]
-      119 SETTABLEKS                       R20 R19 K19 ["PluginId"]
-      121 SETTABLEKS                       R12 R19 K20 ["ItemId"]
-      123 SETTABLEKS                       R19 R18 K31 ["Uri"]
-      125 SETTABLEKS                       R10 R18 K32 ["Text"]
-      127 SETTABLEKS                       R18 R17 K28 ["SecondaryButton"]
-      129 NAMECALL                         R14 R4 K34 ["ShowDialogAsync"]
-      131 CALL                             R14 3 1
-      132 MOVE                             R13 R14
-      133 JUMPIFNOT                        R13 ; [+19]
-      134 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
-      136 JUMPIFNOT                        R14 ; [+16]
-      137 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
-      139 GETTABLEKS                       R14 R14 K20 ["ItemId"]
-      141 JUMPIFNOT                        R14 ; [+11]
-      142 GETTABLEKS                       R14 R13 K35 ["SelectedButtonUri"]
-      144 GETTABLEKS                       R14 R14 K20 ["ItemId"]
-      146 JUMPIFNOTEQKS                    R14 K8 ["SafetyDialog/Verify"] ; [+6]
-      148 GETUPVAL                         R14 2
-      149 GETUPVAL                         R16 3
-      150 NAMECALL                         R14 R14 K36 ["openLink"]
-      152 CALL                             R14 2 0
-      153 RETURN                           R0 0
+       87 JUMPIFNOT                        R7 ; [+30]
+       88 DUPTABLE                         R16 K23 [{["PluginId"] = "StartPage", ["ItemId"] = "SafetyDialog"}]
+       89 DUPTABLE                         R17 K30 [{["Type"] = "Critical", ["Title"], ["Description"], ["PrimaryButton"], ["SecondaryButton"]}]
+       90 SETTABLEKS                       R7 R17 K26 ["Title"]
+       92 SETTABLEKS                       R8 R17 K27 ["Description"]
+       94 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
+       95 DUPTABLE                         R19 K34 [{["PluginId"] = "StartPage", ["ItemId"]}]
+       96 SETTABLEKS                       R11 R19 K21 ["ItemId"]
+       98 SETTABLEKS                       R19 R18 K31 ["Uri"]
+      100 SETTABLEKS                       R9 R18 K32 ["Text"]
+      102 SETTABLEKS                       R18 R17 K28 ["PrimaryButton"]
+      104 DUPTABLE                         R18 K33 [{"Uri", "Text"}]
+      105 DUPTABLE                         R19 K34 [{["PluginId"] = "StartPage", ["ItemId"]}]
+      106 SETTABLEKS                       R12 R19 K21 ["ItemId"]
+      108 SETTABLEKS                       R19 R18 K31 ["Uri"]
+      110 SETTABLEKS                       R10 R18 K32 ["Text"]
+      112 SETTABLEKS                       R18 R17 K29 ["SecondaryButton"]
+      114 NAMECALL                         R14 R4 K35 ["ShowDialogAsync"]
+      116 CALL                             R14 3 1
+      117 MOVE                             R13 R14
+      118 JUMPIFNOT                        R13 ; [+19]
+      119 GETTABLEKS                       R14 R13 K36 ["SelectedButtonUri"]
+      121 JUMPIFNOT                        R14 ; [+16]
+      122 GETTABLEKS                       R14 R13 K36 ["SelectedButtonUri"]
+      124 GETTABLEKS                       R14 R14 K21 ["ItemId"]
+      126 JUMPIFNOT                        R14 ; [+11]
+      127 GETTABLEKS                       R14 R13 K36 ["SelectedButtonUri"]
+      129 GETTABLEKS                       R14 R14 K21 ["ItemId"]
+      131 JUMPIFNOTEQKS                    R14 K8 ["SafetyDialog/Verify"] ; [+6]
+      133 GETUPVAL                         R14 2
+      134 GETUPVAL                         R16 3
+      135 NAMECALL                         R14 R14 K37 ["openLink"]
+      137 CALL                             R14 2 0
+      138 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

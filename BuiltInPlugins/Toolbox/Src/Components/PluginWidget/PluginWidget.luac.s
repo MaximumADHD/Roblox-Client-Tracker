@@ -54,64 +54,62 @@ PROTO_2:
        25 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K1 [{"pluginGui"}]
-        1 LOADNIL                          R3
-        2 SETTABLEKS                       R3 R2 K0 ["pluginGui"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 GETTABLEKS                       R6 R1 K4 ["Title"]
-        8 ORK                              R5 R6 K3 [""]
-        9 GETTABLEKS                       R6 R1 K5 ["Name"]
-       11 JUMPIF                           R6 ; [+5]
-       12 LOADK                            R8 K6 ["%s"]
-       13 LOADK                            R9 K3 [""]
-       14 NAMECALL                         R6 R5 K7 ["gsub"]
-       16 CALL                             R6 3 1
-       17 GETTABLEKS                       R8 R1 K8 ["Id"]
-       19 OR                               R7 R8 R6
-       20 MOVE                             R2 R5
-       21 MOVE                             R3 R6
-       22 MOVE                             R4 R7
-       23 GETUPVAL                         R5 0
-       24 MOVE                             R6 R0
-       25 MOVE                             R7 R4
-       26 CALL                             R5 2 1
-       27 SETTABLEKS                       R5 R0 K9 ["widget"]
-       29 GETTABLEKS                       R5 R0 K9 ["widget"]
-       31 LOADK                            R7 K10 ["ScreenGui"]
-       32 NAMECALL                         R5 R5 K11 ["IsA"]
-       34 CALL                             R5 2 1
-       35 JUMPIF                           R5 ; [+4]
-       36 GETTABLEKS                       R5 R0 K9 ["widget"]
-       38 SETTABLEKS                       R2 R5 K4 ["Title"]
-       40 GETTABLEKS                       R5 R0 K9 ["widget"]
-       42 SETTABLEKS                       R3 R5 K5 ["Name"]
-       44 GETTABLEKS                       R5 R0 K9 ["widget"]
-       46 GETTABLEKS                       R6 R1 K12 ["ZIndexBehavior"]
-       48 JUMPIF                           R6 ; [+2]
-       49 GETIMPORT                        R6 K15 [Enum.ZIndexBehavior.Global]
-       51 SETTABLEKS                       R6 R5 K12 ["ZIndexBehavior"]
-       53 GETTABLEKS                       R5 R0 K9 ["widget"]
-       55 LOADK                            R7 K16 ["Enabled"]
-       56 NAMECALL                         R5 R5 K17 ["GetPropertyChangedSignal"]
-       58 CALL                             R5 2 1
-       59 NEWCLOSURE                       R7 P0
-       60 CAPTURE                          VAL R0
-       61 CAPTURE                          UPVAL U1
-       62 NAMECALL                         R5 R5 K18 ["connect"]
-       64 CALL                             R5 2 0
-       65 GETTABLEKS                       R5 R0 K9 ["widget"]
-       67 GETTABLEKS                       R5 R5 K19 ["AncestryChanged"]
-       69 NEWCLOSURE                       R7 P1
-       70 CAPTURE                          VAL R0
-       71 CAPTURE                          UPVAL U1
-       72 NAMECALL                         R5 R5 K18 ["connect"]
-       74 CALL                             R5 2 0
-       75 GETTABLEKS                       R5 R1 K20 ["ForwardRef"]
-       77 JUMPIFNOT                        R5 ; [+4]
-       78 MOVE                             R6 R5
-       79 GETTABLEKS                       R7 R0 K9 ["widget"]
-       81 CALL                             R6 1 0
-       82 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = }]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 GETTABLEKS                       R6 R1 K5 ["Title"]
+        5 ORK                              R5 R6 K4 [""]
+        6 GETTABLEKS                       R6 R1 K6 ["Name"]
+        8 JUMPIF                           R6 ; [+5]
+        9 LOADK                            R8 K7 ["%s"]
+       10 LOADK                            R9 K4 [""]
+       11 NAMECALL                         R6 R5 K8 ["gsub"]
+       13 CALL                             R6 3 1
+       14 GETTABLEKS                       R8 R1 K9 ["Id"]
+       16 OR                               R7 R8 R6
+       17 MOVE                             R2 R5
+       18 MOVE                             R3 R6
+       19 MOVE                             R4 R7
+       20 GETUPVAL                         R5 0
+       21 MOVE                             R6 R0
+       22 MOVE                             R7 R4
+       23 CALL                             R5 2 1
+       24 SETTABLEKS                       R5 R0 K10 ["widget"]
+       26 GETTABLEKS                       R5 R0 K10 ["widget"]
+       28 LOADK                            R7 K11 ["ScreenGui"]
+       29 NAMECALL                         R5 R5 K12 ["IsA"]
+       31 CALL                             R5 2 1
+       32 JUMPIF                           R5 ; [+4]
+       33 GETTABLEKS                       R5 R0 K10 ["widget"]
+       35 SETTABLEKS                       R2 R5 K5 ["Title"]
+       37 GETTABLEKS                       R5 R0 K10 ["widget"]
+       39 SETTABLEKS                       R3 R5 K6 ["Name"]
+       41 GETTABLEKS                       R5 R0 K10 ["widget"]
+       43 GETTABLEKS                       R6 R1 K13 ["ZIndexBehavior"]
+       45 JUMPIF                           R6 ; [+2]
+       46 GETIMPORT                        R6 K16 [Enum.ZIndexBehavior.Global]
+       48 SETTABLEKS                       R6 R5 K13 ["ZIndexBehavior"]
+       50 GETTABLEKS                       R5 R0 K10 ["widget"]
+       52 LOADK                            R7 K17 ["Enabled"]
+       53 NAMECALL                         R5 R5 K18 ["GetPropertyChangedSignal"]
+       55 CALL                             R5 2 1
+       56 NEWCLOSURE                       R7 P0
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          UPVAL U1
+       59 NAMECALL                         R5 R5 K19 ["connect"]
+       61 CALL                             R5 2 0
+       62 GETTABLEKS                       R5 R0 K10 ["widget"]
+       64 GETTABLEKS                       R5 R5 K20 ["AncestryChanged"]
+       66 NEWCLOSURE                       R7 P1
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          UPVAL U1
+       69 NAMECALL                         R5 R5 K19 ["connect"]
+       71 CALL                             R5 2 0
+       72 GETTABLEKS                       R5 R1 K21 ["ForwardRef"]
+       74 JUMPIFNOT                        R5 ; [+4]
+       75 MOVE                             R6 R5
+       76 GETTABLEKS                       R7 R0 K10 ["widget"]
+       78 CALL                             R6 1 0
+       79 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R7 R1 K1 ["Title"]

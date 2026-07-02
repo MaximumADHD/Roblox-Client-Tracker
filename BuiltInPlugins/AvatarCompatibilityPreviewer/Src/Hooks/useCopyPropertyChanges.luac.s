@@ -42,7 +42,7 @@ PROTO_0:
        55 MOVE                             R6 R2
        56 LENGTH                           R9 R3
        57 LOADN                            R7 1
-       58 LOADN                            R8 255
+       58 LOADN                            R8 -1
        59 FORNPREP                         R7
        60 GETTABLE                         R12 R3 R9
        61 NAMECALL                         R10 R6 K15 ["FindFirstChild"]

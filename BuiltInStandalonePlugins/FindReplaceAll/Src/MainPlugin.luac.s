@@ -43,27 +43,13 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K8 [{"Search", "CaseSensitive", "MatchWholeWords", "Regex", "Replace", "IncludeFilter", "ExcludeFilter", "MaxResults"}]
-        2 LOADK                            R3 K9 [""]
-        3 SETTABLEKS                       R3 R2 K0 ["Search"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["CaseSensitive"]
-        8 LOADB                            R3 0
-        9 SETTABLEKS                       R3 R2 K2 ["MatchWholeWords"]
-       11 LOADB                            R3 0
-       12 SETTABLEKS                       R3 R2 K3 ["Regex"]
-       14 LOADNIL                          R3
-       15 SETTABLEKS                       R3 R2 K4 ["Replace"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K5 ["IncludeFilter"]
-       20 LOADNIL                          R3
-       21 SETTABLEKS                       R3 R2 K6 ["ExcludeFilter"]
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R3 R3 K10 ["MAX_RESULTS"]
-       26 SETTABLEKS                       R3 R2 K7 ["MaxResults"]
-       28 NAMECALL                         R0 R0 K11 ["UpdateQueryAsync"]
-       30 CALL                             R0 2 0
-       31 RETURN                           R0 0
+        1 DUPTABLE                         R2 K11 [{[1] = "", ["CaseSensitive"] = False, ["MatchWholeWords"] = False, ["Regex"] = False, ["Replace"] = , ["IncludeFilter"] = , ["ExcludeFilter"] = , ["MaxResults"]}]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K12 ["MAX_RESULTS"]
+        5 SETTABLEKS                       R3 R2 K10 ["MaxResults"]
+        7 NAMECALL                         R0 R0 K13 ["UpdateQueryAsync"]
+        9 CALL                             R0 2 0
+       10 RETURN                           R0 0
 
 PROTO_5:
         0 GETIMPORT                        R0 K1 [pcall]
@@ -80,24 +66,20 @@ PROTO_6:
         4 CAPTURE                          UPVAL U1
         5 CALL                             R0 1 0
         6 GETUPVAL                         R0 2
-        7 DUPTABLE                         R2 K6 [{"enabled", "findActivationData"}]
-        8 LOADB                            R3 0
-        9 SETTABLEKS                       R3 R2 K4 ["enabled"]
-       11 LOADNIL                          R3
-       12 SETTABLEKS                       R3 R2 K5 ["findActivationData"]
-       14 NAMECALL                         R0 R0 K7 ["setState"]
-       16 CALL                             R0 2 0
-       17 GETUPVAL                         R0 2
-       18 GETTABLEKS                       R0 R0 K8 ["props"]
-       20 GETTABLEKS                       R0 R0 K9 ["PluginLoaderContext"]
-       22 GETTABLEKS                       R0 R0 K10 ["findActivationState"]
-       24 JUMPIFNOT                        R0 ; [+8]
-       25 GETUPVAL                         R0 2
-       26 GETTABLEKS                       R0 R0 K8 ["props"]
-       28 GETTABLEKS                       R0 R0 K9 ["PluginLoaderContext"]
-       30 LOADNIL                          R1
-       31 SETTABLEKS                       R1 R0 K10 ["findActivationState"]
-       33 RETURN                           R0 0
+        7 DUPTABLE                         R2 K8 [{["enabled"] = False, ["findActivationData"] = }]
+        8 NAMECALL                         R0 R0 K9 ["setState"]
+       10 CALL                             R0 2 0
+       11 GETUPVAL                         R0 2
+       12 GETTABLEKS                       R0 R0 K10 ["props"]
+       14 GETTABLEKS                       R0 R0 K11 ["PluginLoaderContext"]
+       16 GETTABLEKS                       R0 R0 K12 ["findActivationState"]
+       18 JUMPIFNOT                        R0 ; [+8]
+       19 GETUPVAL                         R0 2
+       20 GETTABLEKS                       R0 R0 K10 ["props"]
+       22 GETTABLEKS                       R0 R0 K11 ["PluginLoaderContext"]
+       24 LOADNIL                          R1
+       25 SETTABLEKS                       R1 R0 K12 ["findActivationState"]
+       27 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -232,37 +214,35 @@ PROTO_13:
 
 PROTO_14:
         0 GETUPVAL                         R2 0
-        1 DUPTABLE                         R4 K2 [{"enabled", "findActivationData"}]
-        2 LOADB                            R5 1
-        3 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        5 DUPTABLE                         R5 K5 [{"searchText", "showReplace"}]
-        6 SETTABLEKS                       R0 R5 K3 ["searchText"]
-        8 SETTABLEKS                       R1 R5 K4 ["showReplace"]
-       10 SETTABLEKS                       R5 R4 K1 ["findActivationData"]
-       12 NAMECALL                         R2 R2 K6 ["setState"]
-       14 CALL                             R2 2 0
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K7 ["isWidgetFocused"]
-       18 JUMPIFNOT                        R2 ; [+22]
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R2 R2 K8 ["textBoxRef"]
-       22 GETTABLEKS                       R2 R2 K9 ["current"]
-       24 NAMECALL                         R3 R2 K10 ["IsFocused"]
-       26 CALL                             R3 1 1
-       27 JUMPIF                           R3 ; [+3]
-       28 NAMECALL                         R3 R2 K11 ["CaptureFocus"]
-       30 CALL                             R3 1 0
-       31 LOADN                            R3 1
-       32 SETTABLEKS                       R3 R2 K12 ["SelectionStart"]
-       34 GETTABLEKS                       R5 R2 K14 ["Text"]
-       36 LENGTH                           R4 R5
-       37 ADDK                             R3 R4 K13 [1]
-       38 SETTABLEKS                       R3 R2 K15 ["CursorPosition"]
-       40 RETURN                           R0 0
-       41 GETUPVAL                         R2 0
-       42 NAMECALL                         R2 R2 K16 ["focusWidget"]
-       44 CALL                             R2 1 0
-       45 RETURN                           R0 0
+        1 DUPTABLE                         R4 K3 [{[1] = True, ["findActivationData"]}]
+        2 DUPTABLE                         R5 K6 [{"searchText", "showReplace"}]
+        3 SETTABLEKS                       R0 R5 K4 ["searchText"]
+        5 SETTABLEKS                       R1 R5 K5 ["showReplace"]
+        7 SETTABLEKS                       R5 R4 K2 ["findActivationData"]
+        9 NAMECALL                         R2 R2 K7 ["setState"]
+       11 CALL                             R2 2 0
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K8 ["isWidgetFocused"]
+       15 JUMPIFNOT                        R2 ; [+22]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K9 ["textBoxRef"]
+       19 GETTABLEKS                       R2 R2 K10 ["current"]
+       21 NAMECALL                         R3 R2 K11 ["IsFocused"]
+       23 CALL                             R3 1 1
+       24 JUMPIF                           R3 ; [+3]
+       25 NAMECALL                         R3 R2 K12 ["CaptureFocus"]
+       27 CALL                             R3 1 0
+       28 LOADN                            R3 1
+       29 SETTABLEKS                       R3 R2 K13 ["SelectionStart"]
+       31 GETTABLEKS                       R5 R2 K15 ["Text"]
+       33 LENGTH                           R4 R5
+       34 ADDK                             R3 R4 K14 [1]
+       35 SETTABLEKS                       R3 R2 K16 ["CursorPosition"]
+       37 RETURN                           R0 0
+       38 GETUPVAL                         R2 0
+       39 NAMECALL                         R2 R2 K17 ["focusWidget"]
+       41 CALL                             R2 1 0
+       42 RETURN                           R0 0
 
 PROTO_15:
         0 LOADNIL                          R2
@@ -451,8 +431,8 @@ PROTO_19:
        73 GETIMPORT                        R11 K31 [Enum.InitialDockState.Left]
        75 SETTABLEKS                       R11 R10 K29 ["InitialDockState"]
        77 GETIMPORT                        R11 K33 [Vector2.new]
-       79 LOADN                            R12 128
-       80 LOADN                            R13 224
+       79 LOADN                            R12 640
+       80 LOADN                            R13 480
        81 CALL                             R11 2 1
        82 SETTABLEKS                       R11 R10 K34 ["Size"]
        84 GETIMPORT                        R11 K33 [Vector2.new]

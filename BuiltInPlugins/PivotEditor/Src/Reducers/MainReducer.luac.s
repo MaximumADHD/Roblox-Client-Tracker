@@ -97,37 +97,35 @@ MAIN:
        74 GETTABLEKS                       R9 R9 K16 ["SelectInvalidSelection"]
        76 CALL                             R8 1 1
        77 GETTABLEKS                       R9 R1 K17 ["join"]
-       79 DUPTABLE                         R10 K21 [{"targetObject", "editingMode", "statusMessage"}]
-       80 LOADNIL                          R11
-       81 SETTABLEKS                       R11 R10 K18 ["targetObject"]
-       83 GETTABLEKS                       R11 R3 K22 ["None"]
-       85 SETTABLEKS                       R11 R10 K19 ["editingMode"]
-       87 GETTABLEKS                       R11 R4 K22 ["None"]
-       89 SETTABLEKS                       R11 R10 K20 ["statusMessage"]
-       91 GETTABLEKS                       R11 R2 K23 ["createReducer"]
-       93 MOVE                             R12 R10
-       94 NEWTABLE                         R13 4 0
-       96 GETTABLEKS                       R14 R5 K24 ["name"]
-       98 DUPCLOSURE                       R15 K25 [PROTO_0]
-       99 CAPTURE                          VAL R9
-      100 SETTABLE                         R15 R13 R14
-      101 GETTABLEKS                       R14 R6 K24 ["name"]
-      103 DUPCLOSURE                       R15 K26 [PROTO_1]
-      104 CAPTURE                          VAL R9
-      105 CAPTURE                          VAL R3
-      106 CAPTURE                          VAL R4
-      107 SETTABLE                         R15 R13 R14
-      108 GETTABLEKS                       R14 R7 K24 ["name"]
-      110 DUPCLOSURE                       R15 K27 [PROTO_2]
-      111 CAPTURE                          VAL R9
-      112 CAPTURE                          VAL R3
-      113 CAPTURE                          VAL R4
-      114 SETTABLE                         R15 R13 R14
-      115 GETTABLEKS                       R14 R8 K24 ["name"]
-      117 DUPCLOSURE                       R15 K28 [PROTO_3]
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R1
-      120 CAPTURE                          VAL R3
-      121 SETTABLE                         R15 R13 R14
-      122 CALL                             R11 2 -1
-      123 RETURN                           R11 -1
+       79 DUPTABLE                         R10 K22 [{["targetObject"] = , ["editingMode"], ["statusMessage"]}]
+       80 GETTABLEKS                       R11 R3 K23 ["None"]
+       82 SETTABLEKS                       R11 R10 K20 ["editingMode"]
+       84 GETTABLEKS                       R11 R4 K23 ["None"]
+       86 SETTABLEKS                       R11 R10 K21 ["statusMessage"]
+       88 GETTABLEKS                       R11 R2 K24 ["createReducer"]
+       90 MOVE                             R12 R10
+       91 NEWTABLE                         R13 4 0
+       93 GETTABLEKS                       R14 R5 K25 ["name"]
+       95 DUPCLOSURE                       R15 K26 [PROTO_0]
+       96 CAPTURE                          VAL R9
+       97 SETTABLE                         R15 R13 R14
+       98 GETTABLEKS                       R14 R6 K25 ["name"]
+      100 DUPCLOSURE                       R15 K27 [PROTO_1]
+      101 CAPTURE                          VAL R9
+      102 CAPTURE                          VAL R3
+      103 CAPTURE                          VAL R4
+      104 SETTABLE                         R15 R13 R14
+      105 GETTABLEKS                       R14 R7 K25 ["name"]
+      107 DUPCLOSURE                       R15 K28 [PROTO_2]
+      108 CAPTURE                          VAL R9
+      109 CAPTURE                          VAL R3
+      110 CAPTURE                          VAL R4
+      111 SETTABLE                         R15 R13 R14
+      112 GETTABLEKS                       R14 R8 K25 ["name"]
+      114 DUPCLOSURE                       R15 K29 [PROTO_3]
+      115 CAPTURE                          VAL R9
+      116 CAPTURE                          VAL R1
+      117 CAPTURE                          VAL R3
+      118 SETTABLE                         R15 R13 R14
+      119 CALL                             R11 2 -1
+      120 RETURN                           R11 -1

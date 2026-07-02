@@ -258,76 +258,72 @@ PROTO_9:
       131 GETUPVAL                         R20 3
       132 GETTABLEKS                       R20 R20 K12 ["createElement"]
       134 GETUPVAL                         R21 6
-      135 DUPTABLE                         R22 K32 [{"AutomaticCanvasSize", "AutomaticSize", "CanvasPosition", "OnScrollUpdate", "Padding", "ScrollingDirection", "ScrollBarThickness", "Size"}]
-      136 GETIMPORT                        R23 K35 [Enum.AutomaticSize.X]
+      135 DUPTABLE                         R22 K33 [{["AutomaticCanvasSize"], ["AutomaticSize"], ["CanvasPosition"], ["OnScrollUpdate"], ["Padding"] = 0, ["ScrollingDirection"], ["ScrollBarThickness"] = 0, ["Size"]}]
+      136 GETIMPORT                        R23 K36 [Enum.AutomaticSize.X]
       138 SETTABLEKS                       R23 R22 K25 ["AutomaticCanvasSize"]
-      140 GETIMPORT                        R23 K37 [Enum.AutomaticSize.Y]
+      140 GETIMPORT                        R23 K38 [Enum.AutomaticSize.Y]
       142 SETTABLEKS                       R23 R22 K26 ["AutomaticSize"]
       144 SETTABLEKS                       R11 R22 K27 ["CanvasPosition"]
       146 SETTABLEKS                       R12 R22 K28 ["OnScrollUpdate"]
-      148 LOADN                            R23 0
-      149 SETTABLEKS                       R23 R22 K29 ["Padding"]
-      151 GETIMPORT                        R23 K38 [Enum.ScrollingDirection.X]
-      153 SETTABLEKS                       R23 R22 K30 ["ScrollingDirection"]
-      155 LOADN                            R23 0
-      156 SETTABLEKS                       R23 R22 K31 ["ScrollBarThickness"]
-      158 GETIMPORT                        R23 K15 [UDim2.new]
-      160 LOADN                            R24 1
-      161 JUMPIFNOT                        R15 ; [+2]
-      162 LOADN                            R25 224
-      163 JUMP                             ; [+1]
-      164 LOADN                            R25 0
-      165 LOADN                            R26 1
-      166 LOADN                            R27 0
-      167 CALL                             R23 4 1
-      168 SETTABLEKS                       R23 R22 K16 ["Size"]
-      170 DUPTABLE                         R23 K39 [{"Tabs"}]
-      171 GETUPVAL                         R24 3
-      172 GETTABLEKS                       R24 R24 K12 ["createElement"]
-      174 GETUPVAL                         R25 7
-      175 DUPTABLE                         R26 K43 [{"component", "innerProps", "dependencies"}]
-      176 GETUPVAL                         R27 8
-      177 SETTABLEKS                       R27 R26 K40 ["component"]
-      179 DUPTABLE                         R27 K48 [{"SelectedTab", "OnTabSelected", "Tabs", "TabComponent", "ref", "TabsListRef", "OnAbsoluteSizeChanged"}]
-      180 GETTABLEKS                       R28 R0 K9 ["SelectedTab"]
-      182 SETTABLEKS                       R28 R27 K9 ["SelectedTab"]
-      184 NEWCLOSURE                       R28 P4
-      185 CAPTURE                          VAL R1
-      186 CAPTURE                          VAL R0
-      187 SETTABLEKS                       R28 R27 K44 ["OnTabSelected"]
-      189 SETTABLEKS                       R13 R27 K8 ["Tabs"]
-      191 GETUPVAL                         R28 9
-      192 SETTABLEKS                       R28 R27 K45 ["TabComponent"]
-      194 SETTABLEKS                       R5 R27 K19 ["ref"]
-      196 SETTABLEKS                       R6 R27 K46 ["TabsListRef"]
-      198 NEWCLOSURE                       R28 P5
-      199 CAPTURE                          VAL R10
-      200 SETTABLEKS                       R28 R27 K47 ["OnAbsoluteSizeChanged"]
-      202 SETTABLEKS                       R27 R26 K41 ["innerProps"]
-      204 NEWTABLE                         R27 0 1
-      206 MOVE                             R28 R13
-      207 SETLIST                          R27 R28 1 [1]
-      209 SETTABLEKS                       R27 R26 K42 ["dependencies"]
-      211 CALL                             R24 2 1
-      212 SETTABLEKS                       R24 R23 K8 ["Tabs"]
-      214 CALL                             R20 3 1
-      215 SETTABLEKS                       R20 R19 K22 ["ScrollingFrame"]
-      217 JUMPIFNOT                        R15 ; [+17]
-      218 GETUPVAL                         R20 3
-      219 GETTABLEKS                       R20 R20 K12 ["createElement"]
-      221 GETUPVAL                         R21 10
-      222 DUPTABLE                         R22 K52 [{"MenuTabs", "BackgroundColor", "BackgroundColorHover"}]
-      223 SETTABLEKS                       R14 R22 K49 ["MenuTabs"]
-      225 GETTABLEKS                       R23 R3 K50 ["BackgroundColor"]
-      227 SETTABLEKS                       R23 R22 K50 ["BackgroundColor"]
-      229 GETTABLEKS                       R23 R3 K51 ["BackgroundColorHover"]
-      231 SETTABLEKS                       R23 R22 K51 ["BackgroundColorHover"]
-      233 CALL                             R20 2 1
-      234 JUMP                             ; [+1]
-      235 LOADNIL                          R20
-      236 SETTABLEKS                       R20 R19 K23 ["PickTabMenu"]
-      238 CALL                             R16 3 -1
-      239 RETURN                           R16 -1
+      148 GETIMPORT                        R23 K39 [Enum.ScrollingDirection.X]
+      150 SETTABLEKS                       R23 R22 K31 ["ScrollingDirection"]
+      152 GETIMPORT                        R23 K15 [UDim2.new]
+      154 LOADN                            R24 1
+      155 JUMPIFNOT                        R15 ; [+2]
+      156 LOADN                            R25 -32
+      157 JUMP                             ; [+1]
+      158 LOADN                            R25 0
+      159 LOADN                            R26 1
+      160 LOADN                            R27 0
+      161 CALL                             R23 4 1
+      162 SETTABLEKS                       R23 R22 K16 ["Size"]
+      164 DUPTABLE                         R23 K40 [{"Tabs"}]
+      165 GETUPVAL                         R24 3
+      166 GETTABLEKS                       R24 R24 K12 ["createElement"]
+      168 GETUPVAL                         R25 7
+      169 DUPTABLE                         R26 K44 [{"component", "innerProps", "dependencies"}]
+      170 GETUPVAL                         R27 8
+      171 SETTABLEKS                       R27 R26 K41 ["component"]
+      173 DUPTABLE                         R27 K49 [{"SelectedTab", "OnTabSelected", "Tabs", "TabComponent", "ref", "TabsListRef", "OnAbsoluteSizeChanged"}]
+      174 GETTABLEKS                       R28 R0 K9 ["SelectedTab"]
+      176 SETTABLEKS                       R28 R27 K9 ["SelectedTab"]
+      178 NEWCLOSURE                       R28 P4
+      179 CAPTURE                          VAL R1
+      180 CAPTURE                          VAL R0
+      181 SETTABLEKS                       R28 R27 K45 ["OnTabSelected"]
+      183 SETTABLEKS                       R13 R27 K8 ["Tabs"]
+      185 GETUPVAL                         R28 9
+      186 SETTABLEKS                       R28 R27 K46 ["TabComponent"]
+      188 SETTABLEKS                       R5 R27 K19 ["ref"]
+      190 SETTABLEKS                       R6 R27 K47 ["TabsListRef"]
+      192 NEWCLOSURE                       R28 P5
+      193 CAPTURE                          VAL R10
+      194 SETTABLEKS                       R28 R27 K48 ["OnAbsoluteSizeChanged"]
+      196 SETTABLEKS                       R27 R26 K42 ["innerProps"]
+      198 NEWTABLE                         R27 0 1
+      200 MOVE                             R28 R13
+      201 SETLIST                          R27 R28 1 [1]
+      203 SETTABLEKS                       R27 R26 K43 ["dependencies"]
+      205 CALL                             R24 2 1
+      206 SETTABLEKS                       R24 R23 K8 ["Tabs"]
+      208 CALL                             R20 3 1
+      209 SETTABLEKS                       R20 R19 K22 ["ScrollingFrame"]
+      211 JUMPIFNOT                        R15 ; [+17]
+      212 GETUPVAL                         R20 3
+      213 GETTABLEKS                       R20 R20 K12 ["createElement"]
+      215 GETUPVAL                         R21 10
+      216 DUPTABLE                         R22 K53 [{"MenuTabs", "BackgroundColor", "BackgroundColorHover"}]
+      217 SETTABLEKS                       R14 R22 K50 ["MenuTabs"]
+      219 GETTABLEKS                       R23 R3 K51 ["BackgroundColor"]
+      221 SETTABLEKS                       R23 R22 K51 ["BackgroundColor"]
+      223 GETTABLEKS                       R23 R3 K52 ["BackgroundColorHover"]
+      225 SETTABLEKS                       R23 R22 K52 ["BackgroundColorHover"]
+      227 CALL                             R20 2 1
+      228 JUMP                             ; [+1]
+      229 LOADNIL                          R20
+      230 SETTABLEKS                       R20 R19 K23 ["PickTabMenu"]
+      232 CALL                             R16 3 -1
+      233 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

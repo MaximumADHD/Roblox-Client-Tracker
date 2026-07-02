@@ -47,39 +47,31 @@ MAIN:
        65 LOADK                            R9 K21 ["StudioPublishService"]
        66 NAMECALL                         R7 R7 K22 ["GetService"]
        68 CALL                             R7 2 1
-       69 DUPTABLE                         R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
-       70 GETIMPORT                        R9 K32 [plugin]
+       69 DUPTABLE                         R8 K34 [{["plugin"], ["pluginName"] = "PublishBlocked", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["extraTriggers"]}]
+       70 GETIMPORT                        R9 K35 [plugin]
        72 SETTABLEKS                       R9 R8 K23 ["plugin"]
-       74 LOADK                            R9 K33 ["PublishBlocked"]
-       75 SETTABLEKS                       R9 R8 K24 ["pluginName"]
-       77 SETTABLEKS                       R6 R8 K25 ["translationResourceTable"]
-       79 SETTABLEKS                       R5 R8 K26 ["fallbackResourceTable"]
-       81 LOADNIL                          R9
-       82 SETTABLEKS                       R9 R8 K27 ["overrideLocaleId"]
-       84 LOADNIL                          R9
-       85 SETTABLEKS                       R9 R8 K28 ["localizationNamespace"]
-       87 LOADB                            R9 1
-       88 SETTABLEKS                       R9 R8 K29 ["noToolbar"]
-       90 NEWTABLE                         R9 1 0
-       92 DUPCLOSURE                       R10 K34 [PROTO_0]
-       93 CAPTURE                          VAL R7
-       94 SETTABLEKS                       R10 R9 K35 ["StudioPublishService.OnPublishAttempt"]
-       96 SETTABLEKS                       R9 R8 K30 ["extraTriggers"]
-       98 GETTABLEKS                       R9 R4 K36 ["build"]
-      100 MOVE                             R10 R8
-      101 CALL                             R9 1 1
-      102 GETTABLEKS                       R10 R9 K37 ["pluginLoader"]
-      104 NAMECALL                         R10 R10 K38 ["waitForUserInteraction"]
-      106 CALL                             R10 1 1
-      107 JUMPIF                           R10 ; [+1]
-      108 RETURN                           R0 0
-      109 GETIMPORT                        R11 K5 [require]
-      111 GETIMPORT                        R12 K1 [script]
-      113 GETTABLEKS                       R12 R12 K39 ["Parent"]
-      115 GETTABLEKS                       R12 R12 K40 ["publishMain"]
-      117 CALL                             R11 1 1
-      118 MOVE                             R12 R11
-      119 GETIMPORT                        R13 K32 [plugin]
-      121 MOVE                             R14 R9
-      122 CALL                             R12 2 0
-      123 RETURN                           R0 0
+       74 SETTABLEKS                       R6 R8 K26 ["translationResourceTable"]
+       76 SETTABLEKS                       R5 R8 K27 ["fallbackResourceTable"]
+       78 NEWTABLE                         R9 1 0
+       80 DUPCLOSURE                       R10 K36 [PROTO_0]
+       81 CAPTURE                          VAL R7
+       82 SETTABLEKS                       R10 R9 K37 ["StudioPublishService.OnPublishAttempt"]
+       84 SETTABLEKS                       R9 R8 K33 ["extraTriggers"]
+       86 GETTABLEKS                       R9 R4 K38 ["build"]
+       88 MOVE                             R10 R8
+       89 CALL                             R9 1 1
+       90 GETTABLEKS                       R10 R9 K39 ["pluginLoader"]
+       92 NAMECALL                         R10 R10 K40 ["waitForUserInteraction"]
+       94 CALL                             R10 1 1
+       95 JUMPIF                           R10 ; [+1]
+       96 RETURN                           R0 0
+       97 GETIMPORT                        R11 K5 [require]
+       99 GETIMPORT                        R12 K1 [script]
+      101 GETTABLEKS                       R12 R12 K41 ["Parent"]
+      103 GETTABLEKS                       R12 R12 K42 ["publishMain"]
+      105 CALL                             R11 1 1
+      106 MOVE                             R12 R11
+      107 GETIMPORT                        R13 K35 [plugin]
+      109 MOVE                             R14 R9
+      110 CALL                             R12 2 0
+      111 RETURN                           R0 0

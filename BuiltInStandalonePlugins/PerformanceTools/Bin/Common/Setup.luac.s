@@ -28,55 +28,45 @@ PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 DUPTABLE                         R2 K6 [{"getName", "getDescription", "clickableWhenViewportHidden", "icon", "enabled"}]
-        6 DUPCLOSURE                       R3 K7 [PROTO_0]
+        5 DUPTABLE                         R2 K8 [{["getName"], ["getDescription"], ["clickableWhenViewportHidden"] = True, ["icon"] = "rbxlocaltheme://GameSettings", ["enabled"] = True}]
+        6 DUPCLOSURE                       R3 K9 [PROTO_0]
         7 SETTABLEKS                       R3 R2 K1 ["getName"]
-        9 DUPCLOSURE                       R3 K8 [PROTO_1]
+        9 DUPCLOSURE                       R3 K10 [PROTO_1]
        10 SETTABLEKS                       R3 R2 K2 ["getDescription"]
-       12 LOADB                            R3 1
-       13 SETTABLEKS                       R3 R2 K3 ["clickableWhenViewportHidden"]
-       15 LOADK                            R3 K9 ["rbxlocaltheme://GameSettings"]
-       16 SETTABLEKS                       R3 R2 K4 ["icon"]
-       18 LOADB                            R3 1
-       19 SETTABLEKS                       R3 R2 K5 ["enabled"]
-       21 DUPTABLE                         R3 K16 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-       22 SETTABLEKS                       R0 R3 K10 ["plugin"]
-       24 LOADK                            R4 K17 ["PerformanceTools"]
-       25 SETTABLEKS                       R4 R3 K11 ["pluginName"]
-       27 GETUPVAL                         R4 1
-       28 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       30 GETUPVAL                         R4 2
-       31 SETTABLEKS                       R4 R3 K13 ["fallbackResourceTable"]
-       33 DUPCLOSURE                       R4 K18 [PROTO_2]
-       34 SETTABLEKS                       R4 R3 K14 ["getToolbarName"]
-       36 SETTABLEKS                       R2 R3 K15 ["buttonInfo"]
-       38 DUPTABLE                         R4 K23 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-       39 LOADK                            R5 K17 ["PerformanceTools"]
-       40 SETTABLEKS                       R5 R4 K19 ["id"]
-       42 GETIMPORT                        R5 K26 [DockWidgetPluginGuiInfo.new]
-       44 GETIMPORT                        R6 K30 [Enum.InitialDockState.Bottom]
-       46 LOADB                            R7 0
-       47 LOADB                            R8 0
-       48 LOADN                            R9 128
-       49 LOADN                            R10 224
-       50 LOADN                            R11 250
-       51 LOADN                            R12 200
-       52 CALL                             R5 7 1
-       53 SETTABLEKS                       R5 R4 K20 ["dockWidgetPluginGuiInfo"]
-       55 DUPCLOSURE                       R5 K31 [PROTO_3]
-       56 SETTABLEKS                       R5 R4 K21 ["getDockTitle"]
-       58 GETIMPORT                        R5 K34 [Enum.ZIndexBehavior.Sibling]
-       60 SETTABLEKS                       R5 R4 K22 ["zIndexBehavior"]
-       62 SETTABLEKS                       R4 R3 K35 ["dockWidgetInfo"]
-       64 GETUPVAL                         R4 3
-       65 GETTABLEKS                       R4 R4 K36 ["build"]
-       67 MOVE                             R5 R3
-       68 CALL                             R4 1 1
-       69 MOVE                             R5 R1
-       70 MOVE                             R6 R0
-       71 MOVE                             R7 R4
-       72 CALL                             R5 2 0
-       73 RETURN                           R0 0
+       12 DUPTABLE                         R3 K18 [{["plugin"], ["pluginName"] = "PerformanceTools", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
+       13 SETTABLEKS                       R0 R3 K11 ["plugin"]
+       15 GETUPVAL                         R4 1
+       16 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
+       18 GETUPVAL                         R4 2
+       19 SETTABLEKS                       R4 R3 K15 ["fallbackResourceTable"]
+       21 DUPCLOSURE                       R4 K19 [PROTO_2]
+       22 SETTABLEKS                       R4 R3 K16 ["getToolbarName"]
+       24 SETTABLEKS                       R2 R3 K17 ["buttonInfo"]
+       26 DUPTABLE                         R4 K24 [{["id"] = "PerformanceTools", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       27 GETIMPORT                        R5 K27 [DockWidgetPluginGuiInfo.new]
+       29 GETIMPORT                        R6 K31 [Enum.InitialDockState.Bottom]
+       31 LOADB                            R7 0
+       32 LOADB                            R8 0
+       33 LOADN                            R9 640
+       34 LOADN                            R10 480
+       35 LOADN                            R11 250
+       36 LOADN                            R12 200
+       37 CALL                             R5 7 1
+       38 SETTABLEKS                       R5 R4 K21 ["dockWidgetPluginGuiInfo"]
+       40 DUPCLOSURE                       R5 K32 [PROTO_3]
+       41 SETTABLEKS                       R5 R4 K22 ["getDockTitle"]
+       43 GETIMPORT                        R5 K35 [Enum.ZIndexBehavior.Sibling]
+       45 SETTABLEKS                       R5 R4 K23 ["zIndexBehavior"]
+       47 SETTABLEKS                       R4 R3 K36 ["dockWidgetInfo"]
+       49 GETUPVAL                         R4 3
+       50 GETTABLEKS                       R4 R4 K37 ["build"]
+       52 MOVE                             R5 R3
+       53 CALL                             R4 1 1
+       54 MOVE                             R5 R1
+       55 MOVE                             R6 R0
+       56 MOVE                             R7 R4
+       57 CALL                             R5 2 0
+       58 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

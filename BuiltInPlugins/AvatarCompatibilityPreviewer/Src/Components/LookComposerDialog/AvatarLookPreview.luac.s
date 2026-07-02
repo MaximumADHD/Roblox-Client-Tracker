@@ -85,72 +85,64 @@ PROTO_3:
        32 MOVE                             R11 R2
        33 SETLIST                          R8 R9 3 [1]
        35 CALL                             R6 2 0
-       36 JUMPIFEQKNIL                     R4 ; [+76]
+       36 JUMPIFEQKNIL                     R4 ; [+67]
        38 GETTABLEKS                       R6 R4 K8 ["PrimaryPart"]
-       40 JUMPIFEQKNIL                     R6 ; [+72]
+       40 JUMPIFEQKNIL                     R6 ; [+63]
        42 GETUPVAL                         R6 1
        43 GETTABLEKS                       R6 R6 K9 ["createElement"]
        45 GETUPVAL                         R7 3
-       46 DUPTABLE                         R8 K13 [{"tag", "Size", "LayoutOrder"}]
-       47 LOADK                            R9 K14 ["bg-surface-200 radius-medium stroke-default clip"]
-       48 SETTABLEKS                       R9 R8 K10 ["tag"]
-       50 GETIMPORT                        R9 K17 [UDim2.fromOffset]
-       52 LOADN                            R10 150
-       53 LOADN                            R11 150
-       54 CALL                             R9 2 1
-       55 SETTABLEKS                       R9 R8 K11 ["Size"]
-       57 GETTABLEKS                       R9 R0 K12 ["LayoutOrder"]
-       59 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
-       61 DUPTABLE                         R9 K19 [{"AvatarPreview"}]
-       62 GETUPVAL                         R10 1
-       63 GETTABLEKS                       R10 R10 K9 ["createElement"]
-       65 GETUPVAL                         R11 4
-       66 DUPTABLE                         R12 K27 [{"FocusDirection", "Model", "Static", "ShouldClone", "Ambient", "LightColor", "LightDirection"}]
-       67 GETTABLEKS                       R13 R4 K8 ["PrimaryPart"]
-       69 GETTABLEKS                       R13 R13 K28 ["CFrame"]
-       71 GETTABLEKS                       R13 R13 K29 ["LookVector"]
-       73 SETTABLEKS                       R13 R12 K20 ["FocusDirection"]
-       75 SETTABLEKS                       R4 R12 K21 ["Model"]
-       77 LOADB                            R13 1
-       78 SETTABLEKS                       R13 R12 K22 ["Static"]
-       80 LOADB                            R13 0
-       81 SETTABLEKS                       R13 R12 K23 ["ShouldClone"]
-       83 GETIMPORT                        R13 K32 [Color3.new]
-       85 LOADK                            R14 K33 [0.5]
-       86 LOADK                            R15 K33 [0.5]
-       87 LOADK                            R16 K33 [0.5]
-       88 CALL                             R13 3 1
-       89 SETTABLEKS                       R13 R12 K24 ["Ambient"]
-       91 GETIMPORT                        R13 K32 [Color3.new]
-       93 LOADN                            R14 1
-       94 LOADN                            R15 1
-       95 LOADN                            R16 1
-       96 CALL                             R13 3 1
-       97 SETTABLEKS                       R13 R12 K25 ["LightColor"]
-       99 GETTABLEKS                       R14 R4 K8 ["PrimaryPart"]
-      101 GETTABLEKS                       R14 R14 K28 ["CFrame"]
-      103 GETTABLEKS                       R14 R14 K29 ["LookVector"]
-      105 MINUS                            R13 R14
-      106 SETTABLEKS                       R13 R12 K26 ["LightDirection"]
-      108 CALL                             R10 2 1
-      109 SETTABLEKS                       R10 R9 K18 ["AvatarPreview"]
-      111 CALL                             R6 3 -1
-      112 RETURN                           R6 -1
-      113 GETUPVAL                         R6 1
-      114 GETTABLEKS                       R6 R6 K9 ["createElement"]
-      116 GETUPVAL                         R7 3
-      117 DUPTABLE                         R8 K13 [{"tag", "Size", "LayoutOrder"}]
-      118 LOADK                            R9 K34 ["bg-surface-200 radius-medium stroke-default"]
-      119 SETTABLEKS                       R9 R8 K10 ["tag"]
-      121 GETIMPORT                        R9 K17 [UDim2.fromOffset]
-      123 LOADN                            R10 150
-      124 LOADN                            R11 150
-      125 CALL                             R9 2 1
-      126 SETTABLEKS                       R9 R8 K11 ["Size"]
-      128 GETTABLEKS                       R9 R0 K12 ["LayoutOrder"]
-      130 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
-      132 CALL                             R6 2 -1
-      133 RETURN                           R6 -1
+       46 DUPTABLE                         R8 K14 [{["tag"] = "stroke-default radius-medium clip bg-surface-200", ["Size"], ["LayoutOrder"]}]
+       47 GETIMPORT                        R9 K17 [UDim2.fromOffset]
+       49 LOADN                            R10 150
+       50 LOADN                            R11 150
+       51 CALL                             R9 2 1
+       52 SETTABLEKS                       R9 R8 K12 ["Size"]
+       54 GETTABLEKS                       R9 R0 K13 ["LayoutOrder"]
+       56 SETTABLEKS                       R9 R8 K13 ["LayoutOrder"]
+       58 DUPTABLE                         R9 K19 [{"AvatarPreview"}]
+       59 GETUPVAL                         R10 1
+       60 GETTABLEKS                       R10 R10 K9 ["createElement"]
+       62 GETUPVAL                         R11 4
+       63 DUPTABLE                         R12 K29 [{["FocusDirection"], ["Model"], ["Static"] = True, ["ShouldClone"] = False, ["Ambient"], ["LightColor"], ["LightDirection"]}]
+       64 GETTABLEKS                       R13 R4 K8 ["PrimaryPart"]
+       66 GETTABLEKS                       R13 R13 K30 ["CFrame"]
+       68 GETTABLEKS                       R13 R13 K31 ["LookVector"]
+       70 SETTABLEKS                       R13 R12 K20 ["FocusDirection"]
+       72 SETTABLEKS                       R4 R12 K21 ["Model"]
+       74 GETIMPORT                        R13 K34 [Color3.new]
+       76 LOADK                            R14 K35 [0.5]
+       77 LOADK                            R15 K35 [0.5]
+       78 LOADK                            R16 K35 [0.5]
+       79 CALL                             R13 3 1
+       80 SETTABLEKS                       R13 R12 K26 ["Ambient"]
+       82 GETIMPORT                        R13 K34 [Color3.new]
+       84 LOADN                            R14 1
+       85 LOADN                            R15 1
+       86 LOADN                            R16 1
+       87 CALL                             R13 3 1
+       88 SETTABLEKS                       R13 R12 K27 ["LightColor"]
+       90 GETTABLEKS                       R14 R4 K8 ["PrimaryPart"]
+       92 GETTABLEKS                       R14 R14 K30 ["CFrame"]
+       94 GETTABLEKS                       R14 R14 K31 ["LookVector"]
+       96 MINUS                            R13 R14
+       97 SETTABLEKS                       R13 R12 K28 ["LightDirection"]
+       99 CALL                             R10 2 1
+      100 SETTABLEKS                       R10 R9 K18 ["AvatarPreview"]
+      102 CALL                             R6 3 -1
+      103 RETURN                           R6 -1
+      104 GETUPVAL                         R6 1
+      105 GETTABLEKS                       R6 R6 K9 ["createElement"]
+      107 GETUPVAL                         R7 3
+      108 DUPTABLE                         R8 K37 [{["tag"] = "stroke-default radius-medium bg-surface-200", ["Size"], ["LayoutOrder"]}]
+      109 GETIMPORT                        R9 K17 [UDim2.fromOffset]
+      111 LOADN                            R10 150
+      112 LOADN                            R11 150
+      113 CALL                             R9 2 1
+      114 SETTABLEKS                       R9 R8 K12 ["Size"]
+      116 GETTABLEKS                       R9 R0 K13 ["LayoutOrder"]
+      118 SETTABLEKS                       R9 R8 K13 ["LayoutOrder"]
+      120 CALL                             R6 2 -1
+      121 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

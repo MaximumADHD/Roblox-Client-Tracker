@@ -14,31 +14,29 @@ PROTO_1:
        12 GETUPVAL                         R6 0
        13 GETTABLEKS                       R6 R6 K7 ["createElement"]
        15 LOADK                            R7 K8 ["Frame"]
-       16 DUPTABLE                         R8 K13 [{"Size", "Position", "BackgroundColor3", "BorderSizePixel"}]
-       17 GETIMPORT                        R9 K15 [UDim2.new]
+       16 DUPTABLE                         R8 K14 [{["Size"], ["Position"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+       17 GETIMPORT                        R9 K16 [UDim2.new]
        19 LOADN                            R10 1
        20 LOADN                            R11 0
        21 LOADN                            R12 0
        22 LOADN                            R13 1
        23 CALL                             R9 4 1
        24 SETTABLEKS                       R9 R8 K9 ["Size"]
-       26 GETIMPORT                        R9 K15 [UDim2.new]
+       26 GETIMPORT                        R9 K16 [UDim2.new]
        28 LOADN                            R10 0
        29 LOADN                            R11 0
        30 LOADN                            R12 0
-       31 GETTABLEKS                       R13 R3 K16 ["Y"]
+       31 GETTABLEKS                       R13 R3 K17 ["Y"]
        33 CALL                             R9 4 1
        34 SETTABLEKS                       R9 R8 K10 ["Position"]
-       36 GETTABLEKS                       R9 R2 K17 ["curveTheme"]
-       38 GETTABLEKS                       R9 R9 K18 ["xAxis"]
+       36 GETTABLEKS                       R9 R2 K18 ["curveTheme"]
+       38 GETTABLEKS                       R9 R9 K19 ["xAxis"]
        40 SETTABLEKS                       R9 R8 K11 ["BackgroundColor3"]
-       42 LOADN                            R9 0
-       43 SETTABLEKS                       R9 R8 K12 ["BorderSizePixel"]
-       45 CALL                             R6 2 -1
-       46 FASTCALL                         TABLE_INSERT ; [+2]
-       47 GETIMPORT                        R4 K21 [table.insert]
-       49 CALL                             R4 -1 0
-       50 RETURN                           R0 0
+       42 CALL                             R6 2 -1
+       43 FASTCALL                         TABLE_INSERT ; [+2]
+       44 GETIMPORT                        R4 K22 [table.insert]
+       46 CALL                             R4 -1 0
+       47 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -52,8 +50,8 @@ PROTO_2:
        14 GETIMPORT                        R7 K8 [math.min]
        16 CALL                             R7 2 1
        17 MOVE                             R6 R7
-       18 SUBRK                            R8 R9 K6 ["math"]
-       19 DIVRK                            R7 R9 K8 [math.min]
+       18 SUBRK                            R8 K9 [1] R6
+       19 DIVRK                            R7 K9 [1] R8
        20 GETTABLEKS                       R11 R1 K10 ["X"]
        22 GETTABLEKS                       R12 R2 K11 ["StartTick"]
        24 SUB                              R10 R11 R12
@@ -83,7 +81,7 @@ PROTO_2:
        58 GETUPVAL                         R16 0
        59 GETTABLEKS                       R16 R16 K15 ["CURVE_CANVAS_PADDING"]
        61 MUL                              R14 R15 R16
-       62 SUBRK                            R13 R9 K14 ["Y"]
+       62 SUBRK                            R13 K9 [1] R14
        63 MUL                              R11 R12 R13
        64 ADD                              R9 R10 R11
        65 GETIMPORT                        R10 K18 [Vector2.new]
@@ -102,14 +100,14 @@ PROTO_3:
        11 LOADK                            R7 K5 [0.99]
        12 GETIMPORT                        R5 K8 [math.min]
        14 CALL                             R5 2 1
-       15 SUBRK                            R4 R3 K5 [0.99]
+       15 SUBRK                            R4 K3 [1] R5
        16 GETTABLEKS                       R6 R2 K9 ["AbsoluteSize"]
        18 GETTABLEKS                       R6 R6 K10 ["Y"]
        20 LOADN                            R9 2
        21 GETUPVAL                         R10 0
        22 GETTABLEKS                       R10 R10 K11 ["CURVE_CANVAS_PADDING"]
        24 MUL                              R8 R9 R10
-       25 SUBRK                            R7 R3 K8 [math.min]
+       25 SUBRK                            R7 K3 [1] R8
        26 MUL                              R5 R6 R7
        27 GETTABLEKS                       R8 R2 K12 ["EndTick"]
        29 GETTABLEKS                       R9 R2 K13 ["StartTick"]
@@ -341,550 +339,520 @@ PROTO_16:
       100 GETUPVAL                         R22 2
       101 GETTABLEKS                       R22 R22 K33 ["createElement"]
       103 GETUPVAL                         R23 3
-      104 DUPTABLE                         R24 K44 [{"Position", "TrackName", "InterpolationMode", "LeftSlope", "LeftAuto", "RightSlope", "RightAuto", "Color", "ShowSlopes", "Width"}]
+      104 DUPTABLE                         R24 K47 [{["Position"], ["TrackName"] = "", ["InterpolationMode"], ["LeftSlope"] = , ["LeftAuto"] = False, ["RightSlope"] = , ["RightAuto"] = False, ["Color"], ["ShowSlopes"] = False, ["Width"]}]
       105 SETTABLEKS                       R19 R24 K34 ["Position"]
-      107 LOADK                            R25 K45 [""]
-      108 SETTABLEKS                       R25 R24 K35 ["TrackName"]
-      110 GETIMPORT                        R25 K49 [Enum.KeyInterpolationMode.Linear]
-      112 SETTABLEKS                       R25 R24 K36 ["InterpolationMode"]
-      114 LOADNIL                          R25
-      115 SETTABLEKS                       R25 R24 K37 ["LeftSlope"]
-      117 LOADB                            R25 0
-      118 SETTABLEKS                       R25 R24 K38 ["LeftAuto"]
-      120 LOADNIL                          R25
-      121 SETTABLEKS                       R25 R24 K39 ["RightSlope"]
-      123 LOADB                            R25 0
-      124 SETTABLEKS                       R25 R24 K40 ["RightAuto"]
-      126 GETTABLEKS                       R25 R3 K50 ["scrubberTheme"]
-      128 GETTABLEKS                       R25 R25 K51 ["backgroundColor"]
-      130 SETTABLEKS                       R25 R24 K41 ["Color"]
-      132 LOADB                            R25 0
-      133 SETTABLEKS                       R25 R24 K42 ["ShowSlopes"]
-      135 GETUPVAL                         R25 0
-      136 GETTABLEKS                       R25 R25 K52 ["SCRUBBER_MARKER_WIDTH"]
-      138 SETTABLEKS                       R25 R24 K43 ["Width"]
-      140 CALL                             R22 2 1
-      141 SETTABLE                         R22 R21 R20
-      142 GETTABLEKS                       R21 R1 K53 ["Instance"]
-      144 GETTABLE                         R22 R15 R21
-      145 GETIMPORT                        R23 K55 [ipairs]
-      147 GETTABLEKS                       R24 R1 K3 ["Path"]
-      149 CALL                             R23 1 3
-      150 FORGPREP_INEXT                   R23
-      151 JUMPIFNOT                        R22 ; [+11]
-      152 GETTABLEKS                       R29 R22 K56 ["Components"]
-      154 JUMPIFNOT                        R29 ; [+4]
-      155 GETTABLEKS                       R29 R22 K56 ["Components"]
-      157 GETTABLE                         R28 R29 R27
-      158 JUMPIF                           R28 ; [+1]
-      159 GETTABLE                         R28 R22 R27
-      160 MOVE                             R22 R28
-      161 FORGLOOP                         R23 2 [inext] ; [-11]
-      163 LOADNIL                          R23
-      164 LOADNIL                          R24
-      165 GETTABLEKS                       R25 R1 K9 ["Type"]
-      167 GETUPVAL                         R26 0
-      168 GETTABLEKS                       R26 R26 K19 ["TRACK_TYPES"]
-      170 GETTABLEKS                       R26 R26 K20 ["Facs"]
-      172 JUMPIFNOTEQ                      R25 R26 ; [+21]
-      174 GETIMPORT                        R27 K26 [Vector2.new]
-      176 LOADN                            R28 0
-      177 LOADN                            R29 1
-      178 CALL                             R27 2 -1
-      179 NAMECALL                         R25 R0 K27 ["toCanvasSpace"]
-      181 CALL                             R25 -1 1
-      182 GETTABLEKS                       R23 R25 K13 ["Y"]
-      184 GETIMPORT                        R27 K26 [Vector2.new]
-      186 LOADN                            R28 0
-      187 LOADN                            R29 0
-      188 CALL                             R27 2 -1
-      189 NAMECALL                         R25 R0 K27 ["toCanvasSpace"]
-      191 CALL                             R25 -1 1
-      192 GETTABLEKS                       R24 R25 K13 ["Y"]
-      194 GETIMPORT                        R25 K55 [ipairs]
-      196 GETTABLEKS                       R26 R1 K2 ["Keyframes"]
-      198 CALL                             R25 1 3
-      199 FORGPREP_INEXT                   R25
-      200 GETTABLEKS                       R31 R1 K57 ["Data"]
-      202 GETTABLE                         R30 R31 R29
-      203 JUMPIFEQKNIL                     R30 ; [+680]
-      205 MOVE                             R31 R22
-      206 JUMPIFNOT                        R31 ; [+6]
-      207 GETTABLEKS                       R31 R22 K58 ["Selection"]
-      209 JUMPIFNOT                        R31 ; [+3]
-      210 GETTABLEKS                       R32 R22 K58 ["Selection"]
-      212 GETTABLE                         R31 R32 R29
-      213 GETTABLEKS                       R32 R1 K9 ["Type"]
-      215 GETUPVAL                         R33 0
-      216 GETTABLEKS                       R33 R33 K19 ["TRACK_TYPES"]
-      218 GETTABLEKS                       R33 R33 K59 ["Quaternion"]
-      220 JUMPIFNOTEQ                      R32 R33 ; [+20]
-      222 GETIMPORT                        R34 K26 [Vector2.new]
-      224 MOVE                             R35 R29
-      225 LOADN                            R36 1
-      226 CALL                             R34 2 -1
-      227 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
-      229 CALL                             R32 -1 1
-      230 MOVE                             R8 R32
-      231 GETIMPORT                        R34 K26 [Vector2.new]
-      233 MOVE                             R35 R29
-      234 LOADN                            R36 0
-      235 CALL                             R34 2 -1
-      236 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
-      238 CALL                             R32 -1 1
-      239 MOVE                             R9 R32
-      240 JUMP                             ; [+10]
-      241 GETIMPORT                        R34 K26 [Vector2.new]
-      243 MOVE                             R35 R29
-      244 GETTABLEKS                       R36 R30 K60 ["Value"]
-      246 CALL                             R34 2 -1
-      247 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
-      249 CALL                             R32 -1 1
-      250 MOVE                             R8 R32
-      251 MOVE                             R32 R13
-      252 JUMPIF                           R32 ; [+12]
-      253 MOVE                             R32 R31
-      254 JUMPIFNOT                        R32 ; [+10]
-      255 MOVE                             R32 R12
-      256 JUMPIFNOT                        R32 ; [+8]
-      257 GETTABLEKS                       R33 R12 K36 ["InterpolationMode"]
-      259 GETIMPORT                        R34 K62 [Enum.KeyInterpolationMode.Constant]
-      261 JUMPIFNOTEQ                      R33 R34 ; [+2]
-      263 LOADB                            R32 0 +1
-      264 LOADB                            R32 1
-      265 JUMPIFNOT                        R32 ; [+5]
-      266 GETTABLEKS                       R33 R3 K11 ["curveTheme"]
-      268 GETTABLEKS                       R33 R33 K63 ["selected"]
-      270 JUMPIF                           R33 ; [+1]
-      271 MOVE                             R33 R7
-      272 GETIMPORT                        R34 K30 [string.format]
-      274 LOADK                            R35 K64 ["%s_Curve_%d"]
-      275 MOVE                             R36 R5
-      276 MOVE                             R37 R28
-      277 CALL                             R34 3 1
-      278 GETTABLEKS                       R35 R2 K65 ["StartTick"]
-      280 JUMPIFNOTLE                      R35 R29 ; [+588]
-      282 JUMPIFNOT                        R11 ; [+4]
-      283 GETTABLEKS                       R35 R2 K66 ["EndTick"]
-      285 JUMPIFNOTLE                      R11 R35 ; [+583]
-      287 JUMPIFNOT                        R12 ; [+144]
-      288 JUMPIFNOT                        R10 ; [+143]
-      289 GETTABLEKS                       R35 R12 K36 ["InterpolationMode"]
-      291 GETIMPORT                        R36 K62 [Enum.KeyInterpolationMode.Constant]
-      293 JUMPIFNOTEQ                      R35 R36 ; [+37]
-      295 GETTABLEKS                       R35 R0 K32 ["children"]
-      297 GETUPVAL                         R36 2
-      298 GETTABLEKS                       R36 R36 K33 ["createElement"]
-      300 GETUPVAL                         R37 4
-      301 DUPTABLE                         R38 K70 [{"A", "B", "Color", "Width", "ZIndex"}]
-      302 SETTABLEKS                       R10 R38 K67 ["A"]
-      304 GETIMPORT                        R39 K26 [Vector2.new]
-      306 GETTABLEKS                       R40 R8 K71 ["X"]
-      308 GETTABLEKS                       R41 R10 K13 ["Y"]
-      310 CALL                             R39 2 1
-      311 SETTABLEKS                       R39 R38 K68 ["B"]
-      313 SETTABLEKS                       R33 R38 K41 ["Color"]
-      315 JUMPIFNOT                        R32 ; [+4]
-      316 GETUPVAL                         R39 0
-      317 GETTABLEKS                       R39 R39 K72 ["CURVE_WIDTH_SELECTED"]
-      319 JUMP                             ; [+3]
-      320 GETUPVAL                         R39 0
-      321 GETTABLEKS                       R39 R39 K73 ["CURVE_WIDTH"]
-      323 SETTABLEKS                       R39 R38 K43 ["Width"]
-      325 LOADN                            R39 2
-      326 SETTABLEKS                       R39 R38 K69 ["ZIndex"]
-      328 CALL                             R36 2 1
-      329 SETTABLE                         R36 R35 R34
-      330 JUMP                             ; [+101]
-      331 GETTABLEKS                       R35 R12 K36 ["InterpolationMode"]
-      333 GETIMPORT                        R36 K49 [Enum.KeyInterpolationMode.Linear]
-      335 JUMPIFNOTEQ                      R35 R36 ; [+30]
-      337 GETTABLEKS                       R35 R0 K32 ["children"]
-      339 GETUPVAL                         R36 2
-      340 GETTABLEKS                       R36 R36 K33 ["createElement"]
-      342 GETUPVAL                         R37 4
-      343 DUPTABLE                         R38 K70 [{"A", "B", "Color", "Width", "ZIndex"}]
-      344 SETTABLEKS                       R10 R38 K67 ["A"]
-      346 SETTABLEKS                       R8 R38 K68 ["B"]
-      348 SETTABLEKS                       R33 R38 K41 ["Color"]
-      350 JUMPIFNOT                        R32 ; [+4]
-      351 GETUPVAL                         R39 0
-      352 GETTABLEKS                       R39 R39 K72 ["CURVE_WIDTH_SELECTED"]
-      354 JUMP                             ; [+3]
-      355 GETUPVAL                         R39 0
-      356 GETTABLEKS                       R39 R39 K73 ["CURVE_WIDTH"]
-      358 SETTABLEKS                       R39 R38 K43 ["Width"]
-      360 LOADN                            R39 2
-      361 SETTABLEKS                       R39 R38 K69 ["ZIndex"]
-      363 CALL                             R36 2 1
-      364 SETTABLE                         R36 R35 R34
-      365 JUMP                             ; [+66]
-      366 GETUPVAL                         R35 1
-      367 GETTABLEKS                       R35 R35 K74 ["getSlopes"]
-      369 MOVE                             R36 R1
-      370 MOVE                             R37 R11
-      371 CALL                             R35 2 2
-      372 GETUPVAL                         R37 1
-      373 GETTABLEKS                       R37 R37 K74 ["getSlopes"]
-      375 MOVE                             R38 R1
-      376 MOVE                             R39 R29
-      377 CALL                             R37 2 2
-      378 JUMPIFNOT                        R36 ; [+5]
-      379 MOVE                             R41 R36
-      380 NAMECALL                         R39 R0 K75 ["scaleSlope"]
-      382 CALL                             R39 2 1
-      383 MOVE                             R36 R39
-      384 JUMPIFNOT                        R37 ; [+5]
-      385 MOVE                             R41 R37
-      386 NAMECALL                         R39 R0 K75 ["scaleSlope"]
-      388 CALL                             R39 2 1
-      389 MOVE                             R37 R39
-      390 GETTABLEKS                       R39 R0 K32 ["children"]
-      392 GETUPVAL                         R40 2
-      393 GETTABLEKS                       R40 R40 K33 ["createElement"]
-      395 GETUPVAL                         R41 5
-      396 DUPTABLE                         R42 K81 [{"A", "ASlope", "B", "BSlope", "Color", "Width", "FrameWidth", "ZIndex", "MinClamp", "MaxClamp"}]
-      397 SETTABLEKS                       R10 R42 K67 ["A"]
-      399 SETTABLEKS                       R36 R42 K76 ["ASlope"]
-      401 SETTABLEKS                       R8 R42 K68 ["B"]
-      403 SETTABLEKS                       R37 R42 K77 ["BSlope"]
-      405 SETTABLEKS                       R33 R42 K41 ["Color"]
-      407 JUMPIFNOT                        R32 ; [+4]
-      408 GETUPVAL                         R43 0
-      409 GETTABLEKS                       R43 R43 K72 ["CURVE_WIDTH_SELECTED"]
-      411 JUMP                             ; [+3]
-      412 GETUPVAL                         R43 0
-      413 GETTABLEKS                       R43 R43 K73 ["CURVE_WIDTH"]
-      415 SETTABLEKS                       R43 R42 K43 ["Width"]
-      417 GETTABLEKS                       R43 R2 K12 ["AbsoluteSize"]
-      419 GETTABLEKS                       R43 R43 K71 ["X"]
-      421 SETTABLEKS                       R43 R42 K78 ["FrameWidth"]
-      423 LOADN                            R43 2
-      424 SETTABLEKS                       R43 R42 K69 ["ZIndex"]
-      426 SETTABLEKS                       R23 R42 K79 ["MinClamp"]
-      428 SETTABLEKS                       R24 R42 K80 ["MaxClamp"]
-      430 CALL                             R40 2 1
-      431 SETTABLE                         R40 R39 R34
-      432 GETIMPORT                        R35 K30 [string.format]
-      434 LOADK                            R36 K82 ["%s_Keyframe_%d"]
-      435 MOVE                             R37 R5
-      436 MOVE                             R38 R28
-      437 CALL                             R35 3 1
-      438 GETTABLEKS                       R36 R1 K9 ["Type"]
-      440 GETUPVAL                         R37 0
-      441 GETTABLEKS                       R37 R37 K19 ["TRACK_TYPES"]
-      443 GETTABLEKS                       R37 R37 K59 ["Quaternion"]
-      445 JUMPIFNOTEQ                      R36 R37 ; [+4]
-      447 LOADN                            R36 1
-      448 JUMPIFNOTLT                      R36 R28 ; [+94]
-      450 GETTABLEKS                       R36 R0 K32 ["children"]
-      452 GETUPVAL                         R37 2
-      453 GETTABLEKS                       R37 R37 K33 ["createElement"]
-      455 GETUPVAL                         R38 3
-      456 DUPTABLE                         R39 K89 [{"Position", "Path", "InterpolationMode", "PrevInterpolationMode", "LeftSlope", "RightSlope", "Color", "ShowSlopes", "ShowTooltip", "Selected", "ZIndex", "OnRightClick", "OnInputBegan", "OnInputEnded"}]
-      457 SETTABLEKS                       R8 R39 K34 ["Position"]
-      459 GETTABLEKS                       R40 R1 K3 ["Path"]
-      461 SETTABLEKS                       R40 R39 K3 ["Path"]
-      463 GETTABLEKS                       R40 R30 K36 ["InterpolationMode"]
-      465 SETTABLEKS                       R40 R39 K36 ["InterpolationMode"]
-      467 JUMPIFNOT                        R12 ; [+3]
-      468 GETTABLEKS                       R40 R12 K36 ["InterpolationMode"]
-      470 JUMP                             ; [+1]
-      471 LOADNIL                          R40
-      472 SETTABLEKS                       R40 R39 K83 ["PrevInterpolationMode"]
-      474 JUMPIFNOTEQKN                    R28 K90 [1] ; [+3]
-      476 LOADNIL                          R40
-      477 JUMP                             ; [+2]
-      478 GETTABLEKS                       R40 R30 K37 ["LeftSlope"]
-      480 SETTABLEKS                       R40 R39 K37 ["LeftSlope"]
-      482 GETTABLEKS                       R42 R1 K2 ["Keyframes"]
-      484 LENGTH                           R41 R42
-      485 JUMPIFNOTEQ                      R28 R41 ; [+3]
-      487 LOADNIL                          R40
-      488 JUMP                             ; [+2]
-      489 GETTABLEKS                       R40 R30 K39 ["RightSlope"]
-      491 SETTABLEKS                       R40 R39 K39 ["RightSlope"]
-      493 SETTABLEKS                       R7 R39 K41 ["Color"]
-      495 LOADB                            R40 0
-      496 SETTABLEKS                       R40 R39 K42 ["ShowSlopes"]
-      498 SETTABLEKS                       R16 R39 K84 ["ShowTooltip"]
-      500 SETTABLEKS                       R31 R39 K85 ["Selected"]
-      502 LOADN                            R40 4
-      503 SETTABLEKS                       R40 R39 K69 ["ZIndex"]
-      505 GETTABLEKS                       R41 R2 K91 ["OnKeyRightClick"]
-      507 JUMPIFNOT                        R41 ; [+6]
-      508 NEWCLOSURE                       R40 P0
-      509 CAPTURE                          VAL R2
-      510 CAPTURE                          VAL R1
-      511 CAPTURE                          VAL R29
-      512 CAPTURE                          VAL R31
-      513 JUMP                             ; [+1]
-      514 LOADNIL                          R40
-      515 SETTABLEKS                       R40 R39 K86 ["OnRightClick"]
-      517 GETTABLEKS                       R41 R2 K92 ["OnKeyInputBegan"]
-      519 JUMPIFNOT                        R41 ; [+6]
-      520 NEWCLOSURE                       R40 P1
-      521 CAPTURE                          VAL R2
-      522 CAPTURE                          VAL R1
-      523 CAPTURE                          VAL R29
-      524 CAPTURE                          VAL R31
-      525 JUMP                             ; [+1]
-      526 LOADNIL                          R40
-      527 SETTABLEKS                       R40 R39 K87 ["OnInputBegan"]
-      529 GETTABLEKS                       R41 R2 K93 ["OnKeyInputEnded"]
-      531 JUMPIFNOT                        R41 ; [+6]
-      532 NEWCLOSURE                       R40 P2
-      533 CAPTURE                          VAL R2
-      534 CAPTURE                          VAL R29
-      535 CAPTURE                          VAL R30
-      536 CAPTURE                          VAL R31
-      537 JUMP                             ; [+1]
-      538 LOADNIL                          R40
-      539 SETTABLEKS                       R40 R39 K88 ["OnInputEnded"]
-      541 CALL                             R37 2 1
-      542 SETTABLE                         R37 R36 R35
-      543 GETTABLEKS                       R37 R1 K2 ["Keyframes"]
-      545 LENGTH                           R36 R37
-      546 JUMPIFNOTLT                      R28 R36 ; [+106]
-      548 GETTABLEKS                       R36 R1 K9 ["Type"]
-      550 GETUPVAL                         R37 0
-      551 GETTABLEKS                       R37 R37 K19 ["TRACK_TYPES"]
-      553 GETTABLEKS                       R37 R37 K59 ["Quaternion"]
-      555 JUMPIFNOTEQ                      R36 R37 ; [+97]
-      557 GETTABLEKS                       R36 R0 K32 ["children"]
-      559 MOVE                             R38 R35
-      560 LOADK                            R39 K94 ["b"]
-      561 CONCAT                           R37 R38 R39
-      562 GETUPVAL                         R38 2
-      563 GETTABLEKS                       R38 R38 K33 ["createElement"]
-      565 GETUPVAL                         R39 3
-      566 DUPTABLE                         R40 K89 [{"Position", "Path", "InterpolationMode", "PrevInterpolationMode", "LeftSlope", "RightSlope", "Color", "ShowSlopes", "ShowTooltip", "Selected", "ZIndex", "OnRightClick", "OnInputBegan", "OnInputEnded"}]
-      567 SETTABLEKS                       R9 R40 K34 ["Position"]
-      569 GETTABLEKS                       R41 R1 K3 ["Path"]
-      571 SETTABLEKS                       R41 R40 K3 ["Path"]
-      573 GETTABLEKS                       R41 R30 K36 ["InterpolationMode"]
-      575 SETTABLEKS                       R41 R40 K36 ["InterpolationMode"]
-      577 JUMPIFNOT                        R12 ; [+3]
-      578 GETTABLEKS                       R41 R12 K36 ["InterpolationMode"]
-      580 JUMP                             ; [+1]
-      581 LOADNIL                          R41
-      582 SETTABLEKS                       R41 R40 K83 ["PrevInterpolationMode"]
-      584 JUMPIFNOTEQKN                    R28 K90 [1] ; [+3]
-      586 LOADNIL                          R41
-      587 JUMP                             ; [+2]
-      588 GETTABLEKS                       R41 R30 K37 ["LeftSlope"]
-      590 SETTABLEKS                       R41 R40 K37 ["LeftSlope"]
-      592 GETTABLEKS                       R43 R1 K2 ["Keyframes"]
-      594 LENGTH                           R42 R43
-      595 JUMPIFNOTEQ                      R28 R42 ; [+3]
+      107 GETIMPORT                        R25 K51 [Enum.KeyInterpolationMode.Linear]
+      109 SETTABLEKS                       R25 R24 K37 ["InterpolationMode"]
+      111 GETTABLEKS                       R25 R3 K52 ["scrubberTheme"]
+      113 GETTABLEKS                       R25 R25 K53 ["backgroundColor"]
+      115 SETTABLEKS                       R25 R24 K44 ["Color"]
+      117 GETUPVAL                         R25 0
+      118 GETTABLEKS                       R25 R25 K54 ["SCRUBBER_MARKER_WIDTH"]
+      120 SETTABLEKS                       R25 R24 K46 ["Width"]
+      122 CALL                             R22 2 1
+      123 SETTABLE                         R22 R21 R20
+      124 GETTABLEKS                       R21 R1 K55 ["Instance"]
+      126 GETTABLE                         R22 R15 R21
+      127 GETIMPORT                        R23 K57 [ipairs]
+      129 GETTABLEKS                       R24 R1 K3 ["Path"]
+      131 CALL                             R23 1 3
+      132 FORGPREP_INEXT                   R23
+      133 JUMPIFNOT                        R22 ; [+11]
+      134 GETTABLEKS                       R29 R22 K58 ["Components"]
+      136 JUMPIFNOT                        R29 ; [+4]
+      137 GETTABLEKS                       R29 R22 K58 ["Components"]
+      139 GETTABLE                         R28 R29 R27
+      140 JUMPIF                           R28 ; [+1]
+      141 GETTABLE                         R28 R22 R27
+      142 MOVE                             R22 R28
+      143 FORGLOOP                         R23 2 [inext] ; [-11]
+      145 LOADNIL                          R23
+      146 LOADNIL                          R24
+      147 GETTABLEKS                       R25 R1 K9 ["Type"]
+      149 GETUPVAL                         R26 0
+      150 GETTABLEKS                       R26 R26 K19 ["TRACK_TYPES"]
+      152 GETTABLEKS                       R26 R26 K20 ["Facs"]
+      154 JUMPIFNOTEQ                      R25 R26 ; [+21]
+      156 GETIMPORT                        R27 K26 [Vector2.new]
+      158 LOADN                            R28 0
+      159 LOADN                            R29 1
+      160 CALL                             R27 2 -1
+      161 NAMECALL                         R25 R0 K27 ["toCanvasSpace"]
+      163 CALL                             R25 -1 1
+      164 GETTABLEKS                       R23 R25 K13 ["Y"]
+      166 GETIMPORT                        R27 K26 [Vector2.new]
+      168 LOADN                            R28 0
+      169 LOADN                            R29 0
+      170 CALL                             R27 2 -1
+      171 NAMECALL                         R25 R0 K27 ["toCanvasSpace"]
+      173 CALL                             R25 -1 1
+      174 GETTABLEKS                       R24 R25 K13 ["Y"]
+      176 GETIMPORT                        R25 K57 [ipairs]
+      178 GETTABLEKS                       R26 R1 K2 ["Keyframes"]
+      180 CALL                             R25 1 3
+      181 FORGPREP_INEXT                   R25
+      182 GETTABLEKS                       R31 R1 K59 ["Data"]
+      184 GETTABLE                         R30 R31 R29
+      185 JUMPIFEQKNIL                     R30 ; [+653]
+      187 MOVE                             R31 R22
+      188 JUMPIFNOT                        R31 ; [+6]
+      189 GETTABLEKS                       R31 R22 K60 ["Selection"]
+      191 JUMPIFNOT                        R31 ; [+3]
+      192 GETTABLEKS                       R32 R22 K60 ["Selection"]
+      194 GETTABLE                         R31 R32 R29
+      195 GETTABLEKS                       R32 R1 K9 ["Type"]
+      197 GETUPVAL                         R33 0
+      198 GETTABLEKS                       R33 R33 K19 ["TRACK_TYPES"]
+      200 GETTABLEKS                       R33 R33 K61 ["Quaternion"]
+      202 JUMPIFNOTEQ                      R32 R33 ; [+20]
+      204 GETIMPORT                        R34 K26 [Vector2.new]
+      206 MOVE                             R35 R29
+      207 LOADN                            R36 1
+      208 CALL                             R34 2 -1
+      209 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
+      211 CALL                             R32 -1 1
+      212 MOVE                             R8 R32
+      213 GETIMPORT                        R34 K26 [Vector2.new]
+      215 MOVE                             R35 R29
+      216 LOADN                            R36 0
+      217 CALL                             R34 2 -1
+      218 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
+      220 CALL                             R32 -1 1
+      221 MOVE                             R9 R32
+      222 JUMP                             ; [+10]
+      223 GETIMPORT                        R34 K26 [Vector2.new]
+      225 MOVE                             R35 R29
+      226 GETTABLEKS                       R36 R30 K62 ["Value"]
+      228 CALL                             R34 2 -1
+      229 NAMECALL                         R32 R0 K27 ["toCanvasSpace"]
+      231 CALL                             R32 -1 1
+      232 MOVE                             R8 R32
+      233 MOVE                             R32 R13
+      234 JUMPIF                           R32 ; [+12]
+      235 MOVE                             R32 R31
+      236 JUMPIFNOT                        R32 ; [+10]
+      237 MOVE                             R32 R12
+      238 JUMPIFNOT                        R32 ; [+8]
+      239 GETTABLEKS                       R33 R12 K37 ["InterpolationMode"]
+      241 GETIMPORT                        R34 K64 [Enum.KeyInterpolationMode.Constant]
+      243 JUMPIFNOTEQ                      R33 R34 ; [+2]
+      245 LOADB                            R32 0 +1
+      246 LOADB                            R32 1
+      247 JUMPIFNOT                        R32 ; [+5]
+      248 GETTABLEKS                       R33 R3 K11 ["curveTheme"]
+      250 GETTABLEKS                       R33 R33 K65 ["selected"]
+      252 JUMPIF                           R33 ; [+1]
+      253 MOVE                             R33 R7
+      254 GETIMPORT                        R34 K30 [string.format]
+      256 LOADK                            R35 K66 ["%s_Curve_%d"]
+      257 MOVE                             R36 R5
+      258 MOVE                             R37 R28
+      259 CALL                             R34 3 1
+      260 GETTABLEKS                       R35 R2 K67 ["StartTick"]
+      262 JUMPIFNOTLE                      R35 R29 ; [+561]
+      264 JUMPIFNOT                        R11 ; [+4]
+      265 GETTABLEKS                       R35 R2 K68 ["EndTick"]
+      267 JUMPIFNOTLE                      R11 R35 ; [+556]
+      269 JUMPIFNOT                        R12 ; [+135]
+      270 JUMPIFNOT                        R10 ; [+134]
+      271 GETTABLEKS                       R35 R12 K37 ["InterpolationMode"]
+      273 GETIMPORT                        R36 K64 [Enum.KeyInterpolationMode.Constant]
+      275 JUMPIFNOTEQ                      R35 R36 ; [+34]
+      277 GETTABLEKS                       R35 R0 K32 ["children"]
+      279 GETUPVAL                         R36 2
+      280 GETTABLEKS                       R36 R36 K33 ["createElement"]
+      282 GETUPVAL                         R37 4
+      283 DUPTABLE                         R38 K73 [{["A"], ["B"], ["Color"], ["Width"], ["ZIndex"] = 2}]
+      284 SETTABLEKS                       R10 R38 K69 ["A"]
+      286 GETIMPORT                        R39 K26 [Vector2.new]
+      288 GETTABLEKS                       R40 R8 K74 ["X"]
+      290 GETTABLEKS                       R41 R10 K13 ["Y"]
+      292 CALL                             R39 2 1
+      293 SETTABLEKS                       R39 R38 K70 ["B"]
+      295 SETTABLEKS                       R33 R38 K44 ["Color"]
+      297 JUMPIFNOT                        R32 ; [+4]
+      298 GETUPVAL                         R39 0
+      299 GETTABLEKS                       R39 R39 K75 ["CURVE_WIDTH_SELECTED"]
+      301 JUMP                             ; [+3]
+      302 GETUPVAL                         R39 0
+      303 GETTABLEKS                       R39 R39 K76 ["CURVE_WIDTH"]
+      305 SETTABLEKS                       R39 R38 K46 ["Width"]
+      307 CALL                             R36 2 1
+      308 SETTABLE                         R36 R35 R34
+      309 JUMP                             ; [+95]
+      310 GETTABLEKS                       R35 R12 K37 ["InterpolationMode"]
+      312 GETIMPORT                        R36 K51 [Enum.KeyInterpolationMode.Linear]
+      314 JUMPIFNOTEQ                      R35 R36 ; [+27]
+      316 GETTABLEKS                       R35 R0 K32 ["children"]
+      318 GETUPVAL                         R36 2
+      319 GETTABLEKS                       R36 R36 K33 ["createElement"]
+      321 GETUPVAL                         R37 4
+      322 DUPTABLE                         R38 K73 [{["A"], ["B"], ["Color"], ["Width"], ["ZIndex"] = 2}]
+      323 SETTABLEKS                       R10 R38 K69 ["A"]
+      325 SETTABLEKS                       R8 R38 K70 ["B"]
+      327 SETTABLEKS                       R33 R38 K44 ["Color"]
+      329 JUMPIFNOT                        R32 ; [+4]
+      330 GETUPVAL                         R39 0
+      331 GETTABLEKS                       R39 R39 K75 ["CURVE_WIDTH_SELECTED"]
+      333 JUMP                             ; [+3]
+      334 GETUPVAL                         R39 0
+      335 GETTABLEKS                       R39 R39 K76 ["CURVE_WIDTH"]
+      337 SETTABLEKS                       R39 R38 K46 ["Width"]
+      339 CALL                             R36 2 1
+      340 SETTABLE                         R36 R35 R34
+      341 JUMP                             ; [+63]
+      342 GETUPVAL                         R35 1
+      343 GETTABLEKS                       R35 R35 K77 ["getSlopes"]
+      345 MOVE                             R36 R1
+      346 MOVE                             R37 R11
+      347 CALL                             R35 2 2
+      348 GETUPVAL                         R37 1
+      349 GETTABLEKS                       R37 R37 K77 ["getSlopes"]
+      351 MOVE                             R38 R1
+      352 MOVE                             R39 R29
+      353 CALL                             R37 2 2
+      354 JUMPIFNOT                        R36 ; [+5]
+      355 MOVE                             R41 R36
+      356 NAMECALL                         R39 R0 K78 ["scaleSlope"]
+      358 CALL                             R39 2 1
+      359 MOVE                             R36 R39
+      360 JUMPIFNOT                        R37 ; [+5]
+      361 MOVE                             R41 R37
+      362 NAMECALL                         R39 R0 K78 ["scaleSlope"]
+      364 CALL                             R39 2 1
+      365 MOVE                             R37 R39
+      366 GETTABLEKS                       R39 R0 K32 ["children"]
+      368 GETUPVAL                         R40 2
+      369 GETTABLEKS                       R40 R40 K33 ["createElement"]
+      371 GETUPVAL                         R41 5
+      372 DUPTABLE                         R42 K84 [{["A"], ["ASlope"], ["B"], ["BSlope"], ["Color"], ["Width"], ["FrameWidth"], ["ZIndex"] = 2, ["MinClamp"], ["MaxClamp"]}]
+      373 SETTABLEKS                       R10 R42 K69 ["A"]
+      375 SETTABLEKS                       R36 R42 K79 ["ASlope"]
+      377 SETTABLEKS                       R8 R42 K70 ["B"]
+      379 SETTABLEKS                       R37 R42 K80 ["BSlope"]
+      381 SETTABLEKS                       R33 R42 K44 ["Color"]
+      383 JUMPIFNOT                        R32 ; [+4]
+      384 GETUPVAL                         R43 0
+      385 GETTABLEKS                       R43 R43 K75 ["CURVE_WIDTH_SELECTED"]
+      387 JUMP                             ; [+3]
+      388 GETUPVAL                         R43 0
+      389 GETTABLEKS                       R43 R43 K76 ["CURVE_WIDTH"]
+      391 SETTABLEKS                       R43 R42 K46 ["Width"]
+      393 GETTABLEKS                       R43 R2 K12 ["AbsoluteSize"]
+      395 GETTABLEKS                       R43 R43 K74 ["X"]
+      397 SETTABLEKS                       R43 R42 K81 ["FrameWidth"]
+      399 SETTABLEKS                       R23 R42 K82 ["MinClamp"]
+      401 SETTABLEKS                       R24 R42 K83 ["MaxClamp"]
+      403 CALL                             R40 2 1
+      404 SETTABLE                         R40 R39 R34
+      405 GETIMPORT                        R35 K30 [string.format]
+      407 LOADK                            R36 K85 ["%s_Keyframe_%d"]
+      408 MOVE                             R37 R5
+      409 MOVE                             R38 R28
+      410 CALL                             R35 3 1
+      411 GETTABLEKS                       R36 R1 K9 ["Type"]
+      413 GETUPVAL                         R37 0
+      414 GETTABLEKS                       R37 R37 K19 ["TRACK_TYPES"]
+      416 GETTABLEKS                       R37 R37 K61 ["Quaternion"]
+      418 JUMPIFNOTEQ                      R36 R37 ; [+4]
+      420 LOADN                            R36 1
+      421 JUMPIFNOTLT                      R36 R28 ; [+88]
+      423 GETTABLEKS                       R36 R0 K32 ["children"]
+      425 GETUPVAL                         R37 2
+      426 GETTABLEKS                       R37 R37 K33 ["createElement"]
+      428 GETUPVAL                         R38 3
+      429 DUPTABLE                         R39 K93 [{["Position"], ["Path"], ["InterpolationMode"], ["PrevInterpolationMode"], ["LeftSlope"], ["RightSlope"], ["Color"], ["ShowSlopes"] = False, ["ShowTooltip"], ["Selected"], ["ZIndex"] = 4, ["OnRightClick"], ["OnInputBegan"], ["OnInputEnded"]}]
+      430 SETTABLEKS                       R8 R39 K34 ["Position"]
+      432 GETTABLEKS                       R40 R1 K3 ["Path"]
+      434 SETTABLEKS                       R40 R39 K3 ["Path"]
+      436 GETTABLEKS                       R40 R30 K37 ["InterpolationMode"]
+      438 SETTABLEKS                       R40 R39 K37 ["InterpolationMode"]
+      440 JUMPIFNOT                        R12 ; [+3]
+      441 GETTABLEKS                       R40 R12 K37 ["InterpolationMode"]
+      443 JUMP                             ; [+1]
+      444 LOADNIL                          R40
+      445 SETTABLEKS                       R40 R39 K86 ["PrevInterpolationMode"]
+      447 JUMPIFNOTEQKN                    R28 K94 [1] ; [+3]
+      449 LOADNIL                          R40
+      450 JUMP                             ; [+2]
+      451 GETTABLEKS                       R40 R30 K38 ["LeftSlope"]
+      453 SETTABLEKS                       R40 R39 K38 ["LeftSlope"]
+      455 GETTABLEKS                       R42 R1 K2 ["Keyframes"]
+      457 LENGTH                           R41 R42
+      458 JUMPIFNOTEQ                      R28 R41 ; [+3]
+      460 LOADNIL                          R40
+      461 JUMP                             ; [+2]
+      462 GETTABLEKS                       R40 R30 K42 ["RightSlope"]
+      464 SETTABLEKS                       R40 R39 K42 ["RightSlope"]
+      466 SETTABLEKS                       R7 R39 K44 ["Color"]
+      468 SETTABLEKS                       R16 R39 K87 ["ShowTooltip"]
+      470 SETTABLEKS                       R31 R39 K88 ["Selected"]
+      472 GETTABLEKS                       R41 R2 K95 ["OnKeyRightClick"]
+      474 JUMPIFNOT                        R41 ; [+6]
+      475 NEWCLOSURE                       R40 P0
+      476 CAPTURE                          VAL R2
+      477 CAPTURE                          VAL R1
+      478 CAPTURE                          VAL R29
+      479 CAPTURE                          VAL R31
+      480 JUMP                             ; [+1]
+      481 LOADNIL                          R40
+      482 SETTABLEKS                       R40 R39 K90 ["OnRightClick"]
+      484 GETTABLEKS                       R41 R2 K96 ["OnKeyInputBegan"]
+      486 JUMPIFNOT                        R41 ; [+6]
+      487 NEWCLOSURE                       R40 P1
+      488 CAPTURE                          VAL R2
+      489 CAPTURE                          VAL R1
+      490 CAPTURE                          VAL R29
+      491 CAPTURE                          VAL R31
+      492 JUMP                             ; [+1]
+      493 LOADNIL                          R40
+      494 SETTABLEKS                       R40 R39 K91 ["OnInputBegan"]
+      496 GETTABLEKS                       R41 R2 K97 ["OnKeyInputEnded"]
+      498 JUMPIFNOT                        R41 ; [+6]
+      499 NEWCLOSURE                       R40 P2
+      500 CAPTURE                          VAL R2
+      501 CAPTURE                          VAL R29
+      502 CAPTURE                          VAL R30
+      503 CAPTURE                          VAL R31
+      504 JUMP                             ; [+1]
+      505 LOADNIL                          R40
+      506 SETTABLEKS                       R40 R39 K92 ["OnInputEnded"]
+      508 CALL                             R37 2 1
+      509 SETTABLE                         R37 R36 R35
+      510 GETTABLEKS                       R37 R1 K2 ["Keyframes"]
+      512 LENGTH                           R36 R37
+      513 JUMPIFNOTLT                      R28 R36 ; [+100]
+      515 GETTABLEKS                       R36 R1 K9 ["Type"]
+      517 GETUPVAL                         R37 0
+      518 GETTABLEKS                       R37 R37 K19 ["TRACK_TYPES"]
+      520 GETTABLEKS                       R37 R37 K61 ["Quaternion"]
+      522 JUMPIFNOTEQ                      R36 R37 ; [+91]
+      524 GETTABLEKS                       R36 R0 K32 ["children"]
+      526 MOVE                             R38 R35
+      527 LOADK                            R39 K98 ["b"]
+      528 CONCAT                           R37 R38 R39
+      529 GETUPVAL                         R38 2
+      530 GETTABLEKS                       R38 R38 K33 ["createElement"]
+      532 GETUPVAL                         R39 3
+      533 DUPTABLE                         R40 K93 [{["Position"], ["Path"], ["InterpolationMode"], ["PrevInterpolationMode"], ["LeftSlope"], ["RightSlope"], ["Color"], ["ShowSlopes"] = False, ["ShowTooltip"], ["Selected"], ["ZIndex"] = 4, ["OnRightClick"], ["OnInputBegan"], ["OnInputEnded"]}]
+      534 SETTABLEKS                       R9 R40 K34 ["Position"]
+      536 GETTABLEKS                       R41 R1 K3 ["Path"]
+      538 SETTABLEKS                       R41 R40 K3 ["Path"]
+      540 GETTABLEKS                       R41 R30 K37 ["InterpolationMode"]
+      542 SETTABLEKS                       R41 R40 K37 ["InterpolationMode"]
+      544 JUMPIFNOT                        R12 ; [+3]
+      545 GETTABLEKS                       R41 R12 K37 ["InterpolationMode"]
+      547 JUMP                             ; [+1]
+      548 LOADNIL                          R41
+      549 SETTABLEKS                       R41 R40 K86 ["PrevInterpolationMode"]
+      551 JUMPIFNOTEQKN                    R28 K94 [1] ; [+3]
+      553 LOADNIL                          R41
+      554 JUMP                             ; [+2]
+      555 GETTABLEKS                       R41 R30 K38 ["LeftSlope"]
+      557 SETTABLEKS                       R41 R40 K38 ["LeftSlope"]
+      559 GETTABLEKS                       R43 R1 K2 ["Keyframes"]
+      561 LENGTH                           R42 R43
+      562 JUMPIFNOTEQ                      R28 R42 ; [+3]
+      564 LOADNIL                          R41
+      565 JUMP                             ; [+2]
+      566 GETTABLEKS                       R41 R30 K42 ["RightSlope"]
+      568 SETTABLEKS                       R41 R40 K42 ["RightSlope"]
+      570 SETTABLEKS                       R7 R40 K44 ["Color"]
+      572 SETTABLEKS                       R16 R40 K87 ["ShowTooltip"]
+      574 SETTABLEKS                       R31 R40 K88 ["Selected"]
+      576 GETTABLEKS                       R42 R2 K95 ["OnKeyRightClick"]
+      578 JUMPIFNOT                        R42 ; [+6]
+      579 NEWCLOSURE                       R41 P3
+      580 CAPTURE                          VAL R2
+      581 CAPTURE                          VAL R1
+      582 CAPTURE                          VAL R29
+      583 CAPTURE                          VAL R31
+      584 JUMP                             ; [+1]
+      585 LOADNIL                          R41
+      586 SETTABLEKS                       R41 R40 K90 ["OnRightClick"]
+      588 GETTABLEKS                       R42 R2 K96 ["OnKeyInputBegan"]
+      590 JUMPIFNOT                        R42 ; [+6]
+      591 NEWCLOSURE                       R41 P4
+      592 CAPTURE                          VAL R2
+      593 CAPTURE                          VAL R1
+      594 CAPTURE                          VAL R29
+      595 CAPTURE                          VAL R31
+      596 JUMP                             ; [+1]
       597 LOADNIL                          R41
-      598 JUMP                             ; [+2]
-      599 GETTABLEKS                       R41 R30 K39 ["RightSlope"]
-      601 SETTABLEKS                       R41 R40 K39 ["RightSlope"]
-      603 SETTABLEKS                       R7 R40 K41 ["Color"]
-      605 LOADB                            R41 0
-      606 SETTABLEKS                       R41 R40 K42 ["ShowSlopes"]
-      608 SETTABLEKS                       R16 R40 K84 ["ShowTooltip"]
-      610 SETTABLEKS                       R31 R40 K85 ["Selected"]
-      612 LOADN                            R41 4
-      613 SETTABLEKS                       R41 R40 K69 ["ZIndex"]
-      615 GETTABLEKS                       R42 R2 K91 ["OnKeyRightClick"]
-      617 JUMPIFNOT                        R42 ; [+6]
-      618 NEWCLOSURE                       R41 P3
-      619 CAPTURE                          VAL R2
-      620 CAPTURE                          VAL R1
-      621 CAPTURE                          VAL R29
-      622 CAPTURE                          VAL R31
-      623 JUMP                             ; [+1]
-      624 LOADNIL                          R41
-      625 SETTABLEKS                       R41 R40 K86 ["OnRightClick"]
-      627 GETTABLEKS                       R42 R2 K92 ["OnKeyInputBegan"]
-      629 JUMPIFNOT                        R42 ; [+6]
-      630 NEWCLOSURE                       R41 P4
-      631 CAPTURE                          VAL R2
-      632 CAPTURE                          VAL R1
-      633 CAPTURE                          VAL R29
-      634 CAPTURE                          VAL R31
-      635 JUMP                             ; [+1]
-      636 LOADNIL                          R41
-      637 SETTABLEKS                       R41 R40 K87 ["OnInputBegan"]
-      639 GETTABLEKS                       R42 R2 K93 ["OnKeyInputEnded"]
-      641 JUMPIFNOT                        R42 ; [+6]
-      642 NEWCLOSURE                       R41 P5
-      643 CAPTURE                          VAL R2
-      644 CAPTURE                          VAL R29
-      645 CAPTURE                          VAL R30
-      646 CAPTURE                          VAL R31
-      647 JUMP                             ; [+1]
-      648 LOADNIL                          R41
-      649 SETTABLEKS                       R41 R40 K88 ["OnInputEnded"]
-      651 CALL                             R38 2 1
-      652 SETTABLE                         R38 R36 R37
-      653 JUMPIFNOT                        R31 ; [+215]
-      654 LOADN                            R36 1
-      655 JUMPIFNOTLT                      R36 R28 ; [+94]
-      657 GETUPVAL                         R38 1
-      658 GETTABLEKS                       R38 R38 K95 ["getSlope"]
-      660 MOVE                             R39 R1
-      661 MOVE                             R40 R29
-      662 GETUPVAL                         R41 0
-      663 GETTABLEKS                       R41 R41 K96 ["SLOPES"]
-      665 GETTABLEKS                       R41 R41 K97 ["Left"]
-      667 CALL                             R38 3 -1
-      668 NAMECALL                         R36 R0 K75 ["scaleSlope"]
-      670 CALL                             R36 -1 1
-      671 GETIMPORT                        R37 K30 [string.format]
-      673 LOADK                            R38 K98 ["%s_LeftTangent_%d"]
-      674 MOVE                             R39 R5
-      675 MOVE                             R40 R28
-      676 CALL                             R37 3 1
-      677 GETTABLEKS                       R38 R0 K32 ["children"]
-      679 GETUPVAL                         R39 2
-      680 GETTABLEKS                       R39 R39 K33 ["createElement"]
-      682 GETUPVAL                         R40 6
-      683 DUPTABLE                         R41 K103 [{"Position", "Slope", "Auto", "Length", "Side", "ZIndex", "OnRightClick", "OnInputBegan", "OnInputEnded"}]
-      684 GETIMPORT                        R42 K105 [UDim2.new]
-      686 LOADN                            R43 0
-      687 GETTABLEKS                       R44 R8 K71 ["X"]
-      689 LOADN                            R45 0
-      690 GETTABLEKS                       R46 R8 K13 ["Y"]
-      692 CALL                             R42 4 1
-      693 SETTABLEKS                       R42 R41 K34 ["Position"]
-      695 SETTABLEKS                       R36 R41 K99 ["Slope"]
-      697 JUMPIFNOT                        R12 ; [+7]
-      698 LOADB                            R42 1
-      699 GETTABLEKS                       R43 R12 K36 ["InterpolationMode"]
-      701 GETIMPORT                        R44 K107 [Enum.KeyInterpolationMode.Cubic]
-      703 JUMPIFNOTEQ                      R43 R44 ; [+7]
-      705 GETTABLEKS                       R43 R30 K37 ["LeftSlope"]
-      707 JUMPIFEQKNIL                     R43 ; [+2]
-      709 LOADB                            R42 0 +1
-      710 LOADB                            R42 1
-      711 SETTABLEKS                       R42 R41 K100 ["Auto"]
-      713 SETTABLEKS                       R14 R41 K101 ["Length"]
-      715 GETUPVAL                         R42 0
-      716 GETTABLEKS                       R42 R42 K96 ["SLOPES"]
-      718 GETTABLEKS                       R42 R42 K97 ["Left"]
-      720 SETTABLEKS                       R42 R41 K102 ["Side"]
-      722 LOADN                            R42 3
-      723 SETTABLEKS                       R42 R41 K69 ["ZIndex"]
-      725 GETTABLEKS                       R43 R2 K108 ["OnTangentRightClick"]
-      727 JUMPIFNOT                        R43 ; [+6]
-      728 NEWCLOSURE                       R42 P6
-      729 CAPTURE                          VAL R2
-      730 CAPTURE                          VAL R1
-      731 CAPTURE                          VAL R29
-      732 CAPTURE                          UPVAL U0
-      733 JUMP                             ; [+1]
-      734 LOADNIL                          R42
-      735 SETTABLEKS                       R42 R41 K86 ["OnRightClick"]
-      737 NEWCLOSURE                       R42 P7
-      738 CAPTURE                          VAL R2
-      739 SETTABLEKS                       R42 R41 K87 ["OnInputBegan"]
-      741 NEWCLOSURE                       R42 P8
-      742 CAPTURE                          VAL R2
-      743 CAPTURE                          VAL R1
-      744 CAPTURE                          VAL R29
-      745 CAPTURE                          UPVAL U0
-      746 SETTABLEKS                       R42 R41 K88 ["OnInputEnded"]
-      748 CALL                             R39 2 1
-      749 SETTABLE                         R39 R38 R37
-      750 GETTABLEKS                       R37 R1 K2 ["Keyframes"]
-      752 LENGTH                           R36 R37
-      753 JUMPIFNOTLT                      R28 R36 ; [+115]
-      755 GETUPVAL                         R38 1
-      756 GETTABLEKS                       R38 R38 K95 ["getSlope"]
-      758 MOVE                             R39 R1
-      759 MOVE                             R40 R29
-      760 GETUPVAL                         R41 0
-      761 GETTABLEKS                       R41 R41 K96 ["SLOPES"]
-      763 GETTABLEKS                       R41 R41 K109 ["Right"]
-      765 CALL                             R38 3 -1
-      766 NAMECALL                         R36 R0 K75 ["scaleSlope"]
-      768 CALL                             R36 -1 1
-      769 LOADNIL                          R37
-      770 GETTABLEKS                       R38 R1 K9 ["Type"]
-      772 GETUPVAL                         R39 0
-      773 GETTABLEKS                       R39 R39 K19 ["TRACK_TYPES"]
-      775 GETTABLEKS                       R39 R39 K59 ["Quaternion"]
-      777 JUMPIFNOTEQ                      R38 R39 ; [+12]
-      779 GETIMPORT                        R38 K105 [UDim2.new]
-      781 LOADN                            R39 0
-      782 GETTABLEKS                       R40 R9 K71 ["X"]
-      784 LOADN                            R41 0
-      785 GETTABLEKS                       R42 R9 K13 ["Y"]
-      787 CALL                             R38 4 1
-      788 MOVE                             R37 R38
-      789 JUMP                             ; [+10]
-      790 GETIMPORT                        R38 K105 [UDim2.new]
-      792 LOADN                            R39 0
-      793 GETTABLEKS                       R40 R8 K71 ["X"]
-      795 LOADN                            R41 0
-      796 GETTABLEKS                       R42 R8 K13 ["Y"]
-      798 CALL                             R38 4 1
-      799 MOVE                             R37 R38
-      800 GETIMPORT                        R38 K30 [string.format]
-      802 LOADK                            R39 K110 ["%s_RightTangent_%d"]
-      803 MOVE                             R40 R5
-      804 MOVE                             R41 R28
-      805 CALL                             R38 3 1
-      806 GETTABLEKS                       R39 R0 K32 ["children"]
-      808 GETUPVAL                         R40 2
-      809 GETTABLEKS                       R40 R40 K33 ["createElement"]
-      811 GETUPVAL                         R41 6
-      812 DUPTABLE                         R42 K103 [{"Position", "Slope", "Auto", "Length", "Side", "ZIndex", "OnRightClick", "OnInputBegan", "OnInputEnded"}]
-      813 SETTABLEKS                       R37 R42 K34 ["Position"]
-      815 SETTABLEKS                       R36 R42 K99 ["Slope"]
-      817 LOADB                            R43 1
-      818 GETTABLEKS                       R44 R30 K36 ["InterpolationMode"]
-      820 GETIMPORT                        R45 K107 [Enum.KeyInterpolationMode.Cubic]
-      822 JUMPIFNOTEQ                      R44 R45 ; [+7]
-      824 GETTABLEKS                       R44 R30 K39 ["RightSlope"]
-      826 JUMPIFEQKNIL                     R44 ; [+2]
-      828 LOADB                            R43 0 +1
-      829 LOADB                            R43 1
-      830 SETTABLEKS                       R43 R42 K100 ["Auto"]
-      832 SETTABLEKS                       R14 R42 K101 ["Length"]
-      834 GETUPVAL                         R43 0
-      835 GETTABLEKS                       R43 R43 K96 ["SLOPES"]
-      837 GETTABLEKS                       R43 R43 K109 ["Right"]
-      839 SETTABLEKS                       R43 R42 K102 ["Side"]
-      841 LOADN                            R43 3
-      842 SETTABLEKS                       R43 R42 K69 ["ZIndex"]
-      844 GETTABLEKS                       R44 R2 K108 ["OnTangentRightClick"]
-      846 JUMPIFNOT                        R44 ; [+6]
-      847 NEWCLOSURE                       R43 P9
-      848 CAPTURE                          VAL R2
-      849 CAPTURE                          VAL R1
-      850 CAPTURE                          VAL R29
-      851 CAPTURE                          UPVAL U0
-      852 JUMP                             ; [+1]
-      853 LOADNIL                          R43
-      854 SETTABLEKS                       R43 R42 K86 ["OnRightClick"]
-      856 NEWCLOSURE                       R43 P10
-      857 CAPTURE                          VAL R2
-      858 SETTABLEKS                       R43 R42 K87 ["OnInputBegan"]
-      860 NEWCLOSURE                       R43 P11
-      861 CAPTURE                          VAL R2
-      862 CAPTURE                          VAL R1
-      863 CAPTURE                          VAL R29
-      864 CAPTURE                          UPVAL U0
-      865 SETTABLEKS                       R43 R42 K88 ["OnInputEnded"]
-      867 CALL                             R40 2 1
-      868 SETTABLE                         R40 R39 R38
-      869 GETTABLEKS                       R35 R1 K9 ["Type"]
-      871 GETUPVAL                         R36 0
-      872 GETTABLEKS                       R36 R36 K19 ["TRACK_TYPES"]
-      874 GETTABLEKS                       R36 R36 K59 ["Quaternion"]
-      876 JUMPIFNOTEQ                      R35 R36 ; [+3]
-      878 MOVE                             R10 R9
-      879 JUMP                             ; [+1]
-      880 MOVE                             R10 R8
-      881 MOVE                             R11 R29
-      882 MOVE                             R12 R30
-      883 MOVE                             R13 R31
-      884 FORGLOOP                         R25 2 [inext] ; [-685]
-      886 RETURN                           R0 0
+      598 SETTABLEKS                       R41 R40 K91 ["OnInputBegan"]
+      600 GETTABLEKS                       R42 R2 K97 ["OnKeyInputEnded"]
+      602 JUMPIFNOT                        R42 ; [+6]
+      603 NEWCLOSURE                       R41 P5
+      604 CAPTURE                          VAL R2
+      605 CAPTURE                          VAL R29
+      606 CAPTURE                          VAL R30
+      607 CAPTURE                          VAL R31
+      608 JUMP                             ; [+1]
+      609 LOADNIL                          R41
+      610 SETTABLEKS                       R41 R40 K92 ["OnInputEnded"]
+      612 CALL                             R38 2 1
+      613 SETTABLE                         R38 R36 R37
+      614 JUMPIFNOT                        R31 ; [+209]
+      615 LOADN                            R36 1
+      616 JUMPIFNOTLT                      R36 R28 ; [+91]
+      618 GETUPVAL                         R38 1
+      619 GETTABLEKS                       R38 R38 K99 ["getSlope"]
+      621 MOVE                             R39 R1
+      622 MOVE                             R40 R29
+      623 GETUPVAL                         R41 0
+      624 GETTABLEKS                       R41 R41 K100 ["SLOPES"]
+      626 GETTABLEKS                       R41 R41 K101 ["Left"]
+      628 CALL                             R38 3 -1
+      629 NAMECALL                         R36 R0 K78 ["scaleSlope"]
+      631 CALL                             R36 -1 1
+      632 GETIMPORT                        R37 K30 [string.format]
+      634 LOADK                            R38 K102 ["%s_LeftTangent_%d"]
+      635 MOVE                             R39 R5
+      636 MOVE                             R40 R28
+      637 CALL                             R37 3 1
+      638 GETTABLEKS                       R38 R0 K32 ["children"]
+      640 GETUPVAL                         R39 2
+      641 GETTABLEKS                       R39 R39 K33 ["createElement"]
+      643 GETUPVAL                         R40 6
+      644 DUPTABLE                         R41 K108 [{["Position"], ["Slope"], ["Auto"], ["Length"], ["Side"], ["ZIndex"] = 3, ["OnRightClick"], ["OnInputBegan"], ["OnInputEnded"]}]
+      645 GETIMPORT                        R42 K110 [UDim2.new]
+      647 LOADN                            R43 0
+      648 GETTABLEKS                       R44 R8 K74 ["X"]
+      650 LOADN                            R45 0
+      651 GETTABLEKS                       R46 R8 K13 ["Y"]
+      653 CALL                             R42 4 1
+      654 SETTABLEKS                       R42 R41 K34 ["Position"]
+      656 SETTABLEKS                       R36 R41 K103 ["Slope"]
+      658 JUMPIFNOT                        R12 ; [+7]
+      659 LOADB                            R42 1
+      660 GETTABLEKS                       R43 R12 K37 ["InterpolationMode"]
+      662 GETIMPORT                        R44 K112 [Enum.KeyInterpolationMode.Cubic]
+      664 JUMPIFNOTEQ                      R43 R44 ; [+7]
+      666 GETTABLEKS                       R43 R30 K38 ["LeftSlope"]
+      668 JUMPIFEQKNIL                     R43 ; [+2]
+      670 LOADB                            R42 0 +1
+      671 LOADB                            R42 1
+      672 SETTABLEKS                       R42 R41 K104 ["Auto"]
+      674 SETTABLEKS                       R14 R41 K105 ["Length"]
+      676 GETUPVAL                         R42 0
+      677 GETTABLEKS                       R42 R42 K100 ["SLOPES"]
+      679 GETTABLEKS                       R42 R42 K101 ["Left"]
+      681 SETTABLEKS                       R42 R41 K106 ["Side"]
+      683 GETTABLEKS                       R43 R2 K113 ["OnTangentRightClick"]
+      685 JUMPIFNOT                        R43 ; [+6]
+      686 NEWCLOSURE                       R42 P6
+      687 CAPTURE                          VAL R2
+      688 CAPTURE                          VAL R1
+      689 CAPTURE                          VAL R29
+      690 CAPTURE                          UPVAL U0
+      691 JUMP                             ; [+1]
+      692 LOADNIL                          R42
+      693 SETTABLEKS                       R42 R41 K90 ["OnRightClick"]
+      695 NEWCLOSURE                       R42 P7
+      696 CAPTURE                          VAL R2
+      697 SETTABLEKS                       R42 R41 K91 ["OnInputBegan"]
+      699 NEWCLOSURE                       R42 P8
+      700 CAPTURE                          VAL R2
+      701 CAPTURE                          VAL R1
+      702 CAPTURE                          VAL R29
+      703 CAPTURE                          UPVAL U0
+      704 SETTABLEKS                       R42 R41 K92 ["OnInputEnded"]
+      706 CALL                             R39 2 1
+      707 SETTABLE                         R39 R38 R37
+      708 GETTABLEKS                       R37 R1 K2 ["Keyframes"]
+      710 LENGTH                           R36 R37
+      711 JUMPIFNOTLT                      R28 R36 ; [+112]
+      713 GETUPVAL                         R38 1
+      714 GETTABLEKS                       R38 R38 K99 ["getSlope"]
+      716 MOVE                             R39 R1
+      717 MOVE                             R40 R29
+      718 GETUPVAL                         R41 0
+      719 GETTABLEKS                       R41 R41 K100 ["SLOPES"]
+      721 GETTABLEKS                       R41 R41 K114 ["Right"]
+      723 CALL                             R38 3 -1
+      724 NAMECALL                         R36 R0 K78 ["scaleSlope"]
+      726 CALL                             R36 -1 1
+      727 LOADNIL                          R37
+      728 GETTABLEKS                       R38 R1 K9 ["Type"]
+      730 GETUPVAL                         R39 0
+      731 GETTABLEKS                       R39 R39 K19 ["TRACK_TYPES"]
+      733 GETTABLEKS                       R39 R39 K61 ["Quaternion"]
+      735 JUMPIFNOTEQ                      R38 R39 ; [+12]
+      737 GETIMPORT                        R38 K110 [UDim2.new]
+      739 LOADN                            R39 0
+      740 GETTABLEKS                       R40 R9 K74 ["X"]
+      742 LOADN                            R41 0
+      743 GETTABLEKS                       R42 R9 K13 ["Y"]
+      745 CALL                             R38 4 1
+      746 MOVE                             R37 R38
+      747 JUMP                             ; [+10]
+      748 GETIMPORT                        R38 K110 [UDim2.new]
+      750 LOADN                            R39 0
+      751 GETTABLEKS                       R40 R8 K74 ["X"]
+      753 LOADN                            R41 0
+      754 GETTABLEKS                       R42 R8 K13 ["Y"]
+      756 CALL                             R38 4 1
+      757 MOVE                             R37 R38
+      758 GETIMPORT                        R38 K30 [string.format]
+      760 LOADK                            R39 K115 ["%s_RightTangent_%d"]
+      761 MOVE                             R40 R5
+      762 MOVE                             R41 R28
+      763 CALL                             R38 3 1
+      764 GETTABLEKS                       R39 R0 K32 ["children"]
+      766 GETUPVAL                         R40 2
+      767 GETTABLEKS                       R40 R40 K33 ["createElement"]
+      769 GETUPVAL                         R41 6
+      770 DUPTABLE                         R42 K108 [{["Position"], ["Slope"], ["Auto"], ["Length"], ["Side"], ["ZIndex"] = 3, ["OnRightClick"], ["OnInputBegan"], ["OnInputEnded"]}]
+      771 SETTABLEKS                       R37 R42 K34 ["Position"]
+      773 SETTABLEKS                       R36 R42 K103 ["Slope"]
+      775 LOADB                            R43 1
+      776 GETTABLEKS                       R44 R30 K37 ["InterpolationMode"]
+      778 GETIMPORT                        R45 K112 [Enum.KeyInterpolationMode.Cubic]
+      780 JUMPIFNOTEQ                      R44 R45 ; [+7]
+      782 GETTABLEKS                       R44 R30 K42 ["RightSlope"]
+      784 JUMPIFEQKNIL                     R44 ; [+2]
+      786 LOADB                            R43 0 +1
+      787 LOADB                            R43 1
+      788 SETTABLEKS                       R43 R42 K104 ["Auto"]
+      790 SETTABLEKS                       R14 R42 K105 ["Length"]
+      792 GETUPVAL                         R43 0
+      793 GETTABLEKS                       R43 R43 K100 ["SLOPES"]
+      795 GETTABLEKS                       R43 R43 K114 ["Right"]
+      797 SETTABLEKS                       R43 R42 K106 ["Side"]
+      799 GETTABLEKS                       R44 R2 K113 ["OnTangentRightClick"]
+      801 JUMPIFNOT                        R44 ; [+6]
+      802 NEWCLOSURE                       R43 P9
+      803 CAPTURE                          VAL R2
+      804 CAPTURE                          VAL R1
+      805 CAPTURE                          VAL R29
+      806 CAPTURE                          UPVAL U0
+      807 JUMP                             ; [+1]
+      808 LOADNIL                          R43
+      809 SETTABLEKS                       R43 R42 K90 ["OnRightClick"]
+      811 NEWCLOSURE                       R43 P10
+      812 CAPTURE                          VAL R2
+      813 SETTABLEKS                       R43 R42 K91 ["OnInputBegan"]
+      815 NEWCLOSURE                       R43 P11
+      816 CAPTURE                          VAL R2
+      817 CAPTURE                          VAL R1
+      818 CAPTURE                          VAL R29
+      819 CAPTURE                          UPVAL U0
+      820 SETTABLEKS                       R43 R42 K92 ["OnInputEnded"]
+      822 CALL                             R40 2 1
+      823 SETTABLE                         R40 R39 R38
+      824 GETTABLEKS                       R35 R1 K9 ["Type"]
+      826 GETUPVAL                         R36 0
+      827 GETTABLEKS                       R36 R36 K19 ["TRACK_TYPES"]
+      829 GETTABLEKS                       R36 R36 K61 ["Quaternion"]
+      831 JUMPIFNOTEQ                      R35 R36 ; [+3]
+      833 MOVE                             R10 R9
+      834 JUMP                             ; [+1]
+      835 MOVE                             R10 R8
+      836 MOVE                             R11 R29
+      837 MOVE                             R12 R30
+      838 MOVE                             R13 R31
+      839 FORGLOOP                         R25 2 [inext] ; [-658]
+      841 RETURN                           R0 0
 
 PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -907,15 +875,13 @@ PROTO_17:
        28 GETUPVAL                         R6 0
        29 GETTABLEKS                       R6 R6 K10 ["createElement"]
        31 LOADK                            R7 K11 ["Frame"]
-       32 DUPTABLE                         R8 K13 [{"Position", "Size", "BackgroundTransparency", "LayoutOrder"}]
+       32 DUPTABLE                         R8 K14 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
        33 SETTABLEKS                       R3 R8 K2 ["Position"]
        35 SETTABLEKS                       R4 R8 K3 ["Size"]
-       37 LOADN                            R9 1
-       38 SETTABLEKS                       R9 R8 K12 ["BackgroundTransparency"]
-       40 SETTABLEKS                       R2 R8 K1 ["LayoutOrder"]
-       42 GETTABLEKS                       R9 R0 K5 ["children"]
-       44 CALL                             R6 3 -1
-       45 RETURN                           R6 -1
+       37 SETTABLEKS                       R2 R8 K1 ["LayoutOrder"]
+       39 GETTABLEKS                       R9 R0 K5 ["children"]
+       41 CALL                             R6 3 -1
+       42 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -504,11 +504,11 @@ PROTO_8:
         7 MOVE                             R11 R9
         8 GETIMPORT                        R10 K1 [typeof]
        10 CALL                             R10 1 1
-       11 JUMPIFNOTEQKS                    R10 K2 ["table"] ; [+104]
+       11 JUMPIFNOTEQKS                    R10 K2 ["table"] ; [+101]
        13 GETTABLE                         R10 R1 R8
-       14 JUMPIFNOT                        R10 ; [+101]
+       14 JUMPIFNOT                        R10 ; [+98]
        15 GETTABLEKS                       R11 R10 K3 ["editableMesh"]
-       17 JUMPIFNOT                        R11 ; [+98]
+       17 JUMPIFNOT                        R11 ; [+95]
        18 NEWTABLE                         R11 0 0
        20 MOVE                             R12 R9
        21 LOADNIL                          R13
@@ -535,7 +535,7 @@ PROTO_8:
        50 FORGLOOP                         R17 2 ; [-8]
        52 FORGLOOP                         R12 2 ; [-29]
        54 LENGTH                           R12 R11
-       55 JUMPIFEQKN                       R12 K9 [0] ; [+60]
+       55 JUMPIFEQKN                       R12 K9 [0] ; [+57]
        57 MOVE                             R12 R2
        58 MOVE                             R13 R8
        59 CALL                             R12 1 3
@@ -549,7 +549,7 @@ PROTO_8:
        67 GETIMPORT                        R16 K11 [pcall]
        69 GETUPVAL                         R17 0
        70 GETTABLEKS                       R17 R17 K12 ["build"]
-       72 DUPTABLE                         R18 K18 [{"editableMesh", "vertexIds", "faceIds", "indices", "adornee", "scale", "dataType"}]
+       72 DUPTABLE                         R18 K18 [{["editableMesh"], ["vertexIds"], ["faceIds"], ["indices"], ["adornee"], ["scale"], ["dataType"] = "vertices"}]
        73 GETTABLEKS                       R19 R10 K3 ["editableMesh"]
        75 SETTABLEKS                       R19 R18 K3 ["editableMesh"]
        77 GETTABLEKS                       R19 R10 K13 ["vertexIds"]
@@ -559,23 +559,21 @@ PROTO_8:
        85 SETTABLEKS                       R11 R18 K6 ["indices"]
        87 SETTABLEKS                       R15 R18 K15 ["adornee"]
        89 SETTABLEKS                       R14 R18 K16 ["scale"]
-       91 LOADK                            R19 K5 ["vertices"]
-       92 SETTABLEKS                       R19 R18 K17 ["dataType"]
-       94 CALL                             R16 2 0
-       95 GETIMPORT                        R16 K11 [pcall]
-       97 GETUPVAL                         R17 1
-       98 GETTABLEKS                       R17 R17 K12 ["build"]
-      100 DUPTABLE                         R18 K19 [{"editableMesh", "vertexIds", "indices", "adornee", "scale"}]
-      101 GETTABLEKS                       R19 R10 K3 ["editableMesh"]
-      103 SETTABLEKS                       R19 R18 K3 ["editableMesh"]
-      105 GETTABLEKS                       R19 R10 K13 ["vertexIds"]
-      107 SETTABLEKS                       R19 R18 K13 ["vertexIds"]
-      109 SETTABLEKS                       R11 R18 K6 ["indices"]
-      111 SETTABLEKS                       R15 R18 K15 ["adornee"]
-      113 SETTABLEKS                       R14 R18 K16 ["scale"]
-      115 CALL                             R16 2 0
-      116 FORGLOOP                         R5 2 ; [-111]
-      118 RETURN                           R0 0
+       91 CALL                             R16 2 0
+       92 GETIMPORT                        R16 K11 [pcall]
+       94 GETUPVAL                         R17 1
+       95 GETTABLEKS                       R17 R17 K12 ["build"]
+       97 DUPTABLE                         R18 K19 [{"editableMesh", "vertexIds", "indices", "adornee", "scale"}]
+       98 GETTABLEKS                       R19 R10 K3 ["editableMesh"]
+      100 SETTABLEKS                       R19 R18 K3 ["editableMesh"]
+      102 GETTABLEKS                       R19 R10 K13 ["vertexIds"]
+      104 SETTABLEKS                       R19 R18 K13 ["vertexIds"]
+      106 SETTABLEKS                       R11 R18 K6 ["indices"]
+      108 SETTABLEKS                       R15 R18 K15 ["adornee"]
+      110 SETTABLEKS                       R14 R18 K16 ["scale"]
+      112 CALL                             R16 2 0
+      113 FORGLOOP                         R5 2 ; [-108]
+      115 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R5 0
@@ -618,11 +616,11 @@ PROTO_12:
         7 MOVE                             R12 R10
         8 GETIMPORT                        R11 K1 [typeof]
        10 CALL                             R11 1 1
-       11 JUMPIFNOTEQKS                    R11 K2 ["table"] ; [+97]
+       11 JUMPIFNOTEQKS                    R11 K2 ["table"] ; [+94]
        13 GETTABLE                         R11 R1 R9
-       14 JUMPIFNOT                        R11 ; [+94]
+       14 JUMPIFNOT                        R11 ; [+91]
        15 GETTABLEKS                       R12 R11 K3 ["editableMesh"]
-       17 JUMPIFNOT                        R12 ; [+91]
+       17 JUMPIFNOT                        R12 ; [+88]
        18 NEWTABLE                         R12 0 0
        20 MOVE                             R13 R10
        21 LOADNIL                          R14
@@ -655,7 +653,7 @@ PROTO_12:
        59 MOVE                             R13 R5
        60 JUMPIFNOT                        R13 ; [+2]
        61 GETTABLEKS                       R13 R5 K9 ["alwaysBuild"]
-       63 JUMPIFNOT                        R13 ; [+45]
+       63 JUMPIFNOT                        R13 ; [+42]
        64 MOVE                             R14 R2
        65 MOVE                             R15 R9
        66 CALL                             R14 1 3
@@ -669,7 +667,7 @@ PROTO_12:
        74 GETIMPORT                        R18 K11 [pcall]
        76 GETUPVAL                         R19 0
        77 GETTABLEKS                       R19 R19 K12 ["build"]
-       79 DUPTABLE                         R20 K18 [{"editableMesh", "vertexIds", "faceIds", "indices", "adornee", "scale", "dataType"}]
+       79 DUPTABLE                         R20 K18 [{["editableMesh"], ["vertexIds"], ["faceIds"], ["indices"], ["adornee"], ["scale"], ["dataType"] = "faces"}]
        80 GETTABLEKS                       R21 R11 K3 ["editableMesh"]
        82 SETTABLEKS                       R21 R20 K3 ["editableMesh"]
        84 GETTABLEKS                       R21 R11 K13 ["vertexIds"]
@@ -685,11 +683,9 @@ PROTO_12:
        99 SETTABLEKS                       R21 R20 K6 ["indices"]
       101 SETTABLEKS                       R17 R20 K15 ["adornee"]
       103 SETTABLEKS                       R16 R20 K16 ["scale"]
-      105 LOADK                            R21 K5 ["faces"]
-      106 SETTABLEKS                       R21 R20 K17 ["dataType"]
-      108 CALL                             R18 2 0
-      109 FORGLOOP                         R6 2 ; [-104]
-      111 RETURN                           R0 0
+      105 CALL                             R18 2 0
+      106 FORGLOOP                         R6 2 ; [-101]
+      108 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R5 0
@@ -728,11 +724,9 @@ PROTO_16:
         3 MOVE                             R8 R3
         4 MOVE                             R9 R4
         5 LOADK                            R10 K0 ["_CageRelevancy"]
-        6 DUPTABLE                         R11 K2 [{"alwaysBuild"}]
-        7 LOADB                            R12 1
-        8 SETTABLEKS                       R12 R11 K1 ["alwaysBuild"]
-       10 CALL                             R5 6 0
-       11 RETURN                           R0 0
+        6 DUPTABLE                         R11 K3 [{["alwaysBuild"] = True}]
+        7 CALL                             R5 6 0
+        8 RETURN                           R0 0
 
 PROTO_17:
         0 JUMPIFNOT                        R0 ; [+3]
@@ -858,23 +852,23 @@ PROTO_17:
       150 LOADNIL                          R9
       151 FORGPREP                         R7
       152 GETTABLE                         R12 R6 R10
-      153 JUMPIF                           R12 ; [+146]
+      153 JUMPIF                           R12 ; [+143]
       154 FASTCALL1                        TYPEOF R11 ; [+3]
       155 MOVE                             R13 R11
       156 GETIMPORT                        R12 K3 [typeof]
       158 CALL                             R12 1 1
-      159 JUMPIFNOTEQKS                    R12 K4 ["table"] ; [+140]
+      159 JUMPIFNOTEQKS                    R12 K4 ["table"] ; [+137]
       161 MOVE                             R12 R11
       162 LOADNIL                          R13
       163 LOADNIL                          R14
       164 FORGPREP                         R12
       165 GETTABLE                         R17 R1 R15
-      166 JUMPIFNOT                        R17 ; [+131]
+      166 JUMPIFNOT                        R17 ; [+128]
       167 FASTCALL1                        TYPEOF R16 ; [+3]
       168 MOVE                             R18 R16
       169 GETIMPORT                        R17 K3 [typeof]
       171 CALL                             R17 1 1
-      172 JUMPIFNOTEQKS                    R17 K4 ["table"] ; [+125]
+      172 JUMPIFNOTEQKS                    R17 K4 ["table"] ; [+122]
       174 LOADN                            R17 0
       175 LOADB                            R18 0
       176 MOVE                             R19 R16
@@ -885,17 +879,17 @@ PROTO_17:
       181 MOVE                             R25 R23
       182 GETIMPORT                        R24 K3 [typeof]
       184 CALL                             R24 1 1
-      185 JUMPIFNOTEQKS                    R24 K4 ["table"] ; [+110]
+      185 JUMPIFNOTEQKS                    R24 K4 ["table"] ; [+107]
       187 GETTABLEKS                       R24 R23 K19 ["type"]
-      189 JUMPIFNOTEQKS                    R24 K20 ["vertices"] ; [+74]
-      191 JUMPIF                           R18 ; [+104]
+      189 JUMPIFNOTEQKS                    R24 K20 ["vertices"] ; [+71]
+      191 JUMPIF                           R18 ; [+101]
       192 LOADB                            R18 1
       193 MOVE                             R24 R5
       194 JUMPIFNOT                        R24 ; [+1]
       195 GETTABLE                         R24 R5 R15
-      196 JUMPIFNOT                        R24 ; [+99]
+      196 JUMPIFNOT                        R24 ; [+96]
       197 GETTABLEKS                       R25 R24 K21 ["editableMesh"]
-      199 JUMPIFNOT                        R25 ; [+96]
+      199 JUMPIFNOT                        R25 ; [+93]
       200 MOVE                             R25 R2
       201 MOVE                             R26 R15
       202 CALL                             R25 1 3
@@ -909,7 +903,7 @@ PROTO_17:
       210 GETIMPORT                        R29 K6 [pcall]
       212 GETUPVAL                         R30 1
       213 GETTABLEKS                       R30 R30 K23 ["build"]
-      215 DUPTABLE                         R31 K30 [{"editableMesh", "vertexIds", "faceIds", "indices", "adornee", "scale", "dataType"}]
+      215 DUPTABLE                         R31 K30 [{["editableMesh"], ["vertexIds"], ["faceIds"], ["indices"], ["adornee"], ["scale"], ["dataType"] = "vertices"}]
       216 GETTABLEKS                       R32 R24 K21 ["editableMesh"]
       218 SETTABLEKS                       R32 R31 K21 ["editableMesh"]
       220 GETTABLEKS                       R32 R24 K24 ["vertexIds"]
@@ -920,54 +914,52 @@ PROTO_17:
       230 SETTABLEKS                       R32 R31 K26 ["indices"]
       232 SETTABLEKS                       R28 R31 K27 ["adornee"]
       234 SETTABLEKS                       R27 R31 K28 ["scale"]
-      236 LOADK                            R32 K20 ["vertices"]
-      237 SETTABLEKS                       R32 R31 K29 ["dataType"]
-      239 CALL                             R29 2 0
-      240 GETIMPORT                        R29 K6 [pcall]
-      242 GETUPVAL                         R30 2
-      243 GETTABLEKS                       R30 R30 K23 ["build"]
-      245 DUPTABLE                         R31 K31 [{"editableMesh", "vertexIds", "indices", "adornee", "scale"}]
-      246 GETTABLEKS                       R32 R24 K21 ["editableMesh"]
-      248 SETTABLEKS                       R32 R31 K21 ["editableMesh"]
-      250 GETTABLEKS                       R32 R24 K24 ["vertexIds"]
-      252 SETTABLEKS                       R32 R31 K24 ["vertexIds"]
-      254 GETTABLEKS                       R32 R23 K26 ["indices"]
-      256 SETTABLEKS                       R32 R31 K26 ["indices"]
-      258 SETTABLEKS                       R28 R31 K27 ["adornee"]
-      260 SETTABLEKS                       R27 R31 K28 ["scale"]
-      262 CALL                             R29 2 0
-      263 JUMP                             ; [+32]
-      264 GETTABLEKS                       R24 R23 K19 ["type"]
-      266 JUMPIFNOTEQKS                    R24 K32 ["points"] ; [+29]
-      268 GETTABLEKS                       R24 R23 K33 ["values"]
-      270 JUMPIFNOT                        R24 ; [+25]
-      271 ADDK                             R17 R17 K34 [1]
-      272 GETUPVAL                         R25 3
-      273 SUBK                             R28 R17 K34 [1]
-      274 GETUPVAL                         R30 3
-      275 LENGTH                           R29 R30
-      276 MOD                              R27 R28 R29
-      277 ADDK                             R26 R27 K34 [1]
-      278 GETTABLE                         R24 R25 R26
-      279 MOVE                             R25 R2
-      280 MOVE                             R26 R15
-      281 CALL                             R25 1 2
-      282 MOVE                             R27 R3
-      283 MOVE                             R28 R15
-      284 MOVE                             R29 R25
-      285 MOVE                             R30 R26
-      286 CALL                             R27 3 1
-      287 GETUPVAL                         R28 4
-      288 MOVE                             R29 R27
-      289 GETTABLEKS                       R30 R23 K33 ["values"]
-      291 MOVE                             R31 R24
-      292 GETUPVAL                         R32 5
-      293 GETTABLEKS                       R32 R32 K35 ["SPHERE_RADIUS"]
-      295 CALL                             R28 4 0
-      296 FORGLOOP                         R19 2 ; [-117]
-      298 FORGLOOP                         R12 2 ; [-134]
-      300 FORGLOOP                         R7 2 ; [-149]
-      302 RETURN                           R0 0
+      236 CALL                             R29 2 0
+      237 GETIMPORT                        R29 K6 [pcall]
+      239 GETUPVAL                         R30 2
+      240 GETTABLEKS                       R30 R30 K23 ["build"]
+      242 DUPTABLE                         R31 K31 [{"editableMesh", "vertexIds", "indices", "adornee", "scale"}]
+      243 GETTABLEKS                       R32 R24 K21 ["editableMesh"]
+      245 SETTABLEKS                       R32 R31 K21 ["editableMesh"]
+      247 GETTABLEKS                       R32 R24 K24 ["vertexIds"]
+      249 SETTABLEKS                       R32 R31 K24 ["vertexIds"]
+      251 GETTABLEKS                       R32 R23 K26 ["indices"]
+      253 SETTABLEKS                       R32 R31 K26 ["indices"]
+      255 SETTABLEKS                       R28 R31 K27 ["adornee"]
+      257 SETTABLEKS                       R27 R31 K28 ["scale"]
+      259 CALL                             R29 2 0
+      260 JUMP                             ; [+32]
+      261 GETTABLEKS                       R24 R23 K19 ["type"]
+      263 JUMPIFNOTEQKS                    R24 K32 ["points"] ; [+29]
+      265 GETTABLEKS                       R24 R23 K33 ["values"]
+      267 JUMPIFNOT                        R24 ; [+25]
+      268 ADDK                             R17 R17 K34 [1]
+      269 GETUPVAL                         R25 3
+      270 SUBK                             R28 R17 K34 [1]
+      271 GETUPVAL                         R30 3
+      272 LENGTH                           R29 R30
+      273 MOD                              R27 R28 R29
+      274 ADDK                             R26 R27 K34 [1]
+      275 GETTABLE                         R24 R25 R26
+      276 MOVE                             R25 R2
+      277 MOVE                             R26 R15
+      278 CALL                             R25 1 2
+      279 MOVE                             R27 R3
+      280 MOVE                             R28 R15
+      281 MOVE                             R29 R25
+      282 MOVE                             R30 R26
+      283 CALL                             R27 3 1
+      284 GETUPVAL                         R28 4
+      285 MOVE                             R29 R27
+      286 GETTABLEKS                       R30 R23 K33 ["values"]
+      288 MOVE                             R31 R24
+      289 GETUPVAL                         R32 5
+      290 GETTABLEKS                       R32 R32 K35 ["SPHERE_RADIUS"]
+      292 CALL                             R28 4 0
+      293 FORGLOOP                         R19 2 ; [-114]
+      295 FORGLOOP                         R12 2 ; [-131]
+      297 FORGLOOP                         R7 2 ; [-146]
+      299 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

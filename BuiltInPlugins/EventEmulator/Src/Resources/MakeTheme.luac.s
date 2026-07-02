@@ -36,170 +36,126 @@ MAIN:
        31 GETTABLEKS                       R6 R3 K10 ["Themes"]
        33 GETTABLEKS                       R6 R6 K12 ["StudioTheme"]
        35 GETTABLEKS                       R7 R3 K13 ["ComponentSymbols"]
-       37 DUPTABLE                         R8 K25 [{"SmallPadding", "HistoryButtonMinor", "ShortHeight", "HorizontalPadding", "NavHeight", "ConfirmationButtonWidth", "HistoryButtonMajor", "InputPaneLength", "HistoryPaneLength", "DropdownWidth", "TextBoxWidth"}]
-       38 LOADN                            R9 10
-       39 SETTABLEKS                       R9 R8 K14 ["SmallPadding"]
-       41 LOADN                            R9 25
-       42 SETTABLEKS                       R9 R8 K15 ["HistoryButtonMinor"]
-       44 LOADN                            R9 30
-       45 SETTABLEKS                       R9 R8 K16 ["ShortHeight"]
-       47 LOADN                            R9 50
-       48 SETTABLEKS                       R9 R8 K17 ["HorizontalPadding"]
-       50 LOADN                            R9 50
-       51 SETTABLEKS                       R9 R8 K18 ["NavHeight"]
-       53 LOADN                            R9 50
-       54 SETTABLEKS                       R9 R8 K19 ["ConfirmationButtonWidth"]
-       56 LOADN                            R9 100
-       57 SETTABLEKS                       R9 R8 K20 ["HistoryButtonMajor"]
-       59 LOADN                            R9 44
-       60 SETTABLEKS                       R9 R8 K21 ["InputPaneLength"]
-       62 LOADN                            R9 44
-       63 SETTABLEKS                       R9 R8 K22 ["HistoryPaneLength"]
-       65 LOADN                            R9 180
-       66 SETTABLEKS                       R9 R8 K23 ["DropdownWidth"]
-       68 LOADN                            R9 180
-       69 SETTABLEKS                       R9 R8 K24 ["TextBoxWidth"]
-       71 NEWTABLE                         R9 8 0
-       73 GETTABLEKS                       R10 R4 K26 ["BlueText"]
-       75 GETIMPORT                        R11 K29 [Color3.fromRGB]
-       77 LOADN                            R12 0
-       78 LOADN                            R13 162
-       79 LOADN                            R14 255
-       80 CALL                             R11 3 1
-       81 SETTABLE                         R11 R9 R10
-       82 DUPTABLE                         R10 K33 [{"BrightText", "DimmedText", "Button", "BlueText"}]
-       83 DUPTABLE                         R11 K36 [{"Size", "Color"}]
-       84 LOADN                            R12 20
-       85 SETTABLEKS                       R12 R11 K34 ["Size"]
-       87 GETTABLEKS                       R12 R4 K30 ["BrightText"]
-       89 SETTABLEKS                       R12 R11 K35 ["Color"]
-       91 SETTABLEKS                       R11 R10 K30 ["BrightText"]
-       93 DUPTABLE                         R11 K36 [{"Size", "Color"}]
-       94 LOADN                            R12 16
-       95 SETTABLEKS                       R12 R11 K34 ["Size"]
-       97 GETTABLEKS                       R12 R4 K31 ["DimmedText"]
-       99 SETTABLEKS                       R12 R11 K35 ["Color"]
-      101 SETTABLEKS                       R11 R10 K31 ["DimmedText"]
-      103 DUPTABLE                         R11 K38 [{"Size", "Color", "PrimaryColor"}]
-      104 LOADN                            R12 18
-      105 SETTABLEKS                       R12 R11 K34 ["Size"]
-      107 GETTABLEKS                       R12 R4 K39 ["MainText"]
-      109 SETTABLEKS                       R12 R11 K35 ["Color"]
-      111 GETTABLEKS                       R12 R4 K40 ["DialogMainButtonText"]
-      113 SETTABLEKS                       R12 R11 K37 ["PrimaryColor"]
-      115 SETTABLEKS                       R11 R10 K32 ["Button"]
-      117 DUPTABLE                         R11 K36 [{"Size", "Color"}]
-      118 LOADN                            R12 18
-      119 SETTABLEKS                       R12 R11 K34 ["Size"]
-      121 GETTABLEKS                       R12 R4 K26 ["BlueText"]
-      123 SETTABLEKS                       R12 R11 K35 ["Color"]
-      125 SETTABLEKS                       R11 R10 K26 ["BlueText"]
-      127 SETTABLEKS                       R10 R9 K41 ["Text"]
-      129 DUPTABLE                         R10 K47 [{"Thickness", "Transparency", "Color", "TopImage", "MidImage", "BottomImage"}]
-      130 LOADN                            R11 5
-      131 SETTABLEKS                       R11 R10 K42 ["Thickness"]
-      133 LOADK                            R11 K48 [0.5]
-      134 SETTABLEKS                       R11 R10 K43 ["Transparency"]
-      136 GETTABLEKS                       R11 R4 K49 ["ScrollBar"]
-      138 SETTABLEKS                       R11 R10 K35 ["Color"]
-      140 LOADK                            R11 K50 ["rbxasset://textures/StudioToolbox/ScrollBarTop.png"]
-      141 SETTABLEKS                       R11 R10 K44 ["TopImage"]
-      143 LOADK                            R11 K51 ["rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"]
-      144 SETTABLEKS                       R11 R10 K45 ["MidImage"]
-      146 LOADK                            R11 K52 ["rbxasset://textures/StudioToolbox/ScrollBarBottom.png"]
-      147 SETTABLEKS                       R11 R10 K46 ["BottomImage"]
-      149 SETTABLEKS                       R10 R9 K53 ["Scrollbar"]
-      151 SETTABLEKS                       R8 R9 K54 ["Sizes"]
-      153 DUPTABLE                         R10 K58 [{"Vertical", "Horizontal", "HistoryItem"}]
-      154 DUPTABLE                         R11 K63 [{"SortOrder", "FillDirection", "HorizontalAlignment", "Padding"}]
-      155 GETIMPORT                        R12 K66 [Enum.SortOrder.LayoutOrder]
-      157 SETTABLEKS                       R12 R11 K59 ["SortOrder"]
-      159 GETIMPORT                        R12 K67 [Enum.FillDirection.Vertical]
-      161 SETTABLEKS                       R12 R11 K60 ["FillDirection"]
-      163 GETIMPORT                        R12 K69 [Enum.HorizontalAlignment.Center]
-      165 SETTABLEKS                       R12 R11 K61 ["HorizontalAlignment"]
-      167 GETIMPORT                        R12 K72 [UDim.new]
-      169 LOADN                            R13 0
-      170 GETTABLEKS                       R14 R8 K14 ["SmallPadding"]
-      172 CALL                             R12 2 1
-      173 SETTABLEKS                       R12 R11 K62 ["Padding"]
-      175 SETTABLEKS                       R11 R10 K55 ["Vertical"]
-      177 DUPTABLE                         R11 K74 [{"SortOrder", "FillDirection", "VerticalAlignment", "HorizontalAlignment", "Padding"}]
-      178 GETIMPORT                        R12 K66 [Enum.SortOrder.LayoutOrder]
-      180 SETTABLEKS                       R12 R11 K59 ["SortOrder"]
-      182 GETIMPORT                        R12 K75 [Enum.FillDirection.Horizontal]
-      184 SETTABLEKS                       R12 R11 K60 ["FillDirection"]
-      186 GETIMPORT                        R12 K76 [Enum.VerticalAlignment.Center]
-      188 SETTABLEKS                       R12 R11 K73 ["VerticalAlignment"]
-      190 GETIMPORT                        R12 K69 [Enum.HorizontalAlignment.Center]
-      192 SETTABLEKS                       R12 R11 K61 ["HorizontalAlignment"]
-      194 GETIMPORT                        R12 K72 [UDim.new]
-      196 LOADN                            R13 0
-      197 GETTABLEKS                       R14 R8 K17 ["HorizontalPadding"]
-      199 CALL                             R12 2 1
-      200 SETTABLEKS                       R12 R11 K62 ["Padding"]
-      202 SETTABLEKS                       R11 R10 K56 ["Horizontal"]
-      204 DUPTABLE                         R11 K74 [{"SortOrder", "FillDirection", "VerticalAlignment", "HorizontalAlignment", "Padding"}]
-      205 GETIMPORT                        R12 K66 [Enum.SortOrder.LayoutOrder]
-      207 SETTABLEKS                       R12 R11 K59 ["SortOrder"]
-      209 GETIMPORT                        R12 K75 [Enum.FillDirection.Horizontal]
-      211 SETTABLEKS                       R12 R11 K60 ["FillDirection"]
-      213 GETIMPORT                        R12 K76 [Enum.VerticalAlignment.Center]
-      215 SETTABLEKS                       R12 R11 K73 ["VerticalAlignment"]
-      217 GETIMPORT                        R12 K69 [Enum.HorizontalAlignment.Center]
-      219 SETTABLEKS                       R12 R11 K61 ["HorizontalAlignment"]
-      221 GETIMPORT                        R12 K72 [UDim.new]
-      223 LOADN                            R13 0
-      224 GETTABLEKS                       R14 R8 K14 ["SmallPadding"]
-      226 CALL                             R12 2 1
-      227 SETTABLEKS                       R12 R11 K62 ["Padding"]
-      229 SETTABLEKS                       R11 R10 K57 ["HistoryItem"]
-      231 SETTABLEKS                       R10 R9 K77 ["Layout"]
-      233 GETTABLEKS                       R10 R7 K78 ["Box"]
-      235 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
-      237 GETTABLEKS                       R11 R11 K80 ["join"]
-      239 GETTABLEKS                       R13 R7 K78 ["Box"]
-      241 GETTABLE                         R12 R5 R13
-      242 NEWTABLE                         R13 1 0
-      244 DUPTABLE                         R14 K81 [{"Color"}]
-      245 GETTABLEKS                       R15 R4 K82 ["CategoryItem"]
-      247 SETTABLEKS                       R15 R14 K35 ["Color"]
-      249 SETTABLEKS                       R14 R13 K83 ["&__Item"]
-      251 CALL                             R11 2 1
-      252 SETTABLE                         R11 R9 R10
-      253 GETTABLEKS                       R10 R7 K84 ["RoundBox"]
-      255 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
-      257 GETTABLEKS                       R11 R11 K80 ["join"]
-      259 GETTABLEKS                       R13 R7 K84 ["RoundBox"]
-      261 GETTABLE                         R12 R5 R13
-      262 NEWTABLE                         R13 2 0
-      264 DUPTABLE                         R14 K86 [{"Color", "BorderTransparency"}]
-      265 GETTABLEKS                       R15 R4 K82 ["CategoryItem"]
-      267 SETTABLEKS                       R15 R14 K35 ["Color"]
-      269 LOADN                            R15 1
-      270 SETTABLEKS                       R15 R14 K85 ["BorderTransparency"]
-      272 SETTABLEKS                       R14 R13 K83 ["&__Item"]
-      274 DUPTABLE                         R14 K81 [{"Color"}]
-      275 GETTABLEKS                       R15 R4 K87 ["Mid"]
-      277 SETTABLEKS                       R15 R14 K35 ["Color"]
-      279 SETTABLEKS                       R14 R13 K88 ["&__Example"]
-      281 CALL                             R11 2 1
-      282 SETTABLE                         R11 R9 R10
-      283 GETTABLEKS                       R10 R7 K32 ["Button"]
-      285 GETTABLEKS                       R11 R2 K79 ["Dictionary"]
-      287 GETTABLEKS                       R11 R11 K80 ["join"]
-      289 GETTABLEKS                       R13 R7 K32 ["Button"]
-      291 GETTABLE                         R12 R5 R13
-      292 NEWTABLE                         R13 1 0
-      294 DUPTABLE                         R14 K90 [{"Color", "BorderSize"}]
-      295 GETTABLEKS                       R15 R4 K32 ["Button"]
-      297 SETTABLEKS                       R15 R14 K35 ["Color"]
-      299 LOADN                            R15 1
-      300 SETTABLEKS                       R15 R14 K89 ["BorderSize"]
-      302 SETTABLEKS                       R14 R13 K83 ["&__Item"]
-      304 CALL                             R11 2 1
-      305 SETTABLE                         R11 R9 R10
-      306 DUPCLOSURE                       R10 K91 [PROTO_0]
-      307 CAPTURE                          VAL R6
-      308 CAPTURE                          VAL R9
-      309 RETURN                           R10 1
+       37 DUPTABLE                         R8 K32 [{["SmallPadding"] = 10, ["HistoryButtonMinor"] = 25, ["ShortHeight"] = 30, ["HorizontalPadding"] = 50, ["NavHeight"] = 50, ["ConfirmationButtonWidth"] = 50, ["HistoryButtonMajor"] = 100, ["InputPaneLength"] = 300, ["HistoryPaneLength"] = 300, ["DropdownWidth"] = 180, ["TextBoxWidth"] = 180}]
+       38 NEWTABLE                         R9 8 0
+       40 GETTABLEKS                       R10 R4 K33 ["BlueText"]
+       42 GETIMPORT                        R11 K36 [Color3.fromRGB]
+       44 LOADN                            R12 0
+       45 LOADN                            R13 162
+       46 LOADN                            R14 255
+       47 CALL                             R11 3 1
+       48 SETTABLE                         R11 R9 R10
+       49 DUPTABLE                         R10 K40 [{"BrightText", "DimmedText", "Button", "BlueText"}]
+       50 DUPTABLE                         R11 K44 [{["Size"] = 20, ["Color"]}]
+       51 GETTABLEKS                       R12 R4 K37 ["BrightText"]
+       53 SETTABLEKS                       R12 R11 K43 ["Color"]
+       55 SETTABLEKS                       R11 R10 K37 ["BrightText"]
+       57 DUPTABLE                         R11 K46 [{["Size"] = 16, ["Color"]}]
+       58 GETTABLEKS                       R12 R4 K38 ["DimmedText"]
+       60 SETTABLEKS                       R12 R11 K43 ["Color"]
+       62 SETTABLEKS                       R11 R10 K38 ["DimmedText"]
+       64 DUPTABLE                         R11 K49 [{["Size"] = 18, ["Color"], ["PrimaryColor"]}]
+       65 GETTABLEKS                       R12 R4 K50 ["MainText"]
+       67 SETTABLEKS                       R12 R11 K43 ["Color"]
+       69 GETTABLEKS                       R12 R4 K51 ["DialogMainButtonText"]
+       71 SETTABLEKS                       R12 R11 K48 ["PrimaryColor"]
+       73 SETTABLEKS                       R11 R10 K39 ["Button"]
+       75 DUPTABLE                         R11 K52 [{["Size"] = 18, ["Color"]}]
+       76 GETTABLEKS                       R12 R4 K33 ["BlueText"]
+       78 SETTABLEKS                       R12 R11 K43 ["Color"]
+       80 SETTABLEKS                       R11 R10 K33 ["BlueText"]
+       82 SETTABLEKS                       R10 R9 K53 ["Text"]
+       84 DUPTABLE                         R10 K64 [{["Thickness"] = 5, ["Transparency"] = 0.5, ["Color"], ["TopImage"] = "rbxasset://textures/StudioToolbox/ScrollBarTop.png", ["MidImage"] = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png", ["BottomImage"] = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"}]
+       85 GETTABLEKS                       R11 R4 K65 ["ScrollBar"]
+       87 SETTABLEKS                       R11 R10 K43 ["Color"]
+       89 SETTABLEKS                       R10 R9 K66 ["Scrollbar"]
+       91 SETTABLEKS                       R8 R9 K67 ["Sizes"]
+       93 DUPTABLE                         R10 K71 [{"Vertical", "Horizontal", "HistoryItem"}]
+       94 DUPTABLE                         R11 K76 [{"SortOrder", "FillDirection", "HorizontalAlignment", "Padding"}]
+       95 GETIMPORT                        R12 K79 [Enum.SortOrder.LayoutOrder]
+       97 SETTABLEKS                       R12 R11 K72 ["SortOrder"]
+       99 GETIMPORT                        R12 K80 [Enum.FillDirection.Vertical]
+      101 SETTABLEKS                       R12 R11 K73 ["FillDirection"]
+      103 GETIMPORT                        R12 K82 [Enum.HorizontalAlignment.Center]
+      105 SETTABLEKS                       R12 R11 K74 ["HorizontalAlignment"]
+      107 GETIMPORT                        R12 K85 [UDim.new]
+      109 LOADN                            R13 0
+      110 GETTABLEKS                       R14 R8 K14 ["SmallPadding"]
+      112 CALL                             R12 2 1
+      113 SETTABLEKS                       R12 R11 K75 ["Padding"]
+      115 SETTABLEKS                       R11 R10 K68 ["Vertical"]
+      117 DUPTABLE                         R11 K87 [{"SortOrder", "FillDirection", "VerticalAlignment", "HorizontalAlignment", "Padding"}]
+      118 GETIMPORT                        R12 K79 [Enum.SortOrder.LayoutOrder]
+      120 SETTABLEKS                       R12 R11 K72 ["SortOrder"]
+      122 GETIMPORT                        R12 K88 [Enum.FillDirection.Horizontal]
+      124 SETTABLEKS                       R12 R11 K73 ["FillDirection"]
+      126 GETIMPORT                        R12 K89 [Enum.VerticalAlignment.Center]
+      128 SETTABLEKS                       R12 R11 K86 ["VerticalAlignment"]
+      130 GETIMPORT                        R12 K82 [Enum.HorizontalAlignment.Center]
+      132 SETTABLEKS                       R12 R11 K74 ["HorizontalAlignment"]
+      134 GETIMPORT                        R12 K85 [UDim.new]
+      136 LOADN                            R13 0
+      137 GETTABLEKS                       R14 R8 K20 ["HorizontalPadding"]
+      139 CALL                             R12 2 1
+      140 SETTABLEKS                       R12 R11 K75 ["Padding"]
+      142 SETTABLEKS                       R11 R10 K69 ["Horizontal"]
+      144 DUPTABLE                         R11 K87 [{"SortOrder", "FillDirection", "VerticalAlignment", "HorizontalAlignment", "Padding"}]
+      145 GETIMPORT                        R12 K79 [Enum.SortOrder.LayoutOrder]
+      147 SETTABLEKS                       R12 R11 K72 ["SortOrder"]
+      149 GETIMPORT                        R12 K88 [Enum.FillDirection.Horizontal]
+      151 SETTABLEKS                       R12 R11 K73 ["FillDirection"]
+      153 GETIMPORT                        R12 K89 [Enum.VerticalAlignment.Center]
+      155 SETTABLEKS                       R12 R11 K86 ["VerticalAlignment"]
+      157 GETIMPORT                        R12 K82 [Enum.HorizontalAlignment.Center]
+      159 SETTABLEKS                       R12 R11 K74 ["HorizontalAlignment"]
+      161 GETIMPORT                        R12 K85 [UDim.new]
+      163 LOADN                            R13 0
+      164 GETTABLEKS                       R14 R8 K14 ["SmallPadding"]
+      166 CALL                             R12 2 1
+      167 SETTABLEKS                       R12 R11 K75 ["Padding"]
+      169 SETTABLEKS                       R11 R10 K70 ["HistoryItem"]
+      171 SETTABLEKS                       R10 R9 K90 ["Layout"]
+      173 GETTABLEKS                       R10 R7 K91 ["Box"]
+      175 GETTABLEKS                       R11 R2 K92 ["Dictionary"]
+      177 GETTABLEKS                       R11 R11 K93 ["join"]
+      179 GETTABLEKS                       R13 R7 K91 ["Box"]
+      181 GETTABLE                         R12 R5 R13
+      182 NEWTABLE                         R13 1 0
+      184 DUPTABLE                         R14 K94 [{"Color"}]
+      185 GETTABLEKS                       R15 R4 K95 ["CategoryItem"]
+      187 SETTABLEKS                       R15 R14 K43 ["Color"]
+      189 SETTABLEKS                       R14 R13 K96 ["&__Item"]
+      191 CALL                             R11 2 1
+      192 SETTABLE                         R11 R9 R10
+      193 GETTABLEKS                       R10 R7 K97 ["RoundBox"]
+      195 GETTABLEKS                       R11 R2 K92 ["Dictionary"]
+      197 GETTABLEKS                       R11 R11 K93 ["join"]
+      199 GETTABLEKS                       R13 R7 K97 ["RoundBox"]
+      201 GETTABLE                         R12 R5 R13
+      202 NEWTABLE                         R13 2 0
+      204 DUPTABLE                         R14 K100 [{["Color"], ["BorderTransparency"] = 1}]
+      205 GETTABLEKS                       R15 R4 K95 ["CategoryItem"]
+      207 SETTABLEKS                       R15 R14 K43 ["Color"]
+      209 SETTABLEKS                       R14 R13 K96 ["&__Item"]
+      211 DUPTABLE                         R14 K94 [{"Color"}]
+      212 GETTABLEKS                       R15 R4 K101 ["Mid"]
+      214 SETTABLEKS                       R15 R14 K43 ["Color"]
+      216 SETTABLEKS                       R14 R13 K102 ["&__Example"]
+      218 CALL                             R11 2 1
+      219 SETTABLE                         R11 R9 R10
+      220 GETTABLEKS                       R10 R7 K39 ["Button"]
+      222 GETTABLEKS                       R11 R2 K92 ["Dictionary"]
+      224 GETTABLEKS                       R11 R11 K93 ["join"]
+      226 GETTABLEKS                       R13 R7 K39 ["Button"]
+      228 GETTABLE                         R12 R5 R13
+      229 NEWTABLE                         R13 1 0
+      231 DUPTABLE                         R14 K104 [{["Color"], ["BorderSize"] = 1}]
+      232 GETTABLEKS                       R15 R4 K39 ["Button"]
+      234 SETTABLEKS                       R15 R14 K43 ["Color"]
+      236 SETTABLEKS                       R14 R13 K96 ["&__Item"]
+      238 CALL                             R11 2 1
+      239 SETTABLE                         R11 R9 R10
+      240 DUPCLOSURE                       R10 K105 [PROTO_0]
+      241 CAPTURE                          VAL R6
+      242 CAPTURE                          VAL R9
+      243 RETURN                           R10 1

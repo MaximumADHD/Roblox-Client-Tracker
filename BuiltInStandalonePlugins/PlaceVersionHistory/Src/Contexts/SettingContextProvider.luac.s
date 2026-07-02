@@ -198,29 +198,13 @@ MAIN:
        45 GETTABLEKS                       R9 R0 K10 ["Src"]
        47 GETTABLEKS                       R9 R9 K16 ["Types"]
        49 CALL                             R8 1 1
-       50 DUPTABLE                         R9 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       51 LOADK                            R10 K22 ["Standalone"]
-       52 SETTABLEKS                       R10 R9 K17 ["DataModel"]
-       54 LOADK                            R10 K2 ["PlaceVersionHistory"]
-       55 SETTABLEKS                       R10 R9 K18 ["PluginId"]
-       57 LOADK                            R10 K23 ["Settings"]
-       58 SETTABLEKS                       R10 R9 K19 ["Category"]
-       60 LOADK                            R10 K24 ["PlaceId"]
-       61 SETTABLEKS                       R10 R9 K20 ["ItemId"]
-       63 DUPTABLE                         R10 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       64 LOADK                            R11 K22 ["Standalone"]
-       65 SETTABLEKS                       R11 R10 K17 ["DataModel"]
-       67 LOADK                            R11 K2 ["PlaceVersionHistory"]
-       68 SETTABLEKS                       R11 R10 K18 ["PluginId"]
-       70 LOADK                            R11 K23 ["Settings"]
-       71 SETTABLEKS                       R11 R10 K19 ["Category"]
-       73 LOADK                            R11 K25 ["PublishInProgress"]
-       74 SETTABLEKS                       R11 R10 K20 ["ItemId"]
-       76 DUPCLOSURE                       R11 K26 [PROTO_4]
-       77 CAPTURE                          VAL R6
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R9
-       80 CAPTURE                          VAL R7
-       81 CAPTURE                          VAL R10
-       82 CAPTURE                          VAL R5
-       83 RETURN                           R11 1
+       50 DUPTABLE                         R9 K24 [{["DataModel"] = "Standalone", ["PluginId"] = "PlaceVersionHistory", ["Category"] = "Settings", ["ItemId"] = "PlaceId"}]
+       51 DUPTABLE                         R10 K26 [{["DataModel"] = "Standalone", ["PluginId"] = "PlaceVersionHistory", ["Category"] = "Settings", ["ItemId"] = "PublishInProgress"}]
+       52 DUPCLOSURE                       R11 K27 [PROTO_4]
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R9
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R10
+       58 CAPTURE                          VAL R5
+       59 RETURN                           R11 1

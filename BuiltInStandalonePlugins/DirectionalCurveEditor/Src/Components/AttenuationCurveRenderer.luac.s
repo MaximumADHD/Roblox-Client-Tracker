@@ -2,7 +2,7 @@ PROTO_0:
         0 NEWTABLE                         R4 0 0
         2 LOADN                            R7 0
         3 LOADN                            R5 180
-        4 DIVRK                            R6 R0 K0 [180]
+        4 DIVRK                            R6 K0 [180] R0
         5 FORNPREP                         R5
         6 FASTCALL1                        MATH_RAD R7 ; [+3]
         7 MOVE                             R9 R7
@@ -38,7 +38,7 @@ PROTO_1:
         0 NEWTABLE                         R1 0 0
         2 LOADN                            R4 0
         3 LOADN                            R2 180
-        4 DIVRK                            R3 R0 K0 [180]
+        4 DIVRK                            R3 K0 [180] R0
         5 FORNPREP                         R2
         6 FASTCALL1                        MATH_RAD R4 ; [+3]
         7 MOVE                             R6 R4
@@ -277,167 +277,163 @@ PROTO_9:
       107 GETUPVAL                         R19 14
       108 LOADN                            R21 50
       109 MOVE                             R22 R16
-      110 JUMPIFNOT                        R22 ; [+13]
+      110 JUMPIFNOT                        R22 ; [+10]
       111 GETUPVAL                         R22 8
       112 GETTABLEKS                       R22 R22 K19 ["createElement"]
       114 MOVE                             R23 R16
-      115 DUPTABLE                         R24 K23 [{"CurveHook", "PropertyType", "PlotAbsoluteSize"}]
+      115 DUPTABLE                         R24 K24 [{["CurveHook"], ["PropertyType"] = "Angle", ["PlotAbsoluteSize"]}]
       116 SETTABLEKS                       R14 R24 K20 ["CurveHook"]
-      118 LOADK                            R25 K24 ["Angle"]
-      119 SETTABLEKS                       R25 R24 K21 ["PropertyType"]
-      121 SETTABLEKS                       R2 R24 K22 ["PlotAbsoluteSize"]
-      123 CALL                             R22 2 1
-      124 MOVE                             R23 R17
-      125 JUMPIFNOT                        R23 ; [+10]
-      126 GETUPVAL                         R23 8
-      127 GETTABLEKS                       R23 R23 K19 ["createElement"]
-      129 MOVE                             R24 R17
-      130 DUPTABLE                         R25 K25 [{"CurveHook", "PlotAbsoluteSize"}]
-      131 SETTABLEKS                       R14 R25 K20 ["CurveHook"]
-      133 SETTABLEKS                       R2 R25 K22 ["PlotAbsoluteSize"]
-      135 CALL                             R23 2 1
-      136 MOVE                             R24 R18
-      137 JUMPIFNOT                        R24 ; [+12]
-      138 GETUPVAL                         R24 8
-      139 GETTABLEKS                       R24 R24 K19 ["createElement"]
-      141 MOVE                             R25 R18
-      142 DUPTABLE                         R26 K27 [{"CurveHook", "PlotAbsoluteSize", "PlotRef"}]
-      143 SETTABLEKS                       R14 R26 K20 ["CurveHook"]
-      145 SETTABLEKS                       R2 R26 K22 ["PlotAbsoluteSize"]
-      147 SETTABLEKS                       R1 R26 K26 ["PlotRef"]
-      149 CALL                             R24 2 1
-      150 MOVE                             R25 R19
-      151 JUMPIFNOT                        R25 ; [+8]
-      152 GETUPVAL                         R25 8
-      153 GETTABLEKS                       R25 R25 K19 ["createElement"]
-      155 MOVE                             R26 R19
-      156 DUPTABLE                         R27 K28 [{"CurveHook"}]
-      157 SETTABLEKS                       R14 R27 K20 ["CurveHook"]
-      159 CALL                             R25 2 1
-      160 GETUPVAL                         R26 7
-      161 NEWCLOSURE                       R27 P4
-      162 CAPTURE                          VAL R7
-      163 CALL                             R26 1 1
-      164 GETUPVAL                         R27 5
-      165 NEWCLOSURE                       R28 P5
-      166 CAPTURE                          VAL R11
-      167 CAPTURE                          VAL R26
-      168 CAPTURE                          REF R14
-      169 NEWTABLE                         R29 0 4
-      171 MOVE                             R30 R26
-      172 MOVE                             R31 R10
-      173 MOVE                             R32 R11
-      174 MOVE                             R33 R14
-      175 SETLIST                          R29 R30 4 [1]
-      177 CALL                             R27 2 1
-      178 GETTABLEKS                       R28 R0 K29 ["Enabled"]
-      180 JUMPIFNOT                        R28 ; [+147]
-      181 GETUPVAL                         R28 8
-      182 GETTABLEKS                       R28 R28 K19 ["createElement"]
-      184 GETUPVAL                         R29 18
-      185 NEWTABLE                         R30 1 0
-      187 GETUPVAL                         R31 8
-      188 GETTABLEKS                       R31 R31 K30 ["Tag"]
-      190 LOADK                            R32 K31 ["X-Pad X-ColumnM X-FitY"]
-      191 SETTABLE                         R32 R30 R31
-      192 DUPTABLE                         R31 K36 [{"UISizeConstraint", "TabsRow", "Canvas", "Controls"}]
-      193 GETUPVAL                         R32 8
-      194 GETTABLEKS                       R32 R32 K19 ["createElement"]
-      196 LOADK                            R33 K32 ["UISizeConstraint"]
-      197 DUPTABLE                         R34 K39 [{"MinSize", "MaxSize"}]
-      198 GETUPVAL                         R35 19
-      199 SETTABLEKS                       R35 R34 K37 ["MinSize"]
-      201 GETUPVAL                         R35 20
-      202 SETTABLEKS                       R35 R34 K38 ["MaxSize"]
-      204 CALL                             R32 2 1
-      205 SETTABLEKS                       R32 R31 K32 ["UISizeConstraint"]
-      207 GETUPVAL                         R32 8
-      208 GETTABLEKS                       R32 R32 K19 ["createElement"]
-      210 GETUPVAL                         R33 18
-      211 NEWTABLE                         R34 2 0
-      213 GETUPVAL                         R35 8
-      214 GETTABLEKS                       R35 R35 K30 ["Tag"]
-      216 LOADK                            R36 K40 ["X-Pad X-RowM X-FitY"]
-      217 SETTABLE                         R36 R34 R35
-      218 LOADN                            R35 2
-      219 SETTABLEKS                       R35 R34 K41 ["ZIndex"]
-      221 DUPTABLE                         R35 K44 [{"EditorTypeTabs", "Presets"}]
-      222 GETUPVAL                         R36 8
-      223 GETTABLEKS                       R36 R36 K19 ["createElement"]
-      225 GETUPVAL                         R37 21
-      226 DUPTABLE                         R38 K48 [{"Tabs", "SelectedTab", "OnTabSelected"}]
-      227 SETTABLEKS                       R6 R38 K45 ["Tabs"]
-      229 SETTABLEKS                       R4 R38 K46 ["SelectedTab"]
-      231 NEWCLOSURE                       R39 P6
-      232 CAPTURE                          VAL R5
-      233 SETTABLEKS                       R39 R38 K47 ["OnTabSelected"]
-      235 CALL                             R36 2 1
-      236 SETTABLEKS                       R36 R35 K42 ["EditorTypeTabs"]
-      238 GETUPVAL                         R36 8
-      239 GETTABLEKS                       R36 R36 K19 ["createElement"]
-      241 GETUPVAL                         R37 22
-      242 DUPTABLE                         R38 K52 [{"PlaceholderText", "Items", "OnItemActivated"}]
-      243 SETTABLEKS                       R10 R38 K49 ["PlaceholderText"]
-      245 SETTABLEKS                       R26 R38 K50 ["Items"]
-      247 SETTABLEKS                       R27 R38 K51 ["OnItemActivated"]
-      249 NEWTABLE                         R39 0 0
-      251 CALL                             R36 3 1
-      252 SETTABLEKS                       R36 R35 K43 ["Presets"]
-      254 CALL                             R32 3 1
-      255 SETTABLEKS                       R32 R31 K33 ["TabsRow"]
-      257 GETUPVAL                         R32 8
-      258 GETTABLEKS                       R32 R32 K19 ["createElement"]
-      260 GETUPVAL                         R33 18
-      261 DUPTABLE                         R34 K55 [{"Size", "LayoutOrder"}]
-      262 GETIMPORT                        R35 K58 [UDim2.new]
-      264 LOADN                            R36 1
-      265 LOADN                            R37 0
-      266 LOADN                            R38 1
-      267 LOADN                            R39 131
-      268 CALL                             R35 4 1
-      269 SETTABLEKS                       R35 R34 K53 ["Size"]
-      271 LOADN                            R35 2
-      272 SETTABLEKS                       R35 R34 K54 ["LayoutOrder"]
-      274 DUPTABLE                         R35 K60 [{"PlotCanvas"}]
-      275 GETUPVAL                         R36 8
-      276 GETTABLEKS                       R36 R36 K19 ["createElement"]
-      278 GETUPVAL                         R37 18
-      279 NEWTABLE                         R38 8 0
-      281 GETIMPORT                        R39 K58 [UDim2.new]
-      283 LOADN                            R40 0
-      284 MOVE                             R41 R21
-      285 LOADN                            R42 0
-      286 MOVE                             R43 R21
-      287 CALL                             R39 4 1
-      288 SETTABLEKS                       R39 R38 K61 ["Position"]
-      290 GETIMPORT                        R39 K58 [UDim2.new]
-      292 LOADN                            R40 1
-      293 MINUS                            R42 R21
-      294 MULK                             R41 R42 K62 [2]
-      295 LOADN                            R42 1
-      296 MINUS                            R44 R21
-      297 MULK                             R43 R44 K62 [2]
-      298 CALL                             R39 4 1
-      299 SETTABLEKS                       R39 R38 K53 ["Size"]
-      301 LOADN                            R39 1
-      302 SETTABLEKS                       R39 R38 K63 ["BackgroundTransparency"]
-      304 SETTABLEKS                       R1 R38 K64 ["ForwardRef"]
-      306 GETUPVAL                         R39 8
-      307 GETTABLEKS                       R39 R39 K65 ["Change"]
-      309 GETTABLEKS                       R39 R39 K66 ["AbsoluteSize"]
-      311 SETTABLE                         R15 R38 R39
-      312 DUPTABLE                         R39 K70 [{"Handles", "Curve", "Grid"}]
-      313 SETTABLEKS                       R24 R39 K67 ["Handles"]
-      315 SETTABLEKS                       R23 R39 K68 ["Curve"]
-      317 SETTABLEKS                       R22 R39 K69 ["Grid"]
-      319 CALL                             R36 3 1
-      320 SETTABLEKS                       R36 R35 K59 ["PlotCanvas"]
-      322 CALL                             R32 3 1
-      323 SETTABLEKS                       R32 R31 K34 ["Canvas"]
-      325 SETTABLEKS                       R25 R31 K35 ["Controls"]
-      327 CALL                             R28 3 1
-      328 CLOSEUPVALS                      R14
-      329 RETURN                           R28 1
+      118 SETTABLEKS                       R2 R24 K23 ["PlotAbsoluteSize"]
+      120 CALL                             R22 2 1
+      121 MOVE                             R23 R17
+      122 JUMPIFNOT                        R23 ; [+10]
+      123 GETUPVAL                         R23 8
+      124 GETTABLEKS                       R23 R23 K19 ["createElement"]
+      126 MOVE                             R24 R17
+      127 DUPTABLE                         R25 K25 [{"CurveHook", "PlotAbsoluteSize"}]
+      128 SETTABLEKS                       R14 R25 K20 ["CurveHook"]
+      130 SETTABLEKS                       R2 R25 K23 ["PlotAbsoluteSize"]
+      132 CALL                             R23 2 1
+      133 MOVE                             R24 R18
+      134 JUMPIFNOT                        R24 ; [+12]
+      135 GETUPVAL                         R24 8
+      136 GETTABLEKS                       R24 R24 K19 ["createElement"]
+      138 MOVE                             R25 R18
+      139 DUPTABLE                         R26 K27 [{"CurveHook", "PlotAbsoluteSize", "PlotRef"}]
+      140 SETTABLEKS                       R14 R26 K20 ["CurveHook"]
+      142 SETTABLEKS                       R2 R26 K23 ["PlotAbsoluteSize"]
+      144 SETTABLEKS                       R1 R26 K26 ["PlotRef"]
+      146 CALL                             R24 2 1
+      147 MOVE                             R25 R19
+      148 JUMPIFNOT                        R25 ; [+8]
+      149 GETUPVAL                         R25 8
+      150 GETTABLEKS                       R25 R25 K19 ["createElement"]
+      152 MOVE                             R26 R19
+      153 DUPTABLE                         R27 K28 [{"CurveHook"}]
+      154 SETTABLEKS                       R14 R27 K20 ["CurveHook"]
+      156 CALL                             R25 2 1
+      157 GETUPVAL                         R26 7
+      158 NEWCLOSURE                       R27 P4
+      159 CAPTURE                          VAL R7
+      160 CALL                             R26 1 1
+      161 GETUPVAL                         R27 5
+      162 NEWCLOSURE                       R28 P5
+      163 CAPTURE                          VAL R11
+      164 CAPTURE                          VAL R26
+      165 CAPTURE                          REF R14
+      166 NEWTABLE                         R29 0 4
+      168 MOVE                             R30 R26
+      169 MOVE                             R31 R10
+      170 MOVE                             R32 R11
+      171 MOVE                             R33 R14
+      172 SETLIST                          R29 R30 4 [1]
+      174 CALL                             R27 2 1
+      175 GETTABLEKS                       R28 R0 K29 ["Enabled"]
+      177 JUMPIFNOT                        R28 ; [+144]
+      178 GETUPVAL                         R28 8
+      179 GETTABLEKS                       R28 R28 K19 ["createElement"]
+      181 GETUPVAL                         R29 18
+      182 NEWTABLE                         R30 1 0
+      184 GETUPVAL                         R31 8
+      185 GETTABLEKS                       R31 R31 K30 ["Tag"]
+      187 LOADK                            R32 K31 ["X-Pad X-ColumnM X-FitY"]
+      188 SETTABLE                         R32 R30 R31
+      189 DUPTABLE                         R31 K36 [{"UISizeConstraint", "TabsRow", "Canvas", "Controls"}]
+      190 GETUPVAL                         R32 8
+      191 GETTABLEKS                       R32 R32 K19 ["createElement"]
+      193 LOADK                            R33 K32 ["UISizeConstraint"]
+      194 DUPTABLE                         R34 K39 [{"MinSize", "MaxSize"}]
+      195 GETUPVAL                         R35 19
+      196 SETTABLEKS                       R35 R34 K37 ["MinSize"]
+      198 GETUPVAL                         R35 20
+      199 SETTABLEKS                       R35 R34 K38 ["MaxSize"]
+      201 CALL                             R32 2 1
+      202 SETTABLEKS                       R32 R31 K32 ["UISizeConstraint"]
+      204 GETUPVAL                         R32 8
+      205 GETTABLEKS                       R32 R32 K19 ["createElement"]
+      207 GETUPVAL                         R33 18
+      208 NEWTABLE                         R34 2 0
+      210 GETUPVAL                         R35 8
+      211 GETTABLEKS                       R35 R35 K30 ["Tag"]
+      213 LOADK                            R36 K40 ["X-Pad X-RowM X-FitY"]
+      214 SETTABLE                         R36 R34 R35
+      215 LOADN                            R35 2
+      216 SETTABLEKS                       R35 R34 K41 ["ZIndex"]
+      218 DUPTABLE                         R35 K44 [{"EditorTypeTabs", "Presets"}]
+      219 GETUPVAL                         R36 8
+      220 GETTABLEKS                       R36 R36 K19 ["createElement"]
+      222 GETUPVAL                         R37 21
+      223 DUPTABLE                         R38 K48 [{"Tabs", "SelectedTab", "OnTabSelected"}]
+      224 SETTABLEKS                       R6 R38 K45 ["Tabs"]
+      226 SETTABLEKS                       R4 R38 K46 ["SelectedTab"]
+      228 NEWCLOSURE                       R39 P6
+      229 CAPTURE                          VAL R5
+      230 SETTABLEKS                       R39 R38 K47 ["OnTabSelected"]
+      232 CALL                             R36 2 1
+      233 SETTABLEKS                       R36 R35 K42 ["EditorTypeTabs"]
+      235 GETUPVAL                         R36 8
+      236 GETTABLEKS                       R36 R36 K19 ["createElement"]
+      238 GETUPVAL                         R37 22
+      239 DUPTABLE                         R38 K52 [{"PlaceholderText", "Items", "OnItemActivated"}]
+      240 SETTABLEKS                       R10 R38 K49 ["PlaceholderText"]
+      242 SETTABLEKS                       R26 R38 K50 ["Items"]
+      244 SETTABLEKS                       R27 R38 K51 ["OnItemActivated"]
+      246 NEWTABLE                         R39 0 0
+      248 CALL                             R36 3 1
+      249 SETTABLEKS                       R36 R35 K43 ["Presets"]
+      251 CALL                             R32 3 1
+      252 SETTABLEKS                       R32 R31 K33 ["TabsRow"]
+      254 GETUPVAL                         R32 8
+      255 GETTABLEKS                       R32 R32 K19 ["createElement"]
+      257 GETUPVAL                         R33 18
+      258 DUPTABLE                         R34 K56 [{["Size"], ["LayoutOrder"] = 2}]
+      259 GETIMPORT                        R35 K59 [UDim2.new]
+      261 LOADN                            R36 1
+      262 LOADN                            R37 0
+      263 LOADN                            R38 1
+      264 LOADN                            R39 -125
+      265 CALL                             R35 4 1
+      266 SETTABLEKS                       R35 R34 K53 ["Size"]
+      268 DUPTABLE                         R35 K61 [{"PlotCanvas"}]
+      269 GETUPVAL                         R36 8
+      270 GETTABLEKS                       R36 R36 K19 ["createElement"]
+      272 GETUPVAL                         R37 18
+      273 NEWTABLE                         R38 8 0
+      275 GETIMPORT                        R39 K59 [UDim2.new]
+      277 LOADN                            R40 0
+      278 MOVE                             R41 R21
+      279 LOADN                            R42 0
+      280 MOVE                             R43 R21
+      281 CALL                             R39 4 1
+      282 SETTABLEKS                       R39 R38 K62 ["Position"]
+      284 GETIMPORT                        R39 K59 [UDim2.new]
+      286 LOADN                            R40 1
+      287 MINUS                            R42 R21
+      288 MULK                             R41 R42 K55 [2]
+      289 LOADN                            R42 1
+      290 MINUS                            R44 R21
+      291 MULK                             R43 R44 K55 [2]
+      292 CALL                             R39 4 1
+      293 SETTABLEKS                       R39 R38 K53 ["Size"]
+      295 LOADN                            R39 1
+      296 SETTABLEKS                       R39 R38 K63 ["BackgroundTransparency"]
+      298 SETTABLEKS                       R1 R38 K64 ["ForwardRef"]
+      300 GETUPVAL                         R39 8
+      301 GETTABLEKS                       R39 R39 K65 ["Change"]
+      303 GETTABLEKS                       R39 R39 K66 ["AbsoluteSize"]
+      305 SETTABLE                         R15 R38 R39
+      306 DUPTABLE                         R39 K70 [{"Handles", "Curve", "Grid"}]
+      307 SETTABLEKS                       R24 R39 K67 ["Handles"]
+      309 SETTABLEKS                       R23 R39 K68 ["Curve"]
+      311 SETTABLEKS                       R22 R39 K69 ["Grid"]
+      313 CALL                             R36 3 1
+      314 SETTABLEKS                       R36 R35 K60 ["PlotCanvas"]
+      316 CALL                             R32 3 1
+      317 SETTABLEKS                       R32 R31 K34 ["Canvas"]
+      319 SETTABLEKS                       R25 R31 K35 ["Controls"]
+      321 CALL                             R28 3 1
+      322 CLOSEUPVALS                      R14
+      323 RETURN                           R28 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -508,47 +504,43 @@ MAIN:
       116 GETTABLEKS                       R23 R23 K33 ["AttenuationUtil"]
       118 CALL                             R22 1 1
       119 GETIMPORT                        R23 K36 [Vector2.new]
-      121 LOADN                            R24 28
-      122 LOADN                            R25 44
+      121 LOADN                            R24 540
+      122 LOADN                            R25 300
       123 CALL                             R23 2 1
       124 GETIMPORT                        R24 K36 [Vector2.new]
-      126 LOADN                            R25 208
-      127 LOADN                            R26 208
+      126 LOADN                            R25 2000
+      127 LOADN                            R26 2000
       128 CALL                             R24 2 1
       129 NEWTABLE                         R25 0 2
-      131 DUPTABLE                         R26 K38 [{"Label"}]
-      132 LOADK                            R27 K39 ["Curve (Polar)"]
-      133 SETTABLEKS                       R27 R26 K37 ["Label"]
-      135 DUPTABLE                         R27 K38 [{"Label"}]
-      136 LOADK                            R28 K22 ["Curve"]
-      137 SETTABLEKS                       R28 R27 K37 ["Label"]
-      139 SETLIST                          R25 R26 2 [1]
-      141 DUPCLOSURE                       R26 K40 [PROTO_0]
-      142 SETGLOBAL                        R26 K41 ["makeKeypointsForPolarPattern"]
-      144 DUPCLOSURE                       R26 K42 [PROTO_1]
-      145 SETGLOBAL                        R26 K43 ["makeKeypointsForShotgunPattern"]
-      147 DUPCLOSURE                       R26 K44 [PROTO_9]
-      148 CAPTURE                          VAL R6
-      149 CAPTURE                          VAL R7
-      150 CAPTURE                          VAL R25
-      151 CAPTURE                          VAL R4
-      152 CAPTURE                          VAL R9
-      153 CAPTURE                          VAL R3
-      154 CAPTURE                          VAL R21
-      155 CAPTURE                          VAL R5
-      156 CAPTURE                          VAL R2
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R22
-      159 CAPTURE                          VAL R17
-      160 CAPTURE                          VAL R16
-      161 CAPTURE                          VAL R20
-      162 CAPTURE                          VAL R19
-      163 CAPTURE                          VAL R15
-      164 CAPTURE                          VAL R14
-      165 CAPTURE                          VAL R18
-      166 CAPTURE                          VAL R10
-      167 CAPTURE                          VAL R23
-      168 CAPTURE                          VAL R24
-      169 CAPTURE                          VAL R12
-      170 CAPTURE                          VAL R11
-      171 RETURN                           R26 1
+      131 DUPTABLE                         R26 K39 [{["Label"] = "Curve (Polar)"}]
+      132 DUPTABLE                         R27 K40 [{["Label"] = "Curve"}]
+      133 SETLIST                          R25 R26 2 [1]
+      135 DUPCLOSURE                       R26 K41 [PROTO_0]
+      136 SETGLOBAL                        R26 K42 ["makeKeypointsForPolarPattern"]
+      138 DUPCLOSURE                       R26 K43 [PROTO_1]
+      139 SETGLOBAL                        R26 K44 ["makeKeypointsForShotgunPattern"]
+      141 DUPCLOSURE                       R26 K45 [PROTO_9]
+      142 CAPTURE                          VAL R6
+      143 CAPTURE                          VAL R7
+      144 CAPTURE                          VAL R25
+      145 CAPTURE                          VAL R4
+      146 CAPTURE                          VAL R9
+      147 CAPTURE                          VAL R3
+      148 CAPTURE                          VAL R21
+      149 CAPTURE                          VAL R5
+      150 CAPTURE                          VAL R2
+      151 CAPTURE                          VAL R13
+      152 CAPTURE                          VAL R22
+      153 CAPTURE                          VAL R17
+      154 CAPTURE                          VAL R16
+      155 CAPTURE                          VAL R20
+      156 CAPTURE                          VAL R19
+      157 CAPTURE                          VAL R15
+      158 CAPTURE                          VAL R14
+      159 CAPTURE                          VAL R18
+      160 CAPTURE                          VAL R10
+      161 CAPTURE                          VAL R23
+      162 CAPTURE                          VAL R24
+      163 CAPTURE                          VAL R12
+      164 CAPTURE                          VAL R11
+      165 RETURN                           R26 1

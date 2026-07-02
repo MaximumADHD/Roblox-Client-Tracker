@@ -56,34 +56,32 @@ PROTO_4:
        23 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R2 K2 [{"hoveredItem", "currentText"}]
-        1 LOADNIL                          R3
-        2 SETTABLEKS                       R3 R2 K0 ["hoveredItem"]
-        4 GETTABLEKS                       R4 R1 K4 ["Text"]
-        6 ORK                              R3 R4 K3 [""]
-        7 SETTABLEKS                       R3 R2 K1 ["currentText"]
-        9 SETTABLEKS                       R2 R0 K5 ["state"]
-       11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R2 R2 K6 ["createRef"]
-       14 CALL                             R2 0 1
-       15 SETTABLEKS                       R2 R0 K7 ["frameRef"]
-       17 NEWCLOSURE                       R2 P0
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R2 R0 K8 ["onItemClicked"]
-       21 NEWCLOSURE                       R2 P1
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R2 R0 K9 ["onItemMouseEnter"]
-       25 NEWCLOSURE                       R2 P2
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U0
-       28 SETTABLEKS                       R2 R0 K10 ["onItemMouseLeave"]
-       30 NEWCLOSURE                       R2 P3
-       31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R2 R0 K11 ["updateText"]
-       34 NEWCLOSURE                       R2 P4
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R2 R0 K12 ["onFocusChanged"]
-       38 RETURN                           R0 0
+        0 DUPTABLE                         R2 K3 [{[1] = , ["currentText"]}]
+        1 GETTABLEKS                       R4 R1 K5 ["Text"]
+        3 ORK                              R3 R4 K4 [""]
+        4 SETTABLEKS                       R3 R2 K2 ["currentText"]
+        6 SETTABLEKS                       R2 R0 K6 ["state"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R2 R2 K7 ["createRef"]
+       11 CALL                             R2 0 1
+       12 SETTABLEKS                       R2 R0 K8 ["frameRef"]
+       14 NEWCLOSURE                       R2 P0
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R2 R0 K9 ["onItemClicked"]
+       18 NEWCLOSURE                       R2 P1
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R0 K10 ["onItemMouseEnter"]
+       22 NEWCLOSURE                       R2 P2
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U0
+       25 SETTABLEKS                       R2 R0 K11 ["onItemMouseLeave"]
+       27 NEWCLOSURE                       R2 P3
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R2 R0 K12 ["updateText"]
+       31 NEWCLOSURE                       R2 P4
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R2 R0 K13 ["onFocusChanged"]
+       35 RETURN                           R0 0
 
 PROTO_6:
         0 GETIMPORT                        R2 K2 [string.find]
@@ -258,46 +256,40 @@ PROTO_10:
       110 LOADB                            R18 0
       111 LENGTH                           R19 R13
       112 LOADN                            R20 0
-      113 JUMPIFNOTLT                      R20 R19 ; [+51]
+      113 JUMPIFNOTLT                      R20 R19 ; [+42]
       115 MOVE                             R18 R5
-      116 JUMPIFNOT                        R18 ; [+48]
+      116 JUMPIFNOT                        R18 ; [+39]
       117 GETUPVAL                         R18 1
       118 GETTABLEKS                       R18 R18 K21 ["createElement"]
       120 GETUPVAL                         R19 3
-      121 DUPTABLE                         R20 K46 [{"OnItemActivated", "OnFocusLost", "SourceExtents", "MaxHeight", "Width", "ShowBorder", "ScrollBarPadding", "ScrollBarThickness", "Items", "OnRenderItem"}]
-      122 GETTABLEKS                       R21 R0 K47 ["onItemClicked"]
+      121 DUPTABLE                         R20 K49 [{["OnItemActivated"], ["OnFocusLost"], ["SourceExtents"], ["MaxHeight"], ["Width"], ["ShowBorder"] = True, ["ScrollBarPadding"] = 2, ["ScrollBarThickness"] = 10, ["Items"], ["OnRenderItem"]}]
+      122 GETTABLEKS                       R21 R0 K50 ["onItemClicked"]
       124 SETTABLEKS                       R21 R20 K37 ["OnItemActivated"]
-      126 GETTABLEKS                       R21 R0 K48 ["hideDropdown"]
+      126 GETTABLEKS                       R21 R0 K51 ["hideDropdown"]
       128 SETTABLEKS                       R21 R20 K38 ["OnFocusLost"]
       130 SETTABLEKS                       R6 R20 K39 ["SourceExtents"]
       132 JUMPIFNOT                        R10 ; [+4]
-      133 GETTABLEKS                       R22 R3 K49 ["itemHeight"]
+      133 GETTABLEKS                       R22 R3 K52 ["itemHeight"]
       135 MUL                              R21 R22 R10
       136 JUMPIF                           R21 ; [+1]
       137 LOADNIL                          R21
       138 SETTABLEKS                       R21 R20 K40 ["MaxHeight"]
       140 GETTABLEKS                       R21 R6 K41 ["Width"]
       142 SETTABLEKS                       R21 R20 K41 ["Width"]
-      144 LOADB                            R21 1
-      145 SETTABLEKS                       R21 R20 K42 ["ShowBorder"]
-      147 LOADN                            R21 2
-      148 SETTABLEKS                       R21 R20 K43 ["ScrollBarPadding"]
-      150 LOADN                            R21 10
-      151 SETTABLEKS                       R21 R20 K44 ["ScrollBarThickness"]
-      153 SETTABLEKS                       R13 R20 K13 ["Items"]
-      155 NEWCLOSURE                       R21 P1
-      156 CAPTURE                          UPVAL U1
-      157 CAPTURE                          REF R6
-      158 CAPTURE                          VAL R2
-      159 CAPTURE                          VAL R3
-      160 CAPTURE                          VAL R12
-      161 CAPTURE                          VAL R0
-      162 SETTABLEKS                       R21 R20 K45 ["OnRenderItem"]
-      164 CALL                             R18 2 1
-      165 SETTABLEKS                       R18 R17 K26 ["Dropdown"]
-      167 CALL                             R14 3 -1
-      168 CLOSEUPVALS                      R6
-      169 RETURN                           R14 -1
+      144 SETTABLEKS                       R13 R20 K13 ["Items"]
+      146 NEWCLOSURE                       R21 P1
+      147 CAPTURE                          UPVAL U1
+      148 CAPTURE                          REF R6
+      149 CAPTURE                          VAL R2
+      150 CAPTURE                          VAL R3
+      151 CAPTURE                          VAL R12
+      152 CAPTURE                          VAL R0
+      153 SETTABLEKS                       R21 R20 K48 ["OnRenderItem"]
+      155 CALL                             R18 2 1
+      156 SETTABLEKS                       R18 R17 K26 ["Dropdown"]
+      158 CALL                             R14 3 -1
+      159 CLOSEUPVALS                      R6
+      160 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

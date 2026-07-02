@@ -6,114 +6,66 @@ PROTO_0:
         7 GETUPVAL                         R2 0
         8 GETTABLEKS                       R2 R2 K4 ["join"]
        10 GETUPVAL                         R3 1
-       11 DUPTABLE                         R4 K7 [{"Category", "ItemId"}]
-       12 LOADK                            R5 K8 ["Widgets"]
-       13 SETTABLEKS                       R5 R4 K5 ["Category"]
-       15 LOADK                            R5 K9 ["Mezzanine"]
-       16 SETTABLEKS                       R5 R4 K6 ["ItemId"]
-       18 CALL                             R2 2 1
-       19 NEWTABLE                         R3 0 5
-       21 DUPTABLE                         R4 K14 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-       22 LOADK                            R5 K15 ["ManageTabs"]
-       23 SETTABLEKS                       R5 R4 K10 ["Id"]
-       25 LOADK                            R5 K16 ["Option"]
-       26 SETTABLEKS                       R5 R4 K11 ["Type"]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R5 R5 K4 ["join"]
-       31 GETUPVAL                         R6 1
-       32 DUPTABLE                         R7 K7 [{"Category", "ItemId"}]
-       33 LOADK                            R8 K17 ["Actions"]
-       34 SETTABLEKS                       R8 R7 K5 ["Category"]
-       36 LOADK                            R8 K15 ["ManageTabs"]
-       37 SETTABLEKS                       R8 R7 K6 ["ItemId"]
-       39 CALL                             R5 2 1
-       40 SETTABLEKS                       R5 R4 K12 ["Action"]
-       42 LOADB                            R5 1
-       43 SETTABLEKS                       R5 R4 K13 ["ReserveCheckmarkSpace"]
-       45 DUPTABLE                         R5 K18 [{"Type"}]
-       46 LOADK                            R6 K19 ["Separator"]
-       47 SETTABLEKS                       R6 R5 K11 ["Type"]
-       49 DUPTABLE                         R6 K14 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-       50 LOADK                            R7 K20 ["DockUndockRibbon"]
-       51 SETTABLEKS                       R7 R6 K10 ["Id"]
-       53 LOADK                            R7 K16 ["Option"]
-       54 SETTABLEKS                       R7 R6 K11 ["Type"]
-       56 GETUPVAL                         R7 0
-       57 GETTABLEKS                       R7 R7 K4 ["join"]
-       59 GETUPVAL                         R8 1
-       60 DUPTABLE                         R9 K7 [{"Category", "ItemId"}]
-       61 LOADK                            R10 K17 ["Actions"]
-       62 SETTABLEKS                       R10 R9 K5 ["Category"]
-       64 LOADK                            R10 K20 ["DockUndockRibbon"]
-       65 SETTABLEKS                       R10 R9 K6 ["ItemId"]
-       67 CALL                             R7 2 1
-       68 SETTABLEKS                       R7 R6 K12 ["Action"]
-       70 LOADB                            R7 1
-       71 SETTABLEKS                       R7 R6 K13 ["ReserveCheckmarkSpace"]
-       73 DUPTABLE                         R7 K14 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-       74 LOADK                            R8 K21 ["CompactDensity"]
-       75 SETTABLEKS                       R8 R7 K10 ["Id"]
-       77 LOADK                            R8 K16 ["Option"]
-       78 SETTABLEKS                       R8 R7 K11 ["Type"]
-       80 GETUPVAL                         R8 0
-       81 GETTABLEKS                       R8 R8 K4 ["join"]
-       83 GETUPVAL                         R9 1
-       84 DUPTABLE                         R10 K7 [{"Category", "ItemId"}]
-       85 LOADK                            R11 K17 ["Actions"]
-       86 SETTABLEKS                       R11 R10 K5 ["Category"]
-       88 LOADK                            R11 K21 ["CompactDensity"]
-       89 SETTABLEKS                       R11 R10 K6 ["ItemId"]
-       91 CALL                             R8 2 1
-       92 SETTABLEKS                       R8 R7 K12 ["Action"]
-       94 LOADB                            R8 1
-       95 SETTABLEKS                       R8 R7 K13 ["ReserveCheckmarkSpace"]
-       97 DUPTABLE                         R8 K14 [{"Id", "Type", "Action", "ReserveCheckmarkSpace"}]
-       98 LOADK                            R9 K22 ["ShowHideLabels"]
-       99 SETTABLEKS                       R9 R8 K10 ["Id"]
-      101 LOADK                            R9 K16 ["Option"]
-      102 SETTABLEKS                       R9 R8 K11 ["Type"]
-      104 GETUPVAL                         R9 0
-      105 GETTABLEKS                       R9 R9 K4 ["join"]
-      107 GETUPVAL                         R10 1
-      108 DUPTABLE                         R11 K7 [{"Category", "ItemId"}]
-      109 LOADK                            R12 K17 ["Actions"]
-      110 SETTABLEKS                       R12 R11 K5 ["Category"]
-      112 LOADK                            R12 K22 ["ShowHideLabels"]
-      113 SETTABLEKS                       R12 R11 K6 ["ItemId"]
-      115 CALL                             R9 2 1
-      116 SETTABLEKS                       R9 R8 K12 ["Action"]
-      118 LOADB                            R9 1
-      119 SETTABLEKS                       R9 R8 K13 ["ReserveCheckmarkSpace"]
-      121 SETLIST                          R3 R4 5 [1]
-      123 DUPTABLE                         R4 K24 [{"Type", "Children"}]
-      124 LOADK                            R5 K25 ["Column"]
-      125 SETTABLEKS                       R5 R4 K11 ["Type"]
-      127 SETTABLEKS                       R3 R4 K23 ["Children"]
-      129 GETUPVAL                         R5 2
-      130 NEWTABLE                         R6 0 1
-      132 MOVE                             R7 R4
-      133 SETLIST                          R6 R7 1 [1]
-      135 MOVE                             R7 R2
-      136 DUPTABLE                         R8 K29 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-      137 GETIMPORT                        R9 K32 [Vector2.new]
-      139 LOADN                            R10 0
-      140 LOADN                            R11 0
-      141 CALL                             R9 2 1
-      142 SETTABLEKS                       R9 R8 K26 ["SubjectAnchorPoint"]
-      144 GETIMPORT                        R9 K32 [Vector2.new]
-      146 LOADN                            R10 0
-      147 LOADN                            R11 0
-      148 CALL                             R9 2 1
-      149 SETTABLEKS                       R9 R8 K27 ["TargetAnchorPoint"]
-      151 GETIMPORT                        R9 K32 [Vector2.new]
-      153 GETTABLEKS                       R10 R1 K33 ["Position"]
-      155 GETTABLEKS                       R10 R10 K34 ["X"]
-      157 GETTABLEKS                       R11 R1 K33 ["Position"]
-      159 GETTABLEKS                       R11 R11 K35 ["Y"]
-      161 CALL                             R9 2 1
-      162 SETTABLEKS                       R9 R8 K28 ["Offset"]
-      164 CALL                             R5 3 0
-      165 RETURN                           R0 0
+       11 DUPTABLE                         R4 K9 [{["Category"] = "Widgets", ["ItemId"] = "Mezzanine"}]
+       12 CALL                             R2 2 1
+       13 NEWTABLE                         R3 0 5
+       15 DUPTABLE                         R4 K17 [{["Id"] = "ManageTabs", ["Type"] = "Option", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K4 ["join"]
+       19 GETUPVAL                         R6 1
+       20 DUPTABLE                         R7 K19 [{["Category"] = "Actions", ["ItemId"] = "ManageTabs"}]
+       21 CALL                             R5 2 1
+       22 SETTABLEKS                       R5 R4 K14 ["Action"]
+       24 DUPTABLE                         R5 K21 [{["Type"] = "Separator"}]
+       25 DUPTABLE                         R6 K23 [{["Id"] = "DockUndockRibbon", ["Type"] = "Option", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       26 GETUPVAL                         R7 0
+       27 GETTABLEKS                       R7 R7 K4 ["join"]
+       29 GETUPVAL                         R8 1
+       30 DUPTABLE                         R9 K24 [{["Category"] = "Actions", ["ItemId"] = "DockUndockRibbon"}]
+       31 CALL                             R7 2 1
+       32 SETTABLEKS                       R7 R6 K14 ["Action"]
+       34 DUPTABLE                         R7 K26 [{["Id"] = "CompactDensity", ["Type"] = "Option", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       35 GETUPVAL                         R8 0
+       36 GETTABLEKS                       R8 R8 K4 ["join"]
+       38 GETUPVAL                         R9 1
+       39 DUPTABLE                         R10 K27 [{["Category"] = "Actions", ["ItemId"] = "CompactDensity"}]
+       40 CALL                             R8 2 1
+       41 SETTABLEKS                       R8 R7 K14 ["Action"]
+       43 DUPTABLE                         R8 K29 [{["Id"] = "ShowHideLabels", ["Type"] = "Option", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       44 GETUPVAL                         R9 0
+       45 GETTABLEKS                       R9 R9 K4 ["join"]
+       47 GETUPVAL                         R10 1
+       48 DUPTABLE                         R11 K30 [{["Category"] = "Actions", ["ItemId"] = "ShowHideLabels"}]
+       49 CALL                             R9 2 1
+       50 SETTABLEKS                       R9 R8 K14 ["Action"]
+       52 SETLIST                          R3 R4 5 [1]
+       54 DUPTABLE                         R4 K33 [{["Type"] = "Column", ["Children"]}]
+       55 SETTABLEKS                       R3 R4 K32 ["Children"]
+       57 GETUPVAL                         R5 2
+       58 NEWTABLE                         R6 0 1
+       60 MOVE                             R7 R4
+       61 SETLIST                          R6 R7 1 [1]
+       63 MOVE                             R7 R2
+       64 DUPTABLE                         R8 K37 [{"SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+       65 GETIMPORT                        R9 K40 [Vector2.new]
+       67 LOADN                            R10 0
+       68 LOADN                            R11 0
+       69 CALL                             R9 2 1
+       70 SETTABLEKS                       R9 R8 K34 ["SubjectAnchorPoint"]
+       72 GETIMPORT                        R9 K40 [Vector2.new]
+       74 LOADN                            R10 0
+       75 LOADN                            R11 0
+       76 CALL                             R9 2 1
+       77 SETTABLEKS                       R9 R8 K35 ["TargetAnchorPoint"]
+       79 GETIMPORT                        R9 K40 [Vector2.new]
+       81 GETTABLEKS                       R10 R1 K41 ["Position"]
+       83 GETTABLEKS                       R10 R10 K42 ["X"]
+       85 GETTABLEKS                       R11 R1 K41 ["Position"]
+       87 GETTABLEKS                       R11 R11 K43 ["Y"]
+       89 CALL                             R9 2 1
+       90 SETTABLEKS                       R9 R8 K36 ["Offset"]
+       92 CALL                             R5 3 0
+       93 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

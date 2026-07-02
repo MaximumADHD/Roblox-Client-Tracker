@@ -22,7 +22,7 @@ PROTO_0:
        29 CALL                             R5 2 1
        30 GETTABLEKS                       R7 R1 K8 ["ParentAbsSize"]
        32 MULK                             R6 R7 K7 [0.5]
-       33 LOADN                            R8 255
+       33 LOADN                            R8 -1
        34 GETTABLEKS                       R9 R1 K3 ["ParentAbsRotation"]
        36 MUL                              R7 R8 R9
        37 CALL                             R4 3 -1

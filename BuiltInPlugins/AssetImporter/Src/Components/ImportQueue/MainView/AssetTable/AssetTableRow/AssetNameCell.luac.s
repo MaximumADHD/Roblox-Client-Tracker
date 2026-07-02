@@ -276,88 +276,78 @@ PROTO_6:
       135 GETUPVAL                         R18 8
       136 GETUPVAL                         R19 5
       137 GETTABLEKS                       R19 R19 K27 ["View"]
-      139 DUPTABLE                         R20 K29 [{"tag"}]
-      140 LOADK                            R21 K30 ["row size-full-600 align-y-center align-x-left gap-xsmall"]
-      141 SETTABLEKS                       R21 R20 K28 ["tag"]
-      143 DUPTABLE                         R21 K34 [{"Icon", "AssetName", "Warnings"}]
-      144 GETUPVAL                         R22 8
-      145 GETUPVAL                         R23 5
-      146 GETTABLEKS                       R23 R23 K35 ["Image"]
-      148 DUPTABLE                         R24 K37 [{"tag", "Image", "LayoutOrder"}]
-      149 LOADK                            R25 K38 ["size-400-400 data-testid=asset-type-icon"]
-      150 SETTABLEKS                       R25 R24 K28 ["tag"]
-      152 SETTABLEKS                       R4 R24 K35 ["Image"]
-      154 NAMECALL                         R25 R9 K39 ["getNextOrder"]
-      156 CALL                             R25 1 1
-      157 SETTABLEKS                       R25 R24 K36 ["LayoutOrder"]
-      159 CALL                             R22 2 1
-      160 SETTABLEKS                       R22 R21 K31 ["Icon"]
-      162 GETUPVAL                         R22 8
-      163 GETUPVAL                         R23 5
-      164 GETTABLEKS                       R23 R23 K40 ["Text"]
-      166 DUPTABLE                         R24 K47 [{"Text", "RichText", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "tag", "textStyle", "LayoutOrder"}]
-      167 SETTABLEKS                       R17 R24 K40 ["Text"]
-      169 LOADB                            R25 1
-      170 SETTABLEKS                       R25 R24 K41 ["RichText"]
-      172 JUMPIF                           R10 ; [+1]
-      173 JUMPIF                           R11 ; [+2]
-      174 LOADNIL                          R25
-      175 JUMP                             ; [+1]
-      176 MOVE                             R25 R7
-      177 SETTABLEKS                       R25 R24 K42 ["onActivated"]
-      179 JUMPIF                           R10 ; [+1]
-      180 JUMPIF                           R11 ; [+2]
-      181 LOADNIL                          R25
-      182 JUMP                             ; [+2]
-      183 GETTABLEKS                       R25 R0 K48 ["SecondaryActivated"]
-      185 SETTABLEKS                       R25 R24 K43 ["onSecondaryActivated"]
-      187 JUMPIF                           R10 ; [+1]
-      188 JUMPIF                           R11 ; [+2]
-      189 LOADNIL                          R25
-      190 JUMP                             ; [+1]
-      191 MOVE                             R25 R16
-      192 SETTABLEKS                       R25 R24 K44 ["onStateChanged"]
-      194 DUPTABLE                         R25 K50 [{"affordance"}]
-      195 GETUPVAL                         R26 5
-      196 GETTABLEKS                       R26 R26 K51 ["Enums"]
-      198 GETTABLEKS                       R26 R26 K52 ["StateLayerAffordance"]
-      200 GETTABLEKS                       R26 R26 K53 ["None"]
-      202 SETTABLEKS                       R26 R25 K49 ["affordance"]
-      204 SETTABLEKS                       R25 R24 K45 ["stateLayer"]
-      206 LOADK                            R25 K54 ["fill auto-y content-emphasis text-body-small text-align-x-left text-truncate-split"]
-      207 SETTABLEKS                       R25 R24 K28 ["tag"]
-      209 SETTABLEKS                       R13 R24 K46 ["textStyle"]
-      211 NAMECALL                         R25 R9 K39 ["getNextOrder"]
-      213 CALL                             R25 1 1
-      214 SETTABLEKS                       R25 R24 K36 ["LayoutOrder"]
-      216 CALL                             R22 2 1
-      217 SETTABLEKS                       R22 R21 K32 ["AssetName"]
-      219 JUMPIFNOT                        R5 ; [+30]
-      220 JUMPIFNOT                        R6 ; [+29]
-      221 GETUPVAL                         R22 8
-      222 GETUPVAL                         R23 5
-      223 GETTABLEKS                       R23 R23 K55 ["Tooltip"]
-      225 DUPTABLE                         R24 K57 [{"title", "LayoutOrder"}]
-      226 SETTABLEKS                       R6 R24 K56 ["title"]
-      228 NAMECALL                         R25 R9 K39 ["getNextOrder"]
-      230 CALL                             R25 1 1
-      231 SETTABLEKS                       R25 R24 K36 ["LayoutOrder"]
-      233 NEWTABLE                         R25 0 1
-      235 GETUPVAL                         R26 8
-      236 GETUPVAL                         R27 5
-      237 GETTABLEKS                       R27 R27 K35 ["Image"]
-      239 DUPTABLE                         R28 K58 [{"tag", "Image"}]
-      240 LOADK                            R29 K59 ["size-400-400 data-testid=asset-warning-icon"]
-      241 SETTABLEKS                       R29 R28 K28 ["tag"]
-      243 SETTABLEKS                       R5 R28 K35 ["Image"]
-      245 CALL                             R26 2 -1
-      246 SETLIST                          R25 R26 -1 [1]
-      248 CALL                             R22 3 1
-      249 JUMP                             ; [+1]
-      250 LOADNIL                          R22
-      251 SETTABLEKS                       R22 R21 K33 ["Warnings"]
-      253 CALL                             R18 3 -1
-      254 RETURN                           R18 -1
+      139 DUPTABLE                         R20 K30 [{["tag"] = "row align-x-left align-y-center gap-xsmall size-full-600"}]
+      140 DUPTABLE                         R21 K34 [{"Icon", "AssetName", "Warnings"}]
+      141 GETUPVAL                         R22 8
+      142 GETUPVAL                         R23 5
+      143 GETTABLEKS                       R23 R23 K35 ["Image"]
+      145 DUPTABLE                         R24 K38 [{["tag"] = "data-testid=asset-type-icon size-400-400", ["Image"], ["LayoutOrder"]}]
+      146 SETTABLEKS                       R4 R24 K35 ["Image"]
+      148 NAMECALL                         R25 R9 K39 ["getNextOrder"]
+      150 CALL                             R25 1 1
+      151 SETTABLEKS                       R25 R24 K37 ["LayoutOrder"]
+      153 CALL                             R22 2 1
+      154 SETTABLEKS                       R22 R21 K31 ["Icon"]
+      156 GETUPVAL                         R22 8
+      157 GETUPVAL                         R23 5
+      158 GETTABLEKS                       R23 R23 K40 ["Text"]
+      160 DUPTABLE                         R24 K49 [{["Text"], ["RichText"] = True, ["onActivated"], ["onSecondaryActivated"], ["onStateChanged"], ["stateLayer"], ["tag"] = "fill auto-y text-body-small text-align-x-left text-truncate-split content-emphasis", ["textStyle"], ["LayoutOrder"]}]
+      161 SETTABLEKS                       R17 R24 K40 ["Text"]
+      163 JUMPIF                           R10 ; [+1]
+      164 JUMPIF                           R11 ; [+2]
+      165 LOADNIL                          R25
+      166 JUMP                             ; [+1]
+      167 MOVE                             R25 R7
+      168 SETTABLEKS                       R25 R24 K43 ["onActivated"]
+      170 JUMPIF                           R10 ; [+1]
+      171 JUMPIF                           R11 ; [+2]
+      172 LOADNIL                          R25
+      173 JUMP                             ; [+2]
+      174 GETTABLEKS                       R25 R0 K50 ["SecondaryActivated"]
+      176 SETTABLEKS                       R25 R24 K44 ["onSecondaryActivated"]
+      178 JUMPIF                           R10 ; [+1]
+      179 JUMPIF                           R11 ; [+2]
+      180 LOADNIL                          R25
+      181 JUMP                             ; [+1]
+      182 MOVE                             R25 R16
+      183 SETTABLEKS                       R25 R24 K45 ["onStateChanged"]
+      185 DUPTABLE                         R25 K52 [{"affordance"}]
+      186 GETUPVAL                         R26 5
+      187 GETTABLEKS                       R26 R26 K53 ["Enums"]
+      189 GETTABLEKS                       R26 R26 K54 ["StateLayerAffordance"]
+      191 GETTABLEKS                       R26 R26 K55 ["None"]
+      193 SETTABLEKS                       R26 R25 K51 ["affordance"]
+      195 SETTABLEKS                       R25 R24 K46 ["stateLayer"]
+      197 SETTABLEKS                       R13 R24 K48 ["textStyle"]
+      199 NAMECALL                         R25 R9 K39 ["getNextOrder"]
+      201 CALL                             R25 1 1
+      202 SETTABLEKS                       R25 R24 K37 ["LayoutOrder"]
+      204 CALL                             R22 2 1
+      205 SETTABLEKS                       R22 R21 K32 ["AssetName"]
+      207 JUMPIFNOT                        R5 ; [+27]
+      208 JUMPIFNOT                        R6 ; [+26]
+      209 GETUPVAL                         R22 8
+      210 GETUPVAL                         R23 5
+      211 GETTABLEKS                       R23 R23 K56 ["Tooltip"]
+      213 DUPTABLE                         R24 K58 [{"title", "LayoutOrder"}]
+      214 SETTABLEKS                       R6 R24 K57 ["title"]
+      216 NAMECALL                         R25 R9 K39 ["getNextOrder"]
+      218 CALL                             R25 1 1
+      219 SETTABLEKS                       R25 R24 K37 ["LayoutOrder"]
+      221 NEWTABLE                         R25 0 1
+      223 GETUPVAL                         R26 8
+      224 GETUPVAL                         R27 5
+      225 GETTABLEKS                       R27 R27 K35 ["Image"]
+      227 DUPTABLE                         R28 K60 [{["tag"] = "data-testid=asset-warning-icon size-400-400", ["Image"]}]
+      228 SETTABLEKS                       R5 R28 K35 ["Image"]
+      230 CALL                             R26 2 -1
+      231 SETLIST                          R25 R26 -1 [1]
+      233 CALL                             R22 3 1
+      234 JUMP                             ; [+1]
+      235 LOADNIL                          R22
+      236 SETTABLEKS                       R22 R21 K33 ["Warnings"]
+      238 CALL                             R18 3 -1
+      239 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

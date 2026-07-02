@@ -84,22 +84,20 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R2 K2 [{"callback", "isConnected"}]
+        0 DUPTABLE                         R2 K3 [{[1], ["isConnected"] = True}]
         1 SETTABLEKS                       R1 R2 K0 ["callback"]
-        3 LOADB                            R3 1
-        4 SETTABLEKS                       R3 R2 K1 ["isConnected"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R4 R0 K3 ["_listeners"]
-        9 MOVE                             R5 R2
-       10 CALL                             R3 2 1
-       11 SETTABLEKS                       R3 R0 K3 ["_listeners"]
-       13 NEWCLOSURE                       R3 P0
-       14 CAPTURE                          VAL R2
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U1
-       17 DUPTABLE                         R4 K5 [{"Disconnect"}]
-       18 SETTABLEKS                       R3 R4 K4 ["Disconnect"]
-       20 RETURN                           R4 1
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R4 R0 K4 ["_listeners"]
+        6 MOVE                             R5 R2
+        7 CALL                             R3 2 1
+        8 SETTABLEKS                       R3 R0 K4 ["_listeners"]
+       10 NEWCLOSURE                       R3 P0
+       11 CAPTURE                          VAL R2
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U1
+       14 DUPTABLE                         R4 K6 [{"Disconnect"}]
+       15 SETTABLEKS                       R3 R4 K5 ["Disconnect"]
+       17 RETURN                           R4 1
 
 PROTO_5:
         0 PREPVARARGS                      1
@@ -139,18 +137,14 @@ PROTO_7:
        14 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R3 K4 [{"_connected", "_signal", "_fn", "_next"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["_connected"]
-        4 SETTABLEKS                       R0 R3 K1 ["_signal"]
-        6 SETTABLEKS                       R1 R3 K2 ["_fn"]
-        8 LOADB                            R4 0
-        9 SETTABLEKS                       R4 R3 K3 ["_next"]
-       11 GETUPVAL                         R4 0
-       12 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       14 GETIMPORT                        R2 K6 [setmetatable]
-       16 CALL                             R2 2 1
-       17 RETURN                           R2 1
+        0 DUPTABLE                         R3 K6 [{[1] = True, ["_signal"], ["_fn"], ["_next"] = False}]
+        1 SETTABLEKS                       R0 R3 K2 ["_signal"]
+        3 SETTABLEKS                       R1 R3 K3 ["_fn"]
+        5 GETUPVAL                         R4 0
+        6 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+        8 GETIMPORT                        R2 K8 [setmetatable]
+       10 CALL                             R2 2 1
+       11 RETURN                           R2 1
 
 PROTO_9:
         0 GETTABLEKS                       R2 R0 K0 ["_connected"]
@@ -201,14 +195,12 @@ PROTO_11:
         9 RETURN                           R0 0
 
 PROTO_12:
-        0 DUPTABLE                         R1 K1 [{"_handlerListHead"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["_handlerListHead"]
-        4 GETUPVAL                         R2 0
-        5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        7 GETIMPORT                        R0 K3 [setmetatable]
-        9 CALL                             R0 2 1
-       10 RETURN                           R0 1
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 GETUPVAL                         R2 0
+        2 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        4 GETIMPORT                        R0 K4 [setmetatable]
+        6 CALL                             R0 2 1
+        7 RETURN                           R0 1
 
 PROTO_13:
         0 GETUPVAL                         R2 0

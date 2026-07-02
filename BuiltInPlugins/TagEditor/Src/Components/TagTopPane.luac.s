@@ -97,15 +97,13 @@ PROTO_5:
        19 NEWCLOSURE                       R1 P4
        20 CAPTURE                          VAL R0
        21 SETTABLEKS                       R1 R0 K4 ["onWorldViewButtonClicked"]
-       23 DUPTABLE                         R1 K6 [{"worldViewButtonWidth"}]
-       24 LOADN                            R2 0
-       25 SETTABLEKS                       R2 R1 K5 ["worldViewButtonWidth"]
-       27 SETTABLEKS                       R1 R0 K7 ["state"]
-       29 GETUPVAL                         R1 2
-       30 GETTABLEKS                       R1 R1 K8 ["createRef"]
-       32 CALL                             R1 0 1
-       33 SETTABLEKS                       R1 R0 K9 ["worldViewButtonRef"]
-       35 RETURN                           R0 0
+       23 DUPTABLE                         R1 K7 [{["worldViewButtonWidth"] = 0}]
+       24 SETTABLEKS                       R1 R0 K8 ["state"]
+       26 GETUPVAL                         R1 2
+       27 GETTABLEKS                       R1 R1 K9 ["createRef"]
+       29 CALL                             R1 0 1
+       30 SETTABLEKS                       R1 R0 K10 ["worldViewButtonRef"]
+       32 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -207,178 +205,166 @@ PROTO_11:
        65 GETUPVAL                         R13 1
        66 GETTABLEKS                       R13 R13 K15 ["createElement"]
        68 GETUPVAL                         R14 2
-       69 DUPTABLE                         R15 K20 [{"Layout", "VerticalAlignment", "LayoutOrder", "Padding"}]
-       70 GETIMPORT                        R16 K24 [Enum.FillDirection.Vertical]
+       69 DUPTABLE                         R15 K21 [{["Layout"], ["VerticalAlignment"], ["LayoutOrder"] = 1, ["Padding"]}]
+       70 GETIMPORT                        R16 K25 [Enum.FillDirection.Vertical]
        72 SETTABLEKS                       R16 R15 K16 ["Layout"]
-       74 GETIMPORT                        R16 K26 [Enum.VerticalAlignment.Top]
+       74 GETIMPORT                        R16 K27 [Enum.VerticalAlignment.Top]
        76 SETTABLEKS                       R16 R15 K17 ["VerticalAlignment"]
-       78 LOADN                            R16 1
-       79 SETTABLEKS                       R16 R15 K18 ["LayoutOrder"]
-       81 GETTABLEKS                       R16 R3 K19 ["Padding"]
-       83 SETTABLEKS                       R16 R15 K19 ["Padding"]
-       85 DUPTABLE                         R16 K30 [{"SearchRowPane", "NewTagRowPane", "TagListView"}]
-       86 GETUPVAL                         R17 1
-       87 GETTABLEKS                       R17 R17 K15 ["createElement"]
-       89 GETUPVAL                         R18 2
-       90 DUPTABLE                         R19 K33 [{"Size", "LayoutOrder", "Layout", "Spacing"}]
-       91 GETTABLEKS                       R20 R3 K34 ["SearchBarPaneSize"]
-       93 SETTABLEKS                       R20 R19 K31 ["Size"]
-       95 NAMECALL                         R20 R4 K35 ["getNextOrder"]
-       97 CALL                             R20 1 1
-       98 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
-      100 GETIMPORT                        R20 K37 [Enum.FillDirection.Horizontal]
-      102 SETTABLEKS                       R20 R19 K16 ["Layout"]
-      104 GETTABLEKS                       R20 R3 K38 ["RowSpacing"]
-      106 SETTABLEKS                       R20 R19 K32 ["Spacing"]
-      108 DUPTABLE                         R20 K42 [{"SearchBar", "NewGroupButton", "DeleteButton"}]
-      109 GETUPVAL                         R21 1
-      110 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      112 GETUPVAL                         R22 3
-      113 DUPTABLE                         R23 K49 [{"Size", "ShowSearchButton", "ShowSearchIcon", "LayoutOrder", "OnSearchRequested", "OnTextChanged", "Style", "PlaceholderText"}]
-      114 GETTABLEKS                       R24 R3 K50 ["SearchBarSize"]
-      116 SETTABLEKS                       R24 R23 K31 ["Size"]
-      118 LOADB                            R24 0
-      119 SETTABLEKS                       R24 R23 K43 ["ShowSearchButton"]
-      121 LOADB                            R24 1
-      122 SETTABLEKS                       R24 R23 K44 ["ShowSearchIcon"]
-      124 NAMECALL                         R24 R5 K35 ["getNextOrder"]
-      126 CALL                             R24 1 1
-      127 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
-      129 GETTABLEKS                       R24 R0 K51 ["onSearchRequested"]
-      131 SETTABLEKS                       R24 R23 K45 ["OnSearchRequested"]
-      133 GETTABLEKS                       R24 R0 K52 ["onTextChanged"]
-      135 SETTABLEKS                       R24 R23 K46 ["OnTextChanged"]
-      137 LOADK                            R24 K53 ["Compact"]
-      138 SETTABLEKS                       R24 R23 K47 ["Style"]
-      140 LOADK                            R26 K54 ["General"]
-      141 LOADK                            R27 K55 ["Search"]
-      142 NAMECALL                         R24 R2 K11 ["getText"]
-      144 CALL                             R24 3 1
-      145 SETTABLEKS                       R24 R23 K48 ["PlaceholderText"]
-      147 CALL                             R21 2 1
-      148 SETTABLEKS                       R21 R20 K39 ["SearchBar"]
-      150 GETUPVAL                         R21 1
-      151 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      153 GETUPVAL                         R22 4
-      154 DUPTABLE                         R23 K61 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
-      155 LOADK                            R24 K62 ["RoundBox"]
-      156 SETTABLEKS                       R24 R23 K56 ["BackgroundStyle"]
-      158 GETTABLEKS                       R24 R3 K63 ["NewGroupIcon"]
-      160 SETTABLEKS                       R24 R23 K57 ["LeftIcon"]
-      162 NEWCLOSURE                       R24 P0
-      163 CAPTURE                          VAL R0
-      164 CAPTURE                          VAL R2
-      165 SETTABLEKS                       R24 R23 K58 ["OnClick"]
-      167 NAMECALL                         R24 R5 K35 ["getNextOrder"]
-      169 CALL                             R24 1 1
-      170 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
-      172 ANDK                             R24 R9 K59 ["Disabled"]
-      173 SETTABLEKS                       R24 R23 K47 ["Style"]
-      175 SETTABLEKS                       R9 R23 K59 ["Disabled"]
-      177 SETTABLEKS                       R11 R23 K60 ["TooltipText"]
-      179 CALL                             R21 2 1
-      180 SETTABLEKS                       R21 R20 K40 ["NewGroupButton"]
-      182 GETUPVAL                         R21 1
-      183 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      185 GETUPVAL                         R22 4
-      186 DUPTABLE                         R23 K61 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
-      187 LOADK                            R24 K62 ["RoundBox"]
-      188 SETTABLEKS                       R24 R23 K56 ["BackgroundStyle"]
-      190 GETTABLEKS                       R24 R3 K64 ["DeleteIcon"]
-      192 SETTABLEKS                       R24 R23 K57 ["LeftIcon"]
-      194 GETTABLEKS                       R24 R0 K65 ["onDeleteClicked"]
-      196 SETTABLEKS                       R24 R23 K58 ["OnClick"]
-      198 NAMECALL                         R24 R5 K35 ["getNextOrder"]
-      200 CALL                             R24 1 1
-      201 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
-      203 ANDK                             R24 R10 K59 ["Disabled"]
-      204 SETTABLEKS                       R24 R23 K47 ["Style"]
-      206 SETTABLEKS                       R10 R23 K59 ["Disabled"]
-      208 SETTABLEKS                       R12 R23 K60 ["TooltipText"]
-      210 CALL                             R21 2 1
-      211 SETTABLEKS                       R21 R20 K41 ["DeleteButton"]
-      213 CALL                             R17 3 1
-      214 SETTABLEKS                       R17 R16 K27 ["SearchRowPane"]
-      216 GETUPVAL                         R17 1
-      217 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      219 GETUPVAL                         R18 2
-      220 DUPTABLE                         R19 K67 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-      221 GETTABLEKS                       R20 R3 K68 ["NewTagRowSize"]
-      223 SETTABLEKS                       R20 R19 K31 ["Size"]
-      225 NAMECALL                         R20 R4 K35 ["getNextOrder"]
-      227 CALL                             R20 1 1
-      228 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
-      230 GETIMPORT                        R20 K37 [Enum.FillDirection.Horizontal]
-      232 SETTABLEKS                       R20 R19 K16 ["Layout"]
-      234 GETIMPORT                        R20 K70 [Enum.HorizontalAlignment.Left]
-      236 SETTABLEKS                       R20 R19 K66 ["HorizontalAlignment"]
-      238 DUPTABLE                         R20 K73 [{"NewTagTextInput", "ToggleWorldViewButton"}]
-      239 GETUPVAL                         R21 1
-      240 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      242 GETUPVAL                         R22 5
-      243 DUPTABLE                         R23 K75 [{"WidthOffset", "LayoutOrder"}]
-      244 GETTABLEKS                       R24 R0 K76 ["state"]
-      246 GETTABLEKS                       R24 R24 K77 ["worldViewButtonWidth"]
-      248 SETTABLEKS                       R24 R23 K74 ["WidthOffset"]
-      250 NAMECALL                         R24 R6 K35 ["getNextOrder"]
-      252 CALL                             R24 1 1
-      253 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
-      255 CALL                             R21 2 1
-      256 SETTABLEKS                       R21 R20 K71 ["NewTagTextInput"]
-      258 GETUPVAL                         R21 1
-      259 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      261 GETUPVAL                         R22 4
-      262 NEWTABLE                         R23 16 0
-      264 LOADK                            R24 K62 ["RoundBox"]
-      265 SETTABLEKS                       R24 R23 K56 ["BackgroundStyle"]
-      267 GETTABLEKS                       R25 R1 K78 ["worldView"]
-      269 JUMPIFNOT                        R25 ; [+2]
-      270 MOVE                             R24 R7
-      271 JUMP                             ; [+1]
-      272 MOVE                             R24 R8
-      273 SETTABLEKS                       R24 R23 K57 ["LeftIcon"]
-      275 LOADN                            R24 5
-      276 SETTABLEKS                       R24 R23 K19 ["Padding"]
-      278 LOADN                            R24 4
-      279 SETTABLEKS                       R24 R23 K32 ["Spacing"]
-      281 GETIMPORT                        R24 K81 [Enum.AutomaticSize.X]
-      283 SETTABLEKS                       R24 R23 K79 ["AutomaticSize"]
-      285 LOADK                            R26 K82 ["Info"]
-      286 LOADK                            R27 K83 ["WorldView"]
-      287 NAMECALL                         R24 R2 K11 ["getText"]
-      289 CALL                             R24 3 1
-      290 SETTABLEKS                       R24 R23 K84 ["Text"]
-      292 GETTABLEKS                       R24 R0 K85 ["onWorldViewButtonClicked"]
-      294 SETTABLEKS                       R24 R23 K58 ["OnClick"]
-      296 NAMECALL                         R24 R6 K35 ["getNextOrder"]
-      298 CALL                             R24 1 1
-      299 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
-      301 GETTABLEKS                       R24 R3 K86 ["WorldViewButtonSize"]
-      303 SETTABLEKS                       R24 R23 K31 ["Size"]
-      305 LOADK                            R26 K9 ["Tooltip"]
-      306 LOADK                            R27 K83 ["WorldView"]
-      307 NAMECALL                         R24 R2 K11 ["getText"]
-      309 CALL                             R24 3 1
-      310 SETTABLEKS                       R24 R23 K60 ["TooltipText"]
-      312 GETUPVAL                         R24 1
-      313 GETTABLEKS                       R24 R24 K87 ["Ref"]
-      315 GETTABLEKS                       R25 R0 K88 ["worldViewButtonRef"]
-      317 SETTABLE                         R25 R23 R24
-      318 CALL                             R21 2 1
-      319 SETTABLEKS                       R21 R20 K72 ["ToggleWorldViewButton"]
-      321 CALL                             R17 3 1
-      322 SETTABLEKS                       R17 R16 K28 ["NewTagRowPane"]
-      324 GETUPVAL                         R17 1
-      325 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      327 GETUPVAL                         R18 6
-      328 DUPTABLE                         R19 K89 [{"LayoutOrder"}]
-      329 NAMECALL                         R20 R4 K35 ["getNextOrder"]
-      331 CALL                             R20 1 1
-      332 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
-      334 CALL                             R17 2 1
-      335 SETTABLEKS                       R17 R16 K29 ["TagListView"]
-      337 CALL                             R13 3 -1
-      338 RETURN                           R13 -1
+       78 GETTABLEKS                       R16 R3 K20 ["Padding"]
+       80 SETTABLEKS                       R16 R15 K20 ["Padding"]
+       82 DUPTABLE                         R16 K31 [{"SearchRowPane", "NewTagRowPane", "TagListView"}]
+       83 GETUPVAL                         R17 1
+       84 GETTABLEKS                       R17 R17 K15 ["createElement"]
+       86 GETUPVAL                         R18 2
+       87 DUPTABLE                         R19 K34 [{"Size", "LayoutOrder", "Layout", "Spacing"}]
+       88 GETTABLEKS                       R20 R3 K35 ["SearchBarPaneSize"]
+       90 SETTABLEKS                       R20 R19 K32 ["Size"]
+       92 NAMECALL                         R20 R4 K36 ["getNextOrder"]
+       94 CALL                             R20 1 1
+       95 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
+       97 GETIMPORT                        R20 K38 [Enum.FillDirection.Horizontal]
+       99 SETTABLEKS                       R20 R19 K16 ["Layout"]
+      101 GETTABLEKS                       R20 R3 K39 ["RowSpacing"]
+      103 SETTABLEKS                       R20 R19 K33 ["Spacing"]
+      105 DUPTABLE                         R20 K43 [{"SearchBar", "NewGroupButton", "DeleteButton"}]
+      106 GETUPVAL                         R21 1
+      107 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      109 GETUPVAL                         R22 3
+      110 DUPTABLE                         R23 K53 [{["Size"], ["ShowSearchButton"] = False, ["ShowSearchIcon"] = True, ["LayoutOrder"], ["OnSearchRequested"], ["OnTextChanged"], ["Style"] = "Compact", ["PlaceholderText"]}]
+      111 GETTABLEKS                       R24 R3 K54 ["SearchBarSize"]
+      113 SETTABLEKS                       R24 R23 K32 ["Size"]
+      115 NAMECALL                         R24 R5 K36 ["getNextOrder"]
+      117 CALL                             R24 1 1
+      118 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
+      120 GETTABLEKS                       R24 R0 K55 ["onSearchRequested"]
+      122 SETTABLEKS                       R24 R23 K48 ["OnSearchRequested"]
+      124 GETTABLEKS                       R24 R0 K56 ["onTextChanged"]
+      126 SETTABLEKS                       R24 R23 K49 ["OnTextChanged"]
+      128 LOADK                            R26 K57 ["General"]
+      129 LOADK                            R27 K58 ["Search"]
+      130 NAMECALL                         R24 R2 K11 ["getText"]
+      132 CALL                             R24 3 1
+      133 SETTABLEKS                       R24 R23 K52 ["PlaceholderText"]
+      135 CALL                             R21 2 1
+      136 SETTABLEKS                       R21 R20 K40 ["SearchBar"]
+      138 GETUPVAL                         R21 1
+      139 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      141 GETUPVAL                         R22 4
+      142 DUPTABLE                         R23 K65 [{["BackgroundStyle"] = "RoundBox", ["LeftIcon"], ["OnClick"], ["LayoutOrder"], ["Style"], ["Disabled"], ["TooltipText"]}]
+      143 GETTABLEKS                       R24 R3 K66 ["NewGroupIcon"]
+      145 SETTABLEKS                       R24 R23 K61 ["LeftIcon"]
+      147 NEWCLOSURE                       R24 P0
+      148 CAPTURE                          VAL R0
+      149 CAPTURE                          VAL R2
+      150 SETTABLEKS                       R24 R23 K62 ["OnClick"]
+      152 NAMECALL                         R24 R5 K36 ["getNextOrder"]
+      154 CALL                             R24 1 1
+      155 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
+      157 ANDK                             R24 R9 K63 ["Disabled"]
+      158 SETTABLEKS                       R24 R23 K50 ["Style"]
+      160 SETTABLEKS                       R9 R23 K63 ["Disabled"]
+      162 SETTABLEKS                       R11 R23 K64 ["TooltipText"]
+      164 CALL                             R21 2 1
+      165 SETTABLEKS                       R21 R20 K41 ["NewGroupButton"]
+      167 GETUPVAL                         R21 1
+      168 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      170 GETUPVAL                         R22 4
+      171 DUPTABLE                         R23 K65 [{["BackgroundStyle"] = "RoundBox", ["LeftIcon"], ["OnClick"], ["LayoutOrder"], ["Style"], ["Disabled"], ["TooltipText"]}]
+      172 GETTABLEKS                       R24 R3 K67 ["DeleteIcon"]
+      174 SETTABLEKS                       R24 R23 K61 ["LeftIcon"]
+      176 GETTABLEKS                       R24 R0 K68 ["onDeleteClicked"]
+      178 SETTABLEKS                       R24 R23 K62 ["OnClick"]
+      180 NAMECALL                         R24 R5 K36 ["getNextOrder"]
+      182 CALL                             R24 1 1
+      183 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
+      185 ANDK                             R24 R10 K63 ["Disabled"]
+      186 SETTABLEKS                       R24 R23 K50 ["Style"]
+      188 SETTABLEKS                       R10 R23 K63 ["Disabled"]
+      190 SETTABLEKS                       R12 R23 K64 ["TooltipText"]
+      192 CALL                             R21 2 1
+      193 SETTABLEKS                       R21 R20 K42 ["DeleteButton"]
+      195 CALL                             R17 3 1
+      196 SETTABLEKS                       R17 R16 K28 ["SearchRowPane"]
+      198 GETUPVAL                         R17 1
+      199 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      201 GETUPVAL                         R18 2
+      202 DUPTABLE                         R19 K70 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+      203 GETTABLEKS                       R20 R3 K71 ["NewTagRowSize"]
+      205 SETTABLEKS                       R20 R19 K32 ["Size"]
+      207 NAMECALL                         R20 R4 K36 ["getNextOrder"]
+      209 CALL                             R20 1 1
+      210 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
+      212 GETIMPORT                        R20 K38 [Enum.FillDirection.Horizontal]
+      214 SETTABLEKS                       R20 R19 K16 ["Layout"]
+      216 GETIMPORT                        R20 K73 [Enum.HorizontalAlignment.Left]
+      218 SETTABLEKS                       R20 R19 K69 ["HorizontalAlignment"]
+      220 DUPTABLE                         R20 K76 [{"NewTagTextInput", "ToggleWorldViewButton"}]
+      221 GETUPVAL                         R21 1
+      222 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      224 GETUPVAL                         R22 5
+      225 DUPTABLE                         R23 K78 [{"WidthOffset", "LayoutOrder"}]
+      226 GETTABLEKS                       R24 R0 K79 ["state"]
+      228 GETTABLEKS                       R24 R24 K80 ["worldViewButtonWidth"]
+      230 SETTABLEKS                       R24 R23 K77 ["WidthOffset"]
+      232 NAMECALL                         R24 R6 K36 ["getNextOrder"]
+      234 CALL                             R24 1 1
+      235 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
+      237 CALL                             R21 2 1
+      238 SETTABLEKS                       R21 R20 K74 ["NewTagTextInput"]
+      240 GETUPVAL                         R21 1
+      241 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      243 GETUPVAL                         R22 4
+      244 NEWTABLE                         R23 16 0
+      246 LOADK                            R24 K60 ["RoundBox"]
+      247 SETTABLEKS                       R24 R23 K59 ["BackgroundStyle"]
+      249 GETTABLEKS                       R25 R1 K81 ["worldView"]
+      251 JUMPIFNOT                        R25 ; [+2]
+      252 MOVE                             R24 R7
+      253 JUMP                             ; [+1]
+      254 MOVE                             R24 R8
+      255 SETTABLEKS                       R24 R23 K61 ["LeftIcon"]
+      257 LOADN                            R24 5
+      258 SETTABLEKS                       R24 R23 K20 ["Padding"]
+      260 LOADN                            R24 4
+      261 SETTABLEKS                       R24 R23 K33 ["Spacing"]
+      263 GETIMPORT                        R24 K84 [Enum.AutomaticSize.X]
+      265 SETTABLEKS                       R24 R23 K82 ["AutomaticSize"]
+      267 LOADK                            R26 K85 ["Info"]
+      268 LOADK                            R27 K86 ["WorldView"]
+      269 NAMECALL                         R24 R2 K11 ["getText"]
+      271 CALL                             R24 3 1
+      272 SETTABLEKS                       R24 R23 K87 ["Text"]
+      274 GETTABLEKS                       R24 R0 K88 ["onWorldViewButtonClicked"]
+      276 SETTABLEKS                       R24 R23 K62 ["OnClick"]
+      278 NAMECALL                         R24 R6 K36 ["getNextOrder"]
+      280 CALL                             R24 1 1
+      281 SETTABLEKS                       R24 R23 K18 ["LayoutOrder"]
+      283 GETTABLEKS                       R24 R3 K89 ["WorldViewButtonSize"]
+      285 SETTABLEKS                       R24 R23 K32 ["Size"]
+      287 LOADK                            R26 K9 ["Tooltip"]
+      288 LOADK                            R27 K86 ["WorldView"]
+      289 NAMECALL                         R24 R2 K11 ["getText"]
+      291 CALL                             R24 3 1
+      292 SETTABLEKS                       R24 R23 K64 ["TooltipText"]
+      294 GETUPVAL                         R24 1
+      295 GETTABLEKS                       R24 R24 K90 ["Ref"]
+      297 GETTABLEKS                       R25 R0 K91 ["worldViewButtonRef"]
+      299 SETTABLE                         R25 R23 R24
+      300 CALL                             R21 2 1
+      301 SETTABLEKS                       R21 R20 K75 ["ToggleWorldViewButton"]
+      303 CALL                             R17 3 1
+      304 SETTABLEKS                       R17 R16 K29 ["NewTagRowPane"]
+      306 GETUPVAL                         R17 1
+      307 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      309 GETUPVAL                         R18 6
+      310 DUPTABLE                         R19 K92 [{"LayoutOrder"}]
+      311 NAMECALL                         R20 R4 K36 ["getNextOrder"]
+      313 CALL                             R20 1 1
+      314 SETTABLEKS                       R20 R19 K18 ["LayoutOrder"]
+      316 CALL                             R17 2 1
+      317 SETTABLEKS                       R17 R16 K30 ["TagListView"]
+      319 CALL                             R13 3 -1
+      320 RETURN                           R13 -1
 
 PROTO_12:
         0 DUPTABLE                         R2 K4 [{"tagMenu", "groupMenu", "worldView", "groupData"}]

@@ -173,32 +173,26 @@ PROTO_5:
        47 GETUPVAL                         R8 3
        48 GETUPVAL                         R9 0
        49 GETTABLEKS                       R9 R9 K8 ["View"]
-       51 DUPTABLE                         R10 K10 [{"tag"}]
-       52 LOADK                            R11 K11 ["row size-full-500 gap-small align-x-left align-y-center padding-left-xsmall"]
-       53 SETTABLEKS                       R11 R10 K9 ["tag"]
-       55 DUPTABLE                         R11 K14 [{"Icon", "Text"}]
-       56 GETUPVAL                         R12 3
-       57 GETUPVAL                         R13 0
-       58 GETTABLEKS                       R13 R13 K15 ["Image"]
-       60 DUPTABLE                         R14 K16 [{"Image", "tag"}]
-       61 GETTABLEKS                       R15 R0 K17 ["icon"]
-       63 SETTABLEKS                       R15 R14 K15 ["Image"]
-       65 LOADK                            R15 K18 ["size-400-400"]
-       66 SETTABLEKS                       R15 R14 K9 ["tag"]
-       68 CALL                             R12 2 1
-       69 SETTABLEKS                       R12 R11 K12 ["Icon"]
-       71 GETUPVAL                         R12 3
-       72 GETUPVAL                         R13 0
-       73 GETTABLEKS                       R13 R13 K13 ["Text"]
-       75 DUPTABLE                         R14 K20 [{"tag", "Text", "onAbsoluteSizeChanged"}]
-       76 LOADK                            R15 K21 ["text-body-medium text-align-x-left auto-xy fill text-no-wrap"]
-       77 SETTABLEKS                       R15 R14 K9 ["tag"]
-       79 SETTABLEKS                       R5 R14 K13 ["Text"]
-       81 SETTABLEKS                       R7 R14 K19 ["onAbsoluteSizeChanged"]
-       83 CALL                             R12 2 1
-       84 SETTABLEKS                       R12 R11 K13 ["Text"]
-       86 CALL                             R8 3 -1
-       87 RETURN                           R8 -1
+       51 DUPTABLE                         R10 K11 [{["tag"] = "row align-x-left align-y-center gap-small size-full-500 padding-left-xsmall"}]
+       52 DUPTABLE                         R11 K14 [{"Icon", "Text"}]
+       53 GETUPVAL                         R12 3
+       54 GETUPVAL                         R13 0
+       55 GETTABLEKS                       R13 R13 K15 ["Image"]
+       57 DUPTABLE                         R14 K17 [{["Image"], ["tag"] = "size-400-400"}]
+       58 GETTABLEKS                       R15 R0 K18 ["icon"]
+       60 SETTABLEKS                       R15 R14 K15 ["Image"]
+       62 CALL                             R12 2 1
+       63 SETTABLEKS                       R12 R11 K12 ["Icon"]
+       65 GETUPVAL                         R12 3
+       66 GETUPVAL                         R13 0
+       67 GETTABLEKS                       R13 R13 K13 ["Text"]
+       69 DUPTABLE                         R14 K21 [{["tag"] = "fill auto-xy text-body-medium text-no-wrap text-align-x-left", ["Text"], ["onAbsoluteSizeChanged"]}]
+       70 SETTABLEKS                       R5 R14 K13 ["Text"]
+       72 SETTABLEKS                       R7 R14 K20 ["onAbsoluteSizeChanged"]
+       74 CALL                             R12 2 1
+       75 SETTABLEKS                       R12 R11 K13 ["Text"]
+       77 CALL                             R8 3 -1
+       78 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

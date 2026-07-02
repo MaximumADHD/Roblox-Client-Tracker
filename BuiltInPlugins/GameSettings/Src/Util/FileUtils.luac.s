@@ -1,7 +1,7 @@
 PROTO_0:
         0 DUPTABLE                         R3 K4 [{"Size", "Title", "Header", "Buttons"}]
         1 GETIMPORT                        R4 K7 [Vector2.new]
-        3 LOADN                            R5 87
+        3 LOADN                            R5 343
         4 LOADN                            R6 145
         5 CALL                             R4 2 1
         6 SETTABLEKS                       R4 R3 K0 ["Size"]
@@ -31,47 +31,45 @@ PROTO_0:
        40 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R4 K7 [{"Size", "Title", "Header", "Entries", "Buttons", "Wrapped", "Truncate"}]
-        1 GETIMPORT                        R5 K10 [Vector2.new]
-        3 LOADN                            R6 204
+        0 DUPTABLE                         R4 K8 [{[1], ["Title"], ["Header"], ["Entries"], ["Buttons"], ["Wrapped"] = False, ["Truncate"]}]
+        1 GETIMPORT                        R5 K11 [Vector2.new]
+        3 LOADN                            R6 460
         4 LENGTH                           R9 R3
-        5 MULK                             R8 R9 K12 [22]
-        6 ADDK                             R7 R8 K11 [200]
+        5 MULK                             R8 R9 K13 [22]
+        6 ADDK                             R7 R8 K12 [200]
         7 CALL                             R5 2 1
         8 SETTABLEKS                       R5 R4 K0 ["Size"]
-       10 LOADK                            R7 K13 ["General"]
-       11 LOADK                            R8 K14 ["MultiImageDialogHeader"]
-       12 NAMECALL                         R5 R1 K15 ["getText"]
+       10 LOADK                            R7 K14 ["General"]
+       11 LOADK                            R8 K15 ["MultiImageDialogHeader"]
+       12 NAMECALL                         R5 R1 K16 ["getText"]
        14 CALL                             R5 3 1
        15 SETTABLEKS                       R5 R4 K1 ["Title"]
-       17 LOADK                            R7 K13 ["General"]
-       18 LOADK                            R8 K16 ["MultiImageDialogBody"]
-       19 DUPTABLE                         R9 K18 [{"maxThumbnailSize"}]
+       17 LOADK                            R7 K14 ["General"]
+       18 LOADK                            R8 K17 ["MultiImageDialogBody"]
+       19 DUPTABLE                         R9 K19 [{"maxThumbnailSize"}]
        20 GETUPVAL                         R11 0
-       21 DIVK                             R10 R11 K19 [1000000]
-       22 SETTABLEKS                       R10 R9 K17 ["maxThumbnailSize"]
-       24 NAMECALL                         R5 R1 K15 ["getText"]
+       21 DIVK                             R10 R11 K20 [1000000]
+       22 SETTABLEKS                       R10 R9 K18 ["maxThumbnailSize"]
+       24 NAMECALL                         R5 R1 K16 ["getText"]
        26 CALL                             R5 4 1
        27 SETTABLEKS                       R5 R4 K2 ["Header"]
        29 SETTABLEKS                       R3 R4 K3 ["Entries"]
        31 NEWTABLE                         R5 0 1
-       33 LOADK                            R8 K13 ["General"]
-       34 LOADK                            R9 K20 ["ReplyOK"]
-       35 NAMECALL                         R6 R1 K15 ["getText"]
+       33 LOADK                            R8 K14 ["General"]
+       34 LOADK                            R9 K21 ["ReplyOK"]
+       35 NAMECALL                         R6 R1 K16 ["getText"]
        37 CALL                             R6 3 -1
        38 SETLIST                          R5 R6 -1 [1]
        40 SETTABLEKS                       R5 R4 K4 ["Buttons"]
-       42 LOADB                            R5 0
-       43 SETTABLEKS                       R5 R4 K5 ["Wrapped"]
-       45 GETIMPORT                        R5 K24 [Enum.TextTruncate.AtEnd]
-       47 SETTABLEKS                       R5 R4 K6 ["Truncate"]
-       49 MOVE                             R5 R2
-       50 GETUPVAL                         R6 1
-       51 MOVE                             R7 R4
-       52 CALL                             R5 2 1
-       53 NAMECALL                         R5 R5 K25 ["await"]
-       55 CALL                             R5 1 0
-       56 RETURN                           R0 0
+       42 GETIMPORT                        R5 K25 [Enum.TextTruncate.AtEnd]
+       44 SETTABLEKS                       R5 R4 K7 ["Truncate"]
+       46 MOVE                             R5 R2
+       47 GETUPVAL                         R6 1
+       48 MOVE                             R7 R4
+       49 CALL                             R5 2 1
+       50 NAMECALL                         R5 R5 K26 ["await"]
+       52 CALL                             R5 1 0
+       53 RETURN                           R0 0
 
 PROTO_2:
         0 NEWTABLE                         R3 1 0
@@ -199,18 +197,16 @@ PROTO_6:
        26 MOVE                             R9 R3
        27 MOVE                             R10 R2
        28 CALL                             R6 4 1
-       29 DUPTABLE                         R7 K19 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+       29 DUPTABLE                         R7 K20 [{["Url"], ["Method"] = "POST", ["Body"], ["CachePolicy"], ["Headers"]}]
        30 SETTABLEKS                       R1 R7 K14 ["Url"]
-       32 LOADK                            R8 K20 ["POST"]
-       33 SETTABLEKS                       R8 R7 K15 ["Method"]
-       35 SETTABLEKS                       R6 R7 K16 ["Body"]
-       37 GETIMPORT                        R8 K24 [Enum.HttpCachePolicy.None]
-       39 SETTABLEKS                       R8 R7 K17 ["CachePolicy"]
-       41 NEWTABLE                         R8 1 0
-       43 LOADK                            R9 K25 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
-       44 SETTABLEKS                       R9 R8 K26 ["Content-Type"]
-       46 SETTABLEKS                       R8 R7 K18 ["Headers"]
-       48 RETURN                           R7 1
+       32 SETTABLEKS                       R6 R7 K17 ["Body"]
+       34 GETIMPORT                        R8 K24 [Enum.HttpCachePolicy.None]
+       36 SETTABLEKS                       R8 R7 K18 ["CachePolicy"]
+       38 NEWTABLE                         R8 1 0
+       40 LOADK                            R9 K25 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+       41 SETTABLEKS                       R9 R8 K26 ["Content-Type"]
+       43 SETTABLEKS                       R8 R7 K19 ["Headers"]
+       45 RETURN                           R7 1
 
 PROTO_7:
         0 NAMECALL                         R3 R0 K0 ["GetBinaryContents"]
@@ -238,49 +234,45 @@ PROTO_7:
        30 GETUPVAL                         R8 0
        31 GETIMPORT                        R11 K14 [Enum.AssetType.Image]
        33 NEWTABLE                         R10 1 0
-       35 DUPTABLE                         R12 K18 [{"type", "name", "description"}]
+       35 DUPTABLE                         R12 K19 [{["type"], ["name"], ["description"] = ""}]
        36 GETTABLEKS                       R13 R11 K4 ["Name"]
        38 SETTABLEKS                       R13 R12 K15 ["type"]
        40 SETTABLEKS                       R7 R12 K16 ["name"]
-       42 LOADK                            R13 K19 [""]
-       43 SETTABLEKS                       R13 R12 K17 ["description"]
-       45 SETTABLE                         R12 R10 R7
-       46 NAMECALL                         R8 R8 K20 ["JSONEncode"]
-       48 CALL                             R8 2 1
-       49 LOADK                            R11 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"]
-       50 LOADK                            R12 K22 ["Content-Type: application/json\r\n"]
-       51 LOADK                            R13 K23 ["Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"\r\n"]
-       52 LOADK                            R14 K24 ["\r\n"]
-       53 MOVE                             R15 R8
-       54 LOADK                            R16 K24 ["\r\n"]
-       55 LOADK                            R17 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"]
-       56 LOADK                            R18 K25 ["Content-Disposition: form-data; name=\""]
-       57 MOVE                             R19 R7
-       58 LOADK                            R20 K26 ["\"; filename=\""]
-       59 MOVE                             R21 R7
-       60 LOADK                            R22 K7 ["."]
-       61 MOVE                             R23 R6
-       62 LOADK                            R24 K27 ["\"\r\n"]
-       63 LOADK                            R25 K28 ["Content-Type: application/octet-stream\r\n"]
-       64 LOADK                            R26 K24 ["\r\n"]
-       65 MOVE                             R27 R3
-       66 LOADK                            R28 K24 ["\r\n"]
-       67 LOADK                            R29 K29 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"]
-       68 CONCAT                           R10 R11 R29
-       69 MOVE                             R9 R10
-       70 GETIMPORT                        R10 K31 [print]
-       72 MOVE                             R11 R9
-       73 CALL                             R10 1 0
-       74 DUPTABLE                         R10 K36 [{"Url", "Method", "Body", "Headers"}]
-       75 SETTABLEKS                       R1 R10 K32 ["Url"]
-       77 LOADK                            R11 K37 ["POST"]
-       78 SETTABLEKS                       R11 R10 K33 ["Method"]
-       80 SETTABLEKS                       R9 R10 K34 ["Body"]
-       82 NEWTABLE                         R11 1 0
-       84 LOADK                            R12 K38 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
-       85 SETTABLEKS                       R12 R11 K39 ["Content-Type"]
-       87 SETTABLEKS                       R11 R10 K35 ["Headers"]
-       89 RETURN                           R10 1
+       42 SETTABLE                         R12 R10 R7
+       43 NAMECALL                         R8 R8 K20 ["JSONEncode"]
+       45 CALL                             R8 2 1
+       46 LOADK                            R11 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"]
+       47 LOADK                            R12 K22 ["Content-Type: application/json\r\n"]
+       48 LOADK                            R13 K23 ["Content-Disposition: form-data; name=\"config\"; filename=\"config.json\"\r\n"]
+       49 LOADK                            R14 K24 ["\r\n"]
+       50 MOVE                             R15 R8
+       51 LOADK                            R16 K24 ["\r\n"]
+       52 LOADK                            R17 K21 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E\r\n"]
+       53 LOADK                            R18 K25 ["Content-Disposition: form-data; name=\""]
+       54 MOVE                             R19 R7
+       55 LOADK                            R20 K26 ["\"; filename=\""]
+       56 MOVE                             R21 R7
+       57 LOADK                            R22 K7 ["."]
+       58 MOVE                             R23 R6
+       59 LOADK                            R24 K27 ["\"\r\n"]
+       60 LOADK                            R25 K28 ["Content-Type: application/octet-stream\r\n"]
+       61 LOADK                            R26 K24 ["\r\n"]
+       62 MOVE                             R27 R3
+       63 LOADK                            R28 K24 ["\r\n"]
+       64 LOADK                            R29 K29 ["--EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E--\r\n"]
+       65 CONCAT                           R10 R11 R29
+       66 MOVE                             R9 R10
+       67 GETIMPORT                        R10 K31 [print]
+       69 MOVE                             R11 R9
+       70 CALL                             R10 1 0
+       71 DUPTABLE                         R10 K37 [{["Url"], ["Method"] = "POST", ["Body"], ["Headers"]}]
+       72 SETTABLEKS                       R1 R10 K32 ["Url"]
+       74 SETTABLEKS                       R9 R10 K35 ["Body"]
+       76 NEWTABLE                         R11 1 0
+       78 LOADK                            R12 K38 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+       79 SETTABLEKS                       R12 R11 K39 ["Content-Type"]
+       81 SETTABLEKS                       R11 R10 K36 ["Headers"]
+       83 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0

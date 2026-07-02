@@ -134,83 +134,79 @@ PROTO_2:
        94 GETTABLEKS                       R17 R17 K14 ["Localization"]
        96 GETTABLEKS                       R17 R17 K25 ["LocalizedStrings"]
        98 GETTABLEKS                       R18 R9 K26 ["new"]
-      100 DUPTABLE                         R19 K30 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
-      101 LOADK                            R20 K31 ["AlignmentTool"]
-      102 SETTABLEKS                       R20 R19 K27 ["pluginName"]
-      104 SETTABLEKS                       R16 R19 K28 ["stringResourceTable"]
-      106 SETTABLEKS                       R17 R19 K29 ["translationResourceTable"]
-      108 CALL                             R18 1 1
-      109 GETTABLEKS                       R19 R5 K16 ["Store"]
-      111 GETTABLEKS                       R19 R19 K26 ["new"]
-      113 MOVE                             R20 R13
-      114 LOADNIL                          R21
-      115 NEWTABLE                         R22 0 1
-      117 GETTABLEKS                       R23 R5 K32 ["thunkMiddleware"]
-      119 SETLIST                          R22 R23 1 [1]
-      121 CALL                             R19 3 1
-      122 GETIMPORT                        R20 K4 [require]
-      124 GETTABLEKS                       R21 R2 K5 ["Src"]
-      126 GETTABLEKS                       R21 R21 K33 ["Utility"]
-      128 GETTABLEKS                       R21 R21 K34 ["CalloutController"]
-      130 CALL                             R20 1 1
-      131 GETTABLEKS                       R21 R20 K26 ["new"]
-      133 CALL                             R21 0 1
-      134 LOADK                            R24 K35 ["Callout"]
-      135 LOADK                            R25 K36 ["Title"]
-      136 NAMECALL                         R22 R18 K37 ["getText"]
-      138 CALL                             R22 3 1
-      139 LOADK                            R25 K35 ["Callout"]
-      140 LOADK                            R26 K38 ["Description"]
-      141 NAMECALL                         R23 R18 K37 ["getText"]
-      143 CALL                             R23 3 1
-      144 LOADK                            R26 K39 ["AlignToolCallout"]
-      145 MOVE                             R27 R22
-      146 MOVE                             R28 R23
-      147 LOADK                            R29 K40 ["https://developer.roblox.com/en-us/resources/studio/Align-Tool"]
-      148 NAMECALL                         R24 R21 K41 ["defineCallout"]
-      150 CALL                             R24 5 0
-      151 LOADNIL                          R22
-      152 MOVE                             R23 R3
-      153 CALL                             R23 0 1
-      154 JUMPIFNOT                        R23 ; [+28]
-      155 GETIMPORT                        R23 K43 [game]
-      157 LOADK                            R25 K44 ["StudioService"]
-      158 NAMECALL                         R23 R23 K45 ["GetService"]
-      160 CALL                             R23 2 1
-      161 NAMECALL                         R23 R23 K46 ["HasInternalPermission"]
-      163 CALL                             R23 1 1
-      164 JUMPIFNOT                        R23 ; [+18]
-      165 GETTABLEKS                       R23 R2 K8 ["Packages"]
-      167 GETTABLEKS                       R23 R23 K47 ["DeveloperTools"]
-      169 GETTABLEKS                       R23 R23 K48 ["forPlugin"]
-      171 GETTABLEKS                       R24 R2 K49 ["Name"]
-      173 MOVE                             R25 R0
-      174 CALL                             R23 2 1
-      175 MOVE                             R22 R23
-      176 GETTABLEKS                       R23 R4 K50 ["setGlobalConfig"]
-      178 DUPTABLE                         R24 K52 [{"elementTracing"}]
-      179 LOADB                            R25 1
-      180 SETTABLEKS                       R25 R24 K51 ["elementTracing"]
-      182 CALL                             R23 1 0
-      183 NEWCLOSURE                       R23 P0
-      184 CAPTURE                          REF R22
-      185 CAPTURE                          VAL R4
-      186 CAPTURE                          VAL R7
-      187 CAPTURE                          VAL R0
-      188 CAPTURE                          VAL R18
-      189 CAPTURE                          VAL R14
-      190 CAPTURE                          VAL R10
-      191 CAPTURE                          VAL R11
-      192 CAPTURE                          VAL R19
-      193 CAPTURE                          VAL R8
-      194 CAPTURE                          VAL R15
-      195 CAPTURE                          VAL R21
-      196 CAPTURE                          VAL R12
-      197 CAPTURE                          VAL R1
-      198 MOVE                             R24 R23
-      199 CALL                             R24 0 0
-      200 CLOSEUPVALS                      R22
-      201 RETURN                           R0 0
+      100 DUPTABLE                         R19 K31 [{["pluginName"] = "AlignmentTool", ["stringResourceTable"], ["translationResourceTable"]}]
+      101 SETTABLEKS                       R16 R19 K29 ["stringResourceTable"]
+      103 SETTABLEKS                       R17 R19 K30 ["translationResourceTable"]
+      105 CALL                             R18 1 1
+      106 GETTABLEKS                       R19 R5 K16 ["Store"]
+      108 GETTABLEKS                       R19 R19 K26 ["new"]
+      110 MOVE                             R20 R13
+      111 LOADNIL                          R21
+      112 NEWTABLE                         R22 0 1
+      114 GETTABLEKS                       R23 R5 K32 ["thunkMiddleware"]
+      116 SETLIST                          R22 R23 1 [1]
+      118 CALL                             R19 3 1
+      119 GETIMPORT                        R20 K4 [require]
+      121 GETTABLEKS                       R21 R2 K5 ["Src"]
+      123 GETTABLEKS                       R21 R21 K33 ["Utility"]
+      125 GETTABLEKS                       R21 R21 K34 ["CalloutController"]
+      127 CALL                             R20 1 1
+      128 GETTABLEKS                       R21 R20 K26 ["new"]
+      130 CALL                             R21 0 1
+      131 LOADK                            R24 K35 ["Callout"]
+      132 LOADK                            R25 K36 ["Title"]
+      133 NAMECALL                         R22 R18 K37 ["getText"]
+      135 CALL                             R22 3 1
+      136 LOADK                            R25 K35 ["Callout"]
+      137 LOADK                            R26 K38 ["Description"]
+      138 NAMECALL                         R23 R18 K37 ["getText"]
+      140 CALL                             R23 3 1
+      141 LOADK                            R26 K39 ["AlignToolCallout"]
+      142 MOVE                             R27 R22
+      143 MOVE                             R28 R23
+      144 LOADK                            R29 K40 ["https://developer.roblox.com/en-us/resources/studio/Align-Tool"]
+      145 NAMECALL                         R24 R21 K41 ["defineCallout"]
+      147 CALL                             R24 5 0
+      148 LOADNIL                          R22
+      149 MOVE                             R23 R3
+      150 CALL                             R23 0 1
+      151 JUMPIFNOT                        R23 ; [+25]
+      152 GETIMPORT                        R23 K43 [game]
+      154 LOADK                            R25 K44 ["StudioService"]
+      155 NAMECALL                         R23 R23 K45 ["GetService"]
+      157 CALL                             R23 2 1
+      158 NAMECALL                         R23 R23 K46 ["HasInternalPermission"]
+      160 CALL                             R23 1 1
+      161 JUMPIFNOT                        R23 ; [+15]
+      162 GETTABLEKS                       R23 R2 K8 ["Packages"]
+      164 GETTABLEKS                       R23 R23 K47 ["DeveloperTools"]
+      166 GETTABLEKS                       R23 R23 K48 ["forPlugin"]
+      168 GETTABLEKS                       R24 R2 K49 ["Name"]
+      170 MOVE                             R25 R0
+      171 CALL                             R23 2 1
+      172 MOVE                             R22 R23
+      173 GETTABLEKS                       R23 R4 K50 ["setGlobalConfig"]
+      175 DUPTABLE                         R24 K53 [{["elementTracing"] = True}]
+      176 CALL                             R23 1 0
+      177 NEWCLOSURE                       R23 P0
+      178 CAPTURE                          REF R22
+      179 CAPTURE                          VAL R4
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R0
+      182 CAPTURE                          VAL R18
+      183 CAPTURE                          VAL R14
+      184 CAPTURE                          VAL R10
+      185 CAPTURE                          VAL R11
+      186 CAPTURE                          VAL R19
+      187 CAPTURE                          VAL R8
+      188 CAPTURE                          VAL R15
+      189 CAPTURE                          VAL R21
+      190 CAPTURE                          VAL R12
+      191 CAPTURE                          VAL R1
+      192 MOVE                             R24 R23
+      193 CALL                             R24 0 0
+      194 CLOSEUPVALS                      R22
+      195 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -768,7 +768,7 @@ PROTO_21:
        52 GETTABLEKS                       R12 R1 K17 ["AssetType"]
        54 CALL                             R11 1 1
        55 JUMPIF                           R10 ; [+1]
-       56 JUMPIFNOT                        R11 ; [+63]
+       56 JUMPIFNOT                        R11 ; [+57]
        57 LOADNIL                          R12
        58 LOADNIL                          R13
        59 GETTABLEKS                       R14 R1 K22 ["UploadSucceeded"]
@@ -784,9 +784,9 @@ PROTO_21:
        74 MOVE                             R13 R14
        75 GETIMPORT                        R14 K10 [UDim2.new]
        77 LOADK                            R15 K25 [0.5]
-       78 LOADN                            R16 208
+       78 LOADN                            R16 -48
        79 LOADK                            R17 K25 [0.5]
-       80 LOADN                            R18 248
+       80 LOADN                            R18 -264
        81 CALL                             R14 4 1
        82 MOVE                             R6 R14
        83 JUMP                             ; [+10]
@@ -801,308 +801,290 @@ PROTO_21:
        94 GETUPVAL                         R14 3
        95 GETTABLEKS                       R14 R14 K29 ["createElement"]
        97 GETUPVAL                         R15 4
-       98 DUPTABLE                         R16 K34 [{"Size", "Position", "BackgroundTransparency", "Image", "ScaleType", "defaultImage"}]
+       98 DUPTABLE                         R16 K35 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["Image"], ["ScaleType"], ["defaultImage"] = ""}]
        99 SETTABLEKS                       R13 R16 K28 ["Size"]
       101 SETTABLEKS                       R6 R16 K7 ["Position"]
-      103 LOADN                            R17 1
-      104 SETTABLEKS                       R17 R16 K30 ["BackgroundTransparency"]
-      106 SETTABLEKS                       R12 R16 K31 ["Image"]
-      108 JUMPIFNOT                        R11 ; [+3]
-      109 GETIMPORT                        R17 K36 [Enum.ScaleType.Fit]
-      111 JUMP                             ; [+1]
-      112 LOADNIL                          R17
-      113 SETTABLEKS                       R17 R16 K32 ["ScaleType"]
-      115 LOADK                            R17 K37 [""]
-      116 SETTABLEKS                       R17 R16 K33 ["defaultImage"]
-      118 CALL                             R14 2 -1
-      119 RETURN                           R14 -1
-      120 GETUPVAL                         R12 5
-      121 CALL                             R12 0 1
-      122 JUMPIFNOT                        R12 ; [+203]
-      123 GETUPVAL                         R12 6
-      124 GETTABLEKS                       R12 R12 K9 ["new"]
-      126 CALL                             R12 0 1
-      127 JUMPIFNOT                        R5 ; [+9]
-      128 GETIMPORT                        R13 K10 [UDim2.new]
-      130 LOADN                            R14 1
-      131 LOADN                            R15 0
-      132 LOADN                            R16 1
-      133 ADD                              R18 R7 R8
-      134 MINUS                            R17 R18
-      135 CALL                             R13 4 1
-      136 JUMPIF                           R13 ; [+7]
-      137 GETIMPORT                        R13 K10 [UDim2.new]
-      139 LOADN                            R14 1
-      140 LOADN                            R15 0
-      141 LOADN                            R16 1
-      142 LOADN                            R17 0
-      143 CALL                             R13 4 1
-      144 GETUPVAL                         R14 7
-      145 GETTABLEKS                       R14 R14 K29 ["createElement"]
-      147 GETUPVAL                         R15 8
-      148 GETTABLEKS                       R15 R15 K38 ["View"]
-      150 DUPTABLE                         R16 K40 [{"tag", "Size", "Position", "LayoutOrder"}]
-      151 LOADK                            R17 K41 ["col align-x-left align-y-top"]
-      152 SETTABLEKS                       R17 R16 K39 ["tag"]
-      154 GETTABLEKS                       R17 R1 K28 ["Size"]
-      156 SETTABLEKS                       R17 R16 K28 ["Size"]
-      158 SETTABLEKS                       R6 R16 K7 ["Position"]
-      160 SETTABLEKS                       R9 R16 K16 ["LayoutOrder"]
-      162 DUPTABLE                         R17 K44 [{"ViewportWrapper", "Title"}]
-      163 GETUPVAL                         R18 7
-      164 GETTABLEKS                       R18 R18 K29 ["createElement"]
-      166 GETUPVAL                         R19 8
-      167 GETTABLEKS                       R19 R19 K38 ["View"]
-      169 DUPTABLE                         R20 K46 [{"tag", "LayoutOrder", "Size", "BackgroundColor3"}]
-      170 LOADK                            R21 K47 ["shrink-0 radius-medium stroke-default"]
-      171 SETTABLEKS                       R21 R20 K39 ["tag"]
-      173 NAMECALL                         R21 R12 K48 ["getNextOrder"]
-      175 CALL                             R21 1 1
-      176 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
-      178 SETTABLEKS                       R13 R20 K28 ["Size"]
-      180 GETTABLEKS                       R21 R3 K49 ["thumbnailPreview"]
-      182 GETTABLEKS                       R21 R21 K50 ["background"]
-      184 SETTABLEKS                       R21 R20 K45 ["BackgroundColor3"]
-      186 GETTABLEKS                       R22 R0 K51 ["state"]
-      188 GETTABLEKS                       R22 R22 K52 ["shouldShow"]
-      190 JUMPIFNOT                        R22 ; [+32]
-      191 DUPTABLE                         R21 K54 [{"Viewport"}]
-      192 GETUPVAL                         R22 7
-      193 GETTABLEKS                       R22 R22 K29 ["createElement"]
-      195 LOADK                            R23 K55 ["ViewportFrame"]
-      196 DUPTABLE                         R24 K57 [{"ref", "Size", "BackgroundColor3", "BackgroundTransparency"}]
-      197 GETTABLEKS                       R25 R0 K58 ["viewportRef"]
-      199 SETTABLEKS                       R25 R24 K56 ["ref"]
-      201 GETIMPORT                        R25 K10 [UDim2.new]
-      203 LOADN                            R26 1
-      204 LOADN                            R27 0
-      205 LOADN                            R28 1
-      206 LOADN                            R29 0
-      207 CALL                             R25 4 1
-      208 SETTABLEKS                       R25 R24 K28 ["Size"]
-      210 GETTABLEKS                       R25 R3 K49 ["thumbnailPreview"]
-      212 GETTABLEKS                       R25 R25 K50 ["background"]
-      214 SETTABLEKS                       R25 R24 K45 ["BackgroundColor3"]
-      216 LOADN                            R25 1
-      217 SETTABLEKS                       R25 R24 K30 ["BackgroundTransparency"]
-      219 CALL                             R22 2 1
-      220 SETTABLEKS                       R22 R21 K53 ["Viewport"]
-      222 JUMP                             ; [+67]
-      223 DUPTABLE                         R21 K60 [{"Tooltip"}]
-      224 GETUPVAL                         R22 7
-      225 GETTABLEKS                       R22 R22 K29 ["createElement"]
-      227 GETUPVAL                         R23 8
-      228 GETTABLEKS                       R23 R23 K59 ["Tooltip"]
-      230 DUPTABLE                         R24 K61 [{"title"}]
-      231 LOADK                            R27 K62 ["AssetThumbnailPreview"]
-      232 LOADK                            R28 K63 ["PreviewTooBig"]
-      233 NAMECALL                         R25 R2 K64 ["getText"]
-      235 CALL                             R25 3 1
-      236 SETTABLEKS                       R25 R24 K3 ["title"]
-      238 NEWTABLE                         R25 0 1
-      240 GETUPVAL                         R26 7
-      241 GETTABLEKS                       R26 R26 K29 ["createElement"]
-      243 GETUPVAL                         R27 8
-      244 GETTABLEKS                       R27 R27 K38 ["View"]
-      246 DUPTABLE                         R28 K65 [{"tag"}]
-      247 LOADK                            R29 K66 ["size-full align-x-center align-y-center"]
-      248 SETTABLEKS                       R29 R28 K39 ["tag"]
-      250 DUPTABLE                         R29 K67 [{"Image"}]
-      251 GETUPVAL                         R30 7
-      252 GETTABLEKS                       R30 R30 K29 ["createElement"]
-      254 GETUPVAL                         R31 8
-      255 GETTABLEKS                       R31 R31 K31 ["Image"]
-      257 DUPTABLE                         R32 K69 [{"Image", "ImageColor3", "Size"}]
-      258 GETUPVAL                         R33 9
-      259 GETTABLEKS                       R33 R33 K70 ["WARNING_ICON"]
-      261 SETTABLEKS                       R33 R32 K31 ["Image"]
-      263 GETTABLEKS                       R33 R3 K49 ["thumbnailPreview"]
-      265 GETTABLEKS                       R33 R33 K71 ["text"]
-      267 SETTABLEKS                       R33 R32 K68 ["ImageColor3"]
-      269 GETTABLEKS                       R33 R3 K49 ["thumbnailPreview"]
-      271 GETTABLEKS                       R33 R33 K72 ["warningIconSize"]
-      273 JUMPIF                           R33 ; [+5]
-      274 GETIMPORT                        R33 K74 [UDim2.fromOffset]
-      276 LOADN                            R34 96
-      277 LOADN                            R35 96
-      278 CALL                             R33 2 1
-      279 SETTABLEKS                       R33 R32 K28 ["Size"]
-      281 CALL                             R30 2 1
-      282 SETTABLEKS                       R30 R29 K31 ["Image"]
-      284 CALL                             R26 3 -1
-      285 SETLIST                          R25 R26 -1 [1]
-      287 CALL                             R22 3 1
-      288 SETTABLEKS                       R22 R21 K59 ["Tooltip"]
-      290 CALL                             R18 3 1
-      291 SETTABLEKS                       R18 R17 K42 ["ViewportWrapper"]
-      293 MOVE                             R18 R5
-      294 JUMPIFNOT                        R18 ; [+27]
-      295 GETUPVAL                         R18 7
-      296 GETTABLEKS                       R18 R18 K29 ["createElement"]
-      298 GETUPVAL                         R19 8
-      299 GETTABLEKS                       R19 R19 K75 ["Text"]
-      301 DUPTABLE                         R20 K76 [{"tag", "Text", "LayoutOrder", "Size"}]
-      302 LOADK                            R21 K77 ["text-body-medium text-align-y-top text-align-x-center content-default shrink-0 padding-top-medium"]
-      303 SETTABLEKS                       R21 R20 K39 ["tag"]
-      305 SETTABLEKS                       R4 R20 K75 ["Text"]
-      307 NAMECALL                         R21 R12 K48 ["getNextOrder"]
-      309 CALL                             R21 1 1
-      310 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
-      312 GETIMPORT                        R21 K10 [UDim2.new]
-      314 LOADN                            R22 1
-      315 LOADN                            R23 0
-      316 LOADN                            R24 0
-      317 MOVE                             R25 R7
-      318 CALL                             R21 4 1
-      319 SETTABLEKS                       R21 R20 K28 ["Size"]
-      321 CALL                             R18 2 1
-      322 SETTABLEKS                       R18 R17 K43 ["Title"]
-      324 CALL                             R14 3 -1
-      325 RETURN                           R14 -1
-      326 GETUPVAL                         R12 3
-      327 GETTABLEKS                       R12 R12 K29 ["createElement"]
-      329 LOADK                            R13 K78 ["Frame"]
-      330 DUPTABLE                         R14 K79 [{"BackgroundTransparency", "Size", "Position", "LayoutOrder"}]
-      331 LOADN                            R15 1
-      332 SETTABLEKS                       R15 R14 K30 ["BackgroundTransparency"]
-      334 GETTABLEKS                       R15 R1 K28 ["Size"]
-      336 SETTABLEKS                       R15 R14 K28 ["Size"]
-      338 SETTABLEKS                       R6 R14 K7 ["Position"]
-      340 SETTABLEKS                       R9 R14 K16 ["LayoutOrder"]
-      342 DUPTABLE                         R15 K81 [{"PreviewFrame", "Title"}]
-      343 GETUPVAL                         R16 3
-      344 GETTABLEKS                       R16 R16 K29 ["createElement"]
-      346 GETUPVAL                         R17 10
-      347 DUPTABLE                         R18 K83 [{"BackgroundColor3", "BorderColor3", "Size"}]
-      348 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
-      350 GETTABLEKS                       R19 R19 K50 ["background"]
-      352 SETTABLEKS                       R19 R18 K45 ["BackgroundColor3"]
-      354 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
-      356 GETTABLEKS                       R19 R19 K84 ["border"]
-      358 SETTABLEKS                       R19 R18 K82 ["BorderColor3"]
-      360 JUMPIFNOT                        R5 ; [+9]
-      361 GETIMPORT                        R19 K10 [UDim2.new]
-      363 LOADN                            R20 1
-      364 LOADN                            R21 0
-      365 LOADN                            R22 1
-      366 ADD                              R24 R7 R8
-      367 MINUS                            R23 R24
-      368 CALL                             R19 4 1
-      369 JUMPIF                           R19 ; [+7]
-      370 GETIMPORT                        R19 K10 [UDim2.new]
-      372 LOADN                            R20 1
-      373 LOADN                            R21 0
-      374 LOADN                            R22 1
-      375 LOADN                            R23 0
-      376 CALL                             R19 4 1
-      377 SETTABLEKS                       R19 R18 K28 ["Size"]
-      379 DUPTABLE                         R19 K54 [{"Viewport"}]
-      380 GETTABLEKS                       R21 R0 K51 ["state"]
-      382 GETTABLEKS                       R21 R21 K52 ["shouldShow"]
-      384 JUMPIFNOT                        R21 ; [+32]
-      385 GETUPVAL                         R20 3
-      386 GETTABLEKS                       R20 R20 K29 ["createElement"]
-      388 LOADK                            R21 K55 ["ViewportFrame"]
-      389 NEWTABLE                         R22 4 0
-      391 GETUPVAL                         R23 3
-      392 GETTABLEKS                       R23 R23 K85 ["Ref"]
-      394 GETTABLEKS                       R24 R0 K58 ["viewportRef"]
-      396 SETTABLE                         R24 R22 R23
-      397 GETIMPORT                        R23 K10 [UDim2.new]
-      399 LOADN                            R24 1
-      400 LOADN                            R25 0
-      401 LOADN                            R26 1
-      402 LOADN                            R27 0
-      403 CALL                             R23 4 1
-      404 SETTABLEKS                       R23 R22 K28 ["Size"]
-      406 GETTABLEKS                       R23 R3 K49 ["thumbnailPreview"]
-      408 GETTABLEKS                       R23 R23 K50 ["background"]
-      410 SETTABLEKS                       R23 R22 K45 ["BackgroundColor3"]
-      412 LOADN                            R23 1
-      413 SETTABLEKS                       R23 R22 K30 ["BackgroundTransparency"]
-      415 CALL                             R20 2 1
-      416 JUMP                             ; [+62]
-      417 GETUPVAL                         R20 3
-      418 GETTABLEKS                       R20 R20 K29 ["createElement"]
-      420 GETUPVAL                         R21 11
-      421 NEWTABLE                         R22 0 0
-      423 DUPTABLE                         R23 K86 [{"Image", "Tooltip"}]
-      424 GETUPVAL                         R24 3
-      425 GETTABLEKS                       R24 R24 K29 ["createElement"]
-      427 GETUPVAL                         R25 12
-      428 DUPTABLE                         R26 K88 [{"AnchorPoint", "Image", "ImageColor3", "Position", "Size"}]
-      429 GETIMPORT                        R27 K90 [Vector2.new]
-      431 LOADK                            R28 K25 [0.5]
-      432 LOADK                            R29 K25 [0.5]
-      433 CALL                             R27 2 1
-      434 SETTABLEKS                       R27 R26 K87 ["AnchorPoint"]
-      436 GETUPVAL                         R27 9
-      437 GETTABLEKS                       R27 R27 K70 ["WARNING_ICON"]
-      439 SETTABLEKS                       R27 R26 K31 ["Image"]
-      441 GETTABLEKS                       R27 R3 K49 ["thumbnailPreview"]
-      443 GETTABLEKS                       R27 R27 K71 ["text"]
-      445 SETTABLEKS                       R27 R26 K68 ["ImageColor3"]
-      447 GETIMPORT                        R27 K92 [UDim2.fromScale]
-      449 LOADK                            R28 K25 [0.5]
-      450 LOADK                            R29 K25 [0.5]
-      451 CALL                             R27 2 1
-      452 SETTABLEKS                       R27 R26 K7 ["Position"]
-      454 GETTABLEKS                       R27 R3 K49 ["thumbnailPreview"]
-      456 GETTABLEKS                       R27 R27 K72 ["warningIconSize"]
-      458 SETTABLEKS                       R27 R26 K28 ["Size"]
-      460 CALL                             R24 2 1
-      461 SETTABLEKS                       R24 R23 K31 ["Image"]
-      463 GETUPVAL                         R24 3
-      464 GETTABLEKS                       R24 R24 K29 ["createElement"]
-      466 GETUPVAL                         R25 13
-      467 DUPTABLE                         R26 K93 [{"Text"}]
-      468 LOADK                            R29 K62 ["AssetThumbnailPreview"]
-      469 LOADK                            R30 K63 ["PreviewTooBig"]
-      470 NAMECALL                         R27 R2 K64 ["getText"]
-      472 CALL                             R27 3 1
-      473 SETTABLEKS                       R27 R26 K75 ["Text"]
-      475 CALL                             R24 2 1
-      476 SETTABLEKS                       R24 R23 K59 ["Tooltip"]
-      478 CALL                             R20 3 1
-      479 SETTABLEKS                       R20 R19 K53 ["Viewport"]
-      481 CALL                             R16 3 1
-      482 SETTABLEKS                       R16 R15 K80 ["PreviewFrame"]
-      484 MOVE                             R16 R5
-      485 JUMPIFNOT                        R16 ; [+45]
-      486 GETUPVAL                         R16 3
-      487 GETTABLEKS                       R16 R16 K29 ["createElement"]
-      489 LOADK                            R17 K94 ["TextLabel"]
-      490 DUPTABLE                         R18 K98 [{"Text", "Font", "TextSize", "TextColor3", "Position", "Size", "BackgroundTransparency"}]
-      491 SETTABLEKS                       R4 R18 K75 ["Text"]
-      493 GETUPVAL                         R19 14
-      494 GETTABLEKS                       R19 R19 K99 ["FONT"]
-      496 SETTABLEKS                       R19 R18 K95 ["Font"]
-      498 GETUPVAL                         R19 14
-      499 GETTABLEKS                       R19 R19 K100 ["FONT_SIZE_MEDIUM"]
-      501 SETTABLEKS                       R19 R18 K96 ["TextSize"]
-      503 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
-      505 GETTABLEKS                       R19 R19 K71 ["text"]
-      507 SETTABLEKS                       R19 R18 K97 ["TextColor3"]
-      509 GETIMPORT                        R19 K10 [UDim2.new]
-      511 LOADN                            R20 0
-      512 LOADN                            R21 0
-      513 LOADN                            R22 1
-      514 MINUS                            R23 R7
-      515 CALL                             R19 4 1
-      516 SETTABLEKS                       R19 R18 K7 ["Position"]
-      518 GETIMPORT                        R19 K10 [UDim2.new]
-      520 LOADN                            R20 1
-      521 LOADN                            R21 0
-      522 LOADN                            R22 0
-      523 MOVE                             R23 R7
-      524 CALL                             R19 4 1
-      525 SETTABLEKS                       R19 R18 K28 ["Size"]
-      527 LOADN                            R19 1
-      528 SETTABLEKS                       R19 R18 K30 ["BackgroundTransparency"]
-      530 CALL                             R16 2 1
-      531 SETTABLEKS                       R16 R15 K43 ["Title"]
-      533 CALL                             R12 3 -1
-      534 RETURN                           R12 -1
+      103 SETTABLEKS                       R12 R16 K31 ["Image"]
+      105 JUMPIFNOT                        R11 ; [+3]
+      106 GETIMPORT                        R17 K37 [Enum.ScaleType.Fit]
+      108 JUMP                             ; [+1]
+      109 LOADNIL                          R17
+      110 SETTABLEKS                       R17 R16 K32 ["ScaleType"]
+      112 CALL                             R14 2 -1
+      113 RETURN                           R14 -1
+      114 GETUPVAL                         R12 5
+      115 CALL                             R12 0 1
+      116 JUMPIFNOT                        R12 ; [+188]
+      117 GETUPVAL                         R12 6
+      118 GETTABLEKS                       R12 R12 K9 ["new"]
+      120 CALL                             R12 0 1
+      121 JUMPIFNOT                        R5 ; [+9]
+      122 GETIMPORT                        R13 K10 [UDim2.new]
+      124 LOADN                            R14 1
+      125 LOADN                            R15 0
+      126 LOADN                            R16 1
+      127 ADD                              R18 R7 R8
+      128 MINUS                            R17 R18
+      129 CALL                             R13 4 1
+      130 JUMPIF                           R13 ; [+7]
+      131 GETIMPORT                        R13 K10 [UDim2.new]
+      133 LOADN                            R14 1
+      134 LOADN                            R15 0
+      135 LOADN                            R16 1
+      136 LOADN                            R17 0
+      137 CALL                             R13 4 1
+      138 GETUPVAL                         R14 7
+      139 GETTABLEKS                       R14 R14 K29 ["createElement"]
+      141 GETUPVAL                         R15 8
+      142 GETTABLEKS                       R15 R15 K38 ["View"]
+      144 DUPTABLE                         R16 K41 [{["tag"] = "col align-x-left align-y-top", ["Size"], ["Position"], ["LayoutOrder"]}]
+      145 GETTABLEKS                       R17 R1 K28 ["Size"]
+      147 SETTABLEKS                       R17 R16 K28 ["Size"]
+      149 SETTABLEKS                       R6 R16 K7 ["Position"]
+      151 SETTABLEKS                       R9 R16 K16 ["LayoutOrder"]
+      153 DUPTABLE                         R17 K44 [{"ViewportWrapper", "Title"}]
+      154 GETUPVAL                         R18 7
+      155 GETTABLEKS                       R18 R18 K29 ["createElement"]
+      157 GETUPVAL                         R19 8
+      158 GETTABLEKS                       R19 R19 K38 ["View"]
+      160 DUPTABLE                         R20 K47 [{["tag"] = "shrink-0 stroke-default radius-medium", ["LayoutOrder"], ["Size"], ["BackgroundColor3"]}]
+      161 NAMECALL                         R21 R12 K48 ["getNextOrder"]
+      163 CALL                             R21 1 1
+      164 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
+      166 SETTABLEKS                       R13 R20 K28 ["Size"]
+      168 GETTABLEKS                       R21 R3 K49 ["thumbnailPreview"]
+      170 GETTABLEKS                       R21 R21 K50 ["background"]
+      172 SETTABLEKS                       R21 R20 K46 ["BackgroundColor3"]
+      174 GETTABLEKS                       R22 R0 K51 ["state"]
+      176 GETTABLEKS                       R22 R22 K52 ["shouldShow"]
+      178 JUMPIFNOT                        R22 ; [+29]
+      179 DUPTABLE                         R21 K54 [{"Viewport"}]
+      180 GETUPVAL                         R22 7
+      181 GETTABLEKS                       R22 R22 K29 ["createElement"]
+      183 LOADK                            R23 K55 ["ViewportFrame"]
+      184 DUPTABLE                         R24 K57 [{["ref"], ["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 1}]
+      185 GETTABLEKS                       R25 R0 K58 ["viewportRef"]
+      187 SETTABLEKS                       R25 R24 K56 ["ref"]
+      189 GETIMPORT                        R25 K10 [UDim2.new]
+      191 LOADN                            R26 1
+      192 LOADN                            R27 0
+      193 LOADN                            R28 1
+      194 LOADN                            R29 0
+      195 CALL                             R25 4 1
+      196 SETTABLEKS                       R25 R24 K28 ["Size"]
+      198 GETTABLEKS                       R25 R3 K49 ["thumbnailPreview"]
+      200 GETTABLEKS                       R25 R25 K50 ["background"]
+      202 SETTABLEKS                       R25 R24 K46 ["BackgroundColor3"]
+      204 CALL                             R22 2 1
+      205 SETTABLEKS                       R22 R21 K53 ["Viewport"]
+      207 JUMP                             ; [+64]
+      208 DUPTABLE                         R21 K60 [{"Tooltip"}]
+      209 GETUPVAL                         R22 7
+      210 GETTABLEKS                       R22 R22 K29 ["createElement"]
+      212 GETUPVAL                         R23 8
+      213 GETTABLEKS                       R23 R23 K59 ["Tooltip"]
+      215 DUPTABLE                         R24 K61 [{"title"}]
+      216 LOADK                            R27 K62 ["AssetThumbnailPreview"]
+      217 LOADK                            R28 K63 ["PreviewTooBig"]
+      218 NAMECALL                         R25 R2 K64 ["getText"]
+      220 CALL                             R25 3 1
+      221 SETTABLEKS                       R25 R24 K3 ["title"]
+      223 NEWTABLE                         R25 0 1
+      225 GETUPVAL                         R26 7
+      226 GETTABLEKS                       R26 R26 K29 ["createElement"]
+      228 GETUPVAL                         R27 8
+      229 GETTABLEKS                       R27 R27 K38 ["View"]
+      231 DUPTABLE                         R28 K66 [{["tag"] = "align-x-center align-y-center size-full"}]
+      232 DUPTABLE                         R29 K67 [{"Image"}]
+      233 GETUPVAL                         R30 7
+      234 GETTABLEKS                       R30 R30 K29 ["createElement"]
+      236 GETUPVAL                         R31 8
+      237 GETTABLEKS                       R31 R31 K31 ["Image"]
+      239 DUPTABLE                         R32 K69 [{"Image", "ImageColor3", "Size"}]
+      240 GETUPVAL                         R33 9
+      241 GETTABLEKS                       R33 R33 K70 ["WARNING_ICON"]
+      243 SETTABLEKS                       R33 R32 K31 ["Image"]
+      245 GETTABLEKS                       R33 R3 K49 ["thumbnailPreview"]
+      247 GETTABLEKS                       R33 R33 K71 ["text"]
+      249 SETTABLEKS                       R33 R32 K68 ["ImageColor3"]
+      251 GETTABLEKS                       R33 R3 K49 ["thumbnailPreview"]
+      253 GETTABLEKS                       R33 R33 K72 ["warningIconSize"]
+      255 JUMPIF                           R33 ; [+5]
+      256 GETIMPORT                        R33 K74 [UDim2.fromOffset]
+      258 LOADN                            R34 96
+      259 LOADN                            R35 96
+      260 CALL                             R33 2 1
+      261 SETTABLEKS                       R33 R32 K28 ["Size"]
+      263 CALL                             R30 2 1
+      264 SETTABLEKS                       R30 R29 K31 ["Image"]
+      266 CALL                             R26 3 -1
+      267 SETLIST                          R25 R26 -1 [1]
+      269 CALL                             R22 3 1
+      270 SETTABLEKS                       R22 R21 K59 ["Tooltip"]
+      272 CALL                             R18 3 1
+      273 SETTABLEKS                       R18 R17 K42 ["ViewportWrapper"]
+      275 MOVE                             R18 R5
+      276 JUMPIFNOT                        R18 ; [+24]
+      277 GETUPVAL                         R18 7
+      278 GETTABLEKS                       R18 R18 K29 ["createElement"]
+      280 GETUPVAL                         R19 8
+      281 GETTABLEKS                       R19 R19 K75 ["Text"]
+      283 DUPTABLE                         R20 K77 [{["tag"] = "shrink-0 padding-top-medium text-body-medium text-align-x-center text-align-y-top content-default", ["Text"], ["LayoutOrder"], ["Size"]}]
+      284 SETTABLEKS                       R4 R20 K75 ["Text"]
+      286 NAMECALL                         R21 R12 K48 ["getNextOrder"]
+      288 CALL                             R21 1 1
+      289 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
+      291 GETIMPORT                        R21 K10 [UDim2.new]
+      293 LOADN                            R22 1
+      294 LOADN                            R23 0
+      295 LOADN                            R24 0
+      296 MOVE                             R25 R7
+      297 CALL                             R21 4 1
+      298 SETTABLEKS                       R21 R20 K28 ["Size"]
+      300 CALL                             R18 2 1
+      301 SETTABLEKS                       R18 R17 K43 ["Title"]
+      303 CALL                             R14 3 -1
+      304 RETURN                           R14 -1
+      305 GETUPVAL                         R12 3
+      306 GETTABLEKS                       R12 R12 K29 ["createElement"]
+      308 LOADK                            R13 K78 ["Frame"]
+      309 DUPTABLE                         R14 K79 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["LayoutOrder"]}]
+      310 GETTABLEKS                       R15 R1 K28 ["Size"]
+      312 SETTABLEKS                       R15 R14 K28 ["Size"]
+      314 SETTABLEKS                       R6 R14 K7 ["Position"]
+      316 SETTABLEKS                       R9 R14 K16 ["LayoutOrder"]
+      318 DUPTABLE                         R15 K81 [{"PreviewFrame", "Title"}]
+      319 GETUPVAL                         R16 3
+      320 GETTABLEKS                       R16 R16 K29 ["createElement"]
+      322 GETUPVAL                         R17 10
+      323 DUPTABLE                         R18 K83 [{"BackgroundColor3", "BorderColor3", "Size"}]
+      324 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
+      326 GETTABLEKS                       R19 R19 K50 ["background"]
+      328 SETTABLEKS                       R19 R18 K46 ["BackgroundColor3"]
+      330 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
+      332 GETTABLEKS                       R19 R19 K84 ["border"]
+      334 SETTABLEKS                       R19 R18 K82 ["BorderColor3"]
+      336 JUMPIFNOT                        R5 ; [+9]
+      337 GETIMPORT                        R19 K10 [UDim2.new]
+      339 LOADN                            R20 1
+      340 LOADN                            R21 0
+      341 LOADN                            R22 1
+      342 ADD                              R24 R7 R8
+      343 MINUS                            R23 R24
+      344 CALL                             R19 4 1
+      345 JUMPIF                           R19 ; [+7]
+      346 GETIMPORT                        R19 K10 [UDim2.new]
+      348 LOADN                            R20 1
+      349 LOADN                            R21 0
+      350 LOADN                            R22 1
+      351 LOADN                            R23 0
+      352 CALL                             R19 4 1
+      353 SETTABLEKS                       R19 R18 K28 ["Size"]
+      355 DUPTABLE                         R19 K54 [{"Viewport"}]
+      356 GETTABLEKS                       R21 R0 K51 ["state"]
+      358 GETTABLEKS                       R21 R21 K52 ["shouldShow"]
+      360 JUMPIFNOT                        R21 ; [+32]
+      361 GETUPVAL                         R20 3
+      362 GETTABLEKS                       R20 R20 K29 ["createElement"]
+      364 LOADK                            R21 K55 ["ViewportFrame"]
+      365 NEWTABLE                         R22 4 0
+      367 GETUPVAL                         R23 3
+      368 GETTABLEKS                       R23 R23 K85 ["Ref"]
+      370 GETTABLEKS                       R24 R0 K58 ["viewportRef"]
+      372 SETTABLE                         R24 R22 R23
+      373 GETIMPORT                        R23 K10 [UDim2.new]
+      375 LOADN                            R24 1
+      376 LOADN                            R25 0
+      377 LOADN                            R26 1
+      378 LOADN                            R27 0
+      379 CALL                             R23 4 1
+      380 SETTABLEKS                       R23 R22 K28 ["Size"]
+      382 GETTABLEKS                       R23 R3 K49 ["thumbnailPreview"]
+      384 GETTABLEKS                       R23 R23 K50 ["background"]
+      386 SETTABLEKS                       R23 R22 K46 ["BackgroundColor3"]
+      388 LOADN                            R23 1
+      389 SETTABLEKS                       R23 R22 K30 ["BackgroundTransparency"]
+      391 CALL                             R20 2 1
+      392 JUMP                             ; [+62]
+      393 GETUPVAL                         R20 3
+      394 GETTABLEKS                       R20 R20 K29 ["createElement"]
+      396 GETUPVAL                         R21 11
+      397 NEWTABLE                         R22 0 0
+      399 DUPTABLE                         R23 K86 [{"Image", "Tooltip"}]
+      400 GETUPVAL                         R24 3
+      401 GETTABLEKS                       R24 R24 K29 ["createElement"]
+      403 GETUPVAL                         R25 12
+      404 DUPTABLE                         R26 K88 [{"AnchorPoint", "Image", "ImageColor3", "Position", "Size"}]
+      405 GETIMPORT                        R27 K90 [Vector2.new]
+      407 LOADK                            R28 K25 [0.5]
+      408 LOADK                            R29 K25 [0.5]
+      409 CALL                             R27 2 1
+      410 SETTABLEKS                       R27 R26 K87 ["AnchorPoint"]
+      412 GETUPVAL                         R27 9
+      413 GETTABLEKS                       R27 R27 K70 ["WARNING_ICON"]
+      415 SETTABLEKS                       R27 R26 K31 ["Image"]
+      417 GETTABLEKS                       R27 R3 K49 ["thumbnailPreview"]
+      419 GETTABLEKS                       R27 R27 K71 ["text"]
+      421 SETTABLEKS                       R27 R26 K68 ["ImageColor3"]
+      423 GETIMPORT                        R27 K92 [UDim2.fromScale]
+      425 LOADK                            R28 K25 [0.5]
+      426 LOADK                            R29 K25 [0.5]
+      427 CALL                             R27 2 1
+      428 SETTABLEKS                       R27 R26 K7 ["Position"]
+      430 GETTABLEKS                       R27 R3 K49 ["thumbnailPreview"]
+      432 GETTABLEKS                       R27 R27 K72 ["warningIconSize"]
+      434 SETTABLEKS                       R27 R26 K28 ["Size"]
+      436 CALL                             R24 2 1
+      437 SETTABLEKS                       R24 R23 K31 ["Image"]
+      439 GETUPVAL                         R24 3
+      440 GETTABLEKS                       R24 R24 K29 ["createElement"]
+      442 GETUPVAL                         R25 13
+      443 DUPTABLE                         R26 K93 [{"Text"}]
+      444 LOADK                            R29 K62 ["AssetThumbnailPreview"]
+      445 LOADK                            R30 K63 ["PreviewTooBig"]
+      446 NAMECALL                         R27 R2 K64 ["getText"]
+      448 CALL                             R27 3 1
+      449 SETTABLEKS                       R27 R26 K75 ["Text"]
+      451 CALL                             R24 2 1
+      452 SETTABLEKS                       R24 R23 K59 ["Tooltip"]
+      454 CALL                             R20 3 1
+      455 SETTABLEKS                       R20 R19 K53 ["Viewport"]
+      457 CALL                             R16 3 1
+      458 SETTABLEKS                       R16 R15 K80 ["PreviewFrame"]
+      460 MOVE                             R16 R5
+      461 JUMPIFNOT                        R16 ; [+42]
+      462 GETUPVAL                         R16 3
+      463 GETTABLEKS                       R16 R16 K29 ["createElement"]
+      465 LOADK                            R17 K94 ["TextLabel"]
+      466 DUPTABLE                         R18 K98 [{["Text"], ["Font"], ["TextSize"], ["TextColor3"], ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
+      467 SETTABLEKS                       R4 R18 K75 ["Text"]
+      469 GETUPVAL                         R19 14
+      470 GETTABLEKS                       R19 R19 K99 ["FONT"]
+      472 SETTABLEKS                       R19 R18 K95 ["Font"]
+      474 GETUPVAL                         R19 14
+      475 GETTABLEKS                       R19 R19 K100 ["FONT_SIZE_MEDIUM"]
+      477 SETTABLEKS                       R19 R18 K96 ["TextSize"]
+      479 GETTABLEKS                       R19 R3 K49 ["thumbnailPreview"]
+      481 GETTABLEKS                       R19 R19 K71 ["text"]
+      483 SETTABLEKS                       R19 R18 K97 ["TextColor3"]
+      485 GETIMPORT                        R19 K10 [UDim2.new]
+      487 LOADN                            R20 0
+      488 LOADN                            R21 0
+      489 LOADN                            R22 1
+      490 MINUS                            R23 R7
+      491 CALL                             R19 4 1
+      492 SETTABLEKS                       R19 R18 K7 ["Position"]
+      494 GETIMPORT                        R19 K10 [UDim2.new]
+      496 LOADN                            R20 1
+      497 LOADN                            R21 0
+      498 LOADN                            R22 0
+      499 MOVE                             R23 R7
+      500 CALL                             R19 4 1
+      501 SETTABLEKS                       R19 R18 K28 ["Size"]
+      503 CALL                             R16 2 1
+      504 SETTABLEKS                       R16 R15 K43 ["Title"]
+      506 CALL                             R12 3 -1
+      507 RETURN                           R12 -1
 
 PROTO_22:
         0 MOVE                             R2 R0
@@ -1186,7 +1168,7 @@ MAIN:
       118 CALL                             R26 1 1
       119 GETIMPORT                        R27 K23 [game]
       121 LOADK                            R29 K36 ["AssetConfigDescendantsPreviewLimit"]
-      122 LOADN                            R30 16
+      122 LOADN                            R30 10000
       123 NAMECALL                         R27 R27 K37 ["DefineFastInt"]
       125 CALL                             R27 3 1
       126 GETIMPORT                        R28 K5 [require]

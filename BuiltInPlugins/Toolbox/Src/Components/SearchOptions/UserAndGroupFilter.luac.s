@@ -172,62 +172,56 @@ PROTO_9:
       108 GETUPVAL                         R6 1
       109 GETTABLEKS                       R6 R6 K6 ["createElement"]
       111 GETUPVAL                         R7 4
-      112 DUPTABLE                         R8 K31 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-      113 GETIMPORT                        R9 K34 [Enum.AutomaticSize.XY]
+      112 DUPTABLE                         R8 K32 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Spacing"] = 6}]
+      113 GETIMPORT                        R9 K35 [Enum.AutomaticSize.XY]
       115 SETTABLEKS                       R9 R8 K27 ["AutomaticSize"]
-      117 GETIMPORT                        R9 K36 [Enum.HorizontalAlignment.Left]
+      117 GETIMPORT                        R9 K37 [Enum.HorizontalAlignment.Left]
       119 SETTABLEKS                       R9 R8 K28 ["HorizontalAlignment"]
-      121 GETIMPORT                        R9 K39 [Enum.FillDirection.Vertical]
+      121 GETIMPORT                        R9 K40 [Enum.FillDirection.Vertical]
       123 SETTABLEKS                       R9 R8 K29 ["Layout"]
       125 GETTABLEKS                       R9 R1 K7 ["LayoutOrder"]
       127 SETTABLEKS                       R9 R8 K7 ["LayoutOrder"]
-      129 LOADN                            R9 6
-      130 SETTABLEKS                       R9 R8 K30 ["Spacing"]
-      132 DUPTABLE                         R9 K42 [{"LiveSearchBar", "SelectedPills"}]
-      133 GETUPVAL                         R10 1
-      134 GETTABLEKS                       R10 R10 K6 ["createElement"]
-      136 GETUPVAL                         R11 5
-      137 DUPTABLE                         R12 K50 [{"defaultTextKey", "GetKey", "LayoutOrder", "OnSelectItem", "results", "searchTerm", "updateSearch", "width"}]
-      138 LOADK                            R13 K51 ["SearchBarCreatorAndGroupText"]
-      139 SETTABLEKS                       R13 R12 K43 ["defaultTextKey"]
-      141 GETTABLEKS                       R13 R0 K4 ["getKey"]
-      143 SETTABLEKS                       R13 R12 K44 ["GetKey"]
-      145 NAMECALL                         R13 R5 K52 ["getNextOrder"]
-      147 CALL                             R13 1 1
-      148 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
-      150 GETTABLEKS                       R13 R0 K53 ["onSelectCreator"]
-      152 SETTABLEKS                       R13 R12 K45 ["OnSelectItem"]
-      154 GETTABLEKS                       R13 R1 K54 ["CreatorResults"]
-      156 SETTABLEKS                       R13 R12 K46 ["results"]
-      158 GETTABLEKS                       R13 R1 K55 ["SearchTerm"]
-      160 SETTABLEKS                       R13 R12 K47 ["searchTerm"]
-      162 GETTABLEKS                       R13 R0 K56 ["updateUserSearch"]
-      164 SETTABLEKS                       R13 R12 K48 ["updateSearch"]
-      166 GETUPVAL                         R13 6
-      167 GETTABLEKS                       R13 R13 K57 ["SEARCH_BAR_WIDTH"]
-      169 SETTABLEKS                       R13 R12 K49 ["width"]
-      171 CALL                             R10 2 1
-      172 SETTABLEKS                       R10 R9 K40 ["LiveSearchBar"]
-      174 GETUPVAL                         R10 1
-      175 GETTABLEKS                       R10 R10 K6 ["createElement"]
-      177 GETUPVAL                         R11 4
-      178 DUPTABLE                         R12 K31 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-      179 GETIMPORT                        R13 K34 [Enum.AutomaticSize.XY]
-      181 SETTABLEKS                       R13 R12 K27 ["AutomaticSize"]
-      183 GETIMPORT                        R13 K36 [Enum.HorizontalAlignment.Left]
-      185 SETTABLEKS                       R13 R12 K28 ["HorizontalAlignment"]
-      187 GETIMPORT                        R13 K39 [Enum.FillDirection.Vertical]
-      189 SETTABLEKS                       R13 R12 K29 ["Layout"]
-      191 NAMECALL                         R13 R5 K52 ["getNextOrder"]
-      193 CALL                             R13 1 1
-      194 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
-      196 LOADN                            R13 6
-      197 SETTABLEKS                       R13 R12 K30 ["Spacing"]
-      199 MOVE                             R13 R3
-      200 CALL                             R10 3 1
-      201 SETTABLEKS                       R10 R9 K41 ["SelectedPills"]
-      203 CALL                             R6 3 -1
-      204 RETURN                           R6 -1
+      129 DUPTABLE                         R9 K43 [{"LiveSearchBar", "SelectedPills"}]
+      130 GETUPVAL                         R10 1
+      131 GETTABLEKS                       R10 R10 K6 ["createElement"]
+      133 GETUPVAL                         R11 5
+      134 DUPTABLE                         R12 K52 [{["defaultTextKey"] = "SearchBarCreatorAndGroupText", ["GetKey"], ["LayoutOrder"], ["OnSelectItem"], ["results"], ["searchTerm"], ["updateSearch"], ["width"]}]
+      135 GETTABLEKS                       R13 R0 K4 ["getKey"]
+      137 SETTABLEKS                       R13 R12 K46 ["GetKey"]
+      139 NAMECALL                         R13 R5 K53 ["getNextOrder"]
+      141 CALL                             R13 1 1
+      142 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
+      144 GETTABLEKS                       R13 R0 K54 ["onSelectCreator"]
+      146 SETTABLEKS                       R13 R12 K47 ["OnSelectItem"]
+      148 GETTABLEKS                       R13 R1 K55 ["CreatorResults"]
+      150 SETTABLEKS                       R13 R12 K48 ["results"]
+      152 GETTABLEKS                       R13 R1 K56 ["SearchTerm"]
+      154 SETTABLEKS                       R13 R12 K49 ["searchTerm"]
+      156 GETTABLEKS                       R13 R0 K57 ["updateUserSearch"]
+      158 SETTABLEKS                       R13 R12 K50 ["updateSearch"]
+      160 GETUPVAL                         R13 6
+      161 GETTABLEKS                       R13 R13 K58 ["SEARCH_BAR_WIDTH"]
+      163 SETTABLEKS                       R13 R12 K51 ["width"]
+      165 CALL                             R10 2 1
+      166 SETTABLEKS                       R10 R9 K41 ["LiveSearchBar"]
+      168 GETUPVAL                         R10 1
+      169 GETTABLEKS                       R10 R10 K6 ["createElement"]
+      171 GETUPVAL                         R11 4
+      172 DUPTABLE                         R12 K32 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Spacing"] = 6}]
+      173 GETIMPORT                        R13 K35 [Enum.AutomaticSize.XY]
+      175 SETTABLEKS                       R13 R12 K27 ["AutomaticSize"]
+      177 GETIMPORT                        R13 K37 [Enum.HorizontalAlignment.Left]
+      179 SETTABLEKS                       R13 R12 K28 ["HorizontalAlignment"]
+      181 GETIMPORT                        R13 K40 [Enum.FillDirection.Vertical]
+      183 SETTABLEKS                       R13 R12 K29 ["Layout"]
+      185 NAMECALL                         R13 R5 K53 ["getNextOrder"]
+      187 CALL                             R13 1 1
+      188 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
+      190 MOVE                             R13 R3
+      191 CALL                             R10 3 1
+      192 SETTABLEKS                       R10 R9 K42 ["SelectedPills"]
+      194 CALL                             R6 3 -1
+      195 RETURN                           R6 -1
 
 PROTO_10:
         0 MOVE                             R2 R0

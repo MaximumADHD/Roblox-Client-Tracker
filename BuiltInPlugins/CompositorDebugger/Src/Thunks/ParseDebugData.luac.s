@@ -18,7 +18,7 @@ PROTO_0:
        23 GETTABLEKS                       R3 R0 K3 ["id"]
        25 SETTABLE                         R0 R2 R3
        26 GETUPVAL                         R2 1
-       27 JUMPIFNOT                        R2 ; [+45]
+       27 JUMPIFNOT                        R2 ; [+39]
        28 GETUPVAL                         R4 2
        29 FASTCALL2                        MATH_MAX R1 R4 ; [+4]
        31 MOVE                             R3 R1
@@ -26,32 +26,28 @@ PROTO_0:
        34 CALL                             R2 2 1
        35 SETUPVAL                         R2 2
        36 GETTABLEKS                       R2 R0 K7 ["className"]
-       38 JUMPIFNOT                        R2 ; [+34]
+       38 JUMPIFNOT                        R2 ; [+28]
        39 GETUPVAL                         R3 3
        40 GETTABLEKS                       R4 R0 K7 ["className"]
        42 GETTABLE                         R2 R3 R4
-       43 JUMPIF                           R2 ; [+7]
-       44 DUPTABLE                         R2 K9 [{"count", "children"}]
-       45 LOADN                            R3 0
-       46 SETTABLEKS                       R3 R2 K8 ["count"]
-       48 LOADN                            R3 0
-       49 SETTABLEKS                       R3 R2 K0 ["children"]
-       51 GETTABLEKS                       R3 R2 K8 ["count"]
-       53 ADDK                             R3 R3 K1 [1]
-       54 SETTABLEKS                       R3 R2 K8 ["count"]
-       56 GETTABLEKS                       R3 R2 K0 ["children"]
-       58 GETTABLEKS                       R5 R0 K0 ["children"]
-       60 JUMPIFNOT                        R5 ; [+4]
-       61 GETTABLEKS                       R5 R0 K0 ["children"]
-       63 LENGTH                           R4 R5
-       64 JUMP                             ; [+1]
-       65 LOADN                            R4 0
-       66 ADD                              R3 R3 R4
-       67 SETTABLEKS                       R3 R2 K0 ["children"]
-       69 GETUPVAL                         R3 3
-       70 GETTABLEKS                       R4 R0 K7 ["className"]
-       72 SETTABLE                         R2 R3 R4
-       73 RETURN                           R0 0
+       43 JUMPIF                           R2 ; [+1]
+       44 DUPTABLE                         R2 K10 [{["count"] = 0, [2] = 0}]
+       45 GETTABLEKS                       R3 R2 K8 ["count"]
+       47 ADDK                             R3 R3 K1 [1]
+       48 SETTABLEKS                       R3 R2 K8 ["count"]
+       50 GETTABLEKS                       R3 R2 K0 ["children"]
+       52 GETTABLEKS                       R5 R0 K0 ["children"]
+       54 JUMPIFNOT                        R5 ; [+4]
+       55 GETTABLEKS                       R5 R0 K0 ["children"]
+       57 LENGTH                           R4 R5
+       58 JUMP                             ; [+1]
+       59 LOADN                            R4 0
+       60 ADD                              R3 R3 R4
+       61 SETTABLEKS                       R3 R2 K0 ["children"]
+       63 GETUPVAL                         R3 3
+       64 GETTABLEKS                       R4 R0 K7 ["className"]
+       66 SETTABLE                         R2 R3 R4
+       67 RETURN                           R0 0
 
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["getState"]

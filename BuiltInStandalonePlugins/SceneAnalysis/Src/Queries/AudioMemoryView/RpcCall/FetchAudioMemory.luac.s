@@ -233,30 +233,16 @@ PROTO_3:
        15 MOVE                             R5 R2
        16 CALL                             R3 2 0
        17 JUMPIFNOT                        R1 ; [+1]
-       18 JUMPIF                           R2 ; [+34]
-       19 DUPTABLE                         R3 K13 [{"Id", "Name", "Size", "Children"}]
-       20 LOADN                            R4 0
-       21 SETTABLEKS                       R4 R3 K9 ["Id"]
-       23 LOADK                            R4 K14 ["Root"]
-       24 SETTABLEKS                       R4 R3 K10 ["Name"]
-       26 LOADN                            R4 0
-       27 SETTABLEKS                       R4 R3 K11 ["Size"]
-       29 NEWTABLE                         R4 0 1
-       31 DUPTABLE                         R5 K17 [{"Name", "SizeMB", "AssetId", "Id", "Children"}]
-       32 LOADK                            R6 K18 ["Mock Audio"]
-       33 SETTABLEKS                       R6 R5 K10 ["Name"]
-       35 LOADN                            R6 5
-       36 SETTABLEKS                       R6 R5 K15 ["SizeMB"]
-       38 LOADK                            R6 K19 ["54321"]
-       39 SETTABLEKS                       R6 R5 K16 ["AssetId"]
-       41 LOADN                            R6 1
-       42 SETTABLEKS                       R6 R5 K9 ["Id"]
-       44 NEWTABLE                         R6 0 0
-       46 SETTABLEKS                       R6 R5 K12 ["Children"]
-       48 SETLIST                          R4 R5 1 [1]
-       50 SETTABLEKS                       R4 R3 K12 ["Children"]
-       52 RETURN                           R3 1
-       53 RETURN                           R2 1
+       18 JUMPIF                           R2 ; [+13]
+       19 DUPTABLE                         R3 K15 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       20 NEWTABLE                         R4 0 1
+       22 DUPTABLE                         R5 K22 [{["Name"] = "Mock Audio", ["SizeMB"] = 5, ["AssetId"] = "54321", ["Id"] = 1, ["Children"]}]
+       23 NEWTABLE                         R6 0 0
+       25 SETTABLEKS                       R6 R5 K14 ["Children"]
+       27 SETLIST                          R4 R5 1 [1]
+       29 SETTABLEKS                       R4 R3 K14 ["Children"]
+       31 RETURN                           R3 1
+       32 RETURN                           R2 1
 
 PROTO_4:
         0 GETIMPORT                        R1 K1 [game]

@@ -312,34 +312,28 @@ PROTO_12:
        43 LOADN                            R2 0
        44 SETTABLEKS                       R2 R1 K8 ["deleteCount"]
        46 GETUPVAL                         R1 0
-       47 DUPTABLE                         R3 K10 [{"showAutocompleteResults"}]
-       48 LOADB                            R4 0
-       49 SETTABLEKS                       R4 R3 K9 ["showAutocompleteResults"]
-       51 NAMECALL                         R1 R1 K11 ["setState"]
-       53 CALL                             R1 2 0
-       54 GETUPVAL                         R1 0
-       55 GETTABLEKS                       R1 R1 K12 ["tryCacheSearchTerm"]
-       57 MOVE                             R2 R0
-       58 CALL                             R1 1 0
-       59 RETURN                           R0 0
+       47 DUPTABLE                         R3 K11 [{["showAutocompleteResults"] = False}]
+       48 NAMECALL                         R1 R1 K12 ["setState"]
+       50 CALL                             R1 2 0
+       51 GETUPVAL                         R1 0
+       52 GETTABLEKS                       R1 R1 K13 ["tryCacheSearchTerm"]
+       54 MOVE                             R2 R0
+       55 CALL                             R1 1 0
+       56 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showAutocompleteResults"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showAutocompleteResults"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showAutocompleteResults"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["showAutocompleteResults"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0
@@ -392,78 +386,72 @@ PROTO_18:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K8 [{"DisableHover", "FocusedText", "Size", "Text", "OnClick", "DropdownMenuItemButtonStyle", "ItemButtonContentOverride"}]
-        5 LOADB                            R4 1
-        6 SETTABLEKS                       R4 R3 K1 ["DisableHover"]
-        8 LOADK                            R4 K9 [""]
-        9 SETTABLEKS                       R4 R3 K2 ["FocusedText"]
-       11 GETIMPORT                        R4 K12 [UDim2.new]
-       13 LOADN                            R5 1
-       14 LOADN                            R6 0
-       15 LOADN                            R7 0
-       16 LOADN                            R8 28
-       17 CALL                             R4 4 1
-       18 SETTABLEKS                       R4 R3 K3 ["Size"]
-       20 SETTABLEKS                       R0 R3 K4 ["Text"]
-       22 DUPCLOSURE                       R4 K13 [PROTO_16]
-       23 SETTABLEKS                       R4 R3 K5 ["OnClick"]
-       25 LOADK                            R4 K14 ["ToolboxRecentSearchesButton"]
-       26 SETTABLEKS                       R4 R3 K6 ["DropdownMenuItemButtonStyle"]
-       28 GETUPVAL                         R4 0
-       29 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       31 LOADK                            R5 K15 ["TextButton"]
-       32 NEWTABLE                         R6 16 0
-       34 LOADN                            R7 1
-       35 SETTABLEKS                       R7 R6 K16 ["BackgroundTransparency"]
-       37 GETUPVAL                         R7 2
-       38 GETTABLEKS                       R7 R7 K17 ["props"]
-       40 GETTABLEKS                       R7 R7 K18 ["Localization"]
-       42 LOADK                            R9 K19 ["General"]
-       43 LOADK                            R10 K20 ["SearchResultsClearAll"]
-       44 NAMECALL                         R7 R7 K21 ["getText"]
-       46 CALL                             R7 3 1
-       47 SETTABLEKS                       R7 R6 K4 ["Text"]
-       49 GETUPVAL                         R7 2
-       50 GETTABLEKS                       R7 R7 K17 ["props"]
-       52 GETTABLEKS                       R7 R7 K22 ["Stylizer"]
-       54 GETTABLEKS                       R7 R7 K23 ["linkButton"]
-       56 GETTABLEKS                       R7 R7 K24 ["textColor"]
-       58 SETTABLEKS                       R7 R6 K25 ["TextColor3"]
-       60 GETIMPORT                        R7 K12 [UDim2.new]
+        4 DUPTABLE                         R3 K11 [{["DisableHover"] = True, ["FocusedText"] = "", ["Size"], ["Text"], ["OnClick"], ["DropdownMenuItemButtonStyle"] = "ToolboxRecentSearchesButton", ["ItemButtonContentOverride"]}]
+        5 GETIMPORT                        R4 K14 [UDim2.new]
+        7 LOADN                            R5 1
+        8 LOADN                            R6 0
+        9 LOADN                            R7 0
+       10 LOADN                            R8 28
+       11 CALL                             R4 4 1
+       12 SETTABLEKS                       R4 R3 K5 ["Size"]
+       14 SETTABLEKS                       R0 R3 K6 ["Text"]
+       16 DUPCLOSURE                       R4 K15 [PROTO_16]
+       17 SETTABLEKS                       R4 R3 K7 ["OnClick"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       22 LOADK                            R5 K16 ["TextButton"]
+       23 NEWTABLE                         R6 16 0
+       25 LOADN                            R7 1
+       26 SETTABLEKS                       R7 R6 K17 ["BackgroundTransparency"]
+       28 GETUPVAL                         R7 2
+       29 GETTABLEKS                       R7 R7 K18 ["props"]
+       31 GETTABLEKS                       R7 R7 K19 ["Localization"]
+       33 LOADK                            R9 K20 ["General"]
+       34 LOADK                            R10 K21 ["SearchResultsClearAll"]
+       35 NAMECALL                         R7 R7 K22 ["getText"]
+       37 CALL                             R7 3 1
+       38 SETTABLEKS                       R7 R6 K6 ["Text"]
+       40 GETUPVAL                         R7 2
+       41 GETTABLEKS                       R7 R7 K18 ["props"]
+       43 GETTABLEKS                       R7 R7 K23 ["Stylizer"]
+       45 GETTABLEKS                       R7 R7 K24 ["linkButton"]
+       47 GETTABLEKS                       R7 R7 K25 ["textColor"]
+       49 SETTABLEKS                       R7 R6 K26 ["TextColor3"]
+       51 GETIMPORT                        R7 K14 [UDim2.new]
+       53 LOADN                            R8 1
+       54 LOADN                            R9 -14
+       55 LOADK                            R10 K27 [0.5]
+       56 LOADN                            R11 0
+       57 CALL                             R7 4 1
+       58 SETTABLEKS                       R7 R6 K28 ["Position"]
+       60 GETIMPORT                        R7 K30 [Vector2.new]
        62 LOADN                            R8 1
-       63 LOADN                            R9 242
-       64 LOADK                            R10 K26 [0.5]
-       65 LOADN                            R11 0
-       66 CALL                             R7 4 1
-       67 SETTABLEKS                       R7 R6 K27 ["Position"]
-       69 GETIMPORT                        R7 K29 [Vector2.new]
-       71 LOADN                            R8 1
-       72 LOADK                            R9 K26 [0.5]
-       73 CALL                             R7 2 1
-       74 SETTABLEKS                       R7 R6 K30 ["AnchorPoint"]
-       76 LOADN                            R7 3
-       77 SETTABLEKS                       R7 R6 K31 ["LayoutOrder"]
-       79 GETIMPORT                        R7 K33 [UDim2.fromOffset]
-       81 LOADN                            R8 32
-       82 LOADN                            R9 20
-       83 CALL                             R7 2 1
-       84 SETTABLEKS                       R7 R6 K3 ["Size"]
-       86 LOADB                            R7 1
-       87 SETTABLEKS                       R7 R6 K34 ["TextScaled"]
-       89 GETIMPORT                        R7 K38 [Enum.TextYAlignment.Center]
-       91 SETTABLEKS                       R7 R6 K36 ["TextYAlignment"]
-       93 GETIMPORT                        R7 K41 [Enum.TextXAlignment.Right]
-       95 SETTABLEKS                       R7 R6 K39 ["TextXAlignment"]
-       97 GETUPVAL                         R7 0
-       98 GETTABLEKS                       R7 R7 K42 ["Event"]
-      100 GETTABLEKS                       R7 R7 K43 ["MouseButton1Click"]
-      102 NEWCLOSURE                       R8 P1
-      103 CAPTURE                          UPVAL U2
-      104 SETTABLE                         R8 R6 R7
-      105 CALL                             R4 2 1
-      106 SETTABLEKS                       R4 R3 K7 ["ItemButtonContentOverride"]
-      108 CALL                             R1 2 -1
-      109 RETURN                           R1 -1
+       63 LOADK                            R9 K27 [0.5]
+       64 CALL                             R7 2 1
+       65 SETTABLEKS                       R7 R6 K31 ["AnchorPoint"]
+       67 LOADN                            R7 3
+       68 SETTABLEKS                       R7 R6 K32 ["LayoutOrder"]
+       70 GETIMPORT                        R7 K34 [UDim2.fromOffset]
+       72 LOADN                            R8 32
+       73 LOADN                            R9 20
+       74 CALL                             R7 2 1
+       75 SETTABLEKS                       R7 R6 K5 ["Size"]
+       77 LOADB                            R7 1
+       78 SETTABLEKS                       R7 R6 K35 ["TextScaled"]
+       80 GETIMPORT                        R7 K39 [Enum.TextYAlignment.Center]
+       82 SETTABLEKS                       R7 R6 K37 ["TextYAlignment"]
+       84 GETIMPORT                        R7 K42 [Enum.TextXAlignment.Right]
+       86 SETTABLEKS                       R7 R6 K40 ["TextXAlignment"]
+       88 GETUPVAL                         R7 0
+       89 GETTABLEKS                       R7 R7 K43 ["Event"]
+       91 GETTABLEKS                       R7 R7 K44 ["MouseButton1Click"]
+       93 NEWCLOSURE                       R8 P1
+       94 CAPTURE                          UPVAL U2
+       95 SETTABLE                         R8 R6 R7
+       96 CALL                             R4 2 1
+       97 SETTABLEKS                       R4 R3 K10 ["ItemButtonContentOverride"]
+       99 CALL                             R1 2 -1
+      100 RETURN                           R1 -1
 
 PROTO_19:
         0 GETUPVAL                         R0 0
@@ -514,154 +502,142 @@ PROTO_22:
        18 GETUPVAL                         R7 0
        19 GETTABLEKS                       R7 R7 K6 ["createElement"]
        21 GETUPVAL                         R8 2
-       22 DUPTABLE                         R9 K17 [{"HideSeparator", "EnableClearButton", "LayoutOrder", "OnClick", "Size", "Text", "DropdownMenuItemButtonStyle", "OnMouseEnter", "OnMouseLeave", "ItemButtonContentOverride"}]
-       23 LOADB                            R10 1
-       24 SETTABLEKS                       R10 R9 K7 ["HideSeparator"]
-       26 LOADB                            R10 1
-       27 SETTABLEKS                       R10 R9 K8 ["EnableClearButton"]
-       29 SETTABLEKS                       R1 R9 K9 ["LayoutOrder"]
-       31 SETTABLEKS                       R2 R9 K10 ["OnClick"]
-       33 GETIMPORT                        R10 K20 [UDim2.new]
-       35 LOADN                            R11 1
-       36 LOADN                            R12 0
-       37 LOADN                            R13 0
-       38 LOADN                            R14 28
-       39 CALL                             R10 4 1
-       40 SETTABLEKS                       R10 R9 K11 ["Size"]
-       42 SETTABLEKS                       R0 R9 K12 ["Text"]
-       44 LOADK                            R10 K21 ["ToolboxRecentSearchesButton"]
-       45 SETTABLEKS                       R10 R9 K13 ["DropdownMenuItemButtonStyle"]
-       47 NEWCLOSURE                       R10 P0
-       48 CAPTURE                          VAL R6
-       49 CAPTURE                          UPVAL U1
-       50 CAPTURE                          VAL R4
-       51 SETTABLEKS                       R10 R9 K14 ["OnMouseEnter"]
-       53 NEWCLOSURE                       R10 P1
-       54 CAPTURE                          VAL R6
-       55 CAPTURE                          UPVAL U1
-       56 CAPTURE                          VAL R4
-       57 SETTABLEKS                       R10 R9 K15 ["OnMouseLeave"]
-       59 GETUPVAL                         R10 0
-       60 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       62 LOADK                            R11 K22 ["ImageButton"]
-       63 NEWTABLE                         R12 8 0
-       65 LOADN                            R13 1
-       66 SETTABLEKS                       R13 R12 K23 ["BackgroundTransparency"]
-       68 SETTABLEKS                       R3 R12 K24 ["Image"]
-       70 GETIMPORT                        R13 K20 [UDim2.new]
+       22 DUPTABLE                         R9 K19 [{["HideSeparator"] = True, ["EnableClearButton"] = True, ["LayoutOrder"], ["OnClick"], ["Size"], ["Text"], ["DropdownMenuItemButtonStyle"] = "ToolboxRecentSearchesButton", ["OnMouseEnter"], ["OnMouseLeave"], ["ItemButtonContentOverride"]}]
+       23 SETTABLEKS                       R1 R9 K10 ["LayoutOrder"]
+       25 SETTABLEKS                       R2 R9 K11 ["OnClick"]
+       27 GETIMPORT                        R10 K22 [UDim2.new]
+       29 LOADN                            R11 1
+       30 LOADN                            R12 0
+       31 LOADN                            R13 0
+       32 LOADN                            R14 28
+       33 CALL                             R10 4 1
+       34 SETTABLEKS                       R10 R9 K12 ["Size"]
+       36 SETTABLEKS                       R0 R9 K13 ["Text"]
+       38 NEWCLOSURE                       R10 P0
+       39 CAPTURE                          VAL R6
+       40 CAPTURE                          UPVAL U1
+       41 CAPTURE                          VAL R4
+       42 SETTABLEKS                       R10 R9 K16 ["OnMouseEnter"]
+       44 NEWCLOSURE                       R10 P1
+       45 CAPTURE                          VAL R6
+       46 CAPTURE                          UPVAL U1
+       47 CAPTURE                          VAL R4
+       48 SETTABLEKS                       R10 R9 K17 ["OnMouseLeave"]
+       50 GETUPVAL                         R10 0
+       51 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       53 LOADK                            R11 K23 ["ImageButton"]
+       54 NEWTABLE                         R12 8 0
+       56 LOADN                            R13 1
+       57 SETTABLEKS                       R13 R12 K24 ["BackgroundTransparency"]
+       59 SETTABLEKS                       R3 R12 K25 ["Image"]
+       61 GETIMPORT                        R13 K22 [UDim2.new]
+       63 LOADN                            R14 1
+       64 LOADN                            R15 -14
+       65 LOADK                            R16 K26 [0.5]
+       66 LOADN                            R17 0
+       67 CALL                             R13 4 1
+       68 SETTABLEKS                       R13 R12 K27 ["Position"]
+       70 GETIMPORT                        R13 K29 [Vector2.new]
        72 LOADN                            R14 1
-       73 LOADN                            R15 242
-       74 LOADK                            R16 K25 [0.5]
-       75 LOADN                            R17 0
-       76 CALL                             R13 4 1
-       77 SETTABLEKS                       R13 R12 K26 ["Position"]
-       79 GETIMPORT                        R13 K28 [Vector2.new]
-       81 LOADN                            R14 1
-       82 LOADK                            R15 K25 [0.5]
-       83 CALL                             R13 2 1
-       84 SETTABLEKS                       R13 R12 K29 ["AnchorPoint"]
-       86 SETTABLEKS                       R5 R12 K30 ["ImageColor3"]
-       88 LOADN                            R13 3
-       89 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
-       91 GETIMPORT                        R13 K32 [UDim2.fromOffset]
-       93 LOADN                            R14 14
-       94 LOADN                            R15 14
-       95 CALL                             R13 2 1
-       96 SETTABLEKS                       R13 R12 K11 ["Size"]
-       98 GETUPVAL                         R13 0
-       99 GETTABLEKS                       R13 R13 K33 ["Event"]
-      101 GETTABLEKS                       R13 R13 K34 ["MouseButton1Click"]
-      103 NEWCLOSURE                       R14 P2
-      104 CAPTURE                          UPVAL U1
-      105 CAPTURE                          VAL R0
-      106 SETTABLE                         R14 R12 R13
-      107 CALL                             R10 2 1
-      108 SETTABLEKS                       R10 R9 K16 ["ItemButtonContentOverride"]
-      110 CALL                             R7 2 -1
-      111 RETURN                           R7 -1
+       73 LOADK                            R15 K26 [0.5]
+       74 CALL                             R13 2 1
+       75 SETTABLEKS                       R13 R12 K30 ["AnchorPoint"]
+       77 SETTABLEKS                       R5 R12 K31 ["ImageColor3"]
+       79 LOADN                            R13 3
+       80 SETTABLEKS                       R13 R12 K10 ["LayoutOrder"]
+       82 GETIMPORT                        R13 K33 [UDim2.fromOffset]
+       84 LOADN                            R14 14
+       85 LOADN                            R15 14
+       86 CALL                             R13 2 1
+       87 SETTABLEKS                       R13 R12 K12 ["Size"]
+       89 GETUPVAL                         R13 0
+       90 GETTABLEKS                       R13 R13 K34 ["Event"]
+       92 GETTABLEKS                       R13 R13 K35 ["MouseButton1Click"]
+       94 NEWCLOSURE                       R14 P2
+       95 CAPTURE                          UPVAL U1
+       96 CAPTURE                          VAL R0
+       97 SETTABLE                         R14 R12 R13
+       98 CALL                             R10 2 1
+       99 SETTABLEKS                       R10 R9 K18 ["ItemButtonContentOverride"]
+      101 CALL                             R7 2 -1
+      102 RETURN                           R7 -1
 
 PROTO_23:
         0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          VAL R0
         2 CAPTURE                          UPVAL U0
         3 SETTABLEKS                       R1 R0 K0 ["getRecentSearches"]
-        5 DUPTABLE                         R1 K5 [{"showAutocompleteResults", "displayedSearchTerm", "lastSearchTerm", "dropdownMenuRenderItems"}]
-        6 LOADB                            R2 0
-        7 SETTABLEKS                       R2 R1 K1 ["showAutocompleteResults"]
-        9 LOADK                            R2 K6 [""]
-       10 SETTABLEKS                       R2 R1 K2 ["displayedSearchTerm"]
-       12 LOADK                            R2 K6 [""]
-       13 SETTABLEKS                       R2 R1 K3 ["lastSearchTerm"]
-       15 GETUPVAL                         R2 0
-       16 SETTABLEKS                       R2 R1 K4 ["dropdownMenuRenderItems"]
-       18 SETTABLEKS                       R1 R0 K7 ["state"]
-       20 LOADB                            R1 0
-       21 SETTABLEKS                       R1 R0 K8 ["isUserInputting"]
-       23 LOADN                            R1 0
-       24 SETTABLEKS                       R1 R0 K9 ["autocompleteTimer"]
-       26 LOADN                            R1 0
-       27 SETTABLEKS                       R1 R0 K10 ["keyCount"]
-       29 LOADN                            R1 0
-       30 SETTABLEKS                       R1 R0 K11 ["deleteCount"]
-       32 NEWCLOSURE                       R1 P1
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R1 R0 K12 ["onInputBegan"]
-       36 NEWCLOSURE                       R1 P2
-       37 CAPTURE                          VAL R0
-       38 SETTABLEKS                       R1 R0 K13 ["onInputEnded"]
-       40 NEWCLOSURE                       R1 P3
-       41 CAPTURE                          VAL R0
-       42 SETTABLEKS                       R1 R0 K14 ["onSearchTextChanged"]
-       44 NEWCLOSURE                       R1 P4
-       45 CAPTURE                          VAL R0
-       46 SETTABLEKS                       R1 R0 K15 ["onRecentSearchesRenderItem"]
-       48 NEWCLOSURE                       R1 P5
-       49 CAPTURE                          VAL R0
-       50 CAPTURE                          UPVAL U1
-       51 CAPTURE                          UPVAL U2
-       52 SETTABLEKS                       R1 R0 K16 ["onAutocompleteRenderItem"]
-       54 NEWCLOSURE                       R1 P6
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          UPVAL U3
-       57 CAPTURE                          UPVAL U4
-       58 SETTABLEKS                       R1 R0 K17 ["onItemActivated"]
-       60 NEWCLOSURE                       R1 P7
+        5 DUPTABLE                         R1 K7 [{["showAutocompleteResults"] = False, ["displayedSearchTerm"] = "", ["lastSearchTerm"] = "", ["dropdownMenuRenderItems"]}]
+        6 GETUPVAL                         R2 0
+        7 SETTABLEKS                       R2 R1 K6 ["dropdownMenuRenderItems"]
+        9 SETTABLEKS                       R1 R0 K8 ["state"]
+       11 LOADB                            R1 0
+       12 SETTABLEKS                       R1 R0 K9 ["isUserInputting"]
+       14 LOADN                            R1 0
+       15 SETTABLEKS                       R1 R0 K10 ["autocompleteTimer"]
+       17 LOADN                            R1 0
+       18 SETTABLEKS                       R1 R0 K11 ["keyCount"]
+       20 LOADN                            R1 0
+       21 SETTABLEKS                       R1 R0 K12 ["deleteCount"]
+       23 NEWCLOSURE                       R1 P1
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R1 R0 K13 ["onInputBegan"]
+       27 NEWCLOSURE                       R1 P2
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R1 R0 K14 ["onInputEnded"]
+       31 NEWCLOSURE                       R1 P3
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R1 R0 K15 ["onSearchTextChanged"]
+       35 NEWCLOSURE                       R1 P4
+       36 CAPTURE                          VAL R0
+       37 SETTABLEKS                       R1 R0 K16 ["onRecentSearchesRenderItem"]
+       39 NEWCLOSURE                       R1 P5
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          UPVAL U1
+       42 CAPTURE                          UPVAL U2
+       43 SETTABLEKS                       R1 R0 K17 ["onAutocompleteRenderItem"]
+       45 NEWCLOSURE                       R1 P6
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          UPVAL U3
+       48 CAPTURE                          UPVAL U4
+       49 SETTABLEKS                       R1 R0 K18 ["onItemActivated"]
+       51 NEWCLOSURE                       R1 P7
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          UPVAL U0
+       54 SETTABLEKS                       R1 R0 K19 ["clearAllRecentSearches"]
+       56 NEWCLOSURE                       R1 P8
+       57 CAPTURE                          VAL R0
+       58 SETTABLEKS                       R1 R0 K20 ["tryCacheSearchTerm"]
+       60 NEWCLOSURE                       R1 P9
        61 CAPTURE                          VAL R0
-       62 CAPTURE                          UPVAL U0
-       63 SETTABLEKS                       R1 R0 K18 ["clearAllRecentSearches"]
-       65 NEWCLOSURE                       R1 P8
-       66 CAPTURE                          VAL R0
-       67 SETTABLEKS                       R1 R0 K19 ["tryCacheSearchTerm"]
-       69 NEWCLOSURE                       R1 P9
+       62 SETTABLEKS                       R1 R0 K21 ["removeSearchTermFromCache"]
+       64 NEWCLOSURE                       R1 P10
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          UPVAL U4
+       67 SETTABLEKS                       R1 R0 K22 ["onSearchRequested"]
+       69 NEWCLOSURE                       R1 P11
        70 CAPTURE                          VAL R0
-       71 SETTABLEKS                       R1 R0 K20 ["removeSearchTermFromCache"]
-       73 NEWCLOSURE                       R1 P10
-       74 CAPTURE                          VAL R0
-       75 CAPTURE                          UPVAL U4
-       76 SETTABLEKS                       R1 R0 K21 ["onSearchRequested"]
-       78 NEWCLOSURE                       R1 P11
+       71 SETTABLEKS                       R1 R0 K23 ["closeAutocomplete"]
+       73 GETTABLEKS                       R1 R0 K24 ["props"]
+       75 GETTABLEKS                       R1 R1 K25 ["ShowRecentSearchesInAutoComplete"]
+       77 JUMPIFNOT                        R1 ; [+4]
+       78 NEWCLOSURE                       R1 P12
        79 CAPTURE                          VAL R0
-       80 SETTABLEKS                       R1 R0 K22 ["closeAutocomplete"]
-       82 GETTABLEKS                       R1 R0 K23 ["props"]
-       84 GETTABLEKS                       R1 R1 K24 ["ShowRecentSearchesInAutoComplete"]
-       86 JUMPIFNOT                        R1 ; [+4]
-       87 NEWCLOSURE                       R1 P12
-       88 CAPTURE                          VAL R0
-       89 SETTABLEKS                       R1 R0 K25 ["onTextBoxFocusGained"]
-       91 NEWCLOSURE                       R1 P13
-       92 CAPTURE                          VAL R0
-       93 SETTABLEKS                       R1 R0 K26 ["updateRecentSearches"]
-       95 NEWCLOSURE                       R1 P14
-       96 CAPTURE                          UPVAL U1
-       97 CAPTURE                          UPVAL U2
-       98 CAPTURE                          VAL R0
-       99 SETTABLEKS                       R1 R0 K27 ["renderRecentSearchesDropdownMenuHeader"]
-      101 NEWCLOSURE                       R1 P15
-      102 CAPTURE                          UPVAL U1
-      103 CAPTURE                          VAL R0
-      104 CAPTURE                          UPVAL U2
-      105 SETTABLEKS                       R1 R0 K28 ["renderRecentSearchesDropdownMenuItem"]
-      107 RETURN                           R0 0
+       80 SETTABLEKS                       R1 R0 K26 ["onTextBoxFocusGained"]
+       82 NEWCLOSURE                       R1 P13
+       83 CAPTURE                          VAL R0
+       84 SETTABLEKS                       R1 R0 K27 ["updateRecentSearches"]
+       86 NEWCLOSURE                       R1 P14
+       87 CAPTURE                          UPVAL U1
+       88 CAPTURE                          UPVAL U2
+       89 CAPTURE                          VAL R0
+       90 SETTABLEKS                       R1 R0 K28 ["renderRecentSearchesDropdownMenuHeader"]
+       92 NEWCLOSURE                       R1 P15
+       93 CAPTURE                          UPVAL U1
+       94 CAPTURE                          VAL R0
+       95 CAPTURE                          UPVAL U2
+       96 SETTABLEKS                       R1 R0 K29 ["renderRecentSearchesDropdownMenuItem"]
+       98 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R1 0
@@ -819,168 +795,150 @@ PROTO_28:
        30 GETUPVAL                         R7 2
        31 GETTABLEKS                       R8 R1 K8 ["IXP"]
        33 CALL                             R7 1 1
-       34 DUPTABLE                         R8 K24 [{"LayoutOrder", "OnInputBegan", "OnTextBoxFocusGained", "OnInputEnded", "OnSearchRequested", "OnTextChanged", "OnSearchOptionsToggled", "SearchIsFiltered", "ShowSearchButton", "ShowFilterButton", "ShowSearchIcon", "PlaceholderText", "SearchTerm", "Style", "Width"}]
+       34 DUPTABLE                         R8 K27 [{["LayoutOrder"], ["OnInputBegan"], ["OnTextBoxFocusGained"], ["OnInputEnded"], ["OnSearchRequested"], ["OnTextChanged"], ["OnSearchOptionsToggled"], ["SearchIsFiltered"], ["ShowSearchButton"] = False, ["ShowFilterButton"], ["ShowSearchIcon"] = True, ["PlaceholderText"], ["SearchTerm"], ["Style"] = "ToolboxSearchBar", ["Width"]}]
        35 GETTABLEKS                       R9 R1 K9 ["LayoutOrder"]
        37 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
-       39 GETTABLEKS                       R9 R0 K25 ["onInputBegan"]
+       39 GETTABLEKS                       R9 R0 K28 ["onInputBegan"]
        41 SETTABLEKS                       R9 R8 K10 ["OnInputBegan"]
-       43 GETTABLEKS                       R9 R0 K26 ["onTextBoxFocusGained"]
+       43 GETTABLEKS                       R9 R0 K29 ["onTextBoxFocusGained"]
        45 SETTABLEKS                       R9 R8 K11 ["OnTextBoxFocusGained"]
-       47 GETTABLEKS                       R9 R0 K27 ["onInputEnded"]
+       47 GETTABLEKS                       R9 R0 K30 ["onInputEnded"]
        49 SETTABLEKS                       R9 R8 K12 ["OnInputEnded"]
-       51 GETTABLEKS                       R9 R0 K28 ["onSearchRequested"]
+       51 GETTABLEKS                       R9 R0 K31 ["onSearchRequested"]
        53 SETTABLEKS                       R9 R8 K13 ["OnSearchRequested"]
-       55 GETTABLEKS                       R9 R0 K29 ["onSearchTextChanged"]
+       55 GETTABLEKS                       R9 R0 K32 ["onSearchTextChanged"]
        57 SETTABLEKS                       R9 R8 K14 ["OnTextChanged"]
        59 GETTABLEKS                       R9 R1 K15 ["OnSearchOptionsToggled"]
        61 SETTABLEKS                       R9 R8 K15 ["OnSearchOptionsToggled"]
        63 GETTABLEKS                       R9 R1 K16 ["SearchIsFiltered"]
        65 SETTABLEKS                       R9 R8 K16 ["SearchIsFiltered"]
-       67 LOADB                            R9 0
-       68 SETTABLEKS                       R9 R8 K17 ["ShowSearchButton"]
-       70 SETTABLEKS                       R6 R8 K18 ["ShowFilterButton"]
-       72 LOADB                            R9 1
-       73 SETTABLEKS                       R9 R8 K19 ["ShowSearchIcon"]
-       75 JUMPIFNOT                        R7 ; [+8]
-       76 GETTABLEKS                       R9 R1 K30 ["Localization"]
-       78 LOADK                            R11 K31 ["General"]
-       79 LOADK                            R12 K32 ["SearchPlaceholderWithQuotes"]
-       80 NAMECALL                         R9 R9 K33 ["getText"]
-       82 CALL                             R9 3 1
-       83 JUMP                             ; [+7]
-       84 GETTABLEKS                       R9 R1 K30 ["Localization"]
-       86 LOADK                            R11 K31 ["General"]
-       87 LOADK                            R12 K34 ["SearchBarDefaultText"]
-       88 NAMECALL                         R9 R9 K33 ["getText"]
-       90 CALL                             R9 3 1
-       91 SETTABLEKS                       R9 R8 K20 ["PlaceholderText"]
-       93 SETTABLEKS                       R3 R8 K21 ["SearchTerm"]
-       95 LOADK                            R9 K35 ["ToolboxSearchBar"]
-       96 SETTABLEKS                       R9 R8 K22 ["Style"]
-       98 GETTABLEKS                       R9 R1 K23 ["Width"]
-      100 SETTABLEKS                       R9 R8 K23 ["Width"]
-      102 GETUPVAL                         R9 3
-      103 GETTABLEKS                       R9 R9 K36 ["createElement"]
-      105 LOADK                            R10 K37 ["Frame"]
-      106 DUPTABLE                         R11 K40 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      107 LOADN                            R12 1
-      108 SETTABLEKS                       R12 R11 K38 ["BackgroundTransparency"]
-      110 LOADN                            R12 1
-      111 SETTABLEKS                       R12 R11 K9 ["LayoutOrder"]
-      113 GETIMPORT                        R12 K43 [UDim2.new]
-      115 LOADN                            R13 0
-      116 GETTABLEKS                       R14 R1 K23 ["Width"]
-      118 LOADN                            R15 1
-      119 LOADN                            R16 0
-      120 CALL                             R12 4 1
-      121 SETTABLEKS                       R12 R11 K39 ["Size"]
-      123 DUPTABLE                         R12 K48 [{"TutorialStroke", "TutorialCorner", "SearchBar", "AutocompleteDropdown"}]
-      124 GETTABLEKS                       R14 R1 K49 ["hasTutorialLimits"]
-      126 JUMPIFNOT                        R14 ; [+23]
-      127 GETTABLEKS                       R14 R1 K50 ["searchTerm"]
-      129 JUMPIFNOTEQKS                    R14 K51 [""] ; [+20]
-      131 GETUPVAL                         R13 3
-      132 GETTABLEKS                       R13 R13 K36 ["createElement"]
-      134 LOADK                            R14 K52 ["UIStroke"]
-      135 DUPTABLE                         R15 K55 [{"Thickness", "Color"}]
-      136 GETTABLEKS                       R16 R2 K56 ["asset"]
-      138 GETTABLEKS                       R16 R16 K57 ["strokeThickness"]
-      140 SETTABLEKS                       R16 R15 K53 ["Thickness"]
-      142 GETTABLEKS                       R16 R2 K56 ["asset"]
-      144 GETTABLEKS                       R16 R16 K58 ["strokeColor"]
-      146 SETTABLEKS                       R16 R15 K54 ["Color"]
-      148 CALL                             R13 2 1
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R13
-      151 SETTABLEKS                       R13 R12 K44 ["TutorialStroke"]
-      153 GETTABLEKS                       R14 R1 K49 ["hasTutorialLimits"]
-      155 JUMPIFNOT                        R14 ; [+18]
-      156 GETTABLEKS                       R14 R1 K50 ["searchTerm"]
-      158 JUMPIFNOTEQKS                    R14 K51 [""] ; [+15]
-      160 GETUPVAL                         R13 3
-      161 GETTABLEKS                       R13 R13 K36 ["createElement"]
-      163 LOADK                            R14 K59 ["UICorner"]
-      164 DUPTABLE                         R15 K61 [{"CornerRadius"}]
-      165 GETIMPORT                        R16 K63 [UDim.new]
-      167 LOADN                            R17 0
-      168 LOADN                            R18 3
-      169 CALL                             R16 2 1
-      170 SETTABLEKS                       R16 R15 K60 ["CornerRadius"]
-      172 CALL                             R13 2 1
-      173 JUMP                             ; [+1]
-      174 LOADNIL                          R13
-      175 SETTABLEKS                       R13 R12 K45 ["TutorialCorner"]
-      177 GETUPVAL                         R13 3
-      178 GETTABLEKS                       R13 R13 K36 ["createElement"]
-      180 GETUPVAL                         R14 4
-      181 MOVE                             R15 R8
-      182 CALL                             R13 2 1
-      183 SETTABLEKS                       R13 R12 K46 ["SearchBar"]
-      185 JUMPIFNOT                        R4 ; [+52]
-      186 GETUPVAL                         R13 3
-      187 GETTABLEKS                       R13 R13 K36 ["createElement"]
-      189 GETUPVAL                         R14 5
-      190 DUPTABLE                         R15 K70 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
-      191 GETTABLEKS                       R17 R0 K2 ["state"]
-      193 GETTABLEKS                       R17 R17 K71 ["showAutocompleteResults"]
-      195 NOT                              R16 R17
-      196 JUMPIF                           R16 ; [+9]
-      197 GETTABLEKS                       R18 R0 K2 ["state"]
-      199 GETTABLEKS                       R18 R18 K72 ["dropdownMenuRenderItems"]
-      201 LENGTH                           R17 R18
-      202 JUMPIFEQKN                       R17 K73 [1] ; [+2]
-      204 LOADB                            R16 0 +1
-      205 LOADB                            R16 1
-      206 SETTABLEKS                       R16 R15 K64 ["Hide"]
-      208 GETTABLEKS                       R16 R0 K2 ["state"]
-      210 GETTABLEKS                       R16 R16 K72 ["dropdownMenuRenderItems"]
-      212 SETTABLEKS                       R16 R15 K65 ["Items"]
-      214 GETTABLEKS                       R16 R0 K74 ["closeAutocomplete"]
-      216 SETTABLEKS                       R16 R15 K66 ["OnFocusLost"]
-      218 GETTABLEKS                       R16 R0 K75 ["onItemActivated"]
-      220 SETTABLEKS                       R16 R15 K67 ["OnItemActivated"]
-      222 GETTABLEKS                       R16 R0 K76 ["onAutocompleteRenderItem"]
-      224 SETTABLEKS                       R16 R15 K68 ["OnRenderItem"]
-      226 LOADN                            R16 2
-      227 SETTABLEKS                       R16 R15 K69 ["Priority"]
-      229 LOADK                            R16 K77 ["ToolboxSearchBarDropdown"]
-      230 SETTABLEKS                       R16 R15 K22 ["Style"]
-      232 GETTABLEKS                       R16 R1 K23 ["Width"]
-      234 SETTABLEKS                       R16 R15 K23 ["Width"]
-      236 CALL                             R13 2 1
-      237 JUMP                             ; [+47]
-      238 GETUPVAL                         R13 3
-      239 GETTABLEKS                       R13 R13 K36 ["createElement"]
-      241 GETUPVAL                         R14 5
-      242 DUPTABLE                         R15 K70 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
-      243 GETTABLEKS                       R17 R0 K2 ["state"]
-      245 GETTABLEKS                       R17 R17 K71 ["showAutocompleteResults"]
-      247 NOT                              R16 R17
-      248 JUMPIF                           R16 ; [+7]
-      249 GETTABLEKS                       R18 R1 K78 ["autocompleteResults"]
-      251 LENGTH                           R17 R18
-      252 JUMPIFEQKN                       R17 K79 [0] ; [+2]
-      254 LOADB                            R16 0 +1
-      255 LOADB                            R16 1
-      256 SETTABLEKS                       R16 R15 K64 ["Hide"]
-      258 GETTABLEKS                       R16 R1 K78 ["autocompleteResults"]
-      260 SETTABLEKS                       R16 R15 K65 ["Items"]
-      262 GETTABLEKS                       R16 R0 K74 ["closeAutocomplete"]
-      264 SETTABLEKS                       R16 R15 K66 ["OnFocusLost"]
-      266 GETTABLEKS                       R16 R0 K75 ["onItemActivated"]
-      268 SETTABLEKS                       R16 R15 K67 ["OnItemActivated"]
-      270 GETTABLEKS                       R16 R0 K76 ["onAutocompleteRenderItem"]
-      272 SETTABLEKS                       R16 R15 K68 ["OnRenderItem"]
-      274 LOADN                            R16 2
-      275 SETTABLEKS                       R16 R15 K69 ["Priority"]
-      277 LOADK                            R16 K77 ["ToolboxSearchBarDropdown"]
-      278 SETTABLEKS                       R16 R15 K22 ["Style"]
-      280 GETTABLEKS                       R16 R1 K23 ["Width"]
-      282 SETTABLEKS                       R16 R15 K23 ["Width"]
-      284 CALL                             R13 2 1
-      285 SETTABLEKS                       R13 R12 K47 ["AutocompleteDropdown"]
-      287 CALL                             R9 3 -1
-      288 RETURN                           R9 -1
+       67 SETTABLEKS                       R6 R8 K19 ["ShowFilterButton"]
+       69 JUMPIFNOT                        R7 ; [+8]
+       70 GETTABLEKS                       R9 R1 K33 ["Localization"]
+       72 LOADK                            R11 K34 ["General"]
+       73 LOADK                            R12 K35 ["SearchPlaceholderWithQuotes"]
+       74 NAMECALL                         R9 R9 K36 ["getText"]
+       76 CALL                             R9 3 1
+       77 JUMP                             ; [+7]
+       78 GETTABLEKS                       R9 R1 K33 ["Localization"]
+       80 LOADK                            R11 K34 ["General"]
+       81 LOADK                            R12 K37 ["SearchBarDefaultText"]
+       82 NAMECALL                         R9 R9 K36 ["getText"]
+       84 CALL                             R9 3 1
+       85 SETTABLEKS                       R9 R8 K22 ["PlaceholderText"]
+       87 SETTABLEKS                       R3 R8 K23 ["SearchTerm"]
+       89 GETTABLEKS                       R9 R1 K26 ["Width"]
+       91 SETTABLEKS                       R9 R8 K26 ["Width"]
+       93 GETUPVAL                         R9 3
+       94 GETTABLEKS                       R9 R9 K38 ["createElement"]
+       96 LOADK                            R10 K39 ["Frame"]
+       97 DUPTABLE                         R11 K43 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"]}]
+       98 GETIMPORT                        R12 K46 [UDim2.new]
+      100 LOADN                            R13 0
+      101 GETTABLEKS                       R14 R1 K26 ["Width"]
+      103 LOADN                            R15 1
+      104 LOADN                            R16 0
+      105 CALL                             R12 4 1
+      106 SETTABLEKS                       R12 R11 K42 ["Size"]
+      108 DUPTABLE                         R12 K51 [{"TutorialStroke", "TutorialCorner", "SearchBar", "AutocompleteDropdown"}]
+      109 GETTABLEKS                       R14 R1 K52 ["hasTutorialLimits"]
+      111 JUMPIFNOT                        R14 ; [+23]
+      112 GETTABLEKS                       R14 R1 K53 ["searchTerm"]
+      114 JUMPIFNOTEQKS                    R14 K54 [""] ; [+20]
+      116 GETUPVAL                         R13 3
+      117 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      119 LOADK                            R14 K55 ["UIStroke"]
+      120 DUPTABLE                         R15 K58 [{"Thickness", "Color"}]
+      121 GETTABLEKS                       R16 R2 K59 ["asset"]
+      123 GETTABLEKS                       R16 R16 K60 ["strokeThickness"]
+      125 SETTABLEKS                       R16 R15 K56 ["Thickness"]
+      127 GETTABLEKS                       R16 R2 K59 ["asset"]
+      129 GETTABLEKS                       R16 R16 K61 ["strokeColor"]
+      131 SETTABLEKS                       R16 R15 K57 ["Color"]
+      133 CALL                             R13 2 1
+      134 JUMP                             ; [+1]
+      135 LOADNIL                          R13
+      136 SETTABLEKS                       R13 R12 K47 ["TutorialStroke"]
+      138 GETTABLEKS                       R14 R1 K52 ["hasTutorialLimits"]
+      140 JUMPIFNOT                        R14 ; [+18]
+      141 GETTABLEKS                       R14 R1 K53 ["searchTerm"]
+      143 JUMPIFNOTEQKS                    R14 K54 [""] ; [+15]
+      145 GETUPVAL                         R13 3
+      146 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      148 LOADK                            R14 K62 ["UICorner"]
+      149 DUPTABLE                         R15 K64 [{"CornerRadius"}]
+      150 GETIMPORT                        R16 K66 [UDim.new]
+      152 LOADN                            R17 0
+      153 LOADN                            R18 3
+      154 CALL                             R16 2 1
+      155 SETTABLEKS                       R16 R15 K63 ["CornerRadius"]
+      157 CALL                             R13 2 1
+      158 JUMP                             ; [+1]
+      159 LOADNIL                          R13
+      160 SETTABLEKS                       R13 R12 K48 ["TutorialCorner"]
+      162 GETUPVAL                         R13 3
+      163 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      165 GETUPVAL                         R14 4
+      166 MOVE                             R15 R8
+      167 CALL                             R13 2 1
+      168 SETTABLEKS                       R13 R12 K49 ["SearchBar"]
+      170 JUMPIFNOT                        R4 ; [+46]
+      171 GETUPVAL                         R13 3
+      172 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      174 GETUPVAL                         R14 5
+      175 DUPTABLE                         R15 K75 [{["Hide"], ["Items"], ["OnFocusLost"], ["OnItemActivated"], ["OnRenderItem"], ["Priority"] = 2, ["Style"] = "ToolboxSearchBarDropdown", ["Width"]}]
+      176 GETTABLEKS                       R17 R0 K2 ["state"]
+      178 GETTABLEKS                       R17 R17 K76 ["showAutocompleteResults"]
+      180 NOT                              R16 R17
+      181 JUMPIF                           R16 ; [+9]
+      182 GETTABLEKS                       R18 R0 K2 ["state"]
+      184 GETTABLEKS                       R18 R18 K77 ["dropdownMenuRenderItems"]
+      186 LENGTH                           R17 R18
+      187 JUMPIFEQKN                       R17 K41 [1] ; [+2]
+      189 LOADB                            R16 0 +1
+      190 LOADB                            R16 1
+      191 SETTABLEKS                       R16 R15 K67 ["Hide"]
+      193 GETTABLEKS                       R16 R0 K2 ["state"]
+      195 GETTABLEKS                       R16 R16 K77 ["dropdownMenuRenderItems"]
+      197 SETTABLEKS                       R16 R15 K68 ["Items"]
+      199 GETTABLEKS                       R16 R0 K78 ["closeAutocomplete"]
+      201 SETTABLEKS                       R16 R15 K69 ["OnFocusLost"]
+      203 GETTABLEKS                       R16 R0 K79 ["onItemActivated"]
+      205 SETTABLEKS                       R16 R15 K70 ["OnItemActivated"]
+      207 GETTABLEKS                       R16 R0 K80 ["onAutocompleteRenderItem"]
+      209 SETTABLEKS                       R16 R15 K71 ["OnRenderItem"]
+      211 GETTABLEKS                       R16 R1 K26 ["Width"]
+      213 SETTABLEKS                       R16 R15 K26 ["Width"]
+      215 CALL                             R13 2 1
+      216 JUMP                             ; [+41]
+      217 GETUPVAL                         R13 3
+      218 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      220 GETUPVAL                         R14 5
+      221 DUPTABLE                         R15 K75 [{["Hide"], ["Items"], ["OnFocusLost"], ["OnItemActivated"], ["OnRenderItem"], ["Priority"] = 2, ["Style"] = "ToolboxSearchBarDropdown", ["Width"]}]
+      222 GETTABLEKS                       R17 R0 K2 ["state"]
+      224 GETTABLEKS                       R17 R17 K76 ["showAutocompleteResults"]
+      226 NOT                              R16 R17
+      227 JUMPIF                           R16 ; [+7]
+      228 GETTABLEKS                       R18 R1 K81 ["autocompleteResults"]
+      230 LENGTH                           R17 R18
+      231 JUMPIFEQKN                       R17 K82 [0] ; [+2]
+      233 LOADB                            R16 0 +1
+      234 LOADB                            R16 1
+      235 SETTABLEKS                       R16 R15 K67 ["Hide"]
+      237 GETTABLEKS                       R16 R1 K81 ["autocompleteResults"]
+      239 SETTABLEKS                       R16 R15 K68 ["Items"]
+      241 GETTABLEKS                       R16 R0 K78 ["closeAutocomplete"]
+      243 SETTABLEKS                       R16 R15 K69 ["OnFocusLost"]
+      245 GETTABLEKS                       R16 R0 K79 ["onItemActivated"]
+      247 SETTABLEKS                       R16 R15 K70 ["OnItemActivated"]
+      249 GETTABLEKS                       R16 R0 K80 ["onAutocompleteRenderItem"]
+      251 SETTABLEKS                       R16 R15 K71 ["OnRenderItem"]
+      253 GETTABLEKS                       R16 R1 K26 ["Width"]
+      255 SETTABLEKS                       R16 R15 K26 ["Width"]
+      257 CALL                             R13 2 1
+      258 SETTABLEKS                       R13 R12 K50 ["AutocompleteDropdown"]
+      260 CALL                             R9 3 -1
+      261 RETURN                           R9 -1
 
 PROTO_29:
         0 MOVE                             R2 R0

@@ -6,62 +6,42 @@ PROTO_0:
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K0 ["SCREENS"]
         9 GETTABLEKS                       R2 R3 K2 ["CHOOSE_GAME"]
-       11 DUPTABLE                         R3 K12 [{"placeInfo", "gameInfo", "groupInfo", "current", "changed", "errors", "publishInfo", "isPublishing", "screen"}]
-       12 DUPTABLE                         R4 K15 [{"places", "parentGame"}]
+       11 DUPTABLE                         R3 K13 [{["placeInfo"], ["gameInfo"], ["groupInfo"], ["current"], ["changed"], ["errors"], ["publishInfo"], ["isPublishing"] = False, ["screen"]}]
+       12 DUPTABLE                         R4 K16 [{"places", "parentGame"}]
        13 NEWTABLE                         R5 0 0
-       15 SETTABLEKS                       R5 R4 K13 ["places"]
+       15 SETTABLEKS                       R5 R4 K14 ["places"]
        17 NEWTABLE                         R5 0 0
-       19 SETTABLEKS                       R5 R4 K14 ["parentGame"]
+       19 SETTABLEKS                       R5 R4 K15 ["parentGame"]
        21 SETTABLEKS                       R4 R3 K3 ["placeInfo"]
-       23 DUPTABLE                         R4 K17 [{"games"}]
+       23 DUPTABLE                         R4 K18 [{"games"}]
        24 NEWTABLE                         R5 0 0
-       26 SETTABLEKS                       R5 R4 K16 ["games"]
+       26 SETTABLEKS                       R5 R4 K17 ["games"]
        28 SETTABLEKS                       R4 R3 K4 ["gameInfo"]
-       30 DUPTABLE                         R4 K19 [{"groups"}]
+       30 DUPTABLE                         R4 K20 [{"groups"}]
        31 NEWTABLE                         R5 0 0
-       33 SETTABLEKS                       R5 R4 K18 ["groups"]
+       33 SETTABLEKS                       R5 R4 K19 ["groups"]
        35 SETTABLEKS                       R4 R3 K5 ["groupInfo"]
        37 NEWTABLE                         R4 0 0
        39 SETTABLEKS                       R4 R3 K6 ["current"]
-       41 DUPTABLE                         R4 K25 [{"name", "description", "genre", "playableDevices", "OptInLocations"}]
-       42 SETTABLEKS                       R0 R4 K20 ["name"]
-       44 LOADK                            R5 K26 [""]
-       45 SETTABLEKS                       R5 R4 K21 ["description"]
-       47 GETUPVAL                         R6 0
-       48 GETTABLEKS                       R6 R6 K27 ["GENRE_IDS"]
-       50 GETTABLEN                        R5 R6 1
-       51 SETTABLEKS                       R5 R4 K22 ["genre"]
-       53 DUPTABLE                         R5 K32 [{"Computer", "Phone", "Tablet", "VR"}]
-       54 LOADB                            R6 1
-       55 SETTABLEKS                       R6 R5 K28 ["Computer"]
-       57 LOADB                            R6 1
-       58 SETTABLEKS                       R6 R5 K29 ["Phone"]
-       60 LOADB                            R6 1
-       61 SETTABLEKS                       R6 R5 K30 ["Tablet"]
-       63 LOADB                            R6 1
-       64 SETTABLEKS                       R6 R5 K31 ["VR"]
-       66 SETTABLEKS                       R5 R4 K23 ["playableDevices"]
-       68 GETUPVAL                         R5 1
-       69 SETTABLEKS                       R5 R4 K24 ["OptInLocations"]
-       71 SETTABLEKS                       R4 R3 K7 ["changed"]
-       73 NEWTABLE                         R4 0 0
-       75 SETTABLEKS                       R4 R3 K8 ["errors"]
-       77 DUPTABLE                         R4 K37 [{"id", "name", "parentGameName", "parentGameId", "settings"}]
-       78 LOADN                            R5 0
-       79 SETTABLEKS                       R5 R4 K33 ["id"]
-       81 LOADK                            R5 K26 [""]
-       82 SETTABLEKS                       R5 R4 K20 ["name"]
-       84 LOADK                            R5 K26 [""]
-       85 SETTABLEKS                       R5 R4 K34 ["parentGameName"]
-       87 LOADN                            R5 0
-       88 SETTABLEKS                       R5 R4 K35 ["parentGameId"]
-       90 NEWTABLE                         R5 0 0
-       92 SETTABLEKS                       R5 R4 K36 ["settings"]
-       94 SETTABLEKS                       R4 R3 K9 ["publishInfo"]
-       96 LOADB                            R4 0
-       97 SETTABLEKS                       R4 R3 K10 ["isPublishing"]
-       99 SETTABLEKS                       R2 R3 K11 ["screen"]
-      101 RETURN                           R3 1
+       41 DUPTABLE                         R4 K27 [{["name"], ["description"] = "", ["genre"], ["playableDevices"], ["OptInLocations"]}]
+       42 SETTABLEKS                       R0 R4 K21 ["name"]
+       44 GETUPVAL                         R6 0
+       45 GETTABLEKS                       R6 R6 K28 ["GENRE_IDS"]
+       47 GETTABLEN                        R5 R6 1
+       48 SETTABLEKS                       R5 R4 K24 ["genre"]
+       50 DUPTABLE                         R5 K34 [{["Computer"] = True, ["Phone"] = True, ["Tablet"] = True, ["VR"] = True}]
+       51 SETTABLEKS                       R5 R4 K25 ["playableDevices"]
+       53 GETUPVAL                         R5 1
+       54 SETTABLEKS                       R5 R4 K26 ["OptInLocations"]
+       56 SETTABLEKS                       R4 R3 K7 ["changed"]
+       58 NEWTABLE                         R4 0 0
+       60 SETTABLEKS                       R4 R3 K8 ["errors"]
+       62 DUPTABLE                         R4 K40 [{["id"] = 0, ["name"] = "", ["parentGameName"] = "", ["parentGameId"] = 0, ["settings"]}]
+       63 NEWTABLE                         R5 0 0
+       65 SETTABLEKS                       R5 R4 K39 ["settings"]
+       67 SETTABLEKS                       R4 R3 K9 ["publishInfo"]
+       69 SETTABLEKS                       R2 R3 K12 ["screen"]
+       71 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

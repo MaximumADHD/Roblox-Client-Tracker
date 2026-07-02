@@ -15,71 +15,53 @@ PROTO_0:
        17 GETUPVAL                         R4 3
        18 GETTABLEKS                       R4 R4 K4 ["createElement"]
        20 GETUPVAL                         R5 4
-       21 DUPTABLE                         R6 K7 [{"tag", "LayoutOrder"}]
-       22 LOADK                            R7 K8 ["col gap-small size-full-0 auto-y"]
-       23 SETTABLEKS                       R7 R6 K5 ["tag"]
-       25 GETTABLEKS                       R7 R0 K6 ["LayoutOrder"]
-       27 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-       29 DUPTABLE                         R7 K11 [{"Title", "PriceRow"}]
-       30 GETUPVAL                         R8 3
-       31 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       33 GETUPVAL                         R9 5
-       34 DUPTABLE                         R10 K13 [{"Text", "tag", "LayoutOrder"}]
-       35 LOADK                            R13 K14 ["LookComposerDialog"]
-       36 LOADK                            R14 K15 ["TotalPrice"]
-       37 NAMECALL                         R11 R1 K16 ["getText"]
-       39 CALL                             R11 3 1
-       40 SETTABLEKS                       R11 R10 K12 ["Text"]
-       42 LOADK                            R11 K17 ["text-label-medium auto-xy content-emphasis"]
-       43 SETTABLEKS                       R11 R10 K5 ["tag"]
-       45 LOADN                            R11 1
-       46 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-       48 CALL                             R8 2 1
-       49 SETTABLEKS                       R8 R7 K9 ["Title"]
-       51 GETUPVAL                         R8 3
-       52 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       54 GETUPVAL                         R9 4
-       55 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
-       56 LOADK                            R11 K18 ["row gap-xsmall align-y-center auto-xy"]
-       57 SETTABLEKS                       R11 R10 K5 ["tag"]
-       59 LOADN                            R11 2
-       60 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-       62 DUPTABLE                         R11 K21 [{"RobuxIcon", "PriceText"}]
-       63 GETUPVAL                         R12 3
-       64 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       66 GETUPVAL                         R13 6
-       67 DUPTABLE                         R14 K25 [{"Image", "Size", "imageStyle", "LayoutOrder"}]
-       68 LOADK                            R15 K26 ["rbxasset://textures/ui/common/robux_small.png"]
-       69 SETTABLEKS                       R15 R14 K22 ["Image"]
-       71 GETIMPORT                        R15 K29 [UDim2.fromOffset]
-       73 LOADN                            R16 16
-       74 LOADN                            R17 16
-       75 CALL                             R15 2 1
-       76 SETTABLEKS                       R15 R14 K23 ["Size"]
-       78 SETTABLEKS                       R3 R14 K24 ["imageStyle"]
-       80 LOADN                            R15 1
-       81 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-       83 CALL                             R12 2 1
-       84 SETTABLEKS                       R12 R11 K19 ["RobuxIcon"]
-       86 GETUPVAL                         R12 3
-       87 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       89 GETUPVAL                         R13 5
-       90 DUPTABLE                         R14 K13 [{"Text", "tag", "LayoutOrder"}]
-       91 GETTABLEKS                       R16 R0 K30 ["price"]
-       93 FASTCALL1                        TOSTRING R16 ; [+2]
-       94 GETIMPORT                        R15 K32 [tostring]
-       96 CALL                             R15 1 1
-       97 SETTABLEKS                       R15 R14 K12 ["Text"]
-       99 LOADK                            R15 K33 ["text-label-medium auto-xy content-default"]
-      100 SETTABLEKS                       R15 R14 K5 ["tag"]
-      102 LOADN                            R15 2
-      103 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      105 CALL                             R12 2 1
-      106 SETTABLEKS                       R12 R11 K20 ["PriceText"]
-      108 CALL                             R8 3 1
-      109 SETTABLEKS                       R8 R7 K10 ["PriceRow"]
-      111 CALL                             R4 3 -1
-      112 RETURN                           R4 -1
+       21 DUPTABLE                         R6 K8 [{["tag"] = "col gap-small size-full-0 auto-y", ["LayoutOrder"]}]
+       22 GETTABLEKS                       R7 R0 K7 ["LayoutOrder"]
+       24 SETTABLEKS                       R7 R6 K7 ["LayoutOrder"]
+       26 DUPTABLE                         R7 K11 [{"Title", "PriceRow"}]
+       27 GETUPVAL                         R8 3
+       28 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       30 GETUPVAL                         R9 5
+       31 DUPTABLE                         R10 K15 [{["Text"], ["tag"] = "auto-xy text-label-medium content-emphasis", ["LayoutOrder"] = 1}]
+       32 LOADK                            R13 K16 ["LookComposerDialog"]
+       33 LOADK                            R14 K17 ["TotalPrice"]
+       34 NAMECALL                         R11 R1 K18 ["getText"]
+       36 CALL                             R11 3 1
+       37 SETTABLEKS                       R11 R10 K12 ["Text"]
+       39 CALL                             R8 2 1
+       40 SETTABLEKS                       R8 R7 K9 ["Title"]
+       42 GETUPVAL                         R8 3
+       43 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       45 GETUPVAL                         R9 4
+       46 DUPTABLE                         R10 K21 [{["tag"] = "row align-y-center gap-xsmall auto-xy", ["LayoutOrder"] = 2}]
+       47 DUPTABLE                         R11 K24 [{"RobuxIcon", "PriceText"}]
+       48 GETUPVAL                         R12 3
+       49 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       51 GETUPVAL                         R13 6
+       52 DUPTABLE                         R14 K29 [{["Image"] = "rbxasset://textures/ui/common/robux_small.png", ["Size"], ["imageStyle"], ["LayoutOrder"] = 1}]
+       53 GETIMPORT                        R15 K32 [UDim2.fromOffset]
+       55 LOADN                            R16 16
+       56 LOADN                            R17 16
+       57 CALL                             R15 2 1
+       58 SETTABLEKS                       R15 R14 K27 ["Size"]
+       60 SETTABLEKS                       R3 R14 K28 ["imageStyle"]
+       62 CALL                             R12 2 1
+       63 SETTABLEKS                       R12 R11 K22 ["RobuxIcon"]
+       65 GETUPVAL                         R12 3
+       66 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       68 GETUPVAL                         R13 5
+       69 DUPTABLE                         R14 K34 [{["Text"], ["tag"] = "auto-xy text-label-medium content-default", ["LayoutOrder"] = 2}]
+       70 GETTABLEKS                       R16 R0 K35 ["price"]
+       72 FASTCALL1                        TOSTRING R16 ; [+2]
+       73 GETIMPORT                        R15 K37 [tostring]
+       75 CALL                             R15 1 1
+       76 SETTABLEKS                       R15 R14 K12 ["Text"]
+       78 CALL                             R12 2 1
+       79 SETTABLEKS                       R12 R11 K23 ["PriceText"]
+       81 CALL                             R8 3 1
+       82 SETTABLEKS                       R8 R7 K10 ["PriceRow"]
+       84 CALL                             R4 3 -1
+       85 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

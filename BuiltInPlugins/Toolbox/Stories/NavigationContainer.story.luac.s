@@ -31,14 +31,10 @@ MAIN:
        27 GETTABLEKS                       R5 R0 K11 ["Stories"]
        29 GETTABLEKS                       R5 R5 K12 ["ToolboxStoryWrapper"]
        31 CALL                             R4 1 1
-       32 DUPTABLE                         R5 K16 [{"name", "summary", "story"}]
-       33 LOADK                            R6 K10 ["NavigationContainer"]
-       34 SETTABLEKS                       R6 R5 K13 ["name"]
-       36 LOADK                            R6 K17 ["A container that hosts all of the navigation routes."]
-       37 SETTABLEKS                       R6 R5 K14 ["summary"]
-       39 DUPCLOSURE                       R6 K18 [PROTO_0]
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R4
-       42 CAPTURE                          VAL R3
-       43 SETTABLEKS                       R6 R5 K15 ["story"]
-       45 RETURN                           R5 1
+       32 DUPTABLE                         R5 K17 [{["name"] = "NavigationContainer", ["summary"] = "A container that hosts all of the navigation routes.", ["story"]}]
+       33 DUPCLOSURE                       R6 K18 [PROTO_0]
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R3
+       37 SETTABLEKS                       R6 R5 K16 ["story"]
+       39 RETURN                           R5 1

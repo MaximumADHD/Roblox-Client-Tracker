@@ -1,14 +1,8 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K4 [{"PathIndexMap", "NextPageToken", "FetchProgress", "Loading"}]
+        0 DUPTABLE                         R0 K7 [{[1], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["PathIndexMap"]
-        5 LOADK                            R1 K5 [""]
-        6 SETTABLEKS                       R1 R0 K1 ["NextPageToken"]
-        8 LOADN                            R1 0
-        9 SETTABLEKS                       R1 R0 K2 ["FetchProgress"]
-       11 LOADB                            R1 0
-       12 SETTABLEKS                       R1 R0 K3 ["Loading"]
-       14 RETURN                           R0 1
+        5 RETURN                           R0 1
 
 PROTO_1:
         0 NEWTABLE                         R3 8 0
@@ -31,34 +25,28 @@ PROTO_1:
        28 GETUPVAL                         R4 1
        29 GETTABLEKS                       R4 R4 K8 ["RecentUploads"]
        31 GETTABLEKS                       R4 R4 K9 ["Uid"]
-       33 DUPTABLE                         R5 K14 [{"PathIndexMap", "NextPageToken", "FetchProgress", "Loading"}]
+       33 DUPTABLE                         R5 K17 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
        34 NEWTABLE                         R6 0 0
        36 SETTABLEKS                       R6 R5 K10 ["PathIndexMap"]
-       38 LOADK                            R6 K15 [""]
-       39 SETTABLEKS                       R6 R5 K11 ["NextPageToken"]
-       41 LOADN                            R6 0
-       42 SETTABLEKS                       R6 R5 K12 ["FetchProgress"]
-       44 LOADB                            R6 0
-       45 SETTABLEKS                       R6 R5 K13 ["Loading"]
-       47 SETTABLE                         R5 R3 R4
-       48 NEWTABLE                         R3 0 0
-       50 SETTABLEKS                       R3 R2 K16 ["_recentHistory"]
-       52 NEWTABLE                         R3 0 0
-       54 GETUPVAL                         R4 2
-       55 GETTABLEKS                       R4 R4 K17 ["asList"]
-       57 GETUPVAL                         R5 2
-       58 GETTABLEKS                       R5 R5 K18 ["AssetInfoField"]
-       60 CALL                             R4 1 3
-       61 FORGPREP                         R4
-       62 NEWTABLE                         R9 0 0
-       64 SETTABLE                         R9 R3 R8
-       65 FORGLOOP                         R4 2 ; [-4]
-       67 SETTABLEKS                       R3 R2 K19 ["_dataArrays"]
-       69 GETUPVAL                         R4 3
-       70 GETTABLEKS                       R4 R4 K20 ["new"]
-       72 CALL                             R4 0 1
-       73 SETTABLEKS                       R4 R2 K21 ["OnItemChanged"]
-       75 RETURN                           R2 1
+       38 SETTABLE                         R5 R3 R4
+       39 NEWTABLE                         R3 0 0
+       41 SETTABLEKS                       R3 R2 K18 ["_recentHistory"]
+       43 NEWTABLE                         R3 0 0
+       45 GETUPVAL                         R4 2
+       46 GETTABLEKS                       R4 R4 K19 ["asList"]
+       48 GETUPVAL                         R5 2
+       49 GETTABLEKS                       R5 R5 K20 ["AssetInfoField"]
+       51 CALL                             R4 1 3
+       52 FORGPREP                         R4
+       53 NEWTABLE                         R9 0 0
+       55 SETTABLE                         R9 R3 R8
+       56 FORGLOOP                         R4 2 ; [-4]
+       58 SETTABLEKS                       R3 R2 K21 ["_dataArrays"]
+       60 GETUPVAL                         R4 3
+       61 GETTABLEKS                       R4 R4 K22 ["new"]
+       63 CALL                             R4 0 1
+       64 SETTABLEKS                       R4 R2 K23 ["OnItemChanged"]
+       66 RETURN                           R2 1
 
 PROTO_2:
         0 LOADNIL                          R1
@@ -632,35 +620,29 @@ PROTO_23:
 
 PROTO_24:
         0 GETTABLEKS                       R2 R0 K0 ["_indexMap"]
-        2 DUPTABLE                         R3 K5 [{"PathIndexMap", "NextPageToken", "FetchProgress", "Loading"}]
+        2 DUPTABLE                         R3 K8 [{["PathIndexMap"], ["NextPageToken"] = "", ["FetchProgress"] = 0, ["Loading"] = False}]
         3 NEWTABLE                         R4 0 0
         5 SETTABLEKS                       R4 R3 K1 ["PathIndexMap"]
-        7 LOADK                            R4 K6 [""]
-        8 SETTABLEKS                       R4 R3 K2 ["NextPageToken"]
-       10 LOADN                            R4 0
-       11 SETTABLEKS                       R4 R3 K3 ["FetchProgress"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K4 ["Loading"]
-       16 SETTABLE                         R3 R2 R1
-       17 GETTABLEKS                       R3 R0 K7 ["_scopeQueue"]
-       19 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
-       21 MOVE                             R4 R1
-       22 GETIMPORT                        R2 K10 [table.insert]
-       24 CALL                             R2 2 0
-       25 GETTABLEKS                       R3 R0 K7 ["_scopeQueue"]
-       27 LENGTH                           R2 R3
-       28 GETTABLEKS                       R3 R0 K11 ["_maxScopesCached"]
-       30 JUMPIFNOTLT                      R3 R2 ; [+11]
-       32 GETIMPORT                        R2 K13 [table.remove]
-       34 GETTABLEKS                       R3 R0 K7 ["_scopeQueue"]
-       36 LOADN                            R4 1
-       37 CALL                             R2 2 1
-       38 MOVE                             R5 R2
-       39 NAMECALL                         R3 R0 K14 ["removeScope"]
-       41 CALL                             R3 2 0
-       42 GETTABLEKS                       R3 R0 K0 ["_indexMap"]
-       44 GETTABLE                         R2 R3 R1
-       45 RETURN                           R2 1
+        7 SETTABLE                         R3 R2 R1
+        8 GETTABLEKS                       R3 R0 K9 ["_scopeQueue"]
+       10 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       12 MOVE                             R4 R1
+       13 GETIMPORT                        R2 K12 [table.insert]
+       15 CALL                             R2 2 0
+       16 GETTABLEKS                       R3 R0 K9 ["_scopeQueue"]
+       18 LENGTH                           R2 R3
+       19 GETTABLEKS                       R3 R0 K13 ["_maxScopesCached"]
+       21 JUMPIFNOTLT                      R3 R2 ; [+11]
+       23 GETIMPORT                        R2 K15 [table.remove]
+       25 GETTABLEKS                       R3 R0 K9 ["_scopeQueue"]
+       27 LOADN                            R4 1
+       28 CALL                             R2 2 1
+       29 MOVE                             R5 R2
+       30 NAMECALL                         R3 R0 K16 ["removeScope"]
+       32 CALL                             R3 2 0
+       33 GETTABLEKS                       R3 R0 K0 ["_indexMap"]
+       35 GETTABLE                         R2 R3 R1
+       36 RETURN                           R2 1
 
 PROTO_25:
         0 GETTABLEKS                       R3 R0 K0 ["_indexMap"]

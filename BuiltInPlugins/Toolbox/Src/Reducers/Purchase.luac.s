@@ -153,50 +153,42 @@ MAIN:
        89 GETTABLEKS                       R16 R16 K21 ["BuyerStatus"]
        91 CALL                             R15 1 1
        92 GETTABLEKS                       R16 R3 K22 ["createReducer"]
-       94 DUPTABLE                         R17 K30 [{"buyerStatus", "robuxBalance", "status", "cachedOwnedAssets", "assetId", "excessiveTransactionUserIds", "isPurchaseDialogVisible"}]
-       95 LOADNIL                          R18
-       96 SETTABLEKS                       R18 R17 K23 ["buyerStatus"]
-       98 LOADN                            R18 0
-       99 SETTABLEKS                       R18 R17 K24 ["robuxBalance"]
-      101 GETTABLEKS                       R18 R14 K31 ["None"]
-      103 SETTABLEKS                       R18 R17 K25 ["status"]
-      105 NEWTABLE                         R18 0 0
-      107 SETTABLEKS                       R18 R17 K26 ["cachedOwnedAssets"]
-      109 LOADNIL                          R18
-      110 SETTABLEKS                       R18 R17 K27 ["assetId"]
-      112 NEWTABLE                         R18 0 0
-      114 SETTABLEKS                       R18 R17 K28 ["excessiveTransactionUserIds"]
-      116 LOADB                            R18 0
-      117 SETTABLEKS                       R18 R17 K29 ["isPurchaseDialogVisible"]
-      119 NEWTABLE                         R18 8 0
-      121 GETTABLEKS                       R19 R8 K32 ["name"]
-      123 DUPCLOSURE                       R20 K33 [PROTO_0]
-      124 CAPTURE                          VAL R2
-      125 SETTABLE                         R20 R18 R19
-      126 GETTABLEKS                       R19 R13 K32 ["name"]
-      128 DUPCLOSURE                       R20 K34 [PROTO_1]
-      129 CAPTURE                          VAL R2
-      130 CAPTURE                          VAL R14
-      131 SETTABLE                         R20 R18 R19
-      132 GETTABLEKS                       R19 R10 K32 ["name"]
-      134 DUPCLOSURE                       R20 K35 [PROTO_2]
-      135 CAPTURE                          VAL R2
-      136 SETTABLE                         R20 R18 R19
-      137 GETTABLEKS                       R19 R11 K32 ["name"]
-      139 DUPCLOSURE                       R20 K36 [PROTO_3]
-      140 CAPTURE                          VAL R2
-      141 SETTABLE                         R20 R18 R19
-      142 GETTABLEKS                       R19 R9 K32 ["name"]
-      144 DUPCLOSURE                       R20 K37 [PROTO_4]
-      145 CAPTURE                          VAL R2
-      146 SETTABLE                         R20 R18 R19
-      147 GETTABLEKS                       R19 R7 K32 ["name"]
-      149 DUPCLOSURE                       R20 K38 [PROTO_5]
-      150 CAPTURE                          VAL R2
-      151 SETTABLE                         R20 R18 R19
-      152 GETTABLEKS                       R19 R12 K32 ["name"]
-      154 DUPCLOSURE                       R20 K39 [PROTO_6]
-      155 CAPTURE                          VAL R2
-      156 SETTABLE                         R20 R18 R19
-      157 CALL                             R16 2 -1
-      158 RETURN                           R16 -1
+       94 DUPTABLE                         R17 K33 [{["buyerStatus"] = , ["robuxBalance"] = 0, ["status"], ["cachedOwnedAssets"], ["assetId"] = , ["excessiveTransactionUserIds"], ["isPurchaseDialogVisible"] = False}]
+       95 GETTABLEKS                       R18 R14 K34 ["None"]
+       97 SETTABLEKS                       R18 R17 K27 ["status"]
+       99 NEWTABLE                         R18 0 0
+      101 SETTABLEKS                       R18 R17 K28 ["cachedOwnedAssets"]
+      103 NEWTABLE                         R18 0 0
+      105 SETTABLEKS                       R18 R17 K30 ["excessiveTransactionUserIds"]
+      107 NEWTABLE                         R18 8 0
+      109 GETTABLEKS                       R19 R8 K35 ["name"]
+      111 DUPCLOSURE                       R20 K36 [PROTO_0]
+      112 CAPTURE                          VAL R2
+      113 SETTABLE                         R20 R18 R19
+      114 GETTABLEKS                       R19 R13 K35 ["name"]
+      116 DUPCLOSURE                       R20 K37 [PROTO_1]
+      117 CAPTURE                          VAL R2
+      118 CAPTURE                          VAL R14
+      119 SETTABLE                         R20 R18 R19
+      120 GETTABLEKS                       R19 R10 K35 ["name"]
+      122 DUPCLOSURE                       R20 K38 [PROTO_2]
+      123 CAPTURE                          VAL R2
+      124 SETTABLE                         R20 R18 R19
+      125 GETTABLEKS                       R19 R11 K35 ["name"]
+      127 DUPCLOSURE                       R20 K39 [PROTO_3]
+      128 CAPTURE                          VAL R2
+      129 SETTABLE                         R20 R18 R19
+      130 GETTABLEKS                       R19 R9 K35 ["name"]
+      132 DUPCLOSURE                       R20 K40 [PROTO_4]
+      133 CAPTURE                          VAL R2
+      134 SETTABLE                         R20 R18 R19
+      135 GETTABLEKS                       R19 R7 K35 ["name"]
+      137 DUPCLOSURE                       R20 K41 [PROTO_5]
+      138 CAPTURE                          VAL R2
+      139 SETTABLE                         R20 R18 R19
+      140 GETTABLEKS                       R19 R12 K35 ["name"]
+      142 DUPCLOSURE                       R20 K42 [PROTO_6]
+      143 CAPTURE                          VAL R2
+      144 SETTABLE                         R20 R18 R19
+      145 CALL                             R16 2 -1
+      146 RETURN                           R16 -1

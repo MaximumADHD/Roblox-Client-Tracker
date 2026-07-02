@@ -1,40 +1,38 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+29]
+        1 JUMPIFNOT                        R1 ; [+26]
         2 GETUPVAL                         R1 1
         3 GETTABLEKS                       R1 R1 K0 ["createElement"]
         5 GETUPVAL                         R2 2
-        6 DUPTABLE                         R3 K7 [{"OnClick", "Size", "LayoutOrder", "Selected", "Stylizer", "Style"}]
-        7 GETTABLEKS                       R4 R0 K8 ["OnToggleItem"]
+        6 DUPTABLE                         R3 K8 [{["OnClick"], ["Size"], ["LayoutOrder"], ["Selected"], ["Stylizer"], ["Style"] = "EyeIcon"}]
+        7 GETTABLEKS                       R4 R0 K9 ["OnToggleItem"]
         9 SETTABLEKS                       R4 R3 K1 ["OnClick"]
        11 GETTABLEKS                       R4 R0 K2 ["Size"]
        13 SETTABLEKS                       R4 R3 K2 ["Size"]
        15 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
        17 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
-       19 GETTABLEKS                       R4 R0 K9 ["Value"]
+       19 GETTABLEKS                       R4 R0 K10 ["Value"]
        21 SETTABLEKS                       R4 R3 K4 ["Selected"]
        23 GETUPVAL                         R4 3
        24 SETTABLEKS                       R4 R3 K5 ["Stylizer"]
-       26 LOADK                            R4 K10 ["EyeIcon"]
-       27 SETTABLEKS                       R4 R3 K6 ["Style"]
-       29 CALL                             R1 2 1
-       30 RETURN                           R1 1
-       31 GETUPVAL                         R1 1
-       32 GETTABLEKS                       R1 R1 K0 ["createElement"]
-       34 GETUPVAL                         R2 2
-       35 DUPTABLE                         R3 K11 [{"OnClick", "Size", "LayoutOrder", "Selected", "Stylizer"}]
-       36 GETTABLEKS                       R4 R0 K8 ["OnToggleItem"]
-       38 SETTABLEKS                       R4 R3 K1 ["OnClick"]
-       40 GETTABLEKS                       R4 R0 K2 ["Size"]
-       42 SETTABLEKS                       R4 R3 K2 ["Size"]
-       44 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
-       46 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
-       48 GETTABLEKS                       R4 R0 K9 ["Value"]
-       50 SETTABLEKS                       R4 R3 K4 ["Selected"]
-       52 GETUPVAL                         R4 3
-       53 SETTABLEKS                       R4 R3 K5 ["Stylizer"]
-       55 CALL                             R1 2 1
-       56 RETURN                           R1 1
+       26 CALL                             R1 2 1
+       27 RETURN                           R1 1
+       28 GETUPVAL                         R1 1
+       29 GETTABLEKS                       R1 R1 K0 ["createElement"]
+       31 GETUPVAL                         R2 2
+       32 DUPTABLE                         R3 K11 [{"OnClick", "Size", "LayoutOrder", "Selected", "Stylizer"}]
+       33 GETTABLEKS                       R4 R0 K9 ["OnToggleItem"]
+       35 SETTABLEKS                       R4 R3 K1 ["OnClick"]
+       37 GETTABLEKS                       R4 R0 K2 ["Size"]
+       39 SETTABLEKS                       R4 R3 K2 ["Size"]
+       41 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
+       43 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
+       45 GETTABLEKS                       R4 R0 K10 ["Value"]
+       47 SETTABLEKS                       R4 R3 K4 ["Selected"]
+       49 GETUPVAL                         R4 3
+       50 SETTABLEKS                       R4 R3 K5 ["Stylizer"]
+       52 CALL                             R1 2 1
+       53 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

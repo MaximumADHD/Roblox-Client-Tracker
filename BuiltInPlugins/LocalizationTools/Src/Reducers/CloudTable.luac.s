@@ -24,12 +24,10 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K10 [{"IsBusy"}]
-       26 LOADB                            R5 0
-       27 SETTABLEKS                       R5 R4 K9 ["IsBusy"]
-       29 DUPTABLE                         R5 K12 [{"SetIsBusy"}]
-       30 DUPCLOSURE                       R6 K13 [PROTO_0]
-       31 CAPTURE                          VAL R1
-       32 SETTABLEKS                       R6 R5 K11 ["SetIsBusy"]
-       34 CALL                             R3 2 -1
-       35 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K11 [{["IsBusy"] = False}]
+       26 DUPTABLE                         R5 K13 [{"SetIsBusy"}]
+       27 DUPCLOSURE                       R6 K14 [PROTO_0]
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R6 R5 K12 ["SetIsBusy"]
+       31 CALL                             R3 2 -1
+       32 RETURN                           R3 -1

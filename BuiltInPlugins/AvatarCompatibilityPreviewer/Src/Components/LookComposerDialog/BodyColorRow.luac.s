@@ -41,123 +41,99 @@ PROTO_1:
        35 GETUPVAL                         R5 2
        36 GETTABLEKS                       R5 R5 K6 ["createElement"]
        38 GETUPVAL                         R6 3
-       39 DUPTABLE                         R7 K12 [{"tag", "Size", "AutomaticSize", "LayoutOrder", "GroupTransparency"}]
-       40 LOADK                            R8 K13 ["row gap-medium align-y-top padding-bottom-xlarge"]
-       41 SETTABLEKS                       R8 R7 K7 ["tag"]
-       43 GETIMPORT                        R8 K16 [UDim2.new]
-       45 LOADN                            R9 1
-       46 LOADN                            R10 0
-       47 LOADN                            R11 0
-       48 LOADN                            R12 0
-       49 CALL                             R8 4 1
-       50 SETTABLEKS                       R8 R7 K8 ["Size"]
-       52 GETIMPORT                        R8 K19 [Enum.AutomaticSize.Y]
-       54 SETTABLEKS                       R8 R7 K9 ["AutomaticSize"]
-       56 GETTABLEKS                       R8 R0 K10 ["LayoutOrder"]
-       58 SETTABLEKS                       R8 R7 K10 ["LayoutOrder"]
-       60 JUMPIFNOT                        R2 ; [+2]
-       61 LOADK                            R8 K20 [0.5]
-       62 JUMP                             ; [+1]
-       63 LOADN                            R8 0
-       64 SETTABLEKS                       R8 R7 K11 ["GroupTransparency"]
-       66 DUPTABLE                         R8 K24 [{"Thumbnail", "Details", "CheckboxContainer"}]
-       67 GETUPVAL                         R9 2
-       68 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       70 GETUPVAL                         R10 3
-       71 DUPTABLE                         R11 K25 [{"tag", "Size", "LayoutOrder"}]
-       72 LOADK                            R12 K26 ["stroke-default radius-medium"]
-       73 SETTABLEKS                       R12 R11 K7 ["tag"]
-       75 GETIMPORT                        R12 K28 [UDim2.fromOffset]
-       77 LOADN                            R13 40
-       78 LOADN                            R14 40
-       79 CALL                             R12 2 1
-       80 SETTABLEKS                       R12 R11 K8 ["Size"]
-       82 LOADN                            R12 1
-       83 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-       85 DUPTABLE                         R12 K30 [{"ColorSwatch"}]
-       86 GETTABLEKS                       R13 R0 K31 ["color"]
-       88 JUMPIFNOT                        R13 ; [+36]
-       89 GETUPVAL                         R13 2
-       90 GETTABLEKS                       R13 R13 K6 ["createElement"]
-       92 LOADK                            R14 K32 ["Frame"]
-       93 DUPTABLE                         R15 K35 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
-       94 GETIMPORT                        R16 K37 [UDim2.fromScale]
-       96 LOADN                            R17 1
-       97 LOADN                            R18 1
-       98 CALL                             R16 2 1
-       99 SETTABLEKS                       R16 R15 K8 ["Size"]
-      101 GETTABLEKS                       R16 R0 K31 ["color"]
-      103 SETTABLEKS                       R16 R15 K33 ["BackgroundColor3"]
-      105 LOADN                            R16 0
-      106 SETTABLEKS                       R16 R15 K34 ["BorderSizePixel"]
-      108 DUPTABLE                         R16 K39 [{"UICorner"}]
-      109 GETUPVAL                         R17 2
-      110 GETTABLEKS                       R17 R17 K6 ["createElement"]
-      112 LOADK                            R18 K38 ["UICorner"]
-      113 DUPTABLE                         R19 K41 [{"CornerRadius"}]
-      114 GETIMPORT                        R20 K43 [UDim.new]
-      116 LOADN                            R21 0
-      117 LOADN                            R22 4
-      118 CALL                             R20 2 1
-      119 SETTABLEKS                       R20 R19 K40 ["CornerRadius"]
-      121 CALL                             R17 2 1
-      122 SETTABLEKS                       R17 R16 K38 ["UICorner"]
-      124 CALL                             R13 3 1
-      125 SETTABLEKS                       R13 R12 K29 ["ColorSwatch"]
-      127 CALL                             R9 3 1
-      128 SETTABLEKS                       R9 R8 K21 ["Thumbnail"]
-      130 GETUPVAL                         R9 2
-      131 GETTABLEKS                       R9 R9 K6 ["createElement"]
-      133 GETUPVAL                         R10 3
-      134 DUPTABLE                         R11 K44 [{"tag", "LayoutOrder"}]
-      135 LOADK                            R12 K45 ["col grow auto-y"]
-      136 SETTABLEKS                       R12 R11 K7 ["tag"]
-      138 LOADN                            R12 2
-      139 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-      141 DUPTABLE                         R12 K47 [{"Label"}]
-      142 GETUPVAL                         R13 2
-      143 GETTABLEKS                       R13 R13 K6 ["createElement"]
-      145 GETUPVAL                         R14 4
-      146 DUPTABLE                         R15 K49 [{"Text", "tag", "LayoutOrder"}]
-      147 LOADK                            R18 K50 ["LookComposerDialog"]
-      148 LOADK                            R19 K51 ["SkinColor"]
-      149 NAMECALL                         R16 R1 K52 ["getText"]
-      151 CALL                             R16 3 1
-      152 SETTABLEKS                       R16 R15 K48 ["Text"]
-      154 LOADK                            R16 K53 ["text-label-medium auto-xy content-emphasis"]
-      155 SETTABLEKS                       R16 R15 K7 ["tag"]
-      157 LOADN                            R16 1
-      158 SETTABLEKS                       R16 R15 K10 ["LayoutOrder"]
-      160 CALL                             R13 2 1
-      161 SETTABLEKS                       R13 R12 K46 ["Label"]
-      163 CALL                             R9 3 1
-      164 SETTABLEKS                       R9 R8 K22 ["Details"]
-      166 GETUPVAL                         R9 2
-      167 GETTABLEKS                       R9 R9 K6 ["createElement"]
-      169 GETUPVAL                         R10 3
-      170 DUPTABLE                         R11 K44 [{"tag", "LayoutOrder"}]
-      171 LOADK                            R12 K54 ["auto-xy padding-left-medium"]
-      172 SETTABLEKS                       R12 R11 K7 ["tag"]
-      174 LOADN                            R12 3
-      175 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-      177 DUPTABLE                         R12 K56 [{"Checkbox"}]
-      178 GETUPVAL                         R13 2
-      179 GETTABLEKS                       R13 R13 K6 ["createElement"]
-      181 GETUPVAL                         R14 5
-      182 DUPTABLE                         R15 K62 [{"isChecked", "isDisabled", "label", "onActivated", "size"}]
-      183 SETTABLEKS                       R3 R15 K57 ["isChecked"]
-      185 SETTABLEKS                       R2 R15 K58 ["isDisabled"]
-      187 LOADK                            R16 K63 [""]
-      188 SETTABLEKS                       R16 R15 K59 ["label"]
-      190 SETTABLEKS                       R4 R15 K60 ["onActivated"]
-      192 LOADK                            R16 K64 ["Small"]
-      193 SETTABLEKS                       R16 R15 K61 ["size"]
-      195 CALL                             R13 2 1
-      196 SETTABLEKS                       R13 R12 K55 ["Checkbox"]
-      198 CALL                             R9 3 1
-      199 SETTABLEKS                       R9 R8 K23 ["CheckboxContainer"]
-      201 CALL                             R5 3 -1
-      202 RETURN                           R5 -1
+       39 DUPTABLE                         R7 K13 [{["tag"] = "row align-y-top gap-medium padding-bottom-xlarge", ["Size"], ["AutomaticSize"], ["LayoutOrder"], ["GroupTransparency"]}]
+       40 GETIMPORT                        R8 K16 [UDim2.new]
+       42 LOADN                            R9 1
+       43 LOADN                            R10 0
+       44 LOADN                            R11 0
+       45 LOADN                            R12 0
+       46 CALL                             R8 4 1
+       47 SETTABLEKS                       R8 R7 K9 ["Size"]
+       49 GETIMPORT                        R8 K19 [Enum.AutomaticSize.Y]
+       51 SETTABLEKS                       R8 R7 K10 ["AutomaticSize"]
+       53 GETTABLEKS                       R8 R0 K11 ["LayoutOrder"]
+       55 SETTABLEKS                       R8 R7 K11 ["LayoutOrder"]
+       57 JUMPIFNOT                        R2 ; [+2]
+       58 LOADK                            R8 K20 [0.5]
+       59 JUMP                             ; [+1]
+       60 LOADN                            R8 0
+       61 SETTABLEKS                       R8 R7 K12 ["GroupTransparency"]
+       63 DUPTABLE                         R8 K24 [{"Thumbnail", "Details", "CheckboxContainer"}]
+       64 GETUPVAL                         R9 2
+       65 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       67 GETUPVAL                         R10 3
+       68 DUPTABLE                         R11 K27 [{["tag"] = "stroke-default radius-medium", ["Size"], ["LayoutOrder"] = 1}]
+       69 GETIMPORT                        R12 K29 [UDim2.fromOffset]
+       71 LOADN                            R13 40
+       72 LOADN                            R14 40
+       73 CALL                             R12 2 1
+       74 SETTABLEKS                       R12 R11 K9 ["Size"]
+       76 DUPTABLE                         R12 K31 [{"ColorSwatch"}]
+       77 GETTABLEKS                       R13 R0 K32 ["color"]
+       79 JUMPIFNOT                        R13 ; [+33]
+       80 GETUPVAL                         R13 2
+       81 GETTABLEKS                       R13 R13 K6 ["createElement"]
+       83 LOADK                            R14 K33 ["Frame"]
+       84 DUPTABLE                         R15 K37 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+       85 GETIMPORT                        R16 K39 [UDim2.fromScale]
+       87 LOADN                            R17 1
+       88 LOADN                            R18 1
+       89 CALL                             R16 2 1
+       90 SETTABLEKS                       R16 R15 K9 ["Size"]
+       92 GETTABLEKS                       R16 R0 K32 ["color"]
+       94 SETTABLEKS                       R16 R15 K34 ["BackgroundColor3"]
+       96 DUPTABLE                         R16 K41 [{"UICorner"}]
+       97 GETUPVAL                         R17 2
+       98 GETTABLEKS                       R17 R17 K6 ["createElement"]
+      100 LOADK                            R18 K40 ["UICorner"]
+      101 DUPTABLE                         R19 K43 [{"CornerRadius"}]
+      102 GETIMPORT                        R20 K45 [UDim.new]
+      104 LOADN                            R21 0
+      105 LOADN                            R22 4
+      106 CALL                             R20 2 1
+      107 SETTABLEKS                       R20 R19 K42 ["CornerRadius"]
+      109 CALL                             R17 2 1
+      110 SETTABLEKS                       R17 R16 K40 ["UICorner"]
+      112 CALL                             R13 3 1
+      113 SETTABLEKS                       R13 R12 K30 ["ColorSwatch"]
+      115 CALL                             R9 3 1
+      116 SETTABLEKS                       R9 R8 K21 ["Thumbnail"]
+      118 GETUPVAL                         R9 2
+      119 GETTABLEKS                       R9 R9 K6 ["createElement"]
+      121 GETUPVAL                         R10 3
+      122 DUPTABLE                         R11 K48 [{["tag"] = "col grow auto-y", ["LayoutOrder"] = 2}]
+      123 DUPTABLE                         R12 K50 [{"Label"}]
+      124 GETUPVAL                         R13 2
+      125 GETTABLEKS                       R13 R13 K6 ["createElement"]
+      127 GETUPVAL                         R14 4
+      128 DUPTABLE                         R15 K53 [{["Text"], ["tag"] = "auto-xy text-label-medium content-emphasis", ["LayoutOrder"] = 1}]
+      129 LOADK                            R18 K54 ["LookComposerDialog"]
+      130 LOADK                            R19 K55 ["SkinColor"]
+      131 NAMECALL                         R16 R1 K56 ["getText"]
+      133 CALL                             R16 3 1
+      134 SETTABLEKS                       R16 R15 K51 ["Text"]
+      136 CALL                             R13 2 1
+      137 SETTABLEKS                       R13 R12 K49 ["Label"]
+      139 CALL                             R9 3 1
+      140 SETTABLEKS                       R9 R8 K22 ["Details"]
+      142 GETUPVAL                         R9 2
+      143 GETTABLEKS                       R9 R9 K6 ["createElement"]
+      145 GETUPVAL                         R10 3
+      146 DUPTABLE                         R11 K59 [{["tag"] = "auto-xy padding-left-medium", ["LayoutOrder"] = 3}]
+      147 DUPTABLE                         R12 K61 [{"Checkbox"}]
+      148 GETUPVAL                         R13 2
+      149 GETTABLEKS                       R13 R13 K6 ["createElement"]
+      151 GETUPVAL                         R14 5
+      152 DUPTABLE                         R15 K69 [{["isChecked"], ["isDisabled"], ["label"] = "", ["onActivated"], ["size"] = "Small"}]
+      153 SETTABLEKS                       R3 R15 K62 ["isChecked"]
+      155 SETTABLEKS                       R2 R15 K63 ["isDisabled"]
+      157 SETTABLEKS                       R4 R15 K66 ["onActivated"]
+      159 CALL                             R13 2 1
+      160 SETTABLEKS                       R13 R12 K60 ["Checkbox"]
+      162 CALL                             R9 3 1
+      163 SETTABLEKS                       R9 R8 K23 ["CheckboxContainer"]
+      165 CALL                             R5 3 -1
+      166 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -44,34 +44,22 @@ MAIN:
        61 CALL                             R11 2 1
        62 MOVE                             R12 R2
        63 LOADK                            R13 K21 [">> .Arrow"]
-       64 DUPTABLE                         R14 K25 [{"BackgroundTransparency", "Image", "Size"}]
-       65 LOADN                            R15 1
-       66 SETTABLEKS                       R15 R14 K22 ["BackgroundTransparency"]
-       68 LOADK                            R15 K26 ["$ArrowRightImage"]
-       69 SETTABLEKS                       R15 R14 K23 ["Image"]
-       71 GETIMPORT                        R15 K29 [UDim2.fromOffset]
-       73 LOADN                            R16 16
-       74 LOADN                            R17 16
-       75 CALL                             R15 2 1
-       76 SETTABLEKS                       R15 R14 K24 ["Size"]
-       78 NEWTABLE                         R15 0 1
-       80 MOVE                             R16 R2
-       81 LOADK                            R17 K30 [".Invisible"]
-       82 DUPTABLE                         R18 K32 [{"ImageTransparency"}]
-       83 LOADN                            R19 1
-       84 SETTABLEKS                       R19 R18 K31 ["ImageTransparency"]
-       86 CALL                             R16 2 -1
-       87 SETLIST                          R15 R16 -1 [1]
-       89 CALL                             R12 3 -1
-       90 SETLIST                          R10 R11 -1 [1]
-       92 CALL                             R7 3 -1
-       93 SETLIST                          R6 R7 -1 [1]
-       95 DUPTABLE                         R7 K36 [{"ArrowSize", "CellPadding", "Indent"}]
-       96 LOADN                            R8 16
-       97 SETTABLEKS                       R8 R7 K33 ["ArrowSize"]
-       99 LOADN                            R8 5
-      100 SETTABLEKS                       R8 R7 K34 ["CellPadding"]
-      102 LOADN                            R8 20
-      103 SETTABLEKS                       R8 R7 K35 ["Indent"]
-      105 CALL                             R3 4 -1
-      106 RETURN                           R3 -1
+       64 DUPTABLE                         R14 K27 [{["BackgroundTransparency"] = 1, ["Image"] = "$ArrowRightImage", ["Size"]}]
+       65 GETIMPORT                        R15 K30 [UDim2.fromOffset]
+       67 LOADN                            R16 16
+       68 LOADN                            R17 16
+       69 CALL                             R15 2 1
+       70 SETTABLEKS                       R15 R14 K26 ["Size"]
+       72 NEWTABLE                         R15 0 1
+       74 MOVE                             R16 R2
+       75 LOADK                            R17 K31 [".Invisible"]
+       76 DUPTABLE                         R18 K33 [{["ImageTransparency"] = 1}]
+       77 CALL                             R16 2 -1
+       78 SETLIST                          R15 R16 -1 [1]
+       80 CALL                             R12 3 -1
+       81 SETLIST                          R10 R11 -1 [1]
+       83 CALL                             R7 3 -1
+       84 SETLIST                          R6 R7 -1 [1]
+       86 DUPTABLE                         R7 K40 [{["ArrowSize"] = 16, ["CellPadding"] = 5, ["Indent"] = 20}]
+       87 CALL                             R3 4 -1
+       88 RETURN                           R3 -1

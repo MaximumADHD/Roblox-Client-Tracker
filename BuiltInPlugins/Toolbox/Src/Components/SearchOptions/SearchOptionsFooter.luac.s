@@ -75,7 +75,7 @@ PROTO_4:
        56 GETUPVAL                         R8 1
        57 GETTABLEKS                       R8 R8 K15 ["createElement"]
        59 LOADK                            R9 K16 ["Frame"]
-       60 DUPTABLE                         R10 K22 [{"AnchorPoint", "Position", "LayoutOrder", "Size", "BackgroundTransparency"}]
+       60 DUPTABLE                         R10 K23 [{["AnchorPoint"], ["Position"], ["LayoutOrder"], ["Size"], ["BackgroundTransparency"] = 1}]
        61 GETTABLEKS                       R11 R0 K0 ["props"]
        63 GETTABLEKS                       R11 R11 K17 ["AnchorPoint"]
        65 SETTABLEKS                       R11 R10 K17 ["AnchorPoint"]
@@ -85,144 +85,138 @@ PROTO_4:
        73 GETTABLEKS                       R11 R0 K0 ["props"]
        75 GETTABLEKS                       R11 R11 K19 ["LayoutOrder"]
        77 SETTABLEKS                       R11 R10 K19 ["LayoutOrder"]
-       79 GETIMPORT                        R11 K24 [UDim2.new]
+       79 GETIMPORT                        R11 K25 [UDim2.new]
        81 LOADN                            R12 1
        82 LOADN                            R13 0
        83 LOADN                            R14 0
        84 GETUPVAL                         R15 2
-       85 GETTABLEKS                       R15 R15 K25 ["FOOTER_BUTTON_HEIGHT"]
+       85 GETTABLEKS                       R15 R15 K26 ["FOOTER_BUTTON_HEIGHT"]
        87 CALL                             R11 4 1
        88 SETTABLEKS                       R11 R10 K20 ["Size"]
-       90 LOADN                            R11 1
-       91 SETTABLEKS                       R11 R10 K21 ["BackgroundTransparency"]
-       93 DUPTABLE                         R11 K29 [{"UIListLayout", "CancelButton", "ApplyButton"}]
-       94 GETUPVAL                         R12 1
-       95 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       97 LOADK                            R13 K26 ["UIListLayout"]
-       98 DUPTABLE                         R14 K34 [{"FillDirection", "HorizontalAlignment", "SortOrder", "Padding"}]
-       99 GETIMPORT                        R15 K37 [Enum.FillDirection.Horizontal]
-      101 SETTABLEKS                       R15 R14 K30 ["FillDirection"]
-      103 GETIMPORT                        R15 K39 [Enum.HorizontalAlignment.Right]
-      105 SETTABLEKS                       R15 R14 K31 ["HorizontalAlignment"]
-      107 GETIMPORT                        R15 K40 [Enum.SortOrder.LayoutOrder]
-      109 SETTABLEKS                       R15 R14 K32 ["SortOrder"]
-      111 GETIMPORT                        R15 K42 [UDim.new]
-      113 LOADN                            R16 0
-      114 LOADN                            R17 10
-      115 CALL                             R15 2 1
-      116 SETTABLEKS                       R15 R14 K33 ["Padding"]
-      118 CALL                             R12 2 1
-      119 SETTABLEKS                       R12 R11 K26 ["UIListLayout"]
-      121 GETUPVAL                         R12 1
-      122 GETTABLEKS                       R12 R12 K15 ["createElement"]
-      124 GETUPVAL                         R13 3
-      125 NEWTABLE                         R14 8 0
-      127 LOADN                            R15 1
-      128 SETTABLEKS                       R15 R14 K19 ["LayoutOrder"]
-      130 GETIMPORT                        R15 K24 [UDim2.new]
-      132 LOADN                            R16 0
-      133 LOADN                            R18 55
-      134 FASTCALL2                        MATH_MAX R18 R5 ; [+4]
-      136 MOVE                             R19 R5
-      137 GETIMPORT                        R17 K45 [math.max]
-      139 CALL                             R17 2 1
-      140 LOADN                            R18 1
-      141 LOADN                            R19 0
-      142 CALL                             R15 4 1
-      143 SETTABLEKS                       R15 R14 K20 ["Size"]
-      145 GETTABLEKS                       R15 R6 K46 ["backgroundColor"]
-      147 SETTABLEKS                       R15 R14 K47 ["BackgroundColor3"]
-      149 GETTABLEKS                       R15 R6 K48 ["borderColor"]
-      151 SETTABLEKS                       R15 R14 K49 ["BorderColor3"]
-      153 GETUPVAL                         R15 1
-      154 GETTABLEKS                       R15 R15 K50 ["Event"]
-      156 GETTABLEKS                       R15 R15 K51 ["Activated"]
-      158 NEWCLOSURE                       R16 P0
-      159 CAPTURE                          VAL R0
-      160 SETTABLE                         R16 R14 R15
-      161 DUPTABLE                         R15 K53 [{"TextLabel"}]
-      162 GETUPVAL                         R16 1
-      163 GETTABLEKS                       R16 R16 K15 ["createElement"]
-      165 LOADK                            R17 K52 ["TextLabel"]
-      166 DUPTABLE                         R18 K58 [{"Size", "BackgroundTransparency", "Font", "TextSize", "Text", "TextColor3"}]
-      167 GETIMPORT                        R19 K24 [UDim2.new]
-      169 LOADN                            R20 1
-      170 LOADN                            R21 0
-      171 LOADN                            R22 1
-      172 LOADN                            R23 0
-      173 CALL                             R19 4 1
-      174 SETTABLEKS                       R19 R18 K20 ["Size"]
-      176 LOADN                            R19 1
-      177 SETTABLEKS                       R19 R18 K21 ["BackgroundTransparency"]
-      179 GETUPVAL                         R19 2
-      180 GETTABLEKS                       R19 R19 K59 ["FONT"]
-      182 SETTABLEKS                       R19 R18 K54 ["Font"]
-      184 GETUPVAL                         R19 2
-      185 GETTABLEKS                       R19 R19 K60 ["FONT_SIZE_MEDIUM"]
-      187 SETTABLEKS                       R19 R18 K55 ["TextSize"]
-      189 SETTABLEKS                       R3 R18 K56 ["Text"]
-      191 GETTABLEKS                       R19 R6 K61 ["textColor"]
-      193 SETTABLEKS                       R19 R18 K57 ["TextColor3"]
-      195 CALL                             R16 2 1
-      196 SETTABLEKS                       R16 R15 K52 ["TextLabel"]
-      198 CALL                             R12 3 1
-      199 SETTABLEKS                       R12 R11 K27 ["CancelButton"]
-      201 GETUPVAL                         R12 1
-      202 GETTABLEKS                       R12 R12 K15 ["createElement"]
-      204 GETUPVAL                         R13 3
-      205 NEWTABLE                         R14 8 0
-      207 LOADN                            R15 2
-      208 SETTABLEKS                       R15 R14 K19 ["LayoutOrder"]
-      210 GETIMPORT                        R15 K24 [UDim2.new]
-      212 LOADN                            R16 0
-      213 LOADN                            R18 55
-      214 FASTCALL2                        MATH_MAX R18 R4 ; [+4]
-      216 MOVE                             R19 R4
-      217 GETIMPORT                        R17 K45 [math.max]
-      219 CALL                             R17 2 1
-      220 LOADN                            R18 1
-      221 LOADN                            R19 0
-      222 CALL                             R15 4 1
-      223 SETTABLEKS                       R15 R14 K20 ["Size"]
-      225 GETTABLEKS                       R15 R7 K46 ["backgroundColor"]
-      227 SETTABLEKS                       R15 R14 K47 ["BackgroundColor3"]
-      229 GETTABLEKS                       R15 R7 K48 ["borderColor"]
-      231 SETTABLEKS                       R15 R14 K49 ["BorderColor3"]
-      233 GETUPVAL                         R15 1
-      234 GETTABLEKS                       R15 R15 K50 ["Event"]
-      236 GETTABLEKS                       R15 R15 K51 ["Activated"]
-      238 NEWCLOSURE                       R16 P1
-      239 CAPTURE                          VAL R0
-      240 SETTABLE                         R16 R14 R15
-      241 DUPTABLE                         R15 K53 [{"TextLabel"}]
-      242 GETUPVAL                         R16 1
-      243 GETTABLEKS                       R16 R16 K15 ["createElement"]
-      245 LOADK                            R17 K52 ["TextLabel"]
-      246 DUPTABLE                         R18 K58 [{"Size", "BackgroundTransparency", "Font", "TextSize", "Text", "TextColor3"}]
-      247 GETIMPORT                        R19 K24 [UDim2.new]
-      249 LOADN                            R20 1
-      250 LOADN                            R21 0
-      251 LOADN                            R22 1
-      252 LOADN                            R23 0
-      253 CALL                             R19 4 1
-      254 SETTABLEKS                       R19 R18 K20 ["Size"]
-      256 LOADN                            R19 1
-      257 SETTABLEKS                       R19 R18 K21 ["BackgroundTransparency"]
-      259 GETUPVAL                         R19 2
-      260 GETTABLEKS                       R19 R19 K59 ["FONT"]
-      262 SETTABLEKS                       R19 R18 K54 ["Font"]
-      264 GETUPVAL                         R19 2
-      265 GETTABLEKS                       R19 R19 K60 ["FONT_SIZE_MEDIUM"]
-      267 SETTABLEKS                       R19 R18 K55 ["TextSize"]
-      269 SETTABLEKS                       R2 R18 K56 ["Text"]
-      271 GETTABLEKS                       R19 R7 K61 ["textColor"]
-      273 SETTABLEKS                       R19 R18 K57 ["TextColor3"]
-      275 CALL                             R16 2 1
-      276 SETTABLEKS                       R16 R15 K52 ["TextLabel"]
-      278 CALL                             R12 3 1
-      279 SETTABLEKS                       R12 R11 K28 ["ApplyButton"]
-      281 CALL                             R8 3 -1
-      282 RETURN                           R8 -1
+       90 DUPTABLE                         R11 K30 [{"UIListLayout", "CancelButton", "ApplyButton"}]
+       91 GETUPVAL                         R12 1
+       92 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       94 LOADK                            R13 K27 ["UIListLayout"]
+       95 DUPTABLE                         R14 K35 [{"FillDirection", "HorizontalAlignment", "SortOrder", "Padding"}]
+       96 GETIMPORT                        R15 K38 [Enum.FillDirection.Horizontal]
+       98 SETTABLEKS                       R15 R14 K31 ["FillDirection"]
+      100 GETIMPORT                        R15 K40 [Enum.HorizontalAlignment.Right]
+      102 SETTABLEKS                       R15 R14 K32 ["HorizontalAlignment"]
+      104 GETIMPORT                        R15 K41 [Enum.SortOrder.LayoutOrder]
+      106 SETTABLEKS                       R15 R14 K33 ["SortOrder"]
+      108 GETIMPORT                        R15 K43 [UDim.new]
+      110 LOADN                            R16 0
+      111 LOADN                            R17 10
+      112 CALL                             R15 2 1
+      113 SETTABLEKS                       R15 R14 K34 ["Padding"]
+      115 CALL                             R12 2 1
+      116 SETTABLEKS                       R12 R11 K27 ["UIListLayout"]
+      118 GETUPVAL                         R12 1
+      119 GETTABLEKS                       R12 R12 K15 ["createElement"]
+      121 GETUPVAL                         R13 3
+      122 NEWTABLE                         R14 8 0
+      124 LOADN                            R15 1
+      125 SETTABLEKS                       R15 R14 K19 ["LayoutOrder"]
+      127 GETIMPORT                        R15 K25 [UDim2.new]
+      129 LOADN                            R16 0
+      130 LOADN                            R18 55
+      131 FASTCALL2                        MATH_MAX R18 R5 ; [+4]
+      133 MOVE                             R19 R5
+      134 GETIMPORT                        R17 K46 [math.max]
+      136 CALL                             R17 2 1
+      137 LOADN                            R18 1
+      138 LOADN                            R19 0
+      139 CALL                             R15 4 1
+      140 SETTABLEKS                       R15 R14 K20 ["Size"]
+      142 GETTABLEKS                       R15 R6 K47 ["backgroundColor"]
+      144 SETTABLEKS                       R15 R14 K48 ["BackgroundColor3"]
+      146 GETTABLEKS                       R15 R6 K49 ["borderColor"]
+      148 SETTABLEKS                       R15 R14 K50 ["BorderColor3"]
+      150 GETUPVAL                         R15 1
+      151 GETTABLEKS                       R15 R15 K51 ["Event"]
+      153 GETTABLEKS                       R15 R15 K52 ["Activated"]
+      155 NEWCLOSURE                       R16 P0
+      156 CAPTURE                          VAL R0
+      157 SETTABLE                         R16 R14 R15
+      158 DUPTABLE                         R15 K54 [{"TextLabel"}]
+      159 GETUPVAL                         R16 1
+      160 GETTABLEKS                       R16 R16 K15 ["createElement"]
+      162 LOADK                            R17 K53 ["TextLabel"]
+      163 DUPTABLE                         R18 K59 [{["Size"], ["BackgroundTransparency"] = 1, ["Font"], ["TextSize"], ["Text"], ["TextColor3"]}]
+      164 GETIMPORT                        R19 K25 [UDim2.new]
+      166 LOADN                            R20 1
+      167 LOADN                            R21 0
+      168 LOADN                            R22 1
+      169 LOADN                            R23 0
+      170 CALL                             R19 4 1
+      171 SETTABLEKS                       R19 R18 K20 ["Size"]
+      173 GETUPVAL                         R19 2
+      174 GETTABLEKS                       R19 R19 K60 ["FONT"]
+      176 SETTABLEKS                       R19 R18 K55 ["Font"]
+      178 GETUPVAL                         R19 2
+      179 GETTABLEKS                       R19 R19 K61 ["FONT_SIZE_MEDIUM"]
+      181 SETTABLEKS                       R19 R18 K56 ["TextSize"]
+      183 SETTABLEKS                       R3 R18 K57 ["Text"]
+      185 GETTABLEKS                       R19 R6 K62 ["textColor"]
+      187 SETTABLEKS                       R19 R18 K58 ["TextColor3"]
+      189 CALL                             R16 2 1
+      190 SETTABLEKS                       R16 R15 K53 ["TextLabel"]
+      192 CALL                             R12 3 1
+      193 SETTABLEKS                       R12 R11 K28 ["CancelButton"]
+      195 GETUPVAL                         R12 1
+      196 GETTABLEKS                       R12 R12 K15 ["createElement"]
+      198 GETUPVAL                         R13 3
+      199 NEWTABLE                         R14 8 0
+      201 LOADN                            R15 2
+      202 SETTABLEKS                       R15 R14 K19 ["LayoutOrder"]
+      204 GETIMPORT                        R15 K25 [UDim2.new]
+      206 LOADN                            R16 0
+      207 LOADN                            R18 55
+      208 FASTCALL2                        MATH_MAX R18 R4 ; [+4]
+      210 MOVE                             R19 R4
+      211 GETIMPORT                        R17 K46 [math.max]
+      213 CALL                             R17 2 1
+      214 LOADN                            R18 1
+      215 LOADN                            R19 0
+      216 CALL                             R15 4 1
+      217 SETTABLEKS                       R15 R14 K20 ["Size"]
+      219 GETTABLEKS                       R15 R7 K47 ["backgroundColor"]
+      221 SETTABLEKS                       R15 R14 K48 ["BackgroundColor3"]
+      223 GETTABLEKS                       R15 R7 K49 ["borderColor"]
+      225 SETTABLEKS                       R15 R14 K50 ["BorderColor3"]
+      227 GETUPVAL                         R15 1
+      228 GETTABLEKS                       R15 R15 K51 ["Event"]
+      230 GETTABLEKS                       R15 R15 K52 ["Activated"]
+      232 NEWCLOSURE                       R16 P1
+      233 CAPTURE                          VAL R0
+      234 SETTABLE                         R16 R14 R15
+      235 DUPTABLE                         R15 K54 [{"TextLabel"}]
+      236 GETUPVAL                         R16 1
+      237 GETTABLEKS                       R16 R16 K15 ["createElement"]
+      239 LOADK                            R17 K53 ["TextLabel"]
+      240 DUPTABLE                         R18 K59 [{["Size"], ["BackgroundTransparency"] = 1, ["Font"], ["TextSize"], ["Text"], ["TextColor3"]}]
+      241 GETIMPORT                        R19 K25 [UDim2.new]
+      243 LOADN                            R20 1
+      244 LOADN                            R21 0
+      245 LOADN                            R22 1
+      246 LOADN                            R23 0
+      247 CALL                             R19 4 1
+      248 SETTABLEKS                       R19 R18 K20 ["Size"]
+      250 GETUPVAL                         R19 2
+      251 GETTABLEKS                       R19 R19 K60 ["FONT"]
+      253 SETTABLEKS                       R19 R18 K55 ["Font"]
+      255 GETUPVAL                         R19 2
+      256 GETTABLEKS                       R19 R19 K61 ["FONT_SIZE_MEDIUM"]
+      258 SETTABLEKS                       R19 R18 K56 ["TextSize"]
+      260 SETTABLEKS                       R2 R18 K57 ["Text"]
+      262 GETTABLEKS                       R19 R7 K62 ["textColor"]
+      264 SETTABLEKS                       R19 R18 K58 ["TextColor3"]
+      266 CALL                             R16 2 1
+      267 SETTABLEKS                       R16 R15 K53 ["TextLabel"]
+      269 CALL                             R12 3 1
+      270 SETTABLEKS                       R12 R11 K29 ["ApplyButton"]
+      272 CALL                             R8 3 -1
+      273 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

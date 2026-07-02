@@ -126,68 +126,64 @@ PROTO_4:
        13 MOVE                             R7 R3
        14 NAMECALL                         R4 R4 K4 ["sortSelectionForConversion"]
        16 CALL                             R4 3 1
-       17 DUPTABLE                         R5 K9 [{"autoConverted", "succeeded", "failed", "failedVar"}]
-       18 LOADN                            R6 0
-       19 SETTABLEKS                       R6 R5 K5 ["autoConverted"]
-       21 LOADN                            R6 0
-       22 SETTABLEKS                       R6 R5 K6 ["succeeded"]
-       24 NEWTABLE                         R6 0 0
-       26 SETTABLEKS                       R6 R5 K7 ["failed"]
-       28 NEWTABLE                         R6 0 0
-       30 SETTABLEKS                       R6 R5 K8 ["failedVar"]
-       32 GETUPVAL                         R6 1
-       33 GETTABLEKS                       R7 R1 K1 ["ScriptConversion"]
-       35 GETTABLEKS                       R7 R7 K10 ["replaceRules"]
-       37 CALL                             R6 1 1
-       38 LOADN                            R8 0
-       39 MOVE                             R9 R4
-       40 LOADNIL                          R10
-       41 LOADNIL                          R11
-       42 FORGPREP                         R9
-       43 LENGTH                           R14 R13
-       44 ADD                              R8 R8 R14
-       45 FORGLOOP                         R9 2 ; [-3]
-       47 MOVE                             R7 R8
-       48 LOADN                            R8 0
-       49 JUMPIFNOTLT                      R8 R7 ; [+26]
-       51 LOADK                            R8 K11 ["ReplaceWithRules"]
-       52 GETUPVAL                         R9 2
-       53 JUMPIFNOT                        R9 ; [+1]
-       54 LOADK                            R8 K12 ["Convert"]
-       55 GETUPVAL                         R9 3
-       56 GETTABLEKS                       R9 R9 K13 ["new"]
-       58 MOVE                             R10 R8
-       59 MOVE                             R11 R7
-       60 MOVE                             R12 R0
-       61 CALL                             R9 3 1
-       62 GETUPVAL                         R10 4
-       63 MOVE                             R11 R1
-       64 MOVE                             R12 R9
-       65 GETUPVAL                         R13 5
-       66 MOVE                             R14 R4
-       67 MOVE                             R15 R5
-       68 GETUPVAL                         R16 2
-       69 MOVE                             R17 R6
-       70 MOVE                             R18 R3
-       71 GETUPVAL                         R19 6
-       72 CALL                             R10 9 0
-       73 NAMECALL                         R10 R9 K14 ["clearProgressBar"]
-       75 CALL                             R10 1 0
-       76 DUPTABLE                         R8 K16 [{"replaceResult"}]
-       77 SETTABLEKS                       R5 R8 K15 ["replaceResult"]
-       79 GETUPVAL                         R11 7
-       80 MOVE                             R12 R8
-       81 CALL                             R11 1 -1
-       82 NAMECALL                         R9 R0 K17 ["dispatch"]
-       84 CALL                             R9 -1 0
-       85 GETUPVAL                         R9 6
-       86 LOADK                            R11 K18 ["onScriptConvertSelection"]
-       87 NAMECALL                         R9 R9 K19 ["getHandler"]
-       89 CALL                             R9 2 1
-       90 MOVE                             R10 R8
-       91 MOVE                             R11 R6
-       92 CALL                             R9 2 0
-       93 RETURN                           R0 0
+       17 DUPTABLE                         R5 K10 [{["autoConverted"] = 0, ["succeeded"] = 0, ["failed"], ["failedVar"]}]
+       18 NEWTABLE                         R6 0 0
+       20 SETTABLEKS                       R6 R5 K8 ["failed"]
+       22 NEWTABLE                         R6 0 0
+       24 SETTABLEKS                       R6 R5 K9 ["failedVar"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R7 R1 K1 ["ScriptConversion"]
+       29 GETTABLEKS                       R7 R7 K11 ["replaceRules"]
+       31 CALL                             R6 1 1
+       32 LOADN                            R8 0
+       33 MOVE                             R9 R4
+       34 LOADNIL                          R10
+       35 LOADNIL                          R11
+       36 FORGPREP                         R9
+       37 LENGTH                           R14 R13
+       38 ADD                              R8 R8 R14
+       39 FORGLOOP                         R9 2 ; [-3]
+       41 MOVE                             R7 R8
+       42 LOADN                            R8 0
+       43 JUMPIFNOTLT                      R8 R7 ; [+26]
+       45 LOADK                            R8 K12 ["ReplaceWithRules"]
+       46 GETUPVAL                         R9 2
+       47 JUMPIFNOT                        R9 ; [+1]
+       48 LOADK                            R8 K13 ["Convert"]
+       49 GETUPVAL                         R9 3
+       50 GETTABLEKS                       R9 R9 K14 ["new"]
+       52 MOVE                             R10 R8
+       53 MOVE                             R11 R7
+       54 MOVE                             R12 R0
+       55 CALL                             R9 3 1
+       56 GETUPVAL                         R10 4
+       57 MOVE                             R11 R1
+       58 MOVE                             R12 R9
+       59 GETUPVAL                         R13 5
+       60 MOVE                             R14 R4
+       61 MOVE                             R15 R5
+       62 GETUPVAL                         R16 2
+       63 MOVE                             R17 R6
+       64 MOVE                             R18 R3
+       65 GETUPVAL                         R19 6
+       66 CALL                             R10 9 0
+       67 NAMECALL                         R10 R9 K15 ["clearProgressBar"]
+       69 CALL                             R10 1 0
+       70 DUPTABLE                         R8 K17 [{"replaceResult"}]
+       71 SETTABLEKS                       R5 R8 K16 ["replaceResult"]
+       73 GETUPVAL                         R11 7
+       74 MOVE                             R12 R8
+       75 CALL                             R11 1 -1
+       76 NAMECALL                         R9 R0 K18 ["dispatch"]
+       78 CALL                             R9 -1 0
+       79 GETUPVAL                         R9 6
+       80 LOADK                            R11 K19 ["onScriptConvertSelection"]
+       81 NAMECALL                         R9 R9 K20 ["getHandler"]
+       83 CALL                             R9 2 1
+       84 MOVE                             R10 R8
+       85 MOVE                             R11 R6
+       86 CALL                             R9 2 0
+       87 RETURN                           R0 0
 
 PROTO_5:
         0 NEWCLOSURE                       R4 P0

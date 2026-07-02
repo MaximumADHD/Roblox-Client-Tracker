@@ -219,17 +219,15 @@ PROTO_4:
       210 JUMPIF                           R15 ; [+1]
       211 LOADN                            R15 0
       212 SETTABLEKS                       R15 R14 K25 ["clientEvalNums"]
-      214 DUPTABLE                         R15 K36 [{"_dummy"}]
-      215 LOADB                            R16 1
-      216 SETTABLEKS                       R16 R15 K35 ["_dummy"]
-      218 SETTABLEKS                       R15 R14 K26 ["evalStorage"]
-      220 FASTCALL2                        TABLE_INSERT R3 R14 ; [+5]
-      222 MOVE                             R16 R3
-      223 MOVE                             R17 R14
-      224 GETIMPORT                        R15 K15 [table.insert]
-      226 CALL                             R15 2 0
-      227 FORGLOOP                         R5 2 ; [-214]
-      229 RETURN                           R3 1
+      214 DUPTABLE                         R15 K37 [{["_dummy"] = True}]
+      215 SETTABLEKS                       R15 R14 K26 ["evalStorage"]
+      217 FASTCALL2                        TABLE_INSERT R3 R14 ; [+5]
+      219 MOVE                             R16 R3
+      220 MOVE                             R17 R14
+      221 GETIMPORT                        R15 K15 [table.insert]
+      223 CALL                             R15 2 0
+      224 FORGLOOP                         R5 2 ; [-211]
+      226 RETURN                           R3 1
 
 PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["name"]
@@ -283,48 +281,44 @@ PROTO_7:
         5 LOADK                            R5 K1 ["ModuleScript"]
         6 NAMECALL                         R3 R0 K2 ["IsA"]
         8 CALL                             R3 2 1
-        9 JUMPIFNOT                        R3 ; [+22]
-       10 DUPTABLE                         R3 K7 [{"name", "className", "source", "children"}]
+        9 JUMPIFNOT                        R3 ; [+19]
+       10 DUPTABLE                         R3 K7 [{["name"], ["className"] = "ModuleScript", ["source"], ["children"]}]
        11 GETTABLEKS                       R4 R0 K8 ["Name"]
        13 SETTABLEKS                       R4 R3 K3 ["name"]
-       15 LOADK                            R4 K1 ["ModuleScript"]
-       16 SETTABLEKS                       R4 R3 K4 ["className"]
-       18 GETTABLEKS                       R4 R0 K9 ["Source"]
-       20 SETTABLEKS                       R4 R3 K5 ["source"]
-       22 LENGTH                           R5 R2
-       23 LOADN                            R6 0
-       24 JUMPIFNOTLT                      R6 R5 ; [+3]
-       26 MOVE                             R4 R2
-       27 JUMP                             ; [+1]
-       28 LOADNIL                          R4
-       29 SETTABLEKS                       R4 R3 K6 ["children"]
-       31 RETURN                           R3 1
-       32 LOADK                            R5 K10 ["Folder"]
-       33 NAMECALL                         R3 R0 K2 ["IsA"]
-       35 CALL                             R3 2 1
-       36 JUMPIFNOT                        R3 ; [+18]
-       37 DUPTABLE                         R3 K11 [{"name", "className", "children"}]
-       38 GETTABLEKS                       R4 R0 K8 ["Name"]
-       40 SETTABLEKS                       R4 R3 K3 ["name"]
-       42 LOADK                            R4 K10 ["Folder"]
-       43 SETTABLEKS                       R4 R3 K4 ["className"]
-       45 LENGTH                           R5 R2
-       46 LOADN                            R6 0
-       47 JUMPIFNOTLT                      R6 R5 ; [+3]
-       49 MOVE                             R4 R2
-       50 JUMP                             ; [+1]
-       51 LOADNIL                          R4
-       52 SETTABLEKS                       R4 R3 K6 ["children"]
-       54 RETURN                           R3 1
-       55 GETIMPORT                        R3 K13 [error]
-       57 GETIMPORT                        R4 K16 [string.format]
-       59 LOADK                            R5 K17 ["AssistantEval.Modules may only contain ModuleScript and Folder; found %s '%s'"]
-       60 GETTABLEKS                       R6 R0 K18 ["ClassName"]
-       62 NAMECALL                         R7 R0 K19 ["GetFullName"]
-       64 CALL                             R7 1 -1
-       65 CALL                             R4 -1 -1
-       66 CALL                             R3 -1 0
-       67 RETURN                           R0 0
+       15 GETTABLEKS                       R4 R0 K9 ["Source"]
+       17 SETTABLEKS                       R4 R3 K5 ["source"]
+       19 LENGTH                           R5 R2
+       20 LOADN                            R6 0
+       21 JUMPIFNOTLT                      R6 R5 ; [+3]
+       23 MOVE                             R4 R2
+       24 JUMP                             ; [+1]
+       25 LOADNIL                          R4
+       26 SETTABLEKS                       R4 R3 K6 ["children"]
+       28 RETURN                           R3 1
+       29 LOADK                            R5 K10 ["Folder"]
+       30 NAMECALL                         R3 R0 K2 ["IsA"]
+       32 CALL                             R3 2 1
+       33 JUMPIFNOT                        R3 ; [+15]
+       34 DUPTABLE                         R3 K11 [{["name"], ["className"] = "Folder", ["children"]}]
+       35 GETTABLEKS                       R4 R0 K8 ["Name"]
+       37 SETTABLEKS                       R4 R3 K3 ["name"]
+       39 LENGTH                           R5 R2
+       40 LOADN                            R6 0
+       41 JUMPIFNOTLT                      R6 R5 ; [+3]
+       43 MOVE                             R4 R2
+       44 JUMP                             ; [+1]
+       45 LOADNIL                          R4
+       46 SETTABLEKS                       R4 R3 K6 ["children"]
+       48 RETURN                           R3 1
+       49 GETIMPORT                        R3 K13 [error]
+       51 GETIMPORT                        R4 K16 [string.format]
+       53 LOADK                            R5 K17 ["AssistantEval.Modules may only contain ModuleScript and Folder; found %s '%s'"]
+       54 GETTABLEKS                       R6 R0 K18 ["ClassName"]
+       56 NAMECALL                         R7 R0 K19 ["GetFullName"]
+       58 CALL                             R7 1 -1
+       59 CALL                             R4 -1 -1
+       60 CALL                             R3 -1 0
+       61 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["className"]
@@ -736,7 +730,7 @@ PROTO_26:
        13 GETIMPORT                        R6 K4 [os.time]
        15 CALL                             R6 0 1
        16 SUB                              R7 R6 R5
-       17 LOADN                            R8 44
+       17 LOADN                            R8 300
        18 JUMPIFNOTLT                      R8 R7 ; [+5]
        20 GETIMPORT                        R7 K6 [error]
        22 LOADK                            R8 K7 ["Timeout waiting for results, some of the Roblox Studio processes does not respond"]

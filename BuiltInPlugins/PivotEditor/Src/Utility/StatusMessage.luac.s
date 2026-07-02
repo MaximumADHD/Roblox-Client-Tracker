@@ -12,17 +12,7 @@ MAIN:
        17 GETTABLEKS                       R4 R4 K7 ["Util"]
        19 GETTABLEKS                       R4 R4 K8 ["strict"]
        21 MOVE                             R5 R4
-       22 DUPTABLE                         R6 K14 [{"None", "NoSelection", "MultipleSelection", "InvalidTarget", "ProceduralModel"}]
-       23 LOADK                            R7 K15 [""]
-       24 SETTABLEKS                       R7 R6 K9 ["None"]
-       26 LOADK                            R7 K10 ["NoSelection"]
-       27 SETTABLEKS                       R7 R6 K10 ["NoSelection"]
-       29 LOADK                            R7 K11 ["MultipleSelection"]
-       30 SETTABLEKS                       R7 R6 K11 ["MultipleSelection"]
-       32 LOADK                            R7 K12 ["InvalidTarget"]
-       33 SETTABLEKS                       R7 R6 K12 ["InvalidTarget"]
-       35 LOADK                            R7 K13 ["ProceduralModel"]
-       36 SETTABLEKS                       R7 R6 K13 ["ProceduralModel"]
-       38 LOADK                            R7 K16 ["StatusMessage"]
-       39 CALL                             R5 2 1
-       40 RETURN                           R5 1
+       22 DUPTABLE                         R6 K15 [{["None"] = "", ["NoSelection"] = "NoSelection", ["MultipleSelection"] = "MultipleSelection", ["InvalidTarget"] = "InvalidTarget", ["ProceduralModel"] = "ProceduralModel"}]
+       23 LOADK                            R7 K16 ["StatusMessage"]
+       24 CALL                             R5 2 1
+       25 RETURN                           R5 1

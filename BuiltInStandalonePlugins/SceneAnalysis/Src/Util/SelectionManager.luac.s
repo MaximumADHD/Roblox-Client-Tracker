@@ -126,45 +126,43 @@ PROTO_6:
        23 SETTABLEKS                       R2 R1 K8 ["_metaBranchName"]
        25 GETUPVAL                         R2 1
        26 GETTABLEKS                       R2 R2 K9 ["create"]
-       28 DUPTABLE                         R3 K13 [{"nodeIds", "idsHash", "source"}]
+       28 DUPTABLE                         R3 K14 [{["nodeIds"], ["idsHash"], ["source"] = "clear"}]
        29 NEWTABLE                         R4 0 0
        31 SETTABLEKS                       R4 R3 K10 ["nodeIds"]
        33 NEWTABLE                         R4 0 0
        35 SETTABLEKS                       R4 R3 K11 ["idsHash"]
-       37 LOADK                            R4 K14 ["clear"]
-       38 SETTABLEKS                       R4 R3 K12 ["source"]
-       40 CALL                             R2 1 2
-       41 SETTABLEKS                       R2 R1 K15 ["_selectionObservable"]
-       43 SETTABLEKS                       R3 R1 K16 ["_setSelection"]
-       45 GETIMPORT                        R9 K18 [tick]
-       47 CALL                             R9 0 -1
-       48 FASTCALL                         TOSTRING ; [+2]
-       49 GETIMPORT                        R8 K20 [tostring]
-       51 CALL                             R8 -1 1
-       52 MOVE                             R5 R8
-       53 LOADK                            R6 K21 ["_"]
-       54 GETIMPORT                        R8 K24 [math.random]
-       56 LOADK                            R9 K25 [100000]
-       57 CALL                             R8 1 -1
-       58 FASTCALL                         TOSTRING ; [+2]
-       59 GETIMPORT                        R7 K20 [tostring]
-       61 CALL                             R7 -1 1
-       62 CONCAT                           R4 R5 R7
-       63 SETTABLEKS                       R4 R1 K26 ["_sessionId"]
+       37 CALL                             R2 1 2
+       38 SETTABLEKS                       R2 R1 K15 ["_selectionObservable"]
+       40 SETTABLEKS                       R3 R1 K16 ["_setSelection"]
+       42 GETIMPORT                        R9 K18 [tick]
+       44 CALL                             R9 0 -1
+       45 FASTCALL                         TOSTRING ; [+2]
+       46 GETIMPORT                        R8 K20 [tostring]
+       48 CALL                             R8 -1 1
+       49 MOVE                             R5 R8
+       50 LOADK                            R6 K21 ["_"]
+       51 GETIMPORT                        R8 K24 [math.random]
+       53 LOADK                            R9 K25 [100000]
+       54 CALL                             R8 1 -1
+       55 FASTCALL                         TOSTRING ; [+2]
+       56 GETIMPORT                        R7 K20 [tostring]
+       58 CALL                             R7 -1 1
+       59 CONCAT                           R4 R5 R7
+       60 SETTABLEKS                       R4 R1 K26 ["_sessionId"]
+       62 GETTABLEKS                       R5 R0 K27 ["plugin"]
+       64 JUMPIFNOT                        R5 ; [+14]
        65 GETTABLEKS                       R5 R0 K27 ["plugin"]
-       67 JUMPIFNOT                        R5 ; [+14]
-       68 GETTABLEKS                       R5 R0 K27 ["plugin"]
-       70 LOADK                            R7 K28 ["SelectionChangedFromExplorer"]
-       71 NEWCLOSURE                       R8 P0
-       72 CAPTURE                          VAL R1
-       73 NAMECALL                         R5 R5 K29 ["OnInvoke"]
-       75 CALL                             R5 3 0
-       76 GETIMPORT                        R5 K32 [task.defer]
-       78 NEWCLOSURE                       R6 P1
-       79 CAPTURE                          UPVAL U2
-       80 CAPTURE                          VAL R4
-       81 CALL                             R5 1 0
-       82 RETURN                           R1 1
+       67 LOADK                            R7 K28 ["SelectionChangedFromExplorer"]
+       68 NEWCLOSURE                       R8 P0
+       69 CAPTURE                          VAL R1
+       70 NAMECALL                         R5 R5 K29 ["OnInvoke"]
+       72 CALL                             R5 3 0
+       73 GETIMPORT                        R5 K32 [task.defer]
+       75 NEWCLOSURE                       R6 P1
+       76 CAPTURE                          UPVAL U2
+       77 CAPTURE                          VAL R4
+       78 CALL                             R5 1 0
+       79 RETURN                           R1 1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_selectionObservable"]
@@ -390,35 +388,33 @@ PROTO_15:
        27 LOADB                            R5 0 +1
        28 LOADB                            R5 1
        29 GETTABLEKS                       R6 R0 K2 ["_setSelection"]
-       31 DUPTABLE                         R7 K6 [{"nodeIds", "idsHash", "source"}]
+       31 DUPTABLE                         R7 K7 [{["nodeIds"], ["idsHash"], ["source"] = "reapply"}]
        32 SETTABLEKS                       R3 R7 K3 ["nodeIds"]
        34 SETTABLEKS                       R4 R7 K4 ["idsHash"]
-       36 LOADK                            R8 K7 ["reapply"]
-       37 SETTABLEKS                       R8 R7 K5 ["source"]
-       39 CALL                             R6 1 0
+       36 CALL                             R6 1 0
+       37 GETTABLEKS                       R6 R0 K8 ["_treemapRef"]
+       39 JUMPIFNOT                        R6 ; [+5]
        40 GETTABLEKS                       R6 R0 K8 ["_treemapRef"]
-       42 JUMPIFNOT                        R6 ; [+5]
-       43 GETTABLEKS                       R6 R0 K8 ["_treemapRef"]
-       45 NAMECALL                         R6 R6 K9 ["getValue"]
-       47 CALL                             R6 1 1
-       48 JUMPIFNOT                        R6 ; [+2]
-       49 SETTABLEKS                       R3 R6 K10 ["selectedNodeIds"]
+       42 NAMECALL                         R6 R6 K9 ["getValue"]
+       44 CALL                             R6 1 1
+       45 JUMPIFNOT                        R6 ; [+2]
+       46 SETTABLEKS                       R3 R6 K10 ["selectedNodeIds"]
+       48 GETTABLEKS                       R7 R0 K11 ["_listRef"]
+       50 JUMPIFNOT                        R7 ; [+5]
        51 GETTABLEKS                       R7 R0 K11 ["_listRef"]
-       53 JUMPIFNOT                        R7 ; [+5]
-       54 GETTABLEKS                       R7 R0 K11 ["_listRef"]
-       56 NAMECALL                         R7 R7 K9 ["getValue"]
-       58 CALL                             R7 1 1
-       59 JUMPIFNOT                        R7 ; [+11]
-       60 GETTABLEKS                       R8 R7 K12 ["setSelectedIdsHash"]
-       62 JUMPIFNOT                        R5 ; [+2]
-       63 LOADNIL                          R9
-       64 JUMP                             ; [+1]
-       65 MOVE                             R9 R4
-       66 CALL                             R8 1 0
-       67 GETTABLEKS                       R8 R7 K13 ["setSelectedNodeId"]
-       69 GETTABLEN                        R9 R3 1
-       70 CALL                             R8 1 0
-       71 RETURN                           R0 0
+       53 NAMECALL                         R7 R7 K9 ["getValue"]
+       55 CALL                             R7 1 1
+       56 JUMPIFNOT                        R7 ; [+11]
+       57 GETTABLEKS                       R8 R7 K12 ["setSelectedIdsHash"]
+       59 JUMPIFNOT                        R5 ; [+2]
+       60 LOADNIL                          R9
+       61 JUMP                             ; [+1]
+       62 MOVE                             R9 R4
+       63 CALL                             R8 1 0
+       64 GETTABLEKS                       R8 R7 K13 ["setSelectedNodeId"]
+       66 GETTABLEN                        R9 R3 1
+       67 CALL                             R8 1 0
+       68 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R0 0

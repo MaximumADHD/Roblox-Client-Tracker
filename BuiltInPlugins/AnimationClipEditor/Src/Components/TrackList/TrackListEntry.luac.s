@@ -39,7 +39,7 @@ PROTO_0:
        56 GETUPVAL                         R12 0
        57 GETTABLEKS                       R12 R12 K14 ["createElement"]
        59 LOADK                            R13 K23 ["Frame"]
-       60 DUPTABLE                         R14 K28 [{"Size", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency", "LayoutOrder"}]
+       60 DUPTABLE                         R14 K28 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["BackgroundTransparency"], ["LayoutOrder"]}]
        61 GETIMPORT                        R15 K30 [UDim2.new]
        63 LOADN                            R16 1
        64 LOADN                            R17 0
@@ -47,18 +47,16 @@ PROTO_0:
        66 MOVE                             R19 R5
        67 CALL                             R15 4 1
        68 SETTABLEKS                       R15 R14 K24 ["Size"]
-       70 LOADN                            R15 0
-       71 SETTABLEKS                       R15 R14 K25 ["BorderSizePixel"]
-       73 SETTABLEKS                       R10 R14 K26 ["BackgroundColor3"]
-       75 JUMPIFNOT                        R10 ; [+2]
-       76 LOADN                            R15 0
-       77 JUMP                             ; [+1]
-       78 LOADN                            R15 1
-       79 SETTABLEKS                       R15 R14 K27 ["BackgroundTransparency"]
-       81 SETTABLEKS                       R3 R14 K2 ["LayoutOrder"]
-       83 MOVE                             R15 R11
-       84 CALL                             R12 3 -1
-       85 RETURN                           R12 -1
+       70 SETTABLEKS                       R10 R14 K26 ["BackgroundColor3"]
+       72 JUMPIFNOT                        R10 ; [+2]
+       73 LOADN                            R15 0
+       74 JUMP                             ; [+1]
+       75 LOADN                            R15 1
+       76 SETTABLEKS                       R15 R14 K27 ["BackgroundTransparency"]
+       78 SETTABLEKS                       R3 R14 K2 ["LayoutOrder"]
+       80 MOVE                             R15 R11
+       81 CALL                             R12 3 -1
+       82 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

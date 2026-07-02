@@ -29,12 +29,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 NEWTABLE                         R0 0 0
@@ -65,31 +63,29 @@ PROTO_4:
        29 GETUPVAL                         R2 2
        30 GETTABLEKS                       R2 R2 K9 ["Localization"]
        32 GETTABLEKS                       R2 R2 K10 ["new"]
-       34 DUPTABLE                         R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       34 DUPTABLE                         R3 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LegacyChatDeprecation"}]
        35 GETUPVAL                         R4 3
        36 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
        38 GETUPVAL                         R4 4
        39 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       41 LOADK                            R4 K15 ["LegacyChatDeprecation"]
-       42 SETTABLEKS                       R4 R3 K13 ["pluginName"]
-       44 CALL                             R2 1 1
-       45 SETTABLEKS                       R2 R0 K16 ["localization"]
-       47 GETUPVAL                         R2 2
-       48 GETTABLEKS                       R2 R2 K17 ["Analytics"]
-       50 GETTABLEKS                       R2 R2 K10 ["new"]
-       52 DUPCLOSURE                       R3 K18 [PROTO_3]
-       53 NEWTABLE                         R4 0 0
-       55 CALL                             R2 2 1
-       56 SETTABLEKS                       R2 R0 K19 ["analytics"]
-       58 GETUPVAL                         R2 5
-       59 GETTABLEKS                       R2 R2 K10 ["new"]
-       61 CALL                             R2 0 1
-       62 SETTABLEKS                       R2 R0 K20 ["DEPRECATED_stylizer"]
-       64 GETUPVAL                         R2 6
-       65 GETTABLEKS                       R3 R1 K21 ["Plugin"]
-       67 CALL                             R2 1 1
-       68 SETTABLEKS                       R2 R0 K22 ["design"]
-       70 RETURN                           R0 0
+       41 CALL                             R2 1 1
+       42 SETTABLEKS                       R2 R0 K16 ["localization"]
+       44 GETUPVAL                         R2 2
+       45 GETTABLEKS                       R2 R2 K17 ["Analytics"]
+       47 GETTABLEKS                       R2 R2 K10 ["new"]
+       49 DUPCLOSURE                       R3 K18 [PROTO_3]
+       50 NEWTABLE                         R4 0 0
+       52 CALL                             R2 2 1
+       53 SETTABLEKS                       R2 R0 K19 ["analytics"]
+       55 GETUPVAL                         R2 5
+       56 GETTABLEKS                       R2 R2 K10 ["new"]
+       58 CALL                             R2 0 1
+       59 SETTABLEKS                       R2 R0 K20 ["DEPRECATED_stylizer"]
+       61 GETUPVAL                         R2 6
+       62 GETTABLEKS                       R3 R1 K21 ["Plugin"]
+       64 CALL                             R2 1 1
+       65 SETTABLEKS                       R2 R0 K22 ["design"]
+       67 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

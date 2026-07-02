@@ -48,51 +48,23 @@ MAIN:
        22 GETTABLEKS                       R5 R5 K11 ["Types"]
        24 CALL                             R4 1 1
        25 GETIMPORT                        R5 K14 [table.freeze]
-       27 DUPTABLE                         R6 K32 [{"assetName", "fileType", "creatorId", "currentPreset", "enabled", "errors", "filepath", "importDataError", "progressValue", "settingsChanged", "session", "sortOrder", "state", "uploaded", "uploadResults", "validSession", "warnings"}]
-       28 LOADK                            R7 K33 [""]
-       29 SETTABLEKS                       R7 R6 K15 ["assetName"]
-       31 GETTABLEKS                       R7 R4 K34 ["FileType"]
-       33 GETTABLEKS                       R7 R7 K9 ["None"]
-       35 SETTABLEKS                       R7 R6 K16 ["fileType"]
-       37 LOADN                            R7 0
-       38 SETTABLEKS                       R7 R6 K17 ["creatorId"]
-       40 LOADNIL                          R7
-       41 SETTABLEKS                       R7 R6 K18 ["currentPreset"]
-       43 LOADB                            R7 0
-       44 SETTABLEKS                       R7 R6 K19 ["enabled"]
-       46 LOADN                            R7 0
-       47 SETTABLEKS                       R7 R6 K20 ["errors"]
-       49 LOADK                            R7 K33 [""]
-       50 SETTABLEKS                       R7 R6 K21 ["filepath"]
-       52 LOADB                            R7 0
-       53 SETTABLEKS                       R7 R6 K22 ["importDataError"]
-       55 LOADN                            R7 0
-       56 SETTABLEKS                       R7 R6 K23 ["progressValue"]
-       58 LOADB                            R7 0
-       59 SETTABLEKS                       R7 R6 K24 ["settingsChanged"]
-       61 LOADNIL                          R7
-       62 SETTABLEKS                       R7 R6 K25 ["session"]
-       64 LOADN                            R7 255
-       65 SETTABLEKS                       R7 R6 K26 ["sortOrder"]
-       67 GETTABLEKS                       R7 R4 K35 ["SessionState"]
-       69 GETTABLEKS                       R7 R7 K36 ["Invalid"]
-       71 SETTABLEKS                       R7 R6 K27 ["state"]
-       73 LOADB                            R7 0
-       74 SETTABLEKS                       R7 R6 K28 ["uploaded"]
-       76 SETTABLEKS                       R3 R6 K29 ["uploadResults"]
-       78 LOADB                            R7 0
-       79 SETTABLEKS                       R7 R6 K30 ["validSession"]
-       81 LOADN                            R7 0
-       82 SETTABLEKS                       R7 R6 K31 ["warnings"]
-       84 CALL                             R5 1 1
-       85 NEWTABLE                         R6 4 0
-       87 DUPCLOSURE                       R7 K37 [PROTO_0]
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R2
-       90 SETTABLEKS                       R7 R6 K38 ["new"]
-       92 DUPCLOSURE                       R7 K39 [PROTO_1]
-       93 CAPTURE                          VAL R2
-       94 SETTABLEKS                       R7 R6 K40 ["update"]
-       96 DUPCLOSURE                       R7 K41 [PROTO_2]
-       97 SETTABLEKS                       R7 R6 K42 ["compare"]
-       99 RETURN                           R6 1
+       27 DUPTABLE                         R6 K37 [{["assetName"] = "", ["fileType"], ["creatorId"] = 0, ["currentPreset"] = , ["enabled"] = False, ["errors"] = 0, ["filepath"] = "", ["importDataError"] = False, ["progressValue"] = 0, ["settingsChanged"] = False, ["session"] = , ["sortOrder"] = -1, ["state"], ["uploaded"] = False, ["uploadResults"], ["validSession"] = False, ["warnings"] = 0}]
+       28 GETTABLEKS                       R7 R4 K38 ["FileType"]
+       30 GETTABLEKS                       R7 R7 K9 ["None"]
+       32 SETTABLEKS                       R7 R6 K17 ["fileType"]
+       34 GETTABLEKS                       R7 R4 K39 ["SessionState"]
+       36 GETTABLEKS                       R7 R7 K40 ["Invalid"]
+       38 SETTABLEKS                       R7 R6 K32 ["state"]
+       40 SETTABLEKS                       R3 R6 K34 ["uploadResults"]
+       42 CALL                             R5 1 1
+       43 NEWTABLE                         R6 4 0
+       45 DUPCLOSURE                       R7 K41 [PROTO_0]
+       46 CAPTURE                          VAL R5
+       47 CAPTURE                          VAL R2
+       48 SETTABLEKS                       R7 R6 K42 ["new"]
+       50 DUPCLOSURE                       R7 K43 [PROTO_1]
+       51 CAPTURE                          VAL R2
+       52 SETTABLEKS                       R7 R6 K44 ["update"]
+       54 DUPCLOSURE                       R7 K45 [PROTO_2]
+       55 SETTABLEKS                       R7 R6 K46 ["compare"]
+       57 RETURN                           R6 1

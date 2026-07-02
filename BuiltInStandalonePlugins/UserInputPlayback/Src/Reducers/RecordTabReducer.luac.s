@@ -59,25 +59,21 @@ MAIN:
        55 GETTABLEKS                       R7 R7 K12 ["RecordTab"]
        57 GETTABLEKS                       R7 R7 K15 ["SetEmulationDeviceOrientation"]
        59 CALL                             R6 1 1
-       60 DUPTABLE                         R7 K19 [{"screenSize", "emulationDeviceId", "emulationDeviceOrientation"}]
-       61 GETIMPORT                        R8 K22 [Vector2.new]
+       60 DUPTABLE                         R7 K20 [{["screenSize"], ["emulationDeviceId"] = "Unknown", ["emulationDeviceOrientation"] = "Unknown"}]
+       61 GETIMPORT                        R8 K23 [Vector2.new]
        63 CALL                             R8 0 1
        64 SETTABLEKS                       R8 R7 K16 ["screenSize"]
-       66 LOADK                            R8 K23 ["Unknown"]
-       67 SETTABLEKS                       R8 R7 K17 ["emulationDeviceId"]
-       69 LOADK                            R8 K23 ["Unknown"]
-       70 SETTABLEKS                       R8 R7 K18 ["emulationDeviceOrientation"]
-       72 GETTABLEKS                       R8 R1 K24 ["createReducer"]
-       74 MOVE                             R9 R7
-       75 DUPTABLE                         R10 K25 [{"SetScreenSize", "SetEmulationDeviceId", "SetEmulationDeviceOrientation"}]
-       76 DUPCLOSURE                       R11 K26 [PROTO_0]
-       77 CAPTURE                          VAL R3
-       78 SETTABLEKS                       R11 R10 K13 ["SetScreenSize"]
-       80 DUPCLOSURE                       R11 K27 [PROTO_1]
-       81 CAPTURE                          VAL R3
-       82 SETTABLEKS                       R11 R10 K14 ["SetEmulationDeviceId"]
-       84 DUPCLOSURE                       R11 K28 [PROTO_2]
-       85 CAPTURE                          VAL R3
-       86 SETTABLEKS                       R11 R10 K15 ["SetEmulationDeviceOrientation"]
-       88 CALL                             R8 2 -1
-       89 RETURN                           R8 -1
+       66 GETTABLEKS                       R8 R1 K24 ["createReducer"]
+       68 MOVE                             R9 R7
+       69 DUPTABLE                         R10 K25 [{"SetScreenSize", "SetEmulationDeviceId", "SetEmulationDeviceOrientation"}]
+       70 DUPCLOSURE                       R11 K26 [PROTO_0]
+       71 CAPTURE                          VAL R3
+       72 SETTABLEKS                       R11 R10 K13 ["SetScreenSize"]
+       74 DUPCLOSURE                       R11 K27 [PROTO_1]
+       75 CAPTURE                          VAL R3
+       76 SETTABLEKS                       R11 R10 K14 ["SetEmulationDeviceId"]
+       78 DUPCLOSURE                       R11 K28 [PROTO_2]
+       79 CAPTURE                          VAL R3
+       80 SETTABLEKS                       R11 R10 K15 ["SetEmulationDeviceOrientation"]
+       82 CALL                             R8 2 -1
+       83 RETURN                           R8 -1

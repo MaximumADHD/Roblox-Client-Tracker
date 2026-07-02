@@ -39,7 +39,7 @@ PROTO_0:
        55 GETTABLEKS                       R13 R13 K17 ["Subtitle"]
        57 GETTABLEKS                       R13 R13 K19 ["Font"]
        59 GETIMPORT                        R14 K21 [Vector2.new]
-       61 LOADN                            R15 244
+       61 LOADN                            R15 500
        62 LOADK                            R16 K22 [∞]
        63 CALL                             R14 2 -1
        64 CALL                             R10 -1 1
@@ -134,7 +134,7 @@ PROTO_0:
       194 GETTABLEKS                       R24 R24 K43 ["transparency"]
       196 GETTABLEKS                       R24 R24 K45 ["disabled"]
       198 MOVE                             R25 R23
-      199 JUMPIFNOT                        R25 ; [+258]
+      199 JUMPIFNOT                        R25 ; [+228]
       200 GETUPVAL                         R25 3
       201 GETTABLEKS                       R25 R25 K46 ["createElement"]
       203 GETUPVAL                         R27 2
@@ -155,481 +155,423 @@ PROTO_0:
       224 GETTABLEKS                       R28 R2 K33 ["robuxFeeBase"]
       226 GETTABLEKS                       R28 R28 K60 ["spacing"]
       228 SETTABLEKS                       R28 R27 K51 ["Spacing"]
-      230 JUMP                             ; [+19]
-      231 DUPTABLE                         R27 K63 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
-      232 GETIMPORT                        R28 K65 [UDim2.new]
+      230 JUMP                             ; [+16]
+      231 DUPTABLE                         R27 K64 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+      232 GETIMPORT                        R28 K66 [UDim2.new]
       234 LOADN                            R29 1
       235 LOADN                            R30 0
       236 LOADN                            R31 0
-      237 GETTABLEKS                       R32 R2 K66 ["rowHeight"]
+      237 GETTABLEKS                       R32 R2 K67 ["rowHeight"]
       239 CALL                             R28 4 1
       240 SETTABLEKS                       R28 R27 K61 ["Size"]
-      242 LOADN                            R28 1
-      243 SETTABLEKS                       R28 R27 K62 ["BackgroundTransparency"]
-      245 NAMECALL                         R28 R4 K56 ["getNextOrder"]
-      247 CALL                             R28 1 1
-      248 SETTABLEKS                       R28 R27 K49 ["LayoutOrder"]
-      250 DUPTABLE                         R28 K71 [{"HorizontalLayout", "FeeLabel", "RobuxIcon", "FeeAmount"}]
-      251 GETUPVAL                         R30 2
-      252 JUMPIFNOT                        R30 ; [+2]
-      253 LOADNIL                          R29
-      254 JUMP                             ; [+18]
-      255 GETUPVAL                         R29 3
-      256 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      258 LOADK                            R30 K72 ["UIListLayout"]
-      259 DUPTABLE                         R31 K75 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
-      260 GETIMPORT                        R32 K59 [Enum.FillDirection.Horizontal]
-      262 SETTABLEKS                       R32 R31 K57 ["FillDirection"]
-      264 GETIMPORT                        R32 K76 [Enum.SortOrder.LayoutOrder]
-      266 SETTABLEKS                       R32 R31 K73 ["SortOrder"]
-      268 GETIMPORT                        R32 K78 [Enum.VerticalAlignment.Center]
-      270 SETTABLEKS                       R32 R31 K74 ["VerticalAlignment"]
-      272 CALL                             R29 2 1
-      273 SETTABLEKS                       R29 R28 K67 ["HorizontalLayout"]
-      275 GETUPVAL                         R30 2
-      276 JUMPIFNOT                        R30 ; [+16]
-      277 GETUPVAL                         R29 3
-      278 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      280 GETUPVAL                         R30 5
-      281 DUPTABLE                         R31 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
-      282 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
-      284 SETTABLEKS                       R32 R31 K48 ["AutomaticSize"]
-      286 LOADN                            R32 1
-      287 SETTABLEKS                       R32 R31 K49 ["LayoutOrder"]
-      289 SETTABLEKS                       R13 R31 K79 ["Text"]
-      291 CALL                             R29 2 1
-      292 JUMP                             ; [+44]
-      293 GETUPVAL                         R29 3
-      294 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      296 LOADK                            R30 K81 ["TextLabel"]
-      297 GETUPVAL                         R31 6
-      298 GETTABLEKS                       R31 R31 K82 ["Dictionary"]
-      300 GETTABLEKS                       R31 R31 K83 ["join"]
-      302 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
-      304 GETTABLEKS                       R32 R32 K28 ["Normal"]
-      306 DUPTABLE                         R33 K87 [{"Size", "BackgroundTransparency", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
-      307 GETIMPORT                        R34 K65 [UDim2.new]
-      309 LOADN                            R35 0
-      310 GETTABLEKS                       R36 R14 K88 ["X"]
-      312 LOADN                            R37 1
-      313 LOADN                            R38 0
-      314 CALL                             R34 4 1
-      315 SETTABLEKS                       R34 R33 K61 ["Size"]
-      317 LOADN                            R34 1
-      318 SETTABLEKS                       R34 R33 K62 ["BackgroundTransparency"]
-      320 GETIMPORT                        R34 K89 [Enum.TextYAlignment.Center]
-      322 SETTABLEKS                       R34 R33 K84 ["TextYAlignment"]
-      324 GETIMPORT                        R34 K91 [Enum.TextXAlignment.Left]
-      326 SETTABLEKS                       R34 R33 K85 ["TextXAlignment"]
-      328 SETTABLEKS                       R24 R33 K86 ["TextTransparency"]
-      330 SETTABLEKS                       R13 R33 K79 ["Text"]
-      332 LOADN                            R34 1
-      333 SETTABLEKS                       R34 R33 K49 ["LayoutOrder"]
-      335 CALL                             R31 2 -1
-      336 CALL                             R29 -1 1
-      337 SETTABLEKS                       R29 R28 K68 ["FeeLabel"]
-      339 GETUPVAL                         R29 3
-      340 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      342 LOADK                            R30 K92 ["ImageLabel"]
-      343 DUPTABLE                         R31 K96 [{"Size", "ImageColor3", "Image", "ImageTransparency", "BackgroundTransparency", "LayoutOrder"}]
-      344 GETIMPORT                        R32 K65 [UDim2.new]
-      346 LOADN                            R33 0
-      347 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
-      349 GETTABLEKS                       R34 R34 K97 ["icon"]
-      351 GETTABLEKS                       R34 R34 K98 ["size"]
-      353 LOADN                            R35 0
-      354 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      356 GETTABLEKS                       R36 R36 K97 ["icon"]
-      358 GETTABLEKS                       R36 R36 K98 ["size"]
-      360 CALL                             R32 4 1
-      361 SETTABLEKS                       R32 R31 K61 ["Size"]
-      363 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
-      365 GETTABLEKS                       R32 R32 K97 ["icon"]
-      367 GETTABLEKS                       R32 R32 K99 ["imageColor"]
-      369 SETTABLEKS                       R32 R31 K93 ["ImageColor3"]
-      371 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
-      373 GETTABLEKS                       R32 R32 K97 ["icon"]
-      375 GETTABLEKS                       R32 R32 K100 ["image"]
-      377 SETTABLEKS                       R32 R31 K94 ["Image"]
-      379 SETTABLEKS                       R24 R31 K95 ["ImageTransparency"]
-      381 LOADN                            R32 1
-      382 SETTABLEKS                       R32 R31 K62 ["BackgroundTransparency"]
-      384 LOADN                            R32 2
-      385 SETTABLEKS                       R32 R31 K49 ["LayoutOrder"]
-      387 CALL                             R29 2 1
-      388 SETTABLEKS                       R29 R28 K69 ["RobuxIcon"]
-      390 GETUPVAL                         R30 2
-      391 JUMPIFNOT                        R30 ; [+16]
-      392 GETUPVAL                         R29 3
-      393 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      395 GETUPVAL                         R30 5
-      396 DUPTABLE                         R31 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
-      397 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
-      399 SETTABLEKS                       R32 R31 K48 ["AutomaticSize"]
-      401 LOADN                            R32 3
-      402 SETTABLEKS                       R32 R31 K49 ["LayoutOrder"]
-      404 SETTABLEKS                       R18 R31 K79 ["Text"]
-      406 CALL                             R29 2 1
-      407 JUMP                             ; [+47]
-      408 GETUPVAL                         R29 3
-      409 GETTABLEKS                       R29 R29 K46 ["createElement"]
-      411 LOADK                            R30 K81 ["TextLabel"]
-      412 GETUPVAL                         R31 6
-      413 GETTABLEKS                       R31 R31 K82 ["Dictionary"]
-      415 GETTABLEKS                       R31 R31 K83 ["join"]
-      417 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
-      419 GETTABLEKS                       R32 R32 K28 ["Normal"]
-      421 DUPTABLE                         R33 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
-      422 GETIMPORT                        R34 K65 [UDim2.new]
-      424 LOADN                            R35 1
-      425 LOADN                            R36 0
-      426 LOADN                            R37 0
-      427 GETTABLEKS                       R38 R2 K66 ["rowHeight"]
-      429 CALL                             R34 4 1
-      430 SETTABLEKS                       R34 R33 K61 ["Size"]
-      432 LOADN                            R34 1
-      433 SETTABLEKS                       R34 R33 K62 ["BackgroundTransparency"]
-      435 LOADN                            R34 0
-      436 SETTABLEKS                       R34 R33 K101 ["BorderSizePixel"]
-      438 GETIMPORT                        R34 K89 [Enum.TextYAlignment.Center]
-      440 SETTABLEKS                       R34 R33 K84 ["TextYAlignment"]
-      442 GETIMPORT                        R34 K91 [Enum.TextXAlignment.Left]
-      444 SETTABLEKS                       R34 R33 K85 ["TextXAlignment"]
-      446 SETTABLEKS                       R24 R33 K86 ["TextTransparency"]
-      448 SETTABLEKS                       R18 R33 K79 ["Text"]
-      450 LOADN                            R34 3
-      451 SETTABLEKS                       R34 R33 K49 ["LayoutOrder"]
-      453 CALL                             R31 2 -1
-      454 CALL                             R29 -1 1
-      455 SETTABLEKS                       R29 R28 K70 ["FeeAmount"]
-      457 CALL                             R25 3 1
-      458 MOVE                             R26 R23
-      459 JUMPIFNOT                        R26 ; [+78]
-      460 GETUPVAL                         R27 2
-      461 JUMPIFNOT                        R27 ; [+24]
-      462 GETUPVAL                         R26 3
-      463 GETTABLEKS                       R26 R26 K46 ["createElement"]
-      465 GETUPVAL                         R27 5
-      466 DUPTABLE                         R28 K105 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextWrapped"}]
-      467 GETIMPORT                        R29 K55 [Enum.AutomaticSize.XY]
-      469 SETTABLEKS                       R29 R28 K48 ["AutomaticSize"]
-      471 NAMECALL                         R29 R4 K56 ["getNextOrder"]
-      473 CALL                             R29 1 1
-      474 SETTABLEKS                       R29 R28 K49 ["LayoutOrder"]
-      476 LOADK                            R29 K106 ["Label"]
-      477 SETTABLEKS                       R29 R28 K103 ["Style"]
-      479 SETTABLEKS                       R15 R28 K79 ["Text"]
-      481 LOADB                            R29 1
-      482 SETTABLEKS                       R29 R28 K104 ["TextWrapped"]
-      484 CALL                             R26 2 1
-      485 JUMP                             ; [+52]
-      486 GETUPVAL                         R26 3
-      487 GETTABLEKS                       R26 R26 K46 ["createElement"]
-      489 LOADK                            R27 K81 ["TextLabel"]
-      490 GETUPVAL                         R28 6
-      491 GETTABLEKS                       R28 R28 K82 ["Dictionary"]
-      493 GETTABLEKS                       R28 R28 K83 ["join"]
-      495 GETTABLEKS                       R29 R2 K16 ["fontStyle"]
-      497 GETTABLEKS                       R29 R29 K32 ["Subtext"]
-      499 DUPTABLE                         R30 K107 [{"Size", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
-      500 GETIMPORT                        R31 K65 [UDim2.new]
-      502 LOADN                            R32 0
-      503 GETTABLEKS                       R34 R16 K88 ["X"]
-      505 FASTCALL1                        MATH_CEIL R34 ; [+2]
-      506 GETIMPORT                        R33 K38 [math.ceil]
-      508 CALL                             R33 1 1
-      509 LOADN                            R34 0
-      510 GETTABLEKS                       R35 R16 K108 ["Y"]
-      512 CALL                             R31 4 1
-      513 SETTABLEKS                       R31 R30 K61 ["Size"]
-      515 LOADN                            R31 1
-      516 SETTABLEKS                       R31 R30 K62 ["BackgroundTransparency"]
-      518 SETTABLEKS                       R15 R30 K79 ["Text"]
-      520 GETIMPORT                        R31 K89 [Enum.TextYAlignment.Center]
-      522 SETTABLEKS                       R31 R30 K84 ["TextYAlignment"]
-      524 GETIMPORT                        R31 K91 [Enum.TextXAlignment.Left]
-      526 SETTABLEKS                       R31 R30 K85 ["TextXAlignment"]
-      528 LOADB                            R31 1
-      529 SETTABLEKS                       R31 R30 K104 ["TextWrapped"]
-      531 NAMECALL                         R31 R4 K56 ["getNextOrder"]
-      533 CALL                             R31 1 1
-      534 SETTABLEKS                       R31 R30 K49 ["LayoutOrder"]
-      536 CALL                             R28 2 -1
-      537 CALL                             R26 -1 1
-      538 MOVE                             R27 R23
-      539 JUMPIFNOT                        R27 ; [+263]
-      540 GETUPVAL                         R27 3
-      541 GETTABLEKS                       R27 R27 K46 ["createElement"]
-      543 GETUPVAL                         R29 2
-      544 JUMPIFNOT                        R29 ; [+2]
-      545 GETUPVAL                         R28 4
-      546 JUMP                             ; [+1]
-      547 LOADK                            R28 K47 ["Frame"]
-      548 GETUPVAL                         R30 2
-      549 JUMPIFNOT                        R30 ; [+21]
-      550 DUPTABLE                         R29 K52 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing"}]
-      551 GETIMPORT                        R30 K55 [Enum.AutomaticSize.XY]
-      553 SETTABLEKS                       R30 R29 K48 ["AutomaticSize"]
-      555 NAMECALL                         R30 R4 K56 ["getNextOrder"]
-      557 CALL                             R30 1 1
-      558 SETTABLEKS                       R30 R29 K49 ["LayoutOrder"]
-      560 GETIMPORT                        R30 K59 [Enum.FillDirection.Horizontal]
-      562 SETTABLEKS                       R30 R29 K50 ["Layout"]
-      564 GETTABLEKS                       R30 R2 K33 ["robuxFeeBase"]
-      566 GETTABLEKS                       R30 R30 K60 ["spacing"]
-      568 SETTABLEKS                       R30 R29 K51 ["Spacing"]
-      570 JUMP                             ; [+19]
-      571 DUPTABLE                         R29 K63 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
-      572 GETIMPORT                        R30 K65 [UDim2.new]
-      574 LOADN                            R31 1
-      575 LOADN                            R32 0
-      576 LOADN                            R33 0
-      577 GETTABLEKS                       R34 R2 K66 ["rowHeight"]
-      579 CALL                             R30 4 1
-      580 SETTABLEKS                       R30 R29 K61 ["Size"]
-      582 LOADN                            R30 1
-      583 SETTABLEKS                       R30 R29 K62 ["BackgroundTransparency"]
-      585 NAMECALL                         R30 R4 K56 ["getNextOrder"]
-      587 CALL                             R30 1 1
-      588 SETTABLEKS                       R30 R29 K49 ["LayoutOrder"]
-      590 DUPTABLE                         R30 K110 [{"HorizontalLayout", "EarnLabel", "RobuxIcon", "EarnAmount"}]
-      591 GETUPVAL                         R32 2
-      592 JUMPIFNOT                        R32 ; [+2]
-      593 LOADNIL                          R31
-      594 JUMP                             ; [+18]
-      595 GETUPVAL                         R31 3
-      596 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      598 LOADK                            R32 K72 ["UIListLayout"]
-      599 DUPTABLE                         R33 K75 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
-      600 GETIMPORT                        R34 K59 [Enum.FillDirection.Horizontal]
-      602 SETTABLEKS                       R34 R33 K57 ["FillDirection"]
-      604 GETIMPORT                        R34 K76 [Enum.SortOrder.LayoutOrder]
-      606 SETTABLEKS                       R34 R33 K73 ["SortOrder"]
-      608 GETIMPORT                        R34 K78 [Enum.VerticalAlignment.Center]
-      610 SETTABLEKS                       R34 R33 K74 ["VerticalAlignment"]
-      612 CALL                             R31 2 1
-      613 SETTABLEKS                       R31 R30 K67 ["HorizontalLayout"]
-      615 GETUPVAL                         R32 2
-      616 JUMPIFNOT                        R32 ; [+16]
-      617 GETUPVAL                         R31 3
-      618 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      620 GETUPVAL                         R32 5
-      621 DUPTABLE                         R33 K80 [{"AutomaticSize", "LayoutOrder", "Text"}]
-      622 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
-      624 SETTABLEKS                       R34 R33 K48 ["AutomaticSize"]
-      626 LOADN                            R34 1
-      627 SETTABLEKS                       R34 R33 K49 ["LayoutOrder"]
-      629 SETTABLEKS                       R19 R33 K79 ["Text"]
-      631 CALL                             R31 2 1
-      632 JUMP                             ; [+47]
-      633 GETUPVAL                         R31 3
-      634 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      636 LOADK                            R32 K81 ["TextLabel"]
-      637 GETUPVAL                         R33 6
-      638 GETTABLEKS                       R33 R33 K82 ["Dictionary"]
-      640 GETTABLEKS                       R33 R33 K83 ["join"]
-      642 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
-      644 GETTABLEKS                       R34 R34 K28 ["Normal"]
-      646 DUPTABLE                         R35 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
-      647 GETIMPORT                        R36 K65 [UDim2.new]
-      649 LOADN                            R37 0
-      650 GETTABLEKS                       R38 R20 K88 ["X"]
-      652 LOADN                            R39 1
-      653 LOADN                            R40 0
-      654 CALL                             R36 4 1
-      655 SETTABLEKS                       R36 R35 K61 ["Size"]
-      657 LOADN                            R36 1
-      658 SETTABLEKS                       R36 R35 K62 ["BackgroundTransparency"]
-      660 LOADN                            R36 0
-      661 SETTABLEKS                       R36 R35 K101 ["BorderSizePixel"]
-      663 GETIMPORT                        R36 K89 [Enum.TextYAlignment.Center]
-      665 SETTABLEKS                       R36 R35 K84 ["TextYAlignment"]
-      667 GETIMPORT                        R36 K91 [Enum.TextXAlignment.Left]
-      669 SETTABLEKS                       R36 R35 K85 ["TextXAlignment"]
-      671 SETTABLEKS                       R24 R35 K86 ["TextTransparency"]
-      673 SETTABLEKS                       R19 R35 K79 ["Text"]
-      675 LOADN                            R36 1
-      676 SETTABLEKS                       R36 R35 K49 ["LayoutOrder"]
-      678 CALL                             R33 2 -1
-      679 CALL                             R31 -1 1
-      680 SETTABLEKS                       R31 R30 K41 ["EarnLabel"]
-      682 GETUPVAL                         R31 3
-      683 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      685 LOADK                            R32 K92 ["ImageLabel"]
-      686 DUPTABLE                         R33 K96 [{"Size", "ImageColor3", "Image", "ImageTransparency", "BackgroundTransparency", "LayoutOrder"}]
-      687 GETIMPORT                        R34 K65 [UDim2.new]
-      689 LOADN                            R35 0
-      690 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      692 GETTABLEKS                       R36 R36 K97 ["icon"]
-      694 GETTABLEKS                       R36 R36 K98 ["size"]
-      696 LOADN                            R37 0
-      697 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      699 GETTABLEKS                       R38 R38 K97 ["icon"]
-      701 GETTABLEKS                       R38 R38 K98 ["size"]
-      703 CALL                             R34 4 1
-      704 SETTABLEKS                       R34 R33 K61 ["Size"]
-      706 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
-      708 GETTABLEKS                       R34 R34 K97 ["icon"]
-      710 GETTABLEKS                       R34 R34 K99 ["imageColor"]
-      712 SETTABLEKS                       R34 R33 K93 ["ImageColor3"]
-      714 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
-      716 GETTABLEKS                       R34 R34 K97 ["icon"]
-      718 GETTABLEKS                       R34 R34 K100 ["image"]
-      720 SETTABLEKS                       R34 R33 K94 ["Image"]
-      722 SETTABLEKS                       R24 R33 K95 ["ImageTransparency"]
-      724 LOADN                            R34 1
-      725 SETTABLEKS                       R34 R33 K62 ["BackgroundTransparency"]
-      727 LOADN                            R34 2
-      728 SETTABLEKS                       R34 R33 K49 ["LayoutOrder"]
-      730 CALL                             R31 2 1
-      731 SETTABLEKS                       R31 R30 K69 ["RobuxIcon"]
-      733 GETUPVAL                         R32 2
-      734 JUMPIFNOT                        R32 ; [+18]
-      735 GETUPVAL                         R31 3
-      736 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      738 GETUPVAL                         R32 5
-      739 DUPTABLE                         R33 K111 [{"AutomaticSize", "LayoutOrder", "Text", "TextTransparency"}]
-      740 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
-      742 SETTABLEKS                       R34 R33 K48 ["AutomaticSize"]
-      744 LOADN                            R34 3
-      745 SETTABLEKS                       R34 R33 K49 ["LayoutOrder"]
-      747 SETTABLEKS                       R22 R33 K79 ["Text"]
-      749 SETTABLEKS                       R24 R33 K86 ["TextTransparency"]
-      751 CALL                             R31 2 1
-      752 JUMP                             ; [+47]
-      753 GETUPVAL                         R31 3
-      754 GETTABLEKS                       R31 R31 K46 ["createElement"]
-      756 LOADK                            R32 K81 ["TextLabel"]
-      757 GETUPVAL                         R33 6
-      758 GETTABLEKS                       R33 R33 K82 ["Dictionary"]
-      760 GETTABLEKS                       R33 R33 K83 ["join"]
-      762 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
-      764 GETTABLEKS                       R34 R34 K28 ["Normal"]
-      766 DUPTABLE                         R35 K102 [{"Size", "BackgroundTransparency", "BorderSizePixel", "TextYAlignment", "TextXAlignment", "TextTransparency", "Text", "LayoutOrder"}]
-      767 GETIMPORT                        R36 K65 [UDim2.new]
-      769 LOADN                            R37 1
-      770 LOADN                            R38 0
-      771 LOADN                            R39 0
-      772 GETTABLEKS                       R40 R2 K66 ["rowHeight"]
-      774 CALL                             R36 4 1
-      775 SETTABLEKS                       R36 R35 K61 ["Size"]
-      777 LOADN                            R36 1
-      778 SETTABLEKS                       R36 R35 K62 ["BackgroundTransparency"]
-      780 LOADN                            R36 0
-      781 SETTABLEKS                       R36 R35 K101 ["BorderSizePixel"]
-      783 GETIMPORT                        R36 K89 [Enum.TextYAlignment.Center]
-      785 SETTABLEKS                       R36 R35 K84 ["TextYAlignment"]
-      787 GETIMPORT                        R36 K91 [Enum.TextXAlignment.Left]
-      789 SETTABLEKS                       R36 R35 K85 ["TextXAlignment"]
-      791 SETTABLEKS                       R24 R35 K86 ["TextTransparency"]
-      793 SETTABLEKS                       R22 R35 K79 ["Text"]
-      795 LOADN                            R36 3
-      796 SETTABLEKS                       R36 R35 K49 ["LayoutOrder"]
-      798 CALL                             R33 2 -1
-      799 CALL                             R31 -1 1
-      800 SETTABLEKS                       R31 R30 K109 ["EarnAmount"]
-      802 CALL                             R27 3 1
-      803 GETUPVAL                         R28 3
-      804 GETTABLEKS                       R28 R28 K46 ["createElement"]
-      806 GETUPVAL                         R29 4
-      807 DUPTABLE                         R30 K113 [{"AutomaticSize", "Layout", "Spacing", "HorizontalAlignment"}]
-      808 GETIMPORT                        R31 K55 [Enum.AutomaticSize.XY]
-      810 SETTABLEKS                       R31 R30 K48 ["AutomaticSize"]
-      812 GETIMPORT                        R31 K115 [Enum.FillDirection.Vertical]
-      814 SETTABLEKS                       R31 R30 K50 ["Layout"]
-      816 GETUPVAL                         R32 2
-      817 JUMPIFNOT                        R32 ; [+5]
-      818 GETTABLEKS                       R31 R2 K33 ["robuxFeeBase"]
-      820 GETTABLEKS                       R31 R31 K116 ["pricePadding"]
-      822 JUMP                             ; [+1]
-      823 LOADNIL                          R31
-      824 SETTABLEKS                       R31 R30 K51 ["Spacing"]
-      826 GETUPVAL                         R32 2
-      827 JUMPIFNOT                        R32 ; [+3]
-      828 GETIMPORT                        R31 K117 [Enum.HorizontalAlignment.Left]
-      830 JUMP                             ; [+1]
-      831 LOADNIL                          R31
-      832 SETTABLEKS                       R31 R30 K112 ["HorizontalAlignment"]
-      834 DUPTABLE                         R31 K122 [{"TextInput", "SubText", "FeeFrame", "FeeSubText", "EarnFrame"}]
-      835 GETUPVAL                         R32 3
-      836 GETTABLEKS                       R32 R32 K46 ["createElement"]
-      838 GETUPVAL                         R33 7
-      839 DUPTABLE                         R34 K128 [{"Disabled", "LayoutOrder", "LeadingComponent", "LeadingComponentProps", "OnTextChanged", "Width", "Text"}]
-      840 NOT                              R35 R11
-      841 SETTABLEKS                       R35 R34 K123 ["Disabled"]
-      843 LOADN                            R35 0
-      844 SETTABLEKS                       R35 R34 K49 ["LayoutOrder"]
-      846 GETUPVAL                         R35 8
-      847 SETTABLEKS                       R35 R34 K124 ["LeadingComponent"]
-      849 DUPTABLE                         R35 K129 [{"ImageColor3", "Image", "Size"}]
-      850 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      852 GETTABLEKS                       R36 R36 K97 ["icon"]
-      854 GETTABLEKS                       R36 R36 K99 ["imageColor"]
-      856 SETTABLEKS                       R36 R35 K93 ["ImageColor3"]
-      858 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
-      860 GETTABLEKS                       R36 R36 K97 ["icon"]
-      862 GETTABLEKS                       R36 R36 K100 ["image"]
-      864 SETTABLEKS                       R36 R35 K94 ["Image"]
-      866 GETIMPORT                        R36 K65 [UDim2.new]
-      868 LOADN                            R37 0
-      869 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
-      871 GETTABLEKS                       R38 R38 K97 ["icon"]
-      873 GETTABLEKS                       R38 R38 K98 ["size"]
-      875 LOADN                            R39 0
-      876 GETTABLEKS                       R40 R2 K33 ["robuxFeeBase"]
-      878 GETTABLEKS                       R40 R40 K97 ["icon"]
-      880 GETTABLEKS                       R40 R40 K98 ["size"]
-      882 CALL                             R36 4 1
-      883 SETTABLEKS                       R36 R35 K61 ["Size"]
-      885 SETTABLEKS                       R35 R34 K125 ["LeadingComponentProps"]
-      887 SETTABLEKS                       R12 R34 K126 ["OnTextChanged"]
-      889 GETTABLEKS                       R35 R2 K33 ["robuxFeeBase"]
-      891 GETTABLEKS                       R35 R35 K130 ["priceField"]
-      893 GETTABLEKS                       R35 R35 K35 ["width"]
-      895 SETTABLEKS                       R35 R34 K127 ["Width"]
-      897 SETTABLEKS                       R8 R34 K79 ["Text"]
-      899 CALL                             R32 2 1
-      900 SETTABLEKS                       R32 R31 K118 ["TextInput"]
-      902 MOVE                             R32 R10
-      903 JUMPIFNOT                        R32 ; [+50]
-      904 GETUPVAL                         R32 3
-      905 GETTABLEKS                       R32 R32 K46 ["createElement"]
-      907 LOADK                            R33 K81 ["TextLabel"]
-      908 GETUPVAL                         R34 6
-      909 GETTABLEKS                       R34 R34 K82 ["Dictionary"]
-      911 GETTABLEKS                       R34 R34 K83 ["join"]
-      913 GETTABLEKS                       R35 R2 K16 ["fontStyle"]
-      915 GETTABLEKS                       R35 R35 K17 ["Subtitle"]
-      917 DUPTABLE                         R36 K131 [{"Size", "BackgroundTransparency", "Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-      918 GETIMPORT                        R37 K65 [UDim2.new]
-      920 LOADN                            R38 0
-      921 GETTABLEKS                       R40 R10 K88 ["X"]
-      923 FASTCALL1                        MATH_CEIL R40 ; [+2]
-      924 GETIMPORT                        R39 K38 [math.ceil]
-      926 CALL                             R39 1 1
-      927 LOADN                            R40 0
-      928 GETTABLEKS                       R41 R10 K108 ["Y"]
-      930 CALL                             R37 4 1
-      931 SETTABLEKS                       R37 R36 K61 ["Size"]
-      933 LOADN                            R37 1
-      934 SETTABLEKS                       R37 R36 K62 ["BackgroundTransparency"]
-      936 SETTABLEKS                       R9 R36 K79 ["Text"]
-      938 LOADB                            R37 1
-      939 SETTABLEKS                       R37 R36 K104 ["TextWrapped"]
-      941 GETIMPORT                        R37 K91 [Enum.TextXAlignment.Left]
-      943 SETTABLEKS                       R37 R36 K85 ["TextXAlignment"]
-      945 GETIMPORT                        R37 K133 [Enum.TextYAlignment.Top]
-      947 SETTABLEKS                       R37 R36 K84 ["TextYAlignment"]
-      949 LOADN                            R37 1
-      950 SETTABLEKS                       R37 R36 K49 ["LayoutOrder"]
-      952 CALL                             R34 2 -1
-      953 CALL                             R32 -1 1
-      954 SETTABLEKS                       R32 R31 K15 ["SubText"]
-      956 SETTABLEKS                       R25 R31 K119 ["FeeFrame"]
-      958 SETTABLEKS                       R26 R31 K120 ["FeeSubText"]
-      960 SETTABLEKS                       R27 R31 K121 ["EarnFrame"]
-      962 CALL                             R28 3 -1
-      963 RETURN                           R28 -1
+      242 NAMECALL                         R28 R4 K56 ["getNextOrder"]
+      244 CALL                             R28 1 1
+      245 SETTABLEKS                       R28 R27 K49 ["LayoutOrder"]
+      247 DUPTABLE                         R28 K72 [{"HorizontalLayout", "FeeLabel", "RobuxIcon", "FeeAmount"}]
+      248 GETUPVAL                         R30 2
+      249 JUMPIFNOT                        R30 ; [+2]
+      250 LOADNIL                          R29
+      251 JUMP                             ; [+18]
+      252 GETUPVAL                         R29 3
+      253 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      255 LOADK                            R30 K73 ["UIListLayout"]
+      256 DUPTABLE                         R31 K76 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
+      257 GETIMPORT                        R32 K59 [Enum.FillDirection.Horizontal]
+      259 SETTABLEKS                       R32 R31 K57 ["FillDirection"]
+      261 GETIMPORT                        R32 K77 [Enum.SortOrder.LayoutOrder]
+      263 SETTABLEKS                       R32 R31 K74 ["SortOrder"]
+      265 GETIMPORT                        R32 K79 [Enum.VerticalAlignment.Center]
+      267 SETTABLEKS                       R32 R31 K75 ["VerticalAlignment"]
+      269 CALL                             R29 2 1
+      270 SETTABLEKS                       R29 R28 K68 ["HorizontalLayout"]
+      272 GETUPVAL                         R30 2
+      273 JUMPIFNOT                        R30 ; [+13]
+      274 GETUPVAL                         R29 3
+      275 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      277 GETUPVAL                         R30 5
+      278 DUPTABLE                         R31 K81 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Text"]}]
+      279 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
+      281 SETTABLEKS                       R32 R31 K48 ["AutomaticSize"]
+      283 SETTABLEKS                       R13 R31 K80 ["Text"]
+      285 CALL                             R29 2 1
+      286 JUMP                             ; [+38]
+      287 GETUPVAL                         R29 3
+      288 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      290 LOADK                            R30 K82 ["TextLabel"]
+      291 GETUPVAL                         R31 6
+      292 GETTABLEKS                       R31 R31 K83 ["Dictionary"]
+      294 GETTABLEKS                       R31 R31 K84 ["join"]
+      296 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
+      298 GETTABLEKS                       R32 R32 K28 ["Normal"]
+      300 DUPTABLE                         R33 K88 [{["Size"], ["BackgroundTransparency"] = 1, ["TextYAlignment"], ["TextXAlignment"], ["TextTransparency"], ["Text"], ["LayoutOrder"] = 1}]
+      301 GETIMPORT                        R34 K66 [UDim2.new]
+      303 LOADN                            R35 0
+      304 GETTABLEKS                       R36 R14 K89 ["X"]
+      306 LOADN                            R37 1
+      307 LOADN                            R38 0
+      308 CALL                             R34 4 1
+      309 SETTABLEKS                       R34 R33 K61 ["Size"]
+      311 GETIMPORT                        R34 K90 [Enum.TextYAlignment.Center]
+      313 SETTABLEKS                       R34 R33 K85 ["TextYAlignment"]
+      315 GETIMPORT                        R34 K92 [Enum.TextXAlignment.Left]
+      317 SETTABLEKS                       R34 R33 K86 ["TextXAlignment"]
+      319 SETTABLEKS                       R24 R33 K87 ["TextTransparency"]
+      321 SETTABLEKS                       R13 R33 K80 ["Text"]
+      323 CALL                             R31 2 -1
+      324 CALL                             R29 -1 1
+      325 SETTABLEKS                       R29 R28 K69 ["FeeLabel"]
+      327 GETUPVAL                         R29 3
+      328 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      330 LOADK                            R30 K93 ["ImageLabel"]
+      331 DUPTABLE                         R31 K98 [{["Size"], ["ImageColor3"], ["Image"], ["ImageTransparency"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2}]
+      332 GETIMPORT                        R32 K66 [UDim2.new]
+      334 LOADN                            R33 0
+      335 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      337 GETTABLEKS                       R34 R34 K99 ["icon"]
+      339 GETTABLEKS                       R34 R34 K100 ["size"]
+      341 LOADN                            R35 0
+      342 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      344 GETTABLEKS                       R36 R36 K99 ["icon"]
+      346 GETTABLEKS                       R36 R36 K100 ["size"]
+      348 CALL                             R32 4 1
+      349 SETTABLEKS                       R32 R31 K61 ["Size"]
+      351 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
+      353 GETTABLEKS                       R32 R32 K99 ["icon"]
+      355 GETTABLEKS                       R32 R32 K101 ["imageColor"]
+      357 SETTABLEKS                       R32 R31 K94 ["ImageColor3"]
+      359 GETTABLEKS                       R32 R2 K33 ["robuxFeeBase"]
+      361 GETTABLEKS                       R32 R32 K99 ["icon"]
+      363 GETTABLEKS                       R32 R32 K102 ["image"]
+      365 SETTABLEKS                       R32 R31 K95 ["Image"]
+      367 SETTABLEKS                       R24 R31 K96 ["ImageTransparency"]
+      369 CALL                             R29 2 1
+      370 SETTABLEKS                       R29 R28 K70 ["RobuxIcon"]
+      372 GETUPVAL                         R30 2
+      373 JUMPIFNOT                        R30 ; [+13]
+      374 GETUPVAL                         R29 3
+      375 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      377 GETUPVAL                         R30 5
+      378 DUPTABLE                         R31 K104 [{["AutomaticSize"], ["LayoutOrder"] = 3, ["Text"]}]
+      379 GETIMPORT                        R32 K55 [Enum.AutomaticSize.XY]
+      381 SETTABLEKS                       R32 R31 K48 ["AutomaticSize"]
+      383 SETTABLEKS                       R18 R31 K80 ["Text"]
+      385 CALL                             R29 2 1
+      386 JUMP                             ; [+38]
+      387 GETUPVAL                         R29 3
+      388 GETTABLEKS                       R29 R29 K46 ["createElement"]
+      390 LOADK                            R30 K82 ["TextLabel"]
+      391 GETUPVAL                         R31 6
+      392 GETTABLEKS                       R31 R31 K83 ["Dictionary"]
+      394 GETTABLEKS                       R31 R31 K84 ["join"]
+      396 GETTABLEKS                       R32 R2 K16 ["fontStyle"]
+      398 GETTABLEKS                       R32 R32 K28 ["Normal"]
+      400 DUPTABLE                         R33 K107 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextYAlignment"], ["TextXAlignment"], ["TextTransparency"], ["Text"], ["LayoutOrder"] = 3}]
+      401 GETIMPORT                        R34 K66 [UDim2.new]
+      403 LOADN                            R35 1
+      404 LOADN                            R36 0
+      405 LOADN                            R37 0
+      406 GETTABLEKS                       R38 R2 K67 ["rowHeight"]
+      408 CALL                             R34 4 1
+      409 SETTABLEKS                       R34 R33 K61 ["Size"]
+      411 GETIMPORT                        R34 K90 [Enum.TextYAlignment.Center]
+      413 SETTABLEKS                       R34 R33 K85 ["TextYAlignment"]
+      415 GETIMPORT                        R34 K92 [Enum.TextXAlignment.Left]
+      417 SETTABLEKS                       R34 R33 K86 ["TextXAlignment"]
+      419 SETTABLEKS                       R24 R33 K87 ["TextTransparency"]
+      421 SETTABLEKS                       R18 R33 K80 ["Text"]
+      423 CALL                             R31 2 -1
+      424 CALL                             R29 -1 1
+      425 SETTABLEKS                       R29 R28 K71 ["FeeAmount"]
+      427 CALL                             R25 3 1
+      428 MOVE                             R26 R23
+      429 JUMPIFNOT                        R26 ; [+66]
+      430 GETUPVAL                         R27 2
+      431 JUMPIFNOT                        R27 ; [+18]
+      432 GETUPVAL                         R26 3
+      433 GETTABLEKS                       R26 R26 K46 ["createElement"]
+      435 GETUPVAL                         R27 5
+      436 DUPTABLE                         R28 K112 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Label", ["Text"], ["TextWrapped"] = True}]
+      437 GETIMPORT                        R29 K55 [Enum.AutomaticSize.XY]
+      439 SETTABLEKS                       R29 R28 K48 ["AutomaticSize"]
+      441 NAMECALL                         R29 R4 K56 ["getNextOrder"]
+      443 CALL                             R29 1 1
+      444 SETTABLEKS                       R29 R28 K49 ["LayoutOrder"]
+      446 SETTABLEKS                       R15 R28 K80 ["Text"]
+      448 CALL                             R26 2 1
+      449 JUMP                             ; [+46]
+      450 GETUPVAL                         R26 3
+      451 GETTABLEKS                       R26 R26 K46 ["createElement"]
+      453 LOADK                            R27 K82 ["TextLabel"]
+      454 GETUPVAL                         R28 6
+      455 GETTABLEKS                       R28 R28 K83 ["Dictionary"]
+      457 GETTABLEKS                       R28 R28 K84 ["join"]
+      459 GETTABLEKS                       R29 R2 K16 ["fontStyle"]
+      461 GETTABLEKS                       R29 R29 K32 ["Subtext"]
+      463 DUPTABLE                         R30 K113 [{["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextYAlignment"], ["TextXAlignment"], ["TextWrapped"] = True, ["LayoutOrder"]}]
+      464 GETIMPORT                        R31 K66 [UDim2.new]
+      466 LOADN                            R32 0
+      467 GETTABLEKS                       R34 R16 K89 ["X"]
+      469 FASTCALL1                        MATH_CEIL R34 ; [+2]
+      470 GETIMPORT                        R33 K38 [math.ceil]
+      472 CALL                             R33 1 1
+      473 LOADN                            R34 0
+      474 GETTABLEKS                       R35 R16 K114 ["Y"]
+      476 CALL                             R31 4 1
+      477 SETTABLEKS                       R31 R30 K61 ["Size"]
+      479 SETTABLEKS                       R15 R30 K80 ["Text"]
+      481 GETIMPORT                        R31 K90 [Enum.TextYAlignment.Center]
+      483 SETTABLEKS                       R31 R30 K85 ["TextYAlignment"]
+      485 GETIMPORT                        R31 K92 [Enum.TextXAlignment.Left]
+      487 SETTABLEKS                       R31 R30 K86 ["TextXAlignment"]
+      489 NAMECALL                         R31 R4 K56 ["getNextOrder"]
+      491 CALL                             R31 1 1
+      492 SETTABLEKS                       R31 R30 K49 ["LayoutOrder"]
+      494 CALL                             R28 2 -1
+      495 CALL                             R26 -1 1
+      496 MOVE                             R27 R23
+      497 JUMPIFNOT                        R27 ; [+230]
+      498 GETUPVAL                         R27 3
+      499 GETTABLEKS                       R27 R27 K46 ["createElement"]
+      501 GETUPVAL                         R29 2
+      502 JUMPIFNOT                        R29 ; [+2]
+      503 GETUPVAL                         R28 4
+      504 JUMP                             ; [+1]
+      505 LOADK                            R28 K47 ["Frame"]
+      506 GETUPVAL                         R30 2
+      507 JUMPIFNOT                        R30 ; [+21]
+      508 DUPTABLE                         R29 K52 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing"}]
+      509 GETIMPORT                        R30 K55 [Enum.AutomaticSize.XY]
+      511 SETTABLEKS                       R30 R29 K48 ["AutomaticSize"]
+      513 NAMECALL                         R30 R4 K56 ["getNextOrder"]
+      515 CALL                             R30 1 1
+      516 SETTABLEKS                       R30 R29 K49 ["LayoutOrder"]
+      518 GETIMPORT                        R30 K59 [Enum.FillDirection.Horizontal]
+      520 SETTABLEKS                       R30 R29 K50 ["Layout"]
+      522 GETTABLEKS                       R30 R2 K33 ["robuxFeeBase"]
+      524 GETTABLEKS                       R30 R30 K60 ["spacing"]
+      526 SETTABLEKS                       R30 R29 K51 ["Spacing"]
+      528 JUMP                             ; [+16]
+      529 DUPTABLE                         R29 K64 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+      530 GETIMPORT                        R30 K66 [UDim2.new]
+      532 LOADN                            R31 1
+      533 LOADN                            R32 0
+      534 LOADN                            R33 0
+      535 GETTABLEKS                       R34 R2 K67 ["rowHeight"]
+      537 CALL                             R30 4 1
+      538 SETTABLEKS                       R30 R29 K61 ["Size"]
+      540 NAMECALL                         R30 R4 K56 ["getNextOrder"]
+      542 CALL                             R30 1 1
+      543 SETTABLEKS                       R30 R29 K49 ["LayoutOrder"]
+      545 DUPTABLE                         R30 K116 [{"HorizontalLayout", "EarnLabel", "RobuxIcon", "EarnAmount"}]
+      546 GETUPVAL                         R32 2
+      547 JUMPIFNOT                        R32 ; [+2]
+      548 LOADNIL                          R31
+      549 JUMP                             ; [+18]
+      550 GETUPVAL                         R31 3
+      551 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      553 LOADK                            R32 K73 ["UIListLayout"]
+      554 DUPTABLE                         R33 K76 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
+      555 GETIMPORT                        R34 K59 [Enum.FillDirection.Horizontal]
+      557 SETTABLEKS                       R34 R33 K57 ["FillDirection"]
+      559 GETIMPORT                        R34 K77 [Enum.SortOrder.LayoutOrder]
+      561 SETTABLEKS                       R34 R33 K74 ["SortOrder"]
+      563 GETIMPORT                        R34 K79 [Enum.VerticalAlignment.Center]
+      565 SETTABLEKS                       R34 R33 K75 ["VerticalAlignment"]
+      567 CALL                             R31 2 1
+      568 SETTABLEKS                       R31 R30 K68 ["HorizontalLayout"]
+      570 GETUPVAL                         R32 2
+      571 JUMPIFNOT                        R32 ; [+13]
+      572 GETUPVAL                         R31 3
+      573 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      575 GETUPVAL                         R32 5
+      576 DUPTABLE                         R33 K81 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Text"]}]
+      577 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
+      579 SETTABLEKS                       R34 R33 K48 ["AutomaticSize"]
+      581 SETTABLEKS                       R19 R33 K80 ["Text"]
+      583 CALL                             R31 2 1
+      584 JUMP                             ; [+38]
+      585 GETUPVAL                         R31 3
+      586 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      588 LOADK                            R32 K82 ["TextLabel"]
+      589 GETUPVAL                         R33 6
+      590 GETTABLEKS                       R33 R33 K83 ["Dictionary"]
+      592 GETTABLEKS                       R33 R33 K84 ["join"]
+      594 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
+      596 GETTABLEKS                       R34 R34 K28 ["Normal"]
+      598 DUPTABLE                         R35 K117 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextYAlignment"], ["TextXAlignment"], ["TextTransparency"], ["Text"], ["LayoutOrder"] = 1}]
+      599 GETIMPORT                        R36 K66 [UDim2.new]
+      601 LOADN                            R37 0
+      602 GETTABLEKS                       R38 R20 K89 ["X"]
+      604 LOADN                            R39 1
+      605 LOADN                            R40 0
+      606 CALL                             R36 4 1
+      607 SETTABLEKS                       R36 R35 K61 ["Size"]
+      609 GETIMPORT                        R36 K90 [Enum.TextYAlignment.Center]
+      611 SETTABLEKS                       R36 R35 K85 ["TextYAlignment"]
+      613 GETIMPORT                        R36 K92 [Enum.TextXAlignment.Left]
+      615 SETTABLEKS                       R36 R35 K86 ["TextXAlignment"]
+      617 SETTABLEKS                       R24 R35 K87 ["TextTransparency"]
+      619 SETTABLEKS                       R19 R35 K80 ["Text"]
+      621 CALL                             R33 2 -1
+      622 CALL                             R31 -1 1
+      623 SETTABLEKS                       R31 R30 K41 ["EarnLabel"]
+      625 GETUPVAL                         R31 3
+      626 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      628 LOADK                            R32 K93 ["ImageLabel"]
+      629 DUPTABLE                         R33 K98 [{["Size"], ["ImageColor3"], ["Image"], ["ImageTransparency"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2}]
+      630 GETIMPORT                        R34 K66 [UDim2.new]
+      632 LOADN                            R35 0
+      633 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      635 GETTABLEKS                       R36 R36 K99 ["icon"]
+      637 GETTABLEKS                       R36 R36 K100 ["size"]
+      639 LOADN                            R37 0
+      640 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
+      642 GETTABLEKS                       R38 R38 K99 ["icon"]
+      644 GETTABLEKS                       R38 R38 K100 ["size"]
+      646 CALL                             R34 4 1
+      647 SETTABLEKS                       R34 R33 K61 ["Size"]
+      649 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      651 GETTABLEKS                       R34 R34 K99 ["icon"]
+      653 GETTABLEKS                       R34 R34 K101 ["imageColor"]
+      655 SETTABLEKS                       R34 R33 K94 ["ImageColor3"]
+      657 GETTABLEKS                       R34 R2 K33 ["robuxFeeBase"]
+      659 GETTABLEKS                       R34 R34 K99 ["icon"]
+      661 GETTABLEKS                       R34 R34 K102 ["image"]
+      663 SETTABLEKS                       R34 R33 K95 ["Image"]
+      665 SETTABLEKS                       R24 R33 K96 ["ImageTransparency"]
+      667 CALL                             R31 2 1
+      668 SETTABLEKS                       R31 R30 K70 ["RobuxIcon"]
+      670 GETUPVAL                         R32 2
+      671 JUMPIFNOT                        R32 ; [+15]
+      672 GETUPVAL                         R31 3
+      673 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      675 GETUPVAL                         R32 5
+      676 DUPTABLE                         R33 K118 [{["AutomaticSize"], ["LayoutOrder"] = 3, ["Text"], ["TextTransparency"]}]
+      677 GETIMPORT                        R34 K55 [Enum.AutomaticSize.XY]
+      679 SETTABLEKS                       R34 R33 K48 ["AutomaticSize"]
+      681 SETTABLEKS                       R22 R33 K80 ["Text"]
+      683 SETTABLEKS                       R24 R33 K87 ["TextTransparency"]
+      685 CALL                             R31 2 1
+      686 JUMP                             ; [+38]
+      687 GETUPVAL                         R31 3
+      688 GETTABLEKS                       R31 R31 K46 ["createElement"]
+      690 LOADK                            R32 K82 ["TextLabel"]
+      691 GETUPVAL                         R33 6
+      692 GETTABLEKS                       R33 R33 K83 ["Dictionary"]
+      694 GETTABLEKS                       R33 R33 K84 ["join"]
+      696 GETTABLEKS                       R34 R2 K16 ["fontStyle"]
+      698 GETTABLEKS                       R34 R34 K28 ["Normal"]
+      700 DUPTABLE                         R35 K107 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextYAlignment"], ["TextXAlignment"], ["TextTransparency"], ["Text"], ["LayoutOrder"] = 3}]
+      701 GETIMPORT                        R36 K66 [UDim2.new]
+      703 LOADN                            R37 1
+      704 LOADN                            R38 0
+      705 LOADN                            R39 0
+      706 GETTABLEKS                       R40 R2 K67 ["rowHeight"]
+      708 CALL                             R36 4 1
+      709 SETTABLEKS                       R36 R35 K61 ["Size"]
+      711 GETIMPORT                        R36 K90 [Enum.TextYAlignment.Center]
+      713 SETTABLEKS                       R36 R35 K85 ["TextYAlignment"]
+      715 GETIMPORT                        R36 K92 [Enum.TextXAlignment.Left]
+      717 SETTABLEKS                       R36 R35 K86 ["TextXAlignment"]
+      719 SETTABLEKS                       R24 R35 K87 ["TextTransparency"]
+      721 SETTABLEKS                       R22 R35 K80 ["Text"]
+      723 CALL                             R33 2 -1
+      724 CALL                             R31 -1 1
+      725 SETTABLEKS                       R31 R30 K115 ["EarnAmount"]
+      727 CALL                             R27 3 1
+      728 GETUPVAL                         R28 3
+      729 GETTABLEKS                       R28 R28 K46 ["createElement"]
+      731 GETUPVAL                         R29 4
+      732 DUPTABLE                         R30 K120 [{"AutomaticSize", "Layout", "Spacing", "HorizontalAlignment"}]
+      733 GETIMPORT                        R31 K55 [Enum.AutomaticSize.XY]
+      735 SETTABLEKS                       R31 R30 K48 ["AutomaticSize"]
+      737 GETIMPORT                        R31 K122 [Enum.FillDirection.Vertical]
+      739 SETTABLEKS                       R31 R30 K50 ["Layout"]
+      741 GETUPVAL                         R32 2
+      742 JUMPIFNOT                        R32 ; [+5]
+      743 GETTABLEKS                       R31 R2 K33 ["robuxFeeBase"]
+      745 GETTABLEKS                       R31 R31 K123 ["pricePadding"]
+      747 JUMP                             ; [+1]
+      748 LOADNIL                          R31
+      749 SETTABLEKS                       R31 R30 K51 ["Spacing"]
+      751 GETUPVAL                         R32 2
+      752 JUMPIFNOT                        R32 ; [+3]
+      753 GETIMPORT                        R31 K124 [Enum.HorizontalAlignment.Left]
+      755 JUMP                             ; [+1]
+      756 LOADNIL                          R31
+      757 SETTABLEKS                       R31 R30 K119 ["HorizontalAlignment"]
+      759 DUPTABLE                         R31 K129 [{"TextInput", "SubText", "FeeFrame", "FeeSubText", "EarnFrame"}]
+      760 GETUPVAL                         R32 3
+      761 GETTABLEKS                       R32 R32 K46 ["createElement"]
+      763 GETUPVAL                         R33 7
+      764 DUPTABLE                         R34 K135 [{["Disabled"], ["LayoutOrder"] = 0, ["LeadingComponent"], ["LeadingComponentProps"], ["OnTextChanged"], ["Width"], ["Text"]}]
+      765 NOT                              R35 R11
+      766 SETTABLEKS                       R35 R34 K130 ["Disabled"]
+      768 GETUPVAL                         R35 8
+      769 SETTABLEKS                       R35 R34 K131 ["LeadingComponent"]
+      771 DUPTABLE                         R35 K136 [{"ImageColor3", "Image", "Size"}]
+      772 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      774 GETTABLEKS                       R36 R36 K99 ["icon"]
+      776 GETTABLEKS                       R36 R36 K101 ["imageColor"]
+      778 SETTABLEKS                       R36 R35 K94 ["ImageColor3"]
+      780 GETTABLEKS                       R36 R2 K33 ["robuxFeeBase"]
+      782 GETTABLEKS                       R36 R36 K99 ["icon"]
+      784 GETTABLEKS                       R36 R36 K102 ["image"]
+      786 SETTABLEKS                       R36 R35 K95 ["Image"]
+      788 GETIMPORT                        R36 K66 [UDim2.new]
+      790 LOADN                            R37 0
+      791 GETTABLEKS                       R38 R2 K33 ["robuxFeeBase"]
+      793 GETTABLEKS                       R38 R38 K99 ["icon"]
+      795 GETTABLEKS                       R38 R38 K100 ["size"]
+      797 LOADN                            R39 0
+      798 GETTABLEKS                       R40 R2 K33 ["robuxFeeBase"]
+      800 GETTABLEKS                       R40 R40 K99 ["icon"]
+      802 GETTABLEKS                       R40 R40 K100 ["size"]
+      804 CALL                             R36 4 1
+      805 SETTABLEKS                       R36 R35 K61 ["Size"]
+      807 SETTABLEKS                       R35 R34 K132 ["LeadingComponentProps"]
+      809 SETTABLEKS                       R12 R34 K133 ["OnTextChanged"]
+      811 GETTABLEKS                       R35 R2 K33 ["robuxFeeBase"]
+      813 GETTABLEKS                       R35 R35 K137 ["priceField"]
+      815 GETTABLEKS                       R35 R35 K35 ["width"]
+      817 SETTABLEKS                       R35 R34 K134 ["Width"]
+      819 SETTABLEKS                       R8 R34 K80 ["Text"]
+      821 CALL                             R32 2 1
+      822 SETTABLEKS                       R32 R31 K125 ["TextInput"]
+      824 MOVE                             R32 R10
+      825 JUMPIFNOT                        R32 ; [+41]
+      826 GETUPVAL                         R32 3
+      827 GETTABLEKS                       R32 R32 K46 ["createElement"]
+      829 LOADK                            R33 K82 ["TextLabel"]
+      830 GETUPVAL                         R34 6
+      831 GETTABLEKS                       R34 R34 K83 ["Dictionary"]
+      833 GETTABLEKS                       R34 R34 K84 ["join"]
+      835 GETTABLEKS                       R35 R2 K16 ["fontStyle"]
+      837 GETTABLEKS                       R35 R35 K17 ["Subtitle"]
+      839 DUPTABLE                         R36 K138 [{["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"], ["LayoutOrder"] = 1}]
+      840 GETIMPORT                        R37 K66 [UDim2.new]
+      842 LOADN                            R38 0
+      843 GETTABLEKS                       R40 R10 K89 ["X"]
+      845 FASTCALL1                        MATH_CEIL R40 ; [+2]
+      846 GETIMPORT                        R39 K38 [math.ceil]
+      848 CALL                             R39 1 1
+      849 LOADN                            R40 0
+      850 GETTABLEKS                       R41 R10 K114 ["Y"]
+      852 CALL                             R37 4 1
+      853 SETTABLEKS                       R37 R36 K61 ["Size"]
+      855 SETTABLEKS                       R9 R36 K80 ["Text"]
+      857 GETIMPORT                        R37 K92 [Enum.TextXAlignment.Left]
+      859 SETTABLEKS                       R37 R36 K86 ["TextXAlignment"]
+      861 GETIMPORT                        R37 K140 [Enum.TextYAlignment.Top]
+      863 SETTABLEKS                       R37 R36 K85 ["TextYAlignment"]
+      865 CALL                             R34 2 -1
+      866 CALL                             R32 -1 1
+      867 SETTABLEKS                       R32 R31 K15 ["SubText"]
+      869 SETTABLEKS                       R25 R31 K126 ["FeeFrame"]
+      871 SETTABLEKS                       R26 R31 K127 ["FeeSubText"]
+      873 SETTABLEKS                       R27 R31 K128 ["EarnFrame"]
+      875 CALL                             R28 3 -1
+      876 RETURN                           R28 -1
 
 MAIN:
         0 PREPVARARGS                      0

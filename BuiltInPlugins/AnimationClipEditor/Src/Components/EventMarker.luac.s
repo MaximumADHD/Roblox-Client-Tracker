@@ -62,80 +62,74 @@ PROTO_1:
        73 SETTABLE                         R10 R13 R14
        74 DUPTABLE                         R14 K32 [{"Tooltip", "Border", "SelectionBorder"}]
        75 MOVE                             R15 R4
-       76 JUMPIFNOT                        R15 ; [+15]
+       76 JUMPIFNOT                        R15 ; [+12]
        77 GETUPVAL                         R15 0
        78 GETTABLEKS                       R15 R15 K10 ["createElement"]
        80 GETUPVAL                         R16 2
-       81 DUPTABLE                         R17 K35 [{"Text", "ShowDelay"}]
+       81 DUPTABLE                         R17 K36 [{["Text"], ["ShowDelay"] = 0}]
        82 MOVE                             R20 R4
-       83 NAMECALL                         R18 R0 K36 ["getTooltip"]
+       83 NAMECALL                         R18 R0 K37 ["getTooltip"]
        85 CALL                             R18 2 1
        86 SETTABLEKS                       R18 R17 K33 ["Text"]
-       88 LOADN                            R18 0
-       89 SETTABLEKS                       R18 R17 K34 ["ShowDelay"]
-       91 CALL                             R15 2 1
-       92 SETTABLEKS                       R15 R14 K29 ["Tooltip"]
-       94 GETUPVAL                         R15 0
-       95 GETTABLEKS                       R15 R15 K10 ["createElement"]
-       97 LOADK                            R16 K37 ["ImageLabel"]
-       98 DUPTABLE                         R17 K38 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "ImageColor3", "Image"}]
-       99 GETUPVAL                         R18 1
-      100 GETTABLEKS                       R18 R18 K12 ["EVENT_MARKER_SIZE"]
-      102 SETTABLEKS                       R18 R17 K13 ["Size"]
-      104 GETIMPORT                        R18 K16 [Vector2.new]
-      106 LOADK                            R19 K17 [0.5]
-      107 LOADN                            R20 0
-      108 CALL                             R18 2 1
-      109 SETTABLEKS                       R18 R17 K18 ["AnchorPoint"]
-      111 GETIMPORT                        R18 K40 [UDim2.new]
-      113 LOADK                            R19 K17 [0.5]
-      114 LOADN                            R20 0
-      115 LOADN                            R21 0
-      116 LOADN                            R22 0
-      117 CALL                             R18 4 1
-      118 SETTABLEKS                       R18 R17 K5 ["Position"]
-      120 LOADN                            R18 1
-      121 SETTABLEKS                       R18 R17 K19 ["BackgroundTransparency"]
-      123 JUMPIFNOT                        R3 ; [+3]
-      124 GETTABLEKS                       R18 R5 K41 ["selectionBorderColor"]
-      126 JUMPIF                           R18 ; [+2]
-      127 GETTABLEKS                       R18 R5 K42 ["borderColor"]
-      129 SETTABLEKS                       R18 R17 K22 ["ImageColor3"]
-      131 GETTABLEKS                       R18 R5 K43 ["borderImage"]
-      133 SETTABLEKS                       R18 R17 K24 ["Image"]
-      135 CALL                             R15 2 1
-      136 SETTABLEKS                       R15 R14 K30 ["Border"]
-      138 MOVE                             R15 R3
-      139 JUMPIFNOT                        R15 ; [+38]
-      140 GETUPVAL                         R15 0
-      141 GETTABLEKS                       R15 R15 K10 ["createElement"]
-      143 LOADK                            R16 K37 ["ImageLabel"]
-      144 DUPTABLE                         R17 K38 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "ImageColor3", "Image"}]
-      145 GETUPVAL                         R18 1
-      146 GETTABLEKS                       R18 R18 K44 ["EVENT_MARKER_BORDER_SIZE"]
-      148 SETTABLEKS                       R18 R17 K13 ["Size"]
-      150 GETIMPORT                        R18 K16 [Vector2.new]
-      152 LOADK                            R19 K17 [0.5]
-      153 LOADN                            R20 0
-      154 CALL                             R18 2 1
-      155 SETTABLEKS                       R18 R17 K18 ["AnchorPoint"]
-      157 GETIMPORT                        R18 K40 [UDim2.new]
-      159 LOADK                            R19 K17 [0.5]
-      160 LOADN                            R20 0
-      161 LOADN                            R21 0
-      162 LOADN                            R22 0
-      163 CALL                             R18 4 1
-      164 SETTABLEKS                       R18 R17 K5 ["Position"]
-      166 LOADN                            R18 1
-      167 SETTABLEKS                       R18 R17 K19 ["BackgroundTransparency"]
-      169 GETTABLEKS                       R18 R5 K41 ["selectionBorderColor"]
-      171 SETTABLEKS                       R18 R17 K22 ["ImageColor3"]
-      173 GETTABLEKS                       R18 R5 K45 ["selectionBorderImage"]
-      175 SETTABLEKS                       R18 R17 K24 ["Image"]
-      177 CALL                             R15 2 1
-      178 SETTABLEKS                       R15 R14 K31 ["SelectionBorder"]
-      180 CALL                             R11 3 -1
-      181 RETURN                           R11 -1
+       88 CALL                             R15 2 1
+       89 SETTABLEKS                       R15 R14 K29 ["Tooltip"]
+       91 GETUPVAL                         R15 0
+       92 GETTABLEKS                       R15 R15 K10 ["createElement"]
+       94 LOADK                            R16 K38 ["ImageLabel"]
+       95 DUPTABLE                         R17 K40 [{["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["Image"]}]
+       96 GETUPVAL                         R18 1
+       97 GETTABLEKS                       R18 R18 K12 ["EVENT_MARKER_SIZE"]
+       99 SETTABLEKS                       R18 R17 K13 ["Size"]
+      101 GETIMPORT                        R18 K16 [Vector2.new]
+      103 LOADK                            R19 K17 [0.5]
+      104 LOADN                            R20 0
+      105 CALL                             R18 2 1
+      106 SETTABLEKS                       R18 R17 K18 ["AnchorPoint"]
+      108 GETIMPORT                        R18 K42 [UDim2.new]
+      110 LOADK                            R19 K17 [0.5]
+      111 LOADN                            R20 0
+      112 LOADN                            R21 0
+      113 LOADN                            R22 0
+      114 CALL                             R18 4 1
+      115 SETTABLEKS                       R18 R17 K5 ["Position"]
+      117 JUMPIFNOT                        R3 ; [+3]
+      118 GETTABLEKS                       R18 R5 K43 ["selectionBorderColor"]
+      120 JUMPIF                           R18 ; [+2]
+      121 GETTABLEKS                       R18 R5 K44 ["borderColor"]
+      123 SETTABLEKS                       R18 R17 K22 ["ImageColor3"]
+      125 GETTABLEKS                       R18 R5 K45 ["borderImage"]
+      127 SETTABLEKS                       R18 R17 K24 ["Image"]
+      129 CALL                             R15 2 1
+      130 SETTABLEKS                       R15 R14 K30 ["Border"]
+      132 MOVE                             R15 R3
+      133 JUMPIFNOT                        R15 ; [+35]
+      134 GETUPVAL                         R15 0
+      135 GETTABLEKS                       R15 R15 K10 ["createElement"]
+      137 LOADK                            R16 K38 ["ImageLabel"]
+      138 DUPTABLE                         R17 K40 [{["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["Image"]}]
+      139 GETUPVAL                         R18 1
+      140 GETTABLEKS                       R18 R18 K46 ["EVENT_MARKER_BORDER_SIZE"]
+      142 SETTABLEKS                       R18 R17 K13 ["Size"]
+      144 GETIMPORT                        R18 K16 [Vector2.new]
+      146 LOADK                            R19 K17 [0.5]
+      147 LOADN                            R20 0
+      148 CALL                             R18 2 1
+      149 SETTABLEKS                       R18 R17 K18 ["AnchorPoint"]
+      151 GETIMPORT                        R18 K42 [UDim2.new]
+      153 LOADK                            R19 K17 [0.5]
+      154 LOADN                            R20 0
+      155 LOADN                            R21 0
+      156 LOADN                            R22 0
+      157 CALL                             R18 4 1
+      158 SETTABLEKS                       R18 R17 K5 ["Position"]
+      160 GETTABLEKS                       R18 R5 K43 ["selectionBorderColor"]
+      162 SETTABLEKS                       R18 R17 K22 ["ImageColor3"]
+      164 GETTABLEKS                       R18 R5 K47 ["selectionBorderImage"]
+      166 SETTABLEKS                       R18 R17 K24 ["Image"]
+      168 CALL                             R15 2 1
+      169 SETTABLEKS                       R15 R14 K31 ["SelectionBorder"]
+      171 CALL                             R11 3 -1
+      172 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

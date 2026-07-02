@@ -95,35 +95,15 @@ PROTO_4:
        12 CALL                             R4 1 3
        13 FORGPREP_INEXT                   R4
        14 GETTABLEKS                       R9 R3 K1 ["data"]
-       16 DUPTABLE                         R10 K16 [{"canHaveThumbnail", "isArchivable", "id", "isPublicDomainEnabled", "typeId", "isModerated", "isVersioningEnabled", "name", "description", "enableComments", "isCopyingAllowed"}]
-       17 LOADB                            R11 0
-       18 SETTABLEKS                       R11 R10 K5 ["canHaveThumbnail"]
-       20 LOADB                            R11 0
-       21 SETTABLEKS                       R11 R10 K6 ["isArchivable"]
-       23 SETTABLEKS                       R8 R10 K7 ["id"]
-       25 LOADB                            R11 0
-       26 SETTABLEKS                       R11 R10 K8 ["isPublicDomainEnabled"]
-       28 LOADN                            R11 19
-       29 SETTABLEKS                       R11 R10 K9 ["typeId"]
-       31 LOADB                            R11 0
-       32 SETTABLEKS                       R11 R10 K10 ["isModerated"]
-       34 LOADB                            R11 0
-       35 SETTABLEKS                       R11 R10 K11 ["isVersioningEnabled"]
-       37 LOADK                            R11 K17 ["Merely's ROBLOX Tablet"]
-       38 SETTABLEKS                       R11 R10 K12 ["name"]
-       40 LOADK                            R11 K18 ["Winner: Merely. ROBLOX will be in touch to redeem this prize."]
-       41 SETTABLEKS                       R11 R10 K13 ["description"]
-       43 LOADB                            R11 0
-       44 SETTABLEKS                       R11 R10 K14 ["enableComments"]
-       46 LOADB                            R11 0
-       47 SETTABLEKS                       R11 R10 K15 ["isCopyingAllowed"]
-       49 SETTABLE                         R10 R9 R7
-       50 FORGLOOP                         R4 2 [inext] ; [-37]
-       52 GETUPVAL                         R4 0
-       53 MOVE                             R6 R3
-       54 NAMECALL                         R4 R4 K19 ["JSONEncode"]
-       56 CALL                             R4 2 -1
-       57 RETURN                           R4 -1
+       16 DUPTABLE                         R10 K20 [{["canHaveThumbnail"] = False, ["isArchivable"] = False, ["id"], ["isPublicDomainEnabled"] = False, ["typeId"] = 19, ["isModerated"] = False, ["isVersioningEnabled"] = False, ["name"] = "Merely's ROBLOX Tablet", ["description"] = "Winner: Merely. ROBLOX will be in touch to redeem this prize.", ["enableComments"] = False, ["isCopyingAllowed"] = False}]
+       17 SETTABLEKS                       R8 R10 K8 ["id"]
+       19 SETTABLE                         R10 R9 R7
+       20 FORGLOOP                         R4 2 [inext] ; [-7]
+       22 GETUPVAL                         R4 0
+       23 MOVE                             R6 R3
+       24 NAMECALL                         R4 R4 K21 ["JSONEncode"]
+       26 CALL                             R4 2 -1
+       27 RETURN                           R4 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -185,18 +165,12 @@ PROTO_6:
        60 JUMPIF                           R4 ; [+2]
        61 DUPCLOSURE                       R4 K13 [PROTO_5]
        62 CAPTURE                          UPVAL U0
-       63 DUPTABLE                         R5 K18 [{"Body", "Success", "StatusMessage", "StatusCode"}]
+       63 DUPTABLE                         R5 K21 [{["Body"], ["Success"] = True, ["StatusMessage"] = "OK", ["StatusCode"] = 200}]
        64 MOVE                             R6 R4
        65 MOVE                             R7 R3
        66 CALL                             R6 1 1
        67 SETTABLEKS                       R6 R5 K14 ["Body"]
-       69 LOADB                            R6 1
-       70 SETTABLEKS                       R6 R5 K15 ["Success"]
-       72 LOADK                            R6 K19 ["OK"]
-       73 SETTABLEKS                       R6 R5 K16 ["StatusMessage"]
-       75 LOADN                            R6 200
-       76 SETTABLEKS                       R6 R5 K17 ["StatusCode"]
-       78 RETURN                           R5 1
+       69 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

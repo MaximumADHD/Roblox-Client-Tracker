@@ -89,16 +89,14 @@ PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["fetchAllTexturesFromWorkspace"]
         3 CALL                             R1 0 1
-        4 DUPTABLE                         R2 K3 [{"rows", "searchTerm"}]
+        4 DUPTABLE                         R2 K4 [{["rows"], ["searchTerm"] = ""}]
         5 SETTABLEKS                       R1 R2 K1 ["rows"]
-        7 LOADK                            R3 K4 [""]
-        8 SETTABLEKS                       R3 R2 K2 ["searchTerm"]
-       10 SETTABLEKS                       R2 R0 K5 ["state"]
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R2 R0 K6 ["showRightClickMenu"]
-       17 RETURN                           R0 0
+        7 SETTABLEKS                       R2 R0 K5 ["state"]
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R2 R0 K6 ["showRightClickMenu"]
+       14 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -144,33 +142,27 @@ PROTO_7:
        48 GETUPVAL                         R11 1
        49 GETTABLEKS                       R11 R11 K6 ["createElement"]
        51 GETUPVAL                         R12 4
-       52 DUPTABLE                         R13 K28 [{"PlaceholderText", "IncrementalTextSearch", "IncrementalTextSearchDelay", "OnSearchRequested", "Size", "LayoutOrder"}]
-       53 LOADK                            R16 K29 ["Search"]
-       54 LOADK                            R17 K30 ["Placeholder"]
-       55 NAMECALL                         R14 R3 K31 ["getText"]
+       52 DUPTABLE                         R13 K31 [{["PlaceholderText"], ["IncrementalTextSearch"] = True, ["IncrementalTextSearchDelay"] = 0, ["OnSearchRequested"], ["Size"], ["LayoutOrder"] = 2}]
+       53 LOADK                            R16 K32 ["Search"]
+       54 LOADK                            R17 K33 ["Placeholder"]
+       55 NAMECALL                         R14 R3 K34 ["getText"]
        57 CALL                             R14 3 1
        58 SETTABLEKS                       R14 R13 K23 ["PlaceholderText"]
-       60 LOADB                            R14 1
-       61 SETTABLEKS                       R14 R13 K24 ["IncrementalTextSearch"]
-       63 LOADN                            R14 0
-       64 SETTABLEKS                       R14 R13 K25 ["IncrementalTextSearchDelay"]
-       66 NEWCLOSURE                       R14 P0
-       67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R14 R13 K26 ["OnSearchRequested"]
-       70 GETTABLEKS                       R14 R2 K20 ["SearchBar"]
-       72 GETTABLEKS                       R14 R14 K7 ["Size"]
-       74 SETTABLEKS                       R14 R13 K7 ["Size"]
-       76 LOADN                            R14 2
-       77 SETTABLEKS                       R14 R13 K27 ["LayoutOrder"]
-       79 CALL                             R11 2 1
-       80 SETTABLEKS                       R11 R10 K20 ["SearchBar"]
-       82 GETUPVAL                         R11 5
-       83 MOVE                             R12 R0
-       84 MOVE                             R13 R4
-       85 CALL                             R11 2 1
-       86 SETTABLEKS                       R11 R10 K21 ["Table"]
-       88 CALL                             R7 3 -1
-       89 RETURN                           R7 -1
+       60 NEWCLOSURE                       R14 P0
+       61 CAPTURE                          VAL R0
+       62 SETTABLEKS                       R14 R13 K28 ["OnSearchRequested"]
+       64 GETTABLEKS                       R14 R2 K20 ["SearchBar"]
+       66 GETTABLEKS                       R14 R14 K7 ["Size"]
+       68 SETTABLEKS                       R14 R13 K7 ["Size"]
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K20 ["SearchBar"]
+       73 GETUPVAL                         R11 5
+       74 MOVE                             R12 R0
+       75 MOVE                             R13 R4
+       76 CALL                             R11 2 1
+       77 SETTABLEKS                       R11 R10 K21 ["Table"]
+       79 CALL                             R7 3 -1
+       80 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

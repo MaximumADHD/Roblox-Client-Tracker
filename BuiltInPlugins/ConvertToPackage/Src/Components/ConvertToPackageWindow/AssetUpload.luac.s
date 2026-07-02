@@ -1,9 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K1 [{"isLoading"}]
-        1 LOADB                            R3 1
-        2 SETTABLEKS                       R3 R2 K0 ["isLoading"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = True}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -13,79 +11,67 @@ PROTO_1:
         8 GETUPVAL                         R5 0
         9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 LOADK                            R6 K5 ["Frame"]
-       12 DUPTABLE                         R7 K10 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-       13 GETTABLEKS                       R8 R3 K11 ["typeValidation"]
-       15 GETTABLEKS                       R8 R8 K12 ["background"]
+       12 DUPTABLE                         R7 K11 [{["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0, ["Size"]}]
+       13 GETTABLEKS                       R8 R3 K12 ["typeValidation"]
+       15 GETTABLEKS                       R8 R8 K13 ["background"]
        17 SETTABLEKS                       R8 R7 K6 ["BackgroundColor3"]
-       19 LOADN                            R8 0
-       20 SETTABLEKS                       R8 R7 K7 ["BackgroundTransparency"]
-       22 LOADN                            R8 0
-       23 SETTABLEKS                       R8 R7 K8 ["BorderSizePixel"]
-       25 GETTABLEKS                       R8 R1 K9 ["Size"]
-       27 SETTABLEKS                       R8 R7 K9 ["Size"]
-       29 DUPTABLE                         R8 K15 [{"ModelPreview", "LoadingBar"}]
-       30 GETUPVAL                         R9 0
-       31 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       33 GETUPVAL                         R10 1
-       34 DUPTABLE                         R11 K20 [{"titleHeight", "titlePadding", "title", "Position", "Size"}]
-       35 LOADN                            R12 24
-       36 SETTABLEKS                       R12 R11 K16 ["titleHeight"]
-       38 LOADN                            R12 12
-       39 SETTABLEKS                       R12 R11 K17 ["titlePadding"]
-       41 SETTABLEKS                       R4 R11 K18 ["title"]
-       43 GETIMPORT                        R12 K23 [UDim2.new]
-       45 LOADK                            R13 K24 [0.5]
-       46 LOADN                            R14 181
-       47 LOADN                            R15 0
-       48 LOADN                            R16 48
-       49 CALL                             R12 4 1
-       50 SETTABLEKS                       R12 R11 K19 ["Position"]
-       52 GETIMPORT                        R12 K23 [UDim2.new]
-       54 LOADN                            R13 0
-       55 LOADN                            R14 150
-       56 LOADN                            R15 0
-       57 LOADN                            R16 186
-       58 CALL                             R12 4 1
-       59 SETTABLEKS                       R12 R11 K9 ["Size"]
-       61 CALL                             R9 2 1
-       62 SETTABLEKS                       R9 R8 K13 ["ModelPreview"]
-       64 GETUPVAL                         R9 0
-       65 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       67 GETUPVAL                         R10 2
-       68 DUPTABLE                         R11 K29 [{"loadingText", "loadingTime", "holdPercent", "Size", "Position", "onFinish"}]
-       69 LOADK                            R14 K30 ["Action"]
-       70 LOADK                            R15 K31 ["Converting"]
-       71 NAMECALL                         R12 R2 K32 ["getText"]
-       73 CALL                             R12 3 1
-       74 SETTABLEKS                       R12 R11 K25 ["loadingText"]
-       76 LOADK                            R12 K24 [0.5]
-       77 SETTABLEKS                       R12 R11 K26 ["loadingTime"]
-       79 LOADK                            R12 K33 [0.92]
-       80 SETTABLEKS                       R12 R11 K27 ["holdPercent"]
-       82 GETIMPORT                        R12 K23 [UDim2.new]
-       84 LOADN                            R13 0
-       85 LOADN                            R14 144
-       86 LOADN                            R15 0
-       87 LOADN                            R16 6
-       88 CALL                             R12 4 1
-       89 SETTABLEKS                       R12 R11 K9 ["Size"]
-       91 GETIMPORT                        R12 K23 [UDim2.new]
-       93 LOADK                            R13 K24 [0.5]
-       94 LOADN                            R14 56
-       95 LOADN                            R15 0
-       96 LOADN                            R16 58
-       97 CALL                             R12 4 1
-       98 SETTABLEKS                       R12 R11 K19 ["Position"]
-      100 GETTABLEKS                       R13 R1 K34 ["uploadSucceeded"]
-      102 JUMPIFEQKNIL                     R13 ; [+4]
-      104 GETTABLEKS                       R12 R1 K35 ["onNext"]
-      106 JUMPIF                           R12 ; [+1]
-      107 LOADNIL                          R12
-      108 SETTABLEKS                       R12 R11 K28 ["onFinish"]
-      110 CALL                             R9 2 1
-      111 SETTABLEKS                       R9 R8 K14 ["LoadingBar"]
-      113 CALL                             R5 3 -1
-      114 RETURN                           R5 -1
+       19 GETTABLEKS                       R8 R1 K10 ["Size"]
+       21 SETTABLEKS                       R8 R7 K10 ["Size"]
+       23 DUPTABLE                         R8 K16 [{"ModelPreview", "LoadingBar"}]
+       24 GETUPVAL                         R9 0
+       25 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       27 GETUPVAL                         R10 1
+       28 DUPTABLE                         R11 K23 [{["titleHeight"] = 24, ["titlePadding"] = 12, ["title"], ["Position"], ["Size"]}]
+       29 SETTABLEKS                       R4 R11 K21 ["title"]
+       31 GETIMPORT                        R12 K26 [UDim2.new]
+       33 LOADK                            R13 K27 [0.5]
+       34 LOADN                            R14 -75
+       35 LOADN                            R15 0
+       36 LOADN                            R16 48
+       37 CALL                             R12 4 1
+       38 SETTABLEKS                       R12 R11 K22 ["Position"]
+       40 GETIMPORT                        R12 K26 [UDim2.new]
+       42 LOADN                            R13 0
+       43 LOADN                            R14 150
+       44 LOADN                            R15 0
+       45 LOADN                            R16 186
+       46 CALL                             R12 4 1
+       47 SETTABLEKS                       R12 R11 K10 ["Size"]
+       49 CALL                             R9 2 1
+       50 SETTABLEKS                       R9 R8 K14 ["ModelPreview"]
+       52 GETUPVAL                         R9 0
+       53 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       55 GETUPVAL                         R10 2
+       56 DUPTABLE                         R11 K33 [{["loadingText"], ["loadingTime"] = 0.5, ["holdPercent"] = 0.92, ["Size"], ["Position"], ["onFinish"]}]
+       57 LOADK                            R14 K34 ["Action"]
+       58 LOADK                            R15 K35 ["Converting"]
+       59 NAMECALL                         R12 R2 K36 ["getText"]
+       61 CALL                             R12 3 1
+       62 SETTABLEKS                       R12 R11 K28 ["loadingText"]
+       64 GETIMPORT                        R12 K26 [UDim2.new]
+       66 LOADN                            R13 0
+       67 LOADN                            R14 400
+       68 LOADN                            R15 0
+       69 LOADN                            R16 6
+       70 CALL                             R12 4 1
+       71 SETTABLEKS                       R12 R11 K10 ["Size"]
+       73 GETIMPORT                        R12 K26 [UDim2.new]
+       75 LOADK                            R13 K27 [0.5]
+       76 LOADN                            R14 -200
+       77 LOADN                            R15 0
+       78 LOADN                            R16 314
+       79 CALL                             R12 4 1
+       80 SETTABLEKS                       R12 R11 K22 ["Position"]
+       82 GETTABLEKS                       R13 R1 K37 ["uploadSucceeded"]
+       84 JUMPIFEQKNIL                     R13 ; [+4]
+       86 GETTABLEKS                       R12 R1 K38 ["onNext"]
+       88 JUMPIF                           R12 ; [+1]
+       89 LOADNIL                          R12
+       90 SETTABLEKS                       R12 R11 K32 ["onFinish"]
+       92 CALL                             R9 2 1
+       93 SETTABLEKS                       R9 R8 K15 ["LoadingBar"]
+       95 CALL                             R5 3 -1
+       96 RETURN                           R5 -1
 
 PROTO_2:
         0 MOVE                             R2 R0

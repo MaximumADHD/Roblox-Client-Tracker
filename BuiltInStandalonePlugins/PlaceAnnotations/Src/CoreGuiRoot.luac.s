@@ -247,32 +247,30 @@ MAIN:
       167 CALL                             R25 1 1
       168 GETTABLEKS                       R26 R9 K28 ["Localization"]
       170 GETTABLEKS                       R26 R26 K41 ["new"]
-      172 DUPTABLE                         R27 K45 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+      172 DUPTABLE                         R27 K45 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PlaceAnnotations"}]
       173 SETTABLEKS                       R16 R27 K42 ["stringResourceTable"]
       175 SETTABLEKS                       R17 R27 K43 ["translationResourceTable"]
-      177 LOADK                            R28 K2 ["PlaceAnnotations"]
-      178 SETTABLEKS                       R28 R27 K44 ["pluginName"]
-      180 CALL                             R26 1 1
-      181 DUPCLOSURE                       R27 K46 [PROTO_4]
-      182 CAPTURE                          VAL R15
-      183 CAPTURE                          VAL R1
-      184 CAPTURE                          VAL R8
-      185 CAPTURE                          VAL R24
-      186 CAPTURE                          VAL R3
-      187 CAPTURE                          VAL R7
-      188 CAPTURE                          VAL R9
-      189 CAPTURE                          VAL R10
-      190 CAPTURE                          VAL R11
-      191 CAPTURE                          VAL R26
-      192 CAPTURE                          VAL R18
-      193 CAPTURE                          VAL R19
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R20
-      196 CAPTURE                          VAL R13
-      197 CAPTURE                          VAL R14
-      198 CAPTURE                          VAL R2
-      199 CAPTURE                          VAL R21
-      200 CAPTURE                          VAL R22
-      201 CAPTURE                          VAL R4
-      202 CAPTURE                          VAL R23
-      203 RETURN                           R27 1
+      177 CALL                             R26 1 1
+      178 DUPCLOSURE                       R27 K46 [PROTO_4]
+      179 CAPTURE                          VAL R15
+      180 CAPTURE                          VAL R1
+      181 CAPTURE                          VAL R8
+      182 CAPTURE                          VAL R24
+      183 CAPTURE                          VAL R3
+      184 CAPTURE                          VAL R7
+      185 CAPTURE                          VAL R9
+      186 CAPTURE                          VAL R10
+      187 CAPTURE                          VAL R11
+      188 CAPTURE                          VAL R26
+      189 CAPTURE                          VAL R18
+      190 CAPTURE                          VAL R19
+      191 CAPTURE                          VAL R12
+      192 CAPTURE                          VAL R20
+      193 CAPTURE                          VAL R13
+      194 CAPTURE                          VAL R14
+      195 CAPTURE                          VAL R2
+      196 CAPTURE                          VAL R21
+      197 CAPTURE                          VAL R22
+      198 CAPTURE                          VAL R4
+      199 CAPTURE                          VAL R23
+      200 RETURN                           R27 1

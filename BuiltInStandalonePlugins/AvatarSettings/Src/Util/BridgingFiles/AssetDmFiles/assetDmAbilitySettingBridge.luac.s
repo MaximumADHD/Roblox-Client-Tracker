@@ -17,198 +17,156 @@ PROTO_1:
        10 CAPTURE                          VAL R1
        11 GETUPVAL                         R3 1
        12 CALL                             R3 0 1
-       13 JUMPIFNOT                        R3 ; [+157]
+       13 JUMPIFNOT                        R3 ; [+118]
        14 GETUPVAL                         R3 2
        15 MOVE                             R4 R0
-       16 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+       16 DUPTABLE                         R5 K6 [{["ruleInstance"], ["property"] = "CharacterControllerMode"}]
        17 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       19 LOADK                            R6 K6 ["CharacterControllerMode"]
-       20 SETTABLEKS                       R6 R5 K4 ["property"]
-       22 GETUPVAL                         R6 3
-       23 GETTABLEKS                       R6 R6 K7 ["characterControllerModeSetting"]
-       25 CALL                             R3 3 0
-       26 GETUPVAL                         R3 2
-       27 MOVE                             R4 R0
-       28 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       29 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       31 LOADK                            R6 K8 ["EnableClimbing"]
-       32 SETTABLEKS                       R6 R5 K4 ["property"]
-       34 GETUPVAL                         R6 3
-       35 GETTABLEKS                       R6 R6 K9 ["defaultAbilitiesEnableClimbingSetting"]
-       37 CALL                             R3 3 0
-       38 GETUPVAL                         R3 2
-       39 MOVE                             R4 R0
-       40 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       41 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       43 LOADK                            R6 K10 ["EnableCrouching"]
-       44 SETTABLEKS                       R6 R5 K4 ["property"]
+       19 GETUPVAL                         R6 3
+       20 GETTABLEKS                       R6 R6 K7 ["characterControllerModeSetting"]
+       22 CALL                             R3 3 0
+       23 GETUPVAL                         R3 2
+       24 MOVE                             R4 R0
+       25 DUPTABLE                         R5 K9 [{["ruleInstance"], ["property"] = "EnableClimbing"}]
+       26 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       28 GETUPVAL                         R6 3
+       29 GETTABLEKS                       R6 R6 K10 ["defaultAbilitiesEnableClimbingSetting"]
+       31 CALL                             R3 3 0
+       32 GETUPVAL                         R3 2
+       33 MOVE                             R4 R0
+       34 DUPTABLE                         R5 K12 [{["ruleInstance"], ["property"] = "EnableCrouching"}]
+       35 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       37 GETUPVAL                         R6 3
+       38 GETTABLEKS                       R6 R6 K13 ["defaultAbilitiesEnableCrouchingSetting"]
+       40 CALL                             R3 3 0
+       41 GETUPVAL                         R3 2
+       42 MOVE                             R4 R0
+       43 DUPTABLE                         R5 K15 [{["ruleInstance"], ["property"] = "EnableFallingDown"}]
+       44 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
        46 GETUPVAL                         R6 3
-       47 GETTABLEKS                       R6 R6 K11 ["defaultAbilitiesEnableCrouchingSetting"]
+       47 GETTABLEKS                       R6 R6 K16 ["defaultAbilitiesEnableFallingDownSetting"]
        49 CALL                             R3 3 0
        50 GETUPVAL                         R3 2
        51 MOVE                             R4 R0
-       52 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+       52 DUPTABLE                         R5 K18 [{["ruleInstance"], ["property"] = "EnableGettingUp"}]
        53 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       55 LOADK                            R6 K12 ["EnableFallingDown"]
-       56 SETTABLEKS                       R6 R5 K4 ["property"]
-       58 GETUPVAL                         R6 3
-       59 GETTABLEKS                       R6 R6 K13 ["defaultAbilitiesEnableFallingDownSetting"]
-       61 CALL                             R3 3 0
-       62 GETUPVAL                         R3 2
-       63 MOVE                             R4 R0
-       64 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       65 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       67 LOADK                            R6 K14 ["EnableGettingUp"]
-       68 SETTABLEKS                       R6 R5 K4 ["property"]
-       70 GETUPVAL                         R6 3
-       71 GETTABLEKS                       R6 R6 K15 ["defaultAbilitiesEnableGettingUpSetting"]
-       73 CALL                             R3 3 0
-       74 GETUPVAL                         R3 2
-       75 MOVE                             R4 R0
-       76 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       77 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       79 LOADK                            R6 K16 ["EnableHolding"]
-       80 SETTABLEKS                       R6 R5 K4 ["property"]
+       55 GETUPVAL                         R6 3
+       56 GETTABLEKS                       R6 R6 K19 ["defaultAbilitiesEnableGettingUpSetting"]
+       58 CALL                             R3 3 0
+       59 GETUPVAL                         R3 2
+       60 MOVE                             R4 R0
+       61 DUPTABLE                         R5 K21 [{["ruleInstance"], ["property"] = "EnableHolding"}]
+       62 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       64 GETUPVAL                         R6 3
+       65 GETTABLEKS                       R6 R6 K22 ["defaultAbilitiesEnableHoldingSetting"]
+       67 CALL                             R3 3 0
+       68 GETUPVAL                         R3 2
+       69 MOVE                             R4 R0
+       70 DUPTABLE                         R5 K24 [{["ruleInstance"], ["property"] = "EnableJumping"}]
+       71 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       73 GETUPVAL                         R6 3
+       74 GETTABLEKS                       R6 R6 K25 ["defaultAbilitiesEnableJumpingSetting"]
+       76 CALL                             R3 3 0
+       77 GETUPVAL                         R3 2
+       78 MOVE                             R4 R0
+       79 DUPTABLE                         R5 K27 [{["ruleInstance"], ["property"] = "EnableReaching"}]
+       80 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
        82 GETUPVAL                         R6 3
-       83 GETTABLEKS                       R6 R6 K17 ["defaultAbilitiesEnableHoldingSetting"]
+       83 GETTABLEKS                       R6 R6 K28 ["defaultAbilitiesEnableReachingSetting"]
        85 CALL                             R3 3 0
        86 GETUPVAL                         R3 2
        87 MOVE                             R4 R0
-       88 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+       88 DUPTABLE                         R5 K30 [{["ruleInstance"], ["property"] = "EnableRunning"}]
        89 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       91 LOADK                            R6 K18 ["EnableJumping"]
-       92 SETTABLEKS                       R6 R5 K4 ["property"]
-       94 GETUPVAL                         R6 3
-       95 GETTABLEKS                       R6 R6 K19 ["defaultAbilitiesEnableJumpingSetting"]
-       97 CALL                             R3 3 0
-       98 GETUPVAL                         R3 2
-       99 MOVE                             R4 R0
-      100 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      101 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      103 LOADK                            R6 K20 ["EnableReaching"]
-      104 SETTABLEKS                       R6 R5 K4 ["property"]
-      106 GETUPVAL                         R6 3
-      107 GETTABLEKS                       R6 R6 K21 ["defaultAbilitiesEnableReachingSetting"]
-      109 CALL                             R3 3 0
-      110 GETUPVAL                         R3 2
-      111 MOVE                             R4 R0
-      112 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      113 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      115 LOADK                            R6 K22 ["EnableRunning"]
-      116 SETTABLEKS                       R6 R5 K4 ["property"]
+       91 GETUPVAL                         R6 3
+       92 GETTABLEKS                       R6 R6 K31 ["defaultAbilitiesEnableRunningSetting"]
+       94 CALL                             R3 3 0
+       95 GETUPVAL                         R3 2
+       96 MOVE                             R4 R0
+       97 DUPTABLE                         R5 K33 [{["ruleInstance"], ["property"] = "EnableSitting"}]
+       98 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      100 GETUPVAL                         R6 3
+      101 GETTABLEKS                       R6 R6 K34 ["defaultAbilitiesEnableSittingSetting"]
+      103 CALL                             R3 3 0
+      104 GETUPVAL                         R3 2
+      105 MOVE                             R4 R0
+      106 DUPTABLE                         R5 K36 [{["ruleInstance"], ["property"] = "EnableSprinting"}]
+      107 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      109 GETUPVAL                         R6 3
+      110 GETTABLEKS                       R6 R6 K37 ["defaultAbilitiesEnableSprintingSetting"]
+      112 CALL                             R3 3 0
+      113 GETUPVAL                         R3 2
+      114 MOVE                             R4 R0
+      115 DUPTABLE                         R5 K39 [{["ruleInstance"], ["property"] = "EnableStrafing"}]
+      116 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
       118 GETUPVAL                         R6 3
-      119 GETTABLEKS                       R6 R6 K23 ["defaultAbilitiesEnableRunningSetting"]
+      119 GETTABLEKS                       R6 R6 K40 ["defaultAbilitiesEnableStrafingSetting"]
       121 CALL                             R3 3 0
       122 GETUPVAL                         R3 2
       123 MOVE                             R4 R0
-      124 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+      124 DUPTABLE                         R5 K42 [{["ruleInstance"], ["property"] = "EnableSwimming"}]
       125 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      127 LOADK                            R6 K24 ["EnableSitting"]
-      128 SETTABLEKS                       R6 R5 K4 ["property"]
-      130 GETUPVAL                         R6 3
-      131 GETTABLEKS                       R6 R6 K25 ["defaultAbilitiesEnableSittingSetting"]
-      133 CALL                             R3 3 0
-      134 GETUPVAL                         R3 2
-      135 MOVE                             R4 R0
-      136 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      137 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      139 LOADK                            R6 K26 ["EnableSprinting"]
-      140 SETTABLEKS                       R6 R5 K4 ["property"]
-      142 GETUPVAL                         R6 3
-      143 GETTABLEKS                       R6 R6 K27 ["defaultAbilitiesEnableSprintingSetting"]
-      145 CALL                             R3 3 0
-      146 GETUPVAL                         R3 2
-      147 MOVE                             R4 R0
-      148 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      149 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      151 LOADK                            R6 K28 ["EnableStrafing"]
-      152 SETTABLEKS                       R6 R5 K4 ["property"]
-      154 GETUPVAL                         R6 3
-      155 GETTABLEKS                       R6 R6 K29 ["defaultAbilitiesEnableStrafingSetting"]
-      157 CALL                             R3 3 0
-      158 GETUPVAL                         R3 2
-      159 MOVE                             R4 R0
-      160 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      161 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      163 LOADK                            R6 K30 ["EnableSwimming"]
-      164 SETTABLEKS                       R6 R5 K4 ["property"]
-      166 GETUPVAL                         R6 3
-      167 GETTABLEKS                       R6 R6 K31 ["defaultAbilitiesEnableSwimmingSetting"]
-      169 CALL                             R3 3 0
-      170 RETURN                           R0 0
-      171 GETUPVAL                         R3 2
-      172 MOVE                             R4 R0
-      173 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      174 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      176 LOADK                            R6 K6 ["CharacterControllerMode"]
-      177 SETTABLEKS                       R6 R5 K4 ["property"]
-      179 GETUPVAL                         R6 3
-      180 GETTABLEKS                       R6 R6 K7 ["characterControllerModeSetting"]
-      182 CALL                             R3 3 0
-      183 GETUPVAL                         R3 2
-      184 MOVE                             R4 R0
-      185 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      186 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      188 LOADK                            R6 K22 ["EnableRunning"]
-      189 SETTABLEKS                       R6 R5 K4 ["property"]
+      127 GETUPVAL                         R6 3
+      128 GETTABLEKS                       R6 R6 K43 ["defaultAbilitiesEnableSwimmingSetting"]
+      130 CALL                             R3 3 0
+      131 RETURN                           R0 0
+      132 GETUPVAL                         R3 2
+      133 MOVE                             R4 R0
+      134 DUPTABLE                         R5 K6 [{["ruleInstance"], ["property"] = "CharacterControllerMode"}]
+      135 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      137 GETUPVAL                         R6 3
+      138 GETTABLEKS                       R6 R6 K7 ["characterControllerModeSetting"]
+      140 CALL                             R3 3 0
+      141 GETUPVAL                         R3 2
+      142 MOVE                             R4 R0
+      143 DUPTABLE                         R5 K30 [{["ruleInstance"], ["property"] = "EnableRunning"}]
+      144 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      146 GETUPVAL                         R6 3
+      147 GETTABLEKS                       R6 R6 K31 ["defaultAbilitiesEnableRunningSetting"]
+      149 CALL                             R3 3 0
+      150 GETUPVAL                         R3 2
+      151 MOVE                             R4 R0
+      152 DUPTABLE                         R5 K24 [{["ruleInstance"], ["property"] = "EnableJumping"}]
+      153 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      155 GETUPVAL                         R6 3
+      156 GETTABLEKS                       R6 R6 K25 ["defaultAbilitiesEnableJumpingSetting"]
+      158 CALL                             R3 3 0
+      159 GETUPVAL                         R3 2
+      160 MOVE                             R4 R0
+      161 DUPTABLE                         R5 K33 [{["ruleInstance"], ["property"] = "EnableSitting"}]
+      162 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      164 GETUPVAL                         R6 3
+      165 GETTABLEKS                       R6 R6 K34 ["defaultAbilitiesEnableSittingSetting"]
+      167 CALL                             R3 3 0
+      168 GETUPVAL                         R3 2
+      169 MOVE                             R4 R0
+      170 DUPTABLE                         R5 K15 [{["ruleInstance"], ["property"] = "EnableFallingDown"}]
+      171 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      173 GETUPVAL                         R6 3
+      174 GETTABLEKS                       R6 R6 K16 ["defaultAbilitiesEnableFallingDownSetting"]
+      176 CALL                             R3 3 0
+      177 GETUPVAL                         R3 2
+      178 MOVE                             R4 R0
+      179 DUPTABLE                         R5 K18 [{["ruleInstance"], ["property"] = "EnableGettingUp"}]
+      180 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+      182 GETUPVAL                         R6 3
+      183 GETTABLEKS                       R6 R6 K19 ["defaultAbilitiesEnableGettingUpSetting"]
+      185 CALL                             R3 3 0
+      186 GETUPVAL                         R3 2
+      187 MOVE                             R4 R0
+      188 DUPTABLE                         R5 K9 [{["ruleInstance"], ["property"] = "EnableClimbing"}]
+      189 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
       191 GETUPVAL                         R6 3
-      192 GETTABLEKS                       R6 R6 K23 ["defaultAbilitiesEnableRunningSetting"]
+      192 GETTABLEKS                       R6 R6 K10 ["defaultAbilitiesEnableClimbingSetting"]
       194 CALL                             R3 3 0
       195 GETUPVAL                         R3 2
       196 MOVE                             R4 R0
-      197 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+      197 DUPTABLE                         R5 K42 [{["ruleInstance"], ["property"] = "EnableSwimming"}]
       198 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      200 LOADK                            R6 K18 ["EnableJumping"]
-      201 SETTABLEKS                       R6 R5 K4 ["property"]
-      203 GETUPVAL                         R6 3
-      204 GETTABLEKS                       R6 R6 K19 ["defaultAbilitiesEnableJumpingSetting"]
-      206 CALL                             R3 3 0
-      207 GETUPVAL                         R3 2
-      208 MOVE                             R4 R0
-      209 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      210 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      212 LOADK                            R6 K24 ["EnableSitting"]
-      213 SETTABLEKS                       R6 R5 K4 ["property"]
-      215 GETUPVAL                         R6 3
-      216 GETTABLEKS                       R6 R6 K25 ["defaultAbilitiesEnableSittingSetting"]
-      218 CALL                             R3 3 0
-      219 GETUPVAL                         R3 2
-      220 MOVE                             R4 R0
-      221 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      222 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      224 LOADK                            R6 K12 ["EnableFallingDown"]
-      225 SETTABLEKS                       R6 R5 K4 ["property"]
-      227 GETUPVAL                         R6 3
-      228 GETTABLEKS                       R6 R6 K13 ["defaultAbilitiesEnableFallingDownSetting"]
-      230 CALL                             R3 3 0
-      231 GETUPVAL                         R3 2
-      232 MOVE                             R4 R0
-      233 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      234 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      236 LOADK                            R6 K14 ["EnableGettingUp"]
-      237 SETTABLEKS                       R6 R5 K4 ["property"]
-      239 GETUPVAL                         R6 3
-      240 GETTABLEKS                       R6 R6 K15 ["defaultAbilitiesEnableGettingUpSetting"]
-      242 CALL                             R3 3 0
-      243 GETUPVAL                         R3 2
-      244 MOVE                             R4 R0
-      245 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      246 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      248 LOADK                            R6 K8 ["EnableClimbing"]
-      249 SETTABLEKS                       R6 R5 K4 ["property"]
-      251 GETUPVAL                         R6 3
-      252 GETTABLEKS                       R6 R6 K9 ["defaultAbilitiesEnableClimbingSetting"]
-      254 CALL                             R3 3 0
-      255 GETUPVAL                         R3 2
-      256 MOVE                             R4 R0
-      257 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-      258 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-      260 LOADK                            R6 K30 ["EnableSwimming"]
-      261 SETTABLEKS                       R6 R5 K4 ["property"]
-      263 GETUPVAL                         R6 3
-      264 GETTABLEKS                       R6 R6 K31 ["defaultAbilitiesEnableSwimmingSetting"]
-      266 CALL                             R3 3 0
-      267 RETURN                           R0 0
+      200 GETUPVAL                         R6 3
+      201 GETTABLEKS                       R6 R6 K43 ["defaultAbilitiesEnableSwimmingSetting"]
+      203 CALL                             R3 3 0
+      204 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

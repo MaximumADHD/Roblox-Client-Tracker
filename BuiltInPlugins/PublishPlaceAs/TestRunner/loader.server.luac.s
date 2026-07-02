@@ -40,47 +40,39 @@ MAIN:
        43 LOADK                            R7 K16 ["StudioPublishService"]
        44 NAMECALL                         R5 R5 K17 ["GetService"]
        46 CALL                             R5 2 1
-       47 DUPTABLE                         R6 K26 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "extraTriggers"}]
-       48 GETIMPORT                        R7 K27 [plugin]
+       47 DUPTABLE                         R6 K29 [{["plugin"], ["pluginName"] = "PublishPlaceAs", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["extraTriggers"]}]
+       48 GETIMPORT                        R7 K30 [plugin]
        50 SETTABLEKS                       R7 R6 K18 ["plugin"]
-       52 LOADK                            R7 K28 ["PublishPlaceAs"]
-       53 SETTABLEKS                       R7 R6 K19 ["pluginName"]
-       55 SETTABLEKS                       R4 R6 K20 ["translationResourceTable"]
-       57 SETTABLEKS                       R3 R6 K21 ["fallbackResourceTable"]
-       59 LOADNIL                          R7
-       60 SETTABLEKS                       R7 R6 K22 ["overrideLocaleId"]
-       62 LOADNIL                          R7
-       63 SETTABLEKS                       R7 R6 K23 ["localizationNamespace"]
-       65 LOADB                            R7 1
-       66 SETTABLEKS                       R7 R6 K24 ["noToolbar"]
-       68 NEWTABLE                         R7 4 0
-       70 DUPCLOSURE                       R8 K29 [PROTO_0]
-       71 CAPTURE                          VAL R5
-       72 SETTABLEKS                       R8 R7 K30 ["StudioPublishService.GamePublishFinished"]
-       74 DUPCLOSURE                       R8 K31 [PROTO_1]
-       75 CAPTURE                          VAL R5
-       76 SETTABLEKS                       R8 R7 K32 ["StudioPublishService.GamePublishCancelled"]
-       78 DUPCLOSURE                       R8 K33 [PROTO_2]
-       79 CAPTURE                          VAL R5
-       80 SETTABLEKS                       R8 R7 K34 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
-       82 SETTABLEKS                       R7 R6 K25 ["extraTriggers"]
-       84 GETTABLEKS                       R7 R2 K35 ["build"]
-       86 MOVE                             R8 R6
-       87 CALL                             R7 1 1
-       88 GETTABLEKS                       R8 R7 K36 ["pluginLoader"]
-       90 NAMECALL                         R8 R8 K37 ["waitForUserInteraction"]
-       92 CALL                             R8 1 1
-       93 JUMPIF                           R8 ; [+1]
-       94 RETURN                           R0 0
-       95 GETIMPORT                        R9 K1 [require]
-       97 GETIMPORT                        R10 K3 [script]
-       99 GETTABLEKS                       R10 R10 K4 ["Parent"]
-      101 GETTABLEKS                       R10 R10 K4 ["Parent"]
-      103 GETTABLEKS                       R10 R10 K10 ["Src"]
-      105 GETTABLEKS                       R10 R10 K38 ["main"]
-      107 CALL                             R9 1 1
-      108 MOVE                             R10 R9
-      109 GETIMPORT                        R11 K27 [plugin]
-      111 MOVE                             R12 R7
-      112 CALL                             R10 2 0
-      113 RETURN                           R0 0
+       52 SETTABLEKS                       R4 R6 K21 ["translationResourceTable"]
+       54 SETTABLEKS                       R3 R6 K22 ["fallbackResourceTable"]
+       56 NEWTABLE                         R7 4 0
+       58 DUPCLOSURE                       R8 K31 [PROTO_0]
+       59 CAPTURE                          VAL R5
+       60 SETTABLEKS                       R8 R7 K32 ["StudioPublishService.GamePublishFinished"]
+       62 DUPCLOSURE                       R8 K33 [PROTO_1]
+       63 CAPTURE                          VAL R5
+       64 SETTABLEKS                       R8 R7 K34 ["StudioPublishService.GamePublishCancelled"]
+       66 DUPCLOSURE                       R8 K35 [PROTO_2]
+       67 CAPTURE                          VAL R5
+       68 SETTABLEKS                       R8 R7 K36 ["StudioPublishService.OnSaveOrPublishPlaceToRoblox"]
+       70 SETTABLEKS                       R7 R6 K28 ["extraTriggers"]
+       72 GETTABLEKS                       R7 R2 K37 ["build"]
+       74 MOVE                             R8 R6
+       75 CALL                             R7 1 1
+       76 GETTABLEKS                       R8 R7 K38 ["pluginLoader"]
+       78 NAMECALL                         R8 R8 K39 ["waitForUserInteraction"]
+       80 CALL                             R8 1 1
+       81 JUMPIF                           R8 ; [+1]
+       82 RETURN                           R0 0
+       83 GETIMPORT                        R9 K1 [require]
+       85 GETIMPORT                        R10 K3 [script]
+       87 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       89 GETTABLEKS                       R10 R10 K4 ["Parent"]
+       91 GETTABLEKS                       R10 R10 K10 ["Src"]
+       93 GETTABLEKS                       R10 R10 K40 ["main"]
+       95 CALL                             R9 1 1
+       96 MOVE                             R10 R9
+       97 GETIMPORT                        R11 K30 [plugin]
+       99 MOVE                             R12 R7
+      100 CALL                             R10 2 0
+      101 RETURN                           R0 0

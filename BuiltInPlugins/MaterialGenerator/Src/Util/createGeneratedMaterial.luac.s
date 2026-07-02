@@ -1,25 +1,19 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K6 [{"Name", "Id", "Textures", "BaseMaterial", "IsGenerating", "IsTemporary"}]
+        0 DUPTABLE                         R3 K9 [{[1], ["Id"], ["Textures"], ["BaseMaterial"] = , ["IsGenerating"] = False, ["IsTemporary"] = True}]
         1 GETUPVAL                         R4 0
         2 MOVE                             R5 R0
         3 MOVE                             R6 R2
         4 CALL                             R4 2 1
         5 SETTABLEKS                       R4 R3 K0 ["Name"]
         7 SETTABLEKS                       R1 R3 K1 ["Id"]
-        9 DUPTABLE                         R4 K8 [{"ColorMap"}]
-       10 SETTABLEKS                       R1 R4 K7 ["ColorMap"]
+        9 DUPTABLE                         R4 K11 [{"ColorMap"}]
+       10 SETTABLEKS                       R1 R4 K10 ["ColorMap"]
        12 SETTABLEKS                       R4 R3 K2 ["Textures"]
-       14 LOADNIL                          R4
-       15 SETTABLEKS                       R4 R3 K3 ["BaseMaterial"]
-       17 LOADB                            R4 0
-       18 SETTABLEKS                       R4 R3 K4 ["IsGenerating"]
-       20 LOADB                            R4 1
-       21 SETTABLEKS                       R4 R3 K5 ["IsTemporary"]
-       23 GETUPVAL                         R4 1
-       24 MOVE                             R5 R3
-       25 CALL                             R4 1 1
-       26 SETTABLEKS                       R4 R3 K9 ["MaterialVariant"]
-       28 RETURN                           R3 1
+       14 GETUPVAL                         R4 1
+       15 MOVE                             R5 R3
+       16 CALL                             R4 1 1
+       17 SETTABLEKS                       R4 R3 K12 ["MaterialVariant"]
+       19 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

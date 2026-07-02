@@ -92,21 +92,11 @@ MAIN:
        15 CAPTURE                          VAL R0
        16 DUPTABLE                         R3 K8 [{"LogNetworkErrors", "LogTelemetry"}]
        17 MOVE                             R4 R2
-       18 DUPTABLE                         R5 K12 [{"Name", "Default", "DefaultForInternalUsers"}]
-       19 LOADK                            R6 K6 ["LogNetworkErrors"]
-       20 SETTABLEKS                       R6 R5 K9 ["Name"]
-       22 LOADB                            R6 0
-       23 SETTABLEKS                       R6 R5 K10 ["Default"]
-       25 LOADB                            R6 1
-       26 SETTABLEKS                       R6 R5 K11 ["DefaultForInternalUsers"]
-       28 CALL                             R4 1 1
-       29 SETTABLEKS                       R4 R3 K6 ["LogNetworkErrors"]
-       31 MOVE                             R4 R2
-       32 DUPTABLE                         R5 K13 [{"Name", "Default"}]
-       33 LOADK                            R6 K7 ["LogTelemetry"]
-       34 SETTABLEKS                       R6 R5 K9 ["Name"]
-       36 LOADB                            R6 0
-       37 SETTABLEKS                       R6 R5 K10 ["Default"]
-       39 CALL                             R4 1 1
-       40 SETTABLEKS                       R4 R3 K7 ["LogTelemetry"]
-       42 RETURN                           R3 1
+       18 DUPTABLE                         R5 K14 [{["Name"] = "LogNetworkErrors", ["Default"] = False, ["DefaultForInternalUsers"] = True}]
+       19 CALL                             R4 1 1
+       20 SETTABLEKS                       R4 R3 K6 ["LogNetworkErrors"]
+       22 MOVE                             R4 R2
+       23 DUPTABLE                         R5 K15 [{["Name"] = "LogTelemetry", ["Default"] = False}]
+       24 CALL                             R4 1 1
+       25 SETTABLEKS                       R4 R3 K7 ["LogTelemetry"]
+       27 RETURN                           R3 1

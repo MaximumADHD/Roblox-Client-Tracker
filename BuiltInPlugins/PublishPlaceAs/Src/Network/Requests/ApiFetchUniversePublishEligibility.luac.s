@@ -34,31 +34,29 @@ PROTO_1:
        16 GETIMPORT                        R7 K5 [table.insert]
        18 CALL                             R7 2 0
        19 FORGLOOP                         R2 2 ; [-14]
-       21 DUPTABLE                         R2 K8 [{"Url", "Method"}]
+       21 DUPTABLE                         R2 K9 [{["Url"], ["Method"] = "GET"}]
        22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R7 R7 K9 ["BuildRobloxUrl"]
-       25 LOADK                            R8 K10 ["develop"]
-       26 LOADK                            R9 K11 ["v2/universes/canUserPublish"]
+       23 GETTABLEKS                       R7 R7 K10 ["BuildRobloxUrl"]
+       25 LOADK                            R8 K11 ["develop"]
+       26 LOADK                            R9 K12 ["v2/universes/canUserPublish"]
        27 CALL                             R7 2 1
        28 MOVE                             R4 R7
-       29 LOADK                            R5 K12 ["?"]
-       30 GETIMPORT                        R6 K14 [table.concat]
+       29 LOADK                            R5 K13 ["?"]
+       30 GETIMPORT                        R6 K15 [table.concat]
        32 MOVE                             R7 R1
-       33 LOADK                            R8 K15 ["&"]
+       33 LOADK                            R8 K16 ["&"]
        34 CALL                             R6 2 1
        35 CONCAT                           R3 R4 R6
        36 SETTABLEKS                       R3 R2 K6 ["Url"]
-       38 LOADK                            R3 K16 ["GET"]
-       39 SETTABLEKS                       R3 R2 K7 ["Method"]
-       41 GETUPVAL                         R3 0
-       42 GETTABLEKS                       R3 R3 K17 ["RequestInternal"]
-       44 MOVE                             R4 R2
-       45 CALL                             R3 1 1
-       46 DUPCLOSURE                       R5 K18 [PROTO_0]
-       47 CAPTURE                          UPVAL U1
-       48 NAMECALL                         R3 R3 K19 ["andThen"]
-       50 CALL                             R3 2 -1
-       51 RETURN                           R3 -1
+       38 GETUPVAL                         R3 0
+       39 GETTABLEKS                       R3 R3 K17 ["RequestInternal"]
+       41 MOVE                             R4 R2
+       42 CALL                             R3 1 1
+       43 DUPCLOSURE                       R5 K18 [PROTO_0]
+       44 CAPTURE                          UPVAL U1
+       45 NAMECALL                         R3 R3 K19 ["andThen"]
+       47 CALL                             R3 2 -1
+       48 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

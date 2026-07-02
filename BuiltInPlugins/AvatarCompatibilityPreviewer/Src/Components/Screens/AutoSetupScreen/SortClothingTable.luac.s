@@ -113,7 +113,7 @@ PROTO_5:
        80 GETIMPORT                        R11 K19 [UDim.new]
        82 GETTABLEKS                       R14 R0 K21 ["Columns"]
        84 LENGTH                           R13 R14
-       85 DIVRK                            R12 R20 K13 ["Style"]
+       85 DIVRK                            R12 K20 [1] R13
        86 LOADN                            R13 0
        87 CALL                             R11 2 1
        88 GETTABLEKS                       R12 R0 K22 ["CellProps"]
@@ -340,44 +340,40 @@ PROTO_10:
        37 GETUPVAL                         R5 2
        38 GETTABLEKS                       R5 R5 K7 ["createElement"]
        40 GETUPVAL                         R6 4
-       41 DUPTABLE                         R7 K16 [{"LayoutOrder", "Rows", "Columns", "RowHeight", "Size", "Scroll", "CellComponent", "CellProps"}]
-       42 LOADN                            R8 2
-       43 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
-       45 SETTABLEKS                       R4 R7 K9 ["Rows"]
-       47 NEWTABLE                         R8 0 2
-       49 DUPTABLE                         R9 K18 [{"Name"}]
-       50 LOADK                            R12 K1 ["SortClothingTable"]
-       51 LOADK                            R13 K17 ["Name"]
-       52 NAMECALL                         R10 R1 K19 ["getText"]
-       54 CALL                             R10 3 1
-       55 SETTABLEKS                       R10 R9 K17 ["Name"]
-       57 DUPTABLE                         R10 K18 [{"Name"}]
-       58 LOADK                            R13 K1 ["SortClothingTable"]
-       59 LOADK                            R14 K20 ["Type"]
-       60 NAMECALL                         R11 R1 K19 ["getText"]
-       62 CALL                             R11 3 1
-       63 SETTABLEKS                       R11 R10 K17 ["Name"]
-       65 SETLIST                          R8 R9 2 [1]
-       67 SETTABLEKS                       R8 R7 K10 ["Columns"]
-       69 GETTABLEKS                       R8 R2 K11 ["RowHeight"]
-       71 SETTABLEKS                       R8 R7 K11 ["RowHeight"]
-       73 GETIMPORT                        R8 K23 [UDim2.new]
-       75 LOADN                            R9 1
-       76 LOADN                            R10 0
-       77 LOADN                            R11 1
-       78 LOADN                            R12 232
-       79 CALL                             R8 4 1
-       80 SETTABLEKS                       R8 R7 K12 ["Size"]
-       82 LOADB                            R8 1
-       83 SETTABLEKS                       R8 R7 K13 ["Scroll"]
-       85 GETUPVAL                         R8 5
-       86 SETTABLEKS                       R8 R7 K14 ["CellComponent"]
-       88 DUPTABLE                         R8 K25 [{"Padding"}]
-       89 GETTABLEKS                       R9 R2 K26 ["CellPadding"]
-       91 SETTABLEKS                       R9 R8 K24 ["Padding"]
-       93 SETTABLEKS                       R8 R7 K15 ["CellProps"]
-       95 CALL                             R5 2 -1
-       96 RETURN                           R5 -1
+       41 DUPTABLE                         R7 K18 [{["LayoutOrder"] = 2, ["Rows"], ["Columns"], ["RowHeight"], ["Size"], ["Scroll"] = True, ["CellComponent"], ["CellProps"]}]
+       42 SETTABLEKS                       R4 R7 K10 ["Rows"]
+       44 NEWTABLE                         R8 0 2
+       46 DUPTABLE                         R9 K20 [{"Name"}]
+       47 LOADK                            R12 K1 ["SortClothingTable"]
+       48 LOADK                            R13 K19 ["Name"]
+       49 NAMECALL                         R10 R1 K21 ["getText"]
+       51 CALL                             R10 3 1
+       52 SETTABLEKS                       R10 R9 K19 ["Name"]
+       54 DUPTABLE                         R10 K20 [{"Name"}]
+       55 LOADK                            R13 K1 ["SortClothingTable"]
+       56 LOADK                            R14 K22 ["Type"]
+       57 NAMECALL                         R11 R1 K21 ["getText"]
+       59 CALL                             R11 3 1
+       60 SETTABLEKS                       R11 R10 K19 ["Name"]
+       62 SETLIST                          R8 R9 2 [1]
+       64 SETTABLEKS                       R8 R7 K11 ["Columns"]
+       66 GETTABLEKS                       R8 R2 K12 ["RowHeight"]
+       68 SETTABLEKS                       R8 R7 K12 ["RowHeight"]
+       70 GETIMPORT                        R8 K25 [UDim2.new]
+       72 LOADN                            R9 1
+       73 LOADN                            R10 0
+       74 LOADN                            R11 1
+       75 LOADN                            R12 -24
+       76 CALL                             R8 4 1
+       77 SETTABLEKS                       R8 R7 K13 ["Size"]
+       79 GETUPVAL                         R8 5
+       80 SETTABLEKS                       R8 R7 K16 ["CellComponent"]
+       82 DUPTABLE                         R8 K27 [{"Padding"}]
+       83 GETTABLEKS                       R9 R2 K28 ["CellPadding"]
+       85 SETTABLEKS                       R9 R8 K26 ["Padding"]
+       87 SETTABLEKS                       R8 R7 K17 ["CellProps"]
+       89 CALL                             R5 2 -1
+       90 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -70,7 +70,7 @@ PROTO_0:
        90 SETUPVAL                         R9 2
        91 JUMP                             ; [+8]
        92 GETUPVAL                         R10 2
-       93 SUBRK                            R11 R14 K7 [ipairs]
+       93 SUBRK                            R11 K14 [1] R7
        94 FASTCALL2                        MATH_MAX R10 R11 ; [+3]
        96 GETIMPORT                        R9 K13 [math.max]
        98 CALL                             R9 2 1

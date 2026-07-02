@@ -17,63 +17,57 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["Localization"]
         2 NEWTABLE                         R3 0 1
-        4 DUPTABLE                         R4 K5 [{"Id", "Text", "Icon", "OnItemClicked"}]
-        5 LOADK                            R5 K6 ["New"]
-        6 SETTABLEKS                       R5 R4 K1 ["Id"]
-        8 LOADK                            R7 K7 ["ContextMenu"]
-        9 LOADK                            R8 K8 ["NewDesignStyleSheet"]
-       10 NAMECALL                         R5 R2 K9 ["getText"]
-       12 CALL                             R5 3 1
-       13 SETTABLEKS                       R5 R4 K2 ["Text"]
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R5 R5 K10 ["new"]
-       18 CALL                             R5 0 1
-       19 SETTABLEKS                       R5 R4 K3 ["Icon"]
-       21 NEWCLOSURE                       R5 P0
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U1
-       24 SETTABLEKS                       R5 R4 K4 ["OnItemClicked"]
-       26 SETLIST                          R3 R4 1 [1]
-       28 GETUPVAL                         R4 2
-       29 GETTABLEKS                       R4 R4 K11 ["getStudioDefaultStyleSheet"]
-       31 CALL                             R4 0 1
-       32 JUMPIF                           R4 ; [+29]
-       33 LOADN                            R6 1
-       34 DUPTABLE                         R7 K5 [{"Id", "Text", "Icon", "OnItemClicked"}]
-       35 LOADK                            R8 K12 ["CreateDefaultStyleSheet"]
-       36 SETTABLEKS                       R8 R7 K1 ["Id"]
-       38 LOADK                            R10 K7 ["ContextMenu"]
-       39 LOADK                            R11 K13 ["CreateStudioDefaultStyleSheetV2"]
-       40 NAMECALL                         R8 R2 K9 ["getText"]
-       42 CALL                             R8 3 1
-       43 SETTABLEKS                       R8 R7 K2 ["Text"]
-       45 GETUPVAL                         R8 0
-       46 GETTABLEKS                       R8 R8 K10 ["new"]
-       48 CALL                             R8 0 1
-       49 SETTABLEKS                       R8 R7 K3 ["Icon"]
-       51 NEWCLOSURE                       R8 P1
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          UPVAL U3
-       54 SETTABLEKS                       R8 R7 K4 ["OnItemClicked"]
-       56 FASTCALL3                        TABLE_INSERT R3 R6 R7
-       58 MOVE                             R5 R3
-       59 GETIMPORT                        R4 K16 [table.insert]
-       61 CALL                             R4 3 0
-       62 DUPTABLE                         R4 K18 [{"Id", "Children"}]
-       63 LOADK                            R5 K19 ["ShowStyleSheetCategoryMenu"]
-       64 SETTABLEKS                       R5 R4 K1 ["Id"]
-       66 SETTABLEKS                       R3 R4 K17 ["Children"]
-       68 GETUPVAL                         R5 4
-       69 GETTABLEKS                       R5 R5 K20 ["trackClicks"]
-       71 MOVE                             R6 R4
-       72 GETTABLEKS                       R7 R1 K21 ["Telemetry"]
-       74 CALL                             R5 2 0
-       75 GETUPVAL                         R5 4
-       76 GETTABLEKS                       R5 R5 K22 ["showContextMenu"]
-       78 GETTABLEKS                       R6 R1 K23 ["Plugin"]
-       80 MOVE                             R7 R4
-       81 CALL                             R5 2 0
-       82 RETURN                           R0 0
+        4 DUPTABLE                         R4 K6 [{["Id"] = "New", ["Text"], ["Icon"], ["OnItemClicked"]}]
+        5 LOADK                            R7 K7 ["ContextMenu"]
+        6 LOADK                            R8 K8 ["NewDesignStyleSheet"]
+        7 NAMECALL                         R5 R2 K9 ["getText"]
+        9 CALL                             R5 3 1
+       10 SETTABLEKS                       R5 R4 K3 ["Text"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K10 ["new"]
+       15 CALL                             R5 0 1
+       16 SETTABLEKS                       R5 R4 K4 ["Icon"]
+       18 NEWCLOSURE                       R5 P0
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 SETTABLEKS                       R5 R4 K5 ["OnItemClicked"]
+       23 SETLIST                          R3 R4 1 [1]
+       25 GETUPVAL                         R4 2
+       26 GETTABLEKS                       R4 R4 K11 ["getStudioDefaultStyleSheet"]
+       28 CALL                             R4 0 1
+       29 JUMPIF                           R4 ; [+26]
+       30 LOADN                            R6 1
+       31 DUPTABLE                         R7 K13 [{["Id"] = "CreateDefaultStyleSheet", ["Text"], ["Icon"], ["OnItemClicked"]}]
+       32 LOADK                            R10 K7 ["ContextMenu"]
+       33 LOADK                            R11 K14 ["CreateStudioDefaultStyleSheetV2"]
+       34 NAMECALL                         R8 R2 K9 ["getText"]
+       36 CALL                             R8 3 1
+       37 SETTABLEKS                       R8 R7 K3 ["Text"]
+       39 GETUPVAL                         R8 0
+       40 GETTABLEKS                       R8 R8 K10 ["new"]
+       42 CALL                             R8 0 1
+       43 SETTABLEKS                       R8 R7 K4 ["Icon"]
+       45 NEWCLOSURE                       R8 P1
+       46 CAPTURE                          VAL R0
+       47 CAPTURE                          UPVAL U3
+       48 SETTABLEKS                       R8 R7 K5 ["OnItemClicked"]
+       50 FASTCALL3                        TABLE_INSERT R3 R6 R7
+       52 MOVE                             R5 R3
+       53 GETIMPORT                        R4 K17 [table.insert]
+       55 CALL                             R4 3 0
+       56 DUPTABLE                         R4 K20 [{["Id"] = "ShowStyleSheetCategoryMenu", ["Children"]}]
+       57 SETTABLEKS                       R3 R4 K19 ["Children"]
+       59 GETUPVAL                         R5 4
+       60 GETTABLEKS                       R5 R5 K21 ["trackClicks"]
+       62 MOVE                             R6 R4
+       63 GETTABLEKS                       R7 R1 K22 ["Telemetry"]
+       65 CALL                             R5 2 0
+       66 GETUPVAL                         R5 4
+       67 GETTABLEKS                       R5 R5 K23 ["showContextMenu"]
+       69 GETTABLEKS                       R6 R1 K24 ["Plugin"]
+       71 MOVE                             R7 R4
+       72 CALL                             R5 2 0
+       73 RETURN                           R0 0
 
 PROTO_3:
         0 DUPCLOSURE                       R0 K0 [PROTO_2]

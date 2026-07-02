@@ -123,7 +123,7 @@ PROTO_2:
        90 FORNPREP                         R18
        91 MULK                             R23 R20 K16 [0.3]
        92 DIVK                             R22 R23 K15 [6]
-       93 SUBRK                            R21 R14 K22 [0.5]
+       93 SUBRK                            R21 K14 [1] R22
        94 ADDK                             R22 R4 K14 [1]
        95 GETUPVAL                         R23 1
        96 GETTABLE                         R25 R6 R20
@@ -627,7 +627,7 @@ PROTO_3:
       170 GETIMPORT                        R22 K41 [math.floor]
       172 CALL                             R22 1 1
       173 DIVK                             R25 R18 K43 [30]
-      174 SUBRK                            R24 R42 K25 [workspace]
+      174 SUBRK                            R24 K42 [1] R25
       175 MUL                              R23 R22 R24
       176 GETTABLE                         R24 R4 R21
       177 MUL                              R26 R23 R17
@@ -662,7 +662,7 @@ PROTO_3:
       215 FASTCALL                         MATH_MAX ; [+2]
       216 GETIMPORT                        R26 K53 [math.max]
       218 CALL                             R26 -1 1
-      219 SUBRK                            R25 R36 K26 ["Gravity"]
+      219 SUBRK                            R25 K36 [2] R26
       220 GETTABLE                         R26 R4 R21
       221 MUL                              R30 R25 R7
       222 MULK                             R29 R30 K54 [0.25]

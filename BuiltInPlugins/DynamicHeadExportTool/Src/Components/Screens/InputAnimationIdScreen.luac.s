@@ -34,36 +34,28 @@ PROTO_3:
         2 GETTABLEKS                       R1 R1 K1 ["Localization"]
         4 DUPTABLE                         R4 K3 [{"Items"}]
         5 NEWTABLE                         R5 0 1
-        7 DUPTABLE                         R6 K7 [{"Id", "Label", "Children"}]
-        8 LOADK                            R7 K8 ["AnimationId"]
-        9 SETTABLEKS                       R7 R6 K4 ["Id"]
-       11 LOADK                            R9 K9 ["Plugin"]
-       12 LOADK                            R10 K10 ["AnimationAssetId"]
-       13 NAMECALL                         R7 R1 K11 ["getText"]
-       15 CALL                             R7 3 1
-       16 SETTABLEKS                       R7 R6 K5 ["Label"]
-       18 NEWTABLE                         R7 0 1
-       20 DUPTABLE                         R8 K14 [{"Id", "Label", "Schema", "Value"}]
-       21 LOADK                            R9 K15 ["Animation"]
-       22 SETTABLEKS                       R9 R8 K4 ["Id"]
-       24 LOADK                            R11 K9 ["Plugin"]
-       25 LOADK                            R12 K15 ["Animation"]
-       26 NAMECALL                         R9 R1 K11 ["getText"]
-       28 CALL                             R9 3 1
-       29 SETTABLEKS                       R9 R8 K5 ["Label"]
-       31 DUPTABLE                         R9 K17 [{"Type"}]
-       32 LOADK                            R10 K18 ["Text"]
-       33 SETTABLEKS                       R10 R9 K16 ["Type"]
-       35 SETTABLEKS                       R9 R8 K12 ["Schema"]
-       37 LOADK                            R9 K19 [""]
-       38 SETTABLEKS                       R9 R8 K13 ["Value"]
-       40 SETLIST                          R7 R8 1 [1]
-       42 SETTABLEKS                       R7 R6 K6 ["Children"]
-       44 SETLIST                          R5 R6 1 [1]
-       46 SETTABLEKS                       R5 R4 K2 ["Items"]
-       48 NAMECALL                         R2 R0 K20 ["setState"]
-       50 CALL                             R2 2 0
-       51 RETURN                           R0 0
+        7 DUPTABLE                         R6 K8 [{["Id"] = "AnimationId", ["Label"], ["Children"]}]
+        8 LOADK                            R9 K9 ["Plugin"]
+        9 LOADK                            R10 K10 ["AnimationAssetId"]
+       10 NAMECALL                         R7 R1 K11 ["getText"]
+       12 CALL                             R7 3 1
+       13 SETTABLEKS                       R7 R6 K6 ["Label"]
+       15 NEWTABLE                         R7 0 1
+       17 DUPTABLE                         R8 K16 [{["Id"] = "Animation", ["Label"], ["Schema"], ["Value"] = ""}]
+       18 LOADK                            R11 K9 ["Plugin"]
+       19 LOADK                            R12 K12 ["Animation"]
+       20 NAMECALL                         R9 R1 K11 ["getText"]
+       22 CALL                             R9 3 1
+       23 SETTABLEKS                       R9 R8 K6 ["Label"]
+       25 DUPTABLE                         R9 K19 [{["Type"] = "Text"}]
+       26 SETTABLEKS                       R9 R8 K13 ["Schema"]
+       28 SETLIST                          R7 R8 1 [1]
+       30 SETTABLEKS                       R7 R6 K7 ["Children"]
+       32 SETLIST                          R5 R6 1 [1]
+       34 SETTABLEKS                       R5 R4 K2 ["Items"]
+       36 NAMECALL                         R2 R0 K20 ["setState"]
+       38 CALL                             R2 2 0
+       39 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

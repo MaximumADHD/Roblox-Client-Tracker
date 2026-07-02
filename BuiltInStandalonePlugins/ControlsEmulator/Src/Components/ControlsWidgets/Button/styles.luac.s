@@ -12,35 +12,31 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Widget-Button"]
-       20 DUPTABLE                         R5 K16 [{"BorderSizePixel", "BorderMode", "Size", "AnchorPoint", "TextScaled"}]
-       21 LOADN                            R6 3
-       22 SETTABLEKS                       R6 R5 K11 ["BorderSizePixel"]
-       24 GETIMPORT                        R6 K19 [Enum.BorderMode.Outline]
-       26 SETTABLEKS                       R6 R5 K12 ["BorderMode"]
-       28 GETIMPORT                        R6 K22 [UDim2.new]
-       30 LOADN                            R7 0
-       31 LOADN                            R8 36
-       32 LOADN                            R9 0
-       33 LOADN                            R10 36
-       34 CALL                             R6 4 1
-       35 SETTABLEKS                       R6 R5 K13 ["Size"]
-       37 GETIMPORT                        R6 K24 [Vector2.new]
-       39 LOADK                            R7 K25 [0.5]
-       40 LOADK                            R8 K25 [0.5]
-       41 CALL                             R6 2 1
-       42 SETTABLEKS                       R6 R5 K14 ["AnchorPoint"]
-       44 LOADB                            R6 1
-       45 SETTABLEKS                       R6 R5 K15 ["TextScaled"]
-       47 NEWTABLE                         R6 0 1
-       49 MOVE                             R7 R2
-       50 LOADK                            R8 K26 ["::UICorner"]
-       51 DUPTABLE                         R9 K28 [{"CornerRadius"}]
-       52 GETIMPORT                        R10 K30 [UDim.new]
-       54 LOADN                            R11 1
-       55 LOADN                            R12 0
-       56 CALL                             R10 2 1
-       57 SETTABLEKS                       R10 R9 K27 ["CornerRadius"]
-       59 CALL                             R7 2 -1
-       60 SETLIST                          R6 R7 -1 [1]
-       62 CALL                             R3 3 -1
-       63 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K18 [{["BorderSizePixel"] = 3, ["BorderMode"], ["Size"], ["AnchorPoint"], ["TextScaled"] = True}]
+       21 GETIMPORT                        R6 K21 [Enum.BorderMode.Outline]
+       23 SETTABLEKS                       R6 R5 K13 ["BorderMode"]
+       25 GETIMPORT                        R6 K24 [UDim2.new]
+       27 LOADN                            R7 0
+       28 LOADN                            R8 36
+       29 LOADN                            R9 0
+       30 LOADN                            R10 36
+       31 CALL                             R6 4 1
+       32 SETTABLEKS                       R6 R5 K14 ["Size"]
+       34 GETIMPORT                        R6 K26 [Vector2.new]
+       36 LOADK                            R7 K27 [0.5]
+       37 LOADK                            R8 K27 [0.5]
+       38 CALL                             R6 2 1
+       39 SETTABLEKS                       R6 R5 K15 ["AnchorPoint"]
+       41 NEWTABLE                         R6 0 1
+       43 MOVE                             R7 R2
+       44 LOADK                            R8 K28 ["::UICorner"]
+       45 DUPTABLE                         R9 K30 [{"CornerRadius"}]
+       46 GETIMPORT                        R10 K32 [UDim.new]
+       48 LOADN                            R11 1
+       49 LOADN                            R12 0
+       50 CALL                             R10 2 1
+       51 SETTABLEKS                       R10 R9 K29 ["CornerRadius"]
+       53 CALL                             R7 2 -1
+       54 SETLIST                          R6 R7 -1 [1]
+       56 CALL                             R3 3 -1
+       57 RETURN                           R3 -1

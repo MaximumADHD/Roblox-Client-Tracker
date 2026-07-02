@@ -32,35 +32,33 @@ PROTO_2:
         5 GETTABLEKS                       R3 R3 K2 ["FacsControlToRegionMap"]
         7 CALL                             R2 1 3
         8 FORGPREP_NEXT                    R2
-        9 DUPTABLE                         R7 K6 [{"Name", "Instance", "Type"}]
+        9 DUPTABLE                         R7 K7 [{["Name"], ["Instance"] = "Root", ["Type"]}]
        10 SETTABLEKS                       R5 R7 K3 ["Name"]
-       12 LOADK                            R8 K7 ["Root"]
-       13 SETTABLEKS                       R8 R7 K4 ["Instance"]
-       15 GETUPVAL                         R8 0
-       16 GETTABLEKS                       R8 R8 K8 ["TRACK_TYPES"]
-       18 GETTABLEKS                       R8 R8 K9 ["Facs"]
-       20 SETTABLEKS                       R8 R7 K5 ["Type"]
-       22 SETTABLE                         R7 R1 R5
-       23 FORGLOOP                         R2 2 ; [-15]
-       25 GETIMPORT                        R2 K1 [pairs]
-       27 MOVE                             R3 R0
-       28 CALL                             R2 1 3
-       29 FORGPREP_NEXT                    R2
-       30 GETTABLEKS                       R7 R6 K3 ["Name"]
-       32 LOADNIL                          R8
-       33 SETTABLE                         R8 R1 R7
-       34 FORGLOOP                         R2 2 ; [-5]
-       36 GETUPVAL                         R2 1
-       37 GETTABLEKS                       R2 R2 K10 ["Dictionary"]
-       39 GETTABLEKS                       R2 R2 K11 ["values"]
-       41 MOVE                             R3 R1
-       42 CALL                             R2 1 1
-       43 MOVE                             R1 R2
-       44 GETIMPORT                        R2 K14 [table.sort]
-       46 MOVE                             R3 R1
-       47 DUPCLOSURE                       R4 K15 [PROTO_1]
-       48 CALL                             R2 2 0
-       49 RETURN                           R1 1
+       12 GETUPVAL                         R8 0
+       13 GETTABLEKS                       R8 R8 K8 ["TRACK_TYPES"]
+       15 GETTABLEKS                       R8 R8 K9 ["Facs"]
+       17 SETTABLEKS                       R8 R7 K6 ["Type"]
+       19 SETTABLE                         R7 R1 R5
+       20 FORGLOOP                         R2 2 ; [-12]
+       22 GETIMPORT                        R2 K1 [pairs]
+       24 MOVE                             R3 R0
+       25 CALL                             R2 1 3
+       26 FORGPREP_NEXT                    R2
+       27 GETTABLEKS                       R7 R6 K3 ["Name"]
+       29 LOADNIL                          R8
+       30 SETTABLE                         R8 R1 R7
+       31 FORGLOOP                         R2 2 ; [-5]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K10 ["Dictionary"]
+       36 GETTABLEKS                       R2 R2 K11 ["values"]
+       38 MOVE                             R3 R1
+       39 CALL                             R2 1 1
+       40 MOVE                             R1 R2
+       41 GETIMPORT                        R2 K14 [table.sort]
+       43 MOVE                             R3 R1
+       44 DUPCLOSURE                       R4 K15 [PROTO_1]
+       45 CALL                             R2 2 0
+       46 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

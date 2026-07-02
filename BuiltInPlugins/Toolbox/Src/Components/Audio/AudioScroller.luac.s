@@ -41,7 +41,7 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Generator"]
-        3 DUPTABLE                         R1 K11 [{"AudioType", "Assets", "TryInsert", "CanInsertAsset", "LayoutOrder", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig", "SwimlaneName"}]
+        3 DUPTABLE                         R1 K12 [{["AudioType"], ["Assets"], ["TryInsert"], ["CanInsertAsset"], ["LayoutOrder"] = 2, ["LogImpression"], ["OnAssetPreviewButtonClicked"], ["ParentAbsoluteSize"], ["TryOpenAssetConfig"], ["SwimlaneName"]}]
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["AudioType"]
         7 SETTABLEKS                       R2 R1 K1 ["AudioType"]
@@ -54,25 +54,23 @@ PROTO_2:
        19 GETUPVAL                         R2 1
        20 GETTABLEKS                       R2 R2 K4 ["CanInsertAsset"]
        22 SETTABLEKS                       R2 R1 K4 ["CanInsertAsset"]
-       24 LOADN                            R2 2
-       25 SETTABLEKS                       R2 R1 K5 ["LayoutOrder"]
-       27 GETUPVAL                         R2 1
-       28 GETTABLEKS                       R2 R2 K6 ["LogImpression"]
-       30 SETTABLEKS                       R2 R1 K6 ["LogImpression"]
-       32 GETUPVAL                         R2 1
-       33 GETTABLEKS                       R2 R2 K7 ["OnAssetPreviewButtonClicked"]
-       35 SETTABLEKS                       R2 R1 K7 ["OnAssetPreviewButtonClicked"]
-       37 GETUPVAL                         R2 1
-       38 GETTABLEKS                       R2 R2 K8 ["ParentAbsoluteSize"]
-       40 SETTABLEKS                       R2 R1 K8 ["ParentAbsoluteSize"]
-       42 GETUPVAL                         R2 1
-       43 GETTABLEKS                       R2 R2 K9 ["TryOpenAssetConfig"]
-       45 SETTABLEKS                       R2 R1 K9 ["TryOpenAssetConfig"]
-       47 GETUPVAL                         R2 1
-       48 GETTABLEKS                       R2 R2 K10 ["SwimlaneName"]
-       50 SETTABLEKS                       R2 R1 K10 ["SwimlaneName"]
-       52 CALL                             R0 1 -1
-       53 RETURN                           R0 -1
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K7 ["LogImpression"]
+       27 SETTABLEKS                       R2 R1 K7 ["LogImpression"]
+       29 GETUPVAL                         R2 1
+       30 GETTABLEKS                       R2 R2 K8 ["OnAssetPreviewButtonClicked"]
+       32 SETTABLEKS                       R2 R1 K8 ["OnAssetPreviewButtonClicked"]
+       34 GETUPVAL                         R2 1
+       35 GETTABLEKS                       R2 R2 K9 ["ParentAbsoluteSize"]
+       37 SETTABLEKS                       R2 R1 K9 ["ParentAbsoluteSize"]
+       39 GETUPVAL                         R2 1
+       40 GETTABLEKS                       R2 R2 K10 ["TryOpenAssetConfig"]
+       42 SETTABLEKS                       R2 R1 K10 ["TryOpenAssetConfig"]
+       44 GETUPVAL                         R2 1
+       45 GETTABLEKS                       R2 R2 K11 ["SwimlaneName"]
+       47 SETTABLEKS                       R2 R1 K11 ["SwimlaneName"]
+       49 CALL                             R0 1 -1
+       50 RETURN                           R0 -1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -172,42 +170,40 @@ MAIN:
        94 LOADK                            R17 K27 ["AudioScroller"]
        95 NAMECALL                         R15 R15 K28 ["extend"]
        97 CALL                             R15 2 1
-       98 DUPTABLE                         R16 K31 [{"Size", "PageSize"}]
-       99 GETIMPORT                        R17 K34 [UDim2.new]
+       98 DUPTABLE                         R16 K32 [{["Size"], ["PageSize"] = 20}]
+       99 GETIMPORT                        R17 K35 [UDim2.new]
       101 LOADN                            R18 1
       102 LOADN                            R19 0
       103 LOADN                            R20 1
       104 LOADN                            R21 0
       105 CALL                             R17 4 1
       106 SETTABLEKS                       R17 R16 K29 ["Size"]
-      108 LOADN                            R17 20
-      109 SETTABLEKS                       R17 R16 K30 ["PageSize"]
-      111 SETTABLEKS                       R16 R15 K35 ["defaultProps"]
-      113 DUPCLOSURE                       R16 K36 [PROTO_1]
-      114 CAPTURE                          VAL R5
-      115 SETTABLEKS                       R16 R15 K37 ["init"]
-      117 DUPCLOSURE                       R16 K38 [PROTO_3]
-      118 CAPTURE                          VAL R12
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R14
-      121 SETTABLEKS                       R16 R15 K39 ["render"]
-      123 MOVE                             R16 R9
-      124 DUPTABLE                         R17 K42 [{"Localization", "Stylizer"}]
-      125 GETTABLEKS                       R18 R8 K40 ["Localization"]
-      127 SETTABLEKS                       R18 R17 K40 ["Localization"]
-      129 GETTABLEKS                       R18 R8 K41 ["Stylizer"]
-      131 SETTABLEKS                       R18 R17 K41 ["Stylizer"]
-      133 CALL                             R16 1 1
-      134 MOVE                             R17 R15
-      135 CALL                             R16 1 1
-      136 MOVE                             R15 R16
-      137 NEWCLOSURE                       R16 P2
-      138 CAPTURE                          VAL R2
-      139 CAPTURE                          REF R15
-      140 SETGLOBAL                        R16 K43 ["TypedAudioScroller"]
-      142 DUPTABLE                         R16 K46 [{"Component", "Generator"}]
-      143 SETTABLEKS                       R15 R16 K44 ["Component"]
-      145 GETGLOBAL                        R17 K43 ["TypedAudioScroller"]
-      147 SETTABLEKS                       R17 R16 K45 ["Generator"]
-      149 CLOSEUPVALS                      R15
-      150 RETURN                           R16 1
+      108 SETTABLEKS                       R16 R15 K36 ["defaultProps"]
+      110 DUPCLOSURE                       R16 K37 [PROTO_1]
+      111 CAPTURE                          VAL R5
+      112 SETTABLEKS                       R16 R15 K38 ["init"]
+      114 DUPCLOSURE                       R16 K39 [PROTO_3]
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R2
+      117 CAPTURE                          VAL R14
+      118 SETTABLEKS                       R16 R15 K40 ["render"]
+      120 MOVE                             R16 R9
+      121 DUPTABLE                         R17 K43 [{"Localization", "Stylizer"}]
+      122 GETTABLEKS                       R18 R8 K41 ["Localization"]
+      124 SETTABLEKS                       R18 R17 K41 ["Localization"]
+      126 GETTABLEKS                       R18 R8 K42 ["Stylizer"]
+      128 SETTABLEKS                       R18 R17 K42 ["Stylizer"]
+      130 CALL                             R16 1 1
+      131 MOVE                             R17 R15
+      132 CALL                             R16 1 1
+      133 MOVE                             R15 R16
+      134 NEWCLOSURE                       R16 P2
+      135 CAPTURE                          VAL R2
+      136 CAPTURE                          REF R15
+      137 SETGLOBAL                        R16 K44 ["TypedAudioScroller"]
+      139 DUPTABLE                         R16 K47 [{"Component", "Generator"}]
+      140 SETTABLEKS                       R15 R16 K45 ["Component"]
+      142 GETGLOBAL                        R17 K44 ["TypedAudioScroller"]
+      144 SETTABLEKS                       R17 R16 K46 ["Generator"]
+      146 CLOSEUPVALS                      R15
+      147 RETURN                           R16 1

@@ -3,72 +3,64 @@ PROTO_0:
         1 NAMECALL                         R0 R0 K0 ["use"]
         3 CALL                             R0 1 1
         4 NEWTABLE                         R1 0 4
-        6 DUPTABLE                         R2 K4 [{"DropdownLabel", "Key", "Query"}]
-        7 LOADK                            R5 K5 ["Plugin"]
-        8 LOADK                            R6 K6 ["SortOptions.Alphabetical"]
-        9 NAMECALL                         R3 R0 K7 ["getText"]
+        6 DUPTABLE                         R2 K5 [{["DropdownLabel"], ["Key"] = "GameName", ["Query"]}]
+        7 LOADK                            R5 K6 ["Plugin"]
+        8 LOADK                            R6 K7 ["SortOptions.Alphabetical"]
+        9 NAMECALL                         R3 R0 K8 ["getText"]
        11 CALL                             R3 3 1
        12 SETTABLEKS                       R3 R2 K1 ["DropdownLabel"]
-       14 LOADK                            R3 K8 ["GameName"]
-       15 SETTABLEKS                       R3 R2 K2 ["Key"]
-       17 DUPTABLE                         R3 K11 [{"sortParam", "sortOrder"}]
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R4 R4 K8 ["GameName"]
-       21 SETTABLEKS                       R4 R3 K9 ["sortParam"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R4 R4 K12 ["Asc"]
-       26 SETTABLEKS                       R4 R3 K10 ["sortOrder"]
-       28 SETTABLEKS                       R3 R2 K3 ["Query"]
-       30 DUPTABLE                         R3 K4 [{"DropdownLabel", "Key", "Query"}]
-       31 LOADK                            R6 K5 ["Plugin"]
-       32 LOADK                            R7 K13 ["SortOptions.Created"]
-       33 NAMECALL                         R4 R0 K7 ["getText"]
-       35 CALL                             R4 3 1
-       36 SETTABLEKS                       R4 R3 K1 ["DropdownLabel"]
-       38 LOADK                            R4 K14 ["GameCreatedAsc"]
-       39 SETTABLEKS                       R4 R3 K2 ["Key"]
-       41 DUPTABLE                         R4 K11 [{"sortParam", "sortOrder"}]
-       42 GETUPVAL                         R5 1
-       43 GETTABLEKS                       R5 R5 K15 ["GameCreated"]
-       45 SETTABLEKS                       R5 R4 K9 ["sortParam"]
-       47 GETUPVAL                         R5 1
-       48 GETTABLEKS                       R5 R5 K12 ["Asc"]
-       50 SETTABLEKS                       R5 R4 K10 ["sortOrder"]
-       52 SETTABLEKS                       R4 R3 K3 ["Query"]
-       54 DUPTABLE                         R4 K4 [{"DropdownLabel", "Key", "Query"}]
-       55 LOADK                            R7 K5 ["Plugin"]
-       56 LOADK                            R8 K16 ["SortOptions.CreatedDescending"]
-       57 NAMECALL                         R5 R0 K7 ["getText"]
-       59 CALL                             R5 3 1
-       60 SETTABLEKS                       R5 R4 K1 ["DropdownLabel"]
-       62 LOADK                            R5 K17 ["GameCreatedDesc"]
-       63 SETTABLEKS                       R5 R4 K2 ["Key"]
-       65 DUPTABLE                         R5 K11 [{"sortParam", "sortOrder"}]
-       66 GETUPVAL                         R6 1
-       67 GETTABLEKS                       R6 R6 K15 ["GameCreated"]
-       69 SETTABLEKS                       R6 R5 K9 ["sortParam"]
-       71 GETUPVAL                         R6 1
-       72 GETTABLEKS                       R6 R6 K18 ["Desc"]
-       74 SETTABLEKS                       R6 R5 K10 ["sortOrder"]
-       76 SETTABLEKS                       R5 R4 K3 ["Query"]
-       78 DUPTABLE                         R5 K4 [{"DropdownLabel", "Key", "Query"}]
-       79 LOADK                            R8 K5 ["Plugin"]
-       80 LOADK                            R9 K19 ["SortOptions.Modified"]
-       81 NAMECALL                         R6 R0 K7 ["getText"]
-       83 CALL                             R6 3 1
-       84 SETTABLEKS                       R6 R5 K1 ["DropdownLabel"]
-       86 LOADK                            R6 K20 ["LastUpdated"]
-       87 SETTABLEKS                       R6 R5 K2 ["Key"]
-       89 DUPTABLE                         R6 K11 [{"sortParam", "sortOrder"}]
-       90 GETUPVAL                         R7 1
-       91 GETTABLEKS                       R7 R7 K20 ["LastUpdated"]
-       93 SETTABLEKS                       R7 R6 K9 ["sortParam"]
-       95 GETUPVAL                         R7 1
-       96 GETTABLEKS                       R7 R7 K18 ["Desc"]
-       98 SETTABLEKS                       R7 R6 K10 ["sortOrder"]
-      100 SETTABLEKS                       R6 R5 K3 ["Query"]
-      102 SETLIST                          R1 R2 4 [1]
-      104 RETURN                           R1 1
+       14 DUPTABLE                         R3 K11 [{"sortParam", "sortOrder"}]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K3 ["GameName"]
+       18 SETTABLEKS                       R4 R3 K9 ["sortParam"]
+       20 GETUPVAL                         R4 1
+       21 GETTABLEKS                       R4 R4 K12 ["Asc"]
+       23 SETTABLEKS                       R4 R3 K10 ["sortOrder"]
+       25 SETTABLEKS                       R3 R2 K4 ["Query"]
+       27 DUPTABLE                         R3 K14 [{["DropdownLabel"], ["Key"] = "GameCreatedAsc", ["Query"]}]
+       28 LOADK                            R6 K6 ["Plugin"]
+       29 LOADK                            R7 K15 ["SortOptions.Created"]
+       30 NAMECALL                         R4 R0 K8 ["getText"]
+       32 CALL                             R4 3 1
+       33 SETTABLEKS                       R4 R3 K1 ["DropdownLabel"]
+       35 DUPTABLE                         R4 K11 [{"sortParam", "sortOrder"}]
+       36 GETUPVAL                         R5 1
+       37 GETTABLEKS                       R5 R5 K16 ["GameCreated"]
+       39 SETTABLEKS                       R5 R4 K9 ["sortParam"]
+       41 GETUPVAL                         R5 1
+       42 GETTABLEKS                       R5 R5 K12 ["Asc"]
+       44 SETTABLEKS                       R5 R4 K10 ["sortOrder"]
+       46 SETTABLEKS                       R4 R3 K4 ["Query"]
+       48 DUPTABLE                         R4 K18 [{["DropdownLabel"], ["Key"] = "GameCreatedDesc", ["Query"]}]
+       49 LOADK                            R7 K6 ["Plugin"]
+       50 LOADK                            R8 K19 ["SortOptions.CreatedDescending"]
+       51 NAMECALL                         R5 R0 K8 ["getText"]
+       53 CALL                             R5 3 1
+       54 SETTABLEKS                       R5 R4 K1 ["DropdownLabel"]
+       56 DUPTABLE                         R5 K11 [{"sortParam", "sortOrder"}]
+       57 GETUPVAL                         R6 1
+       58 GETTABLEKS                       R6 R6 K16 ["GameCreated"]
+       60 SETTABLEKS                       R6 R5 K9 ["sortParam"]
+       62 GETUPVAL                         R6 1
+       63 GETTABLEKS                       R6 R6 K20 ["Desc"]
+       65 SETTABLEKS                       R6 R5 K10 ["sortOrder"]
+       67 SETTABLEKS                       R5 R4 K4 ["Query"]
+       69 DUPTABLE                         R5 K22 [{["DropdownLabel"], ["Key"] = "LastUpdated", ["Query"]}]
+       70 LOADK                            R8 K6 ["Plugin"]
+       71 LOADK                            R9 K23 ["SortOptions.Modified"]
+       72 NAMECALL                         R6 R0 K8 ["getText"]
+       74 CALL                             R6 3 1
+       75 SETTABLEKS                       R6 R5 K1 ["DropdownLabel"]
+       77 DUPTABLE                         R6 K11 [{"sortParam", "sortOrder"}]
+       78 GETUPVAL                         R7 1
+       79 GETTABLEKS                       R7 R7 K21 ["LastUpdated"]
+       81 SETTABLEKS                       R7 R6 K9 ["sortParam"]
+       83 GETUPVAL                         R7 1
+       84 GETTABLEKS                       R7 R7 K20 ["Desc"]
+       86 SETTABLEKS                       R7 R6 K10 ["sortOrder"]
+       88 SETTABLEKS                       R6 R5 K4 ["Query"]
+       90 SETLIST                          R1 R2 4 [1]
+       92 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -169,11 +161,11 @@ PROTO_4:
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["IsPlaceholder"]
-        2 JUMPIF                           R1 ; [+67]
+        2 JUMPIF                           R1 ; [+58]
         3 GETTABLEKS                       R1 R0 K1 ["Id"]
-        5 JUMPIFNOT                        R1 ; [+64]
+        5 JUMPIFNOT                        R1 ; [+55]
         6 GETTABLEKS                       R1 R0 K2 ["RootPlaceId"]
-        8 JUMPIFNOT                        R1 ; [+61]
+        8 JUMPIFNOT                        R1 ; [+52]
         9 GETUPVAL                         R1 0
        10 JUMPIF                           R1 ; [+2]
        11 GETUPVAL                         R1 1
@@ -207,19 +199,13 @@ PROTO_5:
        50 GETTABLEKS                       R6 R6 K5 ["showAgeRestricted"]
        52 CALL                             R1 5 0
        53 GETUPVAL                         R1 9
-       54 JUMPIFNOT                        R1 ; [+15]
+       54 JUMPIFNOT                        R1 ; [+6]
        55 GETUPVAL                         R1 10
        56 GETUPVAL                         R3 11
-       57 DUPTABLE                         R4 K10 [{"telemetryType", "telemetrySubtype", "action"}]
-       58 LOADK                            R5 K11 ["interaction"]
-       59 SETTABLEKS                       R5 R4 K7 ["telemetryType"]
-       61 LOADK                            R5 K12 ["place_open"]
-       62 SETTABLEKS                       R5 R4 K8 ["telemetrySubtype"]
-       64 LOADK                            R5 K13 ["experiences_owned_tab"]
-       65 SETTABLEKS                       R5 R4 K9 ["action"]
-       67 NAMECALL                         R1 R1 K14 ["log"]
-       69 CALL                             R1 3 0
-       70 RETURN                           R0 0
+       57 DUPTABLE                         R4 K13 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "experiences_owned_tab"}]
+       58 NAMECALL                         R1 R1 K14 ["log"]
+       60 CALL                             R1 3 0
+       61 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -250,76 +236,66 @@ PROTO_6:
        29 GETUPVAL                         R6 7
        30 GETTABLEKS                       R6 R6 K3 ["createElement"]
        32 GETUPVAL                         R7 8
-       33 DUPTABLE                         R8 K15 [{"BaseQuery", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible", "IsCreatorNameVisible", "KebabMenu", "CellSize", "FetchItems", "NetworkQuery", "OnClick", "NetworkViewProps"}]
+       33 DUPTABLE                         R8 K17 [{["BaseQuery"], ["IsPrivacyVisible"] = True, ["IsDateModifiedVisible"] = True, ["IsDropdownMenuVisible"] = True, ["IsCreatorNameVisible"] = False, ["KebabMenu"], ["CellSize"], ["FetchItems"], ["NetworkQuery"], ["OnClick"], ["NetworkViewProps"]}]
        34 GETTABLEKS                       R9 R0 K4 ["BaseQuery"]
        36 SETTABLEKS                       R9 R8 K4 ["BaseQuery"]
-       38 LOADB                            R9 1
-       39 SETTABLEKS                       R9 R8 K5 ["IsPrivacyVisible"]
-       41 LOADB                            R9 1
-       42 SETTABLEKS                       R9 R8 K6 ["IsDateModifiedVisible"]
-       44 LOADB                            R9 1
-       45 SETTABLEKS                       R9 R8 K7 ["IsDropdownMenuVisible"]
-       47 LOADB                            R9 0
-       48 SETTABLEKS                       R9 R8 K8 ["IsCreatorNameVisible"]
-       50 NEWTABLE                         R9 0 7
-       52 LOADK                            R10 K16 ["ConfigureExperience"]
-       53 LOADK                            R11 K17 ["ConfigurePlace"]
-       54 LOADK                            R12 K18 ["OpenPlace"]
-       55 LOADK                            R13 K19 ["OpenACopy"]
-       56 GETUPVAL                         R15 9
-       57 JUMPIF                           R15 ; [+2]
-       58 LOADK                            R14 K20 ["PublicPrivateToggle"]
-       59 JUMP                             ; [+1]
-       60 LOADK                            R14 K21 [""]
-       61 LOADK                            R15 K22 ["Archive"]
-       62 GETUPVAL                         R17 10
-       63 JUMPIFNOT                        R17 ; [+2]
-       64 LOADK                            R16 K23 ["DisableTeamCreate"]
-       65 JUMP                             ; [+1]
-       66 LOADK                            R16 K21 [""]
-       67 SETLIST                          R9 R10 7 [1]
-       69 SETTABLEKS                       R9 R8 K9 ["KebabMenu"]
-       71 GETUPVAL                         R9 11
-       72 SETTABLEKS                       R9 R8 K10 ["CellSize"]
-       74 GETUPVAL                         R9 12
-       75 SETTABLEKS                       R9 R8 K11 ["FetchItems"]
-       77 DUPTABLE                         R9 K26 [{"creatorType", "creatorTargetId"}]
-       78 LOADK                            R10 K27 ["User"]
-       79 SETTABLEKS                       R10 R9 K24 ["creatorType"]
-       81 GETUPVAL                         R11 13
-       82 NAMECALL                         R11 R11 K28 ["GetUserId"]
-       84 CALL                             R11 1 -1
-       85 FASTCALL                         TOSTRING ; [+2]
-       86 GETIMPORT                        R10 K30 [tostring]
-       88 CALL                             R10 -1 1
-       89 SETTABLEKS                       R10 R9 K25 ["creatorTargetId"]
-       91 SETTABLEKS                       R9 R8 K12 ["NetworkQuery"]
-       93 NEWCLOSURE                       R9 P0
-       94 CAPTURE                          UPVAL U3
-       95 CAPTURE                          UPVAL U4
-       96 CAPTURE                          UPVAL U14
-       97 CAPTURE                          UPVAL U13
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          REF R4
-      100 CAPTURE                          REF R3
-      101 CAPTURE                          REF R5
-      102 CAPTURE                          UPVAL U15
-      103 CAPTURE                          UPVAL U16
-      104 CAPTURE                          VAL R1
-      105 CAPTURE                          UPVAL U17
-      106 SETTABLEKS                       R9 R8 K13 ["OnClick"]
-      108 SETTABLEKS                       R0 R8 K14 ["NetworkViewProps"]
-      110 CALL                             R6 2 -1
-      111 CLOSEUPVALS                      R3
-      112 RETURN                           R6 -1
+       38 NEWTABLE                         R9 0 7
+       40 LOADK                            R10 K18 ["ConfigureExperience"]
+       41 LOADK                            R11 K19 ["ConfigurePlace"]
+       42 LOADK                            R12 K20 ["OpenPlace"]
+       43 LOADK                            R13 K21 ["OpenACopy"]
+       44 GETUPVAL                         R15 9
+       45 JUMPIF                           R15 ; [+2]
+       46 LOADK                            R14 K22 ["PublicPrivateToggle"]
+       47 JUMP                             ; [+1]
+       48 LOADK                            R14 K23 [""]
+       49 LOADK                            R15 K24 ["Archive"]
+       50 GETUPVAL                         R17 10
+       51 JUMPIFNOT                        R17 ; [+2]
+       52 LOADK                            R16 K25 ["DisableTeamCreate"]
+       53 JUMP                             ; [+1]
+       54 LOADK                            R16 K23 [""]
+       55 SETLIST                          R9 R10 7 [1]
+       57 SETTABLEKS                       R9 R8 K11 ["KebabMenu"]
+       59 GETUPVAL                         R9 11
+       60 SETTABLEKS                       R9 R8 K12 ["CellSize"]
+       62 GETUPVAL                         R9 12
+       63 SETTABLEKS                       R9 R8 K13 ["FetchItems"]
+       65 DUPTABLE                         R9 K29 [{["creatorType"] = "User", ["creatorTargetId"]}]
+       66 GETUPVAL                         R11 13
+       67 NAMECALL                         R11 R11 K30 ["GetUserId"]
+       69 CALL                             R11 1 -1
+       70 FASTCALL                         TOSTRING ; [+2]
+       71 GETIMPORT                        R10 K32 [tostring]
+       73 CALL                             R10 -1 1
+       74 SETTABLEKS                       R10 R9 K28 ["creatorTargetId"]
+       76 SETTABLEKS                       R9 R8 K14 ["NetworkQuery"]
+       78 NEWCLOSURE                       R9 P0
+       79 CAPTURE                          UPVAL U3
+       80 CAPTURE                          UPVAL U4
+       81 CAPTURE                          UPVAL U14
+       82 CAPTURE                          UPVAL U13
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          REF R4
+       85 CAPTURE                          REF R3
+       86 CAPTURE                          REF R5
+       87 CAPTURE                          UPVAL U15
+       88 CAPTURE                          UPVAL U16
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          UPVAL U17
+       91 SETTABLEKS                       R9 R8 K15 ["OnClick"]
+       93 SETTABLEKS                       R0 R8 K16 ["NetworkViewProps"]
+       95 CALL                             R6 2 -1
+       96 CLOSEUPVALS                      R3
+       97 RETURN                           R6 -1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["IsPlaceholder"]
-        2 JUMPIF                           R1 ; [+67]
+        2 JUMPIF                           R1 ; [+58]
         3 GETTABLEKS                       R1 R0 K1 ["Id"]
-        5 JUMPIFNOT                        R1 ; [+64]
+        5 JUMPIFNOT                        R1 ; [+55]
         6 GETTABLEKS                       R1 R0 K2 ["RootPlaceId"]
-        8 JUMPIFNOT                        R1 ; [+61]
+        8 JUMPIFNOT                        R1 ; [+52]
         9 GETUPVAL                         R1 0
        10 JUMPIF                           R1 ; [+2]
        11 GETUPVAL                         R1 1
@@ -353,19 +329,13 @@ PROTO_7:
        50 GETTABLEKS                       R6 R6 K5 ["showAgeRestricted"]
        52 CALL                             R1 5 0
        53 GETUPVAL                         R1 9
-       54 JUMPIFNOT                        R1 ; [+15]
+       54 JUMPIFNOT                        R1 ; [+6]
        55 GETUPVAL                         R1 10
        56 GETUPVAL                         R3 11
-       57 DUPTABLE                         R4 K10 [{"telemetryType", "telemetrySubtype", "action"}]
-       58 LOADK                            R5 K11 ["interaction"]
-       59 SETTABLEKS                       R5 R4 K7 ["telemetryType"]
-       61 LOADK                            R5 K12 ["place_open"]
-       62 SETTABLEKS                       R5 R4 K8 ["telemetrySubtype"]
-       64 LOADK                            R5 K13 ["experiences_group_tab"]
-       65 SETTABLEKS                       R5 R4 K9 ["action"]
-       67 NAMECALL                         R1 R1 K14 ["log"]
-       69 CALL                             R1 3 0
-       70 RETURN                           R0 0
+       57 DUPTABLE                         R4 K13 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "experiences_group_tab"}]
+       58 NAMECALL                         R1 R1 K14 ["log"]
+       60 CALL                             R1 3 0
+       61 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -392,91 +362,81 @@ PROTO_8:
        25 CALL                             R6 0 1
        26 MOVE                             R5 R6
        27 GETTABLEKS                       R6 R0 K3 ["BaseQuery"]
-       29 JUMPIFNOT                        R6 ; [+79]
+       29 JUMPIFNOT                        R6 ; [+64]
        30 GETTABLEKS                       R6 R0 K3 ["BaseQuery"]
        32 GETTABLEKS                       R6 R6 K4 ["creatorTargetId"]
-       34 JUMPIFNOT                        R6 ; [+74]
+       34 JUMPIFNOT                        R6 ; [+59]
        35 GETUPVAL                         R6 7
        36 GETTABLEKS                       R6 R6 K5 ["createElement"]
        38 GETUPVAL                         R7 8
-       39 DUPTABLE                         R8 K16 [{"BaseQuery", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible", "IsCreatorNameVisible", "KebabMenu", "CellSize", "FetchItems", "NetworkQuery", "OnClick", "NetworkViewProps"}]
+       39 DUPTABLE                         R8 K18 [{["BaseQuery"], ["IsPrivacyVisible"] = True, ["IsDateModifiedVisible"] = True, ["IsDropdownMenuVisible"] = True, ["IsCreatorNameVisible"] = False, ["KebabMenu"], ["CellSize"], ["FetchItems"], ["NetworkQuery"], ["OnClick"], ["NetworkViewProps"]}]
        40 GETTABLEKS                       R9 R0 K3 ["BaseQuery"]
        42 SETTABLEKS                       R9 R8 K3 ["BaseQuery"]
-       44 LOADB                            R9 1
-       45 SETTABLEKS                       R9 R8 K6 ["IsPrivacyVisible"]
-       47 LOADB                            R9 1
-       48 SETTABLEKS                       R9 R8 K7 ["IsDateModifiedVisible"]
-       50 LOADB                            R9 1
-       51 SETTABLEKS                       R9 R8 K8 ["IsDropdownMenuVisible"]
-       53 LOADB                            R9 0
-       54 SETTABLEKS                       R9 R8 K9 ["IsCreatorNameVisible"]
-       56 NEWTABLE                         R9 0 7
-       58 LOADK                            R10 K17 ["ConfigureExperience"]
-       59 LOADK                            R11 K18 ["ConfigurePlace"]
-       60 LOADK                            R12 K19 ["OpenPlace"]
-       61 LOADK                            R13 K20 ["OpenACopy"]
-       62 GETUPVAL                         R15 9
-       63 JUMPIF                           R15 ; [+2]
-       64 LOADK                            R14 K21 ["PublicPrivateToggle"]
-       65 JUMP                             ; [+1]
-       66 LOADK                            R14 K22 [""]
-       67 LOADK                            R15 K23 ["Archive"]
-       68 GETUPVAL                         R17 10
-       69 JUMPIFNOT                        R17 ; [+2]
-       70 LOADK                            R16 K24 ["DisableTeamCreate"]
-       71 JUMP                             ; [+1]
-       72 LOADK                            R16 K22 [""]
-       73 SETLIST                          R9 R10 7 [1]
-       75 SETTABLEKS                       R9 R8 K10 ["KebabMenu"]
-       77 GETUPVAL                         R9 11
-       78 SETTABLEKS                       R9 R8 K11 ["CellSize"]
-       80 GETUPVAL                         R9 12
-       81 SETTABLEKS                       R9 R8 K12 ["FetchItems"]
-       83 DUPTABLE                         R9 K26 [{"creatorType"}]
-       84 LOADK                            R10 K27 ["Group"]
-       85 SETTABLEKS                       R10 R9 K25 ["creatorType"]
-       87 SETTABLEKS                       R9 R8 K13 ["NetworkQuery"]
-       89 NEWCLOSURE                       R9 P0
-       90 CAPTURE                          UPVAL U4
-       91 CAPTURE                          UPVAL U5
-       92 CAPTURE                          UPVAL U13
-       93 CAPTURE                          UPVAL U14
-       94 CAPTURE                          VAL R3
-       95 CAPTURE                          REF R5
-       96 CAPTURE                          REF R4
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          UPVAL U15
-       99 CAPTURE                          UPVAL U16
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          UPVAL U17
-      102 SETTABLEKS                       R9 R8 K14 ["OnClick"]
-      104 SETTABLEKS                       R0 R8 K15 ["NetworkViewProps"]
-      106 CALL                             R6 2 -1
-      107 CLOSEUPVALS                      R4
-      108 RETURN                           R6 -1
-      109 GETUPVAL                         R6 7
-      110 GETTABLEKS                       R6 R6 K5 ["createElement"]
-      112 GETUPVAL                         R7 18
-      113 GETUPVAL                         R8 19
-      114 MOVE                             R9 R0
-      115 DUPTABLE                         R10 K29 [{"title"}]
-      116 LOADK                            R13 K30 ["Plugin"]
-      117 LOADK                            R14 K31 ["NoGroupsToDisplay"]
-      118 NAMECALL                         R11 R2 K32 ["getText"]
-      120 CALL                             R11 3 1
-      121 SETTABLEKS                       R11 R10 K28 ["title"]
-      123 CALL                             R8 2 -1
-      124 CALL                             R6 -1 -1
-      125 CLOSEUPVALS                      R4
-      126 RETURN                           R6 -1
+       44 NEWTABLE                         R9 0 7
+       46 LOADK                            R10 K19 ["ConfigureExperience"]
+       47 LOADK                            R11 K20 ["ConfigurePlace"]
+       48 LOADK                            R12 K21 ["OpenPlace"]
+       49 LOADK                            R13 K22 ["OpenACopy"]
+       50 GETUPVAL                         R15 9
+       51 JUMPIF                           R15 ; [+2]
+       52 LOADK                            R14 K23 ["PublicPrivateToggle"]
+       53 JUMP                             ; [+1]
+       54 LOADK                            R14 K24 [""]
+       55 LOADK                            R15 K25 ["Archive"]
+       56 GETUPVAL                         R17 10
+       57 JUMPIFNOT                        R17 ; [+2]
+       58 LOADK                            R16 K26 ["DisableTeamCreate"]
+       59 JUMP                             ; [+1]
+       60 LOADK                            R16 K24 [""]
+       61 SETLIST                          R9 R10 7 [1]
+       63 SETTABLEKS                       R9 R8 K12 ["KebabMenu"]
+       65 GETUPVAL                         R9 11
+       66 SETTABLEKS                       R9 R8 K13 ["CellSize"]
+       68 GETUPVAL                         R9 12
+       69 SETTABLEKS                       R9 R8 K14 ["FetchItems"]
+       71 DUPTABLE                         R9 K29 [{["creatorType"] = "Group"}]
+       72 SETTABLEKS                       R9 R8 K15 ["NetworkQuery"]
+       74 NEWCLOSURE                       R9 P0
+       75 CAPTURE                          UPVAL U4
+       76 CAPTURE                          UPVAL U5
+       77 CAPTURE                          UPVAL U13
+       78 CAPTURE                          UPVAL U14
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          REF R5
+       81 CAPTURE                          REF R4
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          UPVAL U15
+       84 CAPTURE                          UPVAL U16
+       85 CAPTURE                          VAL R1
+       86 CAPTURE                          UPVAL U17
+       87 SETTABLEKS                       R9 R8 K16 ["OnClick"]
+       89 SETTABLEKS                       R0 R8 K17 ["NetworkViewProps"]
+       91 CALL                             R6 2 -1
+       92 CLOSEUPVALS                      R4
+       93 RETURN                           R6 -1
+       94 GETUPVAL                         R6 7
+       95 GETTABLEKS                       R6 R6 K5 ["createElement"]
+       97 GETUPVAL                         R7 18
+       98 GETUPVAL                         R8 19
+       99 MOVE                             R9 R0
+      100 DUPTABLE                         R10 K31 [{"title"}]
+      101 LOADK                            R13 K32 ["Plugin"]
+      102 LOADK                            R14 K33 ["NoGroupsToDisplay"]
+      103 NAMECALL                         R11 R2 K34 ["getText"]
+      105 CALL                             R11 3 1
+      106 SETTABLEKS                       R11 R10 K30 ["title"]
+      108 CALL                             R8 2 -1
+      109 CALL                             R6 -1 -1
+      110 CLOSEUPVALS                      R4
+      111 RETURN                           R6 -1
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["IsPlaceholder"]
-        2 JUMPIF                           R1 ; [+67]
+        2 JUMPIF                           R1 ; [+58]
         3 GETTABLEKS                       R1 R0 K1 ["Id"]
-        5 JUMPIFNOT                        R1 ; [+64]
+        5 JUMPIFNOT                        R1 ; [+55]
         6 GETTABLEKS                       R1 R0 K2 ["RootPlaceId"]
-        8 JUMPIFNOT                        R1 ; [+61]
+        8 JUMPIFNOT                        R1 ; [+52]
         9 GETUPVAL                         R1 0
        10 JUMPIF                           R1 ; [+2]
        11 GETUPVAL                         R1 1
@@ -510,19 +470,13 @@ PROTO_9:
        50 GETTABLEKS                       R6 R6 K5 ["showAgeRestricted"]
        52 CALL                             R1 5 0
        53 GETUPVAL                         R1 9
-       54 JUMPIFNOT                        R1 ; [+15]
+       54 JUMPIFNOT                        R1 ; [+6]
        55 GETUPVAL                         R1 10
        56 GETUPVAL                         R3 11
-       57 DUPTABLE                         R4 K10 [{"telemetryType", "telemetrySubtype", "action"}]
-       58 LOADK                            R5 K11 ["interaction"]
-       59 SETTABLEKS                       R5 R4 K7 ["telemetryType"]
-       61 LOADK                            R5 K12 ["place_open"]
-       62 SETTABLEKS                       R5 R4 K8 ["telemetrySubtype"]
-       64 LOADK                            R5 K13 ["experiences_shared_tab"]
-       65 SETTABLEKS                       R5 R4 K9 ["action"]
-       67 NAMECALL                         R1 R1 K14 ["log"]
-       69 CALL                             R1 3 0
-       70 RETURN                           R0 0
+       57 DUPTABLE                         R4 K13 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "experiences_shared_tab"}]
+       58 NAMECALL                         R1 R1 K14 ["log"]
+       60 CALL                             R1 3 0
+       61 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -553,88 +507,70 @@ PROTO_10:
        29 GETUPVAL                         R6 7
        30 GETTABLEKS                       R6 R6 K3 ["createElement"]
        32 GETUPVAL                         R7 8
-       33 DUPTABLE                         R8 K15 [{"BaseQuery", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible", "IsCreatorNameVisible", "KebabMenu", "CellSize", "FetchItems", "NetworkQuery", "OnClick", "NetworkViewProps"}]
+       33 DUPTABLE                         R8 K16 [{["BaseQuery"], ["IsPrivacyVisible"] = True, ["IsDateModifiedVisible"] = True, ["IsDropdownMenuVisible"] = True, ["IsCreatorNameVisible"] = True, ["KebabMenu"], ["CellSize"], ["FetchItems"], ["NetworkQuery"], ["OnClick"], ["NetworkViewProps"]}]
        34 GETTABLEKS                       R9 R0 K4 ["BaseQuery"]
        36 SETTABLEKS                       R9 R8 K4 ["BaseQuery"]
-       38 LOADB                            R9 1
-       39 SETTABLEKS                       R9 R8 K5 ["IsPrivacyVisible"]
-       41 LOADB                            R9 1
-       42 SETTABLEKS                       R9 R8 K6 ["IsDateModifiedVisible"]
-       44 LOADB                            R9 1
-       45 SETTABLEKS                       R9 R8 K7 ["IsDropdownMenuVisible"]
-       47 LOADB                            R9 1
-       48 SETTABLEKS                       R9 R8 K8 ["IsCreatorNameVisible"]
-       50 NEWTABLE                         R9 0 4
-       52 LOADK                            R10 K16 ["OpenPlace"]
-       53 LOADK                            R11 K17 ["OpenACopy"]
-       54 LOADK                            R12 K18 ["RemoveShared"]
-       55 GETUPVAL                         R14 9
-       56 JUMPIFNOT                        R14 ; [+2]
-       57 LOADK                            R13 K19 ["DisableTeamCreate"]
-       58 JUMP                             ; [+1]
-       59 LOADK                            R13 K20 [""]
-       60 SETLIST                          R9 R10 4 [1]
-       62 SETTABLEKS                       R9 R8 K9 ["KebabMenu"]
-       64 GETUPVAL                         R9 10
-       65 SETTABLEKS                       R9 R8 K10 ["CellSize"]
-       67 GETUPVAL                         R9 11
-       68 SETTABLEKS                       R9 R8 K11 ["FetchItems"]
-       70 DUPTABLE                         R9 K24 [{"searchKey", "creatorType", "creatorTargetId"}]
-       71 LOADK                            R10 K25 ["Experiences"]
-       72 SETTABLEKS                       R10 R9 K21 ["searchKey"]
-       74 LOADK                            R10 K26 ["Team"]
-       75 SETTABLEKS                       R10 R9 K22 ["creatorType"]
-       77 GETUPVAL                         R11 12
-       78 NAMECALL                         R11 R11 K27 ["GetUserId"]
-       80 CALL                             R11 1 -1
-       81 FASTCALL                         TOSTRING ; [+2]
-       82 GETIMPORT                        R10 K29 [tostring]
-       84 CALL                             R10 -1 1
-       85 SETTABLEKS                       R10 R9 K23 ["creatorTargetId"]
-       87 SETTABLEKS                       R9 R8 K12 ["NetworkQuery"]
-       89 NEWCLOSURE                       R9 P0
-       90 CAPTURE                          UPVAL U3
-       91 CAPTURE                          UPVAL U4
-       92 CAPTURE                          UPVAL U13
-       93 CAPTURE                          UPVAL U12
-       94 CAPTURE                          VAL R2
-       95 CAPTURE                          REF R4
-       96 CAPTURE                          REF R3
-       97 CAPTURE                          REF R5
-       98 CAPTURE                          UPVAL U14
-       99 CAPTURE                          UPVAL U15
-      100 CAPTURE                          VAL R1
-      101 CAPTURE                          UPVAL U16
-      102 SETTABLEKS                       R9 R8 K13 ["OnClick"]
-      104 SETTABLEKS                       R0 R8 K14 ["NetworkViewProps"]
-      106 CALL                             R6 2 -1
-      107 CLOSEUPVALS                      R3
-      108 RETURN                           R6 -1
+       38 NEWTABLE                         R9 0 4
+       40 LOADK                            R10 K17 ["OpenPlace"]
+       41 LOADK                            R11 K18 ["OpenACopy"]
+       42 LOADK                            R12 K19 ["RemoveShared"]
+       43 GETUPVAL                         R14 9
+       44 JUMPIFNOT                        R14 ; [+2]
+       45 LOADK                            R13 K20 ["DisableTeamCreate"]
+       46 JUMP                             ; [+1]
+       47 LOADK                            R13 K21 [""]
+       48 SETLIST                          R9 R10 4 [1]
+       50 SETTABLEKS                       R9 R8 K10 ["KebabMenu"]
+       52 GETUPVAL                         R9 10
+       53 SETTABLEKS                       R9 R8 K11 ["CellSize"]
+       55 GETUPVAL                         R9 11
+       56 SETTABLEKS                       R9 R8 K12 ["FetchItems"]
+       58 DUPTABLE                         R9 K27 [{["searchKey"] = "Experiences", ["creatorType"] = "Team", ["creatorTargetId"]}]
+       59 GETUPVAL                         R11 12
+       60 NAMECALL                         R11 R11 K28 ["GetUserId"]
+       62 CALL                             R11 1 -1
+       63 FASTCALL                         TOSTRING ; [+2]
+       64 GETIMPORT                        R10 K30 [tostring]
+       66 CALL                             R10 -1 1
+       67 SETTABLEKS                       R10 R9 K26 ["creatorTargetId"]
+       69 SETTABLEKS                       R9 R8 K13 ["NetworkQuery"]
+       71 NEWCLOSURE                       R9 P0
+       72 CAPTURE                          UPVAL U3
+       73 CAPTURE                          UPVAL U4
+       74 CAPTURE                          UPVAL U13
+       75 CAPTURE                          UPVAL U12
+       76 CAPTURE                          VAL R2
+       77 CAPTURE                          REF R4
+       78 CAPTURE                          REF R3
+       79 CAPTURE                          REF R5
+       80 CAPTURE                          UPVAL U14
+       81 CAPTURE                          UPVAL U15
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          UPVAL U16
+       84 SETTABLEKS                       R9 R8 K14 ["OnClick"]
+       86 SETTABLEKS                       R0 R8 K15 ["NetworkViewProps"]
+       88 CALL                             R6 2 -1
+       89 CLOSEUPVALS                      R3
+       90 RETURN                           R6 -1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["IsPlaceholder"]
-        2 JUMPIF                           R1 ; [+27]
+        2 JUMPIF                           R1 ; [+18]
         3 GETTABLEKS                       R1 R0 K1 ["FilePath"]
-        5 JUMPIFNOT                        R1 ; [+24]
+        5 JUMPIFNOT                        R1 ; [+15]
         6 GETUPVAL                         R1 0
         7 GETTABLEKS                       R3 R0 K1 ["FilePath"]
         9 LOADB                            R4 0
        10 NAMECALL                         R1 R1 K2 ["openLocalFile"]
        12 CALL                             R1 3 0
        13 GETUPVAL                         R1 1
-       14 JUMPIFNOT                        R1 ; [+15]
+       14 JUMPIFNOT                        R1 ; [+6]
        15 GETUPVAL                         R1 2
        16 GETUPVAL                         R3 3
-       17 DUPTABLE                         R4 K6 [{"telemetryType", "telemetrySubtype", "action"}]
-       18 LOADK                            R5 K7 ["interaction"]
-       19 SETTABLEKS                       R5 R4 K3 ["telemetryType"]
-       21 LOADK                            R5 K8 ["place_open"]
-       22 SETTABLEKS                       R5 R4 K4 ["telemetrySubtype"]
-       24 LOADK                            R5 K9 ["experiences_local_tab"]
-       25 SETTABLEKS                       R5 R4 K5 ["action"]
-       27 NAMECALL                         R1 R1 K10 ["log"]
-       29 CALL                             R1 3 0
-       30 RETURN                           R0 0
+       17 DUPTABLE                         R4 K9 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "place_open", ["action"] = "experiences_local_tab"}]
+       18 NAMECALL                         R1 R1 K10 ["log"]
+       20 CALL                             R1 3 0
+       21 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -643,42 +579,28 @@ PROTO_12:
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
-        8 DUPTABLE                         R4 K13 [{"BaseQuery", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible", "IsCreatorNameVisible", "KebabMenu", "CellSize", "FetchItems", "NetworkQuery", "OnClick", "NetworkViewProps"}]
+        8 DUPTABLE                         R4 K15 [{["BaseQuery"], ["IsPrivacyVisible"] = True, ["IsDateModifiedVisible"] = True, ["IsDropdownMenuVisible"] = False, ["IsCreatorNameVisible"] = False, ["KebabMenu"], ["CellSize"], ["FetchItems"], ["NetworkQuery"], ["OnClick"], ["NetworkViewProps"]}]
         9 GETTABLEKS                       R5 R0 K2 ["BaseQuery"]
        11 SETTABLEKS                       R5 R4 K2 ["BaseQuery"]
-       13 LOADB                            R5 1
-       14 SETTABLEKS                       R5 R4 K3 ["IsPrivacyVisible"]
-       16 LOADB                            R5 1
-       17 SETTABLEKS                       R5 R4 K4 ["IsDateModifiedVisible"]
-       19 LOADB                            R5 0
-       20 SETTABLEKS                       R5 R4 K5 ["IsDropdownMenuVisible"]
-       22 LOADB                            R5 0
-       23 SETTABLEKS                       R5 R4 K6 ["IsCreatorNameVisible"]
-       25 NEWTABLE                         R5 0 1
-       27 LOADK                            R6 K14 ["RemoveRecent"]
-       28 SETLIST                          R5 R6 1 [1]
-       30 SETTABLEKS                       R5 R4 K7 ["KebabMenu"]
-       32 GETUPVAL                         R5 3
-       33 SETTABLEKS                       R5 R4 K8 ["CellSize"]
-       35 GETUPVAL                         R5 4
-       36 SETTABLEKS                       R5 R4 K9 ["FetchItems"]
-       38 DUPTABLE                         R5 K18 [{"searchKey", "getRecentLocalFiles", "getRecentAPIGames"}]
-       39 LOADK                            R6 K19 ["Local"]
-       40 SETTABLEKS                       R6 R5 K15 ["searchKey"]
-       42 LOADB                            R6 1
-       43 SETTABLEKS                       R6 R5 K16 ["getRecentLocalFiles"]
-       45 LOADB                            R6 0
-       46 SETTABLEKS                       R6 R5 K17 ["getRecentAPIGames"]
-       48 SETTABLEKS                       R5 R4 K10 ["NetworkQuery"]
-       50 NEWCLOSURE                       R5 P0
-       51 CAPTURE                          UPVAL U5
-       52 CAPTURE                          UPVAL U6
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          UPVAL U7
-       55 SETTABLEKS                       R5 R4 K11 ["OnClick"]
-       57 SETTABLEKS                       R0 R4 K12 ["NetworkViewProps"]
-       59 CALL                             R2 2 -1
-       60 RETURN                           R2 -1
+       13 NEWTABLE                         R5 0 1
+       15 LOADK                            R6 K16 ["RemoveRecent"]
+       16 SETLIST                          R5 R6 1 [1]
+       18 SETTABLEKS                       R5 R4 K9 ["KebabMenu"]
+       20 GETUPVAL                         R5 3
+       21 SETTABLEKS                       R5 R4 K10 ["CellSize"]
+       23 GETUPVAL                         R5 4
+       24 SETTABLEKS                       R5 R4 K11 ["FetchItems"]
+       26 DUPTABLE                         R5 K21 [{["searchKey"] = "Local", ["getRecentLocalFiles"] = True, ["getRecentAPIGames"] = False}]
+       27 SETTABLEKS                       R5 R4 K12 ["NetworkQuery"]
+       29 NEWCLOSURE                       R5 P0
+       30 CAPTURE                          UPVAL U5
+       31 CAPTURE                          UPVAL U6
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          UPVAL U7
+       34 SETTABLEKS                       R5 R4 K13 ["OnClick"]
+       36 SETTABLEKS                       R0 R4 K14 ["NetworkViewProps"]
+       38 CALL                             R2 2 -1
+       39 RETURN                           R2 -1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -704,104 +626,82 @@ PROTO_14:
        17 GETUPVAL                         R4 5
        18 GETTABLEKS                       R4 R4 K1 ["createElement"]
        20 GETUPVAL                         R5 6
-       21 DUPTABLE                         R6 K7 [{"PageName", "Tabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
-       22 LOADK                            R7 K8 ["Experiences"]
-       23 SETTABLEKS                       R7 R6 K2 ["PageName"]
-       25 NEWTABLE                         R7 0 4
-       27 DUPTABLE                         R8 K14 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
-       28 LOADK                            R11 K15 ["Plugin"]
-       29 LOADK                            R12 K16 ["ExperiencesPage.Owned"]
-       30 NAMECALL                         R9 R0 K17 ["getText"]
-       32 CALL                             R9 3 1
-       33 SETTABLEKS                       R9 R8 K9 ["Title"]
-       35 LOADK                            R11 K15 ["Plugin"]
-       36 LOADK                            R12 K18 ["NoExperiencesToDisplay"]
-       37 NAMECALL                         R9 R0 K17 ["getText"]
-       39 CALL                             R9 3 1
-       40 SETTABLEKS                       R9 R8 K10 ["FailedTitle"]
-       42 LOADK                            R9 K19 ["Owned"]
-       43 SETTABLEKS                       R9 R8 K11 ["Key"]
-       45 GETUPVAL                         R9 7
-       46 SETTABLEKS                       R9 R8 K12 ["PageComponent"]
-       48 DUPTABLE                         R9 K22 [{"SortDropdown", "DefaultSortIndex"}]
-       49 SETTABLEKS                       R3 R9 K20 ["SortDropdown"]
-       51 LOADN                            R10 4
-       52 SETTABLEKS                       R10 R9 K21 ["DefaultSortIndex"]
-       54 SETTABLEKS                       R9 R8 K13 ["Dropdowns"]
-       56 DUPTABLE                         R9 K14 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
-       57 LOADK                            R12 K15 ["Plugin"]
-       58 LOADK                            R13 K23 ["ExperiencesPage.Group"]
-       59 NAMECALL                         R10 R0 K17 ["getText"]
-       61 CALL                             R10 3 1
-       62 SETTABLEKS                       R10 R9 K9 ["Title"]
-       64 LOADK                            R12 K15 ["Plugin"]
-       65 LOADK                            R13 K24 ["NoGroupExperiencesToDisplay"]
-       66 NAMECALL                         R10 R0 K17 ["getText"]
-       68 CALL                             R10 3 1
-       69 SETTABLEKS                       R10 R9 K10 ["FailedTitle"]
-       71 LOADK                            R10 K25 ["Group"]
-       72 SETTABLEKS                       R10 R9 K11 ["Key"]
-       74 GETUPVAL                         R10 8
-       75 SETTABLEKS                       R10 R9 K12 ["PageComponent"]
-       77 DUPTABLE                         R10 K27 [{"SortDropdown", "DefaultSortIndex", "GroupDropdown"}]
-       78 SETTABLEKS                       R3 R10 K20 ["SortDropdown"]
-       80 LOADN                            R11 4
-       81 SETTABLEKS                       R11 R10 K21 ["DefaultSortIndex"]
-       83 LENGTH                           R12 R1
-       84 LOADN                            R13 0
-       85 JUMPIFNOTLT                      R13 R12 ; [+3]
-       87 MOVE                             R11 R1
-       88 JUMP                             ; [+1]
-       89 LOADNIL                          R11
-       90 SETTABLEKS                       R11 R10 K26 ["GroupDropdown"]
-       92 SETTABLEKS                       R10 R9 K13 ["Dropdowns"]
-       94 DUPTABLE                         R10 K14 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
-       95 LOADK                            R13 K15 ["Plugin"]
-       96 LOADK                            R14 K28 ["ExperiencesPage.Shared"]
-       97 NAMECALL                         R11 R0 K17 ["getText"]
-       99 CALL                             R11 3 1
-      100 SETTABLEKS                       R11 R10 K9 ["Title"]
-      102 LOADK                            R13 K15 ["Plugin"]
-      103 LOADK                            R14 K29 ["NoSharedExperiencesToDisplay"]
-      104 NAMECALL                         R11 R0 K17 ["getText"]
-      106 CALL                             R11 3 1
-      107 SETTABLEKS                       R11 R10 K10 ["FailedTitle"]
-      109 LOADK                            R11 K30 ["Shared"]
-      110 SETTABLEKS                       R11 R10 K11 ["Key"]
-      112 GETUPVAL                         R11 9
-      113 SETTABLEKS                       R11 R10 K12 ["PageComponent"]
-      115 DUPTABLE                         R11 K22 [{"SortDropdown", "DefaultSortIndex"}]
-      116 SETTABLEKS                       R3 R11 K20 ["SortDropdown"]
-      118 LOADN                            R12 4
-      119 SETTABLEKS                       R12 R11 K21 ["DefaultSortIndex"]
-      121 SETTABLEKS                       R11 R10 K13 ["Dropdowns"]
-      123 DUPTABLE                         R11 K14 [{"Title", "FailedTitle", "Key", "PageComponent", "Dropdowns"}]
-      124 LOADK                            R14 K15 ["Plugin"]
-      125 LOADK                            R15 K31 ["ExperiencesPage.Local"]
-      126 NAMECALL                         R12 R0 K17 ["getText"]
-      128 CALL                             R12 3 1
-      129 SETTABLEKS                       R12 R11 K9 ["Title"]
-      131 LOADK                            R14 K15 ["Plugin"]
-      132 LOADK                            R15 K32 ["NoLocalFilesToDisplay"]
-      133 NAMECALL                         R12 R0 K17 ["getText"]
-      135 CALL                             R12 3 1
-      136 SETTABLEKS                       R12 R11 K10 ["FailedTitle"]
-      138 LOADK                            R12 K33 ["Local"]
-      139 SETTABLEKS                       R12 R11 K11 ["Key"]
-      141 GETUPVAL                         R12 10
-      142 SETTABLEKS                       R12 R11 K12 ["PageComponent"]
-      144 NEWTABLE                         R12 0 0
-      146 SETTABLEKS                       R12 R11 K13 ["Dropdowns"]
-      148 SETLIST                          R7 R8 4 [1]
-      150 SETTABLEKS                       R7 R6 K3 ["Tabs"]
-      152 LOADB                            R7 1
-      153 SETTABLEKS                       R7 R6 K4 ["CanSwapBetweenViews"]
-      155 LOADB                            R7 1
-      156 SETTABLEKS                       R7 R6 K5 ["IsDefaultGridView"]
-      158 LOADB                            R7 1
-      159 SETTABLEKS                       R7 R6 K6 ["HasSearchBar"]
-      161 CALL                             R4 2 -1
-      162 RETURN                           R4 -1
+       21 DUPTABLE                         R6 K9 [{["PageName"] = "Experiences", ["Tabs"], ["CanSwapBetweenViews"] = True, ["IsDefaultGridView"] = True, ["HasSearchBar"] = True}]
+       22 NEWTABLE                         R7 0 4
+       24 DUPTABLE                         R8 K16 [{["Title"], ["FailedTitle"], ["Key"] = "Owned", ["PageComponent"], ["Dropdowns"]}]
+       25 LOADK                            R11 K17 ["Plugin"]
+       26 LOADK                            R12 K18 ["ExperiencesPage.Owned"]
+       27 NAMECALL                         R9 R0 K19 ["getText"]
+       29 CALL                             R9 3 1
+       30 SETTABLEKS                       R9 R8 K10 ["Title"]
+       32 LOADK                            R11 K17 ["Plugin"]
+       33 LOADK                            R12 K20 ["NoExperiencesToDisplay"]
+       34 NAMECALL                         R9 R0 K19 ["getText"]
+       36 CALL                             R9 3 1
+       37 SETTABLEKS                       R9 R8 K11 ["FailedTitle"]
+       39 GETUPVAL                         R9 7
+       40 SETTABLEKS                       R9 R8 K14 ["PageComponent"]
+       42 DUPTABLE                         R9 K24 [{["SortDropdown"], ["DefaultSortIndex"] = 4}]
+       43 SETTABLEKS                       R3 R9 K21 ["SortDropdown"]
+       45 SETTABLEKS                       R9 R8 K15 ["Dropdowns"]
+       47 DUPTABLE                         R9 K26 [{["Title"], ["FailedTitle"], ["Key"] = "Group", ["PageComponent"], ["Dropdowns"]}]
+       48 LOADK                            R12 K17 ["Plugin"]
+       49 LOADK                            R13 K27 ["ExperiencesPage.Group"]
+       50 NAMECALL                         R10 R0 K19 ["getText"]
+       52 CALL                             R10 3 1
+       53 SETTABLEKS                       R10 R9 K10 ["Title"]
+       55 LOADK                            R12 K17 ["Plugin"]
+       56 LOADK                            R13 K28 ["NoGroupExperiencesToDisplay"]
+       57 NAMECALL                         R10 R0 K19 ["getText"]
+       59 CALL                             R10 3 1
+       60 SETTABLEKS                       R10 R9 K11 ["FailedTitle"]
+       62 GETUPVAL                         R10 8
+       63 SETTABLEKS                       R10 R9 K14 ["PageComponent"]
+       65 DUPTABLE                         R10 K30 [{["SortDropdown"], ["DefaultSortIndex"] = 4, ["GroupDropdown"]}]
+       66 SETTABLEKS                       R3 R10 K21 ["SortDropdown"]
+       68 LENGTH                           R12 R1
+       69 LOADN                            R13 0
+       70 JUMPIFNOTLT                      R13 R12 ; [+3]
+       72 MOVE                             R11 R1
+       73 JUMP                             ; [+1]
+       74 LOADNIL                          R11
+       75 SETTABLEKS                       R11 R10 K29 ["GroupDropdown"]
+       77 SETTABLEKS                       R10 R9 K15 ["Dropdowns"]
+       79 DUPTABLE                         R10 K32 [{["Title"], ["FailedTitle"], ["Key"] = "Shared", ["PageComponent"], ["Dropdowns"]}]
+       80 LOADK                            R13 K17 ["Plugin"]
+       81 LOADK                            R14 K33 ["ExperiencesPage.Shared"]
+       82 NAMECALL                         R11 R0 K19 ["getText"]
+       84 CALL                             R11 3 1
+       85 SETTABLEKS                       R11 R10 K10 ["Title"]
+       87 LOADK                            R13 K17 ["Plugin"]
+       88 LOADK                            R14 K34 ["NoSharedExperiencesToDisplay"]
+       89 NAMECALL                         R11 R0 K19 ["getText"]
+       91 CALL                             R11 3 1
+       92 SETTABLEKS                       R11 R10 K11 ["FailedTitle"]
+       94 GETUPVAL                         R11 9
+       95 SETTABLEKS                       R11 R10 K14 ["PageComponent"]
+       97 DUPTABLE                         R11 K24 [{["SortDropdown"], ["DefaultSortIndex"] = 4}]
+       98 SETTABLEKS                       R3 R11 K21 ["SortDropdown"]
+      100 SETTABLEKS                       R11 R10 K15 ["Dropdowns"]
+      102 DUPTABLE                         R11 K36 [{["Title"], ["FailedTitle"], ["Key"] = "Local", ["PageComponent"], ["Dropdowns"]}]
+      103 LOADK                            R14 K17 ["Plugin"]
+      104 LOADK                            R15 K37 ["ExperiencesPage.Local"]
+      105 NAMECALL                         R12 R0 K19 ["getText"]
+      107 CALL                             R12 3 1
+      108 SETTABLEKS                       R12 R11 K10 ["Title"]
+      110 LOADK                            R14 K17 ["Plugin"]
+      111 LOADK                            R15 K38 ["NoLocalFilesToDisplay"]
+      112 NAMECALL                         R12 R0 K19 ["getText"]
+      114 CALL                             R12 3 1
+      115 SETTABLEKS                       R12 R11 K11 ["FailedTitle"]
+      117 GETUPVAL                         R12 10
+      118 SETTABLEKS                       R12 R11 K14 ["PageComponent"]
+      120 NEWTABLE                         R12 0 0
+      122 SETTABLEKS                       R12 R11 K15 ["Dropdowns"]
+      124 SETLIST                          R7 R8 4 [1]
+      126 SETTABLEKS                       R7 R6 K4 ["Tabs"]
+      128 CALL                             R4 2 -1
+      129 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -964,113 +864,105 @@ MAIN:
       273 LOADN                            R36 0
       274 LOADN                            R37 225
       275 LOADN                            R38 0
-      276 LOADN                            R39 69
+      276 LOADN                            R39 325
       277 CALL                             R35 4 1
       278 GETIMPORT                        R36 K51 [UDim2.new]
       280 LOADN                            R37 0
       281 LOADN                            R38 225
       282 LOADN                            R39 0
-      283 LOADN                            R40 92
+      283 LOADN                            R40 348
       284 CALL                             R36 4 1
       285 DUPCLOSURE                       R37 K52 [PROTO_0]
       286 CAPTURE                          VAL R8
       287 CAPTURE                          VAL R26
-      288 DUPTABLE                         R38 K57 [{"searchKey", "isArchived", "isTemplates", "pageSize"}]
-      289 LOADK                            R39 K58 ["Experiences"]
-      290 SETTABLEKS                       R39 R38 K53 ["searchKey"]
-      292 LOADB                            R39 0
-      293 SETTABLEKS                       R39 R38 K54 ["isArchived"]
-      295 LOADB                            R39 0
-      296 SETTABLEKS                       R39 R38 K55 ["isTemplates"]
-      298 LOADN                            R39 30
-      299 SETTABLEKS                       R39 R38 K56 ["pageSize"]
-      301 DUPCLOSURE                       R39 K59 [PROTO_4]
-      302 CAPTURE                          VAL R10
-      303 CAPTURE                          VAL R38
-      304 CAPTURE                          VAL R1
-      305 CAPTURE                          VAL R13
-      306 CAPTURE                          VAL R12
-      307 CAPTURE                          VAL R34
-      308 CAPTURE                          VAL R21
-      309 CAPTURE                          VAL R22
-      310 CAPTURE                          VAL R24
-      311 DUPCLOSURE                       R40 K60 [PROTO_6]
-      312 CAPTURE                          VAL R30
-      313 CAPTURE                          VAL R4
-      314 CAPTURE                          VAL R25
-      315 CAPTURE                          VAL R33
-      316 CAPTURE                          VAL R32
-      317 CAPTURE                          VAL R27
-      318 CAPTURE                          VAL R8
-      319 CAPTURE                          VAL R1
-      320 CAPTURE                          VAL R39
-      321 CAPTURE                          VAL R6
-      322 CAPTURE                          VAL R23
-      323 CAPTURE                          VAL R35
-      324 CAPTURE                          VAL R17
-      325 CAPTURE                          VAL R29
-      326 CAPTURE                          VAL R20
-      327 CAPTURE                          VAL R19
-      328 CAPTURE                          VAL R5
-      329 CAPTURE                          VAL R31
-      330 DUPCLOSURE                       R41 K61 [PROTO_8]
-      331 CAPTURE                          VAL R30
-      332 CAPTURE                          VAL R8
-      333 CAPTURE                          VAL R4
-      334 CAPTURE                          VAL R25
-      335 CAPTURE                          VAL R33
-      336 CAPTURE                          VAL R32
-      337 CAPTURE                          VAL R27
-      338 CAPTURE                          VAL R1
-      339 CAPTURE                          VAL R39
-      340 CAPTURE                          VAL R6
-      341 CAPTURE                          VAL R23
-      342 CAPTURE                          VAL R35
-      343 CAPTURE                          VAL R17
-      344 CAPTURE                          VAL R20
-      345 CAPTURE                          VAL R29
-      346 CAPTURE                          VAL R19
-      347 CAPTURE                          VAL R5
-      348 CAPTURE                          VAL R31
-      349 CAPTURE                          VAL R15
-      350 CAPTURE                          VAL R10
-      351 DUPCLOSURE                       R42 K62 [PROTO_10]
-      352 CAPTURE                          VAL R30
-      353 CAPTURE                          VAL R4
-      354 CAPTURE                          VAL R25
-      355 CAPTURE                          VAL R33
-      356 CAPTURE                          VAL R32
-      357 CAPTURE                          VAL R27
-      358 CAPTURE                          VAL R8
+      288 DUPTABLE                         R38 K60 [{["searchKey"] = "Experiences", ["isArchived"] = False, ["isTemplates"] = False, ["pageSize"] = 30}]
+      289 DUPCLOSURE                       R39 K61 [PROTO_4]
+      290 CAPTURE                          VAL R10
+      291 CAPTURE                          VAL R38
+      292 CAPTURE                          VAL R1
+      293 CAPTURE                          VAL R13
+      294 CAPTURE                          VAL R12
+      295 CAPTURE                          VAL R34
+      296 CAPTURE                          VAL R21
+      297 CAPTURE                          VAL R22
+      298 CAPTURE                          VAL R24
+      299 DUPCLOSURE                       R40 K62 [PROTO_6]
+      300 CAPTURE                          VAL R30
+      301 CAPTURE                          VAL R4
+      302 CAPTURE                          VAL R25
+      303 CAPTURE                          VAL R33
+      304 CAPTURE                          VAL R32
+      305 CAPTURE                          VAL R27
+      306 CAPTURE                          VAL R8
+      307 CAPTURE                          VAL R1
+      308 CAPTURE                          VAL R39
+      309 CAPTURE                          VAL R6
+      310 CAPTURE                          VAL R23
+      311 CAPTURE                          VAL R35
+      312 CAPTURE                          VAL R17
+      313 CAPTURE                          VAL R29
+      314 CAPTURE                          VAL R20
+      315 CAPTURE                          VAL R19
+      316 CAPTURE                          VAL R5
+      317 CAPTURE                          VAL R31
+      318 DUPCLOSURE                       R41 K63 [PROTO_8]
+      319 CAPTURE                          VAL R30
+      320 CAPTURE                          VAL R8
+      321 CAPTURE                          VAL R4
+      322 CAPTURE                          VAL R25
+      323 CAPTURE                          VAL R33
+      324 CAPTURE                          VAL R32
+      325 CAPTURE                          VAL R27
+      326 CAPTURE                          VAL R1
+      327 CAPTURE                          VAL R39
+      328 CAPTURE                          VAL R6
+      329 CAPTURE                          VAL R23
+      330 CAPTURE                          VAL R35
+      331 CAPTURE                          VAL R17
+      332 CAPTURE                          VAL R20
+      333 CAPTURE                          VAL R29
+      334 CAPTURE                          VAL R19
+      335 CAPTURE                          VAL R5
+      336 CAPTURE                          VAL R31
+      337 CAPTURE                          VAL R15
+      338 CAPTURE                          VAL R10
+      339 DUPCLOSURE                       R42 K64 [PROTO_10]
+      340 CAPTURE                          VAL R30
+      341 CAPTURE                          VAL R4
+      342 CAPTURE                          VAL R25
+      343 CAPTURE                          VAL R33
+      344 CAPTURE                          VAL R32
+      345 CAPTURE                          VAL R27
+      346 CAPTURE                          VAL R8
+      347 CAPTURE                          VAL R1
+      348 CAPTURE                          VAL R39
+      349 CAPTURE                          VAL R23
+      350 CAPTURE                          VAL R36
+      351 CAPTURE                          VAL R17
+      352 CAPTURE                          VAL R29
+      353 CAPTURE                          VAL R20
+      354 CAPTURE                          VAL R19
+      355 CAPTURE                          VAL R5
+      356 CAPTURE                          VAL R31
+      357 DUPCLOSURE                       R43 K65 [PROTO_12]
+      358 CAPTURE                          VAL R30
       359 CAPTURE                          VAL R1
       360 CAPTURE                          VAL R39
-      361 CAPTURE                          VAL R23
-      362 CAPTURE                          VAL R36
-      363 CAPTURE                          VAL R17
-      364 CAPTURE                          VAL R29
-      365 CAPTURE                          VAL R20
-      366 CAPTURE                          VAL R19
-      367 CAPTURE                          VAL R5
-      368 CAPTURE                          VAL R31
-      369 DUPCLOSURE                       R43 K63 [PROTO_12]
-      370 CAPTURE                          VAL R30
-      371 CAPTURE                          VAL R1
-      372 CAPTURE                          VAL R39
-      373 CAPTURE                          VAL R35
-      374 CAPTURE                          VAL R18
-      375 CAPTURE                          VAL R28
-      376 CAPTURE                          VAL R5
-      377 CAPTURE                          VAL R31
-      378 DUPCLOSURE                       R44 K64 [PROTO_14]
-      379 CAPTURE                          VAL R8
-      380 CAPTURE                          VAL R2
-      381 CAPTURE                          VAL R37
-      382 CAPTURE                          VAL R3
-      383 CAPTURE                          VAL R16
-      384 CAPTURE                          VAL R1
-      385 CAPTURE                          VAL R14
-      386 CAPTURE                          VAL R40
-      387 CAPTURE                          VAL R41
-      388 CAPTURE                          VAL R42
-      389 CAPTURE                          VAL R43
-      390 RETURN                           R44 1
+      361 CAPTURE                          VAL R35
+      362 CAPTURE                          VAL R18
+      363 CAPTURE                          VAL R28
+      364 CAPTURE                          VAL R5
+      365 CAPTURE                          VAL R31
+      366 DUPCLOSURE                       R44 K66 [PROTO_14]
+      367 CAPTURE                          VAL R8
+      368 CAPTURE                          VAL R2
+      369 CAPTURE                          VAL R37
+      370 CAPTURE                          VAL R3
+      371 CAPTURE                          VAL R16
+      372 CAPTURE                          VAL R1
+      373 CAPTURE                          VAL R14
+      374 CAPTURE                          VAL R40
+      375 CAPTURE                          VAL R41
+      376 CAPTURE                          VAL R42
+      377 CAPTURE                          VAL R43
+      378 RETURN                           R44 1

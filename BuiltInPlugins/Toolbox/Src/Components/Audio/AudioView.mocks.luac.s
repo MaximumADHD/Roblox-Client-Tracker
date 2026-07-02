@@ -1,41 +1,21 @@
 PROTO_0:
         0 DUPTABLE                         R1 K3 [{"Asset", "AudioDetails", "Creator"}]
-        1 DUPTABLE                         R2 K11 [{"Id", "Name", "TypeId", "IsEndorsed", "Description", "Duration", "HasScripts"}]
+        1 DUPTABLE                         R2 K15 [{["Id"], ["Name"], ["TypeId"] = 10, ["IsEndorsed"] = False, ["Description"] = "High hat with various percussion sounds. Loud crashes.", ["Duration"] = "128", ["HasScripts"] = False}]
         2 SETTABLEKS                       R0 R2 K4 ["Id"]
-        4 LOADK                            R4 K12 ["Audio "]
+        4 LOADK                            R4 K16 ["Audio "]
         5 MOVE                             R5 R0
         6 CONCAT                           R3 R4 R5
         7 SETTABLEKS                       R3 R2 K5 ["Name"]
-        9 LOADN                            R3 10
-       10 SETTABLEKS                       R3 R2 K6 ["TypeId"]
-       12 LOADB                            R3 0
-       13 SETTABLEKS                       R3 R2 K7 ["IsEndorsed"]
-       15 LOADK                            R3 K13 ["High hat with various percussion sounds. Loud crashes."]
-       16 SETTABLEKS                       R3 R2 K8 ["Description"]
-       18 LOADK                            R3 K14 ["128"]
-       19 SETTABLEKS                       R3 R2 K9 ["Duration"]
-       21 LOADB                            R3 0
-       22 SETTABLEKS                       R3 R2 K10 ["HasScripts"]
-       24 SETTABLEKS                       R2 R1 K0 ["Asset"]
-       26 DUPTABLE                         R2 K18 [{"Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R3 R3 K19 ["SOUND_EFFECTS"]
-       30 GETTABLEKS                       R3 R3 K20 ["name"]
-       32 SETTABLEKS                       R3 R2 K15 ["Type"]
-       34 LOADK                            R3 K21 ["Instrument"]
-       35 SETTABLEKS                       R3 R2 K16 ["SoundEffectCategory"]
-       37 LOADK                            R3 K22 ["Drums"]
-       38 SETTABLEKS                       R3 R2 K17 ["SoundEffectSubcategory"]
-       40 SETTABLEKS                       R2 R1 K1 ["AudioDetails"]
-       42 DUPTABLE                         R2 K23 [{"Id", "Name", "Type"}]
-       43 LOADN                            R3 1
-       44 SETTABLEKS                       R3 R2 K4 ["Id"]
-       46 LOADK                            R3 K24 ["Rolbox"]
-       47 SETTABLEKS                       R3 R2 K5 ["Name"]
-       49 LOADK                            R3 K25 ["User"]
-       50 SETTABLEKS                       R3 R2 K15 ["Type"]
-       52 SETTABLEKS                       R2 R1 K2 ["Creator"]
-       54 RETURN                           R1 1
+        9 SETTABLEKS                       R2 R1 K0 ["Asset"]
+       11 DUPTABLE                         R2 K22 [{["Type"], ["SoundEffectCategory"] = "Instrument", ["SoundEffectSubcategory"] = "Drums"}]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K23 ["SOUND_EFFECTS"]
+       15 GETTABLEKS                       R3 R3 K24 ["name"]
+       17 SETTABLEKS                       R3 R2 K17 ["Type"]
+       19 SETTABLEKS                       R2 R1 K1 ["AudioDetails"]
+       21 DUPTABLE                         R2 K28 [{["Id"] = 1, ["Name"] = "Rolbox", ["Type"] = "User"}]
+       22 SETTABLEKS                       R2 R1 K2 ["Creator"]
+       24 RETURN                           R1 1
 
 PROTO_1:
         0 LOADK                            R3 K0 ["%s+"]
@@ -44,31 +24,21 @@ PROTO_1:
         4 CALL                             R1 3 1
         5 NAMECALL                         R1 R1 K3 ["lower"]
         7 CALL                             R1 1 1
-        8 DUPTABLE                         R2 K14 [{"displayName", "name", "children", "childCount", "index", "path", "searchKeywords", "queryParams", "thumbnail", "hidden"}]
+        8 DUPTABLE                         R2 K16 [{["displayName"], ["name"], ["children"], ["childCount"] = 0, ["index"] = 0, ["path"], ["searchKeywords"], ["queryParams"], ["thumbnail"], ["hidden"] = False}]
         9 SETTABLEKS                       R0 R2 K4 ["displayName"]
        11 SETTABLEKS                       R1 R2 K5 ["name"]
        13 NEWTABLE                         R3 0 0
        15 SETTABLEKS                       R3 R2 K6 ["children"]
-       17 LOADN                            R3 0
-       18 SETTABLEKS                       R3 R2 K7 ["childCount"]
-       20 LOADN                            R3 0
-       21 SETTABLEKS                       R3 R2 K8 ["index"]
-       23 NEWTABLE                         R3 0 1
-       25 MOVE                             R4 R1
-       26 SETLIST                          R3 R4 1 [1]
-       28 SETTABLEKS                       R3 R2 K9 ["path"]
-       30 SETTABLEKS                       R1 R2 K10 ["searchKeywords"]
-       32 NEWTABLE                         R3 0 0
-       34 SETTABLEKS                       R3 R2 K11 ["queryParams"]
-       36 DUPTABLE                         R3 K17 [{"assetId", "backgroundColor"}]
-       37 LOADN                            R4 255
-       38 SETTABLEKS                       R4 R3 K15 ["assetId"]
-       40 LOADK                            R4 K18 ["#fff"]
-       41 SETTABLEKS                       R4 R3 K16 ["backgroundColor"]
-       43 SETTABLEKS                       R3 R2 K12 ["thumbnail"]
-       45 LOADB                            R3 0
-       46 SETTABLEKS                       R3 R2 K13 ["hidden"]
-       48 RETURN                           R2 1
+       17 NEWTABLE                         R3 0 1
+       19 MOVE                             R4 R1
+       20 SETLIST                          R3 R4 1 [1]
+       22 SETTABLEKS                       R3 R2 K10 ["path"]
+       24 SETTABLEKS                       R1 R2 K11 ["searchKeywords"]
+       26 NEWTABLE                         R3 0 0
+       28 SETTABLEKS                       R3 R2 K12 ["queryParams"]
+       30 DUPTABLE                         R3 K21 [{["assetId"] = -1, ["backgroundColor"] = "#fff"}]
+       31 SETTABLEKS                       R3 R2 K13 ["thumbnail"]
+       33 RETURN                           R2 1
 
 PROTO_2:
         0 LOADK                            R4 K0 ["%s+"]
@@ -122,20 +92,18 @@ PROTO_3:
        23 CALL                             R6 -1 0
        24 FORNLOOP                         R3
        25 DUPTABLE                         R3 K10 [{"ResultsState", "Section"}]
-       26 DUPTABLE                         R4 K15 [{"assetIds", "assetMap", "assets", "loading"}]
+       26 DUPTABLE                         R4 K16 [{["assetIds"], ["assetMap"], ["assets"], ["loading"] = False}]
        27 NEWTABLE                         R5 0 0
        29 SETTABLEKS                       R5 R4 K11 ["assetIds"]
        31 NEWTABLE                         R5 0 0
        33 SETTABLEKS                       R5 R4 K12 ["assetMap"]
        35 SETTABLEKS                       R2 R4 K13 ["assets"]
-       37 LOADB                            R5 0
-       38 SETTABLEKS                       R5 R4 K14 ["loading"]
-       40 SETTABLEKS                       R4 R3 K8 ["ResultsState"]
-       42 DUPTABLE                         R4 K18 [{"displayName", "name"}]
-       43 SETTABLEKS                       R0 R4 K16 ["displayName"]
-       45 SETTABLEKS                       R1 R4 K17 ["name"]
-       47 SETTABLEKS                       R4 R3 K9 ["Section"]
-       49 RETURN                           R3 1
+       37 SETTABLEKS                       R4 R3 K8 ["ResultsState"]
+       39 DUPTABLE                         R4 K19 [{"displayName", "name"}]
+       40 SETTABLEKS                       R0 R4 K17 ["displayName"]
+       42 SETTABLEKS                       R1 R4 K18 ["name"]
+       44 SETTABLEKS                       R4 R3 K9 ["Section"]
+       46 RETURN                           R3 1
 
 PROTO_4:
         0 NEWTABLE                         R0 0 0
@@ -153,23 +121,19 @@ PROTO_4:
        15 CALL                             R4 -1 0
        16 FORNLOOP                         R1
        17 DUPTABLE                         R1 K6 [{"ResultsState", "Section"}]
-       18 DUPTABLE                         R2 K11 [{"assetIds", "assetMap", "assets", "loading"}]
+       18 DUPTABLE                         R2 K12 [{["assetIds"], ["assetMap"], ["assets"], ["loading"] = False}]
        19 NEWTABLE                         R3 0 0
        21 SETTABLEKS                       R3 R2 K7 ["assetIds"]
        23 NEWTABLE                         R3 0 0
        25 SETTABLEKS                       R3 R2 K8 ["assetMap"]
        27 SETTABLEKS                       R0 R2 K9 ["assets"]
-       29 LOADB                            R3 0
-       30 SETTABLEKS                       R3 R2 K10 ["loading"]
-       32 SETTABLEKS                       R2 R1 K4 ["ResultsState"]
-       34 DUPTABLE                         R2 K14 [{"displayName", "name"}]
-       35 LOADK                            R3 K15 ["Scene Suggestions"]
-       36 SETTABLEKS                       R3 R2 K12 ["displayName"]
-       38 GETUPVAL                         R3 1
-       39 GETTABLEKS                       R3 R3 K16 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
-       41 SETTABLEKS                       R3 R2 K13 ["name"]
-       43 SETTABLEKS                       R2 R1 K5 ["Section"]
-       45 RETURN                           R1 1
+       29 SETTABLEKS                       R2 R1 K4 ["ResultsState"]
+       31 DUPTABLE                         R2 K16 [{["displayName"] = "Scene Suggestions", ["name"]}]
+       32 GETUPVAL                         R3 1
+       33 GETTABLEKS                       R3 R3 K17 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+       35 SETTABLEKS                       R3 R2 K15 ["name"]
+       37 SETTABLEKS                       R2 R1 K5 ["Section"]
+       39 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

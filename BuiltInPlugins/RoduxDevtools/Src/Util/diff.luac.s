@@ -86,10 +86,10 @@ PROTO_5:
        70 JUMP                             ; [+1]
        71 LOADN                            R8 0
        72 ORK                              R7 R8 K0 [0]
-       73 LOADN                            R8 255
+       73 LOADN                            R8 -1
        74 MOVE                             R11 R5
        75 LOADN                            R9 0
-       76 LOADN                            R10 255
+       76 LOADN                            R10 -1
        77 FORNPREP                         R9
        78 MOVE                             R5 R11
        79 FASTCALL2                        STRING_BYTE R0 R11 ; [+5]
@@ -160,10 +160,10 @@ PROTO_6:
        70 JUMP                             ; [+1]
        71 LOADN                            R8 0
        72 ORK                              R7 R8 K0 [0]
-       73 LOADN                            R8 255
+       73 LOADN                            R8 -1
        74 MOVE                             R11 R5
        75 LOADN                            R9 0
-       76 LOADN                            R10 255
+       76 LOADN                            R10 -1
        77 FORNPREP                         R9
        78 MOVE                             R5 R11
        79 MINUS                            R14 R11
@@ -183,97 +183,77 @@ PROTO_7:
         3 GETTABLEKS                       R3 R2 K0 ["contextLines"]
         5 GETUPVAL                         R4 1
         6 MOVE                             R5 R0
-        7 DUPTABLE                         R6 K5 [{"depth", "multiline", "maxLineLength", "indent"}]
-        8 LOADN                            R7 100
-        9 SETTABLEKS                       R7 R6 K1 ["depth"]
-       11 LOADB                            R7 1
-       12 SETTABLEKS                       R7 R6 K2 ["multiline"]
-       14 LOADN                            R7 100
-       15 SETTABLEKS                       R7 R6 K3 ["maxLineLength"]
-       17 LOADK                            R7 K6 ["  "]
-       18 SETTABLEKS                       R7 R6 K4 ["indent"]
-       20 CALL                             R4 2 1
-       21 GETUPVAL                         R5 1
-       22 MOVE                             R6 R1
-       23 DUPTABLE                         R7 K5 [{"depth", "multiline", "maxLineLength", "indent"}]
-       24 LOADN                            R8 100
-       25 SETTABLEKS                       R8 R7 K1 ["depth"]
-       27 LOADB                            R8 1
-       28 SETTABLEKS                       R8 R7 K2 ["multiline"]
-       30 LOADN                            R8 100
-       31 SETTABLEKS                       R8 R7 K3 ["maxLineLength"]
-       33 LOADK                            R8 K6 ["  "]
-       34 SETTABLEKS                       R8 R7 K4 ["indent"]
-       36 CALL                             R5 2 1
-       37 JUMPIFNOTEQ                      R4 R5 ; [+3]
-       39 LOADK                            R6 K7 ["Compared values have no visual difference."]
-       40 RETURN                           R6 1
-       41 GETUPVAL                         R6 2
-       42 MOVE                             R7 R4
-       43 MOVE                             R8 R5
-       44 DUPTABLE                         R9 K8 [{"contextLines"}]
-       45 SETTABLEKS                       R3 R9 K0 ["contextLines"]
-       47 CALL                             R6 3 1
-       48 LOADN                            R7 0
-       49 JUMPIFNOTLT                      R7 R6 ; [+17]
-       51 ADDK                             R9 R6 K9 [1]
-       52 FASTCALL2                        STRING_SUB R4 R9 ; [+4]
-       54 MOVE                             R8 R4
-       55 GETIMPORT                        R7 K12 [string.sub]
-       57 CALL                             R7 2 1
-       58 MOVE                             R4 R7
-       59 ADDK                             R9 R6 K9 [1]
-       60 FASTCALL2                        STRING_SUB R5 R9 ; [+4]
-       62 MOVE                             R8 R5
-       63 GETIMPORT                        R7 K12 [string.sub]
-       65 CALL                             R7 2 1
-       66 MOVE                             R5 R7
-       67 GETUPVAL                         R7 3
-       68 MOVE                             R8 R4
-       69 MOVE                             R9 R5
-       70 DUPTABLE                         R10 K8 [{"contextLines"}]
-       71 SETTABLEKS                       R3 R10 K0 ["contextLines"]
-       73 CALL                             R7 3 1
-       74 LOADN                            R8 0
-       75 JUMPIFNOTLT                      R8 R7 ; [+21]
-       77 LOADN                            R10 1
-       78 MINUS                            R12 R7
-       79 SUBK                             R11 R12 K9 [1]
-       80 FASTCALL3                        STRING_SUB R4 R10 R11
-       82 MOVE                             R9 R4
-       83 GETIMPORT                        R8 K12 [string.sub]
-       85 CALL                             R8 3 1
-       86 MOVE                             R4 R8
-       87 LOADN                            R10 1
-       88 MINUS                            R12 R7
-       89 SUBK                             R11 R12 K9 [1]
-       90 FASTCALL3                        STRING_SUB R5 R10 R11
-       92 MOVE                             R9 R5
-       93 GETIMPORT                        R8 K12 [string.sub]
-       95 CALL                             R8 3 1
-       96 MOVE                             R5 R8
-       97 GETUPVAL                         R8 4
-       98 GETTABLEKS                       R8 R8 K13 ["diff"]
-      100 MOVE                             R9 R4
-      101 MOVE                             R10 R5
-      102 DUPTABLE                         R11 K21 [{"contextLines", "expand", "omitAnnotationLines", "aColor", "bColor", "patchColor", "changeColor", "commonColor"}]
-      103 SETTABLEKS                       R3 R11 K0 ["contextLines"]
-      105 LOADB                            R12 0
-      106 SETTABLEKS                       R12 R11 K14 ["expand"]
-      108 LOADB                            R12 1
-      109 SETTABLEKS                       R12 R11 K15 ["omitAnnotationLines"]
-      111 GETUPVAL                         R12 5
-      112 SETTABLEKS                       R12 R11 K16 ["aColor"]
-      114 GETUPVAL                         R12 6
-      115 SETTABLEKS                       R12 R11 K17 ["bColor"]
-      117 GETUPVAL                         R12 7
-      118 SETTABLEKS                       R12 R11 K18 ["patchColor"]
-      120 GETUPVAL                         R12 8
-      121 SETTABLEKS                       R12 R11 K19 ["changeColor"]
-      123 GETUPVAL                         R12 9
-      124 SETTABLEKS                       R12 R11 K20 ["commonColor"]
-      126 CALL                             R8 3 1
-      127 RETURN                           R8 1
+        7 DUPTABLE                         R6 K8 [{["depth"] = 100, ["multiline"] = True, ["maxLineLength"] = 100, ["indent"] = "  "}]
+        8 CALL                             R4 2 1
+        9 GETUPVAL                         R5 1
+       10 MOVE                             R6 R1
+       11 DUPTABLE                         R7 K8 [{["depth"] = 100, ["multiline"] = True, ["maxLineLength"] = 100, ["indent"] = "  "}]
+       12 CALL                             R5 2 1
+       13 JUMPIFNOTEQ                      R4 R5 ; [+3]
+       15 LOADK                            R6 K9 ["Compared values have no visual difference."]
+       16 RETURN                           R6 1
+       17 GETUPVAL                         R6 2
+       18 MOVE                             R7 R4
+       19 MOVE                             R8 R5
+       20 DUPTABLE                         R9 K10 [{"contextLines"}]
+       21 SETTABLEKS                       R3 R9 K0 ["contextLines"]
+       23 CALL                             R6 3 1
+       24 LOADN                            R7 0
+       25 JUMPIFNOTLT                      R7 R6 ; [+17]
+       27 ADDK                             R9 R6 K11 [1]
+       28 FASTCALL2                        STRING_SUB R4 R9 ; [+4]
+       30 MOVE                             R8 R4
+       31 GETIMPORT                        R7 K14 [string.sub]
+       33 CALL                             R7 2 1
+       34 MOVE                             R4 R7
+       35 ADDK                             R9 R6 K11 [1]
+       36 FASTCALL2                        STRING_SUB R5 R9 ; [+4]
+       38 MOVE                             R8 R5
+       39 GETIMPORT                        R7 K14 [string.sub]
+       41 CALL                             R7 2 1
+       42 MOVE                             R5 R7
+       43 GETUPVAL                         R7 3
+       44 MOVE                             R8 R4
+       45 MOVE                             R9 R5
+       46 DUPTABLE                         R10 K10 [{"contextLines"}]
+       47 SETTABLEKS                       R3 R10 K0 ["contextLines"]
+       49 CALL                             R7 3 1
+       50 LOADN                            R8 0
+       51 JUMPIFNOTLT                      R8 R7 ; [+21]
+       53 LOADN                            R10 1
+       54 MINUS                            R12 R7
+       55 SUBK                             R11 R12 K11 [1]
+       56 FASTCALL3                        STRING_SUB R4 R10 R11
+       58 MOVE                             R9 R4
+       59 GETIMPORT                        R8 K14 [string.sub]
+       61 CALL                             R8 3 1
+       62 MOVE                             R4 R8
+       63 LOADN                            R10 1
+       64 MINUS                            R12 R7
+       65 SUBK                             R11 R12 K11 [1]
+       66 FASTCALL3                        STRING_SUB R5 R10 R11
+       68 MOVE                             R9 R5
+       69 GETIMPORT                        R8 K14 [string.sub]
+       71 CALL                             R8 3 1
+       72 MOVE                             R5 R8
+       73 GETUPVAL                         R8 4
+       74 GETTABLEKS                       R8 R8 K15 ["diff"]
+       76 MOVE                             R9 R4
+       77 MOVE                             R10 R5
+       78 DUPTABLE                         R11 K24 [{[1], ["expand"] = False, ["omitAnnotationLines"] = True, ["aColor"], ["bColor"], ["patchColor"], ["changeColor"], ["commonColor"]}]
+       79 SETTABLEKS                       R3 R11 K0 ["contextLines"]
+       81 GETUPVAL                         R12 5
+       82 SETTABLEKS                       R12 R11 K19 ["aColor"]
+       84 GETUPVAL                         R12 6
+       85 SETTABLEKS                       R12 R11 K20 ["bColor"]
+       87 GETUPVAL                         R12 7
+       88 SETTABLEKS                       R12 R11 K21 ["patchColor"]
+       90 GETUPVAL                         R12 8
+       91 SETTABLEKS                       R12 R11 K22 ["changeColor"]
+       93 GETUPVAL                         R12 9
+       94 SETTABLEKS                       R12 R11 K23 ["commonColor"]
+       96 CALL                             R8 3 1
+       97 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -290,25 +270,23 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Dash"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["pretty"]
-       25 DUPTABLE                         R4 K10 [{"contextLines"}]
-       26 LOADN                            R5 3
-       27 SETTABLEKS                       R5 R4 K9 ["contextLines"]
-       29 DUPCLOSURE                       R5 K11 [PROTO_0]
-       30 DUPCLOSURE                       R6 K12 [PROTO_1]
-       31 DUPCLOSURE                       R7 K13 [PROTO_2]
-       32 DUPCLOSURE                       R8 K14 [PROTO_3]
-       33 DUPCLOSURE                       R9 K15 [PROTO_4]
-       34 DUPCLOSURE                       R10 K16 [PROTO_5]
-       35 DUPCLOSURE                       R11 K17 [PROTO_6]
-       36 DUPCLOSURE                       R12 K18 [PROTO_7]
-       37 CAPTURE                          VAL R4
-       38 CAPTURE                          VAL R3
-       39 CAPTURE                          VAL R10
-       40 CAPTURE                          VAL R11
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R9
-       43 CAPTURE                          VAL R8
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R7
-       46 CAPTURE                          VAL R5
-       47 RETURN                           R12 1
+       25 DUPTABLE                         R4 K11 [{["contextLines"] = 3}]
+       26 DUPCLOSURE                       R5 K12 [PROTO_0]
+       27 DUPCLOSURE                       R6 K13 [PROTO_1]
+       28 DUPCLOSURE                       R7 K14 [PROTO_2]
+       29 DUPCLOSURE                       R8 K15 [PROTO_3]
+       30 DUPCLOSURE                       R9 K16 [PROTO_4]
+       31 DUPCLOSURE                       R10 K17 [PROTO_5]
+       32 DUPCLOSURE                       R11 K18 [PROTO_6]
+       33 DUPCLOSURE                       R12 K19 [PROTO_7]
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R3
+       36 CAPTURE                          VAL R10
+       37 CAPTURE                          VAL R11
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R9
+       40 CAPTURE                          VAL R8
+       41 CAPTURE                          VAL R6
+       42 CAPTURE                          VAL R7
+       43 CAPTURE                          VAL R5
+       44 RETURN                           R12 1

@@ -42,101 +42,83 @@ PROTO_1:
        38 CALL                             R8 1 1
        39 JUMPIFNOTEQKN                    R8 K7 [0] ; [+3]
        41 GETTABLEKS                       R5 R3 K8 ["Name"]
-       43 JUMPIFNOT                        R4 ; [+56]
+       43 JUMPIFNOT                        R4 ; [+50]
        44 GETUPVAL                         R8 9
        45 GETTABLEKS                       R8 R8 K9 ["createElement"]
        47 GETUPVAL                         R9 10
-       48 DUPTABLE                         R10 K14 [{"Style", "Size", "BackgroundTransparency", "LayoutOrder"}]
-       49 LOADK                            R11 K15 ["KeyTileBox"]
-       50 SETTABLEKS                       R11 R10 K10 ["Style"]
-       52 GETTABLEKS                       R11 R1 K11 ["Size"]
-       54 SETTABLEKS                       R11 R10 K11 ["Size"]
-       56 GETTABLEKS                       R11 R1 K12 ["BackgroundTransparency"]
-       58 SETTABLEKS                       R11 R10 K12 ["BackgroundTransparency"]
-       60 GETTABLEKS                       R11 R1 K13 ["LayoutOrder"]
-       62 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
-       64 DUPTABLE                         R11 K17 [{"Image"}]
-       65 GETUPVAL                         R12 9
-       66 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       68 LOADK                            R13 K18 ["ImageLabel"]
-       69 DUPTABLE                         R14 K22 [{"Image", "AnchorPoint", "Position", "BackgroundTransparency", "Size", "ImageTransparency"}]
-       70 SETTABLEKS                       R4 R14 K16 ["Image"]
-       72 GETIMPORT                        R15 K25 [Vector2.new]
-       74 LOADK                            R16 K26 [0.5]
-       75 LOADK                            R17 K26 [0.5]
-       76 CALL                             R15 2 1
-       77 SETTABLEKS                       R15 R14 K19 ["AnchorPoint"]
-       79 GETIMPORT                        R15 K29 [UDim2.fromScale]
-       81 LOADK                            R16 K26 [0.5]
-       82 LOADK                            R17 K26 [0.5]
-       83 CALL                             R15 2 1
-       84 SETTABLEKS                       R15 R14 K20 ["Position"]
-       86 LOADN                            R15 1
-       87 SETTABLEKS                       R15 R14 K12 ["BackgroundTransparency"]
-       89 SETTABLEKS                       R6 R14 K11 ["Size"]
-       91 GETTABLEKS                       R15 R1 K30 ["ForegroundTransparency"]
-       93 SETTABLEKS                       R15 R14 K21 ["ImageTransparency"]
-       95 CALL                             R12 2 1
-       96 SETTABLEKS                       R12 R11 K16 ["Image"]
-       98 CALL                             R8 3 -1
-       99 RETURN                           R8 -1
-      100 GETUPVAL                         R8 9
-      101 GETTABLEKS                       R8 R8 K9 ["createElement"]
-      103 GETUPVAL                         R9 10
-      104 DUPTABLE                         R10 K14 [{"Style", "Size", "BackgroundTransparency", "LayoutOrder"}]
-      105 LOADK                            R11 K15 ["KeyTileBox"]
-      106 SETTABLEKS                       R11 R10 K10 ["Style"]
-      108 GETTABLEKS                       R11 R1 K11 ["Size"]
-      110 SETTABLEKS                       R11 R10 K11 ["Size"]
-      112 GETTABLEKS                       R11 R1 K12 ["BackgroundTransparency"]
-      114 SETTABLEKS                       R11 R10 K12 ["BackgroundTransparency"]
-      116 GETTABLEKS                       R11 R1 K13 ["LayoutOrder"]
-      118 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
-      120 DUPTABLE                         R11 K32 [{"TextLabel"}]
-      121 GETUPVAL                         R12 9
-      122 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      124 LOADK                            R13 K31 ["TextLabel"]
-      125 DUPTABLE                         R14 K40 [{"Text", "Position", "Size", "TextScaled", "Font", "TextSize", "TextColor3", "BackgroundTransparency", "BorderSizePixel", "TextTransparency"}]
-      126 SETTABLEKS                       R5 R14 K33 ["Text"]
-      128 GETIMPORT                        R15 K29 [UDim2.fromScale]
-      130 LOADN                            R16 0
-      131 LOADN                            R17 0
-      132 CALL                             R15 2 1
-      133 SETTABLEKS                       R15 R14 K20 ["Position"]
-      135 GETIMPORT                        R15 K29 [UDim2.fromScale]
-      137 LOADN                            R16 1
-      138 LOADN                            R17 1
-      139 CALL                             R15 2 1
-      140 SETTABLEKS                       R15 R14 K11 ["Size"]
-      142 LOADB                            R15 1
-      143 SETTABLEKS                       R15 R14 K34 ["TextScaled"]
-      145 GETIMPORT                        R15 K43 [Enum.Font.SourceSansBold]
-      147 SETTABLEKS                       R15 R14 K35 ["Font"]
-      149 LOADN                            R15 25
-      150 SETTABLEKS                       R15 R14 K36 ["TextSize"]
-      152 GETTABLEKS                       R15 R2 K44 ["TextColor"]
-      154 SETTABLEKS                       R15 R14 K37 ["TextColor3"]
-      156 LOADN                            R15 1
-      157 SETTABLEKS                       R15 R14 K12 ["BackgroundTransparency"]
-      159 LOADN                            R15 0
-      160 SETTABLEKS                       R15 R14 K38 ["BorderSizePixel"]
-      162 GETTABLEKS                       R15 R1 K30 ["ForegroundTransparency"]
-      164 SETTABLEKS                       R15 R14 K39 ["TextTransparency"]
-      166 DUPTABLE                         R15 K46 [{"SizeConstraint"}]
-      167 GETUPVAL                         R16 9
-      168 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      170 LOADK                            R17 K47 ["UITextSizeConstraint"]
-      171 DUPTABLE                         R18 K50 [{"MaxTextSize", "MinTextSize"}]
-      172 LOADN                            R19 25
-      173 SETTABLEKS                       R19 R18 K48 ["MaxTextSize"]
-      175 LOADN                            R19 5
-      176 SETTABLEKS                       R19 R18 K49 ["MinTextSize"]
-      178 CALL                             R16 2 1
-      179 SETTABLEKS                       R16 R15 K45 ["SizeConstraint"]
-      181 CALL                             R12 3 1
-      182 SETTABLEKS                       R12 R11 K31 ["TextLabel"]
-      184 CALL                             R8 3 -1
-      185 RETURN                           R8 -1
+       48 DUPTABLE                         R10 K15 [{["Style"] = "KeyTileBox", ["Size"], ["BackgroundTransparency"], ["LayoutOrder"]}]
+       49 GETTABLEKS                       R11 R1 K12 ["Size"]
+       51 SETTABLEKS                       R11 R10 K12 ["Size"]
+       53 GETTABLEKS                       R11 R1 K13 ["BackgroundTransparency"]
+       55 SETTABLEKS                       R11 R10 K13 ["BackgroundTransparency"]
+       57 GETTABLEKS                       R11 R1 K14 ["LayoutOrder"]
+       59 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+       61 DUPTABLE                         R11 K17 [{"Image"}]
+       62 GETUPVAL                         R12 9
+       63 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       65 LOADK                            R13 K18 ["ImageLabel"]
+       66 DUPTABLE                         R14 K23 [{["Image"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1, ["Size"], ["ImageTransparency"]}]
+       67 SETTABLEKS                       R4 R14 K16 ["Image"]
+       69 GETIMPORT                        R15 K26 [Vector2.new]
+       71 LOADK                            R16 K27 [0.5]
+       72 LOADK                            R17 K27 [0.5]
+       73 CALL                             R15 2 1
+       74 SETTABLEKS                       R15 R14 K19 ["AnchorPoint"]
+       76 GETIMPORT                        R15 K30 [UDim2.fromScale]
+       78 LOADK                            R16 K27 [0.5]
+       79 LOADK                            R17 K27 [0.5]
+       80 CALL                             R15 2 1
+       81 SETTABLEKS                       R15 R14 K20 ["Position"]
+       83 SETTABLEKS                       R6 R14 K12 ["Size"]
+       85 GETTABLEKS                       R15 R1 K31 ["ForegroundTransparency"]
+       87 SETTABLEKS                       R15 R14 K22 ["ImageTransparency"]
+       89 CALL                             R12 2 1
+       90 SETTABLEKS                       R12 R11 K16 ["Image"]
+       92 CALL                             R8 3 -1
+       93 RETURN                           R8 -1
+       94 GETUPVAL                         R8 9
+       95 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       97 GETUPVAL                         R9 10
+       98 DUPTABLE                         R10 K15 [{["Style"] = "KeyTileBox", ["Size"], ["BackgroundTransparency"], ["LayoutOrder"]}]
+       99 GETTABLEKS                       R11 R1 K12 ["Size"]
+      101 SETTABLEKS                       R11 R10 K12 ["Size"]
+      103 GETTABLEKS                       R11 R1 K13 ["BackgroundTransparency"]
+      105 SETTABLEKS                       R11 R10 K13 ["BackgroundTransparency"]
+      107 GETTABLEKS                       R11 R1 K14 ["LayoutOrder"]
+      109 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      111 DUPTABLE                         R11 K33 [{"TextLabel"}]
+      112 GETUPVAL                         R12 9
+      113 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      115 LOADK                            R13 K32 ["TextLabel"]
+      116 DUPTABLE                         R14 K43 [{["Text"], ["Position"], ["Size"], ["TextScaled"] = True, ["Font"], ["TextSize"] = 25, ["TextColor3"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextTransparency"]}]
+      117 SETTABLEKS                       R5 R14 K34 ["Text"]
+      119 GETIMPORT                        R15 K30 [UDim2.fromScale]
+      121 LOADN                            R16 0
+      122 LOADN                            R17 0
+      123 CALL                             R15 2 1
+      124 SETTABLEKS                       R15 R14 K20 ["Position"]
+      126 GETIMPORT                        R15 K30 [UDim2.fromScale]
+      128 LOADN                            R16 1
+      129 LOADN                            R17 1
+      130 CALL                             R15 2 1
+      131 SETTABLEKS                       R15 R14 K12 ["Size"]
+      133 GETIMPORT                        R15 K46 [Enum.Font.SourceSansBold]
+      135 SETTABLEKS                       R15 R14 K37 ["Font"]
+      137 GETTABLEKS                       R15 R2 K47 ["TextColor"]
+      139 SETTABLEKS                       R15 R14 K40 ["TextColor3"]
+      141 GETTABLEKS                       R15 R1 K31 ["ForegroundTransparency"]
+      143 SETTABLEKS                       R15 R14 K42 ["TextTransparency"]
+      145 DUPTABLE                         R15 K49 [{"SizeConstraint"}]
+      146 GETUPVAL                         R16 9
+      147 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      149 LOADK                            R17 K50 ["UITextSizeConstraint"]
+      150 DUPTABLE                         R18 K54 [{["MaxTextSize"] = 25, ["MinTextSize"] = 5}]
+      151 CALL                             R16 2 1
+      152 SETTABLEKS                       R16 R15 K48 ["SizeConstraint"]
+      154 CALL                             R12 3 1
+      155 SETTABLEKS                       R12 R11 K32 ["TextLabel"]
+      157 CALL                             R8 3 -1
+      158 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

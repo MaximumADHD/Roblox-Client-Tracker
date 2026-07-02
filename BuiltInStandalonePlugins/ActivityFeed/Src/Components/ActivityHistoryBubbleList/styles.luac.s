@@ -80,34 +80,28 @@ MAIN:
       115 CALL                             R12 3 1
       116 MOVE                             R13 R3
       117 LOADK                            R14 K31 ["> ScrollingFrame"]
-      118 DUPTABLE                         R15 K34 [{"BackgroundTransparency", "BorderSizePixel"}]
-      119 LOADN                            R16 1
-      120 SETTABLEKS                       R16 R15 K32 ["BackgroundTransparency"]
-      122 LOADN                            R16 0
-      123 SETTABLEKS                       R16 R15 K33 ["BorderSizePixel"]
-      125 NEWTABLE                         R16 0 1
-      127 MOVE                             R17 R3
-      128 LOADK                            R18 K35 ["> Frame"]
-      129 DUPTABLE                         R19 K36 [{"BackgroundTransparency"}]
-      130 LOADN                            R20 1
-      131 SETTABLEKS                       R20 R19 K32 ["BackgroundTransparency"]
-      133 NEWTABLE                         R20 0 1
-      135 MOVE                             R21 R3
-      136 LOADK                            R22 K37 ["::UIListLayout"]
-      137 JUMPIFNOT                        R6 ; [+3]
-      138 NEWTABLE                         R23 0 0
-      140 JUMPIF                           R23 ; [+8]
-      141 DUPTABLE                         R23 K39 [{"Padding"}]
-      142 GETIMPORT                        R24 K26 [UDim.new]
-      144 LOADN                            R25 0
-      145 MOVE                             R26 R5
-      146 CALL                             R24 2 1
-      147 SETTABLEKS                       R24 R23 K38 ["Padding"]
-      149 CALL                             R21 2 -1
-      150 SETLIST                          R20 R21 -1 [1]
-      152 CALL                             R17 3 -1
-      153 SETLIST                          R16 R17 -1 [1]
-      155 CALL                             R13 3 -1
-      156 SETLIST                          R10 R11 -1 [1]
-      158 CALL                             R7 3 -1
-      159 RETURN                           R7 -1
+      118 DUPTABLE                         R15 K35 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      119 NEWTABLE                         R16 0 1
+      121 MOVE                             R17 R3
+      122 LOADK                            R18 K36 ["> Frame"]
+      123 DUPTABLE                         R19 K37 [{["BackgroundTransparency"] = 1}]
+      124 NEWTABLE                         R20 0 1
+      126 MOVE                             R21 R3
+      127 LOADK                            R22 K38 ["::UIListLayout"]
+      128 JUMPIFNOT                        R6 ; [+3]
+      129 NEWTABLE                         R23 0 0
+      131 JUMPIF                           R23 ; [+8]
+      132 DUPTABLE                         R23 K40 [{"Padding"}]
+      133 GETIMPORT                        R24 K26 [UDim.new]
+      135 LOADN                            R25 0
+      136 MOVE                             R26 R5
+      137 CALL                             R24 2 1
+      138 SETTABLEKS                       R24 R23 K39 ["Padding"]
+      140 CALL                             R21 2 -1
+      141 SETLIST                          R20 R21 -1 [1]
+      143 CALL                             R17 3 -1
+      144 SETLIST                          R16 R17 -1 [1]
+      146 CALL                             R13 3 -1
+      147 SETLIST                          R10 R11 -1 [1]
+      149 CALL                             R7 3 -1
+      150 RETURN                           R7 -1

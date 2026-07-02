@@ -144,67 +144,63 @@ MAIN:
       129 CALL                             R13 3 1
       130 GETTABLEKS                       R14 R5 K18 ["plugin"]
       132 GETTABLEKS                       R16 R4 K36 ["NAME"]
-      134 DUPTABLE                         R17 K42 [{"Enabled", "Title", "Name", "Modal", "Size"}]
-      135 LOADB                            R18 0
-      136 SETTABLEKS                       R18 R17 K37 ["Enabled"]
-      138 GETTABLEKS                       R18 R4 K43 ["TITLE"]
-      140 SETTABLEKS                       R18 R17 K38 ["Title"]
-      142 GETTABLEKS                       R18 R4 K36 ["NAME"]
-      144 SETTABLEKS                       R18 R17 K39 ["Name"]
-      146 LOADB                            R18 1
-      147 SETTABLEKS                       R18 R17 K40 ["Modal"]
-      149 GETIMPORT                        R18 K45 [Vector2.new]
-      151 GETTABLEKS                       R19 R4 K46 ["BACKGROUND_WIDTH"]
-      153 GETTABLEKS                       R20 R4 K47 ["BACKGROUND_HEIGHT"]
-      155 CALL                             R18 2 1
-      156 SETTABLEKS                       R18 R17 K41 ["Size"]
-      158 NAMECALL                         R14 R14 K48 ["CreateQWidgetPluginGui"]
-      160 CALL                             R14 3 1
-      161 GETTABLEKS                       R15 R4 K36 ["NAME"]
-      163 SETTABLEKS                       R15 R14 K39 ["Name"]
-      165 DUPCLOSURE                       R17 K49 [PROTO_1]
-      166 CAPTURE                          VAL R13
-      167 CAPTURE                          VAL R11
-      168 NAMECALL                         R15 R14 K50 ["BindToClose"]
-      170 CALL                             R15 2 0
-      171 DUPCLOSURE                       R15 K51 [PROTO_2]
-      172 CAPTURE                          VAL R6
-      173 CAPTURE                          VAL R8
-      174 CAPTURE                          VAL R13
-      175 CAPTURE                          VAL R9
-      176 CAPTURE                          VAL R14
-      177 GETTABLEKS                       R16 R6 K52 ["mount"]
-      179 MOVE                             R17 R15
-      180 CALL                             R17 0 1
-      181 MOVE                             R18 R14
-      182 CALL                             R16 2 1
-      183 GETTABLEKS                       R17 R5 K22 ["toolbar"]
-      185 GETTABLEKS                       R19 R4 K53 ["BUTTON_NAME"]
-      187 GETTABLEKS                       R20 R4 K54 ["BUTTON_TOOLTIP"]
-      189 LOADK                            R21 K55 ["rbxlocaltheme://AvatarImporter"]
-      190 NAMECALL                         R17 R17 K56 ["CreateButton"]
-      192 CALL                             R17 4 1
-      193 GETTABLEKS                       R18 R17 K57 ["Click"]
-      195 DUPCLOSURE                       R20 K58 [PROTO_3]
-      196 CAPTURE                          VAL R13
-      197 CAPTURE                          VAL R12
-      198 NAMECALL                         R18 R18 K59 ["Connect"]
-      200 CALL                             R18 2 0
-      201 GETTABLEKS                       R18 R13 K60 ["changed"]
-      203 DUPCLOSURE                       R20 K61 [PROTO_4]
-      204 CAPTURE                          VAL R17
-      205 CAPTURE                          VAL R14
-      206 NAMECALL                         R18 R18 K62 ["connect"]
-      208 CALL                             R18 2 0
-      209 GETIMPORT                        R18 K64 [settings]
-      211 CALL                             R18 0 1
-      212 GETTABLEKS                       R18 R18 K65 ["Studio"]
-      214 GETTABLEKS                       R18 R18 K66 ["ThemeChanged"]
-      216 DUPCLOSURE                       R20 K67 [PROTO_5]
-      217 CAPTURE                          VAL R6
-      218 CAPTURE                          VAL R16
-      219 CAPTURE                          VAL R15
-      220 NAMECALL                         R18 R18 K59 ["Connect"]
-      222 CALL                             R18 2 0
-      223 LOADNIL                          R18
-      224 RETURN                           R18 1
+      134 DUPTABLE                         R17 K44 [{["Enabled"] = False, ["Title"], ["Name"], ["Modal"] = True, ["Size"]}]
+      135 GETTABLEKS                       R18 R4 K45 ["TITLE"]
+      137 SETTABLEKS                       R18 R17 K39 ["Title"]
+      139 GETTABLEKS                       R18 R4 K36 ["NAME"]
+      141 SETTABLEKS                       R18 R17 K40 ["Name"]
+      143 GETIMPORT                        R18 K47 [Vector2.new]
+      145 GETTABLEKS                       R19 R4 K48 ["BACKGROUND_WIDTH"]
+      147 GETTABLEKS                       R20 R4 K49 ["BACKGROUND_HEIGHT"]
+      149 CALL                             R18 2 1
+      150 SETTABLEKS                       R18 R17 K43 ["Size"]
+      152 NAMECALL                         R14 R14 K50 ["CreateQWidgetPluginGui"]
+      154 CALL                             R14 3 1
+      155 GETTABLEKS                       R15 R4 K36 ["NAME"]
+      157 SETTABLEKS                       R15 R14 K40 ["Name"]
+      159 DUPCLOSURE                       R17 K51 [PROTO_1]
+      160 CAPTURE                          VAL R13
+      161 CAPTURE                          VAL R11
+      162 NAMECALL                         R15 R14 K52 ["BindToClose"]
+      164 CALL                             R15 2 0
+      165 DUPCLOSURE                       R15 K53 [PROTO_2]
+      166 CAPTURE                          VAL R6
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R13
+      169 CAPTURE                          VAL R9
+      170 CAPTURE                          VAL R14
+      171 GETTABLEKS                       R16 R6 K54 ["mount"]
+      173 MOVE                             R17 R15
+      174 CALL                             R17 0 1
+      175 MOVE                             R18 R14
+      176 CALL                             R16 2 1
+      177 GETTABLEKS                       R17 R5 K22 ["toolbar"]
+      179 GETTABLEKS                       R19 R4 K55 ["BUTTON_NAME"]
+      181 GETTABLEKS                       R20 R4 K56 ["BUTTON_TOOLTIP"]
+      183 LOADK                            R21 K57 ["rbxlocaltheme://AvatarImporter"]
+      184 NAMECALL                         R17 R17 K58 ["CreateButton"]
+      186 CALL                             R17 4 1
+      187 GETTABLEKS                       R18 R17 K59 ["Click"]
+      189 DUPCLOSURE                       R20 K60 [PROTO_3]
+      190 CAPTURE                          VAL R13
+      191 CAPTURE                          VAL R12
+      192 NAMECALL                         R18 R18 K61 ["Connect"]
+      194 CALL                             R18 2 0
+      195 GETTABLEKS                       R18 R13 K62 ["changed"]
+      197 DUPCLOSURE                       R20 K63 [PROTO_4]
+      198 CAPTURE                          VAL R17
+      199 CAPTURE                          VAL R14
+      200 NAMECALL                         R18 R18 K64 ["connect"]
+      202 CALL                             R18 2 0
+      203 GETIMPORT                        R18 K66 [settings]
+      205 CALL                             R18 0 1
+      206 GETTABLEKS                       R18 R18 K67 ["Studio"]
+      208 GETTABLEKS                       R18 R18 K68 ["ThemeChanged"]
+      210 DUPCLOSURE                       R20 K69 [PROTO_5]
+      211 CAPTURE                          VAL R6
+      212 CAPTURE                          VAL R16
+      213 CAPTURE                          VAL R15
+      214 NAMECALL                         R18 R18 K61 ["Connect"]
+      216 CALL                             R18 2 0
+      217 LOADNIL                          R18
+      218 RETURN                           R18 1

@@ -528,26 +528,22 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 DUPCLOSURE                       R1 K0 [PROTO_0]
-        4 DUPTABLE                         R2 K3 [{"Continue", "Stop"}]
-        5 LOADK                            R3 K1 ["Continue"]
-        6 SETTABLEKS                       R3 R2 K1 ["Continue"]
-        8 LOADK                            R3 K2 ["Stop"]
-        9 SETTABLEKS                       R3 R2 K2 ["Stop"]
-       11 SETTABLEKS                       R2 R0 K4 ["HandlerControl"]
-       13 DUPCLOSURE                       R3 K5 [PROTO_2]
-       14 CAPTURE                          VAL R1
-       15 CAPTURE                          VAL R2
-       16 SETTABLEKS                       R3 R0 K6 ["matchTrees"]
-       18 DUPCLOSURE                       R3 K7 [PROTO_4]
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          VAL R2
-       21 SETTABLEKS                       R3 R0 K8 ["matchTrees_handlers"]
-       23 DUPCLOSURE                       R3 K9 [PROTO_14]
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          VAL R2
-       26 SETTABLEKS                       R3 R0 K10 ["applyTree"]
-       28 DUPCLOSURE                       R3 K11 [PROTO_16]
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R2
-       31 SETTABLEKS                       R3 R0 K12 ["findMatching"]
-       33 RETURN                           R0 1
+        4 DUPTABLE                         R2 K3 [{["Continue"] = "Continue", ["Stop"] = "Stop"}]
+        5 SETTABLEKS                       R2 R0 K4 ["HandlerControl"]
+        7 DUPCLOSURE                       R3 K5 [PROTO_2]
+        8 CAPTURE                          VAL R1
+        9 CAPTURE                          VAL R2
+       10 SETTABLEKS                       R3 R0 K6 ["matchTrees"]
+       12 DUPCLOSURE                       R3 K7 [PROTO_4]
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R2
+       15 SETTABLEKS                       R3 R0 K8 ["matchTrees_handlers"]
+       17 DUPCLOSURE                       R3 K9 [PROTO_14]
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          VAL R2
+       20 SETTABLEKS                       R3 R0 K10 ["applyTree"]
+       22 DUPCLOSURE                       R3 K11 [PROTO_16]
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          VAL R2
+       25 SETTABLEKS                       R3 R0 K12 ["findMatching"]
+       27 RETURN                           R0 1

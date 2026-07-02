@@ -13,57 +13,41 @@ PROTO_1:
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"currentTab"}]
-        1 LOADK                            R2 K2 ["Marketplace"]
-        2 SETTABLEKS                       R2 R1 K0 ["currentTab"]
-        4 SETTABLEKS                       R1 R0 K3 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K4 ["changeTab"]
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = "Marketplace"}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["changeTab"]
+        7 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K7 [{"Size", "Position", "CurrentWidth", "CurrentTab", "Tabs", "onTabSelected"}]
-        5 GETIMPORT                        R5 K10 [UDim2.new]
+        4 DUPTABLE                         R4 K8 [{["Size"], ["Position"], ["CurrentWidth"] = 565.5, ["CurrentTab"], ["Tabs"], ["onTabSelected"]}]
+        5 GETIMPORT                        R5 K11 [UDim2.new]
         7 LOADN                            R6 1
         8 LOADN                            R7 0
         9 LOADN                            R8 1
        10 LOADN                            R9 0
        11 CALL                             R5 4 1
        12 SETTABLEKS                       R5 R4 K1 ["Size"]
-       14 GETIMPORT                        R5 K10 [UDim2.new]
+       14 GETIMPORT                        R5 K11 [UDim2.new]
        16 CALL                             R5 0 1
        17 SETTABLEKS                       R5 R4 K2 ["Position"]
-       19 LOADK                            R5 K11 [565.5]
-       20 SETTABLEKS                       R5 R4 K3 ["CurrentWidth"]
-       22 GETTABLEKS                       R5 R0 K12 ["state"]
-       24 GETTABLEKS                       R5 R5 K13 ["currentTab"]
-       26 SETTABLEKS                       R5 R4 K4 ["CurrentTab"]
-       28 NEWTABLE                         R5 0 2
-       30 DUPTABLE                         R6 K17 [{"Image", "Key", "Text"}]
-       31 LOADK                            R7 K18 ["rbxasset://textures/StudioToolbox/Tabs/Shop.png"]
-       32 SETTABLEKS                       R7 R6 K14 ["Image"]
-       34 LOADK                            R7 K19 ["Marketplace"]
-       35 SETTABLEKS                       R7 R6 K15 ["Key"]
-       37 LOADK                            R7 K19 ["Marketplace"]
-       38 SETTABLEKS                       R7 R6 K16 ["Text"]
-       40 SETTABLEN                        R6 R5 1
-       41 DUPTABLE                         R6 K17 [{"Image", "Key", "Text"}]
-       42 LOADK                            R7 K18 ["rbxasset://textures/StudioToolbox/Tabs/Shop.png"]
-       43 SETTABLEKS                       R7 R6 K14 ["Image"]
-       45 LOADK                            R7 K20 ["Inventory"]
-       46 SETTABLEKS                       R7 R6 K15 ["Key"]
-       48 LOADK                            R7 K20 ["Inventory"]
-       49 SETTABLEKS                       R7 R6 K16 ["Text"]
-       51 SETTABLEN                        R6 R5 2
-       52 SETTABLEKS                       R5 R4 K5 ["Tabs"]
-       54 GETTABLEKS                       R5 R0 K21 ["changeTab"]
-       56 SETTABLEKS                       R5 R4 K6 ["onTabSelected"]
-       58 CALL                             R2 2 -1
-       59 RETURN                           R2 -1
+       19 GETTABLEKS                       R5 R0 K12 ["state"]
+       21 GETTABLEKS                       R5 R5 K13 ["currentTab"]
+       23 SETTABLEKS                       R5 R4 K5 ["CurrentTab"]
+       25 NEWTABLE                         R5 0 2
+       27 DUPTABLE                         R6 K19 [{["Image"] = "rbxasset://textures/StudioToolbox/Tabs/Shop.png", ["Key"] = "Marketplace", ["Text"] = "Marketplace"}]
+       28 SETTABLEN                        R6 R5 1
+       29 DUPTABLE                         R6 K21 [{["Image"] = "rbxasset://textures/StudioToolbox/Tabs/Shop.png", ["Key"] = "Inventory", ["Text"] = "Inventory"}]
+       30 SETTABLEN                        R6 R5 2
+       31 SETTABLEKS                       R5 R4 K6 ["Tabs"]
+       33 GETTABLEKS                       R5 R0 K22 ["changeTab"]
+       35 SETTABLEKS                       R5 R4 K7 ["onTabSelected"]
+       37 CALL                             R2 2 -1
+       38 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

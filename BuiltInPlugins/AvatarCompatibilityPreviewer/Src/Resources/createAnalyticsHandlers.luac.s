@@ -774,301 +774,205 @@ MAIN:
        55 GETTABLEKS                       R8 R8 K16 ["Flags"]
        57 GETTABLEKS                       R8 R8 K18 ["getFFlagAvatarPreviewerLookComposer"]
        59 CALL                             R7 1 1
-       60 DUPTABLE                         R8 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-       61 LOADK                            R9 K25 ["SBT_AvatarAutoSetupSucceeded"]
-       62 SETTABLEKS                       R9 R8 K19 ["eventName"]
-       64 NEWTABLE                         R9 0 3
-       66 LOADN                            R10 232
-       67 LOADN                            R11 11
-       68 LOADN                            R12 21
-       69 SETLIST                          R9 R10 3 [1]
-       71 SETTABLEKS                       R9 R8 K20 ["lastUpdated"]
-       73 LOADK                            R9 K26 ["Avatar auto setup succeeded."]
-       74 SETTABLEKS                       R9 R8 K21 ["description"]
-       76 LOADK                            R9 K27 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-       77 SETTABLEKS                       R9 R8 K22 ["links"]
-       79 NEWTABLE                         R9 0 1
-       81 LOADK                            R10 K28 ["RobloxTelemetryCounter"]
-       82 SETLIST                          R9 R10 1 [1]
-       84 SETTABLEKS                       R9 R8 K23 ["backends"]
-       86 DUPTABLE                         R9 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-       87 LOADK                            R10 K29 ["SBT_AvatarAutoSetupFailed"]
-       88 SETTABLEKS                       R10 R9 K19 ["eventName"]
-       90 NEWTABLE                         R10 0 3
-       92 LOADN                            R11 233
-       93 LOADN                            R12 2
-       94 LOADN                            R13 13
-       95 SETLIST                          R10 R11 3 [1]
-       97 SETTABLEKS                       R10 R9 K20 ["lastUpdated"]
-       99 LOADK                            R10 K30 ["Avatar auto setup failed."]
-      100 SETTABLEKS                       R10 R9 K21 ["description"]
-      102 LOADK                            R10 K27 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-      103 SETTABLEKS                       R10 R9 K22 ["links"]
-      105 NEWTABLE                         R10 0 1
-      107 LOADK                            R11 K28 ["RobloxTelemetryCounter"]
-      108 SETLIST                          R10 R11 1 [1]
-      110 SETTABLEKS                       R10 R9 K23 ["backends"]
-      112 DUPTABLE                         R10 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      113 LOADK                            R11 K31 ["SBT_AvatarAutoSetupCanceled"]
-      114 SETTABLEKS                       R11 R10 K19 ["eventName"]
-      116 NEWTABLE                         R11 0 3
-      118 LOADN                            R12 233
-      119 LOADN                            R13 2
-      120 LOADN                            R14 13
-      121 SETLIST                          R11 R12 3 [1]
-      123 SETTABLEKS                       R11 R10 K20 ["lastUpdated"]
-      125 LOADK                            R11 K32 ["Avatar auto setup canceled."]
-      126 SETTABLEKS                       R11 R10 K21 ["description"]
-      128 LOADK                            R11 K27 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-      129 SETTABLEKS                       R11 R10 K22 ["links"]
-      131 NEWTABLE                         R11 0 1
-      133 LOADK                            R12 K28 ["RobloxTelemetryCounter"]
-      134 SETLIST                          R11 R12 1 [1]
-      136 SETTABLEKS                       R11 R10 K23 ["backends"]
-      138 DUPTABLE                         R11 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      139 LOADK                            R12 K33 ["SBT_AvatarPreviewerItemEquipped"]
-      140 SETTABLEKS                       R12 R11 K19 ["eventName"]
-      142 NEWTABLE                         R12 0 3
-      144 LOADN                            R13 232
-      145 LOADN                            R14 11
-      146 LOADN                            R15 21
-      147 SETLIST                          R12 R13 3 [1]
-      149 SETTABLEKS                       R12 R11 K20 ["lastUpdated"]
-      151 LOADK                            R12 K34 ["Avatar previewer equipped an avatar item for testing."]
-      152 SETTABLEKS                       R12 R11 K21 ["description"]
-      154 LOADK                            R12 K27 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-      155 SETTABLEKS                       R12 R11 K22 ["links"]
-      157 NEWTABLE                         R12 0 1
-      159 LOADK                            R13 K28 ["RobloxTelemetryCounter"]
-      160 SETLIST                          R12 R13 1 [1]
-      162 SETTABLEKS                       R12 R11 K23 ["backends"]
-      164 DUPTABLE                         R12 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      165 LOADK                            R13 K35 ["SBT_AvatarPreviewerPublished"]
-      166 SETTABLEKS                       R13 R12 K19 ["eventName"]
-      168 NEWTABLE                         R13 0 3
-      170 LOADN                            R14 232
-      171 LOADN                            R15 11
-      172 LOADN                            R16 21
-      173 SETLIST                          R13 R14 3 [1]
-      175 SETTABLEKS                       R13 R12 K20 ["lastUpdated"]
-      177 LOADK                            R13 K36 ["Avatar previewer published an asset to the marketplace."]
-      178 SETTABLEKS                       R13 R12 K21 ["description"]
-      180 LOADK                            R13 K27 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-      181 SETTABLEKS                       R13 R12 K22 ["links"]
-      183 NEWTABLE                         R13 0 1
-      185 LOADK                            R14 K28 ["RobloxTelemetryCounter"]
-      186 SETLIST                          R13 R14 1 [1]
-      188 SETTABLEKS                       R13 R12 K23 ["backends"]
-      190 DUPTABLE                         R13 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      191 LOADK                            R14 K37 ["MKTUJ_LookComposerGetItemsError"]
-      192 SETTABLEKS                       R14 R13 K19 ["eventName"]
-      194 NEWTABLE                         R14 0 3
-      196 LOADN                            R15 234
-      197 LOADN                            R16 3
-      198 LOADN                            R17 10
-      199 SETLIST                          R14 R15 3 [1]
-      201 SETTABLEKS                       R14 R13 K20 ["lastUpdated"]
-      203 LOADK                            R14 K38 ["getMarketplaceItems returned >= 1 error."]
-      204 SETTABLEKS                       R14 R13 K21 ["description"]
-      206 LOADK                            R14 K39 [""]
-      207 SETTABLEKS                       R14 R13 K22 ["links"]
-      209 NEWTABLE                         R14 0 1
-      211 LOADK                            R15 K28 ["RobloxTelemetryCounter"]
-      212 SETLIST                          R14 R15 1 [1]
-      214 SETTABLEKS                       R14 R13 K23 ["backends"]
-      216 DUPTABLE                         R14 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      217 LOADK                            R15 K40 ["MKTUJ_LookComposerItemsAddedToPlugin"]
-      218 SETTABLEKS                       R15 R14 K19 ["eventName"]
-      220 NEWTABLE                         R15 0 3
-      222 LOADN                            R16 234
-      223 LOADN                            R17 3
-      224 LOADN                            R18 10
-      225 SETLIST                          R15 R16 3 [1]
-      227 SETTABLEKS                       R15 R14 K20 ["lastUpdated"]
-      229 LOADK                            R15 K41 ["Marketplace items imported into auto setup plugin."]
-      230 SETTABLEKS                       R15 R14 K21 ["description"]
-      232 LOADK                            R15 K39 [""]
-      233 SETTABLEKS                       R15 R14 K22 ["links"]
-      235 NEWTABLE                         R15 0 1
-      237 LOADK                            R16 K28 ["RobloxTelemetryCounter"]
-      238 SETLIST                          R15 R16 1 [1]
-      240 SETTABLEKS                       R15 R14 K23 ["backends"]
-      242 DUPTABLE                         R15 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      243 LOADK                            R16 K42 ["MKTUJ_LookComposerFeatureAccessFailure"]
-      244 SETTABLEKS                       R16 R15 K19 ["eventName"]
-      246 NEWTABLE                         R16 0 3
-      248 LOADN                            R17 234
-      249 LOADN                            R18 3
-      250 LOADN                            R19 10
-      251 SETLIST                          R16 R17 3 [1]
-      253 SETTABLEKS                       R16 R15 K20 ["lastUpdated"]
-      255 LOADK                            R16 K43 ["Marketplace look feature access failure."]
-      256 SETTABLEKS                       R16 R15 K21 ["description"]
-      258 LOADK                            R16 K39 [""]
-      259 SETTABLEKS                       R16 R15 K22 ["links"]
-      261 NEWTABLE                         R16 0 1
-      263 LOADK                            R17 K28 ["RobloxTelemetryCounter"]
-      264 SETLIST                          R16 R17 1 [1]
-      266 SETTABLEKS                       R16 R15 K23 ["backends"]
-      268 DUPTABLE                         R16 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      269 LOADK                            R17 K44 ["MKTUJ_LookComposerManageableGroupsFailure"]
-      270 SETTABLEKS                       R17 R16 K19 ["eventName"]
-      272 NEWTABLE                         R17 0 3
-      274 LOADN                            R18 234
-      275 LOADN                            R19 3
-      276 LOADN                            R20 10
-      277 SETLIST                          R17 R18 3 [1]
-      279 SETTABLEKS                       R17 R16 K20 ["lastUpdated"]
-      281 LOADK                            R17 K45 ["Marketplace manageable groups failure."]
-      282 SETTABLEKS                       R17 R16 K21 ["description"]
-      284 LOADK                            R17 K39 [""]
-      285 SETTABLEKS                       R17 R16 K22 ["links"]
-      287 NEWTABLE                         R17 0 1
-      289 LOADK                            R18 K28 ["RobloxTelemetryCounter"]
-      290 SETLIST                          R17 R18 1 [1]
-      292 SETTABLEKS                       R17 R16 K23 ["backends"]
-      294 DUPTABLE                         R17 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      295 LOADK                            R18 K46 ["MKTUJ_LookComposerPreviewSuccess"]
-      296 SETTABLEKS                       R18 R17 K19 ["eventName"]
-      298 NEWTABLE                         R18 0 3
-      300 LOADN                            R19 234
-      301 LOADN                            R20 3
-      302 LOADN                            R21 10
-      303 SETLIST                          R18 R19 3 [1]
-      305 SETTABLEKS                       R18 R17 K20 ["lastUpdated"]
-      307 LOADK                            R18 K47 ["Marketplace look composer dialog preview success."]
-      308 SETTABLEKS                       R18 R17 K21 ["description"]
-      310 LOADK                            R18 K39 [""]
-      311 SETTABLEKS                       R18 R17 K22 ["links"]
-      313 NEWTABLE                         R18 0 1
-      315 LOADK                            R19 K28 ["RobloxTelemetryCounter"]
-      316 SETLIST                          R18 R19 1 [1]
-      318 SETTABLEKS                       R18 R17 K23 ["backends"]
-      320 DUPTABLE                         R18 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      321 LOADK                            R19 K48 ["MKTUJ_LookComposerValidationSuccess"]
-      322 SETTABLEKS                       R19 R18 K19 ["eventName"]
-      324 NEWTABLE                         R19 0 3
-      326 LOADN                            R20 234
-      327 LOADN                            R21 3
-      328 LOADN                            R22 10
-      329 SETLIST                          R19 R20 3 [1]
-      331 SETTABLEKS                       R19 R18 K20 ["lastUpdated"]
-      333 LOADK                            R19 K49 ["Marketplace look composer dialog validation success."]
-      334 SETTABLEKS                       R19 R18 K21 ["description"]
-      336 LOADK                            R19 K39 [""]
-      337 SETTABLEKS                       R19 R18 K22 ["links"]
-      339 NEWTABLE                         R19 0 1
-      341 LOADK                            R20 K28 ["RobloxTelemetryCounter"]
-      342 SETLIST                          R19 R20 1 [1]
-      344 SETTABLEKS                       R19 R18 K23 ["backends"]
-      346 DUPTABLE                         R19 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      347 LOADK                            R20 K50 ["MKTUJ_LookComposerCreationSuccess"]
-      348 SETTABLEKS                       R20 R19 K19 ["eventName"]
-      350 NEWTABLE                         R20 0 3
-      352 LOADN                            R21 234
-      353 LOADN                            R22 3
-      354 LOADN                            R23 10
-      355 SETLIST                          R20 R21 3 [1]
-      357 SETTABLEKS                       R20 R19 K20 ["lastUpdated"]
-      359 LOADK                            R20 K51 ["Marketplace look composer dialog creation success."]
-      360 SETTABLEKS                       R20 R19 K21 ["description"]
-      362 LOADK                            R20 K39 [""]
-      363 SETTABLEKS                       R20 R19 K22 ["links"]
-      365 NEWTABLE                         R20 0 1
-      367 LOADK                            R21 K28 ["RobloxTelemetryCounter"]
-      368 SETLIST                          R20 R21 1 [1]
-      370 SETTABLEKS                       R20 R19 K23 ["backends"]
-      372 DUPTABLE                         R20 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      373 LOADK                            R21 K52 ["MKTUJ_LookComposerPreviewError"]
-      374 SETTABLEKS                       R21 R20 K19 ["eventName"]
-      376 NEWTABLE                         R21 0 3
-      378 LOADN                            R22 234
-      379 LOADN                            R23 3
-      380 LOADN                            R24 10
-      381 SETLIST                          R21 R22 3 [1]
-      383 SETTABLEKS                       R21 R20 K20 ["lastUpdated"]
-      385 LOADK                            R21 K53 ["Marketplace look composer dialog preview error."]
-      386 SETTABLEKS                       R21 R20 K21 ["description"]
-      388 LOADK                            R21 K39 [""]
-      389 SETTABLEKS                       R21 R20 K22 ["links"]
-      391 NEWTABLE                         R21 0 1
-      393 LOADK                            R22 K28 ["RobloxTelemetryCounter"]
-      394 SETLIST                          R21 R22 1 [1]
-      396 SETTABLEKS                       R21 R20 K23 ["backends"]
-      398 DUPTABLE                         R21 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      399 LOADK                            R22 K54 ["MKTUJ_LookComposerValidationError"]
-      400 SETTABLEKS                       R22 R21 K19 ["eventName"]
-      402 NEWTABLE                         R22 0 3
-      404 LOADN                            R23 234
-      405 LOADN                            R24 3
-      406 LOADN                            R25 10
-      407 SETLIST                          R22 R23 3 [1]
-      409 SETTABLEKS                       R22 R21 K20 ["lastUpdated"]
-      411 LOADK                            R22 K55 ["Marketplace look composer dialog validation error."]
-      412 SETTABLEKS                       R22 R21 K21 ["description"]
-      414 LOADK                            R22 K39 [""]
-      415 SETTABLEKS                       R22 R21 K22 ["links"]
-      417 NEWTABLE                         R22 0 1
-      419 LOADK                            R23 K28 ["RobloxTelemetryCounter"]
-      420 SETLIST                          R22 R23 1 [1]
-      422 SETTABLEKS                       R22 R21 K23 ["backends"]
-      424 DUPTABLE                         R22 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      425 LOADK                            R23 K56 ["MKTUJ_LookComposerCreationError"]
-      426 SETTABLEKS                       R23 R22 K19 ["eventName"]
-      428 NEWTABLE                         R23 0 3
-      430 LOADN                            R24 234
-      431 LOADN                            R25 3
-      432 LOADN                            R26 10
-      433 SETLIST                          R23 R24 3 [1]
-      435 SETTABLEKS                       R23 R22 K20 ["lastUpdated"]
-      437 LOADK                            R23 K57 ["Marketplace look composer dialog creation error."]
-      438 SETTABLEKS                       R23 R22 K21 ["description"]
-      440 LOADK                            R23 K39 [""]
-      441 SETTABLEKS                       R23 R22 K22 ["links"]
-      443 NEWTABLE                         R23 0 1
-      445 LOADK                            R24 K28 ["RobloxTelemetryCounter"]
-      446 SETLIST                          R23 R24 1 [1]
-      448 SETTABLEKS                       R23 R22 K23 ["backends"]
-      450 DUPTABLE                         R23 K24 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-      451 LOADK                            R24 K58 ["MKTUJ_LookComposerCreatorHubLink"]
-      452 SETTABLEKS                       R24 R23 K19 ["eventName"]
-      454 NEWTABLE                         R24 0 3
-      456 LOADN                            R25 234
-      457 LOADN                            R26 3
-      458 LOADN                            R27 10
-      459 SETLIST                          R24 R25 3 [1]
-      461 SETTABLEKS                       R24 R23 K20 ["lastUpdated"]
-      463 LOADK                            R24 K59 ["Marketplace look creator hub link opened."]
-      464 SETTABLEKS                       R24 R23 K21 ["description"]
-      466 LOADK                            R24 K39 [""]
-      467 SETTABLEKS                       R24 R23 K22 ["links"]
-      469 NEWTABLE                         R24 0 1
-      471 LOADK                            R25 K28 ["RobloxTelemetryCounter"]
-      472 SETLIST                          R24 R25 1 [1]
-      474 SETTABLEKS                       R24 R23 K23 ["backends"]
-      476 DUPCLOSURE                       R24 K60 [PROTO_0]
-      477 DUPCLOSURE                       R25 K61 [PROTO_46]
-      478 CAPTURE                          VAL R3
-      479 CAPTURE                          VAL R5
-      480 CAPTURE                          VAL R2
-      481 CAPTURE                          VAL R9
-      482 CAPTURE                          VAL R10
-      483 CAPTURE                          VAL R8
-      484 CAPTURE                          VAL R6
-      485 CAPTURE                          VAL R24
-      486 CAPTURE                          VAL R11
-      487 CAPTURE                          VAL R12
-      488 CAPTURE                          VAL R1
-      489 CAPTURE                          VAL R7
-      490 CAPTURE                          VAL R13
-      491 CAPTURE                          VAL R14
-      492 CAPTURE                          VAL R15
-      493 CAPTURE                          VAL R16
-      494 CAPTURE                          VAL R17
-      495 CAPTURE                          VAL R18
-      496 CAPTURE                          VAL R19
-      497 CAPTURE                          VAL R20
-      498 CAPTURE                          VAL R21
-      499 CAPTURE                          VAL R22
-      500 CAPTURE                          VAL R23
-      501 RETURN                           R25 1
+       60 DUPTABLE                         R8 K27 [{["eventName"] = "SBT_AvatarAutoSetupSucceeded", ["lastUpdated"], ["description"] = "Avatar auto setup succeeded.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       61 NEWTABLE                         R9 0 3
+       63 LOADN                            R10 2024
+       64 LOADN                            R11 11
+       65 LOADN                            R12 21
+       66 SETLIST                          R9 R10 3 [1]
+       68 SETTABLEKS                       R9 R8 K21 ["lastUpdated"]
+       70 NEWTABLE                         R9 0 1
+       72 LOADK                            R10 K28 ["RobloxTelemetryCounter"]
+       73 SETLIST                          R9 R10 1 [1]
+       75 SETTABLEKS                       R9 R8 K26 ["backends"]
+       77 DUPTABLE                         R9 K31 [{["eventName"] = "SBT_AvatarAutoSetupFailed", ["lastUpdated"], ["description"] = "Avatar auto setup failed.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       78 NEWTABLE                         R10 0 3
+       80 LOADN                            R11 2025
+       81 LOADN                            R12 2
+       82 LOADN                            R13 13
+       83 SETLIST                          R10 R11 3 [1]
+       85 SETTABLEKS                       R10 R9 K21 ["lastUpdated"]
+       87 NEWTABLE                         R10 0 1
+       89 LOADK                            R11 K28 ["RobloxTelemetryCounter"]
+       90 SETLIST                          R10 R11 1 [1]
+       92 SETTABLEKS                       R10 R9 K26 ["backends"]
+       94 DUPTABLE                         R10 K34 [{["eventName"] = "SBT_AvatarAutoSetupCanceled", ["lastUpdated"], ["description"] = "Avatar auto setup canceled.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       95 NEWTABLE                         R11 0 3
+       97 LOADN                            R12 2025
+       98 LOADN                            R13 2
+       99 LOADN                            R14 13
+      100 SETLIST                          R11 R12 3 [1]
+      102 SETTABLEKS                       R11 R10 K21 ["lastUpdated"]
+      104 NEWTABLE                         R11 0 1
+      106 LOADK                            R12 K28 ["RobloxTelemetryCounter"]
+      107 SETLIST                          R11 R12 1 [1]
+      109 SETTABLEKS                       R11 R10 K26 ["backends"]
+      111 DUPTABLE                         R11 K37 [{["eventName"] = "SBT_AvatarPreviewerItemEquipped", ["lastUpdated"], ["description"] = "Avatar previewer equipped an avatar item for testing.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+      112 NEWTABLE                         R12 0 3
+      114 LOADN                            R13 2024
+      115 LOADN                            R14 11
+      116 LOADN                            R15 21
+      117 SETLIST                          R12 R13 3 [1]
+      119 SETTABLEKS                       R12 R11 K21 ["lastUpdated"]
+      121 NEWTABLE                         R12 0 1
+      123 LOADK                            R13 K28 ["RobloxTelemetryCounter"]
+      124 SETLIST                          R12 R13 1 [1]
+      126 SETTABLEKS                       R12 R11 K26 ["backends"]
+      128 DUPTABLE                         R12 K40 [{["eventName"] = "SBT_AvatarPreviewerPublished", ["lastUpdated"], ["description"] = "Avatar previewer published an asset to the marketplace.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+      129 NEWTABLE                         R13 0 3
+      131 LOADN                            R14 2024
+      132 LOADN                            R15 11
+      133 LOADN                            R16 21
+      134 SETLIST                          R13 R14 3 [1]
+      136 SETTABLEKS                       R13 R12 K21 ["lastUpdated"]
+      138 NEWTABLE                         R13 0 1
+      140 LOADK                            R14 K28 ["RobloxTelemetryCounter"]
+      141 SETLIST                          R13 R14 1 [1]
+      143 SETTABLEKS                       R13 R12 K26 ["backends"]
+      145 DUPTABLE                         R13 K44 [{["eventName"] = "MKTUJ_LookComposerGetItemsError", ["lastUpdated"], ["description"] = "getMarketplaceItems returned >= 1 error.", ["links"] = "", ["backends"]}]
+      146 NEWTABLE                         R14 0 3
+      148 LOADN                            R15 2026
+      149 LOADN                            R16 3
+      150 LOADN                            R17 10
+      151 SETLIST                          R14 R15 3 [1]
+      153 SETTABLEKS                       R14 R13 K21 ["lastUpdated"]
+      155 NEWTABLE                         R14 0 1
+      157 LOADK                            R15 K28 ["RobloxTelemetryCounter"]
+      158 SETLIST                          R14 R15 1 [1]
+      160 SETTABLEKS                       R14 R13 K26 ["backends"]
+      162 DUPTABLE                         R14 K47 [{["eventName"] = "MKTUJ_LookComposerItemsAddedToPlugin", ["lastUpdated"], ["description"] = "Marketplace items imported into auto setup plugin.", ["links"] = "", ["backends"]}]
+      163 NEWTABLE                         R15 0 3
+      165 LOADN                            R16 2026
+      166 LOADN                            R17 3
+      167 LOADN                            R18 10
+      168 SETLIST                          R15 R16 3 [1]
+      170 SETTABLEKS                       R15 R14 K21 ["lastUpdated"]
+      172 NEWTABLE                         R15 0 1
+      174 LOADK                            R16 K28 ["RobloxTelemetryCounter"]
+      175 SETLIST                          R15 R16 1 [1]
+      177 SETTABLEKS                       R15 R14 K26 ["backends"]
+      179 DUPTABLE                         R15 K50 [{["eventName"] = "MKTUJ_LookComposerFeatureAccessFailure", ["lastUpdated"], ["description"] = "Marketplace look feature access failure.", ["links"] = "", ["backends"]}]
+      180 NEWTABLE                         R16 0 3
+      182 LOADN                            R17 2026
+      183 LOADN                            R18 3
+      184 LOADN                            R19 10
+      185 SETLIST                          R16 R17 3 [1]
+      187 SETTABLEKS                       R16 R15 K21 ["lastUpdated"]
+      189 NEWTABLE                         R16 0 1
+      191 LOADK                            R17 K28 ["RobloxTelemetryCounter"]
+      192 SETLIST                          R16 R17 1 [1]
+      194 SETTABLEKS                       R16 R15 K26 ["backends"]
+      196 DUPTABLE                         R16 K53 [{["eventName"] = "MKTUJ_LookComposerManageableGroupsFailure", ["lastUpdated"], ["description"] = "Marketplace manageable groups failure.", ["links"] = "", ["backends"]}]
+      197 NEWTABLE                         R17 0 3
+      199 LOADN                            R18 2026
+      200 LOADN                            R19 3
+      201 LOADN                            R20 10
+      202 SETLIST                          R17 R18 3 [1]
+      204 SETTABLEKS                       R17 R16 K21 ["lastUpdated"]
+      206 NEWTABLE                         R17 0 1
+      208 LOADK                            R18 K28 ["RobloxTelemetryCounter"]
+      209 SETLIST                          R17 R18 1 [1]
+      211 SETTABLEKS                       R17 R16 K26 ["backends"]
+      213 DUPTABLE                         R17 K56 [{["eventName"] = "MKTUJ_LookComposerPreviewSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview success.", ["links"] = "", ["backends"]}]
+      214 NEWTABLE                         R18 0 3
+      216 LOADN                            R19 2026
+      217 LOADN                            R20 3
+      218 LOADN                            R21 10
+      219 SETLIST                          R18 R19 3 [1]
+      221 SETTABLEKS                       R18 R17 K21 ["lastUpdated"]
+      223 NEWTABLE                         R18 0 1
+      225 LOADK                            R19 K28 ["RobloxTelemetryCounter"]
+      226 SETLIST                          R18 R19 1 [1]
+      228 SETTABLEKS                       R18 R17 K26 ["backends"]
+      230 DUPTABLE                         R18 K59 [{["eventName"] = "MKTUJ_LookComposerValidationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation success.", ["links"] = "", ["backends"]}]
+      231 NEWTABLE                         R19 0 3
+      233 LOADN                            R20 2026
+      234 LOADN                            R21 3
+      235 LOADN                            R22 10
+      236 SETLIST                          R19 R20 3 [1]
+      238 SETTABLEKS                       R19 R18 K21 ["lastUpdated"]
+      240 NEWTABLE                         R19 0 1
+      242 LOADK                            R20 K28 ["RobloxTelemetryCounter"]
+      243 SETLIST                          R19 R20 1 [1]
+      245 SETTABLEKS                       R19 R18 K26 ["backends"]
+      247 DUPTABLE                         R19 K62 [{["eventName"] = "MKTUJ_LookComposerCreationSuccess", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation success.", ["links"] = "", ["backends"]}]
+      248 NEWTABLE                         R20 0 3
+      250 LOADN                            R21 2026
+      251 LOADN                            R22 3
+      252 LOADN                            R23 10
+      253 SETLIST                          R20 R21 3 [1]
+      255 SETTABLEKS                       R20 R19 K21 ["lastUpdated"]
+      257 NEWTABLE                         R20 0 1
+      259 LOADK                            R21 K28 ["RobloxTelemetryCounter"]
+      260 SETLIST                          R20 R21 1 [1]
+      262 SETTABLEKS                       R20 R19 K26 ["backends"]
+      264 DUPTABLE                         R20 K65 [{["eventName"] = "MKTUJ_LookComposerPreviewError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog preview error.", ["links"] = "", ["backends"]}]
+      265 NEWTABLE                         R21 0 3
+      267 LOADN                            R22 2026
+      268 LOADN                            R23 3
+      269 LOADN                            R24 10
+      270 SETLIST                          R21 R22 3 [1]
+      272 SETTABLEKS                       R21 R20 K21 ["lastUpdated"]
+      274 NEWTABLE                         R21 0 1
+      276 LOADK                            R22 K28 ["RobloxTelemetryCounter"]
+      277 SETLIST                          R21 R22 1 [1]
+      279 SETTABLEKS                       R21 R20 K26 ["backends"]
+      281 DUPTABLE                         R21 K68 [{["eventName"] = "MKTUJ_LookComposerValidationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog validation error.", ["links"] = "", ["backends"]}]
+      282 NEWTABLE                         R22 0 3
+      284 LOADN                            R23 2026
+      285 LOADN                            R24 3
+      286 LOADN                            R25 10
+      287 SETLIST                          R22 R23 3 [1]
+      289 SETTABLEKS                       R22 R21 K21 ["lastUpdated"]
+      291 NEWTABLE                         R22 0 1
+      293 LOADK                            R23 K28 ["RobloxTelemetryCounter"]
+      294 SETLIST                          R22 R23 1 [1]
+      296 SETTABLEKS                       R22 R21 K26 ["backends"]
+      298 DUPTABLE                         R22 K71 [{["eventName"] = "MKTUJ_LookComposerCreationError", ["lastUpdated"], ["description"] = "Marketplace look composer dialog creation error.", ["links"] = "", ["backends"]}]
+      299 NEWTABLE                         R23 0 3
+      301 LOADN                            R24 2026
+      302 LOADN                            R25 3
+      303 LOADN                            R26 10
+      304 SETLIST                          R23 R24 3 [1]
+      306 SETTABLEKS                       R23 R22 K21 ["lastUpdated"]
+      308 NEWTABLE                         R23 0 1
+      310 LOADK                            R24 K28 ["RobloxTelemetryCounter"]
+      311 SETLIST                          R23 R24 1 [1]
+      313 SETTABLEKS                       R23 R22 K26 ["backends"]
+      315 DUPTABLE                         R23 K74 [{["eventName"] = "MKTUJ_LookComposerCreatorHubLink", ["lastUpdated"], ["description"] = "Marketplace look creator hub link opened.", ["links"] = "", ["backends"]}]
+      316 NEWTABLE                         R24 0 3
+      318 LOADN                            R25 2026
+      319 LOADN                            R26 3
+      320 LOADN                            R27 10
+      321 SETLIST                          R24 R25 3 [1]
+      323 SETTABLEKS                       R24 R23 K21 ["lastUpdated"]
+      325 NEWTABLE                         R24 0 1
+      327 LOADK                            R25 K28 ["RobloxTelemetryCounter"]
+      328 SETLIST                          R24 R25 1 [1]
+      330 SETTABLEKS                       R24 R23 K26 ["backends"]
+      332 DUPCLOSURE                       R24 K75 [PROTO_0]
+      333 DUPCLOSURE                       R25 K76 [PROTO_46]
+      334 CAPTURE                          VAL R3
+      335 CAPTURE                          VAL R5
+      336 CAPTURE                          VAL R2
+      337 CAPTURE                          VAL R9
+      338 CAPTURE                          VAL R10
+      339 CAPTURE                          VAL R8
+      340 CAPTURE                          VAL R6
+      341 CAPTURE                          VAL R24
+      342 CAPTURE                          VAL R11
+      343 CAPTURE                          VAL R12
+      344 CAPTURE                          VAL R1
+      345 CAPTURE                          VAL R7
+      346 CAPTURE                          VAL R13
+      347 CAPTURE                          VAL R14
+      348 CAPTURE                          VAL R15
+      349 CAPTURE                          VAL R16
+      350 CAPTURE                          VAL R17
+      351 CAPTURE                          VAL R18
+      352 CAPTURE                          VAL R19
+      353 CAPTURE                          VAL R20
+      354 CAPTURE                          VAL R21
+      355 CAPTURE                          VAL R22
+      356 CAPTURE                          VAL R23
+      357 RETURN                           R25 1

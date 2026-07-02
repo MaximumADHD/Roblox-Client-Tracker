@@ -251,427 +251,387 @@ PROTO_11:
       181 GETUPVAL                         R20 0
       182 GETTABLEKS                       R20 R20 K2 ["createElement"]
       184 GETUPVAL                         R21 17
-      185 DUPTABLE                         R22 K25 [{"BackgroundColor", "Size", "ZIndex"}]
+      185 DUPTABLE                         R22 K26 [{["BackgroundColor"], ["Size"], ["ZIndex"] = 2}]
       186 GETTABLEKS                       R23 R1 K22 ["BackgroundColor"]
       188 SETTABLEKS                       R23 R22 K22 ["BackgroundColor"]
-      190 GETIMPORT                        R23 K27 [UDim2.new]
+      190 GETIMPORT                        R23 K28 [UDim2.new]
       192 LOADN                            R24 0
-      193 GETTABLEKS                       R25 R1 K28 ["Width"]
+      193 GETTABLEKS                       R25 R1 K29 ["Width"]
       195 LOADN                            R26 1
       196 LOADN                            R27 0
       197 CALL                             R23 4 1
       198 SETTABLEKS                       R23 R22 K23 ["Size"]
-      200 LOADN                            R23 2
-      201 SETTABLEKS                       R23 R22 K24 ["ZIndex"]
-      203 DUPTABLE                         R23 K34 [{"Contents", "SettingsButton", "SettingsMenu", "SubmitDialog", "LookComposerDialog"}]
-      204 GETUPVAL                         R24 0
-      205 GETTABLEKS                       R24 R24 K2 ["createElement"]
-      207 GETUPVAL                         R25 17
-      208 DUPTABLE                         R26 K37 [{"Layout", "VerticalAlignment"}]
-      209 GETIMPORT                        R27 K41 [Enum.FillDirection.Vertical]
-      211 SETTABLEKS                       R27 R26 K35 ["Layout"]
-      213 GETIMPORT                        R27 K43 [Enum.VerticalAlignment.Top]
-      215 SETTABLEKS                       R27 R26 K36 ["VerticalAlignment"]
-      217 DUPTABLE                         R27 K50 [{"Back", "CheckBody", "CheckFace", "Test", "LookSaveMenu", "Publish"}]
-      218 GETUPVAL                         R29 18
-      219 CALL                             R29 0 1
-      220 JUMPIFNOT                        R29 ; [+31]
-      221 GETUPVAL                         R28 0
-      222 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      224 GETUPVAL                         R29 19
-      225 DUPTABLE                         R30 K56 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-      226 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      228 CALL                             R31 1 1
-      229 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      231 GETUPVAL                         R31 20
-      232 GETTABLEKS                       R31 R31 K58 ["Enums"]
-      234 GETTABLEKS                       R31 R31 K59 ["IconName"]
-      236 GETTABLEKS                       R31 R31 K60 ["ArrowCurlToLeft"]
-      238 SETTABLEKS                       R31 R30 K52 ["Icon"]
-      240 LOADB                            R31 0
-      241 SETTABLEKS                       R31 R30 K53 ["IsSelected"]
-      243 LOADK                            R31 K44 ["Back"]
-      244 SETTABLEKS                       R31 R30 K54 ["StageText"]
-      246 GETTABLEKS                       R31 R0 K3 ["onBack"]
-      248 SETTABLEKS                       R31 R30 K55 ["OnClick"]
-      250 CALL                             R28 2 1
-      251 JUMP                             ; [+1]
-      252 LOADNIL                          R28
-      253 SETTABLEKS                       R28 R27 K44 ["Back"]
-      255 GETUPVAL                         R28 0
-      256 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      258 GETUPVAL                         R29 19
-      259 DUPTABLE                         R30 K56 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-      260 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      262 CALL                             R31 1 1
-      263 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      265 LOADK                            R31 K61 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_body.png"]
-      266 SETTABLEKS                       R31 R30 K52 ["Icon"]
-      268 GETTABLEKS                       R32 R0 K62 ["SelectedStage"]
-      270 JUMPIFEQKS                       R32 K45 ["CheckBody"] ; [+2]
-      272 LOADB                            R31 0 +1
-      273 LOADB                            R31 1
-      274 SETTABLEKS                       R31 R30 K53 ["IsSelected"]
-      276 LOADK                            R31 K45 ["CheckBody"]
-      277 SETTABLEKS                       R31 R30 K54 ["StageText"]
-      279 NEWCLOSURE                       R31 P1
-      280 CAPTURE                          VAL R4
-      281 CAPTURE                          VAL R0
-      282 SETTABLEKS                       R31 R30 K55 ["OnClick"]
-      284 CALL                             R28 2 1
-      285 SETTABLEKS                       R28 R27 K45 ["CheckBody"]
-      287 GETUPVAL                         R28 0
-      288 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      290 GETUPVAL                         R29 19
-      291 DUPTABLE                         R30 K56 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-      292 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      294 CALL                             R31 1 1
-      295 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      297 LOADK                            R31 K63 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_face.png"]
-      298 SETTABLEKS                       R31 R30 K52 ["Icon"]
-      300 GETTABLEKS                       R32 R0 K62 ["SelectedStage"]
-      302 JUMPIFEQKS                       R32 K46 ["CheckFace"] ; [+2]
-      304 LOADB                            R31 0 +1
-      305 LOADB                            R31 1
-      306 SETTABLEKS                       R31 R30 K53 ["IsSelected"]
-      308 LOADK                            R31 K46 ["CheckFace"]
-      309 SETTABLEKS                       R31 R30 K54 ["StageText"]
-      311 NEWCLOSURE                       R31 P2
-      312 CAPTURE                          VAL R4
-      313 CAPTURE                          VAL R0
-      314 SETTABLEKS                       R31 R30 K55 ["OnClick"]
-      316 CALL                             R28 2 1
-      317 SETTABLEKS                       R28 R27 K46 ["CheckFace"]
-      319 GETUPVAL                         R28 0
-      320 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      322 GETUPVAL                         R29 19
-      323 DUPTABLE                         R30 K56 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-      324 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      326 CALL                             R31 1 1
-      327 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      329 LOADK                            R31 K64 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/test.png"]
-      330 SETTABLEKS                       R31 R30 K52 ["Icon"]
-      332 LOADB                            R31 0
-      333 SETTABLEKS                       R31 R30 K53 ["IsSelected"]
-      335 LOADK                            R31 K47 ["Test"]
-      336 SETTABLEKS                       R31 R30 K54 ["StageText"]
-      338 NEWCLOSURE                       R31 P3
-      339 CAPTURE                          VAL R4
-      340 CAPTURE                          UPVAL U21
-      341 CAPTURE                          VAL R6
-      342 CAPTURE                          VAL R0
-      343 SETTABLEKS                       R31 R30 K55 ["OnClick"]
-      345 CALL                             R28 2 1
-      346 SETTABLEKS                       R28 R27 K47 ["Test"]
-      348 GETUPVAL                         R29 6
-      349 CALL                             R29 0 1
-      350 JUMPIFNOT                        R29 ; [+119]
-      351 JUMPIFNOT                        R15 ; [+118]
-      352 JUMPIFEQKNIL                     R10 ; [+117]
-      354 GETUPVAL                         R28 0
-      355 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      357 GETUPVAL                         R29 22
-      358 DUPTABLE                         R30 K72 [{"LayoutOrder", "isOpen", "onClose", "onToggle", "onSaveToRoblox", "openAvatarLookComposer", "openMakeupLookComposer", "anchor"}]
-      359 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      361 CALL                             R31 1 1
-      362 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      364 GETTABLEKS                       R31 R10 K11 ["enabled"]
-      366 SETTABLEKS                       R31 R30 K65 ["isOpen"]
-      368 GETTABLEKS                       R31 R10 K73 ["disable"]
-      370 SETTABLEKS                       R31 R30 K66 ["onClose"]
-      372 GETTABLEKS                       R31 R10 K74 ["toggle"]
-      374 SETTABLEKS                       R31 R30 K67 ["onToggle"]
-      376 NEWCLOSURE                       R31 P4
-      377 CAPTURE                          VAL R11
-      378 SETTABLEKS                       R31 R30 K68 ["onSaveToRoblox"]
-      380 GETUPVAL                         R32 14
-      381 CALL                             R32 0 1
-      382 JUMPIFNOT                        R32 ; [+3]
-      383 NEWCLOSURE                       R31 P5
-      384 CAPTURE                          REF R18
-      385 JUMP                             ; [+1]
-      386 LOADNIL                          R31
-      387 SETTABLEKS                       R31 R30 K69 ["openAvatarLookComposer"]
-      389 NEWCLOSURE                       R31 P6
-      390 CAPTURE                          REF R18
-      391 SETTABLEKS                       R31 R30 K70 ["openMakeupLookComposer"]
-      393 GETUPVAL                         R31 0
-      394 GETTABLEKS                       R31 R31 K2 ["createElement"]
-      396 GETUPVAL                         R32 19
-      397 DUPTABLE                         R33 K78 [{"Icon", "IsSelected", "ShowMenuIndicator", "StageText", "Tooltip", "Enabled", "OnClick"}]
-      398 LOADK                            R34 K79 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
-      399 SETTABLEKS                       R34 R33 K52 ["Icon"]
-      401 GETTABLEKS                       R34 R10 K11 ["enabled"]
-      403 SETTABLEKS                       R34 R33 K53 ["IsSelected"]
-      405 LOADB                            R34 1
-      406 SETTABLEKS                       R34 R33 K75 ["ShowMenuIndicator"]
-      408 LOADK                            R34 K49 ["Publish"]
-      409 SETTABLEKS                       R34 R33 K54 ["StageText"]
-      411 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
-      413 JUMPIFEQKNIL                     R35 ; [+33]
-      415 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
-      417 GETTABLEKS                       R35 R35 K0 ["type"]
-      419 JUMPIFNOTEQKS                    R35 K17 ["notAllowed"] ; [+27]
-      421 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
-      423 GETTABLEKS                       R35 R35 K80 ["denyReason"]
-      425 JUMPIFEQKS                       R35 K81 ["MissingPremiumSubscriptionTier"] ; [+7]
-      427 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
-      429 GETTABLEKS                       R35 R35 K80 ["denyReason"]
-      431 JUMPIFNOTEQKS                    R35 K82 ["MissingIdVerification"] ; [+15]
-      433 LOADK                            R36 K5 ["StageSelector"]
-      434 LOADK                            R38 K83 ["Publish_Deny_%*"]
-      435 GETTABLEKS                       R40 R7 K16 ["canUploadBundles"]
-      437 GETTABLEKS                       R40 R40 K80 ["denyReason"]
-      439 NAMECALL                         R38 R38 K84 ["format"]
-      441 CALL                             R38 2 1
-      442 MOVE                             R37 R38
-      443 NAMECALL                         R34 R2 K85 ["getText"]
-      445 CALL                             R34 3 1
-      446 JUMP                             ; [+5]
-      447 LOADK                            R36 K48 ["LookSaveMenu"]
-      448 LOADK                            R37 K86 ["Save"]
-      449 NAMECALL                         R34 R2 K85 ["getText"]
-      451 CALL                             R34 3 1
-      452 SETTABLEKS                       R34 R33 K76 ["Tooltip"]
-      454 JUMPIF                           R16 ; [+2]
-      455 LOADB                            R34 0
-      456 JUMP                             ; [+1]
-      457 LOADNIL                          R34
-      458 SETTABLEKS                       R34 R33 K77 ["Enabled"]
-      460 NEWCLOSURE                       R34 P7
-      461 CAPTURE                          VAL R16
-      462 CAPTURE                          VAL R10
-      463 SETTABLEKS                       R34 R33 K55 ["OnClick"]
-      465 CALL                             R31 2 1
-      466 SETTABLEKS                       R31 R30 K71 ["anchor"]
-      468 CALL                             R28 2 1
-      469 JUMP                             ; [+1]
-      470 LOADNIL                          R28
-      471 SETTABLEKS                       R28 R27 K48 ["LookSaveMenu"]
-      473 GETUPVAL                         R29 6
-      474 CALL                             R29 0 1
-      475 JUMPIFNOT                        R29 ; [+1]
-      476 JUMPIF                           R15 ; [+72]
-      477 GETUPVAL                         R28 0
-      478 GETTABLEKS                       R28 R28 K2 ["createElement"]
-      480 GETUPVAL                         R29 19
-      481 DUPTABLE                         R30 K87 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "Tooltip", "Enabled", "OnClick"}]
-      482 NAMECALL                         R31 R3 K57 ["getNextOrder"]
-      484 CALL                             R31 1 1
-      485 SETTABLEKS                       R31 R30 K51 ["LayoutOrder"]
-      487 LOADK                            R31 K79 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
-      488 SETTABLEKS                       R31 R30 K52 ["Icon"]
-      490 LOADB                            R31 0
-      491 SETTABLEKS                       R31 R30 K53 ["IsSelected"]
-      493 LOADK                            R31 K49 ["Publish"]
-      494 SETTABLEKS                       R31 R30 K54 ["StageText"]
-      496 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
-      498 JUMPIFEQKNIL                     R32 ; [+33]
-      500 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
-      502 GETTABLEKS                       R32 R32 K0 ["type"]
-      504 JUMPIFNOTEQKS                    R32 K17 ["notAllowed"] ; [+27]
-      506 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
-      508 GETTABLEKS                       R32 R32 K80 ["denyReason"]
-      510 JUMPIFEQKS                       R32 K81 ["MissingPremiumSubscriptionTier"] ; [+7]
-      512 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
-      514 GETTABLEKS                       R32 R32 K80 ["denyReason"]
-      516 JUMPIFNOTEQKS                    R32 K82 ["MissingIdVerification"] ; [+15]
-      518 LOADK                            R33 K5 ["StageSelector"]
-      519 LOADK                            R35 K83 ["Publish_Deny_%*"]
-      520 GETTABLEKS                       R37 R7 K16 ["canUploadBundles"]
-      522 GETTABLEKS                       R37 R37 K80 ["denyReason"]
-      524 NAMECALL                         R35 R35 K84 ["format"]
-      526 CALL                             R35 2 1
-      527 MOVE                             R34 R35
-      528 NAMECALL                         R31 R2 K85 ["getText"]
-      530 CALL                             R31 3 1
-      531 JUMP                             ; [+1]
-      532 LOADNIL                          R31
-      533 SETTABLEKS                       R31 R30 K76 ["Tooltip"]
-      535 JUMPIF                           R16 ; [+2]
-      536 LOADB                            R31 0
-      537 JUMP                             ; [+1]
-      538 LOADNIL                          R31
-      539 SETTABLEKS                       R31 R30 K77 ["Enabled"]
-      541 NEWCLOSURE                       R31 P8
-      542 CAPTURE                          VAL R4
-      543 CAPTURE                          VAL R12
-      544 CAPTURE                          VAL R11
-      545 SETTABLEKS                       R31 R30 K55 ["OnClick"]
-      547 CALL                             R28 2 1
-      548 JUMP                             ; [+1]
-      549 LOADNIL                          R28
-      550 SETTABLEKS                       R28 R27 K49 ["Publish"]
-      552 CALL                             R24 3 1
-      553 SETTABLEKS                       R24 R23 K29 ["Contents"]
+      200 DUPTABLE                         R23 K35 [{"Contents", "SettingsButton", "SettingsMenu", "SubmitDialog", "LookComposerDialog"}]
+      201 GETUPVAL                         R24 0
+      202 GETTABLEKS                       R24 R24 K2 ["createElement"]
+      204 GETUPVAL                         R25 17
+      205 DUPTABLE                         R26 K38 [{"Layout", "VerticalAlignment"}]
+      206 GETIMPORT                        R27 K42 [Enum.FillDirection.Vertical]
+      208 SETTABLEKS                       R27 R26 K36 ["Layout"]
+      210 GETIMPORT                        R27 K44 [Enum.VerticalAlignment.Top]
+      212 SETTABLEKS                       R27 R26 K37 ["VerticalAlignment"]
+      214 DUPTABLE                         R27 K51 [{"Back", "CheckBody", "CheckFace", "Test", "LookSaveMenu", "Publish"}]
+      215 GETUPVAL                         R29 18
+      216 CALL                             R29 0 1
+      217 JUMPIFNOT                        R29 ; [+25]
+      218 GETUPVAL                         R28 0
+      219 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      221 GETUPVAL                         R29 19
+      222 DUPTABLE                         R30 K58 [{["LayoutOrder"], ["Icon"], ["IsSelected"] = False, ["StageText"] = "Back", ["OnClick"]}]
+      223 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      225 CALL                             R31 1 1
+      226 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      228 GETUPVAL                         R31 20
+      229 GETTABLEKS                       R31 R31 K60 ["Enums"]
+      231 GETTABLEKS                       R31 R31 K61 ["IconName"]
+      233 GETTABLEKS                       R31 R31 K62 ["ArrowCurlToLeft"]
+      235 SETTABLEKS                       R31 R30 K53 ["Icon"]
+      237 GETTABLEKS                       R31 R0 K3 ["onBack"]
+      239 SETTABLEKS                       R31 R30 K57 ["OnClick"]
+      241 CALL                             R28 2 1
+      242 JUMP                             ; [+1]
+      243 LOADNIL                          R28
+      244 SETTABLEKS                       R28 R27 K45 ["Back"]
+      246 GETUPVAL                         R28 0
+      247 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      249 GETUPVAL                         R29 19
+      250 DUPTABLE                         R30 K64 [{["LayoutOrder"], ["Icon"] = "rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_body.png", ["IsSelected"], ["StageText"] = "CheckBody", ["OnClick"]}]
+      251 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      253 CALL                             R31 1 1
+      254 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      256 GETTABLEKS                       R32 R0 K65 ["SelectedStage"]
+      258 JUMPIFEQKS                       R32 K46 ["CheckBody"] ; [+2]
+      260 LOADB                            R31 0 +1
+      261 LOADB                            R31 1
+      262 SETTABLEKS                       R31 R30 K54 ["IsSelected"]
+      264 NEWCLOSURE                       R31 P1
+      265 CAPTURE                          VAL R4
+      266 CAPTURE                          VAL R0
+      267 SETTABLEKS                       R31 R30 K57 ["OnClick"]
+      269 CALL                             R28 2 1
+      270 SETTABLEKS                       R28 R27 K46 ["CheckBody"]
+      272 GETUPVAL                         R28 0
+      273 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      275 GETUPVAL                         R29 19
+      276 DUPTABLE                         R30 K67 [{["LayoutOrder"], ["Icon"] = "rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_face.png", ["IsSelected"], ["StageText"] = "CheckFace", ["OnClick"]}]
+      277 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      279 CALL                             R31 1 1
+      280 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      282 GETTABLEKS                       R32 R0 K65 ["SelectedStage"]
+      284 JUMPIFEQKS                       R32 K47 ["CheckFace"] ; [+2]
+      286 LOADB                            R31 0 +1
+      287 LOADB                            R31 1
+      288 SETTABLEKS                       R31 R30 K54 ["IsSelected"]
+      290 NEWCLOSURE                       R31 P2
+      291 CAPTURE                          VAL R4
+      292 CAPTURE                          VAL R0
+      293 SETTABLEKS                       R31 R30 K57 ["OnClick"]
+      295 CALL                             R28 2 1
+      296 SETTABLEKS                       R28 R27 K47 ["CheckFace"]
+      298 GETUPVAL                         R28 0
+      299 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      301 GETUPVAL                         R29 19
+      302 DUPTABLE                         R30 K69 [{["LayoutOrder"], ["Icon"] = "rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/test.png", ["IsSelected"] = False, ["StageText"] = "Test", ["OnClick"]}]
+      303 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      305 CALL                             R31 1 1
+      306 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      308 NEWCLOSURE                       R31 P3
+      309 CAPTURE                          VAL R4
+      310 CAPTURE                          UPVAL U21
+      311 CAPTURE                          VAL R6
+      312 CAPTURE                          VAL R0
+      313 SETTABLEKS                       R31 R30 K57 ["OnClick"]
+      315 CALL                             R28 2 1
+      316 SETTABLEKS                       R28 R27 K48 ["Test"]
+      318 GETUPVAL                         R29 6
+      319 CALL                             R29 0 1
+      320 JUMPIFNOT                        R29 ; [+110]
+      321 JUMPIFNOT                        R15 ; [+109]
+      322 JUMPIFEQKNIL                     R10 ; [+108]
+      324 GETUPVAL                         R28 0
+      325 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      327 GETUPVAL                         R29 22
+      328 DUPTABLE                         R30 K77 [{"LayoutOrder", "isOpen", "onClose", "onToggle", "onSaveToRoblox", "openAvatarLookComposer", "openMakeupLookComposer", "anchor"}]
+      329 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      331 CALL                             R31 1 1
+      332 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      334 GETTABLEKS                       R31 R10 K11 ["enabled"]
+      336 SETTABLEKS                       R31 R30 K70 ["isOpen"]
+      338 GETTABLEKS                       R31 R10 K78 ["disable"]
+      340 SETTABLEKS                       R31 R30 K71 ["onClose"]
+      342 GETTABLEKS                       R31 R10 K79 ["toggle"]
+      344 SETTABLEKS                       R31 R30 K72 ["onToggle"]
+      346 NEWCLOSURE                       R31 P4
+      347 CAPTURE                          VAL R11
+      348 SETTABLEKS                       R31 R30 K73 ["onSaveToRoblox"]
+      350 GETUPVAL                         R32 14
+      351 CALL                             R32 0 1
+      352 JUMPIFNOT                        R32 ; [+3]
+      353 NEWCLOSURE                       R31 P5
+      354 CAPTURE                          REF R18
+      355 JUMP                             ; [+1]
+      356 LOADNIL                          R31
+      357 SETTABLEKS                       R31 R30 K74 ["openAvatarLookComposer"]
+      359 NEWCLOSURE                       R31 P6
+      360 CAPTURE                          REF R18
+      361 SETTABLEKS                       R31 R30 K75 ["openMakeupLookComposer"]
+      363 GETUPVAL                         R31 0
+      364 GETTABLEKS                       R31 R31 K2 ["createElement"]
+      366 GETUPVAL                         R32 19
+      367 DUPTABLE                         R33 K85 [{["Icon"] = "rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png", ["IsSelected"], ["ShowMenuIndicator"] = True, ["StageText"] = "Publish", ["Tooltip"], ["Enabled"], ["OnClick"]}]
+      368 GETTABLEKS                       R34 R10 K11 ["enabled"]
+      370 SETTABLEKS                       R34 R33 K54 ["IsSelected"]
+      372 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
+      374 JUMPIFEQKNIL                     R35 ; [+33]
+      376 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
+      378 GETTABLEKS                       R35 R35 K0 ["type"]
+      380 JUMPIFNOTEQKS                    R35 K17 ["notAllowed"] ; [+27]
+      382 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
+      384 GETTABLEKS                       R35 R35 K86 ["denyReason"]
+      386 JUMPIFEQKS                       R35 K87 ["MissingPremiumSubscriptionTier"] ; [+7]
+      388 GETTABLEKS                       R35 R7 K16 ["canUploadBundles"]
+      390 GETTABLEKS                       R35 R35 K86 ["denyReason"]
+      392 JUMPIFNOTEQKS                    R35 K88 ["MissingIdVerification"] ; [+15]
+      394 LOADK                            R36 K5 ["StageSelector"]
+      395 LOADK                            R38 K89 ["Publish_Deny_%*"]
+      396 GETTABLEKS                       R40 R7 K16 ["canUploadBundles"]
+      398 GETTABLEKS                       R40 R40 K86 ["denyReason"]
+      400 NAMECALL                         R38 R38 K90 ["format"]
+      402 CALL                             R38 2 1
+      403 MOVE                             R37 R38
+      404 NAMECALL                         R34 R2 K91 ["getText"]
+      406 CALL                             R34 3 1
+      407 JUMP                             ; [+5]
+      408 LOADK                            R36 K49 ["LookSaveMenu"]
+      409 LOADK                            R37 K92 ["Save"]
+      410 NAMECALL                         R34 R2 K91 ["getText"]
+      412 CALL                             R34 3 1
+      413 SETTABLEKS                       R34 R33 K83 ["Tooltip"]
+      415 JUMPIF                           R16 ; [+2]
+      416 LOADB                            R34 0
+      417 JUMP                             ; [+1]
+      418 LOADNIL                          R34
+      419 SETTABLEKS                       R34 R33 K84 ["Enabled"]
+      421 NEWCLOSURE                       R34 P7
+      422 CAPTURE                          VAL R16
+      423 CAPTURE                          VAL R10
+      424 SETTABLEKS                       R34 R33 K57 ["OnClick"]
+      426 CALL                             R31 2 1
+      427 SETTABLEKS                       R31 R30 K76 ["anchor"]
+      429 CALL                             R28 2 1
+      430 JUMP                             ; [+1]
+      431 LOADNIL                          R28
+      432 SETTABLEKS                       R28 R27 K49 ["LookSaveMenu"]
+      434 GETUPVAL                         R29 6
+      435 CALL                             R29 0 1
+      436 JUMPIFNOT                        R29 ; [+1]
+      437 JUMPIF                           R15 ; [+63]
+      438 GETUPVAL                         R28 0
+      439 GETTABLEKS                       R28 R28 K2 ["createElement"]
+      441 GETUPVAL                         R29 19
+      442 DUPTABLE                         R30 K93 [{["LayoutOrder"], ["Icon"] = "rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png", ["IsSelected"] = False, ["StageText"] = "Publish", ["Tooltip"], ["Enabled"], ["OnClick"]}]
+      443 NAMECALL                         R31 R3 K59 ["getNextOrder"]
+      445 CALL                             R31 1 1
+      446 SETTABLEKS                       R31 R30 K52 ["LayoutOrder"]
+      448 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
+      450 JUMPIFEQKNIL                     R32 ; [+33]
+      452 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
+      454 GETTABLEKS                       R32 R32 K0 ["type"]
+      456 JUMPIFNOTEQKS                    R32 K17 ["notAllowed"] ; [+27]
+      458 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
+      460 GETTABLEKS                       R32 R32 K86 ["denyReason"]
+      462 JUMPIFEQKS                       R32 K87 ["MissingPremiumSubscriptionTier"] ; [+7]
+      464 GETTABLEKS                       R32 R7 K16 ["canUploadBundles"]
+      466 GETTABLEKS                       R32 R32 K86 ["denyReason"]
+      468 JUMPIFNOTEQKS                    R32 K88 ["MissingIdVerification"] ; [+15]
+      470 LOADK                            R33 K5 ["StageSelector"]
+      471 LOADK                            R35 K89 ["Publish_Deny_%*"]
+      472 GETTABLEKS                       R37 R7 K16 ["canUploadBundles"]
+      474 GETTABLEKS                       R37 R37 K86 ["denyReason"]
+      476 NAMECALL                         R35 R35 K90 ["format"]
+      478 CALL                             R35 2 1
+      479 MOVE                             R34 R35
+      480 NAMECALL                         R31 R2 K91 ["getText"]
+      482 CALL                             R31 3 1
+      483 JUMP                             ; [+1]
+      484 LOADNIL                          R31
+      485 SETTABLEKS                       R31 R30 K83 ["Tooltip"]
+      487 JUMPIF                           R16 ; [+2]
+      488 LOADB                            R31 0
+      489 JUMP                             ; [+1]
+      490 LOADNIL                          R31
+      491 SETTABLEKS                       R31 R30 K84 ["Enabled"]
+      493 NEWCLOSURE                       R31 P8
+      494 CAPTURE                          VAL R4
+      495 CAPTURE                          VAL R12
+      496 CAPTURE                          VAL R11
+      497 SETTABLEKS                       R31 R30 K57 ["OnClick"]
+      499 CALL                             R28 2 1
+      500 JUMP                             ; [+1]
+      501 LOADNIL                          R28
+      502 SETTABLEKS                       R28 R27 K50 ["Publish"]
+      504 CALL                             R24 3 1
+      505 SETTABLEKS                       R24 R23 K30 ["Contents"]
+      507 GETUPVAL                         R24 0
+      508 GETTABLEKS                       R24 R24 K2 ["createElement"]
+      510 GETUPVAL                         R25 19
+      511 DUPTABLE                         R26 K98 [{["Icon"] = "rbxassetid://6663675885", ["IsSelected"] = False, ["StageText"] = "Settings", ["AnchorPoint"], ["Position"], ["OnClick"]}]
+      512 GETIMPORT                        R27 K100 [Vector2.new]
+      514 LOADN                            R28 0
+      515 LOADN                            R29 1
+      516 CALL                             R27 2 1
+      517 SETTABLEKS                       R27 R26 K96 ["AnchorPoint"]
+      519 GETIMPORT                        R27 K102 [UDim2.fromScale]
+      521 LOADN                            R28 0
+      522 LOADN                            R29 1
+      523 CALL                             R27 2 1
+      524 SETTABLEKS                       R27 R26 K97 ["Position"]
+      526 GETTABLEKS                       R27 R9 K103 ["enable"]
+      528 SETTABLEKS                       R27 R26 K57 ["OnClick"]
+      530 CALL                             R24 2 1
+      531 SETTABLEKS                       R24 R23 K31 ["SettingsButton"]
+      533 GETTABLEKS                       R24 R9 K11 ["enabled"]
+      535 JUMPIFNOT                        R24 ; [+14]
+      536 GETUPVAL                         R24 0
+      537 GETTABLEKS                       R24 R24 K2 ["createElement"]
+      539 GETUPVAL                         R25 23
+      540 DUPTABLE                         R26 K106 [{[1] = "avatar", ["avatar"], ["close"]}]
+      541 GETTABLEKS                       R27 R0 K12 ["Avatar"]
+      543 SETTABLEKS                       R27 R26 K104 ["avatar"]
+      545 GETTABLEKS                       R27 R9 K78 ["disable"]
+      547 SETTABLEKS                       R27 R26 K105 ["close"]
+      549 CALL                             R24 2 1
+      550 SETTABLEKS                       R24 R23 K32 ["SettingsMenu"]
+      552 GETTABLEKS                       R24 R11 K11 ["enabled"]
+      554 JUMPIFNOT                        R24 ; [+14]
       555 GETUPVAL                         R24 0
       556 GETTABLEKS                       R24 R24 K2 ["createElement"]
-      558 GETUPVAL                         R25 19
-      559 DUPTABLE                         R26 K90 [{"Icon", "IsSelected", "StageText", "AnchorPoint", "Position", "OnClick"}]
-      560 LOADK                            R27 K91 ["rbxassetid://6663675885"]
-      561 SETTABLEKS                       R27 R26 K52 ["Icon"]
-      563 LOADB                            R27 0
-      564 SETTABLEKS                       R27 R26 K53 ["IsSelected"]
-      566 LOADK                            R27 K92 ["Settings"]
-      567 SETTABLEKS                       R27 R26 K54 ["StageText"]
-      569 GETIMPORT                        R27 K94 [Vector2.new]
-      571 LOADN                            R28 0
-      572 LOADN                            R29 1
-      573 CALL                             R27 2 1
-      574 SETTABLEKS                       R27 R26 K88 ["AnchorPoint"]
-      576 GETIMPORT                        R27 K96 [UDim2.fromScale]
-      578 LOADN                            R28 0
-      579 LOADN                            R29 1
-      580 CALL                             R27 2 1
-      581 SETTABLEKS                       R27 R26 K89 ["Position"]
-      583 GETTABLEKS                       R27 R9 K97 ["enable"]
-      585 SETTABLEKS                       R27 R26 K55 ["OnClick"]
-      587 CALL                             R24 2 1
-      588 SETTABLEKS                       R24 R23 K30 ["SettingsButton"]
-      590 GETTABLEKS                       R24 R9 K11 ["enabled"]
-      592 JUMPIFNOT                        R24 ; [+17]
-      593 GETUPVAL                         R24 0
-      594 GETTABLEKS                       R24 R24 K2 ["createElement"]
-      596 GETUPVAL                         R25 23
-      597 DUPTABLE                         R26 K100 [{"type", "avatar", "close"}]
-      598 LOADK                            R27 K98 ["avatar"]
-      599 SETTABLEKS                       R27 R26 K0 ["type"]
-      601 GETTABLEKS                       R27 R0 K12 ["Avatar"]
-      603 SETTABLEKS                       R27 R26 K98 ["avatar"]
-      605 GETTABLEKS                       R27 R9 K73 ["disable"]
-      607 SETTABLEKS                       R27 R26 K99 ["close"]
-      609 CALL                             R24 2 1
-      610 SETTABLEKS                       R24 R23 K31 ["SettingsMenu"]
-      612 GETTABLEKS                       R24 R11 K11 ["enabled"]
-      614 JUMPIFNOT                        R24 ; [+14]
-      615 GETUPVAL                         R24 0
-      616 GETTABLEKS                       R24 R24 K2 ["createElement"]
-      618 GETUPVAL                         R25 24
-      619 DUPTABLE                         R26 K101 [{"close", "avatar"}]
-      620 GETTABLEKS                       R27 R11 K73 ["disable"]
-      622 SETTABLEKS                       R27 R26 K99 ["close"]
-      624 GETTABLEKS                       R27 R0 K12 ["Avatar"]
-      626 SETTABLEKS                       R27 R26 K98 ["avatar"]
-      628 CALL                             R24 2 1
-      629 SETTABLEKS                       R24 R23 K32 ["SubmitDialog"]
-      631 GETUPVAL                         R24 6
-      632 CALL                             R24 0 1
-      633 JUMPIFNOT                        R24 ; [+160]
-      634 MOVE                             R24 R19
-      635 JUMPIFNOT                        R24 ; [+158]
-      636 GETUPVAL                         R24 0
-      637 GETTABLEKS                       R24 R24 K2 ["createElement"]
-      639 GETUPVAL                         R25 25
-      640 DUPTABLE                         R26 K105 [{"dialogLookType", "equippedItems", "bodyScale", "onClose"}]
-      641 SETTABLEKS                       R17 R26 K102 ["dialogLookType"]
-      643 GETTABLEKS                       R27 R5 K103 ["equippedItems"]
-      645 SETTABLEKS                       R27 R26 K103 ["equippedItems"]
-      647 GETUPVAL                         R28 14
-      648 CALL                             R28 0 1
-      649 JUMPIFNOT                        R28 ; [+136]
-      650 JUMPIFNOTEQKS                    R17 K20 ["AvatarLook"] ; [+135]
-      652 DUPTABLE                         R27 K112 [{"bodyType", "depth", "head", "height", "proportion", "width"}]
-      653 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      655 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      657 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      659 LOADK                            R32 K114 ["BodyTypeScale"]
-      660 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      662 CALL                             R30 2 1
-      663 JUMPIFNOT                        R30 ; [+8]
-      664 LOADK                            R33 K116 ["NumberValue"]
-      665 NAMECALL                         R31 R30 K117 ["IsA"]
-      667 CALL                             R31 2 1
-      668 JUMPIFNOT                        R31 ; [+3]
-      669 GETTABLEKS                       R28 R30 K118 ["Value"]
-      671 JUMP                             ; [+1]
-      672 LOADN                            R28 1
-      673 SETTABLEKS                       R28 R27 K106 ["bodyType"]
-      675 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      677 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      679 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      681 LOADK                            R32 K119 ["BodyDepthScale"]
-      682 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      684 CALL                             R30 2 1
-      685 JUMPIFNOT                        R30 ; [+8]
-      686 LOADK                            R33 K116 ["NumberValue"]
-      687 NAMECALL                         R31 R30 K117 ["IsA"]
-      689 CALL                             R31 2 1
-      690 JUMPIFNOT                        R31 ; [+3]
-      691 GETTABLEKS                       R28 R30 K118 ["Value"]
-      693 JUMP                             ; [+1]
-      694 LOADN                            R28 1
-      695 SETTABLEKS                       R28 R27 K107 ["depth"]
-      697 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      699 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      701 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      703 LOADK                            R32 K120 ["HeadScale"]
-      704 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      706 CALL                             R30 2 1
-      707 JUMPIFNOT                        R30 ; [+8]
-      708 LOADK                            R33 K116 ["NumberValue"]
-      709 NAMECALL                         R31 R30 K117 ["IsA"]
-      711 CALL                             R31 2 1
-      712 JUMPIFNOT                        R31 ; [+3]
-      713 GETTABLEKS                       R28 R30 K118 ["Value"]
-      715 JUMP                             ; [+1]
-      716 LOADN                            R28 1
-      717 SETTABLEKS                       R28 R27 K108 ["head"]
-      719 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      721 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      723 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      725 LOADK                            R32 K121 ["BodyHeightScale"]
-      726 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      728 CALL                             R30 2 1
-      729 JUMPIFNOT                        R30 ; [+8]
-      730 LOADK                            R33 K116 ["NumberValue"]
-      731 NAMECALL                         R31 R30 K117 ["IsA"]
-      733 CALL                             R31 2 1
-      734 JUMPIFNOT                        R31 ; [+3]
-      735 GETTABLEKS                       R28 R30 K118 ["Value"]
-      737 JUMP                             ; [+1]
-      738 LOADN                            R28 1
-      739 SETTABLEKS                       R28 R27 K109 ["height"]
-      741 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      743 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      745 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      747 LOADK                            R32 K122 ["BodyProportionScale"]
-      748 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      750 CALL                             R30 2 1
-      751 JUMPIFNOT                        R30 ; [+8]
-      752 LOADK                            R33 K116 ["NumberValue"]
-      753 NAMECALL                         R31 R30 K117 ["IsA"]
-      755 CALL                             R31 2 1
-      756 JUMPIFNOT                        R31 ; [+3]
-      757 GETTABLEKS                       R28 R30 K118 ["Value"]
-      759 JUMP                             ; [+1]
-      760 LOADN                            R28 1
-      761 SETTABLEKS                       R28 R27 K110 ["proportion"]
-      763 GETTABLEKS                       R29 R0 K12 ["Avatar"]
-      765 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
-      767 GETTABLEKS                       R29 R29 K113 ["Humanoid"]
-      769 LOADK                            R32 K123 ["BodyWidthScale"]
-      770 NAMECALL                         R30 R29 K115 ["FindFirstChild"]
-      772 CALL                             R30 2 1
-      773 JUMPIFNOT                        R30 ; [+8]
-      774 LOADK                            R33 K116 ["NumberValue"]
-      775 NAMECALL                         R31 R30 K117 ["IsA"]
-      777 CALL                             R31 2 1
-      778 JUMPIFNOT                        R31 ; [+3]
-      779 GETTABLEKS                       R28 R30 K118 ["Value"]
-      781 JUMP                             ; [+1]
-      782 LOADN                            R28 1
-      783 SETTABLEKS                       R28 R27 K111 ["width"]
-      785 JUMP                             ; [+1]
-      786 LOADNIL                          R27
-      787 SETTABLEKS                       R27 R26 K104 ["bodyScale"]
-      789 NEWCLOSURE                       R27 P9
-      790 CAPTURE                          REF R18
-      791 SETTABLEKS                       R27 R26 K66 ["onClose"]
-      793 CALL                             R24 2 1
-      794 SETTABLEKS                       R24 R23 K33 ["LookComposerDialog"]
-      796 CALL                             R20 3 -1
-      797 CLOSEUPVALS                      R18
-      798 RETURN                           R20 -1
+      558 GETUPVAL                         R25 24
+      559 DUPTABLE                         R26 K107 [{"close", "avatar"}]
+      560 GETTABLEKS                       R27 R11 K78 ["disable"]
+      562 SETTABLEKS                       R27 R26 K105 ["close"]
+      564 GETTABLEKS                       R27 R0 K12 ["Avatar"]
+      566 SETTABLEKS                       R27 R26 K104 ["avatar"]
+      568 CALL                             R24 2 1
+      569 SETTABLEKS                       R24 R23 K33 ["SubmitDialog"]
+      571 GETUPVAL                         R24 6
+      572 CALL                             R24 0 1
+      573 JUMPIFNOT                        R24 ; [+160]
+      574 MOVE                             R24 R19
+      575 JUMPIFNOT                        R24 ; [+158]
+      576 GETUPVAL                         R24 0
+      577 GETTABLEKS                       R24 R24 K2 ["createElement"]
+      579 GETUPVAL                         R25 25
+      580 DUPTABLE                         R26 K111 [{"dialogLookType", "equippedItems", "bodyScale", "onClose"}]
+      581 SETTABLEKS                       R17 R26 K108 ["dialogLookType"]
+      583 GETTABLEKS                       R27 R5 K109 ["equippedItems"]
+      585 SETTABLEKS                       R27 R26 K109 ["equippedItems"]
+      587 GETUPVAL                         R28 14
+      588 CALL                             R28 0 1
+      589 JUMPIFNOT                        R28 ; [+136]
+      590 JUMPIFNOTEQKS                    R17 K20 ["AvatarLook"] ; [+135]
+      592 DUPTABLE                         R27 K118 [{"bodyType", "depth", "head", "height", "proportion", "width"}]
+      593 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      595 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      597 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      599 LOADK                            R32 K120 ["BodyTypeScale"]
+      600 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      602 CALL                             R30 2 1
+      603 JUMPIFNOT                        R30 ; [+8]
+      604 LOADK                            R33 K122 ["NumberValue"]
+      605 NAMECALL                         R31 R30 K123 ["IsA"]
+      607 CALL                             R31 2 1
+      608 JUMPIFNOT                        R31 ; [+3]
+      609 GETTABLEKS                       R28 R30 K124 ["Value"]
+      611 JUMP                             ; [+1]
+      612 LOADN                            R28 1
+      613 SETTABLEKS                       R28 R27 K112 ["bodyType"]
+      615 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      617 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      619 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      621 LOADK                            R32 K125 ["BodyDepthScale"]
+      622 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      624 CALL                             R30 2 1
+      625 JUMPIFNOT                        R30 ; [+8]
+      626 LOADK                            R33 K122 ["NumberValue"]
+      627 NAMECALL                         R31 R30 K123 ["IsA"]
+      629 CALL                             R31 2 1
+      630 JUMPIFNOT                        R31 ; [+3]
+      631 GETTABLEKS                       R28 R30 K124 ["Value"]
+      633 JUMP                             ; [+1]
+      634 LOADN                            R28 1
+      635 SETTABLEKS                       R28 R27 K113 ["depth"]
+      637 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      639 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      641 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      643 LOADK                            R32 K126 ["HeadScale"]
+      644 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      646 CALL                             R30 2 1
+      647 JUMPIFNOT                        R30 ; [+8]
+      648 LOADK                            R33 K122 ["NumberValue"]
+      649 NAMECALL                         R31 R30 K123 ["IsA"]
+      651 CALL                             R31 2 1
+      652 JUMPIFNOT                        R31 ; [+3]
+      653 GETTABLEKS                       R28 R30 K124 ["Value"]
+      655 JUMP                             ; [+1]
+      656 LOADN                            R28 1
+      657 SETTABLEKS                       R28 R27 K114 ["head"]
+      659 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      661 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      663 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      665 LOADK                            R32 K127 ["BodyHeightScale"]
+      666 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      668 CALL                             R30 2 1
+      669 JUMPIFNOT                        R30 ; [+8]
+      670 LOADK                            R33 K122 ["NumberValue"]
+      671 NAMECALL                         R31 R30 K123 ["IsA"]
+      673 CALL                             R31 2 1
+      674 JUMPIFNOT                        R31 ; [+3]
+      675 GETTABLEKS                       R28 R30 K124 ["Value"]
+      677 JUMP                             ; [+1]
+      678 LOADN                            R28 1
+      679 SETTABLEKS                       R28 R27 K115 ["height"]
+      681 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      683 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      685 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      687 LOADK                            R32 K128 ["BodyProportionScale"]
+      688 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      690 CALL                             R30 2 1
+      691 JUMPIFNOT                        R30 ; [+8]
+      692 LOADK                            R33 K122 ["NumberValue"]
+      693 NAMECALL                         R31 R30 K123 ["IsA"]
+      695 CALL                             R31 2 1
+      696 JUMPIFNOT                        R31 ; [+3]
+      697 GETTABLEKS                       R28 R30 K124 ["Value"]
+      699 JUMP                             ; [+1]
+      700 LOADN                            R28 1
+      701 SETTABLEKS                       R28 R27 K116 ["proportion"]
+      703 GETTABLEKS                       R29 R0 K12 ["Avatar"]
+      705 GETTABLEKS                       R29 R29 K13 ["WorldModel"]
+      707 GETTABLEKS                       R29 R29 K119 ["Humanoid"]
+      709 LOADK                            R32 K129 ["BodyWidthScale"]
+      710 NAMECALL                         R30 R29 K121 ["FindFirstChild"]
+      712 CALL                             R30 2 1
+      713 JUMPIFNOT                        R30 ; [+8]
+      714 LOADK                            R33 K122 ["NumberValue"]
+      715 NAMECALL                         R31 R30 K123 ["IsA"]
+      717 CALL                             R31 2 1
+      718 JUMPIFNOT                        R31 ; [+3]
+      719 GETTABLEKS                       R28 R30 K124 ["Value"]
+      721 JUMP                             ; [+1]
+      722 LOADN                            R28 1
+      723 SETTABLEKS                       R28 R27 K117 ["width"]
+      725 JUMP                             ; [+1]
+      726 LOADNIL                          R27
+      727 SETTABLEKS                       R27 R26 K110 ["bodyScale"]
+      729 NEWCLOSURE                       R27 P9
+      730 CAPTURE                          REF R18
+      731 SETTABLEKS                       R27 R26 K71 ["onClose"]
+      733 CALL                             R24 2 1
+      734 SETTABLEKS                       R24 R23 K34 ["LookComposerDialog"]
+      736 CALL                             R20 3 -1
+      737 CLOSEUPVALS                      R18
+      738 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

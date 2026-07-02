@@ -13,50 +13,44 @@ PROTO_0:
        20 GETUPVAL                         R11 1
        21 DUPTABLE                         R12 K12 [{"Buttons", "OnButtonClicked", "OnClose", "Title", "Prompt", "Thumbnail", "Balance"}]
        22 NEWTABLE                         R13 0 2
-       24 DUPTABLE                         R14 K15 [{"Key", "Text"}]
-       25 LOADB                            R15 0
-       26 SETTABLEKS                       R15 R14 K13 ["Key"]
-       28 GETTABLEKS                       R15 R1 K16 ["Localization"]
-       30 LOADK                            R17 K17 ["Purchase"]
-       31 LOADK                            R18 K18 ["Cancel"]
-       32 NAMECALL                         R15 R15 K19 ["getText"]
-       34 CALL                             R15 3 1
-       35 SETTABLEKS                       R15 R14 K14 ["Text"]
-       37 DUPTABLE                         R15 K21 [{"Key", "Text", "Style"}]
-       38 LOADB                            R16 1
-       39 SETTABLEKS                       R16 R15 K13 ["Key"]
-       41 GETTABLEKS                       R16 R1 K16 ["Localization"]
-       43 LOADK                            R18 K17 ["Purchase"]
-       44 LOADK                            R19 K22 ["BuyRobux"]
-       45 NAMECALL                         R16 R16 K19 ["getText"]
-       47 CALL                             R16 3 1
-       48 SETTABLEKS                       R16 R15 K14 ["Text"]
-       50 LOADK                            R16 K23 ["RoundPrimary"]
-       51 SETTABLEKS                       R16 R15 K20 ["Style"]
-       53 SETLIST                          R13 R14 2 [1]
-       55 SETTABLEKS                       R13 R12 K9 ["Buttons"]
-       57 SETTABLEKS                       R2 R12 K1 ["OnButtonClicked"]
-       59 SETTABLEKS                       R3 R12 K2 ["OnClose"]
-       61 GETTABLEKS                       R13 R1 K16 ["Localization"]
-       63 LOADK                            R15 K17 ["Purchase"]
-       64 LOADK                            R16 K24 ["InsufficientTitle"]
-       65 NAMECALL                         R13 R13 K19 ["getText"]
-       67 CALL                             R13 3 1
-       68 SETTABLEKS                       R13 R12 K10 ["Title"]
-       70 GETTABLEKS                       R13 R1 K16 ["Localization"]
-       72 LOADK                            R15 K17 ["Purchase"]
-       73 LOADK                            R16 K25 ["InsufficientPrompt"]
-       74 DUPTABLE                         R17 K29 [{"robux", "name", "creator"}]
-       75 SETTABLEKS                       R9 R17 K26 ["robux"]
-       77 SETTABLEKS                       R5 R17 K27 ["name"]
-       79 SETTABLEKS                       R6 R17 K28 ["creator"]
-       81 NAMECALL                         R13 R13 K19 ["getText"]
-       83 CALL                             R13 4 1
-       84 SETTABLEKS                       R13 R12 K11 ["Prompt"]
-       86 SETTABLEKS                       R4 R12 K3 ["Thumbnail"]
-       88 SETTABLEKS                       R8 R12 K7 ["Balance"]
-       90 CALL                             R10 2 -1
-       91 RETURN                           R10 -1
+       24 DUPTABLE                         R14 K16 [{["Key"] = False, ["Text"]}]
+       25 GETTABLEKS                       R15 R1 K17 ["Localization"]
+       27 LOADK                            R17 K18 ["Purchase"]
+       28 LOADK                            R18 K19 ["Cancel"]
+       29 NAMECALL                         R15 R15 K20 ["getText"]
+       31 CALL                             R15 3 1
+       32 SETTABLEKS                       R15 R14 K15 ["Text"]
+       34 DUPTABLE                         R15 K24 [{["Key"] = True, ["Text"], ["Style"] = "RoundPrimary"}]
+       35 GETTABLEKS                       R16 R1 K17 ["Localization"]
+       37 LOADK                            R18 K18 ["Purchase"]
+       38 LOADK                            R19 K25 ["BuyRobux"]
+       39 NAMECALL                         R16 R16 K20 ["getText"]
+       41 CALL                             R16 3 1
+       42 SETTABLEKS                       R16 R15 K15 ["Text"]
+       44 SETLIST                          R13 R14 2 [1]
+       46 SETTABLEKS                       R13 R12 K9 ["Buttons"]
+       48 SETTABLEKS                       R2 R12 K1 ["OnButtonClicked"]
+       50 SETTABLEKS                       R3 R12 K2 ["OnClose"]
+       52 GETTABLEKS                       R13 R1 K17 ["Localization"]
+       54 LOADK                            R15 K18 ["Purchase"]
+       55 LOADK                            R16 K26 ["InsufficientTitle"]
+       56 NAMECALL                         R13 R13 K20 ["getText"]
+       58 CALL                             R13 3 1
+       59 SETTABLEKS                       R13 R12 K10 ["Title"]
+       61 GETTABLEKS                       R13 R1 K17 ["Localization"]
+       63 LOADK                            R15 K18 ["Purchase"]
+       64 LOADK                            R16 K27 ["InsufficientPrompt"]
+       65 DUPTABLE                         R17 K31 [{"robux", "name", "creator"}]
+       66 SETTABLEKS                       R9 R17 K28 ["robux"]
+       68 SETTABLEKS                       R5 R17 K29 ["name"]
+       70 SETTABLEKS                       R6 R17 K30 ["creator"]
+       72 NAMECALL                         R13 R13 K20 ["getText"]
+       74 CALL                             R13 4 1
+       75 SETTABLEKS                       R13 R12 K11 ["Prompt"]
+       77 SETTABLEKS                       R4 R12 K3 ["Thumbnail"]
+       79 SETTABLEKS                       R8 R12 K7 ["Balance"]
+       81 CALL                             R10 2 -1
+       82 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -78,6 +78,25 @@ PROTO_5:
        43 RETURN                           R0 0
 
 PROTO_6:
+        0 GETTABLEKS                       R2 R0 K0 ["score"]
+        2 GETTABLEKS                       R3 R1 K0 ["score"]
+        4 JUMPIFNOTEQ                      R2 R3 ; [+14]
+        6 GETTABLEKS                       R3 R0 K1 ["item"]
+        8 GETTABLEKS                       R3 R3 K2 ["text"]
+       10 GETTABLEKS                       R4 R1 K1 ["item"]
+       12 GETTABLEKS                       R4 R4 K2 ["text"]
+       14 JUMPIFLT                         R3 R4 ; [+2]
+       16 LOADB                            R2 0 +1
+       17 LOADB                            R2 1
+       18 RETURN                           R2 1
+       19 GETTABLEKS                       R3 R0 K0 ["score"]
+       21 GETTABLEKS                       R4 R1 K0 ["score"]
+       23 JUMPIFLT                         R3 R4 ; [+2]
+       25 LOADB                            R2 0 +1
+       26 LOADB                            R2 1
+       27 RETURN                           R2 1
+
+PROTO_7:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOTEQKS                    R0 K0 [""] ; [+3]
         3 GETUPVAL                         R0 1
@@ -86,45 +105,127 @@ PROTO_6:
         7 GETUPVAL                         R1 0
         8 CALL                             R0 1 1
         9 NEWTABLE                         R1 0 0
-       11 GETUPVAL                         R2 1
-       12 LOADNIL                          R3
-       13 LOADNIL                          R4
-       14 FORGPREP                         R2
-       15 GETIMPORT                        R7 K6 [Enum.KeyCode]
-       17 GETTABLEKS                       R9 R6 K7 ["text"]
-       19 NAMECALL                         R7 R7 K8 ["FromName"]
-       21 CALL                             R7 2 1
-       22 GETIMPORT                        R8 K10 [string.find]
-       24 GETIMPORT                        R9 K3 [string.lower]
-       26 GETTABLEKS                       R10 R6 K7 ["text"]
-       28 CALL                             R9 1 1
-       29 MOVE                             R10 R0
-       30 LOADN                            R11 1
-       31 LOADB                            R12 1
-       32 CALL                             R8 4 1
-       33 JUMPIF                           R8 ; [+16]
-       34 JUMPIFNOT                        R7 ; [+22]
-       35 GETIMPORT                        R8 K10 [string.find]
-       37 GETIMPORT                        R9 K3 [string.lower]
-       39 GETUPVAL                         R10 2
-       40 MOVE                             R12 R7
-       41 NAMECALL                         R10 R10 K11 ["GetStringForKeyCode"]
-       43 CALL                             R10 2 -1
-       44 CALL                             R9 -1 1
-       45 MOVE                             R10 R0
-       46 LOADN                            R11 1
-       47 LOADB                            R12 1
-       48 CALL                             R8 4 1
-       49 JUMPIFNOT                        R8 ; [+7]
-       50 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
-       52 MOVE                             R9 R1
-       53 MOVE                             R10 R6
-       54 GETIMPORT                        R8 K14 [table.insert]
-       56 CALL                             R8 2 0
-       57 FORGLOOP                         R2 2 ; [-43]
-       59 RETURN                           R1 1
+       11 GETUPVAL                         R2 2
+       12 CALL                             R2 0 1
+       13 JUMPIFNOT                        R2 ; [+104]
+       14 NEWTABLE                         R2 0 0
+       16 GETUPVAL                         R3 1
+       17 LOADNIL                          R4
+       18 LOADNIL                          R5
+       19 FORGPREP                         R3
+       20 GETIMPORT                        R8 K6 [Enum.KeyCode]
+       22 GETTABLEKS                       R10 R7 K7 ["text"]
+       24 NAMECALL                         R8 R8 K8 ["FromName"]
+       26 CALL                             R8 2 1
+       27 JUMPIFNOT                        R8 ; [+6]
+       28 GETUPVAL                         R9 3
+       29 MOVE                             R11 R8
+       30 NAMECALL                         R9 R9 K9 ["GetStringForKeyCode"]
+       32 CALL                             R9 2 1
+       33 JUMP                             ; [+1]
+       34 LOADNIL                          R9
+       35 GETIMPORT                        R10 K11 [string.find]
+       37 GETIMPORT                        R11 K3 [string.lower]
+       39 GETTABLEKS                       R12 R7 K7 ["text"]
+       41 CALL                             R11 1 1
+       42 MOVE                             R12 R0
+       43 LOADN                            R13 1
+       44 LOADB                            R14 1
+       45 CALL                             R10 4 1
+       46 JUMPIFNOT                        R9 ; [+8]
+       47 GETIMPORT                        R11 K11 [string.find]
+       49 MOVE                             R12 R9
+       50 MOVE                             R13 R0
+       51 LOADN                            R14 1
+       52 LOADB                            R15 1
+       53 CALL                             R11 4 1
+       54 JUMP                             ; [+1]
+       55 LOADNIL                          R11
+       56 JUMPIFNOT                        R10 ; [+9]
+       57 JUMPIFNOT                        R11 ; [+8]
+       58 FASTCALL2                        MATH_MIN R10 R11 ; [+5]
+       60 MOVE                             R13 R10
+       61 MOVE                             R14 R11
+       62 GETIMPORT                        R12 K14 [math.min]
+       64 CALL                             R12 2 1
+       65 JUMP                             ; [+18]
+       66 JUMPIFNOT                        R10 ; [+2]
+       67 MOVE                             R12 R10
+       68 JUMP                             ; [+15]
+       69 JUMPIFNOT                        R11 ; [+2]
+       70 MOVE                             R12 R11
+       71 JUMP                             ; [+12]
+       72 GETIMPORT                        R13 K3 [string.lower]
+       74 GETTABLEKS                       R14 R7 K7 ["text"]
+       76 CALL                             R13 1 1
+       77 JUMPIFEQ                         R13 R0 ; [+3]
+       79 JUMPIFNOTEQ                      R9 R0 ; [+3]
+       81 LOADN                            R12 0
+       82 JUMP                             ; [+1]
+       83 LOADNIL                          R12
+       84 JUMPIFNOT                        R12 ; [+11]
+       85 DUPTABLE                         R15 K17 [{"item", "score"}]
+       86 SETTABLEKS                       R7 R15 K15 ["item"]
+       88 SETTABLEKS                       R12 R15 K16 ["score"]
+       90 FASTCALL2                        TABLE_INSERT R2 R15 ; [+4]
+       92 MOVE                             R14 R2
+       93 GETIMPORT                        R13 K20 [table.insert]
+       95 CALL                             R13 2 0
+       96 FORGLOOP                         R3 2 ; [-77]
+       98 GETIMPORT                        R3 K22 [table.sort]
+      100 MOVE                             R4 R2
+      101 DUPCLOSURE                       R5 K23 [PROTO_6]
+      102 CALL                             R3 2 0
+      103 MOVE                             R3 R2
+      104 LOADNIL                          R4
+      105 LOADNIL                          R5
+      106 FORGPREP                         R3
+      107 GETTABLEKS                       R10 R7 K15 ["item"]
+      109 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
+      111 MOVE                             R9 R1
+      112 GETIMPORT                        R8 K20 [table.insert]
+      114 CALL                             R8 2 0
+      115 FORGLOOP                         R3 2 ; [-9]
+      117 RETURN                           R1 1
+      118 GETUPVAL                         R2 1
+      119 LOADNIL                          R3
+      120 LOADNIL                          R4
+      121 FORGPREP                         R2
+      122 GETIMPORT                        R7 K6 [Enum.KeyCode]
+      124 GETTABLEKS                       R9 R6 K7 ["text"]
+      126 NAMECALL                         R7 R7 K8 ["FromName"]
+      128 CALL                             R7 2 1
+      129 GETIMPORT                        R8 K11 [string.find]
+      131 GETIMPORT                        R9 K3 [string.lower]
+      133 GETTABLEKS                       R10 R6 K7 ["text"]
+      135 CALL                             R9 1 1
+      136 MOVE                             R10 R0
+      137 LOADN                            R11 1
+      138 LOADB                            R12 1
+      139 CALL                             R8 4 1
+      140 JUMPIF                           R8 ; [+16]
+      141 JUMPIFNOT                        R7 ; [+22]
+      142 GETIMPORT                        R8 K11 [string.find]
+      144 GETIMPORT                        R9 K3 [string.lower]
+      146 GETUPVAL                         R10 3
+      147 MOVE                             R12 R7
+      148 NAMECALL                         R10 R10 K9 ["GetStringForKeyCode"]
+      150 CALL                             R10 2 -1
+      151 CALL                             R9 -1 1
+      152 MOVE                             R10 R0
+      153 LOADN                            R11 1
+      154 LOADB                            R12 1
+      155 CALL                             R8 4 1
+      156 JUMPIFNOT                        R8 ; [+7]
+      157 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
+      159 MOVE                             R9 R1
+      160 MOVE                             R10 R6
+      161 GETIMPORT                        R8 K20 [table.insert]
+      163 CALL                             R8 2 0
+      164 FORGLOOP                         R2 2 ; [-43]
+      166 RETURN                           R1 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["useContext"]
         3 GETUPVAL                         R3 1
@@ -199,22 +300,23 @@ PROTO_7:
        91 CAPTURE                          VAL R9
        92 CAPTURE                          VAL R5
        93 CAPTURE                          UPVAL U7
-       94 NEWTABLE                         R17 0 2
-       96 MOVE                             R18 R9
-       97 MOVE                             R19 R5
-       98 SETLIST                          R17 R18 2 [1]
-      100 CALL                             R15 2 1
-      101 DUPTABLE                         R16 K19 [{"currentIcon", "filterText", "inputRef", "isOpen", "items", "onCloseMenu", "onFilterTextChanged", "onItemChanged", "onOpenActivated"}]
-      102 SETTABLEKS                       R6 R16 K10 ["currentIcon"]
-      104 SETTABLEKS                       R9 R16 K11 ["filterText"]
-      106 SETTABLEKS                       R13 R16 K12 ["inputRef"]
-      108 SETTABLEKS                       R7 R16 K13 ["isOpen"]
-      110 SETTABLEKS                       R15 R16 K14 ["items"]
-      112 SETTABLEKS                       R12 R16 K15 ["onCloseMenu"]
-      114 SETTABLEKS                       R10 R16 K16 ["onFilterTextChanged"]
-      116 SETTABLEKS                       R14 R16 K17 ["onItemChanged"]
-      118 SETTABLEKS                       R11 R16 K18 ["onOpenActivated"]
-      120 RETURN                           R16 1
+       94 CAPTURE                          UPVAL U8
+       95 NEWTABLE                         R17 0 2
+       97 MOVE                             R18 R9
+       98 MOVE                             R19 R5
+       99 SETLIST                          R17 R18 2 [1]
+      101 CALL                             R15 2 1
+      102 DUPTABLE                         R16 K19 [{"currentIcon", "filterText", "inputRef", "isOpen", "items", "onCloseMenu", "onFilterTextChanged", "onItemChanged", "onOpenActivated"}]
+      103 SETTABLEKS                       R6 R16 K10 ["currentIcon"]
+      105 SETTABLEKS                       R9 R16 K11 ["filterText"]
+      107 SETTABLEKS                       R13 R16 K12 ["inputRef"]
+      109 SETTABLEKS                       R7 R16 K13 ["isOpen"]
+      111 SETTABLEKS                       R15 R16 K14 ["items"]
+      113 SETTABLEKS                       R12 R16 K15 ["onCloseMenu"]
+      115 SETTABLEKS                       R10 R16 K16 ["onFilterTextChanged"]
+      117 SETTABLEKS                       R14 R16 K17 ["onItemChanged"]
+      119 SETTABLEKS                       R11 R16 K18 ["onOpenActivated"]
+      121 RETURN                           R16 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -266,13 +368,19 @@ MAIN:
        80 GETTABLEKS                       R10 R10 K19 ["Cell"]
        82 GETTABLEKS                       R10 R10 K22 ["getBindingKeycodeValue"]
        84 CALL                             R9 1 1
-       85 DUPCLOSURE                       R10 K23 [PROTO_7]
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R9
-       90 CAPTURE                          VAL R7
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R8
-       93 CAPTURE                          VAL R0
-       94 RETURN                           R10 1
+       85 GETTABLEKS                       R10 R1 K13 ["Src"]
+       87 GETTABLEKS                       R10 R10 K23 ["Flags"]
+       89 GETIMPORT                        R11 K9 [require]
+       91 GETTABLEKS                       R12 R10 K24 ["getFFlagIAMDropdownStabilityImprovements"]
+       93 CALL                             R11 1 1
+       94 DUPCLOSURE                       R12 K25 [PROTO_8]
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R5
+       98 CAPTURE                          VAL R9
+       99 CAPTURE                          VAL R7
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R0
+      104 RETURN                           R12 1

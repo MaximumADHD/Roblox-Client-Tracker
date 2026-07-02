@@ -6,39 +6,29 @@ PROTO_0:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K5 ["createElement"]
         9 LOADK                            R5 K6 ["ImageLabel"]
-       10 DUPTABLE                         R6 K10 [{"BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
-       11 LOADN                            R7 1
-       12 SETTABLEKS                       R7 R6 K7 ["BackgroundTransparency"]
-       14 LOADK                            R7 K11 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-       15 SETTABLEKS                       R7 R6 K2 ["Image"]
-       17 LOADN                            R7 1
-       18 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
-       20 GETIMPORT                        R7 K14 [UDim2.fromOffset]
-       22 LOADN                            R8 32
-       23 LOADN                            R9 32
-       24 CALL                             R7 2 1
-       25 SETTABLEKS                       R7 R6 K9 ["Size"]
-       27 CALL                             R4 2 1
-       28 SETTABLEKS                       R4 R3 K2 ["Image"]
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R4 R4 K5 ["createElement"]
-       33 GETUPVAL                         R5 1
-       34 DUPTABLE                         R6 K18 [{"AutomaticSize", "LayoutOrder", "Text", "TextWrapped"}]
-       35 GETIMPORT                        R7 K21 [Enum.AutomaticSize.XY]
-       37 SETTABLEKS                       R7 R6 K15 ["AutomaticSize"]
-       39 LOADN                            R7 2
-       40 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
-       42 LOADK                            R9 K22 ["Plugin"]
-       43 LOADK                            R10 K23 ["ImportConfiguration"]
-       44 NAMECALL                         R7 R1 K24 ["getText"]
-       46 CALL                             R7 3 1
-       47 SETTABLEKS                       R7 R6 K16 ["Text"]
-       49 LOADB                            R7 1
-       50 SETTABLEKS                       R7 R6 K17 ["TextWrapped"]
-       52 CALL                             R4 2 1
-       53 SETTABLEKS                       R4 R3 K3 ["Label"]
-       55 CALL                             R2 1 -1
-       56 RETURN                           R2 -1
+       10 DUPTABLE                         R6 K12 [{["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["LayoutOrder"] = 1, ["Size"]}]
+       11 GETIMPORT                        R7 K15 [UDim2.fromOffset]
+       13 LOADN                            R8 32
+       14 LOADN                            R9 32
+       15 CALL                             R7 2 1
+       16 SETTABLEKS                       R7 R6 K11 ["Size"]
+       18 CALL                             R4 2 1
+       19 SETTABLEKS                       R4 R3 K2 ["Image"]
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R4 R4 K5 ["createElement"]
+       24 GETUPVAL                         R5 1
+       25 DUPTABLE                         R6 K21 [{["AutomaticSize"], ["LayoutOrder"] = 2, ["Text"], ["TextWrapped"] = True}]
+       26 GETIMPORT                        R7 K24 [Enum.AutomaticSize.XY]
+       28 SETTABLEKS                       R7 R6 K16 ["AutomaticSize"]
+       30 LOADK                            R9 K25 ["Plugin"]
+       31 LOADK                            R10 K26 ["ImportConfiguration"]
+       32 NAMECALL                         R7 R1 K27 ["getText"]
+       34 CALL                             R7 3 1
+       35 SETTABLEKS                       R7 R6 K18 ["Text"]
+       37 CALL                             R4 2 1
+       38 SETTABLEKS                       R4 R3 K3 ["Label"]
+       40 CALL                             R2 1 -1
+       41 RETURN                           R2 -1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["Localization"]

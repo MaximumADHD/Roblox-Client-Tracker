@@ -21,28 +21,22 @@ PROTO_1:
        14 RETURN                           R2 1
 
 PROTO_2:
-        0 DUPTABLE                         R1 K3 [{"selected", "showEmailDialog", "bottomText"}]
-        1 LOADN                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["selected"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["showEmailDialog"]
-        7 LOADK                            R2 K4 [""]
-        8 SETTABLEKS                       R2 R1 K2 ["bottomText"]
-       10 SETTABLEKS                       R1 R0 K5 ["state"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K6 ["finishedConnection"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R1 R0 K7 ["changeSelection"]
-       19 GETUPVAL                         R1 0
-       20 GETTABLEKS                       R1 R1 K8 ["createRef"]
-       22 CALL                             R1 0 1
-       23 SETTABLEKS                       R1 R0 K9 ["scrollingFrameRef"]
-       25 NEWCLOSURE                       R1 P1
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U1
-       28 SETTABLEKS                       R1 R0 K10 ["shouldShowEmailDialog"]
-       30 RETURN                           R0 0
+        0 DUPTABLE                         R1 K6 [{[1] = 1, ["showEmailDialog"] = False, ["bottomText"] = ""}]
+        1 SETTABLEKS                       R1 R0 K7 ["state"]
+        3 LOADNIL                          R1
+        4 SETTABLEKS                       R1 R0 K8 ["finishedConnection"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K9 ["changeSelection"]
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R1 R1 K10 ["createRef"]
+       13 CALL                             R1 0 1
+       14 SETTABLEKS                       R1 R0 K11 ["scrollingFrameRef"]
+       16 NEWCLOSURE                       R1 P1
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U1
+       19 SETTABLEKS                       R1 R0 K12 ["shouldShowEmailDialog"]
+       21 RETURN                           R0 0
 
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+14]
@@ -93,65 +87,59 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+14]
+        2 JUMPIFNOT                        R0 ; [+11]
         3 GETUPVAL                         R0 1
         4 GETTABLEKS                       R0 R0 K0 ["shouldShowEmailDialog"]
         6 CALL                             R0 0 1
-        7 JUMPIFNOT                        R0 ; [+9]
+        7 JUMPIFNOT                        R0 ; [+6]
         8 GETUPVAL                         R0 1
-        9 DUPTABLE                         R2 K2 [{"showEmailDialog"}]
-       10 LOADB                            R3 1
-       11 SETTABLEKS                       R3 R2 K1 ["showEmailDialog"]
-       13 NAMECALL                         R0 R0 K3 ["setState"]
-       15 CALL                             R0 2 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R0 0
-       18 CALL                             R0 0 1
-       19 JUMPIFNOT                        R0 ; [+14]
-       20 NEWTABLE                         R0 2 0
-       22 GETUPVAL                         R1 2
-       23 GETUPVAL                         R2 3
+        9 DUPTABLE                         R2 K3 [{["showEmailDialog"] = True}]
+       10 NAMECALL                         R0 R0 K4 ["setState"]
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R0 0
+       15 CALL                             R0 0 1
+       16 JUMPIFNOT                        R0 ; [+14]
+       17 NEWTABLE                         R0 2 0
+       19 GETUPVAL                         R1 2
+       20 GETUPVAL                         R2 3
+       21 SETTABLE                         R2 R0 R1
+       22 GETUPVAL                         R1 4
+       23 LOADB                            R2 0
        24 SETTABLE                         R2 R0 R1
-       25 GETUPVAL                         R1 4
-       26 LOADB                            R2 0
-       27 SETTABLE                         R2 R0 R1
-       28 GETUPVAL                         R1 5
-       29 GETUPVAL                         R2 6
-       30 GETUPVAL                         R3 7
-       31 GETUPVAL                         R4 8
-       32 MOVE                             R5 R0
-       33 CALL                             R1 4 0
-       34 GETUPVAL                         R0 9
-       35 LOADB                            R1 1
-       36 CALL                             R0 1 0
-       37 GETUPVAL                         R0 10
-       38 GETTABLEKS                       R0 R0 K4 ["saveAll"]
-       40 GETUPVAL                         R1 11
-       41 GETUPVAL                         R2 12
-       42 GETUPVAL                         R3 13
-       43 LOADNIL                          R4
-       44 GETUPVAL                         R5 14
-       45 GETUPVAL                         R6 15
-       46 GETTABLEKS                       R6 R6 K5 ["OwnedGroups"]
-       48 CALL                             R0 6 0
-       49 RETURN                           R0 0
+       25 GETUPVAL                         R1 5
+       26 GETUPVAL                         R2 6
+       27 GETUPVAL                         R3 7
+       28 GETUPVAL                         R4 8
+       29 MOVE                             R5 R0
+       30 CALL                             R1 4 0
+       31 GETUPVAL                         R0 9
+       32 LOADB                            R1 1
+       33 CALL                             R0 1 0
+       34 GETUPVAL                         R0 10
+       35 GETTABLEKS                       R0 R0 K5 ["saveAll"]
+       37 GETUPVAL                         R1 11
+       38 GETUPVAL                         R2 12
+       39 GETUPVAL                         R3 13
+       40 LOADNIL                          R4
+       41 GETUPVAL                         R5 14
+       42 GETUPVAL                         R6 15
+       43 GETTABLEKS                       R6 R6 K6 ["OwnedGroups"]
+       45 CALL                             R0 6 0
+       46 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"showEmailDialog", "bottomText"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showEmailDialog"]
-        5 LOADK                            R3 K3 [""]
-        6 SETTABLEKS                       R3 R2 K1 ["bottomText"]
-        8 NAMECALL                         R0 R0 K4 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["bottomText"] = ""}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_8:
         0 JUMPIFEQKS                       R0 K0 ["Submit"] ; [+2]
         2 LOADB                            R3 0 +1
         3 LOADB                            R3 1
-        4 JUMPIFNOT                        R3 ; [+57]
+        4 JUMPIFNOT                        R3 ; [+51]
         5 NEWTABLE                         R4 2 0
         7 GETUPVAL                         R5 0
         8 GETUPVAL                         R6 1
@@ -165,49 +153,41 @@ PROTO_8:
        16 GETUPVAL                         R8 6
        17 MOVE                             R9 R4
        18 CALL                             R5 4 0
-       19 JUMPIFNOTEQ                      R1 R2 ; [+28]
+       19 JUMPIFNOTEQ                      R1 R2 ; [+22]
        21 GETUPVAL                         R5 7
-       22 DUPTABLE                         R7 K3 [{"showEmailDialog", "bottomText"}]
-       23 LOADB                            R8 0
-       24 SETTABLEKS                       R8 R7 K1 ["showEmailDialog"]
-       26 LOADK                            R8 K4 [""]
-       27 SETTABLEKS                       R8 R7 K2 ["bottomText"]
-       29 NAMECALL                         R5 R5 K5 ["setState"]
-       31 CALL                             R5 2 0
-       32 GETUPVAL                         R5 8
-       33 LOADB                            R6 1
-       34 CALL                             R5 1 0
-       35 GETUPVAL                         R5 9
-       36 GETTABLEKS                       R5 R5 K6 ["saveAll"]
-       38 GETUPVAL                         R6 10
-       39 GETUPVAL                         R7 11
-       40 GETUPVAL                         R8 12
-       41 MOVE                             R9 R1
-       42 GETUPVAL                         R10 13
-       43 GETUPVAL                         R11 14
-       44 GETTABLEKS                       R11 R11 K7 ["OwnedGroups"]
-       46 CALL                             R5 6 0
-       47 RETURN                           R0 0
-       48 GETUPVAL                         R5 7
-       49 DUPTABLE                         R7 K8 [{"bottomText"}]
-       50 GETUPVAL                         R8 11
-       51 GETUPVAL                         R10 0
-       52 LOADK                            R11 K9 ["ErrorEmailNotEqual"]
-       53 NAMECALL                         R8 R8 K10 ["getText"]
-       55 CALL                             R8 3 1
-       56 SETTABLEKS                       R8 R7 K2 ["bottomText"]
-       58 NAMECALL                         R5 R5 K5 ["setState"]
-       60 CALL                             R5 2 0
+       22 DUPTABLE                         R7 K5 [{["showEmailDialog"] = False, ["bottomText"] = ""}]
+       23 NAMECALL                         R5 R5 K6 ["setState"]
+       25 CALL                             R5 2 0
+       26 GETUPVAL                         R5 8
+       27 LOADB                            R6 1
+       28 CALL                             R5 1 0
+       29 GETUPVAL                         R5 9
+       30 GETTABLEKS                       R5 R5 K7 ["saveAll"]
+       32 GETUPVAL                         R6 10
+       33 GETUPVAL                         R7 11
+       34 GETUPVAL                         R8 12
+       35 MOVE                             R9 R1
+       36 GETUPVAL                         R10 13
+       37 GETUPVAL                         R11 14
+       38 GETTABLEKS                       R11 R11 K8 ["OwnedGroups"]
+       40 CALL                             R5 6 0
+       41 RETURN                           R0 0
+       42 GETUPVAL                         R5 7
+       43 DUPTABLE                         R7 K9 [{"bottomText"}]
+       44 GETUPVAL                         R8 11
+       45 GETUPVAL                         R10 0
+       46 LOADK                            R11 K10 ["ErrorEmailNotEqual"]
+       47 NAMECALL                         R8 R8 K11 ["getText"]
+       49 CALL                             R8 3 1
+       50 SETTABLEKS                       R8 R7 K3 ["bottomText"]
+       52 NAMECALL                         R5 R5 K6 ["setState"]
+       54 CALL                             R5 2 0
+       55 RETURN                           R0 0
+       56 GETUPVAL                         R4 7
+       57 DUPTABLE                         R6 K5 [{["showEmailDialog"] = False, ["bottomText"] = ""}]
+       58 NAMECALL                         R4 R4 K6 ["setState"]
+       60 CALL                             R4 2 0
        61 RETURN                           R0 0
-       62 GETUPVAL                         R4 7
-       63 DUPTABLE                         R6 K3 [{"showEmailDialog", "bottomText"}]
-       64 LOADB                            R7 0
-       65 SETTABLEKS                       R7 R6 K1 ["showEmailDialog"]
-       67 LOADK                            R7 K4 [""]
-       68 SETTABLEKS                       R7 R6 K2 ["bottomText"]
-       70 NAMECALL                         R4 R4 K5 ["setState"]
-       72 CALL                             R4 2 0
-       73 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -325,138 +305,134 @@ PROTO_9:
       164 CALL                             R22 3 1
       165 SETTABLEKS                       R22 R21 K53 ["Header"]
       167 NEWTABLE                         R22 0 2
-      169 DUPTABLE                         R23 K70 [{"Key", "Text"}]
-      170 LOADK                            R24 K71 ["Submit"]
-      171 SETTABLEKS                       R24 R23 K68 ["Key"]
-      173 LOADK                            R26 K72 ["Button"]
-      174 LOADK                            R27 K71 ["Submit"]
-      175 NAMECALL                         R24 R3 K67 ["getText"]
-      177 CALL                             R24 3 1
-      178 SETTABLEKS                       R24 R23 K69 ["Text"]
-      180 DUPTABLE                         R24 K70 [{"Key", "Text"}]
-      181 LOADK                            R25 K73 ["Cancel"]
-      182 SETTABLEKS                       R25 R24 K68 ["Key"]
-      184 LOADK                            R27 K72 ["Button"]
-      185 LOADK                            R28 K73 ["Cancel"]
-      186 NAMECALL                         R25 R3 K67 ["getText"]
-      188 CALL                             R25 3 1
-      189 SETTABLEKS                       R25 R24 K69 ["Text"]
-      191 SETLIST                          R22 R23 2 [1]
-      193 SETTABLEKS                       R22 R21 K54 ["Buttons"]
-      195 GETUPVAL                         R24 7
-      196 LOADK                            R25 K74 ["EmailDialogBody"]
-      197 NAMECALL                         R22 R3 K67 ["getText"]
-      199 CALL                             R22 3 1
-      200 SETTABLEKS                       R22 R21 K55 ["Body"]
-      202 GETUPVAL                         R24 7
-      203 LOADK                            R25 K75 ["EmailDialogDescription"]
-      204 NAMECALL                         R22 R3 K67 ["getText"]
-      206 CALL                             R22 3 1
-      207 SETTABLEKS                       R22 R21 K56 ["Description"]
-      209 NEWTABLE                         R22 0 2
-      211 DUPTABLE                         R23 K77 [{"PlaceholderText"}]
-      212 GETUPVAL                         R26 7
-      213 LOADK                            R27 K78 ["EmailAddress"]
-      214 NAMECALL                         R24 R3 K67 ["getText"]
-      216 CALL                             R24 3 1
-      217 SETTABLEKS                       R24 R23 K76 ["PlaceholderText"]
-      219 DUPTABLE                         R24 K80 [{"PlaceholderText", "BottomText"}]
-      220 GETUPVAL                         R27 7
-      221 LOADK                            R28 K81 ["ConfirmEmailAddress"]
-      222 NAMECALL                         R25 R3 K67 ["getText"]
-      224 CALL                             R25 3 1
-      225 SETTABLEKS                       R25 R24 K76 ["PlaceholderText"]
-      227 GETTABLEKS                       R25 R0 K11 ["state"]
-      229 GETTABLEKS                       R25 R25 K82 ["bottomText"]
-      231 SETTABLEKS                       R25 R24 K79 ["BottomText"]
-      233 SETLIST                          R22 R23 2 [1]
-      235 SETTABLEKS                       R22 R21 K57 ["TextInput"]
-      237 NEWCLOSURE                       R22 P1
-      238 CAPTURE                          VAL R0
-      239 SETTABLEKS                       R22 R21 K5 ["OnClose"]
-      241 NEWCLOSURE                       R22 P2
-      242 CAPTURE                          UPVAL U7
-      243 CAPTURE                          UPVAL U8
-      244 CAPTURE                          UPVAL U9
-      245 CAPTURE                          UPVAL U10
-      246 CAPTURE                          UPVAL U11
-      247 CAPTURE                          UPVAL U12
-      248 CAPTURE                          UPVAL U13
-      249 CAPTURE                          VAL R0
-      250 CAPTURE                          VAL R10
-      251 CAPTURE                          UPVAL U14
-      252 CAPTURE                          VAL R8
-      253 CAPTURE                          VAL R3
-      254 CAPTURE                          VAL R4
-      255 CAPTURE                          VAL R9
-      256 CAPTURE                          VAL R1
-      257 SETTABLEKS                       R22 R21 K58 ["OnButtonPressed"]
-      259 CALL                             R19 2 1
-      260 SETTABLEKS                       R19 R18 K48 ["EmailDialog"]
-      262 CALL                             R15 3 1
-      263 SETTABLEKS                       R15 R14 K19 ["Footer"]
-      265 GETUPVAL                         R15 1
-      266 GETTABLEKS                       R15 R15 K21 ["createElement"]
-      268 GETUPVAL                         R16 17
-      269 NEWTABLE                         R17 8 0
-      271 LOADN                            R18 1
-      272 SETTABLEKS                       R18 R17 K83 ["BackgroundTransparency"]
-      274 GETIMPORT                        R18 K32 [UDim2.new]
-      276 LOADN                            R19 0
-      277 GETTABLEKS                       R20 R2 K33 ["MENU_BAR_WIDTH"]
-      279 LOADN                            R21 0
-      280 LOADN                            R22 0
-      281 CALL                             R18 4 1
-      282 SETTABLEKS                       R18 R17 K27 ["Position"]
-      284 GETIMPORT                        R18 K32 [UDim2.new]
-      286 LOADN                            R19 1
-      287 GETTABLEKS                       R21 R2 K33 ["MENU_BAR_WIDTH"]
-      289 MINUS                            R20 R21
-      290 LOADN                            R21 1
-      291 GETTABLEKS                       R23 R2 K84 ["FOOTER_HEIGHT"]
-      293 MINUS                            R22 R23
-      294 CALL                             R18 4 1
-      295 SETTABLEKS                       R18 R17 K51 ["Size"]
-      297 GETIMPORT                        R18 K32 [UDim2.new]
-      299 LOADN                            R19 1
-      300 GETTABLEKS                       R21 R2 K33 ["MENU_BAR_WIDTH"]
-      302 MINUS                            R20 R21
-      303 LOADN                            R21 0
-      304 LOADN                            R22 0
-      305 CALL                             R18 4 1
-      306 SETTABLEKS                       R18 R17 K85 ["CanvasSize"]
-      308 GETIMPORT                        R18 K87 [Enum.AutomaticSize.Y]
-      310 SETTABLEKS                       R18 R17 K88 ["AutomaticCanvasSize"]
-      312 GETUPVAL                         R18 1
-      313 GETTABLEKS                       R18 R18 K89 ["Ref"]
-      315 GETTABLEKS                       R19 R0 K90 ["scrollingFrameRef"]
-      317 SETTABLE                         R19 R17 R18
-      318 NEWTABLE                         R18 0 1
-      320 GETUPVAL                         R19 1
-      321 GETTABLEKS                       R19 R19 K21 ["createElement"]
-      323 GETUPVAL                         R20 18
-      324 DUPTABLE                         R21 K91 [{"IsPublish"}]
-      325 SETTABLEKS                       R9 R21 K9 ["IsPublish"]
-      327 CALL                             R19 2 -1
-      328 SETLIST                          R18 R19 -1 [1]
-      330 CALL                             R15 3 1
-      331 SETTABLEKS                       R15 R14 K92 ["Page"]
-      333 GETUPVAL                         R15 1
-      334 GETTABLEKS                       R15 R15 K21 ["createElement"]
-      336 LOADK                            R16 K93 ["Frame"]
-      337 DUPTABLE                         R17 K95 [{"Size", "BackgroundColor3"}]
-      338 GETIMPORT                        R18 K32 [UDim2.new]
-      340 LOADN                            R19 1
-      341 LOADN                            R20 0
-      342 LOADN                            R21 1
-      343 LOADN                            R22 0
-      344 CALL                             R18 4 1
-      345 SETTABLEKS                       R18 R17 K51 ["Size"]
-      347 GETTABLEKS                       R18 R2 K96 ["backgroundColor"]
-      349 SETTABLEKS                       R18 R17 K94 ["BackgroundColor3"]
-      351 MOVE                             R18 R14
-      352 CALL                             R15 3 -1
-      353 RETURN                           R15 -1
+      169 DUPTABLE                         R23 K71 [{["Key"] = "Submit", ["Text"]}]
+      170 LOADK                            R26 K72 ["Button"]
+      171 LOADK                            R27 K69 ["Submit"]
+      172 NAMECALL                         R24 R3 K67 ["getText"]
+      174 CALL                             R24 3 1
+      175 SETTABLEKS                       R24 R23 K70 ["Text"]
+      177 DUPTABLE                         R24 K74 [{["Key"] = "Cancel", ["Text"]}]
+      178 LOADK                            R27 K72 ["Button"]
+      179 LOADK                            R28 K73 ["Cancel"]
+      180 NAMECALL                         R25 R3 K67 ["getText"]
+      182 CALL                             R25 3 1
+      183 SETTABLEKS                       R25 R24 K70 ["Text"]
+      185 SETLIST                          R22 R23 2 [1]
+      187 SETTABLEKS                       R22 R21 K54 ["Buttons"]
+      189 GETUPVAL                         R24 7
+      190 LOADK                            R25 K75 ["EmailDialogBody"]
+      191 NAMECALL                         R22 R3 K67 ["getText"]
+      193 CALL                             R22 3 1
+      194 SETTABLEKS                       R22 R21 K55 ["Body"]
+      196 GETUPVAL                         R24 7
+      197 LOADK                            R25 K76 ["EmailDialogDescription"]
+      198 NAMECALL                         R22 R3 K67 ["getText"]
+      200 CALL                             R22 3 1
+      201 SETTABLEKS                       R22 R21 K56 ["Description"]
+      203 NEWTABLE                         R22 0 2
+      205 DUPTABLE                         R23 K78 [{"PlaceholderText"}]
+      206 GETUPVAL                         R26 7
+      207 LOADK                            R27 K79 ["EmailAddress"]
+      208 NAMECALL                         R24 R3 K67 ["getText"]
+      210 CALL                             R24 3 1
+      211 SETTABLEKS                       R24 R23 K77 ["PlaceholderText"]
+      213 DUPTABLE                         R24 K81 [{"PlaceholderText", "BottomText"}]
+      214 GETUPVAL                         R27 7
+      215 LOADK                            R28 K82 ["ConfirmEmailAddress"]
+      216 NAMECALL                         R25 R3 K67 ["getText"]
+      218 CALL                             R25 3 1
+      219 SETTABLEKS                       R25 R24 K77 ["PlaceholderText"]
+      221 GETTABLEKS                       R25 R0 K11 ["state"]
+      223 GETTABLEKS                       R25 R25 K83 ["bottomText"]
+      225 SETTABLEKS                       R25 R24 K80 ["BottomText"]
+      227 SETLIST                          R22 R23 2 [1]
+      229 SETTABLEKS                       R22 R21 K57 ["TextInput"]
+      231 NEWCLOSURE                       R22 P1
+      232 CAPTURE                          VAL R0
+      233 SETTABLEKS                       R22 R21 K5 ["OnClose"]
+      235 NEWCLOSURE                       R22 P2
+      236 CAPTURE                          UPVAL U7
+      237 CAPTURE                          UPVAL U8
+      238 CAPTURE                          UPVAL U9
+      239 CAPTURE                          UPVAL U10
+      240 CAPTURE                          UPVAL U11
+      241 CAPTURE                          UPVAL U12
+      242 CAPTURE                          UPVAL U13
+      243 CAPTURE                          VAL R0
+      244 CAPTURE                          VAL R10
+      245 CAPTURE                          UPVAL U14
+      246 CAPTURE                          VAL R8
+      247 CAPTURE                          VAL R3
+      248 CAPTURE                          VAL R4
+      249 CAPTURE                          VAL R9
+      250 CAPTURE                          VAL R1
+      251 SETTABLEKS                       R22 R21 K58 ["OnButtonPressed"]
+      253 CALL                             R19 2 1
+      254 SETTABLEKS                       R19 R18 K48 ["EmailDialog"]
+      256 CALL                             R15 3 1
+      257 SETTABLEKS                       R15 R14 K19 ["Footer"]
+      259 GETUPVAL                         R15 1
+      260 GETTABLEKS                       R15 R15 K21 ["createElement"]
+      262 GETUPVAL                         R16 17
+      263 NEWTABLE                         R17 8 0
+      265 LOADN                            R18 1
+      266 SETTABLEKS                       R18 R17 K84 ["BackgroundTransparency"]
+      268 GETIMPORT                        R18 K32 [UDim2.new]
+      270 LOADN                            R19 0
+      271 GETTABLEKS                       R20 R2 K33 ["MENU_BAR_WIDTH"]
+      273 LOADN                            R21 0
+      274 LOADN                            R22 0
+      275 CALL                             R18 4 1
+      276 SETTABLEKS                       R18 R17 K27 ["Position"]
+      278 GETIMPORT                        R18 K32 [UDim2.new]
+      280 LOADN                            R19 1
+      281 GETTABLEKS                       R21 R2 K33 ["MENU_BAR_WIDTH"]
+      283 MINUS                            R20 R21
+      284 LOADN                            R21 1
+      285 GETTABLEKS                       R23 R2 K85 ["FOOTER_HEIGHT"]
+      287 MINUS                            R22 R23
+      288 CALL                             R18 4 1
+      289 SETTABLEKS                       R18 R17 K51 ["Size"]
+      291 GETIMPORT                        R18 K32 [UDim2.new]
+      293 LOADN                            R19 1
+      294 GETTABLEKS                       R21 R2 K33 ["MENU_BAR_WIDTH"]
+      296 MINUS                            R20 R21
+      297 LOADN                            R21 0
+      298 LOADN                            R22 0
+      299 CALL                             R18 4 1
+      300 SETTABLEKS                       R18 R17 K86 ["CanvasSize"]
+      302 GETIMPORT                        R18 K88 [Enum.AutomaticSize.Y]
+      304 SETTABLEKS                       R18 R17 K89 ["AutomaticCanvasSize"]
+      306 GETUPVAL                         R18 1
+      307 GETTABLEKS                       R18 R18 K90 ["Ref"]
+      309 GETTABLEKS                       R19 R0 K91 ["scrollingFrameRef"]
+      311 SETTABLE                         R19 R17 R18
+      312 NEWTABLE                         R18 0 1
+      314 GETUPVAL                         R19 1
+      315 GETTABLEKS                       R19 R19 K21 ["createElement"]
+      317 GETUPVAL                         R20 18
+      318 DUPTABLE                         R21 K92 [{"IsPublish"}]
+      319 SETTABLEKS                       R9 R21 K9 ["IsPublish"]
+      321 CALL                             R19 2 -1
+      322 SETLIST                          R18 R19 -1 [1]
+      324 CALL                             R15 3 1
+      325 SETTABLEKS                       R15 R14 K93 ["Page"]
+      327 GETUPVAL                         R15 1
+      328 GETTABLEKS                       R15 R15 K21 ["createElement"]
+      330 LOADK                            R16 K94 ["Frame"]
+      331 DUPTABLE                         R17 K96 [{"Size", "BackgroundColor3"}]
+      332 GETIMPORT                        R18 K32 [UDim2.new]
+      334 LOADN                            R19 1
+      335 LOADN                            R20 0
+      336 LOADN                            R21 1
+      337 LOADN                            R22 0
+      338 CALL                             R18 4 1
+      339 SETTABLEKS                       R18 R17 K51 ["Size"]
+      341 GETTABLEKS                       R18 R2 K97 ["backgroundColor"]
+      343 SETTABLEKS                       R18 R17 K95 ["BackgroundColor3"]
+      345 MOVE                             R18 R14
+      346 CALL                             R15 3 -1
+      347 RETURN                           R15 -1
 
 PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["NewGameSettings"]
@@ -507,29 +483,25 @@ PROTO_11:
 PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K6 [{"id", "name", "parentGameName", "parentGameId", "settings", "failed"}]
-        3 GETIMPORT                        R4 K8 [game]
-        5 GETTABLEKS                       R4 R4 K9 ["GameId"]
+        2 DUPTABLE                         R3 K8 [{[1], ["name"], ["parentGameName"], ["parentGameId"] = 0, ["settings"], ["failed"] = True}]
+        3 GETIMPORT                        R4 K10 [game]
+        5 GETTABLEKS                       R4 R4 K11 ["GameId"]
         7 SETTABLEKS                       R4 R3 K0 ["id"]
         9 GETTABLEKS                       R4 R0 K1 ["name"]
        11 SETTABLEKS                       R4 R3 K1 ["name"]
        13 GETTABLEKS                       R4 R0 K1 ["name"]
        15 SETTABLEKS                       R4 R3 K2 ["parentGameName"]
-       17 LOADN                            R4 0
-       18 SETTABLEKS                       R4 R3 K3 ["parentGameId"]
-       20 SETTABLEKS                       R0 R3 K4 ["settings"]
-       22 LOADB                            R4 1
-       23 SETTABLEKS                       R4 R3 K5 ["failed"]
-       25 CALL                             R2 1 -1
-       26 CALL                             R1 -1 0
-       27 GETUPVAL                         R1 0
-       28 GETUPVAL                         R2 2
-       29 GETUPVAL                         R3 3
-       30 GETTABLEKS                       R3 R3 K10 ["SCREENS"]
-       32 GETTABLEKS                       R3 R3 K11 ["PUBLISH_FAIL"]
-       34 CALL                             R2 1 -1
-       35 CALL                             R1 -1 0
-       36 RETURN                           R0 0
+       17 SETTABLEKS                       R0 R3 K5 ["settings"]
+       19 CALL                             R2 1 -1
+       20 CALL                             R1 -1 0
+       21 GETUPVAL                         R1 0
+       22 GETUPVAL                         R2 2
+       23 GETUPVAL                         R3 3
+       24 GETTABLEKS                       R3 R3 K12 ["SCREENS"]
+       26 GETTABLEKS                       R3 R3 K13 ["PUBLISH_FAIL"]
+       28 CALL                             R2 1 -1
+       29 CALL                             R1 -1 0
+       30 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R1 0

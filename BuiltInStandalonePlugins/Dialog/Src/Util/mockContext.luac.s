@@ -145,32 +145,28 @@ MAIN:
        98 GETTABLEKS                       R17 R17 K34 ["registerPluginStyles"]
       100 LOADNIL                          R18
       101 GETTABLEKS                       R19 R10 K35 ["new"]
-      103 DUPTABLE                         R20 K40 [{"stringResourceTable", "translationResourceTable", "pluginName", "overrideLocaleId"}]
+      103 DUPTABLE                         R20 K42 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DialogPlugin", ["overrideLocaleId"] = "en-US"}]
       104 SETTABLEKS                       R5 R20 K36 ["stringResourceTable"]
       106 SETTABLEKS                       R3 R20 K37 ["translationResourceTable"]
-      108 LOADK                            R21 K41 ["DialogPlugin"]
-      109 SETTABLEKS                       R21 R20 K38 ["pluginName"]
-      111 LOADK                            R21 K42 ["en-US"]
-      112 SETTABLEKS                       R21 R20 K39 ["overrideLocaleId"]
-      114 CALL                             R19 1 1
-      115 DUPCLOSURE                       R20 K43 [PROTO_1]
-      116 CAPTURE                          VAL R4
-      117 CAPTURE                          VAL R1
-      118 CAPTURE                          VAL R15
-      119 NEWCLOSURE                       R21 P1
-      120 CAPTURE                          VAL R0
-      121 CAPTURE                          REF R18
-      122 CAPTURE                          VAL R8
-      123 CAPTURE                          VAL R17
-      124 CAPTURE                          VAL R16
-      125 CAPTURE                          VAL R9
-      126 CAPTURE                          VAL R19
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R12
-      129 CAPTURE                          VAL R15
-      130 CAPTURE                          VAL R7
-      131 CAPTURE                          VAL R11
-      132 CAPTURE                          VAL R14
-      133 CAPTURE                          VAL R20
-      134 CLOSEUPVALS                      R18
-      135 RETURN                           R21 1
+      108 CALL                             R19 1 1
+      109 DUPCLOSURE                       R20 K43 [PROTO_1]
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R15
+      113 NEWCLOSURE                       R21 P1
+      114 CAPTURE                          VAL R0
+      115 CAPTURE                          REF R18
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R17
+      118 CAPTURE                          VAL R16
+      119 CAPTURE                          VAL R9
+      120 CAPTURE                          VAL R19
+      121 CAPTURE                          VAL R13
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R15
+      124 CAPTURE                          VAL R7
+      125 CAPTURE                          VAL R11
+      126 CAPTURE                          VAL R14
+      127 CAPTURE                          VAL R20
+      128 CLOSEUPVALS                      R18
+      129 RETURN                           R21 1

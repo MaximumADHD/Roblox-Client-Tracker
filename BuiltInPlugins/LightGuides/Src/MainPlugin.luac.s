@@ -26,55 +26,45 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R0 K5 [{"_folder", "_wireframePools", "_wireframes", "_storedLightGuides", "_listener"}]
+        0 DUPTABLE                         R0 K7 [{[1], ["_wireframePools"], ["_wireframes"], ["_storedLightGuides"] = 0, ["_listener"] = }]
         1 GETUPVAL                         R1 0
-        2 LOADK                            R3 K6 ["LightGuides"]
-        3 NAMECALL                         R1 R1 K7 ["FindFirstChild"]
+        2 LOADK                            R3 K8 ["LightGuides"]
+        3 NAMECALL                         R1 R1 K9 ["FindFirstChild"]
         5 CALL                             R1 2 1
         6 SETTABLEKS                       R1 R0 K0 ["_folder"]
         8 NEWTABLE                         R1 4 0
-       10 GETUPVAL                         R2 1
-       11 GETTABLEKS                       R2 R2 K8 ["PointLight"]
-       13 NEWTABLE                         R3 0 0
-       15 SETTABLE                         R3 R1 R2
-       16 GETUPVAL                         R2 1
-       17 GETTABLEKS                       R2 R2 K9 ["SpotLight"]
-       19 NEWTABLE                         R3 0 0
-       21 SETTABLE                         R3 R1 R2
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R2 R2 K10 ["SurfaceLight"]
-       25 NEWTABLE                         R3 0 0
-       27 SETTABLE                         R3 R1 R2
-       28 SETTABLEKS                       R1 R0 K1 ["_wireframePools"]
-       30 NEWTABLE                         R1 0 0
-       32 SETTABLEKS                       R1 R0 K2 ["_wireframes"]
-       34 LOADN                            R1 0
-       35 SETTABLEKS                       R1 R0 K3 ["_storedLightGuides"]
-       37 LOADNIL                          R1
-       38 SETTABLEKS                       R1 R0 K4 ["_listener"]
-       40 GETTABLEKS                       R1 R0 K0 ["_folder"]
-       42 JUMPIF                           R1 ; [+12]
-       43 GETIMPORT                        R1 K13 [Instance.new]
-       45 LOADK                            R2 K14 ["Folder"]
-       46 CALL                             R1 1 1
-       47 LOADK                            R2 K6 ["LightGuides"]
-       48 SETTABLEKS                       R2 R1 K15 ["Name"]
-       50 GETUPVAL                         R2 0
-       51 SETTABLEKS                       R2 R1 K16 ["Parent"]
-       53 SETTABLEKS                       R1 R0 K0 ["_folder"]
-       55 GETUPVAL                         R3 2
-       56 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       58 MOVE                             R2 R0
-       59 GETIMPORT                        R1 K18 [setmetatable]
-       61 CALL                             R1 2 0
-       62 GETUPVAL                         R1 3
-       63 GETTABLEKS                       R1 R1 K19 ["SelectionChangedThisFrame"]
-       65 NEWCLOSURE                       R3 P0
-       66 CAPTURE                          VAL R0
-       67 NAMECALL                         R1 R1 K20 ["Connect"]
-       69 CALL                             R1 2 1
-       70 SETTABLEKS                       R1 R0 K4 ["_listener"]
-       72 RETURN                           R0 1
+       10 NEWTABLE                         R2 0 0
+       12 SETTABLEKS                       R2 R1 K10 ["PointLight"]
+       14 NEWTABLE                         R2 0 0
+       16 SETTABLEKS                       R2 R1 K11 ["SpotLight"]
+       18 NEWTABLE                         R2 0 0
+       20 SETTABLEKS                       R2 R1 K12 ["SurfaceLight"]
+       22 SETTABLEKS                       R1 R0 K1 ["_wireframePools"]
+       24 NEWTABLE                         R1 0 0
+       26 SETTABLEKS                       R1 R0 K2 ["_wireframes"]
+       28 GETTABLEKS                       R1 R0 K0 ["_folder"]
+       30 JUMPIF                           R1 ; [+12]
+       31 GETIMPORT                        R1 K15 [Instance.new]
+       33 LOADK                            R2 K16 ["Folder"]
+       34 CALL                             R1 1 1
+       35 LOADK                            R2 K8 ["LightGuides"]
+       36 SETTABLEKS                       R2 R1 K17 ["Name"]
+       38 GETUPVAL                         R2 0
+       39 SETTABLEKS                       R2 R1 K18 ["Parent"]
+       41 SETTABLEKS                       R1 R0 K0 ["_folder"]
+       43 GETUPVAL                         R3 1
+       44 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       46 MOVE                             R2 R0
+       47 GETIMPORT                        R1 K20 [setmetatable]
+       49 CALL                             R1 2 0
+       50 GETUPVAL                         R1 2
+       51 GETTABLEKS                       R1 R1 K21 ["SelectionChangedThisFrame"]
+       53 NEWCLOSURE                       R3 P0
+       54 CAPTURE                          VAL R0
+       55 NAMECALL                         R1 R1 K22 ["Connect"]
+       57 CALL                             R1 2 1
+       58 SETTABLEKS                       R1 R0 K5 ["_listener"]
+       60 RETURN                           R0 1
 
 PROTO_3:
         0 NEWTABLE                         R1 0 0
@@ -277,51 +267,41 @@ MAIN:
        38 GETIMPORT                        R7 K4 [require]
        40 GETTABLEKS                       R8 R2 K12 ["isProtectedInstance"]
        42 CALL                             R7 1 1
-       43 DUPTABLE                         R8 K16 [{"PointLight", "SpotLight", "SurfaceLight"}]
-       44 LOADK                            R9 K13 ["PointLight"]
-       45 SETTABLEKS                       R9 R8 K13 ["PointLight"]
-       47 LOADK                            R9 K14 ["SpotLight"]
-       48 SETTABLEKS                       R9 R8 K14 ["SpotLight"]
-       50 LOADK                            R9 K15 ["SurfaceLight"]
-       51 SETTABLEKS                       R9 R8 K15 ["SurfaceLight"]
-       53 NEWTABLE                         R9 4 0
-       55 GETTABLEKS                       R10 R8 K13 ["PointLight"]
-       57 GETTABLEKS                       R11 R4 K17 ["new"]
-       59 SETTABLE                         R11 R9 R10
-       60 GETTABLEKS                       R10 R8 K14 ["SpotLight"]
-       62 GETTABLEKS                       R11 R5 K17 ["new"]
-       64 SETTABLE                         R11 R9 R10
-       65 GETTABLEKS                       R10 R8 K15 ["SurfaceLight"]
-       67 GETTABLEKS                       R11 R6 K17 ["new"]
-       69 SETTABLE                         R11 R9 R10
-       70 GETIMPORT                        R10 K19 [game]
-       72 LOADK                            R12 K20 ["Selection"]
-       73 NAMECALL                         R10 R10 K21 ["GetService"]
-       75 CALL                             R10 2 1
-       76 GETIMPORT                        R11 K19 [game]
-       78 LOADK                            R13 K22 ["CoreGui"]
-       79 NAMECALL                         R11 R11 K21 ["GetService"]
-       81 CALL                             R11 2 1
-       82 DUPCLOSURE                       R12 K23 [PROTO_0]
-       83 CAPTURE                          VAL R9
-       84 NEWTABLE                         R13 8 0
-       86 SETTABLEKS                       R13 R13 K24 ["__index"]
-       88 DUPCLOSURE                       R14 K25 [PROTO_2]
-       89 CAPTURE                          VAL R11
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R13
-       92 CAPTURE                          VAL R10
-       93 SETTABLEKS                       R14 R13 K17 ["new"]
-       95 DUPCLOSURE                       R14 K26 [PROTO_3]
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R7
-       98 CAPTURE                          VAL R3
-       99 CAPTURE                          VAL R9
-      100 SETTABLEKS                       R14 R13 K27 ["renderSelection"]
-      102 DUPCLOSURE                       R14 K28 [PROTO_4]
-      103 SETTABLEKS                       R14 R13 K29 ["emptyPools"]
-      105 DUPCLOSURE                       R14 K30 [PROTO_5]
-      106 SETTABLEKS                       R14 R13 K31 ["emptyWireframes"]
-      108 DUPCLOSURE                       R14 K32 [PROTO_6]
-      109 SETTABLEKS                       R14 R13 K33 ["destroy"]
-      111 RETURN                           R13 1
+       43 DUPTABLE                         R8 K16 [{["PointLight"] = "PointLight", ["SpotLight"] = "SpotLight", ["SurfaceLight"] = "SurfaceLight"}]
+       44 NEWTABLE                         R9 4 0
+       46 GETTABLEKS                       R10 R4 K17 ["new"]
+       48 SETTABLEKS                       R10 R9 K13 ["PointLight"]
+       50 GETTABLEKS                       R10 R5 K17 ["new"]
+       52 SETTABLEKS                       R10 R9 K14 ["SpotLight"]
+       54 GETTABLEKS                       R10 R6 K17 ["new"]
+       56 SETTABLEKS                       R10 R9 K15 ["SurfaceLight"]
+       58 GETIMPORT                        R10 K19 [game]
+       60 LOADK                            R12 K20 ["Selection"]
+       61 NAMECALL                         R10 R10 K21 ["GetService"]
+       63 CALL                             R10 2 1
+       64 GETIMPORT                        R11 K19 [game]
+       66 LOADK                            R13 K22 ["CoreGui"]
+       67 NAMECALL                         R11 R11 K21 ["GetService"]
+       69 CALL                             R11 2 1
+       70 DUPCLOSURE                       R12 K23 [PROTO_0]
+       71 CAPTURE                          VAL R9
+       72 NEWTABLE                         R13 8 0
+       74 SETTABLEKS                       R13 R13 K24 ["__index"]
+       76 DUPCLOSURE                       R14 K25 [PROTO_2]
+       77 CAPTURE                          VAL R11
+       78 CAPTURE                          VAL R13
+       79 CAPTURE                          VAL R10
+       80 SETTABLEKS                       R14 R13 K17 ["new"]
+       82 DUPCLOSURE                       R14 K26 [PROTO_3]
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R7
+       85 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R9
+       87 SETTABLEKS                       R14 R13 K27 ["renderSelection"]
+       89 DUPCLOSURE                       R14 K28 [PROTO_4]
+       90 SETTABLEKS                       R14 R13 K29 ["emptyPools"]
+       92 DUPCLOSURE                       R14 K30 [PROTO_5]
+       93 SETTABLEKS                       R14 R13 K31 ["emptyWireframes"]
+       95 DUPCLOSURE                       R14 K32 [PROTO_6]
+       96 SETTABLEKS                       R14 R13 K33 ["destroy"]
+       98 RETURN                           R13 1

@@ -24,116 +24,90 @@ PROTO_1:
        21 GETTABLEKS                       R4 R4 K6 ["MainPlugin"]
        23 CALL                             R3 1 1
        24 LOADK                            R6 K7 ["Ribbon"]
-       25 DUPTABLE                         R7 K18 [{"Id", "InitialEnabled", "MinSize", "Modal", "Panel", "Resizable", "Size", "Title", "Parent", "AddToParentLayout"}]
-       26 LOADK                            R8 K7 ["Ribbon"]
-       27 SETTABLEKS                       R8 R7 K8 ["Id"]
-       29 LOADB                            R8 1
-       30 SETTABLEKS                       R8 R7 K9 ["InitialEnabled"]
-       32 GETIMPORT                        R8 K21 [Vector2.new]
-       34 LOADN                            R9 128
-       35 GETUPVAL                         R11 1
-       36 CALL                             R11 0 1
-       37 JUMPIFNOT                        R11 ; [+2]
-       38 LOADN                            R10 29
-       39 JUMP                             ; [+1]
-       40 LOADN                            R10 129
-       41 CALL                             R8 2 1
-       42 SETTABLEKS                       R8 R7 K10 ["MinSize"]
-       44 LOADB                            R8 0
-       45 SETTABLEKS                       R8 R7 K11 ["Modal"]
-       47 LOADB                            R8 1
-       48 SETTABLEKS                       R8 R7 K12 ["Panel"]
-       50 LOADB                            R8 1
-       51 SETTABLEKS                       R8 R7 K13 ["Resizable"]
-       53 GETIMPORT                        R8 K21 [Vector2.new]
-       55 LOADN                            R9 128
-       56 LOADN                            R10 129
-       57 CALL                             R8 2 1
-       58 SETTABLEKS                       R8 R7 K14 ["Size"]
-       60 LOADK                            R8 K7 ["Ribbon"]
-       61 SETTABLEKS                       R8 R7 K15 ["Title"]
-       63 LOADK                            R8 K22 ["studioTopBar"]
-       64 SETTABLEKS                       R8 R7 K16 ["Parent"]
-       66 LOADB                            R8 1
-       67 SETTABLEKS                       R8 R7 K17 ["AddToParentLayout"]
-       69 NAMECALL                         R4 R0 K23 ["CreateQWidgetPluginGui"]
-       71 CALL                             R4 3 1
-       72 GETIMPORT                        R5 K25 [print]
-       74 LOADK                            R6 K26 ["Loading Lua Ribbon, was enabled?"]
-       75 GETTABLEKS                       R7 R4 K27 ["Enabled"]
-       77 CALL                             R5 2 0
-       78 LOADB                            R5 1
-       79 SETTABLEKS                       R5 R4 K27 ["Enabled"]
-       81 LOADK                            R5 K7 ["Ribbon"]
-       82 SETTABLEKS                       R5 R4 K15 ["Title"]
-       84 GETUPVAL                         R5 2
-       85 CALL                             R5 0 1
-       86 JUMPIFNOT                        R5 ; [+3]
-       87 LOADK                            R5 K7 ["Ribbon"]
-       88 SETTABLEKS                       R5 R4 K28 ["Name"]
-       90 GETIMPORT                        R5 K32 [Enum.ZIndexBehavior.Sibling]
-       92 SETTABLEKS                       R5 R4 K30 ["ZIndexBehavior"]
-       94 LOADK                            R7 K33 ["Floating"]
-       95 DUPTABLE                         R8 K36 [{"Id", "Popup", "Resizable", "Title", "ZIndex"}]
-       96 LOADK                            R9 K33 ["Floating"]
-       97 SETTABLEKS                       R9 R8 K8 ["Id"]
-       99 DUPTABLE                         R9 K38 [{"PassesThroughMouseEvents"}]
-      100 LOADB                            R10 1
-      101 SETTABLEKS                       R10 R9 K37 ["PassesThroughMouseEvents"]
-      103 SETTABLEKS                       R9 R8 K34 ["Popup"]
-      105 LOADB                            R9 1
-      106 SETTABLEKS                       R9 R8 K13 ["Resizable"]
-      108 LOADK                            R9 K33 ["Floating"]
-      109 SETTABLEKS                       R9 R8 K15 ["Title"]
-      111 LOADN                            R9 50
-      112 SETTABLEKS                       R9 R8 K35 ["ZIndex"]
-      114 NAMECALL                         R5 R0 K23 ["CreateQWidgetPluginGui"]
-      116 CALL                             R5 3 1
-      117 LOADK                            R6 K39 ["FloatingRibbon"]
-      118 SETTABLEKS                       R6 R5 K15 ["Title"]
-      120 GETIMPORT                        R6 K32 [Enum.ZIndexBehavior.Sibling]
-      122 SETTABLEKS                       R6 R5 K30 ["ZIndexBehavior"]
-      124 GETTABLEKS                       R6 R1 K40 ["createElement"]
-      126 MOVE                             R7 R3
-      127 DUPTABLE                         R8 K44 [{"Plugin", "Widget", "Floating", "Mdi"}]
-      128 SETTABLEKS                       R0 R8 K41 ["Plugin"]
-      130 SETTABLEKS                       R4 R8 K42 ["Widget"]
-      132 SETTABLEKS                       R5 R8 K33 ["Floating"]
-      134 GETTABLEKS                       R9 R0 K45 ["MultipleDocumentInterfaceInstance"]
-      136 SETTABLEKS                       R9 R8 K43 ["Mdi"]
-      138 CALL                             R6 2 1
-      139 GETTABLEKS                       R7 R2 K46 ["createRoot"]
-      141 MOVE                             R8 R4
-      142 CALL                             R7 1 1
-      143 MOVE                             R10 R6
-      144 NAMECALL                         R8 R7 K47 ["render"]
-      146 CALL                             R8 2 0
-      147 GETTABLEKS                       R8 R0 K48 ["Unloading"]
-      149 NEWCLOSURE                       R10 P0
-      150 CAPTURE                          VAL R7
-      151 CAPTURE                          VAL R4
-      152 NAMECALL                         R8 R8 K49 ["Once"]
-      154 CALL                             R8 2 0
-      155 GETUPVAL                         R8 3
-      156 CALL                             R8 0 1
-      157 JUMPIFNOT                        R8 ; [+23]
-      158 GETIMPORT                        R8 K51 [game]
-      160 LOADK                            R10 K52 ["RobloxPluginGuiService"]
-      161 NAMECALL                         R8 R8 K53 ["GetService"]
-      163 CALL                             R8 2 1
-      164 GETIMPORT                        R9 K1 [require]
-      166 GETUPVAL                         R10 0
-      167 GETTABLEKS                       R10 R10 K5 ["Src"]
-      169 GETTABLEKS                       R10 R10 K54 ["FoundationInspector"]
-      171 CALL                             R9 1 1
-      172 GETTABLEKS                       R10 R9 K55 ["open"]
-      174 MOVE                             R11 R0
-      175 CALL                             R10 1 0
-      176 GETTABLEKS                       R10 R9 K56 ["watchDockWidgets"]
-      178 MOVE                             R11 R0
-      179 MOVE                             R12 R8
-      180 CALL                             R10 2 0
-      181 RETURN                           R0 0
+       25 DUPTABLE                         R7 K21 [{["Id"] = "Ribbon", ["InitialEnabled"] = True, ["MinSize"], ["Modal"] = False, ["Panel"] = True, ["Resizable"] = True, ["Size"], ["Title"] = "Ribbon", ["Parent"] = "studioTopBar", ["AddToParentLayout"] = True}]
+       26 GETIMPORT                        R8 K24 [Vector2.new]
+       28 LOADN                            R9 640
+       29 GETUPVAL                         R11 1
+       30 CALL                             R11 0 1
+       31 JUMPIFNOT                        R11 ; [+2]
+       32 LOADN                            R10 29
+       33 JUMP                             ; [+1]
+       34 LOADN                            R10 129
+       35 CALL                             R8 2 1
+       36 SETTABLEKS                       R8 R7 K11 ["MinSize"]
+       38 GETIMPORT                        R8 K24 [Vector2.new]
+       40 LOADN                            R9 640
+       41 LOADN                            R10 129
+       42 CALL                             R8 2 1
+       43 SETTABLEKS                       R8 R7 K16 ["Size"]
+       45 NAMECALL                         R4 R0 K25 ["CreateQWidgetPluginGui"]
+       47 CALL                             R4 3 1
+       48 GETIMPORT                        R5 K27 [print]
+       50 LOADK                            R6 K28 ["Loading Lua Ribbon, was enabled?"]
+       51 GETTABLEKS                       R7 R4 K29 ["Enabled"]
+       53 CALL                             R5 2 0
+       54 LOADB                            R5 1
+       55 SETTABLEKS                       R5 R4 K29 ["Enabled"]
+       57 LOADK                            R5 K7 ["Ribbon"]
+       58 SETTABLEKS                       R5 R4 K17 ["Title"]
+       60 GETUPVAL                         R5 2
+       61 CALL                             R5 0 1
+       62 JUMPIFNOT                        R5 ; [+3]
+       63 LOADK                            R5 K7 ["Ribbon"]
+       64 SETTABLEKS                       R5 R4 K30 ["Name"]
+       66 GETIMPORT                        R5 K34 [Enum.ZIndexBehavior.Sibling]
+       68 SETTABLEKS                       R5 R4 K32 ["ZIndexBehavior"]
+       70 LOADK                            R7 K35 ["Floating"]
+       71 DUPTABLE                         R8 K39 [{["Id"] = "Floating", ["Popup"], ["Resizable"] = True, ["Title"] = "Floating", ["ZIndex"] = 50}]
+       72 DUPTABLE                         R9 K41 [{["PassesThroughMouseEvents"] = True}]
+       73 SETTABLEKS                       R9 R8 K36 ["Popup"]
+       75 NAMECALL                         R5 R0 K25 ["CreateQWidgetPluginGui"]
+       77 CALL                             R5 3 1
+       78 LOADK                            R6 K42 ["FloatingRibbon"]
+       79 SETTABLEKS                       R6 R5 K17 ["Title"]
+       81 GETIMPORT                        R6 K34 [Enum.ZIndexBehavior.Sibling]
+       83 SETTABLEKS                       R6 R5 K32 ["ZIndexBehavior"]
+       85 GETTABLEKS                       R6 R1 K43 ["createElement"]
+       87 MOVE                             R7 R3
+       88 DUPTABLE                         R8 K47 [{"Plugin", "Widget", "Floating", "Mdi"}]
+       89 SETTABLEKS                       R0 R8 K44 ["Plugin"]
+       91 SETTABLEKS                       R4 R8 K45 ["Widget"]
+       93 SETTABLEKS                       R5 R8 K35 ["Floating"]
+       95 GETTABLEKS                       R9 R0 K48 ["MultipleDocumentInterfaceInstance"]
+       97 SETTABLEKS                       R9 R8 K46 ["Mdi"]
+       99 CALL                             R6 2 1
+      100 GETTABLEKS                       R7 R2 K49 ["createRoot"]
+      102 MOVE                             R8 R4
+      103 CALL                             R7 1 1
+      104 MOVE                             R10 R6
+      105 NAMECALL                         R8 R7 K50 ["render"]
+      107 CALL                             R8 2 0
+      108 GETTABLEKS                       R8 R0 K51 ["Unloading"]
+      110 NEWCLOSURE                       R10 P0
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R4
+      113 NAMECALL                         R8 R8 K52 ["Once"]
+      115 CALL                             R8 2 0
+      116 GETUPVAL                         R8 3
+      117 CALL                             R8 0 1
+      118 JUMPIFNOT                        R8 ; [+23]
+      119 GETIMPORT                        R8 K54 [game]
+      121 LOADK                            R10 K55 ["RobloxPluginGuiService"]
+      122 NAMECALL                         R8 R8 K56 ["GetService"]
+      124 CALL                             R8 2 1
+      125 GETIMPORT                        R9 K1 [require]
+      127 GETUPVAL                         R10 0
+      128 GETTABLEKS                       R10 R10 K5 ["Src"]
+      130 GETTABLEKS                       R10 R10 K57 ["FoundationInspector"]
+      132 CALL                             R9 1 1
+      133 GETTABLEKS                       R10 R9 K58 ["open"]
+      135 MOVE                             R11 R0
+      136 CALL                             R10 1 0
+      137 GETTABLEKS                       R10 R9 K59 ["watchDockWidgets"]
+      139 MOVE                             R11 R0
+      140 MOVE                             R12 R8
+      141 CALL                             R10 2 0
+      142 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -171,45 +171,41 @@ PROTO_6:
        49 GETUPVAL                         R17 12
        50 GETUPVAL                         R18 13
        51 GETTABLEKS                       R18 R18 K5 ["View"]
-       53 DUPTABLE                         R19 K9 [{"tag", "LayoutOrder", "Size"}]
-       54 LOADK                            R20 K10 ["size-full-full padding-x-small padding-y-xsmall align-x-center align-y-center"]
-       55 SETTABLEKS                       R20 R19 K6 ["tag"]
-       57 NAMECALL                         R20 R7 K11 ["getNextOrder"]
-       59 CALL                             R20 1 1
-       60 SETTABLEKS                       R20 R19 K7 ["LayoutOrder"]
-       62 GETIMPORT                        R20 K13 [UDim2.new]
-       64 GETTABLEKS                       R22 R0 K14 ["ColumnWidths"]
-       66 GETTABLE                         R21 R22 R13
-       67 GETIMPORT                        R22 K16 [UDim.new]
-       69 LOADN                            R23 1
-       70 LOADN                            R24 0
-       71 CALL                             R22 2 -1
-       72 CALL                             R20 -1 1
-       73 SETTABLEKS                       R20 R19 K8 ["Size"]
-       75 GETUPVAL                         R20 12
-       76 MOVE                             R21 R14
-       77 DUPTABLE                         R22 K18 [{"TableEntry", "SecondaryActivated"}]
-       78 GETTABLEKS                       R23 R0 K3 ["TableEntry"]
-       80 SETTABLEKS                       R23 R22 K3 ["TableEntry"]
-       82 SETTABLEKS                       R6 R22 K17 ["SecondaryActivated"]
-       84 CALL                             R20 2 -1
-       85 CALL                             R17 -1 -1
-       86 FASTCALL                         TABLE_INSERT ; [+2]
-       87 GETIMPORT                        R15 K21 [table.insert]
-       89 CALL                             R15 -1 0
-       90 FORGLOOP                         R10 2 ; [-43]
-       92 GETUPVAL                         R10 12
-       93 GETUPVAL                         R11 13
-       94 GETTABLEKS                       R11 R11 K5 ["View"]
-       96 DUPTABLE                         R12 K23 [{"tag", "LayoutOrder", "onSecondaryActivated"}]
-       97 LOADK                            R13 K24 ["row size-full-800 align-y-center"]
-       98 SETTABLEKS                       R13 R12 K6 ["tag"]
-      100 GETTABLEKS                       R13 R0 K7 ["LayoutOrder"]
-      102 SETTABLEKS                       R13 R12 K7 ["LayoutOrder"]
-      104 SETTABLEKS                       R6 R12 K22 ["onSecondaryActivated"]
-      106 MOVE                             R13 R9
-      107 CALL                             R10 3 -1
-      108 RETURN                           R10 -1
+       53 DUPTABLE                         R19 K10 [{["tag"] = "align-x-center align-y-center size-full-full padding-x-small padding-y-xsmall", ["LayoutOrder"], ["Size"]}]
+       54 NAMECALL                         R20 R7 K11 ["getNextOrder"]
+       56 CALL                             R20 1 1
+       57 SETTABLEKS                       R20 R19 K8 ["LayoutOrder"]
+       59 GETIMPORT                        R20 K13 [UDim2.new]
+       61 GETTABLEKS                       R22 R0 K14 ["ColumnWidths"]
+       63 GETTABLE                         R21 R22 R13
+       64 GETIMPORT                        R22 K16 [UDim.new]
+       66 LOADN                            R23 1
+       67 LOADN                            R24 0
+       68 CALL                             R22 2 -1
+       69 CALL                             R20 -1 1
+       70 SETTABLEKS                       R20 R19 K9 ["Size"]
+       72 GETUPVAL                         R20 12
+       73 MOVE                             R21 R14
+       74 DUPTABLE                         R22 K18 [{"TableEntry", "SecondaryActivated"}]
+       75 GETTABLEKS                       R23 R0 K3 ["TableEntry"]
+       77 SETTABLEKS                       R23 R22 K3 ["TableEntry"]
+       79 SETTABLEKS                       R6 R22 K17 ["SecondaryActivated"]
+       81 CALL                             R20 2 -1
+       82 CALL                             R17 -1 -1
+       83 FASTCALL                         TABLE_INSERT ; [+2]
+       84 GETIMPORT                        R15 K21 [table.insert]
+       86 CALL                             R15 -1 0
+       87 FORGLOOP                         R10 2 ; [-40]
+       89 GETUPVAL                         R10 12
+       90 GETUPVAL                         R11 13
+       91 GETTABLEKS                       R11 R11 K5 ["View"]
+       93 DUPTABLE                         R12 K24 [{["tag"] = "row align-y-center size-full-800", ["LayoutOrder"], ["onSecondaryActivated"]}]
+       94 GETTABLEKS                       R13 R0 K8 ["LayoutOrder"]
+       96 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
+       98 SETTABLEKS                       R6 R12 K23 ["onSecondaryActivated"]
+      100 MOVE                             R13 R9
+      101 CALL                             R10 3 -1
+      102 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

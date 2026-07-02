@@ -1,27 +1,21 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K1 [{"hovered"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["hovered"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -97,55 +91,53 @@ PROTO_3:
       117 GETUPVAL                         R17 1
       118 GETTABLEKS                       R17 R17 K11 ["createElement"]
       120 GETUPVAL                         R18 4
-      121 DUPTABLE                         R19 K47 [{"Text", "Priority"}]
-      122 GETTABLEKS                       R20 R1 K48 ["TooltipText"]
+      121 DUPTABLE                         R19 K48 [{["Text"], ["Priority"] = 1}]
+      122 GETTABLEKS                       R20 R1 K49 ["TooltipText"]
       124 SETTABLEKS                       R20 R19 K33 ["Text"]
-      126 LOADN                            R20 1
-      127 SETTABLEKS                       R20 R19 K46 ["Priority"]
-      129 CALL                             R17 2 1
-      130 SETTABLEKS                       R17 R16 K44 ["Tooltip"]
-      132 CALL                             R13 3 1
-      133 SETTABLEKS                       R13 R12 K30 ["RowText"]
-      135 GETUPVAL                         R13 1
-      136 GETTABLEKS                       R13 R13 K11 ["createElement"]
-      138 GETUPVAL                         R14 2
-      139 DUPTABLE                         R15 K49 [{"LayoutOrder", "Size"}]
-      140 NAMECALL                         R16 R3 K39 ["getNextOrder"]
-      142 CALL                             R16 1 1
-      143 SETTABLEKS                       R16 R15 K13 ["LayoutOrder"]
-      145 GETTABLEKS                       R16 R1 K9 ["ControlSize"]
-      147 SETTABLEKS                       R16 R15 K12 ["Size"]
-      149 DUPTABLE                         R16 K51 [{"Control"}]
-      150 GETTABLEKS                       R17 R1 K50 ["Control"]
-      152 JUMPIFNOT                        R17 ; [+6]
-      153 GETUPVAL                         R17 1
-      154 GETTABLEKS                       R17 R17 K11 ["createElement"]
-      156 GETTABLEKS                       R18 R1 K50 ["Control"]
-      158 CALL                             R17 1 1
-      159 SETTABLEKS                       R17 R16 K50 ["Control"]
-      161 CALL                             R13 3 1
-      162 SETTABLEKS                       R13 R12 K31 ["ControlPane"]
-      164 CALL                             R9 3 1
-      165 GETUPVAL                         R10 1
-      166 GETTABLEKS                       R10 R10 K11 ["createElement"]
-      168 GETUPVAL                         R11 5
-      169 DUPTABLE                         R12 K55 [{"Cursor", "MouseEnter", "MouseLeave"}]
-      170 GETTABLEKS                       R14 R1 K18 ["OnClick"]
-      172 JUMPIFEQKNIL                     R14 ; [+3]
-      174 LOADK                            R13 K56 ["PointingHand"]
-      175 JUMP                             ; [+1]
-      176 LOADK                            R13 K57 ["Arrow"]
-      177 SETTABLEKS                       R13 R12 K52 ["Cursor"]
-      179 NEWCLOSURE                       R13 P0
-      180 CAPTURE                          VAL R0
-      181 SETTABLEKS                       R13 R12 K53 ["MouseEnter"]
-      183 NEWCLOSURE                       R13 P1
-      184 CAPTURE                          VAL R0
-      185 SETTABLEKS                       R13 R12 K54 ["MouseLeave"]
-      187 CALL                             R10 2 -1
-      188 SETLIST                          R8 R9 -1 [1]
-      190 CALL                             R5 3 -1
-      191 RETURN                           R5 -1
+      126 CALL                             R17 2 1
+      127 SETTABLEKS                       R17 R16 K44 ["Tooltip"]
+      129 CALL                             R13 3 1
+      130 SETTABLEKS                       R13 R12 K30 ["RowText"]
+      132 GETUPVAL                         R13 1
+      133 GETTABLEKS                       R13 R13 K11 ["createElement"]
+      135 GETUPVAL                         R14 2
+      136 DUPTABLE                         R15 K50 [{"LayoutOrder", "Size"}]
+      137 NAMECALL                         R16 R3 K39 ["getNextOrder"]
+      139 CALL                             R16 1 1
+      140 SETTABLEKS                       R16 R15 K13 ["LayoutOrder"]
+      142 GETTABLEKS                       R16 R1 K9 ["ControlSize"]
+      144 SETTABLEKS                       R16 R15 K12 ["Size"]
+      146 DUPTABLE                         R16 K52 [{"Control"}]
+      147 GETTABLEKS                       R17 R1 K51 ["Control"]
+      149 JUMPIFNOT                        R17 ; [+6]
+      150 GETUPVAL                         R17 1
+      151 GETTABLEKS                       R17 R17 K11 ["createElement"]
+      153 GETTABLEKS                       R18 R1 K51 ["Control"]
+      155 CALL                             R17 1 1
+      156 SETTABLEKS                       R17 R16 K51 ["Control"]
+      158 CALL                             R13 3 1
+      159 SETTABLEKS                       R13 R12 K31 ["ControlPane"]
+      161 CALL                             R9 3 1
+      162 GETUPVAL                         R10 1
+      163 GETTABLEKS                       R10 R10 K11 ["createElement"]
+      165 GETUPVAL                         R11 5
+      166 DUPTABLE                         R12 K56 [{"Cursor", "MouseEnter", "MouseLeave"}]
+      167 GETTABLEKS                       R14 R1 K18 ["OnClick"]
+      169 JUMPIFEQKNIL                     R14 ; [+3]
+      171 LOADK                            R13 K57 ["PointingHand"]
+      172 JUMP                             ; [+1]
+      173 LOADK                            R13 K58 ["Arrow"]
+      174 SETTABLEKS                       R13 R12 K53 ["Cursor"]
+      176 NEWCLOSURE                       R13 P0
+      177 CAPTURE                          VAL R0
+      178 SETTABLEKS                       R13 R12 K54 ["MouseEnter"]
+      180 NEWCLOSURE                       R13 P1
+      181 CAPTURE                          VAL R0
+      182 SETTABLEKS                       R13 R12 K55 ["MouseLeave"]
+      184 CALL                             R10 2 -1
+      185 SETLIST                          R8 R9 -1 [1]
+      187 CALL                             R5 3 -1
+      188 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

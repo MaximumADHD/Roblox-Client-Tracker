@@ -1,24 +1,6 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K7 [{"R15_ARTIST_INTENT_FOLDER_NAME", "R15_FIXED_FOLDER_NAME", "R6_FOLDER_NAME", "IMPORTED_RIGS_MODEL_NAME", "PACKAGE_EXPORT_MODEL_NAME", "DEFAULT_FACE_TEXTURE", "AVATAR_PART_SCALE_TYPE"}]
-        2 LOADK                            R1 K8 ["R15ArtistIntent"]
-        3 SETTABLEKS                       R1 R0 K0 ["R15_ARTIST_INTENT_FOLDER_NAME"]
-        5 LOADK                            R1 K9 ["R15Fixed"]
-        6 SETTABLEKS                       R1 R0 K1 ["R15_FIXED_FOLDER_NAME"]
-        8 LOADK                            R1 K10 ["R6"]
-        9 SETTABLEKS                       R1 R0 K2 ["R6_FOLDER_NAME"]
-       11 LOADK                            R1 K11 ["ImportedFbx"]
-       12 SETTABLEKS                       R1 R0 K3 ["IMPORTED_RIGS_MODEL_NAME"]
-       14 LOADK                            R1 K12 ["PackageExport"]
-       15 SETTABLEKS                       R1 R0 K4 ["PACKAGE_EXPORT_MODEL_NAME"]
-       17 LOADK                            R1 K13 ["rbxasset://textures/face.png"]
-       18 SETTABLEKS                       R1 R0 K5 ["DEFAULT_FACE_TEXTURE"]
-       20 DUPTABLE                         R1 K17 [{"PROPORTIONS_CLASSIC", "PROPORTIONS_SLENDER", "PROPORTIONS_NORMAL"}]
-       21 LOADK                            R2 K18 ["Classic"]
-       22 SETTABLEKS                       R2 R1 K14 ["PROPORTIONS_CLASSIC"]
-       24 LOADK                            R2 K19 ["ProportionsSlender"]
-       25 SETTABLEKS                       R2 R1 K15 ["PROPORTIONS_SLENDER"]
-       27 LOADK                            R2 K20 ["ProportionsNormal"]
-       28 SETTABLEKS                       R2 R1 K16 ["PROPORTIONS_NORMAL"]
-       30 SETTABLEKS                       R1 R0 K6 ["AVATAR_PART_SCALE_TYPE"]
-       32 RETURN                           R0 1
+        1 DUPTABLE                         R0 K13 [{[1] = "R15ArtistIntent", ["R15_FIXED_FOLDER_NAME"] = "R15Fixed", ["R6_FOLDER_NAME"] = "R6", ["IMPORTED_RIGS_MODEL_NAME"] = "ImportedFbx", ["PACKAGE_EXPORT_MODEL_NAME"] = "PackageExport", ["DEFAULT_FACE_TEXTURE"] = "rbxasset://textures/face.png", ["AVATAR_PART_SCALE_TYPE"]}]
+        2 DUPTABLE                         R1 K20 [{["PROPORTIONS_CLASSIC"] = "Classic", ["PROPORTIONS_SLENDER"] = "ProportionsSlender", ["PROPORTIONS_NORMAL"] = "ProportionsNormal"}]
+        3 SETTABLEKS                       R1 R0 K12 ["AVATAR_PART_SCALE_TYPE"]
+        5 RETURN                           R0 1

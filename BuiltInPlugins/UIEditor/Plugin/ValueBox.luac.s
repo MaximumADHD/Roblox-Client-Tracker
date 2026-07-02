@@ -185,7 +185,7 @@ PROTO_7:
        53 LOADK                            R2 K26 [0.5]
        54 LOADN                            R3 0
        55 LOADK                            R4 K26 [0.5]
-       56 LOADN                            R5 254
+       56 LOADN                            R5 -2
        57 CALL                             R1 4 1
        58 SETTABLEKS                       R1 R0 K30 ["Position"]
        60 RETURN                           R0 1

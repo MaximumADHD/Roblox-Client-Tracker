@@ -13,11 +13,7 @@ MAIN:
        13 GETTABLEKS                       R2 R0 K5 ["Src"]
        15 GETTABLEKS                       R2 R2 K6 ["Types"]
        17 CALL                             R1 1 1
-       18 DUPTABLE                         R2 K9 [{"Grid", "List"}]
-       19 LOADK                            R3 K7 ["Grid"]
-       20 SETTABLEKS                       R3 R2 K7 ["Grid"]
-       22 LOADK                            R3 K8 ["List"]
-       23 SETTABLEKS                       R3 R2 K8 ["List"]
-       25 DUPCLOSURE                       R3 K10 [PROTO_0]
-       26 CAPTURE                          VAL R2
-       27 RETURN                           R3 1
+       18 DUPTABLE                         R2 K9 [{["Grid"] = "Grid", ["List"] = "List"}]
+       19 DUPCLOSURE                       R3 K10 [PROTO_0]
+       20 CAPTURE                          VAL R2
+       21 RETURN                           R3 1

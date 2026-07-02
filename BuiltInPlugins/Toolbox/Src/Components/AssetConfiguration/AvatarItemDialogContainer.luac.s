@@ -250,88 +250,74 @@ PROTO_9:
         1 LOADK                            R2 K0 ["DialogManager"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
         4 CALL                             R0 2 1
-        5 DUPTABLE                         R3 K4 [{"PluginId", "ItemId"}]
-        6 LOADK                            R4 K5 ["Toolbox"]
-        7 SETTABLEKS                       R4 R3 K2 ["PluginId"]
-        9 LOADK                            R4 K6 ["AvatarItemDialog"]
-       10 SETTABLEKS                       R4 R3 K3 ["ItemId"]
-       12 DUPTABLE                         R4 K12 [{"Type", "Title", "Description", "PrimaryButton", "SecondaryButton"}]
-       13 LOADK                            R5 K13 ["Default"]
-       14 SETTABLEKS                       R5 R4 K7 ["Type"]
-       16 GETUPVAL                         R5 1
-       17 LOADK                            R7 K14 ["AssetConfig"]
-       18 LOADK                            R8 K15 ["PayAndConfirmHeading"]
-       19 DUPTABLE                         R9 K17 [{"name"}]
-       20 GETUPVAL                         R10 2
-       21 GETTABLEKS                       R10 R10 K18 ["ItemName"]
-       23 SETTABLEKS                       R10 R9 K16 ["name"]
-       25 NAMECALL                         R5 R5 K19 ["getText"]
-       27 CALL                             R5 4 1
-       28 SETTABLEKS                       R5 R4 K8 ["Title"]
-       30 GETUPVAL                         R5 1
-       31 LOADK                            R7 K14 ["AssetConfig"]
-       32 LOADK                            R8 K20 ["PayAndConfirmDescription"]
-       33 DUPTABLE                         R9 K22 [{"amount"}]
-       34 GETUPVAL                         R11 3
-       35 GETUPVAL                         R12 2
-       36 GETTABLEKS                       R12 R12 K23 ["UploadFee"]
-       38 CONCAT                           R10 R11 R12
-       39 SETTABLEKS                       R10 R9 K21 ["amount"]
-       41 NAMECALL                         R5 R5 K19 ["getText"]
-       43 CALL                             R5 4 1
-       44 SETTABLEKS                       R5 R4 K9 ["Description"]
-       46 DUPTABLE                         R5 K26 [{"Uri", "Text"}]
-       47 DUPTABLE                         R6 K4 [{"PluginId", "ItemId"}]
-       48 LOADK                            R7 K5 ["Toolbox"]
-       49 SETTABLEKS                       R7 R6 K2 ["PluginId"]
-       51 LOADK                            R7 K27 ["AvatarItemDialog/Accept"]
-       52 SETTABLEKS                       R7 R6 K3 ["ItemId"]
-       54 SETTABLEKS                       R6 R5 K24 ["Uri"]
-       56 GETUPVAL                         R6 1
-       57 LOADK                            R8 K28 ["General"]
-       58 LOADK                            R9 K29 ["PayAndSubmit"]
-       59 NAMECALL                         R6 R6 K19 ["getText"]
-       61 CALL                             R6 3 1
-       62 SETTABLEKS                       R6 R5 K25 ["Text"]
-       64 SETTABLEKS                       R5 R4 K10 ["PrimaryButton"]
-       66 DUPTABLE                         R5 K26 [{"Uri", "Text"}]
-       67 DUPTABLE                         R6 K4 [{"PluginId", "ItemId"}]
-       68 LOADK                            R7 K5 ["Toolbox"]
-       69 SETTABLEKS                       R7 R6 K2 ["PluginId"]
-       71 LOADK                            R7 K30 ["AvatarItemDialog/Cancel"]
-       72 SETTABLEKS                       R7 R6 K3 ["ItemId"]
-       74 SETTABLEKS                       R6 R5 K24 ["Uri"]
-       76 GETUPVAL                         R6 1
-       77 LOADK                            R8 K28 ["General"]
-       78 LOADK                            R9 K31 ["Cancel"]
-       79 NAMECALL                         R6 R6 K19 ["getText"]
-       81 CALL                             R6 3 1
-       82 SETTABLEKS                       R6 R5 K25 ["Text"]
-       84 SETTABLEKS                       R5 R4 K11 ["SecondaryButton"]
-       86 NAMECALL                         R1 R0 K32 ["ShowDialogAsync"]
-       88 CALL                             R1 3 1
-       89 GETUPVAL                         R2 4
-       90 LOADB                            R3 0
-       91 SETTABLEKS                       R3 R2 K33 ["current"]
-       93 JUMPIFNOT                        R1 ; [+18]
-       94 GETTABLEKS                       R2 R1 K34 ["SelectedButtonUri"]
-       96 JUMPIFNOT                        R2 ; [+15]
-       97 GETTABLEKS                       R2 R1 K34 ["SelectedButtonUri"]
-       99 GETTABLEKS                       R2 R2 K3 ["ItemId"]
-      101 JUMPIFNOTEQKS                    R2 K27 ["AvatarItemDialog/Accept"] ; [+10]
-      103 GETUPVAL                         R2 5
-      104 GETUPVAL                         R3 6
-      105 CALL                             R3 0 -1
-      106 CALL                             R2 -1 0
-      107 GETUPVAL                         R2 2
-      108 GETTABLEKS                       R2 R2 K35 ["OnUploadConfirmed"]
-      110 CALL                             R2 0 0
-      111 RETURN                           R0 0
-      112 GETUPVAL                         R2 5
-      113 GETUPVAL                         R3 7
-      114 CALL                             R3 0 -1
-      115 CALL                             R2 -1 0
-      116 RETURN                           R0 0
+        5 DUPTABLE                         R3 K6 [{["PluginId"] = "Toolbox", ["ItemId"] = "AvatarItemDialog"}]
+        6 DUPTABLE                         R4 K13 [{["Type"] = "Default", ["Title"], ["Description"], ["PrimaryButton"], ["SecondaryButton"]}]
+        7 GETUPVAL                         R5 1
+        8 LOADK                            R7 K14 ["AssetConfig"]
+        9 LOADK                            R8 K15 ["PayAndConfirmHeading"]
+       10 DUPTABLE                         R9 K17 [{"name"}]
+       11 GETUPVAL                         R10 2
+       12 GETTABLEKS                       R10 R10 K18 ["ItemName"]
+       14 SETTABLEKS                       R10 R9 K16 ["name"]
+       16 NAMECALL                         R5 R5 K19 ["getText"]
+       18 CALL                             R5 4 1
+       19 SETTABLEKS                       R5 R4 K9 ["Title"]
+       21 GETUPVAL                         R5 1
+       22 LOADK                            R7 K14 ["AssetConfig"]
+       23 LOADK                            R8 K20 ["PayAndConfirmDescription"]
+       24 DUPTABLE                         R9 K22 [{"amount"}]
+       25 GETUPVAL                         R11 3
+       26 GETUPVAL                         R12 2
+       27 GETTABLEKS                       R12 R12 K23 ["UploadFee"]
+       29 CONCAT                           R10 R11 R12
+       30 SETTABLEKS                       R10 R9 K21 ["amount"]
+       32 NAMECALL                         R5 R5 K19 ["getText"]
+       34 CALL                             R5 4 1
+       35 SETTABLEKS                       R5 R4 K10 ["Description"]
+       37 DUPTABLE                         R5 K26 [{"Uri", "Text"}]
+       38 DUPTABLE                         R6 K28 [{["PluginId"] = "Toolbox", ["ItemId"] = "AvatarItemDialog/Accept"}]
+       39 SETTABLEKS                       R6 R5 K24 ["Uri"]
+       41 GETUPVAL                         R6 1
+       42 LOADK                            R8 K29 ["General"]
+       43 LOADK                            R9 K30 ["PayAndSubmit"]
+       44 NAMECALL                         R6 R6 K19 ["getText"]
+       46 CALL                             R6 3 1
+       47 SETTABLEKS                       R6 R5 K25 ["Text"]
+       49 SETTABLEKS                       R5 R4 K11 ["PrimaryButton"]
+       51 DUPTABLE                         R5 K26 [{"Uri", "Text"}]
+       52 DUPTABLE                         R6 K32 [{["PluginId"] = "Toolbox", ["ItemId"] = "AvatarItemDialog/Cancel"}]
+       53 SETTABLEKS                       R6 R5 K24 ["Uri"]
+       55 GETUPVAL                         R6 1
+       56 LOADK                            R8 K29 ["General"]
+       57 LOADK                            R9 K33 ["Cancel"]
+       58 NAMECALL                         R6 R6 K19 ["getText"]
+       60 CALL                             R6 3 1
+       61 SETTABLEKS                       R6 R5 K25 ["Text"]
+       63 SETTABLEKS                       R5 R4 K12 ["SecondaryButton"]
+       65 NAMECALL                         R1 R0 K34 ["ShowDialogAsync"]
+       67 CALL                             R1 3 1
+       68 GETUPVAL                         R2 4
+       69 LOADB                            R3 0
+       70 SETTABLEKS                       R3 R2 K35 ["current"]
+       72 JUMPIFNOT                        R1 ; [+18]
+       73 GETTABLEKS                       R2 R1 K36 ["SelectedButtonUri"]
+       75 JUMPIFNOT                        R2 ; [+15]
+       76 GETTABLEKS                       R2 R1 K36 ["SelectedButtonUri"]
+       78 GETTABLEKS                       R2 R2 K4 ["ItemId"]
+       80 JUMPIFNOTEQKS                    R2 K27 ["AvatarItemDialog/Accept"] ; [+10]
+       82 GETUPVAL                         R2 5
+       83 GETUPVAL                         R3 6
+       84 CALL                             R3 0 -1
+       85 CALL                             R2 -1 0
+       86 GETUPVAL                         R2 2
+       87 GETTABLEKS                       R2 R2 K37 ["OnUploadConfirmed"]
+       89 CALL                             R2 0 0
+       90 RETURN                           R0 0
+       91 GETUPVAL                         R2 5
+       92 GETUPVAL                         R3 7
+       93 CALL                             R3 0 -1
+       94 CALL                             R2 -1 0
+       95 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0

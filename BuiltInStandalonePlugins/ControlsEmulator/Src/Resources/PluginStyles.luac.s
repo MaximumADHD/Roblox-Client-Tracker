@@ -28,344 +28,264 @@ MAIN:
        44 CALL                             R6 2 1
        45 MOVE                             R7 R2
        46 LOADK                            R8 K20 ["ScrollingFrame"]
-       47 DUPTABLE                         R9 K23 [{"ScrollBarThickness", "ScrollBarImageColor3"}]
-       48 LOADN                            R10 8
-       49 SETTABLEKS                       R10 R9 K21 ["ScrollBarThickness"]
-       51 LOADK                            R10 K24 ["$SecondaryButtonBackgroundColor"]
-       52 SETTABLEKS                       R10 R9 K22 ["ScrollBarImageColor3"]
-       54 CALL                             R7 2 1
-       55 MOVE                             R8 R2
-       56 LOADK                            R9 K25 ["Frame"]
-       57 DUPTABLE                         R10 K27 [{"BorderSizePixel"}]
-       58 LOADN                            R11 0
-       59 SETTABLEKS                       R11 R10 K26 ["BorderSizePixel"]
-       61 CALL                             R8 2 1
-       62 MOVE                             R9 R2
-       63 LOADK                            R10 K28 [".HeaderButton"]
-       64 DUPTABLE                         R11 K34 [{"Size", "TextSize", "AutomaticSize", "BackgroundTransparency", "Wraps", "AutoButtonColor"}]
-       65 GETIMPORT                        R12 K37 [UDim2.new]
-       67 LOADN                            R13 0
-       68 LOADN                            R14 0
-       69 LOADN                            R15 0
-       70 GETTABLEKS                       R17 R4 K39 ["headerFontSize"]
-       72 ADDK                             R16 R17 K38 [8]
-       73 CALL                             R12 4 1
-       74 SETTABLEKS                       R12 R11 K29 ["Size"]
-       76 GETTABLEKS                       R12 R4 K39 ["headerFontSize"]
-       78 SETTABLEKS                       R12 R11 K16 ["TextSize"]
-       80 GETIMPORT                        R12 K42 [Enum.AutomaticSize.X]
-       82 SETTABLEKS                       R12 R11 K30 ["AutomaticSize"]
-       84 LOADN                            R12 0
-       85 SETTABLEKS                       R12 R11 K31 ["BackgroundTransparency"]
-       87 LOADB                            R12 1
-       88 SETTABLEKS                       R12 R11 K32 ["Wraps"]
-       90 LOADB                            R12 0
-       91 SETTABLEKS                       R12 R11 K33 ["AutoButtonColor"]
-       93 NEWTABLE                         R12 0 5
-       95 MOVE                             R13 R2
-       96 LOADK                            R14 K43 ["::UIPadding"]
-       97 DUPTABLE                         R15 K48 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-       98 GETIMPORT                        R16 K50 [UDim.new]
-      100 LOADN                            R17 0
-      101 GETTABLEKS                       R18 R4 K51 ["buttonPaddingHorizontal"]
-      103 CALL                             R16 2 1
-      104 SETTABLEKS                       R16 R15 K44 ["PaddingLeft"]
-      106 GETIMPORT                        R16 K50 [UDim.new]
-      108 LOADN                            R17 0
-      109 GETTABLEKS                       R18 R4 K51 ["buttonPaddingHorizontal"]
-      111 CALL                             R16 2 1
-      112 SETTABLEKS                       R16 R15 K45 ["PaddingRight"]
-      114 GETIMPORT                        R16 K50 [UDim.new]
-      116 LOADN                            R17 0
-      117 GETTABLEKS                       R18 R4 K52 ["buttonPaddingVertical"]
-      119 CALL                             R16 2 1
-      120 SETTABLEKS                       R16 R15 K46 ["PaddingTop"]
-      122 GETIMPORT                        R16 K50 [UDim.new]
-      124 LOADN                            R17 0
-      125 GETTABLEKS                       R18 R4 K52 ["buttonPaddingVertical"]
-      127 CALL                             R16 2 1
-      128 SETTABLEKS                       R16 R15 K47 ["PaddingBottom"]
-      130 CALL                             R13 2 1
-      131 MOVE                             R14 R2
-      132 LOADK                            R15 K53 ["::UICorner"]
-      133 DUPTABLE                         R16 K55 [{"CornerRadius"}]
-      134 GETIMPORT                        R17 K50 [UDim.new]
-      136 LOADN                            R18 0
-      137 GETTABLEKS                       R19 R4 K56 ["buttonCornerRadius"]
-      139 CALL                             R17 2 1
-      140 SETTABLEKS                       R17 R16 K54 ["CornerRadius"]
-      142 CALL                             R14 2 1
-      143 MOVE                             R15 R2
-      144 LOADK                            R16 K57 [".Primary"]
-      145 DUPTABLE                         R17 K60 [{"TextColor3", "BackgroundColor3"}]
-      146 LOADK                            R18 K61 ["$ButtonTextColor"]
-      147 SETTABLEKS                       R18 R17 K58 ["TextColor3"]
-      149 LOADK                            R18 K62 ["$PrimaryButtonBackgroundColor"]
-      150 SETTABLEKS                       R18 R17 K59 ["BackgroundColor3"]
-      152 NEWTABLE                         R18 0 1
-      154 MOVE                             R19 R2
-      155 LOADK                            R20 K63 [":hover"]
-      156 DUPTABLE                         R21 K64 [{"BackgroundColor3"}]
-      157 LOADK                            R22 K65 ["$PrimaryButtonHoverBackgroundColor"]
-      158 SETTABLEKS                       R22 R21 K59 ["BackgroundColor3"]
-      160 CALL                             R19 2 -1
-      161 SETLIST                          R18 R19 -1 [1]
-      163 CALL                             R15 3 1
-      164 MOVE                             R16 R2
-      165 LOADK                            R17 K66 [".Secondary"]
-      166 DUPTABLE                         R18 K60 [{"TextColor3", "BackgroundColor3"}]
-      167 LOADK                            R19 K61 ["$ButtonTextColor"]
-      168 SETTABLEKS                       R19 R18 K58 ["TextColor3"]
-      170 LOADK                            R19 K24 ["$SecondaryButtonBackgroundColor"]
-      171 SETTABLEKS                       R19 R18 K59 ["BackgroundColor3"]
-      173 NEWTABLE                         R19 0 1
-      175 MOVE                             R20 R2
-      176 LOADK                            R21 K63 [":hover"]
-      177 DUPTABLE                         R22 K64 [{"BackgroundColor3"}]
-      178 LOADK                            R23 K67 ["$SecondaryButtonHoverBackgroundColor"]
-      179 SETTABLEKS                       R23 R22 K59 ["BackgroundColor3"]
-      181 CALL                             R20 2 -1
-      182 SETLIST                          R19 R20 -1 [1]
-      184 CALL                             R16 3 1
-      185 MOVE                             R17 R2
-      186 LOADK                            R18 K68 [".Inactive"]
-      187 DUPTABLE                         R19 K70 [{"TextColor3", "BackgroundTransparency", "TextTransparency", "BackgroundColor3"}]
-      188 LOADK                            R20 K61 ["$ButtonTextColor"]
-      189 SETTABLEKS                       R20 R19 K58 ["TextColor3"]
-      191 LOADK                            R20 K71 [0.4]
-      192 SETTABLEKS                       R20 R19 K31 ["BackgroundTransparency"]
-      194 LOADK                            R20 K71 [0.4]
-      195 SETTABLEKS                       R20 R19 K69 ["TextTransparency"]
-      197 LOADK                            R20 K62 ["$PrimaryButtonBackgroundColor"]
-      198 SETTABLEKS                       R20 R19 K59 ["BackgroundColor3"]
-      200 NEWTABLE                         R20 0 1
-      202 MOVE                             R21 R2
-      203 LOADK                            R22 K63 [":hover"]
-      204 DUPTABLE                         R23 K64 [{"BackgroundColor3"}]
-      205 LOADK                            R24 K62 ["$PrimaryButtonBackgroundColor"]
-      206 SETTABLEKS                       R24 R23 K59 ["BackgroundColor3"]
-      208 CALL                             R21 2 -1
-      209 SETLIST                          R20 R21 -1 [1]
-      211 CALL                             R17 3 -1
-      212 SETLIST                          R12 R13 -1 [1]
-      214 CALL                             R9 3 1
-      215 MOVE                             R10 R2
-      216 LOADK                            R11 K72 [".CX-Invisible"]
-      217 DUPTABLE                         R12 K73 [{"BackgroundTransparency", "BorderSizePixel"}]
-      218 LOADN                            R13 1
-      219 SETTABLEKS                       R13 R12 K31 ["BackgroundTransparency"]
-      221 LOADN                            R13 0
-      222 SETTABLEKS                       R13 R12 K26 ["BorderSizePixel"]
-      224 CALL                             R10 2 1
-      225 MOVE                             R11 R2
-      226 LOADK                            R12 K74 [".CX-Divider"]
-      227 DUPTABLE                         R13 K75 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
-      228 GETIMPORT                        R14 K37 [UDim2.new]
-      230 LOADN                            R15 1
-      231 LOADN                            R16 0
-      232 LOADN                            R17 0
-      233 LOADN                            R18 1
-      234 CALL                             R14 4 1
-      235 SETTABLEKS                       R14 R13 K29 ["Size"]
-      237 LOADK                            R14 K76 ["$DividerColor"]
-      238 SETTABLEKS                       R14 R13 K59 ["BackgroundColor3"]
-      240 LOADN                            R14 0
-      241 SETTABLEKS                       R14 R13 K26 ["BorderSizePixel"]
-      243 CALL                             R11 2 1
-      244 MOVE                             R12 R2
-      245 LOADK                            R13 K77 [".Width-Scaling"]
-      246 DUPTABLE                         R14 K79 [{"BorderSizePixel", "Size", "SizeConstraint"}]
-      247 LOADN                            R15 0
-      248 SETTABLEKS                       R15 R14 K26 ["BorderSizePixel"]
-      250 GETIMPORT                        R15 K37 [UDim2.new]
-      252 LOADN                            R16 1
-      253 LOADN                            R17 0
-      254 LOADN                            R18 1
-      255 LOADN                            R19 0
-      256 CALL                             R15 4 1
-      257 SETTABLEKS                       R15 R14 K29 ["Size"]
-      259 GETIMPORT                        R15 K81 [Enum.SizeConstraint.RelativeXX]
-      261 SETTABLEKS                       R15 R14 K78 ["SizeConstraint"]
-      263 CALL                             R12 2 1
-      264 MOVE                             R13 R2
-      265 LOADK                            R14 K82 [">> .Widget-Button"]
-      266 DUPTABLE                         R15 K83 [{"BackgroundTransparency"}]
-      267 LOADN                            R16 1
-      268 SETTABLEKS                       R16 R15 K31 ["BackgroundTransparency"]
-      270 CALL                             R13 2 1
-      271 MOVE                             R14 R2
-      272 LOADK                            R15 K84 [".Active"]
-      273 DUPTABLE                         R16 K85 [{"BackgroundColor3", "BackgroundTransparency"}]
-      274 LOADK                            R17 K86 ["$ControlActiveColor"]
-      275 SETTABLEKS                       R17 R16 K59 ["BackgroundColor3"]
-      277 LOADK                            R17 K87 [0.3]
-      278 SETTABLEKS                       R17 R16 K31 ["BackgroundTransparency"]
-      280 CALL                             R14 2 1
-      281 MOVE                             R15 R2
-      282 LOADK                            R16 K88 [".Hovered"]
-      283 DUPTABLE                         R17 K85 [{"BackgroundColor3", "BackgroundTransparency"}]
-      284 LOADK                            R18 K86 ["$ControlActiveColor"]
-      285 SETTABLEKS                       R18 R17 K59 ["BackgroundColor3"]
-      287 LOADK                            R18 K89 [0.6]
-      288 SETTABLEKS                       R18 R17 K31 ["BackgroundTransparency"]
-      290 CALL                             R15 2 1
-      291 MOVE                             R16 R2
-      292 LOADK                            R17 K90 [".Hovered.Active"]
-      293 DUPTABLE                         R18 K85 [{"BackgroundColor3", "BackgroundTransparency"}]
-      294 LOADK                            R19 K86 ["$ControlActiveColor"]
-      295 SETTABLEKS                       R19 R18 K59 ["BackgroundColor3"]
-      297 LOADK                            R19 K87 [0.3]
-      298 SETTABLEKS                       R19 R18 K31 ["BackgroundTransparency"]
-      300 CALL                             R16 2 1
-      301 MOVE                             R17 R2
-      302 LOADK                            R18 K91 ["#ScrollableBlueprintContainer"]
-      303 DUPTABLE                         R19 K95 [{"Size", "BackgroundColor3", "ScrollBarThickness", "ScrollingDirection", "AutomaticCanvasSize", "CanvasSize", "BorderSizePixel", "ScrollBarImageColor3"}]
-      304 GETIMPORT                        R20 K37 [UDim2.new]
-      306 LOADN                            R21 1
-      307 LOADN                            R22 0
-      308 LOADN                            R23 1
-      309 GETTABLEKS                       R25 R4 K96 ["deviceHeaderHeight"]
-      311 MINUS                            R24 R25
-      312 CALL                             R20 4 1
-      313 SETTABLEKS                       R20 R19 K29 ["Size"]
-      315 LOADK                            R20 K97 ["$BlueprintBackgroundColor"]
-      316 SETTABLEKS                       R20 R19 K59 ["BackgroundColor3"]
-      318 LOADN                            R20 8
-      319 SETTABLEKS                       R20 R19 K21 ["ScrollBarThickness"]
-      321 GETIMPORT                        R20 K99 [Enum.ScrollingDirection.XY]
-      323 SETTABLEKS                       R20 R19 K92 ["ScrollingDirection"]
-      325 GETIMPORT                        R20 K100 [Enum.AutomaticSize.XY]
-      327 SETTABLEKS                       R20 R19 K93 ["AutomaticCanvasSize"]
-      329 GETIMPORT                        R20 K37 [UDim2.new]
-      331 LOADN                            R21 0
-      332 LOADN                            R22 0
-      333 LOADN                            R23 0
-      334 LOADN                            R24 0
-      335 CALL                             R20 4 1
-      336 SETTABLEKS                       R20 R19 K94 ["CanvasSize"]
-      338 LOADN                            R20 0
-      339 SETTABLEKS                       R20 R19 K26 ["BorderSizePixel"]
-      341 LOADK                            R20 K24 ["$SecondaryButtonBackgroundColor"]
-      342 SETTABLEKS                       R20 R19 K22 ["ScrollBarImageColor3"]
-      344 NEWTABLE                         R20 0 1
-      346 MOVE                             R21 R2
-      347 LOADK                            R22 K101 [">> #GamepadAndVRLayoutContainer"]
-      348 NEWTABLE                         R23 0 0
-      350 NEWTABLE                         R24 0 1
-      352 MOVE                             R25 R2
-      353 LOADK                            R26 K102 ["::UIListLayout"]
-      354 DUPTABLE                         R27 K106 [{"SortOrder", "HorizontalAlignment", "FillDirection"}]
-      355 GETIMPORT                        R28 K108 [Enum.SortOrder.LayoutOrder]
-      357 SETTABLEKS                       R28 R27 K103 ["SortOrder"]
-      359 GETIMPORT                        R28 K110 [Enum.HorizontalAlignment.Center]
-      361 SETTABLEKS                       R28 R27 K104 ["HorizontalAlignment"]
-      363 GETIMPORT                        R28 K112 [Enum.FillDirection.Vertical]
-      365 SETTABLEKS                       R28 R27 K105 ["FillDirection"]
-      367 CALL                             R25 2 -1
-      368 SETLIST                          R24 R25 -1 [1]
-      370 CALL                             R21 3 -1
-      371 SETLIST                          R20 R21 -1 [1]
-      373 CALL                             R17 3 1
-      374 MOVE                             R18 R2
-      375 LOADK                            R19 K113 [">> .Mapping-Widget"]
-      376 DUPTABLE                         R20 K114 [{"BackgroundTransparency", "Size"}]
-      377 LOADN                            R21 1
-      378 SETTABLEKS                       R21 R20 K31 ["BackgroundTransparency"]
-      380 GETIMPORT                        R21 K37 [UDim2.new]
-      382 LOADN                            R22 1
-      383 LOADN                            R23 0
-      384 LOADN                            R24 1
-      385 LOADN                            R25 0
-      386 CALL                             R21 4 1
-      387 SETTABLEKS                       R21 R20 K29 ["Size"]
-      389 NEWTABLE                         R21 0 3
-      391 MOVE                             R22 R2
-      392 LOADK                            R23 K115 [">> .Mapping-Label"]
-      393 DUPTABLE                         R24 K116 [{"Size", "BackgroundTransparency"}]
-      394 GETIMPORT                        R25 K37 [UDim2.new]
-      396 LOADK                            R26 K117 [0.04]
-      397 LOADN                            R27 0
-      398 LOADK                            R28 K117 [0.04]
-      399 LOADN                            R29 0
-      400 CALL                             R25 4 1
-      401 SETTABLEKS                       R25 R24 K29 ["Size"]
-      403 LOADN                            R25 1
-      404 SETTABLEKS                       R25 R24 K31 ["BackgroundTransparency"]
-      406 NEWTABLE                         R25 0 1
-      408 MOVE                             R26 R2
-      409 LOADK                            R27 K118 [">> TextLabel"]
-      410 DUPTABLE                         R28 K120 [{"Font", "BackgroundTransparency", "TextColor3", "TextSize", "TextScaled", "HorizontalAlignment"}]
-      411 GETTABLEKS                       R29 R4 K121 ["defaultFontBold"]
-      413 SETTABLEKS                       R29 R28 K15 ["Font"]
-      415 LOADN                            R29 1
-      416 SETTABLEKS                       R29 R28 K31 ["BackgroundTransparency"]
-      418 LOADK                            R29 K122 ["$BlueprintLabelsColor"]
-      419 SETTABLEKS                       R29 R28 K58 ["TextColor3"]
-      421 GETTABLEKS                       R29 R4 K123 ["blueprintLabelFontSize"]
-      423 SETTABLEKS                       R29 R28 K16 ["TextSize"]
-      425 LOADB                            R29 1
-      426 SETTABLEKS                       R29 R28 K119 ["TextScaled"]
-      428 GETIMPORT                        R29 K110 [Enum.HorizontalAlignment.Center]
-      430 SETTABLEKS                       R29 R28 K104 ["HorizontalAlignment"]
-      432 CALL                             R26 2 -1
-      433 SETLIST                          R25 R26 -1 [1]
-      435 CALL                             R22 3 1
-      436 MOVE                             R23 R2
-      437 LOADK                            R24 K124 [">> .Component-Arrow"]
-      438 DUPTABLE                         R25 K126 [{"Color3"}]
-      439 LOADK                            R26 K127 ["$BlueprintArrowColor"]
-      440 SETTABLEKS                       R26 R25 K125 ["Color3"]
-      442 CALL                             R23 2 1
-      443 MOVE                             R24 R2
-      444 LOADK                            R25 K128 [">> .Component-Arrow-Circle"]
-      445 DUPTABLE                         R26 K130 [{"Size", "Color3", "AnchorPoint"}]
-      446 GETIMPORT                        R27 K37 [UDim2.new]
-      448 LOADK                            R28 K131 [0.02]
-      449 LOADN                            R29 0
-      450 LOADK                            R30 K131 [0.02]
-      451 LOADN                            R31 0
-      452 CALL                             R27 4 1
-      453 SETTABLEKS                       R27 R26 K29 ["Size"]
-      455 LOADK                            R27 K127 ["$BlueprintArrowColor"]
-      456 SETTABLEKS                       R27 R26 K125 ["Color3"]
-      458 GETIMPORT                        R27 K133 [Vector2.new]
-      460 LOADK                            R28 K134 [0.5]
-      461 LOADK                            R29 K134 [0.5]
-      462 CALL                             R27 2 1
-      463 SETTABLEKS                       R27 R26 K129 ["AnchorPoint"]
-      465 CALL                             R24 2 -1
-      466 SETLIST                          R21 R22 -1 [1]
-      468 CALL                             R18 3 1
-      469 MOVE                             R19 R2
-      470 LOADK                            R20 K135 [">> .X-Circle"]
-      471 NEWTABLE                         R21 0 0
-      473 NEWTABLE                         R22 0 1
-      475 MOVE                             R23 R2
-      476 LOADK                            R24 K53 ["::UICorner"]
-      477 DUPTABLE                         R25 K55 [{"CornerRadius"}]
-      478 GETIMPORT                        R26 K50 [UDim.new]
-      480 LOADN                            R27 1
-      481 LOADN                            R28 0
-      482 CALL                             R26 2 1
-      483 SETTABLEKS                       R26 R25 K54 ["CornerRadius"]
-      485 CALL                             R23 2 -1
-      486 SETLIST                          R22 R23 -1 [1]
-      488 CALL                             R19 3 -1
-      489 SETLIST                          R5 R6 -1 [1]
-      491 DUPTABLE                         R6 K138 [{"BlueprintWithMappingsPadding", "TooltipPadding"}]
-      492 GETIMPORT                        R7 K50 [UDim.new]
-      494 LOADK                            R8 K139 [0.2]
-      495 LOADN                            R9 0
-      496 CALL                             R7 2 1
-      497 SETTABLEKS                       R7 R6 K136 ["BlueprintWithMappingsPadding"]
-      499 GETIMPORT                        R7 K50 [UDim.new]
-      501 LOADN                            R8 0
-      502 LOADN                            R9 10
-      503 CALL                             R7 2 1
-      504 SETTABLEKS                       R7 R6 K137 ["TooltipPadding"]
-      506 MOVE                             R7 R3
-      507 LOADK                            R8 K2 ["ControlsEmulator"]
-      508 MOVE                             R9 R5
-      509 MOVE                             R10 R6
-      510 CALL                             R7 3 -1
-      511 RETURN                           R7 -1
+       47 DUPTABLE                         R9 K25 [{["ScrollBarThickness"] = 8, ["ScrollBarImageColor3"] = "$SecondaryButtonBackgroundColor"}]
+       48 CALL                             R7 2 1
+       49 MOVE                             R8 R2
+       50 LOADK                            R9 K26 ["Frame"]
+       51 DUPTABLE                         R10 K29 [{["BorderSizePixel"] = 0}]
+       52 CALL                             R8 2 1
+       53 MOVE                             R9 R2
+       54 LOADK                            R10 K30 [".HeaderButton"]
+       55 DUPTABLE                         R11 K38 [{["Size"], ["TextSize"], ["AutomaticSize"], ["BackgroundTransparency"] = 0, ["Wraps"] = True, ["AutoButtonColor"] = False}]
+       56 GETIMPORT                        R12 K41 [UDim2.new]
+       58 LOADN                            R13 0
+       59 LOADN                            R14 0
+       60 LOADN                            R15 0
+       61 GETTABLEKS                       R17 R4 K42 ["headerFontSize"]
+       63 ADDK                             R16 R17 K22 [8]
+       64 CALL                             R12 4 1
+       65 SETTABLEKS                       R12 R11 K31 ["Size"]
+       67 GETTABLEKS                       R12 R4 K42 ["headerFontSize"]
+       69 SETTABLEKS                       R12 R11 K16 ["TextSize"]
+       71 GETIMPORT                        R12 K45 [Enum.AutomaticSize.X]
+       73 SETTABLEKS                       R12 R11 K32 ["AutomaticSize"]
+       75 NEWTABLE                         R12 0 5
+       77 MOVE                             R13 R2
+       78 LOADK                            R14 K46 ["::UIPadding"]
+       79 DUPTABLE                         R15 K51 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+       80 GETIMPORT                        R16 K53 [UDim.new]
+       82 LOADN                            R17 0
+       83 GETTABLEKS                       R18 R4 K54 ["buttonPaddingHorizontal"]
+       85 CALL                             R16 2 1
+       86 SETTABLEKS                       R16 R15 K47 ["PaddingLeft"]
+       88 GETIMPORT                        R16 K53 [UDim.new]
+       90 LOADN                            R17 0
+       91 GETTABLEKS                       R18 R4 K54 ["buttonPaddingHorizontal"]
+       93 CALL                             R16 2 1
+       94 SETTABLEKS                       R16 R15 K48 ["PaddingRight"]
+       96 GETIMPORT                        R16 K53 [UDim.new]
+       98 LOADN                            R17 0
+       99 GETTABLEKS                       R18 R4 K55 ["buttonPaddingVertical"]
+      101 CALL                             R16 2 1
+      102 SETTABLEKS                       R16 R15 K49 ["PaddingTop"]
+      104 GETIMPORT                        R16 K53 [UDim.new]
+      106 LOADN                            R17 0
+      107 GETTABLEKS                       R18 R4 K55 ["buttonPaddingVertical"]
+      109 CALL                             R16 2 1
+      110 SETTABLEKS                       R16 R15 K50 ["PaddingBottom"]
+      112 CALL                             R13 2 1
+      113 MOVE                             R14 R2
+      114 LOADK                            R15 K56 ["::UICorner"]
+      115 DUPTABLE                         R16 K58 [{"CornerRadius"}]
+      116 GETIMPORT                        R17 K53 [UDim.new]
+      118 LOADN                            R18 0
+      119 GETTABLEKS                       R19 R4 K59 ["buttonCornerRadius"]
+      121 CALL                             R17 2 1
+      122 SETTABLEKS                       R17 R16 K57 ["CornerRadius"]
+      124 CALL                             R14 2 1
+      125 MOVE                             R15 R2
+      126 LOADK                            R16 K60 [".Primary"]
+      127 DUPTABLE                         R17 K65 [{["TextColor3"] = "$ButtonTextColor", ["BackgroundColor3"] = "$PrimaryButtonBackgroundColor"}]
+      128 NEWTABLE                         R18 0 1
+      130 MOVE                             R19 R2
+      131 LOADK                            R20 K66 [":hover"]
+      132 DUPTABLE                         R21 K68 [{["BackgroundColor3"] = "$PrimaryButtonHoverBackgroundColor"}]
+      133 CALL                             R19 2 -1
+      134 SETLIST                          R18 R19 -1 [1]
+      136 CALL                             R15 3 1
+      137 MOVE                             R16 R2
+      138 LOADK                            R17 K69 [".Secondary"]
+      139 DUPTABLE                         R18 K70 [{["TextColor3"] = "$ButtonTextColor", ["BackgroundColor3"] = "$SecondaryButtonBackgroundColor"}]
+      140 NEWTABLE                         R19 0 1
+      142 MOVE                             R20 R2
+      143 LOADK                            R21 K66 [":hover"]
+      144 DUPTABLE                         R22 K72 [{["BackgroundColor3"] = "$SecondaryButtonHoverBackgroundColor"}]
+      145 CALL                             R20 2 -1
+      146 SETLIST                          R19 R20 -1 [1]
+      148 CALL                             R16 3 1
+      149 MOVE                             R17 R2
+      150 LOADK                            R18 K73 [".Inactive"]
+      151 DUPTABLE                         R19 K76 [{["TextColor3"] = "$ButtonTextColor", ["BackgroundTransparency"] = 0.4, ["TextTransparency"] = 0.4, ["BackgroundColor3"] = "$PrimaryButtonBackgroundColor"}]
+      152 NEWTABLE                         R20 0 1
+      154 MOVE                             R21 R2
+      155 LOADK                            R22 K66 [":hover"]
+      156 DUPTABLE                         R23 K77 [{["BackgroundColor3"] = "$PrimaryButtonBackgroundColor"}]
+      157 CALL                             R21 2 -1
+      158 SETLIST                          R20 R21 -1 [1]
+      160 CALL                             R17 3 -1
+      161 SETLIST                          R12 R13 -1 [1]
+      163 CALL                             R9 3 1
+      164 MOVE                             R10 R2
+      165 LOADK                            R11 K78 [".CX-Invisible"]
+      166 DUPTABLE                         R12 K80 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      167 CALL                             R10 2 1
+      168 MOVE                             R11 R2
+      169 LOADK                            R12 K81 [".CX-Divider"]
+      170 DUPTABLE                         R13 K83 [{["Size"], ["BackgroundColor3"] = "$DividerColor", ["BorderSizePixel"] = 0}]
+      171 GETIMPORT                        R14 K41 [UDim2.new]
+      173 LOADN                            R15 1
+      174 LOADN                            R16 0
+      175 LOADN                            R17 0
+      176 LOADN                            R18 1
+      177 CALL                             R14 4 1
+      178 SETTABLEKS                       R14 R13 K31 ["Size"]
+      180 CALL                             R11 2 1
+      181 MOVE                             R12 R2
+      182 LOADK                            R13 K84 [".Width-Scaling"]
+      183 DUPTABLE                         R14 K86 [{["BorderSizePixel"] = 0, ["Size"], ["SizeConstraint"]}]
+      184 GETIMPORT                        R15 K41 [UDim2.new]
+      186 LOADN                            R16 1
+      187 LOADN                            R17 0
+      188 LOADN                            R18 1
+      189 LOADN                            R19 0
+      190 CALL                             R15 4 1
+      191 SETTABLEKS                       R15 R14 K31 ["Size"]
+      193 GETIMPORT                        R15 K88 [Enum.SizeConstraint.RelativeXX]
+      195 SETTABLEKS                       R15 R14 K85 ["SizeConstraint"]
+      197 CALL                             R12 2 1
+      198 MOVE                             R13 R2
+      199 LOADK                            R14 K89 [">> .Widget-Button"]
+      200 DUPTABLE                         R15 K90 [{["BackgroundTransparency"] = 1}]
+      201 CALL                             R13 2 1
+      202 MOVE                             R14 R2
+      203 LOADK                            R15 K91 [".Active"]
+      204 DUPTABLE                         R16 K94 [{["BackgroundColor3"] = "$ControlActiveColor", ["BackgroundTransparency"] = 0.3}]
+      205 CALL                             R14 2 1
+      206 MOVE                             R15 R2
+      207 LOADK                            R16 K95 [".Hovered"]
+      208 DUPTABLE                         R17 K97 [{["BackgroundColor3"] = "$ControlActiveColor", ["BackgroundTransparency"] = 0.6}]
+      209 CALL                             R15 2 1
+      210 MOVE                             R16 R2
+      211 LOADK                            R17 K98 [".Hovered.Active"]
+      212 DUPTABLE                         R18 K94 [{["BackgroundColor3"] = "$ControlActiveColor", ["BackgroundTransparency"] = 0.3}]
+      213 CALL                             R16 2 1
+      214 MOVE                             R17 R2
+      215 LOADK                            R18 K99 ["#ScrollableBlueprintContainer"]
+      216 DUPTABLE                         R19 K104 [{["Size"], ["BackgroundColor3"] = "$BlueprintBackgroundColor", ["ScrollBarThickness"] = 8, ["ScrollingDirection"], ["AutomaticCanvasSize"], ["CanvasSize"], ["BorderSizePixel"] = 0, ["ScrollBarImageColor3"] = "$SecondaryButtonBackgroundColor"}]
+      217 GETIMPORT                        R20 K41 [UDim2.new]
+      219 LOADN                            R21 1
+      220 LOADN                            R22 0
+      221 LOADN                            R23 1
+      222 GETTABLEKS                       R25 R4 K105 ["deviceHeaderHeight"]
+      224 MINUS                            R24 R25
+      225 CALL                             R20 4 1
+      226 SETTABLEKS                       R20 R19 K31 ["Size"]
+      228 GETIMPORT                        R20 K107 [Enum.ScrollingDirection.XY]
+      230 SETTABLEKS                       R20 R19 K101 ["ScrollingDirection"]
+      232 GETIMPORT                        R20 K108 [Enum.AutomaticSize.XY]
+      234 SETTABLEKS                       R20 R19 K102 ["AutomaticCanvasSize"]
+      236 GETIMPORT                        R20 K41 [UDim2.new]
+      238 LOADN                            R21 0
+      239 LOADN                            R22 0
+      240 LOADN                            R23 0
+      241 LOADN                            R24 0
+      242 CALL                             R20 4 1
+      243 SETTABLEKS                       R20 R19 K103 ["CanvasSize"]
+      245 NEWTABLE                         R20 0 1
+      247 MOVE                             R21 R2
+      248 LOADK                            R22 K109 [">> #GamepadAndVRLayoutContainer"]
+      249 NEWTABLE                         R23 0 0
+      251 NEWTABLE                         R24 0 1
+      253 MOVE                             R25 R2
+      254 LOADK                            R26 K110 ["::UIListLayout"]
+      255 DUPTABLE                         R27 K114 [{"SortOrder", "HorizontalAlignment", "FillDirection"}]
+      256 GETIMPORT                        R28 K116 [Enum.SortOrder.LayoutOrder]
+      258 SETTABLEKS                       R28 R27 K111 ["SortOrder"]
+      260 GETIMPORT                        R28 K118 [Enum.HorizontalAlignment.Center]
+      262 SETTABLEKS                       R28 R27 K112 ["HorizontalAlignment"]
+      264 GETIMPORT                        R28 K120 [Enum.FillDirection.Vertical]
+      266 SETTABLEKS                       R28 R27 K113 ["FillDirection"]
+      268 CALL                             R25 2 -1
+      269 SETLIST                          R24 R25 -1 [1]
+      271 CALL                             R21 3 -1
+      272 SETLIST                          R20 R21 -1 [1]
+      274 CALL                             R17 3 1
+      275 MOVE                             R18 R2
+      276 LOADK                            R19 K121 [">> .Mapping-Widget"]
+      277 DUPTABLE                         R20 K122 [{["BackgroundTransparency"] = 1, ["Size"]}]
+      278 GETIMPORT                        R21 K41 [UDim2.new]
+      280 LOADN                            R22 1
+      281 LOADN                            R23 0
+      282 LOADN                            R24 1
+      283 LOADN                            R25 0
+      284 CALL                             R21 4 1
+      285 SETTABLEKS                       R21 R20 K31 ["Size"]
+      287 NEWTABLE                         R21 0 3
+      289 MOVE                             R22 R2
+      290 LOADK                            R23 K123 [">> .Mapping-Label"]
+      291 DUPTABLE                         R24 K124 [{["Size"], ["BackgroundTransparency"] = 1}]
+      292 GETIMPORT                        R25 K41 [UDim2.new]
+      294 LOADK                            R26 K125 [0.04]
+      295 LOADN                            R27 0
+      296 LOADK                            R28 K125 [0.04]
+      297 LOADN                            R29 0
+      298 CALL                             R25 4 1
+      299 SETTABLEKS                       R25 R24 K31 ["Size"]
+      301 NEWTABLE                         R25 0 1
+      303 MOVE                             R26 R2
+      304 LOADK                            R27 K126 [">> TextLabel"]
+      305 DUPTABLE                         R28 K129 [{["Font"], ["BackgroundTransparency"] = 1, ["TextColor3"] = "$BlueprintLabelsColor", ["TextSize"], ["TextScaled"] = True, ["HorizontalAlignment"]}]
+      306 GETTABLEKS                       R29 R4 K130 ["defaultFontBold"]
+      308 SETTABLEKS                       R29 R28 K15 ["Font"]
+      310 GETTABLEKS                       R29 R4 K131 ["blueprintLabelFontSize"]
+      312 SETTABLEKS                       R29 R28 K16 ["TextSize"]
+      314 GETIMPORT                        R29 K118 [Enum.HorizontalAlignment.Center]
+      316 SETTABLEKS                       R29 R28 K112 ["HorizontalAlignment"]
+      318 CALL                             R26 2 -1
+      319 SETLIST                          R25 R26 -1 [1]
+      321 CALL                             R22 3 1
+      322 MOVE                             R23 R2
+      323 LOADK                            R24 K132 [">> .Component-Arrow"]
+      324 DUPTABLE                         R25 K135 [{["Color3"] = "$BlueprintArrowColor"}]
+      325 CALL                             R23 2 1
+      326 MOVE                             R24 R2
+      327 LOADK                            R25 K136 [">> .Component-Arrow-Circle"]
+      328 DUPTABLE                         R26 K138 [{["Size"], ["Color3"] = "$BlueprintArrowColor", ["AnchorPoint"]}]
+      329 GETIMPORT                        R27 K41 [UDim2.new]
+      331 LOADK                            R28 K139 [0.02]
+      332 LOADN                            R29 0
+      333 LOADK                            R30 K139 [0.02]
+      334 LOADN                            R31 0
+      335 CALL                             R27 4 1
+      336 SETTABLEKS                       R27 R26 K31 ["Size"]
+      338 GETIMPORT                        R27 K141 [Vector2.new]
+      340 LOADK                            R28 K142 [0.5]
+      341 LOADK                            R29 K142 [0.5]
+      342 CALL                             R27 2 1
+      343 SETTABLEKS                       R27 R26 K137 ["AnchorPoint"]
+      345 CALL                             R24 2 -1
+      346 SETLIST                          R21 R22 -1 [1]
+      348 CALL                             R18 3 1
+      349 MOVE                             R19 R2
+      350 LOADK                            R20 K143 [">> .X-Circle"]
+      351 NEWTABLE                         R21 0 0
+      353 NEWTABLE                         R22 0 1
+      355 MOVE                             R23 R2
+      356 LOADK                            R24 K56 ["::UICorner"]
+      357 DUPTABLE                         R25 K58 [{"CornerRadius"}]
+      358 GETIMPORT                        R26 K53 [UDim.new]
+      360 LOADN                            R27 1
+      361 LOADN                            R28 0
+      362 CALL                             R26 2 1
+      363 SETTABLEKS                       R26 R25 K57 ["CornerRadius"]
+      365 CALL                             R23 2 -1
+      366 SETLIST                          R22 R23 -1 [1]
+      368 CALL                             R19 3 -1
+      369 SETLIST                          R5 R6 -1 [1]
+      371 DUPTABLE                         R6 K146 [{"BlueprintWithMappingsPadding", "TooltipPadding"}]
+      372 GETIMPORT                        R7 K53 [UDim.new]
+      374 LOADK                            R8 K147 [0.2]
+      375 LOADN                            R9 0
+      376 CALL                             R7 2 1
+      377 SETTABLEKS                       R7 R6 K144 ["BlueprintWithMappingsPadding"]
+      379 GETIMPORT                        R7 K53 [UDim.new]
+      381 LOADN                            R8 0
+      382 LOADN                            R9 10
+      383 CALL                             R7 2 1
+      384 SETTABLEKS                       R7 R6 K145 ["TooltipPadding"]
+      386 MOVE                             R7 R3
+      387 LOADK                            R8 K2 ["ControlsEmulator"]
+      388 MOVE                             R9 R5
+      389 MOVE                             R10 R6
+      390 CALL                             R7 3 -1
+      391 RETURN                           R7 -1

@@ -8,12 +8,17 @@ PROTO_0:
         8 RETURN                           R0 0
 
 PROTO_1:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R1 R1 K0 ["sendErrorFromCatch"]
-        3 LOADK                            R2 K1 ["getUniverseConfiguration"]
-        4 MOVE                             R3 R0
-        5 CALL                             R1 2 0
-        6 RETURN                           R0 0
+        0 GETUPVAL                         R2 0
+        1 JUMPIFNOT                        R2 ; [+2]
+        2 LOADK                            R1 K0 ["getUniverseName"]
+        3 JUMP                             ; [+1]
+        4 LOADK                            R1 K1 ["getUniverseConfiguration"]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K2 ["sendErrorFromCatch"]
+        8 MOVE                             R3 R1
+        9 MOVE                             R4 R0
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -36,22 +41,31 @@ PROTO_2:
        24 LOADK                            R1 K4 [""]
        25 CALL                             R0 1 0
        26 RETURN                           R0 0
-       27 GETUPVAL                         R0 3
-       28 GETTABLEKS                       R0 R0 K5 ["getUniverseConfiguration"]
-       30 GETUPVAL                         R1 1
-       31 GETTABLEKS                       R1 R1 K2 ["universeId"]
-       33 CALL                             R0 1 1
-       34 GETUPVAL                         R1 0
-       35 SETTABLEKS                       R0 R1 K0 ["current"]
-       37 NEWCLOSURE                       R3 P0
-       38 CAPTURE                          UPVAL U2
-       39 NAMECALL                         R1 R0 K6 ["andThen"]
-       41 CALL                             R1 2 1
-       42 DUPCLOSURE                       R3 K7 [PROTO_1]
-       43 CAPTURE                          UPVAL U4
-       44 NAMECALL                         R1 R1 K8 ["catch"]
-       46 CALL                             R1 2 0
-       47 RETURN                           R0 0
+       27 GETUPVAL                         R1 3
+       28 JUMPIFNOT                        R1 ; [+8]
+       29 GETUPVAL                         R0 4
+       30 GETTABLEKS                       R0 R0 K5 ["getUniverseName"]
+       32 GETUPVAL                         R1 1
+       33 GETTABLEKS                       R1 R1 K2 ["universeId"]
+       35 CALL                             R0 1 1
+       36 JUMP                             ; [+7]
+       37 GETUPVAL                         R0 4
+       38 GETTABLEKS                       R0 R0 K6 ["getUniverseConfiguration"]
+       40 GETUPVAL                         R1 1
+       41 GETTABLEKS                       R1 R1 K2 ["universeId"]
+       43 CALL                             R0 1 1
+       44 GETUPVAL                         R1 0
+       45 SETTABLEKS                       R0 R1 K0 ["current"]
+       47 NEWCLOSURE                       R3 P0
+       48 CAPTURE                          UPVAL U2
+       49 NAMECALL                         R1 R0 K7 ["andThen"]
+       51 CALL                             R1 2 1
+       52 DUPCLOSURE                       R3 K8 [PROTO_1]
+       53 CAPTURE                          UPVAL U3
+       54 CAPTURE                          UPVAL U5
+       55 NAMECALL                         R1 R1 K9 ["catch"]
+       57 CALL                             R1 2 0
+       58 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -72,15 +86,16 @@ PROTO_3:
        19 CAPTURE                          VAL R4
        20 CAPTURE                          VAL R0
        21 CAPTURE                          VAL R2
-       22 CAPTURE                          VAL R3
-       23 CAPTURE                          UPVAL U2
-       24 NEWTABLE                         R7 0 1
-       26 GETTABLEKS                       R8 R0 K5 ["universeId"]
-       28 SETLIST                          R7 R8 1 [1]
-       30 CALL                             R5 2 0
-       31 DUPTABLE                         R5 K7 [{"name"}]
-       32 SETTABLEKS                       R1 R5 K6 ["name"]
-       34 RETURN                           R5 1
+       22 CAPTURE                          UPVAL U2
+       23 CAPTURE                          VAL R3
+       24 CAPTURE                          UPVAL U3
+       25 NEWTABLE                         R7 0 1
+       27 GETTABLEKS                       R8 R0 K5 ["universeId"]
+       29 SETLIST                          R7 R8 1 [1]
+       31 CALL                             R5 2 0
+       32 DUPTABLE                         R5 K7 [{"name"}]
+       33 SETTABLEKS                       R1 R5 K6 ["name"]
+       35 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -103,8 +118,15 @@ MAIN:
        29 GETTABLEKS                       R5 R5 K12 ["Telemetry"]
        31 GETTABLEKS                       R5 R5 K12 ["Telemetry"]
        33 CALL                             R4 1 1
-       34 DUPCLOSURE                       R5 K13 [PROTO_3]
-       35 CAPTURE                          VAL R1
-       36 CAPTURE                          VAL R3
-       37 CAPTURE                          VAL R4
-       38 RETURN                           R5 1
+       34 GETIMPORT                        R5 K5 [require]
+       36 GETTABLEKS                       R6 R0 K13 ["Bin"]
+       38 GETTABLEKS                       R6 R6 K14 ["Common"]
+       40 GETTABLEKS                       R6 R6 K15 ["flags"]
+       42 CALL                             R5 1 1
+       43 GETTABLEKS                       R6 R5 K16 ["FFlagTeamCreateCollaboratorsUseUniverseMultiget"]
+       45 DUPCLOSURE                       R7 K17 [PROTO_3]
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R3
+       48 CAPTURE                          VAL R6
+       49 CAPTURE                          VAL R4
+       50 RETURN                           R7 1

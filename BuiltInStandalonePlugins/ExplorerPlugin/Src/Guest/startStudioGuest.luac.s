@@ -24,7 +24,7 @@ PROTO_2:
        11 GETUPVAL                         R5 2
        12 GETUPVAL                         R6 3
        13 CALL                             R4 2 1
-       14 DUPTABLE                         R5 K17 [{"openInsertObjectMenuAsync", "getInstanceId", "listenForVisibilityChanges", "instancePicker", "streamingInterface", "isServiceVisible", "clickScript", "openScript", "fieldsConfig", "enableOpenContextMenuDelayHack", "DEBUG_dataModelType", "DEBUG_startTime"}]
+       14 DUPTABLE                         R5 K18 [{["openInsertObjectMenuAsync"], ["getInstanceId"], ["listenForVisibilityChanges"], ["instancePicker"], ["streamingInterface"], ["isServiceVisible"], ["clickScript"], ["openScript"], ["fieldsConfig"], ["enableOpenContextMenuDelayHack"] = True, ["DEBUG_dataModelType"], ["DEBUG_startTime"]}]
        15 NEWCLOSURE                       R6 P0
        16 CAPTURE                          UPVAL U4
        17 CAPTURE                          UPVAL U2
@@ -33,11 +33,11 @@ PROTO_2:
        21 CALL                             R7 0 1
        22 JUMPIFNOT                        R7 ; [+6]
        23 GETIMPORT                        R7 K4 [game]
-       25 GETTABLEKS                       R7 R7 K18 ["UniqueId"]
-       27 JUMPIFNOTEQKS                    R7 K19 ["00000000-0000-0000-0000-000000000000"] ; [+3]
+       25 GETTABLEKS                       R7 R7 K19 ["UniqueId"]
+       27 JUMPIFNOTEQKS                    R7 K20 ["00000000-0000-0000-0000-000000000000"] ; [+3]
        29 LOADNIL                          R6
        30 JUMP                             ; [+2]
-       31 DUPCLOSURE                       R6 K20 [PROTO_1]
+       31 DUPCLOSURE                       R6 K21 [PROTO_1]
        32 CAPTURE                          UPVAL U6
        33 SETTABLEKS                       R6 R5 K6 ["getInstanceId"]
        35 GETUPVAL                         R6 7
@@ -45,8 +45,8 @@ PROTO_2:
        38 GETUPVAL                         R6 8
        39 SETTABLEKS                       R6 R5 K8 ["instancePicker"]
        41 GETUPVAL                         R7 0
-       42 GETTABLEKS                       R7 R7 K21 ["Flags"]
-       44 GETTABLEKS                       R7 R7 K22 ["getFFlagExplorerStreaming"]
+       42 GETTABLEKS                       R7 R7 K22 ["Flags"]
+       44 GETTABLEKS                       R7 R7 K23 ["getFFlagExplorerStreaming"]
        46 CALL                             R7 0 1
        47 JUMPIFNOT                        R7 ; [+3]
        48 GETUPVAL                         R6 9
@@ -65,25 +65,23 @@ PROTO_2:
        63 SETTABLEKS                       R6 R5 K11 ["clickScript"]
        65 GETUPVAL                         R6 13
        66 SETTABLEKS                       R6 R5 K12 ["openScript"]
-       68 DUPTABLE                         R6 K26 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+       68 DUPTABLE                         R6 K27 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
        69 GETUPVAL                         R7 14
-       70 SETTABLEKS                       R7 R6 K23 ["createLiveSyncStatusWatcher"]
+       70 SETTABLEKS                       R7 R6 K24 ["createLiveSyncStatusWatcher"]
        72 GETUPVAL                         R7 15
-       73 SETTABLEKS                       R7 R6 K24 ["createInstanceFileSyncStatusWatcher"]
+       73 SETTABLEKS                       R7 R6 K25 ["createInstanceFileSyncStatusWatcher"]
        75 GETUPVAL                         R7 16
-       76 SETTABLEKS                       R7 R6 K25 ["createCollaboratorSelectionWatcher"]
+       76 SETTABLEKS                       R7 R6 K26 ["createCollaboratorSelectionWatcher"]
        78 SETTABLEKS                       R6 R5 K13 ["fieldsConfig"]
-       80 LOADB                            R6 1
-       81 SETTABLEKS                       R6 R5 K14 ["enableOpenContextMenuDelayHack"]
-       83 GETUPVAL                         R6 2
-       84 GETTABLEKS                       R6 R6 K27 ["HostDataModelType"]
-       86 GETTABLEKS                       R6 R6 K28 ["Name"]
-       88 SETTABLEKS                       R6 R5 K15 ["DEBUG_dataModelType"]
-       90 GETIMPORT                        R6 K31 [os.clock]
-       92 CALL                             R6 0 1
-       93 SETTABLEKS                       R6 R5 K16 ["DEBUG_startTime"]
-       95 CALL                             R1 4 -1
-       96 RETURN                           R1 -1
+       80 GETUPVAL                         R6 2
+       81 GETTABLEKS                       R6 R6 K28 ["HostDataModelType"]
+       83 GETTABLEKS                       R6 R6 K29 ["Name"]
+       85 SETTABLEKS                       R6 R5 K16 ["DEBUG_dataModelType"]
+       87 GETIMPORT                        R6 K32 [os.clock]
+       89 CALL                             R6 0 1
+       90 SETTABLEKS                       R6 R5 K17 ["DEBUG_startTime"]
+       92 CALL                             R1 4 -1
+       93 RETURN                           R1 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -117,47 +115,43 @@ PROTO_4:
        10 MOVE                             R2 R3
        11 CALL                             R1 1 0
        12 GETUPVAL                         R1 0
-       13 DUPTABLE                         R3 K12 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
-       14 LOADK                            R4 K13 ["LuaExplorerUnloadingError"]
-       15 SETTABLEKS                       R4 R3 K7 ["eventName"]
-       17 LOADK                            R4 K14 ["Fired when something errors in plugin.Unloading"]
-       18 SETTABLEKS                       R4 R3 K8 ["description"]
-       20 NEWTABLE                         R4 0 1
-       22 LOADK                            R5 K15 ["Points"]
-       23 SETLIST                          R4 R5 1 [1]
-       25 SETTABLEKS                       R4 R3 K9 ["backends"]
-       27 GETIMPORT                        R4 K17 [game]
-       29 LOADK                            R6 K18 ["LuaExplorerUnloadingErrorThrottlingHundredthsPercent"]
-       30 LOADN                            R7 16
-       31 NAMECALL                         R4 R4 K19 ["DefineFastInt"]
-       33 CALL                             R4 3 1
-       34 SETTABLEKS                       R4 R3 K10 ["throttlingPercentage"]
-       36 NEWTABLE                         R4 0 3
-       38 LOADN                            R5 25
-       39 LOADN                            R6 4
-       40 LOADN                            R7 2
-       41 SETLIST                          R4 R5 3 [1]
-       43 SETTABLEKS                       R4 R3 K11 ["lastUpdated"]
-       45 DUPTABLE                         R4 K22 [{"customFields", "standardizedFields"}]
-       46 DUPTABLE                         R5 K25 [{"dataModel", "problem"}]
-       47 GETUPVAL                         R6 1
-       48 GETTABLEKS                       R6 R6 K26 ["HostDataModelType"]
-       50 GETTABLEKS                       R6 R6 K27 ["Name"]
-       52 SETTABLEKS                       R6 R5 K23 ["dataModel"]
-       54 SETTABLEKS                       R0 R5 K24 ["problem"]
-       56 SETTABLEKS                       R5 R4 K20 ["customFields"]
-       58 NEWTABLE                         R5 0 6
-       60 LOADK                            R6 K28 ["addPlaceId"]
-       61 LOADK                            R7 K29 ["addUniverseId"]
-       62 LOADK                            R8 K30 ["addPlaceInstanceId"]
-       63 LOADK                            R9 K31 ["addSessionId"]
-       64 LOADK                            R10 K32 ["addOSInfo"]
-       65 LOADK                            R11 K33 ["addSessionInfo"]
-       66 SETLIST                          R5 R6 6 [1]
-       68 SETTABLEKS                       R5 R4 K21 ["standardizedFields"]
-       70 NAMECALL                         R1 R1 K34 ["LogEvent"]
-       72 CALL                             R1 3 0
-       73 RETURN                           R0 0
+       13 DUPTABLE                         R3 K14 [{["eventName"] = "LuaExplorerUnloadingError", ["description"] = "Fired when something errors in plugin.Unloading", ["backends"], ["throttlingPercentage"], ["lastUpdated"]}]
+       14 NEWTABLE                         R4 0 1
+       16 LOADK                            R5 K15 ["Points"]
+       17 SETLIST                          R4 R5 1 [1]
+       19 SETTABLEKS                       R4 R3 K11 ["backends"]
+       21 GETIMPORT                        R4 K17 [game]
+       23 LOADK                            R6 K18 ["LuaExplorerUnloadingErrorThrottlingHundredthsPercent"]
+       24 LOADN                            R7 10000
+       25 NAMECALL                         R4 R4 K19 ["DefineFastInt"]
+       27 CALL                             R4 3 1
+       28 SETTABLEKS                       R4 R3 K12 ["throttlingPercentage"]
+       30 NEWTABLE                         R4 0 3
+       32 LOADN                            R5 25
+       33 LOADN                            R6 4
+       34 LOADN                            R7 2
+       35 SETLIST                          R4 R5 3 [1]
+       37 SETTABLEKS                       R4 R3 K13 ["lastUpdated"]
+       39 DUPTABLE                         R4 K22 [{"customFields", "standardizedFields"}]
+       40 DUPTABLE                         R5 K25 [{"dataModel", "problem"}]
+       41 GETUPVAL                         R6 1
+       42 GETTABLEKS                       R6 R6 K26 ["HostDataModelType"]
+       44 GETTABLEKS                       R6 R6 K27 ["Name"]
+       46 SETTABLEKS                       R6 R5 K23 ["dataModel"]
+       48 SETTABLEKS                       R0 R5 K24 ["problem"]
+       50 SETTABLEKS                       R5 R4 K20 ["customFields"]
+       52 NEWTABLE                         R5 0 6
+       54 LOADK                            R6 K28 ["addPlaceId"]
+       55 LOADK                            R7 K29 ["addUniverseId"]
+       56 LOADK                            R8 K30 ["addPlaceInstanceId"]
+       57 LOADK                            R9 K31 ["addSessionId"]
+       58 LOADK                            R10 K32 ["addOSInfo"]
+       59 LOADK                            R11 K33 ["addSessionInfo"]
+       60 SETLIST                          R5 R6 6 [1]
+       62 SETTABLEKS                       R5 R4 K21 ["standardizedFields"]
+       64 NAMECALL                         R1 R1 K34 ["LogEvent"]
+       66 CALL                             R1 3 0
+       67 RETURN                           R0 0
 
 PROTO_5:
         0 GETIMPORT                        R0 K1 [xpcall]

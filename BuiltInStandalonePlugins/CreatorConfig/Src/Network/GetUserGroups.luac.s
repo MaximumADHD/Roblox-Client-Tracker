@@ -92,12 +92,10 @@ MAIN:
        27 GETTABLEKS                       R4 R1 K13 ["Http"]
        29 GETTABLEKS                       R4 R4 K14 ["Networking"]
        31 GETTABLEKS                       R4 R4 K15 ["new"]
-       33 DUPTABLE                         R5 K17 [{"isInternal"}]
-       34 LOADB                            R6 1
-       35 SETTABLEKS                       R6 R5 K16 ["isInternal"]
-       37 CALL                             R4 1 1
-       38 DUPCLOSURE                       R5 K18 [PROTO_1]
-       39 CAPTURE                          VAL R2
-       40 CAPTURE                          VAL R3
-       41 CAPTURE                          VAL R4
-       42 RETURN                           R5 1
+       33 DUPTABLE                         R5 K18 [{["isInternal"] = True}]
+       34 CALL                             R4 1 1
+       35 DUPCLOSURE                       R5 K19 [PROTO_1]
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R4
+       39 RETURN                           R5 1

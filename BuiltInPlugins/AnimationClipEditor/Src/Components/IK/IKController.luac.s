@@ -1,20 +1,16 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showMenu"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["showMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showMenu"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -190,40 +186,36 @@ PROTO_7:
       139 RETURN                           R6 1
 
 PROTO_8:
-        0 DUPTABLE                         R1 K2 [{"showMenu", "showTree"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["showMenu"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["showTree"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 NEWCLOSURE                       R1 P0
-       10 CAPTURE                          VAL R0
-       11 SETTABLEKS                       R1 R0 K0 ["showMenu"]
-       13 NEWCLOSURE                       R1 P1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K4 ["hideMenu"]
-       17 NEWCLOSURE                       R1 P2
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R1 R0 K5 ["setShowTree"]
-       21 NEWCLOSURE                       R1 P3
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K6 ["makeChainHelper"]
-       25 NEWCLOSURE                       R1 P4
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K7 ["makeChainHelperAnimationConstraint"]
-       29 NEWCLOSURE                       R1 P5
-       30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R1 R0 K8 ["getLastSelectedTrack"]
-       33 NEWCLOSURE                       R1 P6
-       34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R1 R0 K9 ["toggleIKEnabledHandler"]
-       37 NEWCLOSURE                       R1 P7
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          UPVAL U0
-       40 CAPTURE                          UPVAL U1
-       41 CAPTURE                          UPVAL U2
-       42 SETTABLEKS                       R1 R0 K10 ["makeChains"]
-       44 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["showTree"] = False}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K0 ["showMenu"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["hideMenu"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["setShowTree"]
+       15 NEWCLOSURE                       R1 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K7 ["makeChainHelper"]
+       19 NEWCLOSURE                       R1 P4
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R1 R0 K8 ["makeChainHelperAnimationConstraint"]
+       23 NEWCLOSURE                       R1 P5
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R1 R0 K9 ["getLastSelectedTrack"]
+       27 NEWCLOSURE                       R1 P6
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R1 R0 K10 ["toggleIKEnabledHandler"]
+       31 NEWCLOSURE                       R1 P7
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U0
+       34 CAPTURE                          UPVAL U1
+       35 CAPTURE                          UPVAL U2
+       36 SETTABLEKS                       R1 R0 K11 ["makeChains"]
+       38 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -272,129 +264,125 @@ PROTO_11:
        26 LOADK                            R9 K10 ["ACEHeaderButtonDefault"]
        27 GETTABLEKS                       R10 R0 K0 ["props"]
        29 GETTABLEKS                       R10 R10 K7 ["RootInstance"]
-       31 JUMPIFNOT                        R10 ; [+188]
+       31 JUMPIFNOT                        R10 ; [+182]
        32 GETUPVAL                         R10 1
        33 GETTABLEKS                       R10 R10 K11 ["createElement"]
        35 LOADK                            R11 K12 ["Frame"]
-       36 DUPTABLE                         R12 K17 [{"Position", "Size", "BackgroundTransparency", "AnchorPoint"}]
+       36 DUPTABLE                         R12 K18 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["AnchorPoint"]}]
        37 GETTABLEKS                       R13 R2 K13 ["Position"]
        39 SETTABLEKS                       R13 R12 K13 ["Position"]
-       41 GETIMPORT                        R13 K20 [UDim2.new]
+       41 GETIMPORT                        R13 K21 [UDim2.new]
        43 LOADN                            R14 0
        44 LOADN                            R15 40
        45 LOADN                            R16 0
        46 LOADN                            R17 18
        47 CALL                             R13 4 1
        48 SETTABLEKS                       R13 R12 K14 ["Size"]
-       50 LOADN                            R13 1
-       51 SETTABLEKS                       R13 R12 K15 ["BackgroundTransparency"]
-       53 GETIMPORT                        R13 K22 [Vector2.new]
-       55 LOADN                            R14 0
-       56 LOADK                            R15 K23 [0.5]
-       57 CALL                             R13 2 1
-       58 SETTABLEKS                       R13 R12 K16 ["AnchorPoint"]
-       60 DUPTABLE                         R13 K27 [{"IKButton", "IKWindow", "R15IKRig"}]
-       61 GETTABLEKS                       R14 R2 K7 ["RootInstance"]
-       63 JUMPIFNOT                        R14 ; [+69]
-       64 MOVE                             R14 R7
-       65 JUMPIFNOT                        R14 ; [+67]
-       66 GETUPVAL                         R14 1
-       67 GETTABLEKS                       R14 R14 K11 ["createElement"]
-       69 GETUPVAL                         R15 2
-       70 DUPTABLE                         R16 K30 [{"Style", "Size", "OnClick"}]
-       71 SETTABLEKS                       R9 R16 K28 ["Style"]
-       73 GETIMPORT                        R17 K20 [UDim2.new]
-       75 LOADN                            R18 1
-       76 LOADN                            R19 0
-       77 LOADN                            R20 1
-       78 LOADN                            R21 0
-       79 CALL                             R17 4 1
-       80 SETTABLEKS                       R17 R16 K14 ["Size"]
-       82 SETTABLEKS                       R6 R16 K29 ["OnClick"]
-       84 DUPTABLE                         R17 K32 [{"Label"}]
-       85 GETUPVAL                         R18 1
-       86 GETTABLEKS                       R18 R18 K11 ["createElement"]
-       88 LOADK                            R19 K33 ["TextLabel"]
-       89 DUPTABLE                         R20 K39 [{"BackgroundTransparency", "Size", "TextYAlignment", "TextSize", "Text", "Font", "TextColor3"}]
-       90 LOADN                            R21 1
-       91 SETTABLEKS                       R21 R20 K15 ["BackgroundTransparency"]
-       93 GETIMPORT                        R21 K20 [UDim2.new]
-       95 LOADN                            R22 1
-       96 LOADN                            R23 0
-       97 LOADN                            R24 1
-       98 LOADN                            R25 0
-       99 CALL                             R21 4 1
-      100 SETTABLEKS                       R21 R20 K14 ["Size"]
-      102 GETIMPORT                        R21 K42 [Enum.TextYAlignment.Center]
-      104 SETTABLEKS                       R21 R20 K34 ["TextYAlignment"]
-      106 GETTABLEKS                       R21 R3 K43 ["ikTheme"]
-      108 GETTABLEKS                       R21 R21 K44 ["textSize"]
-      110 SETTABLEKS                       R21 R20 K35 ["TextSize"]
-      112 LOADK                            R23 K45 ["Title"]
-      113 LOADK                            R24 K46 ["IK"]
-      114 NAMECALL                         R21 R1 K47 ["getText"]
-      116 CALL                             R21 3 1
-      117 SETTABLEKS                       R21 R20 K36 ["Text"]
-      119 GETTABLEKS                       R21 R3 K48 ["font"]
-      121 SETTABLEKS                       R21 R20 K37 ["Font"]
-      123 GETTABLEKS                       R21 R3 K43 ["ikTheme"]
-      125 GETTABLEKS                       R21 R21 K49 ["textColor"]
-      127 SETTABLEKS                       R21 R20 K38 ["TextColor3"]
-      129 CALL                             R18 2 1
-      130 SETTABLEKS                       R18 R17 K31 ["Label"]
-      132 CALL                             R14 3 1
-      133 SETTABLEKS                       R14 R13 K24 ["IKButton"]
-      135 GETTABLEKS                       R14 R2 K50 ["ShowTree"]
-      137 JUMPIFNOT                        R14 ; [+62]
-      138 GETTABLEKS                       R14 R5 K8 ["showTree"]
-      140 JUMPIFNOT                        R14 ; [+59]
-      141 GETUPVAL                         R14 1
-      142 GETTABLEKS                       R14 R14 K11 ["createElement"]
-      144 GETUPVAL                         R15 3
-      145 DUPTABLE                         R16 K63 [{"RootInstance", "PinnedParts", "IKEnabled", "ShowTree", "SelectedTrack", "SetSelectedTracks", "ToggleIKEnabled", "TogglePinnedPart", "SetShowTree", "SetIKEnabled", "SetIKMode", "Chain", "IKMode", "IsR15"}]
-      146 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
-      148 SETTABLEKS                       R17 R16 K7 ["RootInstance"]
-      150 GETTABLEKS                       R17 R2 K51 ["PinnedParts"]
-      152 SETTABLEKS                       R17 R16 K51 ["PinnedParts"]
-      154 GETTABLEKS                       R17 R2 K52 ["IKEnabled"]
-      156 SETTABLEKS                       R17 R16 K52 ["IKEnabled"]
-      158 GETTABLEKS                       R17 R2 K50 ["ShowTree"]
-      160 SETTABLEKS                       R17 R16 K50 ["ShowTree"]
-      162 SETTABLEKS                       R4 R16 K53 ["SelectedTrack"]
-      164 GETTABLEKS                       R17 R2 K54 ["SetSelectedTracks"]
-      166 SETTABLEKS                       R17 R16 K54 ["SetSelectedTracks"]
-      168 GETTABLEKS                       R17 R0 K64 ["toggleIKEnabledHandler"]
-      170 SETTABLEKS                       R17 R16 K55 ["ToggleIKEnabled"]
-      172 GETTABLEKS                       R17 R2 K56 ["TogglePinnedPart"]
-      174 SETTABLEKS                       R17 R16 K56 ["TogglePinnedPart"]
-      176 GETTABLEKS                       R17 R2 K57 ["SetShowTree"]
-      178 SETTABLEKS                       R17 R16 K57 ["SetShowTree"]
-      180 GETTABLEKS                       R17 R2 K58 ["SetIKEnabled"]
-      182 SETTABLEKS                       R17 R16 K58 ["SetIKEnabled"]
-      184 GETTABLEKS                       R17 R2 K59 ["SetIKMode"]
-      186 SETTABLEKS                       R17 R16 K59 ["SetIKMode"]
-      188 GETTABLEKS                       R17 R0 K65 ["makeChains"]
-      190 CALL                             R17 0 1
-      191 SETTABLEKS                       R17 R16 K60 ["Chain"]
-      193 GETTABLEKS                       R17 R2 K61 ["IKMode"]
-      195 SETTABLEKS                       R17 R16 K61 ["IKMode"]
-      197 SETTABLEKS                       R8 R16 K62 ["IsR15"]
-      199 CALL                             R14 2 1
-      200 SETTABLEKS                       R14 R13 K25 ["IKWindow"]
-      202 GETTABLEKS                       R14 R2 K52 ["IKEnabled"]
-      204 JUMPIFNOT                        R14 ; [+12]
-      205 MOVE                             R14 R8
-      206 JUMPIFNOT                        R14 ; [+10]
-      207 GETUPVAL                         R14 1
-      208 GETTABLEKS                       R14 R14 K11 ["createElement"]
-      210 GETUPVAL                         R15 4
-      211 DUPTABLE                         R16 K66 [{"RootInstance"}]
-      212 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
-      214 SETTABLEKS                       R17 R16 K7 ["RootInstance"]
-      216 CALL                             R14 2 1
-      217 SETTABLEKS                       R14 R13 K26 ["R15IKRig"]
-      219 CALL                             R10 3 1
-      220 RETURN                           R10 1
+       50 GETIMPORT                        R13 K23 [Vector2.new]
+       52 LOADN                            R14 0
+       53 LOADK                            R15 K24 [0.5]
+       54 CALL                             R13 2 1
+       55 SETTABLEKS                       R13 R12 K17 ["AnchorPoint"]
+       57 DUPTABLE                         R13 K28 [{"IKButton", "IKWindow", "R15IKRig"}]
+       58 GETTABLEKS                       R14 R2 K7 ["RootInstance"]
+       60 JUMPIFNOT                        R14 ; [+66]
+       61 MOVE                             R14 R7
+       62 JUMPIFNOT                        R14 ; [+64]
+       63 GETUPVAL                         R14 1
+       64 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       66 GETUPVAL                         R15 2
+       67 DUPTABLE                         R16 K31 [{"Style", "Size", "OnClick"}]
+       68 SETTABLEKS                       R9 R16 K29 ["Style"]
+       70 GETIMPORT                        R17 K21 [UDim2.new]
+       72 LOADN                            R18 1
+       73 LOADN                            R19 0
+       74 LOADN                            R20 1
+       75 LOADN                            R21 0
+       76 CALL                             R17 4 1
+       77 SETTABLEKS                       R17 R16 K14 ["Size"]
+       79 SETTABLEKS                       R6 R16 K30 ["OnClick"]
+       81 DUPTABLE                         R17 K33 [{"Label"}]
+       82 GETUPVAL                         R18 1
+       83 GETTABLEKS                       R18 R18 K11 ["createElement"]
+       85 LOADK                            R19 K34 ["TextLabel"]
+       86 DUPTABLE                         R20 K40 [{["BackgroundTransparency"] = 1, ["Size"], ["TextYAlignment"], ["TextSize"], ["Text"], ["Font"], ["TextColor3"]}]
+       87 GETIMPORT                        R21 K21 [UDim2.new]
+       89 LOADN                            R22 1
+       90 LOADN                            R23 0
+       91 LOADN                            R24 1
+       92 LOADN                            R25 0
+       93 CALL                             R21 4 1
+       94 SETTABLEKS                       R21 R20 K14 ["Size"]
+       96 GETIMPORT                        R21 K43 [Enum.TextYAlignment.Center]
+       98 SETTABLEKS                       R21 R20 K35 ["TextYAlignment"]
+      100 GETTABLEKS                       R21 R3 K44 ["ikTheme"]
+      102 GETTABLEKS                       R21 R21 K45 ["textSize"]
+      104 SETTABLEKS                       R21 R20 K36 ["TextSize"]
+      106 LOADK                            R23 K46 ["Title"]
+      107 LOADK                            R24 K47 ["IK"]
+      108 NAMECALL                         R21 R1 K48 ["getText"]
+      110 CALL                             R21 3 1
+      111 SETTABLEKS                       R21 R20 K37 ["Text"]
+      113 GETTABLEKS                       R21 R3 K49 ["font"]
+      115 SETTABLEKS                       R21 R20 K38 ["Font"]
+      117 GETTABLEKS                       R21 R3 K44 ["ikTheme"]
+      119 GETTABLEKS                       R21 R21 K50 ["textColor"]
+      121 SETTABLEKS                       R21 R20 K39 ["TextColor3"]
+      123 CALL                             R18 2 1
+      124 SETTABLEKS                       R18 R17 K32 ["Label"]
+      126 CALL                             R14 3 1
+      127 SETTABLEKS                       R14 R13 K25 ["IKButton"]
+      129 GETTABLEKS                       R14 R2 K51 ["ShowTree"]
+      131 JUMPIFNOT                        R14 ; [+62]
+      132 GETTABLEKS                       R14 R5 K8 ["showTree"]
+      134 JUMPIFNOT                        R14 ; [+59]
+      135 GETUPVAL                         R14 1
+      136 GETTABLEKS                       R14 R14 K11 ["createElement"]
+      138 GETUPVAL                         R15 3
+      139 DUPTABLE                         R16 K64 [{"RootInstance", "PinnedParts", "IKEnabled", "ShowTree", "SelectedTrack", "SetSelectedTracks", "ToggleIKEnabled", "TogglePinnedPart", "SetShowTree", "SetIKEnabled", "SetIKMode", "Chain", "IKMode", "IsR15"}]
+      140 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
+      142 SETTABLEKS                       R17 R16 K7 ["RootInstance"]
+      144 GETTABLEKS                       R17 R2 K52 ["PinnedParts"]
+      146 SETTABLEKS                       R17 R16 K52 ["PinnedParts"]
+      148 GETTABLEKS                       R17 R2 K53 ["IKEnabled"]
+      150 SETTABLEKS                       R17 R16 K53 ["IKEnabled"]
+      152 GETTABLEKS                       R17 R2 K51 ["ShowTree"]
+      154 SETTABLEKS                       R17 R16 K51 ["ShowTree"]
+      156 SETTABLEKS                       R4 R16 K54 ["SelectedTrack"]
+      158 GETTABLEKS                       R17 R2 K55 ["SetSelectedTracks"]
+      160 SETTABLEKS                       R17 R16 K55 ["SetSelectedTracks"]
+      162 GETTABLEKS                       R17 R0 K65 ["toggleIKEnabledHandler"]
+      164 SETTABLEKS                       R17 R16 K56 ["ToggleIKEnabled"]
+      166 GETTABLEKS                       R17 R2 K57 ["TogglePinnedPart"]
+      168 SETTABLEKS                       R17 R16 K57 ["TogglePinnedPart"]
+      170 GETTABLEKS                       R17 R2 K58 ["SetShowTree"]
+      172 SETTABLEKS                       R17 R16 K58 ["SetShowTree"]
+      174 GETTABLEKS                       R17 R2 K59 ["SetIKEnabled"]
+      176 SETTABLEKS                       R17 R16 K59 ["SetIKEnabled"]
+      178 GETTABLEKS                       R17 R2 K60 ["SetIKMode"]
+      180 SETTABLEKS                       R17 R16 K60 ["SetIKMode"]
+      182 GETTABLEKS                       R17 R0 K66 ["makeChains"]
+      184 CALL                             R17 0 1
+      185 SETTABLEKS                       R17 R16 K61 ["Chain"]
+      187 GETTABLEKS                       R17 R2 K62 ["IKMode"]
+      189 SETTABLEKS                       R17 R16 K62 ["IKMode"]
+      191 SETTABLEKS                       R8 R16 K63 ["IsR15"]
+      193 CALL                             R14 2 1
+      194 SETTABLEKS                       R14 R13 K26 ["IKWindow"]
+      196 GETTABLEKS                       R14 R2 K53 ["IKEnabled"]
+      198 JUMPIFNOT                        R14 ; [+12]
+      199 MOVE                             R14 R8
+      200 JUMPIFNOT                        R14 ; [+10]
+      201 GETUPVAL                         R14 1
+      202 GETTABLEKS                       R14 R14 K11 ["createElement"]
+      204 GETUPVAL                         R15 4
+      205 DUPTABLE                         R16 K67 [{"RootInstance"}]
+      206 GETTABLEKS                       R17 R2 K7 ["RootInstance"]
+      208 SETTABLEKS                       R17 R16 K7 ["RootInstance"]
+      210 CALL                             R14 2 1
+      211 SETTABLEKS                       R14 R13 K27 ["R15IKRig"]
+      213 CALL                             R10 3 1
+      214 RETURN                           R10 1
 
 PROTO_12:
         0 DUPTABLE                         R2 K6 [{"ShowTree", "IKMode", "IKEnabled", "RootInstance", "PinnedParts", "SelectedTracks"}]

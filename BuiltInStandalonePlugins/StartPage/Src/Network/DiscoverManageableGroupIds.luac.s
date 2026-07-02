@@ -114,19 +114,17 @@ MAIN:
        81 GETTABLEKS                       R10 R2 K22 ["RobloxAPI"]
        83 GETTABLEKS                       R10 R10 K23 ["Url"]
        85 GETTABLEKS                       R11 R7 K24 ["new"]
-       87 DUPTABLE                         R12 K27 [{"isInternal", "loggingLevel"}]
-       88 LOADB                            R13 1
-       89 SETTABLEKS                       R13 R12 K25 ["isInternal"]
-       91 SETTABLEKS                       R1 R12 K26 ["loggingLevel"]
-       93 CALL                             R11 1 1
-       94 MOVE                             R12 R8
-       95 GETTABLEKS                       R13 R5 K28 ["validate"]
-       97 CALL                             R12 1 1
-       98 DUPCLOSURE                       R13 K29 [PROTO_3]
-       99 CAPTURE                          VAL R9
-      100 CAPTURE                          VAL R10
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R11
-      103 CAPTURE                          VAL R12
-      104 CAPTURE                          VAL R4
-      105 RETURN                           R13 1
+       87 DUPTABLE                         R12 K28 [{["isInternal"] = True, ["loggingLevel"]}]
+       88 SETTABLEKS                       R1 R12 K27 ["loggingLevel"]
+       90 CALL                             R11 1 1
+       91 MOVE                             R12 R8
+       92 GETTABLEKS                       R13 R5 K29 ["validate"]
+       94 CALL                             R12 1 1
+       95 DUPCLOSURE                       R13 K30 [PROTO_3]
+       96 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R10
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R11
+      100 CAPTURE                          VAL R12
+      101 CAPTURE                          VAL R4
+      102 RETURN                           R13 1

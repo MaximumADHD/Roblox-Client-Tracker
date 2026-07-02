@@ -15,69 +15,57 @@ PROTO_1:
        20 GETUPVAL                         R6 0
        21 GETTABLEKS                       R6 R6 K6 ["createElement"]
        23 GETUPVAL                         R7 1
-       24 DUPTABLE                         R8 K11 [{"BackgroundTransparency", "contentPadding", "FillDirection", "LayoutOrder", "width"}]
-       25 LOADN                            R9 1
-       26 SETTABLEKS                       R9 R8 K7 ["BackgroundTransparency"]
-       28 GETIMPORT                        R9 K14 [UDim.new]
-       30 LOADN                            R10 0
-       31 LOADN                            R11 20
-       32 CALL                             R9 2 1
-       33 SETTABLEKS                       R9 R8 K8 ["contentPadding"]
-       35 GETIMPORT                        R9 K17 [Enum.FillDirection.Horizontal]
-       37 SETTABLEKS                       R9 R8 K9 ["FillDirection"]
-       39 SETTABLEKS                       R1 R8 K1 ["LayoutOrder"]
-       41 GETIMPORT                        R9 K14 [UDim.new]
-       43 LOADN                            R10 1
-       44 LOADN                            R11 0
-       45 CALL                             R9 2 1
-       46 SETTABLEKS                       R9 R8 K10 ["width"]
-       48 DUPTABLE                         R9 K20 [{"Title", "Container"}]
-       49 GETUPVAL                         R10 0
-       50 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       52 GETUPVAL                         R11 2
-       53 DUPTABLE                         R12 K26 [{"BackgroundTransparency", "Font", "LayoutOrder", "Text", "TextColor3", "TextXAlignment", "TextSize", "width"}]
-       54 LOADN                            R13 1
-       55 SETTABLEKS                       R13 R12 K7 ["BackgroundTransparency"]
-       57 GETTABLEKS                       R13 R5 K21 ["Font"]
-       59 SETTABLEKS                       R13 R12 K21 ["Font"]
-       61 LOADN                            R13 1
-       62 SETTABLEKS                       R13 R12 K1 ["LayoutOrder"]
-       64 SETTABLEKS                       R3 R12 K22 ["Text"]
-       66 GETTABLEKS                       R13 R5 K27 ["SubTextColor"]
-       68 SETTABLEKS                       R13 R12 K23 ["TextColor3"]
-       70 GETIMPORT                        R13 K29 [Enum.TextXAlignment.Left]
-       72 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
-       74 LOADN                            R13 18
-       75 SETTABLEKS                       R13 R12 K25 ["TextSize"]
-       77 GETIMPORT                        R13 K14 [UDim.new]
-       79 LOADN                            R14 0
-       80 MOVE                             R15 R4
-       81 CALL                             R13 2 1
-       82 SETTABLEKS                       R13 R12 K10 ["width"]
-       84 CALL                             R10 2 1
-       85 SETTABLEKS                       R10 R9 K18 ["Title"]
-       87 GETUPVAL                         R10 0
-       88 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       90 GETUPVAL                         R11 1
-       91 DUPTABLE                         R12 K30 [{"BackgroundTransparency", "LayoutOrder", "width"}]
-       92 LOADN                            R13 1
-       93 SETTABLEKS                       R13 R12 K7 ["BackgroundTransparency"]
-       95 LOADN                            R13 2
-       96 SETTABLEKS                       R13 R12 K1 ["LayoutOrder"]
-       98 GETIMPORT                        R13 K14 [UDim.new]
-      100 LOADN                            R14 1
-      101 MINUS                            R16 R4
-      102 SUBK                             R15 R16 K31 [20]
-      103 CALL                             R13 2 1
-      104 SETTABLEKS                       R13 R12 K10 ["width"]
-      106 DUPTABLE                         R13 K33 [{"Content"}]
-      107 MOVE                             R14 R2
-      108 CALL                             R14 0 1
-      109 SETTABLEKS                       R14 R13 K32 ["Content"]
-      111 CALL                             R10 3 1
-      112 SETTABLEKS                       R10 R9 K19 ["Container"]
-      114 CALL                             R6 3 -1
-      115 RETURN                           R6 -1
+       24 DUPTABLE                         R8 K12 [{["BackgroundTransparency"] = 1, ["contentPadding"], ["FillDirection"], ["LayoutOrder"], ["width"]}]
+       25 GETIMPORT                        R9 K15 [UDim.new]
+       27 LOADN                            R10 0
+       28 LOADN                            R11 20
+       29 CALL                             R9 2 1
+       30 SETTABLEKS                       R9 R8 K9 ["contentPadding"]
+       32 GETIMPORT                        R9 K18 [Enum.FillDirection.Horizontal]
+       34 SETTABLEKS                       R9 R8 K10 ["FillDirection"]
+       36 SETTABLEKS                       R1 R8 K1 ["LayoutOrder"]
+       38 GETIMPORT                        R9 K15 [UDim.new]
+       40 LOADN                            R10 1
+       41 LOADN                            R11 0
+       42 CALL                             R9 2 1
+       43 SETTABLEKS                       R9 R8 K11 ["width"]
+       45 DUPTABLE                         R9 K21 [{"Title", "Container"}]
+       46 GETUPVAL                         R10 0
+       47 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       49 GETUPVAL                         R11 2
+       50 DUPTABLE                         R12 K28 [{["BackgroundTransparency"] = 1, ["Font"], ["LayoutOrder"] = 1, ["Text"], ["TextColor3"], ["TextXAlignment"], ["TextSize"] = 18, ["width"]}]
+       51 GETTABLEKS                       R13 R5 K22 ["Font"]
+       53 SETTABLEKS                       R13 R12 K22 ["Font"]
+       55 SETTABLEKS                       R3 R12 K23 ["Text"]
+       57 GETTABLEKS                       R13 R5 K29 ["SubTextColor"]
+       59 SETTABLEKS                       R13 R12 K24 ["TextColor3"]
+       61 GETIMPORT                        R13 K31 [Enum.TextXAlignment.Left]
+       63 SETTABLEKS                       R13 R12 K25 ["TextXAlignment"]
+       65 GETIMPORT                        R13 K15 [UDim.new]
+       67 LOADN                            R14 0
+       68 MOVE                             R15 R4
+       69 CALL                             R13 2 1
+       70 SETTABLEKS                       R13 R12 K11 ["width"]
+       72 CALL                             R10 2 1
+       73 SETTABLEKS                       R10 R9 K19 ["Title"]
+       75 GETUPVAL                         R10 0
+       76 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       78 GETUPVAL                         R11 1
+       79 DUPTABLE                         R12 K33 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2, ["width"]}]
+       80 GETIMPORT                        R13 K15 [UDim.new]
+       82 LOADN                            R14 1
+       83 MINUS                            R16 R4
+       84 SUBK                             R15 R16 K34 [20]
+       85 CALL                             R13 2 1
+       86 SETTABLEKS                       R13 R12 K11 ["width"]
+       88 DUPTABLE                         R13 K36 [{"Content"}]
+       89 MOVE                             R14 R2
+       90 CALL                             R14 0 1
+       91 SETTABLEKS                       R14 R13 K35 ["Content"]
+       93 CALL                             R10 3 1
+       94 SETTABLEKS                       R10 R9 K20 ["Container"]
+       96 CALL                             R6 3 -1
+       97 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -111,25 +99,23 @@ MAIN:
        51 LOADK                            R10 K17 ["ListItem"]
        52 NAMECALL                         R8 R8 K18 ["extend"]
        54 CALL                             R8 2 1
-       55 DUPTABLE                         R9 K22 [{"renderContent", "title", "titleWidth"}]
-       56 DUPCLOSURE                       R10 K23 [PROTO_0]
+       55 DUPTABLE                         R9 K23 [{["renderContent"], ["title"] = "", ["titleWidth"]}]
+       56 DUPCLOSURE                       R10 K24 [PROTO_0]
        57 SETTABLEKS                       R10 R9 K19 ["renderContent"]
-       59 LOADK                            R10 K24 [""]
-       60 SETTABLEKS                       R10 R9 K20 ["title"]
-       62 GETTABLEKS                       R10 R3 K25 ["LIST_ITEM_TITLE_WIDTH"]
-       64 SETTABLEKS                       R10 R9 K21 ["titleWidth"]
-       66 SETTABLEKS                       R9 R8 K26 ["defaultProps"]
-       68 DUPCLOSURE                       R9 K27 [PROTO_1]
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R6
-       71 CAPTURE                          VAL R7
-       72 SETTABLEKS                       R9 R8 K28 ["render"]
-       74 MOVE                             R9 R5
-       75 DUPTABLE                         R10 K30 [{"Stylizer"}]
-       76 GETTABLEKS                       R11 R4 K29 ["Stylizer"]
-       78 SETTABLEKS                       R11 R10 K29 ["Stylizer"]
-       80 CALL                             R9 1 1
-       81 MOVE                             R10 R8
-       82 CALL                             R9 1 1
-       83 MOVE                             R8 R9
-       84 RETURN                           R8 1
+       59 GETTABLEKS                       R10 R3 K25 ["LIST_ITEM_TITLE_WIDTH"]
+       61 SETTABLEKS                       R10 R9 K22 ["titleWidth"]
+       63 SETTABLEKS                       R9 R8 K26 ["defaultProps"]
+       65 DUPCLOSURE                       R9 K27 [PROTO_1]
+       66 CAPTURE                          VAL R1
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R7
+       69 SETTABLEKS                       R9 R8 K28 ["render"]
+       71 MOVE                             R9 R5
+       72 DUPTABLE                         R10 K30 [{"Stylizer"}]
+       73 GETTABLEKS                       R11 R4 K29 ["Stylizer"]
+       75 SETTABLEKS                       R11 R10 K29 ["Stylizer"]
+       77 CALL                             R9 1 1
+       78 MOVE                             R10 R8
+       79 CALL                             R9 1 1
+       80 MOVE                             R8 R9
+       81 RETURN                           R8 1

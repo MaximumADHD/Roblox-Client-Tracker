@@ -55,67 +55,55 @@ PROTO_2:
        33 GETUPVAL                         R4 2
        34 GETTABLEKS                       R4 R4 K5 ["createElement"]
        36 GETUPVAL                         R5 3
-       37 DUPTABLE                         R6 K11 [{"tag", "Size", "AutomaticSize", "LayoutOrder", "GroupTransparency"}]
-       38 LOADK                            R7 K12 ["col gap-small auto-y"]
-       39 SETTABLEKS                       R7 R6 K6 ["tag"]
-       41 GETIMPORT                        R7 K15 [UDim2.new]
-       43 LOADN                            R8 1
-       44 LOADN                            R9 0
-       45 LOADN                            R10 0
-       46 LOADN                            R11 0
-       47 CALL                             R7 4 1
-       48 SETTABLEKS                       R7 R6 K7 ["Size"]
-       50 GETIMPORT                        R7 K18 [Enum.AutomaticSize.Y]
-       52 SETTABLEKS                       R7 R6 K8 ["AutomaticSize"]
-       54 GETTABLEKS                       R7 R0 K9 ["LayoutOrder"]
-       56 SETTABLEKS                       R7 R6 K9 ["LayoutOrder"]
-       58 GETTABLEKS                       R8 R0 K19 ["disabled"]
-       60 JUMPIFNOT                        R8 ; [+2]
-       61 LOADK                            R7 K20 [0.5]
-       62 JUMP                             ; [+1]
-       63 LOADN                            R7 0
-       64 SETTABLEKS                       R7 R6 K10 ["GroupTransparency"]
-       66 DUPTABLE                         R7 K23 [{"Title", "DropdownWrapper"}]
-       67 GETUPVAL                         R8 2
-       68 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       70 GETUPVAL                         R9 4
-       71 DUPTABLE                         R10 K25 [{"Text", "tag", "LayoutOrder"}]
-       72 LOADK                            R13 K26 ["LookComposerDialog"]
-       73 LOADK                            R14 K27 ["Creator"]
-       74 NAMECALL                         R11 R1 K28 ["getText"]
-       76 CALL                             R11 3 1
-       77 SETTABLEKS                       R11 R10 K24 ["Text"]
-       79 LOADK                            R11 K29 ["text-label-medium auto-xy content-emphasis"]
-       80 SETTABLEKS                       R11 R10 K6 ["tag"]
-       82 LOADN                            R11 1
-       83 SETTABLEKS                       R11 R10 K9 ["LayoutOrder"]
-       85 CALL                             R8 2 1
-       86 SETTABLEKS                       R8 R7 K21 ["Title"]
-       88 GETUPVAL                         R8 2
-       89 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       91 GETUPVAL                         R9 5
-       92 DUPTABLE                         R10 K37 [{"label", "value", "items", "onItemChanged", "isDisabled", "width", "size", "LayoutOrder"}]
-       93 LOADK                            R11 K38 [""]
-       94 SETTABLEKS                       R11 R10 K30 ["label"]
-       96 GETTABLEKS                       R11 R0 K39 ["selectedCreatorId"]
-       98 SETTABLEKS                       R11 R10 K31 ["value"]
-      100 SETTABLEKS                       R2 R10 K32 ["items"]
-      102 SETTABLEKS                       R3 R10 K33 ["onItemChanged"]
-      104 GETTABLEKS                       R11 R0 K19 ["disabled"]
-      106 SETTABLEKS                       R11 R10 K34 ["isDisabled"]
-      108 GETIMPORT                        R11 K41 [UDim.new]
-      110 LOADN                            R12 1
-      111 LOADN                            R13 0
-      112 CALL                             R11 2 1
-      113 SETTABLEKS                       R11 R10 K35 ["width"]
-      115 LOADK                            R11 K42 ["Small"]
-      116 SETTABLEKS                       R11 R10 K36 ["size"]
-      118 LOADN                            R11 2
-      119 SETTABLEKS                       R11 R10 K9 ["LayoutOrder"]
-      121 CALL                             R8 2 1
-      122 SETTABLEKS                       R8 R7 K22 ["DropdownWrapper"]
-      124 CALL                             R4 3 -1
-      125 RETURN                           R4 -1
+       37 DUPTABLE                         R6 K12 [{["tag"] = "col gap-small auto-y", ["Size"], ["AutomaticSize"], ["LayoutOrder"], ["GroupTransparency"]}]
+       38 GETIMPORT                        R7 K15 [UDim2.new]
+       40 LOADN                            R8 1
+       41 LOADN                            R9 0
+       42 LOADN                            R10 0
+       43 LOADN                            R11 0
+       44 CALL                             R7 4 1
+       45 SETTABLEKS                       R7 R6 K8 ["Size"]
+       47 GETIMPORT                        R7 K18 [Enum.AutomaticSize.Y]
+       49 SETTABLEKS                       R7 R6 K9 ["AutomaticSize"]
+       51 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
+       53 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
+       55 GETTABLEKS                       R8 R0 K19 ["disabled"]
+       57 JUMPIFNOT                        R8 ; [+2]
+       58 LOADK                            R7 K20 [0.5]
+       59 JUMP                             ; [+1]
+       60 LOADN                            R7 0
+       61 SETTABLEKS                       R7 R6 K11 ["GroupTransparency"]
+       63 DUPTABLE                         R7 K23 [{"Title", "DropdownWrapper"}]
+       64 GETUPVAL                         R8 2
+       65 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       67 GETUPVAL                         R9 4
+       68 DUPTABLE                         R10 K27 [{["Text"], ["tag"] = "auto-xy text-label-medium content-emphasis", ["LayoutOrder"] = 1}]
+       69 LOADK                            R13 K28 ["LookComposerDialog"]
+       70 LOADK                            R14 K29 ["Creator"]
+       71 NAMECALL                         R11 R1 K30 ["getText"]
+       73 CALL                             R11 3 1
+       74 SETTABLEKS                       R11 R10 K24 ["Text"]
+       76 CALL                             R8 2 1
+       77 SETTABLEKS                       R8 R7 K21 ["Title"]
+       79 GETUPVAL                         R8 2
+       80 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       82 GETUPVAL                         R9 5
+       83 DUPTABLE                         R10 K41 [{["label"] = "", ["value"], ["items"], ["onItemChanged"], ["isDisabled"], ["width"], ["size"] = "Small", ["LayoutOrder"] = 2}]
+       84 GETTABLEKS                       R11 R0 K42 ["selectedCreatorId"]
+       86 SETTABLEKS                       R11 R10 K33 ["value"]
+       88 SETTABLEKS                       R2 R10 K34 ["items"]
+       90 SETTABLEKS                       R3 R10 K35 ["onItemChanged"]
+       92 GETTABLEKS                       R11 R0 K19 ["disabled"]
+       94 SETTABLEKS                       R11 R10 K36 ["isDisabled"]
+       96 GETIMPORT                        R11 K44 [UDim.new]
+       98 LOADN                            R12 1
+       99 LOADN                            R13 0
+      100 CALL                             R11 2 1
+      101 SETTABLEKS                       R11 R10 K37 ["width"]
+      103 CALL                             R8 2 1
+      104 SETTABLEKS                       R8 R7 K22 ["DropdownWrapper"]
+      106 CALL                             R4 3 -1
+      107 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

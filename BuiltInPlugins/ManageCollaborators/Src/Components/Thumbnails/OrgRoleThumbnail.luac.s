@@ -6,33 +6,29 @@ PROTO_0:
         8 GETUPVAL                         R5 0
         9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 LOADK                            R6 K5 ["Frame"]
-       12 DUPTABLE                         R7 K7 [{"BackgroundTransparency", "Size"}]
-       13 LOADN                            R8 1
-       14 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
-       16 SETTABLEKS                       R3 R7 K2 ["Size"]
-       18 DUPTABLE                         R8 K9 [{"Thumbnail"}]
-       19 GETUPVAL                         R9 0
-       20 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       22 LOADK                            R10 K10 ["ImageLabel"]
-       23 DUPTABLE                         R11 K13 [{"Size", "BackgroundTransparency", "ImageColor3", "Image"}]
-       24 GETIMPORT                        R12 K16 [UDim2.fromScale]
-       26 LOADN                            R13 1
-       27 LOADN                            R14 1
-       28 CALL                             R12 2 1
-       29 SETTABLEKS                       R12 R11 K2 ["Size"]
-       31 LOADN                            R12 1
-       32 SETTABLEKS                       R12 R11 K6 ["BackgroundTransparency"]
-       34 GETIMPORT                        R12 K19 [Color3.fromHex]
-       36 MOVE                             R13 R2
-       37 CALL                             R12 1 1
-       38 SETTABLEKS                       R12 R11 K11 ["ImageColor3"]
-       40 GETTABLEKS                       R12 R4 K20 ["orgRoleThumbnail"]
-       42 GETTABLEKS                       R12 R12 K12 ["Image"]
-       44 SETTABLEKS                       R12 R11 K12 ["Image"]
-       46 CALL                             R9 2 1
-       47 SETTABLEKS                       R9 R8 K8 ["Thumbnail"]
-       49 CALL                             R5 3 -1
-       50 RETURN                           R5 -1
+       12 DUPTABLE                         R7 K8 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       13 SETTABLEKS                       R3 R7 K2 ["Size"]
+       15 DUPTABLE                         R8 K10 [{"Thumbnail"}]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       19 LOADK                            R10 K11 ["ImageLabel"]
+       20 DUPTABLE                         R11 K14 [{["Size"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["Image"]}]
+       21 GETIMPORT                        R12 K17 [UDim2.fromScale]
+       23 LOADN                            R13 1
+       24 LOADN                            R14 1
+       25 CALL                             R12 2 1
+       26 SETTABLEKS                       R12 R11 K2 ["Size"]
+       28 GETIMPORT                        R12 K20 [Color3.fromHex]
+       30 MOVE                             R13 R2
+       31 CALL                             R12 1 1
+       32 SETTABLEKS                       R12 R11 K12 ["ImageColor3"]
+       34 GETTABLEKS                       R12 R4 K21 ["orgRoleThumbnail"]
+       36 GETTABLEKS                       R12 R12 K13 ["Image"]
+       38 SETTABLEKS                       R12 R11 K13 ["Image"]
+       40 CALL                             R9 2 1
+       41 SETTABLEKS                       R9 R8 K9 ["Thumbnail"]
+       43 CALL                             R5 3 -1
+       44 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

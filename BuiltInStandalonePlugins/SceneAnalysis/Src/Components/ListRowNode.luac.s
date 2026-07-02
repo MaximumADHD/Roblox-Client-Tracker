@@ -181,39 +181,33 @@ PROTO_4:
 PROTO_5:
         0 JUMPIFNOT                        R0 ; [+3]
         1 GETTABLEKS                       R1 R0 K0 ["node"]
-        3 JUMPIF                           R1 ; [+19]
-        4 DUPTABLE                         R1 K3 [{"isVisible", "node", "sizeMB"}]
-        5 LOADB                            R2 0
-        6 SETTABLEKS                       R2 R1 K1 ["isVisible"]
-        8 DUPTABLE                         R2 K6 [{"Name", "Size"}]
-        9 GETUPVAL                         R3 0
-       10 GETTABLEKS                       R3 R3 K7 ["NIL_NODE"]
-       12 SETTABLEKS                       R3 R2 K4 ["Name"]
-       14 LOADN                            R3 0
-       15 SETTABLEKS                       R3 R2 K5 ["Size"]
-       17 SETTABLEKS                       R2 R1 K0 ["node"]
-       19 LOADK                            R2 K8 ["0B"]
-       20 SETTABLEKS                       R2 R1 K2 ["sizeMB"]
-       22 RETURN                           R1 1
-       23 GETTABLEKS                       R1 R0 K0 ["node"]
-       25 NEWCLOSURE                       R2 P0
-       26 CAPTURE                          UPVAL U1
-       27 DUPTABLE                         R3 K3 [{"isVisible", "node", "sizeMB"}]
-       28 GETTABLEKS                       R5 R1 K4 ["Name"]
-       30 GETUPVAL                         R6 0
-       31 GETTABLEKS                       R6 R6 K7 ["NIL_NODE"]
-       33 JUMPIFNOTEQ                      R5 R6 ; [+2]
-       35 LOADB                            R4 0 +1
-       36 LOADB                            R4 1
-       37 SETTABLEKS                       R4 R3 K1 ["isVisible"]
-       39 SETTABLEKS                       R1 R3 K0 ["node"]
-       41 GETUPVAL                         R4 2
-       42 MOVE                             R5 R2
-       43 MOVE                             R6 R1
-       44 CALL                             R5 1 1
-       45 CALL                             R4 1 1
-       46 SETTABLEKS                       R4 R3 K2 ["sizeMB"]
-       48 RETURN                           R3 1
+        3 JUMPIF                           R1 ; [+10]
+        4 DUPTABLE                         R1 K5 [{["isVisible"] = False, [2], ["sizeMB"] = "0B"}]
+        5 DUPTABLE                         R2 K9 [{["Name"], ["Size"] = 0}]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R3 R3 K10 ["NIL_NODE"]
+        9 SETTABLEKS                       R3 R2 K6 ["Name"]
+       11 SETTABLEKS                       R2 R1 K0 ["node"]
+       13 RETURN                           R1 1
+       14 GETTABLEKS                       R1 R0 K0 ["node"]
+       16 NEWCLOSURE                       R2 P0
+       17 CAPTURE                          UPVAL U1
+       18 DUPTABLE                         R3 K11 [{"isVisible", "node", "sizeMB"}]
+       19 GETTABLEKS                       R5 R1 K6 ["Name"]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K10 ["NIL_NODE"]
+       24 JUMPIFNOTEQ                      R5 R6 ; [+2]
+       26 LOADB                            R4 0 +1
+       27 LOADB                            R4 1
+       28 SETTABLEKS                       R4 R3 K1 ["isVisible"]
+       30 SETTABLEKS                       R1 R3 K0 ["node"]
+       32 GETUPVAL                         R4 2
+       33 MOVE                             R5 R2
+       34 MOVE                             R6 R1
+       35 CALL                             R5 1 1
+       36 CALL                             R4 1 1
+       37 SETTABLEKS                       R4 R3 K3 ["sizeMB"]
+       39 RETURN                           R3 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -448,54 +442,52 @@ PROTO_9:
       242 GETUPVAL                         R15 0
       243 GETTABLEKS                       R15 R15 K16 ["createElement"]
       245 LOADK                            R16 K64 ["Frame"]
-      246 DUPTABLE                         R17 K67 [{"BackgroundTransparency", "ClipsDescendants", "Size", "Position"}]
-      247 LOADN                            R18 1
-      248 SETTABLEKS                       R18 R17 K65 ["BackgroundTransparency"]
-      250 GETUPVAL                         R18 7
-      251 SETTABLEKS                       R18 R17 K46 ["ClipsDescendants"]
-      253 GETIMPORT                        R18 K51 [UDim2.fromScale]
-      255 LOADN                            R19 1
-      256 LOADN                            R20 1
-      257 CALL                             R18 2 1
-      258 SETTABLEKS                       R18 R17 K52 ["Size"]
-      260 GETIMPORT                        R18 K51 [UDim2.fromScale]
-      262 LOADN                            R19 0
-      263 LOADN                            R20 0
-      264 CALL                             R18 2 1
-      265 SETTABLEKS                       R18 R17 K66 ["Position"]
-      267 MOVE                             R18 R9
-      268 CALL                             R15 3 1
-      269 SETTABLEKS                       R15 R14 K61 ["Contents"]
-      271 GETUPVAL                         R15 0
-      272 GETTABLEKS                       R15 R15 K16 ["createElement"]
-      274 LOADK                            R16 K64 ["Frame"]
-      275 NEWTABLE                         R17 8 0
-      277 GETIMPORT                        R18 K68 [UDim2.new]
-      279 LOADN                            R19 1
-      280 LOADN                            R20 252
-      281 LOADN                            R21 0
-      282 LOADN                            R22 1
-      283 CALL                             R18 4 1
-      284 SETTABLEKS                       R18 R17 K52 ["Size"]
-      286 GETIMPORT                        R18 K68 [UDim2.new]
-      288 LOADN                            R19 0
-      289 LOADN                            R20 2
-      290 LOADN                            R21 1
-      291 LOADN                            R22 255
-      292 CALL                             R18 4 1
-      293 SETTABLEKS                       R18 R17 K66 ["Position"]
-      295 LOADN                            R18 0
-      296 SETTABLEKS                       R18 R17 K69 ["BorderSizePixel"]
-      298 LOADN                            R18 2
-      299 SETTABLEKS                       R18 R17 K53 ["ZIndex"]
-      301 GETUPVAL                         R18 0
-      302 GETTABLEKS                       R18 R18 K57 ["Tag"]
-      304 LOADK                            R19 K70 ["SceneAnalysis-StrokeDefault"]
-      305 SETTABLE                         R19 R17 R18
-      306 CALL                             R15 2 1
-      307 SETTABLEKS                       R15 R14 K62 ["BottomLine"]
-      309 CALL                             R11 3 -1
-      310 RETURN                           R11 -1
+      246 DUPTABLE                         R17 K68 [{["BackgroundTransparency"] = 1, ["ClipsDescendants"], ["Size"], ["Position"]}]
+      247 GETUPVAL                         R18 7
+      248 SETTABLEKS                       R18 R17 K46 ["ClipsDescendants"]
+      250 GETIMPORT                        R18 K51 [UDim2.fromScale]
+      252 LOADN                            R19 1
+      253 LOADN                            R20 1
+      254 CALL                             R18 2 1
+      255 SETTABLEKS                       R18 R17 K52 ["Size"]
+      257 GETIMPORT                        R18 K51 [UDim2.fromScale]
+      259 LOADN                            R19 0
+      260 LOADN                            R20 0
+      261 CALL                             R18 2 1
+      262 SETTABLEKS                       R18 R17 K67 ["Position"]
+      264 MOVE                             R18 R9
+      265 CALL                             R15 3 1
+      266 SETTABLEKS                       R15 R14 K61 ["Contents"]
+      268 GETUPVAL                         R15 0
+      269 GETTABLEKS                       R15 R15 K16 ["createElement"]
+      271 LOADK                            R16 K64 ["Frame"]
+      272 NEWTABLE                         R17 8 0
+      274 GETIMPORT                        R18 K69 [UDim2.new]
+      276 LOADN                            R19 1
+      277 LOADN                            R20 -4
+      278 LOADN                            R21 0
+      279 LOADN                            R22 1
+      280 CALL                             R18 4 1
+      281 SETTABLEKS                       R18 R17 K52 ["Size"]
+      283 GETIMPORT                        R18 K69 [UDim2.new]
+      285 LOADN                            R19 0
+      286 LOADN                            R20 2
+      287 LOADN                            R21 1
+      288 LOADN                            R22 -1
+      289 CALL                             R18 4 1
+      290 SETTABLEKS                       R18 R17 K67 ["Position"]
+      292 LOADN                            R18 0
+      293 SETTABLEKS                       R18 R17 K70 ["BorderSizePixel"]
+      295 LOADN                            R18 2
+      296 SETTABLEKS                       R18 R17 K53 ["ZIndex"]
+      298 GETUPVAL                         R18 0
+      299 GETTABLEKS                       R18 R18 K57 ["Tag"]
+      301 LOADK                            R19 K71 ["SceneAnalysis-StrokeDefault"]
+      302 SETTABLE                         R19 R17 R18
+      303 CALL                             R15 2 1
+      304 SETTABLEKS                       R15 R14 K62 ["BottomLine"]
+      306 CALL                             R11 3 -1
+      307 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

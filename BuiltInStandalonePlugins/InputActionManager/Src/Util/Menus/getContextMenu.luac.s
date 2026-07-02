@@ -1,29 +1,25 @@
 PROTO_0:
         0 NEWTABLE                         R1 0 2
-        2 DUPTABLE                         R2 K3 [{"icon", "id", "text"}]
-        3 LOADK                            R3 K4 ["pencil"]
-        4 SETTABLEKS                       R3 R2 K0 ["icon"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R3 R3 K5 ["RENAME"]
-        9 SETTABLEKS                       R3 R2 K1 ["id"]
-       11 LOADK                            R5 K6 ["Menu"]
-       12 LOADK                            R6 K7 ["Rename"]
-       13 NAMECALL                         R3 R0 K8 ["getText"]
-       15 CALL                             R3 3 1
-       16 SETTABLEKS                       R3 R2 K2 ["text"]
-       18 DUPTABLE                         R3 K3 [{"icon", "id", "text"}]
-       19 LOADK                            R4 K9 ["trash-can"]
-       20 SETTABLEKS                       R4 R3 K0 ["icon"]
-       22 GETUPVAL                         R4 0
-       23 GETTABLEKS                       R4 R4 K10 ["DELETE"]
-       25 SETTABLEKS                       R4 R3 K1 ["id"]
-       27 LOADK                            R6 K6 ["Menu"]
-       28 LOADK                            R7 K11 ["Delete"]
-       29 NAMECALL                         R4 R0 K8 ["getText"]
-       31 CALL                             R4 3 1
-       32 SETTABLEKS                       R4 R3 K2 ["text"]
-       34 SETLIST                          R1 R2 2 [1]
-       36 RETURN                           R1 1
+        2 DUPTABLE                         R2 K4 [{[1] = "pencil", ["id"], ["text"]}]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K5 ["RENAME"]
+        6 SETTABLEKS                       R3 R2 K2 ["id"]
+        8 LOADK                            R5 K6 ["Menu"]
+        9 LOADK                            R6 K7 ["Rename"]
+       10 NAMECALL                         R3 R0 K8 ["getText"]
+       12 CALL                             R3 3 1
+       13 SETTABLEKS                       R3 R2 K3 ["text"]
+       15 DUPTABLE                         R3 K10 [{[1] = "trash-can", ["id"], ["text"]}]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K11 ["DELETE"]
+       19 SETTABLEKS                       R4 R3 K2 ["id"]
+       21 LOADK                            R6 K6 ["Menu"]
+       22 LOADK                            R7 K12 ["Delete"]
+       23 NAMECALL                         R4 R0 K8 ["getText"]
+       25 CALL                             R4 3 1
+       26 SETTABLEKS                       R4 R3 K3 ["text"]
+       28 SETLIST                          R1 R2 2 [1]
+       30 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

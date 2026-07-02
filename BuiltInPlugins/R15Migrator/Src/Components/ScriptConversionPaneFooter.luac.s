@@ -151,27 +151,25 @@ PROTO_5:
       138 GETUPVAL                         R15 1
       139 GETTABLEKS                       R15 R15 K6 ["createElement"]
       141 GETUPVAL                         R16 4
-      142 DUPTABLE                         R17 K57 [{"Style", "Size", "Text", "OnClick", "LayoutOrder"}]
-      143 LOADK                            R18 K58 ["RoundPrimary"]
-      144 SETTABLEKS                       R18 R17 K56 ["Style"]
-      146 GETTABLEKS                       R18 R4 K59 ["ReplaceButtonSize"]
-      148 SETTABLEKS                       R18 R17 K4 ["Size"]
-      150 LOADK                            R20 K50 ["ScriptConversion"]
-      151 LOADK                            R21 K60 ["Replace"]
-      152 NAMECALL                         R18 R2 K52 ["getText"]
-      154 CALL                             R18 3 1
-      155 SETTABLEKS                       R18 R17 K45 ["Text"]
-      157 GETTABLEKS                       R18 R0 K61 ["onConvertClicked"]
-      159 SETTABLEKS                       R18 R17 K46 ["OnClick"]
-      161 NAMECALL                         R18 R6 K27 ["getNextOrder"]
-      163 CALL                             R18 1 1
-      164 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
-      166 CALL                             R15 2 1
-      167 SETTABLEKS                       R15 R14 K43 ["ConvertButton"]
-      169 CALL                             R11 3 1
-      170 SETTABLEKS                       R11 R10 K24 ["FooterButtons"]
-      172 CALL                             R7 3 -1
-      173 RETURN                           R7 -1
+      142 DUPTABLE                         R17 K58 [{["Style"] = "RoundPrimary", ["Size"], ["Text"], ["OnClick"], ["LayoutOrder"]}]
+      143 GETTABLEKS                       R18 R4 K59 ["ReplaceButtonSize"]
+      145 SETTABLEKS                       R18 R17 K4 ["Size"]
+      147 LOADK                            R20 K50 ["ScriptConversion"]
+      148 LOADK                            R21 K60 ["Replace"]
+      149 NAMECALL                         R18 R2 K52 ["getText"]
+      151 CALL                             R18 3 1
+      152 SETTABLEKS                       R18 R17 K45 ["Text"]
+      154 GETTABLEKS                       R18 R0 K61 ["onConvertClicked"]
+      156 SETTABLEKS                       R18 R17 K46 ["OnClick"]
+      158 NAMECALL                         R18 R6 K27 ["getNextOrder"]
+      160 CALL                             R18 1 1
+      161 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
+      163 CALL                             R15 2 1
+      164 SETTABLEKS                       R15 R14 K43 ["ConvertButton"]
+      166 CALL                             R11 3 1
+      167 SETTABLEKS                       R11 R10 K24 ["FooterButtons"]
+      169 CALL                             R7 3 -1
+      170 RETURN                           R7 -1
 
 PROTO_6:
         0 GETUPVAL                         R4 0

@@ -61,15 +61,15 @@ PROTO_3:
         0 GETTABLEKS                       R7 R2 K1 ["Size"]
         2 DIVK                             R6 R7 K0 [2]
         3 LOADNIL                          R7
-        4 LOADN                            R10 255
+        4 LOADN                            R10 -1
         5 LOADN                            R8 1
         6 LOADN                            R9 2
         7 FORNPREP                         R8
-        8 LOADN                            R13 255
+        8 LOADN                            R13 -1
         9 LOADN                            R11 1
        10 LOADN                            R12 2
        11 FORNPREP                         R11
-       12 LOADN                            R16 255
+       12 LOADN                            R16 -1
        13 LOADN                            R14 1
        14 LOADN                            R15 2
        15 FORNPREP                         R14

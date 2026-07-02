@@ -6,29 +6,27 @@ PROTO_0:
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K2 ["createElement"]
         9 GETUPVAL                         R4 2
-       10 DUPTABLE                         R5 K7 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "BackgroundTransparency"}]
-       11 GETIMPORT                        R6 K11 [Enum.FillDirection.Vertical]
+       10 DUPTABLE                         R5 K8 [{["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"], ["BackgroundTransparency"] = 1}]
+       11 GETIMPORT                        R6 K12 [Enum.FillDirection.Vertical]
        13 SETTABLEKS                       R6 R5 K3 ["Layout"]
-       15 GETIMPORT                        R6 K13 [Enum.HorizontalAlignment.Left]
+       15 GETIMPORT                        R6 K14 [Enum.HorizontalAlignment.Left]
        17 SETTABLEKS                       R6 R5 K4 ["HorizontalAlignment"]
-       19 GETIMPORT                        R6 K15 [Enum.VerticalAlignment.Top]
+       19 GETIMPORT                        R6 K16 [Enum.VerticalAlignment.Top]
        21 SETTABLEKS                       R6 R5 K5 ["VerticalAlignment"]
-       23 LOADN                            R6 1
-       24 SETTABLEKS                       R6 R5 K6 ["BackgroundTransparency"]
-       26 DUPTABLE                         R6 K17 [{"MainTabs"}]
-       27 GETUPVAL                         R7 1
-       28 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       30 GETUPVAL                         R8 3
-       31 DUPTABLE                         R9 K20 [{"OnResetPlugin", "LayoutOrder"}]
-       32 GETTABLEKS                       R10 R1 K18 ["OnResetPlugin"]
-       34 SETTABLEKS                       R10 R9 K18 ["OnResetPlugin"]
-       36 NAMECALL                         R10 R2 K21 ["getNextOrder"]
-       38 CALL                             R10 1 1
-       39 SETTABLEKS                       R10 R9 K19 ["LayoutOrder"]
-       41 CALL                             R7 2 1
-       42 SETTABLEKS                       R7 R6 K16 ["MainTabs"]
-       44 CALL                             R3 3 -1
-       45 RETURN                           R3 -1
+       23 DUPTABLE                         R6 K18 [{"MainTabs"}]
+       24 GETUPVAL                         R7 1
+       25 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       27 GETUPVAL                         R8 3
+       28 DUPTABLE                         R9 K21 [{"OnResetPlugin", "LayoutOrder"}]
+       29 GETTABLEKS                       R10 R1 K19 ["OnResetPlugin"]
+       31 SETTABLEKS                       R10 R9 K19 ["OnResetPlugin"]
+       33 NAMECALL                         R10 R2 K22 ["getNextOrder"]
+       35 CALL                             R10 1 1
+       36 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
+       38 CALL                             R7 2 1
+       39 SETTABLEKS                       R7 R6 K17 ["MainTabs"]
+       41 CALL                             R3 3 -1
+       42 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

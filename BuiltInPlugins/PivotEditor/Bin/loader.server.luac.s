@@ -51,44 +51,34 @@ MAIN:
        62 GETTABLEKS                       R6 R6 K15 ["Resources"]
        64 GETTABLEKS                       R6 R6 K16 ["Localization"]
        66 GETTABLEKS                       R6 R6 K18 ["LocalizedStrings"]
-       68 DUPTABLE                         R7 K27 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo"}]
-       69 GETIMPORT                        R8 K28 [plugin]
+       68 DUPTABLE                         R7 K29 [{["plugin"], ["pluginName"] = "EditPivotPlugin", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"]}]
+       69 GETIMPORT                        R8 K30 [plugin]
        71 SETTABLEKS                       R8 R7 K19 ["plugin"]
-       73 LOADK                            R8 K29 ["EditPivotPlugin"]
-       74 SETTABLEKS                       R8 R7 K20 ["pluginName"]
-       76 SETTABLEKS                       R6 R7 K21 ["translationResourceTable"]
-       78 SETTABLEKS                       R5 R7 K22 ["fallbackResourceTable"]
-       80 LOADNIL                          R8
-       81 SETTABLEKS                       R8 R7 K23 ["overrideLocaleId"]
-       83 LOADNIL                          R8
-       84 SETTABLEKS                       R8 R7 K24 ["localizationNamespace"]
-       86 DUPCLOSURE                       R8 K30 [PROTO_0]
-       87 SETTABLEKS                       R8 R7 K25 ["getToolbarName"]
-       89 DUPTABLE                         R8 K35 [{"getName", "getDescription", "icon", "text"}]
-       90 DUPCLOSURE                       R9 K36 [PROTO_1]
-       91 SETTABLEKS                       R9 R8 K31 ["getName"]
-       93 DUPCLOSURE                       R9 K37 [PROTO_2]
-       94 SETTABLEKS                       R9 R8 K32 ["getDescription"]
-       96 LOADK                            R9 K38 [""]
-       97 SETTABLEKS                       R9 R8 K33 ["icon"]
-       99 LOADNIL                          R9
-      100 SETTABLEKS                       R9 R8 K34 ["text"]
-      102 SETTABLEKS                       R8 R7 K26 ["buttonInfo"]
-      104 GETTABLEKS                       R8 R4 K39 ["build"]
-      106 MOVE                             R9 R7
-      107 CALL                             R8 1 1
-      108 GETTABLEKS                       R9 R8 K40 ["pluginLoader"]
-      110 NAMECALL                         R9 R9 K41 ["waitForUserInteraction"]
-      112 CALL                             R9 1 1
-      113 JUMPIF                           R9 ; [+1]
+       73 SETTABLEKS                       R6 R7 K22 ["translationResourceTable"]
+       75 SETTABLEKS                       R5 R7 K23 ["fallbackResourceTable"]
+       77 DUPCLOSURE                       R8 K31 [PROTO_0]
+       78 SETTABLEKS                       R8 R7 K27 ["getToolbarName"]
+       80 DUPTABLE                         R8 K37 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = }]
+       81 DUPCLOSURE                       R9 K38 [PROTO_1]
+       82 SETTABLEKS                       R9 R8 K32 ["getName"]
+       84 DUPCLOSURE                       R9 K39 [PROTO_2]
+       85 SETTABLEKS                       R9 R8 K33 ["getDescription"]
+       87 SETTABLEKS                       R8 R7 K28 ["buttonInfo"]
+       89 GETTABLEKS                       R8 R4 K40 ["build"]
+       91 MOVE                             R9 R7
+       92 CALL                             R8 1 1
+       93 GETTABLEKS                       R9 R8 K41 ["pluginLoader"]
+       95 NAMECALL                         R9 R9 K42 ["waitForUserInteraction"]
+       97 CALL                             R9 1 1
+       98 JUMPIF                           R9 ; [+1]
+       99 RETURN                           R0 0
+      100 GETIMPORT                        R10 K1 [require]
+      102 GETIMPORT                        R11 K3 [script]
+      104 GETTABLEKS                       R11 R11 K4 ["Parent"]
+      106 GETTABLEKS                       R11 R11 K43 ["main"]
+      108 CALL                             R10 1 1
+      109 MOVE                             R11 R10
+      110 GETIMPORT                        R12 K30 [plugin]
+      112 MOVE                             R13 R8
+      113 CALL                             R11 2 0
       114 RETURN                           R0 0
-      115 GETIMPORT                        R10 K1 [require]
-      117 GETIMPORT                        R11 K3 [script]
-      119 GETTABLEKS                       R11 R11 K4 ["Parent"]
-      121 GETTABLEKS                       R11 R11 K42 ["main"]
-      123 CALL                             R10 1 1
-      124 MOVE                             R11 R10
-      125 GETIMPORT                        R12 K28 [plugin]
-      127 MOVE                             R13 R8
-      128 CALL                             R11 2 0
-      129 RETURN                           R0 0

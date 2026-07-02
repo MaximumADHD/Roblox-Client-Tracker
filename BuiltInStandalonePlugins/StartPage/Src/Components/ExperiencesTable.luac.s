@@ -146,60 +146,56 @@ PROTO_1:
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K1 ["Component"]
-        6 DUPTABLE                         R2 K6 [{"CornerRadius", "Size", "Position", "AnchorPoint"}]
-        7 LOADN                            R3 8
-        8 SETTABLEKS                       R3 R2 K2 ["CornerRadius"]
-       10 GETIMPORT                        R3 K9 [UDim2.new]
-       12 LOADK                            R4 K10 [0.9]
-       13 LOADN                            R5 0
-       14 LOADN                            R6 0
-       15 LOADN                            R7 24
-       16 CALL                             R3 4 1
-       17 SETTABLEKS                       R3 R2 K3 ["Size"]
-       19 GETIMPORT                        R3 K9 [UDim2.new]
-       21 LOADN                            R4 0
-       22 LOADN                            R5 0
-       23 LOADK                            R6 K11 [0.5]
-       24 LOADN                            R7 0
-       25 CALL                             R3 4 1
-       26 SETTABLEKS                       R3 R2 K4 ["Position"]
-       28 GETIMPORT                        R3 K13 [Vector2.new]
-       30 LOADN                            R4 0
-       31 LOADK                            R5 K11 [0.5]
-       32 CALL                             R3 2 1
-       33 SETTABLEKS                       R3 R2 K5 ["AnchorPoint"]
-       35 CALL                             R0 2 -1
-       36 RETURN                           R0 -1
+        6 DUPTABLE                         R2 K7 [{["CornerRadius"] = 8, ["Size"], ["Position"], ["AnchorPoint"]}]
+        7 GETIMPORT                        R3 K10 [UDim2.new]
+        9 LOADK                            R4 K11 [0.9]
+       10 LOADN                            R5 0
+       11 LOADN                            R6 0
+       12 LOADN                            R7 24
+       13 CALL                             R3 4 1
+       14 SETTABLEKS                       R3 R2 K4 ["Size"]
+       16 GETIMPORT                        R3 K10 [UDim2.new]
+       18 LOADN                            R4 0
+       19 LOADN                            R5 0
+       20 LOADK                            R6 K12 [0.5]
+       21 LOADN                            R7 0
+       22 CALL                             R3 4 1
+       23 SETTABLEKS                       R3 R2 K5 ["Position"]
+       25 GETIMPORT                        R3 K14 [Vector2.new]
+       27 LOADN                            R4 0
+       28 LOADK                            R5 K12 [0.5]
+       29 CALL                             R3 2 1
+       30 SETTABLEKS                       R3 R2 K6 ["AnchorPoint"]
+       32 CALL                             R0 2 -1
+       33 RETURN                           R0 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K1 ["Component"]
-        6 DUPTABLE                         R2 K6 [{"CornerRadius", "Size", "Position", "AnchorPoint"}]
-        7 LOADN                            R3 8
-        8 SETTABLEKS                       R3 R2 K2 ["CornerRadius"]
-       10 GETIMPORT                        R3 K9 [UDim2.new]
-       12 LOADN                            R4 0
-       13 LOADN                            R5 32
-       14 LOADN                            R6 0
-       15 LOADN                            R7 32
-       16 CALL                             R3 4 1
-       17 SETTABLEKS                       R3 R2 K3 ["Size"]
-       19 GETIMPORT                        R3 K9 [UDim2.new]
-       21 LOADN                            R4 0
-       22 LOADN                            R5 0
-       23 LOADK                            R6 K10 [0.5]
-       24 LOADN                            R7 0
-       25 CALL                             R3 4 1
-       26 SETTABLEKS                       R3 R2 K4 ["Position"]
-       28 GETIMPORT                        R3 K12 [Vector2.new]
-       30 LOADN                            R4 0
-       31 LOADK                            R5 K10 [0.5]
-       32 CALL                             R3 2 1
-       33 SETTABLEKS                       R3 R2 K5 ["AnchorPoint"]
-       35 CALL                             R0 2 -1
-       36 RETURN                           R0 -1
+        6 DUPTABLE                         R2 K7 [{["CornerRadius"] = 8, ["Size"], ["Position"], ["AnchorPoint"]}]
+        7 GETIMPORT                        R3 K10 [UDim2.new]
+        9 LOADN                            R4 0
+       10 LOADN                            R5 32
+       11 LOADN                            R6 0
+       12 LOADN                            R7 32
+       13 CALL                             R3 4 1
+       14 SETTABLEKS                       R3 R2 K4 ["Size"]
+       16 GETIMPORT                        R3 K10 [UDim2.new]
+       18 LOADN                            R4 0
+       19 LOADN                            R5 0
+       20 LOADK                            R6 K11 [0.5]
+       21 LOADN                            R7 0
+       22 CALL                             R3 4 1
+       23 SETTABLEKS                       R3 R2 K5 ["Position"]
+       25 GETIMPORT                        R3 K13 [Vector2.new]
+       27 LOADN                            R4 0
+       28 LOADK                            R5 K11 [0.5]
+       29 CALL                             R3 2 1
+       30 SETTABLEKS                       R3 R2 K6 ["AnchorPoint"]
+       32 CALL                             R0 2 -1
+       33 RETURN                           R0 -1
 
 PROTO_3:
         0 GETIMPORT                        R2 K1 [ipairs]
@@ -472,50 +468,48 @@ PROTO_10:
        33 GETUPVAL                         R1 4
        34 GETTABLEKS                       R1 R1 K10 ["createElement"]
        36 LOADK                            R2 K11 ["Frame"]
-       37 DUPTABLE                         R3 K14 [{"Size", "BackgroundTransparency"}]
-       38 GETIMPORT                        R4 K17 [UDim2.fromScale]
+       37 DUPTABLE                         R3 K15 [{["Size"], ["BackgroundTransparency"] = 1}]
+       38 GETIMPORT                        R4 K18 [UDim2.fromScale]
        40 LOADN                            R5 1
        41 LOADN                            R6 1
        42 CALL                             R4 2 1
        43 SETTABLEKS                       R4 R3 K12 ["Size"]
-       45 LOADN                            R4 1
-       46 SETTABLEKS                       R4 R3 K13 ["BackgroundTransparency"]
-       48 DUPTABLE                         R4 K19 [{"Button"}]
-       49 GETUPVAL                         R5 4
-       50 GETTABLEKS                       R5 R5 K10 ["createElement"]
-       52 LOADK                            R6 K20 ["ImageButton"]
-       53 NEWTABLE                         R7 8 0
-       55 GETIMPORT                        R8 K22 [UDim2.fromOffset]
-       57 LOADN                            R9 28
-       58 LOADN                            R10 28
-       59 CALL                             R8 2 1
-       60 SETTABLEKS                       R8 R7 K12 ["Size"]
-       62 GETIMPORT                        R8 K25 [Vector2.new]
-       64 LOADK                            R9 K26 [0.5]
-       65 LOADK                            R10 K26 [0.5]
-       66 CALL                             R8 2 1
-       67 SETTABLEKS                       R8 R7 K27 ["AnchorPoint"]
-       69 GETIMPORT                        R8 K17 [UDim2.fromScale]
-       71 LOADK                            R9 K26 [0.5]
-       72 LOADK                            R10 K26 [0.5]
-       73 CALL                             R8 2 1
-       74 SETTABLEKS                       R8 R7 K28 ["Position"]
-       76 GETUPVAL                         R8 4
-       77 GETTABLEKS                       R8 R8 K29 ["Tag"]
-       79 LOADK                            R9 K30 ["X-Corner StartPage-TileBackground StartPage-NoBorder StartPage-KebabIcon"]
-       80 SETTABLE                         R9 R7 R8
-       81 GETUPVAL                         R8 4
-       82 GETTABLEKS                       R8 R8 K31 ["Event"]
-       84 GETTABLEKS                       R8 R8 K32 ["Activated"]
-       86 NEWCLOSURE                       R9 P0
-       87 CAPTURE                          UPVAL U5
-       88 CAPTURE                          UPVAL U6
-       89 CAPTURE                          VAL R0
-       90 SETTABLE                         R9 R7 R8
-       91 CALL                             R5 2 1
-       92 SETTABLEKS                       R5 R4 K18 ["Button"]
-       94 CALL                             R1 3 -1
-       95 RETURN                           R1 -1
+       45 DUPTABLE                         R4 K20 [{"Button"}]
+       46 GETUPVAL                         R5 4
+       47 GETTABLEKS                       R5 R5 K10 ["createElement"]
+       49 LOADK                            R6 K21 ["ImageButton"]
+       50 NEWTABLE                         R7 8 0
+       52 GETIMPORT                        R8 K23 [UDim2.fromOffset]
+       54 LOADN                            R9 28
+       55 LOADN                            R10 28
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K12 ["Size"]
+       59 GETIMPORT                        R8 K26 [Vector2.new]
+       61 LOADK                            R9 K27 [0.5]
+       62 LOADK                            R10 K27 [0.5]
+       63 CALL                             R8 2 1
+       64 SETTABLEKS                       R8 R7 K28 ["AnchorPoint"]
+       66 GETIMPORT                        R8 K18 [UDim2.fromScale]
+       68 LOADK                            R9 K27 [0.5]
+       69 LOADK                            R10 K27 [0.5]
+       70 CALL                             R8 2 1
+       71 SETTABLEKS                       R8 R7 K29 ["Position"]
+       73 GETUPVAL                         R8 4
+       74 GETTABLEKS                       R8 R8 K30 ["Tag"]
+       76 LOADK                            R9 K31 ["X-Corner StartPage-TileBackground StartPage-NoBorder StartPage-KebabIcon"]
+       77 SETTABLE                         R9 R7 R8
+       78 GETUPVAL                         R8 4
+       79 GETTABLEKS                       R8 R8 K32 ["Event"]
+       81 GETTABLEKS                       R8 R8 K33 ["Activated"]
+       83 NEWCLOSURE                       R9 P0
+       84 CAPTURE                          UPVAL U5
+       85 CAPTURE                          UPVAL U6
+       86 CAPTURE                          VAL R0
+       87 SETTABLE                         R9 R7 R8
+       88 CALL                             R5 2 1
+       89 SETTABLEKS                       R5 R4 K19 ["Button"]
+       91 CALL                             R1 3 -1
+       92 RETURN                           R1 -1
 
 PROTO_11:
         0 GETUPVAL                         R0 0
@@ -537,22 +531,20 @@ PROTO_11:
        21 GETUPVAL                         R4 0
        22 GETTABLEKS                       R4 R4 K0 ["createElement"]
        24 GETUPVAL                         R5 1
-       25 DUPTABLE                         R6 K13 [{"label", "rightAlignIcon", "UniverseId"}]
+       25 DUPTABLE                         R6 K14 [{["label"], ["rightAlignIcon"] = True, ["UniverseId"]}]
        26 GETUPVAL                         R7 2
-       27 LOADK                            R9 K14 ["Plugin"]
-       28 LOADK                            R10 K15 ["Yes"]
-       29 NAMECALL                         R7 R7 K16 ["getText"]
+       27 LOADK                            R9 K15 ["Plugin"]
+       28 LOADK                            R10 K16 ["Yes"]
+       29 NAMECALL                         R7 R7 K17 ["getText"]
        31 CALL                             R7 3 1
        32 SETTABLEKS                       R7 R6 K10 ["label"]
-       34 LOADB                            R7 1
-       35 SETTABLEKS                       R7 R6 K11 ["rightAlignIcon"]
-       37 GETUPVAL                         R7 3
-       38 GETTABLEKS                       R7 R7 K17 ["Id"]
-       40 SETTABLEKS                       R7 R6 K12 ["UniverseId"]
-       42 CALL                             R4 2 1
-       43 SETTABLEKS                       R4 R3 K8 ["Badge"]
-       45 CALL                             R0 3 -1
-       46 RETURN                           R0 -1
+       34 GETUPVAL                         R7 3
+       35 GETTABLEKS                       R7 R7 K18 ["Id"]
+       37 SETTABLEKS                       R7 R6 K13 ["UniverseId"]
+       39 CALL                             R4 2 1
+       40 SETTABLEKS                       R4 R3 K8 ["Badge"]
+       42 CALL                             R0 3 -1
+       43 RETURN                           R0 -1
 
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["AbsolutePosition"]
@@ -578,50 +570,48 @@ PROTO_13:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 LOADK                            R1 K1 ["Frame"]
-        4 DUPTABLE                         R2 K4 [{"Size", "BackgroundTransparency"}]
-        5 GETIMPORT                        R3 K7 [UDim2.fromScale]
+        4 DUPTABLE                         R2 K5 [{["Size"], ["BackgroundTransparency"] = 1}]
+        5 GETIMPORT                        R3 K8 [UDim2.fromScale]
         7 LOADN                            R4 1
         8 LOADN                            R5 1
         9 CALL                             R3 2 1
        10 SETTABLEKS                       R3 R2 K2 ["Size"]
-       12 LOADN                            R3 1
-       13 SETTABLEKS                       R3 R2 K3 ["BackgroundTransparency"]
-       15 DUPTABLE                         R3 K9 [{"Button"}]
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       19 LOADK                            R5 K10 ["ImageButton"]
-       20 NEWTABLE                         R6 8 0
-       22 GETIMPORT                        R7 K12 [UDim2.fromOffset]
-       24 LOADN                            R8 28
-       25 LOADN                            R9 28
-       26 CALL                             R7 2 1
-       27 SETTABLEKS                       R7 R6 K2 ["Size"]
-       29 GETIMPORT                        R7 K15 [Vector2.new]
-       31 LOADK                            R8 K16 [0.5]
-       32 LOADK                            R9 K16 [0.5]
-       33 CALL                             R7 2 1
-       34 SETTABLEKS                       R7 R6 K17 ["AnchorPoint"]
-       36 GETIMPORT                        R7 K7 [UDim2.fromScale]
-       38 LOADK                            R8 K16 [0.5]
-       39 LOADK                            R9 K16 [0.5]
-       40 CALL                             R7 2 1
-       41 SETTABLEKS                       R7 R6 K18 ["Position"]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R7 R7 K19 ["Tag"]
-       46 LOADK                            R8 K20 ["X-Corner StartPage-TileBackground StartPage-NoBorder StartPage-KebabIcon"]
-       47 SETTABLE                         R8 R6 R7
-       48 GETUPVAL                         R7 0
-       49 GETTABLEKS                       R7 R7 K21 ["Event"]
-       51 GETTABLEKS                       R7 R7 K22 ["Activated"]
-       53 NEWCLOSURE                       R8 P0
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          UPVAL U2
-       56 CAPTURE                          UPVAL U3
-       57 SETTABLE                         R8 R6 R7
-       58 CALL                             R4 2 1
-       59 SETTABLEKS                       R4 R3 K8 ["Button"]
-       61 CALL                             R0 3 -1
-       62 RETURN                           R0 -1
+       12 DUPTABLE                         R3 K10 [{"Button"}]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       16 LOADK                            R5 K11 ["ImageButton"]
+       17 NEWTABLE                         R6 8 0
+       19 GETIMPORT                        R7 K13 [UDim2.fromOffset]
+       21 LOADN                            R8 28
+       22 LOADN                            R9 28
+       23 CALL                             R7 2 1
+       24 SETTABLEKS                       R7 R6 K2 ["Size"]
+       26 GETIMPORT                        R7 K16 [Vector2.new]
+       28 LOADK                            R8 K17 [0.5]
+       29 LOADK                            R9 K17 [0.5]
+       30 CALL                             R7 2 1
+       31 SETTABLEKS                       R7 R6 K18 ["AnchorPoint"]
+       33 GETIMPORT                        R7 K8 [UDim2.fromScale]
+       35 LOADK                            R8 K17 [0.5]
+       36 LOADK                            R9 K17 [0.5]
+       37 CALL                             R7 2 1
+       38 SETTABLEKS                       R7 R6 K19 ["Position"]
+       40 GETUPVAL                         R7 0
+       41 GETTABLEKS                       R7 R7 K20 ["Tag"]
+       43 LOADK                            R8 K21 ["X-Corner StartPage-TileBackground StartPage-NoBorder StartPage-KebabIcon"]
+       44 SETTABLE                         R8 R6 R7
+       45 GETUPVAL                         R7 0
+       46 GETTABLEKS                       R7 R7 K22 ["Event"]
+       48 GETTABLEKS                       R7 R7 K23 ["Activated"]
+       50 NEWCLOSURE                       R8 P0
+       51 CAPTURE                          UPVAL U1
+       52 CAPTURE                          UPVAL U2
+       53 CAPTURE                          UPVAL U3
+       54 SETTABLE                         R8 R6 R7
+       55 CALL                             R4 2 1
+       56 SETTABLEKS                       R4 R3 K9 ["Button"]
+       58 CALL                             R0 3 -1
+       59 RETURN                           R0 -1
 
 PROTO_14:
         0 NEWTABLE                         R0 0 0
@@ -632,9 +622,9 @@ PROTO_14:
         7 FORGPREP                         R1
         8 NEWTABLE                         R6 0 0
        10 GETTABLEKS                       R7 R5 K1 ["IsPlaceholder"]
-       12 JUMPIF                           R7 ; [+161]
+       12 JUMPIF                           R7 ; [+146]
        13 GETTABLEKS                       R7 R5 K2 ["Children"]
-       15 JUMPIFNOT                        R7 ; [+158]
+       15 JUMPIFNOT                        R7 ; [+143]
        16 GETTABLEKS                       R7 R5 K2 ["Children"]
        18 LOADNIL                          R8
        19 LOADNIL                          R9
@@ -645,301 +635,269 @@ PROTO_14:
        26 GETIMPORT                        R12 K6 [assert]
        28 CALL                             R12 2 0
        29 DUPTABLE                         R14 K17 [{"Icon", "Id", "Name", "Description", "Edited", "Created", "Playability", "Type", "UniverseId", "TeamCreate", "KebabMenu"}]
-       30 DUPTABLE                         R15 K19 [{"Value"}]
-       31 LOADK                            R16 K20 [""]
-       32 SETTABLEKS                       R16 R15 K18 ["Value"]
-       34 SETTABLEKS                       R15 R14 K7 ["Icon"]
-       36 DUPTABLE                         R15 K22 [{"Type", "PlaceId"}]
-       37 LOADK                            R16 K21 ["PlaceId"]
-       38 SETTABLEKS                       R16 R15 K13 ["Type"]
-       40 GETTABLEKS                       R16 R11 K3 ["Id"]
-       42 SETTABLEKS                       R16 R15 K21 ["PlaceId"]
-       44 SETTABLEKS                       R15 R14 K3 ["Id"]
-       46 DUPTABLE                         R15 K19 [{"Value"}]
-       47 GETTABLEKS                       R16 R11 K8 ["Name"]
-       49 SETTABLEKS                       R16 R15 K18 ["Value"]
-       51 SETTABLEKS                       R15 R14 K8 ["Name"]
-       53 DUPTABLE                         R15 K19 [{"Value"}]
-       54 GETTABLEKS                       R16 R11 K9 ["Description"]
-       56 SETTABLEKS                       R16 R15 K18 ["Value"]
-       58 SETTABLEKS                       R15 R14 K9 ["Description"]
-       60 DUPTABLE                         R15 K19 [{"Value"}]
-       61 GETUPVAL                         R17 1
-       62 JUMPIFNOT                        R17 ; [+9]
-       63 GETTABLEKS                       R17 R11 K23 ["LastViewed"]
-       65 JUMPIFNOT                        R17 ; [+6]
-       66 GETUPVAL                         R16 2
-       67 GETTABLEKS                       R17 R11 K23 ["LastViewed"]
-       69 GETUPVAL                         R18 3
-       70 CALL                             R16 2 1
-       71 JUMP                             ; [+1]
-       72 LOADK                            R16 K20 [""]
-       73 SETTABLEKS                       R16 R15 K18 ["Value"]
-       75 SETTABLEKS                       R15 R14 K10 ["Edited"]
-       77 DUPTABLE                         R15 K19 [{"Value"}]
-       78 GETUPVAL                         R17 1
-       79 JUMPIFNOT                        R17 ; [+6]
-       80 GETUPVAL                         R16 2
-       81 GETTABLEKS                       R17 R11 K11 ["Created"]
-       83 GETUPVAL                         R18 3
-       84 CALL                             R16 2 1
-       85 JUMP                             ; [+1]
-       86 LOADK                            R16 K20 [""]
-       87 SETTABLEKS                       R16 R15 K18 ["Value"]
-       89 SETTABLEKS                       R15 R14 K11 ["Created"]
-       91 DUPTABLE                         R15 K19 [{"Value"}]
-       92 GETUPVAL                         R17 1
-       93 JUMPIFNOT                        R17 ; [+5]
-       94 GETUPVAL                         R16 4
-       95 MOVE                             R17 R11
-       96 GETUPVAL                         R18 3
-       97 CALL                             R16 2 1
-       98 JUMP                             ; [+1]
-       99 LOADK                            R16 K20 [""]
-      100 SETTABLEKS                       R16 R15 K18 ["Value"]
-      102 SETTABLEKS                       R15 R14 K12 ["Playability"]
-      104 DUPTABLE                         R15 K19 [{"Value"}]
-      105 LOADK                            R16 K20 [""]
-      106 SETTABLEKS                       R16 R15 K18 ["Value"]
-      108 SETTABLEKS                       R15 R14 K13 ["Type"]
-      110 DUPTABLE                         R15 K19 [{"Value"}]
-      111 GETTABLEKS                       R16 R11 K14 ["UniverseId"]
-      113 SETTABLEKS                       R16 R15 K18 ["Value"]
-      115 SETTABLEKS                       R15 R14 K14 ["UniverseId"]
-      117 GETUPVAL                         R16 1
-      118 JUMPIFNOT                        R16 ; [+15]
-      119 DUPTABLE                         R15 K19 [{"Value"}]
-      120 GETUPVAL                         R16 3
-      121 LOADK                            R18 K24 ["Plugin"]
-      122 GETTABLEKS                       R20 R5 K25 ["IsTeamCreateEnabled"]
-      124 JUMPIFNOT                        R20 ; [+2]
-      125 LOADK                            R19 K26 ["Yes"]
-      126 JUMP                             ; [+1]
-      127 LOADK                            R19 K27 ["No"]
-      128 NAMECALL                         R16 R16 K28 ["getText"]
-      130 CALL                             R16 3 1
-      131 SETTABLEKS                       R16 R15 K18 ["Value"]
-      133 JUMP                             ; [+1]
-      134 LOADNIL                          R15
-      135 SETTABLEKS                       R15 R14 K15 ["TeamCreate"]
-      137 GETUPVAL                         R16 1
-      138 JUMPIFNOT                        R16 ; [+24]
-      139 DUPTABLE                         R15 K31 [{"Value", "Schema", "Renderers"}]
-      140 LOADK                            R16 K20 [""]
-      141 SETTABLEKS                       R16 R15 K18 ["Value"]
-      143 DUPTABLE                         R16 K32 [{"Type"}]
-      144 LOADK                            R17 K16 ["KebabMenu"]
-      145 SETTABLEKS                       R17 R16 K13 ["Type"]
-      147 SETTABLEKS                       R16 R15 K29 ["Schema"]
-      149 DUPTABLE                         R16 K33 [{"KebabMenu"}]
-      150 NEWCLOSURE                       R17 P0
-      151 CAPTURE                          VAL R11
-      152 CAPTURE                          VAL R5
-      153 CAPTURE                          UPVAL U5
-      154 CAPTURE                          UPVAL U6
-      155 CAPTURE                          UPVAL U7
-      156 CAPTURE                          UPVAL U8
-      157 CAPTURE                          UPVAL U9
-      158 SETTABLEKS                       R17 R16 K16 ["KebabMenu"]
-      160 SETTABLEKS                       R16 R15 K30 ["Renderers"]
-      162 JUMP                             ; [+1]
-      163 LOADNIL                          R15
-      164 SETTABLEKS                       R15 R14 K16 ["KebabMenu"]
-      166 FASTCALL2                        TABLE_INSERT R6 R14 ; [+4]
-      168 MOVE                             R13 R6
-      169 GETIMPORT                        R12 K36 [table.insert]
-      171 CALL                             R12 2 0
-      172 FORGLOOP                         R7 2 ; [-152]
-      174 GETTABLEKS                       R7 R5 K1 ["IsPlaceholder"]
-      176 JUMPIFNOT                        R7 ; [+12]
-      177 MOVE                             R8 R0
-      178 GETUPVAL                         R9 10
-      179 GETUPVAL                         R10 11
-      180 DUPTABLE                         R11 K38 [{"children"}]
-      181 SETTABLEKS                       R6 R11 K37 ["children"]
-      183 CALL                             R9 2 -1
-      184 FASTCALL                         TABLE_INSERT ; [+2]
-      185 GETIMPORT                        R7 K36 [table.insert]
-      187 CALL                             R7 -1 0
-      188 JUMP                             ; [+245]
-      189 DUPTABLE                         R9 K40 [{"Cell", "Icon", "Id", "Name", "Description", "Edited", "Created", "Playability", "Type", "UniverseId", "TeamCreate", "KebabMenu", "children"}]
-      190 GETUPVAL                         R11 12
-      191 JUMPIF                           R11 ; [+2]
-      192 GETUPVAL                         R11 1
-      193 JUMPIFNOT                        R11 ; [+2]
-      194 MOVE                             R10 R5
-      195 JUMP                             ; [+1]
-      196 LOADNIL                          R10
-      197 SETTABLEKS                       R10 R9 K39 ["Cell"]
-      199 GETTABLEKS                       R11 R5 K41 ["ImageUrl"]
-      201 JUMPIFNOT                        R11 ; [+21]
-      202 DUPTABLE                         R10 K43 [{"Value", "LeftIcon"}]
-      203 LOADK                            R11 K20 [""]
-      204 SETTABLEKS                       R11 R10 K18 ["Value"]
-      206 DUPTABLE                         R11 K46 [{"Image", "Size"}]
-      207 GETTABLEKS                       R12 R5 K41 ["ImageUrl"]
-      209 SETTABLEKS                       R12 R11 K44 ["Image"]
-      211 GETIMPORT                        R12 K49 [UDim2.new]
-      213 LOADN                            R13 0
-      214 LOADN                            R14 32
-      215 LOADN                            R15 0
-      216 LOADN                            R16 32
-      217 CALL                             R12 4 1
-      218 SETTABLEKS                       R12 R11 K45 ["Size"]
-      220 SETTABLEKS                       R11 R10 K42 ["LeftIcon"]
-      222 JUMP                             ; [+39]
-      223 GETTABLEKS                       R11 R5 K50 ["NoLoadableImage"]
-      225 JUMPIFNOT                        R11 ; [+20]
-      226 DUPTABLE                         R10 K43 [{"Value", "LeftIcon"}]
-      227 LOADK                            R11 K20 [""]
-      228 SETTABLEKS                       R11 R10 K18 ["Value"]
-      230 DUPTABLE                         R11 K46 [{"Image", "Size"}]
-      231 LOADK                            R12 K51 ["rbxasset://studio_svg_textures/Lua/StartPage/Light/SI-Standard/Placeholder.png"]
-      232 SETTABLEKS                       R12 R11 K44 ["Image"]
-      234 GETIMPORT                        R12 K49 [UDim2.new]
-      236 LOADN                            R13 0
-      237 LOADN                            R14 32
-      238 LOADN                            R15 0
-      239 LOADN                            R16 32
-      240 CALL                             R12 4 1
-      241 SETTABLEKS                       R12 R11 K45 ["Size"]
-      243 SETTABLEKS                       R11 R10 K42 ["LeftIcon"]
-      245 JUMP                             ; [+16]
-      246 DUPTABLE                         R10 K31 [{"Value", "Schema", "Renderers"}]
-      247 LOADK                            R11 K20 [""]
-      248 SETTABLEKS                       R11 R10 K18 ["Value"]
-      250 DUPTABLE                         R11 K32 [{"Type"}]
-      251 LOADK                            R12 K52 ["Placeholder"]
-      252 SETTABLEKS                       R12 R11 K13 ["Type"]
-      254 SETTABLEKS                       R11 R10 K29 ["Schema"]
-      256 DUPTABLE                         R11 K53 [{"Placeholder"}]
-      257 GETUPVAL                         R12 13
-      258 SETTABLEKS                       R12 R11 K52 ["Placeholder"]
-      260 SETTABLEKS                       R11 R10 K30 ["Renderers"]
-      262 SETTABLEKS                       R10 R9 K7 ["Icon"]
-      264 GETTABLEKS                       R11 R5 K54 ["RootPlaceId"]
-      266 JUMPIFNOT                        R11 ; [+9]
-      267 DUPTABLE                         R10 K22 [{"Type", "PlaceId"}]
-      268 LOADK                            R11 K21 ["PlaceId"]
-      269 SETTABLEKS                       R11 R10 K13 ["Type"]
-      271 GETTABLEKS                       R11 R5 K54 ["RootPlaceId"]
-      273 SETTABLEKS                       R11 R10 K21 ["PlaceId"]
-      275 JUMP                             ; [+13]
-      276 GETTABLEKS                       R11 R5 K55 ["FilePath"]
-      278 JUMPIFNOT                        R11 ; [+9]
-      279 DUPTABLE                         R10 K56 [{"Type", "FilePath"}]
-      280 LOADK                            R11 K55 ["FilePath"]
-      281 SETTABLEKS                       R11 R10 K13 ["Type"]
-      283 GETTABLEKS                       R11 R5 K55 ["FilePath"]
-      285 SETTABLEKS                       R11 R10 K55 ["FilePath"]
-      287 JUMP                             ; [+1]
-      288 LOADNIL                          R10
-      289 SETTABLEKS                       R10 R9 K3 ["Id"]
-      291 DUPTABLE                         R10 K19 [{"Value"}]
-      292 GETTABLEKS                       R12 R5 K8 ["Name"]
-      294 ORK                              R11 R12 K20 [""]
-      295 SETTABLEKS                       R11 R10 K18 ["Value"]
-      297 SETTABLEKS                       R10 R9 K8 ["Name"]
-      299 DUPTABLE                         R10 K19 [{"Value"}]
-      300 GETTABLEKS                       R12 R5 K9 ["Description"]
-      302 JUMPIF                           R12 ; [+2]
-      303 LOADK                            R11 K20 [""]
-      304 JUMP                             ; [+2]
-      305 GETTABLEKS                       R11 R5 K9 ["Description"]
-      307 SETTABLEKS                       R11 R10 K18 ["Value"]
-      309 SETTABLEKS                       R10 R9 K9 ["Description"]
-      311 DUPTABLE                         R10 K19 [{"Value"}]
-      312 GETTABLEKS                       R12 R5 K23 ["LastViewed"]
-      314 JUMPIFNOT                        R12 ; [+6]
-      315 GETUPVAL                         R11 2
-      316 GETTABLEKS                       R12 R5 K23 ["LastViewed"]
-      318 GETUPVAL                         R13 3
-      319 CALL                             R11 2 1
-      320 JUMP                             ; [+1]
-      321 LOADK                            R11 K20 [""]
-      322 SETTABLEKS                       R11 R10 K18 ["Value"]
-      324 SETTABLEKS                       R10 R9 K10 ["Edited"]
-      326 DUPTABLE                         R10 K19 [{"Value"}]
-      327 GETUPVAL                         R11 2
-      328 GETTABLEKS                       R12 R5 K11 ["Created"]
-      330 GETUPVAL                         R13 3
-      331 CALL                             R11 2 1
-      332 SETTABLEKS                       R11 R10 K18 ["Value"]
-      334 SETTABLEKS                       R10 R9 K11 ["Created"]
-      336 DUPTABLE                         R10 K19 [{"Value"}]
-      337 GETUPVAL                         R11 4
-      338 MOVE                             R12 R5
-      339 GETUPVAL                         R13 3
-      340 CALL                             R11 2 1
-      341 SETTABLEKS                       R11 R10 K18 ["Value"]
-      343 SETTABLEKS                       R10 R9 K12 ["Playability"]
-      345 DUPTABLE                         R10 K19 [{"Value"}]
-      346 GETTABLEKS                       R12 R5 K57 ["IsGame"]
-      348 JUMPIFNOT                        R12 ; [+2]
-      349 LOADK                            R11 K58 ["Experience"]
-      350 JUMP                             ; [+1]
-      351 LOADK                            R11 K59 ["Place"]
-      352 SETTABLEKS                       R11 R10 K18 ["Value"]
-      354 SETTABLEKS                       R10 R9 K13 ["Type"]
-      356 DUPTABLE                         R10 K19 [{"Value"}]
-      357 GETTABLEKS                       R11 R5 K3 ["Id"]
-      359 SETTABLEKS                       R11 R10 K18 ["Value"]
-      361 SETTABLEKS                       R10 R9 K14 ["UniverseId"]
-      363 GETUPVAL                         R11 14
-      364 JUMPIFNOT                        R11 ; [+24]
-      365 GETTABLEKS                       R11 R5 K60 ["IsAgeRestrictedCollaboration"]
-      367 JUMPIFNOT                        R11 ; [+21]
-      368 DUPTABLE                         R10 K31 [{"Value", "Schema", "Renderers"}]
-      369 LOADK                            R11 K20 [""]
-      370 SETTABLEKS                       R11 R10 K18 ["Value"]
-      372 DUPTABLE                         R11 K32 [{"Type"}]
-      373 LOADK                            R12 K61 ["CollaborationRestriction"]
-      374 SETTABLEKS                       R12 R11 K13 ["Type"]
-      376 SETTABLEKS                       R11 R10 K29 ["Schema"]
-      378 DUPTABLE                         R11 K62 [{"CollaborationRestriction"}]
-      379 NEWCLOSURE                       R12 P1
-      380 CAPTURE                          UPVAL U7
-      381 CAPTURE                          UPVAL U15
-      382 CAPTURE                          UPVAL U3
-      383 CAPTURE                          VAL R5
-      384 SETTABLEKS                       R12 R11 K61 ["CollaborationRestriction"]
-      386 SETTABLEKS                       R11 R10 K30 ["Renderers"]
-      388 JUMP                             ; [+9]
-      389 DUPTABLE                         R10 K19 [{"Value"}]
-      390 GETTABLEKS                       R12 R5 K25 ["IsTeamCreateEnabled"]
-      392 JUMPIFNOT                        R12 ; [+2]
-      393 LOADK                            R11 K26 ["Yes"]
-      394 JUMP                             ; [+1]
-      395 LOADK                            R11 K27 ["No"]
-      396 SETTABLEKS                       R11 R10 K18 ["Value"]
-      398 SETTABLEKS                       R10 R9 K15 ["TeamCreate"]
-      400 GETUPVAL                         R11 1
-      401 JUMPIFNOT                        R11 ; [+21]
-      402 DUPTABLE                         R10 K31 [{"Value", "Schema", "Renderers"}]
-      403 LOADK                            R11 K20 [""]
-      404 SETTABLEKS                       R11 R10 K18 ["Value"]
-      406 DUPTABLE                         R11 K32 [{"Type"}]
-      407 LOADK                            R12 K16 ["KebabMenu"]
-      408 SETTABLEKS                       R12 R11 K13 ["Type"]
-      410 SETTABLEKS                       R11 R10 K29 ["Schema"]
-      412 DUPTABLE                         R11 K33 [{"KebabMenu"}]
-      413 NEWCLOSURE                       R12 P2
-      414 CAPTURE                          UPVAL U7
-      415 CAPTURE                          UPVAL U8
-      416 CAPTURE                          UPVAL U9
-      417 CAPTURE                          VAL R5
-      418 SETTABLEKS                       R12 R11 K16 ["KebabMenu"]
-      420 SETTABLEKS                       R11 R10 K30 ["Renderers"]
-      422 JUMP                             ; [+1]
-      423 LOADNIL                          R10
-      424 SETTABLEKS                       R10 R9 K16 ["KebabMenu"]
-      426 SETTABLEKS                       R6 R9 K37 ["children"]
-      428 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
-      430 MOVE                             R8 R0
-      431 GETIMPORT                        R7 K36 [table.insert]
-      433 CALL                             R7 2 0
-      434 FORGLOOP                         R1 2 ; [-427]
-      436 RETURN                           R0 1
+       30 DUPTABLE                         R15 K20 [{["Value"] = ""}]
+       31 SETTABLEKS                       R15 R14 K7 ["Icon"]
+       33 DUPTABLE                         R15 K22 [{["Type"] = "PlaceId", ["PlaceId"]}]
+       34 GETTABLEKS                       R16 R11 K3 ["Id"]
+       36 SETTABLEKS                       R16 R15 K21 ["PlaceId"]
+       38 SETTABLEKS                       R15 R14 K3 ["Id"]
+       40 DUPTABLE                         R15 K23 [{"Value"}]
+       41 GETTABLEKS                       R16 R11 K8 ["Name"]
+       43 SETTABLEKS                       R16 R15 K18 ["Value"]
+       45 SETTABLEKS                       R15 R14 K8 ["Name"]
+       47 DUPTABLE                         R15 K23 [{"Value"}]
+       48 GETTABLEKS                       R16 R11 K9 ["Description"]
+       50 SETTABLEKS                       R16 R15 K18 ["Value"]
+       52 SETTABLEKS                       R15 R14 K9 ["Description"]
+       54 DUPTABLE                         R15 K23 [{"Value"}]
+       55 GETUPVAL                         R17 1
+       56 JUMPIFNOT                        R17 ; [+9]
+       57 GETTABLEKS                       R17 R11 K24 ["LastViewed"]
+       59 JUMPIFNOT                        R17 ; [+6]
+       60 GETUPVAL                         R16 2
+       61 GETTABLEKS                       R17 R11 K24 ["LastViewed"]
+       63 GETUPVAL                         R18 3
+       64 CALL                             R16 2 1
+       65 JUMP                             ; [+1]
+       66 LOADK                            R16 K19 [""]
+       67 SETTABLEKS                       R16 R15 K18 ["Value"]
+       69 SETTABLEKS                       R15 R14 K10 ["Edited"]
+       71 DUPTABLE                         R15 K23 [{"Value"}]
+       72 GETUPVAL                         R17 1
+       73 JUMPIFNOT                        R17 ; [+6]
+       74 GETUPVAL                         R16 2
+       75 GETTABLEKS                       R17 R11 K11 ["Created"]
+       77 GETUPVAL                         R18 3
+       78 CALL                             R16 2 1
+       79 JUMP                             ; [+1]
+       80 LOADK                            R16 K19 [""]
+       81 SETTABLEKS                       R16 R15 K18 ["Value"]
+       83 SETTABLEKS                       R15 R14 K11 ["Created"]
+       85 DUPTABLE                         R15 K23 [{"Value"}]
+       86 GETUPVAL                         R17 1
+       87 JUMPIFNOT                        R17 ; [+5]
+       88 GETUPVAL                         R16 4
+       89 MOVE                             R17 R11
+       90 GETUPVAL                         R18 3
+       91 CALL                             R16 2 1
+       92 JUMP                             ; [+1]
+       93 LOADK                            R16 K19 [""]
+       94 SETTABLEKS                       R16 R15 K18 ["Value"]
+       96 SETTABLEKS                       R15 R14 K12 ["Playability"]
+       98 DUPTABLE                         R15 K20 [{["Value"] = ""}]
+       99 SETTABLEKS                       R15 R14 K13 ["Type"]
+      101 DUPTABLE                         R15 K23 [{"Value"}]
+      102 GETTABLEKS                       R16 R11 K14 ["UniverseId"]
+      104 SETTABLEKS                       R16 R15 K18 ["Value"]
+      106 SETTABLEKS                       R15 R14 K14 ["UniverseId"]
+      108 GETUPVAL                         R16 1
+      109 JUMPIFNOT                        R16 ; [+15]
+      110 DUPTABLE                         R15 K23 [{"Value"}]
+      111 GETUPVAL                         R16 3
+      112 LOADK                            R18 K25 ["Plugin"]
+      113 GETTABLEKS                       R20 R5 K26 ["IsTeamCreateEnabled"]
+      115 JUMPIFNOT                        R20 ; [+2]
+      116 LOADK                            R19 K27 ["Yes"]
+      117 JUMP                             ; [+1]
+      118 LOADK                            R19 K28 ["No"]
+      119 NAMECALL                         R16 R16 K29 ["getText"]
+      121 CALL                             R16 3 1
+      122 SETTABLEKS                       R16 R15 K18 ["Value"]
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R15
+      126 SETTABLEKS                       R15 R14 K15 ["TeamCreate"]
+      128 GETUPVAL                         R16 1
+      129 JUMPIFNOT                        R16 ; [+18]
+      130 DUPTABLE                         R15 K32 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      131 DUPTABLE                         R16 K33 [{["Type"] = "KebabMenu"}]
+      132 SETTABLEKS                       R16 R15 K30 ["Schema"]
+      134 DUPTABLE                         R16 K34 [{"KebabMenu"}]
+      135 NEWCLOSURE                       R17 P0
+      136 CAPTURE                          VAL R11
+      137 CAPTURE                          VAL R5
+      138 CAPTURE                          UPVAL U5
+      139 CAPTURE                          UPVAL U6
+      140 CAPTURE                          UPVAL U7
+      141 CAPTURE                          UPVAL U8
+      142 CAPTURE                          UPVAL U9
+      143 SETTABLEKS                       R17 R16 K16 ["KebabMenu"]
+      145 SETTABLEKS                       R16 R15 K31 ["Renderers"]
+      147 JUMP                             ; [+1]
+      148 LOADNIL                          R15
+      149 SETTABLEKS                       R15 R14 K16 ["KebabMenu"]
+      151 FASTCALL2                        TABLE_INSERT R6 R14 ; [+4]
+      153 MOVE                             R13 R6
+      154 GETIMPORT                        R12 K37 [table.insert]
+      156 CALL                             R12 2 0
+      157 FORGLOOP                         R7 2 ; [-137]
+      159 GETTABLEKS                       R7 R5 K1 ["IsPlaceholder"]
+      161 JUMPIFNOT                        R7 ; [+12]
+      162 MOVE                             R8 R0
+      163 GETUPVAL                         R9 10
+      164 GETUPVAL                         R10 11
+      165 DUPTABLE                         R11 K39 [{"children"}]
+      166 SETTABLEKS                       R6 R11 K38 ["children"]
+      168 CALL                             R9 2 -1
+      169 FASTCALL                         TABLE_INSERT ; [+2]
+      170 GETIMPORT                        R7 K37 [table.insert]
+      172 CALL                             R7 -1 0
+      173 JUMP                             ; [+212]
+      174 DUPTABLE                         R9 K41 [{"Cell", "Icon", "Id", "Name", "Description", "Edited", "Created", "Playability", "Type", "UniverseId", "TeamCreate", "KebabMenu", "children"}]
+      175 GETUPVAL                         R11 12
+      176 JUMPIF                           R11 ; [+2]
+      177 GETUPVAL                         R11 1
+      178 JUMPIFNOT                        R11 ; [+2]
+      179 MOVE                             R10 R5
+      180 JUMP                             ; [+1]
+      181 LOADNIL                          R10
+      182 SETTABLEKS                       R10 R9 K40 ["Cell"]
+      184 GETTABLEKS                       R11 R5 K42 ["ImageUrl"]
+      186 JUMPIFNOT                        R11 ; [+18]
+      187 DUPTABLE                         R10 K44 [{["Value"] = "", ["LeftIcon"]}]
+      188 DUPTABLE                         R11 K47 [{"Image", "Size"}]
+      189 GETTABLEKS                       R12 R5 K42 ["ImageUrl"]
+      191 SETTABLEKS                       R12 R11 K45 ["Image"]
+      193 GETIMPORT                        R12 K50 [UDim2.new]
+      195 LOADN                            R13 0
+      196 LOADN                            R14 32
+      197 LOADN                            R15 0
+      198 LOADN                            R16 32
+      199 CALL                             R12 4 1
+      200 SETTABLEKS                       R12 R11 K46 ["Size"]
+      202 SETTABLEKS                       R11 R10 K43 ["LeftIcon"]
+      204 JUMP                             ; [+27]
+      205 GETTABLEKS                       R11 R5 K51 ["NoLoadableImage"]
+      207 JUMPIFNOT                        R11 ; [+14]
+      208 DUPTABLE                         R10 K44 [{["Value"] = "", ["LeftIcon"]}]
+      209 DUPTABLE                         R11 K53 [{["Image"] = "rbxasset://studio_svg_textures/Lua/StartPage/Light/SI-Standard/Placeholder.png", ["Size"]}]
+      210 GETIMPORT                        R12 K50 [UDim2.new]
+      212 LOADN                            R13 0
+      213 LOADN                            R14 32
+      214 LOADN                            R15 0
+      215 LOADN                            R16 32
+      216 CALL                             R12 4 1
+      217 SETTABLEKS                       R12 R11 K46 ["Size"]
+      219 SETTABLEKS                       R11 R10 K43 ["LeftIcon"]
+      221 JUMP                             ; [+10]
+      222 DUPTABLE                         R10 K32 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      223 DUPTABLE                         R11 K55 [{["Type"] = "Placeholder"}]
+      224 SETTABLEKS                       R11 R10 K30 ["Schema"]
+      226 DUPTABLE                         R11 K56 [{"Placeholder"}]
+      227 GETUPVAL                         R12 13
+      228 SETTABLEKS                       R12 R11 K54 ["Placeholder"]
+      230 SETTABLEKS                       R11 R10 K31 ["Renderers"]
+      232 SETTABLEKS                       R10 R9 K7 ["Icon"]
+      234 GETTABLEKS                       R11 R5 K57 ["RootPlaceId"]
+      236 JUMPIFNOT                        R11 ; [+6]
+      237 DUPTABLE                         R10 K22 [{["Type"] = "PlaceId", ["PlaceId"]}]
+      238 GETTABLEKS                       R11 R5 K57 ["RootPlaceId"]
+      240 SETTABLEKS                       R11 R10 K21 ["PlaceId"]
+      242 JUMP                             ; [+10]
+      243 GETTABLEKS                       R11 R5 K58 ["FilePath"]
+      245 JUMPIFNOT                        R11 ; [+6]
+      246 DUPTABLE                         R10 K59 [{["Type"] = "FilePath", ["FilePath"]}]
+      247 GETTABLEKS                       R11 R5 K58 ["FilePath"]
+      249 SETTABLEKS                       R11 R10 K58 ["FilePath"]
+      251 JUMP                             ; [+1]
+      252 LOADNIL                          R10
+      253 SETTABLEKS                       R10 R9 K3 ["Id"]
+      255 DUPTABLE                         R10 K23 [{"Value"}]
+      256 GETTABLEKS                       R12 R5 K8 ["Name"]
+      258 ORK                              R11 R12 K19 [""]
+      259 SETTABLEKS                       R11 R10 K18 ["Value"]
+      261 SETTABLEKS                       R10 R9 K8 ["Name"]
+      263 DUPTABLE                         R10 K23 [{"Value"}]
+      264 GETTABLEKS                       R12 R5 K9 ["Description"]
+      266 JUMPIF                           R12 ; [+2]
+      267 LOADK                            R11 K19 [""]
+      268 JUMP                             ; [+2]
+      269 GETTABLEKS                       R11 R5 K9 ["Description"]
+      271 SETTABLEKS                       R11 R10 K18 ["Value"]
+      273 SETTABLEKS                       R10 R9 K9 ["Description"]
+      275 DUPTABLE                         R10 K23 [{"Value"}]
+      276 GETTABLEKS                       R12 R5 K24 ["LastViewed"]
+      278 JUMPIFNOT                        R12 ; [+6]
+      279 GETUPVAL                         R11 2
+      280 GETTABLEKS                       R12 R5 K24 ["LastViewed"]
+      282 GETUPVAL                         R13 3
+      283 CALL                             R11 2 1
+      284 JUMP                             ; [+1]
+      285 LOADK                            R11 K19 [""]
+      286 SETTABLEKS                       R11 R10 K18 ["Value"]
+      288 SETTABLEKS                       R10 R9 K10 ["Edited"]
+      290 DUPTABLE                         R10 K23 [{"Value"}]
+      291 GETUPVAL                         R11 2
+      292 GETTABLEKS                       R12 R5 K11 ["Created"]
+      294 GETUPVAL                         R13 3
+      295 CALL                             R11 2 1
+      296 SETTABLEKS                       R11 R10 K18 ["Value"]
+      298 SETTABLEKS                       R10 R9 K11 ["Created"]
+      300 DUPTABLE                         R10 K23 [{"Value"}]
+      301 GETUPVAL                         R11 4
+      302 MOVE                             R12 R5
+      303 GETUPVAL                         R13 3
+      304 CALL                             R11 2 1
+      305 SETTABLEKS                       R11 R10 K18 ["Value"]
+      307 SETTABLEKS                       R10 R9 K12 ["Playability"]
+      309 DUPTABLE                         R10 K23 [{"Value"}]
+      310 GETTABLEKS                       R12 R5 K60 ["IsGame"]
+      312 JUMPIFNOT                        R12 ; [+2]
+      313 LOADK                            R11 K61 ["Experience"]
+      314 JUMP                             ; [+1]
+      315 LOADK                            R11 K62 ["Place"]
+      316 SETTABLEKS                       R11 R10 K18 ["Value"]
+      318 SETTABLEKS                       R10 R9 K13 ["Type"]
+      320 DUPTABLE                         R10 K23 [{"Value"}]
+      321 GETTABLEKS                       R11 R5 K3 ["Id"]
+      323 SETTABLEKS                       R11 R10 K18 ["Value"]
+      325 SETTABLEKS                       R10 R9 K14 ["UniverseId"]
+      327 GETUPVAL                         R11 14
+      328 JUMPIFNOT                        R11 ; [+18]
+      329 GETTABLEKS                       R11 R5 K63 ["IsAgeRestrictedCollaboration"]
+      331 JUMPIFNOT                        R11 ; [+15]
+      332 DUPTABLE                         R10 K32 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      333 DUPTABLE                         R11 K65 [{["Type"] = "CollaborationRestriction"}]
+      334 SETTABLEKS                       R11 R10 K30 ["Schema"]
+      336 DUPTABLE                         R11 K66 [{"CollaborationRestriction"}]
+      337 NEWCLOSURE                       R12 P1
+      338 CAPTURE                          UPVAL U7
+      339 CAPTURE                          UPVAL U15
+      340 CAPTURE                          UPVAL U3
+      341 CAPTURE                          VAL R5
+      342 SETTABLEKS                       R12 R11 K64 ["CollaborationRestriction"]
+      344 SETTABLEKS                       R11 R10 K31 ["Renderers"]
+      346 JUMP                             ; [+9]
+      347 DUPTABLE                         R10 K23 [{"Value"}]
+      348 GETTABLEKS                       R12 R5 K26 ["IsTeamCreateEnabled"]
+      350 JUMPIFNOT                        R12 ; [+2]
+      351 LOADK                            R11 K27 ["Yes"]
+      352 JUMP                             ; [+1]
+      353 LOADK                            R11 K28 ["No"]
+      354 SETTABLEKS                       R11 R10 K18 ["Value"]
+      356 SETTABLEKS                       R10 R9 K15 ["TeamCreate"]
+      358 GETUPVAL                         R11 1
+      359 JUMPIFNOT                        R11 ; [+15]
+      360 DUPTABLE                         R10 K32 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      361 DUPTABLE                         R11 K33 [{["Type"] = "KebabMenu"}]
+      362 SETTABLEKS                       R11 R10 K30 ["Schema"]
+      364 DUPTABLE                         R11 K34 [{"KebabMenu"}]
+      365 NEWCLOSURE                       R12 P2
+      366 CAPTURE                          UPVAL U7
+      367 CAPTURE                          UPVAL U8
+      368 CAPTURE                          UPVAL U9
+      369 CAPTURE                          VAL R5
+      370 SETTABLEKS                       R12 R11 K16 ["KebabMenu"]
+      372 SETTABLEKS                       R11 R10 K31 ["Renderers"]
+      374 JUMP                             ; [+1]
+      375 LOADNIL                          R10
+      376 SETTABLEKS                       R10 R9 K16 ["KebabMenu"]
+      378 SETTABLEKS                       R6 R9 K38 ["children"]
+      380 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
+      382 MOVE                             R8 R0
+      383 GETIMPORT                        R7 K37 [table.insert]
+      385 CALL                             R7 2 0
+      386 FORGLOOP                         R1 2 ; [-379]
+      388 RETURN                           R0 1
 
 PROTO_15:
         0 GETUPVAL                         R1 0
@@ -1478,274 +1436,186 @@ MAIN:
       291 CAPTURE                          VAL R40
       292 CAPTURE                          VAL R41
       293 NEWTABLE                         R43 0 7
-      295 DUPTABLE                         R44 K62 [{"Name", "Key", "Width", "ShouldSort"}]
-      296 LOADK                            R45 K63 [""]
-      297 SETTABLEKS                       R45 R44 K58 ["Name"]
-      299 LOADK                            R45 K64 ["Icon"]
-      300 SETTABLEKS                       R45 R44 K59 ["Key"]
-      302 GETIMPORT                        R45 K67 [UDim.new]
-      304 LOADN                            R46 0
-      305 LOADN                            R47 64
-      306 CALL                             R45 2 1
-      307 SETTABLEKS                       R45 R44 K60 ["Width"]
-      309 LOADB                            R45 0
-      310 SETTABLEKS                       R45 R44 K61 ["ShouldSort"]
-      312 DUPTABLE                         R45 K69 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-      313 LOADK                            R46 K58 ["Name"]
-      314 SETTABLEKS                       R46 R45 K58 ["Name"]
-      316 LOADK                            R46 K58 ["Name"]
-      317 SETTABLEKS                       R46 R45 K59 ["Key"]
-      319 JUMPIFNOT                        R13 ; [+6]
-      320 GETIMPORT                        R46 K67 [UDim.new]
-      322 LOADK                            R47 K70 [0.25]
-      323 LOADN                            R48 120
-      324 CALL                             R46 2 1
-      325 JUMP                             ; [+5]
-      326 GETIMPORT                        R46 K67 [UDim.new]
-      328 LOADK                            R47 K70 [0.25]
-      329 LOADN                            R48 192
-      330 CALL                             R46 2 1
-      331 SETTABLEKS                       R46 R45 K60 ["Width"]
-      333 LOADB                            R46 1
-      334 SETTABLEKS                       R46 R45 K61 ["ShouldSort"]
-      336 LOADK                            R46 K71 ["GameName"]
-      337 SETTABLEKS                       R46 R45 K68 ["SortParam"]
-      339 DUPTABLE                         R46 K62 [{"Name", "Key", "Width", "ShouldSort"}]
-      340 LOADK                            R47 K72 ["Description"]
-      341 SETTABLEKS                       R47 R46 K58 ["Name"]
-      343 LOADK                            R47 K72 ["Description"]
-      344 SETTABLEKS                       R47 R46 K59 ["Key"]
-      346 GETIMPORT                        R47 K67 [UDim.new]
-      348 LOADK                            R48 K70 [0.25]
-      349 LOADN                            R49 0
-      350 CALL                             R47 2 1
-      351 SETTABLEKS                       R47 R46 K60 ["Width"]
-      353 LOADB                            R47 0
-      354 SETTABLEKS                       R47 R46 K61 ["ShouldSort"]
-      356 DUPTABLE                         R47 K69 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-      357 LOADK                            R48 K73 ["Last Edited"]
-      358 SETTABLEKS                       R48 R47 K58 ["Name"]
-      360 LOADK                            R48 K74 ["Edited"]
-      361 SETTABLEKS                       R48 R47 K59 ["Key"]
-      363 GETIMPORT                        R48 K67 [UDim.new]
-      365 LOADK                            R49 K75 [0.15]
-      366 LOADN                            R50 0
-      367 CALL                             R48 2 1
-      368 SETTABLEKS                       R48 R47 K60 ["Width"]
-      370 LOADB                            R48 1
-      371 SETTABLEKS                       R48 R47 K61 ["ShouldSort"]
-      373 LOADK                            R48 K76 ["LastUpdated"]
-      374 SETTABLEKS                       R48 R47 K68 ["SortParam"]
-      376 DUPTABLE                         R48 K69 [{"Name", "Key", "Width", "ShouldSort", "SortParam"}]
-      377 LOADK                            R49 K77 ["Date Created"]
-      378 SETTABLEKS                       R49 R48 K58 ["Name"]
-      380 LOADK                            R49 K78 ["Created"]
-      381 SETTABLEKS                       R49 R48 K59 ["Key"]
-      383 GETIMPORT                        R49 K67 [UDim.new]
-      385 LOADK                            R50 K75 [0.15]
-      386 LOADN                            R51 0
-      387 CALL                             R49 2 1
-      388 SETTABLEKS                       R49 R48 K60 ["Width"]
-      390 LOADB                            R49 1
-      391 SETTABLEKS                       R49 R48 K61 ["ShouldSort"]
-      393 LOADK                            R49 K79 ["GameCreated"]
-      394 SETTABLEKS                       R49 R48 K68 ["SortParam"]
-      396 DUPTABLE                         R49 K62 [{"Name", "Key", "Width", "ShouldSort"}]
-      397 LOADK                            R50 K80 ["Playability"]
-      398 SETTABLEKS                       R50 R49 K58 ["Name"]
-      400 LOADK                            R50 K80 ["Playability"]
-      401 SETTABLEKS                       R50 R49 K59 ["Key"]
-      403 GETIMPORT                        R50 K67 [UDim.new]
-      405 LOADK                            R51 K81 [0.1]
-      406 LOADN                            R52 0
-      407 CALL                             R50 2 1
-      408 SETTABLEKS                       R50 R49 K60 ["Width"]
-      410 LOADB                            R50 0
-      411 SETTABLEKS                       R50 R49 K61 ["ShouldSort"]
-      413 DUPTABLE                         R50 K62 [{"Name", "Key", "Width", "ShouldSort"}]
-      414 LOADK                            R51 K82 ["Team Create"]
-      415 SETTABLEKS                       R51 R50 K58 ["Name"]
-      417 LOADK                            R51 K83 ["TeamCreate"]
-      418 SETTABLEKS                       R51 R50 K59 ["Key"]
-      420 GETIMPORT                        R51 K67 [UDim.new]
-      422 LOADK                            R52 K81 [0.1]
-      423 LOADN                            R53 0
-      424 CALL                             R51 2 1
-      425 SETTABLEKS                       R51 R50 K60 ["Width"]
-      427 LOADB                            R51 0
-      428 SETTABLEKS                       R51 R50 K61 ["ShouldSort"]
-      430 SETLIST                          R43 R44 7 [1]
-      432 JUMPIFNOT                        R13 ; [+23]
-      433 DUPTABLE                         R46 K62 [{"Name", "Key", "Width", "ShouldSort"}]
-      434 LOADK                            R47 K63 [""]
-      435 SETTABLEKS                       R47 R46 K58 ["Name"]
-      437 LOADK                            R47 K84 ["KebabMenu"]
-      438 SETTABLEKS                       R47 R46 K59 ["Key"]
-      440 GETIMPORT                        R47 K67 [UDim.new]
-      442 LOADN                            R48 0
-      443 LOADN                            R49 72
-      444 CALL                             R47 2 1
-      445 SETTABLEKS                       R47 R46 K60 ["Width"]
-      447 LOADB                            R47 0
-      448 SETTABLEKS                       R47 R46 K61 ["ShouldSort"]
-      450 FASTCALL2                        TABLE_INSERT R43 R46 ; [+4]
-      452 MOVE                             R45 R43
-      453 GETIMPORT                        R44 K87 [table.insert]
-      455 CALL                             R44 2 0
-      456 NEWTABLE                         R44 4 0
-      458 LOADN                            R45 2
-      459 SETTABLEKS                       R45 R44 K71 ["GameName"]
-      461 LOADN                            R45 4
-      462 SETTABLEKS                       R45 R44 K76 ["LastUpdated"]
-      464 LOADN                            R45 5
-      465 SETTABLEKS                       R45 R44 K79 ["GameCreated"]
-      467 DUPCLOSURE                       R45 K88 [PROTO_1]
-      468 CAPTURE                          VAL R1
-      469 CAPTURE                          VAL R34
-      470 DUPCLOSURE                       R46 K89 [PROTO_2]
-      471 CAPTURE                          VAL R1
-      472 CAPTURE                          VAL R34
-      473 DUPTABLE                         R47 K91 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate", "KebabMenu"}]
-      474 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      475 LOADK                            R49 K63 [""]
-      476 SETTABLEKS                       R49 R48 K92 ["Value"]
-      478 DUPTABLE                         R49 K96 [{"Type"}]
-      479 LOADK                            R50 K97 ["Placeholder"]
-      480 SETTABLEKS                       R50 R49 K90 ["Type"]
-      482 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      484 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      485 SETTABLEKS                       R46 R49 K97 ["Placeholder"]
-      487 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      489 SETTABLEKS                       R48 R47 K64 ["Icon"]
-      491 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      492 LOADK                            R49 K63 [""]
-      493 SETTABLEKS                       R49 R48 K92 ["Value"]
-      495 DUPTABLE                         R49 K96 [{"Type"}]
-      496 LOADK                            R50 K97 ["Placeholder"]
-      497 SETTABLEKS                       R50 R49 K90 ["Type"]
-      499 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      501 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      502 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      504 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      506 SETTABLEKS                       R48 R47 K58 ["Name"]
-      508 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      509 LOADK                            R49 K63 [""]
-      510 SETTABLEKS                       R49 R48 K92 ["Value"]
-      512 DUPTABLE                         R49 K96 [{"Type"}]
-      513 LOADK                            R50 K97 ["Placeholder"]
-      514 SETTABLEKS                       R50 R49 K90 ["Type"]
-      516 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      518 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      519 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      521 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      523 SETTABLEKS                       R48 R47 K72 ["Description"]
-      525 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      526 LOADK                            R49 K63 [""]
-      527 SETTABLEKS                       R49 R48 K92 ["Value"]
-      529 DUPTABLE                         R49 K96 [{"Type"}]
-      530 LOADK                            R50 K97 ["Placeholder"]
-      531 SETTABLEKS                       R50 R49 K90 ["Type"]
-      533 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      535 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      536 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      538 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      540 SETTABLEKS                       R48 R47 K74 ["Edited"]
-      542 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      543 LOADK                            R49 K63 [""]
-      544 SETTABLEKS                       R49 R48 K92 ["Value"]
-      546 DUPTABLE                         R49 K96 [{"Type"}]
-      547 LOADK                            R50 K97 ["Placeholder"]
-      548 SETTABLEKS                       R50 R49 K90 ["Type"]
-      550 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      552 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      553 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      555 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      557 SETTABLEKS                       R48 R47 K78 ["Created"]
-      559 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      560 LOADK                            R49 K63 [""]
-      561 SETTABLEKS                       R49 R48 K92 ["Value"]
-      563 DUPTABLE                         R49 K96 [{"Type"}]
-      564 LOADK                            R50 K97 ["Placeholder"]
-      565 SETTABLEKS                       R50 R49 K90 ["Type"]
-      567 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      569 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      570 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      572 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      574 SETTABLEKS                       R48 R47 K80 ["Playability"]
-      576 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      577 LOADK                            R49 K63 [""]
-      578 SETTABLEKS                       R49 R48 K92 ["Value"]
-      580 DUPTABLE                         R49 K96 [{"Type"}]
-      581 LOADK                            R50 K97 ["Placeholder"]
-      582 SETTABLEKS                       R50 R49 K90 ["Type"]
-      584 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      586 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      587 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      589 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      591 SETTABLEKS                       R48 R47 K90 ["Type"]
-      593 DUPTABLE                         R48 K95 [{"Value", "Schema", "Renderers"}]
-      594 LOADK                            R49 K63 [""]
-      595 SETTABLEKS                       R49 R48 K92 ["Value"]
-      597 DUPTABLE                         R49 K96 [{"Type"}]
-      598 LOADK                            R50 K97 ["Placeholder"]
-      599 SETTABLEKS                       R50 R49 K90 ["Type"]
-      601 SETTABLEKS                       R49 R48 K93 ["Schema"]
-      603 DUPTABLE                         R49 K98 [{"Placeholder"}]
-      604 SETTABLEKS                       R45 R49 K97 ["Placeholder"]
-      606 SETTABLEKS                       R49 R48 K94 ["Renderers"]
-      608 SETTABLEKS                       R48 R47 K83 ["TeamCreate"]
-      610 JUMPIFNOT                        R13 ; [+5]
-      611 DUPTABLE                         R48 K99 [{"Value"}]
-      612 LOADK                            R49 K63 [""]
-      613 SETTABLEKS                       R49 R48 K92 ["Value"]
-      615 JUMP                             ; [+1]
-      616 LOADNIL                          R48
-      617 SETTABLEKS                       R48 R47 K84 ["KebabMenu"]
-      619 DUPCLOSURE                       R48 K100 [PROTO_3]
-      620 DUPCLOSURE                       R49 K101 [PROTO_4]
-      621 CAPTURE                          VAL R29
-      622 DUPCLOSURE                       R50 K102 [PROTO_5]
-      623 CAPTURE                          VAL R30
-      624 DUPCLOSURE                       R51 K103 [PROTO_7]
-      625 CAPTURE                          VAL R23
-      626 CAPTURE                          VAL R13
-      627 CAPTURE                          VAL R24
-      628 CAPTURE                          VAL R4
-      629 CAPTURE                          VAL R1
-      630 CAPTURE                          VAL R35
-      631 DUPCLOSURE                       R52 K104 [PROTO_21]
-      632 CAPTURE                          VAL R2
-      633 CAPTURE                          VAL R6
-      634 CAPTURE                          VAL R1
-      635 CAPTURE                          VAL R12
-      636 CAPTURE                          VAL R13
-      637 CAPTURE                          VAL R37
-      638 CAPTURE                          VAL R3
-      639 CAPTURE                          VAL R38
-      640 CAPTURE                          VAL R42
-      641 CAPTURE                          VAL R17
-      642 CAPTURE                          VAL R18
-      643 CAPTURE                          VAL R8
-      644 CAPTURE                          VAL R47
-      645 CAPTURE                          VAL R46
-      646 CAPTURE                          VAL R15
-      647 CAPTURE                          VAL R36
-      648 CAPTURE                          VAL R30
-      649 CAPTURE                          VAL R29
-      650 CAPTURE                          VAL R27
-      651 CAPTURE                          VAL R28
-      652 CAPTURE                          VAL R9
-      653 CAPTURE                          VAL R33
-      654 CAPTURE                          VAL R43
-      655 CAPTURE                          VAL R50
-      656 CAPTURE                          VAL R26
-      657 CAPTURE                          VAL R25
-      658 CAPTURE                          VAL R49
-      659 CAPTURE                          VAL R48
-      660 CAPTURE                          VAL R10
-      661 CAPTURE                          VAL R44
-      662 CAPTURE                          VAL R35
-      663 CAPTURE                          VAL R51
-      664 SETGLOBAL                        R52 K105 ["ExperiencesTable"]
-      666 GETGLOBAL                        R52 K105 ["ExperiencesTable"]
-      668 RETURN                           R52 1
+      295 DUPTABLE                         R44 K65 [{["Name"] = "", ["Key"] = "Icon", ["Width"], ["ShouldSort"] = False}]
+      296 GETIMPORT                        R45 K68 [UDim.new]
+      298 LOADN                            R46 0
+      299 LOADN                            R47 64
+      300 CALL                             R45 2 1
+      301 SETTABLEKS                       R45 R44 K62 ["Width"]
+      303 DUPTABLE                         R45 K72 [{["Name"] = "Name", ["Key"] = "Name", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameName"}]
+      304 JUMPIFNOT                        R13 ; [+6]
+      305 GETIMPORT                        R46 K68 [UDim.new]
+      307 LOADK                            R47 K73 [0.25]
+      308 LOADN                            R48 -136
+      309 CALL                             R46 2 1
+      310 JUMP                             ; [+5]
+      311 GETIMPORT                        R46 K68 [UDim.new]
+      313 LOADK                            R47 K73 [0.25]
+      314 LOADN                            R48 -64
+      315 CALL                             R46 2 1
+      316 SETTABLEKS                       R46 R45 K62 ["Width"]
+      318 DUPTABLE                         R46 K75 [{["Name"] = "Description", ["Key"] = "Description", ["Width"], ["ShouldSort"] = False}]
+      319 GETIMPORT                        R47 K68 [UDim.new]
+      321 LOADK                            R48 K73 [0.25]
+      322 LOADN                            R49 0
+      323 CALL                             R47 2 1
+      324 SETTABLEKS                       R47 R46 K62 ["Width"]
+      326 DUPTABLE                         R47 K79 [{["Name"] = "Last Edited", ["Key"] = "Edited", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "LastUpdated"}]
+      327 GETIMPORT                        R48 K68 [UDim.new]
+      329 LOADK                            R49 K80 [0.15]
+      330 LOADN                            R50 0
+      331 CALL                             R48 2 1
+      332 SETTABLEKS                       R48 R47 K62 ["Width"]
+      334 DUPTABLE                         R48 K84 [{["Name"] = "Date Created", ["Key"] = "Created", ["Width"], ["ShouldSort"] = True, ["SortParam"] = "GameCreated"}]
+      335 GETIMPORT                        R49 K68 [UDim.new]
+      337 LOADK                            R50 K80 [0.15]
+      338 LOADN                            R51 0
+      339 CALL                             R49 2 1
+      340 SETTABLEKS                       R49 R48 K62 ["Width"]
+      342 DUPTABLE                         R49 K86 [{["Name"] = "Playability", ["Key"] = "Playability", ["Width"], ["ShouldSort"] = False}]
+      343 GETIMPORT                        R50 K68 [UDim.new]
+      345 LOADK                            R51 K87 [0.1]
+      346 LOADN                            R52 0
+      347 CALL                             R50 2 1
+      348 SETTABLEKS                       R50 R49 K62 ["Width"]
+      350 DUPTABLE                         R50 K90 [{["Name"] = "Team Create", ["Key"] = "TeamCreate", ["Width"], ["ShouldSort"] = False}]
+      351 GETIMPORT                        R51 K68 [UDim.new]
+      353 LOADK                            R52 K87 [0.1]
+      354 LOADN                            R53 0
+      355 CALL                             R51 2 1
+      356 SETTABLEKS                       R51 R50 K62 ["Width"]
+      358 SETLIST                          R43 R44 7 [1]
+      360 JUMPIFNOT                        R13 ; [+14]
+      361 DUPTABLE                         R46 K92 [{["Name"] = "", ["Key"] = "KebabMenu", ["Width"], ["ShouldSort"] = False}]
+      362 GETIMPORT                        R47 K68 [UDim.new]
+      364 LOADN                            R48 0
+      365 LOADN                            R49 72
+      366 CALL                             R47 2 1
+      367 SETTABLEKS                       R47 R46 K62 ["Width"]
+      369 FASTCALL2                        TABLE_INSERT R43 R46 ; [+4]
+      371 MOVE                             R45 R43
+      372 GETIMPORT                        R44 K95 [table.insert]
+      374 CALL                             R44 2 0
+      375 NEWTABLE                         R44 4 0
+      377 LOADN                            R45 2
+      378 SETTABLEKS                       R45 R44 K71 ["GameName"]
+      380 LOADN                            R45 4
+      381 SETTABLEKS                       R45 R44 K78 ["LastUpdated"]
+      383 LOADN                            R45 5
+      384 SETTABLEKS                       R45 R44 K83 ["GameCreated"]
+      386 DUPCLOSURE                       R45 K96 [PROTO_1]
+      387 CAPTURE                          VAL R1
+      388 CAPTURE                          VAL R34
+      389 DUPCLOSURE                       R46 K97 [PROTO_2]
+      390 CAPTURE                          VAL R1
+      391 CAPTURE                          VAL R34
+      392 DUPTABLE                         R47 K99 [{"Icon", "Name", "Description", "Edited", "Created", "Playability", "Type", "TeamCreate", "KebabMenu"}]
+      393 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      394 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      395 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      397 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      398 SETTABLEKS                       R46 R49 K104 ["Placeholder"]
+      400 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      402 SETTABLEKS                       R48 R47 K61 ["Icon"]
+      404 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      405 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      406 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      408 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      409 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      411 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      413 SETTABLEKS                       R48 R47 K58 ["Name"]
+      415 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      416 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      417 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      419 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      420 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      422 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      424 SETTABLEKS                       R48 R47 K74 ["Description"]
+      426 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      427 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      428 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      430 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      431 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      433 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      435 SETTABLEKS                       R48 R47 K77 ["Edited"]
+      437 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      438 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      439 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      441 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      442 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      444 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      446 SETTABLEKS                       R48 R47 K82 ["Created"]
+      448 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      449 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      450 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      452 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      453 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      455 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      457 SETTABLEKS                       R48 R47 K85 ["Playability"]
+      459 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      460 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      461 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      463 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      464 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      466 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      468 SETTABLEKS                       R48 R47 K98 ["Type"]
+      470 DUPTABLE                         R48 K103 [{["Value"] = "", ["Schema"], ["Renderers"]}]
+      471 DUPTABLE                         R49 K105 [{["Type"] = "Placeholder"}]
+      472 SETTABLEKS                       R49 R48 K101 ["Schema"]
+      474 DUPTABLE                         R49 K106 [{"Placeholder"}]
+      475 SETTABLEKS                       R45 R49 K104 ["Placeholder"]
+      477 SETTABLEKS                       R49 R48 K102 ["Renderers"]
+      479 SETTABLEKS                       R48 R47 K89 ["TeamCreate"]
+      481 JUMPIFNOT                        R13 ; [+2]
+      482 DUPTABLE                         R48 K107 [{["Value"] = ""}]
+      483 JUMP                             ; [+1]
+      484 LOADNIL                          R48
+      485 SETTABLEKS                       R48 R47 K91 ["KebabMenu"]
+      487 DUPCLOSURE                       R48 K108 [PROTO_3]
+      488 DUPCLOSURE                       R49 K109 [PROTO_4]
+      489 CAPTURE                          VAL R29
+      490 DUPCLOSURE                       R50 K110 [PROTO_5]
+      491 CAPTURE                          VAL R30
+      492 DUPCLOSURE                       R51 K111 [PROTO_7]
+      493 CAPTURE                          VAL R23
+      494 CAPTURE                          VAL R13
+      495 CAPTURE                          VAL R24
+      496 CAPTURE                          VAL R4
+      497 CAPTURE                          VAL R1
+      498 CAPTURE                          VAL R35
+      499 DUPCLOSURE                       R52 K112 [PROTO_21]
+      500 CAPTURE                          VAL R2
+      501 CAPTURE                          VAL R6
+      502 CAPTURE                          VAL R1
+      503 CAPTURE                          VAL R12
+      504 CAPTURE                          VAL R13
+      505 CAPTURE                          VAL R37
+      506 CAPTURE                          VAL R3
+      507 CAPTURE                          VAL R38
+      508 CAPTURE                          VAL R42
+      509 CAPTURE                          VAL R17
+      510 CAPTURE                          VAL R18
+      511 CAPTURE                          VAL R8
+      512 CAPTURE                          VAL R47
+      513 CAPTURE                          VAL R46
+      514 CAPTURE                          VAL R15
+      515 CAPTURE                          VAL R36
+      516 CAPTURE                          VAL R30
+      517 CAPTURE                          VAL R29
+      518 CAPTURE                          VAL R27
+      519 CAPTURE                          VAL R28
+      520 CAPTURE                          VAL R9
+      521 CAPTURE                          VAL R33
+      522 CAPTURE                          VAL R43
+      523 CAPTURE                          VAL R50
+      524 CAPTURE                          VAL R26
+      525 CAPTURE                          VAL R25
+      526 CAPTURE                          VAL R49
+      527 CAPTURE                          VAL R48
+      528 CAPTURE                          VAL R10
+      529 CAPTURE                          VAL R44
+      530 CAPTURE                          VAL R35
+      531 CAPTURE                          VAL R51
+      532 SETGLOBAL                        R52 K113 ["ExperiencesTable"]
+      534 GETGLOBAL                        R52 K113 ["ExperiencesTable"]
+      536 RETURN                           R52 1

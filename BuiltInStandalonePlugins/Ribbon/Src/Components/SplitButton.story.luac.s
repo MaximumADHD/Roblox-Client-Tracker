@@ -63,7 +63,7 @@ PROTO_4:
        24 GETUPVAL                         R4 2
        25 GETUPVAL                         R5 3
        26 GETUPVAL                         R6 4
-       27 DUPTABLE                         R7 K16 [{"LayoutOrder", "Uri", "OnSelect", "OnSelectArrow", "ShowContextMenu", "Visible", "EnabledChildren", "MenuData"}]
+       27 DUPTABLE                         R7 K17 [{["LayoutOrder"], ["Uri"], ["OnSelect"], ["OnSelectArrow"], ["ShowContextMenu"], ["Visible"] = True, ["EnabledChildren"] = True, ["MenuData"]}]
        28 GETUPVAL                         R8 5
        29 CALL                             R8 0 1
        30 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
@@ -81,17 +81,13 @@ PROTO_4:
        46 CAPTURE                          UPVAL U6
        47 CAPTURE                          VAL R2
        48 SETTABLEKS                       R8 R7 K12 ["ShowContextMenu"]
-       50 LOADB                            R8 1
-       51 SETTABLEKS                       R8 R7 K13 ["Visible"]
-       53 LOADB                            R8 1
-       54 SETTABLEKS                       R8 R7 K14 ["EnabledChildren"]
-       56 GETUPVAL                         R8 10
-       57 SETTABLEKS                       R8 R7 K15 ["MenuData"]
-       59 MOVE                             R8 R1
-       60 GETUPVAL                         R9 11
-       61 CALL                             R6 3 -1
-       62 CALL                             R4 -1 -1
-       63 RETURN                           R3 -1
+       50 GETUPVAL                         R8 10
+       51 SETTABLEKS                       R8 R7 K16 ["MenuData"]
+       53 MOVE                             R8 R1
+       54 GETUPVAL                         R9 11
+       55 CALL                             R6 3 -1
+       56 CALL                             R4 -1 -1
+       57 RETURN                           R3 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -140,13 +136,11 @@ PROTO_5:
        50 CALL                             R6 2 1
        51 GETUPVAL                         R7 8
        52 GETUPVAL                         R8 15
-       53 DUPTABLE                         R9 K7 [{"tag"}]
-       54 LOADK                            R10 K8 ["gap-large row padding-small auto-xy align-x-center align-y-center"]
-       55 SETTABLEKS                       R10 R9 K6 ["tag"]
-       57 MOVE                             R10 R6
-       58 CALL                             R7 3 -1
-       59 CLOSEUPVALS                      R5
-       60 RETURN                           R7 -1
+       53 DUPTABLE                         R9 K8 [{["tag"] = "gap-large row padding-small auto-xy align-x-center align-y-center"}]
+       54 MOVE                             R10 R6
+       55 CALL                             R7 3 -1
+       56 CLOSEUPVALS                      R5
+       57 RETURN                           R7 -1
 
 PROTO_6:
         0 NEWCLOSURE                       R2 P0
@@ -295,33 +289,31 @@ PROTO_11:
        50 ORK                              R10 R11 K10 ["This is a tooltip"]
        51 GETUPVAL                         R11 5
        52 GETUPVAL                         R12 10
-       53 DUPTABLE                         R13 K13 [{"tag"}]
-       54 LOADK                            R14 K14 ["gap-small row padding-small auto-xy align-x-center align-y-center size-0-full"]
-       55 SETTABLEKS                       R14 R13 K12 ["tag"]
-       57 DUPTABLE                         R14 K18 [{"A", "B", "C"}]
-       58 MOVE                             R15 R7
-       59 LOADK                            R16 K19 ["First SplitButton"]
-       60 MOVE                             R17 R8
-       61 MOVE                             R18 R9
-       62 MOVE                             R19 R10
-       63 CALL                             R15 4 1
-       64 SETTABLEKS                       R15 R14 K15 ["A"]
-       66 MOVE                             R15 R7
-       67 LOADK                            R16 K20 ["Second SplitButton"]
-       68 MOVE                             R17 R8
-       69 MOVE                             R18 R9
-       70 MOVE                             R19 R10
-       71 CALL                             R15 4 1
-       72 SETTABLEKS                       R15 R14 K16 ["B"]
-       74 MOVE                             R15 R7
-       75 LOADK                            R16 K21 ["Third SplitButton"]
-       76 MOVE                             R17 R8
-       77 MOVE                             R18 R9
-       78 MOVE                             R19 R10
-       79 CALL                             R15 4 1
-       80 SETTABLEKS                       R15 R14 K17 ["C"]
-       82 CALL                             R11 3 -1
-       83 RETURN                           R11 -1
+       53 DUPTABLE                         R13 K14 [{["tag"] = "gap-small row padding-small auto-xy align-x-center align-y-center size-0-full"}]
+       54 DUPTABLE                         R14 K18 [{"A", "B", "C"}]
+       55 MOVE                             R15 R7
+       56 LOADK                            R16 K19 ["First SplitButton"]
+       57 MOVE                             R17 R8
+       58 MOVE                             R18 R9
+       59 MOVE                             R19 R10
+       60 CALL                             R15 4 1
+       61 SETTABLEKS                       R15 R14 K15 ["A"]
+       63 MOVE                             R15 R7
+       64 LOADK                            R16 K20 ["Second SplitButton"]
+       65 MOVE                             R17 R8
+       66 MOVE                             R18 R9
+       67 MOVE                             R19 R10
+       68 CALL                             R15 4 1
+       69 SETTABLEKS                       R15 R14 K16 ["B"]
+       71 MOVE                             R15 R7
+       72 LOADK                            R16 K21 ["Third SplitButton"]
+       73 MOVE                             R17 R8
+       74 MOVE                             R18 R9
+       75 MOVE                             R19 R10
+       76 CALL                             R15 4 1
+       77 SETTABLEKS                       R15 R14 K17 ["C"]
+       79 CALL                             R11 3 -1
+       80 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -375,477 +367,261 @@ MAIN:
        86 GETTABLEKS                       R16 R16 K27 ["useMenu"]
        88 CALL                             R15 1 1
        89 NEWTABLE                         R16 0 1
-       91 DUPTABLE                         R17 K30 [{"Type", "Children"}]
-       92 LOADK                            R18 K31 ["Column"]
-       93 SETTABLEKS                       R18 R17 K28 ["Type"]
-       95 NEWTABLE                         R18 0 3
-       97 DUPTABLE                         R19 K34 [{"Type", "Id", "Text"}]
-       98 LOADK                            R20 K35 ["Option"]
-       99 SETTABLEKS                       R20 R19 K28 ["Type"]
-      101 LOADK                            R20 K36 ["Primary"]
-      102 SETTABLEKS                       R20 R19 K32 ["Id"]
-      104 LOADK                            R20 K37 ["Primary Action"]
-      105 SETTABLEKS                       R20 R19 K33 ["Text"]
-      107 DUPTABLE                         R20 K34 [{"Type", "Id", "Text"}]
-      108 LOADK                            R21 K35 ["Option"]
-      109 SETTABLEKS                       R21 R20 K28 ["Type"]
-      111 LOADK                            R21 K38 ["Secondary"]
-      112 SETTABLEKS                       R21 R20 K32 ["Id"]
-      114 LOADK                            R21 K39 ["Secondary Action"]
-      115 SETTABLEKS                       R21 R20 K33 ["Text"]
-      117 DUPTABLE                         R21 K34 [{"Type", "Id", "Text"}]
-      118 LOADK                            R22 K35 ["Option"]
-      119 SETTABLEKS                       R22 R21 K28 ["Type"]
-      121 LOADK                            R22 K40 ["Tertiary"]
-      122 SETTABLEKS                       R22 R21 K32 ["Id"]
-      124 LOADK                            R22 K41 ["Tertiary Action"]
-      125 SETTABLEKS                       R22 R21 K33 ["Text"]
-      127 SETLIST                          R18 R19 3 [1]
-      129 SETTABLEKS                       R18 R17 K29 ["Children"]
-      131 SETLIST                          R16 R17 1 [1]
-      133 NEWTABLE                         R17 0 1
-      135 DUPTABLE                         R18 K30 [{"Type", "Children"}]
-      136 LOADK                            R19 K31 ["Column"]
-      137 SETTABLEKS                       R19 R18 K28 ["Type"]
-      139 NEWTABLE                         R19 0 3
-      141 DUPTABLE                         R20 K34 [{"Type", "Id", "Text"}]
-      142 LOADK                            R21 K35 ["Option"]
-      143 SETTABLEKS                       R21 R20 K28 ["Type"]
-      145 LOADK                            R21 K42 ["OptionA"]
-      146 SETTABLEKS                       R21 R20 K32 ["Id"]
-      148 LOADK                            R21 K43 ["Option A"]
-      149 SETTABLEKS                       R21 R20 K33 ["Text"]
-      151 DUPTABLE                         R21 K34 [{"Type", "Id", "Text"}]
-      152 LOADK                            R22 K35 ["Option"]
-      153 SETTABLEKS                       R22 R21 K28 ["Type"]
-      155 LOADK                            R22 K44 ["OptionB"]
-      156 SETTABLEKS                       R22 R21 K32 ["Id"]
-      158 LOADK                            R22 K45 ["Option B"]
-      159 SETTABLEKS                       R22 R21 K33 ["Text"]
-      161 DUPTABLE                         R22 K34 [{"Type", "Id", "Text"}]
-      162 LOADK                            R23 K35 ["Option"]
-      163 SETTABLEKS                       R23 R22 K28 ["Type"]
-      165 LOADK                            R23 K46 ["OptionC"]
-      166 SETTABLEKS                       R23 R22 K32 ["Id"]
-      168 LOADK                            R23 K47 ["Option C"]
-      169 SETTABLEKS                       R23 R22 K33 ["Text"]
-      171 SETLIST                          R19 R20 3 [1]
-      173 SETTABLEKS                       R19 R18 K29 ["Children"]
-      175 SETLIST                          R17 R18 1 [1]
-      177 NEWTABLE                         R18 0 1
-      179 DUPTABLE                         R19 K30 [{"Type", "Children"}]
-      180 LOADK                            R20 K31 ["Column"]
-      181 SETTABLEKS                       R20 R19 K28 ["Type"]
-      183 NEWTABLE                         R20 0 3
-      185 DUPTABLE                         R21 K34 [{"Type", "Id", "Text"}]
-      186 LOADK                            R22 K35 ["Option"]
-      187 SETTABLEKS                       R22 R21 K28 ["Type"]
-      189 LOADK                            R22 K48 ["AddTools"]
-      190 SETTABLEKS                       R22 R21 K32 ["Id"]
-      192 LOADK                            R22 K49 ["Add Tools"]
-      193 SETTABLEKS                       R22 R21 K33 ["Text"]
-      195 DUPTABLE                         R22 K34 [{"Type", "Id", "Text"}]
-      196 LOADK                            R23 K35 ["Option"]
-      197 SETTABLEKS                       R23 R22 K28 ["Type"]
-      199 LOADK                            R23 K50 ["AddSeparator"]
-      200 SETTABLEKS                       R23 R22 K32 ["Id"]
-      202 LOADK                            R23 K51 ["Add Separator"]
-      203 SETTABLEKS                       R23 R22 K33 ["Text"]
-      205 DUPTABLE                         R23 K34 [{"Type", "Id", "Text"}]
-      206 LOADK                            R24 K35 ["Option"]
-      207 SETTABLEKS                       R24 R23 K28 ["Type"]
-      209 LOADK                            R24 K52 ["ManageTabs"]
-      210 SETTABLEKS                       R24 R23 K32 ["Id"]
-      212 LOADK                            R24 K53 ["Manage Tabs"]
-      213 SETTABLEKS                       R24 R23 K33 ["Text"]
-      215 SETLIST                          R20 R21 3 [1]
-      217 SETTABLEKS                       R20 R19 K29 ["Children"]
-      219 SETLIST                          R18 R19 1 [1]
-      221 DUPCLOSURE                       R19 K54 [PROTO_0]
-      222 CAPTURE                          VAL R18
-      223 NEWTABLE                         R20 0 18
-      225 DUPTABLE                         R21 K57 [{"Icon", "Text", "Tooltip"}]
-      226 LOADK                            R22 K58 ["AI"]
-      227 SETTABLEKS                       R22 R21 K55 ["Icon"]
-      229 LOADK                            R22 K58 ["AI"]
-      230 SETTABLEKS                       R22 R21 K33 ["Text"]
-      232 LOADK                            R22 K58 ["AI"]
-      233 SETTABLEKS                       R22 R21 K56 ["Tooltip"]
-      235 DUPTABLE                         R22 K57 [{"Icon", "Text", "Tooltip"}]
-      236 LOADK                            R23 K59 ["Placeholder"]
-      237 SETTABLEKS                       R23 R22 K55 ["Icon"]
-      239 LOADK                            R23 K59 ["Placeholder"]
-      240 SETTABLEKS                       R23 R22 K33 ["Text"]
-      242 LOADK                            R23 K59 ["Placeholder"]
-      243 SETTABLEKS                       R23 R22 K56 ["Tooltip"]
-      245 DUPTABLE                         R23 K57 [{"Icon", "Text", "Tooltip"}]
-      246 LOADK                            R24 K60 ["StepInto"]
-      247 SETTABLEKS                       R24 R23 K55 ["Icon"]
-      249 LOADK                            R24 K61 ["Step Into"]
-      250 SETTABLEKS                       R24 R23 K33 ["Text"]
-      252 LOADK                            R24 K61 ["Step Into"]
-      253 SETTABLEKS                       R24 R23 K56 ["Tooltip"]
-      255 DUPTABLE                         R24 K57 [{"Icon", "Text", "Tooltip"}]
-      256 LOADK                            R25 K62 ["StepOut"]
-      257 SETTABLEKS                       R25 R24 K55 ["Icon"]
-      259 LOADK                            R25 K63 ["Step Out"]
-      260 SETTABLEKS                       R25 R24 K33 ["Text"]
-      262 LOADK                            R25 K63 ["Step Out"]
-      263 SETTABLEKS                       R25 R24 K56 ["Tooltip"]
-      265 DUPTABLE                         R25 K57 [{"Icon", "Text", "Tooltip"}]
-      266 LOADK                            R26 K64 ["StepOver"]
-      267 SETTABLEKS                       R26 R25 K55 ["Icon"]
-      269 LOADK                            R26 K65 ["Step Over"]
-      270 SETTABLEKS                       R26 R25 K33 ["Text"]
-      272 LOADK                            R26 K65 ["Step Over"]
-      273 SETTABLEKS                       R26 R25 K56 ["Tooltip"]
-      275 DUPTABLE                         R26 K57 [{"Icon", "Text", "Tooltip"}]
-      276 LOADK                            R27 K66 ["GUI"]
-      277 SETTABLEKS                       R27 R26 K55 ["Icon"]
-      279 LOADK                            R27 K66 ["GUI"]
-      280 SETTABLEKS                       R27 R26 K33 ["Text"]
-      282 LOADK                            R27 K66 ["GUI"]
-      283 SETTABLEKS                       R27 R26 K56 ["Tooltip"]
-      285 DUPTABLE                         R27 K57 [{"Icon", "Text", "Tooltip"}]
-      286 LOADK                            R28 K67 ["Script"]
-      287 SETTABLEKS                       R28 R27 K55 ["Icon"]
-      289 LOADK                            R28 K67 ["Script"]
-      290 SETTABLEKS                       R28 R27 K33 ["Text"]
-      292 LOADK                            R28 K67 ["Script"]
-      293 SETTABLEKS                       R28 R27 K56 ["Tooltip"]
-      295 DUPTABLE                         R28 K57 [{"Icon", "Text", "Tooltip"}]
-      296 LOADK                            R29 K68 ["Lock"]
-      297 SETTABLEKS                       R29 R28 K55 ["Icon"]
-      299 LOADK                            R29 K68 ["Lock"]
-      300 SETTABLEKS                       R29 R28 K33 ["Text"]
-      302 LOADK                            R29 K68 ["Lock"]
-      303 SETTABLEKS                       R29 R28 K56 ["Tooltip"]
-      305 DUPTABLE                         R29 K57 [{"Icon", "Text", "Tooltip"}]
-      306 LOADK                            R30 K69 ["Anchor"]
-      307 SETTABLEKS                       R30 R29 K55 ["Icon"]
-      309 LOADK                            R30 K69 ["Anchor"]
-      310 SETTABLEKS                       R30 R29 K33 ["Text"]
-      312 LOADK                            R30 K69 ["Anchor"]
-      313 SETTABLEKS                       R30 R29 K56 ["Tooltip"]
-      315 DUPTABLE                         R30 K57 [{"Icon", "Text", "Tooltip"}]
-      316 LOADK                            R31 K58 ["AI"]
-      317 SETTABLEKS                       R31 R30 K55 ["Icon"]
-      319 LOADK                            R31 K58 ["AI"]
-      320 SETTABLEKS                       R31 R30 K33 ["Text"]
-      322 LOADK                            R31 K58 ["AI"]
-      323 SETTABLEKS                       R31 R30 K56 ["Tooltip"]
-      325 DUPTABLE                         R31 K57 [{"Icon", "Text", "Tooltip"}]
-      326 LOADK                            R32 K59 ["Placeholder"]
-      327 SETTABLEKS                       R32 R31 K55 ["Icon"]
-      329 LOADK                            R32 K59 ["Placeholder"]
-      330 SETTABLEKS                       R32 R31 K33 ["Text"]
-      332 LOADK                            R32 K59 ["Placeholder"]
-      333 SETTABLEKS                       R32 R31 K56 ["Tooltip"]
-      335 DUPTABLE                         R32 K57 [{"Icon", "Text", "Tooltip"}]
-      336 LOADK                            R33 K60 ["StepInto"]
-      337 SETTABLEKS                       R33 R32 K55 ["Icon"]
-      339 LOADK                            R33 K61 ["Step Into"]
-      340 SETTABLEKS                       R33 R32 K33 ["Text"]
-      342 LOADK                            R33 K61 ["Step Into"]
-      343 SETTABLEKS                       R33 R32 K56 ["Tooltip"]
-      345 DUPTABLE                         R33 K57 [{"Icon", "Text", "Tooltip"}]
-      346 LOADK                            R34 K62 ["StepOut"]
-      347 SETTABLEKS                       R34 R33 K55 ["Icon"]
-      349 LOADK                            R34 K63 ["Step Out"]
-      350 SETTABLEKS                       R34 R33 K33 ["Text"]
-      352 LOADK                            R34 K63 ["Step Out"]
-      353 SETTABLEKS                       R34 R33 K56 ["Tooltip"]
-      355 DUPTABLE                         R34 K57 [{"Icon", "Text", "Tooltip"}]
-      356 LOADK                            R35 K64 ["StepOver"]
-      357 SETTABLEKS                       R35 R34 K55 ["Icon"]
-      359 LOADK                            R35 K65 ["Step Over"]
-      360 SETTABLEKS                       R35 R34 K33 ["Text"]
-      362 LOADK                            R35 K65 ["Step Over"]
-      363 SETTABLEKS                       R35 R34 K56 ["Tooltip"]
-      365 DUPTABLE                         R35 K57 [{"Icon", "Text", "Tooltip"}]
-      366 LOADK                            R36 K66 ["GUI"]
-      367 SETTABLEKS                       R36 R35 K55 ["Icon"]
-      369 LOADK                            R36 K66 ["GUI"]
-      370 SETTABLEKS                       R36 R35 K33 ["Text"]
-      372 LOADK                            R36 K66 ["GUI"]
-      373 SETTABLEKS                       R36 R35 K56 ["Tooltip"]
-      375 DUPTABLE                         R36 K57 [{"Icon", "Text", "Tooltip"}]
-      376 LOADK                            R37 K67 ["Script"]
-      377 SETTABLEKS                       R37 R36 K55 ["Icon"]
-      379 LOADK                            R37 K67 ["Script"]
-      380 SETTABLEKS                       R37 R36 K33 ["Text"]
-      382 LOADK                            R37 K67 ["Script"]
-      383 SETTABLEKS                       R37 R36 K56 ["Tooltip"]
-      385 SETLIST                          R20 R21 16 [1]
-      387 DUPTABLE                         R21 K57 [{"Icon", "Text", "Tooltip"}]
-      388 LOADK                            R22 K68 ["Lock"]
-      389 SETTABLEKS                       R22 R21 K55 ["Icon"]
-      391 LOADK                            R22 K68 ["Lock"]
-      392 SETTABLEKS                       R22 R21 K33 ["Text"]
-      394 LOADK                            R22 K68 ["Lock"]
-      395 SETTABLEKS                       R22 R21 K56 ["Tooltip"]
-      397 DUPTABLE                         R22 K57 [{"Icon", "Text", "Tooltip"}]
-      398 LOADK                            R37 K69 ["Anchor"]
-      399 SETTABLEKS                       R37 R22 K55 ["Icon"]
-      401 LOADK                            R37 K69 ["Anchor"]
-      402 SETTABLEKS                       R37 R22 K33 ["Text"]
-      404 LOADK                            R37 K69 ["Anchor"]
-      405 SETTABLEKS                       R37 R22 K56 ["Tooltip"]
-      407 SETLIST                          R20 R21 2 [17]
-      409 DUPCLOSURE                       R21 K70 [PROTO_6]
-      410 CAPTURE                          VAL R12
-      411 CAPTURE                          VAL R4
-      412 CAPTURE                          VAL R15
-      413 CAPTURE                          VAL R14
-      414 CAPTURE                          VAL R5
-      415 CAPTURE                          VAL R10
-      416 CAPTURE                          VAL R20
-      417 CAPTURE                          VAL R2
-      418 CAPTURE                          VAL R13
-      419 CAPTURE                          VAL R9
-      420 CAPTURE                          VAL R16
-      421 CAPTURE                          VAL R17
-      422 CAPTURE                          VAL R19
-      423 CAPTURE                          VAL R7
-      424 DUPCLOSURE                       R22 K71 [PROTO_11]
-      425 CAPTURE                          VAL R12
-      426 CAPTURE                          VAL R4
-      427 CAPTURE                          VAL R15
-      428 CAPTURE                          VAL R14
-      429 CAPTURE                          VAL R5
-      430 CAPTURE                          VAL R2
-      431 CAPTURE                          VAL R13
-      432 CAPTURE                          VAL R16
-      433 CAPTURE                          VAL R17
-      434 CAPTURE                          VAL R19
-      435 CAPTURE                          VAL R7
-      436 DUPTABLE                         R23 K75 [{"controls", "summary", "stories"}]
-      437 DUPTABLE                         R24 K84 [{"Disabled", "Selected", "IconOnly", "Size", "EnabledChildren", "Visible", "Single", "Icon", "Text", "ToolTip"}]
-      438 NEWTABLE                         R25 0 2
-      440 LOADB                            R26 0
-      441 LOADB                            R27 1
-      442 SETLIST                          R25 R26 2 [1]
-      444 SETTABLEKS                       R25 R24 K76 ["Disabled"]
-      446 NEWTABLE                         R25 0 2
-      448 LOADB                            R26 0
-      449 LOADB                            R27 1
-      450 SETLIST                          R25 R26 2 [1]
-      452 SETTABLEKS                       R25 R24 K77 ["Selected"]
-      454 NEWTABLE                         R25 0 2
-      456 LOADB                            R26 0
-      457 LOADB                            R27 1
-      458 SETLIST                          R25 R26 2 [1]
-      460 SETTABLEKS                       R25 R24 K78 ["IconOnly"]
-      462 NEWTABLE                         R25 0 2
-      464 LOADK                            R26 K85 ["Large"]
-      465 LOADK                            R27 K86 ["Small"]
-      466 SETLIST                          R25 R26 2 [1]
-      468 SETTABLEKS                       R25 R24 K79 ["Size"]
-      470 NEWTABLE                         R25 0 2
-      472 LOADB                            R26 1
-      473 LOADB                            R27 0
-      474 SETLIST                          R25 R26 2 [1]
-      476 SETTABLEKS                       R25 R24 K80 ["EnabledChildren"]
-      478 NEWTABLE                         R25 0 2
-      480 LOADB                            R26 1
-      481 LOADB                            R27 0
-      482 SETLIST                          R25 R26 2 [1]
-      484 SETTABLEKS                       R25 R24 K81 ["Visible"]
-      486 NEWTABLE                         R25 0 2
-      488 LOADB                            R26 0
-      489 LOADB                            R27 1
-      490 SETLIST                          R25 R26 2 [1]
-      492 SETTABLEKS                       R25 R24 K82 ["Single"]
-      494 NEWTABLE                         R25 0 9
-      496 LOADK                            R26 K58 ["AI"]
-      497 LOADK                            R27 K59 ["Placeholder"]
-      498 LOADK                            R28 K60 ["StepInto"]
-      499 LOADK                            R29 K62 ["StepOut"]
-      500 LOADK                            R30 K64 ["StepOver"]
-      501 LOADK                            R31 K66 ["GUI"]
-      502 LOADK                            R32 K67 ["Script"]
-      503 LOADK                            R33 K68 ["Lock"]
-      504 LOADK                            R34 K69 ["Anchor"]
-      505 SETLIST                          R25 R26 9 [1]
-      507 SETTABLEKS                       R25 R24 K55 ["Icon"]
-      509 LOADK                            R25 K87 ["Step Forward"]
-      510 SETTABLEKS                       R25 R24 K33 ["Text"]
-      512 LOADK                            R25 K88 ["This is a tooltip"]
-      513 SETTABLEKS                       R25 R24 K83 ["ToolTip"]
-      515 SETTABLEKS                       R24 R23 K72 ["controls"]
-      517 LOADK                            R24 K89 ["SplitButton combines a primary action with a secondary dropdown. Clicking the main area invokes OnSelect, while the arrow (or a long-press) invokes OnSelectArrow. It supports tooltips when the mouse is hovering over the button, right-click context menus, selected/disabled states, Large/Small sizes, icon-only mode, and density-aware visuals."]
-      518 SETTABLEKS                       R24 R23 K73 ["summary"]
-      520 NEWTABLE                         R24 0 7
-      522 DUPTABLE                         R25 K92 [{"name", "story", "summary"}]
-      523 LOADK                            R26 K93 ["Custom"]
-      524 SETTABLEKS                       R26 R25 K90 ["name"]
-      526 SETTABLEKS                       R22 R25 K91 ["story"]
-      528 LOADK                            R26 K94 ["Three custom SplitButtons with controls to toggle visibility, disabled, selected, icon-only, size, and child enablement."]
-      529 SETTABLEKS                       R26 R25 K73 ["summary"]
-      531 DUPTABLE                         R26 K92 [{"name", "story", "summary"}]
-      532 LOADK                            R27 K95 ["Normal"]
-      533 SETTABLEKS                       R27 R26 K90 ["name"]
-      535 NEWTABLE                         R28 0 0
-      537 LOADK                            R29 K95 ["Normal"]
-      538 NEWCLOSURE                       R27 P3
-      539 CAPTURE                          VAL R12
-      540 CAPTURE                          VAL R4
-      541 CAPTURE                          VAL R15
-      542 CAPTURE                          VAL R14
-      543 CAPTURE                          VAL R5
-      544 CAPTURE                          VAL R29
-      545 CAPTURE                          VAL R10
-      546 CAPTURE                          VAL R20
-      547 CAPTURE                          VAL R2
-      548 CAPTURE                          VAL R13
-      549 CAPTURE                          VAL R9
-      550 CAPTURE                          VAL R16
-      551 CAPTURE                          VAL R17
-      552 CAPTURE                          VAL R19
-      553 CAPTURE                          VAL R28
-      554 CAPTURE                          VAL R7
-      555 SETTABLEKS                       R27 R26 K91 ["story"]
-      557 LOADK                            R27 K96 ["Default enabled SplitButtons with text and icons"]
-      558 SETTABLEKS                       R27 R26 K73 ["summary"]
-      560 DUPTABLE                         R27 K92 [{"name", "story", "summary"}]
-      561 LOADK                            R28 K82 ["Single"]
-      562 SETTABLEKS                       R28 R27 K90 ["name"]
-      564 DUPTABLE                         R29 K97 [{"Single"}]
-      565 LOADB                            R30 1
-      566 SETTABLEKS                       R30 R29 K82 ["Single"]
-      568 LOADK                            R30 K82 ["Single"]
-      569 NEWCLOSURE                       R28 P3
-      570 CAPTURE                          VAL R12
-      571 CAPTURE                          VAL R4
-      572 CAPTURE                          VAL R15
-      573 CAPTURE                          VAL R14
-      574 CAPTURE                          VAL R5
-      575 CAPTURE                          VAL R30
-      576 CAPTURE                          VAL R10
-      577 CAPTURE                          VAL R20
-      578 CAPTURE                          VAL R2
-      579 CAPTURE                          VAL R13
-      580 CAPTURE                          VAL R9
-      581 CAPTURE                          VAL R16
-      582 CAPTURE                          VAL R17
-      583 CAPTURE                          VAL R19
-      584 CAPTURE                          VAL R29
-      585 CAPTURE                          VAL R7
-      586 SETTABLEKS                       R28 R27 K91 ["story"]
-      588 LOADK                            R28 K98 ["Single split buttons where arrow selection is controlled by ArrowSelectedFromAction only, not by menu open state."]
-      589 SETTABLEKS                       R28 R27 K73 ["summary"]
-      591 DUPTABLE                         R28 K92 [{"name", "story", "summary"}]
-      592 LOADK                            R29 K76 ["Disabled"]
-      593 SETTABLEKS                       R29 R28 K90 ["name"]
-      595 DUPTABLE                         R30 K99 [{"Disabled"}]
-      596 LOADB                            R31 1
-      597 SETTABLEKS                       R31 R30 K76 ["Disabled"]
-      599 LOADK                            R31 K76 ["Disabled"]
-      600 NEWCLOSURE                       R29 P3
-      601 CAPTURE                          VAL R12
-      602 CAPTURE                          VAL R4
-      603 CAPTURE                          VAL R15
-      604 CAPTURE                          VAL R14
-      605 CAPTURE                          VAL R5
-      606 CAPTURE                          VAL R31
-      607 CAPTURE                          VAL R10
-      608 CAPTURE                          VAL R20
-      609 CAPTURE                          VAL R2
-      610 CAPTURE                          VAL R13
-      611 CAPTURE                          VAL R9
-      612 CAPTURE                          VAL R16
-      613 CAPTURE                          VAL R17
-      614 CAPTURE                          VAL R19
-      615 CAPTURE                          VAL R30
-      616 CAPTURE                          VAL R7
-      617 SETTABLEKS                       R29 R28 K91 ["story"]
-      619 LOADK                            R29 K100 ["Shows the disabled visual state for the main button. Arrow icon is enabled."]
-      620 SETTABLEKS                       R29 R28 K73 ["summary"]
-      622 DUPTABLE                         R29 K92 [{"name", "story", "summary"}]
-      623 LOADK                            R30 K101 ["Disabled and EnabledChildren false"]
-      624 SETTABLEKS                       R30 R29 K90 ["name"]
-      626 DUPTABLE                         R31 K102 [{"Disabled", "EnabledChildren"}]
-      627 LOADB                            R32 1
-      628 SETTABLEKS                       R32 R31 K76 ["Disabled"]
-      630 LOADB                            R32 0
-      631 SETTABLEKS                       R32 R31 K80 ["EnabledChildren"]
-      633 LOADK                            R32 K103 ["DisabledAndEnabledChildrenFalse"]
-      634 NEWCLOSURE                       R30 P3
-      635 CAPTURE                          VAL R12
-      636 CAPTURE                          VAL R4
-      637 CAPTURE                          VAL R15
-      638 CAPTURE                          VAL R14
-      639 CAPTURE                          VAL R5
-      640 CAPTURE                          VAL R32
-      641 CAPTURE                          VAL R10
-      642 CAPTURE                          VAL R20
-      643 CAPTURE                          VAL R2
-      644 CAPTURE                          VAL R13
-      645 CAPTURE                          VAL R9
-      646 CAPTURE                          VAL R16
-      647 CAPTURE                          VAL R17
-      648 CAPTURE                          VAL R19
-      649 CAPTURE                          VAL R31
-      650 CAPTURE                          VAL R7
-      651 SETTABLEKS                       R30 R29 K91 ["story"]
-      653 LOADK                            R30 K104 ["Shows the disabled visual state and EnabledChildren false with muted arrow. Interactions are suppressed to illustrate the fully non-interactive behavior."]
-      654 SETTABLEKS                       R30 R29 K73 ["summary"]
-      656 DUPTABLE                         R30 K92 [{"name", "story", "summary"}]
-      657 LOADK                            R31 K77 ["Selected"]
-      658 SETTABLEKS                       R31 R30 K90 ["name"]
-      660 DUPTABLE                         R32 K105 [{"Selected"}]
-      661 LOADB                            R33 1
-      662 SETTABLEKS                       R33 R32 K77 ["Selected"]
-      664 LOADK                            R33 K77 ["Selected"]
-      665 NEWCLOSURE                       R31 P3
-      666 CAPTURE                          VAL R12
-      667 CAPTURE                          VAL R4
-      668 CAPTURE                          VAL R15
-      669 CAPTURE                          VAL R14
-      670 CAPTURE                          VAL R5
-      671 CAPTURE                          VAL R33
-      672 CAPTURE                          VAL R10
-      673 CAPTURE                          VAL R20
-      674 CAPTURE                          VAL R2
-      675 CAPTURE                          VAL R13
-      676 CAPTURE                          VAL R9
-      677 CAPTURE                          VAL R16
-      678 CAPTURE                          VAL R17
-      679 CAPTURE                          VAL R19
-      680 CAPTURE                          VAL R32
-      681 CAPTURE                          VAL R7
-      682 SETTABLEKS                       R31 R30 K91 ["story"]
-      684 LOADK                            R31 K106 ["Highlights the selected state to indicate an active tool, behavior mirrors the normal variant."]
-      685 SETTABLEKS                       R31 R30 K73 ["summary"]
-      687 DUPTABLE                         R31 K92 [{"name", "story", "summary"}]
-      688 LOADK                            R32 K107 ["Small and IconOnly"]
-      689 SETTABLEKS                       R32 R31 K90 ["name"]
-      691 DUPTABLE                         R33 K108 [{"IconOnly", "Size"}]
-      692 LOADB                            R34 1
-      693 SETTABLEKS                       R34 R33 K78 ["IconOnly"]
-      695 LOADK                            R34 K86 ["Small"]
-      696 SETTABLEKS                       R34 R33 K79 ["Size"]
-      698 LOADK                            R34 K109 ["SmallIconOnly"]
-      699 NEWCLOSURE                       R32 P3
-      700 CAPTURE                          VAL R12
-      701 CAPTURE                          VAL R4
-      702 CAPTURE                          VAL R15
-      703 CAPTURE                          VAL R14
-      704 CAPTURE                          VAL R5
-      705 CAPTURE                          VAL R34
-      706 CAPTURE                          VAL R10
-      707 CAPTURE                          VAL R20
-      708 CAPTURE                          VAL R2
-      709 CAPTURE                          VAL R13
-      710 CAPTURE                          VAL R9
-      711 CAPTURE                          VAL R16
-      712 CAPTURE                          VAL R17
-      713 CAPTURE                          VAL R19
-      714 CAPTURE                          VAL R33
-      715 CAPTURE                          VAL R7
-      716 SETTABLEKS                       R32 R31 K91 ["story"]
-      718 LOADK                            R32 K110 ["Compact icon-only variant at Small size, omitting text to save space. Not all icons are available in small mode."]
-      719 SETTABLEKS                       R32 R31 K73 ["summary"]
-      721 SETLIST                          R24 R25 7 [1]
-      723 SETTABLEKS                       R24 R23 K74 ["stories"]
-      725 RETURN                           R23 1
+       91 DUPTABLE                         R17 K31 [{["Type"] = "Column", ["Children"]}]
+       92 NEWTABLE                         R18 0 3
+       94 DUPTABLE                         R19 K37 [{["Type"] = "Option", ["Id"] = "Primary", ["Text"] = "Primary Action"}]
+       95 DUPTABLE                         R20 K40 [{["Type"] = "Option", ["Id"] = "Secondary", ["Text"] = "Secondary Action"}]
+       96 DUPTABLE                         R21 K43 [{["Type"] = "Option", ["Id"] = "Tertiary", ["Text"] = "Tertiary Action"}]
+       97 SETLIST                          R18 R19 3 [1]
+       99 SETTABLEKS                       R18 R17 K30 ["Children"]
+      101 SETLIST                          R16 R17 1 [1]
+      103 NEWTABLE                         R17 0 1
+      105 DUPTABLE                         R18 K31 [{["Type"] = "Column", ["Children"]}]
+      106 NEWTABLE                         R19 0 3
+      108 DUPTABLE                         R20 K46 [{["Type"] = "Option", ["Id"] = "OptionA", ["Text"] = "Option A"}]
+      109 DUPTABLE                         R21 K49 [{["Type"] = "Option", ["Id"] = "OptionB", ["Text"] = "Option B"}]
+      110 DUPTABLE                         R22 K52 [{["Type"] = "Option", ["Id"] = "OptionC", ["Text"] = "Option C"}]
+      111 SETLIST                          R19 R20 3 [1]
+      113 SETTABLEKS                       R19 R18 K30 ["Children"]
+      115 SETLIST                          R17 R18 1 [1]
+      117 NEWTABLE                         R18 0 1
+      119 DUPTABLE                         R19 K31 [{["Type"] = "Column", ["Children"]}]
+      120 NEWTABLE                         R20 0 3
+      122 DUPTABLE                         R21 K55 [{["Type"] = "Option", ["Id"] = "AddTools", ["Text"] = "Add Tools"}]
+      123 DUPTABLE                         R22 K58 [{["Type"] = "Option", ["Id"] = "AddSeparator", ["Text"] = "Add Separator"}]
+      124 DUPTABLE                         R23 K61 [{["Type"] = "Option", ["Id"] = "ManageTabs", ["Text"] = "Manage Tabs"}]
+      125 SETLIST                          R20 R21 3 [1]
+      127 SETTABLEKS                       R20 R19 K30 ["Children"]
+      129 SETLIST                          R18 R19 1 [1]
+      131 DUPCLOSURE                       R19 K62 [PROTO_0]
+      132 CAPTURE                          VAL R18
+      133 NEWTABLE                         R20 0 18
+      135 DUPTABLE                         R21 K66 [{["Icon"] = "AI", ["Text"] = "AI", ["Tooltip"] = "AI"}]
+      136 DUPTABLE                         R22 K68 [{["Icon"] = "Placeholder", ["Text"] = "Placeholder", ["Tooltip"] = "Placeholder"}]
+      137 DUPTABLE                         R23 K71 [{["Icon"] = "StepInto", ["Text"] = "Step Into", ["Tooltip"] = "Step Into"}]
+      138 DUPTABLE                         R24 K74 [{["Icon"] = "StepOut", ["Text"] = "Step Out", ["Tooltip"] = "Step Out"}]
+      139 DUPTABLE                         R25 K77 [{["Icon"] = "StepOver", ["Text"] = "Step Over", ["Tooltip"] = "Step Over"}]
+      140 DUPTABLE                         R26 K79 [{["Icon"] = "GUI", ["Text"] = "GUI", ["Tooltip"] = "GUI"}]
+      141 DUPTABLE                         R27 K81 [{["Icon"] = "Script", ["Text"] = "Script", ["Tooltip"] = "Script"}]
+      142 DUPTABLE                         R28 K83 [{["Icon"] = "Lock", ["Text"] = "Lock", ["Tooltip"] = "Lock"}]
+      143 DUPTABLE                         R29 K85 [{["Icon"] = "Anchor", ["Text"] = "Anchor", ["Tooltip"] = "Anchor"}]
+      144 DUPTABLE                         R30 K66 [{["Icon"] = "AI", ["Text"] = "AI", ["Tooltip"] = "AI"}]
+      145 DUPTABLE                         R31 K68 [{["Icon"] = "Placeholder", ["Text"] = "Placeholder", ["Tooltip"] = "Placeholder"}]
+      146 DUPTABLE                         R32 K71 [{["Icon"] = "StepInto", ["Text"] = "Step Into", ["Tooltip"] = "Step Into"}]
+      147 DUPTABLE                         R33 K74 [{["Icon"] = "StepOut", ["Text"] = "Step Out", ["Tooltip"] = "Step Out"}]
+      148 DUPTABLE                         R34 K77 [{["Icon"] = "StepOver", ["Text"] = "Step Over", ["Tooltip"] = "Step Over"}]
+      149 DUPTABLE                         R35 K79 [{["Icon"] = "GUI", ["Text"] = "GUI", ["Tooltip"] = "GUI"}]
+      150 DUPTABLE                         R36 K81 [{["Icon"] = "Script", ["Text"] = "Script", ["Tooltip"] = "Script"}]
+      151 SETLIST                          R20 R21 16 [1]
+      153 DUPTABLE                         R21 K83 [{["Icon"] = "Lock", ["Text"] = "Lock", ["Tooltip"] = "Lock"}]
+      154 DUPTABLE                         R22 K85 [{["Icon"] = "Anchor", ["Text"] = "Anchor", ["Tooltip"] = "Anchor"}]
+      155 SETLIST                          R20 R21 2 [17]
+      157 DUPCLOSURE                       R21 K86 [PROTO_6]
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R4
+      160 CAPTURE                          VAL R15
+      161 CAPTURE                          VAL R14
+      162 CAPTURE                          VAL R5
+      163 CAPTURE                          VAL R10
+      164 CAPTURE                          VAL R20
+      165 CAPTURE                          VAL R2
+      166 CAPTURE                          VAL R13
+      167 CAPTURE                          VAL R9
+      168 CAPTURE                          VAL R16
+      169 CAPTURE                          VAL R17
+      170 CAPTURE                          VAL R19
+      171 CAPTURE                          VAL R7
+      172 DUPCLOSURE                       R22 K87 [PROTO_11]
+      173 CAPTURE                          VAL R12
+      174 CAPTURE                          VAL R4
+      175 CAPTURE                          VAL R15
+      176 CAPTURE                          VAL R14
+      177 CAPTURE                          VAL R5
+      178 CAPTURE                          VAL R2
+      179 CAPTURE                          VAL R13
+      180 CAPTURE                          VAL R16
+      181 CAPTURE                          VAL R17
+      182 CAPTURE                          VAL R19
+      183 CAPTURE                          VAL R7
+      184 DUPTABLE                         R23 K92 [{["controls"], ["summary"] = "SplitButton combines a primary action with a secondary dropdown. Clicking the main area invokes OnSelect, while the arrow (or a long-press) invokes OnSelectArrow. It supports tooltips when the mouse is hovering over the button, right-click context menus, selected/disabled states, Large/Small sizes, icon-only mode, and density-aware visuals.", ["stories"]}]
+      185 DUPTABLE                         R24 K103 [{["Disabled"], ["Selected"], ["IconOnly"], ["Size"], ["EnabledChildren"], ["Visible"], ["Single"], ["Icon"], ["Text"] = "Step Forward", ["ToolTip"] = "This is a tooltip"}]
+      186 NEWTABLE                         R25 0 2
+      188 LOADB                            R26 0
+      189 LOADB                            R27 1
+      190 SETLIST                          R25 R26 2 [1]
+      192 SETTABLEKS                       R25 R24 K93 ["Disabled"]
+      194 NEWTABLE                         R25 0 2
+      196 LOADB                            R26 0
+      197 LOADB                            R27 1
+      198 SETLIST                          R25 R26 2 [1]
+      200 SETTABLEKS                       R25 R24 K94 ["Selected"]
+      202 NEWTABLE                         R25 0 2
+      204 LOADB                            R26 0
+      205 LOADB                            R27 1
+      206 SETLIST                          R25 R26 2 [1]
+      208 SETTABLEKS                       R25 R24 K95 ["IconOnly"]
+      210 NEWTABLE                         R25 0 2
+      212 LOADK                            R26 K104 ["Large"]
+      213 LOADK                            R27 K105 ["Small"]
+      214 SETLIST                          R25 R26 2 [1]
+      216 SETTABLEKS                       R25 R24 K96 ["Size"]
+      218 NEWTABLE                         R25 0 2
+      220 LOADB                            R26 1
+      221 LOADB                            R27 0
+      222 SETLIST                          R25 R26 2 [1]
+      224 SETTABLEKS                       R25 R24 K97 ["EnabledChildren"]
+      226 NEWTABLE                         R25 0 2
+      228 LOADB                            R26 1
+      229 LOADB                            R27 0
+      230 SETLIST                          R25 R26 2 [1]
+      232 SETTABLEKS                       R25 R24 K98 ["Visible"]
+      234 NEWTABLE                         R25 0 2
+      236 LOADB                            R26 0
+      237 LOADB                            R27 1
+      238 SETLIST                          R25 R26 2 [1]
+      240 SETTABLEKS                       R25 R24 K99 ["Single"]
+      242 NEWTABLE                         R25 0 9
+      244 LOADK                            R26 K64 ["AI"]
+      245 LOADK                            R27 K67 ["Placeholder"]
+      246 LOADK                            R28 K69 ["StepInto"]
+      247 LOADK                            R29 K72 ["StepOut"]
+      248 LOADK                            R30 K75 ["StepOver"]
+      249 LOADK                            R31 K78 ["GUI"]
+      250 LOADK                            R32 K80 ["Script"]
+      251 LOADK                            R33 K82 ["Lock"]
+      252 LOADK                            R34 K84 ["Anchor"]
+      253 SETLIST                          R25 R26 9 [1]
+      255 SETTABLEKS                       R25 R24 K63 ["Icon"]
+      257 SETTABLEKS                       R24 R23 K88 ["controls"]
+      259 NEWTABLE                         R24 0 7
+      261 DUPTABLE                         R25 K110 [{["name"] = "Custom", ["story"], ["summary"] = "Three custom SplitButtons with controls to toggle visibility, disabled, selected, icon-only, size, and child enablement."}]
+      262 SETTABLEKS                       R22 R25 K108 ["story"]
+      264 DUPTABLE                         R26 K113 [{["name"] = "Normal", ["story"], ["summary"] = "Default enabled SplitButtons with text and icons"}]
+      265 NEWTABLE                         R28 0 0
+      267 LOADK                            R29 K111 ["Normal"]
+      268 NEWCLOSURE                       R27 P3
+      269 CAPTURE                          VAL R12
+      270 CAPTURE                          VAL R4
+      271 CAPTURE                          VAL R15
+      272 CAPTURE                          VAL R14
+      273 CAPTURE                          VAL R5
+      274 CAPTURE                          VAL R29
+      275 CAPTURE                          VAL R10
+      276 CAPTURE                          VAL R20
+      277 CAPTURE                          VAL R2
+      278 CAPTURE                          VAL R13
+      279 CAPTURE                          VAL R9
+      280 CAPTURE                          VAL R16
+      281 CAPTURE                          VAL R17
+      282 CAPTURE                          VAL R19
+      283 CAPTURE                          VAL R28
+      284 CAPTURE                          VAL R7
+      285 SETTABLEKS                       R27 R26 K108 ["story"]
+      287 DUPTABLE                         R27 K115 [{["name"] = "Single", ["story"], ["summary"] = "Single split buttons where arrow selection is controlled by ArrowSelectedFromAction only, not by menu open state."}]
+      288 DUPTABLE                         R29 K117 [{["Single"] = True}]
+      289 LOADK                            R30 K99 ["Single"]
+      290 NEWCLOSURE                       R28 P3
+      291 CAPTURE                          VAL R12
+      292 CAPTURE                          VAL R4
+      293 CAPTURE                          VAL R15
+      294 CAPTURE                          VAL R14
+      295 CAPTURE                          VAL R5
+      296 CAPTURE                          VAL R30
+      297 CAPTURE                          VAL R10
+      298 CAPTURE                          VAL R20
+      299 CAPTURE                          VAL R2
+      300 CAPTURE                          VAL R13
+      301 CAPTURE                          VAL R9
+      302 CAPTURE                          VAL R16
+      303 CAPTURE                          VAL R17
+      304 CAPTURE                          VAL R19
+      305 CAPTURE                          VAL R29
+      306 CAPTURE                          VAL R7
+      307 SETTABLEKS                       R28 R27 K108 ["story"]
+      309 DUPTABLE                         R28 K119 [{["name"] = "Disabled", ["story"], ["summary"] = "Shows the disabled visual state for the main button. Arrow icon is enabled."}]
+      310 DUPTABLE                         R30 K120 [{["Disabled"] = True}]
+      311 LOADK                            R31 K93 ["Disabled"]
+      312 NEWCLOSURE                       R29 P3
+      313 CAPTURE                          VAL R12
+      314 CAPTURE                          VAL R4
+      315 CAPTURE                          VAL R15
+      316 CAPTURE                          VAL R14
+      317 CAPTURE                          VAL R5
+      318 CAPTURE                          VAL R31
+      319 CAPTURE                          VAL R10
+      320 CAPTURE                          VAL R20
+      321 CAPTURE                          VAL R2
+      322 CAPTURE                          VAL R13
+      323 CAPTURE                          VAL R9
+      324 CAPTURE                          VAL R16
+      325 CAPTURE                          VAL R17
+      326 CAPTURE                          VAL R19
+      327 CAPTURE                          VAL R30
+      328 CAPTURE                          VAL R7
+      329 SETTABLEKS                       R29 R28 K108 ["story"]
+      331 DUPTABLE                         R29 K123 [{["name"] = "Disabled and EnabledChildren false", ["story"], ["summary"] = "Shows the disabled visual state and EnabledChildren false with muted arrow. Interactions are suppressed to illustrate the fully non-interactive behavior."}]
+      332 DUPTABLE                         R31 K125 [{["Disabled"] = True, ["EnabledChildren"] = False}]
+      333 LOADK                            R32 K126 ["DisabledAndEnabledChildrenFalse"]
+      334 NEWCLOSURE                       R30 P3
+      335 CAPTURE                          VAL R12
+      336 CAPTURE                          VAL R4
+      337 CAPTURE                          VAL R15
+      338 CAPTURE                          VAL R14
+      339 CAPTURE                          VAL R5
+      340 CAPTURE                          VAL R32
+      341 CAPTURE                          VAL R10
+      342 CAPTURE                          VAL R20
+      343 CAPTURE                          VAL R2
+      344 CAPTURE                          VAL R13
+      345 CAPTURE                          VAL R9
+      346 CAPTURE                          VAL R16
+      347 CAPTURE                          VAL R17
+      348 CAPTURE                          VAL R19
+      349 CAPTURE                          VAL R31
+      350 CAPTURE                          VAL R7
+      351 SETTABLEKS                       R30 R29 K108 ["story"]
+      353 DUPTABLE                         R30 K128 [{["name"] = "Selected", ["story"], ["summary"] = "Highlights the selected state to indicate an active tool, behavior mirrors the normal variant."}]
+      354 DUPTABLE                         R32 K129 [{["Selected"] = True}]
+      355 LOADK                            R33 K94 ["Selected"]
+      356 NEWCLOSURE                       R31 P3
+      357 CAPTURE                          VAL R12
+      358 CAPTURE                          VAL R4
+      359 CAPTURE                          VAL R15
+      360 CAPTURE                          VAL R14
+      361 CAPTURE                          VAL R5
+      362 CAPTURE                          VAL R33
+      363 CAPTURE                          VAL R10
+      364 CAPTURE                          VAL R20
+      365 CAPTURE                          VAL R2
+      366 CAPTURE                          VAL R13
+      367 CAPTURE                          VAL R9
+      368 CAPTURE                          VAL R16
+      369 CAPTURE                          VAL R17
+      370 CAPTURE                          VAL R19
+      371 CAPTURE                          VAL R32
+      372 CAPTURE                          VAL R7
+      373 SETTABLEKS                       R31 R30 K108 ["story"]
+      375 DUPTABLE                         R31 K132 [{["name"] = "Small and IconOnly", ["story"], ["summary"] = "Compact icon-only variant at Small size, omitting text to save space. Not all icons are available in small mode."}]
+      376 DUPTABLE                         R33 K133 [{["IconOnly"] = True, ["Size"] = "Small"}]
+      377 LOADK                            R34 K134 ["SmallIconOnly"]
+      378 NEWCLOSURE                       R32 P3
+      379 CAPTURE                          VAL R12
+      380 CAPTURE                          VAL R4
+      381 CAPTURE                          VAL R15
+      382 CAPTURE                          VAL R14
+      383 CAPTURE                          VAL R5
+      384 CAPTURE                          VAL R34
+      385 CAPTURE                          VAL R10
+      386 CAPTURE                          VAL R20
+      387 CAPTURE                          VAL R2
+      388 CAPTURE                          VAL R13
+      389 CAPTURE                          VAL R9
+      390 CAPTURE                          VAL R16
+      391 CAPTURE                          VAL R17
+      392 CAPTURE                          VAL R19
+      393 CAPTURE                          VAL R33
+      394 CAPTURE                          VAL R7
+      395 SETTABLEKS                       R32 R31 K108 ["story"]
+      397 SETLIST                          R24 R25 7 [1]
+      399 SETTABLEKS                       R24 R23 K91 ["stories"]
+      401 RETURN                           R23 1

@@ -144,15 +144,15 @@ PROTO_1:
       187 GETUPVAL                         R19 0
       188 GETTABLEKS                       R19 R19 K29 ["createElement"]
       190 LOADK                            R20 K31 ["TextLabel"]
-      191 DUPTABLE                         R21 K40 [{"BackgroundTransparency", "Position", "Size", "Font", "TextSize", "Text", "TextColor3", "TextStrokeColor3", "TextStrokeTransparency", "Selectable"}]
+      191 DUPTABLE                         R21 K42 [{["BackgroundTransparency"], ["Position"], ["Size"], ["Font"], ["TextSize"], ["Text"] = "L", ["TextColor3"], ["TextStrokeColor3"], ["TextStrokeTransparency"], ["Selectable"] = False}]
       192 GETTABLEKS                       R22 R1 K32 ["BackgroundTransparency"]
       194 SETTABLEKS                       R22 R21 K32 ["BackgroundTransparency"]
-      196 GETIMPORT                        R22 K43 [UDim2.fromOffset]
+      196 GETIMPORT                        R22 K45 [UDim2.fromOffset]
       198 GETTABLEKS                       R23 R13 K5 ["X"]
       200 GETTABLEKS                       R24 R13 K6 ["Y"]
       202 CALL                             R22 2 1
       203 SETTABLEKS                       R22 R21 K33 ["Position"]
-      205 GETIMPORT                        R22 K43 [UDim2.fromOffset]
+      205 GETIMPORT                        R22 K45 [UDim2.fromOffset]
       207 MOVE                             R23 R14
       208 MOVE                             R24 R14
       209 CALL                             R22 2 1
@@ -161,20 +161,16 @@ PROTO_1:
       214 SETTABLEKS                       R22 R21 K34 ["Font"]
       216 GETTABLEKS                       R22 R1 K28 ["TextSize"]
       218 SETTABLEKS                       R22 R21 K28 ["TextSize"]
-      220 LOADK                            R22 K44 ["L"]
-      221 SETTABLEKS                       R22 R21 K35 ["Text"]
-      223 GETTABLEKS                       R22 R1 K36 ["TextColor3"]
-      225 SETTABLEKS                       R22 R21 K36 ["TextColor3"]
-      227 GETTABLEKS                       R22 R1 K37 ["TextStrokeColor3"]
-      229 SETTABLEKS                       R22 R21 K37 ["TextStrokeColor3"]
-      231 GETTABLEKS                       R22 R1 K38 ["TextStrokeTransparency"]
-      233 SETTABLEKS                       R22 R21 K38 ["TextStrokeTransparency"]
-      235 LOADB                            R22 0
-      236 SETTABLEKS                       R22 R21 K39 ["Selectable"]
-      238 CALL                             R19 2 -1
-      239 SETLIST                          R18 R19 -1 [1]
-      241 CALL                             R15 3 -1
-      242 RETURN                           R15 -1
+      220 GETTABLEKS                       R22 R1 K37 ["TextColor3"]
+      222 SETTABLEKS                       R22 R21 K37 ["TextColor3"]
+      224 GETTABLEKS                       R22 R1 K38 ["TextStrokeColor3"]
+      226 SETTABLEKS                       R22 R21 K38 ["TextStrokeColor3"]
+      228 GETTABLEKS                       R22 R1 K39 ["TextStrokeTransparency"]
+      230 SETTABLEKS                       R22 R21 K39 ["TextStrokeTransparency"]
+      232 CALL                             R19 2 -1
+      233 SETLIST                          R18 R19 -1 [1]
+      235 CALL                             R15 3 -1
+      236 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -191,31 +187,25 @@ MAIN:
        20 LOADK                            R5 K8 ["LocalSpaceIndicator"]
        21 NAMECALL                         R3 R3 K9 ["extend"]
        23 CALL                             R3 2 1
-       24 DUPTABLE                         R4 K16 [{"BackgroundTransparency", "Font", "TextSize", "TextColor3", "TextStrokeColor3", "TextStrokeTransparency"}]
-       25 LOADN                            R5 1
-       26 SETTABLEKS                       R5 R4 K10 ["BackgroundTransparency"]
-       28 GETIMPORT                        R5 K19 [Enum.Font.ArialBold]
-       30 SETTABLEKS                       R5 R4 K11 ["Font"]
-       32 LOADN                            R5 16
-       33 SETTABLEKS                       R5 R4 K12 ["TextSize"]
-       35 GETIMPORT                        R5 K22 [Color3.new]
-       37 LOADN                            R6 1
-       38 LOADN                            R7 1
-       39 LOADN                            R8 1
-       40 CALL                             R5 3 1
-       41 SETTABLEKS                       R5 R4 K13 ["TextColor3"]
-       43 GETIMPORT                        R5 K22 [Color3.new]
-       45 LOADN                            R6 0
-       46 LOADN                            R7 0
-       47 LOADN                            R8 0
-       48 CALL                             R5 3 1
-       49 SETTABLEKS                       R5 R4 K14 ["TextStrokeColor3"]
-       51 LOADN                            R5 0
-       52 SETTABLEKS                       R5 R4 K15 ["TextStrokeTransparency"]
-       54 SETTABLEKS                       R4 R3 K23 ["defaultProps"]
-       56 DUPCLOSURE                       R4 K24 [PROTO_0]
-       57 SETTABLEKS                       R4 R3 K25 ["init"]
-       59 DUPCLOSURE                       R4 K26 [PROTO_1]
-       60 CAPTURE                          VAL R2
-       61 SETTABLEKS                       R4 R3 K27 ["render"]
-       63 RETURN                           R3 1
+       24 DUPTABLE                         R4 K19 [{["BackgroundTransparency"] = 1, ["Font"], ["TextSize"] = 16, ["TextColor3"], ["TextStrokeColor3"], ["TextStrokeTransparency"] = 0}]
+       25 GETIMPORT                        R5 K22 [Enum.Font.ArialBold]
+       27 SETTABLEKS                       R5 R4 K12 ["Font"]
+       29 GETIMPORT                        R5 K25 [Color3.new]
+       31 LOADN                            R6 1
+       32 LOADN                            R7 1
+       33 LOADN                            R8 1
+       34 CALL                             R5 3 1
+       35 SETTABLEKS                       R5 R4 K15 ["TextColor3"]
+       37 GETIMPORT                        R5 K25 [Color3.new]
+       39 LOADN                            R6 0
+       40 LOADN                            R7 0
+       41 LOADN                            R8 0
+       42 CALL                             R5 3 1
+       43 SETTABLEKS                       R5 R4 K16 ["TextStrokeColor3"]
+       45 SETTABLEKS                       R4 R3 K26 ["defaultProps"]
+       47 DUPCLOSURE                       R4 K27 [PROTO_0]
+       48 SETTABLEKS                       R4 R3 K28 ["init"]
+       50 DUPCLOSURE                       R4 K29 [PROTO_1]
+       51 CAPTURE                          VAL R2
+       52 SETTABLEKS                       R4 R3 K30 ["render"]
+       54 RETURN                           R3 1

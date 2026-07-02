@@ -127,7 +127,7 @@ PROTO_6:
        83 SETTABLEKS                       R4 R3 K2 ["universeAvatarType"]
        85 DUPTABLE                         R4 K22 [{"Size", "Title", "Header", "Buttons"}]
        86 GETIMPORT                        R5 K25 [Vector2.new]
-       88 LOADN                            R6 87
+       88 LOADN                            R6 343
        89 LOADN                            R7 145
        90 CALL                             R5 2 1
        91 SETTABLEKS                       R5 R4 K21 ["Size"]

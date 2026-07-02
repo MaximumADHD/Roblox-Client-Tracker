@@ -15,33 +15,31 @@ PROTO_0:
        18 RETURN                           R1 -1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"Method", "Url", "Headers"}]
-        1 LOADK                            R2 K4 ["GET"]
-        2 SETTABLEKS                       R2 R1 K0 ["Method"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K6 ["DEVELOP_URL"]
-       10 LOADK                            R5 K7 ["v2/places/%*"]
-       11 MOVE                             R7 R0
-       12 NAMECALL                         R5 R5 K8 ["format"]
-       14 CALL                             R5 2 1
-       15 MOVE                             R4 R5
-       16 CALL                             R2 2 1
-       17 SETTABLEKS                       R2 R1 K1 ["Url"]
-       19 NEWTABLE                         R2 1 0
-       21 LOADK                            R3 K9 ["application/json"]
-       22 SETTABLEKS                       R3 R2 K10 ["Content-Type"]
-       24 SETTABLEKS                       R2 R1 K2 ["Headers"]
-       26 GETUPVAL                         R2 1
-       27 GETTABLEKS                       R2 R2 K11 ["Request"]
-       29 MOVE                             R3 R1
-       30 CALL                             R2 1 1
-       31 DUPCLOSURE                       R4 K12 [PROTO_0]
-       32 CAPTURE                          UPVAL U2
-       33 NAMECALL                         R2 R2 K13 ["andThen"]
-       35 CALL                             R2 2 -1
-       36 RETURN                           R2 -1
+        0 DUPTABLE                         R1 K4 [{[1] = "GET", ["Url"], ["Headers"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K6 ["DEVELOP_URL"]
+        7 LOADK                            R5 K7 ["v2/places/%*"]
+        8 MOVE                             R7 R0
+        9 NAMECALL                         R5 R5 K8 ["format"]
+       11 CALL                             R5 2 1
+       12 MOVE                             R4 R5
+       13 CALL                             R2 2 1
+       14 SETTABLEKS                       R2 R1 K2 ["Url"]
+       16 NEWTABLE                         R2 1 0
+       18 LOADK                            R3 K9 ["application/json"]
+       19 SETTABLEKS                       R3 R2 K10 ["Content-Type"]
+       21 SETTABLEKS                       R2 R1 K3 ["Headers"]
+       23 GETUPVAL                         R2 1
+       24 GETTABLEKS                       R2 R2 K11 ["Request"]
+       26 MOVE                             R3 R1
+       27 CALL                             R2 1 1
+       28 DUPCLOSURE                       R4 K12 [PROTO_0]
+       29 CAPTURE                          UPVAL U2
+       30 NAMECALL                         R2 R2 K13 ["andThen"]
+       32 CALL                             R2 2 -1
+       33 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

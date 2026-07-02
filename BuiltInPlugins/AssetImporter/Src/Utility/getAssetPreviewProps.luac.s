@@ -1,35 +1,29 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K4 [{"model", "initDist", "insertContextOffset", "workspacePreview"}]
-        1 LOADNIL                          R5
-        2 SETTABLEKS                       R5 R4 K0 ["model"]
-        4 LOADN                            R5 0
-        5 SETTABLEKS                       R5 R4 K1 ["initDist"]
-        7 FASTCALL                         VECTOR ; [+2]
-        8 GETIMPORT                        R5 K7 [Vector3.new]
-       10 CALL                             R5 0 1
-       11 SETTABLEKS                       R5 R4 K2 ["insertContextOffset"]
-       13 LOADNIL                          R5
-       14 SETTABLEKS                       R5 R4 K3 ["workspacePreview"]
-       16 GETUPVAL                         R5 0
-       17 MOVE                             R6 R0
-       18 CALL                             R5 1 1
-       19 SETTABLEKS                       R5 R4 K0 ["model"]
-       21 GETTABLEKS                       R5 R4 K0 ["model"]
-       23 NAMECALL                         R5 R5 K8 ["GetExtentsSize"]
-       25 CALL                             R5 1 1
-       26 GETTABLEKS                       R5 R5 K9 ["Magnitude"]
-       28 SETTABLEKS                       R5 R4 K1 ["initDist"]
-       30 JUMPIFNOT                        R3 ; [+13]
-       31 GETTABLEKS                       R5 R1 K10 ["InsertInWorkspace"]
-       33 JUMPIFNOT                        R5 ; [+10]
-       34 JUMPIFNOT                        R2 ; [+9]
-       35 GETUPVAL                         R5 1
-       36 MOVE                             R6 R1
-       37 GETTABLEKS                       R7 R4 K0 ["model"]
-       39 CALL                             R5 2 2
-       40 SETTABLEKS                       R5 R4 K3 ["workspacePreview"]
-       42 SETTABLEKS                       R6 R4 K2 ["insertContextOffset"]
-       44 RETURN                           R4 1
+        0 DUPTABLE                         R4 K6 [{[1] = , ["initDist"] = 0, ["insertContextOffset"], ["workspacePreview"] = }]
+        1 FASTCALL                         VECTOR ; [+2]
+        2 GETIMPORT                        R5 K9 [Vector3.new]
+        4 CALL                             R5 0 1
+        5 SETTABLEKS                       R5 R4 K4 ["insertContextOffset"]
+        7 GETUPVAL                         R5 0
+        8 MOVE                             R6 R0
+        9 CALL                             R5 1 1
+       10 SETTABLEKS                       R5 R4 K0 ["model"]
+       12 GETTABLEKS                       R5 R4 K0 ["model"]
+       14 NAMECALL                         R5 R5 K10 ["GetExtentsSize"]
+       16 CALL                             R5 1 1
+       17 GETTABLEKS                       R5 R5 K11 ["Magnitude"]
+       19 SETTABLEKS                       R5 R4 K2 ["initDist"]
+       21 JUMPIFNOT                        R3 ; [+13]
+       22 GETTABLEKS                       R5 R1 K12 ["InsertInWorkspace"]
+       24 JUMPIFNOT                        R5 ; [+10]
+       25 JUMPIFNOT                        R2 ; [+9]
+       26 GETUPVAL                         R5 1
+       27 MOVE                             R6 R1
+       28 GETTABLEKS                       R7 R4 K0 ["model"]
+       30 CALL                             R5 2 2
+       31 SETTABLEKS                       R5 R4 K5 ["workspacePreview"]
+       33 SETTABLEKS                       R6 R4 K4 ["insertContextOffset"]
+       35 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

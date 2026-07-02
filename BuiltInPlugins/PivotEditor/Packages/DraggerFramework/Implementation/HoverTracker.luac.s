@@ -54,33 +54,25 @@ PROTO_2:
        22 FASTCALL1                        ASSERT R7 ; [+2]
        23 GETIMPORT                        R6 K4 [assert]
        25 CALL                             R6 1 0
-       26 DUPTABLE                         R7 K14 [{"_draggerSchema", "_handlesList", "_selectionCycleCache", "_hoverHandleId", "_hoverItem", "_mouseInBounds", "_hoverMetadata", "_canHoverPivot", "_onHoverChanged"}]
+       26 DUPTABLE                         R7 K16 [{["_draggerSchema"], ["_handlesList"], ["_selectionCycleCache"], ["_hoverHandleId"] = , ["_hoverItem"] = , ["_mouseInBounds"] = True, ["_hoverMetadata"] = , ["_canHoverPivot"], ["_onHoverChanged"]}]
        27 SETTABLEKS                       R1 R7 K5 ["_draggerSchema"]
        29 SETTABLEKS                       R2 R7 K6 ["_handlesList"]
        31 SETTABLEKS                       R3 R7 K7 ["_selectionCycleCache"]
-       33 LOADNIL                          R8
-       34 SETTABLEKS                       R8 R7 K8 ["_hoverHandleId"]
-       36 LOADNIL                          R8
-       37 SETTABLEKS                       R8 R7 K9 ["_hoverItem"]
-       39 LOADB                            R8 1
-       40 SETTABLEKS                       R8 R7 K10 ["_mouseInBounds"]
-       42 LOADNIL                          R8
-       43 SETTABLEKS                       R8 R7 K11 ["_hoverMetadata"]
-       45 SETTABLEKS                       R5 R7 K12 ["_canHoverPivot"]
-       47 SETTABLEKS                       R4 R7 K13 ["_onHoverChanged"]
-       49 GETUPVAL                         R8 0
-       50 FASTCALL2                        SETMETATABLE R7 R8 ; [+3]
-       52 GETIMPORT                        R6 K16 [setmetatable]
-       54 CALL                             R6 2 1
-       55 GETTABLEKS                       R7 R1 K17 ["onExternalHover"]
-       57 JUMPIFNOT                        R7 ; [+8]
-       58 GETTABLEKS                       R7 R1 K17 ["onExternalHover"]
-       60 MOVE                             R8 R0
-       61 NEWCLOSURE                       R9 P0
-       62 CAPTURE                          VAL R6
-       63 CALL                             R7 2 1
-       64 SETTABLEKS                       R7 R6 K18 ["_disconnectOnExternalHover"]
-       66 RETURN                           R6 1
+       33 SETTABLEKS                       R5 R7 K14 ["_canHoverPivot"]
+       35 SETTABLEKS                       R4 R7 K15 ["_onHoverChanged"]
+       37 GETUPVAL                         R8 0
+       38 FASTCALL2                        SETMETATABLE R7 R8 ; [+3]
+       40 GETIMPORT                        R6 K18 [setmetatable]
+       42 CALL                             R6 2 1
+       43 GETTABLEKS                       R7 R1 K19 ["onExternalHover"]
+       45 JUMPIFNOT                        R7 ; [+8]
+       46 GETTABLEKS                       R7 R1 K19 ["onExternalHover"]
+       48 MOVE                             R8 R0
+       49 NEWCLOSURE                       R9 P0
+       50 CAPTURE                          VAL R6
+       51 CALL                             R7 2 1
+       52 SETTABLEKS                       R7 R6 K20 ["_disconnectOnExternalHover"]
+       54 RETURN                           R6 1
 
 PROTO_3:
         0 JUMPIFNOT                        R3 ; [+7]

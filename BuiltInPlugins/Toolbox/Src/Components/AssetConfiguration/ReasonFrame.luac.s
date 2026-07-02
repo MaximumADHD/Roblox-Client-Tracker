@@ -20,7 +20,7 @@ PROTO_0:
        27 GETTABLEKS                       R11 R3 K8 ["AbsoluteSize"]
        29 GETIMPORT                        R12 K11 [Vector2.new]
        31 GETTABLEKS                       R13 R11 K12 ["X"]
-       33 LOADN                            R14 40
+       33 LOADN                            R14 9000
        34 CALL                             R12 2 1
        35 MOVE                             R10 R12
        36 JUMP                             ; [+1]
@@ -79,8 +79,8 @@ PROTO_1:
        30 GETUPVAL                         R4 0
        31 GETTABLEKS                       R4 R4 K3 ["createElement"]
        33 LOADK                            R5 K20 ["TextLabel"]
-       34 DUPTABLE                         R6 K28 [{"Size", "Text", "TextColor3", "Font", "TextSize", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
-       35 GETIMPORT                        R7 K30 [UDim2.new]
+       34 DUPTABLE                         R6 K30 [{["Size"], ["Text"], ["TextColor3"], ["Font"], ["TextSize"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["LayoutOrder"] = 0}]
+       35 GETIMPORT                        R7 K32 [UDim2.new]
        37 LOADN                            R8 1
        38 LOADN                            R9 0
        39 LOADN                            R10 0
@@ -88,66 +88,56 @@ PROTO_1:
        41 CALL                             R7 4 1
        42 SETTABLEKS                       R7 R6 K21 ["Size"]
        44 GETUPVAL                         R7 2
-       45 GETTABLEKS                       R7 R7 K31 ["props"]
-       47 GETTABLEKS                       R7 R7 K32 ["Localization"]
-       49 LOADK                            R9 K33 ["AssetConfigError"]
-       50 LOADK                            R10 K34 ["NetworkError"]
-       51 NAMECALL                         R7 R7 K35 ["getText"]
+       45 GETTABLEKS                       R7 R7 K33 ["props"]
+       47 GETTABLEKS                       R7 R7 K34 ["Localization"]
+       49 LOADK                            R9 K35 ["AssetConfigError"]
+       50 LOADK                            R10 K36 ["NetworkError"]
+       51 NAMECALL                         R7 R7 K37 ["getText"]
        53 CALL                             R7 3 1
        54 SETTABLEKS                       R7 R6 K22 ["Text"]
-       56 GETTABLEKS                       R7 R2 K36 ["textColor"]
+       56 GETTABLEKS                       R7 R2 K38 ["textColor"]
        58 SETTABLEKS                       R7 R6 K23 ["TextColor3"]
        60 GETUPVAL                         R7 1
-       61 GETTABLEKS                       R7 R7 K37 ["FONT"]
+       61 GETTABLEKS                       R7 R7 K39 ["FONT"]
        63 SETTABLEKS                       R7 R6 K24 ["Font"]
        65 GETUPVAL                         R7 1
-       66 GETTABLEKS                       R7 R7 K38 ["FONT_SIZE_LARGE"]
+       66 GETTABLEKS                       R7 R7 K40 ["FONT_SIZE_LARGE"]
        68 SETTABLEKS                       R7 R6 K25 ["TextSize"]
-       70 LOADN                            R7 1
-       71 SETTABLEKS                       R7 R6 K26 ["BackgroundTransparency"]
-       73 LOADN                            R7 0
-       74 SETTABLEKS                       R7 R6 K27 ["BorderSizePixel"]
-       76 LOADN                            R7 0
-       77 SETTABLEKS                       R7 R6 K14 ["LayoutOrder"]
-       79 CALL                             R4 2 1
-       80 SETTABLEKS                       R4 R3 K1 ["ExplainLabel"]
-       82 GETIMPORT                        R4 K40 [pairs]
-       84 MOVE                             R5 R0
-       85 CALL                             R4 1 3
-       86 FORGPREP_NEXT                    R4
-       87 GETTABLE                         R9 R1 R7
-       88 GETTABLEKS                       R10 R8 K41 ["name"]
-       90 GETUPVAL                         R11 0
-       91 GETTABLEKS                       R11 R11 K3 ["createElement"]
-       93 LOADK                            R12 K20 ["TextLabel"]
-       94 DUPTABLE                         R13 K28 [{"Size", "Text", "TextColor3", "Font", "TextSize", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
-       95 GETIMPORT                        R14 K30 [UDim2.new]
-       97 LOADN                            R15 1
-       98 LOADN                            R16 0
-       99 LOADN                            R17 0
-      100 GETTABLEKS                       R18 R9 K42 ["Y"]
-      102 CALL                             R14 4 1
-      103 SETTABLEKS                       R14 R13 K21 ["Size"]
-      105 GETTABLEKS                       R14 R8 K43 ["response"]
-      107 GETTABLEKS                       R14 R14 K44 ["responseBody"]
-      109 SETTABLEKS                       R14 R13 K22 ["Text"]
-      111 GETTABLEKS                       R14 R2 K36 ["textColor"]
-      113 SETTABLEKS                       R14 R13 K23 ["TextColor3"]
-      115 GETUPVAL                         R14 1
-      116 GETTABLEKS                       R14 R14 K37 ["FONT"]
-      118 SETTABLEKS                       R14 R13 K24 ["Font"]
-      120 GETUPVAL                         R14 1
-      121 GETTABLEKS                       R14 R14 K38 ["FONT_SIZE_LARGE"]
-      123 SETTABLEKS                       R14 R13 K25 ["TextSize"]
-      125 LOADN                            R14 1
-      126 SETTABLEKS                       R14 R13 K26 ["BackgroundTransparency"]
-      128 LOADN                            R14 0
-      129 SETTABLEKS                       R14 R13 K27 ["BorderSizePixel"]
-      131 SETTABLEKS                       R7 R13 K14 ["LayoutOrder"]
-      133 CALL                             R11 2 1
-      134 SETTABLE                         R11 R3 R10
-      135 FORGLOOP                         R4 2 ; [-49]
-      137 RETURN                           R3 1
+       70 CALL                             R4 2 1
+       71 SETTABLEKS                       R4 R3 K1 ["ExplainLabel"]
+       73 GETIMPORT                        R4 K42 [pairs]
+       75 MOVE                             R5 R0
+       76 CALL                             R4 1 3
+       77 FORGPREP_NEXT                    R4
+       78 GETTABLE                         R9 R1 R7
+       79 GETTABLEKS                       R10 R8 K43 ["name"]
+       81 GETUPVAL                         R11 0
+       82 GETTABLEKS                       R11 R11 K3 ["createElement"]
+       84 LOADK                            R12 K20 ["TextLabel"]
+       85 DUPTABLE                         R13 K44 [{["Size"], ["Text"], ["TextColor3"], ["Font"], ["TextSize"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
+       86 GETIMPORT                        R14 K32 [UDim2.new]
+       88 LOADN                            R15 1
+       89 LOADN                            R16 0
+       90 LOADN                            R17 0
+       91 GETTABLEKS                       R18 R9 K45 ["Y"]
+       93 CALL                             R14 4 1
+       94 SETTABLEKS                       R14 R13 K21 ["Size"]
+       96 GETTABLEKS                       R14 R8 K46 ["response"]
+       98 GETTABLEKS                       R14 R14 K47 ["responseBody"]
+      100 SETTABLEKS                       R14 R13 K22 ["Text"]
+      102 GETTABLEKS                       R14 R2 K38 ["textColor"]
+      104 SETTABLEKS                       R14 R13 K23 ["TextColor3"]
+      106 GETUPVAL                         R14 1
+      107 GETTABLEKS                       R14 R14 K39 ["FONT"]
+      109 SETTABLEKS                       R14 R13 K24 ["Font"]
+      111 GETUPVAL                         R14 1
+      112 GETTABLEKS                       R14 R14 K40 ["FONT_SIZE_LARGE"]
+      114 SETTABLEKS                       R14 R13 K25 ["TextSize"]
+      116 SETTABLEKS                       R7 R13 K14 ["LayoutOrder"]
+      118 CALL                             R11 2 1
+      119 SETTABLE                         R11 R3 R10
+      120 FORGLOOP                         R4 2 ; [-43]
+      122 RETURN                           R3 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -240,8 +230,8 @@ MAIN:
        52 NAMECALL                         R10 R10 K18 ["extend"]
        54 CALL                             R10 2 1
        55 GETIMPORT                        R11 K21 [Vector2.new]
-       57 LOADN                            R12 144
-       58 LOADN                            R13 40
+       57 LOADN                            R12 400
+       58 LOADN                            R13 9000
        59 CALL                             R11 2 1
        60 DUPCLOSURE                       R12 K22 [PROTO_2]
        61 CAPTURE                          VAL R2

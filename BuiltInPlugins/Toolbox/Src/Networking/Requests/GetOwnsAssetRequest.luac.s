@@ -146,24 +146,22 @@ MAIN:
        64 GETTABLEKS                       R10 R7 K18 ["new"]
        66 DUPTABLE                         R11 K20 [{"networking"}]
        67 GETTABLEKS                       R12 R8 K18 ["new"]
-       69 DUPTABLE                         R13 K23 [{"isInternal", "loggingLevel"}]
-       70 LOADB                            R14 1
-       71 SETTABLEKS                       R14 R13 K21 ["isInternal"]
-       73 GETTABLEKS                       R15 R1 K24 ["shouldDebugUrls"]
-       75 CALL                             R15 0 1
-       76 JUMPIFNOT                        R15 ; [+2]
-       77 LOADN                            R14 1
-       78 JUMP                             ; [+1]
-       79 LOADNIL                          R14
-       80 SETTABLEKS                       R14 R13 K22 ["loggingLevel"]
-       82 CALL                             R12 1 1
-       83 SETTABLEKS                       R12 R11 K19 ["networking"]
-       85 CALL                             R10 1 1
-       86 DUPCLOSURE                       R11 K25 [PROTO_3]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R9
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R10
-       91 CAPTURE                          VAL R1
-       92 CAPTURE                          VAL R3
-       93 RETURN                           R11 1
+       69 DUPTABLE                         R13 K24 [{["isInternal"] = True, ["loggingLevel"]}]
+       70 GETTABLEKS                       R15 R1 K25 ["shouldDebugUrls"]
+       72 CALL                             R15 0 1
+       73 JUMPIFNOT                        R15 ; [+2]
+       74 LOADN                            R14 1
+       75 JUMP                             ; [+1]
+       76 LOADNIL                          R14
+       77 SETTABLEKS                       R14 R13 K23 ["loggingLevel"]
+       79 CALL                             R12 1 1
+       80 SETTABLEKS                       R12 R11 K19 ["networking"]
+       82 CALL                             R10 1 1
+       83 DUPCLOSURE                       R11 K26 [PROTO_3]
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          VAL R1
+       89 CAPTURE                          VAL R3
+       90 RETURN                           R11 1

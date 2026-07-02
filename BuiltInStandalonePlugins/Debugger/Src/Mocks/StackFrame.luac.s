@@ -1,21 +1,15 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K7 [{"Line", "Script", "FrameName", "FrameType", "Populated", "FrameId", "PopulatableType"}]
+        0 DUPTABLE                         R4 K10 [{[1], ["Script"], ["FrameName"], ["FrameType"], ["Populated"] = False, ["FrameId"] = 0, ["PopulatableType"] = "StackFrame"}]
         1 SETTABLEKS                       R0 R4 K0 ["Line"]
         3 SETTABLEKS                       R1 R4 K1 ["Script"]
         5 SETTABLEKS                       R2 R4 K2 ["FrameName"]
         7 SETTABLEKS                       R3 R4 K3 ["FrameType"]
-        9 LOADB                            R5 0
-       10 SETTABLEKS                       R5 R4 K4 ["Populated"]
-       12 LOADN                            R5 0
-       13 SETTABLEKS                       R5 R4 K5 ["FrameId"]
-       15 LOADK                            R5 K8 ["StackFrame"]
-       16 SETTABLEKS                       R5 R4 K6 ["PopulatableType"]
-       18 GETUPVAL                         R7 0
-       19 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-       21 MOVE                             R6 R4
-       22 GETIMPORT                        R5 K10 [setmetatable]
-       24 CALL                             R5 2 0
-       25 RETURN                           R4 1
+        9 GETUPVAL                         R7 0
+       10 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+       12 MOVE                             R6 R4
+       13 GETIMPORT                        R5 K12 [setmetatable]
+       15 CALL                             R5 2 0
+       16 RETURN                           R4 1
 
 PROTO_1:
         0 FASTCALL1                        ASSERT R1 ; [+3]

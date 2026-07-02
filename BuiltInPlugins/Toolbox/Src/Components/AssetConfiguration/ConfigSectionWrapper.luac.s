@@ -7,149 +7,143 @@ PROTO_0:
         9 CALL                             R4 0 1
        10 GETUPVAL                         R5 1
        11 CALL                             R5 0 1
-       12 JUMPIFNOT                        R5 ; [+96]
+       12 JUMPIFNOT                        R5 ; [+87]
        13 GETUPVAL                         R5 2
        14 GETTABLEKS                       R5 R5 K4 ["createElement"]
        16 GETUPVAL                         R6 3
        17 GETTABLEKS                       R6 R6 K5 ["View"]
-       19 DUPTABLE                         R7 K10 [{"tag", "LayoutOrder", "Size", "ref"}]
-       20 LOADK                            R8 K11 ["row align-x-left align-y-top auto-y"]
-       21 SETTABLEKS                       R8 R7 K6 ["tag"]
-       23 GETTABLEKS                       R8 R1 K7 ["LayoutOrder"]
-       25 SETTABLEKS                       R8 R7 K7 ["LayoutOrder"]
-       27 GETTABLEKS                       R8 R1 K8 ["Size"]
-       29 SETTABLEKS                       R8 R7 K8 ["Size"]
-       31 GETTABLEKS                       R8 R1 K12 ["ForwardRef"]
-       33 SETTABLEKS                       R8 R7 K9 ["ref"]
-       35 DUPTABLE                         R8 K15 [{"Title", "Contents"}]
-       36 GETUPVAL                         R9 2
-       37 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       39 GETUPVAL                         R10 3
-       40 GETTABLEKS                       R10 R10 K16 ["Text"]
-       42 DUPTABLE                         R11 K18 [{"tag", "Text", "TextWrapped", "LayoutOrder", "Size"}]
-       43 LOADK                            R12 K19 ["text-title-small bold text-align-y-top text-align-x-left content-emphasis auto-y"]
-       44 SETTABLEKS                       R12 R11 K6 ["tag"]
-       46 GETTABLEKS                       R12 R1 K13 ["Title"]
-       48 SETTABLEKS                       R12 R11 K16 ["Text"]
-       50 GETUPVAL                         R12 4
-       51 CALL                             R12 0 1
-       52 SETTABLEKS                       R12 R11 K17 ["TextWrapped"]
-       54 NAMECALL                         R12 R4 K20 ["getNextOrder"]
-       56 CALL                             R12 1 1
-       57 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-       59 GETIMPORT                        R12 K22 [UDim2.new]
-       61 LOADN                            R13 0
-       62 GETUPVAL                         R14 5
-       63 GETTABLEKS                       R14 R14 K23 ["TITLE_GUTTER_WIDTH"]
-       65 LOADN                            R15 0
-       66 LOADN                            R16 0
-       67 CALL                             R12 4 1
-       68 SETTABLEKS                       R12 R11 K8 ["Size"]
-       70 CALL                             R9 2 1
-       71 SETTABLEKS                       R9 R8 K13 ["Title"]
-       73 GETUPVAL                         R9 2
-       74 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       76 GETUPVAL                         R10 3
-       77 GETTABLEKS                       R10 R10 K5 ["View"]
-       79 DUPTABLE                         R11 K24 [{"tag", "LayoutOrder", "Size"}]
-       80 LOADK                            R12 K25 ["auto-y"]
-       81 SETTABLEKS                       R12 R11 K6 ["tag"]
-       83 NAMECALL                         R12 R4 K20 ["getNextOrder"]
-       85 CALL                             R12 1 1
-       86 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-       88 GETIMPORT                        R12 K22 [UDim2.new]
-       90 LOADN                            R13 1
-       91 GETUPVAL                         R15 5
-       92 GETTABLEKS                       R15 R15 K23 ["TITLE_GUTTER_WIDTH"]
-       94 MINUS                            R14 R15
-       95 LOADN                            R15 0
-       96 LOADN                            R16 0
-       97 CALL                             R12 4 1
-       98 SETTABLEKS                       R12 R11 K8 ["Size"]
-      100 GETUPVAL                         R13 6
-      101 GETTABLEKS                       R13 R13 K26 ["Children"]
-      103 GETTABLE                         R12 R1 R13
-      104 CALL                             R9 3 1
-      105 SETTABLEKS                       R9 R8 K14 ["Contents"]
-      107 CALL                             R5 3 -1
-      108 RETURN                           R5 -1
-      109 GETUPVAL                         R5 6
-      110 GETTABLEKS                       R5 R5 K4 ["createElement"]
-      112 GETUPVAL                         R6 7
-      113 NEWTABLE                         R7 8 0
-      115 GETIMPORT                        R8 K30 [Enum.AutomaticSize.Y]
-      117 SETTABLEKS                       R8 R7 K28 ["AutomaticSize"]
-      119 GETIMPORT                        R8 K33 [Enum.HorizontalAlignment.Left]
-      121 SETTABLEKS                       R8 R7 K31 ["HorizontalAlignment"]
-      123 GETIMPORT                        R8 K36 [Enum.FillDirection.Horizontal]
-      125 SETTABLEKS                       R8 R7 K37 ["Layout"]
-      127 GETTABLEKS                       R8 R1 K7 ["LayoutOrder"]
-      129 SETTABLEKS                       R8 R7 K7 ["LayoutOrder"]
-      131 GETTABLEKS                       R8 R1 K8 ["Size"]
-      133 SETTABLEKS                       R8 R7 K8 ["Size"]
-      135 GETIMPORT                        R8 K40 [Enum.VerticalAlignment.Top]
-      137 SETTABLEKS                       R8 R7 K38 ["VerticalAlignment"]
-      139 GETUPVAL                         R8 6
-      140 GETTABLEKS                       R8 R8 K41 ["Ref"]
-      142 GETTABLEKS                       R9 R1 K12 ["ForwardRef"]
-      144 SETTABLE                         R9 R7 R8
-      145 DUPTABLE                         R8 K15 [{"Title", "Contents"}]
-      146 GETUPVAL                         R9 6
-      147 GETTABLEKS                       R9 R9 K4 ["createElement"]
-      149 GETUPVAL                         R10 8
-      150 DUPTABLE                         R11 K46 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
-      151 GETIMPORT                        R12 K30 [Enum.AutomaticSize.Y]
-      153 SETTABLEKS                       R12 R11 K28 ["AutomaticSize"]
-      155 NAMECALL                         R12 R4 K20 ["getNextOrder"]
-      157 CALL                             R12 1 1
-      158 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-      160 GETIMPORT                        R12 K22 [UDim2.new]
-      162 LOADN                            R13 0
-      163 GETUPVAL                         R14 5
-      164 GETTABLEKS                       R14 R14 K23 ["TITLE_GUTTER_WIDTH"]
-      166 LOADN                            R15 0
-      167 LOADN                            R16 0
-      168 CALL                             R12 4 1
-      169 SETTABLEKS                       R12 R11 K8 ["Size"]
-      171 GETTABLEKS                       R12 R1 K13 ["Title"]
-      173 SETTABLEKS                       R12 R11 K16 ["Text"]
-      175 GETTABLEKS                       R12 R3 K47 ["titleTextColor"]
-      177 SETTABLEKS                       R12 R11 K42 ["TextColor"]
-      179 GETUPVAL                         R12 9
-      180 GETTABLEKS                       R12 R12 K48 ["FONT_SIZE_TITLE"]
-      182 SETTABLEKS                       R12 R11 K43 ["TextSize"]
-      184 GETIMPORT                        R12 K49 [Enum.TextXAlignment.Left]
-      186 SETTABLEKS                       R12 R11 K44 ["TextXAlignment"]
-      188 GETIMPORT                        R12 K50 [Enum.TextYAlignment.Top]
-      190 SETTABLEKS                       R12 R11 K45 ["TextYAlignment"]
-      192 CALL                             R9 2 1
-      193 SETTABLEKS                       R9 R8 K13 ["Title"]
-      195 GETUPVAL                         R9 6
-      196 GETTABLEKS                       R9 R9 K4 ["createElement"]
-      198 GETUPVAL                         R10 7
-      199 DUPTABLE                         R11 K51 [{"AutomaticSize", "LayoutOrder", "Size"}]
-      200 GETIMPORT                        R12 K30 [Enum.AutomaticSize.Y]
-      202 SETTABLEKS                       R12 R11 K28 ["AutomaticSize"]
-      204 NAMECALL                         R12 R4 K20 ["getNextOrder"]
-      206 CALL                             R12 1 1
-      207 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-      209 GETIMPORT                        R12 K22 [UDim2.new]
-      211 LOADN                            R13 1
-      212 GETUPVAL                         R15 5
-      213 GETTABLEKS                       R15 R15 K23 ["TITLE_GUTTER_WIDTH"]
-      215 MINUS                            R14 R15
-      216 LOADN                            R15 0
-      217 GETUPVAL                         R16 9
-      218 GETTABLEKS                       R16 R16 K48 ["FONT_SIZE_TITLE"]
-      220 CALL                             R12 4 1
-      221 SETTABLEKS                       R12 R11 K8 ["Size"]
-      223 GETUPVAL                         R13 6
-      224 GETTABLEKS                       R13 R13 K26 ["Children"]
-      226 GETTABLE                         R12 R1 R13
-      227 CALL                             R9 3 1
-      228 SETTABLEKS                       R9 R8 K14 ["Contents"]
-      230 CALL                             R5 3 -1
-      231 RETURN                           R5 -1
+       19 DUPTABLE                         R7 K11 [{["tag"] = "row align-x-left align-y-top auto-y", ["LayoutOrder"], ["Size"], ["ref"]}]
+       20 GETTABLEKS                       R8 R1 K8 ["LayoutOrder"]
+       22 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       24 GETTABLEKS                       R8 R1 K9 ["Size"]
+       26 SETTABLEKS                       R8 R7 K9 ["Size"]
+       28 GETTABLEKS                       R8 R1 K12 ["ForwardRef"]
+       30 SETTABLEKS                       R8 R7 K10 ["ref"]
+       32 DUPTABLE                         R8 K15 [{"Title", "Contents"}]
+       33 GETUPVAL                         R9 2
+       34 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       36 GETUPVAL                         R10 3
+       37 GETTABLEKS                       R10 R10 K16 ["Text"]
+       39 DUPTABLE                         R11 K19 [{["tag"] = "bold auto-y text-title-small text-align-x-left text-align-y-top content-emphasis", ["Text"], ["TextWrapped"], ["LayoutOrder"], ["Size"]}]
+       40 GETTABLEKS                       R12 R1 K13 ["Title"]
+       42 SETTABLEKS                       R12 R11 K16 ["Text"]
+       44 GETUPVAL                         R12 4
+       45 CALL                             R12 0 1
+       46 SETTABLEKS                       R12 R11 K18 ["TextWrapped"]
+       48 NAMECALL                         R12 R4 K20 ["getNextOrder"]
+       50 CALL                             R12 1 1
+       51 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+       53 GETIMPORT                        R12 K22 [UDim2.new]
+       55 LOADN                            R13 0
+       56 GETUPVAL                         R14 5
+       57 GETTABLEKS                       R14 R14 K23 ["TITLE_GUTTER_WIDTH"]
+       59 LOADN                            R15 0
+       60 LOADN                            R16 0
+       61 CALL                             R12 4 1
+       62 SETTABLEKS                       R12 R11 K9 ["Size"]
+       64 CALL                             R9 2 1
+       65 SETTABLEKS                       R9 R8 K13 ["Title"]
+       67 GETUPVAL                         R9 2
+       68 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       70 GETUPVAL                         R10 3
+       71 GETTABLEKS                       R10 R10 K5 ["View"]
+       73 DUPTABLE                         R11 K25 [{["tag"] = "auto-y", ["LayoutOrder"], ["Size"]}]
+       74 NAMECALL                         R12 R4 K20 ["getNextOrder"]
+       76 CALL                             R12 1 1
+       77 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+       79 GETIMPORT                        R12 K22 [UDim2.new]
+       81 LOADN                            R13 1
+       82 GETUPVAL                         R15 5
+       83 GETTABLEKS                       R15 R15 K23 ["TITLE_GUTTER_WIDTH"]
+       85 MINUS                            R14 R15
+       86 LOADN                            R15 0
+       87 LOADN                            R16 0
+       88 CALL                             R12 4 1
+       89 SETTABLEKS                       R12 R11 K9 ["Size"]
+       91 GETUPVAL                         R13 6
+       92 GETTABLEKS                       R13 R13 K26 ["Children"]
+       94 GETTABLE                         R12 R1 R13
+       95 CALL                             R9 3 1
+       96 SETTABLEKS                       R9 R8 K14 ["Contents"]
+       98 CALL                             R5 3 -1
+       99 RETURN                           R5 -1
+      100 GETUPVAL                         R5 6
+      101 GETTABLEKS                       R5 R5 K4 ["createElement"]
+      103 GETUPVAL                         R6 7
+      104 NEWTABLE                         R7 8 0
+      106 GETIMPORT                        R8 K30 [Enum.AutomaticSize.Y]
+      108 SETTABLEKS                       R8 R7 K28 ["AutomaticSize"]
+      110 GETIMPORT                        R8 K33 [Enum.HorizontalAlignment.Left]
+      112 SETTABLEKS                       R8 R7 K31 ["HorizontalAlignment"]
+      114 GETIMPORT                        R8 K36 [Enum.FillDirection.Horizontal]
+      116 SETTABLEKS                       R8 R7 K37 ["Layout"]
+      118 GETTABLEKS                       R8 R1 K8 ["LayoutOrder"]
+      120 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+      122 GETTABLEKS                       R8 R1 K9 ["Size"]
+      124 SETTABLEKS                       R8 R7 K9 ["Size"]
+      126 GETIMPORT                        R8 K40 [Enum.VerticalAlignment.Top]
+      128 SETTABLEKS                       R8 R7 K38 ["VerticalAlignment"]
+      130 GETUPVAL                         R8 6
+      131 GETTABLEKS                       R8 R8 K41 ["Ref"]
+      133 GETTABLEKS                       R9 R1 K12 ["ForwardRef"]
+      135 SETTABLE                         R9 R7 R8
+      136 DUPTABLE                         R8 K15 [{"Title", "Contents"}]
+      137 GETUPVAL                         R9 6
+      138 GETTABLEKS                       R9 R9 K4 ["createElement"]
+      140 GETUPVAL                         R10 8
+      141 DUPTABLE                         R11 K46 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
+      142 GETIMPORT                        R12 K30 [Enum.AutomaticSize.Y]
+      144 SETTABLEKS                       R12 R11 K28 ["AutomaticSize"]
+      146 NAMECALL                         R12 R4 K20 ["getNextOrder"]
+      148 CALL                             R12 1 1
+      149 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      151 GETIMPORT                        R12 K22 [UDim2.new]
+      153 LOADN                            R13 0
+      154 GETUPVAL                         R14 5
+      155 GETTABLEKS                       R14 R14 K23 ["TITLE_GUTTER_WIDTH"]
+      157 LOADN                            R15 0
+      158 LOADN                            R16 0
+      159 CALL                             R12 4 1
+      160 SETTABLEKS                       R12 R11 K9 ["Size"]
+      162 GETTABLEKS                       R12 R1 K13 ["Title"]
+      164 SETTABLEKS                       R12 R11 K16 ["Text"]
+      166 GETTABLEKS                       R12 R3 K47 ["titleTextColor"]
+      168 SETTABLEKS                       R12 R11 K42 ["TextColor"]
+      170 GETUPVAL                         R12 9
+      171 GETTABLEKS                       R12 R12 K48 ["FONT_SIZE_TITLE"]
+      173 SETTABLEKS                       R12 R11 K43 ["TextSize"]
+      175 GETIMPORT                        R12 K49 [Enum.TextXAlignment.Left]
+      177 SETTABLEKS                       R12 R11 K44 ["TextXAlignment"]
+      179 GETIMPORT                        R12 K50 [Enum.TextYAlignment.Top]
+      181 SETTABLEKS                       R12 R11 K45 ["TextYAlignment"]
+      183 CALL                             R9 2 1
+      184 SETTABLEKS                       R9 R8 K13 ["Title"]
+      186 GETUPVAL                         R9 6
+      187 GETTABLEKS                       R9 R9 K4 ["createElement"]
+      189 GETUPVAL                         R10 7
+      190 DUPTABLE                         R11 K51 [{"AutomaticSize", "LayoutOrder", "Size"}]
+      191 GETIMPORT                        R12 K30 [Enum.AutomaticSize.Y]
+      193 SETTABLEKS                       R12 R11 K28 ["AutomaticSize"]
+      195 NAMECALL                         R12 R4 K20 ["getNextOrder"]
+      197 CALL                             R12 1 1
+      198 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      200 GETIMPORT                        R12 K22 [UDim2.new]
+      202 LOADN                            R13 1
+      203 GETUPVAL                         R15 5
+      204 GETTABLEKS                       R15 R15 K23 ["TITLE_GUTTER_WIDTH"]
+      206 MINUS                            R14 R15
+      207 LOADN                            R15 0
+      208 GETUPVAL                         R16 9
+      209 GETTABLEKS                       R16 R16 K48 ["FONT_SIZE_TITLE"]
+      211 CALL                             R12 4 1
+      212 SETTABLEKS                       R12 R11 K9 ["Size"]
+      214 GETUPVAL                         R13 6
+      215 GETTABLEKS                       R13 R13 K26 ["Children"]
+      217 GETTABLE                         R12 R1 R13
+      218 CALL                             R9 3 1
+      219 SETTABLEKS                       R9 R8 K14 ["Contents"]
+      221 CALL                             R5 3 -1
+      222 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -13,14 +13,12 @@ PROTO_1:
         5 CAPTURE                          VAL R1
         6 GETUPVAL                         R3 1
         7 MOVE                             R4 R0
-        8 DUPTABLE                         R5 K3 [{"ruleInstance", "property"}]
+        8 DUPTABLE                         R5 K4 [{["ruleInstance"], ["property"] = "AvatarType"}]
         9 SETTABLEKS                       R1 R5 K1 ["ruleInstance"]
-       11 LOADK                            R6 K4 ["AvatarType"]
-       12 SETTABLEKS                       R6 R5 K2 ["property"]
-       14 GETUPVAL                         R6 2
-       15 GETTABLEKS                       R6 R6 K5 ["avatarType"]
-       17 CALL                             R3 3 0
-       18 RETURN                           R0 0
+       11 GETUPVAL                         R6 2
+       12 GETTABLEKS                       R6 R6 K5 ["avatarType"]
+       14 CALL                             R3 3 0
+       15 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -143,26 +143,24 @@ PROTO_1:
       169 GETUPVAL                         R11 2
       170 GETTABLEKS                       R11 R11 K12 ["createElement"]
       172 GETUPVAL                         R12 10
-      173 DUPTABLE                         R13 K42 [{"LayoutOrder", "Size", "AutomaticSize", "BackgroundTransparency", "Layout", "Spacing", "ref"}]
+      173 DUPTABLE                         R13 K43 [{["LayoutOrder"], ["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Layout"], ["Spacing"], ["ref"]}]
       174 GETTABLEKS                       R14 R0 K13 ["LayoutOrder"]
       176 SETTABLEKS                       R14 R13 K13 ["LayoutOrder"]
-      178 GETIMPORT                        R14 K45 [UDim2.fromScale]
+      178 GETIMPORT                        R14 K46 [UDim2.fromScale]
       180 LOADN                            R15 1
       181 LOADN                            R16 0
       182 CALL                             R14 2 1
       183 SETTABLEKS                       R14 R13 K36 ["Size"]
-      185 GETIMPORT                        R14 K48 [Enum.AutomaticSize.Y]
+      185 GETIMPORT                        R14 K49 [Enum.AutomaticSize.Y]
       187 SETTABLEKS                       R14 R13 K37 ["AutomaticSize"]
-      189 LOADN                            R14 1
-      190 SETTABLEKS                       R14 R13 K38 ["BackgroundTransparency"]
-      192 GETIMPORT                        R14 K51 [Enum.FillDirection.Vertical]
-      194 SETTABLEKS                       R14 R13 K39 ["Layout"]
-      196 GETTABLEKS                       R14 R4 K52 ["spacingUnit"]
-      198 SETTABLEKS                       R14 R13 K40 ["Spacing"]
-      200 SETTABLEKS                       R6 R13 K41 ["ref"]
-      202 MOVE                             R14 R10
-      203 CALL                             R11 3 -1
-      204 RETURN                           R11 -1
+      189 GETIMPORT                        R14 K52 [Enum.FillDirection.Vertical]
+      191 SETTABLEKS                       R14 R13 K40 ["Layout"]
+      193 GETTABLEKS                       R14 R4 K53 ["spacingUnit"]
+      195 SETTABLEKS                       R14 R13 K41 ["Spacing"]
+      197 SETTABLEKS                       R6 R13 K42 ["ref"]
+      199 MOVE                             R14 R10
+      200 CALL                             R11 3 -1
+      201 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

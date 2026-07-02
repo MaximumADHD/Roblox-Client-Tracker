@@ -39,77 +39,69 @@ PROTO_0:
        52 GETTABLEKS                       R4 R4 K16 ["createElement"]
        54 GETUPVAL                         R5 4
        55 GETTABLEKS                       R5 R5 K17 ["View"]
-       57 DUPTABLE                         R6 K21 [{"tag", "Size", "LayoutOrder"}]
-       58 LOADK                            R7 K22 ["size-full-0 auto-y row align-y-center gap-medium padding-medium radius-small"]
-       59 SETTABLEKS                       R7 R6 K18 ["tag"]
-       61 GETIMPORT                        R7 K25 [UDim2.new]
-       63 LOADN                            R8 1
-       64 LOADN                            R9 0
-       65 LOADN                            R10 0
-       66 LOADN                            R11 50
-       67 CALL                             R7 4 1
-       68 SETTABLEKS                       R7 R6 K19 ["Size"]
-       70 GETTABLEKS                       R7 R0 K20 ["LayoutOrder"]
-       72 SETTABLEKS                       R7 R6 K20 ["LayoutOrder"]
-       74 DUPTABLE                         R7 K30 [{"Title", "Spacer", "UserCount", "DeleteButton"}]
-       75 GETUPVAL                         R8 3
-       76 GETTABLEKS                       R8 R8 K16 ["createElement"]
-       78 GETUPVAL                         R9 4
-       79 GETTABLEKS                       R9 R9 K31 ["Text"]
-       81 DUPTABLE                         R10 K33 [{"Text", "tag", "LayoutOrder", "TextXAlignment"}]
-       82 GETTABLEKS                       R11 R0 K34 ["partyName"]
-       84 SETTABLEKS                       R11 R10 K31 ["Text"]
-       86 LOADK                            R11 K35 ["text-label-large"]
-       87 SETTABLEKS                       R11 R10 K18 ["tag"]
-       89 MOVE                             R11 R1
-       90 CALL                             R11 0 1
-       91 SETTABLEKS                       R11 R10 K20 ["LayoutOrder"]
-       93 GETIMPORT                        R11 K38 [Enum.TextXAlignment.Left]
-       95 SETTABLEKS                       R11 R10 K32 ["TextXAlignment"]
-       97 CALL                             R8 2 1
-       98 SETTABLEKS                       R8 R7 K26 ["Title"]
-      100 GETUPVAL                         R8 3
-      101 GETTABLEKS                       R8 R8 K16 ["createElement"]
-      103 GETUPVAL                         R9 4
-      104 GETTABLEKS                       R9 R9 K17 ["View"]
-      106 DUPTABLE                         R10 K39 [{"tag", "LayoutOrder"}]
-      107 LOADK                            R11 K40 ["fill"]
-      108 SETTABLEKS                       R11 R10 K18 ["tag"]
-      110 MOVE                             R11 R1
-      111 CALL                             R11 0 1
-      112 SETTABLEKS                       R11 R10 K20 ["LayoutOrder"]
-      114 CALL                             R8 2 1
-      115 SETTABLEKS                       R8 R7 K27 ["Spacer"]
-      117 GETUPVAL                         R8 3
-      118 GETTABLEKS                       R8 R8 K16 ["createElement"]
-      120 GETUPVAL                         R9 4
-      121 GETTABLEKS                       R9 R9 K31 ["Text"]
-      123 DUPTABLE                         R10 K41 [{"Text", "tag", "LayoutOrder"}]
-      124 SETTABLEKS                       R3 R10 K31 ["Text"]
-      126 LOADK                            R11 K42 ["text-label-large text-color-secondary text-align-x-right auto-x"]
-      127 SETTABLEKS                       R11 R10 K18 ["tag"]
-      129 MOVE                             R11 R1
-      130 CALL                             R11 0 1
-      131 SETTABLEKS                       R11 R10 K20 ["LayoutOrder"]
-      133 CALL                             R8 2 1
-      134 SETTABLEKS                       R8 R7 K28 ["UserCount"]
-      136 GETTABLEKS                       R9 R0 K43 ["showDeleteButton"]
-      138 JUMPIFNOT                        R9 ; [+15]
-      139 GETUPVAL                         R8 3
-      140 GETTABLEKS                       R8 R8 K16 ["createElement"]
-      142 GETUPVAL                         R9 5
-      143 DUPTABLE                         R10 K44 [{"partyId", "LayoutOrder"}]
-      144 GETTABLEKS                       R11 R0 K1 ["partyId"]
-      146 SETTABLEKS                       R11 R10 K1 ["partyId"]
-      148 MOVE                             R11 R1
-      149 CALL                             R11 0 1
-      150 SETTABLEKS                       R11 R10 K20 ["LayoutOrder"]
-      152 CALL                             R8 2 1
-      153 JUMPIF                           R8 ; [+1]
-      154 LOADNIL                          R8
-      155 SETTABLEKS                       R8 R7 K29 ["DeleteButton"]
-      157 CALL                             R4 3 -1
-      158 RETURN                           R4 -1
+       57 DUPTABLE                         R6 K22 [{["tag"] = "row align-y-center gap-medium size-full-0 auto-y padding-medium radius-small", ["Size"], ["LayoutOrder"]}]
+       58 GETIMPORT                        R7 K25 [UDim2.new]
+       60 LOADN                            R8 1
+       61 LOADN                            R9 0
+       62 LOADN                            R10 0
+       63 LOADN                            R11 50
+       64 CALL                             R7 4 1
+       65 SETTABLEKS                       R7 R6 K20 ["Size"]
+       67 GETTABLEKS                       R7 R0 K21 ["LayoutOrder"]
+       69 SETTABLEKS                       R7 R6 K21 ["LayoutOrder"]
+       71 DUPTABLE                         R7 K30 [{"Title", "Spacer", "UserCount", "DeleteButton"}]
+       72 GETUPVAL                         R8 3
+       73 GETTABLEKS                       R8 R8 K16 ["createElement"]
+       75 GETUPVAL                         R9 4
+       76 GETTABLEKS                       R9 R9 K31 ["Text"]
+       78 DUPTABLE                         R10 K34 [{["Text"], ["tag"] = "text-label-large", ["LayoutOrder"], ["TextXAlignment"]}]
+       79 GETTABLEKS                       R11 R0 K35 ["partyName"]
+       81 SETTABLEKS                       R11 R10 K31 ["Text"]
+       83 MOVE                             R11 R1
+       84 CALL                             R11 0 1
+       85 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
+       87 GETIMPORT                        R11 K38 [Enum.TextXAlignment.Left]
+       89 SETTABLEKS                       R11 R10 K33 ["TextXAlignment"]
+       91 CALL                             R8 2 1
+       92 SETTABLEKS                       R8 R7 K26 ["Title"]
+       94 GETUPVAL                         R8 3
+       95 GETTABLEKS                       R8 R8 K16 ["createElement"]
+       97 GETUPVAL                         R9 4
+       98 GETTABLEKS                       R9 R9 K17 ["View"]
+      100 DUPTABLE                         R10 K40 [{["tag"] = "fill", ["LayoutOrder"]}]
+      101 MOVE                             R11 R1
+      102 CALL                             R11 0 1
+      103 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
+      105 CALL                             R8 2 1
+      106 SETTABLEKS                       R8 R7 K27 ["Spacer"]
+      108 GETUPVAL                         R8 3
+      109 GETTABLEKS                       R8 R8 K16 ["createElement"]
+      111 GETUPVAL                         R9 4
+      112 GETTABLEKS                       R9 R9 K31 ["Text"]
+      114 DUPTABLE                         R10 K42 [{["Text"], ["tag"] = "text-color-secondary auto-x text-label-large text-align-x-right", ["LayoutOrder"]}]
+      115 SETTABLEKS                       R3 R10 K31 ["Text"]
+      117 MOVE                             R11 R1
+      118 CALL                             R11 0 1
+      119 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
+      121 CALL                             R8 2 1
+      122 SETTABLEKS                       R8 R7 K28 ["UserCount"]
+      124 GETTABLEKS                       R9 R0 K43 ["showDeleteButton"]
+      126 JUMPIFNOT                        R9 ; [+15]
+      127 GETUPVAL                         R8 3
+      128 GETTABLEKS                       R8 R8 K16 ["createElement"]
+      130 GETUPVAL                         R9 5
+      131 DUPTABLE                         R10 K44 [{"partyId", "LayoutOrder"}]
+      132 GETTABLEKS                       R11 R0 K1 ["partyId"]
+      134 SETTABLEKS                       R11 R10 K1 ["partyId"]
+      136 MOVE                             R11 R1
+      137 CALL                             R11 0 1
+      138 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
+      140 CALL                             R8 2 1
+      141 JUMPIF                           R8 ; [+1]
+      142 LOADNIL                          R8
+      143 SETTABLEKS                       R8 R7 K29 ["DeleteButton"]
+      145 CALL                             R4 3 -1
+      146 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -17,76 +17,64 @@ PROTO_1:
        13 GETUPVAL                         R7 0
        14 GETTABLEKS                       R7 R7 K7 ["createElement"]
        16 GETUPVAL                         R8 1
-       17 DUPTABLE                         R9 K13 [{"Title", "LayoutOrder", "Boxes", "EntryClicked", "AbsoluteMaxHeight", "UseGridLayout"}]
-       18 LOADK                            R12 K14 ["PageTitle"]
+       17 DUPTABLE                         R9 K14 [{["Title"], ["LayoutOrder"], ["Boxes"], ["EntryClicked"], ["AbsoluteMaxHeight"], ["UseGridLayout"] = True}]
+       18 LOADK                            R12 K15 ["PageTitle"]
        19 LOADK                            R13 K6 ["Devices"]
-       20 NAMECALL                         R10 R2 K15 ["getText"]
+       20 NAMECALL                         R10 R2 K16 ["getText"]
        22 CALL                             R10 3 1
        23 SETTABLEKS                       R10 R9 K8 ["Title"]
        25 SETTABLEKS                       R4 R9 K4 ["LayoutOrder"]
        27 NEWTABLE                         R10 0 5
-       29 DUPTABLE                         R11 K18 [{"Id", "Title", "Selected"}]
-       30 LOADK                            R12 K19 ["Computer"]
-       31 SETTABLEKS                       R12 R11 K16 ["Id"]
-       33 LOADK                            R14 K6 ["Devices"]
-       34 LOADK                            R15 K19 ["Computer"]
-       35 NAMECALL                         R12 R2 K15 ["getText"]
-       37 CALL                             R12 3 1
-       38 SETTABLEKS                       R12 R11 K8 ["Title"]
-       40 GETTABLEKS                       R12 R6 K19 ["Computer"]
-       42 SETTABLEKS                       R12 R11 K17 ["Selected"]
-       44 DUPTABLE                         R12 K18 [{"Id", "Title", "Selected"}]
-       45 LOADK                            R13 K20 ["Phone"]
-       46 SETTABLEKS                       R13 R12 K16 ["Id"]
-       48 LOADK                            R15 K6 ["Devices"]
-       49 LOADK                            R16 K20 ["Phone"]
-       50 NAMECALL                         R13 R2 K15 ["getText"]
-       52 CALL                             R13 3 1
-       53 SETTABLEKS                       R13 R12 K8 ["Title"]
-       55 GETTABLEKS                       R13 R6 K20 ["Phone"]
-       57 SETTABLEKS                       R13 R12 K17 ["Selected"]
-       59 DUPTABLE                         R13 K18 [{"Id", "Title", "Selected"}]
-       60 LOADK                            R14 K21 ["Tablet"]
-       61 SETTABLEKS                       R14 R13 K16 ["Id"]
-       63 LOADK                            R16 K6 ["Devices"]
-       64 LOADK                            R17 K21 ["Tablet"]
-       65 NAMECALL                         R14 R2 K15 ["getText"]
-       67 CALL                             R14 3 1
-       68 SETTABLEKS                       R14 R13 K8 ["Title"]
-       70 GETTABLEKS                       R14 R6 K21 ["Tablet"]
-       72 SETTABLEKS                       R14 R13 K17 ["Selected"]
-       74 DUPTABLE                         R14 K18 [{"Id", "Title", "Selected"}]
-       75 LOADK                            R15 K22 ["Console"]
-       76 SETTABLEKS                       R15 R14 K16 ["Id"]
-       78 LOADK                            R17 K6 ["Devices"]
-       79 LOADK                            R18 K22 ["Console"]
-       80 NAMECALL                         R15 R2 K15 ["getText"]
-       82 CALL                             R15 3 1
-       83 SETTABLEKS                       R15 R14 K8 ["Title"]
-       85 GETTABLEKS                       R15 R6 K22 ["Console"]
-       87 SETTABLEKS                       R15 R14 K17 ["Selected"]
-       89 DUPTABLE                         R15 K18 [{"Id", "Title", "Selected"}]
-       90 LOADK                            R16 K23 ["VR"]
-       91 SETTABLEKS                       R16 R15 K16 ["Id"]
-       93 LOADK                            R18 K6 ["Devices"]
-       94 LOADK                            R19 K23 ["VR"]
-       95 NAMECALL                         R16 R2 K15 ["getText"]
-       97 CALL                             R16 3 1
-       98 SETTABLEKS                       R16 R15 K8 ["Title"]
-      100 GETTABLEKS                       R16 R6 K23 ["VR"]
-      102 SETTABLEKS                       R16 R15 K17 ["Selected"]
-      104 SETLIST                          R10 R11 5 [1]
-      106 SETTABLEKS                       R10 R9 K9 ["Boxes"]
-      108 NEWCLOSURE                       R10 P0
-      109 CAPTURE                          VAL R5
-      110 SETTABLEKS                       R10 R9 K10 ["EntryClicked"]
-      112 GETTABLEKS                       R10 R3 K24 ["checkboxset"]
-      114 GETTABLEKS                       R10 R10 K25 ["maxHeight"]
-      116 SETTABLEKS                       R10 R9 K11 ["AbsoluteMaxHeight"]
-      118 LOADB                            R10 1
-      119 SETTABLEKS                       R10 R9 K12 ["UseGridLayout"]
-      121 CALL                             R7 2 -1
-      122 RETURN                           R7 -1
+       29 DUPTABLE                         R11 K20 [{["Id"] = "Computer", ["Title"], ["Selected"]}]
+       30 LOADK                            R14 K6 ["Devices"]
+       31 LOADK                            R15 K18 ["Computer"]
+       32 NAMECALL                         R12 R2 K16 ["getText"]
+       34 CALL                             R12 3 1
+       35 SETTABLEKS                       R12 R11 K8 ["Title"]
+       37 GETTABLEKS                       R12 R6 K18 ["Computer"]
+       39 SETTABLEKS                       R12 R11 K19 ["Selected"]
+       41 DUPTABLE                         R12 K22 [{["Id"] = "Phone", ["Title"], ["Selected"]}]
+       42 LOADK                            R15 K6 ["Devices"]
+       43 LOADK                            R16 K21 ["Phone"]
+       44 NAMECALL                         R13 R2 K16 ["getText"]
+       46 CALL                             R13 3 1
+       47 SETTABLEKS                       R13 R12 K8 ["Title"]
+       49 GETTABLEKS                       R13 R6 K21 ["Phone"]
+       51 SETTABLEKS                       R13 R12 K19 ["Selected"]
+       53 DUPTABLE                         R13 K24 [{["Id"] = "Tablet", ["Title"], ["Selected"]}]
+       54 LOADK                            R16 K6 ["Devices"]
+       55 LOADK                            R17 K23 ["Tablet"]
+       56 NAMECALL                         R14 R2 K16 ["getText"]
+       58 CALL                             R14 3 1
+       59 SETTABLEKS                       R14 R13 K8 ["Title"]
+       61 GETTABLEKS                       R14 R6 K23 ["Tablet"]
+       63 SETTABLEKS                       R14 R13 K19 ["Selected"]
+       65 DUPTABLE                         R14 K26 [{["Id"] = "Console", ["Title"], ["Selected"]}]
+       66 LOADK                            R17 K6 ["Devices"]
+       67 LOADK                            R18 K25 ["Console"]
+       68 NAMECALL                         R15 R2 K16 ["getText"]
+       70 CALL                             R15 3 1
+       71 SETTABLEKS                       R15 R14 K8 ["Title"]
+       73 GETTABLEKS                       R15 R6 K25 ["Console"]
+       75 SETTABLEKS                       R15 R14 K19 ["Selected"]
+       77 DUPTABLE                         R15 K28 [{["Id"] = "VR", ["Title"], ["Selected"]}]
+       78 LOADK                            R18 K6 ["Devices"]
+       79 LOADK                            R19 K27 ["VR"]
+       80 NAMECALL                         R16 R2 K16 ["getText"]
+       82 CALL                             R16 3 1
+       83 SETTABLEKS                       R16 R15 K8 ["Title"]
+       85 GETTABLEKS                       R16 R6 K27 ["VR"]
+       87 SETTABLEKS                       R16 R15 K19 ["Selected"]
+       89 SETLIST                          R10 R11 5 [1]
+       91 SETTABLEKS                       R10 R9 K9 ["Boxes"]
+       93 NEWCLOSURE                       R10 P0
+       94 CAPTURE                          VAL R5
+       95 SETTABLEKS                       R10 R9 K10 ["EntryClicked"]
+       97 GETTABLEKS                       R10 R3 K29 ["checkboxset"]
+       99 GETTABLEKS                       R10 R10 K30 ["maxHeight"]
+      101 SETTABLEKS                       R10 R9 K11 ["AbsoluteMaxHeight"]
+      103 CALL                             R7 2 -1
+      104 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

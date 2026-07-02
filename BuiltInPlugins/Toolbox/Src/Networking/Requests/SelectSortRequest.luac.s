@@ -2,20 +2,16 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R4 1
         2 GETUPVAL                         R5 2
-        3 DUPTABLE                         R6 K4 [{"sortIndex", "targetPage", "currentPage", "requestReason"}]
+        3 DUPTABLE                         R6 K6 [{[1], ["targetPage"] = 1, ["currentPage"] = 0, ["requestReason"]}]
         4 GETUPVAL                         R7 3
         5 SETTABLEKS                       R7 R6 K0 ["sortIndex"]
-        7 LOADN                            R7 1
-        8 SETTABLEKS                       R7 R6 K1 ["targetPage"]
-       10 LOADN                            R7 0
-       11 SETTABLEKS                       R7 R6 K2 ["currentPage"]
-       13 GETUPVAL                         R7 4
-       14 GETTABLEKS                       R7 R7 K5 ["ChangeSort"]
-       16 SETTABLEKS                       R7 R6 K3 ["requestReason"]
-       18 CALL                             R3 3 -1
-       19 NAMECALL                         R1 R0 K6 ["dispatch"]
-       21 CALL                             R1 -1 0
-       22 RETURN                           R0 0
+        7 GETUPVAL                         R7 4
+        8 GETTABLEKS                       R7 R7 K7 ["ChangeSort"]
+       10 SETTABLEKS                       R7 R6 K5 ["requestReason"]
+       12 CALL                             R3 3 -1
+       13 NAMECALL                         R1 R0 K8 ["dispatch"]
+       15 CALL                             R1 -1 0
+       16 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R3 P0

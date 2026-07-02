@@ -4,26 +4,22 @@ PROTO_0:
         3 LOADNIL                          R4
         4 LOADNIL                          R5
         5 FORGPREP                         R3
-        6 DUPTABLE                         R10 K3 [{"id", "attachment", "accessoryType"}]
+        6 DUPTABLE                         R10 K4 [{[1], ["attachment"], ["accessoryType"] = "rigid"}]
         7 SETTABLEKS                       R7 R10 K0 ["id"]
         9 SETTABLEKS                       R0 R10 K1 ["attachment"]
-       11 LOADK                            R11 K4 ["rigid"]
-       12 SETTABLEKS                       R11 R10 K2 ["accessoryType"]
-       14 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
-       16 MOVE                             R9 R2
-       17 GETIMPORT                        R8 K7 [table.insert]
-       19 CALL                             R8 2 0
-       20 FORGLOOP                         R3 2 ; [-15]
-       22 RETURN                           R2 1
+       11 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       13 MOVE                             R9 R2
+       14 GETIMPORT                        R8 K7 [table.insert]
+       16 CALL                             R8 2 0
+       17 FORGLOOP                         R3 2 ; [-12]
+       19 RETURN                           R2 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"id", "attachment", "accessoryType"}]
+        0 DUPTABLE                         R1 K4 [{[1], ["attachment"], ["accessoryType"] = "rigid"}]
         1 SETTABLEKS                       R0 R1 K0 ["id"]
         3 GETUPVAL                         R2 0
         4 SETTABLEKS                       R2 R1 K1 ["attachment"]
-        6 LOADK                            R2 K4 ["rigid"]
-        7 SETTABLEKS                       R2 R1 K2 ["accessoryType"]
-        9 RETURN                           R1 1
+        6 RETURN                           R1 1
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0
@@ -41,16 +37,14 @@ PROTO_4:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 DUPTABLE                         R9 K2 [{"id", "accessoryType"}]
+        6 DUPTABLE                         R9 K3 [{[1], ["accessoryType"] = "layered"}]
         7 SETTABLEKS                       R6 R9 K0 ["id"]
-        9 LOADK                            R10 K3 ["layered"]
-       10 SETTABLEKS                       R10 R9 K1 ["accessoryType"]
-       12 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       14 MOVE                             R8 R1
-       15 GETIMPORT                        R7 K6 [table.insert]
-       17 CALL                             R7 2 0
-       18 FORGLOOP                         R2 2 ; [-13]
-       20 RETURN                           R1 1
+        9 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       11 MOVE                             R8 R1
+       12 GETIMPORT                        R7 K6 [table.insert]
+       14 CALL                             R7 2 0
+       15 FORGLOOP                         R2 2 ; [-10]
+       17 RETURN                           R1 1
 
 PROTO_5:
         0 NEWTABLE                         R1 0 0
@@ -58,16 +52,14 @@ PROTO_5:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 DUPTABLE                         R9 K2 [{"id", "accessoryType"}]
+        6 DUPTABLE                         R9 K3 [{[1], ["accessoryType"] = "makeup"}]
         7 SETTABLEKS                       R6 R9 K0 ["id"]
-        9 LOADK                            R10 K3 ["makeup"]
-       10 SETTABLEKS                       R10 R9 K1 ["accessoryType"]
-       12 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       14 MOVE                             R8 R1
-       15 GETIMPORT                        R7 K6 [table.insert]
-       17 CALL                             R7 2 0
-       18 FORGLOOP                         R2 2 ; [-13]
-       20 RETURN                           R1 1
+        9 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       11 MOVE                             R8 R1
+       12 GETIMPORT                        R7 K6 [table.insert]
+       14 CALL                             R7 2 0
+       15 FORGLOOP                         R2 2 ; [-10]
+       17 RETURN                           R1 1
 
 PROTO_6:
         0 NEWTABLE                         R1 0 0
@@ -75,16 +67,14 @@ PROTO_6:
         3 LOADNIL                          R3
         4 LOADNIL                          R4
         5 FORGPREP                         R2
-        6 DUPTABLE                         R9 K2 [{"id", "accessoryType"}]
+        6 DUPTABLE                         R9 K3 [{[1], ["accessoryType"] = "classic"}]
         7 SETTABLEKS                       R6 R9 K0 ["id"]
-        9 LOADK                            R10 K3 ["classic"]
-       10 SETTABLEKS                       R10 R9 K1 ["accessoryType"]
-       12 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       14 MOVE                             R8 R1
-       15 GETIMPORT                        R7 K6 [table.insert]
-       17 CALL                             R7 2 0
-       18 FORGLOOP                         R2 2 ; [-13]
-       20 RETURN                           R1 1
+        9 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       11 MOVE                             R8 R1
+       12 GETIMPORT                        R7 K6 [table.insert]
+       14 CALL                             R7 2 0
+       15 FORGLOOP                         R2 2 ; [-10]
+       17 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

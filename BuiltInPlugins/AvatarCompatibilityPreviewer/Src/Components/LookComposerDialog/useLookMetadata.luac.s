@@ -11,7 +11,7 @@ PROTO_0:
        11 RETURN                           R0 1
        12 GETUPVAL                         R1 1
        13 LENGTH                           R0 R1
-       14 LOADN                            R1 232
+       14 LOADN                            R1 1000
        15 JUMPIFNOTLT                      R1 R0 ; [+3]
        17 LOADB                            R0 1
        18 RETURN                           R0 1

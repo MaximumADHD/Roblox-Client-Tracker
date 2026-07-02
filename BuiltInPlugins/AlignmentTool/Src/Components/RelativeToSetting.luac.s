@@ -35,23 +35,21 @@ PROTO_2:
         7 GETUPVAL                         R3 1
         8 GETTABLEKS                       R3 R3 K1 ["createElement"]
        10 GETUPVAL                         R4 2
-       11 DUPTABLE                         R5 K8 [{"Disabled", "Key", "LayoutOrder", "Selected", "Text", "OnClick"}]
-       12 LOADB                            R6 0
-       13 SETTABLEKS                       R6 R5 K2 ["Disabled"]
-       15 SETTABLEKS                       R0 R5 K3 ["Key"]
-       17 SETTABLEKS                       R1 R5 K4 ["LayoutOrder"]
-       19 SETTABLEKS                       R2 R5 K5 ["Selected"]
-       21 GETUPVAL                         R6 3
-       22 LOADK                            R8 K9 ["RelativeToSection"]
-       23 MOVE                             R9 R0
-       24 NAMECALL                         R6 R6 K10 ["getText"]
-       26 CALL                             R6 3 1
-       27 SETTABLEKS                       R6 R5 K6 ["Text"]
-       29 GETUPVAL                         R6 0
-       30 GETTABLEKS                       R6 R6 K11 ["OnValueChanged"]
-       32 SETTABLEKS                       R6 R5 K7 ["OnClick"]
-       34 CALL                             R3 2 -1
-       35 RETURN                           R3 -1
+       11 DUPTABLE                         R5 K9 [{["Disabled"] = False, ["Key"], ["LayoutOrder"], ["Selected"], ["Text"], ["OnClick"]}]
+       12 SETTABLEKS                       R0 R5 K4 ["Key"]
+       14 SETTABLEKS                       R1 R5 K5 ["LayoutOrder"]
+       16 SETTABLEKS                       R2 R5 K6 ["Selected"]
+       18 GETUPVAL                         R6 3
+       19 LOADK                            R8 K10 ["RelativeToSection"]
+       20 MOVE                             R9 R0
+       21 NAMECALL                         R6 R6 K11 ["getText"]
+       23 CALL                             R6 3 1
+       24 SETTABLEKS                       R6 R5 K7 ["Text"]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K12 ["OnValueChanged"]
+       29 SETTABLEKS                       R6 R5 K8 ["OnClick"]
+       31 CALL                             R3 2 -1
+       32 RETURN                           R3 -1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -65,87 +63,77 @@ PROTO_3:
        11 GETUPVAL                         R5 0
        12 GETTABLEKS                       R5 R5 K3 ["createElement"]
        14 GETUPVAL                         R6 2
-       15 DUPTABLE                         R7 K8 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection"}]
+       15 DUPTABLE                         R7 K9 [{["axis"], ["contentPadding"], ["BackgroundTransparency"] = 1, ["FillDirection"]}]
        16 GETUPVAL                         R8 2
-       17 GETTABLEKS                       R8 R8 K9 ["Axis"]
-       19 GETTABLEKS                       R8 R8 K10 ["Both"]
+       17 GETTABLEKS                       R8 R8 K10 ["Axis"]
+       19 GETTABLEKS                       R8 R8 K11 ["Both"]
        21 SETTABLEKS                       R8 R7 K4 ["axis"]
-       23 GETTABLEKS                       R8 R3 K11 ["SectionContentPaddingCompact"]
+       23 GETTABLEKS                       R8 R3 K12 ["SectionContentPaddingCompact"]
        25 SETTABLEKS                       R8 R7 K5 ["contentPadding"]
-       27 LOADN                            R8 1
-       28 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
-       30 GETIMPORT                        R8 K14 [Enum.FillDirection.Vertical]
-       32 SETTABLEKS                       R8 R7 K7 ["FillDirection"]
-       34 DUPTABLE                         R8 K17 [{"SelectionRadioButton", "ActiveRadioButton"}]
-       35 MOVE                             R9 R4
-       36 GETUPVAL                         R10 3
-       37 GETTABLEKS                       R10 R10 K18 ["Selection"]
-       39 LOADN                            R11 1
-       40 CALL                             R9 2 1
-       41 SETTABLEKS                       R9 R8 K15 ["SelectionRadioButton"]
-       43 GETUPVAL                         R9 0
-       44 GETTABLEKS                       R9 R9 K3 ["createElement"]
-       46 GETUPVAL                         R10 2
-       47 DUPTABLE                         R11 K20 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-       48 GETUPVAL                         R12 2
-       49 GETTABLEKS                       R12 R12 K9 ["Axis"]
-       51 GETTABLEKS                       R12 R12 K10 ["Both"]
-       53 SETTABLEKS                       R12 R11 K4 ["axis"]
-       55 GETTABLEKS                       R12 R3 K21 ["RelativeToSetting"]
-       57 GETTABLEKS                       R12 R12 K22 ["HelpIconPadding"]
-       59 SETTABLEKS                       R12 R11 K5 ["contentPadding"]
-       61 LOADN                            R12 1
-       62 SETTABLEKS                       R12 R11 K6 ["BackgroundTransparency"]
-       64 GETIMPORT                        R12 K24 [Enum.FillDirection.Horizontal]
-       66 SETTABLEKS                       R12 R11 K7 ["FillDirection"]
-       68 LOADN                            R12 2
-       69 SETTABLEKS                       R12 R11 K19 ["LayoutOrder"]
-       71 DUPTABLE                         R12 K27 [{"RadioButton", "HelpIcon"}]
-       72 MOVE                             R13 R4
-       73 GETUPVAL                         R14 3
-       74 GETTABLEKS                       R14 R14 K28 ["Active"]
-       76 LOADN                            R15 1
-       77 CALL                             R13 2 1
-       78 SETTABLEKS                       R13 R12 K25 ["RadioButton"]
-       80 GETUPVAL                         R13 0
-       81 GETTABLEKS                       R13 R13 K3 ["createElement"]
-       83 GETUPVAL                         R14 4
-       84 DUPTABLE                         R15 K30 [{"LayoutOrder", "Size"}]
-       85 LOADN                            R16 2
-       86 SETTABLEKS                       R16 R15 K19 ["LayoutOrder"]
-       88 GETIMPORT                        R16 K33 [UDim2.new]
-       90 LOADN                            R17 0
-       91 LOADN                            R18 22
-       92 LOADN                            R19 1
-       93 LOADN                            R20 0
-       94 CALL                             R16 4 1
-       95 SETTABLEKS                       R16 R15 K29 ["Size"]
-       97 DUPTABLE                         R16 K36 [{"Icon", "Tooltip"}]
-       98 GETUPVAL                         R17 0
-       99 GETTABLEKS                       R17 R17 K3 ["createElement"]
-      101 GETUPVAL                         R18 5
-      102 DUPTABLE                         R19 K38 [{"Style"}]
-      103 LOADK                            R20 K26 ["HelpIcon"]
-      104 SETTABLEKS                       R20 R19 K37 ["Style"]
+       27 GETIMPORT                        R8 K15 [Enum.FillDirection.Vertical]
+       29 SETTABLEKS                       R8 R7 K8 ["FillDirection"]
+       31 DUPTABLE                         R8 K18 [{"SelectionRadioButton", "ActiveRadioButton"}]
+       32 MOVE                             R9 R4
+       33 GETUPVAL                         R10 3
+       34 GETTABLEKS                       R10 R10 K19 ["Selection"]
+       36 LOADN                            R11 1
+       37 CALL                             R9 2 1
+       38 SETTABLEKS                       R9 R8 K16 ["SelectionRadioButton"]
+       40 GETUPVAL                         R9 0
+       41 GETTABLEKS                       R9 R9 K3 ["createElement"]
+       43 GETUPVAL                         R10 2
+       44 DUPTABLE                         R11 K22 [{["axis"], ["contentPadding"], ["BackgroundTransparency"] = 1, ["FillDirection"], ["LayoutOrder"] = 2}]
+       45 GETUPVAL                         R12 2
+       46 GETTABLEKS                       R12 R12 K10 ["Axis"]
+       48 GETTABLEKS                       R12 R12 K11 ["Both"]
+       50 SETTABLEKS                       R12 R11 K4 ["axis"]
+       52 GETTABLEKS                       R12 R3 K23 ["RelativeToSetting"]
+       54 GETTABLEKS                       R12 R12 K24 ["HelpIconPadding"]
+       56 SETTABLEKS                       R12 R11 K5 ["contentPadding"]
+       58 GETIMPORT                        R12 K26 [Enum.FillDirection.Horizontal]
+       60 SETTABLEKS                       R12 R11 K8 ["FillDirection"]
+       62 DUPTABLE                         R12 K29 [{"RadioButton", "HelpIcon"}]
+       63 MOVE                             R13 R4
+       64 GETUPVAL                         R14 3
+       65 GETTABLEKS                       R14 R14 K30 ["Active"]
+       67 LOADN                            R15 1
+       68 CALL                             R13 2 1
+       69 SETTABLEKS                       R13 R12 K27 ["RadioButton"]
+       71 GETUPVAL                         R13 0
+       72 GETTABLEKS                       R13 R13 K3 ["createElement"]
+       74 GETUPVAL                         R14 4
+       75 DUPTABLE                         R15 K32 [{["LayoutOrder"] = 2, ["Size"]}]
+       76 GETIMPORT                        R16 K35 [UDim2.new]
+       78 LOADN                            R17 0
+       79 LOADN                            R18 22
+       80 LOADN                            R19 1
+       81 LOADN                            R20 0
+       82 CALL                             R16 4 1
+       83 SETTABLEKS                       R16 R15 K31 ["Size"]
+       85 DUPTABLE                         R16 K38 [{"Icon", "Tooltip"}]
+       86 GETUPVAL                         R17 0
+       87 GETTABLEKS                       R17 R17 K3 ["createElement"]
+       89 GETUPVAL                         R18 5
+       90 DUPTABLE                         R19 K40 [{["Style"] = "HelpIcon"}]
+       91 CALL                             R17 2 1
+       92 SETTABLEKS                       R17 R16 K36 ["Icon"]
+       94 GETUPVAL                         R17 0
+       95 GETTABLEKS                       R17 R17 K3 ["createElement"]
+       97 GETUPVAL                         R18 6
+       98 DUPTABLE                         R19 K42 [{"Text"}]
+       99 LOADK                            R22 K43 ["RelativeToSection"]
+      100 LOADK                            R23 K44 ["ActiveObjectTooltip"]
+      101 NAMECALL                         R20 R2 K45 ["getText"]
+      103 CALL                             R20 3 1
+      104 SETTABLEKS                       R20 R19 K41 ["Text"]
       106 CALL                             R17 2 1
-      107 SETTABLEKS                       R17 R16 K34 ["Icon"]
-      109 GETUPVAL                         R17 0
-      110 GETTABLEKS                       R17 R17 K3 ["createElement"]
-      112 GETUPVAL                         R18 6
-      113 DUPTABLE                         R19 K40 [{"Text"}]
-      114 LOADK                            R22 K41 ["RelativeToSection"]
-      115 LOADK                            R23 K42 ["ActiveObjectTooltip"]
-      116 NAMECALL                         R20 R2 K43 ["getText"]
-      118 CALL                             R20 3 1
-      119 SETTABLEKS                       R20 R19 K39 ["Text"]
-      121 CALL                             R17 2 1
-      122 SETTABLEKS                       R17 R16 K35 ["Tooltip"]
-      124 CALL                             R13 3 1
-      125 SETTABLEKS                       R13 R12 K26 ["HelpIcon"]
-      127 CALL                             R9 3 1
-      128 SETTABLEKS                       R9 R8 K16 ["ActiveRadioButton"]
-      130 CALL                             R5 3 -1
-      131 RETURN                           R5 -1
+      107 SETTABLEKS                       R17 R16 K37 ["Tooltip"]
+      109 CALL                             R13 3 1
+      110 SETTABLEKS                       R13 R12 K28 ["HelpIcon"]
+      112 CALL                             R9 3 1
+      113 SETTABLEKS                       R9 R8 K17 ["ActiveRadioButton"]
+      115 CALL                             R5 3 -1
+      116 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

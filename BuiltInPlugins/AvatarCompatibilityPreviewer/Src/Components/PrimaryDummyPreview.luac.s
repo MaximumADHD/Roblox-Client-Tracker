@@ -60,7 +60,7 @@ PROTO_2:
        38 GETTABLEKS                       R3 R3 K10 ["createElement"]
        40 GETUPVAL                         R4 2
        41 NEWTABLE                         R5 2 0
-       43 LOADN                            R6 255
+       43 LOADN                            R6 -1
        44 SETTABLEKS                       R6 R5 K11 ["ZIndex"]
        46 GETUPVAL                         R6 3
        47 GETTABLEKS                       R6 R6 K12 ["Event"]

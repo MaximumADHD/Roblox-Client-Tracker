@@ -42,26 +42,24 @@ PROTO_2:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["props"]
         3 GETTABLEKS                       R4 R4 K1 ["Stylizer"]
-        5 DUPTABLE                         R5 K10 [{"Row", "OnSelect", "OnToggle", "IsExpanded", "IsSelected", "Position", "Style", "Size"}]
+        5 DUPTABLE                         R5 K11 [{["Row"], ["OnSelect"], ["OnToggle"], ["IsExpanded"], ["IsSelected"] = False, ["Position"], ["Style"], ["Size"]}]
         6 SETTABLEKS                       R0 R5 K2 ["Row"]
         8 GETUPVAL                         R6 0
-        9 GETTABLEKS                       R6 R6 K11 ["onSelectField"]
+        9 GETTABLEKS                       R6 R6 K12 ["onSelectField"]
        11 SETTABLEKS                       R6 R5 K3 ["OnSelect"]
        13 GETUPVAL                         R6 0
-       14 GETTABLEKS                       R6 R6 K12 ["onToggleField"]
+       14 GETTABLEKS                       R6 R6 K13 ["onToggleField"]
        16 SETTABLEKS                       R6 R5 K4 ["OnToggle"]
        18 GETUPVAL                         R7 0
        19 GETTABLEKS                       R7 R7 K0 ["props"]
-       21 GETTABLEKS                       R7 R7 K13 ["Expansion"]
-       23 GETTABLEKS                       R8 R0 K14 ["item"]
+       21 GETTABLEKS                       R7 R7 K14 ["Expansion"]
+       23 GETTABLEKS                       R8 R0 K15 ["item"]
        25 GETTABLE                         R6 R7 R8
        26 SETTABLEKS                       R6 R5 K5 ["IsExpanded"]
-       28 LOADB                            R6 0
-       29 SETTABLEKS                       R6 R5 K6 ["IsSelected"]
-       31 SETTABLEKS                       R2 R5 K7 ["Position"]
-       33 SETTABLEKS                       R4 R5 K8 ["Style"]
-       35 SETTABLEKS                       R3 R5 K9 ["Size"]
-       37 RETURN                           R5 1
+       28 SETTABLEKS                       R2 R5 K8 ["Position"]
+       30 SETTABLEKS                       R4 R5 K9 ["Style"]
+       32 SETTABLEKS                       R3 R5 K10 ["Size"]
+       34 RETURN                           R5 1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0
@@ -123,64 +121,50 @@ PROTO_6:
         6 GETUPVAL                         R3 0
         7 NEWTABLE                         R4 0 6
         9 NEWTABLE                         R5 0 1
-       11 DUPTABLE                         R6 K5 [{"Name", "IsHeading"}]
-       12 LOADK                            R7 K6 ["Props"]
-       13 SETTABLEKS                       R7 R6 K3 ["Name"]
-       15 LOADB                            R7 1
-       16 SETTABLEKS                       R7 R6 K4 ["IsHeading"]
-       18 SETLIST                          R5 R6 1 [1]
-       20 GETUPVAL                         R6 1
-       21 GETTABLEKS                       R7 R2 K0 ["props"]
-       23 CALL                             R6 1 1
-       24 NEWTABLE                         R7 0 1
-       26 DUPTABLE                         R8 K5 [{"Name", "IsHeading"}]
-       27 LOADK                            R9 K7 ["State"]
-       28 SETTABLEKS                       R9 R8 K3 ["Name"]
-       30 LOADB                            R9 1
-       31 SETTABLEKS                       R9 R8 K4 ["IsHeading"]
-       33 SETLIST                          R7 R8 1 [1]
-       35 GETUPVAL                         R8 1
-       36 GETTABLEKS                       R9 R2 K8 ["state"]
-       38 CALL                             R8 1 1
-       39 NEWTABLE                         R9 0 1
-       41 DUPTABLE                         R10 K5 [{"Name", "IsHeading"}]
-       42 LOADK                            R11 K9 ["Context"]
-       43 SETTABLEKS                       R11 R10 K3 ["Name"]
-       45 LOADB                            R11 1
-       46 SETTABLEKS                       R11 R10 K4 ["IsHeading"]
-       48 SETLIST                          R9 R10 1 [1]
-       50 GETUPVAL                         R10 1
-       51 GETTABLEKS                       R11 R2 K10 ["_context"]
-       53 CALL                             R10 1 1
-       54 SETLIST                          R4 R5 6 [1]
-       56 CALL                             R3 1 1
-       57 GETUPVAL                         R4 2
-       58 GETTABLEKS                       R4 R4 K11 ["createElement"]
-       60 GETUPVAL                         R5 3
-       61 DUPTABLE                         R6 K20 [{"Size", "Expansion", "RootItems", "RowComponent", "GetChildren", "GetRowProps", "ScrollingDirection", "Style"}]
-       62 GETIMPORT                        R7 K23 [UDim2.new]
-       64 LOADN                            R8 1
-       65 LOADN                            R9 0
-       66 LOADN                            R10 1
-       67 LOADN                            R11 0
-       68 CALL                             R7 4 1
-       69 SETTABLEKS                       R7 R6 K12 ["Size"]
-       71 GETTABLEKS                       R7 R0 K0 ["props"]
-       73 GETTABLEKS                       R7 R7 K13 ["Expansion"]
-       75 SETTABLEKS                       R7 R6 K13 ["Expansion"]
-       77 SETTABLEKS                       R3 R6 K14 ["RootItems"]
-       79 GETUPVAL                         R7 4
-       80 SETTABLEKS                       R7 R6 K15 ["RowComponent"]
-       82 GETUPVAL                         R7 1
-       83 SETTABLEKS                       R7 R6 K16 ["GetChildren"]
-       85 GETTABLEKS                       R7 R0 K24 ["getRowProps"]
-       87 SETTABLEKS                       R7 R6 K17 ["GetRowProps"]
-       89 GETIMPORT                        R7 K27 [Enum.ScrollingDirection.Y]
-       91 SETTABLEKS                       R7 R6 K18 ["ScrollingDirection"]
-       93 LOADK                            R7 K28 ["BorderBox"]
-       94 SETTABLEKS                       R7 R6 K19 ["Style"]
-       96 CALL                             R4 2 -1
-       97 RETURN                           R4 -1
+       11 DUPTABLE                         R6 K7 [{["Name"] = "Props", ["IsHeading"] = True}]
+       12 SETLIST                          R5 R6 1 [1]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R7 R2 K0 ["props"]
+       17 CALL                             R6 1 1
+       18 NEWTABLE                         R7 0 1
+       20 DUPTABLE                         R8 K9 [{["Name"] = "State", ["IsHeading"] = True}]
+       21 SETLIST                          R7 R8 1 [1]
+       23 GETUPVAL                         R8 1
+       24 GETTABLEKS                       R9 R2 K10 ["state"]
+       26 CALL                             R8 1 1
+       27 NEWTABLE                         R9 0 1
+       29 DUPTABLE                         R10 K12 [{["Name"] = "Context", ["IsHeading"] = True}]
+       30 SETLIST                          R9 R10 1 [1]
+       32 GETUPVAL                         R10 1
+       33 GETTABLEKS                       R11 R2 K13 ["_context"]
+       35 CALL                             R10 1 1
+       36 SETLIST                          R4 R5 6 [1]
+       38 CALL                             R3 1 1
+       39 GETUPVAL                         R4 2
+       40 GETTABLEKS                       R4 R4 K14 ["createElement"]
+       42 GETUPVAL                         R5 3
+       43 DUPTABLE                         R6 K24 [{["Size"], ["Expansion"], ["RootItems"], ["RowComponent"], ["GetChildren"], ["GetRowProps"], ["ScrollingDirection"], ["Style"] = "BorderBox"}]
+       44 GETIMPORT                        R7 K27 [UDim2.new]
+       46 LOADN                            R8 1
+       47 LOADN                            R9 0
+       48 LOADN                            R10 1
+       49 LOADN                            R11 0
+       50 CALL                             R7 4 1
+       51 SETTABLEKS                       R7 R6 K15 ["Size"]
+       53 GETTABLEKS                       R7 R0 K0 ["props"]
+       55 GETTABLEKS                       R7 R7 K16 ["Expansion"]
+       57 SETTABLEKS                       R7 R6 K16 ["Expansion"]
+       59 SETTABLEKS                       R3 R6 K17 ["RootItems"]
+       61 GETUPVAL                         R7 4
+       62 SETTABLEKS                       R7 R6 K18 ["RowComponent"]
+       64 GETUPVAL                         R7 1
+       65 SETTABLEKS                       R7 R6 K19 ["GetChildren"]
+       67 GETTABLEKS                       R7 R0 K28 ["getRowProps"]
+       69 SETTABLEKS                       R7 R6 K20 ["GetRowProps"]
+       71 GETIMPORT                        R7 K31 [Enum.ScrollingDirection.Y]
+       73 SETTABLEKS                       R7 R6 K21 ["ScrollingDirection"]
+       75 CALL                             R4 2 -1
+       76 RETURN                           R4 -1
 
 PROTO_7:
         0 DUPTABLE                         R2 K5 [{"SelectedPath", "SelectedNodeIndex", "Root", "Selection", "Expansion"}]

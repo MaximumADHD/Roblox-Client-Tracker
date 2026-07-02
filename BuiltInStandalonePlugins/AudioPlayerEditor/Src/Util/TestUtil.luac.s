@@ -139,68 +139,77 @@ PROTO_8:
        13 RETURN                           R0 0
 
 PROTO_9:
-        0 NEWTABLE                         R0 16 0
-        2 NEWTABLE                         R1 0 0
-        4 NEWTABLE                         R2 0 0
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R3 R3 K0 ["fn"]
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R2
-       12 CALL                             R3 1 1
-       13 SETTABLEKS                       R3 R0 K1 ["SetItem"]
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K0 ["fn"]
-       18 NEWCLOSURE                       R4 P1
-       19 CAPTURE                          VAL R1
-       20 CALL                             R3 1 1
-       21 SETTABLEKS                       R3 R0 K2 ["GetItem"]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R3 R3 K0 ["fn"]
-       26 CALL                             R3 0 1
-       27 SETTABLEKS                       R3 R0 K3 ["MockOnSetItemDisconnect"]
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R3 R3 K0 ["fn"]
-       32 NEWCLOSURE                       R4 P2
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          VAL R0
-       35 CALL                             R3 1 1
-       36 SETTABLEKS                       R3 R0 K4 ["OnSetItem"]
-       38 NEWTABLE                         R3 0 0
-       40 GETUPVAL                         R4 0
-       41 GETTABLEKS                       R4 R4 K0 ["fn"]
-       43 NEWCLOSURE                       R5 P3
-       44 CAPTURE                          VAL R3
-       45 CALL                             R4 1 1
-       46 SETTABLEKS                       R4 R0 K5 ["Invoke"]
-       48 GETUPVAL                         R4 0
-       49 GETTABLEKS                       R4 R4 K0 ["fn"]
-       51 CALL                             R4 0 1
-       52 SETTABLEKS                       R4 R0 K6 ["MockOnInvokeDisconnect"]
-       54 GETUPVAL                         R4 0
-       55 GETTABLEKS                       R4 R4 K0 ["fn"]
-       57 NEWCLOSURE                       R5 P4
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          UPVAL U0
-       61 CALL                             R4 1 1
-       62 SETTABLEKS                       R4 R0 K7 ["OnInvoke"]
-       64 GETUPVAL                         R4 0
-       65 GETTABLEKS                       R4 R4 K0 ["fn"]
-       67 DUPCLOSURE                       R5 K8 [PROTO_7]
-       68 CALL                             R4 1 1
-       69 SETTABLEKS                       R4 R0 K9 ["GetUri"]
-       71 GETUPVAL                         R4 1
-       72 GETTABLEKS                       R4 R4 K10 ["createMockActions"]
-       74 CALL                             R4 0 1
-       75 SETTABLEKS                       R4 R0 K11 ["MockActions"]
-       77 GETUPVAL                         R4 0
-       78 GETTABLEKS                       R4 R4 K0 ["fn"]
-       80 NEWCLOSURE                       R5 P6
-       81 CAPTURE                          VAL R0
-       82 CALL                             R4 1 1
-       83 SETTABLEKS                       R4 R0 K12 ["GetPluginComponent"]
-       85 RETURN                           R0 1
+        0 NEWTABLE                         R1 16 0
+        2 GETIMPORT                        R2 K3 [Enum.StudioDataModelType.Edit]
+        4 JUMPIFNOT                        R0 ; [+2]
+        5 GETTABLEKS                       R2 R0 K4 ["hostDataModelType"]
+        7 SETTABLEKS                       R2 R1 K5 ["HostDataModelType"]
+        9 DUPTABLE                         R3 K7 [{"FocusedDataModelSession"}]
+       10 DUPTABLE                         R4 K9 [{"CurrentDataModelType"}]
+       11 SETTABLEKS                       R2 R4 K8 ["CurrentDataModelType"]
+       13 SETTABLEKS                       R4 R3 K6 ["FocusedDataModelSession"]
+       15 SETTABLEKS                       R3 R1 K10 ["MultipleDocumentInterfaceInstance"]
+       17 NEWTABLE                         R3 0 0
+       19 NEWTABLE                         R4 0 0
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K11 ["fn"]
+       24 NEWCLOSURE                       R6 P0
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R4
+       27 CALL                             R5 1 1
+       28 SETTABLEKS                       R5 R1 K12 ["SetItem"]
+       30 GETUPVAL                         R5 0
+       31 GETTABLEKS                       R5 R5 K11 ["fn"]
+       33 NEWCLOSURE                       R6 P1
+       34 CAPTURE                          VAL R3
+       35 CALL                             R5 1 1
+       36 SETTABLEKS                       R5 R1 K13 ["GetItem"]
+       38 GETUPVAL                         R5 0
+       39 GETTABLEKS                       R5 R5 K11 ["fn"]
+       41 CALL                             R5 0 1
+       42 SETTABLEKS                       R5 R1 K14 ["MockOnSetItemDisconnect"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K11 ["fn"]
+       47 NEWCLOSURE                       R6 P2
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R1
+       50 CALL                             R5 1 1
+       51 SETTABLEKS                       R5 R1 K15 ["OnSetItem"]
+       53 NEWTABLE                         R5 0 0
+       55 GETUPVAL                         R6 0
+       56 GETTABLEKS                       R6 R6 K11 ["fn"]
+       58 NEWCLOSURE                       R7 P3
+       59 CAPTURE                          VAL R5
+       60 CALL                             R6 1 1
+       61 SETTABLEKS                       R6 R1 K16 ["Invoke"]
+       63 GETUPVAL                         R6 0
+       64 GETTABLEKS                       R6 R6 K11 ["fn"]
+       66 CALL                             R6 0 1
+       67 SETTABLEKS                       R6 R1 K17 ["MockOnInvokeDisconnect"]
+       69 GETUPVAL                         R6 0
+       70 GETTABLEKS                       R6 R6 K11 ["fn"]
+       72 NEWCLOSURE                       R7 P4
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          UPVAL U0
+       76 CALL                             R6 1 1
+       77 SETTABLEKS                       R6 R1 K18 ["OnInvoke"]
+       79 GETUPVAL                         R6 0
+       80 GETTABLEKS                       R6 R6 K11 ["fn"]
+       82 DUPCLOSURE                       R7 K19 [PROTO_7]
+       83 CALL                             R6 1 1
+       84 SETTABLEKS                       R6 R1 K20 ["GetUri"]
+       86 GETUPVAL                         R6 1
+       87 GETTABLEKS                       R6 R6 K21 ["createMockActions"]
+       89 CALL                             R6 0 1
+       90 SETTABLEKS                       R6 R1 K22 ["MockActions"]
+       92 GETUPVAL                         R6 0
+       93 GETTABLEKS                       R6 R6 K11 ["fn"]
+       95 NEWCLOSURE                       R7 P6
+       96 CAPTURE                          VAL R1
+       97 CALL                             R6 1 1
+       98 SETTABLEKS                       R6 R1 K23 ["GetPluginComponent"]
+      100 RETURN                           R1 1
 
 PROTO_10:
         0 SETUPVAL                         R1 0
@@ -271,36 +280,32 @@ PROTO_15:
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K9 ["createElement"]
        32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K14 [{"theme", "device"}]
-       34 LOADK                            R11 K15 ["Dark"]
-       35 SETTABLEKS                       R11 R10 K12 ["theme"]
-       37 LOADK                            R11 K16 ["Desktop"]
-       38 SETTABLEKS                       R11 R10 K13 ["device"]
-       40 CALL                             R8 2 1
-       41 GETUPVAL                         R9 2
-       42 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       44 GETUPVAL                         R10 5
-       45 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
-       47 CALL                             R9 1 -1
-       48 SETLIST                          R7 R8 -1 [1]
-       50 SETTABLEKS                       R7 R6 K10 ["providers"]
-       52 DUPTABLE                         R7 K19 [{"Window"}]
-       53 GETUPVAL                         R8 2
-       54 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       56 LOADK                            R9 K20 ["Frame"]
-       57 DUPTABLE                         R10 K22 [{"Size"}]
-       58 GETIMPORT                        R11 K25 [UDim2.fromOffset]
-       60 LOADN                            R12 232
-       61 LOADN                            R13 232
-       62 CALL                             R11 2 1
-       63 SETTABLEKS                       R11 R10 K21 ["Size"]
-       65 MOVE                             R11 R0
-       66 CALL                             R8 3 1
-       67 SETTABLEKS                       R8 R7 K18 ["Window"]
-       69 CALL                             R4 3 1
-       70 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       72 CALL                             R1 2 -1
-       73 RETURN                           R1 -1
+       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       34 CALL                             R8 2 1
+       35 GETUPVAL                         R9 2
+       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       38 GETUPVAL                         R10 5
+       39 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
+       41 CALL                             R9 1 -1
+       42 SETLIST                          R7 R8 -1 [1]
+       44 SETTABLEKS                       R7 R6 K10 ["providers"]
+       46 DUPTABLE                         R7 K19 [{"Window"}]
+       47 GETUPVAL                         R8 2
+       48 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       50 LOADK                            R9 K20 ["Frame"]
+       51 DUPTABLE                         R10 K22 [{"Size"}]
+       52 GETIMPORT                        R11 K25 [UDim2.fromOffset]
+       54 LOADN                            R12 1000
+       55 LOADN                            R13 1000
+       56 CALL                             R11 2 1
+       57 SETTABLEKS                       R11 R10 K21 ["Size"]
+       59 MOVE                             R11 R0
+       60 CALL                             R8 3 1
+       61 SETTABLEKS                       R8 R7 K18 ["Window"]
+       63 CALL                             R4 3 1
+       64 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
+       66 CALL                             R1 2 -1
+       67 RETURN                           R1 -1
 
 PROTO_16:
         0 GETUPVAL                         R3 0

@@ -60,7 +60,7 @@ PROTO_2:
        24 GETTABLEKS                       R1 R1 K3 ["X"]
        26 JUMPIFNOTLE                      R0 R1 ; [+12]
        28 GETUPVAL                         R0 1
-       29 LOADN                            R2 244
+       29 LOADN                            R2 500
        30 GETUPVAL                         R4 2
        31 ADDK                             R3 R4 K5 [27]
        32 FASTCALL2                        MATH_MIN R2 R3 ; [+3]
@@ -404,25 +404,21 @@ MAIN:
        45 CALL                             R5 1 1
        46 GETTABLEKS                       R6 R2 K16 ["Styling"]
        48 GETTABLEKS                       R6 R6 K17 ["joinTags"]
-       50 DUPTABLE                         R7 K21 [{"Size", "MaxHeight", "Disabled"}]
-       51 GETIMPORT                        R8 K24 [UDim2.fromScale]
+       50 DUPTABLE                         R7 K23 [{["Size"], ["MaxHeight"] = 250, ["Disabled"] = False}]
+       51 GETIMPORT                        R8 K26 [UDim2.fromScale]
        53 LOADN                            R9 0
        54 LOADN                            R10 0
        55 CALL                             R8 2 1
        56 SETTABLEKS                       R8 R7 K18 ["Size"]
-       58 LOADN                            R8 250
-       59 SETTABLEKS                       R8 R7 K19 ["MaxHeight"]
-       61 LOADB                            R8 0
-       62 SETTABLEKS                       R8 R7 K20 ["Disabled"]
-       64 GETTABLEKS                       R8 R4 K25 ["fflagAnnotationsMaxTextLength"]
-       66 DUPCLOSURE                       R9 K26 [PROTO_11]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R7
-       69 CAPTURE                          VAL R1
-       70 CAPTURE                          VAL R6
-       71 CAPTURE                          VAL R8
-       72 CAPTURE                          VAL R5
-       73 GETTABLEKS                       R10 R1 K27 ["forwardRef"]
-       75 MOVE                             R11 R9
-       76 CALL                             R10 1 -1
-       77 RETURN                           R10 -1
+       58 GETTABLEKS                       R8 R4 K27 ["fflagAnnotationsMaxTextLength"]
+       60 DUPCLOSURE                       R9 K28 [PROTO_11]
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R8
+       66 CAPTURE                          VAL R5
+       67 GETTABLEKS                       R10 R1 K29 ["forwardRef"]
+       69 MOVE                             R11 R9
+       70 CALL                             R10 1 -1
+       71 RETURN                           R10 -1

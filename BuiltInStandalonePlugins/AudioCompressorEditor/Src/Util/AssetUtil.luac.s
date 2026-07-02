@@ -2,64 +2,40 @@ PROTO_0:
         0 LOADK                            R3 K0 ["AudioCompressor"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
-        4 JUMPIFNOT                        R1 ; [+29]
-        5 DUPTABLE                         R1 K9 [{"Type", "Threshold", "Ratio", "Attack", "Release", "MakeupGain", "Bypass"}]
-        6 LOADK                            R2 K0 ["AudioCompressor"]
-        7 SETTABLEKS                       R2 R1 K2 ["Type"]
-        9 GETTABLEKS                       R2 R0 K3 ["Threshold"]
-       11 SETTABLEKS                       R2 R1 K3 ["Threshold"]
-       13 GETTABLEKS                       R2 R0 K4 ["Ratio"]
-       15 SETTABLEKS                       R2 R1 K4 ["Ratio"]
-       17 GETTABLEKS                       R2 R0 K5 ["Attack"]
-       19 SETTABLEKS                       R2 R1 K5 ["Attack"]
-       21 GETTABLEKS                       R2 R0 K6 ["Release"]
-       23 SETTABLEKS                       R2 R1 K6 ["Release"]
-       25 GETTABLEKS                       R2 R0 K7 ["MakeupGain"]
-       27 SETTABLEKS                       R2 R1 K7 ["MakeupGain"]
-       29 GETTABLEKS                       R2 R0 K8 ["Bypass"]
-       31 SETTABLEKS                       R2 R1 K8 ["Bypass"]
-       33 RETURN                           R1 1
-       34 LOADK                            R3 K10 ["AudioLimiter"]
-       35 NAMECALL                         R1 R0 K1 ["IsA"]
-       37 CALL                             R1 2 1
-       38 JUMPIFNOT                        R1 ; [+26]
-       39 DUPTABLE                         R1 K9 [{"Type", "Threshold", "Ratio", "Attack", "Release", "MakeupGain", "Bypass"}]
-       40 LOADK                            R2 K10 ["AudioLimiter"]
-       41 SETTABLEKS                       R2 R1 K2 ["Type"]
-       43 GETTABLEKS                       R2 R0 K11 ["MaxLevel"]
-       45 SETTABLEKS                       R2 R1 K3 ["Threshold"]
-       47 LOADK                            R2 K12 [1000000]
-       48 SETTABLEKS                       R2 R1 K4 ["Ratio"]
-       50 LOADN                            R2 0
-       51 SETTABLEKS                       R2 R1 K5 ["Attack"]
-       53 GETTABLEKS                       R2 R0 K6 ["Release"]
-       55 SETTABLEKS                       R2 R1 K6 ["Release"]
-       57 LOADN                            R2 0
-       58 SETTABLEKS                       R2 R1 K7 ["MakeupGain"]
-       60 GETTABLEKS                       R2 R0 K8 ["Bypass"]
-       62 SETTABLEKS                       R2 R1 K8 ["Bypass"]
-       64 RETURN                           R1 1
-       65 LOADB                            R2 0
-       66 FASTCALL2K                       ASSERT R2 K13 ; [+4]
-       68 LOADK                            R3 K13 ["Unknown instance type"]
-       69 GETIMPORT                        R1 K15 [assert]
-       71 CALL                             R1 2 0
-       72 DUPTABLE                         R1 K9 [{"Type", "Threshold", "Ratio", "Attack", "Release", "MakeupGain", "Bypass"}]
-       73 LOADK                            R2 K10 ["AudioLimiter"]
-       74 SETTABLEKS                       R2 R1 K2 ["Type"]
-       76 LOADN                            R2 0
-       77 SETTABLEKS                       R2 R1 K3 ["Threshold"]
-       79 LOADN                            R2 1
-       80 SETTABLEKS                       R2 R1 K4 ["Ratio"]
-       82 LOADN                            R2 0
-       83 SETTABLEKS                       R2 R1 K5 ["Attack"]
-       85 LOADN                            R2 0
-       86 SETTABLEKS                       R2 R1 K6 ["Release"]
-       88 LOADN                            R2 0
-       89 SETTABLEKS                       R2 R1 K7 ["MakeupGain"]
-       91 LOADB                            R2 1
-       92 SETTABLEKS                       R2 R1 K8 ["Bypass"]
-       94 RETURN                           R1 1
+        4 JUMPIFNOT                        R1 ; [+26]
+        5 DUPTABLE                         R1 K9 [{["Type"] = "AudioCompressor", ["Threshold"], ["Ratio"], ["Attack"], ["Release"], ["MakeupGain"], ["Bypass"]}]
+        6 GETTABLEKS                       R2 R0 K3 ["Threshold"]
+        8 SETTABLEKS                       R2 R1 K3 ["Threshold"]
+       10 GETTABLEKS                       R2 R0 K4 ["Ratio"]
+       12 SETTABLEKS                       R2 R1 K4 ["Ratio"]
+       14 GETTABLEKS                       R2 R0 K5 ["Attack"]
+       16 SETTABLEKS                       R2 R1 K5 ["Attack"]
+       18 GETTABLEKS                       R2 R0 K6 ["Release"]
+       20 SETTABLEKS                       R2 R1 K6 ["Release"]
+       22 GETTABLEKS                       R2 R0 K7 ["MakeupGain"]
+       24 SETTABLEKS                       R2 R1 K7 ["MakeupGain"]
+       26 GETTABLEKS                       R2 R0 K8 ["Bypass"]
+       28 SETTABLEKS                       R2 R1 K8 ["Bypass"]
+       30 RETURN                           R1 1
+       31 LOADK                            R3 K10 ["AudioLimiter"]
+       32 NAMECALL                         R1 R0 K1 ["IsA"]
+       34 CALL                             R1 2 1
+       35 JUMPIFNOT                        R1 ; [+14]
+       36 DUPTABLE                         R1 K13 [{["Type"] = "AudioLimiter", ["Threshold"], ["Ratio"] = 1000000, ["Attack"] = 0, ["Release"], ["MakeupGain"] = 0, ["Bypass"]}]
+       37 GETTABLEKS                       R2 R0 K14 ["MaxLevel"]
+       39 SETTABLEKS                       R2 R1 K3 ["Threshold"]
+       41 GETTABLEKS                       R2 R0 K6 ["Release"]
+       43 SETTABLEKS                       R2 R1 K6 ["Release"]
+       45 GETTABLEKS                       R2 R0 K8 ["Bypass"]
+       47 SETTABLEKS                       R2 R1 K8 ["Bypass"]
+       49 RETURN                           R1 1
+       50 LOADB                            R2 0
+       51 FASTCALL2K                       ASSERT R2 K15 ; [+4]
+       53 LOADK                            R3 K15 ["Unknown instance type"]
+       54 GETIMPORT                        R1 K17 [assert]
+       56 CALL                             R1 2 0
+       57 DUPTABLE                         R1 K20 [{["Type"] = "AudioLimiter", ["Threshold"] = 0, ["Ratio"] = 1, ["Attack"] = 0, ["Release"] = 0, ["MakeupGain"] = 0, ["Bypass"] = True}]
+       58 RETURN                           R1 1
 
 PROTO_1:
         0 LOADK                            R4 K0 ["AudioCompressor"]
@@ -146,7 +122,7 @@ PROTO_3:
         6 CALL                             R1 2 0
         7 LENGTH                           R3 R0
         8 LOADN                            R1 1
-        9 LOADN                            R2 255
+        9 LOADN                            R2 -1
        10 FORNPREP                         R1
        11 GETTABLE                         R4 R0 R3
        12 JUMPIFNOT                        R4 ; [+10]

@@ -94,154 +94,123 @@ PROTO_5:
        12 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R2 K29 [{"_isMock", "_pluginController", "_layoutController", "_itemsController", "_searchController", "_explorerController", "_pressedKeys", "_lastPressed", "_keyHoldDetector", "_lastClickMousePosition", "_lastZone", "_dragging", "_dragInfo", "_isDragInGui", "_invalidDragHoverPosition", "_mouseTrackerInstance", "_doubleClickDetector", "_doubleClickQueued", "_resolvingDoubleClick", "isDoubleClick", "clickDelay", "_connections", "_threads", "_widgetRegistered", "OnDrag", "OnDrop", "OnDragMove", "OnEnterViewport", "OnMouseMove"}]
+        0 DUPTABLE                         R2 K33 [{[1], ["_pluginController"], ["_layoutController"], ["_itemsController"], ["_searchController"], ["_explorerController"], ["_pressedKeys"], ["_lastPressed"], ["_keyHoldDetector"], ["_lastClickMousePosition"], ["_lastZone"] = , ["_dragging"] = False, ["_dragInfo"] = , ["_isDragInGui"] = True, ["_invalidDragHoverPosition"] = , ["_mouseTrackerInstance"] = , ["_doubleClickDetector"], ["_doubleClickQueued"] = False, ["_resolvingDoubleClick"] = False, ["isDoubleClick"] = False, ["clickDelay"] = 0.2, ["_connections"], ["_threads"], ["_widgetRegistered"] = False, ["OnDrag"], ["OnDrop"], ["OnDragMove"], ["OnEnterViewport"], ["OnMouseMove"]}]
         1 SETTABLEKS                       R1 R2 K0 ["_isMock"]
-        3 GETTABLEKS                       R3 R0 K30 ["PluginController"]
+        3 GETTABLEKS                       R3 R0 K34 ["PluginController"]
         5 SETTABLEKS                       R3 R2 K1 ["_pluginController"]
-        7 GETTABLEKS                       R3 R0 K31 ["LayoutController"]
+        7 GETTABLEKS                       R3 R0 K35 ["LayoutController"]
         9 SETTABLEKS                       R3 R2 K2 ["_layoutController"]
-       11 GETTABLEKS                       R3 R0 K32 ["ItemsController"]
+       11 GETTABLEKS                       R3 R0 K36 ["ItemsController"]
        13 SETTABLEKS                       R3 R2 K3 ["_itemsController"]
-       15 GETTABLEKS                       R3 R0 K33 ["SearchController"]
+       15 GETTABLEKS                       R3 R0 K37 ["SearchController"]
        17 SETTABLEKS                       R3 R2 K4 ["_searchController"]
-       19 GETTABLEKS                       R3 R0 K34 ["ExplorerController"]
+       19 GETTABLEKS                       R3 R0 K38 ["ExplorerController"]
        21 SETTABLEKS                       R3 R2 K5 ["_explorerController"]
        23 NEWTABLE                         R3 0 0
        25 SETTABLEKS                       R3 R2 K6 ["_pressedKeys"]
-       27 GETIMPORT                        R3 K38 [Enum.KeyCode.Unknown]
+       27 GETIMPORT                        R3 K42 [Enum.KeyCode.Unknown]
        29 SETTABLEKS                       R3 R2 K7 ["_lastPressed"]
        31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R3 R3 K39 ["new"]
+       32 GETTABLEKS                       R3 R3 K43 ["new"]
        34 CALL                             R3 0 1
        35 SETTABLEKS                       R3 R2 K8 ["_keyHoldDetector"]
-       37 GETIMPORT                        R3 K41 [Vector2.new]
+       37 GETIMPORT                        R3 K45 [Vector2.new]
        39 CALL                             R3 0 1
        40 SETTABLEKS                       R3 R2 K9 ["_lastClickMousePosition"]
-       42 LOADNIL                          R3
-       43 SETTABLEKS                       R3 R2 K10 ["_lastZone"]
-       45 LOADB                            R3 0
-       46 SETTABLEKS                       R3 R2 K11 ["_dragging"]
-       48 LOADNIL                          R3
-       49 SETTABLEKS                       R3 R2 K12 ["_dragInfo"]
-       51 LOADB                            R3 1
-       52 SETTABLEKS                       R3 R2 K13 ["_isDragInGui"]
-       54 LOADNIL                          R3
-       55 SETTABLEKS                       R3 R2 K14 ["_invalidDragHoverPosition"]
-       57 LOADNIL                          R3
-       58 SETTABLEKS                       R3 R2 K15 ["_mouseTrackerInstance"]
-       60 GETUPVAL                         R3 1
-       61 GETTABLEKS                       R3 R3 K39 ["new"]
-       63 CALL                             R3 0 1
-       64 SETTABLEKS                       R3 R2 K16 ["_doubleClickDetector"]
-       66 LOADB                            R3 0
-       67 SETTABLEKS                       R3 R2 K17 ["_doubleClickQueued"]
-       69 LOADB                            R3 0
-       70 SETTABLEKS                       R3 R2 K18 ["_resolvingDoubleClick"]
-       72 LOADB                            R3 0
-       73 SETTABLEKS                       R3 R2 K19 ["isDoubleClick"]
-       75 LOADK                            R3 K42 [0.2]
-       76 SETTABLEKS                       R3 R2 K20 ["clickDelay"]
-       78 NEWTABLE                         R3 0 0
-       80 SETTABLEKS                       R3 R2 K21 ["_connections"]
-       82 NEWTABLE                         R3 0 0
-       84 SETTABLEKS                       R3 R2 K22 ["_threads"]
-       86 LOADB                            R3 0
-       87 SETTABLEKS                       R3 R2 K23 ["_widgetRegistered"]
-       89 GETUPVAL                         R3 2
-       90 GETTABLEKS                       R3 R3 K39 ["new"]
-       92 CALL                             R3 0 1
-       93 SETTABLEKS                       R3 R2 K24 ["OnDrag"]
-       95 GETUPVAL                         R3 2
-       96 GETTABLEKS                       R3 R3 K39 ["new"]
-       98 CALL                             R3 0 1
-       99 SETTABLEKS                       R3 R2 K25 ["OnDrop"]
-      101 GETUPVAL                         R3 2
-      102 GETTABLEKS                       R3 R3 K39 ["new"]
-      104 CALL                             R3 0 1
-      105 SETTABLEKS                       R3 R2 K26 ["OnDragMove"]
-      107 GETUPVAL                         R3 2
-      108 GETTABLEKS                       R3 R3 K39 ["new"]
-      110 CALL                             R3 0 1
-      111 SETTABLEKS                       R3 R2 K27 ["OnEnterViewport"]
-      113 GETUPVAL                         R3 2
-      114 GETTABLEKS                       R3 R3 K39 ["new"]
-      116 CALL                             R3 0 1
-      117 SETTABLEKS                       R3 R2 K28 ["OnMouseMove"]
-      119 GETUPVAL                         R5 3
-      120 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-      122 MOVE                             R4 R2
-      123 GETIMPORT                        R3 K44 [setmetatable]
-      125 CALL                             R3 2 0
-      126 GETTABLEKS                       R3 R2 K8 ["_keyHoldDetector"]
-      128 NEWCLOSURE                       R5 P0
-      129 CAPTURE                          VAL R2
-      130 NAMECALL                         R3 R3 K45 ["setCallback"]
-      132 CALL                             R3 2 0
-      133 GETUPVAL                         R3 4
-      134 CALL                             R3 0 1
-      135 JUMPIFNOT                        R3 ; [+60]
-      136 GETTABLEKS                       R3 R2 K2 ["_layoutController"]
-      138 NAMECALL                         R3 R3 K46 ["getPluginGui"]
-      140 CALL                             R3 1 1
-      141 GETTABLEKS                       R5 R2 K21 ["_connections"]
-      143 GETTABLEKS                       R6 R3 K47 ["PluginDragEntered"]
-      145 NEWCLOSURE                       R8 P1
-      146 CAPTURE                          UPVAL U5
-      147 CAPTURE                          VAL R2
-      148 NAMECALL                         R6 R6 K48 ["Connect"]
-      150 CALL                             R6 2 -1
-      151 FASTCALL                         TABLE_INSERT ; [+2]
-      152 GETIMPORT                        R4 K51 [table.insert]
-      154 CALL                             R4 -1 0
-      155 GETTABLEKS                       R5 R2 K21 ["_connections"]
-      157 GETTABLEKS                       R6 R3 K52 ["PluginDragLeft"]
-      159 NEWCLOSURE                       R8 P2
-      160 CAPTURE                          UPVAL U5
-      161 CAPTURE                          VAL R2
-      162 NAMECALL                         R6 R6 K48 ["Connect"]
-      164 CALL                             R6 2 -1
-      165 FASTCALL                         TABLE_INSERT ; [+2]
-      166 GETIMPORT                        R4 K51 [table.insert]
-      168 CALL                             R4 -1 0
-      169 GETTABLEKS                       R5 R2 K21 ["_connections"]
-      171 GETTABLEKS                       R6 R3 K53 ["PluginDragDropped"]
-      173 NEWCLOSURE                       R8 P3
-      174 CAPTURE                          VAL R2
-      175 CAPTURE                          UPVAL U5
-      176 NAMECALL                         R6 R6 K48 ["Connect"]
-      178 CALL                             R6 2 -1
-      179 FASTCALL                         TABLE_INSERT ; [+2]
-      180 GETIMPORT                        R4 K51 [table.insert]
-      182 CALL                             R4 -1 0
-      183 GETTABLEKS                       R5 R2 K21 ["_connections"]
-      185 GETTABLEKS                       R6 R3 K54 ["WindowFocusReleased"]
-      187 NEWCLOSURE                       R8 P4
-      188 CAPTURE                          VAL R2
-      189 NAMECALL                         R6 R6 K48 ["Connect"]
-      191 CALL                             R6 2 -1
-      192 FASTCALL                         TABLE_INSERT ; [+2]
-      193 GETIMPORT                        R4 K51 [table.insert]
-      195 CALL                             R4 -1 0
-      196 GETUPVAL                         R3 4
-      197 CALL                             R3 0 1
-      198 JUMPIF                           R3 ; [+3]
-      199 GETUPVAL                         R3 6
-      200 CALL                             R3 0 1
-      201 JUMPIFNOT                        R3 ; [+19]
-      202 GETTABLEKS                       R4 R2 K21 ["_connections"]
-      204 GETTABLEKS                       R5 R2 K2 ["_layoutController"]
-      206 GETTABLEKS                       R5 R5 K55 ["OnPluginFrameSet"]
-      208 NEWCLOSURE                       R7 P5
-      209 CAPTURE                          VAL R2
-      210 CAPTURE                          UPVAL U5
-      211 NAMECALL                         R5 R5 K48 ["Connect"]
-      213 CALL                             R5 2 -1
-      214 FASTCALL                         TABLE_INSERT ; [+2]
-      215 GETIMPORT                        R3 K51 [table.insert]
-      217 CALL                             R3 -1 0
-      218 NAMECALL                         R3 R2 K56 ["_registerMouseTrackerAsync"]
-      220 CALL                             R3 1 0
-      221 RETURN                           R2 1
+       42 GETUPVAL                         R3 1
+       43 GETTABLEKS                       R3 R3 K43 ["new"]
+       45 CALL                             R3 0 1
+       46 SETTABLEKS                       R3 R2 K19 ["_doubleClickDetector"]
+       48 NEWTABLE                         R3 0 0
+       50 SETTABLEKS                       R3 R2 K25 ["_connections"]
+       52 NEWTABLE                         R3 0 0
+       54 SETTABLEKS                       R3 R2 K26 ["_threads"]
+       56 GETUPVAL                         R3 2
+       57 GETTABLEKS                       R3 R3 K43 ["new"]
+       59 CALL                             R3 0 1
+       60 SETTABLEKS                       R3 R2 K28 ["OnDrag"]
+       62 GETUPVAL                         R3 2
+       63 GETTABLEKS                       R3 R3 K43 ["new"]
+       65 CALL                             R3 0 1
+       66 SETTABLEKS                       R3 R2 K29 ["OnDrop"]
+       68 GETUPVAL                         R3 2
+       69 GETTABLEKS                       R3 R3 K43 ["new"]
+       71 CALL                             R3 0 1
+       72 SETTABLEKS                       R3 R2 K30 ["OnDragMove"]
+       74 GETUPVAL                         R3 2
+       75 GETTABLEKS                       R3 R3 K43 ["new"]
+       77 CALL                             R3 0 1
+       78 SETTABLEKS                       R3 R2 K31 ["OnEnterViewport"]
+       80 GETUPVAL                         R3 2
+       81 GETTABLEKS                       R3 R3 K43 ["new"]
+       83 CALL                             R3 0 1
+       84 SETTABLEKS                       R3 R2 K32 ["OnMouseMove"]
+       86 GETUPVAL                         R5 3
+       87 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       89 MOVE                             R4 R2
+       90 GETIMPORT                        R3 K47 [setmetatable]
+       92 CALL                             R3 2 0
+       93 GETTABLEKS                       R3 R2 K8 ["_keyHoldDetector"]
+       95 NEWCLOSURE                       R5 P0
+       96 CAPTURE                          VAL R2
+       97 NAMECALL                         R3 R3 K48 ["setCallback"]
+       99 CALL                             R3 2 0
+      100 GETTABLEKS                       R3 R2 K2 ["_layoutController"]
+      102 NAMECALL                         R3 R3 K49 ["getPluginGui"]
+      104 CALL                             R3 1 1
+      105 GETTABLEKS                       R5 R2 K25 ["_connections"]
+      107 GETTABLEKS                       R6 R3 K50 ["PluginDragEntered"]
+      109 NEWCLOSURE                       R8 P1
+      110 CAPTURE                          UPVAL U4
+      111 CAPTURE                          VAL R2
+      112 NAMECALL                         R6 R6 K51 ["Connect"]
+      114 CALL                             R6 2 -1
+      115 FASTCALL                         TABLE_INSERT ; [+2]
+      116 GETIMPORT                        R4 K54 [table.insert]
+      118 CALL                             R4 -1 0
+      119 GETTABLEKS                       R5 R2 K25 ["_connections"]
+      121 GETTABLEKS                       R6 R3 K55 ["PluginDragLeft"]
+      123 NEWCLOSURE                       R8 P2
+      124 CAPTURE                          UPVAL U4
+      125 CAPTURE                          VAL R2
+      126 NAMECALL                         R6 R6 K51 ["Connect"]
+      128 CALL                             R6 2 -1
+      129 FASTCALL                         TABLE_INSERT ; [+2]
+      130 GETIMPORT                        R4 K54 [table.insert]
+      132 CALL                             R4 -1 0
+      133 GETTABLEKS                       R5 R2 K25 ["_connections"]
+      135 GETTABLEKS                       R6 R3 K56 ["PluginDragDropped"]
+      137 NEWCLOSURE                       R8 P3
+      138 CAPTURE                          VAL R2
+      139 CAPTURE                          UPVAL U4
+      140 NAMECALL                         R6 R6 K51 ["Connect"]
+      142 CALL                             R6 2 -1
+      143 FASTCALL                         TABLE_INSERT ; [+2]
+      144 GETIMPORT                        R4 K54 [table.insert]
+      146 CALL                             R4 -1 0
+      147 GETTABLEKS                       R5 R2 K25 ["_connections"]
+      149 GETTABLEKS                       R6 R3 K57 ["WindowFocusReleased"]
+      151 NEWCLOSURE                       R8 P4
+      152 CAPTURE                          VAL R2
+      153 NAMECALL                         R6 R6 K51 ["Connect"]
+      155 CALL                             R6 2 -1
+      156 FASTCALL                         TABLE_INSERT ; [+2]
+      157 GETIMPORT                        R4 K54 [table.insert]
+      159 CALL                             R4 -1 0
+      160 GETTABLEKS                       R5 R2 K25 ["_connections"]
+      162 GETTABLEKS                       R6 R2 K2 ["_layoutController"]
+      164 GETTABLEKS                       R6 R6 K58 ["OnPluginFrameSet"]
+      166 NEWCLOSURE                       R8 P5
+      167 CAPTURE                          VAL R2
+      168 CAPTURE                          UPVAL U4
+      169 NAMECALL                         R6 R6 K51 ["Connect"]
+      171 CALL                             R6 2 -1
+      172 FASTCALL                         TABLE_INSERT ; [+2]
+      173 GETIMPORT                        R4 K54 [table.insert]
+      175 CALL                             R4 -1 0
+      176 NAMECALL                         R4 R2 K59 ["_registerMouseTrackerAsync"]
+      178 CALL                             R4 1 0
+      179 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -387,51 +356,47 @@ PROTO_13:
        28 LOADK                            R2 K7 ["Unable to get mouse tracker instance"]
        29 GETIMPORT                        R0 K9 [assert]
        31 CALL                             R0 2 0
-       32 GETUPVAL                         R0 2
-       33 CALL                             R0 0 1
-       34 JUMPIFNOT                        R0 ; [+12]
-       35 GETUPVAL                         R0 0
-       36 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
-       38 LOADK                            R2 K10 ["RBX_MouseHoverEnabled"]
-       39 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
-       41 CALL                             R0 2 1
-       42 NEWCLOSURE                       R2 P0
-       43 CAPTURE                          UPVAL U0
-       44 NAMECALL                         R0 R0 K12 ["Connect"]
-       46 CALL                             R0 2 0
-       47 GETUPVAL                         R0 0
-       48 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
-       50 LOADK                            R2 K13 ["RBX_MousePosition"]
-       51 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
-       53 CALL                             R0 2 1
-       54 NEWCLOSURE                       R2 P1
-       55 CAPTURE                          UPVAL U0
-       56 NAMECALL                         R0 R0 K12 ["Connect"]
-       58 CALL                             R0 2 0
-       59 GETUPVAL                         R0 0
-       60 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
-       62 LOADK                            R2 K14 ["RBX_LeftMouseButtonDown"]
-       63 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
-       65 CALL                             R0 2 1
-       66 NEWCLOSURE                       R2 P2
-       67 CAPTURE                          UPVAL U0
-       68 NAMECALL                         R0 R0 K12 ["Connect"]
-       70 CALL                             R0 2 0
-       71 RETURN                           R0 0
+       32 GETUPVAL                         R0 0
+       33 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
+       35 LOADK                            R2 K10 ["RBX_MouseHoverEnabled"]
+       36 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
+       38 CALL                             R0 2 1
+       39 NEWCLOSURE                       R2 P0
+       40 CAPTURE                          UPVAL U0
+       41 NAMECALL                         R0 R0 K12 ["Connect"]
+       43 CALL                             R0 2 0
+       44 GETUPVAL                         R0 0
+       45 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
+       47 LOADK                            R2 K13 ["RBX_MousePosition"]
+       48 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
+       50 CALL                             R0 2 1
+       51 NEWCLOSURE                       R2 P1
+       52 CAPTURE                          UPVAL U0
+       53 NAMECALL                         R0 R0 K12 ["Connect"]
+       55 CALL                             R0 2 0
+       56 GETUPVAL                         R0 0
+       57 GETTABLEKS                       R0 R0 K6 ["_mouseTrackerInstance"]
+       59 LOADK                            R2 K14 ["RBX_LeftMouseButtonDown"]
+       60 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
+       62 CALL                             R0 2 1
+       63 NEWCLOSURE                       R2 P2
+       64 CAPTURE                          UPVAL U0
+       65 NAMECALL                         R0 R0 K12 ["Connect"]
+       67 CALL                             R0 2 0
+       68 RETURN                           R0 0
 
 PROTO_14:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          VAL R0
         4 CAPTURE                          UPVAL U0
-        5 CAPTURE                          UPVAL U1
-        6 CALL                             R1 1 1
-        7 GETTABLEKS                       R3 R0 K3 ["_threads"]
-        9 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
-       11 MOVE                             R4 R1
-       12 GETIMPORT                        R2 K6 [table.insert]
-       14 CALL                             R2 2 0
-       15 RETURN                           R0 0
+        5 CALL                             R1 1 1
+        6 GETTABLEKS                       R3 R0 K3 ["_threads"]
+        8 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       10 MOVE                             R4 R1
+       11 GETIMPORT                        R2 K6 [table.insert]
+       13 CALL                             R2 2 0
+       14 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R0 0
@@ -567,7 +532,7 @@ PROTO_22:
        17 JUMPIFNOT                        R2 ; [+34]
        18 GETIMPORT                        R4 K7 [Enum.KeyCode.Left]
        20 JUMPIFNOTEQ                      R1 R4 ; [+3]
-       22 LOADN                            R3 255
+       22 LOADN                            R3 -1
        23 JUMP                             ; [+39]
        24 GETIMPORT                        R4 K9 [Enum.KeyCode.Right]
        26 JUMPIFNOTEQ                      R1 R4 ; [+3]
@@ -589,7 +554,7 @@ PROTO_22:
        51 JUMP                             ; [+11]
        52 GETIMPORT                        R4 K11 [Enum.KeyCode.Up]
        54 JUMPIFNOTEQ                      R1 R4 ; [+3]
-       56 LOADN                            R3 255
+       56 LOADN                            R3 -1
        57 JUMP                             ; [+5]
        58 GETIMPORT                        R4 K14 [Enum.KeyCode.Down]
        60 JUMPIFNOTEQ                      R1 R4 ; [+2]
@@ -1006,9 +971,9 @@ PROTO_41:
        37 SUB                              R3 R1 R4
        38 GETTABLEKS                       R3 R3 K12 ["Magnitude"]
        40 LOADN                            R4 15
-       41 JUMPIFNOTLT                      R4 R3 ; [+110]
+       41 JUMPIFNOTLT                      R4 R3 ; [+101]
        43 GETTABLEKS                       R3 R0 K1 ["_dragging"]
-       45 JUMPIF                           R3 ; [+106]
+       45 JUMPIF                           R3 ; [+97]
        46 GETTABLEKS                       R3 R0 K13 ["_lastZone"]
        48 GETUPVAL                         R4 0
        49 GETTABLEKS                       R4 R4 K14 ["UiZone"]
@@ -1059,24 +1024,18 @@ PROTO_41:
       121 GETTABLEKS                       R4 R0 K9 ["_pluginController"]
       123 NAMECALL                         R4 R4 K28 ["getPlugin"]
       125 CALL                             R4 1 1
-      126 DUPTABLE                         R6 K34 [{"Sender", "MimeType", "Data", "DragIcon", "HotSpot"}]
-      127 LOADK                            R7 K35 ["AssetManager"]
-      128 SETTABLEKS                       R7 R6 K29 ["Sender"]
-      130 LOADK                            R7 K36 ["text/plain"]
-      131 SETTABLEKS                       R7 R6 K30 ["MimeType"]
-      133 LOADK                            R7 K37 ["Items"]
-      134 SETTABLEKS                       R7 R6 K31 ["Data"]
-      136 SETTABLEKS                       R3 R6 K32 ["DragIcon"]
-      138 GETIMPORT                        R7 K40 [Vector2.new]
-      140 GETUPVAL                         R8 3
-      141 GETTABLEKS                       R8 R8 K41 ["IconWidth"]
-      143 GETUPVAL                         R9 3
-      144 GETTABLEKS                       R9 R9 K41 ["IconWidth"]
-      146 CALL                             R7 2 1
-      147 SETTABLEKS                       R7 R6 K33 ["HotSpot"]
-      149 NAMECALL                         R4 R4 K42 ["StartDrag"]
-      151 CALL                             R4 2 0
-      152 RETURN                           R0 0
+      126 DUPTABLE                         R6 K37 [{["Sender"] = "AssetManager", ["MimeType"] = "text/plain", ["Data"] = "Items", ["DragIcon"], ["HotSpot"]}]
+      127 SETTABLEKS                       R3 R6 K35 ["DragIcon"]
+      129 GETIMPORT                        R7 K40 [Vector2.new]
+      131 GETUPVAL                         R8 3
+      132 GETTABLEKS                       R8 R8 K41 ["IconWidth"]
+      134 GETUPVAL                         R9 3
+      135 GETTABLEKS                       R9 R9 K41 ["IconWidth"]
+      137 CALL                             R7 2 1
+      138 SETTABLEKS                       R7 R6 K36 ["HotSpot"]
+      140 NAMECALL                         R4 R4 K42 ["StartDrag"]
+      142 CALL                             R4 2 0
+      143 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1133,105 +1092,92 @@ MAIN:
        91 GETTABLEKS                       R14 R0 K13 ["Src"]
        93 GETTABLEKS                       R14 R14 K22 ["Types"]
        95 CALL                             R13 1 1
-       96 GETIMPORT                        R14 K5 [require]
-       98 GETTABLEKS                       R15 R0 K13 ["Src"]
-      100 GETTABLEKS                       R15 R15 K23 ["Flags"]
-      102 GETTABLEKS                       R15 R15 K24 ["getFFlagAmrOrganizationFoundation"]
-      104 CALL                             R14 1 1
-      105 GETIMPORT                        R15 K5 [require]
-      107 GETTABLEKS                       R16 R0 K13 ["Src"]
-      109 GETTABLEKS                       R16 R16 K23 ["Flags"]
-      111 GETTABLEKS                       R16 R16 K25 ["getFFlagAmrFoundationifyContextMenu"]
-      113 CALL                             R15 1 1
-      114 LOADK                            R18 K26 ["Input"]
-      115 NAMECALL                         R16 R3 K27 ["extend"]
-      117 CALL                             R16 2 1
-      118 DUPCLOSURE                       R17 K28 [PROTO_6]
-      119 CAPTURE                          VAL R10
-      120 CAPTURE                          VAL R4
-      121 CAPTURE                          VAL R5
-      122 CAPTURE                          VAL R16
-      123 CAPTURE                          VAL R14
-      124 CAPTURE                          VAL R11
-      125 CAPTURE                          VAL R15
-      126 SETTABLEKS                       R17 R16 K29 ["new"]
-      128 DUPCLOSURE                       R17 K30 [PROTO_7]
-      129 CAPTURE                          VAL R16
-      130 SETTABLEKS                       R17 R16 K31 ["mock"]
-      132 DUPCLOSURE                       R17 K32 [PROTO_8]
-      133 CAPTURE                          VAL R6
-      134 SETTABLEKS                       R17 R16 K33 ["destroy"]
-      136 DUPCLOSURE                       R17 K34 [PROTO_9]
-      137 SETTABLEKS                       R17 R16 K35 ["getPlugin"]
-      139 DUPCLOSURE                       R17 K36 [PROTO_14]
-      140 CAPTURE                          VAL R7
-      141 CAPTURE                          VAL R14
-      142 SETTABLEKS                       R17 R16 K37 ["_registerMouseTrackerAsync"]
-      144 DUPCLOSURE                       R17 K38 [PROTO_16]
-      145 CAPTURE                          VAL R7
-      146 SETTABLEKS                       R17 R16 K39 ["_registerWidgetAsync"]
-      148 DUPCLOSURE                       R17 K40 [PROTO_18]
-      149 CAPTURE                          VAL R7
-      150 SETTABLEKS                       R17 R16 K41 ["_deregisterWidgetAsync"]
-      152 DUPCLOSURE                       R17 K42 [PROTO_19]
-      153 SETTABLEKS                       R17 R16 K43 ["_registerMod"]
-      155 DUPCLOSURE                       R17 K44 [PROTO_20]
-      156 SETTABLEKS                       R17 R16 K45 ["getMousePosition"]
-      158 DUPCLOSURE                       R17 K46 [PROTO_21]
-      159 SETTABLEKS                       R17 R16 K47 ["_isArrowKey"]
-      161 DUPCLOSURE                       R17 K48 [PROTO_22]
-      162 CAPTURE                          VAL R13
-      163 SETTABLEKS                       R17 R16 K49 ["_handleBrowserArrowInput"]
-      165 DUPCLOSURE                       R17 K50 [PROTO_23]
-      166 CAPTURE                          VAL R13
-      167 SETTABLEKS                       R17 R16 K51 ["handleKeyDown"]
-      169 DUPCLOSURE                       R17 K52 [PROTO_24]
-      170 SETTABLEKS                       R17 R16 K53 ["handleKeyUp"]
-      172 DUPCLOSURE                       R17 K54 [PROTO_25]
-      173 SETTABLEKS                       R17 R16 K55 ["_checkBrowserDoubleClick"]
-      175 DUPCLOSURE                       R17 K56 [PROTO_26]
-      176 SETTABLEKS                       R17 R16 K57 ["_handleBrowserDoubleClick"]
-      178 DUPCLOSURE                       R17 K58 [PROTO_27]
-      179 SETTABLEKS                       R17 R16 K59 ["_waitForSelectionDoubleClick"]
-      181 DUPCLOSURE                       R17 K60 [PROTO_28]
-      182 CAPTURE                          VAL R13
-      183 SETTABLEKS                       R17 R16 K61 ["handleMouse1Click"]
-      185 DUPCLOSURE                       R17 K62 [PROTO_29]
-      186 CAPTURE                          VAL R13
-      187 SETTABLEKS                       R17 R16 K63 ["handleMouse1Down"]
-      189 DUPCLOSURE                       R17 K64 [PROTO_30]
-      190 CAPTURE                          VAL R13
-      191 SETTABLEKS                       R17 R16 K65 ["handleMouse1Up"]
-      193 DUPCLOSURE                       R17 K66 [PROTO_31]
-      194 CAPTURE                          VAL R13
-      195 SETTABLEKS                       R17 R16 K67 ["handleMouse2Click"]
-      197 DUPCLOSURE                       R17 K68 [PROTO_32]
-      198 SETTABLEKS                       R17 R16 K69 ["isMouse1Down"]
-      200 DUPCLOSURE                       R17 K70 [PROTO_33]
-      201 SETTABLEKS                       R17 R16 K71 ["isDragging"]
-      203 DUPCLOSURE                       R17 K72 [PROTO_34]
-      204 SETTABLEKS                       R17 R16 K73 ["getLastZoneClicked"]
-      206 DUPCLOSURE                       R17 K74 [PROTO_35]
-      207 SETTABLEKS                       R17 R16 K75 ["getDragInfo"]
-      209 DUPCLOSURE                       R17 K76 [PROTO_36]
-      210 SETTABLEKS                       R17 R16 K77 ["_isValidSidebarDrag"]
-      212 DUPCLOSURE                       R17 K78 [PROTO_37]
-      213 CAPTURE                          VAL R13
-      214 CAPTURE                          VAL R8
-      215 SETTABLEKS                       R17 R16 K79 ["_isValidBrowserDrag"]
-      217 DUPCLOSURE                       R17 K80 [PROTO_38]
-      218 CAPTURE                          VAL R8
-      219 CAPTURE                          VAL R13
-      220 CAPTURE                          VAL R11
-      221 SETTABLEKS                       R17 R16 K81 ["isValidDragForTarget"]
-      223 DUPCLOSURE                       R17 K82 [PROTO_39]
-      224 SETTABLEKS                       R17 R16 K83 ["setInvalidDragHoverPosition"]
-      226 DUPCLOSURE                       R17 K84 [PROTO_40]
-      227 SETTABLEKS                       R17 R16 K85 ["getInvalidDragHoverPosition"]
-      229 DUPCLOSURE                       R17 K86 [PROTO_41]
-      230 CAPTURE                          VAL R13
-      231 CAPTURE                          VAL R11
-      232 CAPTURE                          VAL R9
-      233 CAPTURE                          VAL R12
-      234 SETTABLEKS                       R17 R16 K87 ["_updateDrag"]
-      236 RETURN                           R16 1
+       96 LOADK                            R16 K23 ["Input"]
+       97 NAMECALL                         R14 R3 K24 ["extend"]
+       99 CALL                             R14 2 1
+      100 DUPCLOSURE                       R15 K25 [PROTO_6]
+      101 CAPTURE                          VAL R10
+      102 CAPTURE                          VAL R4
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R14
+      105 CAPTURE                          VAL R11
+      106 SETTABLEKS                       R15 R14 K26 ["new"]
+      108 DUPCLOSURE                       R15 K27 [PROTO_7]
+      109 CAPTURE                          VAL R14
+      110 SETTABLEKS                       R15 R14 K28 ["mock"]
+      112 DUPCLOSURE                       R15 K29 [PROTO_8]
+      113 CAPTURE                          VAL R6
+      114 SETTABLEKS                       R15 R14 K30 ["destroy"]
+      116 DUPCLOSURE                       R15 K31 [PROTO_9]
+      117 SETTABLEKS                       R15 R14 K32 ["getPlugin"]
+      119 DUPCLOSURE                       R15 K33 [PROTO_14]
+      120 CAPTURE                          VAL R7
+      121 SETTABLEKS                       R15 R14 K34 ["_registerMouseTrackerAsync"]
+      123 DUPCLOSURE                       R15 K35 [PROTO_16]
+      124 CAPTURE                          VAL R7
+      125 SETTABLEKS                       R15 R14 K36 ["_registerWidgetAsync"]
+      127 DUPCLOSURE                       R15 K37 [PROTO_18]
+      128 CAPTURE                          VAL R7
+      129 SETTABLEKS                       R15 R14 K38 ["_deregisterWidgetAsync"]
+      131 DUPCLOSURE                       R15 K39 [PROTO_19]
+      132 SETTABLEKS                       R15 R14 K40 ["_registerMod"]
+      134 DUPCLOSURE                       R15 K41 [PROTO_20]
+      135 SETTABLEKS                       R15 R14 K42 ["getMousePosition"]
+      137 DUPCLOSURE                       R15 K43 [PROTO_21]
+      138 SETTABLEKS                       R15 R14 K44 ["_isArrowKey"]
+      140 DUPCLOSURE                       R15 K45 [PROTO_22]
+      141 CAPTURE                          VAL R13
+      142 SETTABLEKS                       R15 R14 K46 ["_handleBrowserArrowInput"]
+      144 DUPCLOSURE                       R15 K47 [PROTO_23]
+      145 CAPTURE                          VAL R13
+      146 SETTABLEKS                       R15 R14 K48 ["handleKeyDown"]
+      148 DUPCLOSURE                       R15 K49 [PROTO_24]
+      149 SETTABLEKS                       R15 R14 K50 ["handleKeyUp"]
+      151 DUPCLOSURE                       R15 K51 [PROTO_25]
+      152 SETTABLEKS                       R15 R14 K52 ["_checkBrowserDoubleClick"]
+      154 DUPCLOSURE                       R15 K53 [PROTO_26]
+      155 SETTABLEKS                       R15 R14 K54 ["_handleBrowserDoubleClick"]
+      157 DUPCLOSURE                       R15 K55 [PROTO_27]
+      158 SETTABLEKS                       R15 R14 K56 ["_waitForSelectionDoubleClick"]
+      160 DUPCLOSURE                       R15 K57 [PROTO_28]
+      161 CAPTURE                          VAL R13
+      162 SETTABLEKS                       R15 R14 K58 ["handleMouse1Click"]
+      164 DUPCLOSURE                       R15 K59 [PROTO_29]
+      165 CAPTURE                          VAL R13
+      166 SETTABLEKS                       R15 R14 K60 ["handleMouse1Down"]
+      168 DUPCLOSURE                       R15 K61 [PROTO_30]
+      169 CAPTURE                          VAL R13
+      170 SETTABLEKS                       R15 R14 K62 ["handleMouse1Up"]
+      172 DUPCLOSURE                       R15 K63 [PROTO_31]
+      173 CAPTURE                          VAL R13
+      174 SETTABLEKS                       R15 R14 K64 ["handleMouse2Click"]
+      176 DUPCLOSURE                       R15 K65 [PROTO_32]
+      177 SETTABLEKS                       R15 R14 K66 ["isMouse1Down"]
+      179 DUPCLOSURE                       R15 K67 [PROTO_33]
+      180 SETTABLEKS                       R15 R14 K68 ["isDragging"]
+      182 DUPCLOSURE                       R15 K69 [PROTO_34]
+      183 SETTABLEKS                       R15 R14 K70 ["getLastZoneClicked"]
+      185 DUPCLOSURE                       R15 K71 [PROTO_35]
+      186 SETTABLEKS                       R15 R14 K72 ["getDragInfo"]
+      188 DUPCLOSURE                       R15 K73 [PROTO_36]
+      189 SETTABLEKS                       R15 R14 K74 ["_isValidSidebarDrag"]
+      191 DUPCLOSURE                       R15 K75 [PROTO_37]
+      192 CAPTURE                          VAL R13
+      193 CAPTURE                          VAL R8
+      194 SETTABLEKS                       R15 R14 K76 ["_isValidBrowserDrag"]
+      196 DUPCLOSURE                       R15 K77 [PROTO_38]
+      197 CAPTURE                          VAL R8
+      198 CAPTURE                          VAL R13
+      199 CAPTURE                          VAL R11
+      200 SETTABLEKS                       R15 R14 K78 ["isValidDragForTarget"]
+      202 DUPCLOSURE                       R15 K79 [PROTO_39]
+      203 SETTABLEKS                       R15 R14 K80 ["setInvalidDragHoverPosition"]
+      205 DUPCLOSURE                       R15 K81 [PROTO_40]
+      206 SETTABLEKS                       R15 R14 K82 ["getInvalidDragHoverPosition"]
+      208 DUPCLOSURE                       R15 K83 [PROTO_41]
+      209 CAPTURE                          VAL R13
+      210 CAPTURE                          VAL R11
+      211 CAPTURE                          VAL R9
+      212 CAPTURE                          VAL R12
+      213 SETTABLEKS                       R15 R14 K84 ["_updateDrag"]
+      215 RETURN                           R14 1

@@ -85,81 +85,67 @@ MAIN:
        86 CALL                             R9 2 1
        87 MOVE                             R10 R7
        88 CALL                             R10 0 0
-       89 DUPTABLE                         R10 K35 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
-       90 GETIMPORT                        R11 K36 [plugin]
+       89 DUPTABLE                         R10 K36 [{["plugin"], ["pluginName"] = "R15Migrator", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"], ["extraTriggers"]}]
+       90 GETIMPORT                        R11 K37 [plugin]
        92 SETTABLEKS                       R11 R10 K25 ["plugin"]
-       94 LOADK                            R11 K2 ["R15Migrator"]
-       95 SETTABLEKS                       R11 R10 K26 ["pluginName"]
-       97 SETTABLEKS                       R4 R10 K27 ["translationResourceTable"]
-       99 SETTABLEKS                       R3 R10 K28 ["fallbackResourceTable"]
-      101 LOADNIL                          R11
-      102 SETTABLEKS                       R11 R10 K29 ["overrideLocaleId"]
-      104 LOADNIL                          R11
-      105 SETTABLEKS                       R11 R10 K30 ["localizationNamespace"]
-      107 DUPCLOSURE                       R11 K37 [PROTO_0]
-      108 SETTABLEKS                       R11 R10 K31 ["getToolbarName"]
-      110 DUPTABLE                         R11 K42 [{"getName", "getDescription", "icon", "text"}]
-      111 DUPCLOSURE                       R12 K43 [PROTO_1]
-      112 SETTABLEKS                       R12 R11 K38 ["getName"]
-      114 DUPCLOSURE                       R12 K44 [PROTO_2]
-      115 SETTABLEKS                       R12 R11 K39 ["getDescription"]
-      117 LOADK                            R12 K45 ["http://www.roblox.com/asset/?id=12399871436"]
-      118 SETTABLEKS                       R12 R11 K40 ["icon"]
-      120 LOADNIL                          R12
-      121 SETTABLEKS                       R12 R11 K41 ["text"]
-      123 SETTABLEKS                       R11 R10 K32 ["buttonInfo"]
-      125 DUPTABLE                         R11 K51 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
-      126 LOADK                            R12 K2 ["R15Migrator"]
-      127 SETTABLEKS                       R12 R11 K46 ["id"]
-      129 GETIMPORT                        R12 K54 [DockWidgetPluginGuiInfo.new]
-      131 GETIMPORT                        R13 K58 [Enum.InitialDockState.Left]
-      133 GETTABLEKS                       R14 R8 K59 ["InitiallyEnabled"]
-      135 GETIMPORT                        R16 K36 [plugin]
-      137 GETIMPORT                        R17 K22 [game]
-      139 GETTABLEKS                       R17 R17 K60 ["GameId"]
-      141 NAMECALL                         R14 R14 K61 ["getBooleanSetting"]
-      143 CALL                             R14 3 1
-      144 LOADB                            R15 1
-      145 LOADN                            R16 252
-      146 LOADN                            R17 128
-      147 LOADN                            R18 252
-      148 LOADN                            R19 128
-      149 CALL                             R12 7 1
-      150 SETTABLEKS                       R12 R11 K47 ["dockWidgetPluginGuiInfo"]
-      152 DUPCLOSURE                       R12 K62 [PROTO_3]
-      153 SETTABLEKS                       R12 R11 K48 ["getDockTitle"]
-      155 LOADK                            R12 K2 ["R15Migrator"]
-      156 SETTABLEKS                       R12 R11 K49 ["name"]
-      158 GETIMPORT                        R12 K65 [Enum.ZIndexBehavior.Sibling]
-      160 SETTABLEKS                       R12 R11 K50 ["zIndexBehavior"]
-      162 SETTABLEKS                       R11 R10 K33 ["dockWidgetInfo"]
-      164 NEWTABLE                         R11 1 0
-      166 DUPCLOSURE                       R12 K66 [PROTO_4]
-      167 CAPTURE                          VAL R9
-      168 SETTABLEKS                       R12 R11 K67 ["StudioPublishService.OnPublishAttempt"]
-      170 SETTABLEKS                       R11 R10 K34 ["extraTriggers"]
-      172 GETTABLEKS                       R11 R8 K59 ["InitiallyEnabled"]
-      174 GETIMPORT                        R13 K36 [plugin]
-      176 GETIMPORT                        R14 K22 [game]
-      178 GETTABLEKS                       R14 R14 K60 ["GameId"]
-      180 LOADNIL                          R15
-      181 NAMECALL                         R11 R11 K68 ["setSetting"]
-      183 CALL                             R11 4 0
-      184 GETTABLEKS                       R11 R6 K69 ["build"]
-      186 MOVE                             R12 R10
-      187 CALL                             R11 1 1
-      188 GETTABLEKS                       R12 R11 K70 ["pluginLoader"]
-      190 NAMECALL                         R12 R12 K71 ["waitForUserInteraction"]
-      192 CALL                             R12 1 1
-      193 JUMPIF                           R12 ; [+1]
-      194 RETURN                           R0 0
-      195 GETIMPORT                        R13 K5 [require]
-      197 GETIMPORT                        R14 K1 [script]
-      199 GETTABLEKS                       R14 R14 K72 ["Parent"]
-      201 GETTABLEKS                       R14 R14 K73 ["main"]
-      203 CALL                             R13 1 1
-      204 MOVE                             R14 R13
-      205 GETIMPORT                        R15 K36 [plugin]
-      207 MOVE                             R16 R11
-      208 CALL                             R14 2 0
-      209 RETURN                           R0 0
+       94 SETTABLEKS                       R4 R10 K27 ["translationResourceTable"]
+       96 SETTABLEKS                       R3 R10 K28 ["fallbackResourceTable"]
+       98 DUPCLOSURE                       R11 K38 [PROTO_0]
+       99 SETTABLEKS                       R11 R10 K32 ["getToolbarName"]
+      101 DUPTABLE                         R11 K44 [{["getName"], ["getDescription"], ["icon"] = "http://www.roblox.com/asset/?id=12399871436", ["text"] = }]
+      102 DUPCLOSURE                       R12 K45 [PROTO_1]
+      103 SETTABLEKS                       R12 R11 K39 ["getName"]
+      105 DUPCLOSURE                       R12 K46 [PROTO_2]
+      106 SETTABLEKS                       R12 R11 K40 ["getDescription"]
+      108 SETTABLEKS                       R11 R10 K33 ["buttonInfo"]
+      110 DUPTABLE                         R11 K52 [{["id"] = "R15Migrator", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["name"] = "R15Migrator", ["zIndexBehavior"]}]
+      111 GETIMPORT                        R12 K55 [DockWidgetPluginGuiInfo.new]
+      113 GETIMPORT                        R13 K59 [Enum.InitialDockState.Left]
+      115 GETTABLEKS                       R14 R8 K60 ["InitiallyEnabled"]
+      117 GETIMPORT                        R16 K37 [plugin]
+      119 GETIMPORT                        R17 K22 [game]
+      121 GETTABLEKS                       R17 R17 K61 ["GameId"]
+      123 NAMECALL                         R14 R14 K62 ["getBooleanSetting"]
+      125 CALL                             R14 3 1
+      126 LOADB                            R15 1
+      127 LOADN                            R16 508
+      128 LOADN                            R17 640
+      129 LOADN                            R18 508
+      130 LOADN                            R19 640
+      131 CALL                             R12 7 1
+      132 SETTABLEKS                       R12 R11 K48 ["dockWidgetPluginGuiInfo"]
+      134 DUPCLOSURE                       R12 K63 [PROTO_3]
+      135 SETTABLEKS                       R12 R11 K49 ["getDockTitle"]
+      137 GETIMPORT                        R12 K66 [Enum.ZIndexBehavior.Sibling]
+      139 SETTABLEKS                       R12 R11 K51 ["zIndexBehavior"]
+      141 SETTABLEKS                       R11 R10 K34 ["dockWidgetInfo"]
+      143 NEWTABLE                         R11 1 0
+      145 DUPCLOSURE                       R12 K67 [PROTO_4]
+      146 CAPTURE                          VAL R9
+      147 SETTABLEKS                       R12 R11 K68 ["StudioPublishService.OnPublishAttempt"]
+      149 SETTABLEKS                       R11 R10 K35 ["extraTriggers"]
+      151 GETTABLEKS                       R11 R8 K60 ["InitiallyEnabled"]
+      153 GETIMPORT                        R13 K37 [plugin]
+      155 GETIMPORT                        R14 K22 [game]
+      157 GETTABLEKS                       R14 R14 K61 ["GameId"]
+      159 LOADNIL                          R15
+      160 NAMECALL                         R11 R11 K69 ["setSetting"]
+      162 CALL                             R11 4 0
+      163 GETTABLEKS                       R11 R6 K70 ["build"]
+      165 MOVE                             R12 R10
+      166 CALL                             R11 1 1
+      167 GETTABLEKS                       R12 R11 K71 ["pluginLoader"]
+      169 NAMECALL                         R12 R12 K72 ["waitForUserInteraction"]
+      171 CALL                             R12 1 1
+      172 JUMPIF                           R12 ; [+1]
+      173 RETURN                           R0 0
+      174 GETIMPORT                        R13 K5 [require]
+      176 GETIMPORT                        R14 K1 [script]
+      178 GETTABLEKS                       R14 R14 K73 ["Parent"]
+      180 GETTABLEKS                       R14 R14 K74 ["main"]
+      182 CALL                             R13 1 1
+      183 MOVE                             R14 R13
+      184 GETIMPORT                        R15 K37 [plugin]
+      186 MOVE                             R16 R11
+      187 CALL                             R14 2 0
+      188 RETURN                           R0 0

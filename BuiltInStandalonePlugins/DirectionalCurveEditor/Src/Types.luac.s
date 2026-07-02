@@ -1,26 +1,4 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K11 [{"NO_INSTANCE", "EMITTER", "LISTENER", "NO_PROPERTY", "DISTANCE", "ANGLE", "CUSTOM", "INVERSE", "INVERSE_TAPERED", "LINEAR", "LINEAR_SQUARED"}]
-        2 LOADK                            R1 K12 ["None"]
-        3 SETTABLEKS                       R1 R0 K0 ["NO_INSTANCE"]
-        5 LOADK                            R1 K13 ["AudioEmitter"]
-        6 SETTABLEKS                       R1 R0 K1 ["EMITTER"]
-        8 LOADK                            R1 K14 ["AudioListener"]
-        9 SETTABLEKS                       R1 R0 K2 ["LISTENER"]
-       11 LOADK                            R1 K12 ["None"]
-       12 SETTABLEKS                       R1 R0 K3 ["NO_PROPERTY"]
-       14 LOADK                            R1 K15 ["DistanceAttenuation"]
-       15 SETTABLEKS                       R1 R0 K4 ["DISTANCE"]
-       17 LOADK                            R1 K16 ["AngleAttenuation"]
-       18 SETTABLEKS                       R1 R0 K5 ["ANGLE"]
-       20 LOADK                            R1 K17 ["Custom"]
-       21 SETTABLEKS                       R1 R0 K6 ["CUSTOM"]
-       23 LOADK                            R1 K18 ["Inverse"]
-       24 SETTABLEKS                       R1 R0 K7 ["INVERSE"]
-       26 LOADK                            R1 K19 ["Inverse Tapered"]
-       27 SETTABLEKS                       R1 R0 K8 ["INVERSE_TAPERED"]
-       29 LOADK                            R1 K20 ["Linear"]
-       30 SETTABLEKS                       R1 R0 K9 ["LINEAR"]
-       32 LOADK                            R1 K21 ["Linear Squared"]
-       33 SETTABLEKS                       R1 R0 K10 ["LINEAR_SQUARED"]
-       35 RETURN                           R0 1
+        1 DUPTABLE                         R0 K21 [{[1] = "None", ["EMITTER"] = "AudioEmitter", ["LISTENER"] = "AudioListener", ["NO_PROPERTY"] = "None", ["DISTANCE"] = "DistanceAttenuation", ["ANGLE"] = "AngleAttenuation", ["CUSTOM"] = "Custom", ["INVERSE"] = "Inverse", ["INVERSE_TAPERED"] = "Inverse Tapered", ["LINEAR"] = "Linear", ["LINEAR_SQUARED"] = "Linear Squared"}]
+        2 RETURN                           R0 1

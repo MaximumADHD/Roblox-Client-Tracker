@@ -327,7 +327,7 @@ PROTO_5:
       265 GETIMPORT                        R14 K22 [table.insert]
       267 CALL                             R14 -1 0
       268 GETTABLEKS                       R14 R0 K33 ["hasInternalPermission"]
-      270 JUMPIFNOT                        R14 ; [+52]
+      270 JUMPIFNOT                        R14 ; [+46]
       271 GETUPVAL                         R14 3
       272 CALL                             R14 0 1
       273 JUMPIFNOT                        R14 ; [+9]
@@ -337,40 +337,36 @@ PROTO_5:
       279 MOVE                             R15 R12
       280 GETIMPORT                        R14 K22 [table.insert]
       282 CALL                             R14 2 0
-      283 DUPTABLE                         R16 K36 [{"Text", "OnItemClicked"}]
-      284 LOADK                            R17 K37 ["[INTERNAL] Dump track data"]
-      285 SETTABLEKS                       R17 R16 K34 ["Text"]
-      287 NEWCLOSURE                       R17 P0
-      288 CAPTURE                          UPVAL U3
-      289 CAPTURE                          UPVAL U0
-      290 CAPTURE                          VAL R7
-      291 CAPTURE                          VAL R8
-      292 CAPTURE                          VAL R4
-      293 CAPTURE                          REF R9
-      294 CAPTURE                          UPVAL U4
-      295 SETTABLEKS                       R17 R16 K35 ["OnItemClicked"]
-      297 FASTCALL2                        TABLE_INSERT R12 R16 ; [+4]
-      299 MOVE                             R15 R12
-      300 GETIMPORT                        R14 K22 [table.insert]
-      302 CALL                             R14 2 0
-      303 DUPTABLE                         R16 K36 [{"Text", "OnItemClicked"}]
-      304 LOADK                            R17 K38 ["[INTERNAL] Dump track as CSV"]
-      305 SETTABLEKS                       R17 R16 K34 ["Text"]
-      307 NEWCLOSURE                       R17 P1
-      308 CAPTURE                          UPVAL U4
-      309 CAPTURE                          VAL R7
-      310 CAPTURE                          VAL R8
-      311 CAPTURE                          REF R9
-      312 CAPTURE                          VAL R4
-      313 CAPTURE                          UPVAL U2
-      314 CAPTURE                          VAL R1
-      315 SETTABLEKS                       R17 R16 K35 ["OnItemClicked"]
-      317 FASTCALL2                        TABLE_INSERT R12 R16 ; [+4]
-      319 MOVE                             R15 R12
-      320 GETIMPORT                        R14 K22 [table.insert]
-      322 CALL                             R14 2 0
-      323 CLOSEUPVALS                      R9
-      324 RETURN                           R12 1
+      283 DUPTABLE                         R16 K37 [{["Text"] = "[INTERNAL] Dump track data", ["OnItemClicked"]}]
+      284 NEWCLOSURE                       R17 P0
+      285 CAPTURE                          UPVAL U3
+      286 CAPTURE                          UPVAL U0
+      287 CAPTURE                          VAL R7
+      288 CAPTURE                          VAL R8
+      289 CAPTURE                          VAL R4
+      290 CAPTURE                          REF R9
+      291 CAPTURE                          UPVAL U4
+      292 SETTABLEKS                       R17 R16 K36 ["OnItemClicked"]
+      294 FASTCALL2                        TABLE_INSERT R12 R16 ; [+4]
+      296 MOVE                             R15 R12
+      297 GETIMPORT                        R14 K22 [table.insert]
+      299 CALL                             R14 2 0
+      300 DUPTABLE                         R16 K39 [{["Text"] = "[INTERNAL] Dump track as CSV", ["OnItemClicked"]}]
+      301 NEWCLOSURE                       R17 P1
+      302 CAPTURE                          UPVAL U4
+      303 CAPTURE                          VAL R7
+      304 CAPTURE                          VAL R8
+      305 CAPTURE                          REF R9
+      306 CAPTURE                          VAL R4
+      307 CAPTURE                          UPVAL U2
+      308 CAPTURE                          VAL R1
+      309 SETTABLEKS                       R17 R16 K36 ["OnItemClicked"]
+      311 FASTCALL2                        TABLE_INSERT R12 R16 ; [+4]
+      313 MOVE                             R15 R12
+      314 GETIMPORT                        R14 K22 [table.insert]
+      316 CALL                             R14 2 0
+      317 CLOSEUPVALS                      R9
+      318 RETURN                           R12 1
 
 PROTO_6:
         0 JUMPIFNOT                        R1 ; [+23]

@@ -63,47 +63,39 @@ PROTO_4:
        27 SETLIST                          R5 R6 1 [1]
        29 CALL                             R3 2 1
        30 GETUPVAL                         R4 2
-       31 DUPTABLE                         R5 K11 [{"Intent", "Heading", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "DisableTitleBar", "Width"}]
-       32 LOADK                            R6 K12 ["Warning"]
-       33 SETTABLEKS                       R6 R5 K3 ["Intent"]
-       35 LOADK                            R8 K13 ["QuitConfirmationDialog"]
-       36 LOADK                            R9 K14 ["Title"]
-       37 NAMECALL                         R6 R1 K15 ["getText"]
-       39 CALL                             R6 3 1
-       40 SETTABLEKS                       R6 R5 K4 ["Heading"]
-       42 DUPTABLE                         R6 K17 [{"Body"}]
-       43 GETUPVAL                         R7 1
-       44 GETTABLEKS                       R7 R7 K18 ["createElement"]
-       46 LOADK                            R8 K19 ["TextLabel"]
-       47 NEWTABLE                         R9 2 0
-       49 LOADK                            R12 K13 ["QuitConfirmationDialog"]
-       50 LOADK                            R13 K20 ["Text"]
-       51 NAMECALL                         R10 R1 K15 ["getText"]
-       53 CALL                             R10 3 1
-       54 SETTABLEKS                       R10 R9 K20 ["Text"]
-       56 GETUPVAL                         R10 1
-       57 GETTABLEKS                       R10 R10 K21 ["Tag"]
-       59 LOADK                            R11 K22 ["X-FitY"]
-       60 SETTABLE                         R11 R9 R10
-       61 CALL                             R7 2 1
-       62 SETTABLEKS                       R7 R6 K16 ["Body"]
-       64 SETTABLEKS                       R6 R5 K5 ["Contents"]
-       66 SETTABLEKS                       R3 R5 K6 ["ActionPrimary"]
-       68 SETTABLEKS                       R2 R5 K7 ["ActionSecondary"]
-       70 LOADB                            R6 1
-       71 SETTABLEKS                       R6 R5 K8 ["Modal"]
-       73 LOADB                            R6 1
-       74 SETTABLEKS                       R6 R5 K9 ["DisableTitleBar"]
-       76 LOADN                            R6 254
-       77 SETTABLEKS                       R6 R5 K10 ["Width"]
-       79 CALL                             R4 1 1
-       80 GETUPVAL                         R5 1
-       81 GETTABLEKS                       R5 R5 K23 ["useEffect"]
-       83 MOVE                             R6 R4
-       84 NEWTABLE                         R7 0 0
-       86 CALL                             R5 2 0
-       87 LOADNIL                          R5
-       88 RETURN                           R5 1
+       31 DUPTABLE                         R5 K14 [{["Intent"] = "Warning", ["Heading"], ["Contents"], ["ActionPrimary"], ["ActionSecondary"], ["Modal"] = True, ["DisableTitleBar"] = True, ["Width"] = 510}]
+       32 LOADK                            R8 K15 ["QuitConfirmationDialog"]
+       33 LOADK                            R9 K16 ["Title"]
+       34 NAMECALL                         R6 R1 K17 ["getText"]
+       36 CALL                             R6 3 1
+       37 SETTABLEKS                       R6 R5 K5 ["Heading"]
+       39 DUPTABLE                         R6 K19 [{"Body"}]
+       40 GETUPVAL                         R7 1
+       41 GETTABLEKS                       R7 R7 K20 ["createElement"]
+       43 LOADK                            R8 K21 ["TextLabel"]
+       44 NEWTABLE                         R9 2 0
+       46 LOADK                            R12 K15 ["QuitConfirmationDialog"]
+       47 LOADK                            R13 K22 ["Text"]
+       48 NAMECALL                         R10 R1 K17 ["getText"]
+       50 CALL                             R10 3 1
+       51 SETTABLEKS                       R10 R9 K22 ["Text"]
+       53 GETUPVAL                         R10 1
+       54 GETTABLEKS                       R10 R10 K23 ["Tag"]
+       56 LOADK                            R11 K24 ["X-FitY"]
+       57 SETTABLE                         R11 R9 R10
+       58 CALL                             R7 2 1
+       59 SETTABLEKS                       R7 R6 K18 ["Body"]
+       61 SETTABLEKS                       R6 R5 K6 ["Contents"]
+       63 SETTABLEKS                       R3 R5 K7 ["ActionPrimary"]
+       65 SETTABLEKS                       R2 R5 K8 ["ActionSecondary"]
+       67 CALL                             R4 1 1
+       68 GETUPVAL                         R5 1
+       69 GETTABLEKS                       R5 R5 K25 ["useEffect"]
+       71 MOVE                             R6 R4
+       72 NEWTABLE                         R7 0 0
+       74 CALL                             R5 2 0
+       75 LOADNIL                          R5
+       76 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

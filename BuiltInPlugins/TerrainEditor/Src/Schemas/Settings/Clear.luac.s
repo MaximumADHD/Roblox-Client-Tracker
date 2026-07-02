@@ -9,24 +9,22 @@ PROTO_0:
        10 SETTABLEKS                       R9 R8 K1 ["Id"]
        12 GETIMPORT                        R9 K9 [Enum.FillDirection.Vertical]
        14 SETTABLEKS                       R9 R8 K2 ["Layout"]
-       16 DUPTABLE                         R9 K12 [{"Label", "Type"}]
+       16 DUPTABLE                         R9 K13 [{["Label"], ["Type"] = "Button"}]
        17 GETUPVAL                         R12 2
-       18 GETTABLEKS                       R12 R12 K13 ["ClearSettings"]
-       20 LOADK                            R13 K14 ["ClearButtonLabel"]
-       21 NAMECALL                         R10 R4 K15 ["getText"]
+       18 GETTABLEKS                       R12 R12 K14 ["ClearSettings"]
+       20 LOADK                            R13 K15 ["ClearButtonLabel"]
+       21 NAMECALL                         R10 R4 K16 ["getText"]
        23 CALL                             R10 3 1
        24 SETTABLEKS                       R10 R9 K10 ["Label"]
-       26 LOADK                            R10 K16 ["Button"]
-       27 SETTABLEKS                       R10 R9 K11 ["Type"]
-       29 SETTABLEKS                       R9 R8 K3 ["Schema"]
-       31 SETLIST                          R7 R8 1 [1]
-       33 DUPTABLE                         R8 K20 [{"Category", "Data", "Overrides"}]
-       34 GETUPVAL                         R9 3
-       35 SETTABLEKS                       R9 R8 K17 ["Category"]
-       37 SETTABLEKS                       R1 R8 K18 ["Data"]
-       39 SETTABLEKS                       R3 R8 K19 ["Overrides"]
-       41 CALL                             R5 3 -1
-       42 RETURN                           R5 -1
+       26 SETTABLEKS                       R9 R8 K3 ["Schema"]
+       28 SETLIST                          R7 R8 1 [1]
+       30 DUPTABLE                         R8 K20 [{"Category", "Data", "Overrides"}]
+       31 GETUPVAL                         R9 3
+       32 SETTABLEKS                       R9 R8 K17 ["Category"]
+       34 SETTABLEKS                       R1 R8 K18 ["Data"]
+       36 SETTABLEKS                       R3 R8 K19 ["Overrides"]
+       38 CALL                             R5 3 -1
+       39 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

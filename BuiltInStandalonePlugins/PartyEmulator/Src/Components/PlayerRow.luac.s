@@ -133,79 +133,67 @@ PROTO_3:
        41 GETTABLEKS                       R6 R6 K6 ["createElement"]
        43 GETUPVAL                         R7 7
        44 GETTABLEKS                       R7 R7 K7 ["View"]
-       46 DUPTABLE                         R8 K10 [{"tag", "LayoutOrder"}]
-       47 LOADK                            R9 K11 ["size-full-0 auto-y row align-y-center gap-small padding-small bg-surface-200 radius-small flex-x-between"]
-       48 SETTABLEKS                       R9 R8 K8 ["tag"]
-       50 GETTABLEKS                       R9 R0 K9 ["LayoutOrder"]
-       52 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
-       54 DUPTABLE                         R9 K14 [{"PlayerDetailsContainer", "PartyDropdown"}]
-       55 GETUPVAL                         R10 3
-       56 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       58 GETUPVAL                         R11 7
-       59 GETTABLEKS                       R11 R11 K7 ["View"]
-       61 DUPTABLE                         R12 K10 [{"tag", "LayoutOrder"}]
-       62 LOADK                            R13 K15 ["row auto-xy align-y-center gap-small"]
-       63 SETTABLEKS                       R13 R12 K8 ["tag"]
-       65 MOVE                             R13 R1
-       66 CALL                             R13 0 1
-       67 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
-       69 DUPTABLE                         R13 K18 [{"PlayerIcon", "PlayerName"}]
-       70 GETUPVAL                         R14 3
-       71 GETTABLEKS                       R14 R14 K6 ["createElement"]
-       73 GETUPVAL                         R15 7
-       74 GETTABLEKS                       R15 R15 K19 ["Icon"]
-       76 DUPTABLE                         R16 K22 [{"tag", "size", "name", "LayoutOrder"}]
-       77 LOADK                            R17 K23 ["align-y-center auto-xy"]
-       78 SETTABLEKS                       R17 R16 K8 ["tag"]
-       80 GETUPVAL                         R17 7
-       81 GETTABLEKS                       R17 R17 K24 ["Enums"]
-       83 GETTABLEKS                       R17 R17 K25 ["IconSize"]
-       85 GETTABLEKS                       R17 R17 K26 ["Small"]
-       87 SETTABLEKS                       R17 R16 K20 ["size"]
-       89 LOADK                            R17 K27 ["icons/common/user"]
-       90 SETTABLEKS                       R17 R16 K21 ["name"]
-       92 MOVE                             R17 R1
-       93 CALL                             R17 0 1
-       94 SETTABLEKS                       R17 R16 K9 ["LayoutOrder"]
-       96 CALL                             R14 2 1
-       97 SETTABLEKS                       R14 R13 K16 ["PlayerIcon"]
-       99 GETUPVAL                         R14 3
-      100 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      102 GETUPVAL                         R15 7
-      103 GETTABLEKS                       R15 R15 K28 ["Text"]
-      105 DUPTABLE                         R16 K29 [{"Text", "tag", "LayoutOrder"}]
-      106 GETTABLEKS                       R17 R0 K30 ["playerName"]
-      108 SETTABLEKS                       R17 R16 K28 ["Text"]
-      110 LOADK                            R17 K31 ["text-label-large auto-xy"]
-      111 SETTABLEKS                       R17 R16 K8 ["tag"]
-      113 MOVE                             R17 R1
-      114 CALL                             R17 0 1
-      115 SETTABLEKS                       R17 R16 K9 ["LayoutOrder"]
-      117 CALL                             R14 2 1
-      118 SETTABLEKS                       R14 R13 K17 ["PlayerName"]
-      120 CALL                             R10 3 1
-      121 SETTABLEKS                       R10 R9 K12 ["PlayerDetailsContainer"]
-      123 GETUPVAL                         R10 3
-      124 GETTABLEKS                       R10 R10 K6 ["createElement"]
-      126 GETUPVAL                         R11 7
-      127 GETTABLEKS                       R11 R11 K32 ["Dropdown"]
-      129 GETTABLEKS                       R11 R11 K33 ["Root"]
-      131 DUPTABLE                         R12 K39 [{"label", "TextXAlignment", "value", "onItemChanged", "items", "LayoutOrder"}]
-      132 LOADK                            R13 K40 [""]
-      133 SETTABLEKS                       R13 R12 K34 ["label"]
-      135 GETIMPORT                        R13 K43 [Enum.TextXAlignment.Right]
-      137 SETTABLEKS                       R13 R12 K35 ["TextXAlignment"]
-      139 GETTABLEKS                       R13 R0 K4 ["currentPartyId"]
-      141 SETTABLEKS                       R13 R12 K36 ["value"]
-      143 SETTABLEKS                       R5 R12 K37 ["onItemChanged"]
-      145 SETTABLEKS                       R4 R12 K38 ["items"]
-      147 MOVE                             R13 R1
-      148 CALL                             R13 0 1
-      149 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
-      151 CALL                             R10 2 1
-      152 SETTABLEKS                       R10 R9 K13 ["PartyDropdown"]
-      154 CALL                             R6 3 -1
-      155 RETURN                           R6 -1
+       46 DUPTABLE                         R8 K11 [{["tag"] = "row flex-x-between align-y-center gap-small size-full-0 auto-y padding-small radius-small bg-surface-200", ["LayoutOrder"]}]
+       47 GETTABLEKS                       R9 R0 K10 ["LayoutOrder"]
+       49 SETTABLEKS                       R9 R8 K10 ["LayoutOrder"]
+       51 DUPTABLE                         R9 K14 [{"PlayerDetailsContainer", "PartyDropdown"}]
+       52 GETUPVAL                         R10 3
+       53 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       55 GETUPVAL                         R11 7
+       56 GETTABLEKS                       R11 R11 K7 ["View"]
+       58 DUPTABLE                         R12 K16 [{["tag"] = "row align-y-center gap-small auto-xy", ["LayoutOrder"]}]
+       59 MOVE                             R13 R1
+       60 CALL                             R13 0 1
+       61 SETTABLEKS                       R13 R12 K10 ["LayoutOrder"]
+       63 DUPTABLE                         R13 K19 [{"PlayerIcon", "PlayerName"}]
+       64 GETUPVAL                         R14 3
+       65 GETTABLEKS                       R14 R14 K6 ["createElement"]
+       67 GETUPVAL                         R15 7
+       68 GETTABLEKS                       R15 R15 K20 ["Icon"]
+       70 DUPTABLE                         R16 K25 [{["tag"] = "align-y-center auto-xy", ["size"], ["name"] = "icons/common/user", ["LayoutOrder"]}]
+       71 GETUPVAL                         R17 7
+       72 GETTABLEKS                       R17 R17 K26 ["Enums"]
+       74 GETTABLEKS                       R17 R17 K27 ["IconSize"]
+       76 GETTABLEKS                       R17 R17 K28 ["Small"]
+       78 SETTABLEKS                       R17 R16 K22 ["size"]
+       80 MOVE                             R17 R1
+       81 CALL                             R17 0 1
+       82 SETTABLEKS                       R17 R16 K10 ["LayoutOrder"]
+       84 CALL                             R14 2 1
+       85 SETTABLEKS                       R14 R13 K17 ["PlayerIcon"]
+       87 GETUPVAL                         R14 3
+       88 GETTABLEKS                       R14 R14 K6 ["createElement"]
+       90 GETUPVAL                         R15 7
+       91 GETTABLEKS                       R15 R15 K29 ["Text"]
+       93 DUPTABLE                         R16 K31 [{["Text"], ["tag"] = "auto-xy text-label-large", ["LayoutOrder"]}]
+       94 GETTABLEKS                       R17 R0 K32 ["playerName"]
+       96 SETTABLEKS                       R17 R16 K29 ["Text"]
+       98 MOVE                             R17 R1
+       99 CALL                             R17 0 1
+      100 SETTABLEKS                       R17 R16 K10 ["LayoutOrder"]
+      102 CALL                             R14 2 1
+      103 SETTABLEKS                       R14 R13 K18 ["PlayerName"]
+      105 CALL                             R10 3 1
+      106 SETTABLEKS                       R10 R9 K12 ["PlayerDetailsContainer"]
+      108 GETUPVAL                         R10 3
+      109 GETTABLEKS                       R10 R10 K6 ["createElement"]
+      111 GETUPVAL                         R11 7
+      112 GETTABLEKS                       R11 R11 K33 ["Dropdown"]
+      114 GETTABLEKS                       R11 R11 K34 ["Root"]
+      116 DUPTABLE                         R12 K41 [{["label"] = "", ["TextXAlignment"], ["value"], ["onItemChanged"], ["items"], ["LayoutOrder"]}]
+      117 GETIMPORT                        R13 K44 [Enum.TextXAlignment.Right]
+      119 SETTABLEKS                       R13 R12 K37 ["TextXAlignment"]
+      121 GETTABLEKS                       R13 R0 K4 ["currentPartyId"]
+      123 SETTABLEKS                       R13 R12 K38 ["value"]
+      125 SETTABLEKS                       R5 R12 K39 ["onItemChanged"]
+      127 SETTABLEKS                       R4 R12 K40 ["items"]
+      129 MOVE                             R13 R1
+      130 CALL                             R13 0 1
+      131 SETTABLEKS                       R13 R12 K10 ["LayoutOrder"]
+      133 CALL                             R10 2 1
+      134 SETTABLEKS                       R10 R9 K13 ["PartyDropdown"]
+      136 CALL                             R6 3 -1
+      137 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

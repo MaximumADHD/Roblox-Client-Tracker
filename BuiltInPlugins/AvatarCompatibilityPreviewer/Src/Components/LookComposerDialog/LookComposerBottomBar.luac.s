@@ -64,56 +64,50 @@ PROTO_0:
        78 GETUPVAL                         R8 2
        79 GETTABLEKS                       R8 R8 K15 ["createElement"]
        81 GETUPVAL                         R9 3
-       82 DUPTABLE                         R10 K22 [{"text", "variant", "onActivated", "icon", "LayoutOrder", "isDisabled"}]
+       82 DUPTABLE                         R10 K23 [{["text"], ["variant"], ["onActivated"], ["icon"], ["LayoutOrder"] = 1, ["isDisabled"]}]
        83 SETTABLEKS                       R6 R10 K16 ["text"]
        85 GETUPVAL                         R11 4
-       86 GETTABLEKS                       R11 R11 K23 ["Enums"]
-       88 GETTABLEKS                       R11 R11 K24 ["ButtonVariant"]
-       90 GETTABLEKS                       R11 R11 K25 ["Emphasis"]
+       86 GETTABLEKS                       R11 R11 K24 ["Enums"]
+       88 GETTABLEKS                       R11 R11 K25 ["ButtonVariant"]
+       90 GETTABLEKS                       R11 R11 K26 ["Emphasis"]
        92 SETTABLEKS                       R11 R10 K17 ["variant"]
-       94 GETTABLEKS                       R11 R0 K26 ["onForward"]
+       94 GETTABLEKS                       R11 R0 K27 ["onForward"]
        96 SETTABLEKS                       R11 R10 K18 ["onActivated"]
        98 JUMPIFNOT                        R4 ; [+8]
        99 GETUPVAL                         R11 4
-      100 GETTABLEKS                       R11 R11 K23 ["Enums"]
-      102 GETTABLEKS                       R11 R11 K27 ["IconName"]
-      104 GETTABLEKS                       R11 R11 K28 ["ArrowUpRightFromSquare"]
+      100 GETTABLEKS                       R11 R11 K24 ["Enums"]
+      102 GETTABLEKS                       R11 R11 K28 ["IconName"]
+      104 GETTABLEKS                       R11 R11 K29 ["ArrowUpRightFromSquare"]
       106 JUMP                             ; [+1]
       107 LOADNIL                          R11
       108 SETTABLEKS                       R11 R10 K19 ["icon"]
-      110 LOADN                            R11 1
-      111 SETTABLEKS                       R11 R10 K20 ["LayoutOrder"]
-      113 GETTABLEKS                       R11 R0 K29 ["isForwardDisabled"]
-      115 SETTABLEKS                       R11 R10 K21 ["isDisabled"]
-      117 CALL                             R8 2 1
-      118 GETUPVAL                         R9 2
-      119 GETTABLEKS                       R9 R9 K15 ["createElement"]
-      121 GETUPVAL                         R10 5
-      122 DUPTABLE                         R11 K31 [{"tag", "LayoutOrder"}]
-      123 LOADK                            R12 K32 ["row gap-medium align-x-right align-y-center padding-large bg-surface-100 size-full-0 auto-y"]
-      124 SETTABLEKS                       R12 R11 K30 ["tag"]
-      126 GETTABLEKS                       R12 R0 K20 ["LayoutOrder"]
-      128 SETTABLEKS                       R12 R11 K20 ["LayoutOrder"]
-      130 DUPTABLE                         R12 K35 [{"PrimaryButton", "SecondaryButton"}]
-      131 SETTABLEKS                       R8 R12 K33 ["PrimaryButton"]
-      133 JUMPIF                           R5 ; [+20]
-      134 GETUPVAL                         R13 2
-      135 GETTABLEKS                       R13 R13 K15 ["createElement"]
-      137 GETUPVAL                         R14 3
-      138 DUPTABLE                         R15 K36 [{"text", "onActivated", "LayoutOrder", "isDisabled"}]
-      139 SETTABLEKS                       R7 R15 K16 ["text"]
-      141 GETTABLEKS                       R16 R0 K37 ["onBack"]
-      143 SETTABLEKS                       R16 R15 K18 ["onActivated"]
-      145 LOADN                            R16 2
-      146 SETTABLEKS                       R16 R15 K20 ["LayoutOrder"]
-      148 GETTABLEKS                       R16 R0 K38 ["isBackDisabled"]
-      150 SETTABLEKS                       R16 R15 K21 ["isDisabled"]
-      152 CALL                             R13 2 1
-      153 JUMP                             ; [+1]
-      154 LOADNIL                          R13
-      155 SETTABLEKS                       R13 R12 K34 ["SecondaryButton"]
-      157 CALL                             R9 3 -1
-      158 RETURN                           R9 -1
+      110 GETTABLEKS                       R11 R0 K30 ["isForwardDisabled"]
+      112 SETTABLEKS                       R11 R10 K22 ["isDisabled"]
+      114 CALL                             R8 2 1
+      115 GETUPVAL                         R9 2
+      116 GETTABLEKS                       R9 R9 K15 ["createElement"]
+      118 GETUPVAL                         R10 5
+      119 DUPTABLE                         R11 K33 [{["tag"] = "row align-x-right align-y-center gap-medium size-full-0 auto-y padding-large bg-surface-100", ["LayoutOrder"]}]
+      120 GETTABLEKS                       R12 R0 K20 ["LayoutOrder"]
+      122 SETTABLEKS                       R12 R11 K20 ["LayoutOrder"]
+      124 DUPTABLE                         R12 K36 [{"PrimaryButton", "SecondaryButton"}]
+      125 SETTABLEKS                       R8 R12 K34 ["PrimaryButton"]
+      127 JUMPIF                           R5 ; [+17]
+      128 GETUPVAL                         R13 2
+      129 GETTABLEKS                       R13 R13 K15 ["createElement"]
+      131 GETUPVAL                         R14 3
+      132 DUPTABLE                         R15 K38 [{["text"], ["onActivated"], ["LayoutOrder"] = 2, ["isDisabled"]}]
+      133 SETTABLEKS                       R7 R15 K16 ["text"]
+      135 GETTABLEKS                       R16 R0 K39 ["onBack"]
+      137 SETTABLEKS                       R16 R15 K18 ["onActivated"]
+      139 GETTABLEKS                       R16 R0 K40 ["isBackDisabled"]
+      141 SETTABLEKS                       R16 R15 K22 ["isDisabled"]
+      143 CALL                             R13 2 1
+      144 JUMP                             ; [+1]
+      145 LOADNIL                          R13
+      146 SETTABLEKS                       R13 R12 K35 ["SecondaryButton"]
+      148 CALL                             R9 3 -1
+      149 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

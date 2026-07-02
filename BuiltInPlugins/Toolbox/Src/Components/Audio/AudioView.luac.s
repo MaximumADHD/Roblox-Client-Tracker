@@ -171,10 +171,10 @@ PROTO_9:
        20 GETUPVAL                         R9 1
        21 JUMPIFNOTEQ                      R5 R9 ; [+3]
        23 GETUPVAL                         R9 2
-       24 JUMPIF                           R9 ; [+85]
-       25 JUMPIFNOT                        R6 ; [+54]
+       24 JUMPIF                           R9 ; [+82]
+       25 JUMPIFNOT                        R6 ; [+51]
        26 GETTABLEKS                       R9 R6 K5 ["hidden"]
-       28 JUMPIF                           R9 ; [+51]
+       28 JUMPIF                           R9 ; [+48]
        29 NEWTABLE                         R9 0 0
        31 GETTABLEKS                       R10 R6 K6 ["children"]
        33 LOADNIL                          R11
@@ -189,69 +189,65 @@ PROTO_9:
        45 GETUPVAL                         R10 3
        46 GETTABLEKS                       R10 R10 K10 ["createElement"]
        48 GETUPVAL                         R11 4
-       49 DUPTABLE                         R12 K17 [{"Data", "IsLoading", "LayoutOrder", "OnRenderItem", "OnClickSeeAll", "Title"}]
+       49 DUPTABLE                         R12 K18 [{["Data"], ["IsLoading"] = False, ["LayoutOrder"], ["OnRenderItem"], ["OnClickSeeAll"], ["Title"]}]
        50 SETTABLEKS                       R9 R12 K11 ["Data"]
-       52 LOADB                            R13 0
-       53 SETTABLEKS                       R13 R12 K12 ["IsLoading"]
-       55 GETUPVAL                         R13 5
-       56 NAMECALL                         R13 R13 K18 ["getNextOrder"]
-       58 CALL                             R13 1 1
-       59 SETTABLEKS                       R13 R12 K13 ["LayoutOrder"]
-       61 NEWCLOSURE                       R13 P0
-       62 CAPTURE                          UPVAL U6
-       63 CAPTURE                          VAL R5
-       64 SETTABLEKS                       R13 R12 K14 ["OnRenderItem"]
-       66 NEWCLOSURE                       R13 P1
-       67 CAPTURE                          UPVAL U7
-       68 CAPTURE                          VAL R5
-       69 SETTABLEKS                       R13 R12 K15 ["OnClickSeeAll"]
-       71 GETTABLEKS                       R13 R5 K1 ["Section"]
-       73 GETTABLEKS                       R13 R13 K19 ["displayName"]
-       75 SETTABLEKS                       R13 R12 K16 ["Title"]
-       77 CALL                             R10 2 1
-       78 MOVE                             R8 R10
-       79 JUMP                             ; [+25]
-       80 GETUPVAL                         R9 3
-       81 GETTABLEKS                       R9 R9 K10 ["createElement"]
-       83 GETUPVAL                         R10 8
-       84 DUPTABLE                         R11 K23 [{"AssetLogicWrapperProps", "AudioSection", "LayoutOrder", "OnSeeAllActivated"}]
-       85 GETUPVAL                         R12 0
-       86 GETTABLEKS                       R12 R12 K20 ["AssetLogicWrapperProps"]
-       88 SETTABLEKS                       R12 R11 K20 ["AssetLogicWrapperProps"]
-       90 SETTABLEKS                       R5 R11 K21 ["AudioSection"]
-       92 GETUPVAL                         R12 5
-       93 NAMECALL                         R12 R12 K18 ["getNextOrder"]
-       95 CALL                             R12 1 1
-       96 SETTABLEKS                       R12 R11 K13 ["LayoutOrder"]
-       98 NEWCLOSURE                       R12 P2
-       99 CAPTURE                          UPVAL U7
-      100 CAPTURE                          VAL R5
-      101 SETTABLEKS                       R12 R11 K22 ["OnSeeAllActivated"]
-      103 CALL                             R9 2 1
-      104 MOVE                             R8 R9
-      105 GETTABLEKS                       R9 R5 K1 ["Section"]
-      107 GETTABLEKS                       R9 R9 K19 ["displayName"]
-      109 SETTABLE                         R8 R0 R9
-      110 FORGLOOP                         R1 2 ; [-103]
-      112 GETUPVAL                         R1 2
-      113 JUMPIFNOT                        R1 ; [+24]
-      114 GETUPVAL                         R1 3
-      115 GETTABLEKS                       R1 R1 K10 ["createElement"]
-      117 GETUPVAL                         R2 9
-      118 DUPTABLE                         R3 K25 [{"LayoutOrder", "ShowSeeAllText", "Title"}]
-      119 GETUPVAL                         R4 5
-      120 NAMECALL                         R4 R4 K18 ["getNextOrder"]
-      122 CALL                             R4 1 1
-      123 SETTABLEKS                       R4 R3 K13 ["LayoutOrder"]
-      125 LOADB                            R4 0
-      126 SETTABLEKS                       R4 R3 K24 ["ShowSeeAllText"]
-      128 GETUPVAL                         R4 1
-      129 GETTABLEKS                       R4 R4 K1 ["Section"]
-      131 GETTABLEKS                       R4 R4 K19 ["displayName"]
-      133 SETTABLEKS                       R4 R3 K16 ["Title"]
-      135 CALL                             R1 2 1
-      136 SETTABLEKS                       R1 R0 K26 ["LastSortHeader"]
-      138 RETURN                           R0 1
+       52 GETUPVAL                         R13 5
+       53 NAMECALL                         R13 R13 K19 ["getNextOrder"]
+       55 CALL                             R13 1 1
+       56 SETTABLEKS                       R13 R12 K14 ["LayoutOrder"]
+       58 NEWCLOSURE                       R13 P0
+       59 CAPTURE                          UPVAL U6
+       60 CAPTURE                          VAL R5
+       61 SETTABLEKS                       R13 R12 K15 ["OnRenderItem"]
+       63 NEWCLOSURE                       R13 P1
+       64 CAPTURE                          UPVAL U7
+       65 CAPTURE                          VAL R5
+       66 SETTABLEKS                       R13 R12 K16 ["OnClickSeeAll"]
+       68 GETTABLEKS                       R13 R5 K1 ["Section"]
+       70 GETTABLEKS                       R13 R13 K20 ["displayName"]
+       72 SETTABLEKS                       R13 R12 K17 ["Title"]
+       74 CALL                             R10 2 1
+       75 MOVE                             R8 R10
+       76 JUMP                             ; [+25]
+       77 GETUPVAL                         R9 3
+       78 GETTABLEKS                       R9 R9 K10 ["createElement"]
+       80 GETUPVAL                         R10 8
+       81 DUPTABLE                         R11 K24 [{"AssetLogicWrapperProps", "AudioSection", "LayoutOrder", "OnSeeAllActivated"}]
+       82 GETUPVAL                         R12 0
+       83 GETTABLEKS                       R12 R12 K21 ["AssetLogicWrapperProps"]
+       85 SETTABLEKS                       R12 R11 K21 ["AssetLogicWrapperProps"]
+       87 SETTABLEKS                       R5 R11 K22 ["AudioSection"]
+       89 GETUPVAL                         R12 5
+       90 NAMECALL                         R12 R12 K19 ["getNextOrder"]
+       92 CALL                             R12 1 1
+       93 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]
+       95 NEWCLOSURE                       R12 P2
+       96 CAPTURE                          UPVAL U7
+       97 CAPTURE                          VAL R5
+       98 SETTABLEKS                       R12 R11 K23 ["OnSeeAllActivated"]
+      100 CALL                             R9 2 1
+      101 MOVE                             R8 R9
+      102 GETTABLEKS                       R9 R5 K1 ["Section"]
+      104 GETTABLEKS                       R9 R9 K20 ["displayName"]
+      106 SETTABLE                         R8 R0 R9
+      107 FORGLOOP                         R1 2 ; [-100]
+      109 GETUPVAL                         R1 2
+      110 JUMPIFNOT                        R1 ; [+21]
+      111 GETUPVAL                         R1 3
+      112 GETTABLEKS                       R1 R1 K10 ["createElement"]
+      114 GETUPVAL                         R2 9
+      115 DUPTABLE                         R3 K26 [{["LayoutOrder"], ["ShowSeeAllText"] = False, ["Title"]}]
+      116 GETUPVAL                         R4 5
+      117 NAMECALL                         R4 R4 K19 ["getNextOrder"]
+      119 CALL                             R4 1 1
+      120 SETTABLEKS                       R4 R3 K14 ["LayoutOrder"]
+      122 GETUPVAL                         R4 1
+      123 GETTABLEKS                       R4 R4 K1 ["Section"]
+      125 GETTABLEKS                       R4 R4 K20 ["displayName"]
+      127 SETTABLEKS                       R4 R3 K17 ["Title"]
+      129 CALL                             R1 2 1
+      130 SETTABLEKS                       R1 R0 K27 ["LastSortHeader"]
+      132 RETURN                           R0 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0

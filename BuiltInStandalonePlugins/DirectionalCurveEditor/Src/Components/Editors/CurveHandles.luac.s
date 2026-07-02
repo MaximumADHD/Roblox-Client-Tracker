@@ -77,7 +77,7 @@ PROTO_5:
         6 CALL                             R0 0 0
         7 GETUPVAL                         R0 1
         8 GETTABLEKS                       R0 R0 K1 ["select"]
-       10 LOADN                            R1 255
+       10 LOADN                            R1 -1
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 

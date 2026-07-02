@@ -149,15 +149,9 @@ MAIN:
         5 GETTABLEKS                       R1 R1 K4 ["Parent"]
         7 GETTABLEKS                       R1 R1 K5 ["LinkerServiceController"]
         9 CALL                             R0 1 1
-       10 DUPTABLE                         R1 K9 [{"PluginId", "Category", "ItemId"}]
-       11 LOADK                            R2 K10 ["Explorer"]
-       12 SETTABLEKS                       R2 R1 K6 ["PluginId"]
-       14 LOADK                            R2 K11 ["Widgets"]
-       15 SETTABLEKS                       R2 R1 K7 ["Category"]
-       17 LOADK                            R2 K12 ["Main"]
-       18 SETTABLEKS                       R2 R1 K8 ["ItemId"]
-       20 DUPCLOSURE                       R2 K13 [PROTO_0]
-       21 SETGLOBAL                        R2 K14 ["splitUrl"]
-       23 DUPCLOSURE                       R2 K15 [PROTO_1]
-       24 CAPTURE                          VAL R0
-       25 RETURN                           R2 1
+       10 DUPTABLE                         R1 K12 [{["PluginId"] = "Explorer", ["Category"] = "Widgets", ["ItemId"] = "Main"}]
+       11 DUPCLOSURE                       R2 K13 [PROTO_0]
+       12 SETGLOBAL                        R2 K14 ["splitUrl"]
+       14 DUPCLOSURE                       R2 K15 [PROTO_1]
+       15 CAPTURE                          VAL R0
+       16 RETURN                           R2 1

@@ -57,26 +57,24 @@ PROTO_3:
        11 LOADK                            R4 K3 ["Can only subscribe to signals with a function."]
        12 GETIMPORT                        R2 K5 [assert]
        14 CALL                             R2 2 0
-       15 DUPTABLE                         R2 K8 [{"callback", "disconnected"}]
+       15 DUPTABLE                         R2 K9 [{["callback"], ["disconnected"] = False}]
        16 SETTABLEKS                       R1 R2 K6 ["callback"]
-       18 LOADB                            R3 0
-       19 SETTABLEKS                       R3 R2 K7 ["disconnected"]
-       21 GETUPVAL                         R4 0
-       22 NEWTABLE                         R5 0 0
-       24 GETIMPORT                        R6 K10 [pairs]
-       26 MOVE                             R7 R4
-       27 CALL                             R6 1 3
-       28 FORGPREP_NEXT                    R6
-       29 SETTABLE                         R10 R5 R9
-       30 FORGLOOP                         R6 2 ; [-2]
-       32 SETTABLE                         R2 R5 R1
-       33 MOVE                             R3 R5
-       34 SETUPVAL                         R3 0
-       35 NEWCLOSURE                       R3 P0
-       36 CAPTURE                          VAL R2
-       37 CAPTURE                          UPVAL U0
-       38 CAPTURE                          VAL R1
-       39 RETURN                           R3 1
+       18 GETUPVAL                         R4 0
+       19 NEWTABLE                         R5 0 0
+       21 GETIMPORT                        R6 K11 [pairs]
+       23 MOVE                             R7 R4
+       24 CALL                             R6 1 3
+       25 FORGPREP_NEXT                    R6
+       26 SETTABLE                         R10 R5 R9
+       27 FORGLOOP                         R6 2 ; [-2]
+       29 SETTABLE                         R2 R5 R1
+       30 MOVE                             R3 R5
+       31 SETUPVAL                         R3 0
+       32 NEWCLOSURE                       R3 P0
+       33 CAPTURE                          VAL R2
+       34 CAPTURE                          UPVAL U0
+       35 CAPTURE                          VAL R1
+       36 RETURN                           R3 1
 
 PROTO_4:
         0 PREPVARARGS                      1

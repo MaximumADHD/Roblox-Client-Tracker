@@ -896,11 +896,11 @@ MAIN:
       128 GETTABLEKS                       R17 R17 K29 ["ValidateCloudTable"]
       130 CALL                             R16 1 1
       131 GETIMPORT                        R17 K32 [Vector2.new]
-      133 LOADN                            R18 44
-      134 LOADN                            R19 114
+      133 LOADN                            R18 300
+      134 LOADN                            R19 370
       135 CALL                             R17 2 1
       136 GETIMPORT                        R18 K32 [Vector2.new]
-      138 LOADN                            R19 244
+      138 LOADN                            R19 500
       139 LOADN                            R20 200
       140 CALL                             R18 2 1
       141 GETIMPORT                        R19 K1 [game]

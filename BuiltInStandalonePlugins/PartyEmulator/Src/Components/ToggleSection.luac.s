@@ -37,59 +37,51 @@ PROTO_1:
        29 GETTABLEKS                       R7 R7 K4 ["createElement"]
        31 GETUPVAL                         R8 7
        32 GETTABLEKS                       R8 R8 K5 ["View"]
-       34 DUPTABLE                         R9 K8 [{"tag", "LayoutOrder"}]
-       35 LOADK                            R10 K9 ["size-full-0 auto-y row align-y-center padding-medium"]
-       36 SETTABLEKS                       R10 R9 K6 ["tag"]
-       38 GETTABLEKS                       R10 R0 K7 ["LayoutOrder"]
-       40 SETTABLEKS                       R10 R9 K7 ["LayoutOrder"]
-       42 DUPTABLE                         R10 K13 [{"Title", "Spacer", "ToggleSwitch"}]
-       43 GETUPVAL                         R11 5
-       44 GETTABLEKS                       R11 R11 K4 ["createElement"]
-       46 GETUPVAL                         R12 7
-       47 GETTABLEKS                       R12 R12 K14 ["Text"]
-       49 DUPTABLE                         R13 K15 [{"Text", "tag", "LayoutOrder"}]
-       50 LOADK                            R16 K16 ["Plugin"]
-       51 LOADK                            R17 K17 ["Name"]
-       52 NAMECALL                         R14 R2 K18 ["getText"]
-       54 CALL                             R14 3 1
-       55 SETTABLEKS                       R14 R13 K14 ["Text"]
-       57 LOADK                            R14 K19 ["text-label-large text-align-x-left"]
-       58 SETTABLEKS                       R14 R13 K6 ["tag"]
-       60 MOVE                             R14 R1
-       61 CALL                             R14 0 1
-       62 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
-       64 CALL                             R11 2 1
-       65 SETTABLEKS                       R11 R10 K10 ["Title"]
-       67 GETUPVAL                         R11 5
-       68 GETTABLEKS                       R11 R11 K4 ["createElement"]
-       70 GETUPVAL                         R12 7
-       71 GETTABLEKS                       R12 R12 K5 ["View"]
-       73 DUPTABLE                         R13 K8 [{"tag", "LayoutOrder"}]
-       74 LOADK                            R14 K20 ["fill"]
-       75 SETTABLEKS                       R14 R13 K6 ["tag"]
-       77 MOVE                             R14 R1
-       78 CALL                             R14 0 1
-       79 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
-       81 CALL                             R11 2 1
-       82 SETTABLEKS                       R11 R10 K11 ["Spacer"]
-       84 GETUPVAL                         R11 5
-       85 GETTABLEKS                       R11 R11 K4 ["createElement"]
-       87 GETUPVAL                         R12 7
-       88 GETTABLEKS                       R12 R12 K21 ["Toggle"]
-       90 DUPTABLE                         R13 K26 [{"label", "isChecked", "onActivated", "LayoutOrder", "isDisabled"}]
-       91 LOADK                            R14 K27 [""]
-       92 SETTABLEKS                       R14 R13 K22 ["label"]
-       94 SETTABLEKS                       R4 R13 K23 ["isChecked"]
-       96 SETTABLEKS                       R6 R13 K24 ["onActivated"]
-       98 MOVE                             R14 R1
-       99 CALL                             R14 0 1
-      100 SETTABLEKS                       R14 R13 K7 ["LayoutOrder"]
-      102 NOT                              R14 R5
-      103 SETTABLEKS                       R14 R13 K25 ["isDisabled"]
-      105 CALL                             R11 2 1
-      106 SETTABLEKS                       R11 R10 K12 ["ToggleSwitch"]
-      108 CALL                             R7 3 -1
-      109 RETURN                           R7 -1
+       34 DUPTABLE                         R9 K9 [{["tag"] = "row align-y-center size-full-0 auto-y padding-medium", ["LayoutOrder"]}]
+       35 GETTABLEKS                       R10 R0 K8 ["LayoutOrder"]
+       37 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
+       39 DUPTABLE                         R10 K13 [{"Title", "Spacer", "ToggleSwitch"}]
+       40 GETUPVAL                         R11 5
+       41 GETTABLEKS                       R11 R11 K4 ["createElement"]
+       43 GETUPVAL                         R12 7
+       44 GETTABLEKS                       R12 R12 K14 ["Text"]
+       46 DUPTABLE                         R13 K16 [{["Text"], ["tag"] = "text-label-large text-align-x-left", ["LayoutOrder"]}]
+       47 LOADK                            R16 K17 ["Plugin"]
+       48 LOADK                            R17 K18 ["Name"]
+       49 NAMECALL                         R14 R2 K19 ["getText"]
+       51 CALL                             R14 3 1
+       52 SETTABLEKS                       R14 R13 K14 ["Text"]
+       54 MOVE                             R14 R1
+       55 CALL                             R14 0 1
+       56 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
+       58 CALL                             R11 2 1
+       59 SETTABLEKS                       R11 R10 K10 ["Title"]
+       61 GETUPVAL                         R11 5
+       62 GETTABLEKS                       R11 R11 K4 ["createElement"]
+       64 GETUPVAL                         R12 7
+       65 GETTABLEKS                       R12 R12 K5 ["View"]
+       67 DUPTABLE                         R13 K21 [{["tag"] = "fill", ["LayoutOrder"]}]
+       68 MOVE                             R14 R1
+       69 CALL                             R14 0 1
+       70 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
+       72 CALL                             R11 2 1
+       73 SETTABLEKS                       R11 R10 K11 ["Spacer"]
+       75 GETUPVAL                         R11 5
+       76 GETTABLEKS                       R11 R11 K4 ["createElement"]
+       78 GETUPVAL                         R12 7
+       79 GETTABLEKS                       R12 R12 K22 ["Toggle"]
+       81 DUPTABLE                         R13 K28 [{["label"] = "", ["isChecked"], ["onActivated"], ["LayoutOrder"], ["isDisabled"]}]
+       82 SETTABLEKS                       R4 R13 K25 ["isChecked"]
+       84 SETTABLEKS                       R6 R13 K26 ["onActivated"]
+       86 MOVE                             R14 R1
+       87 CALL                             R14 0 1
+       88 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
+       90 NOT                              R14 R5
+       91 SETTABLEKS                       R14 R13 K27 ["isDisabled"]
+       93 CALL                             R11 2 1
+       94 SETTABLEKS                       R11 R10 K12 ["ToggleSwitch"]
+       96 CALL                             R7 3 -1
+       97 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

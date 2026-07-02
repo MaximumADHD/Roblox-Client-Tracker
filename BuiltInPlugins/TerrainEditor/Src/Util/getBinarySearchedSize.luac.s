@@ -1,6 +1,6 @@
 PROTO_0:
         0 LOADN                            R2 4
-        1 LOADN                            R3 0
+        1 LOADN                            R3 16384
         2 SUB                              R4 R3 R2
         3 LOADN                            R5 8
         4 JUMPIFNOTLT                      R5 R4 ; [+21]

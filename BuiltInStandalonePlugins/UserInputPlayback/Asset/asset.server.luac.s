@@ -165,34 +165,30 @@ PROTO_4:
        64 GETUPVAL                         R3 2
        65 GETTABLEKS                       R3 R3 K17 ["createElement"]
        67 LOADK                            R4 K18 ["ScreenGui"]
-       68 DUPTABLE                         R5 K21 [{"DisplayOrder", "Enabled"}]
-       69 LOADN                            R6 232
-       70 SETTABLEKS                       R6 R5 K19 ["DisplayOrder"]
-       72 LOADB                            R6 1
-       73 SETTABLEKS                       R6 R5 K20 ["Enabled"]
-       75 DUPTABLE                         R6 K16 [{"InputVisualizer"}]
-       76 GETUPVAL                         R7 2
-       77 GETTABLEKS                       R7 R7 K17 ["createElement"]
-       79 GETUPVAL                         R8 0
-       80 CALL                             R7 1 1
-       81 SETTABLEKS                       R7 R6 K4 ["InputVisualizer"]
-       83 CALL                             R3 3 1
-       84 SETTABLEKS                       R3 R2 K4 ["InputVisualizer"]
-       86 CALL                             R0 2 1
-       87 GETUPVAL                         R3 7
-       88 JUMPIFEQKNIL                     R3 ; [+2]
-       90 LOADB                            R2 0 +1
-       91 LOADB                            R2 1
-       92 FASTCALL1                        ASSERT R2 ; [+2]
-       93 GETIMPORT                        R1 K23 [assert]
-       95 CALL                             R1 1 0
-       96 GETUPVAL                         R1 2
-       97 GETTABLEKS                       R1 R1 K24 ["mount"]
-       99 MOVE                             R2 R0
-      100 GETUPVAL                         R3 8
-      101 CALL                             R1 2 1
-      102 SETUPVAL                         R1 7
-      103 RETURN                           R0 0
+       68 DUPTABLE                         R5 K23 [{["DisplayOrder"] = 1000, ["Enabled"] = True}]
+       69 DUPTABLE                         R6 K16 [{"InputVisualizer"}]
+       70 GETUPVAL                         R7 2
+       71 GETTABLEKS                       R7 R7 K17 ["createElement"]
+       73 GETUPVAL                         R8 0
+       74 CALL                             R7 1 1
+       75 SETTABLEKS                       R7 R6 K4 ["InputVisualizer"]
+       77 CALL                             R3 3 1
+       78 SETTABLEKS                       R3 R2 K4 ["InputVisualizer"]
+       80 CALL                             R0 2 1
+       81 GETUPVAL                         R3 7
+       82 JUMPIFEQKNIL                     R3 ; [+2]
+       84 LOADB                            R2 0 +1
+       85 LOADB                            R2 1
+       86 FASTCALL1                        ASSERT R2 ; [+2]
+       87 GETIMPORT                        R1 K25 [assert]
+       89 CALL                             R1 1 0
+       90 GETUPVAL                         R1 2
+       91 GETTABLEKS                       R1 R1 K26 ["mount"]
+       93 MOVE                             R2 R0
+       94 GETUPVAL                         R3 8
+       95 CALL                             R1 2 1
+       96 SETUPVAL                         R1 7
+       97 RETURN                           R0 0
 
 PROTO_5:
         0 GETIMPORT                        R0 K1 [require]

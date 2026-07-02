@@ -2,74 +2,66 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["ImageLabel"]
-        4 DUPTABLE                         R3 K5 [{"Name", "Size", "BackgroundColor3"}]
-        5 LOADK                            R4 K6 ["LoadingPrompt"]
-        6 SETTABLEKS                       R4 R3 K2 ["Name"]
-        8 GETIMPORT                        R4 K9 [UDim2.new]
-       10 LOADN                            R5 1
-       11 LOADN                            R6 0
-       12 LOADN                            R7 1
-       13 LOADN                            R8 0
-       14 CALL                             R4 4 1
-       15 SETTABLEKS                       R4 R3 K3 ["Size"]
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R4 R4 K10 ["Theme"]
-       20 GETIMPORT                        R6 K14 [Enum.StudioStyleGuideColor.MainBackground]
-       22 GETIMPORT                        R7 K17 [Enum.StudioStyleGuideModifier.Default]
-       24 NAMECALL                         R4 R4 K18 ["GetColor"]
-       26 CALL                             R4 3 1
-       27 SETTABLEKS                       R4 R3 K4 ["BackgroundColor3"]
-       29 DUPTABLE                         R4 K20 [{"description"}]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       33 LOADK                            R6 K21 ["TextLabel"]
-       34 DUPTABLE                         R7 K31 [{"AnchorPoint", "BackgroundTransparency", "Font", "Name", "Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3"}]
-       35 GETIMPORT                        R8 K33 [Vector2.new]
-       37 LOADK                            R9 K34 [0.5]
-       38 LOADK                            R10 K34 [0.5]
-       39 CALL                             R8 2 1
-       40 SETTABLEKS                       R8 R7 K22 ["AnchorPoint"]
-       42 LOADN                            R8 1
-       43 SETTABLEKS                       R8 R7 K23 ["BackgroundTransparency"]
-       45 GETUPVAL                         R8 2
-       46 GETTABLEKS                       R8 R8 K35 ["FONT"]
-       48 SETTABLEKS                       R8 R7 K24 ["Font"]
-       50 LOADK                            R8 K36 ["Description"]
-       51 SETTABLEKS                       R8 R7 K2 ["Name"]
+        4 DUPTABLE                         R3 K6 [{["Name"] = "LoadingPrompt", ["Size"], ["BackgroundColor3"]}]
+        5 GETIMPORT                        R4 K9 [UDim2.new]
+        7 LOADN                            R5 1
+        8 LOADN                            R6 0
+        9 LOADN                            R7 1
+       10 LOADN                            R8 0
+       11 CALL                             R4 4 1
+       12 SETTABLEKS                       R4 R3 K4 ["Size"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K10 ["Theme"]
+       17 GETIMPORT                        R6 K14 [Enum.StudioStyleGuideColor.MainBackground]
+       19 GETIMPORT                        R7 K17 [Enum.StudioStyleGuideModifier.Default]
+       21 NAMECALL                         R4 R4 K18 ["GetColor"]
+       23 CALL                             R4 3 1
+       24 SETTABLEKS                       R4 R3 K5 ["BackgroundColor3"]
+       26 DUPTABLE                         R4 K20 [{"description"}]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       30 LOADK                            R6 K21 ["TextLabel"]
+       31 DUPTABLE                         R7 K34 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["Font"], ["Name"] = "Description", ["Position"], ["Size"], ["Text"] = "Importing Avatar, please wait...", ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextColor3"]}]
+       32 GETIMPORT                        R8 K36 [Vector2.new]
+       34 LOADK                            R9 K37 [0.5]
+       35 LOADK                            R10 K37 [0.5]
+       36 CALL                             R8 2 1
+       37 SETTABLEKS                       R8 R7 K22 ["AnchorPoint"]
+       39 GETUPVAL                         R8 2
+       40 GETTABLEKS                       R8 R8 K38 ["FONT"]
+       42 SETTABLEKS                       R8 R7 K25 ["Font"]
+       44 GETIMPORT                        R8 K9 [UDim2.new]
+       46 LOADK                            R9 K37 [0.5]
+       47 LOADN                            R10 0
+       48 LOADK                            R11 K37 [0.5]
+       49 LOADN                            R12 0
+       50 CALL                             R8 4 1
+       51 SETTABLEKS                       R8 R7 K27 ["Position"]
        53 GETIMPORT                        R8 K9 [UDim2.new]
-       55 LOADK                            R9 K34 [0.5]
+       55 LOADN                            R9 1
        56 LOADN                            R10 0
-       57 LOADK                            R11 K34 [0.5]
+       57 LOADN                            R11 1
        58 LOADN                            R12 0
        59 CALL                             R8 4 1
-       60 SETTABLEKS                       R8 R7 K25 ["Position"]
-       62 GETIMPORT                        R8 K9 [UDim2.new]
-       64 LOADN                            R9 1
-       65 LOADN                            R10 0
-       66 LOADN                            R11 1
-       67 LOADN                            R12 0
-       68 CALL                             R8 4 1
-       69 SETTABLEKS                       R8 R7 K3 ["Size"]
-       71 LOADK                            R8 K37 ["Importing Avatar, please wait..."]
-       72 SETTABLEKS                       R8 R7 K26 ["Text"]
-       74 GETUPVAL                         R8 2
-       75 GETTABLEKS                       R8 R8 K38 ["FONT_SIZE_MEDIUM"]
-       77 SETTABLEKS                       R8 R7 K27 ["TextSize"]
-       79 GETIMPORT                        R8 K40 [Enum.TextXAlignment.Center]
-       81 SETTABLEKS                       R8 R7 K28 ["TextXAlignment"]
-       83 GETIMPORT                        R8 K41 [Enum.TextYAlignment.Center]
-       85 SETTABLEKS                       R8 R7 K29 ["TextYAlignment"]
-       87 GETUPVAL                         R8 1
-       88 GETTABLEKS                       R8 R8 K10 ["Theme"]
-       90 GETIMPORT                        R10 K43 [Enum.StudioStyleGuideColor.MainText]
-       92 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
-       94 NAMECALL                         R8 R8 K18 ["GetColor"]
-       96 CALL                             R8 3 1
-       97 SETTABLEKS                       R8 R7 K30 ["TextColor3"]
-       99 CALL                             R5 2 1
-      100 SETTABLEKS                       R5 R4 K19 ["description"]
-      102 CALL                             R1 3 -1
-      103 RETURN                           R1 -1
+       60 SETTABLEKS                       R8 R7 K4 ["Size"]
+       62 GETUPVAL                         R8 2
+       63 GETTABLEKS                       R8 R8 K39 ["FONT_SIZE_MEDIUM"]
+       65 SETTABLEKS                       R8 R7 K30 ["TextSize"]
+       67 GETIMPORT                        R8 K41 [Enum.TextXAlignment.Center]
+       69 SETTABLEKS                       R8 R7 K31 ["TextXAlignment"]
+       71 GETIMPORT                        R8 K42 [Enum.TextYAlignment.Center]
+       73 SETTABLEKS                       R8 R7 K32 ["TextYAlignment"]
+       75 GETUPVAL                         R8 1
+       76 GETTABLEKS                       R8 R8 K10 ["Theme"]
+       78 GETIMPORT                        R10 K44 [Enum.StudioStyleGuideColor.MainText]
+       80 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
+       82 NAMECALL                         R8 R8 K18 ["GetColor"]
+       84 CALL                             R8 3 1
+       85 SETTABLEKS                       R8 R7 K33 ["TextColor3"]
+       87 CALL                             R5 2 1
+       88 SETTABLEKS                       R5 R4 K19 ["description"]
+       90 CALL                             R1 3 -1
+       91 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

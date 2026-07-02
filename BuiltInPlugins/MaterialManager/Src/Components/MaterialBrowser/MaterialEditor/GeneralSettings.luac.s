@@ -129,14 +129,14 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"name"}]
-        1 GETTABLEKS                       R2 R0 K2 ["props"]
-        3 GETTABLEKS                       R2 R2 K3 ["MaterialVariant"]
-        5 GETTABLEKS                       R2 R2 K4 ["Name"]
+        0 DUPTABLE                         R1 K2 [{"name", "baseMaterials"}]
+        1 GETTABLEKS                       R2 R0 K3 ["props"]
+        3 GETTABLEKS                       R2 R2 K4 ["MaterialVariant"]
+        5 GETTABLEKS                       R2 R2 K5 ["Name"]
         7 SETTABLEKS                       R2 R1 K0 ["name"]
-        9 SETTABLEKS                       R1 R0 K5 ["state"]
-       11 NEWTABLE                         R1 0 0
-       13 SETTABLEKS                       R1 R0 K6 ["baseMaterials"]
+        9 NEWTABLE                         R2 0 0
+       11 SETTABLEKS                       R2 R1 K1 ["baseMaterials"]
+       13 SETTABLEKS                       R1 R0 K6 ["state"]
        15 NEWCLOSURE                       R1 P0
        16 CAPTURE                          VAL R0
        17 CAPTURE                          UPVAL U0
@@ -161,25 +161,27 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETIMPORT                        R3 K3 [ipairs]
-        6 GETUPVAL                         R4 0
-        7 CALL                             R3 1 3
-        8 FORGPREP_INEXT                   R3
-        9 GETTABLEKS                       R9 R0 K4 ["baseMaterials"]
-       11 LOADK                            R12 K5 ["Materials"]
-       12 GETUPVAL                         R13 1
-       13 MOVE                             R14 R7
-       14 CALL                             R13 1 -1
-       15 NAMECALL                         R10 R2 K6 ["getText"]
-       17 CALL                             R10 -1 -1
-       18 FASTCALL                         TABLE_INSERT ; [+2]
-       19 GETIMPORT                        R8 K9 [table.insert]
-       21 CALL                             R8 -1 0
-       22 FORGLOOP                         R3 2 [inext] ; [-14]
-       24 NEWTABLE                         R5 0 0
-       26 NAMECALL                         R3 R0 K10 ["setState"]
-       28 CALL                             R3 2 0
-       29 RETURN                           R0 0
+        4 NEWTABLE                         R3 0 0
+        6 GETIMPORT                        R4 K3 [ipairs]
+        8 GETUPVAL                         R5 0
+        9 CALL                             R4 1 3
+       10 FORGPREP_INEXT                   R4
+       11 MOVE                             R10 R3
+       12 LOADK                            R13 K4 ["Materials"]
+       13 GETUPVAL                         R14 1
+       14 MOVE                             R15 R8
+       15 CALL                             R14 1 -1
+       16 NAMECALL                         R11 R2 K5 ["getText"]
+       18 CALL                             R11 -1 -1
+       19 FASTCALL                         TABLE_INSERT ; [+2]
+       20 GETIMPORT                        R9 K8 [table.insert]
+       22 CALL                             R9 -1 0
+       23 FORGLOOP                         R4 2 [inext] ; [-13]
+       25 DUPTABLE                         R6 K10 [{"baseMaterials"}]
+       26 SETTABLEKS                       R3 R6 K9 ["baseMaterials"]
+       28 NAMECALL                         R4 R0 K11 ["setState"]
+       30 CALL                             R4 2 0
+       31 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["state"]
@@ -206,7 +208,7 @@ PROTO_8:
         2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
         4 GETTABLEKS                       R2 R2 K2 ["GeneralSettings"]
         6 GETTABLEKS                       R3 R1 K3 ["Localization"]
-        8 LOADN                            R4 255
+        8 LOADN                            R4 -1
         9 GETIMPORT                        R5 K5 [ipairs]
        11 GETUPVAL                         R6 0
        12 CALL                             R5 1 3
@@ -247,80 +249,75 @@ PROTO_8:
        70 GETUPVAL                         R9 1
        71 GETTABLEKS                       R9 R9 K13 ["createElement"]
        73 GETUPVAL                         R10 3
-       74 DUPTABLE                         R11 K34 [{"LabelColumnWidth", "LayoutOrder", "Text", "StatusText", "Status"}]
+       74 DUPTABLE                         R11 K35 [{["LabelColumnWidth"], ["LayoutOrder"] = 1, ["Text"], ["StatusText"], ["Status"]}]
        75 GETTABLEKS                       R12 R2 K31 ["LabelColumnWidth"]
        77 SETTABLEKS                       R12 R11 K31 ["LabelColumnWidth"]
-       79 LOADN                            R12 1
-       80 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]
-       82 LOADK                            R14 K35 ["CreateDialog"]
-       83 LOADK                            R15 K36 ["NameVariant"]
-       84 NAMECALL                         R12 R3 K25 ["getText"]
-       86 CALL                             R12 3 1
-       87 SETTABLEKS                       R12 R11 K17 ["Text"]
-       89 GETTABLEKS                       R12 R0 K37 ["state"]
-       91 GETTABLEKS                       R12 R12 K38 ["nameMessage"]
-       93 SETTABLEKS                       R12 R11 K32 ["StatusText"]
-       95 GETTABLEKS                       R12 R0 K37 ["state"]
-       97 GETTABLEKS                       R12 R12 K39 ["status"]
-       99 SETTABLEKS                       R12 R11 K33 ["Status"]
-      101 NEWTABLE                         R12 0 1
-      103 GETUPVAL                         R13 1
-      104 GETTABLEKS                       R13 R13 K13 ["createElement"]
-      106 GETUPVAL                         R14 4
-      107 DUPTABLE                         R15 K43 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      108 LOADK                            R16 K44 ["FilledRoundedBorder"]
-      109 SETTABLEKS                       R16 R15 K18 ["Style"]
-      111 GETTABLEKS                       R16 R2 K45 ["DialogColumnSize"]
-      113 SETTABLEKS                       R16 R15 K40 ["Size"]
-      115 GETTABLEKS                       R16 R0 K37 ["state"]
-      117 GETTABLEKS                       R16 R16 K46 ["name"]
-      119 SETTABLEKS                       R16 R15 K17 ["Text"]
-      121 GETTABLEKS                       R16 R0 K47 ["onNameChanged"]
-      123 SETTABLEKS                       R16 R15 K41 ["OnTextChanged"]
-      125 GETTABLEKS                       R16 R0 K48 ["onFocusLost"]
-      127 SETTABLEKS                       R16 R15 K42 ["OnFocusLost"]
-      129 CALL                             R13 2 -1
-      130 SETLIST                          R12 R13 -1 [1]
-      132 CALL                             R9 3 1
-      133 SETTABLEKS                       R9 R8 K29 ["Name"]
-      135 GETUPVAL                         R9 1
-      136 GETTABLEKS                       R9 R9 K13 ["createElement"]
-      138 GETUPVAL                         R10 3
-      139 DUPTABLE                         R11 K49 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      140 GETTABLEKS                       R12 R2 K31 ["LabelColumnWidth"]
-      142 SETTABLEKS                       R12 R11 K31 ["LabelColumnWidth"]
-      144 LOADN                            R12 2
-      145 SETTABLEKS                       R12 R11 K14 ["LayoutOrder"]
-      147 LOADK                            R14 K35 ["CreateDialog"]
-      148 LOADK                            R15 K50 ["BaseMaterialVariant"]
-      149 NAMECALL                         R12 R3 K25 ["getText"]
-      151 CALL                             R12 3 1
-      152 SETTABLEKS                       R12 R11 K17 ["Text"]
-      154 NEWTABLE                         R12 0 1
-      156 GETUPVAL                         R13 1
-      157 GETTABLEKS                       R13 R13 K13 ["createElement"]
-      159 GETUPVAL                         R14 5
-      160 DUPTABLE                         R15 K55 [{"Style", "Items", "Size", "OnItemActivated", "PlaceholderText", "SelectedIndex"}]
-      161 GETTABLEKS                       R16 R2 K56 ["CustomSelectInput"]
-      163 SETTABLEKS                       R16 R15 K18 ["Style"]
-      165 GETTABLEKS                       R16 R0 K57 ["baseMaterials"]
-      167 SETTABLEKS                       R16 R15 K51 ["Items"]
-      169 GETTABLEKS                       R16 R2 K45 ["DialogColumnSize"]
-      171 SETTABLEKS                       R16 R15 K40 ["Size"]
-      173 GETTABLEKS                       R16 R0 K58 ["onBaseMaterialSelected"]
-      175 SETTABLEKS                       R16 R15 K52 ["OnItemActivated"]
-      177 LOADK                            R18 K35 ["CreateDialog"]
-      178 LOADK                            R19 K59 ["PlaceholderBaseMaterial"]
-      179 NAMECALL                         R16 R3 K25 ["getText"]
-      181 CALL                             R16 3 1
-      182 SETTABLEKS                       R16 R15 K53 ["PlaceholderText"]
-      184 SETTABLEKS                       R4 R15 K54 ["SelectedIndex"]
-      186 CALL                             R13 2 -1
-      187 SETLIST                          R12 R13 -1 [1]
-      189 CALL                             R9 3 1
-      190 SETTABLEKS                       R9 R8 K7 ["BaseMaterial"]
-      192 CALL                             R5 3 -1
-      193 RETURN                           R5 -1
+       79 LOADK                            R14 K36 ["CreateDialog"]
+       80 LOADK                            R15 K37 ["NameVariant"]
+       81 NAMECALL                         R12 R3 K25 ["getText"]
+       83 CALL                             R12 3 1
+       84 SETTABLEKS                       R12 R11 K17 ["Text"]
+       86 GETTABLEKS                       R12 R0 K38 ["state"]
+       88 GETTABLEKS                       R12 R12 K39 ["nameMessage"]
+       90 SETTABLEKS                       R12 R11 K33 ["StatusText"]
+       92 GETTABLEKS                       R12 R0 K38 ["state"]
+       94 GETTABLEKS                       R12 R12 K40 ["status"]
+       96 SETTABLEKS                       R12 R11 K34 ["Status"]
+       98 NEWTABLE                         R12 0 1
+      100 GETUPVAL                         R13 1
+      101 GETTABLEKS                       R13 R13 K13 ["createElement"]
+      103 GETUPVAL                         R14 4
+      104 DUPTABLE                         R15 K45 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      105 GETTABLEKS                       R16 R2 K46 ["DialogColumnSize"]
+      107 SETTABLEKS                       R16 R15 K42 ["Size"]
+      109 GETTABLEKS                       R16 R0 K38 ["state"]
+      111 GETTABLEKS                       R16 R16 K47 ["name"]
+      113 SETTABLEKS                       R16 R15 K17 ["Text"]
+      115 GETTABLEKS                       R16 R0 K48 ["onNameChanged"]
+      117 SETTABLEKS                       R16 R15 K43 ["OnTextChanged"]
+      119 GETTABLEKS                       R16 R0 K49 ["onFocusLost"]
+      121 SETTABLEKS                       R16 R15 K44 ["OnFocusLost"]
+      123 CALL                             R13 2 -1
+      124 SETLIST                          R12 R13 -1 [1]
+      126 CALL                             R9 3 1
+      127 SETTABLEKS                       R9 R8 K29 ["Name"]
+      129 GETUPVAL                         R9 1
+      130 GETTABLEKS                       R9 R9 K13 ["createElement"]
+      132 GETUPVAL                         R10 3
+      133 DUPTABLE                         R11 K51 [{["LabelColumnWidth"], ["LayoutOrder"] = 2, ["Text"]}]
+      134 GETTABLEKS                       R12 R2 K31 ["LabelColumnWidth"]
+      136 SETTABLEKS                       R12 R11 K31 ["LabelColumnWidth"]
+      138 LOADK                            R14 K36 ["CreateDialog"]
+      139 LOADK                            R15 K52 ["BaseMaterialVariant"]
+      140 NAMECALL                         R12 R3 K25 ["getText"]
+      142 CALL                             R12 3 1
+      143 SETTABLEKS                       R12 R11 K17 ["Text"]
+      145 NEWTABLE                         R12 0 1
+      147 GETUPVAL                         R13 1
+      148 GETTABLEKS                       R13 R13 K13 ["createElement"]
+      150 GETUPVAL                         R14 5
+      151 DUPTABLE                         R15 K57 [{"Style", "Items", "Size", "OnItemActivated", "PlaceholderText", "SelectedIndex"}]
+      152 GETTABLEKS                       R16 R2 K58 ["CustomSelectInput"]
+      154 SETTABLEKS                       R16 R15 K18 ["Style"]
+      156 GETTABLEKS                       R16 R0 K38 ["state"]
+      158 GETTABLEKS                       R16 R16 K59 ["baseMaterials"]
+      160 SETTABLEKS                       R16 R15 K53 ["Items"]
+      162 GETTABLEKS                       R16 R2 K46 ["DialogColumnSize"]
+      164 SETTABLEKS                       R16 R15 K42 ["Size"]
+      166 GETTABLEKS                       R16 R0 K60 ["onBaseMaterialSelected"]
+      168 SETTABLEKS                       R16 R15 K54 ["OnItemActivated"]
+      170 LOADK                            R18 K36 ["CreateDialog"]
+      171 LOADK                            R19 K61 ["PlaceholderBaseMaterial"]
+      172 NAMECALL                         R16 R3 K25 ["getText"]
+      174 CALL                             R16 3 1
+      175 SETTABLEKS                       R16 R15 K55 ["PlaceholderText"]
+      177 SETTABLEKS                       R4 R15 K56 ["SelectedIndex"]
+      179 CALL                             R13 2 -1
+      180 SETLIST                          R12 R13 -1 [1]
+      182 CALL                             R9 3 1
+      183 SETTABLEKS                       R9 R8 K7 ["BaseMaterial"]
+      185 CALL                             R5 3 -1
+      186 RETURN                           R5 -1
 
 PROTO_9:
         0 DUPTABLE                         R1 K2 [{"ExpandedPane", "Material"}]

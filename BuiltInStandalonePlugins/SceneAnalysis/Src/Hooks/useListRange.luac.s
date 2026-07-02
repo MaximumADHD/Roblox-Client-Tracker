@@ -194,35 +194,19 @@ MAIN:
        47 GETTABLEKS                       R6 R6 K14 ["mapValues"]
        49 CALL                             R5 1 1
        50 GETIMPORT                        R6 K17 [table.freeze]
-       52 DUPTABLE                         R7 K22 [{"node", "depth", "hasChildren", "yPosition"}]
+       52 DUPTABLE                         R7 K25 [{["node"], ["depth"] = 0, ["hasChildren"] = False, ["yPosition"] = -1000}]
        53 GETIMPORT                        R8 K17 [table.freeze]
-       55 DUPTABLE                         R9 K29 [{"Id", "Name", "AssetId", "Size", "ReferenceCount", "TypeKey"}]
-       56 LOADK                            R10 K30 ["-1"]
-       57 SETTABLEKS                       R10 R9 K23 ["Id"]
-       59 GETTABLEKS                       R10 R3 K31 ["NIL_NODE"]
-       61 SETTABLEKS                       R10 R9 K24 ["Name"]
-       63 LOADK                            R10 K32 [""]
-       64 SETTABLEKS                       R10 R9 K25 ["AssetId"]
-       66 LOADN                            R10 0
-       67 SETTABLEKS                       R10 R9 K26 ["Size"]
-       69 LOADN                            R10 0
-       70 SETTABLEKS                       R10 R9 K27 ["ReferenceCount"]
-       72 LOADK                            R10 K32 [""]
-       73 SETTABLEKS                       R10 R9 K28 ["TypeKey"]
-       75 CALL                             R8 1 1
-       76 SETTABLEKS                       R8 R7 K18 ["node"]
-       78 LOADN                            R8 0
-       79 SETTABLEKS                       R8 R7 K19 ["depth"]
-       81 LOADB                            R8 0
-       82 SETTABLEKS                       R8 R7 K20 ["hasChildren"]
-       84 LOADN                            R8 24
-       85 SETTABLEKS                       R8 R7 K21 ["yPosition"]
-       87 CALL                             R6 1 1
-       88 DUPCLOSURE                       R7 K33 [PROTO_4]
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R2
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R4
-       93 CAPTURE                          VAL R6
-       94 CAPTURE                          VAL R5
-       95 RETURN                           R7 1
+       55 DUPTABLE                         R9 K34 [{["Id"] = "-1", ["Name"], ["AssetId"] = "", ["Size"] = 0, ["ReferenceCount"] = 0, ["TypeKey"] = ""}]
+       56 GETTABLEKS                       R10 R3 K35 ["NIL_NODE"]
+       58 SETTABLEKS                       R10 R9 K28 ["Name"]
+       60 CALL                             R8 1 1
+       61 SETTABLEKS                       R8 R7 K18 ["node"]
+       63 CALL                             R6 1 1
+       64 DUPCLOSURE                       R7 K36 [PROTO_4]
+       65 CAPTURE                          VAL R1
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R5
+       71 RETURN                           R7 1

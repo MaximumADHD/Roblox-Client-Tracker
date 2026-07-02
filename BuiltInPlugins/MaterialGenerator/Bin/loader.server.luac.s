@@ -107,69 +107,57 @@ MAIN:
        94 CAPTURE                          VAL R1
        95 CAPTURE                          VAL R3
        96 SETTABLE                         R11 R9 R10
-       97 DUPTABLE                         R10 K40 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "extraTriggers", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-       98 GETIMPORT                        R11 K41 [plugin]
+       97 DUPTABLE                         R10 K41 [{["plugin"], ["pluginName"] = "MaterialGenerator", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["extraTriggers"], ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
+       98 GETIMPORT                        R11 K42 [plugin]
       100 SETTABLEKS                       R11 R10 K30 ["plugin"]
-      102 LOADK                            R11 K14 ["MaterialGenerator"]
-      103 SETTABLEKS                       R11 R10 K31 ["pluginName"]
-      105 SETTABLEKS                       R8 R10 K32 ["translationResourceTable"]
-      107 SETTABLEKS                       R7 R10 K33 ["fallbackResourceTable"]
-      109 LOADNIL                          R11
-      110 SETTABLEKS                       R11 R10 K34 ["overrideLocaleId"]
-      112 LOADNIL                          R11
-      113 SETTABLEKS                       R11 R10 K35 ["localizationNamespace"]
-      115 MOVE                             R12 R4
-      116 CALL                             R12 0 1
-      117 JUMPIFNOT                        R12 ; [+2]
-      118 MOVE                             R11 R9
-      119 JUMP                             ; [+1]
-      120 LOADNIL                          R11
-      121 SETTABLEKS                       R11 R10 K36 ["extraTriggers"]
-      123 DUPCLOSURE                       R11 K42 [PROTO_2]
-      124 SETTABLEKS                       R11 R10 K37 ["getToolbarName"]
-      126 DUPTABLE                         R11 K47 [{"getName", "getDescription", "icon", "text"}]
-      127 DUPCLOSURE                       R12 K48 [PROTO_3]
-      128 SETTABLEKS                       R12 R11 K43 ["getName"]
-      130 DUPCLOSURE                       R12 K49 [PROTO_4]
-      131 SETTABLEKS                       R12 R11 K44 ["getDescription"]
-      133 LOADK                            R12 K50 [""]
-      134 SETTABLEKS                       R12 R11 K45 ["icon"]
-      136 LOADNIL                          R12
-      137 SETTABLEKS                       R12 R11 K46 ["text"]
-      139 SETTABLEKS                       R11 R10 K38 ["buttonInfo"]
-      141 DUPTABLE                         R11 K55 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-      142 LOADK                            R12 K14 ["MaterialGenerator"]
-      143 SETTABLEKS                       R12 R11 K51 ["id"]
-      145 GETIMPORT                        R12 K58 [DockWidgetPluginGuiInfo.new]
-      147 GETIMPORT                        R13 K62 [Enum.InitialDockState.Left]
-      149 LOADB                            R14 0
-      150 LOADB                            R15 0
-      151 LOADN                            R16 128
-      152 LOADN                            R17 224
-      153 LOADN                            R18 250
-      154 LOADN                            R19 200
-      155 CALL                             R12 7 1
-      156 SETTABLEKS                       R12 R11 K52 ["dockWidgetPluginGuiInfo"]
-      158 DUPCLOSURE                       R12 K63 [PROTO_5]
-      159 SETTABLEKS                       R12 R11 K53 ["getDockTitle"]
-      161 GETIMPORT                        R12 K66 [Enum.ZIndexBehavior.Sibling]
-      163 SETTABLEKS                       R12 R11 K54 ["zIndexBehavior"]
-      165 SETTABLEKS                       R11 R10 K39 ["dockWidgetInfo"]
-      167 GETTABLEKS                       R11 R6 K67 ["build"]
-      169 MOVE                             R12 R10
-      170 CALL                             R11 1 1
-      171 GETTABLEKS                       R12 R11 K68 ["pluginLoader"]
-      173 NAMECALL                         R12 R12 K69 ["waitForUserInteraction"]
-      175 CALL                             R12 1 1
-      176 JUMPIF                           R12 ; [+1]
-      177 RETURN                           R0 0
-      178 GETIMPORT                        R13 K4 [require]
-      180 GETIMPORT                        R14 K1 [script]
-      182 GETTABLEKS                       R14 R14 K2 ["Parent"]
-      184 GETTABLEKS                       R14 R14 K70 ["main"]
-      186 CALL                             R13 1 1
-      187 MOVE                             R14 R13
-      188 GETIMPORT                        R15 K41 [plugin]
-      190 MOVE                             R16 R11
-      191 CALL                             R14 2 0
-      192 RETURN                           R0 0
+      102 SETTABLEKS                       R8 R10 K32 ["translationResourceTable"]
+      104 SETTABLEKS                       R7 R10 K33 ["fallbackResourceTable"]
+      106 MOVE                             R12 R4
+      107 CALL                             R12 0 1
+      108 JUMPIFNOT                        R12 ; [+2]
+      109 MOVE                             R11 R9
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R11
+      112 SETTABLEKS                       R11 R10 K37 ["extraTriggers"]
+      114 DUPCLOSURE                       R11 K43 [PROTO_2]
+      115 SETTABLEKS                       R11 R10 K38 ["getToolbarName"]
+      117 DUPTABLE                         R11 K49 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = }]
+      118 DUPCLOSURE                       R12 K50 [PROTO_3]
+      119 SETTABLEKS                       R12 R11 K44 ["getName"]
+      121 DUPCLOSURE                       R12 K51 [PROTO_4]
+      122 SETTABLEKS                       R12 R11 K45 ["getDescription"]
+      124 SETTABLEKS                       R11 R10 K39 ["buttonInfo"]
+      126 DUPTABLE                         R11 K56 [{["id"] = "MaterialGenerator", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+      127 GETIMPORT                        R12 K59 [DockWidgetPluginGuiInfo.new]
+      129 GETIMPORT                        R13 K63 [Enum.InitialDockState.Left]
+      131 LOADB                            R14 0
+      132 LOADB                            R15 0
+      133 LOADN                            R16 640
+      134 LOADN                            R17 480
+      135 LOADN                            R18 250
+      136 LOADN                            R19 200
+      137 CALL                             R12 7 1
+      138 SETTABLEKS                       R12 R11 K53 ["dockWidgetPluginGuiInfo"]
+      140 DUPCLOSURE                       R12 K64 [PROTO_5]
+      141 SETTABLEKS                       R12 R11 K54 ["getDockTitle"]
+      143 GETIMPORT                        R12 K67 [Enum.ZIndexBehavior.Sibling]
+      145 SETTABLEKS                       R12 R11 K55 ["zIndexBehavior"]
+      147 SETTABLEKS                       R11 R10 K40 ["dockWidgetInfo"]
+      149 GETTABLEKS                       R11 R6 K68 ["build"]
+      151 MOVE                             R12 R10
+      152 CALL                             R11 1 1
+      153 GETTABLEKS                       R12 R11 K69 ["pluginLoader"]
+      155 NAMECALL                         R12 R12 K70 ["waitForUserInteraction"]
+      157 CALL                             R12 1 1
+      158 JUMPIF                           R12 ; [+1]
+      159 RETURN                           R0 0
+      160 GETIMPORT                        R13 K4 [require]
+      162 GETIMPORT                        R14 K1 [script]
+      164 GETTABLEKS                       R14 R14 K2 ["Parent"]
+      166 GETTABLEKS                       R14 R14 K71 ["main"]
+      168 CALL                             R13 1 1
+      169 MOVE                             R14 R13
+      170 GETIMPORT                        R15 K42 [plugin]
+      172 MOVE                             R16 R11
+      173 CALL                             R14 2 0
+      174 RETURN                           R0 0

@@ -26,53 +26,49 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+40]
+        1 JUMPIFNOT                        R0 ; [+34]
         2 GETUPVAL                         R0 1
-        3 DUPTABLE                         R2 K5 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
-        4 LOADK                            R3 K6 ["LuaExplorerDoubleLoad"]
-        5 SETTABLEKS                       R3 R2 K0 ["eventName"]
-        7 LOADK                            R3 K7 ["Fired when load() is called twice"]
-        8 SETTABLEKS                       R3 R2 K1 ["description"]
-       10 NEWTABLE                         R3 0 1
-       12 LOADK                            R4 K8 ["Points"]
-       13 SETLIST                          R3 R4 1 [1]
-       15 SETTABLEKS                       R3 R2 K2 ["backends"]
-       17 GETIMPORT                        R3 K10 [game]
-       19 LOADK                            R5 K11 ["LuaExplorerDoubleLoadThrottlingHundredthsPercent"]
-       20 LOADN                            R6 16
-       21 NAMECALL                         R3 R3 K12 ["DefineFastInt"]
-       23 CALL                             R3 3 1
-       24 SETTABLEKS                       R3 R2 K3 ["throttlingPercentage"]
-       26 NEWTABLE                         R3 0 3
-       28 LOADN                            R4 25
-       29 LOADN                            R5 4
-       30 LOADN                            R6 3
-       31 SETLIST                          R3 R4 3 [1]
-       33 SETTABLEKS                       R3 R2 K4 ["lastUpdated"]
-       35 NEWTABLE                         R3 0 0
-       37 LOADN                            R4 1
-       38 NAMECALL                         R0 R0 K13 ["LogCounter"]
-       40 CALL                             R0 4 0
-       41 RETURN                           R0 0
-       42 LOADB                            R0 1
-       43 SETUPVAL                         R0 0
-       44 GETUPVAL                         R0 2
-       45 GETTABLEKS                       R0 R0 K14 ["build"]
-       47 GETUPVAL                         R1 3
-       48 CALL                             R0 1 1
-       49 GETTABLEKS                       R1 R0 K15 ["pluginLoader"]
-       51 NAMECALL                         R1 R1 K16 ["waitForUserInteraction"]
-       53 CALL                             R1 1 1
-       54 JUMPIF                           R1 ; [+1]
-       55 RETURN                           R0 0
-       56 GETUPVAL                         R2 4
-       57 NAMECALL                         R2 R2 K17 ["Disconnect"]
-       59 CALL                             R2 1 0
-       60 GETUPVAL                         R2 5
-       61 GETUPVAL                         R3 6
-       62 MOVE                             R4 R0
-       63 CALL                             R2 2 0
-       64 RETURN                           R0 0
+        3 DUPTABLE                         R2 K7 [{[1] = "LuaExplorerDoubleLoad", ["description"] = "Fired when load() is called twice", ["backends"], ["throttlingPercentage"], ["lastUpdated"]}]
+        4 NEWTABLE                         R3 0 1
+        6 LOADK                            R4 K8 ["Points"]
+        7 SETLIST                          R3 R4 1 [1]
+        9 SETTABLEKS                       R3 R2 K4 ["backends"]
+       11 GETIMPORT                        R3 K10 [game]
+       13 LOADK                            R5 K11 ["LuaExplorerDoubleLoadThrottlingHundredthsPercent"]
+       14 LOADN                            R6 10000
+       15 NAMECALL                         R3 R3 K12 ["DefineFastInt"]
+       17 CALL                             R3 3 1
+       18 SETTABLEKS                       R3 R2 K5 ["throttlingPercentage"]
+       20 NEWTABLE                         R3 0 3
+       22 LOADN                            R4 25
+       23 LOADN                            R5 4
+       24 LOADN                            R6 3
+       25 SETLIST                          R3 R4 3 [1]
+       27 SETTABLEKS                       R3 R2 K6 ["lastUpdated"]
+       29 NEWTABLE                         R3 0 0
+       31 LOADN                            R4 1
+       32 NAMECALL                         R0 R0 K13 ["LogCounter"]
+       34 CALL                             R0 4 0
+       35 RETURN                           R0 0
+       36 LOADB                            R0 1
+       37 SETUPVAL                         R0 0
+       38 GETUPVAL                         R0 2
+       39 GETTABLEKS                       R0 R0 K14 ["build"]
+       41 GETUPVAL                         R1 3
+       42 CALL                             R0 1 1
+       43 GETTABLEKS                       R1 R0 K15 ["pluginLoader"]
+       45 NAMECALL                         R1 R1 K16 ["waitForUserInteraction"]
+       47 CALL                             R1 1 1
+       48 JUMPIF                           R1 ; [+1]
+       49 RETURN                           R0 0
+       50 GETUPVAL                         R2 4
+       51 NAMECALL                         R2 R2 K17 ["Disconnect"]
+       53 CALL                             R2 1 0
+       54 GETUPVAL                         R2 5
+       55 GETUPVAL                         R3 6
+       56 MOVE                             R4 R0
+       57 CALL                             R2 2 0
+       58 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -84,76 +80,66 @@ PROTO_6:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 DUPTABLE                         R2 K6 [{"getName", "getDescription", "icon", "enabled", "clickableWhenViewportHidden"}]
-        6 DUPCLOSURE                       R3 K7 [PROTO_0]
+        5 DUPTABLE                         R2 K9 [{["getName"], ["getDescription"], ["icon"] = "", ["enabled"] = False, ["clickableWhenViewportHidden"] = True}]
+        6 DUPCLOSURE                       R3 K10 [PROTO_0]
         7 SETTABLEKS                       R3 R2 K1 ["getName"]
-        9 DUPCLOSURE                       R3 K8 [PROTO_1]
+        9 DUPCLOSURE                       R3 K11 [PROTO_1]
        10 SETTABLEKS                       R3 R2 K2 ["getDescription"]
-       12 LOADK                            R3 K9 [""]
-       13 SETTABLEKS                       R3 R2 K3 ["icon"]
-       15 LOADB                            R3 0
-       16 SETTABLEKS                       R3 R2 K4 ["enabled"]
-       18 LOADB                            R3 1
-       19 SETTABLEKS                       R3 R2 K5 ["clickableWhenViewportHidden"]
-       21 DUPTABLE                         R3 K16 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-       22 SETTABLEKS                       R0 R3 K10 ["plugin"]
-       24 LOADK                            R4 K17 ["ExplorerPlugin"]
-       25 SETTABLEKS                       R4 R3 K11 ["pluginName"]
-       27 GETUPVAL                         R4 1
-       28 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       30 GETUPVAL                         R4 2
-       31 SETTABLEKS                       R4 R3 K13 ["fallbackResourceTable"]
-       33 DUPCLOSURE                       R4 K18 [PROTO_2]
-       34 SETTABLEKS                       R4 R3 K14 ["getToolbarName"]
-       36 SETTABLEKS                       R2 R3 K15 ["buttonInfo"]
-       38 LOADB                            R4 1
-       39 SETTABLEKS                       R4 R2 K4 ["enabled"]
-       41 DUPTABLE                         R4 K23 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-       42 LOADK                            R5 K17 ["ExplorerPlugin"]
-       43 SETTABLEKS                       R5 R4 K19 ["id"]
-       45 GETIMPORT                        R5 K26 [DockWidgetPluginGuiInfo.new]
-       47 GETIMPORT                        R6 K30 [Enum.InitialDockState.Right]
-       49 LOADB                            R7 1
-       50 LOADB                            R8 0
-       51 LOADN                            R9 128
-       52 LOADN                            R10 224
-       53 LOADN                            R11 250
-       54 LOADN                            R12 200
-       55 CALL                             R5 7 1
-       56 SETTABLEKS                       R5 R4 K20 ["dockWidgetPluginGuiInfo"]
-       58 DUPCLOSURE                       R5 K31 [PROTO_3]
-       59 SETTABLEKS                       R5 R4 K21 ["getDockTitle"]
-       61 GETIMPORT                        R5 K34 [Enum.ZIndexBehavior.Sibling]
-       63 SETTABLEKS                       R5 R4 K22 ["zIndexBehavior"]
-       65 SETTABLEKS                       R4 R3 K35 ["dockWidgetInfo"]
-       67 LOADNIL                          R4
-       68 LOADB                            R5 0
-       69 NEWCLOSURE                       R6 P4
-       70 CAPTURE                          REF R5
-       71 CAPTURE                          UPVAL U3
-       72 CAPTURE                          UPVAL U4
-       73 CAPTURE                          VAL R3
-       74 CAPTURE                          REF R4
-       75 CAPTURE                          VAL R1
-       76 CAPTURE                          VAL R0
-       77 LOADK                            R9 K36 ["PlaceManager"]
-       78 NAMECALL                         R7 R0 K37 ["GetPluginComponent"]
-       80 CALL                             R7 2 1
-       81 GETTABLEKS                       R8 R7 K38 ["PlaceDocPanelShown"]
-       83 MOVE                             R10 R6
-       84 NAMECALL                         R8 R8 K39 ["Connect"]
-       86 CALL                             R8 2 1
-       87 MOVE                             R4 R8
-       88 GETIMPORT                        R8 K41 [pcall]
-       90 NEWCLOSURE                       R9 P5
-       91 CAPTURE                          VAL R7
-       92 CALL                             R8 1 2
-       93 JUMPIFNOT                        R8 ; [+3]
-       94 JUMPIFNOT                        R9 ; [+2]
-       95 MOVE                             R10 R6
-       96 CALL                             R10 0 0
-       97 CLOSEUPVALS                      R4
-       98 RETURN                           R0 0
+       12 DUPTABLE                         R3 K19 [{["plugin"], ["pluginName"] = "ExplorerPlugin", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
+       13 SETTABLEKS                       R0 R3 K12 ["plugin"]
+       15 GETUPVAL                         R4 1
+       16 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
+       18 GETUPVAL                         R4 2
+       19 SETTABLEKS                       R4 R3 K16 ["fallbackResourceTable"]
+       21 DUPCLOSURE                       R4 K20 [PROTO_2]
+       22 SETTABLEKS                       R4 R3 K17 ["getToolbarName"]
+       24 SETTABLEKS                       R2 R3 K18 ["buttonInfo"]
+       26 LOADB                            R4 1
+       27 SETTABLEKS                       R4 R2 K5 ["enabled"]
+       29 DUPTABLE                         R4 K25 [{["id"] = "ExplorerPlugin", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       30 GETIMPORT                        R5 K28 [DockWidgetPluginGuiInfo.new]
+       32 GETIMPORT                        R6 K32 [Enum.InitialDockState.Right]
+       34 LOADB                            R7 1
+       35 LOADB                            R8 0
+       36 LOADN                            R9 640
+       37 LOADN                            R10 480
+       38 LOADN                            R11 250
+       39 LOADN                            R12 200
+       40 CALL                             R5 7 1
+       41 SETTABLEKS                       R5 R4 K22 ["dockWidgetPluginGuiInfo"]
+       43 DUPCLOSURE                       R5 K33 [PROTO_3]
+       44 SETTABLEKS                       R5 R4 K23 ["getDockTitle"]
+       46 GETIMPORT                        R5 K36 [Enum.ZIndexBehavior.Sibling]
+       48 SETTABLEKS                       R5 R4 K24 ["zIndexBehavior"]
+       50 SETTABLEKS                       R4 R3 K37 ["dockWidgetInfo"]
+       52 LOADNIL                          R4
+       53 LOADB                            R5 0
+       54 NEWCLOSURE                       R6 P4
+       55 CAPTURE                          REF R5
+       56 CAPTURE                          UPVAL U3
+       57 CAPTURE                          UPVAL U4
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          REF R4
+       60 CAPTURE                          VAL R1
+       61 CAPTURE                          VAL R0
+       62 LOADK                            R9 K38 ["PlaceManager"]
+       63 NAMECALL                         R7 R0 K39 ["GetPluginComponent"]
+       65 CALL                             R7 2 1
+       66 GETTABLEKS                       R8 R7 K40 ["PlaceDocPanelShown"]
+       68 MOVE                             R10 R6
+       69 NAMECALL                         R8 R8 K41 ["Connect"]
+       71 CALL                             R8 2 1
+       72 MOVE                             R4 R8
+       73 GETIMPORT                        R8 K43 [pcall]
+       75 NEWCLOSURE                       R9 P5
+       76 CAPTURE                          VAL R7
+       77 CALL                             R8 1 2
+       78 JUMPIFNOT                        R8 ; [+3]
+       79 JUMPIFNOT                        R9 ; [+2]
+       80 MOVE                             R10 R6
+       81 CALL                             R10 0 0
+       82 CLOSEUPVALS                      R4
+       83 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

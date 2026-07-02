@@ -17,15 +17,9 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K3 [{"textFieldCount", "sliderCount", "greenCircleCount"}]
-        2 LOADN                            R1 0
-        3 SETTABLEKS                       R1 R0 K0 ["textFieldCount"]
-        5 LOADN                            R1 0
-        6 SETTABLEKS                       R1 R0 K1 ["sliderCount"]
-        8 LOADN                            R1 0
-        9 SETTABLEKS                       R1 R0 K2 ["greenCircleCount"]
-       11 DUPCLOSURE                       R1 K4 [PROTO_0]
-       12 SETTABLEKS                       R1 R0 K5 ["reset"]
-       14 DUPCLOSURE                       R1 K6 [PROTO_1]
-       15 SETTABLEKS                       R1 R0 K7 ["totalCount"]
-       17 RETURN                           R0 1
+        1 DUPTABLE                         R0 K4 [{[1] = 0, ["sliderCount"] = 0, ["greenCircleCount"] = 0}]
+        2 DUPCLOSURE                       R1 K5 [PROTO_0]
+        3 SETTABLEKS                       R1 R0 K6 ["reset"]
+        5 DUPCLOSURE                       R1 K7 [PROTO_1]
+        6 SETTABLEKS                       R1 R0 K8 ["totalCount"]
+        8 RETURN                           R0 1

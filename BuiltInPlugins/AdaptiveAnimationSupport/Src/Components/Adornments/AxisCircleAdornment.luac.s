@@ -37,14 +37,6 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+4]
-        2 GETUPVAL                         R0 0
-        3 NAMECALL                         R0 R0 K0 ["Clear"]
-        5 CALL                             R0 1 0
-        6 RETURN                           R0 0
-
-PROTO_3:
-        0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["current"]
         3 JUMPIF                           R0 ; [+1]
         4 RETURN                           R0 0
@@ -55,52 +47,31 @@ PROTO_3:
        10 NAMECALL                         R2 R0 K2 ["Clear"]
        12 CALL                             R2 1 0
        13 GETUPVAL                         R2 2
-       14 CALL                             R2 0 1
-       15 JUMPIFNOT                        R2 ; [+29]
-       16 GETUPVAL                         R2 3
-       17 GETUPVAL                         R3 4
-       18 GETTABLEKS                       R3 R3 K3 ["CIRCLE_SEGMENTS"]
-       20 GETUPVAL                         R4 1
-       21 GETTABLEKS                       R4 R4 K4 ["radius"]
-       23 LOADK                            R5 K5 ["z"]
-       24 CALL                             R2 3 1
-       25 MOVE                             R5 R2
-       26 LOADB                            R6 1
-       27 NAMECALL                         R3 R0 K6 ["AddPath"]
-       29 CALL                             R3 3 0
-       30 GETUPVAL                         R3 5
-       31 GETTABLEKS                       R3 R3 K7 ["Heartbeat"]
-       33 NEWCLOSURE                       R5 P0
-       34 CAPTURE                          UPVAL U6
-       35 CAPTURE                          UPVAL U1
-       36 CAPTURE                          VAL R0
-       37 CAPTURE                          VAL R1
-       38 NAMECALL                         R3 R3 K8 ["Connect"]
-       40 CALL                             R3 2 1
-       41 NEWCLOSURE                       R4 P1
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R0
-       44 RETURN                           R4 1
-       45 GETUPVAL                         R2 1
-       46 GETTABLEKS                       R2 R2 K9 ["DEPRECATED_circlePoints"]
-       48 JUMPIFNOT                        R2 ; [+18]
-       49 GETTABLEKS                       R5 R2 K10 ["x"]
-       51 LOADB                            R6 1
-       52 NAMECALL                         R3 R0 K6 ["AddPath"]
-       54 CALL                             R3 3 0
-       55 GETTABLEKS                       R5 R2 K11 ["y"]
-       57 LOADB                            R6 1
-       58 NAMECALL                         R3 R0 K6 ["AddPath"]
-       60 CALL                             R3 3 0
-       61 GETTABLEKS                       R5 R2 K5 ["z"]
-       63 LOADB                            R6 1
-       64 NAMECALL                         R3 R0 K6 ["AddPath"]
-       66 CALL                             R3 3 0
-       67 NEWCLOSURE                       R3 P2
-       68 CAPTURE                          VAL R0
-       69 RETURN                           R3 1
+       14 GETUPVAL                         R3 3
+       15 GETTABLEKS                       R3 R3 K3 ["CIRCLE_SEGMENTS"]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R4 R4 K4 ["radius"]
+       20 LOADK                            R5 K5 ["z"]
+       21 CALL                             R2 3 1
+       22 MOVE                             R5 R2
+       23 LOADB                            R6 1
+       24 NAMECALL                         R3 R0 K6 ["AddPath"]
+       26 CALL                             R3 3 0
+       27 GETUPVAL                         R3 4
+       28 GETTABLEKS                       R3 R3 K7 ["Heartbeat"]
+       30 NEWCLOSURE                       R5 P0
+       31 CAPTURE                          UPVAL U5
+       32 CAPTURE                          UPVAL U1
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R1
+       35 NAMECALL                         R3 R3 K8 ["Connect"]
+       37 CALL                             R3 2 1
+       38 NEWCLOSURE                       R4 P1
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R0
+       41 RETURN                           R4 1
 
-PROTO_4:
+PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["useRef"]
         3 LOADNIL                          R2
@@ -114,71 +85,44 @@ PROTO_4:
        12 CAPTURE                          UPVAL U2
        13 CAPTURE                          UPVAL U3
        14 CAPTURE                          UPVAL U4
-       15 CAPTURE                          UPVAL U5
-       16 GETUPVAL                         R5 6
-       17 CALL                             R5 0 1
-       18 JUMPIFNOT                        R5 ; [+15]
-       19 NEWTABLE                         R4 0 5
-       21 GETTABLEKS                       R5 R0 K2 ["adorneePart"]
-       23 GETTABLEKS                       R6 R0 K3 ["jointInstance"]
-       25 GETTABLEKS                       R7 R0 K4 ["radius"]
-       27 GETTABLEKS                       R8 R0 K5 ["color"]
-       29 GETTABLEKS                       R9 R0 K6 ["DEPRECATED_circlePoints"]
-       31 SETLIST                          R4 R5 5 [1]
-       33 JUMP                             ; [+12]
-       34 NEWTABLE                         R4 0 4
-       36 GETTABLEKS                       R5 R0 K2 ["adorneePart"]
-       38 GETTABLEKS                       R6 R0 K3 ["jointInstance"]
-       40 GETTABLEKS                       R7 R0 K4 ["radius"]
-       42 GETTABLEKS                       R8 R0 K6 ["DEPRECATED_circlePoints"]
-       44 SETLIST                          R4 R5 4 [1]
-       46 CALL                             R2 2 0
-       47 LOADNIL                          R2
-       48 GETUPVAL                         R3 1
-       49 CALL                             R3 0 1
-       50 JUMPIF                           R3 ; [+2]
-       51 GETTABLEKS                       R2 R0 K7 ["DEPRECATED_sphereCf"]
-       53 GETUPVAL                         R3 0
-       54 GETTABLEKS                       R3 R3 K8 ["createElement"]
-       56 LOADK                            R4 K9 ["WireframeHandleAdornment"]
-       57 DUPTABLE                         R5 K17 [{"Adornee", "AlwaysOnTop", "Transparency", "ZIndex", "Color3", "CFrame", "ref"}]
-       58 GETTABLEKS                       R6 R0 K2 ["adorneePart"]
-       60 SETTABLEKS                       R6 R5 K10 ["Adornee"]
-       62 GETUPVAL                         R7 6
-       63 CALL                             R7 0 1
-       64 JUMPIFNOT                        R7 ; [+2]
-       65 LOADB                            R6 1
-       66 JUMP                             ; [+8]
-       67 GETUPVAL                         R7 1
-       68 CALL                             R7 0 1
-       69 JUMPIFNOT                        R7 ; [+4]
-       70 GETTABLEKS                       R7 R0 K19 ["alwaysOnTop"]
-       72 ORK                              R6 R7 K18 [False]
-       73 JUMP                             ; [+1]
-       74 LOADB                            R6 1
-       75 SETTABLEKS                       R6 R5 K11 ["AlwaysOnTop"]
-       77 GETUPVAL                         R7 1
-       78 CALL                             R7 0 1
-       79 JUMPIFNOT                        R7 ; [+4]
-       80 GETUPVAL                         R6 3
-       81 GETTABLEKS                       R6 R6 K20 ["WIRE_TRANSPARENCY"]
-       83 JUMP                             ; [+1]
-       84 LOADN                            R6 0
-       85 SETTABLEKS                       R6 R5 K12 ["Transparency"]
-       87 LOADN                            R6 0
-       88 SETTABLEKS                       R6 R5 K13 ["ZIndex"]
-       90 GETTABLEKS                       R6 R0 K5 ["color"]
-       92 SETTABLEKS                       R6 R5 K14 ["Color3"]
-       94 GETUPVAL                         R7 1
-       95 CALL                             R7 0 1
-       96 JUMPIF                           R7 ; [+2]
-       97 MOVE                             R6 R2
-       98 JUMP                             ; [+1]
-       99 LOADNIL                          R6
-      100 SETTABLEKS                       R6 R5 K15 ["CFrame"]
-      102 SETTABLEKS                       R1 R5 K16 ["ref"]
-      104 CALL                             R3 2 -1
-      105 RETURN                           R3 -1
+       15 GETUPVAL                         R5 5
+       16 CALL                             R5 0 1
+       17 JUMPIFNOT                        R5 ; [+13]
+       18 NEWTABLE                         R4 0 4
+       20 GETTABLEKS                       R5 R0 K2 ["adorneePart"]
+       22 GETTABLEKS                       R6 R0 K3 ["jointInstance"]
+       24 GETTABLEKS                       R7 R0 K4 ["radius"]
+       26 GETTABLEKS                       R8 R0 K5 ["color"]
+       28 SETLIST                          R4 R5 4 [1]
+       30 JUMP                             ; [+10]
+       31 NEWTABLE                         R4 0 3
+       33 GETTABLEKS                       R5 R0 K2 ["adorneePart"]
+       35 GETTABLEKS                       R6 R0 K3 ["jointInstance"]
+       37 GETTABLEKS                       R7 R0 K4 ["radius"]
+       39 SETLIST                          R4 R5 3 [1]
+       41 CALL                             R2 2 0
+       42 GETUPVAL                         R2 0
+       43 GETTABLEKS                       R2 R2 K6 ["createElement"]
+       45 LOADK                            R3 K7 ["WireframeHandleAdornment"]
+       46 DUPTABLE                         R4 K17 [{["Adornee"], ["AlwaysOnTop"], ["Transparency"], ["ZIndex"] = 0, ["Color3"], ["CFrame"] = , ["ref"]}]
+       47 GETTABLEKS                       R5 R0 K2 ["adorneePart"]
+       49 SETTABLEKS                       R5 R4 K8 ["Adornee"]
+       51 GETUPVAL                         R6 5
+       52 CALL                             R6 0 1
+       53 JUMPIFNOT                        R6 ; [+2]
+       54 LOADB                            R5 1
+       55 JUMP                             ; [+3]
+       56 GETTABLEKS                       R6 R0 K19 ["alwaysOnTop"]
+       58 ORK                              R5 R6 K18 [False]
+       59 SETTABLEKS                       R5 R4 K9 ["AlwaysOnTop"]
+       61 GETUPVAL                         R5 2
+       62 GETTABLEKS                       R5 R5 K20 ["WIRE_TRANSPARENCY"]
+       64 SETTABLEKS                       R5 R4 K10 ["Transparency"]
+       66 GETTABLEKS                       R5 R0 K5 ["color"]
+       68 SETTABLEKS                       R5 R4 K13 ["Color3"]
+       70 SETTABLEKS                       R1 R4 K16 ["ref"]
+       72 CALL                             R2 2 -1
+       73 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -208,23 +152,17 @@ MAIN:
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R6 R0 K9 ["Src"]
        45 GETTABLEKS                       R6 R6 K15 ["Flags"]
-       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAdaptiveAnimationQoL"]
+       47 GETTABLEKS                       R6 R6 K16 ["getFFlagAdaptiveAnimationHandRigQoL"]
        49 CALL                             R5 1 1
-       50 GETIMPORT                        R6 K5 [require]
-       52 GETTABLEKS                       R7 R0 K9 ["Src"]
-       54 GETTABLEKS                       R7 R7 K15 ["Flags"]
-       56 GETTABLEKS                       R7 R7 K17 ["getFFlagAdaptiveAnimationHandRigQoL"]
-       58 CALL                             R6 1 1
-       59 GETIMPORT                        R7 K19 [game]
-       61 LOADK                            R9 K20 ["RunService"]
-       62 NAMECALL                         R7 R7 K21 ["GetService"]
-       64 CALL                             R7 2 1
-       65 DUPCLOSURE                       R8 K22 [PROTO_4]
-       66 CAPTURE                          VAL R1
-       67 CAPTURE                          VAL R5
-       68 CAPTURE                          VAL R3
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R2
-       72 CAPTURE                          VAL R6
-       73 RETURN                           R8 1
+       50 GETIMPORT                        R6 K18 [game]
+       52 LOADK                            R8 K19 ["RunService"]
+       53 NAMECALL                         R6 R6 K20 ["GetService"]
+       55 CALL                             R6 2 1
+       56 DUPCLOSURE                       R7 K21 [PROTO_3]
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R6
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R5
+       63 RETURN                           R7 1

@@ -34,7 +34,7 @@ PROTO_0:
 PROTO_1:
         0 LENGTH                           R3 R0
         1 LOADN                            R1 1
-        2 LOADN                            R2 255
+        2 LOADN                            R2 -1
         3 FORNPREP                         R1
         4 GETTABLE                         R4 R0 R3
         5 JUMPIFNOT                        R4 ; [+10]

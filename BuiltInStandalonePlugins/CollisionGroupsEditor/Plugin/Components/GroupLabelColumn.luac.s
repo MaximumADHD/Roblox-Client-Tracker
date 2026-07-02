@@ -48,8 +48,8 @@ PROTO_1:
        65 GETUPVAL                         R5 1
        66 GETTABLEKS                       R5 R5 K9 ["createElement"]
        68 GETUPVAL                         R6 3
-       69 DUPTABLE                         R7 K26 [{"Size", "AutomaticCanvasSize", "CanvasPosition", "LayoutOrder", "EnableScrollBarBackground", "ScrollingEnabled", "Style", "Layout", "Padding"}]
-       70 GETIMPORT                        R8 K29 [UDim2.new]
+       69 DUPTABLE                         R7 K27 [{["Size"], ["AutomaticCanvasSize"], ["CanvasPosition"], ["LayoutOrder"], ["EnableScrollBarBackground"] = False, ["ScrollingEnabled"], ["Style"], ["Layout"], ["Padding"]}]
+       70 GETIMPORT                        R8 K30 [UDim2.new]
        72 LOADN                            R9 0
        73 MOVE                             R10 R3
        74 LOADN                            R11 1
@@ -57,33 +57,31 @@ PROTO_1:
        77 MINUS                            R12 R13
        78 CALL                             R8 4 1
        79 SETTABLEKS                       R8 R7 K18 ["Size"]
-       81 GETIMPORT                        R8 K33 [Enum.AutomaticSize.XY]
+       81 GETIMPORT                        R8 K34 [Enum.AutomaticSize.XY]
        83 SETTABLEKS                       R8 R7 K19 ["AutomaticCanvasSize"]
-       85 GETIMPORT                        R8 K35 [Vector2.new]
+       85 GETIMPORT                        R8 K36 [Vector2.new]
        87 LOADN                            R9 0
-       88 GETTABLEKS                       R10 R1 K36 ["ScrollPositionY"]
+       88 GETTABLEKS                       R10 R1 K37 ["ScrollPositionY"]
        90 CALL                             R8 2 1
        91 SETTABLEKS                       R8 R7 K20 ["CanvasPosition"]
        93 GETTABLEKS                       R8 R1 K12 ["LayoutOrder"]
        95 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
-       97 LOADB                            R8 0
-       98 SETTABLEKS                       R8 R7 K21 ["EnableScrollBarBackground"]
-      100 GETTABLEKS                       R8 R1 K2 ["ToggleListView"]
-      102 SETTABLEKS                       R8 R7 K22 ["ScrollingEnabled"]
-      104 GETTABLEKS                       R9 R1 K2 ["ToggleListView"]
-      106 JUMPIF                           R9 ; [+3]
-      107 GETTABLEKS                       R8 R2 K37 ["ScrollingFrameNoBar"]
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R8
-      111 SETTABLEKS                       R8 R7 K23 ["Style"]
-      113 GETIMPORT                        R8 K40 [Enum.FillDirection.Vertical]
-      115 SETTABLEKS                       R8 R7 K24 ["Layout"]
-      117 GETTABLEKS                       R8 R2 K41 ["GroupLabelColumn"]
-      119 GETTABLEKS                       R8 R8 K25 ["Padding"]
-      121 SETTABLEKS                       R8 R7 K25 ["Padding"]
-      123 MOVE                             R8 R4
-      124 CALL                             R5 3 -1
-      125 RETURN                           R5 -1
+       97 GETTABLEKS                       R8 R1 K2 ["ToggleListView"]
+       99 SETTABLEKS                       R8 R7 K23 ["ScrollingEnabled"]
+      101 GETTABLEKS                       R9 R1 K2 ["ToggleListView"]
+      103 JUMPIF                           R9 ; [+3]
+      104 GETTABLEKS                       R8 R2 K38 ["ScrollingFrameNoBar"]
+      106 JUMP                             ; [+1]
+      107 LOADNIL                          R8
+      108 SETTABLEKS                       R8 R7 K24 ["Style"]
+      110 GETIMPORT                        R8 K41 [Enum.FillDirection.Vertical]
+      112 SETTABLEKS                       R8 R7 K25 ["Layout"]
+      114 GETTABLEKS                       R8 R2 K42 ["GroupLabelColumn"]
+      116 GETTABLEKS                       R8 R8 K26 ["Padding"]
+      118 SETTABLEKS                       R8 R7 K26 ["Padding"]
+      120 MOVE                             R8 R4
+      121 CALL                             R5 3 -1
+      122 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -141,14 +141,12 @@ MAIN:
        70 GETTABLEKS                       R9 R9 K14 ["Types"]
        72 GETTABLEKS                       R9 R9 K19 ["AudioTypes"]
        74 CALL                             R8 1 1
-       75 DUPTABLE                         R9 K21 [{"InitialPageSize"}]
-       76 LOADN                            R10 10
-       77 SETTABLEKS                       R10 R9 K20 ["InitialPageSize"]
-       79 DUPCLOSURE                       R10 K22 [PROTO_2]
-       80 CAPTURE                          VAL R1
-       81 CAPTURE                          VAL R9
-       82 CAPTURE                          VAL R6
-       83 CAPTURE                          VAL R5
-       84 CAPTURE                          VAL R3
-       85 CAPTURE                          VAL R4
-       86 RETURN                           R10 1
+       75 DUPTABLE                         R9 K22 [{["InitialPageSize"] = 10}]
+       76 DUPCLOSURE                       R10 K23 [PROTO_2]
+       77 CAPTURE                          VAL R1
+       78 CAPTURE                          VAL R9
+       79 CAPTURE                          VAL R6
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R4
+       83 RETURN                           R10 1

@@ -18,127 +18,123 @@ PROTO_1:
        12 GETTABLEKS                       R3 R3 K1 ["cursor"]
        14 NOT                              R2 R3
        15 OR                               R2 R2 R1
-       16 JUMPIFNOT                        R2 ; [+9]
+       16 JUMPIFNOT                        R2 ; [+3]
        17 GETUPVAL                         R3 1
-       18 DUPTABLE                         R4 K5 [{"newNotificationAvailable", "syncBroadcastedNotifications"}]
-       19 LOADB                            R5 0
-       20 SETTABLEKS                       R5 R4 K3 ["newNotificationAvailable"]
-       22 LOADB                            R5 0
-       23 SETTABLEKS                       R5 R4 K4 ["syncBroadcastedNotifications"]
-       25 CALL                             R3 1 0
-       26 GETUPVAL                         R3 2
-       27 LOADB                            R4 1
-       28 CALL                             R3 1 0
-       29 LOADNIL                          R3
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R4 R4 K6 ["notificationClient"]
-       33 GETTABLEKS                       R4 R4 K7 ["getNotifications"]
-       35 MOVE                             R5 R0
-       36 JUMPIFNOT                        R1 ; [+2]
-       37 LOADNIL                          R6
-       38 JUMP                             ; [+3]
-       39 GETUPVAL                         R6 0
-       40 GETTABLEKS                       R6 R6 K1 ["cursor"]
-       42 CALL                             R4 2 1
-       43 MOVE                             R3 R4
-       44 GETTABLEKS                       R4 R3 K8 ["responseCode"]
-       46 LOADN                            R5 200
-       47 JUMPIFNOTLE                      R5 R4 ; [+120]
-       49 GETTABLEKS                       R4 R3 K8 ["responseCode"]
-       51 LOADN                            R5 44
-       52 JUMPIFNOTLT                      R4 R5 ; [+115]
-       54 GETUPVAL                         R4 3
-       55 LOADB                            R5 0
-       56 CALL                             R4 1 0
-       57 GETTABLEKS                       R4 R3 K9 ["responseBody"]
-       59 GETTABLEKS                       R4 R4 K10 ["nextCursor"]
-       61 JUMPIFEQKS                       R4 K2 [""] ; [+7]
-       63 GETTABLEKS                       R4 R3 K9 ["responseBody"]
-       65 GETTABLEKS                       R4 R4 K10 ["nextCursor"]
-       67 JUMPIFNOTEQKNIL                  R4 ; [+7]
+       18 DUPTABLE                         R4 K6 [{["newNotificationAvailable"] = False, ["syncBroadcastedNotifications"] = False}]
+       19 CALL                             R3 1 0
+       20 GETUPVAL                         R3 2
+       21 LOADB                            R4 1
+       22 CALL                             R3 1 0
+       23 LOADNIL                          R3
+       24 GETUPVAL                         R4 0
+       25 GETTABLEKS                       R4 R4 K7 ["notificationClient"]
+       27 GETTABLEKS                       R4 R4 K8 ["getNotifications"]
+       29 MOVE                             R5 R0
+       30 JUMPIFNOT                        R1 ; [+2]
+       31 LOADNIL                          R6
+       32 JUMP                             ; [+3]
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K1 ["cursor"]
+       36 CALL                             R4 2 1
+       37 MOVE                             R3 R4
+       38 GETTABLEKS                       R4 R3 K9 ["responseCode"]
+       40 LOADN                            R5 200
+       41 JUMPIFNOTLE                      R5 R4 ; [+120]
+       43 GETTABLEKS                       R4 R3 K9 ["responseCode"]
+       45 LOADN                            R5 300
+       46 JUMPIFNOTLT                      R4 R5 ; [+115]
+       48 GETUPVAL                         R4 3
+       49 LOADB                            R5 0
+       50 CALL                             R4 1 0
+       51 GETTABLEKS                       R4 R3 K10 ["responseBody"]
+       53 GETTABLEKS                       R4 R4 K11 ["nextCursor"]
+       55 JUMPIFEQKS                       R4 K2 [""] ; [+7]
+       57 GETTABLEKS                       R4 R3 K10 ["responseBody"]
+       59 GETTABLEKS                       R4 R4 K11 ["nextCursor"]
+       61 JUMPIFNOTEQKNIL                  R4 ; [+7]
+       63 GETUPVAL                         R4 0
+       64 GETTABLEKS                       R4 R4 K12 ["setCursor"]
+       66 LOADNIL                          R5
+       67 CALL                             R4 1 0
+       68 JUMP                             ; [+8]
        69 GETUPVAL                         R4 0
-       70 GETTABLEKS                       R4 R4 K11 ["setCursor"]
-       72 LOADNIL                          R5
-       73 CALL                             R4 1 0
-       74 JUMP                             ; [+8]
-       75 GETUPVAL                         R4 0
-       76 GETTABLEKS                       R4 R4 K11 ["setCursor"]
-       78 GETTABLEKS                       R5 R3 K9 ["responseBody"]
-       80 GETTABLEKS                       R5 R5 K10 ["nextCursor"]
-       82 CALL                             R4 1 0
-       83 GETTABLEKS                       R5 R3 K9 ["responseBody"]
-       85 GETTABLEKS                       R5 R5 K12 ["creatorStreamNotifications"]
-       87 LENGTH                           R4 R5
-       88 JUMPIFNOTEQKN                    R4 K13 [0] ; [+6]
-       90 GETUPVAL                         R4 0
-       91 GETTABLEKS                       R4 R4 K14 ["setAllLoaded"]
-       93 LOADB                            R5 1
-       94 CALL                             R4 1 0
-       95 NEWTABLE                         R4 0 0
-       97 JUMPIF                           R1 ; [+15]
-       98 GETUPVAL                         R5 0
-       99 GETTABLEKS                       R5 R5 K15 ["notifications"]
-      101 LOADNIL                          R6
-      102 LOADNIL                          R7
-      103 FORGPREP                         R5
-      104 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
-      106 MOVE                             R11 R4
-      107 MOVE                             R12 R9
-      108 GETIMPORT                        R10 K18 [table.insert]
-      110 CALL                             R10 2 0
-      111 FORGLOOP                         R5 2 ; [-8]
-      113 GETIMPORT                        R5 K20 [pairs]
-      115 GETTABLEKS                       R6 R3 K9 ["responseBody"]
-      117 GETTABLEKS                       R6 R6 K12 ["creatorStreamNotifications"]
-      119 CALL                             R5 1 3
-      120 FORGPREP_NEXT                    R5
-      121 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
-      123 MOVE                             R11 R4
-      124 MOVE                             R12 R9
-      125 GETIMPORT                        R10 K18 [table.insert]
-      127 CALL                             R10 2 0
-      128 FORGLOOP                         R5 2 ; [-8]
-      130 JUMPIFNOT                        R2 ; [+22]
-      131 LENGTH                           R5 R4
-      132 LOADN                            R6 0
-      133 JUMPIFNOTLT                      R6 R5 ; [+19]
-      135 GETUPVAL                         R5 4
-      136 JUMPIFNOT                        R5 ; [+16]
-      137 GETTABLEN                        R5 R4 1
-      138 GETTABLEKS                       R5 R5 K21 ["notificationId"]
-      140 GETUPVAL                         R7 5
-      141 GETTABLEKS                       R7 R7 K22 ["trayVisible"]
-      143 JUMPIFNOT                        R7 ; [+2]
-      144 MOVE                             R6 R5
-      145 JUMP                             ; [+1]
-      146 LOADK                            R6 K2 [""]
-      147 GETUPVAL                         R7 4
-      148 MOVE                             R9 R5
-      149 MOVE                             R10 R6
-      150 NAMECALL                         R7 R7 K23 ["OnNotificationUpdateFromPlugin"]
-      152 CALL                             R7 3 0
-      153 GETUPVAL                         R5 0
-      154 GETTABLEKS                       R5 R5 K24 ["logNotificationImpressions"]
-      156 GETTABLEKS                       R6 R3 K9 ["responseBody"]
-      158 GETTABLEKS                       R6 R6 K12 ["creatorStreamNotifications"]
-      160 MOVE                             R7 R2
-      161 CALL                             R5 2 0
-      162 GETUPVAL                         R5 0
-      163 GETTABLEKS                       R5 R5 K25 ["setNotifications"]
-      165 MOVE                             R6 R4
-      166 CALL                             R5 1 0
-      167 JUMP                             ; [+8]
-      168 GETUPVAL                         R4 3
-      169 LOADB                            R5 1
-      170 CALL                             R4 1 0
-      171 GETUPVAL                         R4 0
-      172 GETTABLEKS                       R4 R4 K11 ["setCursor"]
-      174 LOADNIL                          R5
-      175 CALL                             R4 1 0
-      176 GETUPVAL                         R4 2
-      177 LOADB                            R5 0
-      178 CALL                             R4 1 0
-      179 RETURN                           R0 0
+       70 GETTABLEKS                       R4 R4 K12 ["setCursor"]
+       72 GETTABLEKS                       R5 R3 K10 ["responseBody"]
+       74 GETTABLEKS                       R5 R5 K11 ["nextCursor"]
+       76 CALL                             R4 1 0
+       77 GETTABLEKS                       R5 R3 K10 ["responseBody"]
+       79 GETTABLEKS                       R5 R5 K13 ["creatorStreamNotifications"]
+       81 LENGTH                           R4 R5
+       82 JUMPIFNOTEQKN                    R4 K14 [0] ; [+6]
+       84 GETUPVAL                         R4 0
+       85 GETTABLEKS                       R4 R4 K15 ["setAllLoaded"]
+       87 LOADB                            R5 1
+       88 CALL                             R4 1 0
+       89 NEWTABLE                         R4 0 0
+       91 JUMPIF                           R1 ; [+15]
+       92 GETUPVAL                         R5 0
+       93 GETTABLEKS                       R5 R5 K16 ["notifications"]
+       95 LOADNIL                          R6
+       96 LOADNIL                          R7
+       97 FORGPREP                         R5
+       98 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
+      100 MOVE                             R11 R4
+      101 MOVE                             R12 R9
+      102 GETIMPORT                        R10 K19 [table.insert]
+      104 CALL                             R10 2 0
+      105 FORGLOOP                         R5 2 ; [-8]
+      107 GETIMPORT                        R5 K21 [pairs]
+      109 GETTABLEKS                       R6 R3 K10 ["responseBody"]
+      111 GETTABLEKS                       R6 R6 K13 ["creatorStreamNotifications"]
+      113 CALL                             R5 1 3
+      114 FORGPREP_NEXT                    R5
+      115 FASTCALL2                        TABLE_INSERT R4 R9 ; [+5]
+      117 MOVE                             R11 R4
+      118 MOVE                             R12 R9
+      119 GETIMPORT                        R10 K19 [table.insert]
+      121 CALL                             R10 2 0
+      122 FORGLOOP                         R5 2 ; [-8]
+      124 JUMPIFNOT                        R2 ; [+22]
+      125 LENGTH                           R5 R4
+      126 LOADN                            R6 0
+      127 JUMPIFNOTLT                      R6 R5 ; [+19]
+      129 GETUPVAL                         R5 4
+      130 JUMPIFNOT                        R5 ; [+16]
+      131 GETTABLEN                        R5 R4 1
+      132 GETTABLEKS                       R5 R5 K22 ["notificationId"]
+      134 GETUPVAL                         R7 5
+      135 GETTABLEKS                       R7 R7 K23 ["trayVisible"]
+      137 JUMPIFNOT                        R7 ; [+2]
+      138 MOVE                             R6 R5
+      139 JUMP                             ; [+1]
+      140 LOADK                            R6 K2 [""]
+      141 GETUPVAL                         R7 4
+      142 MOVE                             R9 R5
+      143 MOVE                             R10 R6
+      144 NAMECALL                         R7 R7 K24 ["OnNotificationUpdateFromPlugin"]
+      146 CALL                             R7 3 0
+      147 GETUPVAL                         R5 0
+      148 GETTABLEKS                       R5 R5 K25 ["logNotificationImpressions"]
+      150 GETTABLEKS                       R6 R3 K10 ["responseBody"]
+      152 GETTABLEKS                       R6 R6 K13 ["creatorStreamNotifications"]
+      154 MOVE                             R7 R2
+      155 CALL                             R5 2 0
+      156 GETUPVAL                         R5 0
+      157 GETTABLEKS                       R5 R5 K26 ["setNotifications"]
+      159 MOVE                             R6 R4
+      160 CALL                             R5 1 0
+      161 JUMP                             ; [+8]
+      162 GETUPVAL                         R4 3
+      163 LOADB                            R5 1
+      164 CALL                             R4 1 0
+      165 GETUPVAL                         R4 0
+      166 GETTABLEKS                       R4 R4 K12 ["setCursor"]
+      168 LOADNIL                          R5
+      169 CALL                             R4 1 0
+      170 GETUPVAL                         R4 2
+      171 LOADB                            R5 0
+      172 CALL                             R4 1 0
+      173 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -148,12 +144,10 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K2 [{"newNotificationAvailable", "syncBroadcastedNotifications"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["newNotificationAvailable"]
-        4 GETTABLEKS                       R2 R0 K1 ["syncBroadcastedNotifications"]
-        6 SETTABLEKS                       R2 R1 K1 ["syncBroadcastedNotifications"]
-        8 RETURN                           R1 1
+        0 DUPTABLE                         R1 K3 [{[1] = True, ["syncBroadcastedNotifications"]}]
+        1 GETTABLEKS                       R2 R0 K2 ["syncBroadcastedNotifications"]
+        3 SETTABLEKS                       R2 R1 K2 ["syncBroadcastedNotifications"]
+        5 RETURN                           R1 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -178,12 +172,10 @@ PROTO_6:
         4 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R1 K2 [{"newNotificationAvailable", "syncBroadcastedNotifications"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["newNotificationAvailable"]
-        4 GETTABLEKS                       R2 R0 K1 ["syncBroadcastedNotifications"]
-        6 SETTABLEKS                       R2 R1 K1 ["syncBroadcastedNotifications"]
-        8 RETURN                           R1 1
+        0 DUPTABLE                         R1 K3 [{[1] = True, ["syncBroadcastedNotifications"]}]
+        1 GETTABLEKS                       R2 R0 K2 ["syncBroadcastedNotifications"]
+        3 SETTABLEKS                       R2 R1 K2 ["syncBroadcastedNotifications"]
+        5 RETURN                           R1 1
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -196,13 +188,9 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K2 [{"newNotificationAvailable", "syncBroadcastedNotifications"}]
-        2 LOADB                            R2 1
-        3 SETTABLEKS                       R2 R1 K0 ["newNotificationAvailable"]
-        5 LOADB                            R2 1
-        6 SETTABLEKS                       R2 R1 K1 ["syncBroadcastedNotifications"]
-        8 CALL                             R0 1 0
-        9 RETURN                           R0 0
+        1 DUPTABLE                         R1 K3 [{[1] = True, ["syncBroadcastedNotifications"] = True}]
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -427,181 +415,173 @@ PROTO_17:
         9 CALL                             R2 1 2
        10 GETUPVAL                         R4 0
        11 GETTABLEKS                       R4 R4 K0 ["useState"]
-       13 DUPTABLE                         R5 K3 [{"newNotificationAvailable", "syncBroadcastedNotifications"}]
-       14 LOADB                            R6 0
-       15 SETTABLEKS                       R6 R5 K1 ["newNotificationAvailable"]
-       17 LOADB                            R6 0
-       18 SETTABLEKS                       R6 R5 K2 ["syncBroadcastedNotifications"]
-       20 CALL                             R4 1 2
-       21 GETUPVAL                         R6 0
-       22 GETTABLEKS                       R6 R6 K4 ["useContext"]
-       24 GETUPVAL                         R7 1
-       25 CALL                             R6 1 1
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R7 R7 K4 ["useContext"]
-       29 GETUPVAL                         R8 2
-       30 CALL                             R7 1 1
-       31 GETUPVAL                         R8 0
-       32 GETTABLEKS                       R8 R8 K5 ["useRef"]
-       34 LOADB                            R9 0
-       35 CALL                             R8 1 1
-       36 GETUPVAL                         R9 0
-       37 GETTABLEKS                       R9 R9 K6 ["useCallback"]
-       39 NEWCLOSURE                       R10 P0
-       40 CAPTURE                          VAL R6
-       41 CAPTURE                          VAL R5
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          UPVAL U3
-       45 CAPTURE                          VAL R7
-       46 NEWTABLE                         R11 0 4
-       48 GETTABLEKS                       R12 R6 K7 ["notifications"]
-       50 GETTABLEKS                       R13 R6 K8 ["cursor"]
-       52 GETTABLEKS                       R14 R6 K9 ["allLoaded"]
-       54 GETTABLEKS                       R15 R7 K10 ["trayVisible"]
-       56 SETLIST                          R11 R12 4 [1]
-       58 CALL                             R9 2 1
-       59 LOADNIL                          R10
-       60 NEWCLOSURE                       R10 P1
-       61 CAPTURE                          VAL R9
-       62 GETUPVAL                         R11 0
-       63 GETTABLEKS                       R11 R11 K11 ["useEffect"]
-       65 NEWCLOSURE                       R12 P2
-       66 CAPTURE                          UPVAL U4
-       67 CAPTURE                          UPVAL U3
-       68 CAPTURE                          VAL R8
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R6
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          UPVAL U5
-       73 CAPTURE                          UPVAL U6
-       74 CAPTURE                          UPVAL U7
-       75 NEWTABLE                         R13 0 0
-       77 CALL                             R11 2 0
-       78 GETUPVAL                         R11 0
-       79 GETTABLEKS                       R11 R11 K11 ["useEffect"]
-       81 NEWCLOSURE                       R12 P3
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R7
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          VAL R8
-       86 CAPTURE                          REF R10
-       87 NEWTABLE                         R13 0 4
-       89 MOVE                             R14 R4
-       90 GETTABLEKS                       R15 R7 K10 ["trayVisible"]
-       92 MOVE                             R16 R0
-       93 MOVE                             R17 R10
-       94 SETLIST                          R13 R14 4 [1]
-       96 CALL                             R11 2 0
-       97 GETUPVAL                         R11 0
-       98 GETTABLEKS                       R11 R11 K11 ["useEffect"]
-      100 NEWCLOSURE                       R12 P4
-      101 CAPTURE                          VAL R7
-      102 CAPTURE                          VAL R6
-      103 CAPTURE                          UPVAL U3
-      104 NEWTABLE                         R13 0 2
-      106 GETTABLEKS                       R14 R7 K10 ["trayVisible"]
-      108 GETTABLEKS                       R15 R6 K7 ["notifications"]
-      110 SETLIST                          R13 R14 2 [1]
-      112 CALL                             R11 2 0
-      113 GETUPVAL                         R11 0
-      114 GETTABLEKS                       R11 R11 K6 ["useCallback"]
-      116 NEWCLOSURE                       R12 P5
-      117 CAPTURE                          VAL R0
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R9
-      120 NEWTABLE                         R13 0 4
-      122 GETTABLEKS                       R15 R6 K7 ["notifications"]
-      124 LENGTH                           R14 R15
-      125 GETTABLEKS                       R15 R6 K9 ["allLoaded"]
-      127 MOVE                             R16 R9
-      128 MOVE                             R17 R0
-      129 SETLIST                          R13 R14 4 [1]
-      131 CALL                             R11 2 1
-      132 GETUPVAL                         R12 0
-      133 GETTABLEKS                       R12 R12 K12 ["useMemo"]
-      135 NEWCLOSURE                       R13 P6
-      136 CAPTURE                          VAL R6
-      137 CAPTURE                          UPVAL U0
-      138 CAPTURE                          UPVAL U8
-      139 NEWTABLE                         R14 0 1
-      141 GETTABLEKS                       R15 R6 K7 ["notifications"]
-      143 SETLIST                          R14 R15 1 [1]
-      145 CALL                             R12 2 1
-      146 GETUPVAL                         R13 0
-      147 GETTABLEKS                       R13 R13 K12 ["useMemo"]
-      149 NEWCLOSURE                       R14 P7
-      150 CAPTURE                          VAL R0
-      151 CAPTURE                          UPVAL U0
-      152 CAPTURE                          UPVAL U9
-      153 NEWTABLE                         R15 0 1
-      155 MOVE                             R16 R0
-      156 SETLIST                          R15 R16 1 [1]
-      158 CALL                             R13 2 1
-      159 GETUPVAL                         R14 0
-      160 GETTABLEKS                       R14 R14 K13 ["createElement"]
-      162 LOADK                            R15 K14 ["Frame"]
-      163 NEWTABLE                         R16 1 0
-      165 GETUPVAL                         R17 0
-      166 GETTABLEKS                       R17 R17 K15 ["Tag"]
-      168 LOADK                            R18 K16 ["Component-NotificationTray"]
-      169 SETTABLE                         R18 R16 R17
-      170 DUPTABLE                         R17 K19 [{"Header", "ScrollingTray"}]
-      171 GETUPVAL                         R18 0
-      172 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      174 GETUPVAL                         R19 10
-      175 DUPTABLE                         R20 K21 [{"LayoutOrder"}]
-      176 LOADN                            R21 1
-      177 SETTABLEKS                       R21 R20 K20 ["LayoutOrder"]
-      179 CALL                             R18 2 1
-      180 SETTABLEKS                       R18 R17 K17 ["Header"]
-      182 LENGTH                           R19 R12
-      183 LOADN                            R20 0
-      184 JUMPIFNOTLT                      R20 R19 ; [+35]
-      186 GETUPVAL                         R18 0
-      187 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      189 LOADK                            R19 K22 ["ScrollingFrame"]
-      190 NEWTABLE                         R20 4 0
-      192 LOADN                            R21 2
-      193 SETTABLEKS                       R21 R20 K20 ["LayoutOrder"]
-      195 GETUPVAL                         R21 0
-      196 GETTABLEKS                       R21 R21 K23 ["Change"]
-      198 GETTABLEKS                       R21 R21 K24 ["CanvasPosition"]
-      200 SETTABLE                         R11 R20 R21
-      201 GETUPVAL                         R21 0
-      202 GETTABLEKS                       R21 R21 K15 ["Tag"]
-      204 LOADK                            R22 K25 ["Component-NotificationTrayScrollingFrame"]
-      205 SETTABLE                         R22 R20 R21
-      206 GETUPVAL                         R21 11
-      207 GETTABLEKS                       R21 R21 K26 ["List"]
-      209 GETTABLEKS                       R21 R21 K27 ["join"]
-      211 MOVE                             R22 R12
-      212 NEWTABLE                         R23 0 1
-      214 MOVE                             R24 R13
-      215 SETLIST                          R23 R24 1 [1]
-      217 CALL                             R21 2 -1
-      218 CALL                             R18 -1 1
-      219 JUMP                             ; [+22]
-      220 GETUPVAL                         R18 0
-      221 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      223 GETUPVAL                         R19 12
-      224 DUPTABLE                         R20 K31 [{"Loading", "OnLoadError", "LayoutOrder", "OnRetry"}]
-      225 MOVE                             R21 R0
-      226 JUMPIFNOT                        R21 ; [+5]
-      227 LENGTH                           R22 R12
-      228 JUMPIFEQKN                       R22 K32 [0] ; [+2]
-      230 LOADB                            R21 0 +1
-      231 LOADB                            R21 1
-      232 SETTABLEKS                       R21 R20 K28 ["Loading"]
-      234 SETTABLEKS                       R2 R20 K29 ["OnLoadError"]
-      236 LOADN                            R21 2
-      237 SETTABLEKS                       R21 R20 K20 ["LayoutOrder"]
-      239 SETTABLEKS                       R10 R20 K30 ["OnRetry"]
-      241 CALL                             R18 2 1
-      242 SETTABLEKS                       R18 R17 K18 ["ScrollingTray"]
-      244 CALL                             R14 3 -1
-      245 CLOSEUPVALS                      R10
-      246 RETURN                           R14 -1
+       13 DUPTABLE                         R5 K4 [{["newNotificationAvailable"] = False, ["syncBroadcastedNotifications"] = False}]
+       14 CALL                             R4 1 2
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R6 R6 K5 ["useContext"]
+       18 GETUPVAL                         R7 1
+       19 CALL                             R6 1 1
+       20 GETUPVAL                         R7 0
+       21 GETTABLEKS                       R7 R7 K5 ["useContext"]
+       23 GETUPVAL                         R8 2
+       24 CALL                             R7 1 1
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K6 ["useRef"]
+       28 LOADB                            R9 0
+       29 CALL                             R8 1 1
+       30 GETUPVAL                         R9 0
+       31 GETTABLEKS                       R9 R9 K7 ["useCallback"]
+       33 NEWCLOSURE                       R10 P0
+       34 CAPTURE                          VAL R6
+       35 CAPTURE                          VAL R5
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          UPVAL U3
+       39 CAPTURE                          VAL R7
+       40 NEWTABLE                         R11 0 4
+       42 GETTABLEKS                       R12 R6 K8 ["notifications"]
+       44 GETTABLEKS                       R13 R6 K9 ["cursor"]
+       46 GETTABLEKS                       R14 R6 K10 ["allLoaded"]
+       48 GETTABLEKS                       R15 R7 K11 ["trayVisible"]
+       50 SETLIST                          R11 R12 4 [1]
+       52 CALL                             R9 2 1
+       53 LOADNIL                          R10
+       54 NEWCLOSURE                       R10 P1
+       55 CAPTURE                          VAL R9
+       56 GETUPVAL                         R11 0
+       57 GETTABLEKS                       R11 R11 K12 ["useEffect"]
+       59 NEWCLOSURE                       R12 P2
+       60 CAPTURE                          UPVAL U4
+       61 CAPTURE                          UPVAL U3
+       62 CAPTURE                          VAL R8
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R6
+       65 CAPTURE                          VAL R9
+       66 CAPTURE                          UPVAL U5
+       67 CAPTURE                          UPVAL U6
+       68 CAPTURE                          UPVAL U7
+       69 NEWTABLE                         R13 0 0
+       71 CALL                             R11 2 0
+       72 GETUPVAL                         R11 0
+       73 GETTABLEKS                       R11 R11 K12 ["useEffect"]
+       75 NEWCLOSURE                       R12 P3
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          VAL R8
+       80 CAPTURE                          REF R10
+       81 NEWTABLE                         R13 0 4
+       83 MOVE                             R14 R4
+       84 GETTABLEKS                       R15 R7 K11 ["trayVisible"]
+       86 MOVE                             R16 R0
+       87 MOVE                             R17 R10
+       88 SETLIST                          R13 R14 4 [1]
+       90 CALL                             R11 2 0
+       91 GETUPVAL                         R11 0
+       92 GETTABLEKS                       R11 R11 K12 ["useEffect"]
+       94 NEWCLOSURE                       R12 P4
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R6
+       97 CAPTURE                          UPVAL U3
+       98 NEWTABLE                         R13 0 2
+      100 GETTABLEKS                       R14 R7 K11 ["trayVisible"]
+      102 GETTABLEKS                       R15 R6 K8 ["notifications"]
+      104 SETLIST                          R13 R14 2 [1]
+      106 CALL                             R11 2 0
+      107 GETUPVAL                         R11 0
+      108 GETTABLEKS                       R11 R11 K7 ["useCallback"]
+      110 NEWCLOSURE                       R12 P5
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          VAL R6
+      113 CAPTURE                          VAL R9
+      114 NEWTABLE                         R13 0 4
+      116 GETTABLEKS                       R15 R6 K8 ["notifications"]
+      118 LENGTH                           R14 R15
+      119 GETTABLEKS                       R15 R6 K10 ["allLoaded"]
+      121 MOVE                             R16 R9
+      122 MOVE                             R17 R0
+      123 SETLIST                          R13 R14 4 [1]
+      125 CALL                             R11 2 1
+      126 GETUPVAL                         R12 0
+      127 GETTABLEKS                       R12 R12 K13 ["useMemo"]
+      129 NEWCLOSURE                       R13 P6
+      130 CAPTURE                          VAL R6
+      131 CAPTURE                          UPVAL U0
+      132 CAPTURE                          UPVAL U8
+      133 NEWTABLE                         R14 0 1
+      135 GETTABLEKS                       R15 R6 K8 ["notifications"]
+      137 SETLIST                          R14 R15 1 [1]
+      139 CALL                             R12 2 1
+      140 GETUPVAL                         R13 0
+      141 GETTABLEKS                       R13 R13 K13 ["useMemo"]
+      143 NEWCLOSURE                       R14 P7
+      144 CAPTURE                          VAL R0
+      145 CAPTURE                          UPVAL U0
+      146 CAPTURE                          UPVAL U9
+      147 NEWTABLE                         R15 0 1
+      149 MOVE                             R16 R0
+      150 SETLIST                          R15 R16 1 [1]
+      152 CALL                             R13 2 1
+      153 GETUPVAL                         R14 0
+      154 GETTABLEKS                       R14 R14 K14 ["createElement"]
+      156 LOADK                            R15 K15 ["Frame"]
+      157 NEWTABLE                         R16 1 0
+      159 GETUPVAL                         R17 0
+      160 GETTABLEKS                       R17 R17 K16 ["Tag"]
+      162 LOADK                            R18 K17 ["Component-NotificationTray"]
+      163 SETTABLE                         R18 R16 R17
+      164 DUPTABLE                         R17 K20 [{"Header", "ScrollingTray"}]
+      165 GETUPVAL                         R18 0
+      166 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      168 GETUPVAL                         R19 10
+      169 DUPTABLE                         R20 K23 [{["LayoutOrder"] = 1}]
+      170 CALL                             R18 2 1
+      171 SETTABLEKS                       R18 R17 K18 ["Header"]
+      173 LENGTH                           R19 R12
+      174 LOADN                            R20 0
+      175 JUMPIFNOTLT                      R20 R19 ; [+35]
+      177 GETUPVAL                         R18 0
+      178 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      180 LOADK                            R19 K24 ["ScrollingFrame"]
+      181 NEWTABLE                         R20 4 0
+      183 LOADN                            R21 2
+      184 SETTABLEKS                       R21 R20 K21 ["LayoutOrder"]
+      186 GETUPVAL                         R21 0
+      187 GETTABLEKS                       R21 R21 K25 ["Change"]
+      189 GETTABLEKS                       R21 R21 K26 ["CanvasPosition"]
+      191 SETTABLE                         R11 R20 R21
+      192 GETUPVAL                         R21 0
+      193 GETTABLEKS                       R21 R21 K16 ["Tag"]
+      195 LOADK                            R22 K27 ["Component-NotificationTrayScrollingFrame"]
+      196 SETTABLE                         R22 R20 R21
+      197 GETUPVAL                         R21 11
+      198 GETTABLEKS                       R21 R21 K28 ["List"]
+      200 GETTABLEKS                       R21 R21 K29 ["join"]
+      202 MOVE                             R22 R12
+      203 NEWTABLE                         R23 0 1
+      205 MOVE                             R24 R13
+      206 SETLIST                          R23 R24 1 [1]
+      208 CALL                             R21 2 -1
+      209 CALL                             R18 -1 1
+      210 JUMP                             ; [+19]
+      211 GETUPVAL                         R18 0
+      212 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      214 GETUPVAL                         R19 12
+      215 DUPTABLE                         R20 K34 [{["Loading"], ["OnLoadError"], ["LayoutOrder"] = 2, ["OnRetry"]}]
+      216 MOVE                             R21 R0
+      217 JUMPIFNOT                        R21 ; [+5]
+      218 LENGTH                           R22 R12
+      219 JUMPIFEQKN                       R22 K35 [0] ; [+2]
+      221 LOADB                            R21 0 +1
+      222 LOADB                            R21 1
+      223 SETTABLEKS                       R21 R20 K30 ["Loading"]
+      225 SETTABLEKS                       R2 R20 K31 ["OnLoadError"]
+      227 SETTABLEKS                       R10 R20 K33 ["OnRetry"]
+      229 CALL                             R18 2 1
+      230 SETTABLEKS                       R18 R17 K19 ["ScrollingTray"]
+      232 CALL                             R14 3 -1
+      233 CLOSEUPVALS                      R10
+      234 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

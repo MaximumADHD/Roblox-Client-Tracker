@@ -199,42 +199,34 @@ PROTO_6:
        18 CALL                             R1 2 1
        19 GETUPVAL                         R2 4
        20 NEWTABLE                         R3 0 2
-       22 DUPTABLE                         R4 K8 [{"type", "disposition", "value"}]
-       23 LOADK                            R5 K9 ["application/json"]
-       24 SETTABLEKS                       R5 R4 K0 ["type"]
-       26 DUPTABLE                         R5 K11 [{"name", "filename"}]
-       27 LOADK                            R6 K12 ["config"]
-       28 SETTABLEKS                       R6 R5 K1 ["name"]
-       30 LOADK                            R6 K13 ["config.json"]
-       31 SETTABLEKS                       R6 R5 K10 ["filename"]
-       33 SETTABLEKS                       R5 R4 K6 ["disposition"]
-       35 SETTABLEKS                       R1 R4 K7 ["value"]
-       37 DUPTABLE                         R5 K8 [{"type", "disposition", "value"}]
-       38 LOADK                            R6 K14 ["application/octet-stream"]
-       39 SETTABLEKS                       R6 R5 K0 ["type"]
-       41 DUPTABLE                         R6 K11 [{"name", "filename"}]
-       42 GETUPVAL                         R7 1
-       43 SETTABLEKS                       R7 R6 K1 ["name"]
-       45 GETUPVAL                         R8 1
-       46 LOADK                            R9 K15 ["."]
-       47 GETUPVAL                         R10 5
-       48 CONCAT                           R7 R8 R10
-       49 SETTABLEKS                       R7 R6 K10 ["filename"]
-       51 SETTABLEKS                       R6 R5 K6 ["disposition"]
-       53 SETTABLEKS                       R0 R5 K7 ["value"]
-       55 SETLIST                          R3 R4 2 [1]
-       57 CALL                             R2 1 1
-       58 GETUPVAL                         R3 0
-       59 MOVE                             R5 R2
-       60 GETUPVAL                         R6 6
-       61 GETTABLEKS                       R6 R6 K16 ["MULTIPART_FORM_BOUNDARY"]
-       63 NAMECALL                         R3 R3 K17 ["uploadCatalogItem"]
-       65 CALL                             R3 3 1
-       66 GETUPVAL                         R5 7
-       67 GETUPVAL                         R6 8
-       68 NAMECALL                         R3 R3 K18 ["andThen"]
-       70 CALL                             R3 3 -1
-       71 RETURN                           R3 -1
+       22 DUPTABLE                         R4 K9 [{[1] = "application/json", ["disposition"], ["value"]}]
+       23 DUPTABLE                         R5 K13 [{["name"] = "config", ["filename"] = "config.json"}]
+       24 SETTABLEKS                       R5 R4 K7 ["disposition"]
+       26 SETTABLEKS                       R1 R4 K8 ["value"]
+       28 DUPTABLE                         R5 K15 [{[1] = "application/octet-stream", ["disposition"], ["value"]}]
+       29 DUPTABLE                         R6 K16 [{"name", "filename"}]
+       30 GETUPVAL                         R7 1
+       31 SETTABLEKS                       R7 R6 K1 ["name"]
+       33 GETUPVAL                         R8 1
+       34 LOADK                            R9 K17 ["."]
+       35 GETUPVAL                         R10 5
+       36 CONCAT                           R7 R8 R10
+       37 SETTABLEKS                       R7 R6 K11 ["filename"]
+       39 SETTABLEKS                       R6 R5 K7 ["disposition"]
+       41 SETTABLEKS                       R0 R5 K8 ["value"]
+       43 SETLIST                          R3 R4 2 [1]
+       45 CALL                             R2 1 1
+       46 GETUPVAL                         R3 0
+       47 MOVE                             R5 R2
+       48 GETUPVAL                         R6 6
+       49 GETTABLEKS                       R6 R6 K18 ["MULTIPART_FORM_BOUNDARY"]
+       51 NAMECALL                         R3 R3 K19 ["uploadCatalogItem"]
+       53 CALL                             R3 3 1
+       54 GETUPVAL                         R5 7
+       55 GETUPVAL                         R6 8
+       56 NAMECALL                         R3 R3 K20 ["andThen"]
+       58 CALL                             R3 3 -1
+       59 RETURN                           R3 -1
 
 PROTO_7:
         0 GETUPVAL                         R4 0

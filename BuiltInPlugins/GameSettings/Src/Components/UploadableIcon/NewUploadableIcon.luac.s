@@ -89,48 +89,42 @@ PROTO_4:
        87 GETUPVAL                         R8 0
        88 GETTABLEKS                       R8 R8 K3 ["createElement"]
        90 LOADK                            R9 K38 ["ImageLabel"]
-       91 DUPTABLE                         R10 K46 [{"BackgroundTransparency", "Image", "ImageColor3", "ImageTransparency", "ImageRectSize", "ImageRectOffset", "Size", "Position", "AnchorPoint", "ZIndex"}]
-       92 LOADN                            R11 1
-       93 SETTABLEKS                       R11 R10 K39 ["BackgroundTransparency"]
-       95 GETTABLEKS                       R11 R3 K47 ["plus"]
-       97 GETTABLEKS                       R11 R11 K13 ["image"]
-       99 SETTABLEKS                       R11 R10 K14 ["Image"]
-      101 GETTABLEKS                       R11 R3 K6 ["newThumbnail"]
-      103 GETTABLEKS                       R11 R11 K47 ["plus"]
-      105 SETTABLEKS                       R11 R10 K10 ["ImageColor3"]
-      107 LOADK                            R11 K48 [0.4]
-      108 SETTABLEKS                       R11 R10 K40 ["ImageTransparency"]
-      110 GETTABLEKS                       R11 R3 K47 ["plus"]
-      112 GETTABLEKS                       R11 R11 K49 ["rectSize"]
-      114 SETTABLEKS                       R11 R10 K41 ["ImageRectSize"]
-      116 GETTABLEKS                       R11 R3 K47 ["plus"]
-      118 GETTABLEKS                       R11 R11 K50 ["rectOffset"]
-      120 SETTABLEKS                       R11 R10 K42 ["ImageRectOffset"]
-      122 GETIMPORT                        R11 K27 [UDim2.new]
-      124 LOADN                            R12 0
-      125 LOADN                            R13 24
-      126 LOADN                            R14 0
-      127 LOADN                            R15 24
-      128 CALL                             R11 4 1
-      129 SETTABLEKS                       R11 R10 K28 ["Size"]
-      131 GETIMPORT                        R11 K27 [UDim2.new]
-      133 LOADK                            R12 K51 [0.5]
-      134 LOADN                            R13 0
-      135 LOADK                            R14 K51 [0.5]
-      136 LOADN                            R15 0
-      137 CALL                             R11 4 1
-      138 SETTABLEKS                       R11 R10 K43 ["Position"]
-      140 GETIMPORT                        R11 K53 [Vector2.new]
-      142 LOADK                            R12 K51 [0.5]
-      143 LOADK                            R13 K51 [0.5]
-      144 CALL                             R11 2 1
-      145 SETTABLEKS                       R11 R10 K44 ["AnchorPoint"]
-      147 LOADN                            R11 2
-      148 SETTABLEKS                       R11 R10 K45 ["ZIndex"]
-      150 CALL                             R8 2 1
-      151 SETTABLEKS                       R8 R7 K36 ["Plus"]
-      153 CALL                             R4 3 -1
-      154 RETURN                           R4 -1
+       91 DUPTABLE                         R10 K49 [{["BackgroundTransparency"] = 1, ["Image"], ["ImageColor3"], ["ImageTransparency"] = 0.4, ["ImageRectSize"], ["ImageRectOffset"], ["Size"], ["Position"], ["AnchorPoint"], ["ZIndex"] = 2}]
+       92 GETTABLEKS                       R11 R3 K50 ["plus"]
+       94 GETTABLEKS                       R11 R11 K13 ["image"]
+       96 SETTABLEKS                       R11 R10 K14 ["Image"]
+       98 GETTABLEKS                       R11 R3 K6 ["newThumbnail"]
+      100 GETTABLEKS                       R11 R11 K50 ["plus"]
+      102 SETTABLEKS                       R11 R10 K10 ["ImageColor3"]
+      104 GETTABLEKS                       R11 R3 K50 ["plus"]
+      106 GETTABLEKS                       R11 R11 K51 ["rectSize"]
+      108 SETTABLEKS                       R11 R10 K43 ["ImageRectSize"]
+      110 GETTABLEKS                       R11 R3 K50 ["plus"]
+      112 GETTABLEKS                       R11 R11 K52 ["rectOffset"]
+      114 SETTABLEKS                       R11 R10 K44 ["ImageRectOffset"]
+      116 GETIMPORT                        R11 K27 [UDim2.new]
+      118 LOADN                            R12 0
+      119 LOADN                            R13 24
+      120 LOADN                            R14 0
+      121 LOADN                            R15 24
+      122 CALL                             R11 4 1
+      123 SETTABLEKS                       R11 R10 K28 ["Size"]
+      125 GETIMPORT                        R11 K27 [UDim2.new]
+      127 LOADK                            R12 K53 [0.5]
+      128 LOADN                            R13 0
+      129 LOADK                            R14 K53 [0.5]
+      130 LOADN                            R15 0
+      131 CALL                             R11 4 1
+      132 SETTABLEKS                       R11 R10 K45 ["Position"]
+      134 GETIMPORT                        R11 K55 [Vector2.new]
+      136 LOADK                            R12 K53 [0.5]
+      137 LOADK                            R13 K53 [0.5]
+      138 CALL                             R11 2 1
+      139 SETTABLEKS                       R11 R10 K46 ["AnchorPoint"]
+      141 CALL                             R8 2 1
+      142 SETTABLEKS                       R8 R7 K36 ["Plus"]
+      144 CALL                             R4 3 -1
+      145 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

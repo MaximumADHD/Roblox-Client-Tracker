@@ -246,12 +246,10 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_13:
         0 GETTABLEKS                       R4 R1 K0 ["plugin"]
@@ -361,95 +359,91 @@ PROTO_13:
       149 CALL                             R8 2 -1
       150 CALL                             R6 -1 1
       151 SETTABLEKS                       R6 R0 K33 ["actions"]
-      153 DUPTABLE                         R6 K36 [{"enabled", "pluginGui"}]
-      154 LOADB                            R7 0
-      155 SETTABLEKS                       R7 R6 K34 ["enabled"]
-      157 LOADNIL                          R7
-      158 SETTABLEKS                       R7 R6 K35 ["pluginGui"]
-      160 SETTABLEKS                       R6 R0 K37 ["state"]
-      162 GETUPVAL                         R6 13
-      163 GETTABLEKS                       R6 R6 K11 ["new"]
-      165 GETUPVAL                         R7 4
-      166 GETTABLEKS                       R7 R7 K38 ["SIGNAL_KEYS"]
-      168 CALL                             R6 1 1
-      169 SETTABLEKS                       R6 R0 K39 ["signals"]
-      171 GETUPVAL                         R6 11
-      172 GETTABLEKS                       R6 R6 K40 ["Analytics"]
-      174 GETTABLEKS                       R6 R6 K11 ["new"]
-      176 GETUPVAL                         R7 14
-      177 CALL                             R6 1 1
-      178 SETTABLEKS                       R6 R0 K41 ["analytics"]
-      180 NEWCLOSURE                       R6 P0
-      181 CAPTURE                          VAL R0
-      182 SETTABLEKS                       R6 R0 K42 ["onDockWidgetLoaded"]
-      184 GETTABLEKS                       R8 R1 K0 ["plugin"]
-      186 GETTABLEKS                       R9 R0 K18 ["localization"]
-      188 NAMECALL                         R6 R0 K43 ["createPluginButton"]
-      190 CALL                             R6 3 0
-      191 GETTABLEKS                       R6 R0 K44 ["mainButton"]
-      193 GETTABLEKS                       R8 R0 K37 ["state"]
-      195 GETTABLEKS                       R8 R8 K34 ["enabled"]
-      197 NAMECALL                         R6 R6 K45 ["SetActive"]
-      199 CALL                             R6 2 0
-      200 GETIMPORT                        R6 K48 [task.defer]
-      202 NEWCLOSURE                       R7 P1
-      203 CAPTURE                          VAL R1
-      204 CAPTURE                          VAL R0
-      205 CALL                             R6 1 0
-      206 NEWCLOSURE                       R6 P2
-      207 CAPTURE                          VAL R0
-      208 SETTABLEKS                       R6 R0 K49 ["onDockWidgetEnabledChanged"]
-      210 NEWCLOSURE                       R6 P3
-      211 CAPTURE                          VAL R1
-      212 CAPTURE                          VAL R0
-      213 CAPTURE                          UPVAL U15
-      214 CAPTURE                          UPVAL U16
-      215 SETTABLEKS                       R6 R0 K50 ["onToolSelected"]
-      217 LOADB                            R6 0
-      218 SETTABLEKS                       R6 R0 K51 ["deactivationInProgress"]
-      220 NEWCLOSURE                       R6 P4
-      221 CAPTURE                          VAL R1
-      222 CAPTURE                          VAL R0
-      223 CAPTURE                          UPVAL U17
-      224 CAPTURE                          UPVAL U18
-      225 GETTABLEKS                       R7 R0 K52 ["props"]
-      227 GETTABLEKS                       R7 R7 K0 ["plugin"]
-      229 GETTABLEKS                       R7 R7 K53 ["Deactivation"]
-      231 NEWCLOSURE                       R9 P5
-      232 CAPTURE                          VAL R1
-      233 CAPTURE                          UPVAL U19
-      234 CAPTURE                          VAL R0
-      235 CAPTURE                          VAL R6
-      236 CAPTURE                          UPVAL U17
-      237 CAPTURE                          UPVAL U18
-      238 NAMECALL                         R7 R7 K54 ["Connect"]
-      240 CALL                             R7 2 1
-      241 SETTABLEKS                       R7 R0 K55 ["deactivationListener"]
-      243 GETUPVAL                         R8 19
-      244 JUMPIFNOT                        R8 ; [+13]
-      245 GETTABLEKS                       R7 R0 K52 ["props"]
-      247 GETTABLEKS                       R7 R7 K0 ["plugin"]
-      249 GETTABLEKS                       R7 R7 K56 ["Unloading"]
-      251 NEWCLOSURE                       R9 P6
-      252 CAPTURE                          VAL R0
-      253 CAPTURE                          VAL R6
-      254 NAMECALL                         R7 R7 K54 ["Connect"]
-      256 CALL                             R7 2 1
-      257 JUMP                             ; [+1]
-      258 LOADNIL                          R7
-      259 SETTABLEKS                       R7 R0 K57 ["unloadingListener"]
-      261 GETTABLEKS                       R7 R0 K52 ["props"]
-      263 GETTABLEKS                       R7 R7 K0 ["plugin"]
-      265 NAMECALL                         R7 R7 K58 ["GetMouse"]
-      267 CALL                             R7 1 1
-      268 SETTABLEKS                       R7 R0 K59 ["mouse"]
-      270 GETUPVAL                         R7 20
-      271 CALL                             R7 0 1
-      272 SETTABLEKS                       R7 R0 K60 ["theme"]
-      274 NEWCLOSURE                       R7 P7
-      275 CAPTURE                          VAL R0
-      276 SETTABLEKS                       R7 R0 K61 ["closeWidget"]
-      278 RETURN                           R0 0
+      153 DUPTABLE                         R6 K38 [{["enabled"] = False, ["pluginGui"] = }]
+      154 SETTABLEKS                       R6 R0 K39 ["state"]
+      156 GETUPVAL                         R6 13
+      157 GETTABLEKS                       R6 R6 K11 ["new"]
+      159 GETUPVAL                         R7 4
+      160 GETTABLEKS                       R7 R7 K40 ["SIGNAL_KEYS"]
+      162 CALL                             R6 1 1
+      163 SETTABLEKS                       R6 R0 K41 ["signals"]
+      165 GETUPVAL                         R6 11
+      166 GETTABLEKS                       R6 R6 K42 ["Analytics"]
+      168 GETTABLEKS                       R6 R6 K11 ["new"]
+      170 GETUPVAL                         R7 14
+      171 CALL                             R6 1 1
+      172 SETTABLEKS                       R6 R0 K43 ["analytics"]
+      174 NEWCLOSURE                       R6 P0
+      175 CAPTURE                          VAL R0
+      176 SETTABLEKS                       R6 R0 K44 ["onDockWidgetLoaded"]
+      178 GETTABLEKS                       R8 R1 K0 ["plugin"]
+      180 GETTABLEKS                       R9 R0 K18 ["localization"]
+      182 NAMECALL                         R6 R0 K45 ["createPluginButton"]
+      184 CALL                             R6 3 0
+      185 GETTABLEKS                       R6 R0 K46 ["mainButton"]
+      187 GETTABLEKS                       R8 R0 K39 ["state"]
+      189 GETTABLEKS                       R8 R8 K34 ["enabled"]
+      191 NAMECALL                         R6 R6 K47 ["SetActive"]
+      193 CALL                             R6 2 0
+      194 GETIMPORT                        R6 K50 [task.defer]
+      196 NEWCLOSURE                       R7 P1
+      197 CAPTURE                          VAL R1
+      198 CAPTURE                          VAL R0
+      199 CALL                             R6 1 0
+      200 NEWCLOSURE                       R6 P2
+      201 CAPTURE                          VAL R0
+      202 SETTABLEKS                       R6 R0 K51 ["onDockWidgetEnabledChanged"]
+      204 NEWCLOSURE                       R6 P3
+      205 CAPTURE                          VAL R1
+      206 CAPTURE                          VAL R0
+      207 CAPTURE                          UPVAL U15
+      208 CAPTURE                          UPVAL U16
+      209 SETTABLEKS                       R6 R0 K52 ["onToolSelected"]
+      211 LOADB                            R6 0
+      212 SETTABLEKS                       R6 R0 K53 ["deactivationInProgress"]
+      214 NEWCLOSURE                       R6 P4
+      215 CAPTURE                          VAL R1
+      216 CAPTURE                          VAL R0
+      217 CAPTURE                          UPVAL U17
+      218 CAPTURE                          UPVAL U18
+      219 GETTABLEKS                       R7 R0 K54 ["props"]
+      221 GETTABLEKS                       R7 R7 K0 ["plugin"]
+      223 GETTABLEKS                       R7 R7 K55 ["Deactivation"]
+      225 NEWCLOSURE                       R9 P5
+      226 CAPTURE                          VAL R1
+      227 CAPTURE                          UPVAL U19
+      228 CAPTURE                          VAL R0
+      229 CAPTURE                          VAL R6
+      230 CAPTURE                          UPVAL U17
+      231 CAPTURE                          UPVAL U18
+      232 NAMECALL                         R7 R7 K56 ["Connect"]
+      234 CALL                             R7 2 1
+      235 SETTABLEKS                       R7 R0 K57 ["deactivationListener"]
+      237 GETUPVAL                         R8 19
+      238 JUMPIFNOT                        R8 ; [+13]
+      239 GETTABLEKS                       R7 R0 K54 ["props"]
+      241 GETTABLEKS                       R7 R7 K0 ["plugin"]
+      243 GETTABLEKS                       R7 R7 K58 ["Unloading"]
+      245 NEWCLOSURE                       R9 P6
+      246 CAPTURE                          VAL R0
+      247 CAPTURE                          VAL R6
+      248 NAMECALL                         R7 R7 K56 ["Connect"]
+      250 CALL                             R7 2 1
+      251 JUMP                             ; [+1]
+      252 LOADNIL                          R7
+      253 SETTABLEKS                       R7 R0 K59 ["unloadingListener"]
+      255 GETTABLEKS                       R7 R0 K54 ["props"]
+      257 GETTABLEKS                       R7 R7 K0 ["plugin"]
+      259 NAMECALL                         R7 R7 K60 ["GetMouse"]
+      261 CALL                             R7 1 1
+      262 SETTABLEKS                       R7 R0 K61 ["mouse"]
+      264 GETUPVAL                         R7 20
+      265 CALL                             R7 0 1
+      266 SETTABLEKS                       R7 R0 K62 ["theme"]
+      268 NEWCLOSURE                       R7 P7
+      269 CAPTURE                          VAL R0
+      270 SETTABLEKS                       R7 R0 K63 ["closeWidget"]
+      272 RETURN                           R0 0
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

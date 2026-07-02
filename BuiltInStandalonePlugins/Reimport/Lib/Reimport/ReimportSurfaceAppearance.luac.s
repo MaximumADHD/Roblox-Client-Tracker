@@ -21,7 +21,7 @@ PROTO_1:
        12 MOVE                             R0 R1
        13 GETUPVAL                         R1 4
        14 GETUPVAL                         R3 2
-       15 DUPTABLE                         R4 K5 [{"creatorId", "creatorType", "assetName", "targetType"}]
+       15 DUPTABLE                         R4 K6 [{["creatorId"], ["creatorType"], ["assetName"] = "Image", ["targetType"]}]
        16 GETUPVAL                         R6 5
        17 CALL                             R6 0 1
        18 JUMPIFNOT                        R6 ; [+4]
@@ -36,30 +36,28 @@ PROTO_1:
        29 GETUPVAL                         R5 3
        30 GETTABLEKS                       R5 R5 K2 ["creatorType"]
        32 JUMP                             ; [+2]
-       33 GETIMPORT                        R5 K9 [Enum.AssetCreatorType.User]
+       33 GETIMPORT                        R5 K10 [Enum.AssetCreatorType.User]
        35 SETTABLEKS                       R5 R4 K2 ["creatorType"]
-       37 LOADK                            R5 K10 ["Image"]
-       38 SETTABLEKS                       R5 R4 K3 ["assetName"]
-       40 GETIMPORT                        R5 K12 [Enum.AssetType.Image]
-       42 SETTABLEKS                       R5 R4 K4 ["targetType"]
-       44 NAMECALL                         R1 R1 K13 ["UploadAssetFromPathAsync"]
-       46 CALL                             R1 3 2
-       47 GETUPVAL                         R3 0
-       48 CALL                             R3 0 1
-       49 JUMPIFNOT                        R3 ; [+4]
-       50 JUMPIFNOT                        R0 ; [+3]
-       51 GETTABLEKS                       R3 R0 K14 ["release"]
-       53 CALL                             R3 0 0
-       54 SETUPVAL                         R2 7
-       55 GETUPVAL                         R3 8
-       56 CALL                             R3 0 1
-       57 JUMPIFNOT                        R3 ; [+6]
-       58 GETIMPORT                        R3 K16 [pcall]
-       60 NEWCLOSURE                       R4 P0
-       61 CAPTURE                          UPVAL U9
-       62 CAPTURE                          VAL R1
-       63 CALL                             R3 1 0
-       64 RETURN                           R1 1
+       37 GETIMPORT                        R5 K12 [Enum.AssetType.Image]
+       39 SETTABLEKS                       R5 R4 K5 ["targetType"]
+       41 NAMECALL                         R1 R1 K13 ["UploadAssetFromPathAsync"]
+       43 CALL                             R1 3 2
+       44 GETUPVAL                         R3 0
+       45 CALL                             R3 0 1
+       46 JUMPIFNOT                        R3 ; [+4]
+       47 JUMPIFNOT                        R0 ; [+3]
+       48 GETTABLEKS                       R3 R0 K14 ["release"]
+       50 CALL                             R3 0 0
+       51 SETUPVAL                         R2 7
+       52 GETUPVAL                         R3 8
+       53 CALL                             R3 0 1
+       54 JUMPIFNOT                        R3 ; [+6]
+       55 GETIMPORT                        R3 K16 [pcall]
+       57 NEWCLOSURE                       R4 P0
+       58 CAPTURE                          UPVAL U9
+       59 CAPTURE                          VAL R1
+       60 CALL                             R3 1 0
+       61 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

@@ -93,7 +93,7 @@ PROTO_4:
        15 GETUPVAL                         R3 0
        16 GETTABLEKS                       R3 R3 K5 ["createElement"]
        18 GETUPVAL                         R4 1
-       19 DUPTABLE                         R5 K11 [{"key", "ItemData", "Size", "IsDragging", "EnableTooltip"}]
+       19 DUPTABLE                         R5 K12 [{["key"], ["ItemData"], ["Size"], ["IsDragging"], ["EnableTooltip"] = True}]
        20 GETUPVAL                         R7 2
        21 CALL                             R7 0 1
        22 JUMPIFNOT                        R7 ; [+2]
@@ -102,17 +102,15 @@ PROTO_4:
        25 LOADNIL                          R6
        26 SETTABLEKS                       R6 R5 K6 ["key"]
        28 SETTABLEKS                       R0 R5 K7 ["ItemData"]
-       30 GETIMPORT                        R6 K14 [UDim2.fromScale]
+       30 GETIMPORT                        R6 K15 [UDim2.fromScale]
        32 LOADN                            R7 1
        33 LOADN                            R8 1
        34 CALL                             R6 2 1
        35 SETTABLEKS                       R6 R5 K8 ["Size"]
        37 SETTABLEKS                       R1 R5 K9 ["IsDragging"]
-       39 LOADB                            R6 1
-       40 SETTABLEKS                       R6 R5 K10 ["EnableTooltip"]
-       42 CALL                             R3 2 1
-       43 MOVE                             R4 R2
-       44 RETURN                           R3 2
+       39 CALL                             R3 2 1
+       40 MOVE                             R4 R2
+       41 RETURN                           R3 2
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -326,57 +324,55 @@ PROTO_5:
       309 GETUPVAL                         R16 2
       310 GETTABLEKS                       R16 R16 K10 ["createElement"]
       312 GETUPVAL                         R17 11
-      313 DUPTABLE                         R18 K78 [{"AutomaticSize", "AutoSizeCanvas", "AutomaticCanvasSize", "HorizontalAlignment", "LayoutOrder", "Layout", "Spacing", "ScrollBarThickness", "Padding", "Size", "ScrollingFrameSize"}]
-      314 GETIMPORT                        R19 K80 [Enum.AutomaticSize.X]
+      313 DUPTABLE                         R18 K79 [{["AutomaticSize"], ["AutoSizeCanvas"] = False, ["AutomaticCanvasSize"], ["HorizontalAlignment"], ["LayoutOrder"], ["Layout"], ["Spacing"], ["ScrollBarThickness"], ["Padding"], ["Size"], ["ScrollingFrameSize"]}]
+      314 GETIMPORT                        R19 K81 [Enum.AutomaticSize.X]
       316 SETTABLEKS                       R19 R18 K28 ["AutomaticSize"]
-      318 LOADB                            R19 0
-      319 SETTABLEKS                       R19 R18 K74 ["AutoSizeCanvas"]
-      321 GETIMPORT                        R19 K39 [Enum.AutomaticSize.XY]
-      323 SETTABLEKS                       R19 R18 K75 ["AutomaticCanvasSize"]
-      325 GETIMPORT                        R19 K45 [Enum.HorizontalAlignment.Right]
-      327 SETTABLEKS                       R19 R18 K31 ["HorizontalAlignment"]
-      329 NAMECALL                         R19 R7 K18 ["getNextOrder"]
-      331 CALL                             R19 1 1
-      332 SETTABLEKS                       R19 R18 K13 ["LayoutOrder"]
-      334 GETIMPORT                        R19 K42 [Enum.FillDirection.Vertical]
-      336 SETTABLEKS                       R19 R18 K29 ["Layout"]
-      338 GETTABLEKS                       R19 R2 K71 ["ItemSpacing"]
-      340 SETTABLEKS                       R19 R18 K30 ["Spacing"]
-      342 GETTABLEKS                       R19 R2 K76 ["ScrollBarThickness"]
-      344 SETTABLEKS                       R19 R18 K76 ["ScrollBarThickness"]
-      346 DUPTABLE                         R19 K81 [{"Right", "Left"}]
-      347 GETTABLEKS                       R20 R2 K55 ["SidebarPadding"]
-      349 SETTABLEKS                       R20 R19 K44 ["Right"]
-      351 GETTABLEKS                       R21 R2 K55 ["SidebarPadding"]
-      353 MINUS                            R20 R21
-      354 SETTABLEKS                       R20 R19 K53 ["Left"]
-      356 SETTABLEKS                       R19 R18 K56 ["Padding"]
-      358 GETIMPORT                        R19 K82 [UDim2.new]
-      360 LOADN                            R20 1
-      361 LOADN                            R21 0
-      362 LOADN                            R22 1
-      363 GETTABLEKS                       R26 R8 K51 ["Y"]
-      365 MINUS                            R25 R26
-      366 GETTABLEKS                       R26 R2 K43 ["SidebarSpacing"]
-      368 SUB                              R24 R25 R26
-      369 LOADK                            R26 K83 [0.5]
-      370 GETTABLEKS                       R27 R2 K55 ["SidebarPadding"]
-      372 MUL                              R25 R26 R27
-      373 SUB                              R23 R24 R25
-      374 CALL                             R19 4 1
-      375 SETTABLEKS                       R19 R18 K14 ["Size"]
-      377 GETIMPORT                        R19 K82 [UDim2.new]
-      379 LOADN                            R20 0
-      380 GETTABLEKS                       R21 R2 K84 ["ScrollingFrameSizeOffset"]
-      382 LOADN                            R22 1
-      383 LOADN                            R23 0
-      384 CALL                             R19 4 1
-      385 SETTABLEKS                       R19 R18 K77 ["ScrollingFrameSize"]
-      387 MOVE                             R19 R6
-      388 CALL                             R16 3 1
-      389 SETTABLEKS                       R16 R15 K49 ["OtherEquipment"]
-      391 CALL                             R12 3 -1
-      392 RETURN                           R12 -1
+      318 GETIMPORT                        R19 K39 [Enum.AutomaticSize.XY]
+      320 SETTABLEKS                       R19 R18 K76 ["AutomaticCanvasSize"]
+      322 GETIMPORT                        R19 K45 [Enum.HorizontalAlignment.Right]
+      324 SETTABLEKS                       R19 R18 K31 ["HorizontalAlignment"]
+      326 NAMECALL                         R19 R7 K18 ["getNextOrder"]
+      328 CALL                             R19 1 1
+      329 SETTABLEKS                       R19 R18 K13 ["LayoutOrder"]
+      331 GETIMPORT                        R19 K42 [Enum.FillDirection.Vertical]
+      333 SETTABLEKS                       R19 R18 K29 ["Layout"]
+      335 GETTABLEKS                       R19 R2 K71 ["ItemSpacing"]
+      337 SETTABLEKS                       R19 R18 K30 ["Spacing"]
+      339 GETTABLEKS                       R19 R2 K77 ["ScrollBarThickness"]
+      341 SETTABLEKS                       R19 R18 K77 ["ScrollBarThickness"]
+      343 DUPTABLE                         R19 K82 [{"Right", "Left"}]
+      344 GETTABLEKS                       R20 R2 K55 ["SidebarPadding"]
+      346 SETTABLEKS                       R20 R19 K44 ["Right"]
+      348 GETTABLEKS                       R21 R2 K55 ["SidebarPadding"]
+      350 MINUS                            R20 R21
+      351 SETTABLEKS                       R20 R19 K53 ["Left"]
+      353 SETTABLEKS                       R19 R18 K56 ["Padding"]
+      355 GETIMPORT                        R19 K83 [UDim2.new]
+      357 LOADN                            R20 1
+      358 LOADN                            R21 0
+      359 LOADN                            R22 1
+      360 GETTABLEKS                       R26 R8 K51 ["Y"]
+      362 MINUS                            R25 R26
+      363 GETTABLEKS                       R26 R2 K43 ["SidebarSpacing"]
+      365 SUB                              R24 R25 R26
+      366 LOADK                            R26 K84 [0.5]
+      367 GETTABLEKS                       R27 R2 K55 ["SidebarPadding"]
+      369 MUL                              R25 R26 R27
+      370 SUB                              R23 R24 R25
+      371 CALL                             R19 4 1
+      372 SETTABLEKS                       R19 R18 K14 ["Size"]
+      374 GETIMPORT                        R19 K83 [UDim2.new]
+      376 LOADN                            R20 0
+      377 GETTABLEKS                       R21 R2 K85 ["ScrollingFrameSizeOffset"]
+      379 LOADN                            R22 1
+      380 LOADN                            R23 0
+      381 CALL                             R19 4 1
+      382 SETTABLEKS                       R19 R18 K78 ["ScrollingFrameSize"]
+      384 MOVE                             R19 R6
+      385 CALL                             R16 3 1
+      386 SETTABLEKS                       R16 R15 K49 ["OtherEquipment"]
+      388 CALL                             R12 3 -1
+      389 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

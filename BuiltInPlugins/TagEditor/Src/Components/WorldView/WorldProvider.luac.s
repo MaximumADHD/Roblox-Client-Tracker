@@ -479,7 +479,7 @@ PROTO_11:
       120 GETTABLE                         R14 R15 R16
       121 LENGTH                           R15 R8
       122 LOADN                            R16 0
-      123 JUMPIFNOTLT                      R16 R15 ; [+52]
+      123 JUMPIFNOTLT                      R16 R15 ; [+49]
       125 LOADN                            R15 0
       126 LOADN                            R16 0
       127 LOADN                            R17 0
@@ -511,148 +511,138 @@ PROTO_11:
       157 LOADK                            R20 K24 ["Outline:"]
       158 MOVE                             R21 R14
       159 CONCAT                           R19 R20 R21
-      160 DUPTABLE                         R20 K27 [{"Id", "Part", "DrawType", "Color", "AlwaysOnTop"}]
+      160 DUPTABLE                         R20 K27 [{["Id"], ["Part"], ["DrawType"] = "Outline", ["Color"], ["AlwaysOnTop"]}]
       161 SETTABLEKS                       R14 R20 K25 ["Id"]
       163 GETTABLE                         R21 R1 R6
       164 GETTABLEKS                       R21 R21 K5 ["Instance"]
       166 SETTABLEKS                       R21 R20 K26 ["Part"]
-      168 LOADK                            R21 K8 ["Outline"]
-      169 SETTABLEKS                       R21 R20 K7 ["DrawType"]
-      171 SETTABLEKS                       R18 R20 K10 ["Color"]
-      173 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
-      175 SETTABLE                         R20 R3 R19
-      176 LENGTH                           R15 R9
-      177 LOADN                            R16 0
-      178 JUMPIFNOTLT                      R16 R15 ; [+52]
-      180 LOADN                            R15 0
-      181 LOADN                            R16 0
-      182 LOADN                            R17 0
-      183 LOADN                            R20 1
-      184 LENGTH                           R18 R9
-      185 LOADN                            R19 1
-      186 FORNPREP                         R18
-      187 GETTABLE                         R21 R9 R20
-      188 GETTABLEKS                       R21 R21 K18 ["r"]
-      190 ADD                              R15 R15 R21
-      191 GETTABLE                         R21 R9 R20
-      192 GETTABLEKS                       R21 R21 K19 ["g"]
-      194 ADD                              R16 R16 R21
-      195 GETTABLE                         R21 R9 R20
-      196 GETTABLEKS                       R21 R21 K20 ["b"]
-      198 ADD                              R17 R17 R21
-      199 FORNLOOP                         R18
-      200 LENGTH                           R18 R9
-      201 DIV                              R15 R15 R18
-      202 LENGTH                           R18 R9
-      203 DIV                              R16 R16 R18
-      204 LENGTH                           R18 R9
-      205 DIV                              R17 R17 R18
-      206 GETIMPORT                        R18 K23 [Color3.new]
-      208 MOVE                             R19 R15
-      209 MOVE                             R20 R16
-      210 MOVE                             R21 R17
-      211 CALL                             R18 3 1
-      212 LOADK                            R20 K28 ["Box:"]
-      213 MOVE                             R21 R14
-      214 CONCAT                           R19 R20 R21
-      215 DUPTABLE                         R20 K27 [{"Id", "Part", "DrawType", "Color", "AlwaysOnTop"}]
-      216 SETTABLEKS                       R14 R20 K25 ["Id"]
-      218 GETTABLE                         R21 R1 R6
-      219 GETTABLEKS                       R21 R21 K5 ["Instance"]
-      221 SETTABLEKS                       R21 R20 K26 ["Part"]
-      223 LOADK                            R21 K11 ["Box"]
-      224 SETTABLEKS                       R21 R20 K7 ["DrawType"]
-      226 SETTABLEKS                       R18 R20 K10 ["Color"]
-      228 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
-      230 SETTABLE                         R20 R3 R19
-      231 LENGTH                           R15 R10
-      232 LOADN                            R16 0
-      233 JUMPIFNOTLT                      R16 R15 ; [+20]
-      235 LOADK                            R16 K29 ["Icon:"]
-      236 MOVE                             R17 R14
-      237 CONCAT                           R15 R16 R17
-      238 DUPTABLE                         R16 K30 [{"Id", "Part", "DrawType", "Icon", "AlwaysOnTop"}]
-      239 SETTABLEKS                       R14 R16 K25 ["Id"]
-      241 GETTABLE                         R17 R1 R6
-      242 GETTABLEKS                       R17 R17 K5 ["Instance"]
-      244 SETTABLEKS                       R17 R16 K26 ["Part"]
-      246 LOADK                            R17 K12 ["Icon"]
-      247 SETTABLEKS                       R17 R16 K7 ["DrawType"]
-      249 SETTABLEKS                       R10 R16 K12 ["Icon"]
-      251 SETTABLEKS                       R13 R16 K16 ["AlwaysOnTop"]
-      253 SETTABLE                         R16 R3 R15
-      254 LENGTH                           R15 R11
-      255 LOADN                            R16 0
-      256 JUMPIFNOTLT                      R16 R15 ; [+32]
-      258 GETIMPORT                        R15 K33 [table.sort]
-      260 MOVE                             R16 R11
-      261 CALL                             R15 1 0
-      262 LENGTH                           R15 R10
-      263 LOADN                            R16 0
-      264 JUMPIFNOTLT                      R16 R15 ; [+5]
-      266 LENGTH                           R16 R11
-      267 ADDK                             R15 R16 K9 [1]
-      268 LOADK                            R16 K34 [""]
-      269 SETTABLE                         R16 R11 R15
-      270 LOADK                            R16 K35 ["Text:"]
-      271 MOVE                             R17 R14
-      272 CONCAT                           R15 R16 R17
-      273 DUPTABLE                         R16 K37 [{"Id", "Part", "DrawType", "TagName", "AlwaysOnTop"}]
-      274 SETTABLEKS                       R14 R16 K25 ["Id"]
-      276 GETTABLE                         R17 R1 R6
-      277 GETTABLEKS                       R17 R17 K5 ["Instance"]
-      279 SETTABLEKS                       R17 R16 K26 ["Part"]
-      281 LOADK                            R17 K13 ["Text"]
-      282 SETTABLEKS                       R17 R16 K7 ["DrawType"]
-      284 SETTABLEKS                       R11 R16 K36 ["TagName"]
-      286 SETTABLEKS                       R13 R16 K16 ["AlwaysOnTop"]
-      288 SETTABLE                         R16 R3 R15
-      289 LENGTH                           R15 R12
-      290 LOADN                            R16 0
-      291 JUMPIFNOTLT                      R16 R15 ; [+52]
-      293 LOADN                            R15 0
-      294 LOADN                            R16 0
-      295 LOADN                            R17 0
-      296 LOADN                            R20 1
-      297 LENGTH                           R18 R12
-      298 LOADN                            R19 1
-      299 FORNPREP                         R18
-      300 GETTABLE                         R21 R12 R20
-      301 GETTABLEKS                       R21 R21 K18 ["r"]
-      303 ADD                              R15 R15 R21
-      304 GETTABLE                         R21 R12 R20
-      305 GETTABLEKS                       R21 R21 K19 ["g"]
-      307 ADD                              R16 R16 R21
-      308 GETTABLE                         R21 R12 R20
-      309 GETTABLEKS                       R21 R21 K20 ["b"]
-      311 ADD                              R17 R17 R21
-      312 FORNLOOP                         R18
-      313 LENGTH                           R18 R12
-      314 DIV                              R15 R15 R18
-      315 LENGTH                           R18 R12
-      316 DIV                              R16 R16 R18
-      317 LENGTH                           R18 R12
-      318 DIV                              R17 R17 R18
-      319 GETIMPORT                        R18 K23 [Color3.new]
-      321 MOVE                             R19 R15
-      322 MOVE                             R20 R16
-      323 MOVE                             R21 R17
-      324 CALL                             R18 3 1
-      325 LOADK                            R20 K38 ["Sphere:"]
-      326 MOVE                             R21 R14
-      327 CONCAT                           R19 R20 R21
-      328 DUPTABLE                         R20 K27 [{"Id", "Part", "DrawType", "Color", "AlwaysOnTop"}]
-      329 SETTABLEKS                       R14 R20 K25 ["Id"]
-      331 GETTABLE                         R21 R1 R6
-      332 GETTABLEKS                       R21 R21 K5 ["Instance"]
-      334 SETTABLEKS                       R21 R20 K26 ["Part"]
-      336 LOADK                            R21 K14 ["Sphere"]
-      337 SETTABLEKS                       R21 R20 K7 ["DrawType"]
-      339 SETTABLEKS                       R18 R20 K10 ["Color"]
-      341 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
-      343 SETTABLE                         R20 R3 R19
-      344 FORNLOOP                         R4
-      345 RETURN                           R3 1
+      168 SETTABLEKS                       R18 R20 K10 ["Color"]
+      170 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
+      172 SETTABLE                         R20 R3 R19
+      173 LENGTH                           R15 R9
+      174 LOADN                            R16 0
+      175 JUMPIFNOTLT                      R16 R15 ; [+49]
+      177 LOADN                            R15 0
+      178 LOADN                            R16 0
+      179 LOADN                            R17 0
+      180 LOADN                            R20 1
+      181 LENGTH                           R18 R9
+      182 LOADN                            R19 1
+      183 FORNPREP                         R18
+      184 GETTABLE                         R21 R9 R20
+      185 GETTABLEKS                       R21 R21 K18 ["r"]
+      187 ADD                              R15 R15 R21
+      188 GETTABLE                         R21 R9 R20
+      189 GETTABLEKS                       R21 R21 K19 ["g"]
+      191 ADD                              R16 R16 R21
+      192 GETTABLE                         R21 R9 R20
+      193 GETTABLEKS                       R21 R21 K20 ["b"]
+      195 ADD                              R17 R17 R21
+      196 FORNLOOP                         R18
+      197 LENGTH                           R18 R9
+      198 DIV                              R15 R15 R18
+      199 LENGTH                           R18 R9
+      200 DIV                              R16 R16 R18
+      201 LENGTH                           R18 R9
+      202 DIV                              R17 R17 R18
+      203 GETIMPORT                        R18 K23 [Color3.new]
+      205 MOVE                             R19 R15
+      206 MOVE                             R20 R16
+      207 MOVE                             R21 R17
+      208 CALL                             R18 3 1
+      209 LOADK                            R20 K28 ["Box:"]
+      210 MOVE                             R21 R14
+      211 CONCAT                           R19 R20 R21
+      212 DUPTABLE                         R20 K29 [{["Id"], ["Part"], ["DrawType"] = "Box", ["Color"], ["AlwaysOnTop"]}]
+      213 SETTABLEKS                       R14 R20 K25 ["Id"]
+      215 GETTABLE                         R21 R1 R6
+      216 GETTABLEKS                       R21 R21 K5 ["Instance"]
+      218 SETTABLEKS                       R21 R20 K26 ["Part"]
+      220 SETTABLEKS                       R18 R20 K10 ["Color"]
+      222 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
+      224 SETTABLE                         R20 R3 R19
+      225 LENGTH                           R15 R10
+      226 LOADN                            R16 0
+      227 JUMPIFNOTLT                      R16 R15 ; [+17]
+      229 LOADK                            R16 K30 ["Icon:"]
+      230 MOVE                             R17 R14
+      231 CONCAT                           R15 R16 R17
+      232 DUPTABLE                         R16 K31 [{["Id"], ["Part"], ["DrawType"] = "Icon", ["Icon"], ["AlwaysOnTop"]}]
+      233 SETTABLEKS                       R14 R16 K25 ["Id"]
+      235 GETTABLE                         R17 R1 R6
+      236 GETTABLEKS                       R17 R17 K5 ["Instance"]
+      238 SETTABLEKS                       R17 R16 K26 ["Part"]
+      240 SETTABLEKS                       R10 R16 K12 ["Icon"]
+      242 SETTABLEKS                       R13 R16 K16 ["AlwaysOnTop"]
+      244 SETTABLE                         R16 R3 R15
+      245 LENGTH                           R15 R11
+      246 LOADN                            R16 0
+      247 JUMPIFNOTLT                      R16 R15 ; [+29]
+      249 GETIMPORT                        R15 K34 [table.sort]
+      251 MOVE                             R16 R11
+      252 CALL                             R15 1 0
+      253 LENGTH                           R15 R10
+      254 LOADN                            R16 0
+      255 JUMPIFNOTLT                      R16 R15 ; [+5]
+      257 LENGTH                           R16 R11
+      258 ADDK                             R15 R16 K9 [1]
+      259 LOADK                            R16 K35 [""]
+      260 SETTABLE                         R16 R11 R15
+      261 LOADK                            R16 K36 ["Text:"]
+      262 MOVE                             R17 R14
+      263 CONCAT                           R15 R16 R17
+      264 DUPTABLE                         R16 K38 [{["Id"], ["Part"], ["DrawType"] = "Text", ["TagName"], ["AlwaysOnTop"]}]
+      265 SETTABLEKS                       R14 R16 K25 ["Id"]
+      267 GETTABLE                         R17 R1 R6
+      268 GETTABLEKS                       R17 R17 K5 ["Instance"]
+      270 SETTABLEKS                       R17 R16 K26 ["Part"]
+      272 SETTABLEKS                       R11 R16 K37 ["TagName"]
+      274 SETTABLEKS                       R13 R16 K16 ["AlwaysOnTop"]
+      276 SETTABLE                         R16 R3 R15
+      277 LENGTH                           R15 R12
+      278 LOADN                            R16 0
+      279 JUMPIFNOTLT                      R16 R15 ; [+49]
+      281 LOADN                            R15 0
+      282 LOADN                            R16 0
+      283 LOADN                            R17 0
+      284 LOADN                            R20 1
+      285 LENGTH                           R18 R12
+      286 LOADN                            R19 1
+      287 FORNPREP                         R18
+      288 GETTABLE                         R21 R12 R20
+      289 GETTABLEKS                       R21 R21 K18 ["r"]
+      291 ADD                              R15 R15 R21
+      292 GETTABLE                         R21 R12 R20
+      293 GETTABLEKS                       R21 R21 K19 ["g"]
+      295 ADD                              R16 R16 R21
+      296 GETTABLE                         R21 R12 R20
+      297 GETTABLEKS                       R21 R21 K20 ["b"]
+      299 ADD                              R17 R17 R21
+      300 FORNLOOP                         R18
+      301 LENGTH                           R18 R12
+      302 DIV                              R15 R15 R18
+      303 LENGTH                           R18 R12
+      304 DIV                              R16 R16 R18
+      305 LENGTH                           R18 R12
+      306 DIV                              R17 R17 R18
+      307 GETIMPORT                        R18 K23 [Color3.new]
+      309 MOVE                             R19 R15
+      310 MOVE                             R20 R16
+      311 MOVE                             R21 R17
+      312 CALL                             R18 3 1
+      313 LOADK                            R20 K39 ["Sphere:"]
+      314 MOVE                             R21 R14
+      315 CONCAT                           R19 R20 R21
+      316 DUPTABLE                         R20 K40 [{["Id"], ["Part"], ["DrawType"] = "Sphere", ["Color"], ["AlwaysOnTop"]}]
+      317 SETTABLEKS                       R14 R20 K25 ["Id"]
+      319 GETTABLE                         R21 R1 R6
+      320 GETTABLEKS                       R21 R21 K5 ["Instance"]
+      322 SETTABLEKS                       R21 R20 K26 ["Part"]
+      324 SETTABLEKS                       R18 R20 K10 ["Color"]
+      326 SETTABLEKS                       R13 R20 K16 ["AlwaysOnTop"]
+      328 SETTABLE                         R20 R3 R19
+      329 FORNLOOP                         R4
+      330 RETURN                           R3 1
 
 PROTO_12:
         0 GETIMPORT                        R1 K2 [debug.profilebegin]

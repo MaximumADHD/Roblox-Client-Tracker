@@ -36,7 +36,7 @@ PROTO_2:
        22 LOADN                            R11 0
        23 LENGTH                           R14 R9
        24 LOADN                            R12 1
-       25 LOADN                            R13 255
+       25 LOADN                            R13 -1
        26 FORNPREP                         R12
        27 GETTABLE                         R15 R9 R14
        28 GETTABLEKS                       R15 R15 K6 ["id"]
@@ -145,7 +145,7 @@ PROTO_2:
       173 DIV                              R20 R21 R13
       174 JUMPIF                           R20 ; [+2]
       175 LENGTH                           R21 R6
-      176 DIVRK                            R20 R25 K21 [0]
+      176 DIVRK                            R20 K25 [1] R21
       177 GETTABLEKS                       R22 R19 K18 ["idealWidth"]
       179 MUL                              R23 R14 R20
       180 ADD                              R21 R22 R23
@@ -429,7 +429,7 @@ PROTO_6:
       169 DIV                              R25 R26 R18
       170 JUMPIF                           R25 ; [+2]
       171 LENGTH                           R26 R6
-      172 DIVRK                            R25 R21 K26 ["Offset"]
+      172 DIVRK                            R25 K21 [1] R26
       173 GETTABLEKS                       R27 R24 K16 ["idealWidth"]
       175 MUL                              R28 R19 R25
       176 ADD                              R26 R27 R28

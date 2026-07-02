@@ -15,32 +15,28 @@ PROTO_0:
        20 GETUPVAL                         R5 0
        21 GETTABLEKS                       R5 R5 K10 ["createElement"]
        23 GETUPVAL                         R6 1
-       24 DUPTABLE                         R7 K19 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
-       25 GETTABLEKS                       R8 R1 K20 ["toolbar"]
+       24 DUPTABLE                         R7 K21 [{["Toolbar"], ["Active"], ["Id"] = "status_button", ["Title"], ["Tooltip"], ["Icon"], ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       25 GETTABLEKS                       R8 R1 K22 ["toolbar"]
        27 SETTABLEKS                       R8 R7 K11 ["Toolbar"]
-       29 GETTABLEKS                       R8 R1 K21 ["enabled"]
+       29 GETTABLEKS                       R8 R1 K23 ["enabled"]
        31 SETTABLEKS                       R8 R7 K12 ["Active"]
-       33 LOADK                            R8 K22 ["status_button"]
-       34 SETTABLEKS                       R8 R7 K13 ["Id"]
-       36 LOADK                            R10 K23 ["StatusButton"]
-       37 LOADK                            R11 K14 ["Title"]
-       38 NAMECALL                         R8 R2 K24 ["getText"]
-       40 CALL                             R8 3 1
-       41 SETTABLEKS                       R8 R7 K14 ["Title"]
-       43 LOADK                            R10 K23 ["StatusButton"]
-       44 LOADK                            R11 K15 ["Tooltip"]
-       45 NAMECALL                         R8 R2 K24 ["getText"]
-       47 CALL                             R8 3 1
-       48 SETTABLEKS                       R8 R7 K15 ["Tooltip"]
-       50 SETTABLEKS                       R3 R7 K16 ["Icon"]
-       52 GETTABLEKS                       R8 R0 K0 ["props"]
-       54 GETTABLEKS                       R8 R8 K25 ["showAlert"]
-       56 SETTABLEKS                       R8 R7 K17 ["OnClick"]
-       58 LOADB                            R8 1
-       59 SETTABLEKS                       R8 R7 K18 ["ClickableWhenViewportHidden"]
-       61 CALL                             R5 2 1
-       62 SETTABLEKS                       R5 R4 K8 ["Toggle"]
-       64 RETURN                           R4 1
+       33 LOADK                            R10 K24 ["StatusButton"]
+       34 LOADK                            R11 K15 ["Title"]
+       35 NAMECALL                         R8 R2 K25 ["getText"]
+       37 CALL                             R8 3 1
+       38 SETTABLEKS                       R8 R7 K15 ["Title"]
+       40 LOADK                            R10 K24 ["StatusButton"]
+       41 LOADK                            R11 K16 ["Tooltip"]
+       42 NAMECALL                         R8 R2 K25 ["getText"]
+       44 CALL                             R8 3 1
+       45 SETTABLEKS                       R8 R7 K16 ["Tooltip"]
+       47 SETTABLEKS                       R3 R7 K17 ["Icon"]
+       49 GETTABLEKS                       R8 R0 K0 ["props"]
+       51 GETTABLEKS                       R8 R8 K26 ["showAlert"]
+       53 SETTABLEKS                       R8 R7 K18 ["OnClick"]
+       55 CALL                             R5 2 1
+       56 SETTABLEKS                       R5 R4 K8 ["Toggle"]
+       58 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

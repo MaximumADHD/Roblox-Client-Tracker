@@ -139,7 +139,7 @@ PROTO_6:
         9 GETTABLEKS                       R3 R3 K4 ["getScaleFactor"]
        11 MOVE                             R4 R0
        12 CALL                             R3 1 1
-       13 DIVRK                            R2 R3 K3 [1]
+       13 DIVRK                            R2 K3 [1] R3
        14 GETTABLEKS                       R3 R0 K5 ["CageOrigin"]
        16 GETIMPORT                        R4 K8 [table.create]
        18 LENGTH                           R5 R1

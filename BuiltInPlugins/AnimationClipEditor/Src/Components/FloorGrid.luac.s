@@ -2,16 +2,14 @@ PROTO_0:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R5 R5 K0 ["createElement"]
         3 LOADK                            R6 K1 ["LineHandleAdornment"]
-        4 DUPTABLE                         R7 K7 [{"Thickness", "Color", "Adornee", "Length", "CFrame"}]
-        5 LOADN                            R8 2
-        6 SETTABLEKS                       R8 R7 K2 ["Thickness"]
-        8 GETTABLEKS                       R8 R1 K8 ["lineColor"]
-       10 SETTABLEKS                       R8 R7 K3 ["Color"]
-       12 SETTABLEKS                       R2 R7 K4 ["Adornee"]
-       14 SETTABLEKS                       R4 R7 K5 ["Length"]
-       16 SETTABLEKS                       R3 R7 K6 ["CFrame"]
-       18 CALL                             R5 2 -1
-       19 RETURN                           R5 -1
+        4 DUPTABLE                         R7 K8 [{["Thickness"] = 2, ["Color"], ["Adornee"], ["Length"], ["CFrame"]}]
+        5 GETTABLEKS                       R8 R1 K9 ["lineColor"]
+        7 SETTABLEKS                       R8 R7 K4 ["Color"]
+        9 SETTABLEKS                       R2 R7 K5 ["Adornee"]
+       11 SETTABLEKS                       R4 R7 K6 ["Length"]
+       13 SETTABLEKS                       R3 R7 K7 ["CFrame"]
+       15 CALL                             R5 2 -1
+       16 RETURN                           R5 -1
 
 PROTO_1:
         0 GETTABLEKS                       R4 R0 K0 ["props"]
@@ -47,7 +45,7 @@ PROTO_1:
        45 GETTABLEKS                       R12 R12 K19 ["TICK_FREQUENCY"]
        47 DIV                              R10 R11 R12
        48 NEWTABLE                         R11 0 0
-       50 LOADN                            R14 251
+       50 LOADN                            R14 -5
        51 LOADN                            R12 5
        52 LOADN                            R13 1
        53 FORNPREP                         R12
@@ -74,7 +72,7 @@ PROTO_1:
        78 GETIMPORT                        R17 K26 [table.insert]
        80 CALL                             R17 -1 0
        81 FORNLOOP                         R12
-       82 LOADN                            R14 251
+       82 LOADN                            R14 -5
        83 LOADN                            R12 5
        84 LOADN                            R13 1
        85 FORNPREP                         R12

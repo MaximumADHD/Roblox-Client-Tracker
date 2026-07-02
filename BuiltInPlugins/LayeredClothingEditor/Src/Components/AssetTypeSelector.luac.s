@@ -409,48 +409,40 @@ PROTO_13:
 PROTO_14:
         0 NAMECALL                         R1 R0 K0 ["getInitialRadioButtonListKey"]
         2 CALL                             R1 1 0
-        3 DUPTABLE                         R1 K6 [{"multiAttachmentAsset", "radioButtonListKey", "selectedAttachmentIndex", "selectedAccessoryIndex", "selectedClothingIndex"}]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["multiAttachmentAsset"]
-        7 GETTABLEKS                       R2 R0 K7 ["initialRadioButtonListKey"]
-        9 SETTABLEKS                       R2 R1 K2 ["radioButtonListKey"]
-       11 LOADNIL                          R2
-       12 SETTABLEKS                       R2 R1 K3 ["selectedAttachmentIndex"]
-       14 LOADNIL                          R2
-       15 SETTABLEKS                       R2 R1 K4 ["selectedAccessoryIndex"]
-       17 LOADNIL                          R2
-       18 SETTABLEKS                       R2 R1 K5 ["selectedClothingIndex"]
-       20 SETTABLEKS                       R1 R0 K8 ["state"]
-       22 NEWCLOSURE                       R1 P0
-       23 CAPTURE                          VAL R0
-       24 CAPTURE                          UPVAL U0
-       25 SETTABLEKS                       R1 R0 K9 ["onRadioButtonClick"]
-       27 NEWCLOSURE                       R1 P1
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U1
-       30 CAPTURE                          UPVAL U2
-       31 SETTABLEKS                       R1 R0 K10 ["setAttachment"]
-       33 NEWCLOSURE                       R1 P2
+        3 DUPTABLE                         R1 K7 [{["multiAttachmentAsset"] = , ["radioButtonListKey"], ["selectedAttachmentIndex"] = , ["selectedAccessoryIndex"] = , ["selectedClothingIndex"] = }]
+        4 GETTABLEKS                       R2 R0 K8 ["initialRadioButtonListKey"]
+        6 SETTABLEKS                       R2 R1 K3 ["radioButtonListKey"]
+        8 SETTABLEKS                       R1 R0 K9 ["state"]
+       10 NEWCLOSURE                       R1 P0
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U0
+       13 SETTABLEKS                       R1 R0 K10 ["onRadioButtonClick"]
+       15 NEWCLOSURE                       R1 P1
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          UPVAL U1
+       18 CAPTURE                          UPVAL U2
+       19 SETTABLEKS                       R1 R0 K11 ["setAttachment"]
+       21 NEWCLOSURE                       R1 P2
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U3
+       24 SETTABLEKS                       R1 R0 K12 ["onClickAttachment"]
+       26 NEWCLOSURE                       R1 P3
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U1
+       29 CAPTURE                          UPVAL U0
+       30 CAPTURE                          UPVAL U4
+       31 SETTABLEKS                       R1 R0 K13 ["onClickAssetType"]
+       33 NEWCLOSURE                       R1 P4
        34 CAPTURE                          VAL R0
        35 CAPTURE                          UPVAL U3
-       36 SETTABLEKS                       R1 R0 K11 ["onClickAttachment"]
-       38 NEWCLOSURE                       R1 P3
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          UPVAL U1
-       41 CAPTURE                          UPVAL U0
-       42 CAPTURE                          UPVAL U4
-       43 SETTABLEKS                       R1 R0 K12 ["onClickAssetType"]
-       45 NEWCLOSURE                       R1 P4
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          UPVAL U3
-       48 CAPTURE                          UPVAL U5
-       49 SETTABLEKS                       R1 R0 K13 ["onClickAccessoryType"]
-       51 NEWCLOSURE                       R1 P5
-       52 CAPTURE                          VAL R0
-       53 CAPTURE                          UPVAL U3
-       54 CAPTURE                          UPVAL U5
-       55 SETTABLEKS                       R1 R0 K14 ["onClickClothingType"]
-       57 RETURN                           R0 0
+       36 CAPTURE                          UPVAL U5
+       37 SETTABLEKS                       R1 R0 K14 ["onClickAccessoryType"]
+       39 NEWCLOSURE                       R1 P5
+       40 CAPTURE                          VAL R0
+       41 CAPTURE                          UPVAL U3
+       42 CAPTURE                          UPVAL U5
+       43 SETTABLEKS                       R1 R0 K15 ["onClickClothingType"]
+       45 RETURN                           R0 0
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

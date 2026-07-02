@@ -95,44 +95,22 @@ MAIN:
        49 SETTABLEKS                       R4 R3 K16 ["ASSET_CLASSIFICATION_OPTIONS"]
        51 MOVE                             R5 R1
        52 CALL                             R5 0 1
-       53 JUMPIFNOT                        R5 ; [+20]
-       54 DUPTABLE                         R4 K19 [{"Automatic", "Body", "Layered", "EyeLayered", "Rigid", "Avatar"}]
-       55 LOADK                            R5 K20 [""]
-       56 SETTABLEKS                       R5 R4 K17 ["Automatic"]
-       58 LOADK                            R5 K21 ["RBX_BODY_"]
-       59 SETTABLEKS                       R5 R4 K11 ["Body"]
-       61 LOADK                            R5 K22 ["RBX_LC_"]
-       62 SETTABLEKS                       R5 R4 K13 ["Layered"]
-       64 LOADK                            R5 K23 ["RBX_EYE_LC_"]
-       65 SETTABLEKS                       R5 R4 K14 ["EyeLayered"]
-       67 LOADK                            R5 K24 ["RBX_RIGID_"]
-       68 SETTABLEKS                       R5 R4 K15 ["Rigid"]
-       70 LOADK                            R5 K20 [""]
-       71 SETTABLEKS                       R5 R4 K18 ["Avatar"]
-       73 JUMP                             ; [+16]
-       74 DUPTABLE                         R4 K25 [{"Automatic", "Body", "Layered", "Rigid", "Avatar"}]
-       75 LOADK                            R5 K20 [""]
-       76 SETTABLEKS                       R5 R4 K17 ["Automatic"]
-       78 LOADK                            R5 K21 ["RBX_BODY_"]
-       79 SETTABLEKS                       R5 R4 K11 ["Body"]
-       81 LOADK                            R5 K22 ["RBX_LC_"]
-       82 SETTABLEKS                       R5 R4 K13 ["Layered"]
-       84 LOADK                            R5 K24 ["RBX_RIGID_"]
-       85 SETTABLEKS                       R5 R4 K15 ["Rigid"]
-       87 LOADK                            R5 K20 [""]
-       88 SETTABLEKS                       R5 R4 K18 ["Avatar"]
-       90 DUPCLOSURE                       R5 K26 [PROTO_0]
-       91 CAPTURE                          VAL R4
-       92 SETTABLEKS                       R5 R3 K27 ["getAssetNamePrefix"]
-       94 DUPCLOSURE                       R5 K28 [PROTO_1]
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R2
-       97 SETTABLEKS                       R5 R3 K29 ["getInstanceNameWithoutClassification"]
-       99 DUPCLOSURE                       R5 K30 [PROTO_2]
-      100 CAPTURE                          VAL R3
-      101 SETTABLEKS                       R5 R3 K31 ["getNewInstanceNameWithPrefix"]
-      103 DUPCLOSURE                       R5 K32 [PROTO_3]
-      104 CAPTURE                          VAL R4
-      105 CAPTURE                          VAL R2
-      106 SETTABLEKS                       R5 R3 K33 ["getAssetClassificationFromName"]
-      108 RETURN                           R3 1
+       53 JUMPIFNOT                        R5 ; [+2]
+       54 DUPTABLE                         R4 K24 [{["Automatic"] = "", ["Body"] = "RBX_BODY_", ["Layered"] = "RBX_LC_", ["EyeLayered"] = "RBX_EYE_LC_", ["Rigid"] = "RBX_RIGID_", ["Avatar"] = ""}]
+       55 JUMP                             ; [+1]
+       56 DUPTABLE                         R4 K25 [{["Automatic"] = "", ["Body"] = "RBX_BODY_", ["Layered"] = "RBX_LC_", ["Rigid"] = "RBX_RIGID_", ["Avatar"] = ""}]
+       57 DUPCLOSURE                       R5 K26 [PROTO_0]
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R5 R3 K27 ["getAssetNamePrefix"]
+       61 DUPCLOSURE                       R5 K28 [PROTO_1]
+       62 CAPTURE                          VAL R4
+       63 CAPTURE                          VAL R2
+       64 SETTABLEKS                       R5 R3 K29 ["getInstanceNameWithoutClassification"]
+       66 DUPCLOSURE                       R5 K30 [PROTO_2]
+       67 CAPTURE                          VAL R3
+       68 SETTABLEKS                       R5 R3 K31 ["getNewInstanceNameWithPrefix"]
+       70 DUPCLOSURE                       R5 K32 [PROTO_3]
+       71 CAPTURE                          VAL R4
+       72 CAPTURE                          VAL R2
+       73 SETTABLEKS                       R5 R3 K33 ["getAssetClassificationFromName"]
+       75 RETURN                           R3 1

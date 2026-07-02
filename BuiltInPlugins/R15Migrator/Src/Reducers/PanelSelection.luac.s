@@ -1,10 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"selectedTab", "allTabsData"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["selectedTab"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["allTabsData"]
-        7 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = , ["allTabsData"] = }]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -52,19 +48,15 @@ MAIN:
        36 CALL                             R5 1 1
        37 DUPCLOSURE                       R6 K12 [PROTO_0]
        38 GETTABLEKS                       R7 R1 K13 ["createReducer"]
-       40 DUPTABLE                         R8 K16 [{"selectedTab", "allTabsData"}]
-       41 LOADNIL                          R9
-       42 SETTABLEKS                       R9 R8 K14 ["selectedTab"]
-       44 LOADNIL                          R9
-       45 SETTABLEKS                       R9 R8 K15 ["allTabsData"]
-       47 NEWTABLE                         R9 2 0
-       49 GETTABLEKS                       R10 R4 K17 ["name"]
-       51 DUPCLOSURE                       R11 K18 [PROTO_1]
-       52 CAPTURE                          VAL R2
-       53 SETTABLE                         R11 R9 R10
-       54 GETTABLEKS                       R10 R5 K17 ["name"]
-       56 DUPCLOSURE                       R11 K19 [PROTO_2]
-       57 CAPTURE                          VAL R2
-       58 SETTABLE                         R11 R9 R10
-       59 CALL                             R7 2 1
-       60 RETURN                           R7 1
+       40 DUPTABLE                         R8 K17 [{["selectedTab"] = , ["allTabsData"] = }]
+       41 NEWTABLE                         R9 2 0
+       43 GETTABLEKS                       R10 R4 K18 ["name"]
+       45 DUPCLOSURE                       R11 K19 [PROTO_1]
+       46 CAPTURE                          VAL R2
+       47 SETTABLE                         R11 R9 R10
+       48 GETTABLEKS                       R10 R5 K18 ["name"]
+       50 DUPCLOSURE                       R11 K20 [PROTO_2]
+       51 CAPTURE                          VAL R2
+       52 SETTABLE                         R11 R9 R10
+       53 CALL                             R7 2 1
+       54 RETURN                           R7 1

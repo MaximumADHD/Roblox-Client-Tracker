@@ -88,71 +88,65 @@ PROTO_4:
        53 GETUPVAL                         R7 0
        54 GETTABLEKS                       R7 R7 K13 ["createElement"]
        56 GETUPVAL                         R8 2
-       57 DUPTABLE                         R9 K19 [{"LayoutOrder", "Layout", "HorizontalAlignment", "Size", "Spacing"}]
+       57 DUPTABLE                         R9 K20 [{["LayoutOrder"], ["Layout"], ["HorizontalAlignment"], ["Size"], ["Spacing"] = 10}]
        58 GETTABLEKS                       R10 R0 K14 ["LayoutOrder"]
        60 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-       62 GETIMPORT                        R10 K23 [Enum.FillDirection.Horizontal]
+       62 GETIMPORT                        R10 K24 [Enum.FillDirection.Horizontal]
        64 SETTABLEKS                       R10 R9 K15 ["Layout"]
-       66 GETIMPORT                        R10 K25 [Enum.HorizontalAlignment.Center]
+       66 GETIMPORT                        R10 K26 [Enum.HorizontalAlignment.Center]
        68 SETTABLEKS                       R10 R9 K16 ["HorizontalAlignment"]
-       70 GETIMPORT                        R10 K28 [UDim2.new]
+       70 GETIMPORT                        R10 K29 [UDim2.new]
        72 LOADN                            R11 1
        73 LOADN                            R12 0
        74 LOADN                            R13 0
        75 LOADN                            R14 32
        76 CALL                             R10 4 1
        77 SETTABLEKS                       R10 R9 K17 ["Size"]
-       79 LOADN                            R10 10
-       80 SETTABLEKS                       R10 R9 K18 ["Spacing"]
-       82 DUPTABLE                         R10 K31 [{"LoadingBar", "ProgressPercentage"}]
-       83 GETUPVAL                         R11 0
-       84 GETTABLEKS                       R11 R11 K13 ["createElement"]
-       86 GETUPVAL                         R12 3
-       87 DUPTABLE                         R13 K33 [{"LayoutOrder", "Progress", "Size"}]
-       88 LOADN                            R14 1
-       89 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-       91 SETTABLEKS                       R5 R13 K32 ["Progress"]
-       93 GETIMPORT                        R14 K28 [UDim2.new]
-       95 LOADN                            R15 1
-       96 GETTABLEKS                       R17 R0 K34 ["displayPercentLabel"]
-       98 JUMPIFNOT                        R17 ; [+2]
-       99 LOADN                            R16 206
-      100 JUMP                             ; [+1]
-      101 LOADN                            R16 0
-      102 LOADN                            R17 0
-      103 LOADN                            R18 12
-      104 CALL                             R14 4 1
-      105 SETTABLEKS                       R14 R13 K17 ["Size"]
-      107 CALL                             R11 2 1
-      108 SETTABLEKS                       R11 R10 K29 ["LoadingBar"]
-      110 GETTABLEKS                       R12 R0 K34 ["displayPercentLabel"]
-      112 JUMPIFNOT                        R12 ; [+32]
-      113 GETUPVAL                         R11 0
-      114 GETTABLEKS                       R11 R11 K13 ["createElement"]
-      116 GETUPVAL                         R12 4
-      117 DUPTABLE                         R13 K38 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextXAlignment"}]
-      118 GETIMPORT                        R14 K40 [Enum.AutomaticSize.Y]
-      120 SETTABLEKS                       R14 R13 K35 ["AutomaticSize"]
-      122 LOADN                            R14 2
-      123 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-      125 GETIMPORT                        R14 K42 [UDim2.fromOffset]
-      127 LOADN                            R15 40
-      128 LOADN                            R16 0
-      129 CALL                             R14 2 1
-      130 SETTABLEKS                       R14 R13 K17 ["Size"]
-      132 GETIMPORT                        R14 K45 [string.format]
-      134 LOADK                            R15 K46 ["%0d%%"]
-      135 MULK                             R16 R5 K47 [100]
-      136 CALL                             R14 2 1
-      137 SETTABLEKS                       R14 R13 K36 ["Text"]
-      139 GETIMPORT                        R14 K49 [Enum.TextXAlignment.Left]
-      141 SETTABLEKS                       R14 R13 K37 ["TextXAlignment"]
-      143 CALL                             R11 2 1
-      144 JUMP                             ; [+1]
-      145 LOADNIL                          R11
-      146 SETTABLEKS                       R11 R10 K30 ["ProgressPercentage"]
-      148 CALL                             R7 3 -1
-      149 RETURN                           R7 -1
+       79 DUPTABLE                         R10 K32 [{"LoadingBar", "ProgressPercentage"}]
+       80 GETUPVAL                         R11 0
+       81 GETTABLEKS                       R11 R11 K13 ["createElement"]
+       83 GETUPVAL                         R12 3
+       84 DUPTABLE                         R13 K34 [{["LayoutOrder"] = 1, ["Progress"], ["Size"]}]
+       85 SETTABLEKS                       R5 R13 K33 ["Progress"]
+       87 GETIMPORT                        R14 K29 [UDim2.new]
+       89 LOADN                            R15 1
+       90 GETTABLEKS                       R17 R0 K35 ["displayPercentLabel"]
+       92 JUMPIFNOT                        R17 ; [+2]
+       93 LOADN                            R16 -50
+       94 JUMP                             ; [+1]
+       95 LOADN                            R16 0
+       96 LOADN                            R17 0
+       97 LOADN                            R18 12
+       98 CALL                             R14 4 1
+       99 SETTABLEKS                       R14 R13 K17 ["Size"]
+      101 CALL                             R11 2 1
+      102 SETTABLEKS                       R11 R10 K30 ["LoadingBar"]
+      104 GETTABLEKS                       R12 R0 K35 ["displayPercentLabel"]
+      106 JUMPIFNOT                        R12 ; [+29]
+      107 GETUPVAL                         R11 0
+      108 GETTABLEKS                       R11 R11 K13 ["createElement"]
+      110 GETUPVAL                         R12 4
+      111 DUPTABLE                         R13 K40 [{["AutomaticSize"], ["LayoutOrder"] = 2, ["Size"], ["Text"], ["TextXAlignment"]}]
+      112 GETIMPORT                        R14 K42 [Enum.AutomaticSize.Y]
+      114 SETTABLEKS                       R14 R13 K36 ["AutomaticSize"]
+      116 GETIMPORT                        R14 K44 [UDim2.fromOffset]
+      118 LOADN                            R15 40
+      119 LOADN                            R16 0
+      120 CALL                             R14 2 1
+      121 SETTABLEKS                       R14 R13 K17 ["Size"]
+      123 GETIMPORT                        R14 K47 [string.format]
+      125 LOADK                            R15 K48 ["%0d%%"]
+      126 MULK                             R16 R5 K49 [100]
+      127 CALL                             R14 2 1
+      128 SETTABLEKS                       R14 R13 K38 ["Text"]
+      130 GETIMPORT                        R14 K51 [Enum.TextXAlignment.Left]
+      132 SETTABLEKS                       R14 R13 K39 ["TextXAlignment"]
+      134 CALL                             R11 2 1
+      135 JUMP                             ; [+1]
+      136 LOADNIL                          R11
+      137 SETTABLEKS                       R11 R10 K31 ["ProgressPercentage"]
+      139 CALL                             R7 3 -1
+      140 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

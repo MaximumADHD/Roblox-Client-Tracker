@@ -2,41 +2,37 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 DUPTABLE                         R2 K6 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar"}]
+        5 DUPTABLE                         R2 K8 [{["plugin"], ["pluginName"] = "LegacyChatDeprecation", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True}]
         6 SETTABLEKS                       R0 R2 K1 ["plugin"]
-        8 LOADK                            R3 K7 ["LegacyChatDeprecation"]
-        9 SETTABLEKS                       R3 R2 K2 ["pluginName"]
-       11 GETUPVAL                         R3 1
-       12 SETTABLEKS                       R3 R2 K3 ["translationResourceTable"]
-       14 GETUPVAL                         R3 2
-       15 SETTABLEKS                       R3 R2 K4 ["fallbackResourceTable"]
-       17 LOADB                            R3 1
-       18 SETTABLEKS                       R3 R2 K5 ["noToolbar"]
-       20 GETIMPORT                        R3 K9 [game]
-       22 LOADK                            R5 K10 ["RunService"]
-       23 NAMECALL                         R3 R3 K11 ["GetService"]
-       25 CALL                             R3 2 1
-       26 GETUPVAL                         R5 3
-       27 GETTABLEKS                       R5 R5 K12 ["get"]
-       29 CALL                             R5 0 1
-       30 GETUPVAL                         R6 3
-       31 GETTABLEKS                       R6 R6 K13 ["Standalone"]
-       33 JUMPIFEQ                         R5 R6 ; [+2]
-       35 LOADB                            R4 0 +1
-       36 LOADB                            R4 1
-       37 NAMECALL                         R5 R3 K14 ["IsEdit"]
-       39 CALL                             R5 1 1
-       40 JUMPIF                           R4 ; [+1]
-       41 JUMPIFNOT                        R5 ; [+9]
-       42 GETUPVAL                         R6 4
-       43 GETTABLEKS                       R6 R6 K15 ["build"]
-       45 MOVE                             R7 R2
-       46 CALL                             R6 1 1
-       47 MOVE                             R7 R1
-       48 MOVE                             R8 R0
-       49 MOVE                             R9 R6
-       50 CALL                             R7 2 0
-       51 RETURN                           R0 0
+        8 GETUPVAL                         R3 1
+        9 SETTABLEKS                       R3 R2 K4 ["translationResourceTable"]
+       11 GETUPVAL                         R3 2
+       12 SETTABLEKS                       R3 R2 K5 ["fallbackResourceTable"]
+       14 GETIMPORT                        R3 K10 [game]
+       16 LOADK                            R5 K11 ["RunService"]
+       17 NAMECALL                         R3 R3 K12 ["GetService"]
+       19 CALL                             R3 2 1
+       20 GETUPVAL                         R5 3
+       21 GETTABLEKS                       R5 R5 K13 ["get"]
+       23 CALL                             R5 0 1
+       24 GETUPVAL                         R6 3
+       25 GETTABLEKS                       R6 R6 K14 ["Standalone"]
+       27 JUMPIFEQ                         R5 R6 ; [+2]
+       29 LOADB                            R4 0 +1
+       30 LOADB                            R4 1
+       31 NAMECALL                         R5 R3 K15 ["IsEdit"]
+       33 CALL                             R5 1 1
+       34 JUMPIF                           R4 ; [+1]
+       35 JUMPIFNOT                        R5 ; [+9]
+       36 GETUPVAL                         R6 4
+       37 GETTABLEKS                       R6 R6 K16 ["build"]
+       39 MOVE                             R7 R2
+       40 CALL                             R6 1 1
+       41 MOVE                             R7 R1
+       42 MOVE                             R8 R0
+       43 MOVE                             R9 R6
+       44 CALL                             R7 2 0
+       45 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

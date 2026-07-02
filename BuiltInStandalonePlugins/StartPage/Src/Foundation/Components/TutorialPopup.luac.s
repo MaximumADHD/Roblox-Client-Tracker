@@ -1,59 +1,41 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"telemetryType", "telemetrySubtype", "action"}]
-        3 LOADK                            R4 K4 ["interaction"]
-        4 SETTABLEKS                       R4 R3 K0 ["telemetryType"]
-        6 LOADK                            R4 K5 ["tutorial_popup"]
-        7 SETTABLEKS                       R4 R3 K1 ["telemetrySubtype"]
-        9 LOADK                            R4 K6 ["close"]
-       10 SETTABLEKS                       R4 R3 K2 ["action"]
-       12 NAMECALL                         R0 R0 K7 ["log"]
-       14 CALL                             R0 3 0
-       15 GETUPVAL                         R0 2
-       16 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       18 JUMPIFNOT                        R0 ; [+4]
-       19 GETUPVAL                         R0 2
-       20 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       22 CALL                             R0 0 0
-       23 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{[1] = "interaction", ["telemetrySubtype"] = "tutorial_popup", ["action"] = "close"}]
+        3 NAMECALL                         R0 R0 K7 ["log"]
+        5 CALL                             R0 3 0
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K8 ["onClose"]
+        9 JUMPIFNOT                        R0 ; [+4]
+       10 GETUPVAL                         R0 2
+       11 GETTABLEKS                       R0 R0 K8 ["onClose"]
+       13 CALL                             R0 0 0
+       14 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"telemetryType", "telemetrySubtype", "action"}]
-        3 LOADK                            R4 K4 ["interaction"]
-        4 SETTABLEKS                       R4 R3 K0 ["telemetryType"]
-        6 LOADK                            R4 K5 ["tutorial_popup"]
-        7 SETTABLEKS                       R4 R3 K1 ["telemetrySubtype"]
-        9 LOADK                            R4 K6 ["go_home"]
-       10 SETTABLEKS                       R4 R3 K2 ["action"]
-       12 NAMECALL                         R0 R0 K7 ["log"]
-       14 CALL                             R0 3 0
-       15 GETUPVAL                         R0 2
-       16 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       18 JUMPIFNOT                        R0 ; [+4]
-       19 GETUPVAL                         R0 2
-       20 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       22 CALL                             R0 0 0
-       23 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{[1] = "interaction", ["telemetrySubtype"] = "tutorial_popup", ["action"] = "go_home"}]
+        3 NAMECALL                         R0 R0 K7 ["log"]
+        5 CALL                             R0 3 0
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K8 ["onClose"]
+        9 JUMPIFNOT                        R0 ; [+4]
+       10 GETUPVAL                         R0 2
+       11 GETTABLEKS                       R0 R0 K8 ["onClose"]
+       13 CALL                             R0 0 0
+       14 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"telemetryType", "telemetrySubtype", "action"}]
-        3 LOADK                            R4 K4 ["interaction"]
-        4 SETTABLEKS                       R4 R3 K0 ["telemetryType"]
-        6 LOADK                            R4 K5 ["tutorial_popup"]
-        7 SETTABLEKS                       R4 R3 K1 ["telemetrySubtype"]
-        9 LOADK                            R4 K6 ["start_tour"]
-       10 SETTABLEKS                       R4 R3 K2 ["action"]
-       12 NAMECALL                         R0 R0 K7 ["log"]
-       14 CALL                             R0 3 0
-       15 GETUPVAL                         R0 2
-       16 NAMECALL                         R0 R0 K8 ["startTutorial"]
-       18 CALL                             R0 1 0
-       19 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{[1] = "interaction", ["telemetrySubtype"] = "tutorial_popup", ["action"] = "start_tour"}]
+        3 NAMECALL                         R0 R0 K7 ["log"]
+        5 CALL                             R0 3 0
+        6 GETUPVAL                         R0 2
+        7 NAMECALL                         R0 R0 K8 ["startTutorial"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -67,171 +49,147 @@ PROTO_3:
        10 GETUPVAL                         R4 3
        11 GETTABLEKS                       R4 R4 K1 ["createElement"]
        13 GETUPVAL                         R5 4
-       14 DUPTABLE                         R6 K6 [{"Size", "ClipsDescendants", "tag", "testId"}]
-       15 GETIMPORT                        R7 K9 [UDim2.new]
+       14 DUPTABLE                         R6 K9 [{["Size"], ["ClipsDescendants"] = True, ["tag"] = "col radius-medium bg-surface-100", ["testId"] = "--start-page-TutorialPopup"}]
+       15 GETIMPORT                        R7 K12 [UDim2.new]
        17 LOADN                            R8 0
-       18 LOADN                            R9 128
+       18 LOADN                            R9 640
        19 LOADN                            R10 0
-       20 LOADN                            R11 34
+       20 LOADN                            R11 546
        21 CALL                             R7 4 1
        22 SETTABLEKS                       R7 R6 K2 ["Size"]
-       24 LOADB                            R7 1
-       25 SETTABLEKS                       R7 R6 K3 ["ClipsDescendants"]
-       27 LOADK                            R7 K10 ["bg-surface-100 radius-medium col"]
-       28 SETTABLEKS                       R7 R6 K4 ["tag"]
-       30 LOADK                            R7 K11 ["--start-page-TutorialPopup"]
-       31 SETTABLEKS                       R7 R6 K5 ["testId"]
-       33 DUPTABLE                         R7 K14 [{"CityImage", "Content"}]
-       34 GETUPVAL                         R8 3
-       35 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       37 GETUPVAL                         R9 5
-       38 DUPTABLE                         R10 K16 [{"Image", "Size", "tag"}]
-       39 LOADK                            R11 K17 ["rbxasset://textures/StartPage/Tour2Screenshot.png"]
-       40 SETTABLEKS                       R11 R10 K15 ["Image"]
-       42 GETIMPORT                        R11 K9 [UDim2.new]
-       44 LOADN                            R12 1
-       45 LOADN                            R13 0
-       46 LOADN                            R14 0
-       47 LOADN                            R15 1
-       48 CALL                             R11 4 1
-       49 SETTABLEKS                       R11 R10 K2 ["Size"]
-       51 LOADK                            R11 K18 ["align-x-right padding-medium"]
-       52 SETTABLEKS                       R11 R10 K4 ["tag"]
-       54 GETUPVAL                         R11 3
-       55 GETTABLEKS                       R11 R11 K1 ["createElement"]
-       57 GETUPVAL                         R12 6
-       58 DUPTABLE                         R13 K20 [{"onActivated"}]
-       59 NEWCLOSURE                       R14 P0
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          UPVAL U7
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R14 R13 K19 ["onActivated"]
-       65 CALL                             R11 2 -1
-       66 CALL                             R8 -1 1
-       67 SETTABLEKS                       R8 R7 K12 ["CityImage"]
-       69 GETUPVAL                         R8 3
-       70 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       72 GETUPVAL                         R9 4
-       73 DUPTABLE                         R10 K21 [{"tag"}]
-       74 LOADK                            R11 K22 ["col auto-y size-full-0 padding-xxlarge fill"]
-       75 SETTABLEKS                       R11 R10 K4 ["tag"]
-       77 DUPTABLE                         R11 K25 [{"Text", "Actions"}]
-       78 GETUPVAL                         R12 3
-       79 GETTABLEKS                       R12 R12 K1 ["createElement"]
-       81 GETUPVAL                         R13 4
-       82 DUPTABLE                         R14 K27 [{"LayoutOrder", "tag"}]
-       83 MOVE                             R15 R3
-       84 CALL                             R15 0 1
-       85 SETTABLEKS                       R15 R14 K26 ["LayoutOrder"]
-       87 LOADK                            R15 K28 ["auto-y size-full-0 col gap-medium fill"]
-       88 SETTABLEKS                       R15 R14 K4 ["tag"]
-       90 DUPTABLE                         R15 K31 [{"Heading", "Body"}]
-       91 GETUPVAL                         R16 3
-       92 GETTABLEKS                       R16 R16 K1 ["createElement"]
-       94 GETUPVAL                         R17 8
-       95 DUPTABLE                         R18 K32 [{"Text", "LayoutOrder", "tag"}]
-       96 LOADK                            R21 K33 ["Plugin"]
-       97 LOADK                            R22 K34 ["TutorialPopup.Heading"]
-       98 NAMECALL                         R19 R2 K35 ["getText"]
-      100 CALL                             R19 3 1
-      101 SETTABLEKS                       R19 R18 K23 ["Text"]
-      103 MOVE                             R19 R3
-      104 CALL                             R19 0 1
-      105 SETTABLEKS                       R19 R18 K26 ["LayoutOrder"]
-      107 LOADK                            R19 K36 ["auto-y size-full-0 text-heading-medium"]
-      108 SETTABLEKS                       R19 R18 K4 ["tag"]
-      110 CALL                             R16 2 1
-      111 SETTABLEKS                       R16 R15 K29 ["Heading"]
-      113 GETUPVAL                         R16 3
-      114 GETTABLEKS                       R16 R16 K1 ["createElement"]
-      116 GETUPVAL                         R17 8
-      117 DUPTABLE                         R18 K39 [{"Text", "TextWrapped", "TextYAlignment", "LayoutOrder", "tag"}]
-      118 LOADK                            R21 K33 ["Plugin"]
-      119 LOADK                            R22 K40 ["TutorialPopup.Body"]
-      120 NAMECALL                         R19 R2 K35 ["getText"]
-      122 CALL                             R19 3 1
-      123 SETTABLEKS                       R19 R18 K23 ["Text"]
-      125 LOADB                            R19 1
-      126 SETTABLEKS                       R19 R18 K37 ["TextWrapped"]
-      128 GETIMPORT                        R19 K43 [Enum.TextYAlignment.Top]
-      130 SETTABLEKS                       R19 R18 K38 ["TextYAlignment"]
-      132 MOVE                             R19 R3
-      133 CALL                             R19 0 1
-      134 SETTABLEKS                       R19 R18 K26 ["LayoutOrder"]
-      136 LOADK                            R19 K44 ["auto-y size-full-0 text-body-medium"]
-      137 SETTABLEKS                       R19 R18 K4 ["tag"]
-      139 CALL                             R16 2 1
-      140 SETTABLEKS                       R16 R15 K30 ["Body"]
-      142 CALL                             R12 3 1
-      143 SETTABLEKS                       R12 R11 K23 ["Text"]
-      145 GETUPVAL                         R12 3
-      146 GETTABLEKS                       R12 R12 K1 ["createElement"]
-      148 GETUPVAL                         R13 4
-      149 DUPTABLE                         R14 K27 [{"LayoutOrder", "tag"}]
-      150 MOVE                             R15 R3
-      151 CALL                             R15 0 1
-      152 SETTABLEKS                       R15 R14 K26 ["LayoutOrder"]
-      154 LOADK                            R15 K45 ["auto-y size-full-0 row gap-medium"]
-      155 SETTABLEKS                       R15 R14 K4 ["tag"]
-      157 DUPTABLE                         R15 K48 [{"GoHome", "TakeTour"}]
-      158 GETUPVAL                         R16 3
-      159 GETTABLEKS                       R16 R16 K1 ["createElement"]
-      161 GETUPVAL                         R17 9
-      162 DUPTABLE                         R18 K52 [{"LayoutOrder", "variant", "fillBehavior", "text", "onActivated", "testId"}]
-      163 MOVE                             R19 R3
-      164 CALL                             R19 0 1
-      165 SETTABLEKS                       R19 R18 K26 ["LayoutOrder"]
-      167 GETUPVAL                         R19 10
-      168 GETTABLEKS                       R19 R19 K23 ["Text"]
-      170 SETTABLEKS                       R19 R18 K49 ["variant"]
-      172 GETUPVAL                         R19 11
-      173 GETTABLEKS                       R19 R19 K53 ["Fill"]
-      175 SETTABLEKS                       R19 R18 K50 ["fillBehavior"]
-      177 LOADK                            R21 K33 ["Plugin"]
-      178 LOADK                            R22 K54 ["TutorialPopup.BackButton"]
-      179 NAMECALL                         R19 R2 K35 ["getText"]
-      181 CALL                             R19 3 1
-      182 SETTABLEKS                       R19 R18 K51 ["text"]
-      184 NEWCLOSURE                       R19 P1
-      185 CAPTURE                          VAL R1
-      186 CAPTURE                          UPVAL U7
-      187 CAPTURE                          VAL R0
-      188 SETTABLEKS                       R19 R18 K19 ["onActivated"]
-      190 LOADK                            R19 K55 ["--start-page-TutorialPopup-go-home"]
-      191 SETTABLEKS                       R19 R18 K5 ["testId"]
-      193 CALL                             R16 2 1
-      194 SETTABLEKS                       R16 R15 K46 ["GoHome"]
-      196 GETUPVAL                         R16 3
-      197 GETTABLEKS                       R16 R16 K1 ["createElement"]
-      199 GETUPVAL                         R17 9
-      200 DUPTABLE                         R18 K56 [{"LayoutOrder", "variant", "fillBehavior", "text", "onActivated"}]
-      201 MOVE                             R19 R3
-      202 CALL                             R19 0 1
-      203 SETTABLEKS                       R19 R18 K26 ["LayoutOrder"]
-      205 GETUPVAL                         R19 10
-      206 GETTABLEKS                       R19 R19 K57 ["Emphasis"]
-      208 SETTABLEKS                       R19 R18 K49 ["variant"]
-      210 GETUPVAL                         R19 11
-      211 GETTABLEKS                       R19 R19 K53 ["Fill"]
-      213 SETTABLEKS                       R19 R18 K50 ["fillBehavior"]
-      215 LOADK                            R21 K33 ["Plugin"]
-      216 LOADK                            R22 K58 ["TutorialPopup.StartButton"]
-      217 NAMECALL                         R19 R2 K35 ["getText"]
-      219 CALL                             R19 3 1
-      220 SETTABLEKS                       R19 R18 K51 ["text"]
-      222 NEWCLOSURE                       R19 P2
-      223 CAPTURE                          VAL R1
-      224 CAPTURE                          UPVAL U7
-      225 CAPTURE                          UPVAL U12
-      226 SETTABLEKS                       R19 R18 K19 ["onActivated"]
-      228 CALL                             R16 2 1
-      229 SETTABLEKS                       R16 R15 K47 ["TakeTour"]
-      231 CALL                             R12 3 1
-      232 SETTABLEKS                       R12 R11 K24 ["Actions"]
-      234 CALL                             R8 3 1
-      235 SETTABLEKS                       R8 R7 K13 ["Content"]
-      237 CALL                             R4 3 -1
-      238 RETURN                           R4 -1
+       24 DUPTABLE                         R7 K15 [{"CityImage", "Content"}]
+       25 GETUPVAL                         R8 3
+       26 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       28 GETUPVAL                         R9 5
+       29 DUPTABLE                         R10 K19 [{["Image"] = "rbxasset://textures/StartPage/Tour2Screenshot.png", ["Size"], ["tag"] = "align-x-right padding-medium"}]
+       30 GETIMPORT                        R11 K12 [UDim2.new]
+       32 LOADN                            R12 1
+       33 LOADN                            R13 0
+       34 LOADN                            R14 0
+       35 LOADN                            R15 257
+       36 CALL                             R11 4 1
+       37 SETTABLEKS                       R11 R10 K2 ["Size"]
+       39 GETUPVAL                         R11 3
+       40 GETTABLEKS                       R11 R11 K1 ["createElement"]
+       42 GETUPVAL                         R12 6
+       43 DUPTABLE                         R13 K21 [{"onActivated"}]
+       44 NEWCLOSURE                       R14 P0
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          UPVAL U7
+       47 CAPTURE                          VAL R0
+       48 SETTABLEKS                       R14 R13 K20 ["onActivated"]
+       50 CALL                             R11 2 -1
+       51 CALL                             R8 -1 1
+       52 SETTABLEKS                       R8 R7 K13 ["CityImage"]
+       54 GETUPVAL                         R8 3
+       55 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       57 GETUPVAL                         R9 4
+       58 DUPTABLE                         R10 K23 [{["tag"] = "col fill size-full-0 auto-y padding-xxlarge"}]
+       59 DUPTABLE                         R11 K26 [{"Text", "Actions"}]
+       60 GETUPVAL                         R12 3
+       61 GETTABLEKS                       R12 R12 K1 ["createElement"]
+       63 GETUPVAL                         R13 4
+       64 DUPTABLE                         R14 K29 [{["LayoutOrder"], ["tag"] = "col fill gap-medium size-full-0 auto-y"}]
+       65 MOVE                             R15 R3
+       66 CALL                             R15 0 1
+       67 SETTABLEKS                       R15 R14 K27 ["LayoutOrder"]
+       69 DUPTABLE                         R15 K32 [{"Heading", "Body"}]
+       70 GETUPVAL                         R16 3
+       71 GETTABLEKS                       R16 R16 K1 ["createElement"]
+       73 GETUPVAL                         R17 8
+       74 DUPTABLE                         R18 K34 [{["Text"], ["LayoutOrder"], ["tag"] = "size-full-0 auto-y text-heading-medium"}]
+       75 LOADK                            R21 K35 ["Plugin"]
+       76 LOADK                            R22 K36 ["TutorialPopup.Heading"]
+       77 NAMECALL                         R19 R2 K37 ["getText"]
+       79 CALL                             R19 3 1
+       80 SETTABLEKS                       R19 R18 K24 ["Text"]
+       82 MOVE                             R19 R3
+       83 CALL                             R19 0 1
+       84 SETTABLEKS                       R19 R18 K27 ["LayoutOrder"]
+       86 CALL                             R16 2 1
+       87 SETTABLEKS                       R16 R15 K30 ["Heading"]
+       89 GETUPVAL                         R16 3
+       90 GETTABLEKS                       R16 R16 K1 ["createElement"]
+       92 GETUPVAL                         R17 8
+       93 DUPTABLE                         R18 K41 [{["Text"], ["TextWrapped"] = True, ["TextYAlignment"], ["LayoutOrder"], ["tag"] = "size-full-0 auto-y text-body-medium"}]
+       94 LOADK                            R21 K35 ["Plugin"]
+       95 LOADK                            R22 K42 ["TutorialPopup.Body"]
+       96 NAMECALL                         R19 R2 K37 ["getText"]
+       98 CALL                             R19 3 1
+       99 SETTABLEKS                       R19 R18 K24 ["Text"]
+      101 GETIMPORT                        R19 K45 [Enum.TextYAlignment.Top]
+      103 SETTABLEKS                       R19 R18 K39 ["TextYAlignment"]
+      105 MOVE                             R19 R3
+      106 CALL                             R19 0 1
+      107 SETTABLEKS                       R19 R18 K27 ["LayoutOrder"]
+      109 CALL                             R16 2 1
+      110 SETTABLEKS                       R16 R15 K31 ["Body"]
+      112 CALL                             R12 3 1
+      113 SETTABLEKS                       R12 R11 K24 ["Text"]
+      115 GETUPVAL                         R12 3
+      116 GETTABLEKS                       R12 R12 K1 ["createElement"]
+      118 GETUPVAL                         R13 4
+      119 DUPTABLE                         R14 K47 [{["LayoutOrder"], ["tag"] = "row gap-medium size-full-0 auto-y"}]
+      120 MOVE                             R15 R3
+      121 CALL                             R15 0 1
+      122 SETTABLEKS                       R15 R14 K27 ["LayoutOrder"]
+      124 DUPTABLE                         R15 K50 [{"GoHome", "TakeTour"}]
+      125 GETUPVAL                         R16 3
+      126 GETTABLEKS                       R16 R16 K1 ["createElement"]
+      128 GETUPVAL                         R17 9
+      129 DUPTABLE                         R18 K55 [{["LayoutOrder"], ["variant"], ["fillBehavior"], ["text"], ["onActivated"], ["testId"] = "--start-page-TutorialPopup-go-home"}]
+      130 MOVE                             R19 R3
+      131 CALL                             R19 0 1
+      132 SETTABLEKS                       R19 R18 K27 ["LayoutOrder"]
+      134 GETUPVAL                         R19 10
+      135 GETTABLEKS                       R19 R19 K24 ["Text"]
+      137 SETTABLEKS                       R19 R18 K51 ["variant"]
+      139 GETUPVAL                         R19 11
+      140 GETTABLEKS                       R19 R19 K56 ["Fill"]
+      142 SETTABLEKS                       R19 R18 K52 ["fillBehavior"]
+      144 LOADK                            R21 K35 ["Plugin"]
+      145 LOADK                            R22 K57 ["TutorialPopup.BackButton"]
+      146 NAMECALL                         R19 R2 K37 ["getText"]
+      148 CALL                             R19 3 1
+      149 SETTABLEKS                       R19 R18 K53 ["text"]
+      151 NEWCLOSURE                       R19 P1
+      152 CAPTURE                          VAL R1
+      153 CAPTURE                          UPVAL U7
+      154 CAPTURE                          VAL R0
+      155 SETTABLEKS                       R19 R18 K20 ["onActivated"]
+      157 CALL                             R16 2 1
+      158 SETTABLEKS                       R16 R15 K48 ["GoHome"]
+      160 GETUPVAL                         R16 3
+      161 GETTABLEKS                       R16 R16 K1 ["createElement"]
+      163 GETUPVAL                         R17 9
+      164 DUPTABLE                         R18 K58 [{"LayoutOrder", "variant", "fillBehavior", "text", "onActivated"}]
+      165 MOVE                             R19 R3
+      166 CALL                             R19 0 1
+      167 SETTABLEKS                       R19 R18 K27 ["LayoutOrder"]
+      169 GETUPVAL                         R19 10
+      170 GETTABLEKS                       R19 R19 K59 ["Emphasis"]
+      172 SETTABLEKS                       R19 R18 K51 ["variant"]
+      174 GETUPVAL                         R19 11
+      175 GETTABLEKS                       R19 R19 K56 ["Fill"]
+      177 SETTABLEKS                       R19 R18 K52 ["fillBehavior"]
+      179 LOADK                            R21 K35 ["Plugin"]
+      180 LOADK                            R22 K60 ["TutorialPopup.StartButton"]
+      181 NAMECALL                         R19 R2 K37 ["getText"]
+      183 CALL                             R19 3 1
+      184 SETTABLEKS                       R19 R18 K53 ["text"]
+      186 NEWCLOSURE                       R19 P2
+      187 CAPTURE                          VAL R1
+      188 CAPTURE                          UPVAL U7
+      189 CAPTURE                          UPVAL U12
+      190 SETTABLEKS                       R19 R18 K20 ["onActivated"]
+      192 CALL                             R16 2 1
+      193 SETTABLEKS                       R16 R15 K49 ["TakeTour"]
+      195 CALL                             R12 3 1
+      196 SETTABLEKS                       R12 R11 K25 ["Actions"]
+      198 CALL                             R8 3 1
+      199 SETTABLEKS                       R8 R7 K14 ["Content"]
+      201 CALL                             R4 3 -1
+      202 RETURN                           R4 -1
 
 PROTO_4:
         0 RETURN                           R0 0
@@ -251,27 +209,23 @@ PROTO_5:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K0 ["createElement"]
        17 GETUPVAL                         R9 3
-       18 DUPTABLE                         R10 K8 [{"tag"}]
-       19 LOADK                            R11 K9 ["size-full bg-over-media-0"]
-       20 SETTABLEKS                       R11 R10 K7 ["tag"]
-       22 CALL                             R8 2 1
-       23 SETTABLEKS                       R8 R7 K4 ["DarkBackground"]
-       25 GETUPVAL                         R8 0
-       26 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       28 GETUPVAL                         R9 3
-       29 DUPTABLE                         R10 K8 [{"tag"}]
-       30 LOADK                            R11 K10 ["size-full align-x-center align-y-center"]
-       31 SETTABLEKS                       R11 R10 K7 ["tag"]
-       33 GETUPVAL                         R11 0
-       34 GETTABLEKS                       R11 R11 K0 ["createElement"]
-       36 GETUPVAL                         R12 4
-       37 MOVE                             R13 R0
-       38 CALL                             R11 2 -1
-       39 CALL                             R8 -1 1
-       40 SETTABLEKS                       R8 R7 K5 ["PopupContainer"]
-       42 CALL                             R4 3 -1
-       43 CALL                             R1 -1 -1
-       44 RETURN                           R1 -1
+       18 DUPTABLE                         R10 K9 [{["tag"] = "size-full bg-over-media-0"}]
+       19 CALL                             R8 2 1
+       20 SETTABLEKS                       R8 R7 K4 ["DarkBackground"]
+       22 GETUPVAL                         R8 0
+       23 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       25 GETUPVAL                         R9 3
+       26 DUPTABLE                         R10 K11 [{["tag"] = "align-x-center align-y-center size-full"}]
+       27 GETUPVAL                         R11 0
+       28 GETTABLEKS                       R11 R11 K0 ["createElement"]
+       30 GETUPVAL                         R12 4
+       31 MOVE                             R13 R0
+       32 CALL                             R11 2 -1
+       33 CALL                             R8 -1 1
+       34 SETTABLEKS                       R8 R7 K5 ["PopupContainer"]
+       36 CALL                             R4 3 -1
+       37 CALL                             R1 -1 -1
+       38 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

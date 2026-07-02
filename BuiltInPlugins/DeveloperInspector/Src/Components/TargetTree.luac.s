@@ -49,7 +49,7 @@ PROTO_3:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K9 [{"Instances", "Expansion", "Selection", "OnExpansionChange", "OnSelectionChange", "Size", "Style"}]
+        6 DUPTABLE                         R4 K10 [{["Instances"], ["Expansion"], ["Selection"], ["OnExpansionChange"], ["OnSelectionChange"], ["Size"], ["Style"] = "BorderBox"}]
         7 GETUPVAL                         R5 2
         8 GETTABLEKS                       R6 R1 K2 ["Instances"]
        10 CALL                             R5 1 1
@@ -58,21 +58,19 @@ PROTO_3:
        15 SETTABLEKS                       R5 R4 K3 ["Expansion"]
        17 NEWTABLE                         R5 0 0
        19 SETTABLEKS                       R5 R4 K4 ["Selection"]
-       21 GETTABLEKS                       R5 R1 K10 ["toggleTarget"]
+       21 GETTABLEKS                       R5 R1 K11 ["toggleTarget"]
        23 SETTABLEKS                       R5 R4 K5 ["OnExpansionChange"]
-       25 GETTABLEKS                       R5 R0 K11 ["onSelectTarget"]
+       25 GETTABLEKS                       R5 R0 K12 ["onSelectTarget"]
        27 SETTABLEKS                       R5 R4 K6 ["OnSelectionChange"]
-       29 GETIMPORT                        R5 K14 [UDim2.new]
+       29 GETIMPORT                        R5 K15 [UDim2.new]
        31 LOADN                            R6 1
        32 LOADN                            R7 0
        33 LOADN                            R8 1
        34 LOADN                            R9 0
        35 CALL                             R5 4 1
        36 SETTABLEKS                       R5 R4 K7 ["Size"]
-       38 LOADK                            R5 K15 ["BorderBox"]
-       39 SETTABLEKS                       R5 R4 K8 ["Style"]
-       41 CALL                             R2 2 -1
-       42 RETURN                           R2 -1
+       38 CALL                             R2 2 -1
+       39 RETURN                           R2 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K2 [{"Instances", "Expansion"}]

@@ -48,24 +48,20 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K13 [{"AllLanguages", "LocalesToLanguages", "CanManageTranslation", "CloudTableId"}]
+       25 DUPTABLE                         R4 K15 [{["AllLanguages"], ["LocalesToLanguages"], ["CanManageTranslation"] = , ["CloudTableId"] = ""}]
        26 NEWTABLE                         R5 0 0
        28 SETTABLEKS                       R5 R4 K9 ["AllLanguages"]
        30 NEWTABLE                         R5 0 0
        32 SETTABLEKS                       R5 R4 K10 ["LocalesToLanguages"]
-       34 LOADNIL                          R5
-       35 SETTABLEKS                       R5 R4 K11 ["CanManageTranslation"]
-       37 LOADK                            R5 K14 [""]
-       38 SETTABLEKS                       R5 R4 K12 ["CloudTableId"]
-       40 DUPTABLE                         R5 K18 [{"LoadLanguagesAndLocalesInfo", "LoadManageTranslationPermission", "SetCloudTableId"}]
-       41 DUPCLOSURE                       R6 K19 [PROTO_0]
-       42 CAPTURE                          VAL R1
-       43 SETTABLEKS                       R6 R5 K15 ["LoadLanguagesAndLocalesInfo"]
-       45 DUPCLOSURE                       R6 K20 [PROTO_1]
-       46 CAPTURE                          VAL R1
-       47 SETTABLEKS                       R6 R5 K16 ["LoadManageTranslationPermission"]
-       49 DUPCLOSURE                       R6 K21 [PROTO_2]
-       50 CAPTURE                          VAL R1
-       51 SETTABLEKS                       R6 R5 K17 ["SetCloudTableId"]
-       53 CALL                             R3 2 -1
-       54 RETURN                           R3 -1
+       34 DUPTABLE                         R5 K19 [{"LoadLanguagesAndLocalesInfo", "LoadManageTranslationPermission", "SetCloudTableId"}]
+       35 DUPCLOSURE                       R6 K20 [PROTO_0]
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R6 R5 K16 ["LoadLanguagesAndLocalesInfo"]
+       39 DUPCLOSURE                       R6 K21 [PROTO_1]
+       40 CAPTURE                          VAL R1
+       41 SETTABLEKS                       R6 R5 K17 ["LoadManageTranslationPermission"]
+       43 DUPCLOSURE                       R6 K22 [PROTO_2]
+       44 CAPTURE                          VAL R1
+       45 SETTABLEKS                       R6 R5 K18 ["SetCloudTableId"]
+       47 CALL                             R3 2 -1
+       48 RETURN                           R3 -1

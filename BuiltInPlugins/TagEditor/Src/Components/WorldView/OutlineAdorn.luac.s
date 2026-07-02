@@ -29,7 +29,7 @@ PROTO_0:
        47 GETUPVAL                         R1 0
        48 GETTABLEKS                       R1 R1 K3 ["createElement"]
        50 LOADK                            R2 K14 ["SelectionBox"]
-       51 DUPTABLE                         R3 K17 [{"LineThickness", "Adornee", "Color3", "StudioSelectionBox"}]
+       51 DUPTABLE                         R3 K18 [{["LineThickness"], [2], ["Color3"], ["StudioSelectionBox"] = True}]
        52 GETUPVAL                         R4 1
        53 GETTABLEKS                       R4 R4 K11 ["WorldView"]
        55 GETTABLEKS                       R4 R4 K12 ["OutlineAdorn"]
@@ -39,10 +39,8 @@ PROTO_0:
        63 SETTABLEKS                       R4 R3 K0 ["Adornee"]
        65 GETTABLEKS                       R4 R0 K13 ["Color"]
        67 SETTABLEKS                       R4 R3 K8 ["Color3"]
-       69 LOADB                            R4 1
-       70 SETTABLEKS                       R4 R3 K16 ["StudioSelectionBox"]
-       72 CALL                             R1 2 -1
-       73 RETURN                           R1 -1
+       69 CALL                             R1 2 -1
+       70 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

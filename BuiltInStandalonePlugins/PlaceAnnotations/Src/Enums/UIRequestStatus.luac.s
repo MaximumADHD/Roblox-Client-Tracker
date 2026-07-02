@@ -1,20 +1,4 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K8 [{"None", "InProgress", "Error", "ErrorModerated", "ErrorCreating", "ErrorResolving", "ErrorEditing", "ErrorDeleting"}]
-        2 LOADK                            R1 K0 ["None"]
-        3 SETTABLEKS                       R1 R0 K0 ["None"]
-        5 LOADK                            R1 K1 ["InProgress"]
-        6 SETTABLEKS                       R1 R0 K1 ["InProgress"]
-        8 LOADK                            R1 K2 ["Error"]
-        9 SETTABLEKS                       R1 R0 K2 ["Error"]
-       11 LOADK                            R1 K3 ["ErrorModerated"]
-       12 SETTABLEKS                       R1 R0 K3 ["ErrorModerated"]
-       14 LOADK                            R1 K4 ["ErrorCreating"]
-       15 SETTABLEKS                       R1 R0 K4 ["ErrorCreating"]
-       17 LOADK                            R1 K5 ["ErrorResolving"]
-       18 SETTABLEKS                       R1 R0 K5 ["ErrorResolving"]
-       20 LOADK                            R1 K6 ["ErrorEditing"]
-       21 SETTABLEKS                       R1 R0 K6 ["ErrorEditing"]
-       23 LOADK                            R1 K7 ["ErrorDeleting"]
-       24 SETTABLEKS                       R1 R0 K7 ["ErrorDeleting"]
-       26 RETURN                           R0 1
+        1 DUPTABLE                         R0 K8 [{[1] = "None", ["InProgress"] = "InProgress", ["Error"] = "Error", ["ErrorModerated"] = "ErrorModerated", ["ErrorCreating"] = "ErrorCreating", ["ErrorResolving"] = "ErrorResolving", ["ErrorEditing"] = "ErrorEditing", ["ErrorDeleting"] = "ErrorDeleting"}]
+        2 RETURN                           R0 1

@@ -68,91 +68,75 @@ PROTO_3:
        24 CAPTURE                          VAL R0
        25 SETTABLEKS                       R7 R6 K6 ["OnButtonPressed"]
        27 NEWTABLE                         R7 0 2
-       29 DUPTABLE                         R8 K16 [{"Key", "Text", "Style"}]
-       30 LOADK                            R9 K17 ["Save"]
-       31 SETTABLEKS                       R9 R8 K13 ["Key"]
-       33 LOADK                            R11 K10 ["ChooseRecordingNamePopUp"]
-       34 LOADK                            R12 K18 ["SaveButtonName"]
-       35 NAMECALL                         R9 R2 K11 ["getText"]
-       37 CALL                             R9 3 1
-       38 SETTABLEKS                       R9 R8 K14 ["Text"]
-       40 LOADK                            R9 K19 ["RoundPrimary"]
-       41 SETTABLEKS                       R9 R8 K15 ["Style"]
-       43 DUPTABLE                         R9 K16 [{"Key", "Text", "Style"}]
-       44 LOADK                            R10 K20 ["Cancel"]
-       45 SETTABLEKS                       R10 R9 K13 ["Key"]
-       47 LOADK                            R12 K10 ["ChooseRecordingNamePopUp"]
-       48 LOADK                            R13 K21 ["CancelButtonName"]
-       49 NAMECALL                         R10 R2 K11 ["getText"]
-       51 CALL                             R10 3 1
-       52 SETTABLEKS                       R10 R9 K14 ["Text"]
-       54 LOADK                            R10 K22 ["Round"]
-       55 SETTABLEKS                       R10 R9 K15 ["Style"]
-       57 SETLIST                          R7 R8 2 [1]
-       59 SETTABLEKS                       R7 R6 K7 ["Buttons"]
-       61 GETTABLEKS                       R7 R3 K23 ["ContentSize"]
-       63 SETTABLEKS                       R7 R6 K8 ["MinContentSize"]
-       65 DUPTABLE                         R7 K25 [{"Container"}]
-       66 GETUPVAL                         R8 0
-       67 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       69 GETUPVAL                         R9 2
-       70 DUPTABLE                         R10 K31 [{"Size", "Position", "Spacing", "Layout", "HorizontalAlignment"}]
-       71 GETTABLEKS                       R11 R3 K32 ["PanelSize"]
-       73 SETTABLEKS                       R11 R10 K26 ["Size"]
-       75 GETTABLEKS                       R11 R3 K33 ["PanelPosition"]
-       77 SETTABLEKS                       R11 R10 K27 ["Position"]
-       79 GETTABLEKS                       R11 R3 K34 ["PaddingPx"]
-       81 SETTABLEKS                       R11 R10 K28 ["Spacing"]
-       83 GETIMPORT                        R11 K38 [Enum.FillDirection.Vertical]
-       85 SETTABLEKS                       R11 R10 K29 ["Layout"]
-       87 GETIMPORT                        R11 K40 [Enum.HorizontalAlignment.Left]
-       89 SETTABLEKS                       R11 R10 K30 ["HorizontalAlignment"]
-       91 DUPTABLE                         R11 K43 [{"Message", "Input"}]
-       92 GETUPVAL                         R12 0
-       93 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       95 GETUPVAL                         R13 3
-       96 DUPTABLE                         R14 K47 [{"Size", "Text", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
-       97 GETTABLEKS                       R15 R3 K48 ["DialogMessageSize"]
-       99 SETTABLEKS                       R15 R14 K26 ["Size"]
-      101 LOADK                            R17 K10 ["ChooseRecordingNamePopUp"]
-      102 GETTABLEKS                       R18 R1 K49 ["MessageLocalizationKey"]
-      104 DUPTABLE                         R19 K51 [{"numBytes"}]
-      105 GETTABLEKS                       R21 R1 K52 ["MessageLocalizationArgs"]
-      107 GETTABLEN                        R20 R21 1
-      108 SETTABLEKS                       R20 R19 K50 ["numBytes"]
-      110 NAMECALL                         R15 R2 K11 ["getText"]
-      112 CALL                             R15 4 1
-      113 SETTABLEKS                       R15 R14 K14 ["Text"]
-      115 GETIMPORT                        R15 K53 [Enum.TextXAlignment.Left]
-      117 SETTABLEKS                       R15 R14 K44 ["TextXAlignment"]
-      119 LOADB                            R15 1
-      120 SETTABLEKS                       R15 R14 K45 ["TextWrapped"]
-      122 LOADN                            R15 1
-      123 SETTABLEKS                       R15 R14 K46 ["LayoutOrder"]
-      125 CALL                             R12 2 1
-      126 SETTABLEKS                       R12 R11 K41 ["Message"]
-      128 GETUPVAL                         R12 0
-      129 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      131 GETUPVAL                         R13 4
-      132 GETTABLEKS                       R13 R13 K54 ["TextInput"]
-      134 DUPTABLE                         R14 K57 [{"Size", "Text", "OnTextChanged", "PlaceholderText", "LayoutOrder"}]
-      135 GETTABLEKS                       R15 R3 K58 ["TextInputSize"]
-      137 SETTABLEKS                       R15 R14 K26 ["Size"]
-      139 GETTABLEKS                       R15 R0 K59 ["state"]
-      141 GETTABLEKS                       R15 R15 K60 ["dialogInputValue"]
-      143 SETTABLEKS                       R15 R14 K14 ["Text"]
-      145 GETTABLEKS                       R15 R0 K61 ["onTextInputChanged"]
-      147 SETTABLEKS                       R15 R14 K55 ["OnTextChanged"]
-      149 LOADK                            R15 K62 [""]
-      150 SETTABLEKS                       R15 R14 K56 ["PlaceholderText"]
-      152 LOADN                            R15 2
-      153 SETTABLEKS                       R15 R14 K46 ["LayoutOrder"]
-      155 CALL                             R12 2 1
-      156 SETTABLEKS                       R12 R11 K42 ["Input"]
-      158 CALL                             R8 3 1
-      159 SETTABLEKS                       R8 R7 K24 ["Container"]
-      161 CALL                             R4 3 -1
-      162 RETURN                           R4 -1
+       29 DUPTABLE                         R8 K18 [{["Key"] = "Save", ["Text"], ["Style"] = "RoundPrimary"}]
+       30 LOADK                            R11 K10 ["ChooseRecordingNamePopUp"]
+       31 LOADK                            R12 K19 ["SaveButtonName"]
+       32 NAMECALL                         R9 R2 K11 ["getText"]
+       34 CALL                             R9 3 1
+       35 SETTABLEKS                       R9 R8 K15 ["Text"]
+       37 DUPTABLE                         R9 K22 [{["Key"] = "Cancel", ["Text"], ["Style"] = "Round"}]
+       38 LOADK                            R12 K10 ["ChooseRecordingNamePopUp"]
+       39 LOADK                            R13 K23 ["CancelButtonName"]
+       40 NAMECALL                         R10 R2 K11 ["getText"]
+       42 CALL                             R10 3 1
+       43 SETTABLEKS                       R10 R9 K15 ["Text"]
+       45 SETLIST                          R7 R8 2 [1]
+       47 SETTABLEKS                       R7 R6 K7 ["Buttons"]
+       49 GETTABLEKS                       R7 R3 K24 ["ContentSize"]
+       51 SETTABLEKS                       R7 R6 K8 ["MinContentSize"]
+       53 DUPTABLE                         R7 K26 [{"Container"}]
+       54 GETUPVAL                         R8 0
+       55 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       57 GETUPVAL                         R9 2
+       58 DUPTABLE                         R10 K32 [{"Size", "Position", "Spacing", "Layout", "HorizontalAlignment"}]
+       59 GETTABLEKS                       R11 R3 K33 ["PanelSize"]
+       61 SETTABLEKS                       R11 R10 K27 ["Size"]
+       63 GETTABLEKS                       R11 R3 K34 ["PanelPosition"]
+       65 SETTABLEKS                       R11 R10 K28 ["Position"]
+       67 GETTABLEKS                       R11 R3 K35 ["PaddingPx"]
+       69 SETTABLEKS                       R11 R10 K29 ["Spacing"]
+       71 GETIMPORT                        R11 K39 [Enum.FillDirection.Vertical]
+       73 SETTABLEKS                       R11 R10 K30 ["Layout"]
+       75 GETIMPORT                        R11 K41 [Enum.HorizontalAlignment.Left]
+       77 SETTABLEKS                       R11 R10 K31 ["HorizontalAlignment"]
+       79 DUPTABLE                         R11 K44 [{"Message", "Input"}]
+       80 GETUPVAL                         R12 0
+       81 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       83 GETUPVAL                         R13 3
+       84 DUPTABLE                         R14 K50 [{["Size"], ["Text"], ["TextXAlignment"], ["TextWrapped"] = True, ["LayoutOrder"] = 1}]
+       85 GETTABLEKS                       R15 R3 K51 ["DialogMessageSize"]
+       87 SETTABLEKS                       R15 R14 K27 ["Size"]
+       89 LOADK                            R17 K10 ["ChooseRecordingNamePopUp"]
+       90 GETTABLEKS                       R18 R1 K52 ["MessageLocalizationKey"]
+       92 DUPTABLE                         R19 K54 [{"numBytes"}]
+       93 GETTABLEKS                       R21 R1 K55 ["MessageLocalizationArgs"]
+       95 GETTABLEN                        R20 R21 1
+       96 SETTABLEKS                       R20 R19 K53 ["numBytes"]
+       98 NAMECALL                         R15 R2 K11 ["getText"]
+      100 CALL                             R15 4 1
+      101 SETTABLEKS                       R15 R14 K15 ["Text"]
+      103 GETIMPORT                        R15 K56 [Enum.TextXAlignment.Left]
+      105 SETTABLEKS                       R15 R14 K45 ["TextXAlignment"]
+      107 CALL                             R12 2 1
+      108 SETTABLEKS                       R12 R11 K42 ["Message"]
+      110 GETUPVAL                         R12 0
+      111 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      113 GETUPVAL                         R13 4
+      114 GETTABLEKS                       R13 R13 K57 ["TextInput"]
+      116 DUPTABLE                         R14 K62 [{["Size"], ["Text"], ["OnTextChanged"], ["PlaceholderText"] = "", ["LayoutOrder"] = 2}]
+      117 GETTABLEKS                       R15 R3 K63 ["TextInputSize"]
+      119 SETTABLEKS                       R15 R14 K27 ["Size"]
+      121 GETTABLEKS                       R15 R0 K64 ["state"]
+      123 GETTABLEKS                       R15 R15 K65 ["dialogInputValue"]
+      125 SETTABLEKS                       R15 R14 K15 ["Text"]
+      127 GETTABLEKS                       R15 R0 K66 ["onTextInputChanged"]
+      129 SETTABLEKS                       R15 R14 K58 ["OnTextChanged"]
+      131 CALL                             R12 2 1
+      132 SETTABLEKS                       R12 R11 K43 ["Input"]
+      134 CALL                             R8 3 1
+      135 SETTABLEKS                       R8 R7 K25 ["Container"]
+      137 CALL                             R4 3 -1
+      138 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

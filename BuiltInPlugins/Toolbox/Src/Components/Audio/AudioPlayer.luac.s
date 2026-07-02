@@ -136,31 +136,27 @@ PROTO_7:
        16 CALL                             R2 1 2
        17 SETTABLEKS                       R2 R0 K4 ["elapsedTime"]
        19 SETTABLEKS                       R3 R0 K5 ["updateElapsedTime"]
-       21 DUPTABLE                         R2 K8 [{"isLoaded", "totalTime"}]
-       22 LOADB                            R3 0
-       23 SETTABLEKS                       R3 R2 K6 ["isLoaded"]
-       25 LOADN                            R3 0
-       26 SETTABLEKS                       R3 R2 K7 ["totalTime"]
-       28 SETTABLEKS                       R2 R0 K9 ["state"]
-       30 NEWCLOSURE                       R2 P0
-       31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R2 R0 K10 ["onSoundChange"]
-       34 NEWCLOSURE                       R2 P1
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R2 R0 K11 ["calculateTimePosition"]
-       38 NEWCLOSURE                       R2 P2
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R2 R0 K12 ["handleIndicatorEvent"]
-       42 NEWCLOSURE                       R2 P3
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R2 R0 K13 ["updateTimePosition"]
-       46 NEWCLOSURE                       R2 P4
-       47 CAPTURE                          VAL R1
-       48 SETTABLEKS                       R2 R0 K14 ["onSoundEnded"]
-       50 NEWCLOSURE                       R2 P5
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R2 R0 K15 ["getCurrentTimeProgress"]
-       54 RETURN                           R0 0
+       21 DUPTABLE                         R2 K10 [{["isLoaded"] = False, ["totalTime"] = 0}]
+       22 SETTABLEKS                       R2 R0 K11 ["state"]
+       24 NEWCLOSURE                       R2 P0
+       25 CAPTURE                          VAL R0
+       26 SETTABLEKS                       R2 R0 K12 ["onSoundChange"]
+       28 NEWCLOSURE                       R2 P1
+       29 CAPTURE                          VAL R0
+       30 SETTABLEKS                       R2 R0 K13 ["calculateTimePosition"]
+       32 NEWCLOSURE                       R2 P2
+       33 CAPTURE                          VAL R0
+       34 SETTABLEKS                       R2 R0 K14 ["handleIndicatorEvent"]
+       36 NEWCLOSURE                       R2 P3
+       37 CAPTURE                          VAL R0
+       38 SETTABLEKS                       R2 R0 K15 ["updateTimePosition"]
+       40 NEWCLOSURE                       R2 P4
+       41 CAPTURE                          VAL R1
+       42 SETTABLEKS                       R2 R0 K16 ["onSoundEnded"]
+       44 NEWCLOSURE                       R2 P5
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R2 R0 K17 ["getCurrentTimeProgress"]
+       48 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -372,147 +368,143 @@ PROTO_16:
       108 GETUPVAL                         R13 0
       109 GETTABLEKS                       R13 R13 K9 ["createElement"]
       111 LOADK                            R14 K10 ["Frame"]
-      112 DUPTABLE                         R15 K37 [{"BackgroundColor3", "Size", "ZIndex"}]
-      113 GETTABLEKS                       R16 R6 K38 ["progressBarColor"]
+      112 DUPTABLE                         R15 K38 [{["BackgroundColor3"], ["Size"], ["ZIndex"] = 1}]
+      113 GETTABLEKS                       R16 R6 K39 ["progressBarColor"]
       115 SETTABLEKS                       R16 R15 K16 ["BackgroundColor3"]
       117 SETTABLEKS                       R7 R15 K14 ["Size"]
-      119 LOADN                            R16 1
-      120 SETTABLEKS                       R16 R15 K36 ["ZIndex"]
-      122 GETUPVAL                         R16 0
-      123 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      125 LOADK                            R17 K23 ["UICorner"]
-      126 DUPTABLE                         R18 K40 [{"CornerRadius"}]
-      127 GETIMPORT                        R19 K42 [UDim.new]
-      129 LOADN                            R20 0
-      130 LOADN                            R21 4
-      131 CALL                             R19 2 1
-      132 SETTABLEKS                       R19 R18 K39 ["CornerRadius"]
-      134 CALL                             R16 2 -1
-      135 CALL                             R13 -1 1
-      136 SETTABLEKS                       R13 R12 K20 ["ProgressBar"]
-      138 GETUPVAL                         R13 0
-      139 GETTABLEKS                       R13 R13 K9 ["createElement"]
-      141 LOADK                            R14 K10 ["Frame"]
-      142 NEWTABLE                         R15 8 0
-      144 GETTABLEKS                       R16 R6 K43 ["indicatorColor"]
-      146 SETTABLEKS                       R16 R15 K16 ["BackgroundColor3"]
-      148 GETIMPORT                        R16 K13 [UDim2.new]
-      150 LOADN                            R17 0
-      151 LOADN                            R18 12
-      152 LOADN                            R19 0
-      153 LOADN                            R20 12
-      154 CALL                             R16 4 1
-      155 SETTABLEKS                       R16 R15 K14 ["Size"]
-      157 GETIMPORT                        R16 K29 [Vector2.new]
-      159 LOADK                            R17 K30 [0.5]
-      160 LOADK                            R18 K30 [0.5]
-      161 CALL                             R16 2 1
-      162 SETTABLEKS                       R16 R15 K31 ["AnchorPoint"]
-      164 SETTABLEKS                       R8 R15 K32 ["Position"]
-      166 LOADN                            R16 3
-      167 SETTABLEKS                       R16 R15 K36 ["ZIndex"]
-      169 GETUPVAL                         R16 0
-      170 GETTABLEKS                       R16 R16 K33 ["Event"]
-      172 GETTABLEKS                       R16 R16 K44 ["InputBegan"]
-      174 NEWCLOSURE                       R17 P4
-      175 CAPTURE                          VAL R0
-      176 SETTABLE                         R17 R15 R16
-      177 DUPTABLE                         R16 K40 [{"CornerRadius"}]
-      178 GETUPVAL                         R17 0
-      179 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      181 LOADK                            R18 K23 ["UICorner"]
-      182 DUPTABLE                         R19 K40 [{"CornerRadius"}]
-      183 GETIMPORT                        R20 K42 [UDim.new]
-      185 LOADN                            R21 0
-      186 LOADN                            R22 12
-      187 CALL                             R20 2 1
-      188 SETTABLEKS                       R20 R19 K39 ["CornerRadius"]
-      190 CALL                             R17 2 1
-      191 SETTABLEKS                       R17 R16 K39 ["CornerRadius"]
-      193 CALL                             R13 3 1
-      194 SETTABLEKS                       R13 R12 K21 ["ProgressIndicator"]
-      196 GETUPVAL                         R13 0
-      197 GETTABLEKS                       R13 R13 K9 ["createElement"]
-      199 LOADK                            R14 K10 ["Frame"]
-      200 DUPTABLE                         R15 K45 [{"BackgroundColor3", "Size", "AnchorPoint", "Position", "ZIndex"}]
-      201 GETTABLEKS                       R16 R6 K46 ["indicatorBorderColor"]
-      203 SETTABLEKS                       R16 R15 K16 ["BackgroundColor3"]
-      205 GETIMPORT                        R16 K13 [UDim2.new]
-      207 LOADN                            R17 0
-      208 LOADN                            R18 14
-      209 LOADN                            R19 0
-      210 LOADN                            R20 14
-      211 CALL                             R16 4 1
-      212 SETTABLEKS                       R16 R15 K14 ["Size"]
-      214 GETIMPORT                        R16 K29 [Vector2.new]
-      216 LOADK                            R17 K30 [0.5]
-      217 LOADK                            R18 K30 [0.5]
-      218 CALL                             R16 2 1
-      219 SETTABLEKS                       R16 R15 K31 ["AnchorPoint"]
-      221 SETTABLEKS                       R8 R15 K32 ["Position"]
-      223 LOADN                            R16 2
-      224 SETTABLEKS                       R16 R15 K36 ["ZIndex"]
-      226 DUPTABLE                         R16 K47 [{"UICorner"}]
-      227 GETUPVAL                         R17 0
-      228 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      230 LOADK                            R18 K23 ["UICorner"]
-      231 DUPTABLE                         R19 K40 [{"CornerRadius"}]
-      232 GETIMPORT                        R20 K42 [UDim.new]
-      234 LOADN                            R21 0
-      235 LOADN                            R22 14
-      236 CALL                             R20 2 1
-      237 SETTABLEKS                       R20 R19 K39 ["CornerRadius"]
-      239 CALL                             R17 2 1
-      240 SETTABLEKS                       R17 R16 K23 ["UICorner"]
-      242 CALL                             R13 3 1
-      243 SETTABLEKS                       R13 R12 K22 ["ProgressIndicatorBorder"]
-      245 GETUPVAL                         R13 0
-      246 GETTABLEKS                       R13 R13 K9 ["createElement"]
-      248 LOADK                            R14 K23 ["UICorner"]
-      249 DUPTABLE                         R15 K40 [{"CornerRadius"}]
-      250 GETIMPORT                        R16 K42 [UDim.new]
-      252 LOADN                            R17 4
-      253 LOADN                            R18 4
-      254 CALL                             R16 2 1
-      255 SETTABLEKS                       R16 R15 K39 ["CornerRadius"]
-      257 CALL                             R13 2 1
-      258 SETTABLEKS                       R13 R12 K23 ["UICorner"]
-      260 GETUPVAL                         R13 0
-      261 GETTABLEKS                       R13 R13 K9 ["createElement"]
-      263 LOADK                            R14 K24 ["Sound"]
-      264 NEWTABLE                         R15 8 0
+      119 GETUPVAL                         R16 0
+      120 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      122 LOADK                            R17 K23 ["UICorner"]
+      123 DUPTABLE                         R18 K41 [{"CornerRadius"}]
+      124 GETIMPORT                        R19 K43 [UDim.new]
+      126 LOADN                            R20 0
+      127 LOADN                            R21 4
+      128 CALL                             R19 2 1
+      129 SETTABLEKS                       R19 R18 K40 ["CornerRadius"]
+      131 CALL                             R16 2 -1
+      132 CALL                             R13 -1 1
+      133 SETTABLEKS                       R13 R12 K20 ["ProgressBar"]
+      135 GETUPVAL                         R13 0
+      136 GETTABLEKS                       R13 R13 K9 ["createElement"]
+      138 LOADK                            R14 K10 ["Frame"]
+      139 NEWTABLE                         R15 8 0
+      141 GETTABLEKS                       R16 R6 K44 ["indicatorColor"]
+      143 SETTABLEKS                       R16 R15 K16 ["BackgroundColor3"]
+      145 GETIMPORT                        R16 K13 [UDim2.new]
+      147 LOADN                            R17 0
+      148 LOADN                            R18 12
+      149 LOADN                            R19 0
+      150 LOADN                            R20 12
+      151 CALL                             R16 4 1
+      152 SETTABLEKS                       R16 R15 K14 ["Size"]
+      154 GETIMPORT                        R16 K29 [Vector2.new]
+      156 LOADK                            R17 K30 [0.5]
+      157 LOADK                            R18 K30 [0.5]
+      158 CALL                             R16 2 1
+      159 SETTABLEKS                       R16 R15 K31 ["AnchorPoint"]
+      161 SETTABLEKS                       R8 R15 K32 ["Position"]
+      163 LOADN                            R16 3
+      164 SETTABLEKS                       R16 R15 K36 ["ZIndex"]
+      166 GETUPVAL                         R16 0
+      167 GETTABLEKS                       R16 R16 K33 ["Event"]
+      169 GETTABLEKS                       R16 R16 K45 ["InputBegan"]
+      171 NEWCLOSURE                       R17 P4
+      172 CAPTURE                          VAL R0
+      173 SETTABLE                         R17 R15 R16
+      174 DUPTABLE                         R16 K41 [{"CornerRadius"}]
+      175 GETUPVAL                         R17 0
+      176 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      178 LOADK                            R18 K23 ["UICorner"]
+      179 DUPTABLE                         R19 K41 [{"CornerRadius"}]
+      180 GETIMPORT                        R20 K43 [UDim.new]
+      182 LOADN                            R21 0
+      183 LOADN                            R22 12
+      184 CALL                             R20 2 1
+      185 SETTABLEKS                       R20 R19 K40 ["CornerRadius"]
+      187 CALL                             R17 2 1
+      188 SETTABLEKS                       R17 R16 K40 ["CornerRadius"]
+      190 CALL                             R13 3 1
+      191 SETTABLEKS                       R13 R12 K21 ["ProgressIndicator"]
+      193 GETUPVAL                         R13 0
+      194 GETTABLEKS                       R13 R13 K9 ["createElement"]
+      196 LOADK                            R14 K10 ["Frame"]
+      197 DUPTABLE                         R15 K47 [{["BackgroundColor3"], ["Size"], ["AnchorPoint"], ["Position"], ["ZIndex"] = 2}]
+      198 GETTABLEKS                       R16 R6 K48 ["indicatorBorderColor"]
+      200 SETTABLEKS                       R16 R15 K16 ["BackgroundColor3"]
+      202 GETIMPORT                        R16 K13 [UDim2.new]
+      204 LOADN                            R17 0
+      205 LOADN                            R18 14
+      206 LOADN                            R19 0
+      207 LOADN                            R20 14
+      208 CALL                             R16 4 1
+      209 SETTABLEKS                       R16 R15 K14 ["Size"]
+      211 GETIMPORT                        R16 K29 [Vector2.new]
+      213 LOADK                            R17 K30 [0.5]
+      214 LOADK                            R18 K30 [0.5]
+      215 CALL                             R16 2 1
+      216 SETTABLEKS                       R16 R15 K31 ["AnchorPoint"]
+      218 SETTABLEKS                       R8 R15 K32 ["Position"]
+      220 DUPTABLE                         R16 K49 [{"UICorner"}]
+      221 GETUPVAL                         R17 0
+      222 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      224 LOADK                            R18 K23 ["UICorner"]
+      225 DUPTABLE                         R19 K41 [{"CornerRadius"}]
+      226 GETIMPORT                        R20 K43 [UDim.new]
+      228 LOADN                            R21 0
+      229 LOADN                            R22 14
+      230 CALL                             R20 2 1
+      231 SETTABLEKS                       R20 R19 K40 ["CornerRadius"]
+      233 CALL                             R17 2 1
+      234 SETTABLEKS                       R17 R16 K23 ["UICorner"]
+      236 CALL                             R13 3 1
+      237 SETTABLEKS                       R13 R12 K22 ["ProgressIndicatorBorder"]
+      239 GETUPVAL                         R13 0
+      240 GETTABLEKS                       R13 R13 K9 ["createElement"]
+      242 LOADK                            R14 K23 ["UICorner"]
+      243 DUPTABLE                         R15 K41 [{"CornerRadius"}]
+      244 GETIMPORT                        R16 K43 [UDim.new]
+      246 LOADN                            R17 4
+      247 LOADN                            R18 4
+      248 CALL                             R16 2 1
+      249 SETTABLEKS                       R16 R15 K40 ["CornerRadius"]
+      251 CALL                             R13 2 1
+      252 SETTABLEKS                       R13 R12 K23 ["UICorner"]
+      254 GETUPVAL                         R13 0
+      255 GETTABLEKS                       R13 R13 K9 ["createElement"]
+      257 LOADK                            R14 K24 ["Sound"]
+      258 NEWTABLE                         R15 8 0
+      260 GETUPVAL                         R16 0
+      261 GETTABLEKS                       R16 R16 K17 ["Ref"]
+      263 GETTABLEKS                       R17 R0 K50 ["audioRef"]
+      265 SETTABLE                         R17 R15 R16
       266 GETUPVAL                         R16 0
-      267 GETTABLEKS                       R16 R16 K17 ["Ref"]
-      269 GETTABLEKS                       R17 R0 K48 ["audioRef"]
-      271 SETTABLE                         R17 R15 R16
-      272 GETUPVAL                         R16 0
-      273 GETTABLEKS                       R16 R16 K33 ["Event"]
-      275 GETTABLEKS                       R16 R16 K49 ["Changed"]
-      277 GETTABLEKS                       R17 R0 K50 ["onSoundChange"]
-      279 SETTABLE                         R17 R15 R16
-      280 GETUPVAL                         R16 0
-      281 GETTABLEKS                       R16 R16 K33 ["Event"]
-      283 GETTABLEKS                       R16 R16 K51 ["Ended"]
-      285 GETTABLEKS                       R17 R0 K52 ["onSoundEnded"]
-      287 SETTABLE                         R17 R15 R16
-      288 GETUPVAL                         R16 1
-      289 GETTABLEKS                       R16 R16 K53 ["constructAssetIdString"]
-      291 MOVE                             R17 R5
-      292 CALL                             R16 1 1
-      293 SETTABLEKS                       R16 R15 K4 ["SoundId"]
-      295 GETTABLEKS                       R17 R2 K54 ["indicatorPosition"]
-      297 NOT                              R16 R17
-      298 JUMPIFNOT                        R16 ; [+3]
-      299 MOVE                             R16 R3
-      300 JUMPIFNOT                        R16 ; [+1]
-      301 MOVE                             R16 R4
-      302 SETTABLEKS                       R16 R15 K55 ["Playing"]
-      304 GETIMPORT                        R16 K59 [Enum.UsageContext.Preview]
-      306 SETTABLEKS                       R16 R15 K60 ["UsageContextPermission"]
-      308 CALL                             R13 2 1
-      309 SETTABLEKS                       R13 R12 K24 ["Sound"]
-      311 CALL                             R9 3 -1
-      312 RETURN                           R9 -1
+      267 GETTABLEKS                       R16 R16 K33 ["Event"]
+      269 GETTABLEKS                       R16 R16 K51 ["Changed"]
+      271 GETTABLEKS                       R17 R0 K52 ["onSoundChange"]
+      273 SETTABLE                         R17 R15 R16
+      274 GETUPVAL                         R16 0
+      275 GETTABLEKS                       R16 R16 K33 ["Event"]
+      277 GETTABLEKS                       R16 R16 K53 ["Ended"]
+      279 GETTABLEKS                       R17 R0 K54 ["onSoundEnded"]
+      281 SETTABLE                         R17 R15 R16
+      282 GETUPVAL                         R16 1
+      283 GETTABLEKS                       R16 R16 K55 ["constructAssetIdString"]
+      285 MOVE                             R17 R5
+      286 CALL                             R16 1 1
+      287 SETTABLEKS                       R16 R15 K4 ["SoundId"]
+      289 GETTABLEKS                       R17 R2 K56 ["indicatorPosition"]
+      291 NOT                              R16 R17
+      292 JUMPIFNOT                        R16 ; [+3]
+      293 MOVE                             R16 R3
+      294 JUMPIFNOT                        R16 ; [+1]
+      295 MOVE                             R16 R4
+      296 SETTABLEKS                       R16 R15 K57 ["Playing"]
+      298 GETIMPORT                        R16 K61 [Enum.UsageContext.Preview]
+      300 SETTABLEKS                       R16 R15 K62 ["UsageContextPermission"]
+      302 CALL                             R13 2 1
+      303 SETTABLEKS                       R13 R12 K24 ["Sound"]
+      305 CALL                             R9 3 -1
+      306 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

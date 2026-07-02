@@ -37,14 +37,12 @@ PROTO_1:
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
         8 GETTABLEKS                       R3 R3 K2 ["View"]
-       10 DUPTABLE                         R4 K5 [{"LayoutOrder", "tag"}]
+       10 DUPTABLE                         R4 K6 [{["LayoutOrder"], ["tag"] = "row wrap flex-x-none align-x-center gap-small position-bottom-left anchor-bottom-left size-full-0 auto-y padding-bottom-medium"}]
        11 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
        13 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-       15 LOADK                            R5 K6 ["row gap-small wrap flex-x-none size-full-0 auto-y align-x-center anchor-bottom-left position-bottom-left padding-bottom-medium"]
-       16 SETTABLEKS                       R5 R4 K4 ["tag"]
-       18 MOVE                             R5 R1
-       19 CALL                             R2 3 -1
-       20 RETURN                           R2 -1
+       15 MOVE                             R5 R1
+       16 CALL                             R2 3 -1
+       17 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

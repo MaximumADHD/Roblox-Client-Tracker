@@ -82,7 +82,7 @@ PROTO_0:
       111 DUPTABLE                         R21 K30 [{"Size"}]
       112 GETIMPORT                        R22 K25 [UDim2.new]
       114 LOADN                            R23 1
-      115 LOADN                            R24 16
+      115 LOADN                            R24 -240
       116 LOADN                            R25 1
       117 LOADN                            R26 0
       118 CALL                             R22 4 1
@@ -117,38 +117,34 @@ PROTO_0:
       158 GETUPVAL                         R19 1
       159 GETTABLEKS                       R19 R19 K8 ["createElement"]
       161 GETUPVAL                         R20 8
-      162 DUPTABLE                         R21 K47 [{"Min", "Max", "SnapIncrement", "Value", "ShowInput", "OnValueChanged", "Size"}]
-      163 LOADK                            R23 K48 [0.1]
+      162 DUPTABLE                         R21 K49 [{["Min"], ["Max"], ["SnapIncrement"] = 0.1, ["Value"], ["ShowInput"] = True, ["OnValueChanged"], ["Size"]}]
+      163 LOADK                            R23 K44 [0.1]
       164 FASTCALL2                        MATH_MIN R23 R4 ; [+4]
       166 MOVE                             R24 R4
-      167 GETIMPORT                        R22 K51 [math.min]
+      167 GETIMPORT                        R22 K52 [math.min]
       169 CALL                             R22 2 1
       170 SETTABLEKS                       R22 R21 K41 ["Min"]
       172 LOADN                            R23 12
       173 FASTCALL2                        MATH_MAX R23 R4 ; [+4]
       175 MOVE                             R24 R4
-      176 GETIMPORT                        R22 K53 [math.max]
+      176 GETIMPORT                        R22 K54 [math.max]
       178 CALL                             R22 2 1
       179 SETTABLEKS                       R22 R21 K42 ["Max"]
-      181 LOADK                            R22 K48 [0.1]
-      182 SETTABLEKS                       R22 R21 K43 ["SnapIncrement"]
-      184 SETTABLEKS                       R4 R21 K44 ["Value"]
-      186 LOADB                            R22 1
-      187 SETTABLEKS                       R22 R21 K45 ["ShowInput"]
-      189 SETTABLEKS                       R5 R21 K46 ["OnValueChanged"]
-      191 GETIMPORT                        R22 K55 [UDim2.fromOffset]
-      193 LOADN                            R23 230
-      194 LOADN                            R24 26
-      195 CALL                             R22 2 1
-      196 SETTABLEKS                       R22 R21 K26 ["Size"]
-      198 CALL                             R19 2 1
-      199 SETTABLEKS                       R19 R18 K28 ["Slider"]
-      201 CALL                             R15 3 1
-      202 SETTABLEKS                       R15 R14 K21 ["Contents"]
-      204 CALL                             R11 3 1
-      205 SETTABLEKS                       R11 R10 K13 ["ConstraintScale"]
-      207 CALL                             R7 3 -1
-      208 RETURN                           R7 -1
+      181 SETTABLEKS                       R4 R21 K45 ["Value"]
+      183 SETTABLEKS                       R5 R21 K48 ["OnValueChanged"]
+      185 GETIMPORT                        R22 K56 [UDim2.fromOffset]
+      187 LOADN                            R23 230
+      188 LOADN                            R24 26
+      189 CALL                             R22 2 1
+      190 SETTABLEKS                       R22 R21 K26 ["Size"]
+      192 CALL                             R19 2 1
+      193 SETTABLEKS                       R19 R18 K28 ["Slider"]
+      195 CALL                             R15 3 1
+      196 SETTABLEKS                       R15 R14 K21 ["Contents"]
+      198 CALL                             R11 3 1
+      199 SETTABLEKS                       R11 R10 K13 ["ConstraintScale"]
+      201 CALL                             R7 3 -1
+      202 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

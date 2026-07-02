@@ -73,97 +73,85 @@ PROTO_3:
         8 RETURN                           R1 1
 
 PROTO_4:
-        0 DUPTABLE                         R3 K3 [{"X", "Y", "Z"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["X"]
-        4 LOADB                            R4 1
-        5 SETTABLEKS                       R4 R3 K1 ["Y"]
-        7 LOADB                            R4 1
-        8 SETTABLEKS                       R4 R3 K2 ["Z"]
-       10 GETUPVAL                         R5 0
-       11 CALL                             R5 0 1
-       12 JUMPIFNOT                        R5 ; [+6]
-       13 GETTABLEKS                       R4 R0 K4 ["_draggerContext"]
-       15 NAMECALL                         R4 R4 K5 ["isAltKeyDown"]
-       17 CALL                             R4 1 1
-       18 JUMP                             ; [+5]
-       19 GETTABLEKS                       R4 R0 K4 ["_draggerContext"]
-       21 NAMECALL                         R4 R4 K6 ["isShiftKeyDown"]
-       23 CALL                             R4 1 1
-       24 JUMPIFNOT                        R4 ; [+1]
-       25 RETURN                           R3 1
-       26 NAMECALL                         R4 R1 K7 ["getRootModelMapping"]
-       28 CALL                             R4 1 1
-       29 GETTABLEKS                       R6 R4 K8 ["LoosePartMap"]
-       31 LOADN                            R7 0
-       32 MOVE                             R8 R6
-       33 LOADNIL                          R9
-       34 LOADNIL                          R10
-       35 FORGPREP                         R8
-       36 ADDK                             R7 R7 K9 [1]
-       37 FORGLOOP                         R8 1 ; [-2]
-       39 MOVE                             R5 R7
-       40 GETUPVAL                         R6 1
-       41 JUMPIFNOT                        R6 ; [+25]
-       42 LOADN                            R6 0
-       43 LOADN                            R7 0
-       44 GETTABLEKS                       R8 R4 K10 ["RootModelMap"]
-       46 LOADNIL                          R9
-       47 LOADNIL                          R10
-       48 FORGPREP                         R8
-       49 LOADK                            R15 K11 ["ProceduralModel"]
-       50 NAMECALL                         R13 R11 K12 ["IsA"]
-       52 CALL                             R13 2 1
-       53 JUMPIFNOT                        R13 ; [+2]
-       54 ADDK                             R7 R7 K9 [1]
-       55 JUMP                             ; [+1]
-       56 ADDK                             R6 R6 K9 [1]
-       57 FORGLOOP                         R8 1 ; [-9]
-       59 LOADN                            R8 0
-       60 JUMPIFLT                         R8 R6 ; [+4]
-       62 LOADN                            R8 1
-       63 JUMPIFNOTLT                      R8 R5 ; [+21]
-       65 RETURN                           R3 1
-       66 JUMP                             ; [+18]
-       67 GETTABLEKS                       R7 R4 K10 ["RootModelMap"]
-       69 LOADN                            R8 0
-       70 MOVE                             R9 R7
-       71 LOADNIL                          R10
-       72 LOADNIL                          R11
-       73 FORGPREP                         R9
-       74 ADDK                             R8 R8 K9 [1]
-       75 FORGLOOP                         R9 1 ; [-2]
-       77 MOVE                             R6 R8
-       78 LOADN                            R7 0
-       79 JUMPIFLT                         R7 R6 ; [+4]
-       81 LOADN                            R7 1
-       82 JUMPIFNOTLT                      R7 R5 ; [+2]
-       84 RETURN                           R3 1
-       85 GETIMPORT                        R6 K14 [next]
-       87 GETTABLEKS                       R7 R4 K8 ["LoosePartMap"]
-       89 CALL                             R6 1 1
-       90 JUMPIFNOT                        R6 ; [+12]
-       91 LOADK                            R9 K15 ["Part"]
-       92 NAMECALL                         R7 R6 K12 ["IsA"]
-       94 CALL                             R7 2 1
-       95 JUMPIFNOT                        R7 ; [+7]
-       96 GETTABLEKS                       R7 R6 K16 ["Shape"]
-       98 GETIMPORT                        R8 K20 [Enum.PartType.Ball]
-      100 JUMPIFNOTEQ                      R7 R8 ; [+2]
-      102 RETURN                           R3 1
-      103 NEWTABLE                         R7 0 3
-      105 DUPTABLE                         R8 K21 [{"X"}]
-      106 LOADB                            R9 1
-      107 SETTABLEKS                       R9 R8 K0 ["X"]
-      109 DUPTABLE                         R9 K22 [{"Y"}]
-      110 LOADB                            R10 1
-      111 SETTABLEKS                       R10 R9 K1 ["Y"]
-      113 DUPTABLE                         R10 K23 [{"Z"}]
-      114 LOADB                            R11 1
-      115 SETTABLEKS                       R11 R10 K2 ["Z"]
-      117 SETLIST                          R7 R8 3 [1]
-      119 GETTABLE                         R8 R7 R2
-      120 RETURN                           R8 1
+        0 DUPTABLE                         R3 K4 [{[1] = True, ["Y"] = True, ["Z"] = True}]
+        1 GETUPVAL                         R5 0
+        2 CALL                             R5 0 1
+        3 JUMPIFNOT                        R5 ; [+6]
+        4 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
+        6 NAMECALL                         R4 R4 K6 ["isAltKeyDown"]
+        8 CALL                             R4 1 1
+        9 JUMP                             ; [+5]
+       10 GETTABLEKS                       R4 R0 K5 ["_draggerContext"]
+       12 NAMECALL                         R4 R4 K7 ["isShiftKeyDown"]
+       14 CALL                             R4 1 1
+       15 JUMPIFNOT                        R4 ; [+1]
+       16 RETURN                           R3 1
+       17 NAMECALL                         R4 R1 K8 ["getRootModelMapping"]
+       19 CALL                             R4 1 1
+       20 GETTABLEKS                       R6 R4 K9 ["LoosePartMap"]
+       22 LOADN                            R7 0
+       23 MOVE                             R8 R6
+       24 LOADNIL                          R9
+       25 LOADNIL                          R10
+       26 FORGPREP                         R8
+       27 ADDK                             R7 R7 K10 [1]
+       28 FORGLOOP                         R8 1 ; [-2]
+       30 MOVE                             R5 R7
+       31 GETUPVAL                         R6 1
+       32 JUMPIFNOT                        R6 ; [+25]
+       33 LOADN                            R6 0
+       34 LOADN                            R7 0
+       35 GETTABLEKS                       R8 R4 K11 ["RootModelMap"]
+       37 LOADNIL                          R9
+       38 LOADNIL                          R10
+       39 FORGPREP                         R8
+       40 LOADK                            R15 K12 ["ProceduralModel"]
+       41 NAMECALL                         R13 R11 K13 ["IsA"]
+       43 CALL                             R13 2 1
+       44 JUMPIFNOT                        R13 ; [+2]
+       45 ADDK                             R7 R7 K10 [1]
+       46 JUMP                             ; [+1]
+       47 ADDK                             R6 R6 K10 [1]
+       48 FORGLOOP                         R8 1 ; [-9]
+       50 LOADN                            R8 0
+       51 JUMPIFLT                         R8 R6 ; [+4]
+       53 LOADN                            R8 1
+       54 JUMPIFNOTLT                      R8 R5 ; [+21]
+       56 RETURN                           R3 1
+       57 JUMP                             ; [+18]
+       58 GETTABLEKS                       R7 R4 K11 ["RootModelMap"]
+       60 LOADN                            R8 0
+       61 MOVE                             R9 R7
+       62 LOADNIL                          R10
+       63 LOADNIL                          R11
+       64 FORGPREP                         R9
+       65 ADDK                             R8 R8 K10 [1]
+       66 FORGLOOP                         R9 1 ; [-2]
+       68 MOVE                             R6 R8
+       69 LOADN                            R7 0
+       70 JUMPIFLT                         R7 R6 ; [+4]
+       72 LOADN                            R7 1
+       73 JUMPIFNOTLT                      R7 R5 ; [+2]
+       75 RETURN                           R3 1
+       76 GETIMPORT                        R6 K15 [next]
+       78 GETTABLEKS                       R7 R4 K9 ["LoosePartMap"]
+       80 CALL                             R6 1 1
+       81 JUMPIFNOT                        R6 ; [+12]
+       82 LOADK                            R9 K16 ["Part"]
+       83 NAMECALL                         R7 R6 K13 ["IsA"]
+       85 CALL                             R7 2 1
+       86 JUMPIFNOT                        R7 ; [+7]
+       87 GETTABLEKS                       R7 R6 K17 ["Shape"]
+       89 GETIMPORT                        R8 K21 [Enum.PartType.Ball]
+       91 JUMPIFNOTEQ                      R7 R8 ; [+2]
+       93 RETURN                           R3 1
+       94 NEWTABLE                         R7 0 3
+       96 DUPTABLE                         R8 K22 [{[1] = True}]
+       97 DUPTABLE                         R9 K23 [{["Y"] = True}]
+       98 DUPTABLE                         R10 K24 [{["Z"] = True}]
+       99 SETLIST                          R7 R8 3 [1]
+      101 GETTABLE                         R8 R7 R2
+      102 RETURN                           R8 1
 
 PROTO_5:
         0 GETUPVAL                         R4 0
@@ -178,7 +166,7 @@ PROTO_5:
        11 CALL                             R6 1 1
        12 GETUPVAL                         R7 1
        13 GETUPVAL                         R8 2
-       14 LOADN                            R9 0
+       14 LOADN                            R9 2048
        15 LOADK                            R10 K5 [0.001]
        16 LENGTH                           R11 R6
        17 JUMPIFNOTEQKN                    R11 K6 [1] ; [+9]
@@ -187,7 +175,7 @@ PROTO_5:
        21 NAMECALL                         R11 R11 K8 ["IsA"]
        23 CALL                             R11 2 1
        24 JUMPIFNOT                        R11 ; [+2]
-       25 LOADN                            R9 0
+       25 LOADN                            R9 512
        26 LOADN                            R10 2
        27 GETIMPORT                        R11 K10 [ipairs]
        29 MOVE                             R12 R6
@@ -455,7 +443,7 @@ PROTO_9:
        43 NAMECALL                         R10 R10 K12 ["getMaxSoftSnaps"]
        45 CALL                             R10 1 1
        46 NEWTABLE                         R11 0 2
-       48 LOADN                            R12 255
+       48 LOADN                            R12 -1
        49 LOADN                            R13 1
        50 SETLIST                          R11 R12 2 [1]
        52 NEWTABLE                         R12 0 1
@@ -870,7 +858,7 @@ PROTO_18:
       177 LOADK                            R11 K11 [1]
       178 GETIMPORT                        R9 K27 [math.max]
       180 CALL                             R9 2 1
-      181 DIVRK                            R8 R25 K9 ["VectorToWorldSpace"]
+      181 DIVRK                            R8 K25 [0.001] R9
       182 MOVE                             R11 R3
       183 MOVE                             R12 R7
       184 LOADN                            R13 1

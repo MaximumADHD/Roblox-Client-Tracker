@@ -277,50 +277,44 @@ PROTO_5:
        39 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R2 K3 [{"numAnimations", "numConverted", "percentConverted"}]
-        1 LOADN                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["numAnimations"]
-        4 LOADN                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["numConverted"]
-        7 LOADN                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["percentConverted"]
-       10 MOVE                             R3 R0
-       11 LOADNIL                          R4
-       12 LOADNIL                          R5
-       13 FORGPREP                         R3
-       14 GETTABLEKS                       R8 R2 K0 ["numAnimations"]
-       16 ADDK                             R8 R8 K4 [1]
-       17 SETTABLEKS                       R8 R2 K0 ["numAnimations"]
-       19 GETTABLE                         R8 R1 R6
-       20 JUMPIF                           R8 ; [+2]
-       21 NEWTABLE                         R8 0 0
-       23 GETTABLEKS                       R8 R8 K5 ["status"]
-       25 GETUPVAL                         R9 0
-       26 GETTABLEKS                       R9 R9 K6 ["Done"]
-       28 JUMPIFNOTEQ                      R8 R9 ; [+6]
-       30 GETTABLEKS                       R9 R2 K1 ["numConverted"]
-       32 ADDK                             R9 R9 K4 [1]
-       33 SETTABLEKS                       R9 R2 K1 ["numConverted"]
-       35 FORGLOOP                         R3 2 ; [-22]
-       37 GETTABLEKS                       R4 R2 K0 ["numAnimations"]
-       39 JUMPIFNOTEQKN                    R4 K7 [0] ; [+3]
-       41 LOADN                            R3 0
-       42 JUMP                             ; [+12]
-       43 GETTABLEKS                       R6 R2 K1 ["numConverted"]
-       45 GETTABLEKS                       R7 R2 K0 ["numAnimations"]
-       47 DIV                              R5 R6 R7
-       48 MULK                             R4 R5 K8 [100]
-       49 LOADN                            R5 0
-       50 LOADN                            R6 100
-       51 FASTCALL                         MATH_CLAMP ; [+2]
-       52 GETIMPORT                        R3 K11 [math.clamp]
-       54 CALL                             R3 3 1
-       55 SETTABLEKS                       R3 R2 K2 ["percentConverted"]
-       57 GETUPVAL                         R3 1
-       58 LOADK                            R4 K12 ["InitialAnimationAnalysisScan"]
-       59 MOVE                             R5 R2
-       60 CALL                             R3 2 0
-       61 RETURN                           R0 0
+        0 DUPTABLE                         R2 K4 [{[1] = 0, ["numConverted"] = 0, ["percentConverted"] = 0}]
+        1 MOVE                             R3 R0
+        2 LOADNIL                          R4
+        3 LOADNIL                          R5
+        4 FORGPREP                         R3
+        5 GETTABLEKS                       R8 R2 K0 ["numAnimations"]
+        7 ADDK                             R8 R8 K5 [1]
+        8 SETTABLEKS                       R8 R2 K0 ["numAnimations"]
+       10 GETTABLE                         R8 R1 R6
+       11 JUMPIF                           R8 ; [+2]
+       12 NEWTABLE                         R8 0 0
+       14 GETTABLEKS                       R8 R8 K6 ["status"]
+       16 GETUPVAL                         R9 0
+       17 GETTABLEKS                       R9 R9 K7 ["Done"]
+       19 JUMPIFNOTEQ                      R8 R9 ; [+6]
+       21 GETTABLEKS                       R9 R2 K2 ["numConverted"]
+       23 ADDK                             R9 R9 K5 [1]
+       24 SETTABLEKS                       R9 R2 K2 ["numConverted"]
+       26 FORGLOOP                         R3 2 ; [-22]
+       28 GETTABLEKS                       R4 R2 K0 ["numAnimations"]
+       30 JUMPIFNOTEQKN                    R4 K1 [0] ; [+3]
+       32 LOADN                            R3 0
+       33 JUMP                             ; [+12]
+       34 GETTABLEKS                       R6 R2 K2 ["numConverted"]
+       36 GETTABLEKS                       R7 R2 K0 ["numAnimations"]
+       38 DIV                              R5 R6 R7
+       39 MULK                             R4 R5 K8 [100]
+       40 LOADN                            R5 0
+       41 LOADN                            R6 100
+       42 FASTCALL                         MATH_CLAMP ; [+2]
+       43 GETIMPORT                        R3 K11 [math.clamp]
+       45 CALL                             R3 3 1
+       46 SETTABLEKS                       R3 R2 K3 ["percentConverted"]
+       48 GETUPVAL                         R3 1
+       49 LOADK                            R4 K12 ["InitialAnimationAnalysisScan"]
+       50 MOVE                             R5 R2
+       51 CALL                             R3 2 0
+       52 RETURN                           R0 0
 
 PROTO_7:
         0 DUPTABLE                         R3 K3 [{"fromPart", "toPart", "isEnabled"}]
@@ -336,48 +330,42 @@ PROTO_7:
        13 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R3 K4 [{"numScripts", "averageLines", "numCompleted", "totalScripts"}]
-        1 LOADN                            R4 0
-        2 SETTABLEKS                       R4 R3 K0 ["numScripts"]
-        4 LOADN                            R4 0
-        5 SETTABLEKS                       R4 R3 K1 ["averageLines"]
-        7 LOADN                            R4 0
-        8 SETTABLEKS                       R4 R3 K2 ["numCompleted"]
-       10 SETTABLEKS                       R1 R3 K3 ["totalScripts"]
-       12 LOADN                            R4 0
-       13 MOVE                             R5 R0
-       14 LOADNIL                          R6
-       15 LOADNIL                          R7
-       16 FORGPREP                         R5
-       17 GETTABLEKS                       R10 R3 K0 ["numScripts"]
-       19 ADDK                             R10 R10 K5 [1]
-       20 SETTABLEKS                       R10 R3 K0 ["numScripts"]
-       22 NAMECALL                         R10 R9 K6 ["GetSize"]
-       24 CALL                             R10 1 1
-       25 ADD                              R4 R4 R10
-       26 FORGLOOP                         R5 2 ; [-10]
-       28 GETTABLEKS                       R5 R3 K0 ["numScripts"]
-       30 JUMPIFEQKN                       R5 K7 [0] ; [+27]
-       32 GETTABLEKS                       R6 R3 K0 ["numScripts"]
-       34 JUMPIFNOTEQKN                    R6 K7 [0] ; [+3]
-       36 LOADN                            R5 0
-       37 JUMP                             ; [+3]
-       38 GETTABLEKS                       R6 R3 K0 ["numScripts"]
-       40 DIV                              R5 R4 R6
-       41 SETTABLEKS                       R5 R3 K1 ["averageLines"]
-       43 MOVE                             R5 R2
-       44 LOADNIL                          R6
-       45 LOADNIL                          R7
-       46 FORGPREP                         R5
-       47 GETTABLEKS                       R10 R3 K2 ["numCompleted"]
-       49 ADDK                             R10 R10 K5 [1]
-       50 SETTABLEKS                       R10 R3 K2 ["numCompleted"]
-       52 FORGLOOP                         R5 2 ; [-6]
-       54 GETUPVAL                         R5 0
-       55 LOADK                            R6 K8 ["InitialScriptAnalysisScan"]
-       56 MOVE                             R7 R3
-       57 CALL                             R5 2 0
-       58 RETURN                           R0 0
+        0 DUPTABLE                         R3 K5 [{[1] = 0, ["averageLines"] = 0, ["numCompleted"] = 0, ["totalScripts"]}]
+        1 SETTABLEKS                       R1 R3 K4 ["totalScripts"]
+        3 LOADN                            R4 0
+        4 MOVE                             R5 R0
+        5 LOADNIL                          R6
+        6 LOADNIL                          R7
+        7 FORGPREP                         R5
+        8 GETTABLEKS                       R10 R3 K0 ["numScripts"]
+       10 ADDK                             R10 R10 K6 [1]
+       11 SETTABLEKS                       R10 R3 K0 ["numScripts"]
+       13 NAMECALL                         R10 R9 K7 ["GetSize"]
+       15 CALL                             R10 1 1
+       16 ADD                              R4 R4 R10
+       17 FORGLOOP                         R5 2 ; [-10]
+       19 GETTABLEKS                       R5 R3 K0 ["numScripts"]
+       21 JUMPIFEQKN                       R5 K1 [0] ; [+27]
+       23 GETTABLEKS                       R6 R3 K0 ["numScripts"]
+       25 JUMPIFNOTEQKN                    R6 K1 [0] ; [+3]
+       27 LOADN                            R5 0
+       28 JUMP                             ; [+3]
+       29 GETTABLEKS                       R6 R3 K0 ["numScripts"]
+       31 DIV                              R5 R4 R6
+       32 SETTABLEKS                       R5 R3 K2 ["averageLines"]
+       34 MOVE                             R5 R2
+       35 LOADNIL                          R6
+       36 LOADNIL                          R7
+       37 FORGPREP                         R5
+       38 GETTABLEKS                       R10 R3 K3 ["numCompleted"]
+       40 ADDK                             R10 R10 K6 [1]
+       41 SETTABLEKS                       R10 R3 K3 ["numCompleted"]
+       43 FORGLOOP                         R5 2 ; [-6]
+       45 GETUPVAL                         R5 0
+       46 LOADK                            R6 K8 ["InitialScriptAnalysisScan"]
+       47 MOVE                             R7 R3
+       48 CALL                             R5 2 0
+       49 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -482,34 +470,32 @@ PROTO_14:
        47 GETTABLE                         R5 R2 R6
        48 JUMP                             ; [+1]
        49 LOADN                            R5 0
-       50 DUPTABLE                         R6 K9 [{"autoConvertCount", "replacedCount", "failedCount", "numRules"}]
+       50 DUPTABLE                         R6 K10 [{["autoConvertCount"], ["replacedCount"], ["failedCount"], ["numRules"] = 0}]
        51 SETTABLEKS                       R3 R6 K5 ["autoConvertCount"]
        53 LOADN                            R8 0
        54 SUB                              R9 R4 R3
        55 FASTCALL2                        MATH_MIN R8 R9 ; [+3]
-       57 GETIMPORT                        R7 K12 [math.min]
+       57 GETIMPORT                        R7 K13 [math.min]
        59 CALL                             R7 2 1
        60 SETTABLEKS                       R7 R6 K6 ["replacedCount"]
        62 SETTABLEKS                       R5 R6 K7 ["failedCount"]
-       64 LOADN                            R7 0
-       65 SETTABLEKS                       R7 R6 K8 ["numRules"]
-       67 MOVE                             R7 R1
-       68 LOADNIL                          R8
-       69 LOADNIL                          R9
-       70 FORGPREP                         R7
-       71 GETTABLEKS                       R12 R11 K13 ["Enabled"]
-       73 JUMPIFNOT                        R12 ; [+9]
-       74 GETTABLEKS                       R12 R11 K14 ["ToText"]
-       76 JUMPIFEQKS                       R12 K15 [""] ; [+6]
-       78 GETTABLEKS                       R12 R6 K8 ["numRules"]
-       80 ADDK                             R12 R12 K16 [1]
-       81 SETTABLEKS                       R12 R6 K8 ["numRules"]
-       83 FORGLOOP                         R7 2 ; [-13]
-       85 GETUPVAL                         R7 2
-       86 LOADK                            R8 K17 ["ScriptSelectionConvert"]
-       87 MOVE                             R9 R6
-       88 CALL                             R7 2 0
-       89 RETURN                           R0 0
+       64 MOVE                             R7 R1
+       65 LOADNIL                          R8
+       66 LOADNIL                          R9
+       67 FORGPREP                         R7
+       68 GETTABLEKS                       R12 R11 K14 ["Enabled"]
+       70 JUMPIFNOT                        R12 ; [+9]
+       71 GETTABLEKS                       R12 R11 K15 ["ToText"]
+       73 JUMPIFEQKS                       R12 K16 [""] ; [+6]
+       75 GETTABLEKS                       R12 R6 K8 ["numRules"]
+       77 ADDK                             R12 R12 K17 [1]
+       78 SETTABLEKS                       R12 R6 K8 ["numRules"]
+       80 FORGLOOP                         R7 2 ; [-13]
+       82 GETUPVAL                         R7 2
+       83 LOADK                            R8 K18 ["ScriptSelectionConvert"]
+       84 MOVE                             R9 R6
+       85 CALL                             R7 2 0
+       86 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R0 0

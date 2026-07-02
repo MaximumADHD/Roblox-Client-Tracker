@@ -55,22 +55,20 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K1 [{"assetName"}]
-        1 LOADK                            R2 K2 [""]
-        2 SETTABLEKS                       R2 R1 K0 ["assetName"]
-        4 SETTABLEKS                       R1 R0 K3 ["state"]
-        6 LOADNIL                          R1
-        7 SETTABLEKS                       R1 R0 K4 ["_importNameChangedConnection"]
-        9 NEWCLOSURE                       R1 P0
-       10 CAPTURE                          VAL R0
-       11 SETTABLEKS                       R1 R0 K5 ["onClose"]
-       13 NEWCLOSURE                       R1 P1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K6 ["onImport"]
-       17 NEWCLOSURE                       R1 P2
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R1 R0 K7 ["onButtonPressed"]
-       21 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = ""}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 LOADNIL                          R1
+        4 SETTABLEKS                       R1 R0 K4 ["_importNameChangedConnection"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K5 ["onClose"]
+       10 NEWCLOSURE                       R1 P1
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R1 R0 K6 ["onImport"]
+       14 NEWCLOSURE                       R1 P2
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K7 ["onButtonPressed"]
+       18 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -95,132 +93,114 @@ PROTO_5:
        28 CALL                             R5 1 1
        29 MOVE                             R3 R5
        30 NEWTABLE                         R4 0 2
-       32 DUPTABLE                         R5 K10 [{"Key", "Text"}]
-       33 LOADK                            R6 K11 ["Close"]
-       34 SETTABLEKS                       R6 R5 K8 ["Key"]
-       36 LOADK                            R8 K12 ["Plugin"]
-       37 LOADK                            R9 K11 ["Close"]
-       38 NAMECALL                         R6 R2 K13 ["getText"]
-       40 CALL                             R6 3 1
-       41 SETTABLEKS                       R6 R5 K9 ["Text"]
-       43 DUPTABLE                         R6 K16 [{"Key", "Text", "Style", "StyleModifier"}]
-       44 LOADK                            R7 K17 ["Import"]
-       45 SETTABLEKS                       R7 R6 K8 ["Key"]
-       47 LOADK                            R9 K12 ["Plugin"]
-       48 LOADK                            R10 K17 ["Import"]
-       49 NAMECALL                         R7 R2 K13 ["getText"]
-       51 CALL                             R7 3 1
-       52 SETTABLEKS                       R7 R6 K9 ["Text"]
-       54 LOADK                            R7 K18 ["RoundPrimary"]
-       55 SETTABLEKS                       R7 R6 K14 ["Style"]
-       57 JUMPIF                           R3 ; [+4]
-       58 GETUPVAL                         R7 1
-       59 GETTABLEKS                       R7 R7 K19 ["Disabled"]
-       61 JUMPIF                           R7 ; [+1]
-       62 LOADNIL                          R7
-       63 SETTABLEKS                       R7 R6 K15 ["StyleModifier"]
-       65 SETLIST                          R4 R5 2 [1]
-       67 GETTABLEKS                       R5 R0 K20 ["onClose"]
-       69 GETUPVAL                         R6 2
-       70 GETTABLEKS                       R6 R6 K21 ["createElement"]
-       72 GETUPVAL                         R7 3
-       73 DUPTABLE                         R8 K30 [{"Enabled", "MinContentSize", "Modal", "Resizable", "Title", "Buttons", "OnClose", "OnButtonPressed", "Style"}]
-       74 GETTABLEKS                       R9 R1 K31 ["ShowPreview"]
-       76 SETTABLEKS                       R9 R8 K22 ["Enabled"]
-       78 GETIMPORT                        R9 K34 [Vector2.new]
-       80 LOADN                            R10 32
-       81 LOADN                            R11 138
-       82 CALL                             R9 2 1
-       83 SETTABLEKS                       R9 R8 K23 ["MinContentSize"]
-       85 GETUPVAL                         R10 4
-       86 CALL                             R10 0 1
-       87 NOT                              R9 R10
-       88 SETTABLEKS                       R9 R8 K24 ["Modal"]
-       90 LOADB                            R9 1
-       91 SETTABLEKS                       R9 R8 K25 ["Resizable"]
-       93 GETTABLEKS                       R9 R1 K26 ["Title"]
-       95 SETTABLEKS                       R9 R8 K26 ["Title"]
-       97 SETTABLEKS                       R4 R8 K27 ["Buttons"]
-       99 SETTABLEKS                       R5 R8 K28 ["OnClose"]
-      101 GETTABLEKS                       R9 R0 K35 ["onButtonPressed"]
-      103 SETTABLEKS                       R9 R8 K29 ["OnButtonPressed"]
-      105 LOADK                            R9 K36 ["FullBleed"]
-      106 SETTABLEKS                       R9 R8 K14 ["Style"]
-      108 GETUPVAL                         R10 5
-      109 CALL                             R10 0 1
-      110 JUMPIFNOT                        R10 ; [+54]
-      111 DUPTABLE                         R9 K38 [{"FoundationProvider"}]
-      112 GETUPVAL                         R10 2
-      113 GETTABLEKS                       R10 R10 K21 ["createElement"]
-      115 GETUPVAL                         R11 6
-      116 LOADNIL                          R12
-      117 DUPTABLE                         R13 K42 [{"Layout", "AssetImporterUI", "Separator"}]
+       32 DUPTABLE                         R5 K11 [{["Key"] = "Close", ["Text"]}]
+       33 LOADK                            R8 K12 ["Plugin"]
+       34 LOADK                            R9 K9 ["Close"]
+       35 NAMECALL                         R6 R2 K13 ["getText"]
+       37 CALL                             R6 3 1
+       38 SETTABLEKS                       R6 R5 K10 ["Text"]
+       40 DUPTABLE                         R6 K18 [{["Key"] = "Import", ["Text"], ["Style"] = "RoundPrimary", ["StyleModifier"]}]
+       41 LOADK                            R9 K12 ["Plugin"]
+       42 LOADK                            R10 K14 ["Import"]
+       43 NAMECALL                         R7 R2 K13 ["getText"]
+       45 CALL                             R7 3 1
+       46 SETTABLEKS                       R7 R6 K10 ["Text"]
+       48 JUMPIF                           R3 ; [+4]
+       49 GETUPVAL                         R7 1
+       50 GETTABLEKS                       R7 R7 K19 ["Disabled"]
+       52 JUMPIF                           R7 ; [+1]
+       53 LOADNIL                          R7
+       54 SETTABLEKS                       R7 R6 K17 ["StyleModifier"]
+       56 SETLIST                          R4 R5 2 [1]
+       58 GETTABLEKS                       R5 R0 K20 ["onClose"]
+       60 GETUPVAL                         R6 2
+       61 GETTABLEKS                       R6 R6 K21 ["createElement"]
+       63 GETUPVAL                         R7 3
+       64 DUPTABLE                         R8 K32 [{["Enabled"], ["MinContentSize"], ["Modal"], ["Resizable"] = True, ["Title"], ["Buttons"], ["OnClose"], ["OnButtonPressed"], ["Style"] = "FullBleed"}]
+       65 GETTABLEKS                       R9 R1 K33 ["ShowPreview"]
+       67 SETTABLEKS                       R9 R8 K22 ["Enabled"]
+       69 GETIMPORT                        R9 K36 [Vector2.new]
+       71 LOADN                            R10 800
+       72 LOADN                            R11 650
+       73 CALL                             R9 2 1
+       74 SETTABLEKS                       R9 R8 K23 ["MinContentSize"]
+       76 GETUPVAL                         R10 4
+       77 CALL                             R10 0 1
+       78 NOT                              R9 R10
+       79 SETTABLEKS                       R9 R8 K24 ["Modal"]
+       81 GETTABLEKS                       R9 R1 K27 ["Title"]
+       83 SETTABLEKS                       R9 R8 K27 ["Title"]
+       85 SETTABLEKS                       R4 R8 K28 ["Buttons"]
+       87 SETTABLEKS                       R5 R8 K29 ["OnClose"]
+       89 GETTABLEKS                       R9 R0 K37 ["onButtonPressed"]
+       91 SETTABLEKS                       R9 R8 K30 ["OnButtonPressed"]
+       93 GETUPVAL                         R10 5
+       94 CALL                             R10 0 1
+       95 JUMPIFNOT                        R10 ; [+48]
+       96 DUPTABLE                         R9 K39 [{"FoundationProvider"}]
+       97 GETUPVAL                         R10 2
+       98 GETTABLEKS                       R10 R10 K21 ["createElement"]
+      100 GETUPVAL                         R11 6
+      101 LOADNIL                          R12
+      102 DUPTABLE                         R13 K43 [{"Layout", "AssetImporterUI", "Separator"}]
+      103 GETUPVAL                         R14 2
+      104 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      106 LOADK                            R15 K44 ["UIListLayout"]
+      107 DUPTABLE                         R16 K46 [{"FillDirection"}]
+      108 GETIMPORT                        R17 K49 [Enum.FillDirection.Vertical]
+      110 SETTABLEKS                       R17 R16 K45 ["FillDirection"]
+      112 CALL                             R14 2 1
+      113 SETTABLEKS                       R14 R13 K40 ["Layout"]
+      115 GETTABLEKS                       R15 R1 K33 ["ShowPreview"]
+      117 JUMPIFNOT                        R15 ; [+7]
       118 GETUPVAL                         R14 2
       119 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      121 LOADK                            R15 K43 ["UIListLayout"]
-      122 DUPTABLE                         R16 K45 [{"FillDirection"}]
-      123 GETIMPORT                        R17 K48 [Enum.FillDirection.Vertical]
-      125 SETTABLEKS                       R17 R16 K44 ["FillDirection"]
-      127 CALL                             R14 2 1
-      128 SETTABLEKS                       R14 R13 K39 ["Layout"]
-      130 GETTABLEKS                       R15 R1 K31 ["ShowPreview"]
-      132 JUMPIFNOT                        R15 ; [+10]
-      133 GETUPVAL                         R14 2
-      134 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      136 GETUPVAL                         R15 7
-      137 DUPTABLE                         R16 K50 [{"LayoutOrder"}]
-      138 LOADN                            R17 1
-      139 SETTABLEKS                       R17 R16 K49 ["LayoutOrder"]
-      141 CALL                             R14 2 1
-      142 JUMP                             ; [+1]
-      143 LOADNIL                          R14
-      144 SETTABLEKS                       R14 R13 K40 ["AssetImporterUI"]
-      146 GETUPVAL                         R14 2
-      147 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      149 GETUPVAL                         R15 8
-      150 DUPTABLE                         R16 K52 [{"DominantAxis", "LayoutOrder"}]
-      151 GETIMPORT                        R17 K54 [Enum.DominantAxis.Width]
-      153 SETTABLEKS                       R17 R16 K51 ["DominantAxis"]
-      155 LOADN                            R17 2
-      156 SETTABLEKS                       R17 R16 K49 ["LayoutOrder"]
-      158 CALL                             R14 2 1
-      159 SETTABLEKS                       R14 R13 K41 ["Separator"]
-      161 CALL                             R10 3 1
-      162 SETTABLEKS                       R10 R9 K37 ["FoundationProvider"]
-      164 JUMP                             ; [+44]
-      165 DUPTABLE                         R9 K42 [{"Layout", "AssetImporterUI", "Separator"}]
-      166 GETUPVAL                         R10 2
-      167 GETTABLEKS                       R10 R10 K21 ["createElement"]
-      169 LOADK                            R11 K43 ["UIListLayout"]
-      170 DUPTABLE                         R12 K45 [{"FillDirection"}]
-      171 GETIMPORT                        R13 K48 [Enum.FillDirection.Vertical]
-      173 SETTABLEKS                       R13 R12 K44 ["FillDirection"]
-      175 CALL                             R10 2 1
-      176 SETTABLEKS                       R10 R9 K39 ["Layout"]
-      178 GETTABLEKS                       R11 R1 K31 ["ShowPreview"]
-      180 JUMPIFNOT                        R11 ; [+10]
-      181 GETUPVAL                         R10 2
-      182 GETTABLEKS                       R10 R10 K21 ["createElement"]
-      184 GETUPVAL                         R11 7
-      185 DUPTABLE                         R12 K50 [{"LayoutOrder"}]
-      186 LOADN                            R13 1
-      187 SETTABLEKS                       R13 R12 K49 ["LayoutOrder"]
-      189 CALL                             R10 2 1
-      190 JUMP                             ; [+1]
-      191 LOADNIL                          R10
-      192 SETTABLEKS                       R10 R9 K40 ["AssetImporterUI"]
-      194 GETUPVAL                         R10 2
-      195 GETTABLEKS                       R10 R10 K21 ["createElement"]
-      197 GETUPVAL                         R11 8
-      198 DUPTABLE                         R12 K52 [{"DominantAxis", "LayoutOrder"}]
-      199 GETIMPORT                        R13 K54 [Enum.DominantAxis.Width]
-      201 SETTABLEKS                       R13 R12 K51 ["DominantAxis"]
-      203 LOADN                            R13 2
-      204 SETTABLEKS                       R13 R12 K49 ["LayoutOrder"]
-      206 CALL                             R10 2 1
-      207 SETTABLEKS                       R10 R9 K41 ["Separator"]
-      209 CALL                             R6 3 -1
-      210 RETURN                           R6 -1
+      121 GETUPVAL                         R15 7
+      122 DUPTABLE                         R16 K52 [{["LayoutOrder"] = 1}]
+      123 CALL                             R14 2 1
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R14
+      126 SETTABLEKS                       R14 R13 K41 ["AssetImporterUI"]
+      128 GETUPVAL                         R14 2
+      129 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      131 GETUPVAL                         R15 8
+      132 DUPTABLE                         R16 K55 [{["DominantAxis"], ["LayoutOrder"] = 2}]
+      133 GETIMPORT                        R17 K57 [Enum.DominantAxis.Width]
+      135 SETTABLEKS                       R17 R16 K53 ["DominantAxis"]
+      137 CALL                             R14 2 1
+      138 SETTABLEKS                       R14 R13 K42 ["Separator"]
+      140 CALL                             R10 3 1
+      141 SETTABLEKS                       R10 R9 K38 ["FoundationProvider"]
+      143 JUMP                             ; [+38]
+      144 DUPTABLE                         R9 K43 [{"Layout", "AssetImporterUI", "Separator"}]
+      145 GETUPVAL                         R10 2
+      146 GETTABLEKS                       R10 R10 K21 ["createElement"]
+      148 LOADK                            R11 K44 ["UIListLayout"]
+      149 DUPTABLE                         R12 K46 [{"FillDirection"}]
+      150 GETIMPORT                        R13 K49 [Enum.FillDirection.Vertical]
+      152 SETTABLEKS                       R13 R12 K45 ["FillDirection"]
+      154 CALL                             R10 2 1
+      155 SETTABLEKS                       R10 R9 K40 ["Layout"]
+      157 GETTABLEKS                       R11 R1 K33 ["ShowPreview"]
+      159 JUMPIFNOT                        R11 ; [+7]
+      160 GETUPVAL                         R10 2
+      161 GETTABLEKS                       R10 R10 K21 ["createElement"]
+      163 GETUPVAL                         R11 7
+      164 DUPTABLE                         R12 K52 [{["LayoutOrder"] = 1}]
+      165 CALL                             R10 2 1
+      166 JUMP                             ; [+1]
+      167 LOADNIL                          R10
+      168 SETTABLEKS                       R10 R9 K41 ["AssetImporterUI"]
+      170 GETUPVAL                         R10 2
+      171 GETTABLEKS                       R10 R10 K21 ["createElement"]
+      173 GETUPVAL                         R11 8
+      174 DUPTABLE                         R12 K55 [{["DominantAxis"], ["LayoutOrder"] = 2}]
+      175 GETIMPORT                        R13 K57 [Enum.DominantAxis.Width]
+      177 SETTABLEKS                       R13 R12 K53 ["DominantAxis"]
+      179 CALL                             R10 2 1
+      180 SETTABLEKS                       R10 R9 K42 ["Separator"]
+      182 CALL                             R6 3 -1
+      183 RETURN                           R6 -1
 
 PROTO_6:
         0 NAMECALL                         R1 R0 K0 ["_connect"]

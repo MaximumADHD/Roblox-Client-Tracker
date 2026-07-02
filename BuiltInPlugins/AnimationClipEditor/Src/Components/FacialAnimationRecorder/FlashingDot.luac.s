@@ -1,13 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K3 [{"time", "sinTime", "animatingDotIndex"}]
-        1 LOADK                            R2 K4 [1.5707963267949]
-        2 SETTABLEKS                       R2 R1 K0 ["time"]
-        4 LOADN                            R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["sinTime"]
-        7 LOADN                            R2 1
-        8 SETTABLEKS                       R2 R1 K2 ["animatingDotIndex"]
-       10 SETTABLEKS                       R1 R0 K5 ["state"]
-       12 RETURN                           R0 0
+        0 DUPTABLE                         R1 K5 [{[1] = 1.5707963267949, ["sinTime"] = 1, ["animatingDotIndex"] = 1}]
+        1 SETTABLEKS                       R1 R0 K6 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -134,72 +128,58 @@ PROTO_7:
        85 GETUPVAL                         R20 0
        86 GETTABLEKS                       R20 R20 K15 ["createElement"]
        88 LOADK                            R21 K38 ["Frame"]
-       89 DUPTABLE                         R22 K42 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
-       90 GETIMPORT                        R23 K44 [UDim2.new]
-       92 LOADK                            R24 K45 [0.666666666666667]
+       89 DUPTABLE                         R22 K43 [{["Size"], ["LayoutOrder"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["BackgroundTransparency"] = 1}]
+       90 GETIMPORT                        R23 K45 [UDim2.new]
+       92 LOADK                            R24 K46 [0.666666666666667]
        93 MOVE                             R25 R10
-       94 LOADK                            R26 K45 [0.666666666666667]
+       94 LOADK                            R26 K46 [0.666666666666667]
        95 LOADN                            R27 0
        96 CALL                             R23 4 1
        97 SETTABLEKS                       R23 R22 K7 ["Size"]
        99 SETTABLEKS                       R17 R22 K5 ["LayoutOrder"]
-      101 LOADN                            R23 0
-      102 SETTABLEKS                       R23 R22 K39 ["BorderSizePixel"]
-      104 SETTABLEKS                       R11 R22 K40 ["BackgroundColor3"]
-      106 LOADN                            R23 1
-      107 SETTABLEKS                       R23 R22 K41 ["BackgroundTransparency"]
-      109 DUPTABLE                         R23 K47 [{"Image"}]
-      110 GETUPVAL                         R24 0
-      111 GETTABLEKS                       R24 R24 K15 ["createElement"]
-      113 LOADK                            R25 K48 ["ImageLabel"]
-      114 DUPTABLE                         R26 K50 [{"AnchorPoint", "BackgroundTransparency", "Size", "Position", "Image", "ImageTransparency", "LayoutOrder"}]
-      115 GETIMPORT                        R27 K52 [Vector2.new]
-      117 LOADN                            R28 0
-      118 LOADK                            R29 K36 [0.5]
-      119 CALL                             R27 2 1
-      120 SETTABLEKS                       R27 R26 K2 ["AnchorPoint"]
-      122 LOADN                            R27 1
-      123 SETTABLEKS                       R27 R26 K41 ["BackgroundTransparency"]
-      125 GETIMPORT                        R27 K44 [UDim2.new]
+      101 SETTABLEKS                       R11 R22 K40 ["BackgroundColor3"]
+      103 DUPTABLE                         R23 K48 [{"Image"}]
+      104 GETUPVAL                         R24 0
+      105 GETTABLEKS                       R24 R24 K15 ["createElement"]
+      107 LOADK                            R25 K49 ["ImageLabel"]
+      108 DUPTABLE                         R26 K53 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Image"] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png", ["ImageTransparency"], ["LayoutOrder"] = 2}]
+      109 GETIMPORT                        R27 K55 [Vector2.new]
+      111 LOADN                            R28 0
+      112 LOADK                            R29 K36 [0.5]
+      113 CALL                             R27 2 1
+      114 SETTABLEKS                       R27 R26 K2 ["AnchorPoint"]
+      116 GETIMPORT                        R27 K45 [UDim2.new]
+      118 LOADN                            R28 0
+      119 LOADN                            R29 8
+      120 LOADN                            R30 0
+      121 LOADN                            R31 8
+      122 CALL                             R27 4 1
+      123 SETTABLEKS                       R27 R26 K7 ["Size"]
+      125 GETIMPORT                        R27 K45 [UDim2.new]
       127 LOADN                            R28 0
-      128 LOADN                            R29 8
-      129 LOADN                            R30 0
-      130 LOADN                            R31 8
+      128 MOVE                             R29 R10
+      129 LOADK                            R30 K36 [0.5]
+      130 LOADN                            R31 0
       131 CALL                             R27 4 1
-      132 SETTABLEKS                       R27 R26 K7 ["Size"]
-      134 GETIMPORT                        R27 K44 [UDim2.new]
-      136 LOADN                            R28 0
-      137 MOVE                             R29 R10
-      138 LOADK                            R30 K36 [0.5]
-      139 LOADN                            R31 0
-      140 CALL                             R27 4 1
-      141 SETTABLEKS                       R27 R26 K3 ["Position"]
-      143 LOADK                            R27 K53 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"]
-      144 SETTABLEKS                       R27 R26 K46 ["Image"]
-      146 SETTABLEKS                       R18 R26 K49 ["ImageTransparency"]
-      148 LOADN                            R27 2
-      149 SETTABLEKS                       R27 R26 K5 ["LayoutOrder"]
-      151 CALL                             R24 2 1
-      152 SETTABLEKS                       R24 R23 K46 ["Image"]
-      154 CALL                             R20 3 1
-      155 SETTABLE                         R20 R12 R19
-      156 FORNLOOP                         R15
-      157 GETUPVAL                         R15 0
-      158 GETTABLEKS                       R15 R15 K15 ["createElement"]
-      160 LOADK                            R16 K38 ["Frame"]
-      161 DUPTABLE                         R17 K54 [{"AnchorPoint", "Position", "Size", "ZIndex", "LayoutOrder", "BorderSizePixel", "BackgroundTransparency"}]
-      162 SETTABLEKS                       R3 R17 K2 ["AnchorPoint"]
-      164 SETTABLEKS                       R4 R17 K3 ["Position"]
-      166 SETTABLEKS                       R9 R17 K7 ["Size"]
-      168 SETTABLEKS                       R5 R17 K4 ["ZIndex"]
-      170 SETTABLEKS                       R6 R17 K5 ["LayoutOrder"]
-      172 LOADN                            R18 0
-      173 SETTABLEKS                       R18 R17 K39 ["BorderSizePixel"]
-      175 LOADN                            R18 1
-      176 SETTABLEKS                       R18 R17 K41 ["BackgroundTransparency"]
-      178 MOVE                             R18 R12
-      179 CALL                             R15 3 -1
-      180 RETURN                           R15 -1
+      132 SETTABLEKS                       R27 R26 K3 ["Position"]
+      134 SETTABLEKS                       R18 R26 K51 ["ImageTransparency"]
+      136 CALL                             R24 2 1
+      137 SETTABLEKS                       R24 R23 K47 ["Image"]
+      139 CALL                             R20 3 1
+      140 SETTABLE                         R20 R12 R19
+      141 FORNLOOP                         R15
+      142 GETUPVAL                         R15 0
+      143 GETTABLEKS                       R15 R15 K15 ["createElement"]
+      145 LOADK                            R16 K38 ["Frame"]
+      146 DUPTABLE                         R17 K56 [{["AnchorPoint"], ["Position"], ["Size"], ["ZIndex"], ["LayoutOrder"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1}]
+      147 SETTABLEKS                       R3 R17 K2 ["AnchorPoint"]
+      149 SETTABLEKS                       R4 R17 K3 ["Position"]
+      151 SETTABLEKS                       R9 R17 K7 ["Size"]
+      153 SETTABLEKS                       R5 R17 K4 ["ZIndex"]
+      155 SETTABLEKS                       R6 R17 K5 ["LayoutOrder"]
+      157 MOVE                             R18 R12
+      158 CALL                             R15 3 -1
+      159 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

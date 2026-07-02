@@ -6,7 +6,7 @@ PROTO_0:
         7 GETIMPORT                        R3 K5 [UDim.new]
         9 GETTABLEKS                       R6 R0 K7 ["Columns"]
        11 LENGTH                           R5 R6
-       12 DIVRK                            R4 R6 K5 [UDim.new]
+       12 DIVRK                            R4 K6 [1] R5
        13 LOADN                            R5 0
        14 CALL                             R3 2 1
        15 GETTABLEKS                       R5 R0 K8 ["Emphasis"]
@@ -17,87 +17,69 @@ PROTO_0:
        23 GETUPVAL                         R5 0
        24 GETTABLEKS                       R5 R5 K11 ["createElement"]
        26 GETUPVAL                         R6 1
-       27 DUPTABLE                         R7 K19 [{"LayoutOrder", "Padding", "Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
-       28 GETTABLEKS                       R8 R0 K20 ["ColumnIndex"]
+       27 DUPTABLE                         R7 K21 [{["LayoutOrder"], ["Padding"], ["Style"] = "Box", ["BackgroundColor3"], ["BorderSizePixel"] = 1, ["BorderColor3"], ["Size"], ["ClipsDescendants"] = True}]
+       28 GETTABLEKS                       R8 R0 K22 ["ColumnIndex"]
        30 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
-       32 DUPTABLE                         R8 K25 [{"Top", "Bottom", "Left", "Right"}]
-       33 LOADN                            R9 1
-       34 SETTABLEKS                       R9 R8 K21 ["Top"]
-       36 LOADN                            R9 1
-       37 SETTABLEKS                       R9 R8 K22 ["Bottom"]
-       39 LOADN                            R9 5
-       40 SETTABLEKS                       R9 R8 K23 ["Left"]
-       42 LOADN                            R9 5
-       43 SETTABLEKS                       R9 R8 K24 ["Right"]
-       45 SETTABLEKS                       R8 R7 K13 ["Padding"]
-       47 LOADK                            R8 K26 ["Box"]
-       48 SETTABLEKS                       R8 R7 K1 ["Style"]
-       50 SETTABLEKS                       R4 R7 K14 ["BackgroundColor3"]
-       52 LOADN                            R8 1
-       53 SETTABLEKS                       R8 R7 K15 ["BorderSizePixel"]
-       55 GETTABLEKS                       R8 R2 K27 ["Border"]
-       57 SETTABLEKS                       R8 R7 K16 ["BorderColor3"]
-       59 GETIMPORT                        R8 K29 [UDim2.new]
-       61 GETTABLEKS                       R9 R3 K30 ["Scale"]
-       63 GETTABLEKS                       R10 R3 K31 ["Offset"]
-       65 LOADN                            R11 1
-       66 LOADN                            R12 0
-       67 CALL                             R8 4 1
-       68 SETTABLEKS                       R8 R7 K17 ["Size"]
-       70 LOADB                            R8 1
-       71 SETTABLEKS                       R8 R7 K18 ["ClipsDescendants"]
-       73 DUPTABLE                         R8 K34 [{"Text", "Arrow"}]
-       74 GETUPVAL                         R9 0
-       75 GETTABLEKS                       R9 R9 K11 ["createElement"]
-       77 GETUPVAL                         R10 2
-       78 DUPTABLE                         R11 K37 [{"Text", "TextTruncate", "Size", "TextXAlignment"}]
-       79 FASTCALL1                        TOSTRING R1 ; [+3]
-       80 MOVE                             R13 R1
-       81 GETIMPORT                        R12 K39 [tostring]
-       83 CALL                             R12 1 1
-       84 SETTABLEKS                       R12 R11 K32 ["Text"]
-       86 GETIMPORT                        R12 K42 [Enum.TextTruncate.AtEnd]
-       88 SETTABLEKS                       R12 R11 K35 ["TextTruncate"]
-       90 GETIMPORT                        R12 K44 [UDim2.fromScale]
-       92 LOADN                            R13 1
-       93 LOADN                            R14 1
-       94 CALL                             R12 2 1
-       95 SETTABLEKS                       R12 R11 K17 ["Size"]
-       97 GETIMPORT                        R12 K45 [Enum.TextXAlignment.Left]
-       99 SETTABLEKS                       R12 R11 K36 ["TextXAlignment"]
-      101 CALL                             R9 2 1
-      102 SETTABLEKS                       R9 R8 K32 ["Text"]
-      104 GETUPVAL                         R9 0
-      105 GETTABLEKS                       R9 R9 K11 ["createElement"]
-      107 GETUPVAL                         R10 2
-      108 DUPTABLE                         R11 K48 [{"AnchorPoint", "Position", "Size", "Style", "Text"}]
-      109 GETIMPORT                        R12 K50 [Vector2.new]
-      111 LOADN                            R13 1
-      112 LOADK                            R14 K51 [0.5]
-      113 CALL                             R12 2 1
-      114 SETTABLEKS                       R12 R11 K46 ["AnchorPoint"]
-      116 GETIMPORT                        R12 K29 [UDim2.new]
-      118 LOADN                            R13 1
-      119 LOADN                            R14 251
-      120 LOADK                            R15 K51 [0.5]
-      121 LOADN                            R16 0
-      122 CALL                             R12 4 1
-      123 SETTABLEKS                       R12 R11 K47 ["Position"]
-      125 GETIMPORT                        R12 K29 [UDim2.new]
-      127 LOADN                            R13 0
-      128 LOADN                            R14 10
-      129 LOADN                            R15 0
-      130 LOADN                            R16 10
-      131 CALL                             R12 4 1
-      132 SETTABLEKS                       R12 R11 K17 ["Size"]
-      134 LOADK                            R12 K52 ["Bold"]
-      135 SETTABLEKS                       R12 R11 K1 ["Style"]
-      137 LOADK                            R12 K53 ["→"]
-      138 SETTABLEKS                       R12 R11 K32 ["Text"]
-      140 CALL                             R9 2 1
-      141 SETTABLEKS                       R9 R8 K33 ["Arrow"]
-      143 CALL                             R5 3 -1
-      144 RETURN                           R5 -1
+       32 DUPTABLE                         R8 K28 [{["Top"] = 1, ["Bottom"] = 1, ["Left"] = 5, ["Right"] = 5}]
+       33 SETTABLEKS                       R8 R7 K13 ["Padding"]
+       35 SETTABLEKS                       R4 R7 K15 ["BackgroundColor3"]
+       37 GETTABLEKS                       R8 R2 K29 ["Border"]
+       39 SETTABLEKS                       R8 R7 K17 ["BorderColor3"]
+       41 GETIMPORT                        R8 K31 [UDim2.new]
+       43 GETTABLEKS                       R9 R3 K32 ["Scale"]
+       45 GETTABLEKS                       R10 R3 K33 ["Offset"]
+       47 LOADN                            R11 1
+       48 LOADN                            R12 0
+       49 CALL                             R8 4 1
+       50 SETTABLEKS                       R8 R7 K18 ["Size"]
+       52 DUPTABLE                         R8 K36 [{"Text", "Arrow"}]
+       53 GETUPVAL                         R9 0
+       54 GETTABLEKS                       R9 R9 K11 ["createElement"]
+       56 GETUPVAL                         R10 2
+       57 DUPTABLE                         R11 K39 [{"Text", "TextTruncate", "Size", "TextXAlignment"}]
+       58 FASTCALL1                        TOSTRING R1 ; [+3]
+       59 MOVE                             R13 R1
+       60 GETIMPORT                        R12 K41 [tostring]
+       62 CALL                             R12 1 1
+       63 SETTABLEKS                       R12 R11 K34 ["Text"]
+       65 GETIMPORT                        R12 K44 [Enum.TextTruncate.AtEnd]
+       67 SETTABLEKS                       R12 R11 K37 ["TextTruncate"]
+       69 GETIMPORT                        R12 K46 [UDim2.fromScale]
+       71 LOADN                            R13 1
+       72 LOADN                            R14 1
+       73 CALL                             R12 2 1
+       74 SETTABLEKS                       R12 R11 K18 ["Size"]
+       76 GETIMPORT                        R12 K47 [Enum.TextXAlignment.Left]
+       78 SETTABLEKS                       R12 R11 K38 ["TextXAlignment"]
+       80 CALL                             R9 2 1
+       81 SETTABLEKS                       R9 R8 K34 ["Text"]
+       83 GETUPVAL                         R9 0
+       84 GETTABLEKS                       R9 R9 K11 ["createElement"]
+       86 GETUPVAL                         R10 2
+       87 DUPTABLE                         R11 K52 [{["AnchorPoint"], ["Position"], ["Size"], ["Style"] = "Bold", ["Text"] = "→"}]
+       88 GETIMPORT                        R12 K54 [Vector2.new]
+       90 LOADN                            R13 1
+       91 LOADK                            R14 K55 [0.5]
+       92 CALL                             R12 2 1
+       93 SETTABLEKS                       R12 R11 K48 ["AnchorPoint"]
+       95 GETIMPORT                        R12 K31 [UDim2.new]
+       97 LOADN                            R13 1
+       98 LOADN                            R14 -5
+       99 LOADK                            R15 K55 [0.5]
+      100 LOADN                            R16 0
+      101 CALL                             R12 4 1
+      102 SETTABLEKS                       R12 R11 K49 ["Position"]
+      104 GETIMPORT                        R12 K31 [UDim2.new]
+      106 LOADN                            R13 0
+      107 LOADN                            R14 10
+      108 LOADN                            R15 0
+      109 LOADN                            R16 10
+      110 CALL                             R12 4 1
+      111 SETTABLEKS                       R12 R11 K18 ["Size"]
+      113 CALL                             R9 2 1
+      114 SETTABLEKS                       R9 R8 K35 ["Arrow"]
+      116 CALL                             R5 3 -1
+      117 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

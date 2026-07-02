@@ -33,19 +33,15 @@ PROTO_2:
         9 GETUPVAL                         R4 0
        10 GETTABLEKS                       R4 R4 K0 ["createElement"]
        12 GETUPVAL                         R5 3
-       13 DUPTABLE                         R6 K9 [{"asset", "assetData", "assetId", "LayoutOrder"}]
+       13 DUPTABLE                         R6 K11 [{["asset"], ["assetData"], ["assetId"] = 123456, ["LayoutOrder"] = 1}]
        14 GETUPVAL                         R7 2
        15 SETTABLEKS                       R7 R6 K5 ["asset"]
        17 GETUPVAL                         R7 2
        18 SETTABLEKS                       R7 R6 K6 ["assetData"]
-       20 LOADK                            R7 K10 [123456]
-       21 SETTABLEKS                       R7 R6 K7 ["assetId"]
-       23 LOADN                            R7 1
-       24 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
-       26 CALL                             R4 2 1
-       27 SETTABLEKS                       R4 R3 K3 ["Asset"]
-       29 CALL                             R0 3 0
-       30 RETURN                           R0 0
+       20 CALL                             R4 2 1
+       21 SETTABLEKS                       R4 R3 K3 ["Asset"]
+       23 CALL                             R0 3 0
+       24 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -58,47 +54,39 @@ PROTO_3:
        10 GETUPVAL                         R4 0
        11 GETTABLEKS                       R4 R4 K0 ["createElement"]
        13 LOADK                            R5 K3 ["Frame"]
-       14 DUPTABLE                         R6 K6 [{"Size", "BackgroundTransparency"}]
-       15 GETIMPORT                        R7 K9 [UDim2.new]
+       14 DUPTABLE                         R6 K7 [{["Size"], ["BackgroundTransparency"] = 1}]
+       15 GETIMPORT                        R7 K10 [UDim2.new]
        17 LOADN                            R8 1
        18 LOADN                            R9 0
        19 LOADN                            R10 0
        20 LOADN                            R11 250
        21 CALL                             R7 4 1
        22 SETTABLEKS                       R7 R6 K4 ["Size"]
-       24 LOADN                            R7 1
-       25 SETTABLEKS                       R7 R6 K5 ["BackgroundTransparency"]
-       27 DUPTABLE                         R7 K12 [{"Layout", "Asset"}]
-       28 GETUPVAL                         R8 0
-       29 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       31 LOADK                            R9 K13 ["UIListLayout"]
-       32 DUPTABLE                         R10 K16 [{"VerticalAlignment", "HorizontalAlignment"}]
-       33 GETIMPORT                        R11 K19 [Enum.VerticalAlignment.Center]
-       35 SETTABLEKS                       R11 R10 K14 ["VerticalAlignment"]
-       37 GETIMPORT                        R11 K20 [Enum.HorizontalAlignment.Center]
-       39 SETTABLEKS                       R11 R10 K15 ["HorizontalAlignment"]
-       41 CALL                             R8 2 1
-       42 SETTABLEKS                       R8 R7 K10 ["Layout"]
-       44 GETUPVAL                         R8 0
-       45 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       47 GETUPVAL                         R9 3
-       48 DUPTABLE                         R10 K26 [{"asset", "assetData", "assetId", "isHovered", "LayoutOrder"}]
+       24 DUPTABLE                         R7 K13 [{"Layout", "Asset"}]
+       25 GETUPVAL                         R8 0
+       26 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       28 LOADK                            R9 K14 ["UIListLayout"]
+       29 DUPTABLE                         R10 K17 [{"VerticalAlignment", "HorizontalAlignment"}]
+       30 GETIMPORT                        R11 K20 [Enum.VerticalAlignment.Center]
+       32 SETTABLEKS                       R11 R10 K15 ["VerticalAlignment"]
+       34 GETIMPORT                        R11 K21 [Enum.HorizontalAlignment.Center]
+       36 SETTABLEKS                       R11 R10 K16 ["HorizontalAlignment"]
+       38 CALL                             R8 2 1
+       39 SETTABLEKS                       R8 R7 K11 ["Layout"]
+       41 GETUPVAL                         R8 0
+       42 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       44 GETUPVAL                         R9 3
+       45 DUPTABLE                         R10 K29 [{["asset"], ["assetData"], ["assetId"] = 123456, ["isHovered"] = True, ["LayoutOrder"] = 1}]
+       46 GETUPVAL                         R11 2
+       47 SETTABLEKS                       R11 R10 K22 ["asset"]
        49 GETUPVAL                         R11 2
-       50 SETTABLEKS                       R11 R10 K21 ["asset"]
-       52 GETUPVAL                         R11 2
-       53 SETTABLEKS                       R11 R10 K22 ["assetData"]
-       55 LOADK                            R11 K27 [123456]
-       56 SETTABLEKS                       R11 R10 K23 ["assetId"]
-       58 LOADB                            R11 1
-       59 SETTABLEKS                       R11 R10 K24 ["isHovered"]
-       61 LOADN                            R11 1
-       62 SETTABLEKS                       R11 R10 K25 ["LayoutOrder"]
-       64 CALL                             R8 2 1
-       65 SETTABLEKS                       R8 R7 K11 ["Asset"]
-       67 CALL                             R4 3 -1
-       68 SETLIST                          R3 R4 -1 [1]
-       70 CALL                             R0 3 0
-       71 RETURN                           R0 0
+       50 SETTABLEKS                       R11 R10 K23 ["assetData"]
+       52 CALL                             R8 2 1
+       53 SETTABLEKS                       R8 R7 K12 ["Asset"]
+       55 CALL                             R4 3 -1
+       56 SETLIST                          R3 R4 -1 [1]
+       58 CALL                             R0 3 0
+       59 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -135,30 +123,22 @@ MAIN:
        52 GETTABLEKS                       R8 R5 K17 ["getSimpleAsset"]
        54 LOADK                            R9 K18 [123456]
        55 CALL                             R8 1 1
-       56 DUPTABLE                         R9 K22 [{"name", "summary", "stories"}]
-       57 LOADK                            R10 K9 ["Asset"]
-       58 SETTABLEKS                       R10 R9 K19 ["name"]
-       60 LOADK                            R10 K23 ["An asset used in the grid view."]
-       61 SETTABLEKS                       R10 R9 K20 ["summary"]
-       63 NEWTABLE                         R10 0 2
-       65 DUPTABLE                         R11 K25 [{"name", "story"}]
-       66 LOADK                            R12 K9 ["Asset"]
-       67 SETTABLEKS                       R12 R11 K19 ["name"]
-       69 DUPCLOSURE                       R12 K26 [PROTO_2]
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R7
-       72 CAPTURE                          VAL R8
-       73 CAPTURE                          VAL R3
-       74 SETTABLEKS                       R12 R11 K24 ["story"]
-       76 DUPTABLE                         R12 K25 [{"name", "story"}]
-       77 LOADK                            R13 K27 ["Asset hovered"]
-       78 SETTABLEKS                       R13 R12 K19 ["name"]
-       80 DUPCLOSURE                       R13 K28 [PROTO_3]
-       81 CAPTURE                          VAL R2
-       82 CAPTURE                          VAL R7
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          VAL R3
-       85 SETTABLEKS                       R13 R12 K24 ["story"]
-       87 SETLIST                          R10 R11 2 [1]
-       89 SETTABLEKS                       R10 R9 K21 ["stories"]
-       91 RETURN                           R9 1
+       56 DUPTABLE                         R9 K23 [{["name"] = "Asset", ["summary"] = "An asset used in the grid view.", ["stories"]}]
+       57 NEWTABLE                         R10 0 2
+       59 DUPTABLE                         R11 K25 [{["name"] = "Asset", ["story"]}]
+       60 DUPCLOSURE                       R12 K26 [PROTO_2]
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R3
+       65 SETTABLEKS                       R12 R11 K24 ["story"]
+       67 DUPTABLE                         R12 K28 [{["name"] = "Asset hovered", ["story"]}]
+       68 DUPCLOSURE                       R13 K29 [PROTO_3]
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R7
+       71 CAPTURE                          VAL R8
+       72 CAPTURE                          VAL R3
+       73 SETTABLEKS                       R13 R12 K24 ["story"]
+       75 SETLIST                          R10 R11 2 [1]
+       77 SETTABLEKS                       R10 R9 K22 ["stories"]
+       79 RETURN                           R9 1

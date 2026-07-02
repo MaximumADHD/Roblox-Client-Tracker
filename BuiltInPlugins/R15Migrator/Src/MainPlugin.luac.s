@@ -109,26 +109,24 @@ PROTO_5:
        14 LOADB                            R1 1
        15 CALL                             R0 1 0
        16 GETUPVAL                         R0 0
-       17 DUPTABLE                         R2 K4 [{"scanComplete"}]
-       18 LOADB                            R3 1
-       19 SETTABLEKS                       R3 R2 K3 ["scanComplete"]
-       21 NAMECALL                         R0 R0 K5 ["setState"]
-       23 CALL                             R0 2 0
-       24 GETUPVAL                         R0 0
-       25 GETTABLEKS                       R0 R0 K6 ["store"]
-       27 GETUPVAL                         R2 1
-       28 LOADB                            R3 0
-       29 CALL                             R2 1 -1
-       30 NAMECALL                         R0 R0 K7 ["dispatch"]
-       32 CALL                             R0 -1 0
-       33 GETIMPORT                        R0 K9 [game]
-       35 LOADK                            R2 K10 ["Workspace"]
-       36 NAMECALL                         R0 R0 K11 ["GetService"]
-       38 CALL                             R0 2 1
-       39 GETIMPORT                        R2 K15 [Enum.AvatarUnificationMode.Enabled]
-       41 NAMECALL                         R0 R0 K16 ["SetAvatarUnificationMode"]
-       43 CALL                             R0 2 0
-       44 RETURN                           R0 0
+       17 DUPTABLE                         R2 K5 [{["scanComplete"] = True}]
+       18 NAMECALL                         R0 R0 K6 ["setState"]
+       20 CALL                             R0 2 0
+       21 GETUPVAL                         R0 0
+       22 GETTABLEKS                       R0 R0 K7 ["store"]
+       24 GETUPVAL                         R2 1
+       25 LOADB                            R3 0
+       26 CALL                             R2 1 -1
+       27 NAMECALL                         R0 R0 K8 ["dispatch"]
+       29 CALL                             R0 -1 0
+       30 GETIMPORT                        R0 K10 [game]
+       32 LOADK                            R2 K11 ["Workspace"]
+       33 NAMECALL                         R0 R0 K12 ["GetService"]
+       35 CALL                             R0 2 1
+       36 GETIMPORT                        R2 K16 [Enum.AvatarUnificationMode.Enabled]
+       38 NAMECALL                         R0 R0 K17 ["SetAvatarUnificationMode"]
+       40 CALL                             R0 2 0
+       41 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -148,20 +146,16 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isRescan", "scanComplete"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isRescan"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["scanComplete"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 GETUPVAL                         R0 0
-       12 GETTABLEKS                       R0 R0 K4 ["store"]
-       14 GETUPVAL                         R2 1
-       15 CALL                             R2 0 -1
-       16 NAMECALL                         R0 R0 K5 ["dispatch"]
-       18 CALL                             R0 -1 0
-       19 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = True, ["scanComplete"] = False}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K6 ["store"]
+        8 GETUPVAL                         R2 1
+        9 CALL                             R2 0 -1
+       10 NAMECALL                         R0 R0 K7 ["dispatch"]
+       12 CALL                             R0 -1 0
+       13 RETURN                           R0 0
 
 PROTO_8:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
@@ -205,26 +199,24 @@ PROTO_9:
 
 PROTO_10:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["setScriptAnalysisEnabled"]
-       11 LOADB                            R1 0
-       12 CALL                             R0 1 0
-       13 GETUPVAL                         R0 0
-       14 GETTABLEKS                       R0 R0 K4 ["setScriptDocumentChangedEnabled"]
-       16 LOADB                            R1 0
-       17 CALL                             R0 1 0
-       18 GETUPVAL                         R0 0
-       19 GETTABLEKS                       R0 R0 K5 ["analytics"]
-       21 LOADK                            R2 K6 ["onPluginClosed"]
-       22 NAMECALL                         R0 R0 K7 ["getHandler"]
-       24 CALL                             R0 2 1
-       25 CALL                             R0 0 0
-       26 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["setScriptAnalysisEnabled"]
+        8 LOADB                            R1 0
+        9 CALL                             R0 1 0
+       10 GETUPVAL                         R0 0
+       11 GETTABLEKS                       R0 R0 K5 ["setScriptDocumentChangedEnabled"]
+       13 LOADB                            R1 0
+       14 CALL                             R0 1 0
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K6 ["analytics"]
+       18 LOADK                            R2 K7 ["onPluginClosed"]
+       19 NAMECALL                         R0 R0 K8 ["getHandler"]
+       21 CALL                             R0 2 1
+       22 CALL                             R0 0 0
+       23 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -498,165 +490,157 @@ PROTO_22:
        30 RETURN                           R0 0
 
 PROTO_23:
-        0 DUPTABLE                         R2 K3 [{"enabled", "scanComplete", "isRescan"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["scanComplete"]
-        7 LOADB                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["isRescan"]
-       10 SETTABLEKS                       R2 R0 K4 ["state"]
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U0
-       15 SETTABLEKS                       R2 R0 K5 ["setScriptDocumentChangedEnabled"]
-       17 NEWCLOSURE                       R2 P1
-       18 CAPTURE                          UPVAL U0
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K6 ["setScriptAnalysisEnabled"]
-       22 NEWCLOSURE                       R2 P2
-       23 CAPTURE                          VAL R0
-       24 CAPTURE                          UPVAL U1
-       25 CAPTURE                          UPVAL U2
-       26 SETTABLEKS                       R2 R0 K7 ["startScan"]
-       28 NEWCLOSURE                       R2 P3
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          UPVAL U3
-       31 SETTABLEKS                       R2 R0 K8 ["resetPlugin"]
-       33 NEWCLOSURE                       R2 P4
+        0 DUPTABLE                         R2 K4 [{[1] = False, ["scanComplete"] = False, ["isRescan"] = False}]
+        1 SETTABLEKS                       R2 R0 K5 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R2 R0 K6 ["setScriptDocumentChangedEnabled"]
+        8 NEWCLOSURE                       R2 P1
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R2 R0 K7 ["setScriptAnalysisEnabled"]
+       13 NEWCLOSURE                       R2 P2
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U1
+       16 CAPTURE                          UPVAL U2
+       17 SETTABLEKS                       R2 R0 K8 ["startScan"]
+       19 NEWCLOSURE                       R2 P3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U3
+       22 SETTABLEKS                       R2 R0 K9 ["resetPlugin"]
+       24 NEWCLOSURE                       R2 P4
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U4
+       27 SETTABLEKS                       R2 R0 K10 ["toggleEnabled"]
+       29 NEWCLOSURE                       R2 P5
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R2 R0 K11 ["onClose"]
+       33 NEWCLOSURE                       R2 P6
        34 CAPTURE                          VAL R0
-       35 CAPTURE                          UPVAL U4
-       36 SETTABLEKS                       R2 R0 K9 ["toggleEnabled"]
-       38 NEWCLOSURE                       R2 P5
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R2 R0 K10 ["onClose"]
-       42 NEWCLOSURE                       R2 P6
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R2 R0 K11 ["onRestore"]
-       46 DUPCLOSURE                       R2 K12 [PROTO_12]
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          UPVAL U6
-       49 CAPTURE                          UPVAL U7
-       50 SETTABLEKS                       R2 R0 K13 ["includeScript"]
-       52 NEWCLOSURE                       R2 P8
-       53 CAPTURE                          VAL R0
-       54 CAPTURE                          UPVAL U8
-       55 SETTABLEKS                       R2 R0 K14 ["onScriptChangedCallback"]
-       57 NEWCLOSURE                       R2 P9
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          UPVAL U9
-       60 CAPTURE                          UPVAL U10
-       61 SETTABLEKS                       R2 R0 K15 ["onScriptAnalysisCallback"]
-       63 NEWCLOSURE                       R2 P10
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          UPVAL U10
-       66 SETTABLEKS                       R2 R0 K16 ["onScriptDestroyingCallback"]
-       68 NEWCLOSURE                       R2 P11
-       69 CAPTURE                          VAL R0
-       70 SETTABLEKS                       R2 R0 K17 ["onWidgetEnabledChanged"]
-       72 GETUPVAL                         R2 11
-       73 GETTABLEKS                       R2 R2 K18 ["Store"]
-       75 GETTABLEKS                       R2 R2 K19 ["new"]
-       77 GETUPVAL                         R3 12
-       78 LOADNIL                          R4
-       79 NEWTABLE                         R5 0 1
-       81 GETUPVAL                         R6 11
-       82 GETTABLEKS                       R6 R6 K20 ["thunkMiddleware"]
-       84 SETLIST                          R5 R6 1 [1]
-       86 LOADNIL                          R6
-       87 CALL                             R2 4 1
-       88 SETTABLEKS                       R2 R0 K21 ["store"]
-       90 GETUPVAL                         R2 13
-       91 GETTABLEKS                       R2 R2 K22 ["Localization"]
-       93 GETTABLEKS                       R2 R2 K19 ["new"]
-       95 DUPTABLE                         R3 K26 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       96 GETUPVAL                         R4 14
-       97 SETTABLEKS                       R4 R3 K23 ["stringResourceTable"]
-       99 GETUPVAL                         R4 15
-      100 SETTABLEKS                       R4 R3 K24 ["translationResourceTable"]
-      102 LOADK                            R4 K27 ["R15Migrator"]
-      103 SETTABLEKS                       R4 R3 K25 ["pluginName"]
-      105 CALL                             R2 1 1
-      106 SETTABLEKS                       R2 R0 K28 ["localization"]
-      108 GETUPVAL                         R2 13
-      109 GETTABLEKS                       R2 R2 K29 ["Analytics"]
-      111 GETTABLEKS                       R2 R2 K19 ["new"]
-      113 GETUPVAL                         R3 16
-      114 CALL                             R2 1 1
-      115 SETTABLEKS                       R2 R0 K30 ["analytics"]
-      117 GETUPVAL                         R2 17
-      118 GETTABLEKS                       R2 R2 K19 ["new"]
-      120 GETTABLEKS                       R3 R0 K16 ["onScriptDestroyingCallback"]
-      122 CALL                             R2 1 1
-      123 SETTABLEKS                       R2 R0 K31 ["scriptConversionContext"]
-      125 GETUPVAL                         R2 18
-      126 GETTABLEKS                       R2 R2 K19 ["new"]
-      128 CALL                             R2 0 1
-      129 SETTABLEKS                       R2 R0 K32 ["networkInterface"]
-      131 GETUPVAL                         R2 13
-      132 GETTABLEKS                       R2 R2 K33 ["API"]
-      134 GETTABLEKS                       R2 R2 K19 ["new"]
-      136 CALL                             R2 0 1
-      137 SETTABLEKS                       R2 R0 K34 ["api"]
-      139 GETUPVAL                         R2 19
-      140 GETTABLEKS                       R2 R2 K19 ["new"]
-      142 GETUPVAL                         R3 20
-      143 GETTABLEKS                       R3 R3 K35 ["CrossPluginCommunicationName"]
-      145 CALL                             R2 1 1
-      146 SETTABLEKS                       R2 R0 K36 ["communication"]
-      148 GETTABLEKS                       R2 R0 K36 ["communication"]
-      150 GETUPVAL                         R4 20
-      151 GETTABLEKS                       R4 R4 K37 ["CrossPluginCommunicationInstructions"]
-      153 GETTABLEKS                       R4 R4 K38 ["Open"]
-      155 NEWCLOSURE                       R5 P12
-      156 CAPTURE                          VAL R0
-      157 NAMECALL                         R2 R2 K39 ["Connect"]
-      159 CALL                             R2 3 0
-      160 NEWCLOSURE                       R2 P13
-      161 CAPTURE                          UPVAL U6
-      162 CAPTURE                          VAL R0
-      163 CAPTURE                          UPVAL U21
-      164 CAPTURE                          UPVAL U22
-      165 CAPTURE                          UPVAL U23
-      166 CAPTURE                          UPVAL U24
-      167 CAPTURE                          UPVAL U25
-      168 CAPTURE                          UPVAL U26
-      169 CAPTURE                          UPVAL U27
-      170 GETUPVAL                         R3 28
-      171 GETTABLEKS                       R3 R3 K40 ["IsR15ConvertedExperience"]
-      173 GETTABLEKS                       R5 R1 K41 ["Plugin"]
-      175 GETIMPORT                        R6 K43 [game]
-      177 GETTABLEKS                       R6 R6 K44 ["GameId"]
-      179 NAMECALL                         R3 R3 K45 ["getBooleanSetting"]
-      181 CALL                             R3 3 1
-      182 SETTABLEKS                       R3 R0 K46 ["isR15ConvertedExperience"]
-      184 MOVE                             R3 R2
-      185 CALL                             R3 0 0
-      186 GETTABLEKS                       R3 R0 K36 ["communication"]
-      188 GETUPVAL                         R5 20
-      189 GETTABLEKS                       R5 R5 K37 ["CrossPluginCommunicationInstructions"]
-      191 GETTABLEKS                       R5 R5 K47 ["Published"]
-      193 NEWCLOSURE                       R6 P14
-      194 CAPTURE                          UPVAL U6
-      195 CAPTURE                          VAL R2
-      196 NAMECALL                         R3 R3 K39 ["Connect"]
-      198 CALL                             R3 3 0
-      199 GETTABLEKS                       R3 R1 K41 ["Plugin"]
-      201 GETTABLEKS                       R3 R3 K48 ["Unloading"]
-      203 NEWCLOSURE                       R5 P15
-      204 CAPTURE                          VAL R0
-      205 NAMECALL                         R3 R3 K39 ["Connect"]
-      207 CALL                             R3 2 0
-      208 MOVE                             R5 R1
-      209 NAMECALL                         R3 R0 K49 ["initToolbarAndButton"]
-      211 CALL                             R3 2 0
-      212 GETTABLEKS                       R3 R0 K21 ["store"]
-      214 GETUPVAL                         R5 29
-      215 GETTABLEKS                       R6 R0 K32 ["networkInterface"]
-      217 CALL                             R5 1 -1
-      218 NAMECALL                         R3 R3 K50 ["dispatch"]
-      220 CALL                             R3 -1 0
-      221 RETURN                           R0 0
+       35 SETTABLEKS                       R2 R0 K12 ["onRestore"]
+       37 DUPCLOSURE                       R2 K13 [PROTO_12]
+       38 CAPTURE                          UPVAL U5
+       39 CAPTURE                          UPVAL U6
+       40 CAPTURE                          UPVAL U7
+       41 SETTABLEKS                       R2 R0 K14 ["includeScript"]
+       43 NEWCLOSURE                       R2 P8
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          UPVAL U8
+       46 SETTABLEKS                       R2 R0 K15 ["onScriptChangedCallback"]
+       48 NEWCLOSURE                       R2 P9
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          UPVAL U9
+       51 CAPTURE                          UPVAL U10
+       52 SETTABLEKS                       R2 R0 K16 ["onScriptAnalysisCallback"]
+       54 NEWCLOSURE                       R2 P10
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          UPVAL U10
+       57 SETTABLEKS                       R2 R0 K17 ["onScriptDestroyingCallback"]
+       59 NEWCLOSURE                       R2 P11
+       60 CAPTURE                          VAL R0
+       61 SETTABLEKS                       R2 R0 K18 ["onWidgetEnabledChanged"]
+       63 GETUPVAL                         R2 11
+       64 GETTABLEKS                       R2 R2 K19 ["Store"]
+       66 GETTABLEKS                       R2 R2 K20 ["new"]
+       68 GETUPVAL                         R3 12
+       69 LOADNIL                          R4
+       70 NEWTABLE                         R5 0 1
+       72 GETUPVAL                         R6 11
+       73 GETTABLEKS                       R6 R6 K21 ["thunkMiddleware"]
+       75 SETLIST                          R5 R6 1 [1]
+       77 LOADNIL                          R6
+       78 CALL                             R2 4 1
+       79 SETTABLEKS                       R2 R0 K22 ["store"]
+       81 GETUPVAL                         R2 13
+       82 GETTABLEKS                       R2 R2 K23 ["Localization"]
+       84 GETTABLEKS                       R2 R2 K20 ["new"]
+       86 DUPTABLE                         R3 K28 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "R15Migrator"}]
+       87 GETUPVAL                         R4 14
+       88 SETTABLEKS                       R4 R3 K24 ["stringResourceTable"]
+       90 GETUPVAL                         R4 15
+       91 SETTABLEKS                       R4 R3 K25 ["translationResourceTable"]
+       93 CALL                             R2 1 1
+       94 SETTABLEKS                       R2 R0 K29 ["localization"]
+       96 GETUPVAL                         R2 13
+       97 GETTABLEKS                       R2 R2 K30 ["Analytics"]
+       99 GETTABLEKS                       R2 R2 K20 ["new"]
+      101 GETUPVAL                         R3 16
+      102 CALL                             R2 1 1
+      103 SETTABLEKS                       R2 R0 K31 ["analytics"]
+      105 GETUPVAL                         R2 17
+      106 GETTABLEKS                       R2 R2 K20 ["new"]
+      108 GETTABLEKS                       R3 R0 K17 ["onScriptDestroyingCallback"]
+      110 CALL                             R2 1 1
+      111 SETTABLEKS                       R2 R0 K32 ["scriptConversionContext"]
+      113 GETUPVAL                         R2 18
+      114 GETTABLEKS                       R2 R2 K20 ["new"]
+      116 CALL                             R2 0 1
+      117 SETTABLEKS                       R2 R0 K33 ["networkInterface"]
+      119 GETUPVAL                         R2 13
+      120 GETTABLEKS                       R2 R2 K34 ["API"]
+      122 GETTABLEKS                       R2 R2 K20 ["new"]
+      124 CALL                             R2 0 1
+      125 SETTABLEKS                       R2 R0 K35 ["api"]
+      127 GETUPVAL                         R2 19
+      128 GETTABLEKS                       R2 R2 K20 ["new"]
+      130 GETUPVAL                         R3 20
+      131 GETTABLEKS                       R3 R3 K36 ["CrossPluginCommunicationName"]
+      133 CALL                             R2 1 1
+      134 SETTABLEKS                       R2 R0 K37 ["communication"]
+      136 GETTABLEKS                       R2 R0 K37 ["communication"]
+      138 GETUPVAL                         R4 20
+      139 GETTABLEKS                       R4 R4 K38 ["CrossPluginCommunicationInstructions"]
+      141 GETTABLEKS                       R4 R4 K39 ["Open"]
+      143 NEWCLOSURE                       R5 P12
+      144 CAPTURE                          VAL R0
+      145 NAMECALL                         R2 R2 K40 ["Connect"]
+      147 CALL                             R2 3 0
+      148 NEWCLOSURE                       R2 P13
+      149 CAPTURE                          UPVAL U6
+      150 CAPTURE                          VAL R0
+      151 CAPTURE                          UPVAL U21
+      152 CAPTURE                          UPVAL U22
+      153 CAPTURE                          UPVAL U23
+      154 CAPTURE                          UPVAL U24
+      155 CAPTURE                          UPVAL U25
+      156 CAPTURE                          UPVAL U26
+      157 CAPTURE                          UPVAL U27
+      158 GETUPVAL                         R3 28
+      159 GETTABLEKS                       R3 R3 K41 ["IsR15ConvertedExperience"]
+      161 GETTABLEKS                       R5 R1 K42 ["Plugin"]
+      163 GETIMPORT                        R6 K44 [game]
+      165 GETTABLEKS                       R6 R6 K45 ["GameId"]
+      167 NAMECALL                         R3 R3 K46 ["getBooleanSetting"]
+      169 CALL                             R3 3 1
+      170 SETTABLEKS                       R3 R0 K47 ["isR15ConvertedExperience"]
+      172 MOVE                             R3 R2
+      173 CALL                             R3 0 0
+      174 GETTABLEKS                       R3 R0 K37 ["communication"]
+      176 GETUPVAL                         R5 20
+      177 GETTABLEKS                       R5 R5 K38 ["CrossPluginCommunicationInstructions"]
+      179 GETTABLEKS                       R5 R5 K48 ["Published"]
+      181 NEWCLOSURE                       R6 P14
+      182 CAPTURE                          UPVAL U6
+      183 CAPTURE                          VAL R2
+      184 NAMECALL                         R3 R3 K40 ["Connect"]
+      186 CALL                             R3 3 0
+      187 GETTABLEKS                       R3 R1 K42 ["Plugin"]
+      189 GETTABLEKS                       R3 R3 K49 ["Unloading"]
+      191 NEWCLOSURE                       R5 P15
+      192 CAPTURE                          VAL R0
+      193 NAMECALL                         R3 R3 K40 ["Connect"]
+      195 CALL                             R3 2 0
+      196 MOVE                             R5 R1
+      197 NAMECALL                         R3 R0 K50 ["initToolbarAndButton"]
+      199 CALL                             R3 2 0
+      200 GETTABLEKS                       R3 R0 K22 ["store"]
+      202 GETUPVAL                         R5 29
+      203 GETTABLEKS                       R6 R0 K33 ["networkInterface"]
+      205 CALL                             R5 1 -1
+      206 NAMECALL                         R3 R3 K51 ["dispatch"]
+      208 CALL                             R3 -1 0
+      209 RETURN                           R0 0
 
 PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
@@ -751,15 +735,15 @@ PROTO_25:
        83 GETTABLEKS                       R11 R0 K32 ["onRestore"]
        85 SETTABLEKS                       R11 R10 K33 ["OnWidgetRestored"]
        87 GETIMPORT                        R11 K35 [Vector2.new]
-       89 LOADN                            R12 252
-       90 LOADN                            R13 128
+       89 LOADN                            R12 508
+       90 LOADN                            R13 640
        91 CALL                             R11 2 1
        92 SETTABLEKS                       R11 R10 K36 ["Size"]
        94 GETIMPORT                        R11 K39 [Enum.InitialDockState.Left]
        96 SETTABLEKS                       R11 R10 K37 ["InitialDockState"]
        98 GETIMPORT                        R11 K35 [Vector2.new]
-      100 LOADN                            R12 252
-      101 LOADN                            R13 128
+      100 LOADN                            R12 508
+      101 LOADN                            R13 640
       102 CALL                             R11 2 1
       103 SETTABLEKS                       R11 R10 K40 ["MinSize"]
       105 GETUPVAL                         R11 5

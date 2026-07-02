@@ -29,31 +29,29 @@ PROTO_3:
         8 CALL                             R1 -1 0
         9 GETUPVAL                         R1 1
        10 CALL                             R1 0 1
-       11 JUMPIFNOT                        R1 ; [+35]
+       11 JUMPIFNOT                        R1 ; [+32]
        12 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]
        14 NAMECALL                         R1 R1 K3 ["getSchema"]
        16 CALL                             R1 1 1
        17 GETTABLEKS                       R1 R1 K4 ["getHoverComponent"]
-       19 JUMPIFNOT                        R1 ; [+27]
+       19 JUMPIFNOT                        R1 ; [+24]
        20 MOVE                             R2 R1
        21 GETTABLEKS                       R3 R0 K0 ["_draggerToolModel"]
        23 GETTABLEKS                       R3 R3 K5 ["_draggerContext"]
        25 CALL                             R2 1 1
-       26 JUMPIFNOT                        R2 ; [+20]
+       26 JUMPIFNOT                        R2 ; [+17]
        27 GETUPVAL                         R3 2
        28 GETTABLEKS                       R3 R3 K6 ["createElement"]
        30 MOVE                             R4 R2
-       31 DUPTABLE                         R5 K10 [{"DraggerContext", "HoverMetadata", "Pending"}]
+       31 DUPTABLE                         R5 K11 [{["DraggerContext"], ["HoverMetadata"], ["Pending"] = True}]
        32 GETTABLEKS                       R6 R0 K0 ["_draggerToolModel"]
        34 GETTABLEKS                       R6 R6 K5 ["_draggerContext"]
        36 SETTABLEKS                       R6 R5 K7 ["DraggerContext"]
-       38 GETTABLEKS                       R6 R0 K11 ["_clickedMetadata"]
+       38 GETTABLEKS                       R6 R0 K12 ["_clickedMetadata"]
        40 SETTABLEKS                       R6 R5 K8 ["HoverMetadata"]
-       42 LOADB                            R6 1
-       43 SETTABLEKS                       R6 R5 K9 ["Pending"]
-       45 CALL                             R3 2 -1
-       46 RETURN                           R3 -1
-       47 RETURN                           R0 0
+       42 CALL                             R3 2 -1
+       43 RETURN                           R3 -1
+       44 RETURN                           R0 0
 
 PROTO_4:
         0 RETURN                           R0 0

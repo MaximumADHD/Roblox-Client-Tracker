@@ -29,64 +29,56 @@ PROTO_0:
        41 GETTABLEKS                       R13 R0 K11 ["Focus"]
        43 SUB                              R12 R10 R13
        44 GETTABLEKS                       R12 R12 K8 ["Magnitude"]
-       46 JUMPIFLT                         R4 R12 ; [+67]
+       46 JUMPIFLT                         R4 R12 ; [+55]
        48 LOADK                            R13 K12 [0.001]
-       49 JUMPIFLT                         R12 R13 ; [+64]
+       49 JUMPIFLT                         R12 R13 ; [+52]
        51 LOADK                            R15 K14 [1.6]
        52 DIV                              R17 R12 R4
        53 POWK                             R16 R17 K15 [0.5]
        54 MUL                              R14 R15 R16
-       55 SUBRK                            R13 R13 K14 [1.6]
+       55 SUBRK                            R13 K13 [1.8] R14
        56 MUL                              R11 R11 R13
        57 MULK                             R15 R8 K17 [2]
        58 SUBK                             R14 R15 K16 [1]
        59 GETUPVAL                         R15 0
        60 GETTABLEKS                       R15 R15 K18 ["createElement"]
        62 LOADK                            R16 K19 ["BoxHandleAdornment"]
-       63 DUPTABLE                         R17 K25 [{"ZIndex", "Adornee", "CFrame", "Color3", "Size"}]
-       64 LOADN                            R18 0
-       65 SETTABLEKS                       R18 R17 K20 ["ZIndex"]
-       67 GETUPVAL                         R18 1
-       68 GETTABLEKS                       R18 R18 K26 ["Terrain"]
-       70 SETTABLEKS                       R18 R17 K21 ["Adornee"]
-       72 SETTABLEKS                       R9 R17 K22 ["CFrame"]
-       74 GETUPVAL                         R18 2
-       75 SETTABLEKS                       R18 R17 K23 ["Color3"]
-       77 LOADK                            R19 K27 [{0.2, 0.2, 0.2}]
-       78 MUL                              R18 R19 R11
-       79 SETTABLEKS                       R18 R17 K24 ["Size"]
-       81 CALL                             R15 2 1
-       82 SETTABLE                         R15 R1 R14
-       83 MULK                             R14 R8 K17 [2]
-       84 GETUPVAL                         R15 0
-       85 GETTABLEKS                       R15 R15 K18 ["createElement"]
-       87 LOADK                            R16 K19 ["BoxHandleAdornment"]
-       88 DUPTABLE                         R17 K30 [{"ZIndex", "Adornee", "CFrame", "Color3", "AlwaysOnTop", "Transparency", "Size"}]
-       89 LOADN                            R18 0
-       90 SETTABLEKS                       R18 R17 K20 ["ZIndex"]
-       92 GETUPVAL                         R18 1
-       93 GETTABLEKS                       R18 R18 K26 ["Terrain"]
-       95 SETTABLEKS                       R18 R17 K21 ["Adornee"]
-       97 SETTABLEKS                       R9 R17 K22 ["CFrame"]
-       99 GETUPVAL                         R18 2
-      100 SETTABLEKS                       R18 R17 K23 ["Color3"]
-      102 LOADB                            R18 1
-      103 SETTABLEKS                       R18 R17 K28 ["AlwaysOnTop"]
-      105 LOADK                            R18 K31 [0.7]
-      106 SETTABLEKS                       R18 R17 K29 ["Transparency"]
-      108 LOADK                            R19 K27 [{0.2, 0.2, 0.2}]
-      109 MUL                              R18 R19 R11
-      110 SETTABLEKS                       R18 R17 K24 ["Size"]
-      112 CALL                             R15 2 1
-      113 SETTABLE                         R15 R1 R14
-      114 FORGLOOP                         R5 2 [inext] ; [-82]
-      116 GETUPVAL                         R5 0
-      117 GETTABLEKS                       R5 R5 K18 ["createElement"]
-      119 LOADK                            R6 K32 ["Folder"]
-      120 NEWTABLE                         R7 0 0
-      122 MOVE                             R8 R1
-      123 CALL                             R5 3 -1
-      124 RETURN                           R5 -1
+       63 DUPTABLE                         R17 K26 [{["ZIndex"] = 0, ["Adornee"], ["CFrame"], ["Color3"], ["Size"]}]
+       64 GETUPVAL                         R18 1
+       65 GETTABLEKS                       R18 R18 K27 ["Terrain"]
+       67 SETTABLEKS                       R18 R17 K22 ["Adornee"]
+       69 SETTABLEKS                       R9 R17 K23 ["CFrame"]
+       71 GETUPVAL                         R18 2
+       72 SETTABLEKS                       R18 R17 K24 ["Color3"]
+       74 LOADK                            R19 K28 [{0.2, 0.2, 0.2}]
+       75 MUL                              R18 R19 R11
+       76 SETTABLEKS                       R18 R17 K25 ["Size"]
+       78 CALL                             R15 2 1
+       79 SETTABLE                         R15 R1 R14
+       80 MULK                             R14 R8 K17 [2]
+       81 GETUPVAL                         R15 0
+       82 GETTABLEKS                       R15 R15 K18 ["createElement"]
+       84 LOADK                            R16 K19 ["BoxHandleAdornment"]
+       85 DUPTABLE                         R17 K33 [{["ZIndex"] = 0, ["Adornee"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.7, ["Size"]}]
+       86 GETUPVAL                         R18 1
+       87 GETTABLEKS                       R18 R18 K27 ["Terrain"]
+       89 SETTABLEKS                       R18 R17 K22 ["Adornee"]
+       91 SETTABLEKS                       R9 R17 K23 ["CFrame"]
+       93 GETUPVAL                         R18 2
+       94 SETTABLEKS                       R18 R17 K24 ["Color3"]
+       96 LOADK                            R19 K28 [{0.2, 0.2, 0.2}]
+       97 MUL                              R18 R19 R11
+       98 SETTABLEKS                       R18 R17 K25 ["Size"]
+      100 CALL                             R15 2 1
+      101 SETTABLE                         R15 R1 R14
+      102 FORGLOOP                         R5 2 [inext] ; [-70]
+      104 GETUPVAL                         R5 0
+      105 GETTABLEKS                       R5 R5 K18 ["createElement"]
+      107 LOADK                            R6 K34 ["Folder"]
+      108 NEWTABLE                         R7 0 0
+      110 MOVE                             R8 R1
+      111 CALL                             R5 3 -1
+      112 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

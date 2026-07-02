@@ -2,31 +2,25 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 LOADK                            R3 K1 ["TextLabel"]
-        4 DUPTABLE                         R4 K7 [{"Text", "Size", "TextSize", "TextWrapped", "BackgroundTransparency"}]
-        5 GETIMPORT                        R5 K10 [string.format]
-        7 LOADK                            R6 K11 ["You must set %s to %s to view this story"]
+        4 DUPTABLE                         R4 K10 [{["Text"], ["Size"], ["TextSize"] = 18, ["TextWrapped"] = True, ["BackgroundTransparency"] = 1}]
+        5 GETIMPORT                        R5 K13 [string.format]
+        7 LOADK                            R6 K14 ["You must set %s to %s to view this story"]
         8 MOVE                             R7 R0
         9 FASTCALL1                        TOSTRING R1 ; [+3]
        10 MOVE                             R9 R1
-       11 GETIMPORT                        R8 K13 [tostring]
+       11 GETIMPORT                        R8 K16 [tostring]
        13 CALL                             R8 1 1
        14 CALL                             R5 3 1
        15 SETTABLEKS                       R5 R4 K2 ["Text"]
-       17 GETIMPORT                        R5 K16 [UDim2.new]
+       17 GETIMPORT                        R5 K19 [UDim2.new]
        19 LOADN                            R6 1
        20 LOADN                            R7 0
        21 LOADN                            R8 0
        22 LOADN                            R9 100
        23 CALL                             R5 4 1
        24 SETTABLEKS                       R5 R4 K3 ["Size"]
-       26 LOADN                            R5 18
-       27 SETTABLEKS                       R5 R4 K4 ["TextSize"]
-       29 LOADB                            R5 1
-       30 SETTABLEKS                       R5 R4 K5 ["TextWrapped"]
-       32 LOADN                            R5 1
-       33 SETTABLEKS                       R5 R4 K6 ["BackgroundTransparency"]
-       35 CALL                             R2 2 -1
-       36 RETURN                           R2 -1
+       26 CALL                             R2 2 -1
+       27 RETURN                           R2 -1
 
 PROTO_1:
         0 FASTCALL1                        TYPEOF R1 ; [+3]

@@ -123,7 +123,7 @@ PROTO_1:
       108 JUMPIFNOT                        R7 ; [+37]
       109 LENGTH                           R10 R7
       110 LOADN                            R8 1
-      111 LOADN                            R9 255
+      111 LOADN                            R9 -1
       112 FORNPREP                         R8
       113 GETTABLE                         R11 R7 R10
       114 GETTABLEKS                       R11 R11 K5 ["Name"]

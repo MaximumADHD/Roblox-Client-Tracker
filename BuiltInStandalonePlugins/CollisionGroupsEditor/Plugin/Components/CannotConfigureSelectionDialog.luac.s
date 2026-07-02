@@ -6,86 +6,74 @@ PROTO_0:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K4 ["createElement"]
        11 GETUPVAL                         R5 1
-       12 DUPTABLE                         R6 K12 [{"Style", "Enabled", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
-       13 LOADK                            R7 K13 ["Alert"]
-       14 SETTABLEKS                       R7 R6 K5 ["Style"]
-       16 GETTABLEKS                       R8 R0 K14 ["state"]
-       18 GETTABLEKS                       R8 R8 K15 ["userRequestedDialogNeverShow"]
-       20 NOT                              R7 R8
-       21 JUMPIFNOT                        R7 ; [+2]
-       22 GETTABLEKS                       R7 R1 K6 ["Enabled"]
-       24 SETTABLEKS                       R7 R6 K6 ["Enabled"]
-       26 LOADK                            R9 K2 ["CannotConfigureSelectionDialog"]
-       27 LOADK                            R10 K16 ["DialogWindowTitle"]
-       28 NEWTABLE                         R11 0 1
-       30 GETUPVAL                         R12 2
-       31 GETTABLEKS                       R12 R12 K17 ["CursorGroupName"]
-       33 SETLIST                          R11 R12 1 [1]
-       35 NAMECALL                         R7 R3 K18 ["getText"]
-       37 CALL                             R7 4 1
-       38 SETTABLEKS                       R7 R6 K7 ["Title"]
-       40 GETTABLEKS                       R7 R2 K19 ["DialogMinimumSize"]
-       42 SETTABLEKS                       R7 R6 K8 ["MinContentSize"]
-       44 NEWTABLE                         R7 0 1
-       46 DUPTABLE                         R8 K22 [{"Key", "Text"}]
-       47 LOADK                            R9 K23 ["ok"]
-       48 SETTABLEKS                       R9 R8 K20 ["Key"]
-       50 LOADK                            R11 K24 ["RenameWarningDialog"]
-       51 LOADK                            R12 K25 ["Ok"]
-       52 NAMECALL                         R9 R3 K18 ["getText"]
-       54 CALL                             R9 3 1
-       55 SETTABLEKS                       R9 R8 K21 ["Text"]
-       57 SETLIST                          R7 R8 1 [1]
-       59 SETTABLEKS                       R7 R6 K9 ["Buttons"]
-       61 GETTABLEKS                       R7 R1 K11 ["OnClose"]
-       63 SETTABLEKS                       R7 R6 K10 ["OnButtonPressed"]
-       65 GETTABLEKS                       R7 R1 K11 ["OnClose"]
-       67 SETTABLEKS                       R7 R6 K11 ["OnClose"]
-       69 DUPTABLE                         R7 K27 [{"Contents"}]
-       70 GETUPVAL                         R8 0
-       71 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       73 GETUPVAL                         R9 3
-       74 DUPTABLE                         R10 K29 [{"Style", "Layout"}]
-       75 LOADK                            R11 K30 ["Box"]
-       76 SETTABLEKS                       R11 R10 K5 ["Style"]
-       78 GETIMPORT                        R11 K34 [Enum.FillDirection.Vertical]
-       80 SETTABLEKS                       R11 R10 K28 ["Layout"]
-       82 DUPTABLE                         R11 K36 [{"TextLabel"}]
-       83 GETUPVAL                         R12 0
-       84 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       86 GETUPVAL                         R13 4
-       87 DUPTABLE                         R14 K43 [{"LayoutOrder", "TextWrapped", "RichText", "TextXAlignment", "TextYAlignment", "AutomaticSize", "Text"}]
-       88 LOADN                            R15 1
-       89 SETTABLEKS                       R15 R14 K37 ["LayoutOrder"]
-       91 LOADB                            R15 1
-       92 SETTABLEKS                       R15 R14 K38 ["TextWrapped"]
-       94 LOADB                            R15 1
-       95 SETTABLEKS                       R15 R14 K39 ["RichText"]
-       97 GETIMPORT                        R15 K45 [Enum.TextXAlignment.Left]
-       99 SETTABLEKS                       R15 R14 K40 ["TextXAlignment"]
-      101 GETIMPORT                        R15 K47 [Enum.TextYAlignment.Top]
-      103 SETTABLEKS                       R15 R14 K41 ["TextYAlignment"]
-      105 GETIMPORT                        R15 K49 [Enum.AutomaticSize.XY]
-      107 SETTABLEKS                       R15 R14 K42 ["AutomaticSize"]
-      109 LOADK                            R17 K2 ["CannotConfigureSelectionDialog"]
-      110 LOADK                            R18 K50 ["WarningMessage"]
-      111 NEWTABLE                         R19 0 1
-      113 LOADK                            R21 K51 ["<b>%*</b>"]
-      114 GETUPVAL                         R23 2
-      115 GETTABLEKS                       R23 R23 K17 ["CursorGroupName"]
-      117 NAMECALL                         R21 R21 K52 ["format"]
-      119 CALL                             R21 2 1
-      120 MOVE                             R20 R21
-      121 SETLIST                          R19 R20 1 [1]
-      123 NAMECALL                         R15 R3 K18 ["getText"]
-      125 CALL                             R15 4 1
-      126 SETTABLEKS                       R15 R14 K21 ["Text"]
-      128 CALL                             R12 2 1
-      129 SETTABLEKS                       R12 R11 K35 ["TextLabel"]
-      131 CALL                             R8 3 1
-      132 SETTABLEKS                       R8 R7 K26 ["Contents"]
-      134 CALL                             R4 3 -1
-      135 RETURN                           R4 -1
+       12 DUPTABLE                         R6 K13 [{["Style"] = "Alert", ["Enabled"], ["Title"], ["MinContentSize"], ["Buttons"], ["OnButtonPressed"], ["OnClose"]}]
+       13 GETTABLEKS                       R8 R0 K14 ["state"]
+       15 GETTABLEKS                       R8 R8 K15 ["userRequestedDialogNeverShow"]
+       17 NOT                              R7 R8
+       18 JUMPIFNOT                        R7 ; [+2]
+       19 GETTABLEKS                       R7 R1 K7 ["Enabled"]
+       21 SETTABLEKS                       R7 R6 K7 ["Enabled"]
+       23 LOADK                            R9 K2 ["CannotConfigureSelectionDialog"]
+       24 LOADK                            R10 K16 ["DialogWindowTitle"]
+       25 NEWTABLE                         R11 0 1
+       27 GETUPVAL                         R12 2
+       28 GETTABLEKS                       R12 R12 K17 ["CursorGroupName"]
+       30 SETLIST                          R11 R12 1 [1]
+       32 NAMECALL                         R7 R3 K18 ["getText"]
+       34 CALL                             R7 4 1
+       35 SETTABLEKS                       R7 R6 K8 ["Title"]
+       37 GETTABLEKS                       R7 R2 K19 ["DialogMinimumSize"]
+       39 SETTABLEKS                       R7 R6 K9 ["MinContentSize"]
+       41 NEWTABLE                         R7 0 1
+       43 DUPTABLE                         R8 K23 [{["Key"] = "ok", ["Text"]}]
+       44 LOADK                            R11 K24 ["RenameWarningDialog"]
+       45 LOADK                            R12 K25 ["Ok"]
+       46 NAMECALL                         R9 R3 K18 ["getText"]
+       48 CALL                             R9 3 1
+       49 SETTABLEKS                       R9 R8 K22 ["Text"]
+       51 SETLIST                          R7 R8 1 [1]
+       53 SETTABLEKS                       R7 R6 K10 ["Buttons"]
+       55 GETTABLEKS                       R7 R1 K12 ["OnClose"]
+       57 SETTABLEKS                       R7 R6 K11 ["OnButtonPressed"]
+       59 GETTABLEKS                       R7 R1 K12 ["OnClose"]
+       61 SETTABLEKS                       R7 R6 K12 ["OnClose"]
+       63 DUPTABLE                         R7 K27 [{"Contents"}]
+       64 GETUPVAL                         R8 0
+       65 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       67 GETUPVAL                         R9 3
+       68 DUPTABLE                         R10 K30 [{["Style"] = "Box", ["Layout"]}]
+       69 GETIMPORT                        R11 K34 [Enum.FillDirection.Vertical]
+       71 SETTABLEKS                       R11 R10 K29 ["Layout"]
+       73 DUPTABLE                         R11 K36 [{"TextLabel"}]
+       74 GETUPVAL                         R12 0
+       75 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       77 GETUPVAL                         R13 4
+       78 DUPTABLE                         R14 K45 [{["LayoutOrder"] = 1, ["TextWrapped"] = True, ["RichText"] = True, ["TextXAlignment"], ["TextYAlignment"], ["AutomaticSize"], ["Text"]}]
+       79 GETIMPORT                        R15 K47 [Enum.TextXAlignment.Left]
+       81 SETTABLEKS                       R15 R14 K42 ["TextXAlignment"]
+       83 GETIMPORT                        R15 K49 [Enum.TextYAlignment.Top]
+       85 SETTABLEKS                       R15 R14 K43 ["TextYAlignment"]
+       87 GETIMPORT                        R15 K51 [Enum.AutomaticSize.XY]
+       89 SETTABLEKS                       R15 R14 K44 ["AutomaticSize"]
+       91 LOADK                            R17 K2 ["CannotConfigureSelectionDialog"]
+       92 LOADK                            R18 K52 ["WarningMessage"]
+       93 NEWTABLE                         R19 0 1
+       95 LOADK                            R21 K53 ["<b>%*</b>"]
+       96 GETUPVAL                         R23 2
+       97 GETTABLEKS                       R23 R23 K17 ["CursorGroupName"]
+       99 NAMECALL                         R21 R21 K54 ["format"]
+      101 CALL                             R21 2 1
+      102 MOVE                             R20 R21
+      103 SETLIST                          R19 R20 1 [1]
+      105 NAMECALL                         R15 R3 K18 ["getText"]
+      107 CALL                             R15 4 1
+      108 SETTABLEKS                       R15 R14 K22 ["Text"]
+      110 CALL                             R12 2 1
+      111 SETTABLEKS                       R12 R11 K35 ["TextLabel"]
+      113 CALL                             R8 3 1
+      114 SETTABLEKS                       R8 R7 K26 ["Contents"]
+      116 CALL                             R4 3 -1
+      117 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

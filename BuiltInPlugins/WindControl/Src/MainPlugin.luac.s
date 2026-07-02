@@ -61,20 +61,18 @@ PROTO_4:
         4 GETUPVAL                         R0 0
         5 GETTABLEKS                       R0 R0 K1 ["state"]
         7 GETTABLEKS                       R0 R0 K2 ["enabled"]
-        9 JUMPIF                           R0 ; [+10]
+        9 JUMPIF                           R0 ; [+7]
        10 GETUPVAL                         R0 0
        11 GETTABLEKS                       R0 R0 K3 ["log"]
        13 GETUPVAL                         R1 1
-       14 DUPTABLE                         R2 K5 [{"ctx"}]
-       15 LOADK                            R3 K6 ["ribbon"]
-       16 SETTABLEKS                       R3 R2 K4 ["ctx"]
-       18 CALL                             R0 2 0
-       19 RETURN                           R0 0
-       20 GETUPVAL                         R0 0
-       21 GETTABLEKS                       R0 R0 K7 ["logUsageReport"]
-       23 LOADK                            R1 K8 ["widgetDisabled"]
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
+       14 DUPTABLE                         R2 K6 [{["ctx"] = "ribbon"}]
+       15 CALL                             R0 2 0
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R0 0
+       18 GETTABLEKS                       R0 R0 K7 ["logUsageReport"]
+       20 LOADK                            R1 K8 ["widgetDisabled"]
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -83,29 +81,25 @@ PROTO_5:
         4 GETUPVAL                         R0 0
         5 GETTABLEKS                       R0 R0 K1 ["state"]
         7 GETTABLEKS                       R0 R0 K2 ["enabled"]
-        9 JUMPIF                           R0 ; [+10]
+        9 JUMPIF                           R0 ; [+7]
        10 GETUPVAL                         R0 0
        11 GETTABLEKS                       R0 R0 K3 ["log"]
        13 GETUPVAL                         R1 1
-       14 DUPTABLE                         R2 K5 [{"ctx"}]
-       15 LOADK                            R3 K6 ["properties"]
-       16 SETTABLEKS                       R3 R2 K4 ["ctx"]
-       18 CALL                             R0 2 0
-       19 RETURN                           R0 0
-       20 GETUPVAL                         R0 0
-       21 GETTABLEKS                       R0 R0 K7 ["logUsageReport"]
-       23 LOADK                            R1 K8 ["widgetDisabled"]
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
+       14 DUPTABLE                         R2 K6 [{["ctx"] = "properties"}]
+       15 CALL                             R0 2 0
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R0 0
+       18 GETTABLEKS                       R0 R0 K7 ["logUsageReport"]
+       20 LOADK                            R1 K8 ["widgetDisabled"]
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -129,70 +123,66 @@ PROTO_9:
         2 RETURN                           R0 1
 
 PROTO_10:
-        0 DUPTABLE                         R4 K1 [{"enabled"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R0
-        9 CAPTURE                          UPVAL U0
-       10 SETTABLEKS                       R2 R0 K3 ["log"]
-       12 NEWCLOSURE                       R2 P1
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          UPVAL U2
-       16 SETTABLEKS                       R2 R0 K4 ["logUsageReport"]
-       18 NEWCLOSURE                       R2 P2
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K5 ["toggleEnabled"]
-       22 NEWCLOSURE                       R2 P3
-       23 CAPTURE                          VAL R0
-       24 CAPTURE                          UPVAL U3
-       25 SETTABLEKS                       R2 R0 K6 ["toggleFromRibbon"]
-       27 NEWCLOSURE                       R2 P4
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U3
-       30 SETTABLEKS                       R2 R0 K7 ["toggleFromProperties"]
-       32 NEWCLOSURE                       R2 P5
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R2 R0 K8 ["onClose"]
-       36 NEWCLOSURE                       R2 P6
-       37 CAPTURE                          VAL R0
-       38 SETTABLEKS                       R2 R0 K9 ["onRestore"]
-       40 NEWCLOSURE                       R2 P7
-       41 CAPTURE                          VAL R0
-       42 SETTABLEKS                       R2 R0 K10 ["onWidgetEnabledChanged"]
-       44 GETUPVAL                         R2 4
-       45 GETTABLEKS                       R2 R2 K11 ["Localization"]
-       47 GETTABLEKS                       R2 R2 K12 ["new"]
-       49 DUPTABLE                         R3 K16 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       50 GETUPVAL                         R4 5
-       51 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
-       53 GETUPVAL                         R4 6
-       54 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
-       56 LOADK                            R4 K17 ["WindControl"]
-       57 SETTABLEKS                       R4 R3 K15 ["pluginName"]
-       59 CALL                             R2 1 1
-       60 SETTABLEKS                       R2 R0 K18 ["localization"]
-       62 GETUPVAL                         R2 4
-       63 GETTABLEKS                       R2 R2 K19 ["Analytics"]
-       65 GETTABLEKS                       R2 R2 K12 ["new"]
-       67 DUPCLOSURE                       R3 K20 [PROTO_9]
-       68 NEWTABLE                         R4 0 0
-       70 CALL                             R2 2 1
-       71 SETTABLEKS                       R2 R0 K21 ["analytics"]
-       73 GETUPVAL                         R2 7
-       74 GETTABLEKS                       R2 R2 K12 ["new"]
-       76 CALL                             R2 0 1
-       77 SETTABLEKS                       R2 R0 K22 ["telemetry"]
-       79 GETUPVAL                         R2 8
-       80 LOADK                            R4 K23 ["openGlobalWindControl"]
-       81 GETTABLEKS                       R5 R0 K7 ["toggleFromProperties"]
-       83 NAMECALL                         R2 R2 K24 ["bind"]
-       85 CALL                             R2 3 1
-       86 SETTABLEKS                       R2 R0 K25 ["onOpenWindControlEditorConnection"]
-       88 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          UPVAL U0
+        7 SETTABLEKS                       R2 R0 K4 ["log"]
+        9 NEWCLOSURE                       R2 P1
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U2
+       13 SETTABLEKS                       R2 R0 K5 ["logUsageReport"]
+       15 NEWCLOSURE                       R2 P2
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K6 ["toggleEnabled"]
+       19 NEWCLOSURE                       R2 P3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U3
+       22 SETTABLEKS                       R2 R0 K7 ["toggleFromRibbon"]
+       24 NEWCLOSURE                       R2 P4
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U3
+       27 SETTABLEKS                       R2 R0 K8 ["toggleFromProperties"]
+       29 NEWCLOSURE                       R2 P5
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R2 R0 K9 ["onClose"]
+       33 NEWCLOSURE                       R2 P6
+       34 CAPTURE                          VAL R0
+       35 SETTABLEKS                       R2 R0 K10 ["onRestore"]
+       37 NEWCLOSURE                       R2 P7
+       38 CAPTURE                          VAL R0
+       39 SETTABLEKS                       R2 R0 K11 ["onWidgetEnabledChanged"]
+       41 GETUPVAL                         R2 4
+       42 GETTABLEKS                       R2 R2 K12 ["Localization"]
+       44 GETTABLEKS                       R2 R2 K13 ["new"]
+       46 DUPTABLE                         R3 K18 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "WindControl"}]
+       47 GETUPVAL                         R4 5
+       48 SETTABLEKS                       R4 R3 K14 ["stringResourceTable"]
+       50 GETUPVAL                         R4 6
+       51 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
+       53 CALL                             R2 1 1
+       54 SETTABLEKS                       R2 R0 K19 ["localization"]
+       56 GETUPVAL                         R2 4
+       57 GETTABLEKS                       R2 R2 K20 ["Analytics"]
+       59 GETTABLEKS                       R2 R2 K13 ["new"]
+       61 DUPCLOSURE                       R3 K21 [PROTO_9]
+       62 NEWTABLE                         R4 0 0
+       64 CALL                             R2 2 1
+       65 SETTABLEKS                       R2 R0 K22 ["analytics"]
+       67 GETUPVAL                         R2 7
+       68 GETTABLEKS                       R2 R2 K13 ["new"]
+       70 CALL                             R2 0 1
+       71 SETTABLEKS                       R2 R0 K23 ["telemetry"]
+       73 GETUPVAL                         R2 8
+       74 LOADK                            R4 K24 ["openGlobalWindControl"]
+       75 GETTABLEKS                       R5 R0 K8 ["toggleFromProperties"]
+       77 NAMECALL                         R2 R2 K25 ["bind"]
+       79 CALL                             R2 3 1
+       80 SETTABLEKS                       R2 R0 K26 ["onOpenWindControlEditorConnection"]
+       82 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
@@ -201,22 +191,14 @@ PROTO_11:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K12 [{"Toolbar", "Active", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K15 [{["Toolbar"], ["Active"], ["Title"] = "WindControl", ["Tooltip"] = "", ["Icon"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = False}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K13 ["WindControl"]
-       15 SETTABLEKS                       R7 R6 K7 ["Title"]
-       17 LOADK                            R7 K14 [""]
-       18 SETTABLEKS                       R7 R6 K8 ["Tooltip"]
-       20 LOADK                            R7 K14 [""]
-       21 SETTABLEKS                       R7 R6 K9 ["Icon"]
-       23 GETTABLEKS                       R7 R0 K15 ["toggleFromRibbon"]
-       25 SETTABLEKS                       R7 R6 K10 ["OnClick"]
-       27 LOADB                            R7 0
-       28 SETTABLEKS                       R7 R6 K11 ["ClickableWhenViewportHidden"]
-       30 CALL                             R4 2 1
-       31 SETTABLEKS                       R4 R3 K2 ["Toggle"]
-       33 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K16 ["toggleFromRibbon"]
+       16 SETTABLEKS                       R7 R6 K12 ["OnClick"]
+       18 CALL                             R4 2 1
+       19 SETTABLEKS                       R4 R3 K2 ["Toggle"]
+       21 RETURN                           R3 1
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -259,16 +241,14 @@ PROTO_13:
        45 GETUPVAL                         R8 4
        46 GETTABLEKS                       R8 R8 K12 ["createElement"]
        48 GETUPVAL                         R9 6
-       49 DUPTABLE                         R10 K15 [{"Title", "RenderButtons"}]
-       50 LOADK                            R11 K16 ["windControl"]
-       51 SETTABLEKS                       R11 R10 K13 ["Title"]
-       53 NEWCLOSURE                       R11 P0
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R11 R10 K14 ["RenderButtons"]
-       57 CALL                             R8 2 1
-       58 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
-       60 CALL                             R5 2 -1
-       61 RETURN                           R5 -1
+       49 DUPTABLE                         R10 K16 [{["Title"] = "windControl", ["RenderButtons"]}]
+       50 NEWCLOSURE                       R11 P0
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R11 R10 K15 ["RenderButtons"]
+       54 CALL                             R8 2 1
+       55 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
+       57 CALL                             R5 2 -1
+       58 RETURN                           R5 -1
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["analytics"]

@@ -27,46 +27,40 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K3 [{"userIds", "count", "rankingStrategy"}]
+        1 DUPTABLE                         R3 K5 [{[1], ["count"] = 4, ["rankingStrategy"] = "tc_info_boost"}]
         2 GETTABLEKS                       R4 R0 K0 ["userIds"]
         4 SETTABLEKS                       R4 R3 K0 ["userIds"]
-        6 LOADN                            R4 4
-        7 SETTABLEKS                       R4 R3 K1 ["count"]
-        9 LOADK                            R4 K4 ["tc_info_boost"]
-       10 SETTABLEKS                       R4 R3 K2 ["rankingStrategy"]
-       12 NAMECALL                         R1 R1 K5 ["JSONEncode"]
-       14 CALL                             R1 2 1
-       15 GETUPVAL                         R2 1
-       16 GETTABLEKS                       R2 R2 K6 ["composeUrl"]
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R3 R3 K7 ["APIS_URL"]
-       21 LOADK                            R4 K8 ["profile-insights-api/v1/multiProfileInsights"]
-       22 CALL                             R2 2 1
-       23 DUPTABLE                         R3 K13 [{"Method", "Url", "Headers", "Body"}]
-       24 LOADK                            R4 K14 ["POST"]
-       25 SETTABLEKS                       R4 R3 K9 ["Method"]
-       27 SETTABLEKS                       R2 R3 K10 ["Url"]
-       29 NEWTABLE                         R4 2 0
-       31 LOADK                            R5 K15 ["application/json"]
-       32 SETTABLEKS                       R5 R4 K16 ["Content-Type"]
-       34 LOADK                            R5 K15 ["application/json"]
-       35 SETTABLEKS                       R5 R4 K17 ["Accept"]
-       37 SETTABLEKS                       R4 R3 K11 ["Headers"]
-       39 SETTABLEKS                       R1 R3 K12 ["Body"]
-       41 GETUPVAL                         R4 2
-       42 GETTABLEKS                       R4 R4 K18 ["Request"]
-       44 MOVE                             R5 R3
-       45 CALL                             R4 1 1
-       46 DUPCLOSURE                       R6 K19 [PROTO_0]
-       47 CAPTURE                          UPVAL U3
-       48 CAPTURE                          UPVAL U4
-       49 NAMECALL                         R4 R4 K20 ["andThen"]
-       51 CALL                             R4 2 1
-       52 DUPCLOSURE                       R6 K21 [PROTO_1]
-       53 CAPTURE                          UPVAL U4
-       54 NAMECALL                         R4 R4 K22 ["catch"]
-       56 CALL                             R4 2 -1
-       57 RETURN                           R4 -1
+        6 NAMECALL                         R1 R1 K6 ["JSONEncode"]
+        8 CALL                             R1 2 1
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K7 ["composeUrl"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R3 R3 K8 ["APIS_URL"]
+       15 LOADK                            R4 K9 ["profile-insights-api/v1/multiProfileInsights"]
+       16 CALL                             R2 2 1
+       17 DUPTABLE                         R3 K15 [{["Method"] = "POST", ["Url"], ["Headers"], ["Body"]}]
+       18 SETTABLEKS                       R2 R3 K12 ["Url"]
+       20 NEWTABLE                         R4 2 0
+       22 LOADK                            R5 K16 ["application/json"]
+       23 SETTABLEKS                       R5 R4 K17 ["Content-Type"]
+       25 LOADK                            R5 K16 ["application/json"]
+       26 SETTABLEKS                       R5 R4 K18 ["Accept"]
+       28 SETTABLEKS                       R4 R3 K13 ["Headers"]
+       30 SETTABLEKS                       R1 R3 K14 ["Body"]
+       32 GETUPVAL                         R4 2
+       33 GETTABLEKS                       R4 R4 K19 ["Request"]
+       35 MOVE                             R5 R3
+       36 CALL                             R4 1 1
+       37 DUPCLOSURE                       R6 K20 [PROTO_0]
+       38 CAPTURE                          UPVAL U3
+       39 CAPTURE                          UPVAL U4
+       40 NAMECALL                         R4 R4 K21 ["andThen"]
+       42 CALL                             R4 2 1
+       43 DUPCLOSURE                       R6 K22 [PROTO_1]
+       44 CAPTURE                          UPVAL U4
+       45 NAMECALL                         R4 R4 K23 ["catch"]
+       47 CALL                             R4 2 -1
+       48 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

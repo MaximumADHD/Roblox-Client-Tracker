@@ -10,11 +10,11 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R2 K6 ["Action"]
+       13 GETTABLEKS                       R2 R2 K6 ["Rodux"]
        15 CALL                             R1 1 1
-       16 MOVE                             R2 R1
-       17 GETIMPORT                        R3 K1 [script]
-       19 GETTABLEKS                       R3 R3 K7 ["Name"]
-       21 DUPCLOSURE                       R4 K8 [PROTO_0]
-       22 CALL                             R2 2 -1
-       23 RETURN                           R2 -1
+       16 GETTABLEKS                       R2 R1 K7 ["makeActionCreator"]
+       18 GETIMPORT                        R3 K1 [script]
+       20 GETTABLEKS                       R3 R3 K8 ["Name"]
+       22 DUPCLOSURE                       R4 K9 [PROTO_0]
+       23 CALL                             R2 2 -1
+       24 RETURN                           R2 -1

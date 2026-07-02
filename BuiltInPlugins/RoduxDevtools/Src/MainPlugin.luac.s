@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -103,109 +101,105 @@ PROTO_8:
         2 RETURN                           R0 1
 
 PROTO_9:
-        0 DUPTABLE                         R4 K1 [{"enabled"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       11 NEWCLOSURE                       R2 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       15 NEWCLOSURE                       R2 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       19 NEWCLOSURE                       R2 P3
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R2 R0 K6 ["onWidgetEnabledChanged"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K7 ["Store"]
-       26 GETTABLEKS                       R2 R2 K8 ["new"]
-       28 GETUPVAL                         R3 1
-       29 LOADNIL                          R4
-       30 NEWTABLE                         R5 0 1
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R6 R6 K9 ["thunkMiddleware"]
-       35 SETLIST                          R5 R6 1 [1]
-       37 LOADNIL                          R6
-       38 CALL                             R2 4 1
-       39 SETTABLEKS                       R2 R0 K10 ["store"]
-       41 GETUPVAL                         R2 2
-       42 NAMECALL                         R2 R2 K11 ["IsEdit"]
-       44 CALL                             R2 1 1
-       45 JUMPIF                           R2 ; [+75]
-       46 GETUPVAL                         R2 2
-       47 NAMECALL                         R2 R2 K12 ["IsClient"]
-       49 CALL                             R2 1 1
-       50 JUMPIFNOT                        R2 ; [+70]
-       51 GETIMPORT                        R2 K14 [workspace]
-       53 GETTABLEKS                       R2 R2 K15 ["CurrentCamera"]
-       55 JUMPIF                           R2 ; [+2]
-       56 GETIMPORT                        R2 K14 [workspace]
-       58 LOADK                            R4 K16 ["__RoduxDevtoolsPluginBridge"]
-       59 NAMECALL                         R2 R2 K17 ["FindFirstChild"]
-       61 CALL                             R2 2 1
-       62 JUMPIFNOT                        R2 ; [+8]
-       63 LOADK                            R5 K18 ["BindableEvent"]
-       64 NAMECALL                         R3 R2 K19 ["IsA"]
-       66 CALL                             R3 2 1
-       67 JUMPIFNOT                        R3 ; [+3]
-       68 SETTABLEKS                       R2 R0 K20 ["devtoolsBridge"]
-       70 JUMP                             ; [+27]
-       71 GETIMPORT                        R3 K22 [Instance.new]
-       73 LOADK                            R4 K18 ["BindableEvent"]
-       74 CALL                             R3 1 1
-       75 SETTABLEKS                       R3 R0 K20 ["devtoolsBridge"]
-       77 GETTABLEKS                       R3 R0 K20 ["devtoolsBridge"]
-       79 LOADK                            R4 K16 ["__RoduxDevtoolsPluginBridge"]
-       80 SETTABLEKS                       R4 R3 K23 ["Name"]
-       82 GETTABLEKS                       R3 R0 K20 ["devtoolsBridge"]
-       84 LOADB                            R4 0
-       85 SETTABLEKS                       R4 R3 K24 ["Archivable"]
-       87 GETTABLEKS                       R3 R0 K20 ["devtoolsBridge"]
-       89 GETIMPORT                        R4 K14 [workspace]
-       91 GETTABLEKS                       R4 R4 K15 ["CurrentCamera"]
-       93 JUMPIF                           R4 ; [+2]
-       94 GETIMPORT                        R4 K14 [workspace]
-       96 SETTABLEKS                       R4 R3 K25 ["Parent"]
-       98 NEWTABLE                         R3 2 0
-      100 NEWCLOSURE                       R4 P4
-      101 CAPTURE                          VAL R0
-      102 CAPTURE                          UPVAL U3
-      103 SETTABLEKS                       R4 R3 K26 ["updateEvents"]
-      105 NEWCLOSURE                       R4 P5
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          UPVAL U3
-      108 SETTABLEKS                       R4 R3 K27 ["updateEvent"]
-      110 SETTABLEKS                       R3 R0 K28 ["pluginBatchHandlers"]
-      112 GETTABLEKS                       R3 R0 K20 ["devtoolsBridge"]
-      114 GETTABLEKS                       R3 R3 K29 ["Event"]
-      116 NEWCLOSURE                       R5 P6
-      117 CAPTURE                          VAL R0
-      118 NAMECALL                         R3 R3 K30 ["Connect"]
-      120 CALL                             R3 2 0
-      121 GETUPVAL                         R2 4
-      122 GETTABLEKS                       R2 R2 K31 ["Localization"]
-      124 GETTABLEKS                       R2 R2 K8 ["new"]
-      126 DUPTABLE                         R3 K35 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-      127 GETUPVAL                         R4 5
-      128 SETTABLEKS                       R4 R3 K32 ["stringResourceTable"]
-      130 GETUPVAL                         R4 6
-      131 SETTABLEKS                       R4 R3 K33 ["translationResourceTable"]
-      133 LOADK                            R4 K36 ["RoduxDevtools"]
-      134 SETTABLEKS                       R4 R3 K34 ["pluginName"]
-      136 CALL                             R2 1 1
-      137 SETTABLEKS                       R2 R0 K37 ["localization"]
-      139 GETUPVAL                         R2 4
-      140 GETTABLEKS                       R2 R2 K38 ["Analytics"]
-      142 GETTABLEKS                       R2 R2 K8 ["new"]
-      144 DUPCLOSURE                       R3 K39 [PROTO_8]
-      145 NEWTABLE                         R4 0 0
-      147 CALL                             R2 2 1
-      148 SETTABLEKS                       R2 R0 K40 ["analytics"]
-      150 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        8 NEWCLOSURE                       R2 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       16 NEWCLOSURE                       R2 P3
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K8 ["Store"]
+       23 GETTABLEKS                       R2 R2 K9 ["new"]
+       25 GETUPVAL                         R3 1
+       26 LOADNIL                          R4
+       27 NEWTABLE                         R5 0 1
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K10 ["thunkMiddleware"]
+       32 SETLIST                          R5 R6 1 [1]
+       34 LOADNIL                          R6
+       35 CALL                             R2 4 1
+       36 SETTABLEKS                       R2 R0 K11 ["store"]
+       38 GETUPVAL                         R2 2
+       39 NAMECALL                         R2 R2 K12 ["IsEdit"]
+       41 CALL                             R2 1 1
+       42 JUMPIF                           R2 ; [+75]
+       43 GETUPVAL                         R2 2
+       44 NAMECALL                         R2 R2 K13 ["IsClient"]
+       46 CALL                             R2 1 1
+       47 JUMPIFNOT                        R2 ; [+70]
+       48 GETIMPORT                        R2 K15 [workspace]
+       50 GETTABLEKS                       R2 R2 K16 ["CurrentCamera"]
+       52 JUMPIF                           R2 ; [+2]
+       53 GETIMPORT                        R2 K15 [workspace]
+       55 LOADK                            R4 K17 ["__RoduxDevtoolsPluginBridge"]
+       56 NAMECALL                         R2 R2 K18 ["FindFirstChild"]
+       58 CALL                             R2 2 1
+       59 JUMPIFNOT                        R2 ; [+8]
+       60 LOADK                            R5 K19 ["BindableEvent"]
+       61 NAMECALL                         R3 R2 K20 ["IsA"]
+       63 CALL                             R3 2 1
+       64 JUMPIFNOT                        R3 ; [+3]
+       65 SETTABLEKS                       R2 R0 K21 ["devtoolsBridge"]
+       67 JUMP                             ; [+27]
+       68 GETIMPORT                        R3 K23 [Instance.new]
+       70 LOADK                            R4 K19 ["BindableEvent"]
+       71 CALL                             R3 1 1
+       72 SETTABLEKS                       R3 R0 K21 ["devtoolsBridge"]
+       74 GETTABLEKS                       R3 R0 K21 ["devtoolsBridge"]
+       76 LOADK                            R4 K17 ["__RoduxDevtoolsPluginBridge"]
+       77 SETTABLEKS                       R4 R3 K24 ["Name"]
+       79 GETTABLEKS                       R3 R0 K21 ["devtoolsBridge"]
+       81 LOADB                            R4 0
+       82 SETTABLEKS                       R4 R3 K25 ["Archivable"]
+       84 GETTABLEKS                       R3 R0 K21 ["devtoolsBridge"]
+       86 GETIMPORT                        R4 K15 [workspace]
+       88 GETTABLEKS                       R4 R4 K16 ["CurrentCamera"]
+       90 JUMPIF                           R4 ; [+2]
+       91 GETIMPORT                        R4 K15 [workspace]
+       93 SETTABLEKS                       R4 R3 K26 ["Parent"]
+       95 NEWTABLE                         R3 2 0
+       97 NEWCLOSURE                       R4 P4
+       98 CAPTURE                          VAL R0
+       99 CAPTURE                          UPVAL U3
+      100 SETTABLEKS                       R4 R3 K27 ["updateEvents"]
+      102 NEWCLOSURE                       R4 P5
+      103 CAPTURE                          VAL R0
+      104 CAPTURE                          UPVAL U3
+      105 SETTABLEKS                       R4 R3 K28 ["updateEvent"]
+      107 SETTABLEKS                       R3 R0 K29 ["pluginBatchHandlers"]
+      109 GETTABLEKS                       R3 R0 K21 ["devtoolsBridge"]
+      111 GETTABLEKS                       R3 R3 K30 ["Event"]
+      113 NEWCLOSURE                       R5 P6
+      114 CAPTURE                          VAL R0
+      115 NAMECALL                         R3 R3 K31 ["Connect"]
+      117 CALL                             R3 2 0
+      118 GETUPVAL                         R2 4
+      119 GETTABLEKS                       R2 R2 K32 ["Localization"]
+      121 GETTABLEKS                       R2 R2 K9 ["new"]
+      123 DUPTABLE                         R3 K37 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "RoduxDevtools"}]
+      124 GETUPVAL                         R4 5
+      125 SETTABLEKS                       R4 R3 K33 ["stringResourceTable"]
+      127 GETUPVAL                         R4 6
+      128 SETTABLEKS                       R4 R3 K34 ["translationResourceTable"]
+      130 CALL                             R2 1 1
+      131 SETTABLEKS                       R2 R0 K38 ["localization"]
+      133 GETUPVAL                         R2 4
+      134 GETTABLEKS                       R2 R2 K39 ["Analytics"]
+      136 GETTABLEKS                       R2 R2 K9 ["new"]
+      138 DUPCLOSURE                       R3 K40 [PROTO_8]
+      139 NEWTABLE                         R4 0 0
+      141 CALL                             R2 2 1
+      142 SETTABLEKS                       R2 R0 K41 ["analytics"]
+      144 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["devtoolsBridge"]
@@ -222,32 +216,26 @@ PROTO_11:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K13 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K16 [{["Toolbar"], ["Active"], ["Id"] = "RoduxDevtools_ToggleButton", ["Title"], ["Tooltip"], ["Icon"] = "rbxasset://textures/RoduxDevtools/ToolbarIcon.png", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K14 ["RoduxDevtools_ToggleButton"]
-       15 SETTABLEKS                       R7 R6 K7 ["Id"]
-       17 GETTABLEKS                       R7 R0 K15 ["localization"]
-       19 LOADK                            R9 K16 ["Plugin"]
-       20 LOADK                            R10 K17 ["Button"]
-       21 NAMECALL                         R7 R7 K18 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K8 ["Title"]
-       26 GETTABLEKS                       R7 R0 K15 ["localization"]
-       28 LOADK                            R9 K16 ["Plugin"]
-       29 LOADK                            R10 K19 ["Description"]
-       30 NAMECALL                         R7 R7 K18 ["getText"]
-       32 CALL                             R7 3 1
-       33 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
-       35 LOADK                            R7 K20 ["rbxasset://textures/RoduxDevtools/ToolbarIcon.png"]
-       36 SETTABLEKS                       R7 R6 K10 ["Icon"]
-       38 GETTABLEKS                       R7 R0 K21 ["toggleEnabled"]
-       40 SETTABLEKS                       R7 R6 K11 ["OnClick"]
-       42 LOADB                            R7 1
-       43 SETTABLEKS                       R7 R6 K12 ["ClickableWhenViewportHidden"]
-       45 CALL                             R4 2 1
-       46 SETTABLEKS                       R4 R3 K2 ["Toggle"]
-       48 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K17 ["localization"]
+       16 LOADK                            R9 K18 ["Plugin"]
+       17 LOADK                            R10 K19 ["Button"]
+       18 NAMECALL                         R7 R7 K20 ["getText"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K9 ["Title"]
+       23 GETTABLEKS                       R7 R0 K17 ["localization"]
+       25 LOADK                            R9 K18 ["Plugin"]
+       26 LOADK                            R10 K21 ["Description"]
+       27 NAMECALL                         R7 R7 K20 ["getText"]
+       29 CALL                             R7 3 1
+       30 SETTABLEKS                       R7 R6 K10 ["Tooltip"]
+       32 GETTABLEKS                       R7 R0 K22 ["toggleEnabled"]
+       34 SETTABLEKS                       R7 R6 K13 ["OnClick"]
+       36 CALL                             R4 2 1
+       37 SETTABLEKS                       R4 R3 K2 ["Toggle"]
+       39 RETURN                           R3 1
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -405,12 +393,12 @@ PROTO_19:
        85 GETIMPORT                        R11 K28 [Enum.InitialDockState.Bottom]
        87 SETTABLEKS                       R11 R10 K26 ["InitialDockState"]
        89 GETIMPORT                        R11 K30 [Vector2.new]
-       91 LOADN                            R12 128
-       92 LOADN                            R13 224
+       91 LOADN                            R12 640
+       92 LOADN                            R13 480
        93 CALL                             R11 2 1
        94 SETTABLEKS                       R11 R10 K31 ["Size"]
        96 GETIMPORT                        R11 K30 [Vector2.new]
-       98 LOADN                            R12 144
+       98 LOADN                            R12 400
        99 LOADN                            R13 250
       100 CALL                             R11 2 1
       101 SETTABLEKS                       R11 R10 K32 ["MinSize"]
@@ -429,134 +417,116 @@ PROTO_19:
       123 GETUPVAL                         R12 5
       124 GETTABLEKS                       R12 R12 K13 ["createElement"]
       126 GETUPVAL                         R13 9
-      127 DUPTABLE                         R14 K44 [{"Style", "Padding"}]
-      128 LOADK                            R15 K45 ["Box"]
-      129 SETTABLEKS                       R15 R14 K42 ["Style"]
-      131 LOADN                            R15 5
-      132 SETTABLEKS                       R15 R14 K43 ["Padding"]
-      134 DUPTABLE                         R15 K48 [{"Topbar", "Sections"}]
-      135 GETUPVAL                         R16 5
-      136 GETTABLEKS                       R16 R16 K13 ["createElement"]
-      138 GETUPVAL                         R17 10
-      139 DUPTABLE                         R18 K51 [{"OnSearch", "OnClearList"}]
-      140 NEWCLOSURE                       R19 P1
-      141 CAPTURE                          VAL R0
-      142 CAPTURE                          UPVAL U11
-      143 SETTABLEKS                       R19 R18 K49 ["OnSearch"]
-      145 NEWCLOSURE                       R19 P2
-      146 CAPTURE                          VAL R0
-      147 CAPTURE                          UPVAL U12
-      148 CAPTURE                          UPVAL U13
-      149 SETTABLEKS                       R19 R18 K50 ["OnClearList"]
-      151 CALL                             R16 2 1
-      152 SETTABLEKS                       R16 R15 K46 ["Topbar"]
-      154 GETUPVAL                         R16 5
-      155 GETTABLEKS                       R16 R16 K13 ["createElement"]
-      157 GETUPVAL                         R17 14
-      158 DUPTABLE                         R18 K59 [{"UseScale", "ClampSize", "UseDeficit", "Position", "Size", "MinSizes", "MaxSizes", "InitialSizes"}]
-      159 LOADB                            R19 0
-      160 SETTABLEKS                       R19 R18 K52 ["UseScale"]
-      162 LOADB                            R19 1
-      163 SETTABLEKS                       R19 R18 K53 ["ClampSize"]
-      165 LOADB                            R19 1
-      166 SETTABLEKS                       R19 R18 K54 ["UseDeficit"]
-      168 GETIMPORT                        R19 K62 [UDim2.fromOffset]
-      170 LOADN                            R20 0
-      171 LOADN                            R21 37
-      172 CALL                             R19 2 1
-      173 SETTABLEKS                       R19 R18 K55 ["Position"]
-      175 GETIMPORT                        R19 K63 [UDim2.new]
-      177 LOADN                            R20 1
-      178 LOADN                            R21 0
-      179 LOADN                            R22 1
-      180 LOADN                            R23 219
-      181 CALL                             R19 4 1
-      182 SETTABLEKS                       R19 R18 K31 ["Size"]
-      184 NEWTABLE                         R19 0 2
-      186 GETIMPORT                        R20 K65 [UDim.new]
-      188 LOADN                            R21 0
-      189 LOADN                            R22 150
-      190 CALL                             R20 2 1
-      191 GETIMPORT                        R21 K65 [UDim.new]
-      193 LOADN                            R22 0
-      194 LOADN                            R23 100
-      195 CALL                             R21 2 -1
-      196 SETLIST                          R19 R20 -1 [1]
-      198 SETTABLEKS                       R19 R18 K56 ["MinSizes"]
-      200 NEWTABLE                         R19 0 2
-      202 GETIMPORT                        R20 K65 [UDim.new]
-      204 LOADN                            R21 0
-      205 LOADN                            R22 88
-      206 CALL                             R20 2 1
-      207 LOADNIL                          R21
-      208 SETLIST                          R19 R20 2 [1]
-      210 SETTABLEKS                       R19 R18 K57 ["MaxSizes"]
-      212 NEWTABLE                         R19 0 2
-      214 GETIMPORT                        R20 K65 [UDim.new]
-      216 LOADN                            R21 0
-      217 LOADN                            R22 44
-      218 CALL                             R20 2 1
-      219 GETIMPORT                        R21 K65 [UDim.new]
-      221 LOADN                            R22 1
-      222 LOADN                            R23 212
-      223 CALL                             R21 2 -1
-      224 SETLIST                          R19 R20 -1 [1]
-      226 SETTABLEKS                       R19 R18 K58 ["InitialSizes"]
-      228 NEWTABLE                         R19 0 2
-      230 GETUPVAL                         R20 5
-      231 GETTABLEKS                       R20 R20 K13 ["createElement"]
-      233 GETUPVAL                         R21 9
-      234 DUPTABLE                         R22 K44 [{"Style", "Padding"}]
-      235 LOADK                            R23 K66 ["BorderBox"]
-      236 SETTABLEKS                       R23 R22 K42 ["Style"]
-      238 LOADN                            R23 1
-      239 SETTABLEKS                       R23 R22 K43 ["Padding"]
-      241 DUPTABLE                         R23 K68 [{"EventList"}]
-      242 GETUPVAL                         R24 5
-      243 GETTABLEKS                       R24 R24 K13 ["createElement"]
-      245 GETUPVAL                         R25 15
-      246 DUPTABLE                         R26 K70 [{"OnSelected"}]
-      247 NEWCLOSURE                       R27 P3
-      248 CAPTURE                          VAL R0
-      249 CAPTURE                          UPVAL U12
-      250 SETTABLEKS                       R27 R26 K69 ["OnSelected"]
-      252 CALL                             R24 2 1
-      253 SETTABLEKS                       R24 R23 K67 ["EventList"]
-      255 CALL                             R20 3 1
-      256 GETUPVAL                         R21 5
-      257 GETTABLEKS                       R21 R21 K13 ["createElement"]
-      259 GETUPVAL                         R22 9
-      260 DUPTABLE                         R23 K44 [{"Style", "Padding"}]
-      261 LOADK                            R24 K66 ["BorderBox"]
-      262 SETTABLEKS                       R24 R23 K42 ["Style"]
-      264 LOADN                            R24 1
-      265 SETTABLEKS                       R24 R23 K43 ["Padding"]
-      267 DUPTABLE                         R24 K72 [{"Details"}]
-      268 GETUPVAL                         R25 5
-      269 GETTABLEKS                       R25 R25 K13 ["createElement"]
-      271 GETUPVAL                         R26 16
-      272 DUPTABLE                         R27 K76 [{"OnSetState", "OnUndoAction", "OnRedoAction"}]
-      273 NEWCLOSURE                       R28 P4
-      274 CAPTURE                          VAL R0
-      275 SETTABLEKS                       R28 R27 K73 ["OnSetState"]
-      277 NEWCLOSURE                       R28 P5
-      278 CAPTURE                          VAL R0
-      279 SETTABLEKS                       R28 R27 K74 ["OnUndoAction"]
-      281 NEWCLOSURE                       R28 P6
-      282 CAPTURE                          VAL R0
-      283 SETTABLEKS                       R28 R27 K75 ["OnRedoAction"]
-      285 CALL                             R25 2 1
-      286 SETTABLEKS                       R25 R24 K71 ["Details"]
-      288 CALL                             R21 3 -1
-      289 SETLIST                          R19 R20 -1 [1]
-      291 CALL                             R16 3 1
-      292 SETTABLEKS                       R16 R15 K47 ["Sections"]
-      294 CALL                             R12 3 1
-      295 SETTABLEKS                       R12 R11 K40 ["Main"]
-      297 CALL                             R8 3 1
-      298 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
-      300 CALL                             R5 2 -1
-      301 RETURN                           R5 -1
+      127 DUPTABLE                         R14 K46 [{["Style"] = "Box", ["Padding"] = 5}]
+      128 DUPTABLE                         R15 K49 [{"Topbar", "Sections"}]
+      129 GETUPVAL                         R16 5
+      130 GETTABLEKS                       R16 R16 K13 ["createElement"]
+      132 GETUPVAL                         R17 10
+      133 DUPTABLE                         R18 K52 [{"OnSearch", "OnClearList"}]
+      134 NEWCLOSURE                       R19 P1
+      135 CAPTURE                          VAL R0
+      136 CAPTURE                          UPVAL U11
+      137 SETTABLEKS                       R19 R18 K50 ["OnSearch"]
+      139 NEWCLOSURE                       R19 P2
+      140 CAPTURE                          VAL R0
+      141 CAPTURE                          UPVAL U12
+      142 CAPTURE                          UPVAL U13
+      143 SETTABLEKS                       R19 R18 K51 ["OnClearList"]
+      145 CALL                             R16 2 1
+      146 SETTABLEKS                       R16 R15 K47 ["Topbar"]
+      148 GETUPVAL                         R16 5
+      149 GETTABLEKS                       R16 R16 K13 ["createElement"]
+      151 GETUPVAL                         R17 14
+      152 DUPTABLE                         R18 K62 [{["UseScale"] = False, ["ClampSize"] = True, ["UseDeficit"] = True, ["Position"], ["Size"], ["MinSizes"], ["MaxSizes"], ["InitialSizes"]}]
+      153 GETIMPORT                        R19 K65 [UDim2.fromOffset]
+      155 LOADN                            R20 0
+      156 LOADN                            R21 37
+      157 CALL                             R19 2 1
+      158 SETTABLEKS                       R19 R18 K58 ["Position"]
+      160 GETIMPORT                        R19 K66 [UDim2.new]
+      162 LOADN                            R20 1
+      163 LOADN                            R21 0
+      164 LOADN                            R22 1
+      165 LOADN                            R23 -37
+      166 CALL                             R19 4 1
+      167 SETTABLEKS                       R19 R18 K31 ["Size"]
+      169 NEWTABLE                         R19 0 2
+      171 GETIMPORT                        R20 K68 [UDim.new]
+      173 LOADN                            R21 0
+      174 LOADN                            R22 150
+      175 CALL                             R20 2 1
+      176 GETIMPORT                        R21 K68 [UDim.new]
+      178 LOADN                            R22 0
+      179 LOADN                            R23 100
+      180 CALL                             R21 2 -1
+      181 SETLIST                          R19 R20 -1 [1]
+      183 SETTABLEKS                       R19 R18 K59 ["MinSizes"]
+      185 NEWTABLE                         R19 0 2
+      187 GETIMPORT                        R20 K68 [UDim.new]
+      189 LOADN                            R21 0
+      190 LOADN                            R22 600
+      191 CALL                             R20 2 1
+      192 LOADNIL                          R21
+      193 SETLIST                          R19 R20 2 [1]
+      195 SETTABLEKS                       R19 R18 K60 ["MaxSizes"]
+      197 NEWTABLE                         R19 0 2
+      199 GETIMPORT                        R20 K68 [UDim.new]
+      201 LOADN                            R21 0
+      202 LOADN                            R22 300
+      203 CALL                             R20 2 1
+      204 GETIMPORT                        R21 K68 [UDim.new]
+      206 LOADN                            R22 1
+      207 LOADN                            R23 -300
+      208 CALL                             R21 2 -1
+      209 SETLIST                          R19 R20 -1 [1]
+      211 SETTABLEKS                       R19 R18 K61 ["InitialSizes"]
+      213 NEWTABLE                         R19 0 2
+      215 GETUPVAL                         R20 5
+      216 GETTABLEKS                       R20 R20 K13 ["createElement"]
+      218 GETUPVAL                         R21 9
+      219 DUPTABLE                         R22 K71 [{["Style"] = "BorderBox", ["Padding"] = 1}]
+      220 DUPTABLE                         R23 K73 [{"EventList"}]
+      221 GETUPVAL                         R24 5
+      222 GETTABLEKS                       R24 R24 K13 ["createElement"]
+      224 GETUPVAL                         R25 15
+      225 DUPTABLE                         R26 K75 [{"OnSelected"}]
+      226 NEWCLOSURE                       R27 P3
+      227 CAPTURE                          VAL R0
+      228 CAPTURE                          UPVAL U12
+      229 SETTABLEKS                       R27 R26 K74 ["OnSelected"]
+      231 CALL                             R24 2 1
+      232 SETTABLEKS                       R24 R23 K72 ["EventList"]
+      234 CALL                             R20 3 1
+      235 GETUPVAL                         R21 5
+      236 GETTABLEKS                       R21 R21 K13 ["createElement"]
+      238 GETUPVAL                         R22 9
+      239 DUPTABLE                         R23 K71 [{["Style"] = "BorderBox", ["Padding"] = 1}]
+      240 DUPTABLE                         R24 K77 [{"Details"}]
+      241 GETUPVAL                         R25 5
+      242 GETTABLEKS                       R25 R25 K13 ["createElement"]
+      244 GETUPVAL                         R26 16
+      245 DUPTABLE                         R27 K81 [{"OnSetState", "OnUndoAction", "OnRedoAction"}]
+      246 NEWCLOSURE                       R28 P4
+      247 CAPTURE                          VAL R0
+      248 SETTABLEKS                       R28 R27 K78 ["OnSetState"]
+      250 NEWCLOSURE                       R28 P5
+      251 CAPTURE                          VAL R0
+      252 SETTABLEKS                       R28 R27 K79 ["OnUndoAction"]
+      254 NEWCLOSURE                       R28 P6
+      255 CAPTURE                          VAL R0
+      256 SETTABLEKS                       R28 R27 K80 ["OnRedoAction"]
+      258 CALL                             R25 2 1
+      259 SETTABLEKS                       R25 R24 K76 ["Details"]
+      261 CALL                             R21 3 -1
+      262 SETLIST                          R19 R20 -1 [1]
+      264 CALL                             R16 3 1
+      265 SETTABLEKS                       R16 R15 K48 ["Sections"]
+      267 CALL                             R12 3 1
+      268 SETTABLEKS                       R12 R11 K40 ["Main"]
+      270 CALL                             R8 3 1
+      271 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
+      273 CALL                             R5 2 -1
+      274 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

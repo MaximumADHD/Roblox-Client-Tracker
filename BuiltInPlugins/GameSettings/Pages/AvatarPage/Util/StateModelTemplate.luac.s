@@ -722,14 +722,10 @@ PROTO_50:
         7 CALL                             R1 1 3
         8 FORGPREP_INEXT                   R1
         9 GETTABLEKS                       R6 R0 K0 ["AssetsOverrides"]
-       11 DUPTABLE                         R7 K5 [{"assetID", "isPlayerChoice"}]
-       12 LOADN                            R8 0
-       13 SETTABLEKS                       R8 R7 K3 ["assetID"]
-       15 LOADB                            R8 1
-       16 SETTABLEKS                       R8 R7 K4 ["isPlayerChoice"]
-       18 SETTABLE                         R7 R6 R5
-       19 FORGLOOP                         R1 2 [inext] ; [-11]
-       21 RETURN                           R0 0
+       11 DUPTABLE                         R7 K7 [{["assetID"] = 0, ["isPlayerChoice"] = True}]
+       12 SETTABLE                         R7 R6 R5
+       13 FORGLOOP                         R1 2 [inext] ; [-5]
+       15 RETURN                           R0 0
 
 PROTO_51:
         0 DUPTABLE                         R6 K6 [{"height", "width", "head", "bodyType", "proportion", "depth"}]

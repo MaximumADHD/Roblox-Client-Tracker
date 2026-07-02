@@ -62,12 +62,10 @@ PROTO_2:
        14 NAMECALL                         R0 R0 K5 ["ReactivateAsync"]
        16 CALL                             R0 1 0
        17 GETUPVAL                         R0 0
-       18 DUPTABLE                         R2 K7 [{"showDialog"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K6 ["showDialog"]
-       22 NAMECALL                         R0 R0 K8 ["setState"]
-       24 CALL                             R0 2 0
-       25 RETURN                           R0 0
+       18 DUPTABLE                         R2 K8 [{["showDialog"] = False}]
+       19 NAMECALL                         R0 R0 K9 ["setState"]
+       21 CALL                             R0 2 0
+       22 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -83,12 +81,10 @@ PROTO_3:
        14 NAMECALL                         R0 R0 K5 ["LogoutAsync"]
        16 CALL                             R0 1 0
        17 GETUPVAL                         R0 0
-       18 DUPTABLE                         R2 K7 [{"showDialog"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K6 ["showDialog"]
-       22 NAMECALL                         R0 R0 K8 ["setState"]
-       24 CALL                             R0 2 0
-       25 RETURN                           R0 0
+       18 DUPTABLE                         R2 K8 [{["showDialog"] = False}]
+       19 NAMECALL                         R0 R0 K9 ["setState"]
+       21 CALL                             R0 2 0
+       22 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -100,16 +96,14 @@ PROTO_4:
         9 LOADK                            R3 K3 ["Quit"]
        10 CALL                             R0 3 0
        11 GETUPVAL                         R0 0
-       12 DUPTABLE                         R2 K5 [{"showDialog"}]
-       13 LOADB                            R3 0
-       14 SETTABLEKS                       R3 R2 K4 ["showDialog"]
-       16 NAMECALL                         R0 R0 K6 ["setState"]
-       18 CALL                             R0 2 0
-       19 GETUPVAL                         R0 0
-       20 GETTABLEKS                       R0 R0 K7 ["moderationController"]
-       22 NAMECALL                         R0 R0 K8 ["QuitAsync"]
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
+       12 DUPTABLE                         R2 K6 [{["showDialog"] = False}]
+       13 NAMECALL                         R0 R0 K7 ["setState"]
+       15 CALL                             R0 2 0
+       16 GETUPVAL                         R0 0
+       17 GETTABLEKS                       R0 R0 K8 ["moderationController"]
+       19 NAMECALL                         R0 R0 K9 ["QuitAsync"]
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
 
 PROTO_5:
         0 GETGLOBAL                        R1 K0 ["getEvidenceUrlFromViolation"]
@@ -166,25 +160,17 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"showDialog", "showQuitDialog"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showDialog"]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["showQuitDialog"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["showQuitDialog"] = True}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"showQuitDialog", "showDialog"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showQuitDialog"]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["showDialog"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["showDialog"] = True}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -231,96 +217,92 @@ PROTO_10:
        40 GETGLOBAL                        R3 K11 ["getEvidenceUrlFromViolation"]
        42 MOVE                             R4 R2
        43 CALL                             R3 1 1
-       44 DUPTABLE                         R4 K19 [{"showDialog", "messageToUser", "reason", "reviewDateTime", "type", "bannedDateTime", "showQuitDialog"}]
-       45 GETTABLEKS                       R6 R2 K20 ["InterventionId"]
+       44 DUPTABLE                         R4 K20 [{["showDialog"], ["messageToUser"], ["reason"], ["reviewDateTime"], ["type"], ["bannedDateTime"], ["showQuitDialog"] = False}]
+       45 GETTABLEKS                       R6 R2 K21 ["InterventionId"]
        47 JUMPIFEQKNIL                     R6 ; [+3]
        49 LOADB                            R5 1
        50 JUMP                             ; [+1]
        51 LOADB                            R5 0
        52 SETTABLEKS                       R5 R4 K12 ["showDialog"]
-       54 GETTABLEKS                       R5 R2 K21 ["MessageToUser"]
+       54 GETTABLEKS                       R5 R2 K22 ["MessageToUser"]
        56 SETTABLEKS                       R5 R4 K13 ["messageToUser"]
-       58 GETTABLEKS                       R6 R2 K22 ["BadUtterances"]
+       58 GETTABLEKS                       R6 R2 K23 ["BadUtterances"]
        60 JUMPIFEQKNIL                     R6 ; [+24]
-       62 GETTABLEKS                       R7 R2 K22 ["BadUtterances"]
+       62 GETTABLEKS                       R7 R2 K23 ["BadUtterances"]
        64 GETTABLEN                        R6 R7 1
        65 JUMPIFEQKNIL                     R6 ; [+19]
-       67 DUPTABLE                         R5 K26 [{"abuseType", "utteranceText", "url"}]
-       68 GETTABLEKS                       R7 R2 K22 ["BadUtterances"]
+       67 DUPTABLE                         R5 K27 [{"abuseType", "utteranceText", "url"}]
+       68 GETTABLEKS                       R7 R2 K23 ["BadUtterances"]
        70 GETTABLEN                        R6 R7 1
-       71 GETTABLEKS                       R6 R6 K27 ["AbuseType"]
-       73 SETTABLEKS                       R6 R5 K23 ["abuseType"]
-       75 GETTABLEKS                       R7 R2 K22 ["BadUtterances"]
+       71 GETTABLEKS                       R6 R6 K28 ["AbuseType"]
+       73 SETTABLEKS                       R6 R5 K24 ["abuseType"]
+       75 GETTABLEKS                       R7 R2 K23 ["BadUtterances"]
        77 GETTABLEN                        R6 R7 1
-       78 GETTABLEKS                       R6 R6 K28 ["UtteranceText"]
-       80 SETTABLEKS                       R6 R5 K24 ["utteranceText"]
-       82 SETTABLEKS                       R3 R5 K25 ["url"]
+       78 GETTABLEKS                       R6 R6 K29 ["UtteranceText"]
+       80 SETTABLEKS                       R6 R5 K25 ["utteranceText"]
+       82 SETTABLEKS                       R3 R5 K26 ["url"]
        84 JUMP                             ; [+1]
        85 LOADNIL                          R5
        86 SETTABLEKS                       R5 R4 K14 ["reason"]
-       88 GETTABLEKS                       R5 R2 K29 ["BeginDate"]
+       88 GETTABLEKS                       R5 R2 K30 ["BeginDate"]
        90 SETTABLEKS                       R5 R4 K15 ["reviewDateTime"]
-       92 GETTABLEKS                       R5 R2 K30 ["PunishmentType"]
+       92 GETTABLEKS                       R5 R2 K31 ["PunishmentType"]
        94 SETTABLEKS                       R5 R4 K16 ["type"]
-       96 GETTABLEKS                       R5 R2 K31 ["EndDate"]
+       96 GETTABLEKS                       R5 R2 K32 ["EndDate"]
        98 SETTABLEKS                       R5 R4 K17 ["bannedDateTime"]
-      100 LOADB                            R5 0
-      101 SETTABLEKS                       R5 R4 K18 ["showQuitDialog"]
-      103 SETTABLEKS                       R4 R0 K32 ["state"]
-      105 GETTABLEKS                       R4 R0 K32 ["state"]
-      107 GETTABLEKS                       R4 R4 K12 ["showDialog"]
-      109 JUMPIFNOT                        R4 ; [+9]
-      110 GETTABLEKS                       R4 R0 K7 ["log"]
-      112 GETUPVAL                         R5 3
-      113 GETTABLEKS                       R6 R0 K32 ["state"]
-      115 GETTABLEKS                       R6 R6 K16 ["type"]
-      117 LOADK                            R7 K33 ["ShowDialog"]
-      118 CALL                             R4 3 0
-      119 GETTABLEKS                       R4 R0 K3 ["moderationController"]
-      121 GETTABLEKS                       R4 R4 K34 ["ShowModerationDialog"]
-      123 NEWCLOSURE                       R6 P4
-      124 CAPTURE                          VAL R0
-      125 CAPTURE                          UPVAL U3
-      126 NAMECALL                         R4 R4 K35 ["Connect"]
-      128 CALL                             R4 2 1
-      129 SETTABLEKS                       R4 R0 K36 ["showModerationDialogConnection"]
-      131 NEWCLOSURE                       R4 P5
-      132 CAPTURE                          VAL R0
-      133 SETTABLEKS                       R4 R0 K37 ["OpenQuitDialog"]
-      135 NEWCLOSURE                       R4 P6
-      136 CAPTURE                          VAL R0
-      137 SETTABLEKS                       R4 R0 K38 ["OpenModerationDialog"]
-      139 NEWCLOSURE                       R4 P7
-      140 CAPTURE                          VAL R0
-      141 SETTABLEKS                       R4 R0 K39 ["onRestore"]
-      143 GETUPVAL                         R4 4
-      144 GETTABLEKS                       R4 R4 K40 ["Localization"]
-      146 GETTABLEKS                       R4 R4 K5 ["new"]
-      148 DUPTABLE                         R5 K44 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-      149 GETUPVAL                         R6 5
-      150 SETTABLEKS                       R6 R5 K41 ["stringResourceTable"]
-      152 GETUPVAL                         R6 6
-      153 SETTABLEKS                       R6 R5 K42 ["translationResourceTable"]
-      155 LOADK                            R6 K45 ["ModerationDialog"]
-      156 SETTABLEKS                       R6 R5 K43 ["pluginName"]
-      158 CALL                             R4 1 1
-      159 SETTABLEKS                       R4 R0 K46 ["localization"]
-      161 GETUPVAL                         R4 4
-      162 GETTABLEKS                       R4 R4 K47 ["Analytics"]
-      164 GETTABLEKS                       R4 R4 K5 ["new"]
-      166 DUPCLOSURE                       R5 K48 [PROTO_9]
-      167 NEWTABLE                         R6 0 0
-      169 CALL                             R4 2 1
-      170 SETTABLEKS                       R4 R0 K49 ["analytics"]
-      172 GETUPVAL                         R4 7
-      173 GETTABLEKS                       R4 R4 K5 ["new"]
-      175 CALL                             R4 0 1
-      176 SETTABLEKS                       R4 R0 K50 ["DEPRECATED_stylizer"]
-      178 GETUPVAL                         R4 8
-      179 GETTABLEKS                       R5 R1 K0 ["Plugin"]
-      181 CALL                             R4 1 1
-      182 SETTABLEKS                       R4 R0 K51 ["design"]
-      184 RETURN                           R0 0
+      100 SETTABLEKS                       R4 R0 K33 ["state"]
+      102 GETTABLEKS                       R4 R0 K33 ["state"]
+      104 GETTABLEKS                       R4 R4 K12 ["showDialog"]
+      106 JUMPIFNOT                        R4 ; [+9]
+      107 GETTABLEKS                       R4 R0 K7 ["log"]
+      109 GETUPVAL                         R5 3
+      110 GETTABLEKS                       R6 R0 K33 ["state"]
+      112 GETTABLEKS                       R6 R6 K16 ["type"]
+      114 LOADK                            R7 K34 ["ShowDialog"]
+      115 CALL                             R4 3 0
+      116 GETTABLEKS                       R4 R0 K3 ["moderationController"]
+      118 GETTABLEKS                       R4 R4 K35 ["ShowModerationDialog"]
+      120 NEWCLOSURE                       R6 P4
+      121 CAPTURE                          VAL R0
+      122 CAPTURE                          UPVAL U3
+      123 NAMECALL                         R4 R4 K36 ["Connect"]
+      125 CALL                             R4 2 1
+      126 SETTABLEKS                       R4 R0 K37 ["showModerationDialogConnection"]
+      128 NEWCLOSURE                       R4 P5
+      129 CAPTURE                          VAL R0
+      130 SETTABLEKS                       R4 R0 K38 ["OpenQuitDialog"]
+      132 NEWCLOSURE                       R4 P6
+      133 CAPTURE                          VAL R0
+      134 SETTABLEKS                       R4 R0 K39 ["OpenModerationDialog"]
+      136 NEWCLOSURE                       R4 P7
+      137 CAPTURE                          VAL R0
+      138 SETTABLEKS                       R4 R0 K40 ["onRestore"]
+      140 GETUPVAL                         R4 4
+      141 GETTABLEKS                       R4 R4 K41 ["Localization"]
+      143 GETTABLEKS                       R4 R4 K5 ["new"]
+      145 DUPTABLE                         R5 K46 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ModerationDialog"}]
+      146 GETUPVAL                         R6 5
+      147 SETTABLEKS                       R6 R5 K42 ["stringResourceTable"]
+      149 GETUPVAL                         R6 6
+      150 SETTABLEKS                       R6 R5 K43 ["translationResourceTable"]
+      152 CALL                             R4 1 1
+      153 SETTABLEKS                       R4 R0 K47 ["localization"]
+      155 GETUPVAL                         R4 4
+      156 GETTABLEKS                       R4 R4 K48 ["Analytics"]
+      158 GETTABLEKS                       R4 R4 K5 ["new"]
+      160 DUPCLOSURE                       R5 K49 [PROTO_9]
+      161 NEWTABLE                         R6 0 0
+      163 CALL                             R4 2 1
+      164 SETTABLEKS                       R4 R0 K50 ["analytics"]
+      166 GETUPVAL                         R4 7
+      167 GETTABLEKS                       R4 R4 K5 ["new"]
+      169 CALL                             R4 0 1
+      170 SETTABLEKS                       R4 R0 K51 ["DEPRECATED_stylizer"]
+      172 GETUPVAL                         R4 8
+      173 GETTABLEKS                       R5 R1 K0 ["Plugin"]
+      175 CALL                             R4 1 1
+      176 SETTABLEKS                       R4 R0 K52 ["design"]
+      178 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

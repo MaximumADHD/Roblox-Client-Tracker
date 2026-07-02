@@ -92,7 +92,7 @@ PROTO_4:
        67 GETUPVAL                         R8 2
        68 GETTABLEKS                       R8 R8 K11 ["createElement"]
        70 GETUPVAL                         R9 4
-       71 DUPTABLE                         R10 K26 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "Size", "TextWrapped"}]
+       71 DUPTABLE                         R10 K27 [{["OnItemActivated"], ["Items"], ["SelectedIndex"], ["Focus"], ["Size"], ["TextWrapped"] = True}]
        72 NEWCLOSURE                       R11 P1
        73 CAPTURE                          VAL R0
        74 CAPTURE                          REF R1
@@ -114,18 +114,16 @@ PROTO_4:
        98 GETTABLEKS                       R11 R0 K0 ["Value"]
       100 GETTABLEKS                       R11 R11 K5 ["Name"]
       102 SETTABLEKS                       R11 R10 K24 ["Focus"]
-      104 GETIMPORT                        R11 K29 [UDim2.fromScale]
+      104 GETIMPORT                        R11 K30 [UDim2.fromScale]
       106 LOADN                            R12 1
       107 LOADN                            R13 1
       108 CALL                             R11 2 1
       109 SETTABLEKS                       R11 R10 K14 ["Size"]
-      111 LOADB                            R11 1
-      112 SETTABLEKS                       R11 R10 K25 ["TextWrapped"]
-      114 CALL                             R8 2 1
-      115 SETTABLEKS                       R8 R7 K19 ["WrapperContents"]
-      117 CALL                             R4 3 -1
-      118 CLOSEUPVALS                      R1
-      119 RETURN                           R4 -1
+      111 CALL                             R8 2 1
+      112 SETTABLEKS                       R8 R7 K19 ["WrapperContents"]
+      114 CALL                             R4 3 -1
+      115 CLOSEUPVALS                      R1
+      116 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

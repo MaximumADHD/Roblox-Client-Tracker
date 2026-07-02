@@ -14,25 +14,23 @@ PROTO_0:
        18 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R4 K7 [{"_currentPromise", "_inFlightPromises", "_localization", "_presetController", "_store", "_telemetry", "uploader"}]
-        1 LOADNIL                          R5
-        2 SETTABLEKS                       R5 R4 K0 ["_currentPromise"]
-        4 NEWTABLE                         R5 0 0
-        6 SETTABLEKS                       R5 R4 K1 ["_inFlightPromises"]
-        8 SETTABLEKS                       R1 R4 K2 ["_localization"]
-       10 SETTABLEKS                       R3 R4 K3 ["_presetController"]
-       12 SETTABLEKS                       R0 R4 K4 ["_store"]
-       14 SETTABLEKS                       R2 R4 K5 ["_telemetry"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R5 R5 K8 ["new"]
-       19 CALL                             R5 0 1
-       20 SETTABLEKS                       R5 R4 K6 ["uploader"]
-       22 GETUPVAL                         R7 1
-       23 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-       25 MOVE                             R6 R4
-       26 GETIMPORT                        R5 K10 [setmetatable]
-       28 CALL                             R5 2 1
-       29 RETURN                           R5 1
+        0 DUPTABLE                         R4 K8 [{[1] = , ["_inFlightPromises"], ["_localization"], ["_presetController"], ["_store"], ["_telemetry"], ["uploader"]}]
+        1 NEWTABLE                         R5 0 0
+        3 SETTABLEKS                       R5 R4 K2 ["_inFlightPromises"]
+        5 SETTABLEKS                       R1 R4 K3 ["_localization"]
+        7 SETTABLEKS                       R3 R4 K4 ["_presetController"]
+        9 SETTABLEKS                       R0 R4 K5 ["_store"]
+       11 SETTABLEKS                       R2 R4 K6 ["_telemetry"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K9 ["new"]
+       16 CALL                             R5 0 1
+       17 SETTABLEKS                       R5 R4 K7 ["uploader"]
+       19 GETUPVAL                         R7 1
+       20 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+       22 MOVE                             R6 R4
+       23 GETIMPORT                        R5 K11 [setmetatable]
+       25 CALL                             R5 2 1
+       26 RETURN                           R5 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]
@@ -51,70 +49,62 @@ PROTO_3:
         7 GETTABLEKS                       R2 R2 K1 ["_store"]
         9 GETUPVAL                         R4 2
        10 GETUPVAL                         R5 0
-       11 DUPTABLE                         R6 K5 [{"uploadResults", "state", "enabled"}]
-       12 DUPTABLE                         R7 K8 [{"AssetIds", "Succeeded"}]
-       13 SETTABLEKS                       R1 R7 K6 ["AssetIds"]
-       15 LOADB                            R8 1
-       16 SETTABLEKS                       R8 R7 K7 ["Succeeded"]
-       18 SETTABLEKS                       R7 R6 K2 ["uploadResults"]
-       20 GETUPVAL                         R7 3
-       21 GETTABLEKS                       R7 R7 K9 ["SessionState"]
-       23 GETTABLEKS                       R7 R7 K10 ["Imported"]
-       25 SETTABLEKS                       R7 R6 K3 ["state"]
-       27 LOADB                            R7 0
-       28 SETTABLEKS                       R7 R6 K4 ["enabled"]
-       30 CALL                             R4 2 -1
-       31 NAMECALL                         R2 R2 K11 ["dispatch"]
-       33 CALL                             R2 -1 0
-       34 GETUPVAL                         R2 1
-       35 GETTABLEKS                       R2 R2 K12 ["_telemetry"]
-       37 GETUPVAL                         R4 0
-       38 GETTABLEKS                       R4 R4 K13 ["fileType"]
-       40 MOVE                             R5 R0
-       41 NAMECALL                         R2 R2 K14 ["logImportSucceeded"]
-       43 CALL                             R2 3 0
-       44 GETUPVAL                         R2 4
-       45 MOVE                             R3 R1
-       46 CALL                             R2 1 0
-       47 RETURN                           R0 0
+       11 DUPTABLE                         R6 K6 [{["uploadResults"], ["state"], ["enabled"] = False}]
+       12 DUPTABLE                         R7 K10 [{["AssetIds"], ["Succeeded"] = True}]
+       13 SETTABLEKS                       R1 R7 K7 ["AssetIds"]
+       15 SETTABLEKS                       R7 R6 K2 ["uploadResults"]
+       17 GETUPVAL                         R7 3
+       18 GETTABLEKS                       R7 R7 K11 ["SessionState"]
+       20 GETTABLEKS                       R7 R7 K12 ["Imported"]
+       22 SETTABLEKS                       R7 R6 K3 ["state"]
+       24 CALL                             R4 2 -1
+       25 NAMECALL                         R2 R2 K13 ["dispatch"]
+       27 CALL                             R2 -1 0
+       28 GETUPVAL                         R2 1
+       29 GETTABLEKS                       R2 R2 K14 ["_telemetry"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K15 ["fileType"]
+       34 MOVE                             R5 R0
+       35 NAMECALL                         R2 R2 K16 ["logImportSucceeded"]
+       37 CALL                             R2 3 0
+       38 GETUPVAL                         R2 4
+       39 MOVE                             R3 R1
+       40 CALL                             R2 1 0
+       41 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["_store"]
         3 GETUPVAL                         R3 1
         4 GETUPVAL                         R4 2
-        5 DUPTABLE                         R5 K4 [{"uploadResults", "state", "enabled"}]
-        6 DUPTABLE                         R6 K7 [{"ErrorMessages", "Succeeded"}]
+        5 DUPTABLE                         R5 K5 [{["uploadResults"], ["state"], ["enabled"] = False}]
+        6 DUPTABLE                         R6 K8 [{["ErrorMessages"], ["Succeeded"] = False}]
         7 NEWTABLE                         R7 1 0
         9 GETUPVAL                         R8 2
-       10 GETTABLEKS                       R8 R8 K8 ["assetName"]
+       10 GETTABLEKS                       R8 R8 K9 ["assetName"]
        12 GETUPVAL                         R9 3
        13 MOVE                             R10 R0
        14 GETUPVAL                         R11 0
-       15 GETTABLEKS                       R11 R11 K9 ["_localization"]
+       15 GETTABLEKS                       R11 R11 K10 ["_localization"]
        17 CALL                             R9 2 1
        18 SETTABLE                         R9 R7 R8
-       19 SETTABLEKS                       R7 R6 K5 ["ErrorMessages"]
-       21 LOADB                            R7 0
-       22 SETTABLEKS                       R7 R6 K6 ["Succeeded"]
-       24 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
-       26 GETUPVAL                         R6 4
-       27 GETTABLEKS                       R6 R6 K10 ["SessionState"]
-       29 GETTABLEKS                       R6 R6 K11 ["Imported"]
-       31 SETTABLEKS                       R6 R5 K2 ["state"]
-       33 LOADB                            R6 0
-       34 SETTABLEKS                       R6 R5 K3 ["enabled"]
-       36 CALL                             R3 2 -1
-       37 NAMECALL                         R1 R1 K12 ["dispatch"]
-       39 CALL                             R1 -1 0
-       40 GETUPVAL                         R1 0
-       41 GETTABLEKS                       R1 R1 K13 ["_telemetry"]
-       43 GETUPVAL                         R3 2
-       44 GETTABLEKS                       R3 R3 K14 ["fileType"]
-       46 MOVE                             R4 R0
-       47 NAMECALL                         R1 R1 K15 ["logImportFailed"]
-       49 CALL                             R1 3 0
-       50 RETURN                           R0 0
+       19 SETTABLEKS                       R7 R6 K6 ["ErrorMessages"]
+       21 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
+       23 GETUPVAL                         R6 4
+       24 GETTABLEKS                       R6 R6 K11 ["SessionState"]
+       26 GETTABLEKS                       R6 R6 K12 ["Imported"]
+       28 SETTABLEKS                       R6 R5 K2 ["state"]
+       30 CALL                             R3 2 -1
+       31 NAMECALL                         R1 R1 K13 ["dispatch"]
+       33 CALL                             R1 -1 0
+       34 GETUPVAL                         R1 0
+       35 GETTABLEKS                       R1 R1 K14 ["_telemetry"]
+       37 GETUPVAL                         R3 2
+       38 GETTABLEKS                       R3 R3 K15 ["fileType"]
+       40 MOVE                             R4 R0
+       41 NAMECALL                         R1 R1 K16 ["logImportFailed"]
+       43 CALL                             R1 3 0
+       44 RETURN                           R0 0
 
 PROTO_5:
         0 NEWCLOSURE                       R3 P0
@@ -516,64 +506,56 @@ PROTO_11:
         1 GETTABLEKS                       R1 R1 K0 ["_store"]
         3 GETUPVAL                         R3 1
         4 GETUPVAL                         R4 2
-        5 DUPTABLE                         R5 K4 [{"uploadResults", "state", "enabled"}]
-        6 DUPTABLE                         R6 K7 [{"ErrorMessages", "Succeeded"}]
+        5 DUPTABLE                         R5 K5 [{["uploadResults"], ["state"], ["enabled"] = False}]
+        6 DUPTABLE                         R6 K8 [{["ErrorMessages"], ["Succeeded"] = False}]
         7 NEWTABLE                         R7 1 0
         9 GETUPVAL                         R8 2
-       10 GETTABLEKS                       R8 R8 K8 ["assetName"]
+       10 GETTABLEKS                       R8 R8 K9 ["assetName"]
        12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R9 R9 K9 ["_localization"]
-       15 LOADK                            R11 K10 ["HttpError"]
-       16 LOADK                            R12 K11 ["Unknown"]
-       17 NAMECALL                         R9 R9 K12 ["getText"]
+       13 GETTABLEKS                       R9 R9 K10 ["_localization"]
+       15 LOADK                            R11 K11 ["HttpError"]
+       16 LOADK                            R12 K12 ["Unknown"]
+       17 NAMECALL                         R9 R9 K13 ["getText"]
        19 CALL                             R9 3 1
        20 SETTABLE                         R9 R7 R8
-       21 SETTABLEKS                       R7 R6 K5 ["ErrorMessages"]
-       23 LOADB                            R7 0
-       24 SETTABLEKS                       R7 R6 K6 ["Succeeded"]
-       26 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
-       28 GETUPVAL                         R6 3
-       29 GETTABLEKS                       R6 R6 K13 ["SessionState"]
-       31 GETTABLEKS                       R6 R6 K14 ["Imported"]
-       33 SETTABLEKS                       R6 R5 K2 ["state"]
-       35 LOADB                            R6 0
-       36 SETTABLEKS                       R6 R5 K3 ["enabled"]
-       38 CALL                             R3 2 -1
-       39 NAMECALL                         R1 R1 K15 ["dispatch"]
-       41 CALL                             R1 -1 0
-       42 RETURN                           R0 0
+       21 SETTABLEKS                       R7 R6 K6 ["ErrorMessages"]
+       23 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
+       25 GETUPVAL                         R6 3
+       26 GETTABLEKS                       R6 R6 K14 ["SessionState"]
+       28 GETTABLEKS                       R6 R6 K15 ["Imported"]
+       30 SETTABLEKS                       R6 R5 K2 ["state"]
+       32 CALL                             R3 2 -1
+       33 NAMECALL                         R1 R1 K16 ["dispatch"]
+       35 CALL                             R1 -1 0
+       36 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["_store"]
         3 GETUPVAL                         R3 1
         4 GETUPVAL                         R4 2
-        5 DUPTABLE                         R5 K4 [{"uploadResults", "state", "enabled"}]
-        6 DUPTABLE                         R6 K7 [{"ErrorMessages", "Succeeded"}]
+        5 DUPTABLE                         R5 K5 [{["uploadResults"], ["state"], ["enabled"] = False}]
+        6 DUPTABLE                         R6 K8 [{["ErrorMessages"], ["Succeeded"] = False}]
         7 NEWTABLE                         R7 1 0
         9 GETUPVAL                         R8 2
-       10 GETTABLEKS                       R8 R8 K8 ["assetName"]
+       10 GETTABLEKS                       R8 R8 K9 ["assetName"]
        12 GETUPVAL                         R9 0
-       13 GETTABLEKS                       R9 R9 K9 ["_localization"]
-       15 LOADK                            R11 K10 ["HttpError"]
-       16 LOADK                            R12 K11 ["Unknown"]
-       17 NAMECALL                         R9 R9 K12 ["getText"]
+       13 GETTABLEKS                       R9 R9 K10 ["_localization"]
+       15 LOADK                            R11 K11 ["HttpError"]
+       16 LOADK                            R12 K12 ["Unknown"]
+       17 NAMECALL                         R9 R9 K13 ["getText"]
        19 CALL                             R9 3 1
        20 SETTABLE                         R9 R7 R8
-       21 SETTABLEKS                       R7 R6 K5 ["ErrorMessages"]
-       23 LOADB                            R7 0
-       24 SETTABLEKS                       R7 R6 K6 ["Succeeded"]
-       26 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
-       28 GETUPVAL                         R6 3
-       29 GETTABLEKS                       R6 R6 K13 ["SessionState"]
-       31 GETTABLEKS                       R6 R6 K14 ["Imported"]
-       33 SETTABLEKS                       R6 R5 K2 ["state"]
-       35 LOADB                            R6 0
-       36 SETTABLEKS                       R6 R5 K3 ["enabled"]
-       38 CALL                             R3 2 -1
-       39 NAMECALL                         R1 R1 K15 ["dispatch"]
-       41 CALL                             R1 -1 0
-       42 RETURN                           R0 0
+       21 SETTABLEKS                       R7 R6 K6 ["ErrorMessages"]
+       23 SETTABLEKS                       R6 R5 K1 ["uploadResults"]
+       25 GETUPVAL                         R6 3
+       26 GETTABLEKS                       R6 R6 K14 ["SessionState"]
+       28 GETTABLEKS                       R6 R6 K15 ["Imported"]
+       30 SETTABLEKS                       R6 R5 K2 ["state"]
+       32 CALL                             R3 2 -1
+       33 NAMECALL                         R1 R1 K16 ["dispatch"]
+       35 CALL                             R1 -1 0
+       36 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R3 0
@@ -786,18 +768,16 @@ PROTO_14:
        95 GETTABLEKS                       R1 R1 K8 ["_store"]
        97 GETUPVAL                         R3 6
        98 GETUPVAL                         R4 0
-       99 DUPTABLE                         R5 K22 [{"uploadResults", "state", "enabled"}]
+       99 DUPTABLE                         R5 K23 [{["uploadResults"], ["state"], ["enabled"] = False}]
       100 SETTABLEKS                       R0 R5 K19 ["uploadResults"]
       102 GETUPVAL                         R6 7
-      103 GETTABLEKS                       R6 R6 K23 ["SessionState"]
-      105 GETTABLEKS                       R6 R6 K24 ["Imported"]
+      103 GETTABLEKS                       R6 R6 K24 ["SessionState"]
+      105 GETTABLEKS                       R6 R6 K25 ["Imported"]
       107 SETTABLEKS                       R6 R5 K20 ["state"]
-      109 LOADB                            R6 0
-      110 SETTABLEKS                       R6 R5 K21 ["enabled"]
-      112 CALL                             R3 2 -1
-      113 NAMECALL                         R1 R1 K9 ["dispatch"]
-      115 CALL                             R1 -1 0
-      116 RETURN                           R0 0
+      109 CALL                             R3 2 -1
+      110 NAMECALL                         R1 R1 K9 ["dispatch"]
+      112 CALL                             R1 -1 0
+      113 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0
@@ -835,7 +815,7 @@ PROTO_16:
         3 CALL                             R0 1 1
         4 JUMPIFNOT                        R0 ; [+24]
         5 GETUPVAL                         R1 1
-        6 SUBRK                            R0 R1 K1 [1]
+        6 SUBRK                            R0 K1 [1] R1
         7 LOADN                            R1 0
         8 JUMPIFNOTLT                      R1 R0 ; [+20]
        10 GETUPVAL                         R1 0

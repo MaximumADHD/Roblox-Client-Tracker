@@ -1,11 +1,11 @@
 PROTO_0:
         0 GETIMPORT                        R0 K2 [Vector2.new]
-        2 LOADN                            R1 255
-        3 LOADN                            R2 255
+        2 LOADN                            R1 -1
+        3 LOADN                            R2 -1
         4 CALL                             R0 2 1
         5 GETIMPORT                        R1 K2 [Vector2.new]
-        7 LOADN                            R2 255
-        8 LOADN                            R3 255
+        7 LOADN                            R2 -1
+        8 LOADN                            R3 -1
         9 CALL                             R1 2 1
        10 GETUPVAL                         R2 0
        11 GETTABLEKS                       R2 R2 K3 ["Orientation"]
@@ -124,7 +124,7 @@ PROTO_1:
        28 JUMPIFNOTEQKS                    R3 K16 ["Horizontal"] ; [+11]
        30 GETIMPORT                        R3 K12 [UDim2.new]
        32 LOADN                            R4 0
-       33 LOADN                            R5 251
+       33 LOADN                            R5 -5
        34 LOADK                            R6 K13 [0.5]
        35 LOADN                            R7 0
        36 CALL                             R3 4 1

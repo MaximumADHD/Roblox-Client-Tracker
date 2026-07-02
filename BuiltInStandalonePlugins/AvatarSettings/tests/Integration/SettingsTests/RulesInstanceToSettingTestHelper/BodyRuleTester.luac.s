@@ -3,37 +3,31 @@ PROTO_0:
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["getByText"]
         4 LOADK                            R2 K1 ["ScaleSectionPlayerChoiceButtonText:"]
-        5 DUPTABLE                         R3 K3 [{"exact"}]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K2 ["exact"]
-        9 CALL                             R1 2 -1
-       10 CALL                             R0 -1 1
-       11 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       13 CALL                             R0 0 0
-       14 GETUPVAL                         R0 0
-       15 GETUPVAL                         R1 1
-       16 GETTABLEKS                       R1 R1 K0 ["getByText"]
-       18 LOADK                            R2 K5 ["ScaleSectionPlayerChoiceSubText"]
-       19 DUPTABLE                         R3 K3 [{"exact"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K2 ["exact"]
-       23 CALL                             R1 2 -1
-       24 CALL                             R0 -1 1
-       25 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       27 CALL                             R0 0 0
-       28 GETUPVAL                         R0 0
-       29 GETUPVAL                         R1 1
-       30 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       32 LOADK                            R2 K7 ["ScaleHeight"]
-       33 DUPTABLE                         R3 K3 [{"exact"}]
-       34 LOADB                            R4 0
-       35 SETTABLEKS                       R4 R3 K2 ["exact"]
-       37 CALL                             R1 2 -1
-       38 CALL                             R0 -1 1
-       39 GETTABLEKS                       R0 R0 K8 ["never"]
-       41 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       43 CALL                             R0 0 0
-       44 RETURN                           R0 0
+        5 DUPTABLE                         R3 K4 [{["exact"] = False}]
+        6 CALL                             R1 2 -1
+        7 CALL                             R0 -1 1
+        8 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       10 CALL                             R0 0 0
+       11 GETUPVAL                         R0 0
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K0 ["getByText"]
+       15 LOADK                            R2 K6 ["ScaleSectionPlayerChoiceSubText"]
+       16 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       17 CALL                             R1 2 -1
+       18 CALL                             R0 -1 1
+       19 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       21 CALL                             R0 0 0
+       22 GETUPVAL                         R0 0
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       26 LOADK                            R2 K8 ["ScaleHeight"]
+       27 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       28 CALL                             R1 2 -1
+       29 CALL                             R0 -1 1
+       30 GETTABLEKS                       R0 R0 K9 ["never"]
+       32 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       34 CALL                             R0 0 0
+       35 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -96,133 +90,111 @@ PROTO_3:
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["getByText"]
         4 LOADK                            R2 K1 ["AppearanceSectionPlayerChoiceButtonText"]
-        5 DUPTABLE                         R3 K3 [{"exact"}]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K2 ["exact"]
-        9 CALL                             R1 2 -1
-       10 CALL                             R0 -1 1
-       11 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       13 CALL                             R0 0 0
-       14 GETUPVAL                         R0 0
-       15 GETUPVAL                         R1 1
-       16 GETTABLEKS                       R1 R1 K0 ["getByText"]
-       18 LOADK                            R2 K5 ["AppearanceSectionPlayerChoiceSubText"]
-       19 DUPTABLE                         R3 K3 [{"exact"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K2 ["exact"]
-       23 CALL                             R1 2 -1
-       24 CALL                             R0 -1 1
-       25 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       27 CALL                             R0 0 0
-       28 GETUPVAL                         R0 0
-       29 GETUPVAL                         R1 1
-       30 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       32 LOADK                            R2 K7 ["AppearanceSectionFace"]
-       33 DUPTABLE                         R3 K3 [{"exact"}]
-       34 LOADB                            R4 0
-       35 SETTABLEKS                       R4 R3 K2 ["exact"]
-       37 CALL                             R1 2 -1
-       38 CALL                             R0 -1 1
-       39 GETTABLEKS                       R0 R0 K8 ["never"]
-       41 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       43 CALL                             R0 0 0
-       44 GETUPVAL                         R0 0
-       45 GETUPVAL                         R1 1
-       46 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       48 LOADK                            R2 K9 ["AppearanceSectionHead"]
-       49 DUPTABLE                         R3 K3 [{"exact"}]
-       50 LOADB                            R4 0
-       51 SETTABLEKS                       R4 R3 K2 ["exact"]
-       53 CALL                             R1 2 -1
-       54 CALL                             R0 -1 1
-       55 GETTABLEKS                       R0 R0 K8 ["never"]
-       57 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       59 CALL                             R0 0 0
-       60 GETUPVAL                         R0 0
-       61 GETUPVAL                         R1 1
-       62 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       64 LOADK                            R2 K10 ["AppearanceSectionTorso"]
-       65 DUPTABLE                         R3 K3 [{"exact"}]
-       66 LOADB                            R4 0
-       67 SETTABLEKS                       R4 R3 K2 ["exact"]
-       69 CALL                             R1 2 -1
-       70 CALL                             R0 -1 1
-       71 GETTABLEKS                       R0 R0 K8 ["never"]
-       73 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       75 CALL                             R0 0 0
-       76 GETUPVAL                         R0 0
-       77 GETUPVAL                         R1 1
-       78 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       80 LOADK                            R2 K11 ["AppearanceSectionLeftArm"]
-       81 DUPTABLE                         R3 K3 [{"exact"}]
-       82 LOADB                            R4 0
-       83 SETTABLEKS                       R4 R3 K2 ["exact"]
-       85 CALL                             R1 2 -1
-       86 CALL                             R0 -1 1
-       87 GETTABLEKS                       R0 R0 K8 ["never"]
-       89 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       91 CALL                             R0 0 0
-       92 GETUPVAL                         R0 0
-       93 GETUPVAL                         R1 1
-       94 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       96 LOADK                            R2 K12 ["AppearanceSectionRightArm"]
-       97 DUPTABLE                         R3 K3 [{"exact"}]
-       98 LOADB                            R4 0
-       99 SETTABLEKS                       R4 R3 K2 ["exact"]
-      101 CALL                             R1 2 -1
-      102 CALL                             R0 -1 1
-      103 GETTABLEKS                       R0 R0 K8 ["never"]
-      105 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      107 CALL                             R0 0 0
-      108 GETUPVAL                         R0 0
-      109 GETUPVAL                         R1 1
-      110 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-      112 LOADK                            R2 K13 ["AppearanceSectionLeftLeg"]
-      113 DUPTABLE                         R3 K3 [{"exact"}]
-      114 LOADB                            R4 0
-      115 SETTABLEKS                       R4 R3 K2 ["exact"]
-      117 CALL                             R1 2 -1
-      118 CALL                             R0 -1 1
-      119 GETTABLEKS                       R0 R0 K8 ["never"]
-      121 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      123 CALL                             R0 0 0
-      124 GETUPVAL                         R0 0
-      125 GETUPVAL                         R1 1
-      126 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-      128 LOADK                            R2 K14 ["AppearanceSectionRightLeg"]
-      129 DUPTABLE                         R3 K3 [{"exact"}]
-      130 LOADB                            R4 0
-      131 SETTABLEKS                       R4 R3 K2 ["exact"]
-      133 CALL                             R1 2 -1
-      134 CALL                             R0 -1 1
-      135 GETTABLEKS                       R0 R0 K8 ["never"]
-      137 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      139 CALL                             R0 0 0
-      140 GETUPVAL                         R0 0
-      141 GETUPVAL                         R1 1
-      142 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-      144 LOADK                            R2 K15 ["AppearanceSectionMethod"]
-      145 DUPTABLE                         R3 K3 [{"exact"}]
-      146 LOADB                            R4 0
-      147 SETTABLEKS                       R4 R3 K2 ["exact"]
-      149 CALL                             R1 2 -1
-      150 CALL                             R0 -1 1
-      151 GETTABLEKS                       R0 R0 K8 ["never"]
-      153 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      155 CALL                             R0 0 0
-      156 GETUPVAL                         R0 0
-      157 GETUPVAL                         R1 1
-      158 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-      160 LOADK                            R2 K16 ["AppearanceSectionBody"]
-      161 DUPTABLE                         R3 K3 [{"exact"}]
-      162 LOADB                            R4 0
-      163 SETTABLEKS                       R4 R3 K2 ["exact"]
-      165 CALL                             R1 2 -1
-      166 CALL                             R0 -1 1
-      167 GETTABLEKS                       R0 R0 K8 ["never"]
-      169 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      171 CALL                             R0 0 0
-      172 RETURN                           R0 0
+        5 DUPTABLE                         R3 K4 [{["exact"] = False}]
+        6 CALL                             R1 2 -1
+        7 CALL                             R0 -1 1
+        8 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       10 CALL                             R0 0 0
+       11 GETUPVAL                         R0 0
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K0 ["getByText"]
+       15 LOADK                            R2 K6 ["AppearanceSectionPlayerChoiceSubText"]
+       16 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       17 CALL                             R1 2 -1
+       18 CALL                             R0 -1 1
+       19 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       21 CALL                             R0 0 0
+       22 GETUPVAL                         R0 0
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       26 LOADK                            R2 K8 ["AppearanceSectionFace"]
+       27 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       28 CALL                             R1 2 -1
+       29 CALL                             R0 -1 1
+       30 GETTABLEKS                       R0 R0 K9 ["never"]
+       32 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       34 CALL                             R0 0 0
+       35 GETUPVAL                         R0 0
+       36 GETUPVAL                         R1 1
+       37 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       39 LOADK                            R2 K10 ["AppearanceSectionHead"]
+       40 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       41 CALL                             R1 2 -1
+       42 CALL                             R0 -1 1
+       43 GETTABLEKS                       R0 R0 K9 ["never"]
+       45 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       47 CALL                             R0 0 0
+       48 GETUPVAL                         R0 0
+       49 GETUPVAL                         R1 1
+       50 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       52 LOADK                            R2 K11 ["AppearanceSectionTorso"]
+       53 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       54 CALL                             R1 2 -1
+       55 CALL                             R0 -1 1
+       56 GETTABLEKS                       R0 R0 K9 ["never"]
+       58 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       60 CALL                             R0 0 0
+       61 GETUPVAL                         R0 0
+       62 GETUPVAL                         R1 1
+       63 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       65 LOADK                            R2 K12 ["AppearanceSectionLeftArm"]
+       66 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       67 CALL                             R1 2 -1
+       68 CALL                             R0 -1 1
+       69 GETTABLEKS                       R0 R0 K9 ["never"]
+       71 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       73 CALL                             R0 0 0
+       74 GETUPVAL                         R0 0
+       75 GETUPVAL                         R1 1
+       76 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       78 LOADK                            R2 K13 ["AppearanceSectionRightArm"]
+       79 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       80 CALL                             R1 2 -1
+       81 CALL                             R0 -1 1
+       82 GETTABLEKS                       R0 R0 K9 ["never"]
+       84 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       86 CALL                             R0 0 0
+       87 GETUPVAL                         R0 0
+       88 GETUPVAL                         R1 1
+       89 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       91 LOADK                            R2 K14 ["AppearanceSectionLeftLeg"]
+       92 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       93 CALL                             R1 2 -1
+       94 CALL                             R0 -1 1
+       95 GETTABLEKS                       R0 R0 K9 ["never"]
+       97 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       99 CALL                             R0 0 0
+      100 GETUPVAL                         R0 0
+      101 GETUPVAL                         R1 1
+      102 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+      104 LOADK                            R2 K15 ["AppearanceSectionRightLeg"]
+      105 DUPTABLE                         R3 K4 [{["exact"] = False}]
+      106 CALL                             R1 2 -1
+      107 CALL                             R0 -1 1
+      108 GETTABLEKS                       R0 R0 K9 ["never"]
+      110 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+      112 CALL                             R0 0 0
+      113 GETUPVAL                         R0 0
+      114 GETUPVAL                         R1 1
+      115 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+      117 LOADK                            R2 K16 ["AppearanceSectionMethod"]
+      118 DUPTABLE                         R3 K4 [{["exact"] = False}]
+      119 CALL                             R1 2 -1
+      120 CALL                             R0 -1 1
+      121 GETTABLEKS                       R0 R0 K9 ["never"]
+      123 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+      125 CALL                             R0 0 0
+      126 GETUPVAL                         R0 0
+      127 GETUPVAL                         R1 1
+      128 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+      130 LOADK                            R2 K17 ["AppearanceSectionBody"]
+      131 DUPTABLE                         R3 K4 [{["exact"] = False}]
+      132 CALL                             R1 2 -1
+      133 CALL                             R0 -1 1
+      134 GETTABLEKS                       R0 R0 K9 ["never"]
+      136 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+      138 CALL                             R0 0 0
+      139 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -298,85 +270,71 @@ PROTO_6:
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["getByText"]
         4 LOADK                            R2 K1 ["BuildSectionPlayerChoiceButtonText"]
-        5 DUPTABLE                         R3 K3 [{"exact"}]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K2 ["exact"]
-        9 CALL                             R1 2 -1
-       10 CALL                             R0 -1 1
-       11 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       13 CALL                             R0 0 0
-       14 GETUPVAL                         R0 0
-       15 GETUPVAL                         R1 1
-       16 GETTABLEKS                       R1 R1 K0 ["getByText"]
-       18 LOADK                            R2 K5 ["BuildSectionPlayerChoiceSubText"]
-       19 DUPTABLE                         R3 K3 [{"exact"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K2 ["exact"]
-       23 CALL                             R1 2 -1
-       24 CALL                             R0 -1 1
-       25 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       27 CALL                             R0 0 0
-       28 GETUPVAL                         R0 0
-       29 GETUPVAL                         R1 1
-       30 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       32 LOADK                            R2 K7 ["BuildHeight"]
-       33 DUPTABLE                         R3 K3 [{"exact"}]
-       34 LOADB                            R4 0
-       35 SETTABLEKS                       R4 R3 K2 ["exact"]
-       37 CALL                             R1 2 -1
-       38 CALL                             R0 -1 1
-       39 GETTABLEKS                       R0 R0 K8 ["never"]
-       41 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       43 CALL                             R0 0 0
-       44 GETUPVAL                         R0 0
-       45 GETUPVAL                         R1 1
-       46 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       48 LOADK                            R2 K9 ["BuildWidth"]
-       49 DUPTABLE                         R3 K3 [{"exact"}]
-       50 LOADB                            R4 0
-       51 SETTABLEKS                       R4 R3 K2 ["exact"]
-       53 CALL                             R1 2 -1
-       54 CALL                             R0 -1 1
-       55 GETTABLEKS                       R0 R0 K8 ["never"]
-       57 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       59 CALL                             R0 0 0
-       60 GETUPVAL                         R0 0
-       61 GETUPVAL                         R1 1
-       62 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       64 LOADK                            R2 K10 ["BuildHead"]
-       65 DUPTABLE                         R3 K3 [{"exact"}]
-       66 LOADB                            R4 0
-       67 SETTABLEKS                       R4 R3 K2 ["exact"]
-       69 CALL                             R1 2 -1
-       70 CALL                             R0 -1 1
-       71 GETTABLEKS                       R0 R0 K8 ["never"]
-       73 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       75 CALL                             R0 0 0
-       76 GETUPVAL                         R0 0
-       77 GETUPVAL                         R1 1
-       78 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       80 LOADK                            R2 K11 ["BuildBodyType"]
-       81 DUPTABLE                         R3 K3 [{"exact"}]
-       82 LOADB                            R4 0
-       83 SETTABLEKS                       R4 R3 K2 ["exact"]
-       85 CALL                             R1 2 -1
-       86 CALL                             R0 -1 1
-       87 GETTABLEKS                       R0 R0 K8 ["never"]
-       89 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-       91 CALL                             R0 0 0
-       92 GETUPVAL                         R0 0
-       93 GETUPVAL                         R1 1
-       94 GETTABLEKS                       R1 R1 K6 ["queryByText"]
-       96 LOADK                            R2 K12 ["BuildProportions"]
-       97 DUPTABLE                         R3 K3 [{"exact"}]
-       98 LOADB                            R4 0
-       99 SETTABLEKS                       R4 R3 K2 ["exact"]
-      101 CALL                             R1 2 -1
-      102 CALL                             R0 -1 1
-      103 GETTABLEKS                       R0 R0 K8 ["never"]
-      105 GETTABLEKS                       R0 R0 K4 ["toBeDefined"]
-      107 CALL                             R0 0 0
-      108 RETURN                           R0 0
+        5 DUPTABLE                         R3 K4 [{["exact"] = False}]
+        6 CALL                             R1 2 -1
+        7 CALL                             R0 -1 1
+        8 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       10 CALL                             R0 0 0
+       11 GETUPVAL                         R0 0
+       12 GETUPVAL                         R1 1
+       13 GETTABLEKS                       R1 R1 K0 ["getByText"]
+       15 LOADK                            R2 K6 ["BuildSectionPlayerChoiceSubText"]
+       16 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       17 CALL                             R1 2 -1
+       18 CALL                             R0 -1 1
+       19 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       21 CALL                             R0 0 0
+       22 GETUPVAL                         R0 0
+       23 GETUPVAL                         R1 1
+       24 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       26 LOADK                            R2 K8 ["BuildHeight"]
+       27 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       28 CALL                             R1 2 -1
+       29 CALL                             R0 -1 1
+       30 GETTABLEKS                       R0 R0 K9 ["never"]
+       32 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       34 CALL                             R0 0 0
+       35 GETUPVAL                         R0 0
+       36 GETUPVAL                         R1 1
+       37 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       39 LOADK                            R2 K10 ["BuildWidth"]
+       40 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       41 CALL                             R1 2 -1
+       42 CALL                             R0 -1 1
+       43 GETTABLEKS                       R0 R0 K9 ["never"]
+       45 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       47 CALL                             R0 0 0
+       48 GETUPVAL                         R0 0
+       49 GETUPVAL                         R1 1
+       50 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       52 LOADK                            R2 K11 ["BuildHead"]
+       53 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       54 CALL                             R1 2 -1
+       55 CALL                             R0 -1 1
+       56 GETTABLEKS                       R0 R0 K9 ["never"]
+       58 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       60 CALL                             R0 0 0
+       61 GETUPVAL                         R0 0
+       62 GETUPVAL                         R1 1
+       63 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       65 LOADK                            R2 K12 ["BuildBodyType"]
+       66 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       67 CALL                             R1 2 -1
+       68 CALL                             R0 -1 1
+       69 GETTABLEKS                       R0 R0 K9 ["never"]
+       71 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       73 CALL                             R0 0 0
+       74 GETUPVAL                         R0 0
+       75 GETUPVAL                         R1 1
+       76 GETTABLEKS                       R1 R1 K7 ["queryByText"]
+       78 LOADK                            R2 K13 ["BuildProportions"]
+       79 DUPTABLE                         R3 K4 [{["exact"] = False}]
+       80 CALL                             R1 2 -1
+       81 CALL                             R0 -1 1
+       82 GETTABLEKS                       R0 R0 K9 ["never"]
+       84 GETTABLEKS                       R0 R0 K5 ["toBeDefined"]
+       86 CALL                             R0 0 0
+       87 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0

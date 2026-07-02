@@ -24,7 +24,7 @@ PROTO_0:
        31 MUL                              R12 R7 R13
        32 SUB                              R10 R11 R12
        33 MUL                              R12 R7 R7
-       34 SUBRK                            R11 R3 K12 [NULL]
+       34 SUBRK                            R11 K3 [1] R12
        35 DIV                              R9 R10 R11
        36 MUL                              R11 R6 R9
        37 ADD                              R10 R2 R11
@@ -526,10 +526,10 @@ MAIN:
        33 SETLIST                          R9 R10 2 [1]
        35 NEWTABLE                         R10 0 2
        37 LOADN                            R11 0
-       38 LOADN                            R12 255
+       38 LOADN                            R12 -1
        39 SETLIST                          R10 R11 2 [1]
        41 NEWTABLE                         R11 0 2
-       43 LOADN                            R12 255
+       43 LOADN                            R12 -1
        44 LOADN                            R13 0
        45 SETLIST                          R11 R12 2 [1]
        47 SETLIST                          R7 R8 4 [1]

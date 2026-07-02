@@ -14,48 +14,18 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K9 ["Types"]
        22 CALL                             R2 1 1
        23 NEWTABLE                         R3 0 1
-       25 DUPTABLE                         R4 K12 [{"Type", "Children"}]
-       26 LOADK                            R5 K13 ["Column"]
-       27 SETTABLEKS                       R5 R4 K10 ["Type"]
-       29 NEWTABLE                         R5 0 2
-       31 DUPTABLE                         R6 K17 [{"Id", "Type", "Action", "TextOnly"}]
-       32 LOADK                            R7 K18 ["ManagePlugins"]
-       33 SETTABLEKS                       R7 R6 K14 ["Id"]
-       35 LOADK                            R7 K19 ["Option"]
-       36 SETTABLEKS                       R7 R6 K10 ["Type"]
-       38 DUPTABLE                         R7 K24 [{"PluginId", "DataModel", "ItemId", "Category"}]
-       39 LOADK                            R8 K25 ["PluginManagement"]
-       40 SETTABLEKS                       R8 R7 K20 ["PluginId"]
-       42 LOADK                            R8 K26 ["Standalone"]
-       43 SETTABLEKS                       R8 R7 K21 ["DataModel"]
-       45 LOADK                            R8 K27 ["ManageCloudPlugins"]
-       46 SETTABLEKS                       R8 R7 K22 ["ItemId"]
-       48 LOADK                            R8 K28 ["Actions"]
-       49 SETTABLEKS                       R8 R7 K23 ["Category"]
-       51 SETTABLEKS                       R7 R6 K15 ["Action"]
-       53 LOADB                            R7 1
-       54 SETTABLEKS                       R7 R6 K16 ["TextOnly"]
-       56 DUPTABLE                         R7 K17 [{"Id", "Type", "Action", "TextOnly"}]
-       57 LOADK                            R8 K29 ["OpenPluginsFolder"]
-       58 SETTABLEKS                       R8 R7 K14 ["Id"]
-       60 LOADK                            R8 K19 ["Option"]
-       61 SETTABLEKS                       R8 R7 K10 ["Type"]
-       63 DUPTABLE                         R8 K24 [{"PluginId", "DataModel", "ItemId", "Category"}]
-       64 LOADK                            R9 K25 ["PluginManagement"]
-       65 SETTABLEKS                       R9 R8 K20 ["PluginId"]
-       67 LOADK                            R9 K26 ["Standalone"]
-       68 SETTABLEKS                       R9 R8 K21 ["DataModel"]
-       70 LOADK                            R9 K30 ["OpenLocalPluginsFolder"]
-       71 SETTABLEKS                       R9 R8 K22 ["ItemId"]
-       73 LOADK                            R9 K28 ["Actions"]
-       74 SETTABLEKS                       R9 R8 K23 ["Category"]
-       76 SETTABLEKS                       R8 R7 K15 ["Action"]
-       78 LOADB                            R8 1
-       79 SETTABLEKS                       R8 R7 K16 ["TextOnly"]
-       81 SETLIST                          R5 R6 2 [1]
-       83 SETTABLEKS                       R5 R4 K11 ["Children"]
-       85 SETLIST                          R3 R4 1 [1]
-       87 MOVE                             R4 R1
-       88 MOVE                             R5 R3
-       89 CALL                             R4 1 -1
-       90 RETURN                           R4 -1
+       25 DUPTABLE                         R4 K13 [{["Type"] = "Column", ["Children"]}]
+       26 NEWTABLE                         R5 0 2
+       28 DUPTABLE                         R6 K20 [{["Id"] = "ManagePlugins", ["Type"] = "Option", ["Action"], ["TextOnly"] = True}]
+       29 DUPTABLE                         R7 K29 [{["PluginId"] = "PluginManagement", ["DataModel"] = "Standalone", ["ItemId"] = "ManageCloudPlugins", ["Category"] = "Actions"}]
+       30 SETTABLEKS                       R7 R6 K17 ["Action"]
+       32 DUPTABLE                         R7 K31 [{["Id"] = "OpenPluginsFolder", ["Type"] = "Option", ["Action"], ["TextOnly"] = True}]
+       33 DUPTABLE                         R8 K33 [{["PluginId"] = "PluginManagement", ["DataModel"] = "Standalone", ["ItemId"] = "OpenLocalPluginsFolder", ["Category"] = "Actions"}]
+       34 SETTABLEKS                       R8 R7 K17 ["Action"]
+       36 SETLIST                          R5 R6 2 [1]
+       38 SETTABLEKS                       R5 R4 K12 ["Children"]
+       40 SETLIST                          R3 R4 1 [1]
+       42 MOVE                             R4 R1
+       43 MOVE                             R5 R3
+       44 CALL                             R4 1 -1
+       45 RETURN                           R4 -1

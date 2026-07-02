@@ -28,40 +28,36 @@ MAIN:
        38 LOADK                            R5 K17 ["DebugReactDevToolsPluginName"]
        39 NAMECALL                         R3 R3 K18 ["GetFastString"]
        41 CALL                             R3 2 1
-       42 JUMPIFNOTEQKS                    R3 K2 ["PropertiesPlugin"] ; [+18]
+       42 JUMPIFNOTEQKS                    R3 K2 ["PropertiesPlugin"] ; [+12]
        44 GETIMPORT                        R3 K5 [require]
        46 GETTABLEKS                       R4 R0 K9 ["Packages"]
        48 GETTABLEKS                       R4 R4 K19 ["ReactDeveloperTools"]
        50 CALL                             R3 1 1
        51 GETTABLEKS                       R4 R3 K20 ["tryEnableDevtools"]
-       53 DUPTABLE                         R5 K23 [{"pluginName", "profileOnStart"}]
-       54 LOADK                            R6 K2 ["PropertiesPlugin"]
-       55 SETTABLEKS                       R6 R5 K21 ["pluginName"]
-       57 LOADB                            R6 0
-       58 SETTABLEKS                       R6 R5 K22 ["profileOnStart"]
-       60 CALL                             R4 1 0
-       61 GETIMPORT                        R3 K5 [require]
-       63 GETTABLEKS                       R4 R0 K24 ["Bin"]
-       65 GETTABLEKS                       R4 R4 K25 ["Common"]
-       67 GETTABLEKS                       R4 R4 K26 ["pluginType"]
-       69 CALL                             R3 1 1
-       70 GETTABLEKS                       R4 R3 K27 ["get"]
-       72 CALL                             R4 0 1
-       73 GETTABLEKS                       R5 R3 K28 ["Standalone"]
-       75 JUMPIFEQ                         R4 R5 ; [+2]
-       77 RETURN                           R0 0
-       78 GETIMPORT                        R4 K5 [require]
-       80 GETTABLEKS                       R5 R0 K24 ["Bin"]
-       82 GETTABLEKS                       R5 R5 K25 ["Common"]
-       84 GETTABLEKS                       R5 R5 K29 ["setup"]
-       86 CALL                             R4 1 1
-       87 GETIMPORT                        R5 K5 [require]
-       89 GETTABLEKS                       R6 R0 K24 ["Bin"]
-       91 GETTABLEKS                       R6 R6 K25 ["Common"]
-       93 GETTABLEKS                       R6 R6 K30 ["setupMain"]
-       95 CALL                             R5 1 1
-       96 MOVE                             R6 R4
-       97 GETIMPORT                        R7 K32 [plugin]
-       99 MOVE                             R8 R5
-      100 CALL                             R6 2 0
-      101 RETURN                           R0 0
+       53 DUPTABLE                         R5 K24 [{["pluginName"] = "PropertiesPlugin", ["profileOnStart"] = False}]
+       54 CALL                             R4 1 0
+       55 GETIMPORT                        R3 K5 [require]
+       57 GETTABLEKS                       R4 R0 K25 ["Bin"]
+       59 GETTABLEKS                       R4 R4 K26 ["Common"]
+       61 GETTABLEKS                       R4 R4 K27 ["pluginType"]
+       63 CALL                             R3 1 1
+       64 GETTABLEKS                       R4 R3 K28 ["get"]
+       66 CALL                             R4 0 1
+       67 GETTABLEKS                       R5 R3 K29 ["Standalone"]
+       69 JUMPIFEQ                         R4 R5 ; [+2]
+       71 RETURN                           R0 0
+       72 GETIMPORT                        R4 K5 [require]
+       74 GETTABLEKS                       R5 R0 K25 ["Bin"]
+       76 GETTABLEKS                       R5 R5 K26 ["Common"]
+       78 GETTABLEKS                       R5 R5 K30 ["setup"]
+       80 CALL                             R4 1 1
+       81 GETIMPORT                        R5 K5 [require]
+       83 GETTABLEKS                       R6 R0 K25 ["Bin"]
+       85 GETTABLEKS                       R6 R6 K26 ["Common"]
+       87 GETTABLEKS                       R6 R6 K31 ["setupMain"]
+       89 CALL                             R5 1 1
+       90 MOVE                             R6 R4
+       91 GETIMPORT                        R7 K33 [plugin]
+       93 MOVE                             R8 R5
+       94 CALL                             R6 2 0
+       95 RETURN                           R0 0

@@ -25,7 +25,7 @@ PROTO_1:
         7 LOADN                            R5 32
         8 CALL                             R1 4 1
         9 SETTABLEKS                       R1 R0 K3 ["PrimaryButtonSize"]
-       11 LOADN                            R1 84
+       11 LOADN                            R1 340
        12 SETTABLEKS                       R1 R0 K4 ["UIGroupWidthPx"]
        14 LOADN                            R1 10
        15 SETTABLEKS                       R1 R0 K5 ["PaddingPx"]
@@ -178,180 +178,144 @@ PROTO_1:
       221 SETTABLE                         R2 R0 R1
       222 GETUPVAL                         R1 0
       223 GETTABLEKS                       R1 R1 K31 ["TabbedView"]
-      225 DUPTABLE                         R2 K35 [{"TabBarHeightPx", "ForegroundTabColor", "TabBarBackgroundColor"}]
-      226 LOADN                            R3 30
-      227 SETTABLEKS                       R3 R2 K32 ["TabBarHeightPx"]
-      229 GETUPVAL                         R3 7
-      230 GETTABLEKS                       R3 R3 K36 ["SelectedTabColor"]
-      232 SETTABLEKS                       R3 R2 K33 ["ForegroundTabColor"]
-      234 GETUPVAL                         R3 7
-      235 GETTABLEKS                       R3 R3 K37 ["SubBackground"]
-      237 SETTABLEKS                       R3 R2 K34 ["TabBarBackgroundColor"]
-      239 SETTABLE                         R2 R0 R1
-      240 GETUPVAL                         R1 0
-      241 GETTABLEKS                       R1 R1 K38 ["PlaybackTabView"]
-      243 DUPTABLE                         R2 K39 [{"PaddingPx"}]
-      244 LOADN                            R3 10
-      245 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      247 SETTABLE                         R2 R0 R1
-      248 GETUPVAL                         R1 0
-      249 GETTABLEKS                       R1 R1 K40 ["FileSelectorUIGroup"]
-      251 DUPTABLE                         R2 K39 [{"PaddingPx"}]
-      252 LOADN                            R3 10
-      253 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      255 SETTABLE                         R2 R0 R1
-      256 GETUPVAL                         R1 0
-      257 GETTABLEKS                       R1 R1 K41 ["TextLabel"]
-      259 GETUPVAL                         R2 1
-      260 GETTABLEKS                       R2 R2 K7 ["Dictionary"]
-      262 GETTABLEKS                       R2 R2 K8 ["join"]
-      264 GETUPVAL                         R3 8
-      265 NEWTABLE                         R4 1 0
-      267 DUPTABLE                         R5 K44 [{"TextSize", "TextColor", "TextWrapped"}]
-      268 LOADN                            R6 16
-      269 SETTABLEKS                       R6 R5 K42 ["TextSize"]
-      271 GETUPVAL                         R6 7
-      272 GETTABLEKS                       R6 R6 K45 ["MainText"]
-      274 SETTABLEKS                       R6 R5 K11 ["TextColor"]
-      276 LOADB                            R6 1
-      277 SETTABLEKS                       R6 R5 K43 ["TextWrapped"]
-      279 SETTABLEKS                       R5 R4 K46 ["&StatusTextLabel"]
-      281 CALL                             R2 2 1
-      282 SETTABLE                         R2 R0 R1
-      283 GETUPVAL                         R1 0
-      284 GETTABLEKS                       R1 R1 K47 ["LabeledToggleButton"]
-      286 DUPTABLE                         R2 K51 [{"ComponentSize", "ToggleSize", "LeftInsetPx", "PaddingPx"}]
-      287 GETIMPORT                        R3 K2 [UDim2.new]
-      289 LOADN                            R4 0
-      290 LOADN                            R5 150
-      291 LOADN                            R6 0
-      292 LOADN                            R7 30
-      293 CALL                             R3 4 1
-      294 SETTABLEKS                       R3 R2 K48 ["ComponentSize"]
-      296 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      298 LOADN                            R4 40
-      299 LOADN                            R5 24
-      300 CALL                             R3 2 1
-      301 SETTABLEKS                       R3 R2 K49 ["ToggleSize"]
-      303 LOADN                            R3 12
-      304 SETTABLEKS                       R3 R2 K50 ["LeftInsetPx"]
-      306 LOADN                            R3 10
-      307 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      309 SETTABLE                         R2 R0 R1
-      310 GETUPVAL                         R1 0
-      311 GETTABLEKS                       R1 R1 K54 ["UIKeyValueTextLabel"]
-      313 DUPTABLE                         R2 K57 [{"PaddingPx", "HeightPx", "KeyWidthPx"}]
-      314 LOADN                            R3 10
-      315 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      317 LOADN                            R3 25
-      318 SETTABLEKS                       R3 R2 K55 ["HeightPx"]
-      320 LOADN                            R3 150
-      321 SETTABLEKS                       R3 R2 K56 ["KeyWidthPx"]
-      323 SETTABLE                         R2 R0 R1
-      324 GETUPVAL                         R1 0
-      325 GETTABLEKS                       R1 R1 K40 ["FileSelectorUIGroup"]
-      327 DUPTABLE                         R2 K59 [{"PaddingPx", "ProgressBarWidth"}]
-      328 LOADN                            R3 10
-      329 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      331 LOADN                            R3 250
-      332 SETTABLEKS                       R3 R2 K58 ["ProgressBarWidth"]
-      334 SETTABLE                         R2 R0 R1
+      225 DUPTABLE                         R2 K36 [{["TabBarHeightPx"] = 30, ["ForegroundTabColor"], ["TabBarBackgroundColor"]}]
+      226 GETUPVAL                         R3 7
+      227 GETTABLEKS                       R3 R3 K37 ["SelectedTabColor"]
+      229 SETTABLEKS                       R3 R2 K34 ["ForegroundTabColor"]
+      231 GETUPVAL                         R3 7
+      232 GETTABLEKS                       R3 R3 K38 ["SubBackground"]
+      234 SETTABLEKS                       R3 R2 K35 ["TabBarBackgroundColor"]
+      236 SETTABLE                         R2 R0 R1
+      237 GETUPVAL                         R1 0
+      238 GETTABLEKS                       R1 R1 K39 ["PlaybackTabView"]
+      240 DUPTABLE                         R2 K41 [{["PaddingPx"] = 10}]
+      241 SETTABLE                         R2 R0 R1
+      242 GETUPVAL                         R1 0
+      243 GETTABLEKS                       R1 R1 K42 ["FileSelectorUIGroup"]
+      245 DUPTABLE                         R2 K41 [{["PaddingPx"] = 10}]
+      246 SETTABLE                         R2 R0 R1
+      247 GETUPVAL                         R1 0
+      248 GETTABLEKS                       R1 R1 K43 ["TextLabel"]
+      250 GETUPVAL                         R2 1
+      251 GETTABLEKS                       R2 R2 K7 ["Dictionary"]
+      253 GETTABLEKS                       R2 R2 K8 ["join"]
+      255 GETUPVAL                         R3 8
+      256 NEWTABLE                         R4 1 0
+      258 DUPTABLE                         R5 K48 [{["TextSize"] = 16, ["TextColor"], ["TextWrapped"] = True}]
+      259 GETUPVAL                         R6 7
+      260 GETTABLEKS                       R6 R6 K49 ["MainText"]
+      262 SETTABLEKS                       R6 R5 K11 ["TextColor"]
+      264 SETTABLEKS                       R5 R4 K50 ["&StatusTextLabel"]
+      266 CALL                             R2 2 1
+      267 SETTABLE                         R2 R0 R1
+      268 GETUPVAL                         R1 0
+      269 GETTABLEKS                       R1 R1 K51 ["LabeledToggleButton"]
+      271 DUPTABLE                         R2 K56 [{["ComponentSize"], ["ToggleSize"], ["LeftInsetPx"] = 12, ["PaddingPx"] = 10}]
+      272 GETIMPORT                        R3 K2 [UDim2.new]
+      274 LOADN                            R4 0
+      275 LOADN                            R5 150
+      276 LOADN                            R6 0
+      277 LOADN                            R7 30
+      278 CALL                             R3 4 1
+      279 SETTABLEKS                       R3 R2 K52 ["ComponentSize"]
+      281 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      283 LOADN                            R4 40
+      284 LOADN                            R5 24
+      285 CALL                             R3 2 1
+      286 SETTABLEKS                       R3 R2 K53 ["ToggleSize"]
+      288 SETTABLE                         R2 R0 R1
+      289 GETUPVAL                         R1 0
+      290 GETTABLEKS                       R1 R1 K59 ["UIKeyValueTextLabel"]
+      292 DUPTABLE                         R2 K64 [{["PaddingPx"] = 10, ["HeightPx"] = 25, ["KeyWidthPx"] = 150}]
+      293 SETTABLE                         R2 R0 R1
+      294 GETUPVAL                         R1 0
+      295 GETTABLEKS                       R1 R1 K42 ["FileSelectorUIGroup"]
+      297 DUPTABLE                         R2 K67 [{["PaddingPx"] = 10, ["ProgressBarWidth"] = 250}]
+      298 SETTABLE                         R2 R0 R1
+      299 GETUPVAL                         R1 0
+      300 GETTABLEKS                       R1 R1 K68 ["FilterSettingsUIGroup"]
+      302 DUPTABLE                         R2 K74 [{["GridAreaHeightPx"] = 100, ["PaddingPx"] = 10, ["GridLayoutCellSize"], ["GridCellPaddingYPx"] = 2}]
+      303 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      305 LOADN                            R4 150
+      306 LOADN                            R5 30
+      307 CALL                             R3 2 1
+      308 SETTABLEKS                       R3 R2 K71 ["GridLayoutCellSize"]
+      310 SETTABLE                         R2 R0 R1
+      311 GETUPVAL                         R1 0
+      312 GETTABLEKS                       R1 R1 K75 ["PlaybackInfoUIGroup"]
+      314 DUPTABLE                         R2 K41 [{["PaddingPx"] = 10}]
+      315 SETTABLE                         R2 R0 R1
+      316 GETUPVAL                         R1 1
+      317 GETTABLEKS                       R1 R1 K7 ["Dictionary"]
+      319 GETTABLEKS                       R1 R1 K8 ["join"]
+      321 GETUPVAL                         R2 9
+      322 DUPTABLE                         R3 K77 [{"Size"}]
+      323 GETIMPORT                        R4 K2 [UDim2.new]
+      325 LOADN                            R5 0
+      326 LOADN                            R6 240
+      327 LOADN                            R7 0
+      328 LOADN                            R8 32
+      329 CALL                             R4 4 1
+      330 SETTABLEKS                       R4 R3 K76 ["Size"]
+      332 CALL                             R1 2 1
+      333 SETTABLEKS                       R1 R0 K78 ["PlaybackSelectInput"]
       335 GETUPVAL                         R1 0
-      336 GETTABLEKS                       R1 R1 K60 ["FilterSettingsUIGroup"]
-      338 DUPTABLE                         R2 K64 [{"GridAreaHeightPx", "PaddingPx", "GridLayoutCellSize", "GridCellPaddingYPx"}]
-      339 LOADN                            R3 100
-      340 SETTABLEKS                       R3 R2 K61 ["GridAreaHeightPx"]
-      342 LOADN                            R3 10
-      343 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      345 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      347 LOADN                            R4 150
-      348 LOADN                            R5 30
-      349 CALL                             R3 2 1
-      350 SETTABLEKS                       R3 R2 K62 ["GridLayoutCellSize"]
-      352 LOADN                            R3 2
-      353 SETTABLEKS                       R3 R2 K63 ["GridCellPaddingYPx"]
-      355 SETTABLE                         R2 R0 R1
-      356 GETUPVAL                         R1 0
-      357 GETTABLEKS                       R1 R1 K65 ["PlaybackInfoUIGroup"]
-      359 DUPTABLE                         R2 K39 [{"PaddingPx"}]
-      360 LOADN                            R3 10
-      361 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      363 SETTABLE                         R2 R0 R1
-      364 GETUPVAL                         R1 1
-      365 GETTABLEKS                       R1 R1 K7 ["Dictionary"]
-      367 GETTABLEKS                       R1 R1 K8 ["join"]
-      369 GETUPVAL                         R2 9
-      370 DUPTABLE                         R3 K67 [{"Size"}]
-      371 GETIMPORT                        R4 K2 [UDim2.new]
-      373 LOADN                            R5 0
-      374 LOADN                            R6 240
-      375 LOADN                            R7 0
-      376 LOADN                            R8 32
-      377 CALL                             R4 4 1
-      378 SETTABLEKS                       R4 R3 K66 ["Size"]
-      380 CALL                             R1 2 1
-      381 SETTABLEKS                       R1 R0 K68 ["PlaybackSelectInput"]
-      383 GETUPVAL                         R1 0
-      384 GETTABLEKS                       R1 R1 K69 ["ChooseRecordingNamePopUp"]
-      386 DUPTABLE                         R2 K75 [{"ContentSize", "PanelSize", "PanelPosition", "DialogMessageSize", "TextInputSize", "PaddingPx"}]
-      387 GETIMPORT                        R3 K77 [Vector2.new]
-      389 LOADN                            R4 44
-      390 LOADN                            R5 60
-      391 CALL                             R3 2 1
-      392 SETTABLEKS                       R3 R2 K70 ["ContentSize"]
-      394 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      396 LOADN                            R4 250
-      397 LOADN                            R5 60
-      398 CALL                             R3 2 1
-      399 SETTABLEKS                       R3 R2 K71 ["PanelSize"]
-      401 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      403 LOADN                            R4 20
-      404 LOADN                            R5 246
-      405 CALL                             R3 2 1
-      406 SETTABLEKS                       R3 R2 K72 ["PanelPosition"]
-      408 GETIMPORT                        R3 K2 [UDim2.new]
-      410 LOADN                            R4 1
-      411 LOADN                            R5 0
-      412 LOADN                            R6 0
-      413 LOADN                            R7 40
-      414 CALL                             R3 4 1
-      415 SETTABLEKS                       R3 R2 K73 ["DialogMessageSize"]
-      417 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      419 LOADN                            R4 250
-      420 LOADN                            R5 30
-      421 CALL                             R3 2 1
-      422 SETTABLEKS                       R3 R2 K74 ["TextInputSize"]
-      424 LOADN                            R3 1
-      425 SETTABLEKS                       R3 R2 K5 ["PaddingPx"]
-      427 SETTABLE                         R2 R0 R1
-      428 GETUPVAL                         R1 0
-      429 GETTABLEKS                       R1 R1 K78 ["InputVisualizer"]
-      431 DUPTABLE                         R2 K81 [{"KeyBarRowSpacingPx", "KeyBarSize"}]
-      432 LOADN                            R3 2
-      433 SETTABLEKS                       R3 R2 K79 ["KeyBarRowSpacingPx"]
-      435 GETIMPORT                        R3 K53 [UDim2.fromOffset]
-      437 LOADN                            R4 200
-      438 LOADN                            R5 100
-      439 CALL                             R3 2 1
-      440 SETTABLEKS                       R3 R2 K80 ["KeyBarSize"]
-      442 SETTABLE                         R2 R0 R1
-      443 GETUPVAL                         R1 0
-      444 GETTABLEKS                       R1 R1 K82 ["KeyBarTile"]
-      446 DUPTABLE                         R2 K84 [{"TextColor", "BackgroundColor"}]
-      447 GETIMPORT                        R3 K29 [Color3.new]
-      449 LOADN                            R4 1
-      450 LOADN                            R5 1
-      451 LOADN                            R6 1
-      452 CALL                             R3 3 1
-      453 SETTABLEKS                       R3 R2 K11 ["TextColor"]
-      455 GETIMPORT                        R3 K29 [Color3.new]
-      457 LOADN                            R4 0
-      458 LOADN                            R5 0
-      459 LOADN                            R6 0
-      460 CALL                             R3 3 1
-      461 SETTABLEKS                       R3 R2 K83 ["BackgroundColor"]
-      463 SETTABLE                         R2 R0 R1
-      464 RETURN                           R0 1
+      336 GETTABLEKS                       R1 R1 K79 ["ChooseRecordingNamePopUp"]
+      338 DUPTABLE                         R2 K86 [{["ContentSize"], ["PanelSize"], ["PanelPosition"], ["DialogMessageSize"], ["TextInputSize"], ["PaddingPx"] = 1}]
+      339 GETIMPORT                        R3 K88 [Vector2.new]
+      341 LOADN                            R4 300
+      342 LOADN                            R5 60
+      343 CALL                             R3 2 1
+      344 SETTABLEKS                       R3 R2 K80 ["ContentSize"]
+      346 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      348 LOADN                            R4 250
+      349 LOADN                            R5 60
+      350 CALL                             R3 2 1
+      351 SETTABLEKS                       R3 R2 K81 ["PanelSize"]
+      353 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      355 LOADN                            R4 20
+      356 LOADN                            R5 -10
+      357 CALL                             R3 2 1
+      358 SETTABLEKS                       R3 R2 K82 ["PanelPosition"]
+      360 GETIMPORT                        R3 K2 [UDim2.new]
+      362 LOADN                            R4 1
+      363 LOADN                            R5 0
+      364 LOADN                            R6 0
+      365 LOADN                            R7 40
+      366 CALL                             R3 4 1
+      367 SETTABLEKS                       R3 R2 K83 ["DialogMessageSize"]
+      369 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      371 LOADN                            R4 250
+      372 LOADN                            R5 30
+      373 CALL                             R3 2 1
+      374 SETTABLEKS                       R3 R2 K84 ["TextInputSize"]
+      376 SETTABLE                         R2 R0 R1
+      377 GETUPVAL                         R1 0
+      378 GETTABLEKS                       R1 R1 K89 ["InputVisualizer"]
+      380 DUPTABLE                         R2 K92 [{["KeyBarRowSpacingPx"] = 2, ["KeyBarSize"]}]
+      381 GETIMPORT                        R3 K58 [UDim2.fromOffset]
+      383 LOADN                            R4 200
+      384 LOADN                            R5 100
+      385 CALL                             R3 2 1
+      386 SETTABLEKS                       R3 R2 K91 ["KeyBarSize"]
+      388 SETTABLE                         R2 R0 R1
+      389 GETUPVAL                         R1 0
+      390 GETTABLEKS                       R1 R1 K93 ["KeyBarTile"]
+      392 DUPTABLE                         R2 K95 [{"TextColor", "BackgroundColor"}]
+      393 GETIMPORT                        R3 K29 [Color3.new]
+      395 LOADN                            R4 1
+      396 LOADN                            R5 1
+      397 LOADN                            R6 1
+      398 CALL                             R3 3 1
+      399 SETTABLEKS                       R3 R2 K11 ["TextColor"]
+      401 GETIMPORT                        R3 K29 [Color3.new]
+      403 LOADN                            R4 0
+      404 LOADN                            R5 0
+      405 LOADN                            R6 0
+      406 CALL                             R3 3 1
+      407 SETTABLEKS                       R3 R2 K94 ["BackgroundColor"]
+      409 SETTABLE                         R2 R0 R1
+      410 RETURN                           R0 1
 
 PROTO_2:
         0 LOADNIL                          R1

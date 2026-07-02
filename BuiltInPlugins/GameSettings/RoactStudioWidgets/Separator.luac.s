@@ -5,11 +5,11 @@ PROTO_0:
         3 GETUPVAL                         R1 2
         4 GETTABLEKS                       R1 R1 K0 ["createElement"]
         6 LOADK                            R2 K1 ["Frame"]
-        7 DUPTABLE                         R3 K7 [{"Size", "Position", "BackgroundColor3", "BorderSizePixel", "LayoutOrder"}]
+        7 DUPTABLE                         R3 K8 [{["Size"], ["Position"], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
         8 GETUPVAL                         R4 1
         9 GETTABLEKS                       R4 R4 K2 ["Size"]
        11 JUMPIF                           R4 ; [+7]
-       12 GETIMPORT                        R4 K10 [UDim2.new]
+       12 GETIMPORT                        R4 K11 [UDim2.new]
        14 LOADN                            R5 1
        15 LOADN                            R6 0
        16 LOADN                            R7 0
@@ -19,16 +19,14 @@ PROTO_0:
        21 GETUPVAL                         R4 1
        22 GETTABLEKS                       R4 R4 K3 ["Position"]
        24 SETTABLEKS                       R4 R3 K3 ["Position"]
-       26 GETTABLEKS                       R4 R0 K11 ["SeparatorColor"]
+       26 GETTABLEKS                       R4 R0 K12 ["SeparatorColor"]
        28 SETTABLEKS                       R4 R3 K4 ["BackgroundColor3"]
-       30 LOADN                            R4 0
-       31 SETTABLEKS                       R4 R3 K5 ["BorderSizePixel"]
-       33 GETUPVAL                         R5 1
-       34 GETTABLEKS                       R5 R5 K6 ["LayoutOrder"]
-       36 ORK                              R4 R5 K12 [1]
-       37 SETTABLEKS                       R4 R3 K6 ["LayoutOrder"]
-       39 CALL                             R1 2 -1
-       40 RETURN                           R1 -1
+       30 GETUPVAL                         R5 1
+       31 GETTABLEKS                       R5 R5 K7 ["LayoutOrder"]
+       33 ORK                              R4 R5 K13 [1]
+       34 SETTABLEKS                       R4 R3 K7 ["LayoutOrder"]
+       36 CALL                             R1 2 -1
+       37 RETURN                           R1 -1
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

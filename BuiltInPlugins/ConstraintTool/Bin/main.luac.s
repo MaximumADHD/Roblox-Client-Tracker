@@ -277,28 +277,20 @@ PROTO_8:
        87 SETTABLEKS                       R4 R3 K20 ["DraggerContext"]
        89 GETUPVAL                         R4 13
        90 SETTABLEKS                       R4 R3 K21 ["DraggerSchema"]
-       92 DUPTABLE                         R4 K33 [{"AnalyticsName", "AllowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator"}]
-       93 LOADK                            R5 K34 ["ConstraintTool"]
-       94 SETTABLEKS                       R5 R4 K29 ["AnalyticsName"]
-       96 LOADB                            R5 1
-       97 SETTABLEKS                       R5 R4 K30 ["AllowDragSelect"]
-       99 LOADB                            R5 1
-      100 SETTABLEKS                       R5 R4 K31 ["ShowLocalSpaceIndicator"]
-      102 LOADB                            R5 1
-      103 SETTABLEKS                       R5 R4 K32 ["ShowPivotIndicator"]
-      105 SETTABLEKS                       R4 R3 K22 ["DraggerSettings"]
-      107 GETUPVAL                         R4 1
-      108 SETTABLEKS                       R4 R3 K23 ["constraintType"]
-      110 GETUPVAL                         R4 14
-      111 SETTABLEKS                       R4 R3 K24 ["undoAttachmentStack"]
-      113 GETUPVAL                         R4 15
-      114 SETTABLEKS                       R4 R3 K25 ["redoAttachmentStack"]
-      116 GETUPVAL                         R4 16
-      117 SETTABLEKS                       R4 R3 K26 ["recordingName"]
-      119 CALL                             R1 2 -1
-      120 CALL                             R0 -1 1
-      121 SETUPVAL                         R0 0
-      122 RETURN                           R0 0
+       92 DUPTABLE                         R4 K35 [{["AnalyticsName"] = "ConstraintTool", ["AllowDragSelect"] = True, ["ShowLocalSpaceIndicator"] = True, ["ShowPivotIndicator"] = True}]
+       93 SETTABLEKS                       R4 R3 K22 ["DraggerSettings"]
+       95 GETUPVAL                         R4 1
+       96 SETTABLEKS                       R4 R3 K23 ["constraintType"]
+       98 GETUPVAL                         R4 14
+       99 SETTABLEKS                       R4 R3 K24 ["undoAttachmentStack"]
+      101 GETUPVAL                         R4 15
+      102 SETTABLEKS                       R4 R3 K25 ["redoAttachmentStack"]
+      104 GETUPVAL                         R4 16
+      105 SETTABLEKS                       R4 R3 K26 ["recordingName"]
+      107 CALL                             R1 2 -1
+      108 CALL                             R0 -1 1
+      109 SETUPVAL                         R0 0
+      110 RETURN                           R0 0
 
 PROTO_9:
         0 LOADNIL                          R0

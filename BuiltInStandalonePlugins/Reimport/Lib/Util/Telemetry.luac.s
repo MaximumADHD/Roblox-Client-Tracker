@@ -54,92 +54,64 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 MOVE                             R1 R0
-        8 DUPTABLE                         R2 K8 [{"Counter", "Stat", "EventIngest", "Points"}]
-        9 LOADK                            R3 K9 ["RobloxTelemetryCounter"]
-       10 SETTABLEKS                       R3 R2 K4 ["Counter"]
-       12 LOADK                            R3 K10 ["RobloxTelemetryStat"]
-       13 SETTABLEKS                       R3 R2 K5 ["Stat"]
-       15 LOADK                            R3 K6 ["EventIngest"]
-       16 SETTABLEKS                       R3 R2 K6 ["EventIngest"]
-       18 LOADK                            R3 K7 ["Points"]
-       19 SETTABLEKS                       R3 R2 K7 ["Points"]
-       21 DUPTABLE                         R3 K12 [{"Backends"}]
-       22 SETTABLEKS                       R2 R3 K11 ["Backends"]
-       24 DUPTABLE                         R4 K19 [{"eventName", "eventContext", "backends", "lastUpdated", "description", "throttlingPercentage"}]
-       25 LOADK                            R5 K20 ["Reimport"]
-       26 SETTABLEKS                       R5 R4 K13 ["eventName"]
-       28 LOADK                            R5 K20 ["Reimport"]
-       29 SETTABLEKS                       R5 R4 K14 ["eventContext"]
-       31 NEWTABLE                         R5 0 2
-       33 GETTABLEKS                       R6 R3 K11 ["Backends"]
-       35 GETTABLEKS                       R6 R6 K6 ["EventIngest"]
-       37 GETTABLEKS                       R7 R3 K11 ["Backends"]
-       39 GETTABLEKS                       R7 R7 K7 ["Points"]
-       41 SETLIST                          R5 R6 2 [1]
-       43 SETTABLEKS                       R5 R4 K15 ["backends"]
-       45 NEWTABLE                         R5 0 3
-       47 LOADN                            R6 233
-       48 LOADN                            R7 11
-       49 LOADN                            R8 4
-       50 SETLIST                          R5 R6 3 [1]
-       52 SETTABLEKS                       R5 R4 K16 ["lastUpdated"]
-       54 LOADK                            R5 K21 ["Logs data related to the asset reimport process."]
-       55 SETTABLEKS                       R5 R4 K17 ["description"]
-       57 LOADN                            R5 16
-       58 SETTABLEKS                       R5 R4 K18 ["throttlingPercentage"]
-       60 DUPTABLE                         R5 K22 [{"eventName", "backends", "lastUpdated", "description", "throttlingPercentage"}]
-       61 LOADK                            R6 K23 ["ReimportAttempt"]
-       62 SETTABLEKS                       R6 R5 K13 ["eventName"]
-       64 NEWTABLE                         R6 0 1
-       66 GETTABLEKS                       R7 R3 K11 ["Backends"]
-       68 GETTABLEKS                       R7 R7 K4 ["Counter"]
-       70 SETLIST                          R6 R7 1 [1]
-       72 SETTABLEKS                       R6 R5 K15 ["backends"]
-       74 NEWTABLE                         R6 0 3
-       76 LOADN                            R7 234
-       77 LOADN                            R8 4
-       78 LOADN                            R9 3
-       79 SETLIST                          R6 R7 3 [1]
-       81 SETTABLEKS                       R6 R5 K16 ["lastUpdated"]
-       83 LOADK                            R6 K24 ["Tracks every time a user attempts to reimport an asset"]
-       84 SETTABLEKS                       R6 R5 K17 ["description"]
-       86 LOADN                            R6 16
-       87 SETTABLEKS                       R6 R5 K18 ["throttlingPercentage"]
-       89 DUPTABLE                         R6 K22 [{"eventName", "backends", "lastUpdated", "description", "throttlingPercentage"}]
-       90 LOADK                            R7 K25 ["ReimportInit"]
-       91 SETTABLEKS                       R7 R6 K13 ["eventName"]
-       93 NEWTABLE                         R7 0 2
-       95 GETTABLEKS                       R8 R3 K11 ["Backends"]
-       97 GETTABLEKS                       R8 R8 K6 ["EventIngest"]
-       99 GETTABLEKS                       R9 R3 K11 ["Backends"]
-      101 GETTABLEKS                       R9 R9 K7 ["Points"]
-      103 SETLIST                          R7 R8 2 [1]
-      105 SETTABLEKS                       R7 R6 K15 ["backends"]
-      107 NEWTABLE                         R7 0 3
-      109 LOADN                            R8 234
-      110 LOADN                            R9 5
-      111 LOADN                            R10 8
-      112 SETLIST                          R7 R8 3 [1]
-      114 SETTABLEKS                       R7 R6 K16 ["lastUpdated"]
-      116 LOADK                            R7 K26 ["Logs data on initialization of the Reimport plugin"]
-      117 SETTABLEKS                       R7 R6 K17 ["description"]
-      119 LOADN                            R7 16
-      120 SETTABLEKS                       R7 R6 K18 ["throttlingPercentage"]
-      122 NEWCLOSURE                       R7 P0
-      123 CAPTURE                          REF R1
-      124 CAPTURE                          VAL R5
-      125 CAPTURE                          VAL R4
-      126 SETTABLEKS                       R7 R3 K27 ["logReimportAttempt"]
-      128 NEWCLOSURE                       R7 P1
-      129 CAPTURE                          REF R1
-      130 CAPTURE                          VAL R6
-      131 SETTABLEKS                       R7 R3 K28 ["logInitEvent"]
-      133 NEWCLOSURE                       R7 P2
-      134 CAPTURE                          REF R1
-      135 SETTABLEKS                       R7 R3 K29 ["mock"]
-      137 NEWCLOSURE                       R7 P3
-      138 CAPTURE                          REF R1
-      139 CAPTURE                          VAL R0
-      140 SETTABLEKS                       R7 R3 K30 ["reset"]
-      142 CLOSEUPVALS                      R1
-      143 RETURN                           R3 1
+        8 DUPTABLE                         R2 K10 [{["Counter"] = "RobloxTelemetryCounter", ["Stat"] = "RobloxTelemetryStat", ["EventIngest"] = "EventIngest", ["Points"] = "Points"}]
+        9 DUPTABLE                         R3 K12 [{"Backends"}]
+       10 SETTABLEKS                       R2 R3 K11 ["Backends"]
+       12 DUPTABLE                         R4 K22 [{["eventName"] = "Reimport", ["eventContext"] = "Reimport", ["backends"], ["lastUpdated"], ["description"] = "Logs data related to the asset reimport process.", ["throttlingPercentage"] = 10000}]
+       13 NEWTABLE                         R5 0 2
+       15 GETTABLEKS                       R6 R3 K11 ["Backends"]
+       17 GETTABLEKS                       R6 R6 K8 ["EventIngest"]
+       19 GETTABLEKS                       R7 R3 K11 ["Backends"]
+       21 GETTABLEKS                       R7 R7 K9 ["Points"]
+       23 SETLIST                          R5 R6 2 [1]
+       25 SETTABLEKS                       R5 R4 K16 ["backends"]
+       27 NEWTABLE                         R5 0 3
+       29 LOADN                            R6 2025
+       30 LOADN                            R7 11
+       31 LOADN                            R8 4
+       32 SETLIST                          R5 R6 3 [1]
+       34 SETTABLEKS                       R5 R4 K17 ["lastUpdated"]
+       36 DUPTABLE                         R5 K25 [{["eventName"] = "ReimportAttempt", ["backends"], ["lastUpdated"], ["description"] = "Tracks every time a user attempts to reimport an asset", ["throttlingPercentage"] = 10000}]
+       37 NEWTABLE                         R6 0 1
+       39 GETTABLEKS                       R7 R3 K11 ["Backends"]
+       41 GETTABLEKS                       R7 R7 K4 ["Counter"]
+       43 SETLIST                          R6 R7 1 [1]
+       45 SETTABLEKS                       R6 R5 K16 ["backends"]
+       47 NEWTABLE                         R6 0 3
+       49 LOADN                            R7 2026
+       50 LOADN                            R8 4
+       51 LOADN                            R9 3
+       52 SETLIST                          R6 R7 3 [1]
+       54 SETTABLEKS                       R6 R5 K17 ["lastUpdated"]
+       56 DUPTABLE                         R6 K28 [{["eventName"] = "ReimportInit", ["backends"], ["lastUpdated"], ["description"] = "Logs data on initialization of the Reimport plugin", ["throttlingPercentage"] = 10000}]
+       57 NEWTABLE                         R7 0 2
+       59 GETTABLEKS                       R8 R3 K11 ["Backends"]
+       61 GETTABLEKS                       R8 R8 K8 ["EventIngest"]
+       63 GETTABLEKS                       R9 R3 K11 ["Backends"]
+       65 GETTABLEKS                       R9 R9 K9 ["Points"]
+       67 SETLIST                          R7 R8 2 [1]
+       69 SETTABLEKS                       R7 R6 K16 ["backends"]
+       71 NEWTABLE                         R7 0 3
+       73 LOADN                            R8 2026
+       74 LOADN                            R9 5
+       75 LOADN                            R10 8
+       76 SETLIST                          R7 R8 3 [1]
+       78 SETTABLEKS                       R7 R6 K17 ["lastUpdated"]
+       80 NEWCLOSURE                       R7 P0
+       81 CAPTURE                          REF R1
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R4
+       84 SETTABLEKS                       R7 R3 K29 ["logReimportAttempt"]
+       86 NEWCLOSURE                       R7 P1
+       87 CAPTURE                          REF R1
+       88 CAPTURE                          VAL R6
+       89 SETTABLEKS                       R7 R3 K30 ["logInitEvent"]
+       91 NEWCLOSURE                       R7 P2
+       92 CAPTURE                          REF R1
+       93 SETTABLEKS                       R7 R3 K31 ["mock"]
+       95 NEWCLOSURE                       R7 P3
+       96 CAPTURE                          REF R1
+       97 CAPTURE                          VAL R0
+       98 SETTABLEKS                       R7 R3 K32 ["reset"]
+      100 CLOSEUPVALS                      R1
+      101 RETURN                           R3 1

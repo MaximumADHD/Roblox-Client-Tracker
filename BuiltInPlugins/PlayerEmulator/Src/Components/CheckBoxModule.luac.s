@@ -21,35 +21,33 @@ PROTO_2:
        10 GETUPVAL                         R6 0
        11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 LOADK                            R7 K6 ["Frame"]
-       14 DUPTABLE                         R8 K9 [{"Size", "BackgroundTransparency"}]
-       15 GETTABLEKS                       R9 R2 K10 ["CHECKBOX_FRAME_SIZE"]
+       14 DUPTABLE                         R8 K10 [{["Size"], ["BackgroundTransparency"] = 1}]
+       15 GETTABLEKS                       R9 R2 K11 ["CHECKBOX_FRAME_SIZE"]
        17 SETTABLEKS                       R9 R8 K7 ["Size"]
-       19 LOADN                            R9 1
-       20 SETTABLEKS                       R9 R8 K8 ["BackgroundTransparency"]
-       22 DUPTABLE                         R9 K13 [{"Padding", "CheckBox"}]
-       23 GETUPVAL                         R10 0
-       24 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       26 LOADK                            R11 K14 ["UIPadding"]
-       27 DUPTABLE                         R12 K16 [{"PaddingLeft"}]
-       28 GETTABLEKS                       R13 R2 K17 ["LISTITEM_INDENT_LEFT"]
-       30 SETTABLEKS                       R13 R12 K15 ["PaddingLeft"]
-       32 CALL                             R10 2 1
-       33 SETTABLEKS                       R10 R9 K11 ["Padding"]
-       35 GETUPVAL                         R10 0
-       36 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       38 GETUPVAL                         R11 1
-       39 DUPTABLE                         R12 K23 [{"Checked", "Disabled", "Key", "OnClick", "Text"}]
-       40 SETTABLEKS                       R5 R12 K18 ["Checked"]
-       42 NOT                              R13 R3
-       43 SETTABLEKS                       R13 R12 K19 ["Disabled"]
-       45 SETTABLEKS                       R4 R12 K20 ["Key"]
-       47 GETTABLEKS                       R13 R0 K24 ["onActivated"]
-       49 SETTABLEKS                       R13 R12 K21 ["OnClick"]
-       51 SETTABLEKS                       R4 R12 K22 ["Text"]
-       53 CALL                             R10 2 1
-       54 SETTABLEKS                       R10 R9 K12 ["CheckBox"]
-       56 CALL                             R6 3 -1
-       57 RETURN                           R6 -1
+       19 DUPTABLE                         R9 K14 [{"Padding", "CheckBox"}]
+       20 GETUPVAL                         R10 0
+       21 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       23 LOADK                            R11 K15 ["UIPadding"]
+       24 DUPTABLE                         R12 K17 [{"PaddingLeft"}]
+       25 GETTABLEKS                       R13 R2 K18 ["LISTITEM_INDENT_LEFT"]
+       27 SETTABLEKS                       R13 R12 K16 ["PaddingLeft"]
+       29 CALL                             R10 2 1
+       30 SETTABLEKS                       R10 R9 K12 ["Padding"]
+       32 GETUPVAL                         R10 0
+       33 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       35 GETUPVAL                         R11 1
+       36 DUPTABLE                         R12 K24 [{"Checked", "Disabled", "Key", "OnClick", "Text"}]
+       37 SETTABLEKS                       R5 R12 K19 ["Checked"]
+       39 NOT                              R13 R3
+       40 SETTABLEKS                       R13 R12 K20 ["Disabled"]
+       42 SETTABLEKS                       R4 R12 K21 ["Key"]
+       44 GETTABLEKS                       R13 R0 K25 ["onActivated"]
+       46 SETTABLEKS                       R13 R12 K22 ["OnClick"]
+       48 SETTABLEKS                       R4 R12 K23 ["Text"]
+       50 CALL                             R10 2 1
+       51 SETTABLEKS                       R10 R9 K13 ["CheckBox"]
+       53 CALL                             R6 3 -1
+       54 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

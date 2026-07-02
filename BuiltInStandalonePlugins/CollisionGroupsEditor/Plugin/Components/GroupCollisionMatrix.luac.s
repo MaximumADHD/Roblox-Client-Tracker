@@ -86,19 +86,15 @@ PROTO_0:
       128 GETUPVAL                         R6 0
       129 GETTABLEKS                       R6 R6 K7 ["createElement"]
       131 LOADK                            R7 K43 ["Frame"]
-      132 DUPTABLE                         R8 K47 [{"Size", "BackgroundTransparency", "BorderSizePixel"}]
+      132 DUPTABLE                         R8 K48 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
       133 GETUPVAL                         R9 1
-      134 GETTABLEKS                       R9 R9 K48 ["CalculateTableSize"]
+      134 GETTABLEKS                       R9 R9 K49 ["CalculateTableSize"]
       136 MOVE                             R10 R2
       137 CALL                             R9 1 1
       138 SETTABLEKS                       R9 R8 K44 ["Size"]
-      140 LOADN                            R9 1
-      141 SETTABLEKS                       R9 R8 K45 ["BackgroundTransparency"]
-      143 LOADN                            R9 0
-      144 SETTABLEKS                       R9 R8 K46 ["BorderSizePixel"]
-      146 MOVE                             R9 R4
-      147 CALL                             R6 3 -1
-      148 RETURN                           R6 -1
+      140 MOVE                             R9 R4
+      141 CALL                             R6 3 -1
+      142 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

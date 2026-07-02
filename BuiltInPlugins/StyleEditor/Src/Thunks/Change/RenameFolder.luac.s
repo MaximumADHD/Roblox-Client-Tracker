@@ -17,17 +17,13 @@ PROTO_1:
        10 GETIMPORT                        R2 K4 [assert]
        12 CALL                             R2 2 0
        13 GETTABLEKS                       R2 R1 K5 ["recordChange"]
-       15 DUPTABLE                         R3 K9 [{"Name", "DisplayName", "DoChange"}]
-       16 LOADK                            R4 K10 ["StyleEditor/RenameFolder"]
-       17 SETTABLEKS                       R4 R3 K6 ["Name"]
-       19 LOADK                            R4 K11 ["StyleEditor - Rename Folder"]
-       20 SETTABLEKS                       R4 R3 K7 ["DisplayName"]
-       22 NEWCLOSURE                       R4 P0
-       23 CAPTURE                          UPVAL U0
-       24 CAPTURE                          UPVAL U1
-       25 SETTABLEKS                       R4 R3 K8 ["DoChange"]
-       27 CALL                             R2 1 0
-       28 RETURN                           R0 0
+       15 DUPTABLE                         R3 K11 [{["Name"] = "StyleEditor/RenameFolder", ["DisplayName"] = "StyleEditor - Rename Folder", ["DoChange"]}]
+       16 NEWCLOSURE                       R4 P0
+       17 CAPTURE                          UPVAL U0
+       18 CAPTURE                          UPVAL U1
+       19 SETTABLEKS                       R4 R3 K10 ["DoChange"]
+       21 CALL                             R2 1 0
+       22 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

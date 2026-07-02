@@ -126,7 +126,7 @@ PROTO_3:
        89 LOADB                            R16 1
        90 SETTABLE                         R16 R14 R15
        91 OR                               R15 R8 R9
-       92 SETTABLEKS                       R15 R14 K21 ["stroke-system-emphasis stroke-standard stroke-position-inner"]
+       92 SETTABLEKS                       R15 R14 K21 ["stroke-standard stroke-position-inner stroke-system-emphasis"]
        94 SETTABLEKS                       R14 R13 K13 ["tag"]
        96 LOADK                            R15 K22 ["underlay-row%*"]
        97 JUMPIFNOT                        R9 ; [+2]

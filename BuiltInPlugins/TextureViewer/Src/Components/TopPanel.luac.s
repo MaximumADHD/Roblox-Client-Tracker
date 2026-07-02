@@ -12,116 +12,108 @@ PROTO_1:
         8 GETUPVAL                         R6 0
         9 GETTABLEKS                       R6 R6 K4 ["createElement"]
        11 GETUPVAL                         R7 1
-       12 DUPTABLE                         R8 K9 [{"Size", "Layout", "Padding", "LayoutOrder"}]
+       12 DUPTABLE                         R8 K10 [{["Size"], ["Layout"], ["Padding"], ["LayoutOrder"] = 1}]
        13 GETTABLEKS                       R9 R5 K5 ["Size"]
        15 SETTABLEKS                       R9 R8 K5 ["Size"]
-       17 GETIMPORT                        R9 K13 [Enum.FillDirection.Horizontal]
+       17 GETIMPORT                        R9 K14 [Enum.FillDirection.Horizontal]
        19 SETTABLEKS                       R9 R8 K6 ["Layout"]
        21 GETTABLEKS                       R9 R5 K7 ["Padding"]
        23 SETTABLEKS                       R9 R8 K7 ["Padding"]
-       25 LOADN                            R9 1
-       26 SETTABLEKS                       R9 R8 K8 ["LayoutOrder"]
-       28 DUPTABLE                         R9 K17 [{"NumTextures", "RefreshWrapper", "TotalMemory"}]
-       29 GETUPVAL                         R10 0
-       30 GETTABLEKS                       R10 R10 K4 ["createElement"]
-       32 GETUPVAL                         R11 2
-       33 DUPTABLE                         R12 K20 [{"Text", "Size", "TextXAlignment", "LayoutOrder"}]
-       34 LOADK                            R14 K21 ["# "]
-       35 LOADK                            R20 K3 ["TopPanel"]
-       36 LOADK                            R21 K22 ["Textures"]
-       37 NAMECALL                         R18 R4 K23 ["getText"]
-       39 CALL                             R18 3 1
-       40 MOVE                             R15 R18
-       41 LOADK                            R16 K24 [": "]
-       42 MOVE                             R17 R1
-       43 CONCAT                           R13 R14 R17
-       44 SETTABLEKS                       R13 R12 K18 ["Text"]
-       46 GETTABLEKS                       R13 R5 K25 ["AggregateStats"]
-       48 GETTABLEKS                       R13 R13 K14 ["NumTextures"]
-       50 GETTABLEKS                       R13 R13 K5 ["Size"]
-       52 SETTABLEKS                       R13 R12 K5 ["Size"]
-       54 GETIMPORT                        R13 K27 [Enum.TextXAlignment.Left]
-       56 SETTABLEKS                       R13 R12 K19 ["TextXAlignment"]
-       58 LOADN                            R13 1
-       59 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
-       61 CALL                             R10 2 1
-       62 SETTABLEKS                       R10 R9 K14 ["NumTextures"]
-       64 GETUPVAL                         R10 0
-       65 GETTABLEKS                       R10 R10 K4 ["createElement"]
-       67 GETUPVAL                         R11 1
-       68 DUPTABLE                         R12 K30 [{"Size", "AnchorPoint", "Position", "LayoutOrder"}]
-       69 GETTABLEKS                       R13 R5 K31 ["Refresh"]
-       71 GETTABLEKS                       R13 R13 K5 ["Size"]
-       73 SETTABLEKS                       R13 R12 K5 ["Size"]
-       75 GETTABLEKS                       R13 R5 K31 ["Refresh"]
-       77 GETTABLEKS                       R13 R13 K28 ["AnchorPoint"]
-       79 SETTABLEKS                       R13 R12 K28 ["AnchorPoint"]
-       81 GETTABLEKS                       R13 R5 K31 ["Refresh"]
-       83 GETTABLEKS                       R13 R13 K29 ["Position"]
-       85 SETTABLEKS                       R13 R12 K29 ["Position"]
-       87 LOADN                            R13 2
-       88 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
-       90 DUPTABLE                         R13 K33 [{"RefreshTextures"}]
-       91 GETUPVAL                         R14 0
-       92 GETTABLEKS                       R14 R14 K4 ["createElement"]
-       94 GETUPVAL                         R15 3
-       95 DUPTABLE                         R16 K36 [{"Text", "TextXAlignment", "LeftIcon", "Size", "OnClick"}]
-       96 LOADK                            R19 K3 ["TopPanel"]
-       97 LOADK                            R20 K31 ["Refresh"]
-       98 NAMECALL                         R17 R4 K23 ["getText"]
-      100 CALL                             R17 3 1
-      101 SETTABLEKS                       R17 R16 K18 ["Text"]
-      103 GETIMPORT                        R17 K38 [Enum.TextXAlignment.Center]
-      105 SETTABLEKS                       R17 R16 K19 ["TextXAlignment"]
-      107 GETTABLEKS                       R17 R5 K31 ["Refresh"]
-      109 GETTABLEKS                       R17 R17 K39 ["Button"]
-      111 GETTABLEKS                       R17 R17 K40 ["Icon"]
-      113 SETTABLEKS                       R17 R16 K34 ["LeftIcon"]
-      115 GETIMPORT                        R17 K43 [UDim2.fromScale]
-      117 LOADN                            R18 1
-      118 LOADN                            R19 1
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K5 ["Size"]
-      122 NEWCLOSURE                       R17 P0
-      123 CAPTURE                          VAL R0
-      124 SETTABLEKS                       R17 R16 K35 ["OnClick"]
-      126 CALL                             R14 2 1
-      127 SETTABLEKS                       R14 R13 K32 ["RefreshTextures"]
-      129 CALL                             R10 3 1
-      130 SETTABLEKS                       R10 R9 K15 ["RefreshWrapper"]
-      132 GETUPVAL                         R10 0
-      133 GETTABLEKS                       R10 R10 K4 ["createElement"]
-      135 GETUPVAL                         R11 2
-      136 DUPTABLE                         R12 K20 [{"Text", "Size", "TextXAlignment", "LayoutOrder"}]
-      137 LOADK                            R20 K3 ["TopPanel"]
-      138 LOADK                            R21 K5 ["Size"]
-      139 NAMECALL                         R18 R4 K23 ["getText"]
-      141 CALL                             R18 3 1
-      142 MOVE                             R14 R18
-      143 LOADK                            R15 K24 [": "]
-      144 GETUPVAL                         R18 4
-      145 GETTABLEKS                       R18 R18 K44 ["round"]
-      147 GETUPVAL                         R20 5
-      148 GETTABLEKS                       R20 R20 K45 ["BYTES_IN_MB"]
-      150 DIV                              R19 R2 R20
-      151 LOADN                            R20 2
-      152 CALL                             R18 2 1
-      153 MOVE                             R16 R18
-      154 LOADK                            R17 K46 [" MB"]
-      155 CONCAT                           R13 R14 R17
-      156 SETTABLEKS                       R13 R12 K18 ["Text"]
-      158 GETTABLEKS                       R13 R5 K25 ["AggregateStats"]
-      160 GETTABLEKS                       R13 R13 K16 ["TotalMemory"]
-      162 GETTABLEKS                       R13 R13 K5 ["Size"]
-      164 SETTABLEKS                       R13 R12 K5 ["Size"]
-      166 GETIMPORT                        R13 K48 [Enum.TextXAlignment.Right]
-      168 SETTABLEKS                       R13 R12 K19 ["TextXAlignment"]
-      170 LOADN                            R13 3
-      171 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
-      173 CALL                             R10 2 1
-      174 SETTABLEKS                       R10 R9 K16 ["TotalMemory"]
-      176 CALL                             R6 3 -1
-      177 RETURN                           R6 -1
+       25 DUPTABLE                         R9 K18 [{"NumTextures", "RefreshWrapper", "TotalMemory"}]
+       26 GETUPVAL                         R10 0
+       27 GETTABLEKS                       R10 R10 K4 ["createElement"]
+       29 GETUPVAL                         R11 2
+       30 DUPTABLE                         R12 K21 [{["Text"], ["Size"], ["TextXAlignment"], ["LayoutOrder"] = 1}]
+       31 LOADK                            R14 K22 ["# "]
+       32 LOADK                            R20 K3 ["TopPanel"]
+       33 LOADK                            R21 K23 ["Textures"]
+       34 NAMECALL                         R18 R4 K24 ["getText"]
+       36 CALL                             R18 3 1
+       37 MOVE                             R15 R18
+       38 LOADK                            R16 K25 [": "]
+       39 MOVE                             R17 R1
+       40 CONCAT                           R13 R14 R17
+       41 SETTABLEKS                       R13 R12 K19 ["Text"]
+       43 GETTABLEKS                       R13 R5 K26 ["AggregateStats"]
+       45 GETTABLEKS                       R13 R13 K15 ["NumTextures"]
+       47 GETTABLEKS                       R13 R13 K5 ["Size"]
+       49 SETTABLEKS                       R13 R12 K5 ["Size"]
+       51 GETIMPORT                        R13 K28 [Enum.TextXAlignment.Left]
+       53 SETTABLEKS                       R13 R12 K20 ["TextXAlignment"]
+       55 CALL                             R10 2 1
+       56 SETTABLEKS                       R10 R9 K15 ["NumTextures"]
+       58 GETUPVAL                         R10 0
+       59 GETTABLEKS                       R10 R10 K4 ["createElement"]
+       61 GETUPVAL                         R11 1
+       62 DUPTABLE                         R12 K32 [{["Size"], ["AnchorPoint"], ["Position"], ["LayoutOrder"] = 2}]
+       63 GETTABLEKS                       R13 R5 K33 ["Refresh"]
+       65 GETTABLEKS                       R13 R13 K5 ["Size"]
+       67 SETTABLEKS                       R13 R12 K5 ["Size"]
+       69 GETTABLEKS                       R13 R5 K33 ["Refresh"]
+       71 GETTABLEKS                       R13 R13 K29 ["AnchorPoint"]
+       73 SETTABLEKS                       R13 R12 K29 ["AnchorPoint"]
+       75 GETTABLEKS                       R13 R5 K33 ["Refresh"]
+       77 GETTABLEKS                       R13 R13 K30 ["Position"]
+       79 SETTABLEKS                       R13 R12 K30 ["Position"]
+       81 DUPTABLE                         R13 K35 [{"RefreshTextures"}]
+       82 GETUPVAL                         R14 0
+       83 GETTABLEKS                       R14 R14 K4 ["createElement"]
+       85 GETUPVAL                         R15 3
+       86 DUPTABLE                         R16 K38 [{"Text", "TextXAlignment", "LeftIcon", "Size", "OnClick"}]
+       87 LOADK                            R19 K3 ["TopPanel"]
+       88 LOADK                            R20 K33 ["Refresh"]
+       89 NAMECALL                         R17 R4 K24 ["getText"]
+       91 CALL                             R17 3 1
+       92 SETTABLEKS                       R17 R16 K19 ["Text"]
+       94 GETIMPORT                        R17 K40 [Enum.TextXAlignment.Center]
+       96 SETTABLEKS                       R17 R16 K20 ["TextXAlignment"]
+       98 GETTABLEKS                       R17 R5 K33 ["Refresh"]
+      100 GETTABLEKS                       R17 R17 K41 ["Button"]
+      102 GETTABLEKS                       R17 R17 K42 ["Icon"]
+      104 SETTABLEKS                       R17 R16 K36 ["LeftIcon"]
+      106 GETIMPORT                        R17 K45 [UDim2.fromScale]
+      108 LOADN                            R18 1
+      109 LOADN                            R19 1
+      110 CALL                             R17 2 1
+      111 SETTABLEKS                       R17 R16 K5 ["Size"]
+      113 NEWCLOSURE                       R17 P0
+      114 CAPTURE                          VAL R0
+      115 SETTABLEKS                       R17 R16 K37 ["OnClick"]
+      117 CALL                             R14 2 1
+      118 SETTABLEKS                       R14 R13 K34 ["RefreshTextures"]
+      120 CALL                             R10 3 1
+      121 SETTABLEKS                       R10 R9 K16 ["RefreshWrapper"]
+      123 GETUPVAL                         R10 0
+      124 GETTABLEKS                       R10 R10 K4 ["createElement"]
+      126 GETUPVAL                         R11 2
+      127 DUPTABLE                         R12 K47 [{["Text"], ["Size"], ["TextXAlignment"], ["LayoutOrder"] = 3}]
+      128 LOADK                            R20 K3 ["TopPanel"]
+      129 LOADK                            R21 K5 ["Size"]
+      130 NAMECALL                         R18 R4 K24 ["getText"]
+      132 CALL                             R18 3 1
+      133 MOVE                             R14 R18
+      134 LOADK                            R15 K25 [": "]
+      135 GETUPVAL                         R18 4
+      136 GETTABLEKS                       R18 R18 K48 ["round"]
+      138 GETUPVAL                         R20 5
+      139 GETTABLEKS                       R20 R20 K49 ["BYTES_IN_MB"]
+      141 DIV                              R19 R2 R20
+      142 LOADN                            R20 2
+      143 CALL                             R18 2 1
+      144 MOVE                             R16 R18
+      145 LOADK                            R17 K50 [" MB"]
+      146 CONCAT                           R13 R14 R17
+      147 SETTABLEKS                       R13 R12 K19 ["Text"]
+      149 GETTABLEKS                       R13 R5 K26 ["AggregateStats"]
+      151 GETTABLEKS                       R13 R13 K17 ["TotalMemory"]
+      153 GETTABLEKS                       R13 R13 K5 ["Size"]
+      155 SETTABLEKS                       R13 R12 K5 ["Size"]
+      157 GETIMPORT                        R13 K52 [Enum.TextXAlignment.Right]
+      159 SETTABLEKS                       R13 R12 K20 ["TextXAlignment"]
+      161 CALL                             R10 2 1
+      162 SETTABLEKS                       R10 R9 K17 ["TotalMemory"]
+      164 CALL                             R6 3 -1
+      165 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

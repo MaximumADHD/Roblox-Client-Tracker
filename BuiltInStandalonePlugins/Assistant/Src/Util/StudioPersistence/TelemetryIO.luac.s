@@ -33,7 +33,7 @@ PROTO_2:
         7 CAPTURE                          UPVAL U1
         8 CAPTURE                          VAL R0
         9 CALL                             R2 1 2
-       10 JUMPIF                           R2 ; [+48]
+       10 JUMPIF                           R2 ; [+45]
        11 GETUPVAL                         R4 2
        12 CALL                             R4 0 1
        13 JUMPIFNOT                        R4 ; [+15]
@@ -57,89 +57,83 @@ PROTO_2:
        39 CALL                             R8 0 1
        40 SUB                              R7 R8 R1
        41 GETTABLEKS                       R8 R4 K12 ["logPersistenceOperation"]
-       43 DUPTABLE                         R9 K17 [{"operation", "scope", "success", "latencyMs"}]
+       43 DUPTABLE                         R9 K18 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
        44 SETTABLEKS                       R5 R9 K13 ["operation"]
        46 SETTABLEKS                       R6 R9 K14 ["scope"]
-       48 LOADB                            R10 0
-       49 SETTABLEKS                       R10 R9 K15 ["success"]
-       51 SETTABLEKS                       R7 R9 K16 ["latencyMs"]
-       53 CALL                             R8 1 0
-       54 GETIMPORT                        R4 K19 [error]
-       56 MOVE                             R5 R3
-       57 LOADN                            R6 0
-       58 CALL                             R4 2 0
-       59 JUMPIFNOT                        R3 ; [+8]
-       60 GETTABLEKS                       R4 R3 K20 ["threads"]
-       62 JUMPIFNOT                        R4 ; [+5]
-       63 GETTABLEKS                       R5 R3 K20 ["threads"]
-       65 LENGTH                           R4 R5
-       66 JUMPIFNOTEQKN                    R4 K21 [0] ; [+46]
-       68 GETUPVAL                         R4 2
-       69 CALL                             R4 0 1
-       70 JUMPIFNOT                        R4 ; [+14]
-       71 GETIMPORT                        R4 K4 [print]
-       73 LOADK                            R6 K22 ["[Persistence] [IO] getThreadsAsync: no threads returned for place=%* cursor=%* limit=%*"]
-       74 GETTABLEKS                       R8 R0 K6 ["placeId"]
-       76 GETTABLEKS                       R9 R0 K7 ["cursor"]
-       78 GETTABLEKS                       R10 R0 K8 ["limit"]
-       80 NAMECALL                         R6 R6 K9 ["format"]
-       82 CALL                             R6 4 1
-       83 MOVE                             R5 R6
-       84 CALL                             R4 1 0
-       85 GETUPVAL                         R4 3
-       86 GETUPVAL                         R5 4
-       87 GETTABLEKS                       R5 R5 K10 ["Load"]
-       89 GETUPVAL                         R6 5
-       90 GETTABLEKS                       R6 R6 K11 ["Threads"]
-       92 GETUPVAL                         R8 0
-       93 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
-       95 CALL                             R8 0 1
-       96 SUB                              R7 R8 R1
-       97 GETTABLEKS                       R8 R4 K12 ["logPersistenceOperation"]
-       99 DUPTABLE                         R9 K17 [{"operation", "scope", "success", "latencyMs"}]
-      100 SETTABLEKS                       R5 R9 K13 ["operation"]
-      102 SETTABLEKS                       R6 R9 K14 ["scope"]
-      104 LOADB                            R10 1
-      105 SETTABLEKS                       R10 R9 K15 ["success"]
-      107 SETTABLEKS                       R7 R9 K16 ["latencyMs"]
-      109 CALL                             R8 1 0
-      110 LOADB                            R4 1
-      111 MOVE                             R5 R3
-      112 RETURN                           R4 2
-      113 GETUPVAL                         R4 2
-      114 CALL                             R4 0 1
-      115 JUMPIFNOT                        R4 ; [+17]
-      116 GETIMPORT                        R4 K4 [print]
-      118 LOADK                            R6 K23 ["[Persistence] [IO] getThreadsAsync: loaded %* for place=%* cursor=%* limit=%*"]
-      119 GETTABLEKS                       R9 R3 K20 ["threads"]
-      121 LENGTH                           R8 R9
-      122 GETTABLEKS                       R9 R0 K6 ["placeId"]
-      124 GETTABLEKS                       R10 R0 K7 ["cursor"]
-      126 GETTABLEKS                       R11 R0 K8 ["limit"]
-      128 NAMECALL                         R6 R6 K9 ["format"]
-      130 CALL                             R6 5 1
-      131 MOVE                             R5 R6
-      132 CALL                             R4 1 0
-      133 GETUPVAL                         R4 3
-      134 GETUPVAL                         R5 4
-      135 GETTABLEKS                       R5 R5 K10 ["Load"]
-      137 GETUPVAL                         R6 5
-      138 GETTABLEKS                       R6 R6 K11 ["Threads"]
-      140 GETUPVAL                         R8 0
-      141 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
-      143 CALL                             R8 0 1
-      144 SUB                              R7 R8 R1
-      145 GETTABLEKS                       R8 R4 K12 ["logPersistenceOperation"]
-      147 DUPTABLE                         R9 K17 [{"operation", "scope", "success", "latencyMs"}]
-      148 SETTABLEKS                       R5 R9 K13 ["operation"]
-      150 SETTABLEKS                       R6 R9 K14 ["scope"]
-      152 LOADB                            R10 1
-      153 SETTABLEKS                       R10 R9 K15 ["success"]
-      155 SETTABLEKS                       R7 R9 K16 ["latencyMs"]
-      157 CALL                             R8 1 0
-      158 LOADB                            R4 1
-      159 MOVE                             R5 R3
-      160 RETURN                           R4 2
+       48 SETTABLEKS                       R7 R9 K17 ["latencyMs"]
+       50 CALL                             R8 1 0
+       51 GETIMPORT                        R4 K20 [error]
+       53 MOVE                             R5 R3
+       54 LOADN                            R6 0
+       55 CALL                             R4 2 0
+       56 JUMPIFNOT                        R3 ; [+8]
+       57 GETTABLEKS                       R4 R3 K21 ["threads"]
+       59 JUMPIFNOT                        R4 ; [+5]
+       60 GETTABLEKS                       R5 R3 K21 ["threads"]
+       62 LENGTH                           R4 R5
+       63 JUMPIFNOTEQKN                    R4 K22 [0] ; [+43]
+       65 GETUPVAL                         R4 2
+       66 CALL                             R4 0 1
+       67 JUMPIFNOT                        R4 ; [+14]
+       68 GETIMPORT                        R4 K4 [print]
+       70 LOADK                            R6 K23 ["[Persistence] [IO] getThreadsAsync: no threads returned for place=%* cursor=%* limit=%*"]
+       71 GETTABLEKS                       R8 R0 K6 ["placeId"]
+       73 GETTABLEKS                       R9 R0 K7 ["cursor"]
+       75 GETTABLEKS                       R10 R0 K8 ["limit"]
+       77 NAMECALL                         R6 R6 K9 ["format"]
+       79 CALL                             R6 4 1
+       80 MOVE                             R5 R6
+       81 CALL                             R4 1 0
+       82 GETUPVAL                         R4 3
+       83 GETUPVAL                         R5 4
+       84 GETTABLEKS                       R5 R5 K10 ["Load"]
+       86 GETUPVAL                         R6 5
+       87 GETTABLEKS                       R6 R6 K11 ["Threads"]
+       89 GETUPVAL                         R8 0
+       90 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
+       92 CALL                             R8 0 1
+       93 SUB                              R7 R8 R1
+       94 GETTABLEKS                       R8 R4 K12 ["logPersistenceOperation"]
+       96 DUPTABLE                         R9 K25 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       97 SETTABLEKS                       R5 R9 K13 ["operation"]
+       99 SETTABLEKS                       R6 R9 K14 ["scope"]
+      101 SETTABLEKS                       R7 R9 K17 ["latencyMs"]
+      103 CALL                             R8 1 0
+      104 LOADB                            R4 1
+      105 MOVE                             R5 R3
+      106 RETURN                           R4 2
+      107 GETUPVAL                         R4 2
+      108 CALL                             R4 0 1
+      109 JUMPIFNOT                        R4 ; [+17]
+      110 GETIMPORT                        R4 K4 [print]
+      112 LOADK                            R6 K26 ["[Persistence] [IO] getThreadsAsync: loaded %* for place=%* cursor=%* limit=%*"]
+      113 GETTABLEKS                       R9 R3 K21 ["threads"]
+      115 LENGTH                           R8 R9
+      116 GETTABLEKS                       R9 R0 K6 ["placeId"]
+      118 GETTABLEKS                       R10 R0 K7 ["cursor"]
+      120 GETTABLEKS                       R11 R0 K8 ["limit"]
+      122 NAMECALL                         R6 R6 K9 ["format"]
+      124 CALL                             R6 5 1
+      125 MOVE                             R5 R6
+      126 CALL                             R4 1 0
+      127 GETUPVAL                         R4 3
+      128 GETUPVAL                         R5 4
+      129 GETTABLEKS                       R5 R5 K10 ["Load"]
+      131 GETUPVAL                         R6 5
+      132 GETTABLEKS                       R6 R6 K11 ["Threads"]
+      134 GETUPVAL                         R8 0
+      135 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
+      137 CALL                             R8 0 1
+      138 SUB                              R7 R8 R1
+      139 GETTABLEKS                       R8 R4 K12 ["logPersistenceOperation"]
+      141 DUPTABLE                         R9 K25 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+      142 SETTABLEKS                       R5 R9 K13 ["operation"]
+      144 SETTABLEKS                       R6 R9 K14 ["scope"]
+      146 SETTABLEKS                       R7 R9 K17 ["latencyMs"]
+      148 CALL                             R8 1 0
+      149 LOADB                            R4 1
+      150 MOVE                             R5 R3
+      151 RETURN                           R4 2
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -165,7 +159,7 @@ PROTO_4:
         9 CAPTURE                          VAL R1
        10 CALL                             R3 1 2
        11 JUMPIFNOT                        R3 ; [+1]
-       12 JUMPIF                           R4 ; [+44]
+       12 JUMPIF                           R4 ; [+41]
        13 GETUPVAL                         R5 2
        14 CALL                             R5 0 1
        15 JUMPIFNOT                        R5 ; [+11]
@@ -187,46 +181,42 @@ PROTO_4:
        37 CALL                             R9 0 1
        38 SUB                              R8 R9 R2
        39 GETTABLEKS                       R9 R5 K10 ["logPersistenceOperation"]
-       41 DUPTABLE                         R10 K15 [{"operation", "scope", "success", "latencyMs"}]
+       41 DUPTABLE                         R10 K16 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
        42 SETTABLEKS                       R6 R10 K11 ["operation"]
        44 SETTABLEKS                       R7 R10 K12 ["scope"]
-       46 LOADB                            R11 0
-       47 SETTABLEKS                       R11 R10 K13 ["success"]
-       49 SETTABLEKS                       R8 R10 K14 ["latencyMs"]
-       51 CALL                             R9 1 0
-       52 GETIMPORT                        R5 K17 [error]
-       54 MOVE                             R6 R4
-       55 LOADN                            R7 0
-       56 CALL                             R5 2 0
-       57 GETUPVAL                         R5 2
-       58 CALL                             R5 0 1
-       59 JUMPIFNOT                        R5 ; [+11]
-       60 GETIMPORT                        R5 K4 [print]
-       62 LOADK                            R7 K18 ["[Persistence] [IO] uploadThreadsAsync: uploaded %* threads for place=%*"]
-       63 LENGTH                           R9 R0
-       64 GETTABLEKS                       R10 R1 K6 ["placeId"]
-       66 NAMECALL                         R7 R7 K7 ["format"]
-       68 CALL                             R7 3 1
-       69 MOVE                             R6 R7
-       70 CALL                             R5 1 0
-       71 GETUPVAL                         R5 3
-       72 GETUPVAL                         R6 4
-       73 GETTABLEKS                       R6 R6 K8 ["Save"]
-       75 GETUPVAL                         R7 5
-       76 GETTABLEKS                       R7 R7 K9 ["Threads"]
-       78 GETUPVAL                         R9 0
-       79 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
-       81 CALL                             R9 0 1
-       82 SUB                              R8 R9 R2
-       83 GETTABLEKS                       R9 R5 K10 ["logPersistenceOperation"]
-       85 DUPTABLE                         R10 K15 [{"operation", "scope", "success", "latencyMs"}]
-       86 SETTABLEKS                       R6 R10 K11 ["operation"]
-       88 SETTABLEKS                       R7 R10 K12 ["scope"]
-       90 LOADB                            R11 1
-       91 SETTABLEKS                       R11 R10 K13 ["success"]
-       93 SETTABLEKS                       R8 R10 K14 ["latencyMs"]
-       95 CALL                             R9 1 0
-       96 RETURN                           R4 1
+       46 SETTABLEKS                       R8 R10 K15 ["latencyMs"]
+       48 CALL                             R9 1 0
+       49 GETIMPORT                        R5 K18 [error]
+       51 MOVE                             R6 R4
+       52 LOADN                            R7 0
+       53 CALL                             R5 2 0
+       54 GETUPVAL                         R5 2
+       55 CALL                             R5 0 1
+       56 JUMPIFNOT                        R5 ; [+11]
+       57 GETIMPORT                        R5 K4 [print]
+       59 LOADK                            R7 K19 ["[Persistence] [IO] uploadThreadsAsync: uploaded %* threads for place=%*"]
+       60 LENGTH                           R9 R0
+       61 GETTABLEKS                       R10 R1 K6 ["placeId"]
+       63 NAMECALL                         R7 R7 K7 ["format"]
+       65 CALL                             R7 3 1
+       66 MOVE                             R6 R7
+       67 CALL                             R5 1 0
+       68 GETUPVAL                         R5 3
+       69 GETUPVAL                         R6 4
+       70 GETTABLEKS                       R6 R6 K8 ["Save"]
+       72 GETUPVAL                         R7 5
+       73 GETTABLEKS                       R7 R7 K9 ["Threads"]
+       75 GETUPVAL                         R9 0
+       76 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+       78 CALL                             R9 0 1
+       79 SUB                              R8 R9 R2
+       80 GETTABLEKS                       R9 R5 K10 ["logPersistenceOperation"]
+       82 DUPTABLE                         R10 K21 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       83 SETTABLEKS                       R6 R10 K11 ["operation"]
+       85 SETTABLEKS                       R7 R10 K12 ["scope"]
+       87 SETTABLEKS                       R8 R10 K15 ["latencyMs"]
+       89 CALL                             R9 1 0
+       90 RETURN                           R4 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -249,7 +239,7 @@ PROTO_6:
         7 CAPTURE                          UPVAL U1
         8 CAPTURE                          VAL R0
         9 CALL                             R2 1 2
-       10 JUMPIF                           R2 ; [+43]
+       10 JUMPIF                           R2 ; [+40]
        11 GETUPVAL                         R4 2
        12 CALL                             R4 0 1
        13 JUMPIFNOT                        R4 ; [+10]
@@ -271,45 +261,41 @@ PROTO_6:
        34 CALL                             R8 0 1
        35 SUB                              R7 R8 R1
        36 GETTABLEKS                       R8 R4 K9 ["logPersistenceOperation"]
-       38 DUPTABLE                         R9 K14 [{"operation", "scope", "success", "latencyMs"}]
+       38 DUPTABLE                         R9 K15 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
        39 SETTABLEKS                       R5 R9 K10 ["operation"]
        41 SETTABLEKS                       R6 R9 K11 ["scope"]
-       43 LOADB                            R10 0
-       44 SETTABLEKS                       R10 R9 K12 ["success"]
-       46 SETTABLEKS                       R7 R9 K13 ["latencyMs"]
-       48 CALL                             R8 1 0
-       49 GETIMPORT                        R4 K16 [error]
-       51 MOVE                             R5 R3
-       52 LOADN                            R6 0
-       53 CALL                             R4 2 0
-       54 GETUPVAL                         R4 2
-       55 CALL                             R4 0 1
-       56 JUMPIFNOT                        R4 ; [+9]
-       57 GETIMPORT                        R4 K4 [print]
-       59 LOADK                            R6 K17 ["[Persistence] [IO] deleteThreadAsync: deleted thread=%*"]
-       60 MOVE                             R8 R0
-       61 NAMECALL                         R6 R6 K6 ["format"]
-       63 CALL                             R6 2 1
-       64 MOVE                             R5 R6
-       65 CALL                             R4 1 0
-       66 GETUPVAL                         R4 3
-       67 GETUPVAL                         R5 4
-       68 GETTABLEKS                       R5 R5 K7 ["Delete"]
-       70 GETUPVAL                         R6 5
-       71 GETTABLEKS                       R6 R6 K8 ["Threads"]
-       73 GETUPVAL                         R8 0
-       74 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
-       76 CALL                             R8 0 1
-       77 SUB                              R7 R8 R1
-       78 GETTABLEKS                       R8 R4 K9 ["logPersistenceOperation"]
-       80 DUPTABLE                         R9 K14 [{"operation", "scope", "success", "latencyMs"}]
-       81 SETTABLEKS                       R5 R9 K10 ["operation"]
-       83 SETTABLEKS                       R6 R9 K11 ["scope"]
-       85 LOADB                            R10 1
-       86 SETTABLEKS                       R10 R9 K12 ["success"]
-       88 SETTABLEKS                       R7 R9 K13 ["latencyMs"]
-       90 CALL                             R8 1 0
-       91 RETURN                           R3 1
+       43 SETTABLEKS                       R7 R9 K14 ["latencyMs"]
+       45 CALL                             R8 1 0
+       46 GETIMPORT                        R4 K17 [error]
+       48 MOVE                             R5 R3
+       49 LOADN                            R6 0
+       50 CALL                             R4 2 0
+       51 GETUPVAL                         R4 2
+       52 CALL                             R4 0 1
+       53 JUMPIFNOT                        R4 ; [+9]
+       54 GETIMPORT                        R4 K4 [print]
+       56 LOADK                            R6 K18 ["[Persistence] [IO] deleteThreadAsync: deleted thread=%*"]
+       57 MOVE                             R8 R0
+       58 NAMECALL                         R6 R6 K6 ["format"]
+       60 CALL                             R6 2 1
+       61 MOVE                             R5 R6
+       62 CALL                             R4 1 0
+       63 GETUPVAL                         R4 3
+       64 GETUPVAL                         R5 4
+       65 GETTABLEKS                       R5 R5 K7 ["Delete"]
+       67 GETUPVAL                         R6 5
+       68 GETTABLEKS                       R6 R6 K8 ["Threads"]
+       70 GETUPVAL                         R8 0
+       71 GETTABLEKS                       R8 R8 K0 ["getTimestampMilliseconds"]
+       73 CALL                             R8 0 1
+       74 SUB                              R7 R8 R1
+       75 GETTABLEKS                       R8 R4 K9 ["logPersistenceOperation"]
+       77 DUPTABLE                         R9 K20 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       78 SETTABLEKS                       R5 R9 K10 ["operation"]
+       80 SETTABLEKS                       R6 R9 K11 ["scope"]
+       82 SETTABLEKS                       R7 R9 K14 ["latencyMs"]
+       84 CALL                             R8 1 0
+       85 RETURN                           R3 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -334,7 +320,7 @@ PROTO_8:
         8 CAPTURE                          VAL R0
         9 CAPTURE                          VAL R1
        10 CALL                             R3 1 2
-       11 JUMPIF                           R3 ; [+47]
+       11 JUMPIF                           R3 ; [+44]
        12 GETUPVAL                         R5 2
        13 CALL                             R5 0 1
        14 JUMPIFNOT                        R5 ; [+14]
@@ -358,89 +344,83 @@ PROTO_8:
        39 CALL                             R9 0 1
        40 SUB                              R8 R9 R2
        41 GETTABLEKS                       R9 R5 K11 ["logPersistenceOperation"]
-       43 DUPTABLE                         R10 K16 [{"operation", "scope", "success", "latencyMs"}]
+       43 DUPTABLE                         R10 K17 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
        44 SETTABLEKS                       R6 R10 K12 ["operation"]
        46 SETTABLEKS                       R7 R10 K13 ["scope"]
-       48 LOADB                            R11 0
-       49 SETTABLEKS                       R11 R10 K14 ["success"]
-       51 SETTABLEKS                       R8 R10 K15 ["latencyMs"]
-       53 CALL                             R9 1 0
-       54 GETIMPORT                        R5 K18 [error]
-       56 MOVE                             R6 R4
-       57 LOADN                            R7 0
-       58 CALL                             R5 2 0
-       59 JUMPIFNOT                        R4 ; [+8]
-       60 GETTABLEKS                       R5 R4 K19 ["messages"]
-       62 JUMPIFNOT                        R5 ; [+5]
-       63 GETTABLEKS                       R6 R4 K19 ["messages"]
-       65 LENGTH                           R5 R6
-       66 JUMPIFNOTEQKN                    R5 K20 [0] ; [+45]
-       68 GETUPVAL                         R5 2
-       69 CALL                             R5 0 1
-       70 JUMPIFNOT                        R5 ; [+13]
-       71 GETIMPORT                        R5 K4 [print]
-       73 LOADK                            R7 K21 ["[Persistence] [IO] getMessagesAsync: no messages returned for threadId=%* cursor=%* limit=%*"]
-       74 MOVE                             R9 R0
-       75 GETTABLEKS                       R10 R1 K6 ["cursor"]
-       77 GETTABLEKS                       R11 R1 K7 ["limit"]
-       79 NAMECALL                         R7 R7 K8 ["format"]
-       81 CALL                             R7 4 1
-       82 MOVE                             R6 R7
-       83 CALL                             R5 1 0
-       84 GETUPVAL                         R5 3
-       85 GETUPVAL                         R6 4
-       86 GETTABLEKS                       R6 R6 K9 ["Load"]
-       88 GETUPVAL                         R7 5
-       89 GETTABLEKS                       R7 R7 K10 ["Messages"]
-       91 GETUPVAL                         R9 0
-       92 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
-       94 CALL                             R9 0 1
-       95 SUB                              R8 R9 R2
-       96 GETTABLEKS                       R9 R5 K11 ["logPersistenceOperation"]
-       98 DUPTABLE                         R10 K16 [{"operation", "scope", "success", "latencyMs"}]
-       99 SETTABLEKS                       R6 R10 K12 ["operation"]
-      101 SETTABLEKS                       R7 R10 K13 ["scope"]
-      103 LOADB                            R11 1
-      104 SETTABLEKS                       R11 R10 K14 ["success"]
-      106 SETTABLEKS                       R8 R10 K15 ["latencyMs"]
-      108 CALL                             R9 1 0
-      109 LOADB                            R5 1
-      110 MOVE                             R6 R4
-      111 RETURN                           R5 2
-      112 GETUPVAL                         R5 2
-      113 CALL                             R5 0 1
-      114 JUMPIFNOT                        R5 ; [+16]
-      115 GETIMPORT                        R5 K4 [print]
-      117 LOADK                            R7 K22 ["[Persistence] [IO] getMessagesAsync: loaded %* for threadId=%* cursor=%* limit=%*"]
-      118 GETTABLEKS                       R10 R4 K19 ["messages"]
-      120 LENGTH                           R9 R10
-      121 MOVE                             R10 R0
-      122 GETTABLEKS                       R11 R1 K6 ["cursor"]
-      124 GETTABLEKS                       R12 R1 K7 ["limit"]
-      126 NAMECALL                         R7 R7 K8 ["format"]
-      128 CALL                             R7 5 1
-      129 MOVE                             R6 R7
-      130 CALL                             R5 1 0
-      131 GETUPVAL                         R5 3
-      132 GETUPVAL                         R6 4
-      133 GETTABLEKS                       R6 R6 K9 ["Load"]
-      135 GETUPVAL                         R7 5
-      136 GETTABLEKS                       R7 R7 K10 ["Messages"]
-      138 GETUPVAL                         R9 0
-      139 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
-      141 CALL                             R9 0 1
-      142 SUB                              R8 R9 R2
-      143 GETTABLEKS                       R9 R5 K11 ["logPersistenceOperation"]
-      145 DUPTABLE                         R10 K16 [{"operation", "scope", "success", "latencyMs"}]
-      146 SETTABLEKS                       R6 R10 K12 ["operation"]
-      148 SETTABLEKS                       R7 R10 K13 ["scope"]
-      150 LOADB                            R11 1
-      151 SETTABLEKS                       R11 R10 K14 ["success"]
-      153 SETTABLEKS                       R8 R10 K15 ["latencyMs"]
-      155 CALL                             R9 1 0
-      156 LOADB                            R5 1
-      157 MOVE                             R6 R4
-      158 RETURN                           R5 2
+       48 SETTABLEKS                       R8 R10 K16 ["latencyMs"]
+       50 CALL                             R9 1 0
+       51 GETIMPORT                        R5 K19 [error]
+       53 MOVE                             R6 R4
+       54 LOADN                            R7 0
+       55 CALL                             R5 2 0
+       56 JUMPIFNOT                        R4 ; [+8]
+       57 GETTABLEKS                       R5 R4 K20 ["messages"]
+       59 JUMPIFNOT                        R5 ; [+5]
+       60 GETTABLEKS                       R6 R4 K20 ["messages"]
+       62 LENGTH                           R5 R6
+       63 JUMPIFNOTEQKN                    R5 K21 [0] ; [+42]
+       65 GETUPVAL                         R5 2
+       66 CALL                             R5 0 1
+       67 JUMPIFNOT                        R5 ; [+13]
+       68 GETIMPORT                        R5 K4 [print]
+       70 LOADK                            R7 K22 ["[Persistence] [IO] getMessagesAsync: no messages returned for threadId=%* cursor=%* limit=%*"]
+       71 MOVE                             R9 R0
+       72 GETTABLEKS                       R10 R1 K6 ["cursor"]
+       74 GETTABLEKS                       R11 R1 K7 ["limit"]
+       76 NAMECALL                         R7 R7 K8 ["format"]
+       78 CALL                             R7 4 1
+       79 MOVE                             R6 R7
+       80 CALL                             R5 1 0
+       81 GETUPVAL                         R5 3
+       82 GETUPVAL                         R6 4
+       83 GETTABLEKS                       R6 R6 K9 ["Load"]
+       85 GETUPVAL                         R7 5
+       86 GETTABLEKS                       R7 R7 K10 ["Messages"]
+       88 GETUPVAL                         R9 0
+       89 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+       91 CALL                             R9 0 1
+       92 SUB                              R8 R9 R2
+       93 GETTABLEKS                       R9 R5 K11 ["logPersistenceOperation"]
+       95 DUPTABLE                         R10 K24 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       96 SETTABLEKS                       R6 R10 K12 ["operation"]
+       98 SETTABLEKS                       R7 R10 K13 ["scope"]
+      100 SETTABLEKS                       R8 R10 K16 ["latencyMs"]
+      102 CALL                             R9 1 0
+      103 LOADB                            R5 1
+      104 MOVE                             R6 R4
+      105 RETURN                           R5 2
+      106 GETUPVAL                         R5 2
+      107 CALL                             R5 0 1
+      108 JUMPIFNOT                        R5 ; [+16]
+      109 GETIMPORT                        R5 K4 [print]
+      111 LOADK                            R7 K25 ["[Persistence] [IO] getMessagesAsync: loaded %* for threadId=%* cursor=%* limit=%*"]
+      112 GETTABLEKS                       R10 R4 K20 ["messages"]
+      114 LENGTH                           R9 R10
+      115 MOVE                             R10 R0
+      116 GETTABLEKS                       R11 R1 K6 ["cursor"]
+      118 GETTABLEKS                       R12 R1 K7 ["limit"]
+      120 NAMECALL                         R7 R7 K8 ["format"]
+      122 CALL                             R7 5 1
+      123 MOVE                             R6 R7
+      124 CALL                             R5 1 0
+      125 GETUPVAL                         R5 3
+      126 GETUPVAL                         R6 4
+      127 GETTABLEKS                       R6 R6 K9 ["Load"]
+      129 GETUPVAL                         R7 5
+      130 GETTABLEKS                       R7 R7 K10 ["Messages"]
+      132 GETUPVAL                         R9 0
+      133 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+      135 CALL                             R9 0 1
+      136 SUB                              R8 R9 R2
+      137 GETTABLEKS                       R9 R5 K11 ["logPersistenceOperation"]
+      139 DUPTABLE                         R10 K24 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+      140 SETTABLEKS                       R6 R10 K12 ["operation"]
+      142 SETTABLEKS                       R7 R10 K13 ["scope"]
+      144 SETTABLEKS                       R8 R10 K16 ["latencyMs"]
+      146 CALL                             R9 1 0
+      147 LOADB                            R5 1
+      148 MOVE                             R6 R4
+      149 RETURN                           R5 2
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -466,7 +446,7 @@ PROTO_10:
         9 CAPTURE                          VAL R1
        10 CALL                             R3 1 2
        11 JUMPIFNOT                        R3 ; [+1]
-       12 JUMPIF                           R4 ; [+43]
+       12 JUMPIF                           R4 ; [+40]
        13 GETUPVAL                         R5 2
        14 CALL                             R5 0 1
        15 JUMPIFNOT                        R5 ; [+10]
@@ -488,46 +468,42 @@ PROTO_10:
        36 CALL                             R9 0 1
        37 SUB                              R8 R9 R2
        38 GETTABLEKS                       R9 R5 K9 ["logPersistenceOperation"]
-       40 DUPTABLE                         R10 K14 [{"operation", "scope", "success", "latencyMs"}]
+       40 DUPTABLE                         R10 K15 [{["operation"], ["scope"], ["success"] = False, ["latencyMs"]}]
        41 SETTABLEKS                       R6 R10 K10 ["operation"]
        43 SETTABLEKS                       R7 R10 K11 ["scope"]
-       45 LOADB                            R11 0
-       46 SETTABLEKS                       R11 R10 K12 ["success"]
-       48 SETTABLEKS                       R8 R10 K13 ["latencyMs"]
-       50 CALL                             R9 1 0
-       51 GETIMPORT                        R5 K16 [error]
-       53 MOVE                             R6 R4
-       54 LOADN                            R7 0
-       55 CALL                             R5 2 0
-       56 GETUPVAL                         R5 2
-       57 CALL                             R5 0 1
-       58 JUMPIFNOT                        R5 ; [+10]
-       59 GETIMPORT                        R5 K4 [print]
-       61 LOADK                            R7 K17 ["[Persistence] [IO] uploadMessagesAsync: uploaded %* messages for threadId=%*"]
-       62 LENGTH                           R9 R1
-       63 MOVE                             R10 R0
-       64 NAMECALL                         R7 R7 K6 ["format"]
-       66 CALL                             R7 3 1
-       67 MOVE                             R6 R7
-       68 CALL                             R5 1 0
-       69 GETUPVAL                         R5 3
-       70 GETUPVAL                         R6 4
-       71 GETTABLEKS                       R6 R6 K7 ["Save"]
-       73 GETUPVAL                         R7 5
-       74 GETTABLEKS                       R7 R7 K8 ["Messages"]
-       76 GETUPVAL                         R9 0
-       77 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
-       79 CALL                             R9 0 1
-       80 SUB                              R8 R9 R2
-       81 GETTABLEKS                       R9 R5 K9 ["logPersistenceOperation"]
-       83 DUPTABLE                         R10 K14 [{"operation", "scope", "success", "latencyMs"}]
-       84 SETTABLEKS                       R6 R10 K10 ["operation"]
-       86 SETTABLEKS                       R7 R10 K11 ["scope"]
-       88 LOADB                            R11 1
-       89 SETTABLEKS                       R11 R10 K12 ["success"]
-       91 SETTABLEKS                       R8 R10 K13 ["latencyMs"]
-       93 CALL                             R9 1 0
-       94 RETURN                           R4 1
+       45 SETTABLEKS                       R8 R10 K14 ["latencyMs"]
+       47 CALL                             R9 1 0
+       48 GETIMPORT                        R5 K17 [error]
+       50 MOVE                             R6 R4
+       51 LOADN                            R7 0
+       52 CALL                             R5 2 0
+       53 GETUPVAL                         R5 2
+       54 CALL                             R5 0 1
+       55 JUMPIFNOT                        R5 ; [+10]
+       56 GETIMPORT                        R5 K4 [print]
+       58 LOADK                            R7 K18 ["[Persistence] [IO] uploadMessagesAsync: uploaded %* messages for threadId=%*"]
+       59 LENGTH                           R9 R1
+       60 MOVE                             R10 R0
+       61 NAMECALL                         R7 R7 K6 ["format"]
+       63 CALL                             R7 3 1
+       64 MOVE                             R6 R7
+       65 CALL                             R5 1 0
+       66 GETUPVAL                         R5 3
+       67 GETUPVAL                         R6 4
+       68 GETTABLEKS                       R6 R6 K7 ["Save"]
+       70 GETUPVAL                         R7 5
+       71 GETTABLEKS                       R7 R7 K8 ["Messages"]
+       73 GETUPVAL                         R9 0
+       74 GETTABLEKS                       R9 R9 K0 ["getTimestampMilliseconds"]
+       76 CALL                             R9 0 1
+       77 SUB                              R8 R9 R2
+       78 GETTABLEKS                       R9 R5 K9 ["logPersistenceOperation"]
+       80 DUPTABLE                         R10 K20 [{["operation"], ["scope"], ["success"] = True, ["latencyMs"]}]
+       81 SETTABLEKS                       R6 R10 K10 ["operation"]
+       83 SETTABLEKS                       R7 R10 K11 ["scope"]
+       85 SETTABLEKS                       R8 R10 K14 ["latencyMs"]
+       87 CALL                             R9 1 0
+       88 RETURN                           R4 1
 
 PROTO_11:
         0 GETTABLEKS                       R2 R1 K0 ["EventLogger"]

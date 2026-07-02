@@ -52,26 +52,20 @@ PROTO_3:
        22 GETUPVAL                         R3 0
        23 GETTABLEKS                       R3 R3 K4 ["createElement"]
        25 LOADK                            R4 K5 ["Highlight"]
-       26 DUPTABLE                         R5 K13 [{"Adornee", "LineThickness", "ReservedId", "OutlineColor", "OutlineTransparency", "FillTransparency", "DepthMode"}]
+       26 DUPTABLE                         R5 K16 [{["Adornee"], ["LineThickness"] = 3, ["ReservedId"], ["OutlineColor"], ["OutlineTransparency"] = 0.15, ["FillTransparency"] = 1, ["DepthMode"]}]
        27 SETTABLEKS                       R0 R5 K6 ["Adornee"]
-       29 LOADN                            R6 3
-       30 SETTABLEKS                       R6 R5 K7 ["LineThickness"]
-       32 GETIMPORT                        R6 K17 [Enum.ReservedHighlightId.Hover]
-       34 SETTABLEKS                       R6 R5 K8 ["ReservedId"]
-       36 GETIMPORT                        R6 K20 [Color3.fromRGB]
-       38 LOADN                            R7 190
-       39 LOADN                            R8 250
-       40 LOADN                            R9 190
-       41 CALL                             R6 3 1
-       42 SETTABLEKS                       R6 R5 K9 ["OutlineColor"]
-       44 LOADK                            R6 K21 [0.15]
-       45 SETTABLEKS                       R6 R5 K10 ["OutlineTransparency"]
-       47 LOADN                            R6 1
-       48 SETTABLEKS                       R6 R5 K11 ["FillTransparency"]
-       50 GETIMPORT                        R6 K24 [Enum.HighlightDepthMode.AlwaysOnTop]
-       52 SETTABLEKS                       R6 R5 K12 ["DepthMode"]
-       54 CALL                             R3 2 -1
-       55 RETURN                           R3 -1
+       29 GETIMPORT                        R6 K20 [Enum.ReservedHighlightId.Hover]
+       31 SETTABLEKS                       R6 R5 K9 ["ReservedId"]
+       33 GETIMPORT                        R6 K23 [Color3.fromRGB]
+       35 LOADN                            R7 190
+       36 LOADN                            R8 250
+       37 LOADN                            R9 190
+       38 CALL                             R6 3 1
+       39 SETTABLEKS                       R6 R5 K10 ["OutlineColor"]
+       41 GETIMPORT                        R6 K26 [Enum.HighlightDepthMode.AlwaysOnTop]
+       43 SETTABLEKS                       R6 R5 K15 ["DepthMode"]
+       45 CALL                             R3 2 -1
+       46 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

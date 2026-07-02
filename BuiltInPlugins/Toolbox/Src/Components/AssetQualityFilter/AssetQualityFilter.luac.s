@@ -51,129 +51,119 @@ PROTO_1:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K8 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
-       10 LOADB                            R7 1
-       11 SETTABLEKS                       R7 R6 K9 ["Expanded"]
-       13 GETIMPORT                        R7 K16 [Enum.HorizontalAlignment.Left]
-       15 SETTABLEKS                       R7 R6 K10 ["HorizontalAlignment"]
-       17 GETUPVAL                         R7 2
-       18 NAMECALL                         R7 R7 K17 ["getNextOrder"]
-       20 CALL                             R7 1 1
-       21 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-       23 LOADK                            R9 K18 ["QualityFilterOptions"]
-       24 LOADK                            R10 K2 ["TriangleCount"]
-       25 NAMECALL                         R7 R2 K19 ["getText"]
-       27 CALL                             R7 3 1
-       28 SETTABLEKS                       R7 R6 K12 ["Text"]
-       30 GETUPVAL                         R9 3
-       31 LOADK                            R10 K20 ["triangle"]
-       32 LOADK                            R11 K21 ["Buckets"]
-       33 MOVE                             R12 R2
-       34 NAMECALL                         R7 R0 K22 ["getControls"]
-       36 CALL                             R7 5 -1
-       37 CALL                             R4 -1 1
-       38 SETTABLEKS                       R4 R3 K2 ["TriangleCount"]
-       40 GETUPVAL                         R4 0
-       41 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       43 GETUPVAL                         R5 1
-       44 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
-       45 LOADB                            R7 1
-       46 SETTABLEKS                       R7 R6 K9 ["Expanded"]
-       48 GETIMPORT                        R7 K16 [Enum.HorizontalAlignment.Left]
-       50 SETTABLEKS                       R7 R6 K10 ["HorizontalAlignment"]
-       52 GETUPVAL                         R7 2
-       53 NAMECALL                         R7 R7 K17 ["getNextOrder"]
-       55 CALL                             R7 1 1
-       56 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-       58 LOADK                            R9 K18 ["QualityFilterOptions"]
-       59 LOADK                            R10 K3 ["Contains"]
-       60 NAMECALL                         R7 R2 K19 ["getText"]
-       62 CALL                             R7 3 1
-       63 SETTABLEKS                       R7 R6 K12 ["Text"]
-       65 GETUPVAL                         R9 4
-       66 LOADK                            R10 K23 ["contains"]
-       67 LOADNIL                          R11
-       68 LOADNIL                          R12
-       69 NAMECALL                         R7 R0 K22 ["getControls"]
-       71 CALL                             R7 5 -1
-       72 CALL                             R4 -1 1
-       73 SETTABLEKS                       R4 R3 K3 ["Contains"]
-       75 GETUPVAL                         R4 0
-       76 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       78 GETUPVAL                         R5 1
-       79 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
-       80 LOADB                            R7 1
-       81 SETTABLEKS                       R7 R6 K9 ["Expanded"]
-       83 GETIMPORT                        R7 K16 [Enum.HorizontalAlignment.Left]
-       85 SETTABLEKS                       R7 R6 K10 ["HorizontalAlignment"]
-       87 GETUPVAL                         R7 2
-       88 NAMECALL                         R7 R7 K17 ["getNextOrder"]
-       90 CALL                             R7 1 1
-       91 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-       93 LOADK                            R9 K18 ["QualityFilterOptions"]
-       94 LOADK                            R10 K24 ["VisualStyles"]
-       95 NAMECALL                         R7 R2 K19 ["getText"]
-       97 CALL                             R7 3 1
-       98 SETTABLEKS                       R7 R6 K12 ["Text"]
-      100 GETUPVAL                         R9 5
-      101 LOADK                            R10 K25 ["visual_styles"]
-      102 LOADK                            R11 K24 ["VisualStyles"]
-      103 MOVE                             R12 R2
-      104 NAMECALL                         R7 R0 K22 ["getControls"]
-      106 CALL                             R7 5 -1
-      107 CALL                             R4 -1 1
-      108 SETTABLEKS                       R4 R3 K4 ["VisualStyle"]
-      110 GETUPVAL                         R4 0
-      111 GETTABLEKS                       R4 R4 K8 ["createElement"]
-      113 GETUPVAL                         R5 1
-      114 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
-      115 LOADB                            R7 0
-      116 SETTABLEKS                       R7 R6 K9 ["Expanded"]
-      118 GETIMPORT                        R7 K16 [Enum.HorizontalAlignment.Left]
-      120 SETTABLEKS                       R7 R6 K10 ["HorizontalAlignment"]
-      122 GETUPVAL                         R7 2
-      123 NAMECALL                         R7 R7 K17 ["getNextOrder"]
-      125 CALL                             R7 1 1
-      126 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-      128 LOADK                            R9 K18 ["QualityFilterOptions"]
-      129 LOADK                            R10 K5 ["Graphics"]
-      130 NAMECALL                         R7 R2 K19 ["getText"]
-      132 CALL                             R7 3 1
-      133 SETTABLEKS                       R7 R6 K12 ["Text"]
-      135 GETUPVAL                         R9 6
-      136 LOADK                            R10 K26 ["graphics"]
-      137 LOADK                            R11 K5 ["Graphics"]
-      138 MOVE                             R12 R2
-      139 NAMECALL                         R7 R0 K22 ["getControls"]
-      141 CALL                             R7 5 -1
-      142 CALL                             R4 -1 1
-      143 SETTABLEKS                       R4 R3 K5 ["Graphics"]
-      145 GETUPVAL                         R4 0
-      146 GETTABLEKS                       R4 R4 K8 ["createElement"]
-      148 GETUPVAL                         R5 1
-      149 DUPTABLE                         R6 K13 [{"Expanded", "HorizontalAlignment", "LayoutOrder", "Text"}]
-      150 LOADB                            R7 0
-      151 SETTABLEKS                       R7 R6 K9 ["Expanded"]
-      153 GETIMPORT                        R7 K16 [Enum.HorizontalAlignment.Left]
-      155 SETTABLEKS                       R7 R6 K10 ["HorizontalAlignment"]
-      157 GETUPVAL                         R7 2
-      158 NAMECALL                         R7 R7 K17 ["getNextOrder"]
-      160 CALL                             R7 1 1
-      161 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
-      163 LOADK                            R9 K18 ["QualityFilterOptions"]
-      164 LOADK                            R10 K6 ["Holidays"]
-      165 NAMECALL                         R7 R2 K19 ["getText"]
-      167 CALL                             R7 3 1
-      168 SETTABLEKS                       R7 R6 K12 ["Text"]
-      170 GETUPVAL                         R9 7
-      171 LOADK                            R10 K27 ["holidays"]
-      172 LOADK                            R11 K6 ["Holidays"]
-      173 MOVE                             R12 R2
-      174 NAMECALL                         R7 R0 K22 ["getControls"]
-      176 CALL                             R7 5 -1
-      177 CALL                             R4 -1 1
-      178 SETTABLEKS                       R4 R3 K6 ["Holidays"]
-      180 RETURN                           R3 1
+        9 DUPTABLE                         R6 K14 [{["Expanded"] = True, ["HorizontalAlignment"], ["LayoutOrder"], ["Text"]}]
+       10 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+       12 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
+       14 GETUPVAL                         R7 2
+       15 NAMECALL                         R7 R7 K18 ["getNextOrder"]
+       17 CALL                             R7 1 1
+       18 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
+       20 LOADK                            R9 K19 ["QualityFilterOptions"]
+       21 LOADK                            R10 K2 ["TriangleCount"]
+       22 NAMECALL                         R7 R2 K20 ["getText"]
+       24 CALL                             R7 3 1
+       25 SETTABLEKS                       R7 R6 K13 ["Text"]
+       27 GETUPVAL                         R9 3
+       28 LOADK                            R10 K21 ["triangle"]
+       29 LOADK                            R11 K22 ["Buckets"]
+       30 MOVE                             R12 R2
+       31 NAMECALL                         R7 R0 K23 ["getControls"]
+       33 CALL                             R7 5 -1
+       34 CALL                             R4 -1 1
+       35 SETTABLEKS                       R4 R3 K2 ["TriangleCount"]
+       37 GETUPVAL                         R4 0
+       38 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       40 GETUPVAL                         R5 1
+       41 DUPTABLE                         R6 K14 [{["Expanded"] = True, ["HorizontalAlignment"], ["LayoutOrder"], ["Text"]}]
+       42 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+       44 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
+       46 GETUPVAL                         R7 2
+       47 NAMECALL                         R7 R7 K18 ["getNextOrder"]
+       49 CALL                             R7 1 1
+       50 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
+       52 LOADK                            R9 K19 ["QualityFilterOptions"]
+       53 LOADK                            R10 K3 ["Contains"]
+       54 NAMECALL                         R7 R2 K20 ["getText"]
+       56 CALL                             R7 3 1
+       57 SETTABLEKS                       R7 R6 K13 ["Text"]
+       59 GETUPVAL                         R9 4
+       60 LOADK                            R10 K24 ["contains"]
+       61 LOADNIL                          R11
+       62 LOADNIL                          R12
+       63 NAMECALL                         R7 R0 K23 ["getControls"]
+       65 CALL                             R7 5 -1
+       66 CALL                             R4 -1 1
+       67 SETTABLEKS                       R4 R3 K3 ["Contains"]
+       69 GETUPVAL                         R4 0
+       70 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       72 GETUPVAL                         R5 1
+       73 DUPTABLE                         R6 K14 [{["Expanded"] = True, ["HorizontalAlignment"], ["LayoutOrder"], ["Text"]}]
+       74 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+       76 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
+       78 GETUPVAL                         R7 2
+       79 NAMECALL                         R7 R7 K18 ["getNextOrder"]
+       81 CALL                             R7 1 1
+       82 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
+       84 LOADK                            R9 K19 ["QualityFilterOptions"]
+       85 LOADK                            R10 K25 ["VisualStyles"]
+       86 NAMECALL                         R7 R2 K20 ["getText"]
+       88 CALL                             R7 3 1
+       89 SETTABLEKS                       R7 R6 K13 ["Text"]
+       91 GETUPVAL                         R9 5
+       92 LOADK                            R10 K26 ["visual_styles"]
+       93 LOADK                            R11 K25 ["VisualStyles"]
+       94 MOVE                             R12 R2
+       95 NAMECALL                         R7 R0 K23 ["getControls"]
+       97 CALL                             R7 5 -1
+       98 CALL                             R4 -1 1
+       99 SETTABLEKS                       R4 R3 K4 ["VisualStyle"]
+      101 GETUPVAL                         R4 0
+      102 GETTABLEKS                       R4 R4 K8 ["createElement"]
+      104 GETUPVAL                         R5 1
+      105 DUPTABLE                         R6 K28 [{["Expanded"] = False, ["HorizontalAlignment"], ["LayoutOrder"], ["Text"]}]
+      106 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+      108 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
+      110 GETUPVAL                         R7 2
+      111 NAMECALL                         R7 R7 K18 ["getNextOrder"]
+      113 CALL                             R7 1 1
+      114 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
+      116 LOADK                            R9 K19 ["QualityFilterOptions"]
+      117 LOADK                            R10 K5 ["Graphics"]
+      118 NAMECALL                         R7 R2 K20 ["getText"]
+      120 CALL                             R7 3 1
+      121 SETTABLEKS                       R7 R6 K13 ["Text"]
+      123 GETUPVAL                         R9 6
+      124 LOADK                            R10 K29 ["graphics"]
+      125 LOADK                            R11 K5 ["Graphics"]
+      126 MOVE                             R12 R2
+      127 NAMECALL                         R7 R0 K23 ["getControls"]
+      129 CALL                             R7 5 -1
+      130 CALL                             R4 -1 1
+      131 SETTABLEKS                       R4 R3 K5 ["Graphics"]
+      133 GETUPVAL                         R4 0
+      134 GETTABLEKS                       R4 R4 K8 ["createElement"]
+      136 GETUPVAL                         R5 1
+      137 DUPTABLE                         R6 K28 [{["Expanded"] = False, ["HorizontalAlignment"], ["LayoutOrder"], ["Text"]}]
+      138 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+      140 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
+      142 GETUPVAL                         R7 2
+      143 NAMECALL                         R7 R7 K18 ["getNextOrder"]
+      145 CALL                             R7 1 1
+      146 SETTABLEKS                       R7 R6 K12 ["LayoutOrder"]
+      148 LOADK                            R9 K19 ["QualityFilterOptions"]
+      149 LOADK                            R10 K6 ["Holidays"]
+      150 NAMECALL                         R7 R2 K20 ["getText"]
+      152 CALL                             R7 3 1
+      153 SETTABLEKS                       R7 R6 K13 ["Text"]
+      155 GETUPVAL                         R9 7
+      156 LOADK                            R10 K30 ["holidays"]
+      157 LOADK                            R11 K6 ["Holidays"]
+      158 MOVE                             R12 R2
+      159 NAMECALL                         R7 R0 K23 ["getControls"]
+      161 CALL                             R7 5 -1
+      162 CALL                             R4 -1 1
+      163 SETTABLEKS                       R4 R3 K6 ["Holidays"]
+      165 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -48,35 +48,33 @@ PROTO_1:
        54 GETUPVAL                         R10 0
        55 GETTABLEKS                       R10 R10 K18 ["createElement"]
        57 LOADK                            R11 K19 ["Frame"]
-       58 DUPTABLE                         R12 K24 [{"BackgroundColor3", "BorderSizePixel", "Position", "Size"}]
-       59 GETTABLEKS                       R13 R6 K25 ["backgroundColor"]
+       58 DUPTABLE                         R12 K25 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["Position"], ["Size"]}]
+       59 GETTABLEKS                       R13 R6 K26 ["backgroundColor"]
        61 SETTABLEKS                       R13 R12 K20 ["BackgroundColor3"]
-       63 LOADN                            R13 0
-       64 SETTABLEKS                       R13 R12 K21 ["BorderSizePixel"]
-       66 GETTABLEKS                       R13 R1 K22 ["Position"]
-       68 SETTABLEKS                       R13 R12 K22 ["Position"]
-       70 GETTABLEKS                       R13 R1 K23 ["Size"]
-       72 SETTABLEKS                       R13 R12 K23 ["Size"]
-       74 DUPTABLE                         R13 K27 [{"Navigation"}]
-       75 GETUPVAL                         R14 0
-       76 GETTABLEKS                       R14 R14 K18 ["createElement"]
-       78 GETUPVAL                         R15 1
-       79 DUPTABLE                         R16 K33 [{"AssetType", "CategoryName", "Config", "MaxWidth", "SortName", "AssetSections", "SubcategoryDict", "TopKeywords", "TryOpenAssetConfig"}]
-       80 SETTABLEKS                       R2 R16 K1 ["AssetType"]
-       82 SETTABLEKS                       R3 R16 K2 ["CategoryName"]
-       84 SETTABLEKS                       R4 R16 K28 ["Config"]
-       86 GETTABLEKS                       R17 R1 K29 ["MaxWidth"]
-       88 SETTABLEKS                       R17 R16 K29 ["MaxWidth"]
-       90 SETTABLEKS                       R5 R16 K5 ["SortName"]
-       92 SETTABLEKS                       R8 R16 K30 ["AssetSections"]
-       94 SETTABLEKS                       R9 R16 K31 ["SubcategoryDict"]
-       96 GETTABLEKS                       R17 R4 K34 ["topKeywords"]
-       98 SETTABLEKS                       R17 R16 K32 ["TopKeywords"]
-      100 SETTABLEKS                       R7 R16 K7 ["TryOpenAssetConfig"]
-      102 CALL                             R14 2 1
-      103 SETTABLEKS                       R14 R13 K26 ["Navigation"]
-      105 CALL                             R10 3 -1
-      106 RETURN                           R10 -1
+       63 GETTABLEKS                       R13 R1 K23 ["Position"]
+       65 SETTABLEKS                       R13 R12 K23 ["Position"]
+       67 GETTABLEKS                       R13 R1 K24 ["Size"]
+       69 SETTABLEKS                       R13 R12 K24 ["Size"]
+       71 DUPTABLE                         R13 K28 [{"Navigation"}]
+       72 GETUPVAL                         R14 0
+       73 GETTABLEKS                       R14 R14 K18 ["createElement"]
+       75 GETUPVAL                         R15 1
+       76 DUPTABLE                         R16 K34 [{"AssetType", "CategoryName", "Config", "MaxWidth", "SortName", "AssetSections", "SubcategoryDict", "TopKeywords", "TryOpenAssetConfig"}]
+       77 SETTABLEKS                       R2 R16 K1 ["AssetType"]
+       79 SETTABLEKS                       R3 R16 K2 ["CategoryName"]
+       81 SETTABLEKS                       R4 R16 K29 ["Config"]
+       83 GETTABLEKS                       R17 R1 K30 ["MaxWidth"]
+       85 SETTABLEKS                       R17 R16 K30 ["MaxWidth"]
+       87 SETTABLEKS                       R5 R16 K5 ["SortName"]
+       89 SETTABLEKS                       R8 R16 K31 ["AssetSections"]
+       91 SETTABLEKS                       R9 R16 K32 ["SubcategoryDict"]
+       93 GETTABLEKS                       R17 R4 K35 ["topKeywords"]
+       95 SETTABLEKS                       R17 R16 K33 ["TopKeywords"]
+       97 SETTABLEKS                       R7 R16 K7 ["TryOpenAssetConfig"]
+       99 CALL                             R14 2 1
+      100 SETTABLEKS                       R14 R13 K27 ["Navigation"]
+      102 CALL                             R10 3 -1
+      103 RETURN                           R10 -1
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [ipairs]

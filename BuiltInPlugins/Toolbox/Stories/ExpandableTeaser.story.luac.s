@@ -34,32 +34,30 @@ PROTO_2:
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K2 ["createElement"]
         4 GETUPVAL                         R2 1
-        5 DUPTABLE                         R3 K6 [{"AutomaticSize", "Items", "ItemMinWidth"}]
-        6 GETIMPORT                        R4 K9 [Enum.AutomaticSize.Y]
+        5 DUPTABLE                         R3 K7 [{["AutomaticSize"], ["Items"], ["ItemMinWidth"] = 28}]
+        6 GETIMPORT                        R4 K10 [Enum.AutomaticSize.Y]
         8 SETTABLEKS                       R4 R3 K3 ["AutomaticSize"]
        10 NEWTABLE                         R4 0 15
-       12 LOADK                            R5 K10 ["charmander"]
-       13 LOADK                            R6 K11 ["bulbasaur"]
-       14 LOADK                            R7 K12 ["squirtle"]
-       15 LOADK                            R8 K13 ["cyndaquil"]
-       16 LOADK                            R9 K14 ["totodile"]
-       17 LOADK                            R10 K15 ["chikorita"]
-       18 LOADK                            R11 K16 ["torchic"]
-       19 LOADK                            R12 K17 ["mudkip"]
-       20 LOADK                            R13 K18 ["treecko"]
-       21 LOADK                            R14 K19 ["chimchar"]
-       22 LOADK                            R15 K20 ["piplup"]
-       23 LOADK                            R16 K21 ["turtwig"]
-       24 LOADK                            R17 K22 ["tepig"]
-       25 LOADK                            R18 K23 ["oshawott"]
-       26 LOADK                            R19 K24 ["snivy"]
+       12 LOADK                            R5 K11 ["charmander"]
+       13 LOADK                            R6 K12 ["bulbasaur"]
+       14 LOADK                            R7 K13 ["squirtle"]
+       15 LOADK                            R8 K14 ["cyndaquil"]
+       16 LOADK                            R9 K15 ["totodile"]
+       17 LOADK                            R10 K16 ["chikorita"]
+       18 LOADK                            R11 K17 ["torchic"]
+       19 LOADK                            R12 K18 ["mudkip"]
+       20 LOADK                            R13 K19 ["treecko"]
+       21 LOADK                            R14 K20 ["chimchar"]
+       22 LOADK                            R15 K21 ["piplup"]
+       23 LOADK                            R16 K22 ["turtwig"]
+       24 LOADK                            R17 K23 ["tepig"]
+       25 LOADK                            R18 K24 ["oshawott"]
+       26 LOADK                            R19 K25 ["snivy"]
        27 SETLIST                          R4 R5 15 [1]
        29 SETTABLEKS                       R4 R3 K4 ["Items"]
-       31 LOADN                            R4 28
-       32 SETTABLEKS                       R4 R3 K5 ["ItemMinWidth"]
-       34 CALL                             R1 2 1
-       35 SETTABLEKS                       R1 R0 K0 ["SearchList"]
-       37 RETURN                           R0 1
+       31 CALL                             R1 2 1
+       32 SETTABLEKS                       R1 R0 K0 ["SearchList"]
+       34 RETURN                           R0 1
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [print]
@@ -77,40 +75,36 @@ PROTO_4:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
-       12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
+       12 DUPTABLE                         R6 K6 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       13 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
        15 SETTABLEKS                       R7 R6 K2 ["AutomaticSize"]
-       17 LOADN                            R7 1
-       18 SETTABLEKS                       R7 R6 K3 ["BackgroundTransparency"]
-       20 GETIMPORT                        R7 K11 [UDim2.new]
-       22 LOADN                            R8 1
-       23 LOADN                            R9 0
-       24 LOADN                            R10 0
-       25 LOADN                            R11 0
-       26 CALL                             R7 4 1
-       27 SETTABLEKS                       R7 R6 K4 ["Size"]
-       29 DUPTABLE                         R7 K13 [{"ExpandableTeaser"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K17 [{"OnExpandChanged", "Title", "TeaserSize"}]
-       35 GETUPVAL                         R11 3
-       36 SETTABLEKS                       R11 R10 K14 ["OnExpandChanged"]
-       38 LOADK                            R11 K18 ["Expandable"]
-       39 SETTABLEKS                       R11 R10 K15 ["Title"]
-       41 GETIMPORT                        R11 K20 [Vector2.new]
-       43 LOADN                            R12 0
-       44 LOADN                            R13 10
-       45 CALL                             R11 2 1
-       46 SETTABLEKS                       R11 R10 K16 ["TeaserSize"]
-       48 GETUPVAL                         R11 4
-       49 CALL                             R11 0 1
-       50 CALL                             R8 3 1
-       51 SETTABLEKS                       R8 R7 K12 ["ExpandableTeaser"]
-       53 CALL                             R4 3 -1
-       54 SETLIST                          R3 R4 -1 [1]
-       56 CALL                             R0 3 -1
-       57 RETURN                           R0 -1
+       17 GETIMPORT                        R7 K12 [UDim2.new]
+       19 LOADN                            R8 1
+       20 LOADN                            R9 0
+       21 LOADN                            R10 0
+       22 LOADN                            R11 0
+       23 CALL                             R7 4 1
+       24 SETTABLEKS                       R7 R6 K5 ["Size"]
+       26 DUPTABLE                         R7 K14 [{"ExpandableTeaser"}]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       30 GETUPVAL                         R9 2
+       31 DUPTABLE                         R10 K19 [{["OnExpandChanged"], ["Title"] = "Expandable", ["TeaserSize"]}]
+       32 GETUPVAL                         R11 3
+       33 SETTABLEKS                       R11 R10 K15 ["OnExpandChanged"]
+       35 GETIMPORT                        R11 K21 [Vector2.new]
+       37 LOADN                            R12 0
+       38 LOADN                            R13 10
+       39 CALL                             R11 2 1
+       40 SETTABLEKS                       R11 R10 K18 ["TeaserSize"]
+       42 GETUPVAL                         R11 4
+       43 CALL                             R11 0 1
+       44 CALL                             R8 3 1
+       45 SETTABLEKS                       R8 R7 K13 ["ExpandableTeaser"]
+       47 CALL                             R4 3 -1
+       48 SETLIST                          R3 R4 -1 [1]
+       50 CALL                             R0 3 -1
+       51 RETURN                           R0 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -121,40 +115,36 @@ PROTO_5:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
-       12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
+       12 DUPTABLE                         R6 K6 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       13 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
        15 SETTABLEKS                       R7 R6 K2 ["AutomaticSize"]
-       17 LOADN                            R7 1
-       18 SETTABLEKS                       R7 R6 K3 ["BackgroundTransparency"]
-       20 GETIMPORT                        R7 K11 [UDim2.new]
-       22 LOADN                            R8 1
-       23 LOADN                            R9 0
-       24 LOADN                            R10 0
-       25 LOADN                            R11 0
-       26 CALL                             R7 4 1
-       27 SETTABLEKS                       R7 R6 K4 ["Size"]
-       29 DUPTABLE                         R7 K13 [{"ExpandableTeaser"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K17 [{"OnExpandChanged", "Title", "TeaserSize"}]
-       35 GETUPVAL                         R11 3
-       36 SETTABLEKS                       R11 R10 K14 ["OnExpandChanged"]
-       38 LOADK                            R11 K18 ["Top Searches"]
-       39 SETTABLEKS                       R11 R10 K15 ["Title"]
-       41 GETIMPORT                        R11 K20 [Vector2.new]
-       43 LOADN                            R12 0
-       44 LOADN                            R13 28
-       45 CALL                             R11 2 1
-       46 SETTABLEKS                       R11 R10 K16 ["TeaserSize"]
-       48 GETUPVAL                         R11 4
-       49 CALL                             R11 0 1
-       50 CALL                             R8 3 1
-       51 SETTABLEKS                       R8 R7 K12 ["ExpandableTeaser"]
-       53 CALL                             R4 3 -1
-       54 SETLIST                          R3 R4 -1 [1]
-       56 CALL                             R0 3 -1
-       57 RETURN                           R0 -1
+       17 GETIMPORT                        R7 K12 [UDim2.new]
+       19 LOADN                            R8 1
+       20 LOADN                            R9 0
+       21 LOADN                            R10 0
+       22 LOADN                            R11 0
+       23 CALL                             R7 4 1
+       24 SETTABLEKS                       R7 R6 K5 ["Size"]
+       26 DUPTABLE                         R7 K14 [{"ExpandableTeaser"}]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       30 GETUPVAL                         R9 2
+       31 DUPTABLE                         R10 K19 [{["OnExpandChanged"], ["Title"] = "Top Searches", ["TeaserSize"]}]
+       32 GETUPVAL                         R11 3
+       33 SETTABLEKS                       R11 R10 K15 ["OnExpandChanged"]
+       35 GETIMPORT                        R11 K21 [Vector2.new]
+       37 LOADN                            R12 0
+       38 LOADN                            R13 28
+       39 CALL                             R11 2 1
+       40 SETTABLEKS                       R11 R10 K18 ["TeaserSize"]
+       42 GETUPVAL                         R11 4
+       43 CALL                             R11 0 1
+       44 CALL                             R8 3 1
+       45 SETTABLEKS                       R8 R7 K13 ["ExpandableTeaser"]
+       47 CALL                             R4 3 -1
+       48 SETLIST                          R3 R4 -1 [1]
+       50 CALL                             R0 3 -1
+       51 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -190,30 +180,24 @@ MAIN:
        49 CAPTURE                          VAL R2
        50 CAPTURE                          VAL R5
        51 DUPCLOSURE                       R9 K17 [PROTO_3]
-       52 DUPTABLE                         R10 K20 [{"summary", "stories"}]
-       53 LOADK                            R11 K21 ["An expandable teaser."]
-       54 SETTABLEKS                       R11 R10 K18 ["summary"]
-       56 NEWTABLE                         R11 0 2
-       58 DUPTABLE                         R12 K24 [{"name", "story"}]
-       59 LOADK                            R13 K25 ["Expandable"]
-       60 SETTABLEKS                       R13 R12 K22 ["name"]
-       62 DUPCLOSURE                       R13 K26 [PROTO_4]
-       63 CAPTURE                          VAL R2
-       64 CAPTURE                          VAL R6
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R9
-       67 CAPTURE                          VAL R7
-       68 SETTABLEKS                       R13 R12 K23 ["story"]
-       70 DUPTABLE                         R13 K24 [{"name", "story"}]
-       71 LOADK                            R14 K27 ["Search Pills"]
-       72 SETTABLEKS                       R14 R13 K22 ["name"]
-       74 DUPCLOSURE                       R14 K28 [PROTO_5]
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          VAL R6
-       77 CAPTURE                          VAL R4
-       78 CAPTURE                          VAL R9
-       79 CAPTURE                          VAL R8
-       80 SETTABLEKS                       R14 R13 K23 ["story"]
-       82 SETLIST                          R11 R12 2 [1]
-       84 SETTABLEKS                       R11 R10 K19 ["stories"]
-       86 RETURN                           R10 1
+       52 DUPTABLE                         R10 K21 [{["summary"] = "An expandable teaser.", ["stories"]}]
+       53 NEWTABLE                         R11 0 2
+       55 DUPTABLE                         R12 K25 [{["name"] = "Expandable", ["story"]}]
+       56 DUPCLOSURE                       R13 K26 [PROTO_4]
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R6
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R9
+       61 CAPTURE                          VAL R7
+       62 SETTABLEKS                       R13 R12 K24 ["story"]
+       64 DUPTABLE                         R13 K28 [{["name"] = "Search Pills", ["story"]}]
+       65 DUPCLOSURE                       R14 K29 [PROTO_5]
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R9
+       70 CAPTURE                          VAL R8
+       71 SETTABLEKS                       R14 R13 K24 ["story"]
+       73 SETLIST                          R11 R12 2 [1]
+       75 SETTABLEKS                       R11 R10 K20 ["stories"]
+       77 RETURN                           R10 1

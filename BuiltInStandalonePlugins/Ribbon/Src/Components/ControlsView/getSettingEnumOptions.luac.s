@@ -1,25 +1,23 @@
 PROTO_0:
         0 SUBK                             R2 R1 K0 [1]
-        1 DUPTABLE                         R3 K8 [{"Type", "Id", "Action", "Selected", "Setting", "SettingValue", "Size"}]
-        2 LOADK                            R4 K9 ["Option"]
-        3 SETTABLEKS                       R4 R3 K1 ["Type"]
-        5 GETTABLEKS                       R4 R0 K2 ["Id"]
-        7 SETTABLEKS                       R4 R3 K2 ["Id"]
-        9 GETTABLEKS                       R4 R0 K3 ["Action"]
-       11 SETTABLEKS                       R4 R3 K3 ["Action"]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K10 ["Value"]
-       16 JUMPIFEQ                         R2 R5 ; [+2]
-       18 LOADB                            R4 0 +1
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K4 ["Selected"]
-       22 GETUPVAL                         R4 0
-       23 GETTABLEKS                       R4 R4 K11 ["Uri"]
-       25 SETTABLEKS                       R4 R3 K5 ["Setting"]
-       27 SETTABLEKS                       R2 R3 K6 ["SettingValue"]
-       29 GETUPVAL                         R4 1
-       30 SETTABLEKS                       R4 R3 K7 ["Size"]
-       32 RETURN                           R3 1
+        1 DUPTABLE                         R3 K9 [{["Type"] = "Option", ["Id"], ["Action"], ["Selected"], ["Setting"], ["SettingValue"], ["Size"]}]
+        2 GETTABLEKS                       R4 R0 K3 ["Id"]
+        4 SETTABLEKS                       R4 R3 K3 ["Id"]
+        6 GETTABLEKS                       R4 R0 K4 ["Action"]
+        8 SETTABLEKS                       R4 R3 K4 ["Action"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K10 ["Value"]
+       13 JUMPIFEQ                         R2 R5 ; [+2]
+       15 LOADB                            R4 0 +1
+       16 LOADB                            R4 1
+       17 SETTABLEKS                       R4 R3 K5 ["Selected"]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K11 ["Uri"]
+       22 SETTABLEKS                       R4 R3 K6 ["Setting"]
+       24 SETTABLEKS                       R2 R3 K7 ["SettingValue"]
+       26 GETUPVAL                         R4 1
+       27 SETTABLEKS                       R4 R3 K8 ["Size"]
+       29 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["Values"]
@@ -34,47 +32,43 @@ PROTO_1:
        12 CALL                             R3 2 1
        13 JUMPIFNOT                        R1 ; [+3]
        14 LENGTH                           R4 R3
-       15 JUMPIFNOTLE                      R4 R1 ; [+13]
-       17 DUPTABLE                         R4 K3 [{"Type", "Children"}]
-       18 LOADK                            R5 K4 ["Column"]
-       19 SETTABLEKS                       R5 R4 K1 ["Type"]
-       21 SETTABLEKS                       R3 R4 K2 ["Children"]
-       23 NEWTABLE                         R5 0 1
-       25 MOVE                             R6 R4
-       26 SETLIST                          R5 R6 1 [1]
-       28 RETURN                           R5 1
-       29 NEWTABLE                         R4 0 0
-       31 LOADN                            R7 1
-       32 LENGTH                           R5 R3
-       33 MOVE                             R6 R1
-       34 FORNPREP                         R5
-       35 NEWTABLE                         R8 0 0
-       37 MOVE                             R11 R7
-       38 ADD                              R14 R7 R1
-       39 SUBK                             R13 R14 K5 [1]
-       40 LENGTH                           R14 R3
-       41 FASTCALL2                        MATH_MIN R13 R14 ; [+3]
-       43 GETIMPORT                        R12 K8 [math.min]
-       45 CALL                             R12 2 1
-       46 MOVE                             R9 R12
-       47 LOADN                            R10 1
-       48 FORNPREP                         R9
-       49 GETTABLE                         R14 R3 R11
-       50 FASTCALL2                        TABLE_INSERT R8 R14 ; [+4]
-       52 MOVE                             R13 R8
-       53 GETIMPORT                        R12 K11 [table.insert]
-       55 CALL                             R12 2 0
-       56 FORNLOOP                         R9
-       57 DUPTABLE                         R11 K3 [{"Type", "Children"}]
-       58 LOADK                            R12 K4 ["Column"]
-       59 SETTABLEKS                       R12 R11 K1 ["Type"]
-       61 SETTABLEKS                       R8 R11 K2 ["Children"]
-       63 FASTCALL2                        TABLE_INSERT R4 R11 ; [+4]
-       65 MOVE                             R10 R4
-       66 GETIMPORT                        R9 K11 [table.insert]
-       68 CALL                             R9 2 0
-       69 FORNLOOP                         R5
-       70 RETURN                           R4 1
+       15 JUMPIFNOTLE                      R4 R1 ; [+10]
+       17 DUPTABLE                         R4 K4 [{["Type"] = "Column", ["Children"]}]
+       18 SETTABLEKS                       R3 R4 K3 ["Children"]
+       20 NEWTABLE                         R5 0 1
+       22 MOVE                             R6 R4
+       23 SETLIST                          R5 R6 1 [1]
+       25 RETURN                           R5 1
+       26 NEWTABLE                         R4 0 0
+       28 LOADN                            R7 1
+       29 LENGTH                           R5 R3
+       30 MOVE                             R6 R1
+       31 FORNPREP                         R5
+       32 NEWTABLE                         R8 0 0
+       34 MOVE                             R11 R7
+       35 ADD                              R14 R7 R1
+       36 SUBK                             R13 R14 K5 [1]
+       37 LENGTH                           R14 R3
+       38 FASTCALL2                        MATH_MIN R13 R14 ; [+3]
+       40 GETIMPORT                        R12 K8 [math.min]
+       42 CALL                             R12 2 1
+       43 MOVE                             R9 R12
+       44 LOADN                            R10 1
+       45 FORNPREP                         R9
+       46 GETTABLE                         R14 R3 R11
+       47 FASTCALL2                        TABLE_INSERT R8 R14 ; [+4]
+       49 MOVE                             R13 R8
+       50 GETIMPORT                        R12 K11 [table.insert]
+       52 CALL                             R12 2 0
+       53 FORNLOOP                         R9
+       54 DUPTABLE                         R11 K4 [{["Type"] = "Column", ["Children"]}]
+       55 SETTABLEKS                       R8 R11 K3 ["Children"]
+       57 FASTCALL2                        TABLE_INSERT R4 R11 ; [+4]
+       59 MOVE                             R10 R4
+       60 GETIMPORT                        R9 K11 [table.insert]
+       62 CALL                             R9 2 0
+       63 FORNLOOP                         R5
+       64 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

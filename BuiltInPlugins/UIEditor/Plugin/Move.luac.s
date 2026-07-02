@@ -88,7 +88,7 @@ PROTO_3:
         0 JUMPIFNOTEQKN                    R0 K0 [1] ; [+7]
         2 GETIMPORT                        R1 K3 [Vector2.new]
         4 LOADN                            R2 0
-        5 LOADN                            R3 255
+        5 LOADN                            R3 -1
         6 CALL                             R1 2 -1
         7 RETURN                           R1 -1
         8 JUMPIFNOTEQKN                    R0 K4 [2] ; [+7]
@@ -99,7 +99,7 @@ PROTO_3:
        15 RETURN                           R1 -1
        16 JUMPIFNOTEQKN                    R0 K5 [3] ; [+7]
        18 GETIMPORT                        R1 K3 [Vector2.new]
-       20 LOADN                            R2 255
+       20 LOADN                            R2 -1
        21 LOADN                            R3 0
        22 CALL                             R1 2 -1
        23 RETURN                           R1 -1
@@ -111,7 +111,7 @@ PROTO_3:
        31 RETURN                           R1 -1
        32 GETIMPORT                        R1 K3 [Vector2.new]
        34 LOADN                            R2 0
-       35 LOADN                            R3 255
+       35 LOADN                            R3 -1
        36 CALL                             R1 2 -1
        37 RETURN                           R1 -1
 

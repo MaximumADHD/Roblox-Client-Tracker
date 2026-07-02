@@ -40,41 +40,35 @@ MAIN:
        70 CALL                             R9 1 1
        71 GETTABLEKS                       R10 R3 K18 ["Localization"]
        73 GETTABLEKS                       R10 R10 K19 ["new"]
-       75 DUPTABLE                         R11 K23 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       75 DUPTABLE                         R11 K24 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PlayerEmulator"}]
        76 SETTABLEKS                       R7 R11 K20 ["stringResourceTable"]
        78 SETTABLEKS                       R8 R11 K21 ["translationResourceTable"]
-       80 LOADK                            R12 K24 ["PlayerEmulator"]
-       81 SETTABLEKS                       R12 R11 K22 ["pluginName"]
-       83 CALL                             R10 1 1
-       84 GETTABLEKS                       R11 R1 K25 ["Store"]
-       86 GETTABLEKS                       R11 R11 K19 ["new"]
-       88 MOVE                             R12 R9
-       89 CALL                             R12 0 1
-       90 LOADNIL                          R13
-       91 NEWTABLE                         R14 0 1
-       93 GETTABLEKS                       R15 R1 K26 ["thunkMiddleware"]
-       95 SETLIST                          R14 R15 1 [1]
-       97 CALL                             R11 3 1
-       98 GETTABLEKS                       R12 R4 K27 ["Networking"]
-      100 GETTABLEKS                       R12 R12 K19 ["new"]
-      102 DUPTABLE                         R13 K30 [{"isInternal", "loggingLevel"}]
-      103 LOADB                            R14 1
-      104 SETTABLEKS                       R14 R13 K28 ["isInternal"]
-      106 LOADN                            R14 0
-      107 SETTABLEKS                       R14 R13 K29 ["loggingLevel"]
-      109 CALL                             R12 1 1
-      110 DUPTABLE                         R13 K35 [{"theme", "localization", "store", "networking"}]
-      111 MOVE                             R14 R6
-      112 CALL                             R14 0 1
-      113 SETTABLEKS                       R14 R13 K31 ["theme"]
-      115 SETTABLEKS                       R10 R13 K32 ["localization"]
-      117 GETTABLEKS                       R14 R3 K25 ["Store"]
-      119 GETTABLEKS                       R14 R14 K19 ["new"]
-      121 MOVE                             R15 R11
-      122 CALL                             R14 1 1
-      123 SETTABLEKS                       R14 R13 K33 ["store"]
-      125 GETTABLEKS                       R14 R5 K19 ["new"]
-      127 MOVE                             R15 R12
-      128 CALL                             R14 1 1
-      129 SETTABLEKS                       R14 R13 K34 ["networking"]
-      131 RETURN                           R13 1
+       80 CALL                             R10 1 1
+       81 GETTABLEKS                       R11 R1 K25 ["Store"]
+       83 GETTABLEKS                       R11 R11 K19 ["new"]
+       85 MOVE                             R12 R9
+       86 CALL                             R12 0 1
+       87 LOADNIL                          R13
+       88 NEWTABLE                         R14 0 1
+       90 GETTABLEKS                       R15 R1 K26 ["thunkMiddleware"]
+       92 SETLIST                          R14 R15 1 [1]
+       94 CALL                             R11 3 1
+       95 GETTABLEKS                       R12 R4 K27 ["Networking"]
+       97 GETTABLEKS                       R12 R12 K19 ["new"]
+       99 DUPTABLE                         R13 K32 [{["isInternal"] = True, ["loggingLevel"] = 0}]
+      100 CALL                             R12 1 1
+      101 DUPTABLE                         R13 K37 [{"theme", "localization", "store", "networking"}]
+      102 MOVE                             R14 R6
+      103 CALL                             R14 0 1
+      104 SETTABLEKS                       R14 R13 K33 ["theme"]
+      106 SETTABLEKS                       R10 R13 K34 ["localization"]
+      108 GETTABLEKS                       R14 R3 K25 ["Store"]
+      110 GETTABLEKS                       R14 R14 K19 ["new"]
+      112 MOVE                             R15 R11
+      113 CALL                             R14 1 1
+      114 SETTABLEKS                       R14 R13 K35 ["store"]
+      116 GETTABLEKS                       R14 R5 K19 ["new"]
+      118 MOVE                             R15 R12
+      119 CALL                             R14 1 1
+      120 SETTABLEKS                       R14 R13 K36 ["networking"]
+      122 RETURN                           R13 1

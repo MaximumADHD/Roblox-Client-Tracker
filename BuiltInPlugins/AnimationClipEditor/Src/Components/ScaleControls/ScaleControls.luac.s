@@ -543,7 +543,7 @@ PROTO_8:
       130 DUPTABLE                         R24 K44 [{"Position", "Size", "ZIndex", "OnScaleHandleDragStart", "OnScaleHandleDragMoved", "OnScaleHandleDragEnd"}]
       131 GETIMPORT                        R25 K35 [UDim2.new]
       133 LOADN                            R26 0
-      134 LOADN                            R27 253
+      134 LOADN                            R27 -3
       135 LOADN                            R28 0
       136 LOADN                            R29 0
       137 CALL                             R25 4 1
@@ -569,7 +569,7 @@ PROTO_8:
       168 DUPTABLE                         R24 K44 [{"Position", "Size", "ZIndex", "OnScaleHandleDragStart", "OnScaleHandleDragMoved", "OnScaleHandleDragEnd"}]
       169 GETIMPORT                        R25 K35 [UDim2.new]
       171 LOADN                            R26 1
-      172 LOADN                            R27 253
+      172 LOADN                            R27 -3
       173 LOADN                            R28 0
       174 LOADN                            R29 0
       175 CALL                             R25 4 1

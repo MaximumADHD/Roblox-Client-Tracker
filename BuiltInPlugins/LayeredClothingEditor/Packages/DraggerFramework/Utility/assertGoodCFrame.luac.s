@@ -35,7 +35,7 @@ PROTO_0:
        50 GETIMPORT                        R15 K8 [math.abs]
        52 CALL                             R15 1 1
        53 ADD                              R13 R14 R15
-       54 LOADN                            R14 48
+       54 LOADN                            R14 30000
        55 JUMPIFNOTLT                      R14 R13 ; [+11]
        57 GETIMPORT                        R13 K2 [error]
        59 LOADK                            R15 K9 ["Big CFrame: "]
@@ -81,21 +81,21 @@ PROTO_0:
       114 CONCAT                           R17 R18 R19
       115 CALL                             R16 1 0
       116 GETTABLEKS                       R18 R13 K17 ["Magnitude"]
-      118 SUBRK                            R17 R16 K18 ["Non unitary units: "]
+      118 SUBRK                            R17 K16 [1] R18
       119 FASTCALL1                        MATH_ABS R17 ; [+2]
       120 GETIMPORT                        R16 K8 [math.abs]
       122 CALL                             R16 1 1
       123 LOADK                            R17 K14 [0.001]
       124 JUMPIFLT                         R17 R16 ; [+21]
       126 GETTABLEKS                       R18 R14 K17 ["Magnitude"]
-      128 SUBRK                            R17 R16 K18 ["Non unitary units: "]
+      128 SUBRK                            R17 K16 [1] R18
       129 FASTCALL1                        MATH_ABS R17 ; [+2]
       130 GETIMPORT                        R16 K8 [math.abs]
       132 CALL                             R16 1 1
       133 LOADK                            R17 K14 [0.001]
       134 JUMPIFLT                         R17 R16 ; [+11]
       136 GETTABLEKS                       R18 R15 K17 ["Magnitude"]
-      138 SUBRK                            R17 R16 K18 ["Non unitary units: "]
+      138 SUBRK                            R17 K16 [1] R18
       139 FASTCALL1                        MATH_ABS R17 ; [+2]
       140 GETIMPORT                        R16 K8 [math.abs]
       142 CALL                             R16 1 1

@@ -52,31 +52,25 @@ PROTO_0:
        76 GETUPVAL                         R14 0
        77 GETTABLEKS                       R14 R14 K24 ["createElement"]
        79 GETUPVAL                         R15 2
-       80 DUPTABLE                         R16 K36 [{"AutomaticSize", "TextWrapped", "Size", "Style", "TextTransparency", "TextXAlignment", "Text"}]
+       80 DUPTABLE                         R16 K39 [{["AutomaticSize"], ["TextWrapped"] = True, ["Size"], ["Style"] = "Body", ["TextTransparency"] = 0.5, ["TextXAlignment"], ["Text"]}]
        81 GETIMPORT                        R17 K29 [Enum.AutomaticSize.Y]
        83 SETTABLEKS                       R17 R16 K25 ["AutomaticSize"]
-       85 LOADB                            R17 1
-       86 SETTABLEKS                       R17 R16 K32 ["TextWrapped"]
-       88 GETIMPORT                        R17 K23 [UDim2.fromScale]
-       90 LOADN                            R18 1
-       91 LOADN                            R19 0
-       92 CALL                             R17 2 1
-       93 SETTABLEKS                       R17 R16 K26 ["Size"]
-       95 LOADK                            R17 K37 ["Body"]
-       96 SETTABLEKS                       R17 R16 K33 ["Style"]
-       98 LOADK                            R17 K38 [0.5]
-       99 SETTABLEKS                       R17 R16 K34 ["TextTransparency"]
-      101 GETIMPORT                        R17 K40 [Enum.TextXAlignment.Center]
-      103 SETTABLEKS                       R17 R16 K35 ["TextXAlignment"]
-      105 LOADK                            R19 K41 ["AssetPreview"]
-      106 LOADK                            R20 K42 ["PluginNotice"]
-      107 NAMECALL                         R17 R4 K43 ["getText"]
-      109 CALL                             R17 3 1
-      110 SETTABLEKS                       R17 R16 K30 ["Text"]
-      112 CALL                             R14 2 1
-      113 SETTABLEKS                       R14 R13 K30 ["Text"]
-      115 CALL                             R10 3 -1
-      116 RETURN                           R10 -1
+       85 GETIMPORT                        R17 K23 [UDim2.fromScale]
+       87 LOADN                            R18 1
+       88 LOADN                            R19 0
+       89 CALL                             R17 2 1
+       90 SETTABLEKS                       R17 R16 K26 ["Size"]
+       92 GETIMPORT                        R17 K41 [Enum.TextXAlignment.Center]
+       94 SETTABLEKS                       R17 R16 K38 ["TextXAlignment"]
+       96 LOADK                            R19 K42 ["AssetPreview"]
+       97 LOADK                            R20 K43 ["PluginNotice"]
+       98 NAMECALL                         R17 R4 K44 ["getText"]
+      100 CALL                             R17 3 1
+      101 SETTABLEKS                       R17 R16 K30 ["Text"]
+      103 CALL                             R14 2 1
+      104 SETTABLEKS                       R14 R13 K30 ["Text"]
+      106 CALL                             R10 3 -1
+      107 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

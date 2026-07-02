@@ -1,13 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"order"}]
-        1 LOADN                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["order"]
-        4 GETUPVAL                         R3 0
-        5 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-        7 MOVE                             R2 R0
-        8 GETIMPORT                        R1 K3 [setmetatable]
-       10 CALL                             R1 2 0
-       11 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = 0}]
+        1 GETUPVAL                         R3 0
+        2 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        4 MOVE                             R2 R0
+        5 GETIMPORT                        R1 K4 [setmetatable]
+        7 CALL                             R1 2 0
+        8 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K1 ["order"]

@@ -92,45 +92,39 @@ PROTO_6:
        24 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R1 K3 [{"selectedPreviewInstance", "maxPreviewHeight", "maxPreviewWidth"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["selectedPreviewInstance"]
-        4 LOADN                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["maxPreviewHeight"]
-        7 LOADN                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["maxPreviewWidth"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 GETUPVAL                         R1 0
-       13 NAMECALL                         R1 R1 K5 ["GetUserId"]
-       15 CALL                             R1 1 1
-       16 NEWCLOSURE                       R2 P0
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R2 R0 K6 ["onTreeItemClicked"]
-       20 NEWCLOSURE                       R2 P1
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R2 R0 K7 ["tryInsert"]
-       24 NEWCLOSURE                       R2 P2
+        0 DUPTABLE                         R1 K5 [{[1] = , ["maxPreviewHeight"] = 0, ["maxPreviewWidth"] = 0}]
+        1 SETTABLEKS                       R1 R0 K6 ["state"]
+        3 GETUPVAL                         R1 0
+        4 NAMECALL                         R1 R1 K7 ["GetUserId"]
+        6 CALL                             R1 1 1
+        7 NEWCLOSURE                       R2 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K8 ["onTreeItemClicked"]
+       11 NEWCLOSURE                       R2 P1
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K9 ["tryInsert"]
+       15 NEWCLOSURE                       R2 P2
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K10 ["requestFavoriteCounts"]
+       19 NEWCLOSURE                       R2 P3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          VAL R1
+       22 SETTABLEKS                       R2 R0 K11 ["checkFavorited"]
+       24 NEWCLOSURE                       R2 P4
        25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R2 R0 K8 ["requestFavoriteCounts"]
-       28 NEWCLOSURE                       R2 P3
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          VAL R1
-       31 SETTABLEKS                       R2 R0 K9 ["checkFavorited"]
-       33 NEWCLOSURE                       R2 P4
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          VAL R1
-       36 SETTABLEKS                       R2 R0 K10 ["onFavoritedActivated"]
-       38 NEWCLOSURE                       R2 P5
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R2 R0 K11 ["tryCreateContextMenu"]
-       42 GETUPVAL                         R2 1
-       43 GETTABLEKS                       R2 R2 K12 ["createRef"]
-       45 CALL                             R2 0 1
-       46 SETTABLEKS                       R2 R0 K13 ["ClickDetectorRef"]
-       48 NEWCLOSURE                       R2 P6
-       49 CAPTURE                          VAL R0
-       50 SETTABLEKS                       R2 R0 K14 ["onDetectorABSSizeChange"]
-       52 RETURN                           R0 0
+       26 CAPTURE                          VAL R1
+       27 SETTABLEKS                       R2 R0 K12 ["onFavoritedActivated"]
+       29 NEWCLOSURE                       R2 P5
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R2 R0 K13 ["tryCreateContextMenu"]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R2 R2 K14 ["createRef"]
+       36 CALL                             R2 0 1
+       37 SETTABLEKS                       R2 R0 K15 ["ClickDetectorRef"]
+       39 NEWCLOSURE                       R2 P6
+       40 CAPTURE                          VAL R0
+       41 SETTABLEKS                       R2 R0 K16 ["onDetectorABSSizeChange"]
+       43 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["checkFavorited"]
@@ -185,109 +179,101 @@ PROTO_9:
        67 GETUPVAL                         R17 0
        68 GETTABLEKS                       R17 R17 K20 ["createElement"]
        70 LOADK                            R18 K26 ["Frame"]
-       71 DUPTABLE                         R19 K30 [{"Size", "BackgroundTransparency", "BorderSizePixel"}]
-       72 GETIMPORT                        R20 K33 [UDim2.new]
+       71 DUPTABLE                         R19 K32 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+       72 GETIMPORT                        R20 K35 [UDim2.new]
        74 LOADN                            R21 1
        75 LOADN                            R22 0
        76 LOADN                            R23 1
        77 LOADN                            R24 0
        78 CALL                             R20 4 1
        79 SETTABLEKS                       R20 R19 K27 ["Size"]
-       81 LOADN                            R20 1
-       82 SETTABLEKS                       R20 R19 K28 ["BackgroundTransparency"]
-       84 LOADN                            R20 0
-       85 SETTABLEKS                       R20 R19 K29 ["BorderSizePixel"]
-       87 DUPTABLE                         R20 K36 [{"Background", "Contents"}]
-       88 GETUPVAL                         R21 0
-       89 GETTABLEKS                       R21 R21 K20 ["createElement"]
-       91 LOADK                            R22 K37 ["ImageButton"]
-       92 NEWTABLE                         R23 16 0
-       94 GETIMPORT                        R24 K33 [UDim2.new]
-       96 LOADN                            R25 1
-       97 LOADN                            R26 0
-       98 LOADN                            R27 1
-       99 LOADN                            R28 0
-      100 CALL                             R24 4 1
-      101 SETTABLEKS                       R24 R23 K27 ["Size"]
-      103 LOADB                            R24 0
-      104 SETTABLEKS                       R24 R23 K38 ["AutoButtonColor"]
-      106 LOADN                            R24 0
-      107 SETTABLEKS                       R24 R23 K29 ["BorderSizePixel"]
-      109 GETIMPORT                        R24 K40 [Color3.new]
-      111 LOADN                            R25 0
-      112 LOADN                            R26 0
-      113 LOADN                            R27 0
-      114 CALL                             R24 3 1
-      115 SETTABLEKS                       R24 R23 K41 ["BackgroundColor3"]
-      117 GETTABLEKS                       R24 R5 K42 ["Overlay"]
-      119 GETTABLEKS                       R24 R24 K34 ["Background"]
-      121 GETTABLEKS                       R24 R24 K43 ["Transparency"]
-      123 SETTABLEKS                       R24 R23 K28 ["BackgroundTransparency"]
-      125 LOADN                            R24 1
-      126 SETTABLEKS                       R24 R23 K44 ["ZIndex"]
+       81 DUPTABLE                         R20 K38 [{"Background", "Contents"}]
+       82 GETUPVAL                         R21 0
+       83 GETTABLEKS                       R21 R21 K20 ["createElement"]
+       85 LOADK                            R22 K39 ["ImageButton"]
+       86 NEWTABLE                         R23 16 0
+       88 GETIMPORT                        R24 K35 [UDim2.new]
+       90 LOADN                            R25 1
+       91 LOADN                            R26 0
+       92 LOADN                            R27 1
+       93 LOADN                            R28 0
+       94 CALL                             R24 4 1
+       95 SETTABLEKS                       R24 R23 K27 ["Size"]
+       97 LOADB                            R24 0
+       98 SETTABLEKS                       R24 R23 K40 ["AutoButtonColor"]
+      100 LOADN                            R24 0
+      101 SETTABLEKS                       R24 R23 K30 ["BorderSizePixel"]
+      103 GETIMPORT                        R24 K42 [Color3.new]
+      105 LOADN                            R25 0
+      106 LOADN                            R26 0
+      107 LOADN                            R27 0
+      108 CALL                             R24 3 1
+      109 SETTABLEKS                       R24 R23 K43 ["BackgroundColor3"]
+      111 GETTABLEKS                       R24 R5 K44 ["Overlay"]
+      113 GETTABLEKS                       R24 R24 K36 ["Background"]
+      115 GETTABLEKS                       R24 R24 K45 ["Transparency"]
+      117 SETTABLEKS                       R24 R23 K28 ["BackgroundTransparency"]
+      119 LOADN                            R24 1
+      120 SETTABLEKS                       R24 R23 K46 ["ZIndex"]
+      122 GETUPVAL                         R24 0
+      123 GETTABLEKS                       R24 R24 K47 ["Event"]
+      125 GETTABLEKS                       R24 R24 K48 ["Activated"]
+      127 SETTABLE                         R12 R23 R24
       128 GETUPVAL                         R24 0
-      129 GETTABLEKS                       R24 R24 K45 ["Event"]
-      131 GETTABLEKS                       R24 R24 K46 ["Activated"]
-      133 SETTABLE                         R12 R23 R24
+      129 GETTABLEKS                       R24 R24 K49 ["Ref"]
+      131 GETTABLEKS                       R25 R0 K50 ["ClickDetectorRef"]
+      133 SETTABLE                         R25 R23 R24
       134 GETUPVAL                         R24 0
-      135 GETTABLEKS                       R24 R24 K47 ["Ref"]
-      137 GETTABLEKS                       R25 R0 K48 ["ClickDetectorRef"]
-      139 SETTABLE                         R25 R23 R24
-      140 GETUPVAL                         R24 0
-      141 GETTABLEKS                       R24 R24 K49 ["Change"]
-      143 GETTABLEKS                       R24 R24 K50 ["AbsoluteSize"]
-      145 GETTABLEKS                       R25 R0 K51 ["onDetectorABSSizeChange"]
-      147 SETTABLE                         R25 R23 R24
-      148 CALL                             R21 2 1
-      149 SETTABLEKS                       R21 R20 K34 ["Background"]
-      151 GETUPVAL                         R21 0
-      152 GETTABLEKS                       R21 R21 K20 ["createElement"]
-      154 GETUPVAL                         R22 1
-      155 DUPTABLE                         R23 K61 [{"Position", "AnchorPoint", "Size", "AssetData", "AssetInstance", "OnClickContext", "ActionText", "OnClickAction", "Favorites", "HideCreatorSearch", "ZIndex"}]
-      156 GETIMPORT                        R24 K33 [UDim2.new]
-      158 LOADK                            R25 K62 [0.5]
-      159 LOADN                            R26 0
-      160 LOADK                            R27 K62 [0.5]
-      161 LOADN                            R28 0
-      162 CALL                             R24 4 1
-      163 SETTABLEKS                       R24 R23 K52 ["Position"]
-      165 GETIMPORT                        R24 K64 [Vector2.new]
-      167 LOADK                            R25 K62 [0.5]
-      168 LOADK                            R26 K62 [0.5]
-      169 CALL                             R24 2 1
-      170 SETTABLEKS                       R24 R23 K53 ["AnchorPoint"]
-      172 GETIMPORT                        R24 K66 [UDim2.fromOffset]
-      174 MOVE                             R25 R10
-      175 MOVE                             R26 R11
-      176 CALL                             R24 2 1
-      177 SETTABLEKS                       R24 R23 K27 ["Size"]
-      179 SETTABLEKS                       R6 R23 K54 ["AssetData"]
-      181 SETTABLEKS                       R7 R23 K55 ["AssetInstance"]
-      183 GETTABLEKS                       R24 R0 K67 ["tryCreateContextMenu"]
-      185 SETTABLEKS                       R24 R23 K56 ["OnClickContext"]
-      187 LOADK                            R26 K24 ["AssetPreview"]
-      188 LOADK                            R27 K68 ["Insert"]
-      189 NAMECALL                         R24 R4 K69 ["getText"]
-      191 CALL                             R24 3 1
-      192 SETTABLEKS                       R24 R23 K57 ["ActionText"]
-      194 GETTABLEKS                       R24 R0 K70 ["tryInsert"]
-      196 SETTABLEKS                       R24 R23 K58 ["OnClickAction"]
-      198 DUPTABLE                         R24 K74 [{"OnClick", "Count", "IsFavorited"}]
-      199 GETTABLEKS                       R25 R0 K75 ["onFavoritedActivated"]
-      201 SETTABLEKS                       R25 R24 K71 ["OnClick"]
-      203 SETTABLEKS                       R8 R24 K72 ["Count"]
-      205 SETTABLEKS                       R9 R24 K73 ["IsFavorited"]
-      207 SETTABLEKS                       R24 R23 K59 ["Favorites"]
-      209 LOADB                            R24 1
-      210 SETTABLEKS                       R24 R23 K60 ["HideCreatorSearch"]
-      212 LOADN                            R24 2
-      213 SETTABLEKS                       R24 R23 K44 ["ZIndex"]
-      215 CALL                             R21 2 1
-      216 SETTABLEKS                       R21 R20 K35 ["Contents"]
-      218 CALL                             R17 3 1
-      219 SETTABLEKS                       R17 R16 K24 ["AssetPreview"]
-      221 CALL                             R13 3 -1
-      222 RETURN                           R13 -1
+      135 GETTABLEKS                       R24 R24 K51 ["Change"]
+      137 GETTABLEKS                       R24 R24 K52 ["AbsoluteSize"]
+      139 GETTABLEKS                       R25 R0 K53 ["onDetectorABSSizeChange"]
+      141 SETTABLE                         R25 R23 R24
+      142 CALL                             R21 2 1
+      143 SETTABLEKS                       R21 R20 K36 ["Background"]
+      145 GETUPVAL                         R21 0
+      146 GETTABLEKS                       R21 R21 K20 ["createElement"]
+      148 GETUPVAL                         R22 1
+      149 DUPTABLE                         R23 K65 [{["Position"], ["AnchorPoint"], ["Size"], ["AssetData"], ["AssetInstance"], ["OnClickContext"], ["ActionText"], ["OnClickAction"], ["Favorites"], ["HideCreatorSearch"] = True, ["ZIndex"] = 2}]
+      150 GETIMPORT                        R24 K35 [UDim2.new]
+      152 LOADK                            R25 K66 [0.5]
+      153 LOADN                            R26 0
+      154 LOADK                            R27 K66 [0.5]
+      155 LOADN                            R28 0
+      156 CALL                             R24 4 1
+      157 SETTABLEKS                       R24 R23 K54 ["Position"]
+      159 GETIMPORT                        R24 K68 [Vector2.new]
+      161 LOADK                            R25 K66 [0.5]
+      162 LOADK                            R26 K66 [0.5]
+      163 CALL                             R24 2 1
+      164 SETTABLEKS                       R24 R23 K55 ["AnchorPoint"]
+      166 GETIMPORT                        R24 K70 [UDim2.fromOffset]
+      168 MOVE                             R25 R10
+      169 MOVE                             R26 R11
+      170 CALL                             R24 2 1
+      171 SETTABLEKS                       R24 R23 K27 ["Size"]
+      173 SETTABLEKS                       R6 R23 K56 ["AssetData"]
+      175 SETTABLEKS                       R7 R23 K57 ["AssetInstance"]
+      177 GETTABLEKS                       R24 R0 K71 ["tryCreateContextMenu"]
+      179 SETTABLEKS                       R24 R23 K58 ["OnClickContext"]
+      181 LOADK                            R26 K24 ["AssetPreview"]
+      182 LOADK                            R27 K72 ["Insert"]
+      183 NAMECALL                         R24 R4 K73 ["getText"]
+      185 CALL                             R24 3 1
+      186 SETTABLEKS                       R24 R23 K59 ["ActionText"]
+      188 GETTABLEKS                       R24 R0 K74 ["tryInsert"]
+      190 SETTABLEKS                       R24 R23 K60 ["OnClickAction"]
+      192 DUPTABLE                         R24 K78 [{"OnClick", "Count", "IsFavorited"}]
+      193 GETTABLEKS                       R25 R0 K79 ["onFavoritedActivated"]
+      195 SETTABLEKS                       R25 R24 K75 ["OnClick"]
+      197 SETTABLEKS                       R8 R24 K76 ["Count"]
+      199 SETTABLEKS                       R9 R24 K77 ["IsFavorited"]
+      201 SETTABLEKS                       R24 R23 K61 ["Favorites"]
+      203 CALL                             R21 2 1
+      204 SETTABLEKS                       R21 R20 K37 ["Contents"]
+      206 CALL                             R17 3 1
+      207 SETTABLEKS                       R17 R16 K24 ["AssetPreview"]
+      209 CALL                             R13 3 -1
+      210 RETURN                           R13 -1
 
 PROTO_10:
         0 RETURN                           R0 0

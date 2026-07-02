@@ -72,7 +72,7 @@ PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createSignal"]
         3 GETIMPORT                        R1 K3 [Vector2.new]
-        5 LOADN                            R2 94
+        5 LOADN                            R2 350
         6 LOADN                            R3 102
         7 CALL                             R1 2 -1
         8 CALL                             R0 -1 -1

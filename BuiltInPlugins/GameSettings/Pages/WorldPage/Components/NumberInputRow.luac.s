@@ -135,65 +135,53 @@ PROTO_3:
        27 GETUPVAL                         R12 0
        28 GETTABLEKS                       R12 R12 K8 ["createElement"]
        30 GETUPVAL                         R13 2
-       31 DUPTABLE                         R14 K16 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-       32 GETIMPORT                        R15 K19 [Enum.AutomaticSize.XY]
+       31 DUPTABLE                         R14 K18 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Style"] = "Normal", ["Text"]}]
+       32 GETIMPORT                        R15 K21 [Enum.AutomaticSize.XY]
        34 SETTABLEKS                       R15 R14 K13 ["AutomaticSize"]
-       36 LOADN                            R15 1
-       37 SETTABLEKS                       R15 R14 K1 ["LayoutOrder"]
-       39 LOADK                            R15 K20 ["Normal"]
-       40 SETTABLEKS                       R15 R14 K14 ["Style"]
-       42 SETTABLEKS                       R4 R14 K15 ["Text"]
-       44 CALL                             R12 2 1
-       45 SETTABLEKS                       R12 R11 K3 ["Label"]
-       47 GETUPVAL                         R12 0
-       48 GETTABLEKS                       R12 R12 K8 ["createElement"]
-       50 GETUPVAL                         R13 3
-       51 DUPTABLE                         R14 K26 [{"OnFocusLost", "OnTextChanged", "OnValidateText", "LayoutOrder", "Position", "Width", "Text"}]
-       52 GETTABLEKS                       R15 R0 K27 ["onFocusLost"]
-       54 SETTABLEKS                       R15 R14 K21 ["OnFocusLost"]
-       56 GETTABLEKS                       R15 R0 K28 ["onTextChanged"]
-       58 SETTABLEKS                       R15 R14 K22 ["OnTextChanged"]
-       60 GETTABLEKS                       R15 R0 K29 ["onValidateText"]
-       62 SETTABLEKS                       R15 R14 K23 ["OnValidateText"]
-       64 LOADN                            R15 2
-       65 SETTABLEKS                       R15 R14 K1 ["LayoutOrder"]
-       67 GETIMPORT                        R15 K32 [UDim2.new]
-       69 LOADN                            R16 0
-       70 LOADN                            R17 160
-       71 LOADN                            R18 0
-       72 LOADN                            R19 0
-       73 CALL                             R15 4 1
-       74 SETTABLEKS                       R15 R14 K24 ["Position"]
-       76 LOADN                            R15 150
-       77 SETTABLEKS                       R15 R14 K25 ["Width"]
-       79 GETUPVAL                         R15 4
-       80 MOVE                             R16 R5
-       81 CALL                             R15 1 1
-       82 SETTABLEKS                       R15 R14 K15 ["Text"]
-       84 CALL                             R12 2 1
-       85 SETTABLEKS                       R12 R11 K10 ["InputBox"]
-       87 MOVE                             R12 R6
-       88 JUMPIFNOT                        R12 ; [+24]
-       89 GETUPVAL                         R12 0
-       90 GETTABLEKS                       R12 R12 K8 ["createElement"]
-       92 GETUPVAL                         R13 2
-       93 DUPTABLE                         R14 K16 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-       94 GETIMPORT                        R15 K19 [Enum.AutomaticSize.XY]
-       96 SETTABLEKS                       R15 R14 K13 ["AutomaticSize"]
-       98 LOADN                            R15 3
-       99 SETTABLEKS                       R15 R14 K1 ["LayoutOrder"]
-      101 LOADK                            R15 K33 ["SubText"]
-      102 SETTABLEKS                       R15 R14 K14 ["Style"]
-      104 MOVE                             R15 R6
-      105 GETTABLEKS                       R16 R7 K34 ["convertStudsToMeters"]
-      107 MOVE                             R17 R5
-      108 CALL                             R16 1 -1
-      109 CALL                             R15 -1 1
-      110 SETTABLEKS                       R15 R14 K15 ["Text"]
-      112 CALL                             R12 2 1
-      113 SETTABLEKS                       R12 R11 K11 ["MetricLabel"]
-      115 CALL                             R8 3 -1
-      116 RETURN                           R8 -1
+       36 SETTABLEKS                       R4 R14 K17 ["Text"]
+       38 CALL                             R12 2 1
+       39 SETTABLEKS                       R12 R11 K3 ["Label"]
+       41 GETUPVAL                         R12 0
+       42 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       44 GETUPVAL                         R13 3
+       45 DUPTABLE                         R14 K29 [{["OnFocusLost"], ["OnTextChanged"], ["OnValidateText"], ["LayoutOrder"] = 2, ["Position"], ["Width"] = 150, ["Text"]}]
+       46 GETTABLEKS                       R15 R0 K30 ["onFocusLost"]
+       48 SETTABLEKS                       R15 R14 K22 ["OnFocusLost"]
+       50 GETTABLEKS                       R15 R0 K31 ["onTextChanged"]
+       52 SETTABLEKS                       R15 R14 K23 ["OnTextChanged"]
+       54 GETTABLEKS                       R15 R0 K32 ["onValidateText"]
+       56 SETTABLEKS                       R15 R14 K24 ["OnValidateText"]
+       58 GETIMPORT                        R15 K35 [UDim2.new]
+       60 LOADN                            R16 0
+       61 LOADN                            R17 160
+       62 LOADN                            R18 0
+       63 LOADN                            R19 0
+       64 CALL                             R15 4 1
+       65 SETTABLEKS                       R15 R14 K26 ["Position"]
+       67 GETUPVAL                         R15 4
+       68 MOVE                             R16 R5
+       69 CALL                             R15 1 1
+       70 SETTABLEKS                       R15 R14 K17 ["Text"]
+       72 CALL                             R12 2 1
+       73 SETTABLEKS                       R12 R11 K10 ["InputBox"]
+       75 MOVE                             R12 R6
+       76 JUMPIFNOT                        R12 ; [+18]
+       77 GETUPVAL                         R12 0
+       78 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       80 GETUPVAL                         R13 2
+       81 DUPTABLE                         R14 K38 [{["AutomaticSize"], ["LayoutOrder"] = 3, ["Style"] = "SubText", ["Text"]}]
+       82 GETIMPORT                        R15 K21 [Enum.AutomaticSize.XY]
+       84 SETTABLEKS                       R15 R14 K13 ["AutomaticSize"]
+       86 MOVE                             R15 R6
+       87 GETTABLEKS                       R16 R7 K39 ["convertStudsToMeters"]
+       89 MOVE                             R17 R5
+       90 CALL                             R16 1 -1
+       91 CALL                             R15 -1 1
+       92 SETTABLEKS                       R15 R14 K17 ["Text"]
+       94 CALL                             R12 2 1
+       95 SETTABLEKS                       R12 R11 K11 ["MetricLabel"]
+       97 CALL                             R8 3 -1
+       98 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

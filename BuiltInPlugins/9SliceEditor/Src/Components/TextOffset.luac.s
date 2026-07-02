@@ -379,32 +379,30 @@ PROTO_6:
        99 GETUPVAL                         R14 5
       100 GETTABLEKS                       R14 R14 K10 ["createElement"]
       102 GETUPVAL                         R15 9
-      103 DUPTABLE                         R16 K43 [{"Enabled", "Size", "Position", "Style", "Text", "TextXAlignment", "OnFocusLost"}]
-      104 LOADB                            R17 1
-      105 SETTABLEKS                       R17 R16 K40 ["Enabled"]
-      107 GETTABLEKS                       R17 R6 K44 ["TextBoxSize"]
-      109 SETTABLEKS                       R17 R16 K11 ["Size"]
-      111 GETIMPORT                        R17 K28 [UDim2.fromOffset]
-      113 GETTABLEKS                       R19 R6 K31 ["LabelXWidth"]
-      115 GETTABLEKS                       R20 R6 K45 ["LabelTextBoxSpacing"]
-      117 ADD                              R18 R19 R20
-      118 LOADN                            R19 0
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K20 ["Position"]
-      122 GETTABLEKS                       R17 R6 K41 ["Style"]
-      124 SETTABLEKS                       R17 R16 K41 ["Style"]
-      126 LOADK                            R17 K46 ["%d"]
-      127 MOVE                             R19 R9
-      128 NAMECALL                         R17 R17 K47 ["format"]
-      130 CALL                             R17 2 1
-      131 SETTABLEKS                       R17 R16 K21 ["Text"]
-      133 GETIMPORT                        R17 K49 [Enum.TextXAlignment.Left]
-      135 SETTABLEKS                       R17 R16 K23 ["TextXAlignment"]
-      137 SETTABLEKS                       R7 R16 K42 ["OnFocusLost"]
-      139 CALL                             R14 2 1
-      140 SETTABLEKS                       R14 R13 K18 ["TextInput"]
-      142 CALL                             R10 3 -1
-      143 RETURN                           R10 -1
+      103 DUPTABLE                         R16 K44 [{["Enabled"] = True, ["Size"], ["Position"], ["Style"], ["Text"], ["TextXAlignment"], ["OnFocusLost"]}]
+      104 GETTABLEKS                       R17 R6 K45 ["TextBoxSize"]
+      106 SETTABLEKS                       R17 R16 K11 ["Size"]
+      108 GETIMPORT                        R17 K28 [UDim2.fromOffset]
+      110 GETTABLEKS                       R19 R6 K31 ["LabelXWidth"]
+      112 GETTABLEKS                       R20 R6 K46 ["LabelTextBoxSpacing"]
+      114 ADD                              R18 R19 R20
+      115 LOADN                            R19 0
+      116 CALL                             R17 2 1
+      117 SETTABLEKS                       R17 R16 K20 ["Position"]
+      119 GETTABLEKS                       R17 R6 K42 ["Style"]
+      121 SETTABLEKS                       R17 R16 K42 ["Style"]
+      123 LOADK                            R17 K47 ["%d"]
+      124 MOVE                             R19 R9
+      125 NAMECALL                         R17 R17 K48 ["format"]
+      127 CALL                             R17 2 1
+      128 SETTABLEKS                       R17 R16 K21 ["Text"]
+      130 GETIMPORT                        R17 K50 [Enum.TextXAlignment.Left]
+      132 SETTABLEKS                       R17 R16 K23 ["TextXAlignment"]
+      134 SETTABLEKS                       R7 R16 K43 ["OnFocusLost"]
+      136 CALL                             R14 2 1
+      137 SETTABLEKS                       R14 R13 K18 ["TextInput"]
+      139 CALL                             R10 3 -1
+      140 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

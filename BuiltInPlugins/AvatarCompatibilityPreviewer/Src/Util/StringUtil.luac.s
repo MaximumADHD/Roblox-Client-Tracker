@@ -41,7 +41,7 @@ PROTO_1:
 PROTO_2:
         0 LENGTH                           R6 R1
         1 MINUS                            R5 R6
-        2 LOADN                            R6 255
+        2 LOADN                            R6 -1
         3 FASTCALL3                        STRING_SUB R0 R5 R6
         5 MOVE                             R4 R0
         6 GETIMPORT                        R3 K2 [string.sub]

@@ -142,26 +142,24 @@ MAIN:
        79 GETTABLEKS                       R9 R2 K21 ["RobloxAPI"]
        81 GETTABLEKS                       R9 R9 K22 ["Url"]
        83 GETTABLEKS                       R10 R6 K23 ["new"]
-       85 DUPTABLE                         R11 K26 [{"isInternal", "loggingLevel"}]
-       86 LOADB                            R12 1
-       87 SETTABLEKS                       R12 R11 K24 ["isInternal"]
-       89 SETTABLEKS                       R1 R11 K25 ["loggingLevel"]
-       91 CALL                             R10 1 1
-       92 GETIMPORT                        R11 K5 [require]
-       94 GETTABLEKS                       R12 R0 K9 ["Packages"]
-       96 GETTABLEKS                       R12 R12 K27 ["Dash"]
-       98 CALL                             R11 1 1
-       99 GETTABLEKS                       R12 R11 K28 ["collectArray"]
-      101 MOVE                             R13 R7
-      102 GETTABLEKS                       R14 R4 K29 ["validate"]
-      104 CALL                             R13 1 1
-      105 GETTABLEKS                       R14 R9 K23 ["new"]
-      107 CALL                             R14 0 1
-      108 DUPCLOSURE                       R15 K30 [PROTO_4]
-      109 CAPTURE                          VAL R14
-      110 CAPTURE                          VAL R5
-      111 CAPTURE                          VAL R10
-      112 CAPTURE                          VAL R13
-      113 CAPTURE                          VAL R12
-      114 CAPTURE                          VAL R8
-      115 RETURN                           R15 1
+       85 DUPTABLE                         R11 K27 [{["isInternal"] = True, ["loggingLevel"]}]
+       86 SETTABLEKS                       R1 R11 K26 ["loggingLevel"]
+       88 CALL                             R10 1 1
+       89 GETIMPORT                        R11 K5 [require]
+       91 GETTABLEKS                       R12 R0 K9 ["Packages"]
+       93 GETTABLEKS                       R12 R12 K28 ["Dash"]
+       95 CALL                             R11 1 1
+       96 GETTABLEKS                       R12 R11 K29 ["collectArray"]
+       98 MOVE                             R13 R7
+       99 GETTABLEKS                       R14 R4 K30 ["validate"]
+      101 CALL                             R13 1 1
+      102 GETTABLEKS                       R14 R9 K23 ["new"]
+      104 CALL                             R14 0 1
+      105 DUPCLOSURE                       R15 K31 [PROTO_4]
+      106 CAPTURE                          VAL R14
+      107 CAPTURE                          VAL R5
+      108 CAPTURE                          VAL R10
+      109 CAPTURE                          VAL R13
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R8
+      112 RETURN                           R15 1

@@ -5,24 +5,18 @@ MAIN:
         5 GETTABLEKS                       R1 R1 K4 ["Parent"]
         7 GETTABLEKS                       R1 R1 K5 ["TelemetryProtocol"]
         9 CALL                             R0 1 1
-       10 DUPTABLE                         R1 K12 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-       11 LOADK                            R2 K13 ["StudioTutorialCompleteStep"]
-       12 SETTABLEKS                       R2 R1 K6 ["eventName"]
-       14 NEWTABLE                         R2 0 1
-       16 GETTABLEKS                       R3 R0 K14 ["TelemetryBackends"]
-       18 GETTABLEKS                       R3 R3 K15 ["EventIngest"]
-       20 SETLIST                          R2 R3 1 [1]
-       22 SETTABLEKS                       R2 R1 K7 ["backends"]
-       24 GETTABLEKS                       R2 R0 K16 ["ONE_HUNDRED_PERCENT"]
-       26 SETTABLEKS                       R2 R1 K8 ["throttlingPercentage"]
-       28 NEWTABLE                         R2 0 3
-       30 LOADN                            R3 23
-       31 LOADN                            R4 6
-       32 LOADN                            R5 22
-       33 SETLIST                          R2 R3 3 [1]
-       35 SETTABLEKS                       R2 R1 K9 ["lastUpdated"]
-       37 LOADK                            R2 K17 ["Complete a step in a Studio Tutorial."]
-       38 SETTABLEKS                       R2 R1 K10 ["description"]
-       40 LOADK                            R2 K18 ["https://roblox.atlassian.net/wiki/spaces/developer/pages/2076443597/Onboarding+API+Discussion"]
-       41 SETTABLEKS                       R2 R1 K11 ["links"]
-       43 RETURN                           R1 1
+       10 DUPTABLE                         R1 K15 [{["eventName"] = "StudioTutorialCompleteStep", ["backends"], ["throttlingPercentage"], ["lastUpdated"], ["description"] = "Complete a step in a Studio Tutorial.", ["links"] = "https://roblox.atlassian.net/wiki/spaces/developer/pages/2076443597/Onboarding+API+Discussion"}]
+       11 NEWTABLE                         R2 0 1
+       13 GETTABLEKS                       R3 R0 K16 ["TelemetryBackends"]
+       15 GETTABLEKS                       R3 R3 K17 ["EventIngest"]
+       17 SETLIST                          R2 R3 1 [1]
+       19 SETTABLEKS                       R2 R1 K8 ["backends"]
+       21 GETTABLEKS                       R2 R0 K18 ["ONE_HUNDRED_PERCENT"]
+       23 SETTABLEKS                       R2 R1 K9 ["throttlingPercentage"]
+       25 NEWTABLE                         R2 0 3
+       27 LOADN                            R3 23
+       28 LOADN                            R4 6
+       29 LOADN                            R5 22
+       30 SETLIST                          R2 R3 3 [1]
+       32 SETTABLEKS                       R2 R1 K10 ["lastUpdated"]
+       34 RETURN                           R1 1

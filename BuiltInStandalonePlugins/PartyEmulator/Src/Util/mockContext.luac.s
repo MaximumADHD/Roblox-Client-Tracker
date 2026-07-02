@@ -17,24 +17,20 @@ PROTO_0:
        20 GETUPVAL                         R4 2
        21 GETTABLEKS                       R4 R4 K9 ["createElement"]
        23 GETUPVAL                         R5 3
-       24 DUPTABLE                         R6 K12 [{"theme", "device"}]
-       25 LOADK                            R7 K13 ["Dark"]
-       26 SETTABLEKS                       R7 R6 K10 ["theme"]
-       28 LOADK                            R7 K14 ["Desktop"]
-       29 SETTABLEKS                       R7 R6 K11 ["device"]
-       31 DUPTABLE                         R7 K16 [{"PartyContextProvider"}]
-       32 GETUPVAL                         R8 2
-       33 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       35 GETUPVAL                         R9 4
-       36 GETTABLEKS                       R9 R9 K17 ["provider"]
-       38 NEWTABLE                         R10 0 0
-       40 MOVE                             R11 R0
-       41 CALL                             R8 3 1
-       42 SETTABLEKS                       R8 R7 K15 ["PartyContextProvider"]
-       44 CALL                             R4 3 1
-       45 SETTABLEKS                       R4 R3 K7 ["FoundationProvider"]
-       47 CALL                             R1 2 -1
-       48 RETURN                           R1 -1
+       24 DUPTABLE                         R6 K14 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       25 DUPTABLE                         R7 K16 [{"PartyContextProvider"}]
+       26 GETUPVAL                         R8 2
+       27 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       29 GETUPVAL                         R9 4
+       30 GETTABLEKS                       R9 R9 K17 ["provider"]
+       32 NEWTABLE                         R10 0 0
+       34 MOVE                             R11 R0
+       35 CALL                             R8 3 1
+       36 SETTABLEKS                       R8 R7 K15 ["PartyContextProvider"]
+       38 CALL                             R4 3 1
+       39 SETTABLEKS                       R4 R3 K7 ["FoundationProvider"]
+       41 CALL                             R1 2 -1
+       42 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -76,23 +72,21 @@ MAIN:
        65 CALL                             R11 0 1
        66 GETTABLEKS                       R12 R4 K17 ["Localization"]
        68 GETTABLEKS                       R12 R12 K21 ["mock"]
-       70 DUPTABLE                         R13 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       70 DUPTABLE                         R13 K25 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PartyEmulator"}]
        71 SETTABLEKS                       R8 R13 K22 ["stringResourceTable"]
        73 SETTABLEKS                       R9 R13 K23 ["translationResourceTable"]
-       75 LOADK                            R14 K2 ["PartyEmulator"]
-       76 SETTABLEKS                       R14 R13 K24 ["pluginName"]
-       78 CALL                             R12 1 1
-       79 GETTABLEKS                       R13 R4 K26 ["Design"]
-       81 GETTABLEKS                       R13 R13 K21 ["mock"]
-       83 GETIMPORT                        R14 K29 [Instance.new]
-       85 LOADK                            R15 K30 ["StyleSheet"]
-       86 CALL                             R14 1 -1
-       87 CALL                             R13 -1 -1
-       88 SETLIST                          R10 R11 -1 [1]
-       90 DUPCLOSURE                       R11 K31 [PROTO_0]
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R1
-       94 CAPTURE                          VAL R6
-       95 CAPTURE                          VAL R7
-       96 RETURN                           R11 1
+       75 CALL                             R12 1 1
+       76 GETTABLEKS                       R13 R4 K26 ["Design"]
+       78 GETTABLEKS                       R13 R13 K21 ["mock"]
+       80 GETIMPORT                        R14 K29 [Instance.new]
+       82 LOADK                            R15 K30 ["StyleSheet"]
+       83 CALL                             R14 1 -1
+       84 CALL                             R13 -1 -1
+       85 SETLIST                          R10 R11 -1 [1]
+       87 DUPCLOSURE                       R11 K31 [PROTO_0]
+       88 CAPTURE                          VAL R3
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R6
+       92 CAPTURE                          VAL R7
+       93 RETURN                           R11 1

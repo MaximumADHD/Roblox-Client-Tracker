@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -149,8 +147,8 @@ PROTO_9:
        56 GETIMPORT                        R11 K25 [Enum.InitialDockState.Right]
        58 SETTABLEKS                       R11 R10 K23 ["InitialDockState"]
        60 GETIMPORT                        R11 K27 [Vector2.new]
-       62 LOADN                            R12 128
-       63 LOADN                            R13 224
+       62 LOADN                            R12 640
+       63 LOADN                            R13 480
        64 CALL                             R11 2 1
        65 SETTABLEKS                       R11 R10 K28 ["Size"]
        67 GETIMPORT                        R11 K27 [Vector2.new]

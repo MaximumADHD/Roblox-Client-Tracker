@@ -1,8 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = True}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -12,10 +10,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = False}]
+        1 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -25,10 +21,8 @@ PROTO_3:
         5 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = True}]
+        1 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -174,134 +168,130 @@ PROTO_16:
        23 SETLIST                          R7 R8 3 [1]
        25 NAMECALL                         R5 R2 K7 ["GetAsync"]
        27 CALL                             R5 2 1
-       28 DUPTABLE                         R6 K9 [{"callstackWindow", "breakpointsWindow", "watchWindow", "uiDmLoaded"}]
-       29 DUPTABLE                         R7 K11 [{"Enabled"}]
+       28 DUPTABLE                         R6 K10 [{["callstackWindow"], ["breakpointsWindow"], ["watchWindow"], ["uiDmLoaded"] = False}]
+       29 DUPTABLE                         R7 K12 [{"Enabled"}]
        30 GETTABLEN                        R8 R5 1
-       31 GETTABLEKS                       R8 R8 K12 ["Checked"]
-       33 SETTABLEKS                       R8 R7 K10 ["Enabled"]
+       31 GETTABLEKS                       R8 R8 K13 ["Checked"]
+       33 SETTABLEKS                       R8 R7 K11 ["Enabled"]
        35 SETTABLEKS                       R7 R6 K3 ["callstackWindow"]
-       37 DUPTABLE                         R7 K11 [{"Enabled"}]
+       37 DUPTABLE                         R7 K12 [{"Enabled"}]
        38 GETTABLEN                        R8 R5 2
-       39 GETTABLEKS                       R8 R8 K12 ["Checked"]
-       41 SETTABLEKS                       R8 R7 K10 ["Enabled"]
+       39 GETTABLEKS                       R8 R8 K13 ["Checked"]
+       41 SETTABLEKS                       R8 R7 K11 ["Enabled"]
        43 SETTABLEKS                       R7 R6 K4 ["breakpointsWindow"]
-       45 DUPTABLE                         R7 K11 [{"Enabled"}]
+       45 DUPTABLE                         R7 K12 [{"Enabled"}]
        46 GETTABLEN                        R8 R5 3
-       47 GETTABLEKS                       R8 R8 K12 ["Checked"]
-       49 SETTABLEKS                       R8 R7 K10 ["Enabled"]
+       47 GETTABLEKS                       R8 R8 K13 ["Checked"]
+       49 SETTABLEKS                       R8 R7 K11 ["Enabled"]
        51 SETTABLEKS                       R7 R6 K5 ["watchWindow"]
-       53 LOADB                            R7 0
-       54 SETTABLEKS                       R7 R6 K8 ["uiDmLoaded"]
-       56 SETTABLEKS                       R6 R0 K13 ["state"]
-       58 GETTABLEKS                       R6 R3 K14 ["MultipleDocumentInterfaceInstance"]
-       60 GETTABLEKS                       R7 R6 K15 ["DataModelSessionStarted"]
-       62 NEWCLOSURE                       R9 P0
-       63 CAPTURE                          VAL R0
-       64 NAMECALL                         R7 R7 K16 ["Connect"]
-       66 CALL                             R7 2 0
-       67 GETTABLEKS                       R7 R6 K17 ["DataModelSessionEnded"]
-       69 NEWCLOSURE                       R9 P1
-       70 CAPTURE                          VAL R0
-       71 NAMECALL                         R7 R7 K16 ["Connect"]
-       73 CALL                             R7 2 0
-       74 GETTABLEKS                       R7 R6 K18 ["FocusedDataModelSession"]
-       76 JUMPIFNOT                        R7 ; [+4]
-       77 DUPCLOSURE                       R9 K19 [PROTO_4]
-       78 NAMECALL                         R7 R0 K20 ["setState"]
-       80 CALL                             R7 2 0
-       81 NEWCLOSURE                       R7 P3
-       82 CAPTURE                          VAL R2
-       83 CAPTURE                          VAL R4
-       84 SETTABLEKS                       R7 R0 K21 ["toggleWidgetEnabled"]
-       86 NEWCLOSURE                       R7 P4
-       87 CAPTURE                          VAL R0
-       88 SETTABLEKS                       R7 R0 K22 ["onToggleEnabled"]
-       90 NEWTABLE                         R7 0 3
-       92 GETUPVAL                         R10 0
-       93 NAMECALL                         R8 R2 K23 ["BindToChangedAsync"]
-       95 CALL                             R8 2 1
-       96 NEWCLOSURE                       R10 P5
-       97 CAPTURE                          VAL R0
-       98 NAMECALL                         R8 R8 K16 ["Connect"]
-      100 CALL                             R8 2 1
-      101 GETUPVAL                         R11 1
-      102 NAMECALL                         R9 R2 K23 ["BindToChangedAsync"]
-      104 CALL                             R9 2 1
-      105 NEWCLOSURE                       R11 P6
-      106 CAPTURE                          VAL R0
-      107 NAMECALL                         R9 R9 K16 ["Connect"]
-      109 CALL                             R9 2 1
-      110 GETUPVAL                         R12 2
-      111 NAMECALL                         R10 R2 K23 ["BindToChangedAsync"]
-      113 CALL                             R10 2 1
-      114 NEWCLOSURE                       R12 P7
-      115 CAPTURE                          VAL R0
-      116 NAMECALL                         R10 R10 K16 ["Connect"]
-      118 CALL                             R10 2 -1
-      119 SETLIST                          R7 R8 -1 [1]
-      121 SETTABLEKS                       R7 R0 K24 ["onActionActivatedConnections"]
-      123 NEWCLOSURE                       R7 P8
-      124 CAPTURE                          VAL R0
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R4
-      127 SETTABLEKS                       R7 R0 K25 ["onWidgetClose"]
-      129 NEWCLOSURE                       R7 P9
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R4
-      132 SETTABLEKS                       R7 R0 K26 ["setWidgetEnabledState"]
-      134 GETUPVAL                         R7 3
-      135 GETTABLEKS                       R7 R7 K27 ["Store"]
-      137 GETTABLEKS                       R7 R7 K28 ["new"]
-      139 GETUPVAL                         R8 4
-      140 LOADNIL                          R9
-      141 GETUPVAL                         R10 5
-      142 CALL                             R7 3 1
-      143 SETTABLEKS                       R7 R0 K29 ["store"]
-      145 GETUPVAL                         R7 6
-      146 GETTABLEKS                       R7 R7 K28 ["new"]
-      148 GETTABLEKS                       R8 R0 K29 ["store"]
-      150 CALL                             R7 1 1
-      151 SETTABLEKS                       R7 R0 K30 ["debugConnectionListener"]
-      153 GETUPVAL                         R7 7
-      154 GETTABLEKS                       R7 R7 K28 ["new"]
-      156 GETTABLEKS                       R8 R0 K29 ["store"]
-      158 CALL                             R7 1 1
-      159 SETTABLEKS                       R7 R0 K31 ["metaBreakpointManagerListener"]
-      161 GETUPVAL                         R7 8
-      162 GETTABLEKS                       R7 R7 K28 ["new"]
-      164 GETTABLEKS                       R8 R0 K29 ["store"]
-      166 CALL                             R7 1 1
-      167 SETTABLEKS                       R7 R0 K32 ["scriptChangeServiceListener"]
-      169 GETUPVAL                         R7 9
-      170 GETTABLEKS                       R7 R7 K28 ["new"]
-      172 GETTABLEKS                       R8 R0 K29 ["store"]
-      174 CALL                             R7 1 1
-      175 SETTABLEKS                       R7 R0 K33 ["debuggerUIServiceListener"]
-      177 GETUPVAL                         R7 10
-      178 GETTABLEKS                       R7 R7 K34 ["Localization"]
-      180 GETTABLEKS                       R7 R7 K28 ["new"]
-      182 DUPTABLE                         R8 K38 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-      183 GETUPVAL                         R9 11
-      184 SETTABLEKS                       R9 R8 K35 ["stringResourceTable"]
-      186 GETUPVAL                         R9 12
-      187 SETTABLEKS                       R9 R8 K36 ["translationResourceTable"]
-      189 LOADK                            R9 K39 ["Debugger"]
-      190 SETTABLEKS                       R9 R8 K37 ["pluginName"]
-      192 CALL                             R7 1 1
-      193 SETTABLEKS                       R7 R0 K40 ["localization"]
-      195 GETUPVAL                         R7 13
-      196 SETTABLEKS                       R7 R0 K41 ["analytics"]
-      198 GETUPVAL                         R7 10
-      199 GETTABLEKS                       R7 R7 K42 ["PluginActions"]
-      201 GETTABLEKS                       R7 R7 K28 ["new"]
-      203 GETTABLEKS                       R8 R1 K0 ["Plugin"]
-      205 GETUPVAL                         R9 14
-      206 GETTABLEKS                       R9 R9 K43 ["getActionsWithShortcuts"]
-      208 GETTABLEKS                       R10 R0 K40 ["localization"]
-      210 CALL                             R9 1 -1
-      211 CALL                             R7 -1 1
-      212 SETTABLEKS                       R7 R0 K44 ["pluginActions"]
-      214 RETURN                           R0 0
+       53 SETTABLEKS                       R6 R0 K14 ["state"]
+       55 GETTABLEKS                       R6 R3 K15 ["MultipleDocumentInterfaceInstance"]
+       57 GETTABLEKS                       R7 R6 K16 ["DataModelSessionStarted"]
+       59 NEWCLOSURE                       R9 P0
+       60 CAPTURE                          VAL R0
+       61 NAMECALL                         R7 R7 K17 ["Connect"]
+       63 CALL                             R7 2 0
+       64 GETTABLEKS                       R7 R6 K18 ["DataModelSessionEnded"]
+       66 NEWCLOSURE                       R9 P1
+       67 CAPTURE                          VAL R0
+       68 NAMECALL                         R7 R7 K17 ["Connect"]
+       70 CALL                             R7 2 0
+       71 GETTABLEKS                       R7 R6 K19 ["FocusedDataModelSession"]
+       73 JUMPIFNOT                        R7 ; [+4]
+       74 DUPCLOSURE                       R9 K20 [PROTO_4]
+       75 NAMECALL                         R7 R0 K21 ["setState"]
+       77 CALL                             R7 2 0
+       78 NEWCLOSURE                       R7 P3
+       79 CAPTURE                          VAL R2
+       80 CAPTURE                          VAL R4
+       81 SETTABLEKS                       R7 R0 K22 ["toggleWidgetEnabled"]
+       83 NEWCLOSURE                       R7 P4
+       84 CAPTURE                          VAL R0
+       85 SETTABLEKS                       R7 R0 K23 ["onToggleEnabled"]
+       87 NEWTABLE                         R7 0 3
+       89 GETUPVAL                         R10 0
+       90 NAMECALL                         R8 R2 K24 ["BindToChangedAsync"]
+       92 CALL                             R8 2 1
+       93 NEWCLOSURE                       R10 P5
+       94 CAPTURE                          VAL R0
+       95 NAMECALL                         R8 R8 K17 ["Connect"]
+       97 CALL                             R8 2 1
+       98 GETUPVAL                         R11 1
+       99 NAMECALL                         R9 R2 K24 ["BindToChangedAsync"]
+      101 CALL                             R9 2 1
+      102 NEWCLOSURE                       R11 P6
+      103 CAPTURE                          VAL R0
+      104 NAMECALL                         R9 R9 K17 ["Connect"]
+      106 CALL                             R9 2 1
+      107 GETUPVAL                         R12 2
+      108 NAMECALL                         R10 R2 K24 ["BindToChangedAsync"]
+      110 CALL                             R10 2 1
+      111 NEWCLOSURE                       R12 P7
+      112 CAPTURE                          VAL R0
+      113 NAMECALL                         R10 R10 K17 ["Connect"]
+      115 CALL                             R10 2 -1
+      116 SETLIST                          R7 R8 -1 [1]
+      118 SETTABLEKS                       R7 R0 K25 ["onActionActivatedConnections"]
+      120 NEWCLOSURE                       R7 P8
+      121 CAPTURE                          VAL R0
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R4
+      124 SETTABLEKS                       R7 R0 K26 ["onWidgetClose"]
+      126 NEWCLOSURE                       R7 P9
+      127 CAPTURE                          VAL R2
+      128 CAPTURE                          VAL R4
+      129 SETTABLEKS                       R7 R0 K27 ["setWidgetEnabledState"]
+      131 GETUPVAL                         R7 3
+      132 GETTABLEKS                       R7 R7 K28 ["Store"]
+      134 GETTABLEKS                       R7 R7 K29 ["new"]
+      136 GETUPVAL                         R8 4
+      137 LOADNIL                          R9
+      138 GETUPVAL                         R10 5
+      139 CALL                             R7 3 1
+      140 SETTABLEKS                       R7 R0 K30 ["store"]
+      142 GETUPVAL                         R7 6
+      143 GETTABLEKS                       R7 R7 K29 ["new"]
+      145 GETTABLEKS                       R8 R0 K30 ["store"]
+      147 CALL                             R7 1 1
+      148 SETTABLEKS                       R7 R0 K31 ["debugConnectionListener"]
+      150 GETUPVAL                         R7 7
+      151 GETTABLEKS                       R7 R7 K29 ["new"]
+      153 GETTABLEKS                       R8 R0 K30 ["store"]
+      155 CALL                             R7 1 1
+      156 SETTABLEKS                       R7 R0 K32 ["metaBreakpointManagerListener"]
+      158 GETUPVAL                         R7 8
+      159 GETTABLEKS                       R7 R7 K29 ["new"]
+      161 GETTABLEKS                       R8 R0 K30 ["store"]
+      163 CALL                             R7 1 1
+      164 SETTABLEKS                       R7 R0 K33 ["scriptChangeServiceListener"]
+      166 GETUPVAL                         R7 9
+      167 GETTABLEKS                       R7 R7 K29 ["new"]
+      169 GETTABLEKS                       R8 R0 K30 ["store"]
+      171 CALL                             R7 1 1
+      172 SETTABLEKS                       R7 R0 K34 ["debuggerUIServiceListener"]
+      174 GETUPVAL                         R7 10
+      175 GETTABLEKS                       R7 R7 K35 ["Localization"]
+      177 GETTABLEKS                       R7 R7 K29 ["new"]
+      179 DUPTABLE                         R8 K40 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Debugger"}]
+      180 GETUPVAL                         R9 11
+      181 SETTABLEKS                       R9 R8 K36 ["stringResourceTable"]
+      183 GETUPVAL                         R9 12
+      184 SETTABLEKS                       R9 R8 K37 ["translationResourceTable"]
+      186 CALL                             R7 1 1
+      187 SETTABLEKS                       R7 R0 K41 ["localization"]
+      189 GETUPVAL                         R7 13
+      190 SETTABLEKS                       R7 R0 K42 ["analytics"]
+      192 GETUPVAL                         R7 10
+      193 GETTABLEKS                       R7 R7 K43 ["PluginActions"]
+      195 GETTABLEKS                       R7 R7 K29 ["new"]
+      197 GETTABLEKS                       R8 R1 K0 ["Plugin"]
+      199 GETUPVAL                         R9 14
+      200 GETTABLEKS                       R9 R9 K44 ["getActionsWithShortcuts"]
+      202 GETTABLEKS                       R10 R0 K41 ["localization"]
+      204 CALL                             R9 1 -1
+      205 CALL                             R7 -1 1
+      206 SETTABLEKS                       R7 R0 K45 ["pluginActions"]
+      208 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R0 0
@@ -336,61 +326,37 @@ PROTO_20:
        15 GETUPVAL                         R7 0
        16 GETTABLEKS                       R7 R7 K9 ["createElement"]
        18 GETUPVAL                         R8 1
-       19 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-       20 LOADK                            R10 K18 ["callStackDockWidgetActionV2"]
-       21 SETTABLEKS                       R10 R9 K10 ["Name"]
-       23 SETTABLEKS                       R1 R9 K11 ["Toolbar"]
-       25 SETTABLEKS                       R3 R9 K12 ["Active"]
-       27 LOADK                            R10 K19 ["Callstack"]
-       28 SETTABLEKS                       R10 R9 K13 ["Title"]
-       30 LOADK                            R10 K20 [""]
-       31 SETTABLEKS                       R10 R9 K14 ["Tooltip"]
-       33 NEWCLOSURE                       R10 P0
-       34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-       37 LOADB                            R10 1
-       38 SETTABLEKS                       R10 R9 K16 ["ClickableWhenViewportHidden"]
-       40 CALL                             R7 2 1
-       41 SETTABLEKS                       R7 R6 K5 ["ToggleCallstack"]
-       43 GETUPVAL                         R7 0
-       44 GETTABLEKS                       R7 R7 K9 ["createElement"]
-       46 GETUPVAL                         R8 1
-       47 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-       48 LOADK                            R10 K21 ["breakpointsDockWidgetActionV2"]
-       49 SETTABLEKS                       R10 R9 K10 ["Name"]
-       51 SETTABLEKS                       R1 R9 K11 ["Toolbar"]
-       53 SETTABLEKS                       R5 R9 K12 ["Active"]
-       55 LOADK                            R10 K22 ["Breakpoints"]
-       56 SETTABLEKS                       R10 R9 K13 ["Title"]
-       58 LOADK                            R10 K20 [""]
-       59 SETTABLEKS                       R10 R9 K14 ["Tooltip"]
-       61 NEWCLOSURE                       R10 P1
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-       65 LOADB                            R10 1
-       66 SETTABLEKS                       R10 R9 K16 ["ClickableWhenViewportHidden"]
-       68 CALL                             R7 2 1
-       69 SETTABLEKS                       R7 R6 K6 ["ToggleBreakpointsWindow"]
-       71 GETUPVAL                         R7 0
-       72 GETTABLEKS                       R7 R7 K9 ["createElement"]
-       74 GETUPVAL                         R8 1
-       75 DUPTABLE                         R9 K17 [{"Name", "Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-       76 LOADK                            R10 K23 ["watchDockWidgetActionV2"]
-       77 SETTABLEKS                       R10 R9 K10 ["Name"]
-       79 SETTABLEKS                       R1 R9 K11 ["Toolbar"]
-       81 SETTABLEKS                       R4 R9 K12 ["Active"]
-       83 LOADK                            R10 K24 ["Watch"]
-       84 SETTABLEKS                       R10 R9 K13 ["Title"]
-       86 LOADK                            R10 K20 [""]
-       87 SETTABLEKS                       R10 R9 K14 ["Tooltip"]
-       89 NEWCLOSURE                       R10 P2
-       90 CAPTURE                          VAL R0
-       91 SETTABLEKS                       R10 R9 K15 ["OnClick"]
-       93 LOADB                            R10 1
-       94 SETTABLEKS                       R10 R9 K16 ["ClickableWhenViewportHidden"]
-       96 CALL                             R7 2 1
-       97 SETTABLEKS                       R7 R6 K7 ["ToggleWatchWindow"]
-       99 RETURN                           R6 1
+       19 DUPTABLE                         R9 K21 [{["Name"] = "callStackDockWidgetActionV2", ["Toolbar"], ["Active"], ["Title"] = "Callstack", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       20 SETTABLEKS                       R1 R9 K12 ["Toolbar"]
+       22 SETTABLEKS                       R3 R9 K13 ["Active"]
+       24 NEWCLOSURE                       R10 P0
+       25 CAPTURE                          VAL R0
+       26 SETTABLEKS                       R10 R9 K18 ["OnClick"]
+       28 CALL                             R7 2 1
+       29 SETTABLEKS                       R7 R6 K5 ["ToggleCallstack"]
+       31 GETUPVAL                         R7 0
+       32 GETTABLEKS                       R7 R7 K9 ["createElement"]
+       34 GETUPVAL                         R8 1
+       35 DUPTABLE                         R9 K24 [{["Name"] = "breakpointsDockWidgetActionV2", ["Toolbar"], ["Active"], ["Title"] = "Breakpoints", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       36 SETTABLEKS                       R1 R9 K12 ["Toolbar"]
+       38 SETTABLEKS                       R5 R9 K13 ["Active"]
+       40 NEWCLOSURE                       R10 P1
+       41 CAPTURE                          VAL R0
+       42 SETTABLEKS                       R10 R9 K18 ["OnClick"]
+       44 CALL                             R7 2 1
+       45 SETTABLEKS                       R7 R6 K6 ["ToggleBreakpointsWindow"]
+       47 GETUPVAL                         R7 0
+       48 GETTABLEKS                       R7 R7 K9 ["createElement"]
+       50 GETUPVAL                         R8 1
+       51 DUPTABLE                         R9 K27 [{["Name"] = "watchDockWidgetActionV2", ["Toolbar"], ["Active"], ["Title"] = "Watch", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       52 SETTABLEKS                       R1 R9 K12 ["Toolbar"]
+       54 SETTABLEKS                       R4 R9 K13 ["Active"]
+       56 NEWCLOSURE                       R10 P2
+       57 CAPTURE                          VAL R0
+       58 SETTABLEKS                       R10 R9 K18 ["OnClick"]
+       60 CALL                             R7 2 1
+       61 SETTABLEKS                       R7 R6 K7 ["ToggleWatchWindow"]
+       63 RETURN                           R6 1
 
 PROTO_21:
         0 GETUPVAL                         R0 0
@@ -706,73 +672,43 @@ MAIN:
       164 LOADK                            R30 K43 ["MainPlugin"]
       165 NAMECALL                         R28 R28 K44 ["extend"]
       167 CALL                             R28 2 1
-      168 DUPTABLE                         R29 K50 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-      169 LOADK                            R30 K51 ["Standalone"]
-      170 SETTABLEKS                       R30 R29 K45 ["DataModel"]
-      172 LOADK                            R30 K52 ["Unknown"]
-      173 SETTABLEKS                       R30 R29 K46 ["PluginType"]
-      175 LOADK                            R30 K53 ["CallStack"]
-      176 SETTABLEKS                       R30 R29 K47 ["PluginId"]
-      178 LOADK                            R30 K54 ["Actions"]
-      179 SETTABLEKS                       R30 R29 K48 ["Category"]
-      181 LOADK                            R30 K55 ["Toggle"]
-      182 SETTABLEKS                       R30 R29 K49 ["ItemId"]
-      184 DUPTABLE                         R30 K50 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-      185 LOADK                            R31 K51 ["Standalone"]
-      186 SETTABLEKS                       R31 R30 K45 ["DataModel"]
-      188 LOADK                            R31 K52 ["Unknown"]
-      189 SETTABLEKS                       R31 R30 K46 ["PluginType"]
-      191 LOADK                            R31 K29 ["Breakpoints"]
-      192 SETTABLEKS                       R31 R30 K47 ["PluginId"]
-      194 LOADK                            R31 K54 ["Actions"]
-      195 SETTABLEKS                       R31 R30 K48 ["Category"]
-      197 LOADK                            R31 K55 ["Toggle"]
-      198 SETTABLEKS                       R31 R30 K49 ["ItemId"]
-      200 DUPTABLE                         R31 K50 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-      201 LOADK                            R32 K51 ["Standalone"]
-      202 SETTABLEKS                       R32 R31 K45 ["DataModel"]
-      204 LOADK                            R32 K52 ["Unknown"]
-      205 SETTABLEKS                       R32 R31 K46 ["PluginType"]
-      207 LOADK                            R32 K27 ["Watch"]
-      208 SETTABLEKS                       R32 R31 K47 ["PluginId"]
-      210 LOADK                            R32 K54 ["Actions"]
-      211 SETTABLEKS                       R32 R31 K48 ["Category"]
-      213 LOADK                            R32 K55 ["Toggle"]
-      214 SETTABLEKS                       R32 R31 K49 ["ItemId"]
-      216 DUPCLOSURE                       R32 K56 [PROTO_16]
-      217 CAPTURE                          VAL R29
-      218 CAPTURE                          VAL R30
-      219 CAPTURE                          VAL R31
-      220 CAPTURE                          VAL R3
-      221 CAPTURE                          VAL R11
-      222 CAPTURE                          VAL R22
-      223 CAPTURE                          VAL R23
-      224 CAPTURE                          VAL R24
-      225 CAPTURE                          VAL R25
-      226 CAPTURE                          VAL R26
-      227 CAPTURE                          VAL R7
-      228 CAPTURE                          VAL R14
-      229 CAPTURE                          VAL R15
-      230 CAPTURE                          VAL R13
-      231 CAPTURE                          VAL R27
-      232 SETTABLEKS                       R32 R28 K57 ["init"]
-      234 DUPCLOSURE                       R32 K58 [PROTO_20]
-      235 CAPTURE                          VAL R2
-      236 CAPTURE                          VAL R6
-      237 SETTABLEKS                       R32 R28 K59 ["renderButtons"]
-      239 DUPCLOSURE                       R32 K60 [PROTO_30]
-      240 CAPTURE                          VAL R7
-      241 CAPTURE                          VAL R8
-      242 CAPTURE                          VAL R10
-      243 CAPTURE                          VAL R9
-      244 CAPTURE                          VAL R12
-      245 CAPTURE                          VAL R2
-      246 CAPTURE                          VAL R21
-      247 CAPTURE                          VAL R17
-      248 CAPTURE                          VAL R19
-      249 CAPTURE                          VAL R18
-      250 CAPTURE                          VAL R20
-      251 SETTABLEKS                       R32 R28 K61 ["render"]
-      253 DUPCLOSURE                       R32 K62 [PROTO_31]
-      254 SETTABLEKS                       R32 R28 K63 ["willUnmount"]
-      256 RETURN                           R28 1
+      168 DUPTABLE                         R29 K55 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "CallStack", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      169 DUPTABLE                         R30 K56 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Breakpoints", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      170 DUPTABLE                         R31 K57 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Watch", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      171 DUPCLOSURE                       R32 K58 [PROTO_16]
+      172 CAPTURE                          VAL R29
+      173 CAPTURE                          VAL R30
+      174 CAPTURE                          VAL R31
+      175 CAPTURE                          VAL R3
+      176 CAPTURE                          VAL R11
+      177 CAPTURE                          VAL R22
+      178 CAPTURE                          VAL R23
+      179 CAPTURE                          VAL R24
+      180 CAPTURE                          VAL R25
+      181 CAPTURE                          VAL R26
+      182 CAPTURE                          VAL R7
+      183 CAPTURE                          VAL R14
+      184 CAPTURE                          VAL R15
+      185 CAPTURE                          VAL R13
+      186 CAPTURE                          VAL R27
+      187 SETTABLEKS                       R32 R28 K59 ["init"]
+      189 DUPCLOSURE                       R32 K60 [PROTO_20]
+      190 CAPTURE                          VAL R2
+      191 CAPTURE                          VAL R6
+      192 SETTABLEKS                       R32 R28 K61 ["renderButtons"]
+      194 DUPCLOSURE                       R32 K62 [PROTO_30]
+      195 CAPTURE                          VAL R7
+      196 CAPTURE                          VAL R8
+      197 CAPTURE                          VAL R10
+      198 CAPTURE                          VAL R9
+      199 CAPTURE                          VAL R12
+      200 CAPTURE                          VAL R2
+      201 CAPTURE                          VAL R21
+      202 CAPTURE                          VAL R17
+      203 CAPTURE                          VAL R19
+      204 CAPTURE                          VAL R18
+      205 CAPTURE                          VAL R20
+      206 SETTABLEKS                       R32 R28 K63 ["render"]
+      208 DUPCLOSURE                       R32 K64 [PROTO_31]
+      209 SETTABLEKS                       R32 R28 K65 ["willUnmount"]
+      211 RETURN                           R28 1

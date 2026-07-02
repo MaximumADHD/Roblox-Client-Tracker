@@ -1,24 +1,20 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K5 [{"sender", "context", "target", "userId", "logEvents"}]
+        0 DUPTABLE                         R2 K7 [{[1], ["context"] = "localizationPlugin", ["target"] = "studio", ["userId"], ["logEvents"]}]
         1 MOVE                             R3 R0
         2 JUMPIF                           R3 ; [+1]
         3 GETUPVAL                         R3 0
         4 SETTABLEKS                       R3 R2 K0 ["sender"]
-        6 LOADK                            R3 K6 ["localizationPlugin"]
-        7 SETTABLEKS                       R3 R2 K1 ["context"]
-        9 LOADK                            R3 K7 ["studio"]
-       10 SETTABLEKS                       R3 R2 K2 ["target"]
-       12 GETUPVAL                         R3 1
-       13 NAMECALL                         R3 R3 K8 ["GetUserId"]
-       15 CALL                             R3 1 1
-       16 SETTABLEKS                       R3 R2 K3 ["userId"]
-       18 SETTABLEKS                       R1 R2 K4 ["logEvents"]
-       20 GETUPVAL                         R5 2
-       21 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       23 MOVE                             R4 R2
-       24 GETIMPORT                        R3 K10 [setmetatable]
-       26 CALL                             R3 2 0
-       27 RETURN                           R2 1
+        6 GETUPVAL                         R3 1
+        7 NAMECALL                         R3 R3 K8 ["GetUserId"]
+        9 CALL                             R3 1 1
+       10 SETTABLEKS                       R3 R2 K5 ["userId"]
+       12 SETTABLEKS                       R1 R2 K6 ["logEvents"]
+       14 GETUPVAL                         R5 2
+       15 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       17 MOVE                             R4 R2
+       18 GETIMPORT                        R3 K10 [setmetatable]
+       20 CALL                             R3 2 0
+       21 RETURN                           R2 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["logEvents"]

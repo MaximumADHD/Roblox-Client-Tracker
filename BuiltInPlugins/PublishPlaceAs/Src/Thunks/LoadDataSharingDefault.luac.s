@@ -82,29 +82,27 @@ PROTO_3:
        15 NAMECALL                         R1 R0 K2 ["dispatch"]
        17 CALL                             R1 -1 0
        18 GETUPVAL                         R3 3
-       19 DUPTABLE                         R4 K5 [{"dataSharingDefault"}]
-       20 LOADK                            R5 K6 ["Loading"]
-       21 SETTABLEKS                       R5 R4 K0 ["dataSharingDefault"]
-       23 CALL                             R3 1 -1
-       24 NAMECALL                         R1 R0 K2 ["dispatch"]
-       26 CALL                             R1 -1 0
-       27 GETUPVAL                         R1 4
-       28 CALL                             R1 0 1
-       29 NEWCLOSURE                       R3 P0
-       30 CAPTURE                          UPVAL U5
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          UPVAL U0
-       33 CAPTURE                          UPVAL U1
-       34 CAPTURE                          UPVAL U6
-       35 NAMECALL                         R1 R1 K7 ["andThen"]
-       37 CALL                             R1 2 1
-       38 NEWCLOSURE                       R3 P1
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          UPVAL U0
-       41 CAPTURE                          UPVAL U1
-       42 NAMECALL                         R1 R1 K8 ["catch"]
-       44 CALL                             R1 2 0
-       45 RETURN                           R0 0
+       19 DUPTABLE                         R4 K6 [{[1] = "Loading"}]
+       20 CALL                             R3 1 -1
+       21 NAMECALL                         R1 R0 K2 ["dispatch"]
+       23 CALL                             R1 -1 0
+       24 GETUPVAL                         R1 4
+       25 CALL                             R1 0 1
+       26 NEWCLOSURE                       R3 P0
+       27 CAPTURE                          UPVAL U5
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U0
+       30 CAPTURE                          UPVAL U1
+       31 CAPTURE                          UPVAL U6
+       32 NAMECALL                         R1 R1 K7 ["andThen"]
+       34 CALL                             R1 2 1
+       35 NEWCLOSURE                       R3 P1
+       36 CAPTURE                          VAL R0
+       37 CAPTURE                          UPVAL U0
+       38 CAPTURE                          UPVAL U1
+       39 NAMECALL                         R1 R1 K8 ["catch"]
+       41 CALL                             R1 2 0
+       42 RETURN                           R0 0
 
 PROTO_4:
         0 DUPCLOSURE                       R0 K0 [PROTO_3]

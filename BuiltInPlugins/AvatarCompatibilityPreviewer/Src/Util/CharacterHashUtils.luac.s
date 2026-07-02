@@ -91,7 +91,7 @@ PROTO_4:
        33 SETTABLEKS                       R4 R3 K9 ["serializedInstanceCount"]
        35 GETTABLEKS                       R3 R1 K8 ["state"]
        37 GETTABLEKS                       R3 R3 K9 ["serializedInstanceCount"]
-       39 LOADN                            R4 136
+       39 LOADN                            R4 5000
        40 JUMPIFNOTLT                      R4 R3 ; [+3]
        42 LOADNIL                          R3
        43 RETURN                           R3 1
@@ -1629,18 +1629,14 @@ PROTO_18:
       114 DUPTABLE                         R12 K22 [{"options", "relativeScale", "state"}]
       115 SETTABLEKS                       R1 R12 K19 ["options"]
       117 SETTABLEKS                       R11 R12 K20 ["relativeScale"]
-      119 DUPTABLE                         R13 K29 [{"allowedInstancesToSerializeUnder", "boundingCFrame", "boundingSize", "lastInstanceId", "pendingInstances", "serializedInstanceCount"}]
+      119 DUPTABLE                         R13 K29 [{["allowedInstancesToSerializeUnder"], ["boundingCFrame"], ["boundingSize"], ["lastInstanceId"] = 0, ["pendingInstances"], ["serializedInstanceCount"] = 0}]
       120 SETTABLEKS                       R0 R13 K23 ["allowedInstancesToSerializeUnder"]
       122 SETTABLEKS                       R9 R13 K24 ["boundingCFrame"]
       124 SETTABLEKS                       R10 R13 K25 ["boundingSize"]
-      126 LOADN                            R14 0
-      127 SETTABLEKS                       R14 R13 K26 ["lastInstanceId"]
-      129 NEWTABLE                         R14 0 0
-      131 SETTABLEKS                       R14 R13 K27 ["pendingInstances"]
-      133 LOADN                            R14 0
-      134 SETTABLEKS                       R14 R13 K28 ["serializedInstanceCount"]
-      136 SETTABLEKS                       R13 R12 K21 ["state"]
-      138 RETURN                           R12 1
+      126 NEWTABLE                         R14 0 0
+      128 SETTABLEKS                       R14 R13 K27 ["pendingInstances"]
+      130 SETTABLEKS                       R13 R12 K21 ["state"]
+      132 RETURN                           R12 1
 
 PROTO_19:
         0 MOVE                             R3 R0

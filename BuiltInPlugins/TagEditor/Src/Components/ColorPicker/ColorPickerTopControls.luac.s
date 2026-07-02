@@ -60,92 +60,80 @@ PROTO_0:
        94 GETUPVAL                         R13 1
        95 GETTABLEKS                       R13 R13 K5 ["createElement"]
        97 GETUPVAL                         R14 4
-       98 DUPTABLE                         R15 K43 [{"Size", "Text", "OnClick", "LayoutOrder", "Style"}]
-       99 GETTABLEKS                       R16 R2 K44 ["CancelButtonSize"]
+       98 DUPTABLE                         R15 K45 [{["Size"], ["Text"], ["OnClick"], ["LayoutOrder"] = 1, ["Style"] = "Round"}]
+       99 GETTABLEKS                       R16 R2 K46 ["CancelButtonSize"]
       101 SETTABLEKS                       R16 R15 K8 ["Size"]
-      103 LOADK                            R18 K45 ["General"]
+      103 LOADK                            R18 K47 ["General"]
       104 LOADK                            R19 K38 ["Cancel"]
       105 NAMECALL                         R16 R3 K23 ["getText"]
       107 CALL                             R16 3 1
       108 SETTABLEKS                       R16 R15 K19 ["Text"]
-      110 GETTABLEKS                       R16 R1 K46 ["Close"]
+      110 GETTABLEKS                       R16 R1 K48 ["Close"]
       112 SETTABLEKS                       R16 R15 K41 ["OnClick"]
-      114 LOADN                            R16 1
-      115 SETTABLEKS                       R16 R15 K6 ["LayoutOrder"]
-      117 LOADK                            R16 K47 ["Round"]
-      118 SETTABLEKS                       R16 R15 K42 ["Style"]
-      120 CALL                             R13 2 1
-      121 SETTABLEKS                       R13 R12 K38 ["Cancel"]
-      123 GETUPVAL                         R13 1
-      124 GETTABLEKS                       R13 R13 K5 ["createElement"]
-      126 GETUPVAL                         R14 4
-      127 DUPTABLE                         R15 K48 [{"Size", "LayoutOrder", "Text", "Style", "OnClick"}]
-      128 GETTABLEKS                       R16 R2 K49 ["SubmitButtonSize"]
-      130 SETTABLEKS                       R16 R15 K8 ["Size"]
-      132 LOADN                            R16 2
-      133 SETTABLEKS                       R16 R15 K6 ["LayoutOrder"]
-      135 LOADK                            R18 K45 ["General"]
-      136 LOADK                            R19 K50 ["Apply"]
-      137 NAMECALL                         R16 R3 K23 ["getText"]
-      139 CALL                             R16 3 1
-      140 SETTABLEKS                       R16 R15 K19 ["Text"]
-      142 LOADK                            R16 K51 ["RoundPrimary"]
-      143 SETTABLEKS                       R16 R15 K42 ["Style"]
-      145 GETTABLEKS                       R16 R1 K52 ["Save"]
-      147 SETTABLEKS                       R16 R15 K41 ["OnClick"]
-      149 CALL                             R13 2 1
-      150 SETTABLEKS                       R13 R12 K39 ["Submit"]
-      152 CALL                             R9 3 1
-      153 SETTABLEKS                       R9 R8 K16 ["Buttons"]
-      155 GETUPVAL                         R9 1
-      156 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      158 GETUPVAL                         R10 2
-      159 DUPTABLE                         R11 K53 [{"LayoutOrder", "Size", "Layout", "Spacing", "Padding"}]
-      160 NAMECALL                         R12 R4 K27 ["getNextOrder"]
-      162 CALL                             R12 1 1
-      163 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-      165 GETTABLEKS                       R12 R2 K54 ["ColorPaneSize"]
-      167 SETTABLEKS                       R12 R11 K8 ["Size"]
-      169 GETIMPORT                        R12 K33 [Enum.FillDirection.Horizontal]
-      171 SETTABLEKS                       R12 R11 K7 ["Layout"]
-      173 GETTABLEKS                       R12 R2 K55 ["ColorPaneSpacing"]
-      175 SETTABLEKS                       R12 R11 K9 ["Spacing"]
-      177 GETTABLEKS                       R12 R2 K56 ["ColorPanePadding"]
-      179 SETTABLEKS                       R12 R11 K29 ["Padding"]
-      181 DUPTABLE                         R12 K58 [{"TitleText", "Preview"}]
-      182 GETUPVAL                         R13 1
-      183 GETTABLEKS                       R13 R13 K5 ["createElement"]
-      185 GETUPVAL                         R14 3
-      186 DUPTABLE                         R15 K60 [{"TextXAlignment", "Text", "Size", "LayoutOrder"}]
-      187 GETIMPORT                        R16 K62 [Enum.TextXAlignment.Right]
-      189 SETTABLEKS                       R16 R15 K59 ["TextXAlignment"]
-      191 LOADK                            R18 K21 ["Info"]
-      192 LOADK                            R19 K63 ["SelectedColor"]
-      193 NAMECALL                         R16 R3 K23 ["getText"]
-      195 CALL                             R16 3 1
-      196 SETTABLEKS                       R16 R15 K19 ["Text"]
-      198 GETTABLEKS                       R16 R2 K64 ["PreviewTitleSize"]
+      114 CALL                             R13 2 1
+      115 SETTABLEKS                       R13 R12 K38 ["Cancel"]
+      117 GETUPVAL                         R13 1
+      118 GETTABLEKS                       R13 R13 K5 ["createElement"]
+      120 GETUPVAL                         R14 4
+      121 DUPTABLE                         R15 K51 [{["Size"], ["LayoutOrder"] = 2, ["Text"], ["Style"] = "RoundPrimary", ["OnClick"]}]
+      122 GETTABLEKS                       R16 R2 K52 ["SubmitButtonSize"]
+      124 SETTABLEKS                       R16 R15 K8 ["Size"]
+      126 LOADK                            R18 K47 ["General"]
+      127 LOADK                            R19 K53 ["Apply"]
+      128 NAMECALL                         R16 R3 K23 ["getText"]
+      130 CALL                             R16 3 1
+      131 SETTABLEKS                       R16 R15 K19 ["Text"]
+      133 GETTABLEKS                       R16 R1 K54 ["Save"]
+      135 SETTABLEKS                       R16 R15 K41 ["OnClick"]
+      137 CALL                             R13 2 1
+      138 SETTABLEKS                       R13 R12 K39 ["Submit"]
+      140 CALL                             R9 3 1
+      141 SETTABLEKS                       R9 R8 K16 ["Buttons"]
+      143 GETUPVAL                         R9 1
+      144 GETTABLEKS                       R9 R9 K5 ["createElement"]
+      146 GETUPVAL                         R10 2
+      147 DUPTABLE                         R11 K55 [{"LayoutOrder", "Size", "Layout", "Spacing", "Padding"}]
+      148 NAMECALL                         R12 R4 K27 ["getNextOrder"]
+      150 CALL                             R12 1 1
+      151 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
+      153 GETTABLEKS                       R12 R2 K56 ["ColorPaneSize"]
+      155 SETTABLEKS                       R12 R11 K8 ["Size"]
+      157 GETIMPORT                        R12 K33 [Enum.FillDirection.Horizontal]
+      159 SETTABLEKS                       R12 R11 K7 ["Layout"]
+      161 GETTABLEKS                       R12 R2 K57 ["ColorPaneSpacing"]
+      163 SETTABLEKS                       R12 R11 K9 ["Spacing"]
+      165 GETTABLEKS                       R12 R2 K58 ["ColorPanePadding"]
+      167 SETTABLEKS                       R12 R11 K29 ["Padding"]
+      169 DUPTABLE                         R12 K60 [{"TitleText", "Preview"}]
+      170 GETUPVAL                         R13 1
+      171 GETTABLEKS                       R13 R13 K5 ["createElement"]
+      173 GETUPVAL                         R14 3
+      174 DUPTABLE                         R15 K62 [{["TextXAlignment"], ["Text"], ["Size"], ["LayoutOrder"] = 1}]
+      175 GETIMPORT                        R16 K64 [Enum.TextXAlignment.Right]
+      177 SETTABLEKS                       R16 R15 K61 ["TextXAlignment"]
+      179 LOADK                            R18 K21 ["Info"]
+      180 LOADK                            R19 K65 ["SelectedColor"]
+      181 NAMECALL                         R16 R3 K23 ["getText"]
+      183 CALL                             R16 3 1
+      184 SETTABLEKS                       R16 R15 K19 ["Text"]
+      186 GETTABLEKS                       R16 R2 K66 ["PreviewTitleSize"]
+      188 SETTABLEKS                       R16 R15 K8 ["Size"]
+      190 CALL                             R13 2 1
+      191 SETTABLEKS                       R13 R12 K15 ["TitleText"]
+      193 GETUPVAL                         R13 1
+      194 GETTABLEKS                       R13 R13 K5 ["createElement"]
+      196 GETUPVAL                         R14 2
+      197 DUPTABLE                         R15 K68 [{["LayoutOrder"] = 2, ["Size"], ["BackgroundColor"]}]
+      198 GETTABLEKS                       R16 R2 K69 ["ColorPreviewSize"]
       200 SETTABLEKS                       R16 R15 K8 ["Size"]
-      202 LOADN                            R16 1
-      203 SETTABLEKS                       R16 R15 K6 ["LayoutOrder"]
-      205 CALL                             R13 2 1
-      206 SETTABLEKS                       R13 R12 K15 ["TitleText"]
-      208 GETUPVAL                         R13 1
-      209 GETTABLEKS                       R13 R13 K5 ["createElement"]
-      211 GETUPVAL                         R14 2
-      212 DUPTABLE                         R15 K66 [{"LayoutOrder", "Size", "BackgroundColor"}]
-      213 LOADN                            R16 2
-      214 SETTABLEKS                       R16 R15 K6 ["LayoutOrder"]
-      216 GETTABLEKS                       R16 R2 K67 ["ColorPreviewSize"]
-      218 SETTABLEKS                       R16 R15 K8 ["Size"]
-      220 GETTABLEKS                       R16 R1 K68 ["Color"]
-      222 SETTABLEKS                       R16 R15 K65 ["BackgroundColor"]
-      224 CALL                             R13 2 1
-      225 SETTABLEKS                       R13 R12 K57 ["Preview"]
-      227 CALL                             R9 3 1
-      228 SETTABLEKS                       R9 R8 K17 ["ColorPane"]
-      230 CALL                             R5 3 -1
-      231 RETURN                           R5 -1
+      202 GETTABLEKS                       R16 R1 K70 ["Color"]
+      204 SETTABLEKS                       R16 R15 K67 ["BackgroundColor"]
+      206 CALL                             R13 2 1
+      207 SETTABLEKS                       R13 R12 K59 ["Preview"]
+      209 CALL                             R9 3 1
+      210 SETTABLEKS                       R9 R8 K17 ["ColorPane"]
+      212 CALL                             R5 3 -1
+      213 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

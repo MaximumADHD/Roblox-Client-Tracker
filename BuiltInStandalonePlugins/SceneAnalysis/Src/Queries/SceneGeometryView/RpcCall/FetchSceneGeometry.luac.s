@@ -29,7 +29,7 @@ PROTO_2:
         3 CAPTURE                          VAL R0
         4 CALL                             R1 1 2
         5 JUMPIFNOT                        R1 ; [+1]
-        6 JUMPIF                           R2 ; [+25]
+        6 JUMPIF                           R2 ; [+16]
         7 GETUPVAL                         R3 0
         8 GETTABLEKS                       R3 R3 K2 ["getFFlagSceneAnalysisBugfixesMay2026"]
        10 CALL                             R3 0 1
@@ -38,33 +38,27 @@ PROTO_2:
        14 LOADK                            R4 K5 ["[SceneAnalysis] GetRenderAttributionAsync failed:"]
        15 MOVE                             R5 R2
        16 CALL                             R3 2 0
-       17 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
-       18 LOADN                            R4 0
-       19 SETTABLEKS                       R4 R3 K6 ["Id"]
-       21 LOADK                            R4 K11 ["Root"]
-       22 SETTABLEKS                       R4 R3 K7 ["Name"]
-       24 LOADN                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["Size"]
-       27 NEWTABLE                         R4 0 0
-       29 SETTABLEKS                       R4 R3 K9 ["Children"]
-       31 RETURN                           R3 1
-       32 GETTABLEKS                       R3 R2 K12 ["DrawcallCount"]
-       34 JUMPIFNOT                        R3 ; [+7]
-       35 GETTABLEKS                       R3 R2 K13 ["InstanceCount"]
-       37 JUMPIF                           R3 ; [+4]
-       38 GETTABLEKS                       R3 R2 K12 ["DrawcallCount"]
-       40 SETTABLEKS                       R3 R2 K13 ["InstanceCount"]
-       42 GETTABLEKS                       R3 R2 K9 ["Children"]
-       44 JUMPIFNOT                        R3 ; [+10]
-       45 GETTABLEKS                       R3 R2 K9 ["Children"]
-       47 LOADNIL                          R4
-       48 LOADNIL                          R5
-       49 FORGPREP                         R3
-       50 GETUPVAL                         R8 1
-       51 MOVE                             R9 R7
-       52 CALL                             R8 1 0
-       53 FORGLOOP                         R3 2 ; [-4]
-       55 RETURN                           R2 1
+       17 DUPTABLE                         R3 K12 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       18 NEWTABLE                         R4 0 0
+       20 SETTABLEKS                       R4 R3 K11 ["Children"]
+       22 RETURN                           R3 1
+       23 GETTABLEKS                       R3 R2 K13 ["DrawcallCount"]
+       25 JUMPIFNOT                        R3 ; [+7]
+       26 GETTABLEKS                       R3 R2 K14 ["InstanceCount"]
+       28 JUMPIF                           R3 ; [+4]
+       29 GETTABLEKS                       R3 R2 K13 ["DrawcallCount"]
+       31 SETTABLEKS                       R3 R2 K14 ["InstanceCount"]
+       33 GETTABLEKS                       R3 R2 K11 ["Children"]
+       35 JUMPIFNOT                        R3 ; [+10]
+       36 GETTABLEKS                       R3 R2 K11 ["Children"]
+       38 LOADNIL                          R4
+       39 LOADNIL                          R5
+       40 FORGPREP                         R3
+       41 GETUPVAL                         R8 1
+       42 MOVE                             R9 R7
+       43 CALL                             R8 1 0
+       44 FORGLOOP                         R3 2 ; [-4]
+       46 RETURN                           R2 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [game]

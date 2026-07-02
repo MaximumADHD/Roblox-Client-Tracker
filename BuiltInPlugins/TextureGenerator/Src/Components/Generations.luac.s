@@ -145,45 +145,41 @@ PROTO_4:
        56 GETUPVAL                         R8 1
        57 GETTABLEKS                       R8 R8 K10 ["createElement"]
        59 GETUPVAL                         R9 7
-       60 DUPTABLE                         R10 K19 [{"AlwaysExpanded", "HorizontalAlignment", "Layout", "LayoutOrder", "Style", "OnExpandedChanged", "Text", "VerticalAlignment"}]
-       61 LOADB                            R11 1
-       62 SETTABLEKS                       R11 R10 K11 ["AlwaysExpanded"]
-       64 GETIMPORT                        R11 K22 [Enum.HorizontalAlignment.Center]
-       66 SETTABLEKS                       R11 R10 K12 ["HorizontalAlignment"]
-       68 GETIMPORT                        R11 K25 [Enum.FillDirection.Horizontal]
-       70 SETTABLEKS                       R11 R10 K13 ["Layout"]
-       72 GETTABLEKS                       R11 R0 K14 ["LayoutOrder"]
-       74 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-       76 LOADK                            R11 K26 ["Section"]
-       77 SETTABLEKS                       R11 R10 K15 ["Style"]
-       79 DUPCLOSURE                       R11 K27 [PROTO_3]
-       80 SETTABLEKS                       R11 R10 K16 ["OnExpandedChanged"]
-       82 SETTABLEKS                       R7 R10 K17 ["Text"]
-       84 GETIMPORT                        R11 K29 [Enum.VerticalAlignment.Top]
-       86 SETTABLEKS                       R11 R10 K18 ["VerticalAlignment"]
-       88 DUPTABLE                         R11 K31 [{"GenerationsPane"}]
-       89 GETUPVAL                         R12 1
-       90 GETTABLEKS                       R12 R12 K10 ["createElement"]
-       92 GETUPVAL                         R13 8
-       93 DUPTABLE                         R14 K34 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
-       94 GETIMPORT                        R15 K36 [Enum.AutomaticSize.Y]
-       96 SETTABLEKS                       R15 R14 K32 ["AutomaticSize"]
-       98 GETIMPORT                        R15 K22 [Enum.HorizontalAlignment.Center]
-      100 SETTABLEKS                       R15 R14 K12 ["HorizontalAlignment"]
-      102 GETIMPORT                        R15 K38 [Enum.FillDirection.Vertical]
-      104 SETTABLEKS                       R15 R14 K13 ["Layout"]
-      106 GETIMPORT                        R15 K41 [UDim.new]
-      108 LOADN                            R16 0
-      109 LOADN                            R17 4
-      110 CALL                             R15 2 1
-      111 SETTABLEKS                       R15 R14 K33 ["Spacing"]
-      113 GETIMPORT                        R15 K29 [Enum.VerticalAlignment.Top]
-      115 SETTABLEKS                       R15 R14 K18 ["VerticalAlignment"]
-      117 MOVE                             R15 R6
-      118 CALL                             R12 3 1
-      119 SETTABLEKS                       R12 R11 K30 ["GenerationsPane"]
-      121 CALL                             R8 3 -1
-      122 RETURN                           R8 -1
+       60 DUPTABLE                         R10 K21 [{["AlwaysExpanded"] = True, ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Style"] = "Section", ["OnExpandedChanged"], ["Text"], ["VerticalAlignment"]}]
+       61 GETIMPORT                        R11 K24 [Enum.HorizontalAlignment.Center]
+       63 SETTABLEKS                       R11 R10 K13 ["HorizontalAlignment"]
+       65 GETIMPORT                        R11 K27 [Enum.FillDirection.Horizontal]
+       67 SETTABLEKS                       R11 R10 K14 ["Layout"]
+       69 GETTABLEKS                       R11 R0 K15 ["LayoutOrder"]
+       71 SETTABLEKS                       R11 R10 K15 ["LayoutOrder"]
+       73 DUPCLOSURE                       R11 K28 [PROTO_3]
+       74 SETTABLEKS                       R11 R10 K18 ["OnExpandedChanged"]
+       76 SETTABLEKS                       R7 R10 K19 ["Text"]
+       78 GETIMPORT                        R11 K30 [Enum.VerticalAlignment.Top]
+       80 SETTABLEKS                       R11 R10 K20 ["VerticalAlignment"]
+       82 DUPTABLE                         R11 K32 [{"GenerationsPane"}]
+       83 GETUPVAL                         R12 1
+       84 GETTABLEKS                       R12 R12 K10 ["createElement"]
+       86 GETUPVAL                         R13 8
+       87 DUPTABLE                         R14 K35 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
+       88 GETIMPORT                        R15 K37 [Enum.AutomaticSize.Y]
+       90 SETTABLEKS                       R15 R14 K33 ["AutomaticSize"]
+       92 GETIMPORT                        R15 K24 [Enum.HorizontalAlignment.Center]
+       94 SETTABLEKS                       R15 R14 K13 ["HorizontalAlignment"]
+       96 GETIMPORT                        R15 K39 [Enum.FillDirection.Vertical]
+       98 SETTABLEKS                       R15 R14 K14 ["Layout"]
+      100 GETIMPORT                        R15 K42 [UDim.new]
+      102 LOADN                            R16 0
+      103 LOADN                            R17 4
+      104 CALL                             R15 2 1
+      105 SETTABLEKS                       R15 R14 K34 ["Spacing"]
+      107 GETIMPORT                        R15 K30 [Enum.VerticalAlignment.Top]
+      109 SETTABLEKS                       R15 R14 K20 ["VerticalAlignment"]
+      111 MOVE                             R15 R6
+      112 CALL                             R12 3 1
+      113 SETTABLEKS                       R12 R11 K31 ["GenerationsPane"]
+      115 CALL                             R8 3 -1
+      116 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

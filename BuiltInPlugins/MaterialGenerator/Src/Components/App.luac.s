@@ -39,80 +39,76 @@ PROTO_1:
        40 SETTABLEKS                       R0 R4 K9 ["Size"]
        42 DUPTABLE                         R5 K14 [{"Alert", "Content"}]
        43 GETUPVAL                         R7 5
-       44 JUMPIFNOT                        R7 ; [+28]
+       44 JUMPIFNOT                        R7 ; [+22]
        45 GETUPVAL                         R6 2
        46 GETTABLEKS                       R6 R6 K7 ["createElement"]
        48 GETUPVAL                         R7 6
-       49 DUPTABLE                         R8 K20 [{"Description", "OnClose", "Style", "Title", "ZIndex"}]
+       49 DUPTABLE                         R8 K22 [{["Description"], ["OnClose"], ["Style"] = "AppError", ["Title"], ["ZIndex"] = 2}]
        50 GETUPVAL                         R9 5
        51 SETTABLEKS                       R9 R8 K15 ["Description"]
        53 NEWCLOSURE                       R9 P0
        54 CAPTURE                          UPVAL U7
        55 SETTABLEKS                       R9 R8 K16 ["OnClose"]
-       57 LOADK                            R9 K21 ["AppError"]
-       58 SETTABLEKS                       R9 R8 K17 ["Style"]
-       60 GETUPVAL                         R9 8
-       61 LOADK                            R11 K22 ["App"]
-       62 LOADK                            R12 K23 ["ErrorAlertTitle"]
-       63 NAMECALL                         R9 R9 K24 ["getText"]
-       65 CALL                             R9 3 1
-       66 SETTABLEKS                       R9 R8 K18 ["Title"]
-       68 LOADN                            R9 2
-       69 SETTABLEKS                       R9 R8 K19 ["ZIndex"]
-       71 CALL                             R6 2 1
-       72 JUMP                             ; [+1]
-       73 LOADNIL                          R6
-       74 SETTABLEKS                       R6 R5 K12 ["Alert"]
-       76 GETUPVAL                         R6 2
-       77 GETTABLEKS                       R6 R6 K7 ["createElement"]
-       79 GETUPVAL                         R7 3
-       80 DUPTABLE                         R8 K28 [{"HorizontalAlignment", "Layout", "VerticalAlignment"}]
-       81 GETIMPORT                        R9 K31 [Enum.HorizontalAlignment.Left]
-       83 SETTABLEKS                       R9 R8 K25 ["HorizontalAlignment"]
-       85 GETIMPORT                        R9 K34 [Enum.FillDirection.Vertical]
-       87 SETTABLEKS                       R9 R8 K26 ["Layout"]
-       89 GETIMPORT                        R9 K36 [Enum.VerticalAlignment.Top]
-       91 SETTABLEKS                       R9 R8 K27 ["VerticalAlignment"]
-       93 DUPTABLE                         R9 K39 [{"Prompt", "Browser"}]
-       94 GETUPVAL                         R10 2
-       95 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       97 GETUPVAL                         R11 9
-       98 DUPTABLE                         R12 K41 [{"LayoutOrder", "Size", "isDisabled"}]
-       99 GETUPVAL                         R13 4
-      100 NAMECALL                         R13 R13 K11 ["getNextOrder"]
-      102 CALL                             R13 1 1
-      103 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
-      105 GETUPVAL                         R13 10
-      106 GETTABLEKS                       R13 R13 K42 ["PromptSize"]
-      108 SETTABLEKS                       R13 R12 K9 ["Size"]
-      110 GETUPVAL                         R14 5
-      111 JUMPIFNOTEQKNIL                  R14 ; [+2]
-      113 LOADB                            R13 0 +1
-      114 LOADB                            R13 1
-      115 SETTABLEKS                       R13 R12 K40 ["isDisabled"]
-      117 CALL                             R10 2 1
-      118 SETTABLEKS                       R10 R9 K37 ["Prompt"]
-      120 GETUPVAL                         R10 2
-      121 GETTABLEKS                       R10 R10 K7 ["createElement"]
-      123 GETUPVAL                         R11 11
-      124 DUPTABLE                         R12 K10 [{"LayoutOrder", "Size"}]
-      125 GETUPVAL                         R13 4
-      126 NAMECALL                         R13 R13 K11 ["getNextOrder"]
-      128 CALL                             R13 1 1
-      129 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
-      131 JUMPIFNOT                        R1 ; [+4]
-      132 GETUPVAL                         R13 10
-      133 GETTABLEKS                       R13 R13 K43 ["BrowserSize"]
-      135 JUMP                             ; [+3]
-      136 GETUPVAL                         R13 10
-      137 GETTABLEKS                       R13 R13 K44 ["BrowserHiddenSize"]
-      139 SETTABLEKS                       R13 R12 K9 ["Size"]
-      141 CALL                             R10 2 1
-      142 SETTABLEKS                       R10 R9 K38 ["Browser"]
-      144 CALL                             R6 3 1
-      145 SETTABLEKS                       R6 R5 K13 ["Content"]
-      147 CALL                             R2 3 -1
-      148 RETURN                           R2 -1
+       57 GETUPVAL                         R9 8
+       58 LOADK                            R11 K23 ["App"]
+       59 LOADK                            R12 K24 ["ErrorAlertTitle"]
+       60 NAMECALL                         R9 R9 K25 ["getText"]
+       62 CALL                             R9 3 1
+       63 SETTABLEKS                       R9 R8 K19 ["Title"]
+       65 CALL                             R6 2 1
+       66 JUMP                             ; [+1]
+       67 LOADNIL                          R6
+       68 SETTABLEKS                       R6 R5 K12 ["Alert"]
+       70 GETUPVAL                         R6 2
+       71 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       73 GETUPVAL                         R7 3
+       74 DUPTABLE                         R8 K29 [{"HorizontalAlignment", "Layout", "VerticalAlignment"}]
+       75 GETIMPORT                        R9 K32 [Enum.HorizontalAlignment.Left]
+       77 SETTABLEKS                       R9 R8 K26 ["HorizontalAlignment"]
+       79 GETIMPORT                        R9 K35 [Enum.FillDirection.Vertical]
+       81 SETTABLEKS                       R9 R8 K27 ["Layout"]
+       83 GETIMPORT                        R9 K37 [Enum.VerticalAlignment.Top]
+       85 SETTABLEKS                       R9 R8 K28 ["VerticalAlignment"]
+       87 DUPTABLE                         R9 K40 [{"Prompt", "Browser"}]
+       88 GETUPVAL                         R10 2
+       89 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       91 GETUPVAL                         R11 9
+       92 DUPTABLE                         R12 K42 [{"LayoutOrder", "Size", "isDisabled"}]
+       93 GETUPVAL                         R13 4
+       94 NAMECALL                         R13 R13 K11 ["getNextOrder"]
+       96 CALL                             R13 1 1
+       97 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
+       99 GETUPVAL                         R13 10
+      100 GETTABLEKS                       R13 R13 K43 ["PromptSize"]
+      102 SETTABLEKS                       R13 R12 K9 ["Size"]
+      104 GETUPVAL                         R14 5
+      105 JUMPIFNOTEQKNIL                  R14 ; [+2]
+      107 LOADB                            R13 0 +1
+      108 LOADB                            R13 1
+      109 SETTABLEKS                       R13 R12 K41 ["isDisabled"]
+      111 CALL                             R10 2 1
+      112 SETTABLEKS                       R10 R9 K38 ["Prompt"]
+      114 GETUPVAL                         R10 2
+      115 GETTABLEKS                       R10 R10 K7 ["createElement"]
+      117 GETUPVAL                         R11 11
+      118 DUPTABLE                         R12 K10 [{"LayoutOrder", "Size"}]
+      119 GETUPVAL                         R13 4
+      120 NAMECALL                         R13 R13 K11 ["getNextOrder"]
+      122 CALL                             R13 1 1
+      123 SETTABLEKS                       R13 R12 K8 ["LayoutOrder"]
+      125 JUMPIFNOT                        R1 ; [+4]
+      126 GETUPVAL                         R13 10
+      127 GETTABLEKS                       R13 R13 K44 ["BrowserSize"]
+      129 JUMP                             ; [+3]
+      130 GETUPVAL                         R13 10
+      131 GETTABLEKS                       R13 R13 K45 ["BrowserHiddenSize"]
+      133 SETTABLEKS                       R13 R12 K9 ["Size"]
+      135 CALL                             R10 2 1
+      136 SETTABLEKS                       R10 R9 K39 ["Browser"]
+      138 CALL                             R6 3 1
+      139 SETTABLEKS                       R6 R5 K13 ["Content"]
+      141 CALL                             R2 3 -1
+      142 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -181,45 +177,43 @@ PROTO_3:
        49 CAPTURE                          VAL R7
        50 GETUPVAL                         R12 13
        51 GETTABLEKS                       R12 R12 K6 ["join"]
-       53 DUPTABLE                         R13 K11 [{"HorizontalAlignment", "Layout", "Style", "VerticalAlignment"}]
-       54 GETIMPORT                        R14 K14 [Enum.HorizontalAlignment.Left]
+       53 DUPTABLE                         R13 K12 [{["HorizontalAlignment"], ["Layout"], ["Style"] = "Box", ["VerticalAlignment"]}]
+       54 GETIMPORT                        R14 K15 [Enum.HorizontalAlignment.Left]
        56 SETTABLEKS                       R14 R13 K7 ["HorizontalAlignment"]
        58 JUMPIFNOT                        R6 ; [+3]
-       59 GETTABLEKS                       R14 R6 K15 ["fillDirection"]
+       59 GETTABLEKS                       R14 R6 K16 ["fillDirection"]
        61 JUMP                             ; [+1]
        62 LOADNIL                          R14
        63 SETTABLEKS                       R14 R13 K8 ["Layout"]
-       65 LOADK                            R14 K16 ["Box"]
-       66 SETTABLEKS                       R14 R13 K9 ["Style"]
-       68 GETIMPORT                        R14 K18 [Enum.VerticalAlignment.Top]
-       70 SETTABLEKS                       R14 R13 K10 ["VerticalAlignment"]
-       72 MOVE                             R14 R5
-       73 CALL                             R12 2 1
-       74 GETUPVAL                         R13 0
-       75 GETTABLEKS                       R13 R13 K19 ["createElement"]
-       77 GETUPVAL                         R14 8
-       78 MOVE                             R15 R12
-       79 DUPTABLE                         R16 K22 [{"MainContent", "Editor"}]
-       80 MOVE                             R17 R10
-       81 CALL                             R17 0 1
-       82 SETTABLEKS                       R17 R16 K20 ["MainContent"]
-       84 JUMPIFNOT                        R2 ; [+17]
-       85 JUMPIFNOT                        R6 ; [+16]
-       86 GETUPVAL                         R17 0
-       87 GETTABLEKS                       R17 R17 K19 ["createElement"]
-       89 GETUPVAL                         R18 12
-       90 DUPTABLE                         R19 K25 [{"LayoutOrder", "Size"}]
-       91 NAMECALL                         R20 R7 K26 ["getNextOrder"]
-       93 CALL                             R20 1 1
-       94 SETTABLEKS                       R20 R19 K23 ["LayoutOrder"]
-       96 GETTABLEKS                       R20 R6 K27 ["editorSize"]
-       98 SETTABLEKS                       R20 R19 K24 ["Size"]
-      100 CALL                             R17 2 1
-      101 JUMP                             ; [+1]
-      102 LOADNIL                          R17
-      103 SETTABLEKS                       R17 R16 K21 ["Editor"]
-      105 CALL                             R13 3 -1
-      106 RETURN                           R13 -1
+       65 GETIMPORT                        R14 K18 [Enum.VerticalAlignment.Top]
+       67 SETTABLEKS                       R14 R13 K11 ["VerticalAlignment"]
+       69 MOVE                             R14 R5
+       70 CALL                             R12 2 1
+       71 GETUPVAL                         R13 0
+       72 GETTABLEKS                       R13 R13 K19 ["createElement"]
+       74 GETUPVAL                         R14 8
+       75 MOVE                             R15 R12
+       76 DUPTABLE                         R16 K22 [{"MainContent", "Editor"}]
+       77 MOVE                             R17 R10
+       78 CALL                             R17 0 1
+       79 SETTABLEKS                       R17 R16 K20 ["MainContent"]
+       81 JUMPIFNOT                        R2 ; [+17]
+       82 JUMPIFNOT                        R6 ; [+16]
+       83 GETUPVAL                         R17 0
+       84 GETTABLEKS                       R17 R17 K19 ["createElement"]
+       86 GETUPVAL                         R18 12
+       87 DUPTABLE                         R19 K25 [{"LayoutOrder", "Size"}]
+       88 NAMECALL                         R20 R7 K26 ["getNextOrder"]
+       90 CALL                             R20 1 1
+       91 SETTABLEKS                       R20 R19 K23 ["LayoutOrder"]
+       93 GETTABLEKS                       R20 R6 K27 ["editorSize"]
+       95 SETTABLEKS                       R20 R19 K24 ["Size"]
+       97 CALL                             R17 2 1
+       98 JUMP                             ; [+1]
+       99 LOADNIL                          R17
+      100 SETTABLEKS                       R17 R16 K21 ["Editor"]
+      102 CALL                             R13 3 -1
+      103 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

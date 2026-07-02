@@ -6,21 +6,19 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K2 [{"Gizmos", "FromSelf"}]
-        2 NAMECALL                         R3 R0 K3 ["gizmos"]
+        1 DUPTABLE                         R2 K3 [{[1], ["FromSelf"] = False}]
+        2 NAMECALL                         R3 R0 K4 ["gizmos"]
         4 CALL                             R3 1 1
         5 SETTABLEKS                       R3 R2 K0 ["Gizmos"]
-        7 LOADB                            R3 0
-        8 SETTABLEKS                       R3 R2 K1 ["FromSelf"]
-       10 SETTABLEKS                       R2 R1 K4 ["current"]
-       12 GETUPVAL                         R1 1
-       13 GETUPVAL                         R2 0
-       14 GETTABLEKS                       R2 R2 K4 ["current"]
+        7 SETTABLEKS                       R2 R1 K5 ["current"]
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R2 0
+       11 GETTABLEKS                       R2 R2 K5 ["current"]
+       13 CALL                             R1 1 0
+       14 GETUPVAL                         R1 2
+       15 LOADB                            R2 1
        16 CALL                             R1 1 0
-       17 GETUPVAL                         R1 2
-       18 LOADB                            R2 1
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
+       17 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -30,53 +28,47 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K2 [{"Gizmos", "FromSelf"}]
+        1 DUPTABLE                         R1 K3 [{[1], ["FromSelf"] = False}]
         2 GETUPVAL                         R2 1
-        3 NAMECALL                         R2 R2 K3 ["gizmos"]
+        3 NAMECALL                         R2 R2 K4 ["gizmos"]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
-        8 LOADB                            R2 0
-        9 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
-       11 CALL                             R0 1 0
-       12 RETURN                           R0 0
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K2 [{"Gizmos", "FromSelf"}]
+        1 DUPTABLE                         R1 K3 [{[1], ["FromSelf"] = False}]
         2 GETUPVAL                         R2 1
-        3 NAMECALL                         R2 R2 K3 ["gizmos"]
+        3 NAMECALL                         R2 R2 K4 ["gizmos"]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
-        8 LOADB                            R2 0
-        9 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
-       11 SETTABLEKS                       R1 R0 K4 ["current"]
-       13 GETUPVAL                         R0 2
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R1 R1 K4 ["current"]
+        8 SETTABLEKS                       R1 R0 K5 ["current"]
+       10 GETUPVAL                         R0 2
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K5 ["current"]
+       14 CALL                             R0 1 0
+       15 GETUPVAL                         R0 3
+       16 LOADB                            R1 1
        17 CALL                             R0 1 0
-       18 GETUPVAL                         R0 3
-       19 LOADB                            R1 1
-       20 CALL                             R0 1 0
-       21 RETURN                           R0 0
+       18 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K2 [{"Gizmos", "FromSelf"}]
+        1 DUPTABLE                         R1 K3 [{[1], ["FromSelf"] = False}]
         2 GETUPVAL                         R2 1
-        3 NAMECALL                         R2 R2 K3 ["gizmos"]
+        3 NAMECALL                         R2 R2 K4 ["gizmos"]
         5 CALL                             R2 1 1
         6 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
-        8 LOADB                            R2 0
-        9 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
-       11 SETTABLEKS                       R1 R0 K4 ["current"]
-       13 GETUPVAL                         R0 2
-       14 GETUPVAL                         R1 0
-       15 GETTABLEKS                       R1 R1 K4 ["current"]
+        8 SETTABLEKS                       R1 R0 K5 ["current"]
+       10 GETUPVAL                         R0 2
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K5 ["current"]
+       14 CALL                             R0 1 0
+       15 GETUPVAL                         R0 3
+       16 LOADB                            R1 1
        17 CALL                             R0 1 0
-       18 GETUPVAL                         R0 3
-       19 LOADB                            R1 1
-       20 CALL                             R0 1 0
-       21 RETURN                           R0 0
+       18 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -142,22 +134,18 @@ PROTO_7:
 PROTO_8:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 JUMPIFNOT                        R2 ; [+11]
-        3 DUPTABLE                         R1 K2 [{"Gizmos", "FromSelf"}]
+        2 JUMPIFNOT                        R2 ; [+8]
+        3 DUPTABLE                         R1 K3 [{[1], ["FromSelf"] = False}]
         4 GETUPVAL                         R2 2
-        5 NAMECALL                         R2 R2 K3 ["gizmos"]
+        5 NAMECALL                         R2 R2 K4 ["gizmos"]
         7 CALL                             R2 1 1
         8 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
-       13 JUMP                             ; [+8]
-       14 DUPTABLE                         R1 K2 [{"Gizmos", "FromSelf"}]
-       15 NEWTABLE                         R2 0 0
-       17 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
-       19 LOADB                            R2 0
-       20 SETTABLEKS                       R2 R1 K1 ["FromSelf"]
-       22 CALL                             R0 1 0
-       23 RETURN                           R0 0
+       10 JUMP                             ; [+5]
+       11 DUPTABLE                         R1 K3 [{[1], ["FromSelf"] = False}]
+       12 NEWTABLE                         R2 0 0
+       14 SETTABLEKS                       R2 R1 K0 ["Gizmos"]
+       16 CALL                             R0 1 0
+       17 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R2 0
@@ -171,81 +159,77 @@ PROTO_9:
        10 NAMECALL                         R2 R2 K2 ["saveGizmos"]
        12 CALL                             R2 2 0
        13 GETUPVAL                         R2 2
-       14 DUPTABLE                         R3 K5 [{"Gizmos", "FromSelf"}]
+       14 DUPTABLE                         R3 K6 [{["Gizmos"], ["FromSelf"] = True}]
        15 GETUPVAL                         R4 1
        16 NAMECALL                         R4 R4 K1 ["getTool"]
        18 CALL                             R4 1 1
-       19 NAMECALL                         R4 R4 K6 ["gizmos"]
+       19 NAMECALL                         R4 R4 K7 ["gizmos"]
        21 CALL                             R4 1 1
        22 SETTABLEKS                       R4 R3 K3 ["Gizmos"]
-       24 LOADB                            R4 1
-       25 SETTABLEKS                       R4 R3 K4 ["FromSelf"]
-       27 CALL                             R2 1 0
-       28 RETURN                           R0 0
+       24 CALL                             R2 1 0
+       25 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R2 0
-        1 DUPTABLE                         R3 K2 [{"Gizmos", "FromSelf"}]
+        1 DUPTABLE                         R3 K3 [{[1], ["FromSelf"] = False}]
         2 NEWTABLE                         R4 0 0
         4 SETTABLEKS                       R4 R3 K0 ["Gizmos"]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K1 ["FromSelf"]
-        9 CALL                             R2 1 2
-       10 GETUPVAL                         R4 1
-       11 NEWCLOSURE                       R5 P0
-       12 CAPTURE                          VAL R0
-       13 NEWTABLE                         R6 0 1
-       15 MOVE                             R7 R2
-       16 SETLIST                          R6 R7 1 [1]
-       18 CALL                             R4 2 1
-       19 GETUPVAL                         R5 0
-       20 LOADB                            R6 0
-       21 CALL                             R5 1 2
-       22 GETUPVAL                         R7 2
-       23 LOADNIL                          R8
-       24 CALL                             R7 1 1
-       25 GETTABLEKS                       R8 R7 K3 ["current"]
-       27 JUMPIFNOT                        R8 ; [+11]
-       28 MOVE                             R8 R3
-       29 GETTABLEKS                       R9 R7 K3 ["current"]
-       31 CALL                             R8 1 0
-       32 LOADNIL                          R8
-       33 SETTABLEKS                       R8 R7 K3 ["current"]
-       35 JUMPIFNOT                        R5 ; [+3]
-       36 MOVE                             R8 R6
-       37 LOADB                            R9 0
-       38 CALL                             R8 1 0
-       39 GETUPVAL                         R8 3
-       40 NEWCLOSURE                       R9 P1
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R7
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R4
-       47 NEWTABLE                         R10 0 2
-       49 MOVE                             R11 R4
-       50 MOVE                             R12 R1
-       51 SETLIST                          R10 R11 2 [1]
-       53 CALL                             R8 2 0
-       54 GETUPVAL                         R8 3
-       55 NEWCLOSURE                       R9 P2
-       56 CAPTURE                          VAL R3
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R4
-       59 NEWTABLE                         R10 0 1
-       61 MOVE                             R11 R1
-       62 SETLIST                          R10 R11 1 [1]
-       64 CALL                             R8 2 0
-       65 NEWCLOSURE                       R8 P3
-       66 CAPTURE                          VAL R7
-       67 CAPTURE                          VAL R0
-       68 CAPTURE                          VAL R3
-       69 GETTABLEKS                       R9 R2 K0 ["Gizmos"]
-       71 MOVE                             R10 R8
-       72 MOVE                             R11 R4
-       73 GETTABLEKS                       R12 R2 K1 ["FromSelf"]
-       75 RETURN                           R9 4
+        6 CALL                             R2 1 2
+        7 GETUPVAL                         R4 1
+        8 NEWCLOSURE                       R5 P0
+        9 CAPTURE                          VAL R0
+       10 NEWTABLE                         R6 0 1
+       12 MOVE                             R7 R2
+       13 SETLIST                          R6 R7 1 [1]
+       15 CALL                             R4 2 1
+       16 GETUPVAL                         R5 0
+       17 LOADB                            R6 0
+       18 CALL                             R5 1 2
+       19 GETUPVAL                         R7 2
+       20 LOADNIL                          R8
+       21 CALL                             R7 1 1
+       22 GETTABLEKS                       R8 R7 K4 ["current"]
+       24 JUMPIFNOT                        R8 ; [+11]
+       25 MOVE                             R8 R3
+       26 GETTABLEKS                       R9 R7 K4 ["current"]
+       28 CALL                             R8 1 0
+       29 LOADNIL                          R8
+       30 SETTABLEKS                       R8 R7 K4 ["current"]
+       32 JUMPIFNOT                        R5 ; [+3]
+       33 MOVE                             R8 R6
+       34 LOADB                            R9 0
+       35 CALL                             R8 1 0
+       36 GETUPVAL                         R8 3
+       37 NEWCLOSURE                       R9 P1
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R7
+       40 CAPTURE                          VAL R3
+       41 CAPTURE                          VAL R6
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R4
+       44 NEWTABLE                         R10 0 2
+       46 MOVE                             R11 R4
+       47 MOVE                             R12 R1
+       48 SETLIST                          R10 R11 2 [1]
+       50 CALL                             R8 2 0
+       51 GETUPVAL                         R8 3
+       52 NEWCLOSURE                       R9 P2
+       53 CAPTURE                          VAL R3
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R4
+       56 NEWTABLE                         R10 0 1
+       58 MOVE                             R11 R1
+       59 SETLIST                          R10 R11 1 [1]
+       61 CALL                             R8 2 0
+       62 NEWCLOSURE                       R8 P3
+       63 CAPTURE                          VAL R7
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          VAL R3
+       66 GETTABLEKS                       R9 R2 K0 ["Gizmos"]
+       68 MOVE                             R10 R8
+       69 MOVE                             R11 R4
+       70 GETTABLEKS                       R12 R2 K1 ["FromSelf"]
+       72 RETURN                           R9 4
 
 MAIN:
         0 PREPVARARGS                      0

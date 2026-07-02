@@ -41,29 +41,23 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R0 0 3
-        2 DUPTABLE                         R1 K2 [{"Key", "IsAscending"}]
+        2 DUPTABLE                         R1 K3 [{[1], ["IsAscending"] = False}]
         3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R2 R2 K3 ["AssetInfoField"]
-        6 GETTABLEKS                       R2 R2 K4 ["Modified"]
+        4 GETTABLEKS                       R2 R2 K4 ["AssetInfoField"]
+        6 GETTABLEKS                       R2 R2 K5 ["Modified"]
         8 SETTABLEKS                       R2 R1 K0 ["Key"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K1 ["IsAscending"]
-       13 DUPTABLE                         R2 K2 [{"Key", "IsAscending"}]
-       14 GETUPVAL                         R3 0
-       15 GETTABLEKS                       R3 R3 K3 ["AssetInfoField"]
-       17 GETTABLEKS                       R3 R3 K5 ["DisplayName"]
-       19 SETTABLEKS                       R3 R2 K0 ["Key"]
-       21 LOADB                            R3 1
-       22 SETTABLEKS                       R3 R2 K1 ["IsAscending"]
-       24 DUPTABLE                         R3 K2 [{"Key", "IsAscending"}]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R4 R4 K3 ["AssetInfoField"]
-       28 GETTABLEKS                       R4 R4 K6 ["AssetId"]
-       30 SETTABLEKS                       R4 R3 K0 ["Key"]
-       32 LOADB                            R4 1
-       33 SETTABLEKS                       R4 R3 K1 ["IsAscending"]
-       35 SETLIST                          R0 R1 3 [1]
-       37 RETURN                           R0 1
+       10 DUPTABLE                         R2 K7 [{[1], ["IsAscending"] = True}]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R3 R3 K4 ["AssetInfoField"]
+       14 GETTABLEKS                       R3 R3 K8 ["DisplayName"]
+       16 SETTABLEKS                       R3 R2 K0 ["Key"]
+       18 DUPTABLE                         R3 K7 [{[1], ["IsAscending"] = True}]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R4 R4 K4 ["AssetInfoField"]
+       22 GETTABLEKS                       R4 R4 K9 ["AssetId"]
+       24 SETTABLEKS                       R4 R3 K0 ["Key"]
+       26 SETLIST                          R0 R1 3 [1]
+       28 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

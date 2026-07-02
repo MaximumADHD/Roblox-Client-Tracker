@@ -1,20 +1,16 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isIconHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isIconHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isIconHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isIconHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -118,65 +114,59 @@ PROTO_6:
        49 MOVE                             R9 R7
        50 CALL                             R8 1 2
        51 NEWTABLE                         R10 0 3
-       53 DUPTABLE                         R11 K17 [{"DevLabel", "OnClick", "Size", "Text", "TextTruncate"}]
-       54 LOADK                            R12 K5 ["Creator"]
-       55 SETTABLEKS                       R12 R11 K12 ["DevLabel"]
-       57 JUMPIFEQKS                       R3 K7 ["---"] ; [+5]
-       59 GETUPVAL                         R12 0
-       60 GETTABLEKS                       R12 R12 K18 ["onSearchByCreator"]
-       62 JUMP                             ; [+1]
-       63 LOADNIL                          R12
-       64 SETTABLEKS                       R12 R11 K13 ["OnClick"]
-       66 GETUPVAL                         R13 2
-       67 GETTABLEKS                       R13 R13 K19 ["ASSET_ROW_COLUMNS"]
-       69 GETTABLEKS                       R13 R13 K20 ["CREATOR"]
-       71 GETTABLE                         R12 R8 R13
-       72 SETTABLEKS                       R12 R11 K14 ["Size"]
-       74 SETTABLEKS                       R3 R11 K15 ["Text"]
-       76 GETIMPORT                        R12 K23 [Enum.TextTruncate.AtEnd]
-       78 SETTABLEKS                       R12 R11 K16 ["TextTruncate"]
-       80 DUPTABLE                         R12 K24 [{"DevLabel", "Size", "Text", "TextTruncate"}]
-       81 LOADK                            R13 K25 ["DateUpdated"]
-       82 SETTABLEKS                       R13 R12 K12 ["DevLabel"]
-       84 GETUPVAL                         R14 2
-       85 GETTABLEKS                       R14 R14 K19 ["ASSET_ROW_COLUMNS"]
-       87 GETTABLEKS                       R14 R14 K26 ["DATE_UPDATED"]
-       89 GETTABLE                         R13 R8 R14
-       90 SETTABLEKS                       R13 R12 K14 ["Size"]
-       92 GETUPVAL                         R13 3
-       93 MOVE                             R14 R5
-       94 LOADK                            R15 K27 ["MMM D, YYYY"]
-       95 MOVE                             R16 R1
-       96 CALL                             R13 3 1
-       97 SETTABLEKS                       R13 R12 K15 ["Text"]
-       99 GETIMPORT                        R13 K29 [Enum.TextTruncate.None]
-      101 SETTABLEKS                       R13 R12 K16 ["TextTruncate"]
-      103 DUPTABLE                         R13 K31 [{"DevLabel", "Hidden", "Size", "Text", "TextTruncate"}]
-      104 LOADK                            R14 K32 ["DateCreated"]
-      105 SETTABLEKS                       R14 R13 K12 ["DevLabel"]
-      107 GETUPVAL                         R16 2
-      108 GETTABLEKS                       R16 R16 K19 ["ASSET_ROW_COLUMNS"]
-      110 GETTABLEKS                       R16 R16 K33 ["DATE_CREATED"]
-      112 GETTABLE                         R15 R8 R16
-      113 JUMPIFEQKNIL                     R15 ; [+2]
-      115 LOADB                            R14 0 +1
-      116 LOADB                            R14 1
-      117 SETTABLEKS                       R14 R13 K30 ["Hidden"]
-      119 GETUPVAL                         R15 2
-      120 GETTABLEKS                       R15 R15 K19 ["ASSET_ROW_COLUMNS"]
-      122 GETTABLEKS                       R15 R15 K33 ["DATE_CREATED"]
-      124 GETTABLE                         R14 R8 R15
-      125 SETTABLEKS                       R14 R13 K14 ["Size"]
-      127 GETUPVAL                         R14 3
-      128 MOVE                             R15 R4
-      129 LOADK                            R16 K27 ["MMM D, YYYY"]
-      130 MOVE                             R17 R1
-      131 CALL                             R14 3 1
-      132 SETTABLEKS                       R14 R13 K15 ["Text"]
-      134 GETIMPORT                        R14 K29 [Enum.TextTruncate.None]
-      136 SETTABLEKS                       R14 R13 K16 ["TextTruncate"]
-      138 SETLIST                          R10 R11 3 [1]
-      140 RETURN                           R10 1
+       53 DUPTABLE                         R11 K17 [{["DevLabel"] = "Creator", ["OnClick"], ["Size"], ["Text"], ["TextTruncate"]}]
+       54 JUMPIFEQKS                       R3 K7 ["---"] ; [+5]
+       56 GETUPVAL                         R12 0
+       57 GETTABLEKS                       R12 R12 K18 ["onSearchByCreator"]
+       59 JUMP                             ; [+1]
+       60 LOADNIL                          R12
+       61 SETTABLEKS                       R12 R11 K13 ["OnClick"]
+       63 GETUPVAL                         R13 2
+       64 GETTABLEKS                       R13 R13 K19 ["ASSET_ROW_COLUMNS"]
+       66 GETTABLEKS                       R13 R13 K20 ["CREATOR"]
+       68 GETTABLE                         R12 R8 R13
+       69 SETTABLEKS                       R12 R11 K14 ["Size"]
+       71 SETTABLEKS                       R3 R11 K15 ["Text"]
+       73 GETIMPORT                        R12 K23 [Enum.TextTruncate.AtEnd]
+       75 SETTABLEKS                       R12 R11 K16 ["TextTruncate"]
+       77 DUPTABLE                         R12 K25 [{["DevLabel"] = "DateUpdated", ["Size"], ["Text"], ["TextTruncate"]}]
+       78 GETUPVAL                         R14 2
+       79 GETTABLEKS                       R14 R14 K19 ["ASSET_ROW_COLUMNS"]
+       81 GETTABLEKS                       R14 R14 K26 ["DATE_UPDATED"]
+       83 GETTABLE                         R13 R8 R14
+       84 SETTABLEKS                       R13 R12 K14 ["Size"]
+       86 GETUPVAL                         R13 3
+       87 MOVE                             R14 R5
+       88 LOADK                            R15 K27 ["MMM D, YYYY"]
+       89 MOVE                             R16 R1
+       90 CALL                             R13 3 1
+       91 SETTABLEKS                       R13 R12 K15 ["Text"]
+       93 GETIMPORT                        R13 K29 [Enum.TextTruncate.None]
+       95 SETTABLEKS                       R13 R12 K16 ["TextTruncate"]
+       97 DUPTABLE                         R13 K32 [{["DevLabel"] = "DateCreated", ["Hidden"], ["Size"], ["Text"], ["TextTruncate"]}]
+       98 GETUPVAL                         R16 2
+       99 GETTABLEKS                       R16 R16 K19 ["ASSET_ROW_COLUMNS"]
+      101 GETTABLEKS                       R16 R16 K33 ["DATE_CREATED"]
+      103 GETTABLE                         R15 R8 R16
+      104 JUMPIFEQKNIL                     R15 ; [+2]
+      106 LOADB                            R14 0 +1
+      107 LOADB                            R14 1
+      108 SETTABLEKS                       R14 R13 K31 ["Hidden"]
+      110 GETUPVAL                         R15 2
+      111 GETTABLEKS                       R15 R15 K19 ["ASSET_ROW_COLUMNS"]
+      113 GETTABLEKS                       R15 R15 K33 ["DATE_CREATED"]
+      115 GETTABLE                         R14 R8 R15
+      116 SETTABLEKS                       R14 R13 K14 ["Size"]
+      118 GETUPVAL                         R14 3
+      119 MOVE                             R15 R4
+      120 LOADK                            R16 K27 ["MMM D, YYYY"]
+      121 MOVE                             R17 R1
+      122 CALL                             R14 3 1
+      123 SETTABLEKS                       R14 R13 K15 ["Text"]
+      125 GETIMPORT                        R14 K29 [Enum.TextTruncate.None]
+      127 SETTABLEKS                       R14 R13 K16 ["TextTruncate"]
+      129 SETLIST                          R10 R11 3 [1]
+      131 RETURN                           R10 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -272,15 +262,13 @@ PROTO_7:
       136 GETUPVAL                         R15 4
       137 GETTABLEKS                       R15 R15 K25 ["createElement"]
       139 GETUPVAL                         R16 6
-      140 DUPTABLE                         R17 K48 [{"Cursor"}]
-      141 LOADK                            R18 K49 ["PointingHand"]
-      142 SETTABLEKS                       R18 R17 K47 ["Cursor"]
-      144 CALL                             R15 2 1
-      145 SETTABLEKS                       R15 R14 K45 ["HoverArea"]
-      147 CALL                             R11 3 1
-      148 SETTABLEKS                       R11 R10 K42 ["IconButton"]
-      150 CALL                             R7 3 -1
-      151 RETURN                           R7 -1
+      140 DUPTABLE                         R17 K49 [{["Cursor"] = "PointingHand"}]
+      141 CALL                             R15 2 1
+      142 SETTABLEKS                       R15 R14 K45 ["HoverArea"]
+      144 CALL                             R11 3 1
+      145 SETTABLEKS                       R11 R10 K42 ["IconButton"]
+      147 CALL                             R7 3 -1
+      148 RETURN                           R7 -1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -324,52 +312,48 @@ PROTO_9:
 PROTO_10:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["wasAssetBoundsWithinScrollingBounds"]
-        3 DUPTABLE                         R1 K3 [{"isHovered", "isIconHovered"}]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["isHovered"]
-        7 LOADB                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["isIconHovered"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 NEWCLOSURE                       R1 P0
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R1 R0 K5 ["onIconMouseEnter"]
-       16 NEWCLOSURE                       R1 P1
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K6 ["onIconMouseLeave"]
-       20 NEWCLOSURE                       R1 P2
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R1 R0 K7 ["onClick"]
-       24 NEWCLOSURE                       R1 P3
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U0
-       27 SETTABLEKS                       R1 R0 K8 ["onSearchByCreator"]
-       29 NEWCLOSURE                       R1 P4
-       30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R1 R0 K9 ["onHoverChanged"]
-       33 NEWCLOSURE                       R1 P5
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          UPVAL U1
-       36 CAPTURE                          UPVAL U2
-       37 CAPTURE                          UPVAL U3
-       38 SETTABLEKS                       R1 R0 K10 ["getColumns"]
-       40 NEWCLOSURE                       R1 P6
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          UPVAL U4
-       43 CAPTURE                          UPVAL U5
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U6
-       46 CAPTURE                          UPVAL U7
-       47 CAPTURE                          UPVAL U8
-       48 SETTABLEKS                       R1 R0 K11 ["renderIcon"]
-       50 NEWCLOSURE                       R1 P7
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R1 R0 K12 ["onAssetPreviewButtonClicked"]
-       54 NEWCLOSURE                       R1 P8
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          UPVAL U6
-       57 CAPTURE                          UPVAL U9
-       58 SETTABLEKS                       R1 R0 K13 ["renderExpandedContent"]
-       60 RETURN                           R0 0
+        3 DUPTABLE                         R1 K4 [{["isHovered"] = False, ["isIconHovered"] = False}]
+        4 SETTABLEKS                       R1 R0 K5 ["state"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K6 ["onIconMouseEnter"]
+       10 NEWCLOSURE                       R1 P1
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R1 R0 K7 ["onIconMouseLeave"]
+       14 NEWCLOSURE                       R1 P2
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K8 ["onClick"]
+       18 NEWCLOSURE                       R1 P3
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U0
+       21 SETTABLEKS                       R1 R0 K9 ["onSearchByCreator"]
+       23 NEWCLOSURE                       R1 P4
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R1 R0 K10 ["onHoverChanged"]
+       27 NEWCLOSURE                       R1 P5
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U1
+       30 CAPTURE                          UPVAL U2
+       31 CAPTURE                          UPVAL U3
+       32 SETTABLEKS                       R1 R0 K11 ["getColumns"]
+       34 NEWCLOSURE                       R1 P6
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          UPVAL U4
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          UPVAL U2
+       39 CAPTURE                          UPVAL U6
+       40 CAPTURE                          UPVAL U7
+       41 CAPTURE                          UPVAL U8
+       42 SETTABLEKS                       R1 R0 K12 ["renderIcon"]
+       44 NEWCLOSURE                       R1 P7
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R1 R0 K13 ["onAssetPreviewButtonClicked"]
+       48 NEWCLOSURE                       R1 P8
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          UPVAL U6
+       51 CAPTURE                          UPVAL U9
+       52 SETTABLEKS                       R1 R0 K14 ["renderExpandedContent"]
+       54 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

@@ -33,29 +33,21 @@ PROTO_3:
        18 DUPCLOSURE                       R7 K11 [PROTO_2]
        19 SETTABLEKS                       R7 R6 K5 ["OnSelectCreator"]
        21 NEWTABLE                         R7 0 1
-       23 DUPTABLE                         R8 K15 [{"Name", "Id", "Type"}]
-       24 LOADK                            R9 K16 ["Selected Username"]
-       25 SETTABLEKS                       R9 R8 K12 ["Name"]
-       27 LOADN                            R9 123
-       28 SETTABLEKS                       R9 R8 K13 ["Id"]
-       30 GETIMPORT                        R9 K20 [Enum.CreatorType.User]
-       32 SETTABLEKS                       R9 R8 K14 ["Type"]
-       34 SETLIST                          R7 R8 1 [1]
-       36 SETTABLEKS                       R7 R6 K6 ["SelectedUsers"]
-       38 NEWTABLE                         R7 0 1
-       40 DUPTABLE                         R8 K15 [{"Name", "Id", "Type"}]
-       41 LOADK                            R9 K21 ["Selected Group name"]
-       42 SETTABLEKS                       R9 R8 K12 ["Name"]
-       44 LOADN                            R9 123
-       45 SETTABLEKS                       R9 R8 K13 ["Id"]
-       47 GETIMPORT                        R9 K23 [Enum.CreatorType.Group]
-       49 SETTABLEKS                       R9 R8 K14 ["Type"]
-       51 SETLIST                          R7 R8 1 [1]
-       53 SETTABLEKS                       R7 R6 K7 ["SelectedGroups"]
-       55 CALL                             R4 2 1
-       56 SETTABLEKS                       R4 R3 K1 ["UserAndGroupFilter"]
-       58 CALL                             R0 3 -1
-       59 RETURN                           R0 -1
+       23 DUPTABLE                         R8 K17 [{["Name"] = "Selected Username", ["Id"] = 123, ["Type"]}]
+       24 GETIMPORT                        R9 K21 [Enum.CreatorType.User]
+       26 SETTABLEKS                       R9 R8 K16 ["Type"]
+       28 SETLIST                          R7 R8 1 [1]
+       30 SETTABLEKS                       R7 R6 K6 ["SelectedUsers"]
+       32 NEWTABLE                         R7 0 1
+       34 DUPTABLE                         R8 K23 [{["Name"] = "Selected Group name", ["Id"] = 123, ["Type"]}]
+       35 GETIMPORT                        R9 K25 [Enum.CreatorType.Group]
+       37 SETTABLEKS                       R9 R8 K16 ["Type"]
+       39 SETLIST                          R7 R8 1 [1]
+       41 SETTABLEKS                       R7 R6 K7 ["SelectedGroups"]
+       43 CALL                             R4 2 1
+       44 SETTABLEKS                       R4 R3 K1 ["UserAndGroupFilter"]
+       46 CALL                             R0 3 -1
+       47 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -76,18 +68,14 @@ MAIN:
        25 GETTABLEKS                       R4 R0 K10 ["Stories"]
        27 GETTABLEKS                       R4 R4 K11 ["ToolboxStoryWrapper"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K15 [{"name", "summary", "stories"}]
-       31 LOADK                            R5 K9 ["UserAndGroupFilter"]
-       32 SETTABLEKS                       R5 R4 K12 ["name"]
-       34 LOADK                            R5 K16 ["A live Search Bar for users and groups"]
-       35 SETTABLEKS                       R5 R4 K13 ["summary"]
-       37 NEWTABLE                         R5 0 1
-       39 DUPTABLE                         R6 K18 [{"story"}]
-       40 DUPCLOSURE                       R7 K19 [PROTO_3]
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R2
-       44 SETTABLEKS                       R7 R6 K17 ["story"]
-       46 SETLIST                          R5 R6 1 [1]
-       48 SETTABLEKS                       R5 R4 K14 ["stories"]
-       50 RETURN                           R4 1
+       30 DUPTABLE                         R4 K16 [{["name"] = "UserAndGroupFilter", ["summary"] = "A live Search Bar for users and groups", ["stories"]}]
+       31 NEWTABLE                         R5 0 1
+       33 DUPTABLE                         R6 K18 [{"story"}]
+       34 DUPCLOSURE                       R7 K19 [PROTO_3]
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R2
+       38 SETTABLEKS                       R7 R6 K17 ["story"]
+       40 SETLIST                          R5 R6 1 [1]
+       42 SETTABLEKS                       R5 R4 K15 ["stories"]
+       44 RETURN                           R4 1

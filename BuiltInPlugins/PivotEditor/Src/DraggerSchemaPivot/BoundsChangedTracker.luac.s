@@ -1,13 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K2 [{"_handler", "_installed"}]
+        0 DUPTABLE                         R3 K3 [{[1], ["_installed"] = False}]
         1 SETTABLEKS                       R1 R3 K0 ["_handler"]
-        3 LOADB                            R4 0
-        4 SETTABLEKS                       R4 R3 K1 ["_installed"]
-        6 GETUPVAL                         R4 0
-        7 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-        9 GETIMPORT                        R2 K4 [setmetatable]
-       11 CALL                             R2 2 1
-       12 RETURN                           R2 1
+        3 GETUPVAL                         R4 0
+        4 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+        6 GETIMPORT                        R2 K5 [setmetatable]
+        8 CALL                             R2 2 1
+        9 RETURN                           R2 1
 
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["_connect"]

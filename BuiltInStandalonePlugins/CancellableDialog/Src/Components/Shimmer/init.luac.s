@@ -51,8 +51,8 @@ PROTO_4:
         3 CALL                             R1 1 2
         4 GETUPVAL                         R3 0
         5 GETIMPORT                        R4 K4 [Vector2.new]
-        7 LOADN                            R5 255
-        8 LOADN                            R6 255
+        7 LOADN                            R5 -1
+        8 LOADN                            R6 -1
         9 CALL                             R4 2 -1
        10 CALL                             R3 -1 2
        11 GETUPVAL                         R5 1

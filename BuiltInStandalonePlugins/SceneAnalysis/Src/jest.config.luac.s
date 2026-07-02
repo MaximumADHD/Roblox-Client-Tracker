@@ -1,10 +1,8 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K2 [{"displayName", "testMatch"}]
-        2 LOADK                            R1 K3 ["SceneAnalysis"]
-        3 SETTABLEKS                       R1 R0 K0 ["displayName"]
-        5 NEWTABLE                         R1 0 1
-        7 LOADK                            R2 K4 ["**/*.test"]
-        8 SETLIST                          R1 R2 1 [1]
-       10 SETTABLEKS                       R1 R0 K1 ["testMatch"]
-       12 RETURN                           R0 1
+        1 DUPTABLE                         R0 K3 [{[1] = "SceneAnalysis", ["testMatch"]}]
+        2 NEWTABLE                         R1 0 1
+        4 LOADK                            R2 K4 ["**/*.test"]
+        5 SETLIST                          R1 R2 1 [1]
+        7 SETTABLEKS                       R1 R0 K2 ["testMatch"]
+        9 RETURN                           R0 1

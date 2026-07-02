@@ -28,52 +28,48 @@ PROTO_3:
         1 JUMPIFEQKNIL                     R0 ; [+3]
         3 GETUPVAL                         R0 0
         4 RETURN                           R0 1
-        5 DUPTABLE                         R0 K2 [{"selectingService", "selectingNonService"}]
-        6 LOADB                            R1 0
-        7 SETTABLEKS                       R1 R0 K0 ["selectingService"]
-        9 LOADB                            R1 0
-       10 SETTABLEKS                       R1 R0 K1 ["selectingNonService"]
-       12 GETUPVAL                         R4 1
-       13 JUMPIFEQKNIL                     R4 ; [+5]
-       15 GETUPVAL                         R1 1
-       16 LOADNIL                          R2
-       17 LOADNIL                          R3
-       18 JUMP                             ; [+13]
-       19 GETUPVAL                         R4 2
-       20 NAMECALL                         R4 R4 K3 ["Get"]
-       22 CALL                             R4 1 1
-       23 SETUPVAL                         R4 1
-       24 GETIMPORT                        R5 K6 [task.defer]
-       26 NEWCLOSURE                       R6 P0
-       27 CAPTURE                          UPVAL U1
-       28 CALL                             R5 1 0
-       29 MOVE                             R1 R4
-       30 LOADNIL                          R2
-       31 LOADNIL                          R3
-       32 FORGPREP                         R1
-       33 GETTABLEKS                       R6 R5 K7 ["Parent"]
-       35 JUMPIFEQKNIL                     R6 ; [+15]
-       37 GETTABLEKS                       R6 R5 K7 ["Parent"]
-       39 LOADK                            R8 K8 ["DataModel"]
-       40 NAMECALL                         R6 R6 K9 ["IsA"]
-       42 CALL                             R6 2 1
-       43 JUMPIFNOT                        R6 ; [+7]
-       44 LOADB                            R6 1
-       45 SETTABLEKS                       R6 R0 K0 ["selectingService"]
-       47 GETTABLEKS                       R6 R0 K1 ["selectingNonService"]
-       49 JUMPIF                           R6 ; [+9]
-       50 JUMP                             ; [+6]
-       51 LOADB                            R6 1
-       52 SETTABLEKS                       R6 R0 K1 ["selectingNonService"]
-       54 GETTABLEKS                       R6 R0 K0 ["selectingService"]
-       56 JUMPIF                           R6 ; [+2]
-       57 FORGLOOP                         R1 2 ; [-25]
-       59 SETUPVAL                         R0 0
-       60 GETIMPORT                        R1 K6 [task.defer]
-       62 NEWCLOSURE                       R2 P1
-       63 CAPTURE                          UPVAL U0
-       64 CALL                             R1 1 0
-       65 RETURN                           R0 1
+        5 DUPTABLE                         R0 K3 [{[1] = False, ["selectingNonService"] = False}]
+        6 GETUPVAL                         R4 1
+        7 JUMPIFEQKNIL                     R4 ; [+5]
+        9 GETUPVAL                         R1 1
+       10 LOADNIL                          R2
+       11 LOADNIL                          R3
+       12 JUMP                             ; [+13]
+       13 GETUPVAL                         R4 2
+       14 NAMECALL                         R4 R4 K4 ["Get"]
+       16 CALL                             R4 1 1
+       17 SETUPVAL                         R4 1
+       18 GETIMPORT                        R5 K7 [task.defer]
+       20 NEWCLOSURE                       R6 P0
+       21 CAPTURE                          UPVAL U1
+       22 CALL                             R5 1 0
+       23 MOVE                             R1 R4
+       24 LOADNIL                          R2
+       25 LOADNIL                          R3
+       26 FORGPREP                         R1
+       27 GETTABLEKS                       R6 R5 K8 ["Parent"]
+       29 JUMPIFEQKNIL                     R6 ; [+15]
+       31 GETTABLEKS                       R6 R5 K8 ["Parent"]
+       33 LOADK                            R8 K9 ["DataModel"]
+       34 NAMECALL                         R6 R6 K10 ["IsA"]
+       36 CALL                             R6 2 1
+       37 JUMPIFNOT                        R6 ; [+7]
+       38 LOADB                            R6 1
+       39 SETTABLEKS                       R6 R0 K0 ["selectingService"]
+       41 GETTABLEKS                       R6 R0 K2 ["selectingNonService"]
+       43 JUMPIF                           R6 ; [+9]
+       44 JUMP                             ; [+6]
+       45 LOADB                            R6 1
+       46 SETTABLEKS                       R6 R0 K2 ["selectingNonService"]
+       48 GETTABLEKS                       R6 R0 K0 ["selectingService"]
+       50 JUMPIF                           R6 ; [+2]
+       51 FORGLOOP                         R1 2 ; [-25]
+       53 SETUPVAL                         R0 0
+       54 GETIMPORT                        R1 K7 [task.defer]
+       56 NEWCLOSURE                       R2 P1
+       57 CAPTURE                          UPVAL U0
+       58 CALL                             R1 1 0
+       59 RETURN                           R0 1
 
 PROTO_4:
         0 LOADNIL                          R0
@@ -175,52 +171,40 @@ PROTO_6:
        54 GETTABLEKS                       R3 R3 K0 ["source"]
        56 GETTABLEKS                       R3 R3 K1 ["expectation"]
        58 CALL                             R2 1 0
-       59 JUMPIF                           R1 ; [+8]
-       60 DUPTABLE                         R2 K10 [{"enabled", "visible"}]
-       61 LOADB                            R3 0
-       62 SETTABLEKS                       R3 R2 K8 ["enabled"]
-       64 LOADB                            R3 0
-       65 SETTABLEKS                       R3 R2 K9 ["visible"]
-       67 RETURN                           R2 1
-       68 GETUPVAL                         R2 1
-       69 GETTABLEKS                       R2 R2 K0 ["source"]
-       71 GETTABLEKS                       R2 R2 K11 ["shouldShow"]
-       73 JUMPIFEQKNIL                     R2 ; [+17]
-       75 GETUPVAL                         R2 3
-       76 GETUPVAL                         R3 1
-       77 GETTABLEKS                       R3 R3 K0 ["source"]
-       79 GETTABLEKS                       R3 R3 K11 ["shouldShow"]
-       81 CALL                             R2 1 1
-       82 JUMPIF                           R2 ; [+8]
-       83 DUPTABLE                         R2 K10 [{"enabled", "visible"}]
-       84 LOADB                            R3 0
-       85 SETTABLEKS                       R3 R2 K8 ["enabled"]
-       87 LOADB                            R3 0
-       88 SETTABLEKS                       R3 R2 K9 ["visible"]
-       90 RETURN                           R2 1
-       91 GETUPVAL                         R2 4
-       92 GETTABLEKS                       R2 R2 K12 ["Flags"]
-       94 GETTABLEKS                       R2 R2 K13 ["getFFlagExplorerFixContextMenu"]
-       96 CALL                             R2 0 1
-       97 JUMPIFNOT                        R2 ; [+8]
-       98 DUPTABLE                         R2 K10 [{"enabled", "visible"}]
-       99 LOADB                            R3 1
-      100 SETTABLEKS                       R3 R2 K8 ["enabled"]
-      102 LOADB                            R3 1
-      103 SETTABLEKS                       R3 R2 K9 ["visible"]
-      105 RETURN                           R2 1
-      106 GETUPVAL                         R2 5
-      107 GETTABLEKS                       R2 R2 K14 ["getStudioActionState"]
-      109 GETUPVAL                         R3 1
-      110 GETTABLEKS                       R3 R3 K0 ["source"]
-      112 GETTABLEKS                       R3 R3 K15 ["uri"]
-      114 CALL                             R2 1 1
-      115 DUPTABLE                         R3 K10 [{"enabled", "visible"}]
-      116 GETTABLEKS                       R4 R2 K16 ["Enabled"]
-      118 SETTABLEKS                       R4 R3 K8 ["enabled"]
-      120 GETTABLEKS                       R4 R2 K17 ["Visible"]
-      122 SETTABLEKS                       R4 R3 K9 ["visible"]
-      124 RETURN                           R3 1
+       59 JUMPIF                           R1 ; [+2]
+       60 DUPTABLE                         R2 K11 [{["enabled"] = False, ["visible"] = False}]
+       61 RETURN                           R2 1
+       62 GETUPVAL                         R2 1
+       63 GETTABLEKS                       R2 R2 K0 ["source"]
+       65 GETTABLEKS                       R2 R2 K12 ["shouldShow"]
+       67 JUMPIFEQKNIL                     R2 ; [+11]
+       69 GETUPVAL                         R2 3
+       70 GETUPVAL                         R3 1
+       71 GETTABLEKS                       R3 R3 K0 ["source"]
+       73 GETTABLEKS                       R3 R3 K12 ["shouldShow"]
+       75 CALL                             R2 1 1
+       76 JUMPIF                           R2 ; [+2]
+       77 DUPTABLE                         R2 K11 [{["enabled"] = False, ["visible"] = False}]
+       78 RETURN                           R2 1
+       79 GETUPVAL                         R2 4
+       80 GETTABLEKS                       R2 R2 K13 ["Flags"]
+       82 GETTABLEKS                       R2 R2 K14 ["getFFlagExplorerFixContextMenu"]
+       84 CALL                             R2 0 1
+       85 JUMPIFNOT                        R2 ; [+2]
+       86 DUPTABLE                         R2 K16 [{["enabled"] = True, ["visible"] = True}]
+       87 RETURN                           R2 1
+       88 GETUPVAL                         R2 5
+       89 GETTABLEKS                       R2 R2 K17 ["getStudioActionState"]
+       91 GETUPVAL                         R3 1
+       92 GETTABLEKS                       R3 R3 K0 ["source"]
+       94 GETTABLEKS                       R3 R3 K18 ["uri"]
+       96 CALL                             R2 1 1
+       97 DUPTABLE                         R3 K19 [{"enabled", "visible"}]
+       98 GETTABLEKS                       R4 R2 K20 ["Enabled"]
+      100 SETTABLEKS                       R4 R3 K8 ["enabled"]
+      102 GETTABLEKS                       R4 R2 K21 ["Visible"]
+      104 SETTABLEKS                       R4 R3 K10 ["visible"]
+      106 RETURN                           R3 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0

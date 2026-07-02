@@ -140,7 +140,7 @@ PROTO_4:
        86 GETTABLE                         R19 R20 R21
        87 JUMPIFNOTEQKNIL                  R19 ; [+2]
        89 LOADN                            R19 0
-       90 SUBRK                            R22 R13 K17 [math.min]
+       90 SUBRK                            R22 K13 [1] R17
        91 MUL                              R21 R18 R22
        92 MUL                              R22 R19 R17
        93 ADD                              R20 R21 R22
@@ -170,7 +170,7 @@ PROTO_4:
       121 GETIMPORT                        R13 K4 [Vector2.new]
       123 GETUPVAL                         R15 2
       124 DIV                              R14 R4 R15
-      125 SUBRK                            R15 R13 K9 ["floor"]
+      125 SUBRK                            R15 K13 [1] R9
       126 CALL                             R13 2 1
       127 GETUPVAL                         R14 5
       128 GETTABLEKS                       R14 R14 K22 ["PlotAbsoluteSize"]
@@ -215,21 +215,19 @@ PROTO_5:
        36 SETLIST                          R6 R7 1 [1]
        38 CALL                             R4 2 1
        39 GETTABLEKS                       R5 R0 K0 ["Enabled"]
-       41 JUMPIFNOT                        R5 ; [+17]
+       41 JUMPIFNOT                        R5 ; [+14]
        42 GETUPVAL                         R5 8
        43 GETTABLEKS                       R5 R5 K1 ["createElement"]
        45 GETUPVAL                         R6 9
-       46 DUPTABLE                         R7 K4 [{"ControlPoints", "Tag"}]
+       46 DUPTABLE                         R7 K5 [{["ControlPoints"], ["Tag"] = "AnalyzerCurve"}]
        47 GETTABLEKS                       R9 R0 K0 ["Enabled"]
        49 JUMPIFNOT                        R9 ; [+2]
        50 MOVE                             R8 R4
        51 JUMPIF                           R8 ; [+1]
        52 MOVE                             R8 R3
        53 SETTABLEKS                       R8 R7 K2 ["ControlPoints"]
-       55 LOADK                            R8 K5 ["AnalyzerCurve"]
-       56 SETTABLEKS                       R8 R7 K3 ["Tag"]
-       58 CALL                             R5 2 1
-       59 RETURN                           R5 1
+       55 CALL                             R5 2 1
+       56 RETURN                           R5 1
 
 MAIN:
         0 PREPVARARGS                      0

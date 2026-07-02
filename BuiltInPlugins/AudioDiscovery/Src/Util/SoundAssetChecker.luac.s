@@ -1,7 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K21 [{"soundsFound", "_soundAssets", "_nonSoundAssetIds", "_currentBatch", "_pendingAssetIds", "_batchesToSend", "_batchRequestsInFlight", "_maxAssetsPerRequest", "_perRequestCooldown", "_cooldownAfterHttp429", "_maxRecentRequests", "_lastSentRequests", "_hit429", "_started", "_dead", "_httpTask", "_renderSteppedConnection", "_goodAssets", "_badAssets", "_resolvedAssets", "_networking"}]
+        0 DUPTABLE                         R2 K24 [{[1], ["_soundAssets"], ["_nonSoundAssetIds"], ["_currentBatch"], ["_pendingAssetIds"], ["_batchesToSend"], ["_batchRequestsInFlight"] = 0, ["_maxAssetsPerRequest"], ["_perRequestCooldown"], ["_cooldownAfterHttp429"], ["_maxRecentRequests"], ["_lastSentRequests"], ["_hit429"] = 0, ["_started"] = False, ["_dead"] = False, ["_httpTask"] = , ["_renderSteppedConnection"] = , ["_goodAssets"] = 0, ["_badAssets"] = 0, ["_resolvedAssets"], ["_networking"]}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K22 ["new"]
+        2 GETTABLEKS                       R3 R3 K25 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["soundsFound"]
         7 NEWTABLE                         R3 0 0
@@ -14,53 +14,37 @@ PROTO_0:
        21 SETTABLEKS                       R3 R2 K4 ["_pendingAssetIds"]
        23 NEWTABLE                         R3 0 0
        25 SETTABLEKS                       R3 R2 K5 ["_batchesToSend"]
-       27 LOADN                            R3 0
-       28 SETTABLEKS                       R3 R2 K6 ["_batchRequestsInFlight"]
-       30 JUMPIFNOT                        R1 ; [+3]
-       31 GETTABLEKS                       R3 R1 K23 ["maxAssetsPerRequest"]
-       33 JUMPIF                           R3 ; [+1]
-       34 GETUPVAL                         R3 1
-       35 SETTABLEKS                       R3 R2 K7 ["_maxAssetsPerRequest"]
-       37 JUMPIFNOT                        R1 ; [+3]
-       38 GETTABLEKS                       R3 R1 K24 ["perRequestCooldown"]
-       40 JUMPIF                           R3 ; [+1]
-       41 GETUPVAL                         R3 2
-       42 SETTABLEKS                       R3 R2 K8 ["_perRequestCooldown"]
-       44 JUMPIFNOT                        R1 ; [+3]
-       45 GETTABLEKS                       R3 R1 K25 ["cooldownAfterHttp429"]
-       47 JUMPIF                           R3 ; [+1]
-       48 GETUPVAL                         R3 3
-       49 SETTABLEKS                       R3 R2 K9 ["_cooldownAfterHttp429"]
-       51 JUMPIFNOT                        R1 ; [+3]
-       52 GETTABLEKS                       R3 R1 K26 ["maxRecentRequests"]
-       54 JUMPIF                           R3 ; [+1]
-       55 GETUPVAL                         R3 4
-       56 SETTABLEKS                       R3 R2 K10 ["_maxRecentRequests"]
-       58 NEWTABLE                         R3 0 0
-       60 SETTABLEKS                       R3 R2 K11 ["_lastSentRequests"]
-       62 LOADN                            R3 0
-       63 SETTABLEKS                       R3 R2 K12 ["_hit429"]
-       65 LOADB                            R3 0
-       66 SETTABLEKS                       R3 R2 K13 ["_started"]
-       68 LOADB                            R3 0
-       69 SETTABLEKS                       R3 R2 K14 ["_dead"]
-       71 LOADNIL                          R3
-       72 SETTABLEKS                       R3 R2 K15 ["_httpTask"]
-       74 LOADNIL                          R3
-       75 SETTABLEKS                       R3 R2 K16 ["_renderSteppedConnection"]
-       77 LOADN                            R3 0
-       78 SETTABLEKS                       R3 R2 K17 ["_goodAssets"]
-       80 LOADN                            R3 0
-       81 SETTABLEKS                       R3 R2 K18 ["_badAssets"]
-       83 NEWTABLE                         R3 0 0
-       85 SETTABLEKS                       R3 R2 K19 ["_resolvedAssets"]
-       87 SETTABLEKS                       R0 R2 K20 ["_networking"]
-       89 GETUPVAL                         R5 5
-       90 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       92 MOVE                             R4 R2
-       93 GETIMPORT                        R3 K28 [setmetatable]
-       95 CALL                             R3 2 0
-       96 RETURN                           R2 1
+       27 JUMPIFNOT                        R1 ; [+3]
+       28 GETTABLEKS                       R3 R1 K26 ["maxAssetsPerRequest"]
+       30 JUMPIF                           R3 ; [+1]
+       31 GETUPVAL                         R3 1
+       32 SETTABLEKS                       R3 R2 K8 ["_maxAssetsPerRequest"]
+       34 JUMPIFNOT                        R1 ; [+3]
+       35 GETTABLEKS                       R3 R1 K27 ["perRequestCooldown"]
+       37 JUMPIF                           R3 ; [+1]
+       38 GETUPVAL                         R3 2
+       39 SETTABLEKS                       R3 R2 K9 ["_perRequestCooldown"]
+       41 JUMPIFNOT                        R1 ; [+3]
+       42 GETTABLEKS                       R3 R1 K28 ["cooldownAfterHttp429"]
+       44 JUMPIF                           R3 ; [+1]
+       45 GETUPVAL                         R3 3
+       46 SETTABLEKS                       R3 R2 K10 ["_cooldownAfterHttp429"]
+       48 JUMPIFNOT                        R1 ; [+3]
+       49 GETTABLEKS                       R3 R1 K29 ["maxRecentRequests"]
+       51 JUMPIF                           R3 ; [+1]
+       52 GETUPVAL                         R3 4
+       53 SETTABLEKS                       R3 R2 K11 ["_maxRecentRequests"]
+       55 NEWTABLE                         R3 0 0
+       57 SETTABLEKS                       R3 R2 K12 ["_lastSentRequests"]
+       59 NEWTABLE                         R3 0 0
+       61 SETTABLEKS                       R3 R2 K22 ["_resolvedAssets"]
+       63 SETTABLEKS                       R0 R2 K23 ["_networking"]
+       65 GETUPVAL                         R5 5
+       66 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       68 MOVE                             R4 R2
+       69 GETIMPORT                        R3 K31 [setmetatable]
+       71 CALL                             R3 2 0
+       72 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -318,10 +302,10 @@ PROTO_14:
        18 CALL                             R1 2 0
        19 RETURN                           R0 0
        20 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-       22 LOADN                            R2 144
+       22 LOADN                            R2 400
        23 JUMPIFNOTLE                      R2 R1 ; [+6]
        25 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-       27 LOADN                            R2 244
+       27 LOADN                            R2 500
        28 JUMPIFLT                         R1 R2 ; [+11]
        30 GETUPVAL                         R2 0
        31 GETTABLEKS                       R2 R2 K4 ["_batchesToSend"]
@@ -560,61 +544,57 @@ PROTO_22:
        60 NEWTABLE                         R6 0 0
        62 NEWTABLE                         R7 0 0
        64 LOADN                            R5 0
-       65 JUMP                             ; [+42]
-       66 DUPTABLE                         R13 K22 [{"subject", "action", "assetId"}]
-       67 DUPTABLE                         R14 K25 [{"subjectType", "subjectId"}]
-       68 LOADK                            R15 K26 ["Universe"]
-       69 SETTABLEKS                       R15 R14 K23 ["subjectType"]
-       71 GETIMPORT                        R16 K6 [game]
-       73 GETTABLEKS                       R16 R16 K27 ["GameId"]
-       75 FASTCALL1                        TOSTRING R16 ; [+2]
-       76 GETIMPORT                        R15 K29 [tostring]
-       78 CALL                             R15 1 1
-       79 SETTABLEKS                       R15 R14 K24 ["subjectId"]
-       81 SETTABLEKS                       R14 R13 K19 ["subject"]
-       83 LOADK                            R14 K30 ["use"]
-       84 SETTABLEKS                       R14 R13 K20 ["action"]
-       86 FASTCALL1                        TOSTRING R11 ; [+3]
-       87 MOVE                             R15 R11
-       88 GETIMPORT                        R14 K29 [tostring]
-       90 CALL                             R14 1 1
-       91 SETTABLEKS                       R14 R13 K21 ["assetId"]
-       93 FASTCALL2                        TABLE_INSERT R6 R13 ; [+5]
-       95 MOVE                             R15 R6
-       96 MOVE                             R16 R13
-       97 GETIMPORT                        R14 K33 [table.insert]
-       99 CALL                             R14 2 0
-      100 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
-      102 MOVE                             R15 R7
-      103 MOVE                             R16 R11
-      104 GETIMPORT                        R14 K33 [table.insert]
-      106 CALL                             R14 2 0
-      107 ADDK                             R5 R5 K34 [1]
-      108 FORGLOOP                         R8 2 ; [-80]
-      110 GETUPVAL                         R8 1
-      111 DUPTABLE                         R10 K12 [{"requests"}]
-      112 SETTABLEKS                       R6 R10 K11 ["requests"]
-      114 NAMECALL                         R8 R8 K13 ["JSONEncode"]
-      116 CALL                             R8 2 1
-      117 GETTABLEKS                       R9 R0 K14 ["_networking"]
-      119 MOVE                             R11 R3
-      120 MOVE                             R12 R8
-      121 MOVE                             R13 R2
-      122 NAMECALL                         R9 R9 K15 ["post"]
-      124 CALL                             R9 4 1
-      125 GETTABLEKS                       R10 R0 K14 ["_networking"]
-      127 MOVE                             R12 R9
-      128 NAMECALL                         R10 R10 K16 ["parseJson"]
-      130 CALL                             R10 2 1
-      131 NEWCLOSURE                       R13 P2
-      132 CAPTURE                          VAL R0
-      133 CAPTURE                          VAL R1
-      134 CAPTURE                          REF R7
-      135 DUPCLOSURE                       R14 K35 [PROTO_21]
-      136 NAMECALL                         R11 R10 K18 ["andThen"]
-      138 CALL                             R11 3 0
-      139 CLOSEUPVALS                      R7
-      140 RETURN                           R0 0
+       65 JUMP                             ; [+36]
+       66 DUPTABLE                         R13 K23 [{["subject"], ["action"] = "use", ["assetId"]}]
+       67 DUPTABLE                         R14 K27 [{["subjectType"] = "Universe", ["subjectId"]}]
+       68 GETIMPORT                        R16 K6 [game]
+       70 GETTABLEKS                       R16 R16 K28 ["GameId"]
+       72 FASTCALL1                        TOSTRING R16 ; [+2]
+       73 GETIMPORT                        R15 K30 [tostring]
+       75 CALL                             R15 1 1
+       76 SETTABLEKS                       R15 R14 K26 ["subjectId"]
+       78 SETTABLEKS                       R14 R13 K19 ["subject"]
+       80 FASTCALL1                        TOSTRING R11 ; [+3]
+       81 MOVE                             R15 R11
+       82 GETIMPORT                        R14 K30 [tostring]
+       84 CALL                             R14 1 1
+       85 SETTABLEKS                       R14 R13 K22 ["assetId"]
+       87 FASTCALL2                        TABLE_INSERT R6 R13 ; [+5]
+       89 MOVE                             R15 R6
+       90 MOVE                             R16 R13
+       91 GETIMPORT                        R14 K33 [table.insert]
+       93 CALL                             R14 2 0
+       94 FASTCALL2                        TABLE_INSERT R7 R11 ; [+5]
+       96 MOVE                             R15 R7
+       97 MOVE                             R16 R11
+       98 GETIMPORT                        R14 K33 [table.insert]
+      100 CALL                             R14 2 0
+      101 ADDK                             R5 R5 K34 [1]
+      102 FORGLOOP                         R8 2 ; [-74]
+      104 GETUPVAL                         R8 1
+      105 DUPTABLE                         R10 K12 [{"requests"}]
+      106 SETTABLEKS                       R6 R10 K11 ["requests"]
+      108 NAMECALL                         R8 R8 K13 ["JSONEncode"]
+      110 CALL                             R8 2 1
+      111 GETTABLEKS                       R9 R0 K14 ["_networking"]
+      113 MOVE                             R11 R3
+      114 MOVE                             R12 R8
+      115 MOVE                             R13 R2
+      116 NAMECALL                         R9 R9 K15 ["post"]
+      118 CALL                             R9 4 1
+      119 GETTABLEKS                       R10 R0 K14 ["_networking"]
+      121 MOVE                             R12 R9
+      122 NAMECALL                         R10 R10 K16 ["parseJson"]
+      124 CALL                             R10 2 1
+      125 NEWCLOSURE                       R13 P2
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          VAL R1
+      128 CAPTURE                          REF R7
+      129 DUPCLOSURE                       R14 K35 [PROTO_21]
+      130 NAMECALL                         R11 R10 K18 ["andThen"]
+      132 CALL                             R11 3 0
+      133 CLOSEUPVALS                      R7
+      134 RETURN                           R0 0
 
 PROTO_23:
         0 NEWTABLE                         R3 0 0

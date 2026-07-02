@@ -54,23 +54,17 @@ MAIN:
        26 NAMECALL                         R3 R3 K11 ["GetService"]
        28 CALL                             R3 2 1
        29 GETTABLEKS                       R4 R2 K12 ["createReducer"]
-       31 DUPTABLE                         R5 K16 [{"customPolicySwitchEnabled", "customPolicySwitchActive", "customPoliciesEnabled"}]
-       32 LOADB                            R6 0
-       33 SETTABLEKS                       R6 R5 K13 ["customPolicySwitchEnabled"]
-       35 LOADB                            R6 0
-       36 SETTABLEKS                       R6 R5 K14 ["customPolicySwitchActive"]
-       38 LOADB                            R6 0
-       39 SETTABLEKS                       R6 R5 K15 ["customPoliciesEnabled"]
-       41 DUPTABLE                         R6 K20 [{"OnCustomPolicySwitchEnabledChanged", "OnCustomPolicyEnabledChanged", "OnEmulatedCountryRegionChanged"}]
-       42 DUPCLOSURE                       R7 K21 [PROTO_0]
+       31 DUPTABLE                         R5 K17 [{["customPolicySwitchEnabled"] = False, ["customPolicySwitchActive"] = False, ["customPoliciesEnabled"] = False}]
+       32 DUPTABLE                         R6 K21 [{"OnCustomPolicySwitchEnabledChanged", "OnCustomPolicyEnabledChanged", "OnEmulatedCountryRegionChanged"}]
+       33 DUPCLOSURE                       R7 K22 [PROTO_0]
+       34 CAPTURE                          VAL R1
+       35 SETTABLEKS                       R7 R6 K18 ["OnCustomPolicySwitchEnabledChanged"]
+       37 DUPCLOSURE                       R7 K23 [PROTO_1]
+       38 CAPTURE                          VAL R1
+       39 SETTABLEKS                       R7 R6 K19 ["OnCustomPolicyEnabledChanged"]
+       41 DUPCLOSURE                       R7 K24 [PROTO_2]
+       42 CAPTURE                          VAL R3
        43 CAPTURE                          VAL R1
-       44 SETTABLEKS                       R7 R6 K17 ["OnCustomPolicySwitchEnabledChanged"]
-       46 DUPCLOSURE                       R7 K22 [PROTO_1]
-       47 CAPTURE                          VAL R1
-       48 SETTABLEKS                       R7 R6 K18 ["OnCustomPolicyEnabledChanged"]
-       50 DUPCLOSURE                       R7 K23 [PROTO_2]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R1
-       53 SETTABLEKS                       R7 R6 K19 ["OnEmulatedCountryRegionChanged"]
-       55 CALL                             R4 2 -1
-       56 RETURN                           R4 -1
+       44 SETTABLEKS                       R7 R6 K20 ["OnEmulatedCountryRegionChanged"]
+       46 CALL                             R4 2 -1
+       47 RETURN                           R4 -1

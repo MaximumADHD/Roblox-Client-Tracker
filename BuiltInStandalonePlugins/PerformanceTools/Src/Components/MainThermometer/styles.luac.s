@@ -12,30 +12,18 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Component-MainThermometer"]
-       20 DUPTABLE                         R5 K13 [{"BackgroundColor3", "BorderSizePixel"}]
-       21 LOADK                            R6 K14 ["$BackgroundPaper"]
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundColor3"]
-       24 LOADN                            R6 0
-       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       27 NEWTABLE                         R6 0 2
-       29 MOVE                             R7 R2
-       30 LOADK                            R8 K15 [">> TextLabel"]
-       31 DUPTABLE                         R9 K20 [{"TextColor3", "BackgroundTransparency", "TextSize", "Font"}]
-       32 LOADK                            R10 K21 ["$TextPrimary"]
-       33 SETTABLEKS                       R10 R9 K16 ["TextColor3"]
-       35 LOADN                            R10 1
-       36 SETTABLEKS                       R10 R9 K17 ["BackgroundTransparency"]
-       38 LOADN                            R10 16
-       39 SETTABLEKS                       R10 R9 K18 ["TextSize"]
-       41 GETIMPORT                        R10 K24 [Enum.Font.BuilderSans]
-       43 SETTABLEKS                       R10 R9 K19 ["Font"]
-       45 CALL                             R7 2 1
-       46 MOVE                             R8 R2
-       47 LOADK                            R9 K25 [">> .Heading"]
-       48 DUPTABLE                         R10 K26 [{"TextSize"}]
-       49 LOADK                            R11 K27 ["$FontSize_350"]
-       50 SETTABLEKS                       R11 R10 K18 ["TextSize"]
-       52 CALL                             R8 2 -1
-       53 SETLIST                          R6 R7 -1 [1]
-       55 CALL                             R3 3 -1
-       56 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K15 [{["BackgroundColor3"] = "$BackgroundPaper", ["BorderSizePixel"] = 0}]
+       21 NEWTABLE                         R6 0 2
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K16 [">> TextLabel"]
+       25 DUPTABLE                         R9 K24 [{["TextColor3"] = "$TextPrimary", ["BackgroundTransparency"] = 1, ["TextSize"] = 16, ["Font"]}]
+       26 GETIMPORT                        R10 K27 [Enum.Font.BuilderSans]
+       28 SETTABLEKS                       R10 R9 K23 ["Font"]
+       30 CALL                             R7 2 1
+       31 MOVE                             R8 R2
+       32 LOADK                            R9 K28 [">> .Heading"]
+       33 DUPTABLE                         R10 K30 [{["TextSize"] = "$FontSize_350"}]
+       34 CALL                             R8 2 -1
+       35 SETLIST                          R6 R7 -1 [1]
+       37 CALL                             R3 3 -1
+       38 RETURN                           R3 -1

@@ -39,42 +39,38 @@ PROTO_0:
        53 RETURN                           R4 -1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"isUniverseCreation", "limit", "cursor"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isUniverseCreation"]
-        4 GETTABLEKS                       R2 R0 K4 ["pageSize"]
-        6 SETTABLEKS                       R2 R1 K1 ["limit"]
-        8 GETTABLEKS                       R2 R0 K2 ["cursor"]
-       10 SETTABLEKS                       R2 R1 K2 ["cursor"]
-       12 DUPTABLE                         R2 K8 [{"Method", "Url", "Headers"}]
-       13 LOADK                            R3 K9 ["GET"]
-       14 SETTABLEKS                       R3 R2 K5 ["Method"]
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R3 R3 K10 ["composeUrl"]
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R4 R4 K11 ["DEVELOP_URL"]
-       22 LOADK                            R6 K12 ["v1/universes/%*/places"]
-       23 GETTABLEKS                       R8 R0 K13 ["universeId"]
-       25 NAMECALL                         R6 R6 K14 ["format"]
-       27 CALL                             R6 2 1
-       28 MOVE                             R5 R6
-       29 MOVE                             R6 R1
-       30 CALL                             R3 3 1
-       31 SETTABLEKS                       R3 R2 K6 ["Url"]
-       33 NEWTABLE                         R3 1 0
-       35 LOADK                            R4 K15 ["application/json"]
-       36 SETTABLEKS                       R4 R3 K16 ["Content-Type"]
-       38 SETTABLEKS                       R3 R2 K7 ["Headers"]
-       40 GETUPVAL                         R3 1
-       41 GETTABLEKS                       R3 R3 K17 ["Request"]
-       43 MOVE                             R4 R2
-       44 CALL                             R3 1 1
-       45 DUPCLOSURE                       R5 K18 [PROTO_0]
-       46 CAPTURE                          UPVAL U2
-       47 CAPTURE                          UPVAL U3
-       48 NAMECALL                         R3 R3 K19 ["andThen"]
-       50 CALL                             R3 2 -1
-       51 RETURN                           R3 -1
+        0 DUPTABLE                         R1 K4 [{[1] = False, ["limit"], ["cursor"]}]
+        1 GETTABLEKS                       R2 R0 K5 ["pageSize"]
+        3 SETTABLEKS                       R2 R1 K2 ["limit"]
+        5 GETTABLEKS                       R2 R0 K3 ["cursor"]
+        7 SETTABLEKS                       R2 R1 K3 ["cursor"]
+        9 DUPTABLE                         R2 K10 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K11 ["composeUrl"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K12 ["DEVELOP_URL"]
+       16 LOADK                            R6 K13 ["v1/universes/%*/places"]
+       17 GETTABLEKS                       R8 R0 K14 ["universeId"]
+       19 NAMECALL                         R6 R6 K15 ["format"]
+       21 CALL                             R6 2 1
+       22 MOVE                             R5 R6
+       23 MOVE                             R6 R1
+       24 CALL                             R3 3 1
+       25 SETTABLEKS                       R3 R2 K8 ["Url"]
+       27 NEWTABLE                         R3 1 0
+       29 LOADK                            R4 K16 ["application/json"]
+       30 SETTABLEKS                       R4 R3 K17 ["Content-Type"]
+       32 SETTABLEKS                       R3 R2 K9 ["Headers"]
+       34 GETUPVAL                         R3 1
+       35 GETTABLEKS                       R3 R3 K18 ["Request"]
+       37 MOVE                             R4 R2
+       38 CALL                             R3 1 1
+       39 DUPCLOSURE                       R5 K19 [PROTO_0]
+       40 CAPTURE                          UPVAL U2
+       41 CAPTURE                          UPVAL U3
+       42 NAMECALL                         R3 R3 K20 ["andThen"]
+       44 CALL                             R3 2 -1
+       45 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

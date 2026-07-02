@@ -783,29 +783,19 @@ PROTO_22:
       110 RETURN                           R0 0
 
 PROTO_23:
-        0 DUPTABLE                         R1 K5 [{"BodyHeightScale", "BodyDepthScale", "BodyWidthScale", "HeadScale", "BodyProportionScale"}]
-        1 LOADN                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["BodyHeightScale"]
-        4 LOADN                            R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["BodyDepthScale"]
-        7 LOADN                            R2 1
-        8 SETTABLEKS                       R2 R1 K2 ["BodyWidthScale"]
-       10 LOADN                            R2 1
-       11 SETTABLEKS                       R2 R1 K3 ["HeadScale"]
-       13 LOADN                            R2 0
-       14 SETTABLEKS                       R2 R1 K4 ["BodyProportionScale"]
-       16 MOVE                             R2 R1
-       17 LOADNIL                          R3
-       18 LOADNIL                          R4
-       19 FORGPREP                         R2
-       20 GETIMPORT                        R7 K8 [Instance.new]
-       22 LOADK                            R8 K9 ["NumberValue"]
-       23 CALL                             R7 1 1
-       24 SETTABLEKS                       R5 R7 K10 ["Name"]
-       26 SETTABLEKS                       R6 R7 K11 ["Value"]
-       28 SETTABLEKS                       R0 R7 K12 ["Parent"]
-       30 FORGLOOP                         R2 2 ; [-11]
-       32 RETURN                           R0 0
+        0 DUPTABLE                         R1 K7 [{[1] = 1, ["BodyDepthScale"] = 1, ["BodyWidthScale"] = 1, ["HeadScale"] = 1, ["BodyProportionScale"] = 0}]
+        1 MOVE                             R2 R1
+        2 LOADNIL                          R3
+        3 LOADNIL                          R4
+        4 FORGPREP                         R2
+        5 GETIMPORT                        R7 K10 [Instance.new]
+        7 LOADK                            R8 K11 ["NumberValue"]
+        8 CALL                             R7 1 1
+        9 SETTABLEKS                       R5 R7 K12 ["Name"]
+       11 SETTABLEKS                       R6 R7 K13 ["Value"]
+       13 SETTABLEKS                       R0 R7 K14 ["Parent"]
+       15 FORGLOOP                         R2 2 ; [-11]
+       17 RETURN                           R0 0
 
 PROTO_24:
         0 NEWTABLE                         R3 0 0
@@ -1630,388 +1620,360 @@ MAIN:
        96 LOADK                            R16 K25 ["StarterCharacterScripts"]
        97 NAMECALL                         R14 R13 K26 ["FindFirstChild"]
        99 CALL                             R14 2 1
-      100 DUPTABLE                         R15 K29 [{"AdaptInstance", "SetupAdapterParts"}]
-      101 LOADK                            R16 K30 ["rbxasset://avatar/unification/AdaptInstance.lua"]
-      102 SETTABLEKS                       R16 R15 K27 ["AdaptInstance"]
-      104 LOADK                            R16 K31 ["rbxasset://avatar/unification/SetupAdapterParts.lua"]
-      105 SETTABLEKS                       R16 R15 K28 ["SetupAdapterParts"]
-      107 LOADK                            R18 K32 ["rbxasset://avatar/unification/AdapterReference.rbxm"]
-      108 NAMECALL                         R16 R1 K33 ["LoadLocalAsset"]
-      110 CALL                             R16 2 1
-      111 LOADK                            R19 K34 ["rbxasset://avatar/unification/R15.rbxm"]
-      112 NAMECALL                         R17 R1 K33 ["LoadLocalAsset"]
-      114 CALL                             R17 2 1
-      115 GETTABLEKS                       R18 R17 K35 ["UpperTorso"]
-      117 GETTABLEKS                       R18 R18 K36 ["Color"]
-      119 GETIMPORT                        R19 K39 [CFrame.Angles]
-      121 LOADK                            R20 K40 [1.5707963267949]
-      122 LOADK                            R21 K41 [-3.14159265358979]
-      123 LOADN                            R22 0
-      124 CALL                             R19 3 1
-      125 GETIMPORT                        R20 K39 [CFrame.Angles]
-      127 LOADN                            R21 0
-      128 LOADK                            R22 K42 [-1.5707963267949]
-      129 LOADN                            R23 0
-      130 CALL                             R20 3 1
-      131 GETIMPORT                        R21 K39 [CFrame.Angles]
-      133 LOADN                            R22 0
-      134 LOADK                            R23 K40 [1.5707963267949]
-      135 LOADN                            R24 0
-      136 CALL                             R21 3 1
-      137 NEWTABLE                         R22 8 0
-      139 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      140 SETTABLEKS                       R19 R23 K43 ["C0"]
-      142 SETTABLEKS                       R19 R23 K44 ["C1"]
-      144 SETTABLEKS                       R23 R22 K46 ["RootJoint"]
-      146 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      147 GETIMPORT                        R25 K48 [CFrame.new]
-      149 LOADN                            R26 0
-      150 LOADN                            R27 1
-      151 LOADN                            R28 0
-      152 CALL                             R25 3 1
-      153 MUL                              R24 R25 R19
-      154 SETTABLEKS                       R24 R23 K43 ["C0"]
-      156 GETIMPORT                        R25 K48 [CFrame.new]
-      158 LOADN                            R26 0
-      159 LOADK                            R27 K49 [-0.5]
-      160 LOADN                            R28 0
-      161 CALL                             R25 3 1
-      162 MUL                              R24 R25 R19
-      163 SETTABLEKS                       R24 R23 K44 ["C1"]
-      165 SETTABLEKS                       R23 R22 K50 ["Neck"]
-      167 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      168 GETIMPORT                        R25 K48 [CFrame.new]
-      170 LOADN                            R26 1
-      171 LOADK                            R27 K51 [0.5]
-      172 LOADN                            R28 0
-      173 CALL                             R25 3 1
-      174 MUL                              R24 R25 R21
-      175 SETTABLEKS                       R24 R23 K43 ["C0"]
-      177 GETIMPORT                        R25 K48 [CFrame.new]
-      179 LOADK                            R26 K49 [-0.5]
-      180 LOADK                            R27 K51 [0.5]
-      181 LOADN                            R28 0
-      182 CALL                             R25 3 1
-      183 MUL                              R24 R25 R21
-      184 SETTABLEKS                       R24 R23 K44 ["C1"]
-      186 SETTABLEKS                       R23 R22 K52 ["Right Shoulder"]
-      188 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      189 GETIMPORT                        R25 K48 [CFrame.new]
-      191 LOADN                            R26 1
-      192 LOADN                            R27 255
-      193 LOADN                            R28 0
-      194 CALL                             R25 3 1
-      195 MUL                              R24 R25 R21
-      196 SETTABLEKS                       R24 R23 K43 ["C0"]
-      198 GETIMPORT                        R25 K48 [CFrame.new]
-      200 LOADK                            R26 K51 [0.5]
-      201 LOADN                            R27 1
-      202 LOADN                            R28 0
-      203 CALL                             R25 3 1
-      204 MUL                              R24 R25 R21
-      205 SETTABLEKS                       R24 R23 K44 ["C1"]
-      207 SETTABLEKS                       R23 R22 K53 ["Right Hip"]
-      209 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      210 GETIMPORT                        R25 K48 [CFrame.new]
-      212 LOADN                            R26 255
-      213 LOADK                            R27 K51 [0.5]
-      214 LOADN                            R28 0
-      215 CALL                             R25 3 1
-      216 MUL                              R24 R25 R20
-      217 SETTABLEKS                       R24 R23 K43 ["C0"]
-      219 GETIMPORT                        R25 K48 [CFrame.new]
-      221 LOADK                            R26 K51 [0.5]
-      222 LOADK                            R27 K51 [0.5]
-      223 LOADN                            R28 0
-      224 CALL                             R25 3 1
-      225 MUL                              R24 R25 R20
-      226 SETTABLEKS                       R24 R23 K44 ["C1"]
-      228 SETTABLEKS                       R23 R22 K54 ["Left Shoulder"]
-      230 DUPTABLE                         R23 K45 [{"C0", "C1"}]
-      231 GETIMPORT                        R25 K48 [CFrame.new]
-      233 LOADN                            R26 255
-      234 LOADN                            R27 255
-      235 LOADN                            R28 0
-      236 CALL                             R25 3 1
-      237 MUL                              R24 R25 R20
-      238 SETTABLEKS                       R24 R23 K43 ["C0"]
-      240 GETIMPORT                        R25 K48 [CFrame.new]
-      242 LOADK                            R26 K49 [-0.5]
-      243 LOADN                            R27 1
-      244 LOADN                            R28 0
-      245 CALL                             R25 3 1
-      246 MUL                              R24 R25 R20
-      247 SETTABLEKS                       R24 R23 K44 ["C1"]
-      249 SETTABLEKS                       R23 R22 K55 ["Left Hip"]
-      251 DUPTABLE                         R23 K61 [{"Root", "Neck", "RightShoulder", "RightHip", "LeftShoulder", "LeftHip"}]
-      252 NAMECALL                         R24 R19 K62 ["Inverse"]
-      254 CALL                             R24 1 1
-      255 SETTABLEKS                       R24 R23 K56 ["Root"]
-      257 NAMECALL                         R24 R19 K62 ["Inverse"]
-      259 CALL                             R24 1 1
-      260 SETTABLEKS                       R24 R23 K50 ["Neck"]
-      262 NAMECALL                         R24 R21 K62 ["Inverse"]
-      264 CALL                             R24 1 1
-      265 SETTABLEKS                       R24 R23 K57 ["RightShoulder"]
-      267 NAMECALL                         R24 R21 K62 ["Inverse"]
-      269 CALL                             R24 1 1
-      270 SETTABLEKS                       R24 R23 K58 ["RightHip"]
-      272 NAMECALL                         R24 R20 K62 ["Inverse"]
-      274 CALL                             R24 1 1
-      275 SETTABLEKS                       R24 R23 K59 ["LeftShoulder"]
-      277 NAMECALL                         R24 R20 K62 ["Inverse"]
-      279 CALL                             R24 1 1
-      280 SETTABLEKS                       R24 R23 K60 ["LeftHip"]
-      282 NEWTABLE                         R24 8 0
-      284 LOADK                            R25 K60 ["LeftHip"]
-      285 SETTABLEKS                       R25 R24 K55 ["Left Hip"]
-      287 LOADK                            R25 K58 ["RightHip"]
-      288 SETTABLEKS                       R25 R24 K53 ["Right Hip"]
-      290 LOADK                            R25 K59 ["LeftShoulder"]
-      291 SETTABLEKS                       R25 R24 K54 ["Left Shoulder"]
-      293 LOADK                            R25 K57 ["RightShoulder"]
-      294 SETTABLEKS                       R25 R24 K52 ["Right Shoulder"]
-      296 LOADK                            R25 K50 ["Neck"]
-      297 SETTABLEKS                       R25 R24 K50 ["Neck"]
-      299 LOADK                            R25 K56 ["Root"]
-      300 SETTABLEKS                       R25 R24 K46 ["RootJoint"]
-      302 NEWTABLE                         R25 8 0
-      304 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      305 LOADK                            R27 K66 ["Torso"]
-      306 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      308 LOADK                            R27 K67 ["Left Leg"]
-      309 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      311 SETTABLEKS                       R26 R25 K55 ["Left Hip"]
-      313 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      314 LOADK                            R27 K66 ["Torso"]
-      315 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      317 LOADK                            R27 K68 ["Right Leg"]
-      318 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      320 SETTABLEKS                       R26 R25 K53 ["Right Hip"]
-      322 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      323 LOADK                            R27 K66 ["Torso"]
-      324 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      326 LOADK                            R27 K69 ["Left Arm"]
-      327 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      329 SETTABLEKS                       R26 R25 K54 ["Left Shoulder"]
-      331 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      332 LOADK                            R27 K66 ["Torso"]
-      333 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      335 LOADK                            R27 K70 ["Right Arm"]
-      336 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      338 SETTABLEKS                       R26 R25 K52 ["Right Shoulder"]
-      340 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      341 LOADK                            R27 K66 ["Torso"]
-      342 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      344 LOADK                            R27 K71 ["Head"]
-      345 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      347 SETTABLEKS                       R26 R25 K50 ["Neck"]
-      349 DUPTABLE                         R26 K65 [{"Part0Name", "Part1Name"}]
-      350 LOADK                            R27 K72 ["HumanoidRootPart"]
-      351 SETTABLEKS                       R27 R26 K63 ["Part0Name"]
-      353 LOADK                            R27 K66 ["Torso"]
-      354 SETTABLEKS                       R27 R26 K64 ["Part1Name"]
-      356 SETTABLEKS                       R26 R25 K46 ["RootJoint"]
-      358 NEWTABLE                         R26 8 0
-      360 GETIMPORT                        R27 K75 [Enum.BodyPart.Head]
-      362 NEWTABLE                         R28 0 1
-      364 LOADK                            R29 K71 ["Head"]
-      365 SETLIST                          R28 R29 1 [1]
-      367 SETTABLE                         R28 R26 R27
-      368 GETIMPORT                        R27 K76 [Enum.BodyPart.Torso]
-      370 NEWTABLE                         R28 0 2
-      372 LOADK                            R29 K35 ["UpperTorso"]
-      373 LOADK                            R30 K77 ["LowerTorso"]
-      374 SETLIST                          R28 R29 2 [1]
-      376 SETTABLE                         R28 R26 R27
-      377 GETIMPORT                        R27 K79 [Enum.BodyPart.LeftArm]
-      379 NEWTABLE                         R28 0 3
-      381 LOADK                            R29 K80 ["LeftUpperArm"]
-      382 LOADK                            R30 K81 ["LeftLowerArm"]
-      383 LOADK                            R31 K82 ["LeftHand"]
-      384 SETLIST                          R28 R29 3 [1]
-      386 SETTABLE                         R28 R26 R27
-      387 GETIMPORT                        R27 K84 [Enum.BodyPart.RightArm]
-      389 NEWTABLE                         R28 0 3
-      391 LOADK                            R29 K85 ["RightUpperArm"]
-      392 LOADK                            R30 K86 ["RightLowerArm"]
-      393 LOADK                            R31 K87 ["RightHand"]
-      394 SETLIST                          R28 R29 3 [1]
-      396 SETTABLE                         R28 R26 R27
-      397 GETIMPORT                        R27 K89 [Enum.BodyPart.LeftLeg]
-      399 NEWTABLE                         R28 0 3
-      401 LOADK                            R29 K90 ["LeftUpperLeg"]
-      402 LOADK                            R30 K91 ["LeftLowerLeg"]
-      403 LOADK                            R31 K92 ["LeftFoot"]
-      404 SETLIST                          R28 R29 3 [1]
-      406 SETTABLE                         R28 R26 R27
-      407 GETIMPORT                        R27 K94 [Enum.BodyPart.RightLeg]
-      409 NEWTABLE                         R28 0 3
-      411 LOADK                            R29 K95 ["RightUpperLeg"]
-      412 LOADK                            R30 K96 ["RightLowerLeg"]
-      413 LOADK                            R31 K97 ["RightFoot"]
-      414 SETLIST                          R28 R29 3 [1]
-      416 SETTABLE                         R28 R26 R27
-      417 NEWTABLE                         R27 8 0
-      419 GETIMPORT                        R28 K75 [Enum.BodyPart.Head]
-      421 LOADK                            R29 K71 ["Head"]
-      422 SETTABLE                         R29 R27 R28
-      423 GETIMPORT                        R28 K76 [Enum.BodyPart.Torso]
-      425 LOADK                            R29 K66 ["Torso"]
-      426 SETTABLE                         R29 R27 R28
-      427 GETIMPORT                        R28 K79 [Enum.BodyPart.LeftArm]
-      429 LOADK                            R29 K69 ["Left Arm"]
-      430 SETTABLE                         R29 R27 R28
-      431 GETIMPORT                        R28 K84 [Enum.BodyPart.RightArm]
-      433 LOADK                            R29 K70 ["Right Arm"]
-      434 SETTABLE                         R29 R27 R28
-      435 GETIMPORT                        R28 K89 [Enum.BodyPart.LeftLeg]
-      437 LOADK                            R29 K67 ["Left Leg"]
-      438 SETTABLE                         R29 R27 R28
-      439 GETIMPORT                        R28 K94 [Enum.BodyPart.RightLeg]
-      441 LOADK                            R29 K68 ["Right Leg"]
-      442 SETTABLE                         R29 R27 R28
-      443 NEWTABLE                         R28 0 0
-      445 MOVE                             R29 R27
-      446 LOADNIL                          R30
-      447 LOADNIL                          R31
-      448 FORGPREP                         R29
-      449 SETTABLE                         R32 R28 R33
-      450 FORGLOOP                         R29 2 ; [-2]
-      452 NEWTABLE                         R29 0 0
-      454 MOVE                             R30 R26
-      455 LOADNIL                          R31
-      456 LOADNIL                          R32
-      457 FORGPREP                         R30
-      458 MOVE                             R35 R34
-      459 LOADNIL                          R36
-      460 LOADNIL                          R37
-      461 FORGPREP                         R35
-      462 SETTABLE                         R33 R29 R39
-      463 FORGLOOP                         R35 2 ; [-2]
-      465 FORGLOOP                         R30 2 ; [-8]
-      467 NEWTABLE                         R30 0 3
-      469 LOADK                            R31 K98 ["R15ArtistIntent"]
-      470 LOADK                            R32 K99 ["R15"]
-      471 LOADK                            R33 K100 ["R15Fixed"]
-      472 SETLIST                          R30 R31 3 [1]
-      474 DUPCLOSURE                       R31 K101 [PROTO_0]
-      475 CAPTURE                          VAL R28
-      476 SETTABLEKS                       R31 R0 K102 ["GetBodyPartR6"]
-      478 DUPCLOSURE                       R31 K103 [PROTO_1]
-      479 CAPTURE                          VAL R26
-      480 SETTABLEKS                       R31 R0 K104 ["GetR15PartsFromBodyPart"]
-      482 DUPCLOSURE                       R31 K105 [PROTO_2]
-      483 CAPTURE                          VAL R29
-      484 CAPTURE                          VAL R27
-      485 SETTABLEKS                       R31 R0 K106 ["GetLimbForR15Part"]
-      487 DUPCLOSURE                       R31 K107 [PROTO_3]
-      488 DUPCLOSURE                       R32 K108 [PROTO_5]
-      489 CAPTURE                          VAL R7
-      490 SETTABLEKS                       R32 R0 K109 ["GetR6Npcs"]
-      492 DUPCLOSURE                       R32 K110 [PROTO_7]
-      493 CAPTURE                          VAL R11
-      494 CAPTURE                          VAL R7
-      495 SETTABLEKS                       R32 R0 K111 ["GetR15ConvertedNpcs"]
-      497 DUPCLOSURE                       R32 K112 [PROTO_8]
-      498 CAPTURE                          VAL R26
-      499 SETTABLEKS                       R32 R0 K113 ["IsR15Complete"]
-      501 DUPCLOSURE                       R32 K114 [PROTO_10]
-      502 CAPTURE                          VAL R7
-      503 CAPTURE                          VAL R12
-      504 CAPTURE                          VAL R14
-      505 SETTABLEKS                       R32 R0 K115 ["ClearAdapterSetup"]
-      507 DUPCLOSURE                       R32 K116 [PROTO_11]
-      508 CAPTURE                          VAL R28
-      509 CAPTURE                          VAL R9
-      510 DUPCLOSURE                       R33 K117 [PROTO_12]
-      511 DUPCLOSURE                       R34 K118 [PROTO_13]
-      512 CAPTURE                          VAL R26
-      513 CAPTURE                          VAL R17
-      514 DUPCLOSURE                       R35 K119 [PROTO_15]
-      515 CAPTURE                          VAL R5
-      516 CAPTURE                          VAL R1
-      517 CAPTURE                          VAL R34
-      518 CAPTURE                          VAL R30
-      519 CAPTURE                          VAL R26
-      520 DUPCLOSURE                       R36 K120 [PROTO_16]
-      521 CAPTURE                          VAL R1
-      522 CAPTURE                          VAL R2
-      523 DUPCLOSURE                       R37 K121 [PROTO_18]
-      524 CAPTURE                          VAL R9
-      525 CAPTURE                          VAL R5
-      526 CAPTURE                          VAL R1
-      527 CAPTURE                          VAL R36
-      528 DUPCLOSURE                       R38 K122 [PROTO_19]
-      529 CAPTURE                          VAL R1
-      530 DUPCLOSURE                       R39 K123 [PROTO_20]
-      531 SETTABLEKS                       R39 R0 K124 ["RemoveUnificationScripts"]
-      533 DUPCLOSURE                       R39 K125 [PROTO_21]
-      534 SETTABLEKS                       R39 R0 K126 ["HasUnificationScripts"]
-      536 DUPCLOSURE                       R39 K127 [PROTO_22]
-      537 CAPTURE                          VAL R12
-      538 CAPTURE                          VAL R15
-      539 CAPTURE                          VAL R1
-      540 CAPTURE                          VAL R10
-      541 CAPTURE                          VAL R16
-      542 CAPTURE                          VAL R14
-      543 SETTABLEKS                       R39 R0 K128 ["SetupUnificationScripts"]
-      545 DUPCLOSURE                       R39 K129 [PROTO_23]
-      546 DUPCLOSURE                       R40 K130 [PROTO_24]
-      547 SETTABLEKS                       R40 R0 K131 ["FindInstanceUnderNewModel"]
-      549 DUPCLOSURE                       R40 K132 [PROTO_25]
-      550 CAPTURE                          VAL R6
-      551 CAPTURE                          VAL R10
-      552 CAPTURE                          VAL R0
-      553 SETTABLEKS                       R40 R0 K133 ["ReplaceModel"]
-      555 DUPCLOSURE                       R40 K134 [PROTO_26]
-      556 SETTABLEKS                       R40 R0 K135 ["FixRootAttachment"]
-      558 DUPCLOSURE                       R40 K136 [PROTO_27]
-      559 CAPTURE                          VAL R0
-      560 SETTABLEKS                       R40 R0 K137 ["GetNumCharactersHaveWarnings"]
-      562 DUPCLOSURE                       R40 K138 [PROTO_28]
-      563 CAPTURE                          VAL R0
-      564 SETTABLEKS                       R40 R0 K139 ["GetNpcHasWarnings"]
-      566 DUPCLOSURE                       R40 K140 [PROTO_29]
-      567 CAPTURE                          VAL R0
-      568 SETTABLEKS                       R40 R0 K141 ["GetNumCharactersHaveCustomMesh"]
-      570 DUPCLOSURE                       R40 K142 [PROTO_30]
-      571 CAPTURE                          VAL R32
-      572 CAPTURE                          VAL R26
-      573 CAPTURE                          VAL R5
-      574 SETTABLEKS                       R40 R0 K143 ["GetNpcHasCustomMesh"]
-      576 DUPCLOSURE                       R40 K144 [PROTO_31]
-      577 CAPTURE                          VAL R28
-      578 CAPTURE                          VAL R25
-      579 DUPCLOSURE                       R41 K145 [PROTO_34]
-      580 CAPTURE                          VAL R25
-      581 CAPTURE                          VAL R28
-      582 CAPTURE                          VAL R24
-      583 DUPCLOSURE                       R42 K146 [PROTO_35]
-      584 CAPTURE                          VAL R25
-      585 CAPTURE                          VAL R28
-      586 CAPTURE                          VAL R24
-      587 CAPTURE                          VAL R23
-      588 CAPTURE                          VAL R22
-      589 DUPCLOSURE                       R43 K147 [PROTO_36]
-      590 CAPTURE                          VAL R22
-      591 DUPCLOSURE                       R44 K148 [PROTO_39]
-      592 CAPTURE                          VAL R17
-      593 CAPTURE                          VAL R32
-      594 CAPTURE                          VAL R40
-      595 CAPTURE                          VAL R5
-      596 CAPTURE                          VAL R9
-      597 CAPTURE                          VAL R37
-      598 CAPTURE                          VAL R34
-      599 CAPTURE                          VAL R26
-      600 CAPTURE                          VAL R18
-      601 CAPTURE                          VAL R35
-      602 CAPTURE                          VAL R0
-      603 CAPTURE                          VAL R39
-      604 CAPTURE                          VAL R41
-      605 CAPTURE                          VAL R8
-      606 CAPTURE                          VAL R22
-      607 CAPTURE                          VAL R24
-      608 CAPTURE                          VAL R42
-      609 SETTABLEKS                       R44 R0 K149 ["ConvertR6ToR15"]
-      611 RETURN                           R0 1
+      100 DUPTABLE                         R15 K31 [{["AdaptInstance"] = "rbxasset://avatar/unification/AdaptInstance.lua", ["SetupAdapterParts"] = "rbxasset://avatar/unification/SetupAdapterParts.lua"}]
+      101 LOADK                            R18 K32 ["rbxasset://avatar/unification/AdapterReference.rbxm"]
+      102 NAMECALL                         R16 R1 K33 ["LoadLocalAsset"]
+      104 CALL                             R16 2 1
+      105 LOADK                            R19 K34 ["rbxasset://avatar/unification/R15.rbxm"]
+      106 NAMECALL                         R17 R1 K33 ["LoadLocalAsset"]
+      108 CALL                             R17 2 1
+      109 GETTABLEKS                       R18 R17 K35 ["UpperTorso"]
+      111 GETTABLEKS                       R18 R18 K36 ["Color"]
+      113 GETIMPORT                        R19 K39 [CFrame.Angles]
+      115 LOADK                            R20 K40 [1.5707963267949]
+      116 LOADK                            R21 K41 [-3.14159265358979]
+      117 LOADN                            R22 0
+      118 CALL                             R19 3 1
+      119 GETIMPORT                        R20 K39 [CFrame.Angles]
+      121 LOADN                            R21 0
+      122 LOADK                            R22 K42 [-1.5707963267949]
+      123 LOADN                            R23 0
+      124 CALL                             R20 3 1
+      125 GETIMPORT                        R21 K39 [CFrame.Angles]
+      127 LOADN                            R22 0
+      128 LOADK                            R23 K40 [1.5707963267949]
+      129 LOADN                            R24 0
+      130 CALL                             R21 3 1
+      131 NEWTABLE                         R22 8 0
+      133 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      134 SETTABLEKS                       R19 R23 K43 ["C0"]
+      136 SETTABLEKS                       R19 R23 K44 ["C1"]
+      138 SETTABLEKS                       R23 R22 K46 ["RootJoint"]
+      140 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      141 GETIMPORT                        R25 K48 [CFrame.new]
+      143 LOADN                            R26 0
+      144 LOADN                            R27 1
+      145 LOADN                            R28 0
+      146 CALL                             R25 3 1
+      147 MUL                              R24 R25 R19
+      148 SETTABLEKS                       R24 R23 K43 ["C0"]
+      150 GETIMPORT                        R25 K48 [CFrame.new]
+      152 LOADN                            R26 0
+      153 LOADK                            R27 K49 [-0.5]
+      154 LOADN                            R28 0
+      155 CALL                             R25 3 1
+      156 MUL                              R24 R25 R19
+      157 SETTABLEKS                       R24 R23 K44 ["C1"]
+      159 SETTABLEKS                       R23 R22 K50 ["Neck"]
+      161 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      162 GETIMPORT                        R25 K48 [CFrame.new]
+      164 LOADN                            R26 1
+      165 LOADK                            R27 K51 [0.5]
+      166 LOADN                            R28 0
+      167 CALL                             R25 3 1
+      168 MUL                              R24 R25 R21
+      169 SETTABLEKS                       R24 R23 K43 ["C0"]
+      171 GETIMPORT                        R25 K48 [CFrame.new]
+      173 LOADK                            R26 K49 [-0.5]
+      174 LOADK                            R27 K51 [0.5]
+      175 LOADN                            R28 0
+      176 CALL                             R25 3 1
+      177 MUL                              R24 R25 R21
+      178 SETTABLEKS                       R24 R23 K44 ["C1"]
+      180 SETTABLEKS                       R23 R22 K52 ["Right Shoulder"]
+      182 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      183 GETIMPORT                        R25 K48 [CFrame.new]
+      185 LOADN                            R26 1
+      186 LOADN                            R27 -1
+      187 LOADN                            R28 0
+      188 CALL                             R25 3 1
+      189 MUL                              R24 R25 R21
+      190 SETTABLEKS                       R24 R23 K43 ["C0"]
+      192 GETIMPORT                        R25 K48 [CFrame.new]
+      194 LOADK                            R26 K51 [0.5]
+      195 LOADN                            R27 1
+      196 LOADN                            R28 0
+      197 CALL                             R25 3 1
+      198 MUL                              R24 R25 R21
+      199 SETTABLEKS                       R24 R23 K44 ["C1"]
+      201 SETTABLEKS                       R23 R22 K53 ["Right Hip"]
+      203 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      204 GETIMPORT                        R25 K48 [CFrame.new]
+      206 LOADN                            R26 -1
+      207 LOADK                            R27 K51 [0.5]
+      208 LOADN                            R28 0
+      209 CALL                             R25 3 1
+      210 MUL                              R24 R25 R20
+      211 SETTABLEKS                       R24 R23 K43 ["C0"]
+      213 GETIMPORT                        R25 K48 [CFrame.new]
+      215 LOADK                            R26 K51 [0.5]
+      216 LOADK                            R27 K51 [0.5]
+      217 LOADN                            R28 0
+      218 CALL                             R25 3 1
+      219 MUL                              R24 R25 R20
+      220 SETTABLEKS                       R24 R23 K44 ["C1"]
+      222 SETTABLEKS                       R23 R22 K54 ["Left Shoulder"]
+      224 DUPTABLE                         R23 K45 [{"C0", "C1"}]
+      225 GETIMPORT                        R25 K48 [CFrame.new]
+      227 LOADN                            R26 -1
+      228 LOADN                            R27 -1
+      229 LOADN                            R28 0
+      230 CALL                             R25 3 1
+      231 MUL                              R24 R25 R20
+      232 SETTABLEKS                       R24 R23 K43 ["C0"]
+      234 GETIMPORT                        R25 K48 [CFrame.new]
+      236 LOADK                            R26 K49 [-0.5]
+      237 LOADN                            R27 1
+      238 LOADN                            R28 0
+      239 CALL                             R25 3 1
+      240 MUL                              R24 R25 R20
+      241 SETTABLEKS                       R24 R23 K44 ["C1"]
+      243 SETTABLEKS                       R23 R22 K55 ["Left Hip"]
+      245 DUPTABLE                         R23 K61 [{"Root", "Neck", "RightShoulder", "RightHip", "LeftShoulder", "LeftHip"}]
+      246 NAMECALL                         R24 R19 K62 ["Inverse"]
+      248 CALL                             R24 1 1
+      249 SETTABLEKS                       R24 R23 K56 ["Root"]
+      251 NAMECALL                         R24 R19 K62 ["Inverse"]
+      253 CALL                             R24 1 1
+      254 SETTABLEKS                       R24 R23 K50 ["Neck"]
+      256 NAMECALL                         R24 R21 K62 ["Inverse"]
+      258 CALL                             R24 1 1
+      259 SETTABLEKS                       R24 R23 K57 ["RightShoulder"]
+      261 NAMECALL                         R24 R21 K62 ["Inverse"]
+      263 CALL                             R24 1 1
+      264 SETTABLEKS                       R24 R23 K58 ["RightHip"]
+      266 NAMECALL                         R24 R20 K62 ["Inverse"]
+      268 CALL                             R24 1 1
+      269 SETTABLEKS                       R24 R23 K59 ["LeftShoulder"]
+      271 NAMECALL                         R24 R20 K62 ["Inverse"]
+      273 CALL                             R24 1 1
+      274 SETTABLEKS                       R24 R23 K60 ["LeftHip"]
+      276 NEWTABLE                         R24 8 0
+      278 LOADK                            R25 K60 ["LeftHip"]
+      279 SETTABLEKS                       R25 R24 K55 ["Left Hip"]
+      281 LOADK                            R25 K58 ["RightHip"]
+      282 SETTABLEKS                       R25 R24 K53 ["Right Hip"]
+      284 LOADK                            R25 K59 ["LeftShoulder"]
+      285 SETTABLEKS                       R25 R24 K54 ["Left Shoulder"]
+      287 LOADK                            R25 K57 ["RightShoulder"]
+      288 SETTABLEKS                       R25 R24 K52 ["Right Shoulder"]
+      290 LOADK                            R25 K50 ["Neck"]
+      291 SETTABLEKS                       R25 R24 K50 ["Neck"]
+      293 LOADK                            R25 K56 ["Root"]
+      294 SETTABLEKS                       R25 R24 K46 ["RootJoint"]
+      296 NEWTABLE                         R25 8 0
+      298 DUPTABLE                         R26 K67 [{["Part0Name"] = "Torso", ["Part1Name"] = "Left Leg"}]
+      299 SETTABLEKS                       R26 R25 K55 ["Left Hip"]
+      301 DUPTABLE                         R26 K69 [{["Part0Name"] = "Torso", ["Part1Name"] = "Right Leg"}]
+      302 SETTABLEKS                       R26 R25 K53 ["Right Hip"]
+      304 DUPTABLE                         R26 K71 [{["Part0Name"] = "Torso", ["Part1Name"] = "Left Arm"}]
+      305 SETTABLEKS                       R26 R25 K54 ["Left Shoulder"]
+      307 DUPTABLE                         R26 K73 [{["Part0Name"] = "Torso", ["Part1Name"] = "Right Arm"}]
+      308 SETTABLEKS                       R26 R25 K52 ["Right Shoulder"]
+      310 DUPTABLE                         R26 K75 [{["Part0Name"] = "Torso", ["Part1Name"] = "Head"}]
+      311 SETTABLEKS                       R26 R25 K50 ["Neck"]
+      313 DUPTABLE                         R26 K77 [{["Part0Name"] = "HumanoidRootPart", ["Part1Name"] = "Torso"}]
+      314 SETTABLEKS                       R26 R25 K46 ["RootJoint"]
+      316 NEWTABLE                         R26 8 0
+      318 GETIMPORT                        R27 K80 [Enum.BodyPart.Head]
+      320 NEWTABLE                         R28 0 1
+      322 LOADK                            R29 K74 ["Head"]
+      323 SETLIST                          R28 R29 1 [1]
+      325 SETTABLE                         R28 R26 R27
+      326 GETIMPORT                        R27 K81 [Enum.BodyPart.Torso]
+      328 NEWTABLE                         R28 0 2
+      330 LOADK                            R29 K35 ["UpperTorso"]
+      331 LOADK                            R30 K82 ["LowerTorso"]
+      332 SETLIST                          R28 R29 2 [1]
+      334 SETTABLE                         R28 R26 R27
+      335 GETIMPORT                        R27 K84 [Enum.BodyPart.LeftArm]
+      337 NEWTABLE                         R28 0 3
+      339 LOADK                            R29 K85 ["LeftUpperArm"]
+      340 LOADK                            R30 K86 ["LeftLowerArm"]
+      341 LOADK                            R31 K87 ["LeftHand"]
+      342 SETLIST                          R28 R29 3 [1]
+      344 SETTABLE                         R28 R26 R27
+      345 GETIMPORT                        R27 K89 [Enum.BodyPart.RightArm]
+      347 NEWTABLE                         R28 0 3
+      349 LOADK                            R29 K90 ["RightUpperArm"]
+      350 LOADK                            R30 K91 ["RightLowerArm"]
+      351 LOADK                            R31 K92 ["RightHand"]
+      352 SETLIST                          R28 R29 3 [1]
+      354 SETTABLE                         R28 R26 R27
+      355 GETIMPORT                        R27 K94 [Enum.BodyPart.LeftLeg]
+      357 NEWTABLE                         R28 0 3
+      359 LOADK                            R29 K95 ["LeftUpperLeg"]
+      360 LOADK                            R30 K96 ["LeftLowerLeg"]
+      361 LOADK                            R31 K97 ["LeftFoot"]
+      362 SETLIST                          R28 R29 3 [1]
+      364 SETTABLE                         R28 R26 R27
+      365 GETIMPORT                        R27 K99 [Enum.BodyPart.RightLeg]
+      367 NEWTABLE                         R28 0 3
+      369 LOADK                            R29 K100 ["RightUpperLeg"]
+      370 LOADK                            R30 K101 ["RightLowerLeg"]
+      371 LOADK                            R31 K102 ["RightFoot"]
+      372 SETLIST                          R28 R29 3 [1]
+      374 SETTABLE                         R28 R26 R27
+      375 NEWTABLE                         R27 8 0
+      377 GETIMPORT                        R28 K80 [Enum.BodyPart.Head]
+      379 LOADK                            R29 K74 ["Head"]
+      380 SETTABLE                         R29 R27 R28
+      381 GETIMPORT                        R28 K81 [Enum.BodyPart.Torso]
+      383 LOADK                            R29 K64 ["Torso"]
+      384 SETTABLE                         R29 R27 R28
+      385 GETIMPORT                        R28 K84 [Enum.BodyPart.LeftArm]
+      387 LOADK                            R29 K70 ["Left Arm"]
+      388 SETTABLE                         R29 R27 R28
+      389 GETIMPORT                        R28 K89 [Enum.BodyPart.RightArm]
+      391 LOADK                            R29 K72 ["Right Arm"]
+      392 SETTABLE                         R29 R27 R28
+      393 GETIMPORT                        R28 K94 [Enum.BodyPart.LeftLeg]
+      395 LOADK                            R29 K66 ["Left Leg"]
+      396 SETTABLE                         R29 R27 R28
+      397 GETIMPORT                        R28 K99 [Enum.BodyPart.RightLeg]
+      399 LOADK                            R29 K68 ["Right Leg"]
+      400 SETTABLE                         R29 R27 R28
+      401 NEWTABLE                         R28 0 0
+      403 MOVE                             R29 R27
+      404 LOADNIL                          R30
+      405 LOADNIL                          R31
+      406 FORGPREP                         R29
+      407 SETTABLE                         R32 R28 R33
+      408 FORGLOOP                         R29 2 ; [-2]
+      410 NEWTABLE                         R29 0 0
+      412 MOVE                             R30 R26
+      413 LOADNIL                          R31
+      414 LOADNIL                          R32
+      415 FORGPREP                         R30
+      416 MOVE                             R35 R34
+      417 LOADNIL                          R36
+      418 LOADNIL                          R37
+      419 FORGPREP                         R35
+      420 SETTABLE                         R33 R29 R39
+      421 FORGLOOP                         R35 2 ; [-2]
+      423 FORGLOOP                         R30 2 ; [-8]
+      425 NEWTABLE                         R30 0 3
+      427 LOADK                            R31 K103 ["R15ArtistIntent"]
+      428 LOADK                            R32 K104 ["R15"]
+      429 LOADK                            R33 K105 ["R15Fixed"]
+      430 SETLIST                          R30 R31 3 [1]
+      432 DUPCLOSURE                       R31 K106 [PROTO_0]
+      433 CAPTURE                          VAL R28
+      434 SETTABLEKS                       R31 R0 K107 ["GetBodyPartR6"]
+      436 DUPCLOSURE                       R31 K108 [PROTO_1]
+      437 CAPTURE                          VAL R26
+      438 SETTABLEKS                       R31 R0 K109 ["GetR15PartsFromBodyPart"]
+      440 DUPCLOSURE                       R31 K110 [PROTO_2]
+      441 CAPTURE                          VAL R29
+      442 CAPTURE                          VAL R27
+      443 SETTABLEKS                       R31 R0 K111 ["GetLimbForR15Part"]
+      445 DUPCLOSURE                       R31 K112 [PROTO_3]
+      446 DUPCLOSURE                       R32 K113 [PROTO_5]
+      447 CAPTURE                          VAL R7
+      448 SETTABLEKS                       R32 R0 K114 ["GetR6Npcs"]
+      450 DUPCLOSURE                       R32 K115 [PROTO_7]
+      451 CAPTURE                          VAL R11
+      452 CAPTURE                          VAL R7
+      453 SETTABLEKS                       R32 R0 K116 ["GetR15ConvertedNpcs"]
+      455 DUPCLOSURE                       R32 K117 [PROTO_8]
+      456 CAPTURE                          VAL R26
+      457 SETTABLEKS                       R32 R0 K118 ["IsR15Complete"]
+      459 DUPCLOSURE                       R32 K119 [PROTO_10]
+      460 CAPTURE                          VAL R7
+      461 CAPTURE                          VAL R12
+      462 CAPTURE                          VAL R14
+      463 SETTABLEKS                       R32 R0 K120 ["ClearAdapterSetup"]
+      465 DUPCLOSURE                       R32 K121 [PROTO_11]
+      466 CAPTURE                          VAL R28
+      467 CAPTURE                          VAL R9
+      468 DUPCLOSURE                       R33 K122 [PROTO_12]
+      469 DUPCLOSURE                       R34 K123 [PROTO_13]
+      470 CAPTURE                          VAL R26
+      471 CAPTURE                          VAL R17
+      472 DUPCLOSURE                       R35 K124 [PROTO_15]
+      473 CAPTURE                          VAL R5
+      474 CAPTURE                          VAL R1
+      475 CAPTURE                          VAL R34
+      476 CAPTURE                          VAL R30
+      477 CAPTURE                          VAL R26
+      478 DUPCLOSURE                       R36 K125 [PROTO_16]
+      479 CAPTURE                          VAL R1
+      480 CAPTURE                          VAL R2
+      481 DUPCLOSURE                       R37 K126 [PROTO_18]
+      482 CAPTURE                          VAL R9
+      483 CAPTURE                          VAL R5
+      484 CAPTURE                          VAL R1
+      485 CAPTURE                          VAL R36
+      486 DUPCLOSURE                       R38 K127 [PROTO_19]
+      487 CAPTURE                          VAL R1
+      488 DUPCLOSURE                       R39 K128 [PROTO_20]
+      489 SETTABLEKS                       R39 R0 K129 ["RemoveUnificationScripts"]
+      491 DUPCLOSURE                       R39 K130 [PROTO_21]
+      492 SETTABLEKS                       R39 R0 K131 ["HasUnificationScripts"]
+      494 DUPCLOSURE                       R39 K132 [PROTO_22]
+      495 CAPTURE                          VAL R12
+      496 CAPTURE                          VAL R15
+      497 CAPTURE                          VAL R1
+      498 CAPTURE                          VAL R10
+      499 CAPTURE                          VAL R16
+      500 CAPTURE                          VAL R14
+      501 SETTABLEKS                       R39 R0 K133 ["SetupUnificationScripts"]
+      503 DUPCLOSURE                       R39 K134 [PROTO_23]
+      504 DUPCLOSURE                       R40 K135 [PROTO_24]
+      505 SETTABLEKS                       R40 R0 K136 ["FindInstanceUnderNewModel"]
+      507 DUPCLOSURE                       R40 K137 [PROTO_25]
+      508 CAPTURE                          VAL R6
+      509 CAPTURE                          VAL R10
+      510 CAPTURE                          VAL R0
+      511 SETTABLEKS                       R40 R0 K138 ["ReplaceModel"]
+      513 DUPCLOSURE                       R40 K139 [PROTO_26]
+      514 SETTABLEKS                       R40 R0 K140 ["FixRootAttachment"]
+      516 DUPCLOSURE                       R40 K141 [PROTO_27]
+      517 CAPTURE                          VAL R0
+      518 SETTABLEKS                       R40 R0 K142 ["GetNumCharactersHaveWarnings"]
+      520 DUPCLOSURE                       R40 K143 [PROTO_28]
+      521 CAPTURE                          VAL R0
+      522 SETTABLEKS                       R40 R0 K144 ["GetNpcHasWarnings"]
+      524 DUPCLOSURE                       R40 K145 [PROTO_29]
+      525 CAPTURE                          VAL R0
+      526 SETTABLEKS                       R40 R0 K146 ["GetNumCharactersHaveCustomMesh"]
+      528 DUPCLOSURE                       R40 K147 [PROTO_30]
+      529 CAPTURE                          VAL R32
+      530 CAPTURE                          VAL R26
+      531 CAPTURE                          VAL R5
+      532 SETTABLEKS                       R40 R0 K148 ["GetNpcHasCustomMesh"]
+      534 DUPCLOSURE                       R40 K149 [PROTO_31]
+      535 CAPTURE                          VAL R28
+      536 CAPTURE                          VAL R25
+      537 DUPCLOSURE                       R41 K150 [PROTO_34]
+      538 CAPTURE                          VAL R25
+      539 CAPTURE                          VAL R28
+      540 CAPTURE                          VAL R24
+      541 DUPCLOSURE                       R42 K151 [PROTO_35]
+      542 CAPTURE                          VAL R25
+      543 CAPTURE                          VAL R28
+      544 CAPTURE                          VAL R24
+      545 CAPTURE                          VAL R23
+      546 CAPTURE                          VAL R22
+      547 DUPCLOSURE                       R43 K152 [PROTO_36]
+      548 CAPTURE                          VAL R22
+      549 DUPCLOSURE                       R44 K153 [PROTO_39]
+      550 CAPTURE                          VAL R17
+      551 CAPTURE                          VAL R32
+      552 CAPTURE                          VAL R40
+      553 CAPTURE                          VAL R5
+      554 CAPTURE                          VAL R9
+      555 CAPTURE                          VAL R37
+      556 CAPTURE                          VAL R34
+      557 CAPTURE                          VAL R26
+      558 CAPTURE                          VAL R18
+      559 CAPTURE                          VAL R35
+      560 CAPTURE                          VAL R0
+      561 CAPTURE                          VAL R39
+      562 CAPTURE                          VAL R41
+      563 CAPTURE                          VAL R8
+      564 CAPTURE                          VAL R22
+      565 CAPTURE                          VAL R24
+      566 CAPTURE                          VAL R42
+      567 SETTABLEKS                       R44 R0 K154 ["ConvertR6ToR15"]
+      569 RETURN                           R0 1

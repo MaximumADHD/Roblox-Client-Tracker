@@ -19,12 +19,8 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Common"]
        13 GETTABLEKS                       R2 R2 K8 ["defineLuaFlags"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K12 [{"asset", "standalone", "get"}]
-       17 LOADK                            R3 K13 ["Asset"]
-       18 SETTABLEKS                       R3 R2 K9 ["asset"]
-       20 LOADK                            R3 K14 ["Standalone"]
-       21 SETTABLEKS                       R3 R2 K10 ["standalone"]
-       23 DUPCLOSURE                       R3 K15 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 SETTABLEKS                       R3 R2 K11 ["get"]
-       27 RETURN                           R2 1
+       16 DUPTABLE                         R2 K14 [{["asset"] = "Asset", ["standalone"] = "Standalone", ["get"]}]
+       17 DUPCLOSURE                       R3 K15 [PROTO_0]
+       18 CAPTURE                          VAL R1
+       19 SETTABLEKS                       R3 R2 K13 ["get"]
+       21 RETURN                           R2 1

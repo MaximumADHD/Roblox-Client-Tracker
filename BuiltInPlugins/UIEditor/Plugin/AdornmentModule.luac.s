@@ -154,9 +154,9 @@ PROTO_4:
        71 SETTABLEKS                       R6 R5 K12 ["Size"]
        73 GETIMPORT                        R6 K11 [UDim2.new]
        75 LOADN                            R7 0
-       76 LOADN                            R8 252
+       76 LOADN                            R8 -4
        77 LOADN                            R9 0
-       78 LOADN                            R10 253
+       78 LOADN                            R10 -3
        79 CALL                             R6 4 1
        80 SETTABLEKS                       R6 R5 K13 ["Position"]
        82 LOADN                            R6 1
@@ -763,7 +763,7 @@ MAIN:
       153 GETTABLEKS                       R19 R1 K15 ["E"]
       155 GETIMPORT                        R20 K28 [UDim2.new]
       157 LOADN                            R21 1
-      158 LOADN                            R22 254
+      158 LOADN                            R22 -2
       159 LOADK                            R23 K19 [0.5]
       160 LOADN                            R24 0
       161 CALL                             R20 4 1
@@ -771,9 +771,9 @@ MAIN:
       163 GETTABLEKS                       R19 R1 K20 ["SE"]
       165 GETIMPORT                        R20 K28 [UDim2.new]
       167 LOADN                            R21 1
-      168 LOADN                            R22 254
+      168 LOADN                            R22 -2
       169 LOADN                            R23 1
-      170 LOADN                            R24 254
+      170 LOADN                            R24 -2
       171 CALL                             R20 4 1
       172 SETTABLE                         R20 R18 R19
       173 GETTABLEKS                       R19 R1 K21 ["S"]
@@ -781,7 +781,7 @@ MAIN:
       177 LOADK                            R21 K19 [0.5]
       178 LOADN                            R22 0
       179 LOADN                            R23 1
-      180 LOADN                            R24 254
+      180 LOADN                            R24 -2
       181 CALL                             R20 4 1
       182 SETTABLE                         R20 R18 R19
       183 GETTABLEKS                       R19 R1 K22 ["SW"]
@@ -789,7 +789,7 @@ MAIN:
       187 LOADN                            R21 0
       188 LOADN                            R22 2
       189 LOADN                            R23 1
-      190 LOADN                            R24 254
+      190 LOADN                            R24 -2
       191 CALL                             R20 4 1
       192 SETTABLE                         R20 R18 R19
       193 GETTABLEKS                       R19 R1 K23 ["W"]
@@ -819,7 +819,7 @@ MAIN:
       223 GETTABLEKS                       R19 R1 K26 ["NE"]
       225 GETIMPORT                        R20 K28 [UDim2.new]
       227 LOADN                            R21 1
-      228 LOADN                            R22 254
+      228 LOADN                            R22 -2
       229 LOADN                            R23 0
       230 LOADN                            R24 2
       231 CALL                             R20 4 1

@@ -66,40 +66,32 @@ PROTO_4:
        16 GETUPVAL                         R9 0
        17 GETTABLEKS                       R9 R9 K8 ["createElement"]
        19 GETUPVAL                         R10 1
-       20 DUPTABLE                         R11 K21 [{"Title", "Value", "MaxValue", "SnapIncrement", "Height", "UsePercentage", "LayoutOrder", "SetValue", "ShowInputField", "ShowBackground", "IsDisabled", "OnChangeBegan", "OnTextBoxValueChanged"}]
+       20 DUPTABLE                         R11 K24 [{["Title"], ["Value"], ["MaxValue"], ["SnapIncrement"] = 0.1, ["Height"], ["UsePercentage"] = False, ["LayoutOrder"], ["SetValue"], ["ShowInputField"], ["ShowBackground"] = True, ["IsDisabled"] = False, ["OnChangeBegan"], ["OnTextBoxValueChanged"]}]
        21 JUMPIF                           R6 ; [+6]
-       22 LOADK                            R14 K22 ["ToolSettings"]
-       23 LOADK                            R15 K23 ["FalloffDistance"]
-       24 NAMECALL                         R12 R7 K24 ["getText"]
+       22 LOADK                            R14 K25 ["ToolSettings"]
+       23 LOADK                            R15 K26 ["FalloffDistance"]
+       24 NAMECALL                         R12 R7 K27 ["getText"]
        26 CALL                             R12 3 1
        27 JUMP                             ; [+1]
        28 LOADNIL                          R12
        29 SETTABLEKS                       R12 R11 K9 ["Title"]
        31 SETTABLEKS                       R3 R11 K10 ["Value"]
        33 GETUPVAL                         R12 2
-       34 GETTABLEKS                       R12 R12 K25 ["MAX_FALLOFF"]
+       34 GETTABLEKS                       R12 R12 K28 ["MAX_FALLOFF"]
        36 SETTABLEKS                       R12 R11 K11 ["MaxValue"]
-       38 LOADK                            R12 K26 [0.1]
-       39 SETTABLEKS                       R12 R11 K12 ["SnapIncrement"]
-       41 GETTABLEKS                       R12 R8 K27 ["SliderHeight"]
-       43 SETTABLEKS                       R12 R11 K13 ["Height"]
-       45 LOADB                            R12 0
-       46 SETTABLEKS                       R12 R11 K14 ["UsePercentage"]
-       48 SETTABLEKS                       R5 R11 K4 ["LayoutOrder"]
-       50 GETTABLEKS                       R12 R0 K28 ["setFalloff"]
-       52 SETTABLEKS                       R12 R11 K15 ["SetValue"]
-       54 NOT                              R12 R6
-       55 SETTABLEKS                       R12 R11 K16 ["ShowInputField"]
-       57 LOADB                            R12 1
-       58 SETTABLEKS                       R12 R11 K17 ["ShowBackground"]
-       60 LOADB                            R12 0
-       61 SETTABLEKS                       R12 R11 K18 ["IsDisabled"]
-       63 GETTABLEKS                       R12 R0 K29 ["reportFalloffChangeEvent"]
-       65 SETTABLEKS                       R12 R11 K19 ["OnChangeBegan"]
-       67 GETTABLEKS                       R12 R0 K29 ["reportFalloffChangeEvent"]
-       69 SETTABLEKS                       R12 R11 K20 ["OnTextBoxValueChanged"]
-       71 CALL                             R9 2 -1
-       72 RETURN                           R9 -1
+       38 GETTABLEKS                       R12 R8 K29 ["SliderHeight"]
+       40 SETTABLEKS                       R12 R11 K14 ["Height"]
+       42 SETTABLEKS                       R5 R11 K4 ["LayoutOrder"]
+       44 GETTABLEKS                       R12 R0 K30 ["setFalloff"]
+       46 SETTABLEKS                       R12 R11 K17 ["SetValue"]
+       48 NOT                              R12 R6
+       49 SETTABLEKS                       R12 R11 K18 ["ShowInputField"]
+       51 GETTABLEKS                       R12 R0 K31 ["reportFalloffChangeEvent"]
+       53 SETTABLEKS                       R12 R11 K22 ["OnChangeBegan"]
+       55 GETTABLEKS                       R12 R0 K31 ["reportFalloffChangeEvent"]
+       57 SETTABLEKS                       R12 R11 K23 ["OnTextBoxValueChanged"]
+       59 CALL                             R9 2 -1
+       60 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

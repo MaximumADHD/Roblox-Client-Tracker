@@ -242,7 +242,7 @@ PROTO_6:
        59 RETURN                           R23 1
 
 PROTO_7:
-        0 SUBRK                            R7 R1 K2 ["math"]
+        0 SUBRK                            R7 K1 [1] R2
         1 MULK                             R6 R7 K0 [1.5707963267949]
         2 FASTCALL1                        MATH_SIN R6 ; [+2]
         3 GETIMPORT                        R5 K4 [math.sin]
@@ -409,7 +409,7 @@ PROTO_12:
       136 DIV                              R21 R22 R12
       137 JUMPIFEQ                         R21 R21 ; [+2]
       139 LOADN                            R21 0
-      140 LOADN                            R25 255
+      140 LOADN                            R25 -1
       141 LOADN                            R26 1
       142 FASTCALL3                        MATH_CLAMP R21 R25 R26
       144 MOVE                             R24 R21
@@ -428,7 +428,7 @@ PROTO_12:
       159 MOVE                             R22 R16
       160 MOVE                             R23 R18
       161 MOVE                             R24 R20
-      162 SUBRK                            R28 R27 K24 ["acos"]
+      162 SUBRK                            R28 K27 [1] R24
       163 MULK                             R27 R28 K26 [1.5707963267949]
       164 FASTCALL1                        MATH_SIN R27 ; [+2]
       165 GETIMPORT                        R26 K29 [math.sin]
@@ -443,7 +443,7 @@ PROTO_12:
       176 MOVE                             R23 R17
       177 MOVE                             R24 R19
       178 MOVE                             R25 R20
-      179 SUBRK                            R29 R27 K25 [math.acos]
+      179 SUBRK                            R29 K27 [1] R25
       180 MULK                             R28 R29 K26 [1.5707963267949]
       181 FASTCALL1                        MATH_SIN R28 ; [+2]
       182 GETIMPORT                        R27 K29 [math.sin]
@@ -728,7 +728,7 @@ PROTO_13:
       230 DIV                              R16 R17 R18
       231 JUMPIFEQ                         R16 R16 ; [+2]
       233 LOADN                            R16 0
-      234 LOADN                            R20 255
+      234 LOADN                            R20 -1
       235 LOADN                            R21 1
       236 FASTCALL3                        MATH_CLAMP R16 R20 R21
       238 MOVE                             R19 R16
@@ -764,7 +764,7 @@ PROTO_13:
       273 DIV                              R19 R18 R20
       274 MOVE                             R21 R11
       275 MOVE                             R22 R13
-      276 SUBRK                            R26 R28 K19 [Vector3.new]
+      276 SUBRK                            R26 K28 [1] R19
       277 MULK                             R25 R26 K27 [1.5707963267949]
       278 FASTCALL1                        MATH_SIN R25 ; [+2]
       279 GETIMPORT                        R24 K30 [math.sin]
@@ -778,7 +778,7 @@ PROTO_13:
       289 ADD                              R20 R23 R24
       290 MOVE                             R22 R12
       291 MOVE                             R23 R14
-      292 SUBRK                            R27 R28 K19 [Vector3.new]
+      292 SUBRK                            R27 K28 [1] R19
       293 MULK                             R26 R27 K27 [1.5707963267949]
       294 FASTCALL1                        MATH_SIN R26 ; [+2]
       295 GETIMPORT                        R25 K30 [math.sin]
@@ -977,23 +977,21 @@ PROTO_15:
        85 CALL                             R8 2 1
        86 MOVE                             R7 R8
        87 GETIMPORT                        R8 K22 [table.freeze]
-       89 DUPTABLE                         R9 K28 [{"matrix", "size", "hit", "type", "color"}]
-       90 GETIMPORT                        R10 K30 [CFrame.fromMatrix]
+       89 DUPTABLE                         R9 K29 [{["matrix"], ["size"] = {0, 0, 0}, ["hit"], ["type"], ["color"]}]
+       90 GETIMPORT                        R10 K31 [CFrame.fromMatrix]
        92 MOVE                             R11 R3
        93 MOVE                             R12 R7
        94 MOVE                             R13 R4
        95 CALL                             R10 3 1
        96 SETTABLEKS                       R10 R9 K23 ["matrix"]
-       98 LOADK                            R10 K31 [{0, 0, 0}]
-       99 SETTABLEKS                       R10 R9 K24 ["size"]
-      101 SETTABLEKS                       R3 R9 K25 ["hit"]
-      103 GETUPVAL                         R10 2
-      104 GETTABLEKS                       R10 R10 K32 ["Round"]
-      106 SETTABLEKS                       R10 R9 K26 ["type"]
-      108 GETTABLEKS                       R10 R0 K33 ["Color"]
-      110 SETTABLEKS                       R10 R9 K27 ["color"]
-      112 CALL                             R8 1 -1
-      113 RETURN                           R8 -1
+       98 SETTABLEKS                       R3 R9 K26 ["hit"]
+      100 GETUPVAL                         R10 2
+      101 GETTABLEKS                       R10 R10 K32 ["Round"]
+      103 SETTABLEKS                       R10 R9 K27 ["type"]
+      105 GETTABLEKS                       R10 R0 K33 ["Color"]
+      107 SETTABLEKS                       R10 R9 K28 ["color"]
+      109 CALL                             R8 1 -1
+      110 RETURN                           R8 -1
 
 PROTO_16:
         0 GETUPVAL                         R3 0
@@ -1070,33 +1068,31 @@ PROTO_17:
        15 CALL                             R8 -1 1
        16 MOVE                             R3 R8
        17 GETIMPORT                        R8 K7 [table.freeze]
-       19 DUPTABLE                         R9 K13 [{"matrix", "size", "hit", "type", "color"}]
-       20 GETIMPORT                        R10 K15 [CFrame.fromMatrix]
+       19 DUPTABLE                         R9 K14 [{["matrix"], ["size"] = {0, 0, 0}, ["hit"], ["type"], ["color"]}]
+       20 GETIMPORT                        R10 K16 [CFrame.fromMatrix]
        22 MOVE                             R11 R3
        23 MOVE                             R14 R6
-       24 NAMECALL                         R12 R4 K16 ["Cross"]
+       24 NAMECALL                         R12 R4 K17 ["Cross"]
        26 CALL                             R12 2 1
-       27 GETTABLEKS                       R12 R12 K17 ["Unit"]
+       27 GETTABLEKS                       R12 R12 K18 ["Unit"]
        29 MOVE                             R13 R4
        30 CALL                             R10 3 1
        31 SETTABLEKS                       R10 R9 K8 ["matrix"]
-       33 LOADK                            R10 K18 [{0, 0, 0}]
-       34 SETTABLEKS                       R10 R9 K9 ["size"]
-       36 SETTABLEKS                       R3 R9 K10 ["hit"]
-       38 GETUPVAL                         R10 2
-       39 GETTABLEKS                       R10 R10 K19 ["Terrain"]
-       41 SETTABLEKS                       R10 R9 K11 ["type"]
-       43 GETTABLEKS                       R11 R1 K20 ["Material"]
-       45 GETIMPORT                        R12 K23 [Enum.Material.Water]
-       47 JUMPIFNOTEQ                      R11 R12 ; [+3]
-       49 GETUPVAL                         R10 3
-       50 JUMP                             ; [+5]
-       51 GETTABLEKS                       R12 R1 K20 ["Material"]
-       53 NAMECALL                         R10 R0 K24 ["GetMaterialColor"]
-       55 CALL                             R10 2 1
-       56 SETTABLEKS                       R10 R9 K12 ["color"]
-       58 CALL                             R8 1 -1
-       59 RETURN                           R8 -1
+       33 SETTABLEKS                       R3 R9 K11 ["hit"]
+       35 GETUPVAL                         R10 2
+       36 GETTABLEKS                       R10 R10 K19 ["Terrain"]
+       38 SETTABLEKS                       R10 R9 K12 ["type"]
+       40 GETTABLEKS                       R11 R1 K20 ["Material"]
+       42 GETIMPORT                        R12 K23 [Enum.Material.Water]
+       44 JUMPIFNOTEQ                      R11 R12 ; [+3]
+       46 GETUPVAL                         R10 3
+       47 JUMP                             ; [+5]
+       48 GETTABLEKS                       R12 R1 K20 ["Material"]
+       50 NAMECALL                         R10 R0 K24 ["GetMaterialColor"]
+       52 CALL                             R10 2 1
+       53 SETTABLEKS                       R10 R9 K13 ["color"]
+       55 CALL                             R8 1 -1
+       56 RETURN                           R8 -1
 
 PROTO_18:
         0 GETUPVAL                         R0 0
@@ -1202,26 +1198,24 @@ PROTO_20:
         9 GETTABLEKS                       R6 R0 K4 ["UpVector"]
        11 CALL                             R2 4 1
        12 GETIMPORT                        R3 K7 [table.freeze]
-       14 DUPTABLE                         R4 K13 [{"matrix", "size", "hit", "type", "color"}]
+       14 DUPTABLE                         R4 K14 [{["matrix"], ["size"] = {0, 0, 0}, ["hit"], ["type"], ["color"]}]
        15 SETTABLEKS                       R0 R4 K8 ["matrix"]
-       17 LOADK                            R5 K14 [{0, 0, 0}]
-       18 SETTABLEKS                       R5 R4 K9 ["size"]
-       20 GETTABLEKS                       R6 R1 K1 ["Origin"]
-       22 GETTABLEKS                       R8 R1 K2 ["Direction"]
-       24 MUL                              R7 R8 R2
-       25 ADD                              R5 R6 R7
-       26 SETTABLEKS                       R5 R4 K10 ["hit"]
-       28 GETUPVAL                         R5 1
-       29 GETTABLEKS                       R5 R5 K15 ["Nothing"]
-       31 SETTABLEKS                       R5 R4 K11 ["type"]
-       33 GETIMPORT                        R5 K18 [Color3.new]
-       35 LOADN                            R6 1
-       36 LOADN                            R7 1
-       37 LOADN                            R8 1
-       38 CALL                             R5 3 1
-       39 SETTABLEKS                       R5 R4 K12 ["color"]
-       41 CALL                             R3 1 -1
-       42 RETURN                           R3 -1
+       17 GETTABLEKS                       R6 R1 K1 ["Origin"]
+       19 GETTABLEKS                       R8 R1 K2 ["Direction"]
+       21 MUL                              R7 R8 R2
+       22 ADD                              R5 R6 R7
+       23 SETTABLEKS                       R5 R4 K11 ["hit"]
+       25 GETUPVAL                         R5 1
+       26 GETTABLEKS                       R5 R5 K15 ["Nothing"]
+       28 SETTABLEKS                       R5 R4 K12 ["type"]
+       30 GETIMPORT                        R5 K18 [Color3.new]
+       32 LOADN                            R6 1
+       33 LOADN                            R7 1
+       34 LOADN                            R8 1
+       35 CALL                             R5 3 1
+       36 SETTABLEKS                       R5 R4 K13 ["color"]
+       38 CALL                             R3 1 -1
+       39 RETURN                           R3 -1
 
 PROTO_21:
         0 JUMPIFNOT                        R1 ; [+3]
@@ -1658,13 +1652,13 @@ PROTO_24:
 PROTO_25:
         0 LOADK                            R4 K0 [∞]
         1 LOADNIL                          R5
-        2 LOADN                            R8 255
+        2 LOADN                            R8 -1
         3 LOADN                            R6 1
         4 LOADN                            R7 1
         5 FORNPREP                         R6
         6 MUL                              R10 R8 R1
         7 ADD                              R9 R0 R10
-        8 LOADN                            R12 255
+        8 LOADN                            R12 -1
         9 LOADN                            R10 1
        10 LOADN                            R11 1
        11 FORNPREP                         R10
@@ -2281,7 +2275,7 @@ PROTO_32:
         1 LOADNIL                          R3
         2 RETURN                           R3 1
         3 GETTABLEKS                       R3 R0 K0 ["Unit"]
-        5 LOADN                            R5 255
+        5 LOADN                            R5 -1
         6 GETTABLEKS                       R6 R1 K0 ["Unit"]
         8 MUL                              R4 R5 R6
         9 GETUPVAL                         R5 0
@@ -2292,27 +2286,23 @@ PROTO_32:
        17 MOVE                             R9 R4
        18 CALL                             R5 4 1
        19 LOADN                            R6 0
-       20 JUMPIFNOTLE                      R6 R5 ; [+27]
+       20 JUMPIFNOTLE                      R6 R5 ; [+21]
        22 GETTABLEKS                       R7 R3 K2 ["Origin"]
        24 GETTABLEKS                       R9 R3 K3 ["Direction"]
        26 MUL                              R8 R5 R9
        27 ADD                              R6 R7 R8
        28 SUB                              R7 R6 R2
-       29 DUPTABLE                         R8 K8 [{"mainCFrame", "snapPoint", "targetMatrix", "dragTargetType"}]
-       30 GETIMPORT                        R9 K11 [CFrame.new]
+       29 DUPTABLE                         R8 K9 [{["mainCFrame"], ["snapPoint"] = , ["targetMatrix"] = , ["dragTargetType"]}]
+       30 GETIMPORT                        R9 K12 [CFrame.new]
        32 MOVE                             R10 R7
        33 CALL                             R9 1 1
        34 SETTABLEKS                       R9 R8 K4 ["mainCFrame"]
-       36 LOADNIL                          R9
-       37 SETTABLEKS                       R9 R8 K5 ["snapPoint"]
-       39 LOADNIL                          R9
-       40 SETTABLEKS                       R9 R8 K6 ["targetMatrix"]
-       42 GETUPVAL                         R9 1
-       43 GETTABLEKS                       R9 R9 K12 ["Nothing"]
-       45 SETTABLEKS                       R9 R8 K7 ["dragTargetType"]
-       47 RETURN                           R8 1
-       48 LOADNIL                          R6
-       49 RETURN                           R6 1
+       36 GETUPVAL                         R9 1
+       37 GETTABLEKS                       R9 R9 K13 ["Nothing"]
+       39 SETTABLEKS                       R9 R8 K8 ["dragTargetType"]
+       41 RETURN                           R8 1
+       42 LOADNIL                          R6
+       43 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2378,142 +2368,132 @@ MAIN:
        99 SETLIST                          R14 R15 6 [1]
       101 CALL                             R13 1 1
       102 GETIMPORT                        R14 K24 [table.freeze]
-      104 DUPTABLE                         R15 K36 [{"Terrain", "Polygon", "Sphere", "Cylinder", "Nothing"}]
-      105 LOADK                            R16 K31 ["Terrain"]
-      106 SETTABLEKS                       R16 R15 K31 ["Terrain"]
-      108 LOADK                            R16 K32 ["Polygon"]
-      109 SETTABLEKS                       R16 R15 K32 ["Polygon"]
-      111 LOADK                            R16 K33 ["Sphere"]
-      112 SETTABLEKS                       R16 R15 K33 ["Sphere"]
-      114 LOADK                            R16 K34 ["Cylinder"]
-      115 SETTABLEKS                       R16 R15 K34 ["Cylinder"]
-      117 LOADK                            R16 K35 ["Nothing"]
-      118 SETTABLEKS                       R16 R15 K35 ["Nothing"]
-      120 CALL                             R14 1 1
-      121 NEWTABLE                         R15 16 0
-      123 DUPCLOSURE                       R16 K37 [PROTO_0]
-      124 DUPCLOSURE                       R17 K38 [PROTO_1]
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R10
-      127 DUPCLOSURE                       R18 K39 [PROTO_2]
-      128 SETTABLEKS                       R18 R15 K40 ["getSizeInSpace"]
-      130 DUPCLOSURE                       R18 K41 [PROTO_3]
-      131 CAPTURE                          VAL R5
-      132 SETTABLEKS                       R18 R15 K42 ["getClosestFace"]
-      134 DUPCLOSURE                       R18 K43 [PROTO_4]
-      135 CAPTURE                          VAL R12
-      136 CAPTURE                          VAL R0
-      137 CAPTURE                          VAL R15
-      138 SETTABLEKS                       R18 R15 K44 ["getPartAndSurface"]
-      140 DUPCLOSURE                       R18 K45 [PROTO_5]
-      141 CAPTURE                          VAL R12
-      142 CAPTURE                          VAL R0
-      143 SETTABLEKS                       R18 R15 K46 ["raycast"]
-      145 DUPCLOSURE                       R18 K47 [PROTO_6]
-      146 SETTABLEKS                       R18 R15 K48 ["getSizeInSurface"]
-      148 DUPCLOSURE                       R18 K49 [PROTO_7]
-      149 GETIMPORT                        R19 K52 [Color3.new]
-      151 LOADK                            R20 K53 [0.329411]
-      152 LOADK                            R21 K54 [0.662745]
-      153 LOADN                            R22 1
-      154 CALL                             R19 3 1
-      155 DUPCLOSURE                       R20 K55 [PROTO_8]
-      156 DUPCLOSURE                       R21 K56 [PROTO_10]
-      157 CAPTURE                          VAL R20
-      158 DUPCLOSURE                       R22 K57 [PROTO_11]
-      159 CAPTURE                          VAL R15
-      160 DUPCLOSURE                       R23 K58 [PROTO_12]
-      161 CAPTURE                          VAL R20
-      162 CAPTURE                          VAL R10
-      163 CAPTURE                          VAL R22
+      104 DUPTABLE                         R15 K36 [{["Terrain"] = "Terrain", ["Polygon"] = "Polygon", ["Sphere"] = "Sphere", ["Cylinder"] = "Cylinder", ["Nothing"] = "Nothing"}]
+      105 CALL                             R14 1 1
+      106 NEWTABLE                         R15 16 0
+      108 DUPCLOSURE                       R16 K37 [PROTO_0]
+      109 DUPCLOSURE                       R17 K38 [PROTO_1]
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          VAL R10
+      112 DUPCLOSURE                       R18 K39 [PROTO_2]
+      113 SETTABLEKS                       R18 R15 K40 ["getSizeInSpace"]
+      115 DUPCLOSURE                       R18 K41 [PROTO_3]
+      116 CAPTURE                          VAL R5
+      117 SETTABLEKS                       R18 R15 K42 ["getClosestFace"]
+      119 DUPCLOSURE                       R18 K43 [PROTO_4]
+      120 CAPTURE                          VAL R12
+      121 CAPTURE                          VAL R0
+      122 CAPTURE                          VAL R15
+      123 SETTABLEKS                       R18 R15 K44 ["getPartAndSurface"]
+      125 DUPCLOSURE                       R18 K45 [PROTO_5]
+      126 CAPTURE                          VAL R12
+      127 CAPTURE                          VAL R0
+      128 SETTABLEKS                       R18 R15 K46 ["raycast"]
+      130 DUPCLOSURE                       R18 K47 [PROTO_6]
+      131 SETTABLEKS                       R18 R15 K48 ["getSizeInSurface"]
+      133 DUPCLOSURE                       R18 K49 [PROTO_7]
+      134 GETIMPORT                        R19 K52 [Color3.new]
+      136 LOADK                            R20 K53 [0.329411]
+      137 LOADK                            R21 K54 [0.662745]
+      138 LOADN                            R22 1
+      139 CALL                             R19 3 1
+      140 DUPCLOSURE                       R20 K55 [PROTO_8]
+      141 DUPCLOSURE                       R21 K56 [PROTO_10]
+      142 CAPTURE                          VAL R20
+      143 DUPCLOSURE                       R22 K57 [PROTO_11]
+      144 CAPTURE                          VAL R15
+      145 DUPCLOSURE                       R23 K58 [PROTO_12]
+      146 CAPTURE                          VAL R20
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R22
+      149 CAPTURE                          VAL R14
+      150 DUPCLOSURE                       R24 K59 [PROTO_13]
+      151 CAPTURE                          VAL R22
+      152 CAPTURE                          VAL R14
+      153 CAPTURE                          VAL R10
+      154 CAPTURE                          VAL R20
+      155 DUPCLOSURE                       R25 K60 [PROTO_14]
+      156 CAPTURE                          VAL R3
+      157 DUPCLOSURE                       R26 K61 [PROTO_15]
+      158 CAPTURE                          VAL R25
+      159 CAPTURE                          VAL R10
+      160 CAPTURE                          VAL R14
+      161 DUPCLOSURE                       R27 K62 [PROTO_16]
+      162 CAPTURE                          VAL R8
+      163 CAPTURE                          VAL R15
       164 CAPTURE                          VAL R14
-      165 DUPCLOSURE                       R24 K59 [PROTO_13]
-      166 CAPTURE                          VAL R22
-      167 CAPTURE                          VAL R14
-      168 CAPTURE                          VAL R10
-      169 CAPTURE                          VAL R20
-      170 DUPCLOSURE                       R25 K60 [PROTO_14]
-      171 CAPTURE                          VAL R3
-      172 DUPCLOSURE                       R26 K61 [PROTO_15]
-      173 CAPTURE                          VAL R25
-      174 CAPTURE                          VAL R10
-      175 CAPTURE                          VAL R14
-      176 DUPCLOSURE                       R27 K62 [PROTO_16]
-      177 CAPTURE                          VAL R8
-      178 CAPTURE                          VAL R15
-      179 CAPTURE                          VAL R14
-      180 CAPTURE                          VAL R26
-      181 DUPCLOSURE                       R28 K63 [PROTO_17]
-      182 CAPTURE                          VAL R17
-      183 CAPTURE                          VAL R25
-      184 CAPTURE                          VAL R14
-      185 CAPTURE                          VAL R19
-      186 DUPCLOSURE                       R29 K64 [PROTO_18]
-      187 CAPTURE                          VAL R1
-      188 DUPCLOSURE                       R30 K65 [PROTO_19]
-      189 CAPTURE                          VAL R15
-      190 CAPTURE                          VAL R22
-      191 CAPTURE                          VAL R14
-      192 CAPTURE                          VAL R1
-      193 CAPTURE                          VAL R26
-      194 DUPCLOSURE                       R31 K66 [PROTO_20]
-      195 CAPTURE                          VAL R3
-      196 CAPTURE                          VAL R14
-      197 DUPCLOSURE                       R32 K67 [PROTO_21]
-      198 CAPTURE                          VAL R11
-      199 CAPTURE                          VAL R31
-      200 CAPTURE                          VAL R4
-      201 CAPTURE                          VAL R28
-      202 CAPTURE                          VAL R27
-      203 CAPTURE                          VAL R30
-      204 CAPTURE                          VAL R23
-      205 CAPTURE                          VAL R24
-      206 CAPTURE                          VAL R1
-      207 CAPTURE                          VAL R26
-      208 SETTABLEKS                       R32 R15 K68 ["getSurfaceMatrixNEW"]
-      210 DUPCLOSURE                       R32 K69 [PROTO_22]
-      211 CAPTURE                          VAL R12
-      212 CAPTURE                          VAL R0
-      213 CAPTURE                          VAL R17
-      214 CAPTURE                          VAL R14
-      215 CAPTURE                          VAL R9
-      216 CAPTURE                          VAL R15
-      217 CAPTURE                          VAL R10
-      218 CAPTURE                          VAL R3
-      219 SETTABLEKS                       R32 R15 K70 ["getSurfaceMatrixOLD"]
-      221 DUPCLOSURE                       R32 K71 [PROTO_23]
-      222 CAPTURE                          VAL R9
-      223 CAPTURE                          VAL R15
-      224 SETTABLEKS                       R32 R15 K72 ["getSurfaceMatrix"]
-      226 DUPCLOSURE                       R32 K73 [PROTO_24]
-      227 CAPTURE                          VAL R9
-      228 CAPTURE                          VAL R15
-      229 CAPTURE                          VAL R7
-      230 CAPTURE                          VAL R13
-      231 CAPTURE                          VAL R6
-      232 SETTABLEKS                       R32 R15 K74 ["updateTiltRotate"]
-      234 DUPCLOSURE                       R32 K75 [PROTO_25]
-      235 DUPCLOSURE                       R33 K76 [PROTO_26]
-      236 DUPCLOSURE                       R34 K77 [PROTO_27]
-      237 DUPCLOSURE                       R35 K78 [PROTO_28]
-      238 CAPTURE                          VAL R14
-      239 CAPTURE                          VAL R32
-      240 DUPCLOSURE                       R36 K79 [PROTO_29]
-      241 CAPTURE                          VAL R15
-      242 CAPTURE                          VAL R14
-      243 CAPTURE                          VAL R7
-      244 CAPTURE                          VAL R35
-      245 SETTABLEKS                       R36 R15 K80 ["getDragTargetNEW"]
-      247 DUPCLOSURE                       R36 K81 [PROTO_30]
-      248 CAPTURE                          VAL R15
-      249 CAPTURE                          VAL R7
-      250 SETTABLEKS                       R36 R15 K82 ["getDragTargetOLD"]
-      252 DUPCLOSURE                       R36 K83 [PROTO_31]
-      253 CAPTURE                          VAL R9
-      254 CAPTURE                          VAL R15
-      255 SETTABLEKS                       R36 R15 K84 ["getDragTarget"]
-      257 DUPCLOSURE                       R36 K85 [PROTO_32]
-      258 CAPTURE                          VAL R3
-      259 CAPTURE                          VAL R14
-      260 SETTABLEKS                       R36 R15 K86 ["getCameraPlaneDragTarget"]
-      262 RETURN                           R15 1
+      165 CAPTURE                          VAL R26
+      166 DUPCLOSURE                       R28 K63 [PROTO_17]
+      167 CAPTURE                          VAL R17
+      168 CAPTURE                          VAL R25
+      169 CAPTURE                          VAL R14
+      170 CAPTURE                          VAL R19
+      171 DUPCLOSURE                       R29 K64 [PROTO_18]
+      172 CAPTURE                          VAL R1
+      173 DUPCLOSURE                       R30 K65 [PROTO_19]
+      174 CAPTURE                          VAL R15
+      175 CAPTURE                          VAL R22
+      176 CAPTURE                          VAL R14
+      177 CAPTURE                          VAL R1
+      178 CAPTURE                          VAL R26
+      179 DUPCLOSURE                       R31 K66 [PROTO_20]
+      180 CAPTURE                          VAL R3
+      181 CAPTURE                          VAL R14
+      182 DUPCLOSURE                       R32 K67 [PROTO_21]
+      183 CAPTURE                          VAL R11
+      184 CAPTURE                          VAL R31
+      185 CAPTURE                          VAL R4
+      186 CAPTURE                          VAL R28
+      187 CAPTURE                          VAL R27
+      188 CAPTURE                          VAL R30
+      189 CAPTURE                          VAL R23
+      190 CAPTURE                          VAL R24
+      191 CAPTURE                          VAL R1
+      192 CAPTURE                          VAL R26
+      193 SETTABLEKS                       R32 R15 K68 ["getSurfaceMatrixNEW"]
+      195 DUPCLOSURE                       R32 K69 [PROTO_22]
+      196 CAPTURE                          VAL R12
+      197 CAPTURE                          VAL R0
+      198 CAPTURE                          VAL R17
+      199 CAPTURE                          VAL R14
+      200 CAPTURE                          VAL R9
+      201 CAPTURE                          VAL R15
+      202 CAPTURE                          VAL R10
+      203 CAPTURE                          VAL R3
+      204 SETTABLEKS                       R32 R15 K70 ["getSurfaceMatrixOLD"]
+      206 DUPCLOSURE                       R32 K71 [PROTO_23]
+      207 CAPTURE                          VAL R9
+      208 CAPTURE                          VAL R15
+      209 SETTABLEKS                       R32 R15 K72 ["getSurfaceMatrix"]
+      211 DUPCLOSURE                       R32 K73 [PROTO_24]
+      212 CAPTURE                          VAL R9
+      213 CAPTURE                          VAL R15
+      214 CAPTURE                          VAL R7
+      215 CAPTURE                          VAL R13
+      216 CAPTURE                          VAL R6
+      217 SETTABLEKS                       R32 R15 K74 ["updateTiltRotate"]
+      219 DUPCLOSURE                       R32 K75 [PROTO_25]
+      220 DUPCLOSURE                       R33 K76 [PROTO_26]
+      221 DUPCLOSURE                       R34 K77 [PROTO_27]
+      222 DUPCLOSURE                       R35 K78 [PROTO_28]
+      223 CAPTURE                          VAL R14
+      224 CAPTURE                          VAL R32
+      225 DUPCLOSURE                       R36 K79 [PROTO_29]
+      226 CAPTURE                          VAL R15
+      227 CAPTURE                          VAL R14
+      228 CAPTURE                          VAL R7
+      229 CAPTURE                          VAL R35
+      230 SETTABLEKS                       R36 R15 K80 ["getDragTargetNEW"]
+      232 DUPCLOSURE                       R36 K81 [PROTO_30]
+      233 CAPTURE                          VAL R15
+      234 CAPTURE                          VAL R7
+      235 SETTABLEKS                       R36 R15 K82 ["getDragTargetOLD"]
+      237 DUPCLOSURE                       R36 K83 [PROTO_31]
+      238 CAPTURE                          VAL R9
+      239 CAPTURE                          VAL R15
+      240 SETTABLEKS                       R36 R15 K84 ["getDragTarget"]
+      242 DUPCLOSURE                       R36 K85 [PROTO_32]
+      243 CAPTURE                          VAL R3
+      244 CAPTURE                          VAL R14
+      245 SETTABLEKS                       R36 R15 K86 ["getCameraPlaneDragTarget"]
+      247 RETURN                           R15 1

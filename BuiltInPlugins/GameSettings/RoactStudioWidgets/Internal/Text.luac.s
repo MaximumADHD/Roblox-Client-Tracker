@@ -15,8 +15,8 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K6 [Vector2.new]
-        9 LOADN                            R2 136
-       10 LOADN                            R3 136
+        9 LOADN                            R2 5000
+       10 LOADN                            R3 5000
        11 CALL                             R1 2 1
        12 NEWTABLE                         R2 1 0
        14 DUPCLOSURE                       R3 K7 [PROTO_0]

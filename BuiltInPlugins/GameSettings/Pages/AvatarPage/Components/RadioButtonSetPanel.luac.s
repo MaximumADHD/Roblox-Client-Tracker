@@ -6,52 +6,50 @@ PROTO_0:
         7 JUMP                             ; [+4]
         8 GETTABLEKS                       R1 R0 K0 ["props"]
        10 GETTABLEKS                       R1 R1 K1 ["IsVisible"]
-       12 JUMPIF                           R1 ; [+19]
+       12 JUMPIF                           R1 ; [+16]
        13 GETUPVAL                         R2 0
        14 GETTABLEKS                       R2 R2 K2 ["createElement"]
        16 LOADK                            R3 K3 ["Frame"]
-       17 DUPTABLE                         R4 K6 [{"Size", "BorderSizePixel"}]
-       18 GETIMPORT                        R5 K9 [UDim2.new]
+       17 DUPTABLE                         R4 K7 [{["Size"], ["BorderSizePixel"] = 0}]
+       18 GETIMPORT                        R5 K10 [UDim2.new]
        20 LOADN                            R6 0
        21 LOADN                            R7 0
        22 LOADN                            R8 0
        23 LOADN                            R9 0
        24 CALL                             R5 4 1
        25 SETTABLEKS                       R5 R4 K4 ["Size"]
-       27 LOADN                            R5 0
-       28 SETTABLEKS                       R5 R4 K5 ["BorderSizePixel"]
-       30 CALL                             R2 2 -1
-       31 RETURN                           R2 -1
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R2 R2 K2 ["createElement"]
-       35 GETUPVAL                         R3 1
-       36 DUPTABLE                         R4 K18 [{"Title", "Buttons", "Enabled", "LayoutOrder", "Selected", "SubDescription", "SelectionChanged", "Mouse"}]
-       37 GETTABLEKS                       R5 R0 K0 ["props"]
-       39 GETTABLEKS                       R5 R5 K10 ["Title"]
-       41 SETTABLEKS                       R5 R4 K10 ["Title"]
-       43 GETTABLEKS                       R5 R0 K0 ["props"]
-       45 GETTABLEKS                       R5 R5 K11 ["Buttons"]
-       47 SETTABLEKS                       R5 R4 K11 ["Buttons"]
-       49 GETTABLEKS                       R5 R0 K0 ["props"]
-       51 GETTABLEKS                       R5 R5 K12 ["Enabled"]
-       53 SETTABLEKS                       R5 R4 K12 ["Enabled"]
-       55 GETTABLEKS                       R5 R0 K0 ["props"]
-       57 GETTABLEKS                       R5 R5 K13 ["LayoutOrder"]
-       59 SETTABLEKS                       R5 R4 K13 ["LayoutOrder"]
-       61 GETTABLEKS                       R5 R0 K0 ["props"]
-       63 GETTABLEKS                       R5 R5 K14 ["Selected"]
-       65 SETTABLEKS                       R5 R4 K14 ["Selected"]
-       67 GETTABLEKS                       R5 R0 K0 ["props"]
-       69 GETTABLEKS                       R5 R5 K15 ["SubDescription"]
-       71 SETTABLEKS                       R5 R4 K15 ["SubDescription"]
-       73 GETTABLEKS                       R5 R0 K0 ["props"]
-       75 GETTABLEKS                       R5 R5 K16 ["SelectionChanged"]
-       77 SETTABLEKS                       R5 R4 K16 ["SelectionChanged"]
-       79 GETTABLEKS                       R5 R0 K0 ["props"]
-       81 GETTABLEKS                       R5 R5 K17 ["Mouse"]
-       83 SETTABLEKS                       R5 R4 K17 ["Mouse"]
-       85 CALL                             R2 2 -1
-       86 RETURN                           R2 -1
+       27 CALL                             R2 2 -1
+       28 RETURN                           R2 -1
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       32 GETUPVAL                         R3 1
+       33 DUPTABLE                         R4 K19 [{"Title", "Buttons", "Enabled", "LayoutOrder", "Selected", "SubDescription", "SelectionChanged", "Mouse"}]
+       34 GETTABLEKS                       R5 R0 K0 ["props"]
+       36 GETTABLEKS                       R5 R5 K11 ["Title"]
+       38 SETTABLEKS                       R5 R4 K11 ["Title"]
+       40 GETTABLEKS                       R5 R0 K0 ["props"]
+       42 GETTABLEKS                       R5 R5 K12 ["Buttons"]
+       44 SETTABLEKS                       R5 R4 K12 ["Buttons"]
+       46 GETTABLEKS                       R5 R0 K0 ["props"]
+       48 GETTABLEKS                       R5 R5 K13 ["Enabled"]
+       50 SETTABLEKS                       R5 R4 K13 ["Enabled"]
+       52 GETTABLEKS                       R5 R0 K0 ["props"]
+       54 GETTABLEKS                       R5 R5 K14 ["LayoutOrder"]
+       56 SETTABLEKS                       R5 R4 K14 ["LayoutOrder"]
+       58 GETTABLEKS                       R5 R0 K0 ["props"]
+       60 GETTABLEKS                       R5 R5 K15 ["Selected"]
+       62 SETTABLEKS                       R5 R4 K15 ["Selected"]
+       64 GETTABLEKS                       R5 R0 K0 ["props"]
+       66 GETTABLEKS                       R5 R5 K16 ["SubDescription"]
+       68 SETTABLEKS                       R5 R4 K16 ["SubDescription"]
+       70 GETTABLEKS                       R5 R0 K0 ["props"]
+       72 GETTABLEKS                       R5 R5 K17 ["SelectionChanged"]
+       74 SETTABLEKS                       R5 R4 K17 ["SelectionChanged"]
+       76 GETTABLEKS                       R5 R0 K0 ["props"]
+       78 GETTABLEKS                       R5 R5 K18 ["Mouse"]
+       80 SETTABLEKS                       R5 R4 K18 ["Mouse"]
+       82 CALL                             R2 2 -1
+       83 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

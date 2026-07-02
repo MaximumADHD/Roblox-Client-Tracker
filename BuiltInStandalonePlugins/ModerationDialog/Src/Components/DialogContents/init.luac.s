@@ -400,30 +400,28 @@ MAIN:
        88 LOADK                            R19 K31 ["https://en.help.roblox.com/hc/en-us/articles/203313410-Roblox-Community-Standards"]
        89 NAMECALL                         R16 R16 K29 ["DefineFastString"]
        91 CALL                             R16 3 1
-       92 DUPTABLE                         R17 K35 [{"Font", "TextSize", "TextXAlignment"}]
-       93 GETIMPORT                        R18 K38 [Enum.Font.SourceSans]
+       92 DUPTABLE                         R17 K36 [{["Font"], ["TextSize"] = 16, ["TextXAlignment"]}]
+       93 GETIMPORT                        R18 K39 [Enum.Font.SourceSans]
        95 SETTABLEKS                       R18 R17 K32 ["Font"]
-       97 LOADN                            R18 16
-       98 SETTABLEKS                       R18 R17 K33 ["TextSize"]
-      100 GETIMPORT                        R18 K40 [Enum.TextXAlignment.Left]
-      102 SETTABLEKS                       R18 R17 K34 ["TextXAlignment"]
-      104 DUPCLOSURE                       R18 K41 [PROTO_0]
-      105 CAPTURE                          VAL R1
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R17
-      108 DUPCLOSURE                       R19 K42 [PROTO_6]
-      109 CAPTURE                          VAL R4
-      110 CAPTURE                          VAL R6
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R13
-      113 CAPTURE                          VAL R15
-      114 CAPTURE                          VAL R5
-      115 CAPTURE                          VAL R17
-      116 CAPTURE                          VAL R10
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R12
-      119 CAPTURE                          VAL R16
-      120 CAPTURE                          VAL R11
-      121 CAPTURE                          VAL R14
-      122 CAPTURE                          VAL R8
-      123 RETURN                           R19 1
+       97 GETIMPORT                        R18 K41 [Enum.TextXAlignment.Left]
+       99 SETTABLEKS                       R18 R17 K35 ["TextXAlignment"]
+      101 DUPCLOSURE                       R18 K42 [PROTO_0]
+      102 CAPTURE                          VAL R1
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R17
+      105 DUPCLOSURE                       R19 K43 [PROTO_6]
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R13
+      110 CAPTURE                          VAL R15
+      111 CAPTURE                          VAL R5
+      112 CAPTURE                          VAL R17
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R9
+      115 CAPTURE                          VAL R12
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R11
+      118 CAPTURE                          VAL R14
+      119 CAPTURE                          VAL R8
+      120 RETURN                           R19 1

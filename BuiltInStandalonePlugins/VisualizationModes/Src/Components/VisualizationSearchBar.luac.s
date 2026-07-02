@@ -6,59 +6,47 @@ PROTO_0:
         6 GETUPVAL                         R2 1
         7 GETTABLEKS                       R2 R2 K2 ["createElement"]
         9 LOADK                            R3 K3 ["Frame"]
-       10 DUPTABLE                         R4 K7 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-       11 LOADN                            R5 1
-       12 SETTABLEKS                       R5 R4 K4 ["BackgroundTransparency"]
-       14 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
-       16 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       18 GETIMPORT                        R5 K10 [UDim2.new]
-       20 LOADN                            R6 1
-       21 LOADN                            R7 251
-       22 LOADN                            R8 0
-       23 LOADN                            R9 32
-       24 CALL                             R5 4 1
-       25 SETTABLEKS                       R5 R4 K6 ["Size"]
-       27 DUPTABLE                         R5 K13 [{"SearchBar", "UIPadding"}]
-       28 GETUPVAL                         R6 1
-       29 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       31 GETUPVAL                         R7 2
-       32 DUPTABLE                         R8 K22 [{"PlaceholderText", "ShowSearchIcon", "ShowSearchButton", "ShowFilterButton", "IncrementalTextSearch", "IncrementalTextSearchDelay", "SearchTerm", "OnSearchRequested"}]
-       33 LOADK                            R11 K11 ["SearchBar"]
-       34 LOADK                            R12 K23 ["Search"]
-       35 NAMECALL                         R9 R1 K24 ["getText"]
-       37 CALL                             R9 3 1
-       38 SETTABLEKS                       R9 R8 K14 ["PlaceholderText"]
-       40 LOADB                            R9 1
-       41 SETTABLEKS                       R9 R8 K15 ["ShowSearchIcon"]
-       43 LOADB                            R9 0
-       44 SETTABLEKS                       R9 R8 K16 ["ShowSearchButton"]
-       46 LOADB                            R9 0
-       47 SETTABLEKS                       R9 R8 K17 ["ShowFilterButton"]
-       49 LOADB                            R9 1
-       50 SETTABLEKS                       R9 R8 K18 ["IncrementalTextSearch"]
-       52 LOADN                            R9 5
-       53 SETTABLEKS                       R9 R8 K19 ["IncrementalTextSearchDelay"]
-       55 GETTABLEKS                       R9 R0 K25 ["FuzzySearch"]
-       57 GETTABLEKS                       R9 R9 K26 ["searchText"]
-       59 SETTABLEKS                       R9 R8 K20 ["SearchTerm"]
-       61 GETTABLEKS                       R9 R0 K25 ["FuzzySearch"]
-       63 GETTABLEKS                       R9 R9 K27 ["setSearchText"]
-       65 SETTABLEKS                       R9 R8 K21 ["OnSearchRequested"]
-       67 CALL                             R6 2 1
-       68 SETTABLEKS                       R6 R5 K11 ["SearchBar"]
-       70 GETUPVAL                         R6 1
-       71 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       73 LOADK                            R7 K12 ["UIPadding"]
-       74 DUPTABLE                         R8 K29 [{"PaddingRight"}]
-       75 GETIMPORT                        R9 K31 [UDim.new]
-       77 LOADN                            R10 0
-       78 LOADN                            R11 5
-       79 CALL                             R9 2 1
-       80 SETTABLEKS                       R9 R8 K28 ["PaddingRight"]
-       82 CALL                             R6 2 1
-       83 SETTABLEKS                       R6 R5 K12 ["UIPadding"]
-       85 CALL                             R2 3 -1
-       86 RETURN                           R2 -1
+       10 DUPTABLE                         R4 K8 [{["BackgroundTransparency"] = 1, ["LayoutOrder"], ["Size"]}]
+       11 GETTABLEKS                       R5 R0 K6 ["LayoutOrder"]
+       13 SETTABLEKS                       R5 R4 K6 ["LayoutOrder"]
+       15 GETIMPORT                        R5 K11 [UDim2.new]
+       17 LOADN                            R6 1
+       18 LOADN                            R7 -5
+       19 LOADN                            R8 0
+       20 LOADN                            R9 32
+       21 CALL                             R5 4 1
+       22 SETTABLEKS                       R5 R4 K7 ["Size"]
+       24 DUPTABLE                         R5 K14 [{"SearchBar", "UIPadding"}]
+       25 GETUPVAL                         R6 1
+       26 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       28 GETUPVAL                         R7 2
+       29 DUPTABLE                         R8 K26 [{["PlaceholderText"], ["ShowSearchIcon"] = True, ["ShowSearchButton"] = False, ["ShowFilterButton"] = False, ["IncrementalTextSearch"] = True, ["IncrementalTextSearchDelay"] = 5, ["SearchTerm"], ["OnSearchRequested"]}]
+       30 LOADK                            R11 K12 ["SearchBar"]
+       31 LOADK                            R12 K27 ["Search"]
+       32 NAMECALL                         R9 R1 K28 ["getText"]
+       34 CALL                             R9 3 1
+       35 SETTABLEKS                       R9 R8 K15 ["PlaceholderText"]
+       37 GETTABLEKS                       R9 R0 K29 ["FuzzySearch"]
+       39 GETTABLEKS                       R9 R9 K30 ["searchText"]
+       41 SETTABLEKS                       R9 R8 K24 ["SearchTerm"]
+       43 GETTABLEKS                       R9 R0 K29 ["FuzzySearch"]
+       45 GETTABLEKS                       R9 R9 K31 ["setSearchText"]
+       47 SETTABLEKS                       R9 R8 K25 ["OnSearchRequested"]
+       49 CALL                             R6 2 1
+       50 SETTABLEKS                       R6 R5 K12 ["SearchBar"]
+       52 GETUPVAL                         R6 1
+       53 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       55 LOADK                            R7 K13 ["UIPadding"]
+       56 DUPTABLE                         R8 K33 [{"PaddingRight"}]
+       57 GETIMPORT                        R9 K35 [UDim.new]
+       59 LOADN                            R10 0
+       60 LOADN                            R11 5
+       61 CALL                             R9 2 1
+       62 SETTABLEKS                       R9 R8 K32 ["PaddingRight"]
+       64 CALL                             R6 2 1
+       65 SETTABLEKS                       R6 R5 K13 ["UIPadding"]
+       67 CALL                             R2 3 -1
+       68 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

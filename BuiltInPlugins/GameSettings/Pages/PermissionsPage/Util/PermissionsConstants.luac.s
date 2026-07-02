@@ -291,16 +291,10 @@ MAIN:
       355 SETTABLEKS                       R7 R6 K34 ["__tostring"]
       357 MOVE                             R4 R5
       358 SETTABLEKS                       R4 R3 K27 ["IsFriendKey"]
-      360 DUPTABLE                         R4 K56 [{"DEPRECATED_MaxSearchResultsPerSubjectType", "MaxSearchResultsPerSubjectTypeUsers", "MaxSearchResultsPerSubjectTypeGroups"}]
-      361 LOADN                            R5 3
-      362 SETTABLEKS                       R5 R4 K53 ["DEPRECATED_MaxSearchResultsPerSubjectType"]
-      364 LOADN                            R5 3
-      365 SETTABLEKS                       R5 R4 K54 ["MaxSearchResultsPerSubjectTypeUsers"]
-      367 LOADN                            R5 2
-      368 SETTABLEKS                       R5 R4 K55 ["MaxSearchResultsPerSubjectTypeGroups"]
-      370 GETTABLEKS                       R5 R1 K57 ["Dictionary"]
-      372 GETTABLEKS                       R5 R5 K58 ["join"]
-      374 MOVE                             R6 R3
-      375 MOVE                             R7 R4
-      376 CALL                             R5 2 -1
-      377 RETURN                           R5 -1
+      360 DUPTABLE                         R4 K58 [{["DEPRECATED_MaxSearchResultsPerSubjectType"] = 3, ["MaxSearchResultsPerSubjectTypeUsers"] = 3, ["MaxSearchResultsPerSubjectTypeGroups"] = 2}]
+      361 GETTABLEKS                       R5 R1 K59 ["Dictionary"]
+      363 GETTABLEKS                       R5 R5 K60 ["join"]
+      365 MOVE                             R6 R3
+      366 MOVE                             R7 R4
+      367 CALL                             R5 2 -1
+      368 RETURN                           R5 -1

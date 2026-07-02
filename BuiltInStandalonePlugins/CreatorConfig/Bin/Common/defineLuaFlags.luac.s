@@ -1,25 +1,18 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["RegisterActionsPluginLoader"]
+        2 LOADK                            R2 K2 ["CreatorConfigOnCloseSkipActionTrigger"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
 PROTO_1:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["CreatorConfigOnCloseSkipActionTrigger"]
-        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 -1
-        6 RETURN                           R0 -1
-
-PROTO_2:
-        0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["CreatorConfigDmChangedListener"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
         5 CALL                             R0 2 -1
         6 RETURN                           R0 -1
 
-PROTO_3:
+PROTO_2:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["CreatorConfigStudioPublishWorkflow"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
@@ -43,13 +36,11 @@ MAIN:
        18 LOADB                            R3 0
        19 NAMECALL                         R0 R0 K3 ["DefineFastFlag"]
        21 CALL                             R0 3 0
-       22 DUPTABLE                         R0 K10 [{"getFFlagRegisterActionsPluginLoader", "getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener", "getFFlagCreatorConfigStudioPublishWorkflow"}]
-       23 DUPCLOSURE                       R1 K11 [PROTO_0]
-       24 SETTABLEKS                       R1 R0 K6 ["getFFlagRegisterActionsPluginLoader"]
-       26 DUPCLOSURE                       R1 K12 [PROTO_1]
-       27 SETTABLEKS                       R1 R0 K7 ["getFFlagOnCloseSkipActionTrigger"]
-       29 DUPCLOSURE                       R1 K13 [PROTO_2]
-       30 SETTABLEKS                       R1 R0 K8 ["getFFlagCreatorConfigDmChangedListener"]
-       32 DUPCLOSURE                       R1 K14 [PROTO_3]
-       33 SETTABLEKS                       R1 R0 K9 ["getFFlagCreatorConfigStudioPublishWorkflow"]
-       35 RETURN                           R0 1
+       22 DUPTABLE                         R0 K9 [{"getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener", "getFFlagCreatorConfigStudioPublishWorkflow"}]
+       23 DUPCLOSURE                       R1 K10 [PROTO_0]
+       24 SETTABLEKS                       R1 R0 K6 ["getFFlagOnCloseSkipActionTrigger"]
+       26 DUPCLOSURE                       R1 K11 [PROTO_1]
+       27 SETTABLEKS                       R1 R0 K7 ["getFFlagCreatorConfigDmChangedListener"]
+       29 DUPCLOSURE                       R1 K12 [PROTO_2]
+       30 SETTABLEKS                       R1 R0 K8 ["getFFlagCreatorConfigStudioPublishWorkflow"]
+       32 RETURN                           R0 1

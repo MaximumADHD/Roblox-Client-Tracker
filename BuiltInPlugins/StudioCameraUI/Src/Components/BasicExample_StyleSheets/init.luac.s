@@ -12,19 +12,17 @@ PROTO_0:
        14 SETTABLE                         R6 R4 R5
        15 DUPTABLE                         R5 K6 [{"OptionalContent"}]
        16 GETTABLEKS                       R7 R0 K7 ["showContent"]
-       18 JUMPIFNOT                        R7 ; [+10]
+       18 JUMPIFNOT                        R7 ; [+7]
        19 GETUPVAL                         R6 1
        20 GETTABLEKS                       R6 R6 K1 ["createElement"]
        22 LOADK                            R7 K8 ["TextLabel"]
-       23 DUPTABLE                         R8 K10 [{"Text"}]
-       24 LOADK                            R9 K11 ["Kangaroos are great!"]
-       25 SETTABLEKS                       R9 R8 K9 ["Text"]
-       27 CALL                             R6 2 1
-       28 JUMP                             ; [+1]
-       29 LOADNIL                          R6
-       30 SETTABLEKS                       R6 R5 K5 ["OptionalContent"]
-       32 CALL                             R2 3 -1
-       33 RETURN                           R2 -1
+       23 DUPTABLE                         R8 K11 [{["Text"] = "Kangaroos are great!"}]
+       24 CALL                             R6 2 1
+       25 JUMP                             ; [+1]
+       26 LOADNIL                          R6
+       27 SETTABLEKS                       R6 R5 K5 ["OptionalContent"]
+       29 CALL                             R2 3 -1
+       30 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

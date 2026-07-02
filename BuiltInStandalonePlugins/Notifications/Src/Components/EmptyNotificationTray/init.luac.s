@@ -31,7 +31,7 @@ PROTO_1:
        29 RETURN                           R0 1
        30 GETUPVAL                         R0 0
        31 GETTABLEKS                       R0 R0 K13 ["OnLoadError"]
-       33 JUMPIFNOT                        R0 ; [+142]
+       33 JUMPIFNOT                        R0 ; [+139]
        34 DUPTABLE                         R0 K15 [{"ErrorState"}]
        35 GETUPVAL                         R1 1
        36 GETTABLEKS                       R1 R1 K3 ["createElement"]
@@ -45,134 +45,130 @@ PROTO_1:
        47 GETUPVAL                         R5 1
        48 GETTABLEKS                       R5 R5 K3 ["createElement"]
        50 LOADK                            R6 K23 ["ImageLabel"]
-       51 DUPTABLE                         R7 K25 [{"LayoutOrder"}]
-       52 LOADN                            R8 1
-       53 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
-       55 CALL                             R5 2 1
-       56 SETTABLEKS                       R5 R4 K19 ["ErrorImage"]
-       58 GETUPVAL                         R5 1
-       59 GETTABLEKS                       R5 R5 K3 ["createElement"]
-       61 LOADK                            R6 K16 ["Frame"]
-       62 NEWTABLE                         R7 8 0
-       64 LOADN                            R8 2
-       65 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
-       67 GETIMPORT                        R8 K9 [UDim2.new]
-       69 LOADN                            R9 1
-       70 LOADN                            R10 0
-       71 LOADN                            R11 0
-       72 LOADN                            R12 0
-       73 CALL                             R8 4 1
-       74 SETTABLEKS                       R8 R7 K26 ["Size"]
-       76 GETIMPORT                        R8 K30 [Enum.AutomaticSize.Y]
-       78 SETTABLEKS                       R8 R7 K28 ["AutomaticSize"]
-       80 LOADN                            R8 1
-       81 SETTABLEKS                       R8 R7 K31 ["BackgroundTransparency"]
-       83 LOADN                            R8 0
-       84 SETTABLEKS                       R8 R7 K32 ["BorderSizePixel"]
-       86 GETUPVAL                         R8 1
-       87 GETTABLEKS                       R8 R8 K17 ["Tag"]
-       89 LOADK                            R9 K33 ["X-Column"]
-       90 SETTABLE                         R9 R7 R8
-       91 DUPTABLE                         R8 K36 [{"Mainline", "Subline"}]
-       92 GETUPVAL                         R9 1
-       93 GETTABLEKS                       R9 R9 K3 ["createElement"]
-       95 LOADK                            R10 K37 ["TextLabel"]
-       96 NEWTABLE                         R11 4 0
-       98 LOADN                            R12 1
-       99 SETTABLEKS                       R12 R11 K24 ["LayoutOrder"]
-      101 GETUPVAL                         R12 3
-      102 LOADK                            R14 K38 ["EmptyNotificationTray"]
-      103 LOADK                            R15 K39 ["LoadErrorMain"]
-      104 NAMECALL                         R12 R12 K40 ["getText"]
-      106 CALL                             R12 3 1
-      107 SETTABLEKS                       R12 R11 K41 ["Text"]
-      109 GETUPVAL                         R12 1
-      110 GETTABLEKS                       R12 R12 K17 ["Tag"]
-      112 LOADK                            R13 K42 ["Component-EmptyNotificationTray-MainText"]
-      113 SETTABLE                         R13 R11 R12
-      114 CALL                             R9 2 1
-      115 SETTABLEKS                       R9 R8 K34 ["Mainline"]
-      117 GETUPVAL                         R9 1
-      118 GETTABLEKS                       R9 R9 K3 ["createElement"]
-      120 LOADK                            R10 K37 ["TextLabel"]
-      121 NEWTABLE                         R11 4 0
-      123 LOADN                            R12 2
-      124 SETTABLEKS                       R12 R11 K24 ["LayoutOrder"]
-      126 GETUPVAL                         R12 3
-      127 LOADK                            R14 K38 ["EmptyNotificationTray"]
-      128 LOADK                            R15 K43 ["LoadErrorSub"]
-      129 NAMECALL                         R12 R12 K40 ["getText"]
-      131 CALL                             R12 3 1
-      132 SETTABLEKS                       R12 R11 K41 ["Text"]
-      134 GETUPVAL                         R12 1
-      135 GETTABLEKS                       R12 R12 K17 ["Tag"]
-      137 LOADK                            R13 K44 ["Component-EmptyNotificationTray-SubText"]
-      138 SETTABLE                         R13 R11 R12
-      139 CALL                             R9 2 1
-      140 SETTABLEKS                       R9 R8 K35 ["Subline"]
-      142 CALL                             R5 3 1
-      143 SETTABLEKS                       R5 R4 K20 ["TextContent"]
-      145 GETUPVAL                         R5 1
-      146 GETTABLEKS                       R5 R5 K3 ["createElement"]
-      148 LOADK                            R6 K45 ["TextButton"]
-      149 NEWTABLE                         R7 4 0
-      151 LOADN                            R8 3
-      152 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
-      154 GETUPVAL                         R8 3
-      155 LOADK                            R10 K38 ["EmptyNotificationTray"]
-      156 LOADK                            R11 K46 ["RefreshAction"]
-      157 NAMECALL                         R8 R8 K40 ["getText"]
-      159 CALL                             R8 3 1
-      160 SETTABLEKS                       R8 R7 K41 ["Text"]
-      162 GETUPVAL                         R8 1
-      163 GETTABLEKS                       R8 R8 K47 ["Event"]
-      165 GETTABLEKS                       R8 R8 K48 ["MouseButton1Click"]
-      167 GETUPVAL                         R9 4
-      168 SETTABLE                         R9 R7 R8
-      169 CALL                             R5 2 1
-      170 SETTABLEKS                       R5 R4 K21 ["RefreshButton"]
-      172 CALL                             R1 3 1
-      173 SETTABLEKS                       R1 R0 K14 ["ErrorState"]
-      175 RETURN                           R0 1
-      176 DUPTABLE                         R0 K50 [{"EmptyState"}]
-      177 GETUPVAL                         R1 1
-      178 GETTABLEKS                       R1 R1 K3 ["createElement"]
-      180 LOADK                            R2 K16 ["Frame"]
-      181 NEWTABLE                         R3 1 0
-      183 GETUPVAL                         R4 1
-      184 GETTABLEKS                       R4 R4 K17 ["Tag"]
-      186 LOADK                            R5 K51 ["Component-EmptyNotificationTray-Centering"]
-      187 SETTABLE                         R5 R3 R4
-      188 DUPTABLE                         R4 K53 [{"EmptyImage", "TextLabel"}]
-      189 GETUPVAL                         R5 1
-      190 GETTABLEKS                       R5 R5 K3 ["createElement"]
-      192 LOADK                            R6 K23 ["ImageLabel"]
-      193 DUPTABLE                         R7 K25 [{"LayoutOrder"}]
-      194 LOADN                            R8 1
-      195 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
-      197 CALL                             R5 2 1
-      198 SETTABLEKS                       R5 R4 K52 ["EmptyImage"]
-      200 GETUPVAL                         R5 1
-      201 GETTABLEKS                       R5 R5 K3 ["createElement"]
-      203 LOADK                            R6 K37 ["TextLabel"]
-      204 NEWTABLE                         R7 4 0
-      206 LOADN                            R8 2
-      207 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
-      209 GETUPVAL                         R8 3
-      210 LOADK                            R10 K38 ["EmptyNotificationTray"]
-      211 LOADK                            R11 K54 ["NoNewNotifications"]
-      212 NAMECALL                         R8 R8 K40 ["getText"]
-      214 CALL                             R8 3 1
-      215 SETTABLEKS                       R8 R7 K41 ["Text"]
-      217 GETUPVAL                         R8 1
-      218 GETTABLEKS                       R8 R8 K17 ["Tag"]
-      220 LOADK                            R9 K44 ["Component-EmptyNotificationTray-SubText"]
-      221 SETTABLE                         R9 R7 R8
-      222 CALL                             R5 2 1
-      223 SETTABLEKS                       R5 R4 K37 ["TextLabel"]
-      225 CALL                             R1 3 1
-      226 SETTABLEKS                       R1 R0 K49 ["EmptyState"]
-      228 RETURN                           R0 1
+       51 DUPTABLE                         R7 K26 [{["LayoutOrder"] = 1}]
+       52 CALL                             R5 2 1
+       53 SETTABLEKS                       R5 R4 K19 ["ErrorImage"]
+       55 GETUPVAL                         R5 1
+       56 GETTABLEKS                       R5 R5 K3 ["createElement"]
+       58 LOADK                            R6 K16 ["Frame"]
+       59 NEWTABLE                         R7 8 0
+       61 LOADN                            R8 2
+       62 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
+       64 GETIMPORT                        R8 K9 [UDim2.new]
+       66 LOADN                            R9 1
+       67 LOADN                            R10 0
+       68 LOADN                            R11 0
+       69 LOADN                            R12 0
+       70 CALL                             R8 4 1
+       71 SETTABLEKS                       R8 R7 K27 ["Size"]
+       73 GETIMPORT                        R8 K31 [Enum.AutomaticSize.Y]
+       75 SETTABLEKS                       R8 R7 K29 ["AutomaticSize"]
+       77 LOADN                            R8 1
+       78 SETTABLEKS                       R8 R7 K32 ["BackgroundTransparency"]
+       80 LOADN                            R8 0
+       81 SETTABLEKS                       R8 R7 K33 ["BorderSizePixel"]
+       83 GETUPVAL                         R8 1
+       84 GETTABLEKS                       R8 R8 K17 ["Tag"]
+       86 LOADK                            R9 K34 ["X-Column"]
+       87 SETTABLE                         R9 R7 R8
+       88 DUPTABLE                         R8 K37 [{"Mainline", "Subline"}]
+       89 GETUPVAL                         R9 1
+       90 GETTABLEKS                       R9 R9 K3 ["createElement"]
+       92 LOADK                            R10 K38 ["TextLabel"]
+       93 NEWTABLE                         R11 4 0
+       95 LOADN                            R12 1
+       96 SETTABLEKS                       R12 R11 K24 ["LayoutOrder"]
+       98 GETUPVAL                         R12 3
+       99 LOADK                            R14 K39 ["EmptyNotificationTray"]
+      100 LOADK                            R15 K40 ["LoadErrorMain"]
+      101 NAMECALL                         R12 R12 K41 ["getText"]
+      103 CALL                             R12 3 1
+      104 SETTABLEKS                       R12 R11 K42 ["Text"]
+      106 GETUPVAL                         R12 1
+      107 GETTABLEKS                       R12 R12 K17 ["Tag"]
+      109 LOADK                            R13 K43 ["Component-EmptyNotificationTray-MainText"]
+      110 SETTABLE                         R13 R11 R12
+      111 CALL                             R9 2 1
+      112 SETTABLEKS                       R9 R8 K35 ["Mainline"]
+      114 GETUPVAL                         R9 1
+      115 GETTABLEKS                       R9 R9 K3 ["createElement"]
+      117 LOADK                            R10 K38 ["TextLabel"]
+      118 NEWTABLE                         R11 4 0
+      120 LOADN                            R12 2
+      121 SETTABLEKS                       R12 R11 K24 ["LayoutOrder"]
+      123 GETUPVAL                         R12 3
+      124 LOADK                            R14 K39 ["EmptyNotificationTray"]
+      125 LOADK                            R15 K44 ["LoadErrorSub"]
+      126 NAMECALL                         R12 R12 K41 ["getText"]
+      128 CALL                             R12 3 1
+      129 SETTABLEKS                       R12 R11 K42 ["Text"]
+      131 GETUPVAL                         R12 1
+      132 GETTABLEKS                       R12 R12 K17 ["Tag"]
+      134 LOADK                            R13 K45 ["Component-EmptyNotificationTray-SubText"]
+      135 SETTABLE                         R13 R11 R12
+      136 CALL                             R9 2 1
+      137 SETTABLEKS                       R9 R8 K36 ["Subline"]
+      139 CALL                             R5 3 1
+      140 SETTABLEKS                       R5 R4 K20 ["TextContent"]
+      142 GETUPVAL                         R5 1
+      143 GETTABLEKS                       R5 R5 K3 ["createElement"]
+      145 LOADK                            R6 K46 ["TextButton"]
+      146 NEWTABLE                         R7 4 0
+      148 LOADN                            R8 3
+      149 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
+      151 GETUPVAL                         R8 3
+      152 LOADK                            R10 K39 ["EmptyNotificationTray"]
+      153 LOADK                            R11 K47 ["RefreshAction"]
+      154 NAMECALL                         R8 R8 K41 ["getText"]
+      156 CALL                             R8 3 1
+      157 SETTABLEKS                       R8 R7 K42 ["Text"]
+      159 GETUPVAL                         R8 1
+      160 GETTABLEKS                       R8 R8 K48 ["Event"]
+      162 GETTABLEKS                       R8 R8 K49 ["MouseButton1Click"]
+      164 GETUPVAL                         R9 4
+      165 SETTABLE                         R9 R7 R8
+      166 CALL                             R5 2 1
+      167 SETTABLEKS                       R5 R4 K21 ["RefreshButton"]
+      169 CALL                             R1 3 1
+      170 SETTABLEKS                       R1 R0 K14 ["ErrorState"]
+      172 RETURN                           R0 1
+      173 DUPTABLE                         R0 K51 [{"EmptyState"}]
+      174 GETUPVAL                         R1 1
+      175 GETTABLEKS                       R1 R1 K3 ["createElement"]
+      177 LOADK                            R2 K16 ["Frame"]
+      178 NEWTABLE                         R3 1 0
+      180 GETUPVAL                         R4 1
+      181 GETTABLEKS                       R4 R4 K17 ["Tag"]
+      183 LOADK                            R5 K52 ["Component-EmptyNotificationTray-Centering"]
+      184 SETTABLE                         R5 R3 R4
+      185 DUPTABLE                         R4 K54 [{"EmptyImage", "TextLabel"}]
+      186 GETUPVAL                         R5 1
+      187 GETTABLEKS                       R5 R5 K3 ["createElement"]
+      189 LOADK                            R6 K23 ["ImageLabel"]
+      190 DUPTABLE                         R7 K26 [{["LayoutOrder"] = 1}]
+      191 CALL                             R5 2 1
+      192 SETTABLEKS                       R5 R4 K53 ["EmptyImage"]
+      194 GETUPVAL                         R5 1
+      195 GETTABLEKS                       R5 R5 K3 ["createElement"]
+      197 LOADK                            R6 K38 ["TextLabel"]
+      198 NEWTABLE                         R7 4 0
+      200 LOADN                            R8 2
+      201 SETTABLEKS                       R8 R7 K24 ["LayoutOrder"]
+      203 GETUPVAL                         R8 3
+      204 LOADK                            R10 K39 ["EmptyNotificationTray"]
+      205 LOADK                            R11 K55 ["NoNewNotifications"]
+      206 NAMECALL                         R8 R8 K41 ["getText"]
+      208 CALL                             R8 3 1
+      209 SETTABLEKS                       R8 R7 K42 ["Text"]
+      211 GETUPVAL                         R8 1
+      212 GETTABLEKS                       R8 R8 K17 ["Tag"]
+      214 LOADK                            R9 K45 ["Component-EmptyNotificationTray-SubText"]
+      215 SETTABLE                         R9 R7 R8
+      216 CALL                             R5 2 1
+      217 SETTABLEKS                       R5 R4 K38 ["TextLabel"]
+      219 CALL                             R1 3 1
+      220 SETTABLEKS                       R1 R0 K50 ["EmptyState"]
+      222 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

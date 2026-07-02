@@ -28,7 +28,7 @@ PROTO_0:
        40 SUBK                             R18 R3 K14 [1]
        41 SUBK                             R19 R5 K14 [1]
        42 DIV                              R17 R18 R19
-       43 SUBRK                            R16 R14 K17 ["Enum"]
+       43 SUBRK                            R16 K14 [1] R17
        44 MULK                             R18 R16 K15 [0.9]
        45 LOADK                            R20 K16 [0.1]
        46 GETUPVAL                         R21 1
@@ -110,7 +110,7 @@ PROTO_0:
       144 MULK                             R23 R18 K24 [0.5]
       145 ADD                              R21 R22 R23
       146 LOADB                            R22 0
-      147 SUBRK                            R23 R24 K13 [Vector3.new]
+      147 SUBRK                            R23 K24 [0.5] R13
       148 JUMPIFNOTLT                      R23 R21 ; [+7]
       150 LOADK                            R24 K24 [0.5]
       151 ADD                              R23 R24 R13
@@ -126,7 +126,7 @@ PROTO_0:
       164 LOADB                            R24 1
       165 MOVE                             R26 R22
       166 JUMPIFNOT                        R26 ; [+6]
-      167 SUBRK                            R27 R14 K16 [0.1]
+      167 SUBRK                            R27 K14 [1] R16
       168 ADDK                             R28 R14 K30 [0.005]
       169 JUMPIFLT                         R27 R28 ; [+2]
       171 LOADB                            R26 0 +1
@@ -134,7 +134,7 @@ PROTO_0:
       173 NOT                              R25 R26
       174 MOVE                             R27 R22
       175 JUMPIFNOT                        R27 ; [+6]
-      176 SUBRK                            R28 R14 K16 [0.1]
+      176 SUBRK                            R28 K14 [1] R16
       177 ADDK                             R29 R14 K31 [0.58]
       178 JUMPIFLT                         R29 R28 ; [+2]
       180 LOADB                            R27 0 +1
@@ -225,7 +225,7 @@ PROTO_0:
       275 LOADK                            R30 K24 [0.5]
       276 MOVE                             R31 R12
       277 CALL                             R28 3 1
-      278 SUBRK                            R30 R14 K16 [0.1]
+      278 SUBRK                            R30 K14 [1] R16
       279 JUMPIFLT                         R30 R14 ; [+2]
       281 LOADB                            R29 0 +1
       282 LOADB                            R29 1

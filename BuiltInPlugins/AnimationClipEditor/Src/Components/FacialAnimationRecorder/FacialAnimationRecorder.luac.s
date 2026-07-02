@@ -10,12 +10,10 @@ PROTO_0:
        12 NAMECALL                         R1 R0 K7 ["report"]
        14 CALL                             R1 2 0
        15 GETUPVAL                         R1 0
-       16 DUPTABLE                         R3 K9 [{"isRecording"}]
-       17 LOADB                            R4 1
-       18 SETTABLEKS                       R4 R3 K8 ["isRecording"]
-       20 NAMECALL                         R1 R1 K10 ["setState"]
-       22 CALL                             R1 2 0
-       23 RETURN                           R0 0
+       16 DUPTABLE                         R3 K10 [{["isRecording"] = True}]
+       17 NAMECALL                         R1 R1 K11 ["setState"]
+       19 CALL                             R1 2 0
+       20 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -76,67 +74,61 @@ PROTO_3:
        30 LOADB                            R3 1
        31 CALL                             R2 1 0
        32 GETUPVAL                         R2 0
-       33 DUPTABLE                         R4 K11 [{"isRecording"}]
-       34 LOADB                            R5 0
-       35 SETTABLEKS                       R5 R4 K10 ["isRecording"]
-       37 NAMECALL                         R2 R2 K12 ["setState"]
-       39 CALL                             R2 2 0
-       40 GETUPVAL                         R2 2
-       41 GETTABLEKS                       R2 R2 K13 ["hasFacsData"]
-       43 GETUPVAL                         R3 0
-       44 GETTABLEKS                       R3 R3 K4 ["props"]
-       46 GETTABLEKS                       R3 R3 K14 ["AnimationData"]
-       48 CALL                             R2 1 1
-       49 SETUPVAL                         R2 1
-       50 GETTABLEKS                       R2 R0 K15 ["LoadRecorderFrames"]
-       52 MOVE                             R3 R0
-       53 GETUPVAL                         R4 0
-       54 GETTABLEKS                       R4 R4 K16 ["RecordedFrames"]
-       56 GETTABLEKS                       R5 R0 K5 ["Analytics"]
-       58 CALL                             R2 3 0
-       59 GETTABLEKS                       R2 R0 K17 ["SetFacialRecordingMode"]
-       61 LOADB                            R3 0
-       62 CALL                             R2 1 0
-       63 GETUPVAL                         R2 0
-       64 NAMECALL                         R2 R2 K18 ["disconnect"]
-       66 CALL                             R2 1 0
-       67 GETTABLEKS                       R2 R0 K19 ["StepAnimation"]
-       69 LOADN                            R3 0
-       70 CALL                             R2 1 0
-       71 GETTABLEKS                       R2 R0 K20 ["SetPlayState"]
-       73 GETUPVAL                         R3 3
-       74 GETTABLEKS                       R3 R3 K21 ["PLAY_STATE"]
-       76 GETTABLEKS                       R3 R3 K22 ["Play"]
-       78 CALL                             R2 1 0
-       79 LOADNIL                          R2
-       80 GETUPVAL                         R3 4
-       81 GETTABLEKS                       R3 R3 K23 ["SelectionChanged"]
-       83 NEWCLOSURE                       R5 P0
-       84 CAPTURE                          REF R2
-       85 CAPTURE                          VAL R0
-       86 NAMECALL                         R3 R3 K24 ["Connect"]
-       88 CALL                             R3 2 1
-       89 MOVE                             R2 R3
-       90 CLOSEUPVALS                      R2
-       91 RETURN                           R0 0
+       33 DUPTABLE                         R4 K12 [{["isRecording"] = False}]
+       34 NAMECALL                         R2 R2 K13 ["setState"]
+       36 CALL                             R2 2 0
+       37 GETUPVAL                         R2 2
+       38 GETTABLEKS                       R2 R2 K14 ["hasFacsData"]
+       40 GETUPVAL                         R3 0
+       41 GETTABLEKS                       R3 R3 K4 ["props"]
+       43 GETTABLEKS                       R3 R3 K15 ["AnimationData"]
+       45 CALL                             R2 1 1
+       46 SETUPVAL                         R2 1
+       47 GETTABLEKS                       R2 R0 K16 ["LoadRecorderFrames"]
+       49 MOVE                             R3 R0
+       50 GETUPVAL                         R4 0
+       51 GETTABLEKS                       R4 R4 K17 ["RecordedFrames"]
+       53 GETTABLEKS                       R5 R0 K5 ["Analytics"]
+       55 CALL                             R2 3 0
+       56 GETTABLEKS                       R2 R0 K18 ["SetFacialRecordingMode"]
+       58 LOADB                            R3 0
+       59 CALL                             R2 1 0
+       60 GETUPVAL                         R2 0
+       61 NAMECALL                         R2 R2 K19 ["disconnect"]
+       63 CALL                             R2 1 0
+       64 GETTABLEKS                       R2 R0 K20 ["StepAnimation"]
+       66 LOADN                            R3 0
+       67 CALL                             R2 1 0
+       68 GETTABLEKS                       R2 R0 K21 ["SetPlayState"]
+       70 GETUPVAL                         R3 3
+       71 GETTABLEKS                       R3 R3 K22 ["PLAY_STATE"]
+       73 GETTABLEKS                       R3 R3 K23 ["Play"]
+       75 CALL                             R2 1 0
+       76 LOADNIL                          R2
+       77 GETUPVAL                         R3 4
+       78 GETTABLEKS                       R3 R3 K24 ["SelectionChanged"]
+       80 NEWCLOSURE                       R5 P0
+       81 CAPTURE                          REF R2
+       82 CAPTURE                          VAL R0
+       83 NAMECALL                         R3 R3 K25 ["Connect"]
+       85 CALL                             R3 2 1
+       86 MOVE                             R2 R3
+       87 CLOSEUPVALS                      R2
+       88 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"shouldShowCameraSelectionDialog"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["shouldShowCameraSelectionDialog"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"shouldShowCameraSelectionDialog"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["shouldShowCameraSelectionDialog"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_6:
         0 GETIMPORT                        R0 K1 [wait]
@@ -221,55 +213,49 @@ PROTO_10:
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["Localization"]
         5 GETUPVAL                         R2 0
-        6 DUPTABLE                         R4 K3 [{"isAgeRestricted"}]
-        7 LOADB                            R5 1
-        8 SETTABLEKS                       R5 R4 K2 ["isAgeRestricted"]
-       10 NAMECALL                         R2 R2 K4 ["setState"]
-       12 CALL                             R2 2 0
-       13 GETUPVAL                         R2 1
-       14 GETTABLEKS                       R3 R0 K5 ["Plugin"]
-       16 GETTABLEKS                       R4 R0 K1 ["Localization"]
-       18 GETTABLEKS                       R5 R0 K6 ["Stylizer"]
-       20 GETTABLEKS                       R6 R0 K7 ["Mouse"]
-       22 GETUPVAL                         R7 2
-       23 DUPTABLE                         R8 K14 [{"Title", "TitleText", "BodyText", "Buttons", "OnButtonPressed", "OnClose"}]
-       24 LOADK                            R11 K15 ["FaceCapture"]
-       25 LOADK                            R12 K16 ["WarningTitle"]
-       26 NAMECALL                         R9 R1 K17 ["getText"]
-       28 CALL                             R9 3 1
-       29 SETTABLEKS                       R9 R8 K8 ["Title"]
-       31 LOADK                            R11 K15 ["FaceCapture"]
-       32 LOADK                            R12 K18 ["AgeRestrictedTitle"]
-       33 NAMECALL                         R9 R1 K17 ["getText"]
-       35 CALL                             R9 3 1
-       36 SETTABLEKS                       R9 R8 K9 ["TitleText"]
-       38 LOADK                            R11 K15 ["FaceCapture"]
-       39 LOADK                            R12 K19 ["AgeRestrictedBody"]
-       40 NAMECALL                         R9 R1 K17 ["getText"]
-       42 CALL                             R9 3 1
-       43 SETTABLEKS                       R9 R8 K10 ["BodyText"]
-       45 NEWTABLE                         R9 0 1
-       47 DUPTABLE                         R10 K23 [{"Key", "Text", "Style"}]
-       48 LOADK                            R11 K24 ["Ok"]
-       49 SETTABLEKS                       R11 R10 K20 ["Key"]
-       51 GETTABLEKS                       R11 R0 K1 ["Localization"]
-       53 LOADK                            R13 K15 ["FaceCapture"]
-       54 LOADK                            R14 K25 ["WarningDialogOk"]
-       55 NAMECALL                         R11 R11 K17 ["getText"]
-       57 CALL                             R11 3 1
-       58 SETTABLEKS                       R11 R10 K21 ["Text"]
-       60 LOADK                            R11 K26 ["RoundPrimary"]
-       61 SETTABLEKS                       R11 R10 K22 ["Style"]
-       63 SETLIST                          R9 R10 1 [1]
-       65 SETTABLEKS                       R9 R8 K11 ["Buttons"]
-       67 GETUPVAL                         R9 0
-       68 GETTABLEKS                       R9 R9 K27 ["dismissSelf"]
-       70 SETTABLEKS                       R9 R8 K12 ["OnButtonPressed"]
-       72 GETUPVAL                         R9 0
-       73 GETTABLEKS                       R9 R9 K27 ["dismissSelf"]
-       75 SETTABLEKS                       R9 R8 K13 ["OnClose"]
-       77 CALL                             R2 6 0
-       78 RETURN                           R0 0
+        6 DUPTABLE                         R4 K4 [{["isAgeRestricted"] = True}]
+        7 NAMECALL                         R2 R2 K5 ["setState"]
+        9 CALL                             R2 2 0
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R3 R0 K6 ["Plugin"]
+       13 GETTABLEKS                       R4 R0 K1 ["Localization"]
+       15 GETTABLEKS                       R5 R0 K7 ["Stylizer"]
+       17 GETTABLEKS                       R6 R0 K8 ["Mouse"]
+       19 GETUPVAL                         R7 2
+       20 DUPTABLE                         R8 K15 [{"Title", "TitleText", "BodyText", "Buttons", "OnButtonPressed", "OnClose"}]
+       21 LOADK                            R11 K16 ["FaceCapture"]
+       22 LOADK                            R12 K17 ["WarningTitle"]
+       23 NAMECALL                         R9 R1 K18 ["getText"]
+       25 CALL                             R9 3 1
+       26 SETTABLEKS                       R9 R8 K9 ["Title"]
+       28 LOADK                            R11 K16 ["FaceCapture"]
+       29 LOADK                            R12 K19 ["AgeRestrictedTitle"]
+       30 NAMECALL                         R9 R1 K18 ["getText"]
+       32 CALL                             R9 3 1
+       33 SETTABLEKS                       R9 R8 K10 ["TitleText"]
+       35 LOADK                            R11 K16 ["FaceCapture"]
+       36 LOADK                            R12 K20 ["AgeRestrictedBody"]
+       37 NAMECALL                         R9 R1 K18 ["getText"]
+       39 CALL                             R9 3 1
+       40 SETTABLEKS                       R9 R8 K11 ["BodyText"]
+       42 NEWTABLE                         R9 0 1
+       44 DUPTABLE                         R10 K26 [{["Key"] = "Ok", ["Text"], ["Style"] = "RoundPrimary"}]
+       45 GETTABLEKS                       R11 R0 K1 ["Localization"]
+       47 LOADK                            R13 K16 ["FaceCapture"]
+       48 LOADK                            R14 K27 ["WarningDialogOk"]
+       49 NAMECALL                         R11 R11 K18 ["getText"]
+       51 CALL                             R11 3 1
+       52 SETTABLEKS                       R11 R10 K23 ["Text"]
+       54 SETLIST                          R9 R10 1 [1]
+       56 SETTABLEKS                       R9 R8 K12 ["Buttons"]
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R9 R9 K28 ["dismissSelf"]
+       61 SETTABLEKS                       R9 R8 K13 ["OnButtonPressed"]
+       63 GETUPVAL                         R9 0
+       64 GETTABLEKS                       R9 R9 K28 ["dismissSelf"]
+       66 SETTABLEKS                       R9 R8 K14 ["OnClose"]
+       68 CALL                             R2 6 0
+       69 RETURN                           R0 0
 
 PROTO_11:
         0 JUMPIFNOTEQKS                    R0 K0 ["Agree"] ; [+10]
@@ -316,44 +302,36 @@ PROTO_12:
        40 CALL                             R10 3 1
        41 SETTABLEKS                       R10 R9 K11 ["BodyText"]
        43 NEWTABLE                         R10 0 2
-       45 DUPTABLE                         R11 K26 [{"Key", "Text", "Style"}]
-       46 LOADK                            R12 K27 ["Disagree"]
-       47 SETTABLEKS                       R12 R11 K23 ["Key"]
-       49 LOADK                            R14 K18 ["FaceCapture"]
-       50 LOADK                            R15 K28 ["BioDataCollectionDisagree"]
-       51 NAMECALL                         R12 R1 K20 ["getText"]
-       53 CALL                             R12 3 1
-       54 SETTABLEKS                       R12 R11 K24 ["Text"]
-       56 LOADK                            R12 K29 ["Round"]
-       57 SETTABLEKS                       R12 R11 K25 ["Style"]
-       59 DUPTABLE                         R12 K26 [{"Key", "Text", "Style"}]
-       60 LOADK                            R13 K30 ["Agree"]
-       61 SETTABLEKS                       R13 R12 K23 ["Key"]
-       63 LOADK                            R15 K18 ["FaceCapture"]
-       64 LOADK                            R16 K31 ["BioDataCollectionAgree"]
-       65 NAMECALL                         R13 R1 K20 ["getText"]
-       67 CALL                             R13 3 1
-       68 SETTABLEKS                       R13 R12 K24 ["Text"]
-       70 LOADK                            R13 K29 ["Round"]
-       71 SETTABLEKS                       R13 R12 K25 ["Style"]
-       73 SETLIST                          R10 R11 2 [1]
-       75 SETTABLEKS                       R10 R9 K12 ["Buttons"]
-       77 NEWCLOSURE                       R10 P0
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          UPVAL U0
-       80 SETTABLEKS                       R10 R9 K13 ["OnButtonPressed"]
-       82 GETUPVAL                         R10 0
-       83 GETTABLEKS                       R10 R10 K32 ["dismissSelf"]
-       85 SETTABLEKS                       R10 R9 K14 ["OnClose"]
-       87 GETUPVAL                         R10 3
-       88 SETTABLEKS                       R10 R9 K15 ["learnMoreUrl"]
-       90 LOADK                            R12 K18 ["FaceCapture"]
-       91 LOADK                            R13 K33 ["LearnMoreLabel"]
-       92 NAMECALL                         R10 R1 K20 ["getText"]
-       94 CALL                             R10 3 1
-       95 SETTABLEKS                       R10 R9 K16 ["learnMoreLabel"]
-       97 CALL                             R3 6 0
-       98 RETURN                           R0 0
+       45 DUPTABLE                         R11 K28 [{["Key"] = "Disagree", ["Text"], ["Style"] = "Round"}]
+       46 LOADK                            R14 K18 ["FaceCapture"]
+       47 LOADK                            R15 K29 ["BioDataCollectionDisagree"]
+       48 NAMECALL                         R12 R1 K20 ["getText"]
+       50 CALL                             R12 3 1
+       51 SETTABLEKS                       R12 R11 K25 ["Text"]
+       53 DUPTABLE                         R12 K31 [{["Key"] = "Agree", ["Text"], ["Style"] = "Round"}]
+       54 LOADK                            R15 K18 ["FaceCapture"]
+       55 LOADK                            R16 K32 ["BioDataCollectionAgree"]
+       56 NAMECALL                         R13 R1 K20 ["getText"]
+       58 CALL                             R13 3 1
+       59 SETTABLEKS                       R13 R12 K25 ["Text"]
+       61 SETLIST                          R10 R11 2 [1]
+       63 SETTABLEKS                       R10 R9 K12 ["Buttons"]
+       65 NEWCLOSURE                       R10 P0
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          UPVAL U0
+       68 SETTABLEKS                       R10 R9 K13 ["OnButtonPressed"]
+       70 GETUPVAL                         R10 0
+       71 GETTABLEKS                       R10 R10 K33 ["dismissSelf"]
+       73 SETTABLEKS                       R10 R9 K14 ["OnClose"]
+       75 GETUPVAL                         R10 3
+       76 SETTABLEKS                       R10 R9 K15 ["learnMoreUrl"]
+       78 LOADK                            R12 K18 ["FaceCapture"]
+       79 LOADK                            R13 K34 ["LearnMoreLabel"]
+       80 NAMECALL                         R10 R1 K20 ["getText"]
+       82 CALL                             R10 3 1
+       83 SETTABLEKS                       R10 R9 K16 ["learnMoreLabel"]
+       85 CALL                             R3 6 0
+       86 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -393,27 +371,22 @@ PROTO_16:
         2 LOADK                            R2 K2 ["FacialAnimationRecordingService"]
         3 NAMECALL                         R0 R0 K3 ["GetService"]
         5 CALL                             R0 2 1
-        6 DUPTABLE                         R1 K6 [{"AUTHORIZED", "DENIED"}]
-        7 LOADK                            R2 K4 ["AUTHORIZED"]
-        8 SETTABLEKS                       R2 R1 K4 ["AUTHORIZED"]
-       10 LOADK                            R2 K5 ["DENIED"]
-       11 SETTABLEKS                       R2 R1 K5 ["DENIED"]
-       13 GETIMPORT                        R2 K8 [pcall]
-       15 NEWCLOSURE                       R3 P0
-       16 CAPTURE                          VAL R0
-       17 CALL                             R2 1 2
-       18 JUMPIF                           R2 ; [+1]
-       19 RETURN                           R0 0
-       20 GETTABLEKS                       R5 R1 K5 ["DENIED"]
-       22 JUMPIFEQ                         R3 R5 ; [+2]
-       24 LOADB                            R4 0 +1
-       25 LOADB                            R4 1
-       26 GETUPVAL                         R5 0
-       27 DUPTABLE                         R7 K10 [{"deniedCameraPermission"}]
-       28 SETTABLEKS                       R4 R7 K9 ["deniedCameraPermission"]
-       30 NAMECALL                         R5 R5 K11 ["setState"]
-       32 CALL                             R5 2 0
-       33 RETURN                           R0 0
+        6 DUPTABLE                         R1 K6 [{["AUTHORIZED"] = "AUTHORIZED", ["DENIED"] = "DENIED"}]
+        7 GETIMPORT                        R2 K8 [pcall]
+        9 NEWCLOSURE                       R3 P0
+       10 CAPTURE                          VAL R0
+       11 CALL                             R2 1 2
+       12 JUMPIF                           R2 ; [+1]
+       13 RETURN                           R0 0
+       14 JUMPIFEQKS                       R3 K5 ["DENIED"] ; [+2]
+       16 LOADB                            R4 0 +1
+       17 LOADB                            R4 1
+       18 GETUPVAL                         R5 0
+       19 DUPTABLE                         R7 K10 [{"deniedCameraPermission"}]
+       20 SETTABLEKS                       R4 R7 K9 ["deniedCameraPermission"]
+       22 NAMECALL                         R5 R5 K11 ["setState"]
+       24 CALL                             R5 2 0
+       25 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -424,74 +397,64 @@ PROTO_17:
         8 GETTABLEKS                       R2 R0 K1 ["presentationGui"]
        10 CALL                             R1 1 1
        11 SETTABLEKS                       R1 R0 K3 ["focus"]
-       13 DUPTABLE                         R3 K9 [{"remainingSeconds", "shouldShowCameraSelectionDialog", "isAgeRestricted", "shouldShowNoCamerasWarning", "deniedCameraPermission"}]
-       14 LOADN                            R4 0
-       15 SETTABLEKS                       R4 R3 K4 ["remainingSeconds"]
-       17 LOADB                            R4 0
-       18 SETTABLEKS                       R4 R3 K5 ["shouldShowCameraSelectionDialog"]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K6 ["isAgeRestricted"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K7 ["shouldShowNoCamerasWarning"]
-       26 LOADB                            R4 0
-       27 SETTABLEKS                       R4 R3 K8 ["deniedCameraPermission"]
-       29 NAMECALL                         R1 R0 K10 ["setState"]
-       31 CALL                             R1 2 0
-       32 NEWCLOSURE                       R1 P0
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R1 R0 K11 ["startRecording"]
-       36 NEWCLOSURE                       R1 P1
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U2
-       39 SETTABLEKS                       R1 R0 K12 ["resetLooping"]
-       41 NEWCLOSURE                       R1 P2
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          UPVAL U3
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U4
-       46 CAPTURE                          UPVAL U5
-       47 SETTABLEKS                       R1 R0 K13 ["endRecording"]
-       49 NEWCLOSURE                       R1 P3
-       50 CAPTURE                          VAL R0
-       51 SETTABLEKS                       R1 R0 K14 ["showCameraSelectionDialog"]
-       53 NEWCLOSURE                       R1 P4
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R1 R0 K15 ["hideCameraSelectionDialog"]
-       57 NEWCLOSURE                       R1 P5
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R1 R0 K16 ["movePlayheadToBeginning"]
-       61 NEWCLOSURE                       R1 P6
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R1 R0 K17 ["dismissSelf"]
-       65 NEWCLOSURE                       R1 P7
-       66 CAPTURE                          VAL R0
-       67 SETTABLEKS                       R1 R0 K18 ["toggleRecording"]
-       69 NEWCLOSURE                       R1 P8
-       70 CAPTURE                          VAL R0
-       71 CAPTURE                          UPVAL U6
-       72 CAPTURE                          UPVAL U4
-       73 SETTABLEKS                       R1 R0 K19 ["triggerReRecording"]
-       75 NEWCLOSURE                       R1 P9
-       76 CAPTURE                          VAL R0
-       77 CAPTURE                          UPVAL U7
-       78 CAPTURE                          UPVAL U8
-       79 SETTABLEKS                       R1 R0 K20 ["showAgeRestrictionError"]
-       81 NEWCLOSURE                       R1 P10
+       13 DUPTABLE                         R3 K11 [{["remainingSeconds"] = 0, ["shouldShowCameraSelectionDialog"] = False, ["isAgeRestricted"] = False, ["shouldShowNoCamerasWarning"] = False, ["deniedCameraPermission"] = False}]
+       14 NAMECALL                         R1 R0 K12 ["setState"]
+       16 CALL                             R1 2 0
+       17 NEWCLOSURE                       R1 P0
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K13 ["startRecording"]
+       21 NEWCLOSURE                       R1 P1
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U2
+       24 SETTABLEKS                       R1 R0 K14 ["resetLooping"]
+       26 NEWCLOSURE                       R1 P2
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U3
+       29 CAPTURE                          UPVAL U2
+       30 CAPTURE                          UPVAL U4
+       31 CAPTURE                          UPVAL U5
+       32 SETTABLEKS                       R1 R0 K15 ["endRecording"]
+       34 NEWCLOSURE                       R1 P3
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R1 R0 K16 ["showCameraSelectionDialog"]
+       38 NEWCLOSURE                       R1 P4
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R1 R0 K17 ["hideCameraSelectionDialog"]
+       42 NEWCLOSURE                       R1 P5
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R1 R0 K18 ["movePlayheadToBeginning"]
+       46 NEWCLOSURE                       R1 P6
+       47 CAPTURE                          VAL R0
+       48 SETTABLEKS                       R1 R0 K19 ["dismissSelf"]
+       50 NEWCLOSURE                       R1 P7
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R1 R0 K20 ["toggleRecording"]
+       54 NEWCLOSURE                       R1 P8
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          UPVAL U6
+       57 CAPTURE                          UPVAL U4
+       58 SETTABLEKS                       R1 R0 K21 ["triggerReRecording"]
+       60 NEWCLOSURE                       R1 P9
+       61 CAPTURE                          VAL R0
+       62 CAPTURE                          UPVAL U7
+       63 CAPTURE                          UPVAL U8
+       64 SETTABLEKS                       R1 R0 K22 ["showAgeRestrictionError"]
+       66 NEWCLOSURE                       R1 P10
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          UPVAL U7
+       69 CAPTURE                          UPVAL U8
+       70 CAPTURE                          UPVAL U9
+       71 SETTABLEKS                       R1 R0 K23 ["showBiometricDataCollectionDialog"]
+       73 DUPCLOSURE                       R1 K24 [PROTO_13]
+       74 CAPTURE                          UPVAL U10
+       75 SETTABLEKS                       R1 R0 K25 ["numberOfCameras"]
+       77 NEWCLOSURE                       R1 P12
+       78 CAPTURE                          VAL R0
+       79 SETTABLEKS                       R1 R0 K26 ["checkAndShowCameraWarning"]
+       81 NEWCLOSURE                       R1 P13
        82 CAPTURE                          VAL R0
-       83 CAPTURE                          UPVAL U7
-       84 CAPTURE                          UPVAL U8
-       85 CAPTURE                          UPVAL U9
-       86 SETTABLEKS                       R1 R0 K21 ["showBiometricDataCollectionDialog"]
-       88 DUPCLOSURE                       R1 K22 [PROTO_13]
-       89 CAPTURE                          UPVAL U10
-       90 SETTABLEKS                       R1 R0 K23 ["numberOfCameras"]
-       92 NEWCLOSURE                       R1 P12
-       93 CAPTURE                          VAL R0
-       94 SETTABLEKS                       R1 R0 K24 ["checkAndShowCameraWarning"]
-       96 NEWCLOSURE                       R1 P13
-       97 CAPTURE                          VAL R0
-       98 SETTABLEKS                       R1 R0 K25 ["checkOrRequestCameraPermission"]
-      100 RETURN                           R0 0
+       83 SETTABLEKS                       R1 R0 K27 ["checkOrRequestCameraPermission"]
+       85 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -857,7 +820,7 @@ PROTO_24:
        80 SETLIST                          R20 R21 1 [1]
        82 DUPTABLE                         R21 K25 [{"RecordingPanelPortal", "CameraSelectionDialog"}]
        83 NOT                              R22 R7
-       84 JUMPIFNOT                        R22 ; [+887]
+       84 JUMPIFNOT                        R22 ; [+701]
        85 GETUPVAL                         R22 3
        86 GETTABLEKS                       R22 R22 K26 ["createElement"]
        88 GETUPVAL                         R23 3
@@ -881,7 +844,7 @@ PROTO_24:
       113 LOADK                            R30 K42 [0.5]
       114 LOADN                            R31 0
       115 LOADN                            R32 1
-      116 LOADN                            R33 251
+      116 LOADN                            R33 -5
       117 CALL                             R29 4 1
       118 SETTABLEKS                       R29 R28 K35 ["Position"]
       120 GETIMPORT                        R29 K44 [Vector2.new]
@@ -889,638 +852,514 @@ PROTO_24:
       123 LOADN                            R31 1
       124 CALL                             R29 2 1
       125 SETTABLEKS                       R29 R28 K36 ["AnchorPoint"]
-      127 DUPTABLE                         R29 K47 [{"Left", "Right"}]
-      128 LOADN                            R30 5
-      129 SETTABLEKS                       R30 R29 K45 ["Left"]
-      131 LOADN                            R30 5
-      132 SETTABLEKS                       R30 R29 K46 ["Right"]
-      134 SETTABLEKS                       R29 R28 K37 ["Padding"]
-      136 DUPTABLE                         R29 K50 [{"RecordingPanel", "DismissButton"}]
-      137 GETUPVAL                         R30 3
-      138 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      140 GETUPVAL                         R31 5
-      141 DUPTABLE                         R32 K60 [{"Size", "Padding", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "Image", "BackgroundColor3", "BackgroundTransparency", "ImageTransparency"}]
-      142 GETIMPORT                        R33 K41 [UDim2.new]
-      144 LOADN                            R34 1
-      145 LOADN                            R35 0
-      146 LOADN                            R36 1
-      147 LOADN                            R37 0
-      148 CALL                             R33 4 1
-      149 SETTABLEKS                       R33 R32 K34 ["Size"]
-      151 DUPTABLE                         R33 K47 [{"Left", "Right"}]
-      152 LOADN                            R34 40
-      153 SETTABLEKS                       R34 R33 K45 ["Left"]
-      155 LOADN                            R34 40
-      156 SETTABLEKS                       R34 R33 K46 ["Right"]
-      158 SETTABLEKS                       R33 R32 K37 ["Padding"]
-      160 GETIMPORT                        R33 K64 [Enum.FillDirection.Horizontal]
-      162 SETTABLEKS                       R33 R32 K51 ["Layout"]
-      164 LOADN                            R33 3
-      165 SETTABLEKS                       R33 R32 K52 ["Spacing"]
-      167 GETIMPORT                        R33 K66 [Enum.VerticalAlignment.Center]
-      169 SETTABLEKS                       R33 R32 K53 ["VerticalAlignment"]
-      171 LOADN                            R33 1
-      172 SETTABLEKS                       R33 R32 K54 ["ZIndex"]
-      174 LOADK                            R33 K67 ["RoundBox"]
-      175 SETTABLEKS                       R33 R32 K55 ["Style"]
-      177 LOADK                            R33 K68 [""]
-      178 SETTABLEKS                       R33 R32 K56 ["Image"]
-      180 GETTABLEKS                       R33 R1 K1 ["Stylizer"]
-      182 GETTABLEKS                       R33 R33 K69 ["Color"]
-      184 SETTABLEKS                       R33 R32 K57 ["BackgroundColor3"]
-      186 LOADK                            R33 K70 [0.1]
-      187 SETTABLEKS                       R33 R32 K58 ["BackgroundTransparency"]
-      189 LOADK                            R33 K70 [0.1]
-      190 SETTABLEKS                       R33 R32 K59 ["ImageTransparency"]
-      192 DUPTABLE                         R33 K78 [{"Corner", "RecordButton", "ReRecordButton", "FlashingDot", "TextLabelButton", "LoadingIndicator", "CameraSelectionButton"}]
-      193 GETUPVAL                         R34 3
-      194 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      196 LOADK                            R35 K79 ["UICorner"]
-      197 DUPTABLE                         R36 K81 [{"CornerRadius"}]
-      198 GETIMPORT                        R37 K83 [UDim.new]
-      200 LOADN                            R38 0
-      201 LOADN                            R39 8
-      202 CALL                             R37 2 1
-      203 SETTABLEKS                       R37 R36 K80 ["CornerRadius"]
-      205 CALL                             R34 2 1
-      206 SETTABLEKS                       R34 R33 K71 ["Corner"]
-      208 NOT                              R34 R5
-      209 JUMPIFNOT                        R34 ; [+130]
-      210 GETUPVAL                         R34 3
-      211 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      213 GETUPVAL                         R35 6
-      214 DUPTABLE                         R36 K89 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "Text", "LayoutOrder", "Style", "StyleModifier"}]
-      215 GETIMPORT                        R37 K41 [UDim2.new]
-      217 LOADN                            R38 0
-      218 LOADN                            R39 30
-      219 LOADN                            R40 0
-      220 LOADN                            R41 30
-      221 CALL                             R37 4 1
-      222 SETTABLEKS                       R37 R36 K34 ["Size"]
-      224 GETIMPORT                        R37 K41 [UDim2.new]
-      226 LOADN                            R38 0
-      227 LOADN                            R39 0
-      228 LOADN                            R40 0
-      229 LOADN                            R41 0
-      230 CALL                             R37 4 1
-      231 SETTABLEKS                       R37 R36 K35 ["Position"]
-      233 LOADN                            R37 1
-      234 SETTABLEKS                       R37 R36 K59 ["ImageTransparency"]
-      236 LOADK                            R37 K42 [0.5]
-      237 SETTABLEKS                       R37 R36 K58 ["BackgroundTransparency"]
-      239 LOADN                            R37 1
-      240 SETTABLEKS                       R37 R36 K84 ["BorderSizePixel"]
-      242 GETTABLEKS                       R37 R0 K90 ["toggleRecording"]
-      244 SETTABLEKS                       R37 R36 K85 ["OnClick"]
-      246 LOADK                            R37 K68 [""]
-      247 SETTABLEKS                       R37 R36 K86 ["Text"]
-      249 LOADN                            R37 1
-      250 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      252 DUPTABLE                         R37 K91 [{"BackgroundTransparency", "BorderSizePixel"}]
-      253 LOADN                            R38 1
-      254 SETTABLEKS                       R38 R37 K58 ["BackgroundTransparency"]
-      256 LOADN                            R38 0
-      257 SETTABLEKS                       R38 R37 K84 ["BorderSizePixel"]
-      259 SETTABLEKS                       R37 R36 K55 ["Style"]
-      261 JUMPIF                           R6 ; [+4]
-      262 GETUPVAL                         R37 7
-      263 GETTABLEKS                       R37 R37 K92 ["Disabled"]
-      265 JUMPIF                           R37 ; [+1]
-      266 LOADNIL                          R37
-      267 SETTABLEKS                       R37 R36 K88 ["StyleModifier"]
-      269 NEWTABLE                         R37 2 1
-      271 GETUPVAL                         R39 3
-      272 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      274 LOADK                            R40 K93 ["ImageLabel"]
-      275 DUPTABLE                         R41 K94 [{"BackgroundTransparency", "Size", "Position", "Image"}]
-      276 LOADN                            R42 1
-      277 SETTABLEKS                       R42 R41 K58 ["BackgroundTransparency"]
-      279 GETIMPORT                        R42 K41 [UDim2.new]
-      281 LOADN                            R43 0
-      282 LOADN                            R44 30
-      283 LOADN                            R45 0
-      284 LOADN                            R46 30
-      285 CALL                             R42 4 1
-      286 SETTABLEKS                       R42 R41 K34 ["Size"]
-      288 GETIMPORT                        R42 K41 [UDim2.new]
-      290 LOADN                            R43 0
-      291 LOADN                            R44 0
-      292 LOADN                            R45 0
-      293 LOADN                            R46 0
-      294 CALL                             R42 4 1
-      295 SETTABLEKS                       R42 R41 K35 ["Position"]
-      297 JUMPIFNOT                        R4 ; [+2]
-      298 MOVE                             R42 R13
-      299 JUMPIF                           R42 ; [+1]
-      300 LOADK                            R42 K95 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/button_control_record.png"]
-      301 SETTABLEKS                       R42 R41 K56 ["Image"]
-      303 CALL                             R39 2 1
-      304 SETTABLEKS                       R39 R37 K56 ["Image"]
-      306 GETUPVAL                         R39 3
-      307 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      309 GETUPVAL                         R40 8
-      310 DUPTABLE                         R41 K96 [{"Text"}]
-      311 JUMPIFNOT                        R4 ; [+6]
-      312 LOADK                            R44 K97 ["FaceCapture"]
-      313 LOADK                            R45 K98 ["TooltipStopRecording"]
-      314 NAMECALL                         R42 R3 K99 ["getText"]
-      316 CALL                             R42 3 1
-      317 JUMPIF                           R42 ; [+5]
-      318 LOADK                            R44 K97 ["FaceCapture"]
-      319 LOADK                            R45 K100 ["TooltipStartRecording"]
-      320 NAMECALL                         R42 R3 K99 ["getText"]
-      322 CALL                             R42 3 1
-      323 SETTABLEKS                       R42 R41 K86 ["Text"]
-      325 CALL                             R39 2 1
-      326 SETTABLEKS                       R39 R37 K101 ["Tooltip"]
-      328 GETUPVAL                         R38 3
-      329 GETTABLEKS                       R38 R38 K26 ["createElement"]
-      331 GETUPVAL                         R39 9
-      332 DUPTABLE                         R40 K103 [{"Cursor"}]
-      333 LOADK                            R41 K104 ["PointingHand"]
-      334 SETTABLEKS                       R41 R40 K102 ["Cursor"]
-      336 CALL                             R38 2 -1
-      337 SETLIST                          R37 R38 -1 [1]
-      339 CALL                             R34 3 1
-      340 SETTABLEKS                       R34 R33 K72 ["RecordButton"]
-      342 MOVE                             R34 R5
-      343 JUMPIFNOT                        R34 ; [+122]
-      344 GETUPVAL                         R34 3
-      345 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      347 GETUPVAL                         R35 6
-      348 DUPTABLE                         R36 K89 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "Text", "LayoutOrder", "Style", "StyleModifier"}]
-      349 GETIMPORT                        R37 K41 [UDim2.new]
-      351 LOADN                            R38 0
-      352 LOADN                            R39 30
-      353 LOADN                            R40 0
-      354 LOADN                            R41 30
-      355 CALL                             R37 4 1
-      356 SETTABLEKS                       R37 R36 K34 ["Size"]
-      358 GETIMPORT                        R37 K41 [UDim2.new]
-      360 LOADN                            R38 0
-      361 LOADN                            R39 0
-      362 LOADN                            R40 0
-      363 LOADN                            R41 0
-      364 CALL                             R37 4 1
-      365 SETTABLEKS                       R37 R36 K35 ["Position"]
-      367 LOADN                            R37 1
-      368 SETTABLEKS                       R37 R36 K59 ["ImageTransparency"]
-      370 LOADK                            R37 K42 [0.5]
-      371 SETTABLEKS                       R37 R36 K58 ["BackgroundTransparency"]
-      373 LOADN                            R37 1
-      374 SETTABLEKS                       R37 R36 K84 ["BorderSizePixel"]
-      376 GETTABLEKS                       R37 R0 K105 ["triggerReRecording"]
-      378 SETTABLEKS                       R37 R36 K85 ["OnClick"]
-      380 LOADK                            R37 K68 [""]
-      381 SETTABLEKS                       R37 R36 K86 ["Text"]
-      383 LOADN                            R37 1
-      384 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      386 DUPTABLE                         R37 K91 [{"BackgroundTransparency", "BorderSizePixel"}]
-      387 LOADN                            R38 1
-      388 SETTABLEKS                       R38 R37 K58 ["BackgroundTransparency"]
+      127 DUPTABLE                         R29 K48 [{["Left"] = 5, ["Right"] = 5}]
+      128 SETTABLEKS                       R29 R28 K37 ["Padding"]
+      130 DUPTABLE                         R29 K51 [{"RecordingPanel", "DismissButton"}]
+      131 GETUPVAL                         R30 3
+      132 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      134 GETUPVAL                         R31 5
+      135 DUPTABLE                         R32 K66 [{["Size"], ["Padding"], ["Layout"], ["Spacing"] = 3, ["VerticalAlignment"], ["ZIndex"] = 1, ["Style"] = "RoundBox", ["Image"] = "", ["BackgroundColor3"], ["BackgroundTransparency"] = 0.1, ["ImageTransparency"] = 0.1}]
+      136 GETIMPORT                        R33 K41 [UDim2.new]
+      138 LOADN                            R34 1
+      139 LOADN                            R35 0
+      140 LOADN                            R36 1
+      141 LOADN                            R37 0
+      142 CALL                             R33 4 1
+      143 SETTABLEKS                       R33 R32 K34 ["Size"]
+      145 DUPTABLE                         R33 K68 [{["Left"] = 40, ["Right"] = 40}]
+      146 SETTABLEKS                       R33 R32 K37 ["Padding"]
+      148 GETIMPORT                        R33 K72 [Enum.FillDirection.Horizontal]
+      150 SETTABLEKS                       R33 R32 K52 ["Layout"]
+      152 GETIMPORT                        R33 K74 [Enum.VerticalAlignment.Center]
+      154 SETTABLEKS                       R33 R32 K55 ["VerticalAlignment"]
+      156 GETTABLEKS                       R33 R1 K1 ["Stylizer"]
+      158 GETTABLEKS                       R33 R33 K75 ["Color"]
+      160 SETTABLEKS                       R33 R32 K62 ["BackgroundColor3"]
+      162 DUPTABLE                         R33 K83 [{"Corner", "RecordButton", "ReRecordButton", "FlashingDot", "TextLabelButton", "LoadingIndicator", "CameraSelectionButton"}]
+      163 GETUPVAL                         R34 3
+      164 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      166 LOADK                            R35 K84 ["UICorner"]
+      167 DUPTABLE                         R36 K86 [{"CornerRadius"}]
+      168 GETIMPORT                        R37 K88 [UDim.new]
+      170 LOADN                            R38 0
+      171 LOADN                            R39 8
+      172 CALL                             R37 2 1
+      173 SETTABLEKS                       R37 R36 K85 ["CornerRadius"]
+      175 CALL                             R34 2 1
+      176 SETTABLEKS                       R34 R33 K76 ["Corner"]
+      178 NOT                              R34 R5
+      179 JUMPIFNOT                        R34 ; [+103]
+      180 GETUPVAL                         R34 3
+      181 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      183 GETUPVAL                         R35 6
+      184 DUPTABLE                         R36 K94 [{["Size"], ["Position"], ["ImageTransparency"] = 1, ["BackgroundTransparency"] = 0.5, ["BorderSizePixel"] = 1, ["OnClick"], ["Text"] = "", ["LayoutOrder"] = 1, ["Style"], ["StyleModifier"]}]
+      185 GETIMPORT                        R37 K41 [UDim2.new]
+      187 LOADN                            R38 0
+      188 LOADN                            R39 30
+      189 LOADN                            R40 0
+      190 LOADN                            R41 30
+      191 CALL                             R37 4 1
+      192 SETTABLEKS                       R37 R36 K34 ["Size"]
+      194 GETIMPORT                        R37 K41 [UDim2.new]
+      196 LOADN                            R38 0
+      197 LOADN                            R39 0
+      198 LOADN                            R40 0
+      199 LOADN                            R41 0
+      200 CALL                             R37 4 1
+      201 SETTABLEKS                       R37 R36 K35 ["Position"]
+      203 GETTABLEKS                       R37 R0 K95 ["toggleRecording"]
+      205 SETTABLEKS                       R37 R36 K90 ["OnClick"]
+      207 DUPTABLE                         R37 K97 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      208 SETTABLEKS                       R37 R36 K58 ["Style"]
+      210 JUMPIF                           R6 ; [+4]
+      211 GETUPVAL                         R37 7
+      212 GETTABLEKS                       R37 R37 K98 ["Disabled"]
+      214 JUMPIF                           R37 ; [+1]
+      215 LOADNIL                          R37
+      216 SETTABLEKS                       R37 R36 K93 ["StyleModifier"]
+      218 NEWTABLE                         R37 2 1
+      220 GETUPVAL                         R39 3
+      221 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      223 LOADK                            R40 K99 ["ImageLabel"]
+      224 DUPTABLE                         R41 K100 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Image"]}]
+      225 GETIMPORT                        R42 K41 [UDim2.new]
+      227 LOADN                            R43 0
+      228 LOADN                            R44 30
+      229 LOADN                            R45 0
+      230 LOADN                            R46 30
+      231 CALL                             R42 4 1
+      232 SETTABLEKS                       R42 R41 K34 ["Size"]
+      234 GETIMPORT                        R42 K41 [UDim2.new]
+      236 LOADN                            R43 0
+      237 LOADN                            R44 0
+      238 LOADN                            R45 0
+      239 LOADN                            R46 0
+      240 CALL                             R42 4 1
+      241 SETTABLEKS                       R42 R41 K35 ["Position"]
+      243 JUMPIFNOT                        R4 ; [+2]
+      244 MOVE                             R42 R13
+      245 JUMPIF                           R42 ; [+1]
+      246 LOADK                            R42 K101 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/button_control_record.png"]
+      247 SETTABLEKS                       R42 R41 K60 ["Image"]
+      249 CALL                             R39 2 1
+      250 SETTABLEKS                       R39 R37 K60 ["Image"]
+      252 GETUPVAL                         R39 3
+      253 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      255 GETUPVAL                         R40 8
+      256 DUPTABLE                         R41 K102 [{"Text"}]
+      257 JUMPIFNOT                        R4 ; [+6]
+      258 LOADK                            R44 K103 ["FaceCapture"]
+      259 LOADK                            R45 K104 ["TooltipStopRecording"]
+      260 NAMECALL                         R42 R3 K105 ["getText"]
+      262 CALL                             R42 3 1
+      263 JUMPIF                           R42 ; [+5]
+      264 LOADK                            R44 K103 ["FaceCapture"]
+      265 LOADK                            R45 K106 ["TooltipStartRecording"]
+      266 NAMECALL                         R42 R3 K105 ["getText"]
+      268 CALL                             R42 3 1
+      269 SETTABLEKS                       R42 R41 K91 ["Text"]
+      271 CALL                             R39 2 1
+      272 SETTABLEKS                       R39 R37 K107 ["Tooltip"]
+      274 GETUPVAL                         R38 3
+      275 GETTABLEKS                       R38 R38 K26 ["createElement"]
+      277 GETUPVAL                         R39 9
+      278 DUPTABLE                         R40 K110 [{["Cursor"] = "PointingHand"}]
+      279 CALL                             R38 2 -1
+      280 SETLIST                          R37 R38 -1 [1]
+      282 CALL                             R34 3 1
+      283 SETTABLEKS                       R34 R33 K77 ["RecordButton"]
+      285 MOVE                             R34 R5
+      286 JUMPIFNOT                        R34 ; [+92]
+      287 GETUPVAL                         R34 3
+      288 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      290 GETUPVAL                         R35 6
+      291 DUPTABLE                         R36 K94 [{["Size"], ["Position"], ["ImageTransparency"] = 1, ["BackgroundTransparency"] = 0.5, ["BorderSizePixel"] = 1, ["OnClick"], ["Text"] = "", ["LayoutOrder"] = 1, ["Style"], ["StyleModifier"]}]
+      292 GETIMPORT                        R37 K41 [UDim2.new]
+      294 LOADN                            R38 0
+      295 LOADN                            R39 30
+      296 LOADN                            R40 0
+      297 LOADN                            R41 30
+      298 CALL                             R37 4 1
+      299 SETTABLEKS                       R37 R36 K34 ["Size"]
+      301 GETIMPORT                        R37 K41 [UDim2.new]
+      303 LOADN                            R38 0
+      304 LOADN                            R39 0
+      305 LOADN                            R40 0
+      306 LOADN                            R41 0
+      307 CALL                             R37 4 1
+      308 SETTABLEKS                       R37 R36 K35 ["Position"]
+      310 GETTABLEKS                       R37 R0 K111 ["triggerReRecording"]
+      312 SETTABLEKS                       R37 R36 K90 ["OnClick"]
+      314 DUPTABLE                         R37 K97 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      315 SETTABLEKS                       R37 R36 K58 ["Style"]
+      317 JUMPIF                           R6 ; [+4]
+      318 GETUPVAL                         R37 7
+      319 GETTABLEKS                       R37 R37 K98 ["Disabled"]
+      321 JUMPIF                           R37 ; [+1]
+      322 LOADNIL                          R37
+      323 SETTABLEKS                       R37 R36 K93 ["StyleModifier"]
+      325 NEWTABLE                         R37 2 1
+      327 GETUPVAL                         R39 3
+      328 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      330 LOADK                            R40 K99 ["ImageLabel"]
+      331 DUPTABLE                         R41 K114 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Image"] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/ReRecordButton.png", ["ImageColor3"]}]
+      332 GETIMPORT                        R42 K41 [UDim2.new]
+      334 LOADN                            R43 0
+      335 LOADN                            R44 30
+      336 LOADN                            R45 0
+      337 LOADN                            R46 30
+      338 CALL                             R42 4 1
+      339 SETTABLEKS                       R42 R41 K34 ["Size"]
+      341 GETIMPORT                        R42 K41 [UDim2.new]
+      343 LOADN                            R43 0
+      344 LOADN                            R44 0
+      345 LOADN                            R45 0
+      346 LOADN                            R46 0
+      347 CALL                             R42 4 1
+      348 SETTABLEKS                       R42 R41 K35 ["Position"]
+      350 SETTABLEKS                       R12 R41 K113 ["ImageColor3"]
+      352 CALL                             R39 2 1
+      353 SETTABLEKS                       R39 R37 K60 ["Image"]
+      355 GETUPVAL                         R39 3
+      356 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      358 GETUPVAL                         R40 8
+      359 DUPTABLE                         R41 K102 [{"Text"}]
+      360 LOADK                            R44 K103 ["FaceCapture"]
+      361 LOADK                            R45 K115 ["TooltipReRecording"]
+      362 NAMECALL                         R42 R3 K105 ["getText"]
+      364 CALL                             R42 3 1
+      365 SETTABLEKS                       R42 R41 K91 ["Text"]
+      367 CALL                             R39 2 1
+      368 SETTABLEKS                       R39 R37 K107 ["Tooltip"]
+      370 GETUPVAL                         R38 3
+      371 GETTABLEKS                       R38 R38 K26 ["createElement"]
+      373 GETUPVAL                         R39 9
+      374 DUPTABLE                         R40 K110 [{["Cursor"] = "PointingHand"}]
+      375 CALL                             R38 2 -1
+      376 SETLIST                          R37 R38 -1 [1]
+      378 CALL                             R34 3 1
+      379 SETTABLEKS                       R34 R33 K78 ["ReRecordButton"]
+      381 MOVE                             R34 R4
+      382 JUMPIFNOT                        R34 ; [+15]
+      383 GETUPVAL                         R34 3
+      384 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      386 GETUPVAL                         R35 10
+      387 DUPTABLE                         R36 K119 [{["Size"], ["PaddingLeft"] = 30, ["LayoutOrder"] = 2}]
+      388 GETIMPORT                        R37 K41 [UDim2.new]
       390 LOADN                            R38 0
-      391 SETTABLEKS                       R38 R37 K84 ["BorderSizePixel"]
-      393 SETTABLEKS                       R37 R36 K55 ["Style"]
-      395 JUMPIF                           R6 ; [+4]
-      396 GETUPVAL                         R37 7
-      397 GETTABLEKS                       R37 R37 K92 ["Disabled"]
-      399 JUMPIF                           R37 ; [+1]
-      400 LOADNIL                          R37
-      401 SETTABLEKS                       R37 R36 K88 ["StyleModifier"]
-      403 NEWTABLE                         R37 2 1
-      405 GETUPVAL                         R39 3
-      406 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      408 LOADK                            R40 K93 ["ImageLabel"]
-      409 DUPTABLE                         R41 K107 [{"BackgroundTransparency", "Size", "Position", "Image", "ImageColor3"}]
-      410 LOADN                            R42 1
-      411 SETTABLEKS                       R42 R41 K58 ["BackgroundTransparency"]
-      413 GETIMPORT                        R42 K41 [UDim2.new]
-      415 LOADN                            R43 0
-      416 LOADN                            R44 30
-      417 LOADN                            R45 0
-      418 LOADN                            R46 30
-      419 CALL                             R42 4 1
-      420 SETTABLEKS                       R42 R41 K34 ["Size"]
-      422 GETIMPORT                        R42 K41 [UDim2.new]
-      424 LOADN                            R43 0
-      425 LOADN                            R44 0
-      426 LOADN                            R45 0
-      427 LOADN                            R46 0
-      428 CALL                             R42 4 1
-      429 SETTABLEKS                       R42 R41 K35 ["Position"]
-      431 LOADK                            R42 K108 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/ReRecordButton.png"]
-      432 SETTABLEKS                       R42 R41 K56 ["Image"]
-      434 SETTABLEKS                       R12 R41 K106 ["ImageColor3"]
-      436 CALL                             R39 2 1
-      437 SETTABLEKS                       R39 R37 K56 ["Image"]
-      439 GETUPVAL                         R39 3
-      440 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      442 GETUPVAL                         R40 8
-      443 DUPTABLE                         R41 K96 [{"Text"}]
-      444 LOADK                            R44 K97 ["FaceCapture"]
-      445 LOADK                            R45 K109 ["TooltipReRecording"]
-      446 NAMECALL                         R42 R3 K99 ["getText"]
-      448 CALL                             R42 3 1
-      449 SETTABLEKS                       R42 R41 K86 ["Text"]
-      451 CALL                             R39 2 1
-      452 SETTABLEKS                       R39 R37 K101 ["Tooltip"]
-      454 GETUPVAL                         R38 3
-      455 GETTABLEKS                       R38 R38 K26 ["createElement"]
-      457 GETUPVAL                         R39 9
-      458 DUPTABLE                         R40 K103 [{"Cursor"}]
-      459 LOADK                            R41 K104 ["PointingHand"]
-      460 SETTABLEKS                       R41 R40 K102 ["Cursor"]
-      462 CALL                             R38 2 -1
-      463 SETLIST                          R37 R38 -1 [1]
-      465 CALL                             R34 3 1
-      466 SETTABLEKS                       R34 R33 K73 ["ReRecordButton"]
-      468 MOVE                             R34 R4
-      469 JUMPIFNOT                        R34 ; [+21]
-      470 GETUPVAL                         R34 3
-      471 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      473 GETUPVAL                         R35 10
-      474 DUPTABLE                         R36 K111 [{"Size", "PaddingLeft", "LayoutOrder"}]
-      475 GETIMPORT                        R37 K41 [UDim2.new]
-      477 LOADN                            R38 0
-      478 LOADN                            R39 20
-      479 LOADN                            R40 0
-      480 LOADN                            R41 7
-      481 CALL                             R37 4 1
-      482 SETTABLEKS                       R37 R36 K34 ["Size"]
-      484 LOADN                            R37 30
-      485 SETTABLEKS                       R37 R36 K110 ["PaddingLeft"]
-      487 LOADN                            R37 2
-      488 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      490 CALL                             R34 2 1
-      491 SETTABLEKS                       R34 R33 K74 ["FlashingDot"]
-      493 MOVE                             R34 R6
-      494 JUMPIFNOT                        R34 ; [+106]
-      495 GETUPVAL                         R34 3
-      496 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      498 GETUPVAL                         R35 6
-      499 DUPTABLE                         R36 K115 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "TextXAlignment", "TextTruncate", "TextSize", "Text", "LayoutOrder", "Style"}]
-      500 JUMPIFNOT                        R4 ; [+9]
-      501 JUMPIFNOT                        R8 ; [+8]
-      502 GETIMPORT                        R37 K41 [UDim2.new]
-      504 LOADN                            R38 0
-      505 LOADN                            R39 68
-      506 LOADN                            R40 1
-      507 LOADN                            R41 0
-      508 CALL                             R37 4 1
-      509 JUMPIF                           R37 ; [+7]
-      510 GETIMPORT                        R37 K41 [UDim2.new]
-      512 LOADN                            R38 0
-      513 LOADN                            R39 60
-      514 LOADN                            R40 1
-      515 LOADN                            R41 0
-      516 CALL                             R37 4 1
-      517 SETTABLEKS                       R37 R36 K34 ["Size"]
-      519 GETIMPORT                        R37 K41 [UDim2.new]
-      521 LOADN                            R38 0
-      522 LOADN                            R39 0
-      523 LOADN                            R40 0
-      524 LOADN                            R41 0
-      525 CALL                             R37 4 1
-      526 SETTABLEKS                       R37 R36 K35 ["Position"]
-      528 LOADN                            R37 1
-      529 SETTABLEKS                       R37 R36 K59 ["ImageTransparency"]
-      531 LOADK                            R37 K42 [0.5]
-      532 SETTABLEKS                       R37 R36 K58 ["BackgroundTransparency"]
-      534 LOADN                            R37 1
-      535 SETTABLEKS                       R37 R36 K84 ["BorderSizePixel"]
-      537 JUMPIFNOT                        R5 ; [+3]
-      538 GETTABLEKS                       R37 R0 K105 ["triggerReRecording"]
-      540 JUMPIF                           R37 ; [+11]
-      541 JUMPIF                           R5 ; [+4]
-      542 JUMPIF                           R4 ; [+3]
-      543 GETTABLEKS                       R37 R0 K90 ["toggleRecording"]
-      545 JUMPIF                           R37 ; [+6]
-      546 NOT                              R37 R5
-      547 JUMPIFNOT                        R37 ; [+4]
-      548 MOVE                             R37 R4
-      549 JUMPIFNOT                        R37 ; [+2]
-      550 GETTABLEKS                       R37 R0 K90 ["toggleRecording"]
-      552 SETTABLEKS                       R37 R36 K85 ["OnClick"]
-      554 GETIMPORT                        R37 K116 [Enum.TextXAlignment.Center]
-      556 SETTABLEKS                       R37 R36 K112 ["TextXAlignment"]
-      558 GETIMPORT                        R37 K118 [Enum.TextTruncate.None]
-      560 SETTABLEKS                       R37 R36 K113 ["TextTruncate"]
-      562 LOADN                            R37 15
-      563 SETTABLEKS                       R37 R36 K114 ["TextSize"]
-      565 JUMPIFNOT                        R5 ; [+6]
-      566 LOADK                            R39 K97 ["FaceCapture"]
-      567 LOADK                            R40 K119 ["PanelReRecording"]
-      568 NAMECALL                         R37 R3 K99 ["getText"]
-      570 CALL                             R37 3 1
-      571 JUMPIF                           R37 ; [+12]
-      572 NOT                              R37 R5
-      573 JUMPIFNOT                        R37 ; [+10]
-      574 JUMPIFNOT                        R4 ; [+4]
-      575 MOVE                             R38 R8
-      576 LOADK                            R39 K120 [" sec   "]
-      577 CONCAT                           R37 R38 R39
-      578 JUMPIF                           R37 ; [+5]
-      579 LOADK                            R39 K97 ["FaceCapture"]
-      580 LOADK                            R40 K121 ["PanelReady"]
-      581 NAMECALL                         R37 R3 K99 ["getText"]
-      583 CALL                             R37 3 1
-      584 SETTABLEKS                       R37 R36 K86 ["Text"]
-      586 LOADN                            R37 3
-      587 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      589 DUPTABLE                         R37 K122 [{"BackgroundTransparency", "BorderSizePixel", "TextColor"}]
-      590 LOADN                            R38 1
-      591 SETTABLEKS                       R38 R37 K58 ["BackgroundTransparency"]
-      593 LOADN                            R38 0
-      594 SETTABLEKS                       R38 R37 K84 ["BorderSizePixel"]
-      596 SETTABLEKS                       R16 R37 K16 ["TextColor"]
-      598 SETTABLEKS                       R37 R36 K55 ["Style"]
-      600 CALL                             R34 2 1
-      601 SETTABLEKS                       R34 R33 K75 ["TextLabelButton"]
-      603 NOT                              R34 R5
-      604 JUMPIFNOT                        R34 ; [+20]
-      605 NOT                              R34 R6
-      606 JUMPIFNOT                        R34 ; [+18]
-      607 GETUPVAL                         R34 3
-      608 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      610 GETUPVAL                         R35 11
-      611 DUPTABLE                         R36 K123 [{"Size", "LayoutOrder"}]
-      612 GETIMPORT                        R37 K41 [UDim2.new]
-      614 LOADN                            R38 0
-      615 LOADN                            R39 60
-      616 LOADN                            R40 0
-      617 LOADN                            R41 15
-      618 CALL                             R37 4 1
-      619 SETTABLEKS                       R37 R36 K34 ["Size"]
-      621 LOADN                            R37 2
-      622 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      624 CALL                             R34 2 1
-      625 SETTABLEKS                       R34 R33 K76 ["LoadingIndicator"]
-      627 NOT                              R34 R5
-      628 JUMPIFNOT                        R34 ; [+108]
-      629 NOT                              R34 R4
-      630 JUMPIFNOT                        R34 ; [+106]
-      631 GETUPVAL                         R34 3
-      632 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      634 GETUPVAL                         R35 6
-      635 DUPTABLE                         R36 K124 [{"Size", "Style", "Text", "TextSize", "OnClick", "LayoutOrder"}]
-      636 GETIMPORT                        R37 K126 [UDim2.fromOffset]
-      638 LOADN                            R38 30
-      639 LOADN                            R39 30
-      640 CALL                             R37 2 1
-      641 SETTABLEKS                       R37 R36 K34 ["Size"]
-      643 DUPTABLE                         R37 K91 [{"BackgroundTransparency", "BorderSizePixel"}]
-      644 LOADN                            R38 1
-      645 SETTABLEKS                       R38 R37 K58 ["BackgroundTransparency"]
-      647 LOADN                            R38 0
-      648 SETTABLEKS                       R38 R37 K84 ["BorderSizePixel"]
-      650 SETTABLEKS                       R37 R36 K55 ["Style"]
-      652 LOADK                            R37 K68 [""]
-      653 SETTABLEKS                       R37 R36 K86 ["Text"]
-      655 LOADN                            R37 30
-      656 SETTABLEKS                       R37 R36 K114 ["TextSize"]
-      658 GETTABLEKS                       R37 R0 K127 ["showCameraSelectionDialog"]
-      660 SETTABLEKS                       R37 R36 K85 ["OnClick"]
-      662 LOADN                            R37 4
-      663 SETTABLEKS                       R37 R36 K87 ["LayoutOrder"]
-      665 NEWTABLE                         R37 2 1
-      667 GETUPVAL                         R39 3
-      668 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      670 LOADK                            R40 K93 ["ImageLabel"]
-      671 DUPTABLE                         R41 K107 [{"BackgroundTransparency", "Size", "Position", "Image", "ImageColor3"}]
-      672 LOADN                            R42 1
-      673 SETTABLEKS                       R42 R41 K58 ["BackgroundTransparency"]
-      675 GETIMPORT                        R42 K41 [UDim2.new]
-      677 LOADN                            R43 0
-      678 LOADN                            R44 30
-      679 LOADN                            R45 0
-      680 LOADN                            R46 30
-      681 CALL                             R42 4 1
-      682 SETTABLEKS                       R42 R41 K34 ["Size"]
-      684 GETIMPORT                        R42 K41 [UDim2.new]
-      686 LOADN                            R43 0
-      687 LOADN                            R44 0
-      688 LOADN                            R45 0
-      689 LOADN                            R46 0
-      690 CALL                             R42 4 1
-      691 SETTABLEKS                       R42 R41 K35 ["Position"]
-      693 LOADK                            R42 K128 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/MoreButton.png"]
-      694 SETTABLEKS                       R42 R41 K56 ["Image"]
-      696 SETTABLEKS                       R12 R41 K106 ["ImageColor3"]
-      698 CALL                             R39 2 1
-      699 SETTABLEKS                       R39 R37 K56 ["Image"]
-      701 GETUPVAL                         R39 3
-      702 GETTABLEKS                       R39 R39 K26 ["createElement"]
-      704 GETUPVAL                         R40 8
-      705 DUPTABLE                         R41 K129 [{"Text", "Position"}]
-      706 LOADK                            R44 K97 ["FaceCapture"]
-      707 LOADK                            R45 K130 ["TooltipCameraSettings"]
-      708 NAMECALL                         R42 R3 K99 ["getText"]
-      710 CALL                             R42 3 1
-      711 SETTABLEKS                       R42 R41 K86 ["Text"]
-      713 GETIMPORT                        R42 K41 [UDim2.new]
-      715 LOADN                            R43 0
-      716 LOADN                            R44 50
-      717 LOADN                            R45 0
-      718 LOADN                            R46 50
-      719 CALL                             R42 4 1
-      720 SETTABLEKS                       R42 R41 K35 ["Position"]
-      722 CALL                             R39 2 1
-      723 SETTABLEKS                       R39 R37 K101 ["Tooltip"]
-      725 GETUPVAL                         R38 3
-      726 GETTABLEKS                       R38 R38 K26 ["createElement"]
-      728 GETUPVAL                         R39 9
-      729 DUPTABLE                         R40 K103 [{"Cursor"}]
-      730 LOADK                            R41 K104 ["PointingHand"]
-      731 SETTABLEKS                       R41 R40 K102 ["Cursor"]
-      733 CALL                             R38 2 -1
-      734 SETLIST                          R37 R38 -1 [1]
-      736 CALL                             R34 3 1
-      737 SETTABLEKS                       R34 R33 K77 ["CameraSelectionButton"]
-      739 CALL                             R30 3 1
-      740 SETTABLEKS                       R30 R29 K48 ["RecordingPanel"]
-      742 GETUPVAL                         R30 3
-      743 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      745 GETUPVAL                         R31 6
-      746 DUPTABLE                         R32 K131 [{"Style", "Size", "Position", "AnchorPoint", "ZIndex", "OnClick"}]
-      747 DUPTABLE                         R33 K91 [{"BackgroundTransparency", "BorderSizePixel"}]
-      748 LOADN                            R34 1
-      749 SETTABLEKS                       R34 R33 K58 ["BackgroundTransparency"]
-      751 LOADN                            R34 0
-      752 SETTABLEKS                       R34 R33 K84 ["BorderSizePixel"]
-      754 SETTABLEKS                       R33 R32 K55 ["Style"]
-      756 GETIMPORT                        R33 K41 [UDim2.new]
-      758 LOADN                            R34 0
-      759 LOADN                            R35 16
-      760 LOADN                            R36 0
-      761 LOADN                            R37 16
-      762 CALL                             R33 4 1
-      763 SETTABLEKS                       R33 R32 K34 ["Size"]
-      765 GETIMPORT                        R33 K41 [UDim2.new]
-      767 LOADN                            R34 1
-      768 LOADN                            R35 0
-      769 LOADN                            R36 0
-      770 LOADN                            R37 0
-      771 CALL                             R33 4 1
-      772 SETTABLEKS                       R33 R32 K35 ["Position"]
-      774 GETIMPORT                        R33 K44 [Vector2.new]
-      776 LOADK                            R34 K42 [0.5]
-      777 LOADK                            R35 K42 [0.5]
-      778 CALL                             R33 2 1
-      779 SETTABLEKS                       R33 R32 K36 ["AnchorPoint"]
-      781 LOADN                            R33 10
-      782 SETTABLEKS                       R33 R32 K54 ["ZIndex"]
-      784 NEWCLOSURE                       R33 P0
-      785 CAPTURE                          VAL R0
-      786 SETTABLEKS                       R33 R32 K85 ["OnClick"]
-      788 DUPTABLE                         R33 K132 [{"Image"}]
-      789 GETUPVAL                         R34 3
-      790 GETTABLEKS                       R34 R34 K26 ["createElement"]
-      792 LOADK                            R35 K93 ["ImageLabel"]
-      793 DUPTABLE                         R36 K133 [{"BackgroundTransparency", "Size", "Image"}]
-      794 LOADN                            R37 1
-      795 SETTABLEKS                       R37 R36 K58 ["BackgroundTransparency"]
-      797 GETIMPORT                        R37 K41 [UDim2.new]
-      799 LOADN                            R38 0
-      800 LOADN                            R39 16
-      801 LOADN                            R40 0
-      802 LOADN                            R41 16
-      803 CALL                             R37 4 1
-      804 SETTABLEKS                       R37 R36 K34 ["Size"]
-      806 LOADK                            R37 K134 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/CloseButton.png"]
-      807 SETTABLEKS                       R37 R36 K56 ["Image"]
-      809 CALL                             R34 2 1
-      810 SETTABLEKS                       R34 R33 K56 ["Image"]
-      812 CALL                             R30 3 1
-      813 SETTABLEKS                       R30 R29 K49 ["DismissButton"]
-      815 CALL                             R26 3 1
-      816 SETTABLEKS                       R26 R25 K31 ["RecordingPanelContainer"]
-      818 GETUPVAL                         R26 3
-      819 GETTABLEKS                       R26 R26 K26 ["createElement"]
-      821 GETUPVAL                         R27 5
-      822 DUPTABLE                         R28 K136 [{"AutomaticSize", "Position", "AnchorPoint", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "ImageTransparency"}]
-      823 GETIMPORT                        R29 K138 [Enum.AutomaticSize.XY]
-      825 SETTABLEKS                       R29 R28 K135 ["AutomaticSize"]
-      827 GETIMPORT                        R29 K41 [UDim2.new]
-      829 LOADK                            R30 K42 [0.5]
-      830 LOADN                            R31 0
-      831 LOADN                            R32 1
-      832 LOADN                            R33 206
-      833 CALL                             R29 4 1
-      834 SETTABLEKS                       R29 R28 K35 ["Position"]
-      836 GETIMPORT                        R29 K44 [Vector2.new]
-      838 LOADK                            R30 K42 [0.5]
-      839 LOADN                            R31 1
-      840 CALL                             R29 2 1
-      841 SETTABLEKS                       R29 R28 K36 ["AnchorPoint"]
-      843 GETIMPORT                        R29 K140 [Enum.FillDirection.Vertical]
-      845 SETTABLEKS                       R29 R28 K51 ["Layout"]
-      847 LOADN                            R29 8
-      848 SETTABLEKS                       R29 R28 K52 ["Spacing"]
-      850 GETIMPORT                        R29 K66 [Enum.VerticalAlignment.Center]
-      852 SETTABLEKS                       R29 R28 K53 ["VerticalAlignment"]
-      854 LOADN                            R29 1
-      855 SETTABLEKS                       R29 R28 K54 ["ZIndex"]
-      857 LOADK                            R29 K67 ["RoundBox"]
-      858 SETTABLEKS                       R29 R28 K55 ["Style"]
-      860 LOADN                            R29 1
-      861 SETTABLEKS                       R29 R28 K59 ["ImageTransparency"]
-      863 DUPTABLE                         R29 K145 [{"NoCameraWarningOverlay", "CameraPermissionDeniedWarningOverlay", "DetectingCameraOverlay", "PreviousFacsWillBeOverwrittenInfoOverlay"}]
-      864 MOVE                             R30 R11
-      865 JUMPIFNOT                        R30 ; [+18]
-      866 GETUPVAL                         R30 3
-      867 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      869 GETUPVAL                         R31 12
-      870 DUPTABLE                         R32 K147 [{"TitleText", "Image", "LayoutOrder"}]
-      871 LOADK                            R35 K97 ["FaceCapture"]
-      872 LOADK                            R36 K148 ["NoCameraWarningText"]
-      873 NAMECALL                         R33 R3 K99 ["getText"]
-      875 CALL                             R33 3 1
-      876 SETTABLEKS                       R33 R32 K146 ["TitleText"]
-      878 SETTABLEKS                       R14 R32 K56 ["Image"]
-      880 LOADN                            R33 1
-      881 SETTABLEKS                       R33 R32 K87 ["LayoutOrder"]
-      883 CALL                             R30 2 1
-      884 SETTABLEKS                       R30 R29 K141 ["NoCameraWarningOverlay"]
-      886 MOVE                             R30 R9
-      887 JUMPIFNOT                        R30 ; [+18]
-      888 GETUPVAL                         R30 3
-      889 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      891 GETUPVAL                         R31 12
-      892 DUPTABLE                         R32 K147 [{"TitleText", "Image", "LayoutOrder"}]
-      893 LOADK                            R35 K97 ["FaceCapture"]
-      894 LOADK                            R36 K149 ["CameraPermissionDeniedWarningText"]
-      895 NAMECALL                         R33 R3 K99 ["getText"]
-      897 CALL                             R33 3 1
-      898 SETTABLEKS                       R33 R32 K146 ["TitleText"]
-      900 SETTABLEKS                       R14 R32 K56 ["Image"]
-      902 LOADN                            R33 2
-      903 SETTABLEKS                       R33 R32 K87 ["LayoutOrder"]
-      905 CALL                             R30 2 1
-      906 SETTABLEKS                       R30 R29 K142 ["CameraPermissionDeniedWarningOverlay"]
-      908 NOT                              R30 R5
-      909 JUMPIFNOT                        R30 ; [+27]
-      910 NOT                              R30 R6
-      911 JUMPIFNOT                        R30 ; [+25]
-      912 NOT                              R30 R4
-      913 JUMPIFNOT                        R30 ; [+23]
-      914 NOT                              R30 R11
-      915 JUMPIFNOT                        R30 ; [+21]
-      916 NOT                              R30 R9
-      917 JUMPIFNOT                        R30 ; [+19]
-      918 GETUPVAL                         R30 3
-      919 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      921 GETUPVAL                         R31 12
-      922 DUPTABLE                         R32 K147 [{"TitleText", "Image", "LayoutOrder"}]
-      923 LOADK                            R35 K97 ["FaceCapture"]
-      924 LOADK                            R36 K150 ["DetectingCameraTitle"]
-      925 NAMECALL                         R33 R3 K99 ["getText"]
-      927 CALL                             R33 3 1
-      928 SETTABLEKS                       R33 R32 K146 ["TitleText"]
-      930 LOADK                            R33 K68 [""]
-      931 SETTABLEKS                       R33 R32 K56 ["Image"]
-      933 LOADN                            R33 3
-      934 SETTABLEKS                       R33 R32 K87 ["LayoutOrder"]
-      936 CALL                             R30 2 1
-      937 SETTABLEKS                       R30 R29 K143 ["DetectingCameraOverlay"]
-      939 MOVE                             R30 R5
-      940 JUMPIFNOT                        R30 ; [+25]
-      941 MOVE                             R30 R6
-      942 JUMPIFNOT                        R30 ; [+23]
-      943 NOT                              R30 R4
-      944 JUMPIFNOT                        R30 ; [+21]
-      945 MOVE                             R30 R18
-      946 JUMPIFNOT                        R30 ; [+19]
-      947 GETUPVAL                         R30 3
-      948 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      950 GETUPVAL                         R31 12
-      951 DUPTABLE                         R32 K147 [{"TitleText", "Image", "LayoutOrder"}]
-      952 LOADK                            R35 K97 ["FaceCapture"]
-      953 LOADK                            R36 K151 ["OverwritingPreviousFacsTracksBody"]
-      954 NAMECALL                         R33 R3 K99 ["getText"]
-      956 CALL                             R33 3 1
-      957 SETTABLEKS                       R33 R32 K146 ["TitleText"]
-      959 LOADK                            R33 K68 [""]
-      960 SETTABLEKS                       R33 R32 K56 ["Image"]
-      962 LOADN                            R33 4
-      963 SETTABLEKS                       R33 R32 K87 ["LayoutOrder"]
-      965 CALL                             R30 2 1
-      966 SETTABLEKS                       R30 R29 K144 ["PreviousFacsWillBeOverwrittenInfoOverlay"]
-      968 CALL                             R26 3 1
-      969 SETTABLEKS                       R26 R25 K32 ["WarningsPane"]
-      971 CALL                             R22 3 1
-      972 SETTABLEKS                       R22 R21 K23 ["RecordingPanelPortal"]
-      974 MOVE                             R22 R10
-      975 JUMPIFNOT                        R22 ; [+10]
-      976 GETUPVAL                         R22 3
-      977 GETTABLEKS                       R22 R22 K26 ["createElement"]
-      979 GETUPVAL                         R23 13
-      980 DUPTABLE                         R24 K153 [{"OnClose"}]
-      981 GETTABLEKS                       R25 R0 K154 ["hideCameraSelectionDialog"]
-      983 SETTABLEKS                       R25 R24 K152 ["OnClose"]
-      985 CALL                             R22 2 1
-      986 SETTABLEKS                       R22 R21 K24 ["CameraSelectionDialog"]
-      988 CALL                             R19 2 -1
-      989 RETURN                           R19 -1
+      391 LOADN                            R39 20
+      392 LOADN                            R40 0
+      393 LOADN                            R41 7
+      394 CALL                             R37 4 1
+      395 SETTABLEKS                       R37 R36 K34 ["Size"]
+      397 CALL                             R34 2 1
+      398 SETTABLEKS                       R34 R33 K79 ["FlashingDot"]
+      400 MOVE                             R34 R6
+      401 JUMPIFNOT                        R34 ; [+85]
+      402 GETUPVAL                         R34 3
+      403 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      405 GETUPVAL                         R35 6
+      406 DUPTABLE                         R36 K124 [{["Size"], ["Position"], ["ImageTransparency"] = 1, ["BackgroundTransparency"] = 0.5, ["BorderSizePixel"] = 1, ["OnClick"], ["TextXAlignment"], ["TextTruncate"], ["TextSize"] = 15, ["Text"], ["LayoutOrder"] = 3, ["Style"]}]
+      407 JUMPIFNOT                        R4 ; [+9]
+      408 JUMPIFNOT                        R8 ; [+8]
+      409 GETIMPORT                        R37 K41 [UDim2.new]
+      411 LOADN                            R38 0
+      412 LOADN                            R39 68
+      413 LOADN                            R40 1
+      414 LOADN                            R41 0
+      415 CALL                             R37 4 1
+      416 JUMPIF                           R37 ; [+7]
+      417 GETIMPORT                        R37 K41 [UDim2.new]
+      419 LOADN                            R38 0
+      420 LOADN                            R39 60
+      421 LOADN                            R40 1
+      422 LOADN                            R41 0
+      423 CALL                             R37 4 1
+      424 SETTABLEKS                       R37 R36 K34 ["Size"]
+      426 GETIMPORT                        R37 K41 [UDim2.new]
+      428 LOADN                            R38 0
+      429 LOADN                            R39 0
+      430 LOADN                            R40 0
+      431 LOADN                            R41 0
+      432 CALL                             R37 4 1
+      433 SETTABLEKS                       R37 R36 K35 ["Position"]
+      435 JUMPIFNOT                        R5 ; [+3]
+      436 GETTABLEKS                       R37 R0 K111 ["triggerReRecording"]
+      438 JUMPIF                           R37 ; [+11]
+      439 JUMPIF                           R5 ; [+4]
+      440 JUMPIF                           R4 ; [+3]
+      441 GETTABLEKS                       R37 R0 K95 ["toggleRecording"]
+      443 JUMPIF                           R37 ; [+6]
+      444 NOT                              R37 R5
+      445 JUMPIFNOT                        R37 ; [+4]
+      446 MOVE                             R37 R4
+      447 JUMPIFNOT                        R37 ; [+2]
+      448 GETTABLEKS                       R37 R0 K95 ["toggleRecording"]
+      450 SETTABLEKS                       R37 R36 K90 ["OnClick"]
+      452 GETIMPORT                        R37 K125 [Enum.TextXAlignment.Center]
+      454 SETTABLEKS                       R37 R36 K120 ["TextXAlignment"]
+      456 GETIMPORT                        R37 K127 [Enum.TextTruncate.None]
+      458 SETTABLEKS                       R37 R36 K121 ["TextTruncate"]
+      460 JUMPIFNOT                        R5 ; [+6]
+      461 LOADK                            R39 K103 ["FaceCapture"]
+      462 LOADK                            R40 K128 ["PanelReRecording"]
+      463 NAMECALL                         R37 R3 K105 ["getText"]
+      465 CALL                             R37 3 1
+      466 JUMPIF                           R37 ; [+12]
+      467 NOT                              R37 R5
+      468 JUMPIFNOT                        R37 ; [+10]
+      469 JUMPIFNOT                        R4 ; [+4]
+      470 MOVE                             R38 R8
+      471 LOADK                            R39 K129 [" sec   "]
+      472 CONCAT                           R37 R38 R39
+      473 JUMPIF                           R37 ; [+5]
+      474 LOADK                            R39 K103 ["FaceCapture"]
+      475 LOADK                            R40 K130 ["PanelReady"]
+      476 NAMECALL                         R37 R3 K105 ["getText"]
+      478 CALL                             R37 3 1
+      479 SETTABLEKS                       R37 R36 K91 ["Text"]
+      481 DUPTABLE                         R37 K131 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextColor"]}]
+      482 SETTABLEKS                       R16 R37 K16 ["TextColor"]
+      484 SETTABLEKS                       R37 R36 K58 ["Style"]
+      486 CALL                             R34 2 1
+      487 SETTABLEKS                       R34 R33 K80 ["TextLabelButton"]
+      489 NOT                              R34 R5
+      490 JUMPIFNOT                        R34 ; [+17]
+      491 NOT                              R34 R6
+      492 JUMPIFNOT                        R34 ; [+15]
+      493 GETUPVAL                         R34 3
+      494 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      496 GETUPVAL                         R35 11
+      497 DUPTABLE                         R36 K132 [{["Size"], ["LayoutOrder"] = 2}]
+      498 GETIMPORT                        R37 K41 [UDim2.new]
+      500 LOADN                            R38 0
+      501 LOADN                            R39 60
+      502 LOADN                            R40 0
+      503 LOADN                            R41 15
+      504 CALL                             R37 4 1
+      505 SETTABLEKS                       R37 R36 K34 ["Size"]
+      507 CALL                             R34 2 1
+      508 SETTABLEKS                       R34 R33 K81 ["LoadingIndicator"]
+      510 NOT                              R34 R5
+      511 JUMPIFNOT                        R34 ; [+84]
+      512 NOT                              R34 R4
+      513 JUMPIFNOT                        R34 ; [+82]
+      514 GETUPVAL                         R34 3
+      515 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      517 GETUPVAL                         R35 6
+      518 DUPTABLE                         R36 K134 [{["Size"], ["Style"], ["Text"] = "", ["TextSize"] = 30, ["OnClick"], ["LayoutOrder"] = 4}]
+      519 GETIMPORT                        R37 K136 [UDim2.fromOffset]
+      521 LOADN                            R38 30
+      522 LOADN                            R39 30
+      523 CALL                             R37 2 1
+      524 SETTABLEKS                       R37 R36 K34 ["Size"]
+      526 DUPTABLE                         R37 K97 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      527 SETTABLEKS                       R37 R36 K58 ["Style"]
+      529 GETTABLEKS                       R37 R0 K137 ["showCameraSelectionDialog"]
+      531 SETTABLEKS                       R37 R36 K90 ["OnClick"]
+      533 NEWTABLE                         R37 2 1
+      535 GETUPVAL                         R39 3
+      536 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      538 LOADK                            R40 K99 ["ImageLabel"]
+      539 DUPTABLE                         R41 K139 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Image"] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/MoreButton.png", ["ImageColor3"]}]
+      540 GETIMPORT                        R42 K41 [UDim2.new]
+      542 LOADN                            R43 0
+      543 LOADN                            R44 30
+      544 LOADN                            R45 0
+      545 LOADN                            R46 30
+      546 CALL                             R42 4 1
+      547 SETTABLEKS                       R42 R41 K34 ["Size"]
+      549 GETIMPORT                        R42 K41 [UDim2.new]
+      551 LOADN                            R43 0
+      552 LOADN                            R44 0
+      553 LOADN                            R45 0
+      554 LOADN                            R46 0
+      555 CALL                             R42 4 1
+      556 SETTABLEKS                       R42 R41 K35 ["Position"]
+      558 SETTABLEKS                       R12 R41 K113 ["ImageColor3"]
+      560 CALL                             R39 2 1
+      561 SETTABLEKS                       R39 R37 K60 ["Image"]
+      563 GETUPVAL                         R39 3
+      564 GETTABLEKS                       R39 R39 K26 ["createElement"]
+      566 GETUPVAL                         R40 8
+      567 DUPTABLE                         R41 K140 [{"Text", "Position"}]
+      568 LOADK                            R44 K103 ["FaceCapture"]
+      569 LOADK                            R45 K141 ["TooltipCameraSettings"]
+      570 NAMECALL                         R42 R3 K105 ["getText"]
+      572 CALL                             R42 3 1
+      573 SETTABLEKS                       R42 R41 K91 ["Text"]
+      575 GETIMPORT                        R42 K41 [UDim2.new]
+      577 LOADN                            R43 0
+      578 LOADN                            R44 50
+      579 LOADN                            R45 0
+      580 LOADN                            R46 50
+      581 CALL                             R42 4 1
+      582 SETTABLEKS                       R42 R41 K35 ["Position"]
+      584 CALL                             R39 2 1
+      585 SETTABLEKS                       R39 R37 K107 ["Tooltip"]
+      587 GETUPVAL                         R38 3
+      588 GETTABLEKS                       R38 R38 K26 ["createElement"]
+      590 GETUPVAL                         R39 9
+      591 DUPTABLE                         R40 K110 [{["Cursor"] = "PointingHand"}]
+      592 CALL                             R38 2 -1
+      593 SETLIST                          R37 R38 -1 [1]
+      595 CALL                             R34 3 1
+      596 SETTABLEKS                       R34 R33 K82 ["CameraSelectionButton"]
+      598 CALL                             R30 3 1
+      599 SETTABLEKS                       R30 R29 K49 ["RecordingPanel"]
+      601 GETUPVAL                         R30 3
+      602 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      604 GETUPVAL                         R31 6
+      605 DUPTABLE                         R32 K143 [{["Style"], ["Size"], ["Position"], ["AnchorPoint"], ["ZIndex"] = 10, ["OnClick"]}]
+      606 DUPTABLE                         R33 K97 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+      607 SETTABLEKS                       R33 R32 K58 ["Style"]
+      609 GETIMPORT                        R33 K41 [UDim2.new]
+      611 LOADN                            R34 0
+      612 LOADN                            R35 16
+      613 LOADN                            R36 0
+      614 LOADN                            R37 16
+      615 CALL                             R33 4 1
+      616 SETTABLEKS                       R33 R32 K34 ["Size"]
+      618 GETIMPORT                        R33 K41 [UDim2.new]
+      620 LOADN                            R34 1
+      621 LOADN                            R35 0
+      622 LOADN                            R36 0
+      623 LOADN                            R37 0
+      624 CALL                             R33 4 1
+      625 SETTABLEKS                       R33 R32 K35 ["Position"]
+      627 GETIMPORT                        R33 K44 [Vector2.new]
+      629 LOADK                            R34 K42 [0.5]
+      630 LOADK                            R35 K42 [0.5]
+      631 CALL                             R33 2 1
+      632 SETTABLEKS                       R33 R32 K36 ["AnchorPoint"]
+      634 NEWCLOSURE                       R33 P0
+      635 CAPTURE                          VAL R0
+      636 SETTABLEKS                       R33 R32 K90 ["OnClick"]
+      638 DUPTABLE                         R33 K144 [{"Image"}]
+      639 GETUPVAL                         R34 3
+      640 GETTABLEKS                       R34 R34 K26 ["createElement"]
+      642 LOADK                            R35 K99 ["ImageLabel"]
+      643 DUPTABLE                         R36 K146 [{["BackgroundTransparency"] = 1, ["Size"], ["Image"] = "rbxasset://textures/AnimationEditor/FaceCaptureUI/CloseButton.png"}]
+      644 GETIMPORT                        R37 K41 [UDim2.new]
+      646 LOADN                            R38 0
+      647 LOADN                            R39 16
+      648 LOADN                            R40 0
+      649 LOADN                            R41 16
+      650 CALL                             R37 4 1
+      651 SETTABLEKS                       R37 R36 K34 ["Size"]
+      653 CALL                             R34 2 1
+      654 SETTABLEKS                       R34 R33 K60 ["Image"]
+      656 CALL                             R30 3 1
+      657 SETTABLEKS                       R30 R29 K50 ["DismissButton"]
+      659 CALL                             R26 3 1
+      660 SETTABLEKS                       R26 R25 K31 ["RecordingPanelContainer"]
+      662 GETUPVAL                         R26 3
+      663 GETTABLEKS                       R26 R26 K26 ["createElement"]
+      665 GETUPVAL                         R27 5
+      666 DUPTABLE                         R28 K149 [{["AutomaticSize"], ["Position"], ["AnchorPoint"], ["Layout"], ["Spacing"] = 8, ["VerticalAlignment"], ["ZIndex"] = 1, ["Style"] = "RoundBox", ["ImageTransparency"] = 1}]
+      667 GETIMPORT                        R29 K151 [Enum.AutomaticSize.XY]
+      669 SETTABLEKS                       R29 R28 K147 ["AutomaticSize"]
+      671 GETIMPORT                        R29 K41 [UDim2.new]
+      673 LOADK                            R30 K42 [0.5]
+      674 LOADN                            R31 0
+      675 LOADN                            R32 1
+      676 LOADN                            R33 -50
+      677 CALL                             R29 4 1
+      678 SETTABLEKS                       R29 R28 K35 ["Position"]
+      680 GETIMPORT                        R29 K44 [Vector2.new]
+      682 LOADK                            R30 K42 [0.5]
+      683 LOADN                            R31 1
+      684 CALL                             R29 2 1
+      685 SETTABLEKS                       R29 R28 K36 ["AnchorPoint"]
+      687 GETIMPORT                        R29 K153 [Enum.FillDirection.Vertical]
+      689 SETTABLEKS                       R29 R28 K52 ["Layout"]
+      691 GETIMPORT                        R29 K74 [Enum.VerticalAlignment.Center]
+      693 SETTABLEKS                       R29 R28 K55 ["VerticalAlignment"]
+      695 DUPTABLE                         R29 K158 [{"NoCameraWarningOverlay", "CameraPermissionDeniedWarningOverlay", "DetectingCameraOverlay", "PreviousFacsWillBeOverwrittenInfoOverlay"}]
+      696 MOVE                             R30 R11
+      697 JUMPIFNOT                        R30 ; [+15]
+      698 GETUPVAL                         R30 3
+      699 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      701 GETUPVAL                         R31 12
+      702 DUPTABLE                         R32 K160 [{["TitleText"], ["Image"], ["LayoutOrder"] = 1}]
+      703 LOADK                            R35 K103 ["FaceCapture"]
+      704 LOADK                            R36 K161 ["NoCameraWarningText"]
+      705 NAMECALL                         R33 R3 K105 ["getText"]
+      707 CALL                             R33 3 1
+      708 SETTABLEKS                       R33 R32 K159 ["TitleText"]
+      710 SETTABLEKS                       R14 R32 K60 ["Image"]
+      712 CALL                             R30 2 1
+      713 SETTABLEKS                       R30 R29 K154 ["NoCameraWarningOverlay"]
+      715 MOVE                             R30 R9
+      716 JUMPIFNOT                        R30 ; [+15]
+      717 GETUPVAL                         R30 3
+      718 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      720 GETUPVAL                         R31 12
+      721 DUPTABLE                         R32 K162 [{["TitleText"], ["Image"], ["LayoutOrder"] = 2}]
+      722 LOADK                            R35 K103 ["FaceCapture"]
+      723 LOADK                            R36 K163 ["CameraPermissionDeniedWarningText"]
+      724 NAMECALL                         R33 R3 K105 ["getText"]
+      726 CALL                             R33 3 1
+      727 SETTABLEKS                       R33 R32 K159 ["TitleText"]
+      729 SETTABLEKS                       R14 R32 K60 ["Image"]
+      731 CALL                             R30 2 1
+      732 SETTABLEKS                       R30 R29 K155 ["CameraPermissionDeniedWarningOverlay"]
+      734 NOT                              R30 R5
+      735 JUMPIFNOT                        R30 ; [+21]
+      736 NOT                              R30 R6
+      737 JUMPIFNOT                        R30 ; [+19]
+      738 NOT                              R30 R4
+      739 JUMPIFNOT                        R30 ; [+17]
+      740 NOT                              R30 R11
+      741 JUMPIFNOT                        R30 ; [+15]
+      742 NOT                              R30 R9
+      743 JUMPIFNOT                        R30 ; [+13]
+      744 GETUPVAL                         R30 3
+      745 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      747 GETUPVAL                         R31 12
+      748 DUPTABLE                         R32 K164 [{["TitleText"], ["Image"] = "", ["LayoutOrder"] = 3}]
+      749 LOADK                            R35 K103 ["FaceCapture"]
+      750 LOADK                            R36 K165 ["DetectingCameraTitle"]
+      751 NAMECALL                         R33 R3 K105 ["getText"]
+      753 CALL                             R33 3 1
+      754 SETTABLEKS                       R33 R32 K159 ["TitleText"]
+      756 CALL                             R30 2 1
+      757 SETTABLEKS                       R30 R29 K156 ["DetectingCameraOverlay"]
+      759 MOVE                             R30 R5
+      760 JUMPIFNOT                        R30 ; [+19]
+      761 MOVE                             R30 R6
+      762 JUMPIFNOT                        R30 ; [+17]
+      763 NOT                              R30 R4
+      764 JUMPIFNOT                        R30 ; [+15]
+      765 MOVE                             R30 R18
+      766 JUMPIFNOT                        R30 ; [+13]
+      767 GETUPVAL                         R30 3
+      768 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      770 GETUPVAL                         R31 12
+      771 DUPTABLE                         R32 K166 [{["TitleText"], ["Image"] = "", ["LayoutOrder"] = 4}]
+      772 LOADK                            R35 K103 ["FaceCapture"]
+      773 LOADK                            R36 K167 ["OverwritingPreviousFacsTracksBody"]
+      774 NAMECALL                         R33 R3 K105 ["getText"]
+      776 CALL                             R33 3 1
+      777 SETTABLEKS                       R33 R32 K159 ["TitleText"]
+      779 CALL                             R30 2 1
+      780 SETTABLEKS                       R30 R29 K157 ["PreviousFacsWillBeOverwrittenInfoOverlay"]
+      782 CALL                             R26 3 1
+      783 SETTABLEKS                       R26 R25 K32 ["WarningsPane"]
+      785 CALL                             R22 3 1
+      786 SETTABLEKS                       R22 R21 K23 ["RecordingPanelPortal"]
+      788 MOVE                             R22 R10
+      789 JUMPIFNOT                        R22 ; [+10]
+      790 GETUPVAL                         R22 3
+      791 GETTABLEKS                       R22 R22 K26 ["createElement"]
+      793 GETUPVAL                         R23 13
+      794 DUPTABLE                         R24 K169 [{"OnClose"}]
+      795 GETTABLEKS                       R25 R0 K170 ["hideCameraSelectionDialog"]
+      797 SETTABLEKS                       R25 R24 K168 ["OnClose"]
+      799 CALL                             R22 2 1
+      800 SETTABLEKS                       R22 R21 K24 ["CameraSelectionDialog"]
+      802 CALL                             R19 2 -1
+      803 RETURN                           R19 -1
 
 PROTO_25:
         0 GETTABLEKS                       R1 R0 K0 ["heartbeatSignal"]

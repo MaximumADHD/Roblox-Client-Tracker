@@ -134,46 +134,38 @@ MAIN:
        79 GETTABLEKS                       R13 R13 K20 ["getFFlagStyleEditorSupportTransitions"]
        81 CALL                             R12 1 1
        82 CALL                             R12 0 1
-       83 DUPTABLE                         R13 K26 [{"DEPRECATED_Instance", "Instances", "Attribute", "Property", "Transition"}]
-       84 LOADNIL                          R14
-       85 SETTABLEKS                       R14 R13 K21 ["DEPRECATED_Instance"]
-       87 NEWTABLE                         R14 0 0
-       89 SETTABLEKS                       R14 R13 K22 ["Instances"]
-       91 LOADNIL                          R14
-       92 SETTABLEKS                       R14 R13 K23 ["Attribute"]
-       94 LOADNIL                          R14
-       95 SETTABLEKS                       R14 R13 K24 ["Property"]
-       97 LOADNIL                          R14
-       98 SETTABLEKS                       R14 R13 K25 ["Transition"]
-      100 GETTABLEKS                       R14 R1 K27 ["createReducer"]
-      102 MOVE                             R15 R13
-      103 NEWTABLE                         R16 8 0
-      105 GETTABLEKS                       R17 R6 K28 ["name"]
-      107 DUPCLOSURE                       R18 K29 [PROTO_0]
-      108 CAPTURE                          VAL R3
-      109 SETTABLE                         R18 R16 R17
-      110 GETTABLEKS                       R17 R9 K28 ["name"]
-      112 DUPCLOSURE                       R18 K30 [PROTO_1]
-      113 CAPTURE                          VAL R11
-      114 CAPTURE                          VAL R3
+       83 DUPTABLE                         R13 K27 [{["DEPRECATED_Instance"] = , ["Instances"], ["Attribute"] = , ["Property"] = , ["Transition"] = }]
+       84 NEWTABLE                         R14 0 0
+       86 SETTABLEKS                       R14 R13 K23 ["Instances"]
+       88 GETTABLEKS                       R14 R1 K28 ["createReducer"]
+       90 MOVE                             R15 R13
+       91 NEWTABLE                         R16 8 0
+       93 GETTABLEKS                       R17 R6 K29 ["name"]
+       95 DUPCLOSURE                       R18 K30 [PROTO_0]
+       96 CAPTURE                          VAL R3
+       97 SETTABLE                         R18 R16 R17
+       98 GETTABLEKS                       R17 R9 K29 ["name"]
+      100 DUPCLOSURE                       R18 K31 [PROTO_1]
+      101 CAPTURE                          VAL R11
+      102 CAPTURE                          VAL R3
+      103 SETTABLE                         R18 R16 R17
+      104 GETTABLEKS                       R17 R7 K29 ["name"]
+      106 DUPCLOSURE                       R18 K32 [PROTO_2]
+      107 CAPTURE                          VAL R3
+      108 SETTABLE                         R18 R16 R17
+      109 GETTABLEKS                       R17 R8 K29 ["name"]
+      111 DUPCLOSURE                       R18 K33 [PROTO_3]
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R12
+      114 CAPTURE                          VAL R2
       115 SETTABLE                         R18 R16 R17
-      116 GETTABLEKS                       R17 R7 K28 ["name"]
-      118 DUPCLOSURE                       R18 K31 [PROTO_2]
-      119 CAPTURE                          VAL R3
-      120 SETTABLE                         R18 R16 R17
-      121 GETTABLEKS                       R17 R8 K28 ["name"]
-      123 DUPCLOSURE                       R18 K32 [PROTO_3]
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R2
-      127 SETTABLE                         R18 R16 R17
-      128 GETTABLEKS                       R17 R10 K28 ["name"]
-      130 JUMPIFNOT                        R12 ; [+4]
-      131 DUPCLOSURE                       R18 K33 [PROTO_4]
-      132 CAPTURE                          VAL R3
-      133 CAPTURE                          VAL R2
-      134 JUMP                             ; [+1]
-      135 LOADNIL                          R18
-      136 SETTABLE                         R18 R16 R17
-      137 CALL                             R14 2 -1
-      138 RETURN                           R14 -1
+      116 GETTABLEKS                       R17 R10 K29 ["name"]
+      118 JUMPIFNOT                        R12 ; [+4]
+      119 DUPCLOSURE                       R18 K34 [PROTO_4]
+      120 CAPTURE                          VAL R3
+      121 CAPTURE                          VAL R2
+      122 JUMP                             ; [+1]
+      123 LOADNIL                          R18
+      124 SETTABLE                         R18 R16 R17
+      125 CALL                             R14 2 -1
+      126 RETURN                           R14 -1

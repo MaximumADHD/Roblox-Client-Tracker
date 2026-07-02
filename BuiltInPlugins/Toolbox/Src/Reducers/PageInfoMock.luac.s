@@ -1,5 +1,5 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K14 [{"categories", "category", "categoryName", "searchTerm", "sorts", "sortIndex", "sortType", "groups", "groupIndex", "groupId", "targetPage", "curentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex"}]
+        0 DUPTABLE                         R2 K17 [{[1], ["category"], ["categoryName"], ["searchTerm"] = "", ["sorts"], ["sortIndex"] = 1, ["sortType"], ["groups"], ["groupIndex"] = 0, ["groupId"] = 0, ["targetPage"] = 1, ["curentPage"] = 0, ["selectedBackgroundIndex"] = 1, ["hoveredBackgroundIndex"] = 0}]
         1 GETUPVAL                         R3 0
         2 SETTABLEKS                       R3 R2 K0 ["categories"]
         4 GETUPVAL                         R4 0
@@ -8,33 +8,17 @@ PROTO_0:
         8 SETTABLEKS                       R3 R2 K1 ["category"]
        10 GETUPVAL                         R4 0
        11 GETTABLEN                        R3 R4 1
-       12 GETTABLEKS                       R3 R3 K15 ["name"]
+       12 GETTABLEKS                       R3 R3 K18 ["name"]
        14 SETTABLEKS                       R3 R2 K2 ["categoryName"]
-       16 LOADK                            R3 K16 [""]
-       17 SETTABLEKS                       R3 R2 K3 ["searchTerm"]
-       19 GETUPVAL                         R3 1
-       20 SETTABLEKS                       R3 R2 K4 ["sorts"]
-       22 LOADN                            R3 1
-       23 SETTABLEKS                       R3 R2 K5 ["sortIndex"]
-       25 GETUPVAL                         R4 1
-       26 GETTABLEN                        R3 R4 1
-       27 GETTABLEKS                       R3 R3 K17 ["sort"]
-       29 SETTABLEKS                       R3 R2 K6 ["sortType"]
-       31 NEWTABLE                         R3 0 0
-       33 SETTABLEKS                       R3 R2 K7 ["groups"]
-       35 LOADN                            R3 0
-       36 SETTABLEKS                       R3 R2 K8 ["groupIndex"]
-       38 LOADN                            R3 0
-       39 SETTABLEKS                       R3 R2 K9 ["groupId"]
-       41 LOADN                            R3 1
-       42 SETTABLEKS                       R3 R2 K10 ["targetPage"]
-       44 LOADN                            R3 0
-       45 SETTABLEKS                       R3 R2 K11 ["curentPage"]
-       47 LOADN                            R3 1
-       48 SETTABLEKS                       R3 R2 K12 ["selectedBackgroundIndex"]
-       50 LOADN                            R3 0
-       51 SETTABLEKS                       R3 R2 K13 ["hoveredBackgroundIndex"]
-       53 RETURN                           R2 1
+       16 GETUPVAL                         R3 1
+       17 SETTABLEKS                       R3 R2 K5 ["sorts"]
+       19 GETUPVAL                         R4 1
+       20 GETTABLEN                        R3 R4 1
+       21 GETTABLEKS                       R3 R3 K19 ["sort"]
+       23 SETTABLEKS                       R3 R2 K8 ["sortType"]
+       25 NEWTABLE                         R3 0 0
+       27 SETTABLEKS                       R3 R2 K9 ["groups"]
+       29 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

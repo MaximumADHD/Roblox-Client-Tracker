@@ -308,8 +308,8 @@ PROTO_14:
         1 NAMECALL                         R0 R0 K0 ["WaitForInputEventsProcessed"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 0
-        5 LOADN                            R2 246
-        6 LOADN                            R3 246
+        5 LOADN                            R2 -10
+        6 LOADN                            R3 -10
         7 LOADNIL                          R4
         8 NAMECALL                         R0 R0 K1 ["SendMouseMoveEvent"]
        10 CALL                             R0 4 0
@@ -624,16 +624,14 @@ PROTO_29:
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["getByText"]
         4 MOVE                             R3 R0
-        5 DUPTABLE                         R4 K2 [{"exact"}]
-        6 LOADB                            R5 0
-        7 SETTABLEKS                       R5 R4 K1 ["exact"]
-        9 CALL                             R2 2 -1
-       10 CALL                             R1 -1 0
-       11 GETUPVAL                         R1 2
-       12 DUPCLOSURE                       R2 K3 [PROTO_0]
-       13 CAPTURE                          UPVAL U3
-       14 CALL                             R1 1 0
-       15 RETURN                           R0 0
+        5 DUPTABLE                         R4 K3 [{["exact"] = False}]
+        6 CALL                             R2 2 -1
+        7 CALL                             R1 -1 0
+        8 GETUPVAL                         R1 2
+        9 DUPCLOSURE                       R2 K4 [PROTO_0]
+       10 CAPTURE                          UPVAL U3
+       11 CALL                             R1 1 0
+       12 RETURN                           R0 0
 
 PROTO_30:
         0 GETUPVAL                         R1 0
@@ -671,26 +669,24 @@ PROTO_31:
        14 GETUPVAL                         R0 0
        15 GETTABLEKS                       R0 R0 K3 ["queryByText"]
        17 LOADK                            R1 K4 ["CategoryList.General"]
-       18 DUPTABLE                         R2 K6 [{"exact"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["exact"]
-       22 CALL                             R0 2 1
-       23 JUMPIF                           R0 ; [+8]
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
-       27 LOADK                            R2 K7 ["GeneralCategoryImage"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 JUMPIF                           R0 ; [+1]
-       31 RETURN                           R0 0
-       32 GETUPVAL                         R1 1
-       33 MOVE                             R2 R0
-       34 CALL                             R1 1 0
-       35 GETUPVAL                         R1 2
-       36 DUPCLOSURE                       R2 K2 [PROTO_0]
-       37 CAPTURE                          UPVAL U3
-       38 CALL                             R1 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R2 K7 [{["exact"] = False}]
+       19 CALL                             R0 2 1
+       20 JUMPIF                           R0 ; [+8]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
+       24 LOADK                            R2 K8 ["GeneralCategoryImage"]
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+1]
+       28 RETURN                           R0 0
+       29 GETUPVAL                         R1 1
+       30 MOVE                             R2 R0
+       31 CALL                             R1 1 0
+       32 GETUPVAL                         R1 2
+       33 DUPCLOSURE                       R2 K2 [PROTO_0]
+       34 CAPTURE                          UPVAL U3
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
 
 PROTO_32:
         0 GETUPVAL                         R0 0
@@ -709,27 +705,25 @@ PROTO_32:
        14 GETUPVAL                         R0 0
        15 GETTABLEKS                       R0 R0 K3 ["queryByText"]
        17 LOADK                            R1 K4 ["CategoryList.Body"]
-       18 DUPTABLE                         R2 K6 [{"exact"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["exact"]
-       22 CALL                             R0 2 1
-       23 JUMPIF                           R0 ; [+9]
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
-       27 LOADK                            R2 K7 ["BodyCategoryImage"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 JUMPIF                           R0 ; [+1]
-       31 RETURN                           R0 0
-       32 RETURN                           R0 0
-       33 GETUPVAL                         R1 1
-       34 MOVE                             R2 R0
-       35 CALL                             R1 1 0
-       36 GETUPVAL                         R1 2
-       37 DUPCLOSURE                       R2 K2 [PROTO_0]
-       38 CAPTURE                          UPVAL U3
-       39 CALL                             R1 1 0
-       40 RETURN                           R0 0
+       18 DUPTABLE                         R2 K7 [{["exact"] = False}]
+       19 CALL                             R0 2 1
+       20 JUMPIF                           R0 ; [+9]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
+       24 LOADK                            R2 K8 ["BodyCategoryImage"]
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+1]
+       28 RETURN                           R0 0
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R1 1
+       31 MOVE                             R2 R0
+       32 CALL                             R1 1 0
+       33 GETUPVAL                         R1 2
+       34 DUPCLOSURE                       R2 K2 [PROTO_0]
+       35 CAPTURE                          UPVAL U3
+       36 CALL                             R1 1 0
+       37 RETURN                           R0 0
 
 PROTO_33:
         0 GETUPVAL                         R0 0
@@ -748,26 +742,24 @@ PROTO_33:
        14 GETUPVAL                         R0 0
        15 GETTABLEKS                       R0 R0 K3 ["queryByText"]
        17 LOADK                            R1 K4 ["CategoryList.Movement"]
-       18 DUPTABLE                         R2 K6 [{"exact"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["exact"]
-       22 CALL                             R0 2 1
-       23 JUMPIF                           R0 ; [+8]
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
-       27 LOADK                            R2 K7 ["BodyCategoryImage"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 JUMPIF                           R0 ; [+1]
-       31 RETURN                           R0 0
-       32 GETUPVAL                         R1 1
-       33 MOVE                             R2 R0
-       34 CALL                             R1 1 0
-       35 GETUPVAL                         R1 2
-       36 DUPCLOSURE                       R2 K2 [PROTO_0]
-       37 CAPTURE                          UPVAL U3
-       38 CALL                             R1 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R2 K7 [{["exact"] = False}]
+       19 CALL                             R0 2 1
+       20 JUMPIF                           R0 ; [+8]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
+       24 LOADK                            R2 K8 ["BodyCategoryImage"]
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+1]
+       28 RETURN                           R0 0
+       29 GETUPVAL                         R1 1
+       30 MOVE                             R2 R0
+       31 CALL                             R1 1 0
+       32 GETUPVAL                         R1 2
+       33 DUPCLOSURE                       R2 K2 [PROTO_0]
+       34 CAPTURE                          UPVAL U3
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R0 0
@@ -786,26 +778,24 @@ PROTO_34:
        14 GETUPVAL                         R0 0
        15 GETTABLEKS                       R0 R0 K3 ["queryByText"]
        17 LOADK                            R1 K4 ["CategoryList.Accessories"]
-       18 DUPTABLE                         R2 K6 [{"exact"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["exact"]
-       22 CALL                             R0 2 1
-       23 JUMPIF                           R0 ; [+8]
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
-       27 LOADK                            R2 K7 ["BodyCategoryImage"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 JUMPIF                           R0 ; [+1]
-       31 RETURN                           R0 0
-       32 GETUPVAL                         R1 1
-       33 MOVE                             R2 R0
-       34 CALL                             R1 1 0
-       35 GETUPVAL                         R1 2
-       36 DUPCLOSURE                       R2 K2 [PROTO_0]
-       37 CAPTURE                          UPVAL U3
-       38 CALL                             R1 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R2 K7 [{["exact"] = False}]
+       19 CALL                             R0 2 1
+       20 JUMPIF                           R0 ; [+8]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
+       24 LOADK                            R2 K8 ["BodyCategoryImage"]
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+1]
+       28 RETURN                           R0 0
+       29 GETUPVAL                         R1 1
+       30 MOVE                             R2 R0
+       31 CALL                             R1 1 0
+       32 GETUPVAL                         R1 2
+       33 DUPCLOSURE                       R2 K2 [PROTO_0]
+       34 CAPTURE                          UPVAL U3
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
 
 PROTO_35:
         0 GETUPVAL                         R0 0
@@ -824,26 +814,24 @@ PROTO_35:
        14 GETUPVAL                         R0 0
        15 GETTABLEKS                       R0 R0 K3 ["queryByText"]
        17 LOADK                            R1 K4 ["CategoryList.Clothing"]
-       18 DUPTABLE                         R2 K6 [{"exact"}]
-       19 LOADB                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["exact"]
-       22 CALL                             R0 2 1
-       23 JUMPIF                           R0 ; [+8]
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
-       27 LOADK                            R2 K7 ["BodyCategoryImage"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 JUMPIF                           R0 ; [+1]
-       31 RETURN                           R0 0
-       32 GETUPVAL                         R1 1
-       33 MOVE                             R2 R0
-       34 CALL                             R1 1 0
-       35 GETUPVAL                         R1 2
-       36 DUPCLOSURE                       R2 K2 [PROTO_0]
-       37 CAPTURE                          UPVAL U3
-       38 CALL                             R1 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R2 K7 [{["exact"] = False}]
+       19 CALL                             R0 2 1
+       20 JUMPIF                           R0 ; [+8]
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K0 ["queryByTestId"]
+       24 LOADK                            R2 K8 ["BodyCategoryImage"]
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+1]
+       28 RETURN                           R0 0
+       29 GETUPVAL                         R1 1
+       30 MOVE                             R2 R0
+       31 CALL                             R1 1 0
+       32 GETUPVAL                         R1 2
+       33 DUPCLOSURE                       R2 K2 [PROTO_0]
+       34 CAPTURE                          UPVAL U3
+       35 CALL                             R1 1 0
+       36 RETURN                           R0 0
 
 PROTO_36:
         0 GETUPVAL                         R1 0
@@ -864,30 +852,26 @@ PROTO_36:
        16 GETTABLEKS                       R3 R3 K3 ["getByText"]
        18 GETUPVAL                         R5 4
        19 GETTABLE                         R4 R5 R0
-       20 DUPTABLE                         R5 K5 [{"exact"}]
-       21 LOADB                            R6 0
-       22 SETTABLEKS                       R6 R5 K4 ["exact"]
-       24 CALL                             R3 2 -1
-       25 CALL                             R2 -1 0
-       26 GETUPVAL                         R2 2
-       27 DUPCLOSURE                       R3 K2 [PROTO_0]
-       28 CAPTURE                          UPVAL U3
-       29 CALL                             R2 1 0
-       30 RETURN                           R0 0
+       20 DUPTABLE                         R5 K6 [{["exact"] = False}]
+       21 CALL                             R3 2 -1
+       22 CALL                             R2 -1 0
+       23 GETUPVAL                         R2 2
+       24 DUPCLOSURE                       R3 K2 [PROTO_0]
+       25 CAPTURE                          UPVAL U3
+       26 CALL                             R2 1 0
+       27 RETURN                           R0 0
 
 PROTO_37:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["queryByText"]
         3 MOVE                             R2 R0
-        4 DUPTABLE                         R3 K2 [{"exact"}]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K1 ["exact"]
-        8 CALL                             R1 2 1
-        9 JUMPIF                           R1 ; [+2]
-       10 LOADNIL                          R2
+        4 DUPTABLE                         R3 K3 [{["exact"] = False}]
+        5 CALL                             R1 2 1
+        6 JUMPIF                           R1 ; [+2]
+        7 LOADNIL                          R2
+        8 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R1 K4 ["Parent"]
        11 RETURN                           R2 1
-       12 GETTABLEKS                       R2 R1 K3 ["Parent"]
-       14 RETURN                           R2 1
 
 PROTO_38:
         0 GETUPVAL                         R0 0
@@ -910,28 +894,26 @@ PROTO_40:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["queryByText"]
         3 MOVE                             R2 R0
-        4 DUPTABLE                         R3 K2 [{"exact"}]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K1 ["exact"]
-        8 CALL                             R1 2 1
-        9 JUMPIF                           R1 ; [+2]
-       10 LOADNIL                          R2
-       11 RETURN                           R2 1
-       12 GETTABLEKS                       R2 R1 K3 ["Parent"]
-       14 LOADK                            R4 K4 ["Button"]
-       15 NAMECALL                         R2 R2 K5 ["FindFirstChild"]
-       17 CALL                             R2 2 1
-       18 DUPTABLE                         R3 K9 [{"checkBox", "clickCheckBox", "isChecked"}]
-       19 SETTABLEKS                       R2 R3 K6 ["checkBox"]
-       21 NEWCLOSURE                       R4 P0
-       22 CAPTURE                          UPVAL U1
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          UPVAL U2
-       25 SETTABLEKS                       R4 R3 K7 ["clickCheckBox"]
-       27 NEWCLOSURE                       R4 P1
-       28 CAPTURE                          VAL R1
-       29 SETTABLEKS                       R4 R3 K8 ["isChecked"]
-       31 RETURN                           R3 1
+        4 DUPTABLE                         R3 K3 [{["exact"] = False}]
+        5 CALL                             R1 2 1
+        6 JUMPIF                           R1 ; [+2]
+        7 LOADNIL                          R2
+        8 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R1 K4 ["Parent"]
+       11 LOADK                            R4 K5 ["Button"]
+       12 NAMECALL                         R2 R2 K6 ["FindFirstChild"]
+       14 CALL                             R2 2 1
+       15 DUPTABLE                         R3 K10 [{"checkBox", "clickCheckBox", "isChecked"}]
+       16 SETTABLEKS                       R2 R3 K7 ["checkBox"]
+       18 NEWCLOSURE                       R4 P0
+       19 CAPTURE                          UPVAL U1
+       20 CAPTURE                          VAL R2
+       21 CAPTURE                          UPVAL U2
+       22 SETTABLEKS                       R4 R3 K8 ["clickCheckBox"]
+       24 NEWCLOSURE                       R4 P1
+       25 CAPTURE                          VAL R1
+       26 SETTABLEKS                       R4 R3 K9 ["isChecked"]
+       28 RETURN                           R3 1
 
 PROTO_41:
         0 GETUPVAL                         R0 0
@@ -953,31 +935,29 @@ PROTO_43:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["queryByText"]
         3 MOVE                             R2 R0
-        4 DUPTABLE                         R3 K2 [{"exact"}]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K1 ["exact"]
-        8 CALL                             R1 2 1
-        9 JUMPIF                           R1 ; [+2]
-       10 LOADNIL                          R2
-       11 RETURN                           R2 1
-       12 GETTABLEKS                       R2 R1 K3 ["Parent"]
-       14 GETTABLEKS                       R2 R2 K3 ["Parent"]
-       16 LOADK                            R4 K4 ["RadioImage"]
-       17 NAMECALL                         R2 R2 K5 ["FindFirstChild"]
-       19 CALL                             R2 2 1
-       20 LOADK                            R4 K6 ["Contents"]
-       21 NAMECALL                         R2 R2 K5 ["FindFirstChild"]
-       23 CALL                             R2 2 1
-       24 DUPTABLE                         R3 K10 [{"radioButton", "click", "isSelected"}]
-       25 SETTABLEKS                       R2 R3 K7 ["radioButton"]
-       27 NEWCLOSURE                       R4 P0
-       28 CAPTURE                          UPVAL U1
-       29 CAPTURE                          VAL R2
-       30 SETTABLEKS                       R4 R3 K8 ["click"]
-       32 NEWCLOSURE                       R4 P1
-       33 CAPTURE                          VAL R2
-       34 SETTABLEKS                       R4 R3 K9 ["isSelected"]
-       36 RETURN                           R3 1
+        4 DUPTABLE                         R3 K3 [{["exact"] = False}]
+        5 CALL                             R1 2 1
+        6 JUMPIF                           R1 ; [+2]
+        7 LOADNIL                          R2
+        8 RETURN                           R2 1
+        9 GETTABLEKS                       R2 R1 K4 ["Parent"]
+       11 GETTABLEKS                       R2 R2 K4 ["Parent"]
+       13 LOADK                            R4 K5 ["RadioImage"]
+       14 NAMECALL                         R2 R2 K6 ["FindFirstChild"]
+       16 CALL                             R2 2 1
+       17 LOADK                            R4 K7 ["Contents"]
+       18 NAMECALL                         R2 R2 K6 ["FindFirstChild"]
+       20 CALL                             R2 2 1
+       21 DUPTABLE                         R3 K11 [{"radioButton", "click", "isSelected"}]
+       22 SETTABLEKS                       R2 R3 K8 ["radioButton"]
+       24 NEWCLOSURE                       R4 P0
+       25 CAPTURE                          UPVAL U1
+       26 CAPTURE                          VAL R2
+       27 SETTABLEKS                       R4 R3 K9 ["click"]
+       29 NEWCLOSURE                       R4 P1
+       30 CAPTURE                          VAL R2
+       31 SETTABLEKS                       R4 R3 K10 ["isSelected"]
+       33 RETURN                           R3 1
 
 PROTO_44:
         0 GETUPVAL                         R0 0
@@ -1634,42 +1614,40 @@ PROTO_58:
         1 GETUPVAL                         R4 1
         2 GETTABLEKS                       R4 R4 K0 ["queryByText"]
         4 MOVE                             R5 R0
-        5 DUPTABLE                         R6 K2 [{"exact"}]
-        6 LOADB                            R7 0
-        7 SETTABLEKS                       R7 R6 K1 ["exact"]
-        9 CALL                             R4 2 1
-       10 JUMPIF                           R4 ; [+2]
-       11 LOADNIL                          R3
-       12 JUMP                             ; [+2]
-       13 GETTABLEKS                       R3 R4 K3 ["Parent"]
-       15 CALL                             R2 1 1
-       16 LOADK                            R6 K4 ["AssetIdSelector "]
-       17 MOVE                             R7 R0
-       18 LOADK                            R8 K5 [" not found"]
-       19 CONCAT                           R5 R6 R8
-       20 FASTCALL2                        ASSERT R2 R5 ; [+4]
-       22 MOVE                             R4 R2
-       23 GETIMPORT                        R3 K7 [assert]
-       25 CALL                             R3 2 0
-       26 GETUPVAL                         R3 2
-       27 MOVE                             R4 R2
-       28 CALL                             R3 1 1
-       29 GETTABLEKS                       R3 R3 K8 ["toBeDefined"]
-       31 CALL                             R3 0 0
-       32 GETUPVAL                         R3 2
-       33 GETTABLEKS                       R4 R2 K9 ["assetIdInput"]
-       35 GETTABLEKS                       R4 R4 K10 ["Text"]
-       37 CALL                             R3 1 1
-       38 GETTABLEKS                       R3 R3 K11 ["toBe"]
-       40 JUMPIFEQKN                       R1 K12 [0] ; [+7]
-       42 FASTCALL1                        TOSTRING R1 ; [+3]
-       43 MOVE                             R5 R1
-       44 GETIMPORT                        R4 K14 [tostring]
-       46 CALL                             R4 1 1
-       47 JUMP                             ; [+1]
-       48 LOADK                            R4 K15 [""]
-       49 CALL                             R3 1 0
-       50 RETURN                           R0 0
+        5 DUPTABLE                         R6 K3 [{["exact"] = False}]
+        6 CALL                             R4 2 1
+        7 JUMPIF                           R4 ; [+2]
+        8 LOADNIL                          R3
+        9 JUMP                             ; [+2]
+       10 GETTABLEKS                       R3 R4 K4 ["Parent"]
+       12 CALL                             R2 1 1
+       13 LOADK                            R6 K5 ["AssetIdSelector "]
+       14 MOVE                             R7 R0
+       15 LOADK                            R8 K6 [" not found"]
+       16 CONCAT                           R5 R6 R8
+       17 FASTCALL2                        ASSERT R2 R5 ; [+4]
+       19 MOVE                             R4 R2
+       20 GETIMPORT                        R3 K8 [assert]
+       22 CALL                             R3 2 0
+       23 GETUPVAL                         R3 2
+       24 MOVE                             R4 R2
+       25 CALL                             R3 1 1
+       26 GETTABLEKS                       R3 R3 K9 ["toBeDefined"]
+       28 CALL                             R3 0 0
+       29 GETUPVAL                         R3 2
+       30 GETTABLEKS                       R4 R2 K10 ["assetIdInput"]
+       32 GETTABLEKS                       R4 R4 K11 ["Text"]
+       34 CALL                             R3 1 1
+       35 GETTABLEKS                       R3 R3 K12 ["toBe"]
+       37 JUMPIFEQKN                       R1 K13 [0] ; [+7]
+       39 FASTCALL1                        TOSTRING R1 ; [+3]
+       40 MOVE                             R5 R1
+       41 GETIMPORT                        R4 K15 [tostring]
+       43 CALL                             R4 1 1
+       44 JUMP                             ; [+1]
+       45 LOADK                            R4 K16 [""]
+       46 CALL                             R3 1 0
+       47 RETURN                           R0 0
 
 PROTO_59:
         0 GETUPVAL                         R0 0
@@ -1681,29 +1659,27 @@ PROTO_60:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["queryByText"]
         3 LOADK                            R2 K1 ["NavigationBar.Preview"]
-        4 DUPTABLE                         R3 K3 [{"exact"}]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K2 ["exact"]
-        8 CALL                             R1 2 1
-        9 JUMPIF                           R1 ; [+2]
-       10 LOADNIL                          R0
-       11 JUMP                             ; [+2]
-       12 GETTABLEKS                       R0 R1 K4 ["Parent"]
-       14 JUMPIF                           R0 ; [+2]
-       15 LOADNIL                          R1
-       16 RETURN                           R1 1
-       17 FASTCALL2K                       ASSERT R0 K5 ; [+5]
-       19 MOVE                             R2 R0
-       20 LOADK                            R3 K5 ["Preview Toggle TitledComponent should be rendered"]
-       21 GETIMPORT                        R1 K7 [assert]
-       23 CALL                             R1 2 0
-       24 DUPTABLE                         R1 K10 [{"previewToggleButton", "clickPreviewToggle"}]
-       25 SETTABLEKS                       R0 R1 K8 ["previewToggleButton"]
-       27 NEWCLOSURE                       R2 P0
-       28 CAPTURE                          UPVAL U1
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R2 R1 K9 ["clickPreviewToggle"]
-       32 RETURN                           R1 1
+        4 DUPTABLE                         R3 K4 [{["exact"] = False}]
+        5 CALL                             R1 2 1
+        6 JUMPIF                           R1 ; [+2]
+        7 LOADNIL                          R0
+        8 JUMP                             ; [+2]
+        9 GETTABLEKS                       R0 R1 K5 ["Parent"]
+       11 JUMPIF                           R0 ; [+2]
+       12 LOADNIL                          R1
+       13 RETURN                           R1 1
+       14 FASTCALL2K                       ASSERT R0 K6 ; [+5]
+       16 MOVE                             R2 R0
+       17 LOADK                            R3 K6 ["Preview Toggle TitledComponent should be rendered"]
+       18 GETIMPORT                        R1 K8 [assert]
+       20 CALL                             R1 2 0
+       21 DUPTABLE                         R1 K11 [{"previewToggleButton", "clickPreviewToggle"}]
+       22 SETTABLEKS                       R0 R1 K9 ["previewToggleButton"]
+       24 NEWCLOSURE                       R2 P0
+       25 CAPTURE                          UPVAL U1
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R2 R1 K10 ["clickPreviewToggle"]
+       29 RETURN                           R1 1
 
 PROTO_61:
         0 LOADNIL                          R1

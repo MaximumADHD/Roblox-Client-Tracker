@@ -59,18 +59,14 @@ PROTO_2:
        21 GETIMPORT                        R4 K3 [assert]
        23 CALL                             R4 2 0
        24 GETTABLEKS                       R4 R1 K4 ["recordChange"]
-       26 DUPTABLE                         R5 K8 [{"Name", "DisplayName", "DoChange"}]
-       27 LOADK                            R6 K9 ["StyleEditor/DuplicateAttribute"]
-       28 SETTABLEKS                       R6 R5 K5 ["Name"]
-       30 LOADK                            R6 K10 ["StyleEditor - Duplicate Attribute"]
-       31 SETTABLEKS                       R6 R5 K6 ["DisplayName"]
-       33 NEWCLOSURE                       R6 P0
-       34 CAPTURE                          UPVAL U0
-       35 CAPTURE                          VAL R3
-       36 CAPTURE                          VAL R2
-       37 SETTABLEKS                       R6 R5 K7 ["DoChange"]
-       39 CALL                             R4 1 0
-       40 RETURN                           R0 0
+       26 DUPTABLE                         R5 K10 [{["Name"] = "StyleEditor/DuplicateAttribute", ["DisplayName"] = "StyleEditor - Duplicate Attribute", ["DoChange"]}]
+       27 NEWCLOSURE                       R6 P0
+       28 CAPTURE                          UPVAL U0
+       29 CAPTURE                          VAL R3
+       30 CAPTURE                          VAL R2
+       31 SETTABLEKS                       R6 R5 K9 ["DoChange"]
+       33 CALL                             R4 1 0
+       34 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R2 P0

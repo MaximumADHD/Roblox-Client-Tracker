@@ -4,49 +4,41 @@ PROTO_0:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K9 [{"Size", "LayoutOrder", "BackgroundColor3", "BorderSizePixel", "ZIndex"}]
-        9 GETIMPORT                        R6 K12 [UDim2.new]
+        8 DUPTABLE                         R5 K11 [{["Size"], ["LayoutOrder"] = 1, ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["ZIndex"]}]
+        9 GETIMPORT                        R6 K14 [UDim2.new]
        11 LOADN                            R7 0
        12 LOADN                            R8 2
        13 LOADN                            R9 1
        14 LOADN                            R10 0
        15 CALL                             R6 4 1
        16 SETTABLEKS                       R6 R5 K4 ["Size"]
-       18 LOADN                            R6 1
-       19 SETTABLEKS                       R6 R5 K5 ["LayoutOrder"]
-       21 GETTABLEKS                       R6 R2 K13 ["borderColor"]
-       23 SETTABLEKS                       R6 R5 K6 ["BackgroundColor3"]
-       25 LOADN                            R6 0
-       26 SETTABLEKS                       R6 R5 K7 ["BorderSizePixel"]
-       28 GETTABLEKS                       R6 R1 K8 ["ZIndex"]
-       30 SETTABLEKS                       R6 R5 K8 ["ZIndex"]
-       32 DUPTABLE                         R6 K15 [{"DragArea"}]
-       33 GETUPVAL                         R7 0
-       34 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       36 GETUPVAL                         R8 1
-       37 DUPTABLE                         R9 K19 [{"AnchorPoint", "Size", "ZIndex", "Cursor", "OnDragMoved"}]
-       38 GETIMPORT                        R10 K21 [Vector2.new]
-       40 LOADN                            R11 1
-       41 LOADN                            R12 0
-       42 CALL                             R10 2 1
-       43 SETTABLEKS                       R10 R9 K16 ["AnchorPoint"]
-       45 GETIMPORT                        R10 K12 [UDim2.new]
-       47 LOADN                            R11 0
-       48 LOADN                            R12 5
-       49 LOADN                            R13 1
-       50 LOADN                            R14 0
-       51 CALL                             R10 4 1
-       52 SETTABLEKS                       R10 R9 K4 ["Size"]
-       54 LOADN                            R10 2
-       55 SETTABLEKS                       R10 R9 K8 ["ZIndex"]
-       57 LOADK                            R10 K22 ["SplitEW"]
-       58 SETTABLEKS                       R10 R9 K17 ["Cursor"]
-       60 GETTABLEKS                       R10 R1 K18 ["OnDragMoved"]
-       62 SETTABLEKS                       R10 R9 K18 ["OnDragMoved"]
-       64 CALL                             R7 2 1
-       65 SETTABLEKS                       R7 R6 K14 ["DragArea"]
-       67 CALL                             R3 3 -1
-       68 RETURN                           R3 -1
+       18 GETTABLEKS                       R6 R2 K15 ["borderColor"]
+       20 SETTABLEKS                       R6 R5 K7 ["BackgroundColor3"]
+       22 GETTABLEKS                       R6 R1 K10 ["ZIndex"]
+       24 SETTABLEKS                       R6 R5 K10 ["ZIndex"]
+       26 DUPTABLE                         R6 K17 [{"DragArea"}]
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       30 GETUPVAL                         R8 1
+       31 DUPTABLE                         R9 K23 [{["AnchorPoint"], ["Size"], ["ZIndex"] = 2, ["Cursor"] = "SplitEW", ["OnDragMoved"]}]
+       32 GETIMPORT                        R10 K25 [Vector2.new]
+       34 LOADN                            R11 1
+       35 LOADN                            R12 0
+       36 CALL                             R10 2 1
+       37 SETTABLEKS                       R10 R9 K18 ["AnchorPoint"]
+       39 GETIMPORT                        R10 K14 [UDim2.new]
+       41 LOADN                            R11 0
+       42 LOADN                            R12 5
+       43 LOADN                            R13 1
+       44 LOADN                            R14 0
+       45 CALL                             R10 4 1
+       46 SETTABLEKS                       R10 R9 K4 ["Size"]
+       48 GETTABLEKS                       R10 R1 K22 ["OnDragMoved"]
+       50 SETTABLEKS                       R10 R9 K22 ["OnDragMoved"]
+       52 CALL                             R7 2 1
+       53 SETTABLEKS                       R7 R6 K16 ["DragArea"]
+       55 CALL                             R3 3 -1
+       56 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

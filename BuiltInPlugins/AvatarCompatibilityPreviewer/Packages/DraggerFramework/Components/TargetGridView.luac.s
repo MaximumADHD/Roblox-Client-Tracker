@@ -69,45 +69,41 @@ PROTO_1:
        35 GETUPVAL                         R17 2
        36 GETTABLEKS                       R17 R17 K11 ["createElement"]
        38 GETUPVAL                         R18 3
-       39 DUPTABLE                         R19 K19 [{"Color3", "MainTransparency", "DimTransparency", "GridSize", "MajorStep", "CFrame", "Size", "ExtraSize"}]
-       40 GETTABLEKS                       R20 R2 K20 ["PrimaryColor"]
+       39 DUPTABLE                         R19 K20 [{["Color3"], ["MainTransparency"] = 0, ["DimTransparency"] = 0.5, ["GridSize"], ["MajorStep"], ["CFrame"], ["Size"], ["ExtraSize"]}]
+       40 GETTABLEKS                       R20 R2 K21 ["PrimaryColor"]
        42 SETTABLEKS                       R20 R19 K12 ["Color3"]
-       44 LOADN                            R20 0
-       45 SETTABLEKS                       R20 R19 K13 ["MainTransparency"]
-       47 LOADK                            R20 K7 [0.5]
-       48 SETTABLEKS                       R20 R19 K14 ["DimTransparency"]
-       50 SETTABLEKS                       R9 R19 K2 ["GridSize"]
-       52 GETTABLEKS                       R20 R2 K15 ["MajorStep"]
-       54 SETTABLEKS                       R20 R19 K15 ["MajorStep"]
-       56 GETIMPORT                        R20 K22 [CFrame.fromMatrix]
-       58 MOVE                             R21 R4
-       59 MOVE                             R22 R5
-       60 MOVE                             R25 R5
-       61 NAMECALL                         R23 R6 K23 ["Cross"]
-       63 CALL                             R23 2 -1
-       64 CALL                             R20 -1 1
-       65 SETTABLEKS                       R20 R19 K16 ["CFrame"]
-       67 LOADN                            R22 0
-       68 FASTCALL3                        VECTOR R15 R22 R16
-       70 MOVE                             R21 R15
-       71 MOVE                             R23 R16
-       72 GETIMPORT                        R20 K26 [Vector3.new]
-       74 CALL                             R20 3 1
-       75 SETTABLEKS                       R20 R19 K17 ["Size"]
-       77 JUMPIFNOT                        R12 ; [+12]
-       78 GETTABLEKS                       R22 R10 K27 ["X"]
-       80 SUB                              R21 R22 R15
-       81 LOADN                            R22 0
-       82 GETTABLEKS                       R24 R10 K28 ["Z"]
-       84 SUB                              R23 R24 R16
-       85 FASTCALL                         VECTOR ; [+2]
-       86 GETIMPORT                        R20 K26 [Vector3.new]
-       88 CALL                             R20 3 1
-       89 JUMP                             ; [+1]
-       90 LOADNIL                          R20
-       91 SETTABLEKS                       R20 R19 K18 ["ExtraSize"]
-       93 CALL                             R17 2 -1
-       94 RETURN                           R17 -1
+       44 SETTABLEKS                       R9 R19 K2 ["GridSize"]
+       46 GETTABLEKS                       R20 R2 K16 ["MajorStep"]
+       48 SETTABLEKS                       R20 R19 K16 ["MajorStep"]
+       50 GETIMPORT                        R20 K23 [CFrame.fromMatrix]
+       52 MOVE                             R21 R4
+       53 MOVE                             R22 R5
+       54 MOVE                             R25 R5
+       55 NAMECALL                         R23 R6 K24 ["Cross"]
+       57 CALL                             R23 2 -1
+       58 CALL                             R20 -1 1
+       59 SETTABLEKS                       R20 R19 K17 ["CFrame"]
+       61 LOADN                            R22 0
+       62 FASTCALL3                        VECTOR R15 R22 R16
+       64 MOVE                             R21 R15
+       65 MOVE                             R23 R16
+       66 GETIMPORT                        R20 K27 [Vector3.new]
+       68 CALL                             R20 3 1
+       69 SETTABLEKS                       R20 R19 K18 ["Size"]
+       71 JUMPIFNOT                        R12 ; [+12]
+       72 GETTABLEKS                       R22 R10 K28 ["X"]
+       74 SUB                              R21 R22 R15
+       75 LOADN                            R22 0
+       76 GETTABLEKS                       R24 R10 K29 ["Z"]
+       78 SUB                              R23 R24 R16
+       79 FASTCALL                         VECTOR ; [+2]
+       80 GETIMPORT                        R20 K27 [Vector3.new]
+       82 CALL                             R20 3 1
+       83 JUMP                             ; [+1]
+       84 LOADNIL                          R20
+       85 SETTABLEKS                       R20 R19 K19 ["ExtraSize"]
+       87 CALL                             R17 2 -1
+       88 RETURN                           R17 -1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -132,12 +128,12 @@ PROTO_2:
 
 PROTO_3:
         0 NEWTABLE                         R1 0 0
-        2 LOADN                            R4 253
+        2 LOADN                            R4 -3
         3 LOADN                            R2 3
         4 LOADN                            R3 1
         5 FORNPREP                         R2
         6 GETIMPORT                        R6 K2 [Vector2.new]
-        8 LOADN                            R7 253
+        8 LOADN                            R7 -3
         9 MOVE                             R8 R4
        10 CALL                             R6 2 1
        11 GETTABLEKS                       R6 R6 K3 ["Unit"]
@@ -154,7 +150,7 @@ PROTO_3:
        27 GETIMPORT                        R6 K10 [table.insert]
        29 CALL                             R6 2 0
        30 FORNLOOP                         R2
-       31 LOADN                            R4 253
+       31 LOADN                            R4 -3
        32 LOADN                            R2 3
        33 LOADN                            R3 1
        34 FORNPREP                         R2
@@ -177,8 +173,8 @@ PROTO_3:
        58 CALL                             R6 2 0
        59 FORNLOOP                         R2
        60 LOADN                            R4 3
-       61 LOADN                            R2 253
-       62 LOADN                            R3 255
+       61 LOADN                            R2 -3
+       62 LOADN                            R3 -1
        63 FORNPREP                         R2
        64 GETIMPORT                        R6 K2 [Vector2.new]
        66 LOADN                            R7 3
@@ -199,12 +195,12 @@ PROTO_3:
        87 CALL                             R6 2 0
        88 FORNLOOP                         R2
        89 LOADN                            R4 3
-       90 LOADN                            R2 253
-       91 LOADN                            R3 255
+       90 LOADN                            R2 -3
+       91 LOADN                            R3 -1
        92 FORNPREP                         R2
        93 GETIMPORT                        R6 K2 [Vector2.new]
        95 MOVE                             R7 R4
-       96 LOADN                            R8 253
+       96 LOADN                            R8 -3
        97 CALL                             R6 2 1
        98 GETTABLEKS                       R6 R6 K3 ["Unit"]
       100 GETUPVAL                         R7 0
@@ -260,26 +256,22 @@ PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["SphereHandleAdornment"]
-        4 DUPTABLE                         R3 K8 [{"Color3", "AlwaysOnTop", "Adornee", "CFrame", "ZIndex", "Radius"}]
-        5 GETTABLEKS                       R4 R0 K9 ["Color"]
+        4 DUPTABLE                         R3 K10 [{["Color3"], ["AlwaysOnTop"] = True, ["Adornee"], ["CFrame"], ["ZIndex"] = 0, ["Radius"]}]
+        5 GETTABLEKS                       R4 R0 K11 ["Color"]
         7 SETTABLEKS                       R4 R3 K2 ["Color3"]
-        9 LOADB                            R4 1
-       10 SETTABLEKS                       R4 R3 K3 ["AlwaysOnTop"]
-       12 GETIMPORT                        R4 K11 [workspace]
-       14 GETTABLEKS                       R4 R4 K12 ["Terrain"]
-       16 SETTABLEKS                       R4 R3 K4 ["Adornee"]
-       18 GETIMPORT                        R4 K14 [CFrame.new]
-       20 GETTABLEKS                       R5 R0 K15 ["Position"]
-       22 CALL                             R4 1 1
-       23 SETTABLEKS                       R4 R3 K5 ["CFrame"]
-       25 LOADN                            R4 0
-       26 SETTABLEKS                       R4 R3 K6 ["ZIndex"]
-       28 LOADK                            R5 K16 [0.15]
-       29 GETTABLEKS                       R6 R0 K17 ["Scale"]
-       31 MUL                              R4 R5 R6
-       32 SETTABLEKS                       R4 R3 K7 ["Radius"]
-       34 CALL                             R1 2 -1
-       35 RETURN                           R1 -1
+        9 GETIMPORT                        R4 K13 [workspace]
+       11 GETTABLEKS                       R4 R4 K14 ["Terrain"]
+       13 SETTABLEKS                       R4 R3 K5 ["Adornee"]
+       15 GETIMPORT                        R4 K16 [CFrame.new]
+       17 GETTABLEKS                       R5 R0 K17 ["Position"]
+       19 CALL                             R4 1 1
+       20 SETTABLEKS                       R4 R3 K6 ["CFrame"]
+       22 LOADK                            R5 K18 [0.15]
+       23 GETTABLEKS                       R6 R0 K19 ["Scale"]
+       25 MUL                              R4 R5 R6
+       26 SETTABLEKS                       R4 R3 K9 ["Radius"]
+       28 CALL                             R1 2 -1
+       29 RETURN                           R1 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -376,7 +368,7 @@ PROTO_7:
        67 GETIMPORT                        R11 K25 [math.max]
        69 CALL                             R11 2 1
        70 GETTABLEKS                       R12 R3 K26 ["dragTargetType"]
-       72 JUMPIFNOTEQKS                    R12 K27 ["Polygon"] ; [+87]
+       72 JUMPIFNOTEQKS                    R12 K27 ["Polygon"] ; [+78]
        74 GETUPVAL                         R12 2
        75 MOVE                             R13 R3
        76 CALL                             R12 1 5
@@ -384,66 +376,60 @@ PROTO_7:
        78 GETUPVAL                         R18 0
        79 GETTABLEKS                       R18 R18 K4 ["createElement"]
        81 GETUPVAL                         R19 3
-       82 DUPTABLE                         R20 K30 [{"Color3", "AlwaysOnTop", "Render"}]
-       83 GETTABLEKS                       R21 R1 K31 ["PrimaryColor"]
+       82 DUPTABLE                         R20 K31 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
+       83 GETTABLEKS                       R21 R1 K32 ["PrimaryColor"]
        85 SETTABLEKS                       R21 R20 K6 ["Color3"]
-       87 LOADB                            R21 1
-       88 SETTABLEKS                       R21 R20 K28 ["AlwaysOnTop"]
-       90 NEWCLOSURE                       R21 P0
-       91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R15
-       93 CAPTURE                          VAL R16
-       94 CAPTURE                          VAL R12
-       95 CAPTURE                          VAL R14
-       96 CAPTURE                          VAL R13
-       97 CAPTURE                          VAL R11
-       98 SETTABLEKS                       R21 R20 K29 ["Render"]
-      100 CALL                             R18 2 1
-      101 SETTABLEKS                       R18 R5 K32 ["LinearGuides"]
-      103 GETUPVAL                         R18 0
-      104 GETTABLEKS                       R18 R18 K4 ["createElement"]
-      106 GETUPVAL                         R19 4
-      107 DUPTABLE                         R20 K35 [{"Color", "Scale", "Position"}]
-      108 GETTABLEKS                       R21 R1 K9 ["Color"]
-      110 SETTABLEKS                       R21 R20 K9 ["Color"]
-      112 GETTABLEKS                       R21 R1 K33 ["Scale"]
-      114 SETTABLEKS                       R21 R20 K33 ["Scale"]
-      116 SETTABLEKS                       R12 R20 K34 ["Position"]
-      118 CALL                             R18 2 1
-      119 SETTABLEKS                       R18 R5 K36 ["CenterPoint"]
-      121 GETUPVAL                         R18 0
-      122 GETTABLEKS                       R18 R18 K4 ["createElement"]
-      124 GETUPVAL                         R19 5
-      125 DUPTABLE                         R20 K46 [{"Position", "Radius", "UnitA", "UnitB", "MinA", "MaxA", "MinB", "MaxB", "ExcludeA", "ExcludeB", "Color3"}]
-      126 SETTABLEKS                       R12 R20 K34 ["Position"]
-      128 SETTABLEKS                       R17 R20 K37 ["Radius"]
-      130 MUL                              R21 R13 R2
-      131 SETTABLEKS                       R21 R20 K38 ["UnitA"]
-      133 MUL                              R21 R14 R2
-      134 SETTABLEKS                       R21 R20 K39 ["UnitB"]
-      136 MINUS                            R21 R17
-      137 SETTABLEKS                       R21 R20 K40 ["MinA"]
-      139 SETTABLEKS                       R17 R20 K41 ["MaxA"]
-      141 MINUS                            R21 R17
-      142 SETTABLEKS                       R21 R20 K42 ["MinB"]
-      144 SETTABLEKS                       R17 R20 K43 ["MaxB"]
-      146 LOADN                            R21 0
-      147 SETTABLEKS                       R21 R20 K44 ["ExcludeA"]
-      149 LOADN                            R21 0
-      150 SETTABLEKS                       R21 R20 K45 ["ExcludeB"]
-      152 GETTABLEKS                       R21 R1 K9 ["Color"]
-      154 SETTABLEKS                       R21 R20 K6 ["Color3"]
-      156 CALL                             R18 2 1
-      157 SETTABLEKS                       R18 R5 K47 ["Grid"]
-      159 JUMP                             ; [+5]
-      160 NAMECALL                         R12 R0 K48 ["_renderLattitudeGuide"]
-      162 CALL                             R12 1 1
-      163 SETTABLEKS                       R12 R5 K49 ["LattitudeGuide"]
-      165 GETUPVAL                         R12 0
-      166 GETTABLEKS                       R12 R12 K50 ["createFragment"]
-      168 MOVE                             R13 R5
-      169 CALL                             R12 1 -1
-      170 RETURN                           R12 -1
+       87 NEWCLOSURE                       R21 P0
+       88 CAPTURE                          VAL R2
+       89 CAPTURE                          VAL R15
+       90 CAPTURE                          VAL R16
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R14
+       93 CAPTURE                          VAL R13
+       94 CAPTURE                          VAL R11
+       95 SETTABLEKS                       R21 R20 K30 ["Render"]
+       97 CALL                             R18 2 1
+       98 SETTABLEKS                       R18 R5 K33 ["LinearGuides"]
+      100 GETUPVAL                         R18 0
+      101 GETTABLEKS                       R18 R18 K4 ["createElement"]
+      103 GETUPVAL                         R19 4
+      104 DUPTABLE                         R20 K36 [{"Color", "Scale", "Position"}]
+      105 GETTABLEKS                       R21 R1 K9 ["Color"]
+      107 SETTABLEKS                       R21 R20 K9 ["Color"]
+      109 GETTABLEKS                       R21 R1 K34 ["Scale"]
+      111 SETTABLEKS                       R21 R20 K34 ["Scale"]
+      113 SETTABLEKS                       R12 R20 K35 ["Position"]
+      115 CALL                             R18 2 1
+      116 SETTABLEKS                       R18 R5 K37 ["CenterPoint"]
+      118 GETUPVAL                         R18 0
+      119 GETTABLEKS                       R18 R18 K4 ["createElement"]
+      121 GETUPVAL                         R19 5
+      122 DUPTABLE                         R20 K48 [{["Position"], ["Radius"], ["UnitA"], ["UnitB"], ["MinA"], ["MaxA"], ["MinB"], ["MaxB"], ["ExcludeA"] = 0, ["ExcludeB"] = 0, ["Color3"]}]
+      123 SETTABLEKS                       R12 R20 K35 ["Position"]
+      125 SETTABLEKS                       R17 R20 K38 ["Radius"]
+      127 MUL                              R21 R13 R2
+      128 SETTABLEKS                       R21 R20 K39 ["UnitA"]
+      130 MUL                              R21 R14 R2
+      131 SETTABLEKS                       R21 R20 K40 ["UnitB"]
+      133 MINUS                            R21 R17
+      134 SETTABLEKS                       R21 R20 K41 ["MinA"]
+      136 SETTABLEKS                       R17 R20 K42 ["MaxA"]
+      138 MINUS                            R21 R17
+      139 SETTABLEKS                       R21 R20 K43 ["MinB"]
+      141 SETTABLEKS                       R17 R20 K44 ["MaxB"]
+      143 GETTABLEKS                       R21 R1 K9 ["Color"]
+      145 SETTABLEKS                       R21 R20 K6 ["Color3"]
+      147 CALL                             R18 2 1
+      148 SETTABLEKS                       R18 R5 K49 ["Grid"]
+      150 JUMP                             ; [+5]
+      151 NAMECALL                         R12 R0 K50 ["_renderLattitudeGuide"]
+      153 CALL                             R12 1 1
+      154 SETTABLEKS                       R12 R5 K51 ["LattitudeGuide"]
+      156 GETUPVAL                         R12 0
+      157 GETTABLEKS                       R12 R12 K52 ["createFragment"]
+      159 MOVE                             R13 R5
+      160 CALL                             R12 1 -1
+      161 RETURN                           R12 -1
 
 PROTO_8:
         0 GETUPVAL                         R3 0
@@ -507,58 +493,48 @@ PROTO_9:
        74 NAMECALL                         R16 R0 K26 ["_renderRulerSnapToPolygon"]
        76 CALL                             R16 2 1
        77 SETTABLEKS                       R16 R15 K27 ["PolygonGrid"]
-       79 JUMP                             ; [+68]
+       79 JUMP                             ; [+53]
        80 GETUPVAL                         R16 1
        81 GETTABLEKS                       R16 R16 K14 ["createElement"]
        83 GETUPVAL                         R17 4
-       84 DUPTABLE                         R18 K36 [{"Position", "UnitA", "UnitB", "MinA", "MaxA", "MinB", "MaxB", "ExcludeA", "ExcludeB", "Color3"}]
+       84 DUPTABLE                         R18 K39 [{["Position"], ["UnitA"], ["UnitB"], ["MinA"] = -1, ["MaxA"] = 1, ["MinB"] = 0, ["MaxB"], ["ExcludeA"] = 0, ["ExcludeB"], ["Color3"]}]
        85 SETTABLEKS                       R3 R18 K23 ["Position"]
        87 MUL                              R19 R4 R8
        88 SETTABLEKS                       R19 R18 K28 ["UnitA"]
        90 MUL                              R19 R5 R8
        91 SETTABLEKS                       R19 R18 K29 ["UnitB"]
-       93 LOADN                            R19 255
-       94 SETTABLEKS                       R19 R18 K30 ["MinA"]
-       96 LOADN                            R19 1
-       97 SETTABLEKS                       R19 R18 K31 ["MaxA"]
-       99 LOADN                            R19 0
-      100 SETTABLEKS                       R19 R18 K32 ["MinB"]
-      102 DIV                              R19 R9 R8
-      103 SETTABLEKS                       R19 R18 K33 ["MaxB"]
-      105 LOADN                            R19 0
-      106 SETTABLEKS                       R19 R18 K34 ["ExcludeA"]
-      108 SETTABLEKS                       R11 R18 K35 ["ExcludeB"]
-      110 GETTABLEKS                       R19 R1 K18 ["Color"]
+       93 DIV                              R19 R9 R8
+       94 SETTABLEKS                       R19 R18 K36 ["MaxB"]
+       96 SETTABLEKS                       R11 R18 K38 ["ExcludeB"]
+       98 GETTABLEKS                       R19 R1 K18 ["Color"]
+      100 SETTABLEKS                       R19 R18 K16 ["Color3"]
+      102 CALL                             R16 2 1
+      103 SETTABLEKS                       R16 R15 K40 ["CylinderGrid"]
+      105 GETUPVAL                         R16 1
+      106 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      108 GETUPVAL                         R17 5
+      109 DUPTABLE                         R18 K44 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
+      110 GETTABLEKS                       R19 R1 K45 ["PrimaryColor"]
       112 SETTABLEKS                       R19 R18 K16 ["Color3"]
-      114 CALL                             R16 2 1
-      115 SETTABLEKS                       R16 R15 K37 ["CylinderGrid"]
-      117 GETUPVAL                         R16 1
-      118 GETTABLEKS                       R16 R16 K14 ["createElement"]
-      120 GETUPVAL                         R17 5
-      121 DUPTABLE                         R18 K40 [{"Color3", "AlwaysOnTop", "Render"}]
-      122 GETTABLEKS                       R19 R1 K41 ["PrimaryColor"]
-      124 SETTABLEKS                       R19 R18 K16 ["Color3"]
-      126 LOADB                            R19 1
-      127 SETTABLEKS                       R19 R18 K38 ["AlwaysOnTop"]
-      129 NEWCLOSURE                       R19 P0
-      130 CAPTURE                          VAL R3
-      131 CAPTURE                          VAL R9
-      132 CAPTURE                          VAL R5
-      133 SETTABLEKS                       R19 R18 K39 ["Render"]
-      135 CALL                             R16 2 1
-      136 SETTABLEKS                       R16 R15 K42 ["LinearGuide"]
-      138 MUL                              R20 R5 R11
-      139 MUL                              R19 R20 R8
-      140 ADD                              R18 R3 R19
-      141 GETTABLEKS                       R19 R1 K41 ["PrimaryColor"]
-      143 NAMECALL                         R16 R0 K43 ["_renderCylinderRingGuide"]
-      145 CALL                             R16 3 1
-      146 SETTABLEKS                       R16 R15 K44 ["RadialGuide"]
-      148 GETUPVAL                         R16 1
-      149 GETTABLEKS                       R16 R16 K45 ["createFragment"]
-      151 MOVE                             R17 R15
-      152 CALL                             R16 1 -1
-      153 RETURN                           R16 -1
+      114 NEWCLOSURE                       R19 P0
+      115 CAPTURE                          VAL R3
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R5
+      118 SETTABLEKS                       R19 R18 K43 ["Render"]
+      120 CALL                             R16 2 1
+      121 SETTABLEKS                       R16 R15 K46 ["LinearGuide"]
+      123 MUL                              R20 R5 R11
+      124 MUL                              R19 R20 R8
+      125 ADD                              R18 R3 R19
+      126 GETTABLEKS                       R19 R1 K45 ["PrimaryColor"]
+      128 NAMECALL                         R16 R0 K47 ["_renderCylinderRingGuide"]
+      130 CALL                             R16 3 1
+      131 SETTABLEKS                       R16 R15 K48 ["RadialGuide"]
+      133 GETUPVAL                         R16 1
+      134 GETTABLEKS                       R16 R16 K49 ["createFragment"]
+      136 MOVE                             R17 R15
+      137 CALL                             R16 1 -1
+      138 RETURN                           R16 -1
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -640,9 +616,9 @@ PROTO_13:
        33 NAMECALL                         R10 R0 K13 ["_renderLattitudeGuide"]
        35 CALL                             R10 1 1
        36 SETTABLEKS                       R10 R9 K14 ["LattitudeGuide"]
-       38 JUMP                             ; [+120]
+       38 JUMP                             ; [+117]
        39 GETTABLEKS                       R10 R2 K4 ["dragTargetType"]
-       41 JUMPIFNOTEQKS                    R10 K15 ["Cylinder"] ; [+49]
+       41 JUMPIFNOTEQKS                    R10 K15 ["Cylinder"] ; [+46]
        43 GETUPVAL                         R10 1
        44 GETTABLEKS                       R10 R10 K6 ["createElement"]
        46 GETUPVAL                         R11 3
@@ -663,66 +639,64 @@ PROTO_13:
        69 GETUPVAL                         R10 1
        70 GETTABLEKS                       R10 R10 K6 ["createElement"]
        72 GETUPVAL                         R11 4
-       73 DUPTABLE                         R12 K21 [{"Color3", "AlwaysOnTop", "Render"}]
+       73 DUPTABLE                         R12 K22 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
        74 GETTABLEKS                       R13 R1 K16 ["PrimaryColor"]
        76 SETTABLEKS                       R13 R12 K8 ["Color3"]
-       78 LOADB                            R13 1
-       79 SETTABLEKS                       R13 R12 K19 ["AlwaysOnTop"]
-       81 NEWCLOSURE                       R13 P0
-       82 CAPTURE                          VAL R3
-       83 CAPTURE                          VAL R8
-       84 CAPTURE                          VAL R5
-       85 SETTABLEKS                       R13 R12 K20 ["Render"]
-       87 CALL                             R10 2 1
-       88 SETTABLEKS                       R10 R9 K22 ["LinearGuide"]
-       90 JUMP                             ; [+68]
-       91 GETTABLEKS                       R11 R2 K10 ["targetPart"]
-       93 JUMPIFNOT                        R11 ; [+23]
-       94 LOADK                            R14 K7 ["Part"]
-       95 NAMECALL                         R12 R11 K23 ["IsA"]
-       97 CALL                             R12 2 1
-       98 JUMPIFNOT                        R12 ; [+18]
-       99 GETTABLEKS                       R12 R11 K24 ["Shape"]
-      101 GETIMPORT                        R13 K28 [Enum.PartType.Ball]
-      103 JUMPIFNOTEQ                      R12 R13 ; [+4]
-      105 GETIMPORT                        R10 K28 [Enum.PartType.Ball]
-      107 JUMP                             ; [+10]
-      108 GETTABLEKS                       R12 R11 K24 ["Shape"]
-      110 GETIMPORT                        R13 K29 [Enum.PartType.Cylinder]
-      112 JUMPIFNOTEQ                      R12 R13 ; [+4]
-      114 GETIMPORT                        R10 K29 [Enum.PartType.Cylinder]
-      116 JUMP                             ; [+1]
-      117 LOADNIL                          R10
-      118 GETIMPORT                        R11 K28 [Enum.PartType.Ball]
-      120 JUMPIFNOTEQ                      R10 R11 ; [+18]
-      122 GETUPVAL                         R11 1
-      123 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      125 GETUPVAL                         R12 2
-      126 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
-      127 GETTABLEKS                       R14 R2 K10 ["targetPart"]
-      129 SETTABLEKS                       R14 R13 K7 ["Part"]
-      131 GETTABLEKS                       R14 R1 K11 ["Color"]
-      133 SETTABLEKS                       R14 R13 K8 ["Color3"]
-      135 CALL                             R11 2 1
-      136 SETTABLEKS                       R11 R9 K12 ["MajorLines"]
-      138 JUMP                             ; [+20]
-      139 GETIMPORT                        R11 K29 [Enum.PartType.Cylinder]
-      141 JUMPIFNOTEQ                      R10 R11 ; [+17]
-      143 GETUPVAL                         R11 1
-      144 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      146 GETUPVAL                         R12 3
-      147 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
-      148 GETTABLEKS                       R14 R2 K10 ["targetPart"]
-      150 SETTABLEKS                       R14 R13 K7 ["Part"]
-      152 GETTABLEKS                       R14 R1 K11 ["Color"]
-      154 SETTABLEKS                       R14 R13 K8 ["Color3"]
-      156 CALL                             R11 2 1
-      157 SETTABLEKS                       R11 R9 K12 ["MajorLines"]
-      159 GETUPVAL                         R10 1
-      160 GETTABLEKS                       R10 R10 K30 ["createFragment"]
-      162 MOVE                             R11 R9
-      163 CALL                             R10 1 -1
-      164 RETURN                           R10 -1
+       78 NEWCLOSURE                       R13 P0
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R5
+       82 SETTABLEKS                       R13 R12 K21 ["Render"]
+       84 CALL                             R10 2 1
+       85 SETTABLEKS                       R10 R9 K23 ["LinearGuide"]
+       87 JUMP                             ; [+68]
+       88 GETTABLEKS                       R11 R2 K10 ["targetPart"]
+       90 JUMPIFNOT                        R11 ; [+23]
+       91 LOADK                            R14 K7 ["Part"]
+       92 NAMECALL                         R12 R11 K24 ["IsA"]
+       94 CALL                             R12 2 1
+       95 JUMPIFNOT                        R12 ; [+18]
+       96 GETTABLEKS                       R12 R11 K25 ["Shape"]
+       98 GETIMPORT                        R13 K29 [Enum.PartType.Ball]
+      100 JUMPIFNOTEQ                      R12 R13 ; [+4]
+      102 GETIMPORT                        R10 K29 [Enum.PartType.Ball]
+      104 JUMP                             ; [+10]
+      105 GETTABLEKS                       R12 R11 K25 ["Shape"]
+      107 GETIMPORT                        R13 K30 [Enum.PartType.Cylinder]
+      109 JUMPIFNOTEQ                      R12 R13 ; [+4]
+      111 GETIMPORT                        R10 K30 [Enum.PartType.Cylinder]
+      113 JUMP                             ; [+1]
+      114 LOADNIL                          R10
+      115 GETIMPORT                        R11 K29 [Enum.PartType.Ball]
+      117 JUMPIFNOTEQ                      R10 R11 ; [+18]
+      119 GETUPVAL                         R11 1
+      120 GETTABLEKS                       R11 R11 K6 ["createElement"]
+      122 GETUPVAL                         R12 2
+      123 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
+      124 GETTABLEKS                       R14 R2 K10 ["targetPart"]
+      126 SETTABLEKS                       R14 R13 K7 ["Part"]
+      128 GETTABLEKS                       R14 R1 K11 ["Color"]
+      130 SETTABLEKS                       R14 R13 K8 ["Color3"]
+      132 CALL                             R11 2 1
+      133 SETTABLEKS                       R11 R9 K12 ["MajorLines"]
+      135 JUMP                             ; [+20]
+      136 GETIMPORT                        R11 K30 [Enum.PartType.Cylinder]
+      138 JUMPIFNOTEQ                      R10 R11 ; [+17]
+      140 GETUPVAL                         R11 1
+      141 GETTABLEKS                       R11 R11 K6 ["createElement"]
+      143 GETUPVAL                         R12 3
+      144 DUPTABLE                         R13 K9 [{"Part", "Color3"}]
+      145 GETTABLEKS                       R14 R2 K10 ["targetPart"]
+      147 SETTABLEKS                       R14 R13 K7 ["Part"]
+      149 GETTABLEKS                       R14 R1 K11 ["Color"]
+      151 SETTABLEKS                       R14 R13 K8 ["Color3"]
+      153 CALL                             R11 2 1
+      154 SETTABLEKS                       R11 R9 K12 ["MajorLines"]
+      156 GETUPVAL                         R10 1
+      157 GETTABLEKS                       R10 R10 K31 ["createFragment"]
+      159 MOVE                             R11 R9
+      160 CALL                             R10 1 -1
+      161 RETURN                           R10 -1
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

@@ -44,34 +44,24 @@ PROTO_2:
        36 CALL                             R5 1 1
        37 NAMECALL                         R6 R5 K8 ["await"]
        39 CALL                             R6 1 0
-       40 DUPTABLE                         R6 K11 [{"responseBody", "responseCode"}]
-       41 DUPTABLE                         R7 K14 [{"creatorStreamNotifications", "nextCursor"}]
-       42 SETTABLEKS                       R4 R7 K12 ["creatorStreamNotifications"]
-       44 ADDK                             R9 R3 K15 [12]
+       40 DUPTABLE                         R6 K12 [{["responseBody"], ["responseCode"] = 200}]
+       41 DUPTABLE                         R7 K15 [{"creatorStreamNotifications", "nextCursor"}]
+       42 SETTABLEKS                       R4 R7 K13 ["creatorStreamNotifications"]
+       44 ADDK                             R9 R3 K16 [12]
        45 FASTCALL1                        TOSTRING R9 ; [+2]
-       46 GETIMPORT                        R8 K17 [tostring]
+       46 GETIMPORT                        R8 K18 [tostring]
        48 CALL                             R8 1 1
-       49 SETTABLEKS                       R8 R7 K13 ["nextCursor"]
+       49 SETTABLEKS                       R8 R7 K14 ["nextCursor"]
        51 SETTABLEKS                       R7 R6 K9 ["responseBody"]
-       53 LOADN                            R7 200
-       54 SETTABLEKS                       R7 R6 K10 ["responseCode"]
-       56 RETURN                           R6 1
+       53 RETURN                           R6 1
 
 PROTO_3:
-        0 DUPTABLE                         R1 K2 [{"responseBody", "responseCode"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["responseBody"]
-        4 LOADN                            R2 200
-        5 SETTABLEKS                       R2 R1 K1 ["responseCode"]
-        7 RETURN                           R1 1
+        0 DUPTABLE                         R1 K4 [{[1] = , ["responseCode"] = 200}]
+        1 RETURN                           R1 1
 
 PROTO_4:
-        0 DUPTABLE                         R0 K2 [{"responseBody", "responseCode"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["responseBody"]
-        4 LOADN                            R1 200
-        5 SETTABLEKS                       R1 R0 K1 ["responseCode"]
-        7 RETURN                           R0 1
+        0 DUPTABLE                         R0 K4 [{[1] = , ["responseCode"] = 200}]
+        1 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -11,7 +11,7 @@ PROTO_0:
        12 CALL                             R2 4 1
        13 GETIMPORT                        R3 K9 [math.random]
        15 LOADN                            R4 1
-       16 LOADN                            R5 16
+       16 LOADN                            R5 10000
        17 CALL                             R3 2 1
        18 JUMPIFNOTEQKN                    R0 K10 [67] ; [+5]
        20 MOVE                             R4 R2

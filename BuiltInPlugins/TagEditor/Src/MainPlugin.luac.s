@@ -54,63 +54,59 @@ PROTO_5:
         7 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K3 ["Store"]
-        9 GETTABLEKS                       R2 R2 K4 ["new"]
-       11 GETUPVAL                         R3 1
-       12 GETUPVAL                         R4 2
-       13 NEWTABLE                         R5 0 1
-       15 GETUPVAL                         R6 0
-       16 GETTABLEKS                       R6 R6 K5 ["thunkMiddleware"]
-       18 SETLIST                          R5 R6 1 [1]
-       20 LOADNIL                          R6
-       21 CALL                             R2 4 1
-       22 SETTABLEKS                       R2 R0 K6 ["store"]
-       24 NEWCLOSURE                       R2 P0
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R2 R0 K7 ["toggleEnabled"]
-       28 NEWCLOSURE                       R2 P1
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R2 R0 K8 ["onClose"]
-       32 NEWCLOSURE                       R2 P2
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R2 R0 K9 ["onRestore"]
-       36 NEWCLOSURE                       R2 P3
-       37 CAPTURE                          UPVAL U3
-       38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R2 R0 K10 ["onDockWidgetCreated"]
-       41 NEWCLOSURE                       R2 P4
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R2 R0 K11 ["onWidgetEnabledChanged"]
-       45 GETUPVAL                         R2 4
-       46 GETTABLEKS                       R2 R2 K12 ["Localization"]
-       48 GETTABLEKS                       R2 R2 K4 ["new"]
-       50 DUPTABLE                         R3 K16 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       51 GETUPVAL                         R4 5
-       52 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
-       54 GETUPVAL                         R4 6
-       55 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
-       57 LOADK                            R4 K17 ["TagEditor"]
-       58 SETTABLEKS                       R4 R3 K15 ["pluginName"]
-       60 CALL                             R2 1 1
-       61 SETTABLEKS                       R2 R0 K18 ["localization"]
-       63 GETUPVAL                         R2 4
-       64 GETTABLEKS                       R2 R2 K19 ["Analytics"]
-       66 GETTABLEKS                       R2 R2 K4 ["new"]
-       68 GETUPVAL                         R3 7
-       69 CALL                             R2 1 1
-       70 SETTABLEKS                       R2 R0 K20 ["analytics"]
-       72 GETUPVAL                         R2 8
-       73 GETTABLEKS                       R2 R2 K4 ["new"]
-       75 GETTABLEKS                       R3 R0 K6 ["store"]
-       77 GETTABLEKS                       R4 R0 K20 ["analytics"]
-       79 CALL                             R2 2 1
-       80 SETTABLEKS                       R2 R0 K21 ["manager"]
-       82 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K4 ["Store"]
+        6 GETTABLEKS                       R2 R2 K5 ["new"]
+        8 GETUPVAL                         R3 1
+        9 GETUPVAL                         R4 2
+       10 NEWTABLE                         R5 0 1
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R6 R6 K6 ["thunkMiddleware"]
+       15 SETLIST                          R5 R6 1 [1]
+       17 LOADNIL                          R6
+       18 CALL                             R2 4 1
+       19 SETTABLEKS                       R2 R0 K7 ["store"]
+       21 NEWCLOSURE                       R2 P0
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R2 R0 K8 ["toggleEnabled"]
+       25 NEWCLOSURE                       R2 P1
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R2 R0 K9 ["onClose"]
+       29 NEWCLOSURE                       R2 P2
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R2 R0 K10 ["onRestore"]
+       33 NEWCLOSURE                       R2 P3
+       34 CAPTURE                          UPVAL U3
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R2 R0 K11 ["onDockWidgetCreated"]
+       38 NEWCLOSURE                       R2 P4
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R2 R0 K12 ["onWidgetEnabledChanged"]
+       42 GETUPVAL                         R2 4
+       43 GETTABLEKS                       R2 R2 K13 ["Localization"]
+       45 GETTABLEKS                       R2 R2 K5 ["new"]
+       47 DUPTABLE                         R3 K18 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "TagEditor"}]
+       48 GETUPVAL                         R4 5
+       49 SETTABLEKS                       R4 R3 K14 ["stringResourceTable"]
+       51 GETUPVAL                         R4 6
+       52 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
+       54 CALL                             R2 1 1
+       55 SETTABLEKS                       R2 R0 K19 ["localization"]
+       57 GETUPVAL                         R2 4
+       58 GETTABLEKS                       R2 R2 K20 ["Analytics"]
+       60 GETTABLEKS                       R2 R2 K5 ["new"]
+       62 GETUPVAL                         R3 7
+       63 CALL                             R2 1 1
+       64 SETTABLEKS                       R2 R0 K21 ["analytics"]
+       66 GETUPVAL                         R2 8
+       67 GETTABLEKS                       R2 R2 K5 ["new"]
+       69 GETTABLEKS                       R3 R0 K7 ["store"]
+       71 GETTABLEKS                       R4 R0 K21 ["analytics"]
+       73 CALL                             R2 2 1
+       74 SETTABLEKS                       R2 R0 K22 ["manager"]
+       76 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["analytics"]
@@ -172,22 +168,14 @@ PROTO_10:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K12 [{"Toolbar", "Active", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K15 [{["Toolbar"], ["Active"], ["Title"] = "TagEditor", ["Tooltip"] = "", ["Icon"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K13 ["TagEditor"]
-       15 SETTABLEKS                       R7 R6 K7 ["Title"]
-       17 LOADK                            R7 K14 [""]
-       18 SETTABLEKS                       R7 R6 K8 ["Tooltip"]
-       20 LOADK                            R7 K14 [""]
-       21 SETTABLEKS                       R7 R6 K9 ["Icon"]
-       23 GETTABLEKS                       R7 R0 K15 ["toggleEnabled"]
-       25 SETTABLEKS                       R7 R6 K10 ["OnClick"]
-       27 LOADB                            R7 1
-       28 SETTABLEKS                       R7 R6 K11 ["ClickableWhenViewportHidden"]
-       30 CALL                             R4 2 1
-       31 SETTABLEKS                       R4 R3 K2 ["ToggleEditor"]
-       33 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K16 ["toggleEnabled"]
+       16 SETTABLEKS                       R7 R6 K12 ["OnClick"]
+       18 CALL                             R4 2 1
+       19 SETTABLEKS                       R4 R3 K2 ["ToggleEditor"]
+       21 RETURN                           R3 1
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -224,86 +212,84 @@ PROTO_12:
        37 SETLIST                          R6 R7 6 [1]
        39 DUPTABLE                         R7 K13 [{"Toolbar", "MainWidget", "WorldView"}]
        40 GETUPVAL                         R9 5
-       41 JUMPIF                           R9 ; [+14]
+       41 JUMPIF                           R9 ; [+11]
        42 GETUPVAL                         R8 6
        43 GETTABLEKS                       R8 R8 K14 ["createElement"]
        45 GETUPVAL                         R9 7
-       46 DUPTABLE                         R10 K17 [{"Title", "RenderButtons"}]
-       47 LOADK                            R11 K18 ["tagEditorToolbar"]
-       48 SETTABLEKS                       R11 R10 K15 ["Title"]
-       50 NEWCLOSURE                       R11 P0
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R11 R10 K16 ["RenderButtons"]
-       54 CALL                             R8 2 1
-       55 JUMP                             ; [+1]
-       56 LOADNIL                          R8
-       57 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
-       59 GETUPVAL                         R8 6
-       60 GETTABLEKS                       R8 R8 K14 ["createElement"]
-       62 GETUPVAL                         R9 8
-       63 NEWTABLE                         R10 16 0
-       65 LOADK                            R11 K19 ["TagEditor"]
-       66 SETTABLEKS                       R11 R10 K20 ["Id"]
-       68 SETTABLEKS                       R4 R10 K21 ["Enabled"]
-       70 GETUPVAL                         R12 5
-       71 JUMPIFNOT                        R12 ; [+5]
-       72 GETTABLEKS                       R11 R1 K22 ["pluginLoaderContext"]
-       74 GETTABLEKS                       R11 R11 K23 ["mainDockWidget"]
-       76 JUMP                             ; [+1]
-       77 LOADNIL                          R11
-       78 SETTABLEKS                       R11 R10 K24 ["Widget"]
-       80 GETTABLEKS                       R11 R0 K8 ["localization"]
-       82 LOADK                            R13 K2 ["Plugin"]
-       83 LOADK                            R14 K25 ["Name"]
-       84 NAMECALL                         R11 R11 K26 ["getText"]
-       86 CALL                             R11 3 1
-       87 SETTABLEKS                       R11 R10 K15 ["Title"]
-       89 GETIMPORT                        R11 K30 [Enum.ZIndexBehavior.Sibling]
-       91 SETTABLEKS                       R11 R10 K28 ["ZIndexBehavior"]
-       93 GETIMPORT                        R11 K33 [Enum.InitialDockState.Right]
-       95 SETTABLEKS                       R11 R10 K31 ["InitialDockState"]
-       97 GETIMPORT                        R11 K35 [Vector2.new]
-       99 LOADN                            R12 44
-      100 LOADN                            R13 200
-      101 CALL                             R11 2 1
-      102 SETTABLEKS                       R11 R10 K36 ["Size"]
-      104 GETIMPORT                        R11 K35 [Vector2.new]
-      106 LOADN                            R12 200
-      107 LOADN                            R13 250
-      108 CALL                             R11 2 1
-      109 SETTABLEKS                       R11 R10 K37 ["MinSize"]
-      111 GETTABLEKS                       R11 R0 K38 ["onClose"]
-      113 SETTABLEKS                       R11 R10 K39 ["OnClose"]
-      115 LOADB                            R11 1
-      116 SETTABLEKS                       R11 R10 K40 ["ShouldRestore"]
-      118 GETTABLEKS                       R11 R0 K41 ["onRestore"]
-      120 SETTABLEKS                       R11 R10 K42 ["OnWidgetRestored"]
-      122 GETUPVAL                         R12 5
-      123 JUMPIFNOT                        R12 ; [+3]
-      124 GETTABLEKS                       R11 R0 K43 ["onDockWidgetCreated"]
-      126 JUMP                             ; [+1]
-      127 LOADNIL                          R11
-      128 SETTABLEKS                       R11 R10 K44 ["OnWidgetCreated"]
-      130 GETUPVAL                         R11 6
-      131 GETTABLEKS                       R11 R11 K45 ["Change"]
-      133 GETTABLEKS                       R11 R11 K21 ["Enabled"]
-      135 GETTABLEKS                       R12 R0 K46 ["onWidgetEnabledChanged"]
-      137 SETTABLE                         R12 R10 R11
-      138 DUPTABLE                         R11 K48 [{"MainGui"}]
-      139 GETUPVAL                         R12 6
-      140 GETTABLEKS                       R12 R12 K14 ["createElement"]
-      142 GETUPVAL                         R13 9
-      143 CALL                             R12 1 1
-      144 SETTABLEKS                       R12 R11 K47 ["MainGui"]
-      146 CALL                             R8 3 1
-      147 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
-      149 GETUPVAL                         R8 6
-      150 GETTABLEKS                       R8 R8 K14 ["createElement"]
-      152 GETUPVAL                         R9 10
-      153 CALL                             R8 1 1
-      154 SETTABLEKS                       R8 R7 K12 ["WorldView"]
-      156 CALL                             R5 2 -1
-      157 RETURN                           R5 -1
+       46 DUPTABLE                         R10 K18 [{["Title"] = "tagEditorToolbar", ["RenderButtons"]}]
+       47 NEWCLOSURE                       R11 P0
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R11 R10 K17 ["RenderButtons"]
+       51 CALL                             R8 2 1
+       52 JUMP                             ; [+1]
+       53 LOADNIL                          R8
+       54 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
+       56 GETUPVAL                         R8 6
+       57 GETTABLEKS                       R8 R8 K14 ["createElement"]
+       59 GETUPVAL                         R9 8
+       60 NEWTABLE                         R10 16 0
+       62 LOADK                            R11 K19 ["TagEditor"]
+       63 SETTABLEKS                       R11 R10 K20 ["Id"]
+       65 SETTABLEKS                       R4 R10 K21 ["Enabled"]
+       67 GETUPVAL                         R12 5
+       68 JUMPIFNOT                        R12 ; [+5]
+       69 GETTABLEKS                       R11 R1 K22 ["pluginLoaderContext"]
+       71 GETTABLEKS                       R11 R11 K23 ["mainDockWidget"]
+       73 JUMP                             ; [+1]
+       74 LOADNIL                          R11
+       75 SETTABLEKS                       R11 R10 K24 ["Widget"]
+       77 GETTABLEKS                       R11 R0 K8 ["localization"]
+       79 LOADK                            R13 K2 ["Plugin"]
+       80 LOADK                            R14 K25 ["Name"]
+       81 NAMECALL                         R11 R11 K26 ["getText"]
+       83 CALL                             R11 3 1
+       84 SETTABLEKS                       R11 R10 K15 ["Title"]
+       86 GETIMPORT                        R11 K30 [Enum.ZIndexBehavior.Sibling]
+       88 SETTABLEKS                       R11 R10 K28 ["ZIndexBehavior"]
+       90 GETIMPORT                        R11 K33 [Enum.InitialDockState.Right]
+       92 SETTABLEKS                       R11 R10 K31 ["InitialDockState"]
+       94 GETIMPORT                        R11 K35 [Vector2.new]
+       96 LOADN                            R12 300
+       97 LOADN                            R13 200
+       98 CALL                             R11 2 1
+       99 SETTABLEKS                       R11 R10 K36 ["Size"]
+      101 GETIMPORT                        R11 K35 [Vector2.new]
+      103 LOADN                            R12 200
+      104 LOADN                            R13 250
+      105 CALL                             R11 2 1
+      106 SETTABLEKS                       R11 R10 K37 ["MinSize"]
+      108 GETTABLEKS                       R11 R0 K38 ["onClose"]
+      110 SETTABLEKS                       R11 R10 K39 ["OnClose"]
+      112 LOADB                            R11 1
+      113 SETTABLEKS                       R11 R10 K40 ["ShouldRestore"]
+      115 GETTABLEKS                       R11 R0 K41 ["onRestore"]
+      117 SETTABLEKS                       R11 R10 K42 ["OnWidgetRestored"]
+      119 GETUPVAL                         R12 5
+      120 JUMPIFNOT                        R12 ; [+3]
+      121 GETTABLEKS                       R11 R0 K43 ["onDockWidgetCreated"]
+      123 JUMP                             ; [+1]
+      124 LOADNIL                          R11
+      125 SETTABLEKS                       R11 R10 K44 ["OnWidgetCreated"]
+      127 GETUPVAL                         R11 6
+      128 GETTABLEKS                       R11 R11 K45 ["Change"]
+      130 GETTABLEKS                       R11 R11 K21 ["Enabled"]
+      132 GETTABLEKS                       R12 R0 K46 ["onWidgetEnabledChanged"]
+      134 SETTABLE                         R12 R10 R11
+      135 DUPTABLE                         R11 K48 [{"MainGui"}]
+      136 GETUPVAL                         R12 6
+      137 GETTABLEKS                       R12 R12 K14 ["createElement"]
+      139 GETUPVAL                         R13 9
+      140 CALL                             R12 1 1
+      141 SETTABLEKS                       R12 R11 K47 ["MainGui"]
+      143 CALL                             R8 3 1
+      144 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
+      146 GETUPVAL                         R8 6
+      147 GETTABLEKS                       R8 R8 K14 ["createElement"]
+      149 GETUPVAL                         R9 10
+      150 CALL                             R8 1 1
+      151 SETTABLEKS                       R8 R7 K12 ["WorldView"]
+      153 CALL                             R5 2 -1
+      154 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

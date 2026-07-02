@@ -1,6 +1,6 @@
 PROTO_0:
         0 GETIMPORT                        R0 K2 [Vector2.new]
-        2 LOADN                            R1 251
+        2 LOADN                            R1 -5
         3 LOADN                            R2 0
         4 CALL                             R0 2 1
         5 GETUPVAL                         R1 0

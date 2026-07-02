@@ -14,7 +14,7 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 4 0
         3 SETTABLEKS                       R0 R0 K0 ["__index"]
-        5 LOADN                            R1 57
+        5 LOADN                            R1 12345
         6 SETTABLEKS                       R1 R0 K1 ["mockAssetId"]
         8 DUPCLOSURE                       R1 K2 [PROTO_0]
         9 CAPTURE                          VAL R0

@@ -35,35 +35,29 @@ PROTO_3:
         8 GETUPVAL                         R5 0
         9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 GETUPVAL                         R6 1
-       12 DUPTABLE                         R7 K15 [{"Size", "LayoutOrder", "BackgroundTransparency", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+       12 DUPTABLE                         R7 K17 [{["Size"], ["LayoutOrder"], ["BackgroundTransparency"] = 1, ["TextWrapped"] = True, ["ShouldFocus"] = True, ["TextXAlignment"], ["ForwardRef"], ["PlaceholderText"], ["OnTextChanged"], ["OnFocusLost"]}]
        13 GETTABLEKS                       R8 R1 K5 ["Size"]
        15 SETTABLEKS                       R8 R7 K5 ["Size"]
        17 GETTABLEKS                       R8 R1 K6 ["LayoutOrder"]
        19 SETTABLEKS                       R8 R7 K6 ["LayoutOrder"]
-       21 LOADN                            R8 1
-       22 SETTABLEKS                       R8 R7 K7 ["BackgroundTransparency"]
-       24 LOADB                            R8 1
-       25 SETTABLEKS                       R8 R7 K8 ["TextWrapped"]
-       27 LOADB                            R8 1
-       28 SETTABLEKS                       R8 R7 K9 ["ShouldFocus"]
-       30 GETIMPORT                        R8 K18 [Enum.TextXAlignment.Right]
-       32 SETTABLEKS                       R8 R7 K10 ["TextXAlignment"]
-       34 GETTABLEKS                       R8 R0 K19 ["textBoxRef"]
-       36 SETTABLEKS                       R8 R7 K11 ["ForwardRef"]
-       38 LOADK                            R10 K20 ["Info"]
-       39 LOADK                            R11 K21 ["NewGroupName"]
-       40 NAMECALL                         R8 R3 K22 ["getText"]
-       42 CALL                             R8 3 1
-       43 SETTABLEKS                       R8 R7 K12 ["PlaceholderText"]
-       45 NEWCLOSURE                       R8 P0
-       46 CAPTURE                          VAL R0
-       47 SETTABLEKS                       R8 R7 K13 ["OnTextChanged"]
-       49 NEWCLOSURE                       R8 P1
-       50 CAPTURE                          VAL R1
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R8 R7 K14 ["OnFocusLost"]
-       54 CALL                             R5 2 -1
-       55 RETURN                           R5 -1
+       21 GETIMPORT                        R8 K20 [Enum.TextXAlignment.Right]
+       23 SETTABLEKS                       R8 R7 K12 ["TextXAlignment"]
+       25 GETTABLEKS                       R8 R0 K21 ["textBoxRef"]
+       27 SETTABLEKS                       R8 R7 K13 ["ForwardRef"]
+       29 LOADK                            R10 K22 ["Info"]
+       30 LOADK                            R11 K23 ["NewGroupName"]
+       31 NAMECALL                         R8 R3 K24 ["getText"]
+       33 CALL                             R8 3 1
+       34 SETTABLEKS                       R8 R7 K14 ["PlaceholderText"]
+       36 NEWCLOSURE                       R8 P0
+       37 CAPTURE                          VAL R0
+       38 SETTABLEKS                       R8 R7 K15 ["OnTextChanged"]
+       40 NEWCLOSURE                       R8 P1
+       41 CAPTURE                          VAL R1
+       42 CAPTURE                          VAL R0
+       43 SETTABLEKS                       R8 R7 K16 ["OnFocusLost"]
+       45 CALL                             R5 2 -1
+       46 RETURN                           R5 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["textBoxRef"]

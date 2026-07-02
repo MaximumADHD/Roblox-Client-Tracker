@@ -60,7 +60,7 @@ PROTO_0:
        64 ADD                              R13 R14 R15
        65 MUL                              R12 R13 R8
        66 ADD                              R10 R11 R12
-       67 SUBRK                            R13 R15 K1 ["Y"]
+       67 SUBRK                            R13 K15 [1] R1
        68 MULK                             R12 R13 K14 [0.9]
        69 MULK                             R13 R8 K12 [0.1]
        70 ADD                              R11 R12 R13

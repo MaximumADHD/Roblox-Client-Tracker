@@ -616,7 +616,7 @@ PROTO_23:
        24 GETUPVAL                         R5 2
        25 GETTABLEKS                       R5 R5 K10 ["createElement"]
        27 GETUPVAL                         R6 3
-       28 DUPTABLE                         R7 K27 [{"Plugin", "PluginManagerComponent", "Url", "initAutoRetryMaxAttempts", "manualRetryAttempt", "hasValidSize", "hasWebViewEverLoaded", "HandleFailedInitCheck", "HandlePassedInitAndLoadingCheck", "webViewLoadingStatus", "webViewError", "eventHandlers", "WebViewManagerContext", "analyticsContext", "offsetHeight", "onWebViewInitEvent", "getPluginMetadata"}]
+       28 DUPTABLE                         R7 K29 [{["Plugin"], ["PluginManagerComponent"], ["Url"], ["initAutoRetryMaxAttempts"], ["manualRetryAttempt"], ["hasValidSize"], ["hasWebViewEverLoaded"], ["HandleFailedInitCheck"], ["HandlePassedInitAndLoadingCheck"], ["webViewLoadingStatus"], ["webViewError"], ["eventHandlers"], ["WebViewManagerContext"], ["analyticsContext"] = "marketplace", ["offsetHeight"] = 36, ["onWebViewInitEvent"], ["getPluginMetadata"]}]
        29 GETTABLEKS                       R8 R1 K7 ["Plugin"]
        31 SETTABLEKS                       R8 R7 K7 ["Plugin"]
        33 SETTABLEKS                       R4 R7 K11 ["PluginManagerComponent"]
@@ -641,26 +641,22 @@ PROTO_23:
        69 GETTABLEKS                       R8 R0 K21 ["eventHandlers"]
        71 SETTABLEKS                       R8 R7 K21 ["eventHandlers"]
        73 GETTABLEKS                       R8 R1 K22 ["WebViewManagerContext"]
-       75 NAMECALL                         R8 R8 K28 ["get"]
+       75 NAMECALL                         R8 R8 K30 ["get"]
        77 CALL                             R8 1 1
        78 SETTABLEKS                       R8 R7 K22 ["WebViewManagerContext"]
-       80 LOADK                            R8 K29 ["marketplace"]
-       81 SETTABLEKS                       R8 R7 K23 ["analyticsContext"]
-       83 LOADN                            R8 36
-       84 SETTABLEKS                       R8 R7 K24 ["offsetHeight"]
-       86 NEWCLOSURE                       R8 P0
-       87 CAPTURE                          VAL R0
-       88 SETTABLEKS                       R8 R7 K25 ["onWebViewInitEvent"]
-       90 GETUPVAL                         R9 5
-       91 CALL                             R9 0 1
-       92 JUMPIFNOT                        R9 ; [+4]
-       93 GETUPVAL                         R8 6
-       94 GETTABLEKS                       R8 R8 K30 ["getStudioMetadata"]
-       96 JUMP                             ; [+1]
-       97 LOADNIL                          R8
-       98 SETTABLEKS                       R8 R7 K26 ["getPluginMetadata"]
-      100 CALL                             R5 2 -1
-      101 RETURN                           R5 -1
+       80 NEWCLOSURE                       R8 P0
+       81 CAPTURE                          VAL R0
+       82 SETTABLEKS                       R8 R7 K27 ["onWebViewInitEvent"]
+       84 GETUPVAL                         R9 5
+       85 CALL                             R9 0 1
+       86 JUMPIFNOT                        R9 ; [+4]
+       87 GETUPVAL                         R8 6
+       88 GETTABLEKS                       R8 R8 K31 ["getStudioMetadata"]
+       90 JUMP                             ; [+1]
+       91 LOADNIL                          R8
+       92 SETTABLEKS                       R8 R7 K28 ["getPluginMetadata"]
+       94 CALL                             R5 2 -1
+       95 RETURN                           R5 -1
 
 PROTO_24:
         0 MOVE                             R2 R0

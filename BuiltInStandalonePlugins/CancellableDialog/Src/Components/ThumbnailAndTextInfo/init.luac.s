@@ -19,8 +19,8 @@ PROTO_1:
         7 LOADN                            R5 16
         8 GETIMPORT                        R6 K5 [Enum.Font.SourceSansSemibold]
        10 GETIMPORT                        R7 K7 [Vector2.new]
-       12 LOADN                            R8 16
-       13 LOADN                            R9 16
+       12 LOADN                            R8 10000
+       13 LOADN                            R9 10000
        14 CALL                             R7 2 -1
        15 NAMECALL                         R2 R2 K8 ["GetTextSize"]
        17 CALL                             R2 -1 1

@@ -174,72 +174,68 @@ PROTO_7:
        89 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R1 K2 [{"narrowLayout", "shouldStack"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["narrowLayout"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["shouldStack"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K4 ["createRef"]
-       12 CALL                             R1 0 1
-       13 SETTABLEKS                       R1 R0 K5 ["controlsRef"]
-       15 GETIMPORT                        R1 K8 [Instance.new]
-       17 LOADK                            R2 K9 ["ScreenGui"]
-       18 CALL                             R1 1 1
-       19 SETTABLEKS                       R1 R0 K9 ["ScreenGui"]
-       21 GETTABLEKS                       R1 R0 K9 ["ScreenGui"]
-       23 GETIMPORT                        R2 K11 [game]
-       25 LOADK                            R4 K12 ["CoreGui"]
-       26 NAMECALL                         R2 R2 K13 ["GetService"]
-       28 CALL                             R2 2 1
-       29 SETTABLEKS                       R2 R1 K14 ["Parent"]
-       31 GETTABLEKS                       R1 R0 K9 ["ScreenGui"]
-       33 LOADK                            R2 K15 ["WorkspaceEditorControls"]
-       34 SETTABLEKS                       R2 R1 K16 ["Name"]
-       36 GETTABLEKS                       R1 R0 K9 ["ScreenGui"]
-       38 GETIMPORT                        R2 K20 [Enum.ZIndexBehavior.Sibling]
-       40 SETTABLEKS                       R2 R1 K18 ["ZIndexBehavior"]
-       42 LOADN                            R1 0
-       43 SETTABLEKS                       R1 R0 K21 ["maxCageControlsWidth"]
-       45 LOADN                            R1 0
-       46 SETTABLEKS                       R1 R0 K22 ["maxVisibilityControlsWidth"]
-       48 GETUPVAL                         R1 1
-       49 GETTABLEKS                       R1 R1 K7 ["new"]
-       51 GETTABLEKS                       R2 R0 K9 ["ScreenGui"]
-       53 CALL                             R1 1 1
-       54 SETTABLEKS                       R1 R0 K23 ["focus"]
-       56 NEWCLOSURE                       R1 P0
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          UPVAL U2
-       59 SETTABLEKS                       R1 R0 K24 ["shouldShowCageControls"]
-       61 NEWCLOSURE                       R1 P1
-       62 CAPTURE                          VAL R0
-       63 CAPTURE                          UPVAL U2
-       64 SETTABLEKS                       R1 R0 K25 ["isCageEditing"]
-       66 NEWCLOSURE                       R1 P2
-       67 CAPTURE                          VAL R0
-       68 SETTABLEKS                       R1 R0 K26 ["onMenuOptionClicked"]
-       70 NEWCLOSURE                       R1 P3
-       71 CAPTURE                          VAL R0
-       72 CAPTURE                          UPVAL U3
-       73 SETTABLEKS                       R1 R0 K27 ["bringMannequinToView"]
-       75 NEWCLOSURE                       R1 P4
-       76 CAPTURE                          VAL R0
-       77 SETTABLEKS                       R1 R0 K28 ["resetPoints"]
-       79 NEWTABLE                         R1 0 2
-       81 GETTABLEKS                       R2 R0 K27 ["bringMannequinToView"]
-       83 GETTABLEKS                       R3 R0 K28 ["resetPoints"]
-       85 SETLIST                          R1 R2 2 [1]
-       87 SETTABLEKS                       R1 R0 K29 ["menuOptionFunctions"]
-       89 NEWCLOSURE                       R1 P5
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          UPVAL U2
-       92 SETTABLEKS                       R1 R0 K30 ["getMenuOptions"]
-       94 NEWCLOSURE                       R1 P6
-       95 CAPTURE                          VAL R0
-       96 SETTABLEKS                       R1 R0 K31 ["onScreenSizeChanged"]
-       98 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["shouldStack"] = False}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K5 ["createRef"]
+        6 CALL                             R1 0 1
+        7 SETTABLEKS                       R1 R0 K6 ["controlsRef"]
+        9 GETIMPORT                        R1 K9 [Instance.new]
+       11 LOADK                            R2 K10 ["ScreenGui"]
+       12 CALL                             R1 1 1
+       13 SETTABLEKS                       R1 R0 K10 ["ScreenGui"]
+       15 GETTABLEKS                       R1 R0 K10 ["ScreenGui"]
+       17 GETIMPORT                        R2 K12 [game]
+       19 LOADK                            R4 K13 ["CoreGui"]
+       20 NAMECALL                         R2 R2 K14 ["GetService"]
+       22 CALL                             R2 2 1
+       23 SETTABLEKS                       R2 R1 K15 ["Parent"]
+       25 GETTABLEKS                       R1 R0 K10 ["ScreenGui"]
+       27 LOADK                            R2 K16 ["WorkspaceEditorControls"]
+       28 SETTABLEKS                       R2 R1 K17 ["Name"]
+       30 GETTABLEKS                       R1 R0 K10 ["ScreenGui"]
+       32 GETIMPORT                        R2 K21 [Enum.ZIndexBehavior.Sibling]
+       34 SETTABLEKS                       R2 R1 K19 ["ZIndexBehavior"]
+       36 LOADN                            R1 0
+       37 SETTABLEKS                       R1 R0 K22 ["maxCageControlsWidth"]
+       39 LOADN                            R1 0
+       40 SETTABLEKS                       R1 R0 K23 ["maxVisibilityControlsWidth"]
+       42 GETUPVAL                         R1 1
+       43 GETTABLEKS                       R1 R1 K8 ["new"]
+       45 GETTABLEKS                       R2 R0 K10 ["ScreenGui"]
+       47 CALL                             R1 1 1
+       48 SETTABLEKS                       R1 R0 K24 ["focus"]
+       50 NEWCLOSURE                       R1 P0
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          UPVAL U2
+       53 SETTABLEKS                       R1 R0 K25 ["shouldShowCageControls"]
+       55 NEWCLOSURE                       R1 P1
+       56 CAPTURE                          VAL R0
+       57 CAPTURE                          UPVAL U2
+       58 SETTABLEKS                       R1 R0 K26 ["isCageEditing"]
+       60 NEWCLOSURE                       R1 P2
+       61 CAPTURE                          VAL R0
+       62 SETTABLEKS                       R1 R0 K27 ["onMenuOptionClicked"]
+       64 NEWCLOSURE                       R1 P3
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          UPVAL U3
+       67 SETTABLEKS                       R1 R0 K28 ["bringMannequinToView"]
+       69 NEWCLOSURE                       R1 P4
+       70 CAPTURE                          VAL R0
+       71 SETTABLEKS                       R1 R0 K29 ["resetPoints"]
+       73 NEWTABLE                         R1 0 2
+       75 GETTABLEKS                       R2 R0 K28 ["bringMannequinToView"]
+       77 GETTABLEKS                       R3 R0 K29 ["resetPoints"]
+       79 SETLIST                          R1 R2 2 [1]
+       81 SETTABLEKS                       R1 R0 K30 ["menuOptionFunctions"]
+       83 NEWCLOSURE                       R1 P5
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          UPVAL U2
+       86 SETTABLEKS                       R1 R0 K31 ["getMenuOptions"]
+       88 NEWCLOSURE                       R1 P6
+       89 CAPTURE                          VAL R0
+       90 SETTABLEKS                       R1 R0 K32 ["onScreenSizeChanged"]
+       92 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

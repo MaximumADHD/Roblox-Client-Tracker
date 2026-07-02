@@ -60,27 +60,25 @@ PROTO_0:
        86 MOVE                             R5 R0
        87 MOVE                             R6 R1
        88 CALL                             R4 2 2
-       89 DUPTABLE                         R6 K17 [{"animationData", "selectedKeyframes", "pivotTick", "newTick", "pivotValue", "newValue", "scale", "earliestTick", "latestTick", "dragMode"}]
+       89 DUPTABLE                         R6 K18 [{["animationData"], ["selectedKeyframes"], ["pivotTick"], ["newTick"], ["pivotValue"], ["newValue"], ["scale"] = 1, ["earliestTick"], ["latestTick"], ["dragMode"]}]
        90 SETTABLEKS                       R0 R6 K7 ["animationData"]
        92 SETTABLEKS                       R1 R6 K8 ["selectedKeyframes"]
        94 SETTABLEKS                       R2 R6 K9 ["pivotTick"]
        96 SETTABLEKS                       R2 R6 K10 ["newTick"]
        98 SETTABLEKS                       R3 R6 K11 ["pivotValue"]
       100 SETTABLEKS                       R3 R6 K12 ["newValue"]
-      102 LOADN                            R7 1
-      103 SETTABLEKS                       R7 R6 K13 ["scale"]
-      105 SETTABLEKS                       R4 R6 K14 ["earliestTick"]
-      107 SETTABLEKS                       R5 R6 K15 ["latestTick"]
-      109 GETUPVAL                         R7 3
-      110 GETTABLEKS                       R7 R7 K18 ["DRAG_MODE"]
-      112 GETTABLEKS                       R7 R7 K19 ["Keyframe"]
-      114 SETTABLEKS                       R7 R6 K16 ["dragMode"]
-      116 GETUPVAL                         R9 4
-      117 FASTCALL2                        SETMETATABLE R6 R9 ; [+4]
-      119 MOVE                             R8 R6
-      120 GETIMPORT                        R7 K21 [setmetatable]
-      122 CALL                             R7 2 0
-      123 RETURN                           R6 1
+      102 SETTABLEKS                       R4 R6 K15 ["earliestTick"]
+      104 SETTABLEKS                       R5 R6 K16 ["latestTick"]
+      106 GETUPVAL                         R7 3
+      107 GETTABLEKS                       R7 R7 K19 ["DRAG_MODE"]
+      109 GETTABLEKS                       R7 R7 K20 ["Keyframe"]
+      111 SETTABLEKS                       R7 R6 K17 ["dragMode"]
+      113 GETUPVAL                         R9 4
+      114 FASTCALL2                        SETMETATABLE R6 R9 ; [+4]
+      116 MOVE                             R8 R6
+      117 GETIMPORT                        R7 K22 [setmetatable]
+      119 CALL                             R7 2 0
+      120 RETURN                           R6 1
 
 PROTO_1:
         0 GETUPVAL                         R5 0

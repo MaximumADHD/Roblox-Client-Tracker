@@ -1,10 +1,4 @@
 PROTO_0:
-        0 LOADK                            R2 K0 ["ToolboxAnalytics_"]
-        1 MOVE                             R3 R0
-        2 CONCAT                           R1 R2 R3
-        3 RETURN                           R1 1
-
-PROTO_1:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["logAnalytics"]
         3 LOADK                            R5 K1 ["sendEventImmediately"]
@@ -25,7 +19,7 @@ PROTO_1:
        19 CALL                             R4 5 0
        20 RETURN                           R0 0
 
-PROTO_2:
+PROTO_1:
         0 GETUPVAL                         R4 0
         1 GETTABLEKS                       R4 R4 K0 ["logAnalytics"]
         3 LOADK                            R5 K1 ["sendEventDeferred"]
@@ -46,7 +40,7 @@ PROTO_2:
        19 CALL                             R4 5 0
        20 RETURN                           R0 0
 
-PROTO_3:
+PROTO_2:
         0 ORK                              R1 R1 K0 [1]
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R2 R2 K1 ["logCounterEvent"]
@@ -64,18 +58,14 @@ PROTO_3:
        16 CALL                             R2 3 0
        17 RETURN                           R0 0
 
-PROTO_4:
-        0 GETUPVAL                         R2 0
-        1 FASTCALL1                        ASSERT R2 ; [+2]
-        2 GETIMPORT                        R1 K1 [assert]
-        4 CALL                             R1 1 0
-        5 GETUPVAL                         R1 1
-        6 JUMPIFNOT                        R1 ; [+1]
-        7 RETURN                           R0 0
-        8 GETUPVAL                         R1 2
-        9 MOVE                             R2 R0
-       10 CALL                             R1 1 0
-       11 RETURN                           R0 0
+PROTO_3:
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R1 1
+        4 MOVE                             R2 R0
+        5 CALL                             R1 1 0
+        6 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -106,50 +96,40 @@ MAIN:
        45 NAMECALL                         R5 R5 K16 ["GetService"]
        47 CALL                             R5 2 1
        48 GETIMPORT                        R6 K14 [game]
-       50 LOADK                            R8 K17 ["NewPackageAnalyticsWithRefactor2"]
-       51 NAMECALL                         R6 R6 K18 ["GetFastFlag"]
+       50 LOADK                            R8 K17 ["CreatorStoreWVUrl"]
+       51 NAMECALL                         R6 R6 K18 ["GetFastString"]
        53 CALL                             R6 2 1
        54 GETIMPORT                        R7 K14 [game]
-       56 LOADK                            R9 K19 ["InfluxReportingPackageAnalyticsHundrethsPercent"]
-       57 NAMECALL                         R7 R7 K20 ["GetFastInt"]
-       59 CALL                             R7 2 1
-       60 GETIMPORT                        R8 K14 [game]
-       62 LOADK                            R10 K21 ["CreatorStoreWVUrl"]
-       63 NAMECALL                         R8 R8 K22 ["GetFastString"]
-       65 CALL                             R8 2 1
-       66 GETIMPORT                        R9 K14 [game]
-       68 LOADK                            R11 K23 ["DisableToolboxAnalyticsForLocalDev"]
-       69 LOADB                            R12 0
-       70 NAMECALL                         R9 R9 K24 ["DefineFastFlag"]
-       72 CALL                             R9 3 1
-       73 DUPCLOSURE                       R10 K25 [PROTO_0]
-       74 MOVE                             R11 R2
-       75 CALL                             R11 0 1
-       76 JUMPIF                           R11 ; [+6]
-       77 MOVE                             R11 R9
-       78 JUMPIFNOT                        R11 ; [+4]
-       79 JUMPIFNOTEQKS                    R8 K26 [""] ; [+2]
-       81 LOADB                            R11 0 +1
-       82 LOADB                            R11 1
-       83 NEWTABLE                         R12 4 0
-       85 DUPCLOSURE                       R13 K27 [PROTO_1]
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R11
-       88 CAPTURE                          VAL R5
-       89 SETTABLEKS                       R13 R12 K28 ["sendEventImmediately"]
-       91 DUPCLOSURE                       R13 K29 [PROTO_2]
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R11
-       94 CAPTURE                          VAL R5
-       95 SETTABLEKS                       R13 R12 K30 ["sendEventDeferred"]
-       97 DUPCLOSURE                       R13 K31 [PROTO_3]
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R11
-      100 CAPTURE                          VAL R5
-      101 SETTABLEKS                       R13 R12 K32 ["reportCounter"]
-      103 DUPCLOSURE                       R13 K33 [PROTO_4]
-      104 CAPTURE                          VAL R6
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R4
-      107 SETTABLEKS                       R13 R12 K12 ["sendResultToKibana"]
-      109 RETURN                           R12 1
+       56 LOADK                            R9 K19 ["DisableToolboxAnalyticsForLocalDev"]
+       57 LOADB                            R10 0
+       58 NAMECALL                         R7 R7 K20 ["DefineFastFlag"]
+       60 CALL                             R7 3 1
+       61 MOVE                             R8 R2
+       62 CALL                             R8 0 1
+       63 JUMPIF                           R8 ; [+6]
+       64 MOVE                             R8 R7
+       65 JUMPIFNOT                        R8 ; [+4]
+       66 JUMPIFNOTEQKS                    R6 K21 [""] ; [+2]
+       68 LOADB                            R8 0 +1
+       69 LOADB                            R8 1
+       70 NEWTABLE                         R9 4 0
+       72 DUPCLOSURE                       R10 K22 [PROTO_0]
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R8
+       75 CAPTURE                          VAL R5
+       76 SETTABLEKS                       R10 R9 K23 ["sendEventImmediately"]
+       78 DUPCLOSURE                       R10 K24 [PROTO_1]
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R8
+       81 CAPTURE                          VAL R5
+       82 SETTABLEKS                       R10 R9 K25 ["sendEventDeferred"]
+       84 DUPCLOSURE                       R10 K26 [PROTO_2]
+       85 CAPTURE                          VAL R1
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R5
+       88 SETTABLEKS                       R10 R9 K27 ["reportCounter"]
+       90 DUPCLOSURE                       R10 K28 [PROTO_3]
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R4
+       93 SETTABLEKS                       R10 R9 K12 ["sendResultToKibana"]
+       95 RETURN                           R9 1

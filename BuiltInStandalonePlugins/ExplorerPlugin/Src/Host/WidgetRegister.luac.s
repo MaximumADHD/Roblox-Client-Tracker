@@ -6,44 +6,38 @@ PROTO_0:
         5 NAMECALL                         R2 R0 K2 ["FindFirstAncestorWhichIsA"]
         7 CALL                             R2 2 1
         8 MOVE                             R1 R2
-        9 JUMPIFNOTEQKNIL                  R1 ; [+40]
+        9 JUMPIFNOTEQKNIL                  R1 ; [+31]
        11 GETUPVAL                         R2 1
-       12 DUPTABLE                         R4 K8 [{"eventName", "description", "backends", "throttlingPercentage", "lastUpdated"}]
-       13 LOADK                            R5 K9 ["LuaExplorerLoadWithoutPluginGui"]
-       14 SETTABLEKS                       R5 R4 K3 ["eventName"]
-       16 LOADK                            R5 K10 ["Fired when WidgetRegister loads without a plugin GUI"]
-       17 SETTABLEKS                       R5 R4 K4 ["description"]
-       19 NEWTABLE                         R5 0 1
-       21 LOADK                            R6 K11 ["Points"]
-       22 SETLIST                          R5 R6 1 [1]
-       24 SETTABLEKS                       R5 R4 K5 ["backends"]
-       26 LOADN                            R5 16
-       27 SETTABLEKS                       R5 R4 K6 ["throttlingPercentage"]
-       29 NEWTABLE                         R5 0 3
-       31 LOADN                            R6 25
-       32 LOADN                            R7 6
-       33 LOADN                            R8 17
-       34 SETLIST                          R5 R6 3 [1]
-       36 SETTABLEKS                       R5 R4 K7 ["lastUpdated"]
-       38 NEWTABLE                         R5 0 0
-       40 LOADN                            R6 1
-       41 NAMECALL                         R2 R2 K12 ["LogCounter"]
-       43 CALL                             R2 4 0
-       44 GETTABLEKS                       R2 R0 K13 ["AncestryChanged"]
-       46 NAMECALL                         R2 R2 K14 ["Wait"]
-       48 CALL                             R2 1 0
-       49 JUMPBACK                         ; [-46]
-       50 GETUPVAL                         R2 2
-       51 NEWTABLE                         R4 0 1
-       53 DUPTABLE                         R5 K18 [{"Uri", "Widget", "DEPRECATED_PluginGui"}]
-       54 GETUPVAL                         R6 3
-       55 SETTABLEKS                       R6 R5 K15 ["Uri"]
-       57 SETTABLEKS                       R0 R5 K16 ["Widget"]
-       59 SETTABLEKS                       R1 R5 K17 ["DEPRECATED_PluginGui"]
-       61 SETLIST                          R4 R5 1 [1]
-       63 NAMECALL                         R2 R2 K19 ["RegisterAsync"]
-       65 CALL                             R2 2 0
-       66 RETURN                           R0 0
+       12 DUPTABLE                         R4 K11 [{["eventName"] = "LuaExplorerLoadWithoutPluginGui", ["description"] = "Fired when WidgetRegister loads without a plugin GUI", ["backends"], ["throttlingPercentage"] = 10000, ["lastUpdated"]}]
+       13 NEWTABLE                         R5 0 1
+       15 LOADK                            R6 K12 ["Points"]
+       16 SETLIST                          R5 R6 1 [1]
+       18 SETTABLEKS                       R5 R4 K7 ["backends"]
+       20 NEWTABLE                         R5 0 3
+       22 LOADN                            R6 25
+       23 LOADN                            R7 6
+       24 LOADN                            R8 17
+       25 SETLIST                          R5 R6 3 [1]
+       27 SETTABLEKS                       R5 R4 K10 ["lastUpdated"]
+       29 NEWTABLE                         R5 0 0
+       31 LOADN                            R6 1
+       32 NAMECALL                         R2 R2 K13 ["LogCounter"]
+       34 CALL                             R2 4 0
+       35 GETTABLEKS                       R2 R0 K14 ["AncestryChanged"]
+       37 NAMECALL                         R2 R2 K15 ["Wait"]
+       39 CALL                             R2 1 0
+       40 JUMPBACK                         ; [-37]
+       41 GETUPVAL                         R2 2
+       42 NEWTABLE                         R4 0 1
+       44 DUPTABLE                         R5 K19 [{"Uri", "Widget", "DEPRECATED_PluginGui"}]
+       45 GETUPVAL                         R6 3
+       46 SETTABLEKS                       R6 R5 K16 ["Uri"]
+       48 SETTABLEKS                       R0 R5 K17 ["Widget"]
+       50 SETTABLEKS                       R1 R5 K18 ["DEPRECATED_PluginGui"]
+       52 SETLIST                          R4 R5 1 [1]
+       54 NAMECALL                         R2 R2 K20 ["RegisterAsync"]
+       56 CALL                             R2 2 0
+       57 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -115,17 +109,15 @@ PROTO_4:
        26 CALL                             R2 2 0
        27 GETUPVAL                         R2 4
        28 LOADK                            R3 K6 ["Frame"]
-       29 DUPTABLE                         R4 K10 [{"BackgroundTransparency", "Size", "ref"}]
-       30 LOADN                            R5 1
-       31 SETTABLEKS                       R5 R4 K7 ["BackgroundTransparency"]
-       33 GETIMPORT                        R5 K13 [UDim2.fromScale]
-       35 LOADN                            R6 1
-       36 LOADN                            R7 1
-       37 CALL                             R5 2 1
-       38 SETTABLEKS                       R5 R4 K8 ["Size"]
-       40 SETTABLEKS                       R1 R4 K9 ["ref"]
-       42 CALL                             R2 2 -1
-       43 RETURN                           R2 -1
+       29 DUPTABLE                         R4 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["ref"]}]
+       30 GETIMPORT                        R5 K14 [UDim2.fromScale]
+       32 LOADN                            R6 1
+       33 LOADN                            R7 1
+       34 CALL                             R5 2 1
+       35 SETTABLEKS                       R5 R4 K9 ["Size"]
+       37 SETTABLEKS                       R1 R4 K10 ["ref"]
+       39 CALL                             R2 2 -1
+       40 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

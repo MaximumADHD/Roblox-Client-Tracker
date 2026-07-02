@@ -11,54 +11,48 @@ PROTO_0:
        11 GETUPVAL                         R1 3
        12 GETUPVAL                         R3 4
        13 GETUPVAL                         R4 5
-       14 DUPTABLE                         R5 K6 [{"eventType", "path", "data"}]
+       14 DUPTABLE                         R5 K7 [{["eventType"], ["path"] = "Thunks/SetStyleRuleProperty", ["data"]}]
        15 GETUPVAL                         R6 6
-       16 GETTABLEKS                       R6 R6 K7 ["PropertyEdited"]
-       18 GETTABLEKS                       R6 R6 K8 ["rawValue"]
+       16 GETTABLEKS                       R6 R6 K8 ["PropertyEdited"]
+       18 GETTABLEKS                       R6 R6 K9 ["rawValue"]
        20 CALL                             R6 0 1
        21 SETTABLEKS                       R6 R5 K3 ["eventType"]
-       23 LOADK                            R6 K9 ["Thunks/SetStyleRuleProperty"]
-       24 SETTABLEKS                       R6 R5 K4 ["path"]
-       26 SETTABLEKS                       R0 R5 K5 ["data"]
-       28 CALL                             R4 1 -1
-       29 CALL                             R3 -1 -1
-       30 NAMECALL                         R1 R1 K10 ["dispatch"]
-       32 CALL                             R1 -1 0
-       33 GETUPVAL                         R2 7
-       34 JUMPIFNOT                        R2 ; [+2]
-       35 GETUPVAL                         R1 8
-       36 JUMP                             ; [+7]
-       37 LOADB                            R1 1
-       38 JUMPIFEQKS                       R0 K11 ["Color3"] ; [+5]
-       40 JUMPIFEQKS                       R0 K12 ["ColorSequence"] ; [+2]
-       42 LOADB                            R1 0 +1
-       43 LOADB                            R1 1
-       44 JUMPIFNOT                        R1 ; [+3]
-       45 GETIMPORT                        R2 K16 [Enum.FinishRecordingOperation.Append]
+       23 SETTABLEKS                       R0 R5 K6 ["data"]
+       25 CALL                             R4 1 -1
+       26 CALL                             R3 -1 -1
+       27 NAMECALL                         R1 R1 K10 ["dispatch"]
+       29 CALL                             R1 -1 0
+       30 GETUPVAL                         R2 7
+       31 JUMPIFNOT                        R2 ; [+2]
+       32 GETUPVAL                         R1 8
+       33 JUMP                             ; [+7]
+       34 LOADB                            R1 1
+       35 JUMPIFEQKS                       R0 K11 ["Color3"] ; [+5]
+       37 JUMPIFEQKS                       R0 K12 ["ColorSequence"] ; [+2]
+       39 LOADB                            R1 0 +1
+       40 LOADB                            R1 1
+       41 JUMPIFNOT                        R1 ; [+3]
+       42 GETIMPORT                        R2 K16 [Enum.FinishRecordingOperation.Append]
+       44 RETURN                           R2 1
+       45 GETIMPORT                        R2 K18 [Enum.FinishRecordingOperation.Commit]
        47 RETURN                           R2 1
-       48 GETIMPORT                        R2 K18 [Enum.FinishRecordingOperation.Commit]
-       50 RETURN                           R2 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["recordChange"]
-        2 DUPTABLE                         R3 K4 [{"Name", "DisplayName", "DoChange"}]
-        3 LOADK                            R4 K5 ["StyleEditor/SetStyleRuleProperty"]
-        4 SETTABLEKS                       R4 R3 K1 ["Name"]
-        6 LOADK                            R4 K6 ["StyleEditor - Set StyleRule Property"]
-        7 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          UPVAL U0
-       11 CAPTURE                          UPVAL U1
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U3
-       15 CAPTURE                          UPVAL U4
-       16 CAPTURE                          UPVAL U5
-       17 CAPTURE                          UPVAL U6
-       18 CAPTURE                          UPVAL U7
-       19 SETTABLEKS                       R4 R3 K3 ["DoChange"]
-       21 CALL                             R2 1 0
-       22 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["Name"] = "StyleEditor/SetStyleRuleProperty", ["DisplayName"] = "StyleEditor - Set StyleRule Property", ["DoChange"]}]
+        3 NEWCLOSURE                       R4 P0
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          UPVAL U5
+       11 CAPTURE                          UPVAL U6
+       12 CAPTURE                          UPVAL U7
+       13 SETTABLEKS                       R4 R3 K5 ["DoChange"]
+       15 CALL                             R2 1 0
+       16 RETURN                           R0 0
 
 PROTO_2:
         0 MOVE                             R5 R0

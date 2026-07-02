@@ -82,7 +82,7 @@ PROTO_4:
         2 LOADN                            R2 200
         3 JUMPIFNOTLE                      R2 R1 ; [+14]
         5 GETTABLEKS                       R1 R0 K0 ["responseCode"]
-        7 LOADN                            R2 44
+        7 LOADN                            R2 300
         8 JUMPIFNOTLT                      R1 R2 ; [+9]
        10 GETUPVAL                         R1 0
        11 GETTABLEKS                       R3 R0 K1 ["responseBody"]
@@ -110,53 +110,51 @@ PROTO_5:
 PROTO_6:
         0 JUMPIFNOTEQKNIL                  R1 ; [+2]
         2 RETURN                           R0 0
-        3 DUPTABLE                         R6 K4 [{"entryCount", "clientType", "universeId", "reverseOrder"}]
+        3 DUPTABLE                         R6 K5 [{[1], ["clientType"] = 0, ["universeId"], ["reverseOrder"]}]
         4 GETUPVAL                         R7 0
         5 SETTABLEKS                       R7 R6 K0 ["entryCount"]
-        7 LOADN                            R7 0
-        8 SETTABLEKS                       R7 R6 K1 ["clientType"]
-       10 SETTABLEKS                       R1 R6 K2 ["universeId"]
-       12 SETTABLEKS                       R4 R6 K3 ["reverseOrder"]
-       14 JUMPIFEQKNIL                     R1 ; [+4]
-       16 LOADN                            R7 0
-       17 JUMPIFNOTLE                      R1 R7 ; [+2]
-       19 RETURN                           R0 0
-       20 JUMPIFNOT                        R2 ; [+2]
-       21 SETTABLEKS                       R2 R6 K5 ["cursor"]
-       23 JUMPIFNOT                        R3 ; [+9]
-       24 GETIMPORT                        R7 K8 [DateTime.fromUnixTimestampMillis]
-       26 MOVE                             R8 R3
+        7 SETTABLEKS                       R1 R6 K3 ["universeId"]
+        9 SETTABLEKS                       R4 R6 K4 ["reverseOrder"]
+       11 JUMPIFEQKNIL                     R1 ; [+4]
+       13 LOADN                            R7 0
+       14 JUMPIFNOTLE                      R1 R7 ; [+2]
+       16 RETURN                           R0 0
+       17 JUMPIFNOT                        R2 ; [+2]
+       18 SETTABLEKS                       R2 R6 K6 ["cursor"]
+       20 JUMPIFNOT                        R3 ; [+9]
+       21 GETIMPORT                        R7 K9 [DateTime.fromUnixTimestampMillis]
+       23 MOVE                             R8 R3
+       24 CALL                             R7 1 1
+       25 NAMECALL                         R7 R7 K10 ["ToIsoDate"]
        27 CALL                             R7 1 1
-       28 NAMECALL                         R7 R7 K9 ["ToIsoDate"]
-       30 CALL                             R7 1 1
-       31 SETTABLEKS                       R7 R6 K10 ["startDate"]
-       33 GETUPVAL                         R7 1
-       34 GETTABLEKS                       R7 R7 K11 ["composeUrl"]
-       36 GETUPVAL                         R8 1
-       37 GETTABLEKS                       R8 R8 K12 ["APIS_URL"]
-       39 LOADK                            R9 K13 ["activity-feed-api/v1/history"]
-       40 MOVE                             R10 R6
-       41 CALL                             R7 3 1
-       42 DUPCLOSURE                       R8 K14 [PROTO_3]
-       43 NEWCLOSURE                       R9 P1
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U3
-       46 CAPTURE                          VAL R5
-       47 GETUPVAL                         R10 4
-       48 GETUPVAL                         R12 4
-       49 MOVE                             R14 R7
-       50 NAMECALL                         R12 R12 K15 ["get"]
-       52 CALL                             R12 2 -1
-       53 NAMECALL                         R10 R10 K16 ["handleRetry"]
-       55 CALL                             R10 -1 1
-       56 DUPCLOSURE                       R12 K17 [PROTO_5]
-       57 NAMECALL                         R10 R10 K18 ["catch"]
-       59 CALL                             R10 2 1
-       60 MOVE                             R12 R9
-       61 MOVE                             R13 R8
-       62 NAMECALL                         R10 R10 K19 ["andThen"]
-       64 CALL                             R10 3 0
-       65 RETURN                           R0 0
+       28 SETTABLEKS                       R7 R6 K11 ["startDate"]
+       30 GETUPVAL                         R7 1
+       31 GETTABLEKS                       R7 R7 K12 ["composeUrl"]
+       33 GETUPVAL                         R8 1
+       34 GETTABLEKS                       R8 R8 K13 ["APIS_URL"]
+       36 LOADK                            R9 K14 ["activity-feed-api/v1/history"]
+       37 MOVE                             R10 R6
+       38 CALL                             R7 3 1
+       39 DUPCLOSURE                       R8 K15 [PROTO_3]
+       40 NEWCLOSURE                       R9 P1
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          VAL R5
+       44 GETUPVAL                         R10 4
+       45 GETUPVAL                         R12 4
+       46 MOVE                             R14 R7
+       47 NAMECALL                         R12 R12 K16 ["get"]
+       49 CALL                             R12 2 -1
+       50 NAMECALL                         R10 R10 K17 ["handleRetry"]
+       52 CALL                             R10 -1 1
+       53 DUPCLOSURE                       R12 K18 [PROTO_5]
+       54 NAMECALL                         R10 R10 K19 ["catch"]
+       56 CALL                             R10 2 1
+       57 MOVE                             R12 R9
+       58 MOVE                             R13 R8
+       59 NAMECALL                         R10 R10 K20 ["andThen"]
+       61 CALL                             R10 3 0
+       62 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -403,39 +401,35 @@ MAIN:
        36 GETTABLEKS                       R5 R1 K14 ["Http"]
        38 GETTABLEKS                       R5 R5 K15 ["Networking"]
        40 GETTABLEKS                       R6 R5 K13 ["new"]
-       42 DUPTABLE                         R7 K18 [{"isInternal", "loggingLevel"}]
-       43 LOADB                            R8 1
-       44 SETTABLEKS                       R8 R7 K16 ["isInternal"]
-       46 LOADN                            R8 0
-       47 SETTABLEKS                       R8 R7 K17 ["loggingLevel"]
-       49 CALL                             R6 1 1
-       50 GETIMPORT                        R7 K20 [game]
-       52 LOADK                            R9 K21 ["ActivityFeedEndpointFetchCount"]
-       53 NAMECALL                         R7 R7 K22 ["GetFastInt"]
-       55 CALL                             R7 2 1
-       56 GETIMPORT                        R8 K20 [game]
-       58 LOADK                            R10 K23 ["HttpService"]
-       59 NAMECALL                         R8 R8 K24 ["GetService"]
-       61 CALL                             R8 2 1
-       62 DUPCLOSURE                       R9 K25 [PROTO_0]
+       42 DUPTABLE                         R7 K20 [{["isInternal"] = True, ["loggingLevel"] = 0}]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K22 [game]
+       46 LOADK                            R9 K23 ["ActivityFeedEndpointFetchCount"]
+       47 NAMECALL                         R7 R7 K24 ["GetFastInt"]
+       49 CALL                             R7 2 1
+       50 GETIMPORT                        R8 K22 [game]
+       52 LOADK                            R10 K25 ["HttpService"]
+       53 NAMECALL                         R8 R8 K26 ["GetService"]
+       55 CALL                             R8 2 1
+       56 DUPCLOSURE                       R9 K27 [PROTO_0]
+       57 CAPTURE                          VAL R8
+       58 DUPCLOSURE                       R10 K28 [PROTO_2]
+       59 CAPTURE                          VAL R8
+       60 DUPCLOSURE                       R11 K29 [PROTO_6]
+       61 CAPTURE                          VAL R7
+       62 CAPTURE                          VAL R4
        63 CAPTURE                          VAL R8
-       64 DUPCLOSURE                       R10 K26 [PROTO_2]
-       65 CAPTURE                          VAL R8
-       66 DUPCLOSURE                       R11 K27 [PROTO_6]
-       67 CAPTURE                          VAL R7
-       68 CAPTURE                          VAL R4
-       69 CAPTURE                          VAL R8
-       70 CAPTURE                          VAL R10
-       71 CAPTURE                          VAL R6
-       72 DUPCLOSURE                       R12 K28 [PROTO_7]
-       73 CAPTURE                          VAL R8
-       74 CAPTURE                          VAL R10
-       75 DUPCLOSURE                       R13 K29 [PROTO_13]
-       76 CAPTURE                          VAL R12
-       77 DUPCLOSURE                       R14 K30 [PROTO_19]
-       78 CAPTURE                          VAL R3
-       79 DUPTABLE                         R15 K34 [{"fetchActivityHistory", "activityFeedRTEEffect", "fetchUsernames"}]
-       80 SETTABLEKS                       R11 R15 K31 ["fetchActivityHistory"]
-       82 SETTABLEKS                       R13 R15 K32 ["activityFeedRTEEffect"]
-       84 SETTABLEKS                       R14 R15 K33 ["fetchUsernames"]
-       86 RETURN                           R15 1
+       64 CAPTURE                          VAL R10
+       65 CAPTURE                          VAL R6
+       66 DUPCLOSURE                       R12 K30 [PROTO_7]
+       67 CAPTURE                          VAL R8
+       68 CAPTURE                          VAL R10
+       69 DUPCLOSURE                       R13 K31 [PROTO_13]
+       70 CAPTURE                          VAL R12
+       71 DUPCLOSURE                       R14 K32 [PROTO_19]
+       72 CAPTURE                          VAL R3
+       73 DUPTABLE                         R15 K36 [{"fetchActivityHistory", "activityFeedRTEEffect", "fetchUsernames"}]
+       74 SETTABLEKS                       R11 R15 K33 ["fetchActivityHistory"]
+       76 SETTABLEKS                       R13 R15 K34 ["activityFeedRTEEffect"]
+       78 SETTABLEKS                       R14 R15 K35 ["fetchUsernames"]
+       80 RETURN                           R15 1

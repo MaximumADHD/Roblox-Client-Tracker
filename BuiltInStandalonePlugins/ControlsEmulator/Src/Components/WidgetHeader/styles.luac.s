@@ -18,126 +18,108 @@ MAIN:
        29 GETTABLEKS                       R3 R3 K11 ["createStyleRule"]
        31 MOVE                             R4 R3
        32 LOADK                            R5 K12 [".Component-WidgetHeader"]
-       33 DUPTABLE                         R6 K18 [{"Font", "TextColor3", "BackgroundColor3", "BorderSizePixel", "Size"}]
-       34 GETTABLEKS                       R7 R2 K19 ["defaultFont"]
+       33 DUPTABLE                         R6 K21 [{["Font"], ["TextColor3"] = "$TextPrimary", ["BackgroundColor3"] = "$HeaderBackgroundColor", ["BorderSizePixel"] = 0, ["Size"]}]
+       34 GETTABLEKS                       R7 R2 K22 ["defaultFont"]
        36 SETTABLEKS                       R7 R6 K13 ["Font"]
-       38 LOADK                            R7 K20 ["$TextPrimary"]
-       39 SETTABLEKS                       R7 R6 K14 ["TextColor3"]
-       41 LOADK                            R7 K21 ["$HeaderBackgroundColor"]
-       42 SETTABLEKS                       R7 R6 K15 ["BackgroundColor3"]
-       44 LOADN                            R7 0
-       45 SETTABLEKS                       R7 R6 K16 ["BorderSizePixel"]
-       47 GETIMPORT                        R7 K24 [UDim2.new]
-       49 LOADN                            R8 1
-       50 LOADN                            R9 0
-       51 LOADN                            R10 0
-       52 GETTABLEKS                       R11 R2 K25 ["deviceHeaderHeight"]
-       54 CALL                             R7 4 1
-       55 SETTABLEKS                       R7 R6 K17 ["Size"]
-       57 NEWTABLE                         R7 0 4
-       59 MOVE                             R8 R3
-       60 LOADK                            R9 K26 ["::UIPadding"]
-       61 DUPTABLE                         R10 K29 [{"PaddingLeft", "PaddingRight"}]
-       62 GETIMPORT                        R11 K31 [UDim.new]
-       64 LOADN                            R12 0
-       65 LOADN                            R13 8
-       66 CALL                             R11 2 1
-       67 SETTABLEKS                       R11 R10 K27 ["PaddingLeft"]
-       69 GETIMPORT                        R11 K31 [UDim.new]
-       71 LOADN                            R12 0
-       72 LOADN                            R13 8
-       73 CALL                             R11 2 1
-       74 SETTABLEKS                       R11 R10 K28 ["PaddingRight"]
-       76 CALL                             R8 2 1
-       77 MOVE                             R9 R3
-       78 LOADK                            R10 K32 ["::UISizeConstraint"]
-       79 DUPTABLE                         R11 K34 [{"MinSize"}]
-       80 GETIMPORT                        R12 K36 [Vector2.new]
-       82 LOADN                            R13 4
-       83 LOADN                            R14 0
-       84 CALL                             R12 2 1
-       85 SETTABLEKS                       R12 R11 K33 ["MinSize"]
-       87 CALL                             R9 2 1
-       88 MOVE                             R10 R3
-       89 LOADK                            R11 K37 [">> .LeftContents"]
-       90 DUPTABLE                         R12 K41 [{"BorderSizePixel", "Size", "AutomaticSize", "BackgroundTransparency", "TextSize"}]
-       91 LOADN                            R13 0
-       92 SETTABLEKS                       R13 R12 K16 ["BorderSizePixel"]
-       94 GETIMPORT                        R13 K24 [UDim2.new]
-       96 LOADN                            R14 0
-       97 LOADN                            R15 0
-       98 LOADN                            R16 1
-       99 LOADN                            R17 0
-      100 CALL                             R13 4 1
-      101 SETTABLEKS                       R13 R12 K17 ["Size"]
-      103 GETIMPORT                        R13 K44 [Enum.AutomaticSize.X]
-      105 SETTABLEKS                       R13 R12 K38 ["AutomaticSize"]
-      107 LOADN                            R13 1
-      108 SETTABLEKS                       R13 R12 K39 ["BackgroundTransparency"]
-      110 GETTABLEKS                       R13 R2 K45 ["headerFontSize"]
-      112 SETTABLEKS                       R13 R12 K40 ["TextSize"]
-      114 NEWTABLE                         R13 0 1
-      116 MOVE                             R14 R3
-      117 LOADK                            R15 K46 ["::UIListLayout"]
-      118 DUPTABLE                         R16 K52 [{"SortOrder", "HorizontalAlignment", "VerticalAlignment", "FillDirection", "Wraps"}]
-      119 GETIMPORT                        R17 K54 [Enum.SortOrder.LayoutOrder]
-      121 SETTABLEKS                       R17 R16 K47 ["SortOrder"]
-      123 GETIMPORT                        R17 K56 [Enum.HorizontalAlignment.Left]
-      125 SETTABLEKS                       R17 R16 K48 ["HorizontalAlignment"]
-      127 GETIMPORT                        R17 K58 [Enum.VerticalAlignment.Center]
-      129 SETTABLEKS                       R17 R16 K49 ["VerticalAlignment"]
-      131 GETIMPORT                        R17 K60 [Enum.FillDirection.Horizontal]
-      133 SETTABLEKS                       R17 R16 K50 ["FillDirection"]
-      135 LOADB                            R17 0
-      136 SETTABLEKS                       R17 R16 K51 ["Wraps"]
-      138 CALL                             R14 2 -1
-      139 SETLIST                          R13 R14 -1 [1]
-      141 CALL                             R10 3 1
-      142 MOVE                             R11 R3
-      143 LOADK                            R12 K61 [">> .RightContents"]
-      144 DUPTABLE                         R13 K63 [{"Position", "BorderSizePixel", "Size", "BackgroundTransparency", "TextSize"}]
-      145 GETIMPORT                        R14 K24 [UDim2.new]
-      147 LOADN                            R15 0
-      148 LOADN                            R16 0
-      149 LOADN                            R17 0
-      150 LOADN                            R18 0
-      151 CALL                             R14 4 1
-      152 SETTABLEKS                       R14 R13 K62 ["Position"]
-      154 LOADN                            R14 0
-      155 SETTABLEKS                       R14 R13 K16 ["BorderSizePixel"]
-      157 GETIMPORT                        R14 K24 [UDim2.new]
-      159 LOADN                            R15 1
-      160 LOADN                            R16 0
-      161 LOADN                            R17 1
-      162 LOADN                            R18 0
-      163 CALL                             R14 4 1
-      164 SETTABLEKS                       R14 R13 K17 ["Size"]
-      166 LOADN                            R14 1
-      167 SETTABLEKS                       R14 R13 K39 ["BackgroundTransparency"]
-      169 GETTABLEKS                       R14 R2 K45 ["headerFontSize"]
-      171 SETTABLEKS                       R14 R13 K40 ["TextSize"]
-      173 NEWTABLE                         R14 0 1
-      175 MOVE                             R15 R3
-      176 LOADK                            R16 K46 ["::UIListLayout"]
-      177 DUPTABLE                         R17 K65 [{"SortOrder", "HorizontalAlignment", "VerticalAlignment", "FillDirection", "Padding", "Wraps"}]
-      178 GETIMPORT                        R18 K54 [Enum.SortOrder.LayoutOrder]
-      180 SETTABLEKS                       R18 R17 K47 ["SortOrder"]
-      182 GETIMPORT                        R18 K67 [Enum.HorizontalAlignment.Right]
-      184 SETTABLEKS                       R18 R17 K48 ["HorizontalAlignment"]
-      186 GETIMPORT                        R18 K58 [Enum.VerticalAlignment.Center]
-      188 SETTABLEKS                       R18 R17 K49 ["VerticalAlignment"]
-      190 GETIMPORT                        R18 K60 [Enum.FillDirection.Horizontal]
-      192 SETTABLEKS                       R18 R17 K50 ["FillDirection"]
-      194 GETIMPORT                        R18 K31 [UDim.new]
-      196 LOADN                            R19 0
-      197 LOADN                            R20 4
-      198 CALL                             R18 2 1
-      199 SETTABLEKS                       R18 R17 K64 ["Padding"]
-      201 LOADB                            R18 0
-      202 SETTABLEKS                       R18 R17 K51 ["Wraps"]
-      204 CALL                             R15 2 -1
-      205 SETLIST                          R14 R15 -1 [1]
-      207 CALL                             R11 3 -1
-      208 SETLIST                          R7 R8 -1 [1]
-      210 CALL                             R4 3 -1
-      211 RETURN                           R4 -1
+       38 GETIMPORT                        R7 K25 [UDim2.new]
+       40 LOADN                            R8 1
+       41 LOADN                            R9 0
+       42 LOADN                            R10 0
+       43 GETTABLEKS                       R11 R2 K26 ["deviceHeaderHeight"]
+       45 CALL                             R7 4 1
+       46 SETTABLEKS                       R7 R6 K20 ["Size"]
+       48 NEWTABLE                         R7 0 4
+       50 MOVE                             R8 R3
+       51 LOADK                            R9 K27 ["::UIPadding"]
+       52 DUPTABLE                         R10 K30 [{"PaddingLeft", "PaddingRight"}]
+       53 GETIMPORT                        R11 K32 [UDim.new]
+       55 LOADN                            R12 0
+       56 LOADN                            R13 8
+       57 CALL                             R11 2 1
+       58 SETTABLEKS                       R11 R10 K28 ["PaddingLeft"]
+       60 GETIMPORT                        R11 K32 [UDim.new]
+       62 LOADN                            R12 0
+       63 LOADN                            R13 8
+       64 CALL                             R11 2 1
+       65 SETTABLEKS                       R11 R10 K29 ["PaddingRight"]
+       67 CALL                             R8 2 1
+       68 MOVE                             R9 R3
+       69 LOADK                            R10 K33 ["::UISizeConstraint"]
+       70 DUPTABLE                         R11 K35 [{"MinSize"}]
+       71 GETIMPORT                        R12 K37 [Vector2.new]
+       73 LOADN                            R13 260
+       74 LOADN                            R14 0
+       75 CALL                             R12 2 1
+       76 SETTABLEKS                       R12 R11 K34 ["MinSize"]
+       78 CALL                             R9 2 1
+       79 MOVE                             R10 R3
+       80 LOADK                            R11 K38 [">> .LeftContents"]
+       81 DUPTABLE                         R12 K43 [{["BorderSizePixel"] = 0, ["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextSize"]}]
+       82 GETIMPORT                        R13 K25 [UDim2.new]
+       84 LOADN                            R14 0
+       85 LOADN                            R15 0
+       86 LOADN                            R16 1
+       87 LOADN                            R17 0
+       88 CALL                             R13 4 1
+       89 SETTABLEKS                       R13 R12 K20 ["Size"]
+       91 GETIMPORT                        R13 K46 [Enum.AutomaticSize.X]
+       93 SETTABLEKS                       R13 R12 K39 ["AutomaticSize"]
+       95 GETTABLEKS                       R13 R2 K47 ["headerFontSize"]
+       97 SETTABLEKS                       R13 R12 K42 ["TextSize"]
+       99 NEWTABLE                         R13 0 1
+      101 MOVE                             R14 R3
+      102 LOADK                            R15 K48 ["::UIListLayout"]
+      103 DUPTABLE                         R16 K55 [{["SortOrder"], ["HorizontalAlignment"], ["VerticalAlignment"], ["FillDirection"], ["Wraps"] = False}]
+      104 GETIMPORT                        R17 K57 [Enum.SortOrder.LayoutOrder]
+      106 SETTABLEKS                       R17 R16 K49 ["SortOrder"]
+      108 GETIMPORT                        R17 K59 [Enum.HorizontalAlignment.Left]
+      110 SETTABLEKS                       R17 R16 K50 ["HorizontalAlignment"]
+      112 GETIMPORT                        R17 K61 [Enum.VerticalAlignment.Center]
+      114 SETTABLEKS                       R17 R16 K51 ["VerticalAlignment"]
+      116 GETIMPORT                        R17 K63 [Enum.FillDirection.Horizontal]
+      118 SETTABLEKS                       R17 R16 K52 ["FillDirection"]
+      120 CALL                             R14 2 -1
+      121 SETLIST                          R13 R14 -1 [1]
+      123 CALL                             R10 3 1
+      124 MOVE                             R11 R3
+      125 LOADK                            R12 K64 [">> .RightContents"]
+      126 DUPTABLE                         R13 K66 [{["Position"], ["BorderSizePixel"] = 0, ["Size"], ["BackgroundTransparency"] = 1, ["TextSize"]}]
+      127 GETIMPORT                        R14 K25 [UDim2.new]
+      129 LOADN                            R15 0
+      130 LOADN                            R16 0
+      131 LOADN                            R17 0
+      132 LOADN                            R18 0
+      133 CALL                             R14 4 1
+      134 SETTABLEKS                       R14 R13 K65 ["Position"]
+      136 GETIMPORT                        R14 K25 [UDim2.new]
+      138 LOADN                            R15 1
+      139 LOADN                            R16 0
+      140 LOADN                            R17 1
+      141 LOADN                            R18 0
+      142 CALL                             R14 4 1
+      143 SETTABLEKS                       R14 R13 K20 ["Size"]
+      145 GETTABLEKS                       R14 R2 K47 ["headerFontSize"]
+      147 SETTABLEKS                       R14 R13 K42 ["TextSize"]
+      149 NEWTABLE                         R14 0 1
+      151 MOVE                             R15 R3
+      152 LOADK                            R16 K48 ["::UIListLayout"]
+      153 DUPTABLE                         R17 K68 [{["SortOrder"], ["HorizontalAlignment"], ["VerticalAlignment"], ["FillDirection"], ["Padding"], ["Wraps"] = False}]
+      154 GETIMPORT                        R18 K57 [Enum.SortOrder.LayoutOrder]
+      156 SETTABLEKS                       R18 R17 K49 ["SortOrder"]
+      158 GETIMPORT                        R18 K70 [Enum.HorizontalAlignment.Right]
+      160 SETTABLEKS                       R18 R17 K50 ["HorizontalAlignment"]
+      162 GETIMPORT                        R18 K61 [Enum.VerticalAlignment.Center]
+      164 SETTABLEKS                       R18 R17 K51 ["VerticalAlignment"]
+      166 GETIMPORT                        R18 K63 [Enum.FillDirection.Horizontal]
+      168 SETTABLEKS                       R18 R17 K52 ["FillDirection"]
+      170 GETIMPORT                        R18 K32 [UDim.new]
+      172 LOADN                            R19 0
+      173 LOADN                            R20 4
+      174 CALL                             R18 2 1
+      175 SETTABLEKS                       R18 R17 K67 ["Padding"]
+      177 CALL                             R15 2 -1
+      178 SETLIST                          R14 R15 -1 [1]
+      180 CALL                             R11 3 -1
+      181 SETLIST                          R7 R8 -1 [1]
+      183 CALL                             R4 3 -1
+      184 RETURN                           R4 -1

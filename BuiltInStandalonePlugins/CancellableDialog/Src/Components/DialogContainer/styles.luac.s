@@ -12,57 +12,51 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Component-DialogContainer"]
-       20 DUPTABLE                         R5 K14 [{"BackgroundColor3", "BorderSizePixel", "BackgroundTransparency"}]
-       21 LOADK                            R6 K15 ["$ForegroundMain"]
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundColor3"]
-       24 LOADN                            R6 0
-       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       27 LOADN                            R6 0
-       28 SETTABLEKS                       R6 R5 K13 ["BackgroundTransparency"]
-       30 NEWTABLE                         R6 0 2
-       32 MOVE                             R7 R2
-       33 LOADK                            R8 K16 ["::UIListLayout"]
-       34 DUPTABLE                         R9 K20 [{"FillDirection", "Padding", "SortOrder"}]
-       35 GETIMPORT                        R10 K23 [Enum.FillDirection.Vertical]
-       37 SETTABLEKS                       R10 R9 K17 ["FillDirection"]
-       39 GETIMPORT                        R10 K26 [UDim.new]
-       41 LOADN                            R11 0
-       42 LOADN                            R12 16
-       43 CALL                             R10 2 1
-       44 SETTABLEKS                       R10 R9 K18 ["Padding"]
-       46 GETIMPORT                        R10 K28 [Enum.SortOrder.LayoutOrder]
-       48 SETTABLEKS                       R10 R9 K19 ["SortOrder"]
-       50 CALL                             R7 2 1
-       51 MOVE                             R8 R2
-       52 LOADK                            R9 K29 ["::UIPadding"]
-       53 DUPTABLE                         R10 K34 [{"PaddingTop", "PaddingRight", "PaddingBottom", "PaddingLeft"}]
-       54 GETIMPORT                        R11 K26 [UDim.new]
-       56 LOADN                            R12 0
-       57 LOADN                            R13 16
-       58 CALL                             R11 2 1
-       59 SETTABLEKS                       R11 R10 K30 ["PaddingTop"]
-       61 GETIMPORT                        R11 K26 [UDim.new]
-       63 LOADN                            R12 0
-       64 LOADN                            R13 16
-       65 CALL                             R11 2 1
-       66 SETTABLEKS                       R11 R10 K31 ["PaddingRight"]
-       68 GETIMPORT                        R11 K26 [UDim.new]
-       70 LOADN                            R12 0
-       71 LOADN                            R13 16
-       72 CALL                             R11 2 1
-       73 SETTABLEKS                       R11 R10 K32 ["PaddingBottom"]
-       75 GETIMPORT                        R11 K26 [UDim.new]
-       77 LOADN                            R12 0
-       78 LOADN                            R13 16
-       79 CALL                             R11 2 1
-       80 SETTABLEKS                       R11 R10 K33 ["PaddingLeft"]
-       82 CALL                             R8 2 -1
-       83 SETLIST                          R6 R7 -1 [1]
-       85 DUPTABLE                         R7 K36 [{"MinimumDialogSize"}]
-       86 GETIMPORT                        R8 K38 [Vector2.new]
-       88 LOADN                            R9 144
-       89 LOADN                            R10 130
-       90 CALL                             R8 2 1
-       91 SETTABLEKS                       R8 R7 K35 ["MinimumDialogSize"]
-       93 CALL                             R3 4 -1
-       94 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K16 [{["BackgroundColor3"] = "$ForegroundMain", ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 0}]
+       21 NEWTABLE                         R6 0 2
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K17 ["::UIListLayout"]
+       25 DUPTABLE                         R9 K21 [{"FillDirection", "Padding", "SortOrder"}]
+       26 GETIMPORT                        R10 K24 [Enum.FillDirection.Vertical]
+       28 SETTABLEKS                       R10 R9 K18 ["FillDirection"]
+       30 GETIMPORT                        R10 K27 [UDim.new]
+       32 LOADN                            R11 0
+       33 LOADN                            R12 16
+       34 CALL                             R10 2 1
+       35 SETTABLEKS                       R10 R9 K19 ["Padding"]
+       37 GETIMPORT                        R10 K29 [Enum.SortOrder.LayoutOrder]
+       39 SETTABLEKS                       R10 R9 K20 ["SortOrder"]
+       41 CALL                             R7 2 1
+       42 MOVE                             R8 R2
+       43 LOADK                            R9 K30 ["::UIPadding"]
+       44 DUPTABLE                         R10 K35 [{"PaddingTop", "PaddingRight", "PaddingBottom", "PaddingLeft"}]
+       45 GETIMPORT                        R11 K27 [UDim.new]
+       47 LOADN                            R12 0
+       48 LOADN                            R13 16
+       49 CALL                             R11 2 1
+       50 SETTABLEKS                       R11 R10 K31 ["PaddingTop"]
+       52 GETIMPORT                        R11 K27 [UDim.new]
+       54 LOADN                            R12 0
+       55 LOADN                            R13 16
+       56 CALL                             R11 2 1
+       57 SETTABLEKS                       R11 R10 K32 ["PaddingRight"]
+       59 GETIMPORT                        R11 K27 [UDim.new]
+       61 LOADN                            R12 0
+       62 LOADN                            R13 16
+       63 CALL                             R11 2 1
+       64 SETTABLEKS                       R11 R10 K33 ["PaddingBottom"]
+       66 GETIMPORT                        R11 K27 [UDim.new]
+       68 LOADN                            R12 0
+       69 LOADN                            R13 16
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K34 ["PaddingLeft"]
+       73 CALL                             R8 2 -1
+       74 SETLIST                          R6 R7 -1 [1]
+       76 DUPTABLE                         R7 K37 [{"MinimumDialogSize"}]
+       77 GETIMPORT                        R8 K39 [Vector2.new]
+       79 LOADN                            R9 400
+       80 LOADN                            R10 130
+       81 CALL                             R8 2 1
+       82 SETTABLEKS                       R8 R7 K36 ["MinimumDialogSize"]
+       84 CALL                             R3 4 -1
+       85 RETURN                           R3 -1

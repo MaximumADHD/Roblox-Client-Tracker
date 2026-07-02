@@ -17,20 +17,16 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Util"]
        27 GETTABLEKS                       R4 R4 K11 ["createUnimplemented"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K16 [{"setStage", "stage", "setIsTextured", "isTextured"}]
+       30 DUPTABLE                         R4 K18 [{["setStage"], ["stage"] = "CheckBody", ["setIsTextured"], ["isTextured"] = True}]
        31 MOVE                             R5 R3
        32 LOADK                            R6 K12 ["setStage"]
        33 CALL                             R5 1 1
        34 SETTABLEKS                       R5 R4 K12 ["setStage"]
-       36 LOADK                            R5 K17 ["CheckBody"]
-       37 SETTABLEKS                       R5 R4 K13 ["stage"]
-       39 MOVE                             R5 R3
-       40 LOADK                            R6 K14 ["setIsTextured"]
-       41 CALL                             R5 1 1
-       42 SETTABLEKS                       R5 R4 K14 ["setIsTextured"]
-       44 LOADB                            R5 1
-       45 SETTABLEKS                       R5 R4 K15 ["isTextured"]
-       47 GETTABLEKS                       R5 R1 K18 ["createContext"]
-       49 MOVE                             R6 R4
-       50 CALL                             R5 1 -1
-       51 RETURN                           R5 -1
+       36 MOVE                             R5 R3
+       37 LOADK                            R6 K15 ["setIsTextured"]
+       38 CALL                             R5 1 1
+       39 SETTABLEKS                       R5 R4 K15 ["setIsTextured"]
+       41 GETTABLEKS                       R5 R1 K19 ["createContext"]
+       43 MOVE                             R6 R4
+       44 CALL                             R5 1 -1
+       45 RETURN                           R5 -1

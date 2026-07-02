@@ -1,9 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"type", "data"}]
-        1 LOADK                            R2 K3 ["SetUnknownTags"]
-        2 SETTABLEKS                       R2 R1 K0 ["type"]
-        4 SETTABLEKS                       R0 R1 K1 ["data"]
-        6 RETURN                           R1 1
+        0 DUPTABLE                         R1 K3 [{[1] = "SetUnknownTags", ["data"]}]
+        1 SETTABLEKS                       R0 R1 K2 ["data"]
+        3 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

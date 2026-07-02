@@ -2,17 +2,13 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 GETUPVAL                         R4 1
-        4 DUPTABLE                         R5 K3 [{"tag", "testId"}]
-        5 LOADK                            R6 K4 ["col gap-small auto-y size-full-0"]
-        6 SETTABLEKS                       R6 R5 K1 ["tag"]
-        8 LOADK                            R6 K5 ["--knowledge-tutorials-MarkdownRoot"]
-        9 SETTABLEKS                       R6 R5 K2 ["testId"]
-       11 GETTABLEKS                       R6 R1 K6 ["processChildren"]
-       13 GETTABLEKS                       R7 R0 K7 ["children"]
-       15 MOVE                             R8 R1
-       16 CALL                             R6 2 -1
-       17 CALL                             R3 -1 -1
-       18 RETURN                           R3 -1
+        4 DUPTABLE                         R5 K5 [{["tag"] = "col gap-small size-full-0 auto-y", ["testId"] = "--knowledge-tutorials-MarkdownRoot"}]
+        5 GETTABLEKS                       R6 R1 K6 ["processChildren"]
+        7 GETTABLEKS                       R7 R0 K7 ["children"]
+        9 MOVE                             R8 R1
+       10 CALL                             R6 2 -1
+       11 CALL                             R3 -1 -1
+       12 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

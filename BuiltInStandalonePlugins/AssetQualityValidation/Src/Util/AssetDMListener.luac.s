@@ -1,17 +1,13 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K3 [{"currentData", "providerFunction", "setStateAndRefreshConnection"}]
+        0 DUPTABLE                         R0 K4 [{[1], ["providerFunction"] = , ["setStateAndRefreshConnection"] = }]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["currentData"]
-        5 LOADNIL                          R1
-        6 SETTABLEKS                       R1 R0 K1 ["providerFunction"]
-        8 LOADNIL                          R1
-        9 SETTABLEKS                       R1 R0 K2 ["setStateAndRefreshConnection"]
-       11 GETUPVAL                         R3 0
-       12 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       14 MOVE                             R2 R0
-       15 GETIMPORT                        R1 K5 [setmetatable]
-       17 CALL                             R1 2 0
-       18 RETURN                           R0 1
+        5 GETUPVAL                         R3 0
+        6 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        8 MOVE                             R2 R0
+        9 GETIMPORT                        R1 K6 [setmetatable]
+       11 CALL                             R1 2 0
+       12 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["currentData"]

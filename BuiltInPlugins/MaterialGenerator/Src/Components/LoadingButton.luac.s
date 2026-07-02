@@ -13,56 +13,54 @@ PROTO_0:
        15 GETUPVAL                         R5 1
        16 GETTABLEKS                       R5 R5 K6 ["createElement"]
        18 GETUPVAL                         R6 2
-       19 DUPTABLE                         R7 K15 [{"AnchorPoint", "AutomaticSize", "LayoutOrder", "OnClick", "Position", "Size", "Style", "StyleModifier", "Text"}]
+       19 DUPTABLE                         R7 K16 [{["AnchorPoint"], ["AutomaticSize"], ["LayoutOrder"], ["OnClick"], ["Position"], ["Size"], ["Style"] = "RoundPrimary", ["StyleModifier"], ["Text"]}]
        20 GETTABLEKS                       R8 R0 K7 ["AnchorPoint"]
        22 SETTABLEKS                       R8 R7 K7 ["AnchorPoint"]
        24 GETTABLEKS                       R8 R0 K8 ["AutomaticSize"]
        26 SETTABLEKS                       R8 R7 K8 ["AutomaticSize"]
        28 GETTABLEKS                       R8 R0 K9 ["LayoutOrder"]
        30 SETTABLEKS                       R8 R7 K9 ["LayoutOrder"]
-       32 GETTABLEKS                       R8 R0 K16 ["onClick"]
+       32 GETTABLEKS                       R8 R0 K17 ["onClick"]
        34 SETTABLEKS                       R8 R7 K10 ["OnClick"]
        36 GETTABLEKS                       R8 R0 K11 ["Position"]
        38 SETTABLEKS                       R8 R7 K11 ["Position"]
        40 GETTABLEKS                       R8 R0 K12 ["Size"]
        42 SETTABLEKS                       R8 R7 K12 ["Size"]
-       44 LOADK                            R8 K17 ["RoundPrimary"]
-       45 SETTABLEKS                       R8 R7 K13 ["Style"]
-       47 JUMPIFNOT                        R3 ; [+4]
-       48 GETUPVAL                         R8 3
-       49 GETTABLEKS                       R8 R8 K18 ["Disabled"]
-       51 JUMP                             ; [+1]
-       52 LOADNIL                          R8
-       53 SETTABLEKS                       R8 R7 K14 ["StyleModifier"]
-       55 JUMPIFNOT                        R2 ; [+2]
-       56 LOADK                            R8 K4 [""]
-       57 JUMP                             ; [+2]
-       58 GETTABLEKS                       R8 R0 K5 ["Text"]
-       60 SETTABLEKS                       R8 R7 K5 ["Text"]
-       62 DUPTABLE                         R8 K20 [{"LoadingIndicator"}]
-       63 JUMPIFNOT                        R2 ; [+25]
-       64 GETUPVAL                         R9 1
-       65 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       67 GETUPVAL                         R10 4
-       68 DUPTABLE                         R11 K21 [{"AnchorPoint", "Position", "Size"}]
-       69 GETIMPORT                        R12 K24 [Vector2.new]
-       71 LOADK                            R13 K25 [0.5]
-       72 LOADK                            R14 K25 [0.5]
-       73 CALL                             R12 2 1
-       74 SETTABLEKS                       R12 R11 K7 ["AnchorPoint"]
-       76 GETIMPORT                        R12 K28 [UDim2.fromScale]
-       78 LOADK                            R13 K25 [0.5]
-       79 LOADK                            R14 K25 [0.5]
-       80 CALL                             R12 2 1
-       81 SETTABLEKS                       R12 R11 K11 ["Position"]
-       83 GETTABLEKS                       R12 R1 K29 ["LoadingIndicatorSize"]
-       85 SETTABLEKS                       R12 R11 K12 ["Size"]
-       87 CALL                             R9 2 1
-       88 JUMP                             ; [+1]
-       89 LOADNIL                          R9
-       90 SETTABLEKS                       R9 R8 K19 ["LoadingIndicator"]
-       92 CALL                             R5 3 -1
-       93 RETURN                           R5 -1
+       44 JUMPIFNOT                        R3 ; [+4]
+       45 GETUPVAL                         R8 3
+       46 GETTABLEKS                       R8 R8 K18 ["Disabled"]
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R8
+       50 SETTABLEKS                       R8 R7 K15 ["StyleModifier"]
+       52 JUMPIFNOT                        R2 ; [+2]
+       53 LOADK                            R8 K4 [""]
+       54 JUMP                             ; [+2]
+       55 GETTABLEKS                       R8 R0 K5 ["Text"]
+       57 SETTABLEKS                       R8 R7 K5 ["Text"]
+       59 DUPTABLE                         R8 K20 [{"LoadingIndicator"}]
+       60 JUMPIFNOT                        R2 ; [+25]
+       61 GETUPVAL                         R9 1
+       62 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       64 GETUPVAL                         R10 4
+       65 DUPTABLE                         R11 K21 [{"AnchorPoint", "Position", "Size"}]
+       66 GETIMPORT                        R12 K24 [Vector2.new]
+       68 LOADK                            R13 K25 [0.5]
+       69 LOADK                            R14 K25 [0.5]
+       70 CALL                             R12 2 1
+       71 SETTABLEKS                       R12 R11 K7 ["AnchorPoint"]
+       73 GETIMPORT                        R12 K28 [UDim2.fromScale]
+       75 LOADK                            R13 K25 [0.5]
+       76 LOADK                            R14 K25 [0.5]
+       77 CALL                             R12 2 1
+       78 SETTABLEKS                       R12 R11 K11 ["Position"]
+       80 GETTABLEKS                       R12 R1 K29 ["LoadingIndicatorSize"]
+       82 SETTABLEKS                       R12 R11 K12 ["Size"]
+       84 CALL                             R9 2 1
+       85 JUMP                             ; [+1]
+       86 LOADNIL                          R9
+       87 SETTABLEKS                       R9 R8 K19 ["LoadingIndicator"]
+       89 CALL                             R5 3 -1
+       90 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

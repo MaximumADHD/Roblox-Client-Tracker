@@ -4,14 +4,10 @@ PROTO_0:
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 GETTABLEKS                       R4 R0 K1 ["props"]
-        7 DUPTABLE                         R5 K4 [{"Show2D", "ShowTrail"}]
-        8 LOADB                            R6 1
-        9 SETTABLEKS                       R6 R5 K2 ["Show2D"]
-       11 LOADB                            R6 1
-       12 SETTABLEKS                       R6 R5 K3 ["ShowTrail"]
-       14 CALL                             R3 2 -1
-       15 CALL                             R1 -1 -1
-       16 RETURN                           R1 -1
+        7 DUPTABLE                         R5 K5 [{["Show2D"] = True, ["ShowTrail"] = True}]
+        8 CALL                             R3 2 -1
+        9 CALL                             R1 -1 -1
+       10 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

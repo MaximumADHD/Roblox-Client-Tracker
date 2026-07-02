@@ -10,100 +10,96 @@ PROTO_0:
        13 DUPTABLE                         R4 K6 [{"SendButton", "DEPRECATED_SendButton"}]
        14 GETUPVAL                         R6 2
        15 CALL                             R6 0 1
-       16 JUMPIFNOT                        R6 ; [+58]
+       16 JUMPIFNOT                        R6 ; [+55]
        17 GETUPVAL                         R5 0
        18 GETTABLEKS                       R5 R5 K0 ["createElement"]
        20 GETUPVAL                         R6 3
-       21 DUPTABLE                         R7 K15 [{"AnchorPoint", "Disabled", "Position", "Size", "Style", "StyleModifier", "Text", "TooltipText", "OnClick"}]
-       22 GETIMPORT                        R8 K18 [Vector2.new]
+       21 DUPTABLE                         R7 K16 [{["AnchorPoint"], ["Disabled"], ["Position"], ["Size"], ["Style"] = "Primary", ["StyleModifier"], ["Text"], ["TooltipText"], ["OnClick"]}]
+       22 GETIMPORT                        R8 K19 [Vector2.new]
        24 LOADN                            R9 1
-       25 LOADK                            R10 K19 [0.5]
+       25 LOADK                            R10 K20 [0.5]
        26 CALL                             R8 2 1
        27 SETTABLEKS                       R8 R7 K7 ["AnchorPoint"]
-       29 GETTABLEKS                       R9 R0 K20 ["Enabled"]
+       29 GETTABLEKS                       R9 R0 K21 ["Enabled"]
        31 NOT                              R8 R9
        32 SETTABLEKS                       R8 R7 K8 ["Disabled"]
-       34 GETIMPORT                        R8 K23 [UDim2.fromScale]
+       34 GETIMPORT                        R8 K24 [UDim2.fromScale]
        36 LOADN                            R9 1
-       37 LOADK                            R10 K19 [0.5]
+       37 LOADK                            R10 K20 [0.5]
        38 CALL                             R8 2 1
        39 SETTABLEKS                       R8 R7 K9 ["Position"]
-       41 GETIMPORT                        R8 K25 [UDim2.fromOffset]
+       41 GETIMPORT                        R8 K26 [UDim2.fromOffset]
        43 LOADN                            R9 100
        44 LOADN                            R10 30
        45 CALL                             R8 2 1
        46 SETTABLEKS                       R8 R7 K1 ["Size"]
-       48 LOADK                            R8 K26 ["Primary"]
-       49 SETTABLEKS                       R8 R7 K10 ["Style"]
-       51 GETTABLEKS                       R9 R0 K20 ["Enabled"]
-       53 JUMPIF                           R9 ; [+4]
-       54 GETUPVAL                         R8 4
-       55 GETTABLEKS                       R8 R8 K8 ["Disabled"]
-       57 JUMP                             ; [+1]
-       58 LOADNIL                          R8
-       59 SETTABLEKS                       R8 R7 K11 ["StyleModifier"]
-       61 GETTABLEKS                       R8 R0 K27 ["PreviewButtonText"]
-       63 SETTABLEKS                       R8 R7 K12 ["Text"]
-       65 GETTABLEKS                       R8 R0 K28 ["QuotaTooltipText"]
-       67 SETTABLEKS                       R8 R7 K13 ["TooltipText"]
-       69 GETTABLEKS                       R8 R0 K14 ["OnClick"]
-       71 SETTABLEKS                       R8 R7 K14 ["OnClick"]
-       73 CALL                             R5 2 1
-       74 JUMP                             ; [+1]
-       75 LOADNIL                          R5
-       76 SETTABLEKS                       R5 R4 K4 ["SendButton"]
-       78 GETUPVAL                         R6 2
-       79 CALL                             R6 0 1
-       80 JUMPIF                           R6 ; [+66]
-       81 GETUPVAL                         R5 0
-       82 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       84 GETUPVAL                         R6 5
-       85 DUPTABLE                         R7 K29 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "StyleModifier", "Text"}]
-       86 GETIMPORT                        R8 K18 [Vector2.new]
-       88 LOADN                            R9 1
-       89 LOADK                            R10 K19 [0.5]
-       90 CALL                             R8 2 1
-       91 SETTABLEKS                       R8 R7 K7 ["AnchorPoint"]
-       93 GETTABLEKS                       R8 R0 K14 ["OnClick"]
-       95 SETTABLEKS                       R8 R7 K14 ["OnClick"]
-       97 GETIMPORT                        R8 K23 [UDim2.fromScale]
-       99 LOADN                            R9 1
-      100 LOADK                            R10 K19 [0.5]
-      101 CALL                             R8 2 1
-      102 SETTABLEKS                       R8 R7 K9 ["Position"]
-      104 GETIMPORT                        R8 K25 [UDim2.fromOffset]
-      106 LOADN                            R9 100
-      107 LOADN                            R10 30
-      108 CALL                             R8 2 1
-      109 SETTABLEKS                       R8 R7 K1 ["Size"]
-      111 LOADK                            R8 K30 ["RoundPrimary"]
-      112 SETTABLEKS                       R8 R7 K10 ["Style"]
-      114 GETTABLEKS                       R9 R0 K20 ["Enabled"]
-      116 JUMPIF                           R9 ; [+4]
-      117 GETUPVAL                         R8 4
-      118 GETTABLEKS                       R8 R8 K8 ["Disabled"]
-      120 JUMP                             ; [+1]
-      121 LOADNIL                          R8
-      122 SETTABLEKS                       R8 R7 K11 ["StyleModifier"]
-      124 GETTABLEKS                       R8 R0 K27 ["PreviewButtonText"]
-      126 SETTABLEKS                       R8 R7 K12 ["Text"]
-      128 DUPTABLE                         R8 K32 [{"QuotaTooltip"}]
-      129 GETUPVAL                         R9 0
-      130 GETTABLEKS                       R9 R9 K0 ["createElement"]
-      132 GETUPVAL                         R10 6
-      133 DUPTABLE                         R11 K34 [{"Text", "TextXAlignment"}]
-      134 GETTABLEKS                       R12 R0 K28 ["QuotaTooltipText"]
-      136 SETTABLEKS                       R12 R11 K12 ["Text"]
-      138 GETIMPORT                        R12 K37 [Enum.TextXAlignment.Left]
-      140 SETTABLEKS                       R12 R11 K33 ["TextXAlignment"]
-      142 CALL                             R9 2 1
-      143 SETTABLEKS                       R9 R8 K31 ["QuotaTooltip"]
-      145 CALL                             R5 3 1
-      146 JUMP                             ; [+1]
-      147 LOADNIL                          R5
-      148 SETTABLEKS                       R5 R4 K5 ["DEPRECATED_SendButton"]
-      150 CALL                             R1 3 -1
-      151 RETURN                           R1 -1
+       48 GETTABLEKS                       R9 R0 K21 ["Enabled"]
+       50 JUMPIF                           R9 ; [+4]
+       51 GETUPVAL                         R8 4
+       52 GETTABLEKS                       R8 R8 K8 ["Disabled"]
+       54 JUMP                             ; [+1]
+       55 LOADNIL                          R8
+       56 SETTABLEKS                       R8 R7 K12 ["StyleModifier"]
+       58 GETTABLEKS                       R8 R0 K27 ["PreviewButtonText"]
+       60 SETTABLEKS                       R8 R7 K13 ["Text"]
+       62 GETTABLEKS                       R8 R0 K28 ["QuotaTooltipText"]
+       64 SETTABLEKS                       R8 R7 K14 ["TooltipText"]
+       66 GETTABLEKS                       R8 R0 K15 ["OnClick"]
+       68 SETTABLEKS                       R8 R7 K15 ["OnClick"]
+       70 CALL                             R5 2 1
+       71 JUMP                             ; [+1]
+       72 LOADNIL                          R5
+       73 SETTABLEKS                       R5 R4 K4 ["SendButton"]
+       75 GETUPVAL                         R6 2
+       76 CALL                             R6 0 1
+       77 JUMPIF                           R6 ; [+63]
+       78 GETUPVAL                         R5 0
+       79 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       81 GETUPVAL                         R6 5
+       82 DUPTABLE                         R7 K30 [{["AnchorPoint"], ["OnClick"], ["Position"], ["Size"], ["Style"] = "RoundPrimary", ["StyleModifier"], ["Text"]}]
+       83 GETIMPORT                        R8 K19 [Vector2.new]
+       85 LOADN                            R9 1
+       86 LOADK                            R10 K20 [0.5]
+       87 CALL                             R8 2 1
+       88 SETTABLEKS                       R8 R7 K7 ["AnchorPoint"]
+       90 GETTABLEKS                       R8 R0 K15 ["OnClick"]
+       92 SETTABLEKS                       R8 R7 K15 ["OnClick"]
+       94 GETIMPORT                        R8 K24 [UDim2.fromScale]
+       96 LOADN                            R9 1
+       97 LOADK                            R10 K20 [0.5]
+       98 CALL                             R8 2 1
+       99 SETTABLEKS                       R8 R7 K9 ["Position"]
+      101 GETIMPORT                        R8 K26 [UDim2.fromOffset]
+      103 LOADN                            R9 100
+      104 LOADN                            R10 30
+      105 CALL                             R8 2 1
+      106 SETTABLEKS                       R8 R7 K1 ["Size"]
+      108 GETTABLEKS                       R9 R0 K21 ["Enabled"]
+      110 JUMPIF                           R9 ; [+4]
+      111 GETUPVAL                         R8 4
+      112 GETTABLEKS                       R8 R8 K8 ["Disabled"]
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R8
+      116 SETTABLEKS                       R8 R7 K12 ["StyleModifier"]
+      118 GETTABLEKS                       R8 R0 K27 ["PreviewButtonText"]
+      120 SETTABLEKS                       R8 R7 K13 ["Text"]
+      122 DUPTABLE                         R8 K32 [{"QuotaTooltip"}]
+      123 GETUPVAL                         R9 0
+      124 GETTABLEKS                       R9 R9 K0 ["createElement"]
+      126 GETUPVAL                         R10 6
+      127 DUPTABLE                         R11 K34 [{"Text", "TextXAlignment"}]
+      128 GETTABLEKS                       R12 R0 K28 ["QuotaTooltipText"]
+      130 SETTABLEKS                       R12 R11 K13 ["Text"]
+      132 GETIMPORT                        R12 K37 [Enum.TextXAlignment.Left]
+      134 SETTABLEKS                       R12 R11 K33 ["TextXAlignment"]
+      136 CALL                             R9 2 1
+      137 SETTABLEKS                       R9 R8 K31 ["QuotaTooltip"]
+      139 CALL                             R5 3 1
+      140 JUMP                             ; [+1]
+      141 LOADNIL                          R5
+      142 SETTABLEKS                       R5 R4 K5 ["DEPRECATED_SendButton"]
+      144 CALL                             R1 3 -1
+      145 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -526,61 +522,57 @@ PROTO_6:
       144 GETUPVAL                         R20 4
       145 GETTABLEKS                       R20 R20 K21 ["createElement"]
       147 GETUPVAL                         R21 15
-      148 DUPTABLE                         R22 K25 [{"LayoutOrder", "Padding", "Size"}]
+      148 DUPTABLE                         R22 K26 [{["LayoutOrder"], ["Padding"] = 10, ["Size"]}]
       149 GETTABLEKS                       R23 R0 K22 ["LayoutOrder"]
       151 SETTABLEKS                       R23 R22 K22 ["LayoutOrder"]
-      153 LOADN                            R23 10
-      154 SETTABLEKS                       R23 R22 K23 ["Padding"]
-      156 GETIMPORT                        R23 K28 [UDim2.new]
-      158 LOADN                            R24 1
-      159 LOADN                            R25 0
-      160 LOADN                            R26 0
-      161 LOADN                            R27 140
-      162 CALL                             R23 4 1
-      163 SETTABLEKS                       R23 R22 K24 ["Size"]
-      165 DUPTABLE                         R23 K30 [{"TextInput"}]
-      166 GETUPVAL                         R24 4
-      167 GETTABLEKS                       R24 R24 K21 ["createElement"]
-      169 GETUPVAL                         R25 16
-      170 DUPTABLE                         R26 K39 [{"BottomComponent", "BottomComponentProps", "Disabled", "MultiLine", "OnEnter", "OnTextChanged", "Text", "Size", "PlaceholderText"}]
-      171 GETUPVAL                         R27 17
-      172 SETTABLEKS                       R27 R26 K31 ["BottomComponent"]
-      174 DUPTABLE                         R27 K44 [{"Enabled", "OnClick", "PreviewButtonText", "QuotaTooltipText", "Size"}]
-      175 SETTABLEKS                       R9 R27 K40 ["Enabled"]
-      177 SETTABLEKS                       R19 R27 K41 ["OnClick"]
-      179 SETTABLEKS                       R6 R27 K42 ["PreviewButtonText"]
-      181 SETTABLEKS                       R17 R27 K43 ["QuotaTooltipText"]
-      183 GETIMPORT                        R28 K28 [UDim2.new]
-      185 LOADN                            R29 1
-      186 LOADN                            R30 0
-      187 LOADN                            R31 0
-      188 LOADN                            R32 32
-      189 CALL                             R28 4 1
-      190 SETTABLEKS                       R28 R27 K24 ["Size"]
-      192 SETTABLEKS                       R27 R26 K32 ["BottomComponentProps"]
-      194 SETTABLEKS                       R11 R26 K33 ["Disabled"]
-      196 LOADB                            R27 1
-      197 SETTABLEKS                       R27 R26 K34 ["MultiLine"]
-      199 SETTABLEKS                       R19 R26 K35 ["OnEnter"]
-      201 SETTABLEKS                       R13 R26 K36 ["OnTextChanged"]
-      203 GETTABLEKS                       R27 R8 K45 ["current"]
-      205 SETTABLEKS                       R27 R26 K37 ["Text"]
-      207 GETIMPORT                        R27 K28 [UDim2.new]
-      209 LOADN                            R28 1
-      210 LOADN                            R29 0
-      211 LOADN                            R30 0
-      212 LOADN                            R31 120
-      213 CALL                             R27 4 1
-      214 SETTABLEKS                       R27 R26 K24 ["Size"]
-      216 LOADK                            R29 K46 ["PromptEntry"]
-      217 LOADK                            R30 K47 ["PromptPlaceholder"]
-      218 NAMECALL                         R27 R2 K5 ["getText"]
-      220 CALL                             R27 3 1
-      221 SETTABLEKS                       R27 R26 K38 ["PlaceholderText"]
-      223 CALL                             R24 2 1
-      224 SETTABLEKS                       R24 R23 K29 ["TextInput"]
-      226 CALL                             R20 3 -1
-      227 RETURN                           R20 -1
+      153 GETIMPORT                        R23 K29 [UDim2.new]
+      155 LOADN                            R24 1
+      156 LOADN                            R25 0
+      157 LOADN                            R26 0
+      158 LOADN                            R27 140
+      159 CALL                             R23 4 1
+      160 SETTABLEKS                       R23 R22 K25 ["Size"]
+      162 DUPTABLE                         R23 K31 [{"TextInput"}]
+      163 GETUPVAL                         R24 4
+      164 GETTABLEKS                       R24 R24 K21 ["createElement"]
+      166 GETUPVAL                         R25 16
+      167 DUPTABLE                         R26 K41 [{["BottomComponent"], ["BottomComponentProps"], ["Disabled"], ["MultiLine"] = True, ["OnEnter"], ["OnTextChanged"], ["Text"], ["Size"], ["PlaceholderText"]}]
+      168 GETUPVAL                         R27 17
+      169 SETTABLEKS                       R27 R26 K32 ["BottomComponent"]
+      171 DUPTABLE                         R27 K46 [{"Enabled", "OnClick", "PreviewButtonText", "QuotaTooltipText", "Size"}]
+      172 SETTABLEKS                       R9 R27 K42 ["Enabled"]
+      174 SETTABLEKS                       R19 R27 K43 ["OnClick"]
+      176 SETTABLEKS                       R6 R27 K44 ["PreviewButtonText"]
+      178 SETTABLEKS                       R17 R27 K45 ["QuotaTooltipText"]
+      180 GETIMPORT                        R28 K29 [UDim2.new]
+      182 LOADN                            R29 1
+      183 LOADN                            R30 0
+      184 LOADN                            R31 0
+      185 LOADN                            R32 32
+      186 CALL                             R28 4 1
+      187 SETTABLEKS                       R28 R27 K25 ["Size"]
+      189 SETTABLEKS                       R27 R26 K33 ["BottomComponentProps"]
+      191 SETTABLEKS                       R11 R26 K34 ["Disabled"]
+      193 SETTABLEKS                       R19 R26 K37 ["OnEnter"]
+      195 SETTABLEKS                       R13 R26 K38 ["OnTextChanged"]
+      197 GETTABLEKS                       R27 R8 K47 ["current"]
+      199 SETTABLEKS                       R27 R26 K39 ["Text"]
+      201 GETIMPORT                        R27 K29 [UDim2.new]
+      203 LOADN                            R28 1
+      204 LOADN                            R29 0
+      205 LOADN                            R30 0
+      206 LOADN                            R31 120
+      207 CALL                             R27 4 1
+      208 SETTABLEKS                       R27 R26 K25 ["Size"]
+      210 LOADK                            R29 K48 ["PromptEntry"]
+      211 LOADK                            R30 K49 ["PromptPlaceholder"]
+      212 NAMECALL                         R27 R2 K5 ["getText"]
+      214 CALL                             R27 3 1
+      215 SETTABLEKS                       R27 R26 K40 ["PlaceholderText"]
+      217 CALL                             R24 2 1
+      218 SETTABLEKS                       R24 R23 K30 ["TextInput"]
+      220 CALL                             R20 3 -1
+      221 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

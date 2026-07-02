@@ -10,52 +10,14 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Styling"]
        16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
-       18 DUPTABLE                         R3 K30 [{"CategoryListTextContrast", "PresetInfoImage", "PresetTooltipCheckImage", "PresetTooltipXImage", "PreviewTooltipSettingVisibleImage", "PreviewTooltipSettingInvisibleImage", "PreviewTooltipPlayImage", "PreviewTooltipPlayDisabledImage", "PreviewTooltipAddAvatarImage", "PreviewTooltipResetAvatarsToCameraImage", "GeneralCategoryImage", "BodyCategoryImage", "MovementCategoryImage", "AccessoriesCategoryImage", "ClothingCategoryImage", "ExpandSidebarImage", "CollapseSidebarImage", "AvatarTypeDropdownToggleImage", "PlayerChoicePresetImage", "ConsistentPresetImage"}]
-       19 GETIMPORT                        R4 K33 [Color3.fromHex]
-       21 LOADK                            R5 K34 ["FFFFFF"]
+       18 DUPTABLE                         R3 K49 [{["CategoryListTextContrast"], ["PresetInfoImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/info-dark@2x.png", ["PresetTooltipCheckImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/Check-DarkMode@3x.png", ["PresetTooltipXImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/X-DarkMode@3x.png", ["PreviewTooltipSettingVisibleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-slash-fill-dark@3x.png", ["PreviewTooltipSettingInvisibleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-fill-dark@3x.png", ["PreviewTooltipPlayImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-dark@3x.png", ["PreviewTooltipPlayDisabledImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-disabled-dark@3x.png", ["PreviewTooltipAddAvatarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/plus-heavy-dark@3x.png", ["PreviewTooltipResetAvatarsToCameraImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/reset-to-mannequin-dark@3x.png", ["GeneralCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/settings-dark@3x.png", ["BodyCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/avatar-dark@3x.png", ["MovementCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/animation-dark@3x.png", ["AccessoriesCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/accessories-dark@3x.png", ["ClothingCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/clothing-dark@3x.png", ["ExpandSidebarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/expandsidebar-dark@3x.png", ["CollapseSidebarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/collapsesidebar-dark@3x.png", ["AvatarTypeDropdownToggleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/more-options-dark@3x.png", ["PlayerChoicePresetImage"] = "rbxasset://textures/AvatarSettings/Dark/player-choice_darkx1.png", ["ConsistentPresetImage"] = "rbxasset://textures/AvatarSettings/Dark/consistent-darkx1.png"}]
+       19 GETIMPORT                        R4 K52 [Color3.fromHex]
+       21 LOADK                            R5 K53 ["FFFFFF"]
        22 CALL                             R4 1 1
        23 SETTABLEKS                       R4 R3 K10 ["CategoryListTextContrast"]
-       25 LOADK                            R4 K35 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/info-dark@2x.png"]
-       26 SETTABLEKS                       R4 R3 K11 ["PresetInfoImage"]
-       28 LOADK                            R4 K36 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/Check-DarkMode@3x.png"]
-       29 SETTABLEKS                       R4 R3 K12 ["PresetTooltipCheckImage"]
-       31 LOADK                            R4 K37 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/X-DarkMode@3x.png"]
-       32 SETTABLEKS                       R4 R3 K13 ["PresetTooltipXImage"]
-       34 LOADK                            R4 K38 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-slash-fill-dark@3x.png"]
-       35 SETTABLEKS                       R4 R3 K14 ["PreviewTooltipSettingVisibleImage"]
-       37 LOADK                            R4 K39 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/eye-fill-dark@3x.png"]
-       38 SETTABLEKS                       R4 R3 K15 ["PreviewTooltipSettingInvisibleImage"]
-       40 LOADK                            R4 K40 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-dark@3x.png"]
-       41 SETTABLEKS                       R4 R3 K16 ["PreviewTooltipPlayImage"]
-       43 LOADK                            R4 K41 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/play-large-disabled-dark@3x.png"]
-       44 SETTABLEKS                       R4 R3 K17 ["PreviewTooltipPlayDisabledImage"]
-       46 LOADK                            R4 K42 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/plus-heavy-dark@3x.png"]
-       47 SETTABLEKS                       R4 R3 K18 ["PreviewTooltipAddAvatarImage"]
-       49 LOADK                            R4 K43 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/reset-to-mannequin-dark@3x.png"]
-       50 SETTABLEKS                       R4 R3 K19 ["PreviewTooltipResetAvatarsToCameraImage"]
-       52 LOADK                            R4 K44 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/settings-dark@3x.png"]
-       53 SETTABLEKS                       R4 R3 K20 ["GeneralCategoryImage"]
-       55 LOADK                            R4 K45 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/avatar-dark@3x.png"]
-       56 SETTABLEKS                       R4 R3 K21 ["BodyCategoryImage"]
-       58 LOADK                            R4 K46 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/animation-dark@3x.png"]
-       59 SETTABLEKS                       R4 R3 K22 ["MovementCategoryImage"]
-       61 LOADK                            R4 K47 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/accessories-dark@3x.png"]
-       62 SETTABLEKS                       R4 R3 K23 ["AccessoriesCategoryImage"]
-       64 LOADK                            R4 K48 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/clothing-dark@3x.png"]
-       65 SETTABLEKS                       R4 R3 K24 ["ClothingCategoryImage"]
-       67 LOADK                            R4 K49 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/expandsidebar-dark@3x.png"]
-       68 SETTABLEKS                       R4 R3 K25 ["ExpandSidebarImage"]
-       70 LOADK                            R4 K50 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/collapsesidebar-dark@3x.png"]
-       71 SETTABLEKS                       R4 R3 K26 ["CollapseSidebarImage"]
-       73 LOADK                            R4 K51 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Dark/Standard/more-options-dark@3x.png"]
-       74 SETTABLEKS                       R4 R3 K27 ["AvatarTypeDropdownToggleImage"]
-       76 LOADK                            R4 K52 ["rbxasset://textures/AvatarSettings/Dark/player-choice_darkx1.png"]
-       77 SETTABLEKS                       R4 R3 K28 ["PlayerChoicePresetImage"]
-       79 LOADK                            R4 K53 ["rbxasset://textures/AvatarSettings/Dark/consistent-darkx1.png"]
-       80 SETTABLEKS                       R4 R3 K29 ["ConsistentPresetImage"]
-       82 MOVE                             R4 R2
-       83 LOADK                            R5 K54 ["AvatarSettingsDarkTheme"]
-       84 NEWTABLE                         R6 0 0
-       86 MOVE                             R7 R3
-       87 CALL                             R4 3 -1
-       88 RETURN                           R4 -1
+       25 MOVE                             R4 R2
+       26 LOADK                            R5 K54 ["AvatarSettingsDarkTheme"]
+       27 NEWTABLE                         R6 0 0
+       29 MOVE                             R7 R3
+       30 CALL                             R4 3 -1
+       31 RETURN                           R4 -1

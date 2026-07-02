@@ -130,31 +130,23 @@ MAIN:
        50 GETTABLEKS                       R9 R9 K15 ["Flags"]
        52 GETTABLEKS                       R9 R9 K16 ["getFFlagImportQueueRibbonDropdown"]
        54 CALL                             R8 1 1
-       55 DUPTABLE                         R9 K21 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       56 LOADK                            R10 K22 ["Standalone"]
-       57 SETTABLEKS                       R10 R9 K17 ["DataModel"]
-       59 LOADK                            R10 K23 ["MeshImporter"]
-       60 SETTABLEKS                       R10 R9 K18 ["PluginId"]
-       62 LOADK                            R10 K24 ["Actions"]
-       63 SETTABLEKS                       R10 R9 K19 ["Category"]
-       65 LOADK                            R10 K25 ["ToggleQueue"]
-       66 SETTABLEKS                       R10 R9 K20 ["ItemId"]
-       68 GETTABLEKS                       R10 R2 K26 ["PureComponent"]
-       70 LOADK                            R12 K27 ["MainPlugin"]
-       71 NAMECALL                         R10 R10 K28 ["extend"]
-       73 CALL                             R10 2 1
-       74 DUPCLOSURE                       R11 K29 [PROTO_2]
-       75 CAPTURE                          VAL R8
-       76 CAPTURE                          VAL R0
-       77 CAPTURE                          VAL R9
-       78 SETTABLEKS                       R11 R10 K30 ["init"]
-       80 DUPCLOSURE                       R11 K31 [PROTO_3]
-       81 SETTABLEKS                       R11 R10 K32 ["didUpdate"]
-       83 DUPCLOSURE                       R11 K33 [PROTO_4]
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R6
-       89 SETTABLEKS                       R11 R10 K34 ["render"]
-       91 RETURN                           R10 1
+       55 DUPTABLE                         R9 K25 [{["DataModel"] = "Standalone", ["PluginId"] = "MeshImporter", ["Category"] = "Actions", ["ItemId"] = "ToggleQueue"}]
+       56 GETTABLEKS                       R10 R2 K26 ["PureComponent"]
+       58 LOADK                            R12 K27 ["MainPlugin"]
+       59 NAMECALL                         R10 R10 K28 ["extend"]
+       61 CALL                             R10 2 1
+       62 DUPCLOSURE                       R11 K29 [PROTO_2]
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          VAL R9
+       66 SETTABLEKS                       R11 R10 K30 ["init"]
+       68 DUPCLOSURE                       R11 K31 [PROTO_3]
+       69 SETTABLEKS                       R11 R10 K32 ["didUpdate"]
+       71 DUPCLOSURE                       R11 K33 [PROTO_4]
+       72 CAPTURE                          VAL R4
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R6
+       77 SETTABLEKS                       R11 R10 K34 ["render"]
+       79 RETURN                           R10 1

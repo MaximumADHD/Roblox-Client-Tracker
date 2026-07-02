@@ -508,14 +508,12 @@ PROTO_16:
       319 LOADK                            R29 K38 ["unsupported instance type"]
       320 GETIMPORT                        R27 K40 [assert]
       322 CALL                             R27 2 0
-      323 DUPTABLE                         R27 K41 [{"bypass", "setBypass", "reset"}]
-      324 LOADB                            R28 0
-      325 SETTABLEKS                       R28 R27 K18 ["bypass"]
-      327 DUPCLOSURE                       R28 K42 [PROTO_14]
-      328 SETTABLEKS                       R28 R27 K24 ["setBypass"]
-      330 DUPCLOSURE                       R28 K43 [PROTO_15]
-      331 SETTABLEKS                       R28 R27 K25 ["reset"]
-      333 RETURN                           R27 1
+      323 DUPTABLE                         R27 K42 [{["bypass"] = False, ["setBypass"], ["reset"]}]
+      324 DUPCLOSURE                       R28 K43 [PROTO_14]
+      325 SETTABLEKS                       R28 R27 K24 ["setBypass"]
+      327 DUPCLOSURE                       R28 K44 [PROTO_15]
+      328 SETTABLEKS                       R28 R27 K25 ["reset"]
+      330 RETURN                           R27 1
 
 MAIN:
         0 PREPVARARGS                      0

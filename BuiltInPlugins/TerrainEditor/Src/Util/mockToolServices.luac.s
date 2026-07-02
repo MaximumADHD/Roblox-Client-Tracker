@@ -15,71 +15,69 @@ PROTO_0:
        19 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K13 [{"CanSmoothVoxelsBeUpgraded", "Clear", "CopyRegion", "CountCells", "FillBall", "FillBlock", "FillCylinder", "FillRegion", "ReadVoxels", "ReplaceMaterial", "SmoothRegion", "WriteVoxels", "LastUsedModificationMethod"}]
+        0 DUPTABLE                         R1 K14 [{[1], ["Clear"], ["CopyRegion"], ["CountCells"], ["FillBall"], ["FillBlock"], ["FillCylinder"], ["FillRegion"], ["ReadVoxels"], ["ReplaceMaterial"], ["SmoothRegion"], ["WriteVoxels"], ["LastUsedModificationMethod"] = }]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K14 ["fn"]
+        2 GETTABLEKS                       R2 R2 K15 ["fn"]
         4 CALL                             R2 0 1
-        5 GETTABLEKS                       R2 R2 K15 ["mockReturnValue"]
+        5 GETTABLEKS                       R2 R2 K16 ["mockReturnValue"]
         7 LOADB                            R3 0
         8 CALL                             R2 1 1
         9 SETTABLEKS                       R2 R1 K0 ["CanSmoothVoxelsBeUpgraded"]
        11 GETUPVAL                         R2 0
-       12 GETTABLEKS                       R2 R2 K14 ["fn"]
+       12 GETTABLEKS                       R2 R2 K15 ["fn"]
        14 CALL                             R2 0 1
        15 SETTABLEKS                       R2 R1 K1 ["Clear"]
        17 GETUPVAL                         R2 0
-       18 GETTABLEKS                       R2 R2 K14 ["fn"]
+       18 GETTABLEKS                       R2 R2 K15 ["fn"]
        20 CALL                             R2 0 1
        21 SETTABLEKS                       R2 R1 K2 ["CopyRegion"]
        23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K14 ["fn"]
+       24 GETTABLEKS                       R2 R2 K15 ["fn"]
        26 CALL                             R2 0 1
-       27 GETTABLEKS                       R2 R2 K15 ["mockReturnValue"]
+       27 GETTABLEKS                       R2 R2 K16 ["mockReturnValue"]
        29 LOADN                            R3 0
        30 CALL                             R2 1 1
        31 SETTABLEKS                       R2 R1 K3 ["CountCells"]
        33 GETUPVAL                         R2 0
-       34 GETTABLEKS                       R2 R2 K14 ["fn"]
+       34 GETTABLEKS                       R2 R2 K15 ["fn"]
        36 CALL                             R2 0 1
        37 SETTABLEKS                       R2 R1 K4 ["FillBall"]
        39 GETUPVAL                         R2 0
-       40 GETTABLEKS                       R2 R2 K14 ["fn"]
+       40 GETTABLEKS                       R2 R2 K15 ["fn"]
        42 CALL                             R2 0 1
        43 SETTABLEKS                       R2 R1 K5 ["FillBlock"]
        45 GETUPVAL                         R2 0
-       46 GETTABLEKS                       R2 R2 K14 ["fn"]
+       46 GETTABLEKS                       R2 R2 K15 ["fn"]
        48 CALL                             R2 0 1
        49 SETTABLEKS                       R2 R1 K6 ["FillCylinder"]
        51 GETUPVAL                         R2 0
-       52 GETTABLEKS                       R2 R2 K14 ["fn"]
+       52 GETTABLEKS                       R2 R2 K15 ["fn"]
        54 CALL                             R2 0 1
        55 SETTABLEKS                       R2 R1 K7 ["FillRegion"]
        57 GETUPVAL                         R2 0
-       58 GETTABLEKS                       R2 R2 K14 ["fn"]
+       58 GETTABLEKS                       R2 R2 K15 ["fn"]
        60 CALL                             R2 0 1
        61 SETTABLEKS                       R2 R1 K8 ["ReadVoxels"]
        63 GETUPVAL                         R2 0
-       64 GETTABLEKS                       R2 R2 K14 ["fn"]
+       64 GETTABLEKS                       R2 R2 K15 ["fn"]
        66 CALL                             R2 0 1
        67 SETTABLEKS                       R2 R1 K9 ["ReplaceMaterial"]
        69 GETUPVAL                         R2 0
-       70 GETTABLEKS                       R2 R2 K14 ["fn"]
+       70 GETTABLEKS                       R2 R2 K15 ["fn"]
        72 CALL                             R2 0 1
        73 SETTABLEKS                       R2 R1 K10 ["SmoothRegion"]
        75 GETUPVAL                         R2 0
-       76 GETTABLEKS                       R2 R2 K14 ["fn"]
+       76 GETTABLEKS                       R2 R2 K15 ["fn"]
        78 CALL                             R2 0 1
        79 SETTABLEKS                       R2 R1 K11 ["WriteVoxels"]
-       81 LOADNIL                          R2
-       82 SETTABLEKS                       R2 R1 K12 ["LastUsedModificationMethod"]
-       84 JUMPIFNOT                        R0 ; [+7]
-       85 MOVE                             R2 R0
-       86 LOADNIL                          R3
-       87 LOADNIL                          R4
-       88 FORGPREP                         R2
-       89 SETTABLE                         R6 R1 R5
-       90 FORGLOOP                         R2 2 ; [-2]
-       92 RETURN                           R1 1
+       81 JUMPIFNOT                        R0 ; [+7]
+       82 MOVE                             R2 R0
+       83 LOADNIL                          R3
+       84 LOADNIL                          R4
+       85 FORGPREP                         R2
+       86 SETTABLE                         R6 R1 R5
+       87 FORGLOOP                         R2 2 ; [-2]
+       89 RETURN                           R1 1
 
 PROTO_2:
         0 DUPTABLE                         R1 K2 [{"Terrain", "ChangeHistoryService"}]

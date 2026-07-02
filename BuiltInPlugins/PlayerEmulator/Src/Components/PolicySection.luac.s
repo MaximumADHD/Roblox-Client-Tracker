@@ -95,39 +95,35 @@ PROTO_1:
       118 GETUPVAL                         R18 0
       119 GETTABLEKS                       R18 R18 K18 ["createElement"]
       121 GETUPVAL                         R19 3
-      122 DUPTABLE                         R20 K49 [{"AutomaticSize", "HorizontalAlignment", "Spacing", "Layout", "LayoutOrder"}]
+      122 DUPTABLE                         R20 K50 [{["AutomaticSize"], ["HorizontalAlignment"], ["Spacing"], ["Layout"], ["LayoutOrder"] = 1}]
       123 GETIMPORT                        R21 K39 [Enum.AutomaticSize.Y]
       125 SETTABLEKS                       R21 R20 K33 ["AutomaticSize"]
       127 GETIMPORT                        R21 K41 [Enum.HorizontalAlignment.Left]
       129 SETTABLEKS                       R21 R20 K34 ["HorizontalAlignment"]
-      131 GETTABLEKS                       R21 R2 K50 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+      131 GETTABLEKS                       R21 R2 K51 ["HORIZONTAL_LISTLAYOUT_PADDING"]
       133 SETTABLEKS                       R21 R20 K48 ["Spacing"]
       135 GETIMPORT                        R21 K44 [Enum.FillDirection.Vertical]
       137 SETTABLEKS                       R21 R20 K35 ["Layout"]
-      139 LOADN                            R21 1
-      140 SETTABLEKS                       R21 R20 K2 ["LayoutOrder"]
-      142 MOVE                             R21 R12
-      143 CALL                             R18 3 1
-      144 SETTABLEKS                       R18 R17 K45 ["ToggleElementsFrame"]
-      146 GETUPVAL                         R18 0
-      147 GETTABLEKS                       R18 R18 K18 ["createElement"]
-      149 GETUPVAL                         R19 3
-      150 DUPTABLE                         R20 K49 [{"AutomaticSize", "HorizontalAlignment", "Spacing", "Layout", "LayoutOrder"}]
-      151 GETIMPORT                        R21 K39 [Enum.AutomaticSize.Y]
-      153 SETTABLEKS                       R21 R20 K33 ["AutomaticSize"]
-      155 GETIMPORT                        R21 K41 [Enum.HorizontalAlignment.Left]
-      157 SETTABLEKS                       R21 R20 K34 ["HorizontalAlignment"]
-      159 GETTABLEKS                       R21 R2 K50 ["HORIZONTAL_LISTLAYOUT_PADDING"]
-      161 SETTABLEKS                       R21 R20 K48 ["Spacing"]
-      163 GETIMPORT                        R21 K44 [Enum.FillDirection.Vertical]
-      165 SETTABLEKS                       R21 R20 K35 ["Layout"]
-      167 LOADN                            R21 2
-      168 SETTABLEKS                       R21 R20 K2 ["LayoutOrder"]
-      170 MOVE                             R21 R13
-      171 CALL                             R18 3 1
-      172 SETTABLEKS                       R18 R17 K46 ["ListElementsFrame"]
-      174 CALL                             R14 3 -1
-      175 RETURN                           R14 -1
+      139 MOVE                             R21 R12
+      140 CALL                             R18 3 1
+      141 SETTABLEKS                       R18 R17 K45 ["ToggleElementsFrame"]
+      143 GETUPVAL                         R18 0
+      144 GETTABLEKS                       R18 R18 K18 ["createElement"]
+      146 GETUPVAL                         R19 3
+      147 DUPTABLE                         R20 K53 [{["AutomaticSize"], ["HorizontalAlignment"], ["Spacing"], ["Layout"], ["LayoutOrder"] = 2}]
+      148 GETIMPORT                        R21 K39 [Enum.AutomaticSize.Y]
+      150 SETTABLEKS                       R21 R20 K33 ["AutomaticSize"]
+      152 GETIMPORT                        R21 K41 [Enum.HorizontalAlignment.Left]
+      154 SETTABLEKS                       R21 R20 K34 ["HorizontalAlignment"]
+      156 GETTABLEKS                       R21 R2 K51 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+      158 SETTABLEKS                       R21 R20 K48 ["Spacing"]
+      160 GETIMPORT                        R21 K44 [Enum.FillDirection.Vertical]
+      162 SETTABLEKS                       R21 R20 K35 ["Layout"]
+      164 MOVE                             R21 R13
+      165 CALL                             R18 3 1
+      166 SETTABLEKS                       R18 R17 K46 ["ListElementsFrame"]
+      168 CALL                             R14 3 -1
+      169 RETURN                           R14 -1
 
 PROTO_2:
         0 GETIMPORT                        R2 K1 [game]

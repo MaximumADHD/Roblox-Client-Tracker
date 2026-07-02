@@ -10,10 +10,6 @@ MAIN:
        13 CALL                             R1 1 1
        14 MOVE                             R2 R1
        15 LOADK                            R3 K8 ["StatusLevel"]
-       16 DUPTABLE                         R4 K11 [{"Error", "Warning"}]
-       17 LOADK                            R5 K9 ["Error"]
-       18 SETTABLEKS                       R5 R4 K9 ["Error"]
-       20 LOADK                            R5 K10 ["Warning"]
-       21 SETTABLEKS                       R5 R4 K10 ["Warning"]
-       23 CALL                             R2 2 -1
-       24 RETURN                           R2 -1
+       16 DUPTABLE                         R4 K11 [{["Error"] = "Error", ["Warning"] = "Warning"}]
+       17 CALL                             R2 2 -1
+       18 RETURN                           R2 -1

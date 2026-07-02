@@ -40,30 +40,24 @@ PROTO_0:
        54 GETUPVAL                         R11 1
        55 GETTABLEKS                       R11 R11 K15 ["createElement"]
        57 LOADK                            R12 K16 ["TextLabel"]
-       58 DUPTABLE                         R13 K25 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "Visible", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "ClipsDescendants"}]
+       58 DUPTABLE                         R13 K27 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"], ["Visible"], ["Text"], ["TextColor3"], ["Font"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["ClipsDescendants"] = True}]
        59 SETTABLEKS                       R5 R13 K4 ["Position"]
        61 SETTABLEKS                       R6 R13 K8 ["Size"]
-       63 LOADN                            R14 1
-       64 SETTABLEKS                       R14 R13 K17 ["BackgroundTransparency"]
-       66 SETTABLEKS                       R7 R13 K10 ["ZIndex"]
-       68 SETTABLEKS                       R8 R13 K11 ["Visible"]
-       70 SETTABLEKS                       R9 R13 K13 ["Text"]
-       72 GETTABLEKS                       R14 R10 K26 ["textColor"]
-       74 SETTABLEKS                       R14 R13 K18 ["TextColor3"]
-       76 GETUPVAL                         R14 0
-       77 GETTABLEKS                       R14 R14 K27 ["FONT"]
-       79 SETTABLEKS                       R14 R13 K19 ["Font"]
-       81 SETTABLEKS                       R3 R13 K20 ["TextSize"]
-       83 GETIMPORT                        R14 K30 [Enum.TextXAlignment.Center]
-       85 SETTABLEKS                       R14 R13 K21 ["TextXAlignment"]
-       87 GETIMPORT                        R14 K31 [Enum.TextYAlignment.Center]
-       89 SETTABLEKS                       R14 R13 K22 ["TextYAlignment"]
-       91 LOADB                            R14 1
-       92 SETTABLEKS                       R14 R13 K23 ["TextWrapped"]
-       94 LOADB                            R14 1
-       95 SETTABLEKS                       R14 R13 K24 ["ClipsDescendants"]
-       97 CALL                             R11 2 -1
-       98 RETURN                           R11 -1
+       63 SETTABLEKS                       R7 R13 K10 ["ZIndex"]
+       65 SETTABLEKS                       R8 R13 K11 ["Visible"]
+       67 SETTABLEKS                       R9 R13 K13 ["Text"]
+       69 GETTABLEKS                       R14 R10 K28 ["textColor"]
+       71 SETTABLEKS                       R14 R13 K19 ["TextColor3"]
+       73 GETUPVAL                         R14 0
+       74 GETTABLEKS                       R14 R14 K29 ["FONT"]
+       76 SETTABLEKS                       R14 R13 K20 ["Font"]
+       78 SETTABLEKS                       R3 R13 K21 ["TextSize"]
+       80 GETIMPORT                        R14 K32 [Enum.TextXAlignment.Center]
+       82 SETTABLEKS                       R14 R13 K22 ["TextXAlignment"]
+       84 GETIMPORT                        R14 K33 [Enum.TextYAlignment.Center]
+       86 SETTABLEKS                       R14 R13 K23 ["TextYAlignment"]
+       88 CALL                             R11 2 -1
+       89 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

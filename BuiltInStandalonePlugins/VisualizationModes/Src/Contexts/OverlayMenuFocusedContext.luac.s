@@ -33,16 +33,14 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createContext"]
-       16 DUPTABLE                         R3 K11 [{"overlayFocused", "setOverlayFocused"}]
-       17 LOADB                            R4 0
-       18 SETTABLEKS                       R4 R3 K9 ["overlayFocused"]
-       20 DUPCLOSURE                       R4 K12 [PROTO_0]
-       21 SETTABLEKS                       R4 R3 K10 ["setOverlayFocused"]
-       23 CALL                             R2 1 1
-       24 DUPCLOSURE                       R3 K13 [PROTO_1]
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          VAL R2
-       27 DUPTABLE                         R4 K16 [{"Context", "Provider"}]
-       28 SETTABLEKS                       R2 R4 K14 ["Context"]
-       30 SETTABLEKS                       R3 R4 K15 ["Provider"]
-       32 RETURN                           R4 1
+       16 DUPTABLE                         R3 K12 [{["overlayFocused"] = False, ["setOverlayFocused"]}]
+       17 DUPCLOSURE                       R4 K13 [PROTO_0]
+       18 SETTABLEKS                       R4 R3 K11 ["setOverlayFocused"]
+       20 CALL                             R2 1 1
+       21 DUPCLOSURE                       R3 K14 [PROTO_1]
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R2
+       24 DUPTABLE                         R4 K17 [{"Context", "Provider"}]
+       25 SETTABLEKS                       R2 R4 K15 ["Context"]
+       27 SETTABLEKS                       R3 R4 K16 ["Provider"]
+       29 RETURN                           R4 1

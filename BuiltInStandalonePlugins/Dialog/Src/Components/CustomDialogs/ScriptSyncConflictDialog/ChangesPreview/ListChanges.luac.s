@@ -80,127 +80,111 @@ PROTO_1:
        71 GETUPVAL                         R10 1
        72 GETUPVAL                         R11 0
        73 GETTABLEKS                       R11 R11 K15 ["View"]
-       75 DUPTABLE                         R12 K18 [{"tag", "Size"}]
-       76 LOADK                            R13 K19 ["padding-none auto-none clip"]
-       77 SETTABLEKS                       R13 R12 K16 ["tag"]
-       79 GETIMPORT                        R13 K22 [UDim2.new]
-       81 LOADN                            R14 1
-       82 LOADN                            R15 0
-       83 LOADN                            R16 0
-       84 GETTABLEKS                       R20 R0 K8 ["changes"]
-       86 LENGTH                           R19 R20
-       87 GETUPVAL                         R20 4
-       88 GETTABLEKS                       R20 R20 K23 ["ITEM_HEIGHT"]
-       90 MUL                              R18 R19 R20
-       91 GETUPVAL                         R20 4
-       92 GETTABLEKS                       R20 R20 K23 ["ITEM_HEIGHT"]
-       94 GETUPVAL                         R21 4
-       95 GETTABLEKS                       R21 R21 K13 ["MAX_VISIBLE_ITEMS"]
-       97 MUL                              R19 R20 R21
-       98 FASTCALL2                        MATH_MIN R18 R19 ; [+3]
-      100 GETIMPORT                        R17 K26 [math.min]
-      102 CALL                             R17 2 1
-      103 CALL                             R13 4 1
-      104 SETTABLEKS                       R13 R12 K17 ["Size"]
-      106 DUPTABLE                         R13 K30 [{"BottomGradient", "TopGradient", "ScrollView"}]
-      107 GETUPVAL                         R14 1
-      108 GETUPVAL                         R15 0
-      109 GETTABLEKS                       R15 R15 K15 ["View"]
-      111 DUPTABLE                         R16 K35 [{"tag", "Position", "AnchorPoint", "Visible", "ZIndex"}]
-      112 LOADK                            R17 K36 ["size-full-250 bg-surface-200"]
-      113 SETTABLEKS                       R17 R16 K16 ["tag"]
-      115 GETIMPORT                        R17 K38 [UDim2.fromScale]
-      117 LOADN                            R18 0
-      118 LOADN                            R19 1
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K31 ["Position"]
-      122 GETIMPORT                        R17 K40 [Vector2.new]
-      124 LOADN                            R18 0
-      125 LOADN                            R19 1
-      126 CALL                             R17 2 1
-      127 SETTABLEKS                       R17 R16 K32 ["AnchorPoint"]
-      129 SETTABLEKS                       R5 R16 K33 ["Visible"]
-      131 LOADN                            R17 5
-      132 SETTABLEKS                       R17 R16 K34 ["ZIndex"]
-      134 DUPTABLE                         R17 K42 [{"UIGradient"}]
-      135 GETUPVAL                         R18 1
-      136 LOADK                            R19 K41 ["UIGradient"]
-      137 DUPTABLE                         R20 K45 [{"Transparency", "Rotation"}]
-      138 GETIMPORT                        R21 K47 [NumberSequence.new]
-      140 LOADN                            R22 1
-      141 LOADN                            R23 0
-      142 CALL                             R21 2 1
-      143 SETTABLEKS                       R21 R20 K43 ["Transparency"]
-      145 LOADN                            R21 90
-      146 SETTABLEKS                       R21 R20 K44 ["Rotation"]
-      148 CALL                             R18 2 1
-      149 SETTABLEKS                       R18 R17 K41 ["UIGradient"]
-      151 CALL                             R14 3 1
-      152 SETTABLEKS                       R14 R13 K27 ["BottomGradient"]
-      154 GETUPVAL                         R14 1
-      155 GETUPVAL                         R15 0
-      156 GETTABLEKS                       R15 R15 K15 ["View"]
-      158 DUPTABLE                         R16 K48 [{"tag", "Position", "Visible", "ZIndex"}]
-      159 LOADK                            R17 K36 ["size-full-250 bg-surface-200"]
-      160 SETTABLEKS                       R17 R16 K16 ["tag"]
-      162 GETIMPORT                        R17 K38 [UDim2.fromScale]
-      164 LOADN                            R18 0
-      165 LOADN                            R19 0
-      166 CALL                             R17 2 1
-      167 SETTABLEKS                       R17 R16 K31 ["Position"]
-      169 SETTABLEKS                       R7 R16 K33 ["Visible"]
-      171 LOADN                            R17 5
-      172 SETTABLEKS                       R17 R16 K34 ["ZIndex"]
-      174 DUPTABLE                         R17 K42 [{"UIGradient"}]
-      175 GETUPVAL                         R18 1
-      176 LOADK                            R19 K41 ["UIGradient"]
-      177 DUPTABLE                         R20 K45 [{"Transparency", "Rotation"}]
-      178 GETIMPORT                        R21 K47 [NumberSequence.new]
-      180 LOADN                            R22 0
-      181 LOADN                            R23 1
-      182 CALL                             R21 2 1
-      183 SETTABLEKS                       R21 R20 K43 ["Transparency"]
-      185 LOADN                            R21 90
-      186 SETTABLEKS                       R21 R20 K44 ["Rotation"]
-      188 CALL                             R18 2 1
-      189 SETTABLEKS                       R18 R17 K41 ["UIGradient"]
-      191 CALL                             R14 3 1
-      192 SETTABLEKS                       R14 R13 K28 ["TopGradient"]
-      194 GETUPVAL                         R14 1
-      195 GETUPVAL                         R15 0
-      196 GETTABLEKS                       R15 R15 K29 ["ScrollView"]
-      198 DUPTABLE                         R16 K53 [{"tag", "onCanvasPositionChanged", "onAbsoluteCanvasSizeChanged", "layout", "scroll"}]
-      199 LOADK                            R17 K54 ["size-full-full"]
-      200 SETTABLEKS                       R17 R16 K16 ["tag"]
-      202 SETTABLEKS                       R9 R16 K49 ["onCanvasPositionChanged"]
-      204 SETTABLEKS                       R9 R16 K50 ["onAbsoluteCanvasSizeChanged"]
-      206 DUPTABLE                         R17 K57 [{"FillDirection", "Padding"}]
-      207 GETIMPORT                        R18 K60 [Enum.FillDirection.Vertical]
-      209 SETTABLEKS                       R18 R17 K55 ["FillDirection"]
-      211 GETIMPORT                        R18 K62 [UDim.new]
-      213 LOADN                            R19 0
-      214 LOADN                            R20 0
-      215 CALL                             R18 2 1
-      216 SETTABLEKS                       R18 R17 K56 ["Padding"]
-      218 SETTABLEKS                       R17 R16 K51 ["layout"]
-      220 DUPTABLE                         R17 K66 [{"CanvasSize", "AutomaticSize", "AutomaticCanvasSize"}]
-      221 GETIMPORT                        R18 K22 [UDim2.new]
-      223 LOADN                            R19 0
-      224 LOADN                            R20 0
-      225 LOADN                            R21 0
-      226 LOADN                            R22 0
-      227 CALL                             R18 4 1
-      228 SETTABLEKS                       R18 R17 K63 ["CanvasSize"]
-      230 GETIMPORT                        R18 K68 [Enum.AutomaticSize.None]
-      232 SETTABLEKS                       R18 R17 K64 ["AutomaticSize"]
-      234 GETIMPORT                        R18 K70 [Enum.AutomaticSize.Y]
-      236 SETTABLEKS                       R18 R17 K65 ["AutomaticCanvasSize"]
-      238 SETTABLEKS                       R17 R16 K52 ["scroll"]
-      240 MOVE                             R17 R4
-      241 CALL                             R14 3 1
-      242 SETTABLEKS                       R14 R13 K29 ["ScrollView"]
-      244 CALL                             R10 3 -1
-      245 RETURN                           R10 -1
+       75 DUPTABLE                         R12 K19 [{["tag"] = "auto-none padding-none clip", ["Size"]}]
+       76 GETIMPORT                        R13 K22 [UDim2.new]
+       78 LOADN                            R14 1
+       79 LOADN                            R15 0
+       80 LOADN                            R16 0
+       81 GETTABLEKS                       R20 R0 K8 ["changes"]
+       83 LENGTH                           R19 R20
+       84 GETUPVAL                         R20 4
+       85 GETTABLEKS                       R20 R20 K23 ["ITEM_HEIGHT"]
+       87 MUL                              R18 R19 R20
+       88 GETUPVAL                         R20 4
+       89 GETTABLEKS                       R20 R20 K23 ["ITEM_HEIGHT"]
+       91 GETUPVAL                         R21 4
+       92 GETTABLEKS                       R21 R21 K13 ["MAX_VISIBLE_ITEMS"]
+       94 MUL                              R19 R20 R21
+       95 FASTCALL2                        MATH_MIN R18 R19 ; [+3]
+       97 GETIMPORT                        R17 K26 [math.min]
+       99 CALL                             R17 2 1
+      100 CALL                             R13 4 1
+      101 SETTABLEKS                       R13 R12 K18 ["Size"]
+      103 DUPTABLE                         R13 K30 [{"BottomGradient", "TopGradient", "ScrollView"}]
+      104 GETUPVAL                         R14 1
+      105 GETUPVAL                         R15 0
+      106 GETTABLEKS                       R15 R15 K15 ["View"]
+      108 DUPTABLE                         R16 K37 [{["tag"] = "size-full-250 bg-surface-200", ["Position"], ["AnchorPoint"], ["Visible"], ["ZIndex"] = 5}]
+      109 GETIMPORT                        R17 K39 [UDim2.fromScale]
+      111 LOADN                            R18 0
+      112 LOADN                            R19 1
+      113 CALL                             R17 2 1
+      114 SETTABLEKS                       R17 R16 K32 ["Position"]
+      116 GETIMPORT                        R17 K41 [Vector2.new]
+      118 LOADN                            R18 0
+      119 LOADN                            R19 1
+      120 CALL                             R17 2 1
+      121 SETTABLEKS                       R17 R16 K33 ["AnchorPoint"]
+      123 SETTABLEKS                       R5 R16 K34 ["Visible"]
+      125 DUPTABLE                         R17 K43 [{"UIGradient"}]
+      126 GETUPVAL                         R18 1
+      127 LOADK                            R19 K42 ["UIGradient"]
+      128 DUPTABLE                         R20 K47 [{["Transparency"], ["Rotation"] = 90}]
+      129 GETIMPORT                        R21 K49 [NumberSequence.new]
+      131 LOADN                            R22 1
+      132 LOADN                            R23 0
+      133 CALL                             R21 2 1
+      134 SETTABLEKS                       R21 R20 K44 ["Transparency"]
+      136 CALL                             R18 2 1
+      137 SETTABLEKS                       R18 R17 K42 ["UIGradient"]
+      139 CALL                             R14 3 1
+      140 SETTABLEKS                       R14 R13 K27 ["BottomGradient"]
+      142 GETUPVAL                         R14 1
+      143 GETUPVAL                         R15 0
+      144 GETTABLEKS                       R15 R15 K15 ["View"]
+      146 DUPTABLE                         R16 K50 [{["tag"] = "size-full-250 bg-surface-200", ["Position"], ["Visible"], ["ZIndex"] = 5}]
+      147 GETIMPORT                        R17 K39 [UDim2.fromScale]
+      149 LOADN                            R18 0
+      150 LOADN                            R19 0
+      151 CALL                             R17 2 1
+      152 SETTABLEKS                       R17 R16 K32 ["Position"]
+      154 SETTABLEKS                       R7 R16 K34 ["Visible"]
+      156 DUPTABLE                         R17 K43 [{"UIGradient"}]
+      157 GETUPVAL                         R18 1
+      158 LOADK                            R19 K42 ["UIGradient"]
+      159 DUPTABLE                         R20 K47 [{["Transparency"], ["Rotation"] = 90}]
+      160 GETIMPORT                        R21 K49 [NumberSequence.new]
+      162 LOADN                            R22 0
+      163 LOADN                            R23 1
+      164 CALL                             R21 2 1
+      165 SETTABLEKS                       R21 R20 K44 ["Transparency"]
+      167 CALL                             R18 2 1
+      168 SETTABLEKS                       R18 R17 K42 ["UIGradient"]
+      170 CALL                             R14 3 1
+      171 SETTABLEKS                       R14 R13 K28 ["TopGradient"]
+      173 GETUPVAL                         R14 1
+      174 GETUPVAL                         R15 0
+      175 GETTABLEKS                       R15 R15 K29 ["ScrollView"]
+      177 DUPTABLE                         R16 K56 [{["tag"] = "size-full-full", ["onCanvasPositionChanged"], ["onAbsoluteCanvasSizeChanged"], ["layout"], ["scroll"]}]
+      178 SETTABLEKS                       R9 R16 K52 ["onCanvasPositionChanged"]
+      180 SETTABLEKS                       R9 R16 K53 ["onAbsoluteCanvasSizeChanged"]
+      182 DUPTABLE                         R17 K59 [{"FillDirection", "Padding"}]
+      183 GETIMPORT                        R18 K62 [Enum.FillDirection.Vertical]
+      185 SETTABLEKS                       R18 R17 K57 ["FillDirection"]
+      187 GETIMPORT                        R18 K64 [UDim.new]
+      189 LOADN                            R19 0
+      190 LOADN                            R20 0
+      191 CALL                             R18 2 1
+      192 SETTABLEKS                       R18 R17 K58 ["Padding"]
+      194 SETTABLEKS                       R17 R16 K54 ["layout"]
+      196 DUPTABLE                         R17 K68 [{"CanvasSize", "AutomaticSize", "AutomaticCanvasSize"}]
+      197 GETIMPORT                        R18 K22 [UDim2.new]
+      199 LOADN                            R19 0
+      200 LOADN                            R20 0
+      201 LOADN                            R21 0
+      202 LOADN                            R22 0
+      203 CALL                             R18 4 1
+      204 SETTABLEKS                       R18 R17 K65 ["CanvasSize"]
+      206 GETIMPORT                        R18 K70 [Enum.AutomaticSize.None]
+      208 SETTABLEKS                       R18 R17 K66 ["AutomaticSize"]
+      210 GETIMPORT                        R18 K72 [Enum.AutomaticSize.Y]
+      212 SETTABLEKS                       R18 R17 K67 ["AutomaticCanvasSize"]
+      214 SETTABLEKS                       R17 R16 K55 ["scroll"]
+      216 MOVE                             R17 R4
+      217 CALL                             R14 3 1
+      218 SETTABLEKS                       R14 R13 K29 ["ScrollView"]
+      220 CALL                             R10 3 -1
+      221 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

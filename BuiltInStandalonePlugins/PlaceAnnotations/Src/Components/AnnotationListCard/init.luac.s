@@ -118,61 +118,53 @@ PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R2 1
         2 CALL                             R1 1 1
-        3 JUMPIFNOT                        R1 ; [+70]
+        3 JUMPIFNOT                        R1 ; [+58]
         4 GETUPVAL                         R0 2
         5 GETTABLEKS                       R0 R0 K0 ["createElement"]
         7 LOADK                            R1 K1 ["Frame"]
-        8 DUPTABLE                         R2 K6 [{"LayoutOrder", "ZIndex", "Size", "BackgroundTransparency"}]
-        9 LOADN                            R3 255
-       10 SETTABLEKS                       R3 R2 K2 ["LayoutOrder"]
-       12 LOADN                            R3 100
-       13 SETTABLEKS                       R3 R2 K3 ["ZIndex"]
-       15 GETIMPORT                        R3 K9 [UDim2.fromScale]
-       17 LOADN                            R4 1
-       18 LOADN                            R5 0
-       19 CALL                             R3 2 1
-       20 SETTABLEKS                       R3 R2 K4 ["Size"]
-       22 LOADN                            R3 1
-       23 SETTABLEKS                       R3 R2 K5 ["BackgroundTransparency"]
-       25 DUPTABLE                         R3 K11 [{"Alert"}]
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       29 GETUPVAL                         R5 3
-       30 DUPTABLE                         R6 K17 [{"Message", "AnchorPoint", "Position", "Size", "IsPopup", "OnClose"}]
-       31 GETUPVAL                         R7 4
-       32 GETUPVAL                         R8 1
-       33 GETUPVAL                         R9 5
-       34 GETTABLEKS                       R9 R9 K18 ["Annotation"]
-       36 GETUPVAL                         R10 6
-       37 CALL                             R7 3 1
-       38 SETTABLEKS                       R7 R6 K12 ["Message"]
-       40 GETIMPORT                        R7 K21 [Vector2.new]
-       42 LOADK                            R8 K22 [0.5]
-       43 LOADN                            R9 0
-       44 CALL                             R7 2 1
-       45 SETTABLEKS                       R7 R6 K13 ["AnchorPoint"]
-       47 GETIMPORT                        R7 K9 [UDim2.fromScale]
-       49 LOADK                            R8 K22 [0.5]
-       50 LOADN                            R9 0
-       51 CALL                             R7 2 1
-       52 SETTABLEKS                       R7 R6 K14 ["Position"]
-       54 GETIMPORT                        R7 K9 [UDim2.fromScale]
-       56 LOADK                            R8 K23 [0.75]
-       57 LOADN                            R9 0
-       58 CALL                             R7 2 1
-       59 SETTABLEKS                       R7 R6 K4 ["Size"]
-       61 LOADB                            R7 1
-       62 SETTABLEKS                       R7 R6 K15 ["IsPopup"]
-       64 NEWCLOSURE                       R7 P0
-       65 CAPTURE                          UPVAL U7
-       66 CAPTURE                          UPVAL U8
-       67 SETTABLEKS                       R7 R6 K16 ["OnClose"]
-       69 CALL                             R4 2 1
-       70 SETTABLEKS                       R4 R3 K10 ["Alert"]
-       72 CALL                             R0 3 1
-       73 RETURN                           R0 1
-       74 LOADNIL                          R0
-       75 RETURN                           R0 1
+        8 DUPTABLE                         R2 K9 [{["LayoutOrder"] = -1, ["ZIndex"] = 100, ["Size"], ["BackgroundTransparency"] = 1}]
+        9 GETIMPORT                        R3 K12 [UDim2.fromScale]
+       11 LOADN                            R4 1
+       12 LOADN                            R5 0
+       13 CALL                             R3 2 1
+       14 SETTABLEKS                       R3 R2 K6 ["Size"]
+       16 DUPTABLE                         R3 K14 [{"Alert"}]
+       17 GETUPVAL                         R4 2
+       18 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       20 GETUPVAL                         R5 3
+       21 DUPTABLE                         R6 K21 [{["Message"], ["AnchorPoint"], ["Position"], ["Size"], ["IsPopup"] = True, ["OnClose"]}]
+       22 GETUPVAL                         R7 4
+       23 GETUPVAL                         R8 1
+       24 GETUPVAL                         R9 5
+       25 GETTABLEKS                       R9 R9 K22 ["Annotation"]
+       27 GETUPVAL                         R10 6
+       28 CALL                             R7 3 1
+       29 SETTABLEKS                       R7 R6 K15 ["Message"]
+       31 GETIMPORT                        R7 K25 [Vector2.new]
+       33 LOADK                            R8 K26 [0.5]
+       34 LOADN                            R9 0
+       35 CALL                             R7 2 1
+       36 SETTABLEKS                       R7 R6 K16 ["AnchorPoint"]
+       38 GETIMPORT                        R7 K12 [UDim2.fromScale]
+       40 LOADK                            R8 K26 [0.5]
+       41 LOADN                            R9 0
+       42 CALL                             R7 2 1
+       43 SETTABLEKS                       R7 R6 K17 ["Position"]
+       45 GETIMPORT                        R7 K12 [UDim2.fromScale]
+       47 LOADK                            R8 K27 [0.75]
+       48 LOADN                            R9 0
+       49 CALL                             R7 2 1
+       50 SETTABLEKS                       R7 R6 K6 ["Size"]
+       52 NEWCLOSURE                       R7 P0
+       53 CAPTURE                          UPVAL U7
+       54 CAPTURE                          UPVAL U8
+       55 SETTABLEKS                       R7 R6 K20 ["OnClose"]
+       57 CALL                             R4 2 1
+       58 SETTABLEKS                       R4 R3 K13 ["Alert"]
+       60 CALL                             R0 3 1
+       61 RETURN                           R0 1
+       62 LOADNIL                          R0
+       63 RETURN                           R0 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -213,14 +205,14 @@ PROTO_6:
        44 GETUPVAL                         R0 2
        45 NAMECALL                         R0 R0 K1 ["GetFocusedElement"]
        47 CALL                             R0 1 1
-       48 JUMPIF                           R0 ; [+49]
+       48 JUMPIF                           R0 ; [+43]
        49 GETUPVAL                         R0 3
        50 LOADB                            R1 1
        51 CALL                             R0 1 0
        52 GETUPVAL                         R0 7
        53 NAMECALL                         R0 R0 K8 ["isDoubleClick"]
        55 CALL                             R0 1 1
-       56 JUMPIFNOT                        R0 ; [+21]
+       56 JUMPIFNOT                        R0 ; [+18]
        57 GETUPVAL                         R0 4
        58 GETTABLEKS                       R0 R0 K2 ["zoomTo"]
        60 GETUPVAL                         R1 5
@@ -232,27 +224,23 @@ PROTO_6:
        68 GETUPVAL                         R1 5
        69 GETUPVAL                         R2 6
        70 GETTABLEKS                       R2 R2 K3 ["Annotation"]
-       72 DUPTABLE                         R3 K7 [{"SingleClick"}]
-       73 LOADB                            R4 0
-       74 SETTABLEKS                       R4 R3 K6 ["SingleClick"]
-       76 CALL                             R0 3 0
-       77 RETURN                           R0 0
-       78 GETUPVAL                         R0 4
-       79 GETTABLEKS                       R0 R0 K4 ["selectAnnotation"]
-       81 GETUPVAL                         R1 5
-       82 GETUPVAL                         R2 6
-       83 GETTABLEKS                       R2 R2 K3 ["Annotation"]
-       85 CALL                             R0 2 0
-       86 GETUPVAL                         R0 4
-       87 GETTABLEKS                       R0 R0 K5 ["syncEditAnnotation"]
-       89 GETUPVAL                         R1 5
-       90 GETUPVAL                         R2 6
-       91 GETTABLEKS                       R2 R2 K3 ["Annotation"]
-       93 DUPTABLE                         R3 K7 [{"SingleClick"}]
-       94 LOADB                            R4 1
-       95 SETTABLEKS                       R4 R3 K6 ["SingleClick"]
-       97 CALL                             R0 3 0
-       98 RETURN                           R0 0
+       72 DUPTABLE                         R3 K10 [{["SingleClick"] = False}]
+       73 CALL                             R0 3 0
+       74 RETURN                           R0 0
+       75 GETUPVAL                         R0 4
+       76 GETTABLEKS                       R0 R0 K4 ["selectAnnotation"]
+       78 GETUPVAL                         R1 5
+       79 GETUPVAL                         R2 6
+       80 GETTABLEKS                       R2 R2 K3 ["Annotation"]
+       82 CALL                             R0 2 0
+       83 GETUPVAL                         R0 4
+       84 GETTABLEKS                       R0 R0 K5 ["syncEditAnnotation"]
+       86 GETUPVAL                         R1 5
+       87 GETUPVAL                         R2 6
+       88 GETTABLEKS                       R2 R2 K3 ["Annotation"]
+       90 DUPTABLE                         R3 K12 [{["SingleClick"] = True}]
+       91 CALL                             R0 3 0
+       92 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -282,7 +270,7 @@ PROTO_10:
         2 LOADK                            R4 K1 ["ZoomTo"]
         3 NAMECALL                         R1 R1 K2 ["getText"]
         5 CALL                             R1 3 1
-        6 JUMPIFNOTEQ                      R0 R1 ; [+21]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+18]
         8 GETUPVAL                         R1 1
         9 GETTABLEKS                       R1 R1 K3 ["zoomTo"]
        11 GETUPVAL                         R2 2
@@ -294,11 +282,9 @@ PROTO_10:
        19 GETUPVAL                         R2 2
        20 GETUPVAL                         R3 3
        21 GETTABLEKS                       R3 R3 K4 ["Annotation"]
-       23 DUPTABLE                         R4 K7 [{"SingleClick"}]
-       24 LOADB                            R5 0
-       25 SETTABLEKS                       R5 R4 K6 ["SingleClick"]
-       27 CALL                             R1 3 0
-       28 RETURN                           R0 0
+       23 DUPTABLE                         R4 K8 [{["SingleClick"] = False}]
+       24 CALL                             R1 3 0
+       25 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R0 0
@@ -483,167 +469,161 @@ PROTO_14:
       192 GETUPVAL                         R29 4
       193 GETTABLEKS                       R29 R29 K9 ["createElement"]
       195 GETUPVAL                         R30 14
-      196 DUPTABLE                         R31 K42 [{"Annotation", "DataModel"}]
+      196 DUPTABLE                         R31 K43 [{["Annotation"], ["DataModel"] = "Standalone"}]
       197 GETTABLEKS                       R32 R0 K7 ["Annotation"]
       199 SETTABLEKS                       R32 R31 K7 ["Annotation"]
-      201 LOADK                            R32 K43 ["Standalone"]
-      202 SETTABLEKS                       R32 R31 K41 ["DataModel"]
-      204 DUPTABLE                         R32 K46 [{"MoreIcon", "ResolveButton"}]
-      205 GETUPVAL                         R33 4
-      206 GETTABLEKS                       R33 R33 K9 ["createElement"]
-      208 GETUPVAL                         R34 15
-      209 DUPTABLE                         R35 K50 [{"DropdownItems", "OnSelect", "Disabled"}]
-      210 DUPTABLE                         R36 K53 [{"ZoomTo", "Delete"}]
-      211 LOADK                            R39 K54 ["Dropdown"]
-      212 LOADK                            R40 K51 ["ZoomTo"]
-      213 NAMECALL                         R37 R2 K55 ["getText"]
-      215 CALL                             R37 3 1
-      216 SETTABLEKS                       R37 R36 K51 ["ZoomTo"]
-      218 GETTABLEKS                       R38 R0 K7 ["Annotation"]
-      220 GETTABLEKS                       R38 R38 K56 ["AuthorId"]
-      222 GETUPVAL                         R39 16
-      223 NAMECALL                         R39 R39 K57 ["GetUserId"]
-      225 CALL                             R39 1 1
-      226 JUMPIFNOTEQ                      R38 R39 ; [+29]
-      228 GETUPVAL                         R37 4
-      229 GETTABLEKS                       R37 R37 K9 ["createElement"]
-      231 LOADK                            R38 K26 ["TextButton"]
-      232 NEWTABLE                         R39 4 0
-      234 LOADK                            R42 K54 ["Dropdown"]
-      235 LOADK                            R43 K58 ["DeleteThread"]
-      236 NAMECALL                         R40 R2 K55 ["getText"]
-      238 CALL                             R40 3 1
-      239 SETTABLEKS                       R40 R39 K29 ["Text"]
-      241 GETUPVAL                         R40 4
-      242 GETTABLEKS                       R40 R40 K30 ["Event"]
-      244 GETTABLEKS                       R40 R40 K59 ["Activated"]
-      246 NEWCLOSURE                       R41 P5
-      247 CAPTURE                          VAL R15
-      248 SETTABLE                         R41 R39 R40
-      249 GETUPVAL                         R40 4
-      250 GETTABLEKS                       R40 R40 K12 ["Tag"]
-      252 LOADK                            R41 K60 ["Component-DropdownItem Delete"]
-      253 SETTABLE                         R41 R39 R40
-      254 CALL                             R37 2 1
-      255 JUMP                             ; [+1]
-      256 LOADNIL                          R37
-      257 SETTABLEKS                       R37 R36 K52 ["Delete"]
-      259 SETTABLEKS                       R36 R35 K47 ["DropdownItems"]
-      261 NEWCLOSURE                       R36 P6
-      262 CAPTURE                          VAL R2
-      263 CAPTURE                          UPVAL U13
-      264 CAPTURE                          VAL R1
-      265 CAPTURE                          VAL R0
-      266 SETTABLEKS                       R36 R35 K48 ["OnSelect"]
-      268 GETUPVAL                         R37 5
-      269 GETTABLEKS                       R37 R37 K61 ["InProgress"]
-      271 JUMPIFEQ                         R9 R37 ; [+2]
-      273 LOADB                            R36 0 +1
-      274 LOADB                            R36 1
-      275 SETTABLEKS                       R36 R35 K49 ["Disabled"]
-      277 CALL                             R33 2 1
-      278 SETTABLEKS                       R33 R32 K44 ["MoreIcon"]
-      280 GETUPVAL                         R33 4
-      281 GETTABLEKS                       R33 R33 K9 ["createElement"]
-      283 GETUPVAL                         R34 17
-      284 DUPTABLE                         R35 K64 [{"Resolved", "OnClick", "Disabled"}]
-      285 GETTABLEKS                       R36 R0 K7 ["Annotation"]
-      287 GETTABLEKS                       R36 R36 K62 ["Resolved"]
-      289 SETTABLEKS                       R36 R35 K62 ["Resolved"]
-      291 NEWCLOSURE                       R36 P7
-      292 CAPTURE                          UPVAL U13
-      293 CAPTURE                          VAL R1
-      294 CAPTURE                          VAL R0
-      295 SETTABLEKS                       R36 R35 K63 ["OnClick"]
-      297 GETUPVAL                         R37 5
-      298 GETTABLEKS                       R37 R37 K61 ["InProgress"]
-      300 JUMPIFEQ                         R9 R37 ; [+2]
-      302 LOADB                            R36 0 +1
-      303 LOADB                            R36 1
-      304 SETTABLEKS                       R36 R35 K49 ["Disabled"]
-      306 CALL                             R33 2 1
-      307 SETTABLEKS                       R33 R32 K45 ["ResolveButton"]
-      309 CALL                             R29 3 1
-      310 SETTABLEKS                       R29 R28 K37 ["Header"]
-      312 GETUPVAL                         R29 4
-      313 GETTABLEKS                       R29 R29 K9 ["createElement"]
-      315 GETUPVAL                         R30 18
-      316 DUPTABLE                         R31 K66 [{"LayoutOrder", "Annotation", "OnContentChanged"}]
-      317 LOADN                            R32 0
-      318 SETTABLEKS                       R32 R31 K27 ["LayoutOrder"]
-      320 GETTABLEKS                       R32 R0 K7 ["Annotation"]
-      322 SETTABLEKS                       R32 R31 K7 ["Annotation"]
-      324 GETTABLEKS                       R32 R0 K65 ["OnContentChanged"]
-      326 SETTABLEKS                       R32 R31 K65 ["OnContentChanged"]
-      328 CALL                             R29 2 1
-      329 SETTABLEKS                       R29 R28 K38 ["Comment"]
-      331 GETTABLEKS                       R30 R0 K7 ["Annotation"]
-      333 GETTABLEKS                       R30 R30 K39 ["ReplyCount"]
-      335 JUMPIFEQKN                       R30 K67 [0] ; [+50]
-      337 GETUPVAL                         R29 4
-      338 GETTABLEKS                       R29 R29 K9 ["createElement"]
-      340 LOADK                            R30 K68 ["TextLabel"]
-      341 DUPTABLE                         R31 K69 [{"Text", "LayoutOrder"}]
-      342 GETTABLEKS                       R33 R0 K7 ["Annotation"]
-      344 GETTABLEKS                       R33 R33 K39 ["ReplyCount"]
-      346 JUMPIFNOTEQKN                    R33 K70 [1] ; [+7]
+      201 DUPTABLE                         R32 K46 [{"MoreIcon", "ResolveButton"}]
+      202 GETUPVAL                         R33 4
+      203 GETTABLEKS                       R33 R33 K9 ["createElement"]
+      205 GETUPVAL                         R34 15
+      206 DUPTABLE                         R35 K50 [{"DropdownItems", "OnSelect", "Disabled"}]
+      207 DUPTABLE                         R36 K53 [{"ZoomTo", "Delete"}]
+      208 LOADK                            R39 K54 ["Dropdown"]
+      209 LOADK                            R40 K51 ["ZoomTo"]
+      210 NAMECALL                         R37 R2 K55 ["getText"]
+      212 CALL                             R37 3 1
+      213 SETTABLEKS                       R37 R36 K51 ["ZoomTo"]
+      215 GETTABLEKS                       R38 R0 K7 ["Annotation"]
+      217 GETTABLEKS                       R38 R38 K56 ["AuthorId"]
+      219 GETUPVAL                         R39 16
+      220 NAMECALL                         R39 R39 K57 ["GetUserId"]
+      222 CALL                             R39 1 1
+      223 JUMPIFNOTEQ                      R38 R39 ; [+29]
+      225 GETUPVAL                         R37 4
+      226 GETTABLEKS                       R37 R37 K9 ["createElement"]
+      228 LOADK                            R38 K26 ["TextButton"]
+      229 NEWTABLE                         R39 4 0
+      231 LOADK                            R42 K54 ["Dropdown"]
+      232 LOADK                            R43 K58 ["DeleteThread"]
+      233 NAMECALL                         R40 R2 K55 ["getText"]
+      235 CALL                             R40 3 1
+      236 SETTABLEKS                       R40 R39 K29 ["Text"]
+      238 GETUPVAL                         R40 4
+      239 GETTABLEKS                       R40 R40 K30 ["Event"]
+      241 GETTABLEKS                       R40 R40 K59 ["Activated"]
+      243 NEWCLOSURE                       R41 P5
+      244 CAPTURE                          VAL R15
+      245 SETTABLE                         R41 R39 R40
+      246 GETUPVAL                         R40 4
+      247 GETTABLEKS                       R40 R40 K12 ["Tag"]
+      249 LOADK                            R41 K60 ["Component-DropdownItem Delete"]
+      250 SETTABLE                         R41 R39 R40
+      251 CALL                             R37 2 1
+      252 JUMP                             ; [+1]
+      253 LOADNIL                          R37
+      254 SETTABLEKS                       R37 R36 K52 ["Delete"]
+      256 SETTABLEKS                       R36 R35 K47 ["DropdownItems"]
+      258 NEWCLOSURE                       R36 P6
+      259 CAPTURE                          VAL R2
+      260 CAPTURE                          UPVAL U13
+      261 CAPTURE                          VAL R1
+      262 CAPTURE                          VAL R0
+      263 SETTABLEKS                       R36 R35 K48 ["OnSelect"]
+      265 GETUPVAL                         R37 5
+      266 GETTABLEKS                       R37 R37 K61 ["InProgress"]
+      268 JUMPIFEQ                         R9 R37 ; [+2]
+      270 LOADB                            R36 0 +1
+      271 LOADB                            R36 1
+      272 SETTABLEKS                       R36 R35 K49 ["Disabled"]
+      274 CALL                             R33 2 1
+      275 SETTABLEKS                       R33 R32 K44 ["MoreIcon"]
+      277 GETUPVAL                         R33 4
+      278 GETTABLEKS                       R33 R33 K9 ["createElement"]
+      280 GETUPVAL                         R34 17
+      281 DUPTABLE                         R35 K64 [{"Resolved", "OnClick", "Disabled"}]
+      282 GETTABLEKS                       R36 R0 K7 ["Annotation"]
+      284 GETTABLEKS                       R36 R36 K62 ["Resolved"]
+      286 SETTABLEKS                       R36 R35 K62 ["Resolved"]
+      288 NEWCLOSURE                       R36 P7
+      289 CAPTURE                          UPVAL U13
+      290 CAPTURE                          VAL R1
+      291 CAPTURE                          VAL R0
+      292 SETTABLEKS                       R36 R35 K63 ["OnClick"]
+      294 GETUPVAL                         R37 5
+      295 GETTABLEKS                       R37 R37 K61 ["InProgress"]
+      297 JUMPIFEQ                         R9 R37 ; [+2]
+      299 LOADB                            R36 0 +1
+      300 LOADB                            R36 1
+      301 SETTABLEKS                       R36 R35 K49 ["Disabled"]
+      303 CALL                             R33 2 1
+      304 SETTABLEKS                       R33 R32 K45 ["ResolveButton"]
+      306 CALL                             R29 3 1
+      307 SETTABLEKS                       R29 R28 K37 ["Header"]
+      309 GETUPVAL                         R29 4
+      310 GETTABLEKS                       R29 R29 K9 ["createElement"]
+      312 GETUPVAL                         R30 18
+      313 DUPTABLE                         R31 K67 [{["LayoutOrder"] = 0, ["Annotation"], ["OnContentChanged"]}]
+      314 GETTABLEKS                       R32 R0 K7 ["Annotation"]
+      316 SETTABLEKS                       R32 R31 K7 ["Annotation"]
+      318 GETTABLEKS                       R32 R0 K66 ["OnContentChanged"]
+      320 SETTABLEKS                       R32 R31 K66 ["OnContentChanged"]
+      322 CALL                             R29 2 1
+      323 SETTABLEKS                       R29 R28 K38 ["Comment"]
+      325 GETTABLEKS                       R30 R0 K7 ["Annotation"]
+      327 GETTABLEKS                       R30 R30 K39 ["ReplyCount"]
+      329 JUMPIFEQKN                       R30 K65 [0] ; [+47]
+      331 GETUPVAL                         R29 4
+      332 GETTABLEKS                       R29 R29 K9 ["createElement"]
+      334 LOADK                            R30 K68 ["TextLabel"]
+      335 DUPTABLE                         R31 K70 [{["Text"], ["LayoutOrder"] = 2}]
+      336 GETTABLEKS                       R33 R0 K7 ["Annotation"]
+      338 GETTABLEKS                       R33 R33 K39 ["ReplyCount"]
+      340 JUMPIFNOTEQKN                    R33 K71 [1] ; [+7]
+      342 LOADK                            R34 K24 ["Card"]
+      343 LOADK                            R35 K72 ["SingleReply"]
+      344 NAMECALL                         R32 R2 K55 ["getText"]
+      346 CALL                             R32 3 1
+      347 JUMP                             ; [+25]
       348 LOADK                            R34 K24 ["Card"]
-      349 LOADK                            R35 K71 ["SingleReply"]
-      350 NAMECALL                         R32 R2 K55 ["getText"]
-      352 CALL                             R32 3 1
-      353 JUMP                             ; [+25]
-      354 LOADK                            R34 K24 ["Card"]
-      355 LOADK                            R35 K72 ["ManyReplies"]
-      356 DUPTABLE                         R36 K74 [{"replyCount"}]
-      357 GETTABLEKS                       R38 R0 K7 ["Annotation"]
-      359 GETTABLEKS                       R38 R38 K39 ["ReplyCount"]
-      361 LOADN                            R39 100
-      362 JUMPIFNOTLT                      R38 R39 ; [+10]
-      364 GETIMPORT                        R37 K77 [string.format]
-      366 LOADK                            R38 K78 ["%d"]
-      367 GETTABLEKS                       R39 R0 K7 ["Annotation"]
-      369 GETTABLEKS                       R39 R39 K39 ["ReplyCount"]
-      371 CALL                             R37 2 1
-      372 JUMP                             ; [+1]
-      373 LOADK                            R37 K79 ["99+"]
-      374 SETTABLEKS                       R37 R36 K73 ["replyCount"]
-      376 NAMECALL                         R32 R2 K55 ["getText"]
-      378 CALL                             R32 4 1
-      379 SETTABLEKS                       R32 R31 K29 ["Text"]
-      381 LOADN                            R32 2
-      382 SETTABLEKS                       R32 R31 K27 ["LayoutOrder"]
-      384 CALL                             R29 2 1
-      385 JUMP                             ; [+1]
-      386 LOADNIL                          R29
-      387 SETTABLEKS                       R29 R28 K39 ["ReplyCount"]
-      389 CALL                             R25 3 1
-      390 SETTABLEKS                       R25 R24 K24 ["Card"]
-      392 CALL                             R21 3 1
-      393 SETTABLEKS                       R21 R20 K15 ["BackgroundFrame"]
-      395 MOVE                             R21 R14
-      396 JUMPIFNOT                        R21 ; [+24]
-      397 GETUPVAL                         R21 4
-      398 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      400 GETUPVAL                         R22 19
-      401 DUPTABLE                         R23 K82 [{"Text", "OnCancel", "OnDelete"}]
-      402 LOADK                            R26 K83 ["ConfirmDeleteDialog"]
-      403 LOADK                            R27 K58 ["DeleteThread"]
-      404 NAMECALL                         R24 R2 K55 ["getText"]
-      406 CALL                             R24 3 1
-      407 SETTABLEKS                       R24 R23 K29 ["Text"]
-      409 NEWCLOSURE                       R24 P8
-      410 CAPTURE                          VAL R15
-      411 SETTABLEKS                       R24 R23 K80 ["OnCancel"]
-      413 NEWCLOSURE                       R24 P9
-      414 CAPTURE                          VAL R15
-      415 CAPTURE                          UPVAL U13
-      416 CAPTURE                          VAL R1
-      417 CAPTURE                          VAL R0
-      418 SETTABLEKS                       R24 R23 K81 ["OnDelete"]
-      420 CALL                             R21 2 1
-      421 SETTABLEKS                       R21 R20 K16 ["Popup"]
-      423 CALL                             R17 3 -1
-      424 RETURN                           R17 -1
+      349 LOADK                            R35 K73 ["ManyReplies"]
+      350 DUPTABLE                         R36 K75 [{"replyCount"}]
+      351 GETTABLEKS                       R38 R0 K7 ["Annotation"]
+      353 GETTABLEKS                       R38 R38 K39 ["ReplyCount"]
+      355 LOADN                            R39 100
+      356 JUMPIFNOTLT                      R38 R39 ; [+10]
+      358 GETIMPORT                        R37 K78 [string.format]
+      360 LOADK                            R38 K79 ["%d"]
+      361 GETTABLEKS                       R39 R0 K7 ["Annotation"]
+      363 GETTABLEKS                       R39 R39 K39 ["ReplyCount"]
+      365 CALL                             R37 2 1
+      366 JUMP                             ; [+1]
+      367 LOADK                            R37 K80 ["99+"]
+      368 SETTABLEKS                       R37 R36 K74 ["replyCount"]
+      370 NAMECALL                         R32 R2 K55 ["getText"]
+      372 CALL                             R32 4 1
+      373 SETTABLEKS                       R32 R31 K29 ["Text"]
+      375 CALL                             R29 2 1
+      376 JUMP                             ; [+1]
+      377 LOADNIL                          R29
+      378 SETTABLEKS                       R29 R28 K39 ["ReplyCount"]
+      380 CALL                             R25 3 1
+      381 SETTABLEKS                       R25 R24 K24 ["Card"]
+      383 CALL                             R21 3 1
+      384 SETTABLEKS                       R21 R20 K15 ["BackgroundFrame"]
+      386 MOVE                             R21 R14
+      387 JUMPIFNOT                        R21 ; [+24]
+      388 GETUPVAL                         R21 4
+      389 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      391 GETUPVAL                         R22 19
+      392 DUPTABLE                         R23 K83 [{"Text", "OnCancel", "OnDelete"}]
+      393 LOADK                            R26 K84 ["ConfirmDeleteDialog"]
+      394 LOADK                            R27 K58 ["DeleteThread"]
+      395 NAMECALL                         R24 R2 K55 ["getText"]
+      397 CALL                             R24 3 1
+      398 SETTABLEKS                       R24 R23 K29 ["Text"]
+      400 NEWCLOSURE                       R24 P8
+      401 CAPTURE                          VAL R15
+      402 SETTABLEKS                       R24 R23 K81 ["OnCancel"]
+      404 NEWCLOSURE                       R24 P9
+      405 CAPTURE                          VAL R15
+      406 CAPTURE                          UPVAL U13
+      407 CAPTURE                          VAL R1
+      408 CAPTURE                          VAL R0
+      409 SETTABLEKS                       R24 R23 K82 ["OnDelete"]
+      411 CALL                             R21 2 1
+      412 SETTABLEKS                       R21 R20 K16 ["Popup"]
+      414 CALL                             R17 3 -1
+      415 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

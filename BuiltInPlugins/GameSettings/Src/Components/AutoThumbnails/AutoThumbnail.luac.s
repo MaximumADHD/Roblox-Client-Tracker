@@ -163,32 +163,28 @@ PROTO_6:
        17 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R1 K2 [{"fetchStatus", "contentId"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["fetchStatus"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["contentId"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K4 ["createRef"]
-       12 CALL                             R1 0 1
-       13 SETTABLEKS                       R1 R0 K5 ["ref"]
+        0 DUPTABLE                         R1 K3 [{[1] = , ["contentId"] = }]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K5 ["createRef"]
+        6 CALL                             R1 0 1
+        7 SETTABLEKS                       R1 R0 K6 ["ref"]
+        9 LOADNIL                          R1
+       10 SETTABLEKS                       R1 R0 K7 ["fetchingContentId"]
+       12 LOADNIL                          R1
+       13 SETTABLEKS                       R1 R0 K8 ["currentId"]
        15 LOADNIL                          R1
-       16 SETTABLEKS                       R1 R0 K6 ["fetchingContentId"]
-       18 LOADNIL                          R1
-       19 SETTABLEKS                       R1 R0 K7 ["currentId"]
-       21 LOADNIL                          R1
-       22 SETTABLEKS                       R1 R0 K8 ["currentThumbnailType"]
-       24 NEWCLOSURE                       R1 P0
+       16 SETTABLEKS                       R1 R0 K9 ["currentThumbnailType"]
+       18 NEWCLOSURE                       R1 P0
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U0
+       22 SETTABLEKS                       R1 R0 K10 ["updateThumbnail"]
+       24 NEWCLOSURE                       R1 P1
        25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U1
-       27 CAPTURE                          UPVAL U0
-       28 SETTABLEKS                       R1 R0 K9 ["updateThumbnail"]
-       30 NEWCLOSURE                       R1 P1
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          UPVAL U2
-       33 SETTABLEKS                       R1 R0 K10 ["loadThumbnail"]
-       35 RETURN                           R0 0
+       26 CAPTURE                          UPVAL U2
+       27 SETTABLEKS                       R1 R0 K11 ["loadThumbnail"]
+       29 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
@@ -264,8 +260,8 @@ MAIN:
        30 LOADN                            R7 150
        31 CALL                             R5 2 1
        32 GETIMPORT                        R6 K23 [Vector2.new]
-       34 LOADN                            R7 164
-       35 LOADN                            R8 164
+       34 LOADN                            R7 420
+       35 LOADN                            R8 420
        36 CALL                             R6 2 -1
        37 SETLIST                          R4 R5 -1 [1]
        39 SETTABLEKS                       R4 R3 K11 ["GroupIcon"]
@@ -290,12 +286,12 @@ MAIN:
        67 LOADN                            R7 100
        68 CALL                             R5 2 1
        69 GETIMPORT                        R6 K23 [Vector2.new]
-       71 LOADN                            R7 96
-       72 LOADN                            R8 96
+       71 LOADN                            R7 352
+       72 LOADN                            R8 352
        73 CALL                             R6 2 1
        74 GETIMPORT                        R7 K23 [Vector2.new]
-       76 LOADN                            R8 208
-       77 LOADN                            R9 208
+       76 LOADN                            R8 720
+       77 LOADN                            R9 720
        78 CALL                             R7 2 -1
        79 SETLIST                          R4 R5 -1 [1]
        81 SETTABLEKS                       R4 R3 K13 ["Avatar"]
@@ -313,12 +309,12 @@ MAIN:
        98 LOADN                            R9 150
        99 CALL                             R7 2 1
       100 GETIMPORT                        R8 K23 [Vector2.new]
-      102 LOADN                            R9 0
-      103 LOADN                            R10 0
+      102 LOADN                            R9 256
+      103 LOADN                            R10 256
       104 CALL                             R8 2 1
       105 GETIMPORT                        R9 K23 [Vector2.new]
-      107 LOADN                            R10 0
-      108 LOADN                            R11 0
+      107 LOADN                            R10 512
+      108 LOADN                            R11 512
       109 CALL                             R9 2 -1
       110 SETLIST                          R4 R5 -1 [1]
       112 SETTABLEKS                       R4 R3 K14 ["GameIcon"]
@@ -342,8 +338,8 @@ MAIN:
       141 LOADN                            R7 150
       142 CALL                             R5 2 1
       143 GETIMPORT                        R6 K23 [Vector2.new]
-      145 LOADN                            R7 164
-      146 LOADN                            R8 164
+      145 LOADN                            R7 420
+      146 LOADN                            R8 420
       147 CALL                             R6 2 -1
       148 SETLIST                          R4 R5 -1 [1]
       150 SETTABLEKS                       R4 R3 K17 ["Asset"]
@@ -353,8 +349,8 @@ MAIN:
       157 LOADN                            R7 150
       158 CALL                             R5 2 1
       159 GETIMPORT                        R6 K23 [Vector2.new]
-      161 LOADN                            R7 164
-      162 LOADN                            R8 164
+      161 LOADN                            R7 420
+      162 LOADN                            R8 420
       163 CALL                             R6 2 -1
       164 SETLIST                          R4 R5 -1 [1]
       166 SETTABLEKS                       R4 R3 K18 ["BundleThumbnail"]
@@ -364,8 +360,8 @@ MAIN:
       173 LOADN                            R7 150
       174 CALL                             R5 2 1
       175 GETIMPORT                        R6 K23 [Vector2.new]
-      177 LOADN                            R7 164
-      178 LOADN                            R8 164
+      177 LOADN                            R7 420
+      178 LOADN                            R8 420
       179 CALL                             R6 2 -1
       180 SETLIST                          R4 R5 -1 [1]
       182 SETTABLEKS                       R4 R3 K19 ["Outfit"]

@@ -357,15 +357,15 @@ PROTO_2:
 PROTO_3:
         0 LOADB                            R1 1
         1 LOADB                            R2 1
-        2 LOADN                            R5 255
+        2 LOADN                            R5 -1
         3 LOADN                            R3 1
         4 LOADN                            R4 1
         5 FORNPREP                         R3
-        6 LOADN                            R8 255
+        6 LOADN                            R8 -1
         7 LOADN                            R6 1
         8 LOADN                            R7 1
         9 FORNPREP                         R6
-       10 LOADN                            R11 255
+       10 LOADN                            R11 -1
        11 LOADN                            R9 1
        12 LOADN                            R10 1
        13 FORNPREP                         R9
@@ -482,15 +482,15 @@ PROTO_4:
        35 JUMPIFNOT                        R5 ; [+1]
        36 MOVE                             R5 R3
        37 JUMPIF                           R5 ; [+246]
-       38 LOADN                            R8 255
+       38 LOADN                            R8 -1
        39 LOADN                            R6 1
        40 LOADN                            R7 1
        41 FORNPREP                         R6
-       42 LOADN                            R11 255
+       42 LOADN                            R11 -1
        43 LOADN                            R9 1
        44 LOADN                            R10 1
        45 FORNPREP                         R9
-       46 LOADN                            R14 255
+       46 LOADN                            R14 -1
        47 LOADN                            R12 1
        48 LOADN                            R13 1
        49 FORNPREP                         R12
@@ -928,15 +928,15 @@ PROTO_5:
       342 SETTABLEKS                       R53 R2 K63 ["NextMagnitude"]
       344 LOADB                            R53 0
       345 LOADB                            R54 0
-      346 LOADN                            R57 255
+      346 LOADN                            R57 -1
       347 LOADN                            R55 1
       348 LOADN                            R56 1
       349 FORNPREP                         R55
-      350 LOADN                            R60 255
+      350 LOADN                            R60 -1
       351 LOADN                            R58 1
       352 LOADN                            R59 1
       353 FORNPREP                         R58
-      354 LOADN                            R63 255
+      354 LOADN                            R63 -1
       355 LOADN                            R61 1
       356 LOADN                            R62 1
       357 FORNPREP                         R61

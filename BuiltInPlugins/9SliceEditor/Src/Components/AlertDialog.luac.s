@@ -1,15 +1,13 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R0 R0 K4 ["OnClose"]
-       13 CALL                             R0 0 0
-       14 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R0 R0 K5 ["OnClose"]
+       10 CALL                             R0 0 0
+       11 RETURN                           R0 0
 
 PROTO_1:
         0 DUPTABLE                         R4 K1 [{"enabled"}]
@@ -29,74 +27,66 @@ PROTO_2:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K12 [{"Style", "Enabled", "Title", "Buttons", "OnButtonPressed", "OnClose", "MinContentSize", "Modal"}]
-       11 LOADK                            R7 K13 ["Alert"]
-       12 SETTABLEKS                       R7 R6 K4 ["Style"]
-       14 GETTABLEKS                       R7 R0 K14 ["state"]
-       16 GETTABLEKS                       R7 R7 K15 ["enabled"]
-       18 SETTABLEKS                       R7 R6 K5 ["Enabled"]
-       20 LOADK                            R9 K16 ["AlertDialog"]
-       21 GETTABLEKS                       R10 R1 K17 ["TitleKey"]
-       23 NAMECALL                         R7 R3 K18 ["getText"]
-       25 CALL                             R7 3 1
-       26 SETTABLEKS                       R7 R6 K6 ["Title"]
-       28 NEWTABLE                         R7 0 1
-       30 DUPTABLE                         R8 K21 [{"Key", "Text"}]
-       31 LOADK                            R9 K22 ["ok"]
-       32 SETTABLEKS                       R9 R8 K19 ["Key"]
-       34 LOADK                            R11 K16 ["AlertDialog"]
-       35 LOADK                            R12 K23 ["OkButtonText"]
-       36 NAMECALL                         R9 R3 K18 ["getText"]
-       38 CALL                             R9 3 1
-       39 SETTABLEKS                       R9 R8 K20 ["Text"]
-       41 SETLIST                          R7 R8 1 [1]
-       43 SETTABLEKS                       R7 R6 K7 ["Buttons"]
-       45 GETTABLEKS                       R7 R0 K24 ["closeDialog"]
-       47 SETTABLEKS                       R7 R6 K8 ["OnButtonPressed"]
-       49 GETTABLEKS                       R7 R1 K9 ["OnClose"]
-       51 SETTABLEKS                       R7 R6 K9 ["OnClose"]
-       53 GETTABLEKS                       R7 R2 K25 ["PopupMessageSize"]
-       55 SETTABLEKS                       R7 R6 K10 ["MinContentSize"]
-       57 LOADB                            R7 1
-       58 SETTABLEKS                       R7 R6 K11 ["Modal"]
-       60 DUPTABLE                         R7 K27 [{"Label"}]
-       61 GETUPVAL                         R8 0
-       62 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       64 GETUPVAL                         R9 2
-       65 DUPTABLE                         R10 K35 [{"Size", "AnchorPoint", "Position", "Text", "TextColor", "TextWrapped", "TextSize", "TextXAlignment"}]
-       66 GETIMPORT                        R11 K38 [UDim2.fromScale]
-       68 LOADK                            R12 K39 [0.95]
-       69 LOADN                            R13 1
-       70 CALL                             R11 2 1
-       71 SETTABLEKS                       R11 R10 K28 ["Size"]
-       73 GETIMPORT                        R11 K42 [Vector2.new]
-       75 LOADK                            R12 K43 [0.5]
-       76 LOADN                            R13 0
-       77 CALL                             R11 2 1
-       78 SETTABLEKS                       R11 R10 K29 ["AnchorPoint"]
-       80 GETIMPORT                        R11 K38 [UDim2.fromScale]
-       82 LOADK                            R12 K43 [0.5]
-       83 LOADN                            R13 0
-       84 CALL                             R11 2 1
-       85 SETTABLEKS                       R11 R10 K30 ["Position"]
-       87 LOADK                            R13 K16 ["AlertDialog"]
-       88 GETTABLEKS                       R14 R1 K44 ["MessageKey"]
-       90 GETTABLEKS                       R15 R1 K45 ["MessageKeyFormatTable"]
-       92 NAMECALL                         R11 R3 K18 ["getText"]
-       94 CALL                             R11 4 1
-       95 SETTABLEKS                       R11 R10 K20 ["Text"]
-       97 GETTABLEKS                       R11 R2 K31 ["TextColor"]
-       99 SETTABLEKS                       R11 R10 K31 ["TextColor"]
-      101 LOADB                            R11 1
-      102 SETTABLEKS                       R11 R10 K32 ["TextWrapped"]
-      104 GETTABLEKS                       R11 R2 K33 ["TextSize"]
-      106 SETTABLEKS                       R11 R10 K33 ["TextSize"]
-      108 GETIMPORT                        R11 K48 [Enum.TextXAlignment.Left]
-      110 SETTABLEKS                       R11 R10 K34 ["TextXAlignment"]
-      112 CALL                             R8 2 1
-      113 SETTABLEKS                       R8 R7 K26 ["Label"]
-      115 CALL                             R4 3 -1
-      116 RETURN                           R4 -1
+       10 DUPTABLE                         R6 K14 [{["Style"] = "Alert", ["Enabled"], ["Title"], ["Buttons"], ["OnButtonPressed"], ["OnClose"], ["MinContentSize"], ["Modal"] = True}]
+       11 GETTABLEKS                       R7 R0 K15 ["state"]
+       13 GETTABLEKS                       R7 R7 K16 ["enabled"]
+       15 SETTABLEKS                       R7 R6 K6 ["Enabled"]
+       17 LOADK                            R9 K17 ["AlertDialog"]
+       18 GETTABLEKS                       R10 R1 K18 ["TitleKey"]
+       20 NAMECALL                         R7 R3 K19 ["getText"]
+       22 CALL                             R7 3 1
+       23 SETTABLEKS                       R7 R6 K7 ["Title"]
+       25 NEWTABLE                         R7 0 1
+       27 DUPTABLE                         R8 K23 [{["Key"] = "ok", ["Text"]}]
+       28 LOADK                            R11 K17 ["AlertDialog"]
+       29 LOADK                            R12 K24 ["OkButtonText"]
+       30 NAMECALL                         R9 R3 K19 ["getText"]
+       32 CALL                             R9 3 1
+       33 SETTABLEKS                       R9 R8 K22 ["Text"]
+       35 SETLIST                          R7 R8 1 [1]
+       37 SETTABLEKS                       R7 R6 K8 ["Buttons"]
+       39 GETTABLEKS                       R7 R0 K25 ["closeDialog"]
+       41 SETTABLEKS                       R7 R6 K9 ["OnButtonPressed"]
+       43 GETTABLEKS                       R7 R1 K10 ["OnClose"]
+       45 SETTABLEKS                       R7 R6 K10 ["OnClose"]
+       47 GETTABLEKS                       R7 R2 K26 ["PopupMessageSize"]
+       49 SETTABLEKS                       R7 R6 K11 ["MinContentSize"]
+       51 DUPTABLE                         R7 K28 [{"Label"}]
+       52 GETUPVAL                         R8 0
+       53 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       55 GETUPVAL                         R9 2
+       56 DUPTABLE                         R10 K36 [{["Size"], ["AnchorPoint"], ["Position"], ["Text"], ["TextColor"], ["TextWrapped"] = True, ["TextSize"], ["TextXAlignment"]}]
+       57 GETIMPORT                        R11 K39 [UDim2.fromScale]
+       59 LOADK                            R12 K40 [0.95]
+       60 LOADN                            R13 1
+       61 CALL                             R11 2 1
+       62 SETTABLEKS                       R11 R10 K29 ["Size"]
+       64 GETIMPORT                        R11 K43 [Vector2.new]
+       66 LOADK                            R12 K44 [0.5]
+       67 LOADN                            R13 0
+       68 CALL                             R11 2 1
+       69 SETTABLEKS                       R11 R10 K30 ["AnchorPoint"]
+       71 GETIMPORT                        R11 K39 [UDim2.fromScale]
+       73 LOADK                            R12 K44 [0.5]
+       74 LOADN                            R13 0
+       75 CALL                             R11 2 1
+       76 SETTABLEKS                       R11 R10 K31 ["Position"]
+       78 LOADK                            R13 K17 ["AlertDialog"]
+       79 GETTABLEKS                       R14 R1 K45 ["MessageKey"]
+       81 GETTABLEKS                       R15 R1 K46 ["MessageKeyFormatTable"]
+       83 NAMECALL                         R11 R3 K19 ["getText"]
+       85 CALL                             R11 4 1
+       86 SETTABLEKS                       R11 R10 K22 ["Text"]
+       88 GETTABLEKS                       R11 R2 K32 ["TextColor"]
+       90 SETTABLEKS                       R11 R10 K32 ["TextColor"]
+       92 GETTABLEKS                       R11 R2 K34 ["TextSize"]
+       94 SETTABLEKS                       R11 R10 K34 ["TextSize"]
+       96 GETIMPORT                        R11 K49 [Enum.TextXAlignment.Left]
+       98 SETTABLEKS                       R11 R10 K35 ["TextXAlignment"]
+      100 CALL                             R8 2 1
+      101 SETTABLEKS                       R8 R7 K27 ["Label"]
+      103 CALL                             R4 3 -1
+      104 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

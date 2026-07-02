@@ -6,36 +6,34 @@ PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Localization"]
         3 GETTABLEKS                       R2 R2 K1 ["new"]
-        5 DUPTABLE                         R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R3 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AdaptiveAnimationSupport"}]
         6 GETUPVAL                         R4 1
         7 SETTABLEKS                       R4 R3 K2 ["stringResourceTable"]
         9 GETUPVAL                         R4 2
        10 SETTABLEKS                       R4 R3 K3 ["translationResourceTable"]
-       12 LOADK                            R4 K6 ["AdaptiveAnimationSupport"]
-       13 SETTABLEKS                       R4 R3 K4 ["pluginName"]
-       15 CALL                             R2 1 1
-       16 SETTABLEKS                       R2 R0 K7 ["localization"]
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R2 R2 K8 ["Analytics"]
-       21 GETTABLEKS                       R2 R2 K1 ["new"]
-       23 DUPCLOSURE                       R3 K9 [PROTO_0]
-       24 CALL                             R2 1 1
-       25 SETTABLEKS                       R2 R0 K10 ["analytics"]
-       27 GETUPVAL                         R2 3
-       28 GETTABLEKS                       R2 R2 K11 ["Util"]
-       30 GETTABLEKS                       R2 R2 K12 ["createFoundationDesignBinding"]
-       32 CALL                             R2 0 2
-       33 SETTABLEKS                       R3 R0 K13 ["onFoundationStyleSheetChange"]
-       35 GETUPVAL                         R4 4
-       36 GETTABLEKS                       R5 R1 K14 ["Plugin"]
-       38 LOADNIL                          R6
-       39 LOADNIL                          R7
-       40 NEWTABLE                         R8 0 1
-       42 MOVE                             R9 R2
-       43 SETLIST                          R8 R9 1 [1]
-       45 CALL                             R4 4 1
-       46 SETTABLEKS                       R4 R0 K15 ["design"]
-       48 RETURN                           R0 0
+       12 CALL                             R2 1 1
+       13 SETTABLEKS                       R2 R0 K7 ["localization"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K8 ["Analytics"]
+       18 GETTABLEKS                       R2 R2 K1 ["new"]
+       20 DUPCLOSURE                       R3 K9 [PROTO_0]
+       21 CALL                             R2 1 1
+       22 SETTABLEKS                       R2 R0 K10 ["analytics"]
+       24 GETUPVAL                         R2 3
+       25 GETTABLEKS                       R2 R2 K11 ["Util"]
+       27 GETTABLEKS                       R2 R2 K12 ["createFoundationDesignBinding"]
+       29 CALL                             R2 0 2
+       30 SETTABLEKS                       R3 R0 K13 ["onFoundationStyleSheetChange"]
+       32 GETUPVAL                         R4 4
+       33 GETTABLEKS                       R5 R1 K14 ["Plugin"]
+       35 LOADNIL                          R6
+       36 LOADNIL                          R7
+       37 NEWTABLE                         R8 0 1
+       39 MOVE                             R9 R2
+       40 SETLIST                          R8 R9 1 [1]
+       42 CALL                             R4 4 1
+       43 SETTABLEKS                       R4 R0 K15 ["design"]
+       45 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

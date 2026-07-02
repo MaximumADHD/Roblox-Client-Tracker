@@ -40,54 +40,48 @@ PROTO_3:
         9 RETURN                           R1 -1
 
 PROTO_4:
-        0 DUPTABLE                         R5 K3 [{"eventType", "config", "data"}]
-        1 LOADK                            R6 K4 ["RobloxTelemetry"]
-        2 SETTABLEKS                       R6 R5 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R5 K1 ["config"]
-        6 DUPTABLE                         R6 K8 [{"standardizedFields", "customFields", "eventContext"}]
-        7 SETTABLEKS                       R2 R6 K5 ["standardizedFields"]
-        9 SETTABLEKS                       R3 R6 K6 ["customFields"]
-       11 SETTABLEKS                       R4 R6 K7 ["eventContext"]
-       13 SETTABLEKS                       R6 R5 K2 ["data"]
-       15 GETTABLEKS                       R6 R0 K9 ["messageBus"]
-       17 GETTABLEKS                       R8 R0 K10 ["LOG_EVENT_FROM_LUA"]
-       19 MOVE                             R9 R5
-       20 NAMECALL                         R6 R6 K11 ["Call"]
-       22 CALL                             R6 3 0
-       23 RETURN                           R0 0
+        0 DUPTABLE                         R5 K4 [{[1] = "RobloxTelemetry", ["config"], ["data"]}]
+        1 SETTABLEKS                       R1 R5 K2 ["config"]
+        3 DUPTABLE                         R6 K8 [{"standardizedFields", "customFields", "eventContext"}]
+        4 SETTABLEKS                       R2 R6 K5 ["standardizedFields"]
+        6 SETTABLEKS                       R3 R6 K6 ["customFields"]
+        8 SETTABLEKS                       R4 R6 K7 ["eventContext"]
+       10 SETTABLEKS                       R6 R5 K3 ["data"]
+       12 GETTABLEKS                       R6 R0 K9 ["messageBus"]
+       14 GETTABLEKS                       R8 R0 K10 ["LOG_EVENT_FROM_LUA"]
+       16 MOVE                             R9 R5
+       17 NAMECALL                         R6 R6 K11 ["Call"]
+       19 CALL                             R6 3 0
+       20 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R3 K3 [{"eventType", "config", "data"}]
-        1 LOADK                            R4 K4 ["EphemeralCounter"]
-        2 SETTABLEKS                       R4 R3 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R3 K1 ["config"]
-        6 JUMPIFNOT                        R2 ; [+4]
-        7 DUPTABLE                         R4 K6 [{"incrementValue"}]
-        8 SETTABLEKS                       R2 R4 K5 ["incrementValue"]
-       10 JUMP                             ; [+1]
-       11 LOADNIL                          R4
-       12 SETTABLEKS                       R4 R3 K2 ["data"]
-       14 GETTABLEKS                       R4 R0 K7 ["messageBus"]
-       16 GETTABLEKS                       R6 R0 K8 ["LOG_EVENT_FROM_LUA"]
-       18 MOVE                             R7 R3
-       19 NAMECALL                         R4 R4 K9 ["Call"]
-       21 CALL                             R4 3 0
-       22 RETURN                           R0 0
-
-PROTO_6:
-        0 DUPTABLE                         R3 K3 [{"eventType", "config", "data"}]
-        1 LOADK                            R4 K4 ["EphemeralStat"]
-        2 SETTABLEKS                       R4 R3 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R3 K1 ["config"]
-        6 DUPTABLE                         R4 K6 [{"statValue"}]
-        7 SETTABLEKS                       R2 R4 K5 ["statValue"]
-        9 SETTABLEKS                       R4 R3 K2 ["data"]
+        0 DUPTABLE                         R3 K4 [{[1] = "EphemeralCounter", ["config"], ["data"]}]
+        1 SETTABLEKS                       R1 R3 K2 ["config"]
+        3 JUMPIFNOT                        R2 ; [+4]
+        4 DUPTABLE                         R4 K6 [{"incrementValue"}]
+        5 SETTABLEKS                       R2 R4 K5 ["incrementValue"]
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R4
+        9 SETTABLEKS                       R4 R3 K3 ["data"]
        11 GETTABLEKS                       R4 R0 K7 ["messageBus"]
        13 GETTABLEKS                       R6 R0 K8 ["LOG_EVENT_FROM_LUA"]
        15 MOVE                             R7 R3
        16 NAMECALL                         R4 R4 K9 ["Call"]
        18 CALL                             R4 3 0
        19 RETURN                           R0 0
+
+PROTO_6:
+        0 DUPTABLE                         R3 K4 [{[1] = "EphemeralStat", ["config"], ["data"]}]
+        1 SETTABLEKS                       R1 R3 K2 ["config"]
+        3 DUPTABLE                         R4 K6 [{"statValue"}]
+        4 SETTABLEKS                       R2 R4 K5 ["statValue"]
+        6 SETTABLEKS                       R4 R3 K3 ["data"]
+        8 GETTABLEKS                       R4 R0 K7 ["messageBus"]
+       10 GETTABLEKS                       R6 R0 K8 ["LOG_EVENT_FROM_LUA"]
+       12 MOVE                             R7 R3
+       13 NAMECALL                         R4 R4 K9 ["Call"]
+       15 CALL                             R4 3 0
+       16 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -100,64 +94,44 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K8 ["Parent"]
        13 GETTABLEKS                       R2 R2 K9 ["TelemetryProtocolTypes"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K15 [{"UNSPECIFIED", "EventIngest", "Points", "EphemeralCounter", "EphemeralStat"}]
-       17 LOADK                            R3 K10 ["UNSPECIFIED"]
-       18 SETTABLEKS                       R3 R2 K10 ["UNSPECIFIED"]
-       20 LOADK                            R3 K11 ["EventIngest"]
-       21 SETTABLEKS                       R3 R2 K11 ["EventIngest"]
-       23 LOADK                            R3 K12 ["Points"]
-       24 SETTABLEKS                       R3 R2 K12 ["Points"]
-       26 LOADK                            R3 K13 ["EphemeralCounter"]
-       27 SETTABLEKS                       R3 R2 K13 ["EphemeralCounter"]
-       29 LOADK                            R3 K14 ["EphemeralStat"]
-       30 SETTABLEKS                       R3 R2 K14 ["EphemeralStat"]
-       32 DUPTABLE                         R3 K20 [{"addPlaceId", "addUniverseId", "addPlaceInstanceId", "addSessionId"}]
-       33 LOADK                            R4 K16 ["addPlaceId"]
-       34 SETTABLEKS                       R4 R3 K16 ["addPlaceId"]
-       36 LOADK                            R4 K17 ["addUniverseId"]
-       37 SETTABLEKS                       R4 R3 K17 ["addUniverseId"]
-       39 LOADK                            R4 K18 ["addPlaceInstanceId"]
-       40 SETTABLEKS                       R4 R3 K18 ["addPlaceInstanceId"]
-       42 LOADK                            R4 K19 ["addSessionId"]
-       43 SETTABLEKS                       R4 R3 K19 ["addSessionId"]
-       45 DUPTABLE                         R4 K27 [{"TelemetryBackends", "StandardizedFields", "LOG_EVENT_WITH_TIMESTAMP", "GET_TIMESTAMP", "LOG_EVENT_FROM_LUA", "ONE_HUNDRED_PERCENT"}]
-       46 SETTABLEKS                       R2 R4 K21 ["TelemetryBackends"]
-       48 SETTABLEKS                       R3 R4 K22 ["StandardizedFields"]
-       50 LOADK                            R7 K28 ["Logging"]
-       51 LOADK                            R8 K29 ["logEventWithTimestamp"]
-       52 NAMECALL                         R5 R0 K30 ["GetMessageId"]
-       54 CALL                             R5 3 1
-       55 SETTABLEKS                       R5 R4 K23 ["LOG_EVENT_WITH_TIMESTAMP"]
-       57 LOADK                            R7 K28 ["Logging"]
-       58 LOADK                            R8 K31 ["getTimestamp"]
-       59 NAMECALL                         R5 R0 K30 ["GetMessageId"]
-       61 CALL                             R5 3 1
-       62 SETTABLEKS                       R5 R4 K24 ["GET_TIMESTAMP"]
-       64 LOADK                            R7 K28 ["Logging"]
-       65 LOADK                            R8 K32 ["logEventFromLua"]
-       66 NAMECALL                         R5 R0 K30 ["GetMessageId"]
-       68 CALL                             R5 3 1
-       69 SETTABLEKS                       R5 R4 K25 ["LOG_EVENT_FROM_LUA"]
-       71 LOADN                            R5 16
-       72 SETTABLEKS                       R5 R4 K26 ["ONE_HUNDRED_PERCENT"]
-       74 SETTABLEKS                       R4 R4 K33 ["__index"]
-       76 DUPCLOSURE                       R5 K34 [PROTO_0]
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          VAL R4
-       79 SETTABLEKS                       R5 R4 K35 ["new"]
-       81 DUPCLOSURE                       R5 K36 [PROTO_1]
-       82 SETTABLEKS                       R5 R4 K29 ["logEventWithTimestamp"]
-       84 DUPCLOSURE                       R5 K37 [PROTO_2]
-       85 SETTABLEKS                       R5 R4 K38 ["logEvent"]
-       87 DUPCLOSURE                       R5 K39 [PROTO_3]
-       88 SETTABLEKS                       R5 R4 K31 ["getTimestamp"]
-       90 DUPCLOSURE                       R5 K40 [PROTO_4]
-       91 SETTABLEKS                       R5 R4 K41 ["logRobloxTelemetryEvent"]
-       93 DUPCLOSURE                       R5 K42 [PROTO_5]
-       94 SETTABLEKS                       R5 R4 K43 ["logEphemeralCounterEvent"]
-       96 DUPCLOSURE                       R5 K44 [PROTO_6]
-       97 SETTABLEKS                       R5 R4 K45 ["logEphemeralStatEvent"]
-       99 GETTABLEKS                       R5 R4 K35 ["new"]
-      101 CALL                             R5 0 1
-      102 SETTABLEKS                       R5 R4 K46 ["default"]
-      104 RETURN                           R4 1
+       16 DUPTABLE                         R2 K15 [{["UNSPECIFIED"] = "UNSPECIFIED", ["EventIngest"] = "EventIngest", ["Points"] = "Points", ["EphemeralCounter"] = "EphemeralCounter", ["EphemeralStat"] = "EphemeralStat"}]
+       17 DUPTABLE                         R3 K20 [{["addPlaceId"] = "addPlaceId", ["addUniverseId"] = "addUniverseId", ["addPlaceInstanceId"] = "addPlaceInstanceId", ["addSessionId"] = "addSessionId"}]
+       18 DUPTABLE                         R4 K28 [{["TelemetryBackends"], ["StandardizedFields"], ["LOG_EVENT_WITH_TIMESTAMP"], ["GET_TIMESTAMP"], ["LOG_EVENT_FROM_LUA"], ["ONE_HUNDRED_PERCENT"] = 10000}]
+       19 SETTABLEKS                       R2 R4 K21 ["TelemetryBackends"]
+       21 SETTABLEKS                       R3 R4 K22 ["StandardizedFields"]
+       23 LOADK                            R7 K29 ["Logging"]
+       24 LOADK                            R8 K30 ["logEventWithTimestamp"]
+       25 NAMECALL                         R5 R0 K31 ["GetMessageId"]
+       27 CALL                             R5 3 1
+       28 SETTABLEKS                       R5 R4 K23 ["LOG_EVENT_WITH_TIMESTAMP"]
+       30 LOADK                            R7 K29 ["Logging"]
+       31 LOADK                            R8 K32 ["getTimestamp"]
+       32 NAMECALL                         R5 R0 K31 ["GetMessageId"]
+       34 CALL                             R5 3 1
+       35 SETTABLEKS                       R5 R4 K24 ["GET_TIMESTAMP"]
+       37 LOADK                            R7 K29 ["Logging"]
+       38 LOADK                            R8 K33 ["logEventFromLua"]
+       39 NAMECALL                         R5 R0 K31 ["GetMessageId"]
+       41 CALL                             R5 3 1
+       42 SETTABLEKS                       R5 R4 K25 ["LOG_EVENT_FROM_LUA"]
+       44 SETTABLEKS                       R4 R4 K34 ["__index"]
+       46 DUPCLOSURE                       R5 K35 [PROTO_0]
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R4
+       49 SETTABLEKS                       R5 R4 K36 ["new"]
+       51 DUPCLOSURE                       R5 K37 [PROTO_1]
+       52 SETTABLEKS                       R5 R4 K30 ["logEventWithTimestamp"]
+       54 DUPCLOSURE                       R5 K38 [PROTO_2]
+       55 SETTABLEKS                       R5 R4 K39 ["logEvent"]
+       57 DUPCLOSURE                       R5 K40 [PROTO_3]
+       58 SETTABLEKS                       R5 R4 K32 ["getTimestamp"]
+       60 DUPCLOSURE                       R5 K41 [PROTO_4]
+       61 SETTABLEKS                       R5 R4 K42 ["logRobloxTelemetryEvent"]
+       63 DUPCLOSURE                       R5 K43 [PROTO_5]
+       64 SETTABLEKS                       R5 R4 K44 ["logEphemeralCounterEvent"]
+       66 DUPCLOSURE                       R5 K45 [PROTO_6]
+       67 SETTABLEKS                       R5 R4 K46 ["logEphemeralStatEvent"]
+       69 GETTABLEKS                       R5 R4 K36 ["new"]
+       71 CALL                             R5 0 1
+       72 SETTABLEKS                       R5 R4 K47 ["default"]
+       74 RETURN                           R4 1

@@ -4,95 +4,91 @@ PROTO_0:
         3 LOADN                            R3 200
         4 JUMPIFLT                         R2 R3 ; [+6]
         6 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
-        8 LOADN                            R3 44
-        9 JUMPIFNOTLE                      R3 R2 ; [+33]
+        8 LOADN                            R3 300
+        9 JUMPIFNOTLE                      R3 R2 ; [+30]
        11 GETUPVAL                         R2 0
        12 GETUPVAL                         R4 1
-       13 DUPTABLE                         R5 K6 [{"url", "statusCode", "errorDetails", "user", "ampresponse"}]
+       13 DUPTABLE                         R5 K7 [{["url"], ["statusCode"], ["errorDetails"], ["user"], ["ampresponse"] = ""}]
        14 GETUPVAL                         R6 2
-       15 GETTABLEKS                       R6 R6 K7 ["Url"]
+       15 GETTABLEKS                       R6 R6 K8 ["Url"]
        17 SETTABLEKS                       R6 R5 K1 ["url"]
        19 GETTABLEKS                       R6 R1 K0 ["StatusCode"]
        21 SETTABLEKS                       R6 R5 K2 ["statusCode"]
-       23 GETTABLEKS                       R6 R1 K8 ["Body"]
+       23 GETTABLEKS                       R6 R1 K9 ["Body"]
        25 SETTABLEKS                       R6 R5 K3 ["errorDetails"]
        27 GETUPVAL                         R6 3
-       28 NAMECALL                         R6 R6 K9 ["GetUserId"]
+       28 NAMECALL                         R6 R6 K10 ["GetUserId"]
        30 CALL                             R6 1 1
        31 SETTABLEKS                       R6 R5 K4 ["user"]
-       33 LOADK                            R6 K10 [""]
-       34 SETTABLEKS                       R6 R5 K5 ["ampresponse"]
-       36 NAMECALL                         R2 R2 K11 ["logRobloxTelemetryEvent"]
-       38 CALL                             R2 3 0
-       39 GETUPVAL                         R2 4
-       40 LOADK                            R3 K12 ["Failed to fetch AMP collab auth status"]
-       41 CALL                             R2 1 -1
-       42 RETURN                           R2 -1
-       43 GETUPVAL                         R2 5
-       44 GETTABLEKS                       R4 R1 K8 ["Body"]
-       46 NAMECALL                         R2 R2 K13 ["JSONDecode"]
-       48 CALL                             R2 2 1
-       49 GETTABLEKS                       R3 R2 K14 ["access"]
-       51 JUMPIFEQKS                       R3 K15 ["Granted"] ; [+2]
-       53 LOADB                            R4 0 +1
-       54 LOADB                            R4 1
-       55 JUMPIFEQKS                       R3 K15 ["Granted"] ; [+30]
-       57 JUMPIFEQKS                       R3 K16 ["Denied"] ; [+28]
-       59 GETUPVAL                         R5 0
-       60 GETUPVAL                         R7 1
-       61 DUPTABLE                         R8 K6 [{"url", "statusCode", "errorDetails", "user", "ampresponse"}]
-       62 GETUPVAL                         R9 2
-       63 GETTABLEKS                       R9 R9 K7 ["Url"]
-       65 SETTABLEKS                       R9 R8 K1 ["url"]
-       67 GETTABLEKS                       R9 R1 K0 ["StatusCode"]
-       69 SETTABLEKS                       R9 R8 K2 ["statusCode"]
-       71 GETTABLEKS                       R9 R1 K8 ["Body"]
-       73 SETTABLEKS                       R9 R8 K3 ["errorDetails"]
-       75 GETUPVAL                         R9 3
-       76 NAMECALL                         R9 R9 K9 ["GetUserId"]
-       78 CALL                             R9 1 1
-       79 SETTABLEKS                       R9 R8 K4 ["user"]
-       81 SETTABLEKS                       R3 R8 K5 ["ampresponse"]
-       83 NAMECALL                         R5 R5 K11 ["logRobloxTelemetryEvent"]
-       85 CALL                             R5 3 0
-       86 GETUPVAL                         R5 6
-       87 MOVE                             R6 R4
-       88 CALL                             R5 1 -1
-       89 RETURN                           R5 -1
+       33 NAMECALL                         R2 R2 K11 ["logRobloxTelemetryEvent"]
+       35 CALL                             R2 3 0
+       36 GETUPVAL                         R2 4
+       37 LOADK                            R3 K12 ["Failed to fetch AMP collab auth status"]
+       38 CALL                             R2 1 -1
+       39 RETURN                           R2 -1
+       40 GETUPVAL                         R2 5
+       41 GETTABLEKS                       R4 R1 K9 ["Body"]
+       43 NAMECALL                         R2 R2 K13 ["JSONDecode"]
+       45 CALL                             R2 2 1
+       46 GETTABLEKS                       R3 R2 K14 ["access"]
+       48 JUMPIFEQKS                       R3 K15 ["Granted"] ; [+2]
+       50 LOADB                            R4 0 +1
+       51 LOADB                            R4 1
+       52 JUMPIFEQKS                       R3 K15 ["Granted"] ; [+30]
+       54 JUMPIFEQKS                       R3 K16 ["Denied"] ; [+28]
+       56 GETUPVAL                         R5 0
+       57 GETUPVAL                         R7 1
+       58 DUPTABLE                         R8 K17 [{"url", "statusCode", "errorDetails", "user", "ampresponse"}]
+       59 GETUPVAL                         R9 2
+       60 GETTABLEKS                       R9 R9 K8 ["Url"]
+       62 SETTABLEKS                       R9 R8 K1 ["url"]
+       64 GETTABLEKS                       R9 R1 K0 ["StatusCode"]
+       66 SETTABLEKS                       R9 R8 K2 ["statusCode"]
+       68 GETTABLEKS                       R9 R1 K9 ["Body"]
+       70 SETTABLEKS                       R9 R8 K3 ["errorDetails"]
+       72 GETUPVAL                         R9 3
+       73 NAMECALL                         R9 R9 K10 ["GetUserId"]
+       75 CALL                             R9 1 1
+       76 SETTABLEKS                       R9 R8 K4 ["user"]
+       78 SETTABLEKS                       R3 R8 K5 ["ampresponse"]
+       80 NAMECALL                         R5 R5 K11 ["logRobloxTelemetryEvent"]
+       82 CALL                             R5 3 0
+       83 GETUPVAL                         R5 6
+       84 MOVE                             R6 R4
+       85 CALL                             R5 1 -1
+       86 RETURN                           R5 -1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K3 [{"Method", "Url", "Headers"}]
-        1 LOADK                            R3 K4 ["GET"]
-        2 SETTABLEKS                       R3 R2 K0 ["Method"]
-        4 GETUPVAL                         R3 0
-        5 GETTABLEKS                       R3 R3 K5 ["BuildRobloxUrl"]
-        7 LOADK                            R4 K6 ["apis"]
-        8 LOADK                            R6 K7 ["access-management/v1/upsell-feature-access?featureName="]
-        9 GETUPVAL                         R7 1
-       10 LOADK                            R8 K8 ["&nameSpace="]
-       11 GETUPVAL                         R9 2
-       12 CONCAT                           R5 R6 R9
-       13 CALL                             R3 2 1
-       14 SETTABLEKS                       R3 R2 K1 ["Url"]
-       16 NEWTABLE                         R3 1 0
-       18 LOADK                            R4 K9 ["application/json"]
-       19 SETTABLEKS                       R4 R3 K10 ["Content-Type"]
-       21 SETTABLEKS                       R3 R2 K2 ["Headers"]
-       23 GETUPVAL                         R3 3
-       24 MOVE                             R5 R2
-       25 NAMECALL                         R3 R3 K11 ["RequestInternal"]
-       27 CALL                             R3 2 1
-       28 NEWCLOSURE                       R5 P0
-       29 CAPTURE                          UPVAL U4
-       30 CAPTURE                          UPVAL U5
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          UPVAL U6
-       33 CAPTURE                          VAL R1
-       34 CAPTURE                          UPVAL U3
-       35 CAPTURE                          VAL R0
-       36 NAMECALL                         R3 R3 K12 ["Start"]
-       38 CALL                             R3 2 -1
-       39 RETURN                           R3 -1
+        0 DUPTABLE                         R2 K4 [{[1] = "GET", ["Url"], ["Headers"]}]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R3 R3 K5 ["BuildRobloxUrl"]
+        4 LOADK                            R4 K6 ["apis"]
+        5 LOADK                            R6 K7 ["access-management/v1/upsell-feature-access?featureName="]
+        6 GETUPVAL                         R7 1
+        7 LOADK                            R8 K8 ["&nameSpace="]
+        8 GETUPVAL                         R9 2
+        9 CONCAT                           R5 R6 R9
+       10 CALL                             R3 2 1
+       11 SETTABLEKS                       R3 R2 K2 ["Url"]
+       13 NEWTABLE                         R3 1 0
+       15 LOADK                            R4 K9 ["application/json"]
+       16 SETTABLEKS                       R4 R3 K10 ["Content-Type"]
+       18 SETTABLEKS                       R3 R2 K3 ["Headers"]
+       20 GETUPVAL                         R3 3
+       21 MOVE                             R5 R2
+       22 NAMECALL                         R3 R3 K11 ["RequestInternal"]
+       24 CALL                             R3 2 1
+       25 NEWCLOSURE                       R5 P0
+       26 CAPTURE                          UPVAL U4
+       27 CAPTURE                          UPVAL U5
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          UPVAL U6
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          UPVAL U3
+       32 CAPTURE                          VAL R0
+       33 NAMECALL                         R3 R3 K12 ["Start"]
+       35 CALL                             R3 2 -1
+       36 RETURN                           R3 -1
 
 PROTO_2:
         0 GETIMPORT                        R2 K1 [game]

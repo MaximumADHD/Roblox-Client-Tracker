@@ -21,79 +21,75 @@ PROTO_0:
        29 GETUPVAL                         R5 1
        30 GETTABLEKS                       R5 R5 K9 ["createElement"]
        32 LOADK                            R6 K10 ["TextLabel"]
-       33 DUPTABLE                         R7 K19 [{"AutomaticSize", "BackgroundColor3", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize"}]
-       34 GETIMPORT                        R8 K22 [Enum.AutomaticSize.XY]
+       33 DUPTABLE                         R7 K20 [{["AutomaticSize"], ["BackgroundColor3"], ["Font"], ["LayoutOrder"], ["Size"], ["Text"], ["TextColor3"], ["TextSize"] = 24}]
+       34 GETIMPORT                        R8 K23 [Enum.AutomaticSize.XY]
        36 SETTABLEKS                       R8 R7 K11 ["AutomaticSize"]
        38 SETTABLEKS                       R2 R7 K12 ["BackgroundColor3"]
-       40 GETIMPORT                        R8 K24 [Enum.Font.SourceSansBold]
+       40 GETIMPORT                        R8 K25 [Enum.Font.SourceSansBold]
        42 SETTABLEKS                       R8 R7 K13 ["Font"]
        44 GETTABLEKS                       R8 R0 K14 ["LayoutOrder"]
        46 SETTABLEKS                       R8 R7 K14 ["LayoutOrder"]
-       48 GETIMPORT                        R8 K27 [UDim2.fromOffset]
+       48 GETIMPORT                        R8 K28 [UDim2.fromOffset]
        50 LOADN                            R9 32
        51 LOADN                            R10 32
        52 CALL                             R8 2 1
        53 SETTABLEKS                       R8 R7 K15 ["Size"]
-       55 GETTABLEKS                       R9 R0 K28 ["Key"]
-       57 JUMPIFNOTEQKS                    R9 K29 ["LeftControl"] ; [+3]
-       59 LOADK                            R8 K30 ["Ctrl"]
+       55 GETTABLEKS                       R9 R0 K29 ["Key"]
+       57 JUMPIFNOTEQKS                    R9 K30 ["LeftControl"] ; [+3]
+       59 LOADK                            R8 K31 ["Ctrl"]
        60 JUMP                             ; [+2]
-       61 GETTABLEKS                       R8 R0 K28 ["Key"]
+       61 GETTABLEKS                       R8 R0 K29 ["Key"]
        63 SETTABLEKS                       R8 R7 K16 ["Text"]
        65 SETTABLEKS                       R4 R7 K17 ["TextColor3"]
-       67 LOADN                            R8 24
-       68 SETTABLEKS                       R8 R7 K18 ["TextSize"]
-       70 DUPTABLE                         R8 K34 [{"Corner", "Padding", "Stroke"}]
-       71 GETUPVAL                         R9 1
-       72 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       74 LOADK                            R10 K35 ["UICorner"]
-       75 DUPTABLE                         R11 K37 [{"CornerRadius"}]
-       76 GETIMPORT                        R12 K40 [UDim.new]
-       78 LOADN                            R13 0
-       79 LOADN                            R14 8
-       80 CALL                             R12 2 1
-       81 SETTABLEKS                       R12 R11 K36 ["CornerRadius"]
-       83 CALL                             R9 2 1
-       84 SETTABLEKS                       R9 R8 K31 ["Corner"]
-       86 GETUPVAL                         R9 1
-       87 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       89 LOADK                            R10 K41 ["UIPadding"]
-       90 DUPTABLE                         R11 K46 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
-       91 GETIMPORT                        R12 K40 [UDim.new]
-       93 LOADN                            R13 0
-       94 LOADN                            R14 5
-       95 CALL                             R12 2 1
-       96 SETTABLEKS                       R12 R11 K42 ["PaddingLeft"]
-       98 GETIMPORT                        R12 K40 [UDim.new]
-      100 LOADN                            R13 0
-      101 LOADN                            R14 5
-      102 CALL                             R12 2 1
-      103 SETTABLEKS                       R12 R11 K43 ["PaddingTop"]
-      105 GETIMPORT                        R12 K40 [UDim.new]
-      107 LOADN                            R13 0
-      108 LOADN                            R14 5
-      109 CALL                             R12 2 1
-      110 SETTABLEKS                       R12 R11 K44 ["PaddingRight"]
-      112 GETIMPORT                        R12 K40 [UDim.new]
-      114 LOADN                            R13 0
-      115 LOADN                            R14 5
-      116 CALL                             R12 2 1
-      117 SETTABLEKS                       R12 R11 K45 ["PaddingBottom"]
-      119 CALL                             R9 2 1
-      120 SETTABLEKS                       R9 R8 K32 ["Padding"]
-      122 GETUPVAL                         R9 1
-      123 GETTABLEKS                       R9 R9 K9 ["createElement"]
-      125 LOADK                            R10 K47 ["UIStroke"]
-      126 DUPTABLE                         R11 K51 [{"ApplyStrokeMode", "Color", "Thickness"}]
-      127 GETIMPORT                        R12 K53 [Enum.ApplyStrokeMode.Border]
-      129 SETTABLEKS                       R12 R11 K48 ["ApplyStrokeMode"]
-      131 SETTABLEKS                       R3 R11 K49 ["Color"]
-      133 LOADN                            R12 5
-      134 SETTABLEKS                       R12 R11 K50 ["Thickness"]
-      136 CALL                             R9 2 1
-      137 SETTABLEKS                       R9 R8 K33 ["Stroke"]
-      139 CALL                             R5 3 -1
-      140 RETURN                           R5 -1
+       67 DUPTABLE                         R8 K35 [{"Corner", "Padding", "Stroke"}]
+       68 GETUPVAL                         R9 1
+       69 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       71 LOADK                            R10 K36 ["UICorner"]
+       72 DUPTABLE                         R11 K38 [{"CornerRadius"}]
+       73 GETIMPORT                        R12 K41 [UDim.new]
+       75 LOADN                            R13 0
+       76 LOADN                            R14 8
+       77 CALL                             R12 2 1
+       78 SETTABLEKS                       R12 R11 K37 ["CornerRadius"]
+       80 CALL                             R9 2 1
+       81 SETTABLEKS                       R9 R8 K32 ["Corner"]
+       83 GETUPVAL                         R9 1
+       84 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       86 LOADK                            R10 K42 ["UIPadding"]
+       87 DUPTABLE                         R11 K47 [{"PaddingLeft", "PaddingTop", "PaddingRight", "PaddingBottom"}]
+       88 GETIMPORT                        R12 K41 [UDim.new]
+       90 LOADN                            R13 0
+       91 LOADN                            R14 5
+       92 CALL                             R12 2 1
+       93 SETTABLEKS                       R12 R11 K43 ["PaddingLeft"]
+       95 GETIMPORT                        R12 K41 [UDim.new]
+       97 LOADN                            R13 0
+       98 LOADN                            R14 5
+       99 CALL                             R12 2 1
+      100 SETTABLEKS                       R12 R11 K44 ["PaddingTop"]
+      102 GETIMPORT                        R12 K41 [UDim.new]
+      104 LOADN                            R13 0
+      105 LOADN                            R14 5
+      106 CALL                             R12 2 1
+      107 SETTABLEKS                       R12 R11 K45 ["PaddingRight"]
+      109 GETIMPORT                        R12 K41 [UDim.new]
+      111 LOADN                            R13 0
+      112 LOADN                            R14 5
+      113 CALL                             R12 2 1
+      114 SETTABLEKS                       R12 R11 K46 ["PaddingBottom"]
+      116 CALL                             R9 2 1
+      117 SETTABLEKS                       R9 R8 K33 ["Padding"]
+      119 GETUPVAL                         R9 1
+      120 GETTABLEKS                       R9 R9 K9 ["createElement"]
+      122 LOADK                            R10 K48 ["UIStroke"]
+      123 DUPTABLE                         R11 K53 [{["ApplyStrokeMode"], ["Color"], ["Thickness"] = 5}]
+      124 GETIMPORT                        R12 K55 [Enum.ApplyStrokeMode.Border]
+      126 SETTABLEKS                       R12 R11 K49 ["ApplyStrokeMode"]
+      128 SETTABLEKS                       R3 R11 K50 ["Color"]
+      130 CALL                             R9 2 1
+      131 SETTABLEKS                       R9 R8 K34 ["Stroke"]
+      133 CALL                             R5 3 -1
+      134 RETURN                           R5 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -119,20 +115,16 @@ PROTO_2:
         7 GETUPVAL                         R2 1
         8 GETTABLEKS                       R2 R2 K2 ["createElement"]
        10 GETUPVAL                         R3 3
-       11 DUPTABLE                         R4 K8 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding", "Spacing"}]
-       12 GETIMPORT                        R5 K11 [Enum.AutomaticSize.XY]
+       11 DUPTABLE                         R4 K10 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Padding"] = 10, ["Spacing"] = 20}]
+       12 GETIMPORT                        R5 K13 [Enum.AutomaticSize.XY]
        14 SETTABLEKS                       R5 R4 K3 ["AutomaticSize"]
-       16 GETIMPORT                        R5 K14 [Enum.FillDirection.Horizontal]
+       16 GETIMPORT                        R5 K16 [Enum.FillDirection.Horizontal]
        18 SETTABLEKS                       R5 R4 K4 ["Layout"]
        20 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
        22 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       24 LOADN                            R5 10
-       25 SETTABLEKS                       R5 R4 K6 ["Padding"]
-       27 LOADN                            R5 20
-       28 SETTABLEKS                       R5 R4 K7 ["Spacing"]
-       30 MOVE                             R5 R1
-       31 CALL                             R2 3 -1
-       32 RETURN                           R2 -1
+       24 MOVE                             R5 R1
+       25 CALL                             R2 3 -1
+       26 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

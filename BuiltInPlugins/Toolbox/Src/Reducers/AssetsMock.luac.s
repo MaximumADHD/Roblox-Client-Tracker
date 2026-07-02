@@ -1,24 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K8 [{"idToAssetMap", "idsToRender", "isLoading", "currentCursor", "totalAssets", "assetsReceived", "hasReachedBottom", "manageableAssets"}]
+        0 DUPTABLE                         R2 K11 [{[1], ["idsToRender"], ["isLoading"] = True, ["currentCursor"], ["totalAssets"] = 0, ["assetsReceived"] = 0, ["hasReachedBottom"] = False, ["manageableAssets"]}]
         1 NEWTABLE                         R3 0 0
         3 SETTABLEKS                       R3 R2 K0 ["idToAssetMap"]
         5 NEWTABLE                         R3 0 0
         7 SETTABLEKS                       R3 R2 K1 ["idsToRender"]
-        9 LOADB                            R3 1
-       10 SETTABLEKS                       R3 R2 K2 ["isLoading"]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R3 R3 K9 ["createDefaultCursor"]
-       15 CALL                             R3 0 1
-       16 SETTABLEKS                       R3 R2 K3 ["currentCursor"]
-       18 LOADN                            R3 0
-       19 SETTABLEKS                       R3 R2 K4 ["totalAssets"]
-       21 LOADN                            R3 0
-       22 SETTABLEKS                       R3 R2 K5 ["assetsReceived"]
-       24 LOADB                            R3 0
-       25 SETTABLEKS                       R3 R2 K6 ["hasReachedBottom"]
-       27 NEWTABLE                         R3 0 0
-       29 SETTABLEKS                       R3 R2 K7 ["manageableAssets"]
-       31 RETURN                           R2 1
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K12 ["createDefaultCursor"]
+       12 CALL                             R3 0 1
+       13 SETTABLEKS                       R3 R2 K4 ["currentCursor"]
+       15 NEWTABLE                         R3 0 0
+       17 SETTABLEKS                       R3 R2 K10 ["manageableAssets"]
+       19 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -98,7 +98,7 @@ PROTO_0:
       127 CALL                             R14 1 1
       128 LOADK                            R15 K4 [1E-05]
       129 JUMPIFNOTLT                      R14 R15 ; [+2]
-      131 LOADN                            R4 255
+      131 LOADN                            R4 -1
       132 SUBK                             R15 R5 K6 [1]
       133 FASTCALL1                        MATH_ABS R15 ; [+2]
       134 GETIMPORT                        R14 K3 [math.abs]
@@ -113,7 +113,7 @@ PROTO_0:
       146 CALL                             R14 1 1
       147 LOADK                            R15 K4 [1E-05]
       148 JUMPIFNOTLT                      R14 R15 ; [+2]
-      150 LOADN                            R5 255
+      150 LOADN                            R5 -1
       151 SUBK                             R15 R6 K6 [1]
       152 FASTCALL1                        MATH_ABS R15 ; [+2]
       153 GETIMPORT                        R14 K3 [math.abs]
@@ -128,7 +128,7 @@ PROTO_0:
       165 CALL                             R14 1 1
       166 LOADK                            R15 K4 [1E-05]
       167 JUMPIFNOTLT                      R14 R15 ; [+2]
-      169 LOADN                            R6 255
+      169 LOADN                            R6 -1
       170 SUBK                             R15 R7 K6 [1]
       171 FASTCALL1                        MATH_ABS R15 ; [+2]
       172 GETIMPORT                        R14 K3 [math.abs]
@@ -143,7 +143,7 @@ PROTO_0:
       184 CALL                             R14 1 1
       185 LOADK                            R15 K4 [1E-05]
       186 JUMPIFNOTLT                      R14 R15 ; [+2]
-      188 LOADN                            R7 255
+      188 LOADN                            R7 -1
       189 SUBK                             R15 R8 K6 [1]
       190 FASTCALL1                        MATH_ABS R15 ; [+2]
       191 GETIMPORT                        R14 K3 [math.abs]
@@ -158,7 +158,7 @@ PROTO_0:
       203 CALL                             R14 1 1
       204 LOADK                            R15 K4 [1E-05]
       205 JUMPIFNOTLT                      R14 R15 ; [+2]
-      207 LOADN                            R8 255
+      207 LOADN                            R8 -1
       208 SUBK                             R15 R9 K6 [1]
       209 FASTCALL1                        MATH_ABS R15 ; [+2]
       210 GETIMPORT                        R14 K3 [math.abs]
@@ -173,7 +173,7 @@ PROTO_0:
       222 CALL                             R14 1 1
       223 LOADK                            R15 K4 [1E-05]
       224 JUMPIFNOTLT                      R14 R15 ; [+2]
-      226 LOADN                            R9 255
+      226 LOADN                            R9 -1
       227 SUBK                             R15 R10 K6 [1]
       228 FASTCALL1                        MATH_ABS R15 ; [+2]
       229 GETIMPORT                        R14 K3 [math.abs]
@@ -188,7 +188,7 @@ PROTO_0:
       241 CALL                             R14 1 1
       242 LOADK                            R15 K4 [1E-05]
       243 JUMPIFNOTLT                      R14 R15 ; [+2]
-      245 LOADN                            R10 255
+      245 LOADN                            R10 -1
       246 SUBK                             R15 R11 K6 [1]
       247 FASTCALL1                        MATH_ABS R15 ; [+2]
       248 GETIMPORT                        R14 K3 [math.abs]
@@ -203,7 +203,7 @@ PROTO_0:
       260 CALL                             R14 1 1
       261 LOADK                            R15 K4 [1E-05]
       262 JUMPIFNOTLT                      R14 R15 ; [+2]
-      264 LOADN                            R11 255
+      264 LOADN                            R11 -1
       265 SUBK                             R15 R12 K6 [1]
       266 FASTCALL1                        MATH_ABS R15 ; [+2]
       267 GETIMPORT                        R14 K3 [math.abs]
@@ -218,7 +218,7 @@ PROTO_0:
       279 CALL                             R14 1 1
       280 LOADK                            R15 K4 [1E-05]
       281 JUMPIFNOTLT                      R14 R15 ; [+2]
-      283 LOADN                            R12 255
+      283 LOADN                            R12 -1
       284 GETIMPORT                        R14 K9 [CFrame.new]
       286 MOVE                             R15 R1
       287 MOVE                             R16 R2

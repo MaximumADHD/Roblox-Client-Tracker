@@ -1,26 +1,4 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K11 [{"TCEnabledKey", "PlaceIdKey", "UniverseIdKey", "UserIdKey", "PluginCloseEvent", "PluginRestoreEvent", "PluginOpenEvent", "PopoverOpenEvent", "PopoverCloseEvent", "PopupOpenEvent", "PopupCloseEvent"}]
-        2 LOADK                            R1 K12 ["TCEnabled"]
-        3 SETTABLEKS                       R1 R0 K0 ["TCEnabledKey"]
-        5 LOADK                            R1 K13 ["PlaceId"]
-        6 SETTABLEKS                       R1 R0 K1 ["PlaceIdKey"]
-        8 LOADK                            R1 K14 ["UniverseId"]
-        9 SETTABLEKS                       R1 R0 K2 ["UniverseIdKey"]
-       11 LOADK                            R1 K15 ["UserId"]
-       12 SETTABLEKS                       R1 R0 K3 ["UserIdKey"]
-       14 LOADK                            R1 K16 ["PluginClose"]
-       15 SETTABLEKS                       R1 R0 K4 ["PluginCloseEvent"]
-       17 LOADK                            R1 K17 ["PluginRestore"]
-       18 SETTABLEKS                       R1 R0 K5 ["PluginRestoreEvent"]
-       20 LOADK                            R1 K18 ["PluginOpen"]
-       21 SETTABLEKS                       R1 R0 K6 ["PluginOpenEvent"]
-       23 LOADK                            R1 K19 ["PopoverOpen"]
-       24 SETTABLEKS                       R1 R0 K7 ["PopoverOpenEvent"]
-       26 LOADK                            R1 K20 ["PopoverClose"]
-       27 SETTABLEKS                       R1 R0 K8 ["PopoverCloseEvent"]
-       29 LOADK                            R1 K21 ["PopupOpen"]
-       30 SETTABLEKS                       R1 R0 K9 ["PopupOpenEvent"]
-       32 LOADK                            R1 K22 ["PopupClose"]
-       33 SETTABLEKS                       R1 R0 K10 ["PopupCloseEvent"]
-       35 RETURN                           R0 1
+        1 DUPTABLE                         R0 K22 [{[1] = "TCEnabled", ["PlaceIdKey"] = "PlaceId", ["UniverseIdKey"] = "UniverseId", ["UserIdKey"] = "UserId", ["PluginCloseEvent"] = "PluginClose", ["PluginRestoreEvent"] = "PluginRestore", ["PluginOpenEvent"] = "PluginOpen", ["PopoverOpenEvent"] = "PopoverOpen", ["PopoverCloseEvent"] = "PopoverClose", ["PopupOpenEvent"] = "PopupOpen", ["PopupCloseEvent"] = "PopupClose"}]
+        2 RETURN                           R0 1

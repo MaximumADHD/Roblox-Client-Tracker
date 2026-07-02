@@ -3,19 +3,15 @@ PROTO_0:
         2 LOADK                            R2 K2 ["InteractionTelemetry"]
         3 NAMECALL                         R0 R0 K3 ["GetPluginComponent"]
         5 CALL                             R0 2 1
-        6 DUPTABLE                         R3 K7 [{"functionType", "sourceType", "sourceData"}]
-        7 LOADK                            R4 K8 ["Navigation"]
-        8 SETTABLEKS                       R4 R3 K4 ["functionType"]
-       10 LOADK                            R4 K9 ["Widget"]
-       11 SETTABLEKS                       R4 R3 K5 ["sourceType"]
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R4 R4 K10 ["toString"]
-       16 GETUPVAL                         R5 1
-       17 CALL                             R4 1 1
-       18 SETTABLEKS                       R4 R3 K6 ["sourceData"]
-       20 NAMECALL                         R1 R0 K11 ["ReportInteractionAsync"]
-       22 CALL                             R1 2 0
-       23 RETURN                           R0 0
+        6 DUPTABLE                         R3 K9 [{["functionType"] = "Navigation", ["sourceType"] = "Widget", ["sourceData"]}]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K10 ["toString"]
+       10 GETUPVAL                         R5 1
+       11 CALL                             R4 1 1
+       12 SETTABLEKS                       R4 R3 K8 ["sourceData"]
+       14 NAMECALL                         R1 R0 K11 ["ReportInteractionAsync"]
+       16 CALL                             R1 2 0
+       17 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [pcall]
@@ -62,35 +58,21 @@ PROTO_3:
        18 MOVE                             R4 R1
        19 CALL                             R3 1 1
        20 GETUPVAL                         R4 3
-       21 CALL                             R4 0 1
-       22 JUMPIFNOT                        R4 ; [+6]
-       23 GETIMPORT                        R4 K9 [Enum.UpdateState.UpdateInProgress]
-       25 JUMPIFNOTEQ                      R3 R4 ; [+3]
-       27 LOADNIL                          R4
-       28 RETURN                           R4 1
-       29 GETUPVAL                         R4 4
-       30 CALL                             R4 0 1
-       31 JUMPIFNOT                        R4 ; [+6]
-       32 GETIMPORT                        R4 K11 [Enum.UpdateState.UpdateFailed]
-       34 JUMPIFNOTEQ                      R3 R4 ; [+3]
-       36 LOADNIL                          R4
-       37 RETURN                           R4 1
-       38 GETUPVAL                         R4 5
-       39 GETTABLEKS                       R4 R4 K12 ["createElement"]
-       41 GETUPVAL                         R5 6
-       42 DUPTABLE                         R6 K16 [{"Uri", "LayoutOrder", "UpdateState", "onActivated"}]
-       43 SETTABLEKS                       R2 R6 K13 ["Uri"]
-       45 GETTABLEKS                       R7 R0 K14 ["LayoutOrder"]
-       47 SETTABLEKS                       R7 R6 K14 ["LayoutOrder"]
-       49 SETTABLEKS                       R3 R6 K7 ["UpdateState"]
-       51 NEWCLOSURE                       R7 P0
-       52 CAPTURE                          UPVAL U7
-       53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          UPVAL U8
-       56 SETTABLEKS                       R7 R6 K15 ["onActivated"]
-       58 CALL                             R4 2 -1
-       59 RETURN                           R4 -1
+       21 GETTABLEKS                       R4 R4 K6 ["createElement"]
+       23 GETUPVAL                         R5 4
+       24 DUPTABLE                         R6 K11 [{"Uri", "LayoutOrder", "UpdateState", "onActivated"}]
+       25 SETTABLEKS                       R2 R6 K7 ["Uri"]
+       27 GETTABLEKS                       R7 R0 K8 ["LayoutOrder"]
+       29 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
+       31 SETTABLEKS                       R3 R6 K9 ["UpdateState"]
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          UPVAL U5
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          UPVAL U6
+       38 SETTABLEKS                       R7 R6 K10 ["onActivated"]
+       40 CALL                             R4 2 -1
+       41 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -117,38 +99,26 @@ MAIN:
        36 CALL                             R4 1 1
        37 GETIMPORT                        R5 K5 [require]
        39 GETTABLEKS                       R6 R0 K10 ["Src"]
-       41 GETTABLEKS                       R6 R6 K13 ["SharedFlags"]
-       43 GETTABLEKS                       R6 R6 K14 ["getFFlagStudioDoNotShowUpdateInProgressButton"]
-       45 CALL                             R5 1 1
-       46 GETIMPORT                        R6 K5 [require]
-       48 GETTABLEKS                       R7 R0 K10 ["Src"]
-       50 GETTABLEKS                       R7 R7 K13 ["SharedFlags"]
-       52 GETTABLEKS                       R7 R7 K15 ["getFFlagStudioDoNotShowUpdateFailedButton"]
+       41 GETTABLEKS                       R6 R6 K13 ["Components"]
+       43 GETTABLEKS                       R6 R6 K14 ["UpdateStatus"]
+       45 GETTABLEKS                       R6 R6 K15 ["UpdateStatusButtonV2"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R7 R0 K10 ["Src"]
+       52 GETTABLEKS                       R7 R7 K16 ["Types"]
        54 CALL                             R6 1 1
-       55 GETIMPORT                        R7 K5 [require]
-       57 GETTABLEKS                       R8 R0 K10 ["Src"]
-       59 GETTABLEKS                       R8 R8 K16 ["Components"]
-       61 GETTABLEKS                       R8 R8 K17 ["UpdateStatus"]
-       63 GETTABLEKS                       R8 R8 K18 ["UpdateStatusButtonV2"]
-       65 CALL                             R7 1 1
-       66 GETIMPORT                        R8 K5 [require]
-       68 GETTABLEKS                       R9 R0 K10 ["Src"]
-       70 GETTABLEKS                       R9 R9 K19 ["Types"]
-       72 CALL                             R8 1 1
-       73 GETTABLEKS                       R9 R3 K20 ["Util"]
-       75 GETTABLEKS                       R9 R9 K21 ["StudioUri"]
-       77 GETTABLEKS                       R10 R2 K22 ["ContextServices"]
-       79 GETTABLEKS                       R11 R10 K23 ["Plugin"]
-       81 DUPCLOSURE                       R12 K24 [PROTO_1]
-       82 CAPTURE                          VAL R9
-       83 DUPCLOSURE                       R13 K25 [PROTO_3]
-       84 CAPTURE                          VAL R11
-       85 CAPTURE                          VAL R9
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R5
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R1
-       90 CAPTURE                          VAL R7
-       91 CAPTURE                          VAL R12
-       92 CAPTURE                          VAL R2
-       93 RETURN                           R13 1
+       55 GETTABLEKS                       R7 R3 K17 ["Util"]
+       57 GETTABLEKS                       R7 R7 K18 ["StudioUri"]
+       59 GETTABLEKS                       R8 R2 K19 ["ContextServices"]
+       61 GETTABLEKS                       R9 R8 K20 ["Plugin"]
+       63 DUPCLOSURE                       R10 K21 [PROTO_1]
+       64 CAPTURE                          VAL R7
+       65 DUPCLOSURE                       R11 K22 [PROTO_3]
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R7
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R1
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R10
+       72 CAPTURE                          VAL R2
+       73 RETURN                           R11 1

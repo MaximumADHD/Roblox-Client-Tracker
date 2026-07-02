@@ -44,48 +44,44 @@ PROTO_2:
         9 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K2 [{"limit", "SortOrder"}]
-        1 LOADN                            R2 50
-        2 SETTABLEKS                       R2 R1 K0 ["limit"]
-        4 LOADK                            R2 K3 ["Asc"]
-        5 SETTABLEKS                       R2 R1 K1 ["SortOrder"]
-        7 MOVE                             R2 R0
-        8 LOADNIL                          R3
-        9 LOADNIL                          R4
-       10 FORGPREP                         R2
-       11 GETUPVAL                         R7 0
-       12 GETTABLEKS                       R7 R7 K4 ["new"]
-       14 CALL                             R7 0 1
-       15 GETTABLEKS                       R8 R7 K5 ["composeUrl"]
-       17 GETUPVAL                         R9 1
-       18 GETTABLEKS                       R9 R9 K6 ["PLACES_SEARCH_URL"]
-       20 GETTABLEKS                       R9 R9 K7 ["Prefix"]
-       22 GETUPVAL                         R10 1
-       23 GETTABLEKS                       R10 R10 K6 ["PLACES_SEARCH_URL"]
-       25 GETTABLEKS                       R10 R10 K8 ["Url"]
-       27 MOVE                             R11 R6
-       28 CALL                             R10 1 1
-       29 MOVE                             R11 R1
-       30 CALL                             R8 3 1
-       31 GETUPVAL                         R9 2
-       32 GETUPVAL                         R11 2
-       33 MOVE                             R13 R8
-       34 NAMECALL                         R11 R11 K9 ["get"]
-       36 CALL                             R11 2 -1
-       37 NAMECALL                         R9 R9 K10 ["parseJson"]
-       39 CALL                             R9 -1 1
-       40 NEWCLOSURE                       R11 P0
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U4
-       43 CAPTURE                          UPVAL U5
-       44 CAPTURE                          VAL R6
-       45 NAMECALL                         R9 R9 K11 ["andThen"]
-       47 CALL                             R9 2 1
-       48 DUPCLOSURE                       R11 K12 [PROTO_2]
-       49 NAMECALL                         R9 R9 K13 ["catch"]
-       51 CALL                             R9 2 0
-       52 FORGLOOP                         R2 2 ; [-42]
-       54 RETURN                           R0 0
+        0 DUPTABLE                         R1 K4 [{[1] = 50, ["SortOrder"] = "Asc"}]
+        1 MOVE                             R2 R0
+        2 LOADNIL                          R3
+        3 LOADNIL                          R4
+        4 FORGPREP                         R2
+        5 GETUPVAL                         R7 0
+        6 GETTABLEKS                       R7 R7 K5 ["new"]
+        8 CALL                             R7 0 1
+        9 GETTABLEKS                       R8 R7 K6 ["composeUrl"]
+       11 GETUPVAL                         R9 1
+       12 GETTABLEKS                       R9 R9 K7 ["PLACES_SEARCH_URL"]
+       14 GETTABLEKS                       R9 R9 K8 ["Prefix"]
+       16 GETUPVAL                         R10 1
+       17 GETTABLEKS                       R10 R10 K7 ["PLACES_SEARCH_URL"]
+       19 GETTABLEKS                       R10 R10 K9 ["Url"]
+       21 MOVE                             R11 R6
+       22 CALL                             R10 1 1
+       23 MOVE                             R11 R1
+       24 CALL                             R8 3 1
+       25 GETUPVAL                         R9 2
+       26 GETUPVAL                         R11 2
+       27 MOVE                             R13 R8
+       28 NAMECALL                         R11 R11 K10 ["get"]
+       30 CALL                             R11 2 -1
+       31 NAMECALL                         R9 R9 K11 ["parseJson"]
+       33 CALL                             R9 -1 1
+       34 NEWCLOSURE                       R11 P0
+       35 CAPTURE                          UPVAL U3
+       36 CAPTURE                          UPVAL U4
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          VAL R6
+       39 NAMECALL                         R9 R9 K12 ["andThen"]
+       41 CALL                             R9 2 1
+       42 DUPCLOSURE                       R11 K13 [PROTO_2]
+       43 NAMECALL                         R9 R9 K14 ["catch"]
+       45 CALL                             R9 2 0
+       46 FORGLOOP                         R2 2 ; [-42]
+       48 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -136,24 +132,22 @@ MAIN:
        78 GETTABLEKS                       R9 R4 K21 ["RobloxAPI"]
        80 GETTABLEKS                       R9 R9 K22 ["Url"]
        82 GETTABLEKS                       R10 R6 K23 ["new"]
-       84 DUPTABLE                         R11 K26 [{"isInternal", "loggingLevel"}]
-       85 LOADB                            R12 1
-       86 SETTABLEKS                       R12 R11 K24 ["isInternal"]
-       88 SETTABLEKS                       R1 R11 K25 ["loggingLevel"]
-       90 CALL                             R10 1 1
-       91 GETIMPORT                        R11 K5 [require]
-       93 GETTABLEKS                       R12 R0 K12 ["Packages"]
-       95 GETTABLEKS                       R12 R12 K27 ["Dash"]
-       97 CALL                             R11 1 1
-       98 GETTABLEKS                       R12 R11 K28 ["collectArray"]
-      100 MOVE                             R13 R7
-      101 GETTABLEKS                       R14 R3 K29 ["validate"]
-      103 CALL                             R13 1 1
-      104 DUPCLOSURE                       R14 K30 [PROTO_3]
-      105 CAPTURE                          VAL R9
-      106 CAPTURE                          VAL R5
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R13
-      109 CAPTURE                          VAL R12
-      110 CAPTURE                          VAL R8
-      111 RETURN                           R14 1
+       84 DUPTABLE                         R11 K27 [{["isInternal"] = True, ["loggingLevel"]}]
+       85 SETTABLEKS                       R1 R11 K26 ["loggingLevel"]
+       87 CALL                             R10 1 1
+       88 GETIMPORT                        R11 K5 [require]
+       90 GETTABLEKS                       R12 R0 K12 ["Packages"]
+       92 GETTABLEKS                       R12 R12 K28 ["Dash"]
+       94 CALL                             R11 1 1
+       95 GETTABLEKS                       R12 R11 K29 ["collectArray"]
+       97 MOVE                             R13 R7
+       98 GETTABLEKS                       R14 R3 K30 ["validate"]
+      100 CALL                             R13 1 1
+      101 DUPCLOSURE                       R14 K31 [PROTO_3]
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R5
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R13
+      106 CAPTURE                          VAL R12
+      107 CAPTURE                          VAL R8
+      108 RETURN                           R14 1

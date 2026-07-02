@@ -44,19 +44,17 @@ MAIN:
        41 GETTABLEKS                       R8 R5 K14 ["SetOverrides"]
        43 CALL                             R7 1 1
        44 GETTABLEKS                       R8 R2 K15 ["createReducer"]
-       46 DUPTABLE                         R9 K18 [{"FrameBuffer", "Overrides"}]
-       47 LOADNIL                          R10
-       48 SETTABLEKS                       R10 R9 K16 ["FrameBuffer"]
-       50 NEWTABLE                         R10 0 0
-       52 SETTABLEKS                       R10 R9 K17 ["Overrides"]
-       54 NEWTABLE                         R10 2 0
-       56 GETTABLEKS                       R11 R6 K19 ["name"]
-       58 DUPCLOSURE                       R12 K20 [PROTO_0]
-       59 CAPTURE                          VAL R3
-       60 SETTABLE                         R12 R10 R11
-       61 GETTABLEKS                       R11 R7 K19 ["name"]
-       63 DUPCLOSURE                       R12 K21 [PROTO_1]
-       64 CAPTURE                          VAL R3
-       65 SETTABLE                         R12 R10 R11
-       66 CALL                             R8 2 1
-       67 RETURN                           R8 1
+       46 DUPTABLE                         R9 K19 [{["FrameBuffer"] = , ["Overrides"]}]
+       47 NEWTABLE                         R10 0 0
+       49 SETTABLEKS                       R10 R9 K18 ["Overrides"]
+       51 NEWTABLE                         R10 2 0
+       53 GETTABLEKS                       R11 R6 K20 ["name"]
+       55 DUPCLOSURE                       R12 K21 [PROTO_0]
+       56 CAPTURE                          VAL R3
+       57 SETTABLE                         R12 R10 R11
+       58 GETTABLEKS                       R11 R7 K20 ["name"]
+       60 DUPCLOSURE                       R12 K22 [PROTO_1]
+       61 CAPTURE                          VAL R3
+       62 SETTABLE                         R12 R10 R11
+       63 CALL                             R8 2 1
+       64 RETURN                           R8 1

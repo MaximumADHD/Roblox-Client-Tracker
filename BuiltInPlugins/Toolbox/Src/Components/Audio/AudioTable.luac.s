@@ -103,27 +103,25 @@ PROTO_4:
         1 GETTABLEKS                       R2 R2 K0 ["createRef"]
         3 CALL                             R2 0 1
         4 SETTABLEKS                       R2 R0 K1 ["ref"]
-        6 DUPTABLE                         R2 K3 [{"width"}]
-        7 LOADN                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["width"]
-       10 SETTABLEKS                       R2 R0 K4 ["state"]
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U0
-       15 SETTABLEKS                       R2 R0 K5 ["setExpandedAssetId"]
-       17 NEWCLOSURE                       R2 P1
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R2 R0 K6 ["OnAbsoluteSizeChanged"]
-       21 NEWCLOSURE                       R2 P2
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U1
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          UPVAL U0
-       26 CAPTURE                          UPVAL U2
-       27 CAPTURE                          UPVAL U3
-       28 CAPTURE                          UPVAL U4
-       29 SETTABLEKS                       R2 R0 K7 ["createHeaderElement"]
-       31 RETURN                           R0 0
+        6 DUPTABLE                         R2 K4 [{["width"] = 0}]
+        7 SETTABLEKS                       R2 R0 K5 ["state"]
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          UPVAL U0
+       12 SETTABLEKS                       R2 R0 K6 ["setExpandedAssetId"]
+       14 NEWCLOSURE                       R2 P1
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R2 R0 K7 ["OnAbsoluteSizeChanged"]
+       18 NEWCLOSURE                       R2 P2
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          VAL R1
+       22 CAPTURE                          UPVAL U0
+       23 CAPTURE                          UPVAL U2
+       24 CAPTURE                          UPVAL U3
+       25 CAPTURE                          UPVAL U4
+       26 SETTABLEKS                       R2 R0 K8 ["createHeaderElement"]
+       28 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["OnAbsoluteSizeChanged"]
@@ -250,126 +248,122 @@ PROTO_8:
        83 GETUPVAL                         R17 3
        84 GETTABLEKS                       R17 R17 K11 ["createElement"]
        86 GETUPVAL                         R18 4
-       87 DUPTABLE                         R19 K33 [{"BackgroundTransparency", "LayoutOrder", "Size", "Layout", "Padding"}]
-       88 LOADN                            R20 1
-       89 SETTABLEKS                       R20 R19 K16 ["BackgroundTransparency"]
-       91 LOADN                            R20 1
-       92 SETTABLEKS                       R20 R19 K4 ["LayoutOrder"]
-       94 GETIMPORT                        R20 K18 [UDim2.new]
-       96 LOADN                            R21 1
-       97 LOADN                            R22 0
-       98 LOADN                            R23 0
-       99 LOADN                            R24 20
-      100 CALL                             R20 4 1
-      101 SETTABLEKS                       R20 R19 K19 ["Size"]
-      103 GETIMPORT                        R20 K35 [Enum.FillDirection.Horizontal]
-      105 SETTABLEKS                       R20 R19 K23 ["Layout"]
-      107 GETUPVAL                         R21 5
-      108 CALL                             R21 0 1
-      109 JUMPIFNOT                        R21 ; [+6]
-      110 GETUPVAL                         R20 6
-      111 GETTABLEKS                       R20 R20 K36 ["ITEM_ROW"]
-      113 GETTABLEKS                       R20 R20 K37 ["BORDER_SIZE"]
-      115 JUMP                             ; [+29]
-      116 DUPTABLE                         R20 K42 [{"Right", "Left", "Top", "Bottom"}]
-      117 GETUPVAL                         R21 6
-      118 GETTABLEKS                       R21 R21 K43 ["AUDIO_ROW"]
-      120 GETTABLEKS                       R21 R21 K37 ["BORDER_SIZE"]
-      122 SETTABLEKS                       R21 R20 K38 ["Right"]
-      124 GETUPVAL                         R21 6
-      125 GETTABLEKS                       R21 R21 K43 ["AUDIO_ROW"]
-      127 GETTABLEKS                       R21 R21 K37 ["BORDER_SIZE"]
-      129 SETTABLEKS                       R21 R20 K39 ["Left"]
-      131 GETUPVAL                         R21 6
-      132 GETTABLEKS                       R21 R21 K43 ["AUDIO_ROW"]
-      134 GETTABLEKS                       R21 R21 K37 ["BORDER_SIZE"]
-      136 SETTABLEKS                       R21 R20 K40 ["Top"]
-      138 GETUPVAL                         R21 6
-      139 GETTABLEKS                       R21 R21 K43 ["AUDIO_ROW"]
-      141 GETTABLEKS                       R21 R21 K37 ["BORDER_SIZE"]
-      143 SETTABLEKS                       R21 R20 K41 ["Bottom"]
-      145 SETTABLEKS                       R20 R19 K32 ["Padding"]
-      147 DUPTABLE                         R20 K49 [{"Icon", "Title", "Creator", "Tags", "Length"}]
-      148 GETTABLEKS                       R21 R0 K50 ["createHeaderElement"]
-      150 LOADK                            R22 K51 [""]
-      151 GETUPVAL                         R23 6
-      152 GETTABLEKS                       R23 R23 K43 ["AUDIO_ROW"]
-      154 GETTABLEKS                       R23 R23 K52 ["COLUMNS"]
-      156 GETTABLEKS                       R23 R23 K53 ["ICON"]
-      158 NAMECALL                         R24 R12 K54 ["getNextOrder"]
-      160 CALL                             R24 1 -1
-      161 CALL                             R21 -1 1
-      162 SETTABLEKS                       R21 R20 K44 ["Icon"]
-      164 GETTABLEKS                       R21 R0 K50 ["createHeaderElement"]
-      166 LOADK                            R24 K55 ["AudioView"]
-      167 LOADK                            R25 K45 ["Title"]
-      168 NAMECALL                         R22 R3 K56 ["getText"]
-      170 CALL                             R22 3 1
-      171 NAMECALL                         R22 R22 K57 ["upper"]
-      173 CALL                             R22 1 1
-      174 GETUPVAL                         R23 6
-      175 GETTABLEKS                       R23 R23 K43 ["AUDIO_ROW"]
-      177 GETTABLEKS                       R23 R23 K52 ["COLUMNS"]
-      179 GETTABLEKS                       R23 R23 K58 ["TITLE"]
-      181 NAMECALL                         R24 R12 K54 ["getNextOrder"]
-      183 CALL                             R24 1 -1
-      184 CALL                             R21 -1 1
-      185 SETTABLEKS                       R21 R20 K45 ["Title"]
-      187 GETTABLEKS                       R21 R0 K50 ["createHeaderElement"]
-      189 LOADK                            R24 K55 ["AudioView"]
-      190 LOADK                            R25 K46 ["Creator"]
-      191 NAMECALL                         R22 R3 K56 ["getText"]
-      193 CALL                             R22 3 1
-      194 NAMECALL                         R22 R22 K57 ["upper"]
-      196 CALL                             R22 1 1
-      197 GETUPVAL                         R23 6
-      198 GETTABLEKS                       R23 R23 K43 ["AUDIO_ROW"]
-      200 GETTABLEKS                       R23 R23 K52 ["COLUMNS"]
-      202 GETTABLEKS                       R23 R23 K59 ["CREATOR"]
-      204 NAMECALL                         R24 R12 K54 ["getNextOrder"]
-      206 CALL                             R24 1 -1
-      207 CALL                             R21 -1 1
-      208 SETTABLEKS                       R21 R20 K46 ["Creator"]
-      210 GETTABLEKS                       R21 R0 K50 ["createHeaderElement"]
-      212 LOADK                            R24 K55 ["AudioView"]
-      213 LOADK                            R25 K47 ["Tags"]
-      214 NAMECALL                         R22 R3 K56 ["getText"]
-      216 CALL                             R22 3 1
-      217 NAMECALL                         R22 R22 K57 ["upper"]
-      219 CALL                             R22 1 1
-      220 GETUPVAL                         R23 6
-      221 GETTABLEKS                       R23 R23 K43 ["AUDIO_ROW"]
-      223 GETTABLEKS                       R23 R23 K52 ["COLUMNS"]
-      225 GETTABLEKS                       R23 R23 K60 ["TAGS"]
-      227 NAMECALL                         R24 R12 K54 ["getNextOrder"]
-      229 CALL                             R24 1 -1
-      230 CALL                             R21 -1 1
-      231 SETTABLEKS                       R21 R20 K47 ["Tags"]
-      233 GETTABLEKS                       R21 R0 K50 ["createHeaderElement"]
-      235 LOADK                            R24 K55 ["AudioView"]
-      236 LOADK                            R25 K48 ["Length"]
-      237 NAMECALL                         R22 R3 K56 ["getText"]
-      239 CALL                             R22 3 1
-      240 NAMECALL                         R22 R22 K57 ["upper"]
-      242 CALL                             R22 1 1
-      243 GETUPVAL                         R23 6
-      244 GETTABLEKS                       R23 R23 K43 ["AUDIO_ROW"]
-      246 GETTABLEKS                       R23 R23 K52 ["COLUMNS"]
-      248 GETTABLEKS                       R23 R23 K61 ["LENGTH"]
-      250 NAMECALL                         R24 R12 K54 ["getNextOrder"]
-      252 CALL                             R24 1 1
-      253 GETIMPORT                        R25 K63 [Enum.TextXAlignment.Right]
-      255 CALL                             R21 4 1
-      256 SETTABLEKS                       R21 R20 K48 ["Length"]
-      258 CALL                             R17 3 1
-      259 SETTABLEKS                       R17 R16 K29 ["HeaderRow"]
-      261 GETUPVAL                         R17 3
-      262 GETTABLEKS                       R17 R17 K64 ["createFragment"]
-      264 MOVE                             R18 R11
-      265 CALL                             R17 1 1
-      266 SETTABLEKS                       R17 R16 K30 ["RowsWrapper"]
-      268 CALL                             R13 3 -1
-      269 RETURN                           R13 -1
+       87 DUPTABLE                         R19 K34 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"], ["Layout"], ["Padding"]}]
+       88 GETIMPORT                        R20 K18 [UDim2.new]
+       90 LOADN                            R21 1
+       91 LOADN                            R22 0
+       92 LOADN                            R23 0
+       93 LOADN                            R24 20
+       94 CALL                             R20 4 1
+       95 SETTABLEKS                       R20 R19 K19 ["Size"]
+       97 GETIMPORT                        R20 K36 [Enum.FillDirection.Horizontal]
+       99 SETTABLEKS                       R20 R19 K23 ["Layout"]
+      101 GETUPVAL                         R21 5
+      102 CALL                             R21 0 1
+      103 JUMPIFNOT                        R21 ; [+6]
+      104 GETUPVAL                         R20 6
+      105 GETTABLEKS                       R20 R20 K37 ["ITEM_ROW"]
+      107 GETTABLEKS                       R20 R20 K38 ["BORDER_SIZE"]
+      109 JUMP                             ; [+29]
+      110 DUPTABLE                         R20 K43 [{"Right", "Left", "Top", "Bottom"}]
+      111 GETUPVAL                         R21 6
+      112 GETTABLEKS                       R21 R21 K44 ["AUDIO_ROW"]
+      114 GETTABLEKS                       R21 R21 K38 ["BORDER_SIZE"]
+      116 SETTABLEKS                       R21 R20 K39 ["Right"]
+      118 GETUPVAL                         R21 6
+      119 GETTABLEKS                       R21 R21 K44 ["AUDIO_ROW"]
+      121 GETTABLEKS                       R21 R21 K38 ["BORDER_SIZE"]
+      123 SETTABLEKS                       R21 R20 K40 ["Left"]
+      125 GETUPVAL                         R21 6
+      126 GETTABLEKS                       R21 R21 K44 ["AUDIO_ROW"]
+      128 GETTABLEKS                       R21 R21 K38 ["BORDER_SIZE"]
+      130 SETTABLEKS                       R21 R20 K41 ["Top"]
+      132 GETUPVAL                         R21 6
+      133 GETTABLEKS                       R21 R21 K44 ["AUDIO_ROW"]
+      135 GETTABLEKS                       R21 R21 K38 ["BORDER_SIZE"]
+      137 SETTABLEKS                       R21 R20 K42 ["Bottom"]
+      139 SETTABLEKS                       R20 R19 K33 ["Padding"]
+      141 DUPTABLE                         R20 K50 [{"Icon", "Title", "Creator", "Tags", "Length"}]
+      142 GETTABLEKS                       R21 R0 K51 ["createHeaderElement"]
+      144 LOADK                            R22 K52 [""]
+      145 GETUPVAL                         R23 6
+      146 GETTABLEKS                       R23 R23 K44 ["AUDIO_ROW"]
+      148 GETTABLEKS                       R23 R23 K53 ["COLUMNS"]
+      150 GETTABLEKS                       R23 R23 K54 ["ICON"]
+      152 NAMECALL                         R24 R12 K55 ["getNextOrder"]
+      154 CALL                             R24 1 -1
+      155 CALL                             R21 -1 1
+      156 SETTABLEKS                       R21 R20 K45 ["Icon"]
+      158 GETTABLEKS                       R21 R0 K51 ["createHeaderElement"]
+      160 LOADK                            R24 K56 ["AudioView"]
+      161 LOADK                            R25 K46 ["Title"]
+      162 NAMECALL                         R22 R3 K57 ["getText"]
+      164 CALL                             R22 3 1
+      165 NAMECALL                         R22 R22 K58 ["upper"]
+      167 CALL                             R22 1 1
+      168 GETUPVAL                         R23 6
+      169 GETTABLEKS                       R23 R23 K44 ["AUDIO_ROW"]
+      171 GETTABLEKS                       R23 R23 K53 ["COLUMNS"]
+      173 GETTABLEKS                       R23 R23 K59 ["TITLE"]
+      175 NAMECALL                         R24 R12 K55 ["getNextOrder"]
+      177 CALL                             R24 1 -1
+      178 CALL                             R21 -1 1
+      179 SETTABLEKS                       R21 R20 K46 ["Title"]
+      181 GETTABLEKS                       R21 R0 K51 ["createHeaderElement"]
+      183 LOADK                            R24 K56 ["AudioView"]
+      184 LOADK                            R25 K47 ["Creator"]
+      185 NAMECALL                         R22 R3 K57 ["getText"]
+      187 CALL                             R22 3 1
+      188 NAMECALL                         R22 R22 K58 ["upper"]
+      190 CALL                             R22 1 1
+      191 GETUPVAL                         R23 6
+      192 GETTABLEKS                       R23 R23 K44 ["AUDIO_ROW"]
+      194 GETTABLEKS                       R23 R23 K53 ["COLUMNS"]
+      196 GETTABLEKS                       R23 R23 K60 ["CREATOR"]
+      198 NAMECALL                         R24 R12 K55 ["getNextOrder"]
+      200 CALL                             R24 1 -1
+      201 CALL                             R21 -1 1
+      202 SETTABLEKS                       R21 R20 K47 ["Creator"]
+      204 GETTABLEKS                       R21 R0 K51 ["createHeaderElement"]
+      206 LOADK                            R24 K56 ["AudioView"]
+      207 LOADK                            R25 K48 ["Tags"]
+      208 NAMECALL                         R22 R3 K57 ["getText"]
+      210 CALL                             R22 3 1
+      211 NAMECALL                         R22 R22 K58 ["upper"]
+      213 CALL                             R22 1 1
+      214 GETUPVAL                         R23 6
+      215 GETTABLEKS                       R23 R23 K44 ["AUDIO_ROW"]
+      217 GETTABLEKS                       R23 R23 K53 ["COLUMNS"]
+      219 GETTABLEKS                       R23 R23 K61 ["TAGS"]
+      221 NAMECALL                         R24 R12 K55 ["getNextOrder"]
+      223 CALL                             R24 1 -1
+      224 CALL                             R21 -1 1
+      225 SETTABLEKS                       R21 R20 K48 ["Tags"]
+      227 GETTABLEKS                       R21 R0 K51 ["createHeaderElement"]
+      229 LOADK                            R24 K56 ["AudioView"]
+      230 LOADK                            R25 K49 ["Length"]
+      231 NAMECALL                         R22 R3 K57 ["getText"]
+      233 CALL                             R22 3 1
+      234 NAMECALL                         R22 R22 K58 ["upper"]
+      236 CALL                             R22 1 1
+      237 GETUPVAL                         R23 6
+      238 GETTABLEKS                       R23 R23 K44 ["AUDIO_ROW"]
+      240 GETTABLEKS                       R23 R23 K53 ["COLUMNS"]
+      242 GETTABLEKS                       R23 R23 K62 ["LENGTH"]
+      244 NAMECALL                         R24 R12 K55 ["getNextOrder"]
+      246 CALL                             R24 1 1
+      247 GETIMPORT                        R25 K64 [Enum.TextXAlignment.Right]
+      249 CALL                             R21 4 1
+      250 SETTABLEKS                       R21 R20 K49 ["Length"]
+      252 CALL                             R17 3 1
+      253 SETTABLEKS                       R17 R16 K29 ["HeaderRow"]
+      255 GETUPVAL                         R17 3
+      256 GETTABLEKS                       R17 R17 K65 ["createFragment"]
+      258 MOVE                             R18 R11
+      259 CALL                             R17 1 1
+      260 SETTABLEKS                       R17 R16 K30 ["RowsWrapper"]
+      262 CALL                             R13 3 -1
+      263 RETURN                           R13 -1
 
 PROTO_9:
         0 GETUPVAL                         R2 0

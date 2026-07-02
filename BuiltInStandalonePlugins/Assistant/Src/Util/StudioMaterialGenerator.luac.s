@@ -290,97 +290,93 @@ PROTO_7:
       116 LOADK                            R7 K6 ["operationId is empty"]
       117 LOADN                            R8 0
       118 CALL                             R6 2 0
-      119 DUPTABLE                         R6 K26 [{"completed", "hasCompleted", "result"}]
+      119 DUPTABLE                         R6 K28 [{["completed"], ["hasCompleted"] = False, ["result"] = }]
       120 GETUPVAL                         R7 2
-      121 GETTABLEKS                       R7 R7 K27 ["new"]
+      121 GETTABLEKS                       R7 R7 K29 ["new"]
       123 CALL                             R7 0 1
       124 SETTABLEKS                       R7 R6 K23 ["completed"]
-      126 LOADB                            R7 0
-      127 SETTABLEKS                       R7 R6 K24 ["hasCompleted"]
-      129 LOADNIL                          R7
-      130 SETTABLEKS                       R7 R6 K25 ["result"]
-      132 SETTABLE                         R6 R3 R5
-      133 GETIMPORT                        R7 K30 [task.spawn]
-      135 GETUPVAL                         R8 3
-      136 MOVE                             R9 R0
-      137 MOVE                             R10 R5
-      138 MOVE                             R11 R3
-      139 CALL                             R7 4 0
-      140 GETTABLEKS                       R7 R6 K24 ["hasCompleted"]
-      142 JUMPIF                           R7 ; [+5]
-      143 GETTABLEKS                       R7 R6 K23 ["completed"]
-      145 NAMECALL                         R7 R7 K31 ["Wait"]
-      147 CALL                             R7 1 0
-      148 GETTABLEKS                       R7 R6 K25 ["result"]
-      150 JUMPIF                           R7 ; [+5]
-      151 GETIMPORT                        R8 K5 [error]
-      153 LOADK                            R9 K32 ["Poll uploaded materials failed"]
-      154 LOADN                            R10 0
-      155 CALL                             R8 2 0
-      156 GETTABLEKS                       R8 R7 K13 ["success"]
-      158 JUMPIF                           R8 ; [+6]
-      159 GETUPVAL                         R8 0
-      160 GETTABLEKS                       R8 R8 K14 ["throwError"]
-      162 MOVE                             R9 R7
-      163 CALL                             R8 1 -1
-      164 RETURN                           R8 -1
-      165 GETTABLEKS                       R8 R7 K15 ["data"]
-      167 GETTABLEKS                       R8 R8 K4 ["error"]
-      169 JUMPIFNOT                        R8 ; [+53]
-      170 GETIMPORT                        R8 K5 [error]
-      172 GETTABLEKS                       R10 R7 K15 ["data"]
-      174 GETTABLEKS                       R10 R10 K4 ["error"]
-      176 FASTCALL1                        TYPEOF R10 ; [+3]
-      177 MOVE                             R13 R10
-      178 GETIMPORT                        R12 K1 [typeof]
-      180 CALL                             R12 1 1
-      181 JUMPIFNOTEQKS                    R12 K7 ["table"] ; [+12]
-      183 GETTABLEKS                       R13 R10 K16 ["errorCode"]
-      185 FASTCALL1                        TYPEOF R13 ; [+2]
-      186 GETIMPORT                        R12 K1 [typeof]
-      188 CALL                             R12 1 1
-      189 JUMPIFNOTEQKS                    R12 K2 ["string"] ; [+4]
-      191 GETTABLEKS                       R11 R10 K16 ["errorCode"]
-      193 JUMP                             ; [+1]
-      194 LOADK                            R11 K17 ["UnknownErrorCode"]
-      195 FASTCALL1                        TYPEOF R10 ; [+3]
-      196 MOVE                             R14 R10
-      197 GETIMPORT                        R13 K1 [typeof]
-      199 CALL                             R13 1 1
-      200 JUMPIFNOTEQKS                    R13 K7 ["table"] ; [+12]
-      202 GETTABLEKS                       R14 R10 K18 ["message"]
-      204 FASTCALL1                        TYPEOF R14 ; [+2]
-      205 GETIMPORT                        R13 K1 [typeof]
-      207 CALL                             R13 1 1
-      208 JUMPIFNOTEQKS                    R13 K2 ["string"] ; [+4]
-      210 GETTABLEKS                       R12 R10 K18 ["message"]
-      212 JUMP                             ; [+1]
-      213 LOADK                            R12 K19 ["Unknown error"]
-      214 LOADK                            R13 K20 ["%*: %*"]
-      215 MOVE                             R15 R11
-      216 MOVE                             R16 R12
-      217 NAMECALL                         R13 R13 K21 ["format"]
-      219 CALL                             R13 3 1
-      220 MOVE                             R9 R13
-      221 LOADN                            R10 0
-      222 CALL                             R8 2 0
-      223 GETTABLEKS                       R8 R7 K15 ["data"]
-      225 GETTABLEKS                       R8 R8 K33 ["status"]
-      227 JUMPIFNOTEQKS                    R8 K34 ["Failed"] ; [+6]
-      229 GETIMPORT                        R8 K5 [error]
-      231 LOADK                            R9 K32 ["Poll uploaded materials failed"]
-      232 LOADN                            R10 0
-      233 CALL                             R8 2 0
-      234 GETUPVAL                         R8 4
-      235 CALL                             R8 0 1
-      236 JUMPIFNOT                        R8 ; [+5]
-      237 GETTABLEKS                       R8 R0 K35 ["Telemetry"]
-      239 GETTABLEKS                       R8 R8 K36 ["logMaterialGeneratorSavedMaterial"]
-      241 CALL                             R8 0 0
-      242 GETUPVAL                         R8 5
-      243 GETTABLEKS                       R9 R7 K15 ["data"]
-      245 CALL                             R8 1 1
-      246 RETURN                           R8 1
+      126 SETTABLE                         R6 R3 R5
+      127 GETIMPORT                        R7 K32 [task.spawn]
+      129 GETUPVAL                         R8 3
+      130 MOVE                             R9 R0
+      131 MOVE                             R10 R5
+      132 MOVE                             R11 R3
+      133 CALL                             R7 4 0
+      134 GETTABLEKS                       R7 R6 K24 ["hasCompleted"]
+      136 JUMPIF                           R7 ; [+5]
+      137 GETTABLEKS                       R7 R6 K23 ["completed"]
+      139 NAMECALL                         R7 R7 K33 ["Wait"]
+      141 CALL                             R7 1 0
+      142 GETTABLEKS                       R7 R6 K26 ["result"]
+      144 JUMPIF                           R7 ; [+5]
+      145 GETIMPORT                        R8 K5 [error]
+      147 LOADK                            R9 K34 ["Poll uploaded materials failed"]
+      148 LOADN                            R10 0
+      149 CALL                             R8 2 0
+      150 GETTABLEKS                       R8 R7 K13 ["success"]
+      152 JUMPIF                           R8 ; [+6]
+      153 GETUPVAL                         R8 0
+      154 GETTABLEKS                       R8 R8 K14 ["throwError"]
+      156 MOVE                             R9 R7
+      157 CALL                             R8 1 -1
+      158 RETURN                           R8 -1
+      159 GETTABLEKS                       R8 R7 K15 ["data"]
+      161 GETTABLEKS                       R8 R8 K4 ["error"]
+      163 JUMPIFNOT                        R8 ; [+53]
+      164 GETIMPORT                        R8 K5 [error]
+      166 GETTABLEKS                       R10 R7 K15 ["data"]
+      168 GETTABLEKS                       R10 R10 K4 ["error"]
+      170 FASTCALL1                        TYPEOF R10 ; [+3]
+      171 MOVE                             R13 R10
+      172 GETIMPORT                        R12 K1 [typeof]
+      174 CALL                             R12 1 1
+      175 JUMPIFNOTEQKS                    R12 K7 ["table"] ; [+12]
+      177 GETTABLEKS                       R13 R10 K16 ["errorCode"]
+      179 FASTCALL1                        TYPEOF R13 ; [+2]
+      180 GETIMPORT                        R12 K1 [typeof]
+      182 CALL                             R12 1 1
+      183 JUMPIFNOTEQKS                    R12 K2 ["string"] ; [+4]
+      185 GETTABLEKS                       R11 R10 K16 ["errorCode"]
+      187 JUMP                             ; [+1]
+      188 LOADK                            R11 K17 ["UnknownErrorCode"]
+      189 FASTCALL1                        TYPEOF R10 ; [+3]
+      190 MOVE                             R14 R10
+      191 GETIMPORT                        R13 K1 [typeof]
+      193 CALL                             R13 1 1
+      194 JUMPIFNOTEQKS                    R13 K7 ["table"] ; [+12]
+      196 GETTABLEKS                       R14 R10 K18 ["message"]
+      198 FASTCALL1                        TYPEOF R14 ; [+2]
+      199 GETIMPORT                        R13 K1 [typeof]
+      201 CALL                             R13 1 1
+      202 JUMPIFNOTEQKS                    R13 K2 ["string"] ; [+4]
+      204 GETTABLEKS                       R12 R10 K18 ["message"]
+      206 JUMP                             ; [+1]
+      207 LOADK                            R12 K19 ["Unknown error"]
+      208 LOADK                            R13 K20 ["%*: %*"]
+      209 MOVE                             R15 R11
+      210 MOVE                             R16 R12
+      211 NAMECALL                         R13 R13 K21 ["format"]
+      213 CALL                             R13 3 1
+      214 MOVE                             R9 R13
+      215 LOADN                            R10 0
+      216 CALL                             R8 2 0
+      217 GETTABLEKS                       R8 R7 K15 ["data"]
+      219 GETTABLEKS                       R8 R8 K35 ["status"]
+      221 JUMPIFNOTEQKS                    R8 K36 ["Failed"] ; [+6]
+      223 GETIMPORT                        R8 K5 [error]
+      225 LOADK                            R9 K34 ["Poll uploaded materials failed"]
+      226 LOADN                            R10 0
+      227 CALL                             R8 2 0
+      228 GETUPVAL                         R8 4
+      229 CALL                             R8 0 1
+      230 JUMPIFNOT                        R8 ; [+5]
+      231 GETTABLEKS                       R8 R0 K37 ["Telemetry"]
+      233 GETTABLEKS                       R8 R8 K38 ["logMaterialGeneratorSavedMaterial"]
+      235 CALL                             R8 0 0
+      236 GETUPVAL                         R8 5
+      237 GETTABLEKS                       R9 R7 K15 ["data"]
+      239 CALL                             R8 1 1
+      240 RETURN                           R8 1
 
 PROTO_8:
         0 GETUPVAL                         R2 0
@@ -397,34 +393,28 @@ PROTO_8:
        14 ORK                              R4 R5 K2 ["Pending"]
        15 JUMPIFNOTEQKS                    R4 K2 ["Pending"] ; [+2]
        17 RETURN                           R0 0
-       18 DUPTABLE                         R5 K7 [{"success", "data", "httpDetails"}]
-       19 LOADB                            R6 1
-       20 SETTABLEKS                       R6 R5 K4 ["success"]
-       22 SETTABLEKS                       R2 R5 K5 ["data"]
-       24 DUPTABLE                         R6 K11 [{"statusCode", "statusMessage", "headers"}]
-       25 LOADN                            R7 200
-       26 SETTABLEKS                       R7 R6 K8 ["statusCode"]
-       28 LOADK                            R7 K12 ["OK"]
-       29 SETTABLEKS                       R7 R6 K9 ["statusMessage"]
-       31 NEWTABLE                         R7 0 0
-       33 SETTABLEKS                       R7 R6 K10 ["headers"]
-       35 SETTABLEKS                       R6 R5 K6 ["httpDetails"]
-       37 GETUPVAL                         R6 2
-       38 GETTABLE                         R7 R6 R3
-       39 JUMPIF                           R7 ; [+1]
-       40 RETURN                           R0 0
-       41 LOADNIL                          R8
-       42 SETTABLE                         R8 R6 R3
-       43 GETTABLEKS                       R8 R7 K13 ["hasCompleted"]
-       45 JUMPIFNOT                        R8 ; [+1]
-       46 RETURN                           R0 0
-       47 LOADB                            R8 1
-       48 SETTABLEKS                       R8 R7 K13 ["hasCompleted"]
-       50 SETTABLEKS                       R5 R7 K14 ["result"]
-       52 GETTABLEKS                       R8 R7 K15 ["completed"]
-       54 NAMECALL                         R8 R8 K16 ["Fire"]
-       56 CALL                             R8 1 0
-       57 RETURN                           R0 0
+       18 DUPTABLE                         R5 K8 [{["success"] = True, ["data"], ["httpDetails"]}]
+       19 SETTABLEKS                       R2 R5 K6 ["data"]
+       21 DUPTABLE                         R6 K14 [{["statusCode"] = 200, ["statusMessage"] = "OK", ["headers"]}]
+       22 NEWTABLE                         R7 0 0
+       24 SETTABLEKS                       R7 R6 K13 ["headers"]
+       26 SETTABLEKS                       R6 R5 K7 ["httpDetails"]
+       28 GETUPVAL                         R6 2
+       29 GETTABLE                         R7 R6 R3
+       30 JUMPIF                           R7 ; [+1]
+       31 RETURN                           R0 0
+       32 LOADNIL                          R8
+       33 SETTABLE                         R8 R6 R3
+       34 GETTABLEKS                       R8 R7 K15 ["hasCompleted"]
+       36 JUMPIFNOT                        R8 ; [+1]
+       37 RETURN                           R0 0
+       38 LOADB                            R8 1
+       39 SETTABLEKS                       R8 R7 K15 ["hasCompleted"]
+       41 SETTABLEKS                       R5 R7 K16 ["result"]
+       43 GETTABLEKS                       R8 R7 K17 ["completed"]
+       45 NAMECALL                         R8 R8 K18 ["Fire"]
+       47 CALL                             R8 1 0
+       48 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R1 0

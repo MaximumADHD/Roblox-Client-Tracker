@@ -2,36 +2,30 @@ PROTO_0:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["props"]
         3 GETTABLEKS                       R3 R3 K1 ["ChooseThumbnail"]
-        5 JUMPIFNOT                        R3 ; [+8]
+        5 JUMPIFNOT                        R3 ; [+5]
         6 GETUPVAL                         R3 0
-        7 DUPTABLE                         R5 K3 [{"hovered"}]
-        8 LOADB                            R6 1
-        9 SETTABLEKS                       R6 R5 K2 ["hovered"]
-       11 NAMECALL                         R3 R3 K4 ["setState"]
-       13 CALL                             R3 2 0
-       14 RETURN                           R0 0
+        7 DUPTABLE                         R5 K4 [{["hovered"] = True}]
+        8 NAMECALL                         R3 R3 K5 ["setState"]
+       10 CALL                             R3 2 0
+       11 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R3 0
-        1 DUPTABLE                         R5 K1 [{"hovered"}]
-        2 LOADB                            R6 0
-        3 SETTABLEKS                       R6 R5 K0 ["hovered"]
-        5 NAMECALL                         R3 R3 K2 ["setState"]
-        7 CALL                             R3 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R5 K2 [{[1] = False}]
+        2 NAMECALL                         R3 R3 K3 ["setState"]
+        4 CALL                             R3 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R2 K1 [{"hovered"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["hovered"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["onMouseEnter"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onMouseLeave"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["onMouseEnter"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onMouseLeave"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
@@ -136,156 +130,146 @@ PROTO_4:
        91 GETUPVAL                         R17 3
        92 GETTABLEKS                       R17 R17 K15 ["createElement"]
        94 LOADK                            R18 K31 ["ImageLabel"]
-       95 DUPTABLE                         R19 K36 [{"Visible", "AnchorPoint", "Position", "Size", "Image", "ImageColor3", "BackgroundTransparency", "ImageRectSize"}]
+       95 DUPTABLE                         R19 K37 [{["Visible"], ["AnchorPoint"], ["Position"], ["Size"], ["Image"], ["ImageColor3"], ["BackgroundTransparency"] = 1, ["ImageRectSize"]}]
        96 SETTABLEKS                       R9 R19 K32 ["Visible"]
-       98 GETIMPORT                        R20 K39 [Vector2.new]
+       98 GETIMPORT                        R20 K40 [Vector2.new]
       100 LOADN                            R21 0
       101 LOADN                            R22 1
       102 CALL                             R20 2 1
       103 SETTABLEKS                       R20 R19 K33 ["AnchorPoint"]
-      105 GETIMPORT                        R20 K41 [UDim2.new]
+      105 GETIMPORT                        R20 K42 [UDim2.new]
       107 LOADN                            R21 0
       108 LOADN                            R22 0
       109 LOADN                            R23 1
       110 LOADN                            R24 0
       111 CALL                             R20 4 1
       112 SETTABLEKS                       R20 R19 K3 ["Position"]
-      114 GETIMPORT                        R20 K41 [UDim2.new]
+      114 GETIMPORT                        R20 K42 [UDim2.new]
       116 LOADN                            R21 1
       117 LOADN                            R22 0
-      118 LOADK                            R23 K42 [1.5]
+      118 LOADK                            R23 K43 [1.5]
       119 LOADN                            R24 0
       120 CALL                             R20 4 1
       121 SETTABLEKS                       R20 R19 K2 ["Size"]
       123 GETUPVAL                         R20 0
-      124 GETTABLEKS                       R20 R20 K43 ["GRADIENT"]
+      124 GETTABLEKS                       R20 R20 K44 ["GRADIENT"]
       126 SETTABLEKS                       R20 R19 K20 ["Image"]
-      128 GETIMPORT                        R20 K45 [Color3.new]
+      128 GETIMPORT                        R20 K46 [Color3.new]
       130 LOADN                            R21 0
       131 LOADN                            R22 0
       132 LOADN                            R23 0
       133 CALL                             R20 3 1
       134 SETTABLEKS                       R20 R19 K34 ["ImageColor3"]
-      136 LOADN                            R20 1
-      137 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      139 GETUPVAL                         R20 4
-      140 SETTABLEKS                       R20 R19 K35 ["ImageRectSize"]
-      142 CALL                             R17 2 1
-      143 SETTABLEKS                       R17 R16 K27 ["ChangeIndication"]
-      145 MOVE                             R17 R11
-      146 JUMPIFNOT                        R17 ; [+87]
-      147 GETUPVAL                         R17 3
-      148 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      150 LOADK                            R18 K46 ["Frame"]
-      151 DUPTABLE                         R19 K48 [{"Position", "Size", "BackgroundColor3", "BackgroundTransparency"}]
-      152 GETIMPORT                        R20 K41 [UDim2.new]
-      154 LOADN                            R21 0
-      155 LOADN                            R22 0
-      156 LOADN                            R23 1
-      157 LOADN                            R24 216
-      158 CALL                             R20 4 1
-      159 SETTABLEKS                       R20 R19 K3 ["Position"]
-      161 GETIMPORT                        R20 K41 [UDim2.new]
-      163 LOADN                            R21 1
-      164 LOADN                            R22 0
-      165 LOADN                            R23 0
-      166 LOADN                            R24 40
-      167 CALL                             R20 4 1
-      168 SETTABLEKS                       R20 R19 K2 ["Size"]
-      170 GETIMPORT                        R20 K45 [Color3.new]
-      172 LOADN                            R21 0
-      173 LOADN                            R22 0
-      174 LOADN                            R23 0
-      175 CALL                             R20 3 1
-      176 SETTABLEKS                       R20 R19 K47 ["BackgroundColor3"]
-      178 LOADK                            R20 K49 [0.5]
-      179 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      181 DUPTABLE                         R20 K51 [{"Status"}]
-      182 GETUPVAL                         R21 3
-      183 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      185 LOADK                            R22 K52 ["TextLabel"]
-      186 DUPTABLE                         R23 K57 [{"AnchorPoint", "Size", "Position", "Text", "TextColor3", "TextSize", "Font", "BackgroundTransparency"}]
-      187 GETIMPORT                        R24 K39 [Vector2.new]
-      189 LOADK                            R25 K49 [0.5]
-      190 LOADK                            R26 K49 [0.5]
-      191 CALL                             R24 2 1
-      192 SETTABLEKS                       R24 R23 K33 ["AnchorPoint"]
-      194 GETIMPORT                        R24 K41 [UDim2.new]
-      196 LOADN                            R25 1
-      197 LOADN                            R26 0
-      198 LOADN                            R27 1
-      199 LOADN                            R28 0
-      200 CALL                             R24 4 1
-      201 SETTABLEKS                       R24 R23 K2 ["Size"]
-      203 GETIMPORT                        R24 K41 [UDim2.new]
-      205 LOADK                            R25 K49 [0.5]
-      206 LOADN                            R26 0
-      207 LOADK                            R27 K49 [0.5]
-      208 LOADN                            R28 0
-      209 CALL                             R24 4 1
-      210 SETTABLEKS                       R24 R23 K3 ["Position"]
-      212 SETTABLEKS                       R10 R23 K53 ["Text"]
-      214 GETUPVAL                         R24 5
-      215 GETTABLEKS                       R24 R24 K58 ["WHITE"]
-      217 SETTABLEKS                       R24 R23 K54 ["TextColor3"]
-      219 GETUPVAL                         R24 6
-      220 SETTABLEKS                       R24 R23 K55 ["TextSize"]
-      222 GETUPVAL                         R24 2
-      223 GETTABLEKS                       R24 R24 K59 ["FONT"]
-      225 SETTABLEKS                       R24 R23 K56 ["Font"]
-      227 LOADN                            R24 1
-      228 SETTABLEKS                       R24 R23 K17 ["BackgroundTransparency"]
-      230 CALL                             R21 2 1
-      231 SETTABLEKS                       R21 R20 K50 ["Status"]
-      233 CALL                             R17 3 1
-      234 SETTABLEKS                       R17 R16 K28 ["StatusFrame"]
-      236 MOVE                             R17 R9
-      237 JUMPIFNOT                        R17 ; [+59]
-      238 GETUPVAL                         R17 3
-      239 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      241 LOADK                            R18 K52 ["TextLabel"]
-      242 DUPTABLE                         R19 K61 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "Text", "TextColor3", "TextSize", "Font", "ZIndex"}]
-      243 GETIMPORT                        R20 K39 [Vector2.new]
-      245 LOADN                            R21 0
-      246 LOADN                            R22 1
-      247 CALL                             R20 2 1
-      248 SETTABLEKS                       R20 R19 K33 ["AnchorPoint"]
-      250 GETIMPORT                        R20 K41 [UDim2.new]
-      252 LOADN                            R21 0
+      136 GETUPVAL                         R20 4
+      137 SETTABLEKS                       R20 R19 K36 ["ImageRectSize"]
+      139 CALL                             R17 2 1
+      140 SETTABLEKS                       R17 R16 K27 ["ChangeIndication"]
+      142 MOVE                             R17 R11
+      143 JUMPIFNOT                        R17 ; [+81]
+      144 GETUPVAL                         R17 3
+      145 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      147 LOADK                            R18 K47 ["Frame"]
+      148 DUPTABLE                         R19 K50 [{["Position"], ["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0.5}]
+      149 GETIMPORT                        R20 K42 [UDim2.new]
+      151 LOADN                            R21 0
+      152 LOADN                            R22 0
+      153 LOADN                            R23 1
+      154 LOADN                            R24 -40
+      155 CALL                             R20 4 1
+      156 SETTABLEKS                       R20 R19 K3 ["Position"]
+      158 GETIMPORT                        R20 K42 [UDim2.new]
+      160 LOADN                            R21 1
+      161 LOADN                            R22 0
+      162 LOADN                            R23 0
+      163 LOADN                            R24 40
+      164 CALL                             R20 4 1
+      165 SETTABLEKS                       R20 R19 K2 ["Size"]
+      167 GETIMPORT                        R20 K46 [Color3.new]
+      169 LOADN                            R21 0
+      170 LOADN                            R22 0
+      171 LOADN                            R23 0
+      172 CALL                             R20 3 1
+      173 SETTABLEKS                       R20 R19 K48 ["BackgroundColor3"]
+      175 DUPTABLE                         R20 K52 [{"Status"}]
+      176 GETUPVAL                         R21 3
+      177 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      179 LOADK                            R22 K53 ["TextLabel"]
+      180 DUPTABLE                         R23 K58 [{["AnchorPoint"], ["Size"], ["Position"], ["Text"], ["TextColor3"], ["TextSize"], ["Font"], ["BackgroundTransparency"] = 1}]
+      181 GETIMPORT                        R24 K40 [Vector2.new]
+      183 LOADK                            R25 K49 [0.5]
+      184 LOADK                            R26 K49 [0.5]
+      185 CALL                             R24 2 1
+      186 SETTABLEKS                       R24 R23 K33 ["AnchorPoint"]
+      188 GETIMPORT                        R24 K42 [UDim2.new]
+      190 LOADN                            R25 1
+      191 LOADN                            R26 0
+      192 LOADN                            R27 1
+      193 LOADN                            R28 0
+      194 CALL                             R24 4 1
+      195 SETTABLEKS                       R24 R23 K2 ["Size"]
+      197 GETIMPORT                        R24 K42 [UDim2.new]
+      199 LOADK                            R25 K49 [0.5]
+      200 LOADN                            R26 0
+      201 LOADK                            R27 K49 [0.5]
+      202 LOADN                            R28 0
+      203 CALL                             R24 4 1
+      204 SETTABLEKS                       R24 R23 K3 ["Position"]
+      206 SETTABLEKS                       R10 R23 K54 ["Text"]
+      208 GETUPVAL                         R24 5
+      209 GETTABLEKS                       R24 R24 K59 ["WHITE"]
+      211 SETTABLEKS                       R24 R23 K55 ["TextColor3"]
+      213 GETUPVAL                         R24 6
+      214 SETTABLEKS                       R24 R23 K56 ["TextSize"]
+      216 GETUPVAL                         R24 2
+      217 GETTABLEKS                       R24 R24 K60 ["FONT"]
+      219 SETTABLEKS                       R24 R23 K57 ["Font"]
+      221 CALL                             R21 2 1
+      222 SETTABLEKS                       R21 R20 K51 ["Status"]
+      224 CALL                             R17 3 1
+      225 SETTABLEKS                       R17 R16 K28 ["StatusFrame"]
+      227 MOVE                             R17 R9
+      228 JUMPIFNOT                        R17 ; [+53]
+      229 GETUPVAL                         R17 3
+      230 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      232 LOADK                            R18 K53 ["TextLabel"]
+      233 DUPTABLE                         R19 K63 [{["AnchorPoint"], ["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextColor3"], ["TextSize"], ["Font"], ["ZIndex"] = 2}]
+      234 GETIMPORT                        R20 K40 [Vector2.new]
+      236 LOADN                            R21 0
+      237 LOADN                            R22 1
+      238 CALL                             R20 2 1
+      239 SETTABLEKS                       R20 R19 K33 ["AnchorPoint"]
+      241 GETIMPORT                        R20 K42 [UDim2.new]
+      243 LOADN                            R21 0
+      244 LOADN                            R22 0
+      245 LOADN                            R23 1
+      246 LOADN                            R24 -15
+      247 CALL                             R20 4 1
+      248 SETTABLEKS                       R20 R19 K3 ["Position"]
+      250 GETIMPORT                        R20 K42 [UDim2.new]
+      252 LOADN                            R21 1
       253 LOADN                            R22 0
-      254 LOADN                            R23 1
-      255 LOADN                            R24 241
+      254 LOADN                            R23 0
+      255 LOADN                            R24 30
       256 CALL                             R20 4 1
-      257 SETTABLEKS                       R20 R19 K3 ["Position"]
-      259 GETIMPORT                        R20 K41 [UDim2.new]
-      261 LOADN                            R21 1
-      262 LOADN                            R22 0
-      263 LOADN                            R23 0
-      264 LOADN                            R24 30
-      265 CALL                             R20 4 1
-      266 SETTABLEKS                       R20 R19 K2 ["Size"]
-      268 LOADN                            R20 1
-      269 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      271 GETTABLEKS                       R20 R1 K9 ["Localization"]
-      273 LOADK                            R22 K62 ["AssetConfigPreview"]
-      274 LOADK                            R23 K63 ["Change"]
-      275 NAMECALL                         R20 R20 K64 ["getText"]
-      277 CALL                             R20 3 1
-      278 SETTABLEKS                       R20 R19 K53 ["Text"]
-      280 GETUPVAL                         R20 5
-      281 GETTABLEKS                       R20 R20 K58 ["WHITE"]
-      283 SETTABLEKS                       R20 R19 K54 ["TextColor3"]
-      285 GETUPVAL                         R20 6
-      286 SETTABLEKS                       R20 R19 K55 ["TextSize"]
-      288 GETUPVAL                         R20 2
-      289 GETTABLEKS                       R20 R20 K59 ["FONT"]
-      291 SETTABLEKS                       R20 R19 K56 ["Font"]
-      293 LOADN                            R20 2
-      294 SETTABLEKS                       R20 R19 K60 ["ZIndex"]
-      296 CALL                             R17 2 1
-      297 SETTABLEKS                       R17 R16 K29 ["ChangeLabel"]
-      299 CALL                             R13 3 -1
-      300 RETURN                           R13 -1
+      257 SETTABLEKS                       R20 R19 K2 ["Size"]
+      259 GETTABLEKS                       R20 R1 K9 ["Localization"]
+      261 LOADK                            R22 K64 ["AssetConfigPreview"]
+      262 LOADK                            R23 K65 ["Change"]
+      263 NAMECALL                         R20 R20 K66 ["getText"]
+      265 CALL                             R20 3 1
+      266 SETTABLEKS                       R20 R19 K54 ["Text"]
+      268 GETUPVAL                         R20 5
+      269 GETTABLEKS                       R20 R20 K59 ["WHITE"]
+      271 SETTABLEKS                       R20 R19 K55 ["TextColor3"]
+      273 GETUPVAL                         R20 6
+      274 SETTABLEKS                       R20 R19 K56 ["TextSize"]
+      276 GETUPVAL                         R20 2
+      277 GETTABLEKS                       R20 R20 K60 ["FONT"]
+      279 SETTABLEKS                       R20 R19 K57 ["Font"]
+      281 CALL                             R17 2 1
+      282 SETTABLEKS                       R17 R16 K29 ["ChangeLabel"]
+      284 CALL                             R13 3 -1
+      285 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -323,8 +307,8 @@ MAIN:
        56 CALL                             R11 2 1
        57 GETTABLEKS                       R12 R6 K19 ["FONT_SIZE_MEDIUM"]
        59 GETIMPORT                        R13 K22 [Vector2.new]
-       61 LOADN                            R14 0
-       62 LOADN                            R15 0
+       61 LOADN                            R14 512
+       62 LOADN                            R15 256
        63 CALL                             R13 2 1
        64 DUPCLOSURE                       R14 K23 [PROTO_2]
        65 SETTABLEKS                       R14 R11 K24 ["init"]

@@ -4,119 +4,107 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R0 K1 [{"settings"}]
-        1 DUPTABLE                         R1 K12 [{"workspaceGravity", "navigationBarSettings", "categoryListExpanded", "currentSettingsPage", "setCurrentSettingsPage", "bodySettings", "movementSettings", "animationSettings", "accessoriesSettings", "clothingSettings"}]
+        1 DUPTABLE                         R1 K13 [{["workspaceGravity"], ["navigationBarSettings"], ["categoryListExpanded"], ["currentSettingsPage"] = "General", ["setCurrentSettingsPage"], ["bodySettings"], ["movementSettings"], ["animationSettings"], ["accessoriesSettings"], ["clothingSettings"]}]
         2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R2 R2 K13 ["mockUseSetting"]
+        3 GETTABLEKS                       R2 R2 K14 ["mockUseSetting"]
         5 LOADN                            R3 1
         6 CALL                             R2 1 1
         7 SETTABLEKS                       R2 R1 K2 ["workspaceGravity"]
-        9 DUPTABLE                         R2 K18 [{"avatarType", "setAvatarPreset", "previewToggled", "setPreviewToggled"}]
+        9 DUPTABLE                         R2 K20 [{["avatarType"], ["setAvatarPreset"], ["previewToggled"] = False, ["setPreviewToggled"]}]
        10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R3 R3 K13 ["mockUseSetting"]
-       13 GETIMPORT                        R4 K22 [Enum.GameAvatarType.R15]
+       11 GETTABLEKS                       R3 R3 K14 ["mockUseSetting"]
+       13 GETIMPORT                        R4 K24 [Enum.GameAvatarType.R15]
        15 CALL                             R3 1 1
-       16 SETTABLEKS                       R3 R2 K14 ["avatarType"]
+       16 SETTABLEKS                       R3 R2 K15 ["avatarType"]
        18 GETUPVAL                         R3 1
-       19 SETTABLEKS                       R3 R2 K15 ["setAvatarPreset"]
-       21 LOADB                            R3 0
-       22 SETTABLEKS                       R3 R2 K16 ["previewToggled"]
-       24 GETUPVAL                         R3 1
-       25 SETTABLEKS                       R3 R2 K17 ["setPreviewToggled"]
-       27 SETTABLEKS                       R2 R1 K3 ["navigationBarSettings"]
-       29 DUPTABLE                         R2 K27 [{"enabled", "enable", "disable", "toggle"}]
-       30 LOADB                            R3 1
-       31 SETTABLEKS                       R3 R2 K23 ["enabled"]
+       19 SETTABLEKS                       R3 R2 K16 ["setAvatarPreset"]
+       21 GETUPVAL                         R3 1
+       22 SETTABLEKS                       R3 R2 K19 ["setPreviewToggled"]
+       24 SETTABLEKS                       R2 R1 K3 ["navigationBarSettings"]
+       26 DUPTABLE                         R2 K30 [{["enabled"] = True, ["enable"], ["disable"], ["toggle"]}]
+       27 GETUPVAL                         R3 1
+       28 SETTABLEKS                       R3 R2 K27 ["enable"]
+       30 GETUPVAL                         R3 1
+       31 SETTABLEKS                       R3 R2 K28 ["disable"]
        33 GETUPVAL                         R3 1
-       34 SETTABLEKS                       R3 R2 K24 ["enable"]
-       36 GETUPVAL                         R3 1
-       37 SETTABLEKS                       R3 R2 K25 ["disable"]
-       39 GETUPVAL                         R3 1
-       40 SETTABLEKS                       R3 R2 K26 ["toggle"]
-       42 SETTABLEKS                       R2 R1 K4 ["categoryListExpanded"]
-       44 LOADK                            R2 K28 ["General"]
-       45 SETTABLEKS                       R2 R1 K5 ["currentSettingsPage"]
-       47 GETUPVAL                         R2 1
-       48 SETTABLEKS                       R2 R1 K6 ["setCurrentSettingsPage"]
-       50 GETUPVAL                         R2 2
-       51 GETTABLEKS                       R2 R2 K29 ["primaryPreset"]
-       53 CALL                             R2 0 1
-       54 SETTABLEKS                       R2 R1 K7 ["bodySettings"]
-       56 GETUPVAL                         R2 3
-       57 GETTABLEKS                       R2 R2 K29 ["primaryPreset"]
-       59 CALL                             R2 0 1
-       60 SETTABLEKS                       R2 R1 K8 ["movementSettings"]
-       62 GETUPVAL                         R2 4
-       63 GETTABLEKS                       R2 R2 K29 ["primaryPreset"]
-       65 CALL                             R2 0 1
-       66 SETTABLEKS                       R2 R1 K9 ["animationSettings"]
-       68 GETUPVAL                         R2 5
-       69 GETTABLEKS                       R2 R2 K29 ["primaryPreset"]
-       71 CALL                             R2 0 1
-       72 SETTABLEKS                       R2 R1 K10 ["accessoriesSettings"]
-       74 GETUPVAL                         R2 6
-       75 GETTABLEKS                       R2 R2 K29 ["primaryPreset"]
-       77 CALL                             R2 0 1
-       78 SETTABLEKS                       R2 R1 K11 ["clothingSettings"]
-       80 SETTABLEKS                       R1 R0 K0 ["settings"]
-       82 RETURN                           R0 1
+       34 SETTABLEKS                       R3 R2 K29 ["toggle"]
+       36 SETTABLEKS                       R2 R1 K4 ["categoryListExpanded"]
+       38 GETUPVAL                         R2 1
+       39 SETTABLEKS                       R2 R1 K7 ["setCurrentSettingsPage"]
+       41 GETUPVAL                         R2 2
+       42 GETTABLEKS                       R2 R2 K31 ["primaryPreset"]
+       44 CALL                             R2 0 1
+       45 SETTABLEKS                       R2 R1 K8 ["bodySettings"]
+       47 GETUPVAL                         R2 3
+       48 GETTABLEKS                       R2 R2 K31 ["primaryPreset"]
+       50 CALL                             R2 0 1
+       51 SETTABLEKS                       R2 R1 K9 ["movementSettings"]
+       53 GETUPVAL                         R2 4
+       54 GETTABLEKS                       R2 R2 K31 ["primaryPreset"]
+       56 CALL                             R2 0 1
+       57 SETTABLEKS                       R2 R1 K10 ["animationSettings"]
+       59 GETUPVAL                         R2 5
+       60 GETTABLEKS                       R2 R2 K31 ["primaryPreset"]
+       62 CALL                             R2 0 1
+       63 SETTABLEKS                       R2 R1 K11 ["accessoriesSettings"]
+       65 GETUPVAL                         R2 6
+       66 GETTABLEKS                       R2 R2 K31 ["primaryPreset"]
+       68 CALL                             R2 0 1
+       69 SETTABLEKS                       R2 R1 K12 ["clothingSettings"]
+       71 SETTABLEKS                       R1 R0 K0 ["settings"]
+       73 RETURN                           R0 1
 
 PROTO_2:
         0 DUPTABLE                         R0 K1 [{"settings"}]
-        1 DUPTABLE                         R1 K12 [{"workspaceGravity", "navigationBarSettings", "categoryListExpanded", "currentSettingsPage", "setCurrentSettingsPage", "bodySettings", "movementSettings", "animationSettings", "accessoriesSettings", "clothingSettings"}]
+        1 DUPTABLE                         R1 K13 [{["workspaceGravity"], ["navigationBarSettings"], ["categoryListExpanded"], ["currentSettingsPage"] = "Body", ["setCurrentSettingsPage"], ["bodySettings"], ["movementSettings"], ["animationSettings"], ["accessoriesSettings"], ["clothingSettings"]}]
         2 GETUPVAL                         R2 0
-        3 GETTABLEKS                       R2 R2 K13 ["mockUseSetting"]
+        3 GETTABLEKS                       R2 R2 K14 ["mockUseSetting"]
         5 LOADN                            R3 2
         6 CALL                             R2 1 1
         7 SETTABLEKS                       R2 R1 K2 ["workspaceGravity"]
-        9 DUPTABLE                         R2 K18 [{"avatarType", "setAvatarPreset", "previewToggled", "setPreviewToggled"}]
+        9 DUPTABLE                         R2 K20 [{["avatarType"], ["setAvatarPreset"], ["previewToggled"] = True, ["setPreviewToggled"]}]
        10 GETUPVAL                         R3 0
-       11 GETTABLEKS                       R3 R3 K13 ["mockUseSetting"]
-       13 GETIMPORT                        R4 K22 [Enum.GameAvatarType.R6]
+       11 GETTABLEKS                       R3 R3 K14 ["mockUseSetting"]
+       13 GETIMPORT                        R4 K24 [Enum.GameAvatarType.R6]
        15 CALL                             R3 1 1
-       16 SETTABLEKS                       R3 R2 K14 ["avatarType"]
+       16 SETTABLEKS                       R3 R2 K15 ["avatarType"]
        18 GETUPVAL                         R3 1
-       19 SETTABLEKS                       R3 R2 K15 ["setAvatarPreset"]
-       21 LOADB                            R3 1
-       22 SETTABLEKS                       R3 R2 K16 ["previewToggled"]
-       24 GETUPVAL                         R3 1
-       25 SETTABLEKS                       R3 R2 K17 ["setPreviewToggled"]
-       27 SETTABLEKS                       R2 R1 K3 ["navigationBarSettings"]
-       29 DUPTABLE                         R2 K27 [{"enabled", "enable", "disable", "toggle"}]
-       30 LOADB                            R3 0
-       31 SETTABLEKS                       R3 R2 K23 ["enabled"]
+       19 SETTABLEKS                       R3 R2 K16 ["setAvatarPreset"]
+       21 GETUPVAL                         R3 1
+       22 SETTABLEKS                       R3 R2 K19 ["setPreviewToggled"]
+       24 SETTABLEKS                       R2 R1 K3 ["navigationBarSettings"]
+       26 DUPTABLE                         R2 K30 [{["enabled"] = False, ["enable"], ["disable"], ["toggle"]}]
+       27 GETUPVAL                         R3 1
+       28 SETTABLEKS                       R3 R2 K27 ["enable"]
+       30 GETUPVAL                         R3 1
+       31 SETTABLEKS                       R3 R2 K28 ["disable"]
        33 GETUPVAL                         R3 1
-       34 SETTABLEKS                       R3 R2 K24 ["enable"]
-       36 GETUPVAL                         R3 1
-       37 SETTABLEKS                       R3 R2 K25 ["disable"]
-       39 GETUPVAL                         R3 1
-       40 SETTABLEKS                       R3 R2 K26 ["toggle"]
-       42 SETTABLEKS                       R2 R1 K4 ["categoryListExpanded"]
-       44 LOADK                            R2 K28 ["Body"]
-       45 SETTABLEKS                       R2 R1 K5 ["currentSettingsPage"]
-       47 GETUPVAL                         R2 1
-       48 SETTABLEKS                       R2 R1 K6 ["setCurrentSettingsPage"]
-       50 GETUPVAL                         R2 2
-       51 GETTABLEKS                       R2 R2 K29 ["secondaryPreset"]
-       53 CALL                             R2 0 1
-       54 SETTABLEKS                       R2 R1 K7 ["bodySettings"]
-       56 GETUPVAL                         R2 3
-       57 GETTABLEKS                       R2 R2 K29 ["secondaryPreset"]
-       59 CALL                             R2 0 1
-       60 SETTABLEKS                       R2 R1 K8 ["movementSettings"]
-       62 GETUPVAL                         R2 4
-       63 GETTABLEKS                       R2 R2 K29 ["secondaryPreset"]
-       65 CALL                             R2 0 1
-       66 SETTABLEKS                       R2 R1 K9 ["animationSettings"]
-       68 GETUPVAL                         R2 5
-       69 GETTABLEKS                       R2 R2 K29 ["secondaryPreset"]
-       71 CALL                             R2 0 1
-       72 SETTABLEKS                       R2 R1 K10 ["accessoriesSettings"]
-       74 GETUPVAL                         R2 6
-       75 GETTABLEKS                       R2 R2 K29 ["secondaryPreset"]
-       77 CALL                             R2 0 1
-       78 SETTABLEKS                       R2 R1 K11 ["clothingSettings"]
-       80 SETTABLEKS                       R1 R0 K0 ["settings"]
-       82 RETURN                           R0 1
+       34 SETTABLEKS                       R3 R2 K29 ["toggle"]
+       36 SETTABLEKS                       R2 R1 K4 ["categoryListExpanded"]
+       38 GETUPVAL                         R2 1
+       39 SETTABLEKS                       R2 R1 K7 ["setCurrentSettingsPage"]
+       41 GETUPVAL                         R2 2
+       42 GETTABLEKS                       R2 R2 K31 ["secondaryPreset"]
+       44 CALL                             R2 0 1
+       45 SETTABLEKS                       R2 R1 K8 ["bodySettings"]
+       47 GETUPVAL                         R2 3
+       48 GETTABLEKS                       R2 R2 K31 ["secondaryPreset"]
+       50 CALL                             R2 0 1
+       51 SETTABLEKS                       R2 R1 K9 ["movementSettings"]
+       53 GETUPVAL                         R2 4
+       54 GETTABLEKS                       R2 R2 K31 ["secondaryPreset"]
+       56 CALL                             R2 0 1
+       57 SETTABLEKS                       R2 R1 K10 ["animationSettings"]
+       59 GETUPVAL                         R2 5
+       60 GETTABLEKS                       R2 R2 K31 ["secondaryPreset"]
+       62 CALL                             R2 0 1
+       63 SETTABLEKS                       R2 R1 K11 ["accessoriesSettings"]
+       65 GETUPVAL                         R2 6
+       66 GETTABLEKS                       R2 R2 K31 ["secondaryPreset"]
+       68 CALL                             R2 0 1
+       69 SETTABLEKS                       R2 R1 K12 ["clothingSettings"]
+       71 SETTABLEKS                       R1 R0 K0 ["settings"]
+       73 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

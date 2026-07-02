@@ -125,96 +125,90 @@ PROTO_6:
         5 GETUPVAL                         R1 1
         6 GETTABLEKS                       R1 R1 K0 ["createElement"]
         8 GETUPVAL                         R2 2
-        9 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
-       10 GETIMPORT                        R4 K10 [Vector2.new]
+        9 DUPTABLE                         R3 K8 [{["Position"], ["Label"] = "L", ["DragTarget"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"]}]
+       10 GETIMPORT                        R4 K11 [Vector2.new]
        12 GETUPVAL                         R5 3
-       13 GETTABLEKS                       R5 R5 K11 ["EqHook"]
-       15 GETTABLEKS                       R5 R5 K12 ["lowThreshold"]
+       13 GETTABLEKS                       R5 R5 K12 ["EqHook"]
+       15 GETTABLEKS                       R5 R5 K13 ["lowThreshold"]
        17 GETUPVAL                         R6 3
-       18 GETTABLEKS                       R6 R6 K11 ["EqHook"]
-       20 GETTABLEKS                       R6 R6 K13 ["lowGain"]
+       18 GETTABLEKS                       R6 R6 K12 ["EqHook"]
+       20 GETTABLEKS                       R6 R6 K14 ["lowGain"]
        22 CALL                             R4 2 1
        23 SETTABLEKS                       R4 R3 K1 ["Position"]
-       25 LOADK                            R4 K14 ["L"]
-       26 SETTABLEKS                       R4 R3 K2 ["Label"]
-       28 GETUPVAL                         R4 4
-       29 SETTABLEKS                       R4 R3 K3 ["DragTarget"]
-       31 GETUPVAL                         R4 5
-       32 SETTABLEKS                       R4 R3 K4 ["OnDragStart"]
-       34 NEWCLOSURE                       R4 P0
-       35 CAPTURE                          UPVAL U3
-       36 CAPTURE                          UPVAL U6
-       37 SETTABLEKS                       R4 R3 K5 ["OnMoved"]
-       39 GETUPVAL                         R4 7
-       40 SETTABLEKS                       R4 R3 K6 ["OnDragEnd"]
-       42 CALL                             R1 2 1
-       43 SETTABLEKS                       R1 R0 K15 ["Control_L"]
-       45 GETUPVAL                         R1 1
-       46 GETTABLEKS                       R1 R1 K0 ["createElement"]
-       48 GETUPVAL                         R2 2
-       49 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
-       50 GETIMPORT                        R4 K10 [Vector2.new]
-       52 GETUPVAL                         R7 3
-       53 GETTABLEKS                       R7 R7 K11 ["EqHook"]
-       55 GETTABLEKS                       R7 R7 K12 ["lowThreshold"]
-       57 GETUPVAL                         R8 3
-       58 GETTABLEKS                       R8 R8 K11 ["EqHook"]
-       60 GETTABLEKS                       R8 R8 K16 ["highThreshold"]
-       62 MUL                              R6 R7 R8
-       63 FASTCALL1                        MATH_SQRT R6 ; [+2]
-       64 GETIMPORT                        R5 K19 [math.sqrt]
-       66 CALL                             R5 1 1
-       67 GETUPVAL                         R6 3
-       68 GETTABLEKS                       R6 R6 K11 ["EqHook"]
-       70 GETTABLEKS                       R6 R6 K20 ["midGain"]
-       72 CALL                             R4 2 1
-       73 SETTABLEKS                       R4 R3 K1 ["Position"]
-       75 LOADK                            R4 K21 ["M"]
-       76 SETTABLEKS                       R4 R3 K2 ["Label"]
-       78 GETUPVAL                         R4 4
-       79 SETTABLEKS                       R4 R3 K3 ["DragTarget"]
-       81 NEWCLOSURE                       R4 P1
-       82 CAPTURE                          UPVAL U8
-       83 CAPTURE                          UPVAL U3
-       84 CAPTURE                          UPVAL U5
-       85 SETTABLEKS                       R4 R3 K4 ["OnDragStart"]
-       87 NEWCLOSURE                       R4 P2
-       88 CAPTURE                          UPVAL U3
-       89 CAPTURE                          UPVAL U6
-       90 CAPTURE                          UPVAL U9
-       91 SETTABLEKS                       R4 R3 K5 ["OnMoved"]
-       93 GETUPVAL                         R4 7
-       94 SETTABLEKS                       R4 R3 K6 ["OnDragEnd"]
-       96 CALL                             R1 2 1
-       97 SETTABLEKS                       R1 R0 K22 ["Control_M"]
-       99 GETUPVAL                         R1 1
-      100 GETTABLEKS                       R1 R1 K0 ["createElement"]
-      102 GETUPVAL                         R2 2
-      103 DUPTABLE                         R3 K7 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd"}]
-      104 GETIMPORT                        R4 K10 [Vector2.new]
-      106 GETUPVAL                         R5 3
-      107 GETTABLEKS                       R5 R5 K11 ["EqHook"]
-      109 GETTABLEKS                       R5 R5 K16 ["highThreshold"]
-      111 GETUPVAL                         R6 3
-      112 GETTABLEKS                       R6 R6 K11 ["EqHook"]
-      114 GETTABLEKS                       R6 R6 K23 ["highGain"]
-      116 CALL                             R4 2 1
-      117 SETTABLEKS                       R4 R3 K1 ["Position"]
-      119 LOADK                            R4 K24 ["H"]
-      120 SETTABLEKS                       R4 R3 K2 ["Label"]
-      122 GETUPVAL                         R4 4
-      123 SETTABLEKS                       R4 R3 K3 ["DragTarget"]
-      125 GETUPVAL                         R4 5
-      126 SETTABLEKS                       R4 R3 K4 ["OnDragStart"]
-      128 NEWCLOSURE                       R4 P3
-      129 CAPTURE                          UPVAL U3
-      130 CAPTURE                          UPVAL U6
-      131 SETTABLEKS                       R4 R3 K5 ["OnMoved"]
-      133 GETUPVAL                         R4 7
-      134 SETTABLEKS                       R4 R3 K6 ["OnDragEnd"]
-      136 CALL                             R1 2 1
-      137 SETTABLEKS                       R1 R0 K25 ["Control_H"]
-      139 RETURN                           R0 1
+       25 GETUPVAL                         R4 4
+       26 SETTABLEKS                       R4 R3 K4 ["DragTarget"]
+       28 GETUPVAL                         R4 5
+       29 SETTABLEKS                       R4 R3 K5 ["OnDragStart"]
+       31 NEWCLOSURE                       R4 P0
+       32 CAPTURE                          UPVAL U3
+       33 CAPTURE                          UPVAL U6
+       34 SETTABLEKS                       R4 R3 K6 ["OnMoved"]
+       36 GETUPVAL                         R4 7
+       37 SETTABLEKS                       R4 R3 K7 ["OnDragEnd"]
+       39 CALL                             R1 2 1
+       40 SETTABLEKS                       R1 R0 K15 ["Control_L"]
+       42 GETUPVAL                         R1 1
+       43 GETTABLEKS                       R1 R1 K0 ["createElement"]
+       45 GETUPVAL                         R2 2
+       46 DUPTABLE                         R3 K17 [{["Position"], ["Label"] = "M", ["DragTarget"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"]}]
+       47 GETIMPORT                        R4 K11 [Vector2.new]
+       49 GETUPVAL                         R7 3
+       50 GETTABLEKS                       R7 R7 K12 ["EqHook"]
+       52 GETTABLEKS                       R7 R7 K13 ["lowThreshold"]
+       54 GETUPVAL                         R8 3
+       55 GETTABLEKS                       R8 R8 K12 ["EqHook"]
+       57 GETTABLEKS                       R8 R8 K18 ["highThreshold"]
+       59 MUL                              R6 R7 R8
+       60 FASTCALL1                        MATH_SQRT R6 ; [+2]
+       61 GETIMPORT                        R5 K21 [math.sqrt]
+       63 CALL                             R5 1 1
+       64 GETUPVAL                         R6 3
+       65 GETTABLEKS                       R6 R6 K12 ["EqHook"]
+       67 GETTABLEKS                       R6 R6 K22 ["midGain"]
+       69 CALL                             R4 2 1
+       70 SETTABLEKS                       R4 R3 K1 ["Position"]
+       72 GETUPVAL                         R4 4
+       73 SETTABLEKS                       R4 R3 K4 ["DragTarget"]
+       75 NEWCLOSURE                       R4 P1
+       76 CAPTURE                          UPVAL U8
+       77 CAPTURE                          UPVAL U3
+       78 CAPTURE                          UPVAL U5
+       79 SETTABLEKS                       R4 R3 K5 ["OnDragStart"]
+       81 NEWCLOSURE                       R4 P2
+       82 CAPTURE                          UPVAL U3
+       83 CAPTURE                          UPVAL U6
+       84 CAPTURE                          UPVAL U9
+       85 SETTABLEKS                       R4 R3 K6 ["OnMoved"]
+       87 GETUPVAL                         R4 7
+       88 SETTABLEKS                       R4 R3 K7 ["OnDragEnd"]
+       90 CALL                             R1 2 1
+       91 SETTABLEKS                       R1 R0 K23 ["Control_M"]
+       93 GETUPVAL                         R1 1
+       94 GETTABLEKS                       R1 R1 K0 ["createElement"]
+       96 GETUPVAL                         R2 2
+       97 DUPTABLE                         R3 K25 [{["Position"], ["Label"] = "H", ["DragTarget"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"]}]
+       98 GETIMPORT                        R4 K11 [Vector2.new]
+      100 GETUPVAL                         R5 3
+      101 GETTABLEKS                       R5 R5 K12 ["EqHook"]
+      103 GETTABLEKS                       R5 R5 K18 ["highThreshold"]
+      105 GETUPVAL                         R6 3
+      106 GETTABLEKS                       R6 R6 K12 ["EqHook"]
+      108 GETTABLEKS                       R6 R6 K26 ["highGain"]
+      110 CALL                             R4 2 1
+      111 SETTABLEKS                       R4 R3 K1 ["Position"]
+      113 GETUPVAL                         R4 4
+      114 SETTABLEKS                       R4 R3 K4 ["DragTarget"]
+      116 GETUPVAL                         R4 5
+      117 SETTABLEKS                       R4 R3 K5 ["OnDragStart"]
+      119 NEWCLOSURE                       R4 P3
+      120 CAPTURE                          UPVAL U3
+      121 CAPTURE                          UPVAL U6
+      122 SETTABLEKS                       R4 R3 K6 ["OnMoved"]
+      124 GETUPVAL                         R4 7
+      125 SETTABLEKS                       R4 R3 K7 ["OnDragEnd"]
+      127 CALL                             R1 2 1
+      128 SETTABLEKS                       R1 R0 K27 ["Control_H"]
+      130 RETURN                           R0 1
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["EqHook"]
@@ -258,34 +252,28 @@ PROTO_7:
        46 SETLIST                          R10 R11 6 [1]
        48 CALL                             R8 2 1
        49 MOVE                             R9 R1
-       50 JUMPIFNOT                        R9 ; [+34]
+       50 JUMPIFNOT                        R9 ; [+25]
        51 GETUPVAL                         R9 3
        52 GETTABLEKS                       R9 R9 K5 ["createElement"]
        54 GETUPVAL                         R10 6
-       55 DUPTABLE                         R11 K11 [{"Active", "LayoutOrder", "Position", "Size", "BackgroundTransparency"}]
-       56 LOADB                            R12 1
-       57 SETTABLEKS                       R12 R11 K6 ["Active"]
-       59 LOADN                            R12 1
-       60 SETTABLEKS                       R12 R11 K7 ["LayoutOrder"]
-       62 GETIMPORT                        R12 K14 [UDim2.new]
-       64 LOADN                            R13 0
-       65 LOADN                            R14 0
-       66 LOADN                            R15 0
-       67 LOADN                            R16 0
-       68 CALL                             R12 4 1
-       69 SETTABLEKS                       R12 R11 K8 ["Position"]
-       71 GETIMPORT                        R12 K14 [UDim2.new]
-       73 LOADN                            R13 1
-       74 LOADN                            R14 0
-       75 LOADN                            R15 1
-       76 LOADN                            R16 0
-       77 CALL                             R12 4 1
-       78 SETTABLEKS                       R12 R11 K9 ["Size"]
-       80 LOADN                            R12 1
-       81 SETTABLEKS                       R12 R11 K10 ["BackgroundTransparency"]
-       83 MOVE                             R12 R8
-       84 CALL                             R9 3 1
-       85 RETURN                           R9 1
+       55 DUPTABLE                         R11 K13 [{["Active"] = True, ["LayoutOrder"] = 1, ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
+       56 GETIMPORT                        R12 K16 [UDim2.new]
+       58 LOADN                            R13 0
+       59 LOADN                            R14 0
+       60 LOADN                            R15 0
+       61 LOADN                            R16 0
+       62 CALL                             R12 4 1
+       63 SETTABLEKS                       R12 R11 K10 ["Position"]
+       65 GETIMPORT                        R12 K16 [UDim2.new]
+       67 LOADN                            R13 1
+       68 LOADN                            R14 0
+       69 LOADN                            R15 1
+       70 LOADN                            R16 0
+       71 CALL                             R12 4 1
+       72 SETTABLEKS                       R12 R11 K11 ["Size"]
+       74 MOVE                             R12 R8
+       75 CALL                             R9 3 1
+       76 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -6,98 +6,96 @@ PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Localization"]
         3 GETTABLEKS                       R2 R2 K1 ["new"]
-        5 DUPTABLE                         R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R3 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "StartPage"}]
         6 GETUPVAL                         R4 1
         7 SETTABLEKS                       R4 R3 K2 ["stringResourceTable"]
         9 GETUPVAL                         R4 2
        10 SETTABLEKS                       R4 R3 K3 ["translationResourceTable"]
-       12 LOADK                            R4 K6 ["StartPage"]
-       13 SETTABLEKS                       R4 R3 K4 ["pluginName"]
-       15 CALL                             R2 1 1
-       16 SETTABLEKS                       R2 R0 K7 ["localization"]
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R2 R2 K8 ["Analytics"]
-       21 GETTABLEKS                       R2 R2 K1 ["new"]
-       23 DUPCLOSURE                       R3 K9 [PROTO_0]
-       24 NEWTABLE                         R4 0 0
-       26 CALL                             R2 2 1
-       27 SETTABLEKS                       R2 R0 K10 ["analytics"]
-       29 GETUPVAL                         R2 3
-       30 GETTABLEKS                       R2 R2 K1 ["new"]
-       32 CALL                             R2 0 1
-       33 SETTABLEKS                       R2 R0 K11 ["telemetry"]
-       35 GETUPVAL                         R2 4
-       36 GETTABLEKS                       R2 R2 K1 ["new"]
-       38 CALL                             R2 0 1
-       39 SETTABLEKS                       R2 R0 K12 ["DEPRECATED_stylizer"]
-       41 GETUPVAL                         R2 5
-       42 JUMPIFNOT                        R2 ; [+22]
-       43 GETUPVAL                         R2 5
-       44 GETTABLEKS                       R2 R2 K13 ["Util"]
-       46 GETTABLEKS                       R2 R2 K14 ["createFoundationDesignBinding"]
-       48 CALL                             R2 0 2
-       49 SETTABLEKS                       R3 R0 K15 ["onFoundationStyleSheetChange"]
-       51 GETUPVAL                         R4 6
-       52 GETTABLEKS                       R5 R1 K16 ["Plugin"]
-       54 LOADNIL                          R6
-       55 LOADNIL                          R7
-       56 NEWTABLE                         R8 0 1
-       58 MOVE                             R9 R2
-       59 SETLIST                          R8 R9 1 [1]
-       61 CALL                             R4 4 1
-       62 SETTABLEKS                       R4 R0 K17 ["design"]
-       64 JUMP                             ; [+6]
-       65 GETUPVAL                         R2 6
-       66 GETTABLEKS                       R3 R1 K16 ["Plugin"]
-       68 CALL                             R2 1 1
-       69 SETTABLEKS                       R2 R0 K17 ["design"]
-       71 GETUPVAL                         R2 7
-       72 GETTABLEKS                       R2 R2 K1 ["new"]
-       74 GETTABLEKS                       R3 R1 K16 ["Plugin"]
-       76 NAMECALL                         R3 R3 K18 ["GetMouse"]
-       78 CALL                             R3 1 -1
-       79 CALL                             R2 -1 1
-       80 SETTABLEKS                       R2 R0 K19 ["mouse"]
-       82 GETTABLEKS                       R2 R0 K19 ["mouse"]
-       84 LOADK                            R4 K20 ["Arrow"]
-       85 LOADN                            R5 0
-       86 NAMECALL                         R2 R2 K21 ["__pushCursor"]
-       88 CALL                             R2 3 0
-       89 DUPTABLE                         R2 K23 [{"IsLoggedIn"}]
-       90 GETIMPORT                        R3 K25 [game]
-       92 LOADK                            R5 K26 ["StudioUserService"]
-       93 NAMECALL                         R3 R3 K27 ["GetService"]
-       95 CALL                             R3 2 1
-       96 GETTABLEKS                       R3 R3 K22 ["IsLoggedIn"]
-       98 SETTABLEKS                       R3 R2 K22 ["IsLoggedIn"]
-      100 SETTABLEKS                       R2 R0 K28 ["state"]
-      102 GETUPVAL                         R2 8
-      103 JUMPIFNOT                        R2 ; [+11]
-      104 GETTABLEKS                       R2 R1 K16 ["Plugin"]
-      106 LOADK                            R4 K29 ["StartPageBridge"]
-      107 NAMECALL                         R2 R2 K30 ["GetPluginComponent"]
-      109 CALL                             R2 2 1
-      110 SETTABLEKS                       R2 R0 K31 ["startPageBridge"]
-      112 LOADB                            R2 0
-      113 SETTABLEKS                       R2 R0 K32 ["isRendering"]
-      115 GETUPVAL                         R2 9
-      116 NAMECALL                         R2 R2 K33 ["getRecentAPIGamesFromRegistry"]
-      118 CALL                             R2 1 1
-      119 LENGTH                           R4 R2
-      120 FASTCALL2K                       MATH_MIN R4 K34 ; [+4]
-      122 LOADK                            R5 K34 [5]
-      123 GETIMPORT                        R3 K37 [math.min]
-      125 CALL                             R3 2 1
-      126 LOADN                            R6 1
-      127 MOVE                             R4 R3
-      128 LOADN                            R5 1
-      129 FORNPREP                         R4
-      130 GETUPVAL                         R7 10
-      131 GETTABLE                         R8 R2 R6
-      132 GETTABLEKS                       R8 R8 K38 ["RootPlaceId"]
-      134 CALL                             R7 1 0
-      135 FORNLOOP                         R4
-      136 RETURN                           R0 0
+       12 CALL                             R2 1 1
+       13 SETTABLEKS                       R2 R0 K7 ["localization"]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K8 ["Analytics"]
+       18 GETTABLEKS                       R2 R2 K1 ["new"]
+       20 DUPCLOSURE                       R3 K9 [PROTO_0]
+       21 NEWTABLE                         R4 0 0
+       23 CALL                             R2 2 1
+       24 SETTABLEKS                       R2 R0 K10 ["analytics"]
+       26 GETUPVAL                         R2 3
+       27 GETTABLEKS                       R2 R2 K1 ["new"]
+       29 CALL                             R2 0 1
+       30 SETTABLEKS                       R2 R0 K11 ["telemetry"]
+       32 GETUPVAL                         R2 4
+       33 GETTABLEKS                       R2 R2 K1 ["new"]
+       35 CALL                             R2 0 1
+       36 SETTABLEKS                       R2 R0 K12 ["DEPRECATED_stylizer"]
+       38 GETUPVAL                         R2 5
+       39 JUMPIFNOT                        R2 ; [+22]
+       40 GETUPVAL                         R2 5
+       41 GETTABLEKS                       R2 R2 K13 ["Util"]
+       43 GETTABLEKS                       R2 R2 K14 ["createFoundationDesignBinding"]
+       45 CALL                             R2 0 2
+       46 SETTABLEKS                       R3 R0 K15 ["onFoundationStyleSheetChange"]
+       48 GETUPVAL                         R4 6
+       49 GETTABLEKS                       R5 R1 K16 ["Plugin"]
+       51 LOADNIL                          R6
+       52 LOADNIL                          R7
+       53 NEWTABLE                         R8 0 1
+       55 MOVE                             R9 R2
+       56 SETLIST                          R8 R9 1 [1]
+       58 CALL                             R4 4 1
+       59 SETTABLEKS                       R4 R0 K17 ["design"]
+       61 JUMP                             ; [+6]
+       62 GETUPVAL                         R2 6
+       63 GETTABLEKS                       R3 R1 K16 ["Plugin"]
+       65 CALL                             R2 1 1
+       66 SETTABLEKS                       R2 R0 K17 ["design"]
+       68 GETUPVAL                         R2 7
+       69 GETTABLEKS                       R2 R2 K1 ["new"]
+       71 GETTABLEKS                       R3 R1 K16 ["Plugin"]
+       73 NAMECALL                         R3 R3 K18 ["GetMouse"]
+       75 CALL                             R3 1 -1
+       76 CALL                             R2 -1 1
+       77 SETTABLEKS                       R2 R0 K19 ["mouse"]
+       79 GETTABLEKS                       R2 R0 K19 ["mouse"]
+       81 LOADK                            R4 K20 ["Arrow"]
+       82 LOADN                            R5 0
+       83 NAMECALL                         R2 R2 K21 ["__pushCursor"]
+       85 CALL                             R2 3 0
+       86 DUPTABLE                         R2 K23 [{"IsLoggedIn"}]
+       87 GETIMPORT                        R3 K25 [game]
+       89 LOADK                            R5 K26 ["StudioUserService"]
+       90 NAMECALL                         R3 R3 K27 ["GetService"]
+       92 CALL                             R3 2 1
+       93 GETTABLEKS                       R3 R3 K22 ["IsLoggedIn"]
+       95 SETTABLEKS                       R3 R2 K22 ["IsLoggedIn"]
+       97 SETTABLEKS                       R2 R0 K28 ["state"]
+       99 GETUPVAL                         R2 8
+      100 JUMPIFNOT                        R2 ; [+11]
+      101 GETTABLEKS                       R2 R1 K16 ["Plugin"]
+      103 LOADK                            R4 K29 ["StartPageBridge"]
+      104 NAMECALL                         R2 R2 K30 ["GetPluginComponent"]
+      106 CALL                             R2 2 1
+      107 SETTABLEKS                       R2 R0 K31 ["startPageBridge"]
+      109 LOADB                            R2 0
+      110 SETTABLEKS                       R2 R0 K32 ["isRendering"]
+      112 GETUPVAL                         R2 9
+      113 NAMECALL                         R2 R2 K33 ["getRecentAPIGamesFromRegistry"]
+      115 CALL                             R2 1 1
+      116 LENGTH                           R4 R2
+      117 FASTCALL2K                       MATH_MIN R4 K34 ; [+4]
+      119 LOADK                            R5 K34 [5]
+      120 GETIMPORT                        R3 K37 [math.min]
+      122 CALL                             R3 2 1
+      123 LOADN                            R6 1
+      124 MOVE                             R4 R3
+      125 LOADN                            R5 1
+      126 FORNPREP                         R4
+      127 GETUPVAL                         R7 10
+      128 GETTABLE                         R8 R2 R6
+      129 GETTABLEKS                       R8 R8 K38 ["RootPlaceId"]
+      131 CALL                             R7 1 0
+      132 FORNLOOP                         R4
+      133 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -245,52 +243,44 @@ PROTO_9:
        81 GETUPVAL                         R6 5
        82 GETTABLEKS                       R6 R6 K25 ["createElement"]
        84 GETUPVAL                         R7 6
-       85 DUPTABLE                         R8 K35 [{"Id", "Enabled", "ShouldRestore", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "CreateWidgetImmediately"}]
-       86 LOADK                            R9 K36 ["StartPage"]
-       87 SETTABLEKS                       R9 R8 K26 ["Id"]
-       89 LOADB                            R9 1
-       90 SETTABLEKS                       R9 R8 K27 ["Enabled"]
-       92 LOADB                            R9 0
-       93 SETTABLEKS                       R9 R8 K28 ["ShouldRestore"]
-       95 GETTABLEKS                       R9 R0 K19 ["localization"]
-       97 LOADK                            R11 K1 ["Plugin"]
-       98 LOADK                            R12 K37 ["Name"]
-       99 NAMECALL                         R9 R9 K38 ["getText"]
-      101 CALL                             R9 3 1
-      102 SETTABLEKS                       R9 R8 K29 ["Title"]
-      104 GETIMPORT                        R9 K41 [Enum.ZIndexBehavior.Sibling]
-      106 SETTABLEKS                       R9 R8 K30 ["ZIndexBehavior"]
-      108 GETIMPORT                        R9 K43 [Enum.InitialDockState.Float]
-      110 SETTABLEKS                       R9 R8 K31 ["InitialDockState"]
-      112 GETIMPORT                        R9 K45 [Vector2.new]
-      114 LOADN                            R10 232
-      115 LOADN                            R11 232
-      116 CALL                             R9 2 1
-      117 SETTABLEKS                       R9 R8 K32 ["Size"]
-      119 GETIMPORT                        R9 K45 [Vector2.new]
-      121 LOADN                            R10 232
-      122 LOADN                            R11 232
-      123 CALL                             R9 2 1
-      124 SETTABLEKS                       R9 R8 K33 ["MinSize"]
-      126 LOADB                            R9 1
-      127 SETTABLEKS                       R9 R8 K34 ["CreateWidgetImmediately"]
-      129 GETUPVAL                         R9 5
-      130 GETTABLEKS                       R9 R9 K25 ["createElement"]
-      132 GETUPVAL                         R10 7
-      133 DUPTABLE                         R11 K47 [{"onStyleSheetChange"}]
-      134 GETTABLEKS                       R12 R0 K48 ["onFoundationStyleSheetChange"]
-      136 SETTABLEKS                       R12 R11 K46 ["onStyleSheetChange"]
-      138 DUPTABLE                         R12 K50 [{"PageController"}]
-      139 GETUPVAL                         R13 5
-      140 GETTABLEKS                       R13 R13 K25 ["createElement"]
-      142 GETUPVAL                         R14 8
-      143 CALL                             R13 1 1
-      144 SETTABLEKS                       R13 R12 K49 ["PageController"]
-      146 CALL                             R9 3 -1
-      147 CALL                             R6 -1 1
-      148 SETTABLEKS                       R6 R5 K23 ["MainWidget"]
-      150 CALL                             R3 2 -1
-      151 RETURN                           R3 -1
+       85 DUPTABLE                         R8 K38 [{["Id"] = "StartPage", ["Enabled"] = True, ["ShouldRestore"] = False, ["Title"], ["ZIndexBehavior"], ["InitialDockState"], ["Size"], ["MinSize"], ["CreateWidgetImmediately"] = True}]
+       86 GETTABLEKS                       R9 R0 K19 ["localization"]
+       88 LOADK                            R11 K1 ["Plugin"]
+       89 LOADK                            R12 K39 ["Name"]
+       90 NAMECALL                         R9 R9 K40 ["getText"]
+       92 CALL                             R9 3 1
+       93 SETTABLEKS                       R9 R8 K32 ["Title"]
+       95 GETIMPORT                        R9 K43 [Enum.ZIndexBehavior.Sibling]
+       97 SETTABLEKS                       R9 R8 K33 ["ZIndexBehavior"]
+       99 GETIMPORT                        R9 K45 [Enum.InitialDockState.Float]
+      101 SETTABLEKS                       R9 R8 K34 ["InitialDockState"]
+      103 GETIMPORT                        R9 K47 [Vector2.new]
+      105 LOADN                            R10 1000
+      106 LOADN                            R11 1000
+      107 CALL                             R9 2 1
+      108 SETTABLEKS                       R9 R8 K35 ["Size"]
+      110 GETIMPORT                        R9 K47 [Vector2.new]
+      112 LOADN                            R10 1000
+      113 LOADN                            R11 1000
+      114 CALL                             R9 2 1
+      115 SETTABLEKS                       R9 R8 K36 ["MinSize"]
+      117 GETUPVAL                         R9 5
+      118 GETTABLEKS                       R9 R9 K25 ["createElement"]
+      120 GETUPVAL                         R10 7
+      121 DUPTABLE                         R11 K49 [{"onStyleSheetChange"}]
+      122 GETTABLEKS                       R12 R0 K50 ["onFoundationStyleSheetChange"]
+      124 SETTABLEKS                       R12 R11 K48 ["onStyleSheetChange"]
+      126 DUPTABLE                         R12 K52 [{"PageController"}]
+      127 GETUPVAL                         R13 5
+      128 GETTABLEKS                       R13 R13 K25 ["createElement"]
+      130 GETUPVAL                         R14 8
+      131 CALL                             R13 1 1
+      132 SETTABLEKS                       R13 R12 K51 ["PageController"]
+      134 CALL                             R9 3 -1
+      135 CALL                             R6 -1 1
+      136 SETTABLEKS                       R6 R5 K23 ["MainWidget"]
+      138 CALL                             R3 2 -1
+      139 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

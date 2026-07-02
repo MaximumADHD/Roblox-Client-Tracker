@@ -58,27 +58,21 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"VisualizeAsDropdownHidden"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["VisualizeAsDropdownHidden"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"GroupDropdownHidden"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["GroupDropdownHidden"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R1 K1 [{"VisualizeAsDropdownHidden"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["VisualizeAsDropdownHidden"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 RETURN                           R1 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -88,10 +82,8 @@ PROTO_8:
         5 RETURN                           R0 0
 
 PROTO_9:
-        0 DUPTABLE                         R1 K1 [{"GroupDropdownHidden"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["GroupDropdownHidden"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 RETURN                           R1 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -133,14 +125,10 @@ PROTO_11:
        37 NEWCLOSURE                       R1 P8
        38 CAPTURE                          VAL R0
        39 SETTABLEKS                       R1 R0 K8 ["onGroupDropdownItemCloseMenu"]
-       41 DUPTABLE                         R3 K11 [{"VisualizeAsDropdownHidden", "GroupDropdownHidden"}]
-       42 LOADB                            R4 1
-       43 SETTABLEKS                       R4 R3 K9 ["VisualizeAsDropdownHidden"]
-       45 LOADB                            R4 1
-       46 SETTABLEKS                       R4 R3 K10 ["GroupDropdownHidden"]
-       48 NAMECALL                         R1 R0 K12 ["setState"]
-       50 CALL                             R1 2 0
-       51 RETURN                           R0 0
+       41 DUPTABLE                         R3 K12 [{["VisualizeAsDropdownHidden"] = True, ["GroupDropdownHidden"] = True}]
+       42 NAMECALL                         R1 R0 K13 ["setState"]
+       44 CALL                             R1 2 0
+       45 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -240,10 +228,10 @@ PROTO_15:
        33 GETUPVAL                         R4 0
        34 GETTABLEKS                       R4 R4 K0 ["createElement"]
        36 GETUPVAL                         R5 5
-       37 DUPTABLE                         R6 K22 [{"Hide", "OnItemActivated", "OnFocusLost", "PlaceholderText", "Width", "ItemHeight", "MaxHeight", "Icons", "Items", "Priority"}]
+       37 DUPTABLE                         R6 K23 [{["Hide"], ["OnItemActivated"], ["OnFocusLost"], ["PlaceholderText"], ["Width"], ["ItemHeight"], ["MaxHeight"], ["Icons"], ["Items"], ["Priority"] = 2}]
        38 GETUPVAL                         R7 4
-       39 GETTABLEKS                       R7 R7 K23 ["state"]
-       41 GETTABLEKS                       R7 R7 K24 ["GroupDropdownHidden"]
+       39 GETTABLEKS                       R7 R7 K24 ["state"]
+       41 GETTABLEKS                       R7 R7 K25 ["GroupDropdownHidden"]
        43 SETTABLEKS                       R7 R6 K12 ["Hide"]
        45 NEWCLOSURE                       R7 P0
        46 CAPTURE                          UPVAL U6
@@ -253,14 +241,14 @@ PROTO_15:
        50 CAPTURE                          UPVAL U4
        51 SETTABLEKS                       R7 R6 K13 ["OnItemActivated"]
        53 GETUPVAL                         R7 4
-       54 GETTABLEKS                       R7 R7 K25 ["onGroupDropdownItemCloseMenu"]
+       54 GETTABLEKS                       R7 R7 K26 ["onGroupDropdownItemCloseMenu"]
        56 SETTABLEKS                       R7 R6 K14 ["OnFocusLost"]
        58 GETUPVAL                         R7 6
-       59 GETTABLEKS                       R7 R7 K26 ["Group"]
+       59 GETTABLEKS                       R7 R7 K27 ["Group"]
        61 SETTABLEKS                       R7 R6 K15 ["PlaceholderText"]
        63 GETUPVAL                         R7 2
        64 GETTABLEKS                       R7 R7 K3 ["GroupRow"]
-       66 GETTABLEKS                       R7 R7 K27 ["DropDownWidth"]
+       66 GETTABLEKS                       R7 R7 K28 ["DropDownWidth"]
        68 SETTABLEKS                       R7 R6 K16 ["Width"]
        70 GETUPVAL                         R7 2
        71 GETTABLEKS                       R7 R7 K3 ["GroupRow"]
@@ -272,37 +260,35 @@ PROTO_15:
        82 SETTABLEKS                       R7 R6 K18 ["MaxHeight"]
        84 NEWTABLE                         R7 0 1
        86 GETUPVAL                         R9 6
-       87 GETTABLEKS                       R9 R9 K26 ["Group"]
+       87 GETTABLEKS                       R9 R9 K27 ["Group"]
        89 JUMPIFNOT                        R9 ; [+6]
        90 GETUPVAL                         R8 2
        91 GETTABLEKS                       R8 R8 K3 ["GroupRow"]
-       93 GETTABLEKS                       R8 R8 K28 ["UnassignIcon"]
+       93 GETTABLEKS                       R8 R8 K29 ["UnassignIcon"]
        95 JUMP                             ; [+5]
        96 GETUPVAL                         R8 2
        97 GETTABLEKS                       R8 R8 K3 ["GroupRow"]
-       99 GETTABLEKS                       R8 R8 K29 ["NewGroupIcon"]
+       99 GETTABLEKS                       R8 R8 K30 ["NewGroupIcon"]
       101 SETLIST                          R7 R8 1 [1]
       103 SETTABLEKS                       R7 R6 K19 ["Icons"]
       105 GETUPVAL                         R7 10
-      106 GETTABLEKS                       R7 R7 K30 ["append"]
+      106 GETTABLEKS                       R7 R7 K31 ["append"]
       108 NEWTABLE                         R8 0 1
       110 GETUPVAL                         R10 6
-      111 GETTABLEKS                       R10 R10 K26 ["Group"]
+      111 GETTABLEKS                       R10 R10 K27 ["Group"]
       113 JUMPIFNOT                        R10 ; [+2]
       114 GETUPVAL                         R9 11
       115 JUMP                             ; [+1]
       116 GETUPVAL                         R9 12
       117 SETLIST                          R8 R9 1 [1]
       119 GETUPVAL                         R9 13
-      120 GETTABLEKS                       R9 R9 K31 ["groups"]
+      120 GETTABLEKS                       R9 R9 K32 ["groups"]
       122 CALL                             R7 2 1
       123 SETTABLEKS                       R7 R6 K20 ["Items"]
-      125 LOADN                            R7 2
-      126 SETTABLEKS                       R7 R6 K21 ["Priority"]
-      128 CALL                             R4 2 1
-      129 SETTABLEKS                       R4 R3 K5 ["DropdownMenu"]
-      131 CALL                             R0 3 -1
-      132 RETURN                           R0 -1
+      125 CALL                             R4 2 1
+      126 SETTABLEKS                       R4 R3 K5 ["DropdownMenu"]
+      128 CALL                             R0 3 -1
+      129 RETURN                           R0 -1
 
 PROTO_16:
         0 GETUPVAL                         R0 0
@@ -468,70 +454,66 @@ PROTO_21:
       110 GETUPVAL                         R5 4
       111 GETTABLEKS                       R5 R5 K10 ["createElement"]
       113 GETUPVAL                         R6 5
-      114 DUPTABLE                         R7 K13 [{"Size", "Style"}]
+      114 DUPTABLE                         R7 K14 [{["Size"], ["Style"] = "BorderBox"}]
       115 GETUPVAL                         R8 6
-      116 GETTABLEKS                       R8 R8 K14 ["VisualizeAsRow"]
+      116 GETTABLEKS                       R8 R8 K15 ["VisualizeAsRow"]
       118 GETTABLEKS                       R8 R8 K11 ["Size"]
       120 SETTABLEKS                       R8 R7 K11 ["Size"]
-      122 LOADK                            R8 K15 ["BorderBox"]
-      123 SETTABLEKS                       R8 R7 K12 ["Style"]
-      125 DUPTABLE                         R8 K18 [{"Button", "DropdownMenu"}]
-      126 GETUPVAL                         R9 4
-      127 GETTABLEKS                       R9 R9 K10 ["createElement"]
-      129 GETUPVAL                         R10 7
-      130 DUPTABLE                         R11 K21 [{"Text", "RightIcon", "OnClick", "Size"}]
-      131 SETTABLEKS                       R4 R11 K5 ["Text"]
-      133 GETUPVAL                         R12 6
-      134 GETTABLEKS                       R12 R12 K14 ["VisualizeAsRow"]
-      136 GETTABLEKS                       R12 R12 K3 ["Icon"]
-      138 SETTABLEKS                       R12 R11 K19 ["RightIcon"]
-      140 GETUPVAL                         R12 8
-      141 GETTABLEKS                       R12 R12 K22 ["onVisualizeRowClicked"]
-      143 SETTABLEKS                       R12 R11 K20 ["OnClick"]
-      145 GETUPVAL                         R12 6
-      146 GETTABLEKS                       R12 R12 K14 ["VisualizeAsRow"]
-      148 GETTABLEKS                       R12 R12 K11 ["Size"]
-      150 SETTABLEKS                       R12 R11 K11 ["Size"]
-      152 CALL                             R9 2 1
-      153 SETTABLEKS                       R9 R8 K16 ["Button"]
-      155 GETUPVAL                         R9 4
-      156 GETTABLEKS                       R9 R9 K10 ["createElement"]
-      158 GETUPVAL                         R10 9
-      159 DUPTABLE                         R11 K32 [{"Hide", "OnItemActivated", "OnFocusLost", "PlaceholderText", "Width", "ItemHeight", "MaxHeight", "Priority", "Items"}]
-      160 GETUPVAL                         R12 8
-      161 GETTABLEKS                       R12 R12 K33 ["state"]
-      163 GETTABLEKS                       R12 R12 K34 ["VisualizeAsDropdownHidden"]
-      165 SETTABLEKS                       R12 R11 K23 ["Hide"]
-      167 NEWCLOSURE                       R12 P1
-      168 CAPTURE                          UPVAL U10
-      169 CAPTURE                          UPVAL U2
-      170 CAPTURE                          REF R0
-      171 CAPTURE                          UPVAL U8
-      172 SETTABLEKS                       R12 R11 K24 ["OnItemActivated"]
-      174 GETUPVAL                         R12 8
-      175 GETTABLEKS                       R12 R12 K35 ["onVisualizeDropdownItemCloseMenu"]
-      177 SETTABLEKS                       R12 R11 K25 ["OnFocusLost"]
-      179 SETTABLEKS                       R4 R11 K26 ["PlaceholderText"]
-      181 GETUPVAL                         R12 6
-      182 GETTABLEKS                       R12 R12 K14 ["VisualizeAsRow"]
-      184 GETTABLEKS                       R12 R12 K36 ["DropDownWidth"]
-      186 SETTABLEKS                       R12 R11 K27 ["Width"]
-      188 GETUPVAL                         R12 6
-      189 GETTABLEKS                       R12 R12 K14 ["VisualizeAsRow"]
-      191 GETTABLEKS                       R12 R12 K28 ["ItemHeight"]
-      193 SETTABLEKS                       R12 R11 K28 ["ItemHeight"]
-      195 GETUPVAL                         R12 6
-      196 GETTABLEKS                       R12 R12 K14 ["VisualizeAsRow"]
-      198 GETTABLEKS                       R12 R12 K29 ["MaxHeight"]
-      200 SETTABLEKS                       R12 R11 K29 ["MaxHeight"]
-      202 LOADN                            R12 2
-      203 SETTABLEKS                       R12 R11 K30 ["Priority"]
-      205 SETTABLEKS                       R1 R11 K31 ["Items"]
-      207 CALL                             R9 2 1
-      208 SETTABLEKS                       R9 R8 K17 ["DropdownMenu"]
-      210 CALL                             R5 3 -1
-      211 CLOSEUPVALS                      R0
-      212 RETURN                           R5 -1
+      122 DUPTABLE                         R8 K18 [{"Button", "DropdownMenu"}]
+      123 GETUPVAL                         R9 4
+      124 GETTABLEKS                       R9 R9 K10 ["createElement"]
+      126 GETUPVAL                         R10 7
+      127 DUPTABLE                         R11 K21 [{"Text", "RightIcon", "OnClick", "Size"}]
+      128 SETTABLEKS                       R4 R11 K5 ["Text"]
+      130 GETUPVAL                         R12 6
+      131 GETTABLEKS                       R12 R12 K15 ["VisualizeAsRow"]
+      133 GETTABLEKS                       R12 R12 K3 ["Icon"]
+      135 SETTABLEKS                       R12 R11 K19 ["RightIcon"]
+      137 GETUPVAL                         R12 8
+      138 GETTABLEKS                       R12 R12 K22 ["onVisualizeRowClicked"]
+      140 SETTABLEKS                       R12 R11 K20 ["OnClick"]
+      142 GETUPVAL                         R12 6
+      143 GETTABLEKS                       R12 R12 K15 ["VisualizeAsRow"]
+      145 GETTABLEKS                       R12 R12 K11 ["Size"]
+      147 SETTABLEKS                       R12 R11 K11 ["Size"]
+      149 CALL                             R9 2 1
+      150 SETTABLEKS                       R9 R8 K16 ["Button"]
+      152 GETUPVAL                         R9 4
+      153 GETTABLEKS                       R9 R9 K10 ["createElement"]
+      155 GETUPVAL                         R10 9
+      156 DUPTABLE                         R11 K33 [{["Hide"], ["OnItemActivated"], ["OnFocusLost"], ["PlaceholderText"], ["Width"], ["ItemHeight"], ["MaxHeight"], ["Priority"] = 2, ["Items"]}]
+      157 GETUPVAL                         R12 8
+      158 GETTABLEKS                       R12 R12 K34 ["state"]
+      160 GETTABLEKS                       R12 R12 K35 ["VisualizeAsDropdownHidden"]
+      162 SETTABLEKS                       R12 R11 K23 ["Hide"]
+      164 NEWCLOSURE                       R12 P1
+      165 CAPTURE                          UPVAL U10
+      166 CAPTURE                          UPVAL U2
+      167 CAPTURE                          REF R0
+      168 CAPTURE                          UPVAL U8
+      169 SETTABLEKS                       R12 R11 K24 ["OnItemActivated"]
+      171 GETUPVAL                         R12 8
+      172 GETTABLEKS                       R12 R12 K36 ["onVisualizeDropdownItemCloseMenu"]
+      174 SETTABLEKS                       R12 R11 K25 ["OnFocusLost"]
+      176 SETTABLEKS                       R4 R11 K26 ["PlaceholderText"]
+      178 GETUPVAL                         R12 6
+      179 GETTABLEKS                       R12 R12 K15 ["VisualizeAsRow"]
+      181 GETTABLEKS                       R12 R12 K37 ["DropDownWidth"]
+      183 SETTABLEKS                       R12 R11 K27 ["Width"]
+      185 GETUPVAL                         R12 6
+      186 GETTABLEKS                       R12 R12 K15 ["VisualizeAsRow"]
+      188 GETTABLEKS                       R12 R12 K28 ["ItemHeight"]
+      190 SETTABLEKS                       R12 R11 K28 ["ItemHeight"]
+      192 GETUPVAL                         R12 6
+      193 GETTABLEKS                       R12 R12 K15 ["VisualizeAsRow"]
+      195 GETTABLEKS                       R12 R12 K29 ["MaxHeight"]
+      197 SETTABLEKS                       R12 R11 K29 ["MaxHeight"]
+      199 SETTABLEKS                       R1 R11 K32 ["Items"]
+      201 CALL                             R9 2 1
+      202 SETTABLEKS                       R9 R8 K17 ["DropdownMenu"]
+      204 CALL                             R5 3 -1
+      205 CLOSEUPVALS                      R0
+      206 RETURN                           R5 -1
 
 PROTO_22:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

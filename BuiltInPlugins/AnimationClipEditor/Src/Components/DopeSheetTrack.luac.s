@@ -117,20 +117,18 @@ PROTO_3:
       119 CAPTURE                          VAL R1
       120 SETTABLEKS                       R14 R13 K25 ["OnInputEnded"]
       122 DUPTABLE                         R14 K36 [{"Tooltip"}]
-      123 JUMPIFNOT                        R10 ; [+12]
+      123 JUMPIFNOT                        R10 ; [+9]
       124 GETUPVAL                         R15 0
       125 GETTABLEKS                       R15 R15 K14 ["createElement"]
       127 GETUPVAL                         R16 3
-      128 DUPTABLE                         R17 K39 [{"Text", "ShowDelay"}]
+      128 DUPTABLE                         R17 K40 [{["Text"], ["ShowDelay"] = 0}]
       129 SETTABLEKS                       R10 R17 K37 ["Text"]
-      131 LOADN                            R18 0
-      132 SETTABLEKS                       R18 R17 K38 ["ShowDelay"]
-      134 CALL                             R15 2 1
-      135 JUMPIF                           R15 ; [+1]
-      136 LOADNIL                          R15
-      137 SETTABLEKS                       R15 R14 K35 ["Tooltip"]
-      139 CALL                             R11 3 -1
-      140 RETURN                           R11 -1
+      131 CALL                             R15 2 1
+      132 JUMPIF                           R15 ; [+1]
+      133 LOADNIL                          R15
+      134 SETTABLEKS                       R15 R14 K35 ["Tooltip"]
+      136 CALL                             R11 3 -1
+      137 RETURN                           R11 -1
 
 PROTO_4:
         0 GETUPVAL                         R5 0

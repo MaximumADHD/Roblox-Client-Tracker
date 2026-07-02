@@ -23,24 +23,20 @@ PROTO_0:
        29 GETUPVAL                         R8 2
        30 GETTABLEKS                       R8 R8 K9 ["createElement"]
        32 GETUPVAL                         R9 4
-       33 DUPTABLE                         R10 K14 [{"theme", "device"}]
-       34 LOADK                            R11 K15 ["Dark"]
-       35 SETTABLEKS                       R11 R10 K12 ["theme"]
-       37 LOADK                            R11 K16 ["Desktop"]
-       38 SETTABLEKS                       R11 R10 K13 ["device"]
-       40 CALL                             R8 2 1
-       41 GETUPVAL                         R9 2
-       42 GETTABLEKS                       R9 R9 K9 ["createElement"]
-       44 GETUPVAL                         R10 5
-       45 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
-       47 CALL                             R9 1 -1
-       48 SETLIST                          R7 R8 -1 [1]
-       50 SETTABLEKS                       R7 R6 K10 ["providers"]
-       52 MOVE                             R7 R0
-       53 CALL                             R4 3 1
-       54 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
-       56 CALL                             R1 2 -1
-       57 RETURN                           R1 -1
+       33 DUPTABLE                         R10 K16 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       34 CALL                             R8 2 1
+       35 GETUPVAL                         R9 2
+       36 GETTABLEKS                       R9 R9 K9 ["createElement"]
+       38 GETUPVAL                         R10 5
+       39 GETTABLEKS                       R10 R10 K17 ["MockProvider"]
+       41 CALL                             R9 1 -1
+       42 SETLIST                          R7 R8 -1 [1]
+       44 SETTABLEKS                       R7 R6 K10 ["providers"]
+       46 MOVE                             R7 R0
+       47 CALL                             R4 3 1
+       48 SETTABLEKS                       R4 R3 K7 ["ContextStack"]
+       50 CALL                             R1 2 -1
+       51 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

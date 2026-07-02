@@ -69,14 +69,14 @@ PROTO_3:
        35 GETUPVAL                         R9 0
        36 GETTABLEKS                       R9 R9 K4 ["createElement"]
        38 GETUPVAL                         R10 2
-       39 DUPTABLE                         R11 K24 [{"AnchorPoint", "Position", "Size", "LeftIcon", "OnClick", "Disabled"}]
+       39 DUPTABLE                         R11 K25 [{["AnchorPoint"], ["Position"], ["Size"], ["LeftIcon"] = "rbxasset://textures/StudioSharedUI/MeatballMenu.png", ["OnClick"], ["Disabled"]}]
        40 GETIMPORT                        R12 K11 [Vector2.new]
        42 LOADK                            R13 K12 [0.5]
        43 LOADK                            R14 K12 [0.5]
        44 CALL                             R12 2 1
        45 SETTABLEKS                       R12 R11 K5 ["AnchorPoint"]
        47 GETIMPORT                        R12 K17 [UDim2.fromScale]
-       49 LOADK                            R13 K25 [0.25]
+       49 LOADK                            R13 K26 [0.25]
        50 LOADK                            R14 K12 [0.5]
        51 CALL                             R12 2 1
        52 SETTABLEKS                       R12 R11 K7 ["Position"]
@@ -85,44 +85,40 @@ PROTO_3:
        57 LOADN                            R14 16
        58 CALL                             R12 2 1
        59 SETTABLEKS                       R12 R11 K6 ["Size"]
-       61 LOADK                            R12 K26 ["rbxasset://textures/StudioSharedUI/MeatballMenu.png"]
-       62 SETTABLEKS                       R12 R11 K21 ["LeftIcon"]
-       64 GETTABLEKS                       R12 R0 K27 ["showMenu"]
-       66 SETTABLEKS                       R12 R11 K22 ["OnClick"]
-       68 GETTABLEKS                       R12 R2 K23 ["Disabled"]
-       70 SETTABLEKS                       R12 R11 K23 ["Disabled"]
-       72 CALL                             R9 2 1
-       73 SETTABLEKS                       R9 R8 K18 ["MenuButton"]
-       75 JUMPIFNOT                        R4 ; [+34]
-       76 GETTABLEKS                       R10 R4 K28 ["Checked"]
-       78 JUMPIFNOT                        R10 ; [+31]
-       79 GETUPVAL                         R9 0
-       80 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       82 GETUPVAL                         R10 3
-       83 DUPTABLE                         R11 K30 [{"AnchorPoint", "Size", "Position", "Image"}]
-       84 GETIMPORT                        R12 K11 [Vector2.new]
-       86 LOADK                            R13 K12 [0.5]
-       87 LOADK                            R14 K12 [0.5]
-       88 CALL                             R12 2 1
-       89 SETTABLEKS                       R12 R11 K5 ["AnchorPoint"]
-       91 GETIMPORT                        R12 K15 [UDim2.fromOffset]
-       93 LOADN                            R13 16
-       94 LOADN                            R14 16
-       95 CALL                             R12 2 1
-       96 SETTABLEKS                       R12 R11 K6 ["Size"]
-       98 GETIMPORT                        R12 K17 [UDim2.fromScale]
-      100 LOADK                            R13 K31 [0.75]
-      101 LOADK                            R14 K12 [0.5]
-      102 CALL                             R12 2 1
-      103 SETTABLEKS                       R12 R11 K7 ["Position"]
-      105 LOADK                            R12 K32 ["rbxasset://textures/R15Migrator/Icon_Checkmark.png"]
-      106 SETTABLEKS                       R12 R11 K29 ["Image"]
-      108 CALL                             R9 2 1
-      109 JUMP                             ; [+1]
-      110 LOADNIL                          R9
-      111 SETTABLEKS                       R9 R8 K19 ["Completed"]
-      113 CALL                             R5 3 -1
-      114 RETURN                           R5 -1
+       61 GETTABLEKS                       R12 R0 K27 ["showMenu"]
+       63 SETTABLEKS                       R12 R11 K23 ["OnClick"]
+       65 GETTABLEKS                       R12 R2 K24 ["Disabled"]
+       67 SETTABLEKS                       R12 R11 K24 ["Disabled"]
+       69 CALL                             R9 2 1
+       70 SETTABLEKS                       R9 R8 K18 ["MenuButton"]
+       72 JUMPIFNOT                        R4 ; [+31]
+       73 GETTABLEKS                       R10 R4 K28 ["Checked"]
+       75 JUMPIFNOT                        R10 ; [+28]
+       76 GETUPVAL                         R9 0
+       77 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       79 GETUPVAL                         R10 3
+       80 DUPTABLE                         R11 K31 [{["AnchorPoint"], ["Size"], ["Position"], ["Image"] = "rbxasset://textures/R15Migrator/Icon_Checkmark.png"}]
+       81 GETIMPORT                        R12 K11 [Vector2.new]
+       83 LOADK                            R13 K12 [0.5]
+       84 LOADK                            R14 K12 [0.5]
+       85 CALL                             R12 2 1
+       86 SETTABLEKS                       R12 R11 K5 ["AnchorPoint"]
+       88 GETIMPORT                        R12 K15 [UDim2.fromOffset]
+       90 LOADN                            R13 16
+       91 LOADN                            R14 16
+       92 CALL                             R12 2 1
+       93 SETTABLEKS                       R12 R11 K6 ["Size"]
+       95 GETIMPORT                        R12 K17 [UDim2.fromScale]
+       97 LOADK                            R13 K32 [0.75]
+       98 LOADK                            R14 K12 [0.5]
+       99 CALL                             R12 2 1
+      100 SETTABLEKS                       R12 R11 K7 ["Position"]
+      102 CALL                             R9 2 1
+      103 JUMP                             ; [+1]
+      104 LOADNIL                          R9
+      105 SETTABLEKS                       R9 R8 K19 ["Completed"]
+      107 CALL                             R5 3 -1
+      108 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

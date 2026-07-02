@@ -8,141 +8,129 @@ PROTO_1:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K13 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+       10 DUPTABLE                         R6 K14 [{["LayoutOrder"], ["Style"] = "CornerBox", ["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"], ["Padding"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
        11 GETTABLEKS                       R7 R1 K4 ["LayoutOrder"]
        13 SETTABLEKS                       R7 R6 K4 ["LayoutOrder"]
-       15 LOADK                            R7 K14 ["CornerBox"]
-       16 SETTABLEKS                       R7 R6 K5 ["Style"]
-       18 GETIMPORT                        R7 K17 [UDim2.fromOffset]
-       20 GETTABLEKS                       R8 R3 K18 ["UIGroupWidthPx"]
-       22 LOADN                            R9 0
-       23 CALL                             R7 2 1
-       24 SETTABLEKS                       R7 R6 K6 ["Size"]
-       26 GETIMPORT                        R7 K21 [Enum.AutomaticSize.Y]
-       28 SETTABLEKS                       R7 R6 K7 ["AutomaticSize"]
-       30 GETIMPORT                        R7 K24 [Enum.FillDirection.Vertical]
-       32 SETTABLEKS                       R7 R6 K8 ["Layout"]
-       34 GETIMPORT                        R7 K27 [UDim.new]
-       36 LOADN                            R8 0
-       37 GETTABLEKS                       R9 R3 K28 ["PaddingPx"]
-       39 CALL                             R7 2 1
-       40 SETTABLEKS                       R7 R6 K9 ["Spacing"]
-       42 GETTABLEKS                       R7 R3 K28 ["PaddingPx"]
-       44 SETTABLEKS                       R7 R6 K10 ["Padding"]
-       46 GETIMPORT                        R7 K30 [Enum.HorizontalAlignment.Center]
-       48 SETTABLEKS                       R7 R6 K11 ["HorizontalAlignment"]
-       50 GETIMPORT                        R7 K32 [Enum.VerticalAlignment.Top]
-       52 SETTABLEKS                       R7 R6 K12 ["VerticalAlignment"]
-       54 DUPTABLE                         R7 K35 [{"Label", "KeyValuePairs"}]
-       55 GETUPVAL                         R8 0
-       56 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       58 GETUPVAL                         R9 2
-       59 DUPTABLE                         R10 K39 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
-       60 LOADK                            R13 K40 ["RecordTabView"]
-       61 LOADK                            R14 K41 ["CurrentRecordingDeviceLabel"]
-       62 NAMECALL                         R11 R2 K42 ["getText"]
-       64 CALL                             R11 3 1
-       65 SETTABLEKS                       R11 R10 K36 ["Text"]
-       67 GETIMPORT                        R11 K44 [UDim2.fromScale]
-       69 LOADN                            R12 1
-       70 LOADN                            R13 0
-       71 CALL                             R11 2 1
-       72 SETTABLEKS                       R11 R10 K6 ["Size"]
-       74 GETIMPORT                        R11 K21 [Enum.AutomaticSize.Y]
-       76 SETTABLEKS                       R11 R10 K7 ["AutomaticSize"]
-       78 LOADN                            R11 0
-       79 SETTABLEKS                       R11 R10 K4 ["LayoutOrder"]
-       81 GETIMPORT                        R11 K46 [Enum.TextXAlignment.Left]
-       83 SETTABLEKS                       R11 R10 K37 ["TextXAlignment"]
-       85 GETIMPORT                        R11 K47 [Enum.TextYAlignment.Top]
-       87 SETTABLEKS                       R11 R10 K38 ["TextYAlignment"]
-       89 CALL                             R8 2 1
-       90 SETTABLEKS                       R8 R7 K33 ["Label"]
-       92 GETUPVAL                         R8 0
-       93 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       95 GETUPVAL                         R9 1
-       96 DUPTABLE                         R10 K48 [{"Size", "AutomaticSize", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
-       97 GETIMPORT                        R11 K44 [UDim2.fromScale]
-       99 LOADN                            R12 1
-      100 LOADN                            R13 0
-      101 CALL                             R11 2 1
-      102 SETTABLEKS                       R11 R10 K6 ["Size"]
-      104 GETIMPORT                        R11 K21 [Enum.AutomaticSize.Y]
-      106 SETTABLEKS                       R11 R10 K7 ["AutomaticSize"]
-      108 LOADN                            R11 1
-      109 SETTABLEKS                       R11 R10 K4 ["LayoutOrder"]
-      111 GETIMPORT                        R11 K24 [Enum.FillDirection.Vertical]
-      113 SETTABLEKS                       R11 R10 K8 ["Layout"]
-      115 GETIMPORT                        R11 K49 [Enum.HorizontalAlignment.Left]
-      117 SETTABLEKS                       R11 R10 K11 ["HorizontalAlignment"]
-      119 GETIMPORT                        R11 K32 [Enum.VerticalAlignment.Top]
-      121 SETTABLEKS                       R11 R10 K12 ["VerticalAlignment"]
-      123 DUPTABLE                         R11 K53 [{"DeviceName", "Orientation", "Resolution"}]
-      124 GETUPVAL                         R12 0
-      125 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      127 GETUPVAL                         R13 3
-      128 DUPTABLE                         R14 K55 [{"Label", "Value", "LayoutOrder"}]
-      129 LOADK                            R17 K40 ["RecordTabView"]
-      130 LOADK                            R18 K56 ["EmulationDeviceName"]
-      131 NAMECALL                         R15 R2 K42 ["getText"]
-      133 CALL                             R15 3 1
-      134 SETTABLEKS                       R15 R14 K33 ["Label"]
-      136 GETUPVAL                         R15 4
-      137 GETTABLEKS                       R15 R15 K57 ["formatDeviceName"]
-      139 GETTABLEKS                       R16 R1 K58 ["EmulationDeviceId"]
-      141 MOVE                             R17 R2
-      142 CALL                             R15 2 1
-      143 SETTABLEKS                       R15 R14 K54 ["Value"]
-      145 LOADN                            R15 1
-      146 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
-      148 CALL                             R12 2 1
-      149 SETTABLEKS                       R12 R11 K50 ["DeviceName"]
-      151 GETUPVAL                         R12 0
-      152 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      154 GETUPVAL                         R13 3
-      155 DUPTABLE                         R14 K55 [{"Label", "Value", "LayoutOrder"}]
-      156 LOADK                            R17 K40 ["RecordTabView"]
-      157 LOADK                            R18 K59 ["EmulationDeviceOrientation"]
-      158 NAMECALL                         R15 R2 K42 ["getText"]
-      160 CALL                             R15 3 1
-      161 SETTABLEKS                       R15 R14 K33 ["Label"]
-      163 GETUPVAL                         R15 4
-      164 GETTABLEKS                       R15 R15 K60 ["formatDeviceOrientation"]
-      166 GETTABLEKS                       R16 R1 K59 ["EmulationDeviceOrientation"]
-      168 GETTABLEKS                       R17 R1 K58 ["EmulationDeviceId"]
-      170 MOVE                             R18 R2
-      171 CALL                             R15 3 1
-      172 SETTABLEKS                       R15 R14 K54 ["Value"]
-      174 LOADN                            R15 2
-      175 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
-      177 CALL                             R12 2 1
-      178 SETTABLEKS                       R12 R11 K51 ["Orientation"]
-      180 GETUPVAL                         R12 0
-      181 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      183 GETUPVAL                         R13 3
-      184 DUPTABLE                         R14 K55 [{"Label", "Value", "LayoutOrder"}]
-      185 LOADK                            R17 K40 ["RecordTabView"]
-      186 LOADK                            R18 K61 ["EmulationDeviceResolution"]
-      187 NAMECALL                         R15 R2 K42 ["getText"]
-      189 CALL                             R15 3 1
-      190 SETTABLEKS                       R15 R14 K33 ["Label"]
-      192 GETUPVAL                         R15 4
-      193 GETTABLEKS                       R15 R15 K62 ["format2dResolution"]
-      195 GETTABLEKS                       R16 R1 K63 ["CurrentScreenSize"]
-      197 LOADK                            R19 K40 ["RecordTabView"]
-      198 LOADK                            R20 K64 ["ResolutionPixelsName"]
-      199 NAMECALL                         R17 R2 K42 ["getText"]
-      201 CALL                             R17 3 -1
-      202 CALL                             R15 -1 1
-      203 SETTABLEKS                       R15 R14 K54 ["Value"]
-      205 LOADN                            R15 3
-      206 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
-      208 CALL                             R12 2 1
-      209 SETTABLEKS                       R12 R11 K52 ["Resolution"]
-      211 CALL                             R8 3 1
-      212 SETTABLEKS                       R8 R7 K34 ["KeyValuePairs"]
-      214 CALL                             R4 3 -1
-      215 RETURN                           R4 -1
+       15 GETIMPORT                        R7 K17 [UDim2.fromOffset]
+       17 GETTABLEKS                       R8 R3 K18 ["UIGroupWidthPx"]
+       19 LOADN                            R9 0
+       20 CALL                             R7 2 1
+       21 SETTABLEKS                       R7 R6 K7 ["Size"]
+       23 GETIMPORT                        R7 K21 [Enum.AutomaticSize.Y]
+       25 SETTABLEKS                       R7 R6 K8 ["AutomaticSize"]
+       27 GETIMPORT                        R7 K24 [Enum.FillDirection.Vertical]
+       29 SETTABLEKS                       R7 R6 K9 ["Layout"]
+       31 GETIMPORT                        R7 K27 [UDim.new]
+       33 LOADN                            R8 0
+       34 GETTABLEKS                       R9 R3 K28 ["PaddingPx"]
+       36 CALL                             R7 2 1
+       37 SETTABLEKS                       R7 R6 K10 ["Spacing"]
+       39 GETTABLEKS                       R7 R3 K28 ["PaddingPx"]
+       41 SETTABLEKS                       R7 R6 K11 ["Padding"]
+       43 GETIMPORT                        R7 K30 [Enum.HorizontalAlignment.Center]
+       45 SETTABLEKS                       R7 R6 K12 ["HorizontalAlignment"]
+       47 GETIMPORT                        R7 K32 [Enum.VerticalAlignment.Top]
+       49 SETTABLEKS                       R7 R6 K13 ["VerticalAlignment"]
+       51 DUPTABLE                         R7 K35 [{"Label", "KeyValuePairs"}]
+       52 GETUPVAL                         R8 0
+       53 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       55 GETUPVAL                         R9 2
+       56 DUPTABLE                         R10 K40 [{["Text"], ["Size"], ["AutomaticSize"], ["LayoutOrder"] = 0, ["TextXAlignment"], ["TextYAlignment"]}]
+       57 LOADK                            R13 K41 ["RecordTabView"]
+       58 LOADK                            R14 K42 ["CurrentRecordingDeviceLabel"]
+       59 NAMECALL                         R11 R2 K43 ["getText"]
+       61 CALL                             R11 3 1
+       62 SETTABLEKS                       R11 R10 K36 ["Text"]
+       64 GETIMPORT                        R11 K45 [UDim2.fromScale]
+       66 LOADN                            R12 1
+       67 LOADN                            R13 0
+       68 CALL                             R11 2 1
+       69 SETTABLEKS                       R11 R10 K7 ["Size"]
+       71 GETIMPORT                        R11 K21 [Enum.AutomaticSize.Y]
+       73 SETTABLEKS                       R11 R10 K8 ["AutomaticSize"]
+       75 GETIMPORT                        R11 K47 [Enum.TextXAlignment.Left]
+       77 SETTABLEKS                       R11 R10 K38 ["TextXAlignment"]
+       79 GETIMPORT                        R11 K48 [Enum.TextYAlignment.Top]
+       81 SETTABLEKS                       R11 R10 K39 ["TextYAlignment"]
+       83 CALL                             R8 2 1
+       84 SETTABLEKS                       R8 R7 K33 ["Label"]
+       86 GETUPVAL                         R8 0
+       87 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       89 GETUPVAL                         R9 1
+       90 DUPTABLE                         R10 K50 [{["Size"], ["AutomaticSize"], ["LayoutOrder"] = 1, ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
+       91 GETIMPORT                        R11 K45 [UDim2.fromScale]
+       93 LOADN                            R12 1
+       94 LOADN                            R13 0
+       95 CALL                             R11 2 1
+       96 SETTABLEKS                       R11 R10 K7 ["Size"]
+       98 GETIMPORT                        R11 K21 [Enum.AutomaticSize.Y]
+      100 SETTABLEKS                       R11 R10 K8 ["AutomaticSize"]
+      102 GETIMPORT                        R11 K24 [Enum.FillDirection.Vertical]
+      104 SETTABLEKS                       R11 R10 K9 ["Layout"]
+      106 GETIMPORT                        R11 K51 [Enum.HorizontalAlignment.Left]
+      108 SETTABLEKS                       R11 R10 K12 ["HorizontalAlignment"]
+      110 GETIMPORT                        R11 K32 [Enum.VerticalAlignment.Top]
+      112 SETTABLEKS                       R11 R10 K13 ["VerticalAlignment"]
+      114 DUPTABLE                         R11 K55 [{"DeviceName", "Orientation", "Resolution"}]
+      115 GETUPVAL                         R12 0
+      116 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      118 GETUPVAL                         R13 3
+      119 DUPTABLE                         R14 K57 [{["Label"], ["Value"], ["LayoutOrder"] = 1}]
+      120 LOADK                            R17 K41 ["RecordTabView"]
+      121 LOADK                            R18 K58 ["EmulationDeviceName"]
+      122 NAMECALL                         R15 R2 K43 ["getText"]
+      124 CALL                             R15 3 1
+      125 SETTABLEKS                       R15 R14 K33 ["Label"]
+      127 GETUPVAL                         R15 4
+      128 GETTABLEKS                       R15 R15 K59 ["formatDeviceName"]
+      130 GETTABLEKS                       R16 R1 K60 ["EmulationDeviceId"]
+      132 MOVE                             R17 R2
+      133 CALL                             R15 2 1
+      134 SETTABLEKS                       R15 R14 K56 ["Value"]
+      136 CALL                             R12 2 1
+      137 SETTABLEKS                       R12 R11 K52 ["DeviceName"]
+      139 GETUPVAL                         R12 0
+      140 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      142 GETUPVAL                         R13 3
+      143 DUPTABLE                         R14 K62 [{["Label"], ["Value"], ["LayoutOrder"] = 2}]
+      144 LOADK                            R17 K41 ["RecordTabView"]
+      145 LOADK                            R18 K63 ["EmulationDeviceOrientation"]
+      146 NAMECALL                         R15 R2 K43 ["getText"]
+      148 CALL                             R15 3 1
+      149 SETTABLEKS                       R15 R14 K33 ["Label"]
+      151 GETUPVAL                         R15 4
+      152 GETTABLEKS                       R15 R15 K64 ["formatDeviceOrientation"]
+      154 GETTABLEKS                       R16 R1 K63 ["EmulationDeviceOrientation"]
+      156 GETTABLEKS                       R17 R1 K60 ["EmulationDeviceId"]
+      158 MOVE                             R18 R2
+      159 CALL                             R15 3 1
+      160 SETTABLEKS                       R15 R14 K56 ["Value"]
+      162 CALL                             R12 2 1
+      163 SETTABLEKS                       R12 R11 K53 ["Orientation"]
+      165 GETUPVAL                         R12 0
+      166 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      168 GETUPVAL                         R13 3
+      169 DUPTABLE                         R14 K66 [{["Label"], ["Value"], ["LayoutOrder"] = 3}]
+      170 LOADK                            R17 K41 ["RecordTabView"]
+      171 LOADK                            R18 K67 ["EmulationDeviceResolution"]
+      172 NAMECALL                         R15 R2 K43 ["getText"]
+      174 CALL                             R15 3 1
+      175 SETTABLEKS                       R15 R14 K33 ["Label"]
+      177 GETUPVAL                         R15 4
+      178 GETTABLEKS                       R15 R15 K68 ["format2dResolution"]
+      180 GETTABLEKS                       R16 R1 K69 ["CurrentScreenSize"]
+      182 LOADK                            R19 K41 ["RecordTabView"]
+      183 LOADK                            R20 K70 ["ResolutionPixelsName"]
+      184 NAMECALL                         R17 R2 K43 ["getText"]
+      186 CALL                             R17 3 -1
+      187 CALL                             R15 -1 1
+      188 SETTABLEKS                       R15 R14 K56 ["Value"]
+      190 CALL                             R12 2 1
+      191 SETTABLEKS                       R12 R11 K54 ["Resolution"]
+      193 CALL                             R8 3 1
+      194 SETTABLEKS                       R8 R7 K34 ["KeyValuePairs"]
+      196 CALL                             R4 3 -1
+      197 RETURN                           R4 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K5 [{"ShouldRecordOnGamePlayStart", "CurrentScreenSize", "EmulationDeviceId", "EmulationDeviceOrientation", "RecordingMode"}]

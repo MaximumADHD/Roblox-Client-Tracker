@@ -16,10 +16,8 @@ MAIN:
        22 NEWTABLE                         R6 0 1
        24 MOVE                             R7 R2
        25 LOADK                            R8 K11 [">> .X-Border "]
-       26 DUPTABLE                         R9 K13 [{"ZIndex"}]
-       27 LOADN                            R10 2
-       28 SETTABLEKS                       R10 R9 K12 ["ZIndex"]
-       30 CALL                             R7 2 -1
-       31 SETLIST                          R6 R7 -1 [1]
-       33 CALL                             R3 3 -1
-       34 RETURN                           R3 -1
+       26 DUPTABLE                         R9 K14 [{["ZIndex"] = 2}]
+       27 CALL                             R7 2 -1
+       28 SETLIST                          R6 R7 -1 [1]
+       30 CALL                             R3 3 -1
+       31 RETURN                           R3 -1

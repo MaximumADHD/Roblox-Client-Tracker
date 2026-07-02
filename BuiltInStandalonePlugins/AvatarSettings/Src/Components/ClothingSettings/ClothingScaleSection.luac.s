@@ -135,98 +135,94 @@ PROTO_4:
       112 CALL                             R11 2 0
       113 GETUPVAL                         R11 8
       114 GETUPVAL                         R12 9
-      115 DUPTABLE                         R13 K32 [{"text", "layoutOrder", "showWarning"}]
+      115 DUPTABLE                         R13 K33 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
       116 LOADK                            R16 K13 ["ClothingSettings"]
-      117 LOADK                            R17 K33 ["ClothingScaleSection"]
+      117 LOADK                            R17 K34 ["ClothingScaleSection"]
       118 NAMECALL                         R14 R1 K15 ["getText"]
       120 CALL                             R14 3 1
       121 SETTABLEKS                       R14 R13 K29 ["text"]
       123 GETTABLEKS                       R14 R0 K30 ["layoutOrder"]
       125 SETTABLEKS                       R14 R13 K30 ["layoutOrder"]
-      127 LOADB                            R14 1
-      128 SETTABLEKS                       R14 R13 K31 ["showWarning"]
-      130 DUPTABLE                         R14 K37 [{"UIListLayout", "ClothingScaleModeSelector", "LimitBoundsTitleFrame"}]
-      131 GETUPVAL                         R15 8
-      132 LOADK                            R16 K34 ["UIListLayout"]
-      133 DUPTABLE                         R17 K39 [{"Padding"}]
-      134 GETIMPORT                        R18 K24 [UDim.new]
-      136 LOADN                            R19 0
-      137 LOADN                            R20 12
-      138 CALL                             R18 2 1
-      139 SETTABLEKS                       R18 R17 K38 ["Padding"]
-      141 CALL                             R15 2 1
-      142 SETTABLEKS                       R15 R14 K34 ["UIListLayout"]
-      144 GETUPVAL                         R15 8
-      145 GETUPVAL                         R16 10
-      146 DUPTABLE                         R17 K44 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-      147 MOVE                             R18 R3
-      148 CALL                             R18 0 1
-      149 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
-      151 SETTABLEKS                       R5 R17 K40 ["items"]
-      153 SETTABLEKS                       R7 R17 K41 ["selected"]
-      155 NEWCLOSURE                       R18 P2
-      156 CAPTURE                          VAL R7
-      157 CAPTURE                          VAL R2
-      158 CAPTURE                          VAL R6
-      159 SETTABLEKS                       R18 R17 K42 ["onItemActivated"]
-      161 LOADK                            R20 K13 ["ClothingSettings"]
-      162 GETIMPORT                        R22 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
-      164 JUMPIFNOTEQ                      R7 R22 ; [+3]
-      166 LOADK                            R21 K45 ["ClothingScaleSectionPlayerChoiceSubText"]
-      167 JUMP                             ; [+1]
-      168 LOADK                            R21 K46 ["ClothingScaleSectionCustomLimitSubText"]
-      169 NAMECALL                         R18 R1 K15 ["getText"]
-      171 CALL                             R18 3 1
-      172 SETTABLEKS                       R18 R17 K43 ["subText"]
-      174 CALL                             R15 2 1
-      175 SETTABLEKS                       R15 R14 K35 ["ClothingScaleModeSelector"]
-      177 MOVE                             R15 R9
-      178 JUMPIFNOT                        R15 ; [+61]
-      179 GETUPVAL                         R15 8
-      180 GETUPVAL                         R16 11
-      181 DUPTABLE                         R17 K50 [{"layoutOrder", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
-      182 MOVE                             R18 R3
-      183 CALL                             R18 0 1
-      184 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
-      186 GETIMPORT                        R18 K24 [UDim.new]
-      188 LOADN                            R19 0
-      189 LOADN                            R20 4
-      190 CALL                             R18 2 1
-      191 SETTABLEKS                       R18 R17 K47 ["separation"]
-      193 LOADK                            R18 K51 ["AvatarSettings-LeftTextPrimary"]
-      194 SETTABLEKS                       R18 R17 K48 ["textLabelTags"]
-      196 SETTABLEKS                       R8 R17 K49 ["minTextLabelWidth"]
-      198 LOADK                            R20 K13 ["ClothingSettings"]
-      199 LOADK                            R21 K52 ["ClothingScaleSectionLimitBounds"]
-      200 NAMECALL                         R18 R1 K15 ["getText"]
-      202 CALL                             R18 3 1
-      203 SETTABLEKS                       R18 R17 K29 ["text"]
-      205 DUPTABLE                         R18 K54 [{"Input"}]
-      206 GETUPVAL                         R19 8
-      207 GETUPVAL                         R20 12
-      208 DUPTABLE                         R21 K56 [{"layoutOrder", "value", "setValue", "text"}]
-      209 MOVE                             R22 R3
-      210 CALL                             R22 0 1
-      211 SETTABLEKS                       R22 R21 K30 ["layoutOrder"]
-      213 GETTABLEKS                       R22 R6 K28 ["clothingScaleLimitBoundsSetting"]
-      215 GETTABLEKS                       R22 R22 K21 ["value"]
-      217 SETTABLEKS                       R22 R21 K21 ["value"]
-      219 GETTABLEKS                       R22 R4 K2 ["settings"]
-      221 GETTABLEKS                       R22 R22 K19 ["clothingSettings"]
-      223 GETTABLEKS                       R22 R22 K28 ["clothingScaleLimitBoundsSetting"]
-      225 GETTABLEKS                       R22 R22 K57 ["set"]
-      227 SETTABLEKS                       R22 R21 K55 ["setValue"]
-      229 LOADK                            R24 K58 ["General"]
-      230 LOADK                            R25 K59 ["PaddingAroundAvatar"]
-      231 NAMECALL                         R22 R1 K15 ["getText"]
-      233 CALL                             R22 3 1
-      234 SETTABLEKS                       R22 R21 K29 ["text"]
-      236 CALL                             R19 2 1
-      237 SETTABLEKS                       R19 R18 K53 ["Input"]
-      239 CALL                             R15 3 1
-      240 SETTABLEKS                       R15 R14 K36 ["LimitBoundsTitleFrame"]
-      242 CALL                             R11 3 -1
-      243 RETURN                           R11 -1
+      127 DUPTABLE                         R14 K38 [{"UIListLayout", "ClothingScaleModeSelector", "LimitBoundsTitleFrame"}]
+      128 GETUPVAL                         R15 8
+      129 LOADK                            R16 K35 ["UIListLayout"]
+      130 DUPTABLE                         R17 K40 [{"Padding"}]
+      131 GETIMPORT                        R18 K24 [UDim.new]
+      133 LOADN                            R19 0
+      134 LOADN                            R20 12
+      135 CALL                             R18 2 1
+      136 SETTABLEKS                       R18 R17 K39 ["Padding"]
+      138 CALL                             R15 2 1
+      139 SETTABLEKS                       R15 R14 K35 ["UIListLayout"]
+      141 GETUPVAL                         R15 8
+      142 GETUPVAL                         R16 10
+      143 DUPTABLE                         R17 K45 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+      144 MOVE                             R18 R3
+      145 CALL                             R18 0 1
+      146 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
+      148 SETTABLEKS                       R5 R17 K41 ["items"]
+      150 SETTABLEKS                       R7 R17 K42 ["selected"]
+      152 NEWCLOSURE                       R18 P2
+      153 CAPTURE                          VAL R7
+      154 CAPTURE                          VAL R2
+      155 CAPTURE                          VAL R6
+      156 SETTABLEKS                       R18 R17 K43 ["onItemActivated"]
+      158 LOADK                            R20 K13 ["ClothingSettings"]
+      159 GETIMPORT                        R22 K12 [Enum.AvatarSettingsClothingMode.PlayerChoice]
+      161 JUMPIFNOTEQ                      R7 R22 ; [+3]
+      163 LOADK                            R21 K46 ["ClothingScaleSectionPlayerChoiceSubText"]
+      164 JUMP                             ; [+1]
+      165 LOADK                            R21 K47 ["ClothingScaleSectionCustomLimitSubText"]
+      166 NAMECALL                         R18 R1 K15 ["getText"]
+      168 CALL                             R18 3 1
+      169 SETTABLEKS                       R18 R17 K44 ["subText"]
+      171 CALL                             R15 2 1
+      172 SETTABLEKS                       R15 R14 K36 ["ClothingScaleModeSelector"]
+      174 MOVE                             R15 R9
+      175 JUMPIFNOT                        R15 ; [+58]
+      176 GETUPVAL                         R15 8
+      177 GETUPVAL                         R16 11
+      178 DUPTABLE                         R17 K52 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
+      179 MOVE                             R18 R3
+      180 CALL                             R18 0 1
+      181 SETTABLEKS                       R18 R17 K30 ["layoutOrder"]
+      183 GETIMPORT                        R18 K24 [UDim.new]
+      185 LOADN                            R19 0
+      186 LOADN                            R20 4
+      187 CALL                             R18 2 1
+      188 SETTABLEKS                       R18 R17 K48 ["separation"]
+      190 SETTABLEKS                       R8 R17 K51 ["minTextLabelWidth"]
+      192 LOADK                            R20 K13 ["ClothingSettings"]
+      193 LOADK                            R21 K53 ["ClothingScaleSectionLimitBounds"]
+      194 NAMECALL                         R18 R1 K15 ["getText"]
+      196 CALL                             R18 3 1
+      197 SETTABLEKS                       R18 R17 K29 ["text"]
+      199 DUPTABLE                         R18 K55 [{"Input"}]
+      200 GETUPVAL                         R19 8
+      201 GETUPVAL                         R20 12
+      202 DUPTABLE                         R21 K57 [{"layoutOrder", "value", "setValue", "text"}]
+      203 MOVE                             R22 R3
+      204 CALL                             R22 0 1
+      205 SETTABLEKS                       R22 R21 K30 ["layoutOrder"]
+      207 GETTABLEKS                       R22 R6 K28 ["clothingScaleLimitBoundsSetting"]
+      209 GETTABLEKS                       R22 R22 K21 ["value"]
+      211 SETTABLEKS                       R22 R21 K21 ["value"]
+      213 GETTABLEKS                       R22 R4 K2 ["settings"]
+      215 GETTABLEKS                       R22 R22 K19 ["clothingSettings"]
+      217 GETTABLEKS                       R22 R22 K28 ["clothingScaleLimitBoundsSetting"]
+      219 GETTABLEKS                       R22 R22 K58 ["set"]
+      221 SETTABLEKS                       R22 R21 K56 ["setValue"]
+      223 LOADK                            R24 K59 ["General"]
+      224 LOADK                            R25 K60 ["PaddingAroundAvatar"]
+      225 NAMECALL                         R22 R1 K15 ["getText"]
+      227 CALL                             R22 3 1
+      228 SETTABLEKS                       R22 R21 K29 ["text"]
+      230 CALL                             R19 2 1
+      231 SETTABLEKS                       R19 R18 K54 ["Input"]
+      233 CALL                             R15 3 1
+      234 SETTABLEKS                       R15 R14 K37 ["LimitBoundsTitleFrame"]
+      236 CALL                             R11 3 -1
+      237 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

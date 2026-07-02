@@ -21,12 +21,10 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setStateAndRefresh"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setStateAndRefresh"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -61,58 +59,54 @@ PROTO_5:
         2 RETURN                           R0 1
 
 PROTO_6:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K3 ["new"]
-        9 CALL                             R2 0 1
-       10 SETTABLEKS                       R2 R0 K4 ["telemetry"]
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U1
-       15 SETTABLEKS                       R2 R0 K5 ["toggleEnabled"]
-       17 NEWCLOSURE                       R2 P1
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R2 R0 K6 ["onClose"]
-       21 NEWCLOSURE                       R2 P2
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R2 R0 K7 ["onRestore"]
-       25 NEWCLOSURE                       R2 P3
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R2 R0 K8 ["onWidgetEnabledChanged"]
-       29 NEWCLOSURE                       R2 P4
-       30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R2 R0 K9 ["onDockWidgetCreated"]
-       33 GETUPVAL                         R2 2
-       34 GETTABLEKS                       R2 R2 K10 ["Localization"]
-       36 GETTABLEKS                       R2 R2 K3 ["new"]
-       38 DUPTABLE                         R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       39 GETUPVAL                         R4 3
-       40 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
-       42 GETUPVAL                         R4 4
-       43 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       45 LOADK                            R4 K15 ["PerformanceTools"]
-       46 SETTABLEKS                       R4 R3 K13 ["pluginName"]
-       48 CALL                             R2 1 1
-       49 SETTABLEKS                       R2 R0 K16 ["localization"]
-       51 GETUPVAL                         R2 2
-       52 GETTABLEKS                       R2 R2 K17 ["Analytics"]
-       54 GETTABLEKS                       R2 R2 K3 ["new"]
-       56 DUPCLOSURE                       R3 K18 [PROTO_5]
-       57 NEWTABLE                         R4 0 0
-       59 CALL                             R2 2 1
-       60 SETTABLEKS                       R2 R0 K19 ["analytics"]
-       62 GETUPVAL                         R2 5
-       63 GETTABLEKS                       R2 R2 K3 ["new"]
-       65 CALL                             R2 0 1
-       66 SETTABLEKS                       R2 R0 K20 ["DEPRECATED_stylizer"]
-       68 GETUPVAL                         R2 6
-       69 GETTABLEKS                       R3 R1 K21 ["Plugin"]
-       71 CALL                             R2 1 1
-       72 SETTABLEKS                       R2 R0 K22 ["design"]
-       74 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K4 ["new"]
+        6 CALL                             R2 0 1
+        7 SETTABLEKS                       R2 R0 K5 ["telemetry"]
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          UPVAL U1
+       12 SETTABLEKS                       R2 R0 K6 ["toggleEnabled"]
+       14 NEWCLOSURE                       R2 P1
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R2 R0 K7 ["onClose"]
+       18 NEWCLOSURE                       R2 P2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R0 K8 ["onRestore"]
+       22 NEWCLOSURE                       R2 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R2 R0 K9 ["onWidgetEnabledChanged"]
+       26 NEWCLOSURE                       R2 P4
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R2 R0 K10 ["onDockWidgetCreated"]
+       30 GETUPVAL                         R2 2
+       31 GETTABLEKS                       R2 R2 K11 ["Localization"]
+       33 GETTABLEKS                       R2 R2 K4 ["new"]
+       35 DUPTABLE                         R3 K16 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PerformanceTools"}]
+       36 GETUPVAL                         R4 3
+       37 SETTABLEKS                       R4 R3 K12 ["stringResourceTable"]
+       39 GETUPVAL                         R4 4
+       40 SETTABLEKS                       R4 R3 K13 ["translationResourceTable"]
+       42 CALL                             R2 1 1
+       43 SETTABLEKS                       R2 R0 K17 ["localization"]
+       45 GETUPVAL                         R2 2
+       46 GETTABLEKS                       R2 R2 K18 ["Analytics"]
+       48 GETTABLEKS                       R2 R2 K4 ["new"]
+       50 DUPCLOSURE                       R3 K19 [PROTO_5]
+       51 NEWTABLE                         R4 0 0
+       53 CALL                             R2 2 1
+       54 SETTABLEKS                       R2 R0 K20 ["analytics"]
+       56 GETUPVAL                         R2 5
+       57 GETTABLEKS                       R2 R2 K4 ["new"]
+       59 CALL                             R2 0 1
+       60 SETTABLEKS                       R2 R0 K21 ["DEPRECATED_stylizer"]
+       62 GETUPVAL                         R2 6
+       63 GETTABLEKS                       R3 R1 K22 ["Plugin"]
+       65 CALL                             R2 1 1
+       66 SETTABLEKS                       R2 R0 K23 ["design"]
+       68 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R4 0
@@ -183,8 +177,8 @@ PROTO_9:
        70 GETIMPORT                        R11 K28 [Enum.InitialDockState.Bottom]
        72 SETTABLEKS                       R11 R10 K26 ["InitialDockState"]
        74 GETIMPORT                        R11 K30 [Vector2.new]
-       76 LOADN                            R12 128
-       77 LOADN                            R13 224
+       76 LOADN                            R12 640
+       77 LOADN                            R13 480
        78 CALL                             R11 2 1
        79 SETTABLEKS                       R11 R10 K31 ["Size"]
        81 GETIMPORT                        R11 K30 [Vector2.new]

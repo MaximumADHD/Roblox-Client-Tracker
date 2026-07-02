@@ -6,58 +6,52 @@ PROTO_0:
         8 NEWTABLE                         R4 1 0
        10 GETTABLEKS                       R5 R0 K0 ["props"]
        12 GETTABLEKS                       R5 R5 K3 ["IsPlayerChoiceTitleStyle"]
-       14 JUMPIFNOT                        R5 ; [+58]
+       14 JUMPIFNOT                        R5 ; [+49]
        15 GETUPVAL                         R5 0
        16 GETTABLEKS                       R5 R5 K4 ["createElement"]
        18 LOADK                            R6 K5 ["TextLabel"]
-       19 DUPTABLE                         R7 K14 [{"BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "TextColor3", "Font", "TextSize", "Text"}]
-       20 LOADN                            R8 1
-       21 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
-       23 LOADN                            R8 0
-       24 SETTABLEKS                       R8 R7 K7 ["BorderSizePixel"]
-       26 GETIMPORT                        R8 K17 [Enum.TextXAlignment.Left]
-       28 SETTABLEKS                       R8 R7 K8 ["TextXAlignment"]
-       30 GETIMPORT                        R8 K19 [Enum.TextYAlignment.Top]
-       32 SETTABLEKS                       R8 R7 K9 ["TextYAlignment"]
-       34 GETUPVAL                         R9 1
-       35 GETTABLEKS                       R9 R9 K20 ["getRadioButtonTextColor"]
-       37 GETTABLEKS                       R10 R0 K0 ["props"]
-       39 CALL                             R9 1 1
-       40 JUMPIFNOT                        R9 ; [+7]
-       41 GETUPVAL                         R8 1
-       42 GETTABLEKS                       R8 R8 K20 ["getRadioButtonTextColor"]
-       44 GETTABLEKS                       R9 R0 K0 ["props"]
-       46 CALL                             R8 1 1
-       47 JUMP                             ; [+6]
-       48 GETTABLEKS                       R8 R3 K21 ["fontStyle"]
-       50 GETTABLEKS                       R8 R8 K22 ["Header"]
-       52 GETTABLEKS                       R8 R8 K10 ["TextColor3"]
-       54 SETTABLEKS                       R8 R7 K10 ["TextColor3"]
-       56 GETIMPORT                        R8 K24 [Enum.Font.SourceSans]
-       58 SETTABLEKS                       R8 R7 K11 ["Font"]
-       60 LOADN                            R8 22
-       61 SETTABLEKS                       R8 R7 K12 ["TextSize"]
-       63 LOADK                            R10 K25 ["General"]
-       64 LOADK                            R11 K26 ["AvatarOverridePrompt"]
-       65 NAMECALL                         R8 R2 K27 ["getText"]
-       67 CALL                             R8 3 1
-       68 SETTABLEKS                       R8 R7 K13 ["Text"]
-       70 CALL                             R5 2 1
-       71 SETTABLEKS                       R5 R4 K28 ["PlayerChoiceLabel"]
-       73 GETUPVAL                         R5 0
-       74 GETTABLEKS                       R5 R5 K4 ["createElement"]
-       76 GETUPVAL                         R6 2
-       77 DUPTABLE                         R7 K31 [{"LayoutOrder", "Title"}]
-       78 GETTABLEKS                       R9 R0 K0 ["props"]
-       80 GETTABLEKS                       R9 R9 K29 ["LayoutOrder"]
-       82 ORK                              R8 R9 K32 [1]
-       83 SETTABLEKS                       R8 R7 K29 ["LayoutOrder"]
-       85 GETTABLEKS                       R8 R0 K0 ["props"]
-       87 GETTABLEKS                       R8 R8 K13 ["Text"]
-       89 SETTABLEKS                       R8 R7 K30 ["Title"]
-       91 MOVE                             R8 R4
-       92 CALL                             R5 3 -1
-       93 RETURN                           R5 -1
+       19 DUPTABLE                         R7 K17 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextXAlignment"], ["TextYAlignment"], ["TextColor3"], ["Font"], ["TextSize"] = 22, ["Text"]}]
+       20 GETIMPORT                        R8 K20 [Enum.TextXAlignment.Left]
+       22 SETTABLEKS                       R8 R7 K10 ["TextXAlignment"]
+       24 GETIMPORT                        R8 K22 [Enum.TextYAlignment.Top]
+       26 SETTABLEKS                       R8 R7 K11 ["TextYAlignment"]
+       28 GETUPVAL                         R9 1
+       29 GETTABLEKS                       R9 R9 K23 ["getRadioButtonTextColor"]
+       31 GETTABLEKS                       R10 R0 K0 ["props"]
+       33 CALL                             R9 1 1
+       34 JUMPIFNOT                        R9 ; [+7]
+       35 GETUPVAL                         R8 1
+       36 GETTABLEKS                       R8 R8 K23 ["getRadioButtonTextColor"]
+       38 GETTABLEKS                       R9 R0 K0 ["props"]
+       40 CALL                             R8 1 1
+       41 JUMP                             ; [+6]
+       42 GETTABLEKS                       R8 R3 K24 ["fontStyle"]
+       44 GETTABLEKS                       R8 R8 K25 ["Header"]
+       46 GETTABLEKS                       R8 R8 K12 ["TextColor3"]
+       48 SETTABLEKS                       R8 R7 K12 ["TextColor3"]
+       50 GETIMPORT                        R8 K27 [Enum.Font.SourceSans]
+       52 SETTABLEKS                       R8 R7 K13 ["Font"]
+       54 LOADK                            R10 K28 ["General"]
+       55 LOADK                            R11 K29 ["AvatarOverridePrompt"]
+       56 NAMECALL                         R8 R2 K30 ["getText"]
+       58 CALL                             R8 3 1
+       59 SETTABLEKS                       R8 R7 K16 ["Text"]
+       61 CALL                             R5 2 1
+       62 SETTABLEKS                       R5 R4 K31 ["PlayerChoiceLabel"]
+       64 GETUPVAL                         R5 0
+       65 GETTABLEKS                       R5 R5 K4 ["createElement"]
+       67 GETUPVAL                         R6 2
+       68 DUPTABLE                         R7 K34 [{"LayoutOrder", "Title"}]
+       69 GETTABLEKS                       R9 R0 K0 ["props"]
+       71 GETTABLEKS                       R9 R9 K32 ["LayoutOrder"]
+       73 ORK                              R8 R9 K7 [1]
+       74 SETTABLEKS                       R8 R7 K32 ["LayoutOrder"]
+       76 GETTABLEKS                       R8 R0 K0 ["props"]
+       78 GETTABLEKS                       R8 R8 K16 ["Text"]
+       80 SETTABLEKS                       R8 R7 K33 ["Title"]
+       82 MOVE                             R8 R4
+       83 CALL                             R5 3 -1
+       84 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

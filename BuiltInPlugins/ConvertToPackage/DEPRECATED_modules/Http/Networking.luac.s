@@ -276,33 +276,29 @@ PROTO_23:
         6 RETURN                           R2 -1
 
 PROTO_24:
-        0 DUPTABLE                         R2 K2 [{"Url", "Method"}]
+        0 DUPTABLE                         R2 K3 [{[1], ["Method"] = "DELETE"}]
         1 SETTABLEKS                       R1 R2 K0 ["Url"]
-        3 LOADK                            R3 K3 ["DELETE"]
-        4 SETTABLEKS                       R3 R2 K1 ["Method"]
-        6 GETUPVAL                         R3 0
-        7 GETUPVAL                         R4 1
-        8 GETTABLEKS                       R5 R0 K4 ["_httpImpl"]
-       10 MOVE                             R6 R2
-       11 CALL                             R3 3 -1
-       12 RETURN                           R3 -1
+        3 GETUPVAL                         R3 0
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R5 R0 K4 ["_httpImpl"]
+        7 MOVE                             R6 R2
+        8 CALL                             R3 3 -1
+        9 RETURN                           R3 -1
 
 PROTO_25:
-        0 DUPTABLE                         R3 K4 [{"Url", "Method", "Body", "Headers"}]
+        0 DUPTABLE                         R3 K5 [{[1], ["Method"] = "PATCH", ["Body"], ["Headers"]}]
         1 SETTABLEKS                       R1 R3 K0 ["Url"]
-        3 LOADK                            R4 K5 ["PATCH"]
-        4 SETTABLEKS                       R4 R3 K1 ["Method"]
-        6 SETTABLEKS                       R2 R3 K2 ["Body"]
-        8 NEWTABLE                         R4 1 0
-       10 LOADK                            R5 K6 ["application/json"]
-       11 SETTABLEKS                       R5 R4 K7 ["Content-Type"]
-       13 SETTABLEKS                       R4 R3 K3 ["Headers"]
-       15 GETUPVAL                         R4 0
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R6 R0 K8 ["_httpImpl"]
-       19 MOVE                             R7 R3
-       20 CALL                             R4 3 -1
-       21 RETURN                           R4 -1
+        3 SETTABLEKS                       R2 R3 K3 ["Body"]
+        5 NEWTABLE                         R4 1 0
+        7 LOADK                            R5 K6 ["application/json"]
+        8 SETTABLEKS                       R5 R4 K7 ["Content-Type"]
+       10 SETTABLEKS                       R4 R3 K4 ["Headers"]
+       12 GETUPVAL                         R4 0
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R6 R0 K8 ["_httpImpl"]
+       16 MOVE                             R7 R3
+       17 CALL                             R4 3 -1
+       18 RETURN                           R4 -1
 
 PROTO_26:
         0 JUMPIFNOT                        R0 ; [+23]

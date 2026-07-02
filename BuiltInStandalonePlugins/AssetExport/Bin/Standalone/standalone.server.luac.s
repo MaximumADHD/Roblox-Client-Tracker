@@ -20,30 +20,28 @@ PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K3 [{"Plugin", "isMock"}]
-        5 GETIMPORT                        R3 K5 [plugin]
+        4 DUPTABLE                         R2 K4 [{["Plugin"], ["isMock"] = False}]
+        5 GETIMPORT                        R3 K6 [plugin]
         7 SETTABLEKS                       R3 R2 K1 ["Plugin"]
-        9 LOADB                            R3 0
-       10 SETTABLEKS                       R3 R2 K2 ["isMock"]
-       12 CALL                             R0 2 1
-       13 GETIMPORT                        R1 K8 [Instance.new]
-       15 LOADK                            R2 K9 ["Frame"]
-       16 CALL                             R1 1 1
-       17 GETUPVAL                         R2 2
-       18 GETTABLEKS                       R2 R2 K10 ["createRoot"]
-       20 MOVE                             R3 R1
-       21 CALL                             R2 1 1
-       22 MOVE                             R5 R0
-       23 NAMECALL                         R3 R2 K11 ["render"]
-       25 CALL                             R3 2 0
-       26 GETIMPORT                        R3 K5 [plugin]
-       28 GETTABLEKS                       R3 R3 K12 ["Unloading"]
-       30 NEWCLOSURE                       R5 P0
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          UPVAL U3
-       33 NAMECALL                         R3 R3 K13 ["Connect"]
-       35 CALL                             R3 2 0
-       36 RETURN                           R0 0
+        9 CALL                             R0 2 1
+       10 GETIMPORT                        R1 K9 [Instance.new]
+       12 LOADK                            R2 K10 ["Frame"]
+       13 CALL                             R1 1 1
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R2 R2 K11 ["createRoot"]
+       17 MOVE                             R3 R1
+       18 CALL                             R2 1 1
+       19 MOVE                             R5 R0
+       20 NAMECALL                         R3 R2 K12 ["render"]
+       22 CALL                             R3 2 0
+       23 GETIMPORT                        R3 K6 [plugin]
+       25 GETTABLEKS                       R3 R3 K13 ["Unloading"]
+       27 NEWCLOSURE                       R5 P0
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          UPVAL U3
+       30 NAMECALL                         R3 R3 K14 ["Connect"]
+       32 CALL                             R3 2 0
+       33 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

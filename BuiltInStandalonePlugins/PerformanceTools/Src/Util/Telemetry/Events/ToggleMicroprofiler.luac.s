@@ -8,40 +8,32 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["TelemetryProtocol"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K11 [{"description", "links", "lastUpdated"}]
-       15 LOADK                            R3 K12 ["Telemetry for toggling the Microprofiler from the Scene Budget Thermometer"]
-       16 SETTABLEKS                       R3 R2 K8 ["description"]
-       18 LOADK                            R3 K13 ["https://roblox.atlassian.net/wiki/spaces/PAO/pages/3324281060/Performance+Tooling?atlOrigin=eyJpIjoiNzMyNTY2ODU0ZTdjNDIwMDkzYWQ2MWFhYTQ3NmY1YzEiLCJwIjoiYyJ9"]
-       19 SETTABLEKS                       R3 R2 K9 ["links"]
-       21 NEWTABLE                         R3 0 3
-       23 LOADN                            R4 14
-       24 LOADN                            R5 5
-       25 LOADN                            R6 7
-       26 SETLIST                          R3 R4 3 [1]
-       28 SETTABLEKS                       R3 R2 K10 ["lastUpdated"]
-       30 NEWTABLE                         R3 2 0
-       32 DUPTABLE                         R4 K16 [{"config", "data"}]
-       33 DUPTABLE                         R5 K19 [{"eventName", "backends"}]
-       34 LOADK                            R6 K20 ["StudioPerfToolsToggleMicroprofiler"]
-       35 SETTABLEKS                       R6 R5 K17 ["eventName"]
-       37 NEWTABLE                         R6 0 1
-       39 LOADK                            R7 K21 ["RobloxTelemetryCounter"]
-       40 SETLIST                          R6 R7 1 [1]
-       42 SETTABLEKS                       R6 R5 K18 ["backends"]
-       44 SETTABLEKS                       R5 R4 K14 ["config"]
-       46 SETTABLEKS                       R2 R4 K15 ["data"]
-       48 SETTABLEKS                       R4 R3 K21 ["RobloxTelemetryCounter"]
-       50 DUPTABLE                         R4 K23 [{"config", "data", "standardizedFields"}]
-       51 DUPTABLE                         R5 K19 [{"eventName", "backends"}]
-       52 LOADK                            R6 K20 ["StudioPerfToolsToggleMicroprofiler"]
-       53 SETTABLEKS                       R6 R5 K17 ["eventName"]
-       55 NEWTABLE                         R6 0 1
-       57 LOADK                            R7 K24 ["EventIngest"]
-       58 SETLIST                          R6 R7 1 [1]
-       60 SETTABLEKS                       R6 R5 K18 ["backends"]
-       62 SETTABLEKS                       R5 R4 K14 ["config"]
-       64 SETTABLEKS                       R2 R4 K15 ["data"]
-       66 GETTABLEKS                       R5 R1 K25 ["StandardizedFields"]
-       68 SETTABLEKS                       R5 R4 K22 ["standardizedFields"]
-       70 SETTABLEKS                       R4 R3 K26 ["RobloxTelemetry"]
-       72 RETURN                           R3 1
+       14 DUPTABLE                         R2 K13 [{["description"] = "Telemetry for toggling the Microprofiler from the Scene Budget Thermometer", ["links"] = "https://roblox.atlassian.net/wiki/spaces/PAO/pages/3324281060/Performance+Tooling?atlOrigin=eyJpIjoiNzMyNTY2ODU0ZTdjNDIwMDkzYWQ2MWFhYTQ3NmY1YzEiLCJwIjoiYyJ9", ["lastUpdated"]}]
+       15 NEWTABLE                         R3 0 3
+       17 LOADN                            R4 14
+       18 LOADN                            R5 5
+       19 LOADN                            R6 7
+       20 SETLIST                          R3 R4 3 [1]
+       22 SETTABLEKS                       R3 R2 K12 ["lastUpdated"]
+       24 NEWTABLE                         R3 2 0
+       26 DUPTABLE                         R4 K16 [{"config", "data"}]
+       27 DUPTABLE                         R5 K20 [{["eventName"] = "StudioPerfToolsToggleMicroprofiler", ["backends"]}]
+       28 NEWTABLE                         R6 0 1
+       30 LOADK                            R7 K21 ["RobloxTelemetryCounter"]
+       31 SETLIST                          R6 R7 1 [1]
+       33 SETTABLEKS                       R6 R5 K19 ["backends"]
+       35 SETTABLEKS                       R5 R4 K14 ["config"]
+       37 SETTABLEKS                       R2 R4 K15 ["data"]
+       39 SETTABLEKS                       R4 R3 K21 ["RobloxTelemetryCounter"]
+       41 DUPTABLE                         R4 K23 [{"config", "data", "standardizedFields"}]
+       42 DUPTABLE                         R5 K20 [{["eventName"] = "StudioPerfToolsToggleMicroprofiler", ["backends"]}]
+       43 NEWTABLE                         R6 0 1
+       45 LOADK                            R7 K24 ["EventIngest"]
+       46 SETLIST                          R6 R7 1 [1]
+       48 SETTABLEKS                       R6 R5 K19 ["backends"]
+       50 SETTABLEKS                       R5 R4 K14 ["config"]
+       52 SETTABLEKS                       R2 R4 K15 ["data"]
+       54 GETTABLEKS                       R5 R1 K25 ["StandardizedFields"]
+       56 SETTABLEKS                       R5 R4 K22 ["standardizedFields"]
+       58 SETTABLEKS                       R4 R3 K26 ["RobloxTelemetry"]
+       60 RETURN                           R3 1

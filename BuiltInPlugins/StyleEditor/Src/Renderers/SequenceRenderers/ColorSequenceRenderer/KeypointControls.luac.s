@@ -73,103 +73,95 @@ PROTO_2:
        63 GETUPVAL                         R13 4
        64 GETTABLEKS                       R13 R13 K4 ["createElement"]
        66 GETUPVAL                         R14 6
-       67 DUPTABLE                         R15 K26 [{"LayoutOrder", "Text", "Schema", "Disabled", "Value", "OnChanged"}]
-       68 LOADN                            R16 1
-       69 SETTABLEKS                       R16 R15 K5 ["LayoutOrder"]
-       71 LOADK                            R18 K27 ["Label"]
-       72 LOADK                            R19 K17 ["Time"]
-       73 NAMECALL                         R16 R2 K28 ["getText"]
-       75 CALL                             R16 3 1
-       76 SETTABLEKS                       R16 R15 K21 ["Text"]
-       78 GETUPVAL                         R16 7
-       79 SETTABLEKS                       R16 R15 K22 ["Schema"]
-       81 GETTABLEKS                       R16 R0 K29 ["IsKeypointFixed"]
-       83 SETTABLEKS                       R16 R15 K23 ["Disabled"]
-       85 GETTABLEKS                       R16 R0 K30 ["Keypoint"]
-       87 GETTABLEKS                       R16 R16 K17 ["Time"]
-       89 SETTABLEKS                       R16 R15 K24 ["Value"]
-       91 SETTABLEKS                       R3 R15 K25 ["OnChanged"]
-       93 CALL                             R13 2 1
-       94 SETTABLEKS                       R13 R12 K17 ["Time"]
-       96 GETUPVAL                         R13 4
-       97 GETTABLEKS                       R13 R13 K4 ["createElement"]
-       99 GETUPVAL                         R14 6
-      100 DUPTABLE                         R15 K32 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged", "Renderer"}]
-      101 LOADN                            R16 2
-      102 SETTABLEKS                       R16 R15 K5 ["LayoutOrder"]
-      104 LOADK                            R18 K27 ["Label"]
-      105 LOADK                            R19 K18 ["Color"]
-      106 NAMECALL                         R16 R2 K28 ["getText"]
-      108 CALL                             R16 3 1
-      109 SETTABLEKS                       R16 R15 K21 ["Text"]
-      111 GETUPVAL                         R16 8
-      112 SETTABLEKS                       R16 R15 K22 ["Schema"]
-      114 GETTABLEKS                       R16 R0 K30 ["Keypoint"]
-      116 GETTABLEKS                       R16 R16 K24 ["Value"]
-      118 SETTABLEKS                       R16 R15 K24 ["Value"]
-      120 SETTABLEKS                       R4 R15 K25 ["OnChanged"]
-      122 GETUPVAL                         R16 9
-      123 SETTABLEKS                       R16 R15 K31 ["Renderer"]
-      125 CALL                             R13 2 1
-      126 SETTABLEKS                       R13 R12 K18 ["Color"]
-      128 GETUPVAL                         R13 4
-      129 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      131 GETUPVAL                         R14 10
-      132 DUPTABLE                         R15 K36 [{"LayoutOrder", "TooltipText", "LeftIcon", "Disabled", "OnClick"}]
-      133 LOADN                            R16 3
-      134 SETTABLEKS                       R16 R15 K5 ["LayoutOrder"]
-      136 LOADK                            R18 K37 ["Control"]
-      137 LOADK                            R19 K38 ["DeleteTooltip"]
-      138 NAMECALL                         R16 R2 K28 ["getText"]
-      140 CALL                             R16 3 1
-      141 SETTABLEKS                       R16 R15 K33 ["TooltipText"]
-      143 GETUPVAL                         R16 11
-      144 GETTABLEKS                       R16 R16 K39 ["delete"]
-      146 CALL                             R16 0 1
-      147 SETTABLEKS                       R16 R15 K34 ["LeftIcon"]
-      149 GETTABLEKS                       R16 R0 K29 ["IsKeypointFixed"]
-      151 SETTABLEKS                       R16 R15 K23 ["Disabled"]
-      153 GETTABLEKS                       R16 R0 K40 ["OnDelete"]
-      155 SETTABLEKS                       R16 R15 K35 ["OnClick"]
-      157 CALL                             R13 2 1
-      158 SETTABLEKS                       R13 R12 K19 ["Delete"]
-      160 CALL                             R9 3 1
-      161 SETTABLEKS                       R9 R8 K8 ["SequenceButtonsContainer"]
-      163 GETUPVAL                         R9 4
-      164 GETTABLEKS                       R9 R9 K4 ["createElement"]
-      166 GETUPVAL                         R10 5
-      167 NEWTABLE                         R11 4 0
-      169 LOADN                            R12 2
-      170 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
-      172 GETUPVAL                         R12 4
-      173 GETTABLEKS                       R12 R12 K6 ["Tag"]
-      175 LOADK                            R13 K41 ["X-Right X-Pad X-RowM X-FitY"]
-      176 SETTABLE                         R13 R11 R12
-      177 GETIMPORT                        R12 K14 [UDim2.fromScale]
-      179 LOADK                            R13 K15 [0.5]
-      180 LOADN                            R14 1
-      181 CALL                             R12 2 1
-      182 SETTABLEKS                       R12 R11 K16 ["Size"]
-      184 DUPTABLE                         R12 K43 [{"Save"}]
-      185 GETUPVAL                         R13 4
-      186 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      188 GETUPVAL                         R14 10
-      189 DUPTABLE                         R15 K44 [{"LayoutOrder", "Text", "OnClick"}]
-      190 LOADN                            R16 1
-      191 SETTABLEKS                       R16 R15 K5 ["LayoutOrder"]
-      193 LOADK                            R18 K45 ["Modal"]
-      194 LOADK                            R19 K42 ["Save"]
-      195 NAMECALL                         R16 R2 K28 ["getText"]
-      197 CALL                             R16 3 1
-      198 SETTABLEKS                       R16 R15 K21 ["Text"]
-      200 GETTABLEKS                       R16 R0 K46 ["OnSave"]
-      202 SETTABLEKS                       R16 R15 K35 ["OnClick"]
-      204 CALL                             R13 2 1
-      205 SETTABLEKS                       R13 R12 K42 ["Save"]
-      207 CALL                             R9 3 1
-      208 SETTABLEKS                       R9 R8 K9 ["CommitButtonsContainer"]
-      210 CALL                             R5 3 -1
-      211 RETURN                           R5 -1
+       67 DUPTABLE                         R15 K27 [{["LayoutOrder"] = 1, ["Text"], ["Schema"], ["Disabled"], ["Value"], ["OnChanged"]}]
+       68 LOADK                            R18 K28 ["Label"]
+       69 LOADK                            R19 K17 ["Time"]
+       70 NAMECALL                         R16 R2 K29 ["getText"]
+       72 CALL                             R16 3 1
+       73 SETTABLEKS                       R16 R15 K22 ["Text"]
+       75 GETUPVAL                         R16 7
+       76 SETTABLEKS                       R16 R15 K23 ["Schema"]
+       78 GETTABLEKS                       R16 R0 K30 ["IsKeypointFixed"]
+       80 SETTABLEKS                       R16 R15 K24 ["Disabled"]
+       82 GETTABLEKS                       R16 R0 K31 ["Keypoint"]
+       84 GETTABLEKS                       R16 R16 K17 ["Time"]
+       86 SETTABLEKS                       R16 R15 K25 ["Value"]
+       88 SETTABLEKS                       R3 R15 K26 ["OnChanged"]
+       90 CALL                             R13 2 1
+       91 SETTABLEKS                       R13 R12 K17 ["Time"]
+       93 GETUPVAL                         R13 4
+       94 GETTABLEKS                       R13 R13 K4 ["createElement"]
+       96 GETUPVAL                         R14 6
+       97 DUPTABLE                         R15 K34 [{["LayoutOrder"] = 2, ["Text"], ["Schema"], ["Value"], ["OnChanged"], ["Renderer"]}]
+       98 LOADK                            R18 K28 ["Label"]
+       99 LOADK                            R19 K18 ["Color"]
+      100 NAMECALL                         R16 R2 K29 ["getText"]
+      102 CALL                             R16 3 1
+      103 SETTABLEKS                       R16 R15 K22 ["Text"]
+      105 GETUPVAL                         R16 8
+      106 SETTABLEKS                       R16 R15 K23 ["Schema"]
+      108 GETTABLEKS                       R16 R0 K31 ["Keypoint"]
+      110 GETTABLEKS                       R16 R16 K25 ["Value"]
+      112 SETTABLEKS                       R16 R15 K25 ["Value"]
+      114 SETTABLEKS                       R4 R15 K26 ["OnChanged"]
+      116 GETUPVAL                         R16 9
+      117 SETTABLEKS                       R16 R15 K33 ["Renderer"]
+      119 CALL                             R13 2 1
+      120 SETTABLEKS                       R13 R12 K18 ["Color"]
+      122 GETUPVAL                         R13 4
+      123 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      125 GETUPVAL                         R14 10
+      126 DUPTABLE                         R15 K39 [{["LayoutOrder"] = 3, ["TooltipText"], ["LeftIcon"], ["Disabled"], ["OnClick"]}]
+      127 LOADK                            R18 K40 ["Control"]
+      128 LOADK                            R19 K41 ["DeleteTooltip"]
+      129 NAMECALL                         R16 R2 K29 ["getText"]
+      131 CALL                             R16 3 1
+      132 SETTABLEKS                       R16 R15 K36 ["TooltipText"]
+      134 GETUPVAL                         R16 11
+      135 GETTABLEKS                       R16 R16 K42 ["delete"]
+      137 CALL                             R16 0 1
+      138 SETTABLEKS                       R16 R15 K37 ["LeftIcon"]
+      140 GETTABLEKS                       R16 R0 K30 ["IsKeypointFixed"]
+      142 SETTABLEKS                       R16 R15 K24 ["Disabled"]
+      144 GETTABLEKS                       R16 R0 K43 ["OnDelete"]
+      146 SETTABLEKS                       R16 R15 K38 ["OnClick"]
+      148 CALL                             R13 2 1
+      149 SETTABLEKS                       R13 R12 K19 ["Delete"]
+      151 CALL                             R9 3 1
+      152 SETTABLEKS                       R9 R8 K8 ["SequenceButtonsContainer"]
+      154 GETUPVAL                         R9 4
+      155 GETTABLEKS                       R9 R9 K4 ["createElement"]
+      157 GETUPVAL                         R10 5
+      158 NEWTABLE                         R11 4 0
+      160 LOADN                            R12 2
+      161 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
+      163 GETUPVAL                         R12 4
+      164 GETTABLEKS                       R12 R12 K6 ["Tag"]
+      166 LOADK                            R13 K44 ["X-Right X-Pad X-RowM X-FitY"]
+      167 SETTABLE                         R13 R11 R12
+      168 GETIMPORT                        R12 K14 [UDim2.fromScale]
+      170 LOADK                            R13 K15 [0.5]
+      171 LOADN                            R14 1
+      172 CALL                             R12 2 1
+      173 SETTABLEKS                       R12 R11 K16 ["Size"]
+      175 DUPTABLE                         R12 K46 [{"Save"}]
+      176 GETUPVAL                         R13 4
+      177 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      179 GETUPVAL                         R14 10
+      180 DUPTABLE                         R15 K47 [{["LayoutOrder"] = 1, ["Text"], ["OnClick"]}]
+      181 LOADK                            R18 K48 ["Modal"]
+      182 LOADK                            R19 K45 ["Save"]
+      183 NAMECALL                         R16 R2 K29 ["getText"]
+      185 CALL                             R16 3 1
+      186 SETTABLEKS                       R16 R15 K22 ["Text"]
+      188 GETTABLEKS                       R16 R0 K49 ["OnSave"]
+      190 SETTABLEKS                       R16 R15 K38 ["OnClick"]
+      192 CALL                             R13 2 1
+      193 SETTABLEKS                       R13 R12 K45 ["Save"]
+      195 CALL                             R9 3 1
+      196 SETTABLEKS                       R9 R8 K9 ["CommitButtonsContainer"]
+      198 CALL                             R5 3 -1
+      199 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -236,32 +228,24 @@ MAIN:
       111 GETTABLEKS                       R16 R16 K25 ["getFFlagStyleEditorFixSequenceNumPrecision"]
       113 CALL                             R15 1 1
       114 CALL                             R15 0 1
-      115 DUPTABLE                         R16 K27 [{"Type"}]
-      116 LOADK                            R17 K28 ["Color"]
-      117 SETTABLEKS                       R17 R16 K26 ["Type"]
-      119 DUPTABLE                         R17 K32 [{"Type", "Min", "Max", "Precision"}]
-      120 LOADK                            R18 K33 ["Number"]
-      121 SETTABLEKS                       R18 R17 K26 ["Type"]
-      123 LOADN                            R18 0
-      124 SETTABLEKS                       R18 R17 K29 ["Min"]
-      126 LOADN                            R18 1
-      127 SETTABLEKS                       R18 R17 K30 ["Max"]
-      129 JUMPIFNOT                        R15 ; [+2]
-      130 LOADN                            R18 3
-      131 JUMP                             ; [+1]
-      132 LOADNIL                          R18
-      133 SETTABLEKS                       R18 R17 K31 ["Precision"]
-      135 DUPCLOSURE                       R18 K34 [PROTO_2]
-      136 CAPTURE                          VAL R2
-      137 CAPTURE                          VAL R14
-      138 CAPTURE                          VAL R4
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R1
-      141 CAPTURE                          VAL R6
-      142 CAPTURE                          VAL R10
-      143 CAPTURE                          VAL R17
-      144 CAPTURE                          VAL R16
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R5
-      147 CAPTURE                          VAL R9
-      148 RETURN                           R18 1
+      115 DUPTABLE                         R16 K28 [{["Type"] = "Color"}]
+      116 DUPTABLE                         R17 K35 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1, ["Precision"]}]
+      117 JUMPIFNOT                        R15 ; [+2]
+      118 LOADN                            R18 3
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R18
+      121 SETTABLEKS                       R18 R17 K34 ["Precision"]
+      123 DUPCLOSURE                       R18 K36 [PROTO_2]
+      124 CAPTURE                          VAL R2
+      125 CAPTURE                          VAL R14
+      126 CAPTURE                          VAL R4
+      127 CAPTURE                          VAL R8
+      128 CAPTURE                          VAL R1
+      129 CAPTURE                          VAL R6
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R17
+      132 CAPTURE                          VAL R16
+      133 CAPTURE                          VAL R11
+      134 CAPTURE                          VAL R5
+      135 CAPTURE                          VAL R9
+      136 RETURN                           R18 1

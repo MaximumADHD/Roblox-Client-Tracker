@@ -60,57 +60,55 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
-        3 DUPTABLE                         R1 K2 [{"url"}]
-        4 LOADK                            R2 K3 ["ws://localhost:13469/studio"]
-        5 SETTABLEKS                       R2 R1 K1 ["url"]
-        7 CALL                             R0 1 1
-        8 GETUPVAL                         R1 1
-        9 SETTABLEKS                       R0 R1 K4 ["current"]
-       11 GETUPVAL                         R1 2
-       12 GETTABLEKS                       R1 R1 K5 ["startExternalServer"]
-       14 MOVE                             R2 R0
-       15 GETUPVAL                         R3 3
-       16 CALL                             R1 2 1
-       17 GETTABLEKS                       R2 R1 K6 ["promise"]
-       19 NAMECALL                         R2 R2 K7 ["await"]
-       21 CALL                             R2 1 2
-       22 NEWCLOSURE                       R4 P0
-       23 CAPTURE                          VAL R1
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U4
-       26 CAPTURE                          UPVAL U1
-       27 JUMPIF                           R2 ; [+28]
-       28 GETIMPORT                        R5 K9 [warn]
-       30 LOADK                            R7 K10 ["Failed to start external server: %*"]
-       31 MOVE                             R9 R3
-       32 NAMECALL                         R7 R7 K11 ["format"]
-       34 CALL                             R7 2 1
-       35 MOVE                             R6 R7
-       36 CALL                             R5 1 0
-       37 GETTABLEKS                       R5 R1 K12 ["destructor"]
-       39 CALL                             R5 0 0
-       40 NAMECALL                         R5 R0 K13 ["close"]
-       42 CALL                             R5 1 0
-       43 GETUPVAL                         R5 4
-       44 GETTABLEKS                       R5 R5 K4 ["current"]
-       46 LOADNIL                          R7
-       47 NAMECALL                         R5 R5 K14 ["set"]
-       49 CALL                             R5 2 0
-       50 GETUPVAL                         R5 1
-       51 LOADNIL                          R6
-       52 SETTABLEKS                       R6 R5 K4 ["current"]
-       54 LOADNIL                          R5
-       55 RETURN                           R5 1
-       56 GETUPVAL                         R5 4
-       57 GETTABLEKS                       R5 R5 K4 ["current"]
-       59 GETTABLEKS                       R7 R1 K15 ["server"]
-       61 NAMECALL                         R5 R5 K14 ["set"]
-       63 CALL                             R5 2 0
-       64 DUPTABLE                         R5 K18 [{"disconnect", "connectionCountObservable"}]
-       65 SETTABLEKS                       R4 R5 K16 ["disconnect"]
-       67 GETTABLEKS                       R6 R1 K17 ["connectionCountObservable"]
-       69 SETTABLEKS                       R6 R5 K17 ["connectionCountObservable"]
-       71 RETURN                           R5 1
+        3 DUPTABLE                         R1 K3 [{["url"] = "ws://localhost:13469/studio"}]
+        4 CALL                             R0 1 1
+        5 GETUPVAL                         R1 1
+        6 SETTABLEKS                       R0 R1 K4 ["current"]
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R1 R1 K5 ["startExternalServer"]
+       11 MOVE                             R2 R0
+       12 GETUPVAL                         R3 3
+       13 CALL                             R1 2 1
+       14 GETTABLEKS                       R2 R1 K6 ["promise"]
+       16 NAMECALL                         R2 R2 K7 ["await"]
+       18 CALL                             R2 1 2
+       19 NEWCLOSURE                       R4 P0
+       20 CAPTURE                          VAL R1
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U4
+       23 CAPTURE                          UPVAL U1
+       24 JUMPIF                           R2 ; [+28]
+       25 GETIMPORT                        R5 K9 [warn]
+       27 LOADK                            R7 K10 ["Failed to start external server: %*"]
+       28 MOVE                             R9 R3
+       29 NAMECALL                         R7 R7 K11 ["format"]
+       31 CALL                             R7 2 1
+       32 MOVE                             R6 R7
+       33 CALL                             R5 1 0
+       34 GETTABLEKS                       R5 R1 K12 ["destructor"]
+       36 CALL                             R5 0 0
+       37 NAMECALL                         R5 R0 K13 ["close"]
+       39 CALL                             R5 1 0
+       40 GETUPVAL                         R5 4
+       41 GETTABLEKS                       R5 R5 K4 ["current"]
+       43 LOADNIL                          R7
+       44 NAMECALL                         R5 R5 K14 ["set"]
+       46 CALL                             R5 2 0
+       47 GETUPVAL                         R5 1
+       48 LOADNIL                          R6
+       49 SETTABLEKS                       R6 R5 K4 ["current"]
+       51 LOADNIL                          R5
+       52 RETURN                           R5 1
+       53 GETUPVAL                         R5 4
+       54 GETTABLEKS                       R5 R5 K4 ["current"]
+       56 GETTABLEKS                       R7 R1 K15 ["server"]
+       58 NAMECALL                         R5 R5 K14 ["set"]
+       60 CALL                             R5 2 0
+       61 DUPTABLE                         R5 K18 [{"disconnect", "connectionCountObservable"}]
+       62 SETTABLEKS                       R4 R5 K16 ["disconnect"]
+       64 GETTABLEKS                       R6 R1 K17 ["connectionCountObservable"]
+       66 SETTABLEKS                       R6 R5 K17 ["connectionCountObservable"]
+       68 RETURN                           R5 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -128,29 +126,27 @@ PROTO_7:
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["getNameAsync"]
         4 CALL                             R1 0 1
-        5 JUMPIFEQ                         R1 R0 ; [+23]
+        5 JUMPIFEQ                         R1 R0 ; [+20]
         7 GETUPVAL                         R2 1
-        8 DUPTABLE                         R4 K4 [{"_meta", "data", "level"}]
-        9 DUPTABLE                         R5 K6 [{"studio_name"}]
-       10 SETTABLEKS                       R1 R5 K5 ["studio_name"]
+        8 DUPTABLE                         R4 K5 [{["_meta"], ["data"], ["level"] = "info"}]
+        9 DUPTABLE                         R5 K7 [{"studio_name"}]
+       10 SETTABLEKS                       R1 R5 K6 ["studio_name"]
        12 SETTABLEKS                       R5 R4 K1 ["_meta"]
-       14 LOADK                            R6 K7 ["Server started for %*"]
+       14 LOADK                            R6 K8 ["Server started for %*"]
        15 MOVE                             R8 R1
-       16 NAMECALL                         R6 R6 K8 ["format"]
+       16 NAMECALL                         R6 R6 K9 ["format"]
        18 CALL                             R6 2 1
        19 MOVE                             R5 R6
        20 SETTABLEKS                       R5 R4 K2 ["data"]
-       22 LOADK                            R5 K9 ["info"]
-       23 SETTABLEKS                       R5 R4 K3 ["level"]
-       25 NAMECALL                         R2 R2 K10 ["sendLoggingMessage"]
-       27 CALL                             R2 2 0
-       28 MOVE                             R0 R1
-       29 GETIMPORT                        R2 K13 [task.wait]
-       31 GETUPVAL                         R3 2
-       32 CALL                             R3 0 -1
-       33 CALL                             R2 -1 0
-       34 JUMPBACK                         ; [-34]
-       35 RETURN                           R0 0
+       22 NAMECALL                         R2 R2 K10 ["sendLoggingMessage"]
+       24 CALL                             R2 2 0
+       25 MOVE                             R0 R1
+       26 GETIMPORT                        R2 K13 [task.wait]
+       28 GETUPVAL                         R3 2
+       29 CALL                             R3 0 -1
+       30 CALL                             R2 -1 0
+       31 JUMPBACK                         ; [-31]
+       32 RETURN                           R0 0
 
 PROTO_8:
         0 GETIMPORT                        R1 K2 [task.spawn]
@@ -261,7 +257,7 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+34]
+        1 JUMPIF                           R0 ; [+25]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["current"]
         5 NAMECALL                         R0 R0 K1 ["get"]
@@ -269,52 +265,46 @@ PROTO_13:
         8 GETUPVAL                         R1 2
         9 MOVE                             R2 R0
        10 CALL                             R1 1 1
-       11 JUMPIFNOT                        R1 ; [+23]
+       11 JUMPIFNOT                        R1 ; [+14]
        12 FASTCALL2K                       ASSERT R0 K2 ; [+5]
        14 MOVE                             R2 R0
        15 LOADK                            R3 K2 ["Server is nil"]
        16 GETIMPORT                        R1 K4 [assert]
        18 CALL                             R1 2 0
-       19 DUPTABLE                         R3 K8 [{"_meta", "data", "level"}]
-       20 DUPTABLE                         R4 K10 [{"studio_name"}]
-       21 LOADK                            R5 K11 [""]
-       22 SETTABLEKS                       R5 R4 K9 ["studio_name"]
-       24 SETTABLEKS                       R4 R3 K5 ["_meta"]
-       26 LOADK                            R4 K12 ["Studio is not inside a place"]
-       27 SETTABLEKS                       R4 R3 K6 ["data"]
-       29 LOADK                            R4 K13 ["info"]
-       30 SETTABLEKS                       R4 R3 K7 ["level"]
-       32 NAMECALL                         R1 R0 K14 ["sendLoggingMessage"]
-       34 CALL                             R1 2 0
-       35 RETURN                           R0 0
-       36 LOADNIL                          R0
-       37 LOADNIL                          R1
-       38 NEWCLOSURE                       R2 P0
-       39 CAPTURE                          REF R0
-       40 NEWCLOSURE                       R3 P1
-       41 CAPTURE                          REF R0
-       42 CAPTURE                          UPVAL U3
-       43 CAPTURE                          UPVAL U4
-       44 NEWCLOSURE                       R4 P2
-       45 CAPTURE                          REF R0
-       46 CAPTURE                          REF R1
-       47 GETUPVAL                         R5 1
-       48 GETTABLEKS                       R5 R5 K0 ["current"]
-       50 NEWCLOSURE                       R7 P3
-       51 CAPTURE                          REF R0
-       52 CAPTURE                          REF R1
-       53 CAPTURE                          UPVAL U5
-       54 CAPTURE                          UPVAL U3
-       55 CAPTURE                          UPVAL U4
-       56 LOADB                            R8 1
-       57 NAMECALL                         R5 R5 K15 ["connect"]
-       59 CALL                             R5 3 1
-       60 NEWCLOSURE                       R6 P4
-       61 CAPTURE                          REF R0
-       62 CAPTURE                          REF R1
-       63 CAPTURE                          VAL R5
-       64 CLOSEUPVALS                      R0
-       65 RETURN                           R6 1
+       19 DUPTABLE                         R3 K10 [{["_meta"], ["data"] = "Studio is not inside a place", ["level"] = "info"}]
+       20 DUPTABLE                         R4 K13 [{["studio_name"] = ""}]
+       21 SETTABLEKS                       R4 R3 K5 ["_meta"]
+       23 NAMECALL                         R1 R0 K14 ["sendLoggingMessage"]
+       25 CALL                             R1 2 0
+       26 RETURN                           R0 0
+       27 LOADNIL                          R0
+       28 LOADNIL                          R1
+       29 NEWCLOSURE                       R2 P0
+       30 CAPTURE                          REF R0
+       31 NEWCLOSURE                       R3 P1
+       32 CAPTURE                          REF R0
+       33 CAPTURE                          UPVAL U3
+       34 CAPTURE                          UPVAL U4
+       35 NEWCLOSURE                       R4 P2
+       36 CAPTURE                          REF R0
+       37 CAPTURE                          REF R1
+       38 GETUPVAL                         R5 1
+       39 GETTABLEKS                       R5 R5 K0 ["current"]
+       41 NEWCLOSURE                       R7 P3
+       42 CAPTURE                          REF R0
+       43 CAPTURE                          REF R1
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          UPVAL U3
+       46 CAPTURE                          UPVAL U4
+       47 LOADB                            R8 1
+       48 NAMECALL                         R5 R5 K15 ["connect"]
+       50 CALL                             R5 3 1
+       51 NEWCLOSURE                       R6 P4
+       52 CAPTURE                          REF R0
+       53 CAPTURE                          REF R1
+       54 CAPTURE                          VAL R5
+       55 CLOSEUPVALS                      R0
+       56 RETURN                           R6 1
 
 PROTO_14:
         0 GETUPVAL                         R1 0

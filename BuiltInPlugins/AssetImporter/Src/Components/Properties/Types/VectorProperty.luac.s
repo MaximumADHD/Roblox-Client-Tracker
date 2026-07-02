@@ -37,16 +37,14 @@ PROTO_0:
        59 GETUPVAL                         R3 0
        60 GETTABLEKS                       R3 R3 K7 ["createElement"]
        62 GETUPVAL                         R4 2
-       63 DUPTABLE                         R5 K24 [{"Disabled", "LayoutOrder", "Size", "Text"}]
-       64 LOADB                            R6 1
-       65 SETTABLEKS                       R6 R5 K23 ["Disabled"]
-       67 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
-       69 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       71 GETTABLEKS                       R6 R0 K9 ["Size"]
-       73 SETTABLEKS                       R6 R5 K9 ["Size"]
-       75 SETTABLEKS                       R2 R5 K11 ["Text"]
-       77 CALL                             R3 2 -1
-       78 RETURN                           R3 -1
+       63 DUPTABLE                         R5 K25 [{["Disabled"] = True, ["LayoutOrder"], ["Size"], ["Text"]}]
+       64 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       66 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       68 GETTABLEKS                       R6 R0 K9 ["Size"]
+       70 SETTABLEKS                       R6 R5 K9 ["Size"]
+       72 SETTABLEKS                       R2 R5 K11 ["Text"]
+       74 CALL                             R3 2 -1
+       75 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

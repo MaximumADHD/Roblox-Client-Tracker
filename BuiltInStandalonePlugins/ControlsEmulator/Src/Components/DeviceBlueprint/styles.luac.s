@@ -18,153 +18,129 @@ MAIN:
        29 GETTABLEKS                       R3 R3 K11 ["createStyleRule"]
        31 MOVE                             R4 R3
        32 LOADK                            R5 K12 [".Component-DeviceBlueprint"]
-       33 DUPTABLE                         R6 K17 [{"BorderSizePixel", "BackgroundColor3", "Position", "AnchorPoint"}]
-       34 LOADN                            R7 0
-       35 SETTABLEKS                       R7 R6 K13 ["BorderSizePixel"]
-       37 LOADK                            R7 K18 ["$BlueprintBackgroundColor"]
-       38 SETTABLEKS                       R7 R6 K14 ["BackgroundColor3"]
-       40 GETIMPORT                        R7 K21 [UDim2.new]
-       42 LOADK                            R8 K22 [0.5]
-       43 LOADN                            R9 0
-       44 LOADN                            R10 0
-       45 LOADN                            R11 0
-       46 CALL                             R7 4 1
-       47 SETTABLEKS                       R7 R6 K15 ["Position"]
-       49 GETIMPORT                        R7 K24 [Vector2.new]
-       51 LOADK                            R8 K22 [0.5]
-       52 LOADN                            R9 0
-       53 CALL                             R7 2 1
-       54 SETTABLEKS                       R7 R6 K16 ["AnchorPoint"]
-       56 NEWTABLE                         R7 0 7
-       58 MOVE                             R8 R3
-       59 LOADK                            R9 K25 ["::UIAspectRatioConstraint"]
-       60 DUPTABLE                         R10 K27 [{"AspectRatio"}]
-       61 LOADK                            R11 K28 [1.5]
-       62 SETTABLEKS                       R11 R10 K26 ["AspectRatio"]
-       64 CALL                             R8 2 1
-       65 MOVE                             R9 R3
-       66 LOADK                            R10 K29 ["::UISizeConstraint"]
-       67 DUPTABLE                         R11 K32 [{"MaxSize", "MinSize"}]
-       68 GETIMPORT                        R12 K24 [Vector2.new]
-       70 LOADN                            R13 16
-       71 LOADN                            R14 164
-       72 CALL                             R12 2 1
-       73 SETTABLEKS                       R12 R11 K30 ["MaxSize"]
-       75 GETIMPORT                        R12 K24 [Vector2.new]
-       77 LOADN                            R13 44
-       78 LOADN                            R14 200
-       79 CALL                             R12 2 1
-       80 SETTABLEKS                       R12 R11 K31 ["MinSize"]
-       82 CALL                             R9 2 1
-       83 MOVE                             R10 R3
-       84 LOADK                            R11 K33 ["::UIListLayout"]
-       85 DUPTABLE                         R12 K37 [{"SortOrder", "HorizontalAlignment", "FillDirection"}]
-       86 GETIMPORT                        R13 K40 [Enum.SortOrder.LayoutOrder]
-       88 SETTABLEKS                       R13 R12 K34 ["SortOrder"]
-       90 GETIMPORT                        R13 K42 [Enum.HorizontalAlignment.Center]
-       92 SETTABLEKS                       R13 R12 K35 ["HorizontalAlignment"]
-       94 GETIMPORT                        R13 K44 [Enum.FillDirection.Vertical]
-       96 SETTABLEKS                       R13 R12 K36 ["FillDirection"]
-       98 CALL                             R10 2 1
-       99 MOVE                             R11 R3
-      100 LOADK                            R12 K45 ["> #ControllerLayout"]
-      101 DUPTABLE                         R13 K46 [{"BackgroundColor3"}]
-      102 LOADK                            R14 K18 ["$BlueprintBackgroundColor"]
-      103 SETTABLEKS                       R14 R13 K14 ["BackgroundColor3"]
-      105 NEWTABLE                         R14 0 1
-      107 MOVE                             R15 R3
-      108 LOADK                            R16 K47 [".Mappings-Visible::UIPadding"]
-      109 DUPTABLE                         R17 K52 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      110 GETIMPORT                        R18 K54 [UDim.new]
-      112 LOADN                            R19 0
-      113 LOADN                            R20 0
-      114 CALL                             R18 2 1
-      115 SETTABLEKS                       R18 R17 K48 ["PaddingTop"]
-      117 GETIMPORT                        R18 K54 [UDim.new]
-      119 LOADN                            R19 0
-      120 LOADN                            R20 0
-      121 CALL                             R18 2 1
-      122 SETTABLEKS                       R18 R17 K49 ["PaddingBottom"]
-      124 LOADK                            R18 K55 ["$BlueprintWithMappingsPadding"]
-      125 SETTABLEKS                       R18 R17 K50 ["PaddingLeft"]
-      127 LOADK                            R18 K55 ["$BlueprintWithMappingsPadding"]
-      128 SETTABLEKS                       R18 R17 K51 ["PaddingRight"]
-      130 CALL                             R15 2 -1
-      131 SETLIST                          R14 R15 -1 [1]
-      133 CALL                             R11 3 1
-      134 MOVE                             R12 R3
-      135 LOADK                            R13 K56 [">> #GamepadBlueprint"]
-      136 DUPTABLE                         R14 K60 [{"AnchorPoint", "Position", "Size", "ZIndex", "BackgroundTransparency"}]
-      137 GETIMPORT                        R15 K24 [Vector2.new]
-      139 LOADK                            R16 K22 [0.5]
-      140 LOADN                            R17 0
-      141 CALL                             R15 2 1
-      142 SETTABLEKS                       R15 R14 K16 ["AnchorPoint"]
-      144 GETIMPORT                        R15 K21 [UDim2.new]
-      146 LOADK                            R16 K22 [0.5]
-      147 LOADN                            R17 0
-      148 LOADN                            R18 0
-      149 LOADN                            R19 0
-      150 CALL                             R15 4 1
-      151 SETTABLEKS                       R15 R14 K15 ["Position"]
-      153 GETIMPORT                        R15 K21 [UDim2.new]
-      155 LOADN                            R16 1
-      156 LOADN                            R17 0
-      157 LOADK                            R18 K61 [0.793]
-      158 LOADN                            R19 0
-      159 CALL                             R15 4 1
-      160 SETTABLEKS                       R15 R14 K57 ["Size"]
-      162 LOADN                            R15 255
-      163 SETTABLEKS                       R15 R14 K58 ["ZIndex"]
-      165 LOADN                            R15 1
-      166 SETTABLEKS                       R15 R14 K59 ["BackgroundTransparency"]
-      168 CALL                             R12 2 1
-      169 MOVE                             R13 R3
-      170 LOADK                            R14 K62 ["> TextLabel"]
-      171 DUPTABLE                         R15 K68 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-      172 GETTABLEKS                       R16 R2 K69 ["normalFontSize"]
-      174 SETTABLEKS                       R16 R15 K63 ["TextSize"]
-      176 GETTABLEKS                       R16 R2 K70 ["defaultFont"]
-      178 SETTABLEKS                       R16 R15 K64 ["Font"]
-      180 LOADK                            R16 K71 ["$TextPrimary"]
-      181 SETTABLEKS                       R16 R15 K65 ["TextColor3"]
-      183 GETIMPORT                        R16 K21 [UDim2.new]
-      185 LOADN                            R17 1
-      186 LOADN                            R18 0
-      187 LOADN                            R19 0
-      188 LOADN                            R20 30
-      189 CALL                             R16 4 1
-      190 SETTABLEKS                       R16 R15 K57 ["Size"]
-      192 LOADN                            R16 1
-      193 SETTABLEKS                       R16 R15 K59 ["BackgroundTransparency"]
-      195 GETIMPORT                        R16 K72 [Enum.TextXAlignment.Center]
-      197 SETTABLEKS                       R16 R15 K66 ["TextXAlignment"]
-      199 GETIMPORT                        R16 K73 [Enum.TextYAlignment.Center]
-      201 SETTABLEKS                       R16 R15 K67 ["TextYAlignment"]
-      203 CALL                             R13 2 1
-      204 MOVE                             R14 R3
-      205 LOADK                            R15 K74 ["> TextButton"]
-      206 DUPTABLE                         R16 K68 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-      207 GETTABLEKS                       R17 R2 K69 ["normalFontSize"]
-      209 SETTABLEKS                       R17 R16 K63 ["TextSize"]
-      211 GETTABLEKS                       R17 R2 K70 ["defaultFont"]
-      213 SETTABLEKS                       R17 R16 K64 ["Font"]
-      215 LOADK                            R17 K71 ["$TextPrimary"]
-      216 SETTABLEKS                       R17 R16 K65 ["TextColor3"]
-      218 GETIMPORT                        R17 K21 [UDim2.new]
-      220 LOADN                            R18 1
-      221 LOADN                            R19 0
-      222 LOADN                            R20 0
-      223 LOADN                            R21 60
-      224 CALL                             R17 4 1
-      225 SETTABLEKS                       R17 R16 K57 ["Size"]
-      227 LOADN                            R17 1
-      228 SETTABLEKS                       R17 R16 K59 ["BackgroundTransparency"]
-      230 GETIMPORT                        R17 K72 [Enum.TextXAlignment.Center]
-      232 SETTABLEKS                       R17 R16 K66 ["TextXAlignment"]
-      234 GETIMPORT                        R17 K73 [Enum.TextYAlignment.Center]
-      236 SETTABLEKS                       R17 R16 K67 ["TextYAlignment"]
-      238 CALL                             R14 2 -1
-      239 SETLIST                          R7 R8 -1 [1]
-      241 CALL                             R4 3 -1
-      242 RETURN                           R4 -1
+       33 DUPTABLE                         R6 K19 [{["BorderSizePixel"] = 0, ["BackgroundColor3"] = "$BlueprintBackgroundColor", ["Position"], ["AnchorPoint"]}]
+       34 GETIMPORT                        R7 K22 [UDim2.new]
+       36 LOADK                            R8 K23 [0.5]
+       37 LOADN                            R9 0
+       38 LOADN                            R10 0
+       39 LOADN                            R11 0
+       40 CALL                             R7 4 1
+       41 SETTABLEKS                       R7 R6 K17 ["Position"]
+       43 GETIMPORT                        R7 K25 [Vector2.new]
+       45 LOADK                            R8 K23 [0.5]
+       46 LOADN                            R9 0
+       47 CALL                             R7 2 1
+       48 SETTABLEKS                       R7 R6 K18 ["AnchorPoint"]
+       50 NEWTABLE                         R7 0 7
+       52 MOVE                             R8 R3
+       53 LOADK                            R9 K26 ["::UIAspectRatioConstraint"]
+       54 DUPTABLE                         R10 K29 [{["AspectRatio"] = 1.5}]
+       55 CALL                             R8 2 1
+       56 MOVE                             R9 R3
+       57 LOADK                            R10 K30 ["::UISizeConstraint"]
+       58 DUPTABLE                         R11 K33 [{"MaxSize", "MinSize"}]
+       59 GETIMPORT                        R12 K25 [Vector2.new]
+       61 LOADN                            R13 10000
+       62 LOADN                            R14 420
+       63 CALL                             R12 2 1
+       64 SETTABLEKS                       R12 R11 K31 ["MaxSize"]
+       66 GETIMPORT                        R12 K25 [Vector2.new]
+       68 LOADN                            R13 300
+       69 LOADN                            R14 200
+       70 CALL                             R12 2 1
+       71 SETTABLEKS                       R12 R11 K32 ["MinSize"]
+       73 CALL                             R9 2 1
+       74 MOVE                             R10 R3
+       75 LOADK                            R11 K34 ["::UIListLayout"]
+       76 DUPTABLE                         R12 K38 [{"SortOrder", "HorizontalAlignment", "FillDirection"}]
+       77 GETIMPORT                        R13 K41 [Enum.SortOrder.LayoutOrder]
+       79 SETTABLEKS                       R13 R12 K35 ["SortOrder"]
+       81 GETIMPORT                        R13 K43 [Enum.HorizontalAlignment.Center]
+       83 SETTABLEKS                       R13 R12 K36 ["HorizontalAlignment"]
+       85 GETIMPORT                        R13 K45 [Enum.FillDirection.Vertical]
+       87 SETTABLEKS                       R13 R12 K37 ["FillDirection"]
+       89 CALL                             R10 2 1
+       90 MOVE                             R11 R3
+       91 LOADK                            R12 K46 ["> #ControllerLayout"]
+       92 DUPTABLE                         R13 K47 [{["BackgroundColor3"] = "$BlueprintBackgroundColor"}]
+       93 NEWTABLE                         R14 0 1
+       95 MOVE                             R15 R3
+       96 LOADK                            R16 K48 [".Mappings-Visible::UIPadding"]
+       97 DUPTABLE                         R17 K54 [{["PaddingTop"], ["PaddingBottom"], ["PaddingLeft"] = "$BlueprintWithMappingsPadding", ["PaddingRight"] = "$BlueprintWithMappingsPadding"}]
+       98 GETIMPORT                        R18 K56 [UDim.new]
+      100 LOADN                            R19 0
+      101 LOADN                            R20 0
+      102 CALL                             R18 2 1
+      103 SETTABLEKS                       R18 R17 K49 ["PaddingTop"]
+      105 GETIMPORT                        R18 K56 [UDim.new]
+      107 LOADN                            R19 0
+      108 LOADN                            R20 0
+      109 CALL                             R18 2 1
+      110 SETTABLEKS                       R18 R17 K50 ["PaddingBottom"]
+      112 CALL                             R15 2 -1
+      113 SETLIST                          R14 R15 -1 [1]
+      115 CALL                             R11 3 1
+      116 MOVE                             R12 R3
+      117 LOADK                            R13 K57 [">> #GamepadBlueprint"]
+      118 DUPTABLE                         R14 K63 [{["AnchorPoint"], ["Position"], ["Size"], ["ZIndex"] = -1, ["BackgroundTransparency"] = 1}]
+      119 GETIMPORT                        R15 K25 [Vector2.new]
+      121 LOADK                            R16 K23 [0.5]
+      122 LOADN                            R17 0
+      123 CALL                             R15 2 1
+      124 SETTABLEKS                       R15 R14 K18 ["AnchorPoint"]
+      126 GETIMPORT                        R15 K22 [UDim2.new]
+      128 LOADK                            R16 K23 [0.5]
+      129 LOADN                            R17 0
+      130 LOADN                            R18 0
+      131 LOADN                            R19 0
+      132 CALL                             R15 4 1
+      133 SETTABLEKS                       R15 R14 K17 ["Position"]
+      135 GETIMPORT                        R15 K22 [UDim2.new]
+      137 LOADN                            R16 1
+      138 LOADN                            R17 0
+      139 LOADK                            R18 K64 [0.793]
+      140 LOADN                            R19 0
+      141 CALL                             R15 4 1
+      142 SETTABLEKS                       R15 R14 K58 ["Size"]
+      144 CALL                             R12 2 1
+      145 MOVE                             R13 R3
+      146 LOADK                            R14 K65 ["> TextLabel"]
+      147 DUPTABLE                         R15 K72 [{["TextSize"], ["Font"], ["TextColor3"] = "$TextPrimary", ["Size"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"]}]
+      148 GETTABLEKS                       R16 R2 K73 ["normalFontSize"]
+      150 SETTABLEKS                       R16 R15 K66 ["TextSize"]
+      152 GETTABLEKS                       R16 R2 K74 ["defaultFont"]
+      154 SETTABLEKS                       R16 R15 K67 ["Font"]
+      156 GETIMPORT                        R16 K22 [UDim2.new]
+      158 LOADN                            R17 1
+      159 LOADN                            R18 0
+      160 LOADN                            R19 0
+      161 LOADN                            R20 30
+      162 CALL                             R16 4 1
+      163 SETTABLEKS                       R16 R15 K58 ["Size"]
+      165 GETIMPORT                        R16 K75 [Enum.TextXAlignment.Center]
+      167 SETTABLEKS                       R16 R15 K70 ["TextXAlignment"]
+      169 GETIMPORT                        R16 K76 [Enum.TextYAlignment.Center]
+      171 SETTABLEKS                       R16 R15 K71 ["TextYAlignment"]
+      173 CALL                             R13 2 1
+      174 MOVE                             R14 R3
+      175 LOADK                            R15 K77 ["> TextButton"]
+      176 DUPTABLE                         R16 K72 [{["TextSize"], ["Font"], ["TextColor3"] = "$TextPrimary", ["Size"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"]}]
+      177 GETTABLEKS                       R17 R2 K73 ["normalFontSize"]
+      179 SETTABLEKS                       R17 R16 K66 ["TextSize"]
+      181 GETTABLEKS                       R17 R2 K74 ["defaultFont"]
+      183 SETTABLEKS                       R17 R16 K67 ["Font"]
+      185 GETIMPORT                        R17 K22 [UDim2.new]
+      187 LOADN                            R18 1
+      188 LOADN                            R19 0
+      189 LOADN                            R20 0
+      190 LOADN                            R21 60
+      191 CALL                             R17 4 1
+      192 SETTABLEKS                       R17 R16 K58 ["Size"]
+      194 GETIMPORT                        R17 K75 [Enum.TextXAlignment.Center]
+      196 SETTABLEKS                       R17 R16 K70 ["TextXAlignment"]
+      198 GETIMPORT                        R17 K76 [Enum.TextYAlignment.Center]
+      200 SETTABLEKS                       R17 R16 K71 ["TextYAlignment"]
+      202 CALL                             R14 2 -1
+      203 SETLIST                          R7 R8 -1 [1]
+      205 CALL                             R4 3 -1
+      206 RETURN                           R4 -1

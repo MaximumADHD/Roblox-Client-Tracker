@@ -23,71 +23,61 @@ PROTO_0:
        35 GETUPVAL                         R10 0
        36 GETTABLEKS                       R10 R10 K15 ["createElement"]
        38 LOADK                            R11 K16 ["Frame"]
-       39 DUPTABLE                         R12 K20 [{"BackgroundColor3", "ZIndex", "Position", "AnchorPoint", "BorderSizePixel", "Size"}]
+       39 DUPTABLE                         R12 K21 [{["BackgroundColor3"], ["ZIndex"], ["Position"], ["AnchorPoint"], ["BorderSizePixel"] = 0, ["Size"]}]
        40 SETTABLEKS                       R9 R12 K17 ["BackgroundColor3"]
        42 SETTABLEKS                       R6 R12 K5 ["ZIndex"]
        44 SETTABLEKS                       R4 R12 K3 ["Position"]
-       46 GETIMPORT                        R13 K22 [Vector2.new]
+       46 GETIMPORT                        R13 K23 [Vector2.new]
        48 LOADN                            R14 0
-       49 LOADK                            R15 K23 [0.5]
+       49 LOADK                            R15 K24 [0.5]
        50 CALL                             R13 2 1
        51 SETTABLEKS                       R13 R12 K18 ["AnchorPoint"]
-       53 LOADN                            R13 0
-       54 SETTABLEKS                       R13 R12 K19 ["BorderSizePixel"]
-       56 SETTABLEKS                       R5 R12 K4 ["Size"]
-       58 DUPTABLE                         R13 K26 [{"LeftDiamond", "RightDiamond"}]
-       59 GETUPVAL                         R14 0
-       60 GETTABLEKS                       R14 R14 K15 ["createElement"]
-       62 LOADK                            R15 K16 ["Frame"]
-       63 DUPTABLE                         R16 K28 [{"BackgroundColor3", "Position", "ZIndex", "Size", "BorderSizePixel", "AnchorPoint", "Rotation"}]
-       64 SETTABLEKS                       R9 R16 K17 ["BackgroundColor3"]
-       66 GETIMPORT                        R17 K8 [UDim2.new]
-       68 LOADN                            R18 0
-       69 LOADN                            R19 0
-       70 LOADK                            R20 K23 [0.5]
-       71 LOADN                            R21 0
-       72 CALL                             R17 4 1
-       73 SETTABLEKS                       R17 R16 K3 ["Position"]
-       75 SETTABLEKS                       R6 R16 K5 ["ZIndex"]
-       77 SETTABLEKS                       R7 R16 K4 ["Size"]
-       79 LOADN                            R17 0
-       80 SETTABLEKS                       R17 R16 K19 ["BorderSizePixel"]
-       82 GETIMPORT                        R17 K22 [Vector2.new]
-       84 LOADK                            R18 K23 [0.5]
-       85 LOADK                            R19 K23 [0.5]
-       86 CALL                             R17 2 1
-       87 SETTABLEKS                       R17 R16 K18 ["AnchorPoint"]
-       89 LOADN                            R17 45
-       90 SETTABLEKS                       R17 R16 K27 ["Rotation"]
-       92 CALL                             R14 2 1
-       93 SETTABLEKS                       R14 R13 K24 ["LeftDiamond"]
-       95 GETUPVAL                         R14 0
-       96 GETTABLEKS                       R14 R14 K15 ["createElement"]
-       98 LOADK                            R15 K16 ["Frame"]
-       99 DUPTABLE                         R16 K28 [{"BackgroundColor3", "Position", "ZIndex", "Size", "BorderSizePixel", "AnchorPoint", "Rotation"}]
-      100 SETTABLEKS                       R9 R16 K17 ["BackgroundColor3"]
-      102 GETIMPORT                        R17 K8 [UDim2.new]
-      104 LOADN                            R18 1
-      105 LOADN                            R19 0
-      106 LOADK                            R20 K23 [0.5]
-      107 LOADN                            R21 0
-      108 CALL                             R17 4 1
-      109 SETTABLEKS                       R17 R16 K3 ["Position"]
-      111 SETTABLEKS                       R6 R16 K5 ["ZIndex"]
-      113 SETTABLEKS                       R7 R16 K4 ["Size"]
-      115 LOADN                            R17 0
-      116 SETTABLEKS                       R17 R16 K19 ["BorderSizePixel"]
-      118 GETIMPORT                        R17 K22 [Vector2.new]
-      120 LOADK                            R18 K23 [0.5]
-      121 LOADK                            R19 K23 [0.5]
-      122 CALL                             R17 2 1
-      123 SETTABLEKS                       R17 R16 K18 ["AnchorPoint"]
-      125 LOADN                            R17 45
-      126 SETTABLEKS                       R17 R16 K27 ["Rotation"]
-      128 CALL                             R14 2 1
-      129 SETTABLEKS                       R14 R13 K25 ["RightDiamond"]
-      131 CALL                             R10 3 -1
-      132 RETURN                           R10 -1
+       53 SETTABLEKS                       R5 R12 K4 ["Size"]
+       55 DUPTABLE                         R13 K27 [{"LeftDiamond", "RightDiamond"}]
+       56 GETUPVAL                         R14 0
+       57 GETTABLEKS                       R14 R14 K15 ["createElement"]
+       59 LOADK                            R15 K16 ["Frame"]
+       60 DUPTABLE                         R16 K30 [{["BackgroundColor3"], ["Position"], ["ZIndex"], ["Size"], ["BorderSizePixel"] = 0, ["AnchorPoint"], ["Rotation"] = 45}]
+       61 SETTABLEKS                       R9 R16 K17 ["BackgroundColor3"]
+       63 GETIMPORT                        R17 K8 [UDim2.new]
+       65 LOADN                            R18 0
+       66 LOADN                            R19 0
+       67 LOADK                            R20 K24 [0.5]
+       68 LOADN                            R21 0
+       69 CALL                             R17 4 1
+       70 SETTABLEKS                       R17 R16 K3 ["Position"]
+       72 SETTABLEKS                       R6 R16 K5 ["ZIndex"]
+       74 SETTABLEKS                       R7 R16 K4 ["Size"]
+       76 GETIMPORT                        R17 K23 [Vector2.new]
+       78 LOADK                            R18 K24 [0.5]
+       79 LOADK                            R19 K24 [0.5]
+       80 CALL                             R17 2 1
+       81 SETTABLEKS                       R17 R16 K18 ["AnchorPoint"]
+       83 CALL                             R14 2 1
+       84 SETTABLEKS                       R14 R13 K25 ["LeftDiamond"]
+       86 GETUPVAL                         R14 0
+       87 GETTABLEKS                       R14 R14 K15 ["createElement"]
+       89 LOADK                            R15 K16 ["Frame"]
+       90 DUPTABLE                         R16 K30 [{["BackgroundColor3"], ["Position"], ["ZIndex"], ["Size"], ["BorderSizePixel"] = 0, ["AnchorPoint"], ["Rotation"] = 45}]
+       91 SETTABLEKS                       R9 R16 K17 ["BackgroundColor3"]
+       93 GETIMPORT                        R17 K8 [UDim2.new]
+       95 LOADN                            R18 1
+       96 LOADN                            R19 0
+       97 LOADK                            R20 K24 [0.5]
+       98 LOADN                            R21 0
+       99 CALL                             R17 4 1
+      100 SETTABLEKS                       R17 R16 K3 ["Position"]
+      102 SETTABLEKS                       R6 R16 K5 ["ZIndex"]
+      104 SETTABLEKS                       R7 R16 K4 ["Size"]
+      106 GETIMPORT                        R17 K23 [Vector2.new]
+      108 LOADK                            R18 K24 [0.5]
+      109 LOADK                            R19 K24 [0.5]
+      110 CALL                             R17 2 1
+      111 SETTABLEKS                       R17 R16 K18 ["AnchorPoint"]
+      113 CALL                             R14 2 1
+      114 SETTABLEKS                       R14 R13 K26 ["RightDiamond"]
+      116 CALL                             R10 3 -1
+      117 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

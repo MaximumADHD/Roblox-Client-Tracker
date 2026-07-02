@@ -20,7 +20,7 @@ MAIN:
         4 SETTABLEKS                       R1 R0 K0 ["rowHeight"]
         6 LOADN                            R1 23
         7 SETTABLEKS                       R1 R0 K1 ["headerHeight"]
-        9 LOADN                            R1 252
+        9 LOADN                            R1 -4
        10 SETTABLEKS                       R1 R0 K2 ["columnWidthOffset"]
        12 LOADN                            R1 12
        13 SETTABLEKS                       R1 R0 K3 ["scrollBarThickness"]

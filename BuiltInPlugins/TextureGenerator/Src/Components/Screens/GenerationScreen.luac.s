@@ -533,21 +533,19 @@ PROTO_7:
       306 CALL                             R24 3 1
       307 SETTABLEKS                       R24 R23 K39 ["Main"]
       309 MOVE                             R24 R14
-      310 JUMPIFNOT                        R24 ; [+17]
+      310 JUMPIFNOT                        R24 ; [+14]
       311 GETUPVAL                         R24 4
       312 GETTABLEKS                       R24 R24 K28 ["createElement"]
       314 GETUPVAL                         R25 22
-      315 DUPTABLE                         R26 K65 [{"Title", "Description", "Style", "ZIndex", "OnClose"}]
+      315 DUPTABLE                         R26 K66 [{["Title"], ["Description"], ["Style"], ["ZIndex"] = 2, ["OnClose"]}]
       316 SETTABLEKS                       R15 R26 K60 ["Title"]
       318 SETTABLEKS                       R16 R26 K61 ["Description"]
       320 SETTABLEKS                       R17 R26 K62 ["Style"]
-      322 LOADN                            R27 2
-      323 SETTABLEKS                       R27 R26 K63 ["ZIndex"]
-      325 SETTABLEKS                       R18 R26 K64 ["OnClose"]
-      327 CALL                             R24 2 1
-      328 SETTABLEKS                       R24 R23 K12 ["Notice"]
-      330 CALL                             R20 3 -1
-      331 RETURN                           R20 -1
+      322 SETTABLEKS                       R18 R26 K65 ["OnClose"]
+      324 CALL                             R24 2 1
+      325 SETTABLEKS                       R24 R23 K12 ["Notice"]
+      327 CALL                             R20 3 -1
+      328 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

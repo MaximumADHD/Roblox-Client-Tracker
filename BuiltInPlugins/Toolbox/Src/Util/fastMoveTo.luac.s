@@ -12,13 +12,13 @@ PROTO_0:
        13 NAMECALL                         R2 R0 K2 ["GetBoundingBox"]
        15 CALL                             R2 1 2
        16 GETTABLEKS                       R4 R3 K3 ["X"]
-       18 LOADN                            R5 0
+       18 LOADN                            R5 2048
        19 JUMPIFLT                         R5 R4 ; [+11]
        21 GETTABLEKS                       R4 R3 K4 ["Y"]
-       23 LOADN                            R5 0
+       23 LOADN                            R5 2048
        24 JUMPIFLT                         R5 R4 ; [+6]
        26 GETTABLEKS                       R4 R3 K5 ["Z"]
-       28 LOADN                            R5 0
+       28 LOADN                            R5 2048
        29 JUMPIFNOTLT                      R5 R4 ; [+9]
        31 GETIMPORT                        R6 K8 [CFrame.new]
        33 MOVE                             R7 R1

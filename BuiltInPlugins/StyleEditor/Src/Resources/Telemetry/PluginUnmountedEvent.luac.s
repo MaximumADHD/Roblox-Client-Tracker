@@ -71,28 +71,22 @@ MAIN:
        80 GETTABLEKS                       R13 R2 K25 ["number"]
        82 SETTABLEKS                       R13 R12 K23 ["unmatchedFocusEndCount"]
        84 CALL                             R11 1 1
-       85 DUPTABLE                         R12 K32 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-       86 LOADK                            R13 K33 ["StyleEditor_PluginUnmounted"]
-       87 SETTABLEKS                       R13 R12 K26 ["eventName"]
-       89 NEWTABLE                         R13 0 2
-       91 GETTABLEKS                       R14 R5 K34 ["Points"]
-       93 GETTABLEKS                       R15 R5 K35 ["EventIngest"]
-       95 SETLIST                          R13 R14 2 [1]
-       97 SETTABLEKS                       R13 R12 K27 ["backends"]
-       99 SETTABLEKS                       R10 R12 K28 ["throttlingPercentage"]
-      101 NEWTABLE                         R13 0 3
-      103 LOADN                            R14 24
-      104 LOADN                            R15 3
-      105 LOADN                            R16 20
-      106 SETLIST                          R13 R14 3 [1]
-      108 SETTABLEKS                       R13 R12 K29 ["lastUpdated"]
-      110 LOADK                            R13 K36 ["Root Roact component unmounted."]
-      111 SETTABLEKS                       R13 R12 K30 ["description"]
-      113 LOADK                            R13 K37 [""]
-      114 SETTABLEKS                       R13 R12 K31 ["links"]
-      116 DUPCLOSURE                       R13 K38 [PROTO_0]
-      117 CAPTURE                          VAL R11
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R6
-      121 RETURN                           R13 1
+       85 DUPTABLE                         R12 K35 [{["eventName"] = "StyleEditor_PluginUnmounted", ["backends"], ["throttlingPercentage"], ["lastUpdated"], ["description"] = "Root Roact component unmounted.", ["links"] = ""}]
+       86 NEWTABLE                         R13 0 2
+       88 GETTABLEKS                       R14 R5 K36 ["Points"]
+       90 GETTABLEKS                       R15 R5 K37 ["EventIngest"]
+       92 SETLIST                          R13 R14 2 [1]
+       94 SETTABLEKS                       R13 R12 K28 ["backends"]
+       96 SETTABLEKS                       R10 R12 K29 ["throttlingPercentage"]
+       98 NEWTABLE                         R13 0 3
+      100 LOADN                            R14 24
+      101 LOADN                            R15 3
+      102 LOADN                            R16 20
+      103 SETLIST                          R13 R14 3 [1]
+      105 SETTABLEKS                       R13 R12 K30 ["lastUpdated"]
+      107 DUPCLOSURE                       R13 K38 [PROTO_0]
+      108 CAPTURE                          VAL R11
+      109 CAPTURE                          VAL R4
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R6
+      112 RETURN                           R13 1

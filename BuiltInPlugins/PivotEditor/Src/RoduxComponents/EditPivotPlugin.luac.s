@@ -11,33 +11,29 @@ PROTO_0:
        13 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R3 K1 [{"active"}]
-        1 LOADB                            R4 0
-        2 SETTABLEKS                       R4 R3 K0 ["active"]
-        4 NAMECALL                         R1 R0 K2 ["setState"]
-        6 CALL                             R1 2 0
-        7 NEWCLOSURE                       R1 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R1 R0 K3 ["toggleActive"]
-       11 GETUPVAL                         R1 0
-       12 CALL                             R1 0 1
-       13 JUMPIFNOT                        R1 ; [+11]
-       14 GETTABLEKS                       R1 R0 K4 ["props"]
-       16 GETTABLEKS                       R1 R1 K5 ["pluginLoaderContext"]
-       18 GETTABLEKS                       R1 R1 K6 ["mainButtonClickedSignal"]
-       20 GETTABLEKS                       R3 R0 K3 ["toggleActive"]
-       22 NAMECALL                         R1 R1 K7 ["Connect"]
-       24 CALL                             R1 2 0
-       25 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = False}]
+        1 NAMECALL                         R1 R0 K3 ["setState"]
+        3 CALL                             R1 2 0
+        4 NEWCLOSURE                       R1 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R1 R0 K4 ["toggleActive"]
+        8 GETUPVAL                         R1 0
+        9 CALL                             R1 0 1
+       10 JUMPIFNOT                        R1 ; [+11]
+       11 GETTABLEKS                       R1 R0 K5 ["props"]
+       13 GETTABLEKS                       R1 R1 K6 ["pluginLoaderContext"]
+       15 GETTABLEKS                       R1 R1 K7 ["mainButtonClickedSignal"]
+       17 GETTABLEKS                       R3 R0 K4 ["toggleActive"]
+       19 NAMECALL                         R1 R1 K8 ["Connect"]
+       21 CALL                             R1 2 0
+       22 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"active"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["active"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -182,50 +178,34 @@ PROTO_9:
         0 NEWTABLE                         R1 2 0
         2 GETUPVAL                         R3 0
         3 CALL                             R3 0 1
-        4 JUMPIF                           R3 ; [+30]
+        4 JUMPIF                           R3 ; [+21]
         5 GETUPVAL                         R2 1
         6 GETTABLEKS                       R2 R2 K0 ["createElement"]
         8 GETUPVAL                         R3 2
-        9 DUPTABLE                         R4 K7 [{"Toolbar", "Title", "Tooltip", "Icon", "Active", "OnClick"}]
+        9 DUPTABLE                         R4 K9 [{["Toolbar"], ["Title"] = "EditPivot", ["Tooltip"] = "", ["Icon"] = "", ["Active"], ["OnClick"]}]
        10 SETTABLEKS                       R0 R4 K1 ["Toolbar"]
-       12 LOADK                            R5 K8 ["EditPivot"]
-       13 SETTABLEKS                       R5 R4 K2 ["Title"]
-       15 LOADK                            R5 K9 [""]
-       16 SETTABLEKS                       R5 R4 K3 ["Tooltip"]
-       18 LOADK                            R5 K9 [""]
-       19 SETTABLEKS                       R5 R4 K4 ["Icon"]
-       21 GETUPVAL                         R5 3
-       22 GETTABLEKS                       R5 R5 K10 ["state"]
-       24 GETTABLEKS                       R5 R5 K11 ["active"]
-       26 SETTABLEKS                       R5 R4 K5 ["Active"]
-       28 GETUPVAL                         R5 3
-       29 GETTABLEKS                       R5 R5 K12 ["toggleActive"]
-       31 SETTABLEKS                       R5 R4 K6 ["OnClick"]
-       33 CALL                             R2 2 1
-       34 JUMP                             ; [+1]
-       35 LOADNIL                          R2
-       36 SETTABLEKS                       R2 R1 K8 ["EditPivot"]
-       38 GETUPVAL                         R2 1
-       39 GETTABLEKS                       R2 R2 K0 ["createElement"]
-       41 GETUPVAL                         R3 2
-       42 DUPTABLE                         R4 K14 [{"Toolbar", "Title", "Tooltip", "Icon", "Active", "Enabled", "OnClick"}]
-       43 SETTABLEKS                       R0 R4 K1 ["Toolbar"]
-       45 LOADK                            R5 K15 ["ClearPivot"]
-       46 SETTABLEKS                       R5 R4 K2 ["Title"]
-       48 LOADK                            R5 K9 [""]
-       49 SETTABLEKS                       R5 R4 K3 ["Tooltip"]
-       51 LOADK                            R5 K9 [""]
-       52 SETTABLEKS                       R5 R4 K4 ["Icon"]
-       54 LOADB                            R5 0
-       55 SETTABLEKS                       R5 R4 K5 ["Active"]
-       57 LOADB                            R5 1
-       58 SETTABLEKS                       R5 R4 K13 ["Enabled"]
-       60 NEWCLOSURE                       R5 P0
-       61 CAPTURE                          UPVAL U3
-       62 SETTABLEKS                       R5 R4 K6 ["OnClick"]
-       64 CALL                             R2 2 1
-       65 SETTABLEKS                       R2 R1 K15 ["ClearPivot"]
-       67 RETURN                           R1 1
+       12 GETUPVAL                         R5 3
+       13 GETTABLEKS                       R5 R5 K10 ["state"]
+       15 GETTABLEKS                       R5 R5 K11 ["active"]
+       17 SETTABLEKS                       R5 R4 K7 ["Active"]
+       19 GETUPVAL                         R5 3
+       20 GETTABLEKS                       R5 R5 K12 ["toggleActive"]
+       22 SETTABLEKS                       R5 R4 K8 ["OnClick"]
+       24 CALL                             R2 2 1
+       25 JUMP                             ; [+1]
+       26 LOADNIL                          R2
+       27 SETTABLEKS                       R2 R1 K3 ["EditPivot"]
+       29 GETUPVAL                         R2 1
+       30 GETTABLEKS                       R2 R2 K0 ["createElement"]
+       32 GETUPVAL                         R3 2
+       33 DUPTABLE                         R4 K17 [{["Toolbar"], ["Title"] = "ClearPivot", ["Tooltip"] = "", ["Icon"] = "", ["Active"] = False, ["Enabled"] = True, ["OnClick"]}]
+       34 SETTABLEKS                       R0 R4 K1 ["Toolbar"]
+       36 NEWCLOSURE                       R5 P0
+       37 CAPTURE                          UPVAL U3
+       38 SETTABLEKS                       R5 R4 K8 ["OnClick"]
+       40 CALL                             R2 2 1
+       41 SETTABLEKS                       R2 R1 K13 ["ClearPivot"]
+       43 RETURN                           R1 1
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -234,27 +214,25 @@ PROTO_10:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K4 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K7 [{"Title", "RenderButtons"}]
-        9 LOADK                            R6 K8 ["Pivot"]
-       10 SETTABLEKS                       R6 R5 K5 ["Title"]
-       12 NEWCLOSURE                       R6 P0
-       13 CAPTURE                          UPVAL U2
-       14 CAPTURE                          UPVAL U0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R6 R5 K6 ["RenderButtons"]
-       19 CALL                             R3 2 1
-       20 SETTABLEKS                       R3 R2 K1 ["Toolbar"]
-       22 GETTABLEKS                       R3 R0 K9 ["state"]
-       24 GETTABLEKS                       R3 R3 K10 ["active"]
-       26 JUMPIFNOT                        R3 ; [+5]
-       27 GETUPVAL                         R3 0
-       28 GETTABLEKS                       R3 R3 K4 ["createElement"]
-       30 GETUPVAL                         R4 4
-       31 CALL                             R3 1 1
-       32 SETTABLEKS                       R3 R2 K2 ["Session"]
-       34 CALL                             R1 1 -1
-       35 RETURN                           R1 -1
+        8 DUPTABLE                         R5 K8 [{["Title"] = "Pivot", ["RenderButtons"]}]
+        9 NEWCLOSURE                       R6 P0
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          UPVAL U0
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R6 R5 K7 ["RenderButtons"]
+       16 CALL                             R3 2 1
+       17 SETTABLEKS                       R3 R2 K1 ["Toolbar"]
+       19 GETTABLEKS                       R3 R0 K9 ["state"]
+       21 GETTABLEKS                       R3 R3 K10 ["active"]
+       23 JUMPIFNOT                        R3 ; [+5]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K4 ["createElement"]
+       27 GETUPVAL                         R4 4
+       28 CALL                             R3 1 1
+       29 SETTABLEKS                       R3 R2 K2 ["Session"]
+       31 CALL                             R1 1 -1
+       32 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

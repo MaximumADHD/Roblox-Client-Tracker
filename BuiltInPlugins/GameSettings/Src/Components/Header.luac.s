@@ -26,24 +26,20 @@ PROTO_0:
        38 GETTABLEKS                       R7 R7 K15 ["join"]
        40 GETTABLEKS                       R8 R2 K3 ["fontStyle"]
        42 GETTABLEKS                       R8 R8 K4 ["Header"]
-       44 DUPTABLE                         R9 K23 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+       44 DUPTABLE                         R9 K25 [{["Size"], ["Text"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextXAlignment"], ["TextYAlignment"], ["LayoutOrder"]}]
        45 SETTABLEKS                       R3 R9 K16 ["Size"]
        47 GETTABLEKS                       R10 R1 K2 ["Title"]
        49 SETTABLEKS                       R10 R9 K17 ["Text"]
-       51 LOADN                            R10 1
-       52 SETTABLEKS                       R10 R9 K18 ["BackgroundTransparency"]
-       54 LOADN                            R10 0
-       55 SETTABLEKS                       R10 R9 K19 ["BorderSizePixel"]
-       57 GETIMPORT                        R10 K26 [Enum.TextXAlignment.Left]
-       59 SETTABLEKS                       R10 R9 K20 ["TextXAlignment"]
-       61 GETIMPORT                        R10 K28 [Enum.TextYAlignment.Bottom]
-       63 SETTABLEKS                       R10 R9 K21 ["TextYAlignment"]
-       65 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
-       67 ORK                              R10 R11 K29 [1]
-       68 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
-       70 CALL                             R7 2 -1
-       71 CALL                             R5 -1 -1
-       72 RETURN                           R5 -1
+       51 GETIMPORT                        R10 K28 [Enum.TextXAlignment.Left]
+       53 SETTABLEKS                       R10 R9 K22 ["TextXAlignment"]
+       55 GETIMPORT                        R10 K30 [Enum.TextYAlignment.Bottom]
+       57 SETTABLEKS                       R10 R9 K23 ["TextYAlignment"]
+       59 GETTABLEKS                       R11 R1 K24 ["LayoutOrder"]
+       61 ORK                              R10 R11 K19 [1]
+       62 SETTABLEKS                       R10 R9 K24 ["LayoutOrder"]
+       64 CALL                             R7 2 -1
+       65 CALL                             R5 -1 -1
+       66 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -6,40 +6,36 @@ PROTO_1:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K0 ["createElement"]
         5 LOADK                            R3 K1 ["SphereHandleAdornment"]
-        6 DUPTABLE                         R4 K9 [{"Adornee", "CFrame", "Radius", "Color3", "AlwaysOnTop", "Transparency", "ZIndex"}]
+        6 DUPTABLE                         R4 K11 [{["Adornee"], ["CFrame"], ["Radius"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"], ["ZIndex"] = 0}]
         7 GETUPVAL                         R5 1
-        8 GETTABLEKS                       R5 R5 K10 ["Terrain"]
+        8 GETTABLEKS                       R5 R5 K12 ["Terrain"]
        10 SETTABLEKS                       R5 R4 K2 ["Adornee"]
-       12 GETTABLEKS                       R5 R0 K11 ["props"]
-       14 GETTABLEKS                       R5 R5 K12 ["HandleCFrame"]
+       12 GETTABLEKS                       R5 R0 K13 ["props"]
+       14 GETTABLEKS                       R5 R5 K14 ["HandleCFrame"]
        16 SETTABLEKS                       R5 R4 K3 ["CFrame"]
-       18 GETTABLEKS                       R6 R0 K11 ["props"]
-       20 GETTABLEKS                       R6 R6 K14 ["Scale"]
-       22 MULK                             R5 R6 K13 [4.5]
+       18 GETTABLEKS                       R6 R0 K13 ["props"]
+       20 GETTABLEKS                       R6 R6 K16 ["Scale"]
+       22 MULK                             R5 R6 K15 [4.5]
        23 SETTABLEKS                       R5 R4 K4 ["Radius"]
-       25 GETTABLEKS                       R5 R0 K11 ["props"]
-       27 GETTABLEKS                       R5 R5 K15 ["Color"]
+       25 GETTABLEKS                       R5 R0 K13 ["props"]
+       27 GETTABLEKS                       R5 R5 K17 ["Color"]
        29 SETTABLEKS                       R5 R4 K5 ["Color3"]
-       31 LOADB                            R5 1
-       32 SETTABLEKS                       R5 R4 K6 ["AlwaysOnTop"]
-       34 GETTABLEKS                       R6 R0 K11 ["props"]
-       36 GETTABLEKS                       R6 R6 K16 ["Hovered"]
-       38 JUMPIFNOT                        R6 ; [+2]
-       39 LOADK                            R5 K17 [0.9]
-       40 JUMP                             ; [+1]
-       41 LOADN                            R5 1
-       42 SETTABLEKS                       R5 R4 K7 ["Transparency"]
-       44 LOADN                            R5 0
-       45 SETTABLEKS                       R5 R4 K8 ["ZIndex"]
-       47 CALL                             R2 2 1
-       48 SETTABLEKS                       R2 R1 K18 ["Ball"]
-       50 GETUPVAL                         R2 0
-       51 GETTABLEKS                       R2 R2 K0 ["createElement"]
-       53 LOADK                            R3 K19 ["Folder"]
-       54 NEWTABLE                         R4 0 0
-       56 MOVE                             R5 R1
-       57 CALL                             R2 3 -1
-       58 RETURN                           R2 -1
+       31 GETTABLEKS                       R6 R0 K13 ["props"]
+       33 GETTABLEKS                       R6 R6 K18 ["Hovered"]
+       35 JUMPIFNOT                        R6 ; [+2]
+       36 LOADK                            R5 K19 [0.9]
+       37 JUMP                             ; [+1]
+       38 LOADN                            R5 1
+       39 SETTABLEKS                       R5 R4 K8 ["Transparency"]
+       41 CALL                             R2 2 1
+       42 SETTABLEKS                       R2 R1 K20 ["Ball"]
+       44 GETUPVAL                         R2 0
+       45 GETTABLEKS                       R2 R2 K0 ["createElement"]
+       47 LOADK                            R3 K21 ["Folder"]
+       48 NEWTABLE                         R4 0 0
+       50 MOVE                             R5 R1
+       51 CALL                             R2 3 -1
+       52 RETURN                           R2 -1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["HandleCFrame"]

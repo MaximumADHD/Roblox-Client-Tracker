@@ -20,11 +20,9 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["OnChanged"]
-        3 DUPTABLE                         R1 K2 [{"Error"}]
-        4 LOADK                            R2 K3 [""]
-        5 SETTABLEKS                       R2 R1 K1 ["Error"]
-        7 CALL                             R0 1 0
-        8 RETURN                           R0 0
+        3 DUPTABLE                         R1 K3 [{["Error"] = ""}]
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -86,7 +84,7 @@ PROTO_7:
        50 NAMECALL                         R8 R8 K8 ["GetTemporaryId"]
        52 CALL                             R8 1 1
        53 MOVE                             R7 R8
-       54 JUMPIFNOT                        R7 ; [+239]
+       54 JUMPIFNOT                        R7 ; [+224]
        55 GETUPVAL                         R8 2
        56 GETTABLEKS                       R8 R8 K9 ["createElement"]
        58 LOADK                            R9 K10 ["ImageButton"]
@@ -132,144 +130,134 @@ PROTO_7:
       115 SETTABLEKS                       R15 R14 K13 ["Size"]
       117 CALL                             R12 2 1
       118 SETTABLEKS                       R12 R11 K4 ["Image"]
-      120 JUMPIFNOT                        R3 ; [+147]
+      120 JUMPIFNOT                        R3 ; [+132]
       121 GETUPVAL                         R12 2
       122 GETTABLEKS                       R12 R12 K9 ["createElement"]
       124 LOADK                            R13 K34 ["Frame"]
-      125 DUPTABLE                         R14 K39 [{"ZIndex", "AnchorPoint", "Position", "Size", "BackgroundTransparency", "BorderSizePixel", "BackgroundColor3"}]
-      126 LOADN                            R15 2
-      127 SETTABLEKS                       R15 R14 K35 ["ZIndex"]
-      129 GETIMPORT                        R15 K26 [Vector2.new]
-      131 LOADN                            R16 0
-      132 LOADN                            R17 1
-      133 CALL                             R15 2 1
-      134 SETTABLEKS                       R15 R14 K20 ["AnchorPoint"]
-      136 GETIMPORT                        R15 K30 [UDim2.fromScale]
-      138 LOADN                            R16 0
-      139 LOADN                            R17 1
-      140 CALL                             R15 2 1
-      141 SETTABLEKS                       R15 R14 K21 ["Position"]
-      143 GETIMPORT                        R15 K40 [UDim2.new]
-      145 LOADN                            R16 1
-      146 LOADN                            R17 0
-      147 LOADN                            R18 0
-      148 GETTABLEKS                       R19 R1 K41 ["ToolbarHeight"]
-      150 CALL                             R15 4 1
-      151 SETTABLEKS                       R15 R14 K13 ["Size"]
-      153 GETTABLEKS                       R15 R1 K42 ["ToolbarTransparency"]
-      155 SETTABLEKS                       R15 R14 K36 ["BackgroundTransparency"]
-      157 LOADN                            R15 0
-      158 SETTABLEKS                       R15 R14 K37 ["BorderSizePixel"]
-      160 GETTABLEKS                       R15 R1 K43 ["ToolbarBackgroundColor"]
-      162 SETTABLEKS                       R15 R14 K38 ["BackgroundColor3"]
-      164 DUPTABLE                         R15 K46 [{"ExpandPreview", "ClearButton"}]
-      165 GETUPVAL                         R16 2
-      166 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      168 GETUPVAL                         R17 4
-      169 DUPTABLE                         R18 K51 [{"Icon", "IconPadding", "Style", "OnClick", "Size"}]
-      170 GETTABLEKS                       R19 R1 K52 ["ExpandIcon"]
-      172 SETTABLEKS                       R19 R18 K47 ["Icon"]
-      174 GETTABLEKS                       R19 R1 K48 ["IconPadding"]
-      176 SETTABLEKS                       R19 R18 K48 ["IconPadding"]
-      178 LOADK                            R19 K53 ["RoundSubtle"]
-      179 SETTABLEKS                       R19 R18 K49 ["Style"]
-      181 NEWCLOSURE                       R19 P2
-      182 CAPTURE                          VAL R6
-      183 CAPTURE                          VAL R5
-      184 SETTABLEKS                       R19 R18 K50 ["OnClick"]
-      186 GETIMPORT                        R19 K55 [UDim2.fromOffset]
-      188 GETTABLEKS                       R20 R1 K41 ["ToolbarHeight"]
-      190 GETTABLEKS                       R21 R1 K41 ["ToolbarHeight"]
-      192 CALL                             R19 2 1
-      193 SETTABLEKS                       R19 R18 K13 ["Size"]
-      195 NEWTABLE                         R19 0 1
-      197 GETUPVAL                         R20 2
-      198 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      200 LOADK                            R21 K56 ["UIAspectRatioConstraint"]
-      201 CALL                             R20 1 -1
-      202 SETLIST                          R19 R20 -1 [1]
-      204 CALL                             R16 3 1
-      205 SETTABLEKS                       R16 R15 K44 ["ExpandPreview"]
-      207 GETUPVAL                         R16 2
-      208 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      210 GETUPVAL                         R17 4
-      211 DUPTABLE                         R18 K57 [{"AnchorPoint", "Position", "Icon", "IconPadding", "Style", "OnClick", "Size"}]
-      212 GETIMPORT                        R19 K26 [Vector2.new]
-      214 LOADN                            R20 1
-      215 LOADN                            R21 0
-      216 CALL                             R19 2 1
-      217 SETTABLEKS                       R19 R18 K20 ["AnchorPoint"]
-      219 GETIMPORT                        R19 K30 [UDim2.fromScale]
-      221 LOADN                            R20 1
-      222 LOADN                            R21 0
-      223 CALL                             R19 2 1
-      224 SETTABLEKS                       R19 R18 K21 ["Position"]
-      226 GETTABLEKS                       R19 R1 K58 ["ClearIcon"]
-      228 SETTABLEKS                       R19 R18 K47 ["Icon"]
-      230 GETTABLEKS                       R19 R1 K48 ["IconPadding"]
-      232 SETTABLEKS                       R19 R18 K48 ["IconPadding"]
-      234 LOADK                            R19 K53 ["RoundSubtle"]
-      235 SETTABLEKS                       R19 R18 K49 ["Style"]
-      237 NEWCLOSURE                       R19 P3
-      238 CAPTURE                          VAL R0
-      239 SETTABLEKS                       R19 R18 K50 ["OnClick"]
-      241 GETIMPORT                        R19 K55 [UDim2.fromOffset]
-      243 GETTABLEKS                       R20 R1 K41 ["ToolbarHeight"]
-      245 GETTABLEKS                       R21 R1 K41 ["ToolbarHeight"]
-      247 CALL                             R19 2 1
-      248 SETTABLEKS                       R19 R18 K13 ["Size"]
-      250 NEWTABLE                         R19 0 1
-      252 GETUPVAL                         R20 2
-      253 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      255 LOADK                            R21 K56 ["UIAspectRatioConstraint"]
-      256 DUPTABLE                         R22 K60 [{"AspectRatio"}]
-      257 LOADN                            R23 1
-      258 SETTABLEKS                       R23 R22 K59 ["AspectRatio"]
-      260 CALL                             R20 2 -1
-      261 SETLIST                          R19 R20 -1 [1]
-      263 CALL                             R16 3 1
-      264 SETTABLEKS                       R16 R15 K45 ["ClearButton"]
-      266 CALL                             R12 3 1
-      267 JUMP                             ; [+1]
-      268 LOADNIL                          R12
-      269 SETTABLEKS                       R12 R11 K17 ["Toolbar"]
-      271 JUMPIFNOT                        R5 ; [+17]
-      272 GETUPVAL                         R12 2
-      273 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      275 GETUPVAL                         R13 5
-      276 DUPTABLE                         R14 K62 [{"Image", "OnClose"}]
-      277 GETTABLEKS                       R15 R0 K3 ["Value"]
-      279 GETTABLEKS                       R15 R15 K4 ["Image"]
-      281 SETTABLEKS                       R15 R14 K4 ["Image"]
-      283 NEWCLOSURE                       R15 P4
-      284 CAPTURE                          VAL R6
-      285 SETTABLEKS                       R15 R14 K61 ["OnClose"]
-      287 CALL                             R12 2 1
-      288 JUMP                             ; [+1]
-      289 LOADNIL                          R12
-      290 SETTABLEKS                       R12 R11 K18 ["MetadataDialog"]
-      292 CALL                             R8 3 1
-      293 RETURN                           R8 1
-      294 GETUPVAL                         R8 2
-      295 GETTABLEKS                       R8 R8 K9 ["createElement"]
-      297 GETUPVAL                         R9 4
-      298 DUPTABLE                         R10 K64 [{"Icon", "IconSize", "OnClick", "Size"}]
-      299 GETTABLEKS                       R11 R1 K65 ["ImportIcon"]
-      301 SETTABLEKS                       R11 R10 K47 ["Icon"]
-      303 GETIMPORT                        R11 K55 [UDim2.fromOffset]
-      305 LOADN                            R12 28
-      306 LOADN                            R13 28
-      307 CALL                             R11 2 1
-      308 SETTABLEKS                       R11 R10 K63 ["IconSize"]
-      310 NEWCLOSURE                       R11 P5
-      311 CAPTURE                          UPVAL U6
-      312 CAPTURE                          VAL R0
-      313 CAPTURE                          VAL R2
-      314 SETTABLEKS                       R11 R10 K50 ["OnClick"]
-      316 GETTABLEKS                       R11 R1 K12 ["PreviewSize"]
-      318 SETTABLEKS                       R11 R10 K13 ["Size"]
-      320 CALL                             R8 2 1
-      321 RETURN                           R8 1
+      125 DUPTABLE                         R14 K41 [{["ZIndex"] = 2, ["AnchorPoint"], ["Position"], ["Size"], ["BackgroundTransparency"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+      126 GETIMPORT                        R15 K26 [Vector2.new]
+      128 LOADN                            R16 0
+      129 LOADN                            R17 1
+      130 CALL                             R15 2 1
+      131 SETTABLEKS                       R15 R14 K20 ["AnchorPoint"]
+      133 GETIMPORT                        R15 K30 [UDim2.fromScale]
+      135 LOADN                            R16 0
+      136 LOADN                            R17 1
+      137 CALL                             R15 2 1
+      138 SETTABLEKS                       R15 R14 K21 ["Position"]
+      140 GETIMPORT                        R15 K42 [UDim2.new]
+      142 LOADN                            R16 1
+      143 LOADN                            R17 0
+      144 LOADN                            R18 0
+      145 GETTABLEKS                       R19 R1 K43 ["ToolbarHeight"]
+      147 CALL                             R15 4 1
+      148 SETTABLEKS                       R15 R14 K13 ["Size"]
+      150 GETTABLEKS                       R15 R1 K44 ["ToolbarTransparency"]
+      152 SETTABLEKS                       R15 R14 K37 ["BackgroundTransparency"]
+      154 GETTABLEKS                       R15 R1 K45 ["ToolbarBackgroundColor"]
+      156 SETTABLEKS                       R15 R14 K40 ["BackgroundColor3"]
+      158 DUPTABLE                         R15 K48 [{"ExpandPreview", "ClearButton"}]
+      159 GETUPVAL                         R16 2
+      160 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      162 GETUPVAL                         R17 4
+      163 DUPTABLE                         R18 K54 [{["Icon"], ["IconPadding"], ["Style"] = "RoundSubtle", ["OnClick"], ["Size"]}]
+      164 GETTABLEKS                       R19 R1 K55 ["ExpandIcon"]
+      166 SETTABLEKS                       R19 R18 K49 ["Icon"]
+      168 GETTABLEKS                       R19 R1 K50 ["IconPadding"]
+      170 SETTABLEKS                       R19 R18 K50 ["IconPadding"]
+      172 NEWCLOSURE                       R19 P2
+      173 CAPTURE                          VAL R6
+      174 CAPTURE                          VAL R5
+      175 SETTABLEKS                       R19 R18 K53 ["OnClick"]
+      177 GETIMPORT                        R19 K57 [UDim2.fromOffset]
+      179 GETTABLEKS                       R20 R1 K43 ["ToolbarHeight"]
+      181 GETTABLEKS                       R21 R1 K43 ["ToolbarHeight"]
+      183 CALL                             R19 2 1
+      184 SETTABLEKS                       R19 R18 K13 ["Size"]
+      186 NEWTABLE                         R19 0 1
+      188 GETUPVAL                         R20 2
+      189 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      191 LOADK                            R21 K58 ["UIAspectRatioConstraint"]
+      192 CALL                             R20 1 -1
+      193 SETLIST                          R19 R20 -1 [1]
+      195 CALL                             R16 3 1
+      196 SETTABLEKS                       R16 R15 K46 ["ExpandPreview"]
+      198 GETUPVAL                         R16 2
+      199 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      201 GETUPVAL                         R17 4
+      202 DUPTABLE                         R18 K59 [{["AnchorPoint"], ["Position"], ["Icon"], ["IconPadding"], ["Style"] = "RoundSubtle", ["OnClick"], ["Size"]}]
+      203 GETIMPORT                        R19 K26 [Vector2.new]
+      205 LOADN                            R20 1
+      206 LOADN                            R21 0
+      207 CALL                             R19 2 1
+      208 SETTABLEKS                       R19 R18 K20 ["AnchorPoint"]
+      210 GETIMPORT                        R19 K30 [UDim2.fromScale]
+      212 LOADN                            R20 1
+      213 LOADN                            R21 0
+      214 CALL                             R19 2 1
+      215 SETTABLEKS                       R19 R18 K21 ["Position"]
+      217 GETTABLEKS                       R19 R1 K60 ["ClearIcon"]
+      219 SETTABLEKS                       R19 R18 K49 ["Icon"]
+      221 GETTABLEKS                       R19 R1 K50 ["IconPadding"]
+      223 SETTABLEKS                       R19 R18 K50 ["IconPadding"]
+      225 NEWCLOSURE                       R19 P3
+      226 CAPTURE                          VAL R0
+      227 SETTABLEKS                       R19 R18 K53 ["OnClick"]
+      229 GETIMPORT                        R19 K57 [UDim2.fromOffset]
+      231 GETTABLEKS                       R20 R1 K43 ["ToolbarHeight"]
+      233 GETTABLEKS                       R21 R1 K43 ["ToolbarHeight"]
+      235 CALL                             R19 2 1
+      236 SETTABLEKS                       R19 R18 K13 ["Size"]
+      238 NEWTABLE                         R19 0 1
+      240 GETUPVAL                         R20 2
+      241 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      243 LOADK                            R21 K58 ["UIAspectRatioConstraint"]
+      244 DUPTABLE                         R22 K63 [{["AspectRatio"] = 1}]
+      245 CALL                             R20 2 -1
+      246 SETLIST                          R19 R20 -1 [1]
+      248 CALL                             R16 3 1
+      249 SETTABLEKS                       R16 R15 K47 ["ClearButton"]
+      251 CALL                             R12 3 1
+      252 JUMP                             ; [+1]
+      253 LOADNIL                          R12
+      254 SETTABLEKS                       R12 R11 K17 ["Toolbar"]
+      256 JUMPIFNOT                        R5 ; [+17]
+      257 GETUPVAL                         R12 2
+      258 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      260 GETUPVAL                         R13 5
+      261 DUPTABLE                         R14 K65 [{"Image", "OnClose"}]
+      262 GETTABLEKS                       R15 R0 K3 ["Value"]
+      264 GETTABLEKS                       R15 R15 K4 ["Image"]
+      266 SETTABLEKS                       R15 R14 K4 ["Image"]
+      268 NEWCLOSURE                       R15 P4
+      269 CAPTURE                          VAL R6
+      270 SETTABLEKS                       R15 R14 K64 ["OnClose"]
+      272 CALL                             R12 2 1
+      273 JUMP                             ; [+1]
+      274 LOADNIL                          R12
+      275 SETTABLEKS                       R12 R11 K18 ["MetadataDialog"]
+      277 CALL                             R8 3 1
+      278 RETURN                           R8 1
+      279 GETUPVAL                         R8 2
+      280 GETTABLEKS                       R8 R8 K9 ["createElement"]
+      282 GETUPVAL                         R9 4
+      283 DUPTABLE                         R10 K67 [{"Icon", "IconSize", "OnClick", "Size"}]
+      284 GETTABLEKS                       R11 R1 K68 ["ImportIcon"]
+      286 SETTABLEKS                       R11 R10 K49 ["Icon"]
+      288 GETIMPORT                        R11 K57 [UDim2.fromOffset]
+      290 LOADN                            R12 28
+      291 LOADN                            R13 28
+      292 CALL                             R11 2 1
+      293 SETTABLEKS                       R11 R10 K66 ["IconSize"]
+      295 NEWCLOSURE                       R11 P5
+      296 CAPTURE                          UPVAL U6
+      297 CAPTURE                          VAL R0
+      298 CAPTURE                          VAL R2
+      299 SETTABLEKS                       R11 R10 K53 ["OnClick"]
+      301 GETTABLEKS                       R11 R1 K12 ["PreviewSize"]
+      303 SETTABLEKS                       R11 R10 K13 ["Size"]
+      305 CALL                             R8 2 1
+      306 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0

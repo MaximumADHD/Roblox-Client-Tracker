@@ -70,39 +70,27 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Src"]
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K12 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       15 LOADK                            R3 K13 ["Scopes"]
-       16 SETTABLEKS                       R3 R2 K8 ["TextKey"]
-       18 LOADK                            R3 K14 ["Hide"]
-       19 SETTABLEKS                       R3 R2 K9 ["TextSubKey"]
-       21 DUPCLOSURE                       R3 K15 [PROTO_0]
-       22 SETTABLEKS                       R3 R2 K10 ["OnItemClicked"]
-       24 DUPCLOSURE                       R3 K16 [PROTO_1]
-       25 CAPTURE                          VAL R1
-       26 SETTABLEKS                       R3 R2 K11 ["ShouldRender"]
-       28 DUPTABLE                         R3 K12 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       29 LOADK                            R4 K13 ["Scopes"]
-       30 SETTABLEKS                       R4 R3 K8 ["TextKey"]
-       32 LOADK                            R4 K17 ["Customize"]
-       33 SETTABLEKS                       R4 R3 K9 ["TextSubKey"]
-       35 DUPCLOSURE                       R4 K18 [PROTO_2]
-       36 SETTABLEKS                       R4 R3 K10 ["OnItemClicked"]
-       38 DUPCLOSURE                       R4 K19 [PROTO_3]
-       39 CAPTURE                          VAL R1
-       40 SETTABLEKS                       R4 R3 K11 ["ShouldRender"]
-       42 DUPTABLE                         R4 K12 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       43 LOADK                            R5 K13 ["Scopes"]
-       44 SETTABLEKS                       R5 R4 K8 ["TextKey"]
-       46 LOADK                            R5 K20 ["Refresh"]
-       47 SETTABLEKS                       R5 R4 K9 ["TextSubKey"]
-       49 DUPCLOSURE                       R5 K21 [PROTO_4]
-       50 SETTABLEKS                       R5 R4 K10 ["OnItemClicked"]
-       52 DUPCLOSURE                       R5 K22 [PROTO_5]
-       53 CAPTURE                          VAL R1
-       54 SETTABLEKS                       R5 R4 K11 ["ShouldRender"]
-       56 NEWTABLE                         R5 0 3
-       58 MOVE                             R6 R2
-       59 MOVE                             R7 R3
-       60 MOVE                             R8 R4
-       61 SETLIST                          R5 R6 3 [1]
-       63 RETURN                           R5 1
+       14 DUPTABLE                         R2 K14 [{["TextKey"] = "Scopes", ["TextSubKey"] = "Hide", ["OnItemClicked"], ["ShouldRender"]}]
+       15 DUPCLOSURE                       R3 K15 [PROTO_0]
+       16 SETTABLEKS                       R3 R2 K12 ["OnItemClicked"]
+       18 DUPCLOSURE                       R3 K16 [PROTO_1]
+       19 CAPTURE                          VAL R1
+       20 SETTABLEKS                       R3 R2 K13 ["ShouldRender"]
+       22 DUPTABLE                         R3 K18 [{["TextKey"] = "Scopes", ["TextSubKey"] = "Customize", ["OnItemClicked"], ["ShouldRender"]}]
+       23 DUPCLOSURE                       R4 K19 [PROTO_2]
+       24 SETTABLEKS                       R4 R3 K12 ["OnItemClicked"]
+       26 DUPCLOSURE                       R4 K20 [PROTO_3]
+       27 CAPTURE                          VAL R1
+       28 SETTABLEKS                       R4 R3 K13 ["ShouldRender"]
+       30 DUPTABLE                         R4 K22 [{["TextKey"] = "Scopes", ["TextSubKey"] = "Refresh", ["OnItemClicked"], ["ShouldRender"]}]
+       31 DUPCLOSURE                       R5 K23 [PROTO_4]
+       32 SETTABLEKS                       R5 R4 K12 ["OnItemClicked"]
+       34 DUPCLOSURE                       R5 K24 [PROTO_5]
+       35 CAPTURE                          VAL R1
+       36 SETTABLEKS                       R5 R4 K13 ["ShouldRender"]
+       38 NEWTABLE                         R5 0 3
+       40 MOVE                             R6 R2
+       41 MOVE                             R7 R3
+       42 MOVE                             R8 R4
+       43 SETLIST                          R5 R6 3 [1]
+       45 RETURN                           R5 1

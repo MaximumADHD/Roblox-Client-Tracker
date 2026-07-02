@@ -2,34 +2,32 @@ PROTO_0:
         0 NEWTABLE                         R4 0 0
         2 GETUPVAL                         R5 0
         3 CALL                             R5 0 1
-        4 JUMPIFNOT                        R5 ; [+26]
+        4 JUMPIFNOT                        R5 ; [+23]
         5 DUPTABLE                         R7 K2 [{"Id", "Schema"}]
         6 GETUPVAL                         R8 1
         7 GETTABLEKS                       R8 R8 K3 ["SmoothVoxels"]
         9 SETTABLEKS                       R8 R7 K0 ["Id"]
-       11 DUPTABLE                         R8 K6 [{"Id", "Type", "URL"}]
+       11 DUPTABLE                         R8 K7 [{[1], ["Type"] = "Upgrade", ["URL"]}]
        12 GETUPVAL                         R9 1
        13 GETTABLEKS                       R9 R9 K3 ["SmoothVoxels"]
        15 SETTABLEKS                       R9 R8 K0 ["Id"]
-       17 LOADK                            R9 K7 ["Upgrade"]
-       18 SETTABLEKS                       R9 R8 K4 ["Type"]
-       20 GETUPVAL                         R9 2
-       21 SETTABLEKS                       R9 R8 K5 ["URL"]
-       23 SETTABLEKS                       R8 R7 K1 ["Schema"]
-       25 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
-       27 MOVE                             R6 R4
-       28 GETIMPORT                        R5 K10 [table.insert]
-       30 CALL                             R5 2 0
-       31 GETUPVAL                         R5 3
-       32 MOVE                             R6 R0
-       33 MOVE                             R7 R4
-       34 DUPTABLE                         R8 K14 [{"Category", "Data", "Overrides"}]
-       35 GETUPVAL                         R9 4
-       36 SETTABLEKS                       R9 R8 K11 ["Category"]
-       38 SETTABLEKS                       R1 R8 K12 ["Data"]
-       40 SETTABLEKS                       R3 R8 K13 ["Overrides"]
-       42 CALL                             R5 3 -1
-       43 RETURN                           R5 -1
+       17 GETUPVAL                         R9 2
+       18 SETTABLEKS                       R9 R8 K6 ["URL"]
+       20 SETTABLEKS                       R8 R7 K1 ["Schema"]
+       22 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+       24 MOVE                             R6 R4
+       25 GETIMPORT                        R5 K10 [table.insert]
+       27 CALL                             R5 2 0
+       28 GETUPVAL                         R5 3
+       29 MOVE                             R6 R0
+       30 MOVE                             R7 R4
+       31 DUPTABLE                         R8 K14 [{"Category", "Data", "Overrides"}]
+       32 GETUPVAL                         R9 4
+       33 SETTABLEKS                       R9 R8 K11 ["Category"]
+       35 SETTABLEKS                       R1 R8 K12 ["Data"]
+       37 SETTABLEKS                       R3 R8 K13 ["Overrides"]
+       39 CALL                             R5 3 -1
+       40 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

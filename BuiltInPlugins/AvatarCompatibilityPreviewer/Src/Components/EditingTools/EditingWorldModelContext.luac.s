@@ -91,25 +91,23 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K11 ["Flags"]
        29 GETTABLEKS                       R4 R4 K12 ["getFFlagAvatarPreviewerEditingTools"]
        31 CALL                             R3 1 1
-       32 DUPTABLE                         R4 K16 [{"isEditingWorldModel", "getIsEditingWorldModel", "pushIsEditingWorldModel"}]
-       33 LOADB                            R5 0
-       34 SETTABLEKS                       R5 R4 K13 ["isEditingWorldModel"]
-       36 MOVE                             R5 R2
-       37 LOADK                            R6 K14 ["getIsEditingWorldModel"]
-       38 CALL                             R5 1 1
-       39 SETTABLEKS                       R5 R4 K14 ["getIsEditingWorldModel"]
-       41 MOVE                             R5 R2
-       42 LOADK                            R6 K15 ["pushIsEditingWorldModel"]
-       43 CALL                             R5 1 1
-       44 SETTABLEKS                       R5 R4 K15 ["pushIsEditingWorldModel"]
-       46 GETTABLEKS                       R5 R1 K17 ["createContext"]
-       48 MOVE                             R6 R4
-       49 CALL                             R5 1 1
-       50 DUPCLOSURE                       R6 K18 [PROTO_3]
-       51 CAPTURE                          VAL R3
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R5
-       54 DUPTABLE                         R7 K21 [{"Context", "Provider"}]
-       55 SETTABLEKS                       R5 R7 K19 ["Context"]
-       57 SETTABLEKS                       R6 R7 K20 ["Provider"]
-       59 RETURN                           R7 1
+       32 DUPTABLE                         R4 K17 [{["isEditingWorldModel"] = False, ["getIsEditingWorldModel"], ["pushIsEditingWorldModel"]}]
+       33 MOVE                             R5 R2
+       34 LOADK                            R6 K15 ["getIsEditingWorldModel"]
+       35 CALL                             R5 1 1
+       36 SETTABLEKS                       R5 R4 K15 ["getIsEditingWorldModel"]
+       38 MOVE                             R5 R2
+       39 LOADK                            R6 K16 ["pushIsEditingWorldModel"]
+       40 CALL                             R5 1 1
+       41 SETTABLEKS                       R5 R4 K16 ["pushIsEditingWorldModel"]
+       43 GETTABLEKS                       R5 R1 K18 ["createContext"]
+       45 MOVE                             R6 R4
+       46 CALL                             R5 1 1
+       47 DUPCLOSURE                       R6 K19 [PROTO_3]
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 DUPTABLE                         R7 K22 [{"Context", "Provider"}]
+       52 SETTABLEKS                       R5 R7 K20 ["Context"]
+       54 SETTABLEKS                       R6 R7 K21 ["Provider"]
+       56 RETURN                           R7 1

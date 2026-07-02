@@ -1,15 +1,13 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K3 [{"_draggerContext", "_availableSoftSnaps", "_currentSoftSnap"}]
+        0 DUPTABLE                         R2 K4 [{[1], ["_availableSoftSnaps"], ["_currentSoftSnap"] = }]
         1 SETTABLEKS                       R0 R2 K0 ["_draggerContext"]
         3 NEWTABLE                         R3 0 0
         5 SETTABLEKS                       R3 R2 K1 ["_availableSoftSnaps"]
-        7 LOADNIL                          R3
-        8 SETTABLEKS                       R3 R2 K2 ["_currentSoftSnap"]
-       10 GETUPVAL                         R3 0
-       11 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-       13 GETIMPORT                        R1 K5 [setmetatable]
-       15 CALL                             R1 2 1
-       16 RETURN                           R1 1
+        7 GETUPVAL                         R3 0
+        8 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+       10 GETIMPORT                        R1 K6 [setmetatable]
+       12 CALL                             R1 2 1
+       13 RETURN                           R1 1
 
 PROTO_1:
         0 SETTABLEKS                       R1 R0 K0 ["_availableSoftSnaps"]
@@ -113,37 +111,33 @@ PROTO_4:
        35 GETUPVAL                         R13 0
        36 GETTABLEKS                       R13 R13 K8 ["createElement"]
        38 LOADK                            R14 K9 ["SphereHandleAdornment"]
-       39 DUPTABLE                         R15 K16 [{"AlwaysOnTop", "Color3", "Radius", "CFrame", "Adornee", "ZIndex"}]
-       40 LOADB                            R16 1
-       41 SETTABLEKS                       R16 R15 K10 ["AlwaysOnTop"]
-       43 JUMPIFNOT                        R10 ; [+2]
-       44 MOVE                             R16 R9
-       45 JUMP                             ; [+1]
-       46 MOVE                             R16 R8
-       47 SETTABLEKS                       R16 R15 K11 ["Color3"]
-       49 JUMPIFNOT                        R10 ; [+2]
-       50 LOADK                            R17 K17 [0.2]
-       51 JUMP                             ; [+1]
-       52 LOADK                            R17 K18 [0.15]
-       53 MUL                              R16 R11 R17
-       54 SETTABLEKS                       R16 R15 K12 ["Radius"]
-       56 GETIMPORT                        R16 K20 [CFrame.new]
-       58 GETTABLEKS                       R17 R7 K5 ["Point"]
-       60 CALL                             R16 1 1
-       61 SETTABLEKS                       R16 R15 K13 ["CFrame"]
-       63 GETIMPORT                        R16 K22 [workspace]
-       65 GETTABLEKS                       R16 R16 K23 ["Terrain"]
-       67 SETTABLEKS                       R16 R15 K14 ["Adornee"]
-       69 LOADN                            R16 1
-       70 SETTABLEKS                       R16 R15 K15 ["ZIndex"]
-       72 CALL                             R13 2 1
-       73 SETTABLE                         R13 R2 R12
-       74 FORGLOOP                         R3 2 ; [-68]
-       76 GETUPVAL                         R3 0
-       77 GETTABLEKS                       R3 R3 K24 ["createFragment"]
-       79 MOVE                             R4 R2
-       80 CALL                             R3 1 -1
-       81 RETURN                           R3 -1
+       39 DUPTABLE                         R15 K18 [{["AlwaysOnTop"] = True, ["Color3"], ["Radius"], ["CFrame"], ["Adornee"], ["ZIndex"] = 1}]
+       40 JUMPIFNOT                        R10 ; [+2]
+       41 MOVE                             R16 R9
+       42 JUMP                             ; [+1]
+       43 MOVE                             R16 R8
+       44 SETTABLEKS                       R16 R15 K12 ["Color3"]
+       46 JUMPIFNOT                        R10 ; [+2]
+       47 LOADK                            R17 K19 [0.2]
+       48 JUMP                             ; [+1]
+       49 LOADK                            R17 K20 [0.15]
+       50 MUL                              R16 R11 R17
+       51 SETTABLEKS                       R16 R15 K13 ["Radius"]
+       53 GETIMPORT                        R16 K22 [CFrame.new]
+       55 GETTABLEKS                       R17 R7 K5 ["Point"]
+       57 CALL                             R16 1 1
+       58 SETTABLEKS                       R16 R15 K14 ["CFrame"]
+       60 GETIMPORT                        R16 K24 [workspace]
+       62 GETTABLEKS                       R16 R16 K25 ["Terrain"]
+       64 SETTABLEKS                       R16 R15 K15 ["Adornee"]
+       66 CALL                             R13 2 1
+       67 SETTABLE                         R13 R2 R12
+       68 FORGLOOP                         R3 2 ; [-62]
+       70 GETUPVAL                         R3 0
+       71 GETTABLEKS                       R3 R3 K26 ["createFragment"]
+       73 MOVE                             R4 R2
+       74 CALL                             R3 1 -1
+       75 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

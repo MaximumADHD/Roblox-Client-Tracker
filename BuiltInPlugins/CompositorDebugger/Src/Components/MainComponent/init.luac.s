@@ -180,51 +180,45 @@ PROTO_5:
       102 GETUPVAL                         R20 2
       103 GETTABLEKS                       R20 R20 K12 ["createElement"]
       105 GETUPVAL                         R21 6
-      106 DUPTABLE                         R22 K24 [{"FrameBuffer", "LayoutOrder"}]
+      106 DUPTABLE                         R22 K25 [{["FrameBuffer"], ["LayoutOrder"] = 1}]
       107 GETTABLEKS                       R23 R1 K6 ["FrameBuffer"]
       109 SETTABLEKS                       R23 R22 K6 ["FrameBuffer"]
-      111 LOADN                            R23 1
-      112 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
-      114 CALL                             R20 2 1
-      115 SETTABLEKS                       R20 R19 K21 ["Toolbar"]
-      117 GETUPVAL                         R20 2
-      118 GETTABLEKS                       R20 R20 K12 ["createElement"]
-      120 GETUPVAL                         R21 7
-      121 DUPTABLE                         R22 K28 [{"LayoutOrder", "FramePayload", "Adornments", "OnToggleAdornment"}]
-      122 LOADN                            R23 2
-      123 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
-      125 SETTABLEKS                       R7 R22 K25 ["FramePayload"]
-      127 GETTABLEKS                       R23 R1 K26 ["Adornments"]
-      129 SETTABLEKS                       R23 R22 K26 ["Adornments"]
-      131 GETTABLEKS                       R23 R0 K29 ["onToggleAdornment"]
-      133 SETTABLEKS                       R23 R22 K27 ["OnToggleAdornment"]
-      135 CALL                             R20 2 1
-      136 SETTABLEKS                       R20 R19 K22 ["LayerTree"]
-      138 CALL                             R16 3 1
-      139 GETUPVAL                         R17 2
-      140 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      142 GETUPVAL                         R18 8
-      143 DUPTABLE                         R19 K32 [{"LayoutOrder", "LayerData", "FrameBuffer", "HistoryFrame", "SelectedLayer", "ExpandedSections", "Overrides", "ShowRawPayload"}]
-      144 LOADN                            R20 2
-      145 SETTABLEKS                       R20 R19 K19 ["LayoutOrder"]
-      147 SETTABLEKS                       R6 R19 K30 ["LayerData"]
-      149 GETTABLEKS                       R20 R1 K6 ["FrameBuffer"]
-      151 SETTABLEKS                       R20 R19 K6 ["FrameBuffer"]
-      153 GETTABLEKS                       R20 R1 K4 ["HistoryFrame"]
-      155 SETTABLEKS                       R20 R19 K4 ["HistoryFrame"]
-      157 GETTABLEKS                       R20 R1 K2 ["SelectedLayer"]
-      159 SETTABLEKS                       R20 R19 K2 ["SelectedLayer"]
-      161 SETTABLEKS                       R3 R19 K3 ["ExpandedSections"]
-      163 SETTABLEKS                       R2 R19 K1 ["Overrides"]
-      165 GETUPVAL                         R20 9
-      166 GETTABLEKS                       R20 R20 K31 ["ShowRawPayload"]
-      168 SETTABLEKS                       R20 R19 K31 ["ShowRawPayload"]
-      170 CALL                             R17 2 -1
-      171 SETLIST                          R15 R16 -1 [1]
-      173 CALL                             R12 3 1
-      174 SETTABLEKS                       R12 R11 K16 ["MainSplitPane"]
-      176 CALL                             R8 3 -1
-      177 RETURN                           R8 -1
+      111 CALL                             R20 2 1
+      112 SETTABLEKS                       R20 R19 K21 ["Toolbar"]
+      114 GETUPVAL                         R20 2
+      115 GETTABLEKS                       R20 R20 K12 ["createElement"]
+      117 GETUPVAL                         R21 7
+      118 DUPTABLE                         R22 K30 [{["LayoutOrder"] = 2, ["FramePayload"], ["Adornments"], ["OnToggleAdornment"]}]
+      119 SETTABLEKS                       R7 R22 K27 ["FramePayload"]
+      121 GETTABLEKS                       R23 R1 K28 ["Adornments"]
+      123 SETTABLEKS                       R23 R22 K28 ["Adornments"]
+      125 GETTABLEKS                       R23 R0 K31 ["onToggleAdornment"]
+      127 SETTABLEKS                       R23 R22 K29 ["OnToggleAdornment"]
+      129 CALL                             R20 2 1
+      130 SETTABLEKS                       R20 R19 K22 ["LayerTree"]
+      132 CALL                             R16 3 1
+      133 GETUPVAL                         R17 2
+      134 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      136 GETUPVAL                         R18 8
+      137 DUPTABLE                         R19 K34 [{["LayoutOrder"] = 2, ["LayerData"], ["FrameBuffer"], ["HistoryFrame"], ["SelectedLayer"], ["ExpandedSections"], ["Overrides"], ["ShowRawPayload"]}]
+      138 SETTABLEKS                       R6 R19 K32 ["LayerData"]
+      140 GETTABLEKS                       R20 R1 K6 ["FrameBuffer"]
+      142 SETTABLEKS                       R20 R19 K6 ["FrameBuffer"]
+      144 GETTABLEKS                       R20 R1 K4 ["HistoryFrame"]
+      146 SETTABLEKS                       R20 R19 K4 ["HistoryFrame"]
+      148 GETTABLEKS                       R20 R1 K2 ["SelectedLayer"]
+      150 SETTABLEKS                       R20 R19 K2 ["SelectedLayer"]
+      152 SETTABLEKS                       R3 R19 K3 ["ExpandedSections"]
+      154 SETTABLEKS                       R2 R19 K1 ["Overrides"]
+      156 GETUPVAL                         R20 9
+      157 GETTABLEKS                       R20 R20 K33 ["ShowRawPayload"]
+      159 SETTABLEKS                       R20 R19 K33 ["ShowRawPayload"]
+      161 CALL                             R17 2 -1
+      162 SETLIST                          R15 R16 -1 [1]
+      164 CALL                             R12 3 1
+      165 SETTABLEKS                       R12 R11 K16 ["MainSplitPane"]
+      167 CALL                             R8 3 -1
+      168 RETURN                           R8 -1
 
 PROTO_6:
         0 DUPTABLE                         R1 K11 [{"FrameBuffer", "Overrides", "ActiveLayersFilter", "Adornments", "ExpandedSections", "HistoryField", "HistoryFrame", "HistoryOffset", "LayerFilters", "SelectedLayer", "SkipCounter"}]

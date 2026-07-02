@@ -7,35 +7,27 @@ PROTO_1:
         1 GETTABLEKS                       R1 R1 K0 ["new"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["serviceController"]
-        6 DUPTABLE                         R3 K5 [{"alertEnabled", "deviceName", "vrEnabled"}]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R3 K2 ["alertEnabled"]
-       10 LOADK                            R4 K6 [""]
-       11 SETTABLEKS                       R4 R3 K3 ["deviceName"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K4 ["vrEnabled"]
-       16 NAMECALL                         R1 R0 K7 ["setState"]
-       18 CALL                             R1 2 0
-       19 GETUPVAL                         R1 1
-       20 GETTABLEKS                       R1 R1 K8 ["Localization"]
-       22 GETTABLEKS                       R1 R1 K0 ["new"]
-       24 DUPTABLE                         R2 K12 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       25 GETUPVAL                         R3 2
-       26 SETTABLEKS                       R3 R2 K9 ["stringResourceTable"]
-       28 GETUPVAL                         R3 3
-       29 SETTABLEKS                       R3 R2 K10 ["translationResourceTable"]
-       31 LOADK                            R3 K13 ["VRStatus"]
-       32 SETTABLEKS                       R3 R2 K11 ["pluginName"]
-       34 CALL                             R1 1 1
-       35 SETTABLEKS                       R1 R0 K14 ["localization"]
-       37 GETUPVAL                         R1 1
-       38 GETTABLEKS                       R1 R1 K15 ["Analytics"]
-       40 GETTABLEKS                       R1 R1 K0 ["new"]
-       42 DUPCLOSURE                       R2 K16 [PROTO_0]
-       43 NEWTABLE                         R3 0 0
-       45 CALL                             R1 2 1
-       46 SETTABLEKS                       R1 R0 K17 ["analytics"]
-       48 RETURN                           R0 0
+        6 DUPTABLE                         R3 K7 [{["alertEnabled"] = False, ["deviceName"] = "", ["vrEnabled"] = False}]
+        7 NAMECALL                         R1 R0 K8 ["setState"]
+        9 CALL                             R1 2 0
+       10 GETUPVAL                         R1 1
+       11 GETTABLEKS                       R1 R1 K9 ["Localization"]
+       13 GETTABLEKS                       R1 R1 K0 ["new"]
+       15 DUPTABLE                         R2 K14 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "VRStatus"}]
+       16 GETUPVAL                         R3 2
+       17 SETTABLEKS                       R3 R2 K10 ["stringResourceTable"]
+       19 GETUPVAL                         R3 3
+       20 SETTABLEKS                       R3 R2 K11 ["translationResourceTable"]
+       22 CALL                             R1 1 1
+       23 SETTABLEKS                       R1 R0 K15 ["localization"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K16 ["Analytics"]
+       28 GETTABLEKS                       R1 R1 K0 ["new"]
+       30 DUPCLOSURE                       R2 K17 [PROTO_0]
+       31 NEWTABLE                         R3 0 0
+       33 CALL                             R1 2 1
+       34 SETTABLEKS                       R1 R0 K18 ["analytics"]
+       36 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -111,12 +103,10 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"alertEnabled"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["alertEnabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
@@ -148,12 +138,10 @@ PROTO_8:
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"alertEnabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["alertEnabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

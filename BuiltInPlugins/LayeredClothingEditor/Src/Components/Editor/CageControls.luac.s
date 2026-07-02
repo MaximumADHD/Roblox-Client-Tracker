@@ -127,33 +127,31 @@ PROTO_5:
        14 RETURN                           R0 1
 
 PROTO_6:
-        0 DUPTABLE                         R1 K1 [{"isAutoSkinBehaviorOverride"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isAutoSkinBehaviorOverride"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 SETTABLEKS                       R1 R0 K3 ["autoSkinButtonClicked"]
-       11 DUPCLOSURE                       R1 K4 [PROTO_1]
-       12 SETTABLEKS                       R1 R0 K0 ["isAutoSkinBehaviorOverride"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U1
-       17 SETTABLEKS                       R1 R0 K5 ["cageEditingButtonClicked"]
-       19 NEWCLOSURE                       R1 P3
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U1
-       22 SETTABLEKS                       R1 R0 K6 ["outerCageButtonClicked"]
-       24 NEWCLOSURE                       R1 P4
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U1
-       27 SETTABLEKS                       R1 R0 K7 ["innerCageButtonClicked"]
-       29 NEWCLOSURE                       R1 P5
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          UPVAL U1
-       32 SETTABLEKS                       R1 R0 K8 ["isCageEditingActive"]
-       34 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K4 ["autoSkinButtonClicked"]
+        8 DUPCLOSURE                       R1 K5 [PROTO_1]
+        9 SETTABLEKS                       R1 R0 K0 ["isAutoSkinBehaviorOverride"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U1
+       14 SETTABLEKS                       R1 R0 K6 ["cageEditingButtonClicked"]
+       16 NEWCLOSURE                       R1 P3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U1
+       19 SETTABLEKS                       R1 R0 K7 ["outerCageButtonClicked"]
+       21 NEWCLOSURE                       R1 P4
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U1
+       24 SETTABLEKS                       R1 R0 K8 ["innerCageButtonClicked"]
+       26 NEWCLOSURE                       R1 P5
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U1
+       29 SETTABLEKS                       R1 R0 K9 ["isCageEditingActive"]
+       31 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R6 R0 K0 ["props"]

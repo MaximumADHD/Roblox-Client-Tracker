@@ -13,28 +13,20 @@ PROTO_1:
         3 GETUPVAL                         R2 1
         4 GETUPVAL                         R3 2
         5 MOVE                             R4 R0
-        6 DUPTABLE                         R5 K7 [{"ImageSize", "IsDescriptionVisible", "OnClick", "IsPrivacyVisible", "IsDateModifiedVisible", "IsDropdownMenuVisible"}]
-        7 GETIMPORT                        R6 K10 [UDim2.new]
+        6 DUPTABLE                         R5 K9 [{["ImageSize"], ["IsDescriptionVisible"] = True, ["OnClick"], ["IsPrivacyVisible"] = False, ["IsDateModifiedVisible"] = False, ["IsDropdownMenuVisible"] = False}]
+        7 GETIMPORT                        R6 K12 [UDim2.new]
         9 LOADN                            R7 0
        10 LOADN                            R8 125
        11 LOADN                            R9 0
        12 LOADN                            R10 125
        13 CALL                             R6 4 1
        14 SETTABLEKS                       R6 R5 K1 ["ImageSize"]
-       16 LOADB                            R6 1
-       17 SETTABLEKS                       R6 R5 K2 ["IsDescriptionVisible"]
-       19 DUPCLOSURE                       R6 K11 [PROTO_0]
-       20 CAPTURE                          UPVAL U3
-       21 SETTABLEKS                       R6 R5 K3 ["OnClick"]
-       23 LOADB                            R6 0
-       24 SETTABLEKS                       R6 R5 K4 ["IsPrivacyVisible"]
-       26 LOADB                            R6 0
-       27 SETTABLEKS                       R6 R5 K5 ["IsDateModifiedVisible"]
-       29 LOADB                            R6 0
-       30 SETTABLEKS                       R6 R5 K6 ["IsDropdownMenuVisible"]
-       32 CALL                             R3 2 -1
-       33 CALL                             R1 -1 -1
-       34 RETURN                           R1 -1
+       16 DUPCLOSURE                       R6 K13 [PROTO_0]
+       17 CAPTURE                          UPVAL U3
+       18 SETTABLEKS                       R6 R5 K4 ["OnClick"]
+       20 CALL                             R3 2 -1
+       21 CALL                             R1 -1 -1
+       22 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -71,37 +63,25 @@ PROTO_3:
        16 GETUPVAL                         R1 3
        17 GETTABLEKS                       R1 R1 K5 ["createElement"]
        19 GETUPVAL                         R2 4
-       20 DUPTABLE                         R3 K12 [{"PageName", "Tabs", "HideTabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
-       21 LOADK                            R4 K13 ["TestTemplates"]
-       22 SETTABLEKS                       R4 R3 K6 ["PageName"]
-       24 NEWTABLE                         R4 0 1
-       26 DUPTABLE                         R5 K18 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-       27 LOADK                            R8 K19 ["Plugin"]
-       28 LOADK                            R9 K20 ["TestTemplatesPage.Title"]
-       29 NAMECALL                         R6 R0 K21 ["getText"]
-       31 CALL                             R6 3 1
-       32 SETTABLEKS                       R6 R5 K14 ["Title"]
-       34 LOADK                            R8 K19 ["Plugin"]
-       35 LOADK                            R9 K22 ["NoTemplatesToDisplay"]
-       36 NAMECALL                         R6 R0 K21 ["getText"]
-       38 CALL                             R6 3 1
-       39 SETTABLEKS                       R6 R5 K15 ["FailedTitle"]
-       41 LOADK                            R6 K13 ["TestTemplates"]
-       42 SETTABLEKS                       R6 R5 K16 ["Key"]
-       44 GETUPVAL                         R6 5
-       45 SETTABLEKS                       R6 R5 K17 ["PageComponent"]
-       47 SETLIST                          R4 R5 1 [1]
-       49 SETTABLEKS                       R4 R3 K7 ["Tabs"]
-       51 LOADB                            R4 1
-       52 SETTABLEKS                       R4 R3 K8 ["HideTabs"]
-       54 LOADB                            R4 0
-       55 SETTABLEKS                       R4 R3 K9 ["CanSwapBetweenViews"]
-       57 LOADB                            R4 1
-       58 SETTABLEKS                       R4 R3 K10 ["IsDefaultGridView"]
-       60 LOADB                            R4 0
-       61 SETTABLEKS                       R4 R3 K11 ["HasSearchBar"]
-       63 CALL                             R1 2 -1
-       64 RETURN                           R1 -1
+       20 DUPTABLE                         R3 K15 [{["PageName"] = "TestTemplates", ["Tabs"], ["HideTabs"] = True, ["CanSwapBetweenViews"] = False, ["IsDefaultGridView"] = True, ["HasSearchBar"] = False}]
+       21 NEWTABLE                         R4 0 1
+       23 DUPTABLE                         R5 K20 [{["Title"], ["FailedTitle"], ["Key"] = "TestTemplates", ["PageComponent"]}]
+       24 LOADK                            R8 K21 ["Plugin"]
+       25 LOADK                            R9 K22 ["TestTemplatesPage.Title"]
+       26 NAMECALL                         R6 R0 K23 ["getText"]
+       28 CALL                             R6 3 1
+       29 SETTABLEKS                       R6 R5 K16 ["Title"]
+       31 LOADK                            R8 K21 ["Plugin"]
+       32 LOADK                            R9 K24 ["NoTemplatesToDisplay"]
+       33 NAMECALL                         R6 R0 K23 ["getText"]
+       35 CALL                             R6 3 1
+       36 SETTABLEKS                       R6 R5 K17 ["FailedTitle"]
+       38 GETUPVAL                         R6 5
+       39 SETTABLEKS                       R6 R5 K19 ["PageComponent"]
+       41 SETLIST                          R4 R5 1 [1]
+       43 SETTABLEKS                       R4 R3 K8 ["Tabs"]
+       45 CALL                             R1 2 -1
+       46 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -159,35 +139,31 @@ MAIN:
        93 GETTABLEKS                       R14 R14 K26 ["getFFlagLuaStartPageStudioTestTemplates"]
        95 CALL                             R13 1 1
        96 CALL                             R13 0 1
-       97 DUPTABLE                         R14 K29 [{"searchKey", "pageSize"}]
-       98 LOADK                            R15 K30 ["TestTemplates"]
-       99 SETTABLEKS                       R15 R14 K27 ["searchKey"]
-      101 LOADN                            R15 30
-      102 SETTABLEKS                       R15 R14 K28 ["pageSize"]
-      104 GETIMPORT                        R15 K33 [UDim2.new]
-      106 LOADN                            R16 0
-      107 LOADN                            R17 225
-      108 LOADN                            R18 0
-      109 LOADN                            R19 252
-      110 CALL                             R15 4 1
-      111 DUPCLOSURE                       R16 K34 [PROTO_1]
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R7
-      114 CAPTURE                          VAL R3
-      115 CAPTURE                          VAL R11
-      116 DUPCLOSURE                       R17 K35 [PROTO_2]
-      117 CAPTURE                          VAL R1
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R3
-      120 CAPTURE                          VAL R14
-      121 CAPTURE                          VAL R16
-      122 CAPTURE                          VAL R15
-      123 CAPTURE                          VAL R9
-      124 DUPCLOSURE                       R18 K36 [PROTO_3]
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R12
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R1
-      129 CAPTURE                          VAL R8
-      130 CAPTURE                          VAL R17
-      131 RETURN                           R18 1
+       97 DUPTABLE                         R14 K31 [{["searchKey"] = "TestTemplates", ["pageSize"] = 30}]
+       98 GETIMPORT                        R15 K34 [UDim2.new]
+      100 LOADN                            R16 0
+      101 LOADN                            R17 225
+      102 LOADN                            R18 0
+      103 LOADN                            R19 252
+      104 CALL                             R15 4 1
+      105 DUPCLOSURE                       R16 K35 [PROTO_1]
+      106 CAPTURE                          VAL R1
+      107 CAPTURE                          VAL R7
+      108 CAPTURE                          VAL R3
+      109 CAPTURE                          VAL R11
+      110 DUPCLOSURE                       R17 K36 [PROTO_2]
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R6
+      113 CAPTURE                          VAL R3
+      114 CAPTURE                          VAL R14
+      115 CAPTURE                          VAL R16
+      116 CAPTURE                          VAL R15
+      117 CAPTURE                          VAL R9
+      118 DUPCLOSURE                       R18 K37 [PROTO_3]
+      119 CAPTURE                          VAL R13
+      120 CAPTURE                          VAL R12
+      121 CAPTURE                          VAL R5
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R8
+      124 CAPTURE                          VAL R17
+      125 RETURN                           R18 1

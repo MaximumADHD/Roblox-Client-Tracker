@@ -530,15 +530,15 @@ PROTO_18:
        48 JUMPIF                           R14 ; [+14]
        49 GETUPVAL                         R14 1
        50 CALL                             R14 0 1
-       51 JUMPIFNOT                        R14 ; [+49]
+       51 JUMPIFNOT                        R14 ; [+46]
        52 JUMPIFEQ                         R13 R4 ; [+10]
        54 GETTABLEKS                       R15 R13 K9 ["Name"]
        56 GETTABLE                         R14 R6 R15
        57 JUMPIF                           R14 ; [+5]
-       58 JUMPIFNOT                        R7 ; [+42]
+       58 JUMPIFNOT                        R7 ; [+39]
        59 GETTABLEKS                       R15 R13 K9 ["Name"]
        61 GETTABLE                         R14 R7 R15
-       62 JUMPIFNOT                        R14 ; [+38]
+       62 JUMPIFNOT                        R14 ; [+35]
        63 LOADB                            R14 0
        64 GETIMPORT                        R15 K8 [ipairs]
        66 MOVE                             R16 R1
@@ -550,26 +550,24 @@ PROTO_18:
        75 LOADB                            R14 1
        76 JUMP                             ; [+2]
        77 FORGLOOP                         R15 2 [inext] ; [-9]
-       79 JUMPIF                           R14 ; [+21]
-       80 DUPTABLE                         R17 K12 [{"Name", "Instance", "Type"}]
+       79 JUMPIF                           R14 ; [+18]
+       80 DUPTABLE                         R17 K13 [{["Name"], ["Instance"] = "Root", ["Type"]}]
        81 GETTABLEKS                       R18 R13 K9 ["Name"]
        83 SETTABLEKS                       R18 R17 K9 ["Name"]
-       85 LOADK                            R18 K13 ["Root"]
-       86 SETTABLEKS                       R18 R17 K10 ["Instance"]
-       88 GETUPVAL                         R18 2
-       89 GETTABLEKS                       R18 R18 K14 ["TRACK_TYPES"]
-       91 GETTABLEKS                       R18 R18 K15 ["CFrame"]
-       93 SETTABLEKS                       R18 R17 K11 ["Type"]
-       95 FASTCALL2                        TABLE_INSERT R2 R17 ; [+4]
-       97 MOVE                             R16 R2
-       98 GETIMPORT                        R15 K18 [table.insert]
-      100 CALL                             R15 2 0
-      101 FORGLOOP                         R9 2 [inext] ; [-71]
-      103 GETIMPORT                        R9 K20 [table.sort]
-      105 MOVE                             R10 R2
-      106 DUPCLOSURE                       R11 K21 [PROTO_17]
-      107 CALL                             R9 2 0
-      108 RETURN                           R2 1
+       85 GETUPVAL                         R18 2
+       86 GETTABLEKS                       R18 R18 K14 ["TRACK_TYPES"]
+       88 GETTABLEKS                       R18 R18 K15 ["CFrame"]
+       90 SETTABLEKS                       R18 R17 K12 ["Type"]
+       92 FASTCALL2                        TABLE_INSERT R2 R17 ; [+4]
+       94 MOVE                             R16 R2
+       95 GETIMPORT                        R15 K18 [table.insert]
+       97 CALL                             R15 2 0
+       98 FORGLOOP                         R9 2 [inext] ; [-68]
+      100 GETIMPORT                        R9 K20 [table.sort]
+      102 MOVE                             R10 R2
+      103 DUPCLOSURE                       R11 K21 [PROTO_17]
+      104 CALL                             R9 2 0
+      105 RETURN                           R2 1
 
 PROTO_19:
         0 GETUPVAL                         R0 0
@@ -819,89 +817,81 @@ MAIN:
        29 GETTABLEKS                       R4 R4 K11 ["GetFFlagRootMotion"]
        31 CALL                             R3 1 1
        32 DUPTABLE                         R4 K14 [{"Cache", "FaceControlsCache"}]
-       33 DUPTABLE                         R5 K17 [{"CacheRig", "CacheData"}]
-       34 LOADNIL                          R6
-       35 SETTABLEKS                       R6 R5 K15 ["CacheRig"]
-       37 LOADNIL                          R6
-       38 SETTABLEKS                       R6 R5 K16 ["CacheData"]
-       40 SETTABLEKS                       R5 R4 K12 ["Cache"]
-       42 DUPTABLE                         R5 K17 [{"CacheRig", "CacheData"}]
-       43 LOADNIL                          R6
-       44 SETTABLEKS                       R6 R5 K15 ["CacheRig"]
-       46 LOADNIL                          R6
-       47 SETTABLEKS                       R6 R5 K16 ["CacheData"]
-       49 SETTABLEKS                       R5 R4 K13 ["FaceControlsCache"]
-       51 DUPCLOSURE                       R5 K18 [PROTO_0]
-       52 CAPTURE                          VAL R5
-       53 DUPCLOSURE                       R6 K19 [PROTO_1]
-       54 CAPTURE                          VAL R2
-       55 SETTABLEKS                       R6 R4 K20 ["getTemporaryConstraints"]
-       57 DUPCLOSURE                       R6 K21 [PROTO_2]
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R6 R4 K22 ["usingTemporaryConstraints"]
-       61 DUPCLOSURE                       R6 K23 [PROTO_3]
-       62 CAPTURE                          VAL R4
-       63 CAPTURE                          VAL R5
-       64 SETTABLEKS                       R6 R4 K24 ["getConstraints"]
-       66 DUPCLOSURE                       R6 K25 [PROTO_5]
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R4
-       69 CAPTURE                          VAL R1
-       70 SETTABLEKS                       R6 R4 K26 ["buildRigHierarchy"]
-       72 DUPCLOSURE                       R6 K27 [PROTO_6]
-       73 SETTABLEKS                       R6 R4 K28 ["isR15Humanoid"]
-       75 DUPCLOSURE                       R6 K29 [PROTO_7]
-       76 SETTABLEKS                       R6 R4 K30 ["isR6Humanoid"]
-       78 DUPCLOSURE                       R6 K31 [PROTO_8]
-       79 CAPTURE                          VAL R4
-       80 CAPTURE                          VAL R3
-       81 CAPTURE                          VAL R5
-       82 SETTABLEKS                       R6 R4 K32 ["findRootPart"]
-       84 DUPCLOSURE                       R6 K33 [PROTO_9]
-       85 SETTABLEKS                       R6 R4 K34 ["getAnimationController"]
-       87 DUPCLOSURE                       R6 K35 [PROTO_10]
-       88 CAPTURE                          VAL R4
-       89 SETTABLEKS                       R6 R4 K36 ["getAnimator"]
-       91 DUPCLOSURE                       R6 K37 [PROTO_11]
-       92 SETTABLEKS                       R6 R4 K38 ["getPart0"]
-       94 DUPCLOSURE                       R6 K39 [PROTO_12]
-       95 SETTABLEKS                       R6 R4 K40 ["getPart1"]
-       97 DUPCLOSURE                       R6 K41 [PROTO_13]
+       33 DUPTABLE                         R5 K18 [{["CacheRig"] = , ["CacheData"] = }]
+       34 SETTABLEKS                       R5 R4 K12 ["Cache"]
+       36 DUPTABLE                         R5 K18 [{["CacheRig"] = , ["CacheData"] = }]
+       37 SETTABLEKS                       R5 R4 K13 ["FaceControlsCache"]
+       39 DUPCLOSURE                       R5 K19 [PROTO_0]
+       40 CAPTURE                          VAL R5
+       41 DUPCLOSURE                       R6 K20 [PROTO_1]
+       42 CAPTURE                          VAL R2
+       43 SETTABLEKS                       R6 R4 K21 ["getTemporaryConstraints"]
+       45 DUPCLOSURE                       R6 K22 [PROTO_2]
+       46 CAPTURE                          VAL R4
+       47 SETTABLEKS                       R6 R4 K23 ["usingTemporaryConstraints"]
+       49 DUPCLOSURE                       R6 K24 [PROTO_3]
+       50 CAPTURE                          VAL R4
+       51 CAPTURE                          VAL R5
+       52 SETTABLEKS                       R6 R4 K25 ["getConstraints"]
+       54 DUPCLOSURE                       R6 K26 [PROTO_5]
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          VAL R1
+       58 SETTABLEKS                       R6 R4 K27 ["buildRigHierarchy"]
+       60 DUPCLOSURE                       R6 K28 [PROTO_6]
+       61 SETTABLEKS                       R6 R4 K29 ["isR15Humanoid"]
+       63 DUPCLOSURE                       R6 K30 [PROTO_7]
+       64 SETTABLEKS                       R6 R4 K31 ["isR6Humanoid"]
+       66 DUPCLOSURE                       R6 K32 [PROTO_8]
+       67 CAPTURE                          VAL R4
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R5
+       70 SETTABLEKS                       R6 R4 K33 ["findRootPart"]
+       72 DUPCLOSURE                       R6 K34 [PROTO_9]
+       73 SETTABLEKS                       R6 R4 K35 ["getAnimationController"]
+       75 DUPCLOSURE                       R6 K36 [PROTO_10]
+       76 CAPTURE                          VAL R4
+       77 SETTABLEKS                       R6 R4 K37 ["getAnimator"]
+       79 DUPCLOSURE                       R6 K38 [PROTO_11]
+       80 SETTABLEKS                       R6 R4 K39 ["getPart0"]
+       82 DUPCLOSURE                       R6 K40 [PROTO_12]
+       83 SETTABLEKS                       R6 R4 K41 ["getPart1"]
+       85 DUPCLOSURE                       R6 K42 [PROTO_13]
+       86 CAPTURE                          VAL R5
+       87 SETTABLEKS                       R6 R4 K43 ["getMotors"]
+       89 DUPCLOSURE                       R6 K44 [PROTO_14]
+       90 CAPTURE                          VAL R5
+       91 SETTABLEKS                       R6 R4 K45 ["getBones"]
+       93 DUPCLOSURE                       R6 K46 [PROTO_15]
+       94 CAPTURE                          VAL R5
+       95 SETTABLEKS                       R6 R4 K47 ["getAnimationConstraints"]
+       97 DUPCLOSURE                       R6 K48 [PROTO_16]
        98 CAPTURE                          VAL R5
-       99 SETTABLEKS                       R6 R4 K42 ["getMotors"]
-      101 DUPCLOSURE                       R6 K43 [PROTO_14]
-      102 CAPTURE                          VAL R5
-      103 SETTABLEKS                       R6 R4 K44 ["getBones"]
-      105 DUPCLOSURE                       R6 K45 [PROTO_15]
-      106 CAPTURE                          VAL R5
-      107 SETTABLEKS                       R6 R4 K46 ["getAnimationConstraints"]
-      109 DUPCLOSURE                       R6 K47 [PROTO_16]
-      110 CAPTURE                          VAL R5
-      111 SETTABLEKS                       R6 R4 K48 ["getFaceControlsPath"]
-      113 DUPCLOSURE                       R6 K49 [PROTO_18]
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R3
-      116 CAPTURE                          VAL R2
-      117 SETTABLEKS                       R6 R4 K50 ["getUnusedRigTracks"]
-      119 DUPCLOSURE                       R6 K51 [PROTO_19]
-      120 CAPTURE                          VAL R4
-      121 SETTABLEKS                       R6 R4 K52 ["clearCache"]
-      123 DUPCLOSURE                       R6 K53 [PROTO_20]
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          VAL R5
-      127 SETTABLEKS                       R6 R4 K54 ["getRigInfo"]
-      129 DUPCLOSURE                       R6 K55 [PROTO_21]
-      130 CAPTURE                          VAL R4
-      131 SETTABLEKS                       R6 R4 K56 ["getRootPart"]
-      133 DUPCLOSURE                       R6 K57 [PROTO_22]
-      134 CAPTURE                          VAL R4
-      135 CAPTURE                          VAL R5
-      136 SETTABLEKS                       R6 R4 K58 ["getFaceControls"]
-      138 DUPCLOSURE                       R6 K59 [PROTO_23]
-      139 CAPTURE                          VAL R4
-      140 SETTABLEKS                       R6 R4 K60 ["getPartByName"]
-      142 DUPCLOSURE                       R6 K61 [PROTO_24]
-      143 CAPTURE                          VAL R4
-      144 SETTABLEKS                       R6 R4 K62 ["getBoneByName"]
-      146 RETURN                           R4 1
+       99 SETTABLEKS                       R6 R4 K49 ["getFaceControlsPath"]
+      101 DUPCLOSURE                       R6 K50 [PROTO_18]
+      102 CAPTURE                          VAL R4
+      103 CAPTURE                          VAL R3
+      104 CAPTURE                          VAL R2
+      105 SETTABLEKS                       R6 R4 K51 ["getUnusedRigTracks"]
+      107 DUPCLOSURE                       R6 K52 [PROTO_19]
+      108 CAPTURE                          VAL R4
+      109 SETTABLEKS                       R6 R4 K53 ["clearCache"]
+      111 DUPCLOSURE                       R6 K54 [PROTO_20]
+      112 CAPTURE                          VAL R3
+      113 CAPTURE                          VAL R4
+      114 CAPTURE                          VAL R5
+      115 SETTABLEKS                       R6 R4 K55 ["getRigInfo"]
+      117 DUPCLOSURE                       R6 K56 [PROTO_21]
+      118 CAPTURE                          VAL R4
+      119 SETTABLEKS                       R6 R4 K57 ["getRootPart"]
+      121 DUPCLOSURE                       R6 K58 [PROTO_22]
+      122 CAPTURE                          VAL R4
+      123 CAPTURE                          VAL R5
+      124 SETTABLEKS                       R6 R4 K59 ["getFaceControls"]
+      126 DUPCLOSURE                       R6 K60 [PROTO_23]
+      127 CAPTURE                          VAL R4
+      128 SETTABLEKS                       R6 R4 K61 ["getPartByName"]
+      130 DUPCLOSURE                       R6 K62 [PROTO_24]
+      131 CAPTURE                          VAL R4
+      132 SETTABLEKS                       R6 R4 K63 ["getBoneByName"]
+      134 RETURN                           R4 1

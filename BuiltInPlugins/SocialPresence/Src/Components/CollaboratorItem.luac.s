@@ -253,96 +253,88 @@ PROTO_7:
       111 GETUPVAL                         R10 0
       112 GETTABLEKS                       R10 R10 K15 ["createElement"]
       114 GETUPVAL                         R11 8
-      115 DUPTABLE                         R12 K27 [{"Text", "TextSize", "TextXAlignment", "TextYAlignment", "Position"}]
-      116 GETTABLEKS                       R13 R0 K28 ["Username"]
+      115 DUPTABLE                         R12 K28 [{["Text"], ["TextSize"] = 18, ["TextXAlignment"], ["TextYAlignment"], ["Position"]}]
+      116 GETTABLEKS                       R13 R0 K29 ["Username"]
       118 SETTABLEKS                       R13 R12 K22 ["Text"]
-      120 LOADN                            R13 18
-      121 SETTABLEKS                       R13 R12 K23 ["TextSize"]
-      123 GETIMPORT                        R13 K31 [Enum.TextXAlignment.Left]
-      125 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
-      127 GETIMPORT                        R13 K33 [Enum.TextYAlignment.Top]
-      129 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
-      131 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
-      133 GETTABLEKS                       R13 R13 K34 ["usernamePosition"]
-      135 SETTABLEKS                       R13 R12 K26 ["Position"]
-      137 CALL                             R10 2 1
-      138 SETTABLEKS                       R10 R9 K12 ["UsernameLabel"]
-      140 GETUPVAL                         R10 0
-      141 GETTABLEKS                       R10 R10 K15 ["createElement"]
-      143 GETUPVAL                         R11 8
-      144 DUPTABLE                         R12 K37 [{"RichText", "Style", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "Position"}]
-      145 LOADB                            R13 1
-      146 SETTABLEKS                       R13 R12 K35 ["RichText"]
-      148 LOADK                            R13 K38 ["SubText"]
-      149 SETTABLEKS                       R13 R12 K36 ["Style"]
-      151 GETUPVAL                         R13 9
-      152 GETTABLEKS                       R14 R0 K6 ["IsIdle"]
-      154 MOVE                             R15 R3
-      155 CALL                             R13 2 1
-      156 SETTABLEKS                       R13 R12 K22 ["Text"]
-      158 LOADN                            R13 14
-      159 SETTABLEKS                       R13 R12 K23 ["TextSize"]
-      161 GETIMPORT                        R13 K31 [Enum.TextXAlignment.Left]
-      163 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
-      165 GETIMPORT                        R13 K33 [Enum.TextYAlignment.Top]
-      167 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
-      169 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
-      171 GETTABLEKS                       R13 R13 K39 ["subtitlePosition"]
-      173 SETTABLEKS                       R13 R12 K26 ["Position"]
-      175 CALL                             R10 2 1
-      176 SETTABLEKS                       R10 R9 K13 ["EditingLabel"]
-      178 JUMPIFNOT                        R1 ; [+17]
-      179 JUMPIFNOT                        R8 ; [+16]
-      180 GETUPVAL                         R10 0
-      181 GETTABLEKS                       R10 R10 K15 ["createElement"]
-      183 GETUPVAL                         R11 10
-      184 DUPTABLE                         R12 K41 [{"Id", "OnJump"}]
-      185 GETTABLEKS                       R13 R0 K10 ["Id"]
-      187 SETTABLEKS                       R13 R12 K10 ["Id"]
-      189 GETTABLEKS                       R13 R0 K40 ["OnJump"]
-      191 SETTABLEKS                       R13 R12 K40 ["OnJump"]
-      193 CALL                             R10 2 1
-      194 SETTABLEKS                       R10 R9 K42 ["JumpTo"]
-      196 GETUPVAL                         R10 0
-      197 GETTABLEKS                       R10 R10 K15 ["createElement"]
-      199 GETUPVAL                         R11 11
-      200 NEWTABLE                         R12 8 0
-      202 LOADK                            R13 K43 ["RoundBox"]
-      203 SETTABLEKS                       R13 R12 K36 ["Style"]
-      205 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
-      207 GETTABLEKS                       R13 R13 K44 ["size"]
-      209 SETTABLEKS                       R13 R12 K16 ["Size"]
-      211 LOADN                            R13 8
-      212 SETTABLEKS                       R13 R12 K45 ["Padding"]
-      214 JUMPIFNOT                        R1 ; [+5]
-      215 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
-      217 GETTABLEKS                       R13 R13 K46 ["hoveredBackground"]
-      219 JUMPIF                           R13 ; [+1]
-      220 LOADNIL                          R13
-      221 SETTABLEKS                       R13 R12 K47 ["BackgroundColor3"]
-      223 SETTABLEKS                       R7 R12 K48 ["ForwardRef"]
+      120 GETIMPORT                        R13 K32 [Enum.TextXAlignment.Left]
+      122 SETTABLEKS                       R13 R12 K25 ["TextXAlignment"]
+      124 GETIMPORT                        R13 K34 [Enum.TextYAlignment.Top]
+      126 SETTABLEKS                       R13 R12 K26 ["TextYAlignment"]
+      128 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
+      130 GETTABLEKS                       R13 R13 K35 ["usernamePosition"]
+      132 SETTABLEKS                       R13 R12 K27 ["Position"]
+      134 CALL                             R10 2 1
+      135 SETTABLEKS                       R10 R9 K12 ["UsernameLabel"]
+      137 GETUPVAL                         R10 0
+      138 GETTABLEKS                       R10 R10 K15 ["createElement"]
+      140 GETUPVAL                         R11 8
+      141 DUPTABLE                         R12 K41 [{["RichText"] = True, ["Style"] = "SubText", ["Text"], ["TextSize"] = 14, ["TextXAlignment"], ["TextYAlignment"], ["Position"]}]
+      142 GETUPVAL                         R13 9
+      143 GETTABLEKS                       R14 R0 K6 ["IsIdle"]
+      145 MOVE                             R15 R3
+      146 CALL                             R13 2 1
+      147 SETTABLEKS                       R13 R12 K22 ["Text"]
+      149 GETIMPORT                        R13 K32 [Enum.TextXAlignment.Left]
+      151 SETTABLEKS                       R13 R12 K25 ["TextXAlignment"]
+      153 GETIMPORT                        R13 K34 [Enum.TextYAlignment.Top]
+      155 SETTABLEKS                       R13 R12 K26 ["TextYAlignment"]
+      157 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
+      159 GETTABLEKS                       R13 R13 K42 ["subtitlePosition"]
+      161 SETTABLEKS                       R13 R12 K27 ["Position"]
+      163 CALL                             R10 2 1
+      164 SETTABLEKS                       R10 R9 K13 ["EditingLabel"]
+      166 JUMPIFNOT                        R1 ; [+17]
+      167 JUMPIFNOT                        R8 ; [+16]
+      168 GETUPVAL                         R10 0
+      169 GETTABLEKS                       R10 R10 K15 ["createElement"]
+      171 GETUPVAL                         R11 10
+      172 DUPTABLE                         R12 K44 [{"Id", "OnJump"}]
+      173 GETTABLEKS                       R13 R0 K10 ["Id"]
+      175 SETTABLEKS                       R13 R12 K10 ["Id"]
+      177 GETTABLEKS                       R13 R0 K43 ["OnJump"]
+      179 SETTABLEKS                       R13 R12 K43 ["OnJump"]
+      181 CALL                             R10 2 1
+      182 SETTABLEKS                       R10 R9 K45 ["JumpTo"]
+      184 GETUPVAL                         R10 0
+      185 GETTABLEKS                       R10 R10 K15 ["createElement"]
+      187 GETUPVAL                         R11 11
+      188 NEWTABLE                         R12 8 0
+      190 LOADK                            R13 K46 ["RoundBox"]
+      191 SETTABLEKS                       R13 R12 K38 ["Style"]
+      193 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
+      195 GETTABLEKS                       R13 R13 K47 ["size"]
+      197 SETTABLEKS                       R13 R12 K16 ["Size"]
+      199 LOADN                            R13 8
+      200 SETTABLEKS                       R13 R12 K48 ["Padding"]
+      202 JUMPIFNOT                        R1 ; [+5]
+      203 GETTABLEKS                       R13 R5 K19 ["collaboratorItem"]
+      205 GETTABLEKS                       R13 R13 K49 ["hoveredBackground"]
+      207 JUMPIF                           R13 ; [+1]
+      208 LOADNIL                          R13
+      209 SETTABLEKS                       R13 R12 K50 ["BackgroundColor3"]
+      211 SETTABLEKS                       R7 R12 K51 ["ForwardRef"]
+      213 GETUPVAL                         R13 0
+      214 GETTABLEKS                       R13 R13 K52 ["Event"]
+      216 GETTABLEKS                       R13 R13 K53 ["MouseEnter"]
+      218 NEWCLOSURE                       R14 P2
+      219 CAPTURE                          VAL R2
+      220 CAPTURE                          VAL R8
+      221 CAPTURE                          VAL R7
+      222 CAPTURE                          UPVAL U6
+      223 CAPTURE                          VAL R5
+      224 SETTABLE                         R14 R12 R13
       225 GETUPVAL                         R13 0
-      226 GETTABLEKS                       R13 R13 K49 ["Event"]
-      228 GETTABLEKS                       R13 R13 K50 ["MouseEnter"]
-      230 NEWCLOSURE                       R14 P2
+      226 GETTABLEKS                       R13 R13 K52 ["Event"]
+      228 GETTABLEKS                       R13 R13 K54 ["MouseLeave"]
+      230 NEWCLOSURE                       R14 P3
       231 CAPTURE                          VAL R2
-      232 CAPTURE                          VAL R8
+      232 CAPTURE                          UPVAL U6
       233 CAPTURE                          VAL R7
-      234 CAPTURE                          UPVAL U6
-      235 CAPTURE                          VAL R5
-      236 SETTABLE                         R14 R12 R13
-      237 GETUPVAL                         R13 0
-      238 GETTABLEKS                       R13 R13 K49 ["Event"]
-      240 GETTABLEKS                       R13 R13 K51 ["MouseLeave"]
-      242 NEWCLOSURE                       R14 P3
-      243 CAPTURE                          VAL R2
-      244 CAPTURE                          UPVAL U6
-      245 CAPTURE                          VAL R7
-      246 CAPTURE                          VAL R5
-      247 SETTABLE                         R14 R12 R13
-      248 MOVE                             R13 R9
-      249 CALL                             R10 3 -1
-      250 RETURN                           R10 -1
+      234 CAPTURE                          VAL R5
+      235 SETTABLE                         R14 R12 R13
+      236 MOVE                             R13 R9
+      237 CALL                             R10 3 -1
+      238 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -37,81 +37,75 @@ PROTO_2:
        26 CALL                             R3 2 1
        27 RETURN                           R3 1
        28 GETTABLEKS                       R3 R0 K2 ["Enabled"]
-       30 JUMPIFNOT                        R3 ; [+107]
+       30 JUMPIFNOT                        R3 ; [+98]
        31 GETUPVAL                         R3 0
        32 GETTABLEKS                       R3 R3 K3 ["createElement"]
        34 GETUPVAL                         R4 4
-       35 DUPTABLE                         R5 K8 [{"tag"}]
-       36 LOADK                            R6 K9 ["col auto-y size-full-0 padding-small"]
-       37 SETTABLEKS                       R6 R5 K7 ["tag"]
-       39 DUPTABLE                         R6 K12 [{"Tabs", "MainContainer"}]
-       40 GETUPVAL                         R7 0
-       41 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       43 GETUPVAL                         R8 5
-       44 DUPTABLE                         R9 K18 [{"activeTabId", "onActivated", "tabs", "size", "fillBehavior"}]
-       45 SETTABLEKS                       R1 R9 K13 ["activeTabId"]
-       47 NEWCLOSURE                       R10 P0
-       48 CAPTURE                          VAL R2
-       49 SETTABLEKS                       R10 R9 K14 ["onActivated"]
-       51 GETUPVAL                         R10 1
-       52 SETTABLEKS                       R10 R9 K15 ["tabs"]
-       54 GETUPVAL                         R10 6
-       55 GETTABLEKS                       R10 R10 K19 ["Enums"]
-       57 GETTABLEKS                       R10 R10 K20 ["InputSize"]
-       59 GETTABLEKS                       R10 R10 K21 ["Small"]
-       61 SETTABLEKS                       R10 R9 K16 ["size"]
-       63 GETUPVAL                         R10 6
-       64 GETTABLEKS                       R10 R10 K19 ["Enums"]
-       66 GETTABLEKS                       R10 R10 K22 ["FillBehavior"]
-       68 GETTABLEKS                       R10 R10 K23 ["Fill"]
-       70 SETTABLEKS                       R10 R9 K17 ["fillBehavior"]
-       72 CALL                             R7 2 1
-       73 SETTABLEKS                       R7 R6 K10 ["Tabs"]
-       75 GETUPVAL                         R7 0
-       76 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       78 GETUPVAL                         R8 4
-       79 DUPTABLE                         R9 K25 [{"LayoutOrder", "tag"}]
-       80 LOADN                            R10 3
-       81 SETTABLEKS                       R10 R9 K24 ["LayoutOrder"]
-       83 LOADK                            R10 K26 ["size-full-0 auto-y bg-surface-0 radius-large"]
-       84 SETTABLEKS                       R10 R9 K7 ["tag"]
-       86 DUPTABLE                         R10 K29 [{"InlineEditor", "MainEditor"}]
-       87 LOADB                            R11 0
-       88 GETUPVAL                         R13 1
-       89 GETTABLEN                        R12 R13 1
-       90 GETTABLEKS                       R12 R12 K1 ["id"]
-       92 JUMPIFNOTEQ                      R1 R12 ; [+16]
-       94 GETUPVAL                         R11 0
-       95 GETTABLEKS                       R11 R11 K3 ["createElement"]
-       97 GETUPVAL                         R12 7
-       98 DUPTABLE                         R13 K31 [{"Data", "OnOpenEditor"}]
-       99 GETTABLEKS                       R14 R0 K4 ["Data"]
-      101 SETTABLEKS                       R14 R13 K4 ["Data"]
-      103 NEWCLOSURE                       R14 P1
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          UPVAL U1
-      106 SETTABLEKS                       R14 R13 K30 ["OnOpenEditor"]
-      108 CALL                             R11 2 1
-      109 SETTABLEKS                       R11 R10 K27 ["InlineEditor"]
-      111 LOADB                            R11 0
-      112 GETUPVAL                         R13 1
-      113 GETTABLEN                        R12 R13 2
-      114 GETTABLEKS                       R12 R12 K1 ["id"]
-      116 JUMPIFNOTEQ                      R1 R12 ; [+15]
-      118 GETUPVAL                         R11 0
-      119 GETTABLEKS                       R11 R11 K3 ["createElement"]
-      121 GETUPVAL                         R12 3
-      122 DUPTABLE                         R13 K6 [{"Data", "SetData"}]
-      123 GETTABLEKS                       R14 R0 K4 ["Data"]
-      125 SETTABLEKS                       R14 R13 K4 ["Data"]
-      127 GETTABLEKS                       R14 R0 K5 ["SetData"]
-      129 SETTABLEKS                       R14 R13 K5 ["SetData"]
-      131 CALL                             R11 2 1
-      132 SETTABLEKS                       R11 R10 K28 ["MainEditor"]
-      134 CALL                             R7 3 1
-      135 SETTABLEKS                       R7 R6 K11 ["MainContainer"]
-      137 CALL                             R3 3 1
-      138 RETURN                           R3 1
+       35 DUPTABLE                         R5 K9 [{["tag"] = "col size-full-0 auto-y padding-small"}]
+       36 DUPTABLE                         R6 K12 [{"Tabs", "MainContainer"}]
+       37 GETUPVAL                         R7 0
+       38 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       40 GETUPVAL                         R8 5
+       41 DUPTABLE                         R9 K18 [{"activeTabId", "onActivated", "tabs", "size", "fillBehavior"}]
+       42 SETTABLEKS                       R1 R9 K13 ["activeTabId"]
+       44 NEWCLOSURE                       R10 P0
+       45 CAPTURE                          VAL R2
+       46 SETTABLEKS                       R10 R9 K14 ["onActivated"]
+       48 GETUPVAL                         R10 1
+       49 SETTABLEKS                       R10 R9 K15 ["tabs"]
+       51 GETUPVAL                         R10 6
+       52 GETTABLEKS                       R10 R10 K19 ["Enums"]
+       54 GETTABLEKS                       R10 R10 K20 ["InputSize"]
+       56 GETTABLEKS                       R10 R10 K21 ["Small"]
+       58 SETTABLEKS                       R10 R9 K16 ["size"]
+       60 GETUPVAL                         R10 6
+       61 GETTABLEKS                       R10 R10 K19 ["Enums"]
+       63 GETTABLEKS                       R10 R10 K22 ["FillBehavior"]
+       65 GETTABLEKS                       R10 R10 K23 ["Fill"]
+       67 SETTABLEKS                       R10 R9 K17 ["fillBehavior"]
+       69 CALL                             R7 2 1
+       70 SETTABLEKS                       R7 R6 K10 ["Tabs"]
+       72 GETUPVAL                         R7 0
+       73 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       75 GETUPVAL                         R8 4
+       76 DUPTABLE                         R9 K27 [{["LayoutOrder"] = 3, ["tag"] = "size-full-0 auto-y radius-large bg-surface-0"}]
+       77 DUPTABLE                         R10 K30 [{"InlineEditor", "MainEditor"}]
+       78 LOADB                            R11 0
+       79 GETUPVAL                         R13 1
+       80 GETTABLEN                        R12 R13 1
+       81 GETTABLEKS                       R12 R12 K1 ["id"]
+       83 JUMPIFNOTEQ                      R1 R12 ; [+16]
+       85 GETUPVAL                         R11 0
+       86 GETTABLEKS                       R11 R11 K3 ["createElement"]
+       88 GETUPVAL                         R12 7
+       89 DUPTABLE                         R13 K32 [{"Data", "OnOpenEditor"}]
+       90 GETTABLEKS                       R14 R0 K4 ["Data"]
+       92 SETTABLEKS                       R14 R13 K4 ["Data"]
+       94 NEWCLOSURE                       R14 P1
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          UPVAL U1
+       97 SETTABLEKS                       R14 R13 K31 ["OnOpenEditor"]
+       99 CALL                             R11 2 1
+      100 SETTABLEKS                       R11 R10 K28 ["InlineEditor"]
+      102 LOADB                            R11 0
+      103 GETUPVAL                         R13 1
+      104 GETTABLEN                        R12 R13 2
+      105 GETTABLEKS                       R12 R12 K1 ["id"]
+      107 JUMPIFNOTEQ                      R1 R12 ; [+15]
+      109 GETUPVAL                         R11 0
+      110 GETTABLEKS                       R11 R11 K3 ["createElement"]
+      112 GETUPVAL                         R12 3
+      113 DUPTABLE                         R13 K6 [{"Data", "SetData"}]
+      114 GETTABLEKS                       R14 R0 K4 ["Data"]
+      116 SETTABLEKS                       R14 R13 K4 ["Data"]
+      118 GETTABLEKS                       R14 R0 K5 ["SetData"]
+      120 SETTABLEKS                       R14 R13 K5 ["SetData"]
+      122 CALL                             R11 2 1
+      123 SETTABLEKS                       R11 R10 K29 ["MainEditor"]
+      125 CALL                             R7 3 1
+      126 SETTABLEKS                       R7 R6 K11 ["MainContainer"]
+      128 CALL                             R3 3 1
+      129 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -152,24 +146,16 @@ MAIN:
        61 GETTABLEKS                       R10 R10 K20 ["Types"]
        63 CALL                             R9 1 1
        64 NEWTABLE                         R10 0 2
-       66 DUPTABLE                         R11 K23 [{"id", "text"}]
-       67 LOADK                            R12 K24 ["1"]
-       68 SETTABLEKS                       R12 R11 K21 ["id"]
-       70 LOADK                            R12 K25 ["Preview Widget"]
-       71 SETTABLEKS                       R12 R11 K22 ["text"]
-       73 DUPTABLE                         R12 K23 [{"id", "text"}]
-       74 LOADK                            R13 K26 ["2"]
-       75 SETTABLEKS                       R13 R12 K21 ["id"]
-       77 LOADK                            R13 K27 ["Full Editor"]
-       78 SETTABLEKS                       R13 R12 K22 ["text"]
-       80 SETLIST                          R10 R11 2 [1]
-       82 DUPCLOSURE                       R11 K28 [PROTO_2]
-       83 CAPTURE                          VAL R1
-       84 CAPTURE                          VAL R10
-       85 CAPTURE                          VAL R8
-       86 CAPTURE                          VAL R6
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          VAL R5
-       91 RETURN                           R11 1
+       66 DUPTABLE                         R11 K25 [{["id"] = "1", ["text"] = "Preview Widget"}]
+       67 DUPTABLE                         R12 K28 [{["id"] = "2", ["text"] = "Full Editor"}]
+       68 SETLIST                          R10 R11 2 [1]
+       70 DUPCLOSURE                       R11 K29 [PROTO_2]
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R10
+       73 CAPTURE                          VAL R8
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R3
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R5
+       79 RETURN                           R11 1

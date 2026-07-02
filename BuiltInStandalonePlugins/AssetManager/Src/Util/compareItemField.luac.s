@@ -5,7 +5,7 @@ PROTO_0:
         4 JUMPIFNOT                        R2 ; [+2]
         5 LOADN                            R3 1
         6 JUMP                             ; [+1]
-        7 LOADN                            R3 255
+        7 LOADN                            R3 -1
         8 JUMPIFNOTLT                      R0 R1 ; [+3]
        10 MOVE                             R4 R3
        11 RETURN                           R4 1
@@ -21,7 +21,7 @@ PROTO_1:
         5 MOVE                             R6 R1
         6 CALL                             R4 2 1
         7 JUMPIFNOT                        R2 ; [+2]
-        8 LOADN                            R5 255
+        8 LOADN                            R5 -1
         9 JUMP                             ; [+1]
        10 LOADN                            R5 1
        11 MUL                              R3 R4 R5
@@ -38,7 +38,7 @@ PROTO_1:
        25 JUMPIFNOT                        R2 ; [+2]
        26 LOADN                            R6 1
        27 JUMP                             ; [+1]
-       28 LOADN                            R6 255
+       28 LOADN                            R6 -1
        29 JUMPIFNOTLT                      R4 R5 ; [+3]
        31 MOVE                             R3 R6
        32 RETURN                           R3 1
@@ -54,7 +54,7 @@ PROTO_2:
         6 GETTABLEKS                       R6 R1 K0 ["Name"]
         8 CALL                             R4 2 1
         9 JUMPIFNOT                        R2 ; [+2]
-       10 LOADN                            R5 255
+       10 LOADN                            R5 -1
        11 JUMP                             ; [+1]
        12 LOADN                            R5 1
        13 MUL                              R3 R4 R5
@@ -71,7 +71,7 @@ PROTO_2:
        29 JUMPIFNOT                        R2 ; [+2]
        30 LOADN                            R6 1
        31 JUMP                             ; [+1]
-       32 LOADN                            R6 255
+       32 LOADN                            R6 -1
        33 JUMPIFNOTLT                      R4 R5 ; [+3]
        35 MOVE                             R3 R6
        36 RETURN                           R3 1
@@ -85,7 +85,7 @@ PROTO_3:
         4 JUMPIFNOT                        R2 ; [+2]
         5 LOADN                            R4 1
         6 JUMP                             ; [+1]
-        7 LOADN                            R4 255
+        7 LOADN                            R4 -1
         8 JUMPIFNOTLT                      R0 R1 ; [+3]
        10 MOVE                             R3 R4
        11 RETURN                           R3 1

@@ -378,43 +378,37 @@ PROTO_14:
 PROTO_15:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["wasUnmounted"]
-        3 DUPTABLE                         R1 K4 [{"HoverPart", "LastValidation", "LastValidatedRig"}]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["HoverPart"]
-        7 LOADNIL                          R2
-        8 SETTABLEKS                       R2 R1 K2 ["LastValidation"]
-       10 LOADNIL                          R2
-       11 SETTABLEKS                       R2 R1 K3 ["LastValidatedRig"]
-       13 SETTABLEKS                       R1 R0 K5 ["state"]
-       15 DUPCLOSURE                       R1 K6 [PROTO_9]
-       16 CAPTURE                          UPVAL U0
-       17 SETTABLEKS                       R1 R0 K7 ["selectInstance"]
-       19 DUPCLOSURE                       R1 K8 [PROTO_10]
-       20 CAPTURE                          UPVAL U0
-       21 SETTABLEKS                       R1 R0 K9 ["deselect"]
-       23 NEWCLOSURE                       R1 P2
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R1 R0 K10 ["removeSelectedTrackInstances"]
-       27 NEWCLOSURE                       R1 P3
-       28 CAPTURE                          VAL R0
-       29 SETTABLEKS                       R1 R0 K11 ["highlightInstance"]
-       31 NEWCLOSURE                       R1 P4
+        3 DUPTABLE                         R1 K5 [{["HoverPart"] = , ["LastValidation"] = , ["LastValidatedRig"] = }]
+        4 SETTABLEKS                       R1 R0 K6 ["state"]
+        6 DUPCLOSURE                       R1 K7 [PROTO_9]
+        7 CAPTURE                          UPVAL U0
+        8 SETTABLEKS                       R1 R0 K8 ["selectInstance"]
+       10 DUPCLOSURE                       R1 K9 [PROTO_10]
+       11 CAPTURE                          UPVAL U0
+       12 SETTABLEKS                       R1 R0 K10 ["deselect"]
+       14 NEWCLOSURE                       R1 P2
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K11 ["removeSelectedTrackInstances"]
+       18 NEWCLOSURE                       R1 P3
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R1 R0 K12 ["highlightInstance"]
+       22 NEWCLOSURE                       R1 P4
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U1
+       25 SETTABLEKS                       R1 R0 K13 ["removeHighlight"]
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R1 R1 K14 ["SelectionChanged"]
+       30 NEWCLOSURE                       R3 P5
+       31 CAPTURE                          UPVAL U2
        32 CAPTURE                          VAL R0
-       33 CAPTURE                          UPVAL U1
-       34 SETTABLEKS                       R1 R0 K12 ["removeHighlight"]
-       36 GETUPVAL                         R1 0
-       37 GETTABLEKS                       R1 R1 K13 ["SelectionChanged"]
-       39 NEWCLOSURE                       R3 P5
-       40 CAPTURE                          UPVAL U2
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          UPVAL U0
-       43 CAPTURE                          UPVAL U3
-       44 CAPTURE                          UPVAL U4
-       45 CAPTURE                          UPVAL U5
-       46 NAMECALL                         R1 R1 K14 ["Connect"]
-       48 CALL                             R1 2 1
-       49 SETTABLEKS                       R1 R0 K15 ["SelectionChangedHandle"]
-       51 RETURN                           R0 0
+       33 CAPTURE                          UPVAL U0
+       34 CAPTURE                          UPVAL U3
+       35 CAPTURE                          UPVAL U4
+       36 CAPTURE                          UPVAL U5
+       37 NAMECALL                         R1 R1 K15 ["Connect"]
+       39 CALL                             R1 2 1
+       40 SETTABLEKS                       R1 R0 K16 ["SelectionChangedHandle"]
+       42 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R1 0
@@ -478,7 +472,7 @@ PROTO_19:
        16 GETTABLEKS                       R7 R7 K5 ["deselectBones"]
        18 CALL                             R7 0 0
        19 GETTABLEKS                       R7 R2 K6 ["SelectedTrackInstances"]
-       21 JUMPIFNOT                        R7 ; [+48]
+       21 JUMPIFNOT                        R7 ; [+33]
        22 GETIMPORT                        R7 K8 [ipairs]
        24 GETTABLEKS                       R8 R2 K6 ["SelectedTrackInstances"]
        26 CALL                             R7 1 3
@@ -493,52 +487,36 @@ PROTO_19:
        36 GETTABLEKS                       R12 R12 K10 ["selectBone"]
        38 MOVE                             R13 R11
        39 CALL                             R12 1 0
-       40 JUMP                             ; [+27]
+       40 JUMP                             ; [+12]
        41 LOADK                            R13 K11 ["SelectionBox"]
        42 MOVE                             R14 R10
        43 CONCAT                           R12 R13 R14
        44 GETUPVAL                         R13 2
        45 GETTABLEKS                       R13 R13 K12 ["createElement"]
        47 LOADK                            R14 K11 ["SelectionBox"]
-       48 DUPTABLE                         R15 K19 [{"Archivable", "Adornee", "LineThickness", "Transparency", "SurfaceTransparency", "StudioSelectionBox"}]
-       49 LOADB                            R16 0
-       50 SETTABLEKS                       R16 R15 K13 ["Archivable"]
-       52 SETTABLEKS                       R11 R15 K14 ["Adornee"]
-       54 LOADN                            R16 1
-       55 SETTABLEKS                       R16 R15 K15 ["LineThickness"]
-       57 LOADK                            R16 K20 [0.5]
-       58 SETTABLEKS                       R16 R15 K16 ["Transparency"]
-       60 LOADK                            R16 K21 [0.8]
-       61 SETTABLEKS                       R16 R15 K17 ["SurfaceTransparency"]
-       63 LOADB                            R16 1
-       64 SETTABLEKS                       R16 R15 K18 ["StudioSelectionBox"]
-       66 CALL                             R13 2 1
-       67 SETTABLE                         R13 R6 R12
-       68 FORGLOOP                         R7 2 [inext] ; [-41]
-       70 MOVE                             R7 R4
-       71 JUMPIFNOT                        R7 ; [+17]
-       72 GETUPVAL                         R7 2
-       73 GETTABLEKS                       R7 R7 K12 ["createElement"]
-       75 LOADK                            R8 K11 ["SelectionBox"]
-       76 DUPTABLE                         R9 K22 [{"Archivable", "Adornee", "LineThickness", "StudioSelectionBox"}]
-       77 LOADB                            R10 0
-       78 SETTABLEKS                       R10 R9 K13 ["Archivable"]
-       80 SETTABLEKS                       R4 R9 K14 ["Adornee"]
-       82 LOADN                            R10 2
-       83 SETTABLEKS                       R10 R9 K15 ["LineThickness"]
-       85 LOADB                            R10 1
-       86 SETTABLEKS                       R10 R9 K18 ["StudioSelectionBox"]
-       88 CALL                             R7 2 1
-       89 SETTABLEKS                       R7 R6 K23 ["HoverBox"]
-       91 GETUPVAL                         R7 2
-       92 GETTABLEKS                       R7 R7 K12 ["createElement"]
-       94 GETUPVAL                         R8 2
-       95 GETTABLEKS                       R8 R8 K24 ["Portal"]
-       97 DUPTABLE                         R9 K26 [{"target"}]
-       98 SETTABLEKS                       R5 R9 K25 ["target"]
-      100 MOVE                             R10 R6
-      101 CALL                             R7 3 -1
-      102 RETURN                           R7 -1
+       48 DUPTABLE                         R15 K24 [{["Archivable"] = False, ["Adornee"], ["LineThickness"] = 1, ["Transparency"] = 0.5, ["SurfaceTransparency"] = 0.8, ["StudioSelectionBox"] = True}]
+       49 SETTABLEKS                       R11 R15 K15 ["Adornee"]
+       51 CALL                             R13 2 1
+       52 SETTABLE                         R13 R6 R12
+       53 FORGLOOP                         R7 2 [inext] ; [-26]
+       55 MOVE                             R7 R4
+       56 JUMPIFNOT                        R7 ; [+8]
+       57 GETUPVAL                         R7 2
+       58 GETTABLEKS                       R7 R7 K12 ["createElement"]
+       60 LOADK                            R8 K11 ["SelectionBox"]
+       61 DUPTABLE                         R9 K26 [{["Archivable"] = False, ["Adornee"], ["LineThickness"] = 2, ["StudioSelectionBox"] = True}]
+       62 SETTABLEKS                       R4 R9 K15 ["Adornee"]
+       64 CALL                             R7 2 1
+       65 SETTABLEKS                       R7 R6 K27 ["HoverBox"]
+       67 GETUPVAL                         R7 2
+       68 GETTABLEKS                       R7 R7 K12 ["createElement"]
+       70 GETUPVAL                         R8 2
+       71 GETTABLEKS                       R8 R8 K28 ["Portal"]
+       73 DUPTABLE                         R9 K30 [{"target"}]
+       74 SETTABLEKS                       R5 R9 K29 ["target"]
+       76 MOVE                             R10 R6
+       77 CALL                             R7 3 -1
+       78 RETURN                           R7 -1
 
 PROTO_20:
         0 LOADB                            R1 1

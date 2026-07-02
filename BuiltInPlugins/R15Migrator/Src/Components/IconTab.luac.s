@@ -17,17 +17,15 @@ PROTO_1:
        11 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"hovered"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["hovered"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["hover"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onPress"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["hover"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onPress"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -98,33 +96,31 @@ PROTO_5:
        79 SETTABLEKS                       R13 R12 K26 ["BackgroundTransparency"]
        81 DUPTABLE                         R13 K27 [{"Icon"}]
        82 MOVE                             R14 R3
-       83 JUMPIFNOT                        R14 ; [+20]
+       83 JUMPIFNOT                        R14 ; [+17]
        84 GETUPVAL                         R14 0
        85 GETTABLEKS                       R14 R14 K10 ["createElement"]
        87 GETUPVAL                         R15 3
-       88 DUPTABLE                         R16 K30 [{"Image", "ImageColor3", "Size", "LayoutOrder"}]
+       88 DUPTABLE                         R16 K31 [{["Image"], ["ImageColor3"], ["Size"], ["LayoutOrder"] = 1}]
        89 SETTABLEKS                       R3 R16 K28 ["Image"]
        91 SETTABLEKS                       R6 R16 K29 ["ImageColor3"]
-       93 GETIMPORT                        R17 K33 [UDim2.fromOffset]
+       93 GETIMPORT                        R17 K34 [UDim2.fromOffset]
        95 MOVE                             R18 R7
        96 MOVE                             R19 R7
        97 CALL                             R17 2 1
        98 SETTABLEKS                       R17 R16 K7 ["Size"]
-      100 LOADN                            R17 1
-      101 SETTABLEKS                       R17 R16 K18 ["LayoutOrder"]
-      103 CALL                             R14 2 1
-      104 SETTABLEKS                       R14 R13 K3 ["Icon"]
-      106 CALL                             R10 3 1
-      107 JUMPIFNOT                        R4 ; [+11]
-      108 GETUPVAL                         R11 0
-      109 GETTABLEKS                       R11 R11 K10 ["createElement"]
-      111 GETUPVAL                         R12 4
-      112 DUPTABLE                         R13 K36 [{"Text", "Child"}]
-      113 SETTABLEKS                       R4 R13 K34 ["Text"]
-      115 SETTABLEKS                       R10 R13 K35 ["Child"]
-      117 CALL                             R11 2 -1
-      118 RETURN                           R11 -1
-      119 RETURN                           R10 1
+      100 CALL                             R14 2 1
+      101 SETTABLEKS                       R14 R13 K3 ["Icon"]
+      103 CALL                             R10 3 1
+      104 JUMPIFNOT                        R4 ; [+11]
+      105 GETUPVAL                         R11 0
+      106 GETTABLEKS                       R11 R11 K10 ["createElement"]
+      108 GETUPVAL                         R12 4
+      109 DUPTABLE                         R13 K37 [{"Text", "Child"}]
+      110 SETTABLEKS                       R4 R13 K35 ["Text"]
+      112 SETTABLEKS                       R10 R13 K36 ["Child"]
+      114 CALL                             R11 2 -1
+      115 RETURN                           R11 -1
+      116 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0

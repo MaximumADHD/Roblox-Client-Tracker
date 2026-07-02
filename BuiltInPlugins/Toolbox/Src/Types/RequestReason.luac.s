@@ -12,24 +12,8 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K8 [{"InitLoad", "ChangeTabs", "ChangeCategory", "ChangeSort", "ChangeGroup", "StartSearch", "NextPage", "UpdatePage"}]
-        2 LOADN                            R1 1
-        3 SETTABLEKS                       R1 R0 K0 ["InitLoad"]
-        5 LOADN                            R1 2
-        6 SETTABLEKS                       R1 R0 K1 ["ChangeTabs"]
-        8 LOADN                            R1 3
-        9 SETTABLEKS                       R1 R0 K2 ["ChangeCategory"]
-       11 LOADN                            R1 4
-       12 SETTABLEKS                       R1 R0 K3 ["ChangeSort"]
-       14 LOADN                            R1 5
-       15 SETTABLEKS                       R1 R0 K4 ["ChangeGroup"]
-       17 LOADN                            R1 6
-       18 SETTABLEKS                       R1 R0 K5 ["StartSearch"]
-       20 LOADN                            R1 7
-       21 SETTABLEKS                       R1 R0 K6 ["NextPage"]
-       23 LOADN                            R1 8
-       24 SETTABLEKS                       R1 R0 K7 ["UpdatePage"]
-       26 DUPCLOSURE                       R1 K9 [PROTO_0]
-       27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R1 R0 K10 ["IsUpdate"]
-       30 RETURN                           R0 1
+        1 DUPTABLE                         R0 K16 [{[1] = 1, ["ChangeTabs"] = 2, ["ChangeCategory"] = 3, ["ChangeSort"] = 4, ["ChangeGroup"] = 5, ["StartSearch"] = 6, ["NextPage"] = 7, ["UpdatePage"] = 8}]
+        2 DUPCLOSURE                       R1 K17 [PROTO_0]
+        3 CAPTURE                          VAL R0
+        4 SETTABLEKS                       R1 R0 K18 ["IsUpdate"]
+        6 RETURN                           R0 1

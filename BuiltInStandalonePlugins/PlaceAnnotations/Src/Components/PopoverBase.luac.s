@@ -158,10 +158,10 @@ PROTO_5:
        58 GETUPVAL                         R9 3
        59 GETTABLEKS                       R9 R9 K17 ["createElement"]
        61 GETUPVAL                         R10 7
-       62 DUPTABLE                         R11 K24 [{"ref", "Position", "Size", "onAbsoluteSizeChanged", "backgroundStyle", "stateLayer", "tag"}]
+       62 DUPTABLE                         R11 K25 [{["ref"], ["Position"], ["Size"], ["onAbsoluteSizeChanged"], ["backgroundStyle"], ["stateLayer"], ["tag"] = "col align-x-left gap-xsmall auto-y padding-medium radius-small"}]
        63 SETTABLEKS                       R3 R11 K18 ["ref"]
        65 SETTABLEKS                       R6 R11 K9 ["Position"]
-       67 GETIMPORT                        R12 K27 [UDim2.fromOffset]
+       67 GETIMPORT                        R12 K28 [UDim2.fromOffset]
        69 GETTABLEKS                       R13 R1 K7 ["Width"]
        71 GETTABLEKS                       R14 R1 K8 ["Height"]
        73 CALL                             R12 2 1
@@ -169,20 +169,18 @@ PROTO_5:
        76 NEWCLOSURE                       R12 P1
        77 CAPTURE                          VAL R5
        78 SETTABLEKS                       R12 R11 K20 ["onAbsoluteSizeChanged"]
-       80 GETTABLEKS                       R12 R2 K28 ["Color"]
-       82 GETTABLEKS                       R12 R12 K29 ["Surface"]
-       84 GETTABLEKS                       R12 R12 K30 ["Surface_200"]
+       80 GETTABLEKS                       R12 R2 K29 ["Color"]
+       82 GETTABLEKS                       R12 R12 K30 ["Surface"]
+       84 GETTABLEKS                       R12 R12 K31 ["Surface_200"]
        86 SETTABLEKS                       R12 R11 K21 ["backgroundStyle"]
-       88 DUPTABLE                         R12 K32 [{"affordance"}]
+       88 DUPTABLE                         R12 K33 [{"affordance"}]
        89 GETUPVAL                         R13 8
-       90 GETTABLEKS                       R13 R13 K33 ["None"]
-       92 SETTABLEKS                       R13 R12 K31 ["affordance"]
+       90 GETTABLEKS                       R13 R13 K34 ["None"]
+       92 SETTABLEKS                       R13 R12 K32 ["affordance"]
        94 SETTABLEKS                       R12 R11 K22 ["stateLayer"]
-       96 LOADK                            R12 K34 ["auto-y col align-x-left gap-xsmall padding-medium radius-small"]
-       97 SETTABLEKS                       R12 R11 K23 ["tag"]
-       99 GETTABLEKS                       R12 R1 K35 ["children"]
-      101 CALL                             R9 3 -1
-      102 RETURN                           R9 -1
+       96 GETTABLEKS                       R12 R1 K35 ["children"]
+       98 CALL                             R9 3 -1
+       99 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -226,25 +224,21 @@ MAIN:
        67 LOADK                            R12 K22 ["UserInputService"]
        68 NAMECALL                         R10 R10 K23 ["GetService"]
        70 CALL                             R10 2 1
-       71 DUPTABLE                         R11 K27 [{"Width", "Height", "Position"}]
-       72 LOADN                            R12 0
-       73 SETTABLEKS                       R12 R11 K24 ["Width"]
-       75 LOADN                            R12 0
-       76 SETTABLEKS                       R12 R11 K25 ["Height"]
-       78 GETIMPORT                        R12 K30 [UDim2.fromOffset]
-       80 LOADN                            R13 0
-       81 LOADN                            R14 0
-       82 CALL                             R12 2 1
-       83 SETTABLEKS                       R12 R11 K26 ["Position"]
-       85 DUPCLOSURE                       R12 K31 [PROTO_0]
-       86 DUPCLOSURE                       R13 K32 [PROTO_5]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R11
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          VAL R3
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R9
-       93 CAPTURE                          VAL R10
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R6
-       96 RETURN                           R13 1
+       71 DUPTABLE                         R11 K28 [{["Width"] = 0, ["Height"] = 0, ["Position"]}]
+       72 GETIMPORT                        R12 K31 [UDim2.fromOffset]
+       74 LOADN                            R13 0
+       75 LOADN                            R14 0
+       76 CALL                             R12 2 1
+       77 SETTABLEKS                       R12 R11 K27 ["Position"]
+       79 DUPCLOSURE                       R12 K32 [PROTO_0]
+       80 DUPCLOSURE                       R13 K33 [PROTO_5]
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R11
+       83 CAPTURE                          VAL R7
+       84 CAPTURE                          VAL R3
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          VAL R5
+       89 CAPTURE                          VAL R6
+       90 RETURN                           R13 1

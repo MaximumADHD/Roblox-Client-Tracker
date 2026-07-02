@@ -1,359 +1,303 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K6 [{"expression", "path", "scope", "value", "dataType", "childPaths"}]
-        1 LOADK                            R2 K7 ["Expression 1"]
-        2 SETTABLEKS                       R2 R1 K0 ["expression"]
-        4 LOADK                            R2 K8 ["3"]
-        5 SETTABLEKS                       R2 R1 K1 ["path"]
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K9 ["Local"]
-       10 SETTABLEKS                       R2 R1 K2 ["scope"]
-       12 LOADK                            R2 K10 ["somePreview"]
-       13 SETTABLEKS                       R2 R1 K3 ["value"]
-       15 LOADK                            R2 K11 ["string"]
-       16 SETTABLEKS                       R2 R1 K4 ["dataType"]
-       18 NEWTABLE                         R2 0 0
-       20 SETTABLEKS                       R2 R1 K5 ["childPaths"]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R2 R2 K12 ["fromData"]
-       25 MOVE                             R3 R1
-       26 CALL                             R2 1 1
-       27 GETUPVAL                         R3 2
-       28 GETTABLEKS                       R3 R3 K13 ["new"]
-       30 LOADN                            R4 1
-       31 LOADK                            R5 K14 ["Alex"]
-       32 LOADK                            R6 K10 ["somePreview"]
-       33 LOADK                            R7 K15 ["map"]
-       34 CALL                             R3 4 1
-       35 DUPTABLE                         R4 K17 [{"name", "path", "scope", "value", "dataType"}]
-       36 LOADK                            R5 K18 ["Heesoo"]
-       37 SETTABLEKS                       R5 R4 K16 ["name"]
-       39 LOADK                            R5 K19 ["Alex_Heesoo"]
-       40 SETTABLEKS                       R5 R4 K1 ["path"]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R5 R5 K9 ["Local"]
-       45 SETTABLEKS                       R5 R4 K2 ["scope"]
-       47 LOADK                            R5 K10 ["somePreview"]
-       48 SETTABLEKS                       R5 R4 K3 ["value"]
-       50 LOADK                            R5 K15 ["map"]
-       51 SETTABLEKS                       R5 R4 K4 ["dataType"]
-       53 DUPTABLE                         R5 K17 [{"name", "path", "scope", "value", "dataType"}]
-       54 LOADK                            R6 K20 ["Austin"]
-       55 SETTABLEKS                       R6 R5 K16 ["name"]
-       57 LOADK                            R6 K21 ["Alex_Austin"]
-       58 SETTABLEKS                       R6 R5 K1 ["path"]
-       60 GETUPVAL                         R6 0
-       61 GETTABLEKS                       R6 R6 K9 ["Local"]
-       63 SETTABLEKS                       R6 R5 K2 ["scope"]
-       65 LOADK                            R6 K10 ["somePreview"]
-       66 SETTABLEKS                       R6 R5 K3 ["value"]
-       68 LOADK                            R6 K11 ["string"]
-       69 SETTABLEKS                       R6 R5 K4 ["dataType"]
-       71 DUPTABLE                         R6 K17 [{"name", "path", "scope", "value", "dataType"}]
-       72 LOADK                            R7 K22 ["Raul"]
-       73 SETTABLEKS                       R7 R6 K16 ["name"]
-       75 LOADK                            R7 K23 ["Alex_Heesoo_Raul"]
-       76 SETTABLEKS                       R7 R6 K1 ["path"]
-       78 GETUPVAL                         R7 0
-       79 GETTABLEKS                       R7 R7 K9 ["Local"]
-       81 SETTABLEKS                       R7 R6 K2 ["scope"]
-       83 LOADK                            R7 K10 ["somePreview"]
-       84 SETTABLEKS                       R7 R6 K3 ["value"]
-       86 LOADK                            R7 K11 ["string"]
-       87 SETTABLEKS                       R7 R6 K4 ["dataType"]
-       89 DUPTABLE                         R7 K17 [{"name", "path", "scope", "value", "dataType"}]
-       90 LOADK                            R8 K24 ["Karan"]
-       91 SETTABLEKS                       R8 R7 K16 ["name"]
-       93 LOADK                            R8 K25 ["Alex_Austin_Karan"]
-       94 SETTABLEKS                       R8 R7 K1 ["path"]
-       96 GETUPVAL                         R8 0
-       97 GETTABLEKS                       R8 R8 K9 ["Local"]
-       99 SETTABLEKS                       R8 R7 K2 ["scope"]
-      101 LOADK                            R8 K10 ["somePreview"]
-      102 SETTABLEKS                       R8 R7 K3 ["value"]
-      104 LOADK                            R8 K11 ["string"]
-      105 SETTABLEKS                       R8 R7 K4 ["dataType"]
-      107 GETUPVAL                         R8 2
-      108 GETTABLEKS                       R8 R8 K13 ["new"]
-      110 LOADN                            R9 2
-      111 LOADK                            R10 K26 ["UnitedStates"]
-      112 LOADK                            R11 K27 ["somePreview2"]
-      113 LOADK                            R12 K15 ["map"]
-      114 CALL                             R8 4 1
-      115 DUPTABLE                         R9 K17 [{"name", "path", "scope", "value", "dataType"}]
-      116 LOADK                            R10 K28 ["Wisconsin"]
-      117 SETTABLEKS                       R10 R9 K16 ["name"]
-      119 LOADK                            R10 K29 ["UnitedStates_Wisconsin"]
-      120 SETTABLEKS                       R10 R9 K1 ["path"]
-      122 GETUPVAL                         R10 0
-      123 GETTABLEKS                       R10 R10 K9 ["Local"]
-      125 SETTABLEKS                       R10 R9 K2 ["scope"]
-      127 LOADK                            R10 K27 ["somePreview2"]
-      128 SETTABLEKS                       R10 R9 K3 ["value"]
-      130 LOADK                            R10 K15 ["map"]
-      131 SETTABLEKS                       R10 R9 K4 ["dataType"]
-      133 DUPTABLE                         R10 K17 [{"name", "path", "scope", "value", "dataType"}]
-      134 LOADK                            R11 K30 ["GreenBay"]
-      135 SETTABLEKS                       R11 R10 K16 ["name"]
-      137 LOADK                            R11 K31 ["UnitedStates_Wisconsin_GreenBay"]
-      138 SETTABLEKS                       R11 R10 K1 ["path"]
-      140 GETUPVAL                         R11 0
-      141 GETTABLEKS                       R11 R11 K9 ["Local"]
-      143 SETTABLEKS                       R11 R10 K2 ["scope"]
-      145 LOADK                            R11 K27 ["somePreview2"]
-      146 SETTABLEKS                       R11 R10 K3 ["value"]
-      148 LOADK                            R11 K11 ["string"]
-      149 SETTABLEKS                       R11 R10 K4 ["dataType"]
-      151 GETUPVAL                         R11 3
-      152 GETTABLEKS                       R11 R11 K12 ["fromData"]
-      154 MOVE                             R12 R4
-      155 CALL                             R11 1 1
-      156 GETUPVAL                         R12 3
-      157 GETTABLEKS                       R12 R12 K12 ["fromData"]
-      159 MOVE                             R13 R5
-      160 CALL                             R12 1 1
-      161 GETUPVAL                         R13 3
-      162 GETTABLEKS                       R13 R13 K12 ["fromData"]
-      164 MOVE                             R14 R6
-      165 CALL                             R13 1 1
-      166 GETUPVAL                         R14 3
-      167 GETTABLEKS                       R14 R14 K12 ["fromData"]
-      169 MOVE                             R15 R7
-      170 CALL                             R14 1 1
-      171 GETUPVAL                         R15 3
-      172 GETTABLEKS                       R15 R15 K12 ["fromData"]
-      174 MOVE                             R16 R9
-      175 CALL                             R15 1 1
-      176 GETUPVAL                         R16 3
-      177 GETTABLEKS                       R16 R16 K12 ["fromData"]
-      179 MOVE                             R17 R10
-      180 CALL                             R16 1 1
-      181 GETUPVAL                         R17 4
-      182 GETTABLEKS                       R17 R17 K13 ["new"]
-      184 CALL                             R17 0 1
-      185 GETUPVAL                         R18 4
-      186 GETTABLEKS                       R18 R18 K13 ["new"]
-      188 CALL                             R18 0 1
-      189 GETUPVAL                         R19 5
-      190 GETTABLEKS                       R19 R19 K13 ["new"]
-      192 LOADN                            R20 10
-      193 MOVE                             R21 R17
-      194 LOADK                            R22 K32 ["TestFrame1"]
-      195 LOADK                            R23 K33 ["C"]
-      196 CALL                             R19 4 1
-      197 GETUPVAL                         R20 5
-      198 GETTABLEKS                       R20 R20 K13 ["new"]
-      200 LOADN                            R21 20
-      201 MOVE                             R22 R18
-      202 LOADK                            R23 K34 ["TestFrame2"]
-      203 LOADK                            R24 K33 ["C"]
-      204 CALL                             R20 4 1
-      205 NEWTABLE                         R21 2 0
-      207 LOADN                            R22 0
-      208 SETTABLE                         R19 R21 R22
-      209 SETTABLEN                        R20 R21 1
-      210 NEWTABLE                         R22 2 0
-      212 LOADN                            R23 0
-      213 SETTABLE                         R20 R22 R23
-      214 SETTABLEN                        R19 R22 1
-      215 GETUPVAL                         R23 6
-      216 GETTABLEKS                       R23 R23 K13 ["new"]
-      218 LOADN                            R24 1
-      219 MOVE                             R25 R17
-      220 LOADB                            R26 1
-      221 CALL                             R23 3 1
-      222 GETUPVAL                         R24 6
-      223 GETTABLEKS                       R24 R24 K13 ["new"]
-      225 LOADN                            R25 2
-      226 MOVE                             R26 R18
-      227 LOADB                            R27 1
-      228 CALL                             R24 3 1
-      229 LOADNIL                          R25
-      230 GETUPVAL                         R26 7
-      231 GETTABLEKS                       R26 R26 K13 ["new"]
-      233 GETUPVAL                         R27 8
-      234 GETTABLEKS                       R27 R27 K35 ["DebuggerPauseReason"]
-      236 GETTABLEKS                       R27 R27 K36 ["Requested"]
-      238 LOADN                            R28 1
-      239 LOADB                            R29 1
-      240 CALL                             R26 3 1
-      241 MOVE                             R25 R26
-      242 GETUPVAL                         R26 9
-      243 GETTABLEKS                       R26 R26 K13 ["new"]
-      245 LOADN                            R27 1
-      246 CALL                             R26 1 1
-      247 GETUPVAL                         R27 10
-      248 GETTABLEKS                       R27 R27 K13 ["new"]
-      250 CALL                             R27 0 1
-      251 GETUPVAL                         R28 11
-      252 GETTABLEKS                       R28 R28 K13 ["new"]
-      254 MOVE                             R29 R0
-      255 MOVE                             R30 R27
-      256 GETUPVAL                         R31 12
-      257 GETTABLEKS                       R31 R31 K13 ["new"]
-      259 CALL                             R31 0 1
-      260 GETUPVAL                         R32 13
-      261 GETTABLEKS                       R32 R32 K13 ["new"]
-      263 CALL                             R32 0 -1
-      264 CALL                             R28 -1 1
-      265 GETTABLEKS                       R29 R26 K37 ["MockSetThreadStateById"]
-      267 LOADN                            R30 1
-      268 MOVE                             R31 R23
-      269 CALL                             R29 2 0
-      270 GETTABLEKS                       R29 R26 K37 ["MockSetThreadStateById"]
-      272 LOADN                            R30 2
-      273 MOVE                             R31 R24
-      274 CALL                             R29 2 0
-      275 GETTABLEKS                       R29 R26 K38 ["MockSetCallstackByThreadId"]
-      277 LOADN                            R30 1
-      278 MOVE                             R31 R21
-      279 CALL                             R29 2 0
-      280 GETTABLEKS                       R29 R26 K38 ["MockSetCallstackByThreadId"]
-      282 LOADN                            R30 2
-      283 MOVE                             R31 R22
-      284 CALL                             R29 2 0
-      285 GETUPVAL                         R29 2
-      286 GETTABLEKS                       R29 R29 K39 ["GetDefaultFrameVariables"]
-      288 CALL                             R29 0 1
-      289 GETTABLEKS                       R30 R29 K40 ["Locals"]
-      291 NEWTABLE                         R32 0 2
-      293 MOVE                             R33 R3
-      294 MOVE                             R34 R8
-      295 SETLIST                          R32 R33 2 [1]
-      297 NAMECALL                         R30 R30 K41 ["MockSetChildren"]
-      299 CALL                             R30 2 0
-      300 GETTABLEKS                       R30 R26 K42 ["MockSetDebuggerVariablesByCallstackFrame"]
-      302 MOVE                             R31 R19
-      303 MOVE                             R32 R29
-      304 CALL                             R30 2 0
-      305 GETUPVAL                         R30 2
-      306 GETTABLEKS                       R30 R30 K39 ["GetDefaultFrameVariables"]
-      308 CALL                             R30 0 1
-      309 GETTABLEKS                       R31 R30 K40 ["Locals"]
-      311 NEWTABLE                         R33 0 2
-      313 MOVE                             R34 R8
-      314 MOVE                             R35 R3
-      315 SETLIST                          R33 R34 2 [1]
-      317 NAMECALL                         R31 R31 K41 ["MockSetChildren"]
-      319 CALL                             R31 2 0
-      320 GETTABLEKS                       R31 R26 K42 ["MockSetDebuggerVariablesByCallstackFrame"]
-      322 MOVE                             R32 R20
-      323 MOVE                             R33 R30
-      324 CALL                             R31 2 0
-      325 GETTABLEKS                       R31 R27 K43 ["ConnectionStarted"]
-      327 MOVE                             R33 R26
-      328 NAMECALL                         R31 R31 K44 ["Fire"]
-      330 CALL                             R31 2 0
-      331 GETTABLEKS                       R31 R26 K45 ["Paused"]
-      333 MOVE                             R33 R25
-      334 GETTABLEKS                       R34 R25 K46 ["Reason"]
-      336 NAMECALL                         R31 R31 K44 ["Fire"]
-      338 CALL                             R31 3 0
-      339 NAMECALL                         R31 R0 K47 ["getState"]
-      341 CALL                             R31 1 1
-      342 GETTABLEKS                       R32 R31 K48 ["Common"]
-      344 GETTABLEKS                       R34 R32 K49 ["debuggerConnectionIdToDST"]
-      346 GETTABLEKS                       R35 R32 K50 ["currentDebuggerConnectionId"]
-      348 GETTABLE                         R33 R34 R35
-      349 GETUPVAL                         R34 14
-      350 GETTABLEKS                       R34 R34 K51 ["ctor"]
-      352 MOVE                             R35 R33
-      353 LOADN                            R36 1
-      354 LOADN                            R37 1
-      355 CALL                             R34 3 1
-      356 GETUPVAL                         R37 15
-      357 LOADK                            R38 K7 ["Expression 1"]
-      358 CALL                             R37 1 -1
-      359 NAMECALL                         R35 R0 K52 ["dispatch"]
-      361 CALL                             R35 -1 0
-      362 GETUPVAL                         R37 16
-      363 MOVE                             R38 R34
-      364 MOVE                             R39 R2
-      365 CALL                             R37 2 -1
-      366 NAMECALL                         R35 R0 K52 ["dispatch"]
-      368 CALL                             R35 -1 0
-      369 LOADN                            R35 0
-      370 GETIMPORT                        R36 K54 [ipairs]
-      372 NEWTABLE                         R37 0 13
-      374 LOADN                            R39 1
-      375 LOADN                            R40 2
-      376 LOADN                            R41 3
-      377 LOADN                            R42 4
-      378 LOADN                            R43 5
-      379 LOADN                            R44 6
-      380 LOADN                            R45 7
-      381 LOADN                            R46 8
-      382 LOADN                            R47 9
-      383 LOADN                            R48 10
-      384 LOADN                            R49 11
-      385 LOADN                            R50 12
-      386 LOADN                            R51 14
-      387 SETLIST                          R37 R39 13 [1]
-      389 CALL                             R36 1 3
-      390 FORGPREP_INEXT                   R36
-      391 GETUPVAL                         R43 17
-      392 LOADN                            R44 123
-      393 GETUPVAL                         R45 18
-      394 GETTABLEKS                       R45 R45 K55 ["mockMetaBreakpoint"]
-      396 DUPTABLE                         R46 K57 [{"isEnabled"}]
-      397 LOADN                            R48 6
-      398 JUMPIFLE                         R48 R35 ; [+2]
-      400 LOADB                            R47 0 +1
-      401 LOADB                            R47 1
-      402 SETTABLEKS                       R47 R46 K56 ["isEnabled"]
-      404 MOVE                             R47 R40
-      405 CALL                             R45 2 -1
-      406 CALL                             R43 -1 -1
-      407 NAMECALL                         R41 R0 K52 ["dispatch"]
-      409 CALL                             R41 -1 0
-      410 ADDK                             R35 R35 K58 [1]
-      411 FORGLOOP                         R36 2 [inext] ; [-21]
-      413 GETUPVAL                         R38 19
-      414 MOVE                             R39 R34
-      415 LOADK                            R40 K14 ["Alex"]
-      416 NEWTABLE                         R41 0 2
-      418 MOVE                             R42 R11
-      419 MOVE                             R43 R12
-      420 SETLIST                          R41 R42 2 [1]
-      422 CALL                             R38 3 -1
-      423 NAMECALL                         R36 R0 K52 ["dispatch"]
-      425 CALL                             R36 -1 0
-      426 GETUPVAL                         R38 19
-      427 MOVE                             R39 R34
-      428 LOADK                            R40 K19 ["Alex_Heesoo"]
-      429 NEWTABLE                         R41 0 1
-      431 MOVE                             R42 R13
-      432 SETLIST                          R41 R42 1 [1]
-      434 CALL                             R38 3 -1
-      435 NAMECALL                         R36 R0 K52 ["dispatch"]
-      437 CALL                             R36 -1 0
-      438 GETUPVAL                         R38 19
-      439 MOVE                             R39 R34
-      440 LOADK                            R40 K21 ["Alex_Austin"]
-      441 NEWTABLE                         R41 0 1
-      443 MOVE                             R42 R14
-      444 SETLIST                          R41 R42 1 [1]
-      446 CALL                             R38 3 -1
-      447 NAMECALL                         R36 R0 K52 ["dispatch"]
-      449 CALL                             R36 -1 0
-      450 GETUPVAL                         R38 19
-      451 MOVE                             R39 R34
-      452 LOADK                            R40 K26 ["UnitedStates"]
-      453 NEWTABLE                         R41 0 1
-      455 MOVE                             R42 R15
-      456 SETLIST                          R41 R42 1 [1]
-      458 CALL                             R38 3 -1
-      459 NAMECALL                         R36 R0 K52 ["dispatch"]
-      461 CALL                             R36 -1 0
-      462 GETUPVAL                         R38 19
-      463 MOVE                             R39 R34
-      464 LOADK                            R40 K29 ["UnitedStates_Wisconsin"]
-      465 NEWTABLE                         R41 0 1
-      467 MOVE                             R42 R16
-      468 SETLIST                          R41 R42 1 [1]
-      470 CALL                             R38 3 -1
-      471 NAMECALL                         R36 R0 K52 ["dispatch"]
-      473 CALL                             R36 -1 0
-      474 RETURN                           R0 1
+        0 DUPTABLE                         R1 K10 [{[1] = "Expression 1", ["path"] = "3", ["scope"], ["value"] = "somePreview", ["dataType"] = "string", ["childPaths"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K11 ["Local"]
+        4 SETTABLEKS                       R2 R1 K4 ["scope"]
+        6 NEWTABLE                         R2 0 0
+        8 SETTABLEKS                       R2 R1 K9 ["childPaths"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K12 ["fromData"]
+       13 MOVE                             R3 R1
+       14 CALL                             R2 1 1
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K13 ["new"]
+       18 LOADN                            R4 1
+       19 LOADK                            R5 K14 ["Alex"]
+       20 LOADK                            R6 K6 ["somePreview"]
+       21 LOADK                            R7 K15 ["map"]
+       22 CALL                             R3 4 1
+       23 DUPTABLE                         R4 K19 [{["name"] = "Heesoo", ["path"] = "Alex_Heesoo", ["scope"], ["value"] = "somePreview", ["dataType"] = "map"}]
+       24 GETUPVAL                         R5 0
+       25 GETTABLEKS                       R5 R5 K11 ["Local"]
+       27 SETTABLEKS                       R5 R4 K4 ["scope"]
+       29 DUPTABLE                         R5 K22 [{["name"] = "Austin", ["path"] = "Alex_Austin", ["scope"], ["value"] = "somePreview", ["dataType"] = "string"}]
+       30 GETUPVAL                         R6 0
+       31 GETTABLEKS                       R6 R6 K11 ["Local"]
+       33 SETTABLEKS                       R6 R5 K4 ["scope"]
+       35 DUPTABLE                         R6 K25 [{["name"] = "Raul", ["path"] = "Alex_Heesoo_Raul", ["scope"], ["value"] = "somePreview", ["dataType"] = "string"}]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K11 ["Local"]
+       39 SETTABLEKS                       R7 R6 K4 ["scope"]
+       41 DUPTABLE                         R7 K28 [{["name"] = "Karan", ["path"] = "Alex_Austin_Karan", ["scope"], ["value"] = "somePreview", ["dataType"] = "string"}]
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R8 R8 K11 ["Local"]
+       45 SETTABLEKS                       R8 R7 K4 ["scope"]
+       47 GETUPVAL                         R8 2
+       48 GETTABLEKS                       R8 R8 K13 ["new"]
+       50 LOADN                            R9 2
+       51 LOADK                            R10 K29 ["UnitedStates"]
+       52 LOADK                            R11 K30 ["somePreview2"]
+       53 LOADK                            R12 K15 ["map"]
+       54 CALL                             R8 4 1
+       55 DUPTABLE                         R9 K33 [{["name"] = "Wisconsin", ["path"] = "UnitedStates_Wisconsin", ["scope"], ["value"] = "somePreview2", ["dataType"] = "map"}]
+       56 GETUPVAL                         R10 0
+       57 GETTABLEKS                       R10 R10 K11 ["Local"]
+       59 SETTABLEKS                       R10 R9 K4 ["scope"]
+       61 DUPTABLE                         R10 K36 [{["name"] = "GreenBay", ["path"] = "UnitedStates_Wisconsin_GreenBay", ["scope"], ["value"] = "somePreview2", ["dataType"] = "string"}]
+       62 GETUPVAL                         R11 0
+       63 GETTABLEKS                       R11 R11 K11 ["Local"]
+       65 SETTABLEKS                       R11 R10 K4 ["scope"]
+       67 GETUPVAL                         R11 3
+       68 GETTABLEKS                       R11 R11 K12 ["fromData"]
+       70 MOVE                             R12 R4
+       71 CALL                             R11 1 1
+       72 GETUPVAL                         R12 3
+       73 GETTABLEKS                       R12 R12 K12 ["fromData"]
+       75 MOVE                             R13 R5
+       76 CALL                             R12 1 1
+       77 GETUPVAL                         R13 3
+       78 GETTABLEKS                       R13 R13 K12 ["fromData"]
+       80 MOVE                             R14 R6
+       81 CALL                             R13 1 1
+       82 GETUPVAL                         R14 3
+       83 GETTABLEKS                       R14 R14 K12 ["fromData"]
+       85 MOVE                             R15 R7
+       86 CALL                             R14 1 1
+       87 GETUPVAL                         R15 3
+       88 GETTABLEKS                       R15 R15 K12 ["fromData"]
+       90 MOVE                             R16 R9
+       91 CALL                             R15 1 1
+       92 GETUPVAL                         R16 3
+       93 GETTABLEKS                       R16 R16 K12 ["fromData"]
+       95 MOVE                             R17 R10
+       96 CALL                             R16 1 1
+       97 GETUPVAL                         R17 4
+       98 GETTABLEKS                       R17 R17 K13 ["new"]
+      100 CALL                             R17 0 1
+      101 GETUPVAL                         R18 4
+      102 GETTABLEKS                       R18 R18 K13 ["new"]
+      104 CALL                             R18 0 1
+      105 GETUPVAL                         R19 5
+      106 GETTABLEKS                       R19 R19 K13 ["new"]
+      108 LOADN                            R20 10
+      109 MOVE                             R21 R17
+      110 LOADK                            R22 K37 ["TestFrame1"]
+      111 LOADK                            R23 K38 ["C"]
+      112 CALL                             R19 4 1
+      113 GETUPVAL                         R20 5
+      114 GETTABLEKS                       R20 R20 K13 ["new"]
+      116 LOADN                            R21 20
+      117 MOVE                             R22 R18
+      118 LOADK                            R23 K39 ["TestFrame2"]
+      119 LOADK                            R24 K38 ["C"]
+      120 CALL                             R20 4 1
+      121 NEWTABLE                         R21 2 0
+      123 LOADN                            R22 0
+      124 SETTABLE                         R19 R21 R22
+      125 SETTABLEN                        R20 R21 1
+      126 NEWTABLE                         R22 2 0
+      128 LOADN                            R23 0
+      129 SETTABLE                         R20 R22 R23
+      130 SETTABLEN                        R19 R22 1
+      131 GETUPVAL                         R23 6
+      132 GETTABLEKS                       R23 R23 K13 ["new"]
+      134 LOADN                            R24 1
+      135 MOVE                             R25 R17
+      136 LOADB                            R26 1
+      137 CALL                             R23 3 1
+      138 GETUPVAL                         R24 6
+      139 GETTABLEKS                       R24 R24 K13 ["new"]
+      141 LOADN                            R25 2
+      142 MOVE                             R26 R18
+      143 LOADB                            R27 1
+      144 CALL                             R24 3 1
+      145 LOADNIL                          R25
+      146 GETUPVAL                         R26 7
+      147 GETTABLEKS                       R26 R26 K13 ["new"]
+      149 GETUPVAL                         R27 8
+      150 GETTABLEKS                       R27 R27 K40 ["DebuggerPauseReason"]
+      152 GETTABLEKS                       R27 R27 K41 ["Requested"]
+      154 LOADN                            R28 1
+      155 LOADB                            R29 1
+      156 CALL                             R26 3 1
+      157 MOVE                             R25 R26
+      158 GETUPVAL                         R26 9
+      159 GETTABLEKS                       R26 R26 K13 ["new"]
+      161 LOADN                            R27 1
+      162 CALL                             R26 1 1
+      163 GETUPVAL                         R27 10
+      164 GETTABLEKS                       R27 R27 K13 ["new"]
+      166 CALL                             R27 0 1
+      167 GETUPVAL                         R28 11
+      168 GETTABLEKS                       R28 R28 K13 ["new"]
+      170 MOVE                             R29 R0
+      171 MOVE                             R30 R27
+      172 GETUPVAL                         R31 12
+      173 GETTABLEKS                       R31 R31 K13 ["new"]
+      175 CALL                             R31 0 1
+      176 GETUPVAL                         R32 13
+      177 GETTABLEKS                       R32 R32 K13 ["new"]
+      179 CALL                             R32 0 -1
+      180 CALL                             R28 -1 1
+      181 GETTABLEKS                       R29 R26 K42 ["MockSetThreadStateById"]
+      183 LOADN                            R30 1
+      184 MOVE                             R31 R23
+      185 CALL                             R29 2 0
+      186 GETTABLEKS                       R29 R26 K42 ["MockSetThreadStateById"]
+      188 LOADN                            R30 2
+      189 MOVE                             R31 R24
+      190 CALL                             R29 2 0
+      191 GETTABLEKS                       R29 R26 K43 ["MockSetCallstackByThreadId"]
+      193 LOADN                            R30 1
+      194 MOVE                             R31 R21
+      195 CALL                             R29 2 0
+      196 GETTABLEKS                       R29 R26 K43 ["MockSetCallstackByThreadId"]
+      198 LOADN                            R30 2
+      199 MOVE                             R31 R22
+      200 CALL                             R29 2 0
+      201 GETUPVAL                         R29 2
+      202 GETTABLEKS                       R29 R29 K44 ["GetDefaultFrameVariables"]
+      204 CALL                             R29 0 1
+      205 GETTABLEKS                       R30 R29 K45 ["Locals"]
+      207 NEWTABLE                         R32 0 2
+      209 MOVE                             R33 R3
+      210 MOVE                             R34 R8
+      211 SETLIST                          R32 R33 2 [1]
+      213 NAMECALL                         R30 R30 K46 ["MockSetChildren"]
+      215 CALL                             R30 2 0
+      216 GETTABLEKS                       R30 R26 K47 ["MockSetDebuggerVariablesByCallstackFrame"]
+      218 MOVE                             R31 R19
+      219 MOVE                             R32 R29
+      220 CALL                             R30 2 0
+      221 GETUPVAL                         R30 2
+      222 GETTABLEKS                       R30 R30 K44 ["GetDefaultFrameVariables"]
+      224 CALL                             R30 0 1
+      225 GETTABLEKS                       R31 R30 K45 ["Locals"]
+      227 NEWTABLE                         R33 0 2
+      229 MOVE                             R34 R8
+      230 MOVE                             R35 R3
+      231 SETLIST                          R33 R34 2 [1]
+      233 NAMECALL                         R31 R31 K46 ["MockSetChildren"]
+      235 CALL                             R31 2 0
+      236 GETTABLEKS                       R31 R26 K47 ["MockSetDebuggerVariablesByCallstackFrame"]
+      238 MOVE                             R32 R20
+      239 MOVE                             R33 R30
+      240 CALL                             R31 2 0
+      241 GETTABLEKS                       R31 R27 K48 ["ConnectionStarted"]
+      243 MOVE                             R33 R26
+      244 NAMECALL                         R31 R31 K49 ["Fire"]
+      246 CALL                             R31 2 0
+      247 GETTABLEKS                       R31 R26 K50 ["Paused"]
+      249 MOVE                             R33 R25
+      250 GETTABLEKS                       R34 R25 K51 ["Reason"]
+      252 NAMECALL                         R31 R31 K49 ["Fire"]
+      254 CALL                             R31 3 0
+      255 NAMECALL                         R31 R0 K52 ["getState"]
+      257 CALL                             R31 1 1
+      258 GETTABLEKS                       R32 R31 K53 ["Common"]
+      260 GETTABLEKS                       R34 R32 K54 ["debuggerConnectionIdToDST"]
+      262 GETTABLEKS                       R35 R32 K55 ["currentDebuggerConnectionId"]
+      264 GETTABLE                         R33 R34 R35
+      265 GETUPVAL                         R34 14
+      266 GETTABLEKS                       R34 R34 K56 ["ctor"]
+      268 MOVE                             R35 R33
+      269 LOADN                            R36 1
+      270 LOADN                            R37 1
+      271 CALL                             R34 3 1
+      272 GETUPVAL                         R37 15
+      273 LOADK                            R38 K1 ["Expression 1"]
+      274 CALL                             R37 1 -1
+      275 NAMECALL                         R35 R0 K57 ["dispatch"]
+      277 CALL                             R35 -1 0
+      278 GETUPVAL                         R37 16
+      279 MOVE                             R38 R34
+      280 MOVE                             R39 R2
+      281 CALL                             R37 2 -1
+      282 NAMECALL                         R35 R0 K57 ["dispatch"]
+      284 CALL                             R35 -1 0
+      285 LOADN                            R35 0
+      286 GETIMPORT                        R36 K59 [ipairs]
+      288 NEWTABLE                         R37 0 13
+      290 LOADN                            R39 1
+      291 LOADN                            R40 2
+      292 LOADN                            R41 3
+      293 LOADN                            R42 4
+      294 LOADN                            R43 5
+      295 LOADN                            R44 6
+      296 LOADN                            R45 7
+      297 LOADN                            R46 8
+      298 LOADN                            R47 9
+      299 LOADN                            R48 10
+      300 LOADN                            R49 11
+      301 LOADN                            R50 12
+      302 LOADN                            R51 14
+      303 SETLIST                          R37 R39 13 [1]
+      305 CALL                             R36 1 3
+      306 FORGPREP_INEXT                   R36
+      307 GETUPVAL                         R43 17
+      308 LOADN                            R44 123
+      309 GETUPVAL                         R45 18
+      310 GETTABLEKS                       R45 R45 K60 ["mockMetaBreakpoint"]
+      312 DUPTABLE                         R46 K62 [{"isEnabled"}]
+      313 LOADN                            R48 6
+      314 JUMPIFLE                         R48 R35 ; [+2]
+      316 LOADB                            R47 0 +1
+      317 LOADB                            R47 1
+      318 SETTABLEKS                       R47 R46 K61 ["isEnabled"]
+      320 MOVE                             R47 R40
+      321 CALL                             R45 2 -1
+      322 CALL                             R43 -1 -1
+      323 NAMECALL                         R41 R0 K57 ["dispatch"]
+      325 CALL                             R41 -1 0
+      326 ADDK                             R35 R35 K63 [1]
+      327 FORGLOOP                         R36 2 [inext] ; [-21]
+      329 GETUPVAL                         R38 19
+      330 MOVE                             R39 R34
+      331 LOADK                            R40 K14 ["Alex"]
+      332 NEWTABLE                         R41 0 2
+      334 MOVE                             R42 R11
+      335 MOVE                             R43 R12
+      336 SETLIST                          R41 R42 2 [1]
+      338 CALL                             R38 3 -1
+      339 NAMECALL                         R36 R0 K57 ["dispatch"]
+      341 CALL                             R36 -1 0
+      342 GETUPVAL                         R38 19
+      343 MOVE                             R39 R34
+      344 LOADK                            R40 K18 ["Alex_Heesoo"]
+      345 NEWTABLE                         R41 0 1
+      347 MOVE                             R42 R13
+      348 SETLIST                          R41 R42 1 [1]
+      350 CALL                             R38 3 -1
+      351 NAMECALL                         R36 R0 K57 ["dispatch"]
+      353 CALL                             R36 -1 0
+      354 GETUPVAL                         R38 19
+      355 MOVE                             R39 R34
+      356 LOADK                            R40 K21 ["Alex_Austin"]
+      357 NEWTABLE                         R41 0 1
+      359 MOVE                             R42 R14
+      360 SETLIST                          R41 R42 1 [1]
+      362 CALL                             R38 3 -1
+      363 NAMECALL                         R36 R0 K57 ["dispatch"]
+      365 CALL                             R36 -1 0
+      366 GETUPVAL                         R38 19
+      367 MOVE                             R39 R34
+      368 LOADK                            R40 K29 ["UnitedStates"]
+      369 NEWTABLE                         R41 0 1
+      371 MOVE                             R42 R15
+      372 SETLIST                          R41 R42 1 [1]
+      374 CALL                             R38 3 -1
+      375 NAMECALL                         R36 R0 K57 ["dispatch"]
+      377 CALL                             R36 -1 0
+      378 GETUPVAL                         R38 19
+      379 MOVE                             R39 R34
+      380 LOADK                            R40 K32 ["UnitedStates_Wisconsin"]
+      381 NEWTABLE                         R41 0 1
+      383 MOVE                             R42 R16
+      384 SETLIST                          R41 R42 1 [1]
+      386 CALL                             R38 3 -1
+      387 NAMECALL                         R36 R0 K57 ["dispatch"]
+      389 CALL                             R36 -1 0
+      390 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

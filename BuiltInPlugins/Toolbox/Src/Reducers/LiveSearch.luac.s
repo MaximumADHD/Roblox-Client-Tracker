@@ -30,15 +30,13 @@ MAIN:
        27 GETTABLEKS                       R5 R5 K10 ["SetLiveSearch"]
        29 CALL                             R4 1 1
        30 GETTABLEKS                       R5 R2 K11 ["createReducer"]
-       32 DUPTABLE                         R6 K14 [{"searchTerm", "results"}]
-       33 LOADK                            R7 K15 [""]
-       34 SETTABLEKS                       R7 R6 K12 ["searchTerm"]
-       36 NEWTABLE                         R7 0 0
-       38 SETTABLEKS                       R7 R6 K13 ["results"]
-       40 NEWTABLE                         R7 1 0
-       42 GETTABLEKS                       R8 R4 K16 ["name"]
-       44 DUPCLOSURE                       R9 K17 [PROTO_0]
-       45 CAPTURE                          VAL R3
-       46 SETTABLE                         R9 R7 R8
-       47 CALL                             R5 2 1
-       48 RETURN                           R5 1
+       32 DUPTABLE                         R6 K15 [{["searchTerm"] = "", ["results"]}]
+       33 NEWTABLE                         R7 0 0
+       35 SETTABLEKS                       R7 R6 K14 ["results"]
+       37 NEWTABLE                         R7 1 0
+       39 GETTABLEKS                       R8 R4 K16 ["name"]
+       41 DUPCLOSURE                       R9 K17 [PROTO_0]
+       42 CAPTURE                          VAL R3
+       43 SETTABLE                         R9 R7 R8
+       44 CALL                             R5 2 1
+       45 RETURN                           R5 1

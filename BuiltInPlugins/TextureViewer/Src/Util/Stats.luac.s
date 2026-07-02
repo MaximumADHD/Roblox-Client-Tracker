@@ -39,13 +39,13 @@ PROTO_1:
         2 GETUPVAL                         R1 0
         3 GETIMPORT                        R3 K3 [Enum.TextureQueryType.NonHumanoid]
         5 LOADN                            R4 0
-        6 LOADN                            R5 16
+        6 LOADN                            R5 10000
         7 NAMECALL                         R1 R1 K4 ["GetPaginatedMemoryByTexture"]
         9 CALL                             R1 4 1
        10 GETUPVAL                         R2 0
        11 GETIMPORT                        R4 K6 [Enum.TextureQueryType.NonHumanoidOrphaned]
        13 LOADN                            R5 0
-       14 LOADN                            R6 16
+       14 LOADN                            R6 10000
        15 NAMECALL                         R2 R2 K4 ["GetPaginatedMemoryByTexture"]
        17 CALL                             R2 4 1
        18 GETIMPORT                        R3 K8 [ipairs]

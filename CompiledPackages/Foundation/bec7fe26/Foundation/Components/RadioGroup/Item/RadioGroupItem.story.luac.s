@@ -1,0 +1,95 @@
+PROTO_0:
+        0 GETTABLEKS                       R1 R0 K0 ["controls"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["useState"]
+        5 LOADNIL                          R3
+        6 CALL                             R2 1 2
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K2 ["createElement"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R5 R5 K3 ["Provider"]
+       13 DUPTABLE                         R6 K5 [{"value"}]
+       14 DUPTABLE                         R7 K9 [{["value"], ["onValueChanged"], ["Selectable"] = True}]
+       15 SETTABLEKS                       R2 R7 K4 ["value"]
+       17 SETTABLEKS                       R3 R7 K6 ["onValueChanged"]
+       19 SETTABLEKS                       R7 R6 K4 ["value"]
+       21 NEWTABLE                         R7 0 1
+       23 GETUPVAL                         R8 0
+       24 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       26 GETUPVAL                         R9 2
+       27 GETTABLEKS                       R9 R9 K10 ["Item"]
+       29 DUPTABLE                         R10 K15 [{"value", "label", "isDisabled", "size", "placement"}]
+       30 GETTABLEKS                       R11 R1 K4 ["value"]
+       32 SETTABLEKS                       R11 R10 K4 ["value"]
+       34 GETTABLEKS                       R13 R1 K11 ["label"]
+       36 LENGTH                           R12 R13
+       37 LOADN                            R13 0
+       38 JUMPIFNOTLT                      R13 R12 ; [+11]
+       40 LOADK                            R12 K16 ["%* %*"]
+       41 GETTABLEKS                       R14 R1 K11 ["label"]
+       43 GETTABLEKS                       R15 R1 K4 ["value"]
+       45 NAMECALL                         R12 R12 K17 ["format"]
+       47 CALL                             R12 3 1
+       48 MOVE                             R11 R12
+       49 JUMP                             ; [+1]
+       50 LOADK                            R11 K18 [""]
+       51 SETTABLEKS                       R11 R10 K11 ["label"]
+       53 GETTABLEKS                       R11 R1 K12 ["isDisabled"]
+       55 SETTABLEKS                       R11 R10 K12 ["isDisabled"]
+       57 GETTABLEKS                       R11 R1 K13 ["size"]
+       59 SETTABLEKS                       R11 R10 K13 ["size"]
+       61 GETTABLEKS                       R11 R1 K14 ["placement"]
+       63 SETTABLEKS                       R11 R10 K14 ["placement"]
+       65 CALL                             R8 2 -1
+       66 SETLIST                          R7 R8 -1 [1]
+       68 CALL                             R4 3 -1
+       69 RETURN                           R4 -1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["React"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R1 K8 ["Dash"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETIMPORT                        R5 K1 [script]
+       23 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       25 GETTABLEKS                       R5 R5 K4 ["Parent"]
+       27 GETTABLEKS                       R5 R5 K9 ["RadioGroupContext"]
+       29 CALL                             R4 1 1
+       30 GETIMPORT                        R5 K6 [require]
+       32 GETTABLEKS                       R6 R0 K10 ["Components"]
+       34 GETTABLEKS                       R6 R6 K11 ["RadioGroup"]
+       36 CALL                             R5 1 1
+       37 GETIMPORT                        R6 K6 [require]
+       39 GETTABLEKS                       R7 R0 K12 ["Enums"]
+       41 GETTABLEKS                       R7 R7 K13 ["InputSize"]
+       43 CALL                             R6 1 1
+       44 GETIMPORT                        R7 K6 [require]
+       46 GETTABLEKS                       R8 R0 K12 ["Enums"]
+       48 GETTABLEKS                       R8 R8 K14 ["InputPlacement"]
+       50 CALL                             R7 1 1
+       51 DUPCLOSURE                       R8 K15 [PROTO_0]
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R5
+       55 DUPTABLE                         R9 K20 [{["summary"] = "Checkbox component", ["story"], ["controls"]}]
+       56 SETTABLEKS                       R8 R9 K18 ["story"]
+       58 DUPTABLE                         R10 K29 [{["isDisabled"] = False, ["label"] = "Label", ["value"] = "A", ["size"], ["placement"]}]
+       59 GETTABLEKS                       R11 R3 K30 ["values"]
+       61 MOVE                             R12 R6
+       62 CALL                             R11 1 1
+       63 SETTABLEKS                       R11 R10 K27 ["size"]
+       65 GETTABLEKS                       R11 R3 K30 ["values"]
+       67 MOVE                             R12 R7
+       68 CALL                             R11 1 1
+       69 SETTABLEKS                       R11 R10 K28 ["placement"]
+       71 SETTABLEKS                       R10 R9 K19 ["controls"]
+       73 RETURN                           R9 1

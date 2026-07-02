@@ -37,29 +37,23 @@ PROTO_3:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K12 [{"Size", "Style", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+        6 DUPTABLE                         R4 K14 [{["Size"], ["Style"] = "FilledRoundedBorder", ["LayoutOrder"], ["TextWrapped"] = True, ["ShouldFocus"] = True, ["TextXAlignment"], ["ForwardRef"], ["PlaceholderText"], ["OnTextChanged"], ["OnFocusLost"]}]
         7 GETTABLEKS                       R5 R1 K2 ["Size"]
         9 SETTABLEKS                       R5 R4 K2 ["Size"]
-       11 LOADK                            R5 K13 ["FilledRoundedBorder"]
-       12 SETTABLEKS                       R5 R4 K3 ["Style"]
-       14 GETTABLEKS                       R5 R1 K4 ["LayoutOrder"]
-       16 SETTABLEKS                       R5 R4 K4 ["LayoutOrder"]
-       18 LOADB                            R5 1
-       19 SETTABLEKS                       R5 R4 K5 ["TextWrapped"]
-       21 LOADB                            R5 1
-       22 SETTABLEKS                       R5 R4 K6 ["ShouldFocus"]
-       24 GETIMPORT                        R5 K16 [Enum.TextXAlignment.Left]
-       26 SETTABLEKS                       R5 R4 K7 ["TextXAlignment"]
-       28 GETTABLEKS                       R5 R0 K17 ["textBoxRef"]
-       30 SETTABLEKS                       R5 R4 K8 ["ForwardRef"]
-       32 GETTABLEKS                       R5 R1 K18 ["Text"]
-       34 SETTABLEKS                       R5 R4 K9 ["PlaceholderText"]
-       36 GETTABLEKS                       R5 R0 K19 ["onTextChanged"]
-       38 SETTABLEKS                       R5 R4 K10 ["OnTextChanged"]
-       40 GETTABLEKS                       R5 R0 K20 ["onFocusLost"]
-       42 SETTABLEKS                       R5 R4 K11 ["OnFocusLost"]
-       44 CALL                             R2 2 -1
-       45 RETURN                           R2 -1
+       11 GETTABLEKS                       R5 R1 K5 ["LayoutOrder"]
+       13 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
+       15 GETIMPORT                        R5 K17 [Enum.TextXAlignment.Left]
+       17 SETTABLEKS                       R5 R4 K9 ["TextXAlignment"]
+       19 GETTABLEKS                       R5 R0 K18 ["textBoxRef"]
+       21 SETTABLEKS                       R5 R4 K10 ["ForwardRef"]
+       23 GETTABLEKS                       R5 R1 K19 ["Text"]
+       25 SETTABLEKS                       R5 R4 K11 ["PlaceholderText"]
+       27 GETTABLEKS                       R5 R0 K20 ["onTextChanged"]
+       29 SETTABLEKS                       R5 R4 K12 ["OnTextChanged"]
+       31 GETTABLEKS                       R5 R0 K21 ["onFocusLost"]
+       33 SETTABLEKS                       R5 R4 K13 ["OnFocusLost"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["textBoxRef"]

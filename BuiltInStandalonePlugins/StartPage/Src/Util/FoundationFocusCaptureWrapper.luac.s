@@ -42,7 +42,7 @@ PROTO_1:
        42 GETIMPORT                        R7 K12 [Enum.ZIndexBehavior.Sibling]
        44 SETTABLEKS                       R7 R6 K8 ["ZIndexBehavior"]
        46 NEWTABLE                         R7 0 1
-       48 JUMPIFNOT                        R1 ; [+32]
+       48 JUMPIFNOT                        R1 ; [+29]
        49 GETUPVAL                         R8 8
        50 GETUPVAL                         R9 3
        51 GETTABLEKS                       R9 R9 K13 ["values"]
@@ -52,26 +52,24 @@ PROTO_1:
        56 GETUPVAL                         R11 7
        57 GETTABLEKS                       R11 R11 K5 ["createElement"]
        59 GETUPVAL                         R12 9
-       60 DUPTABLE                         R13 K18 [{"theme", "onStyleSheetChange"}]
-       61 LOADK                            R14 K19 ["Dark"]
-       62 SETTABLEKS                       R14 R13 K16 ["theme"]
-       64 GETUPVAL                         R14 10
-       65 SETTABLEKS                       R14 R13 K17 ["onStyleSheetChange"]
-       67 DUPTABLE                         R14 K21 [{"Component"}]
-       68 GETUPVAL                         R15 7
-       69 GETTABLEKS                       R15 R15 K5 ["createElement"]
-       71 GETUPVAL                         R16 11
-       72 MOVE                             R17 R0
-       73 CALL                             R15 2 1
-       74 SETTABLEKS                       R15 R14 K20 ["Component"]
-       76 CALL                             R11 3 1
-       77 SETTABLEKS                       R11 R10 K14 ["Provider"]
-       79 CALL                             R8 2 1
-       80 JUMP                             ; [+1]
-       81 LOADNIL                          R8
-       82 SETLIST                          R7 R8 1 [1]
-       84 CALL                             R4 3 -1
-       85 RETURN                           R4 -1
+       60 DUPTABLE                         R13 K19 [{["theme"] = "Dark", ["onStyleSheetChange"]}]
+       61 GETUPVAL                         R14 10
+       62 SETTABLEKS                       R14 R13 K18 ["onStyleSheetChange"]
+       64 DUPTABLE                         R14 K21 [{"Component"}]
+       65 GETUPVAL                         R15 7
+       66 GETTABLEKS                       R15 R15 K5 ["createElement"]
+       68 GETUPVAL                         R16 11
+       69 MOVE                             R17 R0
+       70 CALL                             R15 2 1
+       71 SETTABLEKS                       R15 R14 K20 ["Component"]
+       73 CALL                             R11 3 1
+       74 SETTABLEKS                       R11 R10 K14 ["Provider"]
+       76 CALL                             R8 2 1
+       77 JUMP                             ; [+1]
+       78 LOADNIL                          R8
+       79 SETLIST                          R7 R8 1 [1]
+       81 CALL                             R4 3 -1
+       82 RETURN                           R4 -1
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

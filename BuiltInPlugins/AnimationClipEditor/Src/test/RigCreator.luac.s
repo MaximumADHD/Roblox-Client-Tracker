@@ -66,7 +66,7 @@ PROTO_1:
        78 LOADN                            R4 0
        79 LOADN                            R5 0
        80 LOADN                            R6 0
-       81 LOADN                            R7 255
+       81 LOADN                            R7 -1
        82 LOADN                            R8 0
        83 LOADN                            R9 0
        84 LOADN                            R10 0
@@ -112,8 +112,8 @@ PROTO_1:
       140 LOADK                            R6 K18 ["Smooth"]
       141 SETTABLEKS                       R6 R5 K20 ["TopSurface"]
       143 GETIMPORT                        R7 K15 [CFrame.new]
-      145 LOADN                            R8 255
-      146 LOADN                            R9 255
+      145 LOADN                            R8 -1
+      146 LOADN                            R9 -1
       147 LOADN                            R10 0
       148 CALL                             R7 3 1
       149 GETIMPORT                        R8 K36 [CFrame.fromAxisAngle]
@@ -168,7 +168,7 @@ PROTO_1:
       217 SETTABLEKS                       R10 R9 K20 ["TopSurface"]
       219 GETIMPORT                        R11 K15 [CFrame.new]
       221 LOADN                            R12 1
-      222 LOADN                            R13 255
+      222 LOADN                            R13 -1
       223 LOADN                            R14 0
       224 CALL                             R11 3 1
       225 GETIMPORT                        R12 K36 [CFrame.fromAxisAngle]
@@ -222,7 +222,7 @@ PROTO_1:
       292 LOADK                            R14 K18 ["Smooth"]
       293 SETTABLEKS                       R14 R13 K20 ["TopSurface"]
       295 GETIMPORT                        R15 K15 [CFrame.new]
-      297 LOADN                            R16 255
+      297 LOADN                            R16 -1
       298 LOADK                            R17 K33 [0.5]
       299 LOADN                            R18 0
       300 CALL                             R15 3 1
@@ -335,7 +335,7 @@ PROTO_1:
       449 LOADN                            R23 0
       450 LOADN                            R24 1
       451 LOADN                            R25 0
-      452 LOADN                            R26 255
+      452 LOADN                            R26 -1
       453 LOADN                            R27 0
       454 LOADN                            R28 0
       455 LOADN                            R29 0
@@ -349,7 +349,7 @@ PROTO_1:
       464 LOADN                            R24 0
       465 LOADK                            R25 K39 [-0.5]
       466 LOADN                            R26 0
-      467 LOADN                            R27 255
+      467 LOADN                            R27 -1
       468 LOADN                            R28 0
       469 LOADN                            R29 0
       470 LOADN                            R30 0

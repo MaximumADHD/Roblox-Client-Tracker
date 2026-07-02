@@ -83,75 +83,71 @@ PROTO_2:
        74 GETUPVAL                         R14 3
        75 GETTABLEKS                       R14 R14 K7 ["createElement"]
        77 GETUPVAL                         R15 6
-       78 DUPTABLE                         R16 K34 [{"FocusDirection", "Model", "Static", "Ambient", "LayoutOrder", "LightColor", "LightDirection", "Size"}]
-       79 GETTABLEKS                       R17 R5 K35 ["PrimaryPart"]
-       81 GETTABLEKS                       R17 R17 K36 ["CFrame"]
-       83 GETTABLEKS                       R17 R17 K37 ["LookVector"]
+       78 DUPTABLE                         R16 K35 [{["FocusDirection"], ["Model"], ["Static"] = True, ["Ambient"], ["LayoutOrder"], ["LightColor"], ["LightDirection"], ["Size"]}]
+       79 GETTABLEKS                       R17 R5 K36 ["PrimaryPart"]
+       81 GETTABLEKS                       R17 R17 K37 ["CFrame"]
+       83 GETTABLEKS                       R17 R17 K38 ["LookVector"]
        85 SETTABLEKS                       R17 R16 K27 ["FocusDirection"]
        87 SETTABLEKS                       R5 R16 K28 ["Model"]
-       89 LOADB                            R17 1
-       90 SETTABLEKS                       R17 R16 K29 ["Static"]
-       92 GETTABLEKS                       R17 R3 K38 ["PreviewAmbient"]
-       94 SETTABLEKS                       R17 R16 K30 ["Ambient"]
-       96 NAMECALL                         R17 R4 K39 ["getNextOrder"]
-       98 CALL                             R17 1 1
-       99 SETTABLEKS                       R17 R16 K31 ["LayoutOrder"]
-      101 GETIMPORT                        R17 K41 [Color3.new]
-      103 LOADN                            R18 1
-      104 LOADN                            R19 1
-      105 LOADN                            R20 1
-      106 CALL                             R17 3 1
-      107 SETTABLEKS                       R17 R16 K32 ["LightColor"]
-      109 GETTABLEKS                       R18 R5 K35 ["PrimaryPart"]
-      111 GETTABLEKS                       R18 R18 K36 ["CFrame"]
-      113 GETTABLEKS                       R18 R18 K37 ["LookVector"]
-      115 MINUS                            R17 R18
-      116 SETTABLEKS                       R17 R16 K33 ["LightDirection"]
-      118 GETIMPORT                        R17 K44 [UDim2.fromOffset]
-      120 GETTABLEKS                       R18 R3 K45 ["IconSize"]
-      122 GETTABLEKS                       R19 R3 K45 ["IconSize"]
-      124 CALL                             R17 2 1
-      125 SETTABLEKS                       R17 R16 K11 ["Size"]
-      127 CALL                             R14 2 1
-      128 SETTABLEKS                       R14 R13 K24 ["Preview"]
-      130 GETUPVAL                         R14 3
-      131 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      133 GETUPVAL                         R15 7
-      134 DUPTABLE                         R16 K53 [{"LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment", "TextWrapped"}]
-      135 NAMECALL                         R17 R4 K39 ["getNextOrder"]
-      137 CALL                             R17 1 1
-      138 SETTABLEKS                       R17 R16 K31 ["LayoutOrder"]
-      140 GETIMPORT                        R17 K54 [UDim2.new]
-      142 LOADN                            R18 1
-      143 LOADN                            R19 0
-      144 LOADN                            R20 0
-      145 GETTABLEKS                       R22 R3 K55 ["NameFontSize"]
-      147 GETTABLEKS                       R23 R3 K56 ["NameLines"]
-      149 MUL                              R21 R22 R23
-      150 CALL                             R17 4 1
-      151 SETTABLEKS                       R17 R16 K11 ["Size"]
-      153 GETTABLEKS                       R17 R0 K6 ["Cell"]
-      155 GETTABLEKS                       R17 R17 K3 ["Avatar"]
-      157 GETTABLEKS                       R17 R17 K25 ["Name"]
-      159 SETTABLEKS                       R17 R16 K46 ["Text"]
-      161 GETTABLEKS                       R17 R3 K57 ["TitleColor"]
-      163 SETTABLEKS                       R17 R16 K47 ["TextColor"]
-      165 GETTABLEKS                       R17 R3 K55 ["NameFontSize"]
-      167 SETTABLEKS                       R17 R16 K48 ["TextSize"]
-      169 GETIMPORT                        R17 K59 [Enum.TextTruncate.AtEnd]
-      171 SETTABLEKS                       R17 R16 K49 ["TextTruncate"]
-      173 GETIMPORT                        R17 K61 [Enum.TextXAlignment.Left]
-      175 SETTABLEKS                       R17 R16 K50 ["TextXAlignment"]
-      177 GETIMPORT                        R17 K63 [Enum.TextYAlignment.Top]
-      179 SETTABLEKS                       R17 R16 K51 ["TextYAlignment"]
-      181 LOADB                            R17 1
-      182 SETTABLEKS                       R17 R16 K52 ["TextWrapped"]
-      184 CALL                             R14 2 1
-      185 SETTABLEKS                       R14 R13 K25 ["Name"]
-      187 CALL                             R10 3 -1
-      188 SETLIST                          R9 R10 -1 [1]
-      190 CALL                             R6 3 -1
-      191 RETURN                           R6 -1
+       89 GETTABLEKS                       R17 R3 K39 ["PreviewAmbient"]
+       91 SETTABLEKS                       R17 R16 K31 ["Ambient"]
+       93 NAMECALL                         R17 R4 K40 ["getNextOrder"]
+       95 CALL                             R17 1 1
+       96 SETTABLEKS                       R17 R16 K32 ["LayoutOrder"]
+       98 GETIMPORT                        R17 K42 [Color3.new]
+      100 LOADN                            R18 1
+      101 LOADN                            R19 1
+      102 LOADN                            R20 1
+      103 CALL                             R17 3 1
+      104 SETTABLEKS                       R17 R16 K33 ["LightColor"]
+      106 GETTABLEKS                       R18 R5 K36 ["PrimaryPart"]
+      108 GETTABLEKS                       R18 R18 K37 ["CFrame"]
+      110 GETTABLEKS                       R18 R18 K38 ["LookVector"]
+      112 MINUS                            R17 R18
+      113 SETTABLEKS                       R17 R16 K34 ["LightDirection"]
+      115 GETIMPORT                        R17 K45 [UDim2.fromOffset]
+      117 GETTABLEKS                       R18 R3 K46 ["IconSize"]
+      119 GETTABLEKS                       R19 R3 K46 ["IconSize"]
+      121 CALL                             R17 2 1
+      122 SETTABLEKS                       R17 R16 K11 ["Size"]
+      124 CALL                             R14 2 1
+      125 SETTABLEKS                       R14 R13 K24 ["Preview"]
+      127 GETUPVAL                         R14 3
+      128 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      130 GETUPVAL                         R15 7
+      131 DUPTABLE                         R16 K54 [{["LayoutOrder"], ["Size"], ["Text"], ["TextColor"], ["TextSize"], ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True}]
+      132 NAMECALL                         R17 R4 K40 ["getNextOrder"]
+      134 CALL                             R17 1 1
+      135 SETTABLEKS                       R17 R16 K32 ["LayoutOrder"]
+      137 GETIMPORT                        R17 K55 [UDim2.new]
+      139 LOADN                            R18 1
+      140 LOADN                            R19 0
+      141 LOADN                            R20 0
+      142 GETTABLEKS                       R22 R3 K56 ["NameFontSize"]
+      144 GETTABLEKS                       R23 R3 K57 ["NameLines"]
+      146 MUL                              R21 R22 R23
+      147 CALL                             R17 4 1
+      148 SETTABLEKS                       R17 R16 K11 ["Size"]
+      150 GETTABLEKS                       R17 R0 K6 ["Cell"]
+      152 GETTABLEKS                       R17 R17 K3 ["Avatar"]
+      154 GETTABLEKS                       R17 R17 K25 ["Name"]
+      156 SETTABLEKS                       R17 R16 K47 ["Text"]
+      158 GETTABLEKS                       R17 R3 K58 ["TitleColor"]
+      160 SETTABLEKS                       R17 R16 K48 ["TextColor"]
+      162 GETTABLEKS                       R17 R3 K56 ["NameFontSize"]
+      164 SETTABLEKS                       R17 R16 K49 ["TextSize"]
+      166 GETIMPORT                        R17 K60 [Enum.TextTruncate.AtEnd]
+      168 SETTABLEKS                       R17 R16 K50 ["TextTruncate"]
+      170 GETIMPORT                        R17 K62 [Enum.TextXAlignment.Left]
+      172 SETTABLEKS                       R17 R16 K51 ["TextXAlignment"]
+      174 GETIMPORT                        R17 K64 [Enum.TextYAlignment.Top]
+      176 SETTABLEKS                       R17 R16 K52 ["TextYAlignment"]
+      178 CALL                             R14 2 1
+      179 SETTABLEKS                       R14 R13 K25 ["Name"]
+      181 CALL                             R10 3 -1
+      182 SETLIST                          R9 R10 -1 [1]
+      184 CALL                             R6 3 -1
+      185 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

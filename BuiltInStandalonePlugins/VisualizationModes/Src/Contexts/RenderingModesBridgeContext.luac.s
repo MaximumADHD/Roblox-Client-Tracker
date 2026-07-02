@@ -26,16 +26,14 @@ MAIN:
        16 GETTABLEKS                       R3 R0 K8 ["Src"]
        18 GETTABLEKS                       R3 R3 K9 ["Types"]
        20 CALL                             R2 1 1
-       21 DUPTABLE                         R3 K11 [{"renderingModesBridge"}]
-       22 LOADNIL                          R4
-       23 SETTABLEKS                       R4 R3 K10 ["renderingModesBridge"]
-       25 GETTABLEKS                       R4 R1 K12 ["createContext"]
-       27 MOVE                             R5 R3
-       28 CALL                             R4 1 1
-       29 DUPCLOSURE                       R5 K13 [PROTO_0]
-       30 CAPTURE                          VAL R1
-       31 CAPTURE                          VAL R4
-       32 DUPTABLE                         R6 K16 [{"Context", "Provider"}]
-       33 SETTABLEKS                       R4 R6 K14 ["Context"]
-       35 SETTABLEKS                       R5 R6 K15 ["Provider"]
-       37 RETURN                           R6 1
+       21 DUPTABLE                         R3 K12 [{["renderingModesBridge"] = }]
+       22 GETTABLEKS                       R4 R1 K13 ["createContext"]
+       24 MOVE                             R5 R3
+       25 CALL                             R4 1 1
+       26 DUPCLOSURE                       R5 K14 [PROTO_0]
+       27 CAPTURE                          VAL R1
+       28 CAPTURE                          VAL R4
+       29 DUPTABLE                         R6 K17 [{"Context", "Provider"}]
+       30 SETTABLEKS                       R4 R6 K15 ["Context"]
+       32 SETTABLEKS                       R5 R6 K16 ["Provider"]
+       34 RETURN                           R6 1

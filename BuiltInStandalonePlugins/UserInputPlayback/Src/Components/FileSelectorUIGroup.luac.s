@@ -66,22 +66,20 @@ PROTO_2:
         7 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K1 [{"canStartPlaying"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["canStartPlaying"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["toggleEmulationEnabled"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 CAPTURE                          UPVAL U0
-       13 CAPTURE                          UPVAL U1
-       14 SETTABLEKS                       R1 R0 K4 ["onPlayButtonClicked"]
-       16 NEWCLOSURE                       R1 P2
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K5 ["onCanStartPlaying"]
-       20 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["toggleEmulationEnabled"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          UPVAL U1
+       11 SETTABLEKS                       R1 R0 K5 ["onPlayButtonClicked"]
+       13 NEWCLOSURE                       R1 P2
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K6 ["onCanStartPlaying"]
+       17 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -176,126 +174,110 @@ PROTO_4:
       122 GETUPVAL                         R10 2
       123 GETTABLEKS                       R10 R10 K21 ["createElement"]
       125 GETUPVAL                         R11 3
-      126 DUPTABLE                         R12 K31 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+      126 DUPTABLE                         R12 K32 [{["LayoutOrder"], ["Style"] = "CornerBox", ["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"], ["Padding"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
       127 GETTABLEKS                       R13 R1 K22 ["LayoutOrder"]
       129 SETTABLEKS                       R13 R12 K22 ["LayoutOrder"]
-      131 LOADK                            R13 K32 ["CornerBox"]
-      132 SETTABLEKS                       R13 R12 K23 ["Style"]
-      134 GETIMPORT                        R13 K35 [UDim2.fromOffset]
-      136 GETTABLEKS                       R14 R4 K36 ["UIGroupWidthPx"]
-      138 LOADN                            R15 0
-      139 CALL                             R13 2 1
-      140 SETTABLEKS                       R13 R12 K24 ["Size"]
-      142 GETIMPORT                        R13 K39 [Enum.AutomaticSize.Y]
-      144 SETTABLEKS                       R13 R12 K25 ["AutomaticSize"]
-      146 GETIMPORT                        R13 K42 [Enum.FillDirection.Vertical]
-      148 SETTABLEKS                       R13 R12 K26 ["Layout"]
-      150 GETIMPORT                        R13 K45 [UDim.new]
-      152 LOADN                            R14 0
-      153 GETTABLEKS                       R15 R4 K46 ["PaddingPx"]
-      155 CALL                             R13 2 1
-      156 SETTABLEKS                       R13 R12 K27 ["Spacing"]
-      158 GETTABLEKS                       R13 R4 K46 ["PaddingPx"]
-      160 SETTABLEKS                       R13 R12 K28 ["Padding"]
-      162 GETIMPORT                        R13 K48 [Enum.HorizontalAlignment.Center]
-      164 SETTABLEKS                       R13 R12 K29 ["HorizontalAlignment"]
-      166 GETIMPORT                        R13 K50 [Enum.VerticalAlignment.Top]
-      168 SETTABLEKS                       R13 R12 K30 ["VerticalAlignment"]
-      170 DUPTABLE                         R13 K56 [{"RecordingFileSelector", "LoadingBar", "Button", "EmulationEnabled", "StatusTextLabel"}]
-      171 GETUPVAL                         R14 2
-      172 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      174 GETUPVAL                         R15 4
-      175 DUPTABLE                         R16 K58 [{"OnCanStartPlaying"}]
-      176 GETTABLEKS                       R17 R0 K59 ["onCanStartPlaying"]
-      178 SETTABLEKS                       R17 R16 K57 ["OnCanStartPlaying"]
-      180 CALL                             R14 2 1
-      181 SETTABLEKS                       R14 R13 K51 ["RecordingFileSelector"]
-      183 MOVE                             R14 R8
-      184 JUMPIFNOT                        R14 ; [+17]
-      185 GETUPVAL                         R14 2
-      186 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      188 GETUPVAL                         R15 5
-      189 DUPTABLE                         R16 K62 [{"Width", "LayoutOrder", "TotalTime"}]
-      190 GETTABLEKS                       R17 R4 K63 ["ProgressBarWidth"]
-      192 SETTABLEKS                       R17 R16 K60 ["Width"]
-      194 LOADN                            R17 2
-      195 SETTABLEKS                       R17 R16 K22 ["LayoutOrder"]
-      197 GETTABLEKS                       R17 R1 K64 ["CurrentRecordingDurationSec"]
-      199 SETTABLEKS                       R17 R16 K61 ["TotalTime"]
-      201 CALL                             R14 2 1
-      202 SETTABLEKS                       R14 R13 K52 ["LoadingBar"]
-      204 GETUPVAL                         R14 2
-      205 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      207 GETUPVAL                         R15 6
-      208 DUPTABLE                         R16 K69 [{"Size", "LayoutOrder", "AnchorPoint", "Style", "StyleModifier", "Text", "OnClick"}]
-      209 GETTABLEKS                       R17 R4 K70 ["PrimaryButtonSize"]
-      211 SETTABLEKS                       R17 R16 K24 ["Size"]
-      213 LOADN                            R17 3
-      214 SETTABLEKS                       R17 R16 K22 ["LayoutOrder"]
-      216 GETIMPORT                        R17 K72 [Vector2.new]
-      218 LOADK                            R18 K73 [0.5]
-      219 LOADN                            R19 0
-      220 CALL                             R17 2 1
-      221 SETTABLEKS                       R17 R16 K65 ["AnchorPoint"]
-      223 LOADK                            R17 K74 ["RoundPrimaryPlayButton"]
-      224 SETTABLEKS                       R17 R16 K23 ["Style"]
-      226 SETTABLEKS                       R7 R16 K66 ["StyleModifier"]
-      228 SETTABLEKS                       R6 R16 K67 ["Text"]
-      230 GETTABLEKS                       R17 R0 K75 ["onPlayButtonClicked"]
-      232 SETTABLEKS                       R17 R16 K68 ["OnClick"]
-      234 NEWTABLE                         R17 0 1
-      236 GETUPVAL                         R18 2
-      237 GETTABLEKS                       R18 R18 K21 ["createElement"]
-      239 GETUPVAL                         R19 7
-      240 DUPTABLE                         R20 K77 [{"Cursor"}]
-      241 LOADK                            R21 K78 ["PointingHand"]
-      242 SETTABLEKS                       R21 R20 K76 ["Cursor"]
-      244 CALL                             R18 2 -1
-      245 SETLIST                          R17 R18 -1 [1]
-      247 CALL                             R14 3 1
-      248 SETTABLEKS                       R14 R13 K53 ["Button"]
-      250 GETUPVAL                         R14 2
-      251 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      253 GETUPVAL                         R15 8
-      254 DUPTABLE                         R16 K79 [{"Selected", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-      255 GETTABLEKS                       R17 R1 K80 ["ShouldSetEmulationDevice"]
-      257 SETTABLEKS                       R17 R16 K14 ["Selected"]
-      259 GETTABLEKS                       R17 R0 K81 ["toggleEmulationEnabled"]
-      261 SETTABLEKS                       R17 R16 K68 ["OnClick"]
-      263 LOADK                            R19 K6 ["PlaybackTabView"]
-      264 LOADK                            R20 K82 ["SetEmulationDeviceLabel"]
-      265 NAMECALL                         R17 R3 K8 ["getText"]
-      267 CALL                             R17 3 1
-      268 SETTABLEKS                       R17 R16 K67 ["Text"]
-      270 SETTABLEKS                       R9 R16 K19 ["Disabled"]
-      272 LOADN                            R17 4
-      273 SETTABLEKS                       R17 R16 K22 ["LayoutOrder"]
-      275 CALL                             R14 2 1
-      276 SETTABLEKS                       R14 R13 K54 ["EmulationEnabled"]
-      278 GETUPVAL                         R14 2
-      279 GETTABLEKS                       R14 R14 K21 ["createElement"]
-      281 GETUPVAL                         R15 9
-      282 DUPTABLE                         R16 K85 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "Style", "TextXAlignment", "TextYAlignment"}]
-      283 SETTABLEKS                       R5 R16 K67 ["Text"]
-      285 GETIMPORT                        R17 K87 [UDim2.fromScale]
-      287 LOADN                            R18 1
-      288 LOADN                            R19 0
-      289 CALL                             R17 2 1
-      290 SETTABLEKS                       R17 R16 K24 ["Size"]
-      292 GETIMPORT                        R17 K39 [Enum.AutomaticSize.Y]
-      294 SETTABLEKS                       R17 R16 K25 ["AutomaticSize"]
-      296 LOADN                            R17 5
-      297 SETTABLEKS                       R17 R16 K22 ["LayoutOrder"]
-      299 LOADK                            R17 K55 ["StatusTextLabel"]
-      300 SETTABLEKS                       R17 R16 K23 ["Style"]
-      302 GETIMPORT                        R17 K89 [Enum.TextXAlignment.Left]
-      304 SETTABLEKS                       R17 R16 K83 ["TextXAlignment"]
-      306 GETIMPORT                        R17 K90 [Enum.TextYAlignment.Top]
-      308 SETTABLEKS                       R17 R16 K84 ["TextYAlignment"]
-      310 CALL                             R14 2 1
-      311 SETTABLEKS                       R14 R13 K55 ["StatusTextLabel"]
-      313 CALL                             R10 3 -1
-      314 RETURN                           R10 -1
+      131 GETIMPORT                        R13 K35 [UDim2.fromOffset]
+      133 GETTABLEKS                       R14 R4 K36 ["UIGroupWidthPx"]
+      135 LOADN                            R15 0
+      136 CALL                             R13 2 1
+      137 SETTABLEKS                       R13 R12 K25 ["Size"]
+      139 GETIMPORT                        R13 K39 [Enum.AutomaticSize.Y]
+      141 SETTABLEKS                       R13 R12 K26 ["AutomaticSize"]
+      143 GETIMPORT                        R13 K42 [Enum.FillDirection.Vertical]
+      145 SETTABLEKS                       R13 R12 K27 ["Layout"]
+      147 GETIMPORT                        R13 K45 [UDim.new]
+      149 LOADN                            R14 0
+      150 GETTABLEKS                       R15 R4 K46 ["PaddingPx"]
+      152 CALL                             R13 2 1
+      153 SETTABLEKS                       R13 R12 K28 ["Spacing"]
+      155 GETTABLEKS                       R13 R4 K46 ["PaddingPx"]
+      157 SETTABLEKS                       R13 R12 K29 ["Padding"]
+      159 GETIMPORT                        R13 K48 [Enum.HorizontalAlignment.Center]
+      161 SETTABLEKS                       R13 R12 K30 ["HorizontalAlignment"]
+      163 GETIMPORT                        R13 K50 [Enum.VerticalAlignment.Top]
+      165 SETTABLEKS                       R13 R12 K31 ["VerticalAlignment"]
+      167 DUPTABLE                         R13 K56 [{"RecordingFileSelector", "LoadingBar", "Button", "EmulationEnabled", "StatusTextLabel"}]
+      168 GETUPVAL                         R14 2
+      169 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      171 GETUPVAL                         R15 4
+      172 DUPTABLE                         R16 K58 [{"OnCanStartPlaying"}]
+      173 GETTABLEKS                       R17 R0 K59 ["onCanStartPlaying"]
+      175 SETTABLEKS                       R17 R16 K57 ["OnCanStartPlaying"]
+      177 CALL                             R14 2 1
+      178 SETTABLEKS                       R14 R13 K51 ["RecordingFileSelector"]
+      180 MOVE                             R14 R8
+      181 JUMPIFNOT                        R14 ; [+14]
+      182 GETUPVAL                         R14 2
+      183 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      185 GETUPVAL                         R15 5
+      186 DUPTABLE                         R16 K63 [{["Width"], ["LayoutOrder"] = 2, ["TotalTime"]}]
+      187 GETTABLEKS                       R17 R4 K64 ["ProgressBarWidth"]
+      189 SETTABLEKS                       R17 R16 K60 ["Width"]
+      191 GETTABLEKS                       R17 R1 K65 ["CurrentRecordingDurationSec"]
+      193 SETTABLEKS                       R17 R16 K62 ["TotalTime"]
+      195 CALL                             R14 2 1
+      196 SETTABLEKS                       R14 R13 K52 ["LoadingBar"]
+      198 GETUPVAL                         R14 2
+      199 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      201 GETUPVAL                         R15 6
+      202 DUPTABLE                         R16 K72 [{["Size"], ["LayoutOrder"] = 3, ["AnchorPoint"], ["Style"] = "RoundPrimaryPlayButton", ["StyleModifier"], ["Text"], ["OnClick"]}]
+      203 GETTABLEKS                       R17 R4 K73 ["PrimaryButtonSize"]
+      205 SETTABLEKS                       R17 R16 K25 ["Size"]
+      207 GETIMPORT                        R17 K75 [Vector2.new]
+      209 LOADK                            R18 K76 [0.5]
+      210 LOADN                            R19 0
+      211 CALL                             R17 2 1
+      212 SETTABLEKS                       R17 R16 K67 ["AnchorPoint"]
+      214 SETTABLEKS                       R7 R16 K69 ["StyleModifier"]
+      216 SETTABLEKS                       R6 R16 K70 ["Text"]
+      218 GETTABLEKS                       R17 R0 K77 ["onPlayButtonClicked"]
+      220 SETTABLEKS                       R17 R16 K71 ["OnClick"]
+      222 NEWTABLE                         R17 0 1
+      224 GETUPVAL                         R18 2
+      225 GETTABLEKS                       R18 R18 K21 ["createElement"]
+      227 GETUPVAL                         R19 7
+      228 DUPTABLE                         R20 K80 [{["Cursor"] = "PointingHand"}]
+      229 CALL                             R18 2 -1
+      230 SETLIST                          R17 R18 -1 [1]
+      232 CALL                             R14 3 1
+      233 SETTABLEKS                       R14 R13 K53 ["Button"]
+      235 GETUPVAL                         R14 2
+      236 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      238 GETUPVAL                         R15 8
+      239 DUPTABLE                         R16 K82 [{["Selected"], ["OnClick"], ["Text"], ["Disabled"], ["LayoutOrder"] = 4}]
+      240 GETTABLEKS                       R17 R1 K83 ["ShouldSetEmulationDevice"]
+      242 SETTABLEKS                       R17 R16 K14 ["Selected"]
+      244 GETTABLEKS                       R17 R0 K84 ["toggleEmulationEnabled"]
+      246 SETTABLEKS                       R17 R16 K71 ["OnClick"]
+      248 LOADK                            R19 K6 ["PlaybackTabView"]
+      249 LOADK                            R20 K85 ["SetEmulationDeviceLabel"]
+      250 NAMECALL                         R17 R3 K8 ["getText"]
+      252 CALL                             R17 3 1
+      253 SETTABLEKS                       R17 R16 K70 ["Text"]
+      255 SETTABLEKS                       R9 R16 K19 ["Disabled"]
+      257 CALL                             R14 2 1
+      258 SETTABLEKS                       R14 R13 K54 ["EmulationEnabled"]
+      260 GETUPVAL                         R14 2
+      261 GETTABLEKS                       R14 R14 K21 ["createElement"]
+      263 GETUPVAL                         R15 9
+      264 DUPTABLE                         R16 K89 [{["Text"], ["Size"], ["AutomaticSize"], ["LayoutOrder"] = 5, ["Style"] = "StatusTextLabel", ["TextXAlignment"], ["TextYAlignment"]}]
+      265 SETTABLEKS                       R5 R16 K70 ["Text"]
+      267 GETIMPORT                        R17 K91 [UDim2.fromScale]
+      269 LOADN                            R18 1
+      270 LOADN                            R19 0
+      271 CALL                             R17 2 1
+      272 SETTABLEKS                       R17 R16 K25 ["Size"]
+      274 GETIMPORT                        R17 K39 [Enum.AutomaticSize.Y]
+      276 SETTABLEKS                       R17 R16 K26 ["AutomaticSize"]
+      278 GETIMPORT                        R17 K93 [Enum.TextXAlignment.Left]
+      280 SETTABLEKS                       R17 R16 K87 ["TextXAlignment"]
+      282 GETIMPORT                        R17 K94 [Enum.TextYAlignment.Top]
+      284 SETTABLEKS                       R17 R16 K88 ["TextYAlignment"]
+      286 CALL                             R14 2 1
+      287 SETTABLEKS                       R14 R13 K55 ["StatusTextLabel"]
+      289 CALL                             R10 3 -1
+      290 RETURN                           R10 -1
 
 PROTO_5:
         0 DUPTABLE                         R2 K3 [{"ShouldSetEmulationDevice", "PluginState", "CurrentRecordingDurationSec"}]

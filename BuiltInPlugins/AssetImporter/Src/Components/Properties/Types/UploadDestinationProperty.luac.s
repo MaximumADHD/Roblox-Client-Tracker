@@ -28,7 +28,7 @@ PROTO_2:
        12 CALL                             R3 3 -1
        13 SETLIST                          R2 R3 -1 [1]
        15 NEWTABLE                         R3 0 1
-       17 LOADN                            R4 255
+       17 LOADN                            R4 -1
        18 SETLIST                          R3 R4 1 [1]
        20 GETTABLEKS                       R4 R1 K5 ["managedGroups"]
        22 LOADNIL                          R5

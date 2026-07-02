@@ -57,27 +57,19 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K13 [{"Playhead", "SliderPlayhead", "IsPlaying", "TrackLengh"}]
-       26 LOADN                            R5 0
-       27 SETTABLEKS                       R5 R4 K9 ["Playhead"]
-       29 LOADN                            R5 255
-       30 SETTABLEKS                       R5 R4 K10 ["SliderPlayhead"]
-       32 LOADB                            R5 0
-       33 SETTABLEKS                       R5 R4 K11 ["IsPlaying"]
-       35 LOADN                            R5 0
-       36 SETTABLEKS                       R5 R4 K12 ["TrackLengh"]
-       38 DUPTABLE                         R5 K18 [{"SetPlayhead", "SetSliderPlayhead", "SetIsPlaying", "SetTrackLength"}]
-       39 DUPCLOSURE                       R6 K19 [PROTO_0]
+       25 DUPTABLE                         R4 K16 [{["Playhead"] = 0, ["SliderPlayhead"] = -1, ["IsPlaying"] = False, ["TrackLengh"] = 0}]
+       26 DUPTABLE                         R5 K21 [{"SetPlayhead", "SetSliderPlayhead", "SetIsPlaying", "SetTrackLength"}]
+       27 DUPCLOSURE                       R6 K22 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 SETTABLEKS                       R6 R5 K17 ["SetPlayhead"]
+       31 DUPCLOSURE                       R6 K23 [PROTO_1]
+       32 CAPTURE                          VAL R2
+       33 SETTABLEKS                       R6 R5 K18 ["SetSliderPlayhead"]
+       35 DUPCLOSURE                       R6 K24 [PROTO_2]
+       36 CAPTURE                          VAL R2
+       37 SETTABLEKS                       R6 R5 K19 ["SetIsPlaying"]
+       39 DUPCLOSURE                       R6 K25 [PROTO_3]
        40 CAPTURE                          VAL R2
-       41 SETTABLEKS                       R6 R5 K14 ["SetPlayhead"]
-       43 DUPCLOSURE                       R6 K20 [PROTO_1]
-       44 CAPTURE                          VAL R2
-       45 SETTABLEKS                       R6 R5 K15 ["SetSliderPlayhead"]
-       47 DUPCLOSURE                       R6 K21 [PROTO_2]
-       48 CAPTURE                          VAL R2
-       49 SETTABLEKS                       R6 R5 K16 ["SetIsPlaying"]
-       51 DUPCLOSURE                       R6 K22 [PROTO_3]
-       52 CAPTURE                          VAL R2
-       53 SETTABLEKS                       R6 R5 K17 ["SetTrackLength"]
-       55 CALL                             R3 2 -1
-       56 RETURN                           R3 -1
+       41 SETTABLEKS                       R6 R5 K20 ["SetTrackLength"]
+       43 CALL                             R3 2 -1
+       44 RETURN                           R3 -1

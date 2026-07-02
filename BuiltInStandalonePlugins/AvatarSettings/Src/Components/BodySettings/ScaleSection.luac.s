@@ -100,121 +100,113 @@ PROTO_3:
        75 LOADB                            R9 1
        76 GETUPVAL                         R10 6
        77 GETUPVAL                         R11 7
-       78 DUPTABLE                         R12 K29 [{"text", "layoutOrder", "showWarning"}]
+       78 DUPTABLE                         R12 K30 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
        79 LOADK                            R15 K13 ["BodySettings"]
-       80 LOADK                            R16 K30 ["ScaleSection"]
+       80 LOADK                            R16 K31 ["ScaleSection"]
        81 NAMECALL                         R13 R1 K15 ["getText"]
        83 CALL                             R13 3 1
        84 SETTABLEKS                       R13 R12 K26 ["text"]
        86 GETTABLEKS                       R13 R0 K27 ["layoutOrder"]
        88 SETTABLEKS                       R13 R12 K27 ["layoutOrder"]
-       90 LOADB                            R13 1
-       91 SETTABLEKS                       R13 R12 K28 ["showWarning"]
-       93 DUPTABLE                         R13 K33 [{"ScaleModeSelector", "HeightSetting"}]
-       94 GETUPVAL                         R14 6
-       95 GETUPVAL                         R15 8
-       96 DUPTABLE                         R16 K38 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-       97 MOVE                             R17 R3
-       98 CALL                             R17 0 1
-       99 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      101 SETTABLEKS                       R5 R16 K34 ["items"]
-      103 SETTABLEKS                       R7 R16 K35 ["selected"]
-      105 NEWCLOSURE                       R17 P0
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R2
-      108 CAPTURE                          VAL R6
-      109 SETTABLEKS                       R17 R16 K36 ["onItemActivated"]
-      111 LOADK                            R19 K13 ["BodySettings"]
-      112 GETIMPORT                        R21 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
-      114 JUMPIFNOTEQ                      R7 R21 ; [+3]
-      116 LOADK                            R20 K39 ["ScaleSectionPlayerChoiceSubText"]
-      117 JUMP                             ; [+1]
-      118 LOADK                            R20 K40 ["ScaleSectionCustomScaleSubText"]
-      119 NAMECALL                         R17 R1 K15 ["getText"]
-      121 CALL                             R17 3 1
-      122 SETTABLEKS                       R17 R16 K37 ["subText"]
-      124 CALL                             R14 2 1
-      125 SETTABLEKS                       R14 R13 K31 ["ScaleModeSelector"]
-      127 MOVE                             R14 R9
-      128 JUMPIFNOT                        R14 ; [+111]
-      129 GETUPVAL                         R14 6
-      130 GETUPVAL                         R15 9
-      131 DUPTABLE                         R16 K43 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      132 SETTABLEKS                       R8 R16 K41 ["minTextLabelWidth"]
-      134 LOADK                            R17 K44 ["AvatarSettings-LeftTextPrimary"]
-      135 SETTABLEKS                       R17 R16 K42 ["textLabelTags"]
-      137 LOADK                            R19 K13 ["BodySettings"]
-      138 LOADK                            R20 K45 ["ScaleHeight"]
-      139 NAMECALL                         R17 R1 K15 ["getText"]
-      141 CALL                             R17 3 1
-      142 SETTABLEKS                       R17 R16 K26 ["text"]
-      144 MOVE                             R17 R3
-      145 CALL                             R17 0 1
-      146 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
-      148 DUPTABLE                         R17 K47 [{"Content"}]
-      149 GETUPVAL                         R18 6
-      150 GETUPVAL                         R19 10
-      151 DUPTABLE                         R20 K56 [{"snapIncrement", "roundToTenths", "min", "max", "inputFieldText", "numberRange", "setNumberRange", "toggleRangeProps"}]
-      152 LOADK                            R21 K57 [0.1]
-      153 SETTABLEKS                       R21 R20 K48 ["snapIncrement"]
-      155 LOADB                            R21 1
-      156 SETTABLEKS                       R21 R20 K49 ["roundToTenths"]
-      158 GETUPVAL                         R21 5
-      159 GETTABLEKS                       R21 R21 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-      161 SETTABLEKS                       R21 R20 K50 ["min"]
-      163 GETUPVAL                         R21 5
-      164 GETTABLEKS                       R21 R21 K59 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
-      166 SETTABLEKS                       R21 R20 K51 ["max"]
-      168 LOADK                            R23 K60 ["General"]
-      169 LOADK                            R24 K61 ["studs"]
-      170 NAMECALL                         R21 R1 K15 ["getText"]
-      172 CALL                             R21 3 1
-      173 SETTABLEKS                       R21 R20 K52 ["inputFieldText"]
-      175 GETTABLEKS                       R22 R6 K62 ["bodyScaleCustomHeight"]
-      177 GETTABLEKS                       R22 R22 K21 ["value"]
-      179 GETIMPORT                        R23 K64 [NumberRange.new]
-      181 GETTABLEKS                       R25 R22 K65 ["Min"]
-      183 GETUPVAL                         R26 5
-      184 GETTABLEKS                       R26 R26 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-      186 GETUPVAL                         R27 5
-      187 GETTABLEKS                       R27 R27 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+       90 DUPTABLE                         R13 K34 [{"ScaleModeSelector", "HeightSetting"}]
+       91 GETUPVAL                         R14 6
+       92 GETUPVAL                         R15 8
+       93 DUPTABLE                         R16 K39 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+       94 MOVE                             R17 R3
+       95 CALL                             R17 0 1
+       96 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+       98 SETTABLEKS                       R5 R16 K35 ["items"]
+      100 SETTABLEKS                       R7 R16 K36 ["selected"]
+      102 NEWCLOSURE                       R17 P0
+      103 CAPTURE                          VAL R7
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R6
+      106 SETTABLEKS                       R17 R16 K37 ["onItemActivated"]
+      108 LOADK                            R19 K13 ["BodySettings"]
+      109 GETIMPORT                        R21 K12 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+      111 JUMPIFNOTEQ                      R7 R21 ; [+3]
+      113 LOADK                            R20 K40 ["ScaleSectionPlayerChoiceSubText"]
+      114 JUMP                             ; [+1]
+      115 LOADK                            R20 K41 ["ScaleSectionCustomScaleSubText"]
+      116 NAMECALL                         R17 R1 K15 ["getText"]
+      118 CALL                             R17 3 1
+      119 SETTABLEKS                       R17 R16 K38 ["subText"]
+      121 CALL                             R14 2 1
+      122 SETTABLEKS                       R14 R13 K32 ["ScaleModeSelector"]
+      124 MOVE                             R14 R9
+      125 JUMPIFNOT                        R14 ; [+102]
+      126 GETUPVAL                         R14 6
+      127 GETUPVAL                         R15 9
+      128 DUPTABLE                         R16 K45 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      129 SETTABLEKS                       R8 R16 K42 ["minTextLabelWidth"]
+      131 LOADK                            R19 K13 ["BodySettings"]
+      132 LOADK                            R20 K46 ["ScaleHeight"]
+      133 NAMECALL                         R17 R1 K15 ["getText"]
+      135 CALL                             R17 3 1
+      136 SETTABLEKS                       R17 R16 K26 ["text"]
+      138 MOVE                             R17 R3
+      139 CALL                             R17 0 1
+      140 SETTABLEKS                       R17 R16 K27 ["layoutOrder"]
+      142 DUPTABLE                         R17 K48 [{"Content"}]
+      143 GETUPVAL                         R18 6
+      144 GETUPVAL                         R19 10
+      145 DUPTABLE                         R20 K58 [{["snapIncrement"] = 0.1, ["roundToTenths"] = True, ["min"], ["max"], ["inputFieldText"], ["numberRange"], ["setNumberRange"], ["toggleRangeProps"]}]
+      146 GETUPVAL                         R21 5
+      147 GETTABLEKS                       R21 R21 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      149 SETTABLEKS                       R21 R20 K52 ["min"]
+      151 GETUPVAL                         R21 5
+      152 GETTABLEKS                       R21 R21 K60 ["BODYSCALECUSTOMHEIGHT_SLIDERMAXVALUE"]
+      154 SETTABLEKS                       R21 R20 K53 ["max"]
+      156 LOADK                            R23 K61 ["General"]
+      157 LOADK                            R24 K62 ["studs"]
+      158 NAMECALL                         R21 R1 K15 ["getText"]
+      160 CALL                             R21 3 1
+      161 SETTABLEKS                       R21 R20 K54 ["inputFieldText"]
+      163 GETTABLEKS                       R22 R6 K63 ["bodyScaleCustomHeight"]
+      165 GETTABLEKS                       R22 R22 K21 ["value"]
+      167 GETIMPORT                        R23 K65 [NumberRange.new]
+      169 GETTABLEKS                       R25 R22 K66 ["Min"]
+      171 GETUPVAL                         R26 5
+      172 GETTABLEKS                       R26 R26 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      174 GETUPVAL                         R27 5
+      175 GETTABLEKS                       R27 R27 K67 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
+      177 FASTCALL                         MATH_CLAMP ; [+2]
+      178 GETIMPORT                        R24 K70 [math.clamp]
+      180 CALL                             R24 3 1
+      181 GETTABLEKS                       R26 R22 K71 ["Max"]
+      183 GETUPVAL                         R27 5
+      184 GETTABLEKS                       R27 R27 K59 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
+      186 GETUPVAL                         R28 5
+      187 GETTABLEKS                       R28 R28 K67 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
       189 FASTCALL                         MATH_CLAMP ; [+2]
-      190 GETIMPORT                        R24 K69 [math.clamp]
-      192 CALL                             R24 3 1
-      193 GETTABLEKS                       R26 R22 K70 ["Max"]
-      195 GETUPVAL                         R27 5
-      196 GETTABLEKS                       R27 R27 K58 ["BODYSCALECUSTOMHEIGHT_MINVALUE"]
-      198 GETUPVAL                         R28 5
-      199 GETTABLEKS                       R28 R28 K66 ["BODYSCALECUSTOMHEIGHT_MAXVALUE"]
-      201 FASTCALL                         MATH_CLAMP ; [+2]
-      202 GETIMPORT                        R25 K69 [math.clamp]
-      204 CALL                             R25 3 1
-      205 CALL                             R23 2 1
-      206 MOVE                             R21 R23
-      207 SETTABLEKS                       R21 R20 K53 ["numberRange"]
-      209 NEWCLOSURE                       R21 P1
-      210 CAPTURE                          VAL R6
-      211 CAPTURE                          UPVAL U11
-      212 SETTABLEKS                       R21 R20 K54 ["setNumberRange"]
-      214 DUPTABLE                         R21 K74 [{"toggleText", "toggleValue", "setToggleValue"}]
-      215 LOADK                            R24 K13 ["BodySettings"]
-      216 LOADK                            R25 K75 ["ScaleSetMinAndMaxToggle"]
-      217 NAMECALL                         R22 R1 K15 ["getText"]
-      219 CALL                             R22 3 1
-      220 SETTABLEKS                       R22 R21 K71 ["toggleText"]
-      222 GETTABLEKS                       R22 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
-      224 GETTABLEKS                       R22 R22 K21 ["value"]
-      226 SETTABLEKS                       R22 R21 K72 ["toggleValue"]
-      228 GETTABLEKS                       R22 R6 K76 ["bodyScaleCustomHeightSetMinMax"]
-      230 GETTABLEKS                       R22 R22 K77 ["set"]
-      232 SETTABLEKS                       R22 R21 K73 ["setToggleValue"]
-      234 SETTABLEKS                       R21 R20 K55 ["toggleRangeProps"]
-      236 CALL                             R18 2 1
-      237 SETTABLEKS                       R18 R17 K46 ["Content"]
-      239 CALL                             R14 3 1
-      240 SETTABLEKS                       R14 R13 K32 ["HeightSetting"]
-      242 CALL                             R10 3 -1
-      243 RETURN                           R10 -1
+      190 GETIMPORT                        R25 K70 [math.clamp]
+      192 CALL                             R25 3 1
+      193 CALL                             R23 2 1
+      194 MOVE                             R21 R23
+      195 SETTABLEKS                       R21 R20 K55 ["numberRange"]
+      197 NEWCLOSURE                       R21 P1
+      198 CAPTURE                          VAL R6
+      199 CAPTURE                          UPVAL U11
+      200 SETTABLEKS                       R21 R20 K56 ["setNumberRange"]
+      202 DUPTABLE                         R21 K75 [{"toggleText", "toggleValue", "setToggleValue"}]
+      203 LOADK                            R24 K13 ["BodySettings"]
+      204 LOADK                            R25 K76 ["ScaleSetMinAndMaxToggle"]
+      205 NAMECALL                         R22 R1 K15 ["getText"]
+      207 CALL                             R22 3 1
+      208 SETTABLEKS                       R22 R21 K72 ["toggleText"]
+      210 GETTABLEKS                       R22 R6 K77 ["bodyScaleCustomHeightSetMinMax"]
+      212 GETTABLEKS                       R22 R22 K21 ["value"]
+      214 SETTABLEKS                       R22 R21 K73 ["toggleValue"]
+      216 GETTABLEKS                       R22 R6 K77 ["bodyScaleCustomHeightSetMinMax"]
+      218 GETTABLEKS                       R22 R22 K78 ["set"]
+      220 SETTABLEKS                       R22 R21 K74 ["setToggleValue"]
+      222 SETTABLEKS                       R21 R20 K57 ["toggleRangeProps"]
+      224 CALL                             R18 2 1
+      225 SETTABLEKS                       R18 R17 K47 ["Content"]
+      227 CALL                             R14 3 1
+      228 SETTABLEKS                       R14 R13 K33 ["HeightSetting"]
+      230 CALL                             R10 3 -1
+      231 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

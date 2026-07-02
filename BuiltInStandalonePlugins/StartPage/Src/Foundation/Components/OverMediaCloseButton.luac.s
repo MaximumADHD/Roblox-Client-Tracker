@@ -50,11 +50,11 @@ PROTO_0:
        68 GETTABLEKS                       R11 R11 K30 ["Emphasis"]
        70 SETTABLEKS                       R11 R10 K17 ["style"]
        72 CALL                             R8 2 1
-       73 JUMP                             ; [+23]
+       73 JUMP                             ; [+20]
        74 GETUPVAL                         R8 2
        75 GETTABLEKS                       R8 R8 K10 ["createElement"]
        77 GETUPVAL                         R9 8
-       78 DUPTABLE                         R10 K31 [{"Position", "AnchorPoint", "tag"}]
+       78 DUPTABLE                         R10 K32 [{["Position"], ["AnchorPoint"], ["tag"] = "StartPage-CancelWhiteIcon content-emphasis"}]
        79 GETIMPORT                        R11 K21 [UDim2.fromScale]
        81 LOADK                            R12 K22 [0.5]
        82 LOADK                            R13 K22 [0.5]
@@ -65,12 +65,10 @@ PROTO_0:
        89 LOADK                            R13 K22 [0.5]
        90 CALL                             R11 2 1
        91 SETTABLEKS                       R11 R10 K14 ["AnchorPoint"]
-       93 LOADK                            R11 K32 ["StartPage-CancelWhiteIcon content-emphasis"]
-       94 SETTABLEKS                       R11 R10 K5 ["tag"]
-       96 CALL                             R8 2 1
-       97 SETTABLEKS                       R8 R7 K11 ["Icon"]
-       99 CALL                             R4 3 -1
-      100 RETURN                           R4 -1
+       93 CALL                             R8 2 1
+       94 SETTABLEKS                       R8 R7 K11 ["Icon"]
+       96 CALL                             R4 3 -1
+       97 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

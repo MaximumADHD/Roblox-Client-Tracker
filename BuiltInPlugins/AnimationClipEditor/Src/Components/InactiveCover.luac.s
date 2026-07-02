@@ -8,49 +8,47 @@ PROTO_0:
        12 GETUPVAL                         R4 0
        13 GETTABLEKS                       R4 R4 K4 ["createElement"]
        15 GETUPVAL                         R5 1
-       16 DUPTABLE                         R6 K6 [{"Priority"}]
-       17 LOADN                            R7 100
-       18 SETTABLEKS                       R7 R6 K5 ["Priority"]
-       20 DUPTABLE                         R7 K8 [{"Text"}]
-       21 GETUPVAL                         R8 0
-       22 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       24 LOADK                            R9 K9 ["TextButton"]
-       25 NEWTABLE                         R10 16 0
-       27 GETIMPORT                        R11 K12 [UDim2.new]
-       29 LOADN                            R12 1
-       30 LOADN                            R13 0
-       31 LOADN                            R14 1
-       32 LOADN                            R15 0
-       33 CALL                             R11 4 1
-       34 SETTABLEKS                       R11 R10 K13 ["Size"]
-       36 GETIMPORT                        R11 K15 [Color3.new]
-       38 CALL                             R11 0 1
-       39 SETTABLEKS                       R11 R10 K16 ["BackgroundColor3"]
-       41 LOADK                            R11 K17 [0.35]
-       42 SETTABLEKS                       R11 R10 K18 ["BackgroundTransparency"]
-       44 LOADB                            R11 0
-       45 SETTABLEKS                       R11 R10 K19 ["AutoButtonColor"]
-       47 GETTABLEKS                       R11 R2 K20 ["font"]
-       49 SETTABLEKS                       R11 R10 K21 ["Font"]
-       51 GETTABLEKS                       R11 R2 K22 ["startScreenTheme"]
-       53 GETTABLEKS                       R11 R11 K23 ["textSize"]
-       55 SETTABLEKS                       R11 R10 K24 ["TextSize"]
-       57 GETTABLEKS                       R11 R2 K22 ["startScreenTheme"]
-       59 GETTABLEKS                       R11 R11 K25 ["darkTextColor"]
-       61 SETTABLEKS                       R11 R10 K26 ["TextColor3"]
-       63 LOADK                            R13 K27 ["Title"]
-       64 LOADK                            R14 K28 ["ClickToContinue"]
-       65 NAMECALL                         R11 R3 K29 ["getText"]
-       67 CALL                             R11 3 1
-       68 SETTABLEKS                       R11 R10 K7 ["Text"]
-       70 GETUPVAL                         R11 0
-       71 GETTABLEKS                       R11 R11 K30 ["Event"]
-       73 GETTABLEKS                       R11 R11 K31 ["Activated"]
-       75 SETTABLE                         R1 R10 R11
-       76 CALL                             R8 2 1
-       77 SETTABLEKS                       R8 R7 K7 ["Text"]
-       79 CALL                             R4 3 -1
-       80 RETURN                           R4 -1
+       16 DUPTABLE                         R6 K7 [{["Priority"] = 100}]
+       17 DUPTABLE                         R7 K9 [{"Text"}]
+       18 GETUPVAL                         R8 0
+       19 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       21 LOADK                            R9 K10 ["TextButton"]
+       22 NEWTABLE                         R10 16 0
+       24 GETIMPORT                        R11 K13 [UDim2.new]
+       26 LOADN                            R12 1
+       27 LOADN                            R13 0
+       28 LOADN                            R14 1
+       29 LOADN                            R15 0
+       30 CALL                             R11 4 1
+       31 SETTABLEKS                       R11 R10 K14 ["Size"]
+       33 GETIMPORT                        R11 K16 [Color3.new]
+       35 CALL                             R11 0 1
+       36 SETTABLEKS                       R11 R10 K17 ["BackgroundColor3"]
+       38 LOADK                            R11 K18 [0.35]
+       39 SETTABLEKS                       R11 R10 K19 ["BackgroundTransparency"]
+       41 LOADB                            R11 0
+       42 SETTABLEKS                       R11 R10 K20 ["AutoButtonColor"]
+       44 GETTABLEKS                       R11 R2 K21 ["font"]
+       46 SETTABLEKS                       R11 R10 K22 ["Font"]
+       48 GETTABLEKS                       R11 R2 K23 ["startScreenTheme"]
+       50 GETTABLEKS                       R11 R11 K24 ["textSize"]
+       52 SETTABLEKS                       R11 R10 K25 ["TextSize"]
+       54 GETTABLEKS                       R11 R2 K23 ["startScreenTheme"]
+       56 GETTABLEKS                       R11 R11 K26 ["darkTextColor"]
+       58 SETTABLEKS                       R11 R10 K27 ["TextColor3"]
+       60 LOADK                            R13 K28 ["Title"]
+       61 LOADK                            R14 K29 ["ClickToContinue"]
+       62 NAMECALL                         R11 R3 K30 ["getText"]
+       64 CALL                             R11 3 1
+       65 SETTABLEKS                       R11 R10 K8 ["Text"]
+       67 GETUPVAL                         R11 0
+       68 GETTABLEKS                       R11 R11 K31 ["Event"]
+       70 GETTABLEKS                       R11 R11 K32 ["Activated"]
+       72 SETTABLE                         R1 R10 R11
+       73 CALL                             R8 2 1
+       74 SETTABLEKS                       R8 R7 K8 ["Text"]
+       76 CALL                             R4 3 -1
+       77 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

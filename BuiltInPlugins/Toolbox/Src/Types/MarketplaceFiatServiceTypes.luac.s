@@ -1,22 +1,6 @@
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K8 [{"Complete", "Enabled", "Invalid", "NotStarted", "Pending", "Rejected", "Restricted", "RestrictedSoon"}]
-        2 LOADK                            R1 K9 ["SELLER_STATUS_COMPLETE"]
-        3 SETTABLEKS                       R1 R0 K0 ["Complete"]
-        5 LOADK                            R1 K10 ["SELLER_STATUS_ENABLED"]
-        6 SETTABLEKS                       R1 R0 K1 ["Enabled"]
-        8 LOADK                            R1 K11 ["SELLER_STATUS_INVALID"]
-        9 SETTABLEKS                       R1 R0 K2 ["Invalid"]
-       11 LOADK                            R1 K12 ["SELLER_STATUS_NOT_STARTED"]
-       12 SETTABLEKS                       R1 R0 K3 ["NotStarted"]
-       14 LOADK                            R1 K13 ["SELLER_STATUS_PENDING"]
-       15 SETTABLEKS                       R1 R0 K4 ["Pending"]
-       17 LOADK                            R1 K14 ["SELLER_STATUS_REJECTED"]
-       18 SETTABLEKS                       R1 R0 K5 ["Rejected"]
-       20 LOADK                            R1 K15 ["SELLER_STATUS_RESTRICTED"]
-       21 SETTABLEKS                       R1 R0 K6 ["Restricted"]
-       23 LOADK                            R1 K16 ["SELLER_STATUS_RESTRICTED_SOON"]
-       24 SETTABLEKS                       R1 R0 K7 ["RestrictedSoon"]
-       26 DUPTABLE                         R1 K18 [{"SellerStatusEnum"}]
-       27 SETTABLEKS                       R0 R1 K17 ["SellerStatusEnum"]
-       29 RETURN                           R1 1
+        1 DUPTABLE                         R0 K16 [{[1] = "SELLER_STATUS_COMPLETE", ["Enabled"] = "SELLER_STATUS_ENABLED", ["Invalid"] = "SELLER_STATUS_INVALID", ["NotStarted"] = "SELLER_STATUS_NOT_STARTED", ["Pending"] = "SELLER_STATUS_PENDING", ["Rejected"] = "SELLER_STATUS_REJECTED", ["Restricted"] = "SELLER_STATUS_RESTRICTED", ["RestrictedSoon"] = "SELLER_STATUS_RESTRICTED_SOON"}]
+        2 DUPTABLE                         R1 K18 [{"SellerStatusEnum"}]
+        3 SETTABLEKS                       R0 R1 K17 ["SellerStatusEnum"]
+        5 RETURN                           R1 1

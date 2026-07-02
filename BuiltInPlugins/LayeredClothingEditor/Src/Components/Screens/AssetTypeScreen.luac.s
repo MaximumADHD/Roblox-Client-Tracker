@@ -71,23 +71,21 @@ PROTO_1:
        80 RETURN                           R6 -1
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"shouldShowScaleDropdown"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["shouldShowScaleDropdown"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 SETTABLEKS                       R1 R0 K3 ["onEditingItemChanged"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          UPVAL U2
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U4
-       17 CAPTURE                          UPVAL U5
-       18 SETTABLEKS                       R1 R0 K4 ["renderContent"]
-       20 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K4 ["onEditingItemChanged"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U2
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          UPVAL U5
+       15 SETTABLEKS                       R1 R0 K5 ["renderContent"]
+       17 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -121,49 +119,41 @@ PROTO_4:
        16 GETUPVAL                         R8 0
        17 GETTABLEKS                       R8 R8 K6 ["createElement"]
        19 GETUPVAL                         R9 1
-       20 DUPTABLE                         R10 K8 [{"Style"}]
-       21 LOADK                            R11 K9 ["Box"]
-       22 SETTABLEKS                       R11 R10 K7 ["Style"]
-       24 DUPTABLE                         R11 K11 [{"Screen"}]
-       25 GETUPVAL                         R12 0
-       26 GETTABLEKS                       R12 R12 K6 ["createElement"]
-       28 GETUPVAL                         R13 2
-       29 DUPTABLE                         R14 K21 [{"Title", "PromptText", "NextButtonText", "BackButtonText", "NextButtonEnabled", "BackButtonEnabled", "Scrollable", "HasBackButton", "GoToNext", "GoToPrevious", "RenderContent"}]
-       30 LOADK                            R17 K22 ["AssetType"]
-       31 LOADK                            R18 K22 ["AssetType"]
-       32 NAMECALL                         R15 R6 K23 ["getText"]
-       34 CALL                             R15 3 1
-       35 SETTABLEKS                       R15 R14 K12 ["Title"]
-       37 LOADK                            R17 K22 ["AssetType"]
-       38 LOADK                            R18 K24 ["Prompt"]
-       39 NAMECALL                         R15 R6 K23 ["getText"]
-       41 CALL                             R15 3 1
-       42 SETTABLEKS                       R15 R14 K13 ["PromptText"]
-       44 LOADK                            R17 K25 ["Flow"]
-       45 LOADK                            R18 K26 ["Next"]
-       46 NAMECALL                         R15 R6 K23 ["getText"]
-       48 CALL                             R15 3 1
-       49 SETTABLEKS                       R15 R14 K14 ["NextButtonText"]
-       51 LOADK                            R17 K25 ["Flow"]
-       52 LOADK                            R18 K27 ["Back"]
-       53 NAMECALL                         R15 R6 K23 ["getText"]
-       55 CALL                             R15 3 1
-       56 SETTABLEKS                       R15 R14 K15 ["BackButtonText"]
-       58 SETTABLEKS                       R7 R14 K16 ["NextButtonEnabled"]
-       60 LOADB                            R15 1
-       61 SETTABLEKS                       R15 R14 K17 ["BackButtonEnabled"]
-       63 LOADB                            R15 1
-       64 SETTABLEKS                       R15 R14 K18 ["Scrollable"]
-       66 LOADB                            R15 1
-       67 SETTABLEKS                       R15 R14 K19 ["HasBackButton"]
-       69 SETTABLEKS                       R3 R14 K2 ["GoToNext"]
-       71 SETTABLEKS                       R4 R14 K3 ["GoToPrevious"]
-       73 GETTABLEKS                       R15 R0 K28 ["renderContent"]
-       75 SETTABLEKS                       R15 R14 K20 ["RenderContent"]
-       77 CALL                             R12 2 1
-       78 SETTABLEKS                       R12 R11 K10 ["Screen"]
-       80 CALL                             R8 3 -1
-       81 RETURN                           R8 -1
+       20 DUPTABLE                         R10 K9 [{["Style"] = "Box"}]
+       21 DUPTABLE                         R11 K11 [{"Screen"}]
+       22 GETUPVAL                         R12 0
+       23 GETTABLEKS                       R12 R12 K6 ["createElement"]
+       25 GETUPVAL                         R13 2
+       26 DUPTABLE                         R14 K22 [{["Title"], ["PromptText"], ["NextButtonText"], ["BackButtonText"], ["NextButtonEnabled"], ["BackButtonEnabled"] = True, ["Scrollable"] = True, ["HasBackButton"] = True, ["GoToNext"], ["GoToPrevious"], ["RenderContent"]}]
+       27 LOADK                            R17 K23 ["AssetType"]
+       28 LOADK                            R18 K23 ["AssetType"]
+       29 NAMECALL                         R15 R6 K24 ["getText"]
+       31 CALL                             R15 3 1
+       32 SETTABLEKS                       R15 R14 K12 ["Title"]
+       34 LOADK                            R17 K23 ["AssetType"]
+       35 LOADK                            R18 K25 ["Prompt"]
+       36 NAMECALL                         R15 R6 K24 ["getText"]
+       38 CALL                             R15 3 1
+       39 SETTABLEKS                       R15 R14 K13 ["PromptText"]
+       41 LOADK                            R17 K26 ["Flow"]
+       42 LOADK                            R18 K27 ["Next"]
+       43 NAMECALL                         R15 R6 K24 ["getText"]
+       45 CALL                             R15 3 1
+       46 SETTABLEKS                       R15 R14 K14 ["NextButtonText"]
+       48 LOADK                            R17 K26 ["Flow"]
+       49 LOADK                            R18 K28 ["Back"]
+       50 NAMECALL                         R15 R6 K24 ["getText"]
+       52 CALL                             R15 3 1
+       53 SETTABLEKS                       R15 R14 K15 ["BackButtonText"]
+       55 SETTABLEKS                       R7 R14 K16 ["NextButtonEnabled"]
+       57 SETTABLEKS                       R3 R14 K2 ["GoToNext"]
+       59 SETTABLEKS                       R4 R14 K3 ["GoToPrevious"]
+       61 GETTABLEKS                       R15 R0 K29 ["renderContent"]
+       63 SETTABLEKS                       R15 R14 K21 ["RenderContent"]
+       65 CALL                             R12 2 1
+       66 SETTABLEKS                       R12 R11 K10 ["Screen"]
+       68 CALL                             R8 3 -1
+       69 RETURN                           R8 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["editingItemChangedHandle"]

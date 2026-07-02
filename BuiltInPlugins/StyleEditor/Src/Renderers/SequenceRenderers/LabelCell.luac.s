@@ -27,30 +27,28 @@ PROTO_0:
        37 GETUPVAL                         R5 0
        38 GETTABLEKS                       R5 R5 K0 ["createElement"]
        40 GETUPVAL                         R6 3
-       41 DUPTABLE                         R7 K15 [{"LayoutOrder", "Size", "Disabled", "Schema", "Value", "OnChanged", "Renderers"}]
-       42 LOADN                            R8 2
-       43 SETTABLEKS                       R8 R7 K1 ["LayoutOrder"]
-       45 GETIMPORT                        R8 K18 [UDim2.fromOffset]
-       47 LOADN                            R9 100
-       48 LOADN                            R10 30
-       49 CALL                             R8 2 1
-       50 SETTABLEKS                       R8 R7 K9 ["Size"]
-       52 GETTABLEKS                       R8 R0 K10 ["Disabled"]
-       54 SETTABLEKS                       R8 R7 K10 ["Disabled"]
-       56 GETTABLEKS                       R8 R0 K11 ["Schema"]
-       58 SETTABLEKS                       R8 R7 K11 ["Schema"]
-       60 GETTABLEKS                       R8 R0 K12 ["Value"]
-       62 SETTABLEKS                       R8 R7 K12 ["Value"]
-       64 GETTABLEKS                       R8 R0 K13 ["OnChanged"]
-       66 SETTABLEKS                       R8 R7 K13 ["OnChanged"]
-       68 DUPTABLE                         R8 K20 [{"Color"}]
-       69 GETTABLEKS                       R9 R0 K21 ["Renderer"]
-       71 SETTABLEKS                       R9 R8 K19 ["Color"]
-       73 SETTABLEKS                       R8 R7 K14 ["Renderers"]
-       75 CALL                             R5 2 1
-       76 SETTABLEKS                       R5 R4 K5 ["Cell"]
-       78 CALL                             R1 3 -1
-       79 RETURN                           R1 -1
+       41 DUPTABLE                         R7 K16 [{["LayoutOrder"] = 2, ["Size"], ["Disabled"], ["Schema"], ["Value"], ["OnChanged"], ["Renderers"]}]
+       42 GETIMPORT                        R8 K19 [UDim2.fromOffset]
+       44 LOADN                            R9 100
+       45 LOADN                            R10 30
+       46 CALL                             R8 2 1
+       47 SETTABLEKS                       R8 R7 K10 ["Size"]
+       49 GETTABLEKS                       R8 R0 K11 ["Disabled"]
+       51 SETTABLEKS                       R8 R7 K11 ["Disabled"]
+       53 GETTABLEKS                       R8 R0 K12 ["Schema"]
+       55 SETTABLEKS                       R8 R7 K12 ["Schema"]
+       57 GETTABLEKS                       R8 R0 K13 ["Value"]
+       59 SETTABLEKS                       R8 R7 K13 ["Value"]
+       61 GETTABLEKS                       R8 R0 K14 ["OnChanged"]
+       63 SETTABLEKS                       R8 R7 K14 ["OnChanged"]
+       65 DUPTABLE                         R8 K21 [{"Color"}]
+       66 GETTABLEKS                       R9 R0 K22 ["Renderer"]
+       68 SETTABLEKS                       R9 R8 K20 ["Color"]
+       70 SETTABLEKS                       R8 R7 K15 ["Renderers"]
+       72 CALL                             R5 2 1
+       73 SETTABLEKS                       R5 R4 K5 ["Cell"]
+       75 CALL                             R1 3 -1
+       76 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

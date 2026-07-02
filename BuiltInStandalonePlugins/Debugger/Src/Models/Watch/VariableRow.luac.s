@@ -1,28 +1,22 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K10 [{"nameColumn", "pathColumn", "idColumn", "scopeColumn", "valueColumn", "dataTypeColumn", "childPaths", "expanded", "textFilteredOut", "scopeFilteredOut"}]
-        1 GETTABLEKS                       R2 R0 K11 ["name"]
+        0 DUPTABLE                         R1 K11 [{[1], ["pathColumn"], ["idColumn"], ["scopeColumn"], ["valueColumn"], ["dataTypeColumn"], ["childPaths"], ["expanded"] = False, ["textFilteredOut"] = False, ["scopeFilteredOut"] = False}]
+        1 GETTABLEKS                       R2 R0 K12 ["name"]
         3 SETTABLEKS                       R2 R1 K0 ["nameColumn"]
-        5 GETTABLEKS                       R2 R0 K12 ["path"]
+        5 GETTABLEKS                       R2 R0 K13 ["path"]
         7 SETTABLEKS                       R2 R1 K1 ["pathColumn"]
-        9 GETTABLEKS                       R2 R0 K13 ["id"]
+        9 GETTABLEKS                       R2 R0 K14 ["id"]
        11 SETTABLEKS                       R2 R1 K2 ["idColumn"]
-       13 GETTABLEKS                       R2 R0 K14 ["scope"]
+       13 GETTABLEKS                       R2 R0 K15 ["scope"]
        15 SETTABLEKS                       R2 R1 K3 ["scopeColumn"]
-       17 GETTABLEKS                       R2 R0 K15 ["value"]
+       17 GETTABLEKS                       R2 R0 K16 ["value"]
        19 SETTABLEKS                       R2 R1 K4 ["valueColumn"]
-       21 GETTABLEKS                       R2 R0 K16 ["dataType"]
+       21 GETTABLEKS                       R2 R0 K17 ["dataType"]
        23 SETTABLEKS                       R2 R1 K5 ["dataTypeColumn"]
        25 GETTABLEKS                       R2 R0 K6 ["childPaths"]
        27 JUMPIF                           R2 ; [+2]
        28 NEWTABLE                         R2 0 0
        30 SETTABLEKS                       R2 R1 K6 ["childPaths"]
-       32 LOADB                            R2 0
-       33 SETTABLEKS                       R2 R1 K7 ["expanded"]
-       35 LOADB                            R2 0
-       36 SETTABLEKS                       R2 R1 K8 ["textFilteredOut"]
-       38 LOADB                            R2 0
-       39 SETTABLEKS                       R2 R1 K9 ["scopeFilteredOut"]
-       41 RETURN                           R1 1
+       32 RETURN                           R1 1
 
 PROTO_1:
         0 JUMPIFNOT                        R1 ; [+7]
@@ -32,46 +26,40 @@ PROTO_1:
         6 CONCAT                           R5 R6 R7
         7 JUMP                             ; [+1]
         8 LOADK                            R5 K2 [""]
-        9 DUPTABLE                         R6 K12 [{"nameColumn", "pathColumn", "idColumn", "scopeColumn", "valueColumn", "dataTypeColumn", "childPaths", "expanded", "textFilteredOut", "scopeFilteredOut"}]
-       10 GETTABLEKS                       R7 R0 K13 ["Name"]
+        9 DUPTABLE                         R6 K13 [{["nameColumn"], [2], ["idColumn"], ["scopeColumn"], ["valueColumn"], ["dataTypeColumn"], ["childPaths"], ["expanded"] = False, ["textFilteredOut"] = False, ["scopeFilteredOut"] = False}]
+       10 GETTABLEKS                       R7 R0 K14 ["Name"]
        12 SETTABLEKS                       R7 R6 K3 ["nameColumn"]
        14 MOVE                             R8 R5
-       15 GETTABLEKS                       R9 R0 K13 ["Name"]
+       15 GETTABLEKS                       R9 R0 K14 ["Name"]
        17 CONCAT                           R7 R8 R9
        18 SETTABLEKS                       R7 R6 K0 ["pathColumn"]
-       20 GETTABLEKS                       R7 R0 K14 ["VariableId"]
+       20 GETTABLEKS                       R7 R0 K15 ["VariableId"]
        22 SETTABLEKS                       R7 R6 K4 ["idColumn"]
        24 JUMPIFNOT                        R1 ; [+3]
        25 GETTABLEKS                       R7 R1 K5 ["scopeColumn"]
        27 JUMPIF                           R7 ; [+1]
        28 MOVE                             R7 R2
        29 SETTABLEKS                       R7 R6 K5 ["scopeColumn"]
-       31 GETTABLEKS                       R7 R0 K15 ["Value"]
+       31 GETTABLEKS                       R7 R0 K16 ["Value"]
        33 SETTABLEKS                       R7 R6 K6 ["valueColumn"]
-       35 GETTABLEKS                       R7 R0 K16 ["Type"]
+       35 GETTABLEKS                       R7 R0 K17 ["Type"]
        37 SETTABLEKS                       R7 R6 K7 ["dataTypeColumn"]
        39 NEWTABLE                         R7 0 0
        41 SETTABLEKS                       R7 R6 K8 ["childPaths"]
-       43 LOADB                            R7 0
-       44 SETTABLEKS                       R7 R6 K9 ["expanded"]
-       46 LOADB                            R7 0
-       47 SETTABLEKS                       R7 R6 K10 ["textFilteredOut"]
-       49 LOADB                            R7 0
-       50 SETTABLEKS                       R7 R6 K11 ["scopeFilteredOut"]
-       52 GETUPVAL                         R8 1
-       53 GETTABLEKS                       R8 R8 K17 ["textMatchRow"]
-       55 MOVE                             R9 R3
-       56 MOVE                             R10 R6
-       57 CALL                             R8 2 1
-       58 NOT                              R7 R8
-       59 SETTABLEKS                       R7 R6 K10 ["textFilteredOut"]
-       61 GETUPVAL                         R7 1
-       62 GETTABLEKS                       R7 R7 K18 ["isScopeFiltered"]
-       64 MOVE                             R8 R4
-       65 MOVE                             R9 R6
-       66 CALL                             R7 2 1
-       67 SETTABLEKS                       R7 R6 K11 ["scopeFilteredOut"]
-       69 RETURN                           R6 1
+       43 GETUPVAL                         R8 1
+       44 GETTABLEKS                       R8 R8 K18 ["textMatchRow"]
+       46 MOVE                             R9 R3
+       47 MOVE                             R10 R6
+       48 CALL                             R8 2 1
+       49 NOT                              R7 R8
+       50 SETTABLEKS                       R7 R6 K11 ["textFilteredOut"]
+       52 GETUPVAL                         R7 1
+       53 GETTABLEKS                       R7 R7 K19 ["isScopeFiltered"]
+       55 MOVE                             R8 R4
+       56 MOVE                             R9 R6
+       57 CALL                             R7 2 1
+       58 SETTABLEKS                       R7 R6 K12 ["scopeFilteredOut"]
+       60 RETURN                           R6 1
 
 PROTO_2:
         0 GETUPVAL                         R3 0

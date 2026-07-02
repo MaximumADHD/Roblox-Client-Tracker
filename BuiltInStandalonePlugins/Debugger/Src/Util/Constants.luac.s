@@ -13,201 +13,105 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K2 [{"CopySelected", "SelectAll"}]
-        2 LOADK                            R1 K0 ["CopySelected"]
-        3 SETTABLEKS                       R1 R0 K0 ["CopySelected"]
-        5 LOADK                            R1 K1 ["SelectAll"]
-        6 SETTABLEKS                       R1 R0 K1 ["SelectAll"]
-        8 NEWTABLE                         R1 0 2
-       10 LOADK                            R2 K0 ["CopySelected"]
-       11 SETTABLEN                        R2 R1 1
-       12 LOADK                            R2 K1 ["SelectAll"]
-       13 SETTABLEN                        R2 R1 2
-       14 DUPTABLE                         R2 K5 [{"DeleteWatch", "DeleteAllWatches"}]
-       15 LOADK                            R3 K3 ["DeleteWatch"]
-       16 SETTABLEKS                       R3 R2 K3 ["DeleteWatch"]
-       18 LOADK                            R3 K4 ["DeleteAllWatches"]
-       19 SETTABLEKS                       R3 R2 K4 ["DeleteAllWatches"]
-       21 NEWTABLE                         R3 0 2
-       23 LOADK                            R4 K3 ["DeleteWatch"]
-       24 SETTABLEN                        R4 R3 1
-       25 LOADK                            R4 K4 ["DeleteAllWatches"]
-       26 SETTABLEN                        R4 R3 2
-       27 DUPTABLE                         R4 K10 [{"EditLogpoint", "EnableLogpoint", "DisableLogpoint", "DeleteLogpoint"}]
-       28 LOADK                            R5 K6 ["EditLogpoint"]
-       29 SETTABLEKS                       R5 R4 K6 ["EditLogpoint"]
-       31 LOADK                            R5 K7 ["EnableLogpoint"]
-       32 SETTABLEKS                       R5 R4 K7 ["EnableLogpoint"]
-       34 LOADK                            R5 K8 ["DisableLogpoint"]
-       35 SETTABLEKS                       R5 R4 K8 ["DisableLogpoint"]
-       37 LOADK                            R5 K9 ["DeleteLogpoint"]
-       38 SETTABLEKS                       R5 R4 K9 ["DeleteLogpoint"]
-       40 DUPTABLE                         R5 K15 [{"EditBreakpoint", "EnableBreakpoint", "DisableBreakpoint", "DeleteBreakpoint"}]
-       41 LOADK                            R6 K11 ["EditBreakpoint"]
-       42 SETTABLEKS                       R6 R5 K11 ["EditBreakpoint"]
-       44 LOADK                            R6 K12 ["EnableBreakpoint"]
-       45 SETTABLEKS                       R6 R5 K12 ["EnableBreakpoint"]
-       47 LOADK                            R6 K13 ["DisableBreakpoint"]
-       48 SETTABLEKS                       R6 R5 K13 ["DisableBreakpoint"]
-       50 LOADK                            R6 K14 ["DeleteBreakpoint"]
-       51 SETTABLEKS                       R6 R5 K14 ["DeleteBreakpoint"]
-       53 DUPTABLE                         R6 K17 [{"GoToScript"}]
-       54 LOADK                            R7 K16 ["GoToScript"]
-       55 SETTABLEKS                       R7 R6 K16 ["GoToScript"]
-       57 NEWTABLE                         R7 0 5
-       59 LOADK                            R8 K6 ["EditLogpoint"]
-       60 SETTABLEN                        R8 R7 1
-       61 LOADK                            R8 K7 ["EnableLogpoint"]
-       62 SETTABLEN                        R8 R7 2
-       63 LOADK                            R8 K8 ["DisableLogpoint"]
-       64 SETTABLEN                        R8 R7 3
-       65 LOADK                            R8 K9 ["DeleteLogpoint"]
-       66 SETTABLEN                        R8 R7 4
-       67 LOADK                            R8 K16 ["GoToScript"]
-       68 SETTABLEN                        R8 R7 5
-       69 NEWTABLE                         R8 0 5
-       71 LOADK                            R9 K11 ["EditBreakpoint"]
-       72 SETTABLEN                        R9 R8 1
-       73 LOADK                            R9 K12 ["EnableBreakpoint"]
-       74 SETTABLEN                        R9 R8 2
-       75 LOADK                            R9 K13 ["DisableBreakpoint"]
-       76 SETTABLEN                        R9 R8 3
-       77 LOADK                            R9 K14 ["DeleteBreakpoint"]
-       78 SETTABLEN                        R9 R8 4
-       79 LOADK                            R9 K16 ["GoToScript"]
-       80 SETTABLEN                        R9 R8 5
-       81 DUPTABLE                         R9 K23 [{"simulationResumeActionV2", "simulationPauseActionV2", "stepOverActionV2", "stepIntoActionV2", "stepOutActionV2"}]
-       82 LOADK                            R10 K18 ["simulationResumeActionV2"]
-       83 SETTABLEKS                       R10 R9 K18 ["simulationResumeActionV2"]
-       85 LOADK                            R10 K19 ["simulationPauseActionV2"]
-       86 SETTABLEKS                       R10 R9 K19 ["simulationPauseActionV2"]
-       88 LOADK                            R10 K20 ["stepOverActionV2"]
-       89 SETTABLEKS                       R10 R9 K20 ["stepOverActionV2"]
-       91 LOADK                            R10 K21 ["stepIntoActionV2"]
-       92 SETTABLEKS                       R10 R9 K21 ["stepIntoActionV2"]
-       94 LOADK                            R10 K22 ["stepOutActionV2"]
-       95 SETTABLEKS                       R10 R9 K22 ["stepOutActionV2"]
-       97 DUPTABLE                         R10 K27 [{"Client", "Server", "Edit"}]
-       98 LOADK                            R11 K28 ["StudioGameStateType_PlayClient"]
-       99 SETTABLEKS                       R11 R10 K24 ["Client"]
-      101 LOADK                            R11 K29 ["StudioGameStateType_PlayServer"]
-      102 SETTABLEKS                       R11 R10 K25 ["Server"]
-      104 LOADK                            R11 K30 ["StudioGameStateType_Edit"]
-      105 SETTABLEKS                       R11 R10 K26 ["Edit"]
-      107 DUPCLOSURE                       R11 K31 [PROTO_0]
-      108 DUPTABLE                         R12 K38 [{"Unknown", "Requested", "Breakpoint", "Exception", "SingleStep", "Entrypoint"}]
-      109 LOADK                            R13 K39 ["Enum.DebuggerPauseReason.Unknown"]
-      110 SETTABLEKS                       R13 R12 K32 ["Unknown"]
-      112 LOADK                            R13 K40 ["Enum.DebuggerPauseReason.Requested"]
-      113 SETTABLEKS                       R13 R12 K33 ["Requested"]
-      115 LOADK                            R13 K41 ["Enum.DebuggerPauseReason.Breakpoint"]
-      116 SETTABLEKS                       R13 R12 K34 ["Breakpoint"]
-      118 LOADK                            R13 K42 ["Enum.DebuggerPauseReason.Exception"]
-      119 SETTABLEKS                       R13 R12 K35 ["Exception"]
-      121 LOADK                            R13 K43 ["Enum.DebuggerPauseReason.SingleStep"]
-      122 SETTABLEKS                       R13 R12 K36 ["SingleStep"]
-      124 LOADK                            R13 K44 ["Enum.DebuggerPauseReason.Entrypoint"]
-      125 SETTABLEKS                       R13 R12 K37 ["Entrypoint"]
-      127 DUPTABLE                         R13 K54 [{"Success", "Timeout", "ConnectionLost", "InvalidResponse", "InternalError", "InvalidState", "RpcError", "InvalidArgument", "ConnectionClosed"}]
-      128 LOADK                            R14 K55 ["Enum.DebuggerStatus.Success"]
-      129 SETTABLEKS                       R14 R13 K45 ["Success"]
-      131 LOADK                            R14 K56 ["Enum.DebuggerStatus.Timeout"]
-      132 SETTABLEKS                       R14 R13 K46 ["Timeout"]
-      134 LOADK                            R14 K57 ["Enum.DebuggerStatus.ConnectionLost"]
-      135 SETTABLEKS                       R14 R13 K47 ["ConnectionLost"]
-      137 LOADK                            R14 K58 ["Enum.DebuggerStatus.InvalidResponse"]
-      138 SETTABLEKS                       R14 R13 K48 ["InvalidResponse"]
-      140 LOADK                            R14 K59 ["Enum.DebuggerStatus.InternalError"]
-      141 SETTABLEKS                       R14 R13 K49 ["InternalError"]
-      143 LOADK                            R14 K60 ["Enum.DebuggerStatus.InvalidState"]
-      144 SETTABLEKS                       R14 R13 K50 ["InvalidState"]
-      146 LOADK                            R14 K61 ["Enum.DebuggerStatus.RpcError"]
-      147 SETTABLEKS                       R14 R13 K51 ["RpcError"]
-      149 LOADK                            R14 K62 ["Enum.DebuggerStatus.InvalidArgument"]
-      150 SETTABLEKS                       R14 R13 K52 ["InvalidArgument"]
-      152 LOADK                            R14 K63 ["Enum.DebuggerStatus.ConnectionClosed"]
-      153 SETTABLEKS                       R14 R13 K53 ["ConnectionClosed"]
-      155 DUPTABLE                         R14 K74 [{"breakpointDisabled", "breakpointEnabled", "conditionalDisabled", "conditionalEnabled", "invalidBreakpoint", "invalidLogpoint", "logpointDisabled", "logpointEnabled", "client", "server"}]
-      156 LOADK                            R15 K75 ["rbxasset://textures/Debugger/Breakpoints/breakpoint_disabled@2x.png"]
-      157 SETTABLEKS                       R15 R14 K64 ["breakpointDisabled"]
-      159 LOADK                            R15 K76 ["rbxasset://textures/Debugger/Breakpoints/breakpoint_enabled@2x.png"]
-      160 SETTABLEKS                       R15 R14 K65 ["breakpointEnabled"]
-      162 LOADK                            R15 K77 ["rbxasset://textures/Debugger/Breakpoints/conditional_disabled@2x.png"]
-      163 SETTABLEKS                       R15 R14 K66 ["conditionalDisabled"]
-      165 LOADK                            R15 K78 ["rbxasset://textures/Debugger/Breakpoints/conditional_enabled@2x.png"]
-      166 SETTABLEKS                       R15 R14 K67 ["conditionalEnabled"]
-      168 LOADK                            R15 K79 ["rbxasset://textures/Debugger/Breakpoints/invalid_breakpoint@2x.png"]
-      169 SETTABLEKS                       R15 R14 K68 ["invalidBreakpoint"]
-      171 LOADK                            R15 K80 ["rbxasset://textures/Debugger/Breakpoints/invalid_logpoint@2x.png"]
-      172 SETTABLEKS                       R15 R14 K69 ["invalidLogpoint"]
-      174 LOADK                            R15 K81 ["rbxasset://textures/Debugger/Breakpoints/logpoint_disabled@2x.png"]
-      175 SETTABLEKS                       R15 R14 K70 ["logpointDisabled"]
-      177 LOADK                            R15 K82 ["rbxasset://textures/Debugger/Breakpoints/logpoint_enabled@2x.png"]
-      178 SETTABLEKS                       R15 R14 K71 ["logpointEnabled"]
-      180 LOADK                            R15 K83 ["rbxasset://textures/Debugger/Breakpoints/client@2x.png"]
-      181 SETTABLEKS                       R15 R14 K72 ["client"]
-      183 LOADK                            R15 K84 ["rbxasset://textures/Debugger/Breakpoints/server@2x.png"]
-      184 SETTABLEKS                       R15 R14 K73 ["server"]
-      186 DUPTABLE                         R15 K86 [{"Breakpoint", "Logpoint"}]
-      187 LOADK                            R16 K34 ["Breakpoint"]
-      188 SETTABLEKS                       R16 R15 K34 ["Breakpoint"]
-      190 LOADK                            R16 K85 ["Logpoint"]
-      191 SETTABLEKS                       R16 R15 K85 ["Logpoint"]
-      193 NEWTABLE                         R16 64 0
-      195 SETTABLEKS                       R0 R16 K87 ["CallstackActionIds"]
-      197 SETTABLEKS                       R2 R16 K88 ["WatchActionIds"]
-      199 SETTABLEKS                       R4 R16 K89 ["LogpointActions"]
-      201 SETTABLEKS                       R5 R16 K90 ["BreakpointActions"]
-      203 SETTABLEKS                       R6 R16 K91 ["CommonActions"]
-      205 SETTABLEKS                       R9 R16 K92 ["StepActionIds"]
-      207 LOADN                            R17 28
-      208 SETTABLEKS                       R17 R16 K93 ["HEADER_HEIGHT"]
-      210 LOADN                            R17 16
-      211 SETTABLEKS                       R17 R16 K94 ["ICON_SIZE"]
-      213 LOADN                            R17 28
-      214 SETTABLEKS                       R17 R16 K95 ["BUTTON_SIZE"]
-      216 LOADN                            R17 2
-      217 SETTABLEKS                       R17 R16 K96 ["BUTTON_PADDING"]
-      219 LOADN                            R17 24
-      220 SETTABLEKS                       R17 R16 K97 ["COLUMN_HEADER_HEIGHT"]
-      222 LOADN                            R17 22
-      223 SETTABLEKS                       R17 R16 K98 ["ROW_HEIGHT"]
-      225 SETTABLEKS                       R14 R16 K99 ["DebugpointIconTable"]
-      227 LOADK                            R17 K100 ["_"]
-      228 SETTABLEKS                       R17 R16 K101 ["SeparationToken"]
-      230 SETTABLEKS                       R10 R16 K102 ["GameStateTypes"]
-      232 SETTABLEKS                       R15 R16 K103 ["DebugpointType"]
-      234 SETTABLEKS                       R12 R16 K104 ["DebuggerPauseReason"]
-      236 SETTABLEKS                       R13 R16 K105 ["DebuggerStatus"]
-      238 SETTABLEKS                       R11 R16 K106 ["GetIntForGST"]
-      240 SETTABLEKS                       R7 R16 K107 ["LogpointActionsOrder"]
-      242 SETTABLEKS                       R8 R16 K108 ["BreakpointActionsOrder"]
-      244 LOADN                            R17 2
-      245 SETTABLEKS                       R17 R16 K109 ["EnableKey"]
-      247 LOADN                            R17 3
-      248 SETTABLEKS                       R17 R16 K110 ["DisableKey"]
-      250 SETTABLEKS                       R1 R16 K111 ["CallstackActionsOrder"]
-      252 SETTABLEKS                       R3 R16 K112 ["WatchActionsOrder"]
-      254 LOADK                            R17 K113 ["ColumnSize"]
-      255 SETTABLEKS                       R17 R16 K113 ["ColumnSize"]
-      257 LOADK                            R17 K114 ["Tab"]
-      258 SETTABLEKS                       R17 R16 K114 ["Tab"]
-      260 LOADK                            R17 K115 ["ScopeFilter"]
-      261 SETTABLEKS                       R17 R16 K115 ["ScopeFilter"]
-      263 LOADK                            R17 K116 ["ColumnFilter"]
-      264 SETTABLEKS                       R17 R16 K116 ["ColumnFilter"]
-      266 LOADK                            R17 K117 ["ColumnSizeVariables"]
-      267 SETTABLEKS                       R17 R16 K117 ["ColumnSizeVariables"]
-      269 LOADK                            R17 K118 ["ColumnSizeMyWatches"]
-      270 SETTABLEKS                       R17 R16 K118 ["ColumnSizeMyWatches"]
-      272 LOADK                            R17 K119 ["WatchVariables"]
-      273 SETTABLEKS                       R17 R16 K119 ["WatchVariables"]
-      275 LOADN                            R17 255
-      276 SETTABLEKS                       R17 R16 K120 ["kInvalidDebuggerConnectionId"]
-      278 LOADK                            R17 K121 [" "]
-      279 SETTABLEKS                       R17 R16 K122 ["DummyRowName"]
-      281 LOADK                            R17 K123 ["VariablesColumnFilter"]
-      282 SETTABLEKS                       R17 R16 K123 ["VariablesColumnFilter"]
-      284 LOADK                            R17 K124 ["MyWatchesColumnFilter"]
-      285 SETTABLEKS                       R17 R16 K124 ["MyWatchesColumnFilter"]
-      287 RETURN                           R16 1
+        1 DUPTABLE                         R0 K2 [{[1] = "CopySelected", ["SelectAll"] = "SelectAll"}]
+        2 NEWTABLE                         R1 0 2
+        4 LOADK                            R2 K0 ["CopySelected"]
+        5 SETTABLEN                        R2 R1 1
+        6 LOADK                            R2 K1 ["SelectAll"]
+        7 SETTABLEN                        R2 R1 2
+        8 DUPTABLE                         R2 K5 [{["DeleteWatch"] = "DeleteWatch", ["DeleteAllWatches"] = "DeleteAllWatches"}]
+        9 NEWTABLE                         R3 0 2
+       11 LOADK                            R4 K3 ["DeleteWatch"]
+       12 SETTABLEN                        R4 R3 1
+       13 LOADK                            R4 K4 ["DeleteAllWatches"]
+       14 SETTABLEN                        R4 R3 2
+       15 DUPTABLE                         R4 K10 [{["EditLogpoint"] = "EditLogpoint", ["EnableLogpoint"] = "EnableLogpoint", ["DisableLogpoint"] = "DisableLogpoint", ["DeleteLogpoint"] = "DeleteLogpoint"}]
+       16 DUPTABLE                         R5 K15 [{["EditBreakpoint"] = "EditBreakpoint", ["EnableBreakpoint"] = "EnableBreakpoint", ["DisableBreakpoint"] = "DisableBreakpoint", ["DeleteBreakpoint"] = "DeleteBreakpoint"}]
+       17 DUPTABLE                         R6 K17 [{["GoToScript"] = "GoToScript"}]
+       18 NEWTABLE                         R7 0 5
+       20 LOADK                            R8 K6 ["EditLogpoint"]
+       21 SETTABLEN                        R8 R7 1
+       22 LOADK                            R8 K7 ["EnableLogpoint"]
+       23 SETTABLEN                        R8 R7 2
+       24 LOADK                            R8 K8 ["DisableLogpoint"]
+       25 SETTABLEN                        R8 R7 3
+       26 LOADK                            R8 K9 ["DeleteLogpoint"]
+       27 SETTABLEN                        R8 R7 4
+       28 LOADK                            R8 K16 ["GoToScript"]
+       29 SETTABLEN                        R8 R7 5
+       30 NEWTABLE                         R8 0 5
+       32 LOADK                            R9 K11 ["EditBreakpoint"]
+       33 SETTABLEN                        R9 R8 1
+       34 LOADK                            R9 K12 ["EnableBreakpoint"]
+       35 SETTABLEN                        R9 R8 2
+       36 LOADK                            R9 K13 ["DisableBreakpoint"]
+       37 SETTABLEN                        R9 R8 3
+       38 LOADK                            R9 K14 ["DeleteBreakpoint"]
+       39 SETTABLEN                        R9 R8 4
+       40 LOADK                            R9 K16 ["GoToScript"]
+       41 SETTABLEN                        R9 R8 5
+       42 DUPTABLE                         R9 K23 [{["simulationResumeActionV2"] = "simulationResumeActionV2", ["simulationPauseActionV2"] = "simulationPauseActionV2", ["stepOverActionV2"] = "stepOverActionV2", ["stepIntoActionV2"] = "stepIntoActionV2", ["stepOutActionV2"] = "stepOutActionV2"}]
+       43 DUPTABLE                         R10 K30 [{["Client"] = "StudioGameStateType_PlayClient", ["Server"] = "StudioGameStateType_PlayServer", ["Edit"] = "StudioGameStateType_Edit"}]
+       44 DUPCLOSURE                       R11 K31 [PROTO_0]
+       45 DUPTABLE                         R12 K44 [{["Unknown"] = "Enum.DebuggerPauseReason.Unknown", ["Requested"] = "Enum.DebuggerPauseReason.Requested", ["Breakpoint"] = "Enum.DebuggerPauseReason.Breakpoint", ["Exception"] = "Enum.DebuggerPauseReason.Exception", ["SingleStep"] = "Enum.DebuggerPauseReason.SingleStep", ["Entrypoint"] = "Enum.DebuggerPauseReason.Entrypoint"}]
+       46 DUPTABLE                         R13 K63 [{["Success"] = "Enum.DebuggerStatus.Success", ["Timeout"] = "Enum.DebuggerStatus.Timeout", ["ConnectionLost"] = "Enum.DebuggerStatus.ConnectionLost", ["InvalidResponse"] = "Enum.DebuggerStatus.InvalidResponse", ["InternalError"] = "Enum.DebuggerStatus.InternalError", ["InvalidState"] = "Enum.DebuggerStatus.InvalidState", ["RpcError"] = "Enum.DebuggerStatus.RpcError", ["InvalidArgument"] = "Enum.DebuggerStatus.InvalidArgument", ["ConnectionClosed"] = "Enum.DebuggerStatus.ConnectionClosed"}]
+       47 DUPTABLE                         R14 K84 [{["breakpointDisabled"] = "rbxasset://textures/Debugger/Breakpoints/breakpoint_disabled@2x.png", ["breakpointEnabled"] = "rbxasset://textures/Debugger/Breakpoints/breakpoint_enabled@2x.png", ["conditionalDisabled"] = "rbxasset://textures/Debugger/Breakpoints/conditional_disabled@2x.png", ["conditionalEnabled"] = "rbxasset://textures/Debugger/Breakpoints/conditional_enabled@2x.png", ["invalidBreakpoint"] = "rbxasset://textures/Debugger/Breakpoints/invalid_breakpoint@2x.png", ["invalidLogpoint"] = "rbxasset://textures/Debugger/Breakpoints/invalid_logpoint@2x.png", ["logpointDisabled"] = "rbxasset://textures/Debugger/Breakpoints/logpoint_disabled@2x.png", ["logpointEnabled"] = "rbxasset://textures/Debugger/Breakpoints/logpoint_enabled@2x.png", ["client"] = "rbxasset://textures/Debugger/Breakpoints/client@2x.png", ["server"] = "rbxasset://textures/Debugger/Breakpoints/server@2x.png"}]
+       48 DUPTABLE                         R15 K86 [{["Breakpoint"] = "Breakpoint", ["Logpoint"] = "Logpoint"}]
+       49 NEWTABLE                         R16 64 0
+       51 SETTABLEKS                       R0 R16 K87 ["CallstackActionIds"]
+       53 SETTABLEKS                       R2 R16 K88 ["WatchActionIds"]
+       55 SETTABLEKS                       R4 R16 K89 ["LogpointActions"]
+       57 SETTABLEKS                       R5 R16 K90 ["BreakpointActions"]
+       59 SETTABLEKS                       R6 R16 K91 ["CommonActions"]
+       61 SETTABLEKS                       R9 R16 K92 ["StepActionIds"]
+       63 LOADN                            R17 28
+       64 SETTABLEKS                       R17 R16 K93 ["HEADER_HEIGHT"]
+       66 LOADN                            R17 16
+       67 SETTABLEKS                       R17 R16 K94 ["ICON_SIZE"]
+       69 LOADN                            R17 28
+       70 SETTABLEKS                       R17 R16 K95 ["BUTTON_SIZE"]
+       72 LOADN                            R17 2
+       73 SETTABLEKS                       R17 R16 K96 ["BUTTON_PADDING"]
+       75 LOADN                            R17 24
+       76 SETTABLEKS                       R17 R16 K97 ["COLUMN_HEADER_HEIGHT"]
+       78 LOADN                            R17 22
+       79 SETTABLEKS                       R17 R16 K98 ["ROW_HEIGHT"]
+       81 SETTABLEKS                       R14 R16 K99 ["DebugpointIconTable"]
+       83 LOADK                            R17 K100 ["_"]
+       84 SETTABLEKS                       R17 R16 K101 ["SeparationToken"]
+       86 SETTABLEKS                       R10 R16 K102 ["GameStateTypes"]
+       88 SETTABLEKS                       R15 R16 K103 ["DebugpointType"]
+       90 SETTABLEKS                       R12 R16 K104 ["DebuggerPauseReason"]
+       92 SETTABLEKS                       R13 R16 K105 ["DebuggerStatus"]
+       94 SETTABLEKS                       R11 R16 K106 ["GetIntForGST"]
+       96 SETTABLEKS                       R7 R16 K107 ["LogpointActionsOrder"]
+       98 SETTABLEKS                       R8 R16 K108 ["BreakpointActionsOrder"]
+      100 LOADN                            R17 2
+      101 SETTABLEKS                       R17 R16 K109 ["EnableKey"]
+      103 LOADN                            R17 3
+      104 SETTABLEKS                       R17 R16 K110 ["DisableKey"]
+      106 SETTABLEKS                       R1 R16 K111 ["CallstackActionsOrder"]
+      108 SETTABLEKS                       R3 R16 K112 ["WatchActionsOrder"]
+      110 LOADK                            R17 K113 ["ColumnSize"]
+      111 SETTABLEKS                       R17 R16 K113 ["ColumnSize"]
+      113 LOADK                            R17 K114 ["Tab"]
+      114 SETTABLEKS                       R17 R16 K114 ["Tab"]
+      116 LOADK                            R17 K115 ["ScopeFilter"]
+      117 SETTABLEKS                       R17 R16 K115 ["ScopeFilter"]
+      119 LOADK                            R17 K116 ["ColumnFilter"]
+      120 SETTABLEKS                       R17 R16 K116 ["ColumnFilter"]
+      122 LOADK                            R17 K117 ["ColumnSizeVariables"]
+      123 SETTABLEKS                       R17 R16 K117 ["ColumnSizeVariables"]
+      125 LOADK                            R17 K118 ["ColumnSizeMyWatches"]
+      126 SETTABLEKS                       R17 R16 K118 ["ColumnSizeMyWatches"]
+      128 LOADK                            R17 K119 ["WatchVariables"]
+      129 SETTABLEKS                       R17 R16 K119 ["WatchVariables"]
+      131 LOADN                            R17 -1
+      132 SETTABLEKS                       R17 R16 K120 ["kInvalidDebuggerConnectionId"]
+      134 LOADK                            R17 K121 [" "]
+      135 SETTABLEKS                       R17 R16 K122 ["DummyRowName"]
+      137 LOADK                            R17 K123 ["VariablesColumnFilter"]
+      138 SETTABLEKS                       R17 R16 K123 ["VariablesColumnFilter"]
+      140 LOADK                            R17 K124 ["MyWatchesColumnFilter"]
+      141 SETTABLEKS                       R17 R16 K124 ["MyWatchesColumnFilter"]
+      143 RETURN                           R16 1

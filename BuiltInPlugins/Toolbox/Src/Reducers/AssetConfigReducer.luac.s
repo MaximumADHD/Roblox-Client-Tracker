@@ -840,15 +840,11 @@ PROTO_53:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K5 [{"isAvatarItemDialogFlowEnabled", "avatarItemDialogButtonEnabled", "privateAvatarAssetIds"}]
-        7 LOADB                            R5 1
-        8 SETTABLEKS                       R5 R4 K2 ["isAvatarItemDialogFlowEnabled"]
-       10 LOADB                            R5 0
-       11 SETTABLEKS                       R5 R4 K3 ["avatarItemDialogButtonEnabled"]
-       13 NEWTABLE                         R5 0 0
-       15 SETTABLEKS                       R5 R4 K4 ["privateAvatarAssetIds"]
-       17 CALL                             R2 2 -1
-       18 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K7 [{["isAvatarItemDialogFlowEnabled"] = True, ["avatarItemDialogButtonEnabled"] = False, ["privateAvatarAssetIds"]}]
+        7 NEWTABLE                         R5 0 0
+        9 SETTABLEKS                       R5 R4 K6 ["privateAvatarAssetIds"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
 
 PROTO_54:
         0 LOADNIL                          R2
@@ -869,42 +865,36 @@ PROTO_54:
        21 GETTABLEKS                       R3 R3 K6 ["Dictionary"]
        23 GETTABLEKS                       R3 R3 K7 ["join"]
        25 MOVE                             R4 R0
-       26 DUPTABLE                         R5 K10 [{"avatarItemDialogType", "privateAvatarAssetIds", "avatarItemDialogButtonEnabled"}]
+       26 DUPTABLE                         R5 K11 [{["avatarItemDialogType"], ["privateAvatarAssetIds"], ["avatarItemDialogButtonEnabled"] = True}]
        27 SETTABLEKS                       R2 R5 K8 ["avatarItemDialogType"]
        29 GETTABLEKS                       R6 R1 K2 ["privateAvatarAssetIds"]
        31 SETTABLEKS                       R6 R5 K2 ["privateAvatarAssetIds"]
-       33 LOADB                            R6 1
-       34 SETTABLEKS                       R6 R5 K9 ["avatarItemDialogButtonEnabled"]
-       36 CALL                             R3 2 -1
-       37 RETURN                           R3 -1
+       33 CALL                             R3 2 -1
+       34 RETURN                           R3 -1
 
 PROTO_55:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K4 [{"isAvatarItemDialogFlowEnabled", "avatarItemDialogType"}]
-        7 LOADB                            R5 0
-        8 SETTABLEKS                       R5 R4 K2 ["isAvatarItemDialogFlowEnabled"]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R5 R5 K5 ["Disabled"]
-       13 SETTABLEKS                       R5 R4 K3 ["avatarItemDialogType"]
-       15 CALL                             R2 2 -1
-       16 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K5 [{["isAvatarItemDialogFlowEnabled"] = False, ["avatarItemDialogType"]}]
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R5 R5 K6 ["Disabled"]
+       10 SETTABLEKS                       R5 R4 K4 ["avatarItemDialogType"]
+       12 CALL                             R2 2 -1
+       13 RETURN                           R2 -1
 
 PROTO_56:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K4 [{"isAvatarItemDialogFlowEnabled", "avatarItemDialogType"}]
-        7 LOADB                            R5 0
-        8 SETTABLEKS                       R5 R4 K2 ["isAvatarItemDialogFlowEnabled"]
-       10 GETUPVAL                         R5 1
-       11 GETTABLEKS                       R5 R5 K5 ["Disabled"]
-       13 SETTABLEKS                       R5 R4 K3 ["avatarItemDialogType"]
-       15 CALL                             R2 2 -1
-       16 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K5 [{["isAvatarItemDialogFlowEnabled"] = False, ["avatarItemDialogType"]}]
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R5 R5 K6 ["Disabled"]
+       10 SETTABLEKS                       R5 R4 K4 ["avatarItemDialogType"]
+       12 CALL                             R2 2 -1
+       13 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

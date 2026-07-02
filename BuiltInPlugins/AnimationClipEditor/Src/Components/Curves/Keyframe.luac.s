@@ -183,20 +183,18 @@ PROTO_3:
       118 SETTABLE                         R14 R12 R13
       119 DUPTABLE                         R13 K42 [{"Tooltip"}]
       120 MOVE                             R14 R7
-      121 JUMPIFNOT                        R14 ; [+15]
+      121 JUMPIFNOT                        R14 ; [+12]
       122 GETUPVAL                         R14 1
       123 GETTABLEKS                       R14 R14 K14 ["createElement"]
       125 GETUPVAL                         R15 2
-      126 DUPTABLE                         R16 K46 [{"Text", "ShowDelay", "TextXAlignment"}]
+      126 DUPTABLE                         R16 K47 [{["Text"], ["ShowDelay"] = 0, ["TextXAlignment"]}]
       127 SETTABLEKS                       R7 R16 K43 ["Text"]
-      129 LOADN                            R17 0
-      130 SETTABLEKS                       R17 R16 K44 ["ShowDelay"]
-      132 GETIMPORT                        R17 K49 [Enum.TextXAlignment.Left]
-      134 SETTABLEKS                       R17 R16 K45 ["TextXAlignment"]
-      136 CALL                             R14 2 1
-      137 SETTABLEKS                       R14 R13 K41 ["Tooltip"]
-      139 CALL                             R10 3 -1
-      140 RETURN                           R10 -1
+      129 GETIMPORT                        R17 K50 [Enum.TextXAlignment.Left]
+      131 SETTABLEKS                       R17 R16 K46 ["TextXAlignment"]
+      133 CALL                             R14 2 1
+      134 SETTABLEKS                       R14 R13 K41 ["Tooltip"]
+      136 CALL                             R10 3 -1
+      137 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -3,40 +3,38 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["Image"]
-        6 DUPTABLE                         R3 K7 [{"LayoutOrder", "Size", "Image", "ScaleType", "TileSize", "tag"}]
+        6 DUPTABLE                         R3 K8 [{["LayoutOrder"], ["Size"], ["Image"], ["ScaleType"], ["TileSize"], ["tag"] = "content-inverse-default"}]
         7 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         9 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       11 GETIMPORT                        R4 K10 [UDim2.new]
+       11 GETIMPORT                        R4 K11 [UDim2.new]
        13 LOADN                            R5 0
-       14 GETTABLEKS                       R7 R0 K11 ["Depth"]
+       14 GETTABLEKS                       R7 R0 K12 ["Depth"]
        16 GETUPVAL                         R8 2
-       17 GETTABLEKS                       R8 R8 K12 ["IconWidthXSmall"]
+       17 GETTABLEKS                       R8 R8 K13 ["IconWidthXSmall"]
        19 MUL                              R6 R7 R8
        20 LOADN                            R7 1
        21 LOADN                            R8 0
        22 CALL                             R4 4 1
        23 SETTABLEKS                       R4 R3 K3 ["Size"]
        25 GETUPVAL                         R4 3
-       26 GETTABLEKS                       R4 R4 K13 ["getLight"]
+       26 GETTABLEKS                       R4 R4 K14 ["getLight"]
        28 GETUPVAL                         R5 3
-       29 GETTABLEKS                       R5 R5 K14 ["AvailableImages"]
-       31 GETTABLEKS                       R5 R5 K15 ["IndentGuide"]
+       29 GETTABLEKS                       R5 R5 K15 ["AvailableImages"]
+       31 GETTABLEKS                       R5 R5 K16 ["IndentGuide"]
        33 CALL                             R4 1 1
        34 SETTABLEKS                       R4 R3 K1 ["Image"]
-       36 GETIMPORT                        R4 K18 [Enum.ScaleType.Tile]
+       36 GETIMPORT                        R4 K19 [Enum.ScaleType.Tile]
        38 SETTABLEKS                       R4 R3 K4 ["ScaleType"]
-       40 GETIMPORT                        R4 K10 [UDim2.new]
+       40 GETIMPORT                        R4 K11 [UDim2.new]
        42 LOADN                            R5 0
        43 GETUPVAL                         R6 2
-       44 GETTABLEKS                       R6 R6 K12 ["IconWidthXSmall"]
+       44 GETTABLEKS                       R6 R6 K13 ["IconWidthXSmall"]
        46 LOADN                            R7 1
        47 LOADN                            R8 0
        48 CALL                             R4 4 1
        49 SETTABLEKS                       R4 R3 K5 ["TileSize"]
-       51 LOADK                            R4 K19 ["content-inverse-default"]
-       52 SETTABLEKS                       R4 R3 K6 ["tag"]
-       54 CALL                             R1 2 -1
-       55 RETURN                           R1 -1
+       51 CALL                             R1 2 -1
+       52 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

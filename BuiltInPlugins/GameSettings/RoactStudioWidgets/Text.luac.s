@@ -5,45 +5,43 @@ PROTO_0:
         3 GETUPVAL                         R1 2
         4 GETTABLEKS                       R1 R1 K0 ["createElement"]
         6 LOADK                            R2 K1 ["TextLabel"]
-        7 DUPTABLE                         R3 K14 [{"LayoutOrder", "BackgroundTransparency", "Size", "Position", "AnchorPoint", "Text", "Font", "TextColor3", "TextXAlignment", "TextYAlignment", "TextSize", "TextTransparency"}]
+        7 DUPTABLE                         R3 K15 [{["LayoutOrder"], ["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["Text"], ["Font"], ["TextColor3"], ["TextXAlignment"], ["TextYAlignment"], ["TextSize"], ["TextTransparency"]}]
         8 GETUPVAL                         R4 1
         9 GETTABLEKS                       R4 R4 K2 ["LayoutOrder"]
        11 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       13 LOADN                            R4 1
-       14 SETTABLEKS                       R4 R3 K3 ["BackgroundTransparency"]
-       16 GETUPVAL                         R4 1
-       17 GETTABLEKS                       R4 R4 K4 ["Size"]
-       19 SETTABLEKS                       R4 R3 K4 ["Size"]
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R4 R4 K5 ["Position"]
-       24 SETTABLEKS                       R4 R3 K5 ["Position"]
-       26 GETUPVAL                         R4 1
-       27 GETTABLEKS                       R4 R4 K6 ["AnchorPoint"]
-       29 SETTABLEKS                       R4 R3 K6 ["AnchorPoint"]
-       31 GETUPVAL                         R5 1
-       32 GETTABLEKS                       R5 R5 K7 ["Text"]
-       34 ORK                              R4 R5 K15 [""]
-       35 SETTABLEKS                       R4 R3 K7 ["Text"]
-       37 GETIMPORT                        R4 K18 [Enum.Font.SourceSans]
-       39 SETTABLEKS                       R4 R3 K8 ["Font"]
-       41 GETTABLEKS                       R4 R0 K19 ["TextColor"]
-       43 SETTABLEKS                       R4 R3 K9 ["TextColor3"]
-       45 GETIMPORT                        R4 K21 [Enum.TextXAlignment.Left]
-       47 SETTABLEKS                       R4 R3 K10 ["TextXAlignment"]
-       49 GETIMPORT                        R4 K23 [Enum.TextYAlignment.Center]
-       51 SETTABLEKS                       R4 R3 K11 ["TextYAlignment"]
-       53 GETUPVAL                         R4 3
-       54 GETTABLEKS                       R4 R4 K24 ["TEXT_SIZE"]
-       56 SETTABLEKS                       R4 R3 K12 ["TextSize"]
-       58 GETUPVAL                         R5 1
-       59 GETTABLEKS                       R5 R5 K25 ["Enabled"]
-       61 JUMPIFNOT                        R5 ; [+2]
-       62 LOADN                            R4 0
-       63 JUMP                             ; [+1]
-       64 LOADK                            R4 K26 [0.5]
-       65 SETTABLEKS                       R4 R3 K13 ["TextTransparency"]
-       67 CALL                             R1 2 -1
-       68 RETURN                           R1 -1
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K5 ["Size"]
+       16 SETTABLEKS                       R4 R3 K5 ["Size"]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K6 ["Position"]
+       21 SETTABLEKS                       R4 R3 K6 ["Position"]
+       23 GETUPVAL                         R4 1
+       24 GETTABLEKS                       R4 R4 K7 ["AnchorPoint"]
+       26 SETTABLEKS                       R4 R3 K7 ["AnchorPoint"]
+       28 GETUPVAL                         R5 1
+       29 GETTABLEKS                       R5 R5 K8 ["Text"]
+       31 ORK                              R4 R5 K16 [""]
+       32 SETTABLEKS                       R4 R3 K8 ["Text"]
+       34 GETIMPORT                        R4 K19 [Enum.Font.SourceSans]
+       36 SETTABLEKS                       R4 R3 K9 ["Font"]
+       38 GETTABLEKS                       R4 R0 K20 ["TextColor"]
+       40 SETTABLEKS                       R4 R3 K10 ["TextColor3"]
+       42 GETIMPORT                        R4 K22 [Enum.TextXAlignment.Left]
+       44 SETTABLEKS                       R4 R3 K11 ["TextXAlignment"]
+       46 GETIMPORT                        R4 K24 [Enum.TextYAlignment.Center]
+       48 SETTABLEKS                       R4 R3 K12 ["TextYAlignment"]
+       50 GETUPVAL                         R4 3
+       51 GETTABLEKS                       R4 R4 K25 ["TEXT_SIZE"]
+       53 SETTABLEKS                       R4 R3 K13 ["TextSize"]
+       55 GETUPVAL                         R5 1
+       56 GETTABLEKS                       R5 R5 K26 ["Enabled"]
+       58 JUMPIFNOT                        R5 ; [+2]
+       59 LOADN                            R4 0
+       60 JUMP                             ; [+1]
+       61 LOADK                            R4 K27 [0.5]
+       62 SETTABLEKS                       R4 R3 K14 ["TextTransparency"]
+       64 CALL                             R1 2 -1
+       65 RETURN                           R1 -1
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

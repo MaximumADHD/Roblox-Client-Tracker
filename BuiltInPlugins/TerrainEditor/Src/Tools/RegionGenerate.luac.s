@@ -181,22 +181,16 @@ PROTO_5:
        29 NEWTABLE                         R5 1 0
        31 GETUPVAL                         R6 5
        32 GETTABLEKS                       R6 R6 K6 ["Generate"]
-       34 DUPTABLE                         R7 K11 [{"Hidden", "Label", "Schema", "Value"}]
-       35 LOADB                            R8 0
-       36 SETTABLEKS                       R8 R7 K7 ["Hidden"]
-       38 LOADK                            R8 K12 [""]
-       39 SETTABLEKS                       R8 R7 K8 ["Label"]
-       41 DUPTABLE                         R8 K14 [{"OnClick"}]
-       42 NEWCLOSURE                       R9 P1
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R9 R8 K13 ["OnClick"]
-       46 SETTABLEKS                       R8 R7 K9 ["Schema"]
-       48 LOADB                            R8 1
-       49 SETTABLEKS                       R8 R7 K10 ["Value"]
-       51 SETTABLE                         R7 R5 R6
-       52 SETTABLE                         R5 R3 R4
-       53 SETTABLEKS                       R3 R0 K15 ["_overrides"]
-       55 RETURN                           R0 0
+       34 DUPTABLE                         R7 K14 [{["Hidden"] = False, ["Label"] = "", ["Schema"], ["Value"] = True}]
+       35 DUPTABLE                         R8 K16 [{"OnClick"}]
+       36 NEWCLOSURE                       R9 P1
+       37 CAPTURE                          VAL R0
+       38 SETTABLEKS                       R9 R8 K15 ["OnClick"]
+       40 SETTABLEKS                       R8 R7 K11 ["Schema"]
+       42 SETTABLE                         R7 R5 R6
+       43 SETTABLE                         R5 R3 R4
+       44 SETTABLEKS                       R3 R0 K17 ["_overrides"]
+       46 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -310,48 +304,44 @@ MAIN:
       139 DUPTABLE                         R18 K40 [{"Id", "Schema"}]
       140 GETTABLEKS                       R19 R12 K41 ["Region"]
       142 SETTABLEKS                       R19 R18 K27 ["Id"]
-      144 DUPTABLE                         R19 K45 [{"Type", "Wireframe", "Rotation"}]
+      144 DUPTABLE                         R19 K46 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
       145 GETTABLEKS                       R20 R12 K41 ["Region"]
       147 SETTABLEKS                       R20 R19 K42 ["Type"]
-      149 LOADB                            R20 0
-      150 SETTABLEKS                       R20 R19 K43 ["Wireframe"]
-      152 LOADB                            R20 0
-      153 SETTABLEKS                       R20 R19 K44 ["Rotation"]
-      155 SETTABLEKS                       R19 R18 K39 ["Schema"]
-      157 SETLIST                          R17 R18 1 [1]
-      159 GETTABLEKS                       R20 R15 K46 ["Generate"]
-      161 GETTABLEKS                       R21 R14 K47 ["Create"]
-      163 MOVE                             R22 R16
-      164 MOVE                             R23 R17
-      165 NAMECALL                         R18 R2 K48 ["new"]
-      167 CALL                             R18 5 1
-      168 DUPCLOSURE                       R19 K49 [PROTO_1]
-      169 CAPTURE                          VAL R2
-      170 CAPTURE                          VAL R4
-      171 CAPTURE                          VAL R11
-      172 CAPTURE                          VAL R13
-      173 CAPTURE                          VAL R6
-      174 CAPTURE                          VAL R1
-      175 SETTABLEKS                       R19 R18 K50 ["startOperation"]
-      177 DUPCLOSURE                       R19 K51 [PROTO_2]
+      149 SETTABLEKS                       R19 R18 K39 ["Schema"]
+      151 SETLIST                          R17 R18 1 [1]
+      153 GETTABLEKS                       R20 R15 K47 ["Generate"]
+      155 GETTABLEKS                       R21 R14 K48 ["Create"]
+      157 MOVE                             R22 R16
+      158 MOVE                             R23 R17
+      159 NAMECALL                         R18 R2 K49 ["new"]
+      161 CALL                             R18 5 1
+      162 DUPCLOSURE                       R19 K50 [PROTO_1]
+      163 CAPTURE                          VAL R2
+      164 CAPTURE                          VAL R4
+      165 CAPTURE                          VAL R11
+      166 CAPTURE                          VAL R13
+      167 CAPTURE                          VAL R6
+      168 CAPTURE                          VAL R1
+      169 SETTABLEKS                       R19 R18 K51 ["startOperation"]
+      171 DUPCLOSURE                       R19 K52 [PROTO_2]
+      172 CAPTURE                          VAL R11
+      173 CAPTURE                          VAL R10
+      174 SETTABLEKS                       R19 R18 K53 ["setDisabledState"]
+      176 DUPCLOSURE                       R19 K54 [PROTO_5]
+      177 CAPTURE                          VAL R2
       178 CAPTURE                          VAL R11
-      179 CAPTURE                          VAL R10
-      180 SETTABLEKS                       R19 R18 K52 ["setDisabledState"]
-      182 DUPCLOSURE                       R19 K53 [PROTO_5]
-      183 CAPTURE                          VAL R2
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R13
-      186 CAPTURE                          VAL R7
-      187 CAPTURE                          VAL R5
-      188 CAPTURE                          VAL R10
-      189 SETTABLEKS                       R19 R18 K54 ["init"]
-      191 DUPCLOSURE                       R19 K55 [PROTO_6]
-      192 CAPTURE                          VAL R2
-      193 SETTABLEKS                       R19 R18 K56 ["saveForm"]
-      195 DUPCLOSURE                       R19 K57 [PROTO_7]
-      196 SETTABLEKS                       R19 R18 K58 ["operation"]
-      198 DUPCLOSURE                       R19 K59 [PROTO_8]
-      199 CAPTURE                          VAL R2
-      200 CAPTURE                          VAL R15
-      201 SETTABLEKS                       R19 R18 K60 ["activate"]
-      203 RETURN                           R18 1
+      179 CAPTURE                          VAL R13
+      180 CAPTURE                          VAL R7
+      181 CAPTURE                          VAL R5
+      182 CAPTURE                          VAL R10
+      183 SETTABLEKS                       R19 R18 K55 ["init"]
+      185 DUPCLOSURE                       R19 K56 [PROTO_6]
+      186 CAPTURE                          VAL R2
+      187 SETTABLEKS                       R19 R18 K57 ["saveForm"]
+      189 DUPCLOSURE                       R19 K58 [PROTO_7]
+      190 SETTABLEKS                       R19 R18 K59 ["operation"]
+      192 DUPCLOSURE                       R19 K60 [PROTO_8]
+      193 CAPTURE                          VAL R2
+      194 CAPTURE                          VAL R15
+      195 SETTABLEKS                       R19 R18 K61 ["activate"]
+      197 RETURN                           R18 1

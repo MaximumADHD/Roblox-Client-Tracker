@@ -89,214 +89,186 @@ PROTO_4:
        49 GETUPVAL                         R7 6
        50 GETUPVAL                         R8 3
        51 GETTABLEKS                       R8 R8 K21 ["View"]
-       53 DUPTABLE                         R9 K26 [{"tag", "onAbsoluteSizeChanged", "testId", "Size"}]
-       54 LOADK                            R10 K27 ["component-dialog-view bg-surface-200 col flex-y-between auto-y gap-small padding-x-large padding-y-medium"]
-       55 SETTABLEKS                       R10 R9 K22 ["tag"]
-       57 NEWCLOSURE                       R10 P0
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R10 R9 K23 ["onAbsoluteSizeChanged"]
-       61 LOADK                            R10 K28 ["--dialog"]
-       62 SETTABLEKS                       R10 R9 K24 ["testId"]
-       64 GETIMPORT                        R10 K31 [UDim2.fromOffset]
-       66 GETTABLEKS                       R14 R6 K33 ["X"]
-       68 FASTCALL1                        MATH_CEIL R14 ; [+2]
-       69 GETIMPORT                        R13 K36 [math.ceil]
-       71 CALL                             R13 1 1
-       72 ADDK                             R12 R13 K32 [64]
-       73 FASTCALL2K                       MATH_MAX R12 K37 ; [+4]
-       75 LOADK                            R13 K37 [350]
-       76 GETIMPORT                        R11 K39 [math.max]
-       78 CALL                             R11 2 1
-       79 LOADN                            R12 0
-       80 CALL                             R10 2 1
-       81 SETTABLEKS                       R10 R9 K25 ["Size"]
-       83 DUPTABLE                         R10 K42 [{"TextRow", "ButtonGroup"}]
-       84 GETUPVAL                         R11 6
-       85 GETUPVAL                         R12 3
-       86 GETTABLEKS                       R12 R12 K21 ["View"]
-       88 DUPTABLE                         R13 K44 [{"tag", "LayoutOrder"}]
-       89 LOADK                            R14 K45 ["row size-full-0 auto-y flex-x-between items-start gap-medium padding-bottom-medium"]
-       90 SETTABLEKS                       R14 R13 K22 ["tag"]
-       92 MOVE                             R14 R1
-       93 CALL                             R14 0 1
-       94 SETTABLEKS                       R14 R13 K43 ["LayoutOrder"]
-       96 DUPTABLE                         R14 K47 [{"TextColumn"}]
-       97 GETUPVAL                         R15 6
-       98 GETUPVAL                         R16 3
-       99 GETTABLEKS                       R16 R16 K21 ["View"]
-      101 DUPTABLE                         R17 K44 [{"tag", "LayoutOrder"}]
-      102 LOADK                            R18 K48 ["fill col auto-y gap-medium"]
-      103 SETTABLEKS                       R18 R17 K22 ["tag"]
-      105 MOVE                             R18 R1
-      106 CALL                             R18 0 1
-      107 SETTABLEKS                       R18 R17 K43 ["LayoutOrder"]
-      109 DUPTABLE                         R18 K51 [{"Title", "Description"}]
-      110 GETUPVAL                         R19 6
-      111 GETUPVAL                         R20 3
-      112 GETTABLEKS                       R20 R20 K52 ["Text"]
-      114 DUPTABLE                         R21 K54 [{"tag", "fontStyle", "Text", "LayoutOrder", "testId"}]
-      115 LOADK                            R22 K55 ["size-full-0 auto-y text-wrap text-align-x-left text-align-y-center"]
-      116 SETTABLEKS                       R22 R21 K22 ["tag"]
-      118 GETTABLEKS                       R22 R2 K9 ["Typography"]
-      120 GETTABLEKS                       R22 R22 K56 ["TitleMedium"]
-      122 SETTABLEKS                       R22 R21 K53 ["fontStyle"]
-      124 LOADK                            R24 K5 ["EstablishTrustDialog"]
-      125 LOADK                            R25 K49 ["Title"]
-      126 NAMECALL                         R22 R3 K7 ["getText"]
-      128 CALL                             R22 3 1
-      129 SETTABLEKS                       R22 R21 K52 ["Text"]
-      131 MOVE                             R22 R1
-      132 CALL                             R22 0 1
-      133 SETTABLEKS                       R22 R21 K43 ["LayoutOrder"]
-      135 LOADK                            R22 K57 ["--dialog-title"]
-      136 SETTABLEKS                       R22 R21 K24 ["testId"]
-      138 CALL                             R19 2 1
-      139 SETTABLEKS                       R19 R18 K49 ["Title"]
-      141 GETUPVAL                         R19 6
-      142 GETUPVAL                         R20 3
-      143 GETTABLEKS                       R20 R20 K52 ["Text"]
-      145 DUPTABLE                         R21 K54 [{"tag", "fontStyle", "Text", "LayoutOrder", "testId"}]
-      146 LOADK                            R22 K58 ["size-full-0 auto-y text-wrap text-align-x-left text-align-y-top grow"]
-      147 SETTABLEKS                       R22 R21 K22 ["tag"]
-      149 GETTABLEKS                       R22 R2 K9 ["Typography"]
-      151 GETTABLEKS                       R22 R22 K59 ["BodySmall"]
-      153 SETTABLEKS                       R22 R21 K53 ["fontStyle"]
-      155 LOADK                            R24 K5 ["EstablishTrustDialog"]
-      156 LOADK                            R25 K60 ["Body"]
-      157 NAMECALL                         R22 R3 K7 ["getText"]
-      159 CALL                             R22 3 1
-      160 SETTABLEKS                       R22 R21 K52 ["Text"]
-      162 MOVE                             R22 R1
-      163 CALL                             R22 0 1
-      164 SETTABLEKS                       R22 R21 K43 ["LayoutOrder"]
-      166 LOADK                            R22 K61 ["--dialog-description"]
-      167 SETTABLEKS                       R22 R21 K24 ["testId"]
-      169 CALL                             R19 2 1
-      170 SETTABLEKS                       R19 R18 K50 ["Description"]
-      172 CALL                             R15 3 1
-      173 SETTABLEKS                       R15 R14 K46 ["TextColumn"]
-      175 CALL                             R11 3 1
-      176 SETTABLEKS                       R11 R10 K40 ["TextRow"]
-      178 GETUPVAL                         R11 6
-      179 GETUPVAL                         R12 3
-      180 GETTABLEKS                       R12 R12 K21 ["View"]
-      182 DUPTABLE                         R13 K62 [{"tag", "LayoutOrder", "testId"}]
-      183 NEWTABLE                         R14 1 0
-      185 LOADB                            R15 1
-      186 SETTABLEKS                       R15 R14 K63 ["component-dialog-button-group row size-full-0 auto-y items-stretch gap-small align-x-right"]
-      188 SETTABLEKS                       R14 R13 K22 ["tag"]
-      190 MOVE                             R14 R1
-      191 CALL                             R14 0 1
-      192 SETTABLEKS                       R14 R13 K43 ["LayoutOrder"]
-      194 LOADK                            R14 K64 ["--dialog-button-group"]
-      195 SETTABLEKS                       R14 R13 K24 ["testId"]
-      197 DUPTABLE                         R14 K66 [{"PrimaryAndSecondary"}]
-      198 GETUPVAL                         R15 6
-      199 GETUPVAL                         R16 3
-      200 GETTABLEKS                       R16 R16 K21 ["View"]
-      202 DUPTABLE                         R17 K44 [{"tag", "LayoutOrder"}]
-      203 LOADK                            R18 K67 ["row auto-xy flex-x-between items-stretch gap-small"]
-      204 SETTABLEKS                       R18 R17 K22 ["tag"]
-      206 MOVE                             R18 R1
-      207 CALL                             R18 0 1
-      208 SETTABLEKS                       R18 R17 K43 ["LayoutOrder"]
-      210 DUPTABLE                         R18 K70 [{"Primary", "Secondary"}]
-      211 GETUPVAL                         R19 6
-      212 GETUPVAL                         R20 3
-      213 GETTABLEKS                       R20 R20 K21 ["View"]
-      215 DUPTABLE                         R21 K44 [{"tag", "LayoutOrder"}]
-      216 LOADK                            R22 K71 ["auto-xy"]
-      217 SETTABLEKS                       R22 R21 K22 ["tag"]
-      219 MOVE                             R22 R1
-      220 CALL                             R22 0 1
-      221 SETTABLEKS                       R22 R21 K43 ["LayoutOrder"]
-      223 DUPTABLE                         R22 K73 [{"Button"}]
-      224 GETUPVAL                         R23 6
-      225 GETUPVAL                         R24 3
-      226 GETTABLEKS                       R24 R24 K72 ["Button"]
-      228 DUPTABLE                         R25 K79 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-      229 LOADK                            R28 K5 ["EstablishTrustDialog"]
-      230 LOADK                            R29 K6 ["PrimaryButton"]
-      231 NAMECALL                         R26 R3 K7 ["getText"]
-      233 CALL                             R26 3 1
-      234 SETTABLEKS                       R26 R25 K74 ["text"]
-      236 GETUPVAL                         R26 3
-      237 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      239 GETTABLEKS                       R26 R26 K81 ["ButtonVariant"]
-      241 GETTABLEKS                       R26 R26 K82 ["Emphasis"]
-      243 SETTABLEKS                       R26 R25 K75 ["variant"]
-      245 GETUPVAL                         R26 3
-      246 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      248 GETTABLEKS                       R26 R26 K83 ["InputSize"]
-      250 GETTABLEKS                       R26 R26 K84 ["XSmall"]
-      252 SETTABLEKS                       R26 R25 K76 ["size"]
-      254 GETUPVAL                         R26 3
-      255 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      257 GETTABLEKS                       R26 R26 K85 ["FillBehavior"]
-      259 GETTABLEKS                       R26 R26 K86 ["Fill"]
-      261 SETTABLEKS                       R26 R25 K77 ["fillBehavior"]
-      263 NEWCLOSURE                       R26 P1
-      264 CAPTURE                          UPVAL U7
-      265 CAPTURE                          UPVAL U8
-      266 CAPTURE                          VAL R0
-      267 SETTABLEKS                       R26 R25 K78 ["onActivated"]
-      269 LOADK                            R26 K87 ["--dialog-button-primary"]
-      270 SETTABLEKS                       R26 R25 K24 ["testId"]
-      272 CALL                             R23 2 1
-      273 SETTABLEKS                       R23 R22 K72 ["Button"]
-      275 CALL                             R19 3 1
-      276 SETTABLEKS                       R19 R18 K68 ["Primary"]
-      278 GETUPVAL                         R19 6
-      279 GETUPVAL                         R20 3
-      280 GETTABLEKS                       R20 R20 K21 ["View"]
-      282 DUPTABLE                         R21 K44 [{"tag", "LayoutOrder"}]
-      283 LOADK                            R22 K71 ["auto-xy"]
-      284 SETTABLEKS                       R22 R21 K22 ["tag"]
-      286 MOVE                             R22 R1
-      287 CALL                             R22 0 1
-      288 SETTABLEKS                       R22 R21 K43 ["LayoutOrder"]
-      290 DUPTABLE                         R22 K73 [{"Button"}]
-      291 GETUPVAL                         R23 6
-      292 GETUPVAL                         R24 3
-      293 GETTABLEKS                       R24 R24 K72 ["Button"]
-      295 DUPTABLE                         R25 K79 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-      296 LOADK                            R28 K5 ["EstablishTrustDialog"]
-      297 LOADK                            R29 K8 ["SecondaryButton"]
-      298 NAMECALL                         R26 R3 K7 ["getText"]
-      300 CALL                             R26 3 1
-      301 SETTABLEKS                       R26 R25 K74 ["text"]
-      303 GETUPVAL                         R26 3
-      304 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      306 GETTABLEKS                       R26 R26 K81 ["ButtonVariant"]
-      308 GETTABLEKS                       R26 R26 K88 ["Standard"]
-      310 SETTABLEKS                       R26 R25 K75 ["variant"]
-      312 GETUPVAL                         R26 3
-      313 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      315 GETTABLEKS                       R26 R26 K83 ["InputSize"]
-      317 GETTABLEKS                       R26 R26 K84 ["XSmall"]
-      319 SETTABLEKS                       R26 R25 K76 ["size"]
-      321 GETUPVAL                         R26 3
-      322 GETTABLEKS                       R26 R26 K80 ["Enums"]
-      324 GETTABLEKS                       R26 R26 K85 ["FillBehavior"]
-      326 GETTABLEKS                       R26 R26 K86 ["Fill"]
-      328 SETTABLEKS                       R26 R25 K77 ["fillBehavior"]
-      330 NEWCLOSURE                       R26 P2
-      331 CAPTURE                          UPVAL U7
-      332 CAPTURE                          UPVAL U9
-      333 CAPTURE                          VAL R0
-      334 SETTABLEKS                       R26 R25 K78 ["onActivated"]
-      336 LOADK                            R26 K89 ["--dialog-button-secondary"]
-      337 SETTABLEKS                       R26 R25 K24 ["testId"]
-      339 CALL                             R23 2 1
-      340 SETTABLEKS                       R23 R22 K72 ["Button"]
-      342 CALL                             R19 3 1
-      343 SETTABLEKS                       R19 R18 K69 ["Secondary"]
-      345 CALL                             R15 3 1
-      346 SETTABLEKS                       R15 R14 K65 ["PrimaryAndSecondary"]
-      348 CALL                             R11 3 1
-      349 SETTABLEKS                       R11 R10 K41 ["ButtonGroup"]
-      351 CALL                             R7 3 -1
-      352 RETURN                           R7 -1
+       53 DUPTABLE                         R9 K28 [{["tag"] = "component-dialog-view col flex-y-between gap-small auto-y padding-x-large padding-y-medium bg-surface-200", ["onAbsoluteSizeChanged"], ["testId"] = "--dialog", ["Size"]}]
+       54 NEWCLOSURE                       R10 P0
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R10 R9 K24 ["onAbsoluteSizeChanged"]
+       58 GETIMPORT                        R10 K31 [UDim2.fromOffset]
+       60 GETTABLEKS                       R14 R6 K33 ["X"]
+       62 FASTCALL1                        MATH_CEIL R14 ; [+2]
+       63 GETIMPORT                        R13 K36 [math.ceil]
+       65 CALL                             R13 1 1
+       66 ADDK                             R12 R13 K32 [64]
+       67 FASTCALL2K                       MATH_MAX R12 K37 ; [+4]
+       69 LOADK                            R13 K37 [350]
+       70 GETIMPORT                        R11 K39 [math.max]
+       72 CALL                             R11 2 1
+       73 LOADN                            R12 0
+       74 CALL                             R10 2 1
+       75 SETTABLEKS                       R10 R9 K27 ["Size"]
+       77 DUPTABLE                         R10 K42 [{"TextRow", "ButtonGroup"}]
+       78 GETUPVAL                         R11 6
+       79 GETUPVAL                         R12 3
+       80 GETTABLEKS                       R12 R12 K21 ["View"]
+       82 DUPTABLE                         R13 K45 [{["tag"] = "row flex-x-between items-start gap-medium size-full-0 auto-y padding-bottom-medium", ["LayoutOrder"]}]
+       83 MOVE                             R14 R1
+       84 CALL                             R14 0 1
+       85 SETTABLEKS                       R14 R13 K44 ["LayoutOrder"]
+       87 DUPTABLE                         R14 K47 [{"TextColumn"}]
+       88 GETUPVAL                         R15 6
+       89 GETUPVAL                         R16 3
+       90 GETTABLEKS                       R16 R16 K21 ["View"]
+       92 DUPTABLE                         R17 K49 [{["tag"] = "col fill gap-medium auto-y", ["LayoutOrder"]}]
+       93 MOVE                             R18 R1
+       94 CALL                             R18 0 1
+       95 SETTABLEKS                       R18 R17 K44 ["LayoutOrder"]
+       97 DUPTABLE                         R18 K52 [{"Title", "Description"}]
+       98 GETUPVAL                         R19 6
+       99 GETUPVAL                         R20 3
+      100 GETTABLEKS                       R20 R20 K53 ["Text"]
+      102 DUPTABLE                         R21 K57 [{["tag"] = "size-full-0 auto-y text-wrap text-align-x-left text-align-y-center", ["fontStyle"], ["Text"], ["LayoutOrder"], ["testId"] = "--dialog-title"}]
+      103 GETTABLEKS                       R22 R2 K9 ["Typography"]
+      105 GETTABLEKS                       R22 R22 K58 ["TitleMedium"]
+      107 SETTABLEKS                       R22 R21 K55 ["fontStyle"]
+      109 LOADK                            R24 K5 ["EstablishTrustDialog"]
+      110 LOADK                            R25 K50 ["Title"]
+      111 NAMECALL                         R22 R3 K7 ["getText"]
+      113 CALL                             R22 3 1
+      114 SETTABLEKS                       R22 R21 K53 ["Text"]
+      116 MOVE                             R22 R1
+      117 CALL                             R22 0 1
+      118 SETTABLEKS                       R22 R21 K44 ["LayoutOrder"]
+      120 CALL                             R19 2 1
+      121 SETTABLEKS                       R19 R18 K50 ["Title"]
+      123 GETUPVAL                         R19 6
+      124 GETUPVAL                         R20 3
+      125 GETTABLEKS                       R20 R20 K53 ["Text"]
+      127 DUPTABLE                         R21 K61 [{["tag"] = "grow size-full-0 auto-y text-wrap text-align-x-left text-align-y-top", ["fontStyle"], ["Text"], ["LayoutOrder"], ["testId"] = "--dialog-description"}]
+      128 GETTABLEKS                       R22 R2 K9 ["Typography"]
+      130 GETTABLEKS                       R22 R22 K62 ["BodySmall"]
+      132 SETTABLEKS                       R22 R21 K55 ["fontStyle"]
+      134 LOADK                            R24 K5 ["EstablishTrustDialog"]
+      135 LOADK                            R25 K63 ["Body"]
+      136 NAMECALL                         R22 R3 K7 ["getText"]
+      138 CALL                             R22 3 1
+      139 SETTABLEKS                       R22 R21 K53 ["Text"]
+      141 MOVE                             R22 R1
+      142 CALL                             R22 0 1
+      143 SETTABLEKS                       R22 R21 K44 ["LayoutOrder"]
+      145 CALL                             R19 2 1
+      146 SETTABLEKS                       R19 R18 K51 ["Description"]
+      148 CALL                             R15 3 1
+      149 SETTABLEKS                       R15 R14 K46 ["TextColumn"]
+      151 CALL                             R11 3 1
+      152 SETTABLEKS                       R11 R10 K40 ["TextRow"]
+      154 GETUPVAL                         R11 6
+      155 GETUPVAL                         R12 3
+      156 GETTABLEKS                       R12 R12 K21 ["View"]
+      158 DUPTABLE                         R13 K65 [{["tag"], ["LayoutOrder"], ["testId"] = "--dialog-button-group"}]
+      159 NEWTABLE                         R14 1 0
+      161 LOADB                            R15 1
+      162 SETTABLEKS                       R15 R14 K66 ["component-dialog-button-group row align-x-right items-stretch gap-small size-full-0 auto-y"]
+      164 SETTABLEKS                       R14 R13 K22 ["tag"]
+      166 MOVE                             R14 R1
+      167 CALL                             R14 0 1
+      168 SETTABLEKS                       R14 R13 K44 ["LayoutOrder"]
+      170 DUPTABLE                         R14 K68 [{"PrimaryAndSecondary"}]
+      171 GETUPVAL                         R15 6
+      172 GETUPVAL                         R16 3
+      173 GETTABLEKS                       R16 R16 K21 ["View"]
+      175 DUPTABLE                         R17 K70 [{["tag"] = "row flex-x-between items-stretch gap-small auto-xy", ["LayoutOrder"]}]
+      176 MOVE                             R18 R1
+      177 CALL                             R18 0 1
+      178 SETTABLEKS                       R18 R17 K44 ["LayoutOrder"]
+      180 DUPTABLE                         R18 K73 [{"Primary", "Secondary"}]
+      181 GETUPVAL                         R19 6
+      182 GETUPVAL                         R20 3
+      183 GETTABLEKS                       R20 R20 K21 ["View"]
+      185 DUPTABLE                         R21 K75 [{["tag"] = "auto-xy", ["LayoutOrder"]}]
+      186 MOVE                             R22 R1
+      187 CALL                             R22 0 1
+      188 SETTABLEKS                       R22 R21 K44 ["LayoutOrder"]
+      190 DUPTABLE                         R22 K77 [{"Button"}]
+      191 GETUPVAL                         R23 6
+      192 GETUPVAL                         R24 3
+      193 GETTABLEKS                       R24 R24 K76 ["Button"]
+      195 DUPTABLE                         R25 K84 [{["text"], ["variant"], ["size"], ["fillBehavior"], ["onActivated"], ["testId"] = "--dialog-button-primary"}]
+      196 LOADK                            R28 K5 ["EstablishTrustDialog"]
+      197 LOADK                            R29 K6 ["PrimaryButton"]
+      198 NAMECALL                         R26 R3 K7 ["getText"]
+      200 CALL                             R26 3 1
+      201 SETTABLEKS                       R26 R25 K78 ["text"]
+      203 GETUPVAL                         R26 3
+      204 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      206 GETTABLEKS                       R26 R26 K86 ["ButtonVariant"]
+      208 GETTABLEKS                       R26 R26 K87 ["Emphasis"]
+      210 SETTABLEKS                       R26 R25 K79 ["variant"]
+      212 GETUPVAL                         R26 3
+      213 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      215 GETTABLEKS                       R26 R26 K88 ["InputSize"]
+      217 GETTABLEKS                       R26 R26 K89 ["XSmall"]
+      219 SETTABLEKS                       R26 R25 K80 ["size"]
+      221 GETUPVAL                         R26 3
+      222 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      224 GETTABLEKS                       R26 R26 K90 ["FillBehavior"]
+      226 GETTABLEKS                       R26 R26 K91 ["Fill"]
+      228 SETTABLEKS                       R26 R25 K81 ["fillBehavior"]
+      230 NEWCLOSURE                       R26 P1
+      231 CAPTURE                          UPVAL U7
+      232 CAPTURE                          UPVAL U8
+      233 CAPTURE                          VAL R0
+      234 SETTABLEKS                       R26 R25 K82 ["onActivated"]
+      236 CALL                             R23 2 1
+      237 SETTABLEKS                       R23 R22 K76 ["Button"]
+      239 CALL                             R19 3 1
+      240 SETTABLEKS                       R19 R18 K71 ["Primary"]
+      242 GETUPVAL                         R19 6
+      243 GETUPVAL                         R20 3
+      244 GETTABLEKS                       R20 R20 K21 ["View"]
+      246 DUPTABLE                         R21 K75 [{["tag"] = "auto-xy", ["LayoutOrder"]}]
+      247 MOVE                             R22 R1
+      248 CALL                             R22 0 1
+      249 SETTABLEKS                       R22 R21 K44 ["LayoutOrder"]
+      251 DUPTABLE                         R22 K77 [{"Button"}]
+      252 GETUPVAL                         R23 6
+      253 GETUPVAL                         R24 3
+      254 GETTABLEKS                       R24 R24 K76 ["Button"]
+      256 DUPTABLE                         R25 K93 [{["text"], ["variant"], ["size"], ["fillBehavior"], ["onActivated"], ["testId"] = "--dialog-button-secondary"}]
+      257 LOADK                            R28 K5 ["EstablishTrustDialog"]
+      258 LOADK                            R29 K8 ["SecondaryButton"]
+      259 NAMECALL                         R26 R3 K7 ["getText"]
+      261 CALL                             R26 3 1
+      262 SETTABLEKS                       R26 R25 K78 ["text"]
+      264 GETUPVAL                         R26 3
+      265 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      267 GETTABLEKS                       R26 R26 K86 ["ButtonVariant"]
+      269 GETTABLEKS                       R26 R26 K94 ["Standard"]
+      271 SETTABLEKS                       R26 R25 K79 ["variant"]
+      273 GETUPVAL                         R26 3
+      274 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      276 GETTABLEKS                       R26 R26 K88 ["InputSize"]
+      278 GETTABLEKS                       R26 R26 K89 ["XSmall"]
+      280 SETTABLEKS                       R26 R25 K80 ["size"]
+      282 GETUPVAL                         R26 3
+      283 GETTABLEKS                       R26 R26 K85 ["Enums"]
+      285 GETTABLEKS                       R26 R26 K90 ["FillBehavior"]
+      287 GETTABLEKS                       R26 R26 K91 ["Fill"]
+      289 SETTABLEKS                       R26 R25 K81 ["fillBehavior"]
+      291 NEWCLOSURE                       R26 P2
+      292 CAPTURE                          UPVAL U7
+      293 CAPTURE                          UPVAL U9
+      294 CAPTURE                          VAL R0
+      295 SETTABLEKS                       R26 R25 K82 ["onActivated"]
+      297 CALL                             R23 2 1
+      298 SETTABLEKS                       R23 R22 K76 ["Button"]
+      300 CALL                             R19 3 1
+      301 SETTABLEKS                       R19 R18 K72 ["Secondary"]
+      303 CALL                             R15 3 1
+      304 SETTABLEKS                       R15 R14 K67 ["PrimaryAndSecondary"]
+      306 CALL                             R11 3 1
+      307 SETTABLEKS                       R11 R10 K41 ["ButtonGroup"]
+      309 CALL                             R7 3 -1
+      310 RETURN                           R7 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -304,25 +276,21 @@ PROTO_5:
         2 CALL                             R0 1 0
         3 GETUPVAL                         R0 1
         4 GETTABLEKS                       R0 R0 K0 ["skipTelemetry"]
-        6 JUMPIF                           R0 ; [+24]
+        6 JUMPIF                           R0 ; [+18]
         7 GETUPVAL                         R0 2
         8 GETUPVAL                         R2 3
-        9 DUPTABLE                         R3 K5 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
-       10 LOADK                            R4 K6 ["load"]
-       11 SETTABLEKS                       R4 R3 K1 ["telemetryType"]
-       13 LOADK                            R4 K7 ["start_page_establish_TC_dialog"]
-       14 SETTABLEKS                       R4 R3 K2 ["upsellEntrySurface"]
-       16 GETUPVAL                         R4 4
-       17 NAMECALL                         R4 R4 K8 ["GetUserId"]
+        9 DUPTABLE                         R3 K7 [{["telemetryType"] = "load", ["upsellEntrySurface"] = "start_page_establish_TC_dialog", ["userId"], ["studioSid"]}]
+       10 GETUPVAL                         R4 4
+       11 NAMECALL                         R4 R4 K8 ["GetUserId"]
+       13 CALL                             R4 1 1
+       14 SETTABLEKS                       R4 R3 K5 ["userId"]
+       16 GETUPVAL                         R4 5
+       17 NAMECALL                         R4 R4 K9 ["GetSessionId"]
        19 CALL                             R4 1 1
-       20 SETTABLEKS                       R4 R3 K3 ["userId"]
-       22 GETUPVAL                         R4 5
-       23 NAMECALL                         R4 R4 K9 ["GetSessionId"]
-       25 CALL                             R4 1 1
-       26 SETTABLEKS                       R4 R3 K4 ["studioSid"]
-       28 NAMECALL                         R0 R0 K10 ["log"]
-       30 CALL                             R0 3 0
-       31 RETURN                           R0 0
+       20 SETTABLEKS                       R4 R3 K6 ["studioSid"]
+       22 NAMECALL                         R0 R0 K10 ["log"]
+       24 CALL                             R0 3 0
+       25 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -333,53 +301,41 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 DUPTABLE                         R4 K5 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid", "action"}]
-        3 LOADK                            R5 K6 ["click"]
-        4 SETTABLEKS                       R5 R4 K0 ["telemetryType"]
-        6 LOADK                            R5 K7 ["start_page_establish_TC_dialog"]
-        7 SETTABLEKS                       R5 R4 K1 ["upsellEntrySurface"]
-        9 GETUPVAL                         R5 2
-       10 NAMECALL                         R5 R5 K8 ["GetUserId"]
+        2 DUPTABLE                         R4 K7 [{[1] = "click", ["upsellEntrySurface"] = "start_page_establish_TC_dialog", ["userId"], ["studioSid"], ["action"]}]
+        3 GETUPVAL                         R5 2
+        4 NAMECALL                         R5 R5 K8 ["GetUserId"]
+        6 CALL                             R5 1 1
+        7 SETTABLEKS                       R5 R4 K4 ["userId"]
+        9 GETUPVAL                         R5 3
+       10 NAMECALL                         R5 R5 K9 ["GetSessionId"]
        12 CALL                             R5 1 1
-       13 SETTABLEKS                       R5 R4 K2 ["userId"]
-       15 GETUPVAL                         R5 3
-       16 NAMECALL                         R5 R5 K9 ["GetSessionId"]
-       18 CALL                             R5 1 1
-       19 SETTABLEKS                       R5 R4 K3 ["studioSid"]
-       21 SETTABLEKS                       R0 R4 K4 ["action"]
-       23 NAMECALL                         R1 R1 K10 ["log"]
-       25 CALL                             R1 3 0
-       26 RETURN                           R0 0
+       13 SETTABLEKS                       R5 R4 K5 ["studioSid"]
+       15 SETTABLEKS                       R0 R4 K6 ["action"]
+       17 NAMECALL                         R1 R1 K10 ["log"]
+       19 CALL                             R1 3 0
+       20 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 1
         1 LOADK                            R2 K0 ["StartPage_EstablishTrustDialog"]
-        2 DUPTABLE                         R3 K6 [{"Id", "InitialEnabled", "Modal", "Size", "DisableTitleBar"}]
-        3 LOADK                            R4 K0 ["StartPage_EstablishTrustDialog"]
-        4 SETTABLEKS                       R4 R3 K1 ["Id"]
-        6 LOADB                            R4 1
-        7 SETTABLEKS                       R4 R3 K2 ["InitialEnabled"]
-        9 LOADB                            R4 1
-       10 SETTABLEKS                       R4 R3 K3 ["Modal"]
-       12 GETUPVAL                         R4 2
-       13 SETTABLEKS                       R4 R3 K4 ["Size"]
-       15 LOADB                            R4 0
-       16 SETTABLEKS                       R4 R3 K5 ["DisableTitleBar"]
-       18 NAMECALL                         R0 R0 K7 ["CreateQWidgetPluginGui"]
-       20 CALL                             R0 3 1
-       21 SETUPVAL                         R0 0
-       22 GETUPVAL                         R0 3
-       23 GETUPVAL                         R1 0
-       24 CALL                             R0 1 0
-       25 GETUPVAL                         R0 5
-       26 GETTABLEKS                       R0 R0 K8 ["createRoot"]
-       28 GETUPVAL                         R1 0
-       29 CALL                             R0 1 1
-       30 SETUPVAL                         R0 4
-       31 GETUPVAL                         R0 6
-       32 GETUPVAL                         R1 4
-       33 CALL                             R0 1 0
-       34 RETURN                           R0 0
+        2 DUPTABLE                         R3 K8 [{["Id"] = "StartPage_EstablishTrustDialog", ["InitialEnabled"] = True, ["Modal"] = True, ["Size"], ["DisableTitleBar"] = False}]
+        3 GETUPVAL                         R4 2
+        4 SETTABLEKS                       R4 R3 K5 ["Size"]
+        6 NAMECALL                         R0 R0 K9 ["CreateQWidgetPluginGui"]
+        8 CALL                             R0 3 1
+        9 SETUPVAL                         R0 0
+       10 GETUPVAL                         R0 3
+       11 GETUPVAL                         R1 0
+       12 CALL                             R0 1 0
+       13 GETUPVAL                         R0 5
+       14 GETTABLEKS                       R0 R0 K10 ["createRoot"]
+       16 GETUPVAL                         R1 0
+       17 CALL                             R0 1 1
+       18 SETUPVAL                         R0 4
+       19 GETUPVAL                         R0 6
+       20 GETUPVAL                         R1 4
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
 
 PROTO_9:
         0 GETIMPORT                        R0 K2 [task.cancel]

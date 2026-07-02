@@ -69,17 +69,15 @@ PROTO_1:
        88 GETUPVAL                         R12 3
        89 GETTABLEKS                       R12 R12 K3 ["createElement"]
        91 GETUPVAL                         R13 6
-       92 DUPTABLE                         R14 K27 [{"Style", "ImageColor3"}]
-       93 LOADK                            R15 K2 ["PickTabMenu"]
-       94 SETTABLEKS                       R15 R14 K25 ["Style"]
-       96 GETTABLEKS                       R15 R2 K28 ["ImageColor"]
-       98 SETTABLEKS                       R15 R14 K26 ["ImageColor3"]
-      100 CALL                             R12 2 1
-      101 SETTABLEKS                       R12 R11 K21 ["DotsIcon"]
-      103 CALL                             R8 3 1
-      104 SETTABLEKS                       R8 R7 K10 ["Button"]
-      106 CALL                             R4 3 -1
-      107 RETURN                           R4 -1
+       92 DUPTABLE                         R14 K27 [{["Style"] = "PickTabMenu", ["ImageColor3"]}]
+       93 GETTABLEKS                       R15 R2 K28 ["ImageColor"]
+       95 SETTABLEKS                       R15 R14 K26 ["ImageColor3"]
+       97 CALL                             R12 2 1
+       98 SETTABLEKS                       R12 R11 K21 ["DotsIcon"]
+      100 CALL                             R8 3 1
+      101 SETTABLEKS                       R8 R7 K10 ["Button"]
+      103 CALL                             R4 3 -1
+      104 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

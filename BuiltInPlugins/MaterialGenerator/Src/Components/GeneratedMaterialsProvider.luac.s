@@ -118,33 +118,29 @@ PROTO_7:
        12 LOADNIL                          R6
        13 LOADNIL                          R7
        14 FORGPREP                         R5
-       15 DUPTABLE                         R10 K8 [{"generationId", "sampleId", "hasBaseMaterial", "status"}]
+       15 DUPTABLE                         R10 K10 [{["generationId"], ["sampleId"], ["hasBaseMaterial"] = False, ["status"] = "None"}]
        16 SETTABLEKS                       R3 R10 K4 ["generationId"]
-       18 SUBK                             R11 R8 K9 [1]
+       18 SUBK                             R11 R8 K11 [1]
        19 SETTABLEKS                       R11 R10 K5 ["sampleId"]
-       21 LOADB                            R11 0
-       22 SETTABLEKS                       R11 R10 K6 ["hasBaseMaterial"]
-       24 LOADK                            R11 K10 ["None"]
-       25 SETTABLEKS                       R11 R10 K7 ["status"]
-       27 SETTABLE                         R10 R4 R9
-       28 FORGLOOP                         R5 2 ; [-14]
-       30 GETUPVAL                         R5 2
-       31 MOVE                             R6 R0
-       32 MOVE                             R7 R1
-       33 MOVE                             R8 R2
-       34 GETUPVAL                         R9 3
-       35 CALL                             R5 4 1
-       36 GETUPVAL                         R6 4
-       37 MOVE                             R7 R5
-       38 CALL                             R6 1 0
-       39 GETUPVAL                         R6 5
-       40 MOVE                             R7 R4
-       41 CALL                             R6 1 0
-       42 GETUPVAL                         R6 6
-       43 LOADK                            R7 K11 ["Update Materials"]
-       44 MOVE                             R8 R5
-       45 CALL                             R6 2 0
-       46 RETURN                           R0 0
+       21 SETTABLE                         R10 R4 R9
+       22 FORGLOOP                         R5 2 ; [-8]
+       24 GETUPVAL                         R5 2
+       25 MOVE                             R6 R0
+       26 MOVE                             R7 R1
+       27 MOVE                             R8 R2
+       28 GETUPVAL                         R9 3
+       29 CALL                             R5 4 1
+       30 GETUPVAL                         R6 4
+       31 MOVE                             R7 R5
+       32 CALL                             R6 1 0
+       33 GETUPVAL                         R6 5
+       34 MOVE                             R7 R4
+       35 CALL                             R6 1 0
+       36 GETUPVAL                         R6 6
+       37 LOADK                            R7 K12 ["Update Materials"]
+       38 MOVE                             R8 R5
+       39 CALL                             R6 2 0
+       40 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -186,22 +182,20 @@ PROTO_10:
         4 GETIMPORT                        R2 K1 [assert]
         6 CALL                             R2 1 0
         7 GETTABLEKS                       R2 R1 K2 ["hasBaseMaterial"]
-        9 JUMPIF                           R2 ; [+17]
+        9 JUMPIF                           R2 ; [+14]
        10 GETIMPORT                        R2 K5 [table.clone]
        12 GETUPVAL                         R3 0
        13 CALL                             R2 1 1
        14 GETUPVAL                         R3 1
        15 GETTABLEKS                       R3 R3 K6 ["join"]
        17 GETTABLE                         R4 R2 R0
-       18 DUPTABLE                         R5 K7 [{"hasBaseMaterial"}]
-       19 LOADB                            R6 1
-       20 SETTABLEKS                       R6 R5 K2 ["hasBaseMaterial"]
-       22 CALL                             R3 2 1
-       23 SETTABLE                         R3 R2 R0
-       24 GETUPVAL                         R3 2
-       25 MOVE                             R4 R2
-       26 CALL                             R3 1 0
-       27 RETURN                           R0 0
+       18 DUPTABLE                         R5 K8 [{["hasBaseMaterial"] = True}]
+       19 CALL                             R3 2 1
+       20 SETTABLE                         R3 R2 R0
+       21 GETUPVAL                         R3 2
+       22 MOVE                             R4 R2
+       23 CALL                             R3 1 0
+       24 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R2 0

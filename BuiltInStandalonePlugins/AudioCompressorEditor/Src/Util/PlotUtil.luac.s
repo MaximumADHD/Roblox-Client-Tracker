@@ -1,5 +1,5 @@
 PROTO_0:
-        0 LOADN                            R0 176
+        0 LOADN                            R0 -80
         1 RETURN                           R0 1
 
 PROTO_1:
@@ -7,7 +7,7 @@ PROTO_1:
         1 RETURN                           R0 1
 
 PROTO_2:
-        0 LOADN                            R0 176
+        0 LOADN                            R0 -80
         1 RETURN                           R0 1
 
 PROTO_3:
@@ -56,7 +56,7 @@ PROTO_4:
        53 CALL                             R12 0 1
        54 SUB                              R10 R11 R12
        55 DIV                              R8 R9 R10
-       56 SUBRK                            R7 R15 K8 [2]
+       56 SUBRK                            R7 K15 [1] R8
        57 CALL                             R5 2 1
        58 GETIMPORT                        R6 K12 [Vector2.new]
        60 GETTABLEKS                       R8 R4 K18 ["Min"]
@@ -153,7 +153,7 @@ PROTO_5:
        88 CALL                             R9 0 1
        89 ADD                              R7 R8 R9
        90 GETTABLEKS                       R11 R5 K4 ["Y"]
-       92 SUBRK                            R10 R17 K11 [Rect.new]
+       92 SUBRK                            R10 K17 [1] R11
        93 GETUPVAL                         R12 0
        94 GETTABLEKS                       R12 R12 K18 ["getYMax"]
        96 CALL                             R12 0 1

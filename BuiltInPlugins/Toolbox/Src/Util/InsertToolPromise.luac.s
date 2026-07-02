@@ -1,20 +1,18 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K5 [{"_onPromptCallback", "_onScriptWarningCallback", "_onPermissionsGrantCallback", "_bindable", "_waiting"}]
+        0 DUPTABLE                         R3 K6 [{[1], ["_onScriptWarningCallback"], ["_onPermissionsGrantCallback"], ["_bindable"], ["_waiting"] = False}]
         1 SETTABLEKS                       R0 R3 K0 ["_onPromptCallback"]
         3 SETTABLEKS                       R1 R3 K1 ["_onScriptWarningCallback"]
         5 SETTABLEKS                       R2 R3 K2 ["_onPermissionsGrantCallback"]
-        7 GETIMPORT                        R4 K8 [Instance.new]
-        9 LOADK                            R5 K9 ["BindableEvent"]
+        7 GETIMPORT                        R4 K9 [Instance.new]
+        9 LOADK                            R5 K10 ["BindableEvent"]
        10 CALL                             R4 1 1
        11 SETTABLEKS                       R4 R3 K3 ["_bindable"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K4 ["_waiting"]
-       16 GETUPVAL                         R6 0
-       17 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       19 MOVE                             R5 R3
-       20 GETIMPORT                        R4 K11 [setmetatable]
-       22 CALL                             R4 2 0
-       23 RETURN                           R3 1
+       13 GETUPVAL                         R6 0
+       14 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       16 MOVE                             R5 R3
+       17 GETIMPORT                        R4 K12 [setmetatable]
+       19 CALL                             R4 2 0
+       20 RETURN                           R3 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_waiting"]

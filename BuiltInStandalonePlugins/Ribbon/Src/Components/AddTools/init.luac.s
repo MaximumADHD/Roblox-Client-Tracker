@@ -212,32 +212,28 @@ MAIN:
        91 GETTABLEKS                       R20 R20 K28 ["createWidget"]
        93 CALL                             R19 1 1
        94 GETIMPORT                        R20 K31 [table.freeze]
-       96 DUPTABLE                         R21 K34 [{"Type", "Size"}]
-       97 LOADK                            R22 K35 ["Separator"]
-       98 SETTABLEKS                       R22 R21 K32 ["Type"]
-      100 LOADK                            R22 K36 ["Large"]
-      101 SETTABLEKS                       R22 R21 K33 ["Size"]
-      103 CALL                             R20 1 1
-      104 GETIMPORT                        R21 K5 [require]
-      106 GETIMPORT                        R22 K1 [script]
-      108 GETTABLEKS                       R22 R22 K37 ["AddToolsView"]
-      110 CALL                             R21 1 1
-      111 DUPCLOSURE                       R22 K38 [PROTO_4]
-      112 CAPTURE                          VAL R4
-      113 CAPTURE                          VAL R6
-      114 CAPTURE                          VAL R12
-      115 CAPTURE                          VAL R17
-      116 CAPTURE                          VAL R16
-      117 CAPTURE                          VAL R15
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R8
-      120 CAPTURE                          VAL R5
-      121 CAPTURE                          VAL R20
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R18
-      124 CAPTURE                          VAL R19
-      125 CAPTURE                          VAL R2
-      126 CAPTURE                          VAL R3
-      127 CAPTURE                          VAL R1
-      128 CAPTURE                          VAL R21
-      129 RETURN                           R22 1
+       96 DUPTABLE                         R21 K36 [{["Type"] = "Separator", ["Size"] = "Large"}]
+       97 CALL                             R20 1 1
+       98 GETIMPORT                        R21 K5 [require]
+      100 GETIMPORT                        R22 K1 [script]
+      102 GETTABLEKS                       R22 R22 K37 ["AddToolsView"]
+      104 CALL                             R21 1 1
+      105 DUPCLOSURE                       R22 K38 [PROTO_4]
+      106 CAPTURE                          VAL R4
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R12
+      109 CAPTURE                          VAL R17
+      110 CAPTURE                          VAL R16
+      111 CAPTURE                          VAL R15
+      112 CAPTURE                          VAL R9
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R5
+      115 CAPTURE                          VAL R20
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R18
+      118 CAPTURE                          VAL R19
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          VAL R3
+      121 CAPTURE                          VAL R1
+      122 CAPTURE                          VAL R21
+      123 RETURN                           R22 1

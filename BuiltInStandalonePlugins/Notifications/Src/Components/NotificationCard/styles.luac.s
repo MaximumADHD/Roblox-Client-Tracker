@@ -86,7 +86,7 @@ MAIN:
       135 GETIMPORT                        R23 K35 [pcall]
       137 MOVE                             R24 R5
       138 CALL                             R23 1 2
-      139 JUMPIFNOT                        R23 ; [+51]
+      139 JUMPIFNOT                        R23 ; [+39]
       140 GETTABLEKS                       R25 R4 K36 ["maxTextWidth"]
       142 NEWTABLE                         R26 0 5
       144 MOVE                             R29 R8
@@ -95,170 +95,134 @@ MAIN:
       148 CALL                             R27 3 1
       149 MOVE                             R30 R9
       150 LOADK                            R31 K39 ["Minutes"]
-      151 DUPTABLE                         R32 K41 [{"minutes"}]
-      152 LOADK                            R33 K42 ["88"]
-      153 SETTABLEKS                       R33 R32 K40 ["minutes"]
-      155 NAMECALL                         R28 R24 K38 ["getText"]
-      157 CALL                             R28 4 1
-      158 MOVE                             R31 R9
-      159 LOADK                            R32 K43 ["Hours"]
-      160 DUPTABLE                         R33 K45 [{"hours"}]
-      161 LOADK                            R34 K42 ["88"]
-      162 SETTABLEKS                       R34 R33 K44 ["hours"]
-      164 NAMECALL                         R29 R24 K38 ["getText"]
-      166 CALL                             R29 4 1
-      167 MOVE                             R32 R9
-      168 LOADK                            R33 K46 ["Days"]
-      169 DUPTABLE                         R34 K48 [{"days"}]
-      170 LOADK                            R35 K42 ["88"]
-      171 SETTABLEKS                       R35 R34 K47 ["days"]
-      173 NAMECALL                         R30 R24 K38 ["getText"]
-      175 CALL                             R30 4 1
-      176 MOVE                             R33 R9
-      177 LOADK                            R34 K49 ["Weeks"]
-      178 DUPTABLE                         R35 K51 [{"weeks"}]
-      179 LOADK                            R36 K42 ["88"]
-      180 SETTABLEKS                       R36 R35 K50 ["weeks"]
-      182 NAMECALL                         R31 R24 K38 ["getText"]
-      184 CALL                             R31 4 -1
-      185 SETLIST                          R26 R27 -1 [1]
-      187 MOVE                             R27 R19
-      188 MOVE                             R28 R10
-      189 CALL                             R25 3 1
-      190 MOVE                             R22 R25
-      191 ADD                              R28 R13 R18
-      192 ADD                              R27 R28 R22
-      193 FASTCALL2                        MATH_MAX R17 R27 ; [+4]
-      195 MOVE                             R26 R17
-      196 GETIMPORT                        R25 K54 [math.max]
-      198 CALL                             R25 2 1
-      199 SUB                              R27 R11 R12
-      200 SUB                              R26 R27 R14
-      201 LOADN                            R31 4
-      202 MUL                              R30 R31 R12
-      203 SUB                              R29 R26 R30
-      204 SUB                              R28 R29 R15
-      205 SUB                              R27 R28 R25
-      206 MOVE                             R28 R7
-      207 LOADK                            R29 K55 [".Component-InnerNotificationCard"]
-      208 DUPTABLE                         R30 K60 [{"BackgroundColor3", "BorderSizePixel", "Size", "AutomaticSize"}]
-      209 LOADK                            R31 K61 ["$BackgroundPaper"]
-      210 SETTABLEKS                       R31 R30 K56 ["BackgroundColor3"]
-      212 LOADN                            R31 0
-      213 SETTABLEKS                       R31 R30 K57 ["BorderSizePixel"]
-      215 GETIMPORT                        R31 K64 [UDim2.new]
-      217 LOADN                            R32 0
-      218 MOVE                             R33 R26
-      219 LOADN                            R34 0
-      220 LOADN                            R35 0
-      221 CALL                             R31 4 1
-      222 SETTABLEKS                       R31 R30 K58 ["Size"]
-      224 GETIMPORT                        R31 K67 [Enum.AutomaticSize.Y]
-      226 SETTABLEKS                       R31 R30 K59 ["AutomaticSize"]
-      228 NEWTABLE                         R31 0 1
-      230 MOVE                             R32 R7
-      231 LOADK                            R33 K68 ["> #InnerCard"]
-      232 DUPTABLE                         R34 K70 [{"Size", "TextTransparency"}]
-      233 GETIMPORT                        R35 K72 [UDim2.fromScale]
-      235 LOADN                            R36 1
-      236 LOADN                            R37 1
-      237 CALL                             R35 2 1
-      238 SETTABLEKS                       R35 R34 K58 ["Size"]
-      240 LOADN                            R35 1
-      241 SETTABLEKS                       R35 R34 K69 ["TextTransparency"]
-      243 NEWTABLE                         R35 0 7
-      245 MOVE                             R36 R7
-      246 LOADK                            R37 K73 ["::UIPadding"]
-      247 DUPTABLE                         R38 K78 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      248 LOADK                            R39 K79 ["$Margin"]
-      249 SETTABLEKS                       R39 R38 K74 ["PaddingLeft"]
-      251 LOADK                            R39 K79 ["$Margin"]
-      252 SETTABLEKS                       R39 R38 K75 ["PaddingRight"]
-      254 LOADK                            R39 K79 ["$Margin"]
-      255 SETTABLEKS                       R39 R38 K76 ["PaddingTop"]
-      257 LOADK                            R39 K79 ["$Margin"]
-      258 SETTABLEKS                       R39 R38 K77 ["PaddingBottom"]
-      260 CALL                             R36 2 1
-      261 MOVE                             R37 R7
-      262 LOADK                            R38 K80 ["::UIListLayout"]
-      263 DUPTABLE                         R39 K84 [{"FillDirection", "SortOrder", "Padding"}]
-      264 GETIMPORT                        R40 K86 [Enum.FillDirection.Horizontal]
-      266 SETTABLEKS                       R40 R39 K81 ["FillDirection"]
-      268 GETIMPORT                        R40 K88 [Enum.SortOrder.LayoutOrder]
-      270 SETTABLEKS                       R40 R39 K82 ["SortOrder"]
-      272 LOADK                            R40 K79 ["$Margin"]
-      273 SETTABLEKS                       R40 R39 K83 ["Padding"]
-      275 CALL                             R37 2 1
-      276 MOVE                             R38 R7
-      277 LOADK                            R39 K89 ["::UICorner"]
-      278 DUPTABLE                         R40 K91 [{"CornerRadius"}]
-      279 LOADK                            R41 K92 ["$CardBorderRadius"]
-      280 SETTABLEKS                       R41 R40 K90 ["CornerRadius"]
-      282 CALL                             R38 2 1
-      283 MOVE                             R39 R7
-      284 LOADK                            R40 K93 ["> .Component-NotificationCard-User"]
-      285 NEWTABLE                         R41 0 0
-      287 NEWTABLE                         R42 0 1
-      289 MOVE                             R43 R7
-      290 LOADK                            R44 K89 ["::UICorner"]
-      291 DUPTABLE                         R45 K91 [{"CornerRadius"}]
-      292 GETIMPORT                        R46 K95 [UDim.new]
-      294 LOADN                            R47 1
-      295 LOADN                            R48 0
-      296 CALL                             R46 2 1
-      297 SETTABLEKS                       R46 R45 K90 ["CornerRadius"]
-      299 CALL                             R43 2 -1
-      300 SETLIST                          R42 R43 -1 [1]
-      302 CALL                             R39 3 1
-      303 MOVE                             R40 R7
-      304 LOADK                            R41 K96 ["> #Icon"]
-      305 DUPTABLE                         R42 K98 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
-      306 LOADN                            R43 1
-      307 SETTABLEKS                       R43 R42 K97 ["BackgroundTransparency"]
-      309 LOADN                            R43 0
-      310 SETTABLEKS                       R43 R42 K57 ["BorderSizePixel"]
-      312 LOADK                            R43 K99 ["$CardIconSize"]
-      313 SETTABLEKS                       R43 R42 K58 ["Size"]
-      315 CALL                             R40 2 1
-      316 MOVE                             R41 R7
-      317 LOADK                            R42 K100 ["> #Content"]
-      318 DUPTABLE                         R43 K101 [{"BackgroundTransparency", "Size"}]
-      319 LOADN                            R44 1
-      320 SETTABLEKS                       R44 R43 K97 ["BackgroundTransparency"]
-      322 GETIMPORT                        R44 K64 [UDim2.new]
-      324 LOADN                            R45 0
-      325 MOVE                             R46 R27
-      326 LOADN                            R47 0
-      327 LOADN                            R48 0
-      328 CALL                             R44 4 1
-      329 SETTABLEKS                       R44 R43 K58 ["Size"]
-      331 NEWTABLE                         R44 0 1
-      333 MOVE                             R45 R7
-      334 LOADK                            R46 K73 ["::UIPadding"]
-      335 DUPTABLE                         R47 K102 [{"PaddingLeft"}]
-      336 GETIMPORT                        R48 K95 [UDim.new]
-      338 LOADN                            R49 0
-      339 SUB                              R50 R16 R12
-      340 CALL                             R48 2 1
-      341 SETTABLEKS                       R48 R47 K74 ["PaddingLeft"]
-      343 CALL                             R45 2 -1
-      344 SETLIST                          R44 R45 -1 [1]
-      346 CALL                             R41 3 1
-      347 MOVE                             R42 R7
-      348 LOADK                            R43 K103 ["> #Status"]
-      349 DUPTABLE                         R44 K104 [{"Size", "BackgroundTransparency"}]
-      350 GETIMPORT                        R45 K64 [UDim2.new]
-      352 LOADN                            R46 0
-      353 MOVE                             R47 R25
-      354 LOADN                            R48 1
-      355 LOADN                            R49 0
-      356 CALL                             R45 4 1
-      357 SETTABLEKS                       R45 R44 K58 ["Size"]
-      359 LOADN                            R45 1
-      360 SETTABLEKS                       R45 R44 K97 ["BackgroundTransparency"]
-      362 CALL                             R42 2 -1
-      363 SETLIST                          R35 R36 -1 [1]
-      365 CALL                             R32 3 -1
-      366 SETLIST                          R31 R32 -1 [1]
-      368 CALL                             R28 3 -1
-      369 RETURN                           R28 -1
+      151 DUPTABLE                         R32 K42 [{["minutes"] = "88"}]
+      152 NAMECALL                         R28 R24 K38 ["getText"]
+      154 CALL                             R28 4 1
+      155 MOVE                             R31 R9
+      156 LOADK                            R32 K43 ["Hours"]
+      157 DUPTABLE                         R33 K45 [{["hours"] = "88"}]
+      158 NAMECALL                         R29 R24 K38 ["getText"]
+      160 CALL                             R29 4 1
+      161 MOVE                             R32 R9
+      162 LOADK                            R33 K46 ["Days"]
+      163 DUPTABLE                         R34 K48 [{["days"] = "88"}]
+      164 NAMECALL                         R30 R24 K38 ["getText"]
+      166 CALL                             R30 4 1
+      167 MOVE                             R33 R9
+      168 LOADK                            R34 K49 ["Weeks"]
+      169 DUPTABLE                         R35 K51 [{["weeks"] = "88"}]
+      170 NAMECALL                         R31 R24 K38 ["getText"]
+      172 CALL                             R31 4 -1
+      173 SETLIST                          R26 R27 -1 [1]
+      175 MOVE                             R27 R19
+      176 MOVE                             R28 R10
+      177 CALL                             R25 3 1
+      178 MOVE                             R22 R25
+      179 ADD                              R28 R13 R18
+      180 ADD                              R27 R28 R22
+      181 FASTCALL2                        MATH_MAX R17 R27 ; [+4]
+      183 MOVE                             R26 R17
+      184 GETIMPORT                        R25 K54 [math.max]
+      186 CALL                             R25 2 1
+      187 SUB                              R27 R11 R12
+      188 SUB                              R26 R27 R14
+      189 LOADN                            R31 4
+      190 MUL                              R30 R31 R12
+      191 SUB                              R29 R26 R30
+      192 SUB                              R28 R29 R15
+      193 SUB                              R27 R28 R25
+      194 MOVE                             R28 R7
+      195 LOADK                            R29 K55 [".Component-InnerNotificationCard"]
+      196 DUPTABLE                         R30 K62 [{["BackgroundColor3"] = "$BackgroundPaper", ["BorderSizePixel"] = 0, ["Size"], ["AutomaticSize"]}]
+      197 GETIMPORT                        R31 K65 [UDim2.new]
+      199 LOADN                            R32 0
+      200 MOVE                             R33 R26
+      201 LOADN                            R34 0
+      202 LOADN                            R35 0
+      203 CALL                             R31 4 1
+      204 SETTABLEKS                       R31 R30 K60 ["Size"]
+      206 GETIMPORT                        R31 K68 [Enum.AutomaticSize.Y]
+      208 SETTABLEKS                       R31 R30 K61 ["AutomaticSize"]
+      210 NEWTABLE                         R31 0 1
+      212 MOVE                             R32 R7
+      213 LOADK                            R33 K69 ["> #InnerCard"]
+      214 DUPTABLE                         R34 K72 [{["Size"], ["TextTransparency"] = 1}]
+      215 GETIMPORT                        R35 K74 [UDim2.fromScale]
+      217 LOADN                            R36 1
+      218 LOADN                            R37 1
+      219 CALL                             R35 2 1
+      220 SETTABLEKS                       R35 R34 K60 ["Size"]
+      222 NEWTABLE                         R35 0 7
+      224 MOVE                             R36 R7
+      225 LOADK                            R37 K75 ["::UIPadding"]
+      226 DUPTABLE                         R38 K81 [{["PaddingLeft"] = "$Margin", ["PaddingRight"] = "$Margin", ["PaddingTop"] = "$Margin", ["PaddingBottom"] = "$Margin"}]
+      227 CALL                             R36 2 1
+      228 MOVE                             R37 R7
+      229 LOADK                            R38 K82 ["::UIListLayout"]
+      230 DUPTABLE                         R39 K86 [{["FillDirection"], ["SortOrder"], ["Padding"] = "$Margin"}]
+      231 GETIMPORT                        R40 K88 [Enum.FillDirection.Horizontal]
+      233 SETTABLEKS                       R40 R39 K83 ["FillDirection"]
+      235 GETIMPORT                        R40 K90 [Enum.SortOrder.LayoutOrder]
+      237 SETTABLEKS                       R40 R39 K84 ["SortOrder"]
+      239 CALL                             R37 2 1
+      240 MOVE                             R38 R7
+      241 LOADK                            R39 K91 ["::UICorner"]
+      242 DUPTABLE                         R40 K94 [{["CornerRadius"] = "$CardBorderRadius"}]
+      243 CALL                             R38 2 1
+      244 MOVE                             R39 R7
+      245 LOADK                            R40 K95 ["> .Component-NotificationCard-User"]
+      246 NEWTABLE                         R41 0 0
+      248 NEWTABLE                         R42 0 1
+      250 MOVE                             R43 R7
+      251 LOADK                            R44 K91 ["::UICorner"]
+      252 DUPTABLE                         R45 K96 [{"CornerRadius"}]
+      253 GETIMPORT                        R46 K98 [UDim.new]
+      255 LOADN                            R47 1
+      256 LOADN                            R48 0
+      257 CALL                             R46 2 1
+      258 SETTABLEKS                       R46 R45 K92 ["CornerRadius"]
+      260 CALL                             R43 2 -1
+      261 SETLIST                          R42 R43 -1 [1]
+      263 CALL                             R39 3 1
+      264 MOVE                             R40 R7
+      265 LOADK                            R41 K99 ["> #Icon"]
+      266 DUPTABLE                         R42 K102 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["Size"] = "$CardIconSize"}]
+      267 CALL                             R40 2 1
+      268 MOVE                             R41 R7
+      269 LOADK                            R42 K103 ["> #Content"]
+      270 DUPTABLE                         R43 K104 [{["BackgroundTransparency"] = 1, ["Size"]}]
+      271 GETIMPORT                        R44 K65 [UDim2.new]
+      273 LOADN                            R45 0
+      274 MOVE                             R46 R27
+      275 LOADN                            R47 0
+      276 LOADN                            R48 0
+      277 CALL                             R44 4 1
+      278 SETTABLEKS                       R44 R43 K60 ["Size"]
+      280 NEWTABLE                         R44 0 1
+      282 MOVE                             R45 R7
+      283 LOADK                            R46 K75 ["::UIPadding"]
+      284 DUPTABLE                         R47 K105 [{"PaddingLeft"}]
+      285 GETIMPORT                        R48 K98 [UDim.new]
+      287 LOADN                            R49 0
+      288 SUB                              R50 R16 R12
+      289 CALL                             R48 2 1
+      290 SETTABLEKS                       R48 R47 K76 ["PaddingLeft"]
+      292 CALL                             R45 2 -1
+      293 SETLIST                          R44 R45 -1 [1]
+      295 CALL                             R41 3 1
+      296 MOVE                             R42 R7
+      297 LOADK                            R43 K106 ["> #Status"]
+      298 DUPTABLE                         R44 K107 [{["Size"], ["BackgroundTransparency"] = 1}]
+      299 GETIMPORT                        R45 K65 [UDim2.new]
+      301 LOADN                            R46 0
+      302 MOVE                             R47 R25
+      303 LOADN                            R48 1
+      304 LOADN                            R49 0
+      305 CALL                             R45 4 1
+      306 SETTABLEKS                       R45 R44 K60 ["Size"]
+      308 CALL                             R42 2 -1
+      309 SETLIST                          R35 R36 -1 [1]
+      311 CALL                             R32 3 -1
+      312 SETLIST                          R31 R32 -1 [1]
+      314 CALL                             R28 3 -1
+      315 RETURN                           R28 -1

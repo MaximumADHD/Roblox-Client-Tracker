@@ -23,29 +23,23 @@ PROTO_0:
        28 FASTCALL1                        ASSERT R5 ; [+2]
        29 GETIMPORT                        R4 K1 [assert]
        31 CALL                             R4 1 0
-       32 DUPTABLE                         R4 K12 [{"_isDragging", "_selectionBeforeDrag", "_dragStartLocation", "_dragCandidates", "_selectionWrapper", "_beginBoxSelect", "_updateBoxSelect", "_endBoxSelect", "_insertionOrder", "_insertionOrderNext"}]
-       33 LOADB                            R5 0
-       34 SETTABLEKS                       R5 R4 K2 ["_isDragging"]
-       36 NEWTABLE                         R5 0 0
-       38 SETTABLEKS                       R5 R4 K3 ["_selectionBeforeDrag"]
-       40 LOADNIL                          R5
-       41 SETTABLEKS                       R5 R4 K4 ["_dragStartLocation"]
-       43 NEWTABLE                         R5 0 0
-       45 SETTABLEKS                       R5 R4 K5 ["_dragCandidates"]
-       47 SETTABLEKS                       R0 R4 K6 ["_selectionWrapper"]
-       49 SETTABLEKS                       R1 R4 K7 ["_beginBoxSelect"]
-       51 SETTABLEKS                       R2 R4 K8 ["_updateBoxSelect"]
-       53 SETTABLEKS                       R3 R4 K9 ["_endBoxSelect"]
-       55 NEWTABLE                         R5 0 0
-       57 SETTABLEKS                       R5 R4 K10 ["_insertionOrder"]
-       59 LOADN                            R5 1
-       60 SETTABLEKS                       R5 R4 K11 ["_insertionOrderNext"]
-       62 GETUPVAL                         R7 0
-       63 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-       65 MOVE                             R6 R4
-       66 GETIMPORT                        R5 K14 [setmetatable]
-       68 CALL                             R5 2 1
-       69 RETURN                           R5 1
+       32 DUPTABLE                         R4 K15 [{["_isDragging"] = False, ["_selectionBeforeDrag"], ["_dragStartLocation"] = , ["_dragCandidates"], ["_selectionWrapper"], ["_beginBoxSelect"], ["_updateBoxSelect"], ["_endBoxSelect"], ["_insertionOrder"], ["_insertionOrderNext"] = 1}]
+       33 NEWTABLE                         R5 0 0
+       35 SETTABLEKS                       R5 R4 K4 ["_selectionBeforeDrag"]
+       37 NEWTABLE                         R5 0 0
+       39 SETTABLEKS                       R5 R4 K7 ["_dragCandidates"]
+       41 SETTABLEKS                       R0 R4 K8 ["_selectionWrapper"]
+       43 SETTABLEKS                       R1 R4 K9 ["_beginBoxSelect"]
+       45 SETTABLEKS                       R2 R4 K10 ["_updateBoxSelect"]
+       47 SETTABLEKS                       R3 R4 K11 ["_endBoxSelect"]
+       49 NEWTABLE                         R5 0 0
+       51 SETTABLEKS                       R5 R4 K12 ["_insertionOrder"]
+       53 GETUPVAL                         R7 0
+       54 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+       56 MOVE                             R6 R4
+       57 GETIMPORT                        R5 K17 [setmetatable]
+       59 CALL                             R5 2 1
+       60 RETURN                           R5 1
 
 PROTO_1:
         0 GETIMPORT                        R3 K2 [Rect.new]

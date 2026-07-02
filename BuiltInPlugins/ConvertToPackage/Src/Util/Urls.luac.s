@@ -3,55 +3,51 @@ PROTO_0:
         1 GETUPVAL                         R3 0
         2 GETUPVAL                         R4 1
         3 GETTABLEKS                       R4 R4 K1 ["makeQueryString"]
-        5 DUPTABLE                         R5 K6 [{"userId", "width", "height", "format"}]
+        5 DUPTABLE                         R5 K7 [{["userId"], ["width"], ["height"], ["format"] = "png"}]
         6 SETTABLEKS                       R0 R5 K2 ["userId"]
         8 SETTABLEKS                       R1 R5 K3 ["width"]
        10 SETTABLEKS                       R1 R5 K4 ["height"]
-       12 LOADK                            R6 K7 ["png"]
-       13 SETTABLEKS                       R6 R5 K5 ["format"]
-       15 CALL                             R4 1 1
-       16 CONCAT                           R2 R3 R4
-       17 RETURN                           R2 1
+       12 CALL                             R4 1 1
+       13 CONCAT                           R2 R3 R4
+       14 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R9 0
         1 GETUPVAL                         R10 1
         2 GETTABLEKS                       R10 R10 K0 ["makeQueryString"]
-        4 DUPTABLE                         R11 K10 [{"assetid", "type", "name", "description", "genreTypeId", "ispublic", "allowComments", "groupId", "isPackage"}]
+        4 DUPTABLE                         R11 K11 [{["assetid"], ["type"], ["name"], ["description"], ["genreTypeId"], ["ispublic"], ["allowComments"], ["groupId"], ["isPackage"] = True}]
         5 SETTABLEKS                       R0 R11 K1 ["assetid"]
         7 FASTCALL1                        TOSTRING R1 ; [+3]
         8 MOVE                             R13 R1
-        9 GETIMPORT                        R12 K12 [tostring]
+        9 GETIMPORT                        R12 K13 [tostring]
        11 CALL                             R12 1 1
        12 SETTABLEKS                       R12 R11 K2 ["type"]
        14 FASTCALL1                        TOSTRING R2 ; [+3]
        15 MOVE                             R13 R2
-       16 GETIMPORT                        R12 K12 [tostring]
+       16 GETIMPORT                        R12 K13 [tostring]
        18 CALL                             R12 1 1
        19 SETTABLEKS                       R12 R11 K3 ["name"]
        21 FASTCALL1                        TOSTRING R3 ; [+3]
        22 MOVE                             R13 R3
-       23 GETIMPORT                        R12 K12 [tostring]
+       23 GETIMPORT                        R12 K13 [tostring]
        25 CALL                             R12 1 1
        26 SETTABLEKS                       R12 R11 K4 ["description"]
        28 SETTABLEKS                       R4 R11 K5 ["genreTypeId"]
        30 JUMPIFNOT                        R5 ; [+2]
-       31 LOADK                            R12 K13 ["True"]
+       31 LOADK                            R12 K14 ["True"]
        32 JUMP                             ; [+1]
-       33 LOADK                            R12 K14 ["False"]
+       33 LOADK                            R12 K15 ["False"]
        34 SETTABLEKS                       R12 R11 K6 ["ispublic"]
        36 JUMPIFNOT                        R6 ; [+2]
-       37 LOADK                            R12 K13 ["True"]
+       37 LOADK                            R12 K14 ["True"]
        38 JUMP                             ; [+1]
-       39 LOADK                            R12 K14 ["False"]
+       39 LOADK                            R12 K15 ["False"]
        40 SETTABLEKS                       R12 R11 K7 ["allowComments"]
-       42 ORK                              R12 R7 K15 [""]
+       42 ORK                              R12 R7 K16 [""]
        43 SETTABLEKS                       R12 R11 K8 ["groupId"]
-       45 LOADB                            R12 1
-       46 SETTABLEKS                       R12 R11 K9 ["isPackage"]
-       48 CALL                             R10 1 1
-       49 CONCAT                           R8 R9 R10
-       50 RETURN                           R8 1
+       45 CALL                             R10 1 1
+       46 CONCAT                           R8 R9 R10
+       47 RETURN                           R8 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

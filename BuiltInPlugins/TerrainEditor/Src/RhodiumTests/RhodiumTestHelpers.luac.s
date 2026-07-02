@@ -7,7 +7,7 @@ PROTO_0:
         6 DUPTABLE                         R5 K4 [{"Size"}]
         7 GETIMPORT                        R6 K7 [UDim2.new]
         9 LOADN                            R7 0
-       10 LOADN                            R8 244
+       10 LOADN                            R8 500
        11 LOADN                            R9 1
        12 LOADN                            R10 0
        13 CALL                             R6 4 1
@@ -83,12 +83,10 @@ PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["Move"]
         2 NAMECALL                         R2 R2 K1 ["Fire"]
         4 CALL                             R2 1 0
-        5 DUPTABLE                         R4 K3 [{"cycles"}]
-        6 LOADN                            R5 1
-        7 SETTABLEKS                       R5 R4 K2 ["cycles"]
-        9 NAMECALL                         R2 R1 K4 ["startOperation"]
-       11 CALL                             R2 2 0
-       12 RETURN                           R0 0
+        5 DUPTABLE                         R4 K4 [{["cycles"] = 1}]
+        6 NAMECALL                         R2 R1 K5 ["startOperation"]
+        8 CALL                             R2 2 0
+        9 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -691,7 +689,7 @@ PROTO_23:
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 GETTABLEKS                       R0 R0 K2 ["SendMouseWheelEvent"]
-        7 LOADN                            R1 94
+        7 LOADN                            R1 350
         8 LOADN                            R2 150
         9 LOADB                            R3 1
        10 CALL                             R0 3 0
@@ -714,7 +712,7 @@ PROTO_25:
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 GETTABLEKS                       R0 R0 K2 ["SendMouseWheelEvent"]
-        7 LOADN                            R1 94
+        7 LOADN                            R1 350
         8 LOADN                            R2 150
         9 LOADB                            R3 0
        10 CALL                             R0 3 0

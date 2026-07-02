@@ -21,7 +21,7 @@ PROTO_0:
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["XVector"]
         2 JUMPIFNOT                        R1 ; [+2]
-        3 LOADN                            R4 255
+        3 LOADN                            R4 -1
         4 JUMP                             ; [+1]
         5 LOADN                            R4 1
         6 MUL                              R2 R3 R4
@@ -209,7 +209,7 @@ PROTO_5:
        30 JUMPIFNOT                        R5 ; [+2]
        31 LOADN                            R9 1
        32 JUMP                             ; [+1]
-       33 LOADN                            R9 255
+       33 LOADN                            R9 -1
        34 MUL                              R7 R8 R9
        35 ADD                              R6 R0 R7
        36 RETURN                           R6 1

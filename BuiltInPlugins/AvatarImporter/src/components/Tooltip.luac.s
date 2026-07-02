@@ -3,22 +3,20 @@ PROTO_0:
         2 CALL                             R0 0 1
         3 GETUPVAL                         R1 0
         4 GETTABLEKS                       R1 R1 K2 ["targetTime"]
-        6 JUMPIFNOTLE                      R1 R0 ; [+21]
+        6 JUMPIFNOTLE                      R1 R0 ; [+18]
         8 GETUPVAL                         R0 0
         9 GETTABLEKS                       R0 R0 K3 ["heartbeatConn"]
        11 NAMECALL                         R0 R0 K4 ["Disconnect"]
        13 CALL                             R0 1 0
        14 GETUPVAL                         R0 0
-       15 DUPTABLE                         R2 K7 [{"show", "tooltipPosition"}]
-       16 LOADB                            R3 1
-       17 SETTABLEKS                       R3 R2 K5 ["show"]
-       19 GETUPVAL                         R3 0
-       20 NAMECALL                         R3 R3 K8 ["getPosition"]
-       22 CALL                             R3 1 1
-       23 SETTABLEKS                       R3 R2 K6 ["tooltipPosition"]
-       25 NAMECALL                         R0 R0 K9 ["setState"]
-       27 CALL                             R0 2 0
-       28 RETURN                           R0 0
+       15 DUPTABLE                         R2 K8 [{["show"] = True, ["tooltipPosition"]}]
+       16 GETUPVAL                         R3 0
+       17 NAMECALL                         R3 R3 K9 ["getPosition"]
+       19 CALL                             R3 1 1
+       20 SETTABLEKS                       R3 R2 K7 ["tooltipPosition"]
+       22 NAMECALL                         R0 R0 K10 ["setState"]
+       24 CALL                             R0 2 0
+       25 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R3 0
@@ -56,35 +54,31 @@ PROTO_3:
         1 NAMECALL                         R0 R0 K0 ["disconnectHeartbeat"]
         3 CALL                             R0 1 0
         4 GETUPVAL                         R0 0
-        5 DUPTABLE                         R2 K2 [{"show"}]
-        6 LOADB                            R3 0
-        7 SETTABLEKS                       R3 R2 K1 ["show"]
-        9 NAMECALL                         R0 R0 K3 ["setState"]
-       11 CALL                             R0 2 0
-       12 RETURN                           R0 0
+        5 DUPTABLE                         R2 K3 [{["show"] = False}]
+        6 NAMECALL                         R0 R0 K4 ["setState"]
+        8 CALL                             R0 2 0
+        9 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["detectorRef"]
-        6 DUPTABLE                         R1 K3 [{"show"}]
-        7 LOADB                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["show"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 LOADK                            R1 K5 [∞]
-       13 SETTABLEKS                       R1 R0 K6 ["targetTime"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          UPVAL U1
-       18 SETTABLEKS                       R1 R0 K7 ["mouseEnter"]
-       20 NEWCLOSURE                       R1 P1
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R1 R0 K8 ["mouseMoved"]
-       24 NEWCLOSURE                       R1 P2
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R1 R0 K9 ["mouseLeave"]
-       28 RETURN                           R0 0
+        6 DUPTABLE                         R1 K4 [{["show"] = False}]
+        7 SETTABLEKS                       R1 R0 K5 ["state"]
+        9 LOADK                            R1 K6 [∞]
+       10 SETTABLEKS                       R1 R0 K7 ["targetTime"]
+       12 NEWCLOSURE                       R1 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          UPVAL U1
+       15 SETTABLEKS                       R1 R0 K8 ["mouseEnter"]
+       17 NEWCLOSURE                       R1 P1
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K9 ["mouseMoved"]
+       21 NEWCLOSURE                       R1 P2
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K10 ["mouseLeave"]
+       25 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["heartbeatConn"]
@@ -163,44 +157,42 @@ PROTO_8:
        48 DUPTABLE                         R4 K17 [{"Tooltip"}]
        49 GETTABLEKS                       R5 R0 K18 ["state"]
        51 GETTABLEKS                       R5 R5 K19 ["show"]
-       53 JUMPIFNOT                        R5 ; [+57]
+       53 JUMPIFNOT                        R5 ; [+54]
        54 GETUPVAL                         R5 0
        55 GETTABLEKS                       R5 R5 K0 ["createElement"]
        57 LOADK                            R6 K1 ["Frame"]
-       58 DUPTABLE                         R7 K25 [{"ZIndex", "Position", "Size", "Visible", "BackgroundColor3", "BorderColor3"}]
-       59 LOADN                            R8 10
-       60 SETTABLEKS                       R8 R7 K20 ["ZIndex"]
-       62 GETTABLEKS                       R8 R0 K18 ["state"]
-       64 GETTABLEKS                       R8 R8 K26 ["tooltipPosition"]
-       66 SETTABLEKS                       R8 R7 K21 ["Position"]
-       68 GETTABLEKS                       R8 R0 K27 ["props"]
-       70 GETTABLEKS                       R8 R8 K5 ["Size"]
-       72 SETTABLEKS                       R8 R7 K5 ["Size"]
-       74 GETTABLEKS                       R8 R0 K27 ["props"]
-       76 GETTABLEKS                       R8 R8 K28 ["enabled"]
-       78 SETTABLEKS                       R8 R7 K22 ["Visible"]
-       80 GETUPVAL                         R8 1
-       81 GETTABLEKS                       R8 R8 K29 ["Theme"]
-       83 GETIMPORT                        R10 K33 [Enum.StudioStyleGuideColor.MainBackground]
-       85 GETIMPORT                        R11 K36 [Enum.StudioStyleGuideModifier.Default]
-       87 NAMECALL                         R8 R8 K37 ["GetColor"]
-       89 CALL                             R8 3 1
-       90 SETTABLEKS                       R8 R7 K23 ["BackgroundColor3"]
-       92 GETUPVAL                         R8 1
-       93 GETTABLEKS                       R8 R8 K29 ["Theme"]
-       95 GETIMPORT                        R10 K39 [Enum.StudioStyleGuideColor.Border]
-       97 GETIMPORT                        R11 K36 [Enum.StudioStyleGuideModifier.Default]
-       99 NAMECALL                         R8 R8 K37 ["GetColor"]
-      101 CALL                             R8 3 1
-      102 SETTABLEKS                       R8 R7 K24 ["BorderColor3"]
-      104 GETTABLEKS                       R9 R0 K27 ["props"]
-      106 GETUPVAL                         R10 0
-      107 GETTABLEKS                       R10 R10 K40 ["Children"]
-      109 GETTABLE                         R8 R9 R10
-      110 CALL                             R5 3 1
-      111 SETTABLEKS                       R5 R4 K16 ["Tooltip"]
-      113 CALL                             R1 3 -1
-      114 RETURN                           R1 -1
+       58 DUPTABLE                         R7 K26 [{["ZIndex"] = 10, ["Position"], ["Size"], ["Visible"], ["BackgroundColor3"], ["BorderColor3"]}]
+       59 GETTABLEKS                       R8 R0 K18 ["state"]
+       61 GETTABLEKS                       R8 R8 K27 ["tooltipPosition"]
+       63 SETTABLEKS                       R8 R7 K22 ["Position"]
+       65 GETTABLEKS                       R8 R0 K28 ["props"]
+       67 GETTABLEKS                       R8 R8 K5 ["Size"]
+       69 SETTABLEKS                       R8 R7 K5 ["Size"]
+       71 GETTABLEKS                       R8 R0 K28 ["props"]
+       73 GETTABLEKS                       R8 R8 K29 ["enabled"]
+       75 SETTABLEKS                       R8 R7 K23 ["Visible"]
+       77 GETUPVAL                         R8 1
+       78 GETTABLEKS                       R8 R8 K30 ["Theme"]
+       80 GETIMPORT                        R10 K34 [Enum.StudioStyleGuideColor.MainBackground]
+       82 GETIMPORT                        R11 K37 [Enum.StudioStyleGuideModifier.Default]
+       84 NAMECALL                         R8 R8 K38 ["GetColor"]
+       86 CALL                             R8 3 1
+       87 SETTABLEKS                       R8 R7 K24 ["BackgroundColor3"]
+       89 GETUPVAL                         R8 1
+       90 GETTABLEKS                       R8 R8 K30 ["Theme"]
+       92 GETIMPORT                        R10 K40 [Enum.StudioStyleGuideColor.Border]
+       94 GETIMPORT                        R11 K37 [Enum.StudioStyleGuideModifier.Default]
+       96 NAMECALL                         R8 R8 K38 ["GetColor"]
+       98 CALL                             R8 3 1
+       99 SETTABLEKS                       R8 R7 K25 ["BorderColor3"]
+      101 GETTABLEKS                       R9 R0 K28 ["props"]
+      103 GETUPVAL                         R10 0
+      104 GETTABLEKS                       R10 R10 K41 ["Children"]
+      106 GETTABLE                         R8 R9 R10
+      107 CALL                             R5 3 1
+      108 SETTABLEKS                       R5 R4 K16 ["Tooltip"]
+      110 CALL                             R1 3 -1
+      111 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

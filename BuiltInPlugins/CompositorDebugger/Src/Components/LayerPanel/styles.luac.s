@@ -21,7 +21,7 @@ MAIN:
        29 LOADN                            R11 1
        30 LOADN                            R12 0
        31 LOADN                            R13 1
-       32 LOADN                            R14 223
+       32 LOADN                            R14 -33
        33 CALL                             R10 4 1
        34 SETTABLEKS                       R10 R9 K12 ["Size"]
        36 CALL                             R7 2 -1

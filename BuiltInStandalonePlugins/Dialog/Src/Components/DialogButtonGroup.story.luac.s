@@ -116,29 +116,17 @@ MAIN:
        37 GETTABLEKS                       R5 R4 K12 ["Util"]
        39 GETTABLEKS                       R5 R5 K13 ["StudioUri"]
        41 GETTABLEKS                       R6 R3 K14 ["createElement"]
-       43 DUPTABLE                         R7 K18 [{"name", "controls", "stories"}]
-       44 LOADK                            R8 K7 ["DialogButtonGroup"]
-       45 SETTABLEKS                       R8 R7 K15 ["name"]
-       47 DUPTABLE                         R8 K23 [{"containerWidth", "primaryAction", "secondaryAction", "tertiaryAction"}]
-       48 LOADN                            R9 62
-       49 SETTABLEKS                       R9 R8 K19 ["containerWidth"]
-       51 LOADK                            R9 K24 ["Save"]
-       52 SETTABLEKS                       R9 R8 K20 ["primaryAction"]
-       54 LOADK                            R9 K25 ["Don't save"]
-       55 SETTABLEKS                       R9 R8 K21 ["secondaryAction"]
-       57 LOADK                            R9 K26 ["Cancel"]
-       58 SETTABLEKS                       R9 R8 K22 ["tertiaryAction"]
-       60 SETTABLEKS                       R8 R7 K16 ["controls"]
-       62 NEWTABLE                         R8 0 1
-       64 DUPTABLE                         R9 K28 [{"name", "story"}]
-       65 LOADK                            R10 K29 ["Configurable"]
-       66 SETTABLEKS                       R10 R9 K15 ["name"]
-       68 DUPCLOSURE                       R10 K30 [PROTO_3]
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R5
-       73 SETTABLEKS                       R10 R9 K27 ["story"]
-       75 SETLIST                          R8 R9 1 [1]
-       77 SETTABLEKS                       R8 R7 K17 ["stories"]
-       79 RETURN                           R7 1
+       43 DUPTABLE                         R7 K18 [{["name"] = "DialogButtonGroup", ["controls"], ["stories"]}]
+       44 DUPTABLE                         R8 K27 [{["containerWidth"] = 318, ["primaryAction"] = "Save", ["secondaryAction"] = "Don't save", ["tertiaryAction"] = "Cancel"}]
+       45 SETTABLEKS                       R8 R7 K16 ["controls"]
+       47 NEWTABLE                         R8 0 1
+       49 DUPTABLE                         R9 K30 [{["name"] = "Configurable", ["story"]}]
+       50 DUPCLOSURE                       R10 K31 [PROTO_3]
+       51 CAPTURE                          VAL R6
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R5
+       55 SETTABLEKS                       R10 R9 K29 ["story"]
+       57 SETLIST                          R8 R9 1 [1]
+       59 SETTABLEKS                       R8 R7 K17 ["stories"]
+       61 RETURN                           R7 1

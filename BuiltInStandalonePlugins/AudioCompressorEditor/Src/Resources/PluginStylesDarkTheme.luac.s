@@ -10,36 +10,34 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Styling"]
        16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
-       18 DUPTABLE                         R3 K15 [{"ColorInputBox", "ColorKnob", "ColorKnobBackArc", "ColorTopButton", "DoubleArrow"}]
-       19 GETIMPORT                        R4 K18 [Color3.fromRGB]
+       18 DUPTABLE                         R3 K16 [{["ColorInputBox"], ["ColorKnob"], ["ColorKnobBackArc"], ["ColorTopButton"], ["DoubleArrow"] = "rbxasset://studio_svg_textures/Lua/AudioCompressorEditor/Dark/Standard/DoubleArrowDefaultDark.png"}]
+       19 GETIMPORT                        R4 K19 [Color3.fromRGB]
        21 LOADN                            R5 30
        22 LOADN                            R6 30
        23 LOADN                            R7 30
        24 CALL                             R4 3 1
        25 SETTABLEKS                       R4 R3 K10 ["ColorInputBox"]
-       27 GETIMPORT                        R4 K18 [Color3.fromRGB]
+       27 GETIMPORT                        R4 K19 [Color3.fromRGB]
        29 LOADN                            R5 60
        30 LOADN                            R6 60
        31 LOADN                            R7 60
        32 CALL                             R4 3 1
        33 SETTABLEKS                       R4 R3 K11 ["ColorKnob"]
-       35 GETIMPORT                        R4 K18 [Color3.fromRGB]
+       35 GETIMPORT                        R4 K19 [Color3.fromRGB]
        37 LOADN                            R5 10
        38 LOADN                            R6 10
        39 LOADN                            R7 10
        40 CALL                             R4 3 1
        41 SETTABLEKS                       R4 R3 K12 ["ColorKnobBackArc"]
-       43 GETIMPORT                        R4 K18 [Color3.fromRGB]
+       43 GETIMPORT                        R4 K19 [Color3.fromRGB]
        45 LOADN                            R5 80
        46 LOADN                            R6 80
        47 LOADN                            R7 80
        48 CALL                             R4 3 1
        49 SETTABLEKS                       R4 R3 K13 ["ColorTopButton"]
-       51 LOADK                            R4 K19 ["rbxasset://studio_svg_textures/Lua/AudioCompressorEditor/Dark/Standard/DoubleArrowDefaultDark.png"]
-       52 SETTABLEKS                       R4 R3 K14 ["DoubleArrow"]
-       54 MOVE                             R4 R2
-       55 LOADK                            R5 K20 ["AudioCompressorEditorDarkTheme"]
-       56 NEWTABLE                         R6 0 0
-       58 MOVE                             R7 R3
-       59 CALL                             R4 3 -1
-       60 RETURN                           R4 -1
+       51 MOVE                             R4 R2
+       52 LOADK                            R5 K20 ["AudioCompressorEditorDarkTheme"]
+       53 NEWTABLE                         R6 0 0
+       55 MOVE                             R7 R3
+       56 CALL                             R4 3 -1
+       57 RETURN                           R4 -1

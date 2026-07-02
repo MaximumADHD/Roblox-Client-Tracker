@@ -47,54 +47,48 @@ PROTO_2:
        31 JUMPIFNOTEQKNIL                  R6 ; [+2]
        33 LOADB                            R5 0 +1
        34 LOADB                            R5 1
-       35 DUPTABLE                         R6 K8 [{"Id", "Children"}]
-       36 LOADK                            R7 K9 ["DesignCategory_UiElements"]
-       37 SETTABLEKS                       R7 R6 K6 ["Id"]
-       39 NEWTABLE                         R7 0 2
-       41 DUPTABLE                         R8 K12 [{"Id", "Text", "Icon", "Children"}]
-       42 LOADK                            R9 K13 ["New"]
-       43 SETTABLEKS                       R9 R8 K6 ["Id"]
-       45 LOADK                            R11 K14 ["ContextMenu"]
-       46 LOADK                            R12 K13 ["New"]
-       47 NAMECALL                         R9 R3 K15 ["getText"]
-       49 CALL                             R9 3 1
-       50 SETTABLEKS                       R9 R8 K10 ["Text"]
-       52 GETUPVAL                         R9 4
-       53 GETTABLEKS                       R9 R9 K16 ["new"]
-       55 CALL                             R9 0 1
-       56 SETTABLEKS                       R9 R8 K11 ["Icon"]
-       58 SETTABLEKS                       R4 R8 K7 ["Children"]
-       60 DUPTABLE                         R9 K19 [{"Id", "Text", "Icon", "Enabled", "OnItemClicked"}]
-       61 LOADK                            R10 K20 ["PasteInto"]
-       62 SETTABLEKS                       R10 R9 K6 ["Id"]
-       64 LOADK                            R12 K14 ["ContextMenu"]
-       65 LOADK                            R13 K20 ["PasteInto"]
-       66 NAMECALL                         R10 R3 K15 ["getText"]
-       68 CALL                             R10 3 1
-       69 SETTABLEKS                       R10 R9 K10 ["Text"]
-       71 GETUPVAL                         R10 4
-       72 GETTABLEKS                       R10 R10 K21 ["paste"]
-       74 CALL                             R10 0 1
-       75 SETTABLEKS                       R10 R9 K11 ["Icon"]
-       77 SETTABLEKS                       R5 R9 K17 ["Enabled"]
-       79 NEWCLOSURE                       R10 P1
-       80 CAPTURE                          VAL R0
-       81 CAPTURE                          UPVAL U5
-       82 CAPTURE                          UPVAL U2
-       83 SETTABLEKS                       R10 R9 K18 ["OnItemClicked"]
-       85 SETLIST                          R7 R8 2 [1]
-       87 SETTABLEKS                       R7 R6 K7 ["Children"]
-       89 GETUPVAL                         R7 0
-       90 GETTABLEKS                       R7 R7 K22 ["trackClicks"]
-       92 MOVE                             R8 R6
-       93 GETTABLEKS                       R9 R1 K23 ["Telemetry"]
-       95 CALL                             R7 2 0
-       96 GETUPVAL                         R7 0
-       97 GETTABLEKS                       R7 R7 K24 ["showContextMenu"]
-       99 GETTABLEKS                       R8 R1 K25 ["Plugin"]
-      101 MOVE                             R9 R6
-      102 CALL                             R7 2 0
-      103 RETURN                           R0 0
+       35 DUPTABLE                         R6 K9 [{["Id"] = "DesignCategory_UiElements", ["Children"]}]
+       36 NEWTABLE                         R7 0 2
+       38 DUPTABLE                         R8 K13 [{["Id"] = "New", ["Text"], ["Icon"], ["Children"]}]
+       39 LOADK                            R11 K14 ["ContextMenu"]
+       40 LOADK                            R12 K10 ["New"]
+       41 NAMECALL                         R9 R3 K15 ["getText"]
+       43 CALL                             R9 3 1
+       44 SETTABLEKS                       R9 R8 K11 ["Text"]
+       46 GETUPVAL                         R9 4
+       47 GETTABLEKS                       R9 R9 K16 ["new"]
+       49 CALL                             R9 0 1
+       50 SETTABLEKS                       R9 R8 K12 ["Icon"]
+       52 SETTABLEKS                       R4 R8 K8 ["Children"]
+       54 DUPTABLE                         R9 K20 [{["Id"] = "PasteInto", ["Text"], ["Icon"], ["Enabled"], ["OnItemClicked"]}]
+       55 LOADK                            R12 K14 ["ContextMenu"]
+       56 LOADK                            R13 K17 ["PasteInto"]
+       57 NAMECALL                         R10 R3 K15 ["getText"]
+       59 CALL                             R10 3 1
+       60 SETTABLEKS                       R10 R9 K11 ["Text"]
+       62 GETUPVAL                         R10 4
+       63 GETTABLEKS                       R10 R10 K21 ["paste"]
+       65 CALL                             R10 0 1
+       66 SETTABLEKS                       R10 R9 K12 ["Icon"]
+       68 SETTABLEKS                       R5 R9 K18 ["Enabled"]
+       70 NEWCLOSURE                       R10 P1
+       71 CAPTURE                          VAL R0
+       72 CAPTURE                          UPVAL U5
+       73 CAPTURE                          UPVAL U2
+       74 SETTABLEKS                       R10 R9 K19 ["OnItemClicked"]
+       76 SETLIST                          R7 R8 2 [1]
+       78 SETTABLEKS                       R7 R6 K8 ["Children"]
+       80 GETUPVAL                         R7 0
+       81 GETTABLEKS                       R7 R7 K22 ["trackClicks"]
+       83 MOVE                             R8 R6
+       84 GETTABLEKS                       R9 R1 K23 ["Telemetry"]
+       86 CALL                             R7 2 0
+       87 GETUPVAL                         R7 0
+       88 GETTABLEKS                       R7 R7 K24 ["showContextMenu"]
+       90 GETTABLEKS                       R8 R1 K25 ["Plugin"]
+       92 MOVE                             R9 R6
+       93 CALL                             R7 2 0
+       94 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

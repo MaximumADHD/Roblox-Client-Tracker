@@ -92,50 +92,40 @@ PROTO_2:
        54 GETTABLEKS                       R8 R2 K13 ["Name"]
        56 CALL                             R5 3 1
        57 MOVE                             R4 R5
-       58 DUPTABLE                         R5 K22 [{"Uri", "Enabled", "Visible", "Text", "Icon", "Tooltip", "Shortcuts"}]
-       59 DUPTABLE                         R6 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       60 LOADK                            R7 K28 ["Standalone"]
-       61 SETTABLEKS                       R7 R6 K23 ["DataModel"]
-       63 LOADK                            R7 K29 ["Audio"]
-       64 SETTABLEKS                       R7 R6 K24 ["PluginId"]
-       66 LOADK                            R7 K30 ["Actions"]
-       67 SETTABLEKS                       R7 R6 K25 ["Category"]
-       69 LOADK                            R7 K31 ["Wire Up"]
-       70 SETTABLEKS                       R7 R6 K26 ["ItemId"]
-       72 SETTABLEKS                       R6 R5 K15 ["Uri"]
-       74 SETTABLEKS                       R3 R5 K16 ["Enabled"]
-       76 SETTABLEKS                       R3 R5 K17 ["Visible"]
-       78 SETTABLEKS                       R4 R5 K18 ["Text"]
-       80 LOADK                            R6 K32 ["Wire"]
-       81 SETTABLEKS                       R6 R5 K19 ["Icon"]
-       83 GETUPVAL                         R6 2
-       84 GETTABLEKS                       R6 R6 K33 ["tooltip"]
-       86 LOADK                            R7 K8 ["WireUp"]
-       87 CALL                             R6 1 1
-       88 SETTABLEKS                       R6 R5 K20 ["Tooltip"]
-       90 NEWTABLE                         R6 0 0
-       92 SETTABLEKS                       R6 R5 K21 ["Shortcuts"]
-       94 GETUPVAL                         R6 3
-       95 JUMPIFNOT                        R6 ; [+6]
-       96 GETUPVAL                         R6 3
-       97 NAMECALL                         R6 R6 K34 ["Disconnect"]
-       99 CALL                             R6 1 0
-      100 LOADNIL                          R6
+       58 DUPTABLE                         R5 K23 [{["Uri"], ["Enabled"], ["Visible"], ["Text"], ["Icon"] = "Wire", ["Tooltip"], ["Shortcuts"]}]
+       59 DUPTABLE                         R6 K32 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Wire Up"}]
+       60 SETTABLEKS                       R6 R5 K15 ["Uri"]
+       62 SETTABLEKS                       R3 R5 K16 ["Enabled"]
+       64 SETTABLEKS                       R3 R5 K17 ["Visible"]
+       66 SETTABLEKS                       R4 R5 K18 ["Text"]
+       68 GETUPVAL                         R6 2
+       69 GETTABLEKS                       R6 R6 K33 ["tooltip"]
+       71 LOADK                            R7 K8 ["WireUp"]
+       72 CALL                             R6 1 1
+       73 SETTABLEKS                       R6 R5 K21 ["Tooltip"]
+       75 NEWTABLE                         R6 0 0
+       77 SETTABLEKS                       R6 R5 K22 ["Shortcuts"]
+       79 GETUPVAL                         R6 3
+       80 JUMPIFNOT                        R6 ; [+6]
+       81 GETUPVAL                         R6 3
+       82 NAMECALL                         R6 R6 K34 ["Disconnect"]
+       84 CALL                             R6 1 0
+       85 LOADNIL                          R6
+       86 SETUPVAL                         R6 3
+       87 GETUPVAL                         R7 4
+       88 MOVE                             R9 R5
+       89 LOADB                            R10 1
+       90 NAMECALL                         R7 R7 K35 ["CreateAsync"]
+       92 CALL                             R7 3 1
+       93 GETTABLEN                        R6 R7 1
+       94 NEWCLOSURE                       R8 P0
+       95 CAPTURE                          UPVAL U5
+       96 CAPTURE                          VAL R1
+       97 CAPTURE                          VAL R2
+       98 NAMECALL                         R6 R6 K36 ["Connect"]
+      100 CALL                             R6 2 1
       101 SETUPVAL                         R6 3
-      102 GETUPVAL                         R7 4
-      103 MOVE                             R9 R5
-      104 LOADB                            R10 1
-      105 NAMECALL                         R7 R7 K35 ["CreateAsync"]
-      107 CALL                             R7 3 1
-      108 GETTABLEN                        R6 R7 1
-      109 NEWCLOSURE                       R8 P0
-      110 CAPTURE                          UPVAL U5
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R2
-      113 NAMECALL                         R6 R6 K36 ["Connect"]
-      115 CALL                             R6 2 1
-      116 SETUPVAL                         R6 3
-      117 RETURN                           R0 0
+      102 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

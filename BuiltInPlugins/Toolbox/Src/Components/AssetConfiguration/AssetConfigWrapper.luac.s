@@ -24,43 +24,39 @@ PROTO_2:
         9 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K3 [{"popUpGui", "owner", "groupId"}]
-        1 LOADNIL                          R3
-        2 SETTABLEKS                       R3 R2 K0 ["popUpGui"]
-        4 LOADNIL                          R3
-        5 SETTABLEKS                       R3 R2 K1 ["owner"]
-        7 GETUPVAL                         R4 0
-        8 CALL                             R4 0 1
-        9 JUMPIFNOT                        R4 ; [+3]
-       10 GETTABLEKS                       R3 R1 K2 ["groupId"]
-       12 JUMP                             ; [+1]
-       13 LOADNIL                          R3
-       14 SETTABLEKS                       R3 R2 K2 ["groupId"]
-       16 SETTABLEKS                       R2 R0 K4 ["state"]
-       18 NEWCLOSURE                       R2 P0
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K5 ["popUpRefFunc"]
-       22 NEWCLOSURE                       R2 P1
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R2 R0 K6 ["onClose"]
-       26 NEWCLOSURE                       R2 P2
-       27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R2 R0 K7 ["setOwner"]
-       30 GETUPVAL                         R2 1
-       31 GETTABLEKS                       R2 R2 K8 ["Util"]
-       33 GETTABLEKS                       R2 R2 K9 ["createFoundationDesignBinding"]
-       35 CALL                             R2 0 2
-       36 SETTABLEKS                       R3 R0 K10 ["onFoundationStyleSheetChange"]
-       38 GETUPVAL                         R4 2
-       39 GETTABLEKS                       R5 R1 K11 ["plugin"]
-       41 LOADNIL                          R6
-       42 LOADNIL                          R7
-       43 NEWTABLE                         R8 0 1
-       45 MOVE                             R9 R2
-       46 SETLIST                          R8 R9 1 [1]
-       48 CALL                             R4 4 1
-       49 SETTABLEKS                       R4 R0 K12 ["design"]
-       51 RETURN                           R0 0
+        0 DUPTABLE                         R2 K4 [{[1] = , ["owner"] = , ["groupId"]}]
+        1 GETUPVAL                         R4 0
+        2 CALL                             R4 0 1
+        3 JUMPIFNOT                        R4 ; [+3]
+        4 GETTABLEKS                       R3 R1 K3 ["groupId"]
+        6 JUMP                             ; [+1]
+        7 LOADNIL                          R3
+        8 SETTABLEKS                       R3 R2 K3 ["groupId"]
+       10 SETTABLEKS                       R2 R0 K5 ["state"]
+       12 NEWCLOSURE                       R2 P0
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K6 ["popUpRefFunc"]
+       16 NEWCLOSURE                       R2 P1
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R0 K7 ["onClose"]
+       20 NEWCLOSURE                       R2 P2
+       21 CAPTURE                          VAL R0
+       22 SETTABLEKS                       R2 R0 K8 ["setOwner"]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R2 R2 K9 ["Util"]
+       27 GETTABLEKS                       R2 R2 K10 ["createFoundationDesignBinding"]
+       29 CALL                             R2 0 2
+       30 SETTABLEKS                       R3 R0 K11 ["onFoundationStyleSheetChange"]
+       32 GETUPVAL                         R4 2
+       33 GETTABLEKS                       R5 R1 K12 ["plugin"]
+       35 LOADNIL                          R6
+       36 LOADNIL                          R7
+       37 NEWTABLE                         R8 0 1
+       39 MOVE                             R9 R2
+       40 SETLIST                          R8 R9 1 [1]
+       42 CALL                             R4 4 1
+       43 SETTABLEKS                       R4 R0 K13 ["design"]
+       45 RETURN                           R0 0
 
 PROTO_4:
         0 DUPTABLE                         R3 K1 [{"popUpGui"}]

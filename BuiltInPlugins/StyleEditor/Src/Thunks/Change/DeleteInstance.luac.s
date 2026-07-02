@@ -38,17 +38,13 @@ PROTO_1:
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
         3 GETTABLEKS                       R2 R1 K0 ["recordChange"]
-        5 DUPTABLE                         R3 K4 [{"Name", "DisplayName", "DoChange"}]
-        6 LOADK                            R4 K5 ["StyleEditor/DeleteInstance"]
-        7 SETTABLEKS                       R4 R3 K1 ["Name"]
-        9 LOADK                            R4 K6 ["StyleEditor - Delete Instance"]
-       10 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
-       12 NEWCLOSURE                       R4 P0
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          UPVAL U0
-       15 SETTABLEKS                       R4 R3 K3 ["DoChange"]
-       17 CALL                             R2 1 0
-       18 RETURN                           R0 0
+        5 DUPTABLE                         R3 K6 [{["Name"] = "StyleEditor/DeleteInstance", ["DisplayName"] = "StyleEditor - Delete Instance", ["DoChange"]}]
+        6 NEWCLOSURE                       R4 P0
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          UPVAL U0
+        9 SETTABLEKS                       R4 R3 K5 ["DoChange"]
+       11 CALL                             R2 1 0
+       12 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0

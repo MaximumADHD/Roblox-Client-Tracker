@@ -9,90 +9,82 @@ PROTO_0:
        13 GETTABLEKS                       R6 R4 K6 ["BackgroundOdd"]
        15 JUMP                             ; [+2]
        16 GETTABLEKS                       R6 R4 K7 ["BackgroundEven"]
-       18 DUPTABLE                         R7 K15 [{"Layout", "VerticalAlignment", "LayoutOrder", "Style", "BackgroundColor", "BorderSizePixel", "BorderColor3", "Size"}]
-       19 GETIMPORT                        R8 K19 [Enum.FillDirection.Horizontal]
+       18 DUPTABLE                         R7 K17 [{["Layout"], ["VerticalAlignment"], ["LayoutOrder"], ["Style"] = "Box", ["BackgroundColor"], ["BorderSizePixel"] = 1, ["BorderColor3"], ["Size"]}]
+       19 GETIMPORT                        R8 K21 [Enum.FillDirection.Horizontal]
        21 SETTABLEKS                       R8 R7 K8 ["Layout"]
-       23 GETIMPORT                        R8 K21 [Enum.VerticalAlignment.Center]
+       23 GETIMPORT                        R8 K23 [Enum.VerticalAlignment.Center]
        25 SETTABLEKS                       R8 R7 K9 ["VerticalAlignment"]
        27 SETTABLEKS                       R5 R7 K10 ["LayoutOrder"]
-       29 LOADK                            R8 K22 ["Box"]
-       30 SETTABLEKS                       R8 R7 K3 ["Style"]
-       32 SETTABLEKS                       R6 R7 K11 ["BackgroundColor"]
-       34 LOADN                            R8 1
-       35 SETTABLEKS                       R8 R7 K12 ["BorderSizePixel"]
-       37 GETTABLEKS                       R8 R4 K23 ["Border"]
-       39 SETTABLEKS                       R8 R7 K13 ["BorderColor3"]
-       41 GETIMPORT                        R8 K26 [UDim2.new]
-       43 GETTABLEKS                       R9 R2 K27 ["Scale"]
-       45 GETTABLEKS                       R10 R2 K28 ["Offset"]
-       47 LOADN                            R11 1
-       48 LOADN                            R12 0
-       49 CALL                             R8 4 1
-       50 SETTABLEKS                       R8 R7 K14 ["Size"]
-       52 GETUPVAL                         R8 0
-       53 GETTABLEKS                       R8 R8 K29 ["TEXT_COLUMN_INDEX"]
-       55 JUMPIFNOTEQ                      R5 R8 ; [+45]
-       57 GETUPVAL                         R8 1
-       58 GETTABLEKS                       R8 R8 K30 ["createElement"]
-       60 GETUPVAL                         R9 2
-       61 GETUPVAL                         R10 3
-       62 GETTABLEKS                       R10 R10 K31 ["Dictionary"]
-       64 GETTABLEKS                       R10 R10 K32 ["join"]
-       66 MOVE                             R11 R7
-       67 DUPTABLE                         R12 K35 [{"Padding", "HorizontalAlignment"}]
-       68 DUPTABLE                         R13 K37 [{"Left"}]
-       69 LOADN                            R14 24
-       70 SETTABLEKS                       R14 R13 K36 ["Left"]
-       72 SETTABLEKS                       R13 R12 K33 ["Padding"]
-       74 GETIMPORT                        R13 K38 [Enum.HorizontalAlignment.Left]
-       76 SETTABLEKS                       R13 R12 K34 ["HorizontalAlignment"]
-       78 CALL                             R10 2 1
-       79 DUPTABLE                         R11 K40 [{"Text"}]
-       80 GETUPVAL                         R12 1
-       81 GETTABLEKS                       R12 R12 K30 ["createElement"]
-       83 GETUPVAL                         R13 4
-       84 DUPTABLE                         R14 K42 [{"AutomaticSize", "LayoutOrder", "Text"}]
-       85 GETIMPORT                        R15 K44 [Enum.AutomaticSize.XY]
-       87 SETTABLEKS                       R15 R14 K41 ["AutomaticSize"]
-       89 LOADN                            R15 2
-       90 SETTABLEKS                       R15 R14 K10 ["LayoutOrder"]
-       92 GETTABLEKS                       R15 R3 K45 ["text"]
-       94 SETTABLEKS                       R15 R14 K39 ["Text"]
-       96 CALL                             R12 2 1
-       97 SETTABLEKS                       R12 R11 K39 ["Text"]
-       99 CALL                             R8 3 -1
-      100 RETURN                           R8 -1
-      101 GETUPVAL                         R8 1
-      102 GETTABLEKS                       R8 R8 K30 ["createElement"]
-      104 GETUPVAL                         R9 2
-      105 GETUPVAL                         R10 3
-      106 GETTABLEKS                       R10 R10 K31 ["Dictionary"]
-      108 GETTABLEKS                       R10 R10 K32 ["join"]
-      110 MOVE                             R11 R7
-      111 DUPTABLE                         R12 K46 [{"HorizontalAlignment"}]
-      112 GETIMPORT                        R13 K47 [Enum.HorizontalAlignment.Center]
-      114 SETTABLEKS                       R13 R12 K34 ["HorizontalAlignment"]
-      116 CALL                             R10 2 1
-      117 DUPTABLE                         R11 K49 [{"Image"}]
-      118 GETUPVAL                         R12 1
-      119 GETTABLEKS                       R12 R12 K30 ["createElement"]
-      121 GETUPVAL                         R13 5
-      122 DUPTABLE                         R14 K50 [{"Size", "Image"}]
-      123 GETIMPORT                        R15 K52 [UDim2.fromOffset]
-      125 LOADN                            R16 16
-      126 LOADN                            R17 16
-      127 CALL                             R15 2 1
-      128 SETTABLEKS                       R15 R14 K14 ["Size"]
-      130 GETTABLEKS                       R16 R3 K53 ["complete"]
-      132 JUMPIFNOT                        R16 ; [+2]
-      133 LOADK                            R15 K54 ["rbxasset://textures/R15Migrator/Icon_Checkmark.png"]
-      134 JUMP                             ; [+1]
-      135 LOADK                            R15 K55 ["rbxasset://textures/R15Migrator/Icon_Error_Checkmark.png"]
-      136 SETTABLEKS                       R15 R14 K48 ["Image"]
-      138 CALL                             R12 2 1
-      139 SETTABLEKS                       R12 R11 K48 ["Image"]
-      141 CALL                             R8 3 -1
-      142 RETURN                           R8 -1
+       29 SETTABLEKS                       R6 R7 K12 ["BackgroundColor"]
+       31 GETTABLEKS                       R8 R4 K24 ["Border"]
+       33 SETTABLEKS                       R8 R7 K15 ["BorderColor3"]
+       35 GETIMPORT                        R8 K27 [UDim2.new]
+       37 GETTABLEKS                       R9 R2 K28 ["Scale"]
+       39 GETTABLEKS                       R10 R2 K29 ["Offset"]
+       41 LOADN                            R11 1
+       42 LOADN                            R12 0
+       43 CALL                             R8 4 1
+       44 SETTABLEKS                       R8 R7 K16 ["Size"]
+       46 GETUPVAL                         R8 0
+       47 GETTABLEKS                       R8 R8 K30 ["TEXT_COLUMN_INDEX"]
+       49 JUMPIFNOTEQ                      R5 R8 ; [+39]
+       51 GETUPVAL                         R8 1
+       52 GETTABLEKS                       R8 R8 K31 ["createElement"]
+       54 GETUPVAL                         R9 2
+       55 GETUPVAL                         R10 3
+       56 GETTABLEKS                       R10 R10 K32 ["Dictionary"]
+       58 GETTABLEKS                       R10 R10 K33 ["join"]
+       60 MOVE                             R11 R7
+       61 DUPTABLE                         R12 K36 [{"Padding", "HorizontalAlignment"}]
+       62 DUPTABLE                         R13 K39 [{["Left"] = 24}]
+       63 SETTABLEKS                       R13 R12 K34 ["Padding"]
+       65 GETIMPORT                        R13 K40 [Enum.HorizontalAlignment.Left]
+       67 SETTABLEKS                       R13 R12 K35 ["HorizontalAlignment"]
+       69 CALL                             R10 2 1
+       70 DUPTABLE                         R11 K42 [{"Text"}]
+       71 GETUPVAL                         R12 1
+       72 GETTABLEKS                       R12 R12 K31 ["createElement"]
+       74 GETUPVAL                         R13 4
+       75 DUPTABLE                         R14 K45 [{["AutomaticSize"], ["LayoutOrder"] = 2, ["Text"]}]
+       76 GETIMPORT                        R15 K47 [Enum.AutomaticSize.XY]
+       78 SETTABLEKS                       R15 R14 K43 ["AutomaticSize"]
+       80 GETTABLEKS                       R15 R3 K48 ["text"]
+       82 SETTABLEKS                       R15 R14 K41 ["Text"]
+       84 CALL                             R12 2 1
+       85 SETTABLEKS                       R12 R11 K41 ["Text"]
+       87 CALL                             R8 3 -1
+       88 RETURN                           R8 -1
+       89 GETUPVAL                         R8 1
+       90 GETTABLEKS                       R8 R8 K31 ["createElement"]
+       92 GETUPVAL                         R9 2
+       93 GETUPVAL                         R10 3
+       94 GETTABLEKS                       R10 R10 K32 ["Dictionary"]
+       96 GETTABLEKS                       R10 R10 K33 ["join"]
+       98 MOVE                             R11 R7
+       99 DUPTABLE                         R12 K49 [{"HorizontalAlignment"}]
+      100 GETIMPORT                        R13 K50 [Enum.HorizontalAlignment.Center]
+      102 SETTABLEKS                       R13 R12 K35 ["HorizontalAlignment"]
+      104 CALL                             R10 2 1
+      105 DUPTABLE                         R11 K52 [{"Image"}]
+      106 GETUPVAL                         R12 1
+      107 GETTABLEKS                       R12 R12 K31 ["createElement"]
+      109 GETUPVAL                         R13 5
+      110 DUPTABLE                         R14 K53 [{"Size", "Image"}]
+      111 GETIMPORT                        R15 K55 [UDim2.fromOffset]
+      113 LOADN                            R16 16
+      114 LOADN                            R17 16
+      115 CALL                             R15 2 1
+      116 SETTABLEKS                       R15 R14 K16 ["Size"]
+      118 GETTABLEKS                       R16 R3 K56 ["complete"]
+      120 JUMPIFNOT                        R16 ; [+2]
+      121 LOADK                            R15 K57 ["rbxasset://textures/R15Migrator/Icon_Checkmark.png"]
+      122 JUMP                             ; [+1]
+      123 LOADK                            R15 K58 ["rbxasset://textures/R15Migrator/Icon_Error_Checkmark.png"]
+      124 SETTABLEKS                       R15 R14 K51 ["Image"]
+      126 CALL                             R12 2 1
+      127 SETTABLEKS                       R12 R11 K51 ["Image"]
+      129 CALL                             R8 3 -1
+      130 RETURN                           R8 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

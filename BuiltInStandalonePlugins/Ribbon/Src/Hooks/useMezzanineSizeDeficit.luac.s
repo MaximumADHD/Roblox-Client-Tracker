@@ -57,34 +57,30 @@ PROTO_2:
         1 LOADN                            R1 0
         2 CALL                             R0 1 2
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K2 [{"left", "right"}]
-        5 LOADNIL                          R4
-        6 SETTABLEKS                       R4 R3 K0 ["left"]
-        8 LOADNIL                          R4
-        9 SETTABLEKS                       R4 R3 K1 ["right"]
-       11 CALL                             R2 1 1
-       12 GETUPVAL                         R3 2
-       13 NEWCLOSURE                       R4 P0
-       14 CAPTURE                          VAL R2
-       15 CAPTURE                          VAL R1
-       16 NEWTABLE                         R5 0 2
-       18 MOVE                             R6 R2
-       19 MOVE                             R7 R1
-       20 SETLIST                          R5 R6 2 [1]
-       22 CALL                             R3 2 1
-       23 GETUPVAL                         R4 2
-       24 NEWCLOSURE                       R5 P1
-       25 CAPTURE                          VAL R2
-       26 CAPTURE                          VAL R1
-       27 NEWTABLE                         R6 0 2
-       29 MOVE                             R7 R2
-       30 MOVE                             R8 R1
-       31 SETLIST                          R6 R7 2 [1]
-       33 CALL                             R4 2 1
-       34 MOVE                             R5 R0
-       35 MOVE                             R6 R3
-       36 MOVE                             R7 R4
-       37 RETURN                           R5 3
+        4 DUPTABLE                         R3 K3 [{[1] = , ["right"] = }]
+        5 CALL                             R2 1 1
+        6 GETUPVAL                         R3 2
+        7 NEWCLOSURE                       R4 P0
+        8 CAPTURE                          VAL R2
+        9 CAPTURE                          VAL R1
+       10 NEWTABLE                         R5 0 2
+       12 MOVE                             R6 R2
+       13 MOVE                             R7 R1
+       14 SETLIST                          R5 R6 2 [1]
+       16 CALL                             R3 2 1
+       17 GETUPVAL                         R4 2
+       18 NEWCLOSURE                       R5 P1
+       19 CAPTURE                          VAL R2
+       20 CAPTURE                          VAL R1
+       21 NEWTABLE                         R6 0 2
+       23 MOVE                             R7 R2
+       24 MOVE                             R8 R1
+       25 SETLIST                          R6 R7 2 [1]
+       27 CALL                             R4 2 1
+       28 MOVE                             R5 R0
+       29 MOVE                             R6 R3
+       30 MOVE                             R7 R4
+       31 RETURN                           R5 3
 
 MAIN:
         0 PREPVARARGS                      0

@@ -45,7 +45,7 @@ PROTO_2:
        32 CALL                             R6 2 1
        33 LOADN                            R7 0
        34 JUMPIFLT                         R6 R7 ; [+3]
-       36 LOADN                            R5 255
+       36 LOADN                            R5 -1
        37 JUMP                             ; [+1]
        38 LOADN                            R5 1
        39 SETTABLEKS                       R5 R0 K6 ["_sign"]
@@ -59,7 +59,7 @@ PROTO_2:
        50 GETTABLEKS                       R5 R0 K10 ["_totalAngle"]
        52 GETTABLEKS                       R7 R0 K6 ["_sign"]
        54 GETTABLEKS                       R10 R0 K3 ["_previousAngle"]
-       56 SUBRK                            R9 R11 K10 ["_totalAngle"]
+       56 SUBRK                            R9 K11 [6.28318530717959] R10
        57 SUB                              R8 R9 R3
        58 MUL                              R6 R7 R8
        59 SUB                              R5 R5 R6

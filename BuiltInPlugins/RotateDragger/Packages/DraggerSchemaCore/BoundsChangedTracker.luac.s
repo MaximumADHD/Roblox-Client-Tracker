@@ -10,25 +10,23 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K5 [{"_handler", "_installed", "_partToEntry", "_proceduralModelToEntry", "_attachmentToEntry"}]
+        0 DUPTABLE                         R3 K6 [{[1], ["_installed"] = False, ["_partToEntry"], ["_proceduralModelToEntry"], ["_attachmentToEntry"]}]
         1 SETTABLEKS                       R1 R3 K0 ["_handler"]
-        3 LOADB                            R4 0
-        4 SETTABLEKS                       R4 R3 K1 ["_installed"]
-        6 NEWTABLE                         R4 0 0
-        8 SETTABLEKS                       R4 R3 K2 ["_partToEntry"]
-       10 NEWTABLE                         R4 0 0
-       12 SETTABLEKS                       R4 R3 K3 ["_proceduralModelToEntry"]
-       14 NEWTABLE                         R4 0 0
-       16 SETTABLEKS                       R4 R3 K4 ["_attachmentToEntry"]
-       18 GETUPVAL                         R4 0
-       19 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       21 GETIMPORT                        R2 K7 [setmetatable]
-       23 CALL                             R2 2 1
-       24 NEWCLOSURE                       R3 P0
-       25 CAPTURE                          VAL R1
-       26 CAPTURE                          VAL R2
-       27 SETTABLEKS                       R3 R2 K8 ["_basisPivotChangedTrampoline"]
-       29 RETURN                           R2 1
+        3 NEWTABLE                         R4 0 0
+        5 SETTABLEKS                       R4 R3 K3 ["_partToEntry"]
+        7 NEWTABLE                         R4 0 0
+        9 SETTABLEKS                       R4 R3 K4 ["_proceduralModelToEntry"]
+       11 NEWTABLE                         R4 0 0
+       13 SETTABLEKS                       R4 R3 K5 ["_attachmentToEntry"]
+       15 GETUPVAL                         R4 0
+       16 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       18 GETIMPORT                        R2 K8 [setmetatable]
+       20 CALL                             R2 2 1
+       21 NEWCLOSURE                       R3 P0
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R2
+       24 SETTABLEKS                       R3 R2 K9 ["_basisPivotChangedTrampoline"]
+       26 RETURN                           R2 1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["CFrameChangedSignal"]
@@ -466,7 +464,7 @@ PROTO_21:
         4 MOVE                             R4 R1
         5 CALL                             R3 1 3
         6 FORGPREP_INEXT                   R3
-        7 LOADN                            R8 0
+        7 LOADN                            R8 1024
         8 JUMPIFLT                         R8 R6 ; [+85]
        10 GETTABLEKS                       R9 R0 K2 ["_partToEntry"]
        12 GETTABLE                         R8 R9 R7

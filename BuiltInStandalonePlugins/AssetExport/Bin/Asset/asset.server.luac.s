@@ -23,7 +23,7 @@ PROTO_1:
         5 RETURN                           R0 0
         6 GETUPVAL                         R0 0
         7 GETTABLEKS                       R0 R0 K3 ["MountAssetReactTree"]
-        9 JUMPIFNOT                        R0 ; [+80]
+        9 JUMPIFNOT                        R0 ; [+77]
        10 GETIMPORT                        R0 K5 [require]
        12 GETUPVAL                         R1 1
        13 GETTABLEKS                       R1 R1 K6 ["Packages"]
@@ -41,45 +41,43 @@ PROTO_1:
        33 CALL                             R2 1 1
        34 GETTABLEKS                       R3 R0 K11 ["createElement"]
        36 MOVE                             R4 R2
-       37 DUPTABLE                         R5 K14 [{"Plugin", "isMock"}]
+       37 DUPTABLE                         R5 K15 [{["Plugin"], ["isMock"] = False}]
        38 GETIMPORT                        R6 K1 [plugin]
        40 SETTABLEKS                       R6 R5 K12 ["Plugin"]
-       42 LOADB                            R6 0
-       43 SETTABLEKS                       R6 R5 K13 ["isMock"]
-       45 CALL                             R3 2 1
-       46 GETIMPORT                        R4 K17 [Instance.new]
-       48 LOADK                            R5 K18 ["ScreenGui"]
-       49 CALL                             R4 1 1
-       50 GETTABLEKS                       R5 R1 K19 ["createRoot"]
-       52 MOVE                             R6 R4
-       53 CALL                             R5 1 1
-       54 FASTCALL1                        ASSERT R5 ; [+3]
-       55 MOVE                             R7 R5
-       56 GETIMPORT                        R6 K21 [assert]
-       58 CALL                             R6 1 0
-       59 MOVE                             R8 R3
-       60 NAMECALL                         R6 R5 K22 ["render"]
-       62 CALL                             R6 2 0
-       63 GETIMPORT                        R6 K24 [game]
-       65 LOADK                            R8 K25 ["StarterGui"]
-       66 NAMECALL                         R6 R6 K26 ["GetService"]
-       68 CALL                             R6 2 1
-       69 SETTABLEKS                       R6 R4 K27 ["Parent"]
-       71 NEWCLOSURE                       R6 P0
-       72 CAPTURE                          REF R5
-       73 CAPTURE                          UPVAL U2
-       74 GETIMPORT                        R7 K1 [plugin]
-       76 GETTABLEKS                       R7 R7 K28 ["Unloading"]
-       78 MOVE                             R9 R6
-       79 NAMECALL                         R7 R7 K29 ["Connect"]
-       81 CALL                             R7 2 0
-       82 GETUPVAL                         R7 3
-       83 GETTABLEKS                       R7 R7 K30 ["CurrentDataModelTypeAboutToChange"]
-       85 MOVE                             R9 R6
-       86 NAMECALL                         R7 R7 K29 ["Connect"]
-       88 CALL                             R7 2 0
-       89 CLOSEUPVALS                      R5
-       90 RETURN                           R0 0
+       42 CALL                             R3 2 1
+       43 GETIMPORT                        R4 K18 [Instance.new]
+       45 LOADK                            R5 K19 ["ScreenGui"]
+       46 CALL                             R4 1 1
+       47 GETTABLEKS                       R5 R1 K20 ["createRoot"]
+       49 MOVE                             R6 R4
+       50 CALL                             R5 1 1
+       51 FASTCALL1                        ASSERT R5 ; [+3]
+       52 MOVE                             R7 R5
+       53 GETIMPORT                        R6 K22 [assert]
+       55 CALL                             R6 1 0
+       56 MOVE                             R8 R3
+       57 NAMECALL                         R6 R5 K23 ["render"]
+       59 CALL                             R6 2 0
+       60 GETIMPORT                        R6 K25 [game]
+       62 LOADK                            R8 K26 ["StarterGui"]
+       63 NAMECALL                         R6 R6 K27 ["GetService"]
+       65 CALL                             R6 2 1
+       66 SETTABLEKS                       R6 R4 K28 ["Parent"]
+       68 NEWCLOSURE                       R6 P0
+       69 CAPTURE                          REF R5
+       70 CAPTURE                          UPVAL U2
+       71 GETIMPORT                        R7 K1 [plugin]
+       73 GETTABLEKS                       R7 R7 K29 ["Unloading"]
+       75 MOVE                             R9 R6
+       76 NAMECALL                         R7 R7 K30 ["Connect"]
+       78 CALL                             R7 2 0
+       79 GETUPVAL                         R7 3
+       80 GETTABLEKS                       R7 R7 K31 ["CurrentDataModelTypeAboutToChange"]
+       82 MOVE                             R9 R6
+       83 NAMECALL                         R7 R7 K30 ["Connect"]
+       85 CALL                             R7 2 0
+       86 CLOSEUPVALS                      R5
+       87 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

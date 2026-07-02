@@ -19,12 +19,10 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["dropdownHoveredItemIndex"]
         2 GETUPVAL                         R2 0
-        3 JUMPIFNOTEQ                      R1 R2 ; [+6]
-        5 DUPTABLE                         R1 K1 [{"dropdownHoveredItemIndex"}]
-        6 LOADN                            R2 0
-        7 SETTABLEKS                       R2 R1 K0 ["dropdownHoveredItemIndex"]
-        9 RETURN                           R1 1
-       10 RETURN                           R0 0
+        3 JUMPIFNOTEQ                      R1 R2 ; [+3]
+        5 DUPTABLE                         R1 K2 [{[1] = 0}]
+        6 RETURN                           R1 1
+        7 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -43,21 +41,19 @@ PROTO_4:
         5 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"dropdownHoveredItemIndex"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["dropdownHoveredItemIndex"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onDropdownItemMouseEntered"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onDropdownItemMouseLeft"]
-       14 DUPCLOSURE                       R1 K5 [PROTO_4]
-       15 SETTABLEKS                       R1 R0 K6 ["onDropdownItemActivated"]
-       17 LOADNIL                          R1
-       18 SETTABLEKS                       R1 R0 K7 ["lastReportedHeight"]
-       20 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = 0}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onDropdownItemMouseEntered"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onDropdownItemMouseLeft"]
+       11 DUPCLOSURE                       R1 K6 [PROTO_4]
+       12 SETTABLEKS                       R1 R0 K7 ["onDropdownItemActivated"]
+       14 LOADNIL                          R1
+       15 SETTABLEKS                       R1 R0 K8 ["lastReportedHeight"]
+       17 RETURN                           R0 0
 
 PROTO_6:
         0 LOADB                            R1 1
@@ -218,11 +214,11 @@ PROTO_10:
       171 SETTABLE                         R30 R28 R29
       172 DUPTABLE                         R29 K53 [{"SelectedBar", "TextLabel"}]
       173 NOT                              R30 R11
-      174 JUMPIFNOT                        R30 ; [+29]
+      174 JUMPIFNOT                        R30 ; [+23]
       175 GETUPVAL                         R30 0
       176 GETTABLEKS                       R30 R30 K5 ["createElement"]
       178 LOADK                            R31 K54 ["Frame"]
-      179 DUPTABLE                         R32 K56 [{"Size", "BorderSizePixel", "BackgroundColor3", "Visible", "ZIndex"}]
+      179 DUPTABLE                         R32 K57 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["Visible"], ["ZIndex"] = 2}]
       180 GETIMPORT                        R33 K36 [UDim2.new]
       182 LOADN                            R34 0
       183 MOVE                             R35 R9
@@ -230,56 +226,46 @@ PROTO_10:
       185 LOADN                            R37 0
       186 CALL                             R33 4 1
       187 SETTABLEKS                       R33 R32 K38 ["Size"]
-      189 LOADN                            R33 0
-      190 SETTABLEKS                       R33 R32 K42 ["BorderSizePixel"]
-      192 GETTABLEKS                       R33 R12 K2 ["item"]
-      194 GETTABLEKS                       R33 R33 K57 ["selectedBarColor"]
-      196 SETTABLEKS                       R33 R32 K41 ["BackgroundColor3"]
-      198 SETTABLEKS                       R23 R32 K55 ["Visible"]
-      200 LOADN                            R33 2
-      201 SETTABLEKS                       R33 R32 K43 ["ZIndex"]
-      203 CALL                             R30 2 1
-      204 SETTABLEKS                       R30 R29 K51 ["SelectedBar"]
-      206 GETUPVAL                         R30 0
-      207 GETTABLEKS                       R30 R30 K5 ["createElement"]
-      209 LOADK                            R31 K52 ["TextLabel"]
-      210 DUPTABLE                         R32 K67 [{"Position", "Size", "BackgroundTransparency", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "ClipsDescendants", "ZIndex"}]
-      211 GETIMPORT                        R33 K36 [UDim2.new]
-      213 LOADN                            R34 0
-      214 MOVE                             R35 R5
-      215 LOADN                            R36 0
-      216 LOADN                            R37 0
-      217 CALL                             R33 4 1
-      218 SETTABLEKS                       R33 R32 K58 ["Position"]
-      220 GETIMPORT                        R33 K36 [UDim2.new]
-      222 LOADN                            R34 1
-      223 MINUS                            R35 R5
-      224 LOADN                            R36 1
-      225 LOADN                            R37 0
-      226 CALL                             R33 4 1
-      227 SETTABLEKS                       R33 R32 K38 ["Size"]
-      229 LOADN                            R33 1
-      230 SETTABLEKS                       R33 R32 K59 ["BackgroundTransparency"]
-      232 SETTABLEKS                       R22 R32 K60 ["Text"]
-      234 SETTABLEKS                       R21 R32 K61 ["TextColor3"]
-      236 GETUPVAL                         R33 3
-      237 GETTABLEKS                       R33 R33 K68 ["FONT"]
-      239 SETTABLEKS                       R33 R32 K62 ["Font"]
-      241 SETTABLEKS                       R7 R32 K63 ["TextSize"]
-      243 GETIMPORT                        R33 K70 [Enum.TextXAlignment.Left]
-      245 SETTABLEKS                       R33 R32 K64 ["TextXAlignment"]
-      247 GETIMPORT                        R33 K72 [Enum.TextYAlignment.Center]
-      249 SETTABLEKS                       R33 R32 K65 ["TextYAlignment"]
-      251 LOADB                            R33 1
-      252 SETTABLEKS                       R33 R32 K66 ["ClipsDescendants"]
-      254 LOADN                            R33 3
-      255 SETTABLEKS                       R33 R32 K43 ["ZIndex"]
-      257 CALL                             R30 2 1
-      258 SETTABLEKS                       R30 R29 K52 ["TextLabel"]
-      260 CALL                             R26 3 1
-      261 SETTABLE                         R26 R14 R25
-      262 FORGLOOP                         R15 2 [inext] ; [-235]
-      264 RETURN                           R14 1
+      189 GETTABLEKS                       R33 R12 K2 ["item"]
+      191 GETTABLEKS                       R33 R33 K58 ["selectedBarColor"]
+      193 SETTABLEKS                       R33 R32 K41 ["BackgroundColor3"]
+      195 SETTABLEKS                       R23 R32 K56 ["Visible"]
+      197 CALL                             R30 2 1
+      198 SETTABLEKS                       R30 R29 K51 ["SelectedBar"]
+      200 GETUPVAL                         R30 0
+      201 GETTABLEKS                       R30 R30 K5 ["createElement"]
+      203 LOADK                            R31 K52 ["TextLabel"]
+      204 DUPTABLE                         R32 K71 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextColor3"], ["Font"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["ClipsDescendants"] = True, ["ZIndex"] = 3}]
+      205 GETIMPORT                        R33 K36 [UDim2.new]
+      207 LOADN                            R34 0
+      208 MOVE                             R35 R5
+      209 LOADN                            R36 0
+      210 LOADN                            R37 0
+      211 CALL                             R33 4 1
+      212 SETTABLEKS                       R33 R32 K59 ["Position"]
+      214 GETIMPORT                        R33 K36 [UDim2.new]
+      216 LOADN                            R34 1
+      217 MINUS                            R35 R5
+      218 LOADN                            R36 1
+      219 LOADN                            R37 0
+      220 CALL                             R33 4 1
+      221 SETTABLEKS                       R33 R32 K38 ["Size"]
+      223 SETTABLEKS                       R22 R32 K62 ["Text"]
+      225 SETTABLEKS                       R21 R32 K63 ["TextColor3"]
+      227 GETUPVAL                         R33 3
+      228 GETTABLEKS                       R33 R33 K72 ["FONT"]
+      230 SETTABLEKS                       R33 R32 K64 ["Font"]
+      232 SETTABLEKS                       R7 R32 K65 ["TextSize"]
+      234 GETIMPORT                        R33 K74 [Enum.TextXAlignment.Left]
+      236 SETTABLEKS                       R33 R32 K66 ["TextXAlignment"]
+      238 GETIMPORT                        R33 K76 [Enum.TextYAlignment.Center]
+      240 SETTABLEKS                       R33 R32 K67 ["TextYAlignment"]
+      242 CALL                             R30 2 1
+      243 SETTABLEKS                       R30 R29 K52 ["TextLabel"]
+      245 CALL                             R26 3 1
+      246 SETTABLE                         R26 R14 R25
+      247 FORGLOOP                         R15 2 [inext] ; [-220]
+      249 RETURN                           R14 1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -354,62 +340,56 @@ PROTO_11:
       105 GETUPVAL                         R28 1
       106 GETTABLEKS                       R28 R28 K28 ["createElement"]
       108 GETUPVAL                         R29 3
-      109 DUPTABLE                         R30 K39 [{"Position", "Size", "CanvasSize", "ZIndex"}]
-      110 GETIMPORT                        R31 K42 [UDim2.new]
+      109 DUPTABLE                         R30 K40 [{["Position"], ["Size"], ["CanvasSize"], ["ZIndex"] = 1}]
+      110 GETIMPORT                        R31 K43 [UDim2.new]
       112 LOADN                            R32 0
       113 MOVE                             R33 R5
       114 LOADN                            R34 0
       115 MOVE                             R35 R6
       116 CALL                             R31 4 1
       117 SETTABLEKS                       R31 R30 K35 ["Position"]
-      119 GETIMPORT                        R31 K42 [UDim2.new]
+      119 GETIMPORT                        R31 K43 [UDim2.new]
       121 LOADN                            R32 0
       122 MOVE                             R33 R7
       123 LOADN                            R34 0
       124 MOVE                             R35 R22
       125 CALL                             R31 4 1
       126 SETTABLEKS                       R31 R30 K36 ["Size"]
-      128 GETIMPORT                        R31 K42 [UDim2.new]
+      128 GETIMPORT                        R31 K43 [UDim2.new]
       130 LOADN                            R32 0
       131 LOADN                            R33 0
       132 LOADN                            R34 0
       133 MUL                              R35 R9 R11
       134 CALL                             R31 4 1
       135 SETTABLEKS                       R31 R30 K37 ["CanvasSize"]
-      137 LOADN                            R31 1
-      138 SETTABLEKS                       R31 R30 K38 ["ZIndex"]
-      140 MOVE                             R31 R23
-      141 CALL                             R28 3 1
-      142 SETTABLEKS                       R28 R27 K32 ["StyledScrollingFrame"]
-      144 GETUPVAL                         R28 1
-      145 GETTABLEKS                       R28 R28 K28 ["createElement"]
-      147 GETUPVAL                         R29 4
-      148 DUPTABLE                         R30 K45 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "BorderColor3"}]
-      149 GETIMPORT                        R31 K42 [UDim2.new]
-      151 LOADN                            R32 0
-      152 MOVE                             R33 R5
-      153 LOADN                            R34 0
-      154 MOVE                             R35 R6
-      155 CALL                             R31 4 1
-      156 SETTABLEKS                       R31 R30 K35 ["Position"]
-      158 GETIMPORT                        R31 K42 [UDim2.new]
-      160 LOADN                            R32 0
-      161 MOVE                             R33 R7
-      162 LOADN                            R34 0
-      163 MOVE                             R35 R22
-      164 CALL                             R31 4 1
-      165 SETTABLEKS                       R31 R30 K36 ["Size"]
-      167 LOADN                            R31 1
-      168 SETTABLEKS                       R31 R30 K43 ["BackgroundTransparency"]
-      170 LOADN                            R31 2
-      171 SETTABLEKS                       R31 R30 K38 ["ZIndex"]
-      173 GETTABLEKS                       R31 R19 K46 ["dropdownFrame"]
-      175 GETTABLEKS                       R31 R31 K47 ["borderColor"]
-      177 SETTABLEKS                       R31 R30 K44 ["BorderColor3"]
-      179 CALL                             R28 2 1
-      180 SETTABLEKS                       R28 R27 K33 ["DropDownContainer"]
-      182 CALL                             R24 3 -1
-      183 RETURN                           R24 -1
+      137 MOVE                             R31 R23
+      138 CALL                             R28 3 1
+      139 SETTABLEKS                       R28 R27 K32 ["StyledScrollingFrame"]
+      141 GETUPVAL                         R28 1
+      142 GETTABLEKS                       R28 R28 K28 ["createElement"]
+      144 GETUPVAL                         R29 4
+      145 DUPTABLE                         R30 K47 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2, ["BorderColor3"]}]
+      146 GETIMPORT                        R31 K43 [UDim2.new]
+      148 LOADN                            R32 0
+      149 MOVE                             R33 R5
+      150 LOADN                            R34 0
+      151 MOVE                             R35 R6
+      152 CALL                             R31 4 1
+      153 SETTABLEKS                       R31 R30 K35 ["Position"]
+      155 GETIMPORT                        R31 K43 [UDim2.new]
+      157 LOADN                            R32 0
+      158 MOVE                             R33 R7
+      159 LOADN                            R34 0
+      160 MOVE                             R35 R22
+      161 CALL                             R31 4 1
+      162 SETTABLEKS                       R31 R30 K36 ["Size"]
+      164 GETTABLEKS                       R31 R19 K48 ["dropdownFrame"]
+      166 GETTABLEKS                       R31 R31 K49 ["borderColor"]
+      168 SETTABLEKS                       R31 R30 K46 ["BorderColor3"]
+      170 CALL                             R28 2 1
+      171 SETTABLEKS                       R28 R27 K33 ["DropDownContainer"]
+      173 CALL                             R24 3 -1
+      174 RETURN                           R24 -1
 
 MAIN:
         0 PREPVARARGS                      0

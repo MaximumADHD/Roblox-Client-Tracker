@@ -58,100 +58,96 @@ PROTO_4:
        16 LOADN                            R6 0
        17 CALL                             R5 1 2
        18 GETUPVAL                         R7 3
-       19 DUPTABLE                         R8 K9 [{"Size", "Modal", "Title", "OnClosed", "DisableTitleBar", "Contents"}]
-       20 GETIMPORT                        R10 K11 [Vector2.new]
+       19 DUPTABLE                         R8 K10 [{["Size"], ["Modal"] = True, ["Title"], ["OnClosed"], ["DisableTitleBar"] = True, ["Contents"]}]
+       20 GETIMPORT                        R10 K12 [Vector2.new]
        22 GETUPVAL                         R13 4
-       23 GETTABLEKS                       R13 R13 K12 ["X"]
+       23 GETTABLEKS                       R13 R13 K13 ["X"]
        25 FASTCALL2                        MATH_MAX R5 R13 ; [+4]
        27 MOVE                             R12 R5
-       28 GETIMPORT                        R11 K15 [math.max]
+       28 GETIMPORT                        R11 K16 [math.max]
        30 CALL                             R11 2 1
        31 GETUPVAL                         R12 4
-       32 GETTABLEKS                       R12 R12 K16 ["Y"]
+       32 GETTABLEKS                       R12 R12 K17 ["Y"]
        34 CALL                             R10 2 1
        35 SETTABLEKS                       R10 R8 K3 ["Size"]
-       37 LOADB                            R10 1
-       38 SETTABLEKS                       R10 R8 K4 ["Modal"]
-       40 LOADK                            R12 K17 ["Plugin"]
-       41 LOADK                            R13 K5 ["Title"]
-       42 NAMECALL                         R10 R2 K18 ["getText"]
-       44 CALL                             R10 3 1
-       45 SETTABLEKS                       R10 R8 K5 ["Title"]
-       47 NEWCLOSURE                       R10 P0
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R10 R8 K6 ["OnClosed"]
-       51 LOADB                            R10 1
-       52 SETTABLEKS                       R10 R8 K7 ["DisableTitleBar"]
-       54 GETUPVAL                         R10 2
-       55 GETTABLEKS                       R10 R10 K19 ["createElement"]
-       57 LOADK                            R11 K20 ["Frame"]
-       58 NEWTABLE                         R12 1 0
-       60 GETUPVAL                         R13 2
-       61 GETTABLEKS                       R13 R13 K21 ["Tag"]
-       63 LOADK                            R14 K22 ["X-FitY X-Column Component-DialogContainer"]
-       64 SETTABLE                         R14 R12 R13
-       65 DUPTABLE                         R13 K25 [{"ThumbnailAndTextInfo", "CancelButton"}]
-       66 GETUPVAL                         R14 2
-       67 GETTABLEKS                       R14 R14 K19 ["createElement"]
-       69 GETUPVAL                         R15 5
-       70 DUPTABLE                         R16 K32 [{"LayoutOrder", "Title", "Subtitle", "Status", "Image", "OnWidthChanged", "OnShown"}]
-       71 NAMECALL                         R17 R1 K33 ["getNextOrder"]
-       73 CALL                             R17 1 1
-       74 SETTABLEKS                       R17 R16 K26 ["LayoutOrder"]
-       76 GETTABLEKS                       R17 R0 K5 ["Title"]
-       78 SETTABLEKS                       R17 R16 K5 ["Title"]
-       80 GETTABLEKS                       R17 R0 K27 ["Subtitle"]
-       82 SETTABLEKS                       R17 R16 K27 ["Subtitle"]
-       84 GETTABLEKS                       R17 R0 K28 ["Status"]
-       86 SETTABLEKS                       R17 R16 K28 ["Status"]
-       88 GETTABLEKS                       R17 R0 K29 ["Image"]
-       90 SETTABLEKS                       R17 R16 K29 ["Image"]
-       92 SETTABLEKS                       R6 R16 K30 ["OnWidthChanged"]
-       94 NEWCLOSURE                       R17 P1
-       95 CAPTURE                          VAL R4
-       96 SETTABLEKS                       R17 R16 K31 ["OnShown"]
-       98 CALL                             R14 2 1
-       99 SETTABLEKS                       R14 R13 K23 ["ThumbnailAndTextInfo"]
-      101 GETUPVAL                         R14 2
-      102 GETTABLEKS                       R14 R14 K19 ["createElement"]
-      104 GETUPVAL                         R15 6
-      105 DUPTABLE                         R16 K36 [{"LayoutOrder", "Enabled", "OnCancel"}]
-      106 NAMECALL                         R17 R1 K33 ["getNextOrder"]
-      108 CALL                             R17 1 1
-      109 SETTABLEKS                       R17 R16 K26 ["LayoutOrder"]
-      111 GETTABLEKS                       R17 R0 K37 ["CancelButtonEnabled"]
-      113 SETTABLEKS                       R17 R16 K34 ["Enabled"]
-      115 GETTABLEKS                       R17 R0 K35 ["OnCancel"]
-      117 SETTABLEKS                       R17 R16 K35 ["OnCancel"]
-      119 CALL                             R14 2 1
-      120 SETTABLEKS                       R14 R13 K24 ["CancelButton"]
-      122 CALL                             R10 3 1
-      123 SETTABLEKS                       R10 R8 K8 ["Contents"]
-      125 CALL                             R7 1 3
-      126 GETUPVAL                         R10 2
-      127 GETTABLEKS                       R10 R10 K38 ["useEffect"]
-      129 NEWCLOSURE                       R11 P2
-      130 CAPTURE                          VAL R3
-      131 CAPTURE                          VAL R0
-      132 NEWTABLE                         R12 0 1
-      134 MOVE                             R13 R3
-      135 SETLIST                          R12 R13 1 [1]
-      137 CALL                             R10 2 0
-      138 GETUPVAL                         R10 2
-      139 GETTABLEKS                       R10 R10 K38 ["useEffect"]
-      141 NEWCLOSURE                       R11 P3
-      142 CAPTURE                          VAL R0
-      143 CAPTURE                          VAL R9
-      144 CAPTURE                          VAL R7
-      145 CAPTURE                          VAL R8
-      146 CAPTURE                          VAL R4
-      147 NEWTABLE                         R12 0 2
-      149 GETTABLEKS                       R13 R0 K34 ["Enabled"]
-      151 MOVE                             R14 R9
-      152 SETLIST                          R12 R13 2 [1]
-      154 CALL                             R10 2 0
-      155 LOADNIL                          R10
-      156 RETURN                           R10 1
+       37 LOADK                            R12 K18 ["Plugin"]
+       38 LOADK                            R13 K6 ["Title"]
+       39 NAMECALL                         R10 R2 K19 ["getText"]
+       41 CALL                             R10 3 1
+       42 SETTABLEKS                       R10 R8 K6 ["Title"]
+       44 NEWCLOSURE                       R10 P0
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R10 R8 K7 ["OnClosed"]
+       48 GETUPVAL                         R10 2
+       49 GETTABLEKS                       R10 R10 K20 ["createElement"]
+       51 LOADK                            R11 K21 ["Frame"]
+       52 NEWTABLE                         R12 1 0
+       54 GETUPVAL                         R13 2
+       55 GETTABLEKS                       R13 R13 K22 ["Tag"]
+       57 LOADK                            R14 K23 ["X-FitY X-Column Component-DialogContainer"]
+       58 SETTABLE                         R14 R12 R13
+       59 DUPTABLE                         R13 K26 [{"ThumbnailAndTextInfo", "CancelButton"}]
+       60 GETUPVAL                         R14 2
+       61 GETTABLEKS                       R14 R14 K20 ["createElement"]
+       63 GETUPVAL                         R15 5
+       64 DUPTABLE                         R16 K33 [{"LayoutOrder", "Title", "Subtitle", "Status", "Image", "OnWidthChanged", "OnShown"}]
+       65 NAMECALL                         R17 R1 K34 ["getNextOrder"]
+       67 CALL                             R17 1 1
+       68 SETTABLEKS                       R17 R16 K27 ["LayoutOrder"]
+       70 GETTABLEKS                       R17 R0 K6 ["Title"]
+       72 SETTABLEKS                       R17 R16 K6 ["Title"]
+       74 GETTABLEKS                       R17 R0 K28 ["Subtitle"]
+       76 SETTABLEKS                       R17 R16 K28 ["Subtitle"]
+       78 GETTABLEKS                       R17 R0 K29 ["Status"]
+       80 SETTABLEKS                       R17 R16 K29 ["Status"]
+       82 GETTABLEKS                       R17 R0 K30 ["Image"]
+       84 SETTABLEKS                       R17 R16 K30 ["Image"]
+       86 SETTABLEKS                       R6 R16 K31 ["OnWidthChanged"]
+       88 NEWCLOSURE                       R17 P1
+       89 CAPTURE                          VAL R4
+       90 SETTABLEKS                       R17 R16 K32 ["OnShown"]
+       92 CALL                             R14 2 1
+       93 SETTABLEKS                       R14 R13 K24 ["ThumbnailAndTextInfo"]
+       95 GETUPVAL                         R14 2
+       96 GETTABLEKS                       R14 R14 K20 ["createElement"]
+       98 GETUPVAL                         R15 6
+       99 DUPTABLE                         R16 K37 [{"LayoutOrder", "Enabled", "OnCancel"}]
+      100 NAMECALL                         R17 R1 K34 ["getNextOrder"]
+      102 CALL                             R17 1 1
+      103 SETTABLEKS                       R17 R16 K27 ["LayoutOrder"]
+      105 GETTABLEKS                       R17 R0 K38 ["CancelButtonEnabled"]
+      107 SETTABLEKS                       R17 R16 K35 ["Enabled"]
+      109 GETTABLEKS                       R17 R0 K36 ["OnCancel"]
+      111 SETTABLEKS                       R17 R16 K36 ["OnCancel"]
+      113 CALL                             R14 2 1
+      114 SETTABLEKS                       R14 R13 K25 ["CancelButton"]
+      116 CALL                             R10 3 1
+      117 SETTABLEKS                       R10 R8 K9 ["Contents"]
+      119 CALL                             R7 1 3
+      120 GETUPVAL                         R10 2
+      121 GETTABLEKS                       R10 R10 K39 ["useEffect"]
+      123 NEWCLOSURE                       R11 P2
+      124 CAPTURE                          VAL R3
+      125 CAPTURE                          VAL R0
+      126 NEWTABLE                         R12 0 1
+      128 MOVE                             R13 R3
+      129 SETLIST                          R12 R13 1 [1]
+      131 CALL                             R10 2 0
+      132 GETUPVAL                         R10 2
+      133 GETTABLEKS                       R10 R10 K39 ["useEffect"]
+      135 NEWCLOSURE                       R11 P3
+      136 CAPTURE                          VAL R0
+      137 CAPTURE                          VAL R9
+      138 CAPTURE                          VAL R7
+      139 CAPTURE                          VAL R8
+      140 CAPTURE                          VAL R4
+      141 NEWTABLE                         R12 0 2
+      143 GETTABLEKS                       R13 R0 K35 ["Enabled"]
+      145 MOVE                             R14 R9
+      146 SETLIST                          R12 R13 2 [1]
+      148 CALL                             R10 2 0
+      149 LOADNIL                          R10
+      150 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0

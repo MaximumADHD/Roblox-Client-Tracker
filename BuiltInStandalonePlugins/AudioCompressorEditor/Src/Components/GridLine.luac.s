@@ -155,7 +155,7 @@ PROTO_3:
        58 GETTABLEKS                       R10 R0 K13 ["Alpha"]
        60 JUMP                             ; [+1]
        61 LOADN                            R10 1
-       62 SUBRK                            R9 R12 K10 ["AnchorPoint"]
+       62 SUBRK                            R9 K12 [1] R10
        63 SETTABLEKS                       R9 R8 K14 ["BackgroundTransparency"]
        65 GETUPVAL                         R9 2
        66 GETTABLEKS                       R9 R9 K15 ["Tag"]

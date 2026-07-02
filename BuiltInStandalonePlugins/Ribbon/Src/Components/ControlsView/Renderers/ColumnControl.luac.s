@@ -3,7 +3,7 @@ PROTO_0:
         1 GETTABLEKS                       R3 R3 K0 ["Renderers"]
         3 GETTABLEKS                       R4 R1 K1 ["Type"]
         5 GETTABLE                         R2 R3 R4
-        6 JUMPIFNOT                        R2 ; [+30]
+        6 JUMPIFNOT                        R2 ; [+27]
         7 LOADK                            R3 K2 ["%* %*"]
         8 GETTABLEKS                       R5 R1 K1 ["Type"]
        10 MOVE                             R6 R0
@@ -17,19 +17,17 @@ PROTO_0:
        21 GETTABLE                         R4 R5 R6
        22 GETUPVAL                         R5 2
        23 GETUPVAL                         R6 0
-       24 DUPTABLE                         R7 K7 [{"Item", "LayoutOrder", "IsColumn"}]
+       24 DUPTABLE                         R7 K8 [{["Item"], ["LayoutOrder"], ["IsColumn"] = True}]
        25 SETTABLEKS                       R1 R7 K4 ["Item"]
        27 GETUPVAL                         R8 3
        28 CALL                             R8 0 1
        29 SETTABLEKS                       R8 R7 K5 ["LayoutOrder"]
-       31 LOADB                            R8 1
-       32 SETTABLEKS                       R8 R7 K6 ["IsColumn"]
-       34 CALL                             R5 2 -1
-       35 CALL                             R3 -1 -1
-       36 RETURN                           R2 -1
-       37 LOADNIL                          R2
-       38 LOADNIL                          R3
-       39 RETURN                           R2 2
+       31 CALL                             R5 2 -1
+       32 CALL                             R3 -1 -1
+       33 RETURN                           R2 -1
+       34 LOADNIL                          R2
+       35 LOADNIL                          R3
+       36 RETURN                           R2 2
 
 PROTO_1:
         0 GETUPVAL                         R1 0

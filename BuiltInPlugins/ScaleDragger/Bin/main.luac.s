@@ -44,46 +44,32 @@ PROTO_1:
        41 SETTABLEKS                       R5 R4 K10 ["DraggerContext"]
        43 GETUPVAL                         R5 8
        44 SETTABLEKS                       R5 R4 K11 ["DraggerSchema"]
-       46 DUPTABLE                         R5 K21 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
-       47 LOADK                            R6 K22 ["Scale"]
-       48 SETTABLEKS                       R6 R5 K15 ["AnalyticsName"]
-       50 LOADB                            R6 1
-       51 SETTABLEKS                       R6 R5 K16 ["AllowDragSelect"]
-       53 LOADB                            R6 1
-       54 SETTABLEKS                       R6 R5 K17 ["AllowFreeformDrag"]
-       56 LOADB                            R6 1
-       57 SETTABLEKS                       R6 R5 K18 ["ShowLocalSpaceIndicator"]
-       59 LOADB                            R6 1
-       60 SETTABLEKS                       R6 R5 K19 ["ShowPivotIndicator"]
-       62 NEWTABLE                         R6 0 1
-       64 GETUPVAL                         R7 9
-       65 GETTABLEKS                       R7 R7 K23 ["new"]
-       67 GETUPVAL                         R8 7
-       68 DUPTABLE                         R9 K27 [{"ShowBoundingBox", "Summonable", "IsEnabledFunction"}]
-       69 LOADB                            R10 1
-       70 SETTABLEKS                       R10 R9 K24 ["ShowBoundingBox"]
-       72 LOADB                            R10 1
-       73 SETTABLEKS                       R10 R9 K25 ["Summonable"]
-       75 GETUPVAL                         R11 4
-       76 CALL                             R11 0 1
-       77 JUMPIFNOT                        R11 ; [+2]
-       78 MOVE                             R10 R0
-       79 JUMPIF                           R10 ; [+1]
-       80 LOADNIL                          R10
-       81 SETTABLEKS                       R10 R9 K26 ["IsEnabledFunction"]
-       83 GETUPVAL                         R10 8
-       84 GETTABLEKS                       R10 R10 K28 ["ExtrudeHandlesImplementation"]
-       86 GETTABLEKS                       R10 R10 K23 ["new"]
-       88 GETUPVAL                         R11 7
-       89 CALL                             R10 1 -1
-       90 CALL                             R7 -1 -1
-       91 SETLIST                          R6 R7 -1 [1]
-       93 SETTABLEKS                       R6 R5 K20 ["HandlesList"]
-       95 SETTABLEKS                       R5 R4 K12 ["DraggerSettings"]
-       97 CALL                             R2 2 -1
-       98 CALL                             R1 -1 1
-       99 SETUPVAL                         R1 0
-      100 RETURN                           R0 0
+       46 DUPTABLE                         R5 K23 [{["AnalyticsName"] = "Scale", ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True, ["ShowLocalSpaceIndicator"] = True, ["ShowPivotIndicator"] = True, ["HandlesList"]}]
+       47 NEWTABLE                         R6 0 1
+       49 GETUPVAL                         R7 9
+       50 GETTABLEKS                       R7 R7 K24 ["new"]
+       52 GETUPVAL                         R8 7
+       53 DUPTABLE                         R9 K28 [{["ShowBoundingBox"] = True, ["Summonable"] = True, ["IsEnabledFunction"]}]
+       54 GETUPVAL                         R11 4
+       55 CALL                             R11 0 1
+       56 JUMPIFNOT                        R11 ; [+2]
+       57 MOVE                             R10 R0
+       58 JUMPIF                           R10 ; [+1]
+       59 LOADNIL                          R10
+       60 SETTABLEKS                       R10 R9 K27 ["IsEnabledFunction"]
+       62 GETUPVAL                         R10 8
+       63 GETTABLEKS                       R10 R10 K29 ["ExtrudeHandlesImplementation"]
+       65 GETTABLEKS                       R10 R10 K24 ["new"]
+       67 GETUPVAL                         R11 7
+       68 CALL                             R10 1 -1
+       69 CALL                             R7 -1 -1
+       70 SETLIST                          R6 R7 -1 [1]
+       72 SETTABLEKS                       R6 R5 K22 ["HandlesList"]
+       74 SETTABLEKS                       R5 R4 K12 ["DraggerSettings"]
+       76 CALL                             R2 2 -1
+       77 CALL                             R1 -1 1
+       78 SETUPVAL                         R1 0
+       79 RETURN                           R0 0
 
 PROTO_2:
         0 LOADB                            R0 0

@@ -20,82 +20,70 @@ PROTO_2:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K11 [{"Style", "Enabled", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
-        9 LOADK                            R6 K12 ["AcceptCancel"]
-       10 SETTABLEKS                       R6 R5 K3 ["Style"]
-       12 GETTABLEKS                       R6 R1 K4 ["Enabled"]
-       14 SETTABLEKS                       R6 R5 K4 ["Enabled"]
-       16 LOADB                            R6 1
-       17 SETTABLEKS                       R6 R5 K5 ["Modal"]
-       19 LOADK                            R8 K13 ["BreakpointsWindow"]
-       20 LOADK                            R9 K14 ["DeleteAll"]
-       21 NAMECALL                         R6 R2 K15 ["getText"]
-       23 CALL                             R6 3 1
-       24 SETTABLEKS                       R6 R5 K6 ["Title"]
-       26 GETIMPORT                        R6 K18 [Vector2.new]
-       28 LOADN                            R7 44
-       29 LOADN                            R8 100
-       30 CALL                             R6 2 1
-       31 SETTABLEKS                       R6 R5 K7 ["MinContentSize"]
-       33 NEWTABLE                         R6 0 2
-       35 DUPTABLE                         R7 K21 [{"Key", "Text"}]
-       36 LOADK                            R8 K22 ["Yes"]
-       37 SETTABLEKS                       R8 R7 K19 ["Key"]
-       39 LOADK                            R10 K13 ["BreakpointsWindow"]
-       40 LOADK                            R11 K23 ["DeleteAllPopupYes"]
-       41 NAMECALL                         R8 R2 K15 ["getText"]
-       43 CALL                             R8 3 1
-       44 SETTABLEKS                       R8 R7 K20 ["Text"]
-       46 DUPTABLE                         R8 K21 [{"Key", "Text"}]
-       47 LOADK                            R9 K24 ["No"]
-       48 SETTABLEKS                       R9 R8 K19 ["Key"]
-       50 LOADK                            R11 K13 ["BreakpointsWindow"]
-       51 LOADK                            R12 K25 ["DeleteAllPopupNo"]
-       52 NAMECALL                         R9 R2 K15 ["getText"]
-       54 CALL                             R9 3 1
-       55 SETTABLEKS                       R9 R8 K20 ["Text"]
-       57 SETLIST                          R6 R7 2 [1]
-       59 SETTABLEKS                       R6 R5 K8 ["Buttons"]
-       61 NEWCLOSURE                       R6 P0
-       62 CAPTURE                          VAL R1
-       63 SETTABLEKS                       R6 R5 K9 ["OnButtonPressed"]
-       65 NEWCLOSURE                       R6 P1
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R6 R5 K10 ["OnClose"]
-       69 DUPTABLE                         R6 K27 [{"Contents"}]
-       70 GETUPVAL                         R7 0
-       71 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       73 GETUPVAL                         R8 2
-       74 DUPTABLE                         R9 K33 [{"BackgroundTransparency", "TextSize", "Text", "TextColor3", "Size", "Position"}]
-       75 LOADN                            R10 1
-       76 SETTABLEKS                       R10 R9 K28 ["BackgroundTransparency"]
-       78 LOADN                            R10 20
-       79 SETTABLEKS                       R10 R9 K29 ["TextSize"]
-       81 LOADK                            R12 K13 ["BreakpointsWindow"]
-       82 LOADK                            R13 K34 ["DeleteAllPopupText"]
-       83 NAMECALL                         R10 R2 K15 ["getText"]
-       85 CALL                             R10 3 1
-       86 SETTABLEKS                       R10 R9 K20 ["Text"]
-       88 GETIMPORT                        R10 K36 [Color3.new]
-       90 LOADN                            R11 1
-       91 LOADN                            R12 1
-       92 LOADN                            R13 1
-       93 CALL                             R10 3 1
-       94 SETTABLEKS                       R10 R9 K30 ["TextColor3"]
-       96 GETIMPORT                        R10 K39 [UDim2.fromScale]
-       98 LOADN                            R11 1
-       99 LOADN                            R12 1
-      100 CALL                             R10 2 1
-      101 SETTABLEKS                       R10 R9 K31 ["Size"]
-      103 GETIMPORT                        R10 K39 [UDim2.fromScale]
-      105 LOADN                            R11 0
-      106 LOADN                            R12 0
-      107 CALL                             R10 2 1
-      108 SETTABLEKS                       R10 R9 K32 ["Position"]
-      110 CALL                             R7 2 1
-      111 SETTABLEKS                       R7 R6 K26 ["Contents"]
-      113 CALL                             R3 3 -1
-      114 RETURN                           R3 -1
+        8 DUPTABLE                         R5 K13 [{["Style"] = "AcceptCancel", ["Enabled"], ["Modal"] = True, ["Title"], ["MinContentSize"], ["Buttons"], ["OnButtonPressed"], ["OnClose"]}]
+        9 GETTABLEKS                       R6 R1 K5 ["Enabled"]
+       11 SETTABLEKS                       R6 R5 K5 ["Enabled"]
+       13 LOADK                            R8 K14 ["BreakpointsWindow"]
+       14 LOADK                            R9 K15 ["DeleteAll"]
+       15 NAMECALL                         R6 R2 K16 ["getText"]
+       17 CALL                             R6 3 1
+       18 SETTABLEKS                       R6 R5 K8 ["Title"]
+       20 GETIMPORT                        R6 K19 [Vector2.new]
+       22 LOADN                            R7 300
+       23 LOADN                            R8 100
+       24 CALL                             R6 2 1
+       25 SETTABLEKS                       R6 R5 K9 ["MinContentSize"]
+       27 NEWTABLE                         R6 0 2
+       29 DUPTABLE                         R7 K23 [{["Key"] = "Yes", ["Text"]}]
+       30 LOADK                            R10 K14 ["BreakpointsWindow"]
+       31 LOADK                            R11 K24 ["DeleteAllPopupYes"]
+       32 NAMECALL                         R8 R2 K16 ["getText"]
+       34 CALL                             R8 3 1
+       35 SETTABLEKS                       R8 R7 K22 ["Text"]
+       37 DUPTABLE                         R8 K26 [{["Key"] = "No", ["Text"]}]
+       38 LOADK                            R11 K14 ["BreakpointsWindow"]
+       39 LOADK                            R12 K27 ["DeleteAllPopupNo"]
+       40 NAMECALL                         R9 R2 K16 ["getText"]
+       42 CALL                             R9 3 1
+       43 SETTABLEKS                       R9 R8 K22 ["Text"]
+       45 SETLIST                          R6 R7 2 [1]
+       47 SETTABLEKS                       R6 R5 K10 ["Buttons"]
+       49 NEWCLOSURE                       R6 P0
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R6 R5 K11 ["OnButtonPressed"]
+       53 NEWCLOSURE                       R6 P1
+       54 CAPTURE                          VAL R1
+       55 SETTABLEKS                       R6 R5 K12 ["OnClose"]
+       57 DUPTABLE                         R6 K29 [{"Contents"}]
+       58 GETUPVAL                         R7 0
+       59 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       61 GETUPVAL                         R8 2
+       62 DUPTABLE                         R9 K37 [{["BackgroundTransparency"] = 1, ["TextSize"] = 20, ["Text"], ["TextColor3"], ["Size"], ["Position"]}]
+       63 LOADK                            R12 K14 ["BreakpointsWindow"]
+       64 LOADK                            R13 K38 ["DeleteAllPopupText"]
+       65 NAMECALL                         R10 R2 K16 ["getText"]
+       67 CALL                             R10 3 1
+       68 SETTABLEKS                       R10 R9 K22 ["Text"]
+       70 GETIMPORT                        R10 K40 [Color3.new]
+       72 LOADN                            R11 1
+       73 LOADN                            R12 1
+       74 LOADN                            R13 1
+       75 CALL                             R10 3 1
+       76 SETTABLEKS                       R10 R9 K34 ["TextColor3"]
+       78 GETIMPORT                        R10 K43 [UDim2.fromScale]
+       80 LOADN                            R11 1
+       81 LOADN                            R12 1
+       82 CALL                             R10 2 1
+       83 SETTABLEKS                       R10 R9 K35 ["Size"]
+       85 GETIMPORT                        R10 K43 [UDim2.fromScale]
+       87 LOADN                            R11 0
+       88 LOADN                            R12 0
+       89 CALL                             R10 2 1
+       90 SETTABLEKS                       R10 R9 K36 ["Position"]
+       92 CALL                             R7 2 1
+       93 SETTABLEKS                       R7 R6 K28 ["Contents"]
+       95 CALL                             R3 3 -1
+       96 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

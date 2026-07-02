@@ -110,8 +110,8 @@ PROTO_4:
        55 GETUPVAL                         R11 7
        56 GETTABLEKS                       R11 R11 K10 ["createElement"]
        58 GETUPVAL                         R12 8
-       59 DUPTABLE                         R13 K14 [{"Rect", "BackgroundTransparency", "BackgroundColor3"}]
-       60 GETIMPORT                        R14 K16 [Rect.new]
+       59 DUPTABLE                         R13 K15 [{["Rect"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"]}]
+       60 GETIMPORT                        R14 K17 [Rect.new]
        62 MOVE                             R15 R7
        63 MINUS                            R16 R9
        64 GETUPVAL                         R19 0
@@ -121,13 +121,11 @@ PROTO_4:
        69 MOVE                             R18 R9
        70 CALL                             R14 4 1
        71 SETTABLEKS                       R14 R13 K11 ["Rect"]
-       73 LOADN                            R14 0
-       74 SETTABLEKS                       R14 R13 K12 ["BackgroundTransparency"]
-       76 SETTABLEKS                       R8 R13 K13 ["BackgroundColor3"]
-       78 CALL                             R11 2 1
-       79 SETTABLE                         R11 R0 R10
-       80 FORGLOOP                         R2 2 ; [-64]
-       82 RETURN                           R0 1
+       73 SETTABLEKS                       R8 R13 K14 ["BackgroundColor3"]
+       75 CALL                             R11 2 1
+       76 SETTABLE                         R11 R0 R10
+       77 FORGLOOP                         R2 2 ; [-61]
+       79 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -173,30 +171,26 @@ PROTO_5:
        58 GETTABLE                         R6 R1 R5
        59 ADDK                             R8 R5 K9 [1]
        60 GETTABLE                         R7 R1 R8
-       61 JUMPIFLT                         R7 R6 ; [+28]
+       61 JUMPIFLT                         R7 R6 ; [+22]
        63 LOADK                            R7 K10 ["Line "]
        64 MOVE                             R8 R5
        65 CONCAT                           R6 R7 R8
        66 GETUPVAL                         R7 5
        67 GETTABLEKS                       R7 R7 K11 ["createElement"]
        69 GETUPVAL                         R8 6
-       70 DUPTABLE                         R9 K16 [{"Orientation", "Position", "OppositeAxisBounds", "Color3"}]
-       71 LOADK                            R10 K17 ["Horizontal"]
-       72 SETTABLEKS                       R10 R9 K12 ["Orientation"]
-       74 LOADN                            R10 0
-       75 SETTABLEKS                       R10 R9 K13 ["Position"]
-       77 GETIMPORT                        R10 K20 [NumberRange.new]
-       79 GETTABLE                         R11 R1 R5
-       80 ADDK                             R13 R5 K9 [1]
-       81 GETTABLE                         R12 R1 R13
-       82 CALL                             R10 2 1
-       83 SETTABLEKS                       R10 R9 K14 ["OppositeAxisBounds"]
-       85 GETTABLE                         R10 R0 R5
-       86 SETTABLEKS                       R10 R9 K15 ["Color3"]
-       88 CALL                             R7 2 1
-       89 SETTABLE                         R7 R2 R6
-       90 FORNLOOP                         R3
-       91 RETURN                           R2 1
+       70 DUPTABLE                         R9 K17 [{["Orientation"] = "Horizontal", ["Position"] = 0, ["OppositeAxisBounds"], ["Color3"]}]
+       71 GETIMPORT                        R10 K20 [NumberRange.new]
+       73 GETTABLE                         R11 R1 R5
+       74 ADDK                             R13 R5 K9 [1]
+       75 GETTABLE                         R12 R1 R13
+       76 CALL                             R10 2 1
+       77 SETTABLEKS                       R10 R9 K15 ["OppositeAxisBounds"]
+       79 GETTABLE                         R10 R0 R5
+       80 SETTABLEKS                       R10 R9 K16 ["Color3"]
+       82 CALL                             R7 2 1
+       83 SETTABLE                         R7 R2 R6
+       84 FORNLOOP                         R3
+       85 RETURN                           R2 1
 
 PROTO_6:
         0 GETUPVAL                         R1 0

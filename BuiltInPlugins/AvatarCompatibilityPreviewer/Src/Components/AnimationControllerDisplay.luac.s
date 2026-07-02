@@ -44,21 +44,21 @@ PROTO_2:
        30 GETUPVAL                         R6 1
        31 GETTABLEKS                       R6 R6 K2 ["createElement"]
        33 GETUPVAL                         R7 3
-       34 DUPTABLE                         R8 K19 [{"Size", "IsPlaying", "Playhead", "OnSliderPlayheadChanged", "OnPlayPauseClicked", "ShowTime", "TrackLength"}]
-       35 GETIMPORT                        R9 K22 [UDim2.fromScale]
+       34 DUPTABLE                         R8 K20 [{["Size"], ["IsPlaying"], ["Playhead"], ["OnSliderPlayheadChanged"], ["OnPlayPauseClicked"], ["ShowTime"] = False, ["TrackLength"]}]
+       35 GETIMPORT                        R9 K23 [UDim2.fromScale]
        37 LOADN                            R10 1
        38 LOADN                            R11 1
        39 CALL                             R9 2 1
        40 SETTABLEKS                       R9 R8 K6 ["Size"]
-       42 GETTABLEKS                       R10 R0 K23 ["ForcedPositionAlpha"]
+       42 GETTABLEKS                       R10 R0 K24 ["ForcedPositionAlpha"]
        44 JUMPIFEQKNIL                     R10 ; [+2]
        46 LOADB                            R9 0 +1
        47 LOADB                            R9 1
        48 SETTABLEKS                       R9 R8 K13 ["IsPlaying"]
-       50 GETTABLEKS                       R10 R0 K23 ["ForcedPositionAlpha"]
+       50 GETTABLEKS                       R10 R0 K24 ["ForcedPositionAlpha"]
        52 JUMPIF                           R10 ; [+2]
-       53 GETTABLEKS                       R10 R0 K24 ["AnimationPositionAlpha"]
-       55 GETTABLEKS                       R11 R0 K25 ["Length"]
+       53 GETTABLEKS                       R10 R0 K25 ["AnimationPositionAlpha"]
+       55 GETTABLEKS                       R11 R0 K26 ["Length"]
        57 MUL                              R9 R10 R11
        58 SETTABLEKS                       R9 R8 K14 ["Playhead"]
        60 NEWCLOSURE                       R9 P0
@@ -67,14 +67,12 @@ PROTO_2:
        64 NEWCLOSURE                       R9 P1
        65 CAPTURE                          VAL R0
        66 SETTABLEKS                       R9 R8 K16 ["OnPlayPauseClicked"]
-       68 LOADB                            R9 0
-       69 SETTABLEKS                       R9 R8 K17 ["ShowTime"]
-       71 GETTABLEKS                       R9 R0 K25 ["Length"]
-       73 SETTABLEKS                       R9 R8 K18 ["TrackLength"]
-       75 CALL                             R6 2 1
-       76 SETTABLEKS                       R6 R5 K11 ["Slider"]
-       78 CALL                             R2 3 -1
-       79 RETURN                           R2 -1
+       68 GETTABLEKS                       R9 R0 K26 ["Length"]
+       70 SETTABLEKS                       R9 R8 K19 ["TrackLength"]
+       72 CALL                             R6 2 1
+       73 SETTABLEKS                       R6 R5 K11 ["Slider"]
+       75 CALL                             R2 3 -1
+       76 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

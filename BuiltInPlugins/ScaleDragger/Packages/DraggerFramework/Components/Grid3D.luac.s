@@ -125,10 +125,10 @@ PROTO_1:
       159 CALL                             R14 1 1
       160 LOADN                            R15 1
       161 SUB                              R16 R12 R11
-      162 LOADN                            R17 0
+      162 LOADN                            R17 1024
       163 JUMPIFLT                         R17 R16 ; [+5]
       165 SUB                              R16 R14 R13
-      166 LOADN                            R17 0
+      166 LOADN                            R17 1024
       167 JUMPIFNOTLT                      R17 R16 ; [+21]
       169 SUB                              R17 R12 R11
       170 SUB                              R18 R14 R13
@@ -195,31 +195,25 @@ PROTO_1:
       249 GETUPVAL                         R14 0
       250 GETTABLEKS                       R14 R14 K34 ["createElement"]
       252 GETUPVAL                         R15 1
-      253 DUPTABLE                         R16 K39 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
+      253 DUPTABLE                         R16 K40 [{["Color3"], ["AlwaysOnTop"] = True, ["Transparency"], ["Render"]}]
       254 GETTABLEKS                       R17 R1 K35 ["Color3"]
       256 SETTABLEKS                       R17 R16 K35 ["Color3"]
-      258 LOADB                            R17 1
-      259 SETTABLEKS                       R17 R16 K36 ["AlwaysOnTop"]
-      261 GETTABLEKS                       R17 R1 K40 ["Dim"]
-      263 SETTABLEKS                       R17 R16 K37 ["Transparency"]
-      265 SETTABLEKS                       R11 R16 K38 ["Render"]
-      267 CALL                             R14 2 1
-      268 SETTABLEKS                       R14 R13 K31 ["OnTop"]
-      270 GETUPVAL                         R14 0
-      271 GETTABLEKS                       R14 R14 K34 ["createElement"]
-      273 GETUPVAL                         R15 1
-      274 DUPTABLE                         R16 K39 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
-      275 GETTABLEKS                       R17 R1 K35 ["Color3"]
-      277 SETTABLEKS                       R17 R16 K35 ["Color3"]
-      279 LOADB                            R17 0
-      280 SETTABLEKS                       R17 R16 K36 ["AlwaysOnTop"]
-      282 LOADK                            R17 K41 [0.4]
-      283 SETTABLEKS                       R17 R16 K37 ["Transparency"]
-      285 SETTABLEKS                       R11 R16 K38 ["Render"]
-      287 CALL                             R14 2 1
-      288 SETTABLEKS                       R14 R13 K32 ["NotOnTop"]
-      290 CALL                             R12 1 -1
-      291 RETURN                           R12 -1
+      258 GETTABLEKS                       R17 R1 K41 ["Dim"]
+      260 SETTABLEKS                       R17 R16 K38 ["Transparency"]
+      262 SETTABLEKS                       R11 R16 K39 ["Render"]
+      264 CALL                             R14 2 1
+      265 SETTABLEKS                       R14 R13 K31 ["OnTop"]
+      267 GETUPVAL                         R14 0
+      268 GETTABLEKS                       R14 R14 K34 ["createElement"]
+      270 GETUPVAL                         R15 1
+      271 DUPTABLE                         R16 K44 [{["Color3"], ["AlwaysOnTop"] = False, ["Transparency"] = 0.4, ["Render"]}]
+      272 GETTABLEKS                       R17 R1 K35 ["Color3"]
+      274 SETTABLEKS                       R17 R16 K35 ["Color3"]
+      276 SETTABLEKS                       R11 R16 K39 ["Render"]
+      278 CALL                             R14 2 1
+      279 SETTABLEKS                       R14 R13 K32 ["NotOnTop"]
+      281 CALL                             R12 1 -1
+      282 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -240,12 +234,10 @@ MAIN:
        27 LOADK                            R6 K10 ["Grid3D"]
        28 NAMECALL                         R4 R4 K11 ["extend"]
        30 CALL                             R4 2 1
-       31 DUPTABLE                         R5 K13 [{"Dim"}]
-       32 LOADK                            R6 K14 [0.85]
-       33 SETTABLEKS                       R6 R5 K12 ["Dim"]
-       35 SETTABLEKS                       R5 R4 K15 ["defaultProps"]
-       37 DUPCLOSURE                       R5 K16 [PROTO_1]
-       38 CAPTURE                          VAL R2
-       39 CAPTURE                          VAL R3
-       40 SETTABLEKS                       R5 R4 K17 ["render"]
-       42 RETURN                           R4 1
+       31 DUPTABLE                         R5 K14 [{["Dim"] = 0.85}]
+       32 SETTABLEKS                       R5 R4 K15 ["defaultProps"]
+       34 DUPCLOSURE                       R5 K16 [PROTO_1]
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R3
+       37 SETTABLEKS                       R5 R4 K17 ["render"]
+       39 RETURN                           R4 1

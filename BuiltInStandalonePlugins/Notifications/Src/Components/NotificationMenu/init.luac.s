@@ -178,7 +178,7 @@ PROTO_8:
        75 SETTABLEKS                       R13 R12 K13 ["AnchorPoint"]
        77 GETIMPORT                        R13 K15 [UDim2.new]
        79 LOADN                            R14 1
-       80 LOADN                            R15 242
+       80 LOADN                            R15 -14
        81 LOADN                            R16 0
        82 LOADN                            R17 38
        83 CALL                             R13 4 1

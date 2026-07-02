@@ -73,7 +73,7 @@ PROTO_4:
         4 GETUPVAL                         R3 2
         5 GETTABLEKS                       R3 R3 K1 ["join"]
         7 MOVE                             R4 R0
-        8 DUPTABLE                         R5 K8 [{"LayoutOrder", "Columns", "Rows", "HeaderCellComponent", "CellComponent", "Scroll"}]
+        8 DUPTABLE                         R5 K9 [{["LayoutOrder"], ["Columns"], ["Rows"], ["HeaderCellComponent"], ["CellComponent"], ["Scroll"] = True}]
         9 GETTABLEKS                       R6 R0 K2 ["LayoutOrder"]
        11 SETTABLEKS                       R6 R5 K2 ["LayoutOrder"]
        13 GETTABLEKS                       R6 R0 K3 ["Columns"]
@@ -81,7 +81,7 @@ PROTO_4:
        17 GETTABLEKS                       R6 R0 K4 ["Rows"]
        19 SETTABLEKS                       R6 R5 K4 ["Rows"]
        21 GETUPVAL                         R7 3
-       22 DUPTABLE                         R8 K9 [{"Columns"}]
+       22 DUPTABLE                         R8 K10 [{"Columns"}]
        23 GETTABLEKS                       R9 R0 K3 ["Columns"]
        25 SETTABLEKS                       R9 R8 K3 ["Columns"]
        27 NEWCLOSURE                       R6 P0
@@ -92,11 +92,9 @@ PROTO_4:
        32 SETTABLEKS                       R6 R5 K5 ["HeaderCellComponent"]
        34 GETUPVAL                         R6 4
        35 SETTABLEKS                       R6 R5 K6 ["CellComponent"]
-       37 LOADB                            R6 1
-       38 SETTABLEKS                       R6 R5 K7 ["Scroll"]
-       40 CALL                             R3 2 -1
-       41 CALL                             R1 -1 -1
-       42 RETURN                           R1 -1
+       37 CALL                             R3 2 -1
+       38 CALL                             R1 -1 -1
+       39 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

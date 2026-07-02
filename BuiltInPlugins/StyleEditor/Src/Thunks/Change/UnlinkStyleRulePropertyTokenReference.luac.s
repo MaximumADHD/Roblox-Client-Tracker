@@ -96,20 +96,16 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["recordChange"]
-        2 DUPTABLE                         R3 K4 [{"Name", "DisplayName", "DoChange"}]
-        3 LOADK                            R4 K5 ["StyleEditor/UnlinkStyleRulePropertyTokenReference"]
-        4 SETTABLEKS                       R4 R3 K1 ["Name"]
-        6 LOADK                            R4 K6 ["StyleEditor - Unlink Token from StyleRule Property"]
-        7 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
-        9 NEWCLOSURE                       R4 P0
-       10 CAPTURE                          UPVAL U0
-       11 CAPTURE                          UPVAL U1
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          UPVAL U3
-       14 CAPTURE                          UPVAL U4
-       15 SETTABLEKS                       R4 R3 K3 ["DoChange"]
-       17 CALL                             R2 1 0
-       18 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["Name"] = "StyleEditor/UnlinkStyleRulePropertyTokenReference", ["DisplayName"] = "StyleEditor - Unlink Token from StyleRule Property", ["DoChange"]}]
+        3 NEWCLOSURE                       R4 P0
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          UPVAL U4
+        9 SETTABLEKS                       R4 R3 K5 ["DoChange"]
+       11 CALL                             R2 1 0
+       12 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R2 P0

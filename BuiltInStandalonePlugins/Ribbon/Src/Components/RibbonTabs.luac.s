@@ -112,7 +112,7 @@ PROTO_4:
        19 GETTABLEKS                       R4 R4 K7 ["Z"]
        21 LOADN                            R5 0
        22 JUMPIFNOTLT                      R5 R4 ; [+3]
-       24 LOADN                            R3 255
+       24 LOADN                            R3 -1
        25 JUMP                             ; [+1]
        26 LOADN                            R3 1
        27 GETUPVAL                         R4 2
@@ -404,27 +404,21 @@ PROTO_5:
       293 GETUPVAL                         R20 6
       294 GETTABLEKS                       R20 R20 K11 ["createElement"]
       296 GETUPVAL                         R21 22
-      297 DUPTABLE                         R22 K48 [{"Uri", "Icon", "IconOnly", "OnSelect", "Size", "LayoutOrder"}]
+      297 DUPTABLE                         R22 K50 [{["Uri"], ["Icon"] = "More", ["IconOnly"] = True, ["OnSelect"], ["Size"] = "Small", ["LayoutOrder"]}]
       298 GETUPVAL                         R23 15
       299 GETTABLEKS                       R23 R23 K5 ["child"]
       301 GETTABLEKS                       R24 R0 K1 ["WidgetUri"]
       303 LOADK                            R25 K6 ["More"]
       304 CALL                             R23 2 1
       305 SETTABLEKS                       R23 R22 K44 ["Uri"]
-      307 LOADK                            R23 K6 ["More"]
-      308 SETTABLEKS                       R23 R22 K45 ["Icon"]
-      310 LOADB                            R23 1
-      311 SETTABLEKS                       R23 R22 K46 ["IconOnly"]
-      313 SETTABLEKS                       R12 R22 K47 ["OnSelect"]
-      315 LOADK                            R23 K49 ["Small"]
-      316 SETTABLEKS                       R23 R22 K15 ["Size"]
-      318 MOVE                             R23 R1
-      319 CALL                             R23 0 1
-      320 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
-      322 CALL                             R20 2 1
-      323 SETTABLEKS                       R20 R19 K6 ["More"]
-      325 CALL                             R16 3 -1
-      326 RETURN                           R16 -1
+      307 SETTABLEKS                       R12 R22 K48 ["OnSelect"]
+      309 MOVE                             R23 R1
+      310 CALL                             R23 0 1
+      311 SETTABLEKS                       R23 R22 K13 ["LayoutOrder"]
+      313 CALL                             R20 2 1
+      314 SETTABLEKS                       R20 R19 K6 ["More"]
+      316 CALL                             R16 3 -1
+      317 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -529,34 +523,30 @@ MAIN:
       178 GETTABLEKS                       R27 R27 K39 ["Types"]
       180 CALL                             R26 1 1
       181 GETIMPORT                        R27 K42 [table.freeze]
-      183 DUPTABLE                         R28 K45 [{"Type", "Filename"}]
-      184 LOADK                            R29 K46 ["Reserved"]
-      185 SETTABLEKS                       R29 R28 K43 ["Type"]
-      187 LOADK                            R29 K47 ["Custom"]
-      188 SETTABLEKS                       R29 R28 K44 ["Filename"]
-      190 CALL                             R27 1 1
-      191 DUPCLOSURE                       R28 K48 [PROTO_5]
-      192 CAPTURE                          VAL R11
-      193 CAPTURE                          VAL R5
-      194 CAPTURE                          VAL R18
-      195 CAPTURE                          VAL R17
-      196 CAPTURE                          VAL R19
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          VAL R3
-      199 CAPTURE                          VAL R22
-      200 CAPTURE                          VAL R16
-      201 CAPTURE                          VAL R9
-      202 CAPTURE                          VAL R25
-      203 CAPTURE                          VAL R27
-      204 CAPTURE                          VAL R7
-      205 CAPTURE                          VAL R4
-      206 CAPTURE                          VAL R21
-      207 CAPTURE                          VAL R14
-      208 CAPTURE                          VAL R20
-      209 CAPTURE                          VAL R23
-      210 CAPTURE                          VAL R2
-      211 CAPTURE                          VAL R12
-      212 CAPTURE                          VAL R24
-      213 CAPTURE                          VAL R1
-      214 CAPTURE                          VAL R15
-      215 RETURN                           R28 1
+      183 DUPTABLE                         R28 K47 [{["Type"] = "Reserved", ["Filename"] = "Custom"}]
+      184 CALL                             R27 1 1
+      185 DUPCLOSURE                       R28 K48 [PROTO_5]
+      186 CAPTURE                          VAL R11
+      187 CAPTURE                          VAL R5
+      188 CAPTURE                          VAL R18
+      189 CAPTURE                          VAL R17
+      190 CAPTURE                          VAL R19
+      191 CAPTURE                          VAL R6
+      192 CAPTURE                          VAL R3
+      193 CAPTURE                          VAL R22
+      194 CAPTURE                          VAL R16
+      195 CAPTURE                          VAL R9
+      196 CAPTURE                          VAL R25
+      197 CAPTURE                          VAL R27
+      198 CAPTURE                          VAL R7
+      199 CAPTURE                          VAL R4
+      200 CAPTURE                          VAL R21
+      201 CAPTURE                          VAL R14
+      202 CAPTURE                          VAL R20
+      203 CAPTURE                          VAL R23
+      204 CAPTURE                          VAL R2
+      205 CAPTURE                          VAL R12
+      206 CAPTURE                          VAL R24
+      207 CAPTURE                          VAL R1
+      208 CAPTURE                          VAL R15
+      209 RETURN                           R28 1

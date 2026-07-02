@@ -107,29 +107,19 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K14 ["Flags"]
        45 GETTABLEKS                       R6 R6 K15 ["getFFlagAvatarPreviewerAvatarLooksEnabled"]
        47 CALL                             R5 1 1
-       48 DUPTABLE                         R6 K21 [{"showLookSaveMenu", "showCreateAvatarLook", "showCreateMakeupLook", "canCreateAvatarLook", "canCreateMakeupLook"}]
-       49 LOADB                            R7 0
-       50 SETTABLEKS                       R7 R6 K16 ["showLookSaveMenu"]
-       52 LOADB                            R7 0
-       53 SETTABLEKS                       R7 R6 K17 ["showCreateAvatarLook"]
-       55 LOADB                            R7 0
-       56 SETTABLEKS                       R7 R6 K18 ["showCreateMakeupLook"]
-       58 LOADB                            R7 0
-       59 SETTABLEKS                       R7 R6 K19 ["canCreateAvatarLook"]
-       61 LOADB                            R7 0
-       62 SETTABLEKS                       R7 R6 K20 ["canCreateMakeupLook"]
-       64 GETTABLEKS                       R7 R1 K22 ["createContext"]
-       66 MOVE                             R8 R6
-       67 CALL                             R7 1 1
-       68 DUPCLOSURE                       R8 K23 [PROTO_1]
-       69 CAPTURE                          VAL R5
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R7
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R4
-       76 DUPTABLE                         R9 K26 [{"Context", "Provider"}]
-       77 SETTABLEKS                       R7 R9 K24 ["Context"]
-       79 SETTABLEKS                       R8 R9 K25 ["Provider"]
-       81 RETURN                           R9 1
+       48 DUPTABLE                         R6 K22 [{["showLookSaveMenu"] = False, ["showCreateAvatarLook"] = False, ["showCreateMakeupLook"] = False, ["canCreateAvatarLook"] = False, ["canCreateMakeupLook"] = False}]
+       49 GETTABLEKS                       R7 R1 K23 ["createContext"]
+       51 MOVE                             R8 R6
+       52 CALL                             R7 1 1
+       53 DUPCLOSURE                       R8 K24 [PROTO_1]
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R2
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R4
+       61 DUPTABLE                         R9 K27 [{"Context", "Provider"}]
+       62 SETTABLEKS                       R7 R9 K25 ["Context"]
+       64 SETTABLEKS                       R8 R9 K26 ["Provider"]
+       66 RETURN                           R9 1

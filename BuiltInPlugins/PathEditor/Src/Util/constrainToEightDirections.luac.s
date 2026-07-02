@@ -5,7 +5,7 @@ PROTO_0:
         5 LOADN                            R4 0
         6 CALL                             R2 2 1
         7 GETIMPORT                        R3 K2 [Vector2.new]
-        9 LOADN                            R4 255
+        9 LOADN                            R4 -1
        10 LOADN                            R5 0
        11 CALL                             R3 2 1
        12 GETIMPORT                        R4 K2 [Vector2.new]
@@ -14,7 +14,7 @@ PROTO_0:
        16 CALL                             R4 2 1
        17 GETIMPORT                        R5 K2 [Vector2.new]
        19 LOADN                            R6 0
-       20 LOADN                            R7 255
+       20 LOADN                            R7 -1
        21 CALL                             R5 2 1
        22 GETIMPORT                        R6 K2 [Vector2.new]
        24 LOADN                            R7 1
@@ -22,18 +22,18 @@ PROTO_0:
        26 CALL                             R6 2 1
        27 GETTABLEKS                       R6 R6 K3 ["Unit"]
        29 GETIMPORT                        R7 K2 [Vector2.new]
-       31 LOADN                            R8 255
+       31 LOADN                            R8 -1
        32 LOADN                            R9 1
        33 CALL                             R7 2 1
        34 GETTABLEKS                       R7 R7 K3 ["Unit"]
        36 GETIMPORT                        R8 K2 [Vector2.new]
        38 LOADN                            R9 1
-       39 LOADN                            R10 255
+       39 LOADN                            R10 -1
        40 CALL                             R8 2 1
        41 GETTABLEKS                       R8 R8 K3 ["Unit"]
        43 GETIMPORT                        R9 K2 [Vector2.new]
-       45 LOADN                            R10 255
-       46 LOADN                            R11 255
+       45 LOADN                            R10 -1
+       46 LOADN                            R11 -1
        47 CALL                             R9 2 1
        48 GETTABLEKS                       R9 R9 K3 ["Unit"]
        50 SETLIST                          R1 R2 8 [1]

@@ -11,7 +11,7 @@ PROTO_0:
        12 DIVK                             R3 R0 K1 [1048576]
        13 CALL                             R1 2 -1
        14 RETURN                           R1 -1
-       15 LOADN                            R1 0
+       15 LOADN                            R1 1024
        16 JUMPIFNOTLT                      R1 R0 ; [+7]
        18 GETIMPORT                        R1 K4 [string.format]
        20 LOADK                            R2 K6 ["%.1fKB"]

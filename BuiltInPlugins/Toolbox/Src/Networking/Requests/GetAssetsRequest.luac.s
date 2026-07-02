@@ -663,187 +663,185 @@ PROTO_19:
        72 CAPTURE                          UPVAL U10
        73 CAPTURE                          UPVAL U1
        74 CAPTURE                          UPVAL U12
-       75 JUMPIFNOT                        R1 ; [+30]
-       76 DUPTABLE                         R8 K11 [{"Results", "TotalResults"}]
+       75 JUMPIFNOT                        R1 ; [+27]
+       76 DUPTABLE                         R8 K12 [{["Results"], ["TotalResults"] = 0}]
        77 NEWTABLE                         R9 0 0
        79 SETTABLEKS                       R9 R8 K9 ["Results"]
-       81 LOADN                            R9 0
-       82 SETTABLEKS                       R9 R8 K10 ["TotalResults"]
-       84 GETUPVAL                         R11 8
-       85 GETTABLEKS                       R12 R8 K9 ["Results"]
-       87 GETTABLEKS                       R13 R8 K10 ["TotalResults"]
-       89 CALL                             R11 2 -1
-       90 NAMECALL                         R9 R0 K0 ["dispatch"]
-       92 CALL                             R9 -1 0
-       93 GETUPVAL                         R11 9
-       94 LOADN                            R12 0
-       95 CALL                             R11 1 -1
-       96 NAMECALL                         R9 R0 K0 ["dispatch"]
-       98 CALL                             R9 -1 0
-       99 GETUPVAL                         R11 0
-      100 LOADB                            R12 0
-      101 CALL                             R11 1 -1
-      102 NAMECALL                         R9 R0 K0 ["dispatch"]
-      104 CALL                             R9 -1 0
-      105 RETURN                           R0 0
-      106 JUMPIFNOT                        R2 ; [+139]
-      107 NAMECALL                         R8 R0 K12 ["getState"]
-      109 CALL                             R8 1 1
-      110 GETTABLEKS                       R8 R8 K13 ["assets"]
-      112 GETTABLEKS                       R8 R8 K14 ["currentCursor"]
-      114 GETUPVAL                         R9 13
-      115 GETTABLEKS                       R9 R9 K15 ["isNextPageAvailable"]
-      117 MOVE                             R10 R8
-      118 CALL                             R9 1 1
-      119 JUMPIFNOT                        R9 ; [+180]
-      120 JUMPIFNOT                        R3 ; [+2]
-      121 MOVE                             R9 R6
-      122 JUMP                             ; [+1]
-      123 MOVE                             R9 R7
-      124 GETUPVAL                         R11 2
-      125 GETTABLEKS                       R11 R11 K16 ["getCategoryByName"]
-      127 GETUPVAL                         R12 1
-      128 GETTABLEKS                       R12 R12 K5 ["categoryName"]
-      130 CALL                             R11 1 1
-      131 JUMPIFNOT                        R11 ; [+10]
-      132 GETUPVAL                         R10 2
-      133 GETTABLEKS                       R10 R10 K16 ["getCategoryByName"]
-      135 GETUPVAL                         R11 1
-      136 GETTABLEKS                       R11 R11 K5 ["categoryName"]
-      138 CALL                             R10 1 1
-      139 GETTABLEKS                       R10 R10 K17 ["assetType"]
-      141 JUMP                             ; [+1]
-      142 LOADNIL                          R10
-      143 LOADB                            R11 0
-      144 GETUPVAL                         R12 14
-      145 CALL                             R12 0 1
-      146 JUMPIFNOT                        R12 ; [+9]
-      147 GETUPVAL                         R13 2
-      148 GETTABLEKS                       R13 R13 K18 ["ToolboxMarketplaceAssetTypes"]
-      150 GETTABLE                         R12 R13 R10
-      151 JUMPIFNOTEQKNIL                  R12 ; [+2]
-      153 LOADB                            R11 0 +1
-      154 LOADB                            R11 1
-      155 JUMP                             ; [+17]
-      156 LOADB                            R12 0
-      157 GETUPVAL                         R13 2
-      158 GETTABLEKS                       R13 R13 K19 ["AssetType"]
-      160 GETTABLEKS                       R13 R13 K20 ["ANIMATION"]
-      162 JUMPIFEQ                         R10 R13 ; [+9]
-      164 GETUPVAL                         R14 2
-      165 GETTABLEKS                       R14 R14 K18 ["ToolboxMarketplaceAssetTypes"]
-      167 GETTABLE                         R13 R14 R10
-      168 JUMPIFNOTEQKNIL                  R13 ; [+2]
-      170 LOADB                            R12 0 +1
-      171 LOADB                            R12 1
-      172 MOVE                             R11 R12
-      173 JUMPIFNOT                        R11 ; [+20]
-      174 MOVE                             R12 R9
-      175 GETUPVAL                         R13 13
-      176 GETTABLEKS                       R13 R13 K21 ["getNextPageCursor"]
-      178 MOVE                             R14 R8
-      179 CALL                             R13 1 -1
-      180 CALL                             R12 -1 1
-      181 NEWCLOSURE                       R14 P4
-      182 CAPTURE                          UPVAL U13
-      183 CAPTURE                          UPVAL U10
-      184 CAPTURE                          UPVAL U15
-      185 CAPTURE                          VAL R0
-      186 CAPTURE                          UPVAL U1
-      187 CAPTURE                          UPVAL U16
-      188 CAPTURE                          VAL R4
-      189 MOVE                             R15 R4
-      190 NAMECALL                         R12 R12 K22 ["andThen"]
-      192 CALL                             R12 3 -1
-      193 RETURN                           R12 -1
-      194 GETUPVAL                         R12 4
-      195 GETTABLEKS                       R12 R12 K23 ["getEngineAssetTypeForPageInfoCategory"]
-      197 GETUPVAL                         R13 1
-      198 CALL                             R12 1 1
-      199 JUMPIFNOTEQKNIL                  R12 ; [+6]
-      201 GETIMPORT                        R13 K25 [warn]
-      203 LOADK                            R14 K26 ["Failed to get asset type for page info category"]
-      204 CALL                             R13 1 -1
-      205 RETURN                           R13 -1
-      206 GETUPVAL                         R13 10
-      207 LOADNIL                          R15
-      208 GETTABLEKS                       R16 R12 K27 ["Value"]
-      210 GETUPVAL                         R17 13
-      211 GETTABLEKS                       R17 R17 K21 ["getNextPageCursor"]
-      213 MOVE                             R18 R8
-      214 CALL                             R17 1 1
-      215 GETUPVAL                         R18 17
-      216 GETTABLEKS                       R18 R18 K28 ["GET_ITEMS_BY_CREATOR_PAGE_SIZE_LIMIT"]
-      218 JUMPIFNOT                        R3 ; [+6]
-      219 GETUPVAL                         R19 4
-      220 GETTABLEKS                       R19 R19 K29 ["getGroupIdForPageInfo"]
-      222 GETUPVAL                         R20 1
-      223 CALL                             R19 1 1
-      224 JUMP                             ; [+1]
-      225 LOADNIL                          R19
-      226 NAMECALL                         R13 R13 K30 ["getItemsByCreator"]
-      228 CALL                             R13 6 1
-      229 NEWCLOSURE                       R15 P5
-      230 CAPTURE                          UPVAL U13
-      231 CAPTURE                          UPVAL U18
-      232 CAPTURE                          UPVAL U6
-      233 CAPTURE                          VAL R0
-      234 CAPTURE                          UPVAL U10
-      235 CAPTURE                          UPVAL U7
-      236 CAPTURE                          UPVAL U19
-      237 CAPTURE                          UPVAL U1
-      238 CAPTURE                          VAL R4
-      239 CAPTURE                          UPVAL U16
-      240 MOVE                             R16 R4
-      241 NAMECALL                         R13 R13 K22 ["andThen"]
-      243 CALL                             R13 3 -1
-      244 RETURN                           R13 -1
-      245 RETURN                           R0 0
-      246 LOADB                            R8 0
-      247 GETUPVAL                         R9 2
-      248 GETTABLEKS                       R9 R9 K31 ["categoryIsAudio"]
-      250 GETUPVAL                         R10 1
-      251 GETTABLEKS                       R10 R10 K5 ["categoryName"]
-      253 CALL                             R9 1 1
-      254 GETUPVAL                         R10 2
-      255 GETTABLEKS                       R10 R10 K32 ["categoryIsVideo"]
-      257 GETUPVAL                         R11 1
-      258 GETTABLEKS                       R11 R11 K5 ["categoryName"]
-      260 CALL                             R10 1 1
-      261 GETUPVAL                         R11 4
-      262 GETTABLEKS                       R11 R11 K33 ["isDeveloperCategory"]
-      264 GETUPVAL                         R12 1
-      265 CALL                             R11 1 1
-      266 JUMPIF                           R11 ; [+9]
-      267 GETUPVAL                         R11 4
-      268 GETTABLEKS                       R11 R11 K34 ["isPackagesCategory"]
-      270 GETUPVAL                         R12 1
-      271 CALL                             R11 1 1
-      272 JUMPIF                           R11 ; [+3]
-      273 JUMPIF                           R9 ; [+2]
-      274 JUMPIF                           R10 ; [+1]
-      275 JUMP                             ; [+1]
-      276 LOADB                            R8 1
-      277 JUMPIFNOT                        R8 ; [+11]
-      278 GETUPVAL                         R11 10
-      279 GETUPVAL                         R13 1
-      280 NAMECALL                         R11 R11 K35 ["getDevelopAsset"]
-      282 CALL                             R11 2 1
-      283 MOVE                             R13 R5
-      284 MOVE                             R14 R4
-      285 NAMECALL                         R11 R11 K22 ["andThen"]
-      287 CALL                             R11 3 -1
-      288 RETURN                           R11 -1
-      289 GETUPVAL                         R11 10
-      290 GETUPVAL                         R13 1
-      291 NAMECALL                         R11 R11 K36 ["getAssets"]
-      293 CALL                             R11 2 1
-      294 MOVE                             R13 R5
-      295 MOVE                             R14 R4
-      296 NAMECALL                         R11 R11 K22 ["andThen"]
-      298 CALL                             R11 3 -1
-      299 RETURN                           R11 -1
-      300 RETURN                           R0 0
+       81 GETUPVAL                         R11 8
+       82 GETTABLEKS                       R12 R8 K9 ["Results"]
+       84 GETTABLEKS                       R13 R8 K10 ["TotalResults"]
+       86 CALL                             R11 2 -1
+       87 NAMECALL                         R9 R0 K0 ["dispatch"]
+       89 CALL                             R9 -1 0
+       90 GETUPVAL                         R11 9
+       91 LOADN                            R12 0
+       92 CALL                             R11 1 -1
+       93 NAMECALL                         R9 R0 K0 ["dispatch"]
+       95 CALL                             R9 -1 0
+       96 GETUPVAL                         R11 0
+       97 LOADB                            R12 0
+       98 CALL                             R11 1 -1
+       99 NAMECALL                         R9 R0 K0 ["dispatch"]
+      101 CALL                             R9 -1 0
+      102 RETURN                           R0 0
+      103 JUMPIFNOT                        R2 ; [+139]
+      104 NAMECALL                         R8 R0 K13 ["getState"]
+      106 CALL                             R8 1 1
+      107 GETTABLEKS                       R8 R8 K14 ["assets"]
+      109 GETTABLEKS                       R8 R8 K15 ["currentCursor"]
+      111 GETUPVAL                         R9 13
+      112 GETTABLEKS                       R9 R9 K16 ["isNextPageAvailable"]
+      114 MOVE                             R10 R8
+      115 CALL                             R9 1 1
+      116 JUMPIFNOT                        R9 ; [+180]
+      117 JUMPIFNOT                        R3 ; [+2]
+      118 MOVE                             R9 R6
+      119 JUMP                             ; [+1]
+      120 MOVE                             R9 R7
+      121 GETUPVAL                         R11 2
+      122 GETTABLEKS                       R11 R11 K17 ["getCategoryByName"]
+      124 GETUPVAL                         R12 1
+      125 GETTABLEKS                       R12 R12 K5 ["categoryName"]
+      127 CALL                             R11 1 1
+      128 JUMPIFNOT                        R11 ; [+10]
+      129 GETUPVAL                         R10 2
+      130 GETTABLEKS                       R10 R10 K17 ["getCategoryByName"]
+      132 GETUPVAL                         R11 1
+      133 GETTABLEKS                       R11 R11 K5 ["categoryName"]
+      135 CALL                             R10 1 1
+      136 GETTABLEKS                       R10 R10 K18 ["assetType"]
+      138 JUMP                             ; [+1]
+      139 LOADNIL                          R10
+      140 LOADB                            R11 0
+      141 GETUPVAL                         R12 14
+      142 CALL                             R12 0 1
+      143 JUMPIFNOT                        R12 ; [+9]
+      144 GETUPVAL                         R13 2
+      145 GETTABLEKS                       R13 R13 K19 ["ToolboxMarketplaceAssetTypes"]
+      147 GETTABLE                         R12 R13 R10
+      148 JUMPIFNOTEQKNIL                  R12 ; [+2]
+      150 LOADB                            R11 0 +1
+      151 LOADB                            R11 1
+      152 JUMP                             ; [+17]
+      153 LOADB                            R12 0
+      154 GETUPVAL                         R13 2
+      155 GETTABLEKS                       R13 R13 K20 ["AssetType"]
+      157 GETTABLEKS                       R13 R13 K21 ["ANIMATION"]
+      159 JUMPIFEQ                         R10 R13 ; [+9]
+      161 GETUPVAL                         R14 2
+      162 GETTABLEKS                       R14 R14 K19 ["ToolboxMarketplaceAssetTypes"]
+      164 GETTABLE                         R13 R14 R10
+      165 JUMPIFNOTEQKNIL                  R13 ; [+2]
+      167 LOADB                            R12 0 +1
+      168 LOADB                            R12 1
+      169 MOVE                             R11 R12
+      170 JUMPIFNOT                        R11 ; [+20]
+      171 MOVE                             R12 R9
+      172 GETUPVAL                         R13 13
+      173 GETTABLEKS                       R13 R13 K22 ["getNextPageCursor"]
+      175 MOVE                             R14 R8
+      176 CALL                             R13 1 -1
+      177 CALL                             R12 -1 1
+      178 NEWCLOSURE                       R14 P4
+      179 CAPTURE                          UPVAL U13
+      180 CAPTURE                          UPVAL U10
+      181 CAPTURE                          UPVAL U15
+      182 CAPTURE                          VAL R0
+      183 CAPTURE                          UPVAL U1
+      184 CAPTURE                          UPVAL U16
+      185 CAPTURE                          VAL R4
+      186 MOVE                             R15 R4
+      187 NAMECALL                         R12 R12 K23 ["andThen"]
+      189 CALL                             R12 3 -1
+      190 RETURN                           R12 -1
+      191 GETUPVAL                         R12 4
+      192 GETTABLEKS                       R12 R12 K24 ["getEngineAssetTypeForPageInfoCategory"]
+      194 GETUPVAL                         R13 1
+      195 CALL                             R12 1 1
+      196 JUMPIFNOTEQKNIL                  R12 ; [+6]
+      198 GETIMPORT                        R13 K26 [warn]
+      200 LOADK                            R14 K27 ["Failed to get asset type for page info category"]
+      201 CALL                             R13 1 -1
+      202 RETURN                           R13 -1
+      203 GETUPVAL                         R13 10
+      204 LOADNIL                          R15
+      205 GETTABLEKS                       R16 R12 K28 ["Value"]
+      207 GETUPVAL                         R17 13
+      208 GETTABLEKS                       R17 R17 K22 ["getNextPageCursor"]
+      210 MOVE                             R18 R8
+      211 CALL                             R17 1 1
+      212 GETUPVAL                         R18 17
+      213 GETTABLEKS                       R18 R18 K29 ["GET_ITEMS_BY_CREATOR_PAGE_SIZE_LIMIT"]
+      215 JUMPIFNOT                        R3 ; [+6]
+      216 GETUPVAL                         R19 4
+      217 GETTABLEKS                       R19 R19 K30 ["getGroupIdForPageInfo"]
+      219 GETUPVAL                         R20 1
+      220 CALL                             R19 1 1
+      221 JUMP                             ; [+1]
+      222 LOADNIL                          R19
+      223 NAMECALL                         R13 R13 K31 ["getItemsByCreator"]
+      225 CALL                             R13 6 1
+      226 NEWCLOSURE                       R15 P5
+      227 CAPTURE                          UPVAL U13
+      228 CAPTURE                          UPVAL U18
+      229 CAPTURE                          UPVAL U6
+      230 CAPTURE                          VAL R0
+      231 CAPTURE                          UPVAL U10
+      232 CAPTURE                          UPVAL U7
+      233 CAPTURE                          UPVAL U19
+      234 CAPTURE                          UPVAL U1
+      235 CAPTURE                          VAL R4
+      236 CAPTURE                          UPVAL U16
+      237 MOVE                             R16 R4
+      238 NAMECALL                         R13 R13 K23 ["andThen"]
+      240 CALL                             R13 3 -1
+      241 RETURN                           R13 -1
+      242 RETURN                           R0 0
+      243 LOADB                            R8 0
+      244 GETUPVAL                         R9 2
+      245 GETTABLEKS                       R9 R9 K32 ["categoryIsAudio"]
+      247 GETUPVAL                         R10 1
+      248 GETTABLEKS                       R10 R10 K5 ["categoryName"]
+      250 CALL                             R9 1 1
+      251 GETUPVAL                         R10 2
+      252 GETTABLEKS                       R10 R10 K33 ["categoryIsVideo"]
+      254 GETUPVAL                         R11 1
+      255 GETTABLEKS                       R11 R11 K5 ["categoryName"]
+      257 CALL                             R10 1 1
+      258 GETUPVAL                         R11 4
+      259 GETTABLEKS                       R11 R11 K34 ["isDeveloperCategory"]
+      261 GETUPVAL                         R12 1
+      262 CALL                             R11 1 1
+      263 JUMPIF                           R11 ; [+9]
+      264 GETUPVAL                         R11 4
+      265 GETTABLEKS                       R11 R11 K35 ["isPackagesCategory"]
+      267 GETUPVAL                         R12 1
+      268 CALL                             R11 1 1
+      269 JUMPIF                           R11 ; [+3]
+      270 JUMPIF                           R9 ; [+2]
+      271 JUMPIF                           R10 ; [+1]
+      272 JUMP                             ; [+1]
+      273 LOADB                            R8 1
+      274 JUMPIFNOT                        R8 ; [+11]
+      275 GETUPVAL                         R11 10
+      276 GETUPVAL                         R13 1
+      277 NAMECALL                         R11 R11 K36 ["getDevelopAsset"]
+      279 CALL                             R11 2 1
+      280 MOVE                             R13 R5
+      281 MOVE                             R14 R4
+      282 NAMECALL                         R11 R11 K23 ["andThen"]
+      284 CALL                             R11 3 -1
+      285 RETURN                           R11 -1
+      286 GETUPVAL                         R11 10
+      287 GETUPVAL                         R13 1
+      288 NAMECALL                         R11 R11 K37 ["getAssets"]
+      290 CALL                             R11 2 1
+      291 MOVE                             R13 R5
+      292 MOVE                             R14 R4
+      293 NAMECALL                         R11 R11 K23 ["andThen"]
+      295 CALL                             R11 3 -1
+      296 RETURN                           R11 -1
+      297 RETURN                           R0 0
 
 PROTO_20:
         0 NEWCLOSURE                       R2 P0

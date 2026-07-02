@@ -42,34 +42,30 @@ PROTO_2:
        15 GETUPVAL                         R5 1
        16 GETTABLEKS                       R5 R5 K7 ["createElement"]
        18 GETUPVAL                         R6 2
-       19 DUPTABLE                         R7 K14 [{"Size", "Text", "TextSize", "ButtonHeight", "BackgroundColor3", "Style", "LayoutOrder", "OnClick"}]
-       20 GETIMPORT                        R8 K17 [UDim2.new]
+       19 DUPTABLE                         R7 K15 [{["Size"], ["Text"] = "Preview", ["TextSize"], ["ButtonHeight"], ["BackgroundColor3"], ["Style"] = "Round", ["LayoutOrder"], ["OnClick"]}]
+       20 GETIMPORT                        R8 K18 [UDim2.new]
        22 LOADN                            R9 0
-       23 GETTABLEKS                       R11 R3 K18 ["MainPadding"]
+       23 GETTABLEKS                       R11 R3 K19 ["MainPadding"]
        25 ADD                              R10 R4 R11
        26 LOADN                            R11 0
        27 GETTABLEKS                       R12 R3 K10 ["ButtonHeight"]
        29 CALL                             R8 4 1
        30 SETTABLEKS                       R8 R7 K8 ["Size"]
-       32 LOADK                            R8 K4 ["Preview"]
-       33 SETTABLEKS                       R8 R7 K9 ["Text"]
-       35 GETTABLEKS                       R8 R3 K5 ["TextSize"]
-       37 SETTABLEKS                       R8 R7 K5 ["TextSize"]
-       39 GETTABLEKS                       R8 R3 K10 ["ButtonHeight"]
-       41 SETTABLEKS                       R8 R7 K10 ["ButtonHeight"]
-       43 GETIMPORT                        R8 K20 [Color3.new]
-       45 LOADN                            R9 0
-       46 LOADN                            R10 0
-       47 LOADN                            R11 0
-       48 CALL                             R8 3 1
-       49 SETTABLEKS                       R8 R7 K11 ["BackgroundColor3"]
-       51 LOADK                            R8 K21 ["Round"]
-       52 SETTABLEKS                       R8 R7 K12 ["Style"]
-       54 SETTABLEKS                       R2 R7 K1 ["LayoutOrder"]
-       56 GETTABLEKS                       R8 R0 K22 ["onPreviewButtonClick"]
-       58 SETTABLEKS                       R8 R7 K13 ["OnClick"]
-       60 CALL                             R5 2 -1
-       61 RETURN                           R5 -1
+       32 GETTABLEKS                       R8 R3 K5 ["TextSize"]
+       34 SETTABLEKS                       R8 R7 K5 ["TextSize"]
+       36 GETTABLEKS                       R8 R3 K10 ["ButtonHeight"]
+       38 SETTABLEKS                       R8 R7 K10 ["ButtonHeight"]
+       40 GETIMPORT                        R8 K21 [Color3.new]
+       42 LOADN                            R9 0
+       43 LOADN                            R10 0
+       44 LOADN                            R11 0
+       45 CALL                             R8 3 1
+       46 SETTABLEKS                       R8 R7 K11 ["BackgroundColor3"]
+       48 SETTABLEKS                       R2 R7 K1 ["LayoutOrder"]
+       50 GETTABLEKS                       R8 R0 K22 ["onPreviewButtonClick"]
+       52 SETTABLEKS                       R8 R7 K14 ["OnClick"]
+       54 CALL                             R5 2 -1
+       55 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

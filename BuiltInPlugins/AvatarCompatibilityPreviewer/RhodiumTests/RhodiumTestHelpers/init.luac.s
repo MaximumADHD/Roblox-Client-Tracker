@@ -436,29 +436,25 @@ PROTO_32:
         4 CALL                             R2 1 1
         5 GETTABLEKS                       R2 R2 K1 ["getByText"]
         7 MOVE                             R3 R1
-        8 DUPTABLE                         R4 K3 [{"exact"}]
-        9 LOADB                            R5 0
-       10 SETTABLEKS                       R5 R4 K2 ["exact"]
-       12 CALL                             R2 2 1
-       13 LOADK                            R5 K4 ["GuiButton"]
-       14 NAMECALL                         R3 R2 K5 ["FindFirstAncestorWhichIsA"]
-       16 CALL                             R3 2 1
-       17 LOADK                            R7 K6 ["Button with text \"%*\" not found"]
-       18 MOVE                             R9 R1
-       19 NAMECALL                         R7 R7 K7 ["format"]
-       21 CALL                             R7 2 1
-       22 MOVE                             R6 R7
-       23 FASTCALL2                        ASSERT R3 R6 ; [+4]
-       25 MOVE                             R5 R3
-       26 GETIMPORT                        R4 K9 [assert]
-       28 CALL                             R4 2 0
-       29 GETUPVAL                         R4 1
-       30 MOVE                             R5 R3
-       31 DUPTABLE                         R6 K11 [{"forceResize"}]
-       32 LOADB                            R7 1
-       33 SETTABLEKS                       R7 R6 K10 ["forceResize"]
-       35 CALL                             R4 2 0
-       36 RETURN                           R0 0
+        8 DUPTABLE                         R4 K4 [{["exact"] = False}]
+        9 CALL                             R2 2 1
+       10 LOADK                            R5 K5 ["GuiButton"]
+       11 NAMECALL                         R3 R2 K6 ["FindFirstAncestorWhichIsA"]
+       13 CALL                             R3 2 1
+       14 LOADK                            R7 K7 ["Button with text \"%*\" not found"]
+       15 MOVE                             R9 R1
+       16 NAMECALL                         R7 R7 K8 ["format"]
+       18 CALL                             R7 2 1
+       19 MOVE                             R6 R7
+       20 FASTCALL2                        ASSERT R3 R6 ; [+4]
+       22 MOVE                             R5 R3
+       23 GETIMPORT                        R4 K10 [assert]
+       25 CALL                             R4 2 0
+       26 GETUPVAL                         R4 1
+       27 MOVE                             R5 R3
+       28 DUPTABLE                         R6 K13 [{["forceResize"] = True}]
+       29 CALL                             R4 2 0
+       30 RETURN                           R0 0
 
 PROTO_33:
         0 GETUPVAL                         R3 0
@@ -484,13 +480,9 @@ PROTO_33:
        26 CALL                             R3 2 0
        27 GETUPVAL                         R3 1
        28 MOVE                             R4 R2
-       29 DUPTABLE                         R5 K11 [{"resizeAncestors", "forceResize"}]
-       30 LOADB                            R6 1
-       31 SETTABLEKS                       R6 R5 K9 ["resizeAncestors"]
-       33 LOADB                            R6 1
-       34 SETTABLEKS                       R6 R5 K10 ["forceResize"]
-       36 CALL                             R3 2 0
-       37 RETURN                           R0 0
+       29 DUPTABLE                         R5 K12 [{["resizeAncestors"] = True, ["forceResize"] = True}]
+       30 CALL                             R3 2 0
+       31 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R0 0
@@ -778,8 +770,8 @@ PROTO_46:
 PROTO_47:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["resize"]
-        3 LOADN                            R1 0
-        4 LOADN                            R2 246
+        3 LOADN                            R1 1024
+        4 LOADN                            R2 758
         5 CALL                             R0 2 0
         6 RETURN                           R0 0
 
@@ -1695,8 +1687,8 @@ PROTO_85:
         1 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
         3 GETTABLEKS                       R0 R0 K1 ["Mouse"]
         5 GETTABLEKS                       R0 R0 K2 ["SendMouseMoveEvent"]
-        7 LOADN                            R1 15
-        8 LOADN                            R2 15
+        7 LOADN                            R1 9999
+        8 LOADN                            R2 9999
         9 CALL                             R0 2 0
        10 GETUPVAL                         R0 0
        11 GETTABLEKS                       R0 R0 K0 ["VirtualInput"]
@@ -2341,7 +2333,7 @@ PROTO_123:
         5 GETTABLEKS                       R3 R3 K0 ["VirtualInput"]
         7 GETTABLEKS                       R3 R3 K1 ["Mouse"]
         9 GETTABLEKS                       R3 R3 K2 ["SendMouseWheelEvent"]
-       11 LOADN                            R4 94
+       11 LOADN                            R4 350
        12 LOADN                            R5 150
        13 GETUPVAL                         R6 2
        14 CALL                             R3 3 0
@@ -2866,7 +2858,7 @@ PROTO_126:
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 1
         3 GETUPVAL                         R1 2
-        4 LOADN                            R2 255
+        4 LOADN                            R2 -1
         5 CALL                             R1 1 1
         6 GETUPVAL                         R2 3
         7 MOVE                             R3 R0

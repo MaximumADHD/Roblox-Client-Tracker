@@ -67,87 +67,83 @@ PROTO_0:
        97 JUMP                             ; [+1]
        98 LOADNIL                          R15
        99 SETTABLEKS                       R15 R14 K21 ["GeneralSettings"]
-      101 JUMPIFNOT                        R4 ; [+17]
+      101 JUMPIFNOT                        R4 ; [+14]
       102 GETUPVAL                         R15 0
       103 GETTABLEKS                       R15 R15 K4 ["createElement"]
       105 GETUPVAL                         R16 8
-      106 DUPTABLE                         R17 K33 [{"LayoutOrder", "PBRMaterial", "Expandable"}]
+      106 DUPTABLE                         R17 K34 [{["LayoutOrder"], ["PBRMaterial"], ["Expandable"] = True}]
       107 NAMECALL                         R18 R6 K29 ["getNextOrder"]
       109 CALL                             R18 1 1
       110 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
       112 SETTABLEKS                       R4 R17 K31 ["PBRMaterial"]
-      114 LOADB                            R18 1
-      115 SETTABLEKS                       R18 R17 K32 ["Expandable"]
-      117 CALL                             R15 2 1
-      118 JUMP                             ; [+1]
-      119 LOADNIL                          R15
-      120 SETTABLEKS                       R15 R14 K22 ["TextureSettings"]
-      122 JUMPIFNOT                        R4 ; [+15]
-      123 JUMPIFNOT                        R5 ; [+14]
-      124 GETUPVAL                         R15 0
-      125 GETTABLEKS                       R15 R15 K4 ["createElement"]
-      127 GETUPVAL                         R16 9
-      128 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
-      129 NAMECALL                         R18 R6 K29 ["getNextOrder"]
-      131 CALL                             R18 1 1
-      132 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
-      134 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
-      136 CALL                             R15 2 1
-      137 JUMP                             ; [+11]
-      138 GETUPVAL                         R15 0
-      139 GETTABLEKS                       R15 R15 K4 ["createElement"]
-      141 GETUPVAL                         R16 10
-      142 DUPTABLE                         R17 K28 [{"LayoutOrder"}]
-      143 NAMECALL                         R18 R6 K29 ["getNextOrder"]
-      145 CALL                             R18 1 1
-      146 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
-      148 CALL                             R15 2 1
-      149 SETTABLEKS                       R15 R14 K23 ["OverrideSettings"]
-      151 JUMPIFNOT                        R4 ; [+17]
-      152 GETUPVAL                         R15 0
-      153 GETTABLEKS                       R15 R15 K4 ["createElement"]
-      155 GETUPVAL                         R16 11
-      156 DUPTABLE                         R17 K33 [{"LayoutOrder", "PBRMaterial", "Expandable"}]
-      157 NAMECALL                         R18 R6 K29 ["getNextOrder"]
-      159 CALL                             R18 1 1
-      160 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
-      162 SETTABLEKS                       R4 R17 K31 ["PBRMaterial"]
-      164 LOADB                            R18 1
-      165 SETTABLEKS                       R18 R17 K32 ["Expandable"]
-      167 CALL                             R15 2 1
-      168 JUMP                             ; [+1]
-      169 LOADNIL                          R15
-      170 SETTABLEKS                       R15 R14 K24 ["TilingSettings"]
-      172 JUMPIFNOT                        R4 ; [+14]
-      173 GETUPVAL                         R15 0
-      174 GETTABLEKS                       R15 R15 K4 ["createElement"]
-      176 GETUPVAL                         R16 12
-      177 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
-      178 NAMECALL                         R18 R6 K29 ["getNextOrder"]
-      180 CALL                             R18 1 1
-      181 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
-      183 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
-      185 CALL                             R15 2 1
-      186 JUMP                             ; [+1]
-      187 LOADNIL                          R15
-      188 SETTABLEKS                       R15 R14 K25 ["TerrainDetailsSettings"]
-      190 JUMPIFNOT                        R4 ; [+14]
-      191 GETUPVAL                         R15 0
-      192 GETTABLEKS                       R15 R15 K4 ["createElement"]
-      194 GETUPVAL                         R16 13
-      195 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
-      196 NAMECALL                         R18 R6 K29 ["getNextOrder"]
-      198 CALL                             R18 1 1
-      199 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
-      201 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
-      203 CALL                             R15 2 1
-      204 JUMP                             ; [+1]
-      205 LOADNIL                          R15
-      206 SETTABLEKS                       R15 R14 K26 ["PhysicalSettings"]
-      208 CALL                             R11 3 1
-      209 SETTABLEKS                       R11 R10 K13 ["Pane"]
-      211 CALL                             R7 3 -1
-      212 RETURN                           R7 -1
+      114 CALL                             R15 2 1
+      115 JUMP                             ; [+1]
+      116 LOADNIL                          R15
+      117 SETTABLEKS                       R15 R14 K22 ["TextureSettings"]
+      119 JUMPIFNOT                        R4 ; [+15]
+      120 JUMPIFNOT                        R5 ; [+14]
+      121 GETUPVAL                         R15 0
+      122 GETTABLEKS                       R15 R15 K4 ["createElement"]
+      124 GETUPVAL                         R16 9
+      125 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
+      126 NAMECALL                         R18 R6 K29 ["getNextOrder"]
+      128 CALL                             R18 1 1
+      129 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
+      131 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
+      133 CALL                             R15 2 1
+      134 JUMP                             ; [+11]
+      135 GETUPVAL                         R15 0
+      136 GETTABLEKS                       R15 R15 K4 ["createElement"]
+      138 GETUPVAL                         R16 10
+      139 DUPTABLE                         R17 K28 [{"LayoutOrder"}]
+      140 NAMECALL                         R18 R6 K29 ["getNextOrder"]
+      142 CALL                             R18 1 1
+      143 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
+      145 CALL                             R15 2 1
+      146 SETTABLEKS                       R15 R14 K23 ["OverrideSettings"]
+      148 JUMPIFNOT                        R4 ; [+14]
+      149 GETUPVAL                         R15 0
+      150 GETTABLEKS                       R15 R15 K4 ["createElement"]
+      152 GETUPVAL                         R16 11
+      153 DUPTABLE                         R17 K34 [{["LayoutOrder"], ["PBRMaterial"], ["Expandable"] = True}]
+      154 NAMECALL                         R18 R6 K29 ["getNextOrder"]
+      156 CALL                             R18 1 1
+      157 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
+      159 SETTABLEKS                       R4 R17 K31 ["PBRMaterial"]
+      161 CALL                             R15 2 1
+      162 JUMP                             ; [+1]
+      163 LOADNIL                          R15
+      164 SETTABLEKS                       R15 R14 K24 ["TilingSettings"]
+      166 JUMPIFNOT                        R4 ; [+14]
+      167 GETUPVAL                         R15 0
+      168 GETTABLEKS                       R15 R15 K4 ["createElement"]
+      170 GETUPVAL                         R16 12
+      171 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
+      172 NAMECALL                         R18 R6 K29 ["getNextOrder"]
+      174 CALL                             R18 1 1
+      175 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
+      177 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
+      179 CALL                             R15 2 1
+      180 JUMP                             ; [+1]
+      181 LOADNIL                          R15
+      182 SETTABLEKS                       R15 R14 K25 ["TerrainDetailsSettings"]
+      184 JUMPIFNOT                        R4 ; [+14]
+      185 GETUPVAL                         R15 0
+      186 GETTABLEKS                       R15 R15 K4 ["createElement"]
+      188 GETUPVAL                         R16 13
+      189 DUPTABLE                         R17 K30 [{"LayoutOrder", "MaterialVariant"}]
+      190 NAMECALL                         R18 R6 K29 ["getNextOrder"]
+      192 CALL                             R18 1 1
+      193 SETTABLEKS                       R18 R17 K1 ["LayoutOrder"]
+      195 SETTABLEKS                       R4 R17 K5 ["MaterialVariant"]
+      197 CALL                             R15 2 1
+      198 JUMP                             ; [+1]
+      199 LOADNIL                          R15
+      200 SETTABLEKS                       R15 R14 K26 ["PhysicalSettings"]
+      202 CALL                             R11 3 1
+      203 SETTABLEKS                       R11 R10 K13 ["Pane"]
+      205 CALL                             R7 3 -1
+      206 RETURN                           R7 -1
 
 PROTO_1:
         0 DUPTABLE                         R2 K1 [{"Material"}]

@@ -16,84 +16,78 @@ PROTO_0:
        17 GETUPVAL                         R4 4
        18 GETTABLEKS                       R4 R4 K2 ["createElement"]
        20 GETUPVAL                         R5 5
-       21 DUPTABLE                         R6 K10 [{"Title", "Modal", "Resizable", "Enabled", "OnClose", "ZIndexBehavior", "Size"}]
-       22 LOADK                            R9 K11 ["ConfirmDeleteDialog"]
+       21 DUPTABLE                         R6 K12 [{["Title"], ["Modal"] = True, ["Resizable"] = False, ["Enabled"] = True, ["OnClose"], ["ZIndexBehavior"], ["Size"]}]
+       22 LOADK                            R9 K13 ["ConfirmDeleteDialog"]
        23 LOADK                            R10 K3 ["Title"]
-       24 NAMECALL                         R7 R1 K12 ["getText"]
+       24 NAMECALL                         R7 R1 K14 ["getText"]
        26 CALL                             R7 3 1
        27 SETTABLEKS                       R7 R6 K3 ["Title"]
-       29 LOADB                            R7 1
-       30 SETTABLEKS                       R7 R6 K4 ["Modal"]
-       32 LOADB                            R7 0
-       33 SETTABLEKS                       R7 R6 K5 ["Resizable"]
-       35 LOADB                            R7 1
-       36 SETTABLEKS                       R7 R6 K6 ["Enabled"]
-       38 GETTABLEKS                       R7 R0 K13 ["OnCancel"]
-       40 SETTABLEKS                       R7 R6 K7 ["OnClose"]
-       42 GETIMPORT                        R7 K16 [Enum.ZIndexBehavior.Sibling]
-       44 SETTABLEKS                       R7 R6 K8 ["ZIndexBehavior"]
-       46 GETIMPORT                        R7 K19 [Vector2.new]
-       48 LOADN                            R8 224
-       49 LOADN                            R9 160
-       50 CALL                             R7 2 1
-       51 SETTABLEKS                       R7 R6 K9 ["Size"]
-       53 DUPTABLE                         R7 K23 [{"StyleLink", "Contents", "Provider"}]
-       54 JUMPIFNOT                        R2 ; [+9]
-       55 GETUPVAL                         R8 4
-       56 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       58 LOADK                            R9 K20 ["StyleLink"]
-       59 DUPTABLE                         R10 K25 [{"StyleSheet"}]
-       60 SETTABLEKS                       R2 R10 K24 ["StyleSheet"]
-       62 CALL                             R8 2 1
-       63 JUMP                             ; [+1]
-       64 LOADNIL                          R8
-       65 SETTABLEKS                       R8 R7 K20 ["StyleLink"]
-       67 GETUPVAL                         R9 1
-       68 JUMPIFNOT                        R9 ; [+19]
-       69 GETUPVAL                         R8 4
-       70 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       72 GETUPVAL                         R9 6
-       73 DUPTABLE                         R10 K28 [{"Text", "OnDelete", "OnCancel"}]
-       74 GETTABLEKS                       R11 R0 K26 ["Text"]
-       76 SETTABLEKS                       R11 R10 K26 ["Text"]
-       78 GETTABLEKS                       R11 R0 K27 ["OnDelete"]
-       80 SETTABLEKS                       R11 R10 K27 ["OnDelete"]
-       82 GETTABLEKS                       R11 R0 K13 ["OnCancel"]
-       84 SETTABLEKS                       R11 R10 K13 ["OnCancel"]
-       86 CALL                             R8 2 1
-       87 JUMP                             ; [+1]
-       88 LOADNIL                          R8
-       89 SETTABLEKS                       R8 R7 K21 ["Contents"]
-       91 GETUPVAL                         R9 1
-       92 JUMPIF                           R9 ; [+36]
-       93 GETUPVAL                         R8 4
-       94 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       96 GETUPVAL                         R9 7
-       97 GETTABLEKS                       R9 R9 K29 ["FoundationProvider"]
-       99 DUPTABLE                         R10 K31 [{"theme"}]
-      100 MOVE                             R11 R3
-      101 JUMPIFNOT                        R11 ; [+2]
-      102 GETTABLEKS                       R11 R3 K32 ["Name"]
-      104 SETTABLEKS                       R11 R10 K30 ["theme"]
-      106 DUPTABLE                         R11 K33 [{"Contents"}]
-      107 GETUPVAL                         R12 4
-      108 GETTABLEKS                       R12 R12 K2 ["createElement"]
-      110 GETUPVAL                         R13 6
-      111 DUPTABLE                         R14 K28 [{"Text", "OnDelete", "OnCancel"}]
-      112 GETTABLEKS                       R15 R0 K26 ["Text"]
-      114 SETTABLEKS                       R15 R14 K26 ["Text"]
-      116 GETTABLEKS                       R15 R0 K27 ["OnDelete"]
-      118 SETTABLEKS                       R15 R14 K27 ["OnDelete"]
-      120 GETTABLEKS                       R15 R0 K13 ["OnCancel"]
-      122 SETTABLEKS                       R15 R14 K13 ["OnCancel"]
-      124 CALL                             R12 2 1
-      125 SETTABLEKS                       R12 R11 K21 ["Contents"]
-      127 CALL                             R8 3 1
-      128 JUMP                             ; [+1]
-      129 LOADNIL                          R8
-      130 SETTABLEKS                       R8 R7 K22 ["Provider"]
-      132 CALL                             R4 3 -1
-      133 RETURN                           R4 -1
+       29 GETTABLEKS                       R7 R0 K15 ["OnCancel"]
+       31 SETTABLEKS                       R7 R6 K9 ["OnClose"]
+       33 GETIMPORT                        R7 K18 [Enum.ZIndexBehavior.Sibling]
+       35 SETTABLEKS                       R7 R6 K10 ["ZIndexBehavior"]
+       37 GETIMPORT                        R7 K21 [Vector2.new]
+       39 LOADN                            R8 480
+       40 LOADN                            R9 160
+       41 CALL                             R7 2 1
+       42 SETTABLEKS                       R7 R6 K11 ["Size"]
+       44 DUPTABLE                         R7 K25 [{"StyleLink", "Contents", "Provider"}]
+       45 JUMPIFNOT                        R2 ; [+9]
+       46 GETUPVAL                         R8 4
+       47 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       49 LOADK                            R9 K22 ["StyleLink"]
+       50 DUPTABLE                         R10 K27 [{"StyleSheet"}]
+       51 SETTABLEKS                       R2 R10 K26 ["StyleSheet"]
+       53 CALL                             R8 2 1
+       54 JUMP                             ; [+1]
+       55 LOADNIL                          R8
+       56 SETTABLEKS                       R8 R7 K22 ["StyleLink"]
+       58 GETUPVAL                         R9 1
+       59 JUMPIFNOT                        R9 ; [+19]
+       60 GETUPVAL                         R8 4
+       61 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       63 GETUPVAL                         R9 6
+       64 DUPTABLE                         R10 K30 [{"Text", "OnDelete", "OnCancel"}]
+       65 GETTABLEKS                       R11 R0 K28 ["Text"]
+       67 SETTABLEKS                       R11 R10 K28 ["Text"]
+       69 GETTABLEKS                       R11 R0 K29 ["OnDelete"]
+       71 SETTABLEKS                       R11 R10 K29 ["OnDelete"]
+       73 GETTABLEKS                       R11 R0 K15 ["OnCancel"]
+       75 SETTABLEKS                       R11 R10 K15 ["OnCancel"]
+       77 CALL                             R8 2 1
+       78 JUMP                             ; [+1]
+       79 LOADNIL                          R8
+       80 SETTABLEKS                       R8 R7 K23 ["Contents"]
+       82 GETUPVAL                         R9 1
+       83 JUMPIF                           R9 ; [+36]
+       84 GETUPVAL                         R8 4
+       85 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       87 GETUPVAL                         R9 7
+       88 GETTABLEKS                       R9 R9 K31 ["FoundationProvider"]
+       90 DUPTABLE                         R10 K33 [{"theme"}]
+       91 MOVE                             R11 R3
+       92 JUMPIFNOT                        R11 ; [+2]
+       93 GETTABLEKS                       R11 R3 K34 ["Name"]
+       95 SETTABLEKS                       R11 R10 K32 ["theme"]
+       97 DUPTABLE                         R11 K35 [{"Contents"}]
+       98 GETUPVAL                         R12 4
+       99 GETTABLEKS                       R12 R12 K2 ["createElement"]
+      101 GETUPVAL                         R13 6
+      102 DUPTABLE                         R14 K30 [{"Text", "OnDelete", "OnCancel"}]
+      103 GETTABLEKS                       R15 R0 K28 ["Text"]
+      105 SETTABLEKS                       R15 R14 K28 ["Text"]
+      107 GETTABLEKS                       R15 R0 K29 ["OnDelete"]
+      109 SETTABLEKS                       R15 R14 K29 ["OnDelete"]
+      111 GETTABLEKS                       R15 R0 K15 ["OnCancel"]
+      113 SETTABLEKS                       R15 R14 K15 ["OnCancel"]
+      115 CALL                             R12 2 1
+      116 SETTABLEKS                       R12 R11 K23 ["Contents"]
+      118 CALL                             R8 3 1
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R8
+      121 SETTABLEKS                       R8 R7 K24 ["Provider"]
+      123 CALL                             R4 3 -1
+      124 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

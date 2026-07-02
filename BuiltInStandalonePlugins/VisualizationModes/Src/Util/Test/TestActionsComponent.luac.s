@@ -130,24 +130,22 @@ PROTO_6:
         5 FORGPREP                         R3
         6 GETUPVAL                         R9 0
         7 GETTABLE                         R8 R9 R7
-        8 JUMPIF                           R8 ; [+12]
+        8 JUMPIF                           R8 ; [+9]
         9 GETUPVAL                         R8 0
-       10 DUPTABLE                         R9 K2 [{"Checked", "_signal"}]
-       11 LOADB                            R10 0
-       12 SETTABLEKS                       R10 R9 K0 ["Checked"]
-       14 GETUPVAL                         R10 1
-       15 GETTABLEKS                       R10 R10 K3 ["new"]
-       17 CALL                             R10 0 1
-       18 SETTABLEKS                       R10 R9 K1 ["_signal"]
-       20 SETTABLE                         R9 R8 R7
-       21 GETUPVAL                         R11 0
-       22 GETTABLE                         R10 R11 R7
-       23 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
-       25 MOVE                             R9 R2
-       26 GETIMPORT                        R8 K6 [table.insert]
-       28 CALL                             R8 2 0
-       29 FORGLOOP                         R3 2 ; [-24]
-       31 RETURN                           R2 1
+       10 DUPTABLE                         R9 K3 [{[1] = False, ["_signal"]}]
+       11 GETUPVAL                         R10 1
+       12 GETTABLEKS                       R10 R10 K4 ["new"]
+       14 CALL                             R10 0 1
+       15 SETTABLEKS                       R10 R9 K2 ["_signal"]
+       17 SETTABLE                         R9 R8 R7
+       18 GETUPVAL                         R11 0
+       19 GETTABLE                         R10 R11 R7
+       20 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       22 MOVE                             R9 R2
+       23 GETIMPORT                        R8 K7 [table.insert]
+       25 CALL                             R8 2 0
+       26 FORGLOOP                         R3 2 ; [-21]
+       28 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R3 0

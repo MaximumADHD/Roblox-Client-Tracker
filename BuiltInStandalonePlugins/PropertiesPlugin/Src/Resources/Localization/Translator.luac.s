@@ -20,10 +20,8 @@ MAIN:
        32 GETTABLEKS                       R4 R4 K9 ["Localization"]
        34 GETTABLEKS                       R4 R4 K12 ["SourceStrings"]
        36 GETTABLEKS                       R5 R2 K13 ["new"]
-       38 DUPTABLE                         R6 K17 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       38 DUPTABLE                         R6 K17 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PropertiesPlugin"}]
        39 SETTABLEKS                       R4 R6 K14 ["stringResourceTable"]
        41 SETTABLEKS                       R3 R6 K15 ["translationResourceTable"]
-       43 LOADK                            R7 K2 ["PropertiesPlugin"]
-       44 SETTABLEKS                       R7 R6 K16 ["pluginName"]
-       46 CALL                             R5 1 1
-       47 RETURN                           R5 1
+       43 CALL                             R5 1 1
+       44 RETURN                           R5 1

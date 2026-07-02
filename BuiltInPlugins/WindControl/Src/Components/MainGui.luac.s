@@ -40,36 +40,24 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isChangingYaw", "isChangingPitch"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isChangingYaw"]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["isChangingPitch"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["isChangingPitch"] = True}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isChangingYaw", "isChangingPitch"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isChangingYaw"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["isChangingPitch"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = True, ["isChangingPitch"] = False}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isChangingYaw", "isChangingPitch"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isChangingYaw"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["isChangingPitch"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = False, ["isChangingPitch"] = False}]
+        2 NAMECALL                         R0 R0 K4 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -87,40 +75,36 @@ PROTO_6:
        18 GETUPVAL                         R1 1
        19 CALL                             R1 0 1
        20 SETTABLEKS                       R1 R0 K4 ["windhose"]
-       22 DUPTABLE                         R3 K9 [{"windspeed", "windDirection", "isChangingPitch", "isChangingYaw"}]
-       23 GETIMPORT                        R4 K11 [workspace]
-       25 GETTABLEKS                       R4 R4 K12 ["GlobalWind"]
-       27 GETTABLEKS                       R4 R4 K13 ["Magnitude"]
+       22 DUPTABLE                         R3 K10 [{["windspeed"], ["windDirection"], ["isChangingPitch"] = False, ["isChangingYaw"] = False}]
+       23 GETIMPORT                        R4 K12 [workspace]
+       25 GETTABLEKS                       R4 R4 K13 ["GlobalWind"]
+       27 GETTABLEKS                       R4 R4 K14 ["Magnitude"]
        29 SETTABLEKS                       R4 R3 K5 ["windspeed"]
-       31 GETIMPORT                        R4 K11 [workspace]
-       33 GETTABLEKS                       R4 R4 K12 ["GlobalWind"]
-       35 GETTABLEKS                       R4 R4 K14 ["Unit"]
+       31 GETIMPORT                        R4 K12 [workspace]
+       33 GETTABLEKS                       R4 R4 K13 ["GlobalWind"]
+       35 GETTABLEKS                       R4 R4 K15 ["Unit"]
        37 SETTABLEKS                       R4 R3 K6 ["windDirection"]
-       39 LOADB                            R4 0
-       40 SETTABLEKS                       R4 R3 K7 ["isChangingPitch"]
-       42 LOADB                            R4 0
-       43 SETTABLEKS                       R4 R3 K8 ["isChangingYaw"]
-       45 NAMECALL                         R1 R0 K15 ["setState"]
-       47 CALL                             R1 2 0
-       48 NEWCLOSURE                       R1 P0
-       49 CAPTURE                          VAL R0
-       50 SETTABLEKS                       R1 R0 K16 ["onWindChanged"]
-       52 NEWCLOSURE                       R1 P1
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R1 R0 K17 ["onisChangingPitchChanged"]
-       56 NEWCLOSURE                       R1 P2
-       57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R1 R0 K18 ["onisChangingYawChanged"]
-       60 NEWCLOSURE                       R1 P3
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R1 R0 K19 ["onYawStateRequested"]
-       64 NEWCLOSURE                       R1 P4
-       65 CAPTURE                          VAL R0
-       66 SETTABLEKS                       R1 R0 K20 ["onPitchStateRequested"]
-       68 NEWCLOSURE                       R1 P5
-       69 CAPTURE                          VAL R0
-       70 SETTABLEKS                       R1 R0 K21 ["onSpeedStateRequested"]
-       72 RETURN                           R0 0
+       39 NAMECALL                         R1 R0 K16 ["setState"]
+       41 CALL                             R1 2 0
+       42 NEWCLOSURE                       R1 P0
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R1 R0 K17 ["onWindChanged"]
+       46 NEWCLOSURE                       R1 P1
+       47 CAPTURE                          VAL R0
+       48 SETTABLEKS                       R1 R0 K18 ["onisChangingPitchChanged"]
+       50 NEWCLOSURE                       R1 P2
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R1 R0 K19 ["onisChangingYawChanged"]
+       54 NEWCLOSURE                       R1 P3
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R1 R0 K20 ["onYawStateRequested"]
+       58 NEWCLOSURE                       R1 P4
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R1 R0 K21 ["onPitchStateRequested"]
+       62 NEWCLOSURE                       R1 P5
+       63 CAPTURE                          VAL R0
+       64 SETTABLEKS                       R1 R0 K22 ["onSpeedStateRequested"]
+       66 RETURN                           R0 0
 
 PROTO_7:
         0 GETIMPORT                        R3 K1 [game]
@@ -474,115 +458,111 @@ PROTO_19:
        24 GETUPVAL                         R13 1
        25 GETTABLEKS                       R13 R13 K6 ["createElement"]
        27 LOADK                            R14 K11 ["ViewportFrame"]
-       28 DUPTABLE                         R15 K19 [{"ZIndex", "Size", "Position", "CurrentCamera", "BackgroundTransparency", "ref"}]
-       29 LOADN                            R16 1
-       30 SETTABLEKS                       R16 R15 K13 ["ZIndex"]
-       32 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
-       34 GETTABLEKS                       R16 R16 K14 ["Size"]
-       36 SETTABLEKS                       R16 R15 K14 ["Size"]
-       38 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
-       40 GETTABLEKS                       R16 R16 K15 ["Position"]
-       42 SETTABLEKS                       R16 R15 K15 ["Position"]
-       44 GETTABLEKS                       R16 R0 K20 ["cameraRef"]
-       46 SETTABLEKS                       R16 R15 K16 ["CurrentCamera"]
-       48 LOADN                            R16 1
-       49 SETTABLEKS                       R16 R15 K17 ["BackgroundTransparency"]
-       51 GETTABLEKS                       R16 R0 K21 ["viewportRef"]
-       53 SETTABLEKS                       R16 R15 K18 ["ref"]
-       55 DUPTABLE                         R16 K26 [{"Background", "Camera", "ImageButton", "WindspeedDisplay"}]
-       56 GETUPVAL                         R17 1
-       57 GETTABLEKS                       R17 R17 K6 ["createElement"]
-       59 GETUPVAL                         R18 2
-       60 GETTABLEKS                       R19 R2 K27 ["BackgroundPane"]
-       62 CALL                             R17 2 1
-       63 SETTABLEKS                       R17 R16 K22 ["Background"]
-       65 GETUPVAL                         R17 1
-       66 GETTABLEKS                       R17 R17 K6 ["createElement"]
-       68 LOADK                            R18 K23 ["Camera"]
-       69 DUPTABLE                         R19 K31 [{"CameraType", "CFrame", "FieldOfView", "ref"}]
-       70 GETIMPORT                        R20 K34 [Enum.CameraType.Scriptable]
-       72 SETTABLEKS                       R20 R19 K28 ["CameraType"]
-       74 GETIMPORT                        R20 K36 [CFrame.new]
-       76 LOADK                            R21 K37 [{0, 0, 0}]
-       77 LOADK                            R22 K37 [{0, 0, 0}]
-       78 CALL                             R20 2 1
-       79 SETTABLEKS                       R20 R19 K29 ["CFrame"]
-       81 GETTABLEKS                       R20 R2 K38 ["CameraFOV"]
-       83 SETTABLEKS                       R20 R19 K30 ["FieldOfView"]
-       85 GETTABLEKS                       R20 R0 K20 ["cameraRef"]
-       87 SETTABLEKS                       R20 R19 K18 ["ref"]
-       89 CALL                             R17 2 1
-       90 SETTABLEKS                       R17 R16 K23 ["Camera"]
-       92 GETUPVAL                         R17 1
-       93 GETTABLEKS                       R17 R17 K6 ["createElement"]
-       95 LOADK                            R18 K24 ["ImageButton"]
-       96 NEWTABLE                         R19 8 0
-       98 GETIMPORT                        R20 K41 [UDim2.fromScale]
-      100 LOADN                            R21 1
-      101 LOADN                            R22 1
-      102 CALL                             R20 2 1
-      103 SETTABLEKS                       R20 R19 K14 ["Size"]
-      105 LOADN                            R20 1
-      106 SETTABLEKS                       R20 R19 K17 ["BackgroundTransparency"]
-      108 GETUPVAL                         R20 1
-      109 GETTABLEKS                       R20 R20 K42 ["Event"]
-      111 GETTABLEKS                       R20 R20 K43 ["MouseEnter"]
-      113 NEWCLOSURE                       R21 P0
-      114 CAPTURE                          VAL R0
-      115 SETTABLE                         R21 R19 R20
-      116 GETUPVAL                         R20 1
-      117 GETTABLEKS                       R20 R20 K42 ["Event"]
-      119 GETTABLEKS                       R20 R20 K44 ["MouseLeave"]
-      121 NEWCLOSURE                       R21 P1
-      122 CAPTURE                          VAL R0
-      123 SETTABLE                         R21 R19 R20
-      124 GETUPVAL                         R20 1
-      125 GETTABLEKS                       R20 R20 K42 ["Event"]
-      127 GETTABLEKS                       R20 R20 K45 ["MouseButton1Down"]
-      129 NEWCLOSURE                       R21 P2
-      130 CAPTURE                          VAL R0
-      131 SETTABLE                         R21 R19 R20
-      132 GETUPVAL                         R20 1
-      133 GETTABLEKS                       R20 R20 K42 ["Event"]
-      135 GETTABLEKS                       R20 R20 K46 ["MouseMoved"]
-      137 NEWCLOSURE                       R21 P3
-      138 CAPTURE                          VAL R0
-      139 SETTABLE                         R21 R19 R20
-      140 CALL                             R17 2 1
-      141 SETTABLEKS                       R17 R16 K24 ["ImageButton"]
-      143 GETUPVAL                         R17 1
-      144 GETTABLEKS                       R17 R17 K6 ["createElement"]
-      146 GETUPVAL                         R18 3
-      147 DUPTABLE                         R19 K54 [{"Windspeed", "WindDirection", "isChangingPitch", "isChangingYaw", "yawStateRequested", "pitchStateRequested", "speedStateRequested"}]
-      148 GETTABLEKS                       R20 R0 K55 ["state"]
-      150 GETTABLEKS                       R20 R20 K56 ["windspeed"]
-      152 SETTABLEKS                       R20 R19 K47 ["Windspeed"]
-      154 GETTABLEKS                       R20 R0 K55 ["state"]
-      156 GETTABLEKS                       R20 R20 K57 ["windDirection"]
-      158 SETTABLEKS                       R20 R19 K48 ["WindDirection"]
-      160 GETTABLEKS                       R20 R0 K55 ["state"]
-      162 GETTABLEKS                       R20 R20 K49 ["isChangingPitch"]
-      164 SETTABLEKS                       R20 R19 K49 ["isChangingPitch"]
-      166 GETTABLEKS                       R20 R0 K55 ["state"]
-      168 GETTABLEKS                       R20 R20 K50 ["isChangingYaw"]
-      170 SETTABLEKS                       R20 R19 K50 ["isChangingYaw"]
-      172 GETTABLEKS                       R20 R0 K58 ["onYawStateRequested"]
-      174 SETTABLEKS                       R20 R19 K51 ["yawStateRequested"]
-      176 GETTABLEKS                       R20 R0 K59 ["onPitchStateRequested"]
-      178 SETTABLEKS                       R20 R19 K52 ["pitchStateRequested"]
-      180 GETTABLEKS                       R20 R0 K60 ["onSpeedStateRequested"]
-      182 SETTABLEKS                       R20 R19 K53 ["speedStateRequested"]
-      184 CALL                             R17 2 1
-      185 SETTABLEKS                       R17 R16 K25 ["WindspeedDisplay"]
-      187 CALL                             R13 3 1
-      188 SETTABLEKS                       R13 R12 K11 ["ViewportFrame"]
-      190 CALL                             R9 3 1
-      191 SETTABLEKS                       R9 R8 K8 ["Screengui"]
-      193 CALL                             R5 3 1
-      194 SETTABLEKS                       R5 R4 K4 ["WindControl"]
-      196 GETUPVAL                         R5 4
-      197 CALL                             R3 2 -1
-      198 RETURN                           R3 -1
+       28 DUPTABLE                         R15 K20 [{["ZIndex"] = 1, ["Size"], ["Position"], ["CurrentCamera"], ["BackgroundTransparency"] = 1, ["ref"]}]
+       29 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
+       31 GETTABLEKS                       R16 R16 K15 ["Size"]
+       33 SETTABLEKS                       R16 R15 K15 ["Size"]
+       35 GETTABLEKS                       R16 R2 K11 ["ViewportFrame"]
+       37 GETTABLEKS                       R16 R16 K16 ["Position"]
+       39 SETTABLEKS                       R16 R15 K16 ["Position"]
+       41 GETTABLEKS                       R16 R0 K21 ["cameraRef"]
+       43 SETTABLEKS                       R16 R15 K17 ["CurrentCamera"]
+       45 GETTABLEKS                       R16 R0 K22 ["viewportRef"]
+       47 SETTABLEKS                       R16 R15 K19 ["ref"]
+       49 DUPTABLE                         R16 K27 [{"Background", "Camera", "ImageButton", "WindspeedDisplay"}]
+       50 GETUPVAL                         R17 1
+       51 GETTABLEKS                       R17 R17 K6 ["createElement"]
+       53 GETUPVAL                         R18 2
+       54 GETTABLEKS                       R19 R2 K28 ["BackgroundPane"]
+       56 CALL                             R17 2 1
+       57 SETTABLEKS                       R17 R16 K23 ["Background"]
+       59 GETUPVAL                         R17 1
+       60 GETTABLEKS                       R17 R17 K6 ["createElement"]
+       62 LOADK                            R18 K24 ["Camera"]
+       63 DUPTABLE                         R19 K32 [{"CameraType", "CFrame", "FieldOfView", "ref"}]
+       64 GETIMPORT                        R20 K35 [Enum.CameraType.Scriptable]
+       66 SETTABLEKS                       R20 R19 K29 ["CameraType"]
+       68 GETIMPORT                        R20 K37 [CFrame.new]
+       70 LOADK                            R21 K38 [{0, 0, 0}]
+       71 LOADK                            R22 K38 [{0, 0, 0}]
+       72 CALL                             R20 2 1
+       73 SETTABLEKS                       R20 R19 K30 ["CFrame"]
+       75 GETTABLEKS                       R20 R2 K39 ["CameraFOV"]
+       77 SETTABLEKS                       R20 R19 K31 ["FieldOfView"]
+       79 GETTABLEKS                       R20 R0 K21 ["cameraRef"]
+       81 SETTABLEKS                       R20 R19 K19 ["ref"]
+       83 CALL                             R17 2 1
+       84 SETTABLEKS                       R17 R16 K24 ["Camera"]
+       86 GETUPVAL                         R17 1
+       87 GETTABLEKS                       R17 R17 K6 ["createElement"]
+       89 LOADK                            R18 K25 ["ImageButton"]
+       90 NEWTABLE                         R19 8 0
+       92 GETIMPORT                        R20 K42 [UDim2.fromScale]
+       94 LOADN                            R21 1
+       95 LOADN                            R22 1
+       96 CALL                             R20 2 1
+       97 SETTABLEKS                       R20 R19 K15 ["Size"]
+       99 LOADN                            R20 1
+      100 SETTABLEKS                       R20 R19 K18 ["BackgroundTransparency"]
+      102 GETUPVAL                         R20 1
+      103 GETTABLEKS                       R20 R20 K43 ["Event"]
+      105 GETTABLEKS                       R20 R20 K44 ["MouseEnter"]
+      107 NEWCLOSURE                       R21 P0
+      108 CAPTURE                          VAL R0
+      109 SETTABLE                         R21 R19 R20
+      110 GETUPVAL                         R20 1
+      111 GETTABLEKS                       R20 R20 K43 ["Event"]
+      113 GETTABLEKS                       R20 R20 K45 ["MouseLeave"]
+      115 NEWCLOSURE                       R21 P1
+      116 CAPTURE                          VAL R0
+      117 SETTABLE                         R21 R19 R20
+      118 GETUPVAL                         R20 1
+      119 GETTABLEKS                       R20 R20 K43 ["Event"]
+      121 GETTABLEKS                       R20 R20 K46 ["MouseButton1Down"]
+      123 NEWCLOSURE                       R21 P2
+      124 CAPTURE                          VAL R0
+      125 SETTABLE                         R21 R19 R20
+      126 GETUPVAL                         R20 1
+      127 GETTABLEKS                       R20 R20 K43 ["Event"]
+      129 GETTABLEKS                       R20 R20 K47 ["MouseMoved"]
+      131 NEWCLOSURE                       R21 P3
+      132 CAPTURE                          VAL R0
+      133 SETTABLE                         R21 R19 R20
+      134 CALL                             R17 2 1
+      135 SETTABLEKS                       R17 R16 K25 ["ImageButton"]
+      137 GETUPVAL                         R17 1
+      138 GETTABLEKS                       R17 R17 K6 ["createElement"]
+      140 GETUPVAL                         R18 3
+      141 DUPTABLE                         R19 K55 [{"Windspeed", "WindDirection", "isChangingPitch", "isChangingYaw", "yawStateRequested", "pitchStateRequested", "speedStateRequested"}]
+      142 GETTABLEKS                       R20 R0 K56 ["state"]
+      144 GETTABLEKS                       R20 R20 K57 ["windspeed"]
+      146 SETTABLEKS                       R20 R19 K48 ["Windspeed"]
+      148 GETTABLEKS                       R20 R0 K56 ["state"]
+      150 GETTABLEKS                       R20 R20 K58 ["windDirection"]
+      152 SETTABLEKS                       R20 R19 K49 ["WindDirection"]
+      154 GETTABLEKS                       R20 R0 K56 ["state"]
+      156 GETTABLEKS                       R20 R20 K50 ["isChangingPitch"]
+      158 SETTABLEKS                       R20 R19 K50 ["isChangingPitch"]
+      160 GETTABLEKS                       R20 R0 K56 ["state"]
+      162 GETTABLEKS                       R20 R20 K51 ["isChangingYaw"]
+      164 SETTABLEKS                       R20 R19 K51 ["isChangingYaw"]
+      166 GETTABLEKS                       R20 R0 K59 ["onYawStateRequested"]
+      168 SETTABLEKS                       R20 R19 K52 ["yawStateRequested"]
+      170 GETTABLEKS                       R20 R0 K60 ["onPitchStateRequested"]
+      172 SETTABLEKS                       R20 R19 K53 ["pitchStateRequested"]
+      174 GETTABLEKS                       R20 R0 K61 ["onSpeedStateRequested"]
+      176 SETTABLEKS                       R20 R19 K54 ["speedStateRequested"]
+      178 CALL                             R17 2 1
+      179 SETTABLEKS                       R17 R16 K26 ["WindspeedDisplay"]
+      181 CALL                             R13 3 1
+      182 SETTABLEKS                       R13 R12 K11 ["ViewportFrame"]
+      184 CALL                             R9 3 1
+      185 SETTABLEKS                       R9 R8 K8 ["Screengui"]
+      187 CALL                             R5 3 1
+      188 SETTABLEKS                       R5 R4 K4 ["WindControl"]
+      190 GETUPVAL                         R5 4
+      191 CALL                             R3 2 -1
+      192 RETURN                           R3 -1
 
 PROTO_20:
         0 LOADB                            R1 1

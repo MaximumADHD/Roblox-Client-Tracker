@@ -125,17 +125,15 @@ PROTO_6:
        36 CALL                             R2 -1 0
        37 GETTABLEKS                       R2 R0 K8 ["UpdateQueueItem"]
        39 GETTABLEKS                       R3 R0 K9 ["ActiveQueueItem"]
-       41 DUPTABLE                         R4 K11 [{"settingsChanged"}]
-       42 LOADB                            R5 1
-       43 SETTABLEKS                       R5 R4 K10 ["settingsChanged"]
-       45 CALL                             R2 2 0
-       46 GETTABLEKS                       R2 R0 K12 ["OnInteract"]
-       48 CALL                             R2 0 0
-       49 GETUPVAL                         R2 0
-       50 NEWTABLE                         R4 0 0
-       52 NAMECALL                         R2 R2 K13 ["setState"]
-       54 CALL                             R2 2 0
-       55 RETURN                           R0 0
+       41 DUPTABLE                         R4 K12 [{["settingsChanged"] = True}]
+       42 CALL                             R2 2 0
+       43 GETTABLEKS                       R2 R0 K13 ["OnInteract"]
+       45 CALL                             R2 0 0
+       46 GETUPVAL                         R2 0
+       47 NEWTABLE                         R4 0 0
+       49 NAMECALL                         R2 R2 K14 ["setState"]
+       51 CALL                             R2 2 0
+       52 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -160,22 +158,20 @@ PROTO_7:
        31 GETUPVAL                         R5 1
        32 GETTABLEKS                       R6 R2 K3 ["Name"]
        34 CALL                             R4 2 1
-       35 JUMPIFNOT                        R4 ; [+11]
-       36 JUMPIFEQ                         R3 R0 ; [+10]
+       35 JUMPIFNOT                        R4 ; [+8]
+       36 JUMPIFEQ                         R3 R0 ; [+7]
        38 GETTABLEKS                       R4 R1 K9 ["UpdateQueueItem"]
        40 GETTABLEKS                       R5 R1 K10 ["ActiveQueueItem"]
-       42 DUPTABLE                         R6 K12 [{"settingsChanged"}]
-       43 LOADB                            R7 1
-       44 SETTABLEKS                       R7 R6 K11 ["settingsChanged"]
-       46 CALL                             R4 2 0
-       47 GETTABLEKS                       R4 R1 K13 ["SetErrorNodeChecked"]
-       49 GETUPVAL                         R5 2
-       50 GETTABLEKS                       R6 R1 K14 ["ImportTree"]
-       52 CALL                             R5 1 -1
-       53 CALL                             R4 -1 0
-       54 GETTABLEKS                       R4 R1 K15 ["OnInteract"]
-       56 CALL                             R4 0 0
-       57 RETURN                           R0 0
+       42 DUPTABLE                         R6 K13 [{["settingsChanged"] = True}]
+       43 CALL                             R4 2 0
+       44 GETTABLEKS                       R4 R1 K14 ["SetErrorNodeChecked"]
+       46 GETUPVAL                         R5 2
+       47 GETTABLEKS                       R6 R1 K15 ["ImportTree"]
+       49 CALL                             R5 1 -1
+       50 CALL                             R4 -1 0
+       51 GETTABLEKS                       R4 R1 K16 ["OnInteract"]
+       53 CALL                             R4 0 0
+       54 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -210,13 +206,11 @@ PROTO_8:
        46 CALL                             R4 -1 0
        47 GETTABLEKS                       R4 R1 K9 ["UpdateQueueItem"]
        49 GETTABLEKS                       R5 R1 K10 ["ActiveQueueItem"]
-       51 DUPTABLE                         R6 K12 [{"settingsChanged"}]
-       52 LOADB                            R7 1
-       53 SETTABLEKS                       R7 R6 K11 ["settingsChanged"]
-       55 CALL                             R4 2 0
-       56 GETTABLEKS                       R4 R1 K13 ["OnInteract"]
-       58 CALL                             R4 0 0
-       59 RETURN                           R0 0
+       51 DUPTABLE                         R6 K13 [{["settingsChanged"] = True}]
+       52 CALL                             R4 2 0
+       53 GETTABLEKS                       R4 R1 K14 ["OnInteract"]
+       55 CALL                             R4 0 0
+       56 RETURN                           R0 0
 
 PROTO_9:
         0 NEWCLOSURE                       R1 P0
@@ -392,102 +386,94 @@ PROTO_14:
       143 GETUPVAL                         R23 4
       144 GETTABLEKS                       R23 R23 K22 ["createElement"]
       146 GETUPVAL                         R24 6
-      147 DUPTABLE                         R25 K49 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Padding"}]
+      147 DUPTABLE                         R25 K50 [{["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 3, ["Size"], ["Padding"]}]
       148 GETIMPORT                        R26 K43 [Enum.HorizontalAlignment.Left]
       150 SETTABLEKS                       R26 R25 K31 ["HorizontalAlignment"]
       152 GETIMPORT                        R26 K41 [Enum.FillDirection.Horizontal]
       154 SETTABLEKS                       R26 R25 K30 ["Layout"]
-      156 LOADN                            R26 3
-      157 SETTABLEKS                       R26 R25 K28 ["LayoutOrder"]
-      159 GETIMPORT                        R26 K35 [UDim2.new]
-      161 LOADN                            R27 0
-      162 MOVE                             R28 R17
-      163 LOADN                            R29 1
-      164 LOADN                            R30 0
-      165 CALL                             R26 4 1
-      166 SETTABLEKS                       R26 R25 K29 ["Size"]
-      168 DUPTABLE                         R26 K50 [{"Left"}]
-      169 SETTABLEKS                       R16 R26 K42 ["Left"]
-      171 SETTABLEKS                       R26 R25 K48 ["Padding"]
-      173 DUPTABLE                         R26 K52 [{"Icon"}]
-      174 JUMPIFNOT                        R6 ; [+13]
-      175 GETUPVAL                         R27 4
-      176 GETTABLEKS                       R27 R27 K22 ["createElement"]
-      178 GETUPVAL                         R28 7
-      179 DUPTABLE                         R29 K56 [{"StatusLevel", "StatusMessage", "StatusContext"}]
-      180 SETTABLEKS                       R6 R29 K53 ["StatusLevel"]
-      182 SETTABLEKS                       R7 R29 K54 ["StatusMessage"]
-      184 SETTABLEKS                       R8 R29 K55 ["StatusContext"]
-      186 CALL                             R27 2 1
-      187 JUMP                             ; [+1]
-      188 LOADNIL                          R27
-      189 SETTABLEKS                       R27 R26 K51 ["Icon"]
-      191 CALL                             R23 3 1
-      192 SETTABLEKS                       R23 R22 K44 ["StatusArea"]
-      194 GETUPVAL                         R23 4
-      195 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      197 GETUPVAL                         R24 8
-      198 DUPTABLE                         R25 K60 [{"AutomaticSize", "Text", "TextWrapped", "TextXAlignment", "LayoutOrder", "Size"}]
-      199 GETIMPORT                        R26 K62 [Enum.AutomaticSize.Y]
-      201 SETTABLEKS                       R26 R25 K57 ["AutomaticSize"]
-      203 LOADK                            R28 K63 ["Properties"]
-      204 MOVE                             R29 R10
-      205 NAMECALL                         R26 R2 K26 ["getText"]
-      207 CALL                             R26 3 1
-      208 SETTABLEKS                       R26 R25 K23 ["Text"]
-      210 LOADB                            R26 0
-      211 SETTABLEKS                       R26 R25 K58 ["TextWrapped"]
-      213 GETIMPORT                        R26 K64 [Enum.TextXAlignment.Left]
-      215 SETTABLEKS                       R26 R25 K59 ["TextXAlignment"]
-      217 LOADN                            R26 1
-      218 SETTABLEKS                       R26 R25 K28 ["LayoutOrder"]
-      220 GETIMPORT                        R26 K35 [UDim2.new]
-      222 LOADK                            R27 K65 [0.5]
-      223 MINUS                            R28 R17
-      224 LOADN                            R29 0
-      225 LOADN                            R30 0
-      226 CALL                             R26 4 1
-      227 SETTABLEKS                       R26 R25 K29 ["Size"]
-      229 MOVE                             R26 R18
-      230 CALL                             R23 3 1
-      231 SETTABLEKS                       R23 R22 K45 ["Label"]
-      233 GETUPVAL                         R23 4
-      234 GETTABLEKS                       R23 R23 K22 ["createElement"]
-      236 MOVE                             R24 R14
-      237 DUPTABLE                         R25 K72 [{"DependentValues", "Editable", "LayoutOrder", "Name", "OnSelectItem", "OnSetItem", "OnToggleItem", "Size", "Value", "Localization", "PropertyMetadata", "AllowPickFile", "Instance", "AssetImportSession"}]
-      238 SETTABLEKS                       R13 R25 K66 ["DependentValues"]
-      240 SETTABLEKS                       R9 R25 K15 ["Editable"]
-      242 LOADN                            R26 2
-      243 SETTABLEKS                       R26 R25 K28 ["LayoutOrder"]
-      245 SETTABLEKS                       R10 R25 K9 ["Name"]
-      247 GETTABLEKS                       R26 R0 K73 ["onSelectItem"]
-      249 SETTABLEKS                       R26 R25 K67 ["OnSelectItem"]
-      251 GETTABLEKS                       R26 R0 K74 ["onSetItem"]
-      253 SETTABLEKS                       R26 R25 K68 ["OnSetItem"]
-      255 GETTABLEKS                       R26 R0 K75 ["onToggleItem"]
-      257 SETTABLEKS                       R26 R25 K69 ["OnToggleItem"]
-      259 GETIMPORT                        R26 K35 [UDim2.new]
-      261 LOADK                            R27 K65 [0.5]
-      262 GETTABLEKS                       R29 R3 K19 ["PropertyView"]
-      264 GETTABLEKS                       R29 R29 K36 ["ScrollBarOffset"]
-      266 MINUS                            R28 R29
-      267 LOADN                            R29 0
-      268 GETTABLEKS                       R30 R3 K19 ["PropertyView"]
-      270 GETTABLEKS                       R30 R30 K76 ["EditorHeight"]
-      272 CALL                             R26 4 1
-      273 SETTABLEKS                       R26 R25 K29 ["Size"]
-      275 SETTABLEKS                       R12 R25 K70 ["Value"]
-      277 SETTABLEKS                       R2 R25 K1 ["Localization"]
-      279 SETTABLEKS                       R4 R25 K3 ["PropertyMetadata"]
-      281 SETTABLEKS                       R11 R25 K16 ["AllowPickFile"]
-      283 SETTABLEKS                       R5 R25 K4 ["Instance"]
-      285 GETTABLEKS                       R26 R0 K0 ["props"]
-      287 GETTABLEKS                       R26 R26 K71 ["AssetImportSession"]
-      289 SETTABLEKS                       R26 R25 K71 ["AssetImportSession"]
-      291 CALL                             R23 2 1
-      292 SETTABLEKS                       R23 R22 K46 ["Editor"]
-      294 CALL                             R19 3 -1
-      295 RETURN                           R19 -1
+      156 GETIMPORT                        R26 K35 [UDim2.new]
+      158 LOADN                            R27 0
+      159 MOVE                             R28 R17
+      160 LOADN                            R29 1
+      161 LOADN                            R30 0
+      162 CALL                             R26 4 1
+      163 SETTABLEKS                       R26 R25 K29 ["Size"]
+      165 DUPTABLE                         R26 K51 [{"Left"}]
+      166 SETTABLEKS                       R16 R26 K42 ["Left"]
+      168 SETTABLEKS                       R26 R25 K49 ["Padding"]
+      170 DUPTABLE                         R26 K53 [{"Icon"}]
+      171 JUMPIFNOT                        R6 ; [+13]
+      172 GETUPVAL                         R27 4
+      173 GETTABLEKS                       R27 R27 K22 ["createElement"]
+      175 GETUPVAL                         R28 7
+      176 DUPTABLE                         R29 K57 [{"StatusLevel", "StatusMessage", "StatusContext"}]
+      177 SETTABLEKS                       R6 R29 K54 ["StatusLevel"]
+      179 SETTABLEKS                       R7 R29 K55 ["StatusMessage"]
+      181 SETTABLEKS                       R8 R29 K56 ["StatusContext"]
+      183 CALL                             R27 2 1
+      184 JUMP                             ; [+1]
+      185 LOADNIL                          R27
+      186 SETTABLEKS                       R27 R26 K52 ["Icon"]
+      188 CALL                             R23 3 1
+      189 SETTABLEKS                       R23 R22 K44 ["StatusArea"]
+      191 GETUPVAL                         R23 4
+      192 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      194 GETUPVAL                         R24 8
+      195 DUPTABLE                         R25 K63 [{["AutomaticSize"], ["Text"], ["TextWrapped"] = False, ["TextXAlignment"], ["LayoutOrder"] = 1, ["Size"]}]
+      196 GETIMPORT                        R26 K65 [Enum.AutomaticSize.Y]
+      198 SETTABLEKS                       R26 R25 K58 ["AutomaticSize"]
+      200 LOADK                            R28 K66 ["Properties"]
+      201 MOVE                             R29 R10
+      202 NAMECALL                         R26 R2 K26 ["getText"]
+      204 CALL                             R26 3 1
+      205 SETTABLEKS                       R26 R25 K23 ["Text"]
+      207 GETIMPORT                        R26 K67 [Enum.TextXAlignment.Left]
+      209 SETTABLEKS                       R26 R25 K61 ["TextXAlignment"]
+      211 GETIMPORT                        R26 K35 [UDim2.new]
+      213 LOADK                            R27 K68 [0.5]
+      214 MINUS                            R28 R17
+      215 LOADN                            R29 0
+      216 LOADN                            R30 0
+      217 CALL                             R26 4 1
+      218 SETTABLEKS                       R26 R25 K29 ["Size"]
+      220 MOVE                             R26 R18
+      221 CALL                             R23 3 1
+      222 SETTABLEKS                       R23 R22 K45 ["Label"]
+      224 GETUPVAL                         R23 4
+      225 GETTABLEKS                       R23 R23 K22 ["createElement"]
+      227 MOVE                             R24 R14
+      228 DUPTABLE                         R25 K76 [{["DependentValues"], ["Editable"], ["LayoutOrder"] = 2, ["Name"], ["OnSelectItem"], ["OnSetItem"], ["OnToggleItem"], ["Size"], ["Value"], ["Localization"], ["PropertyMetadata"], ["AllowPickFile"], ["Instance"], ["AssetImportSession"]}]
+      229 SETTABLEKS                       R13 R25 K69 ["DependentValues"]
+      231 SETTABLEKS                       R9 R25 K15 ["Editable"]
+      233 SETTABLEKS                       R10 R25 K9 ["Name"]
+      235 GETTABLEKS                       R26 R0 K77 ["onSelectItem"]
+      237 SETTABLEKS                       R26 R25 K71 ["OnSelectItem"]
+      239 GETTABLEKS                       R26 R0 K78 ["onSetItem"]
+      241 SETTABLEKS                       R26 R25 K72 ["OnSetItem"]
+      243 GETTABLEKS                       R26 R0 K79 ["onToggleItem"]
+      245 SETTABLEKS                       R26 R25 K73 ["OnToggleItem"]
+      247 GETIMPORT                        R26 K35 [UDim2.new]
+      249 LOADK                            R27 K68 [0.5]
+      250 GETTABLEKS                       R29 R3 K19 ["PropertyView"]
+      252 GETTABLEKS                       R29 R29 K36 ["ScrollBarOffset"]
+      254 MINUS                            R28 R29
+      255 LOADN                            R29 0
+      256 GETTABLEKS                       R30 R3 K19 ["PropertyView"]
+      258 GETTABLEKS                       R30 R30 K80 ["EditorHeight"]
+      260 CALL                             R26 4 1
+      261 SETTABLEKS                       R26 R25 K29 ["Size"]
+      263 SETTABLEKS                       R12 R25 K74 ["Value"]
+      265 SETTABLEKS                       R2 R25 K1 ["Localization"]
+      267 SETTABLEKS                       R4 R25 K3 ["PropertyMetadata"]
+      269 SETTABLEKS                       R11 R25 K16 ["AllowPickFile"]
+      271 SETTABLEKS                       R5 R25 K4 ["Instance"]
+      273 GETTABLEKS                       R26 R0 K0 ["props"]
+      275 GETTABLEKS                       R26 R26 K75 ["AssetImportSession"]
+      277 SETTABLEKS                       R26 R25 K75 ["AssetImportSession"]
+      279 CALL                             R23 2 1
+      280 SETTABLEKS                       R23 R22 K46 ["Editor"]
+      282 CALL                             R19 3 -1
+      283 RETURN                           R19 -1
 
 PROTO_15:
         0 GETTABLEKS                       R3 R0 K0 ["state"]

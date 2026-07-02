@@ -9,14 +9,12 @@ PROTO_0:
        11 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R1 K1 [{"maxChildWidth"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["maxChildWidth"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["updateSize"]
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = 0}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["updateSize"]
+        7 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -69,100 +67,88 @@ PROTO_2:
        71 LOADB                            R7 0 +1
        72 LOADB                            R7 1
        73 GETTABLEKS                       R8 R2 K22 ["infoBanner"]
-       75 DUPTABLE                         R9 K27 [{"TextProps", "LinkPlaceholder", "LinkText", "OnLinkClicked", "MaxWidth"}]
-       76 DUPTABLE                         R10 K36 [{"TextColor", "BackgroundTransparency", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "ClipsDescendants"}]
-       77 GETTABLEKS                       R11 R8 K37 ["textColor"]
-       79 SETTABLEKS                       R11 R10 K28 ["TextColor"]
-       81 LOADN                            R11 1
-       82 SETTABLEKS                       R11 R10 K29 ["BackgroundTransparency"]
-       84 GETUPVAL                         R11 1
-       85 GETTABLEKS                       R11 R11 K38 ["FONT"]
-       87 SETTABLEKS                       R11 R10 K30 ["Font"]
-       89 SETTABLEKS                       R3 R10 K31 ["TextSize"]
-       91 GETIMPORT                        R11 K41 [Enum.TextXAlignment.Center]
-       93 SETTABLEKS                       R11 R10 K32 ["TextXAlignment"]
-       95 GETIMPORT                        R11 K42 [Enum.TextYAlignment.Center]
-       97 SETTABLEKS                       R11 R10 K33 ["TextYAlignment"]
-       99 LOADB                            R11 1
-      100 SETTABLEKS                       R11 R10 K34 ["TextWrapped"]
-      102 LOADB                            R11 1
-      103 SETTABLEKS                       R11 R10 K35 ["ClipsDescendants"]
-      105 SETTABLEKS                       R10 R9 K23 ["TextProps"]
-      107 LOADK                            R10 K43 ["{link}"]
-      108 SETTABLEKS                       R10 R9 K24 ["LinkPlaceholder"]
-      110 GETTABLEKS                       R10 R4 K7 ["LinkText"]
-      112 SETTABLEKS                       R10 R9 K7 ["LinkText"]
-      114 GETTABLEKS                       R10 R1 K3 ["onLinkClicked"]
-      116 SETTABLEKS                       R10 R9 K25 ["OnLinkClicked"]
-      118 GETTABLEKS                       R10 R0 K44 ["state"]
-      120 GETTABLEKS                       R10 R10 K45 ["maxChildWidth"]
-      122 SETTABLEKS                       R10 R9 K26 ["MaxWidth"]
-      124 GETUPVAL                         R10 2
-      125 GETTABLEKS                       R10 R10 K46 ["createElement"]
-      127 LOADK                            R11 K47 ["Frame"]
-      128 NEWTABLE                         R12 8 0
-      130 SETTABLEKS                       R5 R12 K15 ["Position"]
-      132 GETIMPORT                        R13 K18 [UDim2.new]
-      134 LOADN                            R14 1
-      135 LOADN                            R15 0
-      136 LOADN                            R16 1
-      137 LOADN                            R17 0
-      138 CALL                             R13 4 1
-      139 SETTABLEKS                       R13 R12 K48 ["Size"]
-      141 LOADN                            R13 1
-      142 SETTABLEKS                       R13 R12 K29 ["BackgroundTransparency"]
-      144 SETTABLEKS                       R6 R12 K20 ["ZIndex"]
-      146 SETTABLEKS                       R7 R12 K21 ["Visible"]
-      148 GETUPVAL                         R13 2
-      149 GETTABLEKS                       R13 R13 K49 ["Change"]
-      151 GETTABLEKS                       R13 R13 K50 ["AbsoluteSize"]
-      153 GETTABLEKS                       R14 R0 K51 ["updateSize"]
-      155 SETTABLE                         R14 R12 R13
-      156 DUPTABLE                         R13 K53 [{"Layout", "TextLine1", "TextLine2"}]
-      157 GETUPVAL                         R14 2
-      158 GETTABLEKS                       R14 R14 K46 ["createElement"]
-      160 LOADK                            R15 K54 ["UIListLayout"]
-      161 DUPTABLE                         R16 K58 [{"SortOrder", "FillDirection", "HorizontalAlignment"}]
-      162 GETIMPORT                        R17 K60 [Enum.SortOrder.LayoutOrder]
-      164 SETTABLEKS                       R17 R16 K55 ["SortOrder"]
-      166 GETIMPORT                        R17 K62 [Enum.FillDirection.Vertical]
-      168 SETTABLEKS                       R17 R16 K56 ["FillDirection"]
-      170 GETIMPORT                        R17 K63 [Enum.HorizontalAlignment.Center]
-      172 SETTABLEKS                       R17 R16 K57 ["HorizontalAlignment"]
-      174 CALL                             R14 2 1
-      175 SETTABLEKS                       R14 R13 K52 ["Layout"]
-      177 GETUPVAL                         R14 2
-      178 GETTABLEKS                       R14 R14 K46 ["createElement"]
-      180 GETUPVAL                         R15 3
-      181 GETUPVAL                         R16 4
-      182 GETTABLEKS                       R16 R16 K64 ["Dictionary"]
-      184 GETTABLEKS                       R16 R16 K65 ["join"]
-      186 DUPTABLE                         R17 K67 [{"Text", "LayoutOrder"}]
-      187 GETTABLEKS                       R18 R4 K5 ["TextLine1"]
-      189 SETTABLEKS                       R18 R17 K66 ["Text"]
-      191 LOADN                            R18 1
-      192 SETTABLEKS                       R18 R17 K59 ["LayoutOrder"]
-      194 MOVE                             R18 R9
-      195 CALL                             R16 2 -1
-      196 CALL                             R14 -1 1
-      197 SETTABLEKS                       R14 R13 K5 ["TextLine1"]
-      199 GETUPVAL                         R14 2
-      200 GETTABLEKS                       R14 R14 K46 ["createElement"]
-      202 GETUPVAL                         R15 3
-      203 GETUPVAL                         R16 4
-      204 GETTABLEKS                       R16 R16 K64 ["Dictionary"]
-      206 GETTABLEKS                       R16 R16 K65 ["join"]
-      208 DUPTABLE                         R17 K67 [{"Text", "LayoutOrder"}]
-      209 GETTABLEKS                       R18 R4 K6 ["TextLine2"]
-      211 SETTABLEKS                       R18 R17 K66 ["Text"]
-      213 LOADN                            R18 2
-      214 SETTABLEKS                       R18 R17 K59 ["LayoutOrder"]
-      216 MOVE                             R18 R9
-      217 CALL                             R16 2 -1
-      218 CALL                             R14 -1 1
-      219 SETTABLEKS                       R14 R13 K6 ["TextLine2"]
-      221 CALL                             R10 3 -1
-      222 RETURN                           R10 -1
+       75 DUPTABLE                         R9 K28 [{["TextProps"], ["LinkPlaceholder"] = "{link}", ["LinkText"], ["OnLinkClicked"], ["MaxWidth"]}]
+       76 DUPTABLE                         R10 K39 [{["TextColor"], ["BackgroundTransparency"] = 1, ["Font"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["ClipsDescendants"] = True}]
+       77 GETTABLEKS                       R11 R8 K40 ["textColor"]
+       79 SETTABLEKS                       R11 R10 K29 ["TextColor"]
+       81 GETUPVAL                         R11 1
+       82 GETTABLEKS                       R11 R11 K41 ["FONT"]
+       84 SETTABLEKS                       R11 R10 K32 ["Font"]
+       86 SETTABLEKS                       R3 R10 K33 ["TextSize"]
+       88 GETIMPORT                        R11 K44 [Enum.TextXAlignment.Center]
+       90 SETTABLEKS                       R11 R10 K34 ["TextXAlignment"]
+       92 GETIMPORT                        R11 K45 [Enum.TextYAlignment.Center]
+       94 SETTABLEKS                       R11 R10 K35 ["TextYAlignment"]
+       96 SETTABLEKS                       R10 R9 K23 ["TextProps"]
+       98 GETTABLEKS                       R10 R4 K7 ["LinkText"]
+      100 SETTABLEKS                       R10 R9 K7 ["LinkText"]
+      102 GETTABLEKS                       R10 R1 K3 ["onLinkClicked"]
+      104 SETTABLEKS                       R10 R9 K26 ["OnLinkClicked"]
+      106 GETTABLEKS                       R10 R0 K46 ["state"]
+      108 GETTABLEKS                       R10 R10 K47 ["maxChildWidth"]
+      110 SETTABLEKS                       R10 R9 K27 ["MaxWidth"]
+      112 GETUPVAL                         R10 2
+      113 GETTABLEKS                       R10 R10 K48 ["createElement"]
+      115 LOADK                            R11 K49 ["Frame"]
+      116 NEWTABLE                         R12 8 0
+      118 SETTABLEKS                       R5 R12 K15 ["Position"]
+      120 GETIMPORT                        R13 K18 [UDim2.new]
+      122 LOADN                            R14 1
+      123 LOADN                            R15 0
+      124 LOADN                            R16 1
+      125 LOADN                            R17 0
+      126 CALL                             R13 4 1
+      127 SETTABLEKS                       R13 R12 K50 ["Size"]
+      129 LOADN                            R13 1
+      130 SETTABLEKS                       R13 R12 K30 ["BackgroundTransparency"]
+      132 SETTABLEKS                       R6 R12 K20 ["ZIndex"]
+      134 SETTABLEKS                       R7 R12 K21 ["Visible"]
+      136 GETUPVAL                         R13 2
+      137 GETTABLEKS                       R13 R13 K51 ["Change"]
+      139 GETTABLEKS                       R13 R13 K52 ["AbsoluteSize"]
+      141 GETTABLEKS                       R14 R0 K53 ["updateSize"]
+      143 SETTABLE                         R14 R12 R13
+      144 DUPTABLE                         R13 K55 [{"Layout", "TextLine1", "TextLine2"}]
+      145 GETUPVAL                         R14 2
+      146 GETTABLEKS                       R14 R14 K48 ["createElement"]
+      148 LOADK                            R15 K56 ["UIListLayout"]
+      149 DUPTABLE                         R16 K60 [{"SortOrder", "FillDirection", "HorizontalAlignment"}]
+      150 GETIMPORT                        R17 K62 [Enum.SortOrder.LayoutOrder]
+      152 SETTABLEKS                       R17 R16 K57 ["SortOrder"]
+      154 GETIMPORT                        R17 K64 [Enum.FillDirection.Vertical]
+      156 SETTABLEKS                       R17 R16 K58 ["FillDirection"]
+      158 GETIMPORT                        R17 K65 [Enum.HorizontalAlignment.Center]
+      160 SETTABLEKS                       R17 R16 K59 ["HorizontalAlignment"]
+      162 CALL                             R14 2 1
+      163 SETTABLEKS                       R14 R13 K54 ["Layout"]
+      165 GETUPVAL                         R14 2
+      166 GETTABLEKS                       R14 R14 K48 ["createElement"]
+      168 GETUPVAL                         R15 3
+      169 GETUPVAL                         R16 4
+      170 GETTABLEKS                       R16 R16 K66 ["Dictionary"]
+      172 GETTABLEKS                       R16 R16 K67 ["join"]
+      174 DUPTABLE                         R17 K69 [{["Text"], ["LayoutOrder"] = 1}]
+      175 GETTABLEKS                       R18 R4 K5 ["TextLine1"]
+      177 SETTABLEKS                       R18 R17 K68 ["Text"]
+      179 MOVE                             R18 R9
+      180 CALL                             R16 2 -1
+      181 CALL                             R14 -1 1
+      182 SETTABLEKS                       R14 R13 K5 ["TextLine1"]
+      184 GETUPVAL                         R14 2
+      185 GETTABLEKS                       R14 R14 K48 ["createElement"]
+      187 GETUPVAL                         R15 3
+      188 GETUPVAL                         R16 4
+      189 GETTABLEKS                       R16 R16 K66 ["Dictionary"]
+      191 GETTABLEKS                       R16 R16 K67 ["join"]
+      193 DUPTABLE                         R17 K71 [{["Text"], ["LayoutOrder"] = 2}]
+      194 GETTABLEKS                       R18 R4 K6 ["TextLine2"]
+      196 SETTABLEKS                       R18 R17 K68 ["Text"]
+      198 MOVE                             R18 R9
+      199 CALL                             R16 2 -1
+      200 CALL                             R14 -1 1
+      201 SETTABLEKS                       R14 R13 K6 ["TextLine2"]
+      203 CALL                             R10 3 -1
+      204 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

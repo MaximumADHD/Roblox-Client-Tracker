@@ -14,138 +14,68 @@ MAIN:
         5 CAPTURE                          REF R0
         6 CALL                             R1 1 0
         7 NEWTABLE                         R1 32 0
-        9 DUPTABLE                         R2 K3 [{"Attachments"}]
-       10 LOADN                            R3 1
-       11 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       13 SETTABLEKS                       R2 R1 K4 ["Attachment"]
-       15 DUPTABLE                         R2 K3 [{"Attachments"}]
-       16 LOADN                            R3 2
-       17 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       19 SETTABLEKS                       R2 R1 K5 ["WeldConstraint"]
-       21 DUPTABLE                         R2 K3 [{"Attachments"}]
-       22 LOADN                            R3 2
-       23 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       25 SETTABLEKS                       R2 R1 K6 ["HingeConstraint"]
-       27 DUPTABLE                         R2 K3 [{"Attachments"}]
-       28 LOADN                            R3 2
-       29 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       31 SETTABLEKS                       R2 R1 K7 ["BallSocketConstraint"]
-       33 DUPTABLE                         R2 K3 [{"Attachments"}]
-       34 LOADN                            R3 2
-       35 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       37 SETTABLEKS                       R2 R1 K8 ["RigidConstraint"]
-       39 DUPTABLE                         R2 K3 [{"Attachments"}]
-       40 LOADN                            R3 2
-       41 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       43 SETTABLEKS                       R2 R1 K9 ["PrismaticConstraint"]
-       45 DUPTABLE                         R2 K3 [{"Attachments"}]
-       46 LOADN                            R3 2
-       47 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       49 SETTABLEKS                       R2 R1 K10 ["CylindricalConstraint"]
-       51 DUPTABLE                         R2 K3 [{"Attachments"}]
-       52 LOADN                            R3 2
-       53 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       55 SETTABLEKS                       R2 R1 K11 ["UniversalConstraint"]
-       57 DUPTABLE                         R2 K3 [{"Attachments"}]
-       58 LOADN                            R3 2
-       59 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       61 SETTABLEKS                       R2 R1 K12 ["PlaneConstraint"]
-       63 DUPTABLE                         R2 K14 [{"Attachments", "IgnoreSamePartCheck"}]
-       64 LOADN                            R3 2
-       65 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       67 LOADB                            R3 1
-       68 SETTABLEKS                       R3 R2 K13 ["IgnoreSamePartCheck"]
-       70 SETTABLEKS                       R2 R1 K15 ["RopeConstraint"]
-       72 DUPTABLE                         R2 K3 [{"Attachments"}]
-       73 LOADN                            R3 2
-       74 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       76 SETTABLEKS                       R2 R1 K16 ["RodConstraint"]
-       78 DUPTABLE                         R2 K18 [{"Attachments", "Properties", "IgnoreSamePartCheck"}]
-       79 LOADN                            R3 2
-       80 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-       82 DUPTABLE                         R3 K21 [{"Stiffness", "Damping"}]
-       83 LOADN                            R4 232
-       84 SETTABLEKS                       R4 R3 K19 ["Stiffness"]
-       86 LOADN                            R4 2
-       87 SETTABLEKS                       R4 R3 K20 ["Damping"]
-       89 SETTABLEKS                       R3 R2 K17 ["Properties"]
-       91 LOADB                            R3 1
-       92 SETTABLEKS                       R3 R2 K13 ["IgnoreSamePartCheck"]
-       94 SETTABLEKS                       R2 R1 K22 ["SpringConstraint"]
-       96 DUPTABLE                         R2 K23 [{"Attachments", "Properties"}]
-       97 LOADN                            R3 2
-       98 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      100 DUPTABLE                         R3 K21 [{"Stiffness", "Damping"}]
-      101 LOADN                            R4 232
-      102 SETTABLEKS                       R4 R3 K19 ["Stiffness"]
-      104 LOADN                            R4 2
-      105 SETTABLEKS                       R4 R3 K20 ["Damping"]
-      107 SETTABLEKS                       R3 R2 K17 ["Properties"]
-      109 SETTABLEKS                       R2 R1 K24 ["TorsionSpringConstraint"]
-      111 DUPTABLE                         R2 K3 [{"Attachments"}]
-      112 LOADN                            R3 2
-      113 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      115 SETTABLEKS                       R2 R1 K25 ["NoCollisionConstraint"]
-      117 DUPTABLE                         R2 K23 [{"Attachments", "Properties"}]
-      118 LOADN                            R3 2
-      119 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      121 DUPTABLE                         R3 K27 [{"MaxTorque"}]
-      122 LOADN                            R4 32
-      123 SETTABLEKS                       R4 R3 K26 ["MaxTorque"]
-      125 SETTABLEKS                       R3 R2 K17 ["Properties"]
-      127 SETTABLEKS                       R2 R1 K28 ["AlignOrientation"]
-      129 DUPTABLE                         R2 K3 [{"Attachments"}]
-      130 LOADN                            R3 2
-      131 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      133 SETTABLEKS                       R2 R1 K29 ["AlignPosition"]
-      135 JUMPIFNOT                        R0 ; [+5]
-      136 DUPTABLE                         R2 K3 [{"Attachments"}]
-      137 LOADN                            R3 2
-      138 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      140 JUMP                             ; [+1]
-      141 LOADNIL                          R2
-      142 SETTABLEKS                       R2 R1 K30 ["AnimationConstraint"]
-      144 DUPTABLE                         R2 K3 [{"Attachments"}]
-      145 LOADN                            R3 2
-      146 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      148 SETTABLEKS                       R2 R1 K31 ["LineForce"]
-      150 DUPTABLE                         R2 K3 [{"Attachments"}]
-      151 LOADN                            R3 1
-      152 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      154 SETTABLEKS                       R2 R1 K32 ["VectorForce"]
-      156 DUPTABLE                         R2 K23 [{"Attachments", "Properties"}]
-      157 LOADN                            R3 1
-      158 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      160 DUPTABLE                         R3 K34 [{"Torque"}]
-      161 LOADK                            R4 K35 [{2000, 0, 0}]
-      162 SETTABLEKS                       R4 R3 K33 ["Torque"]
-      164 SETTABLEKS                       R3 R2 K17 ["Properties"]
-      166 SETTABLEKS                       R2 R1 K33 ["Torque"]
-      168 DUPTABLE                         R2 K23 [{"Attachments", "Properties"}]
-      169 LOADN                            R3 1
-      170 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      172 DUPTABLE                         R3 K37 [{"AngularVelocity", "MaxTorque"}]
-      173 LOADK                            R4 K38 [{0, 1, 0}]
-      174 SETTABLEKS                       R4 R3 K36 ["AngularVelocity"]
-      176 LOADN                            R4 32
-      177 SETTABLEKS                       R4 R3 K26 ["MaxTorque"]
-      179 SETTABLEKS                       R3 R2 K17 ["Properties"]
-      181 SETTABLEKS                       R2 R1 K36 ["AngularVelocity"]
-      183 DUPTABLE                         R2 K23 [{"Attachments", "Properties"}]
-      184 LOADN                            R3 1
-      185 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      187 DUPTABLE                         R3 K41 [{"MaxForce", "VectorVelocity"}]
-      188 LOADN                            R4 16
-      189 SETTABLEKS                       R4 R3 K39 ["MaxForce"]
-      191 LOADK                            R4 K38 [{0, 1, 0}]
-      192 SETTABLEKS                       R4 R3 K40 ["VectorVelocity"]
-      194 SETTABLEKS                       R3 R2 K17 ["Properties"]
-      196 SETTABLEKS                       R2 R1 K42 ["LinearVelocity"]
-      198 DUPTABLE                         R2 K3 [{"Attachments"}]
-      199 LOADN                            R3 1
-      200 SETTABLEKS                       R3 R2 K2 ["Attachments"]
-      202 SETTABLEKS                       R2 R1 K43 ["Bone"]
-      204 SETGLOBAL                        R1 K44 ["ConstraintTypes"]
-      206 GETGLOBAL                        R1 K44 ["ConstraintTypes"]
-      208 CLOSEUPVALS                      R0
-      209 RETURN                           R1 1
+        9 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       10 SETTABLEKS                       R2 R1 K5 ["Attachment"]
+       12 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       13 SETTABLEKS                       R2 R1 K8 ["WeldConstraint"]
+       15 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       16 SETTABLEKS                       R2 R1 K9 ["HingeConstraint"]
+       18 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       19 SETTABLEKS                       R2 R1 K10 ["BallSocketConstraint"]
+       21 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       22 SETTABLEKS                       R2 R1 K11 ["RigidConstraint"]
+       24 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       25 SETTABLEKS                       R2 R1 K12 ["PrismaticConstraint"]
+       27 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       28 SETTABLEKS                       R2 R1 K13 ["CylindricalConstraint"]
+       30 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       31 SETTABLEKS                       R2 R1 K14 ["UniversalConstraint"]
+       33 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       34 SETTABLEKS                       R2 R1 K15 ["PlaneConstraint"]
+       36 DUPTABLE                         R2 K18 [{["Attachments"] = 2, ["IgnoreSamePartCheck"] = True}]
+       37 SETTABLEKS                       R2 R1 K19 ["RopeConstraint"]
+       39 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       40 SETTABLEKS                       R2 R1 K20 ["RodConstraint"]
+       42 DUPTABLE                         R2 K22 [{["Attachments"] = 2, ["Properties"], ["IgnoreSamePartCheck"] = True}]
+       43 DUPTABLE                         R3 K26 [{["Stiffness"] = 1000, ["Damping"] = 2}]
+       44 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       46 SETTABLEKS                       R2 R1 K27 ["SpringConstraint"]
+       48 DUPTABLE                         R2 K28 [{["Attachments"] = 2, ["Properties"]}]
+       49 DUPTABLE                         R3 K26 [{["Stiffness"] = 1000, ["Damping"] = 2}]
+       50 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       52 SETTABLEKS                       R2 R1 K29 ["TorsionSpringConstraint"]
+       54 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       55 SETTABLEKS                       R2 R1 K30 ["NoCollisionConstraint"]
+       57 DUPTABLE                         R2 K28 [{["Attachments"] = 2, ["Properties"]}]
+       58 DUPTABLE                         R3 K33 [{["MaxTorque"] = 20000}]
+       59 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       61 SETTABLEKS                       R2 R1 K34 ["AlignOrientation"]
+       63 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       64 SETTABLEKS                       R2 R1 K35 ["AlignPosition"]
+       66 JUMPIFNOT                        R0 ; [+2]
+       67 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       68 JUMP                             ; [+1]
+       69 LOADNIL                          R2
+       70 SETTABLEKS                       R2 R1 K36 ["AnimationConstraint"]
+       72 DUPTABLE                         R2 K7 [{["Attachments"] = 2}]
+       73 SETTABLEKS                       R2 R1 K37 ["LineForce"]
+       75 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       76 SETTABLEKS                       R2 R1 K38 ["VectorForce"]
+       78 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       79 DUPTABLE                         R3 K42 [{["Torque"] = {2000, 0, 0}}]
+       80 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       82 SETTABLEKS                       R2 R1 K40 ["Torque"]
+       84 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       85 DUPTABLE                         R3 K45 [{["AngularVelocity"] = {0, 1, 0}, ["MaxTorque"] = 20000}]
+       86 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       88 SETTABLEKS                       R2 R1 K43 ["AngularVelocity"]
+       90 DUPTABLE                         R2 K39 [{["Attachments"] = 1, ["Properties"]}]
+       91 DUPTABLE                         R3 K49 [{["MaxForce"] = 10000, ["VectorVelocity"] = {0, 1, 0}}]
+       92 SETTABLEKS                       R3 R2 K21 ["Properties"]
+       94 SETTABLEKS                       R2 R1 K50 ["LinearVelocity"]
+       96 DUPTABLE                         R2 K4 [{["Attachments"] = 1}]
+       97 SETTABLEKS                       R2 R1 K51 ["Bone"]
+       99 SETGLOBAL                        R1 K52 ["ConstraintTypes"]
+      101 GETGLOBAL                        R1 K52 ["ConstraintTypes"]
+      103 CLOSEUPVALS                      R0
+      104 RETURN                           R1 1

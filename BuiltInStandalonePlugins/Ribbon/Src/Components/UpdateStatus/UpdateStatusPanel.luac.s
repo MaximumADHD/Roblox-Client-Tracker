@@ -25,18 +25,16 @@ PROTO_2:
         2 GETUPVAL                         R2 1
         3 GETTABLEKS                       R2 R2 K0 ["createElement"]
         5 GETUPVAL                         R3 2
-        6 DUPTABLE                         R4 K4 [{"tag", "backgroundStyle", "onAbsoluteSizeChanged"}]
-        7 LOADK                            R5 K5 ["auto-xy"]
-        8 SETTABLEKS                       R5 R4 K1 ["tag"]
-       10 GETTABLEKS                       R5 R1 K6 ["Inverse"]
-       12 GETTABLEKS                       R5 R5 K7 ["Surface"]
-       14 GETTABLEKS                       R5 R5 K8 ["Surface_0"]
-       16 SETTABLEKS                       R5 R4 K2 ["backgroundStyle"]
-       18 GETTABLEKS                       R5 R0 K3 ["onAbsoluteSizeChanged"]
-       20 SETTABLEKS                       R5 R4 K3 ["onAbsoluteSizeChanged"]
-       22 GETTABLEKS                       R5 R0 K9 ["children"]
-       24 CALL                             R2 3 -1
-       25 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K5 [{["tag"] = "auto-xy", ["backgroundStyle"], ["onAbsoluteSizeChanged"]}]
+        7 GETTABLEKS                       R5 R1 K6 ["Inverse"]
+        9 GETTABLEKS                       R5 R5 K7 ["Surface"]
+       11 GETTABLEKS                       R5 R5 K8 ["Surface_0"]
+       13 SETTABLEKS                       R5 R4 K3 ["backgroundStyle"]
+       15 GETTABLEKS                       R5 R0 K4 ["onAbsoluteSizeChanged"]
+       17 SETTABLEKS                       R5 R4 K4 ["onAbsoluteSizeChanged"]
+       19 GETTABLEKS                       R5 R0 K9 ["children"]
+       21 CALL                             R2 3 -1
+       22 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -84,34 +82,26 @@ PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
         2 GETTABLEKS                       R2 R2 K0 ["ItemId"]
-        4 DUPTABLE                         R3 K7 [{"Id", "InitialEnabled", "Modal", "Popup", "Resizable", "Title"}]
+        4 DUPTABLE                         R3 K9 [{["Id"], ["InitialEnabled"] = False, ["Modal"] = False, ["Popup"], ["Resizable"] = True, ["Title"]}]
         5 GETUPVAL                         R4 1
         6 GETTABLEKS                       R4 R4 K0 ["ItemId"]
         8 SETTABLEKS                       R4 R3 K1 ["Id"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K2 ["InitialEnabled"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K3 ["Modal"]
-       16 DUPTABLE                         R4 K9 [{"PassesThroughMouseEvents"}]
-       17 LOADB                            R5 1
-       18 SETTABLEKS                       R5 R4 K8 ["PassesThroughMouseEvents"]
-       20 SETTABLEKS                       R4 R3 K4 ["Popup"]
-       22 LOADB                            R4 1
-       23 SETTABLEKS                       R4 R3 K5 ["Resizable"]
-       25 GETUPVAL                         R4 1
-       26 GETTABLEKS                       R4 R4 K0 ["ItemId"]
-       28 SETTABLEKS                       R4 R3 K6 ["Title"]
-       30 NAMECALL                         R0 R0 K10 ["CreateQWidgetPluginGui"]
-       32 CALL                             R0 3 1
-       33 GETIMPORT                        R1 K14 [Enum.ZIndexBehavior.Sibling]
-       35 SETTABLEKS                       R1 R0 K12 ["ZIndexBehavior"]
-       37 GETUPVAL                         R1 2
-       38 GETUPVAL                         R3 1
-       39 GETTABLEKS                       R3 R3 K15 ["PanelUri"]
-       41 GETIMPORT                        R4 K18 [Vector2.zero]
-       43 NAMECALL                         R1 R1 K19 ["SetSizeAsync"]
-       45 CALL                             R1 3 0
-       46 RETURN                           R0 1
+       10 DUPTABLE                         R4 K11 [{["PassesThroughMouseEvents"] = True}]
+       11 SETTABLEKS                       R4 R3 K5 ["Popup"]
+       13 GETUPVAL                         R4 1
+       14 GETTABLEKS                       R4 R4 K0 ["ItemId"]
+       16 SETTABLEKS                       R4 R3 K8 ["Title"]
+       18 NAMECALL                         R0 R0 K12 ["CreateQWidgetPluginGui"]
+       20 CALL                             R0 3 1
+       21 GETIMPORT                        R1 K16 [Enum.ZIndexBehavior.Sibling]
+       23 SETTABLEKS                       R1 R0 K14 ["ZIndexBehavior"]
+       25 GETUPVAL                         R1 2
+       26 GETUPVAL                         R3 1
+       27 GETTABLEKS                       R3 R3 K17 ["PanelUri"]
+       29 GETIMPORT                        R4 K20 [Vector2.zero]
+       31 NAMECALL                         R1 R1 K21 ["SetSizeAsync"]
+       33 CALL                             R1 3 0
+       34 RETURN                           R0 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0

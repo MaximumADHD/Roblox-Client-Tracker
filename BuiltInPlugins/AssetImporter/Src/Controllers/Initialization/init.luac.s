@@ -11,14 +11,14 @@ PROTO_0:
        10 LOADK                            R2 K2 ["FeatureTest"]
        11 JUMP                             ; [+1]
        12 LOADK                            R2 K3 ["RobloxCli"]
-       13 DUPTABLE                         R3 K10 [{"environment", "plugin", "loader", "story", "storyProps", "handle"}]
+       13 DUPTABLE                         R3 K11 [{["environment"], ["plugin"], ["loader"], ["story"], ["storyProps"], ["handle"] = }]
        14 SETTABLEKS                       R2 R3 K4 ["environment"]
        16 JUMPIFNOTEQKS                    R2 K1 ["Production"] ; [+3]
        18 MOVE                             R4 R0
        19 JUMP                             ; [+5]
        20 GETUPVAL                         R4 2
-       21 GETTABLEKS                       R4 R4 K11 ["new"]
-       23 LOADK                            R5 K12 ["AssetImporter"]
+       21 GETTABLEKS                       R4 R4 K12 ["new"]
+       23 LOADK                            R5 K13 ["AssetImporter"]
        24 CALL                             R4 1 1
        25 SETTABLEKS                       R4 R3 K5 ["plugin"]
        27 SETTABLEKS                       R1 R3 K6 ["loader"]
@@ -26,34 +26,32 @@ PROTO_0:
        30 SETTABLEKS                       R4 R3 K7 ["story"]
        32 NEWTABLE                         R4 0 0
        34 SETTABLEKS                       R4 R3 K8 ["storyProps"]
-       36 LOADNIL                          R4
-       37 SETTABLEKS                       R4 R3 K9 ["handle"]
-       39 GETUPVAL                         R4 4
-       40 GETTABLEKS                       R4 R4 K13 ["Store"]
-       42 GETTABLEKS                       R4 R4 K11 ["new"]
-       44 GETUPVAL                         R5 5
-       45 LOADNIL                          R6
-       46 NEWTABLE                         R7 0 1
-       48 GETUPVAL                         R8 4
-       49 GETTABLEKS                       R8 R8 K14 ["thunkMiddleware"]
-       51 SETLIST                          R7 R8 1 [1]
-       53 CALL                             R4 3 1
-       54 SETTABLEKS                       R4 R3 K15 ["store"]
-       56 GETUPVAL                         R4 6
-       57 GETTABLEKS                       R4 R4 K11 ["new"]
-       59 MOVE                             R5 R3
-       60 CALL                             R4 1 1
-       61 SETTABLEKS                       R4 R3 K16 ["contextItems"]
-       63 GETUPVAL                         R4 7
-       64 GETTABLEKS                       R4 R4 K17 ["loadData"]
-       66 MOVE                             R5 R3
-       67 CALL                             R4 1 0
-       68 GETUPVAL                         R6 7
-       69 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       71 MOVE                             R5 R3
-       72 GETIMPORT                        R4 K19 [setmetatable]
-       74 CALL                             R4 2 1
-       75 RETURN                           R4 1
+       36 GETUPVAL                         R4 4
+       37 GETTABLEKS                       R4 R4 K14 ["Store"]
+       39 GETTABLEKS                       R4 R4 K12 ["new"]
+       41 GETUPVAL                         R5 5
+       42 LOADNIL                          R6
+       43 NEWTABLE                         R7 0 1
+       45 GETUPVAL                         R8 4
+       46 GETTABLEKS                       R8 R8 K15 ["thunkMiddleware"]
+       48 SETLIST                          R7 R8 1 [1]
+       50 CALL                             R4 3 1
+       51 SETTABLEKS                       R4 R3 K16 ["store"]
+       53 GETUPVAL                         R4 6
+       54 GETTABLEKS                       R4 R4 K12 ["new"]
+       56 MOVE                             R5 R3
+       57 CALL                             R4 1 1
+       58 SETTABLEKS                       R4 R3 K17 ["contextItems"]
+       60 GETUPVAL                         R4 7
+       61 GETTABLEKS                       R4 R4 K18 ["loadData"]
+       63 MOVE                             R5 R3
+       64 CALL                             R4 1 0
+       65 GETUPVAL                         R6 7
+       66 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       68 MOVE                             R5 R3
+       69 GETIMPORT                        R4 K20 [setmetatable]
+       71 CALL                             R4 2 1
+       72 RETURN                           R4 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["managedGroups"]

@@ -566,110 +566,108 @@ PROTO_12:
        83 NAMECALL                         R7 R0 K16 ["dispatch"]
        85 CALL                             R7 -1 0
        86 GETUPVAL                         R8 7
-       87 JUMPIFNOT                        R8 ; [+25]
+       87 JUMPIFNOT                        R8 ; [+22]
        88 DUPTABLE                         R7 K19 [{"expectedPrice", "productKey"}]
        89 GETUPVAL                         R8 7
        90 SETTABLEKS                       R8 R7 K17 ["expectedPrice"]
-       92 DUPTABLE                         R8 K23 [{"productNamespace", "productType", "productTargetId"}]
-       93 LOADK                            R9 K24 ["PRODUCT_NAMESPACE_CREATOR_MARKETPLACE_ASSET"]
-       94 SETTABLEKS                       R9 R8 K20 ["productNamespace"]
-       96 GETUPVAL                         R9 8
-       97 GETTABLEKS                       R9 R9 K25 ["convertAssetTypeToProductType"]
-       99 GETUPVAL                         R10 3
-      100 CALL                             R9 1 1
-      101 SETTABLEKS                       R9 R8 K21 ["productType"]
-      103 GETUPVAL                         R10 1
-      104 FASTCALL1                        TOSTRING R10 ; [+2]
-      105 GETIMPORT                        R9 K27 [tostring]
-      107 CALL                             R9 1 1
-      108 SETTABLEKS                       R9 R8 K22 ["productTargetId"]
-      110 SETTABLEKS                       R8 R7 K18 ["productKey"]
-      112 JUMP                             ; [+13]
-      113 DUPTABLE                         R7 K30 [{"expectedPrice", "assetId", "assetType", "searchId"}]
-      114 GETUPVAL                         R8 9
-      115 SETTABLEKS                       R8 R7 K17 ["expectedPrice"]
-      117 GETUPVAL                         R8 1
-      118 SETTABLEKS                       R8 R7 K28 ["assetId"]
-      120 GETUPVAL                         R8 3
-      121 SETTABLEKS                       R8 R7 K29 ["assetType"]
-      123 GETUPVAL                         R8 4
-      124 SETTABLEKS                       R8 R7 K11 ["searchId"]
-      126 NEWCLOSURE                       R8 P0
-      127 CAPTURE                          UPVAL U2
-      128 CAPTURE                          UPVAL U7
-      129 CAPTURE                          UPVAL U1
-      130 CAPTURE                          REF R1
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          UPVAL U10
-      133 CAPTURE                          UPVAL U0
-      134 CAPTURE                          UPVAL U11
-      135 CAPTURE                          UPVAL U5
-      136 CAPTURE                          UPVAL U6
-      137 CAPTURE                          UPVAL U12
-      138 GETUPVAL                         R9 7
-      139 JUMPIFNOT                        R9 ; [+35]
-      140 GETUPVAL                         R9 13
-      141 LOADNIL                          R11
-      142 MOVE                             R12 R7
-      143 GETUPVAL                         R13 3
-      144 NAMECALL                         R9 R9 K31 ["purchaseAsset"]
-      146 CALL                             R9 4 1
-      147 NEWCLOSURE                       R11 P1
-      148 CAPTURE                          UPVAL U14
-      149 CAPTURE                          UPVAL U15
-      150 CAPTURE                          UPVAL U16
-      151 CAPTURE                          VAL R0
-      152 CAPTURE                          UPVAL U13
-      153 CAPTURE                          UPVAL U1
-      154 CAPTURE                          UPVAL U17
-      155 CAPTURE                          UPVAL U0
-      156 CAPTURE                          UPVAL U3
-      157 CAPTURE                          REF R1
-      158 CAPTURE                          UPVAL U18
-      159 CAPTURE                          REF R2
-      160 CAPTURE                          UPVAL U19
-      161 CAPTURE                          UPVAL U20
-      162 CAPTURE                          UPVAL U21
-      163 CAPTURE                          UPVAL U10
-      164 CAPTURE                          UPVAL U11
-      165 CAPTURE                          UPVAL U5
-      166 CAPTURE                          UPVAL U6
-      167 CAPTURE                          UPVAL U22
-      168 CAPTURE                          VAL R8
-      169 MOVE                             R12 R8
-      170 NAMECALL                         R9 R9 K32 ["andThen"]
-      172 CALL                             R9 3 -1
-      173 CLOSEUPVALS                      R1
-      174 RETURN                           R9 -1
-      175 GETUPVAL                         R9 13
-      176 GETUPVAL                         R11 23
-      177 MOVE                             R12 R7
-      178 GETUPVAL                         R13 3
-      179 NAMECALL                         R9 R9 K31 ["purchaseAsset"]
-      181 CALL                             R9 4 1
-      182 NEWCLOSURE                       R11 P2
-      183 CAPTURE                          UPVAL U24
-      184 CAPTURE                          VAL R0
-      185 CAPTURE                          UPVAL U25
-      186 CAPTURE                          UPVAL U1
-      187 CAPTURE                          UPVAL U26
-      188 CAPTURE                          UPVAL U13
-      189 CAPTURE                          UPVAL U27
-      190 CAPTURE                          UPVAL U3
-      191 CAPTURE                          UPVAL U28
-      192 CAPTURE                          UPVAL U0
-      193 CAPTURE                          REF R1
-      194 CAPTURE                          REF R2
-      195 CAPTURE                          UPVAL U18
-      196 CAPTURE                          UPVAL U11
-      197 CAPTURE                          UPVAL U10
-      198 CAPTURE                          UPVAL U5
-      199 CAPTURE                          UPVAL U6
-      200 MOVE                             R12 R8
-      201 NAMECALL                         R9 R9 K32 ["andThen"]
-      203 CALL                             R9 3 -1
-      204 CLOSEUPVALS                      R1
-      205 RETURN                           R9 -1
+       92 DUPTABLE                         R8 K24 [{["productNamespace"] = "PRODUCT_NAMESPACE_CREATOR_MARKETPLACE_ASSET", ["productType"], ["productTargetId"]}]
+       93 GETUPVAL                         R9 8
+       94 GETTABLEKS                       R9 R9 K25 ["convertAssetTypeToProductType"]
+       96 GETUPVAL                         R10 3
+       97 CALL                             R9 1 1
+       98 SETTABLEKS                       R9 R8 K22 ["productType"]
+      100 GETUPVAL                         R10 1
+      101 FASTCALL1                        TOSTRING R10 ; [+2]
+      102 GETIMPORT                        R9 K27 [tostring]
+      104 CALL                             R9 1 1
+      105 SETTABLEKS                       R9 R8 K23 ["productTargetId"]
+      107 SETTABLEKS                       R8 R7 K18 ["productKey"]
+      109 JUMP                             ; [+13]
+      110 DUPTABLE                         R7 K30 [{"expectedPrice", "assetId", "assetType", "searchId"}]
+      111 GETUPVAL                         R8 9
+      112 SETTABLEKS                       R8 R7 K17 ["expectedPrice"]
+      114 GETUPVAL                         R8 1
+      115 SETTABLEKS                       R8 R7 K28 ["assetId"]
+      117 GETUPVAL                         R8 3
+      118 SETTABLEKS                       R8 R7 K29 ["assetType"]
+      120 GETUPVAL                         R8 4
+      121 SETTABLEKS                       R8 R7 K11 ["searchId"]
+      123 NEWCLOSURE                       R8 P0
+      124 CAPTURE                          UPVAL U2
+      125 CAPTURE                          UPVAL U7
+      126 CAPTURE                          UPVAL U1
+      127 CAPTURE                          REF R1
+      128 CAPTURE                          VAL R0
+      129 CAPTURE                          UPVAL U10
+      130 CAPTURE                          UPVAL U0
+      131 CAPTURE                          UPVAL U11
+      132 CAPTURE                          UPVAL U5
+      133 CAPTURE                          UPVAL U6
+      134 CAPTURE                          UPVAL U12
+      135 GETUPVAL                         R9 7
+      136 JUMPIFNOT                        R9 ; [+35]
+      137 GETUPVAL                         R9 13
+      138 LOADNIL                          R11
+      139 MOVE                             R12 R7
+      140 GETUPVAL                         R13 3
+      141 NAMECALL                         R9 R9 K31 ["purchaseAsset"]
+      143 CALL                             R9 4 1
+      144 NEWCLOSURE                       R11 P1
+      145 CAPTURE                          UPVAL U14
+      146 CAPTURE                          UPVAL U15
+      147 CAPTURE                          UPVAL U16
+      148 CAPTURE                          VAL R0
+      149 CAPTURE                          UPVAL U13
+      150 CAPTURE                          UPVAL U1
+      151 CAPTURE                          UPVAL U17
+      152 CAPTURE                          UPVAL U0
+      153 CAPTURE                          UPVAL U3
+      154 CAPTURE                          REF R1
+      155 CAPTURE                          UPVAL U18
+      156 CAPTURE                          REF R2
+      157 CAPTURE                          UPVAL U19
+      158 CAPTURE                          UPVAL U20
+      159 CAPTURE                          UPVAL U21
+      160 CAPTURE                          UPVAL U10
+      161 CAPTURE                          UPVAL U11
+      162 CAPTURE                          UPVAL U5
+      163 CAPTURE                          UPVAL U6
+      164 CAPTURE                          UPVAL U22
+      165 CAPTURE                          VAL R8
+      166 MOVE                             R12 R8
+      167 NAMECALL                         R9 R9 K32 ["andThen"]
+      169 CALL                             R9 3 -1
+      170 CLOSEUPVALS                      R1
+      171 RETURN                           R9 -1
+      172 GETUPVAL                         R9 13
+      173 GETUPVAL                         R11 23
+      174 MOVE                             R12 R7
+      175 GETUPVAL                         R13 3
+      176 NAMECALL                         R9 R9 K31 ["purchaseAsset"]
+      178 CALL                             R9 4 1
+      179 NEWCLOSURE                       R11 P2
+      180 CAPTURE                          UPVAL U24
+      181 CAPTURE                          VAL R0
+      182 CAPTURE                          UPVAL U25
+      183 CAPTURE                          UPVAL U1
+      184 CAPTURE                          UPVAL U26
+      185 CAPTURE                          UPVAL U13
+      186 CAPTURE                          UPVAL U27
+      187 CAPTURE                          UPVAL U3
+      188 CAPTURE                          UPVAL U28
+      189 CAPTURE                          UPVAL U0
+      190 CAPTURE                          REF R1
+      191 CAPTURE                          REF R2
+      192 CAPTURE                          UPVAL U18
+      193 CAPTURE                          UPVAL U11
+      194 CAPTURE                          UPVAL U10
+      195 CAPTURE                          UPVAL U5
+      196 CAPTURE                          UPVAL U6
+      197 MOVE                             R12 R8
+      198 NAMECALL                         R9 R9 K32 ["andThen"]
+      200 CALL                             R9 3 -1
+      201 CLOSEUPVALS                      R1
+      202 RETURN                           R9 -1
 
 PROTO_13:
         0 NEWCLOSURE                       R10 P0

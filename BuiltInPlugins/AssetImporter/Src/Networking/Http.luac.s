@@ -91,7 +91,7 @@ PROTO_4:
 PROTO_5:
         0 JUMPIFNOT                        R0 ; [+21]
         1 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
-        3 LOADN                            R3 144
+        3 LOADN                            R3 400
         4 JUMPIFNOTLE                      R3 R2 ; [+12]
         6 GETUPVAL                         R2 0
         7 LOADK                            R4 K1 ["HTTP error: "]

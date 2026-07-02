@@ -184,74 +184,60 @@ PROTO_13:
         8 GETTABLEKS                       R2 R2 K2 ["join"]
        10 NAMECALL                         R3 R1 K3 ["GetUri"]
        12 CALL                             R3 1 1
-       13 DUPTABLE                         R4 K6 [{"Category", "ItemId"}]
-       14 LOADK                            R5 K7 ["Panels"]
-       15 SETTABLEKS                       R5 R4 K4 ["Category"]
-       17 LOADK                            R6 K8 ["DialogStory%*"]
-       18 GETUPVAL                         R8 2
-       19 NAMECALL                         R6 R6 K9 ["format"]
-       21 CALL                             R6 2 1
-       22 MOVE                             R5 R6
-       23 SETTABLEKS                       R5 R4 K5 ["ItemId"]
-       25 CALL                             R2 2 1
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R3 R3 K2 ["join"]
-       29 MOVE                             R4 R2
-       30 DUPTABLE                         R5 K10 [{"Category"}]
-       31 LOADK                            R6 K11 ["Widgets"]
-       32 SETTABLEKS                       R6 R5 K4 ["Category"]
-       34 CALL                             R3 2 1
-       35 GETUPVAL                         R4 3
-       36 GETUPVAL                         R5 4
-       37 DUPTABLE                         R6 K20 [{"uri", "type", "title", "description", "primaryAction", "secondaryAction", "tertiaryAction", "autoClose"}]
-       38 SETTABLEKS                       R2 R6 K12 ["uri"]
-       40 GETUPVAL                         R7 2
-       41 SETTABLEKS                       R7 R6 K13 ["type"]
-       43 LOADK                            R7 K21 ["Dialog Title"]
-       44 SETTABLEKS                       R7 R6 K14 ["title"]
-       46 LOADK                            R7 K22 ["This is a description for the dialog. It provides more details about the purpose of the dialog."]
-       47 SETTABLEKS                       R7 R6 K15 ["description"]
-       49 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-       50 GETUPVAL                         R8 1
-       51 GETTABLEKS                       R8 R8 K26 ["child"]
-       53 MOVE                             R9 R3
-       54 LOADK                            R10 K27 ["Primary"]
-       55 CALL                             R8 2 1
-       56 SETTABLEKS                       R8 R7 K12 ["uri"]
-       58 LOADK                            R8 K27 ["Primary"]
-       59 SETTABLEKS                       R8 R7 K23 ["text"]
-       61 DUPCLOSURE                       R8 K28 [PROTO_10]
-       62 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-       64 SETTABLEKS                       R7 R6 K16 ["primaryAction"]
-       66 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-       67 GETUPVAL                         R8 1
-       68 GETTABLEKS                       R8 R8 K26 ["child"]
-       70 MOVE                             R9 R3
-       71 LOADK                            R10 K29 ["Secondary"]
-       72 CALL                             R8 2 1
-       73 SETTABLEKS                       R8 R7 K12 ["uri"]
-       75 LOADK                            R8 K29 ["Secondary"]
-       76 SETTABLEKS                       R8 R7 K23 ["text"]
-       78 DUPCLOSURE                       R8 K30 [PROTO_11]
-       79 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-       81 SETTABLEKS                       R7 R6 K17 ["secondaryAction"]
-       83 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-       84 GETUPVAL                         R8 1
-       85 GETTABLEKS                       R8 R8 K26 ["child"]
-       87 MOVE                             R9 R3
-       88 LOADK                            R10 K31 ["Tertiary"]
-       89 CALL                             R8 2 1
-       90 SETTABLEKS                       R8 R7 K12 ["uri"]
-       92 LOADK                            R8 K31 ["Tertiary"]
-       93 SETTABLEKS                       R8 R7 K23 ["text"]
-       95 DUPCLOSURE                       R8 K32 [PROTO_12]
-       96 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-       98 SETTABLEKS                       R7 R6 K18 ["tertiaryAction"]
-      100 GETTABLEKS                       R7 R0 K33 ["controls"]
-      102 GETTABLEKS                       R7 R7 K19 ["autoClose"]
-      104 SETTABLEKS                       R7 R6 K19 ["autoClose"]
-      106 CALL                             R4 2 -1
-      107 RETURN                           R4 -1
+       13 DUPTABLE                         R4 K7 [{["Category"] = "Panels", ["ItemId"]}]
+       14 LOADK                            R6 K8 ["DialogStory%*"]
+       15 GETUPVAL                         R8 2
+       16 NAMECALL                         R6 R6 K9 ["format"]
+       18 CALL                             R6 2 1
+       19 MOVE                             R5 R6
+       20 SETTABLEKS                       R5 R4 K6 ["ItemId"]
+       22 CALL                             R2 2 1
+       23 GETUPVAL                         R3 1
+       24 GETTABLEKS                       R3 R3 K2 ["join"]
+       26 MOVE                             R4 R2
+       27 DUPTABLE                         R5 K11 [{["Category"] = "Widgets"}]
+       28 CALL                             R3 2 1
+       29 GETUPVAL                         R4 3
+       30 GETUPVAL                         R5 4
+       31 DUPTABLE                         R6 K22 [{["uri"], ["type"], ["title"] = "Dialog Title", ["description"] = "This is a description for the dialog. It provides more details about the purpose of the dialog.", ["primaryAction"], ["secondaryAction"], ["tertiaryAction"], ["autoClose"]}]
+       32 SETTABLEKS                       R2 R6 K12 ["uri"]
+       34 GETUPVAL                         R7 2
+       35 SETTABLEKS                       R7 R6 K13 ["type"]
+       37 DUPTABLE                         R7 K26 [{["uri"], ["text"] = "Primary", ["onActivated"]}]
+       38 GETUPVAL                         R8 1
+       39 GETTABLEKS                       R8 R8 K27 ["child"]
+       41 MOVE                             R9 R3
+       42 LOADK                            R10 K24 ["Primary"]
+       43 CALL                             R8 2 1
+       44 SETTABLEKS                       R8 R7 K12 ["uri"]
+       46 DUPCLOSURE                       R8 K28 [PROTO_10]
+       47 SETTABLEKS                       R8 R7 K25 ["onActivated"]
+       49 SETTABLEKS                       R7 R6 K18 ["primaryAction"]
+       51 DUPTABLE                         R7 K30 [{["uri"], ["text"] = "Secondary", ["onActivated"]}]
+       52 GETUPVAL                         R8 1
+       53 GETTABLEKS                       R8 R8 K27 ["child"]
+       55 MOVE                             R9 R3
+       56 LOADK                            R10 K29 ["Secondary"]
+       57 CALL                             R8 2 1
+       58 SETTABLEKS                       R8 R7 K12 ["uri"]
+       60 DUPCLOSURE                       R8 K31 [PROTO_11]
+       61 SETTABLEKS                       R8 R7 K25 ["onActivated"]
+       63 SETTABLEKS                       R7 R6 K19 ["secondaryAction"]
+       65 DUPTABLE                         R7 K33 [{["uri"], ["text"] = "Tertiary", ["onActivated"]}]
+       66 GETUPVAL                         R8 1
+       67 GETTABLEKS                       R8 R8 K27 ["child"]
+       69 MOVE                             R9 R3
+       70 LOADK                            R10 K32 ["Tertiary"]
+       71 CALL                             R8 2 1
+       72 SETTABLEKS                       R8 R7 K12 ["uri"]
+       74 DUPCLOSURE                       R8 K34 [PROTO_12]
+       75 SETTABLEKS                       R8 R7 K25 ["onActivated"]
+       77 SETTABLEKS                       R7 R6 K20 ["tertiaryAction"]
+       79 GETTABLEKS                       R7 R0 K35 ["controls"]
+       81 GETTABLEKS                       R7 R7 K21 ["autoClose"]
+       83 SETTABLEKS                       R7 R6 K21 ["autoClose"]
+       85 CALL                             R4 2 -1
+       86 RETURN                           R4 -1
 
 PROTO_14:
         0 DUPTABLE                         R1 K2 [{"name", "story"}]
@@ -293,91 +279,85 @@ PROTO_18:
         8 GETTABLEKS                       R2 R2 K2 ["join"]
        10 NAMECALL                         R3 R1 K3 ["GetUri"]
        12 CALL                             R3 1 1
-       13 DUPTABLE                         R4 K6 [{"Category", "ItemId"}]
-       14 LOADK                            R5 K7 ["Panels"]
-       15 SETTABLEKS                       R5 R4 K4 ["Category"]
-       17 LOADK                            R5 K8 ["DialogStoryConfigurable"]
-       18 SETTABLEKS                       R5 R4 K5 ["ItemId"]
-       20 CALL                             R2 2 1
-       21 GETUPVAL                         R3 1
-       22 GETTABLEKS                       R3 R3 K2 ["join"]
-       24 MOVE                             R4 R2
-       25 DUPTABLE                         R5 K9 [{"Category"}]
-       26 LOADK                            R6 K10 ["Widgets"]
-       27 SETTABLEKS                       R6 R5 K4 ["Category"]
-       29 CALL                             R3 2 1
-       30 GETUPVAL                         R4 2
-       31 GETUPVAL                         R5 3
-       32 DUPTABLE                         R6 K19 [{"uri", "type", "title", "description", "primaryAction", "secondaryAction", "tertiaryAction", "autoClose"}]
-       33 SETTABLEKS                       R2 R6 K11 ["uri"]
-       35 GETTABLEKS                       R7 R0 K20 ["controls"]
-       37 GETTABLEKS                       R7 R7 K12 ["type"]
-       39 SETTABLEKS                       R7 R6 K12 ["type"]
-       41 GETTABLEKS                       R7 R0 K20 ["controls"]
-       43 GETTABLEKS                       R7 R7 K13 ["title"]
-       45 SETTABLEKS                       R7 R6 K13 ["title"]
-       47 GETTABLEKS                       R7 R0 K20 ["controls"]
-       49 GETTABLEKS                       R7 R7 K14 ["description"]
-       51 SETTABLEKS                       R7 R6 K14 ["description"]
-       53 GETTABLEKS                       R8 R0 K20 ["controls"]
-       55 GETTABLEKS                       R8 R8 K21 ["primaryActionText"]
-       57 JUMPIFEQKS                       R8 K22 [""] ; [+20]
-       59 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-       60 GETUPVAL                         R8 1
-       61 GETTABLEKS                       R8 R8 K26 ["child"]
-       63 MOVE                             R9 R3
-       64 LOADK                            R10 K27 ["Primary"]
-       65 CALL                             R8 2 1
-       66 SETTABLEKS                       R8 R7 K11 ["uri"]
-       68 GETTABLEKS                       R8 R0 K20 ["controls"]
-       70 GETTABLEKS                       R8 R8 K21 ["primaryActionText"]
-       72 SETTABLEKS                       R8 R7 K23 ["text"]
-       74 DUPCLOSURE                       R8 K28 [PROTO_15]
-       75 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-       77 JUMP                             ; [+1]
-       78 LOADNIL                          R7
-       79 SETTABLEKS                       R7 R6 K15 ["primaryAction"]
-       81 GETTABLEKS                       R8 R0 K20 ["controls"]
-       83 GETTABLEKS                       R8 R8 K29 ["secondaryActionText"]
-       85 JUMPIFEQKS                       R8 K22 [""] ; [+20]
-       87 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-       88 GETUPVAL                         R8 1
-       89 GETTABLEKS                       R8 R8 K26 ["child"]
-       91 MOVE                             R9 R3
-       92 LOADK                            R10 K30 ["Secondary"]
-       93 CALL                             R8 2 1
-       94 SETTABLEKS                       R8 R7 K11 ["uri"]
-       96 GETTABLEKS                       R8 R0 K20 ["controls"]
-       98 GETTABLEKS                       R8 R8 K29 ["secondaryActionText"]
-      100 SETTABLEKS                       R8 R7 K23 ["text"]
-      102 DUPCLOSURE                       R8 K31 [PROTO_16]
-      103 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-      105 JUMP                             ; [+1]
-      106 LOADNIL                          R7
-      107 SETTABLEKS                       R7 R6 K16 ["secondaryAction"]
-      109 GETTABLEKS                       R8 R0 K20 ["controls"]
-      111 GETTABLEKS                       R8 R8 K32 ["tertiaryActionText"]
-      113 JUMPIFEQKS                       R8 K22 [""] ; [+20]
-      115 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
-      116 GETUPVAL                         R8 1
-      117 GETTABLEKS                       R8 R8 K26 ["child"]
-      119 MOVE                             R9 R3
-      120 LOADK                            R10 K33 ["Tertiary"]
-      121 CALL                             R8 2 1
-      122 SETTABLEKS                       R8 R7 K11 ["uri"]
-      124 GETTABLEKS                       R8 R0 K20 ["controls"]
-      126 GETTABLEKS                       R8 R8 K32 ["tertiaryActionText"]
-      128 SETTABLEKS                       R8 R7 K23 ["text"]
-      130 DUPCLOSURE                       R8 K34 [PROTO_17]
-      131 SETTABLEKS                       R8 R7 K24 ["onActivated"]
-      133 JUMP                             ; [+1]
-      134 LOADNIL                          R7
-      135 SETTABLEKS                       R7 R6 K17 ["tertiaryAction"]
-      137 GETTABLEKS                       R7 R0 K20 ["controls"]
-      139 GETTABLEKS                       R7 R7 K18 ["autoClose"]
-      141 SETTABLEKS                       R7 R6 K18 ["autoClose"]
-      143 CALL                             R4 2 -1
-      144 RETURN                           R4 -1
+       13 DUPTABLE                         R4 K8 [{["Category"] = "Panels", ["ItemId"] = "DialogStoryConfigurable"}]
+       14 CALL                             R2 2 1
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K2 ["join"]
+       18 MOVE                             R4 R2
+       19 DUPTABLE                         R5 K10 [{["Category"] = "Widgets"}]
+       20 CALL                             R3 2 1
+       21 GETUPVAL                         R4 2
+       22 GETUPVAL                         R5 3
+       23 DUPTABLE                         R6 K19 [{"uri", "type", "title", "description", "primaryAction", "secondaryAction", "tertiaryAction", "autoClose"}]
+       24 SETTABLEKS                       R2 R6 K11 ["uri"]
+       26 GETTABLEKS                       R7 R0 K20 ["controls"]
+       28 GETTABLEKS                       R7 R7 K12 ["type"]
+       30 SETTABLEKS                       R7 R6 K12 ["type"]
+       32 GETTABLEKS                       R7 R0 K20 ["controls"]
+       34 GETTABLEKS                       R7 R7 K13 ["title"]
+       36 SETTABLEKS                       R7 R6 K13 ["title"]
+       38 GETTABLEKS                       R7 R0 K20 ["controls"]
+       40 GETTABLEKS                       R7 R7 K14 ["description"]
+       42 SETTABLEKS                       R7 R6 K14 ["description"]
+       44 GETTABLEKS                       R8 R0 K20 ["controls"]
+       46 GETTABLEKS                       R8 R8 K21 ["primaryActionText"]
+       48 JUMPIFEQKS                       R8 K22 [""] ; [+20]
+       50 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
+       51 GETUPVAL                         R8 1
+       52 GETTABLEKS                       R8 R8 K26 ["child"]
+       54 MOVE                             R9 R3
+       55 LOADK                            R10 K27 ["Primary"]
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K11 ["uri"]
+       59 GETTABLEKS                       R8 R0 K20 ["controls"]
+       61 GETTABLEKS                       R8 R8 K21 ["primaryActionText"]
+       63 SETTABLEKS                       R8 R7 K23 ["text"]
+       65 DUPCLOSURE                       R8 K28 [PROTO_15]
+       66 SETTABLEKS                       R8 R7 K24 ["onActivated"]
+       68 JUMP                             ; [+1]
+       69 LOADNIL                          R7
+       70 SETTABLEKS                       R7 R6 K15 ["primaryAction"]
+       72 GETTABLEKS                       R8 R0 K20 ["controls"]
+       74 GETTABLEKS                       R8 R8 K29 ["secondaryActionText"]
+       76 JUMPIFEQKS                       R8 K22 [""] ; [+20]
+       78 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
+       79 GETUPVAL                         R8 1
+       80 GETTABLEKS                       R8 R8 K26 ["child"]
+       82 MOVE                             R9 R3
+       83 LOADK                            R10 K30 ["Secondary"]
+       84 CALL                             R8 2 1
+       85 SETTABLEKS                       R8 R7 K11 ["uri"]
+       87 GETTABLEKS                       R8 R0 K20 ["controls"]
+       89 GETTABLEKS                       R8 R8 K29 ["secondaryActionText"]
+       91 SETTABLEKS                       R8 R7 K23 ["text"]
+       93 DUPCLOSURE                       R8 K31 [PROTO_16]
+       94 SETTABLEKS                       R8 R7 K24 ["onActivated"]
+       96 JUMP                             ; [+1]
+       97 LOADNIL                          R7
+       98 SETTABLEKS                       R7 R6 K16 ["secondaryAction"]
+      100 GETTABLEKS                       R8 R0 K20 ["controls"]
+      102 GETTABLEKS                       R8 R8 K32 ["tertiaryActionText"]
+      104 JUMPIFEQKS                       R8 K22 [""] ; [+20]
+      106 DUPTABLE                         R7 K25 [{"uri", "text", "onActivated"}]
+      107 GETUPVAL                         R8 1
+      108 GETTABLEKS                       R8 R8 K26 ["child"]
+      110 MOVE                             R9 R3
+      111 LOADK                            R10 K33 ["Tertiary"]
+      112 CALL                             R8 2 1
+      113 SETTABLEKS                       R8 R7 K11 ["uri"]
+      115 GETTABLEKS                       R8 R0 K20 ["controls"]
+      117 GETTABLEKS                       R8 R8 K32 ["tertiaryActionText"]
+      119 SETTABLEKS                       R8 R7 K23 ["text"]
+      121 DUPCLOSURE                       R8 K34 [PROTO_17]
+      122 SETTABLEKS                       R8 R7 K24 ["onActivated"]
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R7
+      126 SETTABLEKS                       R7 R6 K17 ["tertiaryAction"]
+      128 GETTABLEKS                       R7 R0 K20 ["controls"]
+      130 GETTABLEKS                       R7 R7 K18 ["autoClose"]
+      132 SETTABLEKS                       R7 R6 K18 ["autoClose"]
+      134 CALL                             R4 2 -1
+      135 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -429,77 +409,55 @@ MAIN:
        76 CAPTURE                          VAL R8
        77 CAPTURE                          VAL R9
        78 CAPTURE                          VAL R10
-       79 DUPTABLE                         R12 K25 [{"name", "summary", "controls", "stories"}]
-       80 LOADK                            R13 K26 ["DialogPanel"]
-       81 SETTABLEKS                       R13 R12 K21 ["name"]
-       83 LOADK                            R13 K27 ["Demonstrates the windowing logic of DialogPanel housing a DialogView. By default, the dialogs automatically close after 5 seconds in case they are unclosable for whatever reason."]
-       84 SETTABLEKS                       R13 R12 K22 ["summary"]
-       86 DUPTABLE                         R13 K35 [{"type", "title", "description", "primaryActionText", "secondaryActionText", "tertiaryActionText", "autoClose"}]
-       87 NEWTABLE                         R14 0 3
-       89 LOADK                            R15 K36 ["Default"]
-       90 LOADK                            R16 K37 ["Warning"]
-       91 LOADK                            R17 K38 ["Critical"]
-       92 SETLIST                          R14 R15 3 [1]
-       94 SETTABLEKS                       R14 R13 K28 ["type"]
-       96 LOADK                            R14 K39 ["Save changes to Place1?"]
-       97 SETTABLEKS                       R14 R13 K29 ["title"]
-       99 LOADK                            R14 K40 [""]
-      100 SETTABLEKS                       R14 R13 K30 ["description"]
-      102 LOADK                            R14 K41 ["Save"]
-      103 SETTABLEKS                       R14 R13 K31 ["primaryActionText"]
-      105 LOADK                            R14 K42 ["Don't save"]
-      106 SETTABLEKS                       R14 R13 K32 ["secondaryActionText"]
-      108 LOADK                            R14 K43 ["Cancel"]
-      109 SETTABLEKS                       R14 R13 K33 ["tertiaryActionText"]
-      111 NEWTABLE                         R14 0 2
-      113 LOADB                            R15 1
-      114 LOADB                            R16 0
-      115 SETLIST                          R14 R15 2 [1]
-      117 SETTABLEKS                       R14 R13 K34 ["autoClose"]
-      119 SETTABLEKS                       R13 R12 K23 ["controls"]
-      121 NEWTABLE                         R13 0 4
-      123 DUPTABLE                         R14 K45 [{"name", "story"}]
-      124 LOADK                            R15 K46 ["Configurable"]
-      125 SETTABLEKS                       R15 R14 K21 ["name"]
-      127 DUPCLOSURE                       R15 K47 [PROTO_18]
-      128 CAPTURE                          VAL R7
-      129 CAPTURE                          VAL R8
-      130 CAPTURE                          VAL R9
-      131 CAPTURE                          VAL R10
-      132 SETTABLEKS                       R15 R14 K44 ["story"]
-      134 DUPTABLE                         R15 K45 [{"name", "story"}]
-      135 LOADK                            R16 K36 ["Default"]
-      136 SETTABLEKS                       R16 R15 K21 ["name"]
-      138 LOADK                            R17 K36 ["Default"]
-      139 NEWCLOSURE                       R16 P3
-      140 CAPTURE                          VAL R7
-      141 CAPTURE                          VAL R8
-      142 CAPTURE                          VAL R17
-      143 CAPTURE                          VAL R9
-      144 CAPTURE                          VAL R10
-      145 SETTABLEKS                       R16 R15 K44 ["story"]
-      147 DUPTABLE                         R16 K45 [{"name", "story"}]
-      148 LOADK                            R17 K37 ["Warning"]
-      149 SETTABLEKS                       R17 R16 K21 ["name"]
-      151 LOADK                            R18 K37 ["Warning"]
-      152 NEWCLOSURE                       R17 P3
-      153 CAPTURE                          VAL R7
-      154 CAPTURE                          VAL R8
-      155 CAPTURE                          VAL R18
-      156 CAPTURE                          VAL R9
-      157 CAPTURE                          VAL R10
-      158 SETTABLEKS                       R17 R16 K44 ["story"]
-      160 DUPTABLE                         R17 K45 [{"name", "story"}]
-      161 LOADK                            R18 K38 ["Critical"]
-      162 SETTABLEKS                       R18 R17 K21 ["name"]
-      164 LOADK                            R19 K38 ["Critical"]
-      165 NEWCLOSURE                       R18 P3
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R8
-      168 CAPTURE                          VAL R19
-      169 CAPTURE                          VAL R9
-      170 CAPTURE                          VAL R10
-      171 SETTABLEKS                       R18 R17 K44 ["story"]
-      173 SETLIST                          R13 R14 4 [1]
-      175 SETTABLEKS                       R13 R12 K24 ["stories"]
-      177 RETURN                           R12 1
+       79 DUPTABLE                         R12 K27 [{["name"] = "DialogPanel", ["summary"] = "Demonstrates the windowing logic of DialogPanel housing a DialogView. By default, the dialogs automatically close after 5 seconds in case they are unclosable for whatever reason.", ["controls"], ["stories"]}]
+       80 DUPTABLE                         R13 K40 [{["type"], ["title"] = "Save changes to Place1?", ["description"] = "", ["primaryActionText"] = "Save", ["secondaryActionText"] = "Don't save", ["tertiaryActionText"] = "Cancel", ["autoClose"]}]
+       81 NEWTABLE                         R14 0 3
+       83 LOADK                            R15 K41 ["Default"]
+       84 LOADK                            R16 K42 ["Warning"]
+       85 LOADK                            R17 K43 ["Critical"]
+       86 SETLIST                          R14 R15 3 [1]
+       88 SETTABLEKS                       R14 R13 K28 ["type"]
+       90 NEWTABLE                         R14 0 2
+       92 LOADB                            R15 1
+       93 LOADB                            R16 0
+       94 SETLIST                          R14 R15 2 [1]
+       96 SETTABLEKS                       R14 R13 K39 ["autoClose"]
+       98 SETTABLEKS                       R13 R12 K25 ["controls"]
+      100 NEWTABLE                         R13 0 4
+      102 DUPTABLE                         R14 K46 [{["name"] = "Configurable", ["story"]}]
+      103 DUPCLOSURE                       R15 K47 [PROTO_18]
+      104 CAPTURE                          VAL R7
+      105 CAPTURE                          VAL R8
+      106 CAPTURE                          VAL R9
+      107 CAPTURE                          VAL R10
+      108 SETTABLEKS                       R15 R14 K45 ["story"]
+      110 DUPTABLE                         R15 K48 [{["name"] = "Default", ["story"]}]
+      111 LOADK                            R17 K41 ["Default"]
+      112 NEWCLOSURE                       R16 P3
+      113 CAPTURE                          VAL R7
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R17
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R10
+      118 SETTABLEKS                       R16 R15 K45 ["story"]
+      120 DUPTABLE                         R16 K49 [{["name"] = "Warning", ["story"]}]
+      121 LOADK                            R18 K42 ["Warning"]
+      122 NEWCLOSURE                       R17 P3
+      123 CAPTURE                          VAL R7
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R18
+      126 CAPTURE                          VAL R9
+      127 CAPTURE                          VAL R10
+      128 SETTABLEKS                       R17 R16 K45 ["story"]
+      130 DUPTABLE                         R17 K50 [{["name"] = "Critical", ["story"]}]
+      131 LOADK                            R19 K43 ["Critical"]
+      132 NEWCLOSURE                       R18 P3
+      133 CAPTURE                          VAL R7
+      134 CAPTURE                          VAL R8
+      135 CAPTURE                          VAL R19
+      136 CAPTURE                          VAL R9
+      137 CAPTURE                          VAL R10
+      138 SETTABLEKS                       R18 R17 K45 ["story"]
+      140 SETLIST                          R13 R14 4 [1]
+      142 SETTABLEKS                       R13 R12 K26 ["stories"]
+      144 RETURN                           R12 1

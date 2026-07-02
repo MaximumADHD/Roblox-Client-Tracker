@@ -108,43 +108,41 @@ PROTO_4:
        81 GETUPVAL                         R14 0
        82 GETTABLEKS                       R14 R14 K8 ["createElement"]
        84 GETUPVAL                         R15 3
-       85 DUPTABLE                         R16 K34 [{"AutomaticSize", "VerticalAlignment", "Size", "Padding"}]
-       86 GETIMPORT                        R17 K37 [Enum.AutomaticSize.XY]
+       85 DUPTABLE                         R16 K35 [{["AutomaticSize"], ["VerticalAlignment"], ["Size"], ["Padding"] = 5}]
+       86 GETIMPORT                        R17 K38 [Enum.AutomaticSize.XY]
        88 SETTABLEKS                       R17 R16 K30 ["AutomaticSize"]
-       90 GETIMPORT                        R17 K39 [Enum.VerticalAlignment.Center]
+       90 GETIMPORT                        R17 K40 [Enum.VerticalAlignment.Center]
        92 SETTABLEKS                       R17 R16 K31 ["VerticalAlignment"]
-       94 GETIMPORT                        R17 K42 [UDim2.new]
+       94 GETIMPORT                        R17 K43 [UDim2.new]
        96 LOADN                            R18 0
        97 LOADN                            R19 195
        98 LOADN                            R20 0
        99 LOADN                            R21 20
       100 CALL                             R17 4 1
       101 SETTABLEKS                       R17 R16 K32 ["Size"]
-      103 LOADN                            R17 5
-      104 SETTABLEKS                       R17 R16 K33 ["Padding"]
-      106 DUPTABLE                         R17 K44 [{"ToggleButton"}]
-      107 GETUPVAL                         R18 0
-      108 GETTABLEKS                       R18 R18 K8 ["createElement"]
-      110 GETUPVAL                         R19 4
-      111 DUPTABLE                         R20 K47 [{"OnClick", "Selected", "Size"}]
-      112 NEWCLOSURE                       R21 P0
-      113 CAPTURE                          VAL R0
-      114 CAPTURE                          VAL R5
-      115 SETTABLEKS                       R21 R20 K45 ["OnClick"]
-      117 SETTABLEKS                       R5 R20 K46 ["Selected"]
-      119 GETIMPORT                        R21 K49 [UDim2.fromOffset]
-      121 LOADN                            R22 30
-      122 LOADN                            R23 18
-      123 CALL                             R21 2 1
-      124 SETTABLEKS                       R21 R20 K32 ["Size"]
-      126 CALL                             R18 2 1
-      127 SETTABLEKS                       R18 R17 K43 ["ToggleButton"]
-      129 CALL                             R14 3 1
-      130 SETTABLEKS                       R14 R13 K28 ["Button"]
-      132 CALL                             R10 3 1
-      133 SETTABLEKS                       R10 R9 K23 ["OverridesNew"]
-      135 CALL                             R6 3 -1
-      136 RETURN                           R6 -1
+      103 DUPTABLE                         R17 K45 [{"ToggleButton"}]
+      104 GETUPVAL                         R18 0
+      105 GETTABLEKS                       R18 R18 K8 ["createElement"]
+      107 GETUPVAL                         R19 4
+      108 DUPTABLE                         R20 K48 [{"OnClick", "Selected", "Size"}]
+      109 NEWCLOSURE                       R21 P0
+      110 CAPTURE                          VAL R0
+      111 CAPTURE                          VAL R5
+      112 SETTABLEKS                       R21 R20 K46 ["OnClick"]
+      114 SETTABLEKS                       R5 R20 K47 ["Selected"]
+      116 GETIMPORT                        R21 K50 [UDim2.fromOffset]
+      118 LOADN                            R22 30
+      119 LOADN                            R23 18
+      120 CALL                             R21 2 1
+      121 SETTABLEKS                       R21 R20 K32 ["Size"]
+      123 CALL                             R18 2 1
+      124 SETTABLEKS                       R18 R17 K44 ["ToggleButton"]
+      126 CALL                             R14 3 1
+      127 SETTABLEKS                       R14 R13 K28 ["Button"]
+      129 CALL                             R10 3 1
+      130 SETTABLEKS                       R10 R9 K23 ["OverridesNew"]
+      132 CALL                             R6 3 -1
+      133 RETURN                           R6 -1
 
 PROTO_5:
         0 GETTABLEKS                       R2 R1 K0 ["MockMaterial"]

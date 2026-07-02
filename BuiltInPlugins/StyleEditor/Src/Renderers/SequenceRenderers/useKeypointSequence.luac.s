@@ -1,11 +1,9 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K2 [{"Keypoints", "Selected"}]
+        1 DUPTABLE                         R2 K3 [{[1], ["Selected"] = 1}]
         2 SETTABLEKS                       R0 R2 K0 ["Keypoints"]
-        4 LOADN                            R3 1
-        5 SETTABLEKS                       R3 R2 K1 ["Selected"]
-        7 CALL                             R1 1 0
-        8 RETURN                           R0 0
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -98,47 +96,45 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K2 [{"Keypoints", "Selected"}]
+        1 DUPTABLE                         R2 K3 [{[1], ["Selected"] = 1}]
         2 SETTABLEKS                       R0 R2 K0 ["Keypoints"]
-        4 LOADN                            R3 1
-        5 SETTABLEKS                       R3 R2 K1 ["Selected"]
-        7 CALL                             R1 1 2
-        8 NEWCLOSURE                       R3 P0
-        9 CAPTURE                          VAL R2
-       10 NEWCLOSURE                       R4 P1
+        4 CALL                             R1 1 2
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          VAL R2
+        7 NEWCLOSURE                       R4 P1
+        8 CAPTURE                          VAL R2
+        9 CAPTURE                          UPVAL U1
+       10 NEWCLOSURE                       R5 P2
        11 CAPTURE                          VAL R2
        12 CAPTURE                          UPVAL U1
-       13 NEWCLOSURE                       R5 P2
+       13 NEWCLOSURE                       R6 P3
        14 CAPTURE                          VAL R2
        15 CAPTURE                          UPVAL U1
-       16 NEWCLOSURE                       R6 P3
+       16 NEWCLOSURE                       R7 P4
        17 CAPTURE                          VAL R2
        18 CAPTURE                          UPVAL U1
-       19 NEWCLOSURE                       R7 P4
+       19 NEWCLOSURE                       R8 P5
        20 CAPTURE                          VAL R2
-       21 CAPTURE                          UPVAL U1
-       22 NEWCLOSURE                       R8 P5
-       23 CAPTURE                          VAL R2
-       24 NEWCLOSURE                       R9 P6
+       21 NEWCLOSURE                       R9 P6
+       22 CAPTURE                          UPVAL U1
+       23 CAPTURE                          VAL R1
+       24 NEWCLOSURE                       R10 P7
        25 CAPTURE                          UPVAL U1
        26 CAPTURE                          VAL R1
-       27 NEWCLOSURE                       R10 P7
-       28 CAPTURE                          UPVAL U1
-       29 CAPTURE                          VAL R1
-       30 DUPTABLE                         R11 K13 [{"keypoints", "selectedIndex", "reset", "update", "add", "remove", "select", "save", "isFixedKeypointSelected", "getSelectedKeypoint"}]
-       31 GETTABLEKS                       R12 R1 K0 ["Keypoints"]
-       33 SETTABLEKS                       R12 R11 K3 ["keypoints"]
-       35 GETTABLEKS                       R12 R1 K1 ["Selected"]
-       37 SETTABLEKS                       R12 R11 K4 ["selectedIndex"]
-       39 SETTABLEKS                       R3 R11 K5 ["reset"]
-       41 SETTABLEKS                       R4 R11 K6 ["update"]
-       43 SETTABLEKS                       R5 R11 K7 ["add"]
-       45 SETTABLEKS                       R6 R11 K8 ["remove"]
-       47 SETTABLEKS                       R7 R11 K9 ["select"]
-       49 SETTABLEKS                       R8 R11 K10 ["save"]
-       51 SETTABLEKS                       R9 R11 K11 ["isFixedKeypointSelected"]
-       53 SETTABLEKS                       R10 R11 K12 ["getSelectedKeypoint"]
-       55 RETURN                           R11 1
+       27 DUPTABLE                         R11 K14 [{"keypoints", "selectedIndex", "reset", "update", "add", "remove", "select", "save", "isFixedKeypointSelected", "getSelectedKeypoint"}]
+       28 GETTABLEKS                       R12 R1 K0 ["Keypoints"]
+       30 SETTABLEKS                       R12 R11 K4 ["keypoints"]
+       32 GETTABLEKS                       R12 R1 K1 ["Selected"]
+       34 SETTABLEKS                       R12 R11 K5 ["selectedIndex"]
+       36 SETTABLEKS                       R3 R11 K6 ["reset"]
+       38 SETTABLEKS                       R4 R11 K7 ["update"]
+       40 SETTABLEKS                       R5 R11 K8 ["add"]
+       42 SETTABLEKS                       R6 R11 K9 ["remove"]
+       44 SETTABLEKS                       R7 R11 K10 ["select"]
+       46 SETTABLEKS                       R8 R11 K11 ["save"]
+       48 SETTABLEKS                       R9 R11 K12 ["isFixedKeypointSelected"]
+       50 SETTABLEKS                       R10 R11 K13 ["getSelectedKeypoint"]
+       52 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

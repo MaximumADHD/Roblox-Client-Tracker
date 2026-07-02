@@ -22,30 +22,28 @@ PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
-        4 DUPTABLE                         R3 K4 [{"Size", "BackgroundTransparency"}]
-        5 GETIMPORT                        R4 K7 [UDim2.new]
+        4 DUPTABLE                         R3 K5 [{["Size"], ["BackgroundTransparency"] = 1}]
+        5 GETIMPORT                        R4 K8 [UDim2.new]
         7 LOADN                            R5 0
-        8 LOADN                            R6 74
+        8 LOADN                            R6 330
         9 LOADN                            R7 0
        10 LOADN                            R8 30
        11 CALL                             R4 4 1
        12 SETTABLEKS                       R4 R3 K2 ["Size"]
-       14 LOADN                            R4 1
-       15 SETTABLEKS                       R4 R3 K3 ["BackgroundTransparency"]
-       17 DUPTABLE                         R4 K9 [{"AudioTabs"}]
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       21 GETUPVAL                         R6 1
-       22 DUPTABLE                         R7 K12 [{"SelectedTab", "OnTabSelect"}]
-       23 GETTABLEKS                       R8 R0 K13 ["state"]
-       25 GETTABLEKS                       R8 R8 K14 ["selectedTab"]
-       27 SETTABLEKS                       R8 R7 K10 ["SelectedTab"]
-       29 GETTABLEKS                       R8 R0 K11 ["OnTabSelect"]
-       31 SETTABLEKS                       R8 R7 K11 ["OnTabSelect"]
-       33 CALL                             R5 2 1
-       34 SETTABLEKS                       R5 R4 K8 ["AudioTabs"]
-       36 CALL                             R1 3 -1
-       37 RETURN                           R1 -1
+       14 DUPTABLE                         R4 K10 [{"AudioTabs"}]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       18 GETUPVAL                         R6 1
+       19 DUPTABLE                         R7 K13 [{"SelectedTab", "OnTabSelect"}]
+       20 GETTABLEKS                       R8 R0 K14 ["state"]
+       22 GETTABLEKS                       R8 R8 K15 ["selectedTab"]
+       24 SETTABLEKS                       R8 R7 K11 ["SelectedTab"]
+       26 GETTABLEKS                       R8 R0 K12 ["OnTabSelect"]
+       28 SETTABLEKS                       R8 R7 K12 ["OnTabSelect"]
+       30 CALL                             R5 2 1
+       31 SETTABLEKS                       R5 R4 K9 ["AudioTabs"]
+       33 CALL                             R1 3 -1
+       34 RETURN                           R1 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -96,14 +94,10 @@ MAIN:
        50 CAPTURE                          VAL R2
        51 CAPTURE                          VAL R3
        52 SETTABLEKS                       R7 R6 K21 ["render"]
-       54 DUPTABLE                         R7 K25 [{"name", "summary", "story"}]
-       55 LOADK                            R8 K26 ["Audio Tabs"]
-       56 SETTABLEKS                       R8 R7 K22 ["name"]
-       58 LOADK                            R8 K27 ["Tab selection with round edges"]
-       59 SETTABLEKS                       R8 R7 K23 ["summary"]
-       61 DUPCLOSURE                       R8 K28 [PROTO_3]
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R4
-       64 CAPTURE                          VAL R6
-       65 SETTABLEKS                       R8 R7 K24 ["story"]
-       67 RETURN                           R7 1
+       54 DUPTABLE                         R7 K27 [{["name"] = "Audio Tabs", ["summary"] = "Tab selection with round edges", ["story"]}]
+       55 DUPCLOSURE                       R8 K28 [PROTO_3]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R4
+       58 CAPTURE                          VAL R6
+       59 SETTABLEKS                       R8 R7 K26 ["story"]
+       61 RETURN                           R7 1

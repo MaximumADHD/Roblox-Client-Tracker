@@ -1,40 +1,28 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+13]
+        1 JUMPIFNOT                        R0 ; [+7]
         2 GETUPVAL                         R0 1
-        3 JUMPIFNOT                        R0 ; [+11]
-        4 DUPTABLE                         R0 K3 [{"autoSetupTarget", "avatar", "isSelected"}]
-        5 LOADNIL                          R1
-        6 SETTABLEKS                       R1 R0 K0 ["autoSetupTarget"]
-        8 GETUPVAL                         R1 0
-        9 SETTABLEKS                       R1 R0 K1 ["avatar"]
-       11 LOADB                            R1 1
-       12 SETTABLEKS                       R1 R0 K2 ["isSelected"]
-       14 RETURN                           R0 1
-       15 GETUPVAL                         R0 2
-       16 JUMPIFNOT                        R0 ; [+13]
-       17 GETUPVAL                         R0 3
-       18 JUMPIFNOT                        R0 ; [+11]
-       19 DUPTABLE                         R0 K3 [{"autoSetupTarget", "avatar", "isSelected"}]
-       20 GETUPVAL                         R1 2
-       21 SETTABLEKS                       R1 R0 K0 ["autoSetupTarget"]
-       23 LOADNIL                          R1
-       24 SETTABLEKS                       R1 R0 K1 ["avatar"]
-       26 LOADB                            R1 1
-       27 SETTABLEKS                       R1 R0 K2 ["isSelected"]
-       29 RETURN                           R0 1
-       30 GETUPVAL                         R0 0
-       31 JUMPIFNOT                        R0 ; [+11]
-       32 DUPTABLE                         R0 K3 [{"autoSetupTarget", "avatar", "isSelected"}]
-       33 LOADNIL                          R1
-       34 SETTABLEKS                       R1 R0 K0 ["autoSetupTarget"]
-       36 GETUPVAL                         R1 0
-       37 SETTABLEKS                       R1 R0 K1 ["avatar"]
-       39 LOADB                            R1 0
-       40 SETTABLEKS                       R1 R0 K2 ["isSelected"]
-       42 RETURN                           R0 1
-       43 LOADNIL                          R0
-       44 RETURN                           R0 1
+        3 JUMPIFNOT                        R0 ; [+5]
+        4 DUPTABLE                         R0 K5 [{[1] = , ["avatar"], ["isSelected"] = True}]
+        5 GETUPVAL                         R1 0
+        6 SETTABLEKS                       R1 R0 K2 ["avatar"]
+        8 RETURN                           R0 1
+        9 GETUPVAL                         R0 2
+       10 JUMPIFNOT                        R0 ; [+7]
+       11 GETUPVAL                         R0 3
+       12 JUMPIFNOT                        R0 ; [+5]
+       13 DUPTABLE                         R0 K6 [{[1], ["avatar"] = , ["isSelected"] = True}]
+       14 GETUPVAL                         R1 2
+       15 SETTABLEKS                       R1 R0 K0 ["autoSetupTarget"]
+       17 RETURN                           R0 1
+       18 GETUPVAL                         R0 0
+       19 JUMPIFNOT                        R0 ; [+5]
+       20 DUPTABLE                         R0 K8 [{[1] = , ["avatar"], ["isSelected"] = False}]
+       21 GETUPVAL                         R1 0
+       22 SETTABLEKS                       R1 R0 K2 ["avatar"]
+       24 RETURN                           R0 1
+       25 LOADNIL                          R0
+       26 RETURN                           R0 1
 
 PROTO_1:
         0 DUPTABLE                         R0 K2 [{"selection", "clearAvatar"}]

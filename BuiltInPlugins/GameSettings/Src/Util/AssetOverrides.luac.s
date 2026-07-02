@@ -31,31 +31,27 @@ PROTO_1:
        26 SETTABLE                         R10 R5 R11
        27 FORGLOOP                         R6 2 ; [-4]
        29 MOVE                             R4 R5
-       30 DUPTABLE                         R5 K5 [{"assetID", "isPlayerChoice"}]
-       31 LOADN                            R6 0
-       32 SETTABLEKS                       R6 R5 K3 ["assetID"]
-       34 LOADB                            R6 1
-       35 SETTABLEKS                       R6 R5 K4 ["isPlayerChoice"]
-       37 GETIMPORT                        R6 K1 [pairs]
-       39 MOVE                             R7 R4
-       40 CALL                             R6 1 3
-       41 FORGPREP_NEXT                    R6
-       42 GETTABLEKS                       R13 R10 K2 ["assetTypeID"]
-       44 GETTABLE                         R12 R3 R13
-       45 OR                               R11 R12 R5
-       46 GETTABLEKS                       R12 R10 K3 ["assetID"]
-       48 GETTABLEKS                       R13 R11 K3 ["assetID"]
-       50 JUMPIFNOTEQ                      R12 R13 ; [+7]
-       52 GETTABLEKS                       R12 R10 K4 ["isPlayerChoice"]
-       54 GETTABLEKS                       R13 R11 K4 ["isPlayerChoice"]
-       56 JUMPIFEQ                         R12 R13 ; [+6]
-       58 MOVE                             R12 R2
-       59 MOVE                             R13 R10
-       60 CALL                             R12 1 1
-       61 JUMPIF                           R12 ; [+1]
-       62 RETURN                           R0 0
-       63 FORGLOOP                         R6 2 ; [-22]
-       65 RETURN                           R0 0
+       30 DUPTABLE                         R5 K7 [{["assetID"] = 0, ["isPlayerChoice"] = True}]
+       31 GETIMPORT                        R6 K1 [pairs]
+       33 MOVE                             R7 R4
+       34 CALL                             R6 1 3
+       35 FORGPREP_NEXT                    R6
+       36 GETTABLEKS                       R13 R10 K2 ["assetTypeID"]
+       38 GETTABLE                         R12 R3 R13
+       39 OR                               R11 R12 R5
+       40 GETTABLEKS                       R12 R10 K3 ["assetID"]
+       42 GETTABLEKS                       R13 R11 K3 ["assetID"]
+       44 JUMPIFNOTEQ                      R12 R13 ; [+7]
+       46 GETTABLEKS                       R12 R10 K5 ["isPlayerChoice"]
+       48 GETTABLEKS                       R13 R11 K5 ["isPlayerChoice"]
+       50 JUMPIFEQ                         R12 R13 ; [+6]
+       52 MOVE                             R12 R2
+       53 MOVE                             R13 R10
+       54 CALL                             R12 1 1
+       55 JUMPIF                           R12 ; [+1]
+       56 RETURN                           R0 0
+       57 FORGLOOP                         R6 2 ; [-22]
+       59 RETURN                           R0 0
 
 PROTO_2:
         0 LOADB                            R0 0

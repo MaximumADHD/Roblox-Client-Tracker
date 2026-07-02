@@ -43,26 +43,22 @@ MAIN:
        64 GETTABLEKS                       R5 R5 K22 ["StudioNetworking"]
        66 CALL                             R4 1 1
        67 GETTABLEKS                       R5 R4 K23 ["create"]
-       69 DUPTABLE                         R6 K27 [{"plugin", "isGuest", "isHost"}]
-       70 GETIMPORT                        R7 K28 [plugin]
+       69 DUPTABLE                         R6 K29 [{["plugin"], ["isGuest"] = True, ["isHost"] = False}]
+       70 GETIMPORT                        R7 K30 [plugin]
        72 SETTABLEKS                       R7 R6 K24 ["plugin"]
-       74 LOADB                            R7 1
-       75 SETTABLEKS                       R7 R6 K25 ["isGuest"]
-       77 LOADB                            R7 0
-       78 SETTABLEKS                       R7 R6 K26 ["isHost"]
-       80 CALL                             R5 1 0
-       81 GETIMPORT                        R5 K5 [require]
-       83 GETTABLEKS                       R6 R0 K6 ["Bin"]
-       85 GETTABLEKS                       R6 R6 K7 ["Common"]
-       87 GETTABLEKS                       R6 R6 K29 ["setup"]
-       89 CALL                             R5 1 1
-       90 GETIMPORT                        R6 K5 [require]
-       92 GETTABLEKS                       R7 R0 K6 ["Bin"]
-       94 GETTABLEKS                       R7 R7 K7 ["Common"]
-       96 GETTABLEKS                       R7 R7 K30 ["setupMain"]
-       98 CALL                             R6 1 1
-       99 MOVE                             R7 R5
-      100 GETIMPORT                        R8 K28 [plugin]
-      102 MOVE                             R9 R6
-      103 CALL                             R7 2 0
-      104 RETURN                           R0 0
+       74 CALL                             R5 1 0
+       75 GETIMPORT                        R5 K5 [require]
+       77 GETTABLEKS                       R6 R0 K6 ["Bin"]
+       79 GETTABLEKS                       R6 R6 K7 ["Common"]
+       81 GETTABLEKS                       R6 R6 K31 ["setup"]
+       83 CALL                             R5 1 1
+       84 GETIMPORT                        R6 K5 [require]
+       86 GETTABLEKS                       R7 R0 K6 ["Bin"]
+       88 GETTABLEKS                       R7 R7 K7 ["Common"]
+       90 GETTABLEKS                       R7 R7 K32 ["setupMain"]
+       92 CALL                             R6 1 1
+       93 MOVE                             R7 R5
+       94 GETIMPORT                        R8 K30 [plugin]
+       96 MOVE                             R9 R6
+       97 CALL                             R7 2 0
+       98 RETURN                           R0 0

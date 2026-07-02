@@ -116,84 +116,76 @@ PROTO_2:
       128 GETUPVAL                         R19 1
       129 GETTABLEKS                       R19 R19 K14 ["createElement"]
       131 GETUPVAL                         R20 3
-      132 DUPTABLE                         R21 K54 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "LayoutOrder"}]
-      133 LOADK                            R24 K55 ["General"]
+      132 DUPTABLE                         R21 K55 [{["Title"], ["TotalHeight"] = 100, ["MaxCount"], ["TextChangeCallBack"], ["TextContent"], ["LayoutOrder"]}]
+      133 LOADK                            R24 K56 ["General"]
       134 LOADK                            R25 K24 ["Title"]
-      135 NAMECALL                         R22 R2 K56 ["getText"]
+      135 NAMECALL                         R22 R2 K57 ["getText"]
       137 CALL                             R22 3 1
       138 SETTABLEKS                       R22 R21 K24 ["Title"]
-      140 LOADN                            R22 100
-      141 SETTABLEKS                       R22 R21 K50 ["TotalHeight"]
-      143 GETUPVAL                         R22 4
-      144 GETTABLEKS                       R22 R22 K57 ["NAME_CHARACTER_LIMIT"]
-      146 SETTABLEKS                       R22 R21 K51 ["MaxCount"]
-      148 SETTABLEKS                       R10 R21 K52 ["TextChangeCallBack"]
-      150 SETTABLEKS                       R5 R21 K53 ["TextContent"]
-      152 NAMECALL                         R22 R14 K58 ["getNextOrder"]
-      154 CALL                             R22 1 1
-      155 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
-      157 CALL                             R19 2 1
-      158 SETTABLEKS                       R19 R18 K24 ["Title"]
-      160 GETUPVAL                         R19 1
-      161 GETTABLEKS                       R19 R19 K14 ["createElement"]
-      163 GETUPVAL                         R20 3
-      164 DUPTABLE                         R21 K54 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "LayoutOrder"}]
-      165 LOADK                            R24 K55 ["General"]
-      166 LOADK                            R25 K25 ["Description"]
-      167 NAMECALL                         R22 R2 K56 ["getText"]
-      169 CALL                             R22 3 1
-      170 SETTABLEKS                       R22 R21 K24 ["Title"]
-      172 LOADN                            R22 64
-      173 SETTABLEKS                       R22 R21 K50 ["TotalHeight"]
-      175 GETUPVAL                         R22 4
-      176 GETTABLEKS                       R22 R22 K59 ["DESCRIPTION_CHARACTER_LIMIT"]
-      178 SETTABLEKS                       R22 R21 K51 ["MaxCount"]
-      180 SETTABLEKS                       R11 R21 K52 ["TextChangeCallBack"]
-      182 SETTABLEKS                       R6 R21 K53 ["TextContent"]
-      184 NAMECALL                         R22 R14 K58 ["getNextOrder"]
-      186 CALL                             R22 1 1
-      187 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
-      189 CALL                             R19 2 1
-      190 SETTABLEKS                       R19 R18 K25 ["Description"]
-      192 GETUPVAL                         R19 1
-      193 GETTABLEKS                       R19 R19 K14 ["createElement"]
-      195 GETUPVAL                         R20 5
-      196 DUPTABLE                         R21 K61 [{"Title", "owner", "TotalHeight", "onDropDownSelect", "LayoutOrder"}]
-      197 LOADK                            R24 K55 ["General"]
-      198 LOADK                            R25 K26 ["Ownership"]
-      199 NAMECALL                         R22 R2 K56 ["getText"]
-      201 CALL                             R22 3 1
-      202 SETTABLEKS                       R22 R21 K24 ["Title"]
-      204 SETTABLEKS                       R7 R21 K6 ["owner"]
-      206 LOADN                            R22 70
-      207 SETTABLEKS                       R22 R21 K50 ["TotalHeight"]
-      209 SETTABLEKS                       R12 R21 K60 ["onDropDownSelect"]
-      211 NAMECALL                         R22 R14 K58 ["getNextOrder"]
-      213 CALL                             R22 1 1
-      214 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
-      216 CALL                             R19 2 1
-      217 SETTABLEKS                       R19 R18 K26 ["Ownership"]
-      219 GETUPVAL                         R19 1
-      220 GETTABLEKS                       R19 R19 K14 ["createElement"]
-      222 GETUPVAL                         R20 6
-      223 DUPTABLE                         R21 K65 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
-      224 LOADK                            R24 K55 ["General"]
-      225 LOADK                            R25 K66 ["Comments"]
-      226 NAMECALL                         R22 R2 K56 ["getText"]
-      228 CALL                             R22 3 1
-      229 SETTABLEKS                       R22 R21 K24 ["Title"]
-      231 LOADN                            R22 80
-      232 SETTABLEKS                       R22 R21 K50 ["TotalHeight"]
-      234 SETTABLEKS                       R8 R21 K62 ["CommentEnabled"]
-      236 SETTABLEKS                       R9 R21 K63 ["CommentOn"]
-      238 SETTABLEKS                       R13 R21 K64 ["ToggleCallback"]
-      240 NAMECALL                         R22 R14 K58 ["getNextOrder"]
-      242 CALL                             R22 1 1
-      243 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
-      245 CALL                             R19 2 1
-      246 SETTABLEKS                       R19 R18 K27 ["Comment"]
-      248 CALL                             R15 3 -1
-      249 RETURN                           R15 -1
+      140 GETUPVAL                         R22 4
+      141 GETTABLEKS                       R22 R22 K58 ["NAME_CHARACTER_LIMIT"]
+      143 SETTABLEKS                       R22 R21 K52 ["MaxCount"]
+      145 SETTABLEKS                       R10 R21 K53 ["TextChangeCallBack"]
+      147 SETTABLEKS                       R5 R21 K54 ["TextContent"]
+      149 NAMECALL                         R22 R14 K59 ["getNextOrder"]
+      151 CALL                             R22 1 1
+      152 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
+      154 CALL                             R19 2 1
+      155 SETTABLEKS                       R19 R18 K24 ["Title"]
+      157 GETUPVAL                         R19 1
+      158 GETTABLEKS                       R19 R19 K14 ["createElement"]
+      160 GETUPVAL                         R20 3
+      161 DUPTABLE                         R21 K61 [{["Title"], ["TotalHeight"] = 320, ["MaxCount"], ["TextChangeCallBack"], ["TextContent"], ["LayoutOrder"]}]
+      162 LOADK                            R24 K56 ["General"]
+      163 LOADK                            R25 K25 ["Description"]
+      164 NAMECALL                         R22 R2 K57 ["getText"]
+      166 CALL                             R22 3 1
+      167 SETTABLEKS                       R22 R21 K24 ["Title"]
+      169 GETUPVAL                         R22 4
+      170 GETTABLEKS                       R22 R22 K62 ["DESCRIPTION_CHARACTER_LIMIT"]
+      172 SETTABLEKS                       R22 R21 K52 ["MaxCount"]
+      174 SETTABLEKS                       R11 R21 K53 ["TextChangeCallBack"]
+      176 SETTABLEKS                       R6 R21 K54 ["TextContent"]
+      178 NAMECALL                         R22 R14 K59 ["getNextOrder"]
+      180 CALL                             R22 1 1
+      181 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
+      183 CALL                             R19 2 1
+      184 SETTABLEKS                       R19 R18 K25 ["Description"]
+      186 GETUPVAL                         R19 1
+      187 GETTABLEKS                       R19 R19 K14 ["createElement"]
+      189 GETUPVAL                         R20 5
+      190 DUPTABLE                         R21 K65 [{["Title"], ["owner"], ["TotalHeight"] = 70, ["onDropDownSelect"], ["LayoutOrder"]}]
+      191 LOADK                            R24 K56 ["General"]
+      192 LOADK                            R25 K26 ["Ownership"]
+      193 NAMECALL                         R22 R2 K57 ["getText"]
+      195 CALL                             R22 3 1
+      196 SETTABLEKS                       R22 R21 K24 ["Title"]
+      198 SETTABLEKS                       R7 R21 K6 ["owner"]
+      200 SETTABLEKS                       R12 R21 K64 ["onDropDownSelect"]
+      202 NAMECALL                         R22 R14 K59 ["getNextOrder"]
+      204 CALL                             R22 1 1
+      205 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
+      207 CALL                             R19 2 1
+      208 SETTABLEKS                       R19 R18 K26 ["Ownership"]
+      210 GETUPVAL                         R19 1
+      211 GETTABLEKS                       R19 R19 K14 ["createElement"]
+      213 GETUPVAL                         R20 6
+      214 DUPTABLE                         R21 K70 [{["Title"], ["TotalHeight"] = 80, ["CommentEnabled"], ["CommentOn"], ["ToggleCallback"], ["LayoutOrder"]}]
+      215 LOADK                            R24 K56 ["General"]
+      216 LOADK                            R25 K71 ["Comments"]
+      217 NAMECALL                         R22 R2 K57 ["getText"]
+      219 CALL                             R22 3 1
+      220 SETTABLEKS                       R22 R21 K24 ["Title"]
+      222 SETTABLEKS                       R8 R21 K67 ["CommentEnabled"]
+      224 SETTABLEKS                       R9 R21 K68 ["CommentOn"]
+      226 SETTABLEKS                       R13 R21 K69 ["ToggleCallback"]
+      228 NAMECALL                         R22 R14 K59 ["getNextOrder"]
+      230 CALL                             R22 1 1
+      231 SETTABLEKS                       R22 R21 K3 ["LayoutOrder"]
+      233 CALL                             R19 2 1
+      234 SETTABLEKS                       R19 R18 K27 ["Comment"]
+      236 CALL                             R15 3 -1
+      237 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

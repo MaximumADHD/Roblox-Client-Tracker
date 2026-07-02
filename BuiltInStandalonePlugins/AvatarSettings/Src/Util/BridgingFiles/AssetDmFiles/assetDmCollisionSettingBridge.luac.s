@@ -17,41 +17,33 @@ PROTO_1:
        10 CAPTURE                          VAL R1
        11 GETUPVAL                         R3 1
        12 MOVE                             R4 R0
-       13 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
+       13 DUPTABLE                         R5 K6 [{["ruleInstance"], ["property"] = "CollisionMode"}]
        14 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       16 LOADK                            R6 K6 ["CollisionMode"]
-       17 SETTABLEKS                       R6 R5 K4 ["property"]
-       19 GETUPVAL                         R6 2
-       20 GETTABLEKS                       R6 R6 K7 ["collisionSetting"]
-       22 CALL                             R3 3 0
-       23 GETUPVAL                         R3 1
-       24 MOVE                             R4 R0
-       25 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       26 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       28 LOADK                            R6 K8 ["HitAndTouchDetectionMode"]
-       29 SETTABLEKS                       R6 R5 K4 ["property"]
-       31 GETUPVAL                         R6 2
-       32 GETTABLEKS                       R6 R6 K9 ["collisionHitAndTouchDetectionSetting"]
-       34 CALL                             R3 3 0
-       35 GETUPVAL                         R3 1
-       36 MOVE                             R4 R0
-       37 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       38 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       40 LOADK                            R6 K10 ["LegacyCollisionMode"]
-       41 SETTABLEKS                       R6 R5 K4 ["property"]
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R6 R6 K7 ["collisionSetting"]
+       19 CALL                             R3 3 0
+       20 GETUPVAL                         R3 1
+       21 MOVE                             R4 R0
+       22 DUPTABLE                         R5 K9 [{["ruleInstance"], ["property"] = "HitAndTouchDetectionMode"}]
+       23 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       25 GETUPVAL                         R6 2
+       26 GETTABLEKS                       R6 R6 K10 ["collisionHitAndTouchDetectionSetting"]
+       28 CALL                             R3 3 0
+       29 GETUPVAL                         R3 1
+       30 MOVE                             R4 R0
+       31 DUPTABLE                         R5 K12 [{["ruleInstance"], ["property"] = "LegacyCollisionMode"}]
+       32 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
+       34 GETUPVAL                         R6 2
+       35 GETTABLEKS                       R6 R6 K13 ["collisionMethodSetting"]
+       37 CALL                             R3 3 0
+       38 GETUPVAL                         R3 1
+       39 MOVE                             R4 R0
+       40 DUPTABLE                         R5 K15 [{["ruleInstance"], ["property"] = "SingleColliderSize"}]
+       41 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
        43 GETUPVAL                         R6 2
-       44 GETTABLEKS                       R6 R6 K11 ["collisionMethodSetting"]
+       44 GETTABLEKS                       R6 R6 K16 ["collisionSizeSetting"]
        46 CALL                             R3 3 0
-       47 GETUPVAL                         R3 1
-       48 MOVE                             R4 R0
-       49 DUPTABLE                         R5 K5 [{"ruleInstance", "property"}]
-       50 SETTABLEKS                       R1 R5 K3 ["ruleInstance"]
-       52 LOADK                            R6 K12 ["SingleColliderSize"]
-       53 SETTABLEKS                       R6 R5 K4 ["property"]
-       55 GETUPVAL                         R6 2
-       56 GETTABLEKS                       R6 R6 K13 ["collisionSizeSetting"]
-       58 CALL                             R3 3 0
-       59 RETURN                           R0 0
+       47 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

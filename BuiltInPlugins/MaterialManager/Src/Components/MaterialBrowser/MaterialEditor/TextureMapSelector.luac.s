@@ -132,36 +132,34 @@ PROTO_6:
        31 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R1 K2 [{"importAsset", "uploading"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["uploading"] = False}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["importAsset"]
-        5 LOADB                            R2 0
-        6 SETTABLEKS                       R2 R1 K1 ["uploading"]
-        8 SETTABLEKS                       R1 R0 K3 ["state"]
-       10 LOADNIL                          R1
-       11 SETTABLEKS                       R1 R0 K4 ["errorMessage"]
-       13 NEWCLOSURE                       R1 P0
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K5 ["checkIsMounted"]
-       17 NEWCLOSURE                       R1 P1
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R1 R0 K6 ["setImportAsset"]
-       21 NEWCLOSURE                       R1 P2
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K7 ["clearTextureMap"]
-       25 NEWCLOSURE                       R1 P3
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K8 ["setUploading"]
-       29 NEWCLOSURE                       R1 P4
-       30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R1 R0 K9 ["updateTextureMap"]
-       33 NEWCLOSURE                       R1 P5
-       34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R1 R0 K10 ["promptSelection"]
-       37 NEWCLOSURE                       R1 P6
-       38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R1 R0 K11 ["onFocusLost"]
-       41 RETURN                           R0 0
+        5 SETTABLEKS                       R1 R0 K4 ["state"]
+        7 LOADNIL                          R1
+        8 SETTABLEKS                       R1 R0 K5 ["errorMessage"]
+       10 NEWCLOSURE                       R1 P0
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R1 R0 K6 ["checkIsMounted"]
+       14 NEWCLOSURE                       R1 P1
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K7 ["setImportAsset"]
+       18 NEWCLOSURE                       R1 P2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R1 R0 K8 ["clearTextureMap"]
+       22 NEWCLOSURE                       R1 P3
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K9 ["setUploading"]
+       26 NEWCLOSURE                       R1 P4
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R1 R0 K10 ["updateTextureMap"]
+       30 NEWCLOSURE                       R1 P5
+       31 CAPTURE                          VAL R0
+       32 SETTABLEKS                       R1 R0 K11 ["promptSelection"]
+       34 NEWCLOSURE                       R1 P6
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R1 R0 K12 ["onFocusLost"]
+       38 RETURN                           R0 0
 
 PROTO_8:
         0 LOADB                            R1 1
@@ -177,17 +175,15 @@ PROTO_10:
         0 GETTABLEKS                       R2 R1 K0 ["PBRMaterial"]
         2 GETTABLEKS                       R3 R0 K1 ["props"]
         4 GETTABLEKS                       R3 R3 K0 ["PBRMaterial"]
-        6 JUMPIFEQ                         R2 R3 ; [+15]
-        8 DUPTABLE                         R4 K4 [{"importAsset", "uploading"}]
+        6 JUMPIFEQ                         R2 R3 ; [+12]
+        8 DUPTABLE                         R4 K5 [{["importAsset"], ["uploading"] = False}]
         9 NEWTABLE                         R5 0 0
        11 SETTABLEKS                       R5 R4 K2 ["importAsset"]
-       13 LOADB                            R5 0
-       14 SETTABLEKS                       R5 R4 K3 ["uploading"]
-       16 NAMECALL                         R2 R0 K5 ["setState"]
-       18 CALL                             R2 2 0
-       19 LOADNIL                          R2
-       20 SETTABLEKS                       R2 R0 K6 ["errorMessage"]
-       22 RETURN                           R0 0
+       13 NAMECALL                         R2 R0 K6 ["setState"]
+       15 CALL                             R2 2 0
+       16 LOADNIL                          R2
+       17 SETTABLEKS                       R2 R0 K7 ["errorMessage"]
+       19 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

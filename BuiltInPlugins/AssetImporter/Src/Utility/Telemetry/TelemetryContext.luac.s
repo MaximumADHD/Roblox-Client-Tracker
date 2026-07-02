@@ -42,42 +42,34 @@ PROTO_2:
        28 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R4 K2 [{"eventType", "filesAdded"}]
-        1 LOADK                            R5 K3 ["FilesAdded"]
-        2 SETTABLEKS                       R5 R4 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R4 K1 ["filesAdded"]
-        6 NAMECALL                         R2 R0 K4 ["logRobloxTelemetryEvent"]
-        8 CALL                             R2 2 0
-        9 RETURN                           R0 0
+        0 DUPTABLE                         R4 K3 [{[1] = "FilesAdded", ["filesAdded"]}]
+        1 SETTABLEKS                       R1 R4 K2 ["filesAdded"]
+        3 NAMECALL                         R2 R0 K4 ["logRobloxTelemetryEvent"]
+        5 CALL                             R2 2 0
+        6 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R4 K2 [{"eventType", "completionTime"}]
-        1 LOADK                            R5 K3 ["ImportComplete"]
-        2 SETTABLEKS                       R5 R4 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R4 K1 ["completionTime"]
-        6 NAMECALL                         R2 R0 K4 ["logRobloxTelemetryEvent"]
-        8 CALL                             R2 2 0
-        9 RETURN                           R0 0
+        0 DUPTABLE                         R4 K3 [{[1] = "ImportComplete", ["completionTime"]}]
+        1 SETTABLEKS                       R1 R4 K2 ["completionTime"]
+        3 NAMECALL                         R2 R0 K4 ["logRobloxTelemetryEvent"]
+        5 CALL                             R2 2 0
+        6 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R5 K3 [{"eventType", "importAssetType", "importAssetId"}]
-        1 LOADK                            R6 K4 ["ImportSucceeded"]
-        2 SETTABLEKS                       R6 R5 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R5 K1 ["importAssetType"]
-        6 SETTABLEKS                       R2 R5 K2 ["importAssetId"]
-        8 NAMECALL                         R3 R0 K5 ["logRobloxTelemetryEvent"]
-       10 CALL                             R3 2 0
-       11 RETURN                           R0 0
+        0 DUPTABLE                         R5 K4 [{[1] = "ImportSucceeded", ["importAssetType"], ["importAssetId"]}]
+        1 SETTABLEKS                       R1 R5 K2 ["importAssetType"]
+        3 SETTABLEKS                       R2 R5 K3 ["importAssetId"]
+        5 NAMECALL                         R3 R0 K5 ["logRobloxTelemetryEvent"]
+        7 CALL                             R3 2 0
+        8 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R5 K3 [{"eventType", "importAssetType", "errorMessage"}]
-        1 LOADK                            R6 K4 ["ImportFailed"]
-        2 SETTABLEKS                       R6 R5 K0 ["eventType"]
-        4 SETTABLEKS                       R1 R5 K1 ["importAssetType"]
-        6 SETTABLEKS                       R2 R5 K2 ["errorMessage"]
-        8 NAMECALL                         R3 R0 K5 ["logRobloxTelemetryEvent"]
-       10 CALL                             R3 2 0
-       11 RETURN                           R0 0
+        0 DUPTABLE                         R5 K4 [{[1] = "ImportFailed", ["importAssetType"], ["errorMessage"]}]
+        1 SETTABLEKS                       R1 R5 K2 ["importAssetType"]
+        3 SETTABLEKS                       R2 R5 K3 ["errorMessage"]
+        5 NAMECALL                         R3 R0 K5 ["logRobloxTelemetryEvent"]
+        7 CALL                             R3 2 0
+        8 RETURN                           R0 0
 
 PROTO_7:
         0 NEWTABLE                         R2 4 0
@@ -113,32 +105,30 @@ PROTO_7:
        41 ADDK                             R9 R9 K6 [1]
        42 SETTABLE                         R9 R2 R8
        43 FORGLOOP                         R3 2 ; [-10]
-       45 DUPTABLE                         R5 K12 [{"eventType", "videoImports", "audioImports", "imageImports", "meshImports"}]
-       46 LOADK                            R6 K13 ["ImportStarted"]
-       47 SETTABLEKS                       R6 R5 K7 ["eventType"]
-       49 GETUPVAL                         R7 0
-       50 GETTABLEKS                       R7 R7 K0 ["FileType"]
-       52 GETTABLEKS                       R7 R7 K1 ["Video"]
-       54 GETTABLE                         R6 R2 R7
-       55 SETTABLEKS                       R6 R5 K8 ["videoImports"]
-       57 GETUPVAL                         R7 0
-       58 GETTABLEKS                       R7 R7 K0 ["FileType"]
-       60 GETTABLEKS                       R7 R7 K1 ["Video"]
-       62 GETTABLE                         R6 R2 R7
-       63 SETTABLEKS                       R6 R5 K9 ["audioImports"]
-       65 GETUPVAL                         R7 0
-       66 GETTABLEKS                       R7 R7 K0 ["FileType"]
-       68 GETTABLEKS                       R7 R7 K1 ["Video"]
-       70 GETTABLE                         R6 R2 R7
-       71 SETTABLEKS                       R6 R5 K10 ["imageImports"]
-       73 GETUPVAL                         R7 0
-       74 GETTABLEKS                       R7 R7 K0 ["FileType"]
-       76 GETTABLEKS                       R7 R7 K1 ["Video"]
-       78 GETTABLE                         R6 R2 R7
-       79 SETTABLEKS                       R6 R5 K11 ["meshImports"]
-       81 NAMECALL                         R3 R0 K14 ["logRobloxTelemetryEvent"]
-       83 CALL                             R3 2 0
-       84 RETURN                           R0 0
+       45 DUPTABLE                         R5 K13 [{["eventType"] = "ImportStarted", ["videoImports"], ["audioImports"], ["imageImports"], ["meshImports"]}]
+       46 GETUPVAL                         R7 0
+       47 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       49 GETTABLEKS                       R7 R7 K1 ["Video"]
+       51 GETTABLE                         R6 R2 R7
+       52 SETTABLEKS                       R6 R5 K9 ["videoImports"]
+       54 GETUPVAL                         R7 0
+       55 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       57 GETTABLEKS                       R7 R7 K1 ["Video"]
+       59 GETTABLE                         R6 R2 R7
+       60 SETTABLEKS                       R6 R5 K10 ["audioImports"]
+       62 GETUPVAL                         R7 0
+       63 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       65 GETTABLEKS                       R7 R7 K1 ["Video"]
+       67 GETTABLE                         R6 R2 R7
+       68 SETTABLEKS                       R6 R5 K11 ["imageImports"]
+       70 GETUPVAL                         R7 0
+       71 GETTABLEKS                       R7 R7 K0 ["FileType"]
+       73 GETTABLEKS                       R7 R7 K1 ["Video"]
+       75 GETTABLE                         R6 R2 R7
+       76 SETTABLEKS                       R6 R5 K12 ["meshImports"]
+       78 NAMECALL                         R3 R0 K14 ["logRobloxTelemetryEvent"]
+       80 CALL                             R3 2 0
+       81 RETURN                           R0 0
 
 PROTO_8:
         0 RETURN                           R0 0

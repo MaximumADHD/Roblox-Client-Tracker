@@ -262,7 +262,7 @@ PROTO_8:
        21 GETUPVAL                         R5 0
        22 GETTABLEKS                       R5 R5 K1 ["createElement"]
        24 GETUPVAL                         R6 2
-       25 DUPTABLE                         R7 K10 [{"ThemeData", "LayoutOrder", "IsEnabled", "Text", "IsPlayerChoiceTitleStyle"}]
+       25 DUPTABLE                         R7 K11 [{["ThemeData"], ["LayoutOrder"], ["IsEnabled"], ["Text"], ["IsPlayerChoiceTitleStyle"] = True}]
        26 GETTABLEKS                       R8 R0 K5 ["props"]
        28 GETTABLEKS                       R8 R8 K2 ["ThemeData"]
        30 SETTABLEKS                       R8 R7 K2 ["ThemeData"]
@@ -273,26 +273,24 @@ PROTO_8:
        39 GETTABLEKS                       R8 R8 K7 ["IsEnabled"]
        41 SETTABLEKS                       R8 R7 K7 ["IsEnabled"]
        43 SETTABLEKS                       R3 R7 K8 ["Text"]
-       45 LOADB                            R8 1
-       46 SETTABLEKS                       R8 R7 K9 ["IsPlayerChoiceTitleStyle"]
-       48 CALL                             R5 2 1
-       49 SETTABLE                         R5 R1 R3
-       50 GETIMPORT                        R5 K12 [pairs]
-       52 MOVE                             R6 R4
-       53 CALL                             R5 1 3
-       54 FORGPREP_NEXT                    R5
-       55 GETTABLEN                        R10 R9 1
-       56 GETTABLEN                        R11 R9 2
-       57 GETTABLEN                        R12 R9 1
-       58 GETUPVAL                         R13 3
-       59 MOVE                             R14 R0
-       60 MOVE                             R15 R10
-       61 MOVE                             R16 R11
-       62 MOVE                             R17 R2
-       63 CALL                             R13 4 1
-       64 SETTABLE                         R13 R1 R12
-       65 FORGLOOP                         R5 2 ; [-11]
-       67 RETURN                           R0 0
+       45 CALL                             R5 2 1
+       46 SETTABLE                         R5 R1 R3
+       47 GETIMPORT                        R5 K13 [pairs]
+       49 MOVE                             R6 R4
+       50 CALL                             R5 1 3
+       51 FORGPREP_NEXT                    R5
+       52 GETTABLEN                        R10 R9 1
+       53 GETTABLEN                        R11 R9 2
+       54 GETTABLEN                        R12 R9 1
+       55 GETUPVAL                         R13 3
+       56 MOVE                             R14 R0
+       57 MOVE                             R15 R10
+       58 MOVE                             R16 R11
+       59 MOVE                             R17 R2
+       60 CALL                             R13 4 1
+       61 SETTABLE                         R13 R1 R12
+       62 FORGLOOP                         R5 2 ; [-11]
+       64 RETURN                           R0 0
 
 PROTO_9:
         0 LOADK                            R6 K0 ["General"]

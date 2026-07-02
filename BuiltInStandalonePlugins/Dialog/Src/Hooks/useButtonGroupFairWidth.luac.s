@@ -154,58 +154,56 @@ PROTO_7:
        36 CALL                             R2 3 1
        37 GETUPVAL                         R3 1
        38 GETTABLEKS                       R3 R3 K0 ["current"]
-       40 DUPTABLE                         R4 K7 [{"rbx", "naturalWidth", "textLabel"}]
+       40 DUPTABLE                         R4 K8 [{["rbx"], ["naturalWidth"] = 0, ["textLabel"]}]
        41 SETTABLEKS                       R1 R4 K4 ["rbx"]
-       43 LOADN                            R5 0
-       44 SETTABLEKS                       R5 R4 K5 ["naturalWidth"]
-       46 SETTABLEKS                       R2 R4 K6 ["textLabel"]
-       48 SETTABLE                         R4 R3 R0
-       49 NEWTABLE                         R3 0 0
-       51 MOVE                             R5 R3
-       52 LOADK                            R8 K8 ["AbsoluteSize"]
-       53 NAMECALL                         R6 R1 K9 ["GetPropertyChangedSignal"]
-       55 CALL                             R6 2 1
-       56 NEWCLOSURE                       R8 P0
-       57 CAPTURE                          UPVAL U3
-       58 CAPTURE                          VAL R0
-       59 NAMECALL                         R6 R6 K10 ["Connect"]
-       61 CALL                             R6 2 -1
-       62 FASTCALL                         TABLE_INSERT ; [+2]
-       63 GETIMPORT                        R4 K13 [table.insert]
-       65 CALL                             R4 -1 0
-       66 JUMPIFNOT                        R2 ; [+15]
-       67 MOVE                             R5 R3
-       68 LOADK                            R8 K14 ["Text"]
-       69 NAMECALL                         R6 R2 K9 ["GetPropertyChangedSignal"]
-       71 CALL                             R6 2 1
-       72 NEWCLOSURE                       R8 P1
-       73 CAPTURE                          UPVAL U4
-       74 CAPTURE                          VAL R0
-       75 NAMECALL                         R6 R6 K10 ["Connect"]
-       77 CALL                             R6 2 -1
-       78 FASTCALL                         TABLE_INSERT ; [+2]
-       79 GETIMPORT                        R4 K13 [table.insert]
-       81 CALL                             R4 -1 0
-       82 MOVE                             R5 R3
-       83 GETTABLEKS                       R6 R1 K15 ["Destroying"]
-       85 NEWCLOSURE                       R8 P2
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          UPVAL U0
-       88 CAPTURE                          VAL R0
-       89 CAPTURE                          UPVAL U1
-       90 CAPTURE                          UPVAL U2
-       91 NAMECALL                         R6 R6 K16 ["Once"]
-       93 CALL                             R6 2 -1
-       94 FASTCALL                         TABLE_INSERT ; [+2]
-       95 GETIMPORT                        R4 K13 [table.insert]
-       97 CALL                             R4 -1 0
-       98 GETUPVAL                         R4 0
-       99 GETTABLEKS                       R4 R4 K0 ["current"]
-      101 SETTABLE                         R3 R4 R0
-      102 GETUPVAL                         R4 3
-      103 MOVE                             R5 R0
-      104 CALL                             R4 1 0
-      105 RETURN                           R0 0
+       43 SETTABLEKS                       R2 R4 K7 ["textLabel"]
+       45 SETTABLE                         R4 R3 R0
+       46 NEWTABLE                         R3 0 0
+       48 MOVE                             R5 R3
+       49 LOADK                            R8 K9 ["AbsoluteSize"]
+       50 NAMECALL                         R6 R1 K10 ["GetPropertyChangedSignal"]
+       52 CALL                             R6 2 1
+       53 NEWCLOSURE                       R8 P0
+       54 CAPTURE                          UPVAL U3
+       55 CAPTURE                          VAL R0
+       56 NAMECALL                         R6 R6 K11 ["Connect"]
+       58 CALL                             R6 2 -1
+       59 FASTCALL                         TABLE_INSERT ; [+2]
+       60 GETIMPORT                        R4 K14 [table.insert]
+       62 CALL                             R4 -1 0
+       63 JUMPIFNOT                        R2 ; [+15]
+       64 MOVE                             R5 R3
+       65 LOADK                            R8 K15 ["Text"]
+       66 NAMECALL                         R6 R2 K10 ["GetPropertyChangedSignal"]
+       68 CALL                             R6 2 1
+       69 NEWCLOSURE                       R8 P1
+       70 CAPTURE                          UPVAL U4
+       71 CAPTURE                          VAL R0
+       72 NAMECALL                         R6 R6 K11 ["Connect"]
+       74 CALL                             R6 2 -1
+       75 FASTCALL                         TABLE_INSERT ; [+2]
+       76 GETIMPORT                        R4 K14 [table.insert]
+       78 CALL                             R4 -1 0
+       79 MOVE                             R5 R3
+       80 GETTABLEKS                       R6 R1 K16 ["Destroying"]
+       82 NEWCLOSURE                       R8 P2
+       83 CAPTURE                          VAL R3
+       84 CAPTURE                          UPVAL U0
+       85 CAPTURE                          VAL R0
+       86 CAPTURE                          UPVAL U1
+       87 CAPTURE                          UPVAL U2
+       88 NAMECALL                         R6 R6 K17 ["Once"]
+       90 CALL                             R6 2 -1
+       91 FASTCALL                         TABLE_INSERT ; [+2]
+       92 GETIMPORT                        R4 K14 [table.insert]
+       94 CALL                             R4 -1 0
+       95 GETUPVAL                         R4 0
+       96 GETTABLEKS                       R4 R4 K0 ["current"]
+       98 SETTABLE                         R3 R4 R0
+       99 GETUPVAL                         R4 3
+      100 MOVE                             R5 R0
+      101 CALL                             R4 1 0
+      102 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0

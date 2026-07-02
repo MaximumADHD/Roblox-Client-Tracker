@@ -13,90 +13,70 @@ PROTO_1:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K8 [{"Style", "Size", "Layout", "VerticalAlignment", "HorizontalAlignment", "Spacing"}]
-        7 LOADK                            R5 K9 ["None"]
-        8 SETTABLEKS                       R5 R4 K2 ["Style"]
-       10 GETIMPORT                        R5 K12 [UDim2.new]
-       12 LOADN                            R6 1
-       13 LOADN                            R7 0
-       14 LOADN                            R8 0
-       15 LOADN                            R9 32
-       16 CALL                             R5 4 1
-       17 SETTABLEKS                       R5 R4 K3 ["Size"]
-       19 GETIMPORT                        R5 K16 [Enum.FillDirection.Horizontal]
-       21 SETTABLEKS                       R5 R4 K4 ["Layout"]
-       23 GETIMPORT                        R5 K18 [Enum.VerticalAlignment.Center]
-       25 SETTABLEKS                       R5 R4 K5 ["VerticalAlignment"]
-       27 GETIMPORT                        R5 K20 [Enum.HorizontalAlignment.Left]
-       29 SETTABLEKS                       R5 R4 K6 ["HorizontalAlignment"]
-       31 LOADN                            R5 5
-       32 SETTABLEKS                       R5 R4 K7 ["Spacing"]
-       34 DUPTABLE                         R5 K23 [{"SearchBar", "ClearList"}]
-       35 GETUPVAL                         R6 0
-       36 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       38 GETUPVAL                         R7 2
-       39 DUPTABLE                         R8 K32 [{"LayoutOrder", "Width", "IncrementalTextSearch", "IncrementalTextSearchDelay", "ShowSearchButton", "ShowSearchIcon", "PlaceholderText", "OnSearchRequested"}]
-       40 LOADN                            R9 1
-       41 SETTABLEKS                       R9 R8 K24 ["LayoutOrder"]
-       43 LOADN                            R9 44
-       44 SETTABLEKS                       R9 R8 K25 ["Width"]
-       46 LOADB                            R9 1
-       47 SETTABLEKS                       R9 R8 K26 ["IncrementalTextSearch"]
-       49 LOADN                            R9 150
-       50 SETTABLEKS                       R9 R8 K27 ["IncrementalTextSearchDelay"]
-       52 LOADB                            R9 0
-       53 SETTABLEKS                       R9 R8 K28 ["ShowSearchButton"]
-       55 LOADB                            R9 1
-       56 SETTABLEKS                       R9 R8 K29 ["ShowSearchIcon"]
-       58 GETTABLEKS                       R9 R1 K33 ["Localization"]
-       60 LOADK                            R11 K34 ["Topbar"]
-       61 LOADK                            R12 K35 ["SearchbarPlaceholder"]
-       62 NAMECALL                         R9 R9 K36 ["getText"]
-       64 CALL                             R9 3 1
-       65 SETTABLEKS                       R9 R8 K30 ["PlaceholderText"]
-       67 GETTABLEKS                       R9 R1 K37 ["OnSearch"]
-       69 SETTABLEKS                       R9 R8 K31 ["OnSearchRequested"]
-       71 CALL                             R6 2 1
-       72 SETTABLEKS                       R6 R5 K21 ["SearchBar"]
-       74 GETUPVAL                         R6 0
-       75 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       77 GETUPVAL                         R7 3
-       78 DUPTABLE                         R8 K44 [{"LayoutOrder", "Size", "AutomaticSize", "LeftIcon", "Text", "TooltipText", "Disabled", "OnClick"}]
-       79 LOADN                            R9 2
-       80 SETTABLEKS                       R9 R8 K24 ["LayoutOrder"]
-       82 GETIMPORT                        R9 K46 [UDim2.fromScale]
-       84 LOADN                            R10 0
-       85 LOADN                            R11 1
-       86 CALL                             R9 2 1
-       87 SETTABLEKS                       R9 R8 K3 ["Size"]
-       89 GETIMPORT                        R9 K48 [Enum.AutomaticSize.X]
-       91 SETTABLEKS                       R9 R8 K38 ["AutomaticSize"]
-       93 LOADK                            R9 K49 ["rbxasset://textures/RoduxDevtools/ClearList.png"]
-       94 SETTABLEKS                       R9 R8 K39 ["LeftIcon"]
-       96 GETTABLEKS                       R9 R1 K33 ["Localization"]
-       98 LOADK                            R11 K34 ["Topbar"]
-       99 LOADK                            R12 K50 ["ClearList.Text"]
-      100 NAMECALL                         R9 R9 K36 ["getText"]
-      102 CALL                             R9 3 1
-      103 SETTABLEKS                       R9 R8 K40 ["Text"]
-      105 GETTABLEKS                       R9 R1 K33 ["Localization"]
-      107 LOADK                            R11 K34 ["Topbar"]
-      108 LOADK                            R12 K51 ["ClearList.Tooltip"]
-      109 NAMECALL                         R9 R9 K36 ["getText"]
-      111 CALL                             R9 3 1
-      112 SETTABLEKS                       R9 R8 K41 ["TooltipText"]
-      114 GETTABLEKS                       R10 R1 K52 ["EventCount"]
-      116 JUMPIFEQKN                       R10 K53 [0] ; [+2]
-      118 LOADB                            R9 0 +1
-      119 LOADB                            R9 1
-      120 SETTABLEKS                       R9 R8 K42 ["Disabled"]
-      122 NEWCLOSURE                       R9 P0
-      123 CAPTURE                          VAL R1
-      124 SETTABLEKS                       R9 R8 K43 ["OnClick"]
-      126 CALL                             R6 2 1
-      127 SETTABLEKS                       R6 R5 K22 ["ClearList"]
-      129 CALL                             R2 3 -1
-      130 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K10 [{["Style"] = "None", ["Size"], ["Layout"], ["VerticalAlignment"], ["HorizontalAlignment"], ["Spacing"] = 5}]
+        7 GETIMPORT                        R5 K13 [UDim2.new]
+        9 LOADN                            R6 1
+       10 LOADN                            R7 0
+       11 LOADN                            R8 0
+       12 LOADN                            R9 32
+       13 CALL                             R5 4 1
+       14 SETTABLEKS                       R5 R4 K4 ["Size"]
+       16 GETIMPORT                        R5 K17 [Enum.FillDirection.Horizontal]
+       18 SETTABLEKS                       R5 R4 K5 ["Layout"]
+       20 GETIMPORT                        R5 K19 [Enum.VerticalAlignment.Center]
+       22 SETTABLEKS                       R5 R4 K6 ["VerticalAlignment"]
+       24 GETIMPORT                        R5 K21 [Enum.HorizontalAlignment.Left]
+       26 SETTABLEKS                       R5 R4 K7 ["HorizontalAlignment"]
+       28 DUPTABLE                         R5 K24 [{"SearchBar", "ClearList"}]
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       32 GETUPVAL                         R7 2
+       33 DUPTABLE                         R8 K38 [{["LayoutOrder"] = 1, ["Width"] = 300, ["IncrementalTextSearch"] = True, ["IncrementalTextSearchDelay"] = 150, ["ShowSearchButton"] = False, ["ShowSearchIcon"] = True, ["PlaceholderText"], ["OnSearchRequested"]}]
+       34 GETTABLEKS                       R9 R1 K39 ["Localization"]
+       36 LOADK                            R11 K40 ["Topbar"]
+       37 LOADK                            R12 K41 ["SearchbarPlaceholder"]
+       38 NAMECALL                         R9 R9 K42 ["getText"]
+       40 CALL                             R9 3 1
+       41 SETTABLEKS                       R9 R8 K36 ["PlaceholderText"]
+       43 GETTABLEKS                       R9 R1 K43 ["OnSearch"]
+       45 SETTABLEKS                       R9 R8 K37 ["OnSearchRequested"]
+       47 CALL                             R6 2 1
+       48 SETTABLEKS                       R6 R5 K22 ["SearchBar"]
+       50 GETUPVAL                         R6 0
+       51 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       53 GETUPVAL                         R7 3
+       54 DUPTABLE                         R8 K52 [{["LayoutOrder"] = 2, ["Size"], ["AutomaticSize"], ["LeftIcon"] = "rbxasset://textures/RoduxDevtools/ClearList.png", ["Text"], ["TooltipText"], ["Disabled"], ["OnClick"]}]
+       55 GETIMPORT                        R9 K54 [UDim2.fromScale]
+       57 LOADN                            R10 0
+       58 LOADN                            R11 1
+       59 CALL                             R9 2 1
+       60 SETTABLEKS                       R9 R8 K4 ["Size"]
+       62 GETIMPORT                        R9 K56 [Enum.AutomaticSize.X]
+       64 SETTABLEKS                       R9 R8 K45 ["AutomaticSize"]
+       66 GETTABLEKS                       R9 R1 K39 ["Localization"]
+       68 LOADK                            R11 K40 ["Topbar"]
+       69 LOADK                            R12 K57 ["ClearList.Text"]
+       70 NAMECALL                         R9 R9 K42 ["getText"]
+       72 CALL                             R9 3 1
+       73 SETTABLEKS                       R9 R8 K48 ["Text"]
+       75 GETTABLEKS                       R9 R1 K39 ["Localization"]
+       77 LOADK                            R11 K40 ["Topbar"]
+       78 LOADK                            R12 K58 ["ClearList.Tooltip"]
+       79 NAMECALL                         R9 R9 K42 ["getText"]
+       81 CALL                             R9 3 1
+       82 SETTABLEKS                       R9 R8 K49 ["TooltipText"]
+       84 GETTABLEKS                       R10 R1 K59 ["EventCount"]
+       86 JUMPIFEQKN                       R10 K60 [0] ; [+2]
+       88 LOADB                            R9 0 +1
+       89 LOADB                            R9 1
+       90 SETTABLEKS                       R9 R8 K50 ["Disabled"]
+       92 NEWCLOSURE                       R9 P0
+       93 CAPTURE                          VAL R1
+       94 SETTABLEKS                       R9 R8 K51 ["OnClick"]
+       96 CALL                             R6 2 1
+       97 SETTABLEKS                       R6 R5 K23 ["ClearList"]
+       99 CALL                             R2 3 -1
+      100 RETURN                           R2 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K2 [{"SearchTerm", "EventCount"}]

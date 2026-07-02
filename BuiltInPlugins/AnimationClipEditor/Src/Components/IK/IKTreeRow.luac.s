@@ -21,7 +21,7 @@ PROTO_1:
        18 SETTABLEKS                       R9 R8 K7 ["Position"]
        20 GETIMPORT                        R9 K10 [UDim2.new]
        22 LOADN                            R10 1
-       23 LOADN                            R11 248
+       23 LOADN                            R11 -8
        24 LOADN                            R12 0
        25 GETUPVAL                         R13 1
        26 GETTABLEKS                       R13 R13 K11 ["TRACK_HEIGHT"]
@@ -60,26 +60,24 @@ PROTO_1:
        76 GETUPVAL                         R10 0
        77 GETTABLEKS                       R10 R10 K5 ["createElement"]
        79 GETUPVAL                         R11 2
-       80 DUPTABLE                         R12 K33 [{"HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
-       81 GETIMPORT                        R13 K36 [Enum.HorizontalAlignment.Left]
+       80 DUPTABLE                         R12 K34 [{["HorizontalAlignment"], ["Layout"], ["Spacing"] = 14, ["VerticalAlignment"]}]
+       81 GETIMPORT                        R13 K37 [Enum.HorizontalAlignment.Left]
        83 SETTABLEKS                       R13 R12 K29 ["HorizontalAlignment"]
-       85 GETIMPORT                        R13 K39 [Enum.FillDirection.Horizontal]
+       85 GETIMPORT                        R13 K40 [Enum.FillDirection.Horizontal]
        87 SETTABLEKS                       R13 R12 K30 ["Layout"]
-       89 LOADN                            R13 14
-       90 SETTABLEKS                       R13 R12 K31 ["Spacing"]
-       92 GETIMPORT                        R13 K41 [Enum.VerticalAlignment.Center]
-       94 SETTABLEKS                       R13 R12 K32 ["VerticalAlignment"]
-       96 DUPTABLE                         R13 K44 [{"HierarchyLines", "TextLabel"}]
-       97 NAMECALL                         R14 R0 K45 ["renderHierarchyLines"]
-       99 CALL                             R14 1 1
-      100 SETTABLEKS                       R14 R13 K42 ["HierarchyLines"]
-      102 NAMECALL                         R14 R0 K46 ["renderJointLabel"]
-      104 CALL                             R14 1 1
-      105 SETTABLEKS                       R14 R13 K43 ["TextLabel"]
-      107 CALL                             R10 3 1
-      108 SETTABLEKS                       R10 R9 K24 ["Container"]
-      110 CALL                             R6 3 -1
-      111 RETURN                           R6 -1
+       89 GETIMPORT                        R13 K42 [Enum.VerticalAlignment.Center]
+       91 SETTABLEKS                       R13 R12 K33 ["VerticalAlignment"]
+       93 DUPTABLE                         R13 K45 [{"HierarchyLines", "TextLabel"}]
+       94 NAMECALL                         R14 R0 K46 ["renderHierarchyLines"]
+       96 CALL                             R14 1 1
+       97 SETTABLEKS                       R14 R13 K43 ["HierarchyLines"]
+       99 NAMECALL                         R14 R0 K47 ["renderJointLabel"]
+      101 CALL                             R14 1 1
+      102 SETTABLEKS                       R14 R13 K44 ["TextLabel"]
+      104 CALL                             R10 3 1
+      105 SETTABLEKS                       R10 R9 K24 ["Container"]
+      107 CALL                             R6 3 -1
+      108 RETURN                           R6 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -109,66 +107,58 @@ PROTO_3:
        24 GETUPVAL                         R10 1
        25 GETTABLEKS                       R10 R10 K8 ["createElement"]
        27 GETUPVAL                         R11 2
-       28 DUPTABLE                         R12 K16 [{"Position", "AnchorPoint", "ZIndex", "IsRound", "Size", "BorderSizePixel", "OnClick"}]
-       29 GETIMPORT                        R13 K19 [UDim2.new]
+       28 DUPTABLE                         R12 K19 [{["Position"], ["AnchorPoint"], ["ZIndex"] = 1, ["IsRound"] = False, ["Size"], ["BorderSizePixel"] = 0, ["OnClick"]}]
+       29 GETIMPORT                        R13 K22 [UDim2.new]
        31 LOADN                            R14 1
-       32 LOADN                            R15 246
-       33 LOADK                            R16 K20 [0.5]
+       32 LOADN                            R15 -10
+       33 LOADK                            R16 K23 [0.5]
        34 LOADN                            R17 0
        35 CALL                             R13 4 1
        36 SETTABLEKS                       R13 R12 K9 ["Position"]
-       38 GETIMPORT                        R13 K22 [Vector2.new]
+       38 GETIMPORT                        R13 K25 [Vector2.new]
        40 LOADN                            R14 1
-       41 LOADK                            R15 K20 [0.5]
+       41 LOADK                            R15 K23 [0.5]
        42 CALL                             R13 2 1
        43 SETTABLEKS                       R13 R12 K10 ["AnchorPoint"]
-       45 LOADN                            R13 1
-       46 SETTABLEKS                       R13 R12 K11 ["ZIndex"]
-       48 LOADB                            R13 0
-       49 SETTABLEKS                       R13 R12 K12 ["IsRound"]
-       51 GETIMPORT                        R13 K24 [UDim2.fromOffset]
-       53 LOADN                            R14 11
-       54 LOADN                            R15 11
-       55 CALL                             R13 2 1
-       56 SETTABLEKS                       R13 R12 K13 ["Size"]
-       58 LOADN                            R13 0
-       59 SETTABLEKS                       R13 R12 K14 ["BorderSizePixel"]
-       61 NEWCLOSURE                       R13 P0
-       62 CAPTURE                          VAL R8
-       63 CAPTURE                          VAL R7
-       64 SETTABLEKS                       R13 R12 K15 ["OnClick"]
-       66 DUPTABLE                         R13 K26 [{"Image"}]
-       67 GETUPVAL                         R14 1
-       68 GETTABLEKS                       R14 R14 K8 ["createElement"]
-       70 LOADK                            R15 K27 ["ImageLabel"]
-       71 DUPTABLE                         R16 K30 [{"BackgroundColor3", "BorderSizePixel", "Size", "Image", "ImageColor3"}]
-       72 JUMPIFNOT                        R4 ; [+5]
-       73 GETTABLEKS                       R17 R2 K31 ["ikTheme"]
-       75 GETTABLEKS                       R17 R17 K32 ["selected"]
-       77 JUMPIF                           R17 ; [+2]
-       78 GETTABLEKS                       R17 R2 K33 ["backgroundColor"]
-       80 SETTABLEKS                       R17 R16 K28 ["BackgroundColor3"]
-       82 LOADN                            R17 0
-       83 SETTABLEKS                       R17 R16 K14 ["BorderSizePixel"]
-       85 GETIMPORT                        R17 K35 [UDim2.fromScale]
-       87 LOADN                            R18 1
-       88 LOADN                            R19 1
-       89 CALL                             R17 2 1
-       90 SETTABLEKS                       R17 R16 K13 ["Size"]
-       92 GETTABLEKS                       R17 R2 K31 ["ikTheme"]
-       94 GETTABLEKS                       R17 R17 K36 ["pinImage"]
-       96 SETTABLEKS                       R17 R16 K25 ["Image"]
-       98 JUMPIFNOT                        R9 ; [+5]
-       99 GETTABLEKS                       R17 R2 K31 ["ikTheme"]
-      101 GETTABLEKS                       R17 R17 K37 ["pinHover"]
-      103 JUMPIF                           R17 ; [+4]
-      104 GETTABLEKS                       R17 R2 K31 ["ikTheme"]
-      106 GETTABLEKS                       R17 R17 K38 ["iconColor"]
-      108 SETTABLEKS                       R17 R16 K29 ["ImageColor3"]
-      110 CALL                             R14 2 1
-      111 SETTABLEKS                       R14 R13 K25 ["Image"]
-      113 CALL                             R10 3 -1
-      114 RETURN                           R10 -1
+       45 GETIMPORT                        R13 K27 [UDim2.fromOffset]
+       47 LOADN                            R14 11
+       48 LOADN                            R15 11
+       49 CALL                             R13 2 1
+       50 SETTABLEKS                       R13 R12 K15 ["Size"]
+       52 NEWCLOSURE                       R13 P0
+       53 CAPTURE                          VAL R8
+       54 CAPTURE                          VAL R7
+       55 SETTABLEKS                       R13 R12 K18 ["OnClick"]
+       57 DUPTABLE                         R13 K29 [{"Image"}]
+       58 GETUPVAL                         R14 1
+       59 GETTABLEKS                       R14 R14 K8 ["createElement"]
+       61 LOADK                            R15 K30 ["ImageLabel"]
+       62 DUPTABLE                         R16 K33 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["Size"], ["Image"], ["ImageColor3"]}]
+       63 JUMPIFNOT                        R4 ; [+5]
+       64 GETTABLEKS                       R17 R2 K34 ["ikTheme"]
+       66 GETTABLEKS                       R17 R17 K35 ["selected"]
+       68 JUMPIF                           R17 ; [+2]
+       69 GETTABLEKS                       R17 R2 K36 ["backgroundColor"]
+       71 SETTABLEKS                       R17 R16 K31 ["BackgroundColor3"]
+       73 GETIMPORT                        R17 K38 [UDim2.fromScale]
+       75 LOADN                            R18 1
+       76 LOADN                            R19 1
+       77 CALL                             R17 2 1
+       78 SETTABLEKS                       R17 R16 K15 ["Size"]
+       80 GETTABLEKS                       R17 R2 K34 ["ikTheme"]
+       82 GETTABLEKS                       R17 R17 K39 ["pinImage"]
+       84 SETTABLEKS                       R17 R16 K28 ["Image"]
+       86 JUMPIFNOT                        R9 ; [+5]
+       87 GETTABLEKS                       R17 R2 K34 ["ikTheme"]
+       89 GETTABLEKS                       R17 R17 K40 ["pinHover"]
+       91 JUMPIF                           R17 ; [+4]
+       92 GETTABLEKS                       R17 R2 K34 ["ikTheme"]
+       94 GETTABLEKS                       R17 R17 K41 ["iconColor"]
+       96 SETTABLEKS                       R17 R16 K32 ["ImageColor3"]
+       98 CALL                             R14 2 1
+       99 SETTABLEKS                       R14 R13 K28 ["Image"]
+      101 CALL                             R10 3 -1
+      102 RETURN                           R10 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -183,7 +173,7 @@ PROTO_4:
        17 GETUPVAL                         R10 0
        18 GETTABLEKS                       R10 R10 K9 ["createElement"]
        20 GETUPVAL                         R11 1
-       21 DUPTABLE                         R12 K20 [{"Highlight", "IsSelected", "InActiveChain", "IsLeafNode", "IsChildNode", "IsExpanded", "Indent", "Height", "IKHeight", "LayoutOrder", "ToggleExpanded", "Element"}]
+       21 DUPTABLE                         R12 K20 [{["Highlight"], ["IsSelected"], ["InActiveChain"], ["IsLeafNode"], ["IsChildNode"], ["IsExpanded"], ["Indent"], ["Height"], ["IKHeight"], ["LayoutOrder"] = 1, ["ToggleExpanded"], ["Element"]}]
        22 GETTABLE                         R14 R6 R2
        23 JUMPIFNOTEQKNIL                  R14 ; [+2]
        25 LOADB                            R13 0 +1
@@ -211,12 +201,10 @@ PROTO_4:
        57 LOADB                            R15 1
        58 CALL                             R13 2 1
        59 SETTABLEKS                       R13 R12 K16 ["IKHeight"]
-       61 LOADN                            R13 1
-       62 SETTABLEKS                       R13 R12 K17 ["LayoutOrder"]
-       64 SETTABLEKS                       R9 R12 K18 ["ToggleExpanded"]
-       66 SETTABLEKS                       R2 R12 K19 ["Element"]
-       68 CALL                             R10 2 -1
-       69 RETURN                           R10 -1
+       61 SETTABLEKS                       R9 R12 K18 ["ToggleExpanded"]
+       63 SETTABLEKS                       R2 R12 K19 ["Element"]
+       65 CALL                             R10 2 -1
+       66 RETURN                           R10 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -226,39 +214,35 @@ PROTO_5:
         8 GETUPVAL                         R5 0
         9 GETTABLEKS                       R5 R5 K4 ["createElement"]
        11 LOADK                            R6 K5 ["TextLabel"]
-       12 DUPTABLE                         R7 K16 [{"Text", "TextSize", "Font", "TextColor3", "TextXAlignment", "TextYAlignment", "Size", "TextTruncate", "BackgroundTransparency", "LayoutOrder"}]
+       12 DUPTABLE                         R7 K18 [{["Text"], ["TextSize"], ["Font"], ["TextColor3"], ["TextXAlignment"], ["TextYAlignment"], ["Size"], ["TextTruncate"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 3}]
        13 SETTABLEKS                       R3 R7 K6 ["Text"]
-       15 GETTABLEKS                       R8 R2 K17 ["ikTheme"]
-       17 GETTABLEKS                       R8 R8 K18 ["textSize"]
+       15 GETTABLEKS                       R8 R2 K19 ["ikTheme"]
+       17 GETTABLEKS                       R8 R8 K20 ["textSize"]
        19 SETTABLEKS                       R8 R7 K7 ["TextSize"]
-       21 GETTABLEKS                       R8 R2 K19 ["font"]
+       21 GETTABLEKS                       R8 R2 K21 ["font"]
        23 SETTABLEKS                       R8 R7 K8 ["Font"]
        25 JUMPIFNOT                        R4 ; [+5]
-       26 GETTABLEKS                       R8 R2 K17 ["ikTheme"]
-       28 GETTABLEKS                       R8 R8 K20 ["primaryTextColor"]
+       26 GETTABLEKS                       R8 R2 K19 ["ikTheme"]
+       28 GETTABLEKS                       R8 R8 K22 ["primaryTextColor"]
        30 JUMPIF                           R8 ; [+4]
-       31 GETTABLEKS                       R8 R2 K17 ["ikTheme"]
-       33 GETTABLEKS                       R8 R8 K21 ["textColor"]
+       31 GETTABLEKS                       R8 R2 K19 ["ikTheme"]
+       33 GETTABLEKS                       R8 R8 K23 ["textColor"]
        35 SETTABLEKS                       R8 R7 K9 ["TextColor3"]
-       37 GETIMPORT                        R8 K24 [Enum.TextXAlignment.Left]
+       37 GETIMPORT                        R8 K26 [Enum.TextXAlignment.Left]
        39 SETTABLEKS                       R8 R7 K10 ["TextXAlignment"]
-       41 GETIMPORT                        R8 K26 [Enum.TextYAlignment.Center]
+       41 GETIMPORT                        R8 K28 [Enum.TextYAlignment.Center]
        43 SETTABLEKS                       R8 R7 K11 ["TextYAlignment"]
-       45 GETIMPORT                        R8 K29 [UDim2.new]
+       45 GETIMPORT                        R8 K31 [UDim2.new]
        47 LOADN                            R9 0
        48 LOADN                            R10 160
        49 LOADN                            R11 1
        50 LOADN                            R12 0
        51 CALL                             R8 4 1
        52 SETTABLEKS                       R8 R7 K12 ["Size"]
-       54 GETIMPORT                        R8 K31 [Enum.TextTruncate.AtEnd]
+       54 GETIMPORT                        R8 K33 [Enum.TextTruncate.AtEnd]
        56 SETTABLEKS                       R8 R7 K13 ["TextTruncate"]
-       58 LOADN                            R8 1
-       59 SETTABLEKS                       R8 R7 K14 ["BackgroundTransparency"]
-       61 LOADN                            R8 3
-       62 SETTABLEKS                       R8 R7 K15 ["LayoutOrder"]
-       64 CALL                             R5 2 -1
-       65 RETURN                           R5 -1
+       58 CALL                             R5 2 -1
+       59 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

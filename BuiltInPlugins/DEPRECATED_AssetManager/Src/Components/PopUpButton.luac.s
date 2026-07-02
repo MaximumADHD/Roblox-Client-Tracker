@@ -1,33 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovering"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovering"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R2 K1 [{"hovering"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["hovering"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["mouseEnter"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["mouseLeave"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["mouseEnter"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["mouseLeave"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 RETURN                           R0 0
@@ -90,13 +84,11 @@ PROTO_4:
        82 GETUPVAL                         R13 0
        83 GETTABLEKS                       R13 R13 K9 ["createElement"]
        85 GETUPVAL                         R14 3
-       86 DUPTABLE                         R15 K29 [{"Cursor"}]
-       87 LOADK                            R16 K30 ["PointingHand"]
-       88 SETTABLEKS                       R16 R15 K28 ["Cursor"]
-       90 CALL                             R13 2 1
-       91 SETTABLEKS                       R13 R12 K26 ["Hover"]
-       93 CALL                             R9 3 -1
-       94 RETURN                           R9 -1
+       86 DUPTABLE                         R15 K30 [{["Cursor"] = "PointingHand"}]
+       87 CALL                             R13 2 1
+       88 SETTABLEKS                       R13 R12 K26 ["Hover"]
+       90 CALL                             R9 3 -1
+       91 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

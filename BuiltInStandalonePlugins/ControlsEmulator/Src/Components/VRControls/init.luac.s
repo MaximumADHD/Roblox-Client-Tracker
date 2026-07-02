@@ -582,10 +582,10 @@ PROTO_17:
       344 GETUPVAL                         R46 1
       345 GETTABLEKS                       R46 R46 K20 ["createElement"]
       347 GETUPVAL                         R47 7
-      348 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+      348 DUPTABLE                         R48 K72 [{["Checked"], ["Key"], ["OnClick"], ["Text"], ["Disabled"] = False, ["LayoutOrder"]}]
       349 SETTABLEKS                       R18 R48 K67 ["Checked"]
       351 GETIMPORT                        R49 K13 [Enum.UserCFrame.Head]
-      353 GETTABLEKS                       R49 R49 K72 ["Name"]
+      353 GETTABLEKS                       R49 R49 K73 ["Name"]
       355 SETTABLEKS                       R49 R48 K68 ["Key"]
       357 NEWCLOSURE                       R49 P10
       358 CAPTURE                          VAL R18
@@ -595,377 +595,363 @@ PROTO_17:
       362 CAPTURE                          VAL R3
       363 SETTABLEKS                       R49 R48 K69 ["OnClick"]
       365 LOADK                            R51 K44 ["VRControls"]
-      366 LOADK                            R52 K73 ["HeadsetLabel"]
+      366 LOADK                            R52 K74 ["HeadsetLabel"]
       367 NAMECALL                         R49 R1 K46 ["getText"]
       369 CALL                             R49 3 1
       370 SETTABLEKS                       R49 R48 K47 ["Text"]
-      372 LOADB                            R49 0
-      373 SETTABLEKS                       R49 R48 K70 ["Disabled"]
-      375 GETUPVAL                         R49 6
-      376 NAMECALL                         R49 R49 K28 ["getNextOrder"]
-      378 CALL                             R49 1 1
-      379 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
-      381 CALL                             R46 2 1
-      382 SETTABLEKS                       R46 R45 K63 ["HeadsetBox"]
-      384 GETUPVAL                         R46 1
-      385 GETTABLEKS                       R46 R46 K20 ["createElement"]
-      387 GETUPVAL                         R47 7
-      388 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-      389 SETTABLEKS                       R20 R48 K67 ["Checked"]
-      391 GETIMPORT                        R49 K15 [Enum.UserCFrame.LeftHand]
-      393 GETTABLEKS                       R49 R49 K72 ["Name"]
-      395 SETTABLEKS                       R49 R48 K68 ["Key"]
-      397 NEWCLOSURE                       R49 P11
-      398 CAPTURE                          VAL R20
-      399 CAPTURE                          VAL R21
-      400 CAPTURE                          VAL R18
-      401 CAPTURE                          VAL R22
-      402 CAPTURE                          VAL R3
-      403 SETTABLEKS                       R49 R48 K69 ["OnClick"]
-      405 LOADK                            R51 K44 ["VRControls"]
-      406 LOADK                            R52 K74 ["LeftControllerLabel"]
-      407 NAMECALL                         R49 R1 K46 ["getText"]
-      409 CALL                             R49 3 1
-      410 SETTABLEKS                       R49 R48 K47 ["Text"]
-      412 NOT                              R49 R17
-      413 SETTABLEKS                       R49 R48 K70 ["Disabled"]
-      415 GETUPVAL                         R49 6
-      416 NAMECALL                         R49 R49 K28 ["getNextOrder"]
-      418 CALL                             R49 1 1
-      419 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
-      421 CALL                             R46 2 1
-      422 SETTABLEKS                       R46 R45 K64 ["LeftHandBox"]
-      424 GETUPVAL                         R46 1
-      425 GETTABLEKS                       R46 R46 K20 ["createElement"]
-      427 GETUPVAL                         R47 7
-      428 DUPTABLE                         R48 K71 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
-      429 SETTABLEKS                       R22 R48 K67 ["Checked"]
-      431 GETIMPORT                        R49 K17 [Enum.UserCFrame.RightHand]
-      433 GETTABLEKS                       R49 R49 K72 ["Name"]
-      435 SETTABLEKS                       R49 R48 K68 ["Key"]
-      437 NEWCLOSURE                       R49 P12
-      438 CAPTURE                          VAL R22
-      439 CAPTURE                          VAL R23
-      440 CAPTURE                          VAL R18
-      441 CAPTURE                          VAL R20
-      442 CAPTURE                          VAL R3
-      443 SETTABLEKS                       R49 R48 K69 ["OnClick"]
-      445 LOADK                            R51 K44 ["VRControls"]
-      446 LOADK                            R52 K75 ["RightControllerLabel"]
-      447 NAMECALL                         R49 R1 K46 ["getText"]
-      449 CALL                             R49 3 1
-      450 SETTABLEKS                       R49 R48 K47 ["Text"]
-      452 NOT                              R49 R17
-      453 SETTABLEKS                       R49 R48 K70 ["Disabled"]
-      455 GETUPVAL                         R49 6
-      456 NAMECALL                         R49 R49 K28 ["getNextOrder"]
-      458 CALL                             R49 1 1
-      459 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
-      461 CALL                             R46 2 1
-      462 SETTABLEKS                       R46 R45 K65 ["RightHandBox"]
-      464 CALL                             R42 3 1
-      465 SETTABLEKS                       R42 R41 K60 ["CheckboxFrame"]
-      467 GETTABLEKS                       R42 R0 K76 ["inPlayClient"]
-      469 JUMPIFNOT                        R42 ; [+68]
-      470 GETUPVAL                         R42 1
-      471 GETTABLEKS                       R42 R42 K20 ["createElement"]
-      473 LOADK                            R43 K21 ["Frame"]
-      474 DUPTABLE                         R44 K34 [{"LayoutOrder"}]
-      475 GETUPVAL                         R45 6
-      476 NAMECALL                         R45 R45 K28 ["getNextOrder"]
-      478 CALL                             R45 1 1
-      479 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
-      481 DUPTABLE                         R45 K78 [{"ResetPositionsButton"}]
-      482 GETUPVAL                         R46 1
-      483 GETTABLEKS                       R46 R46 K20 ["createElement"]
-      485 LOADK                            R47 K79 ["ImageButton"]
-      486 NEWTABLE                         R48 8 0
-      488 GETUPVAL                         R49 1
-      489 GETTABLEKS                       R49 R49 K22 ["Tag"]
-      491 LOADK                            R50 K80 ["data-testid=ResetPositionsButton"]
-      492 SETTABLE                         R50 R48 R49
-      493 GETUPVAL                         R49 1
-      494 GETTABLEKS                       R49 R49 K56 ["Event"]
-      496 GETTABLEKS                       R49 R49 K57 ["MouseEnter"]
-      498 SETTABLE                         R12 R48 R49
-      499 GETUPVAL                         R49 1
-      500 GETTABLEKS                       R49 R49 K56 ["Event"]
-      502 GETTABLEKS                       R49 R49 K58 ["MouseLeave"]
-      504 SETTABLE                         R13 R48 R49
-      505 GETUPVAL                         R49 1
-      506 GETTABLEKS                       R49 R49 K56 ["Event"]
-      508 GETTABLEKS                       R49 R49 K59 ["MouseButton1Click"]
-      510 DUPCLOSURE                       R50 K81 [PROTO_15]
-      511 CAPTURE                          UPVAL U8
-      512 SETTABLE                         R50 R48 R49
-      513 GETUPVAL                         R49 6
-      514 NAMECALL                         R49 R49 K28 ["getNextOrder"]
-      516 CALL                             R49 1 1
-      517 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
-      519 DUPTABLE                         R49 K83 [{"ResetIconImage"}]
-      520 GETUPVAL                         R50 1
-      521 GETTABLEKS                       R50 R50 K20 ["createElement"]
-      523 LOADK                            R51 K84 ["ImageLabel"]
-      524 DUPTABLE                         R52 K34 [{"LayoutOrder"}]
-      525 GETUPVAL                         R53 6
-      526 NAMECALL                         R53 R53 K28 ["getNextOrder"]
-      528 CALL                             R53 1 1
-      529 SETTABLEKS                       R53 R52 K24 ["LayoutOrder"]
-      531 CALL                             R50 2 1
-      532 SETTABLEKS                       R50 R49 K82 ["ResetIconImage"]
-      534 CALL                             R46 3 1
-      535 SETTABLEKS                       R46 R45 K77 ["ResetPositionsButton"]
-      537 CALL                             R42 3 1
-      538 SETTABLEKS                       R42 R41 K61 ["ResetPositionsFrame"]
-      540 CALL                             R38 3 1
-      541 SETTABLEKS                       R38 R37 K37 ["ContainerFrame"]
-      543 GETUPVAL                         R38 1
-      544 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      546 LOADK                            R39 K21 ["Frame"]
-      547 NEWTABLE                         R40 2 0
-      549 GETUPVAL                         R41 1
-      550 GETTABLEKS                       R41 R41 K22 ["Tag"]
-      552 LOADK                            R42 K85 ["data-testid=TranslationSlider"]
-      553 SETTABLE                         R42 R40 R41
-      554 GETUPVAL                         R41 6
-      555 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      557 CALL                             R41 1 1
-      558 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      560 DUPTABLE                         R41 K88 [{"SliderLabel", "TranslationSlider"}]
-      561 GETUPVAL                         R42 1
-      562 GETTABLEKS                       R42 R42 K20 ["createElement"]
-      564 LOADK                            R43 K43 ["TextLabel"]
-      565 NEWTABLE                         R44 4 0
-      567 GETUPVAL                         R45 1
-      568 GETTABLEKS                       R45 R45 K22 ["Tag"]
-      570 LOADK                            R46 K27 ["CX-Invisible"]
-      571 SETTABLE                         R46 R44 R45
-      572 LOADK                            R47 K44 ["VRControls"]
-      573 LOADK                            R48 K89 ["TranslationSensitivityLabel"]
-      574 NAMECALL                         R45 R1 K46 ["getText"]
-      576 CALL                             R45 3 1
-      577 SETTABLEKS                       R45 R44 K47 ["Text"]
-      579 GETUPVAL                         R45 6
-      580 NAMECALL                         R45 R45 K28 ["getNextOrder"]
-      582 CALL                             R45 1 1
-      583 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
-      585 CALL                             R42 2 1
-      586 SETTABLEKS                       R42 R41 K86 ["SliderLabel"]
-      588 GETUPVAL                         R42 1
-      589 GETTABLEKS                       R42 R42 K20 ["createElement"]
-      591 GETUPVAL                         R43 9
-      592 DUPTABLE                         R44 K98 [{"LayoutOrder", "AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "SnapIncrement", "VerticalDragTolerance", "ShowInput"}]
-      593 GETUPVAL                         R45 6
-      594 NAMECALL                         R45 R45 K28 ["getNextOrder"]
-      596 CALL                             R45 1 1
-      597 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
-      599 GETIMPORT                        R45 K100 [Vector2.new]
-      601 LOADN                            R46 0
-      602 LOADN                            R47 0
-      603 CALL                             R45 2 1
-      604 SETTABLEKS                       R45 R44 K90 ["AnchorPoint"]
-      606 LOADB                            R45 0
-      607 SETTABLEKS                       R45 R44 K70 ["Disabled"]
-      609 SETTABLEKS                       R6 R44 K91 ["Value"]
-      611 LOADN                            R45 1
-      612 SETTABLEKS                       R45 R44 K92 ["Min"]
-      614 LOADN                            R45 10
-      615 SETTABLEKS                       R45 R44 K93 ["Max"]
-      617 NEWCLOSURE                       R45 P14
-      618 CAPTURE                          VAL R7
-      619 CAPTURE                          VAL R5
-      620 SETTABLEKS                       R45 R44 K94 ["OnValueChanged"]
-      622 LOADN                            R45 1
-      623 SETTABLEKS                       R45 R44 K95 ["SnapIncrement"]
-      625 LOADN                            R45 0
-      626 SETTABLEKS                       R45 R44 K96 ["VerticalDragTolerance"]
-      628 LOADB                            R45 1
-      629 SETTABLEKS                       R45 R44 K97 ["ShowInput"]
-      631 CALL                             R42 2 1
-      632 SETTABLEKS                       R42 R41 K87 ["TranslationSlider"]
-      634 CALL                             R38 3 1
-      635 SETTABLEKS                       R38 R37 K38 ["SliderFrame"]
-      637 CALL                             R34 3 1
-      638 SETTABLEKS                       R34 R33 K30 ["Controls"]
-      640 GETTABLEKS                       R34 R0 K76 ["inPlayClient"]
-      642 JUMPIFNOT                        R34 ; [+27]
-      643 MOVE                             R34 R10
-      644 JUMPIFNOT                        R34 ; [+25]
-      645 GETUPVAL                         R34 1
-      646 GETTABLEKS                       R34 R34 K20 ["createElement"]
-      648 LOADK                            R35 K43 ["TextLabel"]
-      649 NEWTABLE                         R36 4 0
-      651 GETUPVAL                         R37 1
-      652 GETTABLEKS                       R37 R37 K22 ["Tag"]
-      654 LOADK                            R38 K101 ["ResetPositionsTooltip data-testid=ResetPositionsTooltip"]
-      655 SETTABLE                         R38 R36 R37
-      656 LOADK                            R39 K44 ["VRControls"]
-      657 LOADK                            R40 K102 ["ResetAllLabel"]
-      658 NAMECALL                         R37 R1 K46 ["getText"]
-      660 CALL                             R37 3 1
-      661 SETTABLEKS                       R37 R36 K47 ["Text"]
-      663 GETUPVAL                         R37 6
-      664 NAMECALL                         R37 R37 K28 ["getNextOrder"]
-      666 CALL                             R37 1 1
-      667 SETTABLEKS                       R37 R36 K24 ["LayoutOrder"]
-      669 CALL                             R34 2 1
-      670 SETTABLEKS                       R34 R33 K31 ["ResetPositionsTooltip"]
-      672 MOVE                             R34 R8
-      673 JUMPIFNOT                        R34 ; [+208]
-      674 GETUPVAL                         R34 1
-      675 GETTABLEKS                       R34 R34 K20 ["createElement"]
-      677 LOADK                            R35 K21 ["Frame"]
-      678 NEWTABLE                         R36 1 0
-      680 GETUPVAL                         R37 1
-      681 GETTABLEKS                       R37 R37 K22 ["Tag"]
-      683 LOADK                            R38 K103 ["data-testid=Tooltip"]
-      684 SETTABLE                         R38 R36 R37
-      685 DUPTABLE                         R37 K111 [{"MoveMapping", "FlyMapping", "RotateMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
-      686 GETUPVAL                         R38 1
-      687 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      689 GETUPVAL                         R39 10
-      690 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      691 LOADK                            R43 K44 ["VRControls"]
-      692 LOADK                            R44 K115 ["MoveHelpLabel"]
-      693 NAMECALL                         R41 R1 K46 ["getText"]
-      695 CALL                             R41 3 1
-      696 SETTABLEKS                       R41 R40 K112 ["leftText"]
+      372 GETUPVAL                         R49 6
+      373 NAMECALL                         R49 R49 K28 ["getNextOrder"]
+      375 CALL                             R49 1 1
+      376 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
+      378 CALL                             R46 2 1
+      379 SETTABLEKS                       R46 R45 K63 ["HeadsetBox"]
+      381 GETUPVAL                         R46 1
+      382 GETTABLEKS                       R46 R46 K20 ["createElement"]
+      384 GETUPVAL                         R47 7
+      385 DUPTABLE                         R48 K75 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+      386 SETTABLEKS                       R20 R48 K67 ["Checked"]
+      388 GETIMPORT                        R49 K15 [Enum.UserCFrame.LeftHand]
+      390 GETTABLEKS                       R49 R49 K73 ["Name"]
+      392 SETTABLEKS                       R49 R48 K68 ["Key"]
+      394 NEWCLOSURE                       R49 P11
+      395 CAPTURE                          VAL R20
+      396 CAPTURE                          VAL R21
+      397 CAPTURE                          VAL R18
+      398 CAPTURE                          VAL R22
+      399 CAPTURE                          VAL R3
+      400 SETTABLEKS                       R49 R48 K69 ["OnClick"]
+      402 LOADK                            R51 K44 ["VRControls"]
+      403 LOADK                            R52 K76 ["LeftControllerLabel"]
+      404 NAMECALL                         R49 R1 K46 ["getText"]
+      406 CALL                             R49 3 1
+      407 SETTABLEKS                       R49 R48 K47 ["Text"]
+      409 NOT                              R49 R17
+      410 SETTABLEKS                       R49 R48 K70 ["Disabled"]
+      412 GETUPVAL                         R49 6
+      413 NAMECALL                         R49 R49 K28 ["getNextOrder"]
+      415 CALL                             R49 1 1
+      416 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
+      418 CALL                             R46 2 1
+      419 SETTABLEKS                       R46 R45 K64 ["LeftHandBox"]
+      421 GETUPVAL                         R46 1
+      422 GETTABLEKS                       R46 R46 K20 ["createElement"]
+      424 GETUPVAL                         R47 7
+      425 DUPTABLE                         R48 K75 [{"Checked", "Key", "OnClick", "Text", "Disabled", "LayoutOrder"}]
+      426 SETTABLEKS                       R22 R48 K67 ["Checked"]
+      428 GETIMPORT                        R49 K17 [Enum.UserCFrame.RightHand]
+      430 GETTABLEKS                       R49 R49 K73 ["Name"]
+      432 SETTABLEKS                       R49 R48 K68 ["Key"]
+      434 NEWCLOSURE                       R49 P12
+      435 CAPTURE                          VAL R22
+      436 CAPTURE                          VAL R23
+      437 CAPTURE                          VAL R18
+      438 CAPTURE                          VAL R20
+      439 CAPTURE                          VAL R3
+      440 SETTABLEKS                       R49 R48 K69 ["OnClick"]
+      442 LOADK                            R51 K44 ["VRControls"]
+      443 LOADK                            R52 K77 ["RightControllerLabel"]
+      444 NAMECALL                         R49 R1 K46 ["getText"]
+      446 CALL                             R49 3 1
+      447 SETTABLEKS                       R49 R48 K47 ["Text"]
+      449 NOT                              R49 R17
+      450 SETTABLEKS                       R49 R48 K70 ["Disabled"]
+      452 GETUPVAL                         R49 6
+      453 NAMECALL                         R49 R49 K28 ["getNextOrder"]
+      455 CALL                             R49 1 1
+      456 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
+      458 CALL                             R46 2 1
+      459 SETTABLEKS                       R46 R45 K65 ["RightHandBox"]
+      461 CALL                             R42 3 1
+      462 SETTABLEKS                       R42 R41 K60 ["CheckboxFrame"]
+      464 GETTABLEKS                       R42 R0 K78 ["inPlayClient"]
+      466 JUMPIFNOT                        R42 ; [+68]
+      467 GETUPVAL                         R42 1
+      468 GETTABLEKS                       R42 R42 K20 ["createElement"]
+      470 LOADK                            R43 K21 ["Frame"]
+      471 DUPTABLE                         R44 K34 [{"LayoutOrder"}]
+      472 GETUPVAL                         R45 6
+      473 NAMECALL                         R45 R45 K28 ["getNextOrder"]
+      475 CALL                             R45 1 1
+      476 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
+      478 DUPTABLE                         R45 K80 [{"ResetPositionsButton"}]
+      479 GETUPVAL                         R46 1
+      480 GETTABLEKS                       R46 R46 K20 ["createElement"]
+      482 LOADK                            R47 K81 ["ImageButton"]
+      483 NEWTABLE                         R48 8 0
+      485 GETUPVAL                         R49 1
+      486 GETTABLEKS                       R49 R49 K22 ["Tag"]
+      488 LOADK                            R50 K82 ["data-testid=ResetPositionsButton"]
+      489 SETTABLE                         R50 R48 R49
+      490 GETUPVAL                         R49 1
+      491 GETTABLEKS                       R49 R49 K56 ["Event"]
+      493 GETTABLEKS                       R49 R49 K57 ["MouseEnter"]
+      495 SETTABLE                         R12 R48 R49
+      496 GETUPVAL                         R49 1
+      497 GETTABLEKS                       R49 R49 K56 ["Event"]
+      499 GETTABLEKS                       R49 R49 K58 ["MouseLeave"]
+      501 SETTABLE                         R13 R48 R49
+      502 GETUPVAL                         R49 1
+      503 GETTABLEKS                       R49 R49 K56 ["Event"]
+      505 GETTABLEKS                       R49 R49 K59 ["MouseButton1Click"]
+      507 DUPCLOSURE                       R50 K83 [PROTO_15]
+      508 CAPTURE                          UPVAL U8
+      509 SETTABLE                         R50 R48 R49
+      510 GETUPVAL                         R49 6
+      511 NAMECALL                         R49 R49 K28 ["getNextOrder"]
+      513 CALL                             R49 1 1
+      514 SETTABLEKS                       R49 R48 K24 ["LayoutOrder"]
+      516 DUPTABLE                         R49 K85 [{"ResetIconImage"}]
+      517 GETUPVAL                         R50 1
+      518 GETTABLEKS                       R50 R50 K20 ["createElement"]
+      520 LOADK                            R51 K86 ["ImageLabel"]
+      521 DUPTABLE                         R52 K34 [{"LayoutOrder"}]
+      522 GETUPVAL                         R53 6
+      523 NAMECALL                         R53 R53 K28 ["getNextOrder"]
+      525 CALL                             R53 1 1
+      526 SETTABLEKS                       R53 R52 K24 ["LayoutOrder"]
+      528 CALL                             R50 2 1
+      529 SETTABLEKS                       R50 R49 K84 ["ResetIconImage"]
+      531 CALL                             R46 3 1
+      532 SETTABLEKS                       R46 R45 K79 ["ResetPositionsButton"]
+      534 CALL                             R42 3 1
+      535 SETTABLEKS                       R42 R41 K61 ["ResetPositionsFrame"]
+      537 CALL                             R38 3 1
+      538 SETTABLEKS                       R38 R37 K37 ["ContainerFrame"]
+      540 GETUPVAL                         R38 1
+      541 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      543 LOADK                            R39 K21 ["Frame"]
+      544 NEWTABLE                         R40 2 0
+      546 GETUPVAL                         R41 1
+      547 GETTABLEKS                       R41 R41 K22 ["Tag"]
+      549 LOADK                            R42 K87 ["data-testid=TranslationSlider"]
+      550 SETTABLE                         R42 R40 R41
+      551 GETUPVAL                         R41 6
+      552 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      554 CALL                             R41 1 1
+      555 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      557 DUPTABLE                         R41 K90 [{"SliderLabel", "TranslationSlider"}]
+      558 GETUPVAL                         R42 1
+      559 GETTABLEKS                       R42 R42 K20 ["createElement"]
+      561 LOADK                            R43 K43 ["TextLabel"]
+      562 NEWTABLE                         R44 4 0
+      564 GETUPVAL                         R45 1
+      565 GETTABLEKS                       R45 R45 K22 ["Tag"]
+      567 LOADK                            R46 K27 ["CX-Invisible"]
+      568 SETTABLE                         R46 R44 R45
+      569 LOADK                            R47 K44 ["VRControls"]
+      570 LOADK                            R48 K91 ["TranslationSensitivityLabel"]
+      571 NAMECALL                         R45 R1 K46 ["getText"]
+      573 CALL                             R45 3 1
+      574 SETTABLEKS                       R45 R44 K47 ["Text"]
+      576 GETUPVAL                         R45 6
+      577 NAMECALL                         R45 R45 K28 ["getNextOrder"]
+      579 CALL                             R45 1 1
+      580 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
+      582 CALL                             R42 2 1
+      583 SETTABLEKS                       R42 R41 K88 ["SliderLabel"]
+      585 GETUPVAL                         R42 1
+      586 GETTABLEKS                       R42 R42 K20 ["createElement"]
+      588 GETUPVAL                         R43 9
+      589 DUPTABLE                         R44 K104 [{["LayoutOrder"], ["AnchorPoint"], ["Disabled"] = False, ["Value"], ["Min"] = 1, ["Max"] = 10, ["OnValueChanged"], ["SnapIncrement"] = 1, ["VerticalDragTolerance"] = 0, ["ShowInput"] = True}]
+      590 GETUPVAL                         R45 6
+      591 NAMECALL                         R45 R45 K28 ["getNextOrder"]
+      593 CALL                             R45 1 1
+      594 SETTABLEKS                       R45 R44 K24 ["LayoutOrder"]
+      596 GETIMPORT                        R45 K106 [Vector2.new]
+      598 LOADN                            R46 0
+      599 LOADN                            R47 0
+      600 CALL                             R45 2 1
+      601 SETTABLEKS                       R45 R44 K92 ["AnchorPoint"]
+      603 SETTABLEKS                       R6 R44 K93 ["Value"]
+      605 NEWCLOSURE                       R45 P14
+      606 CAPTURE                          VAL R7
+      607 CAPTURE                          VAL R5
+      608 SETTABLEKS                       R45 R44 K98 ["OnValueChanged"]
+      610 CALL                             R42 2 1
+      611 SETTABLEKS                       R42 R41 K89 ["TranslationSlider"]
+      613 CALL                             R38 3 1
+      614 SETTABLEKS                       R38 R37 K38 ["SliderFrame"]
+      616 CALL                             R34 3 1
+      617 SETTABLEKS                       R34 R33 K30 ["Controls"]
+      619 GETTABLEKS                       R34 R0 K78 ["inPlayClient"]
+      621 JUMPIFNOT                        R34 ; [+27]
+      622 MOVE                             R34 R10
+      623 JUMPIFNOT                        R34 ; [+25]
+      624 GETUPVAL                         R34 1
+      625 GETTABLEKS                       R34 R34 K20 ["createElement"]
+      627 LOADK                            R35 K43 ["TextLabel"]
+      628 NEWTABLE                         R36 4 0
+      630 GETUPVAL                         R37 1
+      631 GETTABLEKS                       R37 R37 K22 ["Tag"]
+      633 LOADK                            R38 K107 ["ResetPositionsTooltip data-testid=ResetPositionsTooltip"]
+      634 SETTABLE                         R38 R36 R37
+      635 LOADK                            R39 K44 ["VRControls"]
+      636 LOADK                            R40 K108 ["ResetAllLabel"]
+      637 NAMECALL                         R37 R1 K46 ["getText"]
+      639 CALL                             R37 3 1
+      640 SETTABLEKS                       R37 R36 K47 ["Text"]
+      642 GETUPVAL                         R37 6
+      643 NAMECALL                         R37 R37 K28 ["getNextOrder"]
+      645 CALL                             R37 1 1
+      646 SETTABLEKS                       R37 R36 K24 ["LayoutOrder"]
+      648 CALL                             R34 2 1
+      649 SETTABLEKS                       R34 R33 K31 ["ResetPositionsTooltip"]
+      651 MOVE                             R34 R8
+      652 JUMPIFNOT                        R34 ; [+208]
+      653 GETUPVAL                         R34 1
+      654 GETTABLEKS                       R34 R34 K20 ["createElement"]
+      656 LOADK                            R35 K21 ["Frame"]
+      657 NEWTABLE                         R36 1 0
+      659 GETUPVAL                         R37 1
+      660 GETTABLEKS                       R37 R37 K22 ["Tag"]
+      662 LOADK                            R38 K109 ["data-testid=Tooltip"]
+      663 SETTABLE                         R38 R36 R37
+      664 DUPTABLE                         R37 K117 [{"MoveMapping", "FlyMapping", "RotateMapping", "TiltMapping", "ToggleCursorLock", "SwitchControllers", "MouseMapping1"}]
+      665 GETUPVAL                         R38 1
+      666 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      668 GETUPVAL                         R39 10
+      669 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
+      670 LOADK                            R43 K44 ["VRControls"]
+      671 LOADK                            R44 K121 ["MoveHelpLabel"]
+      672 NAMECALL                         R41 R1 K46 ["getText"]
+      674 CALL                             R41 3 1
+      675 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      677 LOADK                            R43 K44 ["VRControls"]
+      678 LOADK                            R44 K122 ["ShiftWASDLabel"]
+      679 NAMECALL                         R41 R1 K46 ["getText"]
+      681 CALL                             R41 3 1
+      682 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      684 GETUPVAL                         R41 6
+      685 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      687 CALL                             R41 1 1
+      688 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      690 CALL                             R38 2 1
+      691 SETTABLEKS                       R38 R37 K110 ["MoveMapping"]
+      693 GETUPVAL                         R38 1
+      694 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      696 GETUPVAL                         R39 10
+      697 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
       698 LOADK                            R43 K44 ["VRControls"]
-      699 LOADK                            R44 K116 ["ShiftWASDLabel"]
+      699 LOADK                            R44 K123 ["FlyUpDownHelpLabel"]
       700 NAMECALL                         R41 R1 K46 ["getText"]
       702 CALL                             R41 3 1
-      703 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      705 GETUPVAL                         R41 6
-      706 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      708 CALL                             R41 1 1
-      709 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      711 CALL                             R38 2 1
-      712 SETTABLEKS                       R38 R37 K104 ["MoveMapping"]
-      714 GETUPVAL                         R38 1
-      715 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      717 GETUPVAL                         R39 10
-      718 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      719 LOADK                            R43 K44 ["VRControls"]
-      720 LOADK                            R44 K117 ["FlyUpDownHelpLabel"]
-      721 NAMECALL                         R41 R1 K46 ["getText"]
-      723 CALL                             R41 3 1
-      724 SETTABLEKS                       R41 R40 K112 ["leftText"]
+      703 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      705 LOADK                            R43 K44 ["VRControls"]
+      706 LOADK                            R44 K124 ["ShiftEQLabel"]
+      707 NAMECALL                         R41 R1 K46 ["getText"]
+      709 CALL                             R41 3 1
+      710 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      712 GETUPVAL                         R41 6
+      713 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      715 CALL                             R41 1 1
+      716 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      718 CALL                             R38 2 1
+      719 SETTABLEKS                       R38 R37 K111 ["FlyMapping"]
+      721 GETUPVAL                         R38 1
+      722 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      724 GETUPVAL                         R39 10
+      725 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
       726 LOADK                            R43 K44 ["VRControls"]
-      727 LOADK                            R44 K118 ["ShiftEQLabel"]
+      727 LOADK                            R44 K125 ["RotateHelpLabel"]
       728 NAMECALL                         R41 R1 K46 ["getText"]
       730 CALL                             R41 3 1
-      731 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      733 GETUPVAL                         R41 6
-      734 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      736 CALL                             R41 1 1
-      737 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      739 CALL                             R38 2 1
-      740 SETTABLEKS                       R38 R37 K105 ["FlyMapping"]
-      742 GETUPVAL                         R38 1
-      743 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      745 GETUPVAL                         R39 10
-      746 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      747 LOADK                            R43 K44 ["VRControls"]
-      748 LOADK                            R44 K119 ["RotateHelpLabel"]
-      749 NAMECALL                         R41 R1 K46 ["getText"]
-      751 CALL                             R41 3 1
-      752 SETTABLEKS                       R41 R40 K112 ["leftText"]
+      731 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      733 LOADK                            R43 K44 ["VRControls"]
+      734 LOADK                            R44 K126 ["MouseMoveHelpLabel"]
+      735 NAMECALL                         R41 R1 K46 ["getText"]
+      737 CALL                             R41 3 1
+      738 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      740 GETUPVAL                         R41 6
+      741 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      743 CALL                             R41 1 1
+      744 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      746 CALL                             R38 2 1
+      747 SETTABLEKS                       R38 R37 K112 ["RotateMapping"]
+      749 GETUPVAL                         R38 1
+      750 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      752 GETUPVAL                         R39 10
+      753 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
       754 LOADK                            R43 K44 ["VRControls"]
-      755 LOADK                            R44 K120 ["MouseMoveHelpLabel"]
+      755 LOADK                            R44 K127 ["TiltHelpLabel"]
       756 NAMECALL                         R41 R1 K46 ["getText"]
       758 CALL                             R41 3 1
-      759 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      761 GETUPVAL                         R41 6
-      762 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      764 CALL                             R41 1 1
-      765 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      767 CALL                             R38 2 1
-      768 SETTABLEKS                       R38 R37 K106 ["RotateMapping"]
-      770 GETUPVAL                         R38 1
-      771 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      773 GETUPVAL                         R39 10
-      774 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      775 LOADK                            R43 K44 ["VRControls"]
-      776 LOADK                            R44 K121 ["TiltHelpLabel"]
-      777 NAMECALL                         R41 R1 K46 ["getText"]
-      779 CALL                             R41 3 1
-      780 SETTABLEKS                       R41 R40 K112 ["leftText"]
+      759 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      761 LOADK                            R43 K44 ["VRControls"]
+      762 LOADK                            R44 K128 ["RightClickAndMouseMoveHelpLabel"]
+      763 NAMECALL                         R41 R1 K46 ["getText"]
+      765 CALL                             R41 3 1
+      766 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      768 GETUPVAL                         R41 6
+      769 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      771 CALL                             R41 1 1
+      772 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      774 CALL                             R38 2 1
+      775 SETTABLEKS                       R38 R37 K113 ["TiltMapping"]
+      777 GETUPVAL                         R38 1
+      778 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      780 GETUPVAL                         R39 10
+      781 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
       782 LOADK                            R43 K44 ["VRControls"]
-      783 LOADK                            R44 K122 ["RightClickAndMouseMoveHelpLabel"]
+      783 LOADK                            R44 K129 ["ToggleCursorLockLabel"]
       784 NAMECALL                         R41 R1 K46 ["getText"]
       786 CALL                             R41 3 1
-      787 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      789 GETUPVAL                         R41 6
-      790 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      792 CALL                             R41 1 1
-      793 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      795 CALL                             R38 2 1
-      796 SETTABLEKS                       R38 R37 K107 ["TiltMapping"]
-      798 GETUPVAL                         R38 1
-      799 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      801 GETUPVAL                         R39 10
-      802 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      803 LOADK                            R43 K44 ["VRControls"]
-      804 LOADK                            R44 K123 ["ToggleCursorLockLabel"]
-      805 NAMECALL                         R41 R1 K46 ["getText"]
-      807 CALL                             R41 3 1
-      808 SETTABLEKS                       R41 R40 K112 ["leftText"]
+      787 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      789 LOADK                            R43 K44 ["VRControls"]
+      790 LOADK                            R44 K130 ["ToggleCursorShortcutLabel"]
+      791 NAMECALL                         R41 R1 K46 ["getText"]
+      793 CALL                             R41 3 1
+      794 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      796 GETUPVAL                         R41 6
+      797 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      799 CALL                             R41 1 1
+      800 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      802 CALL                             R38 2 1
+      803 SETTABLEKS                       R38 R37 K114 ["ToggleCursorLock"]
+      805 GETUPVAL                         R38 1
+      806 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      808 GETUPVAL                         R39 10
+      809 DUPTABLE                         R40 K120 [{"leftText", "rightText", "LayoutOrder"}]
       810 LOADK                            R43 K44 ["VRControls"]
-      811 LOADK                            R44 K124 ["ToggleCursorShortcutLabel"]
+      811 LOADK                            R44 K131 ["SwitchControllersLabel"]
       812 NAMECALL                         R41 R1 K46 ["getText"]
       814 CALL                             R41 3 1
-      815 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      817 GETUPVAL                         R41 6
-      818 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      820 CALL                             R41 1 1
-      821 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      823 CALL                             R38 2 1
-      824 SETTABLEKS                       R38 R37 K108 ["ToggleCursorLock"]
-      826 GETUPVAL                         R38 1
-      827 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      829 GETUPVAL                         R39 10
-      830 DUPTABLE                         R40 K114 [{"leftText", "rightText", "LayoutOrder"}]
-      831 LOADK                            R43 K44 ["VRControls"]
-      832 LOADK                            R44 K125 ["SwitchControllersLabel"]
-      833 NAMECALL                         R41 R1 K46 ["getText"]
-      835 CALL                             R41 3 1
-      836 SETTABLEKS                       R41 R40 K112 ["leftText"]
-      838 LOADK                            R43 K44 ["VRControls"]
-      839 LOADK                            R44 K126 ["ShiftLeftRightLabel"]
-      840 NAMECALL                         R41 R1 K46 ["getText"]
-      842 CALL                             R41 3 1
-      843 SETTABLEKS                       R41 R40 K113 ["rightText"]
-      845 GETUPVAL                         R41 6
-      846 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      848 CALL                             R41 1 1
-      849 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      851 CALL                             R38 2 1
-      852 SETTABLEKS                       R38 R37 K109 ["SwitchControllers"]
-      854 GETUPVAL                         R38 1
-      855 GETTABLEKS                       R38 R38 K20 ["createElement"]
-      857 LOADK                            R39 K43 ["TextLabel"]
-      858 NEWTABLE                         R40 4 0
-      860 GETUPVAL                         R41 1
-      861 GETTABLEKS                       R41 R41 K22 ["Tag"]
-      863 LOADK                            R42 K27 ["CX-Invisible"]
-      864 SETTABLE                         R42 R40 R41
-      865 LOADK                            R43 K44 ["VRControls"]
-      866 LOADK                            R44 K127 ["MouseInteractionHelpLabel1"]
-      867 NAMECALL                         R41 R1 K46 ["getText"]
-      869 CALL                             R41 3 1
-      870 SETTABLEKS                       R41 R40 K47 ["Text"]
-      872 GETUPVAL                         R41 6
-      873 NAMECALL                         R41 R41 K28 ["getNextOrder"]
-      875 CALL                             R41 1 1
-      876 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
-      878 CALL                             R38 2 1
-      879 SETTABLEKS                       R38 R37 K110 ["MouseMapping1"]
-      881 CALL                             R34 3 1
-      882 SETTABLEKS                       R34 R33 K32 ["Tooltip"]
-      884 CALL                             R30 3 1
-      885 SETTABLEKS                       R30 R29 K25 ["InnerContainer"]
-      887 CALL                             R26 3 -1
-      888 RETURN                           R26 -1
+      815 SETTABLEKS                       R41 R40 K118 ["leftText"]
+      817 LOADK                            R43 K44 ["VRControls"]
+      818 LOADK                            R44 K132 ["ShiftLeftRightLabel"]
+      819 NAMECALL                         R41 R1 K46 ["getText"]
+      821 CALL                             R41 3 1
+      822 SETTABLEKS                       R41 R40 K119 ["rightText"]
+      824 GETUPVAL                         R41 6
+      825 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      827 CALL                             R41 1 1
+      828 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      830 CALL                             R38 2 1
+      831 SETTABLEKS                       R38 R37 K115 ["SwitchControllers"]
+      833 GETUPVAL                         R38 1
+      834 GETTABLEKS                       R38 R38 K20 ["createElement"]
+      836 LOADK                            R39 K43 ["TextLabel"]
+      837 NEWTABLE                         R40 4 0
+      839 GETUPVAL                         R41 1
+      840 GETTABLEKS                       R41 R41 K22 ["Tag"]
+      842 LOADK                            R42 K27 ["CX-Invisible"]
+      843 SETTABLE                         R42 R40 R41
+      844 LOADK                            R43 K44 ["VRControls"]
+      845 LOADK                            R44 K133 ["MouseInteractionHelpLabel1"]
+      846 NAMECALL                         R41 R1 K46 ["getText"]
+      848 CALL                             R41 3 1
+      849 SETTABLEKS                       R41 R40 K47 ["Text"]
+      851 GETUPVAL                         R41 6
+      852 NAMECALL                         R41 R41 K28 ["getNextOrder"]
+      854 CALL                             R41 1 1
+      855 SETTABLEKS                       R41 R40 K24 ["LayoutOrder"]
+      857 CALL                             R38 2 1
+      858 SETTABLEKS                       R38 R37 K116 ["MouseMapping1"]
+      860 CALL                             R34 3 1
+      861 SETTABLEKS                       R34 R33 K32 ["Tooltip"]
+      863 CALL                             R30 3 1
+      864 SETTABLEKS                       R30 R29 K25 ["InnerContainer"]
+      866 CALL                             R26 3 -1
+      867 RETURN                           R26 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -70,36 +70,30 @@ PROTO_1:
        84 GETTABLEKS                       R4 R4 K7 ["createElement"]
        86 GETUPVAL                         R5 4
        87 GETTABLEKS                       R5 R5 K23 ["View"]
-       89 DUPTABLE                         R6 K25 [{"tag"}]
-       90 LOADK                            R7 K26 ["auto-y size-full-0 col gap-small"]
-       91 SETTABLEKS                       R7 R6 K24 ["tag"]
-       93 DUPTABLE                         R7 K28 [{"title", "settings"}]
-       94 GETUPVAL                         R8 3
-       95 GETTABLEKS                       R8 R8 K7 ["createElement"]
-       97 GETUPVAL                         R9 4
-       98 GETTABLEKS                       R9 R9 K29 ["Text"]
-      100 DUPTABLE                         R10 K30 [{"Text", "tag"}]
-      101 LOADK                            R13 K31 ["SettingTitle"]
-      102 GETTABLEKS                       R14 R0 K27 ["title"]
-      104 NAMECALL                         R11 R1 K18 ["getText"]
-      106 CALL                             R11 3 1
-      107 SETTABLEKS                       R11 R10 K29 ["Text"]
-      109 LOADK                            R11 K32 ["grow size-full-400 text-title-medium text-align-x-left"]
-      110 SETTABLEKS                       R11 R10 K24 ["tag"]
-      112 CALL                             R8 2 1
-      113 SETTABLEKS                       R8 R7 K27 ["title"]
-      115 GETUPVAL                         R8 3
-      116 GETTABLEKS                       R8 R8 K7 ["createElement"]
-      118 GETUPVAL                         R9 4
-      119 GETTABLEKS                       R9 R9 K23 ["View"]
-      121 DUPTABLE                         R10 K25 [{"tag"}]
-      122 LOADK                            R11 K33 ["col align-y-top gap-small size-full-0 auto-y"]
-      123 SETTABLEKS                       R11 R10 K24 ["tag"]
-      125 MOVE                             R11 R3
-      126 CALL                             R8 3 1
-      127 SETTABLEKS                       R8 R7 K1 ["settings"]
-      129 CALL                             R4 3 -1
-      130 RETURN                           R4 -1
+       89 DUPTABLE                         R6 K26 [{["tag"] = "col gap-small size-full-0 auto-y"}]
+       90 DUPTABLE                         R7 K28 [{"title", "settings"}]
+       91 GETUPVAL                         R8 3
+       92 GETTABLEKS                       R8 R8 K7 ["createElement"]
+       94 GETUPVAL                         R9 4
+       95 GETTABLEKS                       R9 R9 K29 ["Text"]
+       97 DUPTABLE                         R10 K31 [{["Text"], ["tag"] = "grow size-full-400 text-title-medium text-align-x-left"}]
+       98 LOADK                            R13 K32 ["SettingTitle"]
+       99 GETTABLEKS                       R14 R0 K27 ["title"]
+      101 NAMECALL                         R11 R1 K18 ["getText"]
+      103 CALL                             R11 3 1
+      104 SETTABLEKS                       R11 R10 K29 ["Text"]
+      106 CALL                             R8 2 1
+      107 SETTABLEKS                       R8 R7 K27 ["title"]
+      109 GETUPVAL                         R8 3
+      110 GETTABLEKS                       R8 R8 K7 ["createElement"]
+      112 GETUPVAL                         R9 4
+      113 GETTABLEKS                       R9 R9 K23 ["View"]
+      115 DUPTABLE                         R10 K34 [{["tag"] = "col align-y-top gap-small size-full-0 auto-y"}]
+      116 MOVE                             R11 R3
+      117 CALL                             R8 3 1
+      118 SETTABLEKS                       R8 R7 K1 ["settings"]
+      120 CALL                             R4 3 -1
+      121 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

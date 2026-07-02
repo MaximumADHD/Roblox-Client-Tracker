@@ -17,7 +17,7 @@ PROTO_0:
        20 JUMPIFNOT                        R6 ; [+4]
        21 LENGTH                           R3 R2
        22 LOADN                            R4 1
-       23 LOADN                            R5 255
+       23 LOADN                            R5 -1
        24 JUMP                             ; [+3]
        25 LOADN                            R3 1
        26 LENGTH                           R4 R2

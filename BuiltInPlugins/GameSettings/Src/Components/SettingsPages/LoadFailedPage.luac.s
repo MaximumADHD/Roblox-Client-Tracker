@@ -102,81 +102,71 @@ PROTO_2:
       138 GETTABLEKS                       R16 R16 K49 ["join"]
       140 GETTABLEKS                       R17 R2 K15 ["fontStyle"]
       142 GETTABLEKS                       R17 R17 K16 ["Normal"]
-      144 DUPTABLE                         R18 K53 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency"}]
-      145 LOADN                            R19 1
-      146 SETTABLEKS                       R19 R18 K37 ["LayoutOrder"]
-      148 SETTABLEKS                       R5 R18 K50 ["Text"]
-      150 GETIMPORT                        R19 K56 [UDim2.fromOffset]
-      152 GETTABLEKS                       R20 R8 K11 ["X"]
-      154 GETTABLEKS                       R21 R8 K57 ["Y"]
-      156 CALL                             R19 2 1
-      157 SETTABLEKS                       R19 R18 K51 ["Size"]
-      159 LOADN                            R19 1
-      160 SETTABLEKS                       R19 R18 K52 ["BackgroundTransparency"]
-      162 CALL                             R16 2 1
-      163 DUPTABLE                         R17 K58 [{"Padding"}]
-      164 GETUPVAL                         R18 1
-      165 GETTABLEKS                       R18 R18 K23 ["createElement"]
-      167 LOADK                            R19 K59 ["UIPadding"]
-      168 DUPTABLE                         R20 K62 [{"PaddingLeft", "PaddingRight"}]
-      169 GETIMPORT                        R21 K45 [UDim.new]
-      171 LOADN                            R22 0
-      172 GETTABLEKS                       R24 R2 K12 ["settingsPage"]
-      174 GETTABLEKS                       R24 R24 K13 ["failLabelPaddingX"]
-      176 DIVK                             R23 R24 K63 [2]
-      177 CALL                             R21 2 1
-      178 SETTABLEKS                       R21 R20 K60 ["PaddingLeft"]
-      180 GETIMPORT                        R21 K45 [UDim.new]
-      182 LOADN                            R22 0
-      183 GETTABLEKS                       R24 R2 K12 ["settingsPage"]
-      185 GETTABLEKS                       R24 R24 K13 ["failLabelPaddingX"]
-      187 DIVK                             R23 R24 K63 [2]
-      188 CALL                             R21 2 1
-      189 SETTABLEKS                       R21 R20 K61 ["PaddingRight"]
-      191 CALL                             R18 2 1
-      192 SETTABLEKS                       R18 R17 K34 ["Padding"]
-      194 CALL                             R14 3 1
-      195 SETTABLEKS                       R14 R13 K26 ["Label"]
-      197 GETUPVAL                         R14 1
-      198 GETTABLEKS                       R14 R14 K23 ["createElement"]
-      200 GETUPVAL                         R15 4
-      201 DUPTABLE                         R16 K66 [{"LayoutOrder", "Style", "Text", "Size", "OnClick"}]
-      202 LOADN                            R17 2
-      203 SETTABLEKS                       R17 R16 K37 ["LayoutOrder"]
-      205 LOADK                            R17 K67 ["GameSettingsPrimaryButton"]
-      206 SETTABLEKS                       R17 R16 K64 ["Style"]
-      208 SETTABLEKS                       R6 R16 K50 ["Text"]
-      210 GETIMPORT                        R17 K68 [UDim2.new]
-      212 LOADN                            R18 0
-      213 GETTABLEKS                       R20 R9 K11 ["X"]
-      215 GETTABLEKS                       R21 R2 K12 ["settingsPage"]
-      217 GETTABLEKS                       R21 R21 K69 ["reloadButton"]
-      219 GETTABLEKS                       R21 R21 K70 ["paddingX"]
-      221 ADD                              R19 R20 R21
-      222 LOADN                            R20 0
-      223 GETTABLEKS                       R22 R9 K57 ["Y"]
-      225 GETTABLEKS                       R23 R2 K12 ["settingsPage"]
-      227 GETTABLEKS                       R23 R23 K69 ["reloadButton"]
-      229 GETTABLEKS                       R23 R23 K71 ["paddingY"]
-      231 ADD                              R21 R22 R23
-      232 CALL                             R17 4 1
-      233 SETTABLEKS                       R17 R16 K51 ["Size"]
-      235 NEWCLOSURE                       R17 P0
-      236 CAPTURE                          VAL R4
-      237 SETTABLEKS                       R17 R16 K65 ["OnClick"]
-      239 NEWTABLE                         R17 0 1
-      241 GETUPVAL                         R18 1
-      242 GETTABLEKS                       R18 R18 K23 ["createElement"]
-      244 GETUPVAL                         R19 5
-      245 DUPTABLE                         R20 K73 [{"Cursor"}]
-      246 LOADK                            R21 K74 ["PointingHand"]
-      247 SETTABLEKS                       R21 R20 K72 ["Cursor"]
-      249 CALL                             R18 2 -1
-      250 SETLIST                          R17 R18 -1 [1]
-      252 CALL                             R14 3 1
-      253 SETTABLEKS                       R14 R13 K27 ["PublishButton"]
-      255 CALL                             R10 3 -1
-      256 RETURN                           R10 -1
+      144 DUPTABLE                         R18 K54 [{["LayoutOrder"] = 1, ["Text"], ["Size"], ["BackgroundTransparency"] = 1}]
+      145 SETTABLEKS                       R5 R18 K51 ["Text"]
+      147 GETIMPORT                        R19 K57 [UDim2.fromOffset]
+      149 GETTABLEKS                       R20 R8 K11 ["X"]
+      151 GETTABLEKS                       R21 R8 K58 ["Y"]
+      153 CALL                             R19 2 1
+      154 SETTABLEKS                       R19 R18 K52 ["Size"]
+      156 CALL                             R16 2 1
+      157 DUPTABLE                         R17 K59 [{"Padding"}]
+      158 GETUPVAL                         R18 1
+      159 GETTABLEKS                       R18 R18 K23 ["createElement"]
+      161 LOADK                            R19 K60 ["UIPadding"]
+      162 DUPTABLE                         R20 K63 [{"PaddingLeft", "PaddingRight"}]
+      163 GETIMPORT                        R21 K45 [UDim.new]
+      165 LOADN                            R22 0
+      166 GETTABLEKS                       R24 R2 K12 ["settingsPage"]
+      168 GETTABLEKS                       R24 R24 K13 ["failLabelPaddingX"]
+      170 DIVK                             R23 R24 K64 [2]
+      171 CALL                             R21 2 1
+      172 SETTABLEKS                       R21 R20 K61 ["PaddingLeft"]
+      174 GETIMPORT                        R21 K45 [UDim.new]
+      176 LOADN                            R22 0
+      177 GETTABLEKS                       R24 R2 K12 ["settingsPage"]
+      179 GETTABLEKS                       R24 R24 K13 ["failLabelPaddingX"]
+      181 DIVK                             R23 R24 K64 [2]
+      182 CALL                             R21 2 1
+      183 SETTABLEKS                       R21 R20 K62 ["PaddingRight"]
+      185 CALL                             R18 2 1
+      186 SETTABLEKS                       R18 R17 K34 ["Padding"]
+      188 CALL                             R14 3 1
+      189 SETTABLEKS                       R14 R13 K26 ["Label"]
+      191 GETUPVAL                         R14 1
+      192 GETTABLEKS                       R14 R14 K23 ["createElement"]
+      194 GETUPVAL                         R15 4
+      195 DUPTABLE                         R16 K68 [{["LayoutOrder"] = 2, ["Style"] = "GameSettingsPrimaryButton", ["Text"], ["Size"], ["OnClick"]}]
+      196 SETTABLEKS                       R6 R16 K51 ["Text"]
+      198 GETIMPORT                        R17 K69 [UDim2.new]
+      200 LOADN                            R18 0
+      201 GETTABLEKS                       R20 R9 K11 ["X"]
+      203 GETTABLEKS                       R21 R2 K12 ["settingsPage"]
+      205 GETTABLEKS                       R21 R21 K70 ["reloadButton"]
+      207 GETTABLEKS                       R21 R21 K71 ["paddingX"]
+      209 ADD                              R19 R20 R21
+      210 LOADN                            R20 0
+      211 GETTABLEKS                       R22 R9 K58 ["Y"]
+      213 GETTABLEKS                       R23 R2 K12 ["settingsPage"]
+      215 GETTABLEKS                       R23 R23 K70 ["reloadButton"]
+      217 GETTABLEKS                       R23 R23 K72 ["paddingY"]
+      219 ADD                              R21 R22 R23
+      220 CALL                             R17 4 1
+      221 SETTABLEKS                       R17 R16 K52 ["Size"]
+      223 NEWCLOSURE                       R17 P0
+      224 CAPTURE                          VAL R4
+      225 SETTABLEKS                       R17 R16 K67 ["OnClick"]
+      227 NEWTABLE                         R17 0 1
+      229 GETUPVAL                         R18 1
+      230 GETTABLEKS                       R18 R18 K23 ["createElement"]
+      232 GETUPVAL                         R19 5
+      233 DUPTABLE                         R20 K75 [{["Cursor"] = "PointingHand"}]
+      234 CALL                             R18 2 -1
+      235 SETLIST                          R17 R18 -1 [1]
+      237 CALL                             R14 3 1
+      238 SETTABLEKS                       R14 R13 K27 ["PublishButton"]
+      240 CALL                             R10 3 -1
+      241 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

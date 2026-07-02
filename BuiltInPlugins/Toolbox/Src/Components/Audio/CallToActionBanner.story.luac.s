@@ -12,18 +12,16 @@ PROTO_1:
         6 DUPTABLE                         R3 K2 [{"CallToActionBanner"}]
         7 GETUPVAL                         R4 2
         8 GETTABLEKS                       R4 R4 K3 ["Generator"]
-       10 DUPTABLE                         R5 K7 [{"Image", "Text", "OnClick"}]
+       10 DUPTABLE                         R5 K8 [{["Image"], ["Text"] = "Find tracks from Mostercat", ["OnClick"]}]
        11 GETUPVAL                         R6 3
-       12 GETTABLEKS                       R6 R6 K8 ["MONSTER_CAT_BANNER"]
+       12 GETTABLEKS                       R6 R6 K9 ["MONSTER_CAT_BANNER"]
        14 SETTABLEKS                       R6 R5 K4 ["Image"]
-       16 LOADK                            R6 K9 ["Find tracks from Mostercat"]
-       17 SETTABLEKS                       R6 R5 K5 ["Text"]
-       19 GETUPVAL                         R6 4
-       20 SETTABLEKS                       R6 R5 K6 ["OnClick"]
-       22 CALL                             R4 1 1
-       23 SETTABLEKS                       R4 R3 K1 ["CallToActionBanner"]
-       25 CALL                             R0 3 -1
-       26 RETURN                           R0 -1
+       16 GETUPVAL                         R6 4
+       17 SETTABLEKS                       R6 R5 K7 ["OnClick"]
+       19 CALL                             R4 1 1
+       20 SETTABLEKS                       R4 R3 K1 ["CallToActionBanner"]
+       22 CALL                             R0 3 -1
+       23 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -51,14 +49,12 @@ MAIN:
        38 GETTABLEKS                       R6 R6 K14 ["Images"]
        40 CALL                             R5 1 1
        41 DUPCLOSURE                       R6 K15 [PROTO_0]
-       42 DUPTABLE                         R7 K18 [{"name", "story"}]
-       43 LOADK                            R8 K19 ["Banner"]
-       44 SETTABLEKS                       R8 R7 K16 ["name"]
-       46 DUPCLOSURE                       R8 K20 [PROTO_1]
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R4
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R8 R7 K17 ["story"]
-       54 RETURN                           R7 1
+       42 DUPTABLE                         R7 K19 [{["name"] = "Banner", ["story"]}]
+       43 DUPCLOSURE                       R8 K20 [PROTO_1]
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R6
+       49 SETTABLEKS                       R8 R7 K18 ["story"]
+       51 RETURN                           R7 1

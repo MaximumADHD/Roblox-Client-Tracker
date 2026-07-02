@@ -121,24 +121,20 @@ PROTO_3:
        23 GETIMPORT                        R7 K8 [tonumber]
        25 CALL                             R7 1 1
        26 GETTABLEKS                       R8 R0 K2 ["playerPreviewAvatarData"]
-       28 DUPTABLE                         R9 K12 [{"CurrentIndex", "PreviousIndex", "Avatars"}]
-       29 LOADN                            R10 1
-       30 SETTABLEKS                       R10 R9 K9 ["CurrentIndex"]
-       32 LOADN                            R10 1
-       33 SETTABLEKS                       R10 R9 K10 ["PreviousIndex"]
-       35 NAMECALL                         R10 R6 K5 ["GetChildren"]
-       37 CALL                             R10 1 1
-       38 SETTABLEKS                       R10 R9 K11 ["Avatars"]
-       40 SETTABLE                         R9 R8 R7
-       41 GETIMPORT                        R8 K4 [ipairs]
-       43 NAMECALL                         R9 R6 K5 ["GetChildren"]
-       45 CALL                             R9 1 -1
-       46 CALL                             R8 -1 3
-       47 FORGPREP_INEXT                   R8
-       48 SETTABLEKS                       R11 R12 K6 ["Name"]
-       50 FORGLOOP                         R8 2 [inext] ; [-3]
-       52 FORGLOOP                         R2 2 [inext] ; [-33]
-       54 RETURN                           R0 0
+       28 DUPTABLE                         R9 K13 [{["CurrentIndex"] = 1, ["PreviousIndex"] = 1, ["Avatars"]}]
+       29 NAMECALL                         R10 R6 K5 ["GetChildren"]
+       31 CALL                             R10 1 1
+       32 SETTABLEKS                       R10 R9 K12 ["Avatars"]
+       34 SETTABLE                         R9 R8 R7
+       35 GETIMPORT                        R8 K4 [ipairs]
+       37 NAMECALL                         R9 R6 K5 ["GetChildren"]
+       39 CALL                             R9 1 -1
+       40 CALL                             R8 -1 3
+       41 FORGPREP_INEXT                   R8
+       42 SETTABLEKS                       R11 R12 K6 ["Name"]
+       44 FORGLOOP                         R8 2 [inext] ; [-3]
+       46 FORGLOOP                         R2 2 [inext] ; [-27]
+       48 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

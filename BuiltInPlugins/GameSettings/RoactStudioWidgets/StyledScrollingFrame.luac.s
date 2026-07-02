@@ -71,122 +71,118 @@ PROTO_0:
        98 GETUPVAL                         R8 2
        99 GETTABLEKS                       R8 R8 K12 ["createElement"]
       101 LOADK                            R9 K13 ["Frame"]
-      102 DUPTABLE                         R10 K16 [{"Position", "Size", "BackgroundTransparency", "LayoutOrder", "ZIndex", "Visible", "ClipsDescendants"}]
+      102 DUPTABLE                         R10 K16 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"], ["ZIndex"], ["Visible"], ["ClipsDescendants"]}]
       103 SETTABLEKS                       R0 R10 K1 ["Position"]
       105 SETTABLEKS                       R1 R10 K5 ["Size"]
-      107 LOADN                            R11 1
-      108 SETTABLEKS                       R11 R10 K14 ["BackgroundTransparency"]
-      110 SETTABLEKS                       R3 R10 K8 ["LayoutOrder"]
-      112 SETTABLEKS                       R4 R10 K9 ["ZIndex"]
-      114 SETTABLEKS                       R5 R10 K10 ["Visible"]
-      116 GETUPVAL                         R11 0
-      117 GETTABLEKS                       R11 R11 K0 ["props"]
-      119 GETTABLEKS                       R11 R11 K15 ["ClipsDescendants"]
-      121 SETTABLEKS                       R11 R10 K15 ["ClipsDescendants"]
-      123 DUPTABLE                         R11 K19 [{"ScrollBarBackground", "ScrollingFrame"}]
-      124 MOVE                             R12 R6
-      125 JUMPIFNOT                        R12 ; [+38]
-      126 GETUPVAL                         R12 2
-      127 GETTABLEKS                       R12 R12 K12 ["createElement"]
-      129 LOADK                            R13 K13 ["Frame"]
-      130 DUPTABLE                         R14 K23 [{"AnchorPoint", "Position", "Size", "BorderSizePixel", "BackgroundColor3"}]
-      131 GETIMPORT                        R15 K25 [Vector2.new]
-      133 LOADN                            R16 1
-      134 LOADK                            R17 K26 [0.5]
-      135 CALL                             R15 2 1
-      136 SETTABLEKS                       R15 R14 K20 ["AnchorPoint"]
-      138 GETIMPORT                        R15 K4 [UDim2.new]
-      140 LOADN                            R16 1
-      141 LOADN                            R17 0
-      142 LOADK                            R18 K26 [0.5]
-      143 LOADN                            R19 0
-      144 CALL                             R15 4 1
-      145 SETTABLEKS                       R15 R14 K1 ["Position"]
-      147 GETIMPORT                        R15 K4 [UDim2.new]
-      149 LOADN                            R16 0
-      150 LOADN                            R17 19
-      151 LOADN                            R18 2
-      152 LOADN                            R19 0
-      153 CALL                             R15 4 1
-      154 SETTABLEKS                       R15 R14 K5 ["Size"]
-      156 LOADN                            R15 0
-      157 SETTABLEKS                       R15 R14 K21 ["BorderSizePixel"]
-      159 GETTABLEKS                       R15 R7 K27 ["ScrollBarBackgroundColor"]
-      161 SETTABLEKS                       R15 R14 K22 ["BackgroundColor3"]
-      163 CALL                             R12 2 1
-      164 SETTABLEKS                       R12 R11 K17 ["ScrollBarBackground"]
-      166 GETUPVAL                         R12 2
-      167 GETTABLEKS                       R12 R12 K12 ["createElement"]
-      169 LOADK                            R13 K18 ["ScrollingFrame"]
-      170 NEWTABLE                         R14 32 0
-      172 GETIMPORT                        R15 K4 [UDim2.new]
-      174 LOADN                            R16 0
-      175 LOADN                            R17 0
-      176 LOADN                            R18 0
-      177 LOADN                            R19 0
-      178 CALL                             R15 4 1
-      179 SETTABLEKS                       R15 R14 K1 ["Position"]
-      181 GETIMPORT                        R15 K4 [UDim2.new]
-      183 LOADN                            R16 1
-      184 LOADN                            R17 250
-      185 LOADN                            R18 1
-      186 LOADN                            R19 0
-      187 CALL                             R15 4 1
-      188 SETTABLEKS                       R15 R14 K5 ["Size"]
-      190 SETTABLEKS                       R2 R14 K6 ["CanvasSize"]
-      192 LOADN                            R15 0
-      193 SETTABLEKS                       R15 R14 K21 ["BorderSizePixel"]
-      195 LOADN                            R15 1
-      196 SETTABLEKS                       R15 R14 K14 ["BackgroundTransparency"]
-      198 LOADN                            R15 8
-      199 SETTABLEKS                       R15 R14 K28 ["ScrollBarThickness"]
-      201 GETTABLEKS                       R15 R7 K29 ["scrollBarColor"]
-      203 SETTABLEKS                       R15 R14 K30 ["ScrollBarImageColor3"]
-      205 LOADN                            R15 2
-      206 SETTABLEKS                       R15 R14 K9 ["ZIndex"]
-      208 LOADK                            R15 K31 ["rbxasset://textures/GameSettings/ScrollBarTop_Wide.png"]
-      209 SETTABLEKS                       R15 R14 K32 ["TopImage"]
-      211 LOADK                            R15 K33 ["rbxasset://textures/GameSettings/ScrollBarMiddle_Wide.png"]
-      212 SETTABLEKS                       R15 R14 K34 ["MidImage"]
-      214 LOADK                            R15 K35 ["rbxasset://textures/GameSettings/ScrollBarBottom_Wide.png"]
-      215 SETTABLEKS                       R15 R14 K36 ["BottomImage"]
-      217 GETUPVAL                         R16 0
-      218 GETTABLEKS                       R16 R16 K0 ["props"]
-      220 GETTABLEKS                       R16 R16 K37 ["DisableScrolling"]
-      222 NOT                              R15 R16
-      223 SETTABLEKS                       R15 R14 K38 ["ScrollingEnabled"]
-      225 GETIMPORT                        R15 K42 [Enum.ElasticBehavior.Always]
-      227 SETTABLEKS                       R15 R14 K40 ["ElasticBehavior"]
-      229 GETIMPORT                        R15 K45 [Enum.ScrollingDirection.Y]
-      231 SETTABLEKS                       R15 R14 K43 ["ScrollingDirection"]
-      233 GETUPVAL                         R15 0
-      234 GETTABLEKS                       R15 R15 K0 ["props"]
-      236 GETTABLEKS                       R15 R15 K46 ["CanvasPosition"]
-      238 SETTABLEKS                       R15 R14 K46 ["CanvasPosition"]
-      240 GETUPVAL                         R15 2
-      241 GETTABLEKS                       R15 R15 K47 ["Change"]
-      243 GETTABLEKS                       R15 R15 K46 ["CanvasPosition"]
-      245 GETUPVAL                         R16 0
-      246 GETTABLEKS                       R16 R16 K0 ["props"]
-      248 GETTABLEKS                       R16 R16 K48 ["onScroll"]
-      250 SETTABLE                         R16 R14 R15
-      251 GETUPVAL                         R15 2
-      252 GETTABLEKS                       R15 R15 K49 ["Ref"]
-      254 GETUPVAL                         R17 0
-      255 GETTABLEKS                       R17 R17 K0 ["props"]
-      257 GETUPVAL                         R18 2
-      258 GETTABLEKS                       R18 R18 K49 ["Ref"]
-      260 GETTABLE                         R16 R17 R18
-      261 SETTABLE                         R16 R14 R15
-      262 GETUPVAL                         R16 0
-      263 GETTABLEKS                       R16 R16 K0 ["props"]
-      265 GETUPVAL                         R17 2
-      266 GETTABLEKS                       R17 R17 K50 ["Children"]
-      268 GETTABLE                         R15 R16 R17
-      269 CALL                             R12 3 1
-      270 SETTABLEKS                       R12 R11 K18 ["ScrollingFrame"]
-      272 CALL                             R8 3 -1
-      273 RETURN                           R8 -1
+      107 SETTABLEKS                       R3 R10 K8 ["LayoutOrder"]
+      109 SETTABLEKS                       R4 R10 K9 ["ZIndex"]
+      111 SETTABLEKS                       R5 R10 K10 ["Visible"]
+      113 GETUPVAL                         R11 0
+      114 GETTABLEKS                       R11 R11 K0 ["props"]
+      116 GETTABLEKS                       R11 R11 K15 ["ClipsDescendants"]
+      118 SETTABLEKS                       R11 R10 K15 ["ClipsDescendants"]
+      120 DUPTABLE                         R11 K19 [{"ScrollBarBackground", "ScrollingFrame"}]
+      121 MOVE                             R12 R6
+      122 JUMPIFNOT                        R12 ; [+35]
+      123 GETUPVAL                         R12 2
+      124 GETTABLEKS                       R12 R12 K12 ["createElement"]
+      126 LOADK                            R13 K13 ["Frame"]
+      127 DUPTABLE                         R14 K24 [{["AnchorPoint"], ["Position"], ["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+      128 GETIMPORT                        R15 K26 [Vector2.new]
+      130 LOADN                            R16 1
+      131 LOADK                            R17 K27 [0.5]
+      132 CALL                             R15 2 1
+      133 SETTABLEKS                       R15 R14 K20 ["AnchorPoint"]
+      135 GETIMPORT                        R15 K4 [UDim2.new]
+      137 LOADN                            R16 1
+      138 LOADN                            R17 0
+      139 LOADK                            R18 K27 [0.5]
+      140 LOADN                            R19 0
+      141 CALL                             R15 4 1
+      142 SETTABLEKS                       R15 R14 K1 ["Position"]
+      144 GETIMPORT                        R15 K4 [UDim2.new]
+      146 LOADN                            R16 0
+      147 LOADN                            R17 19
+      148 LOADN                            R18 2
+      149 LOADN                            R19 0
+      150 CALL                             R15 4 1
+      151 SETTABLEKS                       R15 R14 K5 ["Size"]
+      153 GETTABLEKS                       R15 R7 K28 ["ScrollBarBackgroundColor"]
+      155 SETTABLEKS                       R15 R14 K23 ["BackgroundColor3"]
+      157 CALL                             R12 2 1
+      158 SETTABLEKS                       R12 R11 K17 ["ScrollBarBackground"]
+      160 GETUPVAL                         R12 2
+      161 GETTABLEKS                       R12 R12 K12 ["createElement"]
+      163 LOADK                            R13 K18 ["ScrollingFrame"]
+      164 NEWTABLE                         R14 32 0
+      166 GETIMPORT                        R15 K4 [UDim2.new]
+      168 LOADN                            R16 0
+      169 LOADN                            R17 0
+      170 LOADN                            R18 0
+      171 LOADN                            R19 0
+      172 CALL                             R15 4 1
+      173 SETTABLEKS                       R15 R14 K1 ["Position"]
+      175 GETIMPORT                        R15 K4 [UDim2.new]
+      177 LOADN                            R16 1
+      178 LOADN                            R17 -6
+      179 LOADN                            R18 1
+      180 LOADN                            R19 0
+      181 CALL                             R15 4 1
+      182 SETTABLEKS                       R15 R14 K5 ["Size"]
+      184 SETTABLEKS                       R2 R14 K6 ["CanvasSize"]
+      186 LOADN                            R15 0
+      187 SETTABLEKS                       R15 R14 K21 ["BorderSizePixel"]
+      189 LOADN                            R15 1
+      190 SETTABLEKS                       R15 R14 K14 ["BackgroundTransparency"]
+      192 LOADN                            R15 8
+      193 SETTABLEKS                       R15 R14 K29 ["ScrollBarThickness"]
+      195 GETTABLEKS                       R15 R7 K30 ["scrollBarColor"]
+      197 SETTABLEKS                       R15 R14 K31 ["ScrollBarImageColor3"]
+      199 LOADN                            R15 2
+      200 SETTABLEKS                       R15 R14 K9 ["ZIndex"]
+      202 LOADK                            R15 K32 ["rbxasset://textures/GameSettings/ScrollBarTop_Wide.png"]
+      203 SETTABLEKS                       R15 R14 K33 ["TopImage"]
+      205 LOADK                            R15 K34 ["rbxasset://textures/GameSettings/ScrollBarMiddle_Wide.png"]
+      206 SETTABLEKS                       R15 R14 K35 ["MidImage"]
+      208 LOADK                            R15 K36 ["rbxasset://textures/GameSettings/ScrollBarBottom_Wide.png"]
+      209 SETTABLEKS                       R15 R14 K37 ["BottomImage"]
+      211 GETUPVAL                         R16 0
+      212 GETTABLEKS                       R16 R16 K0 ["props"]
+      214 GETTABLEKS                       R16 R16 K38 ["DisableScrolling"]
+      216 NOT                              R15 R16
+      217 SETTABLEKS                       R15 R14 K39 ["ScrollingEnabled"]
+      219 GETIMPORT                        R15 K43 [Enum.ElasticBehavior.Always]
+      221 SETTABLEKS                       R15 R14 K41 ["ElasticBehavior"]
+      223 GETIMPORT                        R15 K46 [Enum.ScrollingDirection.Y]
+      225 SETTABLEKS                       R15 R14 K44 ["ScrollingDirection"]
+      227 GETUPVAL                         R15 0
+      228 GETTABLEKS                       R15 R15 K0 ["props"]
+      230 GETTABLEKS                       R15 R15 K47 ["CanvasPosition"]
+      232 SETTABLEKS                       R15 R14 K47 ["CanvasPosition"]
+      234 GETUPVAL                         R15 2
+      235 GETTABLEKS                       R15 R15 K48 ["Change"]
+      237 GETTABLEKS                       R15 R15 K47 ["CanvasPosition"]
+      239 GETUPVAL                         R16 0
+      240 GETTABLEKS                       R16 R16 K0 ["props"]
+      242 GETTABLEKS                       R16 R16 K49 ["onScroll"]
+      244 SETTABLE                         R16 R14 R15
+      245 GETUPVAL                         R15 2
+      246 GETTABLEKS                       R15 R15 K50 ["Ref"]
+      248 GETUPVAL                         R17 0
+      249 GETTABLEKS                       R17 R17 K0 ["props"]
+      251 GETUPVAL                         R18 2
+      252 GETTABLEKS                       R18 R18 K50 ["Ref"]
+      254 GETTABLE                         R16 R17 R18
+      255 SETTABLE                         R16 R14 R15
+      256 GETUPVAL                         R16 0
+      257 GETTABLEKS                       R16 R16 K0 ["props"]
+      259 GETUPVAL                         R17 2
+      260 GETTABLEKS                       R17 R17 K51 ["Children"]
+      262 GETTABLE                         R15 R16 R17
+      263 CALL                             R12 3 1
+      264 SETTABLEKS                       R12 R11 K18 ["ScrollingFrame"]
+      266 CALL                             R8 3 -1
+      267 RETURN                           R8 -1
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

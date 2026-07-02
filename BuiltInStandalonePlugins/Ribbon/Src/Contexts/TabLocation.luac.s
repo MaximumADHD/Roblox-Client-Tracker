@@ -16,10 +16,8 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createContext"]
        16 MOVE                             R3 R2
-       17 DUPTABLE                         R4 K11 [{"current", "setTabLocation"}]
-       18 LOADK                            R5 K12 ["Center"]
-       19 SETTABLEKS                       R5 R4 K9 ["current"]
-       21 DUPCLOSURE                       R5 K13 [PROTO_0]
-       22 SETTABLEKS                       R5 R4 K10 ["setTabLocation"]
-       24 CALL                             R3 1 -1
-       25 RETURN                           R3 -1
+       17 DUPTABLE                         R4 K12 [{["current"] = "Center", ["setTabLocation"]}]
+       18 DUPCLOSURE                       R5 K13 [PROTO_0]
+       19 SETTABLEKS                       R5 R4 K11 ["setTabLocation"]
+       21 CALL                             R3 1 -1
+       22 RETURN                           R3 -1

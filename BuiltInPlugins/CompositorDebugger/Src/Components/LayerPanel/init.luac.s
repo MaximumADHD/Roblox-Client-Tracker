@@ -241,142 +241,136 @@ PROTO_5:
       143 GETUPVAL                         R13 2
       144 GETTABLEKS                       R13 R13 K26 ["createElement"]
       146 GETUPVAL                         R14 4
-      147 DUPTABLE                         R15 K34 [{"LayoutOrder", "Tabs", "SelectedTab", "OnTabSelected"}]
-      148 LOADN                            R16 1
-      149 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
-      151 SETTABLEKS                       R7 R15 K29 ["Tabs"]
-      153 GETTABLEKS                       R16 R0 K0 ["state"]
-      155 GETTABLEKS                       R16 R16 K35 ["selectedTab"]
-      157 SETTABLEKS                       R16 R15 K32 ["SelectedTab"]
-      159 NEWCLOSURE                       R16 P0
-      160 CAPTURE                          VAL R0
-      161 CAPTURE                          UPVAL U5
-      162 SETTABLEKS                       R16 R15 K33 ["OnTabSelected"]
-      164 CALL                             R13 2 1
-      165 SETTABLEKS                       R13 R12 K29 ["Tabs"]
-      167 GETTABLEKS                       R14 R1 K35 ["selectedTab"]
-      169 GETUPVAL                         R15 0
-      170 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
-      172 GETTABLEKS                       R15 R15 K3 ["LayerData"]
-      174 JUMPIFNOTEQ                      R14 R15 ; [+29]
-      176 GETUPVAL                         R13 2
-      177 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      179 GETUPVAL                         R14 6
-      180 NEWTABLE                         R15 8 0
-      182 LOADN                            R16 2
-      183 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
-      185 GETTABLEKS                       R16 R2 K3 ["LayerData"]
-      187 SETTABLEKS                       R16 R15 K3 ["LayerData"]
-      189 GETTABLEKS                       R16 R2 K36 ["ExpandedSections"]
-      191 SETTABLEKS                       R16 R15 K36 ["ExpandedSections"]
-      193 GETTABLEKS                       R16 R2 K37 ["Overrides"]
-      195 SETTABLEKS                       R16 R15 K37 ["Overrides"]
-      197 GETUPVAL                         R16 2
-      198 GETTABLEKS                       R16 R16 K27 ["Tag"]
-      200 LOADK                            R17 K38 ["Panel"]
-      201 SETTABLE                         R17 R15 R16
-      202 CALL                             R13 2 1
-      203 JUMP                             ; [+1]
-      204 LOADNIL                          R13
-      205 SETTABLEKS                       R13 R12 K3 ["LayerData"]
-      207 GETTABLEKS                       R14 R1 K35 ["selectedTab"]
-      209 GETUPVAL                         R15 0
-      210 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
-      212 GETTABLEKS                       R15 R15 K17 ["Visualization"]
-      214 JUMPIFNOTEQ                      R14 R15 ; [+43]
-      216 JUMPIFNOT                        R8 ; [+41]
-      217 GETUPVAL                         R13 2
-      218 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      220 GETUPVAL                         R14 3
-      221 NEWTABLE                         R15 2 0
-      223 LOADN                            R16 2
-      224 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
-      226 GETUPVAL                         R16 2
-      227 GETTABLEKS                       R16 R16 K27 ["Tag"]
-      229 LOADK                            R17 K38 ["Panel"]
-      230 SETTABLE                         R17 R15 R16
-      231 DUPTABLE                         R16 K40 [{"Content"}]
-      232 GETUPVAL                         R17 2
-      233 GETTABLEKS                       R17 R17 K26 ["createElement"]
-      235 MOVE                             R18 R8
-      236 DUPTABLE                         R19 K43 [{"FrameBuffer", "HistoryFrame", "LayerData", "Overrides"}]
-      237 GETTABLEKS                       R20 R2 K41 ["FrameBuffer"]
-      239 SETTABLEKS                       R20 R19 K41 ["FrameBuffer"]
-      241 GETTABLEKS                       R20 R2 K42 ["HistoryFrame"]
-      243 SETTABLEKS                       R20 R19 K42 ["HistoryFrame"]
-      245 GETTABLEKS                       R20 R2 K3 ["LayerData"]
-      247 SETTABLEKS                       R20 R19 K3 ["LayerData"]
-      249 GETTABLEKS                       R20 R2 K37 ["Overrides"]
-      251 SETTABLEKS                       R20 R19 K37 ["Overrides"]
-      253 CALL                             R17 2 1
-      254 SETTABLEKS                       R17 R16 K39 ["Content"]
-      256 CALL                             R13 3 1
-      257 JUMP                             ; [+1]
-      258 LOADNIL                          R13
-      259 SETTABLEKS                       R13 R12 K17 ["Visualization"]
-      261 GETTABLEKS                       R14 R1 K35 ["selectedTab"]
-      263 GETUPVAL                         R15 0
-      264 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
-      266 GETTABLEKS                       R15 R15 K19 ["History"]
-      268 JUMPIFNOTEQ                      R14 R15 ; [+34]
-      270 GETUPVAL                         R13 2
-      271 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      273 GETUPVAL                         R14 3
-      274 NEWTABLE                         R15 2 0
-      276 GETUPVAL                         R16 2
-      277 GETTABLEKS                       R16 R16 K27 ["Tag"]
-      279 LOADK                            R17 K38 ["Panel"]
-      280 SETTABLE                         R17 R15 R16
-      281 LOADN                            R16 2
-      282 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
-      284 DUPTABLE                         R16 K45 [{"HistoryGraph"}]
-      285 GETUPVAL                         R17 2
-      286 GETTABLEKS                       R17 R17 K26 ["createElement"]
-      288 GETUPVAL                         R18 7
-      289 DUPTABLE                         R19 K46 [{"FrameBuffer", "HistoryField"}]
-      290 GETTABLEKS                       R20 R2 K41 ["FrameBuffer"]
-      292 SETTABLEKS                       R20 R19 K41 ["FrameBuffer"]
-      294 GETTABLEKS                       R20 R2 K5 ["HistoryField"]
-      296 SETTABLEKS                       R20 R19 K5 ["HistoryField"]
-      298 CALL                             R17 2 1
-      299 SETTABLEKS                       R17 R16 K44 ["HistoryGraph"]
-      301 CALL                             R13 3 1
-      302 JUMP                             ; [+1]
-      303 LOADNIL                          R13
-      304 SETTABLEKS                       R13 R12 K19 ["History"]
-      306 GETTABLEKS                       R14 R1 K35 ["selectedTab"]
-      308 GETUPVAL                         R15 0
-      309 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
-      311 GETTABLEKS                       R15 R15 K20 ["RawData"]
-      313 JUMPIFNOTEQ                      R14 R15 ; [+34]
-      315 GETUPVAL                         R13 2
-      316 GETTABLEKS                       R13 R13 K26 ["createElement"]
-      318 GETUPVAL                         R14 3
-      319 NEWTABLE                         R15 2 0
-      321 LOADN                            R16 2
-      322 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
-      324 GETUPVAL                         R16 2
-      325 GETTABLEKS                       R16 R16 K27 ["Tag"]
-      327 LOADK                            R17 K38 ["Panel"]
-      328 SETTABLE                         R17 R15 R16
-      329 DUPTABLE                         R16 K48 [{"Pane"}]
-      330 GETUPVAL                         R17 2
-      331 GETTABLEKS                       R17 R17 K26 ["createElement"]
-      333 GETUPVAL                         R18 6
-      334 DUPTABLE                         R19 K50 [{"LayoutOrder", "LayerData", "RawMode"}]
-      335 LOADN                            R20 2
-      336 SETTABLEKS                       R20 R19 K31 ["LayoutOrder"]
-      338 SETTABLEKS                       R4 R19 K3 ["LayerData"]
-      340 LOADB                            R20 1
-      341 SETTABLEKS                       R20 R19 K49 ["RawMode"]
-      343 CALL                             R17 2 1
-      344 SETTABLEKS                       R17 R16 K47 ["Pane"]
-      346 CALL                             R13 3 1
-      347 JUMP                             ; [+1]
-      348 LOADNIL                          R13
-      349 SETTABLEKS                       R13 R12 K20 ["RawData"]
-      351 CALL                             R9 3 -1
-      352 RETURN                           R9 -1
+      147 DUPTABLE                         R15 K35 [{["LayoutOrder"] = 1, ["Tabs"], ["SelectedTab"], ["OnTabSelected"]}]
+      148 SETTABLEKS                       R7 R15 K29 ["Tabs"]
+      150 GETTABLEKS                       R16 R0 K0 ["state"]
+      152 GETTABLEKS                       R16 R16 K36 ["selectedTab"]
+      154 SETTABLEKS                       R16 R15 K33 ["SelectedTab"]
+      156 NEWCLOSURE                       R16 P0
+      157 CAPTURE                          VAL R0
+      158 CAPTURE                          UPVAL U5
+      159 SETTABLEKS                       R16 R15 K34 ["OnTabSelected"]
+      161 CALL                             R13 2 1
+      162 SETTABLEKS                       R13 R12 K29 ["Tabs"]
+      164 GETTABLEKS                       R14 R1 K36 ["selectedTab"]
+      166 GETUPVAL                         R15 0
+      167 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
+      169 GETTABLEKS                       R15 R15 K3 ["LayerData"]
+      171 JUMPIFNOTEQ                      R14 R15 ; [+29]
+      173 GETUPVAL                         R13 2
+      174 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      176 GETUPVAL                         R14 6
+      177 NEWTABLE                         R15 8 0
+      179 LOADN                            R16 2
+      180 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
+      182 GETTABLEKS                       R16 R2 K3 ["LayerData"]
+      184 SETTABLEKS                       R16 R15 K3 ["LayerData"]
+      186 GETTABLEKS                       R16 R2 K37 ["ExpandedSections"]
+      188 SETTABLEKS                       R16 R15 K37 ["ExpandedSections"]
+      190 GETTABLEKS                       R16 R2 K38 ["Overrides"]
+      192 SETTABLEKS                       R16 R15 K38 ["Overrides"]
+      194 GETUPVAL                         R16 2
+      195 GETTABLEKS                       R16 R16 K27 ["Tag"]
+      197 LOADK                            R17 K39 ["Panel"]
+      198 SETTABLE                         R17 R15 R16
+      199 CALL                             R13 2 1
+      200 JUMP                             ; [+1]
+      201 LOADNIL                          R13
+      202 SETTABLEKS                       R13 R12 K3 ["LayerData"]
+      204 GETTABLEKS                       R14 R1 K36 ["selectedTab"]
+      206 GETUPVAL                         R15 0
+      207 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
+      209 GETTABLEKS                       R15 R15 K17 ["Visualization"]
+      211 JUMPIFNOTEQ                      R14 R15 ; [+43]
+      213 JUMPIFNOT                        R8 ; [+41]
+      214 GETUPVAL                         R13 2
+      215 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      217 GETUPVAL                         R14 3
+      218 NEWTABLE                         R15 2 0
+      220 LOADN                            R16 2
+      221 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
+      223 GETUPVAL                         R16 2
+      224 GETTABLEKS                       R16 R16 K27 ["Tag"]
+      226 LOADK                            R17 K39 ["Panel"]
+      227 SETTABLE                         R17 R15 R16
+      228 DUPTABLE                         R16 K41 [{"Content"}]
+      229 GETUPVAL                         R17 2
+      230 GETTABLEKS                       R17 R17 K26 ["createElement"]
+      232 MOVE                             R18 R8
+      233 DUPTABLE                         R19 K44 [{"FrameBuffer", "HistoryFrame", "LayerData", "Overrides"}]
+      234 GETTABLEKS                       R20 R2 K42 ["FrameBuffer"]
+      236 SETTABLEKS                       R20 R19 K42 ["FrameBuffer"]
+      238 GETTABLEKS                       R20 R2 K43 ["HistoryFrame"]
+      240 SETTABLEKS                       R20 R19 K43 ["HistoryFrame"]
+      242 GETTABLEKS                       R20 R2 K3 ["LayerData"]
+      244 SETTABLEKS                       R20 R19 K3 ["LayerData"]
+      246 GETTABLEKS                       R20 R2 K38 ["Overrides"]
+      248 SETTABLEKS                       R20 R19 K38 ["Overrides"]
+      250 CALL                             R17 2 1
+      251 SETTABLEKS                       R17 R16 K40 ["Content"]
+      253 CALL                             R13 3 1
+      254 JUMP                             ; [+1]
+      255 LOADNIL                          R13
+      256 SETTABLEKS                       R13 R12 K17 ["Visualization"]
+      258 GETTABLEKS                       R14 R1 K36 ["selectedTab"]
+      260 GETUPVAL                         R15 0
+      261 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
+      263 GETTABLEKS                       R15 R15 K19 ["History"]
+      265 JUMPIFNOTEQ                      R14 R15 ; [+34]
+      267 GETUPVAL                         R13 2
+      268 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      270 GETUPVAL                         R14 3
+      271 NEWTABLE                         R15 2 0
+      273 GETUPVAL                         R16 2
+      274 GETTABLEKS                       R16 R16 K27 ["Tag"]
+      276 LOADK                            R17 K39 ["Panel"]
+      277 SETTABLE                         R17 R15 R16
+      278 LOADN                            R16 2
+      279 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
+      281 DUPTABLE                         R16 K46 [{"HistoryGraph"}]
+      282 GETUPVAL                         R17 2
+      283 GETTABLEKS                       R17 R17 K26 ["createElement"]
+      285 GETUPVAL                         R18 7
+      286 DUPTABLE                         R19 K47 [{"FrameBuffer", "HistoryField"}]
+      287 GETTABLEKS                       R20 R2 K42 ["FrameBuffer"]
+      289 SETTABLEKS                       R20 R19 K42 ["FrameBuffer"]
+      291 GETTABLEKS                       R20 R2 K5 ["HistoryField"]
+      293 SETTABLEKS                       R20 R19 K5 ["HistoryField"]
+      295 CALL                             R17 2 1
+      296 SETTABLEKS                       R17 R16 K45 ["HistoryGraph"]
+      298 CALL                             R13 3 1
+      299 JUMP                             ; [+1]
+      300 LOADNIL                          R13
+      301 SETTABLEKS                       R13 R12 K19 ["History"]
+      303 GETTABLEKS                       R14 R1 K36 ["selectedTab"]
+      305 GETUPVAL                         R15 0
+      306 GETTABLEKS                       R15 R15 K12 ["LAYER_TABS"]
+      308 GETTABLEKS                       R15 R15 K20 ["RawData"]
+      310 JUMPIFNOTEQ                      R14 R15 ; [+28]
+      312 GETUPVAL                         R13 2
+      313 GETTABLEKS                       R13 R13 K26 ["createElement"]
+      315 GETUPVAL                         R14 3
+      316 NEWTABLE                         R15 2 0
+      318 LOADN                            R16 2
+      319 SETTABLEKS                       R16 R15 K31 ["LayoutOrder"]
+      321 GETUPVAL                         R16 2
+      322 GETTABLEKS                       R16 R16 K27 ["Tag"]
+      324 LOADK                            R17 K39 ["Panel"]
+      325 SETTABLE                         R17 R15 R16
+      326 DUPTABLE                         R16 K49 [{"Pane"}]
+      327 GETUPVAL                         R17 2
+      328 GETTABLEKS                       R17 R17 K26 ["createElement"]
+      330 GETUPVAL                         R18 6
+      331 DUPTABLE                         R19 K53 [{["LayoutOrder"] = 2, ["LayerData"], ["RawMode"] = True}]
+      332 SETTABLEKS                       R4 R19 K3 ["LayerData"]
+      334 CALL                             R17 2 1
+      335 SETTABLEKS                       R17 R16 K48 ["Pane"]
+      337 CALL                             R13 3 1
+      338 JUMP                             ; [+1]
+      339 LOADNIL                          R13
+      340 SETTABLEKS                       R13 R12 K20 ["RawData"]
+      342 CALL                             R9 3 -1
+      343 RETURN                           R9 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K1 [{"HistoryField"}]

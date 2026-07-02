@@ -67,48 +67,46 @@ PROTO_3:
        25 GETUPVAL                         R10 1
        26 GETTABLEKS                       R10 R10 K5 ["createElement"]
        28 LOADK                            R11 K6 ["Frame"]
-       29 DUPTABLE                         R12 K9 [{"Size", "BackgroundTransparency"}]
-       30 GETIMPORT                        R13 K12 [UDim2.fromOffset]
-       32 LOADN                            R14 44
-       33 LOADN                            R15 44
+       29 DUPTABLE                         R12 K10 [{["Size"], ["BackgroundTransparency"] = 1}]
+       30 GETIMPORT                        R13 K13 [UDim2.fromOffset]
+       32 LOADN                            R14 300
+       33 LOADN                            R15 300
        34 CALL                             R13 2 1
        35 SETTABLEKS                       R13 R12 K7 ["Size"]
-       37 LOADN                            R13 1
-       38 SETTABLEKS                       R13 R12 K8 ["BackgroundTransparency"]
-       40 NEWTABLE                         R13 0 1
-       42 GETUPVAL                         R14 1
-       43 GETTABLEKS                       R14 R14 K5 ["createElement"]
-       45 GETUPVAL                         R15 4
-       46 DUPTABLE                         R16 K18 [{"Size", "Collaborators", "CollaboratorSelected", "Filter", "Enabled", "ListItemSize"}]
-       47 GETIMPORT                        R17 K19 [UDim2.new]
-       49 LOADN                            R18 1
-       50 LOADN                            R19 0
-       51 LOADN                            R20 0
-       52 LOADN                            R21 80
-       53 CALL                             R17 4 1
-       54 SETTABLEKS                       R17 R16 K7 ["Size"]
-       56 SETTABLEKS                       R2 R16 K13 ["Collaborators"]
-       58 DUPCLOSURE                       R17 K20 [PROTO_1]
-       59 CAPTURE                          UPVAL U5
-       60 SETTABLEKS                       R17 R16 K14 ["CollaboratorSelected"]
-       62 NEWCLOSURE                       R17 P1
-       63 CAPTURE                          VAL R2
-       64 SETTABLEKS                       R17 R16 K15 ["Filter"]
-       66 GETTABLEKS                       R17 R0 K3 ["controls"]
-       68 GETTABLEKS                       R17 R17 K16 ["Enabled"]
-       70 SETTABLEKS                       R17 R16 K16 ["Enabled"]
-       72 GETIMPORT                        R17 K22 [Vector2.new]
-       74 LOADN                            R18 44
-       75 LOADN                            R19 60
-       76 CALL                             R17 2 1
-       77 SETTABLEKS                       R17 R16 K17 ["ListItemSize"]
-       79 CALL                             R14 2 -1
-       80 SETLIST                          R13 R14 -1 [1]
-       82 CALL                             R10 3 -1
-       83 SETLIST                          R9 R10 -1 [1]
-       85 CALL                             R6 3 -1
-       86 CALL                             R3 -1 -1
-       87 RETURN                           R3 -1
+       37 NEWTABLE                         R13 0 1
+       39 GETUPVAL                         R14 1
+       40 GETTABLEKS                       R14 R14 K5 ["createElement"]
+       42 GETUPVAL                         R15 4
+       43 DUPTABLE                         R16 K19 [{"Size", "Collaborators", "CollaboratorSelected", "Filter", "Enabled", "ListItemSize"}]
+       44 GETIMPORT                        R17 K20 [UDim2.new]
+       46 LOADN                            R18 1
+       47 LOADN                            R19 0
+       48 LOADN                            R20 0
+       49 LOADN                            R21 80
+       50 CALL                             R17 4 1
+       51 SETTABLEKS                       R17 R16 K7 ["Size"]
+       53 SETTABLEKS                       R2 R16 K14 ["Collaborators"]
+       55 DUPCLOSURE                       R17 K21 [PROTO_1]
+       56 CAPTURE                          UPVAL U5
+       57 SETTABLEKS                       R17 R16 K15 ["CollaboratorSelected"]
+       59 NEWCLOSURE                       R17 P1
+       60 CAPTURE                          VAL R2
+       61 SETTABLEKS                       R17 R16 K16 ["Filter"]
+       63 GETTABLEKS                       R17 R0 K3 ["controls"]
+       65 GETTABLEKS                       R17 R17 K17 ["Enabled"]
+       67 SETTABLEKS                       R17 R16 K17 ["Enabled"]
+       69 GETIMPORT                        R17 K23 [Vector2.new]
+       71 LOADN                            R18 300
+       72 LOADN                            R19 60
+       73 CALL                             R17 2 1
+       74 SETTABLEKS                       R17 R16 K18 ["ListItemSize"]
+       76 CALL                             R14 2 -1
+       77 SETLIST                          R13 R14 -1 [1]
+       79 CALL                             R10 3 -1
+       80 SETLIST                          R9 R10 -1 [1]
+       82 CALL                             R6 3 -1
+       83 CALL                             R3 -1 -1
+       84 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -139,26 +137,22 @@ MAIN:
        42 GETTABLEKS                       R9 R4 K14 ["CollaboratorInfoContextMock"]
        44 CALL                             R8 1 1
        45 DUPCLOSURE                       R9 K15 [PROTO_0]
-       46 DUPTABLE                         R10 K19 [{"summary", "controls", "story"}]
-       47 LOADK                            R11 K20 ["This component searches through a list of potential collaborators and displays results in a dropdown."]
-       48 SETTABLEKS                       R11 R10 K16 ["summary"]
-       50 DUPTABLE                         R11 K23 [{"PossibleCollaboratorCount", "Enabled"}]
-       51 NEWTABLE                         R12 0 4
-       53 LOADN                            R13 10
-       54 LOADN                            R14 0
-       55 LOADN                            R15 25
-       56 LOADN                            R16 100
-       57 SETLIST                          R12 R13 4 [1]
-       59 SETTABLEKS                       R12 R11 K21 ["PossibleCollaboratorCount"]
-       61 LOADB                            R12 1
-       62 SETTABLEKS                       R12 R11 K22 ["Enabled"]
-       64 SETTABLEKS                       R11 R10 K17 ["controls"]
-       66 DUPCLOSURE                       R11 K24 [PROTO_3]
-       67 CAPTURE                          VAL R9
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R8
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R6
-       73 SETTABLEKS                       R11 R10 K18 ["story"]
-       75 RETURN                           R10 1
+       46 DUPTABLE                         R10 K20 [{["summary"] = "This component searches through a list of potential collaborators and displays results in a dropdown.", ["controls"], ["story"]}]
+       47 DUPTABLE                         R11 K24 [{["PossibleCollaboratorCount"], ["Enabled"] = True}]
+       48 NEWTABLE                         R12 0 4
+       50 LOADN                            R13 10
+       51 LOADN                            R14 0
+       52 LOADN                            R15 25
+       53 LOADN                            R16 100
+       54 SETLIST                          R12 R13 4 [1]
+       56 SETTABLEKS                       R12 R11 K21 ["PossibleCollaboratorCount"]
+       58 SETTABLEKS                       R11 R10 K18 ["controls"]
+       60 DUPCLOSURE                       R11 K25 [PROTO_3]
+       61 CAPTURE                          VAL R9
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R6
+       67 SETTABLEKS                       R11 R10 K19 ["story"]
+       69 RETURN                           R10 1

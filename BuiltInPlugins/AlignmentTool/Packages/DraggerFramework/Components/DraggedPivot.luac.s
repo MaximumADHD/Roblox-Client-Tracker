@@ -7,27 +7,21 @@ PROTO_0:
         9 GETUPVAL                         R2 0
        10 GETTABLEKS                       R2 R2 K4 ["createElement"]
        12 LOADK                            R3 K5 ["SphereHandleAdornment"]
-       13 DUPTABLE                         R4 K12 [{"Adornee", "CFrame", "Radius", "ZIndex", "AlwaysOnTop", "Transparency", "Color3"}]
+       13 DUPTABLE                         R4 K15 [{["Adornee"], ["CFrame"], ["Radius"], ["ZIndex"] = 0, ["AlwaysOnTop"] = False, ["Transparency"] = 0.5, ["Color3"]}]
        14 GETUPVAL                         R5 1
-       15 GETTABLEKS                       R5 R5 K13 ["Terrain"]
+       15 GETTABLEKS                       R5 R5 K16 ["Terrain"]
        17 SETTABLEKS                       R5 R4 K6 ["Adornee"]
        19 GETTABLEKS                       R5 R0 K1 ["CFrame"]
        21 SETTABLEKS                       R5 R4 K1 ["CFrame"]
-       23 MULK                             R5 R1 K14 [0.4]
+       23 MULK                             R5 R1 K17 [0.4]
        24 SETTABLEKS                       R5 R4 K7 ["Radius"]
-       26 LOADN                            R5 0
-       27 SETTABLEKS                       R5 R4 K8 ["ZIndex"]
-       29 LOADB                            R5 0
-       30 SETTABLEKS                       R5 R4 K9 ["AlwaysOnTop"]
-       32 LOADK                            R5 K15 [0.5]
-       33 SETTABLEKS                       R5 R4 K10 ["Transparency"]
-       35 GETTABLEKS                       R5 R0 K0 ["DraggerContext"]
-       37 GETTABLEKS                       R7 R0 K16 ["IsActive"]
-       39 NAMECALL                         R5 R5 K17 ["getSelectionBoxColor"]
-       41 CALL                             R5 2 1
-       42 SETTABLEKS                       R5 R4 K11 ["Color3"]
-       44 CALL                             R2 2 -1
-       45 RETURN                           R2 -1
+       26 GETTABLEKS                       R5 R0 K0 ["DraggerContext"]
+       28 GETTABLEKS                       R7 R0 K18 ["IsActive"]
+       30 NAMECALL                         R5 R5 K19 ["getSelectionBoxColor"]
+       32 CALL                             R5 2 1
+       33 SETTABLEKS                       R5 R4 K14 ["Color3"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

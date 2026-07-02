@@ -5,19 +5,17 @@ PROTO_0:
         4 CALL                             R2 2 0
         5 GETUPVAL                         R4 1
         6 GETUPVAL                         R5 2
-        7 DUPTABLE                         R6 K4 [{"eventType", "path"}]
+        7 DUPTABLE                         R6 K5 [{["eventType"], ["path"] = "OnboardingLink"}]
         8 GETUPVAL                         R7 3
-        9 GETTABLEKS                       R7 R7 K5 ["OnboardingLink"]
+        9 GETTABLEKS                       R7 R7 K4 ["OnboardingLink"]
        11 GETTABLEKS                       R7 R7 K6 ["rawValue"]
        13 CALL                             R7 0 1
        14 SETTABLEKS                       R7 R6 K2 ["eventType"]
-       16 LOADK                            R7 K5 ["OnboardingLink"]
-       17 SETTABLEKS                       R7 R6 K3 ["path"]
-       19 CALL                             R5 1 -1
-       20 CALL                             R4 -1 -1
-       21 NAMECALL                         R2 R0 K7 ["dispatch"]
-       23 CALL                             R2 -1 0
-       24 RETURN                           R0 0
+       16 CALL                             R5 1 -1
+       17 CALL                             R4 -1 -1
+       18 NAMECALL                         R2 R0 K7 ["dispatch"]
+       20 CALL                             R2 -1 0
+       21 RETURN                           R0 0
 
 PROTO_1:
         0 DUPCLOSURE                       R0 K0 [PROTO_0]

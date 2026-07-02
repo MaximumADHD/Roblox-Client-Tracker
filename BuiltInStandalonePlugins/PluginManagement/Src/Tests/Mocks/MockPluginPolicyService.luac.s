@@ -10,13 +10,11 @@ PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 JUMPIFNOTEQKS                    R1 K0 ["Toolbox"] ; [+6]
-        2 DUPTABLE                         R2 K2 [{"CreatorMarketplaceWebUrl"}]
-        3 LOADK                            R3 K3 [""]
-        4 SETTABLEKS                       R3 R2 K1 ["CreatorMarketplaceWebUrl"]
+        0 JUMPIFNOTEQKS                    R1 K0 ["Toolbox"] ; [+3]
+        2 DUPTABLE                         R2 K3 [{["CreatorMarketplaceWebUrl"] = ""}]
+        3 RETURN                           R2 1
+        4 NEWTABLE                         R2 0 0
         6 RETURN                           R2 1
-        7 NEWTABLE                         R2 0 0
-        9 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

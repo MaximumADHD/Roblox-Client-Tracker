@@ -210,7 +210,7 @@ PROTO_8:
        17 MUL                              R4 R2 R2
        18 LOADN                            R7 2
        19 MUL                              R6 R7 R2
-       20 SUBRK                            R5 R7 K6 [math.max]
+       20 SUBRK                            R5 K7 [3] R6
        21 MUL                              R3 R4 R5
        22 RETURN                           R3 1
 

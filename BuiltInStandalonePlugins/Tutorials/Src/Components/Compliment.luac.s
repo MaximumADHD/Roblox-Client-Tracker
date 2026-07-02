@@ -42,20 +42,18 @@ PROTO_0:
        63 GETUPVAL                         R6 1
        64 GETTABLEKS                       R6 R6 K0 ["createElement"]
        66 GETUPVAL                         R7 4
-       67 DUPTABLE                         R8 K23 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
+       67 DUPTABLE                         R8 K24 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "Bold", ["Text"]}]
        68 GETIMPORT                        R9 K4 [Enum.AutomaticSize.XY]
        70 SETTABLEKS                       R9 R8 K2 ["AutomaticSize"]
        72 MOVE                             R9 R1
        73 CALL                             R9 0 1
        74 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
-       76 LOADK                            R9 K24 ["Bold"]
-       77 SETTABLEKS                       R9 R8 K22 ["Style"]
-       79 GETTABLEKS                       R9 R0 K17 ["Text"]
-       81 SETTABLEKS                       R9 R8 K17 ["Text"]
-       83 CALL                             R6 2 1
-       84 SETTABLEKS                       R6 R5 K17 ["Text"]
-       86 CALL                             R2 3 -1
-       87 RETURN                           R2 -1
+       76 GETTABLEKS                       R9 R0 K17 ["Text"]
+       78 SETTABLEKS                       R9 R8 K17 ["Text"]
+       80 CALL                             R6 2 1
+       81 SETTABLEKS                       R6 R5 K17 ["Text"]
+       83 CALL                             R2 3 -1
+       84 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

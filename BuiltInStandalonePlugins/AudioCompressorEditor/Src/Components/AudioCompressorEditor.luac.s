@@ -64,7 +64,7 @@ PROTO_3:
        41 LOADK                            R8 K5 [""]
        42 CALL                             R7 1 2
        43 GETTABLEKS                       R9 R0 K6 ["Enabled"]
-       45 JUMPIFNOT                        R9 ; [+231]
+       45 JUMPIFNOT                        R9 ; [+225]
        46 GETUPVAL                         R9 6
        47 GETTABLEKS                       R9 R9 K7 ["createElement"]
        49 GETUPVAL                         R10 7
@@ -108,7 +108,7 @@ PROTO_3:
       105 LOADN                            R17 1
       106 LOADN                            R18 0
       107 LOADN                            R19 1
-      108 LOADN                            R20 181
+      108 LOADN                            R20 -75
       109 CALL                             R16 4 1
       110 SETTABLEKS                       R16 R15 K11 ["Size"]
       112 LOADN                            R16 2
@@ -121,111 +121,107 @@ PROTO_3:
       121 GETUPVAL                         R17 6
       122 GETTABLEKS                       R17 R17 K7 ["createElement"]
       124 GETUPVAL                         R18 7
-      125 DUPTABLE                         R19 K32 [{"Size", "LayoutOrder"}]
+      125 DUPTABLE                         R19 K33 [{["Size"], ["LayoutOrder"] = 1}]
       126 GETIMPORT                        R20 K10 [UDim2.fromScale]
-      128 LOADK                            R21 K33 [0.75]
+      128 LOADK                            R21 K34 [0.75]
       129 LOADN                            R22 1
       130 CALL                             R20 2 1
       131 SETTABLEKS                       R20 R19 K11 ["Size"]
-      133 LOADN                            R20 1
-      134 SETTABLEKS                       R20 R19 K27 ["LayoutOrder"]
-      136 DUPTABLE                         R20 K35 [{"PlotCanvas"}]
-      137 GETUPVAL                         R21 6
-      138 GETTABLEKS                       R21 R21 K7 ["createElement"]
-      140 GETUPVAL                         R22 7
-      141 NEWTABLE                         R23 8 0
-      143 GETIMPORT                        R24 K26 [UDim2.new]
-      145 LOADN                            R25 0
-      146 LOADN                            R26 25
-      147 LOADN                            R27 0
-      148 LOADN                            R28 25
-      149 CALL                             R24 4 1
-      150 SETTABLEKS                       R24 R23 K36 ["Position"]
-      152 GETIMPORT                        R24 K26 [UDim2.new]
-      154 LOADN                            R25 1
-      155 LOADN                            R26 206
-      156 LOADN                            R27 1
-      157 LOADN                            R28 206
-      158 CALL                             R24 4 1
-      159 SETTABLEKS                       R24 R23 K11 ["Size"]
-      161 LOADN                            R24 1
-      162 SETTABLEKS                       R24 R23 K37 ["BackgroundTransparency"]
-      164 SETTABLEKS                       R3 R23 K38 ["ForwardRef"]
-      166 GETUPVAL                         R24 6
-      167 GETTABLEKS                       R24 R24 K39 ["Change"]
-      169 GETTABLEKS                       R24 R24 K40 ["AbsoluteSize"]
-      171 SETTABLE                         R6 R23 R24
-      172 DUPTABLE                         R24 K45 [{"Grid", "MeteringLine", "Curve", "Handles"}]
-      173 GETUPVAL                         R25 6
-      174 GETTABLEKS                       R25 R25 K7 ["createElement"]
-      176 GETUPVAL                         R26 11
-      177 DUPTABLE                         R27 K47 [{"PlotAbsoluteSize"}]
-      178 SETTABLEKS                       R1 R27 K46 ["PlotAbsoluteSize"]
-      180 CALL                             R25 2 1
-      181 SETTABLEKS                       R25 R24 K41 ["Grid"]
-      183 GETUPVAL                         R25 6
-      184 GETTABLEKS                       R25 R25 K7 ["createElement"]
-      186 GETUPVAL                         R26 12
-      187 DUPTABLE                         R27 K50 [{"InstanceType", "DisplaySettings", "PlotAbsoluteSize", "ForceRefresh"}]
-      188 GETTABLEKS                       R28 R5 K51 ["instanceType"]
-      190 SETTABLEKS                       R28 R27 K48 ["InstanceType"]
-      192 GETTABLEKS                       R28 R0 K22 ["DisplaySettings"]
-      194 SETTABLEKS                       R28 R27 K22 ["DisplaySettings"]
-      196 SETTABLEKS                       R1 R27 K46 ["PlotAbsoluteSize"]
-      198 GETUPVAL                         R28 5
-      199 SETTABLEKS                       R28 R27 K49 ["ForceRefresh"]
-      201 CALL                             R25 2 1
-      202 SETTABLEKS                       R25 R24 K42 ["MeteringLine"]
-      204 GETUPVAL                         R25 6
-      205 GETTABLEKS                       R25 R25 K7 ["createElement"]
-      207 GETUPVAL                         R26 13
-      208 DUPTABLE                         R27 K52 [{"Enabled", "DataHook", "PlotAbsoluteSize"}]
-      209 GETTABLEKS                       R28 R0 K22 ["DisplaySettings"]
-      211 GETTABLEKS                       R28 R28 K53 ["ShowEnvelope"]
-      213 SETTABLEKS                       R28 R27 K6 ["Enabled"]
-      215 SETTABLEKS                       R5 R27 K21 ["DataHook"]
-      217 SETTABLEKS                       R1 R27 K46 ["PlotAbsoluteSize"]
-      219 CALL                             R25 2 1
-      220 SETTABLEKS                       R25 R24 K43 ["Curve"]
-      222 GETUPVAL                         R25 6
-      223 GETTABLEKS                       R25 R25 K7 ["createElement"]
-      225 GETUPVAL                         R26 14
-      226 DUPTABLE                         R27 K55 [{"DataHook", "ActiveControl", "PlotAbsoluteSize"}]
-      227 SETTABLEKS                       R5 R27 K21 ["DataHook"]
-      229 SETTABLEKS                       R7 R27 K54 ["ActiveControl"]
-      231 SETTABLEKS                       R1 R27 K46 ["PlotAbsoluteSize"]
-      233 CALL                             R25 2 1
-      234 SETTABLEKS                       R25 R24 K44 ["Handles"]
-      236 CALL                             R21 3 1
-      237 SETTABLEKS                       R21 R20 K34 ["PlotCanvas"]
-      239 CALL                             R17 3 1
-      240 SETTABLEKS                       R17 R16 K29 ["Canvas"]
-      242 GETUPVAL                         R17 6
-      243 GETTABLEKS                       R17 R17 K7 ["createElement"]
-      245 GETUPVAL                         R18 7
-      246 DUPTABLE                         R19 K32 [{"Size", "LayoutOrder"}]
-      247 GETIMPORT                        R20 K10 [UDim2.fromScale]
-      249 LOADK                            R21 K56 [0.25]
-      250 LOADN                            R22 1
-      251 CALL                             R20 2 1
-      252 SETTABLEKS                       R20 R19 K11 ["Size"]
-      254 LOADN                            R20 2
-      255 SETTABLEKS                       R20 R19 K27 ["LayoutOrder"]
-      257 DUPTABLE                         R20 K58 [{"MainControls"}]
-      258 GETUPVAL                         R21 6
-      259 GETTABLEKS                       R21 R21 K7 ["createElement"]
-      261 GETUPVAL                         R22 15
-      262 DUPTABLE                         R23 K60 [{"DataHook", "SetActiveControl"}]
-      263 SETTABLEKS                       R5 R23 K21 ["DataHook"]
-      265 SETTABLEKS                       R8 R23 K59 ["SetActiveControl"]
-      267 CALL                             R21 2 1
-      268 SETTABLEKS                       R21 R20 K57 ["MainControls"]
-      270 CALL                             R17 3 1
-      271 SETTABLEKS                       R17 R16 K30 ["MainControlsPanel"]
-      273 CALL                             R13 3 1
-      274 SETTABLEKS                       R13 R12 K16 ["MainPanel"]
-      276 CALL                             R9 3 1
-      277 RETURN                           R9 1
+      133 DUPTABLE                         R20 K36 [{"PlotCanvas"}]
+      134 GETUPVAL                         R21 6
+      135 GETTABLEKS                       R21 R21 K7 ["createElement"]
+      137 GETUPVAL                         R22 7
+      138 NEWTABLE                         R23 8 0
+      140 GETIMPORT                        R24 K26 [UDim2.new]
+      142 LOADN                            R25 0
+      143 LOADN                            R26 25
+      144 LOADN                            R27 0
+      145 LOADN                            R28 25
+      146 CALL                             R24 4 1
+      147 SETTABLEKS                       R24 R23 K37 ["Position"]
+      149 GETIMPORT                        R24 K26 [UDim2.new]
+      151 LOADN                            R25 1
+      152 LOADN                            R26 -50
+      153 LOADN                            R27 1
+      154 LOADN                            R28 -50
+      155 CALL                             R24 4 1
+      156 SETTABLEKS                       R24 R23 K11 ["Size"]
+      158 LOADN                            R24 1
+      159 SETTABLEKS                       R24 R23 K38 ["BackgroundTransparency"]
+      161 SETTABLEKS                       R3 R23 K39 ["ForwardRef"]
+      163 GETUPVAL                         R24 6
+      164 GETTABLEKS                       R24 R24 K40 ["Change"]
+      166 GETTABLEKS                       R24 R24 K41 ["AbsoluteSize"]
+      168 SETTABLE                         R6 R23 R24
+      169 DUPTABLE                         R24 K46 [{"Grid", "MeteringLine", "Curve", "Handles"}]
+      170 GETUPVAL                         R25 6
+      171 GETTABLEKS                       R25 R25 K7 ["createElement"]
+      173 GETUPVAL                         R26 11
+      174 DUPTABLE                         R27 K48 [{"PlotAbsoluteSize"}]
+      175 SETTABLEKS                       R1 R27 K47 ["PlotAbsoluteSize"]
+      177 CALL                             R25 2 1
+      178 SETTABLEKS                       R25 R24 K42 ["Grid"]
+      180 GETUPVAL                         R25 6
+      181 GETTABLEKS                       R25 R25 K7 ["createElement"]
+      183 GETUPVAL                         R26 12
+      184 DUPTABLE                         R27 K51 [{"InstanceType", "DisplaySettings", "PlotAbsoluteSize", "ForceRefresh"}]
+      185 GETTABLEKS                       R28 R5 K52 ["instanceType"]
+      187 SETTABLEKS                       R28 R27 K49 ["InstanceType"]
+      189 GETTABLEKS                       R28 R0 K22 ["DisplaySettings"]
+      191 SETTABLEKS                       R28 R27 K22 ["DisplaySettings"]
+      193 SETTABLEKS                       R1 R27 K47 ["PlotAbsoluteSize"]
+      195 GETUPVAL                         R28 5
+      196 SETTABLEKS                       R28 R27 K50 ["ForceRefresh"]
+      198 CALL                             R25 2 1
+      199 SETTABLEKS                       R25 R24 K43 ["MeteringLine"]
+      201 GETUPVAL                         R25 6
+      202 GETTABLEKS                       R25 R25 K7 ["createElement"]
+      204 GETUPVAL                         R26 13
+      205 DUPTABLE                         R27 K53 [{"Enabled", "DataHook", "PlotAbsoluteSize"}]
+      206 GETTABLEKS                       R28 R0 K22 ["DisplaySettings"]
+      208 GETTABLEKS                       R28 R28 K54 ["ShowEnvelope"]
+      210 SETTABLEKS                       R28 R27 K6 ["Enabled"]
+      212 SETTABLEKS                       R5 R27 K21 ["DataHook"]
+      214 SETTABLEKS                       R1 R27 K47 ["PlotAbsoluteSize"]
+      216 CALL                             R25 2 1
+      217 SETTABLEKS                       R25 R24 K44 ["Curve"]
+      219 GETUPVAL                         R25 6
+      220 GETTABLEKS                       R25 R25 K7 ["createElement"]
+      222 GETUPVAL                         R26 14
+      223 DUPTABLE                         R27 K56 [{"DataHook", "ActiveControl", "PlotAbsoluteSize"}]
+      224 SETTABLEKS                       R5 R27 K21 ["DataHook"]
+      226 SETTABLEKS                       R7 R27 K55 ["ActiveControl"]
+      228 SETTABLEKS                       R1 R27 K47 ["PlotAbsoluteSize"]
+      230 CALL                             R25 2 1
+      231 SETTABLEKS                       R25 R24 K45 ["Handles"]
+      233 CALL                             R21 3 1
+      234 SETTABLEKS                       R21 R20 K35 ["PlotCanvas"]
+      236 CALL                             R17 3 1
+      237 SETTABLEKS                       R17 R16 K29 ["Canvas"]
+      239 GETUPVAL                         R17 6
+      240 GETTABLEKS                       R17 R17 K7 ["createElement"]
+      242 GETUPVAL                         R18 7
+      243 DUPTABLE                         R19 K58 [{["Size"], ["LayoutOrder"] = 2}]
+      244 GETIMPORT                        R20 K10 [UDim2.fromScale]
+      246 LOADK                            R21 K59 [0.25]
+      247 LOADN                            R22 1
+      248 CALL                             R20 2 1
+      249 SETTABLEKS                       R20 R19 K11 ["Size"]
+      251 DUPTABLE                         R20 K61 [{"MainControls"}]
+      252 GETUPVAL                         R21 6
+      253 GETTABLEKS                       R21 R21 K7 ["createElement"]
+      255 GETUPVAL                         R22 15
+      256 DUPTABLE                         R23 K63 [{"DataHook", "SetActiveControl"}]
+      257 SETTABLEKS                       R5 R23 K21 ["DataHook"]
+      259 SETTABLEKS                       R8 R23 K62 ["SetActiveControl"]
+      261 CALL                             R21 2 1
+      262 SETTABLEKS                       R21 R20 K60 ["MainControls"]
+      264 CALL                             R17 3 1
+      265 SETTABLEKS                       R17 R16 K30 ["MainControlsPanel"]
+      267 CALL                             R13 3 1
+      268 SETTABLEKS                       R13 R12 K16 ["MainPanel"]
+      270 CALL                             R9 3 1
+      271 RETURN                           R9 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -274,12 +270,12 @@ MAIN:
        74 GETTABLEKS                       R17 R0 K24 ["TopControls"]
        76 CALL                             R16 1 1
        77 GETIMPORT                        R17 K27 [Vector2.new]
-       79 LOADN                            R18 28
-       80 LOADN                            R19 44
+       79 LOADN                            R18 540
+       80 LOADN                            R19 300
        81 CALL                             R17 2 1
        82 GETIMPORT                        R18 K27 [Vector2.new]
-       84 LOADN                            R19 208
-       85 LOADN                            R20 208
+       84 LOADN                            R19 2000
+       85 LOADN                            R20 2000
        86 CALL                             R18 2 1
        87 NEWTABLE                         R19 0 0
        89 NEWCLOSURE                       R20 P0

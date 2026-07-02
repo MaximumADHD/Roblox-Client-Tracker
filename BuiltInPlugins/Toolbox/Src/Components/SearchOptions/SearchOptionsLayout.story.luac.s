@@ -51,19 +51,15 @@ MAIN:
        32 GETTABLEKS                       R5 R0 K12 ["Stories"]
        34 GETTABLEKS                       R5 R5 K13 ["ToolboxStoryWrapper"]
        36 CALL                             R4 1 1
-       37 DUPTABLE                         R5 K17 [{"name", "summary", "stories"}]
-       38 LOADK                            R6 K9 ["SearchOptionsLayout"]
-       39 SETTABLEKS                       R6 R5 K14 ["name"]
-       41 LOADK                            R6 K18 ["The layout for the Search Option component"]
-       42 SETTABLEKS                       R6 R5 K15 ["summary"]
-       44 NEWTABLE                         R6 0 1
-       46 DUPTABLE                         R7 K20 [{"story"}]
-       47 DUPCLOSURE                       R8 K21 [PROTO_1]
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R2
-       52 SETTABLEKS                       R8 R7 K19 ["story"]
-       54 SETLIST                          R6 R7 1 [1]
-       56 SETTABLEKS                       R6 R5 K16 ["stories"]
-       58 RETURN                           R5 1
+       37 DUPTABLE                         R5 K18 [{["name"] = "SearchOptionsLayout", ["summary"] = "The layout for the Search Option component", ["stories"]}]
+       38 NEWTABLE                         R6 0 1
+       40 DUPTABLE                         R7 K20 [{"story"}]
+       41 DUPCLOSURE                       R8 K21 [PROTO_1]
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R4
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R2
+       46 SETTABLEKS                       R8 R7 K19 ["story"]
+       48 SETLIST                          R6 R7 1 [1]
+       50 SETTABLEKS                       R6 R5 K17 ["stories"]
+       52 RETURN                           R5 1

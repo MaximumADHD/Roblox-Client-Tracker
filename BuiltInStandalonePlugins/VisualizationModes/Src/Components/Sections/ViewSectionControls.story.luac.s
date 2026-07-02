@@ -12,8 +12,8 @@ PROTO_0:
        14 LOADK                            R6 K3 ["X-Fill X-Column X-Top"]
        15 SETTABLE                         R6 R4 R5
        16 GETIMPORT                        R5 K6 [UDim2.fromOffset]
-       18 LOADN                            R6 69
-       19 LOADN                            R7 44
+       18 LOADN                            R6 325
+       19 LOADN                            R7 300
        20 CALL                             R5 2 1
        21 SETTABLEKS                       R5 R4 K7 ["Size"]
        23 DUPTABLE                         R5 K10 [{"StyleLink", "ViewSectionControls"}]
@@ -62,16 +62,10 @@ MAIN:
        43 CAPTURE                          VAL R1
        44 CAPTURE                          VAL R5
        45 CAPTURE                          VAL R2
-       46 DUPTABLE                         R8 K21 [{"name", "summary", "stories"}]
-       47 LOADK                            R9 K11 ["ViewSectionControls"]
-       48 SETTABLEKS                       R9 R8 K18 ["name"]
-       50 LOADK                            R9 K22 ["Renders the custom controls for the 'View' section of the visualization modes plugin"]
-       51 SETTABLEKS                       R9 R8 K19 ["summary"]
-       53 NEWTABLE                         R9 0 1
-       55 DUPTABLE                         R10 K24 [{"name", "story"}]
-       56 LOADK                            R11 K11 ["ViewSectionControls"]
-       57 SETTABLEKS                       R11 R10 K18 ["name"]
-       59 SETTABLEKS                       R7 R10 K23 ["story"]
-       61 SETLIST                          R9 R10 1 [1]
-       63 SETTABLEKS                       R9 R8 K20 ["stories"]
-       65 RETURN                           R8 1
+       46 DUPTABLE                         R8 K22 [{["name"] = "ViewSectionControls", ["summary"] = "Renders the custom controls for the 'View' section of the visualization modes plugin", ["stories"]}]
+       47 NEWTABLE                         R9 0 1
+       49 DUPTABLE                         R10 K24 [{["name"] = "ViewSectionControls", ["story"]}]
+       50 SETTABLEKS                       R7 R10 K23 ["story"]
+       52 SETLIST                          R9 R10 1 [1]
+       54 SETTABLEKS                       R9 R8 K21 ["stories"]
+       56 RETURN                           R8 1

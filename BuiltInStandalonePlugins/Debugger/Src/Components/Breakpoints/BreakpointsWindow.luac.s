@@ -19,8 +19,8 @@ PROTO_0:
        28 GETIMPORT                        R8 K17 [Enum.InitialDockState.Bottom]
        30 SETTABLEKS                       R8 R7 K15 ["InitialDockState"]
        32 GETIMPORT                        R8 K20 [Vector2.new]
-       34 LOADN                            R9 238
-       35 LOADN                            R10 224
+       34 LOADN                            R9 750
+       35 LOADN                            R10 480
        36 CALL                             R8 2 1
        37 SETTABLEKS                       R8 R7 K21 ["Size"]
        39 GETIMPORT                        R8 K20 [Vector2.new]

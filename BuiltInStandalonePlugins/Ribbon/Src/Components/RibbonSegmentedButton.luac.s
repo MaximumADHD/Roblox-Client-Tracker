@@ -26,7 +26,7 @@ PROTO_1:
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
         4 JUMPIFNOTEQ                      R2 R3 ; [+4]
         6 GETUPVAL                         R2 0
-        7 LOADN                            R3 255
+        7 LOADN                            R3 -1
         8 CALL                             R2 1 0
         9 RETURN                           R0 0
 
@@ -36,7 +36,7 @@ PROTO_2:
         3 GETTABLEKS                       R3 R0 K1 ["SelectedIndex"]
         5 CALL                             R2 1 2
         6 GETUPVAL                         R4 0
-        7 LOADN                            R5 255
+        7 LOADN                            R5 -1
         8 CALL                             R4 1 2
         9 NEWTABLE                         R6 0 0
        11 GETUPVAL                         R7 1

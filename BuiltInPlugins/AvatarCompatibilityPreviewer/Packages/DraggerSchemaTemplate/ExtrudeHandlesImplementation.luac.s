@@ -19,14 +19,8 @@ PROTO_2:
         5 RETURN                           R4 -1
 
 PROTO_3:
-        0 DUPTABLE                         R3 K3 [{"X", "Y", "Z"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["X"]
-        4 LOADB                            R4 1
-        5 SETTABLEKS                       R4 R3 K1 ["Y"]
-        7 LOADB                            R4 1
-        8 SETTABLEKS                       R4 R3 K2 ["Z"]
-       10 RETURN                           R3 1
+        0 DUPTABLE                         R3 K4 [{[1] = True, ["Y"] = True, ["Z"] = True}]
+        1 RETURN                           R3 1
 
 PROTO_4:
         0 LOADK                            R1 K0 [{0, 0, 0}]

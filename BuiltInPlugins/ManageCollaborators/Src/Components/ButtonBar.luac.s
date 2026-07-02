@@ -58,110 +58,104 @@ PROTO_0:
        85 CALL                             R7 1 3
        86 FORGPREP_INEXT                   R7
        87 GETUPVAL                         R15 1
-       88 JUMPIFNOT                        R15 ; [+34]
+       88 JUMPIFNOT                        R15 ; [+31]
        89 GETUPVAL                         R14 2
        90 GETTABLEKS                       R14 R14 K7 ["createElement"]
        92 GETUPVAL                         R15 3
-       93 DUPTABLE                         R16 K43 [{"LayoutOrder", "variant", "size", "text", "ZIndex", "onActivated", "isDisabled"}]
+       93 DUPTABLE                         R16 K44 [{["LayoutOrder"], ["variant"], ["size"] = "Medium", ["text"], ["ZIndex"], ["onActivated"], ["isDisabled"]}]
        94 SETTABLEKS                       R10 R16 K22 ["LayoutOrder"]
        96 GETTABLEKS                       R18 R11 K37 ["variant"]
-       98 ORK                              R17 R18 K44 ["Standard"]
+       98 ORK                              R17 R18 K45 ["Standard"]
        99 SETTABLEKS                       R17 R16 K37 ["variant"]
-      101 LOADK                            R17 K45 ["Medium"]
-      102 SETTABLEKS                       R17 R16 K38 ["size"]
-      104 GETTABLEKS                       R17 R11 K39 ["text"]
-      106 SETTABLEKS                       R17 R16 K39 ["text"]
-      108 GETTABLEKS                       R18 R1 K40 ["ZIndex"]
-      110 ORK                              R17 R18 K46 [1]
-      111 SETTABLEKS                       R17 R16 K40 ["ZIndex"]
-      113 GETTABLEKS                       R17 R11 K41 ["onActivated"]
-      115 SETTABLEKS                       R17 R16 K41 ["onActivated"]
-      117 GETTABLEKS                       R17 R11 K42 ["isDisabled"]
-      119 SETTABLEKS                       R17 R16 K42 ["isDisabled"]
-      121 CALL                             R14 2 1
-      122 JUMP                             ; [+40]
-      123 GETUPVAL                         R14 0
-      124 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      126 GETUPVAL                         R15 3
-      127 DUPTABLE                         R16 K52 [{"LayoutOrder", "Style", "Size", "StyleModifier", "Text", "ZIndex", "OnClick"}]
-      128 SETTABLEKS                       R10 R16 K22 ["LayoutOrder"]
-      130 GETTABLEKS                       R17 R11 K47 ["Style"]
-      132 SETTABLEKS                       R17 R16 K47 ["Style"]
-      134 GETIMPORT                        R17 K54 [UDim2.new]
-      136 LOADN                            R18 0
-      137 GETUPVAL                         R19 4
-      138 GETTABLEKS                       R19 R19 K55 ["BUTTON_WIDTH"]
-      140 LOADN                            R20 1
-      141 LOADN                            R21 0
-      142 CALL                             R17 4 1
-      143 SETTABLEKS                       R17 R16 K48 ["Size"]
-      145 GETTABLEKS                       R17 R11 K49 ["StyleModifier"]
-      147 SETTABLEKS                       R17 R16 K49 ["StyleModifier"]
-      149 GETTABLEKS                       R17 R11 K56 ["Name"]
-      151 SETTABLEKS                       R17 R16 K50 ["Text"]
-      153 GETTABLEKS                       R18 R1 K40 ["ZIndex"]
-      155 ORK                              R17 R18 K46 [1]
-      156 SETTABLEKS                       R17 R16 K40 ["ZIndex"]
-      158 GETTABLEKS                       R17 R11 K57 ["OnPressed"]
-      160 SETTABLEKS                       R17 R16 K51 ["OnClick"]
-      162 CALL                             R14 2 1
-      163 FASTCALL2                        TABLE_INSERT R6 R14 ; [+4]
-      165 MOVE                             R13 R6
-      166 GETIMPORT                        R12 K34 [table.insert]
-      168 CALL                             R12 2 0
-      169 FORGLOOP                         R7 2 [inext] ; [-83]
-      171 GETUPVAL                         R7 0
-      172 GETTABLEKS                       R7 R7 K7 ["createElement"]
-      174 LOADK                            R8 K58 ["Frame"]
-      175 GETUPVAL                         R10 1
-      176 JUMPIFNOT                        R10 ; [+19]
-      177 DUPTABLE                         R9 K60 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
-      178 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
-      180 ORK                              R10 R11 K46 [1]
-      181 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
-      183 GETIMPORT                        R10 K54 [UDim2.new]
-      185 LOADN                            R11 1
-      186 LOADN                            R12 0
-      187 LOADN                            R13 1
-      188 LOADN                            R14 0
-      189 CALL                             R10 4 1
-      190 SETTABLEKS                       R10 R9 K48 ["Size"]
-      192 LOADN                            R10 1
-      193 SETTABLEKS                       R10 R9 K59 ["BackgroundTransparency"]
-      195 JUMP                             ; [+42]
-      196 DUPTABLE                         R9 K63 [{"LayoutOrder", "Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
-      197 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
-      199 ORK                              R10 R11 K46 [1]
-      200 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
-      202 GETIMPORT                        R10 K54 [UDim2.new]
-      204 LOADN                            R11 1
-      205 LOADN                            R12 0
-      206 LOADN                            R13 0
-      207 GETUPVAL                         R14 4
-      208 GETTABLEKS                       R14 R14 K64 ["BUTTON_HEIGHT"]
-      210 CALL                             R10 4 1
-      211 SETTABLEKS                       R10 R9 K48 ["Size"]
-      213 GETTABLEKS                       R10 R1 K61 ["AnchorPoint"]
-      215 JUMPIF                           R10 ; [+5]
-      216 GETIMPORT                        R10 K66 [Vector2.new]
-      218 LOADN                            R11 0
-      219 LOADK                            R12 K67 [0.5]
-      220 CALL                             R10 2 1
-      221 SETTABLEKS                       R10 R9 K61 ["AnchorPoint"]
-      223 GETTABLEKS                       R10 R1 K62 ["Position"]
-      225 JUMPIF                           R10 ; [+7]
-      226 GETIMPORT                        R10 K54 [UDim2.new]
-      228 LOADN                            R11 0
-      229 LOADN                            R12 0
-      230 LOADK                            R13 K67 [0.5]
-      231 LOADN                            R14 0
-      232 CALL                             R10 4 1
-      233 SETTABLEKS                       R10 R9 K62 ["Position"]
-      235 LOADN                            R10 1
-      236 SETTABLEKS                       R10 R9 K59 ["BackgroundTransparency"]
-      238 MOVE                             R10 R6
-      239 CALL                             R7 3 -1
-      240 RETURN                           R7 -1
+      101 GETTABLEKS                       R17 R11 K40 ["text"]
+      103 SETTABLEKS                       R17 R16 K40 ["text"]
+      105 GETTABLEKS                       R18 R1 K41 ["ZIndex"]
+      107 ORK                              R17 R18 K46 [1]
+      108 SETTABLEKS                       R17 R16 K41 ["ZIndex"]
+      110 GETTABLEKS                       R17 R11 K42 ["onActivated"]
+      112 SETTABLEKS                       R17 R16 K42 ["onActivated"]
+      114 GETTABLEKS                       R17 R11 K43 ["isDisabled"]
+      116 SETTABLEKS                       R17 R16 K43 ["isDisabled"]
+      118 CALL                             R14 2 1
+      119 JUMP                             ; [+40]
+      120 GETUPVAL                         R14 0
+      121 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      123 GETUPVAL                         R15 3
+      124 DUPTABLE                         R16 K52 [{"LayoutOrder", "Style", "Size", "StyleModifier", "Text", "ZIndex", "OnClick"}]
+      125 SETTABLEKS                       R10 R16 K22 ["LayoutOrder"]
+      127 GETTABLEKS                       R17 R11 K47 ["Style"]
+      129 SETTABLEKS                       R17 R16 K47 ["Style"]
+      131 GETIMPORT                        R17 K54 [UDim2.new]
+      133 LOADN                            R18 0
+      134 GETUPVAL                         R19 4
+      135 GETTABLEKS                       R19 R19 K55 ["BUTTON_WIDTH"]
+      137 LOADN                            R20 1
+      138 LOADN                            R21 0
+      139 CALL                             R17 4 1
+      140 SETTABLEKS                       R17 R16 K48 ["Size"]
+      142 GETTABLEKS                       R17 R11 K49 ["StyleModifier"]
+      144 SETTABLEKS                       R17 R16 K49 ["StyleModifier"]
+      146 GETTABLEKS                       R17 R11 K56 ["Name"]
+      148 SETTABLEKS                       R17 R16 K50 ["Text"]
+      150 GETTABLEKS                       R18 R1 K41 ["ZIndex"]
+      152 ORK                              R17 R18 K46 [1]
+      153 SETTABLEKS                       R17 R16 K41 ["ZIndex"]
+      155 GETTABLEKS                       R17 R11 K57 ["OnPressed"]
+      157 SETTABLEKS                       R17 R16 K51 ["OnClick"]
+      159 CALL                             R14 2 1
+      160 FASTCALL2                        TABLE_INSERT R6 R14 ; [+4]
+      162 MOVE                             R13 R6
+      163 GETIMPORT                        R12 K34 [table.insert]
+      165 CALL                             R12 2 0
+      166 FORGLOOP                         R7 2 [inext] ; [-80]
+      168 GETUPVAL                         R7 0
+      169 GETTABLEKS                       R7 R7 K7 ["createElement"]
+      171 LOADK                            R8 K58 ["Frame"]
+      172 GETUPVAL                         R10 1
+      173 JUMPIFNOT                        R10 ; [+16]
+      174 DUPTABLE                         R9 K60 [{["LayoutOrder"], ["Size"], ["BackgroundTransparency"] = 1}]
+      175 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
+      177 ORK                              R10 R11 K46 [1]
+      178 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
+      180 GETIMPORT                        R10 K54 [UDim2.new]
+      182 LOADN                            R11 1
+      183 LOADN                            R12 0
+      184 LOADN                            R13 1
+      185 LOADN                            R14 0
+      186 CALL                             R10 4 1
+      187 SETTABLEKS                       R10 R9 K48 ["Size"]
+      189 JUMP                             ; [+39]
+      190 DUPTABLE                         R9 K63 [{["LayoutOrder"], ["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1}]
+      191 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
+      193 ORK                              R10 R11 K46 [1]
+      194 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
+      196 GETIMPORT                        R10 K54 [UDim2.new]
+      198 LOADN                            R11 1
+      199 LOADN                            R12 0
+      200 LOADN                            R13 0
+      201 GETUPVAL                         R14 4
+      202 GETTABLEKS                       R14 R14 K64 ["BUTTON_HEIGHT"]
+      204 CALL                             R10 4 1
+      205 SETTABLEKS                       R10 R9 K48 ["Size"]
+      207 GETTABLEKS                       R10 R1 K61 ["AnchorPoint"]
+      209 JUMPIF                           R10 ; [+5]
+      210 GETIMPORT                        R10 K66 [Vector2.new]
+      212 LOADN                            R11 0
+      213 LOADK                            R12 K67 [0.5]
+      214 CALL                             R10 2 1
+      215 SETTABLEKS                       R10 R9 K61 ["AnchorPoint"]
+      217 GETTABLEKS                       R10 R1 K62 ["Position"]
+      219 JUMPIF                           R10 ; [+7]
+      220 GETIMPORT                        R10 K54 [UDim2.new]
+      222 LOADN                            R11 0
+      223 LOADN                            R12 0
+      224 LOADK                            R13 K67 [0.5]
+      225 LOADN                            R14 0
+      226 CALL                             R10 4 1
+      227 SETTABLEKS                       R10 R9 K62 ["Position"]
+      229 MOVE                             R10 R6
+      230 CALL                             R7 3 -1
+      231 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -216,8 +216,8 @@ PROTO_9:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K10 [{"Size", "Expansion", "GetRowProps", "RootItems", "RowComponent", "GetChildren", "ScrollingDirection", "Style"}]
-        7 GETIMPORT                        R5 K13 [UDim2.new]
+        6 DUPTABLE                         R4 K11 [{["Size"], ["Expansion"], ["GetRowProps"], ["RootItems"], ["RowComponent"], ["GetChildren"], ["ScrollingDirection"], ["Style"] = "BorderBox"}]
+        7 GETIMPORT                        R5 K14 [UDim2.new]
         9 LOADN                            R6 1
        10 LOADN                            R7 0
        11 LOADN                            R8 1
@@ -226,22 +226,20 @@ PROTO_9:
        14 SETTABLEKS                       R5 R4 K2 ["Size"]
        16 GETTABLEKS                       R5 R1 K3 ["Expansion"]
        18 SETTABLEKS                       R5 R4 K3 ["Expansion"]
-       20 GETTABLEKS                       R5 R0 K14 ["getRowProps"]
+       20 GETTABLEKS                       R5 R0 K15 ["getRowProps"]
        22 SETTABLEKS                       R5 R4 K4 ["GetRowProps"]
        24 GETUPVAL                         R5 2
-       25 GETTABLEKS                       R6 R1 K15 ["RootInstance"]
+       25 GETTABLEKS                       R6 R1 K16 ["RootInstance"]
        27 CALL                             R5 1 1
        28 SETTABLEKS                       R5 R4 K5 ["RootItems"]
        30 GETUPVAL                         R5 3
        31 SETTABLEKS                       R5 R4 K6 ["RowComponent"]
        33 GETUPVAL                         R5 2
        34 SETTABLEKS                       R5 R4 K7 ["GetChildren"]
-       36 GETIMPORT                        R5 K18 [Enum.ScrollingDirection.Y]
+       36 GETIMPORT                        R5 K19 [Enum.ScrollingDirection.Y]
        38 SETTABLEKS                       R5 R4 K8 ["ScrollingDirection"]
-       40 LOADK                            R5 K19 ["BorderBox"]
-       41 SETTABLEKS                       R5 R4 K9 ["Style"]
-       43 CALL                             R2 2 -1
-       44 RETURN                           R2 -1
+       40 CALL                             R2 2 -1
+       41 RETURN                           R2 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K5 [{"SelectedNodeIndex", "RootInstance", "Flash", "Selection", "Expansion"}]

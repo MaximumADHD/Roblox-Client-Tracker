@@ -7,19 +7,15 @@ PROTO_0:
         7 LOADK                            R3 K0 ["Invalid buffer size, should be > 0"]
         8 GETIMPORT                        R1 K2 [assert]
        10 CALL                             R1 2 0
-       11 DUPTABLE                         R2 K7 [{"__buffer", "__size", "__writeIndex", "__firstIndex"}]
+       11 DUPTABLE                         R2 K9 [{["__buffer"], ["__size"], ["__writeIndex"] = 1, ["__firstIndex"] = }]
        12 NEWTABLE                         R3 0 0
        14 SETTABLEKS                       R3 R2 K3 ["__buffer"]
        16 SETTABLEKS                       R0 R2 K4 ["__size"]
-       18 LOADN                            R3 1
-       19 SETTABLEKS                       R3 R2 K5 ["__writeIndex"]
-       21 LOADNIL                          R3
-       22 SETTABLEKS                       R3 R2 K6 ["__firstIndex"]
-       24 GETUPVAL                         R3 0
-       25 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-       27 GETIMPORT                        R1 K9 [setmetatable]
-       29 CALL                             R1 2 1
-       30 RETURN                           R1 1
+       18 GETUPVAL                         R3 0
+       19 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+       21 GETIMPORT                        R1 K11 [setmetatable]
+       23 CALL                             R1 2 1
+       24 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

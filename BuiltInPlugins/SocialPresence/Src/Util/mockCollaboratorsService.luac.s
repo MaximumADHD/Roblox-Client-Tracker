@@ -39,7 +39,7 @@ PROTO_4:
         1 GETTABLEKS                       R4 R4 K0 ["_collaborators"]
         3 LENGTH                           R3 R4
         4 LOADN                            R1 0
-        5 LOADN                            R2 255
+        5 LOADN                            R2 -1
         6 FORNPREP                         R1
         7 GETIMPORT                        R4 K3 [table.remove]
         9 GETUPVAL                         R5 0

@@ -20,7 +20,7 @@ PROTO_0:
        27 RETURN                           R4 1
        28 LOADN                            R5 0
        29 JUMPIFNOTLT                      R2 R5 ; [+3]
-       31 LOADN                            R4 255
+       31 LOADN                            R4 -1
        32 JUMP                             ; [+1]
        33 LOADN                            R4 1
        34 ADD                              R5 R3 R4

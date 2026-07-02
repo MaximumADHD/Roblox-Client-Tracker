@@ -84,50 +84,46 @@ PROTO_5:
         7 GETTABLEKS                       R4 R4 K3 ["getAnimSaves"]
         9 GETTABLEKS                       R5 R1 K4 ["RootInstance"]
        11 CALL                             R4 1 1
-       12 DUPTABLE                         R5 K8 [{"Text", "Data", "OnItemClicked"}]
-       13 LOADK                            R8 K9 ["Menu"]
-       14 LOADK                            R9 K10 ["Load"]
-       15 NAMECALL                         R6 R2 K11 ["getText"]
+       12 DUPTABLE                         R5 K9 [{["Text"], ["Data"] = , ["OnItemClicked"] = }]
+       13 LOADK                            R8 K10 ["Menu"]
+       14 LOADK                            R9 K11 ["Load"]
+       15 NAMECALL                         R6 R2 K12 ["getText"]
        17 CALL                             R6 3 1
        18 SETTABLEKS                       R6 R5 K5 ["Text"]
-       20 LOADNIL                          R6
-       21 SETTABLEKS                       R6 R5 K6 ["Data"]
-       23 LOADNIL                          R6
-       24 SETTABLEKS                       R6 R5 K7 ["OnItemClicked"]
-       26 LENGTH                           R6 R4
-       27 LOADN                            R7 0
-       28 JUMPIFNOTLT                      R7 R6 ; [+43]
-       30 GETIMPORT                        R6 K13 [ipairs]
-       32 MOVE                             R7 R4
-       33 CALL                             R6 1 3
-       34 FORGPREP_INEXT                   R6
-       35 GETTABLEKS                       R11 R10 K14 ["animation"]
-       37 GETTABLEKS                       R11 R11 K15 ["Name"]
-       39 GETTABLEKS                       R12 R10 K16 ["isLegacyAnimSaves"]
-       41 JUMPIFNOT                        R12 ; [+3]
-       42 MOVE                             R12 R11
-       43 LOADK                            R13 K17 [" *"]
-       44 CONCAT                           R11 R12 R13
-       45 DUPTABLE                         R14 K8 [{"Text", "Data", "OnItemClicked"}]
-       46 SETTABLEKS                       R11 R14 K5 ["Text"]
-       48 DUPTABLE                         R15 K20 [{"Animation", "IsLegacyAnimSaves"}]
-       49 GETTABLEKS                       R16 R10 K14 ["animation"]
-       51 SETTABLEKS                       R16 R15 K18 ["Animation"]
-       53 GETTABLEKS                       R16 R10 K16 ["isLegacyAnimSaves"]
-       55 SETTABLEKS                       R16 R15 K19 ["IsLegacyAnimSaves"]
-       57 SETTABLEKS                       R15 R14 K6 ["Data"]
-       59 NEWCLOSURE                       R15 P0
-       60 CAPTURE                          VAL R3
-       61 SETTABLEKS                       R15 R14 K7 ["OnItemClicked"]
-       63 FASTCALL2                        TABLE_INSERT R5 R14 ; [+4]
-       65 MOVE                             R13 R5
-       66 GETIMPORT                        R12 K23 [table.insert]
-       68 CALL                             R12 2 0
-       69 FORGLOOP                         R6 2 [inext] ; [-35]
-       71 RETURN                           R5 1
-       72 LOADB                            R6 0
-       73 SETTABLEKS                       R6 R5 K24 ["Enabled"]
-       75 RETURN                           R5 1
+       20 LENGTH                           R6 R4
+       21 LOADN                            R7 0
+       22 JUMPIFNOTLT                      R7 R6 ; [+43]
+       24 GETIMPORT                        R6 K14 [ipairs]
+       26 MOVE                             R7 R4
+       27 CALL                             R6 1 3
+       28 FORGPREP_INEXT                   R6
+       29 GETTABLEKS                       R11 R10 K15 ["animation"]
+       31 GETTABLEKS                       R11 R11 K16 ["Name"]
+       33 GETTABLEKS                       R12 R10 K17 ["isLegacyAnimSaves"]
+       35 JUMPIFNOT                        R12 ; [+3]
+       36 MOVE                             R12 R11
+       37 LOADK                            R13 K18 [" *"]
+       38 CONCAT                           R11 R12 R13
+       39 DUPTABLE                         R14 K19 [{"Text", "Data", "OnItemClicked"}]
+       40 SETTABLEKS                       R11 R14 K5 ["Text"]
+       42 DUPTABLE                         R15 K22 [{"Animation", "IsLegacyAnimSaves"}]
+       43 GETTABLEKS                       R16 R10 K15 ["animation"]
+       45 SETTABLEKS                       R16 R15 K20 ["Animation"]
+       47 GETTABLEKS                       R16 R10 K17 ["isLegacyAnimSaves"]
+       49 SETTABLEKS                       R16 R15 K21 ["IsLegacyAnimSaves"]
+       51 SETTABLEKS                       R15 R14 K6 ["Data"]
+       53 NEWCLOSURE                       R15 P0
+       54 CAPTURE                          VAL R3
+       55 SETTABLEKS                       R15 R14 K8 ["OnItemClicked"]
+       57 FASTCALL2                        TABLE_INSERT R5 R14 ; [+4]
+       59 MOVE                             R13 R5
+       60 GETIMPORT                        R12 K25 [table.insert]
+       62 CALL                             R12 2 0
+       63 FORGLOOP                         R6 2 [inext] ; [-35]
+       65 RETURN                           R5 1
+       66 LOADB                            R6 0
+       67 SETTABLEKS                       R6 R5 K26 ["Enabled"]
+       69 RETURN                           R5 1
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -468,16 +464,14 @@ PROTO_15:
       135 GETIMPORT                        R14 K29 [table.insert]
       137 CALL                             R14 -1 0
       138 GETTABLEKS                       R14 R0 K31 ["hasInternalPermission"]
-      140 JUMPIFNOT                        R14 ; [+12]
-      141 DUPTABLE                         R16 K34 [{"Text", "OnItemClicked"}]
-      142 LOADK                            R17 K35 ["[INTERNAL] Sanitize animation"]
-      143 SETTABLEKS                       R17 R16 K32 ["Text"]
-      145 SETTABLEKS                       R4 R16 K33 ["OnItemClicked"]
-      147 FASTCALL2                        TABLE_INSERT R13 R16 ; [+4]
-      149 MOVE                             R15 R13
-      150 GETIMPORT                        R14 K29 [table.insert]
-      152 CALL                             R14 2 0
-      153 RETURN                           R13 1
+      140 JUMPIFNOT                        R14 ; [+9]
+      141 DUPTABLE                         R16 K35 [{["Text"] = "[INTERNAL] Sanitize animation", ["OnItemClicked"]}]
+      142 SETTABLEKS                       R4 R16 K34 ["OnItemClicked"]
+      144 FASTCALL2                        TABLE_INSERT R13 R16 ; [+4]
+      146 MOVE                             R15 R13
+      147 GETIMPORT                        R14 K29 [table.insert]
+      149 CALL                             R14 2 0
+      150 RETURN                           R13 1
 
 PROTO_16:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

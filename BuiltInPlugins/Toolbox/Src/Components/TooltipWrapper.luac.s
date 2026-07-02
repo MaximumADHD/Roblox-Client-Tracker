@@ -13,31 +13,27 @@ PROTO_0:
        18 GETUPVAL                         R6 0
        19 GETTABLEKS                       R6 R6 K11 ["createElement"]
        21 LOADK                            R7 K12 ["Frame"]
-       22 DUPTABLE                         R8 K15 [{"Size", "BackgroundTransparency", "SizeConstraint"}]
-       23 GETIMPORT                        R9 K18 [UDim2.new]
+       22 DUPTABLE                         R8 K16 [{["Size"], ["BackgroundTransparency"] = 1, ["SizeConstraint"]}]
+       23 GETIMPORT                        R9 K19 [UDim2.new]
        25 LOADN                            R10 1
        26 LOADN                            R11 0
        27 LOADN                            R12 1
        28 LOADN                            R13 0
        29 CALL                             R9 4 1
        30 SETTABLEKS                       R9 R8 K13 ["Size"]
-       32 LOADN                            R9 1
-       33 SETTABLEKS                       R9 R8 K14 ["BackgroundTransparency"]
-       35 SETTABLEKS                       R3 R8 K5 ["SizeConstraint"]
-       37 DUPTABLE                         R9 K20 [{"Tooltip"}]
-       38 GETUPVAL                         R10 0
-       39 GETTABLEKS                       R10 R10 K11 ["createElement"]
-       41 GETUPVAL                         R11 1
-       42 DUPTABLE                         R12 K23 [{"Enabled", "Text", "Priority"}]
-       43 AND                              R13 R4 R5
-       44 SETTABLEKS                       R13 R12 K21 ["Enabled"]
-       46 SETTABLEKS                       R2 R12 K2 ["Text"]
-       48 LOADN                            R13 2
-       49 SETTABLEKS                       R13 R12 K22 ["Priority"]
-       51 CALL                             R10 2 1
-       52 SETTABLEKS                       R10 R9 K19 ["Tooltip"]
-       54 CALL                             R6 3 -1
-       55 RETURN                           R6 -1
+       32 SETTABLEKS                       R3 R8 K5 ["SizeConstraint"]
+       34 DUPTABLE                         R9 K21 [{"Tooltip"}]
+       35 GETUPVAL                         R10 0
+       36 GETTABLEKS                       R10 R10 K11 ["createElement"]
+       38 GETUPVAL                         R11 1
+       39 DUPTABLE                         R12 K25 [{["Enabled"], ["Text"], ["Priority"] = 2}]
+       40 AND                              R13 R4 R5
+       41 SETTABLEKS                       R13 R12 K22 ["Enabled"]
+       43 SETTABLEKS                       R2 R12 K2 ["Text"]
+       45 CALL                             R10 2 1
+       46 SETTABLEKS                       R10 R9 K20 ["Tooltip"]
+       48 CALL                             R6 3 -1
+       49 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

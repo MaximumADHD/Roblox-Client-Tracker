@@ -39,78 +39,44 @@ PROTO_1:
        19 MOVE                             R4 R0
        20 MOVE                             R5 R1
        21 CALL                             R3 2 0
-       22 GETUPVAL                         R3 1
-       23 CALL                             R3 0 1
-       24 JUMPIF                           R3 ; [+4]
-       25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R3 R3 K5 ["DEPRECATED_getAllPluginPermissions"]
-       28 CALL                             R3 0 0
-       29 RETURN                           R0 0
+       22 RETURN                           R0 0
 
 PROTO_2:
-        0 GETUPVAL                         R2 0
-        1 CALL                             R2 0 1
-        2 NOT                              R1 R2
-        3 FASTCALL2K                       ASSERT R1 K0 ; [+4]
-        5 LOADK                            R2 K0 ["ManagementMainView.DEPRECATED_getAllPluginPermissions is deprecated with FFlagStudioRefreshPluginPermissions"]
-        6 GETIMPORT                        R0 K2 [assert]
-        8 CALL                             R0 2 0
-        9 GETUPVAL                         R0 1
-       10 GETTABLEKS                       R0 R0 K3 ["props"]
-       12 GETTABLEKS                       R0 R0 K4 ["PluginManagementApi"]
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R1 R1 K3 ["props"]
-       17 GETTABLEKS                       R1 R1 K5 ["API"]
-       19 NAMECALL                         R1 R1 K6 ["get"]
-       21 CALL                             R1 1 1
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R2 R2 K3 ["props"]
-       25 GETTABLEKS                       R2 R2 K7 ["DEPRECATED_getAllPluginPermissions"]
-       27 MOVE                             R3 R0
-       28 MOVE                             R4 R1
-       29 CALL                             R2 2 0
-       30 RETURN                           R0 0
-
-PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["mounted"]
-        3 JUMPIFNOT                        R0 ; [+12]
+        3 JUMPIFNOT                        R0 ; [+9]
         4 GETUPVAL                         R0 0
         5 GETTABLEKS                       R0 R0 K1 ["refreshPlugins"]
         7 CALL                             R0 0 0
         8 GETUPVAL                         R0 0
-        9 DUPTABLE                         R2 K3 [{"updating"}]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K2 ["updating"]
-       13 NAMECALL                         R0 R0 K4 ["setState"]
-       15 CALL                             R0 2 0
-       16 RETURN                           R0 0
+        9 DUPTABLE                         R2 K4 [{["updating"] = False}]
+       10 NAMECALL                         R0 R0 K5 ["setState"]
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
+
+PROTO_3:
+        0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R1 R0 K5 ["PluginManagementApi"]
+       10 GETTABLEKS                       R2 R0 K6 ["Analytics"]
+       12 LOADK                            R4 K7 ["TryUpdateAllPlugins"]
+       13 NAMECALL                         R2 R2 K8 ["report"]
+       15 CALL                             R2 2 0
+       16 GETTABLEKS                       R2 R0 K9 ["UpdateAllPlugins"]
+       18 MOVE                             R3 R1
+       19 GETTABLEKS                       R4 R0 K6 ["Analytics"]
+       21 CALL                             R2 2 0
+       22 GETIMPORT                        R2 K11 [spawn]
+       24 NEWCLOSURE                       R3 P0
+       25 CAPTURE                          UPVAL U0
+       26 CALL                             R2 1 0
+       27 RETURN                           R0 0
 
 PROTO_4:
-        0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"updating"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["updating"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R1 R0 K4 ["PluginManagementApi"]
-       13 GETTABLEKS                       R2 R0 K5 ["Analytics"]
-       15 LOADK                            R4 K6 ["TryUpdateAllPlugins"]
-       16 NAMECALL                         R2 R2 K7 ["report"]
-       18 CALL                             R2 2 0
-       19 GETTABLEKS                       R2 R0 K8 ["UpdateAllPlugins"]
-       21 MOVE                             R3 R1
-       22 GETTABLEKS                       R4 R0 K5 ["Analytics"]
-       24 CALL                             R2 2 0
-       25 GETIMPORT                        R2 K10 [spawn]
-       27 NEWCLOSURE                       R3 P0
-       28 CAPTURE                          UPVAL U0
-       29 CALL                             R2 1 0
-       30 RETURN                           R0 0
-
-PROTO_5:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["isPlaceOpen"]
         3 CALL                             R0 1 1
@@ -126,46 +92,39 @@ PROTO_5:
        16 CALL                             R0 1 0
        17 RETURN                           R0 0
 
-PROTO_6:
+PROTO_5:
         0 NEWTABLE                         R1 0 0
         2 SETTABLEKS                       R1 R0 K0 ["tokens"]
-        4 DUPTABLE                         R1 K2 [{"updating"}]
-        5 LOADB                            R2 0
-        6 SETTABLEKS                       R2 R1 K1 ["updating"]
-        8 SETTABLEKS                       R1 R0 K3 ["state"]
-       10 NEWCLOSURE                       R1 P0
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["anyUpdateNeeded"]
-       14 NEWCLOSURE                       R1 P1
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U0
-       17 SETTABLEKS                       R1 R0 K5 ["refreshPlugins"]
-       19 NEWCLOSURE                       R1 P2
-       20 CAPTURE                          UPVAL U0
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R1 R0 K6 ["DEPRECATED_getAllPluginPermissions"]
-       24 NEWCLOSURE                       R1 P3
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R1 R0 K7 ["updateAllPlugins"]
-       28 NEWCLOSURE                       R1 P4
-       29 CAPTURE                          VAL R0
-       30 CAPTURE                          UPVAL U1
-       31 CAPTURE                          UPVAL U2
-       32 SETTABLEKS                       R1 R0 K8 ["findPlugins"]
-       34 GETTABLEKS                       R1 R0 K9 ["props"]
-       36 GETTABLEKS                       R1 R1 K10 ["PluginManagementApi"]
-       38 GETTABLEKS                       R1 R1 K11 ["OnPluginInstalledFromToolbox"]
-       40 GETTABLEKS                       R3 R0 K5 ["refreshPlugins"]
-       42 NAMECALL                         R1 R1 K12 ["Connect"]
-       44 CALL                             R1 2 1
-       45 GETTABLEKS                       R3 R0 K0 ["tokens"]
-       47 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
-       49 MOVE                             R4 R1
-       50 GETIMPORT                        R2 K15 [table.insert]
-       52 CALL                             R2 2 0
-       53 RETURN                           R0 0
+        4 DUPTABLE                         R1 K3 [{["updating"] = False}]
+        5 SETTABLEKS                       R1 R0 K4 ["state"]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["anyUpdateNeeded"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["refreshPlugins"]
+       15 NEWCLOSURE                       R1 P2
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K7 ["updateAllPlugins"]
+       19 NEWCLOSURE                       R1 P3
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U0
+       22 CAPTURE                          UPVAL U1
+       23 SETTABLEKS                       R1 R0 K8 ["findPlugins"]
+       25 GETTABLEKS                       R1 R0 K9 ["props"]
+       27 GETTABLEKS                       R1 R1 K10 ["PluginManagementApi"]
+       29 GETTABLEKS                       R1 R1 K11 ["OnPluginInstalledFromToolbox"]
+       31 GETTABLEKS                       R3 R0 K6 ["refreshPlugins"]
+       33 NAMECALL                         R1 R1 K12 ["Connect"]
+       35 CALL                             R1 2 1
+       36 GETTABLEKS                       R3 R0 K0 ["tokens"]
+       38 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       40 MOVE                             R4 R1
+       41 GETIMPORT                        R2 K15 [table.insert]
+       43 CALL                             R2 2 0
+       44 RETURN                           R0 0
 
-PROTO_7:
+PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 NAMECALL                         R1 R1 K2 ["get"]
@@ -174,14 +133,14 @@ PROTO_7:
         9 GETTABLEKS                       R1 R1 K4 ["FocusedDataModelSession"]
        11 RETURN                           R1 1
 
-PROTO_8:
+PROTO_7:
         0 LOADB                            R1 1
         1 SETTABLEKS                       R1 R0 K0 ["mounted"]
         3 GETTABLEKS                       R1 R0 K1 ["refreshPlugins"]
         5 CALL                             R1 0 0
         6 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 LOADB                            R1 0
         1 SETTABLEKS                       R1 R0 K0 ["mounted"]
         3 GETIMPORT                        R1 K2 [ipairs]
@@ -195,411 +154,388 @@ PROTO_9:
        16 SETTABLEKS                       R1 R0 K3 ["tokens"]
        18 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 RETURN                           R0 0
 
-PROTO_11:
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
-        4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
-        6 NAMECALL                         R3 R3 K3 ["get"]
-        8 CALL                             R3 1 1
-        9 GETTABLEKS                       R4 R1 K4 ["pluginList"]
-       11 GETTABLEKS                       R5 R2 K5 ["updating"]
-       13 GETTABLEKS                       R6 R1 K6 ["Localization"]
-       15 GETTABLEKS                       R7 R0 K0 ["props"]
-       17 GETTABLEKS                       R7 R7 K7 ["Stylizer"]
-       19 GETTABLEKS                       R8 R0 K8 ["anyUpdateNeeded"]
-       21 CALL                             R8 0 1
-       22 NOT                              R10 R8
-       23 OR                               R9 R10 R5
-       24 JUMPIFEQKNIL                     R4 ; [+2]
-       26 LOADB                            R10 0 +1
-       27 LOADB                            R10 1
-       28 NOT                              R11 R10
-       29 JUMPIFNOT                        R11 ; [+8]
-       30 GETIMPORT                        R12 K10 [next]
-       32 MOVE                             R13 R4
-       33 CALL                             R12 1 1
-       34 JUMPIFNOTEQKNIL                  R12 ; [+2]
-       36 LOADB                            R11 0 +1
-       37 LOADB                            R11 1
-       38 NOT                              R12 R11
-       39 JUMPIFNOT                        R12 ; [+1]
-       40 NOT                              R12 R10
-       41 LOADNIL                          R13
-       42 NAMECALL                         R14 R0 K11 ["isPlaceOpen"]
-       44 CALL                             R14 1 1
-       45 JUMPIFNOT                        R14 ; [+7]
-       46 LOADK                            R17 K12 ["Main"]
-       47 LOADK                            R18 K13 ["FindPluginsWithButtonMessage"]
-       48 NAMECALL                         R15 R6 K14 ["getText"]
-       50 CALL                             R15 3 1
-       51 MOVE                             R13 R15
-       52 JUMP                             ; [+6]
-       53 LOADK                            R17 K12 ["Main"]
-       54 LOADK                            R18 K15 ["FindPluginsMessage"]
-       55 NAMECALL                         R15 R6 K14 ["getText"]
-       57 CALL                             R15 3 1
-       58 MOVE                             R13 R15
-       59 GETUPVAL                         R15 0
-       60 GETTABLEKS                       R15 R15 K16 ["createElement"]
-       62 LOADK                            R16 K17 ["Frame"]
-       63 DUPTABLE                         R17 K20 [{"Size", "BackgroundColor3"}]
-       64 GETIMPORT                        R18 K23 [UDim2.new]
-       66 LOADN                            R19 1
-       67 LOADN                            R20 0
-       68 LOADN                            R21 1
-       69 LOADN                            R22 0
-       70 CALL                             R18 4 1
-       71 SETTABLEKS                       R18 R17 K18 ["Size"]
-       73 GETTABLEKS                       R18 R7 K24 ["BackgroundColor"]
-       75 SETTABLEKS                       R18 R17 K19 ["BackgroundColor3"]
-       77 DUPTABLE                         R18 K31 [{"PluginLabel", "UpdateAllButton", "FindPluginsButton", "NoPluginsMessage", "FindPluginsMessage", "ScrollablePluginList", "Indicator"}]
-       78 GETUPVAL                         R19 0
-       79 GETTABLEKS                       R19 R19 K16 ["createElement"]
-       81 LOADK                            R20 K32 ["TextLabel"]
-       82 DUPTABLE                         R21 K40 [{"Size", "Position", "Text", "TextSize", "TextColor3", "Font", "BackgroundTransparency", "TextXAlignment"}]
-       83 GETIMPORT                        R22 K23 [UDim2.new]
-       85 LOADN                            R23 0
-       86 GETUPVAL                         R24 1
-       87 GETTABLEKS                       R24 R24 K41 ["HEADER_TITLE_WIDTH"]
-       89 LOADN                            R25 0
-       90 GETUPVAL                         R26 1
-       91 GETTABLEKS                       R26 R26 K42 ["HEADER_BUTTON_SIZE"]
-       93 CALL                             R22 4 1
-       94 SETTABLEKS                       R22 R21 K18 ["Size"]
-       96 GETIMPORT                        R22 K23 [UDim2.new]
-       98 LOADN                            R23 0
-       99 GETUPVAL                         R24 1
-      100 GETTABLEKS                       R24 R24 K43 ["HEADER_LEFT_PADDING"]
-      102 LOADN                            R25 0
-      103 GETUPVAL                         R26 1
-      104 GETTABLEKS                       R26 R26 K44 ["HEADER_TOP_PADDING"]
-      106 CALL                             R22 4 1
-      107 SETTABLEKS                       R22 R21 K33 ["Position"]
-      109 LOADK                            R24 K12 ["Main"]
-      110 LOADK                            R25 K45 ["Title"]
-      111 NAMECALL                         R22 R6 K14 ["getText"]
-      113 CALL                             R22 3 1
-      114 SETTABLEKS                       R22 R21 K34 ["Text"]
-      116 LOADN                            R22 24
-      117 SETTABLEKS                       R22 R21 K35 ["TextSize"]
-      119 GETTABLEKS                       R22 R7 K46 ["TextColor"]
-      121 SETTABLEKS                       R22 R21 K36 ["TextColor3"]
-      123 GETIMPORT                        R22 K49 [Enum.Font.SourceSansSemibold]
-      125 SETTABLEKS                       R22 R21 K37 ["Font"]
-      127 LOADN                            R22 1
-      128 SETTABLEKS                       R22 R21 K38 ["BackgroundTransparency"]
-      130 GETIMPORT                        R22 K51 [Enum.TextXAlignment.Left]
-      132 GETTABLEKS                       R22 R22 K52 ["Value"]
-      134 SETTABLEKS                       R22 R21 K39 ["TextXAlignment"]
-      136 CALL                             R19 2 1
-      137 SETTABLEKS                       R19 R18 K25 ["PluginLabel"]
-      139 MOVE                             R19 R8
-      140 JUMPIFNOT                        R19 ; [+102]
-      141 GETUPVAL                         R19 0
-      142 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      144 GETUPVAL                         R20 2
-      145 DUPTABLE                         R21 K56 [{"Size", "Position", "Style", "StyleModifier", "OnClick"}]
-      146 GETIMPORT                        R22 K23 [UDim2.new]
-      148 LOADN                            R23 0
-      149 GETUPVAL                         R24 1
-      150 GETTABLEKS                       R24 R24 K57 ["HEADER_UPDATE_WIDTH"]
-      152 LOADN                            R25 0
-      153 GETUPVAL                         R26 1
-      154 GETTABLEKS                       R26 R26 K42 ["HEADER_BUTTON_SIZE"]
-      156 CALL                             R22 4 1
-      157 SETTABLEKS                       R22 R21 K18 ["Size"]
-      159 GETIMPORT                        R22 K23 [UDim2.new]
-      161 LOADN                            R23 1
-      162 GETUPVAL                         R27 1
-      163 GETTABLEKS                       R27 R27 K59 ["HEADER_RIGHT_PADDING"]
-      165 MULK                             R26 R27 K58 [2]
-      166 GETUPVAL                         R27 1
-      167 GETTABLEKS                       R27 R27 K57 ["HEADER_UPDATE_WIDTH"]
-      169 SUB                              R25 R26 R27
-      170 GETUPVAL                         R26 1
-      171 GETTABLEKS                       R26 R26 K42 ["HEADER_BUTTON_SIZE"]
-      173 SUB                              R24 R25 R26
-      174 LOADN                            R25 0
-      175 GETUPVAL                         R26 1
-      176 GETTABLEKS                       R26 R26 K44 ["HEADER_TOP_PADDING"]
-      178 CALL                             R22 4 1
-      179 SETTABLEKS                       R22 R21 K33 ["Position"]
-      181 LOADK                            R22 K60 ["Round"]
-      182 SETTABLEKS                       R22 R21 K53 ["Style"]
-      184 JUMPIFNOT                        R9 ; [+4]
-      185 GETUPVAL                         R22 3
-      186 GETTABLEKS                       R22 R22 K61 ["Disabled"]
-      188 JUMPIF                           R22 ; [+1]
-      189 LOADNIL                          R22
-      190 SETTABLEKS                       R22 R21 K54 ["StyleModifier"]
-      192 JUMPIF                           R9 ; [+3]
-      193 GETTABLEKS                       R22 R0 K62 ["updateAllPlugins"]
-      195 JUMPIF                           R22 ; [+1]
-      196 DUPCLOSURE                       R22 K63 [PROTO_10]
-      197 SETTABLEKS                       R22 R21 K55 ["OnClick"]
-      199 DUPTABLE                         R22 K65 [{"Label"}]
-      200 GETUPVAL                         R23 0
-      201 GETTABLEKS                       R23 R23 K16 ["createElement"]
-      203 LOADK                            R24 K32 ["TextLabel"]
-      204 DUPTABLE                         R25 K66 [{"Size", "Text", "TextColor3", "Font", "TextSize", "BackgroundTransparency"}]
-      205 GETIMPORT                        R26 K23 [UDim2.new]
-      207 LOADN                            R27 1
-      208 LOADN                            R28 0
-      209 LOADN                            R29 1
-      210 LOADN                            R30 0
-      211 CALL                             R26 4 1
-      212 SETTABLEKS                       R26 R25 K18 ["Size"]
-      214 LOADK                            R28 K12 ["Main"]
-      215 LOADK                            R29 K26 ["UpdateAllButton"]
-      216 NAMECALL                         R26 R6 K14 ["getText"]
-      218 CALL                             R26 3 1
-      219 SETTABLEKS                       R26 R25 K34 ["Text"]
-      221 JUMPIFNOT                        R9 ; [+3]
-      222 GETTABLEKS                       R26 R7 K67 ["DisabledColor"]
-      224 JUMPIF                           R26 ; [+2]
-      225 GETTABLEKS                       R26 R7 K46 ["TextColor"]
-      227 SETTABLEKS                       R26 R25 K36 ["TextColor3"]
-      229 GETIMPORT                        R26 K69 [Enum.Font.SourceSans]
-      231 SETTABLEKS                       R26 R25 K37 ["Font"]
-      233 LOADN                            R26 18
-      234 SETTABLEKS                       R26 R25 K35 ["TextSize"]
-      236 LOADN                            R26 1
-      237 SETTABLEKS                       R26 R25 K38 ["BackgroundTransparency"]
-      239 CALL                             R23 2 1
-      240 SETTABLEKS                       R23 R22 K64 ["Label"]
-      242 CALL                             R19 3 1
-      243 SETTABLEKS                       R19 R18 K26 ["UpdateAllButton"]
-      245 JUMPIFNOT                        R14 ; [+94]
-      246 GETUPVAL                         R19 0
-      247 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      249 GETUPVAL                         R20 2
-      250 DUPTABLE                         R21 K71 [{"Size", "Position", "AnchorPoint", "Style", "BackgroundTransparency", "OnClick"}]
-      251 GETIMPORT                        R22 K23 [UDim2.new]
-      253 LOADN                            R23 0
-      254 GETUPVAL                         R24 1
-      255 GETTABLEKS                       R24 R24 K42 ["HEADER_BUTTON_SIZE"]
-      257 LOADN                            R25 0
-      258 GETUPVAL                         R26 1
-      259 GETTABLEKS                       R26 R26 K42 ["HEADER_BUTTON_SIZE"]
-      261 CALL                             R22 4 1
-      262 SETTABLEKS                       R22 R21 K18 ["Size"]
-      264 GETIMPORT                        R22 K23 [UDim2.new]
-      266 LOADN                            R23 1
-      267 GETUPVAL                         R24 1
-      268 GETTABLEKS                       R24 R24 K59 ["HEADER_RIGHT_PADDING"]
-      270 LOADN                            R25 0
-      271 GETUPVAL                         R26 1
-      272 GETTABLEKS                       R26 R26 K44 ["HEADER_TOP_PADDING"]
-      274 CALL                             R22 4 1
-      275 SETTABLEKS                       R22 R21 K33 ["Position"]
-      277 GETIMPORT                        R22 K73 [Vector2.new]
-      279 LOADN                            R23 1
-      280 LOADN                            R24 0
-      281 CALL                             R22 2 1
-      282 SETTABLEKS                       R22 R21 K70 ["AnchorPoint"]
-      284 LOADK                            R22 K74 ["RoundPrimary"]
-      285 SETTABLEKS                       R22 R21 K53 ["Style"]
-      287 LOADN                            R22 1
-      288 SETTABLEKS                       R22 R21 K38 ["BackgroundTransparency"]
-      290 GETTABLEKS                       R22 R0 K75 ["findPlugins"]
-      292 SETTABLEKS                       R22 R21 K55 ["OnClick"]
-      294 DUPTABLE                         R22 K77 [{"Dots"}]
-      295 GETUPVAL                         R23 0
-      296 GETTABLEKS                       R23 R23 K16 ["createElement"]
-      298 LOADK                            R24 K32 ["TextLabel"]
-      299 DUPTABLE                         R25 K78 [{"Position", "Size", "Text", "TextColor3", "Font", "TextSize", "BackgroundTransparency"}]
-      300 GETIMPORT                        R26 K23 [UDim2.new]
-      302 LOADN                            R27 0
-      303 LOADN                            R28 0
-      304 LOADN                            R29 0
-      305 LOADN                            R30 0
-      306 CALL                             R26 4 1
-      307 SETTABLEKS                       R26 R25 K33 ["Position"]
-      309 GETIMPORT                        R26 K23 [UDim2.new]
-      311 LOADN                            R27 1
-      312 LOADN                            R28 0
-      313 LOADN                            R29 1
-      314 LOADN                            R30 0
-      315 CALL                             R26 4 1
-      316 SETTABLEKS                       R26 R25 K18 ["Size"]
-      318 LOADK                            R26 K79 ["+"]
-      319 SETTABLEKS                       R26 R25 K34 ["Text"]
-      321 GETTABLEKS                       R26 R7 K80 ["White"]
-      323 SETTABLEKS                       R26 R25 K36 ["TextColor3"]
-      325 GETIMPORT                        R26 K82 [Enum.Font.SourceSansBold]
-      327 SETTABLEKS                       R26 R25 K37 ["Font"]
-      329 LOADN                            R26 24
-      330 SETTABLEKS                       R26 R25 K35 ["TextSize"]
-      332 LOADN                            R26 1
-      333 SETTABLEKS                       R26 R25 K38 ["BackgroundTransparency"]
-      335 CALL                             R23 2 1
-      336 SETTABLEKS                       R23 R22 K76 ["Dots"]
-      338 CALL                             R19 3 1
-      339 JUMPIF                           R19 ; [+1]
-      340 LOADNIL                          R19
-      341 SETTABLEKS                       R19 R18 K27 ["FindPluginsButton"]
-      343 MOVE                             R19 R12
-      344 JUMPIFNOT                        R19 ; [+66]
-      345 GETUPVAL                         R19 0
-      346 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      348 LOADK                            R20 K32 ["TextLabel"]
-      349 DUPTABLE                         R21 K84 [{"Position", "Size", "Text", "TextSize", "TextColor3", "Font", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-      350 GETIMPORT                        R22 K23 [UDim2.new]
-      352 LOADN                            R23 0
-      353 GETUPVAL                         R24 1
-      354 GETTABLEKS                       R24 R24 K43 ["HEADER_LEFT_PADDING"]
-      356 LOADN                            R25 0
-      357 GETUPVAL                         R26 1
-      358 GETTABLEKS                       R26 R26 K85 ["HEADER_HEIGHT"]
-      360 CALL                             R22 4 1
-      361 SETTABLEKS                       R22 R21 K33 ["Position"]
-      363 GETIMPORT                        R22 K23 [UDim2.new]
-      365 LOADN                            R23 1
-      366 GETUPVAL                         R25 1
-      367 GETTABLEKS                       R25 R25 K43 ["HEADER_LEFT_PADDING"]
-      369 MINUS                            R24 R25
-      370 LOADN                            R25 0
-      371 GETUPVAL                         R26 1
-      372 GETTABLEKS                       R26 R26 K86 ["HEADER_MESSAGE_LINE_HEIGHT"]
-      374 CALL                             R22 4 1
-      375 SETTABLEKS                       R22 R21 K18 ["Size"]
-      377 LOADK                            R24 K12 ["Main"]
-      378 LOADK                            R25 K28 ["NoPluginsMessage"]
-      379 NAMECALL                         R22 R6 K14 ["getText"]
-      381 CALL                             R22 3 1
-      382 SETTABLEKS                       R22 R21 K34 ["Text"]
-      384 LOADN                            R22 17
-      385 SETTABLEKS                       R22 R21 K35 ["TextSize"]
-      387 GETTABLEKS                       R22 R7 K46 ["TextColor"]
-      389 SETTABLEKS                       R22 R21 K36 ["TextColor3"]
-      391 GETIMPORT                        R22 K69 [Enum.Font.SourceSans]
-      393 SETTABLEKS                       R22 R21 K37 ["Font"]
-      395 LOADN                            R22 1
-      396 SETTABLEKS                       R22 R21 K38 ["BackgroundTransparency"]
-      398 GETIMPORT                        R22 K51 [Enum.TextXAlignment.Left]
-      400 GETTABLEKS                       R22 R22 K52 ["Value"]
-      402 SETTABLEKS                       R22 R21 K39 ["TextXAlignment"]
-      404 GETIMPORT                        R22 K88 [Enum.TextYAlignment.Top]
-      406 GETTABLEKS                       R22 R22 K52 ["Value"]
-      408 SETTABLEKS                       R22 R21 K83 ["TextYAlignment"]
-      410 CALL                             R19 2 1
-      411 SETTABLEKS                       R19 R18 K28 ["NoPluginsMessage"]
-      413 MOVE                             R19 R12
-      414 JUMPIFNOT                        R19 ; [+65]
-      415 GETUPVAL                         R19 0
-      416 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      418 LOADK                            R20 K32 ["TextLabel"]
-      419 DUPTABLE                         R21 K84 [{"Position", "Size", "Text", "TextSize", "TextColor3", "Font", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-      420 GETIMPORT                        R22 K23 [UDim2.new]
-      422 LOADN                            R23 0
-      423 GETUPVAL                         R24 1
-      424 GETTABLEKS                       R24 R24 K43 ["HEADER_LEFT_PADDING"]
-      426 LOADN                            R25 0
-      427 GETUPVAL                         R27 1
-      428 GETTABLEKS                       R27 R27 K85 ["HEADER_HEIGHT"]
-      430 GETUPVAL                         R28 1
-      431 GETTABLEKS                       R28 R28 K86 ["HEADER_MESSAGE_LINE_HEIGHT"]
-      433 ADD                              R26 R27 R28
-      434 CALL                             R22 4 1
-      435 SETTABLEKS                       R22 R21 K33 ["Position"]
-      437 GETIMPORT                        R22 K23 [UDim2.new]
-      439 LOADN                            R23 1
-      440 GETUPVAL                         R25 1
-      441 GETTABLEKS                       R25 R25 K43 ["HEADER_LEFT_PADDING"]
-      443 MINUS                            R24 R25
-      444 LOADN                            R25 0
-      445 GETUPVAL                         R26 1
-      446 GETTABLEKS                       R26 R26 K86 ["HEADER_MESSAGE_LINE_HEIGHT"]
-      448 CALL                             R22 4 1
-      449 SETTABLEKS                       R22 R21 K18 ["Size"]
-      451 SETTABLEKS                       R13 R21 K34 ["Text"]
-      453 LOADN                            R22 17
-      454 SETTABLEKS                       R22 R21 K35 ["TextSize"]
-      456 GETTABLEKS                       R22 R7 K46 ["TextColor"]
-      458 SETTABLEKS                       R22 R21 K36 ["TextColor3"]
-      460 GETIMPORT                        R22 K69 [Enum.Font.SourceSans]
-      462 SETTABLEKS                       R22 R21 K37 ["Font"]
-      464 LOADN                            R22 1
-      465 SETTABLEKS                       R22 R21 K38 ["BackgroundTransparency"]
-      467 GETIMPORT                        R22 K51 [Enum.TextXAlignment.Left]
-      469 GETTABLEKS                       R22 R22 K52 ["Value"]
-      471 SETTABLEKS                       R22 R21 K39 ["TextXAlignment"]
-      473 GETIMPORT                        R22 K88 [Enum.TextYAlignment.Top]
-      475 GETTABLEKS                       R22 R22 K52 ["Value"]
-      477 SETTABLEKS                       R22 R21 K83 ["TextYAlignment"]
-      479 CALL                             R19 2 1
-      480 SETTABLEKS                       R19 R18 K15 ["FindPluginsMessage"]
-      482 MOVE                             R19 R11
-      483 JUMPIFNOT                        R19 ; [+43]
-      484 GETUPVAL                         R19 0
-      485 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      487 GETUPVAL                         R20 4
-      488 DUPTABLE                         R21 K94 [{"position", "size", "anchorPoint", "plugin", "pluginList", "onPluginUninstalled"}]
-      489 GETIMPORT                        R22 K23 [UDim2.new]
-      491 LOADN                            R23 0
-      492 LOADN                            R24 0
-      493 LOADN                            R25 1
-      494 LOADN                            R26 0
-      495 CALL                             R22 4 1
-      496 SETTABLEKS                       R22 R21 K89 ["position"]
-      498 GETIMPORT                        R22 K23 [UDim2.new]
-      500 LOADN                            R23 1
-      501 LOADN                            R24 0
-      502 LOADN                            R25 1
-      503 LOADN                            R27 255
-      504 GETUPVAL                         R28 1
-      505 GETTABLEKS                       R28 R28 K85 ["HEADER_HEIGHT"]
-      507 MUL                              R26 R27 R28
-      508 CALL                             R22 4 1
-      509 SETTABLEKS                       R22 R21 K90 ["size"]
-      511 GETIMPORT                        R22 K73 [Vector2.new]
-      513 LOADN                            R23 0
-      514 LOADN                            R24 1
-      515 CALL                             R22 2 1
-      516 SETTABLEKS                       R22 R21 K91 ["anchorPoint"]
-      518 SETTABLEKS                       R3 R21 K92 ["plugin"]
-      520 SETTABLEKS                       R4 R21 K4 ["pluginList"]
-      522 GETTABLEKS                       R22 R0 K95 ["refreshPlugins"]
-      524 SETTABLEKS                       R22 R21 K93 ["onPluginUninstalled"]
-      526 CALL                             R19 2 1
-      527 SETTABLEKS                       R19 R18 K29 ["ScrollablePluginList"]
-      529 MOVE                             R19 R10
-      530 JUMPIFNOT                        R19 ; [+29]
-      531 GETUPVAL                         R19 0
-      532 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      534 GETUPVAL                         R20 5
-      535 DUPTABLE                         R21 K96 [{"AnchorPoint", "Position", "Size"}]
-      536 GETIMPORT                        R22 K73 [Vector2.new]
-      538 LOADK                            R23 K97 [0.5]
-      539 LOADK                            R24 K97 [0.5]
-      540 CALL                             R22 2 1
-      541 SETTABLEKS                       R22 R21 K70 ["AnchorPoint"]
-      543 GETIMPORT                        R22 K99 [UDim2.fromScale]
-      545 LOADK                            R23 K97 [0.5]
-      546 LOADK                            R24 K97 [0.5]
-      547 CALL                             R22 2 1
-      548 SETTABLEKS                       R22 R21 K33 ["Position"]
-      550 GETIMPORT                        R22 K23 [UDim2.new]
-      552 LOADN                            R23 0
-      553 LOADN                            R24 92
-      554 LOADN                            R25 0
-      555 LOADN                            R26 24
-      556 CALL                             R22 4 1
-      557 SETTABLEKS                       R22 R21 K18 ["Size"]
-      559 CALL                             R19 2 1
-      560 SETTABLEKS                       R19 R18 K30 ["Indicator"]
-      562 CALL                             R15 3 -1
-      563 RETURN                           R15 -1
+        4 GETTABLEKS                       R3 R1 K2 ["pluginList"]
+        6 GETTABLEKS                       R4 R2 K3 ["updating"]
+        8 GETTABLEKS                       R5 R1 K4 ["Localization"]
+       10 GETTABLEKS                       R6 R0 K0 ["props"]
+       12 GETTABLEKS                       R6 R6 K5 ["Stylizer"]
+       14 GETTABLEKS                       R7 R0 K6 ["anyUpdateNeeded"]
+       16 CALL                             R7 0 1
+       17 NOT                              R9 R7
+       18 OR                               R8 R9 R4
+       19 JUMPIFEQKNIL                     R3 ; [+2]
+       21 LOADB                            R9 0 +1
+       22 LOADB                            R9 1
+       23 NOT                              R10 R9
+       24 JUMPIFNOT                        R10 ; [+8]
+       25 GETIMPORT                        R11 K8 [next]
+       27 MOVE                             R12 R3
+       28 CALL                             R11 1 1
+       29 JUMPIFNOTEQKNIL                  R11 ; [+2]
+       31 LOADB                            R10 0 +1
+       32 LOADB                            R10 1
+       33 NOT                              R11 R10
+       34 JUMPIFNOT                        R11 ; [+1]
+       35 NOT                              R11 R9
+       36 LOADNIL                          R12
+       37 NAMECALL                         R13 R0 K9 ["isPlaceOpen"]
+       39 CALL                             R13 1 1
+       40 JUMPIFNOT                        R13 ; [+7]
+       41 LOADK                            R16 K10 ["Main"]
+       42 LOADK                            R17 K11 ["FindPluginsWithButtonMessage"]
+       43 NAMECALL                         R14 R5 K12 ["getText"]
+       45 CALL                             R14 3 1
+       46 MOVE                             R12 R14
+       47 JUMP                             ; [+6]
+       48 LOADK                            R16 K10 ["Main"]
+       49 LOADK                            R17 K13 ["FindPluginsMessage"]
+       50 NAMECALL                         R14 R5 K12 ["getText"]
+       52 CALL                             R14 3 1
+       53 MOVE                             R12 R14
+       54 GETUPVAL                         R14 0
+       55 GETTABLEKS                       R14 R14 K14 ["createElement"]
+       57 LOADK                            R15 K15 ["Frame"]
+       58 DUPTABLE                         R16 K18 [{"Size", "BackgroundColor3"}]
+       59 GETIMPORT                        R17 K21 [UDim2.new]
+       61 LOADN                            R18 1
+       62 LOADN                            R19 0
+       63 LOADN                            R20 1
+       64 LOADN                            R21 0
+       65 CALL                             R17 4 1
+       66 SETTABLEKS                       R17 R16 K16 ["Size"]
+       68 GETTABLEKS                       R17 R6 K22 ["BackgroundColor"]
+       70 SETTABLEKS                       R17 R16 K17 ["BackgroundColor3"]
+       72 DUPTABLE                         R17 K29 [{"PluginLabel", "UpdateAllButton", "FindPluginsButton", "NoPluginsMessage", "FindPluginsMessage", "ScrollablePluginList", "Indicator"}]
+       73 GETUPVAL                         R18 0
+       74 GETTABLEKS                       R18 R18 K14 ["createElement"]
+       76 LOADK                            R19 K30 ["TextLabel"]
+       77 DUPTABLE                         R20 K40 [{["Size"], ["Position"], ["Text"], ["TextSize"] = 24, ["TextColor3"], ["Font"], ["BackgroundTransparency"] = 1, ["TextXAlignment"]}]
+       78 GETIMPORT                        R21 K21 [UDim2.new]
+       80 LOADN                            R22 0
+       81 GETUPVAL                         R23 1
+       82 GETTABLEKS                       R23 R23 K41 ["HEADER_TITLE_WIDTH"]
+       84 LOADN                            R24 0
+       85 GETUPVAL                         R25 1
+       86 GETTABLEKS                       R25 R25 K42 ["HEADER_BUTTON_SIZE"]
+       88 CALL                             R21 4 1
+       89 SETTABLEKS                       R21 R20 K16 ["Size"]
+       91 GETIMPORT                        R21 K21 [UDim2.new]
+       93 LOADN                            R22 0
+       94 GETUPVAL                         R23 1
+       95 GETTABLEKS                       R23 R23 K43 ["HEADER_LEFT_PADDING"]
+       97 LOADN                            R24 0
+       98 GETUPVAL                         R25 1
+       99 GETTABLEKS                       R25 R25 K44 ["HEADER_TOP_PADDING"]
+      101 CALL                             R21 4 1
+      102 SETTABLEKS                       R21 R20 K31 ["Position"]
+      104 LOADK                            R23 K10 ["Main"]
+      105 LOADK                            R24 K45 ["Title"]
+      106 NAMECALL                         R21 R5 K12 ["getText"]
+      108 CALL                             R21 3 1
+      109 SETTABLEKS                       R21 R20 K32 ["Text"]
+      111 GETTABLEKS                       R21 R6 K46 ["TextColor"]
+      113 SETTABLEKS                       R21 R20 K35 ["TextColor3"]
+      115 GETIMPORT                        R21 K49 [Enum.Font.SourceSansSemibold]
+      117 SETTABLEKS                       R21 R20 K36 ["Font"]
+      119 GETIMPORT                        R21 K51 [Enum.TextXAlignment.Left]
+      121 GETTABLEKS                       R21 R21 K52 ["Value"]
+      123 SETTABLEKS                       R21 R20 K39 ["TextXAlignment"]
+      125 CALL                             R18 2 1
+      126 SETTABLEKS                       R18 R17 K23 ["PluginLabel"]
+      128 MOVE                             R18 R7
+      129 JUMPIFNOT                        R18 ; [+93]
+      130 GETUPVAL                         R18 0
+      131 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      133 GETUPVAL                         R19 2
+      134 DUPTABLE                         R20 K57 [{["Size"], ["Position"], ["Style"] = "Round", ["StyleModifier"], ["OnClick"]}]
+      135 GETIMPORT                        R21 K21 [UDim2.new]
+      137 LOADN                            R22 0
+      138 GETUPVAL                         R23 1
+      139 GETTABLEKS                       R23 R23 K58 ["HEADER_UPDATE_WIDTH"]
+      141 LOADN                            R24 0
+      142 GETUPVAL                         R25 1
+      143 GETTABLEKS                       R25 R25 K42 ["HEADER_BUTTON_SIZE"]
+      145 CALL                             R21 4 1
+      146 SETTABLEKS                       R21 R20 K16 ["Size"]
+      148 GETIMPORT                        R21 K21 [UDim2.new]
+      150 LOADN                            R22 1
+      151 GETUPVAL                         R26 1
+      152 GETTABLEKS                       R26 R26 K60 ["HEADER_RIGHT_PADDING"]
+      154 MULK                             R25 R26 K59 [2]
+      155 GETUPVAL                         R26 1
+      156 GETTABLEKS                       R26 R26 K58 ["HEADER_UPDATE_WIDTH"]
+      158 SUB                              R24 R25 R26
+      159 GETUPVAL                         R25 1
+      160 GETTABLEKS                       R25 R25 K42 ["HEADER_BUTTON_SIZE"]
+      162 SUB                              R23 R24 R25
+      163 LOADN                            R24 0
+      164 GETUPVAL                         R25 1
+      165 GETTABLEKS                       R25 R25 K44 ["HEADER_TOP_PADDING"]
+      167 CALL                             R21 4 1
+      168 SETTABLEKS                       R21 R20 K31 ["Position"]
+      170 JUMPIFNOT                        R8 ; [+4]
+      171 GETUPVAL                         R21 3
+      172 GETTABLEKS                       R21 R21 K61 ["Disabled"]
+      174 JUMPIF                           R21 ; [+1]
+      175 LOADNIL                          R21
+      176 SETTABLEKS                       R21 R20 K55 ["StyleModifier"]
+      178 JUMPIF                           R8 ; [+3]
+      179 GETTABLEKS                       R21 R0 K62 ["updateAllPlugins"]
+      181 JUMPIF                           R21 ; [+1]
+      182 DUPCLOSURE                       R21 K63 [PROTO_9]
+      183 SETTABLEKS                       R21 R20 K56 ["OnClick"]
+      185 DUPTABLE                         R21 K65 [{"Label"}]
+      186 GETUPVAL                         R22 0
+      187 GETTABLEKS                       R22 R22 K14 ["createElement"]
+      189 LOADK                            R23 K30 ["TextLabel"]
+      190 DUPTABLE                         R24 K67 [{["Size"], ["Text"], ["TextColor3"], ["Font"], ["TextSize"] = 18, ["BackgroundTransparency"] = 1}]
+      191 GETIMPORT                        R25 K21 [UDim2.new]
+      193 LOADN                            R26 1
+      194 LOADN                            R27 0
+      195 LOADN                            R28 1
+      196 LOADN                            R29 0
+      197 CALL                             R25 4 1
+      198 SETTABLEKS                       R25 R24 K16 ["Size"]
+      200 LOADK                            R27 K10 ["Main"]
+      201 LOADK                            R28 K24 ["UpdateAllButton"]
+      202 NAMECALL                         R25 R5 K12 ["getText"]
+      204 CALL                             R25 3 1
+      205 SETTABLEKS                       R25 R24 K32 ["Text"]
+      207 JUMPIFNOT                        R8 ; [+3]
+      208 GETTABLEKS                       R25 R6 K68 ["DisabledColor"]
+      210 JUMPIF                           R25 ; [+2]
+      211 GETTABLEKS                       R25 R6 K46 ["TextColor"]
+      213 SETTABLEKS                       R25 R24 K35 ["TextColor3"]
+      215 GETIMPORT                        R25 K70 [Enum.Font.SourceSans]
+      217 SETTABLEKS                       R25 R24 K36 ["Font"]
+      219 CALL                             R22 2 1
+      220 SETTABLEKS                       R22 R21 K64 ["Label"]
+      222 CALL                             R18 3 1
+      223 SETTABLEKS                       R18 R17 K24 ["UpdateAllButton"]
+      225 JUMPIFNOT                        R13 ; [+79]
+      226 GETUPVAL                         R18 0
+      227 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      229 GETUPVAL                         R19 2
+      230 DUPTABLE                         R20 K73 [{["Size"], ["Position"], ["AnchorPoint"], ["Style"] = "RoundPrimary", ["BackgroundTransparency"] = 1, ["OnClick"]}]
+      231 GETIMPORT                        R21 K21 [UDim2.new]
+      233 LOADN                            R22 0
+      234 GETUPVAL                         R23 1
+      235 GETTABLEKS                       R23 R23 K42 ["HEADER_BUTTON_SIZE"]
+      237 LOADN                            R24 0
+      238 GETUPVAL                         R25 1
+      239 GETTABLEKS                       R25 R25 K42 ["HEADER_BUTTON_SIZE"]
+      241 CALL                             R21 4 1
+      242 SETTABLEKS                       R21 R20 K16 ["Size"]
+      244 GETIMPORT                        R21 K21 [UDim2.new]
+      246 LOADN                            R22 1
+      247 GETUPVAL                         R23 1
+      248 GETTABLEKS                       R23 R23 K60 ["HEADER_RIGHT_PADDING"]
+      250 LOADN                            R24 0
+      251 GETUPVAL                         R25 1
+      252 GETTABLEKS                       R25 R25 K44 ["HEADER_TOP_PADDING"]
+      254 CALL                             R21 4 1
+      255 SETTABLEKS                       R21 R20 K31 ["Position"]
+      257 GETIMPORT                        R21 K75 [Vector2.new]
+      259 LOADN                            R22 1
+      260 LOADN                            R23 0
+      261 CALL                             R21 2 1
+      262 SETTABLEKS                       R21 R20 K71 ["AnchorPoint"]
+      264 GETTABLEKS                       R21 R0 K76 ["findPlugins"]
+      266 SETTABLEKS                       R21 R20 K56 ["OnClick"]
+      268 DUPTABLE                         R21 K78 [{"Dots"}]
+      269 GETUPVAL                         R22 0
+      270 GETTABLEKS                       R22 R22 K14 ["createElement"]
+      272 LOADK                            R23 K30 ["TextLabel"]
+      273 DUPTABLE                         R24 K80 [{["Position"], ["Size"], ["Text"] = "+", ["TextColor3"], ["Font"], ["TextSize"] = 24, ["BackgroundTransparency"] = 1}]
+      274 GETIMPORT                        R25 K21 [UDim2.new]
+      276 LOADN                            R26 0
+      277 LOADN                            R27 0
+      278 LOADN                            R28 0
+      279 LOADN                            R29 0
+      280 CALL                             R25 4 1
+      281 SETTABLEKS                       R25 R24 K31 ["Position"]
+      283 GETIMPORT                        R25 K21 [UDim2.new]
+      285 LOADN                            R26 1
+      286 LOADN                            R27 0
+      287 LOADN                            R28 1
+      288 LOADN                            R29 0
+      289 CALL                             R25 4 1
+      290 SETTABLEKS                       R25 R24 K16 ["Size"]
+      292 GETTABLEKS                       R25 R6 K81 ["White"]
+      294 SETTABLEKS                       R25 R24 K35 ["TextColor3"]
+      296 GETIMPORT                        R25 K83 [Enum.Font.SourceSansBold]
+      298 SETTABLEKS                       R25 R24 K36 ["Font"]
+      300 CALL                             R22 2 1
+      301 SETTABLEKS                       R22 R21 K77 ["Dots"]
+      303 CALL                             R18 3 1
+      304 JUMPIF                           R18 ; [+1]
+      305 LOADNIL                          R18
+      306 SETTABLEKS                       R18 R17 K25 ["FindPluginsButton"]
+      308 MOVE                             R18 R11
+      309 JUMPIFNOT                        R18 ; [+60]
+      310 GETUPVAL                         R18 0
+      311 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      313 LOADK                            R19 K30 ["TextLabel"]
+      314 DUPTABLE                         R20 K86 [{["Position"], ["Size"], ["Text"], ["TextSize"] = 17, ["TextColor3"], ["Font"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"]}]
+      315 GETIMPORT                        R21 K21 [UDim2.new]
+      317 LOADN                            R22 0
+      318 GETUPVAL                         R23 1
+      319 GETTABLEKS                       R23 R23 K43 ["HEADER_LEFT_PADDING"]
+      321 LOADN                            R24 0
+      322 GETUPVAL                         R25 1
+      323 GETTABLEKS                       R25 R25 K87 ["HEADER_HEIGHT"]
+      325 CALL                             R21 4 1
+      326 SETTABLEKS                       R21 R20 K31 ["Position"]
+      328 GETIMPORT                        R21 K21 [UDim2.new]
+      330 LOADN                            R22 1
+      331 GETUPVAL                         R24 1
+      332 GETTABLEKS                       R24 R24 K43 ["HEADER_LEFT_PADDING"]
+      334 MINUS                            R23 R24
+      335 LOADN                            R24 0
+      336 GETUPVAL                         R25 1
+      337 GETTABLEKS                       R25 R25 K88 ["HEADER_MESSAGE_LINE_HEIGHT"]
+      339 CALL                             R21 4 1
+      340 SETTABLEKS                       R21 R20 K16 ["Size"]
+      342 LOADK                            R23 K10 ["Main"]
+      343 LOADK                            R24 K26 ["NoPluginsMessage"]
+      344 NAMECALL                         R21 R5 K12 ["getText"]
+      346 CALL                             R21 3 1
+      347 SETTABLEKS                       R21 R20 K32 ["Text"]
+      349 GETTABLEKS                       R21 R6 K46 ["TextColor"]
+      351 SETTABLEKS                       R21 R20 K35 ["TextColor3"]
+      353 GETIMPORT                        R21 K70 [Enum.Font.SourceSans]
+      355 SETTABLEKS                       R21 R20 K36 ["Font"]
+      357 GETIMPORT                        R21 K51 [Enum.TextXAlignment.Left]
+      359 GETTABLEKS                       R21 R21 K52 ["Value"]
+      361 SETTABLEKS                       R21 R20 K39 ["TextXAlignment"]
+      363 GETIMPORT                        R21 K90 [Enum.TextYAlignment.Top]
+      365 GETTABLEKS                       R21 R21 K52 ["Value"]
+      367 SETTABLEKS                       R21 R20 K85 ["TextYAlignment"]
+      369 CALL                             R18 2 1
+      370 SETTABLEKS                       R18 R17 K26 ["NoPluginsMessage"]
+      372 MOVE                             R18 R11
+      373 JUMPIFNOT                        R18 ; [+59]
+      374 GETUPVAL                         R18 0
+      375 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      377 LOADK                            R19 K30 ["TextLabel"]
+      378 DUPTABLE                         R20 K86 [{["Position"], ["Size"], ["Text"], ["TextSize"] = 17, ["TextColor3"], ["Font"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"]}]
+      379 GETIMPORT                        R21 K21 [UDim2.new]
+      381 LOADN                            R22 0
+      382 GETUPVAL                         R23 1
+      383 GETTABLEKS                       R23 R23 K43 ["HEADER_LEFT_PADDING"]
+      385 LOADN                            R24 0
+      386 GETUPVAL                         R26 1
+      387 GETTABLEKS                       R26 R26 K87 ["HEADER_HEIGHT"]
+      389 GETUPVAL                         R27 1
+      390 GETTABLEKS                       R27 R27 K88 ["HEADER_MESSAGE_LINE_HEIGHT"]
+      392 ADD                              R25 R26 R27
+      393 CALL                             R21 4 1
+      394 SETTABLEKS                       R21 R20 K31 ["Position"]
+      396 GETIMPORT                        R21 K21 [UDim2.new]
+      398 LOADN                            R22 1
+      399 GETUPVAL                         R24 1
+      400 GETTABLEKS                       R24 R24 K43 ["HEADER_LEFT_PADDING"]
+      402 MINUS                            R23 R24
+      403 LOADN                            R24 0
+      404 GETUPVAL                         R25 1
+      405 GETTABLEKS                       R25 R25 K88 ["HEADER_MESSAGE_LINE_HEIGHT"]
+      407 CALL                             R21 4 1
+      408 SETTABLEKS                       R21 R20 K16 ["Size"]
+      410 SETTABLEKS                       R12 R20 K32 ["Text"]
+      412 GETTABLEKS                       R21 R6 K46 ["TextColor"]
+      414 SETTABLEKS                       R21 R20 K35 ["TextColor3"]
+      416 GETIMPORT                        R21 K70 [Enum.Font.SourceSans]
+      418 SETTABLEKS                       R21 R20 K36 ["Font"]
+      420 GETIMPORT                        R21 K51 [Enum.TextXAlignment.Left]
+      422 GETTABLEKS                       R21 R21 K52 ["Value"]
+      424 SETTABLEKS                       R21 R20 K39 ["TextXAlignment"]
+      426 GETIMPORT                        R21 K90 [Enum.TextYAlignment.Top]
+      428 GETTABLEKS                       R21 R21 K52 ["Value"]
+      430 SETTABLEKS                       R21 R20 K85 ["TextYAlignment"]
+      432 CALL                             R18 2 1
+      433 SETTABLEKS                       R18 R17 K13 ["FindPluginsMessage"]
+      435 MOVE                             R18 R10
+      436 JUMPIFNOT                        R18 ; [+41]
+      437 GETUPVAL                         R18 0
+      438 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      440 GETUPVAL                         R19 4
+      441 DUPTABLE                         R20 K95 [{"position", "size", "anchorPoint", "pluginList", "onPluginUninstalled"}]
+      442 GETIMPORT                        R21 K21 [UDim2.new]
+      444 LOADN                            R22 0
+      445 LOADN                            R23 0
+      446 LOADN                            R24 1
+      447 LOADN                            R25 0
+      448 CALL                             R21 4 1
+      449 SETTABLEKS                       R21 R20 K91 ["position"]
+      451 GETIMPORT                        R21 K21 [UDim2.new]
+      453 LOADN                            R22 1
+      454 LOADN                            R23 0
+      455 LOADN                            R24 1
+      456 LOADN                            R26 -1
+      457 GETUPVAL                         R27 1
+      458 GETTABLEKS                       R27 R27 K87 ["HEADER_HEIGHT"]
+      460 MUL                              R25 R26 R27
+      461 CALL                             R21 4 1
+      462 SETTABLEKS                       R21 R20 K92 ["size"]
+      464 GETIMPORT                        R21 K75 [Vector2.new]
+      466 LOADN                            R22 0
+      467 LOADN                            R23 1
+      468 CALL                             R21 2 1
+      469 SETTABLEKS                       R21 R20 K93 ["anchorPoint"]
+      471 SETTABLEKS                       R3 R20 K2 ["pluginList"]
+      473 GETTABLEKS                       R21 R0 K96 ["refreshPlugins"]
+      475 SETTABLEKS                       R21 R20 K94 ["onPluginUninstalled"]
+      477 CALL                             R18 2 1
+      478 SETTABLEKS                       R18 R17 K27 ["ScrollablePluginList"]
+      480 MOVE                             R18 R9
+      481 JUMPIFNOT                        R18 ; [+29]
+      482 GETUPVAL                         R18 0
+      483 GETTABLEKS                       R18 R18 K14 ["createElement"]
+      485 GETUPVAL                         R19 5
+      486 DUPTABLE                         R20 K97 [{"AnchorPoint", "Position", "Size"}]
+      487 GETIMPORT                        R21 K75 [Vector2.new]
+      489 LOADK                            R22 K98 [0.5]
+      490 LOADK                            R23 K98 [0.5]
+      491 CALL                             R21 2 1
+      492 SETTABLEKS                       R21 R20 K71 ["AnchorPoint"]
+      494 GETIMPORT                        R21 K100 [UDim2.fromScale]
+      496 LOADK                            R22 K98 [0.5]
+      497 LOADK                            R23 K98 [0.5]
+      498 CALL                             R21 2 1
+      499 SETTABLEKS                       R21 R20 K31 ["Position"]
+      501 GETIMPORT                        R21 K21 [UDim2.new]
+      503 LOADN                            R22 0
+      504 LOADN                            R23 92
+      505 LOADN                            R24 0
+      506 LOADN                            R25 24
+      507 CALL                             R21 4 1
+      508 SETTABLEKS                       R21 R20 K16 ["Size"]
+      510 CALL                             R18 2 1
+      511 SETTABLEKS                       R18 R17 K28 ["Indicator"]
+      513 CALL                             R14 3 -1
+      514 RETURN                           R14 -1
 
-PROTO_12:
+PROTO_11:
         0 DUPTABLE                         R2 K1 [{"pluginList"}]
         1 GETTABLEKS                       R3 R0 K2 ["Management"]
         3 GETTABLEKS                       R3 R3 K3 ["plugins"]
         5 SETTABLEKS                       R3 R2 K0 ["pluginList"]
         7 RETURN                           R2 1
+
+PROTO_12:
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R3 2 -1
+        5 CALL                             R2 -1 0
+        6 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R2 0
@@ -611,32 +547,7 @@ PROTO_13:
         6 RETURN                           R0 0
 
 PROTO_14:
-        0 GETUPVAL                         R2 0
-        1 GETUPVAL                         R3 1
-        2 MOVE                             R4 R0
-        3 MOVE                             R5 R1
-        4 CALL                             R3 2 -1
-        5 CALL                             R2 -1 0
-        6 RETURN                           R0 0
-
-PROTO_15:
-        0 GETUPVAL                         R4 0
-        1 CALL                             R4 0 1
-        2 NOT                              R3 R4
-        3 FASTCALL2K                       ASSERT R3 K0 ; [+4]
-        5 LOADK                            R4 K0 ["DEPRECATED_getAllPluginPermissions is deprecated with FFlagStudioRefreshPluginPermissions"]
-        6 GETIMPORT                        R2 K2 [assert]
-        8 CALL                             R2 2 0
-        9 GETUPVAL                         R2 1
-       10 GETUPVAL                         R3 2
-       11 MOVE                             R4 R0
-       12 MOVE                             R5 R1
-       13 CALL                             R3 2 -1
-       14 CALL                             R2 -1 0
-       15 RETURN                           R0 0
-
-PROTO_16:
-        0 DUPTABLE                         R1 K3 [{"UpdateAllPlugins", "dispatchRefreshPlugins", "DEPRECATED_getAllPluginPermissions"}]
+        0 DUPTABLE                         R1 K2 [{"UpdateAllPlugins", "dispatchRefreshPlugins"}]
         1 NEWCLOSURE                       R2 P0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U0
@@ -645,12 +556,7 @@ PROTO_16:
         7 CAPTURE                          VAL R0
         8 CAPTURE                          UPVAL U1
         9 SETTABLEKS                       R2 R1 K1 ["dispatchRefreshPlugins"]
-       11 NEWCLOSURE                       R2 P2
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U3
-       15 SETTABLEKS                       R2 R1 K2 ["DEPRECATED_getAllPluginPermissions"]
-       17 RETURN                           R1 1
+       11 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -661,7 +567,7 @@ MAIN:
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Src"]
        13 GETTABLEKS                       R2 R2 K6 ["Flags"]
-       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioRefreshPluginPermissions"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioPluginManagementUpgradeHttp"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K9 [game]
        20 LOADK                            R4 K10 ["MemStorageService"]
@@ -682,106 +588,104 @@ MAIN:
        46 CALL                             R5 1 1
        47 GETIMPORT                        R6 K4 [require]
        49 GETTABLEKS                       R7 R0 K5 ["Src"]
-       51 GETTABLEKS                       R7 R7 K17 ["Thunks"]
-       53 GETTABLEKS                       R7 R7 K18 ["GetAllPluginPermissions"]
+       51 GETTABLEKS                       R7 R7 K17 ["Util"]
+       53 GETTABLEKS                       R7 R7 K18 ["Constants"]
        55 CALL                             R6 1 1
        56 GETIMPORT                        R7 K4 [require]
-       58 GETTABLEKS                       R8 R0 K5 ["Src"]
-       60 GETTABLEKS                       R8 R8 K19 ["Util"]
-       62 GETTABLEKS                       R8 R8 K20 ["Constants"]
-       64 CALL                             R7 1 1
-       65 GETIMPORT                        R8 K4 [require]
-       67 GETTABLEKS                       R9 R0 K12 ["Packages"]
-       69 GETTABLEKS                       R9 R9 K21 ["Framework"]
-       71 CALL                             R8 1 1
-       72 GETTABLEKS                       R8 R8 K22 ["ContextServices"]
-       74 GETTABLEKS                       R9 R8 K23 ["withContext"]
+       58 GETTABLEKS                       R8 R0 K12 ["Packages"]
+       60 GETTABLEKS                       R8 R8 K19 ["Framework"]
+       62 CALL                             R7 1 1
+       63 GETTABLEKS                       R7 R7 K20 ["ContextServices"]
+       65 GETTABLEKS                       R8 R7 K21 ["withContext"]
+       67 GETIMPORT                        R9 K4 [require]
+       69 GETTABLEKS                       R10 R0 K12 ["Packages"]
+       71 GETTABLEKS                       R10 R10 K19 ["Framework"]
+       73 CALL                             R9 1 1
+       74 GETTABLEKS                       R9 R9 K22 ["UI"]
        76 GETIMPORT                        R10 K4 [require]
        78 GETTABLEKS                       R11 R0 K12 ["Packages"]
-       80 GETTABLEKS                       R11 R11 K21 ["Framework"]
+       80 GETTABLEKS                       R11 R11 K19 ["Framework"]
        82 CALL                             R10 1 1
-       83 GETTABLEKS                       R10 R10 K24 ["UI"]
+       83 GETTABLEKS                       R10 R10 K17 ["Util"]
        85 GETIMPORT                        R11 K4 [require]
-       87 GETTABLEKS                       R12 R0 K12 ["Packages"]
-       89 GETTABLEKS                       R12 R12 K21 ["Framework"]
-       91 CALL                             R11 1 1
-       92 GETTABLEKS                       R11 R11 K19 ["Util"]
+       87 GETTABLEKS                       R12 R0 K5 ["Src"]
+       89 GETTABLEKS                       R12 R12 K20 ["ContextServices"]
+       91 GETTABLEKS                       R12 R12 K23 ["PluginAPI2"]
+       93 CALL                             R11 1 1
        94 GETIMPORT                        R12 K4 [require]
        96 GETTABLEKS                       R13 R0 K5 ["Src"]
-       98 GETTABLEKS                       R13 R13 K22 ["ContextServices"]
-      100 GETTABLEKS                       R13 R13 K25 ["PluginAPI2"]
+       98 GETTABLEKS                       R13 R13 K24 ["Thunks"]
+      100 GETTABLEKS                       R13 R13 K25 ["UpdateAllPlugins"]
       102 CALL                             R12 1 1
       103 GETIMPORT                        R13 K4 [require]
       105 GETTABLEKS                       R14 R0 K5 ["Src"]
-      107 GETTABLEKS                       R14 R14 K17 ["Thunks"]
-      109 GETTABLEKS                       R14 R14 K26 ["UpdateAllPlugins"]
+      107 GETTABLEKS                       R14 R14 K24 ["Thunks"]
+      109 GETTABLEKS                       R14 R14 K26 ["RefreshPlugins"]
       111 CALL                             R13 1 1
-      112 GETIMPORT                        R14 K4 [require]
-      114 GETTABLEKS                       R15 R0 K5 ["Src"]
-      116 GETTABLEKS                       R15 R15 K17 ["Thunks"]
-      118 GETTABLEKS                       R15 R15 K27 ["RefreshPlugins"]
-      120 CALL                             R14 1 1
-      121 GETTABLEKS                       R15 R10 K28 ["Button"]
-      123 GETTABLEKS                       R16 R11 K29 ["StyleModifier"]
-      125 GETTABLEKS                       R17 R10 K30 ["LoadingIndicator"]
+      112 GETTABLEKS                       R14 R9 K27 ["Button"]
+      114 GETTABLEKS                       R15 R10 K28 ["StyleModifier"]
+      116 GETTABLEKS                       R16 R9 K29 ["LoadingIndicator"]
+      118 GETIMPORT                        R17 K4 [require]
+      120 GETTABLEKS                       R18 R0 K5 ["Src"]
+      122 GETTABLEKS                       R18 R18 K17 ["Util"]
+      124 GETTABLEKS                       R18 R18 K30 ["PluginManagementApi"]
+      126 CALL                             R17 1 1
       127 GETIMPORT                        R18 K4 [require]
-      129 GETTABLEKS                       R19 R0 K5 ["Src"]
-      131 GETTABLEKS                       R19 R19 K19 ["Util"]
-      133 GETTABLEKS                       R19 R19 K31 ["PluginManagementApi"]
-      135 CALL                             R18 1 1
-      136 GETIMPORT                        R19 K4 [require]
-      138 GETTABLEKS                       R20 R0 K12 ["Packages"]
-      140 GETTABLEKS                       R20 R20 K32 ["SharedPluginConstants"]
-      142 CALL                             R19 1 1
-      143 GETTABLEKS                       R20 R3 K33 ["Component"]
-      145 LOADK                            R22 K34 ["ManagementMainView"]
-      146 NAMECALL                         R20 R20 K35 ["extend"]
-      148 CALL                             R20 2 1
-      149 DUPCLOSURE                       R21 K36 [PROTO_6]
-      150 CAPTURE                          VAL R1
-      151 CAPTURE                          VAL R2
-      152 CAPTURE                          VAL R19
-      153 SETTABLEKS                       R21 R20 K37 ["init"]
-      155 DUPCLOSURE                       R21 K38 [PROTO_7]
-      156 SETTABLEKS                       R21 R20 K39 ["isPlaceOpen"]
-      158 DUPCLOSURE                       R21 K40 [PROTO_8]
-      159 SETTABLEKS                       R21 R20 K41 ["didMount"]
-      161 DUPCLOSURE                       R21 K42 [PROTO_9]
-      162 SETTABLEKS                       R21 R20 K43 ["willUnmount"]
-      164 DUPCLOSURE                       R21 K44 [PROTO_11]
-      165 CAPTURE                          VAL R3
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R15
-      168 CAPTURE                          VAL R16
-      169 CAPTURE                          VAL R5
-      170 CAPTURE                          VAL R17
-      171 SETTABLEKS                       R21 R20 K45 ["render"]
-      173 MOVE                             R21 R9
-      174 DUPTABLE                         R22 K51 [{"Plugin", "Localization", "Stylizer", "API", "Analytics", "PluginManagementApi"}]
-      175 GETTABLEKS                       R23 R8 K46 ["Plugin"]
-      177 SETTABLEKS                       R23 R22 K46 ["Plugin"]
-      179 GETTABLEKS                       R23 R8 K47 ["Localization"]
-      181 SETTABLEKS                       R23 R22 K47 ["Localization"]
-      183 GETTABLEKS                       R23 R8 K48 ["Stylizer"]
-      185 SETTABLEKS                       R23 R22 K48 ["Stylizer"]
-      187 SETTABLEKS                       R12 R22 K49 ["API"]
-      189 GETTABLEKS                       R23 R8 K50 ["Analytics"]
-      191 SETTABLEKS                       R23 R22 K50 ["Analytics"]
-      193 SETTABLEKS                       R18 R22 K31 ["PluginManagementApi"]
-      195 CALL                             R21 1 1
-      196 MOVE                             R22 R20
-      197 CALL                             R21 1 1
-      198 MOVE                             R20 R21
-      199 DUPCLOSURE                       R21 K52 [PROTO_12]
-      200 DUPCLOSURE                       R22 K53 [PROTO_16]
-      201 CAPTURE                          VAL R13
-      202 CAPTURE                          VAL R14
-      203 CAPTURE                          VAL R1
-      204 CAPTURE                          VAL R6
-      205 GETTABLEKS                       R23 R4 K54 ["connect"]
-      207 MOVE                             R24 R21
-      208 MOVE                             R25 R22
-      209 CALL                             R23 2 1
-      210 MOVE                             R24 R20
-      211 CALL                             R23 1 -1
-      212 RETURN                           R23 -1
+      129 GETTABLEKS                       R19 R0 K12 ["Packages"]
+      131 GETTABLEKS                       R19 R19 K31 ["SharedPluginConstants"]
+      133 CALL                             R18 1 1
+      134 GETTABLEKS                       R19 R3 K32 ["Component"]
+      136 LOADK                            R21 K33 ["ManagementMainView"]
+      137 NAMECALL                         R19 R19 K34 ["extend"]
+      139 CALL                             R19 2 1
+      140 DUPCLOSURE                       R20 K35 [PROTO_5]
+      141 CAPTURE                          VAL R2
+      142 CAPTURE                          VAL R18
+      143 SETTABLEKS                       R20 R19 K36 ["init"]
+      145 DUPCLOSURE                       R20 K37 [PROTO_6]
+      146 SETTABLEKS                       R20 R19 K38 ["isPlaceOpen"]
+      148 DUPCLOSURE                       R20 K39 [PROTO_7]
+      149 SETTABLEKS                       R20 R19 K40 ["didMount"]
+      151 DUPCLOSURE                       R20 K41 [PROTO_8]
+      152 SETTABLEKS                       R20 R19 K42 ["willUnmount"]
+      154 DUPCLOSURE                       R20 K43 [PROTO_10]
+      155 CAPTURE                          VAL R3
+      156 CAPTURE                          VAL R6
+      157 CAPTURE                          VAL R14
+      158 CAPTURE                          VAL R15
+      159 CAPTURE                          VAL R5
+      160 CAPTURE                          VAL R16
+      161 SETTABLEKS                       R20 R19 K44 ["render"]
+      163 MOVE                             R20 R8
+      164 DUPTABLE                         R21 K50 [{"Plugin", "Localization", "Stylizer", "API", "Analytics", "PluginManagementApi"}]
+      165 GETTABLEKS                       R22 R7 K45 ["Plugin"]
+      167 SETTABLEKS                       R22 R21 K45 ["Plugin"]
+      169 GETTABLEKS                       R22 R7 K46 ["Localization"]
+      171 SETTABLEKS                       R22 R21 K46 ["Localization"]
+      173 GETTABLEKS                       R22 R7 K47 ["Stylizer"]
+      175 SETTABLEKS                       R22 R21 K47 ["Stylizer"]
+      177 MOVE                             R23 R1
+      178 CALL                             R23 0 1
+      179 JUMPIFNOT                        R23 ; [+3]
+      180 GETTABLEKS                       R22 R7 K48 ["API"]
+      182 JUMP                             ; [+1]
+      183 MOVE                             R22 R11
+      184 SETTABLEKS                       R22 R21 K48 ["API"]
+      186 GETTABLEKS                       R22 R7 K49 ["Analytics"]
+      188 SETTABLEKS                       R22 R21 K49 ["Analytics"]
+      190 SETTABLEKS                       R17 R21 K30 ["PluginManagementApi"]
+      192 CALL                             R20 1 1
+      193 MOVE                             R21 R19
+      194 CALL                             R20 1 1
+      195 MOVE                             R19 R20
+      196 DUPCLOSURE                       R20 K51 [PROTO_11]
+      197 DUPCLOSURE                       R21 K52 [PROTO_14]
+      198 CAPTURE                          VAL R12
+      199 CAPTURE                          VAL R13
+      200 GETTABLEKS                       R22 R4 K53 ["connect"]
+      202 MOVE                             R23 R20
+      203 MOVE                             R24 R21
+      204 CALL                             R22 2 1
+      205 MOVE                             R23 R19
+      206 CALL                             R22 1 -1
+      207 RETURN                           R22 -1

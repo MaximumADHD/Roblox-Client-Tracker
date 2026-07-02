@@ -195,29 +195,27 @@ PROTO_4:
       108 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"matchingAttachment"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["matchingAttachment"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 SETTABLEKS                       R1 R0 K3 ["selectMeshPart"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U1
-       14 CAPTURE                          UPVAL U2
-       15 SETTABLEKS                       R1 R0 K4 ["adjustItem"]
-       17 NEWCLOSURE                       R1 P2
-       18 CAPTURE                          VAL R0
-       19 CAPTURE                          UPVAL U3
-       20 CAPTURE                          UPVAL U4
-       21 SETTABLEKS                       R1 R0 K5 ["placeAndScaleItem"]
-       23 NEWCLOSURE                       R1 P3
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U0
-       26 SETTABLEKS                       R1 R0 K6 ["onEditingItemChanged"]
-       28 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = }]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K4 ["selectMeshPart"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U2
+       12 SETTABLEKS                       R1 R0 K5 ["adjustItem"]
+       14 NEWCLOSURE                       R1 P2
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          UPVAL U4
+       18 SETTABLEKS                       R1 R0 K6 ["placeAndScaleItem"]
+       20 NEWCLOSURE                       R1 P3
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U0
+       23 SETTABLEKS                       R1 R0 K7 ["onEditingItemChanged"]
+       25 RETURN                           R0 0
 
 PROTO_6:
         0 LOADB                            R1 1
@@ -316,28 +314,20 @@ PROTO_10:
        29 GETUPVAL                         R18 1
        30 GETTABLEKS                       R18 R18 K9 ["createElement"]
        32 LOADK                            R19 K10 ["LineHandleAdornment"]
-       33 DUPTABLE                         R20 K19 [{"Length", "CFrame", "Adornee", "Transparency", "Color3", "Thickness", "ZIndex", "Archivable", "AlwaysOnTop"}]
+       33 DUPTABLE                         R20 K22 [{["Length"], ["CFrame"], ["Adornee"], ["Transparency"] = 0, ["Color3"], ["Thickness"], ["ZIndex"] = 1, ["Archivable"] = False, ["AlwaysOnTop"] = False}]
        34 SETTABLEKS                       R14 R20 K11 ["Length"]
        36 SETTABLEKS                       R15 R20 K4 ["CFrame"]
        38 SETTABLEKS                       R5 R20 K12 ["Adornee"]
-       40 LOADN                            R21 0
-       41 SETTABLEKS                       R21 R20 K13 ["Transparency"]
-       43 GETTABLEKS                       R21 R1 K20 ["LineColor"]
-       45 SETTABLEKS                       R21 R20 K14 ["Color3"]
-       47 GETTABLEKS                       R21 R1 K21 ["LineThickness"]
-       49 SETTABLEKS                       R21 R20 K15 ["Thickness"]
-       51 LOADN                            R21 1
-       52 SETTABLEKS                       R21 R20 K16 ["ZIndex"]
-       54 LOADB                            R21 0
-       55 SETTABLEKS                       R21 R20 K17 ["Archivable"]
-       57 LOADB                            R21 0
-       58 SETTABLEKS                       R21 R20 K18 ["AlwaysOnTop"]
-       60 CALL                             R18 2 -1
-       61 FASTCALL                         TABLE_INSERT ; [+2]
-       62 GETIMPORT                        R16 K24 [table.insert]
-       64 CALL                             R16 -1 0
-       65 FORGLOOP                         R7 2 [inext] ; [-57]
-       67 RETURN                           R6 1
+       40 GETTABLEKS                       R21 R1 K23 ["LineColor"]
+       42 SETTABLEKS                       R21 R20 K15 ["Color3"]
+       44 GETTABLEKS                       R21 R1 K24 ["LineThickness"]
+       46 SETTABLEKS                       R21 R20 K16 ["Thickness"]
+       48 CALL                             R18 2 -1
+       49 FASTCALL                         TABLE_INSERT ; [+2]
+       50 GETIMPORT                        R16 K27 [table.insert]
+       52 CALL                             R16 -1 0
+       53 FORGLOOP                         R7 2 [inext] ; [-45]
+       55 RETURN                           R6 1
 
 PROTO_11:
         0 GETTABLEKS                       R5 R0 K0 ["props"]
@@ -357,9 +347,9 @@ PROTO_11:
        20 GETUPVAL                         R9 0
        21 GETTABLEKS                       R9 R9 K6 ["createElement"]
        23 LOADK                            R10 K7 ["BoxHandleAdornment"]
-       24 DUPTABLE                         R11 K14 [{"Adornee", "CFrame", "Size", "Transparency", "Color3", "Archivable"}]
+       24 DUPTABLE                         R11 K15 [{["Adornee"], ["CFrame"], ["Size"], ["Transparency"], ["Color3"], ["Archivable"] = False}]
        25 SETTABLEKS                       R4 R11 K8 ["Adornee"]
-       27 GETIMPORT                        R12 K16 [CFrame.new]
+       27 GETIMPORT                        R12 K17 [CFrame.new]
        29 ADD                              R13 R3 R2
        30 CALL                             R12 1 1
        31 SETTABLEKS                       R12 R11 K9 ["CFrame"]
@@ -367,11 +357,9 @@ PROTO_11:
        35 GETTABLEKS                       R12 R6 K11 ["Transparency"]
        37 SETTABLEKS                       R12 R11 K11 ["Transparency"]
        39 SETTABLEKS                       R7 R11 K12 ["Color3"]
-       41 LOADB                            R12 0
-       42 SETTABLEKS                       R12 R11 K13 ["Archivable"]
-       44 MOVE                             R12 R8
-       45 CALL                             R9 3 -1
-       46 RETURN                           R9 -1
+       41 MOVE                             R12 R8
+       42 CALL                             R9 3 -1
+       43 RETURN                           R9 -1
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

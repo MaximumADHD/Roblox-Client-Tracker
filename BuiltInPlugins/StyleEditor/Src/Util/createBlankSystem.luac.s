@@ -9,50 +9,36 @@ PROTO_0:
         9 NEWTABLE                         R3 0 7
        11 GETUPVAL                         R4 1
        12 LOADK                            R5 K7 ["Frame"]
-       13 DUPTABLE                         R6 K9 [{"StyleRule_Priority"}]
-       14 LOADN                            R7 7
-       15 SETTABLEKS                       R7 R6 K8 ["StyleRule_Priority"]
-       17 CALL                             R4 2 1
-       18 GETUPVAL                         R5 1
-       19 LOADK                            R6 K10 ["ScrollingFrame"]
-       20 DUPTABLE                         R7 K9 [{"StyleRule_Priority"}]
-       21 LOADN                            R8 6
-       22 SETTABLEKS                       R8 R7 K8 ["StyleRule_Priority"]
-       24 CALL                             R5 2 1
-       25 GETUPVAL                         R6 1
-       26 LOADK                            R7 K11 ["TextLabel"]
-       27 DUPTABLE                         R8 K9 [{"StyleRule_Priority"}]
-       28 LOADN                            R9 5
-       29 SETTABLEKS                       R9 R8 K8 ["StyleRule_Priority"]
-       31 CALL                             R6 2 1
-       32 GETUPVAL                         R7 1
-       33 LOADK                            R8 K12 ["TextButton"]
-       34 DUPTABLE                         R9 K9 [{"StyleRule_Priority"}]
-       35 LOADN                            R10 4
-       36 SETTABLEKS                       R10 R9 K8 ["StyleRule_Priority"]
-       38 CALL                             R7 2 1
-       39 GETUPVAL                         R8 1
-       40 LOADK                            R9 K13 ["TextBox"]
-       41 DUPTABLE                         R10 K9 [{"StyleRule_Priority"}]
-       42 LOADN                            R11 3
-       43 SETTABLEKS                       R11 R10 K8 ["StyleRule_Priority"]
-       45 CALL                             R8 2 1
-       46 GETUPVAL                         R9 1
-       47 LOADK                            R10 K14 ["ImageButton"]
-       48 DUPTABLE                         R11 K9 [{"StyleRule_Priority"}]
-       49 LOADN                            R12 2
-       50 SETTABLEKS                       R12 R11 K8 ["StyleRule_Priority"]
-       52 CALL                             R9 2 1
-       53 GETUPVAL                         R10 1
-       54 LOADK                            R11 K15 ["ImageLabel"]
-       55 DUPTABLE                         R12 K9 [{"StyleRule_Priority"}]
-       56 LOADN                            R13 1
-       57 SETTABLEKS                       R13 R12 K8 ["StyleRule_Priority"]
-       59 CALL                             R10 2 -1
-       60 SETLIST                          R3 R4 -1 [1]
-       62 CALL                             R1 2 1
-       63 SETTABLEKS                       R0 R1 K16 ["Parent"]
-       65 RETURN                           R0 1
+       13 DUPTABLE                         R6 K10 [{["StyleRule_Priority"] = 7}]
+       14 CALL                             R4 2 1
+       15 GETUPVAL                         R5 1
+       16 LOADK                            R6 K11 ["ScrollingFrame"]
+       17 DUPTABLE                         R7 K13 [{["StyleRule_Priority"] = 6}]
+       18 CALL                             R5 2 1
+       19 GETUPVAL                         R6 1
+       20 LOADK                            R7 K14 ["TextLabel"]
+       21 DUPTABLE                         R8 K16 [{["StyleRule_Priority"] = 5}]
+       22 CALL                             R6 2 1
+       23 GETUPVAL                         R7 1
+       24 LOADK                            R8 K17 ["TextButton"]
+       25 DUPTABLE                         R9 K19 [{["StyleRule_Priority"] = 4}]
+       26 CALL                             R7 2 1
+       27 GETUPVAL                         R8 1
+       28 LOADK                            R9 K20 ["TextBox"]
+       29 DUPTABLE                         R10 K22 [{["StyleRule_Priority"] = 3}]
+       30 CALL                             R8 2 1
+       31 GETUPVAL                         R9 1
+       32 LOADK                            R10 K23 ["ImageButton"]
+       33 DUPTABLE                         R11 K25 [{["StyleRule_Priority"] = 2}]
+       34 CALL                             R9 2 1
+       35 GETUPVAL                         R10 1
+       36 LOADK                            R11 K26 ["ImageLabel"]
+       37 DUPTABLE                         R12 K28 [{["StyleRule_Priority"] = 1}]
+       38 CALL                             R10 2 -1
+       39 SETLIST                          R3 R4 -1 [1]
+       41 CALL                             R1 2 1
+       42 SETTABLEKS                       R0 R1 K29 ["Parent"]
+       44 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

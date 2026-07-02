@@ -152,50 +152,44 @@ PROTO_6:
        22 LOADK                            R7 K7 ["PVInstance"]
        23 NAMECALL                         R5 R2 K8 ["IsA"]
        25 CALL                             R5 2 1
-       26 JUMPIFNOT                        R5 ; [+64]
+       26 JUMPIFNOT                        R5 ; [+55]
        27 GETUPVAL                         R5 0
        28 GETTABLEKS                       R5 R5 K9 ["createFragment"]
        30 DUPTABLE                         R6 K12 [{"Outline", "BoundingBox"}]
        31 GETTABLEKS                       R8 R1 K13 ["ShowOutline"]
-       33 JUMPIFNOT                        R8 ; [+27]
+       33 JUMPIFNOT                        R8 ; [+21]
        34 GETUPVAL                         R7 0
        35 GETTABLEKS                       R7 R7 K14 ["createElement"]
        37 LOADK                            R8 K15 ["Highlight"]
-       38 DUPTABLE                         R9 K23 [{"Adornee", "FillTransparency", "FillColor", "LineThickness", "OutlineTransparency", "OutlineColor", "ReservedId"}]
+       38 DUPTABLE                         R9 K25 [{["Adornee"], ["FillTransparency"] = 1, ["FillColor"], ["LineThickness"], ["OutlineTransparency"] = 0, ["OutlineColor"], ["ReservedId"]}]
        39 SETTABLEKS                       R2 R9 K16 ["Adornee"]
-       41 LOADN                            R10 1
-       42 SETTABLEKS                       R10 R9 K17 ["FillTransparency"]
-       44 SETTABLEKS                       R4 R9 K18 ["FillColor"]
-       46 GETTABLEKS                       R10 R1 K19 ["LineThickness"]
-       48 SETTABLEKS                       R10 R9 K19 ["LineThickness"]
-       50 LOADN                            R10 0
-       51 SETTABLEKS                       R10 R9 K20 ["OutlineTransparency"]
-       53 SETTABLEKS                       R4 R9 K21 ["OutlineColor"]
-       55 GETIMPORT                        R10 K27 [Enum.ReservedHighlightId.Hover]
-       57 SETTABLEKS                       R10 R9 K22 ["ReservedId"]
-       59 CALL                             R7 2 1
-       60 JUMP                             ; [+1]
-       61 LOADNIL                          R7
-       62 SETTABLEKS                       R7 R6 K10 ["Outline"]
-       64 GETTABLEKS                       R8 R1 K28 ["ShowHoverBox"]
-       66 JUMPIFNOT                        R8 ; [+19]
-       67 GETUPVAL                         R7 0
-       68 GETTABLEKS                       R7 R7 K14 ["createElement"]
-       70 GETTABLEKS                       R8 R0 K0 ["props"]
-       72 GETTABLEKS                       R8 R8 K29 ["SelectionBoxComponent"]
-       74 DUPTABLE                         R9 K32 [{"Adornee", "Color3", "LineThickness", "StudioSelectionBox"}]
-       75 SETTABLEKS                       R2 R9 K16 ["Adornee"]
-       77 SETTABLEKS                       R4 R9 K30 ["Color3"]
-       79 SETTABLEKS                       R3 R9 K19 ["LineThickness"]
-       81 LOADB                            R10 1
-       82 SETTABLEKS                       R10 R9 K31 ["StudioSelectionBox"]
-       84 CALL                             R7 2 1
-       85 JUMP                             ; [+1]
-       86 LOADNIL                          R7
-       87 SETTABLEKS                       R7 R6 K11 ["BoundingBox"]
-       89 CALL                             R5 1 -1
-       90 RETURN                           R5 -1
-       91 RETURN                           R0 0
+       41 SETTABLEKS                       R4 R9 K19 ["FillColor"]
+       43 GETTABLEKS                       R10 R1 K20 ["LineThickness"]
+       45 SETTABLEKS                       R10 R9 K20 ["LineThickness"]
+       47 SETTABLEKS                       R4 R9 K23 ["OutlineColor"]
+       49 GETIMPORT                        R10 K29 [Enum.ReservedHighlightId.Hover]
+       51 SETTABLEKS                       R10 R9 K24 ["ReservedId"]
+       53 CALL                             R7 2 1
+       54 JUMP                             ; [+1]
+       55 LOADNIL                          R7
+       56 SETTABLEKS                       R7 R6 K10 ["Outline"]
+       58 GETTABLEKS                       R8 R1 K30 ["ShowHoverBox"]
+       60 JUMPIFNOT                        R8 ; [+16]
+       61 GETUPVAL                         R7 0
+       62 GETTABLEKS                       R7 R7 K14 ["createElement"]
+       64 GETTABLEKS                       R8 R0 K0 ["props"]
+       66 GETTABLEKS                       R8 R8 K31 ["SelectionBoxComponent"]
+       68 DUPTABLE                         R9 K35 [{["Adornee"], ["Color3"], ["LineThickness"], ["StudioSelectionBox"] = True}]
+       69 SETTABLEKS                       R2 R9 K16 ["Adornee"]
+       71 SETTABLEKS                       R4 R9 K32 ["Color3"]
+       73 SETTABLEKS                       R3 R9 K20 ["LineThickness"]
+       75 CALL                             R7 2 1
+       76 JUMP                             ; [+1]
+       77 LOADNIL                          R7
+       78 SETTABLEKS                       R7 R6 K11 ["BoundingBox"]
+       80 CALL                             R5 1 -1
+       81 RETURN                           R5 -1
+       82 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

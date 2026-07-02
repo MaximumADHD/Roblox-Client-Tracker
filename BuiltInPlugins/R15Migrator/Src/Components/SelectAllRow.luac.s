@@ -85,40 +85,38 @@ PROTO_0:
       129 GETUPVAL                         R17 1
       130 GETTABLEKS                       R17 R17 K12 ["createElement"]
       132 GETUPVAL                         R18 5
-      133 DUPTABLE                         R19 K52 [{"LeftIcon", "Cursor", "OnClick", "Size", "AnchorPoint", "Position", "BackgroundStyle", "TooltipText"}]
-      134 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
-      136 GETTABLEKS                       R20 R20 K54 ["Icon"]
+      133 DUPTABLE                         R19 K53 [{["LeftIcon"], ["Cursor"] = "PointingHand", ["OnClick"], ["Size"], ["AnchorPoint"], ["Position"], ["BackgroundStyle"], ["TooltipText"]}]
+      134 GETTABLEKS                       R20 R2 K54 ["RefreshButton"]
+      136 GETTABLEKS                       R20 R20 K55 ["Icon"]
       138 SETTABLEKS                       R20 R19 K46 ["LeftIcon"]
-      140 LOADK                            R20 K55 ["PointingHand"]
-      141 SETTABLEKS                       R20 R19 K47 ["Cursor"]
-      143 SETTABLEKS                       R10 R19 K33 ["OnClick"]
-      145 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
-      147 GETTABLEKS                       R20 R20 K13 ["Size"]
-      149 SETTABLEKS                       R20 R19 K13 ["Size"]
-      151 GETIMPORT                        R20 K57 [Vector2.new]
-      153 LOADN                            R21 1
-      154 LOADK                            R22 K58 [0.5]
-      155 CALL                             R20 2 1
-      156 SETTABLEKS                       R20 R19 K48 ["AnchorPoint"]
-      158 GETIMPORT                        R20 K16 [UDim2.new]
-      160 LOADN                            R21 1
-      161 LOADN                            R22 240
-      162 LOADK                            R23 K58 [0.5]
-      163 LOADN                            R24 0
-      164 CALL                             R20 4 1
-      165 SETTABLEKS                       R20 R19 K49 ["Position"]
-      167 GETTABLEKS                       R20 R2 K53 ["RefreshButton"]
-      169 GETTABLEKS                       R20 R20 K50 ["BackgroundStyle"]
-      171 SETTABLEKS                       R20 R19 K50 ["BackgroundStyle"]
-      173 LOADK                            R22 K59 ["Summary"]
-      174 LOADK                            R23 K60 ["Refresh"]
-      175 NAMECALL                         R20 R3 K42 ["getText"]
-      177 CALL                             R20 3 1
-      178 SETTABLEKS                       R20 R19 K51 ["TooltipText"]
-      180 CALL                             R17 2 -1
-      181 SETLIST                          R15 R16 -1 [1]
-      183 CALL                             R12 3 -1
-      184 RETURN                           R12 -1
+      140 SETTABLEKS                       R10 R19 K33 ["OnClick"]
+      142 GETTABLEKS                       R20 R2 K54 ["RefreshButton"]
+      144 GETTABLEKS                       R20 R20 K13 ["Size"]
+      146 SETTABLEKS                       R20 R19 K13 ["Size"]
+      148 GETIMPORT                        R20 K57 [Vector2.new]
+      150 LOADN                            R21 1
+      151 LOADK                            R22 K58 [0.5]
+      152 CALL                             R20 2 1
+      153 SETTABLEKS                       R20 R19 K49 ["AnchorPoint"]
+      155 GETIMPORT                        R20 K16 [UDim2.new]
+      157 LOADN                            R21 1
+      158 LOADN                            R22 -16
+      159 LOADK                            R23 K58 [0.5]
+      160 LOADN                            R24 0
+      161 CALL                             R20 4 1
+      162 SETTABLEKS                       R20 R19 K50 ["Position"]
+      164 GETTABLEKS                       R20 R2 K54 ["RefreshButton"]
+      166 GETTABLEKS                       R20 R20 K51 ["BackgroundStyle"]
+      168 SETTABLEKS                       R20 R19 K51 ["BackgroundStyle"]
+      170 LOADK                            R22 K59 ["Summary"]
+      171 LOADK                            R23 K60 ["Refresh"]
+      172 NAMECALL                         R20 R3 K42 ["getText"]
+      174 CALL                             R20 3 1
+      175 SETTABLEKS                       R20 R19 K52 ["TooltipText"]
+      177 CALL                             R17 2 -1
+      178 SETLIST                          R15 R16 -1 [1]
+      180 CALL                             R12 3 -1
+      181 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

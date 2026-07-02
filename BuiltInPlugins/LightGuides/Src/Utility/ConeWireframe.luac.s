@@ -1,31 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K9 [{"_adornee", "_parent", "_light", "_handlesFolder", "_guidesFolder", "_handles", "_handlesPresent", "_listener", "_attachmentListener"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["_adornee"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["_parent"]
-        7 LOADNIL                          R1
-        8 SETTABLEKS                       R1 R0 K2 ["_light"]
-       10 GETIMPORT                        R1 K12 [Instance.new]
-       12 LOADK                            R2 K13 ["Folder"]
-       13 CALL                             R1 1 1
-       14 SETTABLEKS                       R1 R0 K3 ["_handlesFolder"]
-       16 LOADNIL                          R1
-       17 SETTABLEKS                       R1 R0 K4 ["_guidesFolder"]
-       19 NEWTABLE                         R1 0 0
-       21 SETTABLEKS                       R1 R0 K5 ["_handles"]
-       23 LOADB                            R1 0
-       24 SETTABLEKS                       R1 R0 K6 ["_handlesPresent"]
-       26 LOADNIL                          R1
-       27 SETTABLEKS                       R1 R0 K7 ["_listener"]
-       29 LOADNIL                          R1
-       30 SETTABLEKS                       R1 R0 K8 ["_attachmentListener"]
-       32 GETUPVAL                         R3 0
-       33 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       35 MOVE                             R2 R0
-       36 GETIMPORT                        R1 K15 [setmetatable]
-       38 CALL                             R1 2 1
-       39 RETURN                           R1 1
+        0 DUPTABLE                         R0 K11 [{[1] = , ["_parent"] = , ["_light"] = , ["_handlesFolder"], ["_guidesFolder"] = , ["_handles"], ["_handlesPresent"] = False, ["_listener"] = , ["_attachmentListener"] = }]
+        1 GETIMPORT                        R1 K14 [Instance.new]
+        3 LOADK                            R2 K15 ["Folder"]
+        4 CALL                             R1 1 1
+        5 SETTABLEKS                       R1 R0 K4 ["_handlesFolder"]
+        7 NEWTABLE                         R1 0 0
+        9 SETTABLEKS                       R1 R0 K6 ["_handles"]
+       11 GETUPVAL                         R3 0
+       12 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       14 MOVE                             R2 R0
+       15 GETIMPORT                        R1 K17 [setmetatable]
+       17 CALL                             R1 2 1
+       18 RETURN                           R1 1
 
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["_setListeners"]

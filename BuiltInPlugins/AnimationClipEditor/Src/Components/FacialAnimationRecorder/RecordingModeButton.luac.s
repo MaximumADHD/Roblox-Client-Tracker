@@ -35,117 +35,105 @@ PROTO_2:
        36 MOVE                             R14 R10
        37 MOVE                             R15 R11
        38 GETIMPORT                        R16 K16 [Vector2.new]
-       40 LOADN                            R17 232
-       41 LOADN                            R18 232
+       40 LOADN                            R17 1000
+       41 LOADN                            R18 1000
        42 CALL                             R16 2 -1
        43 CALL                             R12 -1 1
        44 GETTABLEKS                       R14 R12 K18 ["X"]
        46 ADDK                             R13 R14 K17 [10]
        47 GETTABLEKS                       R14 R0 K0 ["props"]
        49 GETTABLEKS                       R14 R14 K7 ["RootInstance"]
-       51 JUMPIFNOT                        R14 ; [+142]
+       51 JUMPIFNOT                        R14 ; [+124]
        52 GETUPVAL                         R14 2
        53 GETTABLEKS                       R14 R14 K19 ["createElement"]
        55 LOADK                            R15 K20 ["Frame"]
-       56 DUPTABLE                         R16 K26 [{"Position", "Size", "BackgroundTransparency", "AnchorPoint", "LayoutOrder"}]
+       56 DUPTABLE                         R16 K28 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["AnchorPoint"], ["LayoutOrder"] = 3}]
        57 GETTABLEKS                       R17 R2 K21 ["Position"]
        59 SETTABLEKS                       R17 R16 K21 ["Position"]
-       61 GETIMPORT                        R17 K28 [UDim2.new]
+       61 GETIMPORT                        R17 K30 [UDim2.new]
        63 LOADN                            R18 0
        64 MOVE                             R19 R13
        65 LOADN                            R20 0
        66 LOADN                            R21 18
        67 CALL                             R17 4 1
        68 SETTABLEKS                       R17 R16 K22 ["Size"]
-       70 LOADN                            R17 1
-       71 SETTABLEKS                       R17 R16 K23 ["BackgroundTransparency"]
-       73 GETIMPORT                        R17 K16 [Vector2.new]
-       75 LOADN                            R18 0
-       76 LOADK                            R19 K29 [0.5]
-       77 CALL                             R17 2 1
-       78 SETTABLEKS                       R17 R16 K24 ["AnchorPoint"]
-       80 LOADN                            R17 3
-       81 SETTABLEKS                       R17 R16 K25 ["LayoutOrder"]
-       83 DUPTABLE                         R17 K31 [{"FaceControlsEditorButton"}]
-       84 GETTABLEKS                       R18 R2 K7 ["RootInstance"]
-       86 JUMPIFNOT                        R18 ; [+104]
-       87 MOVE                             R18 R8
-       88 JUMPIFNOT                        R18 ; [+102]
-       89 GETUPVAL                         R18 2
-       90 GETTABLEKS                       R18 R18 K19 ["createElement"]
-       92 GETUPVAL                         R19 3
-       93 DUPTABLE                         R20 K36 [{"Style", "StyleModifier", "Size", "IsDisabled", "OnClick"}]
-       94 GETTABLEKS                       R22 R2 K37 ["inReviewState"]
-       96 JUMPIFNOT                        R22 ; [+2]
-       97 LOADK                            R21 K38 ["RoundPrimary"]
-       98 JUMP                             ; [+2]
-       99 GETTABLEKS                       R21 R4 K39 ["FaceControlsEditorDefault"]
-      101 SETTABLEKS                       R21 R20 K32 ["Style"]
-      103 JUMPIFNOT                        R6 ; [+4]
-      104 GETUPVAL                         R21 4
-      105 GETTABLEKS                       R21 R21 K40 ["Disabled"]
-      107 JUMP                             ; [+1]
-      108 LOADNIL                          R21
-      109 SETTABLEKS                       R21 R20 K33 ["StyleModifier"]
-      111 GETIMPORT                        R21 K28 [UDim2.new]
-      113 LOADN                            R22 1
-      114 LOADN                            R23 0
-      115 LOADN                            R24 1
-      116 LOADN                            R25 0
-      117 CALL                             R21 4 1
-      118 SETTABLEKS                       R21 R20 K22 ["Size"]
-      120 LOADB                            R21 1
-      121 SETTABLEKS                       R21 R20 K34 ["IsDisabled"]
-      123 SETTABLEKS                       R7 R20 K35 ["OnClick"]
-      125 DUPTABLE                         R21 K42 [{"Label"}]
-      126 GETUPVAL                         R22 2
-      127 GETTABLEKS                       R22 R22 K19 ["createElement"]
-      129 LOADK                            R23 K43 ["TextLabel"]
-      130 DUPTABLE                         R24 K49 [{"BackgroundTransparency", "Size", "TextYAlignment", "TextSize", "Text", "Font", "TextColor3"}]
-      131 LOADN                            R25 1
-      132 SETTABLEKS                       R25 R24 K23 ["BackgroundTransparency"]
-      134 GETIMPORT                        R25 K28 [UDim2.new]
-      136 LOADN                            R26 1
-      137 LOADN                            R27 0
-      138 LOADN                            R28 1
-      139 LOADN                            R29 0
-      140 CALL                             R25 4 1
-      141 SETTABLEKS                       R25 R24 K22 ["Size"]
-      143 GETIMPORT                        R25 K52 [Enum.TextYAlignment.Center]
-      145 SETTABLEKS                       R25 R24 K44 ["TextYAlignment"]
-      147 SETTABLEKS                       R10 R24 K45 ["TextSize"]
-      149 SETTABLEKS                       R9 R24 K46 ["Text"]
-      151 SETTABLEKS                       R11 R24 K47 ["Font"]
-      153 GETTABLEKS                       R25 R3 K11 ["ikTheme"]
-      155 GETTABLEKS                       R25 R25 K53 ["textColor"]
-      157 SETTABLEKS                       R25 R24 K48 ["TextColor3"]
-      159 DUPTABLE                         R25 K55 [{"TeachingCallout"}]
-      160 GETTABLEKS                       R27 R2 K7 ["RootInstance"]
-      162 JUMPIFNOT                        R27 ; [+21]
-      163 JUMPIFNOT                        R8 ; [+20]
-      164 GETUPVAL                         R26 2
-      165 GETTABLEKS                       R26 R26 K19 ["createElement"]
-      167 GETUPVAL                         R27 5
-      168 DUPTABLE                         R28 K59 [{"Offset", "DefinitionId", "LocationId"}]
-      169 GETIMPORT                        R29 K16 [Vector2.new]
-      171 LOADN                            R30 0
-      172 LOADN                            R31 6
-      173 CALL                             R29 2 1
-      174 SETTABLEKS                       R29 R28 K56 ["Offset"]
-      176 LOADK                            R29 K60 ["FaceRecorderCallout"]
-      177 SETTABLEKS                       R29 R28 K57 ["DefinitionId"]
-      179 LOADK                            R29 K61 ["RecordingModeButton"]
-      180 SETTABLEKS                       R29 R28 K58 ["LocationId"]
-      182 CALL                             R26 2 1
-      183 JUMP                             ; [+1]
-      184 LOADNIL                          R26
-      185 SETTABLEKS                       R26 R25 K54 ["TeachingCallout"]
-      187 CALL                             R22 3 1
-      188 SETTABLEKS                       R22 R21 K41 ["Label"]
-      190 CALL                             R18 3 1
-      191 SETTABLEKS                       R18 R17 K30 ["FaceControlsEditorButton"]
-      193 CALL                             R14 3 1
-      194 RETURN                           R14 1
+       70 GETIMPORT                        R17 K16 [Vector2.new]
+       72 LOADN                            R18 0
+       73 LOADK                            R19 K31 [0.5]
+       74 CALL                             R17 2 1
+       75 SETTABLEKS                       R17 R16 K25 ["AnchorPoint"]
+       77 DUPTABLE                         R17 K33 [{"FaceControlsEditorButton"}]
+       78 GETTABLEKS                       R18 R2 K7 ["RootInstance"]
+       80 JUMPIFNOT                        R18 ; [+92]
+       81 MOVE                             R18 R8
+       82 JUMPIFNOT                        R18 ; [+90]
+       83 GETUPVAL                         R18 2
+       84 GETTABLEKS                       R18 R18 K19 ["createElement"]
+       86 GETUPVAL                         R19 3
+       87 DUPTABLE                         R20 K39 [{["Style"], ["StyleModifier"], ["Size"], ["IsDisabled"] = True, ["OnClick"]}]
+       88 GETTABLEKS                       R22 R2 K40 ["inReviewState"]
+       90 JUMPIFNOT                        R22 ; [+2]
+       91 LOADK                            R21 K41 ["RoundPrimary"]
+       92 JUMP                             ; [+2]
+       93 GETTABLEKS                       R21 R4 K42 ["FaceControlsEditorDefault"]
+       95 SETTABLEKS                       R21 R20 K34 ["Style"]
+       97 JUMPIFNOT                        R6 ; [+4]
+       98 GETUPVAL                         R21 4
+       99 GETTABLEKS                       R21 R21 K43 ["Disabled"]
+      101 JUMP                             ; [+1]
+      102 LOADNIL                          R21
+      103 SETTABLEKS                       R21 R20 K35 ["StyleModifier"]
+      105 GETIMPORT                        R21 K30 [UDim2.new]
+      107 LOADN                            R22 1
+      108 LOADN                            R23 0
+      109 LOADN                            R24 1
+      110 LOADN                            R25 0
+      111 CALL                             R21 4 1
+      112 SETTABLEKS                       R21 R20 K22 ["Size"]
+      114 SETTABLEKS                       R7 R20 K38 ["OnClick"]
+      116 DUPTABLE                         R21 K45 [{"Label"}]
+      117 GETUPVAL                         R22 2
+      118 GETTABLEKS                       R22 R22 K19 ["createElement"]
+      120 LOADK                            R23 K46 ["TextLabel"]
+      121 DUPTABLE                         R24 K52 [{["BackgroundTransparency"] = 1, ["Size"], ["TextYAlignment"], ["TextSize"], ["Text"], ["Font"], ["TextColor3"]}]
+      122 GETIMPORT                        R25 K30 [UDim2.new]
+      124 LOADN                            R26 1
+      125 LOADN                            R27 0
+      126 LOADN                            R28 1
+      127 LOADN                            R29 0
+      128 CALL                             R25 4 1
+      129 SETTABLEKS                       R25 R24 K22 ["Size"]
+      131 GETIMPORT                        R25 K55 [Enum.TextYAlignment.Center]
+      133 SETTABLEKS                       R25 R24 K47 ["TextYAlignment"]
+      135 SETTABLEKS                       R10 R24 K48 ["TextSize"]
+      137 SETTABLEKS                       R9 R24 K49 ["Text"]
+      139 SETTABLEKS                       R11 R24 K50 ["Font"]
+      141 GETTABLEKS                       R25 R3 K11 ["ikTheme"]
+      143 GETTABLEKS                       R25 R25 K56 ["textColor"]
+      145 SETTABLEKS                       R25 R24 K51 ["TextColor3"]
+      147 DUPTABLE                         R25 K58 [{"TeachingCallout"}]
+      148 GETTABLEKS                       R27 R2 K7 ["RootInstance"]
+      150 JUMPIFNOT                        R27 ; [+15]
+      151 JUMPIFNOT                        R8 ; [+14]
+      152 GETUPVAL                         R26 2
+      153 GETTABLEKS                       R26 R26 K19 ["createElement"]
+      155 GETUPVAL                         R27 5
+      156 DUPTABLE                         R28 K64 [{["Offset"], ["DefinitionId"] = "FaceRecorderCallout", ["LocationId"] = "RecordingModeButton"}]
+      157 GETIMPORT                        R29 K16 [Vector2.new]
+      159 LOADN                            R30 0
+      160 LOADN                            R31 6
+      161 CALL                             R29 2 1
+      162 SETTABLEKS                       R29 R28 K59 ["Offset"]
+      164 CALL                             R26 2 1
+      165 JUMP                             ; [+1]
+      166 LOADNIL                          R26
+      167 SETTABLEKS                       R26 R25 K57 ["TeachingCallout"]
+      169 CALL                             R22 3 1
+      170 SETTABLEKS                       R22 R21 K44 ["Label"]
+      172 CALL                             R18 3 1
+      173 SETTABLEKS                       R18 R17 K32 ["FaceControlsEditorButton"]
+      175 CALL                             R14 3 1
+      176 RETURN                           R14 1
 
 PROTO_3:
         0 DUPTABLE                         R2 K3 [{"inReviewState", "ReadOnly", "RootInstance"}]

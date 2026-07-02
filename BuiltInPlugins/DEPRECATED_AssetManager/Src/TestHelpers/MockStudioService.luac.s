@@ -1,12 +1,10 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K1 [{"_localUserId"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["_localUserId"]
-        4 GETUPVAL                         R2 0
-        5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        7 GETIMPORT                        R0 K3 [setmetatable]
-        9 CALL                             R0 2 1
-       10 RETURN                           R0 1
+        0 DUPTABLE                         R1 K2 [{[1] = 0}]
+        1 GETUPVAL                         R2 0
+        2 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        4 GETIMPORT                        R0 K4 [setmetatable]
+        6 CALL                             R0 2 1
+        7 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_localUserId"]

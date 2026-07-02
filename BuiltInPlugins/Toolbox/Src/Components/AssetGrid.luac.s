@@ -131,18 +131,16 @@ PROTO_4:
        18 LOADB                            R1 0 +1
        19 LOADB                            R1 1
        20 GETTABLEKS                       R2 R0 K5 ["hoveredAssetId"]
-       22 JUMPIFEQKN                       R2 K6 [0] ; [+8]
-       24 DUPTABLE                         R2 K8 [{"hoveredAssetId", "isTopContentWithinView"}]
-       25 LOADN                            R3 0
-       26 SETTABLEKS                       R3 R2 K5 ["hoveredAssetId"]
-       28 SETTABLEKS                       R1 R2 K7 ["isTopContentWithinView"]
-       30 RETURN                           R2 1
-       31 GETTABLEKS                       R2 R0 K7 ["isTopContentWithinView"]
-       33 JUMPIFEQ                         R1 R2 ; [+5]
-       35 DUPTABLE                         R2 K9 [{"isTopContentWithinView"}]
-       36 SETTABLEKS                       R1 R2 K7 ["isTopContentWithinView"]
-       38 RETURN                           R2 1
-       39 RETURN                           R0 0
+       22 JUMPIFEQKN                       R2 K6 [0] ; [+5]
+       24 DUPTABLE                         R2 K8 [{["hoveredAssetId"] = 0, ["isTopContentWithinView"]}]
+       25 SETTABLEKS                       R1 R2 K7 ["isTopContentWithinView"]
+       27 RETURN                           R2 1
+       28 GETTABLEKS                       R2 R0 K7 ["isTopContentWithinView"]
+       30 JUMPIFEQ                         R1 R2 ; [+5]
+       32 DUPTABLE                         R2 K9 [{"isTopContentWithinView"}]
+       33 SETTABLEKS                       R1 R2 K7 ["isTopContentWithinView"]
+       35 RETURN                           R2 1
+       36 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -187,12 +185,10 @@ PROTO_7:
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["hoveredAssetId"]
         2 GETUPVAL                         R2 0
-        3 JUMPIFNOTEQ                      R1 R2 ; [+6]
-        5 DUPTABLE                         R1 K1 [{"hoveredAssetId"}]
-        6 LOADN                            R2 0
-        7 SETTABLEKS                       R2 R1 K0 ["hoveredAssetId"]
-        9 RETURN                           R1 1
-       10 RETURN                           R0 0
+        3 JUMPIFNOTEQ                      R1 R2 ; [+3]
+        5 DUPTABLE                         R1 K2 [{[1] = 0}]
+        6 RETURN                           R1 1
+        7 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R1 0
@@ -417,73 +413,61 @@ PROTO_16:
         6 RETURN                           R0 0
 
 PROTO_17:
-        0 DUPTABLE                         R2 K7 [{"displayedAssetIds", "hoveredAssetId", "isTopContentWithinView", "lowerIndexToRender", "topContentHeight", "upperIndexToRender", "width"}]
+        0 DUPTABLE                         R2 K9 [{[1], ["hoveredAssetId"] = 0, ["isTopContentWithinView"] = True, ["lowerIndexToRender"] = 0, ["topContentHeight"] = 0, ["upperIndexToRender"] = 0, ["width"] = 0}]
         1 NEWTABLE                         R3 0 0
         3 SETTABLEKS                       R3 R2 K0 ["displayedAssetIds"]
-        5 LOADN                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["hoveredAssetId"]
-        8 LOADB                            R3 1
-        9 SETTABLEKS                       R3 R2 K2 ["isTopContentWithinView"]
-       11 LOADN                            R3 0
-       12 SETTABLEKS                       R3 R2 K3 ["lowerIndexToRender"]
-       14 LOADN                            R3 0
-       15 SETTABLEKS                       R3 R2 K4 ["topContentHeight"]
-       17 LOADN                            R3 0
-       18 SETTABLEKS                       R3 R2 K5 ["upperIndexToRender"]
-       20 LOADN                            R3 0
-       21 SETTABLEKS                       R3 R2 K6 ["width"]
-       23 SETTABLEKS                       R2 R0 K8 ["state"]
-       25 GETUPVAL                         R2 0
-       26 GETTABLEKS                       R2 R2 K9 ["createRef"]
-       28 CALL                             R2 0 1
-       29 SETTABLEKS                       R2 R0 K10 ["scrollingFrameRef"]
-       31 GETUPVAL                         R2 0
-       32 GETTABLEKS                       R2 R2 K9 ["createRef"]
-       34 CALL                             R2 0 1
-       35 SETTABLEKS                       R2 R0 K11 ["topContentRef"]
-       37 NEWCLOSURE                       R2 P0
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          UPVAL U1
-       40 SETTABLEKS                       R2 R0 K12 ["tryRerender"]
-       42 NEWCLOSURE                       R2 P1
-       43 CAPTURE                          VAL R0
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U1
-       46 CAPTURE                          UPVAL U3
-       47 SETTABLEKS                       R2 R0 K13 ["calculateRenderBounds"]
-       49 NEWCLOSURE                       R2 P2
-       50 CAPTURE                          VAL R0
-       51 SETTABLEKS                       R2 R0 K14 ["onScroll"]
-       53 NEWCLOSURE                       R2 P3
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R2 R0 K15 ["onAssetHovered"]
-       57 NEWCLOSURE                       R2 P4
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R2 R0 K16 ["onAssetHoverEnded"]
-       61 NEWCLOSURE                       R2 P5
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R2 R0 K17 ["onFocusLost"]
-       65 NEWCLOSURE                       R2 P6
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          UPVAL U2
-       68 CAPTURE                          UPVAL U1
-       69 CAPTURE                          UPVAL U0
-       70 CAPTURE                          UPVAL U4
-       71 CAPTURE                          UPVAL U5
-       72 SETTABLEKS                       R2 R0 K18 ["getAssetElements"]
-       74 NEWCLOSURE                       R2 P7
-       75 CAPTURE                          VAL R0
-       76 CAPTURE                          UPVAL U1
-       77 CAPTURE                          UPVAL U2
-       78 CAPTURE                          UPVAL U3
-       79 SETTABLEKS                       R2 R0 K19 ["calculateCanvasHeight"]
-       81 NEWCLOSURE                       R2 P8
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R2 R0 K20 ["getWidth"]
-       85 NEWCLOSURE                       R2 P9
-       86 CAPTURE                          VAL R0
-       87 SETTABLEKS                       R2 R0 K21 ["updateTopContentHeight"]
-       89 RETURN                           R0 0
+        5 SETTABLEKS                       R2 R0 K10 ["state"]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K11 ["createRef"]
+       10 CALL                             R2 0 1
+       11 SETTABLEKS                       R2 R0 K12 ["scrollingFrameRef"]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K11 ["createRef"]
+       16 CALL                             R2 0 1
+       17 SETTABLEKS                       R2 R0 K13 ["topContentRef"]
+       19 NEWCLOSURE                       R2 P0
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U1
+       22 SETTABLEKS                       R2 R0 K14 ["tryRerender"]
+       24 NEWCLOSURE                       R2 P1
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U2
+       27 CAPTURE                          UPVAL U1
+       28 CAPTURE                          UPVAL U3
+       29 SETTABLEKS                       R2 R0 K15 ["calculateRenderBounds"]
+       31 NEWCLOSURE                       R2 P2
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R2 R0 K16 ["onScroll"]
+       35 NEWCLOSURE                       R2 P3
+       36 CAPTURE                          VAL R0
+       37 SETTABLEKS                       R2 R0 K17 ["onAssetHovered"]
+       39 NEWCLOSURE                       R2 P4
+       40 CAPTURE                          VAL R0
+       41 SETTABLEKS                       R2 R0 K18 ["onAssetHoverEnded"]
+       43 NEWCLOSURE                       R2 P5
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R2 R0 K19 ["onFocusLost"]
+       47 NEWCLOSURE                       R2 P6
+       48 CAPTURE                          VAL R0
+       49 CAPTURE                          UPVAL U2
+       50 CAPTURE                          UPVAL U1
+       51 CAPTURE                          UPVAL U0
+       52 CAPTURE                          UPVAL U4
+       53 CAPTURE                          UPVAL U5
+       54 SETTABLEKS                       R2 R0 K20 ["getAssetElements"]
+       56 NEWCLOSURE                       R2 P7
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          UPVAL U1
+       59 CAPTURE                          UPVAL U2
+       60 CAPTURE                          UPVAL U3
+       61 SETTABLEKS                       R2 R0 K21 ["calculateCanvasHeight"]
+       63 NEWCLOSURE                       R2 P8
+       64 CAPTURE                          VAL R0
+       65 SETTABLEKS                       R2 R0 K22 ["getWidth"]
+       67 NEWCLOSURE                       R2 P9
+       68 CAPTURE                          VAL R0
+       69 SETTABLEKS                       R2 R0 K23 ["updateTopContentHeight"]
+       71 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R3 R0 K0 ["props"]

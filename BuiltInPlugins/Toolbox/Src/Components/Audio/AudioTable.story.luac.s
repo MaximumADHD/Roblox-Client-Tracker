@@ -1,43 +1,17 @@
 PROTO_0:
         0 DUPTABLE                         R1 K3 [{"Asset", "AudioDetails", "Creator"}]
-        1 DUPTABLE                         R2 K12 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "Duration", "HasScripts"}]
+        1 DUPTABLE                         R2 K18 [{["Id"], ["Name"] = "Cascaded Drumming", ["AssetGenres"] = , ["TypeId"] = 10, ["IsEndorsed"] = False, ["Description"] = "High hat with various percussion sounds. Loud crashes.", ["Duration"] = "128", ["HasScripts"] = False}]
         2 SETTABLEKS                       R0 R2 K4 ["Id"]
-        4 LOADK                            R3 K13 ["Cascaded Drumming"]
-        5 SETTABLEKS                       R3 R2 K5 ["Name"]
-        7 LOADNIL                          R3
-        8 SETTABLEKS                       R3 R2 K6 ["AssetGenres"]
-       10 LOADN                            R3 10
-       11 SETTABLEKS                       R3 R2 K7 ["TypeId"]
-       13 LOADB                            R3 0
-       14 SETTABLEKS                       R3 R2 K8 ["IsEndorsed"]
-       16 LOADK                            R3 K14 ["High hat with various percussion sounds. Loud crashes."]
-       17 SETTABLEKS                       R3 R2 K9 ["Description"]
-       19 LOADK                            R3 K15 ["128"]
-       20 SETTABLEKS                       R3 R2 K10 ["Duration"]
-       22 LOADB                            R3 0
-       23 SETTABLEKS                       R3 R2 K11 ["HasScripts"]
-       25 SETTABLEKS                       R2 R1 K0 ["Asset"]
-       27 DUPTABLE                         R2 K20 [{"Artist", "Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
-       28 LOADK                            R3 K21 ["OnlyTwentyCharacters"]
-       29 SETTABLEKS                       R3 R2 K16 ["Artist"]
-       31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R3 R3 K22 ["SOUND_EFFECTS"]
-       34 GETTABLEKS                       R3 R3 K23 ["name"]
-       36 SETTABLEKS                       R3 R2 K17 ["Type"]
-       38 LOADK                            R3 K24 ["instruments"]
-       39 SETTABLEKS                       R3 R2 K18 ["SoundEffectCategory"]
-       41 LOADK                            R3 K25 ["Drum"]
-       42 SETTABLEKS                       R3 R2 K19 ["SoundEffectSubcategory"]
-       44 SETTABLEKS                       R2 R1 K1 ["AudioDetails"]
-       46 DUPTABLE                         R2 K26 [{"Id", "Name", "Type"}]
-       47 LOADN                            R3 1
-       48 SETTABLEKS                       R3 R2 K4 ["Id"]
-       50 LOADK                            R3 K27 ["Rolbox"]
-       51 SETTABLEKS                       R3 R2 K5 ["Name"]
-       53 LOADK                            R3 K28 ["User"]
-       54 SETTABLEKS                       R3 R2 K17 ["Type"]
-       56 SETTABLEKS                       R2 R1 K2 ["Creator"]
-       58 RETURN                           R1 1
+        4 SETTABLEKS                       R2 R1 K0 ["Asset"]
+        6 DUPTABLE                         R2 K26 [{["Artist"] = "OnlyTwentyCharacters", ["Type"], ["SoundEffectCategory"] = "instruments", ["SoundEffectSubcategory"] = "Drum"}]
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R3 R3 K27 ["SOUND_EFFECTS"]
+       10 GETTABLEKS                       R3 R3 K28 ["name"]
+       12 SETTABLEKS                       R3 R2 K21 ["Type"]
+       14 SETTABLEKS                       R2 R1 K1 ["AudioDetails"]
+       16 DUPTABLE                         R2 K32 [{["Id"] = 1, ["Name"] = "Rolbox", ["Type"] = "User"}]
+       17 SETTABLEKS                       R2 R1 K2 ["Creator"]
+       19 RETURN                           R1 1
 
 PROTO_1:
         0 LOADB                            R0 1
@@ -71,48 +45,44 @@ PROTO_6:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
-        4 DUPTABLE                         R3 K5 [{"Size", "BackgroundTransparency", "Position"}]
-        5 GETIMPORT                        R4 K8 [UDim2.new]
+        4 DUPTABLE                         R3 K6 [{["Size"], ["BackgroundTransparency"] = 1, ["Position"]}]
+        5 GETIMPORT                        R4 K9 [UDim2.new]
         7 LOADN                            R5 1
-        8 LOADN                            R6 246
+        8 LOADN                            R6 -10
         9 LOADN                            R7 0
-       10 LOADN                            R8 4
+       10 LOADN                            R8 260
        11 CALL                             R4 4 1
        12 SETTABLEKS                       R4 R3 K2 ["Size"]
-       14 LOADN                            R4 1
-       15 SETTABLEKS                       R4 R3 K3 ["BackgroundTransparency"]
-       17 GETIMPORT                        R4 K8 [UDim2.new]
-       19 LOADN                            R5 0
-       20 LOADN                            R6 0
-       21 LOADN                            R7 0
-       22 LOADN                            R8 0
-       23 CALL                             R4 4 1
-       24 SETTABLEKS                       R4 R3 K4 ["Position"]
-       26 DUPTABLE                         R4 K10 [{"AudioTable"}]
-       27 GETUPVAL                         R5 1
-       28 GETTABLEKS                       R5 R5 K11 ["Generator"]
-       30 DUPTABLE                         R6 K20 [{"Assets", "AudioType", "CanInsertAsset", "InsertAsset", "TryInsert", "TryOpenAssetConfig", "OnAssetPreviewButtonClicked", "SwimlaneName"}]
-       31 GETUPVAL                         R7 2
-       32 SETTABLEKS                       R7 R6 K12 ["Assets"]
-       34 GETTABLEKS                       R7 R0 K21 ["props"]
-       36 GETTABLEKS                       R7 R7 K13 ["AudioType"]
-       38 SETTABLEKS                       R7 R6 K13 ["AudioType"]
-       40 DUPCLOSURE                       R7 K22 [PROTO_1]
-       41 SETTABLEKS                       R7 R6 K14 ["CanInsertAsset"]
-       43 DUPCLOSURE                       R7 K23 [PROTO_2]
-       44 SETTABLEKS                       R7 R6 K15 ["InsertAsset"]
-       46 DUPCLOSURE                       R7 K24 [PROTO_3]
-       47 SETTABLEKS                       R7 R6 K16 ["TryInsert"]
-       49 DUPCLOSURE                       R7 K25 [PROTO_4]
-       50 SETTABLEKS                       R7 R6 K17 ["TryOpenAssetConfig"]
-       52 DUPCLOSURE                       R7 K26 [PROTO_5]
-       53 SETTABLEKS                       R7 R6 K18 ["OnAssetPreviewButtonClicked"]
-       55 LOADK                            R7 K27 ["test"]
-       56 SETTABLEKS                       R7 R6 K19 ["SwimlaneName"]
-       58 CALL                             R5 1 1
-       59 SETTABLEKS                       R5 R4 K9 ["AudioTable"]
-       61 CALL                             R1 3 -1
-       62 RETURN                           R1 -1
+       14 GETIMPORT                        R4 K9 [UDim2.new]
+       16 LOADN                            R5 0
+       17 LOADN                            R6 0
+       18 LOADN                            R7 0
+       19 LOADN                            R8 0
+       20 CALL                             R4 4 1
+       21 SETTABLEKS                       R4 R3 K5 ["Position"]
+       23 DUPTABLE                         R4 K11 [{"AudioTable"}]
+       24 GETUPVAL                         R5 1
+       25 GETTABLEKS                       R5 R5 K12 ["Generator"]
+       27 DUPTABLE                         R6 K22 [{["Assets"], ["AudioType"], ["CanInsertAsset"], ["InsertAsset"], ["TryInsert"], ["TryOpenAssetConfig"], ["OnAssetPreviewButtonClicked"], ["SwimlaneName"] = "test"}]
+       28 GETUPVAL                         R7 2
+       29 SETTABLEKS                       R7 R6 K13 ["Assets"]
+       31 GETTABLEKS                       R7 R0 K23 ["props"]
+       33 GETTABLEKS                       R7 R7 K14 ["AudioType"]
+       35 SETTABLEKS                       R7 R6 K14 ["AudioType"]
+       37 DUPCLOSURE                       R7 K24 [PROTO_1]
+       38 SETTABLEKS                       R7 R6 K15 ["CanInsertAsset"]
+       40 DUPCLOSURE                       R7 K25 [PROTO_2]
+       41 SETTABLEKS                       R7 R6 K16 ["InsertAsset"]
+       43 DUPCLOSURE                       R7 K26 [PROTO_3]
+       44 SETTABLEKS                       R7 R6 K17 ["TryInsert"]
+       46 DUPCLOSURE                       R7 K27 [PROTO_4]
+       47 SETTABLEKS                       R7 R6 K18 ["TryOpenAssetConfig"]
+       49 DUPCLOSURE                       R7 K28 [PROTO_5]
+       50 SETTABLEKS                       R7 R6 K19 ["OnAssetPreviewButtonClicked"]
+       52 CALL                             R5 1 1
+       53 SETTABLEKS                       R5 R4 K10 ["AudioTable"]
+       55 CALL                             R1 3 -1
+       56 RETURN                           R1 -1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -220,36 +190,28 @@ MAIN:
        76 CAPTURE                          VAL R4
        77 CAPTURE                          VAL R8
        78 SETTABLEKS                       R9 R7 K26 ["render"]
-       80 DUPTABLE                         R9 K29 [{"summary", "stories"}]
-       81 LOADK                            R10 K30 ["Audio Table"]
-       82 SETTABLEKS                       R10 R9 K27 ["summary"]
-       84 NEWTABLE                         R10 0 3
-       86 DUPTABLE                         R11 K33 [{"name", "story"}]
-       87 LOADK                            R12 K34 ["Soundeffect"]
-       88 SETTABLEKS                       R12 R11 K31 ["name"]
-       90 DUPCLOSURE                       R12 K35 [PROTO_7]
-       91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R7
-       94 CAPTURE                          VAL R3
-       95 SETTABLEKS                       R12 R11 K32 ["story"]
-       97 DUPTABLE                         R12 K33 [{"name", "story"}]
-       98 LOADK                            R13 K36 ["Music"]
-       99 SETTABLEKS                       R13 R12 K31 ["name"]
-      101 DUPCLOSURE                       R13 K37 [PROTO_8]
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R6
-      104 CAPTURE                          VAL R7
-      105 CAPTURE                          VAL R3
-      106 SETTABLEKS                       R13 R12 K32 ["story"]
-      108 DUPTABLE                         R13 K33 [{"name", "story"}]
-      109 LOADK                            R14 K38 ["Uncategorized"]
-      110 SETTABLEKS                       R14 R13 K31 ["name"]
-      112 DUPCLOSURE                       R14 K39 [PROTO_9]
-      113 CAPTURE                          VAL R2
-      114 CAPTURE                          VAL R6
-      115 CAPTURE                          VAL R7
-      116 SETTABLEKS                       R14 R13 K32 ["story"]
-      118 SETLIST                          R10 R11 3 [1]
-      120 SETTABLEKS                       R10 R9 K28 ["stories"]
-      122 RETURN                           R9 1
+       80 DUPTABLE                         R9 K30 [{["summary"] = "Audio Table", ["stories"]}]
+       81 NEWTABLE                         R10 0 3
+       83 DUPTABLE                         R11 K34 [{["name"] = "Soundeffect", ["story"]}]
+       84 DUPCLOSURE                       R12 K35 [PROTO_7]
+       85 CAPTURE                          VAL R2
+       86 CAPTURE                          VAL R6
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R3
+       89 SETTABLEKS                       R12 R11 K33 ["story"]
+       91 DUPTABLE                         R12 K37 [{["name"] = "Music", ["story"]}]
+       92 DUPCLOSURE                       R13 K38 [PROTO_8]
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R3
+       97 SETTABLEKS                       R13 R12 K33 ["story"]
+       99 DUPTABLE                         R13 K40 [{["name"] = "Uncategorized", ["story"]}]
+      100 DUPCLOSURE                       R14 K41 [PROTO_9]
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R6
+      103 CAPTURE                          VAL R7
+      104 SETTABLEKS                       R14 R13 K33 ["story"]
+      106 SETLIST                          R10 R11 3 [1]
+      108 SETTABLEKS                       R10 R9 K29 ["stories"]
+      110 RETURN                           R9 1

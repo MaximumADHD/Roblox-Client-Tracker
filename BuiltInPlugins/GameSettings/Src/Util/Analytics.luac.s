@@ -250,13 +250,11 @@ PROTO_17:
         7 GETUPVAL                         R2 0
         8 GETTABLEKS                       R2 R2 K0 ["sendEventDeferred"]
        10 LOADK                            R3 K2 ["toolOpened"]
-       11 DUPTABLE                         R4 K6 [{"method", "uid", "gameId"}]
-       12 LOADN                            R5 1
-       13 SETTABLEKS                       R5 R4 K3 ["method"]
-       15 SETTABLEKS                       R0 R4 K4 ["uid"]
-       17 SETTABLEKS                       R1 R4 K5 ["gameId"]
-       19 CALL                             R2 2 0
-       20 RETURN                           R0 0
+       11 DUPTABLE                         R4 K7 [{["method"] = 1, ["uid"], ["gameId"]}]
+       12 SETTABLEKS                       R0 R4 K5 ["uid"]
+       14 SETTABLEKS                       R1 R4 K6 ["gameId"]
+       16 CALL                             R2 2 0
+       17 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R2 0

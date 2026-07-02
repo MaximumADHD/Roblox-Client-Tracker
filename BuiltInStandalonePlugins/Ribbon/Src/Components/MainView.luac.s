@@ -28,37 +28,35 @@ PROTO_0:
        38 CALL                             R0 2 1
        39 GETUPVAL                         R1 5
        40 GETTABLEKS                       R1 R1 K11 ["ShowFloating"]
-       42 JUMPIFNOT                        R1 ; [+40]
+       42 JUMPIFNOT                        R1 ; [+37]
        43 GETUPVAL                         R1 7
        44 GETTABLEKS                       R1 R1 K12 ["createPortal"]
        46 GETUPVAL                         R2 0
        47 GETTABLEKS                       R2 R2 K0 ["createElement"]
        49 LOADK                            R3 K13 ["Frame"]
-       50 DUPTABLE                         R4 K16 [{"BackgroundTransparency", "Size"}]
-       51 LOADN                            R5 1
-       52 SETTABLEKS                       R5 R4 K14 ["BackgroundTransparency"]
-       54 GETIMPORT                        R5 K19 [UDim2.fromScale]
-       56 LOADN                            R6 1
-       57 LOADN                            R7 1
-       58 CALL                             R5 2 1
-       59 SETTABLEKS                       R5 R4 K15 ["Size"]
-       61 DUPTABLE                         R5 K22 [{"Buttons", "StyleLink"}]
-       62 SETTABLEKS                       R0 R5 K20 ["Buttons"]
-       64 GETUPVAL                         R6 0
-       65 GETTABLEKS                       R6 R6 K0 ["createElement"]
-       67 LOADK                            R7 K21 ["StyleLink"]
-       68 DUPTABLE                         R8 K24 [{"StyleSheet"}]
-       69 GETUPVAL                         R9 5
-       70 GETTABLEKS                       R9 R9 K25 ["Design"]
-       72 SETTABLEKS                       R9 R8 K23 ["StyleSheet"]
-       74 CALL                             R6 2 1
-       75 SETTABLEKS                       R6 R5 K21 ["StyleLink"]
-       77 CALL                             R2 3 1
-       78 GETUPVAL                         R3 5
-       79 GETTABLEKS                       R3 R3 K26 ["Floating"]
-       81 CALL                             R1 2 -1
-       82 RETURN                           R1 -1
-       83 RETURN                           R0 1
+       50 DUPTABLE                         R4 K17 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       51 GETIMPORT                        R5 K20 [UDim2.fromScale]
+       53 LOADN                            R6 1
+       54 LOADN                            R7 1
+       55 CALL                             R5 2 1
+       56 SETTABLEKS                       R5 R4 K16 ["Size"]
+       58 DUPTABLE                         R5 K23 [{"Buttons", "StyleLink"}]
+       59 SETTABLEKS                       R0 R5 K21 ["Buttons"]
+       61 GETUPVAL                         R6 0
+       62 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       64 LOADK                            R7 K22 ["StyleLink"]
+       65 DUPTABLE                         R8 K25 [{"StyleSheet"}]
+       66 GETUPVAL                         R9 5
+       67 GETTABLEKS                       R9 R9 K26 ["Design"]
+       69 SETTABLEKS                       R9 R8 K24 ["StyleSheet"]
+       71 CALL                             R6 2 1
+       72 SETTABLEKS                       R6 R5 K22 ["StyleLink"]
+       74 CALL                             R2 3 1
+       75 GETUPVAL                         R3 5
+       76 GETTABLEKS                       R3 R3 K27 ["Floating"]
+       78 CALL                             R1 2 -1
+       79 RETURN                           R1 -1
+       80 RETURN                           R0 1
 
 PROTO_1:
         0 GETIMPORT                        R1 K2 [UDim2.new]
@@ -94,314 +92,296 @@ PROTO_3:
         6 GETUPVAL                         R4 1
         7 GETTABLEKS                       R4 R4 K2 ["join"]
         9 GETTABLEKS                       R5 R0 K1 ["PluginUri"]
-       11 DUPTABLE                         R6 K5 [{"Category", "ItemId"}]
-       12 LOADK                            R7 K6 ["Widgets"]
-       13 SETTABLEKS                       R7 R6 K3 ["Category"]
-       15 LOADK                            R7 K7 ["Mezzanine"]
-       16 SETTABLEKS                       R7 R6 K4 ["ItemId"]
-       18 CALL                             R4 2 1
-       19 GETUPVAL                         R5 2
-       20 MOVE                             R6 R4
-       21 CALL                             R5 1 1
-       22 GETUPVAL                         R6 3
-       23 CALL                             R6 0 0
-       24 GETUPVAL                         R6 4
-       25 GETTABLEKS                       R7 R0 K8 ["Plugin"]
-       27 CALL                             R6 1 1
-       28 GETUPVAL                         R7 5
-       29 CALL                             R7 0 1
-       30 GETUPVAL                         R8 6
-       31 MOVE                             R9 R7
-       32 GETTABLEKS                       R10 R0 K9 ["CustomTools"]
-       34 CALL                             R8 2 1
-       35 GETUPVAL                         R9 7
-       36 MOVE                             R10 R6
-       37 GETTABLEKS                       R12 R0 K0 ["Expanded"]
-       39 ORK                              R11 R12 K10 [False]
-       40 CALL                             R9 2 2
-       41 GETUPVAL                         R11 1
-       42 GETTABLEKS                       R11 R11 K2 ["join"]
-       44 GETTABLEKS                       R12 R0 K1 ["PluginUri"]
-       46 DUPTABLE                         R13 K5 [{"Category", "ItemId"}]
-       47 LOADK                            R14 K6 ["Widgets"]
-       48 SETTABLEKS                       R14 R13 K3 ["Category"]
-       50 JUMPIFNOT                        R7 ; [+9]
-       51 LOADK                            R15 K11 ["Tabs/%*"]
-       52 GETUPVAL                         R17 8
-       53 MOVE                             R18 R7
-       54 CALL                             R17 1 1
-       55 NAMECALL                         R15 R15 K12 ["format"]
-       57 CALL                             R15 2 1
-       58 MOVE                             R14 R15
-       59 JUMP                             ; [+1]
-       60 LOADK                            R14 K13 ["Tabs/Reserved_Empty"]
-       61 SETTABLEKS                       R14 R13 K4 ["ItemId"]
-       63 CALL                             R11 2 1
-       64 GETUPVAL                         R12 9
-       65 MOVE                             R13 R3
-       66 CALL                             R12 1 1
-       67 GETUPVAL                         R13 10
-       68 MOVE                             R14 R3
-       69 CALL                             R13 1 1
-       70 NEWCLOSURE                       R14 P0
-       71 CAPTURE                          UPVAL U11
-       72 CAPTURE                          UPVAL U12
-       73 CAPTURE                          VAL R11
-       74 CAPTURE                          VAL R1
-       75 CAPTURE                          VAL R13
-       76 CAPTURE                          VAL R0
-       77 CAPTURE                          VAL R8
-       78 CAPTURE                          UPVAL U13
-       79 GETUPVAL                         R15 14
-       80 CALL                             R15 0 3
-       81 GETUPVAL                         R18 15
-       82 GETUPVAL                         R19 16
-       83 CALL                             R18 1 1
-       84 GETTABLEKS                       R20 R18 K14 ["current"]
-       86 JUMPIFEQKS                       R20 K15 ["Center"] ; [+2]
-       88 LOADB                            R19 0 +1
-       89 LOADB                            R19 1
-       90 GETUPVAL                         R20 11
-       91 GETTABLEKS                       R20 R20 K16 ["createElement"]
-       93 LOADK                            R21 K17 ["Frame"]
-       94 NEWTABLE                         R22 2 0
-       96 GETUPVAL                         R23 11
-       97 GETTABLEKS                       R23 R23 K18 ["Change"]
-       99 GETTABLEKS                       R23 R23 K19 ["AbsoluteSize"]
-      101 GETTABLEKS                       R24 R0 K20 ["OnResize"]
-      103 SETTABLE                         R24 R22 R23
-      104 GETUPVAL                         R23 11
-      105 GETTABLEKS                       R23 R23 K21 ["Tag"]
-      107 LOADK                            R25 K22 ["Role-Surface100 X-Fill X-Column data-testid=%*"]
-      108 GETUPVAL                         R27 17
-      109 GETTABLEKS                       R28 R0 K1 ["PluginUri"]
-      111 CALL                             R27 1 1
-      112 NAMECALL                         R25 R25 K12 ["format"]
-      114 CALL                             R25 2 1
-      115 MOVE                             R24 R25
-      116 SETTABLE                         R24 R22 R23
-      117 DUPTABLE                         R23 K26 [{"Mezzanine", "Divider", "Buttons", "StyleLink"}]
-      118 GETUPVAL                         R24 11
-      119 GETTABLEKS                       R24 R24 K16 ["createElement"]
-      121 LOADK                            R25 K17 ["Frame"]
-      122 NEWTABLE                         R26 4 0
-      124 MOVE                             R27 R1
-      125 CALL                             R27 0 1
-      126 SETTABLEKS                       R27 R26 K27 ["LayoutOrder"]
-      128 GETUPVAL                         R27 11
-      129 GETTABLEKS                       R27 R27 K28 ["Event"]
-      131 GETTABLEKS                       R27 R27 K29 ["InputBegan"]
-      133 JUMPIFNOT                        R2 ; [+2]
-      134 MOVE                             R28 R12
-      135 JUMP                             ; [+1]
-      136 LOADNIL                          R28
-      137 SETTABLE                         R28 R26 R27
-      138 GETUPVAL                         R27 11
-      139 GETTABLEKS                       R27 R27 K21 ["Tag"]
-      141 LOADK                            R28 K30 ["Role-Surface Role-Mezzanine data-testid=Mezzanine"]
-      142 SETTABLE                         R28 R26 R27
-      143 SETTABLEKS                       R5 R26 K31 ["ref"]
-      145 DUPTABLE                         R27 K37 [{"Left", "LeftSpacer", "Tabs", "RightSpacer", "Right"}]
-      146 JUMPIFNOT                        R2 ; [+59]
-      147 GETUPVAL                         R28 11
-      148 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      150 LOADK                            R29 K17 ["Frame"]
-      151 NEWTABLE                         R30 4 0
-      153 MOVE                             R31 R1
-      154 CALL                             R31 0 1
-      155 SETTABLEKS                       R31 R30 K27 ["LayoutOrder"]
-      157 GETUPVAL                         R31 11
-      158 GETTABLEKS                       R31 R31 K18 ["Change"]
-      160 GETTABLEKS                       R31 R31 K19 ["AbsoluteSize"]
-      162 SETTABLE                         R16 R30 R31
-      163 GETUPVAL                         R31 11
-      164 GETTABLEKS                       R31 R31 K21 ["Tag"]
-      166 LOADK                            R32 K38 ["Role-Surface X-Fit X-Row"]
-      167 SETTABLE                         R32 R30 R31
-      168 DUPTABLE                         R31 K40 [{"LeftMezzanineControls"}]
-      169 GETUPVAL                         R32 11
-      170 GETTABLEKS                       R32 R32 K16 ["createElement"]
-      172 GETUPVAL                         R33 12
-      173 NEWTABLE                         R34 4 0
-      175 GETUPVAL                         R35 1
-      176 GETTABLEKS                       R35 R35 K2 ["join"]
-      178 GETTABLEKS                       R36 R0 K1 ["PluginUri"]
-      180 DUPTABLE                         R37 K5 [{"Category", "ItemId"}]
-      181 LOADK                            R38 K6 ["Widgets"]
-      182 SETTABLEKS                       R38 R37 K3 ["Category"]
-      184 LOADK                            R38 K41 ["LeftMezzanine"]
-      185 SETTABLEKS                       R38 R37 K4 ["ItemId"]
-      187 CALL                             R35 2 1
-      188 SETTABLEKS                       R35 R34 K42 ["WidgetUri"]
-      190 GETTABLEKS                       R35 R0 K8 ["Plugin"]
-      192 SETTABLEKS                       R35 R34 K8 ["Plugin"]
-      194 SETTABLEKS                       R9 R34 K43 ["Controls"]
-      196 GETUPVAL                         R35 11
-      197 GETTABLEKS                       R35 R35 K21 ["Tag"]
-      199 LOADK                            R36 K44 ["LeftMezzControls X-Middle X-Fit"]
-      200 SETTABLE                         R36 R34 R35
-      201 CALL                             R32 2 1
-      202 SETTABLEKS                       R32 R31 K39 ["LeftMezzanineControls"]
-      204 CALL                             R28 3 1
-      205 JUMP                             ; [+1]
-      206 LOADNIL                          R28
-      207 SETTABLEKS                       R28 R27 K32 ["Left"]
-      209 GETUPVAL                         R28 11
-      210 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      212 LOADK                            R29 K17 ["Frame"]
-      213 NEWTABLE                         R30 4 0
-      215 MOVE                             R31 R1
-      216 CALL                             R31 0 1
-      217 SETTABLEKS                       R31 R30 K27 ["LayoutOrder"]
-      219 JUMPIFNOT                        R19 ; [+5]
-      220 DUPCLOSURE                       R33 K45 [PROTO_1]
-      221 NAMECALL                         R31 R15 K46 ["map"]
-      223 CALL                             R31 2 1
-      224 JUMP                             ; [+3]
-      225 GETIMPORT                        R31 K49 [UDim2.new]
-      227 CALL                             R31 0 1
-      228 SETTABLEKS                       R31 R30 K50 ["Size"]
-      230 GETUPVAL                         R31 11
-      231 GETTABLEKS                       R31 R31 K21 ["Tag"]
-      233 LOADK                            R32 K51 ["Role-Surface X-Shrink"]
-      234 SETTABLE                         R32 R30 R31
-      235 CALL                             R28 2 1
-      236 SETTABLEKS                       R28 R27 K33 ["LeftSpacer"]
-      238 JUMPIFNOT                        R2 ; [+43]
-      239 GETUPVAL                         R28 11
-      240 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      242 GETUPVAL                         R29 18
-      243 DUPTABLE                         R30 K55 [{"WidgetUri", "OpenFloating", "CancelOpenFloating", "ToggleFloating", "LayoutOrder"}]
-      244 GETUPVAL                         R31 1
-      245 GETTABLEKS                       R31 R31 K2 ["join"]
-      247 GETTABLEKS                       R32 R0 K1 ["PluginUri"]
-      249 DUPTABLE                         R33 K5 [{"Category", "ItemId"}]
-      250 LOADK                            R34 K6 ["Widgets"]
-      251 SETTABLEKS                       R34 R33 K3 ["Category"]
-      253 LOADK                            R34 K34 ["Tabs"]
-      254 SETTABLEKS                       R34 R33 K4 ["ItemId"]
-      256 CALL                             R31 2 1
-      257 SETTABLEKS                       R31 R30 K42 ["WidgetUri"]
-      259 GETTABLEKS                       R31 R0 K52 ["OpenFloating"]
-      261 SETTABLEKS                       R31 R30 K52 ["OpenFloating"]
-      263 GETUPVAL                         R32 19
-      264 CALL                             R32 0 1
-      265 JUMPIFNOT                        R32 ; [+3]
-      266 GETTABLEKS                       R31 R0 K53 ["CancelOpenFloating"]
-      268 JUMP                             ; [+1]
-      269 LOADNIL                          R31
-      270 SETTABLEKS                       R31 R30 K53 ["CancelOpenFloating"]
-      272 GETTABLEKS                       R31 R0 K54 ["ToggleFloating"]
-      274 SETTABLEKS                       R31 R30 K54 ["ToggleFloating"]
-      276 MOVE                             R31 R1
-      277 CALL                             R31 0 1
-      278 SETTABLEKS                       R31 R30 K27 ["LayoutOrder"]
-      280 CALL                             R28 2 1
-      281 JUMP                             ; [+1]
-      282 LOADNIL                          R28
-      283 SETTABLEKS                       R28 R27 K34 ["Tabs"]
-      285 GETUPVAL                         R28 11
-      286 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      288 LOADK                            R29 K17 ["Frame"]
-      289 NEWTABLE                         R30 4 0
-      291 MOVE                             R31 R1
-      292 CALL                             R31 0 1
-      293 SETTABLEKS                       R31 R30 K27 ["LayoutOrder"]
-      295 JUMPIFNOT                        R19 ; [+5]
-      296 DUPCLOSURE                       R33 K56 [PROTO_2]
-      297 NAMECALL                         R31 R15 K46 ["map"]
-      299 CALL                             R31 2 1
-      300 JUMP                             ; [+3]
-      301 GETIMPORT                        R31 K49 [UDim2.new]
-      303 CALL                             R31 0 1
-      304 SETTABLEKS                       R31 R30 K50 ["Size"]
-      306 GETUPVAL                         R31 11
-      307 GETTABLEKS                       R31 R31 K21 ["Tag"]
-      309 LOADK                            R32 K51 ["Role-Surface X-Shrink"]
-      310 SETTABLE                         R32 R30 R31
-      311 CALL                             R28 2 1
-      312 SETTABLEKS                       R28 R27 K35 ["RightSpacer"]
-      314 GETUPVAL                         R28 11
-      315 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      317 LOADK                            R29 K17 ["Frame"]
-      318 NEWTABLE                         R30 4 0
-      320 MOVE                             R31 R1
-      321 CALL                             R31 0 1
-      322 SETTABLEKS                       R31 R30 K27 ["LayoutOrder"]
-      324 GETUPVAL                         R31 11
-      325 GETTABLEKS                       R31 R31 K18 ["Change"]
-      327 GETTABLEKS                       R31 R31 K19 ["AbsoluteSize"]
-      329 SETTABLE                         R17 R30 R31
-      330 GETUPVAL                         R31 11
-      331 GETTABLEKS                       R31 R31 K21 ["Tag"]
-      333 LOADK                            R32 K38 ["Role-Surface X-Fit X-Row"]
-      334 SETTABLE                         R32 R30 R31
-      335 DUPTABLE                         R31 K58 [{"RightMezzanineControls"}]
-      336 GETUPVAL                         R32 11
-      337 GETTABLEKS                       R32 R32 K16 ["createElement"]
-      339 GETUPVAL                         R33 12
-      340 NEWTABLE                         R34 4 0
-      342 GETUPVAL                         R35 1
-      343 GETTABLEKS                       R35 R35 K2 ["join"]
-      345 GETTABLEKS                       R36 R0 K1 ["PluginUri"]
-      347 DUPTABLE                         R37 K5 [{"Category", "ItemId"}]
-      348 LOADK                            R38 K6 ["Widgets"]
-      349 SETTABLEKS                       R38 R37 K3 ["Category"]
-      351 LOADK                            R38 K59 ["RightMezzanine"]
-      352 SETTABLEKS                       R38 R37 K4 ["ItemId"]
-      354 CALL                             R35 2 1
-      355 SETTABLEKS                       R35 R34 K42 ["WidgetUri"]
-      357 GETTABLEKS                       R35 R0 K8 ["Plugin"]
-      359 SETTABLEKS                       R35 R34 K8 ["Plugin"]
-      361 SETTABLEKS                       R10 R34 K43 ["Controls"]
-      363 GETUPVAL                         R35 11
-      364 GETTABLEKS                       R35 R35 K21 ["Tag"]
-      366 LOADK                            R36 K60 ["RightMezzControls X-Middle X-Right X-Fit"]
-      367 SETTABLE                         R36 R34 R35
-      368 CALL                             R32 2 1
-      369 SETTABLEKS                       R32 R31 K57 ["RightMezzanineControls"]
-      371 CALL                             R28 3 1
-      372 SETTABLEKS                       R28 R27 K36 ["Right"]
+       11 DUPTABLE                         R6 K7 [{["Category"] = "Widgets", ["ItemId"] = "Mezzanine"}]
+       12 CALL                             R4 2 1
+       13 GETUPVAL                         R5 2
+       14 MOVE                             R6 R4
+       15 CALL                             R5 1 1
+       16 GETUPVAL                         R6 3
+       17 CALL                             R6 0 0
+       18 GETUPVAL                         R6 4
+       19 GETTABLEKS                       R7 R0 K8 ["Plugin"]
+       21 CALL                             R6 1 1
+       22 GETUPVAL                         R7 5
+       23 CALL                             R7 0 1
+       24 GETUPVAL                         R8 6
+       25 MOVE                             R9 R7
+       26 GETTABLEKS                       R10 R0 K9 ["CustomTools"]
+       28 CALL                             R8 2 1
+       29 GETUPVAL                         R9 7
+       30 MOVE                             R10 R6
+       31 GETTABLEKS                       R12 R0 K0 ["Expanded"]
+       33 ORK                              R11 R12 K10 [False]
+       34 CALL                             R9 2 2
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K2 ["join"]
+       38 GETTABLEKS                       R12 R0 K1 ["PluginUri"]
+       40 DUPTABLE                         R13 K11 [{["Category"] = "Widgets", ["ItemId"]}]
+       41 JUMPIFNOT                        R7 ; [+9]
+       42 LOADK                            R15 K12 ["Tabs/%*"]
+       43 GETUPVAL                         R17 8
+       44 MOVE                             R18 R7
+       45 CALL                             R17 1 1
+       46 NAMECALL                         R15 R15 K13 ["format"]
+       48 CALL                             R15 2 1
+       49 MOVE                             R14 R15
+       50 JUMP                             ; [+1]
+       51 LOADK                            R14 K14 ["Tabs/Reserved_Empty"]
+       52 SETTABLEKS                       R14 R13 K5 ["ItemId"]
+       54 CALL                             R11 2 1
+       55 GETUPVAL                         R12 9
+       56 MOVE                             R13 R3
+       57 CALL                             R12 1 1
+       58 GETUPVAL                         R13 10
+       59 MOVE                             R14 R3
+       60 CALL                             R13 1 1
+       61 NEWCLOSURE                       R14 P0
+       62 CAPTURE                          UPVAL U11
+       63 CAPTURE                          UPVAL U12
+       64 CAPTURE                          VAL R11
+       65 CAPTURE                          VAL R1
+       66 CAPTURE                          VAL R13
+       67 CAPTURE                          VAL R0
+       68 CAPTURE                          VAL R8
+       69 CAPTURE                          UPVAL U13
+       70 GETUPVAL                         R15 14
+       71 CALL                             R15 0 3
+       72 GETUPVAL                         R18 15
+       73 GETUPVAL                         R19 16
+       74 CALL                             R18 1 1
+       75 GETTABLEKS                       R20 R18 K15 ["current"]
+       77 JUMPIFEQKS                       R20 K16 ["Center"] ; [+2]
+       79 LOADB                            R19 0 +1
+       80 LOADB                            R19 1
+       81 GETUPVAL                         R20 11
+       82 GETTABLEKS                       R20 R20 K17 ["createElement"]
+       84 LOADK                            R21 K18 ["Frame"]
+       85 NEWTABLE                         R22 2 0
+       87 GETUPVAL                         R23 11
+       88 GETTABLEKS                       R23 R23 K19 ["Change"]
+       90 GETTABLEKS                       R23 R23 K20 ["AbsoluteSize"]
+       92 GETTABLEKS                       R24 R0 K21 ["OnResize"]
+       94 SETTABLE                         R24 R22 R23
+       95 GETUPVAL                         R23 11
+       96 GETTABLEKS                       R23 R23 K22 ["Tag"]
+       98 LOADK                            R25 K23 ["Role-Surface100 X-Fill X-Column data-testid=%*"]
+       99 GETUPVAL                         R27 17
+      100 GETTABLEKS                       R28 R0 K1 ["PluginUri"]
+      102 CALL                             R27 1 1
+      103 NAMECALL                         R25 R25 K13 ["format"]
+      105 CALL                             R25 2 1
+      106 MOVE                             R24 R25
+      107 SETTABLE                         R24 R22 R23
+      108 DUPTABLE                         R23 K27 [{"Mezzanine", "Divider", "Buttons", "StyleLink"}]
+      109 GETUPVAL                         R24 11
+      110 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      112 LOADK                            R25 K18 ["Frame"]
+      113 NEWTABLE                         R26 4 0
+      115 MOVE                             R27 R1
+      116 CALL                             R27 0 1
+      117 SETTABLEKS                       R27 R26 K28 ["LayoutOrder"]
+      119 GETUPVAL                         R27 11
+      120 GETTABLEKS                       R27 R27 K29 ["Event"]
+      122 GETTABLEKS                       R27 R27 K30 ["InputBegan"]
+      124 JUMPIFNOT                        R2 ; [+2]
+      125 MOVE                             R28 R12
+      126 JUMP                             ; [+1]
+      127 LOADNIL                          R28
+      128 SETTABLE                         R28 R26 R27
+      129 GETUPVAL                         R27 11
+      130 GETTABLEKS                       R27 R27 K22 ["Tag"]
+      132 LOADK                            R28 K31 ["Role-Surface Role-Mezzanine data-testid=Mezzanine"]
+      133 SETTABLE                         R28 R26 R27
+      134 SETTABLEKS                       R5 R26 K32 ["ref"]
+      136 DUPTABLE                         R27 K38 [{"Left", "LeftSpacer", "Tabs", "RightSpacer", "Right"}]
+      137 JUMPIFNOT                        R2 ; [+53]
+      138 GETUPVAL                         R28 11
+      139 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      141 LOADK                            R29 K18 ["Frame"]
+      142 NEWTABLE                         R30 4 0
+      144 MOVE                             R31 R1
+      145 CALL                             R31 0 1
+      146 SETTABLEKS                       R31 R30 K28 ["LayoutOrder"]
+      148 GETUPVAL                         R31 11
+      149 GETTABLEKS                       R31 R31 K19 ["Change"]
+      151 GETTABLEKS                       R31 R31 K20 ["AbsoluteSize"]
+      153 SETTABLE                         R16 R30 R31
+      154 GETUPVAL                         R31 11
+      155 GETTABLEKS                       R31 R31 K22 ["Tag"]
+      157 LOADK                            R32 K39 ["Role-Surface X-Fit X-Row"]
+      158 SETTABLE                         R32 R30 R31
+      159 DUPTABLE                         R31 K41 [{"LeftMezzanineControls"}]
+      160 GETUPVAL                         R32 11
+      161 GETTABLEKS                       R32 R32 K17 ["createElement"]
+      163 GETUPVAL                         R33 12
+      164 NEWTABLE                         R34 4 0
+      166 GETUPVAL                         R35 1
+      167 GETTABLEKS                       R35 R35 K2 ["join"]
+      169 GETTABLEKS                       R36 R0 K1 ["PluginUri"]
+      171 DUPTABLE                         R37 K43 [{["Category"] = "Widgets", ["ItemId"] = "LeftMezzanine"}]
+      172 CALL                             R35 2 1
+      173 SETTABLEKS                       R35 R34 K44 ["WidgetUri"]
+      175 GETTABLEKS                       R35 R0 K8 ["Plugin"]
+      177 SETTABLEKS                       R35 R34 K8 ["Plugin"]
+      179 SETTABLEKS                       R9 R34 K45 ["Controls"]
+      181 GETUPVAL                         R35 11
+      182 GETTABLEKS                       R35 R35 K22 ["Tag"]
+      184 LOADK                            R36 K46 ["LeftMezzControls X-Middle X-Fit"]
+      185 SETTABLE                         R36 R34 R35
+      186 CALL                             R32 2 1
+      187 SETTABLEKS                       R32 R31 K40 ["LeftMezzanineControls"]
+      189 CALL                             R28 3 1
+      190 JUMP                             ; [+1]
+      191 LOADNIL                          R28
+      192 SETTABLEKS                       R28 R27 K33 ["Left"]
+      194 GETUPVAL                         R28 11
+      195 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      197 LOADK                            R29 K18 ["Frame"]
+      198 NEWTABLE                         R30 4 0
+      200 MOVE                             R31 R1
+      201 CALL                             R31 0 1
+      202 SETTABLEKS                       R31 R30 K28 ["LayoutOrder"]
+      204 JUMPIFNOT                        R19 ; [+5]
+      205 DUPCLOSURE                       R33 K47 [PROTO_1]
+      206 NAMECALL                         R31 R15 K48 ["map"]
+      208 CALL                             R31 2 1
+      209 JUMP                             ; [+3]
+      210 GETIMPORT                        R31 K51 [UDim2.new]
+      212 CALL                             R31 0 1
+      213 SETTABLEKS                       R31 R30 K52 ["Size"]
+      215 GETUPVAL                         R31 11
+      216 GETTABLEKS                       R31 R31 K22 ["Tag"]
+      218 LOADK                            R32 K53 ["Role-Surface X-Shrink"]
+      219 SETTABLE                         R32 R30 R31
+      220 CALL                             R28 2 1
+      221 SETTABLEKS                       R28 R27 K34 ["LeftSpacer"]
+      223 JUMPIFNOT                        R2 ; [+37]
+      224 GETUPVAL                         R28 11
+      225 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      227 GETUPVAL                         R29 18
+      228 DUPTABLE                         R30 K57 [{"WidgetUri", "OpenFloating", "CancelOpenFloating", "ToggleFloating", "LayoutOrder"}]
+      229 GETUPVAL                         R31 1
+      230 GETTABLEKS                       R31 R31 K2 ["join"]
+      232 GETTABLEKS                       R32 R0 K1 ["PluginUri"]
+      234 DUPTABLE                         R33 K58 [{["Category"] = "Widgets", ["ItemId"] = "Tabs"}]
+      235 CALL                             R31 2 1
+      236 SETTABLEKS                       R31 R30 K44 ["WidgetUri"]
+      238 GETTABLEKS                       R31 R0 K54 ["OpenFloating"]
+      240 SETTABLEKS                       R31 R30 K54 ["OpenFloating"]
+      242 GETUPVAL                         R32 19
+      243 CALL                             R32 0 1
+      244 JUMPIFNOT                        R32 ; [+3]
+      245 GETTABLEKS                       R31 R0 K55 ["CancelOpenFloating"]
+      247 JUMP                             ; [+1]
+      248 LOADNIL                          R31
+      249 SETTABLEKS                       R31 R30 K55 ["CancelOpenFloating"]
+      251 GETTABLEKS                       R31 R0 K56 ["ToggleFloating"]
+      253 SETTABLEKS                       R31 R30 K56 ["ToggleFloating"]
+      255 MOVE                             R31 R1
+      256 CALL                             R31 0 1
+      257 SETTABLEKS                       R31 R30 K28 ["LayoutOrder"]
+      259 CALL                             R28 2 1
+      260 JUMP                             ; [+1]
+      261 LOADNIL                          R28
+      262 SETTABLEKS                       R28 R27 K35 ["Tabs"]
+      264 GETUPVAL                         R28 11
+      265 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      267 LOADK                            R29 K18 ["Frame"]
+      268 NEWTABLE                         R30 4 0
+      270 MOVE                             R31 R1
+      271 CALL                             R31 0 1
+      272 SETTABLEKS                       R31 R30 K28 ["LayoutOrder"]
+      274 JUMPIFNOT                        R19 ; [+5]
+      275 DUPCLOSURE                       R33 K59 [PROTO_2]
+      276 NAMECALL                         R31 R15 K48 ["map"]
+      278 CALL                             R31 2 1
+      279 JUMP                             ; [+3]
+      280 GETIMPORT                        R31 K51 [UDim2.new]
+      282 CALL                             R31 0 1
+      283 SETTABLEKS                       R31 R30 K52 ["Size"]
+      285 GETUPVAL                         R31 11
+      286 GETTABLEKS                       R31 R31 K22 ["Tag"]
+      288 LOADK                            R32 K53 ["Role-Surface X-Shrink"]
+      289 SETTABLE                         R32 R30 R31
+      290 CALL                             R28 2 1
+      291 SETTABLEKS                       R28 R27 K36 ["RightSpacer"]
+      293 GETUPVAL                         R28 11
+      294 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      296 LOADK                            R29 K18 ["Frame"]
+      297 NEWTABLE                         R30 4 0
+      299 MOVE                             R31 R1
+      300 CALL                             R31 0 1
+      301 SETTABLEKS                       R31 R30 K28 ["LayoutOrder"]
+      303 GETUPVAL                         R31 11
+      304 GETTABLEKS                       R31 R31 K19 ["Change"]
+      306 GETTABLEKS                       R31 R31 K20 ["AbsoluteSize"]
+      308 SETTABLE                         R17 R30 R31
+      309 GETUPVAL                         R31 11
+      310 GETTABLEKS                       R31 R31 K22 ["Tag"]
+      312 LOADK                            R32 K39 ["Role-Surface X-Fit X-Row"]
+      313 SETTABLE                         R32 R30 R31
+      314 DUPTABLE                         R31 K61 [{"RightMezzanineControls"}]
+      315 GETUPVAL                         R32 11
+      316 GETTABLEKS                       R32 R32 K17 ["createElement"]
+      318 GETUPVAL                         R33 12
+      319 NEWTABLE                         R34 4 0
+      321 GETUPVAL                         R35 1
+      322 GETTABLEKS                       R35 R35 K2 ["join"]
+      324 GETTABLEKS                       R36 R0 K1 ["PluginUri"]
+      326 DUPTABLE                         R37 K63 [{["Category"] = "Widgets", ["ItemId"] = "RightMezzanine"}]
+      327 CALL                             R35 2 1
+      328 SETTABLEKS                       R35 R34 K44 ["WidgetUri"]
+      330 GETTABLEKS                       R35 R0 K8 ["Plugin"]
+      332 SETTABLEKS                       R35 R34 K8 ["Plugin"]
+      334 SETTABLEKS                       R10 R34 K45 ["Controls"]
+      336 GETUPVAL                         R35 11
+      337 GETTABLEKS                       R35 R35 K22 ["Tag"]
+      339 LOADK                            R36 K64 ["RightMezzControls X-Middle X-Right X-Fit"]
+      340 SETTABLE                         R36 R34 R35
+      341 CALL                             R32 2 1
+      342 SETTABLEKS                       R32 R31 K60 ["RightMezzanineControls"]
+      344 CALL                             R28 3 1
+      345 SETTABLEKS                       R28 R27 K37 ["Right"]
+      347 CALL                             R24 3 1
+      348 SETTABLEKS                       R24 R23 K6 ["Mezzanine"]
+      350 JUMPIFNOT                        R2 ; [+25]
+      351 GETUPVAL                         R24 11
+      352 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      354 LOADK                            R25 K18 ["Frame"]
+      355 NEWTABLE                         R26 2 0
+      357 MOVE                             R27 R1
+      358 CALL                             R27 0 1
+      359 SETTABLEKS                       R27 R26 K28 ["LayoutOrder"]
+      361 GETUPVAL                         R27 11
+      362 GETTABLEKS                       R27 R27 K22 ["Tag"]
+      364 LOADK                            R28 K65 ["Role-Surface Role-DividerH"]
+      365 SETTABLE                         R28 R26 R27
+      366 DUPTABLE                         R27 K66 [{"Divider"}]
+      367 GETUPVAL                         R28 11
+      368 GETTABLEKS                       R28 R28 K17 ["createElement"]
+      370 LOADK                            R29 K18 ["Frame"]
+      371 CALL                             R28 1 1
+      372 SETTABLEKS                       R28 R27 K24 ["Divider"]
       374 CALL                             R24 3 1
-      375 SETTABLEKS                       R24 R23 K7 ["Mezzanine"]
-      377 JUMPIFNOT                        R2 ; [+25]
-      378 GETUPVAL                         R24 11
-      379 GETTABLEKS                       R24 R24 K16 ["createElement"]
-      381 LOADK                            R25 K17 ["Frame"]
-      382 NEWTABLE                         R26 2 0
-      384 MOVE                             R27 R1
-      385 CALL                             R27 0 1
-      386 SETTABLEKS                       R27 R26 K27 ["LayoutOrder"]
-      388 GETUPVAL                         R27 11
-      389 GETTABLEKS                       R27 R27 K21 ["Tag"]
-      391 LOADK                            R28 K61 ["Role-Surface Role-DividerH"]
-      392 SETTABLE                         R28 R26 R27
-      393 DUPTABLE                         R27 K62 [{"Divider"}]
-      394 GETUPVAL                         R28 11
-      395 GETTABLEKS                       R28 R28 K16 ["createElement"]
-      397 LOADK                            R29 K17 ["Frame"]
-      398 CALL                             R28 1 1
-      399 SETTABLEKS                       R28 R27 K23 ["Divider"]
-      401 CALL                             R24 3 1
-      402 JUMP                             ; [+1]
-      403 LOADNIL                          R24
-      404 SETTABLEKS                       R24 R23 K23 ["Divider"]
-      406 JUMPIFNOT                        R2 ; [+3]
-      407 MOVE                             R24 R14
-      408 CALL                             R24 0 1
-      409 JUMP                             ; [+1]
-      410 LOADNIL                          R24
-      411 SETTABLEKS                       R24 R23 K24 ["Buttons"]
-      413 GETUPVAL                         R24 11
-      414 GETTABLEKS                       R24 R24 K16 ["createElement"]
-      416 LOADK                            R25 K25 ["StyleLink"]
-      417 DUPTABLE                         R26 K64 [{"StyleSheet"}]
-      418 GETTABLEKS                       R27 R0 K65 ["Design"]
-      420 SETTABLEKS                       R27 R26 K63 ["StyleSheet"]
-      422 CALL                             R24 2 1
-      423 SETTABLEKS                       R24 R23 K25 ["StyleLink"]
-      425 CALL                             R20 3 -1
-      426 RETURN                           R20 -1
+      375 JUMP                             ; [+1]
+      376 LOADNIL                          R24
+      377 SETTABLEKS                       R24 R23 K24 ["Divider"]
+      379 JUMPIFNOT                        R2 ; [+3]
+      380 MOVE                             R24 R14
+      381 CALL                             R24 0 1
+      382 JUMP                             ; [+1]
+      383 LOADNIL                          R24
+      384 SETTABLEKS                       R24 R23 K25 ["Buttons"]
+      386 GETUPVAL                         R24 11
+      387 GETTABLEKS                       R24 R24 K17 ["createElement"]
+      389 LOADK                            R25 K26 ["StyleLink"]
+      390 DUPTABLE                         R26 K68 [{"StyleSheet"}]
+      391 GETTABLEKS                       R27 R0 K69 ["Design"]
+      393 SETTABLEKS                       R27 R26 K67 ["StyleSheet"]
+      395 CALL                             R24 2 1
+      396 SETTABLEKS                       R24 R23 K26 ["StyleLink"]
+      398 CALL                             R20 3 -1
+      399 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

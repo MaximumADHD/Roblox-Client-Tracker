@@ -224,98 +224,84 @@ PROTO_6:
       154 GETUPVAL                         R14 4
       155 GETUPVAL                         R15 5
       156 GETTABLEKS                       R15 R15 K16 ["View"]
-      158 DUPTABLE                         R16 K19 [{"tag", "LayoutOrder"}]
-      159 LOADK                            R17 K20 ["col size-full-0 auto-y gap-xsmall"]
-      160 SETTABLEKS                       R17 R16 K17 ["tag"]
-      162 GETTABLEKS                       R17 R0 K18 ["LayoutOrder"]
-      164 SETTABLEKS                       R17 R16 K18 ["LayoutOrder"]
-      166 DUPTABLE                         R17 K23 [{"Modify", "Add", "Delete"}]
-      167 GETUPVAL                         R18 4
-      168 GETUPVAL                         R19 6
-      169 DUPTABLE                         R20 K31 [{"layoutOrder", "id", "count", "titleText", "isExpanded", "isLocked", "onActivated"}]
-      170 MOVE                             R21 R2
-      171 CALL                             R21 0 1
-      172 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
-      174 LOADK                            R21 K12 ["Modify"]
-      175 SETTABLEKS                       R21 R20 K25 ["id"]
-      177 LENGTH                           R21 R4
-      178 SETTABLEKS                       R21 R20 K26 ["count"]
-      180 SETTABLEKS                       R11 R20 K27 ["titleText"]
-      182 JUMPIFEQKS                       R8 K12 ["Modify"] ; [+2]
-      184 LOADB                            R21 0 +1
-      185 LOADB                            R21 1
-      186 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
-      188 SETTABLEKS                       R7 R20 K29 ["isLocked"]
-      190 SETTABLEKS                       R10 R20 K30 ["onActivated"]
-      192 DUPTABLE                         R21 K33 [{"ListChanges"}]
-      193 GETUPVAL                         R22 4
-      194 GETUPVAL                         R23 7
-      195 DUPTABLE                         R24 K35 [{"changes", "id"}]
-      196 SETTABLEKS                       R4 R24 K34 ["changes"]
-      198 LOADK                            R25 K12 ["Modify"]
-      199 SETTABLEKS                       R25 R24 K25 ["id"]
-      201 CALL                             R22 2 1
-      202 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
-      204 CALL                             R18 3 1
-      205 SETTABLEKS                       R18 R17 K12 ["Modify"]
-      207 GETUPVAL                         R18 4
-      208 GETUPVAL                         R19 6
-      209 DUPTABLE                         R20 K31 [{"layoutOrder", "id", "count", "titleText", "isExpanded", "isLocked", "onActivated"}]
-      210 MOVE                             R21 R2
-      211 CALL                             R21 0 1
-      212 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
-      214 LOADK                            R21 K21 ["Add"]
-      215 SETTABLEKS                       R21 R20 K25 ["id"]
-      217 LENGTH                           R21 R5
-      218 SETTABLEKS                       R21 R20 K26 ["count"]
-      220 SETTABLEKS                       R12 R20 K27 ["titleText"]
-      222 JUMPIFEQKS                       R8 K21 ["Add"] ; [+2]
-      224 LOADB                            R21 0 +1
-      225 LOADB                            R21 1
-      226 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
-      228 SETTABLEKS                       R7 R20 K29 ["isLocked"]
-      230 SETTABLEKS                       R10 R20 K30 ["onActivated"]
-      232 DUPTABLE                         R21 K33 [{"ListChanges"}]
-      233 GETUPVAL                         R22 4
-      234 GETUPVAL                         R23 7
-      235 DUPTABLE                         R24 K35 [{"changes", "id"}]
-      236 SETTABLEKS                       R5 R24 K34 ["changes"]
-      238 LOADK                            R25 K21 ["Add"]
-      239 SETTABLEKS                       R25 R24 K25 ["id"]
-      241 CALL                             R22 2 1
-      242 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
-      244 CALL                             R18 3 1
-      245 SETTABLEKS                       R18 R17 K21 ["Add"]
-      247 GETUPVAL                         R18 4
-      248 GETUPVAL                         R19 6
-      249 DUPTABLE                         R20 K31 [{"layoutOrder", "id", "count", "titleText", "isExpanded", "isLocked", "onActivated"}]
-      250 MOVE                             R21 R2
-      251 CALL                             R21 0 1
-      252 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
-      254 LOADK                            R21 K22 ["Delete"]
-      255 SETTABLEKS                       R21 R20 K25 ["id"]
-      257 LENGTH                           R21 R6
-      258 SETTABLEKS                       R21 R20 K26 ["count"]
-      260 SETTABLEKS                       R13 R20 K27 ["titleText"]
-      262 JUMPIFEQKS                       R8 K22 ["Delete"] ; [+2]
-      264 LOADB                            R21 0 +1
-      265 LOADB                            R21 1
-      266 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
-      268 SETTABLEKS                       R7 R20 K29 ["isLocked"]
-      270 SETTABLEKS                       R10 R20 K30 ["onActivated"]
-      272 DUPTABLE                         R21 K33 [{"ListChanges"}]
-      273 GETUPVAL                         R22 4
-      274 GETUPVAL                         R23 7
-      275 DUPTABLE                         R24 K35 [{"changes", "id"}]
-      276 SETTABLEKS                       R6 R24 K34 ["changes"]
-      278 LOADK                            R25 K22 ["Delete"]
-      279 SETTABLEKS                       R25 R24 K25 ["id"]
-      281 CALL                             R22 2 1
-      282 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
-      284 CALL                             R18 3 1
-      285 SETTABLEKS                       R18 R17 K22 ["Delete"]
-      287 CALL                             R14 3 -1
-      288 RETURN                           R14 -1
+      158 DUPTABLE                         R16 K20 [{["tag"] = "col gap-xsmall size-full-0 auto-y", ["LayoutOrder"]}]
+      159 GETTABLEKS                       R17 R0 K19 ["LayoutOrder"]
+      161 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
+      163 DUPTABLE                         R17 K23 [{"Modify", "Add", "Delete"}]
+      164 GETUPVAL                         R18 4
+      165 GETUPVAL                         R19 6
+      166 DUPTABLE                         R20 K31 [{["layoutOrder"], ["id"] = "Modify", ["count"], ["titleText"], ["isExpanded"], ["isLocked"], ["onActivated"]}]
+      167 MOVE                             R21 R2
+      168 CALL                             R21 0 1
+      169 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
+      171 LENGTH                           R21 R4
+      172 SETTABLEKS                       R21 R20 K26 ["count"]
+      174 SETTABLEKS                       R11 R20 K27 ["titleText"]
+      176 JUMPIFEQKS                       R8 K12 ["Modify"] ; [+2]
+      178 LOADB                            R21 0 +1
+      179 LOADB                            R21 1
+      180 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
+      182 SETTABLEKS                       R7 R20 K29 ["isLocked"]
+      184 SETTABLEKS                       R10 R20 K30 ["onActivated"]
+      186 DUPTABLE                         R21 K33 [{"ListChanges"}]
+      187 GETUPVAL                         R22 4
+      188 GETUPVAL                         R23 7
+      189 DUPTABLE                         R24 K35 [{["changes"], ["id"] = "Modify"}]
+      190 SETTABLEKS                       R4 R24 K34 ["changes"]
+      192 CALL                             R22 2 1
+      193 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
+      195 CALL                             R18 3 1
+      196 SETTABLEKS                       R18 R17 K12 ["Modify"]
+      198 GETUPVAL                         R18 4
+      199 GETUPVAL                         R19 6
+      200 DUPTABLE                         R20 K36 [{["layoutOrder"], ["id"] = "Add", ["count"], ["titleText"], ["isExpanded"], ["isLocked"], ["onActivated"]}]
+      201 MOVE                             R21 R2
+      202 CALL                             R21 0 1
+      203 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
+      205 LENGTH                           R21 R5
+      206 SETTABLEKS                       R21 R20 K26 ["count"]
+      208 SETTABLEKS                       R12 R20 K27 ["titleText"]
+      210 JUMPIFEQKS                       R8 K21 ["Add"] ; [+2]
+      212 LOADB                            R21 0 +1
+      213 LOADB                            R21 1
+      214 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
+      216 SETTABLEKS                       R7 R20 K29 ["isLocked"]
+      218 SETTABLEKS                       R10 R20 K30 ["onActivated"]
+      220 DUPTABLE                         R21 K33 [{"ListChanges"}]
+      221 GETUPVAL                         R22 4
+      222 GETUPVAL                         R23 7
+      223 DUPTABLE                         R24 K37 [{["changes"], ["id"] = "Add"}]
+      224 SETTABLEKS                       R5 R24 K34 ["changes"]
+      226 CALL                             R22 2 1
+      227 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
+      229 CALL                             R18 3 1
+      230 SETTABLEKS                       R18 R17 K21 ["Add"]
+      232 GETUPVAL                         R18 4
+      233 GETUPVAL                         R19 6
+      234 DUPTABLE                         R20 K38 [{["layoutOrder"], ["id"] = "Delete", ["count"], ["titleText"], ["isExpanded"], ["isLocked"], ["onActivated"]}]
+      235 MOVE                             R21 R2
+      236 CALL                             R21 0 1
+      237 SETTABLEKS                       R21 R20 K24 ["layoutOrder"]
+      239 LENGTH                           R21 R6
+      240 SETTABLEKS                       R21 R20 K26 ["count"]
+      242 SETTABLEKS                       R13 R20 K27 ["titleText"]
+      244 JUMPIFEQKS                       R8 K22 ["Delete"] ; [+2]
+      246 LOADB                            R21 0 +1
+      247 LOADB                            R21 1
+      248 SETTABLEKS                       R21 R20 K28 ["isExpanded"]
+      250 SETTABLEKS                       R7 R20 K29 ["isLocked"]
+      252 SETTABLEKS                       R10 R20 K30 ["onActivated"]
+      254 DUPTABLE                         R21 K33 [{"ListChanges"}]
+      255 GETUPVAL                         R22 4
+      256 GETUPVAL                         R23 7
+      257 DUPTABLE                         R24 K39 [{["changes"], ["id"] = "Delete"}]
+      258 SETTABLEKS                       R6 R24 K34 ["changes"]
+      260 CALL                             R22 2 1
+      261 SETTABLEKS                       R22 R21 K32 ["ListChanges"]
+      263 CALL                             R18 3 1
+      264 SETTABLEKS                       R18 R17 K22 ["Delete"]
+      266 CALL                             R14 3 -1
+      267 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

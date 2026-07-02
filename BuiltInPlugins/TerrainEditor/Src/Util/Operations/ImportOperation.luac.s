@@ -129,30 +129,28 @@ PROTO_3:
         5 CAPTURE                          UPVAL U3
         6 CAPTURE                          UPVAL U4
         7 CAPTURE                          UPVAL U5
-        8 DUPTABLE                         R3 K3 [{"Progress", "ProgressUpdateConnection", "StartTime"}]
-        9 LOADN                            R4 0
-       10 SETTABLEKS                       R4 R3 K0 ["Progress"]
-       12 GETUPVAL                         R4 5
-       13 GETTABLEKS                       R4 R4 K4 ["ProgressUpdate"]
-       15 NEWCLOSURE                       R6 P1
-       16 CAPTURE                          VAL R1
-       17 CAPTURE                          VAL R0
-       18 NAMECALL                         R4 R4 K5 ["Connect"]
-       20 CALL                             R4 2 1
-       21 SETTABLEKS                       R4 R3 K1 ["ProgressUpdateConnection"]
-       23 GETIMPORT                        R4 K8 [os.clock]
-       25 CALL                             R4 0 1
-       26 SETTABLEKS                       R4 R3 K2 ["StartTime"]
-       28 SETTABLEKS                       R3 R0 K9 ["State"]
-       30 GETTABLEKS                       R3 R0 K10 ["Synchronous"]
-       32 JUMPIFNOT                        R3 ; [+3]
-       33 MOVE                             R3 R2
-       34 CALL                             R3 0 0
-       35 RETURN                           R0 0
-       36 GETIMPORT                        R3 K13 [task.spawn]
-       38 MOVE                             R4 R2
-       39 CALL                             R3 1 0
-       40 RETURN                           R0 0
+        8 DUPTABLE                         R3 K4 [{[1] = 0, ["ProgressUpdateConnection"], ["StartTime"]}]
+        9 GETUPVAL                         R4 5
+       10 GETTABLEKS                       R4 R4 K5 ["ProgressUpdate"]
+       12 NEWCLOSURE                       R6 P1
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          VAL R0
+       15 NAMECALL                         R4 R4 K6 ["Connect"]
+       17 CALL                             R4 2 1
+       18 SETTABLEKS                       R4 R3 K2 ["ProgressUpdateConnection"]
+       20 GETIMPORT                        R4 K9 [os.clock]
+       22 CALL                             R4 0 1
+       23 SETTABLEKS                       R4 R3 K3 ["StartTime"]
+       25 SETTABLEKS                       R3 R0 K10 ["State"]
+       27 GETTABLEKS                       R3 R0 K11 ["Synchronous"]
+       29 JUMPIFNOT                        R3 ; [+3]
+       30 MOVE                             R3 R2
+       31 CALL                             R3 0 0
+       32 RETURN                           R0 0
+       33 GETIMPORT                        R3 K14 [task.spawn]
+       35 MOVE                             R4 R2
+       36 CALL                             R3 1 0
+       37 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["State"]
@@ -252,21 +250,17 @@ PROTO_9:
        19 CAPTURE                          VAL R2
        20 GETUPVAL                         R9 8
        21 GETTABLEKS                       R9 R9 K5 ["new"]
-       23 DUPTABLE                         R10 K16 [{"AllowPause", "AllowCancel", "Description", "Name", "OnCancel", "OnFinish", "OnPause", "OnResume", "OnStart", "OnStep"}]
-       24 LOADB                            R11 1
-       25 SETTABLEKS                       R11 R10 K6 ["AllowPause"]
-       27 LOADB                            R11 1
-       28 SETTABLEKS                       R11 R10 K7 ["AllowCancel"]
-       30 SETTABLEKS                       R1 R10 K8 ["Description"]
-       32 SETTABLEKS                       R0 R10 K9 ["Name"]
-       34 SETTABLEKS                       R5 R10 K10 ["OnCancel"]
-       36 SETTABLEKS                       R8 R10 K11 ["OnFinish"]
-       38 SETTABLEKS                       R6 R10 K12 ["OnPause"]
-       40 SETTABLEKS                       R7 R10 K13 ["OnResume"]
-       42 SETTABLEKS                       R3 R10 K14 ["OnStart"]
-       44 SETTABLEKS                       R4 R10 K15 ["OnStep"]
-       46 CALL                             R9 1 -1
-       47 RETURN                           R9 -1
+       23 DUPTABLE                         R10 K17 [{["AllowPause"] = True, ["AllowCancel"] = True, ["Description"], ["Name"], ["OnCancel"], ["OnFinish"], ["OnPause"], ["OnResume"], ["OnStart"], ["OnStep"]}]
+       24 SETTABLEKS                       R1 R10 K9 ["Description"]
+       26 SETTABLEKS                       R0 R10 K10 ["Name"]
+       28 SETTABLEKS                       R5 R10 K11 ["OnCancel"]
+       30 SETTABLEKS                       R8 R10 K12 ["OnFinish"]
+       32 SETTABLEKS                       R6 R10 K13 ["OnPause"]
+       34 SETTABLEKS                       R7 R10 K14 ["OnResume"]
+       36 SETTABLEKS                       R3 R10 K15 ["OnStart"]
+       38 SETTABLEKS                       R4 R10 K16 ["OnStep"]
+       40 CALL                             R9 1 -1
+       41 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

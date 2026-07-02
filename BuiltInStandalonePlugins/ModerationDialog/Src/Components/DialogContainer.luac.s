@@ -154,65 +154,61 @@ PROTO_7:
        49 CALL                             R6 2 1
        50 LOADNIL                          R7
        51 GETUPVAL                         R8 2
-       52 DUPTABLE                         R9 K13 [{"Intent", "Heading", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "DisableTitleBar", "OnClosed", "Width"}]
-       53 GETTABLEKS                       R11 R0 K14 ["Type"]
-       55 JUMPIFNOTEQKS                    R11 K15 ["Warn"] ; [+3]
-       57 LOADK                            R10 K16 ["Warning"]
+       52 DUPTABLE                         R9 K15 [{["Intent"], ["Heading"], ["Contents"], ["ActionPrimary"], ["ActionSecondary"], ["Modal"] = True, ["DisableTitleBar"], ["OnClosed"], ["Width"] = 510}]
+       53 GETTABLEKS                       R11 R0 K16 ["Type"]
+       55 JUMPIFNOTEQKS                    R11 K17 ["Warn"] ; [+3]
+       57 LOADK                            R10 K18 ["Warning"]
        58 JUMP                             ; [+1]
-       59 LOADK                            R10 K17 ["Error"]
+       59 LOADK                            R10 K19 ["Error"]
        60 SETTABLEKS                       R10 R9 K4 ["Intent"]
        62 GETUPVAL                         R10 3
-       63 GETTABLEKS                       R11 R0 K14 ["Type"]
+       63 GETTABLEKS                       R11 R0 K16 ["Type"]
        65 CALL                             R10 1 1
        66 SETTABLEKS                       R10 R9 K5 ["Heading"]
        68 GETUPVAL                         R10 4
-       69 DUPTABLE                         R11 K24 [{"ReviewDateTime", "ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "BannedDateTime"}]
-       70 GETTABLEKS                       R12 R0 K18 ["ReviewDateTime"]
-       72 SETTABLEKS                       R12 R11 K18 ["ReviewDateTime"]
-       74 GETTABLEKS                       R12 R0 K19 ["ModeratorNote"]
-       76 SETTABLEKS                       R12 R11 K19 ["ModeratorNote"]
-       78 GETTABLEKS                       R12 R0 K20 ["Reason"]
-       80 SETTABLEKS                       R12 R11 K20 ["Reason"]
-       82 SETTABLEKS                       R3 R11 K21 ["SetChecked"]
-       84 SETTABLEKS                       R2 R11 K22 ["Checked"]
-       86 GETTABLEKS                       R12 R0 K14 ["Type"]
-       88 SETTABLEKS                       R12 R11 K14 ["Type"]
-       90 GETTABLEKS                       R12 R0 K23 ["BannedDateTime"]
-       92 SETTABLEKS                       R12 R11 K23 ["BannedDateTime"]
+       69 DUPTABLE                         R11 K26 [{"ReviewDateTime", "ModeratorNote", "Reason", "SetChecked", "Checked", "Type", "BannedDateTime"}]
+       70 GETTABLEKS                       R12 R0 K20 ["ReviewDateTime"]
+       72 SETTABLEKS                       R12 R11 K20 ["ReviewDateTime"]
+       74 GETTABLEKS                       R12 R0 K21 ["ModeratorNote"]
+       76 SETTABLEKS                       R12 R11 K21 ["ModeratorNote"]
+       78 GETTABLEKS                       R12 R0 K22 ["Reason"]
+       80 SETTABLEKS                       R12 R11 K22 ["Reason"]
+       82 SETTABLEKS                       R3 R11 K23 ["SetChecked"]
+       84 SETTABLEKS                       R2 R11 K24 ["Checked"]
+       86 GETTABLEKS                       R12 R0 K16 ["Type"]
+       88 SETTABLEKS                       R12 R11 K16 ["Type"]
+       90 GETTABLEKS                       R12 R0 K25 ["BannedDateTime"]
+       92 SETTABLEKS                       R12 R11 K25 ["BannedDateTime"]
        94 CALL                             R10 1 1
        95 SETTABLEKS                       R10 R9 K6 ["Contents"]
-       97 GETTABLEKS                       R11 R0 K14 ["Type"]
-       99 JUMPIFNOTEQKS                    R11 K15 ["Warn"] ; [+3]
+       97 GETTABLEKS                       R11 R0 K16 ["Type"]
+       99 JUMPIFNOTEQKS                    R11 K17 ["Warn"] ; [+3]
       101 MOVE                             R10 R4
       102 JUMP                             ; [+1]
       103 MOVE                             R10 R5
       104 SETTABLEKS                       R10 R9 K7 ["ActionPrimary"]
-      106 GETTABLEKS                       R11 R0 K14 ["Type"]
-      108 JUMPIFNOTEQKS                    R11 K15 ["Warn"] ; [+3]
+      106 GETTABLEKS                       R11 R0 K16 ["Type"]
+      108 JUMPIFNOTEQKS                    R11 K17 ["Warn"] ; [+3]
       110 MOVE                             R10 R5
       111 JUMP                             ; [+1]
       112 MOVE                             R10 R6
       113 SETTABLEKS                       R10 R9 K8 ["ActionSecondary"]
-      115 LOADB                            R10 1
-      116 SETTABLEKS                       R10 R9 K9 ["Modal"]
-      118 GETTABLEKS                       R11 R0 K14 ["Type"]
-      120 JUMPIFNOTEQKS                    R11 K15 ["Warn"] ; [+2]
-      122 LOADB                            R10 0 +1
-      123 LOADB                            R10 1
-      124 SETTABLEKS                       R10 R9 K10 ["DisableTitleBar"]
-      126 GETTABLEKS                       R10 R0 K25 ["OpenQuitDialog"]
-      128 SETTABLEKS                       R10 R9 K11 ["OnClosed"]
-      130 LOADN                            R10 254
-      131 SETTABLEKS                       R10 R9 K12 ["Width"]
-      133 CALL                             R8 1 1
-      134 MOVE                             R7 R8
-      135 GETUPVAL                         R8 1
-      136 GETTABLEKS                       R8 R8 K26 ["useEffect"]
-      138 MOVE                             R9 R7
-      139 NEWTABLE                         R10 0 0
-      141 CALL                             R8 2 0
-      142 LOADNIL                          R8
-      143 RETURN                           R8 1
+      115 GETTABLEKS                       R11 R0 K16 ["Type"]
+      117 JUMPIFNOTEQKS                    R11 K17 ["Warn"] ; [+2]
+      119 LOADB                            R10 0 +1
+      120 LOADB                            R10 1
+      121 SETTABLEKS                       R10 R9 K11 ["DisableTitleBar"]
+      123 GETTABLEKS                       R10 R0 K27 ["OpenQuitDialog"]
+      125 SETTABLEKS                       R10 R9 K12 ["OnClosed"]
+      127 CALL                             R8 1 1
+      128 MOVE                             R7 R8
+      129 GETUPVAL                         R8 1
+      130 GETTABLEKS                       R8 R8 K28 ["useEffect"]
+      132 MOVE                             R9 R7
+      133 NEWTABLE                         R10 0 0
+      135 CALL                             R8 2 0
+      136 LOADNIL                          R8
+      137 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0

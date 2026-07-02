@@ -79,67 +79,55 @@ PROTO_3:
        42 GETUPVAL                         R12 0
        43 GETTABLEKS                       R12 R12 K7 ["createElement"]
        45 LOADK                            R13 K19 ["TextLabel"]
-       46 DUPTABLE                         R14 K25 [{"Size", "Text", "LayoutOrder", "TextColor3", "BackgroundTransparency", "TextSize", "Font"}]
+       46 DUPTABLE                         R14 K28 [{["Size"], ["Text"], ["LayoutOrder"] = 2, ["TextColor3"], ["BackgroundTransparency"] = 1, ["TextSize"] = 18, ["Font"]}]
        47 GETIMPORT                        R15 K13 [UDim2.new]
        49 LOADN                            R16 0
-       50 GETTABLEKS                       R17 R5 K26 ["HistoryButtonMajor"]
+       50 GETTABLEKS                       R17 R5 K29 ["HistoryButtonMajor"]
        52 LOADN                            R18 0
        53 GETTABLEKS                       R19 R5 K14 ["HistoryButtonMinor"]
        55 CALL                             R15 4 1
        56 SETTABLEKS                       R15 R14 K9 ["Size"]
        58 SETTABLEKS                       R3 R14 K6 ["Text"]
-       60 LOADN                            R15 2
-       61 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-       63 GETTABLEKS                       R15 R7 K27 ["BrightText"]
-       65 GETTABLEKS                       R15 R15 K28 ["Color"]
-       67 SETTABLEKS                       R15 R14 K21 ["TextColor3"]
-       69 LOADN                            R15 1
-       70 SETTABLEKS                       R15 R14 K22 ["BackgroundTransparency"]
-       72 LOADN                            R15 18
-       73 SETTABLEKS                       R15 R14 K23 ["TextSize"]
-       75 GETIMPORT                        R15 K31 [Enum.Font.SourceSans]
-       77 SETTABLEKS                       R15 R14 K24 ["Font"]
-       79 CALL                             R12 2 1
-       80 SETTABLEKS                       R12 R11 K2 ["View"]
-       82 GETUPVAL                         R12 0
-       83 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       85 GETUPVAL                         R13 3
-       86 DUPTABLE                         R14 K33 [{"Size", "Text", "LayoutOrder", "OnClick"}]
-       87 GETIMPORT                        R15 K13 [UDim2.new]
-       89 LOADN                            R16 0
-       90 GETTABLEKS                       R17 R5 K26 ["HistoryButtonMajor"]
-       92 LOADN                            R18 0
-       93 GETTABLEKS                       R19 R5 K14 ["HistoryButtonMinor"]
-       95 CALL                             R15 4 1
-       96 SETTABLEKS                       R15 R14 K9 ["Size"]
-       98 SETTABLEKS                       R2 R14 K6 ["Text"]
-      100 LOADN                            R15 3
-      101 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-      103 GETTABLEKS                       R15 R0 K34 ["repopulateHistoryItem"]
-      105 SETTABLEKS                       R15 R14 K32 ["OnClick"]
-      107 CALL                             R12 2 1
-      108 SETTABLEKS                       R12 R11 K1 ["Name"]
-      110 GETUPVAL                         R12 0
-      111 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      113 GETUPVAL                         R13 3
-      114 DUPTABLE                         R14 K33 [{"Size", "Text", "LayoutOrder", "OnClick"}]
-      115 GETIMPORT                        R15 K13 [UDim2.new]
-      117 LOADN                            R16 0
-      118 GETTABLEKS                       R17 R5 K14 ["HistoryButtonMinor"]
-      120 LOADN                            R18 0
-      121 GETTABLEKS                       R19 R5 K14 ["HistoryButtonMinor"]
-      123 CALL                             R15 4 1
-      124 SETTABLEKS                       R15 R14 K9 ["Size"]
-      126 LOADK                            R15 K35 [" 🗑"]
-      127 SETTABLEKS                       R15 R14 K6 ["Text"]
-      129 LOADN                            R15 4
-      130 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-      132 GETTABLEKS                       R15 R0 K36 ["deleteHistoryItem"]
-      134 SETTABLEKS                       R15 R14 K32 ["OnClick"]
-      136 CALL                             R12 2 1
-      137 SETTABLEKS                       R12 R11 K15 ["DeleteButton"]
-      139 CALL                             R8 3 -1
-      140 RETURN                           R8 -1
+       60 GETTABLEKS                       R15 R7 K30 ["BrightText"]
+       62 GETTABLEKS                       R15 R15 K31 ["Color"]
+       64 SETTABLEKS                       R15 R14 K22 ["TextColor3"]
+       66 GETIMPORT                        R15 K34 [Enum.Font.SourceSans]
+       68 SETTABLEKS                       R15 R14 K27 ["Font"]
+       70 CALL                             R12 2 1
+       71 SETTABLEKS                       R12 R11 K2 ["View"]
+       73 GETUPVAL                         R12 0
+       74 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       76 GETUPVAL                         R13 3
+       77 DUPTABLE                         R14 K37 [{["Size"], ["Text"], ["LayoutOrder"] = 3, ["OnClick"]}]
+       78 GETIMPORT                        R15 K13 [UDim2.new]
+       80 LOADN                            R16 0
+       81 GETTABLEKS                       R17 R5 K29 ["HistoryButtonMajor"]
+       83 LOADN                            R18 0
+       84 GETTABLEKS                       R19 R5 K14 ["HistoryButtonMinor"]
+       86 CALL                             R15 4 1
+       87 SETTABLEKS                       R15 R14 K9 ["Size"]
+       89 SETTABLEKS                       R2 R14 K6 ["Text"]
+       91 GETTABLEKS                       R15 R0 K38 ["repopulateHistoryItem"]
+       93 SETTABLEKS                       R15 R14 K36 ["OnClick"]
+       95 CALL                             R12 2 1
+       96 SETTABLEKS                       R12 R11 K1 ["Name"]
+       98 GETUPVAL                         R12 0
+       99 GETTABLEKS                       R12 R12 K7 ["createElement"]
+      101 GETUPVAL                         R13 3
+      102 DUPTABLE                         R14 K41 [{["Size"], ["Text"] = " 🗑", ["LayoutOrder"] = 4, ["OnClick"]}]
+      103 GETIMPORT                        R15 K13 [UDim2.new]
+      105 LOADN                            R16 0
+      106 GETTABLEKS                       R17 R5 K14 ["HistoryButtonMinor"]
+      108 LOADN                            R18 0
+      109 GETTABLEKS                       R19 R5 K14 ["HistoryButtonMinor"]
+      111 CALL                             R15 4 1
+      112 SETTABLEKS                       R15 R14 K9 ["Size"]
+      114 GETTABLEKS                       R15 R0 K42 ["deleteHistoryItem"]
+      116 SETTABLEKS                       R15 R14 K36 ["OnClick"]
+      118 CALL                             R12 2 1
+      119 SETTABLEKS                       R12 R11 K15 ["DeleteButton"]
+      121 CALL                             R8 3 -1
+      122 RETURN                           R8 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K1 [{"CurrentView"}]

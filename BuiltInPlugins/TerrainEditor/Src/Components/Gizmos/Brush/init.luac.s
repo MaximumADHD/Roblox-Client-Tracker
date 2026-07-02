@@ -243,44 +243,38 @@ PROTO_1:
       337 GETUPVAL                         R30 11
       338 GETTABLEKS                       R30 R30 K38 ["createElement"]
       340 LOADK                            R31 K60 ["SphereHandleAdornment"]
-      341 DUPTABLE                         R32 K63 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Radius", "Transparency", "ZIndex"}]
+      341 DUPTABLE                         R32 K65 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Color"], ["Radius"], ["Transparency"], ["ZIndex"] = 1}]
       342 SETTABLEKS                       R1 R32 K39 ["Adornee"]
-      344 LOADB                            R33 1
-      345 SETTABLEKS                       R33 R32 K61 ["AlwaysOnTop"]
-      347 GETIMPORT                        R33 K43 [CFrame.new]
-      349 MOVE                             R34 R13
-      350 CALL                             R33 1 1
-      351 SETTABLEKS                       R33 R32 K24 ["CFrame"]
-      353 SETTABLEKS                       R17 R32 K22 ["Color"]
-      355 SETTABLEKS                       R15 R32 K40 ["Radius"]
-      357 SETTABLEKS                       R16 R32 K41 ["Transparency"]
-      359 LOADN                            R33 1
-      360 SETTABLEKS                       R33 R32 K62 ["ZIndex"]
-      362 CALL                             R30 2 1
-      363 SETTABLEKS                       R30 R29 K58 ["Central"]
-      365 CALL                             R26 3 1
-      366 SETTABLEKS                       R26 R25 K53 ["BrushVisual"]
-      368 JUMPIFNOT                        R21 ; [+22]
-      369 GETUPVAL                         R26 11
-      370 GETTABLEKS                       R26 R26 K38 ["createElement"]
-      372 GETUPVAL                         R27 16
-      373 DUPTABLE                         R28 K66 [{"AlwaysOnTop", "Center", "Size", "Transform"}]
-      374 LOADB                            R29 1
-      375 SETTABLEKS                       R29 R28 K61 ["AlwaysOnTop"]
-      377 SETTABLEKS                       R19 R28 K64 ["Center"]
-      379 GETUPVAL                         R30 2
-      380 GETTABLEKS                       R30 R30 K3 ["BrushSize"]
-      382 GETTABLE                         R29 R2 R30
-      383 GETTABLEKS                       R29 R29 K4 ["Size"]
-      385 SETTABLEKS                       R29 R28 K4 ["Size"]
-      387 SETTABLEKS                       R22 R28 K65 ["Transform"]
-      389 CALL                             R26 2 1
-      390 JUMP                             ; [+1]
-      391 LOADNIL                          R26
-      392 SETTABLEKS                       R26 R25 K54 ["Grid"]
-      394 GETUPVAL                         R26 17
-      395 CALL                             R24 2 -1
-      396 RETURN                           R24 -1
+      344 GETIMPORT                        R33 K43 [CFrame.new]
+      346 MOVE                             R34 R13
+      347 CALL                             R33 1 1
+      348 SETTABLEKS                       R33 R32 K24 ["CFrame"]
+      350 SETTABLEKS                       R17 R32 K22 ["Color"]
+      352 SETTABLEKS                       R15 R32 K40 ["Radius"]
+      354 SETTABLEKS                       R16 R32 K41 ["Transparency"]
+      356 CALL                             R30 2 1
+      357 SETTABLEKS                       R30 R29 K58 ["Central"]
+      359 CALL                             R26 3 1
+      360 SETTABLEKS                       R26 R25 K53 ["BrushVisual"]
+      362 JUMPIFNOT                        R21 ; [+19]
+      363 GETUPVAL                         R26 11
+      364 GETTABLEKS                       R26 R26 K38 ["createElement"]
+      366 GETUPVAL                         R27 16
+      367 DUPTABLE                         R28 K68 [{["AlwaysOnTop"] = True, ["Center"], ["Size"], ["Transform"]}]
+      368 SETTABLEKS                       R19 R28 K66 ["Center"]
+      370 GETUPVAL                         R30 2
+      371 GETTABLEKS                       R30 R30 K3 ["BrushSize"]
+      373 GETTABLE                         R29 R2 R30
+      374 GETTABLEKS                       R29 R29 K4 ["Size"]
+      376 SETTABLEKS                       R29 R28 K4 ["Size"]
+      378 SETTABLEKS                       R22 R28 K67 ["Transform"]
+      380 CALL                             R26 2 1
+      381 JUMP                             ; [+1]
+      382 LOADNIL                          R26
+      383 SETTABLEKS                       R26 R25 K54 ["Grid"]
+      385 GETUPVAL                         R26 17
+      386 CALL                             R24 2 -1
+      387 RETURN                           R24 -1
 
 MAIN:
         0 PREPVARARGS                      0

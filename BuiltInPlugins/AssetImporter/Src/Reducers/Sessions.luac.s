@@ -78,15 +78,11 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R2 0
         1 MOVE                             R3 R0
-        2 DUPTABLE                         R4 K3 [{"activeSessionCount", "sessionCount", "sessionQueue"}]
-        3 LOADN                            R5 0
-        4 SETTABLEKS                       R5 R4 K0 ["activeSessionCount"]
-        6 LOADN                            R5 0
-        7 SETTABLEKS                       R5 R4 K1 ["sessionCount"]
-        9 NEWTABLE                         R5 0 0
-       11 SETTABLEKS                       R5 R4 K2 ["sessionQueue"]
-       13 CALL                             R2 2 -1
-       14 RETURN                           R2 -1
+        2 DUPTABLE                         R4 K4 [{[1] = 0, ["sessionCount"] = 0, ["sessionQueue"]}]
+        3 NEWTABLE                         R5 0 0
+        5 SETTABLEKS                       R5 R4 K3 ["sessionQueue"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -182,61 +178,47 @@ MAIN:
        76 GETTABLEKS                       R15 R15 K21 ["Types"]
        78 GETTABLEKS                       R15 R15 K22 ["QueuedSession"]
        80 CALL                             R14 1 1
-       81 DUPTABLE                         R15 K31 [{"activeSessionCount", "parsing", "progress", "progressGoal", "searchTerm", "sessionCount", "sessionQueue", "uploading"}]
-       82 LOADN                            R16 0
-       83 SETTABLEKS                       R16 R15 K23 ["activeSessionCount"]
-       85 LOADB                            R16 0
-       86 SETTABLEKS                       R16 R15 K24 ["parsing"]
-       88 LOADN                            R16 0
-       89 SETTABLEKS                       R16 R15 K25 ["progress"]
-       91 LOADN                            R16 0
-       92 SETTABLEKS                       R16 R15 K26 ["progressGoal"]
-       94 LOADK                            R16 K32 [""]
-       95 SETTABLEKS                       R16 R15 K27 ["searchTerm"]
-       97 LOADN                            R16 0
-       98 SETTABLEKS                       R16 R15 K28 ["sessionCount"]
-      100 NEWTABLE                         R16 0 0
-      102 SETTABLEKS                       R16 R15 K29 ["sessionQueue"]
-      104 LOADB                            R16 0
-      105 SETTABLEKS                       R16 R15 K30 ["uploading"]
-      107 GETTABLEKS                       R16 R1 K33 ["createReducer"]
-      109 MOVE                             R17 R15
-      110 NEWTABLE                         R18 16 0
-      112 GETTABLEKS                       R19 R8 K34 ["name"]
-      114 DUPCLOSURE                       R20 K35 [PROTO_0]
-      115 CAPTURE                          VAL R15
-      116 SETTABLE                         R20 R18 R19
-      117 GETTABLEKS                       R19 R5 K34 ["name"]
-      119 DUPCLOSURE                       R20 K36 [PROTO_1]
-      120 CAPTURE                          VAL R3
-      121 SETTABLE                         R20 R18 R19
-      122 GETTABLEKS                       R19 R7 K34 ["name"]
-      124 DUPCLOSURE                       R20 K37 [PROTO_2]
-      125 CAPTURE                          VAL R3
-      126 SETTABLE                         R20 R18 R19
-      127 GETTABLEKS                       R19 R6 K34 ["name"]
-      129 DUPCLOSURE                       R20 K38 [PROTO_3]
-      130 CAPTURE                          VAL R3
-      131 SETTABLE                         R20 R18 R19
-      132 GETTABLEKS                       R19 R9 K34 ["name"]
-      134 DUPCLOSURE                       R20 K39 [PROTO_4]
-      135 CAPTURE                          VAL R3
-      136 SETTABLE                         R20 R18 R19
-      137 GETTABLEKS                       R19 R10 K34 ["name"]
-      139 DUPCLOSURE                       R20 K40 [PROTO_5]
-      140 CAPTURE                          VAL R3
-      141 SETTABLE                         R20 R18 R19
-      142 GETTABLEKS                       R19 R11 K34 ["name"]
-      144 DUPCLOSURE                       R20 K41 [PROTO_6]
-      145 CAPTURE                          VAL R3
-      146 SETTABLE                         R20 R18 R19
-      147 GETTABLEKS                       R19 R12 K34 ["name"]
-      149 DUPCLOSURE                       R20 K42 [PROTO_7]
-      150 CAPTURE                          VAL R3
-      151 SETTABLE                         R20 R18 R19
-      152 GETTABLEKS                       R19 R13 K34 ["name"]
-      154 DUPCLOSURE                       R20 K43 [PROTO_8]
-      155 CAPTURE                          VAL R3
-      156 SETTABLE                         R20 R18 R19
-      157 CALL                             R16 2 -1
-      158 RETURN                           R16 -1
+       81 DUPTABLE                         R15 K34 [{["activeSessionCount"] = 0, ["parsing"] = False, ["progress"] = 0, ["progressGoal"] = 0, ["searchTerm"] = "", ["sessionCount"] = 0, ["sessionQueue"], ["uploading"] = False}]
+       82 NEWTABLE                         R16 0 0
+       84 SETTABLEKS                       R16 R15 K32 ["sessionQueue"]
+       86 GETTABLEKS                       R16 R1 K35 ["createReducer"]
+       88 MOVE                             R17 R15
+       89 NEWTABLE                         R18 16 0
+       91 GETTABLEKS                       R19 R8 K36 ["name"]
+       93 DUPCLOSURE                       R20 K37 [PROTO_0]
+       94 CAPTURE                          VAL R15
+       95 SETTABLE                         R20 R18 R19
+       96 GETTABLEKS                       R19 R5 K36 ["name"]
+       98 DUPCLOSURE                       R20 K38 [PROTO_1]
+       99 CAPTURE                          VAL R3
+      100 SETTABLE                         R20 R18 R19
+      101 GETTABLEKS                       R19 R7 K36 ["name"]
+      103 DUPCLOSURE                       R20 K39 [PROTO_2]
+      104 CAPTURE                          VAL R3
+      105 SETTABLE                         R20 R18 R19
+      106 GETTABLEKS                       R19 R6 K36 ["name"]
+      108 DUPCLOSURE                       R20 K40 [PROTO_3]
+      109 CAPTURE                          VAL R3
+      110 SETTABLE                         R20 R18 R19
+      111 GETTABLEKS                       R19 R9 K36 ["name"]
+      113 DUPCLOSURE                       R20 K41 [PROTO_4]
+      114 CAPTURE                          VAL R3
+      115 SETTABLE                         R20 R18 R19
+      116 GETTABLEKS                       R19 R10 K36 ["name"]
+      118 DUPCLOSURE                       R20 K42 [PROTO_5]
+      119 CAPTURE                          VAL R3
+      120 SETTABLE                         R20 R18 R19
+      121 GETTABLEKS                       R19 R11 K36 ["name"]
+      123 DUPCLOSURE                       R20 K43 [PROTO_6]
+      124 CAPTURE                          VAL R3
+      125 SETTABLE                         R20 R18 R19
+      126 GETTABLEKS                       R19 R12 K36 ["name"]
+      128 DUPCLOSURE                       R20 K44 [PROTO_7]
+      129 CAPTURE                          VAL R3
+      130 SETTABLE                         R20 R18 R19
+      131 GETTABLEKS                       R19 R13 K36 ["name"]
+      133 DUPCLOSURE                       R20 K45 [PROTO_8]
+      134 CAPTURE                          VAL R3
+      135 SETTABLE                         R20 R18 R19
+      136 CALL                             R16 2 -1
+      137 RETURN                           R16 -1

@@ -98,139 +98,129 @@ PROTO_3:
        40 GETUPVAL                         R10 3
        41 GETTABLEKS                       R10 R10 K12 ["createElement"]
        43 LOADK                            R11 K13 ["Frame"]
-       44 DUPTABLE                         R12 K18 [{"LayoutOrder", "AutomaticSize", "Size", "BackgroundTransparency"}]
-       45 LOADN                            R13 1
-       46 SETTABLEKS                       R13 R12 K14 ["LayoutOrder"]
-       48 GETIMPORT                        R13 K21 [Enum.AutomaticSize.Y]
-       50 SETTABLEKS                       R13 R12 K15 ["AutomaticSize"]
-       52 GETIMPORT                        R13 K24 [UDim2.new]
-       54 LOADN                            R14 1
-       55 LOADN                            R15 0
-       56 LOADN                            R16 0
-       57 LOADN                            R17 0
-       58 CALL                             R13 4 1
-       59 SETTABLEKS                       R13 R12 K16 ["Size"]
-       61 LOADN                            R13 1
-       62 SETTABLEKS                       R13 R12 K17 ["BackgroundTransparency"]
-       64 NEWTABLE                         R13 2 3
-       66 GETUPVAL                         R14 3
-       67 GETTABLEKS                       R14 R14 K12 ["createElement"]
-       69 LOADK                            R15 K25 ["UIPadding"]
-       70 DUPTABLE                         R16 K27 [{"PaddingBottom"}]
-       71 GETIMPORT                        R17 K29 [UDim.new]
-       73 LOADN                            R18 0
-       74 LOADN                            R19 11
-       75 CALL                             R17 2 1
-       76 SETTABLEKS                       R17 R16 K26 ["PaddingBottom"]
-       78 CALL                             R14 2 1
-       79 SETLIST                          R13 R14 1 [1]
-       81 GETUPVAL                         R17 3
-       82 GETTABLEKS                       R17 R17 K12 ["createElement"]
-       84 LOADK                            R18 K30 ["UIListLayout"]
-       85 DUPTABLE                         R19 K35 [{"FillDirection", "SortOrder", "HorizontalAlignment", "Padding"}]
-       86 GETIMPORT                        R20 K37 [Enum.FillDirection.Vertical]
-       88 SETTABLEKS                       R20 R19 K31 ["FillDirection"]
-       90 GETIMPORT                        R20 K38 [Enum.SortOrder.LayoutOrder]
-       92 SETTABLEKS                       R20 R19 K32 ["SortOrder"]
-       94 GETIMPORT                        R20 K40 [Enum.HorizontalAlignment.Center]
-       96 SETTABLEKS                       R20 R19 K33 ["HorizontalAlignment"]
-       98 GETIMPORT                        R20 K29 [UDim.new]
-      100 LOADN                            R21 0
-      101 LOADN                            R22 10
-      102 CALL                             R20 2 1
-      103 SETTABLEKS                       R20 R19 K34 ["Padding"]
-      105 CALL                             R17 2 1
-      106 SETTABLEKS                       R17 R13 K41 ["Layout"]
-      108 GETUPVAL                         R14 3
-      109 GETTABLEKS                       R14 R14 K12 ["createElement"]
-      111 LOADK                            R15 K13 ["Frame"]
-      112 DUPTABLE                         R16 K43 [{"LayoutOrder", "Size", "BackgroundColor3"}]
-      113 LOADN                            R17 1
-      114 SETTABLEKS                       R17 R16 K14 ["LayoutOrder"]
-      116 SETTABLEKS                       R3 R16 K16 ["Size"]
-      118 GETTABLEKS                       R17 R0 K44 ["Stylizer"]
-      120 GETTABLEKS                       R17 R17 K45 ["audioTabs"]
-      122 GETTABLEKS                       R17 R17 K46 ["backgroundButtonColor"]
-      124 SETTABLEKS                       R17 R16 K42 ["BackgroundColor3"]
-      126 NEWTABLE                         R17 1 1
-      128 GETUPVAL                         R19 3
-      129 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      131 LOADK                            R20 K47 ["UICorner"]
-      132 DUPTABLE                         R21 K49 [{"CornerRadius"}]
-      133 GETIMPORT                        R22 K29 [UDim.new]
-      135 LOADN                            R23 0
-      136 LOADN                            R24 5
-      137 CALL                             R22 2 1
-      138 SETTABLEKS                       R22 R21 K48 ["CornerRadius"]
-      140 CALL                             R19 2 1
-      141 SETTABLEKS                       R19 R17 K47 ["UICorner"]
-      143 GETUPVAL                         R18 3
-      144 GETTABLEKS                       R18 R18 K12 ["createElement"]
-      146 GETUPVAL                         R19 4
-      147 DUPTABLE                         R20 K52 [{"Size", "SelectedTab", "OnTabSelect"}]
-      148 GETIMPORT                        R21 K24 [UDim2.new]
-      150 LOADN                            R22 1
-      151 LOADN                            R23 0
-      152 LOADN                            R24 0
-      153 LOADN                            R25 30
-      154 CALL                             R21 4 1
-      155 SETTABLEKS                       R21 R20 K16 ["Size"]
-      157 GETUPVAL                         R21 0
-      158 GETTABLEKS                       R21 R21 K1 ["state"]
-      160 GETTABLEKS                       R21 R21 K2 ["selectedTab"]
-      162 SETTABLEKS                       R21 R20 K50 ["SelectedTab"]
-      164 GETUPVAL                         R21 0
-      165 GETTABLEKS                       R21 R21 K53 ["onTabSelect"]
-      167 SETTABLEKS                       R21 R20 K51 ["OnTabSelect"]
-      169 CALL                             R18 2 -1
-      170 SETLIST                          R17 R18 -1 [1]
-      172 CALL                             R14 3 1
-      173 SETLIST                          R13 R14 1 [2]
-      175 JUMPIFNOT                        R9 ; [+31]
-      176 GETUPVAL                         R17 5
-      177 GETTABLEKS                       R17 R17 K54 ["Generator"]
-      179 DUPTABLE                         R18 K58 [{"LayoutOrder", "Image", "Text", "OnClick"}]
-      180 LOADN                            R19 2
-      181 SETTABLEKS                       R19 R18 K14 ["LayoutOrder"]
-      183 GETUPVAL                         R19 6
-      184 GETTABLEKS                       R19 R19 K59 ["MONSTER_CAT_BANNER"]
-      186 SETTABLEKS                       R19 R18 K55 ["Image"]
-      188 LOADK                            R21 K60 ["Audio"]
-      189 LOADK                            R22 K61 ["FindTracks"]
-      190 DUPTABLE                         R23 K63 [{"creatorName"}]
-      191 GETUPVAL                         R24 1
-      192 GETTABLEKS                       R24 R24 K64 ["Creator"]
-      194 GETTABLEKS                       R24 R24 K65 ["Name"]
-      196 SETTABLEKS                       R24 R23 K62 ["creatorName"]
-      198 NAMECALL                         R19 R4 K66 ["getText"]
-      200 CALL                             R19 4 1
-      201 SETTABLEKS                       R19 R18 K56 ["Text"]
-      203 SETTABLEKS                       R8 R18 K57 ["OnClick"]
-      205 CALL                             R17 1 1
-      206 JUMP                             ; [+1]
-      207 LOADNIL                          R17
-      208 SETTABLEKS                       R17 R13 K67 ["CallToActionBanner"]
-      210 GETUPVAL                         R14 3
-      211 GETTABLEKS                       R14 R14 K12 ["createElement"]
-      213 GETUPVAL                         R15 7
-      214 DUPTABLE                         R16 K71 [{"LayoutOrder", "Subcategories", "AudioType", "OnCategorySelect"}]
-      215 LOADN                            R17 3
-      216 SETTABLEKS                       R17 R16 K14 ["LayoutOrder"]
-      218 GETTABLEKS                       R17 R0 K72 ["SubcategoryDict"]
-      220 SETTABLEKS                       R17 R16 K68 ["Subcategories"]
-      222 SETTABLEKS                       R2 R16 K69 ["AudioType"]
-      224 GETUPVAL                         R17 0
-      225 GETTABLEKS                       R17 R17 K73 ["onCategorySelect"]
-      227 SETTABLEKS                       R17 R16 K70 ["OnCategorySelect"]
-      229 CALL                             R14 2 -1
-      230 SETLIST                          R13 R14 -1 [3]
-      232 CALL                             R10 3 -1
-      233 RETURN                           R10 -1
+       44 DUPTABLE                         R12 K19 [{["LayoutOrder"] = 1, ["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1}]
+       45 GETIMPORT                        R13 K22 [Enum.AutomaticSize.Y]
+       47 SETTABLEKS                       R13 R12 K16 ["AutomaticSize"]
+       49 GETIMPORT                        R13 K25 [UDim2.new]
+       51 LOADN                            R14 1
+       52 LOADN                            R15 0
+       53 LOADN                            R16 0
+       54 LOADN                            R17 0
+       55 CALL                             R13 4 1
+       56 SETTABLEKS                       R13 R12 K17 ["Size"]
+       58 NEWTABLE                         R13 2 3
+       60 GETUPVAL                         R14 3
+       61 GETTABLEKS                       R14 R14 K12 ["createElement"]
+       63 LOADK                            R15 K26 ["UIPadding"]
+       64 DUPTABLE                         R16 K28 [{"PaddingBottom"}]
+       65 GETIMPORT                        R17 K30 [UDim.new]
+       67 LOADN                            R18 0
+       68 LOADN                            R19 11
+       69 CALL                             R17 2 1
+       70 SETTABLEKS                       R17 R16 K27 ["PaddingBottom"]
+       72 CALL                             R14 2 1
+       73 SETLIST                          R13 R14 1 [1]
+       75 GETUPVAL                         R17 3
+       76 GETTABLEKS                       R17 R17 K12 ["createElement"]
+       78 LOADK                            R18 K31 ["UIListLayout"]
+       79 DUPTABLE                         R19 K36 [{"FillDirection", "SortOrder", "HorizontalAlignment", "Padding"}]
+       80 GETIMPORT                        R20 K38 [Enum.FillDirection.Vertical]
+       82 SETTABLEKS                       R20 R19 K32 ["FillDirection"]
+       84 GETIMPORT                        R20 K39 [Enum.SortOrder.LayoutOrder]
+       86 SETTABLEKS                       R20 R19 K33 ["SortOrder"]
+       88 GETIMPORT                        R20 K41 [Enum.HorizontalAlignment.Center]
+       90 SETTABLEKS                       R20 R19 K34 ["HorizontalAlignment"]
+       92 GETIMPORT                        R20 K30 [UDim.new]
+       94 LOADN                            R21 0
+       95 LOADN                            R22 10
+       96 CALL                             R20 2 1
+       97 SETTABLEKS                       R20 R19 K35 ["Padding"]
+       99 CALL                             R17 2 1
+      100 SETTABLEKS                       R17 R13 K42 ["Layout"]
+      102 GETUPVAL                         R14 3
+      103 GETTABLEKS                       R14 R14 K12 ["createElement"]
+      105 LOADK                            R15 K13 ["Frame"]
+      106 DUPTABLE                         R16 K44 [{["LayoutOrder"] = 1, ["Size"], ["BackgroundColor3"]}]
+      107 SETTABLEKS                       R3 R16 K17 ["Size"]
+      109 GETTABLEKS                       R17 R0 K45 ["Stylizer"]
+      111 GETTABLEKS                       R17 R17 K46 ["audioTabs"]
+      113 GETTABLEKS                       R17 R17 K47 ["backgroundButtonColor"]
+      115 SETTABLEKS                       R17 R16 K43 ["BackgroundColor3"]
+      117 NEWTABLE                         R17 1 1
+      119 GETUPVAL                         R19 3
+      120 GETTABLEKS                       R19 R19 K12 ["createElement"]
+      122 LOADK                            R20 K48 ["UICorner"]
+      123 DUPTABLE                         R21 K50 [{"CornerRadius"}]
+      124 GETIMPORT                        R22 K30 [UDim.new]
+      126 LOADN                            R23 0
+      127 LOADN                            R24 5
+      128 CALL                             R22 2 1
+      129 SETTABLEKS                       R22 R21 K49 ["CornerRadius"]
+      131 CALL                             R19 2 1
+      132 SETTABLEKS                       R19 R17 K48 ["UICorner"]
+      134 GETUPVAL                         R18 3
+      135 GETTABLEKS                       R18 R18 K12 ["createElement"]
+      137 GETUPVAL                         R19 4
+      138 DUPTABLE                         R20 K53 [{"Size", "SelectedTab", "OnTabSelect"}]
+      139 GETIMPORT                        R21 K25 [UDim2.new]
+      141 LOADN                            R22 1
+      142 LOADN                            R23 0
+      143 LOADN                            R24 0
+      144 LOADN                            R25 30
+      145 CALL                             R21 4 1
+      146 SETTABLEKS                       R21 R20 K17 ["Size"]
+      148 GETUPVAL                         R21 0
+      149 GETTABLEKS                       R21 R21 K1 ["state"]
+      151 GETTABLEKS                       R21 R21 K2 ["selectedTab"]
+      153 SETTABLEKS                       R21 R20 K51 ["SelectedTab"]
+      155 GETUPVAL                         R21 0
+      156 GETTABLEKS                       R21 R21 K54 ["onTabSelect"]
+      158 SETTABLEKS                       R21 R20 K52 ["OnTabSelect"]
+      160 CALL                             R18 2 -1
+      161 SETLIST                          R17 R18 -1 [1]
+      163 CALL                             R14 3 1
+      164 SETLIST                          R13 R14 1 [2]
+      166 JUMPIFNOT                        R9 ; [+28]
+      167 GETUPVAL                         R17 5
+      168 GETTABLEKS                       R17 R17 K55 ["Generator"]
+      170 DUPTABLE                         R18 K60 [{["LayoutOrder"] = 2, ["Image"], ["Text"], ["OnClick"]}]
+      171 GETUPVAL                         R19 6
+      172 GETTABLEKS                       R19 R19 K61 ["MONSTER_CAT_BANNER"]
+      174 SETTABLEKS                       R19 R18 K57 ["Image"]
+      176 LOADK                            R21 K62 ["Audio"]
+      177 LOADK                            R22 K63 ["FindTracks"]
+      178 DUPTABLE                         R23 K65 [{"creatorName"}]
+      179 GETUPVAL                         R24 1
+      180 GETTABLEKS                       R24 R24 K66 ["Creator"]
+      182 GETTABLEKS                       R24 R24 K67 ["Name"]
+      184 SETTABLEKS                       R24 R23 K64 ["creatorName"]
+      186 NAMECALL                         R19 R4 K68 ["getText"]
+      188 CALL                             R19 4 1
+      189 SETTABLEKS                       R19 R18 K58 ["Text"]
+      191 SETTABLEKS                       R8 R18 K59 ["OnClick"]
+      193 CALL                             R17 1 1
+      194 JUMP                             ; [+1]
+      195 LOADNIL                          R17
+      196 SETTABLEKS                       R17 R13 K69 ["CallToActionBanner"]
+      198 GETUPVAL                         R14 3
+      199 GETTABLEKS                       R14 R14 K12 ["createElement"]
+      201 GETUPVAL                         R15 7
+      202 DUPTABLE                         R16 K74 [{["LayoutOrder"] = 3, ["Subcategories"], ["AudioType"], ["OnCategorySelect"]}]
+      203 GETTABLEKS                       R17 R0 K75 ["SubcategoryDict"]
+      205 SETTABLEKS                       R17 R16 K71 ["Subcategories"]
+      207 SETTABLEKS                       R2 R16 K72 ["AudioType"]
+      209 GETUPVAL                         R17 0
+      210 GETTABLEKS                       R17 R17 K76 ["onCategorySelect"]
+      212 SETTABLEKS                       R17 R16 K73 ["OnCategorySelect"]
+      214 CALL                             R14 2 -1
+      215 SETLIST                          R13 R14 -1 [3]
+      217 CALL                             R10 3 -1
+      218 RETURN                           R10 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["AbsoluteSize"]
         2 GETTABLEKS                       R1 R1 K1 ["X"]
-        4 LOADN                            R2 119
+        4 LOADN                            R2 375
         5 JUMPIFNOTLT                      R1 R2 ; [+18]
         7 GETUPVAL                         R1 0
         8 DUPTABLE                         R3 K3 [{"audioTabSize"}]
@@ -249,7 +239,7 @@ PROTO_4:
        25 DUPTABLE                         R3 K3 [{"audioTabSize"}]
        26 GETIMPORT                        R4 K6 [UDim2.new]
        28 LOADN                            R5 0
-       29 LOADN                            R6 74
+       29 LOADN                            R6 330
        30 LOADN                            R7 0
        31 GETUPVAL                         R8 1
        32 GETTABLEKS                       R8 R8 K7 ["AUDIO_TABS_HEIGHT"]
@@ -299,7 +289,7 @@ PROTO_6:
        12 SETTABLEKS                       R3 R2 K2 ["selectedTab"]
        14 GETIMPORT                        R3 K9 [UDim2.new]
        16 LOADN                            R4 0
-       17 LOADN                            R5 74
+       17 LOADN                            R5 330
        18 LOADN                            R6 0
        19 GETUPVAL                         R7 2
        20 GETTABLEKS                       R7 R7 K10 ["AUDIO_TABS_HEIGHT"]
@@ -453,9 +443,9 @@ PROTO_9:
        79 DUPTABLE                         R16 K26 [{"Results"}]
        80 GETUPVAL                         R17 3
        81 GETTABLEKS                       R17 R17 K27 ["Generator"]
-       83 DUPTABLE                         R18 K36 [{"networkInterface", "categoryName", "sortName", "queryParams", "sectionName", "initialPageSize", "tags", "render"}]
+       83 DUPTABLE                         R18 K37 [{["networkInterface"], ["categoryName"], ["sortName"], ["queryParams"], ["sectionName"], ["initialPageSize"] = 20, ["tags"], ["render"]}]
        84 GETTABLEKS                       R19 R0 K0 ["props"]
-       86 GETTABLEKS                       R19 R19 K37 ["Network"]
+       86 GETTABLEKS                       R19 R19 K38 ["Network"]
        88 GETTABLEKS                       R19 R19 K28 ["networkInterface"]
        90 SETTABLEKS                       R19 R18 K28 ["networkInterface"]
        92 SETTABLEKS                       R8 R18 K29 ["categoryName"]
@@ -463,21 +453,19 @@ PROTO_9:
        96 NEWTABLE                         R19 0 0
        98 SETTABLEKS                       R19 R18 K31 ["queryParams"]
       100 SETTABLEKS                       R7 R18 K32 ["sectionName"]
-      102 LOADN                            R19 20
-      103 SETTABLEKS                       R19 R18 K33 ["initialPageSize"]
-      105 SETTABLEKS                       R11 R18 K34 ["tags"]
-      107 NEWCLOSURE                       R19 P0
-      108 CAPTURE                          UPVAL U4
-      109 CAPTURE                          VAL R6
-      110 CAPTURE                          VAL R4
-      111 CAPTURE                          VAL R0
-      112 CAPTURE                          VAL R8
-      113 CAPTURE                          VAL R1
-      114 SETTABLEKS                       R19 R18 K35 ["render"]
-      116 CALL                             R17 1 1
-      117 SETTABLEKS                       R17 R16 K25 ["Results"]
-      119 CALL                             R13 3 -1
-      120 RETURN                           R13 -1
+      102 SETTABLEKS                       R11 R18 K35 ["tags"]
+      104 NEWCLOSURE                       R19 P0
+      105 CAPTURE                          UPVAL U4
+      106 CAPTURE                          VAL R6
+      107 CAPTURE                          VAL R4
+      108 CAPTURE                          VAL R0
+      109 CAPTURE                          VAL R8
+      110 CAPTURE                          VAL R1
+      111 SETTABLEKS                       R19 R18 K36 ["render"]
+      113 CALL                             R17 1 1
+      114 SETTABLEKS                       R17 R16 K25 ["Results"]
+      116 CALL                             R13 3 -1
+      117 RETURN                           R13 -1
 
 PROTO_10:
         0 NEWTABLE                         R0 0 0
@@ -663,59 +651,55 @@ MAIN:
       234 CALL                             R29 2 1
       235 GETIMPORT                        R30 K51 [table.freeze]
       237 DUPTABLE                         R31 K53 [{"Creator"}]
-      238 DUPTABLE                         R32 K56 [{"Id", "Name"}]
-      239 LOADK                            R33 K57 [1750384777]
-      240 SETTABLEKS                       R33 R32 K54 ["Id"]
-      242 LOADK                            R33 K58 ["Monstercat"]
-      243 SETTABLEKS                       R33 R32 K55 ["Name"]
-      245 SETTABLEKS                       R32 R31 K52 ["Creator"]
-      247 CALL                             R30 1 1
-      248 DUPCLOSURE                       R31 K59 [PROTO_6]
-      249 CAPTURE                          VAL R3
-      250 CAPTURE                          VAL R12
-      251 CAPTURE                          VAL R13
-      252 CAPTURE                          VAL R30
-      253 CAPTURE                          VAL R11
-      254 CAPTURE                          VAL R21
-      255 CAPTURE                          VAL R14
-      256 CAPTURE                          VAL R20
-      257 SETTABLEKS                       R31 R29 K60 ["init"]
-      259 DUPCLOSURE                       R31 K61 [PROTO_7]
-      260 CAPTURE                          VAL R24
-      261 SETTABLEKS                       R31 R29 K62 ["didMount"]
-      263 DUPCLOSURE                       R31 K63 [PROTO_9]
-      264 CAPTURE                          VAL R26
-      265 CAPTURE                          VAL R3
-      266 CAPTURE                          VAL R27
-      267 CAPTURE                          VAL R5
-      268 CAPTURE                          VAL R10
-      269 SETTABLEKS                       R31 R29 K64 ["render"]
-      271 DUPCLOSURE                       R31 K65 [PROTO_10]
-      272 DUPCLOSURE                       R32 K66 [PROTO_14]
-      273 CAPTURE                          VAL R17
-      274 CAPTURE                          VAL R16
-      275 CAPTURE                          VAL R23
-      276 MOVE                             R33 R25
-      277 DUPTABLE                         R34 K71 [{"AssetAnalytics", "Localization", "Settings", "Stylizer", "Network"}]
-      278 SETTABLEKS                       R15 R34 K67 ["AssetAnalytics"]
-      280 GETTABLEKS                       R35 R22 K68 ["Localization"]
-      282 SETTABLEKS                       R35 R34 K68 ["Localization"]
-      284 SETTABLEKS                       R18 R34 K34 ["Settings"]
-      286 GETTABLEKS                       R35 R22 K69 ["Stylizer"]
-      288 SETTABLEKS                       R35 R34 K69 ["Stylizer"]
-      290 SETTABLEKS                       R19 R34 K70 ["Network"]
-      292 CALL                             R33 1 1
-      293 MOVE                             R34 R29
-      294 CALL                             R33 1 1
-      295 MOVE                             R29 R33
-      296 GETTABLEKS                       R33 R4 K72 ["connect"]
-      298 MOVE                             R34 R31
-      299 MOVE                             R35 R32
-      300 CALL                             R33 2 1
-      301 MOVE                             R34 R29
-      302 CALL                             R33 1 1
-      303 MOVE                             R29 R33
-      304 MOVE                             R33 R28
-      305 MOVE                             R34 R29
-      306 CALL                             R33 1 -1
-      307 RETURN                           R33 -1
+      238 DUPTABLE                         R32 K58 [{["Id"] = 1750384777, ["Name"] = "Monstercat"}]
+      239 SETTABLEKS                       R32 R31 K52 ["Creator"]
+      241 CALL                             R30 1 1
+      242 DUPCLOSURE                       R31 K59 [PROTO_6]
+      243 CAPTURE                          VAL R3
+      244 CAPTURE                          VAL R12
+      245 CAPTURE                          VAL R13
+      246 CAPTURE                          VAL R30
+      247 CAPTURE                          VAL R11
+      248 CAPTURE                          VAL R21
+      249 CAPTURE                          VAL R14
+      250 CAPTURE                          VAL R20
+      251 SETTABLEKS                       R31 R29 K60 ["init"]
+      253 DUPCLOSURE                       R31 K61 [PROTO_7]
+      254 CAPTURE                          VAL R24
+      255 SETTABLEKS                       R31 R29 K62 ["didMount"]
+      257 DUPCLOSURE                       R31 K63 [PROTO_9]
+      258 CAPTURE                          VAL R26
+      259 CAPTURE                          VAL R3
+      260 CAPTURE                          VAL R27
+      261 CAPTURE                          VAL R5
+      262 CAPTURE                          VAL R10
+      263 SETTABLEKS                       R31 R29 K64 ["render"]
+      265 DUPCLOSURE                       R31 K65 [PROTO_10]
+      266 DUPCLOSURE                       R32 K66 [PROTO_14]
+      267 CAPTURE                          VAL R17
+      268 CAPTURE                          VAL R16
+      269 CAPTURE                          VAL R23
+      270 MOVE                             R33 R25
+      271 DUPTABLE                         R34 K71 [{"AssetAnalytics", "Localization", "Settings", "Stylizer", "Network"}]
+      272 SETTABLEKS                       R15 R34 K67 ["AssetAnalytics"]
+      274 GETTABLEKS                       R35 R22 K68 ["Localization"]
+      276 SETTABLEKS                       R35 R34 K68 ["Localization"]
+      278 SETTABLEKS                       R18 R34 K34 ["Settings"]
+      280 GETTABLEKS                       R35 R22 K69 ["Stylizer"]
+      282 SETTABLEKS                       R35 R34 K69 ["Stylizer"]
+      284 SETTABLEKS                       R19 R34 K70 ["Network"]
+      286 CALL                             R33 1 1
+      287 MOVE                             R34 R29
+      288 CALL                             R33 1 1
+      289 MOVE                             R29 R33
+      290 GETTABLEKS                       R33 R4 K72 ["connect"]
+      292 MOVE                             R34 R31
+      293 MOVE                             R35 R32
+      294 CALL                             R33 2 1
+      295 MOVE                             R34 R29
+      296 CALL                             R33 1 1
+      297 MOVE                             R29 R33
+      298 MOVE                             R33 R28
+      299 MOVE                             R34 R29
+      300 CALL                             R33 1 -1
+      301 RETURN                           R33 -1

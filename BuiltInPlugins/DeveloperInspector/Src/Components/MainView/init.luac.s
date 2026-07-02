@@ -16,60 +16,52 @@ PROTO_1:
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K1 ["createElement"]
         5 GETUPVAL                         R4 1
-        6 DUPTABLE                         R5 K5 [{"Style", "Layout", "Padding"}]
-        7 LOADK                            R6 K6 ["SubtleBox"]
-        8 SETTABLEKS                       R6 R5 K2 ["Style"]
-       10 GETIMPORT                        R6 K10 [Enum.FillDirection.Vertical]
-       12 SETTABLEKS                       R6 R5 K3 ["Layout"]
-       14 GETTABLEKS                       R6 R2 K4 ["Padding"]
-       16 SETTABLEKS                       R6 R5 K4 ["Padding"]
-       18 DUPTABLE                         R6 K13 [{"Label", "TargetTree"}]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       22 GETUPVAL                         R8 2
-       23 DUPTABLE                         R9 K18 [{"LayoutOrder", "Text", "Size", "TextXAlignment"}]
-       24 LOADN                            R10 1
-       25 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-       27 LOADK                            R10 K19 ["Roact Trees"]
-       28 SETTABLEKS                       R10 R9 K15 ["Text"]
-       30 GETIMPORT                        R10 K22 [UDim2.new]
-       32 LOADN                            R11 1
-       33 LOADN                            R12 0
-       34 LOADN                            R13 0
-       35 GETTABLEKS                       R14 R2 K23 ["HeaderHeight"]
-       37 CALL                             R10 4 1
-       38 SETTABLEKS                       R10 R9 K16 ["Size"]
-       40 GETIMPORT                        R10 K25 [Enum.TextXAlignment.Left]
-       42 SETTABLEKS                       R10 R9 K17 ["TextXAlignment"]
-       44 CALL                             R7 2 1
-       45 SETTABLEKS                       R7 R6 K11 ["Label"]
-       47 GETUPVAL                         R7 0
-       48 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       50 GETUPVAL                         R8 1
-       51 DUPTABLE                         R9 K26 [{"LayoutOrder", "Size"}]
-       52 LOADN                            R10 2
-       53 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-       55 GETIMPORT                        R10 K22 [UDim2.new]
-       57 LOADN                            R11 1
-       58 LOADN                            R12 0
-       59 LOADN                            R13 1
-       60 GETTABLEKS                       R15 R2 K23 ["HeaderHeight"]
-       62 MINUS                            R14 R15
-       63 CALL                             R10 4 1
-       64 SETTABLEKS                       R10 R9 K16 ["Size"]
-       66 DUPTABLE                         R10 K28 [{"Child"}]
-       67 GETUPVAL                         R11 0
-       68 GETTABLEKS                       R11 R11 K1 ["createElement"]
-       70 GETUPVAL                         R12 3
-       71 DUPTABLE                         R13 K30 [{"selectTarget"}]
-       72 GETTABLEKS                       R14 R0 K29 ["selectTarget"]
-       74 SETTABLEKS                       R14 R13 K29 ["selectTarget"]
-       76 CALL                             R11 2 1
-       77 SETTABLEKS                       R11 R10 K27 ["Child"]
-       79 CALL                             R7 3 1
-       80 SETTABLEKS                       R7 R6 K12 ["TargetTree"]
-       82 CALL                             R3 3 -1
-       83 RETURN                           R3 -1
+        6 DUPTABLE                         R5 K6 [{["Style"] = "SubtleBox", ["Layout"], ["Padding"]}]
+        7 GETIMPORT                        R6 K10 [Enum.FillDirection.Vertical]
+        9 SETTABLEKS                       R6 R5 K4 ["Layout"]
+       11 GETTABLEKS                       R6 R2 K5 ["Padding"]
+       13 SETTABLEKS                       R6 R5 K5 ["Padding"]
+       15 DUPTABLE                         R6 K13 [{"Label", "TargetTree"}]
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       19 GETUPVAL                         R8 2
+       20 DUPTABLE                         R9 K20 [{["LayoutOrder"] = 1, ["Text"] = "Roact Trees", ["Size"], ["TextXAlignment"]}]
+       21 GETIMPORT                        R10 K23 [UDim2.new]
+       23 LOADN                            R11 1
+       24 LOADN                            R12 0
+       25 LOADN                            R13 0
+       26 GETTABLEKS                       R14 R2 K24 ["HeaderHeight"]
+       28 CALL                             R10 4 1
+       29 SETTABLEKS                       R10 R9 K18 ["Size"]
+       31 GETIMPORT                        R10 K26 [Enum.TextXAlignment.Left]
+       33 SETTABLEKS                       R10 R9 K19 ["TextXAlignment"]
+       35 CALL                             R7 2 1
+       36 SETTABLEKS                       R7 R6 K11 ["Label"]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       41 GETUPVAL                         R8 1
+       42 DUPTABLE                         R9 K28 [{["LayoutOrder"] = 2, ["Size"]}]
+       43 GETIMPORT                        R10 K23 [UDim2.new]
+       45 LOADN                            R11 1
+       46 LOADN                            R12 0
+       47 LOADN                            R13 1
+       48 GETTABLEKS                       R15 R2 K24 ["HeaderHeight"]
+       50 MINUS                            R14 R15
+       51 CALL                             R10 4 1
+       52 SETTABLEKS                       R10 R9 K18 ["Size"]
+       54 DUPTABLE                         R10 K30 [{"Child"}]
+       55 GETUPVAL                         R11 0
+       56 GETTABLEKS                       R11 R11 K1 ["createElement"]
+       58 GETUPVAL                         R12 3
+       59 DUPTABLE                         R13 K32 [{"selectTarget"}]
+       60 GETTABLEKS                       R14 R0 K31 ["selectTarget"]
+       62 SETTABLEKS                       R14 R13 K31 ["selectTarget"]
+       64 CALL                             R11 2 1
+       65 SETTABLEKS                       R11 R10 K29 ["Child"]
+       67 CALL                             R7 3 1
+       68 SETTABLEKS                       R7 R6 K12 ["TargetTree"]
+       70 CALL                             R3 3 -1
+       71 RETURN                           R3 -1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["Stylizer"]
@@ -85,7 +77,7 @@ PROTO_2:
        16 NEWTABLE                         R6 0 0
        18 CALL                             R4 2 1
        19 MOVE                             R3 R4
-       20 JUMP                             ; [+29]
+       20 JUMP                             ; [+26]
        21 GETTABLEKS                       R4 R1 K1 ["SelectedTab"]
        23 GETTABLEKS                       R4 R4 K2 ["Id"]
        25 GETUPVAL                         R5 0
@@ -97,51 +89,45 @@ PROTO_2:
        34 NEWTABLE                         R6 0 0
        36 CALL                             R4 2 1
        37 MOVE                             R3 R4
-       38 JUMP                             ; [+11]
+       38 JUMP                             ; [+8]
        39 GETIMPORT                        R4 K7 [error]
-       41 DUPTABLE                         R5 K10 [{"name", "tab"}]
-       42 LOADK                            R6 K11 ["Missing tab"]
-       43 SETTABLEKS                       R6 R5 K8 ["name"]
-       45 GETTABLEKS                       R6 R1 K1 ["SelectedTab"]
-       47 SETTABLEKS                       R6 R5 K9 ["tab"]
-       49 CALL                             R4 1 0
-       50 GETUPVAL                         R4 1
-       51 GETTABLEKS                       R4 R4 K4 ["createElement"]
-       53 GETUPVAL                         R5 4
-       54 DUPTABLE                         R6 K14 [{"Layout", "Style"}]
-       55 GETIMPORT                        R7 K18 [Enum.FillDirection.Vertical]
-       57 SETTABLEKS                       R7 R6 K12 ["Layout"]
-       59 LOADK                            R7 K19 ["Box"]
-       60 SETTABLEKS                       R7 R6 K13 ["Style"]
-       62 DUPTABLE                         R7 K22 [{"TopBar", "Content"}]
-       63 GETUPVAL                         R8 1
-       64 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       66 GETUPVAL                         R9 5
-       67 DUPTABLE                         R10 K24 [{"Active"}]
-       68 GETTABLEKS                       R11 R1 K23 ["Active"]
-       70 SETTABLEKS                       R11 R10 K23 ["Active"]
-       72 CALL                             R8 2 1
-       73 SETTABLEKS                       R8 R7 K20 ["TopBar"]
-       75 GETUPVAL                         R8 1
-       76 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       78 GETUPVAL                         R9 4
-       79 DUPTABLE                         R10 K27 [{"LayoutOrder", "Size"}]
-       80 LOADN                            R11 2
-       81 SETTABLEKS                       R11 R10 K25 ["LayoutOrder"]
-       83 GETIMPORT                        R11 K30 [UDim2.new]
-       85 LOADN                            R12 1
-       86 LOADN                            R13 0
-       87 LOADN                            R14 1
-       88 GETTABLEKS                       R16 R2 K31 ["HeaderHeight"]
-       90 MINUS                            R15 R16
-       91 CALL                             R11 4 1
-       92 SETTABLEKS                       R11 R10 K26 ["Size"]
-       94 DUPTABLE                         R11 K33 [{"Child"}]
-       95 SETTABLEKS                       R3 R11 K32 ["Child"]
-       97 CALL                             R8 3 1
-       98 SETTABLEKS                       R8 R7 K21 ["Content"]
-      100 CALL                             R4 3 -1
-      101 RETURN                           R4 -1
+       41 DUPTABLE                         R5 K11 [{["name"] = "Missing tab", ["tab"]}]
+       42 GETTABLEKS                       R6 R1 K1 ["SelectedTab"]
+       44 SETTABLEKS                       R6 R5 K10 ["tab"]
+       46 CALL                             R4 1 0
+       47 GETUPVAL                         R4 1
+       48 GETTABLEKS                       R4 R4 K4 ["createElement"]
+       50 GETUPVAL                         R5 4
+       51 DUPTABLE                         R6 K15 [{["Layout"], ["Style"] = "Box"}]
+       52 GETIMPORT                        R7 K19 [Enum.FillDirection.Vertical]
+       54 SETTABLEKS                       R7 R6 K12 ["Layout"]
+       56 DUPTABLE                         R7 K22 [{"TopBar", "Content"}]
+       57 GETUPVAL                         R8 1
+       58 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       60 GETUPVAL                         R9 5
+       61 DUPTABLE                         R10 K24 [{"Active"}]
+       62 GETTABLEKS                       R11 R1 K23 ["Active"]
+       64 SETTABLEKS                       R11 R10 K23 ["Active"]
+       66 CALL                             R8 2 1
+       67 SETTABLEKS                       R8 R7 K20 ["TopBar"]
+       69 GETUPVAL                         R8 1
+       70 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       72 GETUPVAL                         R9 4
+       73 DUPTABLE                         R10 K28 [{["LayoutOrder"] = 2, ["Size"]}]
+       74 GETIMPORT                        R11 K31 [UDim2.new]
+       76 LOADN                            R12 1
+       77 LOADN                            R13 0
+       78 LOADN                            R14 1
+       79 GETTABLEKS                       R16 R2 K32 ["HeaderHeight"]
+       81 MINUS                            R15 R16
+       82 CALL                             R11 4 1
+       83 SETTABLEKS                       R11 R10 K27 ["Size"]
+       85 DUPTABLE                         R11 K34 [{"Child"}]
+       86 SETTABLEKS                       R3 R11 K33 ["Child"]
+       88 CALL                             R8 3 1
+       89 SETTABLEKS                       R8 R7 K21 ["Content"]
+       91 CALL                             R4 3 -1
+       92 RETURN                           R4 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"SelectedTab", "SelectedTarget"}]

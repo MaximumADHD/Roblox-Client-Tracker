@@ -102,57 +102,45 @@ MAIN:
        47 GETTABLEKS                       R6 R6 K12 ["RelativeTo"]
        49 CALL                             R5 1 1
        50 GETTABLEKS                       R6 R1 K13 ["join"]
-       52 DUPTABLE                         R7 K23 [{"toolEnabled", "alignEnabled", "disabledReason", "alignableObjects", "alignmentMode", "alignmentSpace", "enabledAxes", "relativeTo", "previewVisible"}]
-       53 LOADB                            R8 0
-       54 SETTABLEKS                       R8 R7 K14 ["toolEnabled"]
-       56 LOADB                            R8 0
-       57 SETTABLEKS                       R8 R7 K15 ["alignEnabled"]
-       59 NEWTABLE                         R8 0 0
-       61 SETTABLEKS                       R8 R7 K16 ["disabledReason"]
-       63 NEWTABLE                         R8 0 0
-       65 SETTABLEKS                       R8 R7 K17 ["alignableObjects"]
-       67 GETTABLEKS                       R8 R3 K24 ["Center"]
-       69 SETTABLEKS                       R8 R7 K18 ["alignmentMode"]
-       71 GETTABLEKS                       R8 R4 K25 ["World"]
-       73 SETTABLEKS                       R8 R7 K19 ["alignmentSpace"]
-       75 DUPTABLE                         R8 K29 [{"X", "Y", "Z"}]
-       76 LOADB                            R9 0
-       77 SETTABLEKS                       R9 R8 K26 ["X"]
-       79 LOADB                            R9 0
-       80 SETTABLEKS                       R9 R8 K27 ["Y"]
-       82 LOADB                            R9 0
-       83 SETTABLEKS                       R9 R8 K28 ["Z"]
-       85 SETTABLEKS                       R8 R7 K20 ["enabledAxes"]
-       87 GETTABLEKS                       R8 R5 K30 ["Selection"]
-       89 SETTABLEKS                       R8 R7 K21 ["relativeTo"]
-       91 LOADB                            R8 0
-       92 SETTABLEKS                       R8 R7 K22 ["previewVisible"]
-       94 GETTABLEKS                       R8 R2 K31 ["createReducer"]
-       96 MOVE                             R9 R7
-       97 DUPTABLE                         R10 K40 [{"SetToolEnabled", "SetAlignEnabled", "SetAlignableObjects", "SetAlignmentMode", "SetAlignmentSpace", "SetEnabledAxes", "SetRelativeTo", "SetPreviewVisible"}]
-       98 DUPCLOSURE                       R11 K41 [PROTO_0]
-       99 CAPTURE                          VAL R6
-      100 SETTABLEKS                       R11 R10 K32 ["SetToolEnabled"]
-      102 DUPCLOSURE                       R11 K42 [PROTO_1]
-      103 CAPTURE                          VAL R6
-      104 SETTABLEKS                       R11 R10 K33 ["SetAlignEnabled"]
-      106 DUPCLOSURE                       R11 K43 [PROTO_2]
-      107 CAPTURE                          VAL R6
-      108 SETTABLEKS                       R11 R10 K34 ["SetAlignableObjects"]
-      110 DUPCLOSURE                       R11 K44 [PROTO_3]
-      111 CAPTURE                          VAL R6
-      112 SETTABLEKS                       R11 R10 K35 ["SetAlignmentMode"]
-      114 DUPCLOSURE                       R11 K45 [PROTO_4]
-      115 CAPTURE                          VAL R6
-      116 SETTABLEKS                       R11 R10 K36 ["SetAlignmentSpace"]
-      118 DUPCLOSURE                       R11 K46 [PROTO_5]
-      119 CAPTURE                          VAL R6
-      120 SETTABLEKS                       R11 R10 K37 ["SetEnabledAxes"]
-      122 DUPCLOSURE                       R11 K47 [PROTO_6]
-      123 CAPTURE                          VAL R6
-      124 SETTABLEKS                       R11 R10 K38 ["SetRelativeTo"]
-      126 DUPCLOSURE                       R11 K48 [PROTO_7]
-      127 CAPTURE                          VAL R6
-      128 SETTABLEKS                       R11 R10 K39 ["SetPreviewVisible"]
-      130 CALL                             R8 2 1
-      131 RETURN                           R8 1
+       52 DUPTABLE                         R7 K24 [{["toolEnabled"] = False, ["alignEnabled"] = False, ["disabledReason"], ["alignableObjects"], ["alignmentMode"], ["alignmentSpace"], ["enabledAxes"], ["relativeTo"], ["previewVisible"] = False}]
+       53 NEWTABLE                         R8 0 0
+       55 SETTABLEKS                       R8 R7 K17 ["disabledReason"]
+       57 NEWTABLE                         R8 0 0
+       59 SETTABLEKS                       R8 R7 K18 ["alignableObjects"]
+       61 GETTABLEKS                       R8 R3 K25 ["Center"]
+       63 SETTABLEKS                       R8 R7 K19 ["alignmentMode"]
+       65 GETTABLEKS                       R8 R4 K26 ["World"]
+       67 SETTABLEKS                       R8 R7 K20 ["alignmentSpace"]
+       69 DUPTABLE                         R8 K30 [{["X"] = False, ["Y"] = False, ["Z"] = False}]
+       70 SETTABLEKS                       R8 R7 K21 ["enabledAxes"]
+       72 GETTABLEKS                       R8 R5 K31 ["Selection"]
+       74 SETTABLEKS                       R8 R7 K22 ["relativeTo"]
+       76 GETTABLEKS                       R8 R2 K32 ["createReducer"]
+       78 MOVE                             R9 R7
+       79 DUPTABLE                         R10 K41 [{"SetToolEnabled", "SetAlignEnabled", "SetAlignableObjects", "SetAlignmentMode", "SetAlignmentSpace", "SetEnabledAxes", "SetRelativeTo", "SetPreviewVisible"}]
+       80 DUPCLOSURE                       R11 K42 [PROTO_0]
+       81 CAPTURE                          VAL R6
+       82 SETTABLEKS                       R11 R10 K33 ["SetToolEnabled"]
+       84 DUPCLOSURE                       R11 K43 [PROTO_1]
+       85 CAPTURE                          VAL R6
+       86 SETTABLEKS                       R11 R10 K34 ["SetAlignEnabled"]
+       88 DUPCLOSURE                       R11 K44 [PROTO_2]
+       89 CAPTURE                          VAL R6
+       90 SETTABLEKS                       R11 R10 K35 ["SetAlignableObjects"]
+       92 DUPCLOSURE                       R11 K45 [PROTO_3]
+       93 CAPTURE                          VAL R6
+       94 SETTABLEKS                       R11 R10 K36 ["SetAlignmentMode"]
+       96 DUPCLOSURE                       R11 K46 [PROTO_4]
+       97 CAPTURE                          VAL R6
+       98 SETTABLEKS                       R11 R10 K37 ["SetAlignmentSpace"]
+      100 DUPCLOSURE                       R11 K47 [PROTO_5]
+      101 CAPTURE                          VAL R6
+      102 SETTABLEKS                       R11 R10 K38 ["SetEnabledAxes"]
+      104 DUPCLOSURE                       R11 K48 [PROTO_6]
+      105 CAPTURE                          VAL R6
+      106 SETTABLEKS                       R11 R10 K39 ["SetRelativeTo"]
+      108 DUPCLOSURE                       R11 K49 [PROTO_7]
+      109 CAPTURE                          VAL R6
+      110 SETTABLEKS                       R11 R10 K40 ["SetPreviewVisible"]
+      112 CALL                             R8 2 1
+      113 RETURN                           R8 1

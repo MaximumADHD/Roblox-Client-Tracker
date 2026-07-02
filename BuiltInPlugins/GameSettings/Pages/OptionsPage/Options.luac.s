@@ -150,7 +150,7 @@ PROTO_10:
 PROTO_11:
         0 DUPTABLE                         R0 K4 [{"Size", "Title", "Header", "Buttons"}]
         1 GETIMPORT                        R1 K7 [Vector2.new]
-        3 LOADN                            R2 87
+        3 LOADN                            R2 343
         4 LOADN                            R3 145
         5 CALL                             R1 2 1
         6 SETTABLEKS                       R1 R0 K0 ["Size"]
@@ -259,7 +259,7 @@ PROTO_12:
        91 CALL                             R7 2 1
        92 SETTABLEKS                       R7 R6 K21 ["LinkText"]
        94 CALL                             R3 3 1
-       95 JUMPIF                           R3 ; [+148]
+       95 JUMPIF                           R3 ; [+130]
        96 GETUPVAL                         R3 1
        97 GETTABLEKS                       R3 R3 K5 ["createElement"]
        99 GETUPVAL                         R4 8
@@ -289,82 +289,70 @@ PROTO_12:
       135 GETUPVAL                         R7 1
       136 GETTABLEKS                       R7 R7 K5 ["createElement"]
       138 GETUPVAL                         R8 11
-      139 DUPTABLE                         R9 K49 [{"Style", "Text", "Size", "LayoutOrder", "OnClick"}]
-      140 LOADK                            R10 K50 ["GameSettingsButton"]
-      141 SETTABLEKS                       R10 R9 K47 ["Style"]
-      143 GETUPVAL                         R10 12
-      144 SETTABLEKS                       R10 R9 K23 ["Text"]
-      146 GETUPVAL                         R10 13
-      147 SETTABLEKS                       R10 R9 K48 ["Size"]
-      149 LOADN                            R10 1
-      150 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-      152 NEWCLOSURE                       R10 P2
-      153 CAPTURE                          VAL R1
-      154 CAPTURE                          UPVAL U14
-      155 CAPTURE                          UPVAL U15
-      156 CAPTURE                          UPVAL U16
-      157 SETTABLEKS                       R10 R9 K12 ["OnClick"]
-      159 NEWTABLE                         R10 0 1
-      161 GETUPVAL                         R11 1
-      162 GETTABLEKS                       R11 R11 K5 ["createElement"]
-      164 GETUPVAL                         R12 17
-      165 DUPTABLE                         R13 K52 [{"Cursor"}]
-      166 LOADK                            R14 K53 ["PointingHand"]
-      167 SETTABLEKS                       R14 R13 K51 ["Cursor"]
-      169 CALL                             R11 2 -1
-      170 SETLIST                          R10 R11 -1 [1]
-      172 CALL                             R7 3 1
-      173 SETTABLEKS                       R7 R6 K35 ["ShutdownButton"]
-      175 GETUPVAL                         R7 1
-      176 GETTABLEKS                       R7 R7 K5 ["createElement"]
-      178 LOADK                            R8 K54 ["TextLabel"]
-      179 GETUPVAL                         R9 18
-      180 GETTABLEKS                       R9 R9 K55 ["Dictionary"]
-      182 GETTABLEKS                       R9 R9 K56 ["join"]
-      184 GETUPVAL                         R10 19
-      185 GETTABLEKS                       R10 R10 K57 ["fontStyle"]
-      187 GETTABLEKS                       R10 R10 K58 ["Subtext"]
-      189 DUPTABLE                         R11 K61 [{"Size", "LayoutOrder", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped"}]
-      190 GETIMPORT                        R12 K64 [UDim2.new]
-      192 LOADN                            R13 1
-      193 LOADN                            R14 0
-      194 LOADN                            R15 0
-      195 GETUPVAL                         R17 20
-      196 GETTABLEKS                       R17 R17 K65 ["Y"]
-      198 GETUPVAL                         R18 19
-      199 GETTABLEKS                       R18 R18 K66 ["shutdownButton"]
-      201 GETTABLEKS                       R18 R18 K67 ["PaddingY"]
-      203 ADD                              R16 R17 R18
-      204 CALL                             R12 4 1
-      205 SETTABLEKS                       R12 R11 K48 ["Size"]
-      207 LOADN                            R12 2
-      208 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
-      210 LOADN                            R12 1
-      211 SETTABLEKS                       R12 R11 K59 ["BackgroundTransparency"]
-      213 GETUPVAL                         R13 21
-      214 JUMPIFNOT                        R13 ; [+6]
-      215 LOADK                            R14 K14 ["General"]
-      216 LOADK                            R15 K68 ["StudioShutdownAllServicesDescExp"]
-      217 NAMECALL                         R12 R1 K16 ["getText"]
-      219 CALL                             R12 3 1
-      220 JUMP                             ; [+5]
-      221 LOADK                            R14 K14 ["General"]
-      222 LOADK                            R15 K69 ["StudioShutdownAllServicesDesc"]
-      223 NAMECALL                         R12 R1 K16 ["getText"]
-      225 CALL                             R12 3 1
-      226 SETTABLEKS                       R12 R11 K23 ["Text"]
-      228 GETIMPORT                        R12 K71 [Enum.TextYAlignment.Center]
-      230 SETTABLEKS                       R12 R11 K25 ["TextYAlignment"]
-      232 GETIMPORT                        R12 K30 [Enum.TextXAlignment.Left]
-      234 SETTABLEKS                       R12 R11 K24 ["TextXAlignment"]
-      236 LOADB                            R12 1
-      237 SETTABLEKS                       R12 R11 K60 ["TextWrapped"]
-      239 CALL                             R9 2 -1
-      240 CALL                             R7 -1 1
-      241 SETTABLEKS                       R7 R6 K36 ["ShutdownButtonDescription"]
-      243 CALL                             R3 3 1
-      244 SETTABLEKS                       R3 R2 K3 ["RestartServers"]
-      246 RETURN                           R2 1
+      139 DUPTABLE                         R9 K51 [{["Style"] = "GameSettingsButton", ["Text"], ["Size"], ["LayoutOrder"] = 1, ["OnClick"]}]
+      140 GETUPVAL                         R10 12
+      141 SETTABLEKS                       R10 R9 K23 ["Text"]
+      143 GETUPVAL                         R10 13
+      144 SETTABLEKS                       R10 R9 K49 ["Size"]
+      146 NEWCLOSURE                       R10 P2
+      147 CAPTURE                          VAL R1
+      148 CAPTURE                          UPVAL U14
+      149 CAPTURE                          UPVAL U15
+      150 CAPTURE                          UPVAL U16
+      151 SETTABLEKS                       R10 R9 K12 ["OnClick"]
+      153 NEWTABLE                         R10 0 1
+      155 GETUPVAL                         R11 1
+      156 GETTABLEKS                       R11 R11 K5 ["createElement"]
+      158 GETUPVAL                         R12 17
+      159 DUPTABLE                         R13 K54 [{["Cursor"] = "PointingHand"}]
+      160 CALL                             R11 2 -1
+      161 SETLIST                          R10 R11 -1 [1]
+      163 CALL                             R7 3 1
+      164 SETTABLEKS                       R7 R6 K35 ["ShutdownButton"]
+      166 GETUPVAL                         R7 1
+      167 GETTABLEKS                       R7 R7 K5 ["createElement"]
+      169 LOADK                            R8 K55 ["TextLabel"]
+      170 GETUPVAL                         R9 18
+      171 GETTABLEKS                       R9 R9 K56 ["Dictionary"]
+      173 GETTABLEKS                       R9 R9 K57 ["join"]
+      175 GETUPVAL                         R10 19
+      176 GETTABLEKS                       R10 R10 K58 ["fontStyle"]
+      178 GETTABLEKS                       R10 R10 K59 ["Subtext"]
+      180 DUPTABLE                         R11 K64 [{["Size"], ["LayoutOrder"] = 2, ["BackgroundTransparency"] = 1, ["Text"], ["TextYAlignment"], ["TextXAlignment"], ["TextWrapped"] = True}]
+      181 GETIMPORT                        R12 K67 [UDim2.new]
+      183 LOADN                            R13 1
+      184 LOADN                            R14 0
+      185 LOADN                            R15 0
+      186 GETUPVAL                         R17 20
+      187 GETTABLEKS                       R17 R17 K68 ["Y"]
+      189 GETUPVAL                         R18 19
+      190 GETTABLEKS                       R18 R18 K69 ["shutdownButton"]
+      192 GETTABLEKS                       R18 R18 K70 ["PaddingY"]
+      194 ADD                              R16 R17 R18
+      195 CALL                             R12 4 1
+      196 SETTABLEKS                       R12 R11 K49 ["Size"]
+      198 GETUPVAL                         R13 21
+      199 JUMPIFNOT                        R13 ; [+6]
+      200 LOADK                            R14 K14 ["General"]
+      201 LOADK                            R15 K71 ["StudioShutdownAllServicesDescExp"]
+      202 NAMECALL                         R12 R1 K16 ["getText"]
+      204 CALL                             R12 3 1
+      205 JUMP                             ; [+5]
+      206 LOADK                            R14 K14 ["General"]
+      207 LOADK                            R15 K72 ["StudioShutdownAllServicesDesc"]
+      208 NAMECALL                         R12 R1 K16 ["getText"]
+      210 CALL                             R12 3 1
+      211 SETTABLEKS                       R12 R11 K23 ["Text"]
+      213 GETIMPORT                        R12 K74 [Enum.TextYAlignment.Center]
+      215 SETTABLEKS                       R12 R11 K25 ["TextYAlignment"]
+      217 GETIMPORT                        R12 K30 [Enum.TextXAlignment.Left]
+      219 SETTABLEKS                       R12 R11 K24 ["TextXAlignment"]
+      221 CALL                             R9 2 -1
+      222 CALL                             R7 -1 1
+      223 SETTABLEKS                       R7 R6 K36 ["ShutdownButtonDescription"]
+      225 CALL                             R3 3 1
+      226 SETTABLEKS                       R3 R2 K3 ["RestartServers"]
+      228 RETURN                           R2 1
 
 PROTO_13:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

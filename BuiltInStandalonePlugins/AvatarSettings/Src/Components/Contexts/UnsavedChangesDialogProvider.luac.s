@@ -6,21 +6,19 @@ PROTO_0:
         5 RETURN                           R0 -1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K2 [{"default", "getUnsavedChangesDialog"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["default"]
-        4 DUPCLOSURE                       R2 K3 [PROTO_0]
-        5 CAPTURE                          UPVAL U0
-        6 CAPTURE                          UPVAL U1
-        7 SETTABLEKS                       R2 R1 K1 ["getUnsavedChangesDialog"]
-        9 GETUPVAL                         R2 0
-       10 GETUPVAL                         R3 2
-       11 GETTABLEKS                       R3 R3 K4 ["Provider"]
-       13 DUPTABLE                         R4 K6 [{"value"}]
-       14 SETTABLEKS                       R1 R4 K5 ["value"]
-       16 GETTABLEKS                       R5 R0 K7 ["children"]
-       18 CALL                             R2 3 -1
-       19 RETURN                           R2 -1
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["getUnsavedChangesDialog"]}]
+        1 DUPCLOSURE                       R2 K4 [PROTO_0]
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          UPVAL U1
+        4 SETTABLEKS                       R2 R1 K2 ["getUnsavedChangesDialog"]
+        6 GETUPVAL                         R2 0
+        7 GETUPVAL                         R3 2
+        8 GETTABLEKS                       R3 R3 K5 ["Provider"]
+       10 DUPTABLE                         R4 K7 [{"value"}]
+       11 SETTABLEKS                       R1 R4 K6 ["value"]
+       13 GETTABLEKS                       R5 R0 K8 ["children"]
+       15 CALL                             R2 3 -1
+       16 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

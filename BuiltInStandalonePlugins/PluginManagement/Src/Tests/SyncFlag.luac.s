@@ -1,15 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"_value", "_waitingThread"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["_value"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["_waitingThread"]
-        7 GETUPVAL                         R3 0
-        8 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       10 MOVE                             R2 R0
-       11 GETIMPORT                        R1 K4 [setmetatable]
-       13 CALL                             R1 2 1
-       14 RETURN                           R1 1
+        0 DUPTABLE                         R0 K4 [{[1] = False, ["_waitingThread"] = }]
+        1 GETUPVAL                         R3 0
+        2 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        4 MOVE                             R2 R0
+        5 GETIMPORT                        R1 K6 [setmetatable]
+        7 CALL                             R1 2 1
+        8 RETURN                           R1 1
 
 PROTO_1:
         0 LOADB                            R1 1

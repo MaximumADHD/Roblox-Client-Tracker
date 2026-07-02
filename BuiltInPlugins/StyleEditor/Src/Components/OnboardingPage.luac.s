@@ -41,23 +41,19 @@ PROTO_1:
        16 CALL                             R3 1 1
        17 MOVE                             R1 R3
        18 GETUPVAL                         R2 2
-       19 DUPTABLE                         R3 K8 [{"Name", "DisplayName", "DoChange"}]
-       20 LOADK                            R4 K9 ["StyleEditor.CreateDesignSystem"]
-       21 SETTABLEKS                       R4 R3 K5 ["Name"]
-       23 LOADK                            R4 K10 ["Style Editor - Create Design"]
-       24 SETTABLEKS                       R4 R3 K6 ["DisplayName"]
-       26 NEWCLOSURE                       R4 P0
-       27 CAPTURE                          REF R0
-       28 CAPTURE                          UPVAL U3
-       29 CAPTURE                          UPVAL U4
-       30 CAPTURE                          UPVAL U5
-       31 CAPTURE                          REF R1
-       32 CAPTURE                          UPVAL U6
-       33 CAPTURE                          UPVAL U7
-       34 SETTABLEKS                       R4 R3 K7 ["DoChange"]
-       36 CALL                             R2 1 0
-       37 CLOSEUPVALS                      R0
-       38 RETURN                           R0 0
+       19 DUPTABLE                         R3 K10 [{["Name"] = "StyleEditor.CreateDesignSystem", ["DisplayName"] = "Style Editor - Create Design", ["DoChange"]}]
+       20 NEWCLOSURE                       R4 P0
+       21 CAPTURE                          REF R0
+       22 CAPTURE                          UPVAL U3
+       23 CAPTURE                          UPVAL U4
+       24 CAPTURE                          UPVAL U5
+       25 CAPTURE                          REF R1
+       26 CAPTURE                          UPVAL U6
+       27 CAPTURE                          UPVAL U7
+       28 SETTABLEKS                       R4 R3 K9 ["DoChange"]
+       30 CALL                             R2 1 0
+       31 CLOSEUPVALS                      R0
+       32 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -139,96 +135,92 @@ PROTO_3:
        91 GETUPVAL                         R21 10
        92 GETTABLEKS                       R21 R21 K1 ["createElement"]
        94 GETUPVAL                         R22 15
-       95 DUPTABLE                         R23 K28 [{"Image", "LayoutOrder"}]
+       95 DUPTABLE                         R23 K29 [{["Image"], ["LayoutOrder"] = 1}]
        96 GETUPVAL                         R24 16
-       97 GETTABLEKS                       R24 R24 K29 ["onboarding"]
+       97 GETTABLEKS                       R24 R24 K30 ["onboarding"]
        99 CALL                             R24 0 1
       100 SETTABLEKS                       R24 R23 K26 ["Image"]
-      102 LOADN                            R24 1
-      103 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
-      105 CALL                             R21 2 1
-      106 SETTABLEKS                       R21 R20 K21 ["StylingImage"]
-      108 GETUPVAL                         R21 10
-      109 GETTABLEKS                       R21 R21 K1 ["createElement"]
-      111 GETUPVAL                         R22 17
-      112 NEWTABLE                         R23 4 0
-      114 LOADN                            R24 2
-      115 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
-      117 LOADK                            R26 K30 ["Onboarding"]
-      118 LOADK                            R27 K22 ["Title"]
-      119 NAMECALL                         R24 R2 K31 ["getText"]
-      121 CALL                             R24 3 1
-      122 SETTABLEKS                       R24 R23 K32 ["Text"]
-      124 GETUPVAL                         R24 10
-      125 GETTABLEKS                       R24 R24 K2 ["Tag"]
-      127 LOADK                            R25 K33 ["Subtitle X-Fit"]
-      128 SETTABLE                         R25 R23 R24
-      129 CALL                             R21 2 1
-      130 SETTABLEKS                       R21 R20 K22 ["Title"]
-      132 GETUPVAL                         R21 10
-      133 GETTABLEKS                       R21 R21 K1 ["createElement"]
-      135 GETUPVAL                         R22 17
-      136 NEWTABLE                         R23 4 0
-      138 LOADN                            R24 3
-      139 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
-      141 LOADK                            R26 K30 ["Onboarding"]
-      142 LOADK                            R27 K23 ["Description"]
-      143 NAMECALL                         R24 R2 K31 ["getText"]
-      145 CALL                             R24 3 1
-      146 SETTABLEKS                       R24 R23 K32 ["Text"]
-      148 GETUPVAL                         R24 10
-      149 GETTABLEKS                       R24 R24 K2 ["Tag"]
-      151 LOADK                            R25 K34 ["TextXAlignLeft X-FitY"]
-      152 SETTABLE                         R25 R23 R24
-      153 CALL                             R21 2 1
-      154 SETTABLEKS                       R21 R20 K23 ["Description"]
-      156 GETUPVAL                         R21 10
-      157 GETTABLEKS                       R21 R21 K1 ["createElement"]
-      159 GETUPVAL                         R22 12
-      160 DUPTABLE                         R23 K35 [{"LayoutOrder"}]
-      161 LOADN                            R24 4
-      162 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
-      164 DUPTABLE                         R24 K38 [{"Link", "BlankButton"}]
-      165 GETUPVAL                         R25 10
-      166 GETTABLEKS                       R25 R25 K1 ["createElement"]
-      168 GETUPVAL                         R26 18
-      169 DUPTABLE                         R27 K40 [{"OnClick", "Text"}]
-      170 SETTABLEKS                       R4 R27 K39 ["OnClick"]
-      172 LOADK                            R30 K30 ["Onboarding"]
-      173 LOADK                            R31 K41 ["LearnMore"]
-      174 NAMECALL                         R28 R2 K31 ["getText"]
-      176 CALL                             R28 3 1
-      177 SETTABLEKS                       R28 R27 K32 ["Text"]
-      179 CALL                             R25 2 1
-      180 SETTABLEKS                       R25 R24 K36 ["Link"]
-      182 GETUPVAL                         R25 10
-      183 GETTABLEKS                       R25 R25 K1 ["createElement"]
-      185 GETUPVAL                         R26 19
-      186 NEWTABLE                         R27 4 0
-      188 LOADK                            R28 K42 ["PointingHand"]
-      189 SETTABLEKS                       R28 R27 K43 ["Cursor"]
-      191 SETTABLEKS                       R3 R27 K39 ["OnClick"]
-      193 LOADK                            R30 K30 ["Onboarding"]
-      194 LOADK                            R31 K44 ["CreateDesign"]
-      195 NAMECALL                         R28 R2 K31 ["getText"]
-      197 CALL                             R28 3 1
-      198 SETTABLEKS                       R28 R27 K32 ["Text"]
-      200 GETUPVAL                         R28 10
-      201 GETTABLEKS                       R28 R28 K2 ["Tag"]
-      203 LOADK                            R29 K45 ["PositionRight PrimaryBrand"]
-      204 SETTABLE                         R29 R27 R28
-      205 CALL                             R25 2 1
-      206 SETTABLEKS                       R25 R24 K37 ["BlankButton"]
-      208 CALL                             R21 3 1
-      209 SETTABLEKS                       R21 R20 K24 ["ButtonContainer"]
-      211 CALL                             R17 3 1
-      212 SETTABLEKS                       R17 R16 K18 ["Column"]
-      214 CALL                             R13 3 -1
-      215 SETLIST                          R12 R13 -1 [1]
-      217 CALL                             R9 3 -1
-      218 SETLIST                          R8 R9 -1 [1]
-      220 CALL                             R5 3 -1
-      221 RETURN                           R5 -1
+      102 CALL                             R21 2 1
+      103 SETTABLEKS                       R21 R20 K21 ["StylingImage"]
+      105 GETUPVAL                         R21 10
+      106 GETTABLEKS                       R21 R21 K1 ["createElement"]
+      108 GETUPVAL                         R22 17
+      109 NEWTABLE                         R23 4 0
+      111 LOADN                            R24 2
+      112 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
+      114 LOADK                            R26 K31 ["Onboarding"]
+      115 LOADK                            R27 K22 ["Title"]
+      116 NAMECALL                         R24 R2 K32 ["getText"]
+      118 CALL                             R24 3 1
+      119 SETTABLEKS                       R24 R23 K33 ["Text"]
+      121 GETUPVAL                         R24 10
+      122 GETTABLEKS                       R24 R24 K2 ["Tag"]
+      124 LOADK                            R25 K34 ["Subtitle X-Fit"]
+      125 SETTABLE                         R25 R23 R24
+      126 CALL                             R21 2 1
+      127 SETTABLEKS                       R21 R20 K22 ["Title"]
+      129 GETUPVAL                         R21 10
+      130 GETTABLEKS                       R21 R21 K1 ["createElement"]
+      132 GETUPVAL                         R22 17
+      133 NEWTABLE                         R23 4 0
+      135 LOADN                            R24 3
+      136 SETTABLEKS                       R24 R23 K27 ["LayoutOrder"]
+      138 LOADK                            R26 K31 ["Onboarding"]
+      139 LOADK                            R27 K23 ["Description"]
+      140 NAMECALL                         R24 R2 K32 ["getText"]
+      142 CALL                             R24 3 1
+      143 SETTABLEKS                       R24 R23 K33 ["Text"]
+      145 GETUPVAL                         R24 10
+      146 GETTABLEKS                       R24 R24 K2 ["Tag"]
+      148 LOADK                            R25 K35 ["TextXAlignLeft X-FitY"]
+      149 SETTABLE                         R25 R23 R24
+      150 CALL                             R21 2 1
+      151 SETTABLEKS                       R21 R20 K23 ["Description"]
+      153 GETUPVAL                         R21 10
+      154 GETTABLEKS                       R21 R21 K1 ["createElement"]
+      156 GETUPVAL                         R22 12
+      157 DUPTABLE                         R23 K37 [{["LayoutOrder"] = 4}]
+      158 DUPTABLE                         R24 K40 [{"Link", "BlankButton"}]
+      159 GETUPVAL                         R25 10
+      160 GETTABLEKS                       R25 R25 K1 ["createElement"]
+      162 GETUPVAL                         R26 18
+      163 DUPTABLE                         R27 K42 [{"OnClick", "Text"}]
+      164 SETTABLEKS                       R4 R27 K41 ["OnClick"]
+      166 LOADK                            R30 K31 ["Onboarding"]
+      167 LOADK                            R31 K43 ["LearnMore"]
+      168 NAMECALL                         R28 R2 K32 ["getText"]
+      170 CALL                             R28 3 1
+      171 SETTABLEKS                       R28 R27 K33 ["Text"]
+      173 CALL                             R25 2 1
+      174 SETTABLEKS                       R25 R24 K38 ["Link"]
+      176 GETUPVAL                         R25 10
+      177 GETTABLEKS                       R25 R25 K1 ["createElement"]
+      179 GETUPVAL                         R26 19
+      180 NEWTABLE                         R27 4 0
+      182 LOADK                            R28 K44 ["PointingHand"]
+      183 SETTABLEKS                       R28 R27 K45 ["Cursor"]
+      185 SETTABLEKS                       R3 R27 K41 ["OnClick"]
+      187 LOADK                            R30 K31 ["Onboarding"]
+      188 LOADK                            R31 K46 ["CreateDesign"]
+      189 NAMECALL                         R28 R2 K32 ["getText"]
+      191 CALL                             R28 3 1
+      192 SETTABLEKS                       R28 R27 K33 ["Text"]
+      194 GETUPVAL                         R28 10
+      195 GETTABLEKS                       R28 R28 K2 ["Tag"]
+      197 LOADK                            R29 K47 ["PositionRight PrimaryBrand"]
+      198 SETTABLE                         R29 R27 R28
+      199 CALL                             R25 2 1
+      200 SETTABLEKS                       R25 R24 K39 ["BlankButton"]
+      202 CALL                             R21 3 1
+      203 SETTABLEKS                       R21 R20 K24 ["ButtonContainer"]
+      205 CALL                             R17 3 1
+      206 SETTABLEKS                       R17 R16 K18 ["Column"]
+      208 CALL                             R13 3 -1
+      209 SETLIST                          R12 R13 -1 [1]
+      211 CALL                             R9 3 -1
+      212 SETLIST                          R8 R9 -1 [1]
+      214 CALL                             R5 3 -1
+      215 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

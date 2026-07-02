@@ -3,19 +3,17 @@ PROTO_0:
         2 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K2 [{"default", "getBundleDetailsAsync"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["default"]
-        4 DUPCLOSURE                       R2 K3 [PROTO_0]
-        5 SETTABLEKS                       R2 R1 K1 ["getBundleDetailsAsync"]
-        7 GETUPVAL                         R2 0
-        8 GETUPVAL                         R3 1
-        9 GETTABLEKS                       R3 R3 K4 ["Provider"]
-       11 DUPTABLE                         R4 K6 [{"value"}]
-       12 SETTABLEKS                       R1 R4 K5 ["value"]
-       14 GETTABLEKS                       R5 R0 K7 ["children"]
-       16 CALL                             R2 3 -1
-       17 RETURN                           R2 -1
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["getBundleDetailsAsync"]}]
+        1 DUPCLOSURE                       R2 K4 [PROTO_0]
+        2 SETTABLEKS                       R2 R1 K2 ["getBundleDetailsAsync"]
+        4 GETUPVAL                         R2 0
+        5 GETUPVAL                         R3 1
+        6 GETTABLEKS                       R3 R3 K5 ["Provider"]
+        8 DUPTABLE                         R4 K7 [{"value"}]
+        9 SETTABLEKS                       R1 R4 K6 ["value"]
+       11 GETTABLEKS                       R5 R0 K8 ["children"]
+       13 CALL                             R2 3 -1
+       14 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

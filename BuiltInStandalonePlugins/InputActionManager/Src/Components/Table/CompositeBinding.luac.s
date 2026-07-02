@@ -45,8 +45,13 @@ PROTO_3:
        14 GETUPVAL                         R3 2
        15 GETTABLEKS                       R3 R3 K3 ["bindings"]
        17 LOADK                            R4 K4 ["Composite"]
-       18 CALL                             R0 4 -1
-       19 RETURN                           R0 -1
+       18 GETUPVAL                         R6 2
+       19 GETTABLEKS                       R6 R6 K5 ["onCreated"]
+       21 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       23 LOADB                            R5 0 +1
+       24 LOADB                            R5 1
+       25 CALL                             R0 5 -1
+       26 RETURN                           R0 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -98,182 +103,192 @@ PROTO_4:
        69 CAPTURE                          UPVAL U5
        70 CAPTURE                          VAL R1
        71 CAPTURE                          VAL R0
-       72 NEWTABLE                         R9 0 4
+       72 NEWTABLE                         R9 0 5
        74 MOVE                             R10 R1
-       75 GETTABLEKS                       R11 R0 K6 ["action"]
-       77 GETTABLEKS                       R11 R11 K12 ["type"]
-       79 GETTABLEKS                       R12 R0 K4 ["isRoot"]
-       81 GETTABLEKS                       R13 R0 K3 ["bindings"]
-       83 SETLIST                          R9 R10 4 [1]
-       85 CALL                             R7 2 1
-       86 NEWTABLE                         R8 4 0
-       88 GETUPVAL                         R9 0
-       89 GETTABLEKS                       R9 R9 K13 ["createElement"]
-       91 GETUPVAL                         R10 6
-       92 DUPTABLE                         R11 K16 [{"bindings", "LayoutOrder", "nodeProps", "previousBindings"}]
-       93 SETTABLEKS                       R4 R11 K3 ["bindings"]
-       95 MOVE                             R12 R2
-       96 CALL                             R12 0 1
-       97 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
-       99 DUPTABLE                         R12 K25 [{"action", "createMenu", "depth", "editMenu", "expanded", "icon", "name", "onCreateMenuItemSelected", "onEditMenuItemSelected", "setExpanded"}]
-      100 GETTABLEKS                       R13 R0 K6 ["action"]
-      102 SETTABLEKS                       R13 R12 K6 ["action"]
-      104 GETTABLEKS                       R13 R0 K17 ["createMenu"]
-      106 SETTABLEKS                       R13 R12 K17 ["createMenu"]
-      108 SETTABLEKS                       R5 R12 K18 ["depth"]
-      110 SETTABLEKS                       R7 R12 K19 ["editMenu"]
-      112 GETTABLEKS                       R13 R3 K20 ["expanded"]
-      114 SETTABLEKS                       R13 R12 K20 ["expanded"]
-      116 GETTABLEKS                       R14 R0 K11 ["name"]
-      118 JUMPIFNOT                        R14 ; [+2]
-      119 LOADK                            R13 K26 ["InputAction"]
-      120 JUMP                             ; [+1]
-      121 LOADK                            R13 K27 ["InputBinding"]
-      122 SETTABLEKS                       R13 R12 K21 ["icon"]
-      124 GETTABLEKS                       R13 R0 K11 ["name"]
-      126 JUMPIF                           R13 ; [+5]
-      127 LOADK                            R15 K28 ["Binding"]
-      128 LOADK                            R16 K9 ["Composite"]
-      129 NAMECALL                         R13 R1 K29 ["getText"]
-      131 CALL                             R13 3 1
-      132 SETTABLEKS                       R13 R12 K11 ["name"]
-      134 GETTABLEKS                       R13 R0 K22 ["onCreateMenuItemSelected"]
-      136 SETTABLEKS                       R13 R12 K22 ["onCreateMenuItemSelected"]
-      138 GETTABLEKS                       R13 R3 K23 ["onEditMenuItemSelected"]
-      140 SETTABLEKS                       R13 R12 K23 ["onEditMenuItemSelected"]
-      142 GETTABLEKS                       R13 R3 K24 ["setExpanded"]
-      144 SETTABLEKS                       R13 R12 K24 ["setExpanded"]
-      146 SETTABLEKS                       R12 R11 K14 ["nodeProps"]
-      148 GETTABLEKS                       R12 R0 K15 ["previousBindings"]
-      150 SETTABLEKS                       R12 R11 K15 ["previousBindings"]
-      152 CALL                             R9 2 1
-      153 SETTABLEKS                       R9 R8 K30 ["header"]
-      155 GETTABLEKS                       R9 R3 K20 ["expanded"]
-      157 JUMPIF                           R9 ; [+3]
-      158 GETTABLEKS                       R9 R0 K31 ["onCreated"]
-      160 JUMPIFNOT                        R9 ; [+164]
-      161 GETTABLEKS                       R9 R3 K32 ["showPrimaryModifier"]
-      163 JUMPIFNOT                        R9 ; [+51]
-      164 GETUPVAL                         R9 0
-      165 GETTABLEKS                       R9 R9 K13 ["createElement"]
-      167 GETUPVAL                         R10 7
-      168 DUPTABLE                         R11 K35 [{"bindings", "index", "LayoutOrder", "nodeProps", "onCreated", "previousBindings", "property"}]
-      169 GETTABLEKS                       R12 R0 K3 ["bindings"]
-      171 SETTABLEKS                       R12 R11 K3 ["bindings"]
-      173 GETTABLEKS                       R12 R0 K33 ["index"]
-      175 SETTABLEKS                       R12 R11 K33 ["index"]
-      177 MOVE                             R12 R2
-      178 CALL                             R12 0 1
-      179 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
-      181 DUPTABLE                         R12 K36 [{"action", "depth", "icon", "name"}]
-      182 GETTABLEKS                       R13 R0 K6 ["action"]
-      184 SETTABLEKS                       R13 R12 K6 ["action"]
-      186 ADDK                             R13 R5 K37 [1]
-      187 SETTABLEKS                       R13 R12 K18 ["depth"]
-      189 LOADK                            R13 K27 ["InputBinding"]
-      190 SETTABLEKS                       R13 R12 K21 ["icon"]
-      192 LOADK                            R15 K28 ["Binding"]
-      193 LOADK                            R16 K38 ["PrimaryModifier"]
-      194 NAMECALL                         R13 R1 K29 ["getText"]
-      196 CALL                             R13 3 1
-      197 SETTABLEKS                       R13 R12 K11 ["name"]
-      199 SETTABLEKS                       R12 R11 K14 ["nodeProps"]
-      201 GETTABLEKS                       R12 R0 K31 ["onCreated"]
-      203 SETTABLEKS                       R12 R11 K31 ["onCreated"]
-      205 GETTABLEKS                       R12 R0 K15 ["previousBindings"]
-      207 SETTABLEKS                       R12 R11 K15 ["previousBindings"]
-      209 LOADK                            R12 K39 ["primaryModifier"]
-      210 SETTABLEKS                       R12 R11 K34 ["property"]
-      212 CALL                             R9 2 1
-      213 SETTABLEKS                       R9 R8 K39 ["primaryModifier"]
-      215 GETTABLEKS                       R9 R3 K40 ["showSecondaryModifier"]
-      217 JUMPIFNOT                        R9 ; [+51]
-      218 GETUPVAL                         R9 0
-      219 GETTABLEKS                       R9 R9 K13 ["createElement"]
-      221 GETUPVAL                         R10 7
-      222 DUPTABLE                         R11 K35 [{"bindings", "index", "LayoutOrder", "nodeProps", "onCreated", "previousBindings", "property"}]
-      223 GETTABLEKS                       R12 R0 K3 ["bindings"]
-      225 SETTABLEKS                       R12 R11 K3 ["bindings"]
-      227 GETTABLEKS                       R12 R0 K33 ["index"]
-      229 SETTABLEKS                       R12 R11 K33 ["index"]
-      231 MOVE                             R12 R2
-      232 CALL                             R12 0 1
-      233 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
-      235 DUPTABLE                         R12 K36 [{"action", "depth", "icon", "name"}]
-      236 GETTABLEKS                       R13 R0 K6 ["action"]
-      238 SETTABLEKS                       R13 R12 K6 ["action"]
-      240 ADDK                             R13 R5 K37 [1]
-      241 SETTABLEKS                       R13 R12 K18 ["depth"]
-      243 LOADK                            R13 K27 ["InputBinding"]
-      244 SETTABLEKS                       R13 R12 K21 ["icon"]
-      246 LOADK                            R15 K28 ["Binding"]
-      247 LOADK                            R16 K41 ["SecondaryModifier"]
-      248 NAMECALL                         R13 R1 K29 ["getText"]
-      250 CALL                             R13 3 1
-      251 SETTABLEKS                       R13 R12 K11 ["name"]
-      253 SETTABLEKS                       R12 R11 K14 ["nodeProps"]
-      255 GETTABLEKS                       R12 R0 K31 ["onCreated"]
-      257 SETTABLEKS                       R12 R11 K31 ["onCreated"]
-      259 GETTABLEKS                       R12 R0 K15 ["previousBindings"]
-      261 SETTABLEKS                       R12 R11 K15 ["previousBindings"]
-      263 LOADK                            R12 K42 ["secondaryModifier"]
-      264 SETTABLEKS                       R12 R11 K34 ["property"]
-      266 CALL                             R9 2 1
-      267 SETTABLEKS                       R9 R8 K42 ["secondaryModifier"]
-      269 MOVE                             R9 R6
-      270 LOADNIL                          R10
-      271 LOADNIL                          R11
-      272 FORGPREP                         R9
-      273 GETUPVAL                         R14 0
-      274 GETTABLEKS                       R14 R14 K13 ["createElement"]
-      276 GETUPVAL                         R15 7
-      277 DUPTABLE                         R16 K35 [{"bindings", "index", "LayoutOrder", "nodeProps", "onCreated", "previousBindings", "property"}]
-      278 GETTABLEKS                       R17 R0 K3 ["bindings"]
-      280 SETTABLEKS                       R17 R16 K3 ["bindings"]
-      282 GETTABLEKS                       R17 R0 K33 ["index"]
-      284 SETTABLEKS                       R17 R16 K33 ["index"]
-      286 MOVE                             R17 R2
-      287 CALL                             R17 0 1
-      288 SETTABLEKS                       R17 R16 K8 ["LayoutOrder"]
-      290 DUPTABLE                         R17 K36 [{"action", "depth", "icon", "name"}]
-      291 GETTABLEKS                       R18 R0 K6 ["action"]
-      293 SETTABLEKS                       R18 R17 K6 ["action"]
-      295 ADDK                             R18 R5 K37 [1]
-      296 SETTABLEKS                       R18 R17 K18 ["depth"]
-      298 LOADK                            R18 K27 ["InputBinding"]
-      299 SETTABLEKS                       R18 R17 K21 ["icon"]
-      301 LOADK                            R20 K28 ["Binding"]
-      302 GETUPVAL                         R22 8
-      303 GETTABLE                         R21 R22 R13
-      304 NAMECALL                         R18 R1 K29 ["getText"]
-      306 CALL                             R18 3 1
-      307 SETTABLEKS                       R18 R17 K11 ["name"]
-      309 SETTABLEKS                       R17 R16 K14 ["nodeProps"]
-      311 GETTABLEKS                       R17 R0 K31 ["onCreated"]
-      313 SETTABLEKS                       R17 R16 K31 ["onCreated"]
-      315 GETTABLEKS                       R17 R0 K15 ["previousBindings"]
-      317 SETTABLEKS                       R17 R16 K15 ["previousBindings"]
-      319 SETTABLEKS                       R13 R16 K34 ["property"]
-      321 CALL                             R14 2 1
-      322 SETTABLE                         R14 R8 R13
-      323 FORGLOOP                         R9 2 ; [-51]
-      325 GETUPVAL                         R9 0
-      326 GETTABLEKS                       R9 R9 K13 ["createElement"]
-      328 GETUPVAL                         R10 9
-      329 DUPTABLE                         R11 K45 [{"LayoutOrder", "tag", "testId"}]
-      330 GETTABLEKS                       R12 R0 K8 ["LayoutOrder"]
-      332 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
-      334 LOADK                            R12 K46 ["size-full-0 auto-y col"]
-      335 SETTABLEKS                       R12 R11 K43 ["tag"]
-      337 LOADK                            R13 K47 ["composite-binding-%*"]
-      338 GETTABLEKS                       R15 R0 K33 ["index"]
-      340 NAMECALL                         R13 R13 K48 ["format"]
-      342 CALL                             R13 2 1
-      343 MOVE                             R12 R13
-      344 SETTABLEKS                       R12 R11 K44 ["testId"]
-      346 MOVE                             R12 R8
-      347 CALL                             R9 3 -1
-      348 RETURN                           R9 -1
+       75 GETTABLEKS                       R11 R0 K13 ["onCreated"]
+       77 GETTABLEKS                       R12 R0 K6 ["action"]
+       79 GETTABLEKS                       R12 R12 K12 ["type"]
+       81 GETTABLEKS                       R13 R0 K4 ["isRoot"]
+       83 GETTABLEKS                       R14 R0 K3 ["bindings"]
+       85 SETLIST                          R9 R10 5 [1]
+       87 CALL                             R7 2 1
+       88 NEWTABLE                         R8 4 0
+       90 GETUPVAL                         R9 0
+       91 GETTABLEKS                       R9 R9 K14 ["createElement"]
+       93 GETUPVAL                         R10 6
+       94 DUPTABLE                         R11 K17 [{"bindings", "LayoutOrder", "nodeProps", "previousBindings"}]
+       95 SETTABLEKS                       R4 R11 K3 ["bindings"]
+       97 MOVE                             R12 R2
+       98 CALL                             R12 0 1
+       99 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      101 DUPTABLE                         R12 K26 [{"action", "createMenu", "depth", "editMenu", "expanded", "icon", "name", "onCreateMenuItemSelected", "onEditMenuItemSelected", "setExpanded"}]
+      102 GETTABLEKS                       R13 R0 K6 ["action"]
+      104 SETTABLEKS                       R13 R12 K6 ["action"]
+      106 GETTABLEKS                       R13 R0 K18 ["createMenu"]
+      108 SETTABLEKS                       R13 R12 K18 ["createMenu"]
+      110 SETTABLEKS                       R5 R12 K19 ["depth"]
+      112 SETTABLEKS                       R7 R12 K20 ["editMenu"]
+      114 LOADB                            R13 1
+      115 GETTABLEKS                       R14 R0 K13 ["onCreated"]
+      117 JUMPIFNOTEQKNIL                  R14 ; [+3]
+      119 GETTABLEKS                       R13 R3 K21 ["expanded"]
+      121 SETTABLEKS                       R13 R12 K21 ["expanded"]
+      123 GETTABLEKS                       R14 R0 K11 ["name"]
+      125 JUMPIFNOT                        R14 ; [+2]
+      126 LOADK                            R13 K27 ["InputAction"]
+      127 JUMP                             ; [+1]
+      128 LOADK                            R13 K28 ["InputBinding"]
+      129 SETTABLEKS                       R13 R12 K22 ["icon"]
+      131 GETTABLEKS                       R13 R0 K11 ["name"]
+      133 JUMPIF                           R13 ; [+5]
+      134 LOADK                            R15 K29 ["Binding"]
+      135 LOADK                            R16 K9 ["Composite"]
+      136 NAMECALL                         R13 R1 K30 ["getText"]
+      138 CALL                             R13 3 1
+      139 SETTABLEKS                       R13 R12 K11 ["name"]
+      141 GETTABLEKS                       R13 R0 K23 ["onCreateMenuItemSelected"]
+      143 SETTABLEKS                       R13 R12 K23 ["onCreateMenuItemSelected"]
+      145 GETTABLEKS                       R13 R3 K24 ["onEditMenuItemSelected"]
+      147 SETTABLEKS                       R13 R12 K24 ["onEditMenuItemSelected"]
+      149 GETTABLEKS                       R14 R0 K13 ["onCreated"]
+      151 JUMPIFNOTEQKNIL                  R14 ; [+4]
+      153 GETTABLEKS                       R13 R3 K25 ["setExpanded"]
+      155 JUMP                             ; [+1]
+      156 LOADNIL                          R13
+      157 SETTABLEKS                       R13 R12 K25 ["setExpanded"]
+      159 SETTABLEKS                       R12 R11 K15 ["nodeProps"]
+      161 GETTABLEKS                       R12 R0 K16 ["previousBindings"]
+      163 SETTABLEKS                       R12 R11 K16 ["previousBindings"]
+      165 CALL                             R9 2 1
+      166 SETTABLEKS                       R9 R8 K31 ["header"]
+      168 GETTABLEKS                       R9 R3 K21 ["expanded"]
+      170 JUMPIF                           R9 ; [+3]
+      171 GETTABLEKS                       R9 R0 K13 ["onCreated"]
+      173 JUMPIFNOT                        R9 ; [+177]
+      174 GETTABLEKS                       R9 R3 K32 ["showPrimaryModifier"]
+      176 JUMPIFNOT                        R9 ; [+57]
+      177 GETUPVAL                         R9 0
+      178 GETTABLEKS                       R9 R9 K14 ["createElement"]
+      180 GETUPVAL                         R10 7
+      181 DUPTABLE                         R11 K37 [{["bindings"], ["index"], ["LayoutOrder"], ["nodeProps"], ["onCreated"], ["previousBindings"], ["property"] = "primaryModifier", ["validBindingsBySchema"]}]
+      182 GETTABLEKS                       R12 R0 K3 ["bindings"]
+      184 SETTABLEKS                       R12 R11 K3 ["bindings"]
+      186 GETTABLEKS                       R12 R0 K33 ["index"]
+      188 SETTABLEKS                       R12 R11 K33 ["index"]
+      190 MOVE                             R12 R2
+      191 CALL                             R12 0 1
+      192 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      194 DUPTABLE                         R12 K38 [{["action"], ["depth"], ["editMenu"], ["icon"] = "InputBinding", ["name"], ["onEditMenuItemSelected"]}]
+      195 GETTABLEKS                       R13 R0 K6 ["action"]
+      197 SETTABLEKS                       R13 R12 K6 ["action"]
+      199 ADDK                             R13 R5 K39 [1]
+      200 SETTABLEKS                       R13 R12 K19 ["depth"]
+      202 GETTABLEKS                       R13 R3 K40 ["primaryModifierMenu"]
+      204 SETTABLEKS                       R13 R12 K20 ["editMenu"]
+      206 LOADK                            R15 K29 ["Binding"]
+      207 LOADK                            R16 K41 ["PrimaryModifier"]
+      208 NAMECALL                         R13 R1 K30 ["getText"]
+      210 CALL                             R13 3 1
+      211 SETTABLEKS                       R13 R12 K11 ["name"]
+      213 GETTABLEKS                       R13 R3 K42 ["onPrimaryModifierMenuItemSelected"]
+      215 SETTABLEKS                       R13 R12 K24 ["onEditMenuItemSelected"]
+      217 SETTABLEKS                       R12 R11 K15 ["nodeProps"]
+      219 GETTABLEKS                       R12 R0 K13 ["onCreated"]
+      221 SETTABLEKS                       R12 R11 K13 ["onCreated"]
+      223 GETTABLEKS                       R12 R0 K16 ["previousBindings"]
+      225 SETTABLEKS                       R12 R11 K16 ["previousBindings"]
+      227 GETTABLEKS                       R12 R0 K36 ["validBindingsBySchema"]
+      229 SETTABLEKS                       R12 R11 K36 ["validBindingsBySchema"]
+      231 CALL                             R9 2 1
+      232 SETTABLEKS                       R9 R8 K35 ["primaryModifier"]
+      234 GETTABLEKS                       R9 R3 K43 ["showSecondaryModifier"]
+      236 JUMPIFNOT                        R9 ; [+57]
+      237 GETUPVAL                         R9 0
+      238 GETTABLEKS                       R9 R9 K14 ["createElement"]
+      240 GETUPVAL                         R10 7
+      241 DUPTABLE                         R11 K45 [{["bindings"], ["index"], ["LayoutOrder"], ["nodeProps"], ["onCreated"], ["previousBindings"], ["property"] = "secondaryModifier", ["validBindingsBySchema"]}]
+      242 GETTABLEKS                       R12 R0 K3 ["bindings"]
+      244 SETTABLEKS                       R12 R11 K3 ["bindings"]
+      246 GETTABLEKS                       R12 R0 K33 ["index"]
+      248 SETTABLEKS                       R12 R11 K33 ["index"]
+      250 MOVE                             R12 R2
+      251 CALL                             R12 0 1
+      252 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      254 DUPTABLE                         R12 K38 [{["action"], ["depth"], ["editMenu"], ["icon"] = "InputBinding", ["name"], ["onEditMenuItemSelected"]}]
+      255 GETTABLEKS                       R13 R0 K6 ["action"]
+      257 SETTABLEKS                       R13 R12 K6 ["action"]
+      259 ADDK                             R13 R5 K39 [1]
+      260 SETTABLEKS                       R13 R12 K19 ["depth"]
+      262 GETTABLEKS                       R13 R3 K46 ["secondaryModifierMenu"]
+      264 SETTABLEKS                       R13 R12 K20 ["editMenu"]
+      266 LOADK                            R15 K29 ["Binding"]
+      267 LOADK                            R16 K47 ["SecondaryModifier"]
+      268 NAMECALL                         R13 R1 K30 ["getText"]
+      270 CALL                             R13 3 1
+      271 SETTABLEKS                       R13 R12 K11 ["name"]
+      273 GETTABLEKS                       R13 R3 K48 ["onSecondaryModifierMenuItemSelected"]
+      275 SETTABLEKS                       R13 R12 K24 ["onEditMenuItemSelected"]
+      277 SETTABLEKS                       R12 R11 K15 ["nodeProps"]
+      279 GETTABLEKS                       R12 R0 K13 ["onCreated"]
+      281 SETTABLEKS                       R12 R11 K13 ["onCreated"]
+      283 GETTABLEKS                       R12 R0 K16 ["previousBindings"]
+      285 SETTABLEKS                       R12 R11 K16 ["previousBindings"]
+      287 GETTABLEKS                       R12 R0 K36 ["validBindingsBySchema"]
+      289 SETTABLEKS                       R12 R11 K36 ["validBindingsBySchema"]
+      291 CALL                             R9 2 1
+      292 SETTABLEKS                       R9 R8 K44 ["secondaryModifier"]
+      294 MOVE                             R9 R6
+      295 LOADNIL                          R10
+      296 LOADNIL                          R11
+      297 FORGPREP                         R9
+      298 GETUPVAL                         R14 0
+      299 GETTABLEKS                       R14 R14 K14 ["createElement"]
+      301 GETUPVAL                         R15 7
+      302 DUPTABLE                         R16 K49 [{"bindings", "index", "LayoutOrder", "nodeProps", "onCreated", "previousBindings", "property", "validBindingsBySchema"}]
+      303 GETTABLEKS                       R17 R0 K3 ["bindings"]
+      305 SETTABLEKS                       R17 R16 K3 ["bindings"]
+      307 GETTABLEKS                       R17 R0 K33 ["index"]
+      309 SETTABLEKS                       R17 R16 K33 ["index"]
+      311 MOVE                             R17 R2
+      312 CALL                             R17 0 1
+      313 SETTABLEKS                       R17 R16 K8 ["LayoutOrder"]
+      315 DUPTABLE                         R17 K50 [{["action"], ["depth"], ["icon"] = "InputBinding", ["name"]}]
+      316 GETTABLEKS                       R18 R0 K6 ["action"]
+      318 SETTABLEKS                       R18 R17 K6 ["action"]
+      320 ADDK                             R18 R5 K39 [1]
+      321 SETTABLEKS                       R18 R17 K19 ["depth"]
+      323 LOADK                            R20 K29 ["Binding"]
+      324 GETUPVAL                         R22 8
+      325 GETTABLE                         R21 R22 R13
+      326 NAMECALL                         R18 R1 K30 ["getText"]
+      328 CALL                             R18 3 1
+      329 SETTABLEKS                       R18 R17 K11 ["name"]
+      331 SETTABLEKS                       R17 R16 K15 ["nodeProps"]
+      333 GETTABLEKS                       R17 R0 K13 ["onCreated"]
+      335 SETTABLEKS                       R17 R16 K13 ["onCreated"]
+      337 GETTABLEKS                       R17 R0 K16 ["previousBindings"]
+      339 SETTABLEKS                       R17 R16 K16 ["previousBindings"]
+      341 SETTABLEKS                       R13 R16 K34 ["property"]
+      343 GETTABLEKS                       R17 R0 K36 ["validBindingsBySchema"]
+      345 SETTABLEKS                       R17 R16 K36 ["validBindingsBySchema"]
+      347 CALL                             R14 2 1
+      348 SETTABLE                         R14 R8 R13
+      349 FORGLOOP                         R9 2 ; [-52]
+      351 GETUPVAL                         R9 0
+      352 GETTABLEKS                       R9 R9 K14 ["createElement"]
+      354 GETUPVAL                         R10 9
+      355 DUPTABLE                         R11 K54 [{["LayoutOrder"], ["tag"] = "col size-full-0 auto-y", ["testId"]}]
+      356 GETTABLEKS                       R12 R0 K8 ["LayoutOrder"]
+      358 SETTABLEKS                       R12 R11 K8 ["LayoutOrder"]
+      360 LOADK                            R13 K55 ["composite-binding-%*"]
+      361 GETTABLEKS                       R15 R0 K33 ["index"]
+      363 NAMECALL                         R13 R13 K56 ["format"]
+      365 CALL                             R13 2 1
+      366 MOVE                             R12 R13
+      367 SETTABLEKS                       R12 R11 K53 ["testId"]
+      369 MOVE                             R12 R8
+      370 CALL                             R9 3 -1
+      371 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -321,62 +336,31 @@ MAIN:
        74 GETIMPORT                        R10 K5 [require]
        76 GETTABLEKS                       R11 R0 K14 ["Src"]
        78 GETTABLEKS                       R11 R11 K21 ["Util"]
-       80 GETTABLEKS                       R11 R11 K22 ["Menus"]
-       82 GETTABLEKS                       R11 R11 K23 ["getEditMenu"]
+       80 GETTABLEKS                       R11 R11 K22 ["Constants"]
+       82 GETTABLEKS                       R11 R11 K23 ["DirectionPropertyNames"]
        84 CALL                             R10 1 1
        85 GETIMPORT                        R11 K5 [require]
        87 GETTABLEKS                       R12 R0 K14 ["Src"]
-       89 GETTABLEKS                       R12 R12 K24 ["Hooks"]
-       91 GETTABLEKS                       R12 R12 K25 ["Binding"]
-       93 GETTABLEKS                       R12 R12 K26 ["useBinding"]
+       89 GETTABLEKS                       R12 R12 K21 ["Util"]
+       91 GETTABLEKS                       R12 R12 K24 ["Menus"]
+       93 GETTABLEKS                       R12 R12 K25 ["getEditMenu"]
        95 CALL                             R11 1 1
-       96 NEWTABLE                         R12 4 0
-       98 GETIMPORT                        R13 K30 [Enum.InputActionType.Direction1D]
-      100 NEWTABLE                         R14 0 2
-      102 LOADK                            R15 K31 ["up"]
-      103 LOADK                            R16 K32 ["down"]
-      104 SETLIST                          R14 R15 2 [1]
-      106 SETTABLE                         R14 R12 R13
-      107 GETIMPORT                        R13 K34 [Enum.InputActionType.Direction2D]
-      109 NEWTABLE                         R14 0 4
-      111 LOADK                            R15 K31 ["up"]
-      112 LOADK                            R16 K35 ["left"]
-      113 LOADK                            R17 K32 ["down"]
-      114 LOADK                            R18 K36 ["right"]
-      115 SETLIST                          R14 R15 4 [1]
-      117 SETTABLE                         R14 R12 R13
-      118 GETIMPORT                        R13 K38 [Enum.InputActionType.Direction3D]
-      120 NEWTABLE                         R14 0 6
-      122 LOADK                            R15 K31 ["up"]
-      123 LOADK                            R16 K35 ["left"]
-      124 LOADK                            R17 K39 ["forward"]
-      125 LOADK                            R18 K32 ["down"]
-      126 LOADK                            R19 K36 ["right"]
-      127 LOADK                            R20 K40 ["backward"]
-      128 SETLIST                          R14 R15 6 [1]
-      130 SETTABLE                         R14 R12 R13
-      131 DUPTABLE                         R13 K41 [{"up", "left", "forward", "down", "right", "backward"}]
-      132 LOADK                            R14 K42 ["Up"]
-      133 SETTABLEKS                       R14 R13 K31 ["up"]
-      135 LOADK                            R14 K43 ["Left"]
-      136 SETTABLEKS                       R14 R13 K35 ["left"]
-      138 LOADK                            R14 K44 ["Forward"]
-      139 SETTABLEKS                       R14 R13 K39 ["forward"]
-      141 LOADK                            R14 K45 ["Down"]
-      142 SETTABLEKS                       R14 R13 K32 ["down"]
-      144 LOADK                            R14 K46 ["Right"]
-      145 SETTABLEKS                       R14 R13 K36 ["right"]
-      147 LOADK                            R14 K47 ["Backward"]
-      148 SETTABLEKS                       R14 R13 K40 ["backward"]
-      150 DUPCLOSURE                       R14 K48 [PROTO_4]
-      151 CAPTURE                          VAL R1
-      152 CAPTURE                          VAL R5
-      153 CAPTURE                          VAL R2
-      154 CAPTURE                          VAL R11
-      155 CAPTURE                          VAL R12
-      156 CAPTURE                          VAL R10
-      157 CAPTURE                          VAL R8
-      158 CAPTURE                          VAL R7
-      159 CAPTURE                          VAL R13
-      160 CAPTURE                          VAL R6
-      161 RETURN                           R14 1
+       96 GETIMPORT                        R12 K5 [require]
+       98 GETTABLEKS                       R13 R0 K14 ["Src"]
+      100 GETTABLEKS                       R13 R13 K26 ["Hooks"]
+      102 GETTABLEKS                       R13 R13 K27 ["Binding"]
+      104 GETTABLEKS                       R13 R13 K28 ["useBinding"]
+      106 CALL                             R12 1 1
+      107 DUPTABLE                         R13 K41 [{["up"] = "Up", ["left"] = "Left", ["forward"] = "Forward", ["down"] = "Down", ["right"] = "Right", ["backward"] = "Backward"}]
+      108 DUPCLOSURE                       R14 K42 [PROTO_4]
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R2
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R10
+      114 CAPTURE                          VAL R11
+      115 CAPTURE                          VAL R8
+      116 CAPTURE                          VAL R7
+      117 CAPTURE                          VAL R13
+      118 CAPTURE                          VAL R6
+      119 RETURN                           R14 1

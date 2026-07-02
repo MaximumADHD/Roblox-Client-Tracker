@@ -8,61 +8,66 @@ PROTO_0:
         9 GETUPVAL                         R5 0
        10 GETTABLEKS                       R5 R5 K0 ["createElement"]
        12 GETUPVAL                         R6 1
-       13 DUPTABLE                         R7 K16 [{"align", "anchorRef", "size", "isOpen", "items", "maxHeight", "onActivated", "radius", "side", "testId", "width"}]
+       13 DUPTABLE                         R7 K18 [{["align"], ["anchorRef"], ["size"], ["isOpen"], ["items"], ["maxHeight"] = 200, ["onActivated"], ["onPressedOutside"], ["radius"], ["side"], ["testId"], ["width"]}]
        14 GETUPVAL                         R8 2
-       15 GETTABLEKS                       R8 R8 K17 ["End"]
+       15 GETTABLEKS                       R8 R8 K19 ["End"]
        17 SETTABLEKS                       R8 R7 K5 ["align"]
        19 GETTABLEKS                       R8 R0 K6 ["anchorRef"]
        21 SETTABLEKS                       R8 R7 K6 ["anchorRef"]
        23 GETUPVAL                         R8 3
-       24 GETTABLEKS                       R8 R8 K18 ["Medium"]
+       24 GETTABLEKS                       R8 R8 K20 ["Medium"]
        26 SETTABLEKS                       R8 R7 K7 ["size"]
        28 GETTABLEKS                       R8 R0 K8 ["isOpen"]
        30 SETTABLEKS                       R8 R7 K8 ["isOpen"]
        32 GETTABLEKS                       R8 R0 K9 ["items"]
        34 SETTABLEKS                       R8 R7 K9 ["items"]
-       36 LOADN                            R8 200
-       37 SETTABLEKS                       R8 R7 K10 ["maxHeight"]
-       39 GETTABLEKS                       R8 R0 K19 ["onItemChanged"]
-       41 SETTABLEKS                       R8 R7 K11 ["onActivated"]
-       43 GETUPVAL                         R8 4
-       44 GETTABLEKS                       R8 R8 K18 ["Medium"]
-       46 SETTABLEKS                       R8 R7 K12 ["radius"]
-       48 GETUPVAL                         R8 5
-       49 GETTABLEKS                       R8 R8 K20 ["Bottom"]
-       51 SETTABLEKS                       R8 R7 K13 ["side"]
-       53 LOADK                            R9 K21 ["%*-%*-Dropdown"]
-       54 GETTABLEKS                       R11 R0 K22 ["property"]
-       56 GETTABLEKS                       R12 R0 K23 ["schema"]
-       58 NAMECALL                         R9 R9 K24 ["format"]
-       60 CALL                             R9 3 1
-       61 MOVE                             R8 R9
-       62 SETTABLEKS                       R8 R7 K14 ["testId"]
-       64 GETIMPORT                        R8 K27 [UDim.new]
-       66 LOADN                            R9 0
-       67 GETTABLEKS                       R11 R0 K6 ["anchorRef"]
-       69 GETTABLEKS                       R11 R11 K28 ["current"]
-       71 JUMPIFNOT                        R11 ; [+9]
-       72 GETTABLEKS                       R10 R0 K6 ["anchorRef"]
-       74 GETTABLEKS                       R10 R10 K28 ["current"]
-       76 GETTABLEKS                       R10 R10 K29 ["AbsoluteSize"]
-       78 GETTABLEKS                       R10 R10 K30 ["X"]
-       80 JUMP                             ; [+1]
-       81 LOADN                            R10 0
-       82 CALL                             R8 2 1
-       83 SETTABLEKS                       R8 R7 K15 ["width"]
-       85 CALL                             R5 2 1
-       86 SETTABLEKS                       R5 R4 K2 ["Menu"]
-       88 GETUPVAL                         R5 0
-       89 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       91 GETUPVAL                         R6 0
-       92 GETTABLEKS                       R6 R6 K1 ["Fragment"]
-       94 NEWTABLE                         R7 0 0
-       96 GETTABLEKS                       R8 R0 K31 ["children"]
-       98 CALL                             R5 3 1
-       99 SETTABLEKS                       R5 R4 K3 ["Control"]
-      101 CALL                             R1 3 -1
-      102 RETURN                           R1 -1
+       36 GETTABLEKS                       R8 R0 K21 ["onItemChanged"]
+       38 SETTABLEKS                       R8 R7 K12 ["onActivated"]
+       40 GETUPVAL                         R9 4
+       41 CALL                             R9 0 1
+       42 JUMPIFNOT                        R9 ; [+3]
+       43 GETTABLEKS                       R8 R0 K22 ["onCloseMenu"]
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R8
+       47 SETTABLEKS                       R8 R7 K13 ["onPressedOutside"]
+       49 GETUPVAL                         R8 5
+       50 GETTABLEKS                       R8 R8 K20 ["Medium"]
+       52 SETTABLEKS                       R8 R7 K14 ["radius"]
+       54 GETUPVAL                         R8 6
+       55 GETTABLEKS                       R8 R8 K23 ["Bottom"]
+       57 SETTABLEKS                       R8 R7 K15 ["side"]
+       59 LOADK                            R9 K24 ["%*-%*-Dropdown"]
+       60 GETTABLEKS                       R11 R0 K25 ["property"]
+       62 GETTABLEKS                       R12 R0 K26 ["schema"]
+       64 NAMECALL                         R9 R9 K27 ["format"]
+       66 CALL                             R9 3 1
+       67 MOVE                             R8 R9
+       68 SETTABLEKS                       R8 R7 K16 ["testId"]
+       70 GETIMPORT                        R8 K30 [UDim.new]
+       72 LOADN                            R9 0
+       73 GETTABLEKS                       R11 R0 K6 ["anchorRef"]
+       75 GETTABLEKS                       R11 R11 K31 ["current"]
+       77 JUMPIFNOT                        R11 ; [+9]
+       78 GETTABLEKS                       R10 R0 K6 ["anchorRef"]
+       80 GETTABLEKS                       R10 R10 K31 ["current"]
+       82 GETTABLEKS                       R10 R10 K32 ["AbsoluteSize"]
+       84 GETTABLEKS                       R10 R10 K33 ["X"]
+       86 JUMP                             ; [+1]
+       87 LOADN                            R10 0
+       88 CALL                             R8 2 1
+       89 SETTABLEKS                       R8 R7 K17 ["width"]
+       91 CALL                             R5 2 1
+       92 SETTABLEKS                       R5 R4 K2 ["Menu"]
+       94 GETUPVAL                         R5 0
+       95 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       97 GETUPVAL                         R6 0
+       98 GETTABLEKS                       R6 R6 K1 ["Fragment"]
+      100 NEWTABLE                         R7 0 0
+      102 GETTABLEKS                       R8 R0 K34 ["children"]
+      104 CALL                             R5 3 1
+      105 SETTABLEKS                       R5 R4 K3 ["Control"]
+      107 CALL                             R1 3 -1
+      108 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -91,11 +96,17 @@ MAIN:
        40 GETTABLEKS                       R7 R7 K15 ["PopoverSide"]
        42 GETTABLEKS                       R8 R2 K12 ["Enums"]
        44 GETTABLEKS                       R8 R8 K16 ["Radius"]
-       46 DUPCLOSURE                       R9 K17 [PROTO_0]
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R4
-       49 CAPTURE                          VAL R6
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          VAL R7
-       53 RETURN                           R9 1
+       46 GETTABLEKS                       R9 R0 K9 ["Src"]
+       48 GETTABLEKS                       R9 R9 K17 ["Flags"]
+       50 GETIMPORT                        R10 K5 [require]
+       52 GETTABLEKS                       R11 R9 K18 ["getFFlagIAMDropdownStabilityImprovements"]
+       54 CALL                             R10 1 1
+       55 DUPCLOSURE                       R11 K19 [PROTO_0]
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R4
+       58 CAPTURE                          VAL R6
+       59 CAPTURE                          VAL R5
+       60 CAPTURE                          VAL R10
+       61 CAPTURE                          VAL R8
+       62 CAPTURE                          VAL R7
+       63 RETURN                           R11 1

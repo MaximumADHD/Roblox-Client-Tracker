@@ -1,21 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K1 [{"selectedIndex"}]
-        1 LOADN                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["selectedIndex"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = 1}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
         2 GETTABLEKS                       R3 R2 K1 ["AudioType"]
         4 GETTABLEKS                       R4 R1 K1 ["AudioType"]
-        6 JUMPIFEQ                         R3 R4 ; [+8]
-        8 DUPTABLE                         R5 K3 [{"selectedIndex"}]
-        9 LOADN                            R6 1
-       10 SETTABLEKS                       R6 R5 K2 ["selectedIndex"]
-       12 NAMECALL                         R3 R0 K4 ["setState"]
-       14 CALL                             R3 2 0
-       15 RETURN                           R0 0
+        6 JUMPIFEQ                         R3 R4 ; [+5]
+        8 DUPTABLE                         R5 K4 [{["selectedIndex"] = 1}]
+        9 NAMECALL                         R3 R0 K5 ["setState"]
+       11 CALL                             R3 2 0
+       12 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R3 R0 K0 ["index"]
@@ -58,94 +54,90 @@ PROTO_5:
        26 GETTABLEKS                       R9 R1 K10 ["Subcategories"]
        28 GETTABLEKS                       R8 R9 K11 ["sound-effect"]
        30 NEWTABLE                         R9 0 0
-       32 DUPTABLE                         R12 K13 [{"index", "name"}]
-       33 LOADN                            R13 1
-       34 SETTABLEKS                       R13 R12 K12 ["index"]
-       36 GETUPVAL                         R14 0
-       37 GETTABLEKS                       R14 R14 K7 ["MUSIC"]
-       39 GETTABLEKS                       R14 R14 K8 ["name"]
-       41 JUMPIFNOTEQ                      R14 R6 ; [+7]
-       43 LOADK                            R15 K14 ["Audio.Music"]
-       44 LOADK                            R16 K15 ["Browse"]
-       45 NAMECALL                         R13 R3 K16 ["getText"]
-       47 CALL                             R13 3 1
-       48 JUMP                             ; [+5]
-       49 LOADK                            R15 K17 ["Audio.SoundEffect"]
-       50 LOADK                            R16 K15 ["Browse"]
-       51 NAMECALL                         R13 R3 K16 ["getText"]
-       53 CALL                             R13 3 1
-       54 SETTABLEKS                       R13 R12 K8 ["name"]
-       56 FASTCALL2                        TABLE_INSERT R9 R12 ; [+4]
-       58 MOVE                             R11 R9
-       59 GETIMPORT                        R10 K20 [table.insert]
-       61 CALL                             R10 2 0
-       62 JUMPIFNOT                        R8 ; [+46]
-       63 GETTABLEKS                       R10 R8 K21 ["children"]
-       65 JUMPIFNOT                        R10 ; [+43]
-       66 GETIMPORT                        R10 K23 [pairs]
-       68 GETTABLEKS                       R11 R8 K21 ["children"]
-       70 CALL                             R10 1 3
-       71 FORGPREP_NEXT                    R10
-       72 GETUPVAL                         R16 0
-       73 GETTABLEKS                       R16 R16 K7 ["MUSIC"]
-       75 GETTABLEKS                       R16 R16 K8 ["name"]
-       77 JUMPIFNOTEQ                      R16 R6 ; [+3]
-       79 LOADK                            R15 K24 ["Audio.Music.Genre"]
-       80 JUMP                             ; [+1]
-       81 LOADK                            R15 K25 ["Audio.SoundEffect.Category"]
-       82 GETTABLEKS                       R16 R14 K26 ["hidden"]
-       84 JUMPIF                           R16 ; [+22]
-       85 DUPTABLE                         R16 K28 [{"name", "subcategory", "index"}]
-       86 MOVE                             R19 R15
-       87 MOVE                             R20 R13
-       88 NAMECALL                         R17 R3 K16 ["getText"]
-       90 CALL                             R17 3 1
-       91 SETTABLEKS                       R17 R16 K8 ["name"]
-       93 SETTABLEKS                       R14 R16 K27 ["subcategory"]
-       95 GETTABLEKS                       R18 R14 K12 ["index"]
-       97 ADDK                             R17 R18 K29 [1]
-       98 SETTABLEKS                       R17 R16 K12 ["index"]
-      100 FASTCALL2                        TABLE_INSERT R9 R16 ; [+5]
-      102 MOVE                             R18 R9
-      103 MOVE                             R19 R16
-      104 GETIMPORT                        R17 K20 [table.insert]
-      106 CALL                             R17 2 0
-      107 FORGLOOP                         R10 2 ; [-36]
-      109 GETUPVAL                         R10 1
-      110 GETTABLEKS                       R10 R10 K30 ["sort"]
-      112 MOVE                             R11 R9
-      113 DUPCLOSURE                       R12 K31 [PROTO_2]
-      114 CALL                             R10 2 1
-      115 MOVE                             R9 R10
-      116 NEWCLOSURE                       R10 P1
-      117 CAPTURE                          VAL R0
-      118 CAPTURE                          VAL R5
-      119 CAPTURE                          REF R9
-      120 GETUPVAL                         R11 2
-      121 GETTABLEKS                       R11 R11 K32 ["createElement"]
-      123 GETUPVAL                         R12 3
-      124 DUPTABLE                         R13 K40 [{"Size", "visibleDropDownCount", "selectedDropDownIndex", "fontSize", "items", "onItemClicked", "setDropdownHeight", "LayoutOrder"}]
-      125 GETIMPORT                        R14 K43 [UDim2.new]
-      127 LOADN                            R15 1
-      128 LOADN                            R16 0
-      129 LOADN                            R17 0
-      130 LOADN                            R18 40
-      131 CALL                             R14 4 1
-      132 SETTABLEKS                       R14 R13 K33 ["Size"]
-      134 LOADN                            R14 5
-      135 SETTABLEKS                       R14 R13 K34 ["visibleDropDownCount"]
-      137 SETTABLEKS                       R7 R13 K35 ["selectedDropDownIndex"]
-      139 GETUPVAL                         R14 4
-      140 GETTABLEKS                       R14 R14 K44 ["FONT_SIZE_LARGE"]
-      142 SETTABLEKS                       R14 R13 K36 ["fontSize"]
-      144 SETTABLEKS                       R9 R13 K37 ["items"]
-      146 SETTABLEKS                       R10 R13 K38 ["onItemClicked"]
-      148 DUPCLOSURE                       R14 K45 [PROTO_4]
-      149 SETTABLEKS                       R14 R13 K39 ["setDropdownHeight"]
-      151 SETTABLEKS                       R4 R13 K3 ["LayoutOrder"]
-      153 CALL                             R11 2 -1
-      154 CLOSEUPVALS                      R9
-      155 RETURN                           R11 -1
+       32 DUPTABLE                         R12 K14 [{["index"] = 1, ["name"]}]
+       33 GETUPVAL                         R14 0
+       34 GETTABLEKS                       R14 R14 K7 ["MUSIC"]
+       36 GETTABLEKS                       R14 R14 K8 ["name"]
+       38 JUMPIFNOTEQ                      R14 R6 ; [+7]
+       40 LOADK                            R15 K15 ["Audio.Music"]
+       41 LOADK                            R16 K16 ["Browse"]
+       42 NAMECALL                         R13 R3 K17 ["getText"]
+       44 CALL                             R13 3 1
+       45 JUMP                             ; [+5]
+       46 LOADK                            R15 K18 ["Audio.SoundEffect"]
+       47 LOADK                            R16 K16 ["Browse"]
+       48 NAMECALL                         R13 R3 K17 ["getText"]
+       50 CALL                             R13 3 1
+       51 SETTABLEKS                       R13 R12 K8 ["name"]
+       53 FASTCALL2                        TABLE_INSERT R9 R12 ; [+4]
+       55 MOVE                             R11 R9
+       56 GETIMPORT                        R10 K21 [table.insert]
+       58 CALL                             R10 2 0
+       59 JUMPIFNOT                        R8 ; [+46]
+       60 GETTABLEKS                       R10 R8 K22 ["children"]
+       62 JUMPIFNOT                        R10 ; [+43]
+       63 GETIMPORT                        R10 K24 [pairs]
+       65 GETTABLEKS                       R11 R8 K22 ["children"]
+       67 CALL                             R10 1 3
+       68 FORGPREP_NEXT                    R10
+       69 GETUPVAL                         R16 0
+       70 GETTABLEKS                       R16 R16 K7 ["MUSIC"]
+       72 GETTABLEKS                       R16 R16 K8 ["name"]
+       74 JUMPIFNOTEQ                      R16 R6 ; [+3]
+       76 LOADK                            R15 K25 ["Audio.Music.Genre"]
+       77 JUMP                             ; [+1]
+       78 LOADK                            R15 K26 ["Audio.SoundEffect.Category"]
+       79 GETTABLEKS                       R16 R14 K27 ["hidden"]
+       81 JUMPIF                           R16 ; [+22]
+       82 DUPTABLE                         R16 K29 [{"name", "subcategory", "index"}]
+       83 MOVE                             R19 R15
+       84 MOVE                             R20 R13
+       85 NAMECALL                         R17 R3 K17 ["getText"]
+       87 CALL                             R17 3 1
+       88 SETTABLEKS                       R17 R16 K8 ["name"]
+       90 SETTABLEKS                       R14 R16 K28 ["subcategory"]
+       92 GETTABLEKS                       R18 R14 K12 ["index"]
+       94 ADDK                             R17 R18 K13 [1]
+       95 SETTABLEKS                       R17 R16 K12 ["index"]
+       97 FASTCALL2                        TABLE_INSERT R9 R16 ; [+5]
+       99 MOVE                             R18 R9
+      100 MOVE                             R19 R16
+      101 GETIMPORT                        R17 K21 [table.insert]
+      103 CALL                             R17 2 0
+      104 FORGLOOP                         R10 2 ; [-36]
+      106 GETUPVAL                         R10 1
+      107 GETTABLEKS                       R10 R10 K30 ["sort"]
+      109 MOVE                             R11 R9
+      110 DUPCLOSURE                       R12 K31 [PROTO_2]
+      111 CALL                             R10 2 1
+      112 MOVE                             R9 R10
+      113 NEWCLOSURE                       R10 P1
+      114 CAPTURE                          VAL R0
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          REF R9
+      117 GETUPVAL                         R11 2
+      118 GETTABLEKS                       R11 R11 K32 ["createElement"]
+      120 GETUPVAL                         R12 3
+      121 DUPTABLE                         R13 K41 [{["Size"], ["visibleDropDownCount"] = 5, ["selectedDropDownIndex"], ["fontSize"], ["items"], ["onItemClicked"], ["setDropdownHeight"], ["LayoutOrder"]}]
+      122 GETIMPORT                        R14 K44 [UDim2.new]
+      124 LOADN                            R15 1
+      125 LOADN                            R16 0
+      126 LOADN                            R17 0
+      127 LOADN                            R18 40
+      128 CALL                             R14 4 1
+      129 SETTABLEKS                       R14 R13 K33 ["Size"]
+      131 SETTABLEKS                       R7 R13 K36 ["selectedDropDownIndex"]
+      133 GETUPVAL                         R14 4
+      134 GETTABLEKS                       R14 R14 K45 ["FONT_SIZE_LARGE"]
+      136 SETTABLEKS                       R14 R13 K37 ["fontSize"]
+      138 SETTABLEKS                       R9 R13 K38 ["items"]
+      140 SETTABLEKS                       R10 R13 K39 ["onItemClicked"]
+      142 DUPCLOSURE                       R14 K46 [PROTO_4]
+      143 SETTABLEKS                       R14 R13 K40 ["setDropdownHeight"]
+      145 SETTABLEKS                       R4 R13 K3 ["LayoutOrder"]
+      147 CALL                             R11 2 -1
+      148 CLOSEUPVALS                      R9
+      149 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

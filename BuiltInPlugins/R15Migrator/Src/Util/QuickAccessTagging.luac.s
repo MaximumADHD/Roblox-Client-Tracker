@@ -68,28 +68,26 @@ MAIN:
        19 GETTABLEKS                       R3 R3 K12 ["Constants"]
        21 CALL                             R2 1 1
        22 GETTABLEKS                       R3 R2 K13 ["NonePublishTags"]
-       24 DUPTABLE                         R4 K15 [{"_tag"}]
-       25 LOADNIL                          R5
-       26 SETTABLEKS                       R5 R4 K14 ["_tag"]
-       28 SETTABLEKS                       R4 R4 K16 ["__index"]
-       30 DUPCLOSURE                       R5 K17 [PROTO_0]
-       31 CAPTURE                          VAL R4
-       32 SETTABLEKS                       R5 R4 K18 ["new"]
-       34 DUPCLOSURE                       R5 K19 [PROTO_1]
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R5 R4 K20 ["addTag"]
-       38 DUPCLOSURE                       R5 K21 [PROTO_2]
-       39 CAPTURE                          VAL R0
-       40 SETTABLEKS                       R5 R4 K22 ["removeTag"]
-       42 DUPCLOSURE                       R5 K23 [PROTO_3]
-       43 CAPTURE                          VAL R0
-       44 SETTABLEKS                       R5 R4 K24 ["getTagged"]
-       46 NEWTABLE                         R5 2 0
-       48 DUPCLOSURE                       R6 K25 [PROTO_4]
-       49 CAPTURE                          VAL R5
-       50 SETTABLEKS                       R6 R5 K26 ["clearTags"]
-       52 GETTABLEKS                       R6 R4 K18 ["new"]
-       54 GETTABLEKS                       R7 R3 K27 ["CharactersConvertedToR15Tag"]
-       56 CALL                             R6 1 1
-       57 SETTABLEKS                       R6 R5 K28 ["CharactersConvertedToR15Tagging"]
-       59 RETURN                           R5 1
+       24 DUPTABLE                         R4 K16 [{["_tag"] = }]
+       25 SETTABLEKS                       R4 R4 K17 ["__index"]
+       27 DUPCLOSURE                       R5 K18 [PROTO_0]
+       28 CAPTURE                          VAL R4
+       29 SETTABLEKS                       R5 R4 K19 ["new"]
+       31 DUPCLOSURE                       R5 K20 [PROTO_1]
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R5 R4 K21 ["addTag"]
+       35 DUPCLOSURE                       R5 K22 [PROTO_2]
+       36 CAPTURE                          VAL R0
+       37 SETTABLEKS                       R5 R4 K23 ["removeTag"]
+       39 DUPCLOSURE                       R5 K24 [PROTO_3]
+       40 CAPTURE                          VAL R0
+       41 SETTABLEKS                       R5 R4 K25 ["getTagged"]
+       43 NEWTABLE                         R5 2 0
+       45 DUPCLOSURE                       R6 K26 [PROTO_4]
+       46 CAPTURE                          VAL R5
+       47 SETTABLEKS                       R6 R5 K27 ["clearTags"]
+       49 GETTABLEKS                       R6 R4 K19 ["new"]
+       51 GETTABLEKS                       R7 R3 K28 ["CharactersConvertedToR15Tag"]
+       53 CALL                             R6 1 1
+       54 SETTABLEKS                       R6 R5 K29 ["CharactersConvertedToR15Tagging"]
+       56 RETURN                           R5 1

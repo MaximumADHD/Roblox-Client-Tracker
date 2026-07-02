@@ -58,40 +58,38 @@ PROTO_2:
        21 RETURN                           R2 -1
 
 PROTO_3:
-        0 DUPTABLE                         R1 K2 [{"Method", "Url"}]
-        1 LOADK                            R2 K3 ["GET"]
-        2 SETTABLEKS                       R2 R1 K0 ["Method"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K4 ["composeUrl"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K5 ["APIS_URL"]
-       10 LOADK                            R5 K6 ["place-version-history-api/v1/%*/contributors"]
-       11 GETTABLEKS                       R7 R0 K7 ["placeId"]
-       13 NAMECALL                         R5 R5 K8 ["format"]
-       15 CALL                             R5 2 1
-       16 MOVE                             R4 R5
-       17 DUPTABLE                         R5 K11 [{"cursor", "pageSize"}]
-       18 GETTABLEKS                       R6 R0 K9 ["cursor"]
-       20 SETTABLEKS                       R6 R5 K9 ["cursor"]
-       22 GETTABLEKS                       R6 R0 K10 ["pageSize"]
-       24 SETTABLEKS                       R6 R5 K10 ["pageSize"]
-       26 CALL                             R2 3 1
-       27 SETTABLEKS                       R2 R1 K1 ["Url"]
-       29 GETUPVAL                         R2 1
-       30 GETTABLEKS                       R2 R2 K12 ["Request"]
-       32 MOVE                             R3 R1
-       33 CALL                             R2 1 1
-       34 DUPCLOSURE                       R4 K13 [PROTO_0]
-       35 CAPTURE                          UPVAL U2
-       36 CAPTURE                          UPVAL U3
-       37 NAMECALL                         R2 R2 K14 ["andThen"]
-       39 CALL                             R2 2 1
-       40 DUPCLOSURE                       R4 K15 [PROTO_2]
-       41 CAPTURE                          UPVAL U3
-       42 CAPTURE                          UPVAL U4
-       43 NAMECALL                         R2 R2 K14 ["andThen"]
-       45 CALL                             R2 2 -1
-       46 RETURN                           R2 -1
+        0 DUPTABLE                         R1 K3 [{[1] = "GET", ["Url"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K4 ["composeUrl"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K5 ["APIS_URL"]
+        7 LOADK                            R5 K6 ["place-version-history-api/v1/%*/contributors"]
+        8 GETTABLEKS                       R7 R0 K7 ["placeId"]
+       10 NAMECALL                         R5 R5 K8 ["format"]
+       12 CALL                             R5 2 1
+       13 MOVE                             R4 R5
+       14 DUPTABLE                         R5 K11 [{"cursor", "pageSize"}]
+       15 GETTABLEKS                       R6 R0 K9 ["cursor"]
+       17 SETTABLEKS                       R6 R5 K9 ["cursor"]
+       19 GETTABLEKS                       R6 R0 K10 ["pageSize"]
+       21 SETTABLEKS                       R6 R5 K10 ["pageSize"]
+       23 CALL                             R2 3 1
+       24 SETTABLEKS                       R2 R1 K2 ["Url"]
+       26 GETUPVAL                         R2 1
+       27 GETTABLEKS                       R2 R2 K12 ["Request"]
+       29 MOVE                             R3 R1
+       30 CALL                             R2 1 1
+       31 DUPCLOSURE                       R4 K13 [PROTO_0]
+       32 CAPTURE                          UPVAL U2
+       33 CAPTURE                          UPVAL U3
+       34 NAMECALL                         R2 R2 K14 ["andThen"]
+       36 CALL                             R2 2 1
+       37 DUPCLOSURE                       R4 K15 [PROTO_2]
+       38 CAPTURE                          UPVAL U3
+       39 CAPTURE                          UPVAL U4
+       40 NAMECALL                         R2 R2 K14 ["andThen"]
+       42 CALL                             R2 2 -1
+       43 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

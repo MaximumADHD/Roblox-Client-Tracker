@@ -71,14 +71,12 @@ MAIN:
        59 LOADK                            R13 K36 ["electronica"]
        60 SETLIST                          R5 R6 8 [17]
        62 DUPCLOSURE                       R6 K37 [PROTO_0]
-       63 DUPTABLE                         R7 K40 [{"name", "story"}]
-       64 LOADK                            R8 K41 ["Category drop down"]
-       65 SETTABLEKS                       R8 R7 K38 ["name"]
-       67 DUPCLOSURE                       R8 K42 [PROTO_1]
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R5
-       73 SETTABLEKS                       R8 R7 K39 ["story"]
-       75 RETURN                           R7 1
+       63 DUPTABLE                         R7 K41 [{["name"] = "Category drop down", ["story"]}]
+       64 DUPCLOSURE                       R8 K42 [PROTO_1]
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R5
+       70 SETTABLEKS                       R8 R7 K40 ["story"]
+       72 RETURN                           R7 1

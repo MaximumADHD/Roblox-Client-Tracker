@@ -5,34 +5,30 @@ PROTO_0:
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
-        8 DUPTABLE                         R4 K4 [{"tag", "LayoutOrder"}]
-        9 LOADK                            R5 K5 ["tree-row row align-y-center"]
-       10 SETTABLEKS                       R5 R4 K2 ["tag"]
-       12 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
-       14 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-       16 DUPTABLE                         R5 K8 [{"Node", "Divider"}]
-       17 GETUPVAL                         R6 1
-       18 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       20 GETUPVAL                         R7 3
-       21 GETTABLEKS                       R8 R0 K9 ["nodeProps"]
-       23 CALL                             R6 2 1
-       24 SETTABLEKS                       R6 R5 K6 ["Node"]
-       26 GETUPVAL                         R6 1
-       27 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       29 GETUPVAL                         R7 4
-       30 DUPTABLE                         R8 K11 [{"LayoutOrder", "orientation", "tag"}]
-       31 MOVE                             R9 R1
-       32 CALL                             R9 0 1
-       33 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
-       35 GETUPVAL                         R9 5
-       36 GETTABLEKS                       R9 R9 K12 ["Vertical"]
-       38 SETTABLEKS                       R9 R8 K10 ["orientation"]
-       40 LOADK                            R9 K13 ["auto-y"]
-       41 SETTABLEKS                       R9 R8 K2 ["tag"]
-       43 CALL                             R6 2 1
-       44 SETTABLEKS                       R6 R5 K7 ["Divider"]
-       46 CALL                             R2 3 -1
-       47 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K5 [{["tag"] = "tree-row row align-y-center", ["LayoutOrder"]}]
+        9 GETTABLEKS                       R5 R0 K4 ["LayoutOrder"]
+       11 SETTABLEKS                       R5 R4 K4 ["LayoutOrder"]
+       13 DUPTABLE                         R5 K8 [{"Node", "Divider"}]
+       14 GETUPVAL                         R6 1
+       15 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       17 GETUPVAL                         R7 3
+       18 GETTABLEKS                       R8 R0 K9 ["nodeProps"]
+       20 CALL                             R6 2 1
+       21 SETTABLEKS                       R6 R5 K6 ["Node"]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       26 GETUPVAL                         R7 4
+       27 DUPTABLE                         R8 K12 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-y"}]
+       28 MOVE                             R9 R1
+       29 CALL                             R9 0 1
+       30 SETTABLEKS                       R9 R8 K4 ["LayoutOrder"]
+       32 GETUPVAL                         R9 5
+       33 GETTABLEKS                       R9 R9 K13 ["Vertical"]
+       35 SETTABLEKS                       R9 R8 K10 ["orientation"]
+       37 CALL                             R6 2 1
+       38 SETTABLEKS                       R6 R5 K7 ["Divider"]
+       40 CALL                             R2 3 -1
+       41 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

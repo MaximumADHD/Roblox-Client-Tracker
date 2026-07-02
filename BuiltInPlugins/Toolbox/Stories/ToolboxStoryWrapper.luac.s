@@ -80,65 +80,61 @@ PROTO_1:
       104 GETUPVAL                         R14 6
       105 GETTABLEKS                       R14 R14 K19 ["Localization"]
       107 GETTABLEKS                       R14 R14 K3 ["new"]
-      109 DUPTABLE                         R15 K29 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
+      109 DUPTABLE                         R15 K31 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Toolbox", ["libraries"], ["overrideGetLocale"], ["overrideLocaleId"] = "en-us", ["overrideLocaleChangedSignal"]}]
       110 SETTABLEKS                       R12 R15 K22 ["stringResourceTable"]
       112 SETTABLEKS                       R13 R15 K23 ["translationResourceTable"]
-      114 LOADK                            R16 K30 ["Toolbox"]
-      115 SETTABLEKS                       R16 R15 K24 ["pluginName"]
-      117 NEWTABLE                         R16 1 0
-      119 GETUPVAL                         R17 15
-      120 GETTABLEKS                       R17 R17 K18 ["Resources"]
-      122 GETTABLEKS                       R17 R17 K31 ["LOCALIZATION_PROJECT_NAME"]
-      124 DUPTABLE                         R18 K32 [{"stringResourceTable", "translationResourceTable"}]
-      125 GETUPVAL                         R19 15
-      126 GETTABLEKS                       R19 R19 K18 ["Resources"]
-      128 GETTABLEKS                       R19 R19 K20 ["SourceStrings"]
-      130 SETTABLEKS                       R19 R18 K22 ["stringResourceTable"]
-      132 GETUPVAL                         R19 15
-      133 GETTABLEKS                       R19 R19 K18 ["Resources"]
-      135 GETTABLEKS                       R19 R19 K21 ["LocalizedStrings"]
-      137 SETTABLEKS                       R19 R18 K23 ["translationResourceTable"]
-      139 SETTABLE                         R18 R16 R17
-      140 SETTABLEKS                       R16 R15 K25 ["libraries"]
-      142 DUPCLOSURE                       R16 K33 [PROTO_0]
-      143 SETTABLEKS                       R16 R15 K26 ["overrideGetLocale"]
-      145 LOADK                            R16 K34 ["en-us"]
-      146 SETTABLEKS                       R16 R15 K27 ["overrideLocaleId"]
-      148 GETUPVAL                         R16 16
-      149 GETTABLEKS                       R16 R16 K3 ["new"]
-      151 CALL                             R16 0 1
-      152 SETTABLEKS                       R16 R15 K28 ["overrideLocaleChangedSignal"]
-      154 CALL                             R14 1 1
-      155 NEWTABLE                         R15 0 6
-      157 MOVE                             R16 R7
-      158 MOVE                             R17 R6
-      159 MOVE                             R18 R8
-      160 MOVE                             R19 R10
-      161 MOVE                             R20 R9
-      162 MOVE                             R21 R14
-      163 SETLIST                          R15 R16 6 [1]
-      165 GETUPVAL                         R16 17
-      166 GETTABLEKS                       R16 R16 K35 ["createElement"]
-      168 GETUPVAL                         R17 18
-      169 DUPTABLE                         R18 K37 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
-      170 SETTABLEKS                       R2 R18 K1 ["store"]
-      172 GETIMPORT                        R19 K9 [plugin]
-      174 SETTABLEKS                       R19 R18 K8 ["plugin"]
-      176 SETTABLEKS                       R3 R18 K6 ["pluginGui"]
-      178 SETTABLEKS                       R4 R18 K7 ["settings"]
-      180 SETTABLEKS                       R11 R18 K36 ["theme"]
-      182 SETTABLEKS                       R5 R18 K10 ["networkInterface"]
-      184 NEWTABLE                         R19 0 1
-      186 GETUPVAL                         R20 6
-      187 GETTABLEKS                       R20 R20 K38 ["provide"]
-      189 MOVE                             R21 R15
-      190 GETUPVAL                         R23 17
-      191 GETTABLEKS                       R23 R23 K39 ["Children"]
-      193 GETTABLE                         R22 R0 R23
-      194 CALL                             R20 2 -1
-      195 SETLIST                          R19 R20 -1 [1]
-      197 CALL                             R16 3 -1
-      198 RETURN                           R16 -1
+      114 NEWTABLE                         R16 1 0
+      116 GETUPVAL                         R17 15
+      117 GETTABLEKS                       R17 R17 K18 ["Resources"]
+      119 GETTABLEKS                       R17 R17 K32 ["LOCALIZATION_PROJECT_NAME"]
+      121 DUPTABLE                         R18 K33 [{"stringResourceTable", "translationResourceTable"}]
+      122 GETUPVAL                         R19 15
+      123 GETTABLEKS                       R19 R19 K18 ["Resources"]
+      125 GETTABLEKS                       R19 R19 K20 ["SourceStrings"]
+      127 SETTABLEKS                       R19 R18 K22 ["stringResourceTable"]
+      129 GETUPVAL                         R19 15
+      130 GETTABLEKS                       R19 R19 K18 ["Resources"]
+      132 GETTABLEKS                       R19 R19 K21 ["LocalizedStrings"]
+      134 SETTABLEKS                       R19 R18 K23 ["translationResourceTable"]
+      136 SETTABLE                         R18 R16 R17
+      137 SETTABLEKS                       R16 R15 K26 ["libraries"]
+      139 DUPCLOSURE                       R16 K34 [PROTO_0]
+      140 SETTABLEKS                       R16 R15 K27 ["overrideGetLocale"]
+      142 GETUPVAL                         R16 16
+      143 GETTABLEKS                       R16 R16 K3 ["new"]
+      145 CALL                             R16 0 1
+      146 SETTABLEKS                       R16 R15 K30 ["overrideLocaleChangedSignal"]
+      148 CALL                             R14 1 1
+      149 NEWTABLE                         R15 0 6
+      151 MOVE                             R16 R7
+      152 MOVE                             R17 R6
+      153 MOVE                             R18 R8
+      154 MOVE                             R19 R10
+      155 MOVE                             R20 R9
+      156 MOVE                             R21 R14
+      157 SETLIST                          R15 R16 6 [1]
+      159 GETUPVAL                         R16 17
+      160 GETTABLEKS                       R16 R16 K35 ["createElement"]
+      162 GETUPVAL                         R17 18
+      163 DUPTABLE                         R18 K37 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+      164 SETTABLEKS                       R2 R18 K1 ["store"]
+      166 GETIMPORT                        R19 K9 [plugin]
+      168 SETTABLEKS                       R19 R18 K8 ["plugin"]
+      170 SETTABLEKS                       R3 R18 K6 ["pluginGui"]
+      172 SETTABLEKS                       R4 R18 K7 ["settings"]
+      174 SETTABLEKS                       R11 R18 K36 ["theme"]
+      176 SETTABLEKS                       R5 R18 K10 ["networkInterface"]
+      178 NEWTABLE                         R19 0 1
+      180 GETUPVAL                         R20 6
+      181 GETTABLEKS                       R20 R20 K38 ["provide"]
+      183 MOVE                             R21 R15
+      184 GETUPVAL                         R23 17
+      185 GETTABLEKS                       R23 R23 K39 ["Children"]
+      187 GETTABLE                         R22 R0 R23
+      188 CALL                             R20 2 -1
+      189 SETLIST                          R19 R20 -1 [1]
+      191 CALL                             R16 3 -1
+      192 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

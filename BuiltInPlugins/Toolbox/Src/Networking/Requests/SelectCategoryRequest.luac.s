@@ -30,43 +30,37 @@ PROTO_0:
        37 JUMP                             ; [+3]
        38 GETUPVAL                         R4 5
        39 GETTABLEKS                       R2 R4 K8 ["CREATOR_ROBLOX"]
-       41 DUPTABLE                         R3 K21 [{"audioSearchInfo", "additionalAudioSearchInfo", "categoryName", "creator", "searchTerm", "sortIndex", "targetPage", "currentPage", "requestReason", "queryParams", "uiSortIntent", "sortDirection"}]
+       41 DUPTABLE                         R3 K24 [{["audioSearchInfo"], ["additionalAudioSearchInfo"], ["categoryName"], ["creator"], ["searchTerm"] = "", ["sortIndex"], ["targetPage"] = 1, ["currentPage"] = 0, ["requestReason"], ["queryParams"], ["uiSortIntent"], ["sortDirection"]}]
        42 GETUPVAL                         R4 6
-       43 GETTABLEKS                       R4 R4 K22 ["None"]
+       43 GETTABLEKS                       R4 R4 K25 ["None"]
        45 SETTABLEKS                       R4 R3 K9 ["audioSearchInfo"]
        47 GETUPVAL                         R4 6
-       48 GETTABLEKS                       R4 R4 K22 ["None"]
+       48 GETTABLEKS                       R4 R4 K25 ["None"]
        50 SETTABLEKS                       R4 R3 K10 ["additionalAudioSearchInfo"]
        52 GETUPVAL                         R4 2
        53 SETTABLEKS                       R4 R3 K11 ["categoryName"]
        55 SETTABLEKS                       R2 R3 K12 ["creator"]
-       57 LOADK                            R4 K23 [""]
-       58 SETTABLEKS                       R4 R3 K13 ["searchTerm"]
-       60 SETTABLEKS                       R1 R3 K14 ["sortIndex"]
-       62 LOADN                            R4 1
-       63 SETTABLEKS                       R4 R3 K15 ["targetPage"]
-       65 LOADN                            R4 0
-       66 SETTABLEKS                       R4 R3 K16 ["currentPage"]
-       68 GETUPVAL                         R4 7
-       69 GETTABLEKS                       R4 R4 K24 ["ChangeCategory"]
-       71 SETTABLEKS                       R4 R3 K17 ["requestReason"]
-       73 GETUPVAL                         R4 6
-       74 GETTABLEKS                       R4 R4 K22 ["None"]
-       76 SETTABLEKS                       R4 R3 K18 ["queryParams"]
-       78 GETUPVAL                         R4 6
-       79 GETTABLEKS                       R4 R4 K22 ["None"]
-       81 SETTABLEKS                       R4 R3 K19 ["uiSortIntent"]
-       83 GETUPVAL                         R4 6
-       84 GETTABLEKS                       R4 R4 K22 ["None"]
-       86 SETTABLEKS                       R4 R3 K20 ["sortDirection"]
-       88 GETUPVAL                         R6 8
-       89 GETUPVAL                         R7 9
-       90 GETUPVAL                         R8 10
-       91 MOVE                             R9 R3
-       92 CALL                             R6 3 -1
-       93 NAMECALL                         R4 R0 K0 ["dispatch"]
-       95 CALL                             R4 -1 0
-       96 RETURN                           R0 0
+       57 SETTABLEKS                       R1 R3 K15 ["sortIndex"]
+       59 GETUPVAL                         R4 7
+       60 GETTABLEKS                       R4 R4 K26 ["ChangeCategory"]
+       62 SETTABLEKS                       R4 R3 K20 ["requestReason"]
+       64 GETUPVAL                         R4 6
+       65 GETTABLEKS                       R4 R4 K25 ["None"]
+       67 SETTABLEKS                       R4 R3 K21 ["queryParams"]
+       69 GETUPVAL                         R4 6
+       70 GETTABLEKS                       R4 R4 K25 ["None"]
+       72 SETTABLEKS                       R4 R3 K22 ["uiSortIntent"]
+       74 GETUPVAL                         R4 6
+       75 GETTABLEKS                       R4 R4 K25 ["None"]
+       77 SETTABLEKS                       R4 R3 K23 ["sortDirection"]
+       79 GETUPVAL                         R6 8
+       80 GETUPVAL                         R7 9
+       81 GETUPVAL                         R8 10
+       82 MOVE                             R9 R3
+       83 CALL                             R6 3 -1
+       84 NAMECALL                         R4 R0 K0 ["dispatch"]
+       86 CALL                             R4 -1 0
+       87 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R3 P0

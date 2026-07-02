@@ -1,8 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = True}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -12,10 +10,8 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = False}]
+        1 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -25,10 +21,8 @@ PROTO_3:
         5 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R0 K1 [{"uiDmLoaded"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["uiDmLoaded"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = True}]
+        1 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -77,17 +71,15 @@ PROTO_7:
         5 JUMPIFNOTEQKB                    R0 FALSE ; [+2]
         7 RETURN                           R0 0
         8 GETUPVAL                         R0 0
-        9 DUPTABLE                         R2 K2 [{"enabled"}]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K1 ["enabled"]
-       13 NAMECALL                         R0 R0 K3 ["setState"]
-       15 CALL                             R0 2 0
-       16 GETUPVAL                         R0 1
-       17 LOADK                            R2 K4 ["WindowEnabledChanged"]
-       18 LOADB                            R3 0
-       19 NAMECALL                         R0 R0 K5 ["Invoke"]
-       21 CALL                             R0 3 0
-       22 RETURN                           R0 0
+        9 DUPTABLE                         R2 K3 [{["enabled"] = False}]
+       10 NAMECALL                         R0 R0 K4 ["setState"]
+       12 CALL                             R0 2 0
+       13 GETUPVAL                         R0 1
+       14 LOADK                            R2 K5 ["WindowEnabledChanged"]
+       15 LOADB                            R3 0
+       16 NAMECALL                         R0 R0 K6 ["Invoke"]
+       18 CALL                             R0 3 0
+       19 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -153,103 +145,91 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"cannotConfigureSelectionDialogVisible"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["cannotConfigureSelectionDialogVisible"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"cannotConfigureSelectionDialogVisible"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["cannotConfigureSelectionDialogVisible"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_15:
         0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
-        2 DUPTABLE                         R3 K4 [{"enabled", "uiDmLoaded", "cannotConfigureSelectionDialogVisible"}]
-        3 LOADB                            R4 0
-        4 SETTABLEKS                       R4 R3 K1 ["enabled"]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K2 ["uiDmLoaded"]
-        9 LOADB                            R4 0
-       10 SETTABLEKS                       R4 R3 K3 ["cannotConfigureSelectionDialogVisible"]
-       12 SETTABLEKS                       R3 R0 K5 ["state"]
-       14 GETTABLEKS                       R3 R2 K6 ["MultipleDocumentInterfaceInstance"]
-       16 GETTABLEKS                       R4 R3 K7 ["DataModelSessionStarted"]
-       18 NEWCLOSURE                       R6 P0
-       19 CAPTURE                          VAL R0
-       20 NAMECALL                         R4 R4 K8 ["Connect"]
-       22 CALL                             R4 2 0
-       23 GETTABLEKS                       R4 R3 K9 ["DataModelSessionEnded"]
-       25 NEWCLOSURE                       R6 P1
-       26 CAPTURE                          VAL R0
-       27 NAMECALL                         R4 R4 K8 ["Connect"]
-       29 CALL                             R4 2 0
-       30 GETTABLEKS                       R4 R3 K10 ["FocusedDataModelSession"]
-       32 JUMPIFNOT                        R4 ; [+4]
-       33 DUPCLOSURE                       R6 K11 [PROTO_4]
-       34 NAMECALL                         R4 R0 K12 ["setState"]
-       36 CALL                             R4 2 0
-       37 NEWCLOSURE                       R4 P3
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          VAL R2
-       40 NEWCLOSURE                       R5 P4
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R2
-       43 SETTABLEKS                       R5 R0 K13 ["toggleEnabled"]
-       45 NEWCLOSURE                       R5 P5
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R2
-       48 SETTABLEKS                       R5 R0 K14 ["onClose"]
-       50 NEWCLOSURE                       R5 P6
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          VAL R2
-       53 SETTABLEKS                       R5 R0 K15 ["onRestore"]
-       55 NEWCLOSURE                       R5 P7
-       56 CAPTURE                          VAL R0
-       57 CAPTURE                          VAL R2
-       58 SETTABLEKS                       R5 R0 K16 ["onWidgetEnabledChanged"]
-       60 LOADK                            R7 K17 ["PollGuiEnabled"]
-       61 NEWCLOSURE                       R8 P8
-       62 CAPTURE                          VAL R2
-       63 CAPTURE                          VAL R0
-       64 NAMECALL                         R5 R2 K18 ["OnInvoke"]
-       66 CALL                             R5 3 1
-       67 SETTABLEKS                       R5 R0 K19 ["trackPollGuiEnabled"]
-       69 GETUPVAL                         R5 0
-       70 GETTABLEKS                       R5 R5 K20 ["Localization"]
-       72 GETTABLEKS                       R5 R5 K21 ["new"]
-       74 DUPTABLE                         R6 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       75 GETUPVAL                         R7 1
-       76 SETTABLEKS                       R7 R6 K22 ["stringResourceTable"]
-       78 GETUPVAL                         R7 2
-       79 SETTABLEKS                       R7 R6 K23 ["translationResourceTable"]
-       81 LOADK                            R7 K26 ["CGE"]
-       82 SETTABLEKS                       R7 R6 K24 ["pluginName"]
-       84 CALL                             R5 1 1
-       85 SETTABLEKS                       R5 R0 K27 ["localization"]
-       87 GETUPVAL                         R5 0
-       88 GETTABLEKS                       R5 R5 K28 ["Analytics"]
-       90 GETTABLEKS                       R5 R5 K21 ["new"]
-       92 DUPCLOSURE                       R6 K29 [PROTO_11]
-       93 NEWTABLE                         R7 0 0
-       95 CALL                             R5 2 1
-       96 SETTABLEKS                       R5 R0 K30 ["analytics"]
-       98 NEWCLOSURE                       R5 P10
-       99 CAPTURE                          VAL R0
-      100 SETTABLEKS                       R5 R0 K31 ["onAttemptModifyInPlayMode"]
-      102 NEWCLOSURE                       R5 P11
-      103 CAPTURE                          VAL R0
-      104 SETTABLEKS                       R5 R0 K32 ["onCannotConfigureSelection"]
-      106 NEWCLOSURE                       R5 P12
-      107 CAPTURE                          VAL R0
-      108 SETTABLEKS                       R5 R0 K33 ["onCloseCannotConfigureSelectionDialog"]
-      110 RETURN                           R0 0
+        2 DUPTABLE                         R3 K5 [{["enabled"] = False, ["uiDmLoaded"] = False, ["cannotConfigureSelectionDialogVisible"] = False}]
+        3 SETTABLEKS                       R3 R0 K6 ["state"]
+        5 GETTABLEKS                       R3 R2 K7 ["MultipleDocumentInterfaceInstance"]
+        7 GETTABLEKS                       R4 R3 K8 ["DataModelSessionStarted"]
+        9 NEWCLOSURE                       R6 P0
+       10 CAPTURE                          VAL R0
+       11 NAMECALL                         R4 R4 K9 ["Connect"]
+       13 CALL                             R4 2 0
+       14 GETTABLEKS                       R4 R3 K10 ["DataModelSessionEnded"]
+       16 NEWCLOSURE                       R6 P1
+       17 CAPTURE                          VAL R0
+       18 NAMECALL                         R4 R4 K9 ["Connect"]
+       20 CALL                             R4 2 0
+       21 GETTABLEKS                       R4 R3 K11 ["FocusedDataModelSession"]
+       23 JUMPIFNOT                        R4 ; [+4]
+       24 DUPCLOSURE                       R6 K12 [PROTO_4]
+       25 NAMECALL                         R4 R0 K13 ["setState"]
+       27 CALL                             R4 2 0
+       28 NEWCLOSURE                       R4 P3
+       29 CAPTURE                          VAL R0
+       30 CAPTURE                          VAL R2
+       31 NEWCLOSURE                       R5 P4
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          VAL R2
+       34 SETTABLEKS                       R5 R0 K14 ["toggleEnabled"]
+       36 NEWCLOSURE                       R5 P5
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R5 R0 K15 ["onClose"]
+       41 NEWCLOSURE                       R5 P6
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R2
+       44 SETTABLEKS                       R5 R0 K16 ["onRestore"]
+       46 NEWCLOSURE                       R5 P7
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R2
+       49 SETTABLEKS                       R5 R0 K17 ["onWidgetEnabledChanged"]
+       51 LOADK                            R7 K18 ["PollGuiEnabled"]
+       52 NEWCLOSURE                       R8 P8
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R0
+       55 NAMECALL                         R5 R2 K19 ["OnInvoke"]
+       57 CALL                             R5 3 1
+       58 SETTABLEKS                       R5 R0 K20 ["trackPollGuiEnabled"]
+       60 GETUPVAL                         R5 0
+       61 GETTABLEKS                       R5 R5 K21 ["Localization"]
+       63 GETTABLEKS                       R5 R5 K22 ["new"]
+       65 DUPTABLE                         R6 K27 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "CGE"}]
+       66 GETUPVAL                         R7 1
+       67 SETTABLEKS                       R7 R6 K23 ["stringResourceTable"]
+       69 GETUPVAL                         R7 2
+       70 SETTABLEKS                       R7 R6 K24 ["translationResourceTable"]
+       72 CALL                             R5 1 1
+       73 SETTABLEKS                       R5 R0 K28 ["localization"]
+       75 GETUPVAL                         R5 0
+       76 GETTABLEKS                       R5 R5 K29 ["Analytics"]
+       78 GETTABLEKS                       R5 R5 K22 ["new"]
+       80 DUPCLOSURE                       R6 K30 [PROTO_11]
+       81 NEWTABLE                         R7 0 0
+       83 CALL                             R5 2 1
+       84 SETTABLEKS                       R5 R0 K31 ["analytics"]
+       86 NEWCLOSURE                       R5 P10
+       87 CAPTURE                          VAL R0
+       88 SETTABLEKS                       R5 R0 K32 ["onAttemptModifyInPlayMode"]
+       90 NEWCLOSURE                       R5 P11
+       91 CAPTURE                          VAL R0
+       92 SETTABLEKS                       R5 R0 K33 ["onCannotConfigureSelection"]
+       94 NEWCLOSURE                       R5 P12
+       95 CAPTURE                          VAL R0
+       96 SETTABLEKS                       R5 R0 K34 ["onCloseCannotConfigureSelectionDialog"]
+       98 RETURN                           R0 0
 
 PROTO_16:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
@@ -258,32 +238,26 @@ PROTO_16:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K13 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K16 [{["Toolbar"], ["Active"], ["Id"] = "collisionGroupsEditorButton", ["Title"], ["Tooltip"], ["Icon"] = "rbxlocaltheme://CollisionGroups", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K14 ["collisionGroupsEditorButton"]
-       15 SETTABLEKS                       R7 R6 K7 ["Id"]
-       17 GETTABLEKS                       R7 R0 K15 ["localization"]
-       19 LOADK                            R9 K16 ["Main"]
-       20 LOADK                            R10 K8 ["Title"]
-       21 NAMECALL                         R7 R7 K17 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K8 ["Title"]
-       26 GETTABLEKS                       R7 R0 K15 ["localization"]
-       28 LOADK                            R9 K16 ["Main"]
-       29 LOADK                            R10 K8 ["Title"]
-       30 NAMECALL                         R7 R7 K17 ["getText"]
-       32 CALL                             R7 3 1
-       33 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
-       35 LOADK                            R7 K18 ["rbxlocaltheme://CollisionGroups"]
-       36 SETTABLEKS                       R7 R6 K10 ["Icon"]
-       38 GETTABLEKS                       R7 R0 K19 ["toggleEnabled"]
-       40 SETTABLEKS                       R7 R6 K11 ["OnClick"]
-       42 LOADB                            R7 1
-       43 SETTABLEKS                       R7 R6 K12 ["ClickableWhenViewportHidden"]
-       45 CALL                             R4 2 1
-       46 SETTABLEKS                       R4 R3 K2 ["Toggle"]
-       48 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K17 ["localization"]
+       16 LOADK                            R9 K18 ["Main"]
+       17 LOADK                            R10 K9 ["Title"]
+       18 NAMECALL                         R7 R7 K19 ["getText"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K9 ["Title"]
+       23 GETTABLEKS                       R7 R0 K17 ["localization"]
+       25 LOADK                            R9 K18 ["Main"]
+       26 LOADK                            R10 K9 ["Title"]
+       27 NAMECALL                         R7 R7 K19 ["getText"]
+       29 CALL                             R7 3 1
+       30 SETTABLEKS                       R7 R6 K10 ["Tooltip"]
+       32 GETTABLEKS                       R7 R0 K20 ["toggleEnabled"]
+       34 SETTABLEKS                       R7 R6 K13 ["OnClick"]
+       36 CALL                             R4 2 1
+       37 SETTABLEKS                       R4 R3 K2 ["Toggle"]
+       39 RETURN                           R3 1
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -320,80 +294,76 @@ PROTO_18:
        37 GETUPVAL                         R8 4
        38 GETTABLEKS                       R8 R8 K13 ["createElement"]
        40 GETUPVAL                         R9 5
-       41 DUPTABLE                         R10 K16 [{"Title", "RenderButtons"}]
-       42 LOADK                            R11 K17 ["collisionGroupsEditorToolbar"]
-       43 SETTABLEKS                       R11 R10 K14 ["Title"]
-       45 NEWCLOSURE                       R11 P0
-       46 CAPTURE                          VAL R0
-       47 SETTABLEKS                       R11 R10 K15 ["RenderButtons"]
-       49 CALL                             R8 2 1
-       50 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
-       52 GETUPVAL                         R8 4
-       53 GETTABLEKS                       R8 R8 K13 ["createElement"]
-       55 GETUPVAL                         R9 6
-       56 NEWTABLE                         R10 16 0
-       58 LOADK                            R11 K18 ["CollisionGroupsEditor"]
-       59 SETTABLEKS                       R11 R10 K19 ["Id"]
-       61 SETTABLEKS                       R4 R10 K20 ["Enabled"]
-       63 GETTABLEKS                       R11 R0 K8 ["localization"]
-       65 LOADK                            R13 K21 ["Main"]
-       66 LOADK                            R14 K14 ["Title"]
-       67 NAMECALL                         R11 R11 K22 ["getText"]
-       69 CALL                             R11 3 1
-       70 SETTABLEKS                       R11 R10 K14 ["Title"]
-       72 GETIMPORT                        R11 K26 [Enum.ZIndexBehavior.Sibling]
-       74 SETTABLEKS                       R11 R10 K24 ["ZIndexBehavior"]
-       76 GETIMPORT                        R11 K29 [Enum.InitialDockState.Right]
-       78 SETTABLEKS                       R11 R10 K27 ["InitialDockState"]
-       80 GETIMPORT                        R11 K31 [Vector2.new]
-       82 LOADN                            R12 128
-       83 LOADN                            R13 224
-       84 CALL                             R11 2 1
-       85 SETTABLEKS                       R11 R10 K32 ["Size"]
-       87 GETIMPORT                        R11 K31 [Vector2.new]
-       89 LOADN                            R12 128
-       90 LOADN                            R13 200
-       91 CALL                             R11 2 1
-       92 SETTABLEKS                       R11 R10 K33 ["MinSize"]
-       94 GETTABLEKS                       R11 R0 K34 ["onClose"]
-       96 SETTABLEKS                       R11 R10 K35 ["OnClose"]
-       98 LOADB                            R11 1
-       99 SETTABLEKS                       R11 R10 K36 ["ShouldRestore"]
-      101 GETTABLEKS                       R11 R0 K37 ["onRestore"]
-      103 SETTABLEKS                       R11 R10 K38 ["OnWidgetRestored"]
-      105 GETUPVAL                         R11 4
-      106 GETTABLEKS                       R11 R11 K39 ["Change"]
-      108 GETTABLEKS                       R11 R11 K20 ["Enabled"]
-      110 GETTABLEKS                       R12 R0 K40 ["onWidgetEnabledChanged"]
-      112 SETTABLE                         R12 R10 R11
-      113 DUPTABLE                         R11 K43 [{"Gui", "CannotConfigureSelectionDialog"}]
-      114 GETUPVAL                         R12 4
-      115 GETTABLEKS                       R12 R12 K13 ["createElement"]
-      117 GETUPVAL                         R13 7
-      118 DUPTABLE                         R14 K47 [{"plugin", "OnAttemptModifyInPlayMode", "OnCannotConfigureSelection"}]
-      119 SETTABLEKS                       R3 R14 K44 ["plugin"]
-      121 GETTABLEKS                       R15 R0 K48 ["onAttemptModifyInPlayMode"]
-      123 SETTABLEKS                       R15 R14 K45 ["OnAttemptModifyInPlayMode"]
-      125 GETTABLEKS                       R15 R0 K49 ["onCannotConfigureSelection"]
-      127 SETTABLEKS                       R15 R14 K46 ["OnCannotConfigureSelection"]
-      129 CALL                             R12 2 1
-      130 SETTABLEKS                       R12 R11 K41 ["Gui"]
-      132 GETTABLEKS                       R12 R2 K50 ["cannotConfigureSelectionDialogVisible"]
-      134 JUMPIFNOT                        R12 ; [+13]
-      135 GETUPVAL                         R12 4
-      136 GETTABLEKS                       R12 R12 K13 ["createElement"]
-      138 GETUPVAL                         R13 8
-      139 DUPTABLE                         R14 K51 [{"Enabled", "OnClose"}]
-      140 LOADB                            R15 1
-      141 SETTABLEKS                       R15 R14 K20 ["Enabled"]
-      143 GETTABLEKS                       R15 R0 K52 ["onCloseCannotConfigureSelectionDialog"]
-      145 SETTABLEKS                       R15 R14 K35 ["OnClose"]
-      147 CALL                             R12 2 1
-      148 SETTABLEKS                       R12 R11 K42 ["CannotConfigureSelectionDialog"]
-      150 CALL                             R8 3 1
-      151 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
-      153 CALL                             R5 2 -1
-      154 RETURN                           R5 -1
+       41 DUPTABLE                         R10 K17 [{["Title"] = "collisionGroupsEditorToolbar", ["RenderButtons"]}]
+       42 NEWCLOSURE                       R11 P0
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R11 R10 K16 ["RenderButtons"]
+       46 CALL                             R8 2 1
+       47 SETTABLEKS                       R8 R7 K10 ["Toolbar"]
+       49 GETUPVAL                         R8 4
+       50 GETTABLEKS                       R8 R8 K13 ["createElement"]
+       52 GETUPVAL                         R9 6
+       53 NEWTABLE                         R10 16 0
+       55 LOADK                            R11 K18 ["CollisionGroupsEditor"]
+       56 SETTABLEKS                       R11 R10 K19 ["Id"]
+       58 SETTABLEKS                       R4 R10 K20 ["Enabled"]
+       60 GETTABLEKS                       R11 R0 K8 ["localization"]
+       62 LOADK                            R13 K21 ["Main"]
+       63 LOADK                            R14 K14 ["Title"]
+       64 NAMECALL                         R11 R11 K22 ["getText"]
+       66 CALL                             R11 3 1
+       67 SETTABLEKS                       R11 R10 K14 ["Title"]
+       69 GETIMPORT                        R11 K26 [Enum.ZIndexBehavior.Sibling]
+       71 SETTABLEKS                       R11 R10 K24 ["ZIndexBehavior"]
+       73 GETIMPORT                        R11 K29 [Enum.InitialDockState.Right]
+       75 SETTABLEKS                       R11 R10 K27 ["InitialDockState"]
+       77 GETIMPORT                        R11 K31 [Vector2.new]
+       79 LOADN                            R12 640
+       80 LOADN                            R13 480
+       81 CALL                             R11 2 1
+       82 SETTABLEKS                       R11 R10 K32 ["Size"]
+       84 GETIMPORT                        R11 K31 [Vector2.new]
+       86 LOADN                            R12 128
+       87 LOADN                            R13 200
+       88 CALL                             R11 2 1
+       89 SETTABLEKS                       R11 R10 K33 ["MinSize"]
+       91 GETTABLEKS                       R11 R0 K34 ["onClose"]
+       93 SETTABLEKS                       R11 R10 K35 ["OnClose"]
+       95 LOADB                            R11 1
+       96 SETTABLEKS                       R11 R10 K36 ["ShouldRestore"]
+       98 GETTABLEKS                       R11 R0 K37 ["onRestore"]
+      100 SETTABLEKS                       R11 R10 K38 ["OnWidgetRestored"]
+      102 GETUPVAL                         R11 4
+      103 GETTABLEKS                       R11 R11 K39 ["Change"]
+      105 GETTABLEKS                       R11 R11 K20 ["Enabled"]
+      107 GETTABLEKS                       R12 R0 K40 ["onWidgetEnabledChanged"]
+      109 SETTABLE                         R12 R10 R11
+      110 DUPTABLE                         R11 K43 [{"Gui", "CannotConfigureSelectionDialog"}]
+      111 GETUPVAL                         R12 4
+      112 GETTABLEKS                       R12 R12 K13 ["createElement"]
+      114 GETUPVAL                         R13 7
+      115 DUPTABLE                         R14 K47 [{"plugin", "OnAttemptModifyInPlayMode", "OnCannotConfigureSelection"}]
+      116 SETTABLEKS                       R3 R14 K44 ["plugin"]
+      118 GETTABLEKS                       R15 R0 K48 ["onAttemptModifyInPlayMode"]
+      120 SETTABLEKS                       R15 R14 K45 ["OnAttemptModifyInPlayMode"]
+      122 GETTABLEKS                       R15 R0 K49 ["onCannotConfigureSelection"]
+      124 SETTABLEKS                       R15 R14 K46 ["OnCannotConfigureSelection"]
+      126 CALL                             R12 2 1
+      127 SETTABLEKS                       R12 R11 K41 ["Gui"]
+      129 GETTABLEKS                       R12 R2 K50 ["cannotConfigureSelectionDialogVisible"]
+      131 JUMPIFNOT                        R12 ; [+10]
+      132 GETUPVAL                         R12 4
+      133 GETTABLEKS                       R12 R12 K13 ["createElement"]
+      135 GETUPVAL                         R13 8
+      136 DUPTABLE                         R14 K52 [{["Enabled"] = True, ["OnClose"]}]
+      137 GETTABLEKS                       R15 R0 K53 ["onCloseCannotConfigureSelectionDialog"]
+      139 SETTABLEKS                       R15 R14 K35 ["OnClose"]
+      141 CALL                             R12 2 1
+      142 SETTABLEKS                       R12 R11 K42 ["CannotConfigureSelectionDialog"]
+      144 CALL                             R8 3 1
+      145 SETTABLEKS                       R8 R7 K11 ["MainWidget"]
+      147 CALL                             R5 2 -1
+      148 RETURN                           R5 -1
 
 PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["trackPollGuiEnabled"]

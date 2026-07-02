@@ -82,91 +82,67 @@ PROTO_5:
         9 NAMECALL                         R2 R2 K3 ["GetUri"]
        11 CALL                             R2 1 -1
        12 CALL                             R1 -1 1
-       13 DUPTABLE                         R2 K11 [{"Uri", "Enabled", "Exists", "Visible", "Checkable", "Text", "Tooltip"}]
+       13 DUPTABLE                         R2 K13 [{["Uri"], ["Enabled"] = True, ["Exists"] = True, ["Visible"] = True, ["Checkable"] = False, ["Text"], ["Tooltip"]}]
        14 GETUPVAL                         R3 1
-       15 GETTABLEKS                       R3 R3 K12 ["join"]
+       15 GETTABLEKS                       R3 R3 K14 ["join"]
        17 MOVE                             R4 R1
-       18 DUPTABLE                         R5 K15 [{"Category", "ItemId"}]
-       19 LOADK                            R6 K0 ["Actions"]
-       20 SETTABLEKS                       R6 R5 K13 ["Category"]
-       22 LOADK                            R6 K16 ["ReloadTabs"]
-       23 SETTABLEKS                       R6 R5 K14 ["ItemId"]
-       25 CALL                             R3 2 1
-       26 SETTABLEKS                       R3 R2 K4 ["Uri"]
-       28 LOADB                            R3 1
-       29 SETTABLEKS                       R3 R2 K5 ["Enabled"]
-       31 LOADB                            R3 1
-       32 SETTABLEKS                       R3 R2 K6 ["Exists"]
-       34 LOADB                            R3 1
-       35 SETTABLEKS                       R3 R2 K7 ["Visible"]
-       37 LOADB                            R3 0
-       38 SETTABLEKS                       R3 R2 K8 ["Checkable"]
-       40 GETUPVAL                         R3 2
-       41 LOADK                            R5 K17 ["Plugin"]
-       42 LOADK                            R6 K16 ["ReloadTabs"]
-       43 NAMECALL                         R3 R3 K18 ["getText"]
-       45 CALL                             R3 3 1
-       46 SETTABLEKS                       R3 R2 K9 ["Text"]
-       48 GETUPVAL                         R3 2
-       49 LOADK                            R5 K17 ["Plugin"]
-       50 LOADK                            R6 K19 ["ReloadTabsTooltip"]
-       51 NAMECALL                         R3 R3 K18 ["getText"]
-       53 CALL                             R3 3 1
-       54 SETTABLEKS                       R3 R2 K10 ["Tooltip"]
-       56 DUPTABLE                         R3 K11 [{"Uri", "Enabled", "Exists", "Visible", "Checkable", "Text", "Tooltip"}]
-       57 GETUPVAL                         R4 1
-       58 GETTABLEKS                       R4 R4 K12 ["join"]
-       60 MOVE                             R5 R1
-       61 DUPTABLE                         R6 K15 [{"Category", "ItemId"}]
-       62 LOADK                            R7 K0 ["Actions"]
-       63 SETTABLEKS                       R7 R6 K13 ["Category"]
-       65 LOADK                            R7 K20 ["PrintActions"]
-       66 SETTABLEKS                       R7 R6 K14 ["ItemId"]
-       68 CALL                             R4 2 1
-       69 SETTABLEKS                       R4 R3 K4 ["Uri"]
-       71 LOADB                            R4 1
-       72 SETTABLEKS                       R4 R3 K5 ["Enabled"]
-       74 LOADB                            R4 1
-       75 SETTABLEKS                       R4 R3 K6 ["Exists"]
-       77 LOADB                            R4 1
-       78 SETTABLEKS                       R4 R3 K7 ["Visible"]
-       80 LOADB                            R4 0
-       81 SETTABLEKS                       R4 R3 K8 ["Checkable"]
-       83 GETUPVAL                         R4 2
-       84 LOADK                            R6 K17 ["Plugin"]
-       85 LOADK                            R7 K20 ["PrintActions"]
-       86 NAMECALL                         R4 R4 K18 ["getText"]
-       88 CALL                             R4 3 1
-       89 SETTABLEKS                       R4 R3 K9 ["Text"]
-       91 GETUPVAL                         R4 2
-       92 LOADK                            R6 K17 ["Plugin"]
-       93 LOADK                            R7 K21 ["PrintActionsTooltip"]
-       94 NAMECALL                         R4 R4 K18 ["getText"]
-       96 CALL                             R4 3 1
-       97 SETTABLEKS                       R4 R3 K10 ["Tooltip"]
-       99 LOADNIL                          R4
-      100 LOADNIL                          R5
-      101 GETIMPORT                        R6 K24 [task.spawn]
-      103 NEWCLOSURE                       R7 P0
-      104 CAPTURE                          VAL R0
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          REF R4
-      107 CAPTURE                          UPVAL U3
-      108 CALL                             R6 1 1
-      109 GETIMPORT                        R7 K24 [task.spawn]
-      111 NEWCLOSURE                       R8 P1
-      112 CAPTURE                          VAL R0
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          REF R5
-      115 CAPTURE                          UPVAL U4
-      116 CALL                             R7 1 1
-      117 NEWCLOSURE                       R8 P2
-      118 CAPTURE                          VAL R6
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          REF R4
-      121 CAPTURE                          REF R5
-      122 CLOSEUPVALS                      R4
-      123 RETURN                           R8 1
+       18 DUPTABLE                         R5 K18 [{["Category"] = "Actions", ["ItemId"] = "ReloadTabs"}]
+       19 CALL                             R3 2 1
+       20 SETTABLEKS                       R3 R2 K4 ["Uri"]
+       22 GETUPVAL                         R3 2
+       23 LOADK                            R5 K19 ["Plugin"]
+       24 LOADK                            R6 K17 ["ReloadTabs"]
+       25 NAMECALL                         R3 R3 K20 ["getText"]
+       27 CALL                             R3 3 1
+       28 SETTABLEKS                       R3 R2 K11 ["Text"]
+       30 GETUPVAL                         R3 2
+       31 LOADK                            R5 K19 ["Plugin"]
+       32 LOADK                            R6 K21 ["ReloadTabsTooltip"]
+       33 NAMECALL                         R3 R3 K20 ["getText"]
+       35 CALL                             R3 3 1
+       36 SETTABLEKS                       R3 R2 K12 ["Tooltip"]
+       38 DUPTABLE                         R3 K13 [{["Uri"], ["Enabled"] = True, ["Exists"] = True, ["Visible"] = True, ["Checkable"] = False, ["Text"], ["Tooltip"]}]
+       39 GETUPVAL                         R4 1
+       40 GETTABLEKS                       R4 R4 K14 ["join"]
+       42 MOVE                             R5 R1
+       43 DUPTABLE                         R6 K23 [{["Category"] = "Actions", ["ItemId"] = "PrintActions"}]
+       44 CALL                             R4 2 1
+       45 SETTABLEKS                       R4 R3 K4 ["Uri"]
+       47 GETUPVAL                         R4 2
+       48 LOADK                            R6 K19 ["Plugin"]
+       49 LOADK                            R7 K22 ["PrintActions"]
+       50 NAMECALL                         R4 R4 K20 ["getText"]
+       52 CALL                             R4 3 1
+       53 SETTABLEKS                       R4 R3 K11 ["Text"]
+       55 GETUPVAL                         R4 2
+       56 LOADK                            R6 K19 ["Plugin"]
+       57 LOADK                            R7 K24 ["PrintActionsTooltip"]
+       58 NAMECALL                         R4 R4 K20 ["getText"]
+       60 CALL                             R4 3 1
+       61 SETTABLEKS                       R4 R3 K12 ["Tooltip"]
+       63 LOADNIL                          R4
+       64 LOADNIL                          R5
+       65 GETIMPORT                        R6 K27 [task.spawn]
+       67 NEWCLOSURE                       R7 P0
+       68 CAPTURE                          VAL R0
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          REF R4
+       71 CAPTURE                          UPVAL U3
+       72 CALL                             R6 1 1
+       73 GETIMPORT                        R7 K27 [task.spawn]
+       75 NEWCLOSURE                       R8 P1
+       76 CAPTURE                          VAL R0
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          REF R5
+       79 CAPTURE                          UPVAL U4
+       80 CALL                             R7 1 1
+       81 NEWCLOSURE                       R8 P2
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R7
+       84 CAPTURE                          REF R4
+       85 CAPTURE                          REF R5
+       86 CLOSEUPVALS                      R4
+       87 RETURN                           R8 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

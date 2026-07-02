@@ -1,12 +1,8 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K3 [{"data", "allowed", "type"}]
+        0 DUPTABLE                         R0 K5 [{[1], ["allowed"] = False, ["type"] = }]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["data"]
-        5 LOADB                            R1 0
-        6 SETTABLEKS                       R1 R0 K1 ["allowed"]
-        8 LOADNIL                          R1
-        9 SETTABLEKS                       R1 R0 K2 ["type"]
-       11 RETURN                           R0 1
+        5 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -14,11 +10,9 @@ PROTO_1:
         3 CALL                             R0 0 1
         4 LOADB                            R1 1
         5 SETTABLEKS                       R1 R0 K1 ["allowed"]
-        7 DUPTABLE                         R1 K3 [{"domain"}]
-        8 LOADK                            R2 K4 ["a"]
-        9 SETTABLEKS                       R2 R1 K2 ["domain"]
-       11 SETTABLEKS                       R1 R0 K5 ["data"]
-       13 RETURN                           R0 1
+        7 DUPTABLE                         R1 K4 [{["domain"] = "a"}]
+        8 SETTABLEKS                       R1 R0 K5 ["data"]
+       10 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

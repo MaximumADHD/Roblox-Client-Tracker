@@ -87,47 +87,41 @@ PROTO_7:
        33 GETUPVAL                         R7 1
        34 GETTABLEKS                       R7 R7 K12 ["createElement"]
        36 GETUPVAL                         R8 2
-       37 DUPTABLE                         R9 K24 [{"AbsoluteSize", "AbsolutePosition", "Style", "FollowCursorOnDrag", "OnSelected", "OnHover", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnDoubleClicked"}]
+       37 DUPTABLE                         R9 K26 [{["AbsoluteSize"], ["AbsolutePosition"], ["Style"] = "RubberBand", ["FollowCursorOnDrag"] = False, ["OnSelected"], ["OnHover"], ["OnDeselected"], ["OnDragStart"], ["OnDragMoved"], ["OnDragEnd"], ["OnDoubleClicked"]}]
        38 SETTABLEKS                       R5 R9 K13 ["AbsoluteSize"]
        40 SETTABLEKS                       R4 R9 K14 ["AbsolutePosition"]
-       42 LOADK                            R10 K25 ["RubberBand"]
-       43 SETTABLEKS                       R10 R9 K15 ["Style"]
-       45 LOADB                            R10 0
-       46 SETTABLEKS                       R10 R9 K16 ["FollowCursorOnDrag"]
-       48 DUPCLOSURE                       R10 K26 [PROTO_0]
-       49 SETTABLEKS                       R10 R9 K17 ["OnSelected"]
-       51 DUPCLOSURE                       R10 K27 [PROTO_1]
-       52 SETTABLEKS                       R10 R9 K18 ["OnHover"]
-       54 DUPCLOSURE                       R10 K28 [PROTO_2]
-       55 SETTABLEKS                       R10 R9 K19 ["OnDeselected"]
-       57 NEWCLOSURE                       R10 P3
-       58 CAPTURE                          UPVAL U3
-       59 CAPTURE                          VAL R2
+       42 DUPCLOSURE                       R10 K27 [PROTO_0]
+       43 SETTABLEKS                       R10 R9 K19 ["OnSelected"]
+       45 DUPCLOSURE                       R10 K28 [PROTO_1]
+       46 SETTABLEKS                       R10 R9 K20 ["OnHover"]
+       48 DUPCLOSURE                       R10 K29 [PROTO_2]
+       49 SETTABLEKS                       R10 R9 K21 ["OnDeselected"]
+       51 NEWCLOSURE                       R10 P3
+       52 CAPTURE                          UPVAL U3
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R10 R9 K22 ["OnDragStart"]
+       58 NEWCLOSURE                       R10 P4
+       59 CAPTURE                          VAL R0
        60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R10 R9 K20 ["OnDragStart"]
-       64 NEWCLOSURE                       R10 P4
-       65 CAPTURE                          VAL R0
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R10 R9 K21 ["OnDragMoved"]
-       69 NEWCLOSURE                       R10 P5
-       70 CAPTURE                          VAL R0
-       71 CAPTURE                          VAL R1
-       72 SETTABLEKS                       R10 R9 K22 ["OnDragEnd"]
-       74 NEWCLOSURE                       R10 P6
-       75 CAPTURE                          VAL R1
-       76 SETTABLEKS                       R10 R9 K23 ["OnDoubleClicked"]
-       78 CALL                             R7 2 1
-       79 SETTABLEKS                       R7 R6 K29 ["RubberbandPane"]
-       81 GETUPVAL                         R7 1
-       82 GETTABLEKS                       R7 R7 K12 ["createElement"]
-       84 GETUPVAL                         R8 4
-       85 DUPTABLE                         R9 K31 [{"DisplayOrder"}]
-       86 LOADN                            R10 2
-       87 SETTABLEKS                       R10 R9 K30 ["DisplayOrder"]
-       89 MOVE                             R10 R6
-       90 CALL                             R7 3 -1
-       91 RETURN                           R7 -1
+       61 SETTABLEKS                       R10 R9 K23 ["OnDragMoved"]
+       63 NEWCLOSURE                       R10 P5
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          VAL R1
+       66 SETTABLEKS                       R10 R9 K24 ["OnDragEnd"]
+       68 NEWCLOSURE                       R10 P6
+       69 CAPTURE                          VAL R1
+       70 SETTABLEKS                       R10 R9 K25 ["OnDoubleClicked"]
+       72 CALL                             R7 2 1
+       73 SETTABLEKS                       R7 R6 K30 ["RubberbandPane"]
+       75 GETUPVAL                         R7 1
+       76 GETTABLEKS                       R7 R7 K12 ["createElement"]
+       78 GETUPVAL                         R8 4
+       79 DUPTABLE                         R9 K33 [{["DisplayOrder"] = 2}]
+       80 MOVE                             R10 R6
+       81 CALL                             R7 3 -1
+       82 RETURN                           R7 -1
 
 PROTO_8:
         0 DUPTABLE                         R2 K5 [{"Refreshed", "SelectedObject", "Path2DToolMode", "ParentAbsRotation", "ParentAbsSize"}]

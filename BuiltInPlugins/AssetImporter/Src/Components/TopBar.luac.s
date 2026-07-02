@@ -56,79 +56,67 @@ PROTO_2:
        58 GETUPVAL                         R10 0
        59 GETTABLEKS                       R10 R10 K11 ["createElement"]
        61 GETUPVAL                         R11 2
-       62 DUPTABLE                         R12 K32 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
-       63 LOADN                            R13 1
-       64 SETTABLEKS                       R13 R12 K28 ["LayoutOrder"]
-       66 GETTABLEKS                       R13 R3 K5 ["ButtonSize"]
-       68 SETTABLEKS                       R13 R12 K15 ["Size"]
-       70 LOADK                            R13 K33 ["Round"]
-       71 SETTABLEKS                       R13 R12 K29 ["Style"]
-       73 LOADK                            R15 K34 ["Plugin"]
-       74 LOADK                            R16 K35 ["Browse"]
-       75 NAMECALL                         R13 R2 K36 ["getText"]
-       77 CALL                             R13 3 1
-       78 SETTABLEKS                       R13 R12 K30 ["Text"]
-       80 GETTABLEKS                       R13 R0 K37 ["onBrowse"]
-       82 SETTABLEKS                       R13 R12 K31 ["OnClick"]
-       84 CALL                             R10 2 1
-       85 SETTABLEKS                       R10 R9 K23 ["BrowseButton"]
-       87 GETUPVAL                         R10 0
-       88 GETTABLEKS                       R10 R10 K11 ["createElement"]
-       90 GETUPVAL                         R11 1
-       91 DUPTABLE                         R12 K38 [{"Size", "LayoutOrder"}]
-       92 GETIMPORT                        R13 K41 [UDim2.new]
-       94 LOADN                            R14 1
-       95 MINUS                            R15 R5
-       96 LOADN                            R16 1
-       97 LOADN                            R17 0
-       98 CALL                             R13 4 1
-       99 SETTABLEKS                       R13 R12 K15 ["Size"]
-      101 LOADN                            R13 2
-      102 SETTABLEKS                       R13 R12 K28 ["LayoutOrder"]
-      104 DUPTABLE                         R13 K43 [{"FilePath"}]
-      105 GETUPVAL                         R14 0
-      106 GETTABLEKS                       R14 R14 K11 ["createElement"]
-      108 GETUPVAL                         R15 3
-      109 DUPTABLE                         R16 K46 [{"AutomaticSize", "Disabled", "Size", "Text"}]
-      110 GETIMPORT                        R17 K48 [Enum.AutomaticSize.None]
-      112 SETTABLEKS                       R17 R16 K44 ["AutomaticSize"]
-      114 LOADB                            R17 1
-      115 SETTABLEKS                       R17 R16 K45 ["Disabled"]
-      117 GETIMPORT                        R17 K41 [UDim2.new]
-      119 LOADN                            R18 1
-      120 LOADN                            R19 0
-      121 LOADN                            R20 1
-      122 LOADN                            R21 0
-      123 CALL                             R17 4 1
-      124 SETTABLEKS                       R17 R16 K15 ["Size"]
-      126 GETTABLEKS                       R17 R1 K49 ["FileName"]
-      128 SETTABLEKS                       R17 R16 K30 ["Text"]
-      130 CALL                             R14 2 1
-      131 SETTABLEKS                       R14 R13 K42 ["FilePath"]
-      133 CALL                             R10 3 1
-      134 SETTABLEKS                       R10 R9 K24 ["TextInput"]
-      136 GETUPVAL                         R10 0
-      137 GETTABLEKS                       R10 R10 K11 ["createElement"]
-      139 GETUPVAL                         R11 4
-      140 DUPTABLE                         R12 K51 [{"LayoutOrder", "QueueItem", "Size"}]
-      141 LOADN                            R13 3
-      142 SETTABLEKS                       R13 R12 K28 ["LayoutOrder"]
-      144 GETTABLEKS                       R13 R1 K52 ["ActiveQueueItem"]
-      146 SETTABLEKS                       R13 R12 K50 ["QueueItem"]
-      148 GETTABLEKS                       R13 R3 K8 ["TemplateDropDown"]
-      150 SETTABLEKS                       R13 R12 K15 ["Size"]
-      152 CALL                             R10 2 1
-      153 SETTABLEKS                       R10 R9 K25 ["PresetDropdown"]
-      155 GETUPVAL                         R10 0
-      156 GETTABLEKS                       R10 R10 K11 ["createElement"]
-      158 GETUPVAL                         R11 5
-      159 DUPTABLE                         R12 K53 [{"LayoutOrder"}]
-      160 LOADN                            R13 4
-      161 SETTABLEKS                       R13 R12 K28 ["LayoutOrder"]
-      163 CALL                             R10 2 1
-      164 SETTABLEKS                       R10 R9 K26 ["PresetMenu"]
-      166 CALL                             R6 3 -1
-      167 RETURN                           R6 -1
+       62 DUPTABLE                         R12 K34 [{["LayoutOrder"] = 1, ["Size"], ["Style"] = "Round", ["Text"], ["OnClick"]}]
+       63 GETTABLEKS                       R13 R3 K5 ["ButtonSize"]
+       65 SETTABLEKS                       R13 R12 K15 ["Size"]
+       67 LOADK                            R15 K35 ["Plugin"]
+       68 LOADK                            R16 K36 ["Browse"]
+       69 NAMECALL                         R13 R2 K37 ["getText"]
+       71 CALL                             R13 3 1
+       72 SETTABLEKS                       R13 R12 K32 ["Text"]
+       74 GETTABLEKS                       R13 R0 K38 ["onBrowse"]
+       76 SETTABLEKS                       R13 R12 K33 ["OnClick"]
+       78 CALL                             R10 2 1
+       79 SETTABLEKS                       R10 R9 K23 ["BrowseButton"]
+       81 GETUPVAL                         R10 0
+       82 GETTABLEKS                       R10 R10 K11 ["createElement"]
+       84 GETUPVAL                         R11 1
+       85 DUPTABLE                         R12 K40 [{["Size"], ["LayoutOrder"] = 2}]
+       86 GETIMPORT                        R13 K43 [UDim2.new]
+       88 LOADN                            R14 1
+       89 MINUS                            R15 R5
+       90 LOADN                            R16 1
+       91 LOADN                            R17 0
+       92 CALL                             R13 4 1
+       93 SETTABLEKS                       R13 R12 K15 ["Size"]
+       95 DUPTABLE                         R13 K45 [{"FilePath"}]
+       96 GETUPVAL                         R14 0
+       97 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       99 GETUPVAL                         R15 3
+      100 DUPTABLE                         R16 K49 [{["AutomaticSize"], ["Disabled"] = True, ["Size"], ["Text"]}]
+      101 GETIMPORT                        R17 K51 [Enum.AutomaticSize.None]
+      103 SETTABLEKS                       R17 R16 K46 ["AutomaticSize"]
+      105 GETIMPORT                        R17 K43 [UDim2.new]
+      107 LOADN                            R18 1
+      108 LOADN                            R19 0
+      109 LOADN                            R20 1
+      110 LOADN                            R21 0
+      111 CALL                             R17 4 1
+      112 SETTABLEKS                       R17 R16 K15 ["Size"]
+      114 GETTABLEKS                       R17 R1 K52 ["FileName"]
+      116 SETTABLEKS                       R17 R16 K32 ["Text"]
+      118 CALL                             R14 2 1
+      119 SETTABLEKS                       R14 R13 K44 ["FilePath"]
+      121 CALL                             R10 3 1
+      122 SETTABLEKS                       R10 R9 K24 ["TextInput"]
+      124 GETUPVAL                         R10 0
+      125 GETTABLEKS                       R10 R10 K11 ["createElement"]
+      127 GETUPVAL                         R11 4
+      128 DUPTABLE                         R12 K54 [{["LayoutOrder"] = 3, ["QueueItem"], ["Size"]}]
+      129 GETTABLEKS                       R13 R1 K55 ["ActiveQueueItem"]
+      131 SETTABLEKS                       R13 R12 K53 ["QueueItem"]
+      133 GETTABLEKS                       R13 R3 K8 ["TemplateDropDown"]
+      135 SETTABLEKS                       R13 R12 K15 ["Size"]
+      137 CALL                             R10 2 1
+      138 SETTABLEKS                       R10 R9 K25 ["PresetDropdown"]
+      140 GETUPVAL                         R10 0
+      141 GETTABLEKS                       R10 R10 K11 ["createElement"]
+      143 GETUPVAL                         R11 5
+      144 DUPTABLE                         R12 K57 [{["LayoutOrder"] = 4}]
+      145 CALL                             R10 2 1
+      146 SETTABLEKS                       R10 R9 K26 ["PresetMenu"]
+      148 CALL                             R6 3 -1
+      149 RETURN                           R6 -1
 
 PROTO_3:
         0 DUPTABLE                         R1 K4 [{"ActiveQueueItem", "AssetImportSession", "SelectedImportItem", "Checked"}]

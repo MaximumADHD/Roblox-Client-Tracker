@@ -92,17 +92,15 @@ PROTO_3:
        27 MOVE                             R4 R1
        28 NAMECALL                         R2 R2 K6 ["Connect"]
        30 CALL                             R2 2 1
-       31 DUPTABLE                         R3 K11 [{"_namespace", "_isConnected", "_connection", "Disconnect"}]
+       31 DUPTABLE                         R3 K12 [{["_namespace"], ["_isConnected"] = True, ["_connection"], ["Disconnect"]}]
        32 SETTABLEKS                       R0 R3 K7 ["_namespace"]
-       34 LOADB                            R4 1
-       35 SETTABLEKS                       R4 R3 K8 ["_isConnected"]
-       37 SETTABLEKS                       R2 R3 K9 ["_connection"]
-       39 GETUPVAL                         R4 4
-       40 SETTABLEKS                       R4 R3 K10 ["Disconnect"]
-       42 GETUPVAL                         R4 5
-       43 LOADB                            R5 1
-       44 SETTABLE                         R5 R4 R3
-       45 RETURN                           R3 1
+       34 SETTABLEKS                       R2 R3 K10 ["_connection"]
+       36 GETUPVAL                         R4 4
+       37 SETTABLEKS                       R4 R3 K11 ["Disconnect"]
+       39 GETUPVAL                         R4 5
+       40 LOADB                            R5 1
+       41 SETTABLE                         R5 R4 R3
+       42 RETURN                           R3 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

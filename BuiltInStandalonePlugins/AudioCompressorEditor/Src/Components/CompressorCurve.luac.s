@@ -57,8 +57,8 @@ PROTO_2:
        13 GETTABLEKS                       R4 R4 K4 ["makeupGain"]
        15 CALL                             R2 2 1
        16 GETIMPORT                        R4 K2 [Vector2.new]
-       18 LOADN                            R5 176
-       19 LOADN                            R6 176
+       18 LOADN                            R5 -80
+       19 LOADN                            R6 -80
        20 CALL                             R4 2 1
        21 ADD                              R3 R4 R2
        22 MOVE                             R5 R0
@@ -107,11 +107,11 @@ PROTO_2:
        82 GETUPVAL                         R7 2
        83 GETTABLEKS                       R7 R7 K3 ["DataHook"]
        85 GETTABLEKS                       R7 R7 K10 ["threshold"]
-       87 SUBRK                            R6 R11 K7 ["table"]
+       87 SUBRK                            R6 K11 [30] R7
        88 GETUPVAL                         R9 2
        89 GETTABLEKS                       R9 R9 K3 ["DataHook"]
        91 GETTABLEKS                       R9 R9 K10 ["threshold"]
-       93 SUBRK                            R8 R11 K9 [table.insert]
+       93 SUBRK                            R8 K11 [30] R9
        94 GETUPVAL                         R9 2
        95 GETTABLEKS                       R9 R9 K3 ["DataHook"]
        97 GETTABLEKS                       R9 R9 K12 ["ratio"]
@@ -147,35 +147,31 @@ PROTO_3:
        16 SETLIST                          R4 R5 2 [1]
        18 CALL                             R2 2 1
        19 GETTABLEKS                       R3 R0 K3 ["Enabled"]
-       21 JUMPIFNOT                        R3 ; [+36]
+       21 JUMPIFNOT                        R3 ; [+30]
        22 GETUPVAL                         R3 3
        23 GETTABLEKS                       R3 R3 K4 ["createElement"]
        25 LOADK                            R4 K5 ["CanvasGroup"]
-       26 DUPTABLE                         R5 K9 [{"Size", "BackgroundTransparency", "ZIndex"}]
-       27 GETIMPORT                        R6 K12 [UDim2.fromScale]
+       26 DUPTABLE                         R5 K11 [{["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 4}]
+       27 GETIMPORT                        R6 K14 [UDim2.fromScale]
        29 LOADN                            R7 1
        30 LOADN                            R8 1
        31 CALL                             R6 2 1
        32 SETTABLEKS                       R6 R5 K6 ["Size"]
-       34 LOADN                            R6 1
-       35 SETTABLEKS                       R6 R5 K7 ["BackgroundTransparency"]
-       37 LOADN                            R6 4
-       38 SETTABLEKS                       R6 R5 K8 ["ZIndex"]
-       40 DUPTABLE                         R6 K14 [{"Curve"}]
-       41 GETUPVAL                         R7 3
-       42 GETTABLEKS                       R7 R7 K4 ["createElement"]
-       44 GETUPVAL                         R8 4
-       45 DUPTABLE                         R9 K17 [{"ControlPoints", "Tag"}]
-       46 SETTABLEKS                       R2 R9 K15 ["ControlPoints"]
-       48 JUMPIFNOT                        R1 ; [+2]
-       49 LOADK                            R10 K13 ["Curve"]
-       50 JUMP                             ; [+1]
-       51 LOADK                            R10 K18 ["CurveDisabled"]
-       52 SETTABLEKS                       R10 R9 K16 ["Tag"]
-       54 CALL                             R7 2 1
-       55 SETTABLEKS                       R7 R6 K13 ["Curve"]
-       57 CALL                             R3 3 1
-       58 RETURN                           R3 1
+       34 DUPTABLE                         R6 K16 [{"Curve"}]
+       35 GETUPVAL                         R7 3
+       36 GETTABLEKS                       R7 R7 K4 ["createElement"]
+       38 GETUPVAL                         R8 4
+       39 DUPTABLE                         R9 K19 [{"ControlPoints", "Tag"}]
+       40 SETTABLEKS                       R2 R9 K17 ["ControlPoints"]
+       42 JUMPIFNOT                        R1 ; [+2]
+       43 LOADK                            R10 K15 ["Curve"]
+       44 JUMP                             ; [+1]
+       45 LOADK                            R10 K20 ["CurveDisabled"]
+       46 SETTABLEKS                       R10 R9 K18 ["Tag"]
+       48 CALL                             R7 2 1
+       49 SETTABLEKS                       R7 R6 K15 ["Curve"]
+       51 CALL                             R3 3 1
+       52 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

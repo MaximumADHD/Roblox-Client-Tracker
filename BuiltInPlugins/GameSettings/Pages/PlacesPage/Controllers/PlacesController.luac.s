@@ -62,28 +62,22 @@ PROTO_4:
         4 LOADN                            R5 1
         5 JUMP                             ; [+1]
         6 ADDK                             R5 R3 K0 [1]
-        7 DUPTABLE                         R6 K5 [{"limit", "sortOrder", "cursor", "extendedSettings"}]
-        8 LOADN                            R7 10
-        9 SETTABLEKS                       R7 R6 K1 ["limit"]
-       11 LOADK                            R7 K6 ["Asc"]
-       12 SETTABLEKS                       R7 R6 K2 ["sortOrder"]
-       14 SETTABLEKS                       R2 R6 K3 ["cursor"]
-       16 LOADB                            R7 1
-       17 SETTABLEKS                       R7 R6 K4 ["extendedSettings"]
-       19 GETUPVAL                         R7 0
-       20 GETTABLEKS                       R7 R7 K7 ["resolve"]
-       22 MOVE                             R10 R1
-       23 MOVE                             R11 R6
-       24 NAMECALL                         R8 R0 K8 ["placesV2GET"]
-       26 CALL                             R8 3 -1
-       27 CALL                             R7 -1 1
-       28 NEWCLOSURE                       R9 P0
-       29 CAPTURE                          REF R5
-       30 CAPTURE                          VAL R4
-       31 NAMECALL                         R7 R7 K9 ["andThen"]
-       33 CALL                             R7 2 -1
-       34 CLOSEUPVALS                      R5
-       35 RETURN                           R7 -1
+        7 DUPTABLE                         R6 K8 [{["limit"] = 10, ["sortOrder"] = "Asc", ["cursor"], ["extendedSettings"] = True}]
+        8 SETTABLEKS                       R2 R6 K5 ["cursor"]
+       10 GETUPVAL                         R7 0
+       11 GETTABLEKS                       R7 R7 K9 ["resolve"]
+       13 MOVE                             R10 R1
+       14 MOVE                             R11 R6
+       15 NAMECALL                         R8 R0 K10 ["placesV2GET"]
+       17 CALL                             R8 3 -1
+       18 CALL                             R7 -1 1
+       19 NEWCLOSURE                       R9 P0
+       20 CAPTURE                          REF R5
+       21 CAPTURE                          VAL R4
+       22 NAMECALL                         R7 R7 K11 ["andThen"]
+       24 CALL                             R7 2 -1
+       25 CLOSEUPVALS                      R5
+       26 RETURN                           R7 -1
 
 PROTO_5:
         0 MOVE                             R5 R1

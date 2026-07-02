@@ -13,7 +13,7 @@ PROTO_0:
        19 JUMP                             ; [+7]
        20 GETTABLEKS                       R8 R4 K7 ["X"]
        22 JUMPIFNOTEQKN                    R8 K8 [1] ; [+3]
-       24 LOADN                            R7 228
+       24 LOADN                            R7 -28
        25 JUMP                             ; [+1]
        26 LOADN                            R7 0
        27 LOADNIL                          R8
@@ -23,79 +23,71 @@ PROTO_0:
        33 JUMP                             ; [+7]
        34 GETTABLEKS                       R9 R4 K9 ["Y"]
        36 JUMPIFNOTEQKN                    R9 K8 [1] ; [+3]
-       38 LOADN                            R8 228
+       38 LOADN                            R8 -28
        39 JUMP                             ; [+1]
        40 LOADN                            R8 0
        41 GETTABLEKS                       R10 R3 K10 ["shadowTransparency"]
        43 GETTABLEKS                       R13 R3 K10 ["shadowTransparency"]
-       45 SUBRK                            R12 R8 K13 [{"Priority"}]
+       45 SUBRK                            R12 K8 [1] R13
        46 MUL                              R11 R12 R6
        47 ADD                              R9 R10 R11
        48 GETUPVAL                         R10 0
        49 GETTABLEKS                       R10 R10 K11 ["createElement"]
        51 GETUPVAL                         R11 1
-       52 DUPTABLE                         R12 K13 [{"Priority"}]
-       53 LOADN                            R13 255
-       54 SETTABLEKS                       R13 R12 K12 ["Priority"]
-       56 DUPTABLE                         R13 K15 [{"Container"}]
-       57 GETUPVAL                         R14 0
-       58 GETTABLEKS                       R14 R14 K11 ["createElement"]
-       60 LOADK                            R15 K16 ["Frame"]
-       61 DUPTABLE                         R16 K19 [{"AnchorPoint", "Size", "Position", "BackgroundTransparency"}]
-       62 SETTABLEKS                       R4 R16 K3 ["AnchorPoint"]
-       64 SETTABLEKS                       R5 R16 K4 ["Size"]
-       66 GETIMPORT                        R17 K22 [UDim2.new]
-       68 GETTABLEKS                       R18 R4 K7 ["X"]
-       70 MOVE                             R19 R7
-       71 GETTABLEKS                       R20 R4 K9 ["Y"]
-       73 MOVE                             R21 R8
-       74 CALL                             R17 4 1
-       75 SETTABLEKS                       R17 R16 K17 ["Position"]
-       77 LOADN                            R17 1
-       78 SETTABLEKS                       R17 R16 K18 ["BackgroundTransparency"]
-       80 DUPTABLE                         R17 K24 [{"Background"}]
-       81 GETUPVAL                         R18 0
-       82 GETTABLEKS                       R18 R18 K11 ["createElement"]
-       84 LOADK                            R19 K16 ["Frame"]
-       85 DUPTABLE                         R20 K28 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "ZIndex"}]
-       86 GETIMPORT                        R21 K22 [UDim2.new]
-       88 LOADN                            R22 1
-       89 LOADN                            R23 0
-       90 LOADN                            R24 1
-       91 LOADN                            R25 0
-       92 CALL                             R21 4 1
-       93 SETTABLEKS                       R21 R20 K4 ["Size"]
-       95 GETTABLEKS                       R21 R2 K29 ["backgroundColor"]
-       97 SETTABLEKS                       R21 R20 K25 ["BackgroundColor3"]
-       99 SETTABLEKS                       R6 R20 K18 ["BackgroundTransparency"]
-      101 LOADN                            R21 0
-      102 SETTABLEKS                       R21 R20 K26 ["BorderSizePixel"]
-      104 LOADN                            R21 2
-      105 SETTABLEKS                       R21 R20 K27 ["ZIndex"]
-      107 DUPTABLE                         R21 K31 [{"Shadow"}]
-      108 GETUPVAL                         R22 0
-      109 GETTABLEKS                       R22 R22 K11 ["createElement"]
-      111 GETUPVAL                         R23 2
-      112 DUPTABLE                         R24 K35 [{"Transparency", "Color", "Radius", "Offset"}]
-      113 SETTABLEKS                       R9 R24 K6 ["Transparency"]
-      115 GETTABLEKS                       R25 R3 K36 ["shadowColor"]
-      117 SETTABLEKS                       R25 R24 K32 ["Color"]
-      119 GETTABLEKS                       R25 R3 K37 ["shadowSize"]
-      121 SETTABLEKS                       R25 R24 K33 ["Radius"]
-      123 GETIMPORT                        R25 K39 [Vector2.new]
-      125 CALL                             R25 0 1
-      126 SETTABLEKS                       R25 R24 K34 ["Offset"]
-      128 GETUPVAL                         R26 0
-      129 GETTABLEKS                       R26 R26 K40 ["Children"]
-      131 GETTABLE                         R25 R1 R26
-      132 CALL                             R22 3 1
-      133 SETTABLEKS                       R22 R21 K30 ["Shadow"]
-      135 CALL                             R18 3 1
-      136 SETTABLEKS                       R18 R17 K23 ["Background"]
-      138 CALL                             R14 3 1
-      139 SETTABLEKS                       R14 R13 K14 ["Container"]
-      141 CALL                             R10 3 -1
-      142 RETURN                           R10 -1
+       52 DUPTABLE                         R12 K14 [{["Priority"] = -1}]
+       53 DUPTABLE                         R13 K16 [{"Container"}]
+       54 GETUPVAL                         R14 0
+       55 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       57 LOADK                            R15 K17 ["Frame"]
+       58 DUPTABLE                         R16 K20 [{["AnchorPoint"], ["Size"], ["Position"], ["BackgroundTransparency"] = 1}]
+       59 SETTABLEKS                       R4 R16 K3 ["AnchorPoint"]
+       61 SETTABLEKS                       R5 R16 K4 ["Size"]
+       63 GETIMPORT                        R17 K23 [UDim2.new]
+       65 GETTABLEKS                       R18 R4 K7 ["X"]
+       67 MOVE                             R19 R7
+       68 GETTABLEKS                       R20 R4 K9 ["Y"]
+       70 MOVE                             R21 R8
+       71 CALL                             R17 4 1
+       72 SETTABLEKS                       R17 R16 K18 ["Position"]
+       74 DUPTABLE                         R17 K25 [{"Background"}]
+       75 GETUPVAL                         R18 0
+       76 GETTABLEKS                       R18 R18 K11 ["createElement"]
+       78 LOADK                            R19 K17 ["Frame"]
+       79 DUPTABLE                         R20 K30 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"], ["BorderSizePixel"] = 0, ["ZIndex"] = 2}]
+       80 GETIMPORT                        R21 K23 [UDim2.new]
+       82 LOADN                            R22 1
+       83 LOADN                            R23 0
+       84 LOADN                            R24 1
+       85 LOADN                            R25 0
+       86 CALL                             R21 4 1
+       87 SETTABLEKS                       R21 R20 K4 ["Size"]
+       89 GETTABLEKS                       R21 R2 K31 ["backgroundColor"]
+       91 SETTABLEKS                       R21 R20 K26 ["BackgroundColor3"]
+       93 SETTABLEKS                       R6 R20 K19 ["BackgroundTransparency"]
+       95 DUPTABLE                         R21 K33 [{"Shadow"}]
+       96 GETUPVAL                         R22 0
+       97 GETTABLEKS                       R22 R22 K11 ["createElement"]
+       99 GETUPVAL                         R23 2
+      100 DUPTABLE                         R24 K37 [{"Transparency", "Color", "Radius", "Offset"}]
+      101 SETTABLEKS                       R9 R24 K6 ["Transparency"]
+      103 GETTABLEKS                       R25 R3 K38 ["shadowColor"]
+      105 SETTABLEKS                       R25 R24 K34 ["Color"]
+      107 GETTABLEKS                       R25 R3 K39 ["shadowSize"]
+      109 SETTABLEKS                       R25 R24 K35 ["Radius"]
+      111 GETIMPORT                        R25 K41 [Vector2.new]
+      113 CALL                             R25 0 1
+      114 SETTABLEKS                       R25 R24 K36 ["Offset"]
+      116 GETUPVAL                         R26 0
+      117 GETTABLEKS                       R26 R26 K42 ["Children"]
+      119 GETTABLE                         R25 R1 R26
+      120 CALL                             R22 3 1
+      121 SETTABLEKS                       R22 R21 K32 ["Shadow"]
+      123 CALL                             R18 3 1
+      124 SETTABLEKS                       R18 R17 K24 ["Background"]
+      126 CALL                             R14 3 1
+      127 SETTABLEKS                       R14 R13 K15 ["Container"]
+      129 CALL                             R10 3 -1
+      130 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

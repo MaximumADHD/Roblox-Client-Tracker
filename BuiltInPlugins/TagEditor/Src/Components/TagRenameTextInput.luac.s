@@ -84,28 +84,24 @@ PROTO_3:
        13 GETUPVAL                         R5 0
        14 GETTABLEKS                       R5 R5 K4 ["createElement"]
        16 GETUPVAL                         R6 1
-       17 DUPTABLE                         R7 K13 [{"Size", "Style", "LayoutOrder", "ShouldFocus", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+       17 DUPTABLE                         R7 K15 [{["Size"], ["Style"] = "FilledRoundedBorder", ["LayoutOrder"], ["ShouldFocus"] = True, ["ForwardRef"], ["PlaceholderText"], ["OnTextChanged"], ["OnFocusLost"]}]
        18 GETTABLEKS                       R8 R1 K5 ["Size"]
        20 SETTABLEKS                       R8 R7 K5 ["Size"]
-       22 LOADK                            R8 K14 ["FilledRoundedBorder"]
-       23 SETTABLEKS                       R8 R7 K6 ["Style"]
-       25 GETTABLEKS                       R8 R1 K7 ["LayoutOrder"]
-       27 SETTABLEKS                       R8 R7 K7 ["LayoutOrder"]
-       29 LOADB                            R8 1
-       30 SETTABLEKS                       R8 R7 K8 ["ShouldFocus"]
-       32 GETTABLEKS                       R8 R0 K15 ["textBoxRef"]
-       34 SETTABLEKS                       R8 R7 K9 ["ForwardRef"]
-       36 JUMPIFNOT                        R4 ; [+2]
-       37 MOVE                             R8 R3
-       38 JUMP                             ; [+1]
-       39 MOVE                             R8 R2
-       40 SETTABLEKS                       R8 R7 K10 ["PlaceholderText"]
-       42 GETTABLEKS                       R8 R0 K16 ["onTextChanged"]
-       44 SETTABLEKS                       R8 R7 K11 ["OnTextChanged"]
-       46 GETTABLEKS                       R8 R0 K17 ["onFocusLost"]
-       48 SETTABLEKS                       R8 R7 K12 ["OnFocusLost"]
-       50 CALL                             R5 2 -1
-       51 RETURN                           R5 -1
+       22 GETTABLEKS                       R8 R1 K8 ["LayoutOrder"]
+       24 SETTABLEKS                       R8 R7 K8 ["LayoutOrder"]
+       26 GETTABLEKS                       R8 R0 K16 ["textBoxRef"]
+       28 SETTABLEKS                       R8 R7 K11 ["ForwardRef"]
+       30 JUMPIFNOT                        R4 ; [+2]
+       31 MOVE                             R8 R3
+       32 JUMP                             ; [+1]
+       33 MOVE                             R8 R2
+       34 SETTABLEKS                       R8 R7 K12 ["PlaceholderText"]
+       36 GETTABLEKS                       R8 R0 K17 ["onTextChanged"]
+       38 SETTABLEKS                       R8 R7 K13 ["OnTextChanged"]
+       40 GETTABLEKS                       R8 R0 K18 ["onFocusLost"]
+       42 SETTABLEKS                       R8 R7 K14 ["OnFocusLost"]
+       44 CALL                             R5 2 -1
+       45 RETURN                           R5 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["textBoxRef"]

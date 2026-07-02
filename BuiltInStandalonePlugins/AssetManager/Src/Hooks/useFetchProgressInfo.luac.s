@@ -44,25 +44,21 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["use"]
         3 CALL                             R1 0 1
-        4 DUPTABLE                         R2 K3 [{"IsLoading", "FetchProgress"}]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["IsLoading"]
-        8 LOADN                            R3 0
-        9 SETTABLEKS                       R3 R2 K2 ["FetchProgress"]
-       11 GETUPVAL                         R3 1
-       12 MOVE                             R4 R2
-       13 CALL                             R3 1 2
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R5 R5 K4 ["useEffect"]
-       17 NEWCLOSURE                       R6 P0
-       18 CAPTURE                          VAL R1
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          VAL R4
-       21 NEWTABLE                         R7 0 1
-       23 MOVE                             R8 R0
-       24 SETLIST                          R7 R8 1 [1]
-       26 CALL                             R5 2 0
-       27 RETURN                           R3 1
+        4 DUPTABLE                         R2 K5 [{["IsLoading"] = False, ["FetchProgress"] = 0}]
+        5 GETUPVAL                         R3 1
+        6 MOVE                             R4 R2
+        7 CALL                             R3 1 2
+        8 GETUPVAL                         R5 2
+        9 GETTABLEKS                       R5 R5 K6 ["useEffect"]
+       11 NEWCLOSURE                       R6 P0
+       12 CAPTURE                          VAL R1
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R4
+       15 NEWTABLE                         R7 0 1
+       17 MOVE                             R8 R0
+       18 SETLIST                          R7 R8 1 [1]
+       20 CALL                             R5 2 0
+       21 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

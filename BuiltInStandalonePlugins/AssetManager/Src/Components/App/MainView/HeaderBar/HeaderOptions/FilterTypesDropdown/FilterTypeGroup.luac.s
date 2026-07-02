@@ -29,105 +29,87 @@ PROTO_2:
         6 GETTABLEKS                       R3 R3 K1 ["createElement"]
         8 GETUPVAL                         R4 1
         9 GETTABLEKS                       R4 R4 K2 ["View"]
-       11 DUPTABLE                         R5 K5 [{"LayoutOrder", "tag"}]
+       11 DUPTABLE                         R5 K6 [{["LayoutOrder"], ["tag"] = "col gap-xsmall auto-xy"}]
        12 GETTABLEKS                       R6 R0 K3 ["LayoutOrder"]
        14 SETTABLEKS                       R6 R5 K3 ["LayoutOrder"]
-       16 LOADK                            R6 K6 ["col gap-xsmall auto-xy"]
-       17 SETTABLEKS                       R6 R5 K4 ["tag"]
-       19 DUPTABLE                         R6 K10 [{"TopDivider", "LabelButton", "ItemView"}]
-       20 GETUPVAL                         R7 0
-       21 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       23 GETUPVAL                         R8 1
-       24 GETTABLEKS                       R8 R8 K11 ["Divider"]
-       26 DUPTABLE                         R9 K13 [{"LayoutOrder", "orientation"}]
-       27 LOADN                            R10 1
-       28 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       30 GETUPVAL                         R10 1
-       31 GETTABLEKS                       R10 R10 K14 ["Enums"]
-       33 GETTABLEKS                       R10 R10 K15 ["DividerOrientation"]
-       35 GETTABLEKS                       R10 R10 K16 ["Horizontal"]
-       37 SETTABLEKS                       R10 R9 K12 ["orientation"]
-       39 CALL                             R7 2 1
-       40 SETTABLEKS                       R7 R6 K7 ["TopDivider"]
-       42 GETUPVAL                         R7 0
-       43 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       45 GETUPVAL                         R8 1
-       46 GETTABLEKS                       R8 R8 K2 ["View"]
-       48 DUPTABLE                         R9 K18 [{"LayoutOrder", "onActivated", "tag"}]
-       49 LOADN                            R10 2
-       50 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       52 NEWCLOSURE                       R10 P0
-       53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R1
-       55 SETTABLEKS                       R10 R9 K17 ["onActivated"]
-       57 LOADK                            R10 K19 ["row auto-y size-full-500 align-y-center flex-x-between radius-small padding-xxsmall"]
-       58 SETTABLEKS                       R10 R9 K4 ["tag"]
-       60 DUPTABLE                         R10 K22 [{"Label", "Chevron"}]
-       61 GETUPVAL                         R11 0
-       62 GETTABLEKS                       R11 R11 K1 ["createElement"]
-       64 GETUPVAL                         R12 1
-       65 GETTABLEKS                       R12 R12 K23 ["Text"]
-       67 DUPTABLE                         R13 K24 [{"LayoutOrder", "Text", "tag"}]
-       68 LOADN                            R14 1
-       69 SETTABLEKS                       R14 R13 K3 ["LayoutOrder"]
-       71 GETTABLEKS                       R14 R0 K23 ["Text"]
-       73 SETTABLEKS                       R14 R13 K23 ["Text"]
-       75 LOADK                            R14 K25 ["auto-xy text-caption-medium content-system-neutral"]
-       76 SETTABLEKS                       R14 R13 K4 ["tag"]
-       78 CALL                             R11 2 1
-       79 SETTABLEKS                       R11 R10 K20 ["Label"]
-       81 GETUPVAL                         R11 0
-       82 GETTABLEKS                       R11 R11 K1 ["createElement"]
-       84 GETUPVAL                         R12 1
-       85 GETTABLEKS                       R12 R12 K26 ["Icon"]
-       87 DUPTABLE                         R13 K29 [{"LayoutOrder", "name", "size"}]
-       88 LOADN                            R14 2
-       89 SETTABLEKS                       R14 R13 K3 ["LayoutOrder"]
-       91 JUMPIFNOT                        R1 ; [+8]
-       92 GETUPVAL                         R14 1
-       93 GETTABLEKS                       R14 R14 K14 ["Enums"]
-       95 GETTABLEKS                       R14 R14 K30 ["IconName"]
-       97 GETTABLEKS                       R14 R14 K31 ["ChevronSmallUp"]
-       99 JUMP                             ; [+7]
-      100 GETUPVAL                         R14 1
-      101 GETTABLEKS                       R14 R14 K14 ["Enums"]
-      103 GETTABLEKS                       R14 R14 K30 ["IconName"]
-      105 GETTABLEKS                       R14 R14 K32 ["ChevronSmallDown"]
-      107 SETTABLEKS                       R14 R13 K27 ["name"]
-      109 GETUPVAL                         R14 1
-      110 GETTABLEKS                       R14 R14 K14 ["Enums"]
-      112 GETTABLEKS                       R14 R14 K33 ["IconSize"]
-      114 GETTABLEKS                       R14 R14 K34 ["Small"]
-      116 SETTABLEKS                       R14 R13 K28 ["size"]
-      118 CALL                             R11 2 1
-      119 SETTABLEKS                       R11 R10 K21 ["Chevron"]
-      121 CALL                             R7 3 1
-      122 SETTABLEKS                       R7 R6 K8 ["LabelButton"]
-      124 JUMPIF                           R1 ; [+3]
-      125 GETTABLEKS                       R8 R0 K35 ["KeepExpanded"]
-      127 JUMPIFNOT                        R8 ; [+24]
-      128 GETUPVAL                         R7 0
-      129 GETTABLEKS                       R7 R7 K1 ["createElement"]
-      131 GETUPVAL                         R8 1
-      132 GETTABLEKS                       R8 R8 K2 ["View"]
-      134 DUPTABLE                         R9 K5 [{"LayoutOrder", "tag"}]
-      135 LOADN                            R10 3
-      136 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-      138 LOADK                            R10 K36 ["col gap-xxsmall size-full-0 auto-y"]
-      139 SETTABLEKS                       R10 R9 K4 ["tag"]
-      141 GETUPVAL                         R10 2
-      142 GETTABLEKS                       R10 R10 K37 ["map"]
-      144 GETTABLEKS                       R11 R0 K38 ["Items"]
-      146 DUPCLOSURE                       R12 K39 [PROTO_1]
-      147 CAPTURE                          UPVAL U0
-      148 CAPTURE                          UPVAL U3
-      149 CALL                             R10 2 -1
-      150 CALL                             R7 -1 1
-      151 JUMP                             ; [+1]
-      152 LOADNIL                          R7
-      153 SETTABLEKS                       R7 R6 K9 ["ItemView"]
-      155 CALL                             R3 3 -1
-      156 RETURN                           R3 -1
+       16 DUPTABLE                         R6 K10 [{"TopDivider", "LabelButton", "ItemView"}]
+       17 GETUPVAL                         R7 0
+       18 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       20 GETUPVAL                         R8 1
+       21 GETTABLEKS                       R8 R8 K11 ["Divider"]
+       23 DUPTABLE                         R9 K14 [{["LayoutOrder"] = 1, ["orientation"]}]
+       24 GETUPVAL                         R10 1
+       25 GETTABLEKS                       R10 R10 K15 ["Enums"]
+       27 GETTABLEKS                       R10 R10 K16 ["DividerOrientation"]
+       29 GETTABLEKS                       R10 R10 K17 ["Horizontal"]
+       31 SETTABLEKS                       R10 R9 K13 ["orientation"]
+       33 CALL                             R7 2 1
+       34 SETTABLEKS                       R7 R6 K7 ["TopDivider"]
+       36 GETUPVAL                         R7 0
+       37 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       39 GETUPVAL                         R8 1
+       40 GETTABLEKS                       R8 R8 K2 ["View"]
+       42 DUPTABLE                         R9 K21 [{["LayoutOrder"] = 2, ["onActivated"], ["tag"] = "row flex-x-between align-y-center size-full-500 auto-y padding-xxsmall radius-small"}]
+       43 NEWCLOSURE                       R10 P0
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R1
+       46 SETTABLEKS                       R10 R9 K19 ["onActivated"]
+       48 DUPTABLE                         R10 K24 [{"Label", "Chevron"}]
+       49 GETUPVAL                         R11 0
+       50 GETTABLEKS                       R11 R11 K1 ["createElement"]
+       52 GETUPVAL                         R12 1
+       53 GETTABLEKS                       R12 R12 K25 ["Text"]
+       55 DUPTABLE                         R13 K27 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "auto-xy text-caption-medium content-system-neutral"}]
+       56 GETTABLEKS                       R14 R0 K25 ["Text"]
+       58 SETTABLEKS                       R14 R13 K25 ["Text"]
+       60 CALL                             R11 2 1
+       61 SETTABLEKS                       R11 R10 K22 ["Label"]
+       63 GETUPVAL                         R11 0
+       64 GETTABLEKS                       R11 R11 K1 ["createElement"]
+       66 GETUPVAL                         R12 1
+       67 GETTABLEKS                       R12 R12 K28 ["Icon"]
+       69 DUPTABLE                         R13 K31 [{["LayoutOrder"] = 2, ["name"], ["size"]}]
+       70 JUMPIFNOT                        R1 ; [+8]
+       71 GETUPVAL                         R14 1
+       72 GETTABLEKS                       R14 R14 K15 ["Enums"]
+       74 GETTABLEKS                       R14 R14 K32 ["IconName"]
+       76 GETTABLEKS                       R14 R14 K33 ["ChevronSmallUp"]
+       78 JUMP                             ; [+7]
+       79 GETUPVAL                         R14 1
+       80 GETTABLEKS                       R14 R14 K15 ["Enums"]
+       82 GETTABLEKS                       R14 R14 K32 ["IconName"]
+       84 GETTABLEKS                       R14 R14 K34 ["ChevronSmallDown"]
+       86 SETTABLEKS                       R14 R13 K29 ["name"]
+       88 GETUPVAL                         R14 1
+       89 GETTABLEKS                       R14 R14 K15 ["Enums"]
+       91 GETTABLEKS                       R14 R14 K35 ["IconSize"]
+       93 GETTABLEKS                       R14 R14 K36 ["Small"]
+       95 SETTABLEKS                       R14 R13 K30 ["size"]
+       97 CALL                             R11 2 1
+       98 SETTABLEKS                       R11 R10 K23 ["Chevron"]
+      100 CALL                             R7 3 1
+      101 SETTABLEKS                       R7 R6 K8 ["LabelButton"]
+      103 JUMPIF                           R1 ; [+3]
+      104 GETTABLEKS                       R8 R0 K37 ["KeepExpanded"]
+      106 JUMPIFNOT                        R8 ; [+18]
+      107 GETUPVAL                         R7 0
+      108 GETTABLEKS                       R7 R7 K1 ["createElement"]
+      110 GETUPVAL                         R8 1
+      111 GETTABLEKS                       R8 R8 K2 ["View"]
+      113 DUPTABLE                         R9 K40 [{["LayoutOrder"] = 3, ["tag"] = "col gap-xxsmall size-full-0 auto-y"}]
+      114 GETUPVAL                         R10 2
+      115 GETTABLEKS                       R10 R10 K41 ["map"]
+      117 GETTABLEKS                       R11 R0 K42 ["Items"]
+      119 DUPCLOSURE                       R12 K43 [PROTO_1]
+      120 CAPTURE                          UPVAL U0
+      121 CAPTURE                          UPVAL U3
+      122 CALL                             R10 2 -1
+      123 CALL                             R7 -1 1
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R7
+      126 SETTABLEKS                       R7 R6 K9 ["ItemView"]
+      128 CALL                             R3 3 -1
+      129 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -18,23 +18,21 @@ PROTO_1:
        18 GETUPVAL                         R2 2
        19 GETTABLEKS                       R2 R2 K4 ["Localization"]
        21 GETTABLEKS                       R2 R2 K1 ["new"]
-       23 DUPTABLE                         R3 K8 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       23 DUPTABLE                         R3 K9 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DynamicHeadExportTool"}]
        24 GETUPVAL                         R4 3
        25 SETTABLEKS                       R4 R3 K5 ["stringResourceTable"]
        27 GETUPVAL                         R4 4
        28 SETTABLEKS                       R4 R3 K6 ["translationResourceTable"]
-       30 LOADK                            R4 K9 ["DynamicHeadExportTool"]
-       31 SETTABLEKS                       R4 R3 K7 ["pluginName"]
-       33 CALL                             R2 1 1
-       34 SETTABLEKS                       R2 R0 K10 ["localization"]
-       36 GETUPVAL                         R2 2
-       37 GETTABLEKS                       R2 R2 K11 ["Analytics"]
-       39 GETTABLEKS                       R2 R2 K1 ["new"]
-       41 DUPCLOSURE                       R3 K12 [PROTO_0]
-       42 NEWTABLE                         R4 0 0
-       44 CALL                             R2 2 1
-       45 SETTABLEKS                       R2 R0 K13 ["analytics"]
-       47 RETURN                           R0 0
+       30 CALL                             R2 1 1
+       31 SETTABLEKS                       R2 R0 K10 ["localization"]
+       33 GETUPVAL                         R2 2
+       34 GETTABLEKS                       R2 R2 K11 ["Analytics"]
+       36 GETTABLEKS                       R2 R2 K1 ["new"]
+       38 DUPCLOSURE                       R3 K12 [PROTO_0]
+       39 NEWTABLE                         R4 0 0
+       41 CALL                             R2 2 1
+       42 SETTABLEKS                       R2 R0 K13 ["analytics"]
+       44 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

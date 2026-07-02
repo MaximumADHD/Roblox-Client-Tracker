@@ -17,36 +17,30 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R4 0
         1 GETUPVAL                         R5 1
-        2 DUPTABLE                         R6 K2 [{"eventType", "path"}]
+        2 DUPTABLE                         R6 K3 [{[1], ["path"] = "ThemesView/ToggleTheme"}]
         3 GETUPVAL                         R7 2
-        4 GETTABLEKS                       R7 R7 K3 ["ButtonPressed"]
-        6 GETTABLEKS                       R7 R7 K4 ["rawValue"]
+        4 GETTABLEKS                       R7 R7 K4 ["ButtonPressed"]
+        6 GETTABLEKS                       R7 R7 K5 ["rawValue"]
         8 CALL                             R7 0 1
         9 SETTABLEKS                       R7 R6 K0 ["eventType"]
-       11 LOADK                            R7 K5 ["ThemesView/ToggleTheme"]
-       12 SETTABLEKS                       R7 R6 K1 ["path"]
-       14 CALL                             R5 1 -1
-       15 CALL                             R4 -1 -1
-       16 NAMECALL                         R2 R0 K6 ["dispatch"]
-       18 CALL                             R2 -1 0
-       19 NAMECALL                         R2 R0 K7 ["getState"]
-       21 CALL                             R2 1 1
-       22 GETTABLEKS                       R3 R2 K8 ["Window"]
-       24 GETTABLEKS                       R3 R3 K9 ["Source"]
-       26 GETTABLEKS                       R4 R1 K10 ["recordChange"]
-       28 DUPTABLE                         R5 K14 [{"Name", "DisplayName", "DoChange"}]
-       29 LOADK                            R6 K15 ["StyleEditor.SetDerives"]
-       30 SETTABLEKS                       R6 R5 K11 ["Name"]
-       32 LOADK                            R6 K16 ["Style Editor - Set Derives"]
-       33 SETTABLEKS                       R6 R5 K12 ["DisplayName"]
-       35 NEWCLOSURE                       R6 P0
-       36 CAPTURE                          UPVAL U3
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          UPVAL U4
-       39 CAPTURE                          UPVAL U5
-       40 SETTABLEKS                       R6 R5 K13 ["DoChange"]
-       42 CALL                             R4 1 0
-       43 RETURN                           R0 0
+       11 CALL                             R5 1 -1
+       12 CALL                             R4 -1 -1
+       13 NAMECALL                         R2 R0 K6 ["dispatch"]
+       15 CALL                             R2 -1 0
+       16 NAMECALL                         R2 R0 K7 ["getState"]
+       18 CALL                             R2 1 1
+       19 GETTABLEKS                       R3 R2 K8 ["Window"]
+       21 GETTABLEKS                       R3 R3 K9 ["Source"]
+       23 GETTABLEKS                       R4 R1 K10 ["recordChange"]
+       25 DUPTABLE                         R5 K16 [{["Name"] = "StyleEditor.SetDerives", ["DisplayName"] = "Style Editor - Set Derives", ["DoChange"]}]
+       26 NEWCLOSURE                       R6 P0
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          VAL R3
+       29 CAPTURE                          UPVAL U4
+       30 CAPTURE                          UPVAL U5
+       31 SETTABLEKS                       R6 R5 K15 ["DoChange"]
+       33 CALL                             R4 1 0
+       34 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

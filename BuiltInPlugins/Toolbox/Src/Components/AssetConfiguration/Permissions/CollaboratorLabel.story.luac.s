@@ -70,59 +70,43 @@ MAIN:
        37 CAPTURE                          VAL R3
        38 CAPTURE                          VAL R6
        39 CAPTURE                          VAL R5
-       40 DUPTABLE                         R8 K17 [{"summary", "controls", "stories"}]
-       41 LOADK                            R9 K18 ["This component displays a collaborator (user or group) with icon, display name and (optional) handle"]
-       42 SETTABLEKS                       R9 R8 K14 ["summary"]
-       44 DUPTABLE                         R9 K20 [{"height"}]
-       45 LOADN                            R10 60
-       46 SETTABLEKS                       R10 R9 K19 ["height"]
-       48 SETTABLEKS                       R9 R8 K15 ["controls"]
-       50 NEWTABLE                         R9 0 3
-       52 DUPTABLE                         R10 K23 [{"name", "story"}]
-       53 LOADK                            R11 K24 ["User"]
-       54 SETTABLEKS                       R11 R10 K21 ["name"]
-       56 DUPTABLE                         R12 K27 [{"SubjectType", "Id"}]
-       57 GETIMPORT                        R13 K30 [Enum.CreatorType.User]
-       59 SETTABLEKS                       R13 R12 K25 ["SubjectType"]
-       61 LOADN                            R13 1
-       62 SETTABLEKS                       R13 R12 K26 ["Id"]
-       64 NEWCLOSURE                       R11 P1
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R6
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R12
-       70 SETTABLEKS                       R11 R10 K22 ["story"]
-       72 DUPTABLE                         R11 K23 [{"name", "story"}]
-       73 LOADK                            R12 K31 ["Group"]
-       74 SETTABLEKS                       R12 R11 K21 ["name"]
-       76 DUPTABLE                         R13 K27 [{"SubjectType", "Id"}]
-       77 GETIMPORT                        R14 K32 [Enum.CreatorType.Group]
-       79 SETTABLEKS                       R14 R13 K25 ["SubjectType"]
-       81 LOADK                            R14 K33 [1200769]
-       82 SETTABLEKS                       R14 R13 K26 ["Id"]
-       84 NEWCLOSURE                       R12 P1
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          VAL R6
-       88 CAPTURE                          VAL R5
-       89 CAPTURE                          VAL R13
-       90 SETTABLEKS                       R12 R11 K22 ["story"]
-       92 DUPTABLE                         R12 K23 [{"name", "story"}]
-       93 LOADK                            R13 K34 ["Invalid Id / Loading"]
-       94 SETTABLEKS                       R13 R12 K21 ["name"]
-       96 DUPTABLE                         R14 K27 [{"SubjectType", "Id"}]
-       97 GETIMPORT                        R15 K30 [Enum.CreatorType.User]
-       99 SETTABLEKS                       R15 R14 K25 ["SubjectType"]
-      101 LOADN                            R15 0
-      102 SETTABLEKS                       R15 R14 K26 ["Id"]
-      104 NEWCLOSURE                       R13 P1
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R3
-      107 CAPTURE                          VAL R6
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R14
-      110 SETTABLEKS                       R13 R12 K22 ["story"]
-      112 SETLIST                          R9 R10 3 [1]
-      114 SETTABLEKS                       R9 R8 K16 ["stories"]
-      116 RETURN                           R8 1
+       40 DUPTABLE                         R8 K18 [{["summary"] = "This component displays a collaborator (user or group) with icon, display name and (optional) handle", ["controls"], ["stories"]}]
+       41 DUPTABLE                         R9 K21 [{["height"] = 60}]
+       42 SETTABLEKS                       R9 R8 K16 ["controls"]
+       44 NEWTABLE                         R9 0 3
+       46 DUPTABLE                         R10 K25 [{["name"] = "User", ["story"]}]
+       47 DUPTABLE                         R12 K29 [{["SubjectType"], ["Id"] = 1}]
+       48 GETIMPORT                        R13 K32 [Enum.CreatorType.User]
+       50 SETTABLEKS                       R13 R12 K26 ["SubjectType"]
+       52 NEWCLOSURE                       R11 P1
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R3
+       55 CAPTURE                          VAL R6
+       56 CAPTURE                          VAL R5
+       57 CAPTURE                          VAL R12
+       58 SETTABLEKS                       R11 R10 K24 ["story"]
+       60 DUPTABLE                         R11 K34 [{["name"] = "Group", ["story"]}]
+       61 DUPTABLE                         R13 K36 [{["SubjectType"], ["Id"] = 1200769}]
+       62 GETIMPORT                        R14 K37 [Enum.CreatorType.Group]
+       64 SETTABLEKS                       R14 R13 K26 ["SubjectType"]
+       66 NEWCLOSURE                       R12 P1
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R13
+       72 SETTABLEKS                       R12 R11 K24 ["story"]
+       74 DUPTABLE                         R12 K39 [{["name"] = "Invalid Id / Loading", ["story"]}]
+       75 DUPTABLE                         R14 K41 [{["SubjectType"], ["Id"] = 0}]
+       76 GETIMPORT                        R15 K32 [Enum.CreatorType.User]
+       78 SETTABLEKS                       R15 R14 K26 ["SubjectType"]
+       80 NEWCLOSURE                       R13 P1
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R5
+       85 CAPTURE                          VAL R14
+       86 SETTABLEKS                       R13 R12 K24 ["story"]
+       88 SETLIST                          R9 R10 3 [1]
+       90 SETTABLEKS                       R9 R8 K17 ["stories"]
+       92 RETURN                           R8 1

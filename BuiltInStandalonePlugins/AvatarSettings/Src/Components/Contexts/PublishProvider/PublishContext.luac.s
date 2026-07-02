@@ -13,10 +13,8 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K9 ["Packages"]
        20 GETTABLEKS                       R3 R3 K10 ["React"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K12 [{"content"}]
-       24 LOADNIL                          R4
-       25 SETTABLEKS                       R4 R3 K11 ["content"]
-       27 GETTABLEKS                       R4 R2 K13 ["createContext"]
-       29 MOVE                             R5 R3
-       30 CALL                             R4 1 1
-       31 RETURN                           R4 1
+       23 DUPTABLE                         R3 K13 [{["content"] = }]
+       24 GETTABLEKS                       R4 R2 K14 ["createContext"]
+       26 MOVE                             R5 R3
+       27 CALL                             R4 1 1
+       28 RETURN                           R4 1

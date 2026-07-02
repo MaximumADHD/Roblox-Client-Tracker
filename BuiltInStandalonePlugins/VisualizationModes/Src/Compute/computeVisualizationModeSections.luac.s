@@ -13,55 +13,49 @@ PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K15 [{"Text", "Visible", "LayoutOrder", "DefaultIsExpanded", "SettingKey", "Enabled", "SectionEntries", "MatchIndexes", "CanExpand", "CanToggle", "EntryCount", "EnabledEntryCount", "ForceExpansion", "OnToggle"}]
+        4 DUPTABLE                         R4 K17 [{["Text"], ["Visible"], ["LayoutOrder"], ["DefaultIsExpanded"] = True, ["SettingKey"], ["Enabled"], ["SectionEntries"], ["MatchIndexes"], ["CanExpand"] = True, ["CanToggle"] = False, ["EntryCount"], ["EnabledEntryCount"], ["ForceExpansion"], ["OnToggle"]}]
         5 GETUPVAL                         R5 2
-        6 GETTABLEKS                       R5 R5 K16 ["title"]
+        6 GETTABLEKS                       R5 R5 K18 ["title"]
         8 SETTABLEKS                       R5 R4 K1 ["Text"]
        10 SETTABLEKS                       R1 R4 K2 ["Visible"]
        12 SETTABLEKS                       R0 R4 K3 ["LayoutOrder"]
-       14 LOADB                            R5 1
-       15 SETTABLEKS                       R5 R4 K4 ["DefaultIsExpanded"]
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R5 R5 K17 ["name"]
-       20 SETTABLEKS                       R5 R4 K5 ["SettingKey"]
-       22 GETUPVAL                         R5 2
-       23 GETTABLEKS                       R5 R5 K18 ["enabled"]
-       25 SETTABLEKS                       R5 R4 K6 ["Enabled"]
-       27 GETUPVAL                         R5 3
-       28 GETTABLEKS                       R5 R5 K19 ["renderEntries"]
-       30 CALL                             R5 0 1
-       31 SETTABLEKS                       R5 R4 K7 ["SectionEntries"]
-       33 GETUPVAL                         R5 4
-       34 SETTABLEKS                       R5 R4 K8 ["MatchIndexes"]
-       36 LOADB                            R5 1
-       37 SETTABLEKS                       R5 R4 K9 ["CanExpand"]
-       39 LOADB                            R5 0
-       40 SETTABLEKS                       R5 R4 K10 ["CanToggle"]
-       42 GETUPVAL                         R5 3
-       43 GETTABLEKS                       R5 R5 K20 ["getEntryCount"]
-       45 CALL                             R5 0 1
-       46 SETTABLEKS                       R5 R4 K11 ["EntryCount"]
-       48 GETUPVAL                         R5 3
-       49 GETTABLEKS                       R5 R5 K21 ["getEnabledCount"]
-       51 CALL                             R5 0 1
-       52 SETTABLEKS                       R5 R4 K12 ["EnabledEntryCount"]
-       54 LOADB                            R5 1
-       55 GETUPVAL                         R6 3
-       56 GETTABLEKS                       R6 R6 K22 ["getEntryMatchCount"]
-       58 CALL                             R6 0 1
-       59 LOADN                            R7 0
-       60 JUMPIFLT                         R7 R6 ; [+6]
-       62 GETUPVAL                         R6 4
-       63 JUMPIFNOTEQKNIL                  R6 ; [+2]
-       65 LOADB                            R5 0 +1
-       66 LOADB                            R5 1
-       67 SETTABLEKS                       R5 R4 K13 ["ForceExpansion"]
-       69 NEWCLOSURE                       R5 P0
-       70 CAPTURE                          UPVAL U5
-       71 CAPTURE                          UPVAL U2
-       72 SETTABLEKS                       R5 R4 K14 ["OnToggle"]
-       74 CALL                             R2 2 -1
-       75 RETURN                           R2 -1
+       14 GETUPVAL                         R5 2
+       15 GETTABLEKS                       R5 R5 K19 ["name"]
+       17 SETTABLEKS                       R5 R4 K6 ["SettingKey"]
+       19 GETUPVAL                         R5 2
+       20 GETTABLEKS                       R5 R5 K20 ["enabled"]
+       22 SETTABLEKS                       R5 R4 K7 ["Enabled"]
+       24 GETUPVAL                         R5 3
+       25 GETTABLEKS                       R5 R5 K21 ["renderEntries"]
+       27 CALL                             R5 0 1
+       28 SETTABLEKS                       R5 R4 K8 ["SectionEntries"]
+       30 GETUPVAL                         R5 4
+       31 SETTABLEKS                       R5 R4 K9 ["MatchIndexes"]
+       33 GETUPVAL                         R5 3
+       34 GETTABLEKS                       R5 R5 K22 ["getEntryCount"]
+       36 CALL                             R5 0 1
+       37 SETTABLEKS                       R5 R4 K13 ["EntryCount"]
+       39 GETUPVAL                         R5 3
+       40 GETTABLEKS                       R5 R5 K23 ["getEnabledCount"]
+       42 CALL                             R5 0 1
+       43 SETTABLEKS                       R5 R4 K14 ["EnabledEntryCount"]
+       45 LOADB                            R5 1
+       46 GETUPVAL                         R6 3
+       47 GETTABLEKS                       R6 R6 K24 ["getEntryMatchCount"]
+       49 CALL                             R6 0 1
+       50 LOADN                            R7 0
+       51 JUMPIFLT                         R7 R6 ; [+6]
+       53 GETUPVAL                         R6 4
+       54 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       56 LOADB                            R5 0 +1
+       57 LOADB                            R5 1
+       58 SETTABLEKS                       R5 R4 K15 ["ForceExpansion"]
+       60 NEWCLOSURE                       R5 P0
+       61 CAPTURE                          UPVAL U5
+       62 CAPTURE                          UPVAL U2
+       63 SETTABLEKS                       R5 R4 K16 ["OnToggle"]
+       65 CALL                             R2 2 -1
+       66 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R3 0

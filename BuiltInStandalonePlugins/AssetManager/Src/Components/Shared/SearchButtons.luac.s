@@ -21,82 +21,72 @@ PROTO_2:
         9 GETTABLEKS                       R3 R3 K1 ["createElement"]
        11 GETUPVAL                         R4 3
        12 GETTABLEKS                       R4 R4 K2 ["View"]
-       14 DUPTABLE                         R5 K5 [{"LayoutOrder", "tag"}]
+       14 DUPTABLE                         R5 K6 [{["LayoutOrder"], ["tag"] = "row gap-small size-full-0 auto-y"}]
        15 GETTABLEKS                       R6 R0 K3 ["LayoutOrder"]
        17 SETTABLEKS                       R6 R5 K3 ["LayoutOrder"]
-       19 LOADK                            R6 K6 ["row size-full-0 auto-y gap-small"]
-       20 SETTABLEKS                       R6 R5 K4 ["tag"]
-       22 DUPTABLE                         R6 K9 [{"CancelButton", "SearchButton"}]
-       23 GETUPVAL                         R7 2
-       24 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       26 GETUPVAL                         R8 3
-       27 GETTABLEKS                       R8 R8 K10 ["Button"]
-       29 DUPTABLE                         R9 K17 [{"LayoutOrder", "text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-       30 LOADN                            R10 1
-       31 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       33 LOADK                            R12 K18 ["SearchOptions"]
-       34 LOADK                            R13 K19 ["Cancel"]
-       35 NAMECALL                         R10 R1 K20 ["getText"]
-       37 CALL                             R10 3 1
-       38 SETTABLEKS                       R10 R9 K11 ["text"]
-       40 GETUPVAL                         R10 3
-       41 GETTABLEKS                       R10 R10 K21 ["Enums"]
-       43 GETTABLEKS                       R10 R10 K22 ["ButtonVariant"]
-       45 GETTABLEKS                       R10 R10 K23 ["Standard"]
-       47 SETTABLEKS                       R10 R9 K12 ["variant"]
-       49 GETUPVAL                         R10 3
-       50 GETTABLEKS                       R10 R10 K21 ["Enums"]
-       52 GETTABLEKS                       R10 R10 K24 ["InputSize"]
-       54 GETTABLEKS                       R10 R10 K25 ["XSmall"]
-       56 SETTABLEKS                       R10 R9 K13 ["size"]
-       58 GETUPVAL                         R10 3
-       59 GETTABLEKS                       R10 R10 K21 ["Enums"]
-       61 GETTABLEKS                       R10 R10 K26 ["FillBehavior"]
-       63 GETTABLEKS                       R10 R10 K27 ["Fill"]
-       65 SETTABLEKS                       R10 R9 K14 ["fillBehavior"]
-       67 NEWCLOSURE                       R10 P0
-       68 CAPTURE                          VAL R2
-       69 SETTABLEKS                       R10 R9 K15 ["onActivated"]
-       71 LOADK                            R10 K28 ["search-cancel-button"]
-       72 SETTABLEKS                       R10 R9 K16 ["testId"]
-       74 CALL                             R7 2 1
-       75 SETTABLEKS                       R7 R6 K7 ["CancelButton"]
-       77 GETUPVAL                         R7 2
-       78 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       80 GETUPVAL                         R8 3
-       81 GETTABLEKS                       R8 R8 K10 ["Button"]
-       83 DUPTABLE                         R9 K17 [{"LayoutOrder", "text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-       84 LOADN                            R10 2
-       85 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       87 LOADK                            R12 K18 ["SearchOptions"]
-       88 LOADK                            R13 K29 ["Search"]
-       89 NAMECALL                         R10 R1 K20 ["getText"]
-       91 CALL                             R10 3 1
-       92 SETTABLEKS                       R10 R9 K11 ["text"]
-       94 GETUPVAL                         R10 3
-       95 GETTABLEKS                       R10 R10 K21 ["Enums"]
-       97 GETTABLEKS                       R10 R10 K22 ["ButtonVariant"]
-       99 GETTABLEKS                       R10 R10 K30 ["Emphasis"]
-      101 SETTABLEKS                       R10 R9 K12 ["variant"]
-      103 GETUPVAL                         R10 3
-      104 GETTABLEKS                       R10 R10 K21 ["Enums"]
-      106 GETTABLEKS                       R10 R10 K24 ["InputSize"]
-      108 GETTABLEKS                       R10 R10 K25 ["XSmall"]
-      110 SETTABLEKS                       R10 R9 K13 ["size"]
-      112 GETUPVAL                         R10 3
-      113 GETTABLEKS                       R10 R10 K21 ["Enums"]
-      115 GETTABLEKS                       R10 R10 K26 ["FillBehavior"]
-      117 GETTABLEKS                       R10 R10 K27 ["Fill"]
-      119 SETTABLEKS                       R10 R9 K14 ["fillBehavior"]
-      121 NEWCLOSURE                       R10 P1
-      122 CAPTURE                          VAL R2
-      123 SETTABLEKS                       R10 R9 K15 ["onActivated"]
-      125 LOADK                            R10 K31 ["search-search-button"]
-      126 SETTABLEKS                       R10 R9 K16 ["testId"]
-      128 CALL                             R7 2 1
-      129 SETTABLEKS                       R7 R6 K8 ["SearchButton"]
-      131 CALL                             R3 3 -1
-      132 RETURN                           R3 -1
+       19 DUPTABLE                         R6 K9 [{"CancelButton", "SearchButton"}]
+       20 GETUPVAL                         R7 2
+       21 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       23 GETUPVAL                         R8 3
+       24 GETTABLEKS                       R8 R8 K10 ["Button"]
+       26 DUPTABLE                         R9 K19 [{["LayoutOrder"] = 1, ["text"], ["variant"], ["size"], ["fillBehavior"], ["onActivated"], ["testId"] = "search-cancel-button"}]
+       27 LOADK                            R12 K20 ["SearchOptions"]
+       28 LOADK                            R13 K21 ["Cancel"]
+       29 NAMECALL                         R10 R1 K22 ["getText"]
+       31 CALL                             R10 3 1
+       32 SETTABLEKS                       R10 R9 K12 ["text"]
+       34 GETUPVAL                         R10 3
+       35 GETTABLEKS                       R10 R10 K23 ["Enums"]
+       37 GETTABLEKS                       R10 R10 K24 ["ButtonVariant"]
+       39 GETTABLEKS                       R10 R10 K25 ["Standard"]
+       41 SETTABLEKS                       R10 R9 K13 ["variant"]
+       43 GETUPVAL                         R10 3
+       44 GETTABLEKS                       R10 R10 K23 ["Enums"]
+       46 GETTABLEKS                       R10 R10 K26 ["InputSize"]
+       48 GETTABLEKS                       R10 R10 K27 ["XSmall"]
+       50 SETTABLEKS                       R10 R9 K14 ["size"]
+       52 GETUPVAL                         R10 3
+       53 GETTABLEKS                       R10 R10 K23 ["Enums"]
+       55 GETTABLEKS                       R10 R10 K28 ["FillBehavior"]
+       57 GETTABLEKS                       R10 R10 K29 ["Fill"]
+       59 SETTABLEKS                       R10 R9 K15 ["fillBehavior"]
+       61 NEWCLOSURE                       R10 P0
+       62 CAPTURE                          VAL R2
+       63 SETTABLEKS                       R10 R9 K16 ["onActivated"]
+       65 CALL                             R7 2 1
+       66 SETTABLEKS                       R7 R6 K7 ["CancelButton"]
+       68 GETUPVAL                         R7 2
+       69 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       71 GETUPVAL                         R8 3
+       72 GETTABLEKS                       R8 R8 K10 ["Button"]
+       74 DUPTABLE                         R9 K32 [{["LayoutOrder"] = 2, ["text"], ["variant"], ["size"], ["fillBehavior"], ["onActivated"], ["testId"] = "search-search-button"}]
+       75 LOADK                            R12 K20 ["SearchOptions"]
+       76 LOADK                            R13 K33 ["Search"]
+       77 NAMECALL                         R10 R1 K22 ["getText"]
+       79 CALL                             R10 3 1
+       80 SETTABLEKS                       R10 R9 K12 ["text"]
+       82 GETUPVAL                         R10 3
+       83 GETTABLEKS                       R10 R10 K23 ["Enums"]
+       85 GETTABLEKS                       R10 R10 K24 ["ButtonVariant"]
+       87 GETTABLEKS                       R10 R10 K34 ["Emphasis"]
+       89 SETTABLEKS                       R10 R9 K13 ["variant"]
+       91 GETUPVAL                         R10 3
+       92 GETTABLEKS                       R10 R10 K23 ["Enums"]
+       94 GETTABLEKS                       R10 R10 K26 ["InputSize"]
+       96 GETTABLEKS                       R10 R10 K27 ["XSmall"]
+       98 SETTABLEKS                       R10 R9 K14 ["size"]
+      100 GETUPVAL                         R10 3
+      101 GETTABLEKS                       R10 R10 K23 ["Enums"]
+      103 GETTABLEKS                       R10 R10 K28 ["FillBehavior"]
+      105 GETTABLEKS                       R10 R10 K29 ["Fill"]
+      107 SETTABLEKS                       R10 R9 K15 ["fillBehavior"]
+      109 NEWCLOSURE                       R10 P1
+      110 CAPTURE                          VAL R2
+      111 SETTABLEKS                       R10 R9 K16 ["onActivated"]
+      113 CALL                             R7 2 1
+      114 SETTABLEKS                       R7 R6 K8 ["SearchButton"]
+      116 CALL                             R3 3 -1
+      117 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

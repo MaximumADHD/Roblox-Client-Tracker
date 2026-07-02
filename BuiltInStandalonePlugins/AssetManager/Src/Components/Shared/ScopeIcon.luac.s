@@ -35,7 +35,7 @@ PROTO_0:
        55 DUPTABLE                         R3 K18 [{"LayoutOrder", "tag"}]
        56 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
        58 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
-       60 LOADK                            R5 K19 ["%* size-400"]
+       60 LOADK                            R5 K19 ["size-400 %*"]
        61 GETUPVAL                         R7 3
        62 GETTABLEKS                       R8 R0 K0 ["ScopeType"]
        64 CALL                             R7 1 1

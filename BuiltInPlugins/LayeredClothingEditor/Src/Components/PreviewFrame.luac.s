@@ -47,24 +47,20 @@ PROTO_1:
        45 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K2 [{"gridHeightOffset", "gridWidthOffset"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["gridHeightOffset"]
-        4 LOADN                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["gridWidthOffset"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K4 ["createRef"]
-       12 CALL                             R1 0 1
-       13 SETTABLEKS                       R1 R0 K5 ["previewFrameRef"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R1 R0 K6 ["onCategoryChanged"]
-       19 NEWCLOSURE                       R1 P1
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U1
-       22 SETTABLEKS                       R1 R0 K7 ["onAbsoluteSizeChanged"]
-       24 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = 0, ["gridWidthOffset"] = 0}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K5 ["createRef"]
+        6 CALL                             R1 0 1
+        7 SETTABLEKS                       R1 R0 K6 ["previewFrameRef"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K7 ["onCategoryChanged"]
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U1
+       16 SETTABLEKS                       R1 R0 K8 ["onAbsoluteSizeChanged"]
+       18 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

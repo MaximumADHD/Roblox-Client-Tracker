@@ -2,7 +2,7 @@ MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
         3 LOADK                            R2 K2 ["AnnotationsMaxTextLength"]
-        4 LOADN                            R3 0
+        4 LOADN                            R3 512
         5 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
         7 CALL                             R0 3 0
         8 GETIMPORT                        R0 K1 [game]

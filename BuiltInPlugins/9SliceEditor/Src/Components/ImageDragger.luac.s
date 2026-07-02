@@ -4,51 +4,49 @@ PROTO_0:
         3 GETTABLEKS                       R2 R2 K1 ["orientation"]
         5 GETTABLEKS                       R3 R1 K2 ["UserInputType"]
         7 GETIMPORT                        R4 K5 [Enum.UserInputType.MouseButton1]
-        9 JUMPIFNOTEQ                      R3 R4 ; [+44]
+        9 JUMPIFNOTEQ                      R3 R4 ; [+41]
        11 GETUPVAL                         R3 0
-       12 DUPTABLE                         R5 K7 [{"dragging"}]
-       13 LOADB                            R6 1
-       14 SETTABLEKS                       R6 R5 K6 ["dragging"]
-       16 NAMECALL                         R3 R3 K8 ["setState"]
-       18 CALL                             R3 2 0
-       19 GETIMPORT                        R3 K11 [Vector2.new]
-       21 GETTABLEKS                       R4 R1 K12 ["Position"]
-       23 GETTABLEKS                       R4 R4 K13 ["X"]
-       25 GETTABLEKS                       R5 R1 K12 ["Position"]
-       27 GETTABLEKS                       R5 R5 K14 ["Y"]
-       29 CALL                             R3 2 1
-       30 GETIMPORT                        R4 K11 [Vector2.new]
-       32 GETTABLEKS                       R5 R0 K12 ["Position"]
-       34 GETTABLEKS                       R5 R5 K13 ["X"]
-       36 GETTABLEKS                       R5 R5 K15 ["Scale"]
-       38 GETTABLEKS                       R6 R0 K12 ["Position"]
-       40 GETTABLEKS                       R6 R6 K14 ["Y"]
-       42 GETTABLEKS                       R6 R6 K15 ["Scale"]
-       44 CALL                             R4 2 1
-       45 GETUPVAL                         R5 1
-       46 GETTABLEKS                       R5 R5 K16 ["onDragBegin"]
-       48 MOVE                             R6 R0
-       49 MOVE                             R7 R2
-       50 MOVE                             R8 R3
-       51 MOVE                             R9 R4
-       52 CALL                             R5 4 0
-       53 RETURN                           R0 0
-       54 GETTABLEKS                       R3 R1 K2 ["UserInputType"]
-       56 GETIMPORT                        R4 K18 [Enum.UserInputType.MouseMovement]
-       58 JUMPIFNOTEQ                      R3 R4 ; [+18]
-       60 GETUPVAL                         R3 0
-       61 GETTABLEKS                       R3 R3 K0 ["props"]
-       63 GETTABLEKS                       R3 R3 K19 ["addPriorityDragCandidate"]
-       65 MOVE                             R4 R2
-       66 GETTABLEKS                       R5 R0 K20 ["ZIndex"]
-       68 MOVE                             R6 R0
-       69 CALL                             R3 3 0
-       70 GETUPVAL                         R3 0
-       71 GETTABLEKS                       R3 R3 K0 ["props"]
-       73 GETTABLEKS                       R3 R3 K21 ["setMostRecentMouseMoveInputObject"]
-       75 MOVE                             R4 R1
-       76 CALL                             R3 1 0
-       77 RETURN                           R0 0
+       12 DUPTABLE                         R5 K8 [{["dragging"] = True}]
+       13 NAMECALL                         R3 R3 K9 ["setState"]
+       15 CALL                             R3 2 0
+       16 GETIMPORT                        R3 K12 [Vector2.new]
+       18 GETTABLEKS                       R4 R1 K13 ["Position"]
+       20 GETTABLEKS                       R4 R4 K14 ["X"]
+       22 GETTABLEKS                       R5 R1 K13 ["Position"]
+       24 GETTABLEKS                       R5 R5 K15 ["Y"]
+       26 CALL                             R3 2 1
+       27 GETIMPORT                        R4 K12 [Vector2.new]
+       29 GETTABLEKS                       R5 R0 K13 ["Position"]
+       31 GETTABLEKS                       R5 R5 K14 ["X"]
+       33 GETTABLEKS                       R5 R5 K16 ["Scale"]
+       35 GETTABLEKS                       R6 R0 K13 ["Position"]
+       37 GETTABLEKS                       R6 R6 K15 ["Y"]
+       39 GETTABLEKS                       R6 R6 K16 ["Scale"]
+       41 CALL                             R4 2 1
+       42 GETUPVAL                         R5 1
+       43 GETTABLEKS                       R5 R5 K17 ["onDragBegin"]
+       45 MOVE                             R6 R0
+       46 MOVE                             R7 R2
+       47 MOVE                             R8 R3
+       48 MOVE                             R9 R4
+       49 CALL                             R5 4 0
+       50 RETURN                           R0 0
+       51 GETTABLEKS                       R3 R1 K2 ["UserInputType"]
+       53 GETIMPORT                        R4 K19 [Enum.UserInputType.MouseMovement]
+       55 JUMPIFNOTEQ                      R3 R4 ; [+18]
+       57 GETUPVAL                         R3 0
+       58 GETTABLEKS                       R3 R3 K0 ["props"]
+       60 GETTABLEKS                       R3 R3 K20 ["addPriorityDragCandidate"]
+       62 MOVE                             R4 R2
+       63 GETTABLEKS                       R5 R0 K21 ["ZIndex"]
+       65 MOVE                             R6 R0
+       66 CALL                             R3 3 0
+       67 GETUPVAL                         R3 0
+       68 GETTABLEKS                       R3 R3 K0 ["props"]
+       70 GETTABLEKS                       R3 R3 K22 ["setMostRecentMouseMoveInputObject"]
+       72 MOVE                             R4 R1
+       73 CALL                             R3 1 0
+       74 RETURN                           R0 0
 
 PROTO_1:
         0 LOADNIL                          R2
@@ -185,23 +183,21 @@ PROTO_4:
        10 CALL                             R3 2 0
        11 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
        13 GETIMPORT                        R4 K6 [Enum.UserInputType.MouseButton1]
-       15 JUMPIFNOTEQ                      R3 R4 ; [+10]
+       15 JUMPIFNOTEQ                      R3 R4 ; [+7]
        17 GETUPVAL                         R3 0
-       18 DUPTABLE                         R5 K8 [{"dragging"}]
-       19 LOADB                            R6 0
-       20 SETTABLEKS                       R6 R5 K7 ["dragging"]
-       22 NAMECALL                         R3 R3 K9 ["setState"]
-       24 CALL                             R3 2 0
-       25 RETURN                           R0 0
-       26 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
-       28 GETIMPORT                        R4 K11 [Enum.UserInputType.MouseMovement]
-       30 JUMPIFNOTEQ                      R3 R4 ; [+8]
-       32 GETUPVAL                         R3 0
-       33 GETTABLEKS                       R3 R3 K0 ["props"]
-       35 GETTABLEKS                       R3 R3 K12 ["removePriorityDragCandidate"]
-       37 MOVE                             R4 R2
-       38 CALL                             R3 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R5 K9 [{["dragging"] = False}]
+       19 NAMECALL                         R3 R3 K10 ["setState"]
+       21 CALL                             R3 2 0
+       22 RETURN                           R0 0
+       23 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
+       25 GETIMPORT                        R4 K12 [Enum.UserInputType.MouseMovement]
+       27 JUMPIFNOTEQ                      R3 R4 ; [+8]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R3 R3 K0 ["props"]
+       32 GETTABLEKS                       R3 R3 K13 ["removePriorityDragCandidate"]
+       34 MOVE                             R4 R2
+       35 CALL                             R3 1 0
+       36 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -214,23 +210,21 @@ PROTO_5:
        10 CALL                             R3 2 0
        11 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
        13 GETIMPORT                        R4 K6 [Enum.UserInputType.MouseButton1]
-       15 JUMPIFNOTEQ                      R3 R4 ; [+10]
+       15 JUMPIFNOTEQ                      R3 R4 ; [+7]
        17 GETUPVAL                         R3 0
-       18 DUPTABLE                         R5 K8 [{"dragging"}]
-       19 LOADB                            R6 0
-       20 SETTABLEKS                       R6 R5 K7 ["dragging"]
-       22 NAMECALL                         R3 R3 K9 ["setState"]
-       24 CALL                             R3 2 0
-       25 RETURN                           R0 0
-       26 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
-       28 GETIMPORT                        R4 K11 [Enum.UserInputType.MouseMovement]
-       30 JUMPIFNOTEQ                      R3 R4 ; [+8]
-       32 GETUPVAL                         R3 0
-       33 GETTABLEKS                       R3 R3 K0 ["props"]
-       35 GETTABLEKS                       R3 R3 K12 ["removeDragCandidateWithId"]
-       37 MOVE                             R4 R0
-       38 CALL                             R3 1 0
-       39 RETURN                           R0 0
+       18 DUPTABLE                         R5 K9 [{["dragging"] = False}]
+       19 NAMECALL                         R3 R3 K10 ["setState"]
+       21 CALL                             R3 2 0
+       22 RETURN                           R0 0
+       23 GETTABLEKS                       R3 R1 K3 ["UserInputType"]
+       25 GETIMPORT                        R4 K12 [Enum.UserInputType.MouseMovement]
+       27 JUMPIFNOTEQ                      R3 R4 ; [+8]
+       29 GETUPVAL                         R3 0
+       30 GETTABLEKS                       R3 R3 K0 ["props"]
+       32 GETTABLEKS                       R3 R3 K13 ["removeDragCandidateWithId"]
+       34 MOVE                             R4 R0
+       35 CALL                             R3 1 0
+       36 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -249,52 +243,50 @@ PROTO_7:
         4 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R4 K1 [{"dragging"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["dragging"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 GETUPVAL                         R2 0
-        8 GETTABLEKS                       R2 R2 K3 ["createRef"]
-       10 CALL                             R2 0 1
-       11 SETTABLEKS                       R2 R0 K4 ["draggerInstanceRef"]
-       13 LOADN                            R2 0
-       14 SETTABLEKS                       R2 R0 K5 ["selectionPriority"]
-       16 NEWCLOSURE                       R2 P0
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          VAL R1
-       19 SETTABLEKS                       R2 R0 K6 ["onInputBegan"]
-       21 NEWCLOSURE                       R2 P1
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U1
-       24 CAPTURE                          UPVAL U2
-       25 CAPTURE                          UPVAL U3
-       26 CAPTURE                          UPVAL U4
-       27 CAPTURE                          UPVAL U5
-       28 SETTABLEKS                       R2 R0 K7 ["onHandleInputChanged"]
-       30 NEWCLOSURE                       R2 P2
-       31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R2 R0 K8 ["onInputBeganOnLowPriorityHandles"]
-       34 NEWCLOSURE                       R2 P3
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          VAL R1
-       37 SETTABLEKS                       R2 R0 K9 ["onInputChanged"]
-       39 NEWCLOSURE                       R2 P4
-       40 CAPTURE                          VAL R0
-       41 CAPTURE                          VAL R1
-       42 SETTABLEKS                       R2 R0 K10 ["onInputEnded"]
-       44 NEWCLOSURE                       R2 P5
-       45 CAPTURE                          VAL R0
-       46 CAPTURE                          VAL R1
-       47 SETTABLEKS                       R2 R0 K11 ["onHandleInputEnded"]
-       49 NEWCLOSURE                       R2 P6
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          UPVAL U6
-       52 SETTABLEKS                       R2 R0 K12 ["onInputBeganOnPriorityHandles"]
-       54 NEWCLOSURE                       R2 P7
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R2 R0 K13 ["onInputEndedOnPriorityHandles"]
-       58 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R2 R2 K4 ["createRef"]
+        7 CALL                             R2 0 1
+        8 SETTABLEKS                       R2 R0 K5 ["draggerInstanceRef"]
+       10 LOADN                            R2 0
+       11 SETTABLEKS                       R2 R0 K6 ["selectionPriority"]
+       13 NEWCLOSURE                       R2 P0
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          VAL R1
+       16 SETTABLEKS                       R2 R0 K7 ["onInputBegan"]
+       18 NEWCLOSURE                       R2 P1
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          UPVAL U3
+       23 CAPTURE                          UPVAL U4
+       24 CAPTURE                          UPVAL U5
+       25 SETTABLEKS                       R2 R0 K8 ["onHandleInputChanged"]
+       27 NEWCLOSURE                       R2 P2
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R2 R0 K9 ["onInputBeganOnLowPriorityHandles"]
+       31 NEWCLOSURE                       R2 P3
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          VAL R1
+       34 SETTABLEKS                       R2 R0 K10 ["onInputChanged"]
+       36 NEWCLOSURE                       R2 P4
+       37 CAPTURE                          VAL R0
+       38 CAPTURE                          VAL R1
+       39 SETTABLEKS                       R2 R0 K11 ["onInputEnded"]
+       41 NEWCLOSURE                       R2 P5
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R1
+       44 SETTABLEKS                       R2 R0 K12 ["onHandleInputEnded"]
+       46 NEWCLOSURE                       R2 P6
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          UPVAL U6
+       49 SETTABLEKS                       R2 R0 K13 ["onInputBeganOnPriorityHandles"]
+       51 NEWCLOSURE                       R2 P7
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R2 R0 K14 ["onInputEndedOnPriorityHandles"]
+       55 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

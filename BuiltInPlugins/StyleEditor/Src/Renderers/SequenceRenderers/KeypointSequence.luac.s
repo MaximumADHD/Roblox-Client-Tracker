@@ -152,7 +152,7 @@ PROTO_3:
        46 CALL                             R5 1 1
        47 SETTABLEKS                       R5 R4 K0 ["Keypoints"]
        49 CALL                             R2 2 1
-       50 LOADN                            R3 255
+       50 LOADN                            R3 -1
        51 GETTABLEKS                       R4 R2 K0 ["Keypoints"]
        53 LOADNIL                          R5
        54 LOADNIL                          R6

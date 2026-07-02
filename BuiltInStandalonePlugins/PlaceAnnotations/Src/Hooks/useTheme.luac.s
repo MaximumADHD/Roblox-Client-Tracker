@@ -67,17 +67,15 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K9 [{"Name"}]
-       15 LOADK                            R3 K10 ["Dark"]
-       16 SETTABLEKS                       R3 R2 K8 ["Name"]
-       18 GETIMPORT                        R3 K12 [pcall]
-       20 DUPCLOSURE                       R4 K13 [PROTO_0]
-       21 CALL                             R3 1 2
-       22 LOADK                            R7 K14 ["Studio"]
-       23 NAMECALL                         R5 R4 K15 ["FindFirstChild"]
-       25 CALL                             R5 2 1
-       26 DUPCLOSURE                       R6 K16 [PROTO_4]
-       27 CAPTURE                          VAL R1
-       28 CAPTURE                          VAL R5
-       29 CAPTURE                          VAL R2
-       30 RETURN                           R6 1
+       14 DUPTABLE                         R2 K10 [{["Name"] = "Dark"}]
+       15 GETIMPORT                        R3 K12 [pcall]
+       17 DUPCLOSURE                       R4 K13 [PROTO_0]
+       18 CALL                             R3 1 2
+       19 LOADK                            R7 K14 ["Studio"]
+       20 NAMECALL                         R5 R4 K15 ["FindFirstChild"]
+       22 CALL                             R5 2 1
+       23 DUPCLOSURE                       R6 K16 [PROTO_4]
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          VAL R5
+       26 CAPTURE                          VAL R2
+       27 RETURN                           R6 1

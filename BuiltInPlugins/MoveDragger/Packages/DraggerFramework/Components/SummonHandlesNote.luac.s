@@ -108,98 +108,86 @@ PROTO_3:
        93 GETUPVAL                         R19 0
        94 GETTABLEKS                       R19 R19 K15 ["createElement"]
        96 GETGLOBAL                        R20 K46 ["SimplePadding"]
-       98 DUPTABLE                         R21 K47 [{"Padding"}]
-       99 LOADN                            R22 3
-      100 SETTABLEKS                       R22 R21 K41 ["Padding"]
-      102 CALL                             R19 2 1
-      103 SETTABLEKS                       R19 R18 K41 ["Padding"]
-      105 GETUPVAL                         R19 0
-      106 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      108 LOADK                            R20 K48 ["UIListLayout"]
-      109 DUPTABLE                         R21 K51 [{"FillDirection", "SortOrder", "Padding"}]
-      110 GETIMPORT                        R22 K53 [Enum.FillDirection.Horizontal]
-      112 SETTABLEKS                       R22 R21 K49 ["FillDirection"]
-      114 GETIMPORT                        R22 K55 [Enum.SortOrder.LayoutOrder]
-      116 SETTABLEKS                       R22 R21 K50 ["SortOrder"]
-      118 GETIMPORT                        R22 K57 [UDim.new]
-      120 LOADN                            R23 0
-      121 LOADN                            R24 3
-      122 CALL                             R22 2 1
-      123 SETTABLEKS                       R22 R21 K41 ["Padding"]
-      125 CALL                             R19 2 1
-      126 SETTABLEKS                       R19 R18 K42 ["Layout"]
-      128 GETUPVAL                         R19 0
-      129 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      131 LOADK                            R20 K58 ["TextLabel"]
-      132 DUPTABLE                         R21 K60 [{"Text", "TextColor3", "BackgroundColor3", "AutomaticSize", "LayoutOrder"}]
-      133 GETTABLEKS                       R22 R1 K2 ["DraggerContext"]
-      135 LOADK                            R24 K61 ["SummonPivot"]
-      136 LOADK                            R25 K62 ["TabText"]
-      137 NAMECALL                         R22 R22 K63 ["getText"]
-      139 CALL                             R22 3 1
-      140 SETTABLEKS                       R22 R21 K44 ["Text"]
-      142 SETTABLEKS                       R5 R21 K59 ["TextColor3"]
-      144 SETTABLEKS                       R6 R21 K27 ["BackgroundColor3"]
-      146 GETIMPORT                        R22 K36 [Enum.AutomaticSize.XY]
-      148 SETTABLEKS                       R22 R21 K26 ["AutomaticSize"]
-      150 LOADN                            R22 1
-      151 SETTABLEKS                       R22 R21 K54 ["LayoutOrder"]
-      153 DUPTABLE                         R22 K65 [{"Padding", "Corner"}]
-      154 GETUPVAL                         R23 0
-      155 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      157 GETGLOBAL                        R24 K46 ["SimplePadding"]
-      159 DUPTABLE                         R25 K47 [{"Padding"}]
-      160 LOADN                            R26 2
-      161 SETTABLEKS                       R26 R25 K41 ["Padding"]
-      163 CALL                             R23 2 1
-      164 SETTABLEKS                       R23 R22 K41 ["Padding"]
-      166 GETUPVAL                         R23 0
-      167 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      169 LOADK                            R24 K66 ["UICorner"]
-      170 DUPTABLE                         R25 K68 [{"CornerRadius"}]
-      171 GETIMPORT                        R26 K57 [UDim.new]
-      173 LOADN                            R27 0
-      174 LOADN                            R28 4
-      175 CALL                             R26 2 1
-      176 SETTABLEKS                       R26 R25 K67 ["CornerRadius"]
-      178 CALL                             R23 2 1
-      179 SETTABLEKS                       R23 R22 K64 ["Corner"]
-      181 CALL                             R19 3 1
-      182 SETTABLEKS                       R19 R18 K43 ["Tab"]
-      184 GETUPVAL                         R19 0
-      185 GETTABLEKS                       R19 R19 K15 ["createElement"]
-      187 LOADK                            R20 K58 ["TextLabel"]
-      188 DUPTABLE                         R21 K70 [{"Text", "TextColor3", "AutomaticSize", "BackgroundTransparency", "LayoutOrder"}]
-      189 GETTABLEKS                       R22 R1 K2 ["DraggerContext"]
-      191 LOADK                            R24 K61 ["SummonPivot"]
-      192 LOADK                            R25 K71 ["SummonText"]
-      193 NAMECALL                         R22 R22 K63 ["getText"]
-      195 CALL                             R22 3 1
-      196 SETTABLEKS                       R22 R21 K44 ["Text"]
-      198 SETTABLEKS                       R5 R21 K59 ["TextColor3"]
-      200 GETIMPORT                        R22 K36 [Enum.AutomaticSize.XY]
-      202 SETTABLEKS                       R22 R21 K26 ["AutomaticSize"]
-      204 LOADN                            R22 1
-      205 SETTABLEKS                       R22 R21 K69 ["BackgroundTransparency"]
-      207 LOADN                            R22 2
-      208 SETTABLEKS                       R22 R21 K54 ["LayoutOrder"]
-      210 DUPTABLE                         R22 K47 [{"Padding"}]
-      211 GETUPVAL                         R23 0
-      212 GETTABLEKS                       R23 R23 K15 ["createElement"]
-      214 GETGLOBAL                        R24 K46 ["SimplePadding"]
-      216 DUPTABLE                         R25 K47 [{"Padding"}]
-      217 LOADN                            R26 2
-      218 SETTABLEKS                       R26 R25 K41 ["Padding"]
-      220 CALL                             R23 2 1
-      221 SETTABLEKS                       R23 R22 K41 ["Padding"]
-      223 CALL                             R19 3 1
-      224 SETTABLEKS                       R19 R18 K44 ["Text"]
-      226 CALL                             R15 3 1
-      227 SETTABLEKS                       R15 R14 K23 ["Frame"]
-      229 CALL                             R11 3 1
-      230 SETTABLEKS                       R11 R10 K20 ["SummonHandlesNoteGui"]
-      232 CALL                             R7 3 -1
-      233 RETURN                           R7 -1
+       98 DUPTABLE                         R21 K48 [{["Padding"] = 3}]
+       99 CALL                             R19 2 1
+      100 SETTABLEKS                       R19 R18 K41 ["Padding"]
+      102 GETUPVAL                         R19 0
+      103 GETTABLEKS                       R19 R19 K15 ["createElement"]
+      105 LOADK                            R20 K49 ["UIListLayout"]
+      106 DUPTABLE                         R21 K52 [{"FillDirection", "SortOrder", "Padding"}]
+      107 GETIMPORT                        R22 K54 [Enum.FillDirection.Horizontal]
+      109 SETTABLEKS                       R22 R21 K50 ["FillDirection"]
+      111 GETIMPORT                        R22 K56 [Enum.SortOrder.LayoutOrder]
+      113 SETTABLEKS                       R22 R21 K51 ["SortOrder"]
+      115 GETIMPORT                        R22 K58 [UDim.new]
+      117 LOADN                            R23 0
+      118 LOADN                            R24 3
+      119 CALL                             R22 2 1
+      120 SETTABLEKS                       R22 R21 K41 ["Padding"]
+      122 CALL                             R19 2 1
+      123 SETTABLEKS                       R19 R18 K42 ["Layout"]
+      125 GETUPVAL                         R19 0
+      126 GETTABLEKS                       R19 R19 K15 ["createElement"]
+      128 LOADK                            R20 K59 ["TextLabel"]
+      129 DUPTABLE                         R21 K62 [{["Text"], ["TextColor3"], ["BackgroundColor3"], ["AutomaticSize"], ["LayoutOrder"] = 1}]
+      130 GETTABLEKS                       R22 R1 K2 ["DraggerContext"]
+      132 LOADK                            R24 K63 ["SummonPivot"]
+      133 LOADK                            R25 K64 ["TabText"]
+      134 NAMECALL                         R22 R22 K65 ["getText"]
+      136 CALL                             R22 3 1
+      137 SETTABLEKS                       R22 R21 K44 ["Text"]
+      139 SETTABLEKS                       R5 R21 K60 ["TextColor3"]
+      141 SETTABLEKS                       R6 R21 K27 ["BackgroundColor3"]
+      143 GETIMPORT                        R22 K36 [Enum.AutomaticSize.XY]
+      145 SETTABLEKS                       R22 R21 K26 ["AutomaticSize"]
+      147 DUPTABLE                         R22 K67 [{"Padding", "Corner"}]
+      148 GETUPVAL                         R23 0
+      149 GETTABLEKS                       R23 R23 K15 ["createElement"]
+      151 GETGLOBAL                        R24 K46 ["SimplePadding"]
+      153 DUPTABLE                         R25 K68 [{["Padding"] = 2}]
+      154 CALL                             R23 2 1
+      155 SETTABLEKS                       R23 R22 K41 ["Padding"]
+      157 GETUPVAL                         R23 0
+      158 GETTABLEKS                       R23 R23 K15 ["createElement"]
+      160 LOADK                            R24 K69 ["UICorner"]
+      161 DUPTABLE                         R25 K71 [{"CornerRadius"}]
+      162 GETIMPORT                        R26 K58 [UDim.new]
+      164 LOADN                            R27 0
+      165 LOADN                            R28 4
+      166 CALL                             R26 2 1
+      167 SETTABLEKS                       R26 R25 K70 ["CornerRadius"]
+      169 CALL                             R23 2 1
+      170 SETTABLEKS                       R23 R22 K66 ["Corner"]
+      172 CALL                             R19 3 1
+      173 SETTABLEKS                       R19 R18 K43 ["Tab"]
+      175 GETUPVAL                         R19 0
+      176 GETTABLEKS                       R19 R19 K15 ["createElement"]
+      178 LOADK                            R20 K59 ["TextLabel"]
+      179 DUPTABLE                         R21 K73 [{["Text"], ["TextColor3"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2}]
+      180 GETTABLEKS                       R22 R1 K2 ["DraggerContext"]
+      182 LOADK                            R24 K63 ["SummonPivot"]
+      183 LOADK                            R25 K74 ["SummonText"]
+      184 NAMECALL                         R22 R22 K65 ["getText"]
+      186 CALL                             R22 3 1
+      187 SETTABLEKS                       R22 R21 K44 ["Text"]
+      189 SETTABLEKS                       R5 R21 K60 ["TextColor3"]
+      191 GETIMPORT                        R22 K36 [Enum.AutomaticSize.XY]
+      193 SETTABLEKS                       R22 R21 K26 ["AutomaticSize"]
+      195 DUPTABLE                         R22 K75 [{"Padding"}]
+      196 GETUPVAL                         R23 0
+      197 GETTABLEKS                       R23 R23 K15 ["createElement"]
+      199 GETGLOBAL                        R24 K46 ["SimplePadding"]
+      201 DUPTABLE                         R25 K68 [{["Padding"] = 2}]
+      202 CALL                             R23 2 1
+      203 SETTABLEKS                       R23 R22 K41 ["Padding"]
+      205 CALL                             R19 3 1
+      206 SETTABLEKS                       R19 R18 K44 ["Text"]
+      208 CALL                             R15 3 1
+      209 SETTABLEKS                       R15 R14 K23 ["Frame"]
+      211 CALL                             R11 3 1
+      212 SETTABLEKS                       R11 R10 K20 ["SummonHandlesNoteGui"]
+      214 CALL                             R7 3 -1
+      215 RETURN                           R7 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["localeChangedConnection"]

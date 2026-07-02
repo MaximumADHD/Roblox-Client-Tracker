@@ -1,22 +1,14 @@
 PROTO_0:
-        0 DUPTABLE                         R5 K8 [{"_draggerContext", "_applyJointTransform", "_hrd", "_symmetryOn", "_initialTransform", "_initialJoint", "_initialWorldCFrame", "isDragging"}]
+        0 DUPTABLE                         R5 K10 [{[1], ["_applyJointTransform"], ["_hrd"], ["_symmetryOn"], ["_initialTransform"] = , ["_initialJoint"] = , ["_initialWorldCFrame"] = , ["isDragging"] = False}]
         1 SETTABLEKS                       R0 R5 K0 ["_draggerContext"]
         3 SETTABLEKS                       R1 R5 K1 ["_applyJointTransform"]
         5 SETTABLEKS                       R2 R5 K2 ["_hrd"]
         7 SETTABLEKS                       R3 R5 K3 ["_symmetryOn"]
-        9 LOADNIL                          R6
-       10 SETTABLEKS                       R6 R5 K4 ["_initialTransform"]
-       12 LOADNIL                          R6
-       13 SETTABLEKS                       R6 R5 K5 ["_initialJoint"]
-       15 LOADNIL                          R6
-       16 SETTABLEKS                       R6 R5 K6 ["_initialWorldCFrame"]
-       18 LOADB                            R6 0
-       19 SETTABLEKS                       R6 R5 K7 ["isDragging"]
-       21 GETUPVAL                         R6 0
-       22 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
-       24 GETIMPORT                        R4 K10 [setmetatable]
-       26 CALL                             R4 2 1
-       27 RETURN                           R4 1
+        9 GETUPVAL                         R6 0
+       10 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
+       12 GETIMPORT                        R4 K12 [setmetatable]
+       14 CALL                             R4 2 1
+       15 RETURN                           R4 1
 
 PROTO_1:
         0 LOADB                            R3 1

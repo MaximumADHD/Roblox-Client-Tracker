@@ -24,39 +24,35 @@ PROTO_1:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
-       11 DUPTABLE                         R6 K5 [{"BackgroundTransparency", "Size"}]
-       12 LOADN                            R7 1
-       13 SETTABLEKS                       R7 R6 K3 ["BackgroundTransparency"]
-       15 GETIMPORT                        R7 K8 [UDim2.new]
-       17 LOADN                            R8 0
-       18 LOADN                            R9 88
-       19 LOADN                            R10 0
-       20 LOADN                            R11 60
-       21 CALL                             R7 4 1
-       22 SETTABLEKS                       R7 R6 K4 ["Size"]
-       24 DUPTABLE                         R7 K10 [{"List"}]
-       25 GETUPVAL                         R8 0
-       26 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       28 GETUPVAL                         R9 2
-       29 DUPTABLE                         R10 K14 [{"DefaultHeight", "Data", "OnRenderItem"}]
-       30 LOADN                            R11 50
-       31 SETTABLEKS                       R11 R10 K11 ["DefaultHeight"]
-       33 NEWTABLE                         R11 0 4
-       35 LOADK                            R12 K15 ["This"]
-       36 LOADK                            R13 K16 ["is"]
-       37 LOADK                            R14 K17 ["a"]
-       38 LOADK                            R15 K18 ["test"]
-       39 SETLIST                          R11 R12 4 [1]
-       41 SETTABLEKS                       R11 R10 K12 ["Data"]
-       43 DUPCLOSURE                       R11 K19 [PROTO_0]
-       44 CAPTURE                          UPVAL U0
-       45 SETTABLEKS                       R11 R10 K13 ["OnRenderItem"]
-       47 CALL                             R8 2 1
-       48 SETTABLEKS                       R8 R7 K9 ["List"]
-       50 CALL                             R4 3 1
-       51 SETTABLEKS                       R4 R3 K1 ["Frame"]
-       53 CALL                             R0 3 -1
-       54 RETURN                           R0 -1
+       11 DUPTABLE                         R6 K6 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       12 GETIMPORT                        R7 K9 [UDim2.new]
+       14 LOADN                            R8 0
+       15 LOADN                            R9 600
+       16 LOADN                            R10 0
+       17 LOADN                            R11 60
+       18 CALL                             R7 4 1
+       19 SETTABLEKS                       R7 R6 K5 ["Size"]
+       21 DUPTABLE                         R7 K11 [{"List"}]
+       22 GETUPVAL                         R8 0
+       23 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       25 GETUPVAL                         R9 2
+       26 DUPTABLE                         R10 K16 [{["DefaultHeight"] = 50, ["Data"], ["OnRenderItem"]}]
+       27 NEWTABLE                         R11 0 4
+       29 LOADK                            R12 K17 ["This"]
+       30 LOADK                            R13 K18 ["is"]
+       31 LOADK                            R14 K19 ["a"]
+       32 LOADK                            R15 K20 ["test"]
+       33 SETLIST                          R11 R12 4 [1]
+       35 SETTABLEKS                       R11 R10 K14 ["Data"]
+       37 DUPCLOSURE                       R11 K21 [PROTO_0]
+       38 CAPTURE                          UPVAL U0
+       39 SETTABLEKS                       R11 R10 K15 ["OnRenderItem"]
+       41 CALL                             R8 2 1
+       42 SETTABLEKS                       R8 R7 K10 ["List"]
+       44 CALL                             R4 3 1
+       45 SETTABLEKS                       R4 R3 K1 ["Frame"]
+       47 CALL                             R0 3 -1
+       48 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -77,14 +73,10 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K11 ["Categorization"]
        29 GETTABLEKS                       R4 R4 K12 ["HorizontalList"]
        31 CALL                             R3 1 1
-       32 DUPTABLE                         R4 K16 [{"name", "summary", "story"}]
-       33 LOADK                            R5 K12 ["HorizontalList"]
-       34 SETTABLEKS                       R5 R4 K13 ["name"]
-       36 LOADK                            R5 K17 ["A generic horizontal list that sizes itself to the size of its content"]
-       37 SETTABLEKS                       R5 R4 K14 ["summary"]
-       39 DUPCLOSURE                       R5 K18 [PROTO_1]
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          VAL R3
-       43 SETTABLEKS                       R5 R4 K15 ["story"]
-       45 RETURN                           R4 1
+       32 DUPTABLE                         R4 K17 [{["name"] = "HorizontalList", ["summary"] = "A generic horizontal list that sizes itself to the size of its content", ["story"]}]
+       33 DUPCLOSURE                       R5 K18 [PROTO_1]
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R2
+       36 CAPTURE                          VAL R3
+       37 SETTABLEKS                       R5 R4 K16 ["story"]
+       39 RETURN                           R4 1

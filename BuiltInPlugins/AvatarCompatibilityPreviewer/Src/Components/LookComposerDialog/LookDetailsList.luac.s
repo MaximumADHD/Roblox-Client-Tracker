@@ -165,99 +165,73 @@ PROTO_5:
        39 GETUPVAL                         R4 2
        40 GETTABLEKS                       R4 R4 K4 ["createElement"]
        42 GETUPVAL                         R5 6
-       43 DUPTABLE                         R6 K7 [{"tag", "LayoutOrder"}]
-       44 LOADK                            R7 K8 ["col gap-medium size-full-0 auto-y"]
-       45 SETTABLEKS                       R7 R6 K5 ["tag"]
-       47 GETTABLEKS                       R7 R0 K6 ["LayoutOrder"]
-       49 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-       51 DUPTABLE                         R7 K12 [{"DividerContainer", "Header", "ItemsList"}]
-       52 GETUPVAL                         R8 2
-       53 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       55 GETUPVAL                         R9 6
-       56 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
-       57 LOADK                            R11 K13 ["size-full-0 auto-y padding-bottom-medium"]
-       58 SETTABLEKS                       R11 R10 K5 ["tag"]
-       60 LOADN                            R11 1
-       61 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-       63 DUPTABLE                         R11 K15 [{"Divider"}]
-       64 GETUPVAL                         R12 2
-       65 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       67 GETUPVAL                         R13 7
-       68 CALL                             R12 1 1
-       69 SETTABLEKS                       R12 R11 K14 ["Divider"]
-       71 CALL                             R8 3 1
-       72 SETTABLEKS                       R8 R7 K9 ["DividerContainer"]
-       74 GETUPVAL                         R8 2
-       75 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       77 GETUPVAL                         R9 6
-       78 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
-       79 LOADK                            R11 K16 ["row size-full-0 auto-y align-y-center"]
-       80 SETTABLEKS                       R11 R10 K5 ["tag"]
-       82 LOADN                            R11 2
-       83 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-       85 DUPTABLE                         R11 K20 [{"Title", "Spacer", "ItemCount"}]
+       43 DUPTABLE                         R6 K8 [{["tag"] = "col gap-medium size-full-0 auto-y", ["LayoutOrder"]}]
+       44 GETTABLEKS                       R7 R0 K7 ["LayoutOrder"]
+       46 SETTABLEKS                       R7 R6 K7 ["LayoutOrder"]
+       48 DUPTABLE                         R7 K12 [{"DividerContainer", "Header", "ItemsList"}]
+       49 GETUPVAL                         R8 2
+       50 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       52 GETUPVAL                         R9 6
+       53 DUPTABLE                         R10 K15 [{["tag"] = "size-full-0 auto-y padding-bottom-medium", ["LayoutOrder"] = 1}]
+       54 DUPTABLE                         R11 K17 [{"Divider"}]
+       55 GETUPVAL                         R12 2
+       56 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       58 GETUPVAL                         R13 7
+       59 CALL                             R12 1 1
+       60 SETTABLEKS                       R12 R11 K16 ["Divider"]
+       62 CALL                             R8 3 1
+       63 SETTABLEKS                       R8 R7 K9 ["DividerContainer"]
+       65 GETUPVAL                         R8 2
+       66 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       68 GETUPVAL                         R9 6
+       69 DUPTABLE                         R10 K20 [{["tag"] = "row align-y-center size-full-0 auto-y", ["LayoutOrder"] = 2}]
+       70 DUPTABLE                         R11 K24 [{"Title", "Spacer", "ItemCount"}]
+       71 GETUPVAL                         R12 2
+       72 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       74 GETUPVAL                         R13 8
+       75 DUPTABLE                         R14 K27 [{["Text"], ["tag"] = "auto-xy text-label-medium content-emphasis", ["LayoutOrder"] = 1}]
+       76 LOADK                            R17 K28 ["LookComposerDialog"]
+       77 LOADK                            R18 K29 ["LookDetails"]
+       78 NAMECALL                         R15 R1 K30 ["getText"]
+       80 CALL                             R15 3 1
+       81 SETTABLEKS                       R15 R14 K25 ["Text"]
+       83 CALL                             R12 2 1
+       84 SETTABLEKS                       R12 R11 K21 ["Title"]
        86 GETUPVAL                         R12 2
        87 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       89 GETUPVAL                         R13 8
-       90 DUPTABLE                         R14 K22 [{"Text", "tag", "LayoutOrder"}]
-       91 LOADK                            R17 K23 ["LookComposerDialog"]
-       92 LOADK                            R18 K24 ["LookDetails"]
-       93 NAMECALL                         R15 R1 K25 ["getText"]
-       95 CALL                             R15 3 1
-       96 SETTABLEKS                       R15 R14 K21 ["Text"]
-       98 LOADK                            R15 K26 ["text-label-medium auto-xy content-emphasis"]
-       99 SETTABLEKS                       R15 R14 K5 ["tag"]
-      101 LOADN                            R15 1
-      102 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      104 CALL                             R12 2 1
-      105 SETTABLEKS                       R12 R11 K17 ["Title"]
-      107 GETUPVAL                         R12 2
-      108 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      110 GETUPVAL                         R13 6
-      111 DUPTABLE                         R14 K7 [{"tag", "LayoutOrder"}]
-      112 LOADK                            R15 K27 ["grow"]
-      113 SETTABLEKS                       R15 R14 K5 ["tag"]
-      115 LOADN                            R15 2
-      116 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      118 CALL                             R12 2 1
-      119 SETTABLEKS                       R12 R11 K18 ["Spacer"]
-      121 GETUPVAL                         R12 2
-      122 GETTABLEKS                       R12 R12 K4 ["createElement"]
-      124 GETUPVAL                         R13 8
-      125 DUPTABLE                         R14 K22 [{"Text", "tag", "LayoutOrder"}]
-      126 FASTCALL1                        TOSTRING R3 ; [+3]
-      127 MOVE                             R20 R3
-      128 GETIMPORT                        R19 K29 [tostring]
-      130 CALL                             R19 1 1
-      131 MOVE                             R16 R19
-      132 LOADK                            R17 K30 [" "]
-      133 LOADK                            R20 K23 ["LookComposerDialog"]
-      134 LOADK                            R21 K31 ["Items"]
-      135 NAMECALL                         R18 R1 K25 ["getText"]
-      137 CALL                             R18 3 1
-      138 CONCAT                           R15 R16 R18
-      139 SETTABLEKS                       R15 R14 K21 ["Text"]
-      141 LOADK                            R15 K32 ["text-label-medium auto-xy content-default"]
-      142 SETTABLEKS                       R15 R14 K5 ["tag"]
-      144 LOADN                            R15 3
-      145 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      147 CALL                             R12 2 1
-      148 SETTABLEKS                       R12 R11 K19 ["ItemCount"]
-      150 CALL                             R8 3 1
-      151 SETTABLEKS                       R8 R7 K10 ["Header"]
-      153 GETUPVAL                         R8 2
-      154 GETTABLEKS                       R8 R8 K4 ["createElement"]
-      156 GETUPVAL                         R9 6
-      157 DUPTABLE                         R10 K7 [{"tag", "LayoutOrder"}]
-      158 LOADK                            R11 K33 ["col gap-small size-full-0 auto-y padding-top-medium"]
-      159 SETTABLEKS                       R11 R10 K5 ["tag"]
-      161 LOADN                            R11 3
-      162 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-      164 MOVE                             R11 R2
-      165 CALL                             R8 3 1
-      166 SETTABLEKS                       R8 R7 K11 ["ItemsList"]
-      168 CALL                             R4 3 -1
-      169 RETURN                           R4 -1
+       89 GETUPVAL                         R13 6
+       90 DUPTABLE                         R14 K32 [{["tag"] = "grow", ["LayoutOrder"] = 2}]
+       91 CALL                             R12 2 1
+       92 SETTABLEKS                       R12 R11 K22 ["Spacer"]
+       94 GETUPVAL                         R12 2
+       95 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       97 GETUPVAL                         R13 8
+       98 DUPTABLE                         R14 K35 [{["Text"], ["tag"] = "auto-xy text-label-medium content-default", ["LayoutOrder"] = 3}]
+       99 FASTCALL1                        TOSTRING R3 ; [+3]
+      100 MOVE                             R20 R3
+      101 GETIMPORT                        R19 K37 [tostring]
+      103 CALL                             R19 1 1
+      104 MOVE                             R16 R19
+      105 LOADK                            R17 K38 [" "]
+      106 LOADK                            R20 K28 ["LookComposerDialog"]
+      107 LOADK                            R21 K39 ["Items"]
+      108 NAMECALL                         R18 R1 K30 ["getText"]
+      110 CALL                             R18 3 1
+      111 CONCAT                           R15 R16 R18
+      112 SETTABLEKS                       R15 R14 K25 ["Text"]
+      114 CALL                             R12 2 1
+      115 SETTABLEKS                       R12 R11 K23 ["ItemCount"]
+      117 CALL                             R8 3 1
+      118 SETTABLEKS                       R8 R7 K10 ["Header"]
+      120 GETUPVAL                         R8 2
+      121 GETTABLEKS                       R8 R8 K4 ["createElement"]
+      123 GETUPVAL                         R9 6
+      124 DUPTABLE                         R10 K41 [{["tag"] = "col gap-small size-full-0 auto-y padding-top-medium", ["LayoutOrder"] = 3}]
+      125 MOVE                             R11 R2
+      126 CALL                             R8 3 1
+      127 SETTABLEKS                       R8 R7 K11 ["ItemsList"]
+      129 CALL                             R4 3 -1
+      130 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

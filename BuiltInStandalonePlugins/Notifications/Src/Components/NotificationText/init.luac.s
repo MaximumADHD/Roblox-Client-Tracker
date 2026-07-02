@@ -15,31 +15,27 @@ PROTO_0:
        20 GETUPVAL                         R5 0
        21 GETTABLEKS                       R5 R5 K0 ["createElement"]
        23 LOADK                            R6 K9 ["TextLabel"]
-       24 DUPTABLE                         R7 K11 [{"Text", "LayoutOrder"}]
+       24 DUPTABLE                         R7 K12 [{["Text"], ["LayoutOrder"] = 1}]
        25 GETTABLEKS                       R8 R0 K6 ["Subject"]
        27 SETTABLEKS                       R8 R7 K10 ["Text"]
-       29 LOADN                            R8 1
-       30 SETTABLEKS                       R8 R7 K3 ["LayoutOrder"]
-       32 CALL                             R5 2 1
-       33 SETTABLEKS                       R5 R4 K6 ["Subject"]
-       35 GETTABLEKS                       R6 R0 K7 ["Subline"]
-       37 JUMPIFEQKNIL                     R6 ; [+19]
-       39 GETTABLEKS                       R6 R0 K7 ["Subline"]
-       41 JUMPIFEQKS                       R6 K12 [""] ; [+15]
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       46 LOADK                            R6 K9 ["TextLabel"]
-       47 DUPTABLE                         R7 K11 [{"Text", "LayoutOrder"}]
-       48 GETTABLEKS                       R8 R0 K7 ["Subline"]
-       50 SETTABLEKS                       R8 R7 K10 ["Text"]
-       52 LOADN                            R8 2
-       53 SETTABLEKS                       R8 R7 K3 ["LayoutOrder"]
-       55 CALL                             R5 2 1
-       56 JUMP                             ; [+1]
-       57 LOADNIL                          R5
-       58 SETTABLEKS                       R5 R4 K7 ["Subline"]
-       60 CALL                             R1 3 -1
-       61 RETURN                           R1 -1
+       29 CALL                             R5 2 1
+       30 SETTABLEKS                       R5 R4 K6 ["Subject"]
+       32 GETTABLEKS                       R6 R0 K7 ["Subline"]
+       34 JUMPIFEQKNIL                     R6 ; [+16]
+       36 GETTABLEKS                       R6 R0 K7 ["Subline"]
+       38 JUMPIFEQKS                       R6 K13 [""] ; [+12]
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       43 LOADK                            R6 K9 ["TextLabel"]
+       44 DUPTABLE                         R7 K15 [{["Text"], ["LayoutOrder"] = 2}]
+       45 GETTABLEKS                       R8 R0 K7 ["Subline"]
+       47 SETTABLEKS                       R8 R7 K10 ["Text"]
+       49 CALL                             R5 2 1
+       50 JUMP                             ; [+1]
+       51 LOADNIL                          R5
+       52 SETTABLEKS                       R5 R4 K7 ["Subline"]
+       54 CALL                             R1 3 -1
+       55 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

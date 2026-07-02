@@ -92,112 +92,106 @@ PROTO_4:
        57 GETUPVAL                         R8 2
        58 GETTABLEKS                       R8 R8 K17 ["createElement"]
        60 LOADK                            R9 K25 ["TextLabel"]
-       61 DUPTABLE                         R10 K35 [{"Position", "Size", "BackgroundTransparency", "TextColor3", "TextTransparency", "Font", "TextSize", "Text", "TextXAlignment", "TextYAlignment"}]
-       62 GETIMPORT                        R11 K38 [UDim2.new]
+       61 DUPTABLE                         R10 K37 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["TextColor3"], ["TextTransparency"], ["Font"], ["TextSize"] = 22, ["Text"], ["TextXAlignment"], ["TextYAlignment"]}]
+       62 GETIMPORT                        R11 K40 [UDim2.new]
        64 LOADN                            R12 0
        65 LOADN                            R13 59
        66 LOADN                            R14 0
        67 LOADN                            R15 0
        68 CALL                             R11 4 1
        69 SETTABLEKS                       R11 R10 K26 ["Position"]
-       71 GETIMPORT                        R11 K38 [UDim2.new]
+       71 GETIMPORT                        R11 K40 [UDim2.new]
        73 LOADN                            R12 0
        74 GETTABLEKS                       R13 R5 K12 ["X"]
        76 LOADN                            R14 0
        77 LOADN                            R15 24
        78 CALL                             R11 4 1
        79 SETTABLEKS                       R11 R10 K27 ["Size"]
-       81 LOADN                            R11 1
-       82 SETTABLEKS                       R11 R10 K28 ["BackgroundTransparency"]
-       84 GETUPVAL                         R12 4
-       85 GETTABLEKS                       R12 R12 K39 ["getRadioButtonTextColor"]
-       87 GETTABLEKS                       R13 R0 K0 ["props"]
-       89 CALL                             R12 1 1
-       90 JUMPIFNOT                        R12 ; [+7]
-       91 GETUPVAL                         R11 4
-       92 GETTABLEKS                       R11 R11 K39 ["getRadioButtonTextColor"]
-       94 GETTABLEKS                       R12 R0 K0 ["props"]
-       96 CALL                             R11 1 1
-       97 JUMP                             ; [+6]
-       98 GETTABLEKS                       R11 R3 K40 ["fontStyle"]
-      100 GETTABLEKS                       R11 R11 K41 ["Header"]
-      102 GETTABLEKS                       R11 R11 K29 ["TextColor3"]
-      104 SETTABLEKS                       R11 R10 K29 ["TextColor3"]
-      106 GETTABLEKS                       R12 R0 K0 ["props"]
-      108 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
-      110 JUMPIFNOT                        R12 ; [+7]
-      111 GETTABLEKS                       R12 R0 K0 ["props"]
-      113 GETTABLEKS                       R12 R12 K24 ["PlayerChoice"]
-      115 JUMPIF                           R12 ; [+2]
-      116 LOADN                            R11 0
-      117 JUMP                             ; [+1]
-      118 LOADK                            R11 K42 [0.5]
-      119 SETTABLEKS                       R11 R10 K30 ["TextTransparency"]
-      121 GETIMPORT                        R11 K10 [Enum.Font.SourceSans]
-      123 SETTABLEKS                       R11 R10 K8 ["Font"]
-      125 LOADN                            R11 22
-      126 SETTABLEKS                       R11 R10 K31 ["TextSize"]
-      128 SETTABLEKS                       R4 R10 K32 ["Text"]
-      130 GETIMPORT                        R11 K44 [Enum.TextXAlignment.Left]
-      132 SETTABLEKS                       R11 R10 K33 ["TextXAlignment"]
-      134 GETIMPORT                        R11 K46 [Enum.TextYAlignment.Center]
-      136 SETTABLEKS                       R11 R10 K34 ["TextYAlignment"]
-      138 CALL                             R8 2 1
-      139 SETTABLEKS                       R8 R7 K14 ["CustomItemLabel"]
-      141 GETUPVAL                         R8 2
-      142 GETTABLEKS                       R8 R8 K17 ["createElement"]
-      144 GETUPVAL                         R9 5
-      145 DUPTABLE                         R10 K54 [{"Disabled", "ErrorText", "OnTextChanged", "OnFocusLost", "OnValidateText", "PlaceholderText", "Position", "Width", "Text"}]
-      146 GETTABLEKS                       R12 R0 K0 ["props"]
-      148 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
-      150 NOT                              R11 R12
-      151 SETTABLEKS                       R11 R10 K47 ["Disabled"]
-      153 GETTABLEKS                       R11 R0 K0 ["props"]
-      155 GETTABLEKS                       R11 R11 K55 ["ErrorMessage"]
-      157 SETTABLEKS                       R11 R10 K48 ["ErrorText"]
-      159 GETTABLEKS                       R11 R0 K56 ["onTextChanged"]
-      161 SETTABLEKS                       R11 R10 K49 ["OnTextChanged"]
-      163 GETTABLEKS                       R11 R0 K57 ["onFocusLost"]
-      165 SETTABLEKS                       R11 R10 K50 ["OnFocusLost"]
-      167 GETTABLEKS                       R11 R0 K58 ["onValidateText"]
-      169 SETTABLEKS                       R11 R10 K51 ["OnValidateText"]
-      171 LOADK                            R13 K4 ["General"]
-      172 LOADK                            R14 K59 ["AvatarOverrideId"]
-      173 NAMECALL                         R11 R2 K6 ["getText"]
-      175 CALL                             R11 3 1
-      176 SETTABLEKS                       R11 R10 K52 ["PlaceholderText"]
-      178 GETIMPORT                        R11 K38 [UDim2.new]
-      180 LOADN                            R12 0
-      181 MOVE                             R13 R6
-      182 LOADN                            R14 0
-      183 LOADN                            R15 0
-      184 CALL                             R11 4 1
-      185 SETTABLEKS                       R11 R10 K26 ["Position"]
-      187 LOADN                            R11 175
-      188 SETTABLEKS                       R11 R10 K53 ["Width"]
-      190 GETTABLEKS                       R11 R0 K3 ["currentTextInputBoxText"]
-      192 SETTABLEKS                       R11 R10 K32 ["Text"]
-      194 CALL                             R8 2 1
-      195 SETTABLEKS                       R8 R7 K15 ["InputBox"]
-      197 GETUPVAL                         R8 2
-      198 GETTABLEKS                       R8 R8 K17 ["createElement"]
-      200 GETUPVAL                         R9 6
-      201 DUPTABLE                         R10 K62 [{"LayoutOrder", "Title"}]
-      202 GETTABLEKS                       R12 R0 K0 ["props"]
-      204 GETTABLEKS                       R12 R12 K60 ["LayoutOrder"]
-      206 ORK                              R11 R12 K63 [1]
-      207 SETTABLEKS                       R11 R10 K60 ["LayoutOrder"]
-      209 GETTABLEKS                       R11 R0 K0 ["props"]
-      211 GETTABLEKS                       R11 R11 K61 ["Title"]
-      213 SETTABLEKS                       R11 R10 K61 ["Title"]
-      215 MOVE                             R11 R7
-      216 CALL                             R8 3 -1
-      217 RETURN                           R8 -1
+       81 GETUPVAL                         R12 4
+       82 GETTABLEKS                       R12 R12 K41 ["getRadioButtonTextColor"]
+       84 GETTABLEKS                       R13 R0 K0 ["props"]
+       86 CALL                             R12 1 1
+       87 JUMPIFNOT                        R12 ; [+7]
+       88 GETUPVAL                         R11 4
+       89 GETTABLEKS                       R11 R11 K41 ["getRadioButtonTextColor"]
+       91 GETTABLEKS                       R12 R0 K0 ["props"]
+       93 CALL                             R11 1 1
+       94 JUMP                             ; [+6]
+       95 GETTABLEKS                       R11 R3 K42 ["fontStyle"]
+       97 GETTABLEKS                       R11 R11 K43 ["Header"]
+       99 GETTABLEKS                       R11 R11 K30 ["TextColor3"]
+      101 SETTABLEKS                       R11 R10 K30 ["TextColor3"]
+      103 GETTABLEKS                       R12 R0 K0 ["props"]
+      105 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
+      107 JUMPIFNOT                        R12 ; [+7]
+      108 GETTABLEKS                       R12 R0 K0 ["props"]
+      110 GETTABLEKS                       R12 R12 K24 ["PlayerChoice"]
+      112 JUMPIF                           R12 ; [+2]
+      113 LOADN                            R11 0
+      114 JUMP                             ; [+1]
+      115 LOADK                            R11 K44 [0.5]
+      116 SETTABLEKS                       R11 R10 K31 ["TextTransparency"]
+      118 GETIMPORT                        R11 K10 [Enum.Font.SourceSans]
+      120 SETTABLEKS                       R11 R10 K8 ["Font"]
+      122 SETTABLEKS                       R4 R10 K34 ["Text"]
+      124 GETIMPORT                        R11 K46 [Enum.TextXAlignment.Left]
+      126 SETTABLEKS                       R11 R10 K35 ["TextXAlignment"]
+      128 GETIMPORT                        R11 K48 [Enum.TextYAlignment.Center]
+      130 SETTABLEKS                       R11 R10 K36 ["TextYAlignment"]
+      132 CALL                             R8 2 1
+      133 SETTABLEKS                       R8 R7 K14 ["CustomItemLabel"]
+      135 GETUPVAL                         R8 2
+      136 GETTABLEKS                       R8 R8 K17 ["createElement"]
+      138 GETUPVAL                         R9 5
+      139 DUPTABLE                         R10 K57 [{["Disabled"], ["ErrorText"], ["OnTextChanged"], ["OnFocusLost"], ["OnValidateText"], ["PlaceholderText"], ["Position"], ["Width"] = 175, ["Text"]}]
+      140 GETTABLEKS                       R12 R0 K0 ["props"]
+      142 GETTABLEKS                       R12 R12 K22 ["IsEnabled"]
+      144 NOT                              R11 R12
+      145 SETTABLEKS                       R11 R10 K49 ["Disabled"]
+      147 GETTABLEKS                       R11 R0 K0 ["props"]
+      149 GETTABLEKS                       R11 R11 K58 ["ErrorMessage"]
+      151 SETTABLEKS                       R11 R10 K50 ["ErrorText"]
+      153 GETTABLEKS                       R11 R0 K59 ["onTextChanged"]
+      155 SETTABLEKS                       R11 R10 K51 ["OnTextChanged"]
+      157 GETTABLEKS                       R11 R0 K60 ["onFocusLost"]
+      159 SETTABLEKS                       R11 R10 K52 ["OnFocusLost"]
+      161 GETTABLEKS                       R11 R0 K61 ["onValidateText"]
+      163 SETTABLEKS                       R11 R10 K53 ["OnValidateText"]
+      165 LOADK                            R13 K4 ["General"]
+      166 LOADK                            R14 K62 ["AvatarOverrideId"]
+      167 NAMECALL                         R11 R2 K6 ["getText"]
+      169 CALL                             R11 3 1
+      170 SETTABLEKS                       R11 R10 K54 ["PlaceholderText"]
+      172 GETIMPORT                        R11 K40 [UDim2.new]
+      174 LOADN                            R12 0
+      175 MOVE                             R13 R6
+      176 LOADN                            R14 0
+      177 LOADN                            R15 0
+      178 CALL                             R11 4 1
+      179 SETTABLEKS                       R11 R10 K26 ["Position"]
+      181 GETTABLEKS                       R11 R0 K3 ["currentTextInputBoxText"]
+      183 SETTABLEKS                       R11 R10 K34 ["Text"]
+      185 CALL                             R8 2 1
+      186 SETTABLEKS                       R8 R7 K15 ["InputBox"]
+      188 GETUPVAL                         R8 2
+      189 GETTABLEKS                       R8 R8 K17 ["createElement"]
+      191 GETUPVAL                         R9 6
+      192 DUPTABLE                         R10 K65 [{"LayoutOrder", "Title"}]
+      193 GETTABLEKS                       R12 R0 K0 ["props"]
+      195 GETTABLEKS                       R12 R12 K63 ["LayoutOrder"]
+      197 ORK                              R11 R12 K29 [1]
+      198 SETTABLEKS                       R11 R10 K63 ["LayoutOrder"]
+      200 GETTABLEKS                       R11 R0 K0 ["props"]
+      202 GETTABLEKS                       R11 R11 K64 ["Title"]
+      204 SETTABLEKS                       R11 R10 K64 ["Title"]
+      206 MOVE                             R11 R7
+      207 CALL                             R8 3 -1
+      208 RETURN                           R8 -1
 
 PROTO_5:
         0 GETIMPORT                        R3 K2 [Vector2.new]
-        2 LOADN                            R4 136
-        3 LOADN                            R5 136
+        2 LOADN                            R4 5000
+        3 LOADN                            R5 5000
         4 CALL                             R3 2 1
         5 GETIMPORT                        R4 K4 [game]
         7 LOADK                            R6 K5 ["TextService"]

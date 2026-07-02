@@ -41,63 +41,61 @@ PROTO_3:
        19 GETUPVAL                         R8 0
        20 GETTABLEKS                       R8 R8 K9 ["createElement"]
        22 LOADK                            R9 K10 ["Frame"]
-       23 DUPTABLE                         R10 K13 [{"Size", "BackgroundTransparency"}]
+       23 DUPTABLE                         R10 K14 [{["Size"], ["BackgroundTransparency"] = 1}]
        24 SETTABLEKS                       R3 R10 K11 ["Size"]
-       26 LOADN                            R11 1
-       27 SETTABLEKS                       R11 R10 K12 ["BackgroundTransparency"]
-       29 DUPTABLE                         R11 K17 [{"AssetConfig", "AssetUpload", "AssetUploadResult"}]
-       30 GETUPVAL                         R13 1
-       31 GETTABLEKS                       R13 R13 K18 ["SCREENS"]
-       33 GETTABLEKS                       R13 R13 K19 ["CONFIGURE_ASSET"]
-       35 JUMPIFEQ                         R2 R13 ; [+2]
-       37 LOADB                            R12 0 +1
-       38 LOADB                            R12 1
-       39 JUMPIFNOT                        R12 ; [+16]
-       40 GETUPVAL                         R12 0
-       41 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       43 GETUPVAL                         R13 2
-       44 DUPTABLE                         R14 K20 [{"Size", "assetName", "onClose", "pluginGui", "instances"}]
-       45 SETTABLEKS                       R3 R14 K11 ["Size"]
-       47 SETTABLEKS                       R6 R14 K7 ["assetName"]
-       49 SETTABLEKS                       R4 R14 K5 ["onClose"]
-       51 SETTABLEKS                       R7 R14 K8 ["pluginGui"]
-       53 SETTABLEKS                       R5 R14 K6 ["instances"]
-       55 CALL                             R12 2 1
-       56 SETTABLEKS                       R12 R11 K14 ["AssetConfig"]
-       58 GETUPVAL                         R13 1
-       59 GETTABLEKS                       R13 R13 K18 ["SCREENS"]
-       61 GETTABLEKS                       R13 R13 K21 ["UPLOADING_ASSET"]
-       63 JUMPIFEQ                         R2 R13 ; [+2]
-       65 LOADB                            R12 0 +1
-       66 LOADB                            R12 1
-       67 JUMPIFNOT                        R12 ; [+12]
-       68 GETUPVAL                         R12 0
-       69 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       71 GETUPVAL                         R13 3
-       72 DUPTABLE                         R14 K22 [{"Size", "onClose", "instances"}]
-       73 SETTABLEKS                       R3 R14 K11 ["Size"]
-       75 SETTABLEKS                       R4 R14 K5 ["onClose"]
-       77 SETTABLEKS                       R5 R14 K6 ["instances"]
-       79 CALL                             R12 2 1
-       80 SETTABLEKS                       R12 R11 K15 ["AssetUpload"]
-       82 GETUPVAL                         R13 1
-       83 GETTABLEKS                       R13 R13 K18 ["SCREENS"]
-       85 GETTABLEKS                       R13 R13 K23 ["UPLOAD_ASSET_RESULT"]
-       87 JUMPIFEQ                         R2 R13 ; [+2]
-       89 LOADB                            R12 0 +1
-       90 LOADB                            R12 1
-       91 JUMPIFNOT                        R12 ; [+12]
-       92 GETUPVAL                         R12 0
-       93 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       95 GETUPVAL                         R13 4
-       96 DUPTABLE                         R14 K22 [{"Size", "onClose", "instances"}]
-       97 SETTABLEKS                       R3 R14 K11 ["Size"]
-       99 SETTABLEKS                       R4 R14 K5 ["onClose"]
-      101 SETTABLEKS                       R5 R14 K6 ["instances"]
-      103 CALL                             R12 2 1
-      104 SETTABLEKS                       R12 R11 K16 ["AssetUploadResult"]
-      106 CALL                             R8 3 -1
-      107 RETURN                           R8 -1
+       26 DUPTABLE                         R11 K18 [{"AssetConfig", "AssetUpload", "AssetUploadResult"}]
+       27 GETUPVAL                         R13 1
+       28 GETTABLEKS                       R13 R13 K19 ["SCREENS"]
+       30 GETTABLEKS                       R13 R13 K20 ["CONFIGURE_ASSET"]
+       32 JUMPIFEQ                         R2 R13 ; [+2]
+       34 LOADB                            R12 0 +1
+       35 LOADB                            R12 1
+       36 JUMPIFNOT                        R12 ; [+16]
+       37 GETUPVAL                         R12 0
+       38 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       40 GETUPVAL                         R13 2
+       41 DUPTABLE                         R14 K21 [{"Size", "assetName", "onClose", "pluginGui", "instances"}]
+       42 SETTABLEKS                       R3 R14 K11 ["Size"]
+       44 SETTABLEKS                       R6 R14 K7 ["assetName"]
+       46 SETTABLEKS                       R4 R14 K5 ["onClose"]
+       48 SETTABLEKS                       R7 R14 K8 ["pluginGui"]
+       50 SETTABLEKS                       R5 R14 K6 ["instances"]
+       52 CALL                             R12 2 1
+       53 SETTABLEKS                       R12 R11 K15 ["AssetConfig"]
+       55 GETUPVAL                         R13 1
+       56 GETTABLEKS                       R13 R13 K19 ["SCREENS"]
+       58 GETTABLEKS                       R13 R13 K22 ["UPLOADING_ASSET"]
+       60 JUMPIFEQ                         R2 R13 ; [+2]
+       62 LOADB                            R12 0 +1
+       63 LOADB                            R12 1
+       64 JUMPIFNOT                        R12 ; [+12]
+       65 GETUPVAL                         R12 0
+       66 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       68 GETUPVAL                         R13 3
+       69 DUPTABLE                         R14 K23 [{"Size", "onClose", "instances"}]
+       70 SETTABLEKS                       R3 R14 K11 ["Size"]
+       72 SETTABLEKS                       R4 R14 K5 ["onClose"]
+       74 SETTABLEKS                       R5 R14 K6 ["instances"]
+       76 CALL                             R12 2 1
+       77 SETTABLEKS                       R12 R11 K16 ["AssetUpload"]
+       79 GETUPVAL                         R13 1
+       80 GETTABLEKS                       R13 R13 K19 ["SCREENS"]
+       82 GETTABLEKS                       R13 R13 K24 ["UPLOAD_ASSET_RESULT"]
+       84 JUMPIFEQ                         R2 R13 ; [+2]
+       86 LOADB                            R12 0 +1
+       87 LOADB                            R12 1
+       88 JUMPIFNOT                        R12 ; [+12]
+       89 GETUPVAL                         R12 0
+       90 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       92 GETUPVAL                         R13 4
+       93 DUPTABLE                         R14 K23 [{"Size", "onClose", "instances"}]
+       94 SETTABLEKS                       R3 R14 K11 ["Size"]
+       96 SETTABLEKS                       R4 R14 K5 ["onClose"]
+       98 SETTABLEKS                       R5 R14 K6 ["instances"]
+      100 CALL                             R12 2 1
+      101 SETTABLEKS                       R12 R11 K17 ["AssetUploadResult"]
+      103 CALL                             R8 3 -1
+      104 RETURN                           R8 -1
 
 PROTO_4:
         0 MOVE                             R2 R0

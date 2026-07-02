@@ -39,71 +39,53 @@ PROTO_1:
        44 GETUPVAL                         R12 1
        45 GETTABLEKS                       R12 R12 K6 ["createElement"]
        47 LOADK                            R13 K19 ["Part"]
-       48 DUPTABLE                         R14 K25 [{"Shape", "Anchored", "CanCollide", "CFrame", "Size", "Transparency"}]
-       49 GETIMPORT                        R15 K29 [Enum.PartType.Block]
+       48 DUPTABLE                         R14 K28 [{["Shape"], ["Anchored"] = True, ["CanCollide"] = False, ["CFrame"], ["Size"], ["Transparency"] = 0}]
+       49 GETIMPORT                        R15 K32 [Enum.PartType.Block]
        51 SETTABLEKS                       R15 R14 K20 ["Shape"]
-       53 LOADB                            R15 1
-       54 SETTABLEKS                       R15 R14 K21 ["Anchored"]
-       56 LOADB                            R15 0
-       57 SETTABLEKS                       R15 R14 K22 ["CanCollide"]
-       59 GETTABLEKS                       R16 R0 K0 ["props"]
-       61 GETTABLEKS                       R16 R16 K23 ["CFrame"]
-       63 GETIMPORT                        R17 K31 [CFrame.new]
-       65 MINUS                            R18 R2
-       66 CALL                             R17 1 1
-       67 MUL                              R15 R16 R17
-       68 SETTABLEKS                       R15 R14 K23 ["CFrame"]
-       70 SETTABLEKS                       R1 R14 K1 ["Size"]
-       72 LOADN                            R15 0
-       73 SETTABLEKS                       R15 R14 K24 ["Transparency"]
-       75 CALL                             R12 2 1
-       76 SETTABLEKS                       R12 R11 K16 ["DummyPart1"]
-       78 GETUPVAL                         R12 1
-       79 GETTABLEKS                       R12 R12 K6 ["createElement"]
-       81 LOADK                            R13 K19 ["Part"]
-       82 DUPTABLE                         R14 K25 [{"Shape", "Anchored", "CanCollide", "CFrame", "Size", "Transparency"}]
-       83 GETIMPORT                        R15 K29 [Enum.PartType.Block]
-       85 SETTABLEKS                       R15 R14 K20 ["Shape"]
-       87 LOADB                            R15 1
-       88 SETTABLEKS                       R15 R14 K21 ["Anchored"]
-       90 LOADB                            R15 0
-       91 SETTABLEKS                       R15 R14 K22 ["CanCollide"]
-       93 GETTABLEKS                       R16 R0 K0 ["props"]
-       95 GETTABLEKS                       R16 R16 K23 ["CFrame"]
-       97 GETIMPORT                        R17 K31 [CFrame.new]
-       99 MOVE                             R18 R2
-      100 CALL                             R17 1 1
-      101 MUL                              R15 R16 R17
-      102 SETTABLEKS                       R15 R14 K23 ["CFrame"]
-      104 SETTABLEKS                       R1 R14 K1 ["Size"]
-      106 LOADN                            R15 0
-      107 SETTABLEKS                       R15 R14 K24 ["Transparency"]
-      109 CALL                             R12 2 1
-      110 SETTABLEKS                       R12 R11 K17 ["DummyPart2"]
-      112 CALL                             R8 3 1
-      113 SETTABLEKS                       R8 R7 K10 ["DummyModel"]
-      115 GETUPVAL                         R8 1
-      116 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      118 LOADK                            R9 K11 ["SelectionBox"]
-      119 DUPTABLE                         R10 K37 [{"Adornee", "Color3", "LineThickness", "SurfaceTransparency", "Transparency", "StudioSelectionBox"}]
-      120 GETTABLEKS                       R11 R0 K15 ["_dummyPartRef"]
-      122 SETTABLEKS                       R11 R10 K32 ["Adornee"]
-      124 GETTABLEKS                       R11 R0 K0 ["props"]
-      126 GETTABLEKS                       R11 R11 K38 ["Color"]
-      128 SETTABLEKS                       R11 R10 K33 ["Color3"]
-      130 GETTABLEKS                       R11 R0 K0 ["props"]
-      132 GETTABLEKS                       R11 R11 K34 ["LineThickness"]
-      134 SETTABLEKS                       R11 R10 K34 ["LineThickness"]
-      136 LOADN                            R11 1
-      137 SETTABLEKS                       R11 R10 K35 ["SurfaceTransparency"]
-      139 LOADN                            R11 0
-      140 SETTABLEKS                       R11 R10 K24 ["Transparency"]
-      142 LOADB                            R11 1
-      143 SETTABLEKS                       R11 R10 K36 ["StudioSelectionBox"]
-      145 CALL                             R8 2 1
-      146 SETTABLEKS                       R8 R7 K11 ["SelectionBox"]
-      148 CALL                             R4 3 -1
-      149 RETURN                           R4 -1
+       53 GETTABLEKS                       R16 R0 K0 ["props"]
+       55 GETTABLEKS                       R16 R16 K25 ["CFrame"]
+       57 GETIMPORT                        R17 K34 [CFrame.new]
+       59 MINUS                            R18 R2
+       60 CALL                             R17 1 1
+       61 MUL                              R15 R16 R17
+       62 SETTABLEKS                       R15 R14 K25 ["CFrame"]
+       64 SETTABLEKS                       R1 R14 K1 ["Size"]
+       66 CALL                             R12 2 1
+       67 SETTABLEKS                       R12 R11 K16 ["DummyPart1"]
+       69 GETUPVAL                         R12 1
+       70 GETTABLEKS                       R12 R12 K6 ["createElement"]
+       72 LOADK                            R13 K19 ["Part"]
+       73 DUPTABLE                         R14 K28 [{["Shape"], ["Anchored"] = True, ["CanCollide"] = False, ["CFrame"], ["Size"], ["Transparency"] = 0}]
+       74 GETIMPORT                        R15 K32 [Enum.PartType.Block]
+       76 SETTABLEKS                       R15 R14 K20 ["Shape"]
+       78 GETTABLEKS                       R16 R0 K0 ["props"]
+       80 GETTABLEKS                       R16 R16 K25 ["CFrame"]
+       82 GETIMPORT                        R17 K34 [CFrame.new]
+       84 MOVE                             R18 R2
+       85 CALL                             R17 1 1
+       86 MUL                              R15 R16 R17
+       87 SETTABLEKS                       R15 R14 K25 ["CFrame"]
+       89 SETTABLEKS                       R1 R14 K1 ["Size"]
+       91 CALL                             R12 2 1
+       92 SETTABLEKS                       R12 R11 K17 ["DummyPart2"]
+       94 CALL                             R8 3 1
+       95 SETTABLEKS                       R8 R7 K10 ["DummyModel"]
+       97 GETUPVAL                         R8 1
+       98 GETTABLEKS                       R8 R8 K6 ["createElement"]
+      100 LOADK                            R9 K11 ["SelectionBox"]
+      101 DUPTABLE                         R10 K41 [{["Adornee"], ["Color3"], ["LineThickness"], ["SurfaceTransparency"] = 1, ["Transparency"] = 0, ["StudioSelectionBox"] = True}]
+      102 GETTABLEKS                       R11 R0 K15 ["_dummyPartRef"]
+      104 SETTABLEKS                       R11 R10 K35 ["Adornee"]
+      106 GETTABLEKS                       R11 R0 K0 ["props"]
+      108 GETTABLEKS                       R11 R11 K42 ["Color"]
+      110 SETTABLEKS                       R11 R10 K36 ["Color3"]
+      112 GETTABLEKS                       R11 R0 K0 ["props"]
+      114 GETTABLEKS                       R11 R11 K37 ["LineThickness"]
+      116 SETTABLEKS                       R11 R10 K37 ["LineThickness"]
+      118 CALL                             R8 2 1
+      119 SETTABLEKS                       R8 R7 K11 ["SelectionBox"]
+      121 CALL                             R4 3 -1
+      122 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

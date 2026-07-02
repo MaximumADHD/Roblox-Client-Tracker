@@ -1,5 +1,5 @@
 PROTO_0:
-        0 JUMPIFEQKNIL                     R0 ; [+42]
+        0 JUMPIFEQKNIL                     R0 ; [+39]
         2 GETUPVAL                         R3 0
         3 GETTABLEKS                       R3 R3 K0 ["props"]
         5 GETTABLEKS                       R4 R3 K1 ["SetCurrentRecordingDurationSec"]
@@ -23,29 +23,23 @@ PROTO_0:
        32 MOVE                             R7 R5
        33 CALL                             R6 1 0
        34 GETUPVAL                         R6 0
-       35 DUPTABLE                         R8 K13 [{"dataValid"}]
-       36 LOADB                            R9 1
-       37 SETTABLEKS                       R9 R8 K12 ["dataValid"]
-       39 NAMECALL                         R6 R6 K14 ["setState"]
-       41 CALL                             R6 2 0
-       42 RETURN                           R0 0
-       43 GETUPVAL                         R3 0
-       44 DUPTABLE                         R5 K13 [{"dataValid"}]
-       45 LOADB                            R6 0
-       46 SETTABLEKS                       R6 R5 K12 ["dataValid"]
-       48 NAMECALL                         R3 R3 K14 ["setState"]
-       50 CALL                             R3 2 0
-       51 RETURN                           R0 0
+       35 DUPTABLE                         R8 K14 [{["dataValid"] = True}]
+       36 NAMECALL                         R6 R6 K15 ["setState"]
+       38 CALL                             R6 2 0
+       39 RETURN                           R0 0
+       40 GETUPVAL                         R3 0
+       41 DUPTABLE                         R5 K17 [{["dataValid"] = False}]
+       42 NAMECALL                         R3 R3 K15 ["setState"]
+       44 CALL                             R3 2 0
+       45 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R1 K1 [{"dataValid"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["dataValid"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onPlaybackInfoChanged"]
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onPlaybackInfoChanged"]
+        7 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -72,183 +66,167 @@ PROTO_4:
        13 GETUPVAL                         R4 0
        14 GETTABLEKS                       R4 R4 K5 ["createElement"]
        16 GETUPVAL                         R5 1
-       17 DUPTABLE                         R6 K15 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+       17 DUPTABLE                         R6 K16 [{["LayoutOrder"], ["Style"] = "CornerBox", ["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"], ["Padding"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
        18 GETTABLEKS                       R7 R1 K6 ["LayoutOrder"]
        20 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-       22 LOADK                            R7 K16 ["CornerBox"]
-       23 SETTABLEKS                       R7 R6 K7 ["Style"]
-       25 GETIMPORT                        R7 K19 [UDim2.fromOffset]
-       27 GETTABLEKS                       R8 R3 K20 ["UIGroupWidthPx"]
-       29 LOADN                            R9 0
-       30 CALL                             R7 2 1
-       31 SETTABLEKS                       R7 R6 K8 ["Size"]
-       33 GETIMPORT                        R7 K23 [Enum.AutomaticSize.Y]
-       35 SETTABLEKS                       R7 R6 K9 ["AutomaticSize"]
-       37 GETIMPORT                        R7 K26 [Enum.FillDirection.Vertical]
-       39 SETTABLEKS                       R7 R6 K10 ["Layout"]
-       41 GETIMPORT                        R7 K29 [UDim.new]
-       43 LOADN                            R8 0
-       44 GETTABLEKS                       R9 R3 K30 ["PaddingPx"]
-       46 CALL                             R7 2 1
-       47 SETTABLEKS                       R7 R6 K11 ["Spacing"]
-       49 GETTABLEKS                       R7 R3 K30 ["PaddingPx"]
-       51 SETTABLEKS                       R7 R6 K12 ["Padding"]
-       53 GETIMPORT                        R7 K32 [Enum.HorizontalAlignment.Center]
-       55 SETTABLEKS                       R7 R6 K13 ["HorizontalAlignment"]
-       57 GETIMPORT                        R7 K34 [Enum.VerticalAlignment.Top]
-       59 SETTABLEKS                       R7 R6 K14 ["VerticalAlignment"]
-       61 DUPTABLE                         R7 K37 [{"Label", "KeyValuePairs"}]
-       62 GETUPVAL                         R8 0
-       63 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       65 GETUPVAL                         R9 2
-       66 DUPTABLE                         R10 K41 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
-       67 LOADK                            R13 K42 ["PlaybackTabView"]
-       68 LOADK                            R14 K43 ["RecordingInfoLabel"]
-       69 NAMECALL                         R11 R2 K44 ["getText"]
-       71 CALL                             R11 3 1
-       72 SETTABLEKS                       R11 R10 K38 ["Text"]
-       74 GETIMPORT                        R11 K46 [UDim2.fromScale]
-       76 LOADN                            R12 1
-       77 LOADN                            R13 0
-       78 CALL                             R11 2 1
-       79 SETTABLEKS                       R11 R10 K8 ["Size"]
-       81 GETIMPORT                        R11 K23 [Enum.AutomaticSize.Y]
-       83 SETTABLEKS                       R11 R10 K9 ["AutomaticSize"]
-       85 LOADN                            R11 0
-       86 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-       88 GETIMPORT                        R11 K48 [Enum.TextXAlignment.Left]
-       90 SETTABLEKS                       R11 R10 K39 ["TextXAlignment"]
-       92 GETIMPORT                        R11 K49 [Enum.TextYAlignment.Top]
-       94 SETTABLEKS                       R11 R10 K40 ["TextYAlignment"]
-       96 CALL                             R8 2 1
-       97 SETTABLEKS                       R8 R7 K35 ["Label"]
-       99 GETUPVAL                         R8 0
-      100 GETTABLEKS                       R8 R8 K5 ["createElement"]
-      102 GETUPVAL                         R9 1
-      103 DUPTABLE                         R10 K50 [{"Size", "AutomaticSize", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
-      104 GETIMPORT                        R11 K46 [UDim2.fromScale]
-      106 LOADN                            R12 1
-      107 LOADN                            R13 0
-      108 CALL                             R11 2 1
-      109 SETTABLEKS                       R11 R10 K8 ["Size"]
-      111 GETIMPORT                        R11 K23 [Enum.AutomaticSize.Y]
-      113 SETTABLEKS                       R11 R10 K9 ["AutomaticSize"]
-      115 LOADN                            R11 1
-      116 SETTABLEKS                       R11 R10 K6 ["LayoutOrder"]
-      118 GETIMPORT                        R11 K26 [Enum.FillDirection.Vertical]
-      120 SETTABLEKS                       R11 R10 K10 ["Layout"]
-      122 GETIMPORT                        R11 K51 [Enum.HorizontalAlignment.Left]
-      124 SETTABLEKS                       R11 R10 K13 ["HorizontalAlignment"]
-      126 GETIMPORT                        R11 K34 [Enum.VerticalAlignment.Top]
-      128 SETTABLEKS                       R11 R10 K14 ["VerticalAlignment"]
-      130 DUPTABLE                         R11 K57 [{"RecordingDuration", "NumberOfEvents", "RecordingDeviceId", "RecordingOrientation", "RecordingResolution"}]
-      131 GETUPVAL                         R12 0
-      132 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      134 GETUPVAL                         R13 3
-      135 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
-      136 LOADK                            R17 K42 ["PlaybackTabView"]
-      137 LOADK                            R18 K52 ["RecordingDuration"]
-      138 NAMECALL                         R15 R2 K44 ["getText"]
-      140 CALL                             R15 3 1
-      141 SETTABLEKS                       R15 R14 K35 ["Label"]
-      143 GETIMPORT                        R18 K62 [string.format]
-      145 LOADK                            R19 K63 ["%.2f "]
-      146 GETTABLEKS                       R20 R1 K64 ["CurrentRecordingDurationSec"]
-      148 CALL                             R18 2 1
-      149 MOVE                             R16 R18
-      150 LOADK                            R19 K42 ["PlaybackTabView"]
-      151 LOADK                            R20 K65 ["SecondsUnitAbbrevation"]
-      152 NAMECALL                         R17 R2 K44 ["getText"]
-      154 CALL                             R17 3 1
-      155 CONCAT                           R15 R16 R17
-      156 SETTABLEKS                       R15 R14 K58 ["Value"]
-      158 LOADN                            R15 1
-      159 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      161 CALL                             R12 2 1
-      162 SETTABLEKS                       R12 R11 K52 ["RecordingDuration"]
-      164 GETUPVAL                         R12 0
-      165 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      167 GETUPVAL                         R13 3
-      168 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
-      169 LOADK                            R17 K42 ["PlaybackTabView"]
-      170 LOADK                            R18 K66 ["RecordingNumberOfEvents"]
-      171 NAMECALL                         R15 R2 K44 ["getText"]
-      173 CALL                             R15 3 1
-      174 SETTABLEKS                       R15 R14 K35 ["Label"]
-      176 GETTABLEKS                       R16 R1 K67 ["CurrentRecordingNumEvents"]
-      178 FASTCALL1                        TOSTRING R16 ; [+2]
-      179 GETIMPORT                        R15 K69 [tostring]
-      181 CALL                             R15 1 1
-      182 SETTABLEKS                       R15 R14 K58 ["Value"]
-      184 LOADN                            R15 2
-      185 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      187 CALL                             R12 2 1
-      188 SETTABLEKS                       R12 R11 K53 ["NumberOfEvents"]
-      190 GETUPVAL                         R12 0
-      191 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      193 GETUPVAL                         R13 3
-      194 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
-      195 LOADK                            R17 K42 ["PlaybackTabView"]
-      196 LOADK                            R18 K70 ["RecordingDevice"]
-      197 NAMECALL                         R15 R2 K44 ["getText"]
-      199 CALL                             R15 3 1
-      200 SETTABLEKS                       R15 R14 K35 ["Label"]
-      202 GETUPVAL                         R15 4
-      203 GETTABLEKS                       R15 R15 K71 ["formatDeviceName"]
-      205 GETTABLEKS                       R16 R1 K72 ["CurrentRecordingDeviceId"]
-      207 MOVE                             R17 R2
-      208 CALL                             R15 2 1
-      209 SETTABLEKS                       R15 R14 K58 ["Value"]
-      211 LOADN                            R15 3
-      212 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      214 CALL                             R12 2 1
-      215 SETTABLEKS                       R12 R11 K54 ["RecordingDeviceId"]
-      217 GETUPVAL                         R12 0
-      218 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      220 GETUPVAL                         R13 3
-      221 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
-      222 LOADK                            R17 K42 ["PlaybackTabView"]
-      223 LOADK                            R18 K55 ["RecordingOrientation"]
-      224 NAMECALL                         R15 R2 K44 ["getText"]
-      226 CALL                             R15 3 1
-      227 SETTABLEKS                       R15 R14 K35 ["Label"]
-      229 GETUPVAL                         R15 4
-      230 GETTABLEKS                       R15 R15 K73 ["formatDeviceOrientation"]
-      232 GETTABLEKS                       R16 R1 K74 ["CurrentRecordingDeviceOrientation"]
-      234 GETTABLEKS                       R17 R1 K72 ["CurrentRecordingDeviceId"]
-      236 MOVE                             R18 R2
-      237 CALL                             R15 3 1
-      238 SETTABLEKS                       R15 R14 K58 ["Value"]
-      240 LOADN                            R15 4
-      241 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      243 CALL                             R12 2 1
-      244 SETTABLEKS                       R12 R11 K55 ["RecordingOrientation"]
-      246 GETUPVAL                         R12 0
-      247 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      249 GETUPVAL                         R13 3
-      250 DUPTABLE                         R14 K59 [{"Label", "Value", "LayoutOrder"}]
-      251 LOADK                            R17 K42 ["PlaybackTabView"]
-      252 LOADK                            R18 K56 ["RecordingResolution"]
-      253 NAMECALL                         R15 R2 K44 ["getText"]
-      255 CALL                             R15 3 1
-      256 SETTABLEKS                       R15 R14 K35 ["Label"]
-      258 GETUPVAL                         R15 4
-      259 GETTABLEKS                       R15 R15 K75 ["format2dResolution"]
-      261 GETTABLEKS                       R16 R1 K76 ["CurrentRecordingResolution"]
-      263 LOADK                            R19 K77 ["RecordTabView"]
-      264 LOADK                            R20 K78 ["ResolutionPixelsName"]
-      265 NAMECALL                         R17 R2 K44 ["getText"]
-      267 CALL                             R17 3 -1
-      268 CALL                             R15 -1 1
-      269 SETTABLEKS                       R15 R14 K58 ["Value"]
-      271 LOADN                            R15 5
-      272 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      274 CALL                             R12 2 1
-      275 SETTABLEKS                       R12 R11 K56 ["RecordingResolution"]
-      277 CALL                             R8 3 1
-      278 SETTABLEKS                       R8 R7 K36 ["KeyValuePairs"]
-      280 CALL                             R4 3 -1
-      281 RETURN                           R4 -1
+       22 GETIMPORT                        R7 K19 [UDim2.fromOffset]
+       24 GETTABLEKS                       R8 R3 K20 ["UIGroupWidthPx"]
+       26 LOADN                            R9 0
+       27 CALL                             R7 2 1
+       28 SETTABLEKS                       R7 R6 K9 ["Size"]
+       30 GETIMPORT                        R7 K23 [Enum.AutomaticSize.Y]
+       32 SETTABLEKS                       R7 R6 K10 ["AutomaticSize"]
+       34 GETIMPORT                        R7 K26 [Enum.FillDirection.Vertical]
+       36 SETTABLEKS                       R7 R6 K11 ["Layout"]
+       38 GETIMPORT                        R7 K29 [UDim.new]
+       40 LOADN                            R8 0
+       41 GETTABLEKS                       R9 R3 K30 ["PaddingPx"]
+       43 CALL                             R7 2 1
+       44 SETTABLEKS                       R7 R6 K12 ["Spacing"]
+       46 GETTABLEKS                       R7 R3 K30 ["PaddingPx"]
+       48 SETTABLEKS                       R7 R6 K13 ["Padding"]
+       50 GETIMPORT                        R7 K32 [Enum.HorizontalAlignment.Center]
+       52 SETTABLEKS                       R7 R6 K14 ["HorizontalAlignment"]
+       54 GETIMPORT                        R7 K34 [Enum.VerticalAlignment.Top]
+       56 SETTABLEKS                       R7 R6 K15 ["VerticalAlignment"]
+       58 DUPTABLE                         R7 K37 [{"Label", "KeyValuePairs"}]
+       59 GETUPVAL                         R8 0
+       60 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       62 GETUPVAL                         R9 2
+       63 DUPTABLE                         R10 K42 [{["Text"], ["Size"], ["AutomaticSize"], ["LayoutOrder"] = 0, ["TextXAlignment"], ["TextYAlignment"]}]
+       64 LOADK                            R13 K43 ["PlaybackTabView"]
+       65 LOADK                            R14 K44 ["RecordingInfoLabel"]
+       66 NAMECALL                         R11 R2 K45 ["getText"]
+       68 CALL                             R11 3 1
+       69 SETTABLEKS                       R11 R10 K38 ["Text"]
+       71 GETIMPORT                        R11 K47 [UDim2.fromScale]
+       73 LOADN                            R12 1
+       74 LOADN                            R13 0
+       75 CALL                             R11 2 1
+       76 SETTABLEKS                       R11 R10 K9 ["Size"]
+       78 GETIMPORT                        R11 K23 [Enum.AutomaticSize.Y]
+       80 SETTABLEKS                       R11 R10 K10 ["AutomaticSize"]
+       82 GETIMPORT                        R11 K49 [Enum.TextXAlignment.Left]
+       84 SETTABLEKS                       R11 R10 K40 ["TextXAlignment"]
+       86 GETIMPORT                        R11 K50 [Enum.TextYAlignment.Top]
+       88 SETTABLEKS                       R11 R10 K41 ["TextYAlignment"]
+       90 CALL                             R8 2 1
+       91 SETTABLEKS                       R8 R7 K35 ["Label"]
+       93 GETUPVAL                         R8 0
+       94 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       96 GETUPVAL                         R9 1
+       97 DUPTABLE                         R10 K52 [{["Size"], ["AutomaticSize"], ["LayoutOrder"] = 1, ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
+       98 GETIMPORT                        R11 K47 [UDim2.fromScale]
+      100 LOADN                            R12 1
+      101 LOADN                            R13 0
+      102 CALL                             R11 2 1
+      103 SETTABLEKS                       R11 R10 K9 ["Size"]
+      105 GETIMPORT                        R11 K23 [Enum.AutomaticSize.Y]
+      107 SETTABLEKS                       R11 R10 K10 ["AutomaticSize"]
+      109 GETIMPORT                        R11 K26 [Enum.FillDirection.Vertical]
+      111 SETTABLEKS                       R11 R10 K11 ["Layout"]
+      113 GETIMPORT                        R11 K53 [Enum.HorizontalAlignment.Left]
+      115 SETTABLEKS                       R11 R10 K14 ["HorizontalAlignment"]
+      117 GETIMPORT                        R11 K34 [Enum.VerticalAlignment.Top]
+      119 SETTABLEKS                       R11 R10 K15 ["VerticalAlignment"]
+      121 DUPTABLE                         R11 K59 [{"RecordingDuration", "NumberOfEvents", "RecordingDeviceId", "RecordingOrientation", "RecordingResolution"}]
+      122 GETUPVAL                         R12 0
+      123 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      125 GETUPVAL                         R13 3
+      126 DUPTABLE                         R14 K61 [{["Label"], ["Value"], ["LayoutOrder"] = 1}]
+      127 LOADK                            R17 K43 ["PlaybackTabView"]
+      128 LOADK                            R18 K54 ["RecordingDuration"]
+      129 NAMECALL                         R15 R2 K45 ["getText"]
+      131 CALL                             R15 3 1
+      132 SETTABLEKS                       R15 R14 K35 ["Label"]
+      134 GETIMPORT                        R18 K64 [string.format]
+      136 LOADK                            R19 K65 ["%.2f "]
+      137 GETTABLEKS                       R20 R1 K66 ["CurrentRecordingDurationSec"]
+      139 CALL                             R18 2 1
+      140 MOVE                             R16 R18
+      141 LOADK                            R19 K43 ["PlaybackTabView"]
+      142 LOADK                            R20 K67 ["SecondsUnitAbbrevation"]
+      143 NAMECALL                         R17 R2 K45 ["getText"]
+      145 CALL                             R17 3 1
+      146 CONCAT                           R15 R16 R17
+      147 SETTABLEKS                       R15 R14 K60 ["Value"]
+      149 CALL                             R12 2 1
+      150 SETTABLEKS                       R12 R11 K54 ["RecordingDuration"]
+      152 GETUPVAL                         R12 0
+      153 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      155 GETUPVAL                         R13 3
+      156 DUPTABLE                         R14 K69 [{["Label"], ["Value"], ["LayoutOrder"] = 2}]
+      157 LOADK                            R17 K43 ["PlaybackTabView"]
+      158 LOADK                            R18 K70 ["RecordingNumberOfEvents"]
+      159 NAMECALL                         R15 R2 K45 ["getText"]
+      161 CALL                             R15 3 1
+      162 SETTABLEKS                       R15 R14 K35 ["Label"]
+      164 GETTABLEKS                       R16 R1 K71 ["CurrentRecordingNumEvents"]
+      166 FASTCALL1                        TOSTRING R16 ; [+2]
+      167 GETIMPORT                        R15 K73 [tostring]
+      169 CALL                             R15 1 1
+      170 SETTABLEKS                       R15 R14 K60 ["Value"]
+      172 CALL                             R12 2 1
+      173 SETTABLEKS                       R12 R11 K55 ["NumberOfEvents"]
+      175 GETUPVAL                         R12 0
+      176 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      178 GETUPVAL                         R13 3
+      179 DUPTABLE                         R14 K75 [{["Label"], ["Value"], ["LayoutOrder"] = 3}]
+      180 LOADK                            R17 K43 ["PlaybackTabView"]
+      181 LOADK                            R18 K76 ["RecordingDevice"]
+      182 NAMECALL                         R15 R2 K45 ["getText"]
+      184 CALL                             R15 3 1
+      185 SETTABLEKS                       R15 R14 K35 ["Label"]
+      187 GETUPVAL                         R15 4
+      188 GETTABLEKS                       R15 R15 K77 ["formatDeviceName"]
+      190 GETTABLEKS                       R16 R1 K78 ["CurrentRecordingDeviceId"]
+      192 MOVE                             R17 R2
+      193 CALL                             R15 2 1
+      194 SETTABLEKS                       R15 R14 K60 ["Value"]
+      196 CALL                             R12 2 1
+      197 SETTABLEKS                       R12 R11 K56 ["RecordingDeviceId"]
+      199 GETUPVAL                         R12 0
+      200 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      202 GETUPVAL                         R13 3
+      203 DUPTABLE                         R14 K80 [{["Label"], ["Value"], ["LayoutOrder"] = 4}]
+      204 LOADK                            R17 K43 ["PlaybackTabView"]
+      205 LOADK                            R18 K57 ["RecordingOrientation"]
+      206 NAMECALL                         R15 R2 K45 ["getText"]
+      208 CALL                             R15 3 1
+      209 SETTABLEKS                       R15 R14 K35 ["Label"]
+      211 GETUPVAL                         R15 4
+      212 GETTABLEKS                       R15 R15 K81 ["formatDeviceOrientation"]
+      214 GETTABLEKS                       R16 R1 K82 ["CurrentRecordingDeviceOrientation"]
+      216 GETTABLEKS                       R17 R1 K78 ["CurrentRecordingDeviceId"]
+      218 MOVE                             R18 R2
+      219 CALL                             R15 3 1
+      220 SETTABLEKS                       R15 R14 K60 ["Value"]
+      222 CALL                             R12 2 1
+      223 SETTABLEKS                       R12 R11 K57 ["RecordingOrientation"]
+      225 GETUPVAL                         R12 0
+      226 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      228 GETUPVAL                         R13 3
+      229 DUPTABLE                         R14 K84 [{["Label"], ["Value"], ["LayoutOrder"] = 5}]
+      230 LOADK                            R17 K43 ["PlaybackTabView"]
+      231 LOADK                            R18 K58 ["RecordingResolution"]
+      232 NAMECALL                         R15 R2 K45 ["getText"]
+      234 CALL                             R15 3 1
+      235 SETTABLEKS                       R15 R14 K35 ["Label"]
+      237 GETUPVAL                         R15 4
+      238 GETTABLEKS                       R15 R15 K85 ["format2dResolution"]
+      240 GETTABLEKS                       R16 R1 K86 ["CurrentRecordingResolution"]
+      242 LOADK                            R19 K87 ["RecordTabView"]
+      243 LOADK                            R20 K88 ["ResolutionPixelsName"]
+      244 NAMECALL                         R17 R2 K45 ["getText"]
+      246 CALL                             R17 3 -1
+      247 CALL                             R15 -1 1
+      248 SETTABLEKS                       R15 R14 K60 ["Value"]
+      250 CALL                             R12 2 1
+      251 SETTABLEKS                       R12 R11 K58 ["RecordingResolution"]
+      253 CALL                             R8 3 1
+      254 SETTABLEKS                       R8 R7 K36 ["KeyValuePairs"]
+      256 CALL                             R4 3 -1
+      257 RETURN                           R4 -1
 
 PROTO_5:
         0 DUPTABLE                         R2 K5 [{"CurrentRecordingDurationSec", "CurrentRecordingNumEvents", "CurrentRecordingDeviceId", "CurrentRecordingDeviceOrientation", "CurrentRecordingResolution"}]

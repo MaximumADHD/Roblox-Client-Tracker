@@ -368,112 +368,104 @@ MAIN:
        25 LOADNIL                          R4
        26 LOADNIL                          R5
        27 LOADNIL                          R6
-       28 DUPTABLE                         R7 K15 [{"Test", "TestHere", "Run", "ServerAndClients"}]
-       29 LOADN                            R8 0
-       30 SETTABLEKS                       R8 R7 K11 ["Test"]
-       32 LOADN                            R8 1
-       33 SETTABLEKS                       R8 R7 K12 ["TestHere"]
-       35 LOADN                            R8 2
-       36 SETTABLEKS                       R8 R7 K13 ["Run"]
-       38 LOADN                            R8 4
-       39 SETTABLEKS                       R8 R7 K14 ["ServerAndClients"]
-       41 DUPTABLE                         R8 K20 [{"CleanupServerAndClients", "Stop", "LaunchTestMode", "PlaceManagementSaveToFile"}]
-       42 GETTABLEKS                       R9 R3 K21 ["fromAction"]
-       44 LOADK                            R10 K22 ["RunTools"]
-       45 LOADK                            R11 K16 ["CleanupServerAndClients"]
-       46 CALL                             R9 2 1
-       47 SETTABLEKS                       R9 R8 K16 ["CleanupServerAndClients"]
-       49 GETTABLEKS                       R9 R3 K21 ["fromAction"]
-       51 LOADK                            R10 K22 ["RunTools"]
-       52 LOADK                            R11 K17 ["Stop"]
-       53 CALL                             R9 2 1
-       54 SETTABLEKS                       R9 R8 K17 ["Stop"]
-       56 GETTABLEKS                       R9 R3 K21 ["fromAction"]
-       58 LOADK                            R10 K22 ["RunTools"]
-       59 LOADK                            R11 K18 ["LaunchTestMode"]
-       60 CALL                             R9 2 1
-       61 SETTABLEKS                       R9 R8 K18 ["LaunchTestMode"]
-       63 GETTABLEKS                       R9 R3 K21 ["fromAction"]
-       65 LOADK                            R10 K23 ["PlaceManagement"]
-       66 LOADK                            R11 K24 ["SaveToFile"]
-       67 CALL                             R9 2 1
-       68 SETTABLEKS                       R9 R8 K19 ["PlaceManagementSaveToFile"]
-       70 NEWCLOSURE                       R9 P0
-       71 CAPTURE                          REF R5
-       72 NEWCLOSURE                       R10 P1
-       73 CAPTURE                          REF R5
-       74 NEWCLOSURE                       R11 P2
-       75 CAPTURE                          REF R4
-       76 NEWCLOSURE                       R12 P3
-       77 CAPTURE                          REF R4
-       78 NEWCLOSURE                       R13 P4
-       79 CAPTURE                          REF R4
-       80 NEWCLOSURE                       R14 P5
-       81 CAPTURE                          REF R4
-       82 CAPTURE                          REF R5
-       83 NEWCLOSURE                       R15 P6
-       84 CAPTURE                          VAL R3
-       85 CAPTURE                          REF R4
-       86 NEWCLOSURE                       R16 P7
-       87 CAPTURE                          VAL R3
-       88 CAPTURE                          REF R4
-       89 NEWCLOSURE                       R17 P8
-       90 CAPTURE                          VAL R8
-       91 CAPTURE                          VAL R10
-       92 CAPTURE                          REF R5
-       93 NEWCLOSURE                       R18 P9
-       94 CAPTURE                          VAL R8
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          REF R5
-       97 NEWCLOSURE                       R19 P10
-       98 CAPTURE                          VAL R8
-       99 CAPTURE                          VAL R10
-      100 CAPTURE                          REF R5
-      101 NEWCLOSURE                       R20 P11
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R3
-      104 CAPTURE                          REF R4
-      105 CAPTURE                          VAL R8
-      106 CAPTURE                          VAL R10
-      107 CAPTURE                          REF R5
-      108 NEWCLOSURE                       R21 P12
-      109 CAPTURE                          VAL R8
-      110 CAPTURE                          REF R5
-      111 NEWCLOSURE                       R22 P13
-      112 CAPTURE                          VAL R8
-      113 CAPTURE                          REF R5
-      114 DUPCLOSURE                       R23 K25 [PROTO_15]
-      115 NEWCLOSURE                       R24 P15
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R10
-      118 CAPTURE                          REF R5
-      119 DUPCLOSURE                       R25 K26 [PROTO_17]
-      120 DUPCLOSURE                       R26 K27 [PROTO_18]
-      121 NEWCLOSURE                       R27 P18
-      122 CAPTURE                          REF R4
-      123 DUPCLOSURE                       R28 K28 [PROTO_20]
-      124 NEWCLOSURE                       R29 P20
-      125 CAPTURE                          REF R6
-      126 NEWCLOSURE                       R30 P21
-      127 CAPTURE                          REF R6
-      128 DUPTABLE                         R31 K47 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "setMcpClient", "getMcpClient", "isCleanupServerAndClientsAvailable", "getStopMultiPlayerTestStateChangedSignal"}]
-      129 SETTABLEKS                       R7 R31 K29 ["RunModeEnum"]
-      131 SETTABLEKS                       R14 R31 K30 ["init"]
-      133 SETTABLEKS                       R11 R31 K31 ["getUserSettingsAsync"]
-      135 SETTABLEKS                       R12 R31 K32 ["setUserSettingsAsync"]
-      137 SETTABLEKS                       R13 R31 K33 ["loadCode"]
-      139 SETTABLEKS                       R20 R31 K34 ["runWithMode"]
-      141 SETTABLEKS                       R18 R31 K35 ["stopPlay"]
-      143 SETTABLEKS                       R19 R31 K36 ["cleanupServerAndClients"]
-      145 SETTABLEKS                       R23 R31 K37 ["waitForLocalPlayerReady"]
-      147 SETTABLEKS                       R25 R31 K38 ["installLoadedCode"]
-      149 SETTABLEKS                       R27 R31 K39 ["openPlaceFile"]
-      151 SETTABLEKS                       R24 R31 K40 ["savePlace"]
-      153 SETTABLEKS                       R26 R31 K41 ["getInstanceByPath"]
-      155 SETTABLEKS                       R28 R31 K42 ["getAssistantEvalBridge"]
-      157 SETTABLEKS                       R29 R31 K43 ["setMcpClient"]
-      159 SETTABLEKS                       R30 R31 K44 ["getMcpClient"]
-      161 SETTABLEKS                       R21 R31 K45 ["isCleanupServerAndClientsAvailable"]
-      163 SETTABLEKS                       R22 R31 K46 ["getStopMultiPlayerTestStateChangedSignal"]
-      165 CLOSEUPVALS                      R4
-      166 RETURN                           R31 1
+       28 DUPTABLE                         R7 K19 [{["Test"] = 0, ["TestHere"] = 1, ["Run"] = 2, ["ServerAndClients"] = 4}]
+       29 DUPTABLE                         R8 K24 [{"CleanupServerAndClients", "Stop", "LaunchTestMode", "PlaceManagementSaveToFile"}]
+       30 GETTABLEKS                       R9 R3 K25 ["fromAction"]
+       32 LOADK                            R10 K26 ["RunTools"]
+       33 LOADK                            R11 K20 ["CleanupServerAndClients"]
+       34 CALL                             R9 2 1
+       35 SETTABLEKS                       R9 R8 K20 ["CleanupServerAndClients"]
+       37 GETTABLEKS                       R9 R3 K25 ["fromAction"]
+       39 LOADK                            R10 K26 ["RunTools"]
+       40 LOADK                            R11 K21 ["Stop"]
+       41 CALL                             R9 2 1
+       42 SETTABLEKS                       R9 R8 K21 ["Stop"]
+       44 GETTABLEKS                       R9 R3 K25 ["fromAction"]
+       46 LOADK                            R10 K26 ["RunTools"]
+       47 LOADK                            R11 K22 ["LaunchTestMode"]
+       48 CALL                             R9 2 1
+       49 SETTABLEKS                       R9 R8 K22 ["LaunchTestMode"]
+       51 GETTABLEKS                       R9 R3 K25 ["fromAction"]
+       53 LOADK                            R10 K27 ["PlaceManagement"]
+       54 LOADK                            R11 K28 ["SaveToFile"]
+       55 CALL                             R9 2 1
+       56 SETTABLEKS                       R9 R8 K23 ["PlaceManagementSaveToFile"]
+       58 NEWCLOSURE                       R9 P0
+       59 CAPTURE                          REF R5
+       60 NEWCLOSURE                       R10 P1
+       61 CAPTURE                          REF R5
+       62 NEWCLOSURE                       R11 P2
+       63 CAPTURE                          REF R4
+       64 NEWCLOSURE                       R12 P3
+       65 CAPTURE                          REF R4
+       66 NEWCLOSURE                       R13 P4
+       67 CAPTURE                          REF R4
+       68 NEWCLOSURE                       R14 P5
+       69 CAPTURE                          REF R4
+       70 CAPTURE                          REF R5
+       71 NEWCLOSURE                       R15 P6
+       72 CAPTURE                          VAL R3
+       73 CAPTURE                          REF R4
+       74 NEWCLOSURE                       R16 P7
+       75 CAPTURE                          VAL R3
+       76 CAPTURE                          REF R4
+       77 NEWCLOSURE                       R17 P8
+       78 CAPTURE                          VAL R8
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          REF R5
+       81 NEWCLOSURE                       R18 P9
+       82 CAPTURE                          VAL R8
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          REF R5
+       85 NEWCLOSURE                       R19 P10
+       86 CAPTURE                          VAL R8
+       87 CAPTURE                          VAL R10
+       88 CAPTURE                          REF R5
+       89 NEWCLOSURE                       R20 P11
+       90 CAPTURE                          VAL R7
+       91 CAPTURE                          VAL R3
+       92 CAPTURE                          REF R4
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          REF R5
+       96 NEWCLOSURE                       R21 P12
+       97 CAPTURE                          VAL R8
+       98 CAPTURE                          REF R5
+       99 NEWCLOSURE                       R22 P13
+      100 CAPTURE                          VAL R8
+      101 CAPTURE                          REF R5
+      102 DUPCLOSURE                       R23 K29 [PROTO_15]
+      103 NEWCLOSURE                       R24 P15
+      104 CAPTURE                          VAL R8
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          REF R5
+      107 DUPCLOSURE                       R25 K30 [PROTO_17]
+      108 DUPCLOSURE                       R26 K31 [PROTO_18]
+      109 NEWCLOSURE                       R27 P18
+      110 CAPTURE                          REF R4
+      111 DUPCLOSURE                       R28 K32 [PROTO_20]
+      112 NEWCLOSURE                       R29 P20
+      113 CAPTURE                          REF R6
+      114 NEWCLOSURE                       R30 P21
+      115 CAPTURE                          REF R6
+      116 DUPTABLE                         R31 K51 [{"RunModeEnum", "init", "getUserSettingsAsync", "setUserSettingsAsync", "loadCode", "runWithMode", "stopPlay", "cleanupServerAndClients", "waitForLocalPlayerReady", "installLoadedCode", "openPlaceFile", "savePlace", "getInstanceByPath", "getAssistantEvalBridge", "setMcpClient", "getMcpClient", "isCleanupServerAndClientsAvailable", "getStopMultiPlayerTestStateChangedSignal"}]
+      117 SETTABLEKS                       R7 R31 K33 ["RunModeEnum"]
+      119 SETTABLEKS                       R14 R31 K34 ["init"]
+      121 SETTABLEKS                       R11 R31 K35 ["getUserSettingsAsync"]
+      123 SETTABLEKS                       R12 R31 K36 ["setUserSettingsAsync"]
+      125 SETTABLEKS                       R13 R31 K37 ["loadCode"]
+      127 SETTABLEKS                       R20 R31 K38 ["runWithMode"]
+      129 SETTABLEKS                       R18 R31 K39 ["stopPlay"]
+      131 SETTABLEKS                       R19 R31 K40 ["cleanupServerAndClients"]
+      133 SETTABLEKS                       R23 R31 K41 ["waitForLocalPlayerReady"]
+      135 SETTABLEKS                       R25 R31 K42 ["installLoadedCode"]
+      137 SETTABLEKS                       R27 R31 K43 ["openPlaceFile"]
+      139 SETTABLEKS                       R24 R31 K44 ["savePlace"]
+      141 SETTABLEKS                       R26 R31 K45 ["getInstanceByPath"]
+      143 SETTABLEKS                       R28 R31 K46 ["getAssistantEvalBridge"]
+      145 SETTABLEKS                       R29 R31 K47 ["setMcpClient"]
+      147 SETTABLEKS                       R30 R31 K48 ["getMcpClient"]
+      149 SETTABLEKS                       R21 R31 K49 ["isCleanupServerAndClientsAvailable"]
+      151 SETTABLEKS                       R22 R31 K50 ["getStopMultiPlayerTestStateChangedSignal"]
+      153 CLOSEUPVALS                      R4
+      154 RETURN                           R31 1

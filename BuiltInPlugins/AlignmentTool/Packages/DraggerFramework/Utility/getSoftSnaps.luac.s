@@ -559,7 +559,7 @@ PROTO_6:
       189 JUMPIFNOT                        R22 ; [+18]
       190 DIVK                             R24 R6 K20 [2]
       191 JUMPIFEQ                         R23 R24 ; [+20]
-      193 LOADN                            R25 244
+      193 LOADN                            R25 500
       194 GETTABLEKS                       R26 R22 K38 ["Size"]
       196 GETTABLEKS                       R26 R26 K3 ["Magnitude"]
       198 FASTCALL2                        MATH_MIN R25 R26 ; [+3]

@@ -441,7 +441,7 @@ PROTO_9:
        57 MOVE                             R9 R4
        58 MOVE                             R12 R3
        59 LOADN                            R10 1
-       60 LOADN                            R11 255
+       60 LOADN                            R11 -1
        61 FORNPREP                         R10
        62 LOADN                            R13 1
        63 JUMPIFNOTLE                      R13 R9 ; [+37]

@@ -138,11 +138,11 @@ PROTO_1:
       194 MOVE                             R14 R9
       195 CALL                             R12 2 1
       196 MOVE                             R9 R12
-      197 JUMPIFNOT                        R8 ; [+49]
+      197 JUMPIFNOT                        R8 ; [+43]
       198 GETUPVAL                         R12 0
       199 GETTABLEKS                       R12 R12 K17 ["createElement"]
       201 LOADK                            R13 K60 ["TextLabel"]
-      202 DUPTABLE                         R14 K68 [{"LayoutOrder", "Size", "BackgroundTransparency", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "TextColor3"}]
+      202 DUPTABLE                         R14 K69 [{["LayoutOrder"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextSize"] = 16, ["TextXAlignment"], ["TextYAlignment"], ["Font"], ["TextColor3"]}]
       203 LENGTH                           R16 R5
       204 ADDK                             R15 R16 K3 [1]
       205 SETTABLEKS                       R15 R14 K4 ["LayoutOrder"]
@@ -153,41 +153,37 @@ PROTO_1:
       212 LOADN                            R19 20
       213 CALL                             R15 4 1
       214 SETTABLEKS                       R15 R14 K61 ["Size"]
-      216 LOADN                            R15 1
-      217 SETTABLEKS                       R15 R14 K62 ["BackgroundTransparency"]
-      219 SETTABLEKS                       R8 R14 K48 ["Text"]
-      221 LOADN                            R15 16
-      222 SETTABLEKS                       R15 R14 K63 ["TextSize"]
-      224 GETIMPORT                        R15 K70 [Enum.TextXAlignment.Left]
-      226 SETTABLEKS                       R15 R14 K64 ["TextXAlignment"]
-      228 GETIMPORT                        R15 K72 [Enum.TextYAlignment.Center]
-      230 SETTABLEKS                       R15 R14 K65 ["TextYAlignment"]
-      232 GETTABLEKS                       R15 R2 K73 ["checkboxset"]
-      234 GETTABLEKS                       R15 R15 K74 ["font"]
-      236 SETTABLEKS                       R15 R14 K66 ["Font"]
-      238 GETTABLEKS                       R15 R2 K73 ["checkboxset"]
-      240 GETTABLEKS                       R15 R15 K75 ["error"]
-      242 SETTABLEKS                       R15 R14 K67 ["TextColor3"]
-      244 CALL                             R12 2 1
-      245 SETTABLEKS                       R12 R9 K76 ["Error"]
-      247 LENGTH                           R13 R5
-      248 MULK                             R12 R13 K77 [28]
-      249 GETTABLEKS                       R13 R1 K78 ["MaxHeight"]
-      251 JUMPIFNOT                        R13 ; [+3]
-      252 GETTABLEKS                       R13 R1 K78 ["MaxHeight"]
-      254 ADD                              R12 R12 R13
-      255 GETTABLEKS                       R13 R1 K79 ["AbsoluteMaxHeight"]
-      257 JUMPIFNOT                        R13 ; [+2]
-      258 GETTABLEKS                       R12 R1 K79 ["AbsoluteMaxHeight"]
-      260 GETUPVAL                         R13 0
-      261 GETTABLEKS                       R13 R13 K17 ["createElement"]
-      263 GETUPVAL                         R14 3
-      264 DUPTABLE                         R15 K80 [{"LayoutOrder", "Title"}]
-      265 SETTABLEKS                       R4 R15 K4 ["LayoutOrder"]
-      267 SETTABLEKS                       R3 R15 K2 ["Title"]
-      269 MOVE                             R16 R9
-      270 CALL                             R13 3 -1
-      271 RETURN                           R13 -1
+      216 SETTABLEKS                       R8 R14 K48 ["Text"]
+      218 GETIMPORT                        R15 K71 [Enum.TextXAlignment.Left]
+      220 SETTABLEKS                       R15 R14 K65 ["TextXAlignment"]
+      222 GETIMPORT                        R15 K73 [Enum.TextYAlignment.Center]
+      224 SETTABLEKS                       R15 R14 K66 ["TextYAlignment"]
+      226 GETTABLEKS                       R15 R2 K74 ["checkboxset"]
+      228 GETTABLEKS                       R15 R15 K75 ["font"]
+      230 SETTABLEKS                       R15 R14 K67 ["Font"]
+      232 GETTABLEKS                       R15 R2 K74 ["checkboxset"]
+      234 GETTABLEKS                       R15 R15 K76 ["error"]
+      236 SETTABLEKS                       R15 R14 K68 ["TextColor3"]
+      238 CALL                             R12 2 1
+      239 SETTABLEKS                       R12 R9 K77 ["Error"]
+      241 LENGTH                           R13 R5
+      242 MULK                             R12 R13 K78 [28]
+      243 GETTABLEKS                       R13 R1 K79 ["MaxHeight"]
+      245 JUMPIFNOT                        R13 ; [+3]
+      246 GETTABLEKS                       R13 R1 K79 ["MaxHeight"]
+      248 ADD                              R12 R12 R13
+      249 GETTABLEKS                       R13 R1 K80 ["AbsoluteMaxHeight"]
+      251 JUMPIFNOT                        R13 ; [+2]
+      252 GETTABLEKS                       R12 R1 K80 ["AbsoluteMaxHeight"]
+      254 GETUPVAL                         R13 0
+      255 GETTABLEKS                       R13 R13 K17 ["createElement"]
+      257 GETUPVAL                         R14 3
+      258 DUPTABLE                         R15 K81 [{"LayoutOrder", "Title"}]
+      259 SETTABLEKS                       R4 R15 K4 ["LayoutOrder"]
+      261 SETTABLEKS                       R3 R15 K2 ["Title"]
+      263 MOVE                             R16 R9
+      264 CALL                             R13 3 -1
+      265 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

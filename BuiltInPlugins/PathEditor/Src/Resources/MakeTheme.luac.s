@@ -75,476 +75,432 @@ MAIN:
        88 GETTABLEKS                       R19 R12 K32 ["Image"]
        90 GETTABLE                         R18 R10 R19
        91 NEWTABLE                         R19 2 0
-       93 DUPTABLE                         R20 K35 [{"Image", "Size", "AnchorPoint"}]
-       94 LOADK                            R21 K36 ["rbxasset://textures/PathEditor/Control_Point_Selected.png"]
-       95 SETTABLEKS                       R21 R20 K32 ["Image"]
-       97 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-       99 LOADN                            R22 12
-      100 LOADN                            R23 12
-      101 CALL                             R21 2 1
-      102 SETTABLEKS                       R21 R20 K33 ["Size"]
-      104 GETIMPORT                        R21 K42 [Vector2.new]
-      106 LOADK                            R22 K43 [0.5]
-      107 LOADK                            R23 K43 [0.5]
-      108 CALL                             R21 2 1
-      109 SETTABLEKS                       R21 R20 K34 ["AnchorPoint"]
-      111 SETTABLEKS                       R20 R19 K44 ["&ControlPoint"]
-      113 DUPTABLE                         R20 K46 [{"Image", "Size", "AnchorPoint", "ImageTransparency"}]
-      114 LOADK                            R21 K47 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
-      115 SETTABLEKS                       R21 R20 K32 ["Image"]
-      117 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-      119 LOADN                            R22 12
-      120 LOADN                            R23 12
-      121 CALL                             R21 2 1
-      122 SETTABLEKS                       R21 R20 K33 ["Size"]
-      124 GETIMPORT                        R21 K42 [Vector2.new]
-      126 LOADK                            R22 K43 [0.5]
-      127 LOADK                            R23 K43 [0.5]
-      128 CALL                             R21 2 1
-      129 SETTABLEKS                       R21 R20 K34 ["AnchorPoint"]
-      131 LOADK                            R21 K43 [0.5]
-      132 SETTABLEKS                       R21 R20 K45 ["ImageTransparency"]
-      134 SETTABLEKS                       R20 R19 K48 ["&PhantomTangent"]
-      136 CALL                             R17 2 1
-      137 SETTABLE                         R17 R15 R16
-      138 GETTABLEKS                       R16 R12 K49 ["Button"]
-      140 GETTABLEKS                       R17 R2 K8 ["join"]
-      142 GETTABLEKS                       R19 R12 K49 ["Button"]
-      144 GETTABLE                         R18 R10 R19
-      145 NEWTABLE                         R19 1 0
-      147 GETTABLEKS                       R20 R2 K8 ["join"]
-      149 GETTABLEKS                       R23 R12 K49 ["Button"]
-      151 GETTABLE                         R22 R10 R23
-      152 GETTABLEKS                       R21 R22 K50 ["&RoundSubtle"]
-      154 NEWTABLE                         R22 1 0
-      156 GETTABLEKS                       R23 R9 K51 ["Disabled"]
-      158 DUPTABLE                         R24 K54 [{"BackgroundStyle", "TextColor"}]
-      159 GETTABLEKS                       R25 R2 K8 ["join"]
-      161 GETTABLEKS                       R27 R12 K55 ["RoundBox"]
-      163 GETTABLE                         R26 R10 R27
-      164 DUPTABLE                         R27 K57 [{"Color"}]
-      165 GETTABLEKS                       R28 R8 K58 ["ActionActivated"]
-      167 SETTABLEKS                       R28 R27 K56 ["Color"]
-      169 CALL                             R25 2 1
-      170 SETTABLEKS                       R25 R24 K52 ["BackgroundStyle"]
-      172 GETTABLEKS                       R25 R8 K59 ["ActionFocusBorder"]
-      174 SETTABLEKS                       R25 R24 K53 ["TextColor"]
-      176 SETTABLE                         R24 R22 R23
-      177 CALL                             R20 2 1
-      178 SETTABLEKS                       R20 R19 K60 ["&ModeButton"]
-      180 CALL                             R17 2 1
-      181 SETTABLE                         R17 R15 R16
-      182 GETTABLEKS                       R16 R12 K24 ["Line"]
-      184 NEWTABLE                         R17 8 0
-      186 LOADN                            R18 1
-      187 SETTABLEKS                       R18 R17 K61 ["Thickness"]
-      189 GETIMPORT                        R18 K63 [Color3.new]
-      191 LOADN                            R19 0
-      192 LOADN                            R20 0
-      193 LOADN                            R21 0
-      194 CALL                             R18 3 1
-      195 SETTABLEKS                       R18 R17 K56 ["Color"]
-      197 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
-      198 GETIMPORT                        R19 K63 [Color3.new]
-      200 LOADN                            R20 250
-      201 LOADN                            R21 250
-      202 LOADN                            R22 250
-      203 CALL                             R19 3 1
-      204 SETTABLEKS                       R19 R18 K56 ["Color"]
-      206 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
-      208 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
-      210 SETTABLEKS                       R18 R17 K66 ["&Tangent"]
-      212 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
-      213 GETIMPORT                        R19 K63 [Color3.new]
-      215 LOADN                            R20 250
-      216 LOADN                            R21 250
-      217 LOADN                            R22 250
-      218 CALL                             R19 3 1
-      219 SETTABLEKS                       R19 R18 K56 ["Color"]
-      221 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
-      223 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
-      225 SETTABLEKS                       R18 R17 K48 ["&PhantomTangent"]
-      227 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
-      228 GETIMPORT                        R19 K63 [Color3.new]
-      230 LOADN                            R20 250
-      231 LOADN                            R21 250
-      232 LOADN                            R22 250
-      233 CALL                             R19 3 1
-      234 SETTABLEKS                       R19 R18 K56 ["Color"]
-      236 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
-      238 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
-      240 SETTABLEKS                       R18 R17 K67 ["&Visualization"]
-      242 SETTABLE                         R17 R15 R16
-      243 GETTABLEKS                       R16 R12 K22 ["DraggablePoint"]
-      245 NEWTABLE                         R17 16 0
-      247 GETTABLEKS                       R18 R11 K68 ["PointSize"]
-      249 SETTABLEKS                       R18 R17 K68 ["PointSize"]
-      251 LOADN                            R18 1
-      252 SETTABLEKS                       R18 R17 K69 ["BackgroundTransparency"]
-      254 LOADB                            R18 0
-      255 SETTABLEKS                       R18 R17 K70 ["HasControlPointVisual"]
-      257 DUPTABLE                         R18 K71 [{"AnchorPoint"}]
-      258 GETIMPORT                        R19 K42 [Vector2.new]
-      260 LOADN                            R20 0
-      261 LOADN                            R21 0
-      262 CALL                             R19 2 1
-      263 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      265 SETTABLEKS                       R18 R17 K72 ["&AddPoint"]
-      267 DUPTABLE                         R18 K75 [{"StrokeWidth", "StrokeColor"}]
-      268 LOADN                            R19 1
-      269 SETTABLEKS                       R19 R18 K73 ["StrokeWidth"]
-      271 GETIMPORT                        R19 K63 [Color3.new]
-      273 LOADN                            R20 250
-      274 LOADN                            R21 250
-      275 LOADN                            R22 250
-      276 CALL                             R19 3 1
-      277 SETTABLEKS                       R19 R18 K74 ["StrokeColor"]
-      279 SETTABLEKS                       R18 R17 K76 ["&RubberBand"]
-      281 NEWTABLE                         R18 8 0
-      283 LOADB                            R19 1
-      284 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
-      286 LOADN                            R19 6
-      287 SETTABLEKS                       R19 R18 K77 ["Padding"]
-      289 GETIMPORT                        R19 K42 [Vector2.new]
-      291 LOADK                            R20 K43 [0.5]
-      292 LOADK                            R21 K43 [0.5]
-      293 CALL                             R19 2 1
-      294 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      296 LOADK                            R19 K78 ["rbxasset://textures/PathEditor/Control_Point.png"]
-      297 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      299 GETTABLEKS                       R19 R9 K80 ["Hover"]
-      301 DUPTABLE                         R20 K81 [{"BackgroundImage"}]
-      302 LOADK                            R21 K82 ["rbxasset://textures/PathEditor/Control_Point_Hover.png"]
-      303 SETTABLEKS                       R21 R20 K79 ["BackgroundImage"]
-      305 SETTABLE                         R20 R18 R19
-      306 GETTABLEKS                       R19 R9 K83 ["Selected"]
-      308 DUPTABLE                         R20 K84 [{"BackgroundImage", "Padding"}]
-      309 LOADK                            R21 K36 ["rbxasset://textures/PathEditor/Control_Point_Selected.png"]
-      310 SETTABLEKS                       R21 R20 K79 ["BackgroundImage"]
-      312 LOADN                            R21 4
-      313 SETTABLEKS                       R21 R20 K77 ["Padding"]
-      315 SETTABLE                         R20 R18 R19
-      316 SETTABLEKS                       R18 R17 K44 ["&ControlPoint"]
-      318 DUPTABLE                         R18 K85 [{"HasControlPointVisual", "AnchorPoint", "BackgroundImage", "PointSize"}]
-      319 LOADB                            R19 1
-      320 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
+       93 DUPTABLE                         R20 K36 [{["Image"] = "rbxasset://textures/PathEditor/Control_Point_Selected.png", ["Size"], ["AnchorPoint"]}]
+       94 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+       96 LOADN                            R22 12
+       97 LOADN                            R23 12
+       98 CALL                             R21 2 1
+       99 SETTABLEKS                       R21 R20 K34 ["Size"]
+      101 GETIMPORT                        R21 K42 [Vector2.new]
+      103 LOADK                            R22 K43 [0.5]
+      104 LOADK                            R23 K43 [0.5]
+      105 CALL                             R21 2 1
+      106 SETTABLEKS                       R21 R20 K35 ["AnchorPoint"]
+      108 SETTABLEKS                       R20 R19 K44 ["&ControlPoint"]
+      110 DUPTABLE                         R20 K47 [{["Image"] = "rbxasset://textures/PathEditor/Tangent_Handle.png", ["Size"], ["AnchorPoint"], ["ImageTransparency"] = 0.5}]
+      111 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+      113 LOADN                            R22 12
+      114 LOADN                            R23 12
+      115 CALL                             R21 2 1
+      116 SETTABLEKS                       R21 R20 K34 ["Size"]
+      118 GETIMPORT                        R21 K42 [Vector2.new]
+      120 LOADK                            R22 K43 [0.5]
+      121 LOADK                            R23 K43 [0.5]
+      122 CALL                             R21 2 1
+      123 SETTABLEKS                       R21 R20 K35 ["AnchorPoint"]
+      125 SETTABLEKS                       R20 R19 K48 ["&PhantomTangent"]
+      127 CALL                             R17 2 1
+      128 SETTABLE                         R17 R15 R16
+      129 GETTABLEKS                       R16 R12 K49 ["Button"]
+      131 GETTABLEKS                       R17 R2 K8 ["join"]
+      133 GETTABLEKS                       R19 R12 K49 ["Button"]
+      135 GETTABLE                         R18 R10 R19
+      136 NEWTABLE                         R19 1 0
+      138 GETTABLEKS                       R20 R2 K8 ["join"]
+      140 GETTABLEKS                       R23 R12 K49 ["Button"]
+      142 GETTABLE                         R22 R10 R23
+      143 GETTABLEKS                       R21 R22 K50 ["&RoundSubtle"]
+      145 NEWTABLE                         R22 1 0
+      147 GETTABLEKS                       R23 R9 K51 ["Disabled"]
+      149 DUPTABLE                         R24 K54 [{"BackgroundStyle", "TextColor"}]
+      150 GETTABLEKS                       R25 R2 K8 ["join"]
+      152 GETTABLEKS                       R27 R12 K55 ["RoundBox"]
+      154 GETTABLE                         R26 R10 R27
+      155 DUPTABLE                         R27 K57 [{"Color"}]
+      156 GETTABLEKS                       R28 R8 K58 ["ActionActivated"]
+      158 SETTABLEKS                       R28 R27 K56 ["Color"]
+      160 CALL                             R25 2 1
+      161 SETTABLEKS                       R25 R24 K52 ["BackgroundStyle"]
+      163 GETTABLEKS                       R25 R8 K59 ["ActionFocusBorder"]
+      165 SETTABLEKS                       R25 R24 K53 ["TextColor"]
+      167 SETTABLE                         R24 R22 R23
+      168 CALL                             R20 2 1
+      169 SETTABLEKS                       R20 R19 K60 ["&ModeButton"]
+      171 CALL                             R17 2 1
+      172 SETTABLE                         R17 R15 R16
+      173 GETTABLEKS                       R16 R12 K24 ["Line"]
+      175 NEWTABLE                         R17 8 0
+      177 LOADN                            R18 1
+      178 SETTABLEKS                       R18 R17 K61 ["Thickness"]
+      180 GETIMPORT                        R18 K63 [Color3.new]
+      182 LOADN                            R19 0
+      183 LOADN                            R20 0
+      184 LOADN                            R21 0
+      185 CALL                             R18 3 1
+      186 SETTABLEKS                       R18 R17 K56 ["Color"]
+      188 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
+      189 GETIMPORT                        R19 K63 [Color3.new]
+      191 LOADN                            R20 250
+      192 LOADN                            R21 250
+      193 LOADN                            R22 250
+      194 CALL                             R19 3 1
+      195 SETTABLEKS                       R19 R18 K56 ["Color"]
+      197 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
+      199 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
+      201 SETTABLEKS                       R18 R17 K66 ["&Tangent"]
+      203 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
+      204 GETIMPORT                        R19 K63 [Color3.new]
+      206 LOADN                            R20 250
+      207 LOADN                            R21 250
+      208 LOADN                            R22 250
+      209 CALL                             R19 3 1
+      210 SETTABLEKS                       R19 R18 K56 ["Color"]
+      212 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
+      214 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
+      216 SETTABLEKS                       R18 R17 K48 ["&PhantomTangent"]
+      218 DUPTABLE                         R18 K65 [{"Color", "ContrastColor"}]
+      219 GETIMPORT                        R19 K63 [Color3.new]
+      221 LOADN                            R20 250
+      222 LOADN                            R21 250
+      223 LOADN                            R22 250
+      224 CALL                             R19 3 1
+      225 SETTABLEKS                       R19 R18 K56 ["Color"]
+      227 GETTABLEKS                       R19 R8 K59 ["ActionFocusBorder"]
+      229 SETTABLEKS                       R19 R18 K64 ["ContrastColor"]
+      231 SETTABLEKS                       R18 R17 K67 ["&Visualization"]
+      233 SETTABLE                         R17 R15 R16
+      234 GETTABLEKS                       R16 R12 K22 ["DraggablePoint"]
+      236 NEWTABLE                         R17 16 0
+      238 GETTABLEKS                       R18 R11 K68 ["PointSize"]
+      240 SETTABLEKS                       R18 R17 K68 ["PointSize"]
+      242 LOADN                            R18 1
+      243 SETTABLEKS                       R18 R17 K69 ["BackgroundTransparency"]
+      245 LOADB                            R18 0
+      246 SETTABLEKS                       R18 R17 K70 ["HasControlPointVisual"]
+      248 DUPTABLE                         R18 K71 [{"AnchorPoint"}]
+      249 GETIMPORT                        R19 K42 [Vector2.new]
+      251 LOADN                            R20 0
+      252 LOADN                            R21 0
+      253 CALL                             R19 2 1
+      254 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      256 SETTABLEKS                       R18 R17 K72 ["&AddPoint"]
+      258 DUPTABLE                         R18 K76 [{["StrokeWidth"] = 1, ["StrokeColor"]}]
+      259 GETIMPORT                        R19 K63 [Color3.new]
+      261 LOADN                            R20 250
+      262 LOADN                            R21 250
+      263 LOADN                            R22 250
+      264 CALL                             R19 3 1
+      265 SETTABLEKS                       R19 R18 K75 ["StrokeColor"]
+      267 SETTABLEKS                       R18 R17 K77 ["&RubberBand"]
+      269 NEWTABLE                         R18 8 0
+      271 LOADB                            R19 1
+      272 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
+      274 LOADN                            R19 6
+      275 SETTABLEKS                       R19 R18 K78 ["Padding"]
+      277 GETIMPORT                        R19 K42 [Vector2.new]
+      279 LOADK                            R20 K43 [0.5]
+      280 LOADK                            R21 K43 [0.5]
+      281 CALL                             R19 2 1
+      282 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      284 LOADK                            R19 K79 ["rbxasset://textures/PathEditor/Control_Point.png"]
+      285 SETTABLEKS                       R19 R18 K80 ["BackgroundImage"]
+      287 GETTABLEKS                       R19 R9 K81 ["Hover"]
+      289 DUPTABLE                         R20 K83 [{["BackgroundImage"] = "rbxasset://textures/PathEditor/Control_Point_Hover.png"}]
+      290 SETTABLE                         R20 R18 R19
+      291 GETTABLEKS                       R19 R9 K84 ["Selected"]
+      293 DUPTABLE                         R20 K86 [{["BackgroundImage"] = "rbxasset://textures/PathEditor/Control_Point_Selected.png", ["Padding"] = 4}]
+      294 SETTABLE                         R20 R18 R19
+      295 SETTABLEKS                       R18 R17 K44 ["&ControlPoint"]
+      297 DUPTABLE                         R18 K88 [{["HasControlPointVisual"] = True, ["AnchorPoint"], ["BackgroundImage"] = "rbxasset://textures/PathEditor/Control_Point.png", ["PointSize"]}]
+      298 GETIMPORT                        R19 K42 [Vector2.new]
+      300 LOADK                            R20 K43 [0.5]
+      301 LOADK                            R21 K43 [0.5]
+      302 CALL                             R19 2 1
+      303 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      305 GETIMPORT                        R19 K42 [Vector2.new]
+      307 LOADN                            R20 6
+      308 LOADN                            R21 6
+      309 CALL                             R19 2 1
+      310 SETTABLEKS                       R19 R18 K68 ["PointSize"]
+      312 SETTABLEKS                       R18 R17 K89 ["&PhantomControlPoint"]
+      314 NEWTABLE                         R18 8 0
+      316 LOADB                            R19 1
+      317 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
+      319 LOADN                            R19 4
+      320 SETTABLEKS                       R19 R18 K78 ["Padding"]
       322 GETIMPORT                        R19 K42 [Vector2.new]
       324 LOADK                            R20 K43 [0.5]
       325 LOADK                            R21 K43 [0.5]
       326 CALL                             R19 2 1
-      327 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      329 LOADK                            R19 K78 ["rbxasset://textures/PathEditor/Control_Point.png"]
-      330 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      332 GETIMPORT                        R19 K42 [Vector2.new]
-      334 LOADN                            R20 6
-      335 LOADN                            R21 6
-      336 CALL                             R19 2 1
-      337 SETTABLEKS                       R19 R18 K68 ["PointSize"]
-      339 SETTABLEKS                       R18 R17 K86 ["&PhantomControlPoint"]
-      341 NEWTABLE                         R18 8 0
-      343 LOADB                            R19 1
-      344 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
-      346 LOADN                            R19 4
-      347 SETTABLEKS                       R19 R18 K77 ["Padding"]
-      349 GETIMPORT                        R19 K42 [Vector2.new]
-      351 LOADK                            R20 K43 [0.5]
-      352 LOADK                            R21 K43 [0.5]
-      353 CALL                             R19 2 1
-      354 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      356 LOADN                            R19 1
-      357 SETTABLEKS                       R19 R18 K69 ["BackgroundTransparency"]
-      359 LOADK                            R19 K47 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
-      360 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      362 GETTABLEKS                       R19 R9 K80 ["Hover"]
-      364 DUPTABLE                         R20 K81 [{"BackgroundImage"}]
-      365 LOADK                            R21 K87 ["rbxasset://textures/PathEditor/Tangent_Handle_Hover.png"]
-      366 SETTABLEKS                       R21 R20 K79 ["BackgroundImage"]
-      368 SETTABLE                         R20 R18 R19
-      369 GETTABLEKS                       R19 R9 K83 ["Selected"]
-      371 DUPTABLE                         R20 K88 [{"Padding", "BackgroundImage"}]
-      372 LOADN                            R21 2
-      373 SETTABLEKS                       R21 R20 K77 ["Padding"]
-      375 LOADK                            R21 K89 ["rbxasset://textures/PathEditor/Tangent_Handle_Selected.png"]
-      376 SETTABLEKS                       R21 R20 K79 ["BackgroundImage"]
-      378 SETTABLE                         R20 R18 R19
-      379 SETTABLEKS                       R18 R17 K66 ["&Tangent"]
-      381 DUPTABLE                         R18 K90 [{"HasControlPointVisual", "Padding", "AnchorPoint", "BackgroundImage"}]
-      382 LOADB                            R19 1
-      383 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
-      385 LOADN                            R19 4
-      386 SETTABLEKS                       R19 R18 K77 ["Padding"]
-      388 GETIMPORT                        R19 K42 [Vector2.new]
-      390 LOADK                            R20 K43 [0.5]
-      391 LOADK                            R21 K43 [0.5]
-      392 CALL                             R19 2 1
-      393 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      395 LOADK                            R19 K47 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
-      396 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      398 SETTABLEKS                       R18 R17 K48 ["&PhantomTangent"]
-      400 DUPTABLE                         R18 K91 [{"HasControlPointVisual", "BackgroundImage", "AnchorPoint", "BackgroundTransparency"}]
-      401 LOADB                            R19 1
-      402 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
-      404 LOADK                            R19 K47 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
-      405 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      407 GETIMPORT                        R19 K42 [Vector2.new]
-      409 LOADK                            R20 K43 [0.5]
-      410 LOADK                            R21 K43 [0.5]
-      411 CALL                             R19 2 1
-      412 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      414 LOADN                            R19 1
-      415 SETTABLEKS                       R19 R18 K69 ["BackgroundTransparency"]
-      417 SETTABLEKS                       R18 R17 K92 ["&HiddenTangent"]
-      419 NEWTABLE                         R18 8 0
-      421 LOADB                            R19 1
-      422 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
-      424 GETIMPORT                        R19 K42 [Vector2.new]
-      426 LOADK                            R20 K43 [0.5]
-      427 LOADK                            R21 K43 [0.5]
-      428 CALL                             R19 2 1
-      429 SETTABLEKS                       R19 R18 K34 ["AnchorPoint"]
-      431 GETIMPORT                        R19 K42 [Vector2.new]
-      433 LOADN                            R20 5
-      434 LOADN                            R21 5
-      435 CALL                             R19 2 1
-      436 SETTABLEKS                       R19 R18 K68 ["PointSize"]
-      438 LOADK                            R19 K47 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
-      439 SETTABLEKS                       R19 R18 K79 ["BackgroundImage"]
-      441 GETTABLEKS                       R19 R9 K83 ["Selected"]
-      443 DUPTABLE                         R20 K75 [{"StrokeWidth", "StrokeColor"}]
-      444 LOADN                            R21 1
-      445 SETTABLEKS                       R21 R20 K73 ["StrokeWidth"]
-      447 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
-      449 SETTABLEKS                       R21 R20 K74 ["StrokeColor"]
-      451 SETTABLE                         R20 R18 R19
-      452 SETTABLEKS                       R18 R17 K93 ["&ScaleHandle"]
-      454 SETTABLE                         R17 R15 R16
-      455 GETTABLEKS                       R16 R12 K25 ["ControlPointVisual"]
-      457 NEWTABLE                         R17 16 0
-      459 GETIMPORT                        R18 K39 [UDim2.fromOffset]
-      461 LOADN                            R19 5
-      462 LOADN                            R20 5
-      463 CALL                             R18 2 1
-      464 SETTABLEKS                       R18 R17 K68 ["PointSize"]
-      466 GETIMPORT                        R18 K95 [Color3.fromRGB]
-      468 LOADN                            R19 250
-      469 LOADN                            R20 250
-      470 LOADN                            R21 250
-      471 CALL                             R18 3 1
-      472 SETTABLEKS                       R18 R17 K96 ["BackgroundColor3"]
-      474 GETTABLEKS                       R18 R8 K59 ["ActionFocusBorder"]
-      476 SETTABLEKS                       R18 R17 K74 ["StrokeColor"]
-      478 LOADK                            R18 K97 [1.5]
-      479 SETTABLEKS                       R18 R17 K73 ["StrokeWidth"]
-      481 GETIMPORT                        R18 K101 [Enum.LineJoinMode.Round]
-      483 SETTABLEKS                       R18 R17 K99 ["LineJoinMode"]
-      485 DUPTABLE                         R18 K103 [{"CornerRadius"}]
-      486 GETIMPORT                        R19 K105 [UDim.new]
-      488 LOADN                            R20 1
-      489 LOADN                            R21 0
-      490 CALL                             R19 2 1
-      491 SETTABLEKS                       R19 R18 K102 ["CornerRadius"]
-      493 SETTABLEKS                       R18 R17 K106 ["AddPoint"]
-      495 NEWTABLE                         R18 4 0
-      497 GETIMPORT                        R19 K105 [UDim.new]
-      499 LOADN                            R20 1
-      500 LOADN                            R21 0
-      501 CALL                             R19 2 1
-      502 SETTABLEKS                       R19 R18 K102 ["CornerRadius"]
-      504 GETTABLEKS                       R19 R9 K80 ["Hover"]
-      506 DUPTABLE                         R20 K107 [{"PointSize"}]
-      507 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-      509 LOADN                            R22 7
-      510 LOADN                            R23 7
-      511 CALL                             R21 2 1
-      512 SETTABLEKS                       R21 R20 K68 ["PointSize"]
-      514 SETTABLE                         R20 R18 R19
-      515 GETTABLEKS                       R19 R9 K83 ["Selected"]
-      517 DUPTABLE                         R20 K108 [{"PointSize", "BackgroundColor3", "StrokeColor"}]
-      518 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-      520 LOADN                            R22 7
-      521 LOADN                            R23 7
-      522 CALL                             R21 2 1
-      523 SETTABLEKS                       R21 R20 K68 ["PointSize"]
-      525 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
-      527 SETTABLEKS                       R21 R20 K96 ["BackgroundColor3"]
-      529 GETIMPORT                        R21 K95 [Color3.fromRGB]
-      531 LOADN                            R22 250
-      532 LOADN                            R23 250
-      533 LOADN                            R24 250
-      534 CALL                             R21 3 1
-      535 SETTABLEKS                       R21 R20 K74 ["StrokeColor"]
-      537 SETTABLE                         R20 R18 R19
-      538 SETTABLEKS                       R18 R17 K109 ["ControlPoint"]
-      540 DUPTABLE                         R18 K110 [{"CornerRadius", "PointSize", "StrokeWidth"}]
-      541 GETIMPORT                        R19 K105 [UDim.new]
-      543 LOADN                            R20 1
-      544 LOADN                            R21 0
-      545 CALL                             R19 2 1
-      546 SETTABLEKS                       R19 R18 K102 ["CornerRadius"]
-      548 GETIMPORT                        R19 K39 [UDim2.fromOffset]
-      550 LOADN                            R20 2
-      551 LOADN                            R21 2
-      552 CALL                             R19 2 1
-      553 SETTABLEKS                       R19 R18 K68 ["PointSize"]
-      555 LOADN                            R19 1
-      556 SETTABLEKS                       R19 R18 K73 ["StrokeWidth"]
-      558 SETTABLEKS                       R18 R17 K111 ["PhantomControlPoint"]
-      560 NEWTABLE                         R18 8 0
-      562 GETIMPORT                        R19 K113 [Enum.LineJoinMode.Miter]
-      564 SETTABLEKS                       R19 R18 K99 ["LineJoinMode"]
-      566 GETIMPORT                        R19 K105 [UDim.new]
-      568 LOADN                            R20 0
-      569 LOADN                            R21 0
-      570 CALL                             R19 2 1
-      571 SETTABLEKS                       R19 R18 K102 ["CornerRadius"]
-      573 LOADN                            R19 45
-      574 SETTABLEKS                       R19 R18 K114 ["Rotation"]
-      576 GETTABLEKS                       R19 R9 K80 ["Hover"]
-      578 DUPTABLE                         R20 K107 [{"PointSize"}]
-      579 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-      581 LOADN                            R22 7
-      582 LOADN                            R23 7
-      583 CALL                             R21 2 1
-      584 SETTABLEKS                       R21 R20 K68 ["PointSize"]
-      586 SETTABLE                         R20 R18 R19
-      587 GETTABLEKS                       R19 R9 K83 ["Selected"]
-      589 DUPTABLE                         R20 K108 [{"PointSize", "BackgroundColor3", "StrokeColor"}]
-      590 GETIMPORT                        R21 K39 [UDim2.fromOffset]
-      592 LOADN                            R22 7
-      593 LOADN                            R23 7
-      594 CALL                             R21 2 1
-      595 SETTABLEKS                       R21 R20 K68 ["PointSize"]
-      597 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
-      599 SETTABLEKS                       R21 R20 K96 ["BackgroundColor3"]
-      601 GETIMPORT                        R21 K95 [Color3.fromRGB]
-      603 LOADN                            R22 250
-      604 LOADN                            R23 250
-      605 LOADN                            R24 250
-      606 CALL                             R21 3 1
-      607 SETTABLEKS                       R21 R20 K74 ["StrokeColor"]
-      609 SETTABLE                         R20 R18 R19
-      610 SETTABLEKS                       R18 R17 K115 ["Tangent"]
-      612 DUPTABLE                         R18 K116 [{"LineJoinMode", "CornerRadius", "Rotation"}]
-      613 GETIMPORT                        R19 K113 [Enum.LineJoinMode.Miter]
-      615 SETTABLEKS                       R19 R18 K99 ["LineJoinMode"]
-      617 GETIMPORT                        R19 K105 [UDim.new]
-      619 LOADN                            R20 0
-      620 LOADN                            R21 0
-      621 CALL                             R19 2 1
-      622 SETTABLEKS                       R19 R18 K102 ["CornerRadius"]
-      624 LOADN                            R19 45
-      625 SETTABLEKS                       R19 R18 K114 ["Rotation"]
-      627 SETTABLEKS                       R18 R17 K117 ["PhantomTangent"]
-      629 SETTABLE                         R17 R15 R16
-      630 DUPTABLE                         R16 K121 [{"AddPointCursor", "AddTangentCursor", "MoveCursor"}]
-      631 GETTABLEKS                       R17 R8 K118 ["AddPointCursor"]
-      633 SETTABLEKS                       R17 R16 K118 ["AddPointCursor"]
-      635 GETTABLEKS                       R17 R8 K119 ["AddTangentCursor"]
-      637 SETTABLEKS                       R17 R16 K119 ["AddTangentCursor"]
-      639 GETTABLEKS                       R17 R8 K120 ["MoveCursor"]
-      641 SETTABLEKS                       R17 R16 K120 ["MoveCursor"]
-      643 SETTABLEKS                       R16 R15 K122 ["MouseIcons"]
-      645 DUPTABLE                         R16 K131 [{"DeleteButtonSize", "ModeButtonSize", "DoneButtonSize", "SeparatorSize", "SeparatorPadding", "AddPointImage", "AddTangentImage", "MoveImage"}]
-      646 GETIMPORT                        R17 K39 [UDim2.fromOffset]
-      648 LOADN                            R18 100
-      649 LOADN                            R19 30
-      650 CALL                             R17 2 1
-      651 SETTABLEKS                       R17 R16 K123 ["DeleteButtonSize"]
-      653 GETIMPORT                        R17 K39 [UDim2.fromOffset]
-      655 LOADN                            R18 30
-      656 LOADN                            R19 30
-      657 CALL                             R17 2 1
-      658 SETTABLEKS                       R17 R16 K124 ["ModeButtonSize"]
-      660 GETIMPORT                        R17 K39 [UDim2.fromOffset]
-      662 LOADN                            R18 100
-      663 LOADN                            R19 30
-      664 CALL                             R17 2 1
-      665 SETTABLEKS                       R17 R16 K125 ["DoneButtonSize"]
-      667 GETIMPORT                        R17 K39 [UDim2.fromOffset]
-      669 LOADN                            R18 2
-      670 LOADN                            R19 30
-      671 CALL                             R17 2 1
-      672 SETTABLEKS                       R17 R16 K126 ["SeparatorSize"]
-      674 LOADN                            R17 4
-      675 SETTABLEKS                       R17 R16 K127 ["SeparatorPadding"]
-      677 GETTABLEKS                       R17 R8 K106 ["AddPoint"]
-      679 SETTABLEKS                       R17 R16 K128 ["AddPointImage"]
-      681 GETTABLEKS                       R17 R8 K132 ["AddTangent"]
-      683 SETTABLEKS                       R17 R16 K129 ["AddTangentImage"]
-      685 GETTABLEKS                       R17 R8 K133 ["Move"]
-      687 SETTABLEKS                       R17 R16 K130 ["MoveImage"]
-      689 SETTABLEKS                       R16 R15 K134 ["PathToolbar"]
-      691 GETTABLEKS                       R16 R2 K8 ["join"]
-      693 MOVE                             R17 R6
-      694 NEWTABLE                         R18 8 0
-      696 GETTABLEKS                       R19 R8 K118 ["AddPointCursor"]
-      698 MOVE                             R21 R14
-      699 LOADK                            R22 K135 ["Path2DAddPoint.png"]
-      700 CONCAT                           R20 R21 R22
-      701 SETTABLE                         R20 R18 R19
-      702 GETTABLEKS                       R19 R8 K119 ["AddTangentCursor"]
-      704 MOVE                             R21 R14
-      705 LOADK                            R22 K135 ["Path2DAddPoint.png"]
-      706 CONCAT                           R20 R21 R22
-      707 SETTABLE                         R20 R18 R19
-      708 GETTABLEKS                       R19 R8 K120 ["MoveCursor"]
-      710 MOVE                             R21 R14
-      711 LOADK                            R22 K136 ["Path2DCursor.png"]
-      712 CONCAT                           R20 R21 R22
-      713 SETTABLE                         R20 R18 R19
-      714 GETTABLEKS                       R19 R8 K106 ["AddPoint"]
-      716 MOVE                             R21 R14
-      717 LOADK                            R22 K135 ["Path2DAddPoint.png"]
-      718 CONCAT                           R20 R21 R22
-      719 SETTABLE                         R20 R18 R19
-      720 GETTABLEKS                       R19 R8 K132 ["AddTangent"]
-      722 MOVE                             R21 R14
-      723 LOADK                            R22 K137 ["Path2DAddTangent.png"]
-      724 CONCAT                           R20 R21 R22
-      725 SETTABLE                         R20 R18 R19
-      726 GETTABLEKS                       R19 R8 K133 ["Move"]
-      728 MOVE                             R21 R14
-      729 LOADK                            R22 K138 ["Path2DMove.png"]
-      730 CONCAT                           R20 R21 R22
-      731 SETTABLE                         R20 R18 R19
-      732 CALL                             R16 2 1
-      733 GETTABLEKS                       R17 R2 K8 ["join"]
-      735 MOVE                             R18 R7
-      736 NEWTABLE                         R19 8 0
-      738 GETTABLEKS                       R20 R8 K118 ["AddPointCursor"]
-      740 MOVE                             R22 R13
-      741 LOADK                            R23 K135 ["Path2DAddPoint.png"]
-      742 CONCAT                           R21 R22 R23
-      743 SETTABLE                         R21 R19 R20
-      744 GETTABLEKS                       R20 R8 K119 ["AddTangentCursor"]
-      746 MOVE                             R22 R13
-      747 LOADK                            R23 K135 ["Path2DAddPoint.png"]
-      748 CONCAT                           R21 R22 R23
-      749 SETTABLE                         R21 R19 R20
-      750 GETTABLEKS                       R20 R8 K120 ["MoveCursor"]
-      752 MOVE                             R22 R13
-      753 LOADK                            R23 K136 ["Path2DCursor.png"]
-      754 CONCAT                           R21 R22 R23
-      755 SETTABLE                         R21 R19 R20
-      756 GETTABLEKS                       R20 R8 K106 ["AddPoint"]
-      758 MOVE                             R22 R13
-      759 LOADK                            R23 K135 ["Path2DAddPoint.png"]
-      760 CONCAT                           R21 R22 R23
-      761 SETTABLE                         R21 R19 R20
-      762 GETTABLEKS                       R20 R8 K132 ["AddTangent"]
-      764 MOVE                             R22 R13
-      765 LOADK                            R23 K137 ["Path2DAddTangent.png"]
-      766 CONCAT                           R21 R22 R23
-      767 SETTABLE                         R21 R19 R20
-      768 GETTABLEKS                       R20 R8 K133 ["Move"]
-      770 MOVE                             R22 R13
-      771 LOADK                            R23 K138 ["Path2DMove.png"]
-      772 CONCAT                           R21 R22 R23
-      773 SETTABLE                         R21 R19 R20
-      774 CALL                             R17 2 1
-      775 DUPCLOSURE                       R18 K139 [PROTO_0]
-      776 CAPTURE                          VAL R5
-      777 CAPTURE                          VAL R16
-      778 CAPTURE                          VAL R17
-      779 CAPTURE                          VAL R15
-      780 RETURN                           R18 1
+      327 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      329 LOADN                            R19 1
+      330 SETTABLEKS                       R19 R18 K69 ["BackgroundTransparency"]
+      332 LOADK                            R19 K45 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
+      333 SETTABLEKS                       R19 R18 K80 ["BackgroundImage"]
+      335 GETTABLEKS                       R19 R9 K81 ["Hover"]
+      337 DUPTABLE                         R20 K91 [{["BackgroundImage"] = "rbxasset://textures/PathEditor/Tangent_Handle_Hover.png"}]
+      338 SETTABLE                         R20 R18 R19
+      339 GETTABLEKS                       R19 R9 K84 ["Selected"]
+      341 DUPTABLE                         R20 K94 [{["Padding"] = 2, ["BackgroundImage"] = "rbxasset://textures/PathEditor/Tangent_Handle_Selected.png"}]
+      342 SETTABLE                         R20 R18 R19
+      343 SETTABLEKS                       R18 R17 K66 ["&Tangent"]
+      345 DUPTABLE                         R18 K95 [{["HasControlPointVisual"] = True, ["Padding"] = 4, ["AnchorPoint"], ["BackgroundImage"] = "rbxasset://textures/PathEditor/Tangent_Handle.png"}]
+      346 GETIMPORT                        R19 K42 [Vector2.new]
+      348 LOADK                            R20 K43 [0.5]
+      349 LOADK                            R21 K43 [0.5]
+      350 CALL                             R19 2 1
+      351 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      353 SETTABLEKS                       R18 R17 K48 ["&PhantomTangent"]
+      355 DUPTABLE                         R18 K96 [{["HasControlPointVisual"] = True, ["BackgroundImage"] = "rbxasset://textures/PathEditor/Tangent_Handle.png", ["AnchorPoint"], ["BackgroundTransparency"] = 1}]
+      356 GETIMPORT                        R19 K42 [Vector2.new]
+      358 LOADK                            R20 K43 [0.5]
+      359 LOADK                            R21 K43 [0.5]
+      360 CALL                             R19 2 1
+      361 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      363 SETTABLEKS                       R18 R17 K97 ["&HiddenTangent"]
+      365 NEWTABLE                         R18 8 0
+      367 LOADB                            R19 1
+      368 SETTABLEKS                       R19 R18 K70 ["HasControlPointVisual"]
+      370 GETIMPORT                        R19 K42 [Vector2.new]
+      372 LOADK                            R20 K43 [0.5]
+      373 LOADK                            R21 K43 [0.5]
+      374 CALL                             R19 2 1
+      375 SETTABLEKS                       R19 R18 K35 ["AnchorPoint"]
+      377 GETIMPORT                        R19 K42 [Vector2.new]
+      379 LOADN                            R20 5
+      380 LOADN                            R21 5
+      381 CALL                             R19 2 1
+      382 SETTABLEKS                       R19 R18 K68 ["PointSize"]
+      384 LOADK                            R19 K45 ["rbxasset://textures/PathEditor/Tangent_Handle.png"]
+      385 SETTABLEKS                       R19 R18 K80 ["BackgroundImage"]
+      387 GETTABLEKS                       R19 R9 K84 ["Selected"]
+      389 DUPTABLE                         R20 K76 [{["StrokeWidth"] = 1, ["StrokeColor"]}]
+      390 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
+      392 SETTABLEKS                       R21 R20 K75 ["StrokeColor"]
+      394 SETTABLE                         R20 R18 R19
+      395 SETTABLEKS                       R18 R17 K98 ["&ScaleHandle"]
+      397 SETTABLE                         R17 R15 R16
+      398 GETTABLEKS                       R16 R12 K25 ["ControlPointVisual"]
+      400 NEWTABLE                         R17 16 0
+      402 GETIMPORT                        R18 K39 [UDim2.fromOffset]
+      404 LOADN                            R19 5
+      405 LOADN                            R20 5
+      406 CALL                             R18 2 1
+      407 SETTABLEKS                       R18 R17 K68 ["PointSize"]
+      409 GETIMPORT                        R18 K100 [Color3.fromRGB]
+      411 LOADN                            R19 250
+      412 LOADN                            R20 250
+      413 LOADN                            R21 250
+      414 CALL                             R18 3 1
+      415 SETTABLEKS                       R18 R17 K101 ["BackgroundColor3"]
+      417 GETTABLEKS                       R18 R8 K59 ["ActionFocusBorder"]
+      419 SETTABLEKS                       R18 R17 K75 ["StrokeColor"]
+      421 LOADK                            R18 K102 [1.5]
+      422 SETTABLEKS                       R18 R17 K73 ["StrokeWidth"]
+      424 GETIMPORT                        R18 K106 [Enum.LineJoinMode.Round]
+      426 SETTABLEKS                       R18 R17 K104 ["LineJoinMode"]
+      428 DUPTABLE                         R18 K108 [{"CornerRadius"}]
+      429 GETIMPORT                        R19 K110 [UDim.new]
+      431 LOADN                            R20 1
+      432 LOADN                            R21 0
+      433 CALL                             R19 2 1
+      434 SETTABLEKS                       R19 R18 K107 ["CornerRadius"]
+      436 SETTABLEKS                       R18 R17 K111 ["AddPoint"]
+      438 NEWTABLE                         R18 4 0
+      440 GETIMPORT                        R19 K110 [UDim.new]
+      442 LOADN                            R20 1
+      443 LOADN                            R21 0
+      444 CALL                             R19 2 1
+      445 SETTABLEKS                       R19 R18 K107 ["CornerRadius"]
+      447 GETTABLEKS                       R19 R9 K81 ["Hover"]
+      449 DUPTABLE                         R20 K112 [{"PointSize"}]
+      450 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+      452 LOADN                            R22 7
+      453 LOADN                            R23 7
+      454 CALL                             R21 2 1
+      455 SETTABLEKS                       R21 R20 K68 ["PointSize"]
+      457 SETTABLE                         R20 R18 R19
+      458 GETTABLEKS                       R19 R9 K84 ["Selected"]
+      460 DUPTABLE                         R20 K113 [{"PointSize", "BackgroundColor3", "StrokeColor"}]
+      461 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+      463 LOADN                            R22 7
+      464 LOADN                            R23 7
+      465 CALL                             R21 2 1
+      466 SETTABLEKS                       R21 R20 K68 ["PointSize"]
+      468 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
+      470 SETTABLEKS                       R21 R20 K101 ["BackgroundColor3"]
+      472 GETIMPORT                        R21 K100 [Color3.fromRGB]
+      474 LOADN                            R22 250
+      475 LOADN                            R23 250
+      476 LOADN                            R24 250
+      477 CALL                             R21 3 1
+      478 SETTABLEKS                       R21 R20 K75 ["StrokeColor"]
+      480 SETTABLE                         R20 R18 R19
+      481 SETTABLEKS                       R18 R17 K114 ["ControlPoint"]
+      483 DUPTABLE                         R18 K115 [{["CornerRadius"], ["PointSize"], ["StrokeWidth"] = 1}]
+      484 GETIMPORT                        R19 K110 [UDim.new]
+      486 LOADN                            R20 1
+      487 LOADN                            R21 0
+      488 CALL                             R19 2 1
+      489 SETTABLEKS                       R19 R18 K107 ["CornerRadius"]
+      491 GETIMPORT                        R19 K39 [UDim2.fromOffset]
+      493 LOADN                            R20 2
+      494 LOADN                            R21 2
+      495 CALL                             R19 2 1
+      496 SETTABLEKS                       R19 R18 K68 ["PointSize"]
+      498 SETTABLEKS                       R18 R17 K116 ["PhantomControlPoint"]
+      500 NEWTABLE                         R18 8 0
+      502 GETIMPORT                        R19 K118 [Enum.LineJoinMode.Miter]
+      504 SETTABLEKS                       R19 R18 K104 ["LineJoinMode"]
+      506 GETIMPORT                        R19 K110 [UDim.new]
+      508 LOADN                            R20 0
+      509 LOADN                            R21 0
+      510 CALL                             R19 2 1
+      511 SETTABLEKS                       R19 R18 K107 ["CornerRadius"]
+      513 LOADN                            R19 45
+      514 SETTABLEKS                       R19 R18 K119 ["Rotation"]
+      516 GETTABLEKS                       R19 R9 K81 ["Hover"]
+      518 DUPTABLE                         R20 K112 [{"PointSize"}]
+      519 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+      521 LOADN                            R22 7
+      522 LOADN                            R23 7
+      523 CALL                             R21 2 1
+      524 SETTABLEKS                       R21 R20 K68 ["PointSize"]
+      526 SETTABLE                         R20 R18 R19
+      527 GETTABLEKS                       R19 R9 K84 ["Selected"]
+      529 DUPTABLE                         R20 K113 [{"PointSize", "BackgroundColor3", "StrokeColor"}]
+      530 GETIMPORT                        R21 K39 [UDim2.fromOffset]
+      532 LOADN                            R22 7
+      533 LOADN                            R23 7
+      534 CALL                             R21 2 1
+      535 SETTABLEKS                       R21 R20 K68 ["PointSize"]
+      537 GETTABLEKS                       R21 R8 K59 ["ActionFocusBorder"]
+      539 SETTABLEKS                       R21 R20 K101 ["BackgroundColor3"]
+      541 GETIMPORT                        R21 K100 [Color3.fromRGB]
+      543 LOADN                            R22 250
+      544 LOADN                            R23 250
+      545 LOADN                            R24 250
+      546 CALL                             R21 3 1
+      547 SETTABLEKS                       R21 R20 K75 ["StrokeColor"]
+      549 SETTABLE                         R20 R18 R19
+      550 SETTABLEKS                       R18 R17 K120 ["Tangent"]
+      552 DUPTABLE                         R18 K122 [{["LineJoinMode"], ["CornerRadius"], ["Rotation"] = 45}]
+      553 GETIMPORT                        R19 K118 [Enum.LineJoinMode.Miter]
+      555 SETTABLEKS                       R19 R18 K104 ["LineJoinMode"]
+      557 GETIMPORT                        R19 K110 [UDim.new]
+      559 LOADN                            R20 0
+      560 LOADN                            R21 0
+      561 CALL                             R19 2 1
+      562 SETTABLEKS                       R19 R18 K107 ["CornerRadius"]
+      564 SETTABLEKS                       R18 R17 K123 ["PhantomTangent"]
+      566 SETTABLE                         R17 R15 R16
+      567 DUPTABLE                         R16 K127 [{"AddPointCursor", "AddTangentCursor", "MoveCursor"}]
+      568 GETTABLEKS                       R17 R8 K124 ["AddPointCursor"]
+      570 SETTABLEKS                       R17 R16 K124 ["AddPointCursor"]
+      572 GETTABLEKS                       R17 R8 K125 ["AddTangentCursor"]
+      574 SETTABLEKS                       R17 R16 K125 ["AddTangentCursor"]
+      576 GETTABLEKS                       R17 R8 K126 ["MoveCursor"]
+      578 SETTABLEKS                       R17 R16 K126 ["MoveCursor"]
+      580 SETTABLEKS                       R16 R15 K128 ["MouseIcons"]
+      582 DUPTABLE                         R16 K137 [{["DeleteButtonSize"], ["ModeButtonSize"], ["DoneButtonSize"], ["SeparatorSize"], ["SeparatorPadding"] = 4, ["AddPointImage"], ["AddTangentImage"], ["MoveImage"]}]
+      583 GETIMPORT                        R17 K39 [UDim2.fromOffset]
+      585 LOADN                            R18 100
+      586 LOADN                            R19 30
+      587 CALL                             R17 2 1
+      588 SETTABLEKS                       R17 R16 K129 ["DeleteButtonSize"]
+      590 GETIMPORT                        R17 K39 [UDim2.fromOffset]
+      592 LOADN                            R18 30
+      593 LOADN                            R19 30
+      594 CALL                             R17 2 1
+      595 SETTABLEKS                       R17 R16 K130 ["ModeButtonSize"]
+      597 GETIMPORT                        R17 K39 [UDim2.fromOffset]
+      599 LOADN                            R18 100
+      600 LOADN                            R19 30
+      601 CALL                             R17 2 1
+      602 SETTABLEKS                       R17 R16 K131 ["DoneButtonSize"]
+      604 GETIMPORT                        R17 K39 [UDim2.fromOffset]
+      606 LOADN                            R18 2
+      607 LOADN                            R19 30
+      608 CALL                             R17 2 1
+      609 SETTABLEKS                       R17 R16 K132 ["SeparatorSize"]
+      611 GETTABLEKS                       R17 R8 K111 ["AddPoint"]
+      613 SETTABLEKS                       R17 R16 K134 ["AddPointImage"]
+      615 GETTABLEKS                       R17 R8 K138 ["AddTangent"]
+      617 SETTABLEKS                       R17 R16 K135 ["AddTangentImage"]
+      619 GETTABLEKS                       R17 R8 K139 ["Move"]
+      621 SETTABLEKS                       R17 R16 K136 ["MoveImage"]
+      623 SETTABLEKS                       R16 R15 K140 ["PathToolbar"]
+      625 GETTABLEKS                       R16 R2 K8 ["join"]
+      627 MOVE                             R17 R6
+      628 NEWTABLE                         R18 8 0
+      630 GETTABLEKS                       R19 R8 K124 ["AddPointCursor"]
+      632 MOVE                             R21 R14
+      633 LOADK                            R22 K141 ["Path2DAddPoint.png"]
+      634 CONCAT                           R20 R21 R22
+      635 SETTABLE                         R20 R18 R19
+      636 GETTABLEKS                       R19 R8 K125 ["AddTangentCursor"]
+      638 MOVE                             R21 R14
+      639 LOADK                            R22 K141 ["Path2DAddPoint.png"]
+      640 CONCAT                           R20 R21 R22
+      641 SETTABLE                         R20 R18 R19
+      642 GETTABLEKS                       R19 R8 K126 ["MoveCursor"]
+      644 MOVE                             R21 R14
+      645 LOADK                            R22 K142 ["Path2DCursor.png"]
+      646 CONCAT                           R20 R21 R22
+      647 SETTABLE                         R20 R18 R19
+      648 GETTABLEKS                       R19 R8 K111 ["AddPoint"]
+      650 MOVE                             R21 R14
+      651 LOADK                            R22 K141 ["Path2DAddPoint.png"]
+      652 CONCAT                           R20 R21 R22
+      653 SETTABLE                         R20 R18 R19
+      654 GETTABLEKS                       R19 R8 K138 ["AddTangent"]
+      656 MOVE                             R21 R14
+      657 LOADK                            R22 K143 ["Path2DAddTangent.png"]
+      658 CONCAT                           R20 R21 R22
+      659 SETTABLE                         R20 R18 R19
+      660 GETTABLEKS                       R19 R8 K139 ["Move"]
+      662 MOVE                             R21 R14
+      663 LOADK                            R22 K144 ["Path2DMove.png"]
+      664 CONCAT                           R20 R21 R22
+      665 SETTABLE                         R20 R18 R19
+      666 CALL                             R16 2 1
+      667 GETTABLEKS                       R17 R2 K8 ["join"]
+      669 MOVE                             R18 R7
+      670 NEWTABLE                         R19 8 0
+      672 GETTABLEKS                       R20 R8 K124 ["AddPointCursor"]
+      674 MOVE                             R22 R13
+      675 LOADK                            R23 K141 ["Path2DAddPoint.png"]
+      676 CONCAT                           R21 R22 R23
+      677 SETTABLE                         R21 R19 R20
+      678 GETTABLEKS                       R20 R8 K125 ["AddTangentCursor"]
+      680 MOVE                             R22 R13
+      681 LOADK                            R23 K141 ["Path2DAddPoint.png"]
+      682 CONCAT                           R21 R22 R23
+      683 SETTABLE                         R21 R19 R20
+      684 GETTABLEKS                       R20 R8 K126 ["MoveCursor"]
+      686 MOVE                             R22 R13
+      687 LOADK                            R23 K142 ["Path2DCursor.png"]
+      688 CONCAT                           R21 R22 R23
+      689 SETTABLE                         R21 R19 R20
+      690 GETTABLEKS                       R20 R8 K111 ["AddPoint"]
+      692 MOVE                             R22 R13
+      693 LOADK                            R23 K141 ["Path2DAddPoint.png"]
+      694 CONCAT                           R21 R22 R23
+      695 SETTABLE                         R21 R19 R20
+      696 GETTABLEKS                       R20 R8 K138 ["AddTangent"]
+      698 MOVE                             R22 R13
+      699 LOADK                            R23 K143 ["Path2DAddTangent.png"]
+      700 CONCAT                           R21 R22 R23
+      701 SETTABLE                         R21 R19 R20
+      702 GETTABLEKS                       R20 R8 K139 ["Move"]
+      704 MOVE                             R22 R13
+      705 LOADK                            R23 K144 ["Path2DMove.png"]
+      706 CONCAT                           R21 R22 R23
+      707 SETTABLE                         R21 R19 R20
+      708 CALL                             R17 2 1
+      709 DUPCLOSURE                       R18 K145 [PROTO_0]
+      710 CAPTURE                          VAL R5
+      711 CAPTURE                          VAL R16
+      712 CAPTURE                          VAL R17
+      713 CAPTURE                          VAL R15
+      714 RETURN                           R18 1

@@ -70,19 +70,17 @@ PROTO_3:
         6 NAMECALL                         R4 R4 K2 ["format"]
         8 CALL                             R4 4 1
         9 MOVE                             R3 R4
-       10 DUPTABLE                         R4 K5 [{"Body", "expectEmptyResponse"}]
+       10 DUPTABLE                         R4 K6 [{["Body"], ["expectEmptyResponse"] = True}]
        11 GETUPVAL                         R5 4
-       12 GETTABLEKS                       R5 R5 K6 ["toRequestBody"]
+       12 GETTABLEKS                       R5 R5 K7 ["toRequestBody"]
        14 GETUPVAL                         R6 5
        15 CALL                             R5 1 1
        16 SETTABLEKS                       R5 R4 K3 ["Body"]
-       18 LOADB                            R5 1
-       19 SETTABLEKS                       R5 R4 K4 ["expectEmptyResponse"]
-       21 NAMECALL                         R0 R0 K7 ["post"]
-       23 CALL                             R0 4 1
-       24 NAMECALL                         R0 R0 K8 ["await"]
-       26 CALL                             R0 1 0
-       27 RETURN                           R0 0
+       18 NAMECALL                         R0 R0 K8 ["post"]
+       20 CALL                             R0 4 1
+       21 NAMECALL                         R0 R0 K9 ["await"]
+       23 CALL                             R0 1 0
+       24 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R5 K1 [pcall]
@@ -140,6 +138,68 @@ PROTO_5:
        55 RETURN                           R4 2
 
 PROTO_6:
+        0 NEWTABLE                         R2 0 0
+        2 NEWTABLE                         R3 0 0
+        4 LOADNIL                          R4
+        5 LOADK                            R6 K0 ["/v2/groups/"]
+        6 MOVE                             R7 R1
+        7 LOADK                            R8 K1 ["/roles/permissions/resolved"]
+        8 CONCAT                           R5 R6 R8
+        9 JUMPIFEQKNIL                     R4 ; [+11]
+       11 JUMPIFEQKS                       R4 K2 [""] ; [+9]
+       13 MOVE                             R6 R5
+       14 LOADK                            R7 K3 ["?cursor="]
+       15 GETUPVAL                         R8 0
+       16 MOVE                             R10 R4
+       17 NAMECALL                         R8 R8 K4 ["UrlEncode"]
+       19 CALL                             R8 2 1
+       20 CONCAT                           R5 R6 R8
+       21 LOADK                            R8 K5 ["groups"]
+       22 MOVE                             R9 R5
+       23 NAMECALL                         R6 R0 K6 ["get"]
+       25 CALL                             R6 3 1
+       26 NAMECALL                         R6 R6 K7 ["await"]
+       28 CALL                             R6 1 1
+       29 GETTABLEKS                       R7 R6 K8 ["responseBody"]
+       31 JUMPIF                           R7 ; [+2]
+       32 NEWTABLE                         R7 0 0
+       34 GETTABLEKS                       R8 R7 K9 ["data"]
+       36 JUMPIF                           R8 ; [+2]
+       37 NEWTABLE                         R8 0 0
+       39 MOVE                             R9 R8
+       40 LOADNIL                          R10
+       41 LOADNIL                          R11
+       42 FORGPREP                         R9
+       43 GETTABLEKS                       R14 R13 K10 ["entityId"]
+       45 JUMPIFEQKNIL                     R14 ; [+30]
+       47 GETTABLEKS                       R15 R13 K11 ["permissions"]
+       49 JUMPIF                           R15 ; [+2]
+       50 NEWTABLE                         R15 0 0
+       52 GETTABLEKS                       R17 R15 K12 ["canEditPermissions"]
+       54 JUMPIFEQKB                       R17 TRUE ; [+2]
+       56 LOADB                            R16 0 +1
+       57 LOADB                            R16 1
+       58 LOADB                            R17 1
+       59 GETTABLEKS                       R18 R15 K13 ["canEditMetadata"]
+       61 JUMPIFEQKB                       R18 TRUE ; [+7]
+       63 GETTABLEKS                       R18 R15 K14 ["canAssign"]
+       65 JUMPIFEQKB                       R18 TRUE ; [+2]
+       67 LOADB                            R17 0 +1
+       68 LOADB                            R17 1
+       69 FASTCALL1                        TOSTRING R14 ; [+3]
+       70 MOVE                             R19 R14
+       71 GETIMPORT                        R18 K16 [tostring]
+       73 CALL                             R18 1 1
+       74 SETTABLE                         R16 R2 R18
+       75 SETTABLE                         R17 R3 R18
+       76 FORGLOOP                         R9 2 ; [-34]
+       78 GETTABLEKS                       R4 R7 K17 ["nextPageCursor"]
+       80 JUMPIFEQKNIL                     R4 ; [+4]
+       82 JUMPIFEQKS                       R4 K2 [""] ; [+2]
+       84 JUMPBACK                         ; [-80]
+       85 RETURN                           R2 2
+
+PROTO_7:
         0 NEWTABLE                         R1 1 0
         2 SETTABLEKS                       R0 R1 K0 ["_networking"]
         4 GETUPVAL                         R4 0
@@ -149,7 +209,7 @@ PROTO_6:
        10 CALL                             R2 2 1
        11 RETURN                           R2 1
 
-PROTO_7:
+PROTO_8:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 GETUPVAL                         R4 2
@@ -177,7 +237,7 @@ PROTO_7:
        27 CALL                             R2 1 0
        28 RETURN                           R0 0
 
-PROTO_8:
+PROTO_9:
         0 GETIMPORT                        R4 K1 [next]
         2 MOVE                             R5 R3
         3 CALL                             R4 1 1
@@ -235,7 +295,7 @@ PROTO_8:
        66 CLOSEUPVALS                      R7
        67 RETURN                           R0 0
 
-PROTO_9:
+PROTO_10:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 GETUPVAL                         R4 2
@@ -278,7 +338,7 @@ PROTO_9:
        45 CALL                             R2 1 0
        46 RETURN                           R0 0
 
-PROTO_10:
+PROTO_11:
         0 GETTABLEKS                       R4 R0 K0 ["_networking"]
         2 GETUPVAL                         R7 0
         3 GETTABLE                         R6 R7 R2
@@ -363,6 +423,274 @@ PROTO_10:
       104 CLOSEUPVALS                      R13
       105 RETURN                           R10 2
 
+PROTO_12:
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["groups"]
+        2 LOADK                            R4 K1 ["/v2/groups/"]
+        3 GETUPVAL                         R5 1
+        4 LOADK                            R6 K2 ["/roles/"]
+        5 GETUPVAL                         R7 2
+        6 LOADK                            R8 K3 ["/permissions/universes/"]
+        7 GETUPVAL                         R9 3
+        8 CONCAT                           R3 R4 R9
+        9 NAMECALL                         R0 R0 K4 ["get"]
+       11 CALL                             R0 3 1
+       12 NAMECALL                         R0 R0 K5 ["await"]
+       14 CALL                             R0 1 1
+       15 GETUPVAL                         R1 4
+       16 GETTABLEKS                       R1 R1 K6 ["fromResponseBody"]
+       18 GETTABLEKS                       R2 R0 K7 ["responseBody"]
+       20 GETUPVAL                         R3 5
+       21 GETUPVAL                         R4 6
+       22 LOADNIL                          R5
+       23 GETUPVAL                         R7 7
+       24 GETUPVAL                         R8 8
+       25 GETTABLE                         R6 R7 R8
+       26 CALL                             R1 5 -1
+       27 RETURN                           R1 -1
+
+PROTO_13:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
+        7 CAPTURE                          UPVAL U4
+        8 CAPTURE                          UPVAL U5
+        9 CAPTURE                          UPVAL U6
+       10 CAPTURE                          UPVAL U7
+       11 CAPTURE                          UPVAL U8
+       12 CALL                             R0 1 2
+       13 JUMPIFNOT                        R0 ; [+39]
+       14 GETUPVAL                         R3 5
+       15 GETTABLEKS                       R3 R3 K2 ["rank"]
+       17 JUMPIFEQKN                       R3 K3 [0] ; [+2]
+       19 LOADB                            R2 0 +1
+       20 LOADB                            R2 1
+       21 GETUPVAL                         R5 9
+       22 GETTABLEKS                       R5 R5 K4 ["ActionKey"]
+       24 GETTABLE                         R4 R1 R5
+       25 GETUPVAL                         R5 4
+       26 GETTABLEKS                       R5 R5 K5 ["NONE_KEY"]
+       28 JUMPIFEQ                         R4 R5 ; [+2]
+       30 LOADB                            R3 0 +1
+       31 LOADB                            R3 1
+       32 JUMPIFNOT                        R2 ; [+1]
+       33 JUMPIF                           R3 ; [+19]
+       34 GETUPVAL                         R4 9
+       35 GETTABLEKS                       R4 R4 K6 ["IsVisibleOnlyKey"]
+       37 GETUPVAL                         R6 10
+       38 GETUPVAL                         R7 8
+       39 GETTABLE                         R5 R6 R7
+       40 JUMPIFNOT                        R5 ; [+4]
+       41 GETUPVAL                         R7 7
+       42 GETUPVAL                         R8 8
+       43 GETTABLE                         R6 R7 R8
+       44 NOT                              R5 R6
+       45 SETTABLE                         R5 R1 R4
+       46 GETUPVAL                         R4 11
+       47 GETUPVAL                         R5 2
+       48 LOADB                            R6 1
+       49 SETTABLE                         R6 R4 R5
+       50 GETUPVAL                         R4 12
+       51 GETUPVAL                         R5 2
+       52 SETTABLE                         R1 R4 R5
+       53 GETUPVAL                         R2 13
+       54 ADDK                             R2 R2 K7 [1]
+       55 SETUPVAL                         R2 13
+       56 GETUPVAL                         R2 13
+       57 GETUPVAL                         R3 14
+       58 JUMPIFNOTEQ                      R2 R3 ; [+5]
+       60 GETIMPORT                        R2 K10 [coroutine.resume]
+       62 GETUPVAL                         R3 15
+       63 CALL                             R2 1 0
+       64 RETURN                           R0 0
+
+PROTO_14:
+        0 GETTABLEKS                       R4 R0 K0 ["_networking"]
+        2 LOADK                            R7 K1 ["groups"]
+        3 LOADK                            R9 K2 ["/v1/groups/"]
+        4 MOVE                             R10 R2
+        5 LOADK                            R11 K3 ["/roles"]
+        6 CONCAT                           R8 R9 R11
+        7 NAMECALL                         R5 R4 K4 ["get"]
+        9 CALL                             R5 3 1
+       10 NAMECALL                         R5 R5 K5 ["await"]
+       12 CALL                             R5 1 1
+       13 GETTABLEKS                       R6 R5 K6 ["responseBody"]
+       15 GETTABLEKS                       R6 R6 K7 ["roles"]
+       17 GETUPVAL                         R7 0
+       18 MOVE                             R8 R4
+       19 MOVE                             R9 R2
+       20 CALL                             R7 2 2
+       21 NEWTABLE                         R9 0 0
+       23 MOVE                             R10 R6
+       24 LOADNIL                          R11
+       25 LOADNIL                          R12
+       26 FORGPREP                         R10
+       27 GETTABLEKS                       R15 R14 K8 ["id"]
+       29 FASTCALL1                        TOSTRING R15 ; [+3]
+       30 MOVE                             R17 R15
+       31 GETIMPORT                        R16 K10 [tostring]
+       33 CALL                             R16 1 1
+       34 JUMPIFEQKN                       R15 K11 [12884901889] ; [+12]
+       36 GETTABLE                         R17 R7 R16
+       37 JUMPIF                           R17 ; [+2]
+       38 GETTABLE                         R17 R8 R16
+       39 JUMPIFNOT                        R17 ; [+7]
+       40 FASTCALL2                        TABLE_INSERT R9 R14 ; [+5]
+       42 MOVE                             R18 R9
+       43 MOVE                             R19 R14
+       44 GETIMPORT                        R17 K14 [table.insert]
+       46 CALL                             R17 2 0
+       47 FORGLOOP                         R10 2 ; [-21]
+       49 NEWTABLE                         R10 0 0
+       51 NEWTABLE                         R11 0 0
+       53 GETIMPORT                        R12 K17 [coroutine.running]
+       55 CALL                             R12 0 1
+       56 LOADN                            R13 0
+       57 LOADN                            R14 0
+       58 MOVE                             R15 R9
+       59 LOADNIL                          R16
+       60 LOADNIL                          R17
+       61 FORGPREP                         R15
+       62 GETTABLEKS                       R20 R19 K8 ["id"]
+       64 FASTCALL1                        TOSTRING R20 ; [+3]
+       65 MOVE                             R22 R20
+       66 GETIMPORT                        R21 K10 [tostring]
+       68 CALL                             R21 1 1
+       69 ADDK                             R14 R14 K18 [1]
+       70 GETIMPORT                        R22 K20 [coroutine.wrap]
+       72 NEWCLOSURE                       R23 P0
+       73 CAPTURE                          VAL R4
+       74 CAPTURE                          VAL R2
+       75 CAPTURE                          VAL R20
+       76 CAPTURE                          VAL R1
+       77 CAPTURE                          UPVAL U1
+       78 CAPTURE                          VAL R19
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R21
+       82 CAPTURE                          UPVAL U2
+       83 CAPTURE                          VAL R8
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R11
+       86 CAPTURE                          REF R13
+       87 CAPTURE                          REF R14
+       88 CAPTURE                          VAL R12
+       89 CALL                             R22 1 1
+       90 MOVE                             R23 R22
+       91 CALL                             R23 0 0
+       92 FORGLOOP                         R15 2 ; [-31]
+       94 JUMPIFEQKN                       R14 K21 [0] ; [+4]
+       96 GETIMPORT                        R15 K23 [coroutine.yield]
+       98 CALL                             R15 0 0
+       99 NEWTABLE                         R15 0 0
+      101 MOVE                             R16 R9
+      102 LOADNIL                          R17
+      103 LOADNIL                          R18
+      104 FORGPREP                         R16
+      105 GETTABLEKS                       R22 R20 K8 ["id"]
+      107 GETTABLE                         R21 R10 R22
+      108 JUMPIFNOT                        R21 ; [+8]
+      109 GETTABLEKS                       R23 R20 K8 ["id"]
+      111 FASTCALL2                        TABLE_INSERT R15 R23 ; [+4]
+      113 MOVE                             R22 R15
+      114 GETIMPORT                        R21 K14 [table.insert]
+      116 CALL                             R21 2 0
+      117 FORGLOOP                         R16 2 ; [-13]
+      119 MOVE                             R16 R15
+      120 MOVE                             R17 R11
+      121 CLOSEUPVALS                      R13
+      122 RETURN                           R16 2
+
+PROTO_15:
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["groups"]
+        2 LOADK                            R4 K1 ["/v2/groups/"]
+        3 GETUPVAL                         R5 1
+        4 LOADK                            R6 K2 ["/roles/"]
+        5 GETUPVAL                         R7 2
+        6 LOADK                            R8 K3 ["/permissions/universes/"]
+        7 GETUPVAL                         R9 3
+        8 CONCAT                           R3 R4 R9
+        9 DUPTABLE                         R4 K5 [{"Body"}]
+       10 GETUPVAL                         R5 4
+       11 GETTABLEKS                       R5 R5 K6 ["toRequestBody"]
+       13 GETUPVAL                         R6 5
+       14 GETUPVAL                         R7 6
+       15 CALL                             R5 2 1
+       16 SETTABLEKS                       R5 R4 K4 ["Body"]
+       18 NAMECALL                         R0 R0 K7 ["patch"]
+       20 CALL                             R0 4 1
+       21 NAMECALL                         R0 R0 K8 ["await"]
+       23 CALL                             R0 1 0
+       24 RETURN                           R0 0
+
+PROTO_16:
+        0 GETIMPORT                        R0 K1 [pcall]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
+        7 CAPTURE                          UPVAL U4
+        8 CAPTURE                          UPVAL U5
+        9 CAPTURE                          UPVAL U6
+       10 CALL                             R0 1 0
+       11 GETUPVAL                         R0 7
+       12 ADDK                             R0 R0 K2 [1]
+       13 SETUPVAL                         R0 7
+       14 GETUPVAL                         R0 7
+       15 GETUPVAL                         R1 8
+       16 JUMPIFNOTEQ                      R0 R1 ; [+5]
+       18 GETIMPORT                        R0 K5 [coroutine.resume]
+       20 GETUPVAL                         R1 9
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
+
+PROTO_17:
+        0 GETIMPORT                        R5 K1 [next]
+        2 MOVE                             R6 R3
+        3 CALL                             R5 1 1
+        4 JUMPIFNOTEQKNIL                  R5 ; [+2]
+        6 RETURN                           R0 0
+        7 GETTABLEKS                       R5 R0 K2 ["_networking"]
+        9 GETIMPORT                        R6 K5 [coroutine.running]
+       11 CALL                             R6 0 1
+       12 LOADN                            R7 0
+       13 LOADN                            R8 0
+       14 MOVE                             R9 R3
+       15 LOADNIL                          R10
+       16 LOADNIL                          R11
+       17 FORGPREP                         R9
+       18 ADDK                             R8 R8 K6 [1]
+       19 JUMPIFNOTEQKNIL                  R4 ; [+3]
+       21 LOADNIL                          R14
+       22 JUMP                             ; [+1]
+       23 GETTABLE                         R14 R4 R12
+       24 GETIMPORT                        R15 K8 [coroutine.wrap]
+       26 NEWCLOSURE                       R16 P0
+       27 CAPTURE                          VAL R5
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          VAL R12
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          UPVAL U0
+       32 CAPTURE                          VAL R13
+       33 CAPTURE                          VAL R14
+       34 CAPTURE                          REF R7
+       35 CAPTURE                          REF R8
+       36 CAPTURE                          VAL R6
+       37 CALL                             R15 1 1
+       38 MOVE                             R16 R15
+       39 CALL                             R16 0 0
+       40 FORGLOOP                         R9 2 ; [-23]
+       42 GETIMPORT                        R9 K10 [coroutine.yield]
+       44 CALL                             R9 0 0
+       45 CLOSEUPVALS                      R7
+       46 RETURN                           R0 0
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [script]
@@ -375,31 +703,56 @@ MAIN:
        15 GETTABLEKS                       R2 R2 K7 ["Requests"]
        17 GETTABLEKS                       R2 R2 K8 ["GranularPermissionsDataHandler"]
        19 CALL                             R1 1 1
-       20 GETIMPORT                        R2 K10 [game]
-       22 LOADK                            R4 K11 ["StudioService"]
-       23 NAMECALL                         R2 R2 K12 ["GetService"]
-       25 CALL                             R2 2 1
-       26 NEWTABLE                         R3 4 0
-       28 SETTABLEKS                       R3 R3 K13 ["__index"]
-       30 NEWTABLE                         R4 0 0
-       32 DUPCLOSURE                       R5 K14 [PROTO_0]
-       33 CAPTURE                          VAL R4
-       34 DUPCLOSURE                       R6 K15 [PROTO_2]
-       35 CAPTURE                          VAL R1
-       36 DUPCLOSURE                       R7 K16 [PROTO_4]
-       37 CAPTURE                          VAL R1
-       38 DUPCLOSURE                       R8 K17 [PROTO_5]
-       39 CAPTURE                          VAL R2
-       40 DUPCLOSURE                       R9 K18 [PROTO_6]
-       41 CAPTURE                          VAL R3
-       42 SETTABLEKS                       R9 R3 K19 ["new"]
-       44 DUPCLOSURE                       R9 K20 [PROTO_8]
-       45 CAPTURE                          VAL R4
-       46 CAPTURE                          VAL R1
-       47 SETTABLEKS                       R9 R3 K21 ["setGranularPermissions"]
-       49 DUPCLOSURE                       R9 K22 [PROTO_10]
-       50 CAPTURE                          VAL R4
-       51 CAPTURE                          VAL R8
-       52 CAPTURE                          VAL R1
-       53 SETTABLEKS                       R9 R3 K23 ["getGranularPermissions"]
-       55 RETURN                           R3 1
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R3 R0 K5 ["Src"]
+       24 GETTABLEKS                       R3 R3 K6 ["Networking"]
+       26 GETTABLEKS                       R3 R3 K7 ["Requests"]
+       28 GETTABLEKS                       R3 R3 K9 ["GroupsPermissionsDataHandler"]
+       30 CALL                             R2 1 1
+       31 GETIMPORT                        R3 K4 [require]
+       33 GETTABLEKS                       R4 R0 K5 ["Src"]
+       35 GETTABLEKS                       R4 R4 K10 ["Util"]
+       37 GETTABLEKS                       R4 R4 K11 ["PermissionsConstants"]
+       39 CALL                             R3 1 1
+       40 GETIMPORT                        R4 K13 [game]
+       42 LOADK                            R6 K14 ["StudioService"]
+       43 NAMECALL                         R4 R4 K15 ["GetService"]
+       45 CALL                             R4 2 1
+       46 GETIMPORT                        R5 K13 [game]
+       48 LOADK                            R7 K16 ["HttpService"]
+       49 NAMECALL                         R5 R5 K15 ["GetService"]
+       51 CALL                             R5 2 1
+       52 NEWTABLE                         R6 8 0
+       54 SETTABLEKS                       R6 R6 K17 ["__index"]
+       56 NEWTABLE                         R7 0 0
+       58 DUPCLOSURE                       R8 K18 [PROTO_0]
+       59 CAPTURE                          VAL R7
+       60 DUPCLOSURE                       R9 K19 [PROTO_2]
+       61 CAPTURE                          VAL R1
+       62 DUPCLOSURE                       R10 K20 [PROTO_4]
+       63 CAPTURE                          VAL R1
+       64 DUPCLOSURE                       R11 K21 [PROTO_5]
+       65 CAPTURE                          VAL R4
+       66 DUPCLOSURE                       R12 K22 [PROTO_6]
+       67 CAPTURE                          VAL R5
+       68 DUPCLOSURE                       R13 K23 [PROTO_7]
+       69 CAPTURE                          VAL R6
+       70 SETTABLEKS                       R13 R6 K24 ["new"]
+       72 DUPCLOSURE                       R13 K25 [PROTO_9]
+       73 CAPTURE                          VAL R7
+       74 CAPTURE                          VAL R1
+       75 SETTABLEKS                       R13 R6 K26 ["setGranularPermissions"]
+       77 DUPCLOSURE                       R13 K27 [PROTO_11]
+       78 CAPTURE                          VAL R7
+       79 CAPTURE                          VAL R11
+       80 CAPTURE                          VAL R1
+       81 SETTABLEKS                       R13 R6 K28 ["getGranularPermissions"]
+       83 DUPCLOSURE                       R13 K29 [PROTO_14]
+       84 CAPTURE                          VAL R12
+       85 CAPTURE                          VAL R2
+       86 CAPTURE                          VAL R3
+       87 SETTABLEKS                       R13 R6 K30 ["getGranularPermissionsFromGroupsAPI"]
+       89 DUPCLOSURE                       R13 K31 [PROTO_17]
+       90 CAPTURE                          VAL R2
+       91 SETTABLEKS                       R13 R6 K32 ["setGranularPermissionsViaGroupsAPI"]
+       93 RETURN                           R6 1

@@ -102,37 +102,33 @@ PROTO_6:
        15 GETUPVAL                         R4 0
        16 GETTABLEKS                       R4 R4 K6 ["createElement"]
        18 GETUPVAL                         R5 1
-       19 DUPTABLE                         R6 K18 [{"ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "Style", "IsSelected", "OnSelected", "OnDoubleClicked", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnRightClicked"}]
-       20 LOADN                            R7 1
-       21 SETTABLEKS                       R7 R6 K7 ["ZIndex"]
-       23 GETTABLEKS                       R7 R1 K19 ["absolutePosition"]
-       25 SETTABLEKS                       R7 R6 K8 ["AbsolutePosition"]
-       27 LOADB                            R7 0
-       28 SETTABLEKS                       R7 R6 K9 ["FollowCursorOnDrag"]
-       30 SETTABLEKS                       R2 R6 K10 ["Style"]
-       32 SETTABLEKS                       R3 R6 K11 ["IsSelected"]
-       34 NEWCLOSURE                       R7 P0
-       35 CAPTURE                          VAL R1
-       36 SETTABLEKS                       R7 R6 K12 ["OnSelected"]
-       38 NEWCLOSURE                       R7 P1
-       39 CAPTURE                          VAL R1
-       40 SETTABLEKS                       R7 R6 K13 ["OnDoubleClicked"]
-       42 NEWCLOSURE                       R7 P2
+       19 DUPTABLE                         R6 K20 [{["ZIndex"] = 1, ["AbsolutePosition"], ["FollowCursorOnDrag"] = False, ["Style"], ["IsSelected"], ["OnSelected"], ["OnDoubleClicked"], ["OnDragStart"], ["OnDragMoved"], ["OnDragEnd"], ["OnRightClicked"]}]
+       20 GETTABLEKS                       R7 R1 K21 ["absolutePosition"]
+       22 SETTABLEKS                       R7 R6 K9 ["AbsolutePosition"]
+       24 SETTABLEKS                       R2 R6 K12 ["Style"]
+       26 SETTABLEKS                       R3 R6 K13 ["IsSelected"]
+       28 NEWCLOSURE                       R7 P0
+       29 CAPTURE                          VAL R1
+       30 SETTABLEKS                       R7 R6 K14 ["OnSelected"]
+       32 NEWCLOSURE                       R7 P1
+       33 CAPTURE                          VAL R1
+       34 SETTABLEKS                       R7 R6 K15 ["OnDoubleClicked"]
+       36 NEWCLOSURE                       R7 P2
+       37 CAPTURE                          VAL R1
+       38 SETTABLEKS                       R7 R6 K16 ["OnDragStart"]
+       40 NEWCLOSURE                       R7 P3
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          UPVAL U3
        43 CAPTURE                          VAL R1
-       44 SETTABLEKS                       R7 R6 K14 ["OnDragStart"]
-       46 NEWCLOSURE                       R7 P3
-       47 CAPTURE                          UPVAL U2
-       48 CAPTURE                          UPVAL U3
-       49 CAPTURE                          VAL R1
-       50 SETTABLEKS                       R7 R6 K15 ["OnDragMoved"]
-       52 NEWCLOSURE                       R7 P4
-       53 CAPTURE                          VAL R1
-       54 SETTABLEKS                       R7 R6 K16 ["OnDragEnd"]
-       56 NEWCLOSURE                       R7 P5
-       57 CAPTURE                          VAL R1
-       58 SETTABLEKS                       R7 R6 K17 ["OnRightClicked"]
-       60 CALL                             R4 2 -1
-       61 RETURN                           R4 -1
+       44 SETTABLEKS                       R7 R6 K17 ["OnDragMoved"]
+       46 NEWCLOSURE                       R7 P4
+       47 CAPTURE                          VAL R1
+       48 SETTABLEKS                       R7 R6 K18 ["OnDragEnd"]
+       50 NEWCLOSURE                       R7 P5
+       51 CAPTURE                          VAL R1
+       52 SETTABLEKS                       R7 R6 K19 ["OnRightClicked"]
+       54 CALL                             R4 2 -1
+       55 RETURN                           R4 -1
 
 PROTO_7:
         0 DUPTABLE                         R2 K2 [{"LockSelectedControlPoint", "SelectedTangentSide"}]

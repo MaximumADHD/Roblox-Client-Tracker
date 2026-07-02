@@ -21,7 +21,7 @@ PROTO_0:
        20 GETUPVAL                         R11 2
        21 MUL                              R7 R7 R11
        22 FORNLOOP                         R8
-       23 LOADN                            R10 255
+       23 LOADN                            R10 -1
        24 LOADN                            R11 1
        25 FASTCALL3                        MATH_CLAMP R4 R10 R11
        27 MOVE                             R9 R4

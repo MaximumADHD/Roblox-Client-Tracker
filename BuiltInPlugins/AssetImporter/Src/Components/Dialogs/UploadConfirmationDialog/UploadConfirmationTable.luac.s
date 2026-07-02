@@ -33,97 +33,85 @@ PROTO_0:
        48 GETUPVAL                         R3 1
        49 GETUPVAL                         R4 2
        50 GETTABLEKS                       R4 R4 K15 ["View"]
-       52 DUPTABLE                         R5 K17 [{"tag", "LayoutOrder"}]
-       53 LOADK                            R6 K18 ["row align-y-center size-full-0 auto-y flex-y-fill"]
-       54 SETTABLEKS                       R6 R5 K16 ["tag"]
-       56 NAMECALL                         R6 R1 K14 ["getNextOrder"]
-       58 CALL                             R6 1 1
-       59 SETTABLEKS                       R6 R5 K10 ["LayoutOrder"]
-       61 DUPTABLE                         R6 K21 [{"Asset", "Cost"}]
-       62 GETUPVAL                         R7 1
-       63 GETUPVAL                         R8 2
-       64 GETTABLEKS                       R8 R8 K15 ["View"]
-       66 DUPTABLE                         R9 K22 [{"tag"}]
-       67 LOADK                            R10 K23 ["row align-x-left align-y-center fill auto-y padding-y-small padding-x-medium gap-xsmall"]
-       68 SETTABLEKS                       R10 R9 K16 ["tag"]
-       70 DUPTABLE                         R10 K26 [{"Icon", "Name"}]
-       71 GETUPVAL                         R11 1
-       72 GETUPVAL                         R12 2
-       73 GETTABLEKS                       R12 R12 K27 ["Image"]
-       75 DUPTABLE                         R13 K28 [{"tag", "Image"}]
-       76 LOADK                            R14 K29 ["size-400-400"]
-       77 SETTABLEKS                       R14 R13 K16 ["tag"]
-       79 GETTABLEKS                       R15 R0 K0 ["fileType"]
-       81 GETUPVAL                         R16 0
-       82 GETTABLEKS                       R16 R16 K1 ["FileType"]
-       84 GETTABLEKS                       R16 R16 K2 ["Audio"]
-       86 JUMPIFNOTEQ                      R15 R16 ; [+9]
-       88 GETUPVAL                         R14 5
-       89 LOADK                            R16 K30 ["Sound"]
-       90 NAMECALL                         R14 R14 K31 ["GetClassIcon"]
-       92 CALL                             R14 2 1
-       93 GETTABLEKS                       R14 R14 K27 ["Image"]
-       95 JUMP                             ; [+7]
-       96 GETUPVAL                         R14 5
-       97 LOADK                            R16 K32 ["VideoFrame"]
-       98 NAMECALL                         R14 R14 K31 ["GetClassIcon"]
-      100 CALL                             R14 2 1
-      101 GETTABLEKS                       R14 R14 K27 ["Image"]
-      103 SETTABLEKS                       R14 R13 K27 ["Image"]
-      105 CALL                             R11 2 1
-      106 SETTABLEKS                       R11 R10 K24 ["Icon"]
-      108 GETUPVAL                         R11 1
-      109 GETUPVAL                         R12 2
-      110 GETTABLEKS                       R12 R12 K33 ["Text"]
-      112 DUPTABLE                         R13 K34 [{"tag", "Text"}]
-      113 LOADK                            R14 K35 ["fill auto-y content-emphasis text-body-medium text-wrap text-align-x-left text-align-y-center"]
-      114 SETTABLEKS                       R14 R13 K16 ["tag"]
-      116 GETTABLEKS                       R14 R0 K36 ["assetName"]
-      118 SETTABLEKS                       R14 R13 K33 ["Text"]
-      120 CALL                             R11 2 1
-      121 SETTABLEKS                       R11 R10 K25 ["Name"]
-      123 CALL                             R7 3 1
-      124 SETTABLEKS                       R7 R6 K19 ["Asset"]
-      126 GETUPVAL                         R7 1
-      127 GETUPVAL                         R8 2
-      128 GETTABLEKS                       R8 R8 K15 ["View"]
-      130 DUPTABLE                         R9 K22 [{"tag"}]
-      131 LOADK                            R10 K23 ["row align-x-left align-y-center fill auto-y padding-y-small padding-x-medium gap-xsmall"]
-      132 SETTABLEKS                       R10 R9 K16 ["tag"]
-      134 DUPTABLE                         R10 K38 [{"Icon", "Amount"}]
-      135 GETUPVAL                         R11 1
-      136 GETUPVAL                         R12 2
-      137 GETTABLEKS                       R12 R12 K24 ["Icon"]
-      139 DUPTABLE                         R13 K41 [{"name", "size"}]
-      140 GETUPVAL                         R14 6
-      141 GETTABLEKS                       R14 R14 K42 ["Robux"]
-      143 SETTABLEKS                       R14 R13 K39 ["name"]
-      145 GETUPVAL                         R14 7
-      146 GETTABLEKS                       R14 R14 K43 ["Medium"]
-      148 SETTABLEKS                       R14 R13 K40 ["size"]
-      150 CALL                             R11 2 1
-      151 SETTABLEKS                       R11 R10 K24 ["Icon"]
-      153 GETUPVAL                         R11 1
-      154 GETUPVAL                         R12 2
-      155 GETTABLEKS                       R12 R12 K33 ["Text"]
-      157 DUPTABLE                         R13 K34 [{"tag", "Text"}]
-      158 LOADK                            R14 K35 ["fill auto-y content-emphasis text-body-medium text-wrap text-align-x-left text-align-y-center"]
-      159 SETTABLEKS                       R14 R13 K16 ["tag"]
-      161 GETTABLEKS                       R15 R0 K0 ["fileType"]
-      163 GETUPVAL                         R16 0
-      164 GETTABLEKS                       R16 R16 K1 ["FileType"]
-      166 GETTABLEKS                       R16 R16 K2 ["Audio"]
-      168 JUMPIFNOTEQ                      R15 R16 ; [+3]
-      170 LOADN                            R14 0
-      171 JUMP                             ; [+1]
-      172 GETUPVAL                         R14 8
-      173 SETTABLEKS                       R14 R13 K33 ["Text"]
-      175 CALL                             R11 2 1
-      176 SETTABLEKS                       R11 R10 K37 ["Amount"]
-      178 CALL                             R7 3 1
-      179 SETTABLEKS                       R7 R6 K20 ["Cost"]
-      181 CALL                             R3 3 -1
-      182 RETURN                           R2 -1
+       52 DUPTABLE                         R5 K18 [{["tag"] = "row flex-y-fill align-y-center size-full-0 auto-y", ["LayoutOrder"]}]
+       53 NAMECALL                         R6 R1 K14 ["getNextOrder"]
+       55 CALL                             R6 1 1
+       56 SETTABLEKS                       R6 R5 K10 ["LayoutOrder"]
+       58 DUPTABLE                         R6 K21 [{"Asset", "Cost"}]
+       59 GETUPVAL                         R7 1
+       60 GETUPVAL                         R8 2
+       61 GETTABLEKS                       R8 R8 K15 ["View"]
+       63 DUPTABLE                         R9 K23 [{["tag"] = "row align-x-left align-y-center fill gap-xsmall auto-y padding-x-medium padding-y-small"}]
+       64 DUPTABLE                         R10 K26 [{"Icon", "Name"}]
+       65 GETUPVAL                         R11 1
+       66 GETUPVAL                         R12 2
+       67 GETTABLEKS                       R12 R12 K27 ["Image"]
+       69 DUPTABLE                         R13 K29 [{["tag"] = "size-400-400", ["Image"]}]
+       70 GETTABLEKS                       R15 R0 K0 ["fileType"]
+       72 GETUPVAL                         R16 0
+       73 GETTABLEKS                       R16 R16 K1 ["FileType"]
+       75 GETTABLEKS                       R16 R16 K2 ["Audio"]
+       77 JUMPIFNOTEQ                      R15 R16 ; [+9]
+       79 GETUPVAL                         R14 5
+       80 LOADK                            R16 K30 ["Sound"]
+       81 NAMECALL                         R14 R14 K31 ["GetClassIcon"]
+       83 CALL                             R14 2 1
+       84 GETTABLEKS                       R14 R14 K27 ["Image"]
+       86 JUMP                             ; [+7]
+       87 GETUPVAL                         R14 5
+       88 LOADK                            R16 K32 ["VideoFrame"]
+       89 NAMECALL                         R14 R14 K31 ["GetClassIcon"]
+       91 CALL                             R14 2 1
+       92 GETTABLEKS                       R14 R14 K27 ["Image"]
+       94 SETTABLEKS                       R14 R13 K27 ["Image"]
+       96 CALL                             R11 2 1
+       97 SETTABLEKS                       R11 R10 K24 ["Icon"]
+       99 GETUPVAL                         R11 1
+      100 GETUPVAL                         R12 2
+      101 GETTABLEKS                       R12 R12 K33 ["Text"]
+      103 DUPTABLE                         R13 K35 [{["tag"] = "fill auto-y text-body-medium text-wrap text-align-x-left text-align-y-center content-emphasis", ["Text"]}]
+      104 GETTABLEKS                       R14 R0 K36 ["assetName"]
+      106 SETTABLEKS                       R14 R13 K33 ["Text"]
+      108 CALL                             R11 2 1
+      109 SETTABLEKS                       R11 R10 K25 ["Name"]
+      111 CALL                             R7 3 1
+      112 SETTABLEKS                       R7 R6 K19 ["Asset"]
+      114 GETUPVAL                         R7 1
+      115 GETUPVAL                         R8 2
+      116 GETTABLEKS                       R8 R8 K15 ["View"]
+      118 DUPTABLE                         R9 K23 [{["tag"] = "row align-x-left align-y-center fill gap-xsmall auto-y padding-x-medium padding-y-small"}]
+      119 DUPTABLE                         R10 K38 [{"Icon", "Amount"}]
+      120 GETUPVAL                         R11 1
+      121 GETUPVAL                         R12 2
+      122 GETTABLEKS                       R12 R12 K24 ["Icon"]
+      124 DUPTABLE                         R13 K41 [{"name", "size"}]
+      125 GETUPVAL                         R14 6
+      126 GETTABLEKS                       R14 R14 K42 ["Robux"]
+      128 SETTABLEKS                       R14 R13 K39 ["name"]
+      130 GETUPVAL                         R14 7
+      131 GETTABLEKS                       R14 R14 K43 ["Medium"]
+      133 SETTABLEKS                       R14 R13 K40 ["size"]
+      135 CALL                             R11 2 1
+      136 SETTABLEKS                       R11 R10 K24 ["Icon"]
+      138 GETUPVAL                         R11 1
+      139 GETUPVAL                         R12 2
+      140 GETTABLEKS                       R12 R12 K33 ["Text"]
+      142 DUPTABLE                         R13 K35 [{["tag"] = "fill auto-y text-body-medium text-wrap text-align-x-left text-align-y-center content-emphasis", ["Text"]}]
+      143 GETTABLEKS                       R15 R0 K0 ["fileType"]
+      145 GETUPVAL                         R16 0
+      146 GETTABLEKS                       R16 R16 K1 ["FileType"]
+      148 GETTABLEKS                       R16 R16 K2 ["Audio"]
+      150 JUMPIFNOTEQ                      R15 R16 ; [+3]
+      152 LOADN                            R14 0
+      153 JUMP                             ; [+1]
+      154 GETUPVAL                         R14 8
+      155 SETTABLEKS                       R14 R13 K33 ["Text"]
+      157 CALL                             R11 2 1
+      158 SETTABLEKS                       R11 R10 K37 ["Amount"]
+      160 CALL                             R7 3 1
+      161 SETTABLEKS                       R7 R6 K20 ["Cost"]
+      163 CALL                             R3 3 -1
+      164 RETURN                           R2 -1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
@@ -152,67 +140,57 @@ PROTO_1:
        31 GETUPVAL                         R3 2
        32 GETUPVAL                         R4 3
        33 GETTABLEKS                       R4 R4 K5 ["View"]
-       35 DUPTABLE                         R5 K9 [{"tag", "Size", "LayoutOrder"}]
-       36 LOADK                            R6 K10 ["col align-x-left size-full-0 auto-y stroke-standard stroke-default radius-medium"]
-       37 SETTABLEKS                       R6 R5 K6 ["tag"]
-       39 GETIMPORT                        R6 K12 [UDim2.new]
-       41 LOADN                            R7 1
-       42 LOADN                            R8 254
-       43 LOADN                            R9 0
-       44 LOADN                            R10 0
-       45 CALL                             R6 4 1
-       46 SETTABLEKS                       R6 R5 K7 ["Size"]
-       48 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
-       50 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
-       52 DUPTABLE                         R6 K15 [{"Header", "Wrapper"}]
-       53 GETUPVAL                         R7 2
-       54 GETUPVAL                         R8 3
-       55 GETTABLEKS                       R8 R8 K5 ["View"]
-       57 DUPTABLE                         R9 K16 [{"tag"}]
-       58 LOADK                            R10 K17 ["row align-y-center size-full-0 auto-y flex-y-fill"]
-       59 SETTABLEKS                       R10 R9 K6 ["tag"]
-       61 DUPTABLE                         R10 K20 [{"Name", "Amount"}]
-       62 GETUPVAL                         R11 2
-       63 GETUPVAL                         R12 3
-       64 GETTABLEKS                       R12 R12 K21 ["Text"]
-       66 DUPTABLE                         R13 K22 [{"tag", "Text"}]
-       67 LOADK                            R14 K23 ["fill auto-y content-emphasis padding-y-xsmall padding-x-medium text-label-small text-wrap text-align-x-left text-align-y-center"]
-       68 SETTABLEKS                       R14 R13 K6 ["tag"]
-       70 GETTABLEKS                       R14 R0 K24 ["Localization"]
-       72 LOADK                            R16 K25 ["UploadConfirmation"]
-       73 LOADK                            R17 K18 ["Name"]
-       74 NAMECALL                         R14 R14 K26 ["getText"]
-       76 CALL                             R14 3 1
-       77 SETTABLEKS                       R14 R13 K21 ["Text"]
-       79 CALL                             R11 2 1
-       80 SETTABLEKS                       R11 R10 K18 ["Name"]
-       82 GETUPVAL                         R11 2
-       83 GETUPVAL                         R12 3
-       84 GETTABLEKS                       R12 R12 K21 ["Text"]
-       86 DUPTABLE                         R13 K22 [{"tag", "Text"}]
-       87 LOADK                            R14 K23 ["fill auto-y content-emphasis padding-y-xsmall padding-x-medium text-label-small text-wrap text-align-x-left text-align-y-center"]
-       88 SETTABLEKS                       R14 R13 K6 ["tag"]
-       90 GETTABLEKS                       R14 R0 K24 ["Localization"]
-       92 LOADK                            R16 K25 ["UploadConfirmation"]
-       93 LOADK                            R17 K27 ["Fee"]
-       94 NAMECALL                         R14 R14 K26 ["getText"]
-       96 CALL                             R14 3 1
-       97 SETTABLEKS                       R14 R13 K21 ["Text"]
-       99 CALL                             R11 2 1
-      100 SETTABLEKS                       R11 R10 K19 ["Amount"]
-      102 CALL                             R7 3 1
-      103 SETTABLEKS                       R7 R6 K13 ["Header"]
-      105 GETUPVAL                         R7 2
-      106 GETUPVAL                         R8 3
-      107 GETTABLEKS                       R8 R8 K5 ["View"]
-      109 DUPTABLE                         R9 K16 [{"tag"}]
-      110 LOADK                            R10 K28 ["col align-x-left size-full-0 auto-y"]
-      111 SETTABLEKS                       R10 R9 K6 ["tag"]
-      113 MOVE                             R10 R1
-      114 CALL                             R7 3 1
-      115 SETTABLEKS                       R7 R6 K14 ["Wrapper"]
-      117 CALL                             R3 3 -1
-      118 RETURN                           R3 -1
+       35 DUPTABLE                         R5 K10 [{["tag"] = "col align-x-left size-full-0 auto-y stroke-standard stroke-default radius-medium", ["Size"], ["LayoutOrder"]}]
+       36 GETIMPORT                        R6 K12 [UDim2.new]
+       38 LOADN                            R7 1
+       39 LOADN                            R8 -2
+       40 LOADN                            R9 0
+       41 LOADN                            R10 0
+       42 CALL                             R6 4 1
+       43 SETTABLEKS                       R6 R5 K8 ["Size"]
+       45 GETTABLEKS                       R6 R0 K9 ["LayoutOrder"]
+       47 SETTABLEKS                       R6 R5 K9 ["LayoutOrder"]
+       49 DUPTABLE                         R6 K15 [{"Header", "Wrapper"}]
+       50 GETUPVAL                         R7 2
+       51 GETUPVAL                         R8 3
+       52 GETTABLEKS                       R8 R8 K5 ["View"]
+       54 DUPTABLE                         R9 K17 [{["tag"] = "row flex-y-fill align-y-center size-full-0 auto-y"}]
+       55 DUPTABLE                         R10 K20 [{"Name", "Amount"}]
+       56 GETUPVAL                         R11 2
+       57 GETUPVAL                         R12 3
+       58 GETTABLEKS                       R12 R12 K21 ["Text"]
+       60 DUPTABLE                         R13 K23 [{["tag"] = "fill auto-y padding-x-medium padding-y-xsmall text-label-small text-wrap text-align-x-left text-align-y-center content-emphasis", ["Text"]}]
+       61 GETTABLEKS                       R14 R0 K24 ["Localization"]
+       63 LOADK                            R16 K25 ["UploadConfirmation"]
+       64 LOADK                            R17 K18 ["Name"]
+       65 NAMECALL                         R14 R14 K26 ["getText"]
+       67 CALL                             R14 3 1
+       68 SETTABLEKS                       R14 R13 K21 ["Text"]
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K18 ["Name"]
+       73 GETUPVAL                         R11 2
+       74 GETUPVAL                         R12 3
+       75 GETTABLEKS                       R12 R12 K21 ["Text"]
+       77 DUPTABLE                         R13 K23 [{["tag"] = "fill auto-y padding-x-medium padding-y-xsmall text-label-small text-wrap text-align-x-left text-align-y-center content-emphasis", ["Text"]}]
+       78 GETTABLEKS                       R14 R0 K24 ["Localization"]
+       80 LOADK                            R16 K25 ["UploadConfirmation"]
+       81 LOADK                            R17 K27 ["Fee"]
+       82 NAMECALL                         R14 R14 K26 ["getText"]
+       84 CALL                             R14 3 1
+       85 SETTABLEKS                       R14 R13 K21 ["Text"]
+       87 CALL                             R11 2 1
+       88 SETTABLEKS                       R11 R10 K19 ["Amount"]
+       90 CALL                             R7 3 1
+       91 SETTABLEKS                       R7 R6 K13 ["Header"]
+       93 GETUPVAL                         R7 2
+       94 GETUPVAL                         R8 3
+       95 GETTABLEKS                       R8 R8 K5 ["View"]
+       97 DUPTABLE                         R9 K29 [{["tag"] = "col align-x-left size-full-0 auto-y"}]
+       98 MOVE                             R10 R1
+       99 CALL                             R7 3 1
+      100 SETTABLEKS                       R7 R6 K14 ["Wrapper"]
+      102 CALL                             R3 3 -1
+      103 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

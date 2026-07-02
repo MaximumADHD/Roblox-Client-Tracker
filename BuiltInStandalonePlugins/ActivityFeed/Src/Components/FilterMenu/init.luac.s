@@ -24,30 +24,28 @@ PROTO_0:
        29 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K3 [{"JumpToDateIndex", "EventCategories", "Collaborators"}]
-        1 LOADN                            R3 1
-        2 SETTABLEKS                       R3 R2 K0 ["JumpToDateIndex"]
-        4 NEWTABLE                         R3 0 0
-        6 SETTABLEKS                       R3 R2 K1 ["EventCategories"]
-        8 NEWTABLE                         R3 0 0
-       10 SETTABLEKS                       R3 R2 K2 ["Collaborators"]
-       12 GETIMPORT                        R3 K5 [pairs]
-       14 GETUPVAL                         R4 0
-       15 CALL                             R3 1 3
-       16 FORGPREP_NEXT                    R3
-       17 GETTABLEKS                       R8 R2 K1 ["EventCategories"]
-       19 LOADB                            R9 1
-       20 SETTABLE                         R9 R8 R7
-       21 FORGLOOP                         R3 2 ; [-5]
-       23 GETIMPORT                        R3 K5 [pairs]
-       25 MOVE                             R4 R0
-       26 CALL                             R3 1 3
-       27 FORGPREP_NEXT                    R3
-       28 GETTABLEKS                       R8 R2 K2 ["Collaborators"]
-       30 LOADB                            R9 1
-       31 SETTABLE                         R9 R8 R6
-       32 FORGLOOP                         R3 2 ; [-5]
-       34 RETURN                           R2 1
+        0 DUPTABLE                         R2 K4 [{[1] = 1, ["EventCategories"], ["Collaborators"]}]
+        1 NEWTABLE                         R3 0 0
+        3 SETTABLEKS                       R3 R2 K2 ["EventCategories"]
+        5 NEWTABLE                         R3 0 0
+        7 SETTABLEKS                       R3 R2 K3 ["Collaborators"]
+        9 GETIMPORT                        R3 K6 [pairs]
+       11 GETUPVAL                         R4 0
+       12 CALL                             R3 1 3
+       13 FORGPREP_NEXT                    R3
+       14 GETTABLEKS                       R8 R2 K2 ["EventCategories"]
+       16 LOADB                            R9 1
+       17 SETTABLE                         R9 R8 R7
+       18 FORGLOOP                         R3 2 ; [-5]
+       20 GETIMPORT                        R3 K6 [pairs]
+       22 MOVE                             R4 R0
+       23 CALL                             R3 1 3
+       24 FORGPREP_NEXT                    R3
+       25 GETTABLEKS                       R8 R2 K3 ["Collaborators"]
+       27 LOADB                            R9 1
+       28 SETTABLE                         R9 R8 R6
+       29 FORGLOOP                         R3 2 ; [-5]
+       31 RETURN                           R2 1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["JumpToDateIndex"]
@@ -878,33 +876,29 @@ PROTO_19:
 PROTO_20:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["onChange"]
-        3 JUMPIFNOT                        R1 ; [+15]
-        4 DUPTABLE                         R1 K4 [{"JumpToDateIndex", "EventCategories", "Collaborators"}]
-        5 LOADN                            R2 255
-        6 SETTABLEKS                       R2 R1 K1 ["JumpToDateIndex"]
-        8 SETTABLEKS                       R0 R1 K2 ["EventCategories"]
-       10 NEWTABLE                         R2 0 0
-       12 SETTABLEKS                       R2 R1 K3 ["Collaborators"]
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R2 R2 K0 ["onChange"]
-       17 MOVE                             R3 R1
-       18 CALL                             R2 1 0
-       19 RETURN                           R0 0
+        3 JUMPIFNOT                        R1 ; [+12]
+        4 DUPTABLE                         R1 K5 [{["JumpToDateIndex"] = -1, ["EventCategories"], ["Collaborators"]}]
+        5 SETTABLEKS                       R0 R1 K3 ["EventCategories"]
+        7 NEWTABLE                         R2 0 0
+        9 SETTABLEKS                       R2 R1 K4 ["Collaborators"]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K0 ["onChange"]
+       14 MOVE                             R3 R1
+       15 CALL                             R2 1 0
+       16 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["onChange"]
-        3 JUMPIFNOT                        R1 ; [+14]
+        3 JUMPIFNOT                        R1 ; [+11]
         4 GETUPVAL                         R1 0
         5 GETTABLEKS                       R1 R1 K0 ["onChange"]
-        7 DUPTABLE                         R2 K4 [{"JumpToDateIndex", "EventCategories", "Collaborators"}]
-        8 LOADN                            R3 255
-        9 SETTABLEKS                       R3 R2 K1 ["JumpToDateIndex"]
-       11 NEWTABLE                         R3 0 0
-       13 SETTABLEKS                       R3 R2 K2 ["EventCategories"]
-       15 SETTABLEKS                       R0 R2 K3 ["Collaborators"]
-       17 CALL                             R1 1 0
-       18 RETURN                           R0 0
+        7 DUPTABLE                         R2 K5 [{["JumpToDateIndex"] = -1, ["EventCategories"], ["Collaborators"]}]
+        8 NEWTABLE                         R3 0 0
+       10 SETTABLEKS                       R3 R2 K3 ["EventCategories"]
+       12 SETTABLEKS                       R0 R2 K4 ["Collaborators"]
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
 
 PROTO_22:
         0 GETUPVAL                         R1 0
@@ -1273,7 +1267,7 @@ MAIN:
       102 LOADN                            R20 7
       103 LOADN                            R21 30
       104 LOADN                            R22 90
-      105 LOADN                            R23 109
+      105 LOADN                            R23 365
       106 SETLIST                          R18 R19 5 [1]
       108 DUPCLOSURE                       R19 K29 [PROTO_1]
       109 CAPTURE                          VAL R16

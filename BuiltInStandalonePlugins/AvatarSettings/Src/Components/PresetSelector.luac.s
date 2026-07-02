@@ -148,14 +148,14 @@ PROTO_3:
        99 CALL                             R13 2 1
       100 SETTABLEKS                       R13 R12 K18 ["UIPadding"]
       102 MOVE                             R13 R8
-      103 JUMPIFNOT                        R13 ; [+90]
+      103 JUMPIFNOT                        R13 ; [+84]
       104 GETUPVAL                         R13 7
       105 GETUPVAL                         R14 9
-      106 DUPTABLE                         R15 K40 [{"layoutOrder", "Size", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
+      106 DUPTABLE                         R15 K41 [{["layoutOrder"], ["Size"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
       107 MOVE                             R16 R3
       108 CALL                             R16 0 1
       109 SETTABLEKS                       R16 R15 K34 ["layoutOrder"]
-      111 GETIMPORT                        R16 K43 [UDim2.fromScale]
+      111 GETIMPORT                        R16 K44 [UDim2.fromScale]
       113 LOADN                            R17 0
       114 LOADN                            R18 1
       115 CALL                             R16 2 1
@@ -165,60 +165,56 @@ PROTO_3:
       121 LOADN                            R18 4
       122 CALL                             R16 2 1
       123 SETTABLEKS                       R16 R15 K36 ["separation"]
-      125 LOADK                            R16 K44 ["AvatarSettings-LeftTextPrimary"]
-      126 SETTABLEKS                       R16 R15 K37 ["textLabelTags"]
-      128 GETIMPORT                        R16 K31 [UDim.new]
-      130 LOADN                            R17 0
-      131 LOADN                            R18 41
-      132 CALL                             R16 2 1
-      133 SETTABLEKS                       R16 R15 K38 ["minTextLabelWidth"]
-      135 LOADK                            R18 K45 ["AvatarTypeSelector"]
-      136 LOADK                            R19 K46 ["Preset"]
-      137 NAMECALL                         R16 R1 K47 ["getText"]
-      139 CALL                             R16 3 1
-      140 SETTABLEKS                       R16 R15 K39 ["text"]
-      142 DUPTABLE                         R16 K49 [{"AvatarPresetSelectInput"}]
-      143 GETUPVAL                         R17 7
-      144 GETUPVAL                         R18 10
-      145 DUPTABLE                         R19 K56 [{"Items", "PlaceholderText", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
-      146 NEWTABLE                         R20 0 2
-      148 GETUPVAL                         R21 11
-      149 LOADK                            R22 K57 ["PlayerChoice"]
-      150 MOVE                             R23 R1
-      151 CALL                             R21 2 1
-      152 GETUPVAL                         R22 11
-      153 LOADK                            R23 K58 ["ConsistentGameplay"]
-      154 MOVE                             R24 R1
-      155 CALL                             R22 2 1
-      156 SETLIST                          R20 R21 2 [1]
-      158 SETTABLEKS                       R20 R19 K50 ["Items"]
-      160 LOADK                            R22 K45 ["AvatarTypeSelector"]
-      161 LOADK                            R23 K59 ["EmptyPreset"]
-      162 NAMECALL                         R20 R1 K47 ["getText"]
-      164 CALL                             R20 3 1
-      165 SETTABLEKS                       R20 R19 K51 ["PlaceholderText"]
-      167 GETIMPORT                        R20 K61 [UDim2.fromOffset]
-      169 LOADN                            R21 171
-      170 GETUPVAL                         R22 12
-      171 GETTABLEKS                       R22 R22 K62 ["STANDARD_HEIGHT"]
-      173 CALL                             R20 2 1
-      174 SETTABLEKS                       R20 R19 K35 ["Size"]
-      176 GETUPVAL                         R20 13
-      177 SETTABLEKS                       R20 R19 K52 ["OnRenderItem"]
-      179 LOADB                            R20 1
-      180 SETTABLEKS                       R20 R19 K53 ["UseAutoWidth"]
-      182 SETTABLEKS                       R7 R19 K54 ["SelectedId"]
-      184 NEWCLOSURE                       R20 P1
-      185 CAPTURE                          VAL R7
-      186 CAPTURE                          VAL R2
-      187 CAPTURE                          VAL R5
-      188 SETTABLEKS                       R20 R19 K55 ["OnItemActivated"]
-      190 CALL                             R17 2 1
-      191 SETTABLEKS                       R17 R16 K48 ["AvatarPresetSelectInput"]
-      193 CALL                             R13 3 1
-      194 SETTABLEKS                       R13 R12 K19 ["PresetTitleFrame"]
-      196 CALL                             R9 3 -1
-      197 RETURN                           R9 -1
+      125 GETIMPORT                        R16 K31 [UDim.new]
+      127 LOADN                            R17 0
+      128 LOADN                            R18 41
+      129 CALL                             R16 2 1
+      130 SETTABLEKS                       R16 R15 K39 ["minTextLabelWidth"]
+      132 LOADK                            R18 K45 ["AvatarTypeSelector"]
+      133 LOADK                            R19 K46 ["Preset"]
+      134 NAMECALL                         R16 R1 K47 ["getText"]
+      136 CALL                             R16 3 1
+      137 SETTABLEKS                       R16 R15 K40 ["text"]
+      139 DUPTABLE                         R16 K49 [{"AvatarPresetSelectInput"}]
+      140 GETUPVAL                         R17 7
+      141 GETUPVAL                         R18 10
+      142 DUPTABLE                         R19 K57 [{["Items"], ["PlaceholderText"], ["Size"], ["OnRenderItem"], ["UseAutoWidth"] = True, ["SelectedId"], ["OnItemActivated"]}]
+      143 NEWTABLE                         R20 0 2
+      145 GETUPVAL                         R21 11
+      146 LOADK                            R22 K58 ["PlayerChoice"]
+      147 MOVE                             R23 R1
+      148 CALL                             R21 2 1
+      149 GETUPVAL                         R22 11
+      150 LOADK                            R23 K59 ["ConsistentGameplay"]
+      151 MOVE                             R24 R1
+      152 CALL                             R22 2 1
+      153 SETLIST                          R20 R21 2 [1]
+      155 SETTABLEKS                       R20 R19 K50 ["Items"]
+      157 LOADK                            R22 K45 ["AvatarTypeSelector"]
+      158 LOADK                            R23 K60 ["EmptyPreset"]
+      159 NAMECALL                         R20 R1 K47 ["getText"]
+      161 CALL                             R20 3 1
+      162 SETTABLEKS                       R20 R19 K51 ["PlaceholderText"]
+      164 GETIMPORT                        R20 K62 [UDim2.fromOffset]
+      166 LOADN                            R21 171
+      167 GETUPVAL                         R22 12
+      168 GETTABLEKS                       R22 R22 K63 ["STANDARD_HEIGHT"]
+      170 CALL                             R20 2 1
+      171 SETTABLEKS                       R20 R19 K35 ["Size"]
+      173 GETUPVAL                         R20 13
+      174 SETTABLEKS                       R20 R19 K52 ["OnRenderItem"]
+      176 SETTABLEKS                       R7 R19 K55 ["SelectedId"]
+      178 NEWCLOSURE                       R20 P1
+      179 CAPTURE                          VAL R7
+      180 CAPTURE                          VAL R2
+      181 CAPTURE                          VAL R5
+      182 SETTABLEKS                       R20 R19 K56 ["OnItemActivated"]
+      184 CALL                             R17 2 1
+      185 SETTABLEKS                       R17 R16 K48 ["AvatarPresetSelectInput"]
+      187 CALL                             R13 3 1
+      188 SETTABLEKS                       R13 R12 K19 ["PresetTitleFrame"]
+      190 CALL                             R9 3 -1
+      191 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -298,8 +294,8 @@ MAIN:
       132 GETTABLEKS                       R19 R8 K31 ["createNextOrder"]
       134 GETTABLEKS                       R20 R7 K32 ["createElement"]
       136 GETIMPORT                        R21 K35 [Vector2.new]
-      138 LOADN                            R22 0
-      139 LOADN                            R23 45
+      138 LOADN                            R22 256
+      139 LOADN                            R23 301
       140 CALL                             R21 2 1
       141 DUPCLOSURE                       R22 K36 [PROTO_0]
       142 CAPTURE                          VAL R7

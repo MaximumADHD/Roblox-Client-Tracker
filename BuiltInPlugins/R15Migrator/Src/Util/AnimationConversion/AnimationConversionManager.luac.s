@@ -1302,170 +1302,160 @@ MAIN:
       231 DUPCLOSURE                       R27 K57 [PROTO_2]
       232 CAPTURE                          VAL R20
       233 NEWTABLE                         R28 8 0
-      235 DUPTABLE                         R29 K59 [{"requiredParent"}]
-      236 LOADK                            R30 K45 ["Torso"]
-      237 SETTABLEKS                       R30 R29 K58 ["requiredParent"]
-      239 SETTABLEKS                       R29 R28 K47 ["Head"]
-      241 DUPTABLE                         R29 K59 [{"requiredParent"}]
-      242 LOADK                            R30 K45 ["Torso"]
-      243 SETTABLEKS                       R30 R29 K58 ["requiredParent"]
-      245 SETTABLEKS                       R29 R28 K37 ["Left Arm"]
-      247 DUPTABLE                         R29 K59 [{"requiredParent"}]
-      248 LOADK                            R30 K45 ["Torso"]
-      249 SETTABLEKS                       R30 R29 K58 ["requiredParent"]
-      251 SETTABLEKS                       R29 R28 K39 ["Right Arm"]
-      253 DUPTABLE                         R29 K59 [{"requiredParent"}]
-      254 LOADK                            R30 K45 ["Torso"]
-      255 SETTABLEKS                       R30 R29 K58 ["requiredParent"]
-      257 SETTABLEKS                       R29 R28 K41 ["Left Leg"]
-      259 DUPTABLE                         R29 K59 [{"requiredParent"}]
-      260 LOADK                            R30 K45 ["Torso"]
-      261 SETTABLEKS                       R30 R29 K58 ["requiredParent"]
-      263 SETTABLEKS                       R29 R28 K43 ["Right Leg"]
-      265 NEWTABLE                         R29 0 0
-      267 SETTABLEKS                       R29 R28 K45 ["Torso"]
-      269 NEWTABLE                         R29 16 0
+      235 DUPTABLE                         R29 K59 [{["requiredParent"] = "Torso"}]
+      236 SETTABLEKS                       R29 R28 K47 ["Head"]
+      238 DUPTABLE                         R29 K59 [{["requiredParent"] = "Torso"}]
+      239 SETTABLEKS                       R29 R28 K37 ["Left Arm"]
+      241 DUPTABLE                         R29 K59 [{["requiredParent"] = "Torso"}]
+      242 SETTABLEKS                       R29 R28 K39 ["Right Arm"]
+      244 DUPTABLE                         R29 K59 [{["requiredParent"] = "Torso"}]
+      245 SETTABLEKS                       R29 R28 K41 ["Left Leg"]
+      247 DUPTABLE                         R29 K59 [{["requiredParent"] = "Torso"}]
+      248 SETTABLEKS                       R29 R28 K43 ["Right Leg"]
+      250 NEWTABLE                         R29 0 0
+      252 SETTABLEKS                       R29 R28 K45 ["Torso"]
+      254 NEWTABLE                         R29 16 0
+      256 LOADB                            R30 1
+      257 SETTABLEKS                       R30 R29 K36 ["LeftUpperArm"]
+      259 LOADB                            R30 1
+      260 SETTABLEKS                       R30 R29 K60 ["LeftLowerArm"]
+      262 LOADB                            R30 1
+      263 SETTABLEKS                       R30 R29 K61 ["LeftHand"]
+      265 LOADB                            R30 1
+      266 SETTABLEKS                       R30 R29 K38 ["RightUpperArm"]
+      268 LOADB                            R30 1
+      269 SETTABLEKS                       R30 R29 K62 ["RightLowerArm"]
       271 LOADB                            R30 1
-      272 SETTABLEKS                       R30 R29 K36 ["LeftUpperArm"]
+      272 SETTABLEKS                       R30 R29 K63 ["RightHand"]
       274 LOADB                            R30 1
-      275 SETTABLEKS                       R30 R29 K60 ["LeftLowerArm"]
+      275 SETTABLEKS                       R30 R29 K40 ["LeftUpperLeg"]
       277 LOADB                            R30 1
-      278 SETTABLEKS                       R30 R29 K61 ["LeftHand"]
+      278 SETTABLEKS                       R30 R29 K64 ["LeftLowerLeg"]
       280 LOADB                            R30 1
-      281 SETTABLEKS                       R30 R29 K38 ["RightUpperArm"]
+      281 SETTABLEKS                       R30 R29 K65 ["LeftFoot"]
       283 LOADB                            R30 1
-      284 SETTABLEKS                       R30 R29 K62 ["RightLowerArm"]
+      284 SETTABLEKS                       R30 R29 K42 ["RightUpperLeg"]
       286 LOADB                            R30 1
-      287 SETTABLEKS                       R30 R29 K63 ["RightHand"]
+      287 SETTABLEKS                       R30 R29 K66 ["RightLowerLeg"]
       289 LOADB                            R30 1
-      290 SETTABLEKS                       R30 R29 K40 ["LeftUpperLeg"]
+      290 SETTABLEKS                       R30 R29 K67 ["RightFoot"]
       292 LOADB                            R30 1
-      293 SETTABLEKS                       R30 R29 K64 ["LeftLowerLeg"]
+      293 SETTABLEKS                       R30 R29 K46 ["UpperTorso"]
       295 LOADB                            R30 1
-      296 SETTABLEKS                       R30 R29 K65 ["LeftFoot"]
-      298 LOADB                            R30 1
-      299 SETTABLEKS                       R30 R29 K42 ["RightUpperLeg"]
-      301 LOADB                            R30 1
-      302 SETTABLEKS                       R30 R29 K66 ["RightLowerLeg"]
-      304 LOADB                            R30 1
-      305 SETTABLEKS                       R30 R29 K67 ["RightFoot"]
-      307 LOADB                            R30 1
-      308 SETTABLEKS                       R30 R29 K46 ["UpperTorso"]
-      310 LOADB                            R30 1
-      311 SETTABLEKS                       R30 R29 K44 ["LowerTorso"]
-      313 NEWTABLE                         R30 0 0
-      315 DUPCLOSURE                       R31 K68 [PROTO_3]
-      316 CAPTURE                          VAL R28
-      317 CAPTURE                          VAL R29
-      318 SETTABLEKS                       R31 R0 K69 ["isR6KeyframeSequence"]
-      320 DUPCLOSURE                       R31 K70 [PROTO_4]
-      321 CAPTURE                          VAL R0
-      322 CAPTURE                          VAL R20
-      323 CAPTURE                          VAL R25
-      324 CAPTURE                          VAL R21
-      325 SETTABLEKS                       R31 R0 K71 ["convertKeyframeSequence"]
-      327 DUPCLOSURE                       R31 K72 [PROTO_5]
-      328 CAPTURE                          VAL R3
-      329 NEWCLOSURE                       R32 P6
-      330 CAPTURE                          REF R17
-      331 CAPTURE                          VAL R8
-      332 NEWCLOSURE                       R33 P7
-      333 CAPTURE                          REF R17
-      334 CAPTURE                          VAL R8
-      335 SETTABLEKS                       R33 R0 K73 ["addCacheEntry"]
-      337 NEWCLOSURE                       R33 P8
-      338 CAPTURE                          REF R17
-      339 CAPTURE                          VAL R8
-      340 DUPCLOSURE                       R34 K74 [PROTO_9]
-      341 CAPTURE                          VAL R30
-      342 CAPTURE                          VAL R3
-      343 DUPCLOSURE                       R35 K75 [PROTO_10]
-      344 CAPTURE                          VAL R30
-      345 CAPTURE                          VAL R3
-      346 CAPTURE                          VAL R0
-      347 SETTABLEKS                       R35 R0 K76 ["registerConvertedKeyframeSequence"]
-      349 DUPCLOSURE                       R35 K77 [PROTO_11]
-      350 CAPTURE                          VAL R13
-      351 CAPTURE                          VAL R14
-      352 CAPTURE                          VAL R12
-      353 CAPTURE                          VAL R30
-      354 CAPTURE                          VAL R3
-      355 DUPCLOSURE                       R36 K78 [PROTO_12]
-      356 CAPTURE                          VAL R35
-      357 CAPTURE                          VAL R13
-      358 SETTABLEKS                       R36 R0 K79 ["getAnimationId"]
-      360 NEWCLOSURE                       R36 P13
-      361 CAPTURE                          VAL R35
+      296 SETTABLEKS                       R30 R29 K44 ["LowerTorso"]
+      298 NEWTABLE                         R30 0 0
+      300 DUPCLOSURE                       R31 K68 [PROTO_3]
+      301 CAPTURE                          VAL R28
+      302 CAPTURE                          VAL R29
+      303 SETTABLEKS                       R31 R0 K69 ["isR6KeyframeSequence"]
+      305 DUPCLOSURE                       R31 K70 [PROTO_4]
+      306 CAPTURE                          VAL R0
+      307 CAPTURE                          VAL R20
+      308 CAPTURE                          VAL R25
+      309 CAPTURE                          VAL R21
+      310 SETTABLEKS                       R31 R0 K71 ["convertKeyframeSequence"]
+      312 DUPCLOSURE                       R31 K72 [PROTO_5]
+      313 CAPTURE                          VAL R3
+      314 NEWCLOSURE                       R32 P6
+      315 CAPTURE                          REF R17
+      316 CAPTURE                          VAL R8
+      317 NEWCLOSURE                       R33 P7
+      318 CAPTURE                          REF R17
+      319 CAPTURE                          VAL R8
+      320 SETTABLEKS                       R33 R0 K73 ["addCacheEntry"]
+      322 NEWCLOSURE                       R33 P8
+      323 CAPTURE                          REF R17
+      324 CAPTURE                          VAL R8
+      325 DUPCLOSURE                       R34 K74 [PROTO_9]
+      326 CAPTURE                          VAL R30
+      327 CAPTURE                          VAL R3
+      328 DUPCLOSURE                       R35 K75 [PROTO_10]
+      329 CAPTURE                          VAL R30
+      330 CAPTURE                          VAL R3
+      331 CAPTURE                          VAL R0
+      332 SETTABLEKS                       R35 R0 K76 ["registerConvertedKeyframeSequence"]
+      334 DUPCLOSURE                       R35 K77 [PROTO_11]
+      335 CAPTURE                          VAL R13
+      336 CAPTURE                          VAL R14
+      337 CAPTURE                          VAL R12
+      338 CAPTURE                          VAL R30
+      339 CAPTURE                          VAL R3
+      340 DUPCLOSURE                       R36 K78 [PROTO_12]
+      341 CAPTURE                          VAL R35
+      342 CAPTURE                          VAL R13
+      343 SETTABLEKS                       R36 R0 K79 ["getAnimationId"]
+      345 NEWCLOSURE                       R36 P13
+      346 CAPTURE                          VAL R35
+      347 CAPTURE                          REF R17
+      348 CAPTURE                          VAL R8
+      349 SETTABLEKS                       R36 R0 K80 ["getCachedName"]
+      351 DUPCLOSURE                       R36 K81 [PROTO_15]
+      352 CAPTURE                          VAL R4
+      353 DUPCLOSURE                       R37 K82 [PROTO_16]
+      354 CAPTURE                          VAL R35
+      355 CAPTURE                          VAL R19
+      356 SETTABLEKS                       R37 R0 K83 ["overrideIsR6Cache"]
+      358 NEWCLOSURE                       R37 P16
+      359 CAPTURE                          VAL R0
+      360 CAPTURE                          VAL R14
+      361 CAPTURE                          VAL R19
       362 CAPTURE                          REF R17
       363 CAPTURE                          VAL R8
-      364 SETTABLEKS                       R36 R0 K80 ["getCachedName"]
-      366 DUPCLOSURE                       R36 K81 [PROTO_15]
-      367 CAPTURE                          VAL R4
-      368 DUPCLOSURE                       R37 K82 [PROTO_16]
-      369 CAPTURE                          VAL R35
-      370 CAPTURE                          VAL R19
-      371 SETTABLEKS                       R37 R0 K83 ["overrideIsR6Cache"]
-      373 NEWCLOSURE                       R37 P16
-      374 CAPTURE                          VAL R0
-      375 CAPTURE                          VAL R14
-      376 CAPTURE                          VAL R19
-      377 CAPTURE                          REF R17
-      378 CAPTURE                          VAL R8
-      379 CAPTURE                          VAL R36
-      380 SETTABLEKS                       R37 R0 K84 ["isR6Animation"]
-      382 DUPCLOSURE                       R37 K85 [PROTO_18]
-      383 CAPTURE                          VAL R35
-      384 SETTABLEKS                       R37 R0 K86 ["getNormalizedAssetId"]
-      386 DUPCLOSURE                       R37 K87 [PROTO_19]
-      387 CAPTURE                          VAL R0
-      388 CAPTURE                          VAL R35
-      389 CAPTURE                          VAL R36
-      390 CAPTURE                          VAL R3
-      391 SETTABLEKS                       R37 R0 K88 ["convertAnimation"]
-      393 NEWCLOSURE                       R37 P19
-      394 CAPTURE                          VAL R10
-      395 CAPTURE                          VAL R0
-      396 CAPTURE                          VAL R3
-      397 CAPTURE                          REF R17
-      398 CAPTURE                          VAL R8
-      399 SETTABLEKS                       R37 R0 K89 ["registerConvertedAssetId"]
-      401 NEWCLOSURE                       R37 P20
-      402 CAPTURE                          VAL R35
-      403 CAPTURE                          REF R17
-      404 CAPTURE                          VAL R8
-      405 SETTABLEKS                       R37 R0 K90 ["getConvertedKeyframeSequence"]
-      407 DUPCLOSURE                       R37 K91 [PROTO_22]
-      408 CAPTURE                          VAL R35
-      409 CAPTURE                          VAL R0
-      410 SETTABLEKS                       R37 R0 K92 ["getConvertedAssetId"]
-      412 DUPCLOSURE                       R37 K93 [PROTO_23]
-      413 CAPTURE                          VAL R0
-      414 CAPTURE                          VAL R14
-      415 SETTABLEKS                       R37 R0 K94 ["getConvertedAssetUrl"]
-      417 NEWCLOSURE                       R37 P23
-      418 CAPTURE                          VAL R35
-      419 CAPTURE                          VAL R15
-      420 CAPTURE                          REF R17
-      421 CAPTURE                          VAL R8
-      422 SETTABLEKS                       R37 R0 K95 ["getConvertedAnimationAssetInfo"]
-      424 DUPCLOSURE                       R37 K96 [PROTO_25]
-      425 CAPTURE                          VAL R35
-      426 CAPTURE                          VAL R15
-      427 SETTABLEKS                       R37 R0 K97 ["getAnimationAssetInfo"]
-      429 DUPCLOSURE                       R37 K98 [PROTO_26]
-      430 CAPTURE                          VAL R3
-      431 DUPCLOSURE                       R38 K99 [PROTO_27]
-      432 CAPTURE                          VAL R36
-      433 CAPTURE                          VAL R3
-      434 NEWCLOSURE                       R39 P27
-      435 CAPTURE                          VAL R0
-      436 CAPTURE                          VAL R14
-      437 CAPTURE                          VAL R1
-      438 CAPTURE                          REF R17
-      439 CAPTURE                          VAL R8
-      440 CAPTURE                          VAL R38
-      441 CAPTURE                          VAL R16
-      442 CAPTURE                          VAL R5
-      443 SETTABLEKS                       R39 R0 K100 ["checkIfAssetsAlreadyConverted"]
-      445 CLOSEUPVALS                      R17
-      446 RETURN                           R0 1
+      364 CAPTURE                          VAL R36
+      365 SETTABLEKS                       R37 R0 K84 ["isR6Animation"]
+      367 DUPCLOSURE                       R37 K85 [PROTO_18]
+      368 CAPTURE                          VAL R35
+      369 SETTABLEKS                       R37 R0 K86 ["getNormalizedAssetId"]
+      371 DUPCLOSURE                       R37 K87 [PROTO_19]
+      372 CAPTURE                          VAL R0
+      373 CAPTURE                          VAL R35
+      374 CAPTURE                          VAL R36
+      375 CAPTURE                          VAL R3
+      376 SETTABLEKS                       R37 R0 K88 ["convertAnimation"]
+      378 NEWCLOSURE                       R37 P19
+      379 CAPTURE                          VAL R10
+      380 CAPTURE                          VAL R0
+      381 CAPTURE                          VAL R3
+      382 CAPTURE                          REF R17
+      383 CAPTURE                          VAL R8
+      384 SETTABLEKS                       R37 R0 K89 ["registerConvertedAssetId"]
+      386 NEWCLOSURE                       R37 P20
+      387 CAPTURE                          VAL R35
+      388 CAPTURE                          REF R17
+      389 CAPTURE                          VAL R8
+      390 SETTABLEKS                       R37 R0 K90 ["getConvertedKeyframeSequence"]
+      392 DUPCLOSURE                       R37 K91 [PROTO_22]
+      393 CAPTURE                          VAL R35
+      394 CAPTURE                          VAL R0
+      395 SETTABLEKS                       R37 R0 K92 ["getConvertedAssetId"]
+      397 DUPCLOSURE                       R37 K93 [PROTO_23]
+      398 CAPTURE                          VAL R0
+      399 CAPTURE                          VAL R14
+      400 SETTABLEKS                       R37 R0 K94 ["getConvertedAssetUrl"]
+      402 NEWCLOSURE                       R37 P23
+      403 CAPTURE                          VAL R35
+      404 CAPTURE                          VAL R15
+      405 CAPTURE                          REF R17
+      406 CAPTURE                          VAL R8
+      407 SETTABLEKS                       R37 R0 K95 ["getConvertedAnimationAssetInfo"]
+      409 DUPCLOSURE                       R37 K96 [PROTO_25]
+      410 CAPTURE                          VAL R35
+      411 CAPTURE                          VAL R15
+      412 SETTABLEKS                       R37 R0 K97 ["getAnimationAssetInfo"]
+      414 DUPCLOSURE                       R37 K98 [PROTO_26]
+      415 CAPTURE                          VAL R3
+      416 DUPCLOSURE                       R38 K99 [PROTO_27]
+      417 CAPTURE                          VAL R36
+      418 CAPTURE                          VAL R3
+      419 NEWCLOSURE                       R39 P27
+      420 CAPTURE                          VAL R0
+      421 CAPTURE                          VAL R14
+      422 CAPTURE                          VAL R1
+      423 CAPTURE                          REF R17
+      424 CAPTURE                          VAL R8
+      425 CAPTURE                          VAL R38
+      426 CAPTURE                          VAL R16
+      427 CAPTURE                          VAL R5
+      428 SETTABLEKS                       R39 R0 K100 ["checkIfAssetsAlreadyConverted"]
+      430 CLOSEUPVALS                      R17
+      431 RETURN                           R0 1

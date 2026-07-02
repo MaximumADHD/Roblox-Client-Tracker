@@ -215,54 +215,46 @@ PROTO_4:
        10 GETUPVAL                         R7 0
        11 GETTABLEKS                       R7 R7 K0 ["createElement"]
        13 LOADK                            R8 K2 ["WireframeHandleAdornment"]
-       14 DUPTABLE                         R9 K10 [{"Adornee", "CFrame", "Color3", "Transparency", "AlwaysOnTop", "ZIndex", "ref"}]
+       14 DUPTABLE                         R9 K12 [{["Adornee"], ["CFrame"], ["Color3"], ["Transparency"], ["AlwaysOnTop"] = False, ["ZIndex"] = 1, ["ref"]}]
        15 GETUPVAL                         R10 1
        16 GETTABLEKS                       R10 R10 K3 ["Adornee"]
        18 SETTABLEKS                       R10 R9 K3 ["Adornee"]
        20 GETUPVAL                         R10 1
-       21 GETTABLEKS                       R10 R10 K11 ["MeshOrigin"]
+       21 GETTABLEKS                       R10 R10 K13 ["MeshOrigin"]
        23 SETTABLEKS                       R10 R9 K4 ["CFrame"]
        25 SETTABLEKS                       R1 R9 K5 ["Color3"]
        27 GETUPVAL                         R10 1
-       28 GETTABLEKS                       R10 R10 K12 ["ExternalProps"]
+       28 GETTABLEKS                       R10 R10 K14 ["ExternalProps"]
        30 GETTABLEKS                       R10 R10 K6 ["Transparency"]
        32 SETTABLEKS                       R10 R9 K6 ["Transparency"]
-       34 LOADB                            R10 0
-       35 SETTABLEKS                       R10 R9 K7 ["AlwaysOnTop"]
-       37 LOADN                            R10 1
-       38 SETTABLEKS                       R10 R9 K8 ["ZIndex"]
-       40 GETTABLEKS                       R10 R2 K13 ["Normal"]
-       42 SETTABLEKS                       R10 R9 K9 ["ref"]
-       44 CALL                             R7 2 1
-       45 SETTABLE                         R7 R6 R0
-       46 MOVE                             R8 R0
-       47 LOADK                            R9 K14 ["OnTop"]
-       48 CONCAT                           R7 R8 R9
-       49 GETUPVAL                         R8 0
-       50 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       52 LOADK                            R9 K2 ["WireframeHandleAdornment"]
-       53 DUPTABLE                         R10 K10 [{"Adornee", "CFrame", "Color3", "Transparency", "AlwaysOnTop", "ZIndex", "ref"}]
-       54 GETUPVAL                         R11 1
-       55 GETTABLEKS                       R11 R11 K3 ["Adornee"]
-       57 SETTABLEKS                       R11 R10 K3 ["Adornee"]
-       59 GETUPVAL                         R11 1
-       60 GETTABLEKS                       R11 R11 K11 ["MeshOrigin"]
-       62 SETTABLEKS                       R11 R10 K4 ["CFrame"]
-       64 SETTABLEKS                       R1 R10 K5 ["Color3"]
-       66 GETUPVAL                         R11 1
-       67 GETTABLEKS                       R11 R11 K12 ["ExternalProps"]
-       69 GETTABLEKS                       R11 R11 K6 ["Transparency"]
-       71 SETTABLEKS                       R11 R10 K6 ["Transparency"]
-       73 LOADB                            R11 1
-       74 SETTABLEKS                       R11 R10 K7 ["AlwaysOnTop"]
-       76 LOADN                            R11 1
-       77 SETTABLEKS                       R11 R10 K8 ["ZIndex"]
-       79 GETTABLEKS                       R11 R2 K14 ["OnTop"]
-       81 SETTABLEKS                       R11 R10 K9 ["ref"]
-       83 CALL                             R8 2 1
-       84 SETTABLE                         R8 R6 R7
-       85 CALL                             R3 3 -1
-       86 RETURN                           R3 -1
+       34 GETTABLEKS                       R10 R2 K15 ["Normal"]
+       36 SETTABLEKS                       R10 R9 K11 ["ref"]
+       38 CALL                             R7 2 1
+       39 SETTABLE                         R7 R6 R0
+       40 MOVE                             R8 R0
+       41 LOADK                            R9 K16 ["OnTop"]
+       42 CONCAT                           R7 R8 R9
+       43 GETUPVAL                         R8 0
+       44 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       46 LOADK                            R9 K2 ["WireframeHandleAdornment"]
+       47 DUPTABLE                         R10 K18 [{["Adornee"], ["CFrame"], ["Color3"], ["Transparency"], ["AlwaysOnTop"] = True, ["ZIndex"] = 1, ["ref"]}]
+       48 GETUPVAL                         R11 1
+       49 GETTABLEKS                       R11 R11 K3 ["Adornee"]
+       51 SETTABLEKS                       R11 R10 K3 ["Adornee"]
+       53 GETUPVAL                         R11 1
+       54 GETTABLEKS                       R11 R11 K13 ["MeshOrigin"]
+       56 SETTABLEKS                       R11 R10 K4 ["CFrame"]
+       58 SETTABLEKS                       R1 R10 K5 ["Color3"]
+       60 GETUPVAL                         R11 1
+       61 GETTABLEKS                       R11 R11 K14 ["ExternalProps"]
+       63 GETTABLEKS                       R11 R11 K6 ["Transparency"]
+       65 SETTABLEKS                       R11 R10 K6 ["Transparency"]
+       67 GETTABLEKS                       R11 R2 K16 ["OnTop"]
+       69 SETTABLEKS                       R11 R10 K11 ["ref"]
+       71 CALL                             R8 2 1
+       72 SETTABLE                         R8 R6 R7
+       73 CALL                             R3 3 -1
+       74 RETURN                           R3 -1
 
 PROTO_5:
         0 DUPCLOSURE                       R1 K0 [PROTO_1]
@@ -469,17 +461,15 @@ PROTO_6:
        91 GETUPVAL                         R4 0
        92 GETTABLEKS                       R4 R4 K8 ["createElement"]
        94 LOADK                            R5 K17 ["Folder"]
-       95 DUPTABLE                         R6 K19 [{"key"}]
-       96 LOADK                            R7 K20 ["WireframeMeshView"]
-       97 SETTABLEKS                       R7 R6 K18 ["key"]
-       99 MOVE                             R7 R2
-      100 CALL                             R4 3 1
-      101 GETTABLEKS                       R5 R0 K2 ["ExternalProps"]
-      103 GETTABLEKS                       R5 R5 K21 ["OverrideWireframeMeshViewParent"]
-      105 JUMPIF                           R5 ; [+1]
-      106 GETUPVAL                         R5 3
-      107 CALL                             R3 2 -1
-      108 RETURN                           R3 -1
+       95 DUPTABLE                         R6 K20 [{["key"] = "WireframeMeshView"}]
+       96 MOVE                             R7 R2
+       97 CALL                             R4 3 1
+       98 GETTABLEKS                       R5 R0 K2 ["ExternalProps"]
+      100 GETTABLEKS                       R5 R5 K21 ["OverrideWireframeMeshViewParent"]
+      102 JUMPIF                           R5 ; [+1]
+      103 GETUPVAL                         R5 3
+      104 CALL                             R3 2 -1
+      105 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

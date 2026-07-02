@@ -28,29 +28,27 @@ PROTO_0:
        35 GETUPVAL                         R8 2
        36 GETTABLEKS                       R8 R8 K7 ["createElement"]
        38 GETUPVAL                         R9 5
-       39 DUPTABLE                         R10 K12 [{"GameId"}]
-       40 LOADN                            R11 123
-       41 SETTABLEKS                       R11 R10 K11 ["GameId"]
-       43 CALL                             R8 2 1
-       44 GETUPVAL                         R9 2
-       45 GETTABLEKS                       R9 R9 K7 ["createElement"]
-       47 GETUPVAL                         R10 6
-       48 CALL                             R9 1 1
-       49 GETUPVAL                         R10 2
-       50 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       52 GETUPVAL                         R11 7
-       53 CALL                             R10 1 -1
-       54 SETLIST                          R6 R7 -1 [1]
-       56 SETTABLEKS                       R6 R5 K9 ["providers"]
-       58 NEWTABLE                         R6 0 1
-       60 GETUPVAL                         R7 8
-       61 GETTABLEKS                       R7 R7 K13 ["provideMockContext"]
-       63 MOVE                             R8 R2
-       64 MOVE                             R9 R0
-       65 CALL                             R7 2 -1
-       66 SETLIST                          R6 R7 -1 [1]
-       68 CALL                             R3 3 -1
-       69 RETURN                           R3 -1
+       39 DUPTABLE                         R10 K13 [{["GameId"] = 123}]
+       40 CALL                             R8 2 1
+       41 GETUPVAL                         R9 2
+       42 GETTABLEKS                       R9 R9 K7 ["createElement"]
+       44 GETUPVAL                         R10 6
+       45 CALL                             R9 1 1
+       46 GETUPVAL                         R10 2
+       47 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       49 GETUPVAL                         R11 7
+       50 CALL                             R10 1 -1
+       51 SETLIST                          R6 R7 -1 [1]
+       53 SETTABLEKS                       R6 R5 K9 ["providers"]
+       55 NEWTABLE                         R6 0 1
+       57 GETUPVAL                         R7 8
+       58 GETTABLEKS                       R7 R7 K14 ["provideMockContext"]
+       60 MOVE                             R8 R2
+       61 MOVE                             R9 R0
+       62 CALL                             R7 2 -1
+       63 SETLIST                          R6 R7 -1 [1]
+       65 CALL                             R3 3 -1
+       66 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

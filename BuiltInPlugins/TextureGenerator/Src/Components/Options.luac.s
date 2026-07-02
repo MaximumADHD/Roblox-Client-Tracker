@@ -1,8 +1,8 @@
 PROTO_0:
         0 LOADB                            R1 0
-        1 LOADN                            R2 152
+        1 LOADN                            R2 -360
         2 JUMPIFNOTLE                      R2 R0 ; [+6]
-        4 LOADN                            R2 104
+        4 LOADN                            R2 360
         5 JUMPIFLE                         R0 R2 ; [+2]
         7 LOADB                            R1 0 +1
         8 LOADB                            R1 1
@@ -141,27 +141,27 @@ PROTO_3:
        19 JUMPIFNOTEQKS                    R1 K2 ["number"] ; [+34]
        21 GETTABLEN                        R2 R0 1
        22 LOADB                            R1 0
-       23 LOADN                            R3 152
+       23 LOADN                            R3 -360
        24 JUMPIFNOTLE                      R3 R2 ; [+6]
-       26 LOADN                            R3 104
+       26 LOADN                            R3 360
        27 JUMPIFLE                         R2 R3 ; [+2]
        29 LOADB                            R1 0 +1
        30 LOADB                            R1 1
        31 JUMPIFNOT                        R1 ; [+22]
        32 GETTABLEN                        R2 R0 2
        33 LOADB                            R1 0
-       34 LOADN                            R3 152
+       34 LOADN                            R3 -360
        35 JUMPIFNOTLE                      R3 R2 ; [+6]
-       37 LOADN                            R3 104
+       37 LOADN                            R3 360
        38 JUMPIFLE                         R2 R3 ; [+2]
        40 LOADB                            R1 0 +1
        41 LOADB                            R1 1
        42 JUMPIFNOT                        R1 ; [+11]
        43 GETTABLEN                        R2 R0 3
        44 LOADB                            R1 0
-       45 LOADN                            R3 152
+       45 LOADN                            R3 -360
        46 JUMPIFNOTLE                      R3 R2 ; [+6]
-       48 LOADN                            R3 104
+       48 LOADN                            R3 360
        49 JUMPIFLE                         R2 R3 ; [+2]
        51 LOADB                            R1 0 +1
        52 LOADB                            R1 1
@@ -194,184 +194,142 @@ PROTO_5:
         0 LOADNIL                          R4
         1 GETUPVAL                         R5 0
         2 CALL                             R5 0 1
-        3 JUMPIFNOT                        R5 ; [+102]
+        3 JUMPIFNOT                        R5 ; [+75]
         4 NEWTABLE                         R5 0 4
-        6 DUPTABLE                         R6 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-        7 LOADK                            R7 K5 ["RandomizeSeed"]
-        8 SETTABLEKS                       R7 R6 K0 ["Id"]
-       10 LOADK                            R9 K6 ["Options"]
-       11 LOADK                            R10 K5 ["RandomizeSeed"]
-       12 NAMECALL                         R7 R0 K7 ["getText"]
-       14 CALL                             R7 3 1
-       15 SETTABLEKS                       R7 R6 K1 ["Label"]
-       17 LOADK                            R9 K6 ["Options"]
-       18 LOADK                            R10 K8 ["RandomizeSeedTooltip"]
-       19 NAMECALL                         R7 R0 K7 ["getText"]
-       21 CALL                             R7 3 1
-       22 SETTABLEKS                       R7 R6 K2 ["Tooltip"]
-       24 DUPTABLE                         R7 K10 [{"Type"}]
-       25 LOADK                            R8 K11 ["Checkbox"]
-       26 SETTABLEKS                       R8 R7 K9 ["Type"]
-       28 SETTABLEKS                       R7 R6 K3 ["Schema"]
-       30 DUPTABLE                         R7 K14 [{"Id", "Disabled", "Label", "Validate", "Schema"}]
-       31 LOADK                            R8 K15 ["Seed"]
-       32 SETTABLEKS                       R8 R7 K0 ["Id"]
-       34 LOADB                            R8 1
-       35 SETTABLEKS                       R8 R7 K12 ["Disabled"]
-       37 LOADK                            R10 K6 ["Options"]
-       38 LOADK                            R11 K15 ["Seed"]
-       39 NAMECALL                         R8 R0 K7 ["getText"]
-       41 CALL                             R8 3 1
-       42 SETTABLEKS                       R8 R7 K1 ["Label"]
-       44 GETTABLEKS                       R8 R3 K15 ["Seed"]
-       46 SETTABLEKS                       R8 R7 K13 ["Validate"]
-       48 DUPTABLE                         R8 K10 [{"Type"}]
-       49 LOADK                            R9 K16 ["Number"]
-       50 SETTABLEKS                       R9 R8 K9 ["Type"]
-       52 SETTABLEKS                       R8 R7 K3 ["Schema"]
-       54 DUPTABLE                         R8 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-       55 LOADK                            R9 K17 ["SmartUVUnwrap"]
-       56 SETTABLEKS                       R9 R8 K0 ["Id"]
-       58 LOADK                            R11 K6 ["Options"]
-       59 LOADK                            R12 K17 ["SmartUVUnwrap"]
-       60 NAMECALL                         R9 R0 K7 ["getText"]
-       62 CALL                             R9 3 1
-       63 SETTABLEKS                       R9 R8 K1 ["Label"]
-       65 LOADK                            R11 K6 ["Options"]
-       66 LOADK                            R12 K18 ["SmartUVUnwrapTooltip"]
-       67 NAMECALL                         R9 R0 K7 ["getText"]
-       69 CALL                             R9 3 1
-       70 SETTABLEKS                       R9 R8 K2 ["Tooltip"]
-       72 DUPTABLE                         R9 K10 [{"Type"}]
-       73 LOADK                            R10 K11 ["Checkbox"]
-       74 SETTABLEKS                       R10 R9 K9 ["Type"]
-       76 SETTABLEKS                       R9 R8 K3 ["Schema"]
-       78 DUPTABLE                         R9 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-       79 LOADK                            R10 K19 ["PromptMasking"]
-       80 SETTABLEKS                       R10 R9 K0 ["Id"]
-       82 LOADK                            R12 K6 ["Options"]
-       83 LOADK                            R13 K19 ["PromptMasking"]
-       84 NAMECALL                         R10 R0 K7 ["getText"]
-       86 CALL                             R10 3 1
-       87 SETTABLEKS                       R10 R9 K1 ["Label"]
-       89 LOADK                            R12 K6 ["Options"]
-       90 LOADK                            R13 K20 ["PromptMaskingTooltip"]
-       91 NAMECALL                         R10 R0 K7 ["getText"]
-       93 CALL                             R10 3 1
-       94 SETTABLEKS                       R10 R9 K2 ["Tooltip"]
-       96 DUPTABLE                         R10 K10 [{"Type"}]
-       97 LOADK                            R11 K11 ["Checkbox"]
-       98 SETTABLEKS                       R11 R10 K9 ["Type"]
-      100 SETTABLEKS                       R10 R9 K3 ["Schema"]
-      102 SETLIST                          R5 R6 4 [1]
-      104 MOVE                             R4 R5
-      105 JUMP                             ; [+137]
-      106 NEWTABLE                         R5 0 5
-      108 DUPTABLE                         R6 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-      109 LOADK                            R7 K5 ["RandomizeSeed"]
-      110 SETTABLEKS                       R7 R6 K0 ["Id"]
-      112 LOADK                            R9 K6 ["Options"]
-      113 LOADK                            R10 K5 ["RandomizeSeed"]
-      114 NAMECALL                         R7 R0 K7 ["getText"]
-      116 CALL                             R7 3 1
-      117 SETTABLEKS                       R7 R6 K1 ["Label"]
-      119 LOADK                            R9 K6 ["Options"]
-      120 LOADK                            R10 K8 ["RandomizeSeedTooltip"]
-      121 NAMECALL                         R7 R0 K7 ["getText"]
-      123 CALL                             R7 3 1
-      124 SETTABLEKS                       R7 R6 K2 ["Tooltip"]
-      126 DUPTABLE                         R7 K10 [{"Type"}]
-      127 LOADK                            R8 K11 ["Checkbox"]
-      128 SETTABLEKS                       R8 R7 K9 ["Type"]
-      130 SETTABLEKS                       R7 R6 K3 ["Schema"]
-      132 DUPTABLE                         R7 K14 [{"Id", "Disabled", "Label", "Validate", "Schema"}]
-      133 LOADK                            R8 K15 ["Seed"]
-      134 SETTABLEKS                       R8 R7 K0 ["Id"]
-      136 LOADB                            R8 1
-      137 SETTABLEKS                       R8 R7 K12 ["Disabled"]
-      139 LOADK                            R10 K6 ["Options"]
-      140 LOADK                            R11 K15 ["Seed"]
-      141 NAMECALL                         R8 R0 K7 ["getText"]
-      143 CALL                             R8 3 1
-      144 SETTABLEKS                       R8 R7 K1 ["Label"]
-      146 GETTABLEKS                       R8 R3 K15 ["Seed"]
-      148 SETTABLEKS                       R8 R7 K13 ["Validate"]
-      150 DUPTABLE                         R8 K10 [{"Type"}]
-      151 LOADK                            R9 K16 ["Number"]
-      152 SETTABLEKS                       R9 R8 K9 ["Type"]
-      154 SETTABLEKS                       R8 R7 K3 ["Schema"]
-      156 DUPTABLE                         R8 K21 [{"Id", "Label", "Validate", "Schema"}]
-      157 LOADK                            R9 K22 ["Rotation"]
-      158 SETTABLEKS                       R9 R8 K0 ["Id"]
-      160 LOADK                            R11 K6 ["Options"]
-      161 LOADK                            R12 K22 ["Rotation"]
-      162 NAMECALL                         R9 R0 K7 ["getText"]
-      164 CALL                             R9 3 1
-      165 SETTABLEKS                       R9 R8 K1 ["Label"]
-      167 GETTABLEKS                       R9 R3 K22 ["Rotation"]
-      169 SETTABLEKS                       R9 R8 K13 ["Validate"]
-      171 DUPTABLE                         R9 K26 [{"Type", "Components", "GetValue", "GetComponents"}]
-      172 LOADK                            R10 K27 ["Vector"]
-      173 SETTABLEKS                       R10 R9 K9 ["Type"]
-      175 NEWTABLE                         R10 0 3
-      177 LOADK                            R11 K28 ["X"]
-      178 LOADK                            R12 K29 ["Y"]
-      179 LOADK                            R13 K30 ["Z"]
-      180 SETLIST                          R10 R11 3 [1]
-      182 SETTABLEKS                       R10 R9 K23 ["Components"]
-      184 DUPCLOSURE                       R10 K31 [PROTO_3]
-      185 SETTABLEKS                       R10 R9 K24 ["GetValue"]
-      187 DUPCLOSURE                       R10 K32 [PROTO_4]
-      188 SETTABLEKS                       R10 R9 K25 ["GetComponents"]
-      190 SETTABLEKS                       R9 R8 K3 ["Schema"]
-      192 DUPTABLE                         R9 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-      193 LOADK                            R10 K17 ["SmartUVUnwrap"]
-      194 SETTABLEKS                       R10 R9 K0 ["Id"]
-      196 LOADK                            R12 K6 ["Options"]
-      197 LOADK                            R13 K17 ["SmartUVUnwrap"]
-      198 NAMECALL                         R10 R0 K7 ["getText"]
-      200 CALL                             R10 3 1
-      201 SETTABLEKS                       R10 R9 K1 ["Label"]
-      203 LOADK                            R12 K6 ["Options"]
-      204 LOADK                            R13 K18 ["SmartUVUnwrapTooltip"]
-      205 NAMECALL                         R10 R0 K7 ["getText"]
-      207 CALL                             R10 3 1
-      208 SETTABLEKS                       R10 R9 K2 ["Tooltip"]
-      210 DUPTABLE                         R10 K10 [{"Type"}]
-      211 LOADK                            R11 K11 ["Checkbox"]
-      212 SETTABLEKS                       R11 R10 K9 ["Type"]
-      214 SETTABLEKS                       R10 R9 K3 ["Schema"]
-      216 DUPTABLE                         R10 K4 [{"Id", "Label", "Tooltip", "Schema"}]
-      217 LOADK                            R11 K19 ["PromptMasking"]
-      218 SETTABLEKS                       R11 R10 K0 ["Id"]
-      220 LOADK                            R13 K6 ["Options"]
-      221 LOADK                            R14 K19 ["PromptMasking"]
-      222 NAMECALL                         R11 R0 K7 ["getText"]
-      224 CALL                             R11 3 1
-      225 SETTABLEKS                       R11 R10 K1 ["Label"]
-      227 LOADK                            R13 K6 ["Options"]
-      228 LOADK                            R14 K20 ["PromptMaskingTooltip"]
-      229 NAMECALL                         R11 R0 K7 ["getText"]
-      231 CALL                             R11 3 1
-      232 SETTABLEKS                       R11 R10 K2 ["Tooltip"]
-      234 DUPTABLE                         R11 K10 [{"Type"}]
-      235 LOADK                            R12 K11 ["Checkbox"]
-      236 SETTABLEKS                       R12 R11 K9 ["Type"]
-      238 SETTABLEKS                       R11 R10 K3 ["Schema"]
-      240 SETLIST                          R5 R6 5 [1]
-      242 MOVE                             R4 R5
-      243 NEWTABLE                         R5 0 1
-      245 DUPTABLE                         R6 K34 [{"Id", "Label", "Children"}]
-      246 LOADK                            R7 K35 ["Advanced Options"]
-      247 SETTABLEKS                       R7 R6 K0 ["Id"]
-      249 LOADK                            R9 K6 ["Options"]
-      250 LOADK                            R10 K36 ["AdvancedOptions"]
-      251 NAMECALL                         R7 R0 K7 ["getText"]
-      253 CALL                             R7 3 1
-      254 SETTABLEKS                       R7 R6 K1 ["Label"]
-      256 SETTABLEKS                       R4 R6 K33 ["Children"]
-      258 SETLIST                          R5 R6 1 [1]
-      260 RETURN                           R5 1
+        6 DUPTABLE                         R6 K5 [{[1] = "RandomizeSeed", ["Label"], ["Tooltip"], ["Schema"]}]
+        7 LOADK                            R9 K6 ["Options"]
+        8 LOADK                            R10 K1 ["RandomizeSeed"]
+        9 NAMECALL                         R7 R0 K7 ["getText"]
+       11 CALL                             R7 3 1
+       12 SETTABLEKS                       R7 R6 K2 ["Label"]
+       14 LOADK                            R9 K6 ["Options"]
+       15 LOADK                            R10 K8 ["RandomizeSeedTooltip"]
+       16 NAMECALL                         R7 R0 K7 ["getText"]
+       18 CALL                             R7 3 1
+       19 SETTABLEKS                       R7 R6 K3 ["Tooltip"]
+       21 DUPTABLE                         R7 K11 [{["Type"] = "Checkbox"}]
+       22 SETTABLEKS                       R7 R6 K4 ["Schema"]
+       24 DUPTABLE                         R7 K16 [{[1] = "Seed", ["Disabled"] = True, ["Label"], ["Validate"], ["Schema"]}]
+       25 LOADK                            R10 K6 ["Options"]
+       26 LOADK                            R11 K12 ["Seed"]
+       27 NAMECALL                         R8 R0 K7 ["getText"]
+       29 CALL                             R8 3 1
+       30 SETTABLEKS                       R8 R7 K2 ["Label"]
+       32 GETTABLEKS                       R8 R3 K12 ["Seed"]
+       34 SETTABLEKS                       R8 R7 K15 ["Validate"]
+       36 DUPTABLE                         R8 K18 [{["Type"] = "Number"}]
+       37 SETTABLEKS                       R8 R7 K4 ["Schema"]
+       39 DUPTABLE                         R8 K20 [{[1] = "SmartUVUnwrap", ["Label"], ["Tooltip"], ["Schema"]}]
+       40 LOADK                            R11 K6 ["Options"]
+       41 LOADK                            R12 K19 ["SmartUVUnwrap"]
+       42 NAMECALL                         R9 R0 K7 ["getText"]
+       44 CALL                             R9 3 1
+       45 SETTABLEKS                       R9 R8 K2 ["Label"]
+       47 LOADK                            R11 K6 ["Options"]
+       48 LOADK                            R12 K21 ["SmartUVUnwrapTooltip"]
+       49 NAMECALL                         R9 R0 K7 ["getText"]
+       51 CALL                             R9 3 1
+       52 SETTABLEKS                       R9 R8 K3 ["Tooltip"]
+       54 DUPTABLE                         R9 K11 [{["Type"] = "Checkbox"}]
+       55 SETTABLEKS                       R9 R8 K4 ["Schema"]
+       57 DUPTABLE                         R9 K23 [{[1] = "PromptMasking", ["Label"], ["Tooltip"], ["Schema"]}]
+       58 LOADK                            R12 K6 ["Options"]
+       59 LOADK                            R13 K22 ["PromptMasking"]
+       60 NAMECALL                         R10 R0 K7 ["getText"]
+       62 CALL                             R10 3 1
+       63 SETTABLEKS                       R10 R9 K2 ["Label"]
+       65 LOADK                            R12 K6 ["Options"]
+       66 LOADK                            R13 K24 ["PromptMaskingTooltip"]
+       67 NAMECALL                         R10 R0 K7 ["getText"]
+       69 CALL                             R10 3 1
+       70 SETTABLEKS                       R10 R9 K3 ["Tooltip"]
+       72 DUPTABLE                         R10 K11 [{["Type"] = "Checkbox"}]
+       73 SETTABLEKS                       R10 R9 K4 ["Schema"]
+       75 SETLIST                          R5 R6 4 [1]
+       77 MOVE                             R4 R5
+       78 JUMP                             ; [+104]
+       79 NEWTABLE                         R5 0 5
+       81 DUPTABLE                         R6 K5 [{[1] = "RandomizeSeed", ["Label"], ["Tooltip"], ["Schema"]}]
+       82 LOADK                            R9 K6 ["Options"]
+       83 LOADK                            R10 K1 ["RandomizeSeed"]
+       84 NAMECALL                         R7 R0 K7 ["getText"]
+       86 CALL                             R7 3 1
+       87 SETTABLEKS                       R7 R6 K2 ["Label"]
+       89 LOADK                            R9 K6 ["Options"]
+       90 LOADK                            R10 K8 ["RandomizeSeedTooltip"]
+       91 NAMECALL                         R7 R0 K7 ["getText"]
+       93 CALL                             R7 3 1
+       94 SETTABLEKS                       R7 R6 K3 ["Tooltip"]
+       96 DUPTABLE                         R7 K11 [{["Type"] = "Checkbox"}]
+       97 SETTABLEKS                       R7 R6 K4 ["Schema"]
+       99 DUPTABLE                         R7 K16 [{[1] = "Seed", ["Disabled"] = True, ["Label"], ["Validate"], ["Schema"]}]
+      100 LOADK                            R10 K6 ["Options"]
+      101 LOADK                            R11 K12 ["Seed"]
+      102 NAMECALL                         R8 R0 K7 ["getText"]
+      104 CALL                             R8 3 1
+      105 SETTABLEKS                       R8 R7 K2 ["Label"]
+      107 GETTABLEKS                       R8 R3 K12 ["Seed"]
+      109 SETTABLEKS                       R8 R7 K15 ["Validate"]
+      111 DUPTABLE                         R8 K18 [{["Type"] = "Number"}]
+      112 SETTABLEKS                       R8 R7 K4 ["Schema"]
+      114 DUPTABLE                         R8 K26 [{[1] = "Rotation", ["Label"], ["Validate"], ["Schema"]}]
+      115 LOADK                            R11 K6 ["Options"]
+      116 LOADK                            R12 K25 ["Rotation"]
+      117 NAMECALL                         R9 R0 K7 ["getText"]
+      119 CALL                             R9 3 1
+      120 SETTABLEKS                       R9 R8 K2 ["Label"]
+      122 GETTABLEKS                       R9 R3 K25 ["Rotation"]
+      124 SETTABLEKS                       R9 R8 K15 ["Validate"]
+      126 DUPTABLE                         R9 K31 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+      127 NEWTABLE                         R10 0 3
+      129 LOADK                            R11 K32 ["X"]
+      130 LOADK                            R12 K33 ["Y"]
+      131 LOADK                            R13 K34 ["Z"]
+      132 SETLIST                          R10 R11 3 [1]
+      134 SETTABLEKS                       R10 R9 K28 ["Components"]
+      136 DUPCLOSURE                       R10 K35 [PROTO_3]
+      137 SETTABLEKS                       R10 R9 K29 ["GetValue"]
+      139 DUPCLOSURE                       R10 K36 [PROTO_4]
+      140 SETTABLEKS                       R10 R9 K30 ["GetComponents"]
+      142 SETTABLEKS                       R9 R8 K4 ["Schema"]
+      144 DUPTABLE                         R9 K20 [{[1] = "SmartUVUnwrap", ["Label"], ["Tooltip"], ["Schema"]}]
+      145 LOADK                            R12 K6 ["Options"]
+      146 LOADK                            R13 K19 ["SmartUVUnwrap"]
+      147 NAMECALL                         R10 R0 K7 ["getText"]
+      149 CALL                             R10 3 1
+      150 SETTABLEKS                       R10 R9 K2 ["Label"]
+      152 LOADK                            R12 K6 ["Options"]
+      153 LOADK                            R13 K21 ["SmartUVUnwrapTooltip"]
+      154 NAMECALL                         R10 R0 K7 ["getText"]
+      156 CALL                             R10 3 1
+      157 SETTABLEKS                       R10 R9 K3 ["Tooltip"]
+      159 DUPTABLE                         R10 K11 [{["Type"] = "Checkbox"}]
+      160 SETTABLEKS                       R10 R9 K4 ["Schema"]
+      162 DUPTABLE                         R10 K23 [{[1] = "PromptMasking", ["Label"], ["Tooltip"], ["Schema"]}]
+      163 LOADK                            R13 K6 ["Options"]
+      164 LOADK                            R14 K22 ["PromptMasking"]
+      165 NAMECALL                         R11 R0 K7 ["getText"]
+      167 CALL                             R11 3 1
+      168 SETTABLEKS                       R11 R10 K2 ["Label"]
+      170 LOADK                            R13 K6 ["Options"]
+      171 LOADK                            R14 K24 ["PromptMaskingTooltip"]
+      172 NAMECALL                         R11 R0 K7 ["getText"]
+      174 CALL                             R11 3 1
+      175 SETTABLEKS                       R11 R10 K3 ["Tooltip"]
+      177 DUPTABLE                         R11 K11 [{["Type"] = "Checkbox"}]
+      178 SETTABLEKS                       R11 R10 K4 ["Schema"]
+      180 SETLIST                          R5 R6 5 [1]
+      182 MOVE                             R4 R5
+      183 NEWTABLE                         R5 0 1
+      185 DUPTABLE                         R6 K39 [{[1] = "Advanced Options", ["Label"], ["Children"]}]
+      186 LOADK                            R9 K6 ["Options"]
+      187 LOADK                            R10 K40 ["AdvancedOptions"]
+      188 NAMECALL                         R7 R0 K7 ["getText"]
+      190 CALL                             R7 3 1
+      191 SETTABLEKS                       R7 R6 K2 ["Label"]
+      193 SETTABLEKS                       R4 R6 K38 ["Children"]
+      195 SETLIST                          R5 R6 1 [1]
+      197 RETURN                           R5 1
 
 PROTO_6:
         0 FASTCALL1                        TYPE R0 ; [+3]
@@ -452,27 +410,27 @@ PROTO_7:
        37 RETURN                           R1 -1
        38 GETTABLEKS                       R2 R0 K0 ["X"]
        40 LOADB                            R1 0
-       41 LOADN                            R3 152
+       41 LOADN                            R3 -360
        42 JUMPIFNOTLE                      R3 R2 ; [+6]
-       44 LOADN                            R3 104
+       44 LOADN                            R3 360
        45 JUMPIFLE                         R2 R3 ; [+2]
        47 LOADB                            R1 0 +1
        48 LOADB                            R1 1
        49 JUMPIFNOT                        R1 ; [+24]
        50 GETTABLEKS                       R2 R0 K4 ["Y"]
        52 LOADB                            R1 0
-       53 LOADN                            R3 152
+       53 LOADN                            R3 -360
        54 JUMPIFNOTLE                      R3 R2 ; [+6]
-       56 LOADN                            R3 104
+       56 LOADN                            R3 360
        57 JUMPIFLE                         R2 R3 ; [+2]
        59 LOADB                            R1 0 +1
        60 LOADB                            R1 1
        61 JUMPIFNOT                        R1 ; [+12]
        62 GETTABLEKS                       R2 R0 K5 ["Z"]
        64 LOADB                            R1 0
-       65 LOADN                            R3 152
+       65 LOADN                            R3 -360
        66 JUMPIFNOTLE                      R3 R2 ; [+6]
-       68 LOADN                            R3 104
+       68 LOADN                            R3 360
        69 JUMPIFLE                         R2 R3 ; [+2]
        71 LOADB                            R1 0 +1
        72 LOADB                            R1 1
@@ -617,45 +575,39 @@ PROTO_12:
       103 GETUPVAL                         R12 0
       104 GETTABLEKS                       R12 R12 K10 ["createElement"]
       106 GETUPVAL                         R13 7
-      107 DUPTABLE                         R14 K22 [{"AutomaticSize", "Expansion", "ExpandByDefault", "Items", "LabelHeight", "LabelWidth", "LayoutOrder", "OnChange", "OnExpansionChange", "Size", "UseScrollingFrame"}]
-      108 GETIMPORT                        R15 K25 [Enum.AutomaticSize.Y]
+      107 DUPTABLE                         R14 K24 [{["AutomaticSize"], ["Expansion"], ["ExpandByDefault"] = False, ["Items"], ["LabelHeight"] = 24, ["LabelWidth"], ["LayoutOrder"], ["OnChange"], ["OnExpansionChange"], ["Size"], ["UseScrollingFrame"] = False}]
+      108 GETIMPORT                        R15 K27 [Enum.AutomaticSize.Y]
       110 SETTABLEKS                       R15 R14 K11 ["AutomaticSize"]
       112 GETUPVAL                         R16 8
       113 CALL                             R16 0 1
       114 JUMPIFNOT                        R16 ; [+3]
-      115 GETTABLEKS                       R15 R1 K26 ["optionsExpanded"]
+      115 GETTABLEKS                       R15 R1 K28 ["optionsExpanded"]
       117 JUMP                             ; [+1]
       118 MOVE                             R15 R3
       119 SETTABLEKS                       R15 R14 K12 ["Expansion"]
-      121 LOADB                            R15 0
-      122 SETTABLEKS                       R15 R14 K13 ["ExpandByDefault"]
-      124 SETTABLEKS                       R10 R14 K14 ["Items"]
-      126 LOADN                            R15 24
-      127 SETTABLEKS                       R15 R14 K15 ["LabelHeight"]
-      129 GETIMPORT                        R15 K29 [UDim.new]
-      131 LOADN                            R16 0
-      132 LOADN                            R17 164
-      133 CALL                             R15 2 1
-      134 SETTABLEKS                       R15 R14 K16 ["LabelWidth"]
-      136 GETTABLEKS                       R15 R0 K17 ["LayoutOrder"]
-      138 SETTABLEKS                       R15 R14 K17 ["LayoutOrder"]
-      140 SETTABLEKS                       R11 R14 K18 ["OnChange"]
-      142 GETUPVAL                         R16 8
-      143 CALL                             R16 0 1
-      144 JUMPIFNOT                        R16 ; [+3]
-      145 GETTABLEKS                       R15 R1 K30 ["setOptionsExpanded"]
-      147 JUMP                             ; [+1]
-      148 MOVE                             R15 R4
-      149 SETTABLEKS                       R15 R14 K19 ["OnExpansionChange"]
-      151 GETIMPORT                        R15 K33 [UDim2.fromScale]
-      153 LOADN                            R16 1
-      154 LOADN                            R17 0
-      155 CALL                             R15 2 1
-      156 SETTABLEKS                       R15 R14 K20 ["Size"]
-      158 LOADB                            R15 0
-      159 SETTABLEKS                       R15 R14 K21 ["UseScrollingFrame"]
-      161 CALL                             R12 2 -1
-      162 RETURN                           R12 -1
+      121 SETTABLEKS                       R10 R14 K15 ["Items"]
+      123 GETIMPORT                        R15 K31 [UDim.new]
+      125 LOADN                            R16 0
+      126 LOADN                            R17 164
+      127 CALL                             R15 2 1
+      128 SETTABLEKS                       R15 R14 K18 ["LabelWidth"]
+      130 GETTABLEKS                       R15 R0 K19 ["LayoutOrder"]
+      132 SETTABLEKS                       R15 R14 K19 ["LayoutOrder"]
+      134 SETTABLEKS                       R11 R14 K20 ["OnChange"]
+      136 GETUPVAL                         R16 8
+      137 CALL                             R16 0 1
+      138 JUMPIFNOT                        R16 ; [+3]
+      139 GETTABLEKS                       R15 R1 K32 ["setOptionsExpanded"]
+      141 JUMP                             ; [+1]
+      142 MOVE                             R15 R4
+      143 SETTABLEKS                       R15 R14 K21 ["OnExpansionChange"]
+      145 GETIMPORT                        R15 K35 [UDim2.fromScale]
+      147 LOADN                            R16 1
+      148 LOADN                            R17 0
+      149 CALL                             R15 2 1
+      150 SETTABLEKS                       R15 R14 K22 ["Size"]
+      152 CALL                             R12 2 -1
+      153 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

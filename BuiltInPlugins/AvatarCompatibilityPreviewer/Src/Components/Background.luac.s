@@ -6,20 +6,16 @@ PROTO_0:
         5 GETUPVAL                         R1 1
         6 GETTABLEKS                       R1 R1 K2 ["createElement"]
         8 LOADK                            R2 K3 ["ImageLabel"]
-        9 DUPTABLE                         R3 K8 [{"BackgroundTransparency", "Image", "Size", "ZIndex"}]
-       10 LOADN                            R4 1
-       11 SETTABLEKS                       R4 R3 K4 ["BackgroundTransparency"]
-       13 GETTABLEKS                       R4 R0 K5 ["Image"]
-       15 SETTABLEKS                       R4 R3 K5 ["Image"]
-       17 GETIMPORT                        R4 K11 [UDim2.fromScale]
-       19 LOADN                            R5 1
-       20 LOADN                            R6 1
-       21 CALL                             R4 2 1
-       22 SETTABLEKS                       R4 R3 K6 ["Size"]
-       24 LOADN                            R4 255
-       25 SETTABLEKS                       R4 R3 K7 ["ZIndex"]
-       27 CALL                             R1 2 -1
-       28 RETURN                           R1 -1
+        9 DUPTABLE                         R3 K10 [{["BackgroundTransparency"] = 1, ["Image"], ["Size"], ["ZIndex"] = -1}]
+       10 GETTABLEKS                       R4 R0 K6 ["Image"]
+       12 SETTABLEKS                       R4 R3 K6 ["Image"]
+       14 GETIMPORT                        R4 K13 [UDim2.fromScale]
+       16 LOADN                            R5 1
+       17 LOADN                            R6 1
+       18 CALL                             R4 2 1
+       19 SETTABLEKS                       R4 R3 K7 ["Size"]
+       21 CALL                             R1 2 -1
+       22 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

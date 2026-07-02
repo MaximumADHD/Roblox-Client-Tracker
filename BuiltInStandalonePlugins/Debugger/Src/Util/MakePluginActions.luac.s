@@ -11,16 +11,14 @@ PROTO_0:
        14 RETURN                           R4 1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K3 [{"id", "text", "allowBinding"}]
+        0 DUPTABLE                         R2 K4 [{[1], ["text"], ["allowBinding"] = False}]
         1 SETTABLEKS                       R1 R2 K0 ["id"]
-        3 LOADK                            R5 K4 ["Common"]
+        3 LOADK                            R5 K5 ["Common"]
         4 MOVE                             R6 R1
-        5 NAMECALL                         R3 R0 K5 ["getText"]
+        5 NAMECALL                         R3 R0 K6 ["getText"]
         7 CALL                             R3 3 1
         8 SETTABLEKS                       R3 R2 K1 ["text"]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K2 ["allowBinding"]
-       13 RETURN                           R2 1
+       10 RETURN                           R2 1
 
 PROTO_2:
         0 NEWTABLE                         R1 0 0
@@ -29,42 +27,40 @@ PROTO_2:
         5 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
         7 CALL                             R2 1 3
         8 FORGPREP_NEXT                    R2
-        9 DUPTABLE                         R7 K6 [{"id", "text", "allowBinding"}]
+        9 DUPTABLE                         R7 K7 [{["id"], ["text"], ["allowBinding"] = False}]
        10 SETTABLEKS                       R6 R7 K3 ["id"]
-       12 LOADK                            R10 K7 ["Common"]
+       12 LOADK                            R10 K8 ["Common"]
        13 MOVE                             R11 R6
-       14 NAMECALL                         R8 R0 K8 ["getText"]
+       14 NAMECALL                         R8 R0 K9 ["getText"]
        16 CALL                             R8 3 1
        17 SETTABLEKS                       R8 R7 K4 ["text"]
-       19 LOADB                            R8 0
-       20 SETTABLEKS                       R8 R7 K5 ["allowBinding"]
-       22 SETTABLE                         R7 R1 R6
-       23 FORGLOOP                         R2 2 ; [-15]
-       25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
-       28 GETTABLEKS                       R3 R3 K9 ["stepOverActionV2"]
-       30 GETTABLE                         R2 R1 R3
-       31 LOADK                            R3 K10 ["F10"]
-       32 SETTABLEKS                       R3 R2 K11 ["defaultShortcut"]
-       34 GETUPVAL                         R3 0
-       35 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
-       37 GETTABLEKS                       R3 R3 K12 ["stepIntoActionV2"]
-       39 GETTABLE                         R2 R1 R3
-       40 LOADK                            R3 K13 ["F11"]
-       41 SETTABLEKS                       R3 R2 K11 ["defaultShortcut"]
-       43 GETUPVAL                         R3 0
-       44 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
-       46 GETTABLEKS                       R3 R3 K14 ["stepOutActionV2"]
-       48 GETTABLE                         R2 R1 R3
-       49 LOADK                            R3 K15 ["Shift+F11"]
-       50 SETTABLEKS                       R3 R2 K11 ["defaultShortcut"]
-       52 GETUPVAL                         R3 0
-       53 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
-       55 GETTABLEKS                       R3 R3 K16 ["simulationResumeActionV2"]
-       57 GETTABLE                         R2 R1 R3
-       58 LOADK                            R3 K17 ["F5"]
-       59 SETTABLEKS                       R3 R2 K11 ["defaultShortcut"]
-       61 RETURN                           R1 1
+       19 SETTABLE                         R7 R1 R6
+       20 FORGLOOP                         R2 2 ; [-12]
+       22 GETUPVAL                         R3 0
+       23 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
+       25 GETTABLEKS                       R3 R3 K10 ["stepOverActionV2"]
+       27 GETTABLE                         R2 R1 R3
+       28 LOADK                            R3 K11 ["F10"]
+       29 SETTABLEKS                       R3 R2 K12 ["defaultShortcut"]
+       31 GETUPVAL                         R3 0
+       32 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
+       34 GETTABLEKS                       R3 R3 K13 ["stepIntoActionV2"]
+       36 GETTABLE                         R2 R1 R3
+       37 LOADK                            R3 K14 ["F11"]
+       38 SETTABLEKS                       R3 R2 K12 ["defaultShortcut"]
+       40 GETUPVAL                         R3 0
+       41 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
+       43 GETTABLEKS                       R3 R3 K15 ["stepOutActionV2"]
+       45 GETTABLE                         R2 R1 R3
+       46 LOADK                            R3 K16 ["Shift+F11"]
+       47 SETTABLEKS                       R3 R2 K12 ["defaultShortcut"]
+       49 GETUPVAL                         R3 0
+       50 GETTABLEKS                       R3 R3 K2 ["StepActionIds"]
+       52 GETTABLEKS                       R3 R3 K17 ["simulationResumeActionV2"]
+       54 GETTABLE                         R2 R1 R3
+       55 LOADK                            R3 K18 ["F5"]
+       56 SETTABLEKS                       R3 R2 K12 ["defaultShortcut"]
+       58 RETURN                           R1 1
 
 PROTO_3:
         0 NEWTABLE                         R2 0 0
@@ -73,19 +69,17 @@ PROTO_3:
         5 GETTABLEKS                       R4 R4 K2 ["CallstackActionIds"]
         7 CALL                             R3 1 3
         8 FORGPREP_NEXT                    R3
-        9 DUPTABLE                         R8 K7 [{"Id", "Text", "Data", "OnItemClicked"}]
+        9 DUPTABLE                         R8 K8 [{["Id"], ["Text"], ["Data"] = , ["OnItemClicked"]}]
        10 SETTABLEKS                       R7 R8 K3 ["Id"]
-       12 LOADK                            R11 K8 ["Common"]
+       12 LOADK                            R11 K9 ["Common"]
        13 MOVE                             R12 R7
-       14 NAMECALL                         R9 R0 K9 ["getText"]
+       14 NAMECALL                         R9 R0 K10 ["getText"]
        16 CALL                             R9 3 1
        17 SETTABLEKS                       R9 R8 K4 ["Text"]
-       19 LOADNIL                          R9
-       20 SETTABLEKS                       R9 R8 K5 ["Data"]
-       22 SETTABLEKS                       R1 R8 K6 ["OnItemClicked"]
-       24 SETTABLE                         R8 R2 R7
-       25 FORGLOOP                         R3 2 ; [-17]
-       27 RETURN                           R2 1
+       19 SETTABLEKS                       R1 R8 K7 ["OnItemClicked"]
+       21 SETTABLE                         R8 R2 R7
+       22 FORGLOOP                         R3 2 ; [-14]
+       24 RETURN                           R2 1
 
 PROTO_4:
         0 NEWTABLE                         R3 0 0

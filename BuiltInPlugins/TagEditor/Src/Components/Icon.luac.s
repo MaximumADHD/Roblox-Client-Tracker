@@ -48,7 +48,7 @@ PROTO_0:
        66 CALL                             R4 2 2
        67 GETTABLEKS                       R6 R1 K2 ["Name"]
        69 ADDK                             R8 R5 K16 [1]
-       70 LOADN                            R9 255
+       70 LOADN                            R9 -1
        71 NAMECALL                         R6 R6 K17 ["sub"]
        73 CALL                             R6 3 1
        74 GETUPVAL                         R7 2

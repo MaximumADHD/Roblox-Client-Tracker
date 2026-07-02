@@ -183,7 +183,7 @@ PROTO_0:
       247 SETTABLEKS                       R20 R19 K51 ["UpperAngle"]
       249 LOADB                            R20 1
       250 SETTABLEKS                       R20 R19 K52 ["TwistLimitsEnabled"]
-      252 LOADN                            R20 253
+      252 LOADN                            R20 -3
       253 SETTABLEKS                       R20 R19 K53 ["TwistLowerAngle"]
       255 LOADN                            R20 3
       256 SETTABLEKS                       R20 R19 K54 ["TwistUpperAngle"]
@@ -202,9 +202,9 @@ PROTO_0:
       274 SETTABLEKS                       R16 R20 K49 ["Attachment1"]
       276 LOADB                            R21 1
       277 SETTABLEKS                       R21 R20 K50 ["LimitsEnabled"]
-      279 LOADN                            R21 121
+      279 LOADN                            R21 -135
       280 SETTABLEKS                       R21 R20 K58 ["LowerAngle"]
-      282 LOADN                            R21 246
+      282 LOADN                            R21 -10
       283 SETTABLEKS                       R21 R20 K51 ["UpperAngle"]
       285 LOADB                            R21 0
       286 SETTABLEKS                       R21 R20 K55 ["Enabled"]
@@ -221,9 +221,9 @@ PROTO_0:
       301 SETTABLEKS                       R18 R21 K49 ["Attachment1"]
       303 LOADB                            R22 1
       304 SETTABLEKS                       R22 R21 K50 ["LimitsEnabled"]
-      306 LOADN                            R22 121
+      306 LOADN                            R22 -135
       307 SETTABLEKS                       R22 R21 K58 ["LowerAngle"]
-      309 LOADN                            R22 246
+      309 LOADN                            R22 -10
       310 SETTABLEKS                       R22 R21 K51 ["UpperAngle"]
       312 LOADB                            R22 0
       313 SETTABLEKS                       R22 R21 K55 ["Enabled"]
@@ -456,7 +456,7 @@ PROTO_0:
       634 SETTABLEKS                       R20 R19 K51 ["UpperAngle"]
       636 LOADB                            R20 1
       637 SETTABLEKS                       R20 R19 K52 ["TwistLimitsEnabled"]
-      639 LOADN                            R20 253
+      639 LOADN                            R20 -3
       640 SETTABLEKS                       R20 R19 K53 ["TwistLowerAngle"]
       642 LOADN                            R20 3
       643 SETTABLEKS                       R20 R19 K54 ["TwistUpperAngle"]

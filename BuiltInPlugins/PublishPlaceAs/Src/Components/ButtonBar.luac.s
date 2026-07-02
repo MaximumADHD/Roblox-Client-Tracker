@@ -251,7 +251,7 @@ PROTO_2:
       337 GETUPVAL                         R20 0
       338 GETTABLEKS                       R20 R20 K35 ["createElement"]
       340 LOADK                            R21 K93 ["Frame"]
-      341 DUPTABLE                         R22 K95 [{"Size", "LayoutOrder", "AnchorPoint", "Position", "BackgroundTransparency"}]
+      341 DUPTABLE                         R22 K95 [{["Size"], ["LayoutOrder"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1}]
       342 GETIMPORT                        R23 K25 [UDim2.new]
       344 LOADN                            R24 1
       345 LOADN                            R25 0
@@ -262,11 +262,9 @@ PROTO_2:
       351 SETTABLEKS                       R13 R22 K17 ["LayoutOrder"]
       353 SETTABLEKS                       R14 R22 K18 ["AnchorPoint"]
       355 SETTABLEKS                       R15 R22 K23 ["Position"]
-      357 LOADN                            R23 1
-      358 SETTABLEKS                       R23 R22 K94 ["BackgroundTransparency"]
-      360 MOVE                             R23 R17
-      361 CALL                             R20 3 -1
-      362 RETURN                           R20 -1
+      357 MOVE                             R23 R17
+      358 CALL                             R20 3 -1
+      359 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

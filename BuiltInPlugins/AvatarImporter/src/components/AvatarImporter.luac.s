@@ -40,67 +40,65 @@ PROTO_4:
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K2 ["createElement"]
         7 LOADK                            R3 K3 ["Frame"]
-        8 DUPTABLE                         R4 K6 [{"BackgroundTransparency", "Size"}]
-        9 LOADN                            R5 1
-       10 SETTABLEKS                       R5 R4 K4 ["BackgroundTransparency"]
-       12 GETIMPORT                        R5 K9 [UDim2.new]
-       14 LOADN                            R6 1
-       15 LOADN                            R7 0
-       16 LOADN                            R8 1
-       17 LOADN                            R9 0
-       18 CALL                             R5 4 1
-       19 SETTABLEKS                       R5 R4 K5 ["Size"]
-       21 DUPTABLE                         R5 K14 [{"AvatarPrompt", "LoadingPrompt", "ErrorPrompt", "RedirectRigPrompt"}]
-       22 GETUPVAL                         R7 1
-       23 GETTABLEKS                       R7 R7 K15 ["SCREENS"]
-       25 GETTABLEKS                       R7 R7 K16 ["AVATAR"]
-       27 JUMPIFEQ                         R1 R7 ; [+2]
-       29 LOADB                            R6 0 +1
-       30 LOADB                            R6 1
-       31 JUMPIFNOT                        R6 ; [+5]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       35 GETUPVAL                         R7 2
-       36 CALL                             R6 1 1
-       37 SETTABLEKS                       R6 R5 K10 ["AvatarPrompt"]
-       39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R7 R7 K15 ["SCREENS"]
-       42 GETTABLEKS                       R7 R7 K17 ["LOADING"]
-       44 JUMPIFEQ                         R1 R7 ; [+2]
-       46 LOADB                            R6 0 +1
-       47 LOADB                            R6 1
-       48 JUMPIFNOT                        R6 ; [+5]
-       49 GETUPVAL                         R6 0
-       50 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       52 GETUPVAL                         R7 3
-       53 CALL                             R6 1 1
-       54 SETTABLEKS                       R6 R5 K11 ["LoadingPrompt"]
-       56 GETUPVAL                         R7 1
-       57 GETTABLEKS                       R7 R7 K15 ["SCREENS"]
-       59 GETTABLEKS                       R7 R7 K18 ["ERROR"]
-       61 JUMPIFEQ                         R1 R7 ; [+2]
-       63 LOADB                            R6 0 +1
-       64 LOADB                            R6 1
-       65 JUMPIFNOT                        R6 ; [+5]
-       66 GETUPVAL                         R6 0
-       67 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       69 GETUPVAL                         R7 4
-       70 CALL                             R6 1 1
-       71 SETTABLEKS                       R6 R5 K12 ["ErrorPrompt"]
-       73 GETUPVAL                         R7 1
-       74 GETTABLEKS                       R7 R7 K15 ["SCREENS"]
-       76 GETTABLEKS                       R7 R7 K19 ["REDIRECT_RIG"]
-       78 JUMPIFEQ                         R1 R7 ; [+2]
-       80 LOADB                            R6 0 +1
-       81 LOADB                            R6 1
-       82 JUMPIFNOT                        R6 ; [+5]
-       83 GETUPVAL                         R6 0
-       84 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       86 GETUPVAL                         R7 5
-       87 CALL                             R6 1 1
-       88 SETTABLEKS                       R6 R5 K13 ["RedirectRigPrompt"]
-       90 CALL                             R2 3 -1
-       91 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K7 [{["BackgroundTransparency"] = 1, ["Size"]}]
+        9 GETIMPORT                        R5 K10 [UDim2.new]
+       11 LOADN                            R6 1
+       12 LOADN                            R7 0
+       13 LOADN                            R8 1
+       14 LOADN                            R9 0
+       15 CALL                             R5 4 1
+       16 SETTABLEKS                       R5 R4 K6 ["Size"]
+       18 DUPTABLE                         R5 K15 [{"AvatarPrompt", "LoadingPrompt", "ErrorPrompt", "RedirectRigPrompt"}]
+       19 GETUPVAL                         R7 1
+       20 GETTABLEKS                       R7 R7 K16 ["SCREENS"]
+       22 GETTABLEKS                       R7 R7 K17 ["AVATAR"]
+       24 JUMPIFEQ                         R1 R7 ; [+2]
+       26 LOADB                            R6 0 +1
+       27 LOADB                            R6 1
+       28 JUMPIFNOT                        R6 ; [+5]
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       32 GETUPVAL                         R7 2
+       33 CALL                             R6 1 1
+       34 SETTABLEKS                       R6 R5 K11 ["AvatarPrompt"]
+       36 GETUPVAL                         R7 1
+       37 GETTABLEKS                       R7 R7 K16 ["SCREENS"]
+       39 GETTABLEKS                       R7 R7 K18 ["LOADING"]
+       41 JUMPIFEQ                         R1 R7 ; [+2]
+       43 LOADB                            R6 0 +1
+       44 LOADB                            R6 1
+       45 JUMPIFNOT                        R6 ; [+5]
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       49 GETUPVAL                         R7 3
+       50 CALL                             R6 1 1
+       51 SETTABLEKS                       R6 R5 K12 ["LoadingPrompt"]
+       53 GETUPVAL                         R7 1
+       54 GETTABLEKS                       R7 R7 K16 ["SCREENS"]
+       56 GETTABLEKS                       R7 R7 K19 ["ERROR"]
+       58 JUMPIFEQ                         R1 R7 ; [+2]
+       60 LOADB                            R6 0 +1
+       61 LOADB                            R6 1
+       62 JUMPIFNOT                        R6 ; [+5]
+       63 GETUPVAL                         R6 0
+       64 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       66 GETUPVAL                         R7 4
+       67 CALL                             R6 1 1
+       68 SETTABLEKS                       R6 R5 K13 ["ErrorPrompt"]
+       70 GETUPVAL                         R7 1
+       71 GETTABLEKS                       R7 R7 K16 ["SCREENS"]
+       73 GETTABLEKS                       R7 R7 K20 ["REDIRECT_RIG"]
+       75 JUMPIFEQ                         R1 R7 ; [+2]
+       77 LOADB                            R6 0 +1
+       78 LOADB                            R6 1
+       79 JUMPIFNOT                        R6 ; [+5]
+       80 GETUPVAL                         R6 0
+       81 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       83 GETUPVAL                         R7 5
+       84 CALL                             R6 1 1
+       85 SETTABLEKS                       R6 R5 K14 ["RedirectRigPrompt"]
+       87 CALL                             R2 3 -1
+       88 RETURN                           R2 -1
 
 PROTO_5:
         0 MOVE                             R1 R0

@@ -5,29 +5,27 @@ PROTO_0:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K9 [{"Text", "Style", "Size", "TextXAlignment", "TextYAlignment"}]
-       11 LOADK                            R7 K10 ["%d/%d %s"]
-       12 GETTABLEKS                       R9 R1 K11 ["GroupCount"]
+       10 DUPTABLE                         R6 K10 [{["Text"], ["Style"] = "SubText", ["Size"], ["TextXAlignment"], ["TextYAlignment"]}]
+       11 LOADK                            R7 K11 ["%d/%d %s"]
+       12 GETTABLEKS                       R9 R1 K12 ["GroupCount"]
        14 GETUPVAL                         R10 2
-       15 GETTABLEKS                       R10 R10 K12 ["GroupCountMax"]
-       17 LOADK                            R13 K13 ["Info"]
-       18 LOADK                            R14 K14 ["Groups"]
-       19 NAMECALL                         R11 R3 K15 ["getText"]
+       15 GETTABLEKS                       R10 R10 K13 ["GroupCountMax"]
+       17 LOADK                            R13 K14 ["Info"]
+       18 LOADK                            R14 K15 ["Groups"]
+       19 NAMECALL                         R11 R3 K16 ["getText"]
        21 CALL                             R11 3 -1
-       22 NAMECALL                         R7 R7 K16 ["format"]
+       22 NAMECALL                         R7 R7 K17 ["format"]
        24 CALL                             R7 -1 1
        25 SETTABLEKS                       R7 R6 K4 ["Text"]
-       27 LOADK                            R7 K17 ["SubText"]
-       28 SETTABLEKS                       R7 R6 K5 ["Style"]
-       30 GETUPVAL                         R7 2
-       31 GETTABLEKS                       R7 R7 K18 ["GroupLabelFixedSize"]
-       33 SETTABLEKS                       R7 R6 K6 ["Size"]
-       35 GETIMPORT                        R7 K21 [Enum.TextXAlignment.Center]
-       37 SETTABLEKS                       R7 R6 K7 ["TextXAlignment"]
-       39 GETIMPORT                        R7 K22 [Enum.TextYAlignment.Center]
-       41 SETTABLEKS                       R7 R6 K8 ["TextYAlignment"]
-       43 CALL                             R4 2 -1
-       44 RETURN                           R4 -1
+       27 GETUPVAL                         R7 2
+       28 GETTABLEKS                       R7 R7 K18 ["GroupLabelFixedSize"]
+       30 SETTABLEKS                       R7 R6 K7 ["Size"]
+       32 GETIMPORT                        R7 K21 [Enum.TextXAlignment.Center]
+       34 SETTABLEKS                       R7 R6 K8 ["TextXAlignment"]
+       36 GETIMPORT                        R7 K22 [Enum.TextYAlignment.Center]
+       38 SETTABLEKS                       R7 R6 K9 ["TextYAlignment"]
+       40 CALL                             R4 2 -1
+       41 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

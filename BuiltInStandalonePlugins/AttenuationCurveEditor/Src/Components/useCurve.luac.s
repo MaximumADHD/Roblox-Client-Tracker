@@ -1,140 +1,136 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K3 [{"CurveType", "Min", "Max"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["Min"] = 10, ["Max"] = 1000}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K4 ["CUSTOM"]
+        2 GETTABLEKS                       R3 R3 K6 ["CUSTOM"]
         4 SETTABLEKS                       R3 R2 K0 ["CurveType"]
-        6 LOADN                            R3 10
-        7 SETTABLEKS                       R3 R2 K1 ["Min"]
-        9 LOADN                            R3 232
-       10 SETTABLEKS                       R3 R2 K2 ["Max"]
-       12 LENGTH                           R3 R0
-       13 LOADN                            R4 2
-       14 JUMPIFNOTLT                      R3 R4 ; [+2]
-       16 RETURN                           R2 1
-       17 GETTABLEN                        R4 R0 1
-       18 GETTABLEKS                       R4 R4 K5 ["X"]
-       20 SETTABLEKS                       R4 R2 K1 ["Min"]
-       22 GETTABLE                         R4 R0 R3
-       23 GETTABLEKS                       R4 R4 K5 ["X"]
-       25 SETTABLEKS                       R4 R2 K2 ["Max"]
-       27 GETTABLEN                        R4 R0 1
-       28 GETTABLEKS                       R4 R4 K6 ["Y"]
-       30 JUMPIFEQKN                       R4 K7 [1] ; [+7]
-       32 GETTABLE                         R4 R0 R3
-       33 GETTABLEKS                       R4 R4 K6 ["Y"]
-       35 JUMPIFEQKN                       R4 K8 [0] ; [+2]
-       37 RETURN                           R2 1
-       38 JUMPIF                           R1 ; [+149]
-       39 GETTABLEKS                       R4 R2 K1 ["Min"]
-       41 GETTABLEKS                       R5 R2 K2 ["Max"]
-       43 JUMPIFNOTEQ                      R4 R5 ; [+7]
-       45 GETUPVAL                         R4 0
-       46 GETTABLEKS                       R4 R4 K9 ["LINEAR"]
-       48 SETTABLEKS                       R4 R2 K0 ["CurveType"]
-       50 RETURN                           R2 1
-       51 LOADB                            R4 1
-       52 LOADB                            R5 1
-       53 LOADB                            R6 1
-       54 LOADB                            R7 1
-       55 MOVE                             R8 R0
-       56 LOADNIL                          R9
-       57 LOADNIL                          R10
-       58 FORGPREP                         R8
-       59 GETTABLEKS                       R13 R12 K5 ["X"]
-       61 GETTABLEKS                       R14 R2 K1 ["Min"]
-       63 JUMPIFLE                         R13 R14 ; [+95]
-       65 GETTABLEKS                       R13 R12 K5 ["X"]
-       67 GETTABLEKS                       R14 R2 K2 ["Max"]
-       69 JUMPIFLE                         R14 R13 ; [+89]
-       71 GETTABLEKS                       R15 R2 K2 ["Max"]
-       73 GETTABLEKS                       R16 R12 K5 ["X"]
-       75 SUB                              R14 R15 R16
-       76 GETTABLEKS                       R16 R2 K2 ["Max"]
-       78 GETTABLEKS                       R17 R2 K1 ["Min"]
-       80 SUB                              R15 R16 R17
-       81 DIV                              R13 R14 R15
-       82 MUL                              R14 R13 R13
-       83 GETTABLEKS                       R16 R2 K1 ["Min"]
-       85 GETTABLEKS                       R17 R12 K5 ["X"]
-       87 DIV                              R15 R16 R17
-       88 FASTCALL2                        MATH_MIN R14 R15 ; [+5]
-       90 MOVE                             R17 R14
-       91 MOVE                             R18 R15
-       92 GETIMPORT                        R16 K12 [math.min]
-       94 CALL                             R16 2 1
-       95 MOVE                             R17 R4
-       96 JUMPIFNOT                        R17 ; [+12]
-       97 GETTABLEKS                       R20 R12 K6 ["Y"]
-       99 SUB                              R19 R20 R13
-      100 FASTCALL1                        MATH_ABS R19 ; [+2]
-      101 GETIMPORT                        R18 K14 [math.abs]
-      103 CALL                             R18 1 1
-      104 LOADK                            R19 K15 [0.001]
-      105 JUMPIFLT                         R18 R19 ; [+2]
-      107 LOADB                            R17 0 +1
-      108 LOADB                            R17 1
-      109 MOVE                             R4 R17
-      110 MOVE                             R17 R5
-      111 JUMPIFNOT                        R17 ; [+12]
-      112 GETTABLEKS                       R20 R12 K6 ["Y"]
-      114 SUB                              R19 R20 R14
-      115 FASTCALL1                        MATH_ABS R19 ; [+2]
-      116 GETIMPORT                        R18 K14 [math.abs]
-      118 CALL                             R18 1 1
-      119 LOADK                            R19 K15 [0.001]
-      120 JUMPIFLT                         R18 R19 ; [+2]
-      122 LOADB                            R17 0 +1
-      123 LOADB                            R17 1
-      124 MOVE                             R5 R17
-      125 MOVE                             R17 R6
-      126 JUMPIFNOT                        R17 ; [+12]
-      127 GETTABLEKS                       R20 R12 K6 ["Y"]
-      129 SUB                              R19 R20 R15
-      130 FASTCALL1                        MATH_ABS R19 ; [+2]
-      131 GETIMPORT                        R18 K14 [math.abs]
-      133 CALL                             R18 1 1
-      134 LOADK                            R19 K15 [0.001]
-      135 JUMPIFLT                         R18 R19 ; [+2]
-      137 LOADB                            R17 0 +1
-      138 LOADB                            R17 1
-      139 MOVE                             R6 R17
-      140 MOVE                             R17 R7
-      141 JUMPIFNOT                        R17 ; [+12]
-      142 GETTABLEKS                       R20 R12 K6 ["Y"]
-      144 SUB                              R19 R20 R16
-      145 FASTCALL1                        MATH_ABS R19 ; [+2]
-      146 GETIMPORT                        R18 K14 [math.abs]
-      148 CALL                             R18 1 1
-      149 LOADK                            R19 K15 [0.001]
-      150 JUMPIFLT                         R18 R19 ; [+2]
-      152 LOADB                            R17 0 +1
-      153 LOADB                            R17 1
-      154 MOVE                             R7 R17
-      155 JUMPIF                           R6 ; [+3]
-      156 JUMPIF                           R7 ; [+2]
-      157 JUMPIF                           R4 ; [+1]
-      158 JUMPIFNOT                        R5 ; [+2]
-      159 FORGLOOP                         R8 2 ; [-101]
-      161 JUMPIFNOT                        R4 ; [+6]
-      162 GETUPVAL                         R8 0
-      163 GETTABLEKS                       R8 R8 K9 ["LINEAR"]
-      165 SETTABLEKS                       R8 R2 K0 ["CurveType"]
-      167 RETURN                           R2 1
-      168 JUMPIFNOT                        R6 ; [+6]
-      169 GETUPVAL                         R8 0
-      170 GETTABLEKS                       R8 R8 K16 ["INVERSE"]
-      172 SETTABLEKS                       R8 R2 K0 ["CurveType"]
-      174 RETURN                           R2 1
-      175 JUMPIFNOT                        R5 ; [+6]
-      176 GETUPVAL                         R8 0
-      177 GETTABLEKS                       R8 R8 K17 ["LINEAR_SQUARED"]
-      179 SETTABLEKS                       R8 R2 K0 ["CurveType"]
-      181 RETURN                           R2 1
-      182 JUMPIFNOT                        R7 ; [+5]
-      183 GETUPVAL                         R8 0
-      184 GETTABLEKS                       R8 R8 K18 ["INVERSE_TAPERED"]
-      186 SETTABLEKS                       R8 R2 K0 ["CurveType"]
-      188 RETURN                           R2 1
+        6 LENGTH                           R3 R0
+        7 LOADN                            R4 2
+        8 JUMPIFNOTLT                      R3 R4 ; [+2]
+       10 RETURN                           R2 1
+       11 GETTABLEN                        R4 R0 1
+       12 GETTABLEKS                       R4 R4 K7 ["X"]
+       14 SETTABLEKS                       R4 R2 K1 ["Min"]
+       16 GETTABLE                         R4 R0 R3
+       17 GETTABLEKS                       R4 R4 K7 ["X"]
+       19 SETTABLEKS                       R4 R2 K3 ["Max"]
+       21 GETTABLEN                        R4 R0 1
+       22 GETTABLEKS                       R4 R4 K8 ["Y"]
+       24 JUMPIFEQKN                       R4 K9 [1] ; [+7]
+       26 GETTABLE                         R4 R0 R3
+       27 GETTABLEKS                       R4 R4 K8 ["Y"]
+       29 JUMPIFEQKN                       R4 K10 [0] ; [+2]
+       31 RETURN                           R2 1
+       32 JUMPIF                           R1 ; [+149]
+       33 GETTABLEKS                       R4 R2 K1 ["Min"]
+       35 GETTABLEKS                       R5 R2 K3 ["Max"]
+       37 JUMPIFNOTEQ                      R4 R5 ; [+7]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K11 ["LINEAR"]
+       42 SETTABLEKS                       R4 R2 K0 ["CurveType"]
+       44 RETURN                           R2 1
+       45 LOADB                            R4 1
+       46 LOADB                            R5 1
+       47 LOADB                            R6 1
+       48 LOADB                            R7 1
+       49 MOVE                             R8 R0
+       50 LOADNIL                          R9
+       51 LOADNIL                          R10
+       52 FORGPREP                         R8
+       53 GETTABLEKS                       R13 R12 K7 ["X"]
+       55 GETTABLEKS                       R14 R2 K1 ["Min"]
+       57 JUMPIFLE                         R13 R14 ; [+95]
+       59 GETTABLEKS                       R13 R12 K7 ["X"]
+       61 GETTABLEKS                       R14 R2 K3 ["Max"]
+       63 JUMPIFLE                         R14 R13 ; [+89]
+       65 GETTABLEKS                       R15 R2 K3 ["Max"]
+       67 GETTABLEKS                       R16 R12 K7 ["X"]
+       69 SUB                              R14 R15 R16
+       70 GETTABLEKS                       R16 R2 K3 ["Max"]
+       72 GETTABLEKS                       R17 R2 K1 ["Min"]
+       74 SUB                              R15 R16 R17
+       75 DIV                              R13 R14 R15
+       76 MUL                              R14 R13 R13
+       77 GETTABLEKS                       R16 R2 K1 ["Min"]
+       79 GETTABLEKS                       R17 R12 K7 ["X"]
+       81 DIV                              R15 R16 R17
+       82 FASTCALL2                        MATH_MIN R14 R15 ; [+5]
+       84 MOVE                             R17 R14
+       85 MOVE                             R18 R15
+       86 GETIMPORT                        R16 K14 [math.min]
+       88 CALL                             R16 2 1
+       89 MOVE                             R17 R4
+       90 JUMPIFNOT                        R17 ; [+12]
+       91 GETTABLEKS                       R20 R12 K8 ["Y"]
+       93 SUB                              R19 R20 R13
+       94 FASTCALL1                        MATH_ABS R19 ; [+2]
+       95 GETIMPORT                        R18 K16 [math.abs]
+       97 CALL                             R18 1 1
+       98 LOADK                            R19 K17 [0.001]
+       99 JUMPIFLT                         R18 R19 ; [+2]
+      101 LOADB                            R17 0 +1
+      102 LOADB                            R17 1
+      103 MOVE                             R4 R17
+      104 MOVE                             R17 R5
+      105 JUMPIFNOT                        R17 ; [+12]
+      106 GETTABLEKS                       R20 R12 K8 ["Y"]
+      108 SUB                              R19 R20 R14
+      109 FASTCALL1                        MATH_ABS R19 ; [+2]
+      110 GETIMPORT                        R18 K16 [math.abs]
+      112 CALL                             R18 1 1
+      113 LOADK                            R19 K17 [0.001]
+      114 JUMPIFLT                         R18 R19 ; [+2]
+      116 LOADB                            R17 0 +1
+      117 LOADB                            R17 1
+      118 MOVE                             R5 R17
+      119 MOVE                             R17 R6
+      120 JUMPIFNOT                        R17 ; [+12]
+      121 GETTABLEKS                       R20 R12 K8 ["Y"]
+      123 SUB                              R19 R20 R15
+      124 FASTCALL1                        MATH_ABS R19 ; [+2]
+      125 GETIMPORT                        R18 K16 [math.abs]
+      127 CALL                             R18 1 1
+      128 LOADK                            R19 K17 [0.001]
+      129 JUMPIFLT                         R18 R19 ; [+2]
+      131 LOADB                            R17 0 +1
+      132 LOADB                            R17 1
+      133 MOVE                             R6 R17
+      134 MOVE                             R17 R7
+      135 JUMPIFNOT                        R17 ; [+12]
+      136 GETTABLEKS                       R20 R12 K8 ["Y"]
+      138 SUB                              R19 R20 R16
+      139 FASTCALL1                        MATH_ABS R19 ; [+2]
+      140 GETIMPORT                        R18 K16 [math.abs]
+      142 CALL                             R18 1 1
+      143 LOADK                            R19 K17 [0.001]
+      144 JUMPIFLT                         R18 R19 ; [+2]
+      146 LOADB                            R17 0 +1
+      147 LOADB                            R17 1
+      148 MOVE                             R7 R17
+      149 JUMPIF                           R6 ; [+3]
+      150 JUMPIF                           R7 ; [+2]
+      151 JUMPIF                           R4 ; [+1]
+      152 JUMPIFNOT                        R5 ; [+2]
+      153 FORGLOOP                         R8 2 ; [-101]
+      155 JUMPIFNOT                        R4 ; [+6]
+      156 GETUPVAL                         R8 0
+      157 GETTABLEKS                       R8 R8 K11 ["LINEAR"]
+      159 SETTABLEKS                       R8 R2 K0 ["CurveType"]
+      161 RETURN                           R2 1
+      162 JUMPIFNOT                        R6 ; [+6]
+      163 GETUPVAL                         R8 0
+      164 GETTABLEKS                       R8 R8 K18 ["INVERSE"]
+      166 SETTABLEKS                       R8 R2 K0 ["CurveType"]
+      168 RETURN                           R2 1
+      169 JUMPIFNOT                        R5 ; [+6]
+      170 GETUPVAL                         R8 0
+      171 GETTABLEKS                       R8 R8 K19 ["LINEAR_SQUARED"]
+      173 SETTABLEKS                       R8 R2 K0 ["CurveType"]
+      175 RETURN                           R2 1
+      176 JUMPIFNOT                        R7 ; [+5]
+      177 GETUPVAL                         R8 0
+      178 GETTABLEKS                       R8 R8 K20 ["INVERSE_TAPERED"]
+      180 SETTABLEKS                       R8 R2 K0 ["CurveType"]
+      182 RETURN                           R2 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0
@@ -478,36 +474,32 @@ PROTO_7:
        51 MOVE                             R7 R4
        52 CALL                             R6 1 0
        53 GETUPVAL                         R6 8
-       54 DUPTABLE                         R8 K12 [{"CurveType", "Min", "Max"}]
+       54 DUPTABLE                         R8 K14 [{["CurveType"], ["Min"] = 10, ["Max"] = 1000}]
        55 GETUPVAL                         R9 9
-       56 GETTABLEKS                       R9 R9 K13 ["CUSTOM"]
+       56 GETTABLEKS                       R9 R9 K15 ["CUSTOM"]
        58 SETTABLEKS                       R9 R8 K9 ["CurveType"]
-       60 LOADN                            R9 10
-       61 SETTABLEKS                       R9 R8 K10 ["Min"]
-       63 LOADN                            R9 232
-       64 SETTABLEKS                       R9 R8 K11 ["Max"]
-       66 LENGTH                           R9 R4
-       67 LOADN                            R10 2
-       68 JUMPIFNOTLT                      R9 R10 ; [+3]
-       70 MOVE                             R7 R8
-       71 JUMP                             ; [+23]
-       72 GETTABLEN                        R10 R4 1
-       73 GETTABLEKS                       R10 R10 K0 ["X"]
-       75 SETTABLEKS                       R10 R8 K10 ["Min"]
-       77 GETTABLE                         R10 R4 R9
-       78 GETTABLEKS                       R10 R10 K0 ["X"]
-       80 SETTABLEKS                       R10 R8 K11 ["Max"]
-       82 GETTABLEN                        R10 R4 1
-       83 GETTABLEKS                       R10 R10 K1 ["Y"]
-       85 JUMPIFEQKN                       R10 K14 [1] ; [+8]
-       87 GETTABLE                         R10 R4 R9
-       88 GETTABLEKS                       R10 R10 K1 ["Y"]
-       90 JUMPIFEQKN                       R10 K15 [0] ; [+3]
-       92 MOVE                             R7 R8
-       93 JUMP                             ; [+1]
-       94 MOVE                             R7 R8
-       95 CALL                             R6 1 0
-       96 RETURN                           R0 0
+       60 LENGTH                           R9 R4
+       61 LOADN                            R10 2
+       62 JUMPIFNOTLT                      R9 R10 ; [+3]
+       64 MOVE                             R7 R8
+       65 JUMP                             ; [+23]
+       66 GETTABLEN                        R10 R4 1
+       67 GETTABLEKS                       R10 R10 K0 ["X"]
+       69 SETTABLEKS                       R10 R8 K10 ["Min"]
+       71 GETTABLE                         R10 R4 R9
+       72 GETTABLEKS                       R10 R10 K0 ["X"]
+       74 SETTABLEKS                       R10 R8 K12 ["Max"]
+       76 GETTABLEN                        R10 R4 1
+       77 GETTABLEKS                       R10 R10 K1 ["Y"]
+       79 JUMPIFEQKN                       R10 K16 [1] ; [+8]
+       81 GETTABLE                         R10 R4 R9
+       82 GETTABLEKS                       R10 R10 K1 ["Y"]
+       84 JUMPIFEQKN                       R10 K17 [0] ; [+3]
+       86 MOVE                             R7 R8
+       87 JUMP                             ; [+1]
+       88 MOVE                             R7 R8
+       89 CALL                             R6 1 0
+       90 RETURN                           R0 0
 
 PROTO_8:
         0 LOADN                            R1 1
@@ -571,37 +563,33 @@ PROTO_9:
        37 MOVE                             R4 R2
        38 CALL                             R3 1 0
        39 GETUPVAL                         R3 6
-       40 DUPTABLE                         R5 K7 [{"CurveType", "Min", "Max"}]
+       40 DUPTABLE                         R5 K9 [{["CurveType"], ["Min"] = 10, ["Max"] = 1000}]
        41 GETUPVAL                         R6 7
-       42 GETTABLEKS                       R6 R6 K8 ["CUSTOM"]
+       42 GETTABLEKS                       R6 R6 K10 ["CUSTOM"]
        44 SETTABLEKS                       R6 R5 K4 ["CurveType"]
-       46 LOADN                            R6 10
-       47 SETTABLEKS                       R6 R5 K5 ["Min"]
-       49 LOADN                            R6 232
-       50 SETTABLEKS                       R6 R5 K6 ["Max"]
-       52 LENGTH                           R6 R1
-       53 LOADN                            R7 2
-       54 JUMPIFNOTLT                      R6 R7 ; [+3]
-       56 MOVE                             R4 R5
-       57 JUMP                             ; [+23]
-       58 GETTABLEN                        R7 R1 1
-       59 GETTABLEKS                       R7 R7 K0 ["X"]
-       61 SETTABLEKS                       R7 R5 K5 ["Min"]
-       63 GETTABLE                         R7 R1 R6
-       64 GETTABLEKS                       R7 R7 K0 ["X"]
-       66 SETTABLEKS                       R7 R5 K6 ["Max"]
-       68 GETTABLEN                        R7 R1 1
-       69 GETTABLEKS                       R7 R7 K9 ["Y"]
-       71 JUMPIFEQKN                       R7 K10 [1] ; [+8]
-       73 GETTABLE                         R7 R1 R6
-       74 GETTABLEKS                       R7 R7 K9 ["Y"]
-       76 JUMPIFEQKN                       R7 K11 [0] ; [+3]
-       78 MOVE                             R4 R5
-       79 JUMP                             ; [+1]
-       80 MOVE                             R4 R5
-       81 CALL                             R3 1 0
-       82 LOADB                            R3 1
-       83 RETURN                           R3 1
+       46 LENGTH                           R6 R1
+       47 LOADN                            R7 2
+       48 JUMPIFNOTLT                      R6 R7 ; [+3]
+       50 MOVE                             R4 R5
+       51 JUMP                             ; [+23]
+       52 GETTABLEN                        R7 R1 1
+       53 GETTABLEKS                       R7 R7 K0 ["X"]
+       55 SETTABLEKS                       R7 R5 K5 ["Min"]
+       57 GETTABLE                         R7 R1 R6
+       58 GETTABLEKS                       R7 R7 K0 ["X"]
+       60 SETTABLEKS                       R7 R5 K7 ["Max"]
+       62 GETTABLEN                        R7 R1 1
+       63 GETTABLEKS                       R7 R7 K11 ["Y"]
+       65 JUMPIFEQKN                       R7 K12 [1] ; [+8]
+       67 GETTABLE                         R7 R1 R6
+       68 GETTABLEKS                       R7 R7 K11 ["Y"]
+       70 JUMPIFEQKN                       R7 K13 [0] ; [+3]
+       72 MOVE                             R4 R5
+       73 JUMP                             ; [+1]
+       74 MOVE                             R4 R5
+       75 CALL                             R3 1 0
+       76 LOADB                            R3 1
+       77 RETURN                           R3 1
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -621,36 +609,32 @@ PROTO_10:
        16 LENGTH                           R2 R0
        17 CALL                             R1 1 0
        18 GETUPVAL                         R1 5
-       19 DUPTABLE                         R3 K6 [{"CurveType", "Min", "Max"}]
+       19 DUPTABLE                         R3 K8 [{["CurveType"], ["Min"] = 10, ["Max"] = 1000}]
        20 GETUPVAL                         R4 6
-       21 GETTABLEKS                       R4 R4 K7 ["CUSTOM"]
+       21 GETTABLEKS                       R4 R4 K9 ["CUSTOM"]
        23 SETTABLEKS                       R4 R3 K3 ["CurveType"]
-       25 LOADN                            R4 10
-       26 SETTABLEKS                       R4 R3 K4 ["Min"]
-       28 LOADN                            R4 232
-       29 SETTABLEKS                       R4 R3 K5 ["Max"]
-       31 LENGTH                           R4 R0
-       32 LOADN                            R5 2
-       33 JUMPIFNOTLT                      R4 R5 ; [+3]
-       35 MOVE                             R2 R3
-       36 JUMP                             ; [+23]
-       37 GETTABLEN                        R5 R0 1
-       38 GETTABLEKS                       R5 R5 K8 ["X"]
-       40 SETTABLEKS                       R5 R3 K4 ["Min"]
-       42 GETTABLE                         R5 R0 R4
-       43 GETTABLEKS                       R5 R5 K8 ["X"]
-       45 SETTABLEKS                       R5 R3 K5 ["Max"]
-       47 GETTABLEN                        R5 R0 1
-       48 GETTABLEKS                       R5 R5 K9 ["Y"]
-       50 JUMPIFEQKN                       R5 K10 [1] ; [+8]
-       52 GETTABLE                         R5 R0 R4
-       53 GETTABLEKS                       R5 R5 K9 ["Y"]
-       55 JUMPIFEQKN                       R5 K11 [0] ; [+3]
-       57 MOVE                             R2 R3
-       58 JUMP                             ; [+1]
-       59 MOVE                             R2 R3
-       60 CALL                             R1 1 0
-       61 RETURN                           R0 0
+       25 LENGTH                           R4 R0
+       26 LOADN                            R5 2
+       27 JUMPIFNOTLT                      R4 R5 ; [+3]
+       29 MOVE                             R2 R3
+       30 JUMP                             ; [+23]
+       31 GETTABLEN                        R5 R0 1
+       32 GETTABLEKS                       R5 R5 K10 ["X"]
+       34 SETTABLEKS                       R5 R3 K4 ["Min"]
+       36 GETTABLE                         R5 R0 R4
+       37 GETTABLEKS                       R5 R5 K10 ["X"]
+       39 SETTABLEKS                       R5 R3 K6 ["Max"]
+       41 GETTABLEN                        R5 R0 1
+       42 GETTABLEKS                       R5 R5 K11 ["Y"]
+       44 JUMPIFEQKN                       R5 K12 [1] ; [+8]
+       46 GETTABLE                         R5 R0 R4
+       47 GETTABLEKS                       R5 R5 K11 ["Y"]
+       49 JUMPIFEQKN                       R5 K13 [0] ; [+3]
+       51 MOVE                             R2 R3
+       52 JUMP                             ; [+1]
+       53 MOVE                             R2 R3
+       54 CALL                             R1 1 0
+       55 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0

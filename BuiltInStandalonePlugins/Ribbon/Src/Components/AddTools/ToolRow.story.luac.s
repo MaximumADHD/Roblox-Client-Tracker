@@ -8,36 +8,30 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
-        3 DUPTABLE                         R3 K9 [{"Depth", "Children", "Expanded", "Item", "Index", "OnCheck", "OnToggle", "Position", "Size"}]
-        4 LOADN                            R4 0
-        5 SETTABLEKS                       R4 R3 K0 ["Depth"]
-        7 NEWTABLE                         R4 0 2
-        9 NEWTABLE                         R5 0 0
-       11 NEWTABLE                         R6 0 0
-       13 SETLIST                          R4 R5 2 [1]
-       15 SETTABLEKS                       R4 R3 K1 ["Children"]
-       17 LOADB                            R4 0
-       18 SETTABLEKS                       R4 R3 K2 ["Expanded"]
-       20 NEWTABLE                         R4 0 0
-       22 SETTABLEKS                       R4 R3 K3 ["Item"]
-       24 LOADN                            R4 1
-       25 SETTABLEKS                       R4 R3 K4 ["Index"]
-       27 DUPCLOSURE                       R4 K10 [PROTO_0]
-       28 SETTABLEKS                       R4 R3 K5 ["OnCheck"]
-       30 DUPCLOSURE                       R4 K11 [PROTO_1]
-       31 SETTABLEKS                       R4 R3 K6 ["OnToggle"]
-       33 GETIMPORT                        R4 K14 [UDim2.new]
-       35 CALL                             R4 0 1
-       36 SETTABLEKS                       R4 R3 K7 ["Position"]
-       38 GETIMPORT                        R4 K16 [UDim2.fromOffset]
-       40 LOADN                            R5 144
-       41 LOADN                            R6 54
-       42 CALL                             R4 2 1
-       43 SETTABLEKS                       R4 R3 K8 ["Size"]
-       45 GETUPVAL                         R4 3
-       46 CALL                             R2 2 -1
-       47 CALL                             R0 -1 -1
-       48 RETURN                           R0 -1
+        3 DUPTABLE                         R3 K12 [{[1] = 0, ["Children"], ["Expanded"] = False, ["Item"], ["Index"] = 1, ["OnCheck"], ["OnToggle"], ["Position"], ["Size"]}]
+        4 NEWTABLE                         R4 0 2
+        6 NEWTABLE                         R5 0 0
+        8 NEWTABLE                         R6 0 0
+       10 SETLIST                          R4 R5 2 [1]
+       12 SETTABLEKS                       R4 R3 K2 ["Children"]
+       14 NEWTABLE                         R4 0 0
+       16 SETTABLEKS                       R4 R3 K5 ["Item"]
+       18 DUPCLOSURE                       R4 K13 [PROTO_0]
+       19 SETTABLEKS                       R4 R3 K8 ["OnCheck"]
+       21 DUPCLOSURE                       R4 K14 [PROTO_1]
+       22 SETTABLEKS                       R4 R3 K9 ["OnToggle"]
+       24 GETIMPORT                        R4 K17 [UDim2.new]
+       26 CALL                             R4 0 1
+       27 SETTABLEKS                       R4 R3 K10 ["Position"]
+       29 GETIMPORT                        R4 K19 [UDim2.fromOffset]
+       31 LOADN                            R5 400
+       32 LOADN                            R6 54
+       33 CALL                             R4 2 1
+       34 SETTABLEKS                       R4 R3 K11 ["Size"]
+       36 GETUPVAL                         R4 3
+       37 CALL                             R2 2 -1
+       38 CALL                             R0 -1 -1
+       39 RETURN                           R0 -1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0
@@ -78,27 +72,21 @@ MAIN:
        44 CAPTURE                          VAL R5
        45 DUPTABLE                         R9 K18 [{"stories"}]
        46 NEWTABLE                         R10 0 1
-       48 DUPTABLE                         R11 K21 [{"name", "story"}]
-       49 LOADK                            R12 K22 ["Normal"]
-       50 SETTABLEKS                       R12 R11 K19 ["name"]
-       52 DUPTABLE                         R13 K24 [{"Item"}]
-       53 DUPTABLE                         R14 K28 [{"Title", "Description", "Icon"}]
-       54 LOADK                            R15 K29 ["Test Title"]
-       55 SETTABLEKS                       R15 R14 K25 ["Title"]
-       57 LOADK                            R15 K30 ["This is a mock description about an action provided by a plugin and it is in fact really long so is going to go on for a long time and get truncated"]
-       58 SETTABLEKS                       R15 R14 K26 ["Description"]
-       60 GETTABLEKS                       R15 R7 K31 ["getPathForIcon"]
-       62 LOADK                            R16 K32 ["Scale"]
-       63 LOADK                            R17 K33 ["Large"]
-       64 CALL                             R15 2 1
-       65 SETTABLEKS                       R15 R14 K27 ["Icon"]
-       67 SETTABLEKS                       R14 R13 K23 ["Item"]
-       69 NEWCLOSURE                       R12 P1
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          VAL R13
-       74 SETTABLEKS                       R12 R11 K20 ["story"]
-       76 SETLIST                          R10 R11 1 [1]
-       78 SETTABLEKS                       R10 R9 K17 ["stories"]
-       80 RETURN                           R9 1
+       48 DUPTABLE                         R11 K22 [{["name"] = "Normal", ["story"]}]
+       49 DUPTABLE                         R13 K24 [{"Item"}]
+       50 DUPTABLE                         R14 K30 [{["Title"] = "Test Title", ["Description"] = "This is a mock description about an action provided by a plugin and it is in fact really long so is going to go on for a long time and get truncated", ["Icon"]}]
+       51 GETTABLEKS                       R15 R7 K31 ["getPathForIcon"]
+       53 LOADK                            R16 K32 ["Scale"]
+       54 LOADK                            R17 K33 ["Large"]
+       55 CALL                             R15 2 1
+       56 SETTABLEKS                       R15 R14 K29 ["Icon"]
+       58 SETTABLEKS                       R14 R13 K23 ["Item"]
+       60 NEWCLOSURE                       R12 P1
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R13
+       65 SETTABLEKS                       R12 R11 K21 ["story"]
+       67 SETLIST                          R10 R11 1 [1]
+       69 SETTABLEKS                       R10 R9 K17 ["stories"]
+       71 RETURN                           R9 1

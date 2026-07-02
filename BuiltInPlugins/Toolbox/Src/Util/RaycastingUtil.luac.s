@@ -5,13 +5,13 @@ PROTO_0:
         4 NEWTABLE                         R1 0 0
         6 LOADN                            R2 0
         7 LOADN                            R5 1
-        8 LOADN                            R3 0
+        8 LOADN                            R3 256
         9 LOADN                            R4 1
        10 FORNPREP                         R3
        11 MULK                             R10 R5 K2 [2]
        12 SUBK                             R9 R10 K0 [1]
        13 DIVK                             R8 R9 K1 [256]
-       14 SUBRK                            R7 R0 K8 [math.sin]
+       14 SUBRK                            R7 K0 [1] R8
        15 FASTCALL1                        MATH_ACOS R7 ; [+2]
        16 GETIMPORT                        R6 K5 [math.acos]
        18 CALL                             R6 1 1
@@ -90,7 +90,7 @@ PROTO_1:
        13 LOADN                            R8 1
        14 LOADN                            R9 0
        15 LOADN                            R12 1
-       16 LOADN                            R10 0
+       16 LOADN                            R10 256
        17 LOADN                            R11 1
        18 FORNPREP                         R10
        19 GETIMPORT                        R13 K3 [Vector2.new]

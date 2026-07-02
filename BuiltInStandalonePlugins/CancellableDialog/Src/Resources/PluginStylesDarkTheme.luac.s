@@ -10,22 +10,14 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Styling"]
        16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
-       18 DUPTABLE                         R3 K15 [{"LoadingSpinnerImage", "CancelButtonBorderSizePixel", "CancelButtonBorderColor3", "CancelButtonBorderTransparency", "SemanticColorBackdrop"}]
-       19 LOADK                            R4 K16 ["rbxasset://studio_svg_textures/Lua/Dialog/Dark/Standard/Spinner.png"]
-       20 SETTABLEKS                       R4 R3 K10 ["LoadingSpinnerImage"]
-       22 LOADN                            R4 0
-       23 SETTABLEKS                       R4 R3 K11 ["CancelButtonBorderSizePixel"]
-       25 LOADK                            R4 K17 ["$Gray50"]
-       26 SETTABLEKS                       R4 R3 K12 ["CancelButtonBorderColor3"]
-       28 LOADN                            R4 1
-       29 SETTABLEKS                       R4 R3 K13 ["CancelButtonBorderTransparency"]
-       31 GETIMPORT                        R4 K20 [Color3.fromHex]
-       33 LOADK                            R5 K21 ["#EEEEEE"]
-       34 CALL                             R4 1 1
-       35 SETTABLEKS                       R4 R3 K14 ["SemanticColorBackdrop"]
-       37 MOVE                             R4 R2
-       38 LOADK                            R5 K22 ["CancellableDialogDarkTheme"]
-       39 NEWTABLE                         R6 0 0
-       41 MOVE                             R7 R3
-       42 CALL                             R4 3 -1
-       43 RETURN                           R4 -1
+       18 DUPTABLE                         R3 K19 [{["LoadingSpinnerImage"] = "rbxasset://studio_svg_textures/Lua/Dialog/Dark/Standard/Spinner.png", ["CancelButtonBorderSizePixel"] = 0, ["CancelButtonBorderColor3"] = "$Gray50", ["CancelButtonBorderTransparency"] = 1, ["SemanticColorBackdrop"]}]
+       19 GETIMPORT                        R4 K22 [Color3.fromHex]
+       21 LOADK                            R5 K23 ["#EEEEEE"]
+       22 CALL                             R4 1 1
+       23 SETTABLEKS                       R4 R3 K18 ["SemanticColorBackdrop"]
+       25 MOVE                             R4 R2
+       26 LOADK                            R5 K24 ["CancellableDialogDarkTheme"]
+       27 NEWTABLE                         R6 0 0
+       29 MOVE                             R7 R3
+       30 CALL                             R4 3 -1
+       31 RETURN                           R4 -1

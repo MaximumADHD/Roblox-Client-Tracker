@@ -494,47 +494,41 @@ MAIN:
        20 GETTABLEKS                       R2 R2 K10 ["Util"]
        22 GETTABLEKS                       R2 R2 K11 ["Signal"]
        24 CALL                             R1 1 1
-       25 DUPTABLE                         R2 K15 [{"DEFAULT", "EMPTY_TEST", "SERVICE_DISABLED"}]
-       26 LOADN                            R3 1
-       27 SETTABLEKS                       R3 R2 K12 ["DEFAULT"]
-       29 LOADN                            R3 2
-       30 SETTABLEKS                       R3 R2 K13 ["EMPTY_TEST"]
-       32 LOADN                            R3 3
-       33 SETTABLEKS                       R3 R2 K14 ["SERVICE_DISABLED"]
-       35 DUPCLOSURE                       R3 K16 [PROTO_0]
-       36 DUPCLOSURE                       R4 K17 [PROTO_1]
-       37 DUPCLOSURE                       R5 K18 [PROTO_2]
-       38 CAPTURE                          VAL R2
-       39 DUPCLOSURE                       R6 K19 [PROTO_3]
-       40 DUPCLOSURE                       R7 K20 [PROTO_4]
-       41 DUPCLOSURE                       R8 K21 [PROTO_5]
-       42 NEWTABLE                         R9 16 0
-       44 SETTABLEKS                       R9 R9 K22 ["__index"]
-       46 SETTABLEKS                       R2 R9 K23 ["TestCases"]
-       48 DUPCLOSURE                       R10 K24 [PROTO_6]
-       49 CAPTURE                          VAL R1
-       50 CAPTURE                          VAL R2
-       51 CAPTURE                          VAL R7
-       52 CAPTURE                          VAL R9
-       53 SETTABLEKS                       R10 R9 K25 ["new"]
-       55 DUPCLOSURE                       R10 K26 [PROTO_7]
-       56 CAPTURE                          VAL R8
-       57 CAPTURE                          VAL R2
-       58 SETTABLEKS                       R10 R9 K27 ["GetDrafts"]
-       60 DUPCLOSURE                       R10 K28 [PROTO_8]
-       61 SETTABLEKS                       R10 R9 K29 ["GetDraftStatus"]
-       63 DUPCLOSURE                       R10 K30 [PROTO_9]
-       64 SETTABLEKS                       R10 R9 K31 ["GetEditors"]
-       66 DUPCLOSURE                       R10 K32 [PROTO_10]
-       67 SETTABLEKS                       R10 R9 K33 ["ShowDiffsAgainstBase"]
-       69 DUPCLOSURE                       R10 K34 [PROTO_11]
-       70 SETTABLEKS                       R10 R9 K35 ["ShowDiffsAgainstServer"]
-       72 DUPCLOSURE                       R10 K36 [PROTO_12]
-       73 SETTABLEKS                       R10 R9 K37 ["DiscardEdits"]
-       75 DUPCLOSURE                       R10 K38 [PROTO_13]
-       76 CAPTURE                          VAL R8
-       77 SETTABLEKS                       R10 R9 K39 ["UpdateToLatestVersion"]
-       79 DUPCLOSURE                       R10 K40 [PROTO_15]
-       80 CAPTURE                          VAL R8
-       81 SETTABLEKS                       R10 R9 K41 ["CommitEdits"]
-       83 RETURN                           R9 1
+       25 DUPTABLE                         R2 K18 [{["DEFAULT"] = 1, ["EMPTY_TEST"] = 2, ["SERVICE_DISABLED"] = 3}]
+       26 DUPCLOSURE                       R3 K19 [PROTO_0]
+       27 DUPCLOSURE                       R4 K20 [PROTO_1]
+       28 DUPCLOSURE                       R5 K21 [PROTO_2]
+       29 CAPTURE                          VAL R2
+       30 DUPCLOSURE                       R6 K22 [PROTO_3]
+       31 DUPCLOSURE                       R7 K23 [PROTO_4]
+       32 DUPCLOSURE                       R8 K24 [PROTO_5]
+       33 NEWTABLE                         R9 16 0
+       35 SETTABLEKS                       R9 R9 K25 ["__index"]
+       37 SETTABLEKS                       R2 R9 K26 ["TestCases"]
+       39 DUPCLOSURE                       R10 K27 [PROTO_6]
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R7
+       43 CAPTURE                          VAL R9
+       44 SETTABLEKS                       R10 R9 K28 ["new"]
+       46 DUPCLOSURE                       R10 K29 [PROTO_7]
+       47 CAPTURE                          VAL R8
+       48 CAPTURE                          VAL R2
+       49 SETTABLEKS                       R10 R9 K30 ["GetDrafts"]
+       51 DUPCLOSURE                       R10 K31 [PROTO_8]
+       52 SETTABLEKS                       R10 R9 K32 ["GetDraftStatus"]
+       54 DUPCLOSURE                       R10 K33 [PROTO_9]
+       55 SETTABLEKS                       R10 R9 K34 ["GetEditors"]
+       57 DUPCLOSURE                       R10 K35 [PROTO_10]
+       58 SETTABLEKS                       R10 R9 K36 ["ShowDiffsAgainstBase"]
+       60 DUPCLOSURE                       R10 K37 [PROTO_11]
+       61 SETTABLEKS                       R10 R9 K38 ["ShowDiffsAgainstServer"]
+       63 DUPCLOSURE                       R10 K39 [PROTO_12]
+       64 SETTABLEKS                       R10 R9 K40 ["DiscardEdits"]
+       66 DUPCLOSURE                       R10 K41 [PROTO_13]
+       67 CAPTURE                          VAL R8
+       68 SETTABLEKS                       R10 R9 K42 ["UpdateToLatestVersion"]
+       70 DUPCLOSURE                       R10 K43 [PROTO_15]
+       71 CAPTURE                          VAL R8
+       72 SETTABLEKS                       R10 R9 K44 ["CommitEdits"]
+       74 RETURN                           R9 1

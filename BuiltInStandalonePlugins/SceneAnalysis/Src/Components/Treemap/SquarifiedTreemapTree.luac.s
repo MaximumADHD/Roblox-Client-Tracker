@@ -1,110 +1,104 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"original", "Size", "layoutSize", "rectangle"}]
+        0 DUPTABLE                         R2 K6 [{[1], ["Size"] = 0, ["layoutSize"] = 0, ["rectangle"] = }]
         1 SETTABLEKS                       R0 R2 K0 ["original"]
-        3 LOADN                            R3 0
-        4 SETTABLEKS                       R3 R2 K1 ["Size"]
-        6 LOADN                            R3 0
-        7 SETTABLEKS                       R3 R2 K2 ["layoutSize"]
-        9 LOADNIL                          R3
-       10 SETTABLEKS                       R3 R2 K3 ["rectangle"]
-       12 GETTABLEKS                       R3 R0 K5 ["Children"]
-       14 JUMPIFNOT                        R3 ; [+57]
-       15 GETTABLEKS                       R4 R0 K5 ["Children"]
-       17 LENGTH                           R3 R4
-       18 LOADN                            R4 0
-       19 JUMPIFNOTLT                      R4 R3 ; [+52]
-       21 NEWTABLE                         R3 0 0
-       23 SETTABLEKS                       R3 R2 K5 ["Children"]
-       25 LOADN                            R3 0
-       26 NEWTABLE                         R4 0 0
-       28 LOADB                            R5 0
-       29 GETTABLEKS                       R6 R0 K5 ["Children"]
-       31 LOADNIL                          R7
-       32 LOADNIL                          R8
-       33 FORGPREP                         R6
-       34 GETUPVAL                         R11 0
-       35 MOVE                             R12 R10
-       36 MOVE                             R13 R1
-       37 CALL                             R11 2 1
-       38 GETTABLEKS                       R13 R2 K5 ["Children"]
-       40 FASTCALL2                        TABLE_INSERT R13 R11 ; [+4]
-       42 MOVE                             R14 R11
-       43 GETIMPORT                        R12 K8 [table.insert]
-       45 CALL                             R12 2 0
-       46 GETTABLEKS                       R12 R11 K1 ["Size"]
-       48 ADD                              R3 R3 R12
-       49 GETTABLEKS                       R12 R11 K9 ["Sizes"]
-       51 JUMPIFNOT                        R12 ; [+12]
-       52 LOADB                            R5 1
-       53 GETTABLEKS                       R12 R11 K9 ["Sizes"]
-       55 LOADNIL                          R13
-       56 LOADNIL                          R14
-       57 FORGPREP                         R12
-       58 GETTABLE                         R19 R4 R15
-       59 ORK                              R18 R19 K10 [0]
-       60 ADD                              R17 R18 R16
-       61 SETTABLE                         R17 R4 R15
-       62 FORGLOOP                         R12 2 ; [-5]
-       64 FORGLOOP                         R6 2 ; [-31]
-       66 SETTABLEKS                       R3 R2 K1 ["Size"]
-       68 JUMPIFNOT                        R5 ; [+34]
-       69 SETTABLEKS                       R4 R2 K9 ["Sizes"]
-       71 JUMP                             ; [+31]
-       72 GETTABLEKS                       R5 R0 K1 ["Size"]
-       74 FASTCALL1                        TYPE R5 ; [+2]
-       75 GETIMPORT                        R4 K12 [type]
-       77 CALL                             R4 1 1
-       78 JUMPIFNOTEQKS                    R4 K13 ["number"] ; [+4]
-       80 GETTABLEKS                       R3 R0 K1 ["Size"]
-       82 JUMPIF                           R3 ; [+1]
-       83 LOADN                            R3 0
-       84 SETTABLEKS                       R3 R2 K1 ["Size"]
-       86 GETTABLEKS                       R3 R0 K9 ["Sizes"]
-       88 JUMPIFNOT                        R3 ; [+14]
-       89 NEWTABLE                         R3 0 0
-       91 SETTABLEKS                       R3 R2 K9 ["Sizes"]
-       93 GETTABLEKS                       R3 R0 K9 ["Sizes"]
-       95 LOADNIL                          R4
-       96 LOADNIL                          R5
-       97 FORGPREP                         R3
-       98 GETTABLEKS                       R8 R2 K9 ["Sizes"]
-      100 SETTABLE                         R7 R8 R6
-      101 FORGLOOP                         R3 2 ; [-4]
-      103 GETTABLEKS                       R3 R2 K9 ["Sizes"]
-      105 JUMPIFNOT                        R3 ; [+34]
-      106 JUMPIFNOT                        R1 ; [+10]
-      107 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      109 GETTABLE                         R3 R4 R1
-      110 JUMPIFNOT                        R3 ; [+6]
-      111 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      113 GETTABLE                         R3 R4 R1
-      114 SETTABLEKS                       R3 R2 K1 ["Size"]
-      116 JUMP                             ; [+23]
-      117 GETTABLEKS                       R4 R0 K1 ["Size"]
-      119 FASTCALL1                        TYPE R4 ; [+2]
-      120 GETIMPORT                        R3 K12 [type]
-      122 CALL                             R3 1 1
-      123 JUMPIFEQKS                       R3 K13 ["number"] ; [+16]
-      125 GETIMPORT                        R3 K15 [next]
-      127 GETTABLEKS                       R4 R2 K9 ["Sizes"]
-      129 CALL                             R3 1 2
-      130 JUMPIFNOT                        R4 ; [+9]
-      131 FASTCALL1                        TYPE R4 ; [+3]
-      132 MOVE                             R6 R4
-      133 GETIMPORT                        R5 K12 [type]
-      135 CALL                             R5 1 1
-      136 JUMPIFNOTEQKS                    R5 K13 ["number"] ; [+3]
-      138 SETTABLEKS                       R4 R2 K1 ["Size"]
-      140 GETTABLEKS                       R4 R2 K1 ["Size"]
-      142 FASTCALL1                        TYPE R4 ; [+2]
-      143 GETIMPORT                        R3 K12 [type]
-      145 CALL                             R3 1 1
-      146 JUMPIFEQKS                       R3 K13 ["number"] ; [+4]
-      148 LOADN                            R3 0
-      149 SETTABLEKS                       R3 R2 K1 ["Size"]
-      151 GETTABLEKS                       R3 R2 K1 ["Size"]
-      153 SETTABLEKS                       R3 R2 K2 ["layoutSize"]
-      155 RETURN                           R2 1
+        3 GETTABLEKS                       R3 R0 K7 ["Children"]
+        5 JUMPIFNOT                        R3 ; [+57]
+        6 GETTABLEKS                       R4 R0 K7 ["Children"]
+        8 LENGTH                           R3 R4
+        9 LOADN                            R4 0
+       10 JUMPIFNOTLT                      R4 R3 ; [+52]
+       12 NEWTABLE                         R3 0 0
+       14 SETTABLEKS                       R3 R2 K7 ["Children"]
+       16 LOADN                            R3 0
+       17 NEWTABLE                         R4 0 0
+       19 LOADB                            R5 0
+       20 GETTABLEKS                       R6 R0 K7 ["Children"]
+       22 LOADNIL                          R7
+       23 LOADNIL                          R8
+       24 FORGPREP                         R6
+       25 GETUPVAL                         R11 0
+       26 MOVE                             R12 R10
+       27 MOVE                             R13 R1
+       28 CALL                             R11 2 1
+       29 GETTABLEKS                       R13 R2 K7 ["Children"]
+       31 FASTCALL2                        TABLE_INSERT R13 R11 ; [+4]
+       33 MOVE                             R14 R11
+       34 GETIMPORT                        R12 K10 [table.insert]
+       36 CALL                             R12 2 0
+       37 GETTABLEKS                       R12 R11 K1 ["Size"]
+       39 ADD                              R3 R3 R12
+       40 GETTABLEKS                       R12 R11 K11 ["Sizes"]
+       42 JUMPIFNOT                        R12 ; [+12]
+       43 LOADB                            R5 1
+       44 GETTABLEKS                       R12 R11 K11 ["Sizes"]
+       46 LOADNIL                          R13
+       47 LOADNIL                          R14
+       48 FORGPREP                         R12
+       49 GETTABLE                         R19 R4 R15
+       50 ORK                              R18 R19 K2 [0]
+       51 ADD                              R17 R18 R16
+       52 SETTABLE                         R17 R4 R15
+       53 FORGLOOP                         R12 2 ; [-5]
+       55 FORGLOOP                         R6 2 ; [-31]
+       57 SETTABLEKS                       R3 R2 K1 ["Size"]
+       59 JUMPIFNOT                        R5 ; [+34]
+       60 SETTABLEKS                       R4 R2 K11 ["Sizes"]
+       62 JUMP                             ; [+31]
+       63 GETTABLEKS                       R5 R0 K1 ["Size"]
+       65 FASTCALL1                        TYPE R5 ; [+2]
+       66 GETIMPORT                        R4 K13 [type]
+       68 CALL                             R4 1 1
+       69 JUMPIFNOTEQKS                    R4 K14 ["number"] ; [+4]
+       71 GETTABLEKS                       R3 R0 K1 ["Size"]
+       73 JUMPIF                           R3 ; [+1]
+       74 LOADN                            R3 0
+       75 SETTABLEKS                       R3 R2 K1 ["Size"]
+       77 GETTABLEKS                       R3 R0 K11 ["Sizes"]
+       79 JUMPIFNOT                        R3 ; [+14]
+       80 NEWTABLE                         R3 0 0
+       82 SETTABLEKS                       R3 R2 K11 ["Sizes"]
+       84 GETTABLEKS                       R3 R0 K11 ["Sizes"]
+       86 LOADNIL                          R4
+       87 LOADNIL                          R5
+       88 FORGPREP                         R3
+       89 GETTABLEKS                       R8 R2 K11 ["Sizes"]
+       91 SETTABLE                         R7 R8 R6
+       92 FORGLOOP                         R3 2 ; [-4]
+       94 GETTABLEKS                       R3 R2 K11 ["Sizes"]
+       96 JUMPIFNOT                        R3 ; [+34]
+       97 JUMPIFNOT                        R1 ; [+10]
+       98 GETTABLEKS                       R4 R2 K11 ["Sizes"]
+      100 GETTABLE                         R3 R4 R1
+      101 JUMPIFNOT                        R3 ; [+6]
+      102 GETTABLEKS                       R4 R2 K11 ["Sizes"]
+      104 GETTABLE                         R3 R4 R1
+      105 SETTABLEKS                       R3 R2 K1 ["Size"]
+      107 JUMP                             ; [+23]
+      108 GETTABLEKS                       R4 R0 K1 ["Size"]
+      110 FASTCALL1                        TYPE R4 ; [+2]
+      111 GETIMPORT                        R3 K13 [type]
+      113 CALL                             R3 1 1
+      114 JUMPIFEQKS                       R3 K14 ["number"] ; [+16]
+      116 GETIMPORT                        R3 K16 [next]
+      118 GETTABLEKS                       R4 R2 K11 ["Sizes"]
+      120 CALL                             R3 1 2
+      121 JUMPIFNOT                        R4 ; [+9]
+      122 FASTCALL1                        TYPE R4 ; [+3]
+      123 MOVE                             R6 R4
+      124 GETIMPORT                        R5 K13 [type]
+      126 CALL                             R5 1 1
+      127 JUMPIFNOTEQKS                    R5 K14 ["number"] ; [+3]
+      129 SETTABLEKS                       R4 R2 K1 ["Size"]
+      131 GETTABLEKS                       R4 R2 K1 ["Size"]
+      133 FASTCALL1                        TYPE R4 ; [+2]
+      134 GETIMPORT                        R3 K13 [type]
+      136 CALL                             R3 1 1
+      137 JUMPIFEQKS                       R3 K14 ["number"] ; [+4]
+      139 LOADN                            R3 0
+      140 SETTABLEKS                       R3 R2 K1 ["Size"]
+      142 GETTABLEKS                       R3 R2 K1 ["Size"]
+      144 SETTABLEKS                       R3 R2 K3 ["layoutSize"]
+      146 RETURN                           R2 1
 
 PROTO_1:
         0 JUMPIFNOTLT                      R1 R0 ; [+3]
@@ -114,16 +108,8 @@ PROTO_1:
         5 RETURN                           R2 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K4 [{"x", "y", "width", "height"}]
-        1 LOADN                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["x"]
-        4 LOADN                            R1 0
-        5 SETTABLEKS                       R1 R0 K1 ["y"]
-        7 LOADN                            R1 0
-        8 SETTABLEKS                       R1 R0 K2 ["width"]
-       10 LOADN                            R1 0
-       11 SETTABLEKS                       R1 R0 K3 ["height"]
-       13 RETURN                           R0 1
+        0 DUPTABLE                         R0 K5 [{[1] = 0, ["y"] = 0, ["width"] = 0, ["height"] = 0}]
+        1 RETURN                           R0 1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["width"]
@@ -135,26 +121,12 @@ PROTO_3:
         9 RETURN                           R1 1
 
 PROTO_4:
-        0 DUPTABLE                         R0 K5 [{"container", "orientation", "currentDatas", "totalData", "nextLayout"}]
-        1 DUPTABLE                         R1 K10 [{"x", "y", "width", "height"}]
-        2 LOADN                            R2 0
-        3 SETTABLEKS                       R2 R1 K6 ["x"]
-        5 LOADN                            R2 0
-        6 SETTABLEKS                       R2 R1 K7 ["y"]
-        8 LOADN                            R2 0
-        9 SETTABLEKS                       R2 R1 K8 ["width"]
-       11 LOADN                            R2 0
-       12 SETTABLEKS                       R2 R1 K9 ["height"]
-       14 SETTABLEKS                       R1 R0 K0 ["container"]
-       16 LOADN                            R1 0
-       17 SETTABLEKS                       R1 R0 K1 ["orientation"]
-       19 NEWTABLE                         R1 0 0
-       21 SETTABLEKS                       R1 R0 K2 ["currentDatas"]
-       23 LOADN                            R1 0
-       24 SETTABLEKS                       R1 R0 K3 ["totalData"]
-       26 LOADNIL                          R1
-       27 SETTABLEKS                       R1 R0 K4 ["nextLayout"]
-       29 RETURN                           R0 1
+        0 DUPTABLE                         R0 K7 [{[1], ["orientation"] = 0, ["currentDatas"], ["totalData"] = 0, ["nextLayout"] = }]
+        1 DUPTABLE                         R1 K12 [{["x"] = 0, ["y"] = 0, ["width"] = 0, ["height"] = 0}]
+        2 SETTABLEKS                       R1 R0 K0 ["container"]
+        4 NEWTABLE                         R1 0 0
+        6 SETTABLEKS                       R1 R0 K3 ["currentDatas"]
+        8 RETURN                           R0 1
 
 PROTO_5:
         0 DUPTABLE                         R1 K4 [{"x", "y", "width", "height"}]
@@ -767,7 +739,7 @@ PROTO_15:
        59 LOADN                            R13 0
        60 JUMPIFNOTLT                      R13 R12 ; [+10]
        62 MOVE                             R13 R10
-       63 SUBRK                            R16 R3 K7 ["height"]
+       63 SUBRK                            R16 K3 [1] R7
        64 DIV                              R15 R7 R16
        65 MUL                              R14 R12 R15
        66 SETTABLEKS                       R14 R13 K2 ["layoutSize"]
@@ -1167,25 +1139,21 @@ PROTO_17:
        52 MOVE                             R10 R8
        53 MOVE                             R11 R7
        54 CALL                             R9 2 1
-       55 DUPTABLE                         R10 K9 [{"x", "y", "width", "height"}]
-       56 LOADN                            R11 0
-       57 SETTABLEKS                       R11 R10 K5 ["x"]
-       59 LOADN                            R11 0
-       60 SETTABLEKS                       R11 R10 K6 ["y"]
-       62 SETTABLEKS                       R2 R10 K7 ["width"]
-       64 SETTABLEKS                       R3 R10 K8 ["height"]
-       66 SETTABLEKS                       R10 R9 K10 ["rectangle"]
-       68 GETUPVAL                         R10 1
-       69 MOVE                             R11 R9
-       70 LOADN                            R12 0
-       71 LOADN                            R13 0
-       72 MOVE                             R14 R2
-       73 MOVE                             R15 R3
-       74 LOADN                            R16 0
-       75 MOVE                             R17 R4
-       76 MOVE                             R18 R6
-       77 CALL                             R10 8 0
-       78 RETURN                           R9 1
+       55 DUPTABLE                         R10 K10 [{["x"] = 0, ["y"] = 0, ["width"], ["height"]}]
+       56 SETTABLEKS                       R2 R10 K8 ["width"]
+       58 SETTABLEKS                       R3 R10 K9 ["height"]
+       60 SETTABLEKS                       R10 R9 K11 ["rectangle"]
+       62 GETUPVAL                         R10 1
+       63 MOVE                             R11 R9
+       64 LOADN                            R12 0
+       65 LOADN                            R13 0
+       66 MOVE                             R14 R2
+       67 MOVE                             R15 R3
+       68 LOADN                            R16 0
+       69 MOVE                             R17 R4
+       70 MOVE                             R18 R6
+       71 CALL                             R10 8 0
+       72 RETURN                           R9 1
 
 PROTO_18:
         0 JUMPIFEQKNIL                     R0 ; [+5]

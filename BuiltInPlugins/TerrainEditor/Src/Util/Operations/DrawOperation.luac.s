@@ -544,15 +544,13 @@ PROTO_3:
        23 CAPTURE                          VAL R1
        24 GETUPVAL                         R5 14
        25 GETTABLEKS                       R5 R5 K1 ["new"]
-       27 DUPTABLE                         R6 K7 [{"Budget", "Name", "OnFinish", "OnStart", "OnStep"}]
-       28 LOADK                            R7 K8 [0.005]
-       29 SETTABLEKS                       R7 R6 K2 ["Budget"]
-       31 SETTABLEKS                       R0 R6 K3 ["Name"]
-       33 SETTABLEKS                       R4 R6 K4 ["OnFinish"]
-       35 SETTABLEKS                       R2 R6 K5 ["OnStart"]
-       37 SETTABLEKS                       R3 R6 K6 ["OnStep"]
-       39 CALL                             R5 1 -1
-       40 RETURN                           R5 -1
+       27 DUPTABLE                         R6 K8 [{["Budget"] = 0.005, ["Name"], ["OnFinish"], ["OnStart"], ["OnStep"]}]
+       28 SETTABLEKS                       R0 R6 K4 ["Name"]
+       30 SETTABLEKS                       R4 R6 K5 ["OnFinish"]
+       32 SETTABLEKS                       R2 R6 K6 ["OnStart"]
+       34 SETTABLEKS                       R3 R6 K7 ["OnStep"]
+       36 CALL                             R5 1 -1
+       37 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

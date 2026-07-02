@@ -94,109 +94,105 @@ PROTO_0:
       133 SETTABLEKS                       R29 R28 K47 ["CornerRadius"]
       135 CALL                             R26 2 1
       136 SETTABLEKS                       R26 R25 K42 ["Corner"]
-      138 JUMPIFNOT                        R9 ; [+48]
+      138 JUMPIFNOT                        R9 ; [+45]
       139 GETUPVAL                         R26 0
       140 GETTABLEKS                       R26 R26 K29 ["createElement"]
       142 LOADK                            R27 K51 ["ImageLabel"]
-      143 DUPTABLE                         R28 K54 [{"BackgroundTransparency", "Image", "ImageRectSize", "ImageRectOffset", "Size", "Position", "AnchorPoint", "ZIndex"}]
-      144 LOADN                            R29 1
-      145 SETTABLEKS                       R29 R28 K31 ["BackgroundTransparency"]
-      147 SETTABLEKS                       R12 R28 K18 ["Image"]
-      149 SETTABLEKS                       R13 R28 K19 ["ImageRectSize"]
-      151 SETTABLEKS                       R14 R28 K20 ["ImageRectOffset"]
-      153 GETIMPORT                        R29 K56 [UDim2.new]
-      155 LOADN                            R30 0
-      156 MOVE                             R31 R15
-      157 LOADN                            R32 0
-      158 JUMPIFNOT                        R13 ; [+3]
-      159 GETTABLEKS                       R33 R13 K57 ["Y"]
-      161 JUMPIF                           R33 ; [+1]
-      162 LOADN                            R33 16
-      163 CALL                             R29 4 1
-      164 SETTABLEKS                       R29 R28 K5 ["Size"]
-      166 GETIMPORT                        R29 K56 [UDim2.new]
-      168 LOADN                            R30 0
-      169 MOVE                             R31 R11
-      170 LOADK                            R32 K58 [0.5]
-      171 LOADN                            R33 0
-      172 CALL                             R29 4 1
-      173 SETTABLEKS                       R29 R28 K52 ["Position"]
-      175 GETIMPORT                        R29 K60 [Vector2.new]
-      177 LOADN                            R30 0
-      178 LOADK                            R31 K58 [0.5]
-      179 CALL                             R29 2 1
-      180 SETTABLEKS                       R29 R28 K53 ["AnchorPoint"]
-      182 ADDK                             R29 R7 K7 [1]
-      183 SETTABLEKS                       R29 R28 K8 ["ZIndex"]
-      185 CALL                             R26 2 1
-      186 JUMPIF                           R26 ; [+1]
-      187 LOADNIL                          R26
-      188 SETTABLEKS                       R26 R25 K43 ["Icon"]
-      190 GETUPVAL                         R26 0
-      191 GETTABLEKS                       R26 R26 K29 ["createElement"]
-      193 LOADK                            R27 K61 ["TextLabel"]
-      194 DUPTABLE                         R28 K67 [{"BackgroundTransparency", "Text", "TextXAlignment", "TextYAlignment", "Font", "TextSize", "TextColor3", "Position", "AnchorPoint", "Size", "ZIndex"}]
-      195 LOADN                            R29 1
-      196 SETTABLEKS                       R29 R28 K31 ["BackgroundTransparency"]
-      198 SETTABLEKS                       R3 R28 K3 ["Text"]
-      200 GETIMPORT                        R29 K70 [Enum.TextXAlignment.Left]
-      202 SETTABLEKS                       R29 R28 K62 ["TextXAlignment"]
-      204 GETIMPORT                        R29 K72 [Enum.TextYAlignment.Center]
-      206 SETTABLEKS                       R29 R28 K63 ["TextYAlignment"]
-      208 GETTABLEKS                       R30 R2 K73 ["footer"]
-      210 JUMPIFNOT                        R30 ; [+12]
-      211 GETTABLEKS                       R30 R2 K73 ["footer"]
-      213 GETTABLEKS                       R30 R30 K74 ["textbutton"]
-      215 JUMPIFNOT                        R30 ; [+7]
-      216 GETTABLEKS                       R29 R2 K73 ["footer"]
-      218 GETTABLEKS                       R29 R29 K74 ["textbutton"]
-      220 GETTABLEKS                       R29 R29 K75 ["font"]
-      222 JUMPIF                           R29 ; [+5]
-      223 GETTABLEKS                       R29 R2 K75 ["font"]
-      225 JUMPIF                           R29 ; [+2]
-      226 GETIMPORT                        R29 K77 [Enum.Font.SourceSans]
-      228 SETTABLEKS                       R29 R28 K64 ["Font"]
-      230 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
-      232 JUMPIFNOT                        R30 ; [+12]
-      233 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
-      235 GETTABLEKS                       R30 R30 K79 ["Subtext"]
-      237 JUMPIFNOT                        R30 ; [+7]
-      238 GETTABLEKS                       R29 R2 K78 ["fontStyle"]
-      240 GETTABLEKS                       R29 R29 K79 ["Subtext"]
-      242 GETTABLEKS                       R29 R29 K65 ["TextSize"]
-      244 JUMPIF                           R29 ; [+1]
-      245 LOADN                            R29 22
-      246 SETTABLEKS                       R29 R28 K65 ["TextSize"]
-      248 MOVE                             R29 R20
-      249 JUMPIF                           R29 ; [+2]
-      250 GETTABLEKS                       R29 R2 K80 ["textColor"]
-      252 SETTABLEKS                       R29 R28 K66 ["TextColor3"]
-      254 GETIMPORT                        R29 K56 [UDim2.new]
-      256 LOADN                            R30 0
-      257 MOVE                             R31 R16
-      258 LOADK                            R32 K58 [0.5]
-      259 LOADN                            R33 0
-      260 CALL                             R29 4 1
-      261 SETTABLEKS                       R29 R28 K52 ["Position"]
-      263 GETIMPORT                        R29 K60 [Vector2.new]
-      265 LOADN                            R30 0
-      266 LOADK                            R31 K58 [0.5]
-      267 CALL                             R29 2 1
-      268 SETTABLEKS                       R29 R28 K53 ["AnchorPoint"]
-      270 GETIMPORT                        R29 K56 [UDim2.new]
-      272 LOADN                            R30 1
-      273 MINUS                            R32 R16
-      274 SUB                              R31 R32 R11
-      275 LOADN                            R32 1
-      276 LOADN                            R33 0
-      277 CALL                             R29 4 1
-      278 SETTABLEKS                       R29 R28 K5 ["Size"]
-      280 ADDK                             R29 R7 K7 [1]
-      281 SETTABLEKS                       R29 R28 K8 ["ZIndex"]
-      283 CALL                             R26 2 1
-      284 SETTABLEKS                       R26 R25 K44 ["Label"]
-      286 CALL                             R22 3 -1
-      287 RETURN                           R22 -1
+      143 DUPTABLE                         R28 K54 [{["BackgroundTransparency"] = 1, ["Image"], ["ImageRectSize"], ["ImageRectOffset"], ["Size"], ["Position"], ["AnchorPoint"], ["ZIndex"]}]
+      144 SETTABLEKS                       R12 R28 K18 ["Image"]
+      146 SETTABLEKS                       R13 R28 K19 ["ImageRectSize"]
+      148 SETTABLEKS                       R14 R28 K20 ["ImageRectOffset"]
+      150 GETIMPORT                        R29 K56 [UDim2.new]
+      152 LOADN                            R30 0
+      153 MOVE                             R31 R15
+      154 LOADN                            R32 0
+      155 JUMPIFNOT                        R13 ; [+3]
+      156 GETTABLEKS                       R33 R13 K57 ["Y"]
+      158 JUMPIF                           R33 ; [+1]
+      159 LOADN                            R33 16
+      160 CALL                             R29 4 1
+      161 SETTABLEKS                       R29 R28 K5 ["Size"]
+      163 GETIMPORT                        R29 K56 [UDim2.new]
+      165 LOADN                            R30 0
+      166 MOVE                             R31 R11
+      167 LOADK                            R32 K58 [0.5]
+      168 LOADN                            R33 0
+      169 CALL                             R29 4 1
+      170 SETTABLEKS                       R29 R28 K52 ["Position"]
+      172 GETIMPORT                        R29 K60 [Vector2.new]
+      174 LOADN                            R30 0
+      175 LOADK                            R31 K58 [0.5]
+      176 CALL                             R29 2 1
+      177 SETTABLEKS                       R29 R28 K53 ["AnchorPoint"]
+      179 ADDK                             R29 R7 K7 [1]
+      180 SETTABLEKS                       R29 R28 K8 ["ZIndex"]
+      182 CALL                             R26 2 1
+      183 JUMPIF                           R26 ; [+1]
+      184 LOADNIL                          R26
+      185 SETTABLEKS                       R26 R25 K43 ["Icon"]
+      187 GETUPVAL                         R26 0
+      188 GETTABLEKS                       R26 R26 K29 ["createElement"]
+      190 LOADK                            R27 K61 ["TextLabel"]
+      191 DUPTABLE                         R28 K67 [{["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"], ["TextYAlignment"], ["Font"], ["TextSize"], ["TextColor3"], ["Position"], ["AnchorPoint"], ["Size"], ["ZIndex"]}]
+      192 SETTABLEKS                       R3 R28 K3 ["Text"]
+      194 GETIMPORT                        R29 K70 [Enum.TextXAlignment.Left]
+      196 SETTABLEKS                       R29 R28 K62 ["TextXAlignment"]
+      198 GETIMPORT                        R29 K72 [Enum.TextYAlignment.Center]
+      200 SETTABLEKS                       R29 R28 K63 ["TextYAlignment"]
+      202 GETTABLEKS                       R30 R2 K73 ["footer"]
+      204 JUMPIFNOT                        R30 ; [+12]
+      205 GETTABLEKS                       R30 R2 K73 ["footer"]
+      207 GETTABLEKS                       R30 R30 K74 ["textbutton"]
+      209 JUMPIFNOT                        R30 ; [+7]
+      210 GETTABLEKS                       R29 R2 K73 ["footer"]
+      212 GETTABLEKS                       R29 R29 K74 ["textbutton"]
+      214 GETTABLEKS                       R29 R29 K75 ["font"]
+      216 JUMPIF                           R29 ; [+5]
+      217 GETTABLEKS                       R29 R2 K75 ["font"]
+      219 JUMPIF                           R29 ; [+2]
+      220 GETIMPORT                        R29 K77 [Enum.Font.SourceSans]
+      222 SETTABLEKS                       R29 R28 K64 ["Font"]
+      224 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
+      226 JUMPIFNOT                        R30 ; [+12]
+      227 GETTABLEKS                       R30 R2 K78 ["fontStyle"]
+      229 GETTABLEKS                       R30 R30 K79 ["Subtext"]
+      231 JUMPIFNOT                        R30 ; [+7]
+      232 GETTABLEKS                       R29 R2 K78 ["fontStyle"]
+      234 GETTABLEKS                       R29 R29 K79 ["Subtext"]
+      236 GETTABLEKS                       R29 R29 K65 ["TextSize"]
+      238 JUMPIF                           R29 ; [+1]
+      239 LOADN                            R29 22
+      240 SETTABLEKS                       R29 R28 K65 ["TextSize"]
+      242 MOVE                             R29 R20
+      243 JUMPIF                           R29 ; [+2]
+      244 GETTABLEKS                       R29 R2 K80 ["textColor"]
+      246 SETTABLEKS                       R29 R28 K66 ["TextColor3"]
+      248 GETIMPORT                        R29 K56 [UDim2.new]
+      250 LOADN                            R30 0
+      251 MOVE                             R31 R16
+      252 LOADK                            R32 K58 [0.5]
+      253 LOADN                            R33 0
+      254 CALL                             R29 4 1
+      255 SETTABLEKS                       R29 R28 K52 ["Position"]
+      257 GETIMPORT                        R29 K60 [Vector2.new]
+      259 LOADN                            R30 0
+      260 LOADK                            R31 K58 [0.5]
+      261 CALL                             R29 2 1
+      262 SETTABLEKS                       R29 R28 K53 ["AnchorPoint"]
+      264 GETIMPORT                        R29 K56 [UDim2.new]
+      266 LOADN                            R30 1
+      267 MINUS                            R32 R16
+      268 SUB                              R31 R32 R11
+      269 LOADN                            R32 1
+      270 LOADN                            R33 0
+      271 CALL                             R29 4 1
+      272 SETTABLEKS                       R29 R28 K5 ["Size"]
+      274 ADDK                             R29 R7 K7 [1]
+      275 SETTABLEKS                       R29 R28 K8 ["ZIndex"]
+      277 CALL                             R26 2 1
+      278 SETTABLEKS                       R26 R25 K44 ["Label"]
+      280 CALL                             R22 3 -1
+      281 RETURN                           R22 -1
 
 MAIN:
         0 PREPVARARGS                      0

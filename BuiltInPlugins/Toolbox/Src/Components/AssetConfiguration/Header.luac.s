@@ -3,63 +3,57 @@ PROTO_0:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 LOADK                            R3 K2 ["Frame"]
-        6 DUPTABLE                         R4 K5 [{"BackgroundTransparency", "Size"}]
-        7 LOADN                            R5 1
-        8 SETTABLEKS                       R5 R4 K3 ["BackgroundTransparency"]
-       10 GETIMPORT                        R5 K8 [UDim2.new]
-       12 LOADN                            R6 1
-       13 LOADN                            R7 0
-       14 LOADN                            R8 0
-       15 LOADN                            R9 45
-       16 CALL                             R5 4 1
-       17 SETTABLEKS                       R5 R4 K4 ["Size"]
-       19 DUPTABLE                         R5 K11 [{"UIPadding", "Header"}]
-       20 GETUPVAL                         R6 0
-       21 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       23 LOADK                            R7 K9 ["UIPadding"]
-       24 DUPTABLE                         R8 K13 [{"PaddingLeft"}]
-       25 GETIMPORT                        R9 K15 [UDim.new]
-       27 LOADN                            R10 0
-       28 LOADN                            R11 251
-       29 CALL                             R9 2 1
-       30 SETTABLEKS                       R9 R8 K12 ["PaddingLeft"]
-       32 CALL                             R6 2 1
-       33 SETTABLEKS                       R6 R5 K9 ["UIPadding"]
-       35 GETUPVAL                         R6 0
-       36 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       38 LOADK                            R7 K16 ["TextLabel"]
-       39 DUPTABLE                         R8 K24 [{"BackgroundTransparency", "Font", "LayoutOrder", "Text", "TextColor3", "TextSize", "TextXAlignment", "TextYAlignment", "Size"}]
-       40 LOADN                            R9 1
-       41 SETTABLEKS                       R9 R8 K3 ["BackgroundTransparency"]
-       43 GETUPVAL                         R9 1
-       44 GETTABLEKS                       R9 R9 K25 ["FONT"]
-       46 SETTABLEKS                       R9 R8 K17 ["Font"]
-       48 GETTABLEKS                       R10 R1 K18 ["LayoutOrder"]
-       50 ORK                              R9 R10 K26 [1]
-       51 SETTABLEKS                       R9 R8 K18 ["LayoutOrder"]
-       53 GETTABLEKS                       R9 R1 K27 ["Title"]
-       55 SETTABLEKS                       R9 R8 K19 ["Text"]
-       57 GETTABLEKS                       R9 R1 K28 ["Stylizer"]
-       59 GETTABLEKS                       R9 R9 K29 ["publishAsset"]
-       61 GETTABLEKS                       R9 R9 K30 ["textColor"]
-       63 SETTABLEKS                       R9 R8 K20 ["TextColor3"]
-       65 LOADN                            R9 24
-       66 SETTABLEKS                       R9 R8 K21 ["TextSize"]
-       68 GETIMPORT                        R9 K33 [Enum.TextXAlignment.Left]
-       70 SETTABLEKS                       R9 R8 K22 ["TextXAlignment"]
-       72 GETIMPORT                        R9 K35 [Enum.TextYAlignment.Top]
-       74 SETTABLEKS                       R9 R8 K23 ["TextYAlignment"]
-       76 GETIMPORT                        R9 K8 [UDim2.new]
-       78 LOADN                            R10 0
-       79 LOADN                            R11 0
-       80 LOADN                            R12 0
-       81 LOADN                            R13 45
-       82 CALL                             R9 4 1
-       83 SETTABLEKS                       R9 R8 K4 ["Size"]
-       85 CALL                             R6 2 1
-       86 SETTABLEKS                       R6 R5 K10 ["Header"]
-       88 CALL                             R2 3 -1
-       89 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K6 [{["BackgroundTransparency"] = 1, ["Size"]}]
+        7 GETIMPORT                        R5 K9 [UDim2.new]
+        9 LOADN                            R6 1
+       10 LOADN                            R7 0
+       11 LOADN                            R8 0
+       12 LOADN                            R9 45
+       13 CALL                             R5 4 1
+       14 SETTABLEKS                       R5 R4 K5 ["Size"]
+       16 DUPTABLE                         R5 K12 [{"UIPadding", "Header"}]
+       17 GETUPVAL                         R6 0
+       18 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       20 LOADK                            R7 K10 ["UIPadding"]
+       21 DUPTABLE                         R8 K14 [{"PaddingLeft"}]
+       22 GETIMPORT                        R9 K16 [UDim.new]
+       24 LOADN                            R10 0
+       25 LOADN                            R11 -5
+       26 CALL                             R9 2 1
+       27 SETTABLEKS                       R9 R8 K13 ["PaddingLeft"]
+       29 CALL                             R6 2 1
+       30 SETTABLEKS                       R6 R5 K10 ["UIPadding"]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       35 LOADK                            R7 K17 ["TextLabel"]
+       36 DUPTABLE                         R8 K26 [{["BackgroundTransparency"] = 1, ["Font"], ["LayoutOrder"], ["Text"], ["TextColor3"], ["TextSize"] = 24, ["TextXAlignment"], ["TextYAlignment"], ["Size"]}]
+       37 GETUPVAL                         R9 1
+       38 GETTABLEKS                       R9 R9 K27 ["FONT"]
+       40 SETTABLEKS                       R9 R8 K18 ["Font"]
+       42 GETTABLEKS                       R10 R1 K19 ["LayoutOrder"]
+       44 ORK                              R9 R10 K4 [1]
+       45 SETTABLEKS                       R9 R8 K19 ["LayoutOrder"]
+       47 GETTABLEKS                       R9 R1 K28 ["Title"]
+       49 SETTABLEKS                       R9 R8 K20 ["Text"]
+       51 GETTABLEKS                       R9 R1 K29 ["Stylizer"]
+       53 GETTABLEKS                       R9 R9 K30 ["publishAsset"]
+       55 GETTABLEKS                       R9 R9 K31 ["textColor"]
+       57 SETTABLEKS                       R9 R8 K21 ["TextColor3"]
+       59 GETIMPORT                        R9 K34 [Enum.TextXAlignment.Left]
+       61 SETTABLEKS                       R9 R8 K24 ["TextXAlignment"]
+       63 GETIMPORT                        R9 K36 [Enum.TextYAlignment.Top]
+       65 SETTABLEKS                       R9 R8 K25 ["TextYAlignment"]
+       67 GETIMPORT                        R9 K9 [UDim2.new]
+       69 LOADN                            R10 0
+       70 LOADN                            R11 0
+       71 LOADN                            R12 0
+       72 LOADN                            R13 45
+       73 CALL                             R9 4 1
+       74 SETTABLEKS                       R9 R8 K5 ["Size"]
+       76 CALL                             R6 2 1
+       77 SETTABLEKS                       R6 R5 K11 ["Header"]
+       79 CALL                             R2 3 -1
+       80 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

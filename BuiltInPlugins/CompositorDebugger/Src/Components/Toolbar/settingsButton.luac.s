@@ -81,33 +81,31 @@ PROTO_3:
         7 NAMECALL                         R2 R2 K3 ["get"]
         9 CALL                             R2 1 1
        10 NEWTABLE                         R3 0 3
-       12 DUPTABLE                         R4 K8 [{"Id", "Text", "Checked", "OnItemClicked"}]
-       13 LOADK                            R5 K9 ["ToggleActiveLayers"]
-       14 SETTABLEKS                       R5 R4 K4 ["Id"]
-       16 LOADK                            R7 K10 ["Settings"]
-       17 LOADK                            R8 K9 ["ToggleActiveLayers"]
-       18 NAMECALL                         R5 R1 K11 ["getText"]
-       20 CALL                             R5 3 1
-       21 SETTABLEKS                       R5 R4 K5 ["Text"]
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R5 R5 K0 ["props"]
-       26 GETTABLEKS                       R5 R5 K12 ["ActiveLayersFilter"]
-       28 SETTABLEKS                       R5 R4 K6 ["Checked"]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R5 R5 K13 ["toggleActiveLayersFilter"]
-       33 SETTABLEKS                       R5 R4 K7 ["OnItemClicked"]
-       35 GETUPVAL                         R5 0
-       36 NAMECALL                         R5 R5 K14 ["makeReplaySubmenu"]
-       38 CALL                             R5 1 1
-       39 GETUPVAL                         R6 0
-       40 NAMECALL                         R6 R6 K15 ["makeSkipUIFramesSubmenu"]
-       42 CALL                             R6 1 -1
-       43 SETLIST                          R3 R4 -1 [1]
-       45 GETUPVAL                         R4 1
-       46 MOVE                             R5 R2
-       47 MOVE                             R6 R3
-       48 CALL                             R4 2 0
-       49 RETURN                           R0 0
+       12 DUPTABLE                         R4 K9 [{["Id"] = "ToggleActiveLayers", ["Text"], ["Checked"], ["OnItemClicked"]}]
+       13 LOADK                            R7 K10 ["Settings"]
+       14 LOADK                            R8 K5 ["ToggleActiveLayers"]
+       15 NAMECALL                         R5 R1 K11 ["getText"]
+       17 CALL                             R5 3 1
+       18 SETTABLEKS                       R5 R4 K6 ["Text"]
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R5 R5 K0 ["props"]
+       23 GETTABLEKS                       R5 R5 K12 ["ActiveLayersFilter"]
+       25 SETTABLEKS                       R5 R4 K7 ["Checked"]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K13 ["toggleActiveLayersFilter"]
+       30 SETTABLEKS                       R5 R4 K8 ["OnItemClicked"]
+       32 GETUPVAL                         R5 0
+       33 NAMECALL                         R5 R5 K14 ["makeReplaySubmenu"]
+       35 CALL                             R5 1 1
+       36 GETUPVAL                         R6 0
+       37 NAMECALL                         R6 R6 K15 ["makeSkipUIFramesSubmenu"]
+       39 CALL                             R6 1 -1
+       40 SETLIST                          R3 R4 -1 [1]
+       42 GETUPVAL                         R4 1
+       43 MOVE                             R5 R2
+       44 MOVE                             R6 R3
+       45 CALL                             R4 2 0
+       46 RETURN                           R0 0
 
 PROTO_4:
         0 NEWCLOSURE                       R1 P0
@@ -249,52 +247,48 @@ PROTO_8:
         6 GETUPVAL                         R5 1
         7 GETTABLEKS                       R5 R5 K4 ["createElement"]
         9 GETUPVAL                         R6 2
-       10 DUPTABLE                         R7 K9 [{"Size", "Position", "AnchorPoint", "Image"}]
-       11 GETIMPORT                        R8 K12 [UDim2.fromOffset]
+       10 DUPTABLE                         R7 K10 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"] = "rbxasset://textures/CompositorDebugger/settings.png"}]
+       11 GETIMPORT                        R8 K13 [UDim2.fromOffset]
        13 LOADN                            R9 20
        14 LOADN                            R10 20
        15 CALL                             R8 2 1
        16 SETTABLEKS                       R8 R7 K5 ["Size"]
-       18 GETIMPORT                        R8 K14 [UDim2.fromScale]
-       20 LOADK                            R9 K15 [0.5]
-       21 LOADK                            R10 K15 [0.5]
+       18 GETIMPORT                        R8 K15 [UDim2.fromScale]
+       20 LOADK                            R9 K16 [0.5]
+       21 LOADK                            R10 K16 [0.5]
        22 CALL                             R8 2 1
        23 SETTABLEKS                       R8 R7 K6 ["Position"]
-       25 GETIMPORT                        R8 K18 [Vector2.new]
-       27 LOADK                            R9 K15 [0.5]
-       28 LOADK                            R10 K15 [0.5]
+       25 GETIMPORT                        R8 K19 [Vector2.new]
+       27 LOADK                            R9 K16 [0.5]
+       28 LOADK                            R10 K16 [0.5]
        29 CALL                             R8 2 1
        30 SETTABLEKS                       R8 R7 K7 ["AnchorPoint"]
-       32 LOADK                            R8 K19 ["rbxasset://textures/CompositorDebugger/settings.png"]
-       33 SETTABLEKS                       R8 R7 K8 ["Image"]
-       35 CALL                             R5 2 1
-       36 SETTABLEKS                       R5 R4 K2 ["Icon"]
-       38 CALL                             R2 2 1
-       39 GETUPVAL                         R3 1
-       40 GETTABLEKS                       R3 R3 K4 ["createElement"]
-       42 GETUPVAL                         R4 3
-       43 DUPTABLE                         R5 K23 [{"Style", "Size", "Position", "AnchorPoint", "LayoutOrder", "OnClick"}]
-       44 LOADK                            R6 K24 ["Round"]
-       45 SETTABLEKS                       R6 R5 K20 ["Style"]
-       47 GETTABLEKS                       R6 R1 K5 ["Size"]
-       49 SETTABLEKS                       R6 R5 K5 ["Size"]
-       51 GETIMPORT                        R6 K14 [UDim2.fromScale]
-       53 LOADN                            R7 1
-       54 LOADK                            R8 K15 [0.5]
-       55 CALL                             R6 2 1
-       56 SETTABLEKS                       R6 R5 K6 ["Position"]
-       58 GETIMPORT                        R6 K18 [Vector2.new]
-       60 LOADN                            R7 1
-       61 LOADK                            R8 K15 [0.5]
-       62 CALL                             R6 2 1
-       63 SETTABLEKS                       R6 R5 K7 ["AnchorPoint"]
-       65 GETTABLEKS                       R6 R1 K21 ["LayoutOrder"]
-       67 SETTABLEKS                       R6 R5 K21 ["LayoutOrder"]
-       69 GETTABLEKS                       R6 R0 K25 ["onButtonClicked"]
-       71 SETTABLEKS                       R6 R5 K22 ["OnClick"]
-       73 MOVE                             R6 R2
-       74 CALL                             R3 3 -1
-       75 RETURN                           R3 -1
+       32 CALL                             R5 2 1
+       33 SETTABLEKS                       R5 R4 K2 ["Icon"]
+       35 CALL                             R2 2 1
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K4 ["createElement"]
+       39 GETUPVAL                         R4 3
+       40 DUPTABLE                         R5 K24 [{["Style"] = "Round", ["Size"], ["Position"], ["AnchorPoint"], ["LayoutOrder"], ["OnClick"]}]
+       41 GETTABLEKS                       R6 R1 K5 ["Size"]
+       43 SETTABLEKS                       R6 R5 K5 ["Size"]
+       45 GETIMPORT                        R6 K15 [UDim2.fromScale]
+       47 LOADN                            R7 1
+       48 LOADK                            R8 K16 [0.5]
+       49 CALL                             R6 2 1
+       50 SETTABLEKS                       R6 R5 K6 ["Position"]
+       52 GETIMPORT                        R6 K19 [Vector2.new]
+       54 LOADN                            R7 1
+       55 LOADK                            R8 K16 [0.5]
+       56 CALL                             R6 2 1
+       57 SETTABLEKS                       R6 R5 K7 ["AnchorPoint"]
+       59 GETTABLEKS                       R6 R1 K22 ["LayoutOrder"]
+       61 SETTABLEKS                       R6 R5 K22 ["LayoutOrder"]
+       63 GETTABLEKS                       R6 R0 K25 ["onButtonClicked"]
+       65 SETTABLEKS                       R6 R5 K23 ["OnClick"]
+       67 MOVE                             R6 R2
+       68 CALL                             R3 3 -1
+       69 RETURN                           R3 -1
 
 PROTO_9:
         0 DUPTABLE                         R2 K3 [{"ActiveLayersFilter", "LayerFilters", "SkipLimit"}]

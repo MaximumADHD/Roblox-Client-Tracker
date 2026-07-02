@@ -5,37 +5,42 @@ PROTO_0:
         6 JUMPIFNOTEQ                      R2 R4 ; [+3]
         8 LOADK                            R4 K6 ["Instance"]
         9 RETURN                           R4 1
-       10 JUMPIFNOTEQKS                    R0 K0 ["keyCode"] ; [+5]
-       12 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
-       14 LOADK                            R4 K7 ["Dropdown"]
-       15 RETURN                           R4 1
-       16 GETIMPORT                        R4 K10 [table.find]
-       18 GETUPVAL                         R5 0
-       19 MOVE                             R6 R0
-       20 CALL                             R4 2 1
-       21 JUMPIFNOT                        R4 ; [+4]
-       22 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
-       24 LOADK                            R4 K7 ["Dropdown"]
-       25 RETURN                           R4 1
-       26 JUMPIFNOT                        R3 ; [+21]
-       27 GETUPVAL                         R4 1
-       28 MOVE                             R5 R3
-       29 CALL                             R4 1 1
-       30 JUMPIFNOTEQKS                    R0 K11 ["primaryModifier"] ; [+4]
-       32 JUMPIF                           R4 ; [+2]
-       33 LOADNIL                          R5
-       34 RETURN                           R5 1
-       35 JUMPIFNOTEQKS                    R0 K12 ["secondaryModifier"] ; [+9]
-       37 GETTABLEKS                       R5 R3 K11 ["primaryModifier"]
-       39 GETIMPORT                        R6 K15 [Enum.KeyCode.Unknown]
-       41 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       43 LOADNIL                          R5
-       44 RETURN                           R5 1
-       45 JUMPIFNOT                        R4 ; [+2]
-       46 LOADK                            R5 K7 ["Dropdown"]
-       47 RETURN                           R5 1
-       48 LOADNIL                          R4
-       49 RETURN                           R4 1
+       10 GETIMPORT                        R4 K5 [Enum.InputActionType.Bool]
+       12 JUMPIFEQ                         R2 R4 ; [+5]
+       14 JUMPIFNOTEQKS                    R1 K1 ["Touch"] ; [+3]
+       16 LOADK                            R4 K7 ["Dropdown"]
+       17 RETURN                           R4 1
+       18 JUMPIFNOTEQKS                    R0 K0 ["keyCode"] ; [+5]
+       20 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
+       22 LOADK                            R4 K7 ["Dropdown"]
+       23 RETURN                           R4 1
+       24 GETIMPORT                        R4 K10 [table.find]
+       26 GETUPVAL                         R5 0
+       27 MOVE                             R6 R0
+       28 CALL                             R4 2 1
+       29 JUMPIFNOT                        R4 ; [+4]
+       30 JUMPIFEQKS                       R1 K1 ["Touch"] ; [+3]
+       32 LOADK                            R4 K7 ["Dropdown"]
+       33 RETURN                           R4 1
+       34 JUMPIFNOT                        R3 ; [+21]
+       35 GETUPVAL                         R4 1
+       36 MOVE                             R5 R3
+       37 CALL                             R4 1 1
+       38 JUMPIFNOTEQKS                    R0 K11 ["primaryModifier"] ; [+4]
+       40 JUMPIF                           R4 ; [+2]
+       41 LOADNIL                          R5
+       42 RETURN                           R5 1
+       43 JUMPIFNOTEQKS                    R0 K12 ["secondaryModifier"] ; [+9]
+       45 GETTABLEKS                       R5 R3 K11 ["primaryModifier"]
+       47 GETIMPORT                        R6 K15 [Enum.KeyCode.Unknown]
+       49 JUMPIFNOTEQ                      R5 R6 ; [+3]
+       51 LOADNIL                          R5
+       52 RETURN                           R5 1
+       53 JUMPIFNOT                        R4 ; [+2]
+       54 LOADK                            R5 K7 ["Dropdown"]
+       55 RETURN                           R5 1
+       56 LOADNIL                          R4
+       57 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

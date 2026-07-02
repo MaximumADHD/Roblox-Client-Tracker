@@ -45,49 +45,41 @@ PROTO_2:
         9 JUMPIFNOTEQ                      R6 R7 ; [+2]
        11 RETURN                           R5 1
        12 FORGLOOP                         R1 2 ; [-9]
-       14 DUPTABLE                         R1 K5 [{"Name", "Id", "Virtual", "Collisions"}]
+       14 DUPTABLE                         R1 K6 [{[1], ["Id"], ["Virtual"] = True, ["Collisions"]}]
        15 GETUPVAL                         R2 0
        16 GETTABLEKS                       R2 R2 K1 ["CursorGroupName"]
        18 SETTABLEKS                       R2 R1 K0 ["Name"]
        20 GETUPVAL                         R2 0
        21 GETTABLEKS                       R2 R2 K1 ["CursorGroupName"]
        23 SETTABLEKS                       R2 R1 K2 ["Id"]
-       25 LOADB                            R2 1
-       26 SETTABLEKS                       R2 R1 K3 ["Virtual"]
-       28 NEWTABLE                         R2 0 1
-       30 DUPTABLE                         R3 K7 [{"Name", "Collides"}]
-       31 GETUPVAL                         R4 0
-       32 GETTABLEKS                       R4 R4 K1 ["CursorGroupName"]
-       34 SETTABLEKS                       R4 R3 K0 ["Name"]
-       36 LOADB                            R4 1
-       37 SETTABLEKS                       R4 R3 K6 ["Collides"]
-       39 SETLIST                          R2 R3 1 [1]
-       41 SETTABLEKS                       R2 R1 K4 ["Collisions"]
-       43 MOVE                             R2 R0
-       44 LOADNIL                          R3
-       45 LOADNIL                          R4
-       46 FORGPREP                         R2
-       47 GETTABLEKS                       R8 R1 K4 ["Collisions"]
-       49 DUPTABLE                         R9 K7 [{"Name", "Collides"}]
-       50 GETTABLEKS                       R10 R6 K0 ["Name"]
-       52 SETTABLEKS                       R10 R9 K0 ["Name"]
-       54 LOADB                            R10 1
-       55 SETTABLEKS                       R10 R9 K6 ["Collides"]
-       57 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       59 GETIMPORT                        R7 K10 [table.insert]
-       61 CALL                             R7 2 0
-       62 GETTABLEKS                       R8 R6 K4 ["Collisions"]
-       64 DUPTABLE                         R9 K7 [{"Name", "Collides"}]
-       65 GETUPVAL                         R10 0
-       66 GETTABLEKS                       R10 R10 K1 ["CursorGroupName"]
-       68 SETTABLEKS                       R10 R9 K0 ["Name"]
-       70 LOADB                            R10 1
-       71 SETTABLEKS                       R10 R9 K6 ["Collides"]
-       73 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-       75 GETIMPORT                        R7 K10 [table.insert]
-       77 CALL                             R7 2 0
-       78 FORGLOOP                         R2 2 ; [-32]
-       80 RETURN                           R1 1
+       25 NEWTABLE                         R2 0 1
+       27 DUPTABLE                         R3 K8 [{[1], ["Collides"] = True}]
+       28 GETUPVAL                         R4 0
+       29 GETTABLEKS                       R4 R4 K1 ["CursorGroupName"]
+       31 SETTABLEKS                       R4 R3 K0 ["Name"]
+       33 SETLIST                          R2 R3 1 [1]
+       35 SETTABLEKS                       R2 R1 K5 ["Collisions"]
+       37 MOVE                             R2 R0
+       38 LOADNIL                          R3
+       39 LOADNIL                          R4
+       40 FORGPREP                         R2
+       41 GETTABLEKS                       R8 R1 K5 ["Collisions"]
+       43 DUPTABLE                         R9 K8 [{[1], ["Collides"] = True}]
+       44 GETTABLEKS                       R10 R6 K0 ["Name"]
+       46 SETTABLEKS                       R10 R9 K0 ["Name"]
+       48 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       50 GETIMPORT                        R7 K11 [table.insert]
+       52 CALL                             R7 2 0
+       53 GETTABLEKS                       R8 R6 K5 ["Collisions"]
+       55 DUPTABLE                         R9 K8 [{[1], ["Collides"] = True}]
+       56 GETUPVAL                         R10 0
+       57 GETTABLEKS                       R10 R10 K1 ["CursorGroupName"]
+       59 SETTABLEKS                       R10 R9 K0 ["Name"]
+       61 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+       63 GETIMPORT                        R7 K11 [table.insert]
+       65 CALL                             R7 2 0
+       66 FORGLOOP                         R2 2 ; [-26]
+       68 RETURN                           R1 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]

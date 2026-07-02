@@ -45,59 +45,55 @@ PROTO_4:
        17 GETUPVAL                         R3 1
        18 GETTABLEKS                       R3 R3 K5 ["createElement"]
        20 LOADK                            R4 K6 ["Frame"]
-       21 DUPTABLE                         R5 K10 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
-       22 GETTABLEKS                       R6 R0 K11 ["absoluteSizeChange"]
-       24 DUPCLOSURE                       R8 K12 [PROTO_1]
-       25 NAMECALL                         R6 R6 K13 ["map"]
+       21 DUPTABLE                         R5 K12 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1}]
+       22 GETTABLEKS                       R6 R0 K13 ["absoluteSizeChange"]
+       24 DUPCLOSURE                       R8 K14 [PROTO_1]
+       25 NAMECALL                         R6 R6 K15 ["map"]
        27 CALL                             R6 2 1
        28 SETTABLEKS                       R6 R5 K7 ["Size"]
-       30 LOADN                            R6 0
-       31 SETTABLEKS                       R6 R5 K8 ["BorderSizePixel"]
-       33 LOADN                            R6 1
-       34 SETTABLEKS                       R6 R5 K9 ["BackgroundTransparency"]
-       36 NEWTABLE                         R6 0 2
-       38 GETUPVAL                         R7 1
-       39 GETTABLEKS                       R7 R7 K5 ["createElement"]
-       41 LOADK                            R8 K14 ["UIListLayout"]
-       42 NEWTABLE                         R9 1 0
-       44 GETUPVAL                         R10 1
-       45 GETTABLEKS                       R10 R10 K15 ["Change"]
-       47 GETTABLEKS                       R10 R10 K16 ["AbsoluteContentSize"]
-       49 NEWCLOSURE                       R11 P1
-       50 CAPTURE                          VAL R0
-       51 SETTABLE                         R11 R9 R10
-       52 CALL                             R7 2 1
-       53 GETUPVAL                         R8 1
-       54 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       56 GETUPVAL                         R9 2
-       57 DUPTABLE                         R10 K24 [{"ThemeData", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "clobberTemplate"}]
-       58 DUPTABLE                         R11 K26 [{"theme"}]
-       59 SETTABLEKS                       R2 R11 K25 ["theme"]
-       61 SETTABLEKS                       R11 R10 K4 ["ThemeData"]
-       63 SETTABLEKS                       R1 R10 K17 ["StateTemplates"]
+       30 NEWTABLE                         R6 0 2
+       32 GETUPVAL                         R7 1
+       33 GETTABLEKS                       R7 R7 K5 ["createElement"]
+       35 LOADK                            R8 K16 ["UIListLayout"]
+       36 NEWTABLE                         R9 1 0
+       38 GETUPVAL                         R10 1
+       39 GETTABLEKS                       R10 R10 K17 ["Change"]
+       41 GETTABLEKS                       R10 R10 K18 ["AbsoluteContentSize"]
+       43 NEWCLOSURE                       R11 P1
+       44 CAPTURE                          VAL R0
+       45 SETTABLE                         R11 R9 R10
+       46 CALL                             R7 2 1
+       47 GETUPVAL                         R8 1
+       48 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       50 GETUPVAL                         R9 2
+       51 DUPTABLE                         R10 K26 [{"ThemeData", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "clobberTemplate"}]
+       52 DUPTABLE                         R11 K28 [{"theme"}]
+       53 SETTABLEKS                       R2 R11 K27 ["theme"]
+       55 SETTABLEKS                       R11 R10 K4 ["ThemeData"]
+       57 SETTABLEKS                       R1 R10 K19 ["StateTemplates"]
+       59 GETTABLEKS                       R11 R0 K3 ["props"]
+       61 GETTABLEKS                       R11 R11 K20 ["IsEnabled"]
+       63 SETTABLEKS                       R11 R10 K20 ["IsEnabled"]
        65 GETTABLEKS                       R11 R0 K3 ["props"]
-       67 GETTABLEKS                       R11 R11 K18 ["IsEnabled"]
-       69 SETTABLEKS                       R11 R10 K18 ["IsEnabled"]
+       67 GETTABLEKS                       R11 R11 K21 ["IsGameShutdownRequired"]
+       69 SETTABLEKS                       R11 R10 K21 ["IsGameShutdownRequired"]
        71 GETTABLEKS                       R11 R0 K3 ["props"]
-       73 GETTABLEKS                       R11 R11 K19 ["IsGameShutdownRequired"]
-       75 SETTABLEKS                       R11 R10 K19 ["IsGameShutdownRequired"]
+       73 GETTABLEKS                       R11 R11 K22 ["AssetOverrideErrors"]
+       75 SETTABLEKS                       R11 R10 K22 ["AssetOverrideErrors"]
        77 GETTABLEKS                       R11 R0 K3 ["props"]
-       79 GETTABLEKS                       R11 R11 K20 ["AssetOverrideErrors"]
-       81 SETTABLEKS                       R11 R10 K20 ["AssetOverrideErrors"]
+       79 GETTABLEKS                       R11 R11 K23 ["Mouse"]
+       81 SETTABLEKS                       R11 R10 K23 ["Mouse"]
        83 GETTABLEKS                       R11 R0 K3 ["props"]
-       85 GETTABLEKS                       R11 R11 K21 ["Mouse"]
-       87 SETTABLEKS                       R11 R10 K21 ["Mouse"]
-       89 GETTABLEKS                       R11 R0 K3 ["props"]
-       91 GETTABLEKS                       R11 R11 K22 ["IsPlacePublished"]
-       93 SETTABLEKS                       R11 R10 K22 ["IsPlacePublished"]
-       95 NEWCLOSURE                       R11 P2
-       96 CAPTURE                          UPVAL U3
-       97 CAPTURE                          VAL R0
-       98 SETTABLEKS                       R11 R10 K23 ["clobberTemplate"]
-      100 CALL                             R8 2 -1
-      101 SETLIST                          R6 R7 -1 [1]
-      103 CALL                             R3 3 -1
-      104 RETURN                           R3 -1
+       85 GETTABLEKS                       R11 R11 K24 ["IsPlacePublished"]
+       87 SETTABLEKS                       R11 R10 K24 ["IsPlacePublished"]
+       89 NEWCLOSURE                       R11 P2
+       90 CAPTURE                          UPVAL U3
+       91 CAPTURE                          VAL R0
+       92 SETTABLEKS                       R11 R10 K25 ["clobberTemplate"]
+       94 CALL                             R8 2 -1
+       95 SETLIST                          R6 R7 -1 [1]
+       97 CALL                             R3 3 -1
+       98 RETURN                           R3 -1
 
 PROTO_5:
         0 JUMPIFNOT                        R1 ; [+86]

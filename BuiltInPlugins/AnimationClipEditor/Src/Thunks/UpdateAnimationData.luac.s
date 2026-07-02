@@ -133,7 +133,7 @@ PROTO_0:
       174 FASTCALL                         MATH_CLAMP ; [+2]
       175 GETIMPORT                        R13 K21 [math.clamp]
       177 CALL                             R13 3 1
-      178 SUBRK                            R3 R27 K13 ["EndTick"]
+      178 SUBRK                            R3 K27 [1] R13
       179 GETUPVAL                         R15 10
       180 MOVE                             R16 R2
       181 MOVE                             R17 R3

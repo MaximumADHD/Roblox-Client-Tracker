@@ -30,139 +30,127 @@ PROTO_1:
        21 GETUPVAL                         R5 1
        22 GETTABLEKS                       R5 R5 K7 ["createElement"]
        24 LOADK                            R6 K8 ["ScreenGui"]
-       25 DUPTABLE                         R7 K10 [{"ClipToDeviceSafeArea"}]
-       26 LOADB                            R8 0
-       27 SETTABLEKS                       R8 R7 K9 ["ClipToDeviceSafeArea"]
-       29 NEWTABLE                         R8 0 1
-       31 GETUPVAL                         R9 1
-       32 GETTABLEKS                       R9 R9 K7 ["createElement"]
-       34 LOADK                            R10 K11 ["Frame"]
-       35 DUPTABLE                         R11 K17 [{"Position", "Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
-       36 GETIMPORT                        R12 K19 [UDim2.new]
-       38 LOADN                            R13 0
-       39 GETTABLEKS                       R14 R4 K20 ["Min"]
-       41 GETTABLEKS                       R14 R14 K21 ["X"]
-       43 LOADN                            R15 0
-       44 GETTABLEKS                       R16 R4 K20 ["Min"]
-       46 GETTABLEKS                       R16 R16 K22 ["Y"]
-       48 CALL                             R12 4 1
-       49 SETTABLEKS                       R12 R11 K12 ["Position"]
-       51 GETIMPORT                        R12 K19 [UDim2.new]
-       53 LOADN                            R13 0
-       54 GETTABLEKS                       R14 R4 K23 ["Width"]
-       56 LOADN                            R15 0
-       57 GETTABLEKS                       R16 R4 K24 ["Height"]
-       59 CALL                             R12 4 1
-       60 SETTABLEKS                       R12 R11 K13 ["Size"]
-       62 GETTABLEKS                       R12 R0 K0 ["props"]
-       64 GETTABLEKS                       R12 R12 K14 ["BackgroundColor3"]
-       66 SETTABLEKS                       R12 R11 K14 ["BackgroundColor3"]
-       68 GETTABLEKS                       R12 R0 K0 ["props"]
-       70 GETTABLEKS                       R12 R12 K15 ["BackgroundTransparency"]
-       72 SETTABLEKS                       R12 R11 K15 ["BackgroundTransparency"]
-       74 LOADN                            R12 0
-       75 SETTABLEKS                       R12 R11 K16 ["BorderSizePixel"]
-       77 DUPTABLE                         R12 K29 [{"Left", "Top", "Right", "Bottom"}]
-       78 GETUPVAL                         R13 1
-       79 GETTABLEKS                       R13 R13 K7 ["createElement"]
-       81 LOADK                            R14 K11 ["Frame"]
-       82 DUPTABLE                         R15 K30 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
-       83 GETIMPORT                        R16 K19 [UDim2.new]
-       85 LOADN                            R17 0
-       86 LOADN                            R18 1
-       87 LOADN                            R19 1
-       88 LOADN                            R20 0
-       89 CALL                             R16 4 1
-       90 SETTABLEKS                       R16 R15 K13 ["Size"]
-       92 GETTABLEKS                       R16 R0 K0 ["props"]
-       94 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
-       96 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
-       98 LOADN                            R16 0
-       99 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
-      101 CALL                             R13 2 1
-      102 SETTABLEKS                       R13 R12 K25 ["Left"]
-      104 GETUPVAL                         R13 1
-      105 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      107 LOADK                            R14 K11 ["Frame"]
-      108 DUPTABLE                         R15 K30 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
-      109 GETIMPORT                        R16 K19 [UDim2.new]
-      111 LOADN                            R17 1
-      112 LOADN                            R18 0
-      113 LOADN                            R19 0
-      114 LOADN                            R20 1
-      115 CALL                             R16 4 1
-      116 SETTABLEKS                       R16 R15 K13 ["Size"]
-      118 GETTABLEKS                       R16 R0 K0 ["props"]
-      120 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
-      122 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
-      124 LOADN                            R16 0
-      125 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
-      127 CALL                             R13 2 1
-      128 SETTABLEKS                       R13 R12 K26 ["Top"]
-      130 GETUPVAL                         R13 1
-      131 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      133 LOADK                            R14 K11 ["Frame"]
-      134 DUPTABLE                         R15 K33 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
-      135 GETIMPORT                        R16 K35 [Vector2.new]
-      137 LOADN                            R17 1
-      138 LOADN                            R18 0
-      139 CALL                             R16 2 1
-      140 SETTABLEKS                       R16 R15 K32 ["AnchorPoint"]
-      142 GETIMPORT                        R16 K19 [UDim2.new]
-      144 LOADN                            R17 1
-      145 LOADN                            R18 0
-      146 LOADN                            R19 0
-      147 LOADN                            R20 0
-      148 CALL                             R16 4 1
-      149 SETTABLEKS                       R16 R15 K12 ["Position"]
-      151 GETIMPORT                        R16 K19 [UDim2.new]
-      153 LOADN                            R17 0
-      154 LOADN                            R18 1
-      155 LOADN                            R19 1
-      156 LOADN                            R20 0
-      157 CALL                             R16 4 1
-      158 SETTABLEKS                       R16 R15 K13 ["Size"]
-      160 GETTABLEKS                       R16 R0 K0 ["props"]
-      162 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
-      164 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
-      166 LOADN                            R16 0
-      167 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
-      169 CALL                             R13 2 1
-      170 SETTABLEKS                       R13 R12 K27 ["Right"]
-      172 GETUPVAL                         R13 1
-      173 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      175 LOADK                            R14 K11 ["Frame"]
-      176 DUPTABLE                         R15 K33 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
-      177 GETIMPORT                        R16 K35 [Vector2.new]
-      179 LOADN                            R17 0
-      180 LOADN                            R18 1
-      181 CALL                             R16 2 1
-      182 SETTABLEKS                       R16 R15 K32 ["AnchorPoint"]
-      184 GETIMPORT                        R16 K19 [UDim2.new]
-      186 LOADN                            R17 0
-      187 LOADN                            R18 0
-      188 LOADN                            R19 1
-      189 LOADN                            R20 0
-      190 CALL                             R16 4 1
-      191 SETTABLEKS                       R16 R15 K12 ["Position"]
-      193 GETIMPORT                        R16 K19 [UDim2.new]
-      195 LOADN                            R17 1
-      196 LOADN                            R18 0
-      197 LOADN                            R19 0
-      198 LOADN                            R20 1
-      199 CALL                             R16 4 1
-      200 SETTABLEKS                       R16 R15 K13 ["Size"]
-      202 GETTABLEKS                       R16 R0 K0 ["props"]
-      204 GETTABLEKS                       R16 R16 K31 ["BorderColor3"]
-      206 SETTABLEKS                       R16 R15 K14 ["BackgroundColor3"]
-      208 LOADN                            R16 0
-      209 SETTABLEKS                       R16 R15 K16 ["BorderSizePixel"]
-      211 CALL                             R13 2 1
-      212 SETTABLEKS                       R13 R12 K28 ["Bottom"]
-      214 CALL                             R9 3 -1
-      215 SETLIST                          R8 R9 -1 [1]
-      217 CALL                             R5 3 -1
-      218 RETURN                           R5 -1
+       25 DUPTABLE                         R7 K11 [{["ClipToDeviceSafeArea"] = False}]
+       26 NEWTABLE                         R8 0 1
+       28 GETUPVAL                         R9 1
+       29 GETTABLEKS                       R9 R9 K7 ["createElement"]
+       31 LOADK                            R10 K12 ["Frame"]
+       32 DUPTABLE                         R11 K19 [{["Position"], ["Size"], ["BackgroundColor3"], ["BackgroundTransparency"], ["BorderSizePixel"] = 0}]
+       33 GETIMPORT                        R12 K21 [UDim2.new]
+       35 LOADN                            R13 0
+       36 GETTABLEKS                       R14 R4 K22 ["Min"]
+       38 GETTABLEKS                       R14 R14 K23 ["X"]
+       40 LOADN                            R15 0
+       41 GETTABLEKS                       R16 R4 K22 ["Min"]
+       43 GETTABLEKS                       R16 R16 K24 ["Y"]
+       45 CALL                             R12 4 1
+       46 SETTABLEKS                       R12 R11 K13 ["Position"]
+       48 GETIMPORT                        R12 K21 [UDim2.new]
+       50 LOADN                            R13 0
+       51 GETTABLEKS                       R14 R4 K25 ["Width"]
+       53 LOADN                            R15 0
+       54 GETTABLEKS                       R16 R4 K26 ["Height"]
+       56 CALL                             R12 4 1
+       57 SETTABLEKS                       R12 R11 K14 ["Size"]
+       59 GETTABLEKS                       R12 R0 K0 ["props"]
+       61 GETTABLEKS                       R12 R12 K15 ["BackgroundColor3"]
+       63 SETTABLEKS                       R12 R11 K15 ["BackgroundColor3"]
+       65 GETTABLEKS                       R12 R0 K0 ["props"]
+       67 GETTABLEKS                       R12 R12 K16 ["BackgroundTransparency"]
+       69 SETTABLEKS                       R12 R11 K16 ["BackgroundTransparency"]
+       71 DUPTABLE                         R12 K31 [{"Left", "Top", "Right", "Bottom"}]
+       72 GETUPVAL                         R13 1
+       73 GETTABLEKS                       R13 R13 K7 ["createElement"]
+       75 LOADK                            R14 K12 ["Frame"]
+       76 DUPTABLE                         R15 K32 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+       77 GETIMPORT                        R16 K21 [UDim2.new]
+       79 LOADN                            R17 0
+       80 LOADN                            R18 1
+       81 LOADN                            R19 1
+       82 LOADN                            R20 0
+       83 CALL                             R16 4 1
+       84 SETTABLEKS                       R16 R15 K14 ["Size"]
+       86 GETTABLEKS                       R16 R0 K0 ["props"]
+       88 GETTABLEKS                       R16 R16 K33 ["BorderColor3"]
+       90 SETTABLEKS                       R16 R15 K15 ["BackgroundColor3"]
+       92 CALL                             R13 2 1
+       93 SETTABLEKS                       R13 R12 K27 ["Left"]
+       95 GETUPVAL                         R13 1
+       96 GETTABLEKS                       R13 R13 K7 ["createElement"]
+       98 LOADK                            R14 K12 ["Frame"]
+       99 DUPTABLE                         R15 K32 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+      100 GETIMPORT                        R16 K21 [UDim2.new]
+      102 LOADN                            R17 1
+      103 LOADN                            R18 0
+      104 LOADN                            R19 0
+      105 LOADN                            R20 1
+      106 CALL                             R16 4 1
+      107 SETTABLEKS                       R16 R15 K14 ["Size"]
+      109 GETTABLEKS                       R16 R0 K0 ["props"]
+      111 GETTABLEKS                       R16 R16 K33 ["BorderColor3"]
+      113 SETTABLEKS                       R16 R15 K15 ["BackgroundColor3"]
+      115 CALL                             R13 2 1
+      116 SETTABLEKS                       R13 R12 K28 ["Top"]
+      118 GETUPVAL                         R13 1
+      119 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      121 LOADK                            R14 K12 ["Frame"]
+      122 DUPTABLE                         R15 K35 [{["AnchorPoint"], ["Position"], ["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+      123 GETIMPORT                        R16 K37 [Vector2.new]
+      125 LOADN                            R17 1
+      126 LOADN                            R18 0
+      127 CALL                             R16 2 1
+      128 SETTABLEKS                       R16 R15 K34 ["AnchorPoint"]
+      130 GETIMPORT                        R16 K21 [UDim2.new]
+      132 LOADN                            R17 1
+      133 LOADN                            R18 0
+      134 LOADN                            R19 0
+      135 LOADN                            R20 0
+      136 CALL                             R16 4 1
+      137 SETTABLEKS                       R16 R15 K13 ["Position"]
+      139 GETIMPORT                        R16 K21 [UDim2.new]
+      141 LOADN                            R17 0
+      142 LOADN                            R18 1
+      143 LOADN                            R19 1
+      144 LOADN                            R20 0
+      145 CALL                             R16 4 1
+      146 SETTABLEKS                       R16 R15 K14 ["Size"]
+      148 GETTABLEKS                       R16 R0 K0 ["props"]
+      150 GETTABLEKS                       R16 R16 K33 ["BorderColor3"]
+      152 SETTABLEKS                       R16 R15 K15 ["BackgroundColor3"]
+      154 CALL                             R13 2 1
+      155 SETTABLEKS                       R13 R12 K29 ["Right"]
+      157 GETUPVAL                         R13 1
+      158 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      160 LOADK                            R14 K12 ["Frame"]
+      161 DUPTABLE                         R15 K35 [{["AnchorPoint"], ["Position"], ["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+      162 GETIMPORT                        R16 K37 [Vector2.new]
+      164 LOADN                            R17 0
+      165 LOADN                            R18 1
+      166 CALL                             R16 2 1
+      167 SETTABLEKS                       R16 R15 K34 ["AnchorPoint"]
+      169 GETIMPORT                        R16 K21 [UDim2.new]
+      171 LOADN                            R17 0
+      172 LOADN                            R18 0
+      173 LOADN                            R19 1
+      174 LOADN                            R20 0
+      175 CALL                             R16 4 1
+      176 SETTABLEKS                       R16 R15 K13 ["Position"]
+      178 GETIMPORT                        R16 K21 [UDim2.new]
+      180 LOADN                            R17 1
+      181 LOADN                            R18 0
+      182 LOADN                            R19 0
+      183 LOADN                            R20 1
+      184 CALL                             R16 4 1
+      185 SETTABLEKS                       R16 R15 K14 ["Size"]
+      187 GETTABLEKS                       R16 R0 K0 ["props"]
+      189 GETTABLEKS                       R16 R16 K33 ["BorderColor3"]
+      191 SETTABLEKS                       R16 R15 K15 ["BackgroundColor3"]
+      193 CALL                             R13 2 1
+      194 SETTABLEKS                       R13 R12 K30 ["Bottom"]
+      196 CALL                             R9 3 -1
+      197 SETLIST                          R8 R9 -1 [1]
+      199 CALL                             R5 3 -1
+      200 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -187,18 +175,16 @@ MAIN:
        33 LOADK                            R7 K14 ["DragSelectionView"]
        34 NAMECALL                         R5 R5 K15 ["extend"]
        36 CALL                             R5 2 1
-       37 DUPTABLE                         R6 K19 [{"BackgroundColor3", "BackgroundTransparency", "BorderColor3"}]
-       38 GETTABLEKS                       R7 R4 K20 ["BLACK"]
+       37 DUPTABLE                         R6 K20 [{["BackgroundColor3"], ["BackgroundTransparency"] = 1, ["BorderColor3"]}]
+       38 GETTABLEKS                       R7 R4 K21 ["BLACK"]
        40 SETTABLEKS                       R7 R6 K16 ["BackgroundColor3"]
-       42 LOADN                            R7 1
-       43 SETTABLEKS                       R7 R6 K17 ["BackgroundTransparency"]
-       45 GETTABLEKS                       R7 R4 K21 ["GRAY"]
-       47 SETTABLEKS                       R7 R6 K18 ["BorderColor3"]
-       49 SETTABLEKS                       R6 R5 K22 ["defaultProps"]
-       51 DUPCLOSURE                       R6 K23 [PROTO_0]
-       52 SETTABLEKS                       R6 R5 K24 ["init"]
-       54 DUPCLOSURE                       R6 K25 [PROTO_1]
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          VAL R3
-       57 SETTABLEKS                       R6 R5 K26 ["render"]
-       59 RETURN                           R5 1
+       42 GETTABLEKS                       R7 R4 K22 ["GRAY"]
+       44 SETTABLEKS                       R7 R6 K19 ["BorderColor3"]
+       46 SETTABLEKS                       R6 R5 K23 ["defaultProps"]
+       48 DUPCLOSURE                       R6 K24 [PROTO_0]
+       49 SETTABLEKS                       R6 R5 K25 ["init"]
+       51 DUPCLOSURE                       R6 K26 [PROTO_1]
+       52 CAPTURE                          VAL R0
+       53 CAPTURE                          VAL R3
+       54 SETTABLEKS                       R6 R5 K27 ["render"]
+       56 RETURN                           R5 1

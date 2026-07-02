@@ -57,64 +57,50 @@ MAIN:
        56 GETTABLEKS                       R5 R5 K16 ["Resources"]
        58 GETTABLEKS                       R5 R5 K17 ["Localization"]
        60 GETTABLEKS                       R5 R5 K19 ["LocalizedStrings"]
-       62 DUPTABLE                         R6 K29 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-       63 GETIMPORT                        R7 K30 [plugin]
+       62 DUPTABLE                         R6 K31 [{["plugin"], ["pluginName"] = "TagEditor", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
+       63 GETIMPORT                        R7 K32 [plugin]
        65 SETTABLEKS                       R7 R6 K20 ["plugin"]
-       67 LOADK                            R7 K31 ["TagEditor"]
-       68 SETTABLEKS                       R7 R6 K21 ["pluginName"]
-       70 SETTABLEKS                       R5 R6 K22 ["translationResourceTable"]
-       72 SETTABLEKS                       R4 R6 K23 ["fallbackResourceTable"]
-       74 LOADNIL                          R7
-       75 SETTABLEKS                       R7 R6 K24 ["overrideLocaleId"]
-       77 LOADNIL                          R7
-       78 SETTABLEKS                       R7 R6 K25 ["localizationNamespace"]
-       80 DUPCLOSURE                       R7 K32 [PROTO_0]
-       81 SETTABLEKS                       R7 R6 K26 ["getToolbarName"]
-       83 DUPTABLE                         R7 K38 [{"getName", "getDescription", "icon", "text", "ClickableWhenViewportHidden"}]
-       84 DUPCLOSURE                       R8 K39 [PROTO_1]
-       85 SETTABLEKS                       R8 R7 K33 ["getName"]
-       87 DUPCLOSURE                       R8 K40 [PROTO_2]
-       88 SETTABLEKS                       R8 R7 K34 ["getDescription"]
-       90 LOADK                            R8 K41 [""]
-       91 SETTABLEKS                       R8 R7 K35 ["icon"]
-       93 LOADNIL                          R8
-       94 SETTABLEKS                       R8 R7 K36 ["text"]
-       96 LOADB                            R8 1
-       97 SETTABLEKS                       R8 R7 K37 ["ClickableWhenViewportHidden"]
-       99 SETTABLEKS                       R7 R6 K27 ["buttonInfo"]
-      101 DUPTABLE                         R7 K46 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-      102 LOADK                            R8 K31 ["TagEditor"]
-      103 SETTABLEKS                       R8 R7 K42 ["id"]
-      105 GETIMPORT                        R8 K49 [DockWidgetPluginGuiInfo.new]
-      107 GETIMPORT                        R9 K53 [Enum.InitialDockState.Right]
-      109 LOADB                            R10 0
-      110 LOADB                            R11 0
-      111 LOADN                            R12 44
-      112 LOADN                            R13 200
-      113 LOADN                            R14 200
-      114 LOADN                            R15 250
-      115 CALL                             R8 7 1
-      116 SETTABLEKS                       R8 R7 K43 ["dockWidgetPluginGuiInfo"]
-      118 DUPCLOSURE                       R8 K54 [PROTO_3]
-      119 SETTABLEKS                       R8 R7 K44 ["getDockTitle"]
-      121 GETIMPORT                        R8 K57 [Enum.ZIndexBehavior.Sibling]
-      123 SETTABLEKS                       R8 R7 K45 ["zIndexBehavior"]
-      125 SETTABLEKS                       R7 R6 K28 ["dockWidgetInfo"]
-      127 GETTABLEKS                       R7 R3 K58 ["build"]
-      129 MOVE                             R8 R6
-      130 CALL                             R7 1 1
-      131 GETTABLEKS                       R8 R7 K59 ["pluginLoader"]
-      133 NAMECALL                         R8 R8 K60 ["waitForUserInteraction"]
-      135 CALL                             R8 1 1
-      136 JUMPIF                           R8 ; [+1]
-      137 RETURN                           R0 0
-      138 GETIMPORT                        R9 K8 [require]
-      140 GETIMPORT                        R10 K5 [script]
-      142 GETTABLEKS                       R10 R10 K6 ["Parent"]
-      144 GETTABLEKS                       R10 R10 K61 ["main"]
-      146 CALL                             R9 1 1
-      147 MOVE                             R10 R9
-      148 GETIMPORT                        R11 K30 [plugin]
-      150 MOVE                             R12 R7
-      151 CALL                             R10 2 0
-      152 RETURN                           R0 0
+       67 SETTABLEKS                       R5 R6 K23 ["translationResourceTable"]
+       69 SETTABLEKS                       R4 R6 K24 ["fallbackResourceTable"]
+       71 DUPCLOSURE                       R7 K33 [PROTO_0]
+       72 SETTABLEKS                       R7 R6 K28 ["getToolbarName"]
+       74 DUPTABLE                         R7 K41 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = , ["ClickableWhenViewportHidden"] = True}]
+       75 DUPCLOSURE                       R8 K42 [PROTO_1]
+       76 SETTABLEKS                       R8 R7 K34 ["getName"]
+       78 DUPCLOSURE                       R8 K43 [PROTO_2]
+       79 SETTABLEKS                       R8 R7 K35 ["getDescription"]
+       81 SETTABLEKS                       R7 R6 K29 ["buttonInfo"]
+       83 DUPTABLE                         R7 K48 [{["id"] = "TagEditor", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+       84 GETIMPORT                        R8 K51 [DockWidgetPluginGuiInfo.new]
+       86 GETIMPORT                        R9 K55 [Enum.InitialDockState.Right]
+       88 LOADB                            R10 0
+       89 LOADB                            R11 0
+       90 LOADN                            R12 300
+       91 LOADN                            R13 200
+       92 LOADN                            R14 200
+       93 LOADN                            R15 250
+       94 CALL                             R8 7 1
+       95 SETTABLEKS                       R8 R7 K45 ["dockWidgetPluginGuiInfo"]
+       97 DUPCLOSURE                       R8 K56 [PROTO_3]
+       98 SETTABLEKS                       R8 R7 K46 ["getDockTitle"]
+      100 GETIMPORT                        R8 K59 [Enum.ZIndexBehavior.Sibling]
+      102 SETTABLEKS                       R8 R7 K47 ["zIndexBehavior"]
+      104 SETTABLEKS                       R7 R6 K30 ["dockWidgetInfo"]
+      106 GETTABLEKS                       R7 R3 K60 ["build"]
+      108 MOVE                             R8 R6
+      109 CALL                             R7 1 1
+      110 GETTABLEKS                       R8 R7 K61 ["pluginLoader"]
+      112 NAMECALL                         R8 R8 K62 ["waitForUserInteraction"]
+      114 CALL                             R8 1 1
+      115 JUMPIF                           R8 ; [+1]
+      116 RETURN                           R0 0
+      117 GETIMPORT                        R9 K8 [require]
+      119 GETIMPORT                        R10 K5 [script]
+      121 GETTABLEKS                       R10 R10 K6 ["Parent"]
+      123 GETTABLEKS                       R10 R10 K63 ["main"]
+      125 CALL                             R9 1 1
+      126 MOVE                             R10 R9
+      127 GETIMPORT                        R11 K32 [plugin]
+      129 MOVE                             R12 R7
+      130 CALL                             R10 2 0
+      131 RETURN                           R0 0

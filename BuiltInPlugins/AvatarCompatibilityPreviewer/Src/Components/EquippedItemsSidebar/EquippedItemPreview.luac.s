@@ -49,7 +49,7 @@ PROTO_4:
        19 RETURN                           R0 0
        20 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
        22 GETIMPORT                        R3 K11 [Enum.UserInputType.MouseButton2]
-       24 JUMPIFNOTEQ                      R2 R3 ; [+68]
+       24 JUMPIFNOTEQ                      R2 R3 ; [+65]
        26 GETUPVAL                         R2 1
        27 GETUPVAL                         R3 2
        28 GETTABLEKS                       R3 R3 K12 ["Parent"]
@@ -73,38 +73,36 @@ PROTO_4:
        54 SETTABLEKS                       R6 R5 K13 ["Text"]
        56 GETUPVAL                         R6 5
        57 SETTABLEKS                       R6 R5 K14 ["OnItemClicked"]
-       59 DUPTABLE                         R6 K25 [{"ShowSeparator"}]
-       60 LOADB                            R7 1
-       61 SETTABLEKS                       R7 R6 K24 ["ShowSeparator"]
-       63 DUPTABLE                         R7 K15 [{"Text", "OnItemClicked"}]
-       64 GETUPVAL                         R8 3
-       65 LOADK                            R10 K16 ["EquippedItemContextMenu"]
-       66 LOADK                            R11 K26 ["UnequipItem"]
-       67 NAMECALL                         R8 R8 K23 ["getText"]
-       69 CALL                             R8 3 1
-       70 SETTABLEKS                       R8 R7 K13 ["Text"]
-       72 GETUPVAL                         R8 6
-       73 SETTABLEKS                       R8 R7 K14 ["OnItemClicked"]
-       75 DUPTABLE                         R8 K15 [{"Text", "OnItemClicked"}]
-       76 GETUPVAL                         R9 3
-       77 LOADK                            R11 K16 ["EquippedItemContextMenu"]
-       78 LOADK                            R12 K27 ["UnequipAllItems"]
-       79 NAMECALL                         R9 R9 K23 ["getText"]
-       81 CALL                             R9 3 1
-       82 SETTABLEKS                       R9 R8 K13 ["Text"]
-       84 GETUPVAL                         R9 7
-       85 GETTABLEKS                       R9 R9 K28 ["removeAllEquippedItems"]
-       87 SETTABLEKS                       R9 R8 K14 ["OnItemClicked"]
-       89 SETLIST                          R4 R5 4 [1]
-       91 CALL                             R2 2 0
-       92 RETURN                           R0 0
-       93 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
-       95 GETIMPORT                        R3 K30 [Enum.UserInputType.MouseMovement]
-       97 JUMPIFNOTEQ                      R2 R3 ; [+4]
-       99 GETUPVAL                         R2 8
-      100 LOADB                            R3 1
-      101 CALL                             R2 1 0
-      102 RETURN                           R0 0
+       59 DUPTABLE                         R6 K26 [{["ShowSeparator"] = True}]
+       60 DUPTABLE                         R7 K15 [{"Text", "OnItemClicked"}]
+       61 GETUPVAL                         R8 3
+       62 LOADK                            R10 K16 ["EquippedItemContextMenu"]
+       63 LOADK                            R11 K27 ["UnequipItem"]
+       64 NAMECALL                         R8 R8 K23 ["getText"]
+       66 CALL                             R8 3 1
+       67 SETTABLEKS                       R8 R7 K13 ["Text"]
+       69 GETUPVAL                         R8 6
+       70 SETTABLEKS                       R8 R7 K14 ["OnItemClicked"]
+       72 DUPTABLE                         R8 K15 [{"Text", "OnItemClicked"}]
+       73 GETUPVAL                         R9 3
+       74 LOADK                            R11 K16 ["EquippedItemContextMenu"]
+       75 LOADK                            R12 K28 ["UnequipAllItems"]
+       76 NAMECALL                         R9 R9 K23 ["getText"]
+       78 CALL                             R9 3 1
+       79 SETTABLEKS                       R9 R8 K13 ["Text"]
+       81 GETUPVAL                         R9 7
+       82 GETTABLEKS                       R9 R9 K29 ["removeAllEquippedItems"]
+       84 SETTABLEKS                       R9 R8 K14 ["OnItemClicked"]
+       86 SETLIST                          R4 R5 4 [1]
+       88 CALL                             R2 2 0
+       89 RETURN                           R0 0
+       90 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
+       92 GETIMPORT                        R3 K31 [Enum.UserInputType.MouseMovement]
+       94 JUMPIFNOTEQ                      R2 R3 ; [+4]
+       96 GETUPVAL                         R2 8
+       97 LOADB                            R3 1
+       98 CALL                             R2 1 0
+       99 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
@@ -271,129 +269,125 @@ PROTO_6:
       189 GETUPVAL                         R18 2
       190 GETTABLEKS                       R18 R18 K13 ["createElement"]
       192 GETUPVAL                         R19 8
-      193 DUPTABLE                         R20 K37 [{"Style", "AnchorPoint", "Position", "Size"}]
-      194 LOADK                            R21 K38 ["EquippedItemPreviewInner"]
-      195 SETTABLEKS                       R21 R20 K14 ["Style"]
-      197 GETIMPORT                        R21 K12 [Vector2.new]
-      199 LOADK                            R22 K39 [0.5]
-      200 LOADK                            R23 K39 [0.5]
-      201 CALL                             R21 2 1
-      202 SETTABLEKS                       R21 R20 K36 ["AnchorPoint"]
-      204 GETIMPORT                        R21 K42 [UDim2.fromScale]
-      206 LOADK                            R22 K39 [0.5]
-      207 LOADK                            R23 K39 [0.5]
-      208 CALL                             R21 2 1
-      209 SETTABLEKS                       R21 R20 K20 ["Position"]
-      211 GETIMPORT                        R21 K43 [UDim2.new]
-      213 LOADN                            R22 1
-      214 GETTABLEKS                       R24 R2 K35 ["StrokeThickness"]
-      216 MINUS                            R23 R24
-      217 LOADN                            R24 1
-      218 GETTABLEKS                       R26 R2 K35 ["StrokeThickness"]
-      220 MINUS                            R25 R26
-      221 CALL                             R21 4 1
-      222 SETTABLEKS                       R21 R20 K21 ["Size"]
-      224 DUPTABLE                         R21 K48 [{"UIStroke", "UICorner", "Tooltip", "HoverX", "Preview"}]
-      225 GETUPVAL                         R22 2
-      226 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      228 LOADK                            R23 K44 ["UIStroke"]
-      229 DUPTABLE                         R24 K51 [{"Color", "Thickness"}]
-      230 GETTABLEKS                       R25 R2 K52 ["StrokeColor"]
-      232 SETTABLEKS                       R25 R24 K49 ["Color"]
-      234 GETTABLEKS                       R25 R2 K35 ["StrokeThickness"]
-      236 SETTABLEKS                       R25 R24 K50 ["Thickness"]
-      238 CALL                             R22 2 1
-      239 SETTABLEKS                       R22 R21 K44 ["UIStroke"]
-      241 GETUPVAL                         R22 2
-      242 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      244 LOADK                            R23 K27 ["UICorner"]
-      245 DUPTABLE                         R24 K32 [{"CornerRadius"}]
-      246 GETTABLEKS                       R25 R2 K31 ["CornerRadius"]
-      248 SETTABLEKS                       R25 R24 K31 ["CornerRadius"]
-      250 CALL                             R22 2 1
-      251 SETTABLEKS                       R22 R21 K27 ["UICorner"]
-      253 GETTABLEKS                       R23 R0 K53 ["EnableTooltip"]
-      255 JUMPIFNOT                        R23 ; [+14]
-      256 JUMPIFNOT                        R5 ; [+13]
-      257 GETTABLEKS                       R23 R0 K54 ["IsDragging"]
-      259 JUMPIF                           R23 ; [+10]
-      260 JUMPIFNOT                        R13 ; [+9]
-      261 GETUPVAL                         R22 2
-      262 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      264 GETUPVAL                         R23 10
-      265 DUPTABLE                         R24 K56 [{"Text"}]
-      266 SETTABLEKS                       R13 R24 K55 ["Text"]
-      268 CALL                             R22 2 1
-      269 JUMP                             ; [+1]
-      270 LOADNIL                          R22
-      271 SETTABLEKS                       R22 R21 K45 ["Tooltip"]
-      273 JUMPIFNOT                        R5 ; [+54]
-      274 GETTABLEKS                       R23 R0 K54 ["IsDragging"]
-      276 JUMPIF                           R23 ; [+51]
-      277 GETUPVAL                         R22 2
-      278 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      280 GETUPVAL                         R23 8
-      281 DUPTABLE                         R24 K58 [{"AnchorPoint", "Position", "Size", "OnClick"}]
-      282 GETTABLEKS                       R25 R2 K46 ["HoverX"]
-      284 GETTABLEKS                       R25 R25 K36 ["AnchorPoint"]
-      286 SETTABLEKS                       R25 R24 K36 ["AnchorPoint"]
-      288 GETTABLEKS                       R25 R2 K46 ["HoverX"]
-      290 GETTABLEKS                       R25 R25 K20 ["Position"]
-      292 SETTABLEKS                       R25 R24 K20 ["Position"]
-      294 GETTABLEKS                       R25 R2 K46 ["HoverX"]
-      296 GETTABLEKS                       R25 R25 K21 ["Size"]
-      298 SETTABLEKS                       R25 R24 K21 ["Size"]
-      300 SETTABLEKS                       R8 R24 K57 ["OnClick"]
-      302 DUPTABLE                         R25 K59 [{"HoverX"}]
-      303 GETUPVAL                         R26 2
-      304 GETTABLEKS                       R26 R26 K13 ["createElement"]
-      306 GETUPVAL                         R27 11
-      307 GETTABLEKS                       R27 R27 K60 ["Image"]
-      309 DUPTABLE                         R28 K61 [{"Image", "Size"}]
-      310 GETTABLEKS                       R29 R2 K46 ["HoverX"]
-      312 GETTABLEKS                       R29 R29 K60 ["Image"]
-      314 SETTABLEKS                       R29 R28 K60 ["Image"]
-      316 GETIMPORT                        R29 K42 [UDim2.fromScale]
-      318 LOADN                            R30 1
-      319 LOADN                            R31 1
-      320 CALL                             R29 2 1
-      321 SETTABLEKS                       R29 R28 K21 ["Size"]
-      323 CALL                             R26 2 1
-      324 SETTABLEKS                       R26 R25 K46 ["HoverX"]
-      326 CALL                             R22 3 1
-      327 JUMP                             ; [+1]
-      328 LOADNIL                          R22
-      329 SETTABLEKS                       R22 R21 K46 ["HoverX"]
-      331 GETUPVAL                         R22 2
-      332 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      334 GETUPVAL                         R23 12
-      335 DUPTABLE                         R24 K64 [{"ItemData", "Selected", "Transparency"}]
-      336 GETTABLEKS                       R25 R0 K6 ["ItemData"]
-      338 SETTABLEKS                       R25 R24 K6 ["ItemData"]
-      340 LOADB                            R25 0
-      341 SETTABLEKS                       R25 R24 K62 ["Selected"]
-      343 GETTABLEKS                       R26 R0 K6 ["ItemData"]
-      345 GETTABLEKS                       R26 R26 K16 ["isHidden"]
-      347 JUMPIFNOT                        R26 ; [+3]
-      348 GETTABLEKS                       R25 R2 K65 ["ItemHiddenTransparency"]
-      350 JUMP                             ; [+2]
-      351 GETTABLEKS                       R25 R2 K66 ["ItemWornTransparency"]
-      353 SETTABLEKS                       R25 R24 K63 ["Transparency"]
-      355 CALL                             R22 2 1
-      356 SETTABLEKS                       R22 R21 K47 ["Preview"]
-      358 CALL                             R18 3 1
-      359 SETTABLEKS                       R18 R17 K28 ["Inner"]
-      361 GETUPVAL                         R18 2
-      362 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      364 GETUPVAL                         R19 13
-      365 DUPTABLE                         R20 K68 [{"ItemData", "tileHovered"}]
-      366 GETTABLEKS                       R21 R0 K6 ["ItemData"]
-      368 SETTABLEKS                       R21 R20 K6 ["ItemData"]
-      370 SETTABLEKS                       R5 R20 K67 ["tileHovered"]
-      372 CALL                             R18 2 1
-      373 SETTABLEKS                       R18 R17 K29 ["Outer"]
-      375 CALL                             R14 3 -1
-      376 RETURN                           R14 -1
+      193 DUPTABLE                         R20 K38 [{["Style"] = "EquippedItemPreviewInner", ["AnchorPoint"], ["Position"], ["Size"]}]
+      194 GETIMPORT                        R21 K12 [Vector2.new]
+      196 LOADK                            R22 K39 [0.5]
+      197 LOADK                            R23 K39 [0.5]
+      198 CALL                             R21 2 1
+      199 SETTABLEKS                       R21 R20 K37 ["AnchorPoint"]
+      201 GETIMPORT                        R21 K42 [UDim2.fromScale]
+      203 LOADK                            R22 K39 [0.5]
+      204 LOADK                            R23 K39 [0.5]
+      205 CALL                             R21 2 1
+      206 SETTABLEKS                       R21 R20 K20 ["Position"]
+      208 GETIMPORT                        R21 K43 [UDim2.new]
+      210 LOADN                            R22 1
+      211 GETTABLEKS                       R24 R2 K35 ["StrokeThickness"]
+      213 MINUS                            R23 R24
+      214 LOADN                            R24 1
+      215 GETTABLEKS                       R26 R2 K35 ["StrokeThickness"]
+      217 MINUS                            R25 R26
+      218 CALL                             R21 4 1
+      219 SETTABLEKS                       R21 R20 K21 ["Size"]
+      221 DUPTABLE                         R21 K48 [{"UIStroke", "UICorner", "Tooltip", "HoverX", "Preview"}]
+      222 GETUPVAL                         R22 2
+      223 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      225 LOADK                            R23 K44 ["UIStroke"]
+      226 DUPTABLE                         R24 K51 [{"Color", "Thickness"}]
+      227 GETTABLEKS                       R25 R2 K52 ["StrokeColor"]
+      229 SETTABLEKS                       R25 R24 K49 ["Color"]
+      231 GETTABLEKS                       R25 R2 K35 ["StrokeThickness"]
+      233 SETTABLEKS                       R25 R24 K50 ["Thickness"]
+      235 CALL                             R22 2 1
+      236 SETTABLEKS                       R22 R21 K44 ["UIStroke"]
+      238 GETUPVAL                         R22 2
+      239 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      241 LOADK                            R23 K27 ["UICorner"]
+      242 DUPTABLE                         R24 K32 [{"CornerRadius"}]
+      243 GETTABLEKS                       R25 R2 K31 ["CornerRadius"]
+      245 SETTABLEKS                       R25 R24 K31 ["CornerRadius"]
+      247 CALL                             R22 2 1
+      248 SETTABLEKS                       R22 R21 K27 ["UICorner"]
+      250 GETTABLEKS                       R23 R0 K53 ["EnableTooltip"]
+      252 JUMPIFNOT                        R23 ; [+14]
+      253 JUMPIFNOT                        R5 ; [+13]
+      254 GETTABLEKS                       R23 R0 K54 ["IsDragging"]
+      256 JUMPIF                           R23 ; [+10]
+      257 JUMPIFNOT                        R13 ; [+9]
+      258 GETUPVAL                         R22 2
+      259 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      261 GETUPVAL                         R23 10
+      262 DUPTABLE                         R24 K56 [{"Text"}]
+      263 SETTABLEKS                       R13 R24 K55 ["Text"]
+      265 CALL                             R22 2 1
+      266 JUMP                             ; [+1]
+      267 LOADNIL                          R22
+      268 SETTABLEKS                       R22 R21 K45 ["Tooltip"]
+      270 JUMPIFNOT                        R5 ; [+54]
+      271 GETTABLEKS                       R23 R0 K54 ["IsDragging"]
+      273 JUMPIF                           R23 ; [+51]
+      274 GETUPVAL                         R22 2
+      275 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      277 GETUPVAL                         R23 8
+      278 DUPTABLE                         R24 K58 [{"AnchorPoint", "Position", "Size", "OnClick"}]
+      279 GETTABLEKS                       R25 R2 K46 ["HoverX"]
+      281 GETTABLEKS                       R25 R25 K37 ["AnchorPoint"]
+      283 SETTABLEKS                       R25 R24 K37 ["AnchorPoint"]
+      285 GETTABLEKS                       R25 R2 K46 ["HoverX"]
+      287 GETTABLEKS                       R25 R25 K20 ["Position"]
+      289 SETTABLEKS                       R25 R24 K20 ["Position"]
+      291 GETTABLEKS                       R25 R2 K46 ["HoverX"]
+      293 GETTABLEKS                       R25 R25 K21 ["Size"]
+      295 SETTABLEKS                       R25 R24 K21 ["Size"]
+      297 SETTABLEKS                       R8 R24 K57 ["OnClick"]
+      299 DUPTABLE                         R25 K59 [{"HoverX"}]
+      300 GETUPVAL                         R26 2
+      301 GETTABLEKS                       R26 R26 K13 ["createElement"]
+      303 GETUPVAL                         R27 11
+      304 GETTABLEKS                       R27 R27 K60 ["Image"]
+      306 DUPTABLE                         R28 K61 [{"Image", "Size"}]
+      307 GETTABLEKS                       R29 R2 K46 ["HoverX"]
+      309 GETTABLEKS                       R29 R29 K60 ["Image"]
+      311 SETTABLEKS                       R29 R28 K60 ["Image"]
+      313 GETIMPORT                        R29 K42 [UDim2.fromScale]
+      315 LOADN                            R30 1
+      316 LOADN                            R31 1
+      317 CALL                             R29 2 1
+      318 SETTABLEKS                       R29 R28 K21 ["Size"]
+      320 CALL                             R26 2 1
+      321 SETTABLEKS                       R26 R25 K46 ["HoverX"]
+      323 CALL                             R22 3 1
+      324 JUMP                             ; [+1]
+      325 LOADNIL                          R22
+      326 SETTABLEKS                       R22 R21 K46 ["HoverX"]
+      328 GETUPVAL                         R22 2
+      329 GETTABLEKS                       R22 R22 K13 ["createElement"]
+      331 GETUPVAL                         R23 12
+      332 DUPTABLE                         R24 K65 [{["ItemData"], ["Selected"] = False, ["Transparency"]}]
+      333 GETTABLEKS                       R25 R0 K6 ["ItemData"]
+      335 SETTABLEKS                       R25 R24 K6 ["ItemData"]
+      337 GETTABLEKS                       R26 R0 K6 ["ItemData"]
+      339 GETTABLEKS                       R26 R26 K16 ["isHidden"]
+      341 JUMPIFNOT                        R26 ; [+3]
+      342 GETTABLEKS                       R25 R2 K66 ["ItemHiddenTransparency"]
+      344 JUMP                             ; [+2]
+      345 GETTABLEKS                       R25 R2 K67 ["ItemWornTransparency"]
+      347 SETTABLEKS                       R25 R24 K64 ["Transparency"]
+      349 CALL                             R22 2 1
+      350 SETTABLEKS                       R22 R21 K47 ["Preview"]
+      352 CALL                             R18 3 1
+      353 SETTABLEKS                       R18 R17 K28 ["Inner"]
+      355 GETUPVAL                         R18 2
+      356 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      358 GETUPVAL                         R19 13
+      359 DUPTABLE                         R20 K69 [{"ItemData", "tileHovered"}]
+      360 GETTABLEKS                       R21 R0 K6 ["ItemData"]
+      362 SETTABLEKS                       R21 R20 K6 ["ItemData"]
+      364 SETTABLEKS                       R5 R20 K68 ["tileHovered"]
+      366 CALL                             R18 2 1
+      367 SETTABLEKS                       R18 R17 K29 ["Outer"]
+      369 CALL                             R14 3 -1
+      370 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

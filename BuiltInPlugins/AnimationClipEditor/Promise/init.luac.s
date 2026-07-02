@@ -144,7 +144,7 @@ PROTO_10:
        15 SETTABLEKS                       R2 R1 K6 ["_status"]
        17 LOADNIL                          R2
        18 SETTABLEKS                       R2 R1 K7 ["_values"]
-       20 LOADN                            R2 255
+       20 LOADN                            R2 -1
        21 SETTABLEKS                       R2 R1 K8 ["_valuesLength"]
        23 LOADB                            R2 0
        24 SETTABLEKS                       R2 R1 K9 ["_unhandledRejection"]

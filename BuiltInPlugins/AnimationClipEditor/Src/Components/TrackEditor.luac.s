@@ -33,7 +33,7 @@ PROTO_1:
        33 MOVE                             R11 R3
        34 GETIMPORT                        R9 K16 [math.max]
        36 CALL                             R9 2 1
-       37 DIVRK                            R8 R12 K9 [Enum.UserInputType.MouseMovement]
+       37 DIVRK                            R8 K12 [1] R9
        38 MUL                              R7 R6 R8
        39 ADD                              R9 R4 R7
        40 LOADN                            R10 0
@@ -65,7 +65,7 @@ PROTO_2:
        23 SUB                              R8 R9 R6
        24 DIV                              R7 R8 R5
        25 SUB                              R9 R7 R4
-       26 SUBRK                            R10 R7 K3 ["state"]
+       26 SUBRK                            R10 K7 [1] R3
        27 MUL                              R8 R9 R10
        28 ADD                              R10 R4 R8
        29 LOADN                            R11 0
@@ -227,7 +227,7 @@ PROTO_9:
        28 GETUPVAL                         R3 1
        29 GETTABLEKS                       R3 R3 K8 ["TRACK_PADDING_SMALL"]
        31 RETURN                           R3 1
-       32 LOADN                            R3 232
+       32 LOADN                            R3 1000
        33 JUMPIFNOTLT                      R2 R3 ; [+5]
        35 GETUPVAL                         R3 1
        36 GETTABLEKS                       R3 R3 K9 ["TRACK_PADDING_MEDIUM"]
@@ -448,7 +448,7 @@ PROTO_14:
       164 GETUPVAL                         R35 1
       165 GETTABLEKS                       R35 R35 K34 ["createElement"]
       167 GETUPVAL                         R36 2
-      168 DUPTABLE                         R37 K73 [{"StartTick", "EndTick", "LastTick", "SnapMode", "TrackPadding", "FrameRate", "TimelineUnit", "LayoutOrder", "ParentSize", "ParentPosition", "StepAnimation", "SnapToNearestKeyframe", "SnapToNearestFrame", "AnimationData", "Playhead", "ZIndex", "EditorMode", "OnToggleEditorClicked"}]
+      168 DUPTABLE                         R37 K75 [{["StartTick"], ["EndTick"], ["LastTick"], ["SnapMode"], ["TrackPadding"], ["FrameRate"], ["TimelineUnit"], ["LayoutOrder"] = 0, ["ParentSize"], ["ParentPosition"], ["StepAnimation"], ["SnapToNearestKeyframe"], ["SnapToNearestFrame"], ["AnimationData"], ["Playhead"], ["ZIndex"] = 2, ["EditorMode"], ["OnToggleEditorClicked"]}]
       169 SETTABLEKS                       R3 R37 K2 ["StartTick"]
       171 SETTABLEKS                       R4 R37 K3 ["EndTick"]
       173 SETTABLEKS                       R5 R37 K4 ["LastTick"]
@@ -456,296 +456,268 @@ PROTO_14:
       177 SETTABLEKS                       R26 R37 K67 ["TrackPadding"]
       179 SETTABLEKS                       R7 R37 K6 ["FrameRate"]
       181 SETTABLEKS                       R8 R37 K7 ["TimelineUnit"]
-      183 LOADN                            R38 0
-      184 SETTABLEKS                       R38 R37 K12 ["LayoutOrder"]
-      186 SETTABLEKS                       R24 R37 K68 ["ParentSize"]
-      188 SETTABLEKS                       R25 R37 K69 ["ParentPosition"]
-      190 GETTABLEKS                       R38 R0 K74 ["stepAnimation"]
-      192 SETTABLEKS                       R38 R37 K70 ["StepAnimation"]
-      194 SETTABLEKS                       R22 R37 K21 ["SnapToNearestKeyframe"]
-      196 SETTABLEKS                       R23 R37 K22 ["SnapToNearestFrame"]
-      198 GETTABLEKS                       R38 R1 K71 ["AnimationData"]
-      200 SETTABLEKS                       R38 R37 K71 ["AnimationData"]
-      202 SETTABLEKS                       R18 R37 K17 ["Playhead"]
-      204 LOADN                            R38 2
-      205 SETTABLEKS                       R38 R37 K13 ["ZIndex"]
-      207 GETTABLEKS                       R38 R1 K29 ["EditorMode"]
-      209 SETTABLEKS                       R38 R37 K29 ["EditorMode"]
-      211 GETTABLEKS                       R38 R0 K75 ["toggleEditorClicked"]
-      213 SETTABLEKS                       R38 R37 K72 ["OnToggleEditorClicked"]
-      215 CALL                             R35 2 1
-      216 SETTABLEKS                       R35 R34 K47 ["TimelineContainer"]
-      218 JUMPIFNOT                        R28 ; [+46]
-      219 GETUPVAL                         R35 1
-      220 GETTABLEKS                       R35 R35 K34 ["createElement"]
-      222 GETUPVAL                         R36 3
-      223 DUPTABLE                         R37 K77 [{"ShowEvents", "StartTick", "EndTick", "TrackPadding", "TopTrackIndex", "Size", "TimelineUnit", "IsChannelAnimation", "ColorsPosition", "ZIndex", "OnWheelTick"}]
-      224 SETTABLEKS                       R17 R37 K16 ["ShowEvents"]
-      226 SETTABLEKS                       R3 R37 K2 ["StartTick"]
-      228 SETTABLEKS                       R4 R37 K3 ["EndTick"]
-      230 SETTABLEKS                       R26 R37 K67 ["TrackPadding"]
-      232 SETTABLEKS                       R16 R37 K15 ["TopTrackIndex"]
-      234 GETIMPORT                        R38 K79 [UDim2.new]
-      236 LOADN                            R39 1
-      237 LOADN                            R40 0
-      238 LOADN                            R41 1
-      239 GETUPVAL                         R44 0
-      240 GETTABLEKS                       R44 R44 K80 ["TIMELINE_HEIGHT"]
-      242 MINUS                            R43 R44
-      243 GETUPVAL                         R44 0
-      244 GETTABLEKS                       R44 R44 K81 ["SCROLL_BAR_SIZE"]
-      246 SUB                              R42 R43 R44
-      247 CALL                             R38 4 1
-      248 SETTABLEKS                       R38 R37 K14 ["Size"]
-      250 SETTABLEKS                       R8 R37 K7 ["TimelineUnit"]
-      252 SETTABLEKS                       R19 R37 K18 ["IsChannelAnimation"]
-      254 SETTABLEKS                       R20 R37 K19 ["ColorsPosition"]
-      256 LOADN                            R38 1
-      257 SETTABLEKS                       R38 R37 K13 ["ZIndex"]
-      259 GETTABLEKS                       R38 R0 K82 ["wheelTick"]
-      261 SETTABLEKS                       R38 R37 K76 ["OnWheelTick"]
-      263 CALL                             R35 2 1
-      264 JUMPIF                           R35 ; [+1]
-      265 LOADNIL                          R35
-      266 SETTABLEKS                       R35 R34 K48 ["DopeSheetController"]
-      268 JUMPIFNOT                        R29 ; [+46]
-      269 GETUPVAL                         R35 1
-      270 GETTABLEKS                       R35 R35 K34 ["createElement"]
-      272 GETUPVAL                         R36 4
-      273 DUPTABLE                         R37 K84 [{"ShowEvents", "StartTick", "EndTick", "TrackPadding", "Size", "TimelineUnit", "Playhead", "ZIndex", "OnInputChanged", "OnWheelTick"}]
-      274 SETTABLEKS                       R17 R37 K16 ["ShowEvents"]
-      276 SETTABLEKS                       R3 R37 K2 ["StartTick"]
-      278 SETTABLEKS                       R4 R37 K3 ["EndTick"]
-      280 SETTABLEKS                       R26 R37 K67 ["TrackPadding"]
-      282 GETIMPORT                        R38 K79 [UDim2.new]
-      284 LOADN                            R39 1
-      285 LOADN                            R40 0
-      286 LOADN                            R41 1
-      287 GETUPVAL                         R44 0
-      288 GETTABLEKS                       R44 R44 K80 ["TIMELINE_HEIGHT"]
-      290 MINUS                            R43 R44
-      291 GETUPVAL                         R44 0
-      292 GETTABLEKS                       R44 R44 K81 ["SCROLL_BAR_SIZE"]
-      294 SUB                              R42 R43 R44
-      295 CALL                             R38 4 1
-      296 SETTABLEKS                       R38 R37 K14 ["Size"]
-      298 SETTABLEKS                       R8 R37 K7 ["TimelineUnit"]
-      300 SETTABLEKS                       R18 R37 K17 ["Playhead"]
-      302 LOADN                            R38 1
-      303 SETTABLEKS                       R38 R37 K13 ["ZIndex"]
-      305 GETTABLEKS                       R38 R0 K85 ["inputChanged"]
-      307 SETTABLEKS                       R38 R37 K83 ["OnInputChanged"]
-      309 GETTABLEKS                       R38 R0 K82 ["wheelTick"]
-      311 SETTABLEKS                       R38 R37 K76 ["OnWheelTick"]
-      313 CALL                             R35 2 1
-      314 JUMPIF                           R35 ; [+1]
-      315 LOADNIL                          R35
-      316 SETTABLEKS                       R35 R34 K49 ["CurveEditorController"]
-      318 JUMPIFNOT                        R30 ; [+18]
-      319 GETUPVAL                         R35 1
-      320 GETTABLEKS                       R35 R35 K34 ["createElement"]
-      322 GETUPVAL                         R36 5
-      323 DUPTABLE                         R37 K88 [{"Text", "OnClose"}]
-      324 LOADK                            R40 K89 ["Toast"]
-      325 LOADK                            R41 K33 ["CannotPasteError"]
-      326 NAMECALL                         R38 R21 K90 ["getText"]
-      328 CALL                             R38 3 1
-      329 SETTABLEKS                       R38 R37 K86 ["Text"]
-      331 GETTABLEKS                       R38 R1 K91 ["CloseCannotPasteToast"]
-      333 SETTABLEKS                       R38 R37 K87 ["OnClose"]
-      335 CALL                             R35 2 1
-      336 JUMPIF                           R35 ; [+1]
-      337 LOADNIL                          R35
-      338 SETTABLEKS                       R35 R34 K50 ["CannotPasteToast"]
-      340 GETUPVAL                         R35 1
-      341 GETTABLEKS                       R35 R35 K34 ["createElement"]
-      343 LOADK                            R36 K92 ["Folder"]
-      344 NEWTABLE                         R37 0 0
-      346 DUPTABLE                         R38 K98 [{"TimelineBorder", "Scrubber", "HorizontalZoomBar", "VerticalZoomBar", "KeyboardListener"}]
-      347 GETUPVAL                         R39 1
-      348 GETTABLEKS                       R39 R39 K34 ["createElement"]
-      350 GETUPVAL                         R40 6
-      351 DUPTABLE                         R41 K103 [{"Position", "DominantAxis", "Weight", "Padding", "ZIndex"}]
-      352 GETIMPORT                        R42 K79 [UDim2.new]
-      354 LOADK                            R43 K104 [0.5]
-      355 LOADN                            R44 0
-      356 LOADN                            R45 0
-      357 GETUPVAL                         R46 0
-      358 GETTABLEKS                       R46 R46 K80 ["TIMELINE_HEIGHT"]
-      360 CALL                             R42 4 1
-      361 SETTABLEKS                       R42 R41 K99 ["Position"]
-      363 GETIMPORT                        R42 K106 [Enum.DominantAxis.Width]
-      365 SETTABLEKS                       R42 R41 K100 ["DominantAxis"]
-      367 LOADN                            R42 1
-      368 SETTABLEKS                       R42 R41 K101 ["Weight"]
-      370 LOADN                            R42 0
-      371 SETTABLEKS                       R42 R41 K102 ["Padding"]
-      373 LOADN                            R42 2
-      374 SETTABLEKS                       R42 R41 K13 ["ZIndex"]
-      376 CALL                             R39 2 1
-      377 SETTABLEKS                       R39 R38 K93 ["TimelineBorder"]
-      379 MOVE                             R39 R27
-      380 JUMPIFNOT                        R39 ; [+46]
-      381 GETUPVAL                         R39 1
-      382 GETTABLEKS                       R39 R39 K34 ["createElement"]
-      384 GETUPVAL                         R40 7
-      385 DUPTABLE                         R41 K112 [{"Position", "AnchorPoint", "Height", "ShowHead", "HeadSize", "ZIndex", "Thickness"}]
-      386 GETIMPORT                        R42 K79 [UDim2.new]
-      388 LOADN                            R43 0
-      389 GETTABLEKS                       R44 R0 K113 ["getPlayheadPositionX"]
-      391 CALL                             R44 0 1
-      392 LOADN                            R45 0
-      393 LOADN                            R46 0
-      394 CALL                             R42 4 1
-      395 SETTABLEKS                       R42 R41 K99 ["Position"]
-      397 GETIMPORT                        R42 K26 [Vector2.new]
-      399 LOADK                            R43 K104 [0.5]
-      400 LOADN                            R44 0
-      401 CALL                             R42 2 1
-      402 SETTABLEKS                       R42 R41 K107 ["AnchorPoint"]
-      404 GETTABLEKS                       R42 R24 K114 ["Y"]
-      406 SETTABLEKS                       R42 R41 K108 ["Height"]
-      408 LOADB                            R42 1
-      409 SETTABLEKS                       R42 R41 K109 ["ShowHead"]
-      411 GETIMPORT                        R42 K79 [UDim2.new]
-      413 LOADN                            R43 0
-      414 LOADN                            R44 5
-      415 LOADN                            R45 0
-      416 LOADN                            R46 5
-      417 CALL                             R42 4 1
-      418 SETTABLEKS                       R42 R41 K110 ["HeadSize"]
-      420 LOADN                            R42 3
-      421 SETTABLEKS                       R42 R41 K13 ["ZIndex"]
-      423 LOADN                            R42 1
-      424 SETTABLEKS                       R42 R41 K111 ["Thickness"]
-      426 CALL                             R39 2 1
-      427 SETTABLEKS                       R39 R38 K94 ["Scrubber"]
-      429 GETUPVAL                         R39 1
-      430 GETTABLEKS                       R39 R39 K34 ["createElement"]
-      432 GETUPVAL                         R40 8
-      433 DUPTABLE                         R41 K121 [{"Size", "Position", "Direction", "ZIndex", "LayoutOrder", "ContainerSize", "AdjustScrollZoom", "Scroll", "Zoom", "Min"}]
-      434 GETIMPORT                        R42 K79 [UDim2.new]
-      436 LOADN                            R43 0
-      437 GETTABLEKS                       R46 R24 K123 ["X"]
-      439 GETUPVAL                         R47 0
-      440 GETTABLEKS                       R47 R47 K124 ["SCROLL_BAR_PADDING"]
-      442 SUB                              R45 R46 R47
-      443 ADDK                             R44 R45 K122 [1]
-      444 LOADN                            R45 0
-      445 GETUPVAL                         R46 0
-      446 GETTABLEKS                       R46 R46 K81 ["SCROLL_BAR_SIZE"]
-      448 CALL                             R42 4 1
-      449 SETTABLEKS                       R42 R41 K14 ["Size"]
-      451 GETIMPORT                        R42 K79 [UDim2.new]
-      453 LOADN                            R43 0
-      454 LOADN                            R44 0
-      455 LOADN                            R45 1
-      456 GETUPVAL                         R47 0
-      457 GETTABLEKS                       R47 R47 K81 ["SCROLL_BAR_SIZE"]
-      459 MINUS                            R46 R47
-      460 CALL                             R42 4 1
-      461 SETTABLEKS                       R42 R41 K99 ["Position"]
-      463 GETUPVAL                         R42 8
-      464 GETTABLEKS                       R42 R42 K125 ["HORIZONTAL"]
-      466 SETTABLEKS                       R42 R41 K115 ["Direction"]
-      468 LOADN                            R42 4
-      469 SETTABLEKS                       R42 R41 K13 ["ZIndex"]
-      471 LOADN                            R42 2
-      472 SETTABLEKS                       R42 R41 K12 ["LayoutOrder"]
-      474 GETIMPORT                        R42 K26 [Vector2.new]
-      476 GETTABLEKS                       R43 R24 K123 ["X"]
-      478 GETTABLEKS                       R44 R24 K114 ["Y"]
-      480 CALL                             R42 2 1
-      481 SETTABLEKS                       R42 R41 K116 ["ContainerSize"]
-      483 GETTABLEKS                       R42 R1 K126 ["SetHorizontalScrollZoom"]
-      485 SETTABLEKS                       R42 R41 K117 ["AdjustScrollZoom"]
-      487 SETTABLEKS                       R9 R41 K118 ["Scroll"]
-      489 SETTABLEKS                       R10 R41 K119 ["Zoom"]
-      491 GETTABLEKS                       R43 R25 K123 ["X"]
-      493 ADDK                             R42 R43 K122 [1]
-      494 SETTABLEKS                       R42 R41 K120 ["Min"]
-      496 CALL                             R39 2 1
-      497 SETTABLEKS                       R39 R38 K95 ["HorizontalZoomBar"]
-      499 MOVE                             R39 R29
-      500 JUMPIFNOT                        R39 ; [+87]
-      501 GETUPVAL                         R39 1
-      502 GETTABLEKS                       R39 R39 K34 ["createElement"]
-      504 GETUPVAL                         R40 8
-      505 DUPTABLE                         R41 K121 [{"Size", "Position", "Direction", "ZIndex", "LayoutOrder", "ContainerSize", "AdjustScrollZoom", "Scroll", "Zoom", "Min"}]
-      506 GETIMPORT                        R42 K79 [UDim2.new]
-      508 LOADN                            R43 0
-      509 GETUPVAL                         R44 0
-      510 GETTABLEKS                       R44 R44 K81 ["SCROLL_BAR_SIZE"]
-      512 LOADN                            R45 0
-      513 GETTABLEKS                       R50 R24 K114 ["Y"]
-      515 GETUPVAL                         R51 0
-      516 GETTABLEKS                       R51 R51 K81 ["SCROLL_BAR_SIZE"]
-      518 SUB                              R49 R50 R51
-      519 GETUPVAL                         R50 0
-      520 GETTABLEKS                       R50 R50 K124 ["SCROLL_BAR_PADDING"]
-      522 SUB                              R48 R49 R50
-      523 GETUPVAL                         R49 0
-      524 GETTABLEKS                       R49 R49 K80 ["TIMELINE_HEIGHT"]
-      526 SUB                              R47 R48 R49
-      527 ADDK                             R46 R47 K122 [1]
-      528 CALL                             R42 4 1
-      529 SETTABLEKS                       R42 R41 K14 ["Size"]
-      531 GETIMPORT                        R42 K79 [UDim2.new]
-      533 LOADN                            R43 1
-      534 LOADN                            R44 0
-      535 LOADN                            R45 0
-      536 GETUPVAL                         R46 0
-      537 GETTABLEKS                       R46 R46 K80 ["TIMELINE_HEIGHT"]
-      539 CALL                             R42 4 1
-      540 SETTABLEKS                       R42 R41 K99 ["Position"]
-      542 GETUPVAL                         R42 8
-      543 GETTABLEKS                       R42 R42 K127 ["VERTICAL"]
-      545 SETTABLEKS                       R42 R41 K115 ["Direction"]
-      547 LOADN                            R42 4
-      548 SETTABLEKS                       R42 R41 K13 ["ZIndex"]
-      550 LOADN                            R42 2
-      551 SETTABLEKS                       R42 R41 K12 ["LayoutOrder"]
-      553 GETIMPORT                        R42 K26 [Vector2.new]
-      555 GETTABLEKS                       R43 R24 K123 ["X"]
-      557 GETTABLEKS                       R46 R24 K114 ["Y"]
-      559 GETUPVAL                         R47 0
-      560 GETTABLEKS                       R47 R47 K81 ["SCROLL_BAR_SIZE"]
-      562 SUB                              R45 R46 R47
-      563 GETUPVAL                         R46 0
-      564 GETTABLEKS                       R46 R46 K80 ["TIMELINE_HEIGHT"]
-      566 SUB                              R44 R45 R46
-      567 CALL                             R42 2 1
-      568 SETTABLEKS                       R42 R41 K116 ["ContainerSize"]
-      570 GETTABLEKS                       R42 R1 K128 ["SetVerticalScrollZoom"]
-      572 SETTABLEKS                       R42 R41 K117 ["AdjustScrollZoom"]
-      574 SETTABLEKS                       R11 R41 K118 ["Scroll"]
-      576 SETTABLEKS                       R12 R41 K119 ["Zoom"]
-      578 GETTABLEKS                       R44 R25 K114 ["Y"]
-      580 GETUPVAL                         R45 0
-      581 GETTABLEKS                       R45 R45 K80 ["TIMELINE_HEIGHT"]
-      583 ADD                              R43 R44 R45
-      584 ADDK                             R42 R43 K122 [1]
-      585 SETTABLEKS                       R42 R41 K120 ["Min"]
-      587 CALL                             R39 2 1
-      588 SETTABLEKS                       R39 R38 K96 ["VerticalZoomBar"]
-      590 GETUPVAL                         R39 1
-      591 GETTABLEKS                       R39 R39 K34 ["createElement"]
-      593 GETUPVAL                         R40 9
-      594 DUPTABLE                         R41 K131 [{"OnKeyPressed", "OnKeyReleased"}]
-      595 NEWCLOSURE                       R42 P0
-      596 CAPTURE                          UPVAL U10
-      597 CAPTURE                          VAL R0
-      598 SETTABLEKS                       R42 R41 K129 ["OnKeyPressed"]
-      600 NEWCLOSURE                       R42 P1
-      601 CAPTURE                          UPVAL U10
-      602 CAPTURE                          VAL R0
-      603 SETTABLEKS                       R42 R41 K130 ["OnKeyReleased"]
-      605 CALL                             R39 2 1
-      606 SETTABLEKS                       R39 R38 K97 ["KeyboardListener"]
-      608 CALL                             R35 3 1
-      609 SETTABLEKS                       R35 R34 K51 ["IgnoreLayout"]
-      611 CALL                             R31 3 -1
-      612 RETURN                           R31 -1
+      183 SETTABLEKS                       R24 R37 K69 ["ParentSize"]
+      185 SETTABLEKS                       R25 R37 K70 ["ParentPosition"]
+      187 GETTABLEKS                       R38 R0 K76 ["stepAnimation"]
+      189 SETTABLEKS                       R38 R37 K71 ["StepAnimation"]
+      191 SETTABLEKS                       R22 R37 K21 ["SnapToNearestKeyframe"]
+      193 SETTABLEKS                       R23 R37 K22 ["SnapToNearestFrame"]
+      195 GETTABLEKS                       R38 R1 K72 ["AnimationData"]
+      197 SETTABLEKS                       R38 R37 K72 ["AnimationData"]
+      199 SETTABLEKS                       R18 R37 K17 ["Playhead"]
+      201 GETTABLEKS                       R38 R1 K29 ["EditorMode"]
+      203 SETTABLEKS                       R38 R37 K29 ["EditorMode"]
+      205 GETTABLEKS                       R38 R0 K77 ["toggleEditorClicked"]
+      207 SETTABLEKS                       R38 R37 K74 ["OnToggleEditorClicked"]
+      209 CALL                             R35 2 1
+      210 SETTABLEKS                       R35 R34 K47 ["TimelineContainer"]
+      212 JUMPIFNOT                        R28 ; [+43]
+      213 GETUPVAL                         R35 1
+      214 GETTABLEKS                       R35 R35 K34 ["createElement"]
+      216 GETUPVAL                         R36 3
+      217 DUPTABLE                         R37 K80 [{["ShowEvents"], ["StartTick"], ["EndTick"], ["TrackPadding"], ["TopTrackIndex"], ["Size"], ["TimelineUnit"], ["IsChannelAnimation"], ["ColorsPosition"], ["ZIndex"] = 1, ["OnWheelTick"]}]
+      218 SETTABLEKS                       R17 R37 K16 ["ShowEvents"]
+      220 SETTABLEKS                       R3 R37 K2 ["StartTick"]
+      222 SETTABLEKS                       R4 R37 K3 ["EndTick"]
+      224 SETTABLEKS                       R26 R37 K67 ["TrackPadding"]
+      226 SETTABLEKS                       R16 R37 K15 ["TopTrackIndex"]
+      228 GETIMPORT                        R38 K82 [UDim2.new]
+      230 LOADN                            R39 1
+      231 LOADN                            R40 0
+      232 LOADN                            R41 1
+      233 GETUPVAL                         R44 0
+      234 GETTABLEKS                       R44 R44 K83 ["TIMELINE_HEIGHT"]
+      236 MINUS                            R43 R44
+      237 GETUPVAL                         R44 0
+      238 GETTABLEKS                       R44 R44 K84 ["SCROLL_BAR_SIZE"]
+      240 SUB                              R42 R43 R44
+      241 CALL                             R38 4 1
+      242 SETTABLEKS                       R38 R37 K14 ["Size"]
+      244 SETTABLEKS                       R8 R37 K7 ["TimelineUnit"]
+      246 SETTABLEKS                       R19 R37 K18 ["IsChannelAnimation"]
+      248 SETTABLEKS                       R20 R37 K19 ["ColorsPosition"]
+      250 GETTABLEKS                       R38 R0 K85 ["wheelTick"]
+      252 SETTABLEKS                       R38 R37 K79 ["OnWheelTick"]
+      254 CALL                             R35 2 1
+      255 JUMPIF                           R35 ; [+1]
+      256 LOADNIL                          R35
+      257 SETTABLEKS                       R35 R34 K48 ["DopeSheetController"]
+      259 JUMPIFNOT                        R29 ; [+43]
+      260 GETUPVAL                         R35 1
+      261 GETTABLEKS                       R35 R35 K34 ["createElement"]
+      263 GETUPVAL                         R36 4
+      264 DUPTABLE                         R37 K87 [{["ShowEvents"], ["StartTick"], ["EndTick"], ["TrackPadding"], ["Size"], ["TimelineUnit"], ["Playhead"], ["ZIndex"] = 1, ["OnInputChanged"], ["OnWheelTick"]}]
+      265 SETTABLEKS                       R17 R37 K16 ["ShowEvents"]
+      267 SETTABLEKS                       R3 R37 K2 ["StartTick"]
+      269 SETTABLEKS                       R4 R37 K3 ["EndTick"]
+      271 SETTABLEKS                       R26 R37 K67 ["TrackPadding"]
+      273 GETIMPORT                        R38 K82 [UDim2.new]
+      275 LOADN                            R39 1
+      276 LOADN                            R40 0
+      277 LOADN                            R41 1
+      278 GETUPVAL                         R44 0
+      279 GETTABLEKS                       R44 R44 K83 ["TIMELINE_HEIGHT"]
+      281 MINUS                            R43 R44
+      282 GETUPVAL                         R44 0
+      283 GETTABLEKS                       R44 R44 K84 ["SCROLL_BAR_SIZE"]
+      285 SUB                              R42 R43 R44
+      286 CALL                             R38 4 1
+      287 SETTABLEKS                       R38 R37 K14 ["Size"]
+      289 SETTABLEKS                       R8 R37 K7 ["TimelineUnit"]
+      291 SETTABLEKS                       R18 R37 K17 ["Playhead"]
+      293 GETTABLEKS                       R38 R0 K88 ["inputChanged"]
+      295 SETTABLEKS                       R38 R37 K86 ["OnInputChanged"]
+      297 GETTABLEKS                       R38 R0 K85 ["wheelTick"]
+      299 SETTABLEKS                       R38 R37 K79 ["OnWheelTick"]
+      301 CALL                             R35 2 1
+      302 JUMPIF                           R35 ; [+1]
+      303 LOADNIL                          R35
+      304 SETTABLEKS                       R35 R34 K49 ["CurveEditorController"]
+      306 JUMPIFNOT                        R30 ; [+18]
+      307 GETUPVAL                         R35 1
+      308 GETTABLEKS                       R35 R35 K34 ["createElement"]
+      310 GETUPVAL                         R36 5
+      311 DUPTABLE                         R37 K91 [{"Text", "OnClose"}]
+      312 LOADK                            R40 K92 ["Toast"]
+      313 LOADK                            R41 K33 ["CannotPasteError"]
+      314 NAMECALL                         R38 R21 K93 ["getText"]
+      316 CALL                             R38 3 1
+      317 SETTABLEKS                       R38 R37 K89 ["Text"]
+      319 GETTABLEKS                       R38 R1 K94 ["CloseCannotPasteToast"]
+      321 SETTABLEKS                       R38 R37 K90 ["OnClose"]
+      323 CALL                             R35 2 1
+      324 JUMPIF                           R35 ; [+1]
+      325 LOADNIL                          R35
+      326 SETTABLEKS                       R35 R34 K50 ["CannotPasteToast"]
+      328 GETUPVAL                         R35 1
+      329 GETTABLEKS                       R35 R35 K34 ["createElement"]
+      331 LOADK                            R36 K95 ["Folder"]
+      332 NEWTABLE                         R37 0 0
+      334 DUPTABLE                         R38 K101 [{"TimelineBorder", "Scrubber", "HorizontalZoomBar", "VerticalZoomBar", "KeyboardListener"}]
+      335 GETUPVAL                         R39 1
+      336 GETTABLEKS                       R39 R39 K34 ["createElement"]
+      338 GETUPVAL                         R40 6
+      339 DUPTABLE                         R41 K106 [{["Position"], ["DominantAxis"], ["Weight"] = 1, ["Padding"] = 0, ["ZIndex"] = 2}]
+      340 GETIMPORT                        R42 K82 [UDim2.new]
+      342 LOADK                            R43 K107 [0.5]
+      343 LOADN                            R44 0
+      344 LOADN                            R45 0
+      345 GETUPVAL                         R46 0
+      346 GETTABLEKS                       R46 R46 K83 ["TIMELINE_HEIGHT"]
+      348 CALL                             R42 4 1
+      349 SETTABLEKS                       R42 R41 K102 ["Position"]
+      351 GETIMPORT                        R42 K109 [Enum.DominantAxis.Width]
+      353 SETTABLEKS                       R42 R41 K103 ["DominantAxis"]
+      355 CALL                             R39 2 1
+      356 SETTABLEKS                       R39 R38 K96 ["TimelineBorder"]
+      358 MOVE                             R39 R27
+      359 JUMPIFNOT                        R39 ; [+37]
+      360 GETUPVAL                         R39 1
+      361 GETTABLEKS                       R39 R39 K34 ["createElement"]
+      363 GETUPVAL                         R40 7
+      364 DUPTABLE                         R41 K117 [{["Position"], ["AnchorPoint"], ["Height"], ["ShowHead"] = True, ["HeadSize"], ["ZIndex"] = 3, ["Thickness"] = 1}]
+      365 GETIMPORT                        R42 K82 [UDim2.new]
+      367 LOADN                            R43 0
+      368 GETTABLEKS                       R44 R0 K118 ["getPlayheadPositionX"]
+      370 CALL                             R44 0 1
+      371 LOADN                            R45 0
+      372 LOADN                            R46 0
+      373 CALL                             R42 4 1
+      374 SETTABLEKS                       R42 R41 K102 ["Position"]
+      376 GETIMPORT                        R42 K26 [Vector2.new]
+      378 LOADK                            R43 K107 [0.5]
+      379 LOADN                            R44 0
+      380 CALL                             R42 2 1
+      381 SETTABLEKS                       R42 R41 K110 ["AnchorPoint"]
+      383 GETTABLEKS                       R42 R24 K119 ["Y"]
+      385 SETTABLEKS                       R42 R41 K111 ["Height"]
+      387 GETIMPORT                        R42 K82 [UDim2.new]
+      389 LOADN                            R43 0
+      390 LOADN                            R44 5
+      391 LOADN                            R45 0
+      392 LOADN                            R46 5
+      393 CALL                             R42 4 1
+      394 SETTABLEKS                       R42 R41 K114 ["HeadSize"]
+      396 CALL                             R39 2 1
+      397 SETTABLEKS                       R39 R38 K97 ["Scrubber"]
+      399 GETUPVAL                         R39 1
+      400 GETTABLEKS                       R39 R39 K34 ["createElement"]
+      402 GETUPVAL                         R40 8
+      403 DUPTABLE                         R41 K127 [{["Size"], ["Position"], ["Direction"], ["ZIndex"] = 4, ["LayoutOrder"] = 2, ["ContainerSize"], ["AdjustScrollZoom"], ["Scroll"], ["Zoom"], ["Min"]}]
+      404 GETIMPORT                        R42 K82 [UDim2.new]
+      406 LOADN                            R43 0
+      407 GETTABLEKS                       R46 R24 K128 ["X"]
+      409 GETUPVAL                         R47 0
+      410 GETTABLEKS                       R47 R47 K129 ["SCROLL_BAR_PADDING"]
+      412 SUB                              R45 R46 R47
+      413 ADDK                             R44 R45 K78 [1]
+      414 LOADN                            R45 0
+      415 GETUPVAL                         R46 0
+      416 GETTABLEKS                       R46 R46 K84 ["SCROLL_BAR_SIZE"]
+      418 CALL                             R42 4 1
+      419 SETTABLEKS                       R42 R41 K14 ["Size"]
+      421 GETIMPORT                        R42 K82 [UDim2.new]
+      423 LOADN                            R43 0
+      424 LOADN                            R44 0
+      425 LOADN                            R45 1
+      426 GETUPVAL                         R47 0
+      427 GETTABLEKS                       R47 R47 K84 ["SCROLL_BAR_SIZE"]
+      429 MINUS                            R46 R47
+      430 CALL                             R42 4 1
+      431 SETTABLEKS                       R42 R41 K102 ["Position"]
+      433 GETUPVAL                         R42 8
+      434 GETTABLEKS                       R42 R42 K130 ["HORIZONTAL"]
+      436 SETTABLEKS                       R42 R41 K120 ["Direction"]
+      438 GETIMPORT                        R42 K26 [Vector2.new]
+      440 GETTABLEKS                       R43 R24 K128 ["X"]
+      442 GETTABLEKS                       R44 R24 K119 ["Y"]
+      444 CALL                             R42 2 1
+      445 SETTABLEKS                       R42 R41 K122 ["ContainerSize"]
+      447 GETTABLEKS                       R42 R1 K131 ["SetHorizontalScrollZoom"]
+      449 SETTABLEKS                       R42 R41 K123 ["AdjustScrollZoom"]
+      451 SETTABLEKS                       R9 R41 K124 ["Scroll"]
+      453 SETTABLEKS                       R10 R41 K125 ["Zoom"]
+      455 GETTABLEKS                       R43 R25 K128 ["X"]
+      457 ADDK                             R42 R43 K78 [1]
+      458 SETTABLEKS                       R42 R41 K126 ["Min"]
+      460 CALL                             R39 2 1
+      461 SETTABLEKS                       R39 R38 K98 ["HorizontalZoomBar"]
+      463 MOVE                             R39 R29
+      464 JUMPIFNOT                        R39 ; [+81]
+      465 GETUPVAL                         R39 1
+      466 GETTABLEKS                       R39 R39 K34 ["createElement"]
+      468 GETUPVAL                         R40 8
+      469 DUPTABLE                         R41 K127 [{["Size"], ["Position"], ["Direction"], ["ZIndex"] = 4, ["LayoutOrder"] = 2, ["ContainerSize"], ["AdjustScrollZoom"], ["Scroll"], ["Zoom"], ["Min"]}]
+      470 GETIMPORT                        R42 K82 [UDim2.new]
+      472 LOADN                            R43 0
+      473 GETUPVAL                         R44 0
+      474 GETTABLEKS                       R44 R44 K84 ["SCROLL_BAR_SIZE"]
+      476 LOADN                            R45 0
+      477 GETTABLEKS                       R50 R24 K119 ["Y"]
+      479 GETUPVAL                         R51 0
+      480 GETTABLEKS                       R51 R51 K84 ["SCROLL_BAR_SIZE"]
+      482 SUB                              R49 R50 R51
+      483 GETUPVAL                         R50 0
+      484 GETTABLEKS                       R50 R50 K129 ["SCROLL_BAR_PADDING"]
+      486 SUB                              R48 R49 R50
+      487 GETUPVAL                         R49 0
+      488 GETTABLEKS                       R49 R49 K83 ["TIMELINE_HEIGHT"]
+      490 SUB                              R47 R48 R49
+      491 ADDK                             R46 R47 K78 [1]
+      492 CALL                             R42 4 1
+      493 SETTABLEKS                       R42 R41 K14 ["Size"]
+      495 GETIMPORT                        R42 K82 [UDim2.new]
+      497 LOADN                            R43 1
+      498 LOADN                            R44 0
+      499 LOADN                            R45 0
+      500 GETUPVAL                         R46 0
+      501 GETTABLEKS                       R46 R46 K83 ["TIMELINE_HEIGHT"]
+      503 CALL                             R42 4 1
+      504 SETTABLEKS                       R42 R41 K102 ["Position"]
+      506 GETUPVAL                         R42 8
+      507 GETTABLEKS                       R42 R42 K132 ["VERTICAL"]
+      509 SETTABLEKS                       R42 R41 K120 ["Direction"]
+      511 GETIMPORT                        R42 K26 [Vector2.new]
+      513 GETTABLEKS                       R43 R24 K128 ["X"]
+      515 GETTABLEKS                       R46 R24 K119 ["Y"]
+      517 GETUPVAL                         R47 0
+      518 GETTABLEKS                       R47 R47 K84 ["SCROLL_BAR_SIZE"]
+      520 SUB                              R45 R46 R47
+      521 GETUPVAL                         R46 0
+      522 GETTABLEKS                       R46 R46 K83 ["TIMELINE_HEIGHT"]
+      524 SUB                              R44 R45 R46
+      525 CALL                             R42 2 1
+      526 SETTABLEKS                       R42 R41 K122 ["ContainerSize"]
+      528 GETTABLEKS                       R42 R1 K133 ["SetVerticalScrollZoom"]
+      530 SETTABLEKS                       R42 R41 K123 ["AdjustScrollZoom"]
+      532 SETTABLEKS                       R11 R41 K124 ["Scroll"]
+      534 SETTABLEKS                       R12 R41 K125 ["Zoom"]
+      536 GETTABLEKS                       R44 R25 K119 ["Y"]
+      538 GETUPVAL                         R45 0
+      539 GETTABLEKS                       R45 R45 K83 ["TIMELINE_HEIGHT"]
+      541 ADD                              R43 R44 R45
+      542 ADDK                             R42 R43 K78 [1]
+      543 SETTABLEKS                       R42 R41 K126 ["Min"]
+      545 CALL                             R39 2 1
+      546 SETTABLEKS                       R39 R38 K99 ["VerticalZoomBar"]
+      548 GETUPVAL                         R39 1
+      549 GETTABLEKS                       R39 R39 K34 ["createElement"]
+      551 GETUPVAL                         R40 9
+      552 DUPTABLE                         R41 K136 [{"OnKeyPressed", "OnKeyReleased"}]
+      553 NEWCLOSURE                       R42 P0
+      554 CAPTURE                          UPVAL U10
+      555 CAPTURE                          VAL R0
+      556 SETTABLEKS                       R42 R41 K134 ["OnKeyPressed"]
+      558 NEWCLOSURE                       R42 P1
+      559 CAPTURE                          UPVAL U10
+      560 CAPTURE                          VAL R0
+      561 SETTABLEKS                       R42 R41 K135 ["OnKeyReleased"]
+      563 CALL                             R39 2 1
+      564 SETTABLEKS                       R39 R38 K100 ["KeyboardListener"]
+      566 CALL                             R35 3 1
+      567 SETTABLEKS                       R35 R34 K51 ["IgnoreLayout"]
+      569 CALL                             R31 3 -1
+      570 RETURN                           R31 -1
 
 PROTO_15:
         0 DUPTABLE                         R1 K7 [{"AnimationData", "CannotPasteError", "EditorMode", "IsPlaying", "PlayState", "SnapMode", "ReadOnly"}]

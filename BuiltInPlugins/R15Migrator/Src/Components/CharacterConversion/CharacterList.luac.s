@@ -411,53 +411,51 @@ PROTO_10:
        18 RETURN                           R3 1
 
 PROTO_11:
-        0 DUPTABLE                         R1 K2 [{"expandedNestedItem", "expanded"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["expanded"] = }]
         1 NEWTABLE                         R2 1 0
         3 GETUPVAL                         R3 0
-        4 GETTABLEKS                       R3 R3 K3 ["InProgress"]
+        4 GETTABLEKS                       R3 R3 K4 ["InProgress"]
         6 LOADB                            R4 1
         7 SETTABLE                         R4 R2 R3
         8 SETTABLEKS                       R2 R1 K0 ["expandedNestedItem"]
-       10 LOADNIL                          R2
-       11 SETTABLEKS                       R2 R1 K1 ["expanded"]
-       13 SETTABLEKS                       R1 R0 K4 ["state"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K5 ["onKeyPressed"]
-       20 NEWCLOSURE                       R1 P1
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K6 ["onKeyReleased"]
-       25 NEWCLOSURE                       R1 P2
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K7 ["plainSelect"]
-       29 NEWCLOSURE                       R1 P3
-       30 CAPTURE                          UPVAL U2
-       31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R1 R0 K8 ["plainToggleSelect"]
-       34 NEWCLOSURE                       R1 P4
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R1 R0 K9 ["selectAll"]
-       38 DUPCLOSURE                       R1 K10 [PROTO_5]
-       39 SETTABLEKS                       R1 R0 K11 ["selectInRange"]
-       41 NEWCLOSURE                       R1 P6
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R1 R0 K12 ["areAllChildrenSelected"]
-       45 NEWCLOSURE                       R1 P7
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          UPVAL U2
-       48 SETTABLEKS                       R1 R0 K13 ["toggleSelectAllChildren"]
-       50 DUPCLOSURE                       R1 K14 [PROTO_8]
-       51 SETTABLEKS                       R1 R0 K15 ["getSelectionRangeData"]
-       53 NEWCLOSURE                       R1 P9
-       54 CAPTURE                          VAL R0
-       55 CAPTURE                          UPVAL U2
-       56 SETTABLEKS                       R1 R0 K16 ["shiftSelect"]
-       58 NEWCLOSURE                       R1 P10
-       59 CAPTURE                          VAL R0
-       60 SETTABLEKS                       R1 R0 K17 ["isItemSelected"]
-       62 RETURN                           R0 0
+       10 SETTABLEKS                       R1 R0 K5 ["state"]
+       12 NEWCLOSURE                       R1 P0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K6 ["onKeyPressed"]
+       17 NEWCLOSURE                       R1 P1
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R1 R0 K7 ["onKeyReleased"]
+       22 NEWCLOSURE                       R1 P2
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K8 ["plainSelect"]
+       26 NEWCLOSURE                       R1 P3
+       27 CAPTURE                          UPVAL U2
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R1 R0 K9 ["plainToggleSelect"]
+       31 NEWCLOSURE                       R1 P4
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R1 R0 K10 ["selectAll"]
+       35 DUPCLOSURE                       R1 K11 [PROTO_5]
+       36 SETTABLEKS                       R1 R0 K12 ["selectInRange"]
+       38 NEWCLOSURE                       R1 P6
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R1 R0 K13 ["areAllChildrenSelected"]
+       42 NEWCLOSURE                       R1 P7
+       43 CAPTURE                          VAL R0
+       44 CAPTURE                          UPVAL U2
+       45 SETTABLEKS                       R1 R0 K14 ["toggleSelectAllChildren"]
+       47 DUPCLOSURE                       R1 K15 [PROTO_8]
+       48 SETTABLEKS                       R1 R0 K16 ["getSelectionRangeData"]
+       50 NEWCLOSURE                       R1 P9
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          UPVAL U2
+       53 SETTABLEKS                       R1 R0 K17 ["shiftSelect"]
+       55 NEWCLOSURE                       R1 P10
+       56 CAPTURE                          VAL R0
+       57 SETTABLEKS                       R1 R0 K18 ["isItemSelected"]
+       59 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -712,41 +710,35 @@ PROTO_20:
        76 GETUPVAL                         R8 0
        77 GETTABLEKS                       R8 R8 K4 ["createElement"]
        79 GETUPVAL                         R9 2
-       80 DUPTABLE                         R10 K34 [{"AutomaticSize", "Style", "ContentPadding", "ContentSpacing", "Size", "LayoutOrder", "Text", "Expanded", "OnExpandedChanged"}]
-       81 GETIMPORT                        R11 K36 [Enum.AutomaticSize.Y]
+       80 DUPTABLE                         R10 K36 [{["AutomaticSize"], ["Style"] = "Section", ["ContentPadding"] = 0, ["ContentSpacing"] = 0, ["Size"], ["LayoutOrder"], ["Text"], ["Expanded"], ["OnExpandedChanged"]}]
+       81 GETIMPORT                        R11 K38 [Enum.AutomaticSize.Y]
        83 SETTABLEKS                       R11 R10 K26 ["AutomaticSize"]
-       85 LOADK                            R11 K37 ["Section"]
-       86 SETTABLEKS                       R11 R10 K27 ["Style"]
-       88 LOADN                            R11 0
-       89 SETTABLEKS                       R11 R10 K28 ["ContentPadding"]
-       91 LOADN                            R11 0
-       92 SETTABLEKS                       R11 R10 K29 ["ContentSpacing"]
-       94 GETIMPORT                        R11 K39 [UDim2.new]
-       96 LOADN                            R12 1
-       97 LOADN                            R13 0
-       98 LOADN                            R14 0
-       99 GETTABLEKS                       R15 R5 K40 ["RowHeight"]
-      101 CALL                             R11 4 1
-      102 SETTABLEKS                       R11 R10 K30 ["Size"]
-      104 SETTABLEKS                       R3 R10 K10 ["LayoutOrder"]
-      106 GETTABLEKS                       R11 R1 K41 ["text"]
-      108 SETTABLEKS                       R11 R10 K31 ["Text"]
-      110 GETTABLEKS                       R13 R0 K43 ["state"]
-      112 GETTABLEKS                       R13 R13 K44 ["expandedNestedItem"]
-      114 GETTABLEKS                       R14 R1 K45 ["key"]
-      116 GETTABLE                         R12 R13 R14
-      117 ORK                              R11 R12 K42 [False]
-      118 SETTABLEKS                       R11 R10 K32 ["Expanded"]
-      120 NEWCLOSURE                       R11 P1
-      121 CAPTURE                          VAL R0
-      122 CAPTURE                          VAL R1
-      123 CAPTURE                          UPVAL U3
-      124 SETTABLEKS                       R11 R10 K33 ["OnExpandedChanged"]
-      126 MOVE                             R11 R6
-      127 CALL                             R8 3 1
-      128 GETTABLEKS                       R9 R1 K45 ["key"]
-      130 SETTABLE                         R8 R2 R9
-      131 RETURN                           R0 0
+       85 GETIMPORT                        R11 K40 [UDim2.new]
+       87 LOADN                            R12 1
+       88 LOADN                            R13 0
+       89 LOADN                            R14 0
+       90 GETTABLEKS                       R15 R5 K41 ["RowHeight"]
+       92 CALL                             R11 4 1
+       93 SETTABLEKS                       R11 R10 K32 ["Size"]
+       95 SETTABLEKS                       R3 R10 K10 ["LayoutOrder"]
+       97 GETTABLEKS                       R11 R1 K42 ["text"]
+       99 SETTABLEKS                       R11 R10 K33 ["Text"]
+      101 GETTABLEKS                       R13 R0 K44 ["state"]
+      103 GETTABLEKS                       R13 R13 K45 ["expandedNestedItem"]
+      105 GETTABLEKS                       R14 R1 K46 ["key"]
+      107 GETTABLE                         R12 R13 R14
+      108 ORK                              R11 R12 K43 [False]
+      109 SETTABLEKS                       R11 R10 K34 ["Expanded"]
+      111 NEWCLOSURE                       R11 P1
+      112 CAPTURE                          VAL R0
+      113 CAPTURE                          VAL R1
+      114 CAPTURE                          UPVAL U3
+      115 SETTABLEKS                       R11 R10 K35 ["OnExpandedChanged"]
+      117 MOVE                             R11 R6
+      118 CALL                             R8 3 1
+      119 GETTABLEKS                       R9 R1 K46 ["key"]
+      121 SETTABLE                         R8 R2 R9
+      122 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

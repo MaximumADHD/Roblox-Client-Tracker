@@ -42,28 +42,26 @@ PROTO_1:
         8 LOADK                            R2 K2 ["StudioPublishExistingPlace"]
         9 JUMP                             ; [+1]
        10 LOADK                            R2 K3 ["StudioSaveExistingPlace"]
-       11 DUPTABLE                         R3 K7 [{"Url", "Method", "Params"}]
+       11 DUPTABLE                         R3 K8 [{["Url"], ["Method"] = "GET", ["Params"]}]
        12 GETUPVAL                         R4 0
-       13 GETTABLEKS                       R4 R4 K8 ["BuildRobloxUrl"]
-       15 LOADK                            R5 K9 ["apis"]
-       16 LOADK                            R6 K10 ["creator-home-api/v1/groups"]
+       13 GETTABLEKS                       R4 R4 K9 ["BuildRobloxUrl"]
+       15 LOADK                            R5 K10 ["apis"]
+       16 LOADK                            R6 K11 ["creator-home-api/v1/groups"]
        17 CALL                             R4 2 1
        18 SETTABLEKS                       R4 R3 K4 ["Url"]
-       20 LOADK                            R4 K11 ["GET"]
-       21 SETTABLEKS                       R4 R3 K5 ["Method"]
-       23 DUPTABLE                         R4 K13 [{"surface"}]
-       24 SETTABLEKS                       R2 R4 K12 ["surface"]
-       26 SETTABLEKS                       R4 R3 K6 ["Params"]
-       28 GETUPVAL                         R4 0
-       29 GETTABLEKS                       R4 R4 K14 ["Request"]
-       31 MOVE                             R5 R3
-       32 CALL                             R4 1 1
-       33 DUPCLOSURE                       R6 K15 [PROTO_0]
-       34 CAPTURE                          UPVAL U1
-       35 CAPTURE                          UPVAL U2
-       36 NAMECALL                         R4 R4 K16 ["andThen"]
-       38 CALL                             R4 2 -1
-       39 RETURN                           R4 -1
+       20 DUPTABLE                         R4 K13 [{"surface"}]
+       21 SETTABLEKS                       R2 R4 K12 ["surface"]
+       23 SETTABLEKS                       R4 R3 K7 ["Params"]
+       25 GETUPVAL                         R4 0
+       26 GETTABLEKS                       R4 R4 K14 ["Request"]
+       28 MOVE                             R5 R3
+       29 CALL                             R4 1 1
+       30 DUPCLOSURE                       R6 K15 [PROTO_0]
+       31 CAPTURE                          UPVAL U1
+       32 CAPTURE                          UPVAL U2
+       33 NAMECALL                         R4 R4 K16 ["andThen"]
+       35 CALL                             R4 2 -1
+       36 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

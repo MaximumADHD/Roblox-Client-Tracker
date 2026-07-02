@@ -64,36 +64,30 @@ PROTO_2:
        64 GETUPVAL                         R10 5
        65 GETTABLEKS                       R10 R10 K9 ["createElement"]
        67 GETUPVAL                         R11 8
-       68 DUPTABLE                         R12 K22 [{"Adornee", "AlwaysOnTop", "Color", "LineThickness", "Lines", "Scale", "Size", "Transform", "Transparency", "Wireframe"}]
+       68 DUPTABLE                         R12 K25 [{["Adornee"], ["AlwaysOnTop"] = True, ["Color"], ["LineThickness"] = 0.1, ["Lines"], ["Scale"], ["Size"], ["Transform"], ["Transparency"] = 0.9, ["Wireframe"]}]
        69 SETTABLEKS                       R5 R12 K15 ["Adornee"]
-       71 LOADB                            R13 1
-       72 SETTABLEKS                       R13 R12 K16 ["AlwaysOnTop"]
-       74 GETTABLEKS                       R13 R0 K3 ["Schema"]
-       76 GETTABLEKS                       R13 R13 K17 ["Color"]
-       78 JUMPIF                           R13 ; [+6]
-       79 GETIMPORT                        R13 K25 [Color3.new]
-       81 LOADN                            R14 1
-       82 LOADN                            R15 1
-       83 LOADN                            R16 1
-       84 CALL                             R13 3 1
-       85 SETTABLEKS                       R13 R12 K17 ["Color"]
-       87 LOADK                            R13 K26 [0.1]
-       88 SETTABLEKS                       R13 R12 K18 ["LineThickness"]
-       90 SETTABLEKS                       R4 R12 K19 ["Lines"]
-       92 SETTABLEKS                       R3 R12 K20 ["Scale"]
-       94 GETTABLEKS                       R13 R2 K6 ["Size"]
-       96 SETTABLEKS                       R13 R12 K6 ["Size"]
-       98 GETTABLEKS                       R13 R2 K7 ["Transform"]
-      100 SETTABLEKS                       R13 R12 K7 ["Transform"]
-      102 LOADK                            R13 K27 [0.9]
-      103 SETTABLEKS                       R13 R12 K21 ["Transparency"]
-      105 GETTABLEKS                       R13 R0 K3 ["Schema"]
-      107 GETTABLEKS                       R13 R13 K5 ["Wireframe"]
-      109 SETTABLEKS                       R13 R12 K5 ["Wireframe"]
-      111 CALL                             R10 2 1
-      112 SETTABLEKS                       R10 R9 K11 ["Region"]
-      114 CALL                             R6 3 -1
-      115 RETURN                           R6 -1
+       71 GETTABLEKS                       R13 R0 K3 ["Schema"]
+       73 GETTABLEKS                       R13 R13 K18 ["Color"]
+       75 JUMPIF                           R13 ; [+6]
+       76 GETIMPORT                        R13 K28 [Color3.new]
+       78 LOADN                            R14 1
+       79 LOADN                            R15 1
+       80 LOADN                            R16 1
+       81 CALL                             R13 3 1
+       82 SETTABLEKS                       R13 R12 K18 ["Color"]
+       84 SETTABLEKS                       R4 R12 K21 ["Lines"]
+       86 SETTABLEKS                       R3 R12 K22 ["Scale"]
+       88 GETTABLEKS                       R13 R2 K6 ["Size"]
+       90 SETTABLEKS                       R13 R12 K6 ["Size"]
+       92 GETTABLEKS                       R13 R2 K7 ["Transform"]
+       94 SETTABLEKS                       R13 R12 K7 ["Transform"]
+       96 GETTABLEKS                       R13 R0 K3 ["Schema"]
+       98 GETTABLEKS                       R13 R13 K5 ["Wireframe"]
+      100 SETTABLEKS                       R13 R12 K5 ["Wireframe"]
+      102 CALL                             R10 2 1
+      103 SETTABLEKS                       R10 R9 K11 ["Region"]
+      105 CALL                             R6 3 -1
+      106 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

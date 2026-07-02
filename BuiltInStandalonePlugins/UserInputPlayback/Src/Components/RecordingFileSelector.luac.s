@@ -59,28 +59,26 @@ PROTO_3:
         4 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K2 [{"playbackFileNameOptions", "selectedRecordingIndex"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["selectedRecordingIndex"] = }]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["playbackFileNameOptions"]
-        5 LOADNIL                          R2
-        6 SETTABLEKS                       R2 R1 K1 ["selectedRecordingIndex"]
-        8 SETTABLEKS                       R1 R0 K3 ["state"]
-       10 NEWCLOSURE                       R1 P0
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["setPlayableRecordings"]
-       14 NEWCLOSURE                       R1 P1
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U0
-       17 SETTABLEKS                       R1 R0 K5 ["loadRecordingIndex"]
-       19 NEWCLOSURE                       R1 P2
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          UPVAL U0
-       23 SETTABLEKS                       R1 R0 K6 ["onSelectInputItemActivated"]
-       25 DUPCLOSURE                       R1 K7 [PROTO_3]
-       26 CAPTURE                          UPVAL U0
-       27 SETTABLEKS                       R1 R0 K8 ["onMouseEnter"]
-       29 RETURN                           R0 0
+        5 SETTABLEKS                       R1 R0 K4 ["state"]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["setPlayableRecordings"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U0
+       14 SETTABLEKS                       R1 R0 K6 ["loadRecordingIndex"]
+       16 NEWCLOSURE                       R1 P2
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          UPVAL U0
+       20 SETTABLEKS                       R1 R0 K7 ["onSelectInputItemActivated"]
+       22 DUPCLOSURE                       R1 K8 [PROTO_3]
+       23 CAPTURE                          UPVAL U0
+       24 SETTABLEKS                       R1 R0 K9 ["onMouseEnter"]
+       26 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -139,43 +137,41 @@ PROTO_7:
        56 GETUPVAL                         R9 0
        57 GETTABLEKS                       R9 R9 K4 ["createElement"]
        59 GETUPVAL                         R10 2
-       60 DUPTABLE                         R11 K36 [{"Text", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
-       61 LOADK                            R14 K37 ["PlaybackTabView"]
-       62 LOADK                            R15 K38 ["PlayFileLabel"]
-       63 NAMECALL                         R12 R3 K39 ["getText"]
+       60 DUPTABLE                         R11 K37 [{["Text"], ["AutomaticSize"], ["LayoutOrder"] = -1, ["TextXAlignment"], ["TextYAlignment"]}]
+       61 LOADK                            R14 K38 ["PlaybackTabView"]
+       62 LOADK                            R15 K39 ["PlayFileLabel"]
+       63 NAMECALL                         R12 R3 K40 ["getText"]
        65 CALL                             R12 3 1
        66 SETTABLEKS                       R12 R11 K33 ["Text"]
-       68 GETIMPORT                        R12 K41 [Enum.AutomaticSize.XY]
+       68 GETIMPORT                        R12 K42 [Enum.AutomaticSize.XY]
        70 SETTABLEKS                       R12 R11 K10 ["AutomaticSize"]
-       72 LOADN                            R12 255
-       73 SETTABLEKS                       R12 R11 K13 ["LayoutOrder"]
-       75 GETIMPORT                        R12 K43 [Enum.TextXAlignment.Left]
-       77 SETTABLEKS                       R12 R11 K34 ["TextXAlignment"]
-       79 GETIMPORT                        R12 K44 [Enum.TextYAlignment.Center]
-       81 SETTABLEKS                       R12 R11 K35 ["TextYAlignment"]
-       83 CALL                             R9 2 1
-       84 SETTABLEKS                       R9 R8 K30 ["Label"]
-       86 GETUPVAL                         R9 0
-       87 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       89 GETUPVAL                         R10 3
-       90 DUPTABLE                         R11 K50 [{"Style", "Items", "PlaceholderText", "SelectedIndex", "OnItemActivated"}]
-       91 GETTABLEKS                       R12 R4 K51 ["PlaybackSelectInput"]
-       93 SETTABLEKS                       R12 R11 K45 ["Style"]
-       95 GETTABLEKS                       R12 R2 K52 ["playbackFileNameOptions"]
-       97 SETTABLEKS                       R12 R11 K46 ["Items"]
-       99 LOADK                            R14 K37 ["PlaybackTabView"]
-      100 LOADK                            R15 K53 ["SelectInputDefaultText"]
-      101 NAMECALL                         R12 R3 K39 ["getText"]
-      103 CALL                             R12 3 1
-      104 SETTABLEKS                       R12 R11 K47 ["PlaceholderText"]
-      106 GETTABLEKS                       R12 R2 K54 ["selectedRecordingIndex"]
-      108 SETTABLEKS                       R12 R11 K48 ["SelectedIndex"]
-      110 GETTABLEKS                       R12 R0 K55 ["onSelectInputItemActivated"]
-      112 SETTABLEKS                       R12 R11 K49 ["OnItemActivated"]
-      114 CALL                             R9 2 1
-      115 SETTABLEKS                       R9 R8 K31 ["Input"]
-      117 CALL                             R5 3 -1
-      118 RETURN                           R5 -1
+       72 GETIMPORT                        R12 K44 [Enum.TextXAlignment.Left]
+       74 SETTABLEKS                       R12 R11 K35 ["TextXAlignment"]
+       76 GETIMPORT                        R12 K45 [Enum.TextYAlignment.Center]
+       78 SETTABLEKS                       R12 R11 K36 ["TextYAlignment"]
+       80 CALL                             R9 2 1
+       81 SETTABLEKS                       R9 R8 K30 ["Label"]
+       83 GETUPVAL                         R9 0
+       84 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       86 GETUPVAL                         R10 3
+       87 DUPTABLE                         R11 K51 [{"Style", "Items", "PlaceholderText", "SelectedIndex", "OnItemActivated"}]
+       88 GETTABLEKS                       R12 R4 K52 ["PlaybackSelectInput"]
+       90 SETTABLEKS                       R12 R11 K46 ["Style"]
+       92 GETTABLEKS                       R12 R2 K53 ["playbackFileNameOptions"]
+       94 SETTABLEKS                       R12 R11 K47 ["Items"]
+       96 LOADK                            R14 K38 ["PlaybackTabView"]
+       97 LOADK                            R15 K54 ["SelectInputDefaultText"]
+       98 NAMECALL                         R12 R3 K40 ["getText"]
+      100 CALL                             R12 3 1
+      101 SETTABLEKS                       R12 R11 K48 ["PlaceholderText"]
+      103 GETTABLEKS                       R12 R2 K55 ["selectedRecordingIndex"]
+      105 SETTABLEKS                       R12 R11 K49 ["SelectedIndex"]
+      107 GETTABLEKS                       R12 R0 K56 ["onSelectInputItemActivated"]
+      109 SETTABLEKS                       R12 R11 K50 ["OnItemActivated"]
+      111 CALL                             R9 2 1
+      112 SETTABLEKS                       R9 R8 K31 ["Input"]
+      114 CALL                             R5 3 -1
+      115 RETURN                           R5 -1
 
 PROTO_8:
         0 DUPTABLE                         R2 K2 [{"ShouldSetEmulationDevice", "PluginState"}]

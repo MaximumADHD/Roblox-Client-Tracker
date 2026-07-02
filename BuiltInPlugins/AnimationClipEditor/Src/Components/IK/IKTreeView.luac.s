@@ -382,35 +382,31 @@ PROTO_12:
        32 GETUPVAL                         R7 2
        33 GETTABLEKS                       R7 R7 K10 ["createElement"]
        35 LOADK                            R8 K11 ["Frame"]
-       36 DUPTABLE                         R9 K13 [{"Position", "Size", "BackgroundTransparency"}]
+       36 DUPTABLE                         R9 K14 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
        37 SETTABLEKS                       R2 R9 K1 ["Position"]
        39 SETTABLEKS                       R3 R9 K2 ["Size"]
-       41 LOADN                            R10 1
-       42 SETTABLEKS                       R10 R9 K12 ["BackgroundTransparency"]
-       44 DUPTABLE                         R10 K15 [{"TreeView"}]
-       45 GETUPVAL                         R11 2
-       46 GETTABLEKS                       R11 R11 K10 ["createElement"]
-       48 GETUPVAL                         R12 3
-       49 DUPTABLE                         R13 K23 [{"RootItems", "GetChildren", "Expansion", "RowComponent", "RowHeight", "GetRowProps", "Style"}]
-       50 SETTABLEKS                       R6 R13 K16 ["RootItems"]
-       52 GETTABLEKS                       R14 R0 K24 ["getChildren"]
-       54 SETTABLEKS                       R14 R13 K17 ["GetChildren"]
-       56 GETTABLEKS                       R14 R0 K25 ["state"]
-       58 GETTABLEKS                       R14 R14 K26 ["expandedItems"]
-       60 SETTABLEKS                       R14 R13 K18 ["Expansion"]
-       62 GETUPVAL                         R14 4
-       63 SETTABLEKS                       R14 R13 K19 ["RowComponent"]
-       65 GETUPVAL                         R14 5
-       66 GETTABLEKS                       R14 R14 K27 ["TRACK_HEIGHT"]
-       68 SETTABLEKS                       R14 R13 K20 ["RowHeight"]
-       70 GETTABLEKS                       R14 R0 K28 ["getRowProps"]
-       72 SETTABLEKS                       R14 R13 K21 ["GetRowProps"]
-       74 LOADK                            R14 K29 ["BorderBox"]
-       75 SETTABLEKS                       R14 R13 K22 ["Style"]
-       77 CALL                             R11 2 1
-       78 SETTABLEKS                       R11 R10 K14 ["TreeView"]
-       80 CALL                             R7 3 -1
-       81 RETURN                           R7 -1
+       41 DUPTABLE                         R10 K16 [{"TreeView"}]
+       42 GETUPVAL                         R11 2
+       43 GETTABLEKS                       R11 R11 K10 ["createElement"]
+       45 GETUPVAL                         R12 3
+       46 DUPTABLE                         R13 K25 [{["RootItems"], ["GetChildren"], ["Expansion"], ["RowComponent"], ["RowHeight"], ["GetRowProps"], ["Style"] = "BorderBox"}]
+       47 SETTABLEKS                       R6 R13 K17 ["RootItems"]
+       49 GETTABLEKS                       R14 R0 K26 ["getChildren"]
+       51 SETTABLEKS                       R14 R13 K18 ["GetChildren"]
+       53 GETTABLEKS                       R14 R0 K27 ["state"]
+       55 GETTABLEKS                       R14 R14 K28 ["expandedItems"]
+       57 SETTABLEKS                       R14 R13 K19 ["Expansion"]
+       59 GETUPVAL                         R14 4
+       60 SETTABLEKS                       R14 R13 K20 ["RowComponent"]
+       62 GETUPVAL                         R14 5
+       63 GETTABLEKS                       R14 R14 K29 ["TRACK_HEIGHT"]
+       65 SETTABLEKS                       R14 R13 K21 ["RowHeight"]
+       67 GETTABLEKS                       R14 R0 K30 ["getRowProps"]
+       69 SETTABLEKS                       R14 R13 K22 ["GetRowProps"]
+       71 CALL                             R11 2 1
+       72 SETTABLEKS                       R11 R10 K15 ["TreeView"]
+       74 CALL                             R7 3 -1
+       75 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

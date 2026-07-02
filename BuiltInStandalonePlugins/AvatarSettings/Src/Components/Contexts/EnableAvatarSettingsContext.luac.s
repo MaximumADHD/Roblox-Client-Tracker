@@ -13,20 +13,16 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETTABLEKS                       R3 R3 K10 ["createUnimplemented"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K15 [{"default", "currentGameId", "setCurrentGameId", "requestSaveToRoblox"}]
-       24 LOADB                            R4 1
-       25 SETTABLEKS                       R4 R3 K11 ["default"]
-       27 LOADN                            R4 0
-       28 SETTABLEKS                       R4 R3 K12 ["currentGameId"]
-       30 MOVE                             R4 R2
-       31 LOADK                            R5 K13 ["setCurrentGameId"]
-       32 CALL                             R4 1 1
-       33 SETTABLEKS                       R4 R3 K13 ["setCurrentGameId"]
-       35 MOVE                             R4 R2
-       36 LOADK                            R5 K14 ["requestSaveToRoblox"]
+       23 DUPTABLE                         R3 K17 [{["default"] = True, ["currentGameId"] = 0, ["setCurrentGameId"], ["requestSaveToRoblox"]}]
+       24 MOVE                             R4 R2
+       25 LOADK                            R5 K15 ["setCurrentGameId"]
+       26 CALL                             R4 1 1
+       27 SETTABLEKS                       R4 R3 K15 ["setCurrentGameId"]
+       29 MOVE                             R4 R2
+       30 LOADK                            R5 K16 ["requestSaveToRoblox"]
+       31 CALL                             R4 1 1
+       32 SETTABLEKS                       R4 R3 K16 ["requestSaveToRoblox"]
+       34 GETTABLEKS                       R4 R1 K18 ["createContext"]
+       36 MOVE                             R5 R3
        37 CALL                             R4 1 1
-       38 SETTABLEKS                       R4 R3 K14 ["requestSaveToRoblox"]
-       40 GETTABLEKS                       R4 R1 K16 ["createContext"]
-       42 MOVE                             R5 R3
-       43 CALL                             R4 1 1
-       44 RETURN                           R4 1
+       38 RETURN                           R4 1

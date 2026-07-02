@@ -71,60 +71,46 @@ PROTO_3:
         7 GETTABLEKS                       R4 R4 K1 ["createElement"]
         9 GETUPVAL                         R5 3
        10 GETTABLEKS                       R5 R5 K2 ["View"]
-       12 DUPTABLE                         R6 K5 [{"LayoutOrder", "tag"}]
+       12 DUPTABLE                         R6 K6 [{["LayoutOrder"], ["tag"] = "row auto-xy"}]
        13 GETTABLEKS                       R7 R0 K3 ["LayoutOrder"]
        15 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       17 LOADK                            R7 K6 ["auto-xy row"]
-       18 SETTABLEKS                       R7 R6 K4 ["tag"]
-       20 DUPTABLE                         R7 K9 [{"BackButton", "ForwardButton"}]
-       21 GETUPVAL                         R8 2
-       22 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       24 GETUPVAL                         R9 4
-       25 DUPTABLE                         R10 K15 [{"LayoutOrder", "IsDisabled", "TitleKey", "Icon", "TooltipTestId", "onActivated"}]
-       26 LOADN                            R11 1
-       27 SETTABLEKS                       R11 R10 K3 ["LayoutOrder"]
-       29 SETTABLEKS                       R2 R10 K10 ["IsDisabled"]
-       31 LOADK                            R11 K16 ["GoBack"]
-       32 SETTABLEKS                       R11 R10 K11 ["TitleKey"]
-       34 GETUPVAL                         R11 3
-       35 GETTABLEKS                       R11 R11 K17 ["Enums"]
-       37 GETTABLEKS                       R11 R11 K18 ["IconName"]
-       39 GETTABLEKS                       R11 R11 K19 ["ChevronLargeLeft"]
-       41 SETTABLEKS                       R11 R10 K12 ["Icon"]
-       43 LOADK                            R11 K20 ["back-button-tooltip"]
-       44 SETTABLEKS                       R11 R10 K13 ["TooltipTestId"]
-       46 NEWCLOSURE                       R11 P0
-       47 CAPTURE                          VAL R1
-       48 SETTABLEKS                       R11 R10 K14 ["onActivated"]
-       50 CALL                             R8 2 1
-       51 SETTABLEKS                       R8 R7 K7 ["BackButton"]
-       53 GETTABLEKS                       R9 R0 K21 ["HideForwardButton"]
-       55 JUMPIF                           R9 ; [+31]
-       56 GETUPVAL                         R8 2
-       57 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       59 GETUPVAL                         R9 4
-       60 DUPTABLE                         R10 K15 [{"LayoutOrder", "IsDisabled", "TitleKey", "Icon", "TooltipTestId", "onActivated"}]
-       61 LOADN                            R11 2
-       62 SETTABLEKS                       R11 R10 K3 ["LayoutOrder"]
-       64 SETTABLEKS                       R3 R10 K10 ["IsDisabled"]
-       66 LOADK                            R11 K22 ["GoForward"]
-       67 SETTABLEKS                       R11 R10 K11 ["TitleKey"]
-       69 GETUPVAL                         R11 3
-       70 GETTABLEKS                       R11 R11 K17 ["Enums"]
-       72 GETTABLEKS                       R11 R11 K18 ["IconName"]
-       74 GETTABLEKS                       R11 R11 K23 ["ChevronLargeRight"]
-       76 SETTABLEKS                       R11 R10 K12 ["Icon"]
-       78 LOADK                            R11 K24 ["forward-button-tooltip"]
-       79 SETTABLEKS                       R11 R10 K13 ["TooltipTestId"]
-       81 NEWCLOSURE                       R11 P1
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R11 R10 K14 ["onActivated"]
-       85 CALL                             R8 2 1
-       86 JUMP                             ; [+1]
-       87 LOADNIL                          R8
-       88 SETTABLEKS                       R8 R7 K8 ["ForwardButton"]
-       90 CALL                             R4 3 -1
-       91 RETURN                           R4 -1
+       17 DUPTABLE                         R7 K9 [{"BackButton", "ForwardButton"}]
+       18 GETUPVAL                         R8 2
+       19 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       21 GETUPVAL                         R9 4
+       22 DUPTABLE                         R10 K18 [{["LayoutOrder"] = 1, ["IsDisabled"], ["TitleKey"] = "GoBack", ["Icon"], ["TooltipTestId"] = "back-button-tooltip", ["onActivated"]}]
+       23 SETTABLEKS                       R2 R10 K11 ["IsDisabled"]
+       25 GETUPVAL                         R11 3
+       26 GETTABLEKS                       R11 R11 K19 ["Enums"]
+       28 GETTABLEKS                       R11 R11 K20 ["IconName"]
+       30 GETTABLEKS                       R11 R11 K21 ["ChevronLargeLeft"]
+       32 SETTABLEKS                       R11 R10 K14 ["Icon"]
+       34 NEWCLOSURE                       R11 P0
+       35 CAPTURE                          VAL R1
+       36 SETTABLEKS                       R11 R10 K17 ["onActivated"]
+       38 CALL                             R8 2 1
+       39 SETTABLEKS                       R8 R7 K7 ["BackButton"]
+       41 GETTABLEKS                       R9 R0 K22 ["HideForwardButton"]
+       43 JUMPIF                           R9 ; [+22]
+       44 GETUPVAL                         R8 2
+       45 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       47 GETUPVAL                         R9 4
+       48 DUPTABLE                         R10 K26 [{["LayoutOrder"] = 2, ["IsDisabled"], ["TitleKey"] = "GoForward", ["Icon"], ["TooltipTestId"] = "forward-button-tooltip", ["onActivated"]}]
+       49 SETTABLEKS                       R3 R10 K11 ["IsDisabled"]
+       51 GETUPVAL                         R11 3
+       52 GETTABLEKS                       R11 R11 K19 ["Enums"]
+       54 GETTABLEKS                       R11 R11 K20 ["IconName"]
+       56 GETTABLEKS                       R11 R11 K27 ["ChevronLargeRight"]
+       58 SETTABLEKS                       R11 R10 K14 ["Icon"]
+       60 NEWCLOSURE                       R11 P1
+       61 CAPTURE                          VAL R1
+       62 SETTABLEKS                       R11 R10 K17 ["onActivated"]
+       64 CALL                             R8 2 1
+       65 JUMP                             ; [+1]
+       66 LOADNIL                          R8
+       67 SETTABLEKS                       R8 R7 K8 ["ForwardButton"]
+       69 CALL                             R4 3 -1
+       70 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

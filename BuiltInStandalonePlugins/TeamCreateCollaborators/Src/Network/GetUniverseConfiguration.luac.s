@@ -35,30 +35,28 @@ PROTO_2:
         9 MOVE                             R5 R0
        10 CALL                             R3 2 -1
        11 CALL                             R1 -1 1
-       12 DUPTABLE                         R2 K9 [{"Method", "Url", "Headers"}]
-       13 LOADK                            R3 K10 ["GET"]
-       14 SETTABLEKS                       R3 R2 K6 ["Method"]
-       16 SETTABLEKS                       R1 R2 K7 ["Url"]
-       18 NEWTABLE                         R3 2 0
+       12 DUPTABLE                         R2 K10 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+       13 SETTABLEKS                       R1 R2 K8 ["Url"]
+       15 NEWTABLE                         R3 2 0
+       17 LOADK                            R4 K11 ["application/json"]
+       18 SETTABLEKS                       R4 R3 K12 ["Content-Type"]
        20 LOADK                            R4 K11 ["application/json"]
-       21 SETTABLEKS                       R4 R3 K12 ["Content-Type"]
-       23 LOADK                            R4 K11 ["application/json"]
-       24 SETTABLEKS                       R4 R3 K13 ["Accept"]
-       26 SETTABLEKS                       R3 R2 K8 ["Headers"]
-       28 GETUPVAL                         R3 1
-       29 GETTABLEKS                       R3 R3 K14 ["Request"]
-       31 MOVE                             R4 R2
-       32 CALL                             R3 1 1
-       33 DUPCLOSURE                       R5 K15 [PROTO_0]
-       34 CAPTURE                          UPVAL U2
-       35 CAPTURE                          UPVAL U3
-       36 NAMECALL                         R3 R3 K16 ["andThen"]
-       38 CALL                             R3 2 1
-       39 DUPCLOSURE                       R5 K17 [PROTO_1]
-       40 CAPTURE                          UPVAL U3
-       41 NAMECALL                         R3 R3 K18 ["catch"]
-       43 CALL                             R3 2 -1
-       44 RETURN                           R3 -1
+       21 SETTABLEKS                       R4 R3 K13 ["Accept"]
+       23 SETTABLEKS                       R3 R2 K9 ["Headers"]
+       25 GETUPVAL                         R3 1
+       26 GETTABLEKS                       R3 R3 K14 ["Request"]
+       28 MOVE                             R4 R2
+       29 CALL                             R3 1 1
+       30 DUPCLOSURE                       R5 K15 [PROTO_0]
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          UPVAL U3
+       33 NAMECALL                         R3 R3 K16 ["andThen"]
+       35 CALL                             R3 2 1
+       36 DUPCLOSURE                       R5 K17 [PROTO_1]
+       37 CAPTURE                          UPVAL U3
+       38 NAMECALL                         R3 R3 K18 ["catch"]
+       40 CALL                             R3 2 -1
+       41 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

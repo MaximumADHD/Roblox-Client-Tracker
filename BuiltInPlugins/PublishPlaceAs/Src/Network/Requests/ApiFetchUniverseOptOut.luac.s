@@ -8,24 +8,22 @@ PROTO_0:
         9 RETURN                           R2 2
 
 PROTO_1:
-        0 DUPTABLE                         R0 K2 [{"Url", "Method"}]
+        0 DUPTABLE                         R0 K3 [{[1], ["Method"] = "GET"}]
         1 GETUPVAL                         R1 0
-        2 GETTABLEKS                       R1 R1 K3 ["BuildRobloxUrl"]
-        4 LOADK                            R2 K4 ["apis"]
-        5 LOADK                            R3 K5 ["resource-settings/v1/preferences:batchGet?preferenceTypes=Universes"]
+        2 GETTABLEKS                       R1 R1 K4 ["BuildRobloxUrl"]
+        4 LOADK                            R2 K5 ["apis"]
+        5 LOADK                            R3 K6 ["resource-settings/v1/preferences:batchGet?preferenceTypes=Universes"]
         6 CALL                             R1 2 1
         7 SETTABLEKS                       R1 R0 K0 ["Url"]
-        9 LOADK                            R1 K6 ["GET"]
-       10 SETTABLEKS                       R1 R0 K1 ["Method"]
-       12 GETUPVAL                         R1 0
-       13 GETTABLEKS                       R1 R1 K7 ["RequestInternal"]
-       15 MOVE                             R2 R0
-       16 CALL                             R1 1 1
-       17 DUPCLOSURE                       R3 K8 [PROTO_0]
-       18 CAPTURE                          UPVAL U1
-       19 NAMECALL                         R1 R1 K9 ["andThen"]
-       21 CALL                             R1 2 -1
-       22 RETURN                           R1 -1
+        9 GETUPVAL                         R1 0
+       10 GETTABLEKS                       R1 R1 K7 ["RequestInternal"]
+       12 MOVE                             R2 R0
+       13 CALL                             R1 1 1
+       14 DUPCLOSURE                       R3 K8 [PROTO_0]
+       15 CAPTURE                          UPVAL U1
+       16 NAMECALL                         R1 R1 K9 ["andThen"]
+       18 CALL                             R1 2 -1
+       19 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

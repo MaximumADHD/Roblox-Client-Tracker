@@ -114,29 +114,27 @@ PROTO_2:
        17 RETURN                           R0 0
        18 GETUPVAL                         R0 3
        19 NEWTABLE                         R2 0 1
-       21 DUPTABLE                         R3 K6 [{"id", "itemType"}]
+       21 DUPTABLE                         R3 K7 [{["id"], ["itemType"] = "Asset"}]
        22 GETUPVAL                         R4 2
        23 SETTABLEKS                       R4 R3 K4 ["id"]
-       25 LOADK                            R4 K7 ["Asset"]
-       26 SETTABLEKS                       R4 R3 K5 ["itemType"]
-       28 SETLIST                          R2 R3 1 [1]
-       30 NAMECALL                         R0 R0 K8 ["getItemDetails"]
-       32 CALL                             R0 2 1
-       33 NEWCLOSURE                       R3 P0
-       34 CAPTURE                          UPVAL U2
-       35 CAPTURE                          UPVAL U0
-       36 CAPTURE                          UPVAL U4
-       37 CAPTURE                          UPVAL U5
-       38 CAPTURE                          UPVAL U6
-       39 CAPTURE                          UPVAL U1
-       40 CAPTURE                          UPVAL U7
-       41 NEWCLOSURE                       R4 P1
-       42 CAPTURE                          UPVAL U2
-       43 CAPTURE                          UPVAL U0
-       44 NAMECALL                         R1 R0 K9 ["andThen"]
-       46 CALL                             R1 3 0
-       47 LOADNIL                          R1
-       48 RETURN                           R1 1
+       25 SETLIST                          R2 R3 1 [1]
+       27 NAMECALL                         R0 R0 K8 ["getItemDetails"]
+       29 CALL                             R0 2 1
+       30 NEWCLOSURE                       R3 P0
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          UPVAL U4
+       34 CAPTURE                          UPVAL U5
+       35 CAPTURE                          UPVAL U6
+       36 CAPTURE                          UPVAL U1
+       37 CAPTURE                          UPVAL U7
+       38 NEWCLOSURE                       R4 P1
+       39 CAPTURE                          UPVAL U2
+       40 CAPTURE                          UPVAL U0
+       41 NAMECALL                         R1 R0 K9 ["andThen"]
+       43 CALL                             R1 3 0
+       44 LOADNIL                          R1
+       45 RETURN                           R1 1
 
 PROTO_3:
         0 GETIMPORT                        R1 K1 [pcall]

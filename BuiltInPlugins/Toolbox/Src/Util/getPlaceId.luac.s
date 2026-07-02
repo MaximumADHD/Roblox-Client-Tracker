@@ -5,7 +5,7 @@ PROTO_0:
         5 RETURN                           R0 0
 
 PROTO_1:
-        0 LOADN                            R0 255
+        0 LOADN                            R0 -1
         1 GETIMPORT                        R1 K1 [pcall]
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          REF R0

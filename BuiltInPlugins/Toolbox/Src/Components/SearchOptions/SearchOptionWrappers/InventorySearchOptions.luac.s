@@ -174,15 +174,9 @@ PROTO_10:
        15 GETTABLEKS                       R1 R1 K1 ["Default"]
        17 CALL                             R0 1 0
        18 GETUPVAL                         R0 5
-       19 DUPTABLE                         R1 K5 [{"includeUnverifiedCreators", "myCreations", "myAssets"}]
-       20 LOADB                            R2 0
-       21 SETTABLEKS                       R2 R1 K2 ["includeUnverifiedCreators"]
-       23 LOADB                            R2 0
-       24 SETTABLEKS                       R2 R1 K3 ["myCreations"]
-       26 LOADB                            R2 0
-       27 SETTABLEKS                       R2 R1 K4 ["myAssets"]
-       29 CALL                             R0 1 0
-       30 RETURN                           R0 0
+       19 DUPTABLE                         R1 K6 [{["includeUnverifiedCreators"] = False, ["myCreations"] = False, ["myAssets"] = False}]
+       20 CALL                             R0 1 0
+       21 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
@@ -278,25 +272,23 @@ PROTO_16:
 
 PROTO_17:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETTABLEKS                       R1 R1 K0 ["IncludeUnverifiedCreators"]
-        4 CALL                             R0 1 0
-        5 RETURN                           R0 0
+        1 LOADK                            R1 K0 ["includeUnverifiedCreators"]
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 GETTABLEKS                       R1 R1 K0 ["MyCreations"]
-        4 CALL                             R0 1 1
-        5 JUMPIFNOT                        R0 ; [+4]
-        6 GETUPVAL                         R1 2
-        7 GETUPVAL                         R2 3
-        8 CALL                             R1 1 0
-        9 RETURN                           R0 0
-       10 GETUPVAL                         R1 4
-       11 GETUPVAL                         R2 3
-       12 CALL                             R1 1 0
-       13 RETURN                           R0 0
+        1 LOADK                            R1 K0 ["myCreations"]
+        2 CALL                             R0 1 1
+        3 JUMPIFNOT                        R0 ; [+4]
+        4 GETUPVAL                         R1 1
+        5 GETUPVAL                         R2 2
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R1 3
+        9 GETUPVAL                         R2 2
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R1 0
@@ -439,217 +431,201 @@ PROTO_23:
       106 GETUPVAL                         R22 9
       107 NEWCLOSURE                       R23 P14
       108 CAPTURE                          VAL R21
-      109 CAPTURE                          UPVAL U10
-      110 NEWTABLE                         R24 0 0
-      112 CALL                             R22 2 1
-      113 GETUPVAL                         R23 9
-      114 NEWCLOSURE                       R24 P15
-      115 CAPTURE                          VAL R21
-      116 CAPTURE                          UPVAL U10
-      117 CAPTURE                          VAL R19
-      118 CAPTURE                          VAL R4
-      119 CAPTURE                          VAL R20
-      120 NEWTABLE                         R25 0 2
-      122 GETTABLEKS                       R26 R13 K6 ["myCreations"]
-      124 MOVE                             R27 R4
-      125 SETLIST                          R25 R26 2 [1]
-      127 CALL                             R23 2 1
-      128 GETUPVAL                         R24 9
-      129 NEWCLOSURE                       R25 P16
-      130 CAPTURE                          VAL R19
-      131 CAPTURE                          VAL R6
-      132 NEWTABLE                         R26 0 0
-      134 CALL                             R24 2 1
-      135 GETUPVAL                         R25 9
-      136 NEWCLOSURE                       R26 P17
-      137 CAPTURE                          VAL R6
-      138 NEWTABLE                         R27 0 0
-      140 CALL                             R25 2 1
-      141 GETUPVAL                         R26 9
-      142 NEWCLOSURE                       R27 P18
-      143 CAPTURE                          VAL R20
-      144 NEWTABLE                         R28 0 0
-      146 CALL                             R26 2 1
-      147 GETUPVAL                         R27 9
-      148 NEWCLOSURE                       R28 P19
-      149 CAPTURE                          VAL R13
-      150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R7
-      152 CAPTURE                          VAL R9
-      153 CAPTURE                          VAL R11
-      154 NEWTABLE                         R29 0 5
-      156 MOVE                             R30 R5
-      157 MOVE                             R31 R7
-      158 MOVE                             R32 R13
-      159 MOVE                             R33 R9
-      160 MOVE                             R34 R11
-      161 SETLIST                          R29 R30 5 [1]
-      163 CALL                             R27 2 1
-      164 GETUPVAL                         R28 11
-      165 GETTABLEKS                       R28 R28 K7 ["new"]
-      167 CALL                             R28 0 1
-      168 GETUPVAL                         R29 12
-      169 GETTABLEKS                       R29 R29 K8 ["createElement"]
-      171 GETUPVAL                         R30 13
-      172 DUPTABLE                         R31 K12 [{"GetSearchOptions", "OnClose", "OnReset"}]
-      173 SETTABLEKS                       R27 R31 K9 ["GetSearchOptions"]
-      175 GETTABLEKS                       R32 R0 K10 ["OnClose"]
-      177 SETTABLEKS                       R32 R31 K10 ["OnClose"]
-      179 SETTABLEKS                       R18 R31 K11 ["OnReset"]
-      181 DUPTABLE                         R32 K15 [{"CreatorAndGroup", "SortBy"}]
-      182 JUMPIFNOT                        R16 ; [+183]
-      183 GETUPVAL                         R33 12
-      184 GETTABLEKS                       R33 R33 K8 ["createElement"]
-      186 GETUPVAL                         R34 14
-      187 DUPTABLE                         R35 K18 [{"Header", "LayoutOrder"}]
-      188 LOADK                            R38 K19 ["General"]
-      189 LOADK                            R39 K20 ["SearchOptionCreatorAndGroups"]
-      190 NAMECALL                         R36 R1 K21 ["getText"]
-      192 CALL                             R36 3 1
-      193 SETTABLEKS                       R36 R35 K16 ["Header"]
-      195 NAMECALL                         R36 R28 K22 ["getNextOrder"]
-      197 CALL                             R36 1 1
-      198 SETTABLEKS                       R36 R35 K17 ["LayoutOrder"]
-      200 DUPTABLE                         R36 K25 [{"VerfifiedCreatorCheckbox", "CreatorGroupFilterContainer"}]
-      201 GETUPVAL                         R37 12
-      202 GETTABLEKS                       R37 R37 K8 ["createElement"]
-      204 GETUPVAL                         R38 15
-      205 DUPTABLE                         R39 K28 [{"LayoutOrder", "IsChecked", "OnClick"}]
-      206 NAMECALL                         R40 R28 K22 ["getNextOrder"]
-      208 CALL                             R40 1 1
-      209 SETTABLEKS                       R40 R39 K17 ["LayoutOrder"]
-      211 GETTABLEKS                       R40 R13 K29 ["includeUnverifiedCreators"]
-      213 SETTABLEKS                       R40 R39 K26 ["IsChecked"]
-      215 SETTABLEKS                       R22 R39 K27 ["OnClick"]
-      217 CALL                             R37 2 1
-      218 SETTABLEKS                       R37 R36 K23 ["VerfifiedCreatorCheckbox"]
-      220 GETUPVAL                         R37 12
-      221 GETTABLEKS                       R37 R37 K8 ["createElement"]
-      223 GETUPVAL                         R38 16
-      224 DUPTABLE                         R39 K34 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-      225 GETIMPORT                        R40 K37 [Enum.AutomaticSize.XY]
-      227 SETTABLEKS                       R40 R39 K30 ["AutomaticSize"]
-      229 GETIMPORT                        R40 K39 [Enum.HorizontalAlignment.Left]
-      231 SETTABLEKS                       R40 R39 K31 ["HorizontalAlignment"]
-      233 GETIMPORT                        R40 K42 [Enum.FillDirection.Vertical]
-      235 SETTABLEKS                       R40 R39 K32 ["Layout"]
-      237 NAMECALL                         R40 R28 K22 ["getNextOrder"]
-      239 CALL                             R40 1 1
-      240 SETTABLEKS                       R40 R39 K17 ["LayoutOrder"]
-      242 LOADN                            R40 6
-      243 SETTABLEKS                       R40 R39 K33 ["Spacing"]
-      245 DUPTABLE                         R40 K46 [{"MyCreationsCheckbox", "MyAssetsCheckbox", "SearchBar"}]
-      246 GETUPVAL                         R41 12
-      247 GETTABLEKS                       R41 R41 K8 ["createElement"]
-      249 GETUPVAL                         R42 17
-      250 DUPTABLE                         R43 K50 [{"Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
-      251 GETTABLEKS                       R44 R13 K6 ["myCreations"]
-      253 SETTABLEKS                       R44 R43 K47 ["Checked"]
-      255 GETUPVAL                         R44 10
-      256 GETTABLEKS                       R44 R44 K51 ["MyCreations"]
-      258 SETTABLEKS                       R44 R43 K48 ["Key"]
-      260 NAMECALL                         R44 R28 K22 ["getNextOrder"]
-      262 CALL                             R44 1 1
-      263 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
-      265 SETTABLEKS                       R23 R43 K27 ["OnClick"]
-      267 LOADK                            R46 K19 ["General"]
-      268 LOADK                            R47 K51 ["MyCreations"]
-      269 NAMECALL                         R44 R1 K21 ["getText"]
-      271 CALL                             R44 3 1
-      272 SETTABLEKS                       R44 R43 K49 ["Text"]
-      274 DUPTABLE                         R44 K53 [{"HoverArea"}]
-      275 GETUPVAL                         R45 12
-      276 GETTABLEKS                       R45 R45 K8 ["createElement"]
-      278 GETUPVAL                         R46 18
-      279 DUPTABLE                         R47 K55 [{"Cursor"}]
-      280 LOADK                            R48 K56 ["PointingHand"]
-      281 SETTABLEKS                       R48 R47 K54 ["Cursor"]
-      283 CALL                             R45 2 1
-      284 SETTABLEKS                       R45 R44 K52 ["HoverArea"]
-      286 CALL                             R41 3 1
-      287 SETTABLEKS                       R41 R40 K43 ["MyCreationsCheckbox"]
-      289 GETUPVAL                         R41 12
-      290 GETTABLEKS                       R41 R41 K8 ["createElement"]
-      292 GETUPVAL                         R42 17
-      293 DUPTABLE                         R43 K50 [{"Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
-      294 GETTABLEKS                       R44 R13 K57 ["myAssets"]
-      296 SETTABLEKS                       R44 R43 K47 ["Checked"]
-      298 GETUPVAL                         R44 10
-      299 GETTABLEKS                       R44 R44 K58 ["MyAssets"]
-      301 SETTABLEKS                       R44 R43 K48 ["Key"]
-      303 NAMECALL                         R44 R28 K22 ["getNextOrder"]
-      305 CALL                             R44 1 1
-      306 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
-      308 SETTABLEKS                       R21 R43 K27 ["OnClick"]
-      310 LOADK                            R46 K19 ["General"]
-      311 LOADK                            R47 K58 ["MyAssets"]
-      312 NAMECALL                         R44 R1 K21 ["getText"]
-      314 CALL                             R44 3 1
-      315 SETTABLEKS                       R44 R43 K49 ["Text"]
-      317 DUPTABLE                         R44 K53 [{"HoverArea"}]
-      318 GETUPVAL                         R45 12
-      319 GETTABLEKS                       R45 R45 K8 ["createElement"]
-      321 GETUPVAL                         R46 18
-      322 DUPTABLE                         R47 K55 [{"Cursor"}]
-      323 LOADK                            R48 K56 ["PointingHand"]
-      324 SETTABLEKS                       R48 R47 K54 ["Cursor"]
-      326 CALL                             R45 2 1
-      327 SETTABLEKS                       R45 R44 K52 ["HoverArea"]
-      329 CALL                             R41 3 1
-      330 SETTABLEKS                       R41 R40 K44 ["MyAssetsCheckbox"]
-      332 GETUPVAL                         R41 12
-      333 GETTABLEKS                       R41 R41 K8 ["createElement"]
-      335 GETUPVAL                         R42 19
-      336 DUPTABLE                         R43 K66 [{"LayoutOrder", "OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "CreatorResults", "SearchTerm", "SelectedUsers", "SelectedGroups"}]
-      337 NAMECALL                         R44 R28 K22 ["getNextOrder"]
-      339 CALL                             R44 1 1
-      340 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
-      342 SETTABLEKS                       R26 R43 K59 ["OnDeleteCreatorPill"]
-      344 SETTABLEKS                       R25 R43 K60 ["OnSearchUpdate"]
-      346 SETTABLEKS                       R24 R43 K61 ["OnSelectCreator"]
-      348 GETTABLEKS                       R44 R3 K67 ["results"]
-      350 SETTABLEKS                       R44 R43 K62 ["CreatorResults"]
-      352 SETTABLEKS                       R5 R43 K63 ["SearchTerm"]
-      354 SETTABLEKS                       R15 R43 K64 ["SelectedUsers"]
-      356 SETTABLEKS                       R9 R43 K65 ["SelectedGroups"]
-      358 CALL                             R41 2 1
-      359 SETTABLEKS                       R41 R40 K45 ["SearchBar"]
-      361 CALL                             R37 3 1
-      362 SETTABLEKS                       R37 R36 K24 ["CreatorGroupFilterContainer"]
-      364 CALL                             R33 3 1
-      365 JUMP                             ; [+1]
-      366 LOADNIL                          R33
-      367 SETTABLEKS                       R33 R32 K13 ["CreatorAndGroup"]
-      369 GETUPVAL                         R33 12
-      370 GETTABLEKS                       R33 R33 K8 ["createElement"]
-      372 GETUPVAL                         R34 14
-      373 DUPTABLE                         R35 K69 [{"Header", "HideLowerSeparator", "LayoutOrder"}]
-      374 LOADK                            R38 K19 ["General"]
-      375 LOADK                            R39 K70 ["SearchOptionSort"]
-      376 NAMECALL                         R36 R1 K21 ["getText"]
-      378 CALL                             R36 3 1
-      379 SETTABLEKS                       R36 R35 K16 ["Header"]
-      381 LOADB                            R36 1
-      382 SETTABLEKS                       R36 R35 K68 ["HideLowerSeparator"]
-      384 NAMECALL                         R36 R28 K22 ["getNextOrder"]
-      386 CALL                             R36 1 1
-      387 SETTABLEKS                       R36 R35 K17 ["LayoutOrder"]
-      389 DUPTABLE                         R36 K72 [{"RadioButtons"}]
-      390 GETUPVAL                         R37 12
-      391 GETTABLEKS                       R37 R37 K8 ["createElement"]
-      393 GETUPVAL                         R38 20
-      394 DUPTABLE                         R39 K76 [{"Buttons", "CurrentSelectedKey", "OnClick", "SelectedKey"}]
-      395 SETTABLEKS                       R17 R39 K73 ["Buttons"]
-      397 SETTABLEKS                       R11 R39 K74 ["CurrentSelectedKey"]
-      399 SETTABLEKS                       R12 R39 K27 ["OnClick"]
-      401 GETTABLEKS                       R40 R2 K77 ["uiSortIntent"]
-      403 SETTABLEKS                       R40 R39 K75 ["SelectedKey"]
-      405 CALL                             R37 2 1
-      406 SETTABLEKS                       R37 R36 K71 ["RadioButtons"]
-      408 CALL                             R33 3 1
-      409 SETTABLEKS                       R33 R32 K14 ["SortBy"]
-      411 CALL                             R29 3 -1
-      412 RETURN                           R29 -1
+      109 NEWTABLE                         R24 0 0
+      111 CALL                             R22 2 1
+      112 GETUPVAL                         R23 9
+      113 NEWCLOSURE                       R24 P15
+      114 CAPTURE                          VAL R21
+      115 CAPTURE                          VAL R19
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R20
+      118 NEWTABLE                         R25 0 2
+      120 GETTABLEKS                       R26 R13 K6 ["myCreations"]
+      122 MOVE                             R27 R4
+      123 SETLIST                          R25 R26 2 [1]
+      125 CALL                             R23 2 1
+      126 GETUPVAL                         R24 9
+      127 NEWCLOSURE                       R25 P16
+      128 CAPTURE                          VAL R19
+      129 CAPTURE                          VAL R6
+      130 NEWTABLE                         R26 0 0
+      132 CALL                             R24 2 1
+      133 GETUPVAL                         R25 9
+      134 NEWCLOSURE                       R26 P17
+      135 CAPTURE                          VAL R6
+      136 NEWTABLE                         R27 0 0
+      138 CALL                             R25 2 1
+      139 GETUPVAL                         R26 9
+      140 NEWCLOSURE                       R27 P18
+      141 CAPTURE                          VAL R20
+      142 NEWTABLE                         R28 0 0
+      144 CALL                             R26 2 1
+      145 GETUPVAL                         R27 9
+      146 NEWCLOSURE                       R28 P19
+      147 CAPTURE                          VAL R13
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R11
+      152 NEWTABLE                         R29 0 5
+      154 MOVE                             R30 R5
+      155 MOVE                             R31 R7
+      156 MOVE                             R32 R13
+      157 MOVE                             R33 R9
+      158 MOVE                             R34 R11
+      159 SETLIST                          R29 R30 5 [1]
+      161 CALL                             R27 2 1
+      162 GETUPVAL                         R28 10
+      163 GETTABLEKS                       R28 R28 K7 ["new"]
+      165 CALL                             R28 0 1
+      166 GETUPVAL                         R29 11
+      167 GETTABLEKS                       R29 R29 K8 ["createElement"]
+      169 GETUPVAL                         R30 12
+      170 DUPTABLE                         R31 K12 [{"GetSearchOptions", "OnClose", "OnReset"}]
+      171 SETTABLEKS                       R27 R31 K9 ["GetSearchOptions"]
+      173 GETTABLEKS                       R32 R0 K10 ["OnClose"]
+      175 SETTABLEKS                       R32 R31 K10 ["OnClose"]
+      177 SETTABLEKS                       R18 R31 K11 ["OnReset"]
+      179 DUPTABLE                         R32 K15 [{"CreatorAndGroup", "SortBy"}]
+      180 JUMPIFNOT                        R16 ; [+164]
+      181 GETUPVAL                         R33 11
+      182 GETTABLEKS                       R33 R33 K8 ["createElement"]
+      184 GETUPVAL                         R34 13
+      185 DUPTABLE                         R35 K18 [{"Header", "LayoutOrder"}]
+      186 LOADK                            R38 K19 ["General"]
+      187 LOADK                            R39 K20 ["SearchOptionCreatorAndGroups"]
+      188 NAMECALL                         R36 R1 K21 ["getText"]
+      190 CALL                             R36 3 1
+      191 SETTABLEKS                       R36 R35 K16 ["Header"]
+      193 NAMECALL                         R36 R28 K22 ["getNextOrder"]
+      195 CALL                             R36 1 1
+      196 SETTABLEKS                       R36 R35 K17 ["LayoutOrder"]
+      198 DUPTABLE                         R36 K25 [{"VerfifiedCreatorCheckbox", "CreatorGroupFilterContainer"}]
+      199 GETUPVAL                         R37 11
+      200 GETTABLEKS                       R37 R37 K8 ["createElement"]
+      202 GETUPVAL                         R38 14
+      203 DUPTABLE                         R39 K28 [{"LayoutOrder", "IsChecked", "OnClick"}]
+      204 NAMECALL                         R40 R28 K22 ["getNextOrder"]
+      206 CALL                             R40 1 1
+      207 SETTABLEKS                       R40 R39 K17 ["LayoutOrder"]
+      209 GETTABLEKS                       R40 R13 K29 ["includeUnverifiedCreators"]
+      211 SETTABLEKS                       R40 R39 K26 ["IsChecked"]
+      213 SETTABLEKS                       R22 R39 K27 ["OnClick"]
+      215 CALL                             R37 2 1
+      216 SETTABLEKS                       R37 R36 K23 ["VerfifiedCreatorCheckbox"]
+      218 GETUPVAL                         R37 11
+      219 GETTABLEKS                       R37 R37 K8 ["createElement"]
+      221 GETUPVAL                         R38 15
+      222 DUPTABLE                         R39 K35 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Spacing"] = 6}]
+      223 GETIMPORT                        R40 K38 [Enum.AutomaticSize.XY]
+      225 SETTABLEKS                       R40 R39 K30 ["AutomaticSize"]
+      227 GETIMPORT                        R40 K40 [Enum.HorizontalAlignment.Left]
+      229 SETTABLEKS                       R40 R39 K31 ["HorizontalAlignment"]
+      231 GETIMPORT                        R40 K43 [Enum.FillDirection.Vertical]
+      233 SETTABLEKS                       R40 R39 K32 ["Layout"]
+      235 NAMECALL                         R40 R28 K22 ["getNextOrder"]
+      237 CALL                             R40 1 1
+      238 SETTABLEKS                       R40 R39 K17 ["LayoutOrder"]
+      240 DUPTABLE                         R40 K47 [{"MyCreationsCheckbox", "MyAssetsCheckbox", "SearchBar"}]
+      241 GETUPVAL                         R41 11
+      242 GETTABLEKS                       R41 R41 K8 ["createElement"]
+      244 GETUPVAL                         R42 16
+      245 DUPTABLE                         R43 K51 [{["Checked"], ["Key"] = "myCreations", ["LayoutOrder"], ["OnClick"], ["Text"]}]
+      246 GETTABLEKS                       R44 R13 K6 ["myCreations"]
+      248 SETTABLEKS                       R44 R43 K48 ["Checked"]
+      250 NAMECALL                         R44 R28 K22 ["getNextOrder"]
+      252 CALL                             R44 1 1
+      253 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
+      255 SETTABLEKS                       R23 R43 K27 ["OnClick"]
+      257 LOADK                            R46 K19 ["General"]
+      258 LOADK                            R47 K52 ["MyCreations"]
+      259 NAMECALL                         R44 R1 K21 ["getText"]
+      261 CALL                             R44 3 1
+      262 SETTABLEKS                       R44 R43 K50 ["Text"]
+      264 DUPTABLE                         R44 K54 [{"HoverArea"}]
+      265 GETUPVAL                         R45 11
+      266 GETTABLEKS                       R45 R45 K8 ["createElement"]
+      268 GETUPVAL                         R46 17
+      269 DUPTABLE                         R47 K57 [{["Cursor"] = "PointingHand"}]
+      270 CALL                             R45 2 1
+      271 SETTABLEKS                       R45 R44 K53 ["HoverArea"]
+      273 CALL                             R41 3 1
+      274 SETTABLEKS                       R41 R40 K44 ["MyCreationsCheckbox"]
+      276 GETUPVAL                         R41 11
+      277 GETTABLEKS                       R41 R41 K8 ["createElement"]
+      279 GETUPVAL                         R42 16
+      280 DUPTABLE                         R43 K59 [{["Checked"], ["Key"] = "myAssets", ["LayoutOrder"], ["OnClick"], ["Text"]}]
+      281 GETTABLEKS                       R44 R13 K58 ["myAssets"]
+      283 SETTABLEKS                       R44 R43 K48 ["Checked"]
+      285 NAMECALL                         R44 R28 K22 ["getNextOrder"]
+      287 CALL                             R44 1 1
+      288 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
+      290 SETTABLEKS                       R21 R43 K27 ["OnClick"]
+      292 LOADK                            R46 K19 ["General"]
+      293 LOADK                            R47 K60 ["MyAssets"]
+      294 NAMECALL                         R44 R1 K21 ["getText"]
+      296 CALL                             R44 3 1
+      297 SETTABLEKS                       R44 R43 K50 ["Text"]
+      299 DUPTABLE                         R44 K54 [{"HoverArea"}]
+      300 GETUPVAL                         R45 11
+      301 GETTABLEKS                       R45 R45 K8 ["createElement"]
+      303 GETUPVAL                         R46 17
+      304 DUPTABLE                         R47 K57 [{["Cursor"] = "PointingHand"}]
+      305 CALL                             R45 2 1
+      306 SETTABLEKS                       R45 R44 K53 ["HoverArea"]
+      308 CALL                             R41 3 1
+      309 SETTABLEKS                       R41 R40 K45 ["MyAssetsCheckbox"]
+      311 GETUPVAL                         R41 11
+      312 GETTABLEKS                       R41 R41 K8 ["createElement"]
+      314 GETUPVAL                         R42 18
+      315 DUPTABLE                         R43 K68 [{"LayoutOrder", "OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "CreatorResults", "SearchTerm", "SelectedUsers", "SelectedGroups"}]
+      316 NAMECALL                         R44 R28 K22 ["getNextOrder"]
+      318 CALL                             R44 1 1
+      319 SETTABLEKS                       R44 R43 K17 ["LayoutOrder"]
+      321 SETTABLEKS                       R26 R43 K61 ["OnDeleteCreatorPill"]
+      323 SETTABLEKS                       R25 R43 K62 ["OnSearchUpdate"]
+      325 SETTABLEKS                       R24 R43 K63 ["OnSelectCreator"]
+      327 GETTABLEKS                       R44 R3 K69 ["results"]
+      329 SETTABLEKS                       R44 R43 K64 ["CreatorResults"]
+      331 SETTABLEKS                       R5 R43 K65 ["SearchTerm"]
+      333 SETTABLEKS                       R15 R43 K66 ["SelectedUsers"]
+      335 SETTABLEKS                       R9 R43 K67 ["SelectedGroups"]
+      337 CALL                             R41 2 1
+      338 SETTABLEKS                       R41 R40 K46 ["SearchBar"]
+      340 CALL                             R37 3 1
+      341 SETTABLEKS                       R37 R36 K24 ["CreatorGroupFilterContainer"]
+      343 CALL                             R33 3 1
+      344 JUMP                             ; [+1]
+      345 LOADNIL                          R33
+      346 SETTABLEKS                       R33 R32 K13 ["CreatorAndGroup"]
+      348 GETUPVAL                         R33 11
+      349 GETTABLEKS                       R33 R33 K8 ["createElement"]
+      351 GETUPVAL                         R34 13
+      352 DUPTABLE                         R35 K72 [{["Header"], ["HideLowerSeparator"] = True, ["LayoutOrder"]}]
+      353 LOADK                            R38 K19 ["General"]
+      354 LOADK                            R39 K73 ["SearchOptionSort"]
+      355 NAMECALL                         R36 R1 K21 ["getText"]
+      357 CALL                             R36 3 1
+      358 SETTABLEKS                       R36 R35 K16 ["Header"]
+      360 NAMECALL                         R36 R28 K22 ["getNextOrder"]
+      362 CALL                             R36 1 1
+      363 SETTABLEKS                       R36 R35 K17 ["LayoutOrder"]
+      365 DUPTABLE                         R36 K75 [{"RadioButtons"}]
+      366 GETUPVAL                         R37 11
+      367 GETTABLEKS                       R37 R37 K8 ["createElement"]
+      369 GETUPVAL                         R38 19
+      370 DUPTABLE                         R39 K79 [{"Buttons", "CurrentSelectedKey", "OnClick", "SelectedKey"}]
+      371 SETTABLEKS                       R17 R39 K76 ["Buttons"]
+      373 SETTABLEKS                       R11 R39 K77 ["CurrentSelectedKey"]
+      375 SETTABLEKS                       R12 R39 K27 ["OnClick"]
+      377 GETTABLEKS                       R40 R2 K80 ["uiSortIntent"]
+      379 SETTABLEKS                       R40 R39 K78 ["SelectedKey"]
+      381 CALL                             R37 2 1
+      382 SETTABLEKS                       R37 R36 K74 ["RadioButtons"]
+      384 CALL                             R33 3 1
+      385 SETTABLEKS                       R33 R32 K14 ["SortBy"]
+      387 CALL                             R29 3 -1
+      388 RETURN                           R29 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -749,33 +725,26 @@ MAIN:
       169 GETTABLEKS                       R24 R3 K38 ["useCallback"]
       171 GETTABLEKS                       R25 R3 K39 ["useMemo"]
       173 GETTABLEKS                       R26 R3 K40 ["useState"]
-      175 DUPTABLE                         R27 K44 [{"IncludeUnverifiedCreators", "MyAssets", "MyCreations"}]
-      176 LOADK                            R28 K45 ["includeUnverifiedCreators"]
-      177 SETTABLEKS                       R28 R27 K41 ["IncludeUnverifiedCreators"]
-      179 LOADK                            R28 K46 ["myAssets"]
-      180 SETTABLEKS                       R28 R27 K42 ["MyAssets"]
-      182 LOADK                            R28 K47 ["myCreations"]
-      183 SETTABLEKS                       R28 R27 K43 ["MyCreations"]
-      185 DUPCLOSURE                       R28 K48 [PROTO_23]
-      186 CAPTURE                          VAL R6
-      187 CAPTURE                          VAL R23
-      188 CAPTURE                          VAL R2
-      189 CAPTURE                          VAL R25
-      190 CAPTURE                          VAL R17
-      191 CAPTURE                          VAL R18
-      192 CAPTURE                          VAL R26
-      193 CAPTURE                          VAL R21
-      194 CAPTURE                          VAL R20
-      195 CAPTURE                          VAL R24
-      196 CAPTURE                          VAL R27
-      197 CAPTURE                          VAL R19
-      198 CAPTURE                          VAL R4
-      199 CAPTURE                          VAL R9
-      200 CAPTURE                          VAL R8
-      201 CAPTURE                          VAL R10
-      202 CAPTURE                          VAL R14
-      203 CAPTURE                          VAL R11
-      204 CAPTURE                          VAL R12
-      205 CAPTURE                          VAL R7
-      206 CAPTURE                          VAL R13
-      207 RETURN                           R28 1
+      175 DUPTABLE                         R27 K47 [{["IncludeUnverifiedCreators"] = "includeUnverifiedCreators", ["MyAssets"] = "myAssets", ["MyCreations"] = "myCreations"}]
+      176 DUPCLOSURE                       R28 K48 [PROTO_23]
+      177 CAPTURE                          VAL R6
+      178 CAPTURE                          VAL R23
+      179 CAPTURE                          VAL R2
+      180 CAPTURE                          VAL R25
+      181 CAPTURE                          VAL R17
+      182 CAPTURE                          VAL R18
+      183 CAPTURE                          VAL R26
+      184 CAPTURE                          VAL R21
+      185 CAPTURE                          VAL R20
+      186 CAPTURE                          VAL R24
+      187 CAPTURE                          VAL R19
+      188 CAPTURE                          VAL R4
+      189 CAPTURE                          VAL R9
+      190 CAPTURE                          VAL R8
+      191 CAPTURE                          VAL R10
+      192 CAPTURE                          VAL R14
+      193 CAPTURE                          VAL R11
+      194 CAPTURE                          VAL R12
+      195 CAPTURE                          VAL R7
+      196 CAPTURE                          VAL R13
+      197 RETURN                           R28 1

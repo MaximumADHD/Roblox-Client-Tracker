@@ -20,27 +20,23 @@ PROTO_0:
        29 GETTABLEKS                       R12 R12 K11 ["join"]
        31 GETTABLEKS                       R13 R2 K12 ["fontStyle"]
        33 GETTABLEKS                       R13 R13 K13 ["Title"]
-       35 DUPTABLE                         R14 K19 [{"AutomaticSize", "Size", "BackgroundTransparency", "Text", "TextWrapped"}]
-       36 GETIMPORT                        R15 K22 [Enum.AutomaticSize.Y]
+       35 DUPTABLE                         R14 K21 [{["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextWrapped"] = True}]
+       36 GETIMPORT                        R15 K24 [Enum.AutomaticSize.Y]
        38 SETTABLEKS                       R15 R14 K14 ["AutomaticSize"]
-       40 GETIMPORT                        R15 K25 [UDim2.new]
+       40 GETIMPORT                        R15 K27 [UDim2.new]
        42 LOADN                            R16 1
        43 LOADN                            R17 0
        44 LOADN                            R18 0
        45 LOADN                            R19 0
        46 CALL                             R15 4 1
        47 SETTABLEKS                       R15 R14 K15 ["Size"]
-       49 LOADN                            R15 1
-       50 SETTABLEKS                       R15 R14 K16 ["BackgroundTransparency"]
-       52 SETTABLEKS                       R3 R14 K17 ["Text"]
-       54 LOADB                            R15 1
-       55 SETTABLEKS                       R15 R14 K18 ["TextWrapped"]
-       57 CALL                             R12 2 -1
-       58 CALL                             R10 -1 1
-       59 SETTABLEKS                       R10 R9 K2 ["Header"]
-       61 SETTABLEKS                       R4 R9 K3 ["Body"]
-       63 CALL                             R6 3 -1
-       64 RETURN                           R6 -1
+       49 SETTABLEKS                       R3 R14 K18 ["Text"]
+       51 CALL                             R12 2 -1
+       52 CALL                             R10 -1 1
+       53 SETTABLEKS                       R10 R9 K2 ["Header"]
+       55 SETTABLEKS                       R4 R9 K3 ["Body"]
+       57 CALL                             R6 3 -1
+       58 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

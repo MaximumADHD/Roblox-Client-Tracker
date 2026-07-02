@@ -121,7 +121,7 @@ PROTO_7:
        90 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
        92 GETIMPORT                        R16 K17 [UDim2.new]
        94 LOADN                            R17 1
-       95 LOADN                            R18 250
+       95 LOADN                            R18 -6
        96 LOADN                            R19 0
        97 LOADN                            R20 32
        98 CALL                             R16 4 1
@@ -134,7 +134,7 @@ PROTO_7:
       108 DUPTABLE                         R19 K23 [{"Size", "LayoutOrder"}]
       109 GETIMPORT                        R20 K17 [UDim2.new]
       111 LOADN                            R21 1
-      112 LOADN                            R22 101
+      112 LOADN                            R22 -155
       113 LOADN                            R23 1
       114 LOADN                            R24 0
       115 CALL                             R20 4 1

@@ -227,11 +227,9 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
-        2 DUPTABLE                         R2 K1 [{"scrollIntoView"}]
-        3 LOADB                            R3 1
-        4 SETTABLEKS                       R3 R2 K0 ["scrollIntoView"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        2 DUPTABLE                         R2 K2 [{[1] = True}]
+        3 CALL                             R0 2 0
+        4 RETURN                           R0 0
 
 PROTO_8:
         0 NEWTABLE                         R1 0 0

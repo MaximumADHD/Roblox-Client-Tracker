@@ -1,19 +1,15 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K6 [{"VariableId", "Name", "Value", "Type", "Populated", "PopulatableType"}]
+        0 DUPTABLE                         R4 K8 [{[1], ["Name"], ["Value"], ["Type"], ["Populated"] = False, ["PopulatableType"] = "DebuggerVariable"}]
         1 SETTABLEKS                       R0 R4 K0 ["VariableId"]
         3 SETTABLEKS                       R1 R4 K1 ["Name"]
         5 SETTABLEKS                       R2 R4 K2 ["Value"]
         7 SETTABLEKS                       R3 R4 K3 ["Type"]
-        9 LOADB                            R5 0
-       10 SETTABLEKS                       R5 R4 K4 ["Populated"]
-       12 LOADK                            R5 K7 ["DebuggerVariable"]
-       13 SETTABLEKS                       R5 R4 K5 ["PopulatableType"]
-       15 GETUPVAL                         R7 0
-       16 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
-       18 MOVE                             R6 R4
-       19 GETIMPORT                        R5 K9 [setmetatable]
-       21 CALL                             R5 2 0
-       22 RETURN                           R4 1
+        9 GETUPVAL                         R7 0
+       10 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+       12 MOVE                             R6 R4
+       13 GETIMPORT                        R5 K10 [setmetatable]
+       15 CALL                             R5 2 0
+       16 RETURN                           R4 1
 
 PROTO_1:
         0 SETTABLEKS                       R1 R0 K0 ["children"]

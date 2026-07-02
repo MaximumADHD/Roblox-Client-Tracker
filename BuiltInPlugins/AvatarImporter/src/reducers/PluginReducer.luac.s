@@ -5,17 +5,15 @@ PROTO_0:
         5 GETTABLEKS                       R3 R3 K2 ["LOADING"]
         7 JUMPIFNOTEQ                      R2 R3 ; [+4]
         9 GETTABLEKS                       R2 R1 K3 ["force"]
-       11 JUMPIFNOT                        R2 ; [+12]
+       11 JUMPIFNOT                        R2 ; [+9]
        12 GETUPVAL                         R2 1
        13 GETTABLEKS                       R2 R2 K4 ["Dictionary"]
        15 GETTABLEKS                       R2 R2 K5 ["join"]
        17 MOVE                             R3 R0
-       18 DUPTABLE                         R4 K7 [{"enabled"}]
-       19 LOADB                            R5 0
-       20 SETTABLEKS                       R5 R4 K6 ["enabled"]
-       22 CALL                             R2 2 -1
-       23 RETURN                           R2 -1
-       24 RETURN                           R0 1
+       18 DUPTABLE                         R4 K8 [{["enabled"] = False}]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
+       21 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -88,32 +86,28 @@ MAIN:
        51 GETTABLEKS                       R9 R4 K14 ["SetOriginalAvatarType"]
        53 CALL                             R8 1 1
        54 GETTABLEKS                       R9 R1 K15 ["createReducer"]
-       56 DUPTABLE                         R10 K19 [{"enabled", "screen", "avatarType"}]
-       57 LOADB                            R11 0
-       58 SETTABLEKS                       R11 R10 K16 ["enabled"]
-       60 GETTABLEKS                       R11 R3 K20 ["SCREENS"]
-       62 GETTABLEKS                       R11 R11 K21 ["AVATAR"]
-       64 SETTABLEKS                       R11 R10 K17 ["screen"]
-       66 LOADNIL                          R11
-       67 SETTABLEKS                       R11 R10 K18 ["avatarType"]
-       69 NEWTABLE                         R11 4 0
-       71 GETTABLEKS                       R12 R5 K22 ["name"]
-       73 DUPCLOSURE                       R13 K23 [PROTO_0]
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R2
+       56 DUPTABLE                         R10 K21 [{["enabled"] = False, ["screen"], ["avatarType"] = }]
+       57 GETTABLEKS                       R11 R3 K22 ["SCREENS"]
+       59 GETTABLEKS                       R11 R11 K23 ["AVATAR"]
+       61 SETTABLEKS                       R11 R10 K18 ["screen"]
+       63 NEWTABLE                         R11 4 0
+       65 GETTABLEKS                       R12 R5 K24 ["name"]
+       67 DUPCLOSURE                       R13 K25 [PROTO_0]
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R2
+       70 SETTABLE                         R13 R11 R12
+       71 GETTABLEKS                       R12 R6 K24 ["name"]
+       73 DUPCLOSURE                       R13 K26 [PROTO_1]
+       74 CAPTURE                          VAL R2
+       75 CAPTURE                          VAL R3
        76 SETTABLE                         R13 R11 R12
-       77 GETTABLEKS                       R12 R6 K22 ["name"]
-       79 DUPCLOSURE                       R13 K24 [PROTO_1]
+       77 GETTABLEKS                       R12 R7 K24 ["name"]
+       79 DUPCLOSURE                       R13 K27 [PROTO_2]
        80 CAPTURE                          VAL R2
-       81 CAPTURE                          VAL R3
-       82 SETTABLE                         R13 R11 R12
-       83 GETTABLEKS                       R12 R7 K22 ["name"]
-       85 DUPCLOSURE                       R13 K25 [PROTO_2]
-       86 CAPTURE                          VAL R2
-       87 SETTABLE                         R13 R11 R12
-       88 GETTABLEKS                       R12 R8 K22 ["name"]
-       90 DUPCLOSURE                       R13 K26 [PROTO_3]
-       91 CAPTURE                          VAL R2
-       92 SETTABLE                         R13 R11 R12
-       93 CALL                             R9 2 -1
-       94 RETURN                           R9 -1
+       81 SETTABLE                         R13 R11 R12
+       82 GETTABLEKS                       R12 R8 K24 ["name"]
+       84 DUPCLOSURE                       R13 K28 [PROTO_3]
+       85 CAPTURE                          VAL R2
+       86 SETTABLE                         R13 R11 R12
+       87 CALL                             R9 2 -1
+       88 RETURN                           R9 -1

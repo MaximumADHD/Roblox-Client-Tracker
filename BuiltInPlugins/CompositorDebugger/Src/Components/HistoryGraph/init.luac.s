@@ -53,22 +53,12 @@ PROTO_1:
        22 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K5 [{"min", "max", "size", "frameBufferSize", "timespan"}]
-        1 LOADK                            R2 K6 [∞]
-        2 SETTABLEKS                       R2 R1 K0 ["min"]
-        4 LOADK                            R2 K7 [-∞]
-        5 SETTABLEKS                       R2 R1 K1 ["max"]
-        7 LOADNIL                          R2
-        8 SETTABLEKS                       R2 R1 K2 ["size"]
-       10 LOADN                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["frameBufferSize"]
-       13 LOADN                            R2 0
-       14 SETTABLEKS                       R2 R1 K4 ["timespan"]
-       16 SETTABLEKS                       R1 R0 K8 ["state"]
-       18 NEWCLOSURE                       R1 P0
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R1 R0 K9 ["onCanvasAbsoluteSizeChanged"]
-       22 RETURN                           R0 0
+        0 DUPTABLE                         R1 K9 [{[1] = ∞, ["max"] = -∞, ["size"] = , ["frameBufferSize"] = 0, ["timespan"] = 0}]
+        1 SETTABLEKS                       R1 R0 K10 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K11 ["onCanvasAbsoluteSizeChanged"]
+        7 RETURN                           R0 0
 
 PROTO_3:
         0 MOVE                             R2 R0
@@ -338,7 +328,7 @@ PROTO_11:
        58 SETTABLE                         R10 R3 R9
        59 FORNLOOP                         R5
        60 GETTABLEKS                       R5 R1 K21 ["min"]
-       62 JUMPIFEQKN                       R5 K22 [∞] ; [+187]
+       62 JUMPIFEQKN                       R5 K22 [∞] ; [+184]
        64 GETTABLEKS                       R6 R1 K23 ["max"]
        66 GETTABLEKS                       R7 R1 K21 ["min"]
        68 SUB                              R5 R6 R7
@@ -373,11 +363,11 @@ PROTO_11:
       102 SUB                              R19 R14 R20
       103 MUL                              R17 R18 R19
       104 DIV                              R16 R17 R5
-      105 SUBRK                            R15 R30 K16 [0.5]
+      105 SUBRK                            R15 K30 [0.95] R16
       106 LOADN                            R16 0
-      107 JUMPIFNOTLE                      R16 R15 ; [+141]
+      107 JUMPIFNOTLE                      R16 R15 ; [+138]
       109 LOADN                            R16 1
-      110 JUMPIFNOTLE                      R15 R16 ; [+138]
+      110 JUMPIFNOTLE                      R15 R16 ; [+135]
       112 LOADK                            R17 K32 ["ruler"]
       113 FASTCALL1                        TOSTRING R11 ; [+3]
       114 MOVE                             R19 R11
@@ -428,7 +418,7 @@ PROTO_11:
       172 GETUPVAL                         R17 0
       173 GETTABLEKS                       R17 R17 K6 ["createElement"]
       175 GETUPVAL                         R18 4
-      176 DUPTABLE                         R19 K39 [{"AnchorPoint", "Text", "TextXAlignment", "TextYAlignment", "Position", "Size", "ZIndex"}]
+      176 DUPTABLE                         R19 K40 [{["AnchorPoint"], ["Text"], ["TextXAlignment"], ["TextYAlignment"], ["Position"], ["Size"], ["ZIndex"] = 2}]
       177 GETIMPORT                        R20 K15 [Vector2.new]
       179 LOADN                            R21 0
       180 LOADK                            R22 K16 [0.5]
@@ -439,17 +429,17 @@ PROTO_11:
       187 JUMP                             ; [+25]
       188 FASTCALL1                        MATH_ABS R14 ; [+3]
       189 MOVE                             R25 R14
-      190 GETIMPORT                        R24 K41 [math.abs]
+      190 GETIMPORT                        R24 K42 [math.abs]
       192 CALL                             R24 1 1
       193 FASTCALL1                        MATH_LOG10 R24 ; [+2]
-      194 GETIMPORT                        R23 K43 [math.log10]
+      194 GETIMPORT                        R23 K44 [math.log10]
       196 CALL                             R23 1 1
       197 FASTCALL1                        MATH_FLOOR R23 ; [+2]
       198 GETIMPORT                        R22 K27 [math.floor]
       200 CALL                             R22 1 1
       201 LOADN                            R24 10
       202 MINUS                            R27 R22
-      203 ADDK                             R26 R27 K44 [3]
+      203 ADDK                             R26 R27 K45 [3]
       204 SUBK                             R25 R26 K2 [1]
       205 POW                              R23 R24 R25
       206 MUL                              R26 R14 R23
@@ -462,9 +452,9 @@ PROTO_11:
       214 GETIMPORT                        R20 K5 [tostring]
       216 CALL                             R20 1 1
       217 SETTABLEKS                       R20 R19 K36 ["Text"]
-      219 GETIMPORT                        R20 K47 [Enum.TextXAlignment.Left]
+      219 GETIMPORT                        R20 K48 [Enum.TextXAlignment.Left]
       221 SETTABLEKS                       R20 R19 K37 ["TextXAlignment"]
-      223 GETIMPORT                        R20 K49 [Enum.TextYAlignment.Center]
+      223 GETIMPORT                        R20 K50 [Enum.TextYAlignment.Center]
       225 SETTABLEKS                       R20 R19 K38 ["TextYAlignment"]
       227 GETIMPORT                        R20 K9 [UDim2.new]
       229 LOADN                            R21 0
@@ -478,13 +468,11 @@ PROTO_11:
       239 LOADN                            R22 1
       240 CALL                             R20 2 1
       241 SETTABLEKS                       R20 R19 K10 ["Size"]
-      243 LOADN                            R20 2
-      244 SETTABLEKS                       R20 R19 K18 ["ZIndex"]
-      246 CALL                             R17 2 1
-      247 SETTABLE                         R17 R4 R16
-      248 ADDK                             R11 R11 K2 [1]
-      249 FORNLOOP                         R12
-      250 RETURN                           R3 2
+      243 CALL                             R17 2 1
+      244 SETTABLE                         R17 R4 R16
+      245 ADDK                             R11 R11 K2 [1]
+      246 FORNLOOP                         R12
+      247 RETURN                           R3 2
 
 PROTO_12:
         0 GETTABLEKS                       R3 R0 K0 ["state"]
@@ -502,7 +490,7 @@ PROTO_12:
        20 MUL                              R13 R14 R15
        21 SUB                              R14 R5 R4
        22 DIV                              R12 R13 R14
-       23 SUBRK                            R11 R10 K12 [NULL]
+       23 SUBRK                            R11 K10 [0.95] R12
        24 MUL                              R9 R10 R11
        25 CALL                             R7 2 -1
        26 RETURN                           R7 -1
@@ -528,7 +516,7 @@ PROTO_13:
        20 GETUPVAL                         R11 3
        21 SUB                              R9 R10 R11
        22 DIV                              R7 R8 R9
-       23 SUBRK                            R6 R5 K7 [NULL]
+       23 SUBRK                            R6 K5 [0.95] R7
        24 MUL                              R4 R5 R6
        25 CALL                             R2 2 -1
        26 RETURN                           R2 -1
@@ -583,7 +571,7 @@ PROTO_14:
        61 MUL                              R30 R31 R32
        62 SUB                              R31 R4 R3
        63 DIV                              R29 R30 R31
-       64 SUBRK                            R28 R14 K29 [next]
+       64 SUBRK                            R28 K14 [0.95] R29
        65 MUL                              R26 R27 R28
        66 CALL                             R24 2 1
        67 MOVE                             R26 R9
@@ -600,7 +588,7 @@ PROTO_14:
        81 MUL                              R33 R34 R35
        82 SUB                              R34 R4 R3
        83 DIV                              R32 R33 R34
-       84 SUBRK                            R31 R14 K32 [NULL]
+       84 SUBRK                            R31 K14 [0.95] R32
        85 MUL                              R29 R30 R31
        86 CALL                             R27 2 1
        87 MOVE                             R25 R27
@@ -676,7 +664,7 @@ PROTO_15:
        20 DUPTABLE                         R12 K4 [{"Size", "LayoutOrder"}]
        21 GETIMPORT                        R13 K7 [UDim2.fromScale]
        23 LENGTH                           R15 R2
-       24 DIVRK                            R14 R8 K15 [NULL]
+       24 DIVRK                            R14 K8 [1] R15
        25 LOADN                            R15 1
        26 CALL                             R13 2 1
        27 SETTABLEKS                       R13 R12 K2 ["Size"]
@@ -748,80 +736,74 @@ PROTO_16:
        64 GETUPVAL                         R17 1
        65 GETTABLEKS                       R17 R17 K7 ["createElement"]
        67 GETUPVAL                         R18 2
-       68 DUPTABLE                         R19 K26 [{"ZIndex"}]
-       69 LOADN                            R20 1
-       70 SETTABLEKS                       R20 R19 K25 ["ZIndex"]
-       72 CALL                             R17 2 1
-       73 SETTABLEKS                       R17 R16 K20 ["Border"]
-       75 JUMPIFEQKNIL                     R5 ; [+12]
-       77 GETUPVAL                         R17 1
-       78 GETTABLEKS                       R17 R17 K7 ["createElement"]
-       80 GETUPVAL                         R18 2
-       81 DUPTABLE                         R19 K26 [{"ZIndex"}]
-       82 LOADN                            R20 2
-       83 SETTABLEKS                       R20 R19 K25 ["ZIndex"]
-       85 MOVE                             R20 R6
-       86 CALL                             R17 3 1
-       87 JUMP                             ; [+1]
-       88 LOADNIL                          R17
-       89 SETTABLEKS                       R17 R16 K21 ["Rulers"]
-       91 JUMPIFEQKNIL                     R5 ; [+12]
-       93 GETUPVAL                         R17 1
-       94 GETTABLEKS                       R17 R17 K7 ["createElement"]
-       96 GETUPVAL                         R18 2
-       97 DUPTABLE                         R19 K26 [{"ZIndex"}]
-       98 LOADN                            R20 3
-       99 SETTABLEKS                       R20 R19 K25 ["ZIndex"]
-      101 MOVE                             R20 R7
-      102 CALL                             R17 3 1
-      103 JUMP                             ; [+1]
-      104 LOADNIL                          R17
-      105 SETTABLEKS                       R17 R16 K22 ["Scale"]
-      107 GETUPVAL                         R17 1
-      108 GETTABLEKS                       R17 R17 K7 ["createElement"]
-      110 GETUPVAL                         R18 2
-      111 NEWTABLE                         R19 2 0
-      113 LOADN                            R20 4
-      114 SETTABLEKS                       R20 R19 K25 ["ZIndex"]
-      116 GETUPVAL                         R20 1
-      117 GETTABLEKS                       R20 R20 K27 ["Change"]
-      119 GETTABLEKS                       R20 R20 K28 ["AbsoluteSize"]
-      121 GETTABLEKS                       R21 R0 K29 ["onCanvasAbsoluteSizeChanged"]
-      123 SETTABLE                         R21 R19 R20
-      124 MOVE                             R20 R5
-      125 JUMPIF                           R20 ; [+16]
-      126 DUPTABLE                         R20 K31 [{"NoHistoryData"}]
-      127 GETUPVAL                         R21 1
-      128 GETTABLEKS                       R21 R21 K7 ["createElement"]
-      130 GETUPVAL                         R22 3
-      131 DUPTABLE                         R23 K19 [{"Text"}]
-      132 LOADK                            R26 K32 ["History"]
-      133 LOADK                            R27 K30 ["NoHistoryData"]
-      134 NAMECALL                         R24 R2 K33 ["getText"]
-      136 CALL                             R24 3 1
-      137 SETTABLEKS                       R24 R23 K18 ["Text"]
-      139 CALL                             R21 2 1
-      140 SETTABLEKS                       R21 R20 K30 ["NoHistoryData"]
-      142 CALL                             R17 3 1
-      143 SETTABLEKS                       R17 R16 K23 ["Canvas"]
-      145 CALL                             R13 3 1
-      146 SETTABLEKS                       R13 R12 K13 ["Graph"]
-      148 JUMPIFNOT                        R8 ; [+14]
-      149 GETUPVAL                         R13 1
-      150 GETTABLEKS                       R13 R13 K7 ["createElement"]
-      152 GETUPVAL                         R14 2
-      153 NEWTABLE                         R15 1 0
-      155 GETUPVAL                         R16 1
-      156 GETTABLEKS                       R16 R16 K10 ["Tag"]
-      158 LOADK                            R17 K34 ["X-Row"]
-      159 SETTABLE                         R17 R15 R16
-      160 MOVE                             R16 R8
-      161 CALL                             R13 3 1
-      162 JUMP                             ; [+1]
-      163 LOADNIL                          R13
-      164 SETTABLEKS                       R13 R12 K14 ["LegendBar"]
-      166 CALL                             R9 3 -1
-      167 RETURN                           R9 -1
+       68 DUPTABLE                         R19 K27 [{["ZIndex"] = 1}]
+       69 CALL                             R17 2 1
+       70 SETTABLEKS                       R17 R16 K20 ["Border"]
+       72 JUMPIFEQKNIL                     R5 ; [+9]
+       74 GETUPVAL                         R17 1
+       75 GETTABLEKS                       R17 R17 K7 ["createElement"]
+       77 GETUPVAL                         R18 2
+       78 DUPTABLE                         R19 K29 [{["ZIndex"] = 2}]
+       79 MOVE                             R20 R6
+       80 CALL                             R17 3 1
+       81 JUMP                             ; [+1]
+       82 LOADNIL                          R17
+       83 SETTABLEKS                       R17 R16 K21 ["Rulers"]
+       85 JUMPIFEQKNIL                     R5 ; [+9]
+       87 GETUPVAL                         R17 1
+       88 GETTABLEKS                       R17 R17 K7 ["createElement"]
+       90 GETUPVAL                         R18 2
+       91 DUPTABLE                         R19 K31 [{["ZIndex"] = 3}]
+       92 MOVE                             R20 R7
+       93 CALL                             R17 3 1
+       94 JUMP                             ; [+1]
+       95 LOADNIL                          R17
+       96 SETTABLEKS                       R17 R16 K22 ["Scale"]
+       98 GETUPVAL                         R17 1
+       99 GETTABLEKS                       R17 R17 K7 ["createElement"]
+      101 GETUPVAL                         R18 2
+      102 NEWTABLE                         R19 2 0
+      104 LOADN                            R20 4
+      105 SETTABLEKS                       R20 R19 K25 ["ZIndex"]
+      107 GETUPVAL                         R20 1
+      108 GETTABLEKS                       R20 R20 K32 ["Change"]
+      110 GETTABLEKS                       R20 R20 K33 ["AbsoluteSize"]
+      112 GETTABLEKS                       R21 R0 K34 ["onCanvasAbsoluteSizeChanged"]
+      114 SETTABLE                         R21 R19 R20
+      115 MOVE                             R20 R5
+      116 JUMPIF                           R20 ; [+16]
+      117 DUPTABLE                         R20 K36 [{"NoHistoryData"}]
+      118 GETUPVAL                         R21 1
+      119 GETTABLEKS                       R21 R21 K7 ["createElement"]
+      121 GETUPVAL                         R22 3
+      122 DUPTABLE                         R23 K19 [{"Text"}]
+      123 LOADK                            R26 K37 ["History"]
+      124 LOADK                            R27 K35 ["NoHistoryData"]
+      125 NAMECALL                         R24 R2 K38 ["getText"]
+      127 CALL                             R24 3 1
+      128 SETTABLEKS                       R24 R23 K18 ["Text"]
+      130 CALL                             R21 2 1
+      131 SETTABLEKS                       R21 R20 K35 ["NoHistoryData"]
+      133 CALL                             R17 3 1
+      134 SETTABLEKS                       R17 R16 K23 ["Canvas"]
+      136 CALL                             R13 3 1
+      137 SETTABLEKS                       R13 R12 K13 ["Graph"]
+      139 JUMPIFNOT                        R8 ; [+14]
+      140 GETUPVAL                         R13 1
+      141 GETTABLEKS                       R13 R13 K7 ["createElement"]
+      143 GETUPVAL                         R14 2
+      144 NEWTABLE                         R15 1 0
+      146 GETUPVAL                         R16 1
+      147 GETTABLEKS                       R16 R16 K10 ["Tag"]
+      149 LOADK                            R17 K39 ["X-Row"]
+      150 SETTABLE                         R17 R15 R16
+      151 MOVE                             R16 R8
+      152 CALL                             R13 3 1
+      153 JUMP                             ; [+1]
+      154 LOADNIL                          R13
+      155 SETTABLEKS                       R13 R12 K14 ["LegendBar"]
+      157 CALL                             R9 3 -1
+      158 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

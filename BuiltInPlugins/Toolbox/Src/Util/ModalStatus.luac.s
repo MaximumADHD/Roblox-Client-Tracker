@@ -1,25 +1,13 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K7 [{"_signal", "_currentTooltipAssetId", "_currentTooltipTypeId", "_isDropdownShown", "_isMouseInSearchOptions", "_isSearchOptionsShown", "_isAssetPreviewing"}]
+        0 DUPTABLE                         R1 K9 [{[1], ["_currentTooltipAssetId"] = 0, ["_currentTooltipTypeId"] = 0, ["_isDropdownShown"] = False, ["_isMouseInSearchOptions"] = False, ["_isSearchOptionsShown"] = False, ["_isAssetPreviewing"] = False}]
         1 GETUPVAL                         R2 0
         2 CALL                             R2 0 1
         3 SETTABLEKS                       R2 R1 K0 ["_signal"]
-        5 LOADN                            R2 0
-        6 SETTABLEKS                       R2 R1 K1 ["_currentTooltipAssetId"]
-        8 LOADN                            R2 0
-        9 SETTABLEKS                       R2 R1 K2 ["_currentTooltipTypeId"]
-       11 LOADB                            R2 0
-       12 SETTABLEKS                       R2 R1 K3 ["_isDropdownShown"]
-       14 LOADB                            R2 0
-       15 SETTABLEKS                       R2 R1 K4 ["_isMouseInSearchOptions"]
-       17 LOADB                            R2 0
-       18 SETTABLEKS                       R2 R1 K5 ["_isSearchOptionsShown"]
-       20 LOADB                            R2 0
-       21 SETTABLEKS                       R2 R1 K6 ["_isAssetPreviewing"]
-       23 GETUPVAL                         R2 1
-       24 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-       26 GETIMPORT                        R0 K9 [setmetatable]
-       28 CALL                             R0 2 1
-       29 RETURN                           R0 1
+        5 GETUPVAL                         R2 1
+        6 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        8 GETIMPORT                        R0 K11 [setmetatable]
+       10 CALL                             R0 2 1
+       11 RETURN                           R0 1
 
 PROTO_1:
         0 PREPVARARGS                      1

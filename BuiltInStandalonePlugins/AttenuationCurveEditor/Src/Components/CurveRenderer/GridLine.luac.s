@@ -1,11 +1,11 @@
 PROTO_0:
         0 GETIMPORT                        R0 K2 [Vector2.new]
-        2 LOADN                            R1 255
-        3 LOADN                            R2 255
+        2 LOADN                            R1 -1
+        3 LOADN                            R2 -1
         4 CALL                             R0 2 1
         5 GETIMPORT                        R1 K2 [Vector2.new]
-        7 LOADN                            R2 255
-        8 LOADN                            R3 255
+        7 LOADN                            R2 -1
+        8 LOADN                            R3 -1
         9 CALL                             R1 2 1
        10 GETIMPORT                        R2 K5 [UDim2.fromOffset]
        12 LOADN                            R3 0
@@ -66,7 +66,7 @@ PROTO_0:
        89 GETTABLEKS                       R6 R6 K9 ["PlotRect"]
        91 GETTABLEKS                       R6 R6 K18 ["Height"]
        93 DIV                              R4 R5 R6
-       94 SUBRK                            R3 R16 K4 ["fromOffset"]
+       94 SUBRK                            R3 K16 [1] R4
        95 LOADN                            R4 0
        96 JUMPIFLT                         R3 R4 ; [+4]
        98 LOADN                            R4 1
@@ -134,7 +134,7 @@ PROTO_1:
        28 JUMPIFNOTEQKS                    R3 K16 ["Horizontal"] ; [+11]
        30 GETIMPORT                        R3 K12 [UDim2.new]
        32 LOADN                            R4 0
-       33 LOADN                            R5 251
+       33 LOADN                            R5 -5
        34 LOADK                            R6 K13 [0.5]
        35 LOADN                            R7 0
        36 CALL                             R3 4 1
@@ -156,7 +156,7 @@ PROTO_2:
         7 GETUPVAL                         R3 0
         8 GETTABLEKS                       R3 R3 K0 ["InnerAlpha"]
        10 MUL                              R1 R2 R3
-       11 SUBRK                            R0 R2 K1 [0.6]
+       11 SUBRK                            R0 K2 [1] R1
        12 RETURN                           R0 1
 
 PROTO_3:

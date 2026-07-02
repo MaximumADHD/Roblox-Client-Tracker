@@ -483,37 +483,29 @@ MAIN:
        74 GETTABLEKS                       R12 R12 K16 ["Hooks"]
        76 GETTABLEKS                       R12 R12 K21 ["useTheme"]
        78 CALL                             R11 1 1
-       79 DUPTABLE                         R12 K29 [{"Size", "AutomaticSize", "ImageTag", "Disabled", "LayoutOrder", "ButtonSize", "NoPadding"}]
-       80 GETIMPORT                        R13 K32 [UDim2.fromOffset]
+       79 DUPTABLE                         R12 K32 [{["Size"], ["AutomaticSize"], ["ImageTag"] = "MoreIcon", ["Disabled"] = False, ["LayoutOrder"] = 0, ["ButtonSize"], ["NoPadding"] = False}]
+       80 GETIMPORT                        R13 K35 [UDim2.fromOffset]
        82 LOADN                            R14 128
        83 LOADN                            R15 0
        84 CALL                             R13 2 1
        85 SETTABLEKS                       R13 R12 K22 ["Size"]
-       87 GETIMPORT                        R13 K35 [Enum.AutomaticSize.Y]
+       87 GETIMPORT                        R13 K38 [Enum.AutomaticSize.Y]
        89 SETTABLEKS                       R13 R12 K23 ["AutomaticSize"]
-       91 LOADK                            R13 K36 ["MoreIcon"]
-       92 SETTABLEKS                       R13 R12 K24 ["ImageTag"]
-       94 LOADB                            R13 0
-       95 SETTABLEKS                       R13 R12 K25 ["Disabled"]
-       97 LOADN                            R13 0
-       98 SETTABLEKS                       R13 R12 K26 ["LayoutOrder"]
-      100 GETIMPORT                        R13 K32 [UDim2.fromOffset]
-      102 LOADN                            R14 20
-      103 LOADN                            R15 20
-      104 CALL                             R13 2 1
-      105 SETTABLEKS                       R13 R12 K27 ["ButtonSize"]
-      107 LOADB                            R13 0
-      108 SETTABLEKS                       R13 R12 K28 ["NoPadding"]
-      110 DUPCLOSURE                       R13 K37 [PROTO_11]
-      111 CAPTURE                          VAL R4
-      112 CAPTURE                          VAL R12
-      113 CAPTURE                          VAL R7
-      114 CAPTURE                          VAL R10
-      115 CAPTURE                          VAL R1
-      116 CAPTURE                          VAL R11
-      117 CAPTURE                          VAL R9
-      118 CAPTURE                          VAL R8
-      119 CAPTURE                          VAL R6
-      120 CAPTURE                          VAL R5
-      121 CAPTURE                          VAL R2
-      122 RETURN                           R13 1
+       91 GETIMPORT                        R13 K35 [UDim2.fromOffset]
+       93 LOADN                            R14 20
+       94 LOADN                            R15 20
+       95 CALL                             R13 2 1
+       96 SETTABLEKS                       R13 R12 K30 ["ButtonSize"]
+       98 DUPCLOSURE                       R13 K39 [PROTO_11]
+       99 CAPTURE                          VAL R4
+      100 CAPTURE                          VAL R12
+      101 CAPTURE                          VAL R7
+      102 CAPTURE                          VAL R10
+      103 CAPTURE                          VAL R1
+      104 CAPTURE                          VAL R11
+      105 CAPTURE                          VAL R9
+      106 CAPTURE                          VAL R8
+      107 CAPTURE                          VAL R6
+      108 CAPTURE                          VAL R5
+      109 CAPTURE                          VAL R2
+      110 RETURN                           R13 1

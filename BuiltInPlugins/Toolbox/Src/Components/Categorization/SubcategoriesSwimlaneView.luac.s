@@ -85,63 +85,59 @@ PROTO_4:
        63 GETUPVAL                         R24 4
        64 GETTABLEKS                       R24 R24 K24 ["createElement"]
        66 GETUPVAL                         R25 5
-       67 DUPTABLE                         R26 K42 [{"CanInsertAsset", "CategoryName", "SwimlaneCategory", "OnClickSeeAll", "NetworkInterface", "ShouldLogAssetOnMount", "SortName", "SearchTerm", "IncludeUnverifiedCreators", "QueryParams", "InitialPageSize", "LayoutOrder", "LogAssetImpression", "OnClickSeeAllAssets", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "PathName", "ParentAbsolutePosition", "ParentAbsoluteSize", "SwimlaneWidth", "Title", "TryInsert", "TryOpenAssetConfig", "ZIndex", "searchSource"}]
+       67 DUPTABLE                         R26 K44 [{["CanInsertAsset"], ["CategoryName"], ["SwimlaneCategory"], ["OnClickSeeAll"], ["NetworkInterface"], ["ShouldLogAssetOnMount"] = False, ["SortName"], ["SearchTerm"], ["IncludeUnverifiedCreators"], ["QueryParams"], ["InitialPageSize"] = 20, ["LayoutOrder"], ["LogAssetImpression"], ["OnClickSeeAllAssets"], ["OnAssetPreviewButtonClicked"], ["OnSearchByCreator"], ["PathName"], ["ParentAbsolutePosition"], ["ParentAbsoluteSize"], ["SwimlaneWidth"], ["Title"], ["TryInsert"], ["TryOpenAssetConfig"], ["ZIndex"], ["searchSource"]}]
        68 SETTABLEKS                       R10 R26 K11 ["CanInsertAsset"]
        70 SETTABLEKS                       R2 R26 K2 ["CategoryName"]
-       72 GETTABLEKS                       R27 R22 K43 ["name"]
+       72 GETTABLEKS                       R27 R22 K45 ["name"]
        74 SETTABLEKS                       R27 R26 K25 ["SwimlaneCategory"]
        76 NEWCLOSURE                       R27 P1
        77 CAPTURE                          UPVAL U0
        78 CAPTURE                          VAL R22
        79 SETTABLEKS                       R27 R26 K26 ["OnClickSeeAll"]
-       81 GETTABLEKS                       R27 R0 K44 ["Network"]
-       83 GETTABLEKS                       R27 R27 K45 ["networkInterface"]
+       81 GETTABLEKS                       R27 R0 K46 ["Network"]
+       83 GETTABLEKS                       R27 R27 K47 ["networkInterface"]
        85 SETTABLEKS                       R27 R26 K27 ["NetworkInterface"]
-       87 LOADB                            R27 0
-       88 SETTABLEKS                       R27 R26 K28 ["ShouldLogAssetOnMount"]
-       90 SETTABLEKS                       R6 R26 K6 ["SortName"]
-       92 GETTABLEKS                       R27 R22 K46 ["searchKeywords"]
-       94 SETTABLEKS                       R27 R26 K29 ["SearchTerm"]
-       96 SETTABLEKS                       R9 R26 K10 ["IncludeUnverifiedCreators"]
-       98 GETTABLEKS                       R27 R22 K47 ["queryParams"]
-      100 SETTABLEKS                       R27 R26 K30 ["QueryParams"]
-      102 LOADN                            R27 20
-      103 SETTABLEKS                       R27 R26 K31 ["InitialPageSize"]
-      105 GETTABLEKS                       R27 R22 K48 ["index"]
-      107 SETTABLEKS                       R27 R26 K32 ["LayoutOrder"]
-      109 GETTABLEKS                       R27 R0 K33 ["LogAssetImpression"]
-      111 SETTABLEKS                       R27 R26 K33 ["LogAssetImpression"]
-      113 SETTABLEKS                       R13 R26 K14 ["OnClickSeeAllAssets"]
-      115 SETTABLEKS                       R15 R26 K18 ["OnAssetPreviewButtonClicked"]
-      117 GETUPVAL                         R28 6
-      118 CALL                             R28 0 1
-      119 JUMPIFNOT                        R28 ; [+3]
-      120 GETTABLEKS                       R27 R0 K34 ["OnSearchByCreator"]
-      122 JUMP                             ; [+1]
-      123 LOADNIL                          R27
-      124 SETTABLEKS                       R27 R26 K34 ["OnSearchByCreator"]
-      126 GETTABLEKS                       R27 R22 K43 ["name"]
-      128 SETTABLEKS                       R27 R26 K35 ["PathName"]
-      130 GETTABLEKS                       R27 R0 K49 ["AbsolutePosition"]
-      132 SETTABLEKS                       R27 R26 K36 ["ParentAbsolutePosition"]
-      134 GETTABLEKS                       R27 R0 K16 ["AbsoluteSize"]
-      136 SETTABLEKS                       R27 R26 K37 ["ParentAbsoluteSize"]
-      138 SETTABLEKS                       R14 R26 K38 ["SwimlaneWidth"]
-      140 GETTABLEKS                       R27 R22 K50 ["displayName"]
-      142 SETTABLEKS                       R27 R26 K39 ["Title"]
-      144 SETTABLEKS                       R11 R26 K12 ["TryInsert"]
-      146 SETTABLEKS                       R12 R26 K13 ["TryOpenAssetConfig"]
-      148 GETTABLEKS                       R28 R22 K48 ["index"]
-      150 SUB                              R27 R17 R28
-      151 SETTABLEKS                       R27 R26 K40 ["ZIndex"]
-      153 GETUPVAL                         R27 7
-      154 GETTABLEKS                       R27 R27 K51 ["SEARCH_SOURCE"]
-      156 GETTABLEKS                       R27 R27 K52 ["CATEGORY"]
-      158 SETTABLEKS                       R27 R26 K41 ["searchSource"]
-      160 CALL                             R24 2 1
-      161 SETTABLE                         R24 R16 R23
-      162 FORGLOOP                         R18 2 ; [-103]
-      164 RETURN                           R16 1
+       87 SETTABLEKS                       R6 R26 K6 ["SortName"]
+       89 GETTABLEKS                       R27 R22 K48 ["searchKeywords"]
+       91 SETTABLEKS                       R27 R26 K30 ["SearchTerm"]
+       93 SETTABLEKS                       R9 R26 K10 ["IncludeUnverifiedCreators"]
+       95 GETTABLEKS                       R27 R22 K49 ["queryParams"]
+       97 SETTABLEKS                       R27 R26 K31 ["QueryParams"]
+       99 GETTABLEKS                       R27 R22 K50 ["index"]
+      101 SETTABLEKS                       R27 R26 K34 ["LayoutOrder"]
+      103 GETTABLEKS                       R27 R0 K35 ["LogAssetImpression"]
+      105 SETTABLEKS                       R27 R26 K35 ["LogAssetImpression"]
+      107 SETTABLEKS                       R13 R26 K14 ["OnClickSeeAllAssets"]
+      109 SETTABLEKS                       R15 R26 K18 ["OnAssetPreviewButtonClicked"]
+      111 GETUPVAL                         R28 6
+      112 CALL                             R28 0 1
+      113 JUMPIFNOT                        R28 ; [+3]
+      114 GETTABLEKS                       R27 R0 K36 ["OnSearchByCreator"]
+      116 JUMP                             ; [+1]
+      117 LOADNIL                          R27
+      118 SETTABLEKS                       R27 R26 K36 ["OnSearchByCreator"]
+      120 GETTABLEKS                       R27 R22 K45 ["name"]
+      122 SETTABLEKS                       R27 R26 K37 ["PathName"]
+      124 GETTABLEKS                       R27 R0 K51 ["AbsolutePosition"]
+      126 SETTABLEKS                       R27 R26 K38 ["ParentAbsolutePosition"]
+      128 GETTABLEKS                       R27 R0 K16 ["AbsoluteSize"]
+      130 SETTABLEKS                       R27 R26 K39 ["ParentAbsoluteSize"]
+      132 SETTABLEKS                       R14 R26 K40 ["SwimlaneWidth"]
+      134 GETTABLEKS                       R27 R22 K52 ["displayName"]
+      136 SETTABLEKS                       R27 R26 K41 ["Title"]
+      138 SETTABLEKS                       R11 R26 K12 ["TryInsert"]
+      140 SETTABLEKS                       R12 R26 K13 ["TryOpenAssetConfig"]
+      142 GETTABLEKS                       R28 R22 K50 ["index"]
+      144 SUB                              R27 R17 R28
+      145 SETTABLEKS                       R27 R26 K42 ["ZIndex"]
+      147 GETUPVAL                         R27 7
+      148 GETTABLEKS                       R27 R27 K53 ["SEARCH_SOURCE"]
+      150 GETTABLEKS                       R27 R27 K54 ["CATEGORY"]
+      152 SETTABLEKS                       R27 R26 K43 ["searchSource"]
+      154 CALL                             R24 2 1
+      155 SETTABLE                         R24 R16 R23
+      156 FORGLOOP                         R18 2 ; [-97]
+      158 RETURN                           R16 1
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0
@@ -213,66 +209,54 @@ PROTO_6:
        72 GETUPVAL                         R21 3
        73 GETTABLEKS                       R21 R21 K26 ["createElement"]
        75 GETUPVAL                         R22 5
-       76 DUPTABLE                         R23 K32 [{"AutoSizeCanvas", "EnableScrollBarBackground", "LayoutOrder", "Padding", "Size"}]
-       77 LOADB                            R24 1
-       78 SETTABLEKS                       R24 R23 K29 ["AutoSizeCanvas"]
-       80 LOADB                            R24 1
-       81 SETTABLEKS                       R24 R23 K30 ["EnableScrollBarBackground"]
-       83 SETTABLEKS                       R3 R23 K2 ["LayoutOrder"]
-       85 GETUPVAL                         R24 6
-       86 GETTABLEKS                       R24 R24 K33 ["MAIN_VIEW_PADDING"]
-       88 SETTABLEKS                       R24 R23 K31 ["Padding"]
-       90 SETTABLEKS                       R5 R23 K4 ["Size"]
-       92 DUPTABLE                         R24 K35 [{"Contents"}]
-       93 GETUPVAL                         R25 3
-       94 GETTABLEKS                       R25 R25 K26 ["createElement"]
-       96 GETUPVAL                         R26 4
-       97 DUPTABLE                         R27 K41 [{"AutomaticSize", "BackgroundColor3", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing", "Size", "VerticalAlignment"}]
-       98 GETIMPORT                        R28 K44 [Enum.AutomaticSize.Y]
-      100 SETTABLEKS                       R28 R27 K36 ["AutomaticSize"]
-      102 GETTABLEKS                       R28 R9 K24 ["backgroundColor"]
-      104 SETTABLEKS                       R28 R27 K22 ["BackgroundColor3"]
-      106 GETIMPORT                        R28 K46 [Enum.HorizontalAlignment.Left]
-      108 SETTABLEKS                       R28 R27 K37 ["HorizontalAlignment"]
-      110 GETIMPORT                        R28 K49 [Enum.FillDirection.Vertical]
-      112 SETTABLEKS                       R28 R27 K38 ["Layout"]
-      114 LOADN                            R28 2
-      115 SETTABLEKS                       R28 R27 K2 ["LayoutOrder"]
-      117 LOADN                            R28 20
-      118 SETTABLEKS                       R28 R27 K39 ["Spacing"]
-      120 GETIMPORT                        R28 K52 [UDim2.new]
-      122 LOADN                            R29 1
-      123 LOADN                            R30 0
-      124 LOADN                            R31 0
-      125 LOADN                            R32 0
-      126 CALL                             R28 4 1
-      127 SETTABLEKS                       R28 R27 K4 ["Size"]
-      129 GETIMPORT                        R28 K54 [Enum.VerticalAlignment.Top]
-      131 SETTABLEKS                       R28 R27 K40 ["VerticalAlignment"]
-      133 GETUPVAL                         R28 2
-      134 GETTABLEKS                       R28 R28 K21 ["join"]
-      136 DUPTABLE                         R29 K56 [{"BackButton"}]
-      137 GETUPVAL                         R30 3
-      138 GETTABLEKS                       R30 R30 K26 ["createElement"]
-      140 GETUPVAL                         R31 7
-      141 DUPTABLE                         R32 K60 [{"LayoutOrder", "OnClick", "Style", "Text"}]
-      142 LOADN                            R33 255
-      143 SETTABLEKS                       R33 R32 K2 ["LayoutOrder"]
-      145 GETTABLEKS                       R33 R0 K61 ["onClickBack"]
-      147 SETTABLEKS                       R33 R32 K57 ["OnClick"]
-      149 LOADK                            R33 K62 ["Unobtrusive"]
-      150 SETTABLEKS                       R33 R32 K58 ["Style"]
-      152 SETTABLEKS                       R15 R32 K59 ["Text"]
-      154 CALL                             R30 2 1
-      155 SETTABLEKS                       R30 R29 K55 ["BackButton"]
-      157 MOVE                             R30 R14
-      158 CALL                             R28 2 -1
-      159 CALL                             R25 -1 1
-      160 SETTABLEKS                       R25 R24 K34 ["Contents"]
-      162 CALL                             R21 3 1
-      163 SETTABLEKS                       R21 R20 K27 ["ScrollingFrame"]
-      165 CALL                             R17 3 -1
-      166 RETURN                           R17 -1
+       76 DUPTABLE                         R23 K33 [{["AutoSizeCanvas"] = True, ["EnableScrollBarBackground"] = True, ["LayoutOrder"], ["Padding"], ["Size"]}]
+       77 SETTABLEKS                       R3 R23 K2 ["LayoutOrder"]
+       79 GETUPVAL                         R24 6
+       80 GETTABLEKS                       R24 R24 K34 ["MAIN_VIEW_PADDING"]
+       82 SETTABLEKS                       R24 R23 K32 ["Padding"]
+       84 SETTABLEKS                       R5 R23 K4 ["Size"]
+       86 DUPTABLE                         R24 K36 [{"Contents"}]
+       87 GETUPVAL                         R25 3
+       88 GETTABLEKS                       R25 R25 K26 ["createElement"]
+       90 GETUPVAL                         R26 4
+       91 DUPTABLE                         R27 K44 [{["AutomaticSize"], ["BackgroundColor3"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 2, ["Spacing"] = 20, ["Size"], ["VerticalAlignment"]}]
+       92 GETIMPORT                        R28 K47 [Enum.AutomaticSize.Y]
+       94 SETTABLEKS                       R28 R27 K37 ["AutomaticSize"]
+       96 GETTABLEKS                       R28 R9 K24 ["backgroundColor"]
+       98 SETTABLEKS                       R28 R27 K22 ["BackgroundColor3"]
+      100 GETIMPORT                        R28 K49 [Enum.HorizontalAlignment.Left]
+      102 SETTABLEKS                       R28 R27 K38 ["HorizontalAlignment"]
+      104 GETIMPORT                        R28 K52 [Enum.FillDirection.Vertical]
+      106 SETTABLEKS                       R28 R27 K39 ["Layout"]
+      108 GETIMPORT                        R28 K55 [UDim2.new]
+      110 LOADN                            R29 1
+      111 LOADN                            R30 0
+      112 LOADN                            R31 0
+      113 LOADN                            R32 0
+      114 CALL                             R28 4 1
+      115 SETTABLEKS                       R28 R27 K4 ["Size"]
+      117 GETIMPORT                        R28 K57 [Enum.VerticalAlignment.Top]
+      119 SETTABLEKS                       R28 R27 K43 ["VerticalAlignment"]
+      121 GETUPVAL                         R28 2
+      122 GETTABLEKS                       R28 R28 K21 ["join"]
+      124 DUPTABLE                         R29 K59 [{"BackButton"}]
+      125 GETUPVAL                         R30 3
+      126 GETTABLEKS                       R30 R30 K26 ["createElement"]
+      128 GETUPVAL                         R31 7
+      129 DUPTABLE                         R32 K65 [{["LayoutOrder"] = -1, ["OnClick"], ["Style"] = "Unobtrusive", ["Text"]}]
+      130 GETTABLEKS                       R33 R0 K66 ["onClickBack"]
+      132 SETTABLEKS                       R33 R32 K61 ["OnClick"]
+      134 SETTABLEKS                       R15 R32 K64 ["Text"]
+      136 CALL                             R30 2 1
+      137 SETTABLEKS                       R30 R29 K58 ["BackButton"]
+      139 MOVE                             R30 R14
+      140 CALL                             R28 2 -1
+      141 CALL                             R25 -1 1
+      142 SETTABLEKS                       R25 R24 K35 ["Contents"]
+      144 CALL                             R21 3 1
+      145 SETTABLEKS                       R21 R20 K27 ["ScrollingFrame"]
+      147 CALL                             R17 3 -1
+      148 RETURN                           R17 -1
 
 PROTO_7:
         0 MOVE                             R2 R0

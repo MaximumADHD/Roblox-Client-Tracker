@@ -55,92 +55,88 @@ PROTO_0:
        84 GETTABLEKS                       R9 R9 K17 ["ContextServices"]
        86 GETTABLEKS                       R9 R9 K25 ["Localization"]
        88 GETTABLEKS                       R9 R9 K23 ["mock"]
-       90 DUPTABLE                         R10 K29 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       90 DUPTABLE                         R10 K30 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "VisualizationModes"}]
        91 GETUPVAL                         R11 6
-       92 GETTABLEKS                       R11 R11 K30 ["Src"]
-       94 GETTABLEKS                       R11 R11 K31 ["Resources"]
+       92 GETTABLEKS                       R11 R11 K31 ["Src"]
+       94 GETTABLEKS                       R11 R11 K32 ["Resources"]
        96 GETTABLEKS                       R11 R11 K25 ["Localization"]
-       98 GETTABLEKS                       R11 R11 K32 ["SourceStrings"]
+       98 GETTABLEKS                       R11 R11 K33 ["SourceStrings"]
       100 SETTABLEKS                       R11 R10 K26 ["stringResourceTable"]
       102 GETUPVAL                         R11 6
-      103 GETTABLEKS                       R11 R11 K30 ["Src"]
-      105 GETTABLEKS                       R11 R11 K31 ["Resources"]
+      103 GETTABLEKS                       R11 R11 K31 ["Src"]
+      105 GETTABLEKS                       R11 R11 K32 ["Resources"]
       107 GETTABLEKS                       R11 R11 K25 ["Localization"]
-      109 GETTABLEKS                       R11 R11 K33 ["LocalizedStrings"]
+      109 GETTABLEKS                       R11 R11 K34 ["LocalizedStrings"]
       111 SETTABLEKS                       R11 R10 K27 ["translationResourceTable"]
-      113 LOADK                            R11 K34 ["VisualizationModes"]
-      114 SETTABLEKS                       R11 R10 K28 ["pluginName"]
-      116 CALL                             R9 1 1
-      117 GETUPVAL                         R10 5
-      118 GETTABLEKS                       R10 R10 K17 ["ContextServices"]
-      120 GETTABLEKS                       R10 R10 K35 ["Plugin"]
-      122 GETTABLEKS                       R10 R10 K7 ["new"]
-      124 GETTABLEKS                       R11 R1 K15 ["_plugin"]
-      126 CALL                             R10 1 -1
-      127 SETLIST                          R4 R5 -1 [1]
-      129 DUPTABLE                         R5 K37 [{"ContextStack"}]
-      130 GETUPVAL                         R6 7
-      131 GETTABLEKS                       R6 R6 K38 ["createElement"]
-      133 GETUPVAL                         R7 8
-      134 GETTABLEKS                       R7 R7 K36 ["ContextStack"]
-      136 DUPTABLE                         R8 K40 [{"providers"}]
-      137 NEWTABLE                         R9 0 4
-      139 GETUPVAL                         R10 7
-      140 GETTABLEKS                       R10 R10 K38 ["createElement"]
-      142 GETUPVAL                         R11 9
-      143 GETTABLEKS                       R11 R11 K41 ["Provider"]
-      145 DUPTABLE                         R12 K43 [{"overlayStartsOpen"}]
-      146 LOADB                            R13 0
-      147 SETTABLEKS                       R13 R12 K42 ["overlayStartsOpen"]
-      149 CALL                             R10 2 1
-      150 GETUPVAL                         R11 7
-      151 GETTABLEKS                       R11 R11 K38 ["createElement"]
-      153 GETUPVAL                         R12 10
-      154 GETTABLEKS                       R12 R12 K41 ["Provider"]
-      156 DUPTABLE                         R13 K45 [{"actionsComponent"}]
-      157 GETTABLEKS                       R15 R0 K46 ["Actions"]
-      159 JUMPIFNOT                        R15 ; [+7]
-      160 GETUPVAL                         R14 11
-      161 GETTABLEKS                       R16 R0 K46 ["Actions"]
-      163 NAMECALL                         R14 R14 K47 ["CreateStrict"]
-      165 CALL                             R14 2 1
-      166 JUMP                             ; [+4]
-      167 GETUPVAL                         R14 11
-      168 NAMECALL                         R14 R14 K48 ["CreateWeak"]
-      170 CALL                             R14 1 1
-      171 SETTABLEKS                       R14 R13 K44 ["actionsComponent"]
-      173 CALL                             R11 2 1
-      174 GETUPVAL                         R12 7
-      175 GETTABLEKS                       R12 R12 K38 ["createElement"]
-      177 GETUPVAL                         R13 12
-      178 GETTABLEKS                       R13 R13 K41 ["Provider"]
-      180 DUPTABLE                         R14 K50 [{"renderingModesBridge"}]
-      181 GETUPVAL                         R15 13
-      182 GETTABLEKS                       R15 R15 K7 ["new"]
-      184 CALL                             R15 0 1
-      185 SETTABLEKS                       R15 R14 K49 ["renderingModesBridge"]
-      187 CALL                             R12 2 1
-      188 GETUPVAL                         R13 7
-      189 GETTABLEKS                       R13 R13 K38 ["createElement"]
-      191 GETUPVAL                         R14 14
-      192 GETTABLEKS                       R14 R14 K41 ["Provider"]
-      194 DUPTABLE                         R15 K52 [{"collaboratorsService"}]
-      195 GETUPVAL                         R16 15
-      196 SETTABLEKS                       R16 R15 K51 ["collaboratorsService"]
-      198 CALL                             R13 2 -1
-      199 SETLIST                          R9 R10 -1 [1]
-      201 SETTABLEKS                       R9 R8 K39 ["providers"]
-      203 DUPTABLE                         R9 K53 [{"Component"}]
-      204 GETTABLEKS                       R10 R0 K0 ["Component"]
-      206 SETTABLEKS                       R10 R9 K0 ["Component"]
-      208 CALL                             R6 3 1
-      209 SETTABLEKS                       R6 R5 K36 ["ContextStack"]
-      211 CALL                             R3 2 1
-      212 DUPTABLE                         R4 K55 [{"container"}]
-      213 GETTABLEKS                       R5 R1 K10 ["_layerCollector"]
-      215 SETTABLEKS                       R5 R4 K54 ["container"]
-      217 CALL                             R2 2 0
-      218 RETURN                           R1 1
+      113 CALL                             R9 1 1
+      114 GETUPVAL                         R10 5
+      115 GETTABLEKS                       R10 R10 K17 ["ContextServices"]
+      117 GETTABLEKS                       R10 R10 K35 ["Plugin"]
+      119 GETTABLEKS                       R10 R10 K7 ["new"]
+      121 GETTABLEKS                       R11 R1 K15 ["_plugin"]
+      123 CALL                             R10 1 -1
+      124 SETLIST                          R4 R5 -1 [1]
+      126 DUPTABLE                         R5 K37 [{"ContextStack"}]
+      127 GETUPVAL                         R6 7
+      128 GETTABLEKS                       R6 R6 K38 ["createElement"]
+      130 GETUPVAL                         R7 8
+      131 GETTABLEKS                       R7 R7 K36 ["ContextStack"]
+      133 DUPTABLE                         R8 K40 [{"providers"}]
+      134 NEWTABLE                         R9 0 4
+      136 GETUPVAL                         R10 7
+      137 GETTABLEKS                       R10 R10 K38 ["createElement"]
+      139 GETUPVAL                         R11 9
+      140 GETTABLEKS                       R11 R11 K41 ["Provider"]
+      142 DUPTABLE                         R12 K44 [{["overlayStartsOpen"] = False}]
+      143 CALL                             R10 2 1
+      144 GETUPVAL                         R11 7
+      145 GETTABLEKS                       R11 R11 K38 ["createElement"]
+      147 GETUPVAL                         R12 10
+      148 GETTABLEKS                       R12 R12 K41 ["Provider"]
+      150 DUPTABLE                         R13 K46 [{"actionsComponent"}]
+      151 GETTABLEKS                       R15 R0 K47 ["Actions"]
+      153 JUMPIFNOT                        R15 ; [+7]
+      154 GETUPVAL                         R14 11
+      155 GETTABLEKS                       R16 R0 K47 ["Actions"]
+      157 NAMECALL                         R14 R14 K48 ["CreateStrict"]
+      159 CALL                             R14 2 1
+      160 JUMP                             ; [+4]
+      161 GETUPVAL                         R14 11
+      162 NAMECALL                         R14 R14 K49 ["CreateWeak"]
+      164 CALL                             R14 1 1
+      165 SETTABLEKS                       R14 R13 K45 ["actionsComponent"]
+      167 CALL                             R11 2 1
+      168 GETUPVAL                         R12 7
+      169 GETTABLEKS                       R12 R12 K38 ["createElement"]
+      171 GETUPVAL                         R13 12
+      172 GETTABLEKS                       R13 R13 K41 ["Provider"]
+      174 DUPTABLE                         R14 K51 [{"renderingModesBridge"}]
+      175 GETUPVAL                         R15 13
+      176 GETTABLEKS                       R15 R15 K7 ["new"]
+      178 CALL                             R15 0 1
+      179 SETTABLEKS                       R15 R14 K50 ["renderingModesBridge"]
+      181 CALL                             R12 2 1
+      182 GETUPVAL                         R13 7
+      183 GETTABLEKS                       R13 R13 K38 ["createElement"]
+      185 GETUPVAL                         R14 14
+      186 GETTABLEKS                       R14 R14 K41 ["Provider"]
+      188 DUPTABLE                         R15 K53 [{"collaboratorsService"}]
+      189 GETUPVAL                         R16 15
+      190 SETTABLEKS                       R16 R15 K52 ["collaboratorsService"]
+      192 CALL                             R13 2 -1
+      193 SETLIST                          R9 R10 -1 [1]
+      195 SETTABLEKS                       R9 R8 K39 ["providers"]
+      197 DUPTABLE                         R9 K54 [{"Component"}]
+      198 GETTABLEKS                       R10 R0 K0 ["Component"]
+      200 SETTABLEKS                       R10 R9 K0 ["Component"]
+      202 CALL                             R6 3 1
+      203 SETTABLEKS                       R6 R5 K36 ["ContextStack"]
+      205 CALL                             R3 2 1
+      206 DUPTABLE                         R4 K56 [{"container"}]
+      207 GETTABLEKS                       R5 R1 K10 ["_layerCollector"]
+      209 SETTABLEKS                       R5 R4 K55 ["container"]
+      211 CALL                             R2 2 0
+      212 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_layerCollector"]

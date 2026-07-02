@@ -9,17 +9,26 @@ PROTO_0:
        11 MOVE                             R3 R1
        12 CALL                             R2 1 0
        13 GETUPVAL                         R2 0
-       14 NEWTABLE                         R4 0 0
-       16 NAMECALL                         R2 R2 K4 ["setState"]
-       18 CALL                             R2 2 0
-       19 RETURN                           R0 0
+       14 DUPTABLE                         R4 K5 [{"isTextScraperRunning"}]
+       15 GETUPVAL                         R5 2
+       16 GETTABLEKS                       R5 R5 K6 ["IsTextScraperRunning"]
+       18 SETTABLEKS                       R5 R4 K4 ["isTextScraperRunning"]
+       20 NAMECALL                         R2 R2 K7 ["setState"]
+       22 CALL                             R2 2 0
+       23 RETURN                           R0 0
 
 PROTO_1:
-        0 NEWCLOSURE                       R1 P0
-        1 CAPTURE                          VAL R0
-        2 CAPTURE                          UPVAL U0
-        3 SETTABLEKS                       R1 R0 K0 ["toggleTextScraperEnabled"]
-        5 RETURN                           R0 0
+        0 DUPTABLE                         R1 K1 [{"isTextScraperRunning"}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K2 ["IsTextScraperRunning"]
+        4 SETTABLEKS                       R2 R1 K0 ["isTextScraperRunning"]
+        6 SETTABLEKS                       R1 R0 K3 ["state"]
+        8 NEWCLOSURE                       R1 P0
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U0
+       12 SETTABLEKS                       R1 R0 K4 ["toggleTextScraperEnabled"]
+       14 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -28,117 +37,105 @@ PROTO_2:
         6 GETTABLEKS                       R4 R1 K3 ["LayoutOrder"]
         8 GETTABLEKS                       R6 R1 K4 ["IsBusy"]
        10 NOT                              R5 R6
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R6 R6 K5 ["IsTextScraperRunning"]
-       14 JUMPIFNOT                        R6 ; [+5]
-       15 GETTABLEKS                       R7 R2 K6 ["TextCaptureButtonImage"]
-       17 GETTABLEKS                       R7 R7 K7 ["On"]
-       19 JUMPIF                           R7 ; [+4]
-       20 GETTABLEKS                       R7 R2 K6 ["TextCaptureButtonImage"]
-       22 GETTABLEKS                       R7 R7 K8 ["Off"]
-       24 DUPTABLE                         R8 K11 [{"Padding", "TextCapture"}]
-       25 GETUPVAL                         R9 1
-       26 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       28 LOADK                            R10 K13 ["UIPadding"]
-       29 DUPTABLE                         R11 K16 [{"PaddingTop", "PaddingLeft"}]
-       30 GETIMPORT                        R12 K19 [UDim.new]
-       32 LOADN                            R13 0
-       33 GETTABLEKS                       R14 R2 K14 ["PaddingTop"]
-       35 CALL                             R12 2 1
-       36 SETTABLEKS                       R12 R11 K14 ["PaddingTop"]
-       38 GETIMPORT                        R12 K19 [UDim.new]
-       40 LOADN                            R13 0
-       41 GETTABLEKS                       R14 R2 K20 ["LeftIndent"]
-       43 CALL                             R12 2 1
-       44 SETTABLEKS                       R12 R11 K15 ["PaddingLeft"]
-       46 CALL                             R9 2 1
-       47 SETTABLEKS                       R9 R8 K9 ["Padding"]
-       49 GETUPVAL                         R9 1
-       50 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       52 GETUPVAL                         R10 2
-       53 DUPTABLE                         R11 K29 [{"Active", "Enabled", "ButtonText", "ButtonImage", "LabelText", "LinkText", "LayoutOrder", "OnButtonClick", "Link"}]
-       54 SETTABLEKS                       R5 R11 K21 ["Active"]
-       56 SETTABLEKS                       R6 R11 K22 ["Enabled"]
-       58 LOADK                            R12 K30 [""]
-       59 SETTABLEKS                       R12 R11 K23 ["ButtonText"]
-       61 SETTABLEKS                       R7 R11 K24 ["ButtonImage"]
-       63 LOADK                            R14 K31 ["TextScraperSection"]
-       64 LOADK                            R15 K32 ["SectionDescription"]
-       65 NAMECALL                         R12 R3 K33 ["getText"]
-       67 CALL                             R12 3 1
-       68 SETTABLEKS                       R12 R11 K25 ["LabelText"]
-       70 LOADK                            R14 K31 ["TextScraperSection"]
-       71 LOADK                            R15 K34 ["LearnMore"]
-       72 NAMECALL                         R12 R3 K33 ["getText"]
-       74 CALL                             R12 3 1
-       75 SETTABLEKS                       R12 R11 K26 ["LinkText"]
-       77 LOADN                            R12 1
-       78 SETTABLEKS                       R12 R11 K3 ["LayoutOrder"]
-       80 GETTABLEKS                       R12 R0 K35 ["toggleTextScraperEnabled"]
-       82 SETTABLEKS                       R12 R11 K27 ["OnButtonClick"]
-       84 LOADK                            R12 K36 ["https://create.roblox.com/docs/production/localization/automatic-translations"]
-       85 SETTABLEKS                       R12 R11 K28 ["Link"]
-       87 CALL                             R9 2 1
-       88 SETTABLEKS                       R9 R8 K10 ["TextCapture"]
-       90 DUPTABLE                         R9 K39 [{"Padding", "SectionLabel", "Container"}]
-       91 GETUPVAL                         R10 1
-       92 GETTABLEKS                       R10 R10 K12 ["createElement"]
-       94 LOADK                            R11 K13 ["UIPadding"]
-       95 DUPTABLE                         R12 K40 [{"PaddingTop"}]
-       96 GETIMPORT                        R13 K19 [UDim.new]
-       98 LOADN                            R14 0
-       99 GETTABLEKS                       R16 R2 K14 ["PaddingTop"]
-      101 MULK                             R15 R16 K41 [2]
-      102 CALL                             R13 2 1
-      103 SETTABLEKS                       R13 R12 K14 ["PaddingTop"]
-      105 CALL                             R10 2 1
-      106 SETTABLEKS                       R10 R9 K9 ["Padding"]
-      108 GETUPVAL                         R10 1
-      109 GETTABLEKS                       R10 R10 K12 ["createElement"]
-      111 GETUPVAL                         R11 3
-      112 DUPTABLE                         R12 K45 [{"AutomaticSize", "LayoutOrder", "Text", "Style"}]
-      113 GETIMPORT                        R13 K48 [Enum.AutomaticSize.XY]
-      115 SETTABLEKS                       R13 R12 K42 ["AutomaticSize"]
-      117 LOADN                            R13 1
-      118 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      120 LOADK                            R15 K31 ["TextScraperSection"]
-      121 LOADK                            R16 K49 ["AutomaticTextCapture"]
-      122 NAMECALL                         R13 R3 K33 ["getText"]
-      124 CALL                             R13 3 1
-      125 SETTABLEKS                       R13 R12 K43 ["Text"]
-      127 LOADK                            R13 K50 ["Subtitle"]
-      128 SETTABLEKS                       R13 R12 K44 ["Style"]
-      130 CALL                             R10 2 1
-      131 SETTABLEKS                       R10 R9 K37 ["SectionLabel"]
-      133 GETUPVAL                         R10 1
-      134 GETTABLEKS                       R10 R10 K12 ["createElement"]
-      136 GETUPVAL                         R11 4
-      137 DUPTABLE                         R12 K53 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
-      138 GETIMPORT                        R13 K55 [Enum.AutomaticSize.Y]
-      140 SETTABLEKS                       R13 R12 K42 ["AutomaticSize"]
-      142 GETIMPORT                        R13 K57 [Enum.HorizontalAlignment.Left]
-      144 SETTABLEKS                       R13 R12 K51 ["HorizontalAlignment"]
-      146 GETIMPORT                        R13 K60 [Enum.FillDirection.Vertical]
-      148 SETTABLEKS                       R13 R12 K52 ["Layout"]
-      150 LOADN                            R13 2
-      151 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      153 MOVE                             R13 R8
-      154 CALL                             R10 3 1
-      155 SETTABLEKS                       R10 R9 K38 ["Container"]
-      157 GETUPVAL                         R10 1
-      158 GETTABLEKS                       R10 R10 K12 ["createElement"]
-      160 GETUPVAL                         R11 4
-      161 DUPTABLE                         R12 K53 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
-      162 GETIMPORT                        R13 K55 [Enum.AutomaticSize.Y]
-      164 SETTABLEKS                       R13 R12 K42 ["AutomaticSize"]
-      166 GETIMPORT                        R13 K57 [Enum.HorizontalAlignment.Left]
-      168 SETTABLEKS                       R13 R12 K51 ["HorizontalAlignment"]
-      170 GETIMPORT                        R13 K60 [Enum.FillDirection.Vertical]
-      172 SETTABLEKS                       R13 R12 K52 ["Layout"]
-      174 SETTABLEKS                       R4 R12 K3 ["LayoutOrder"]
-      176 MOVE                             R13 R9
-      177 CALL                             R10 3 -1
-      178 RETURN                           R10 -1
+       11 GETTABLEKS                       R6 R0 K5 ["state"]
+       13 GETTABLEKS                       R6 R6 K6 ["isTextScraperRunning"]
+       15 JUMPIFNOT                        R6 ; [+5]
+       16 GETTABLEKS                       R7 R2 K7 ["TextCaptureButtonImage"]
+       18 GETTABLEKS                       R7 R7 K8 ["On"]
+       20 JUMPIF                           R7 ; [+4]
+       21 GETTABLEKS                       R7 R2 K7 ["TextCaptureButtonImage"]
+       23 GETTABLEKS                       R7 R7 K9 ["Off"]
+       25 DUPTABLE                         R8 K12 [{"Padding", "TextCapture"}]
+       26 GETUPVAL                         R9 0
+       27 GETTABLEKS                       R9 R9 K13 ["createElement"]
+       29 LOADK                            R10 K14 ["UIPadding"]
+       30 DUPTABLE                         R11 K17 [{"PaddingTop", "PaddingLeft"}]
+       31 GETIMPORT                        R12 K20 [UDim.new]
+       33 LOADN                            R13 0
+       34 GETTABLEKS                       R14 R2 K15 ["PaddingTop"]
+       36 CALL                             R12 2 1
+       37 SETTABLEKS                       R12 R11 K15 ["PaddingTop"]
+       39 GETIMPORT                        R12 K20 [UDim.new]
+       41 LOADN                            R13 0
+       42 GETTABLEKS                       R14 R2 K21 ["LeftIndent"]
+       44 CALL                             R12 2 1
+       45 SETTABLEKS                       R12 R11 K16 ["PaddingLeft"]
+       47 CALL                             R9 2 1
+       48 SETTABLEKS                       R9 R8 K10 ["Padding"]
+       50 GETUPVAL                         R9 0
+       51 GETTABLEKS                       R9 R9 K13 ["createElement"]
+       53 GETUPVAL                         R10 1
+       54 DUPTABLE                         R11 K33 [{["Active"], ["Enabled"], ["ButtonText"] = "", ["ButtonImage"], ["LabelText"], ["LinkText"], ["LayoutOrder"] = 1, ["OnButtonClick"], ["Link"] = "https://create.roblox.com/docs/production/localization/automatic-translations"}]
+       55 SETTABLEKS                       R5 R11 K22 ["Active"]
+       57 SETTABLEKS                       R6 R11 K23 ["Enabled"]
+       59 SETTABLEKS                       R7 R11 K26 ["ButtonImage"]
+       61 LOADK                            R14 K34 ["TextScraperSection"]
+       62 LOADK                            R15 K35 ["SectionDescription"]
+       63 NAMECALL                         R12 R3 K36 ["getText"]
+       65 CALL                             R12 3 1
+       66 SETTABLEKS                       R12 R11 K27 ["LabelText"]
+       68 LOADK                            R14 K34 ["TextScraperSection"]
+       69 LOADK                            R15 K37 ["LearnMore"]
+       70 NAMECALL                         R12 R3 K36 ["getText"]
+       72 CALL                             R12 3 1
+       73 SETTABLEKS                       R12 R11 K28 ["LinkText"]
+       75 GETTABLEKS                       R12 R0 K38 ["toggleTextScraperEnabled"]
+       77 SETTABLEKS                       R12 R11 K30 ["OnButtonClick"]
+       79 CALL                             R9 2 1
+       80 SETTABLEKS                       R9 R8 K11 ["TextCapture"]
+       82 DUPTABLE                         R9 K41 [{"Padding", "SectionLabel", "Container"}]
+       83 GETUPVAL                         R10 0
+       84 GETTABLEKS                       R10 R10 K13 ["createElement"]
+       86 LOADK                            R11 K14 ["UIPadding"]
+       87 DUPTABLE                         R12 K42 [{"PaddingTop"}]
+       88 GETIMPORT                        R13 K20 [UDim.new]
+       90 LOADN                            R14 0
+       91 GETTABLEKS                       R16 R2 K15 ["PaddingTop"]
+       93 MULK                             R15 R16 K43 [2]
+       94 CALL                             R13 2 1
+       95 SETTABLEKS                       R13 R12 K15 ["PaddingTop"]
+       97 CALL                             R10 2 1
+       98 SETTABLEKS                       R10 R9 K10 ["Padding"]
+      100 GETUPVAL                         R10 0
+      101 GETTABLEKS                       R10 R10 K13 ["createElement"]
+      103 GETUPVAL                         R11 2
+      104 DUPTABLE                         R12 K48 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Text"], ["Style"] = "Subtitle"}]
+      105 GETIMPORT                        R13 K51 [Enum.AutomaticSize.XY]
+      107 SETTABLEKS                       R13 R12 K44 ["AutomaticSize"]
+      109 LOADK                            R15 K34 ["TextScraperSection"]
+      110 LOADK                            R16 K52 ["AutomaticTextCapture"]
+      111 NAMECALL                         R13 R3 K36 ["getText"]
+      113 CALL                             R13 3 1
+      114 SETTABLEKS                       R13 R12 K45 ["Text"]
+      116 CALL                             R10 2 1
+      117 SETTABLEKS                       R10 R9 K39 ["SectionLabel"]
+      119 GETUPVAL                         R10 0
+      120 GETTABLEKS                       R10 R10 K13 ["createElement"]
+      122 GETUPVAL                         R11 3
+      123 DUPTABLE                         R12 K55 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 2}]
+      124 GETIMPORT                        R13 K57 [Enum.AutomaticSize.Y]
+      126 SETTABLEKS                       R13 R12 K44 ["AutomaticSize"]
+      128 GETIMPORT                        R13 K59 [Enum.HorizontalAlignment.Left]
+      130 SETTABLEKS                       R13 R12 K53 ["HorizontalAlignment"]
+      132 GETIMPORT                        R13 K62 [Enum.FillDirection.Vertical]
+      134 SETTABLEKS                       R13 R12 K54 ["Layout"]
+      136 MOVE                             R13 R8
+      137 CALL                             R10 3 1
+      138 SETTABLEKS                       R10 R9 K40 ["Container"]
+      140 GETUPVAL                         R10 0
+      141 GETTABLEKS                       R10 R10 K13 ["createElement"]
+      143 GETUPVAL                         R11 3
+      144 DUPTABLE                         R12 K63 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder"}]
+      145 GETIMPORT                        R13 K57 [Enum.AutomaticSize.Y]
+      147 SETTABLEKS                       R13 R12 K44 ["AutomaticSize"]
+      149 GETIMPORT                        R13 K59 [Enum.HorizontalAlignment.Left]
+      151 SETTABLEKS                       R13 R12 K53 ["HorizontalAlignment"]
+      153 GETIMPORT                        R13 K62 [Enum.FillDirection.Vertical]
+      155 SETTABLEKS                       R13 R12 K54 ["Layout"]
+      157 SETTABLEKS                       R4 R12 K3 ["LayoutOrder"]
+      159 MOVE                             R13 R9
+      160 CALL                             R10 3 -1
+      161 RETURN                           R10 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"IsBusy"}]
@@ -194,10 +191,10 @@ MAIN:
        76 NAMECALL                         R13 R13 K26 ["extend"]
        78 CALL                             R13 2 1
        79 DUPCLOSURE                       R14 K27 [PROTO_1]
-       80 CAPTURE                          VAL R12
-       81 SETTABLEKS                       R14 R13 K28 ["init"]
-       83 DUPCLOSURE                       R14 K29 [PROTO_2]
-       84 CAPTURE                          VAL R0
+       80 CAPTURE                          VAL R0
+       81 CAPTURE                          VAL R12
+       82 SETTABLEKS                       R14 R13 K28 ["init"]
+       84 DUPCLOSURE                       R14 K29 [PROTO_2]
        85 CAPTURE                          VAL R2
        86 CAPTURE                          VAL R11
        87 CAPTURE                          VAL R9

@@ -228,12 +228,12 @@ PROTO_9:
       136 DUPTABLE                         R22 K35 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
       137 SETTABLEKS                       R1 R22 K31 ["Open"]
       139 GETIMPORT                        R23 K37 [Vector2.new]
-      141 LOADN                            R24 69
+      141 LOADN                            R24 325
       142 LOADN                            R25 250
       143 CALL                             R23 2 1
       144 SETTABLEKS                       R23 R22 K32 ["MaxSize"]
       146 GETIMPORT                        R23 K37 [Vector2.new]
-      148 LOADN                            R24 69
+      148 LOADN                            R24 325
       149 LOADN                            R25 250
       150 CALL                             R23 2 1
       151 SETTABLEKS                       R23 R22 K33 ["MinSize"]
@@ -254,7 +254,7 @@ PROTO_9:
       173 GETUPVAL                         R29 10
       174 DUPTABLE                         R30 K45 [{"Size", "Color", "OnColorChanged"}]
       175 GETIMPORT                        R31 K47 [UDim2.fromOffset]
-      177 LOADN                            R32 69
+      177 LOADN                            R32 325
       178 LOADN                            R33 225
       179 CALL                             R31 2 1
       180 SETTABLEKS                       R31 R30 K13 ["Size"]

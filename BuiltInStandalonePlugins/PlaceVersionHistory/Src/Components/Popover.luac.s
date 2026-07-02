@@ -93,54 +93,46 @@ PROTO_2:
        90 SETTABLEKS                       R9 R8 K13 ["Anchor"]
        92 GETTABLEKS                       R9 R0 K3 ["toggle"]
        94 GETTABLEKS                       R9 R9 K7 ["enabled"]
-       96 JUMPIFNOT                        R9 ; [+71]
+       96 JUMPIFNOT                        R9 ; [+59]
        97 GETUPVAL                         R9 0
        98 GETTABLEKS                       R9 R9 K8 ["createElement"]
       100 GETUPVAL                         R10 4
       101 GETTABLEKS                       R10 R10 K9 ["Popover"]
       103 GETTABLEKS                       R10 R10 K14 ["Content"]
-      105 DUPTABLE                         R11 K23 [{"onPressedOutside", "side", "align", "hasArrow"}]
+      105 DUPTABLE                         R11 K24 [{["onPressedOutside"], ["side"], ["align"], ["hasArrow"] = False}]
       106 GETTABLEKS                       R12 R0 K3 ["toggle"]
       108 GETTABLEKS                       R12 R12 K4 ["disable"]
       110 SETTABLEKS                       R12 R11 K19 ["onPressedOutside"]
-      112 DUPTABLE                         R12 K26 [{"position", "offset"}]
+      112 DUPTABLE                         R12 K28 [{["position"], ["offset"] = 5}]
       113 GETTABLEKS                       R13 R0 K20 ["side"]
-      115 SETTABLEKS                       R13 R12 K24 ["position"]
-      117 LOADN                            R13 5
-      118 SETTABLEKS                       R13 R12 K25 ["offset"]
-      120 SETTABLEKS                       R12 R11 K20 ["side"]
-      122 DUPTABLE                         R12 K26 [{"position", "offset"}]
-      123 GETTABLEKS                       R13 R0 K21 ["align"]
-      125 SETTABLEKS                       R13 R12 K24 ["position"]
-      127 LOADN                            R13 0
-      128 SETTABLEKS                       R13 R12 K25 ["offset"]
-      130 SETTABLEKS                       R12 R11 K21 ["align"]
-      132 LOADB                            R12 0
-      133 SETTABLEKS                       R12 R11 K22 ["hasArrow"]
-      135 DUPTABLE                         R12 K28 [{"View"}]
-      136 GETUPVAL                         R13 0
-      137 GETTABLEKS                       R13 R13 K8 ["createElement"]
-      139 GETUPVAL                         R14 4
-      140 GETTABLEKS                       R14 R14 K27 ["View"]
-      142 DUPTABLE                         R15 K32 [{"tag", "onStateChanged", "stateLayer"}]
-      143 LOADK                            R16 K33 ["size-0-0 auto-xy stroke-emphasis radius-medium"]
-      144 SETTABLEKS                       R16 R15 K29 ["tag"]
-      146 SETTABLEKS                       R4 R15 K30 ["onStateChanged"]
-      148 DUPTABLE                         R16 K35 [{"affordance"}]
-      149 GETUPVAL                         R17 4
-      150 GETTABLEKS                       R17 R17 K36 ["Enums"]
-      152 GETTABLEKS                       R17 R17 K37 ["StateLayerAffordance"]
-      154 GETTABLEKS                       R17 R17 K38 ["None"]
-      156 SETTABLEKS                       R17 R16 K34 ["affordance"]
-      158 SETTABLEKS                       R16 R15 K31 ["stateLayer"]
-      160 GETTABLEKS                       R16 R0 K18 ["children"]
-      162 GETTABLEKS                       R16 R16 K14 ["Content"]
-      164 CALL                             R13 3 1
-      165 SETTABLEKS                       R13 R12 K27 ["View"]
-      167 CALL                             R9 3 1
-      168 SETTABLEKS                       R9 R8 K14 ["Content"]
-      170 CALL                             R5 3 -1
-      171 RETURN                           R5 -1
+      115 SETTABLEKS                       R13 R12 K25 ["position"]
+      117 SETTABLEKS                       R12 R11 K20 ["side"]
+      119 DUPTABLE                         R12 K30 [{["position"], ["offset"] = 0}]
+      120 GETTABLEKS                       R13 R0 K21 ["align"]
+      122 SETTABLEKS                       R13 R12 K25 ["position"]
+      124 SETTABLEKS                       R12 R11 K21 ["align"]
+      126 DUPTABLE                         R12 K32 [{"View"}]
+      127 GETUPVAL                         R13 0
+      128 GETTABLEKS                       R13 R13 K8 ["createElement"]
+      130 GETUPVAL                         R14 4
+      131 GETTABLEKS                       R14 R14 K31 ["View"]
+      133 DUPTABLE                         R15 K37 [{["tag"] = "size-0-0 auto-xy stroke-emphasis radius-medium", ["onStateChanged"], ["stateLayer"]}]
+      134 SETTABLEKS                       R4 R15 K35 ["onStateChanged"]
+      136 DUPTABLE                         R16 K39 [{"affordance"}]
+      137 GETUPVAL                         R17 4
+      138 GETTABLEKS                       R17 R17 K40 ["Enums"]
+      140 GETTABLEKS                       R17 R17 K41 ["StateLayerAffordance"]
+      142 GETTABLEKS                       R17 R17 K42 ["None"]
+      144 SETTABLEKS                       R17 R16 K38 ["affordance"]
+      146 SETTABLEKS                       R16 R15 K36 ["stateLayer"]
+      148 GETTABLEKS                       R16 R0 K18 ["children"]
+      150 GETTABLEKS                       R16 R16 K14 ["Content"]
+      152 CALL                             R13 3 1
+      153 SETTABLEKS                       R13 R12 K31 ["View"]
+      155 CALL                             R9 3 1
+      156 SETTABLEKS                       R9 R8 K14 ["Content"]
+      158 CALL                             R5 3 -1
+      159 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

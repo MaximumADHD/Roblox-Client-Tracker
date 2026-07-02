@@ -335,17 +335,17 @@ PROTO_11:
         7 MOVE                             R5 R1
         8 GETIMPORT                        R4 K6 [math.abs]
        10 CALL                             R4 1 1
-       11 SUBRK                            R1 R3 K4 ["math"]
+       11 SUBRK                            R1 K3 [1] R4
        12 FASTCALL1                        MATH_ABS R2 ; [+3]
        13 MOVE                             R5 R2
        14 GETIMPORT                        R4 K6 [math.abs]
        16 CALL                             R4 1 1
-       17 SUBRK                            R2 R3 K4 ["math"]
+       17 SUBRK                            R2 K3 [1] R4
        18 FASTCALL1                        MATH_ABS R3 ; [+3]
        19 MOVE                             R5 R3
        20 GETIMPORT                        R4 K6 [math.abs]
        22 CALL                             R4 1 1
-       23 SUBRK                            R3 R3 K4 ["math"]
+       23 SUBRK                            R3 K3 [1] R4
        24 FASTCALL3                        VECTOR R1 R2 R3
        26 MOVE                             R5 R1
        27 MOVE                             R6 R2

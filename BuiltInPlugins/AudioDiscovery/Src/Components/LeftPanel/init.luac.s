@@ -125,36 +125,30 @@ PROTO_4:
        56 GETUPVAL                         R6 2
        57 GETTABLEKS                       R6 R6 K11 ["createElement"]
        59 GETUPVAL                         R7 3
-       60 DUPTABLE                         R8 K25 [{"Scroll", "UseScale", "ClampSize", "OnColumnSizesChange", "SortIndex", "SortOrder", "OnSortChange", "CellComponent", "Columns", "Rows", "SelectedRow", "OnSelectRow", "CellProps"}]
-       61 LOADB                            R9 1
-       62 SETTABLEKS                       R9 R8 K12 ["Scroll"]
-       64 LOADB                            R9 1
-       65 SETTABLEKS                       R9 R8 K13 ["UseScale"]
-       67 LOADB                            R9 1
-       68 SETTABLEKS                       R9 R8 K14 ["ClampSize"]
-       70 GETTABLEKS                       R9 R0 K26 ["onSizesChange"]
-       72 SETTABLEKS                       R9 R8 K15 ["OnColumnSizesChange"]
-       74 GETTABLEKS                       R9 R1 K16 ["SortIndex"]
-       76 SETTABLEKS                       R9 R8 K16 ["SortIndex"]
-       78 GETTABLEKS                       R9 R1 K17 ["SortOrder"]
-       80 SETTABLEKS                       R9 R8 K17 ["SortOrder"]
-       82 GETTABLEKS                       R9 R1 K27 ["Sort"]
-       84 SETTABLEKS                       R9 R8 K18 ["OnSortChange"]
-       86 GETUPVAL                         R9 4
-       87 SETTABLEKS                       R9 R8 K19 ["CellComponent"]
-       89 SETTABLEKS                       R5 R8 K20 ["Columns"]
-       91 GETTABLEKS                       R9 R1 K21 ["Rows"]
-       93 SETTABLEKS                       R9 R8 K21 ["Rows"]
-       95 GETTABLEKS                       R9 R1 K22 ["SelectedRow"]
-       97 SETTABLEKS                       R9 R8 K22 ["SelectedRow"]
-       99 GETTABLEKS                       R9 R0 K28 ["onSelectRow"]
-      101 SETTABLEKS                       R9 R8 K23 ["OnSelectRow"]
-      103 DUPTABLE                         R9 K30 [{"Locations"}]
-      104 GETTABLEKS                       R10 R1 K29 ["Locations"]
-      106 SETTABLEKS                       R10 R9 K29 ["Locations"]
-      108 SETTABLEKS                       R9 R8 K24 ["CellProps"]
-      110 CALL                             R6 2 -1
-      111 RETURN                           R6 -1
+       60 DUPTABLE                         R8 K26 [{["Scroll"] = True, ["UseScale"] = True, ["ClampSize"] = True, ["OnColumnSizesChange"], ["SortIndex"], ["SortOrder"], ["OnSortChange"], ["CellComponent"], ["Columns"], ["Rows"], ["SelectedRow"], ["OnSelectRow"], ["CellProps"]}]
+       61 GETTABLEKS                       R9 R0 K27 ["onSizesChange"]
+       63 SETTABLEKS                       R9 R8 K16 ["OnColumnSizesChange"]
+       65 GETTABLEKS                       R9 R1 K17 ["SortIndex"]
+       67 SETTABLEKS                       R9 R8 K17 ["SortIndex"]
+       69 GETTABLEKS                       R9 R1 K18 ["SortOrder"]
+       71 SETTABLEKS                       R9 R8 K18 ["SortOrder"]
+       73 GETTABLEKS                       R9 R1 K28 ["Sort"]
+       75 SETTABLEKS                       R9 R8 K19 ["OnSortChange"]
+       77 GETUPVAL                         R9 4
+       78 SETTABLEKS                       R9 R8 K20 ["CellComponent"]
+       80 SETTABLEKS                       R5 R8 K21 ["Columns"]
+       82 GETTABLEKS                       R9 R1 K22 ["Rows"]
+       84 SETTABLEKS                       R9 R8 K22 ["Rows"]
+       86 GETTABLEKS                       R9 R1 K23 ["SelectedRow"]
+       88 SETTABLEKS                       R9 R8 K23 ["SelectedRow"]
+       90 GETTABLEKS                       R9 R0 K29 ["onSelectRow"]
+       92 SETTABLEKS                       R9 R8 K24 ["OnSelectRow"]
+       94 DUPTABLE                         R9 K31 [{"Locations"}]
+       95 GETTABLEKS                       R10 R1 K30 ["Locations"]
+       97 SETTABLEKS                       R10 R9 K30 ["Locations"]
+       99 SETTABLEKS                       R9 R8 K25 ["CellProps"]
+      101 CALL                             R6 2 -1
+      102 RETURN                           R6 -1
 
 PROTO_5:
         0 DUPTABLE                         R2 K5 [{"Locations", "Rows", "SelectedRow", "SortIndex", "SortOrder"}]

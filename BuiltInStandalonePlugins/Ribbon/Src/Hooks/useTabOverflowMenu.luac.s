@@ -9,7 +9,7 @@ PROTO_0:
        11 LOADNIL                          R5
        12 FORGPREP                         R3
        13 GETTABLEKS                       R8 R7 K2 ["Visible"]
-       15 JUMPIFNOT                        R8 ; [+34]
+       15 JUMPIFNOT                        R8 ; [+31]
        16 GETUPVAL                         R8 1
        17 GETTABLEKS                       R9 R7 K3 ["Identifier"]
        19 CALL                             R8 1 1
@@ -22,54 +22,44 @@ PROTO_0:
        30 SETTABLE                         R9 R1 R8
        31 MOVE                             R10 R0
        32 GETIMPORT                        R11 K6 [table.freeze]
-       34 DUPTABLE                         R12 K12 [{"Type", "Id", "Text"}]
-       35 LOADK                            R13 K13 ["Option"]
-       36 SETTABLEKS                       R13 R12 K9 ["Type"]
-       38 SETTABLEKS                       R8 R12 K10 ["Id"]
-       40 GETUPVAL                         R14 2
-       41 GETTABLE                         R13 R14 R8
-       42 SETTABLEKS                       R13 R12 K11 ["Text"]
-       44 CALL                             R11 1 -1
-       45 FASTCALL                         TABLE_INSERT ; [+2]
-       46 GETIMPORT                        R9 K15 [table.insert]
-       48 CALL                             R9 -1 0
-       49 ADDK                             R2 R2 K16 [1]
-       50 FORGLOOP                         R3 2 ; [-38]
-       52 MOVE                             R4 R0
-       53 GETIMPORT                        R5 K6 [table.freeze]
-       55 DUPTABLE                         R6 K17 [{"Type", "Id"}]
-       56 LOADK                            R7 K18 ["Separator"]
-       57 SETTABLEKS                       R7 R6 K9 ["Type"]
-       59 LOADK                            R7 K18 ["Separator"]
-       60 SETTABLEKS                       R7 R6 K10 ["Id"]
-       62 CALL                             R5 1 -1
-       63 FASTCALL                         TABLE_INSERT ; [+2]
-       64 GETIMPORT                        R3 K15 [table.insert]
-       66 CALL                             R3 -1 0
-       67 MOVE                             R4 R0
-       68 GETIMPORT                        R5 K6 [table.freeze]
-       70 DUPTABLE                         R6 K12 [{"Type", "Id", "Text"}]
-       71 LOADK                            R7 K13 ["Option"]
-       72 SETTABLEKS                       R7 R6 K9 ["Type"]
-       74 LOADK                            R7 K19 ["Reserved_Custom"]
-       75 SETTABLEKS                       R7 R6 K10 ["Id"]
-       77 GETUPVAL                         R7 3
-       78 LOADK                            R9 K20 ["Action"]
-       79 LOADK                            R10 K21 ["AddTab"]
-       80 NAMECALL                         R7 R7 K22 ["getText"]
-       82 CALL                             R7 3 1
-       83 SETTABLEKS                       R7 R6 K11 ["Text"]
-       85 CALL                             R5 1 -1
-       86 FASTCALL                         TABLE_INSERT ; [+2]
-       87 GETIMPORT                        R3 K15 [table.insert]
-       89 CALL                             R3 -1 0
-       90 GETIMPORT                        R3 K6 [table.freeze]
-       92 MOVE                             R4 R0
-       93 CALL                             R3 1 1
-       94 GETIMPORT                        R4 K6 [table.freeze]
-       96 MOVE                             R5 R1
-       97 CALL                             R4 1 -1
-       98 RETURN                           R3 -1
+       34 DUPTABLE                         R12 K13 [{["Type"] = "Option", ["Id"], ["Text"]}]
+       35 SETTABLEKS                       R8 R12 K11 ["Id"]
+       37 GETUPVAL                         R14 2
+       38 GETTABLE                         R13 R14 R8
+       39 SETTABLEKS                       R13 R12 K12 ["Text"]
+       41 CALL                             R11 1 -1
+       42 FASTCALL                         TABLE_INSERT ; [+2]
+       43 GETIMPORT                        R9 K15 [table.insert]
+       45 CALL                             R9 -1 0
+       46 ADDK                             R2 R2 K16 [1]
+       47 FORGLOOP                         R3 2 ; [-35]
+       49 MOVE                             R4 R0
+       50 GETIMPORT                        R5 K6 [table.freeze]
+       52 DUPTABLE                         R6 K18 [{["Type"] = "Separator", ["Id"] = "Separator"}]
+       53 CALL                             R5 1 -1
+       54 FASTCALL                         TABLE_INSERT ; [+2]
+       55 GETIMPORT                        R3 K15 [table.insert]
+       57 CALL                             R3 -1 0
+       58 MOVE                             R4 R0
+       59 GETIMPORT                        R5 K6 [table.freeze]
+       61 DUPTABLE                         R6 K20 [{["Type"] = "Option", ["Id"] = "Reserved_Custom", ["Text"]}]
+       62 GETUPVAL                         R7 3
+       63 LOADK                            R9 K21 ["Action"]
+       64 LOADK                            R10 K22 ["AddTab"]
+       65 NAMECALL                         R7 R7 K23 ["getText"]
+       67 CALL                             R7 3 1
+       68 SETTABLEKS                       R7 R6 K12 ["Text"]
+       70 CALL                             R5 1 -1
+       71 FASTCALL                         TABLE_INSERT ; [+2]
+       72 GETIMPORT                        R3 K15 [table.insert]
+       74 CALL                             R3 -1 0
+       75 GETIMPORT                        R3 K6 [table.freeze]
+       77 MOVE                             R4 R0
+       78 CALL                             R3 1 1
+       79 GETIMPORT                        R4 K6 [table.freeze]
+       81 MOVE                             R5 R1
+       82 CALL                             R4 1 -1
+       83 RETURN                           R3 -1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["Id"]

@@ -11,48 +11,44 @@ PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 DUPTABLE                         R2 K7 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "noToolbar"}]
+        5 DUPTABLE                         R2 K9 [{["plugin"], ["pluginName"] = "AttenuationCurveEditor", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["noToolbar"] = True}]
         6 SETTABLEKS                       R0 R2 K1 ["plugin"]
-        8 LOADK                            R3 K8 ["AttenuationCurveEditor"]
-        9 SETTABLEKS                       R3 R2 K2 ["pluginName"]
-       11 GETUPVAL                         R3 1
-       12 SETTABLEKS                       R3 R2 K3 ["translationResourceTable"]
-       14 GETUPVAL                         R3 2
-       15 SETTABLEKS                       R3 R2 K4 ["fallbackResourceTable"]
-       17 DUPCLOSURE                       R3 K9 [PROTO_0]
-       18 SETTABLEKS                       R3 R2 K5 ["getToolbarName"]
-       20 LOADB                            R3 1
-       21 SETTABLEKS                       R3 R2 K6 ["noToolbar"]
-       23 GETIMPORT                        R3 K11 [game]
-       25 LOADK                            R5 K12 ["RunService"]
-       26 NAMECALL                         R3 R3 K13 ["GetService"]
-       28 CALL                             R3 2 1
-       29 GETUPVAL                         R5 3
-       30 GETTABLEKS                       R5 R5 K14 ["get"]
-       32 CALL                             R5 0 1
-       33 GETUPVAL                         R6 3
-       34 GETTABLEKS                       R6 R6 K15 ["standalone"]
-       36 JUMPIFEQ                         R5 R6 ; [+2]
-       38 LOADB                            R4 0 +1
-       39 LOADB                            R4 1
-       40 NAMECALL                         R5 R3 K16 ["IsEdit"]
-       42 CALL                             R5 1 1
-       43 JUMPIF                           R4 ; [+1]
-       44 JUMPIFNOT                        R5 ; [+10]
-       45 GETUPVAL                         R6 4
-       46 GETTABLEKS                       R6 R6 K17 ["build"]
-       48 MOVE                             R7 R2
-       49 CALL                             R6 1 1
-       50 MOVE                             R7 R1
-       51 MOVE                             R8 R0
-       52 MOVE                             R9 R6
-       53 CALL                             R7 2 0
+        8 GETUPVAL                         R3 1
+        9 SETTABLEKS                       R3 R2 K4 ["translationResourceTable"]
+       11 GETUPVAL                         R3 2
+       12 SETTABLEKS                       R3 R2 K5 ["fallbackResourceTable"]
+       14 DUPCLOSURE                       R3 K10 [PROTO_0]
+       15 SETTABLEKS                       R3 R2 K6 ["getToolbarName"]
+       17 GETIMPORT                        R3 K12 [game]
+       19 LOADK                            R5 K13 ["RunService"]
+       20 NAMECALL                         R3 R3 K14 ["GetService"]
+       22 CALL                             R3 2 1
+       23 GETUPVAL                         R5 3
+       24 GETTABLEKS                       R5 R5 K15 ["get"]
+       26 CALL                             R5 0 1
+       27 GETUPVAL                         R6 3
+       28 GETTABLEKS                       R6 R6 K16 ["standalone"]
+       30 JUMPIFEQ                         R5 R6 ; [+2]
+       32 LOADB                            R4 0 +1
+       33 LOADB                            R4 1
+       34 NAMECALL                         R5 R3 K17 ["IsEdit"]
+       36 CALL                             R5 1 1
+       37 JUMPIF                           R4 ; [+1]
+       38 JUMPIFNOT                        R5 ; [+10]
+       39 GETUPVAL                         R6 4
+       40 GETTABLEKS                       R6 R6 K18 ["build"]
+       42 MOVE                             R7 R2
+       43 CALL                             R6 1 1
+       44 MOVE                             R7 R1
+       45 MOVE                             R8 R0
+       46 MOVE                             R9 R6
+       47 CALL                             R7 2 0
+       48 RETURN                           R0 0
+       49 GETUPVAL                         R6 4
+       50 GETTABLEKS                       R6 R6 K18 ["build"]
+       52 MOVE                             R7 R2
+       53 CALL                             R6 1 0
        54 RETURN                           R0 0
-       55 GETUPVAL                         R6 4
-       56 GETTABLEKS                       R6 R6 K17 ["build"]
-       58 MOVE                             R7 R2
-       59 CALL                             R6 1 0
-       60 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

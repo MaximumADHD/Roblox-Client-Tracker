@@ -93,7 +93,7 @@ PROTO_3:
        34 GETIMPORT                        R8 K10 [UDim2.new]
        36 LOADN                            R9 1
        37 JUMPIFNOT                        R7 ; [+2]
-       38 LOADN                            R10 248
+       38 LOADN                            R10 -8
        39 JUMP                             ; [+1]
        40 LOADN                            R10 0
        41 LOADN                            R11 0

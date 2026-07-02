@@ -48,7 +48,7 @@ PROTO_1:
        23 SETLIST                          R4 R5 1 [1]
        25 SUBK                             R7 R3 K3 [1]
        26 LOADN                            R5 1
-       27 LOADN                            R6 255
+       27 LOADN                            R6 -1
        28 FORNPREP                         R5
        29 MOVE                             R8 R1
        30 MOVE                             R9 R2

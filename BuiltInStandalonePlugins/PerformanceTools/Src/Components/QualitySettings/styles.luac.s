@@ -16,34 +16,24 @@ MAIN:
        22 NEWTABLE                         R6 0 5
        24 MOVE                             R7 R2
        25 LOADK                            R8 K11 [">> .LeftArrow"]
-       26 DUPTABLE                         R9 K13 [{"Image"}]
-       27 LOADK                            R10 K14 ["$LeftArrow"]
-       28 SETTABLEKS                       R10 R9 K12 ["Image"]
-       30 CALL                             R7 2 1
-       31 MOVE                             R8 R2
-       32 LOADK                            R9 K15 [">> .RightArrow"]
-       33 DUPTABLE                         R10 K13 [{"Image"}]
-       34 LOADK                            R11 K16 ["$RightArrow"]
-       35 SETTABLEKS                       R11 R10 K12 ["Image"]
-       37 CALL                             R8 2 1
-       38 MOVE                             R9 R2
-       39 LOADK                            R10 K17 [">> .QualityBarFullSquare"]
-       40 DUPTABLE                         R11 K19 [{"BackgroundColor3"}]
-       41 LOADK                            R12 K20 ["$QualityBarFullSquare"]
-       42 SETTABLEKS                       R12 R11 K18 ["BackgroundColor3"]
-       44 CALL                             R9 2 1
-       45 MOVE                             R10 R2
-       46 LOADK                            R11 K21 [">> .QualityBarEmptySquare"]
-       47 DUPTABLE                         R12 K19 [{"BackgroundColor3"}]
-       48 LOADK                            R13 K22 ["$QualityBarEmptySquare"]
-       49 SETTABLEKS                       R13 R12 K18 ["BackgroundColor3"]
-       51 CALL                             R10 2 1
-       52 MOVE                             R11 R2
-       53 LOADK                            R12 K23 [">> .QualityBarDisabledSquare"]
-       54 DUPTABLE                         R13 K19 [{"BackgroundColor3"}]
-       55 LOADK                            R14 K24 ["$QualityBarDisabledSquare"]
-       56 SETTABLEKS                       R14 R13 K18 ["BackgroundColor3"]
-       58 CALL                             R11 2 -1
-       59 SETLIST                          R6 R7 -1 [1]
-       61 CALL                             R3 3 -1
-       62 RETURN                           R3 -1
+       26 DUPTABLE                         R9 K14 [{["Image"] = "$LeftArrow"}]
+       27 CALL                             R7 2 1
+       28 MOVE                             R8 R2
+       29 LOADK                            R9 K15 [">> .RightArrow"]
+       30 DUPTABLE                         R10 K17 [{["Image"] = "$RightArrow"}]
+       31 CALL                             R8 2 1
+       32 MOVE                             R9 R2
+       33 LOADK                            R10 K18 [">> .QualityBarFullSquare"]
+       34 DUPTABLE                         R11 K21 [{["BackgroundColor3"] = "$QualityBarFullSquare"}]
+       35 CALL                             R9 2 1
+       36 MOVE                             R10 R2
+       37 LOADK                            R11 K22 [">> .QualityBarEmptySquare"]
+       38 DUPTABLE                         R12 K24 [{["BackgroundColor3"] = "$QualityBarEmptySquare"}]
+       39 CALL                             R10 2 1
+       40 MOVE                             R11 R2
+       41 LOADK                            R12 K25 [">> .QualityBarDisabledSquare"]
+       42 DUPTABLE                         R13 K27 [{["BackgroundColor3"] = "$QualityBarDisabledSquare"}]
+       43 CALL                             R11 2 -1
+       44 SETLIST                          R6 R7 -1 [1]
+       46 CALL                             R3 3 -1
+       47 RETURN                           R3 -1

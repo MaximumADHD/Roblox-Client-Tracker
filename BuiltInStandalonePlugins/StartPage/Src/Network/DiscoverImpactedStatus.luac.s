@@ -199,28 +199,26 @@ MAIN:
       109 NAMECALL                         R14 R14 K30 ["GetService"]
       111 CALL                             R14 2 1
       112 GETTABLEKS                       R15 R9 K31 ["new"]
-      114 DUPTABLE                         R16 K34 [{"isInternal", "loggingLevel"}]
-      115 LOADB                            R17 1
-      116 SETTABLEKS                       R17 R16 K32 ["isInternal"]
-      118 SETTABLEKS                       R1 R16 K33 ["loggingLevel"]
-      120 CALL                             R15 1 1
-      121 MOVE                             R16 R10
-      122 GETTABLEKS                       R17 R7 K35 ["validate"]
-      124 CALL                             R16 1 1
-      125 NEWTABLE                         R17 1 0
-      127 LOADK                            R18 K36 ["application/json"]
-      128 SETTABLEKS                       R18 R17 K37 ["Content-Type"]
-      130 DUPCLOSURE                       R18 K38 [PROTO_3]
-      131 CAPTURE                          VAL R15
-      132 CAPTURE                          VAL R14
-      133 CAPTURE                          VAL R17
-      134 CAPTURE                          VAL R16
-      135 CAPTURE                          VAL R5
-      136 DUPCLOSURE                       R19 K39 [PROTO_5]
-      137 CAPTURE                          VAL R11
-      138 CAPTURE                          VAL R12
-      139 CAPTURE                          VAL R8
-      140 CAPTURE                          VAL R2
-      141 CAPTURE                          VAL R18
-      142 CAPTURE                          VAL R13
-      143 RETURN                           R19 1
+      114 DUPTABLE                         R16 K35 [{["isInternal"] = True, ["loggingLevel"]}]
+      115 SETTABLEKS                       R1 R16 K34 ["loggingLevel"]
+      117 CALL                             R15 1 1
+      118 MOVE                             R16 R10
+      119 GETTABLEKS                       R17 R7 K36 ["validate"]
+      121 CALL                             R16 1 1
+      122 NEWTABLE                         R17 1 0
+      124 LOADK                            R18 K37 ["application/json"]
+      125 SETTABLEKS                       R18 R17 K38 ["Content-Type"]
+      127 DUPCLOSURE                       R18 K39 [PROTO_3]
+      128 CAPTURE                          VAL R15
+      129 CAPTURE                          VAL R14
+      130 CAPTURE                          VAL R17
+      131 CAPTURE                          VAL R16
+      132 CAPTURE                          VAL R5
+      133 DUPCLOSURE                       R19 K40 [PROTO_5]
+      134 CAPTURE                          VAL R11
+      135 CAPTURE                          VAL R12
+      136 CAPTURE                          VAL R8
+      137 CAPTURE                          VAL R2
+      138 CAPTURE                          VAL R18
+      139 CAPTURE                          VAL R13
+      140 RETURN                           R19 1

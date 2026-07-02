@@ -23,14 +23,12 @@ PROTO_1:
         1 DUPTABLE                         R3 K2 [{"plugin", "dialogConfig"}]
         2 GETUPVAL                         R4 1
         3 SETTABLEKS                       R4 R3 K0 ["plugin"]
-        5 DUPTABLE                         R4 K6 [{"kind", "class", "props"}]
-        6 LOADK                            R5 K7 ["config"]
-        7 SETTABLEKS                       R5 R4 K3 ["kind"]
-        9 SETTABLEKS                       R0 R4 K4 ["class"]
-       11 SETTABLEKS                       R1 R4 K5 ["props"]
-       13 SETTABLEKS                       R4 R3 K1 ["dialogConfig"]
-       15 CALL                             R2 1 0
-       16 RETURN                           R0 0
+        5 DUPTABLE                         R4 K7 [{["kind"] = "config", ["class"], ["props"]}]
+        6 SETTABLEKS                       R0 R4 K5 ["class"]
+        8 SETTABLEKS                       R1 R4 K6 ["props"]
+       10 SETTABLEKS                       R4 R3 K1 ["dialogConfig"]
+       12 CALL                             R2 1 0
+       13 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

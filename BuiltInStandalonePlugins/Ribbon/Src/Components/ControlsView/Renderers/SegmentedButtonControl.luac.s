@@ -97,7 +97,7 @@ PROTO_3:
        80 RETURN                           R4 1
        81 GETUPVAL                         R4 1
        82 CALL                             R4 0 1
-       83 JUMPIFNOT                        R4 ; [+76]
+       83 JUMPIFNOT                        R4 ; [+73]
        84 NEWTABLE                         R4 0 0
        86 GETTABLEKS                       R5 R3 K10 ["Values"]
        88 LOADNIL                          R6
@@ -137,41 +137,39 @@ PROTO_3:
       136 CALL                             R6 2 1
       137 GETUPVAL                         R7 4
       138 GETUPVAL                         R8 5
-      139 DUPTABLE                         R9 K33 [{"size", "value", "LayoutOrder", "segments", "onActivated", "testId"}]
+      139 DUPTABLE                         R9 K34 [{["size"], ["value"], ["LayoutOrder"], ["segments"], ["onActivated"], ["testId"] = "--segmented-control"}]
       140 GETUPVAL                         R10 6
-      141 GETTABLEKS                       R10 R10 K34 ["XSmall"]
+      141 GETTABLEKS                       R10 R10 K35 ["XSmall"]
       143 SETTABLEKS                       R10 R9 K27 ["size"]
       145 SETTABLEKS                       R5 R9 K28 ["value"]
       147 GETTABLEKS                       R10 R0 K29 ["LayoutOrder"]
       149 SETTABLEKS                       R10 R9 K29 ["LayoutOrder"]
       151 SETTABLEKS                       R4 R9 K30 ["segments"]
       153 SETTABLEKS                       R6 R9 K31 ["onActivated"]
-      155 LOADK                            R10 K35 ["--segmented-control"]
-      156 SETTABLEKS                       R10 R9 K32 ["testId"]
-      158 CALL                             R7 2 -1
-      159 RETURN                           R7 -1
-      160 GETUPVAL                         R4 4
-      161 GETUPVAL                         R5 7
-      162 DUPTABLE                         R6 K39 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
-      163 GETUPVAL                         R7 0
-      164 GETTABLEKS                       R7 R7 K40 ["child"]
-      166 GETTABLEKS                       R8 R0 K41 ["WidgetUri"]
-      168 GETTABLEKS                       R9 R1 K4 ["Id"]
-      170 CALL                             R7 2 1
-      171 SETTABLEKS                       R7 R6 K36 ["Uri"]
-      173 GETTABLEKS                       R7 R0 K29 ["LayoutOrder"]
-      175 SETTABLEKS                       R7 R6 K29 ["LayoutOrder"]
-      177 GETTABLEKS                       R8 R3 K12 ["Value"]
-      179 ADDK                             R7 R8 K25 [1]
-      180 SETTABLEKS                       R7 R6 K37 ["SelectedIndex"]
-      182 GETTABLEKS                       R7 R3 K10 ["Values"]
-      184 SETTABLEKS                       R7 R6 K7 ["Items"]
-      186 NEWCLOSURE                       R7 P1
-      187 CAPTURE                          VAL R0
-      188 CAPTURE                          VAL R3
-      189 SETTABLEKS                       R7 R6 K38 ["OnItemActivated"]
-      191 CALL                             R4 2 -1
-      192 RETURN                           R4 -1
+      155 CALL                             R7 2 -1
+      156 RETURN                           R7 -1
+      157 GETUPVAL                         R4 4
+      158 GETUPVAL                         R5 7
+      159 DUPTABLE                         R6 K39 [{"Uri", "LayoutOrder", "SelectedIndex", "Items", "OnItemActivated"}]
+      160 GETUPVAL                         R7 0
+      161 GETTABLEKS                       R7 R7 K40 ["child"]
+      163 GETTABLEKS                       R8 R0 K41 ["WidgetUri"]
+      165 GETTABLEKS                       R9 R1 K4 ["Id"]
+      167 CALL                             R7 2 1
+      168 SETTABLEKS                       R7 R6 K36 ["Uri"]
+      170 GETTABLEKS                       R7 R0 K29 ["LayoutOrder"]
+      172 SETTABLEKS                       R7 R6 K29 ["LayoutOrder"]
+      174 GETTABLEKS                       R8 R3 K12 ["Value"]
+      176 ADDK                             R7 R8 K25 [1]
+      177 SETTABLEKS                       R7 R6 K37 ["SelectedIndex"]
+      179 GETTABLEKS                       R7 R3 K10 ["Values"]
+      181 SETTABLEKS                       R7 R6 K7 ["Items"]
+      183 NEWCLOSURE                       R7 P1
+      184 CAPTURE                          VAL R0
+      185 CAPTURE                          VAL R3
+      186 SETTABLEKS                       R7 R6 K38 ["OnItemActivated"]
+      188 CALL                             R4 2 -1
+      189 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -126,31 +126,29 @@ MAIN:
        55 GETTABLEKS                       R8 R8 K22 ["registerPluginStyles"]
        57 GETTABLEKS                       R9 R2 K23 ["UI"]
        59 GETTABLEKS                       R10 R9 K24 ["Pane"]
-       61 DUPTABLE                         R11 K31 [{"name", "exclude", "storyRoots", "roact", "mapStory", "mapDefinition"}]
-       62 LOADK                            R12 K32 ["Visualization Modes"]
-       63 SETTABLEKS                       R12 R11 K25 ["name"]
-       65 NEWTABLE                         R12 0 1
-       67 LOADK                            R13 K33 ["_Index"]
-       68 SETLIST                          R12 R13 1 [1]
-       70 SETTABLEKS                       R12 R11 K26 ["exclude"]
-       72 NEWTABLE                         R12 0 2
-       74 GETTABLEKS                       R13 R0 K10 ["Src"]
-       76 GETTABLEKS                       R13 R13 K34 ["Stories"]
-       78 GETTABLEKS                       R14 R0 K10 ["Src"]
-       80 GETTABLEKS                       R14 R14 K35 ["Components"]
-       82 SETLIST                          R12 R13 2 [1]
-       84 SETTABLEKS                       R12 R11 K27 ["storyRoots"]
-       86 SETTABLEKS                       R3 R11 K28 ["roact"]
-       88 DUPCLOSURE                       R12 K36 [PROTO_1]
-       89 CAPTURE                          VAL R4
-       90 CAPTURE                          VAL R6
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R8
-       93 CAPTURE                          VAL R0
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R10
-       96 SETTABLEKS                       R12 R11 K29 ["mapStory"]
-       98 DUPCLOSURE                       R12 K37 [PROTO_3]
-       99 CAPTURE                          VAL R5
-      100 SETTABLEKS                       R12 R11 K30 ["mapDefinition"]
-      102 RETURN                           R11 1
+       61 DUPTABLE                         R11 K32 [{["name"] = "Visualization Modes", ["exclude"], ["storyRoots"], ["roact"], ["mapStory"], ["mapDefinition"]}]
+       62 NEWTABLE                         R12 0 1
+       64 LOADK                            R13 K33 ["_Index"]
+       65 SETLIST                          R12 R13 1 [1]
+       67 SETTABLEKS                       R12 R11 K27 ["exclude"]
+       69 NEWTABLE                         R12 0 2
+       71 GETTABLEKS                       R13 R0 K10 ["Src"]
+       73 GETTABLEKS                       R13 R13 K34 ["Stories"]
+       75 GETTABLEKS                       R14 R0 K10 ["Src"]
+       77 GETTABLEKS                       R14 R14 K35 ["Components"]
+       79 SETLIST                          R12 R13 2 [1]
+       81 SETTABLEKS                       R12 R11 K28 ["storyRoots"]
+       83 SETTABLEKS                       R3 R11 K29 ["roact"]
+       85 DUPCLOSURE                       R12 K36 [PROTO_1]
+       86 CAPTURE                          VAL R4
+       87 CAPTURE                          VAL R6
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R0
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R10
+       93 SETTABLEKS                       R12 R11 K30 ["mapStory"]
+       95 DUPCLOSURE                       R12 K37 [PROTO_3]
+       96 CAPTURE                          VAL R5
+       97 SETTABLEKS                       R12 R11 K31 ["mapDefinition"]
+       99 RETURN                           R11 1

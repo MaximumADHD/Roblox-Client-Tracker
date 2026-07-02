@@ -5,45 +5,43 @@ PROTO_0:
         4 RETURN                           R1 -1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K4 [{"Method", "Url", "Body", "Headers"}]
-        1 LOADK                            R2 K5 ["POST"]
-        2 SETTABLEKS                       R2 R1 K0 ["Method"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K6 ["composeUrl"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K7 ["APIS_URL"]
-       10 LOADK                            R5 K8 ["place-version-history-api/v1/%*/version/%*/notes"]
-       11 GETTABLEKS                       R7 R0 K9 ["placeId"]
-       13 GETTABLEKS                       R8 R0 K10 ["version"]
-       15 NAMECALL                         R5 R5 K11 ["format"]
-       17 CALL                             R5 3 1
-       18 MOVE                             R4 R5
-       19 CALL                             R2 2 1
-       20 SETTABLEKS                       R2 R1 K1 ["Url"]
-       22 GETUPVAL                         R2 1
-       23 DUPTABLE                         R4 K14 [{"title", "description"}]
-       24 GETTABLEKS                       R5 R0 K15 ["notes"]
-       26 GETTABLEKS                       R5 R5 K12 ["title"]
-       28 SETTABLEKS                       R5 R4 K12 ["title"]
-       30 GETTABLEKS                       R5 R0 K15 ["notes"]
-       32 GETTABLEKS                       R5 R5 K13 ["description"]
-       34 SETTABLEKS                       R5 R4 K13 ["description"]
-       36 NAMECALL                         R2 R2 K16 ["JSONEncode"]
-       38 CALL                             R2 2 1
-       39 SETTABLEKS                       R2 R1 K2 ["Body"]
-       41 NEWTABLE                         R2 1 0
-       43 LOADK                            R3 K17 ["application/json"]
-       44 SETTABLEKS                       R3 R2 K18 ["Content-Type"]
-       46 SETTABLEKS                       R2 R1 K3 ["Headers"]
-       48 GETUPVAL                         R2 2
-       49 GETTABLEKS                       R2 R2 K19 ["Request"]
-       51 MOVE                             R3 R1
-       52 CALL                             R2 1 1
-       53 DUPCLOSURE                       R4 K20 [PROTO_0]
-       54 CAPTURE                          UPVAL U3
-       55 NAMECALL                         R2 R2 K21 ["andThen"]
-       57 CALL                             R2 2 -1
-       58 RETURN                           R2 -1
+        0 DUPTABLE                         R1 K5 [{[1] = "POST", ["Url"], ["Body"], ["Headers"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K6 ["composeUrl"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K7 ["APIS_URL"]
+        7 LOADK                            R5 K8 ["place-version-history-api/v1/%*/version/%*/notes"]
+        8 GETTABLEKS                       R7 R0 K9 ["placeId"]
+       10 GETTABLEKS                       R8 R0 K10 ["version"]
+       12 NAMECALL                         R5 R5 K11 ["format"]
+       14 CALL                             R5 3 1
+       15 MOVE                             R4 R5
+       16 CALL                             R2 2 1
+       17 SETTABLEKS                       R2 R1 K2 ["Url"]
+       19 GETUPVAL                         R2 1
+       20 DUPTABLE                         R4 K14 [{"title", "description"}]
+       21 GETTABLEKS                       R5 R0 K15 ["notes"]
+       23 GETTABLEKS                       R5 R5 K12 ["title"]
+       25 SETTABLEKS                       R5 R4 K12 ["title"]
+       27 GETTABLEKS                       R5 R0 K15 ["notes"]
+       29 GETTABLEKS                       R5 R5 K13 ["description"]
+       31 SETTABLEKS                       R5 R4 K13 ["description"]
+       33 NAMECALL                         R2 R2 K16 ["JSONEncode"]
+       35 CALL                             R2 2 1
+       36 SETTABLEKS                       R2 R1 K3 ["Body"]
+       38 NEWTABLE                         R2 1 0
+       40 LOADK                            R3 K17 ["application/json"]
+       41 SETTABLEKS                       R3 R2 K18 ["Content-Type"]
+       43 SETTABLEKS                       R2 R1 K4 ["Headers"]
+       45 GETUPVAL                         R2 2
+       46 GETTABLEKS                       R2 R2 K19 ["Request"]
+       48 MOVE                             R3 R1
+       49 CALL                             R2 1 1
+       50 DUPCLOSURE                       R4 K20 [PROTO_0]
+       51 CAPTURE                          UPVAL U3
+       52 NAMECALL                         R2 R2 K21 ["andThen"]
+       54 CALL                             R2 2 -1
+       55 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

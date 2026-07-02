@@ -7,14 +7,12 @@ PROTO_0:
         7 CALL                             R2 2 0
         8 GETTABLEKS                       R2 R1 K2 ["UserInputType"]
        10 GETIMPORT                        R3 K5 [Enum.UserInputType.MouseButton1]
-       12 JUMPIFNOTEQ                      R2 R3 ; [+9]
+       12 JUMPIFNOTEQ                      R2 R3 ; [+6]
        14 GETUPVAL                         R2 0
-       15 DUPTABLE                         R4 K7 [{"Dragging"}]
-       16 LOADB                            R5 1
-       17 SETTABLEKS                       R5 R4 K6 ["Dragging"]
-       19 NAMECALL                         R2 R2 K8 ["setState"]
-       21 CALL                             R2 2 0
-       22 RETURN                           R0 0
+       15 DUPTABLE                         R4 K8 [{["Dragging"] = True}]
+       16 NAMECALL                         R2 R2 K9 ["setState"]
+       18 CALL                             R2 2 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -34,61 +32,53 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Dragging"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["Dragging"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K1 [{"Dragging"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Dragging"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onDragBegan"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onDragMoved"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K5 ["onDragEnded"]
-       18 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onDragBegan"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onDragMoved"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["onDragEnded"]
+       15 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 LOADK                            R4 K1 ["Frame"]
-        4 DUPTABLE                         R5 K8 [{"Size", "BackgroundColor3", "AnchorPoint", "Position", "BorderSizePixel", "ZIndex"}]
-        5 GETIMPORT                        R6 K11 [UDim2.new]
+        4 DUPTABLE                         R5 K10 [{["Size"], ["BackgroundColor3"], ["AnchorPoint"], ["Position"], ["BorderSizePixel"] = 0, ["ZIndex"] = 2}]
+        5 GETIMPORT                        R6 K13 [UDim2.new]
         7 LOADN                            R7 0
         8 LOADN                            R8 2
         9 LOADN                            R9 1
        10 LOADN                            R10 0
        11 CALL                             R6 4 1
        12 SETTABLEKS                       R6 R5 K2 ["Size"]
-       14 GETTABLEKS                       R6 R1 K12 ["lineColor"]
+       14 GETTABLEKS                       R6 R1 K14 ["lineColor"]
        16 SETTABLEKS                       R6 R5 K3 ["BackgroundColor3"]
-       18 GETIMPORT                        R6 K14 [Vector2.new]
-       20 LOADK                            R7 K15 [0.5]
-       21 LOADK                            R8 K15 [0.5]
+       18 GETIMPORT                        R6 K16 [Vector2.new]
+       20 LOADK                            R7 K17 [0.5]
+       21 LOADK                            R8 K17 [0.5]
        22 CALL                             R6 2 1
        23 SETTABLEKS                       R6 R5 K4 ["AnchorPoint"]
-       25 GETIMPORT                        R6 K11 [UDim2.new]
+       25 GETIMPORT                        R6 K13 [UDim2.new]
        27 LOADN                            R7 0
        28 MOVE                             R8 R2
-       29 LOADK                            R9 K15 [0.5]
+       29 LOADK                            R9 K17 [0.5]
        30 LOADN                            R10 0
        31 CALL                             R6 4 1
        32 SETTABLEKS                       R6 R5 K5 ["Position"]
-       34 LOADN                            R6 0
-       35 SETTABLEKS                       R6 R5 K6 ["BorderSizePixel"]
-       37 LOADN                            R6 2
-       38 SETTABLEKS                       R6 R5 K7 ["ZIndex"]
-       40 CALL                             R3 2 -1
-       41 RETURN                           R3 -1
+       34 CALL                             R3 2 -1
+       35 RETURN                           R3 -1
 
 PROTO_5:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -156,13 +146,13 @@ PROTO_7:
        26 OR                               R7 R8 R6
        27 GETTABLEKS                       R9 R1 K11 ["MajorInterval"]
        29 LOADN                            R10 1
-       30 LOADN                            R11 44
+       30 LOADN                            R11 300
        31 FASTCALL                         MATH_CLAMP ; [+2]
        32 GETIMPORT                        R8 K13 [math.clamp]
        34 CALL                             R8 3 1
        35 GETTABLEKS                       R10 R1 K14 ["MinorInterval"]
        37 LOADN                            R11 1
-       38 LOADN                            R12 44
+       38 LOADN                            R12 300
        39 FASTCALL                         MATH_CLAMP ; [+2]
        40 GETIMPORT                        R9 K13 [math.clamp]
        42 CALL                             R9 3 1
@@ -311,7 +301,7 @@ PROTO_7:
       243 GETUPVAL                         R28 1
       244 GETTABLEKS                       R28 R28 K30 ["createElement"]
       246 LOADK                            R29 K54 ["Frame"]
-      247 DUPTABLE                         R30 K65 [{"Size", "BackgroundColor3", "BorderSizePixel"}]
+      247 DUPTABLE                         R30 K65 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
       248 GETIMPORT                        R31 K44 [UDim2.new]
       250 LOADN                            R32 0
       251 FASTCALL2                        MATH_MIN R23 R14 ; [+5]
@@ -325,21 +315,19 @@ PROTO_7:
       261 SETTABLEKS                       R31 R30 K55 ["Size"]
       263 GETTABLEKS                       R31 R3 K68 ["barColor"]
       265 SETTABLEKS                       R31 R30 K63 ["BackgroundColor3"]
-      267 LOADN                            R31 0
-      268 SETTABLEKS                       R31 R30 K64 ["BorderSizePixel"]
-      270 MOVE                             R31 R21
-      271 CALL                             R28 3 1
-      272 SETTABLEKS                       R28 R27 K60 ["Ticks"]
-      274 MOVE                             R30 R3
-      275 NAMECALL                         R28 R0 K69 ["renderFirstTick"]
-      277 CALL                             R28 2 1
-      278 SETTABLEKS                       R28 R27 K61 ["FirstTick"]
-      280 MOVE                             R30 R3
-      281 NAMECALL                         R28 R0 K70 ["renderLastTick"]
-      283 CALL                             R28 2 1
-      284 SETTABLEKS                       R28 R27 K10 ["LastTick"]
-      286 CALL                             R24 3 -1
-      287 RETURN                           R24 -1
+      267 MOVE                             R31 R21
+      268 CALL                             R28 3 1
+      269 SETTABLEKS                       R28 R27 K60 ["Ticks"]
+      271 MOVE                             R30 R3
+      272 NAMECALL                         R28 R0 K69 ["renderFirstTick"]
+      274 CALL                             R28 2 1
+      275 SETTABLEKS                       R28 R27 K61 ["FirstTick"]
+      277 MOVE                             R30 R3
+      278 NAMECALL                         R28 R0 K70 ["renderLastTick"]
+      280 CALL                             R28 2 1
+      281 SETTABLEKS                       R28 R27 K10 ["LastTick"]
+      283 CALL                             R24 3 -1
+      284 RETURN                           R24 -1
 
 MAIN:
         0 PREPVARARGS                      0

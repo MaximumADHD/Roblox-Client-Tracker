@@ -153,7 +153,7 @@ PROTO_6:
        63 GETUPVAL                         R15 1
        64 GETTABLEKS                       R15 R15 K20 ["createElement"]
        66 GETUPVAL                         R16 2
-       67 DUPTABLE                         R17 K23 [{"Position", "Size", "CanvasSize", "ZIndex"}]
+       67 DUPTABLE                         R17 K24 [{["Position"], ["Size"], ["CanvasSize"], ["ZIndex"] = 1}]
        68 GETIMPORT                        R18 K4 [UDim2.new]
        70 LOADN                            R19 0
        71 MOVE                             R20 R14
@@ -168,7 +168,7 @@ PROTO_6:
        82 FASTCALL2                        MATH_MIN R11 R6 ; [+5]
        84 MOVE                             R23 R11
        85 MOVE                             R24 R6
-       86 GETIMPORT                        R22 K26 [math.min]
+       86 GETIMPORT                        R22 K27 [math.min]
        88 CALL                             R22 2 1
        89 CALL                             R18 4 1
        90 SETTABLEKS                       R18 R17 K5 ["Size"]
@@ -179,99 +179,89 @@ PROTO_6:
        97 MOVE                             R22 R11
        98 CALL                             R18 4 1
        99 SETTABLEKS                       R18 R17 K21 ["CanvasSize"]
-      101 LOADN                            R18 1
-      102 SETTABLEKS                       R18 R17 K22 ["ZIndex"]
-      104 MOVE                             R18 R10
-      105 CALL                             R15 3 1
-      106 SETTABLEKS                       R15 R9 K27 ["StyledScrollingFrame"]
-      108 GETUPVAL                         R15 1
-      109 GETTABLEKS                       R15 R15 K20 ["createElement"]
-      111 GETUPVAL                         R16 3
-      112 DUPTABLE                         R17 K30 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "BorderColor3"}]
-      113 GETIMPORT                        R18 K4 [UDim2.new]
-      115 LOADN                            R19 0
-      116 MOVE                             R20 R14
-      117 LOADN                            R21 0
-      118 MOVE                             R22 R13
-      119 CALL                             R18 4 1
-      120 SETTABLEKS                       R18 R17 K1 ["Position"]
-      122 GETIMPORT                        R18 K4 [UDim2.new]
-      124 LOADN                            R19 0
-      125 MOVE                             R20 R12
-      126 LOADN                            R21 0
-      127 FASTCALL2                        MATH_MIN R11 R6 ; [+5]
-      129 MOVE                             R23 R11
-      130 MOVE                             R24 R6
-      131 GETIMPORT                        R22 K26 [math.min]
-      133 CALL                             R22 2 1
-      134 CALL                             R18 4 1
-      135 SETTABLEKS                       R18 R17 K5 ["Size"]
-      137 LOADN                            R18 1
-      138 SETTABLEKS                       R18 R17 K28 ["BackgroundTransparency"]
-      140 LOADN                            R18 2
-      141 SETTABLEKS                       R18 R17 K22 ["ZIndex"]
-      143 GETTABLEKS                       R18 R8 K31 ["dropdownFrame"]
-      145 GETTABLEKS                       R18 R18 K32 ["borderColor"]
-      147 SETTABLEKS                       R18 R17 K29 ["BorderColor3"]
-      149 CALL                             R15 2 1
-      150 SETTABLEKS                       R15 R9 K33 ["DropDownContainer"]
-      152 GETUPVAL                         R15 4
-      153 DUPTABLE                         R16 K35 [{"Priority"}]
-      154 LOADN                            R17 3
-      155 SETTABLEKS                       R17 R16 K34 ["Priority"]
-      157 GETUPVAL                         R17 1
-      158 GETTABLEKS                       R17 R17 K20 ["createElement"]
-      160 LOADK                            R18 K36 ["Frame"]
-      161 DUPTABLE                         R19 K37 [{"Position", "Size", "BackgroundTransparency", "LayoutOrder"}]
-      162 SETTABLEKS                       R1 R19 K1 ["Position"]
-      164 SETTABLEKS                       R2 R19 K5 ["Size"]
-      166 LOADN                            R20 1
-      167 SETTABLEKS                       R20 R19 K28 ["BackgroundTransparency"]
-      169 SETTABLEKS                       R3 R19 K7 ["LayoutOrder"]
-      171 DUPTABLE                         R20 K39 [{"Portal"}]
-      172 MOVE                             R21 R5
-      173 JUMPIFNOT                        R21 ; [+52]
-      174 GETUPVAL                         R21 1
-      175 GETTABLEKS                       R21 R21 K20 ["createElement"]
-      177 MOVE                             R22 R15
-      178 MOVE                             R23 R16
-      179 DUPTABLE                         R24 K41 [{"ClickEventDetectFrame"}]
-      180 GETUPVAL                         R25 1
-      181 GETTABLEKS                       R25 R25 K20 ["createElement"]
-      183 LOADK                            R26 K42 ["ImageButton"]
-      184 NEWTABLE                         R27 8 0
-      186 LOADN                            R28 10
-      187 SETTABLEKS                       R28 R27 K22 ["ZIndex"]
-      189 GETIMPORT                        R28 K4 [UDim2.new]
-      191 LOADN                            R29 0
-      192 LOADN                            R30 0
-      193 LOADN                            R31 0
-      194 LOADN                            R32 0
-      195 CALL                             R28 4 1
-      196 SETTABLEKS                       R28 R27 K1 ["Position"]
-      198 GETIMPORT                        R28 K4 [UDim2.new]
-      200 LOADN                            R29 1
-      201 LOADN                            R30 0
-      202 LOADN                            R31 1
-      203 LOADN                            R32 0
-      204 CALL                             R28 4 1
-      205 SETTABLEKS                       R28 R27 K5 ["Size"]
-      207 LOADN                            R28 1
-      208 SETTABLEKS                       R28 R27 K28 ["BackgroundTransparency"]
-      210 LOADB                            R28 0
-      211 SETTABLEKS                       R28 R27 K43 ["AutoButtonColor"]
-      213 GETUPVAL                         R28 1
-      214 GETTABLEKS                       R28 R28 K44 ["Event"]
-      216 GETTABLEKS                       R28 R28 K45 ["MouseButton1Click"]
-      218 GETTABLEKS                       R29 R0 K46 ["closeDropdown"]
-      220 SETTABLE                         R29 R27 R28
-      221 MOVE                             R28 R9
-      222 CALL                             R25 3 1
-      223 SETTABLEKS                       R25 R24 K40 ["ClickEventDetectFrame"]
-      225 CALL                             R21 3 1
-      226 SETTABLEKS                       R21 R20 K38 ["Portal"]
-      228 CALL                             R17 3 -1
-      229 RETURN                           R17 -1
+      101 MOVE                             R18 R10
+      102 CALL                             R15 3 1
+      103 SETTABLEKS                       R15 R9 K28 ["StyledScrollingFrame"]
+      105 GETUPVAL                         R15 1
+      106 GETTABLEKS                       R15 R15 K20 ["createElement"]
+      108 GETUPVAL                         R16 3
+      109 DUPTABLE                         R17 K32 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2, ["BorderColor3"]}]
+      110 GETIMPORT                        R18 K4 [UDim2.new]
+      112 LOADN                            R19 0
+      113 MOVE                             R20 R14
+      114 LOADN                            R21 0
+      115 MOVE                             R22 R13
+      116 CALL                             R18 4 1
+      117 SETTABLEKS                       R18 R17 K1 ["Position"]
+      119 GETIMPORT                        R18 K4 [UDim2.new]
+      121 LOADN                            R19 0
+      122 MOVE                             R20 R12
+      123 LOADN                            R21 0
+      124 FASTCALL2                        MATH_MIN R11 R6 ; [+5]
+      126 MOVE                             R23 R11
+      127 MOVE                             R24 R6
+      128 GETIMPORT                        R22 K27 [math.min]
+      130 CALL                             R22 2 1
+      131 CALL                             R18 4 1
+      132 SETTABLEKS                       R18 R17 K5 ["Size"]
+      134 GETTABLEKS                       R18 R8 K33 ["dropdownFrame"]
+      136 GETTABLEKS                       R18 R18 K34 ["borderColor"]
+      138 SETTABLEKS                       R18 R17 K31 ["BorderColor3"]
+      140 CALL                             R15 2 1
+      141 SETTABLEKS                       R15 R9 K35 ["DropDownContainer"]
+      143 GETUPVAL                         R15 4
+      144 DUPTABLE                         R16 K38 [{["Priority"] = 3}]
+      145 GETUPVAL                         R17 1
+      146 GETTABLEKS                       R17 R17 K20 ["createElement"]
+      148 LOADK                            R18 K39 ["Frame"]
+      149 DUPTABLE                         R19 K40 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+      150 SETTABLEKS                       R1 R19 K1 ["Position"]
+      152 SETTABLEKS                       R2 R19 K5 ["Size"]
+      154 SETTABLEKS                       R3 R19 K7 ["LayoutOrder"]
+      156 DUPTABLE                         R20 K42 [{"Portal"}]
+      157 MOVE                             R21 R5
+      158 JUMPIFNOT                        R21 ; [+52]
+      159 GETUPVAL                         R21 1
+      160 GETTABLEKS                       R21 R21 K20 ["createElement"]
+      162 MOVE                             R22 R15
+      163 MOVE                             R23 R16
+      164 DUPTABLE                         R24 K44 [{"ClickEventDetectFrame"}]
+      165 GETUPVAL                         R25 1
+      166 GETTABLEKS                       R25 R25 K20 ["createElement"]
+      168 LOADK                            R26 K45 ["ImageButton"]
+      169 NEWTABLE                         R27 8 0
+      171 LOADN                            R28 10
+      172 SETTABLEKS                       R28 R27 K22 ["ZIndex"]
+      174 GETIMPORT                        R28 K4 [UDim2.new]
+      176 LOADN                            R29 0
+      177 LOADN                            R30 0
+      178 LOADN                            R31 0
+      179 LOADN                            R32 0
+      180 CALL                             R28 4 1
+      181 SETTABLEKS                       R28 R27 K1 ["Position"]
+      183 GETIMPORT                        R28 K4 [UDim2.new]
+      185 LOADN                            R29 1
+      186 LOADN                            R30 0
+      187 LOADN                            R31 1
+      188 LOADN                            R32 0
+      189 CALL                             R28 4 1
+      190 SETTABLEKS                       R28 R27 K5 ["Size"]
+      192 LOADN                            R28 1
+      193 SETTABLEKS                       R28 R27 K29 ["BackgroundTransparency"]
+      195 LOADB                            R28 0
+      196 SETTABLEKS                       R28 R27 K46 ["AutoButtonColor"]
+      198 GETUPVAL                         R28 1
+      199 GETTABLEKS                       R28 R28 K47 ["Event"]
+      201 GETTABLEKS                       R28 R28 K48 ["MouseButton1Click"]
+      203 GETTABLEKS                       R29 R0 K49 ["closeDropdown"]
+      205 SETTABLE                         R29 R27 R28
+      206 MOVE                             R28 R9
+      207 CALL                             R25 3 1
+      208 SETTABLEKS                       R25 R24 K43 ["ClickEventDetectFrame"]
+      210 CALL                             R21 3 1
+      211 SETTABLEKS                       R21 R20 K41 ["Portal"]
+      213 CALL                             R17 3 -1
+      214 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

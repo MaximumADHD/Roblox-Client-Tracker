@@ -24,12 +24,10 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K10 [{"message"}]
-       26 LOADNIL                          R5
-       27 SETTABLEKS                       R5 R4 K9 ["message"]
-       29 DUPTABLE                         R5 K12 [{"ExampleAction"}]
-       30 DUPCLOSURE                       R6 K13 [PROTO_0]
-       31 CAPTURE                          VAL R2
-       32 SETTABLEKS                       R6 R5 K11 ["ExampleAction"]
-       34 CALL                             R3 2 1
-       35 RETURN                           R3 1
+       25 DUPTABLE                         R4 K11 [{["message"] = }]
+       26 DUPTABLE                         R5 K13 [{"ExampleAction"}]
+       27 DUPCLOSURE                       R6 K14 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 SETTABLEKS                       R6 R5 K12 ["ExampleAction"]
+       31 CALL                             R3 2 1
+       32 RETURN                           R3 1

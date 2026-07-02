@@ -298,58 +298,54 @@ PROTO_10:
        27 RETURN                           R0 1
 
 PROTO_11:
-        0 DUPTABLE                         R3 K3 [{"selection", "selectionAnchorTop", "selectionAnchorBottom"}]
+        0 DUPTABLE                         R3 K4 [{[1], ["selectionAnchorTop"] = , ["selectionAnchorBottom"] = }]
         1 NEWTABLE                         R4 0 0
         3 SETTABLEKS                       R4 R3 K0 ["selection"]
-        5 LOADNIL                          R4
-        6 SETTABLEKS                       R4 R3 K1 ["selectionAnchorTop"]
-        8 LOADNIL                          R4
-        9 SETTABLEKS                       R4 R3 K2 ["selectionAnchorBottom"]
-       11 NAMECALL                         R1 R0 K4 ["setState"]
-       13 CALL                             R1 2 0
-       14 LOADNIL                          R1
-       15 SETTABLEKS                       R1 R0 K5 ["lastItemClicked"]
-       17 LOADN                            R1 0
-       18 SETTABLEKS                       R1 R0 K6 ["lastClickTime"]
-       20 DUPCLOSURE                       R1 K7 [PROTO_0]
-       21 SETTABLEKS                       R1 R0 K8 ["getPressedModifiers"]
-       23 NEWCLOSURE                       R1 P1
-       24 CAPTURE                          VAL R0
-       25 CAPTURE                          UPVAL U0
-       26 SETTABLEKS                       R1 R0 K9 ["itemRightClicked"]
-       28 NEWCLOSURE                       R1 P2
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R1 R0 K10 ["itemClicked"]
-       32 NEWCLOSURE                       R1 P3
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R1 R0 K11 ["itemDoubleClicked"]
-       36 NEWCLOSURE                       R1 P4
-       37 CAPTURE                          VAL R0
-       38 SETTABLEKS                       R1 R0 K12 ["selectionChanged"]
-       40 NEWCLOSURE                       R1 P5
-       41 CAPTURE                          VAL R0
-       42 SETTABLEKS                       R1 R0 K13 ["setSelection"]
-       44 NEWCLOSURE                       R1 P6
-       45 CAPTURE                          VAL R0
-       46 CAPTURE                          UPVAL U1
-       47 SETTABLEKS                       R1 R0 K14 ["toggleSelected"]
-       49 NEWCLOSURE                       R1 P7
-       50 CAPTURE                          VAL R0
-       51 SETTABLEKS                       R1 R0 K15 ["expandSelection"]
-       53 NEWCLOSURE                       R1 P8
-       54 CAPTURE                          VAL R0
-       55 SETTABLEKS                       R1 R0 K16 ["makeMenuActions"]
-       57 NEWCLOSURE                       R1 P9
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R1 R0 K17 ["getSelectedIds"]
-       61 GETTABLEKS                       R1 R0 K18 ["props"]
-       63 GETTABLEKS                       R1 R1 K19 ["GetCurrentSelection"]
-       65 JUMPIFNOT                        R1 ; [+8]
-       66 GETTABLEKS                       R1 R0 K18 ["props"]
-       68 GETTABLEKS                       R1 R1 K19 ["GetCurrentSelection"]
-       70 GETTABLEKS                       R2 R0 K17 ["getSelectedIds"]
-       72 SETTABLEKS                       R2 R1 K20 ["OnInvoke"]
-       74 RETURN                           R0 0
+        5 NAMECALL                         R1 R0 K5 ["setState"]
+        7 CALL                             R1 2 0
+        8 LOADNIL                          R1
+        9 SETTABLEKS                       R1 R0 K6 ["lastItemClicked"]
+       11 LOADN                            R1 0
+       12 SETTABLEKS                       R1 R0 K7 ["lastClickTime"]
+       14 DUPCLOSURE                       R1 K8 [PROTO_0]
+       15 SETTABLEKS                       R1 R0 K9 ["getPressedModifiers"]
+       17 NEWCLOSURE                       R1 P1
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          UPVAL U0
+       20 SETTABLEKS                       R1 R0 K10 ["itemRightClicked"]
+       22 NEWCLOSURE                       R1 P2
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K11 ["itemClicked"]
+       26 NEWCLOSURE                       R1 P3
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R1 R0 K12 ["itemDoubleClicked"]
+       30 NEWCLOSURE                       R1 P4
+       31 CAPTURE                          VAL R0
+       32 SETTABLEKS                       R1 R0 K13 ["selectionChanged"]
+       34 NEWCLOSURE                       R1 P5
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R1 R0 K14 ["setSelection"]
+       38 NEWCLOSURE                       R1 P6
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          UPVAL U1
+       41 SETTABLEKS                       R1 R0 K15 ["toggleSelected"]
+       43 NEWCLOSURE                       R1 P7
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R1 R0 K16 ["expandSelection"]
+       47 NEWCLOSURE                       R1 P8
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R1 R0 K17 ["makeMenuActions"]
+       51 NEWCLOSURE                       R1 P9
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R1 R0 K18 ["getSelectedIds"]
+       55 GETTABLEKS                       R1 R0 K19 ["props"]
+       57 GETTABLEKS                       R1 R1 K20 ["GetCurrentSelection"]
+       59 JUMPIFNOT                        R1 ; [+8]
+       60 GETTABLEKS                       R1 R0 K19 ["props"]
+       62 GETTABLEKS                       R1 R1 K20 ["GetCurrentSelection"]
+       64 GETTABLEKS                       R2 R0 K18 ["getSelectedIds"]
+       66 SETTABLEKS                       R2 R1 K21 ["OnInvoke"]
+       68 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R3 R1 K0 ["GetCurrentSelection"]
@@ -446,23 +442,21 @@ PROTO_15:
        84 GETUPVAL                         R7 0
        85 GETTABLEKS                       R7 R7 K18 ["createElement"]
        87 LOADK                            R8 K19 ["Frame"]
-       88 DUPTABLE                         R9 K22 [{"Size", "BackgroundTransparency"}]
-       89 GETIMPORT                        R10 K25 [UDim2.new]
+       88 DUPTABLE                         R9 K23 [{["Size"], ["BackgroundTransparency"] = 1}]
+       89 GETIMPORT                        R10 K26 [UDim2.new]
        91 LOADN                            R11 1
        92 LOADN                            R12 0
        93 LOADN                            R13 1
        94 LOADN                            R14 0
        95 CALL                             R10 4 1
        96 SETTABLEKS                       R10 R9 K20 ["Size"]
-       98 LOADN                            R10 1
-       99 SETTABLEKS                       R10 R9 K21 ["BackgroundTransparency"]
-      101 DUPTABLE                         R10 K27 [{"Contents"}]
-      102 MOVE                             R11 R3
-      103 MOVE                             R12 R5
-      104 CALL                             R11 1 1
-      105 SETTABLEKS                       R11 R10 K26 ["Contents"]
-      107 CALL                             R7 3 -1
-      108 RETURN                           R7 -1
+       98 DUPTABLE                         R10 K28 [{"Contents"}]
+       99 MOVE                             R11 R3
+      100 MOVE                             R12 R5
+      101 CALL                             R11 1 1
+      102 SETTABLEKS                       R11 R10 K27 ["Contents"]
+      104 CALL                             R7 3 -1
+      105 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

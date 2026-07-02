@@ -31,96 +31,90 @@ PROTO_1:
        30 GETUPVAL                         R14 1
        31 GETTABLEKS                       R14 R14 K13 ["createElement"]
        33 GETUPVAL                         R15 2
-       34 DUPTABLE                         R16 K20 [{"LayoutOrder", "Position", "Size", "HorizontalAlignment", "Layout", "Spacing", "BackgroundColor", "Style", "Padding"}]
+       34 DUPTABLE                         R16 K21 [{["LayoutOrder"], ["Position"], ["Size"], ["HorizontalAlignment"], ["Layout"], ["Spacing"], ["BackgroundColor"], ["Style"] = "RoundBox", ["Padding"]}]
        35 SETTABLEKS                       R5 R16 K4 ["LayoutOrder"]
        37 SETTABLEKS                       R3 R16 K2 ["Position"]
        39 SETTABLEKS                       R4 R16 K3 ["Size"]
-       41 GETIMPORT                        R17 K23 [Enum.HorizontalAlignment.Left]
+       41 GETIMPORT                        R17 K24 [Enum.HorizontalAlignment.Left]
        43 SETTABLEKS                       R17 R16 K14 ["HorizontalAlignment"]
-       45 GETIMPORT                        R17 K26 [Enum.FillDirection.Horizontal]
+       45 GETIMPORT                        R17 K27 [Enum.FillDirection.Horizontal]
        47 SETTABLEKS                       R17 R16 K15 ["Layout"]
        49 GETTABLEKS                       R17 R2 K16 ["Spacing"]
        51 SETTABLEKS                       R17 R16 K16 ["Spacing"]
        53 GETTABLEKS                       R17 R2 K17 ["BackgroundColor"]
        55 SETTABLEKS                       R17 R16 K17 ["BackgroundColor"]
-       57 LOADK                            R17 K27 ["RoundBox"]
-       58 SETTABLEKS                       R17 R16 K18 ["Style"]
-       60 GETTABLEKS                       R17 R2 K19 ["Padding"]
-       62 SETTABLEKS                       R17 R16 K19 ["Padding"]
-       64 DUPTABLE                         R17 K30 [{"PlayOrPauseButton", "Scrubber"}]
-       65 GETUPVAL                         R18 1
-       66 GETTABLEKS                       R18 R18 K13 ["createElement"]
-       68 GETUPVAL                         R19 3
-       69 DUPTABLE                         R20 K33 [{"Size", "LayoutOrder", "OnClick", "Style", "StyleModifier"}]
-       70 GETTABLEKS                       R21 R2 K34 ["ButtonSize"]
-       72 SETTABLEKS                       R21 R20 K3 ["Size"]
-       74 NAMECALL                         R21 R13 K35 ["getNextOrder"]
-       76 CALL                             R21 1 1
-       77 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
-       79 JUMPIFNOT                        R8 ; [+2]
-       80 MOVE                             R21 R11
-       81 JUMP                             ; [+1]
-       82 MOVE                             R21 R10
-       83 SETTABLEKS                       R21 R20 K31 ["OnClick"]
-       85 LOADK                            R21 K36 ["Round"]
-       86 SETTABLEKS                       R21 R20 K18 ["Style"]
-       88 JUMPIF                           R9 ; [+4]
-       89 GETUPVAL                         R21 4
-       90 GETTABLEKS                       R21 R21 K37 ["Disabled"]
-       92 JUMP                             ; [+1]
-       93 LOADNIL                          R21
-       94 SETTABLEKS                       R21 R20 K32 ["StyleModifier"]
-       96 DUPTABLE                         R21 K39 [{"Icon"}]
-       97 GETUPVAL                         R22 1
-       98 GETTABLEKS                       R22 R22 K13 ["createElement"]
-      100 GETUPVAL                         R23 5
-      101 DUPTABLE                         R24 K42 [{"Image", "ImageColor3"}]
-      102 JUMPIF                           R9 ; [+4]
-      103 GETUPVAL                         R25 6
-      104 GETTABLEKS                       R25 R25 K43 ["LOADING_BUTTON"]
-      106 JUMP                             ; [+8]
-      107 JUMPIFNOT                        R8 ; [+4]
-      108 GETUPVAL                         R25 6
-      109 GETTABLEKS                       R25 R25 K44 ["PAUSE_BUTTON"]
-      111 JUMP                             ; [+3]
-      112 GETUPVAL                         R25 6
-      113 GETTABLEKS                       R25 R25 K45 ["PLAY_BUTTON"]
-      115 SETTABLEKS                       R25 R24 K40 ["Image"]
-      117 GETTABLEKS                       R25 R2 K46 ["ImageColor"]
-      119 SETTABLEKS                       R25 R24 K41 ["ImageColor3"]
-      121 CALL                             R22 2 1
-      122 SETTABLEKS                       R22 R21 K38 ["Icon"]
-      124 CALL                             R18 3 1
-      125 SETTABLEKS                       R18 R17 K28 ["PlayOrPauseButton"]
-      127 GETUPVAL                         R18 1
-      128 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      130 GETUPVAL                         R19 7
-      131 DUPTABLE                         R20 K51 [{"Min", "Max", "Size", "Value", "LayoutOrder", "OnValueChanged", "Disabled"}]
-      132 LOADN                            R21 0
-      133 SETTABLEKS                       R21 R20 K47 ["Min"]
-      135 SETTABLEKS                       R7 R20 K48 ["Max"]
-      137 GETTABLEKS                       R21 R2 K52 ["SliderSize"]
-      139 SETTABLEKS                       R21 R20 K3 ["Size"]
-      141 LOADN                            R23 0
-      142 FASTCALL3                        MATH_CLAMP R6 R23 R7
-      144 MOVE                             R22 R6
-      145 MOVE                             R24 R7
-      146 GETIMPORT                        R21 K55 [math.clamp]
-      148 CALL                             R21 3 1
-      149 SETTABLEKS                       R21 R20 K49 ["Value"]
-      151 NAMECALL                         R21 R13 K35 ["getNextOrder"]
-      153 CALL                             R21 1 1
-      154 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
-      156 SETTABLEKS                       R12 R20 K50 ["OnValueChanged"]
-      158 JUMPIF                           R9 ; [+2]
-      159 LOADB                            R21 1
-      160 JUMP                             ; [+1]
-      161 LOADNIL                          R21
-      162 SETTABLEKS                       R21 R20 K37 ["Disabled"]
-      164 CALL                             R18 2 1
-      165 SETTABLEKS                       R18 R17 K29 ["Scrubber"]
-      167 CALL                             R14 3 -1
-      168 RETURN                           R14 -1
+       57 GETTABLEKS                       R17 R2 K20 ["Padding"]
+       59 SETTABLEKS                       R17 R16 K20 ["Padding"]
+       61 DUPTABLE                         R17 K30 [{"PlayOrPauseButton", "Scrubber"}]
+       62 GETUPVAL                         R18 1
+       63 GETTABLEKS                       R18 R18 K13 ["createElement"]
+       65 GETUPVAL                         R19 3
+       66 DUPTABLE                         R20 K34 [{["Size"], ["LayoutOrder"], ["OnClick"], ["Style"] = "Round", ["StyleModifier"]}]
+       67 GETTABLEKS                       R21 R2 K35 ["ButtonSize"]
+       69 SETTABLEKS                       R21 R20 K3 ["Size"]
+       71 NAMECALL                         R21 R13 K36 ["getNextOrder"]
+       73 CALL                             R21 1 1
+       74 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
+       76 JUMPIFNOT                        R8 ; [+2]
+       77 MOVE                             R21 R11
+       78 JUMP                             ; [+1]
+       79 MOVE                             R21 R10
+       80 SETTABLEKS                       R21 R20 K31 ["OnClick"]
+       82 JUMPIF                           R9 ; [+4]
+       83 GETUPVAL                         R21 4
+       84 GETTABLEKS                       R21 R21 K37 ["Disabled"]
+       86 JUMP                             ; [+1]
+       87 LOADNIL                          R21
+       88 SETTABLEKS                       R21 R20 K33 ["StyleModifier"]
+       90 DUPTABLE                         R21 K39 [{"Icon"}]
+       91 GETUPVAL                         R22 1
+       92 GETTABLEKS                       R22 R22 K13 ["createElement"]
+       94 GETUPVAL                         R23 5
+       95 DUPTABLE                         R24 K42 [{"Image", "ImageColor3"}]
+       96 JUMPIF                           R9 ; [+4]
+       97 GETUPVAL                         R25 6
+       98 GETTABLEKS                       R25 R25 K43 ["LOADING_BUTTON"]
+      100 JUMP                             ; [+8]
+      101 JUMPIFNOT                        R8 ; [+4]
+      102 GETUPVAL                         R25 6
+      103 GETTABLEKS                       R25 R25 K44 ["PAUSE_BUTTON"]
+      105 JUMP                             ; [+3]
+      106 GETUPVAL                         R25 6
+      107 GETTABLEKS                       R25 R25 K45 ["PLAY_BUTTON"]
+      109 SETTABLEKS                       R25 R24 K40 ["Image"]
+      111 GETTABLEKS                       R25 R2 K46 ["ImageColor"]
+      113 SETTABLEKS                       R25 R24 K41 ["ImageColor3"]
+      115 CALL                             R22 2 1
+      116 SETTABLEKS                       R22 R21 K38 ["Icon"]
+      118 CALL                             R18 3 1
+      119 SETTABLEKS                       R18 R17 K28 ["PlayOrPauseButton"]
+      121 GETUPVAL                         R18 1
+      122 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      124 GETUPVAL                         R19 7
+      125 DUPTABLE                         R20 K52 [{["Min"] = 0, ["Max"], ["Size"], ["Value"], ["LayoutOrder"], ["OnValueChanged"], ["Disabled"]}]
+      126 SETTABLEKS                       R7 R20 K49 ["Max"]
+      128 GETTABLEKS                       R21 R2 K53 ["SliderSize"]
+      130 SETTABLEKS                       R21 R20 K3 ["Size"]
+      132 LOADN                            R23 0
+      133 FASTCALL3                        MATH_CLAMP R6 R23 R7
+      135 MOVE                             R22 R6
+      136 MOVE                             R24 R7
+      137 GETIMPORT                        R21 K56 [math.clamp]
+      139 CALL                             R21 3 1
+      140 SETTABLEKS                       R21 R20 K50 ["Value"]
+      142 NAMECALL                         R21 R13 K36 ["getNextOrder"]
+      144 CALL                             R21 1 1
+      145 SETTABLEKS                       R21 R20 K4 ["LayoutOrder"]
+      147 SETTABLEKS                       R12 R20 K51 ["OnValueChanged"]
+      149 JUMPIF                           R9 ; [+2]
+      150 LOADB                            R21 1
+      151 JUMP                             ; [+1]
+      152 LOADNIL                          R21
+      153 SETTABLEKS                       R21 R20 K37 ["Disabled"]
+      155 CALL                             R18 2 1
+      156 SETTABLEKS                       R18 R17 K29 ["Scrubber"]
+      158 CALL                             R14 3 -1
+      159 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

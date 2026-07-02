@@ -6,7 +6,7 @@ PROTO_0:
         6 MOVE                             R4 R0
         7 CALL                             R3 1 1
         8 MOVE                             R2 R3
-        9 LOADN                            R3 16
+        9 LOADN                            R3 10000
        10 SETTABLEKS                       R3 R2 K0 ["throttlingPercentage"]
        12 GETUPVAL                         R3 0
        13 MOVE                             R5 R2
@@ -23,7 +23,7 @@ PROTO_1:
         6 MOVE                             R4 R0
         7 CALL                             R3 1 1
         8 MOVE                             R2 R3
-        9 LOADN                            R3 16
+        9 LOADN                            R3 10000
        10 SETTABLEKS                       R3 R2 K0 ["throttlingPercentage"]
        12 GETUPVAL                         R3 0
        13 MOVE                             R5 R2
@@ -40,7 +40,7 @@ PROTO_2:
         6 MOVE                             R5 R0
         7 CALL                             R4 1 1
         8 MOVE                             R3 R4
-        9 LOADN                            R4 16
+        9 LOADN                            R4 10000
        10 SETTABLEKS                       R4 R3 K0 ["throttlingPercentage"]
        12 GETUPVAL                         R4 0
        13 MOVE                             R6 R3
@@ -66,32 +66,24 @@ MAIN:
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
         7 MOVE                             R1 R0
-        8 DUPTABLE                         R2 K8 [{"Counter", "Stat", "EventIngest", "Points"}]
-        9 LOADK                            R3 K9 ["RobloxTelemetryCounter"]
-       10 SETTABLEKS                       R3 R2 K4 ["Counter"]
-       12 LOADK                            R3 K10 ["RobloxTelemetryStat"]
-       13 SETTABLEKS                       R3 R2 K5 ["Stat"]
-       15 LOADK                            R3 K6 ["EventIngest"]
-       16 SETTABLEKS                       R3 R2 K6 ["EventIngest"]
-       18 LOADK                            R3 K7 ["Points"]
-       19 SETTABLEKS                       R3 R2 K7 ["Points"]
-       21 DUPTABLE                         R3 K12 [{"Backends"}]
-       22 SETTABLEKS                       R2 R3 K11 ["Backends"]
-       24 NEWCLOSURE                       R4 P0
+        8 DUPTABLE                         R2 K10 [{["Counter"] = "RobloxTelemetryCounter", ["Stat"] = "RobloxTelemetryStat", ["EventIngest"] = "EventIngest", ["Points"] = "Points"}]
+        9 DUPTABLE                         R3 K12 [{"Backends"}]
+       10 SETTABLEKS                       R2 R3 K11 ["Backends"]
+       12 NEWCLOSURE                       R4 P0
+       13 CAPTURE                          REF R1
+       14 SETTABLEKS                       R4 R3 K13 ["logEvent"]
+       16 NEWCLOSURE                       R4 P1
+       17 CAPTURE                          REF R1
+       18 SETTABLEKS                       R4 R3 K14 ["logCounter"]
+       20 NEWCLOSURE                       R4 P2
+       21 CAPTURE                          REF R1
+       22 SETTABLEKS                       R4 R3 K15 ["logStat"]
+       24 NEWCLOSURE                       R4 P3
        25 CAPTURE                          REF R1
-       26 SETTABLEKS                       R4 R3 K13 ["logEvent"]
-       28 NEWCLOSURE                       R4 P1
+       26 SETTABLEKS                       R4 R3 K16 ["mock"]
+       28 NEWCLOSURE                       R4 P4
        29 CAPTURE                          REF R1
-       30 SETTABLEKS                       R4 R3 K14 ["logCounter"]
-       32 NEWCLOSURE                       R4 P2
-       33 CAPTURE                          REF R1
-       34 SETTABLEKS                       R4 R3 K15 ["logStat"]
-       36 NEWCLOSURE                       R4 P3
-       37 CAPTURE                          REF R1
-       38 SETTABLEKS                       R4 R3 K16 ["mock"]
-       40 NEWCLOSURE                       R4 P4
-       41 CAPTURE                          REF R1
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R4 R3 K17 ["reset"]
-       45 CLOSEUPVALS                      R1
-       46 RETURN                           R3 1
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R4 R3 K17 ["reset"]
+       33 CLOSEUPVALS                      R1
+       34 RETURN                           R3 1

@@ -28,8 +28,8 @@ PROTO_1:
        25 LOADK                            R10 K6 ["Frame"]
        26 DUPTABLE                         R11 K8 [{"Size"}]
        27 GETIMPORT                        R12 K11 [UDim2.fromOffset]
-       29 LOADN                            R13 128
-       30 LOADN                            R14 224
+       29 LOADN                            R13 640
+       30 LOADN                            R14 480
        31 CALL                             R12 2 1
        32 SETTABLEKS                       R12 R11 K7 ["Size"]
        34 DUPTABLE                         R12 K13 [{"Component"}]

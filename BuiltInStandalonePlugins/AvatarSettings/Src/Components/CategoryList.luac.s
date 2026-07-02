@@ -159,8 +159,8 @@ PROTO_2:
        80 SETTABLEKS                       R10 R9 K10 ["CategoryListItems"]
        82 GETUPVAL                         R10 4
        83 GETUPVAL                         R11 7
-       84 DUPTABLE                         R12 K36 [{"position", "anchorPoint", "name", "selected", "imageTag", "expanded", "onClick"}]
-       85 GETIMPORT                        R13 K38 [UDim2.fromScale]
+       84 DUPTABLE                         R12 K37 [{["position"], ["anchorPoint"], ["name"], ["selected"] = False, ["imageTag"], ["expanded"], ["onClick"]}]
+       85 GETIMPORT                        R13 K39 [UDim2.fromScale]
        87 LOADN                            R14 0
        88 LOADN                            R15 1
        89 CALL                             R13 2 1
@@ -170,37 +170,35 @@ PROTO_2:
        95 LOADN                            R15 1
        96 CALL                             R13 2 1
        97 SETTABLEKS                       R13 R12 K30 ["anchorPoint"]
-       99 LOADK                            R15 K39 ["CategoryList"]
-      100 LOADK                            R16 K40 ["HideSidebar"]
-      101 NAMECALL                         R13 R1 K41 ["getText"]
+       99 LOADK                            R15 K40 ["CategoryList"]
+      100 LOADK                            R16 K41 ["HideSidebar"]
+      101 NAMECALL                         R13 R1 K42 ["getText"]
       103 CALL                             R13 3 1
       104 SETTABLEKS                       R13 R12 K31 ["name"]
-      106 LOADB                            R13 0
-      107 SETTABLEKS                       R13 R12 K32 ["selected"]
-      109 GETUPVAL                         R13 8
-      110 LOADK                            R14 K42 ["ToggleSidebarExpandImage"]
-      111 LOADK                            R16 K43 ["data-testid="]
-      112 GETTABLEKS                       R18 R3 K44 ["enabled"]
-      114 JUMPIFNOT                        R18 ; [+2]
-      115 LOADK                            R17 K45 ["CategoryListCollapse"]
-      116 JUMP                             ; [+1]
-      117 LOADK                            R17 K46 ["CategoryListExpand"]
-      118 CONCAT                           R15 R16 R17
-      119 GETTABLEKS                       R17 R3 K44 ["enabled"]
-      121 JUMPIFNOT                        R17 ; [+2]
-      122 LOADK                            R16 K47 ["Expanded"]
-      123 JUMP                             ; [+1]
-      124 LOADK                            R16 K48 ["Collapsed"]
-      125 CALL                             R13 3 1
-      126 SETTABLEKS                       R13 R12 K33 ["imageTag"]
-      128 GETTABLEKS                       R13 R3 K44 ["enabled"]
-      130 SETTABLEKS                       R13 R12 K34 ["expanded"]
-      132 GETTABLEKS                       R13 R3 K49 ["toggle"]
-      134 SETTABLEKS                       R13 R12 K35 ["onClick"]
-      136 CALL                             R10 2 1
-      137 SETTABLEKS                       R10 R9 K11 ["ExpandToggle"]
-      139 CALL                             R6 3 -1
-      140 RETURN                           R6 -1
+      106 GETUPVAL                         R13 8
+      107 LOADK                            R14 K43 ["ToggleSidebarExpandImage"]
+      108 LOADK                            R16 K44 ["data-testid="]
+      109 GETTABLEKS                       R18 R3 K45 ["enabled"]
+      111 JUMPIFNOT                        R18 ; [+2]
+      112 LOADK                            R17 K46 ["CategoryListCollapse"]
+      113 JUMP                             ; [+1]
+      114 LOADK                            R17 K47 ["CategoryListExpand"]
+      115 CONCAT                           R15 R16 R17
+      116 GETTABLEKS                       R17 R3 K45 ["enabled"]
+      118 JUMPIFNOT                        R17 ; [+2]
+      119 LOADK                            R16 K48 ["Expanded"]
+      120 JUMP                             ; [+1]
+      121 LOADK                            R16 K49 ["Collapsed"]
+      122 CALL                             R13 3 1
+      123 SETTABLEKS                       R13 R12 K34 ["imageTag"]
+      125 GETTABLEKS                       R13 R3 K45 ["enabled"]
+      127 SETTABLEKS                       R13 R12 K35 ["expanded"]
+      129 GETTABLEKS                       R13 R3 K50 ["toggle"]
+      131 SETTABLEKS                       R13 R12 K36 ["onClick"]
+      133 CALL                             R10 2 1
+      134 SETTABLEKS                       R10 R9 K11 ["ExpandToggle"]
+      136 CALL                             R6 3 -1
+      137 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -267,36 +265,26 @@ MAIN:
       107 LOADK                            R21 K33 ["Accessories"]
       108 LOADK                            R22 K34 ["Movement"]
       109 SETLIST                          R17 R18 5 [1]
-      111 DUPTABLE                         R18 K35 [{"General", "Body", "Movement", "Accessories", "Clothing"}]
-      112 LOADK                            R19 K36 ["GeneralCategoryImage data-testid=GeneralCategoryImage"]
-      113 SETTABLEKS                       R19 R18 K30 ["General"]
-      115 LOADK                            R19 K37 ["BodyCategoryImage data-testid=BodyCategoryImage"]
-      116 SETTABLEKS                       R19 R18 K31 ["Body"]
-      118 LOADK                            R19 K38 ["MovementCategoryImage data-testid=MovementCategoryImage"]
-      119 SETTABLEKS                       R19 R18 K34 ["Movement"]
-      121 LOADK                            R19 K39 ["AccessoriesCategoryImage data-testid=AccessoriesCategoryImage"]
-      122 SETTABLEKS                       R19 R18 K33 ["Accessories"]
-      124 LOADK                            R19 K40 ["ClothingCategoryImage data-testid=ClothingCategoryImage"]
-      125 SETTABLEKS                       R19 R18 K32 ["Clothing"]
-      127 DUPCLOSURE                       R19 K41 [PROTO_1]
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R12
-      130 CAPTURE                          VAL R15
-      131 CAPTURE                          VAL R6
-      132 CAPTURE                          VAL R1
-      133 CAPTURE                          VAL R17
-      134 CAPTURE                          VAL R8
-      135 CAPTURE                          VAL R16
-      136 CAPTURE                          VAL R3
-      137 CAPTURE                          VAL R18
-      138 DUPCLOSURE                       R20 K42 [PROTO_2]
-      139 CAPTURE                          VAL R11
-      140 CAPTURE                          VAL R6
-      141 CAPTURE                          VAL R1
-      142 CAPTURE                          VAL R19
-      143 CAPTURE                          VAL R16
-      144 CAPTURE                          VAL R14
-      145 CAPTURE                          VAL R4
-      146 CAPTURE                          VAL R3
-      147 CAPTURE                          VAL R10
-      148 RETURN                           R20 1
+      111 DUPTABLE                         R18 K40 [{["General"] = "GeneralCategoryImage data-testid=GeneralCategoryImage", ["Body"] = "BodyCategoryImage data-testid=BodyCategoryImage", ["Movement"] = "MovementCategoryImage data-testid=MovementCategoryImage", ["Accessories"] = "AccessoriesCategoryImage data-testid=AccessoriesCategoryImage", ["Clothing"] = "ClothingCategoryImage data-testid=ClothingCategoryImage"}]
+      112 DUPCLOSURE                       R19 K41 [PROTO_1]
+      113 CAPTURE                          VAL R11
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R15
+      116 CAPTURE                          VAL R6
+      117 CAPTURE                          VAL R1
+      118 CAPTURE                          VAL R17
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R3
+      122 CAPTURE                          VAL R18
+      123 DUPCLOSURE                       R20 K42 [PROTO_2]
+      124 CAPTURE                          VAL R11
+      125 CAPTURE                          VAL R6
+      126 CAPTURE                          VAL R1
+      127 CAPTURE                          VAL R19
+      128 CAPTURE                          VAL R16
+      129 CAPTURE                          VAL R14
+      130 CAPTURE                          VAL R4
+      131 CAPTURE                          VAL R3
+      132 CAPTURE                          VAL R10
+      133 RETURN                           R20 1

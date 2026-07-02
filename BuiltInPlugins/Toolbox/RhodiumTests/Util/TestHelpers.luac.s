@@ -26,7 +26,7 @@ PROTO_2:
         1 JUMPIF                           R4 ; [+5]
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R4 R4 K0 ["getSimpleAsset"]
-        5 LOADN                            R5 57
+        5 LOADN                            R5 12345
         6 CALL                             R4 1 1
         7 GETTABLEKS                       R5 R4 K1 ["Asset"]
         9 GETTABLEKS                       R5 R5 K2 ["Id"]
@@ -67,23 +67,19 @@ PROTO_2:
        59 GETUPVAL                         R10 4
        60 GETTABLEKS                       R10 R10 K14 ["createElement"]
        62 GETUPVAL                         R11 6
-       63 DUPTABLE                         R12 K20 [{"assetId", "assetData", "LayoutOrder", "Selected"}]
+       63 DUPTABLE                         R12 K22 [{["assetId"], ["assetData"], ["LayoutOrder"] = 1, ["Selected"] = False}]
        64 SETTABLEKS                       R5 R12 K16 ["assetId"]
        66 SETTABLEKS                       R4 R12 K17 ["assetData"]
-       68 LOADN                            R13 1
-       69 SETTABLEKS                       R13 R12 K18 ["LayoutOrder"]
-       71 LOADB                            R13 0
-       72 SETTABLEKS                       R13 R12 K19 ["Selected"]
-       74 CALL                             R10 2 1
-       75 SETTABLEKS                       R10 R9 K1 ["Asset"]
-       77 CALL                             R6 3 1
-       78 GETUPVAL                         R7 4
-       79 GETTABLEKS                       R7 R7 K21 ["mount"]
-       81 MOVE                             R8 R6
-       82 ORK                              R9 R0 K22 []
-       83 ORK                              R10 R1 K23 [""]
-       84 CALL                             R7 3 -1
-       85 RETURN                           R7 -1
+       68 CALL                             R10 2 1
+       69 SETTABLEKS                       R10 R9 K1 ["Asset"]
+       71 CALL                             R6 3 1
+       72 GETUPVAL                         R7 4
+       73 GETTABLEKS                       R7 R7 K23 ["mount"]
+       75 MOVE                             R8 R6
+       76 ORK                              R9 R0 K24 []
+       77 ORK                              R10 R1 K25 [""]
+       78 CALL                             R7 3 -1
+       79 RETURN                           R7 -1
 
 PROTO_3:
         0 GETUPVAL                         R4 0

@@ -13,7 +13,7 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETTABLEKS                       R3 R3 K10 ["createUnimplemented"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K21 [{"generations", "updateGeneration", "modelToGenerations", "updateModelToGenerations", "selected", "setSelected", "quota", "setQuota", "total", "setTotal"}]
+       23 DUPTABLE                         R3 K23 [{["generations"], ["updateGeneration"], ["modelToGenerations"], ["updateModelToGenerations"], ["selected"] = , ["setSelected"], ["quota"] = 0, ["setQuota"], ["total"] = 0, ["setTotal"]}]
        24 NEWTABLE                         R4 0 0
        26 SETTABLEKS                       R4 R3 K11 ["generations"]
        28 MOVE                             R4 R2
@@ -26,25 +26,19 @@ MAIN:
        38 LOADK                            R5 K14 ["updateModelToGenerations"]
        39 CALL                             R4 1 1
        40 SETTABLEKS                       R4 R3 K14 ["updateModelToGenerations"]
-       42 LOADNIL                          R4
-       43 SETTABLEKS                       R4 R3 K15 ["selected"]
-       45 MOVE                             R4 R2
-       46 LOADK                            R5 K16 ["setSelected"]
-       47 CALL                             R4 1 1
-       48 SETTABLEKS                       R4 R3 K16 ["setSelected"]
-       50 LOADN                            R4 0
-       51 SETTABLEKS                       R4 R3 K17 ["quota"]
-       53 MOVE                             R4 R2
-       54 LOADK                            R5 K18 ["setQuota"]
-       55 CALL                             R4 1 1
-       56 SETTABLEKS                       R4 R3 K18 ["setQuota"]
-       58 LOADN                            R4 0
-       59 SETTABLEKS                       R4 R3 K19 ["total"]
-       61 MOVE                             R4 R2
-       62 LOADK                            R5 K20 ["setTotal"]
-       63 CALL                             R4 1 1
-       64 SETTABLEKS                       R4 R3 K20 ["setTotal"]
-       66 GETTABLEKS                       R4 R1 K22 ["createContext"]
-       68 MOVE                             R5 R3
-       69 CALL                             R4 1 1
-       70 RETURN                           R4 1
+       42 MOVE                             R4 R2
+       43 LOADK                            R5 K17 ["setSelected"]
+       44 CALL                             R4 1 1
+       45 SETTABLEKS                       R4 R3 K17 ["setSelected"]
+       47 MOVE                             R4 R2
+       48 LOADK                            R5 K20 ["setQuota"]
+       49 CALL                             R4 1 1
+       50 SETTABLEKS                       R4 R3 K20 ["setQuota"]
+       52 MOVE                             R4 R2
+       53 LOADK                            R5 K22 ["setTotal"]
+       54 CALL                             R4 1 1
+       55 SETTABLEKS                       R4 R3 K22 ["setTotal"]
+       57 GETTABLEKS                       R4 R1 K24 ["createContext"]
+       59 MOVE                             R5 R3
+       60 CALL                             R4 1 1
+       61 RETURN                           R4 1

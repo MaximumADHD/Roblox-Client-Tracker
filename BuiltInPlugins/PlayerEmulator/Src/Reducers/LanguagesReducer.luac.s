@@ -46,27 +46,21 @@ PROTO_1:
        64 MOVE                             R6 R4
        65 DUPCLOSURE                       R7 K16 [PROTO_0]
        66 CALL                             R5 2 0
-       67 DUPTABLE                         R5 K20 [{"isCustom", "displayTextSectionKey", "displayTextStringKey"}]
-       68 LOADB                            R6 1
-       69 SETTABLEKS                       R6 R5 K17 ["isCustom"]
-       71 LOADK                            R6 K21 ["LanguageSection"]
-       72 SETTABLEKS                       R6 R5 K18 ["displayTextSectionKey"]
-       74 LOADK                            R6 K22 ["CustomLanguageDisplayText"]
-       75 SETTABLEKS                       R6 R5 K19 ["displayTextStringKey"]
-       77 FASTCALL2                        TABLE_INSERT R4 R5 ; [+5]
-       79 MOVE                             R7 R4
-       80 MOVE                             R8 R5
-       81 GETIMPORT                        R6 K13 [table.insert]
-       83 CALL                             R6 2 0
-       84 GETUPVAL                         R6 0
-       85 GETTABLEKS                       R6 R6 K23 ["Dictionary"]
-       87 GETTABLEKS                       R6 R6 K24 ["join"]
-       89 MOVE                             R7 R0
-       90 DUPTABLE                         R8 K27 [{"languagesTable", "languagesList"}]
-       91 SETTABLEKS                       R3 R8 K25 ["languagesTable"]
-       93 SETTABLEKS                       R4 R8 K26 ["languagesList"]
-       95 CALL                             R6 2 -1
-       96 RETURN                           R6 -1
+       67 DUPTABLE                         R5 K23 [{["isCustom"] = True, ["displayTextSectionKey"] = "LanguageSection", ["displayTextStringKey"] = "CustomLanguageDisplayText"}]
+       68 FASTCALL2                        TABLE_INSERT R4 R5 ; [+5]
+       70 MOVE                             R7 R4
+       71 MOVE                             R8 R5
+       72 GETIMPORT                        R6 K13 [table.insert]
+       74 CALL                             R6 2 0
+       75 GETUPVAL                         R6 0
+       76 GETTABLEKS                       R6 R6 K24 ["Dictionary"]
+       78 GETTABLEKS                       R6 R6 K25 ["join"]
+       80 MOVE                             R7 R0
+       81 DUPTABLE                         R8 K28 [{"languagesTable", "languagesList"}]
+       82 SETTABLEKS                       R3 R8 K26 ["languagesTable"]
+       84 SETTABLEKS                       R4 R8 K27 ["languagesList"]
+       86 CALL                             R6 2 -1
+       87 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -41,199 +41,189 @@ PROTO_1:
        20 CALL                             R8 1 1
        21 LOADNIL                          R9
        22 GETTABLEKS                       R10 R3 K7 ["IsPivot"]
-       24 JUMPIFNOT                        R10 ; [+28]
+       24 JUMPIFNOT                        R10 ; [+25]
        25 GETTABLEKS                       R9 R5 K5 ["Position"]
        27 GETUPVAL                         R10 0
        28 GETTABLEKS                       R10 R10 K8 ["createElement"]
        30 GETUPVAL                         R11 1
-       31 DUPTABLE                         R12 K11 [{"DraggerContext", "Position", "Hovered", "IsActive"}]
+       31 DUPTABLE                         R12 K12 [{["DraggerContext"], ["Position"], ["Hovered"] = True, ["IsActive"]}]
        32 SETTABLEKS                       R2 R12 K1 ["DraggerContext"]
        34 GETTABLEKS                       R13 R5 K5 ["Position"]
        36 SETTABLEKS                       R13 R12 K5 ["Position"]
-       38 LOADB                            R13 1
-       39 SETTABLEKS                       R13 R12 K9 ["Hovered"]
-       41 NAMECALL                         R13 R2 K12 ["shouldShowActiveInstanceHighlight"]
-       43 CALL                             R13 1 1
-       44 JUMPIFNOT                        R13 ; [+2]
-       45 GETTABLEKS                       R13 R3 K13 ["IsActivePivot"]
-       47 SETTABLEKS                       R13 R12 K10 ["IsActive"]
-       49 CALL                             R10 2 1
-       50 SETTABLEKS                       R10 R4 K14 ["PivotRing"]
-       52 JUMP                             ; [+143]
-       53 JUMPIFNOT                        R5 ; [+141]
-       54 NAMECALL                         R10 R2 K15 ["getGridSnapEnabled"]
-       56 CALL                             R10 1 1
-       57 JUMPIFNOT                        R10 ; [+137]
-       58 MOVE                             R12 R7
-       59 NAMECALL                         R10 R5 K16 ["PointToObjectSpace"]
-       61 CALL                             R10 2 1
-       62 GETTABLEKS                       R12 R10 K17 ["X"]
-       64 LOADN                            R13 0
-       65 JUMPIFNOTLT                      R13 R12 ; [+4]
-       67 GETTABLEKS                       R11 R5 K18 ["XVector"]
-       69 JUMP                             ; [+3]
-       70 GETTABLEKS                       R12 R5 K18 ["XVector"]
-       72 MINUS                            R11 R12
-       73 GETTABLEKS                       R13 R10 K19 ["Z"]
-       75 LOADN                            R14 0
-       76 JUMPIFNOTLT                      R14 R13 ; [+4]
-       78 GETTABLEKS                       R12 R5 K20 ["ZVector"]
-       80 JUMP                             ; [+3]
-       81 GETTABLEKS                       R13 R5 K20 ["ZVector"]
-       83 MINUS                            R12 R13
-       84 NAMECALL                         R13 R2 K21 ["getGridSize"]
-       86 CALL                             R13 1 1
-       87 GETTABLEKS                       R16 R10 K17 ["X"]
-       89 LOADN                            R17 0
-       90 GETTABLEKS                       R18 R10 K19 ["Z"]
-       92 FASTCALL                         VECTOR ; [+2]
-       93 GETIMPORT                        R15 K24 [Vector3.new]
-       95 CALL                             R15 3 1
-       96 GETTABLEKS                       R21 R15 K17 ["X"]
-       98 DIV                              R20 R21 R13
-       99 ADDK                             R19 R20 K25 [0.5]
-      100 FASTCALL1                        MATH_FLOOR R19 ; [+2]
-      101 GETIMPORT                        R18 K28 [math.floor]
-      103 CALL                             R18 1 1
-      104 MUL                              R17 R18 R13
-      105 GETTABLEKS                       R22 R15 K29 ["Y"]
-      107 DIV                              R21 R22 R13
-      108 ADDK                             R20 R21 K25 [0.5]
-      109 FASTCALL1                        MATH_FLOOR R20 ; [+2]
-      110 GETIMPORT                        R19 K28 [math.floor]
-      112 CALL                             R19 1 1
-      113 MUL                              R18 R19 R13
-      114 GETTABLEKS                       R23 R15 K19 ["Z"]
-      116 DIV                              R22 R23 R13
-      117 ADDK                             R21 R22 K25 [0.5]
-      118 FASTCALL1                        MATH_FLOOR R21 ; [+2]
-      119 GETIMPORT                        R20 K28 [math.floor]
-      121 CALL                             R20 1 1
-      122 MUL                              R19 R20 R13
-      123 FASTCALL                         VECTOR ; [+2]
-      124 GETIMPORT                        R16 K24 [Vector3.new]
-      126 CALL                             R16 3 1
-      127 MOVE                             R14 R16
-      128 MOVE                             R17 R14
-      129 NAMECALL                         R15 R5 K30 ["PointToWorldSpace"]
-      131 CALL                             R15 2 1
-      132 MOVE                             R9 R15
-      133 NAMECALL                         R15 R2 K31 ["shouldShowHoverGrids"]
-      135 CALL                             R15 1 1
-      136 JUMPIFNOT                        R15 ; [+59]
-      137 GETTABLEKS                       R16 R14 K17 ["X"]
-      139 FASTCALL1                        MATH_ABS R16 ; [+2]
-      140 GETIMPORT                        R15 K33 [math.abs]
-      142 CALL                             R15 1 1
-      143 GETTABLEKS                       R17 R14 K19 ["Z"]
-      145 FASTCALL1                        MATH_ABS R17 ; [+2]
-      146 GETIMPORT                        R16 K33 [math.abs]
-      148 CALL                             R16 1 1
-      149 GETIMPORT                        R17 K36 [CFrame.fromMatrix]
-      151 GETTABLEKS                       R18 R5 K5 ["Position"]
-      153 MOVE                             R19 R11
-      154 MOVE                             R22 R11
-      155 NAMECALL                         R20 R12 K37 ["Cross"]
-      157 CALL                             R20 2 -1
-      158 CALL                             R17 -1 1
-      159 GETUPVAL                         R18 0
-      160 GETTABLEKS                       R18 R18 K8 ["createElement"]
-      162 GETUPVAL                         R19 2
-      163 DUPTABLE                         R20 K44 [{"MainTransparency", "DimTransparency", "Color3", "CFrame", "Size", "GridSize", "MajorStep"}]
-      164 LOADK                            R21 K45 [0.4]
-      165 SETTABLEKS                       R21 R20 K38 ["MainTransparency"]
-      167 LOADK                            R21 K46 [0.85]
-      168 SETTABLEKS                       R21 R20 K39 ["DimTransparency"]
-      170 SETTABLEKS                       R8 R20 K40 ["Color3"]
-      172 SETTABLEKS                       R17 R20 K34 ["CFrame"]
-      174 LOADN                            R23 0
-      175 FASTCALL3                        VECTOR R15 R23 R16
-      177 MOVE                             R22 R15
-      178 MOVE                             R24 R16
-      179 GETIMPORT                        R21 K24 [Vector3.new]
-      181 CALL                             R21 3 1
-      182 SETTABLEKS                       R21 R20 K41 ["Size"]
-      184 SETTABLEKS                       R13 R20 K42 ["GridSize"]
-      186 NAMECALL                         R21 R2 K47 ["getMajorGridIncrement"]
-      188 CALL                             R21 1 1
-      189 SETTABLEKS                       R21 R20 K43 ["MajorStep"]
-      191 CALL                             R18 2 1
-      192 SETTABLEKS                       R18 R4 K48 ["TargetRulerView"]
-      194 JUMP                             ; [+1]
-      195 MOVE                             R9 R7
-      196 NAMECALL                         R10 R2 K31 ["shouldShowHoverGrids"]
-      198 CALL                             R10 1 1
-      199 JUMPIFNOT                        R10 ; [+100]
-      200 GETTABLEKS                       R10 R3 K4 ["RaycastResult"]
-      202 GETTABLEKS                       R10 R10 K49 ["Instance"]
-      204 JUMPIFNOT                        R10 ; [+42]
-      205 LOADK                            R13 K50 ["Part"]
-      206 NAMECALL                         R11 R10 K51 ["IsA"]
-      208 CALL                             R11 2 1
-      209 JUMPIFNOT                        R11 ; [+37]
-      210 GETTABLEKS                       R11 R10 K52 ["Shape"]
-      212 GETIMPORT                        R12 K56 [Enum.PartType.Ball]
-      214 JUMPIFNOTEQ                      R11 R12 ; [+14]
-      216 GETUPVAL                         R11 0
-      217 GETTABLEKS                       R11 R11 K8 ["createElement"]
-      219 GETUPVAL                         R12 3
-      220 DUPTABLE                         R13 K57 [{"Part", "Color3"}]
-      221 SETTABLEKS                       R10 R13 K50 ["Part"]
-      223 SETTABLEKS                       R8 R13 K40 ["Color3"]
-      225 CALL                             R11 2 1
-      226 SETTABLEKS                       R11 R4 K58 ["MajorLines"]
-      228 JUMP                             ; [+18]
-      229 GETTABLEKS                       R11 R10 K52 ["Shape"]
-      231 GETIMPORT                        R12 K60 [Enum.PartType.Cylinder]
-      233 JUMPIFNOTEQ                      R11 R12 ; [+13]
-      235 GETUPVAL                         R11 0
-      236 GETTABLEKS                       R11 R11 K8 ["createElement"]
-      238 GETUPVAL                         R12 4
-      239 DUPTABLE                         R13 K57 [{"Part", "Color3"}]
-      240 SETTABLEKS                       R10 R13 K50 ["Part"]
-      242 SETTABLEKS                       R8 R13 K40 ["Color3"]
-      244 CALL                             R11 2 1
-      245 SETTABLEKS                       R11 R4 K58 ["MajorLines"]
-      247 JUMPIFNOT                        R5 ; [+52]
-      248 NAMECALL                         R11 R2 K61 ["shouldGridSnap"]
-      250 CALL                             R11 1 1
-      251 JUMPIFNOT                        R11 ; [+48]
-      252 GETUPVAL                         R11 0
-      253 GETTABLEKS                       R11 R11 K8 ["createElement"]
-      255 LOADK                            R12 K62 ["SphereHandleAdornment"]
-      256 DUPTABLE                         R13 K68 [{"Radius", "CFrame", "Color3", "AlwaysOnTop", "AdornCullingMode", "Adornee", "ZIndex"}]
-      257 MOVE                             R17 R9
-      258 NAMECALL                         R15 R2 K70 ["getHandleScale"]
-      260 CALL                             R15 2 1
-      261 MULK                             R14 R15 K69 [0.15]
-      262 SETTABLEKS                       R14 R13 K63 ["Radius"]
-      264 GETTABLEKS                       R15 R5 K71 ["Rotation"]
-      266 ADD                              R14 R15 R9
-      267 SETTABLEKS                       R14 R13 K34 ["CFrame"]
-      269 GETTABLEKS                       R15 R1 K72 ["Pending"]
-      271 JUMPIFNOT                        R15 ; [+4]
-      272 NAMECALL                         R14 R2 K73 ["getChosenColor"]
-      274 CALL                             R14 1 1
-      275 JUMP                             ; [+3]
-      276 NAMECALL                         R14 R2 K6 ["getGridColor"]
-      278 CALL                             R14 1 1
-      279 SETTABLEKS                       R14 R13 K40 ["Color3"]
-      281 LOADB                            R14 1
-      282 SETTABLEKS                       R14 R13 K64 ["AlwaysOnTop"]
-      284 GETIMPORT                        R14 K75 [Enum.AdornCullingMode.Never]
-      286 SETTABLEKS                       R14 R13 K65 ["AdornCullingMode"]
-      288 GETIMPORT                        R14 K77 [workspace]
-      290 GETTABLEKS                       R14 R14 K78 ["Terrain"]
-      292 SETTABLEKS                       R14 R13 K66 ["Adornee"]
-      294 LOADN                            R14 0
-      295 SETTABLEKS                       R14 R13 K67 ["ZIndex"]
-      297 CALL                             R11 2 1
-      298 SETTABLEKS                       R11 R4 K79 ["SnapTo"]
-      300 GETUPVAL                         R10 0
-      301 GETTABLEKS                       R10 R10 K80 ["createFragment"]
-      303 MOVE                             R11 R4
-      304 CALL                             R10 1 -1
-      305 RETURN                           R10 -1
+       38 NAMECALL                         R13 R2 K13 ["shouldShowActiveInstanceHighlight"]
+       40 CALL                             R13 1 1
+       41 JUMPIFNOT                        R13 ; [+2]
+       42 GETTABLEKS                       R13 R3 K14 ["IsActivePivot"]
+       44 SETTABLEKS                       R13 R12 K11 ["IsActive"]
+       46 CALL                             R10 2 1
+       47 SETTABLEKS                       R10 R4 K15 ["PivotRing"]
+       49 JUMP                             ; [+137]
+       50 JUMPIFNOT                        R5 ; [+135]
+       51 NAMECALL                         R10 R2 K16 ["getGridSnapEnabled"]
+       53 CALL                             R10 1 1
+       54 JUMPIFNOT                        R10 ; [+131]
+       55 MOVE                             R12 R7
+       56 NAMECALL                         R10 R5 K17 ["PointToObjectSpace"]
+       58 CALL                             R10 2 1
+       59 GETTABLEKS                       R12 R10 K18 ["X"]
+       61 LOADN                            R13 0
+       62 JUMPIFNOTLT                      R13 R12 ; [+4]
+       64 GETTABLEKS                       R11 R5 K19 ["XVector"]
+       66 JUMP                             ; [+3]
+       67 GETTABLEKS                       R12 R5 K19 ["XVector"]
+       69 MINUS                            R11 R12
+       70 GETTABLEKS                       R13 R10 K20 ["Z"]
+       72 LOADN                            R14 0
+       73 JUMPIFNOTLT                      R14 R13 ; [+4]
+       75 GETTABLEKS                       R12 R5 K21 ["ZVector"]
+       77 JUMP                             ; [+3]
+       78 GETTABLEKS                       R13 R5 K21 ["ZVector"]
+       80 MINUS                            R12 R13
+       81 NAMECALL                         R13 R2 K22 ["getGridSize"]
+       83 CALL                             R13 1 1
+       84 GETTABLEKS                       R16 R10 K18 ["X"]
+       86 LOADN                            R17 0
+       87 GETTABLEKS                       R18 R10 K20 ["Z"]
+       89 FASTCALL                         VECTOR ; [+2]
+       90 GETIMPORT                        R15 K25 [Vector3.new]
+       92 CALL                             R15 3 1
+       93 GETTABLEKS                       R21 R15 K18 ["X"]
+       95 DIV                              R20 R21 R13
+       96 ADDK                             R19 R20 K26 [0.5]
+       97 FASTCALL1                        MATH_FLOOR R19 ; [+2]
+       98 GETIMPORT                        R18 K29 [math.floor]
+      100 CALL                             R18 1 1
+      101 MUL                              R17 R18 R13
+      102 GETTABLEKS                       R22 R15 K30 ["Y"]
+      104 DIV                              R21 R22 R13
+      105 ADDK                             R20 R21 K26 [0.5]
+      106 FASTCALL1                        MATH_FLOOR R20 ; [+2]
+      107 GETIMPORT                        R19 K29 [math.floor]
+      109 CALL                             R19 1 1
+      110 MUL                              R18 R19 R13
+      111 GETTABLEKS                       R23 R15 K20 ["Z"]
+      113 DIV                              R22 R23 R13
+      114 ADDK                             R21 R22 K26 [0.5]
+      115 FASTCALL1                        MATH_FLOOR R21 ; [+2]
+      116 GETIMPORT                        R20 K29 [math.floor]
+      118 CALL                             R20 1 1
+      119 MUL                              R19 R20 R13
+      120 FASTCALL                         VECTOR ; [+2]
+      121 GETIMPORT                        R16 K25 [Vector3.new]
+      123 CALL                             R16 3 1
+      124 MOVE                             R14 R16
+      125 MOVE                             R17 R14
+      126 NAMECALL                         R15 R5 K31 ["PointToWorldSpace"]
+      128 CALL                             R15 2 1
+      129 MOVE                             R9 R15
+      130 NAMECALL                         R15 R2 K32 ["shouldShowHoverGrids"]
+      132 CALL                             R15 1 1
+      133 JUMPIFNOT                        R15 ; [+53]
+      134 GETTABLEKS                       R16 R14 K18 ["X"]
+      136 FASTCALL1                        MATH_ABS R16 ; [+2]
+      137 GETIMPORT                        R15 K34 [math.abs]
+      139 CALL                             R15 1 1
+      140 GETTABLEKS                       R17 R14 K20 ["Z"]
+      142 FASTCALL1                        MATH_ABS R17 ; [+2]
+      143 GETIMPORT                        R16 K34 [math.abs]
+      145 CALL                             R16 1 1
+      146 GETIMPORT                        R17 K37 [CFrame.fromMatrix]
+      148 GETTABLEKS                       R18 R5 K5 ["Position"]
+      150 MOVE                             R19 R11
+      151 MOVE                             R22 R11
+      152 NAMECALL                         R20 R12 K38 ["Cross"]
+      154 CALL                             R20 2 -1
+      155 CALL                             R17 -1 1
+      156 GETUPVAL                         R18 0
+      157 GETTABLEKS                       R18 R18 K8 ["createElement"]
+      159 GETUPVAL                         R19 2
+      160 DUPTABLE                         R20 K47 [{["MainTransparency"] = 0.4, ["DimTransparency"] = 0.85, ["Color3"], ["CFrame"], ["Size"], ["GridSize"], ["MajorStep"]}]
+      161 SETTABLEKS                       R8 R20 K43 ["Color3"]
+      163 SETTABLEKS                       R17 R20 K35 ["CFrame"]
+      165 LOADN                            R23 0
+      166 FASTCALL3                        VECTOR R15 R23 R16
+      168 MOVE                             R22 R15
+      169 MOVE                             R24 R16
+      170 GETIMPORT                        R21 K25 [Vector3.new]
+      172 CALL                             R21 3 1
+      173 SETTABLEKS                       R21 R20 K44 ["Size"]
+      175 SETTABLEKS                       R13 R20 K45 ["GridSize"]
+      177 NAMECALL                         R21 R2 K48 ["getMajorGridIncrement"]
+      179 CALL                             R21 1 1
+      180 SETTABLEKS                       R21 R20 K46 ["MajorStep"]
+      182 CALL                             R18 2 1
+      183 SETTABLEKS                       R18 R4 K49 ["TargetRulerView"]
+      185 JUMP                             ; [+1]
+      186 MOVE                             R9 R7
+      187 NAMECALL                         R10 R2 K32 ["shouldShowHoverGrids"]
+      189 CALL                             R10 1 1
+      190 JUMPIFNOT                        R10 ; [+94]
+      191 GETTABLEKS                       R10 R3 K4 ["RaycastResult"]
+      193 GETTABLEKS                       R10 R10 K50 ["Instance"]
+      195 JUMPIFNOT                        R10 ; [+42]
+      196 LOADK                            R13 K51 ["Part"]
+      197 NAMECALL                         R11 R10 K52 ["IsA"]
+      199 CALL                             R11 2 1
+      200 JUMPIFNOT                        R11 ; [+37]
+      201 GETTABLEKS                       R11 R10 K53 ["Shape"]
+      203 GETIMPORT                        R12 K57 [Enum.PartType.Ball]
+      205 JUMPIFNOTEQ                      R11 R12 ; [+14]
+      207 GETUPVAL                         R11 0
+      208 GETTABLEKS                       R11 R11 K8 ["createElement"]
+      210 GETUPVAL                         R12 3
+      211 DUPTABLE                         R13 K58 [{"Part", "Color3"}]
+      212 SETTABLEKS                       R10 R13 K51 ["Part"]
+      214 SETTABLEKS                       R8 R13 K43 ["Color3"]
+      216 CALL                             R11 2 1
+      217 SETTABLEKS                       R11 R4 K59 ["MajorLines"]
+      219 JUMP                             ; [+18]
+      220 GETTABLEKS                       R11 R10 K53 ["Shape"]
+      222 GETIMPORT                        R12 K61 [Enum.PartType.Cylinder]
+      224 JUMPIFNOTEQ                      R11 R12 ; [+13]
+      226 GETUPVAL                         R11 0
+      227 GETTABLEKS                       R11 R11 K8 ["createElement"]
+      229 GETUPVAL                         R12 4
+      230 DUPTABLE                         R13 K58 [{"Part", "Color3"}]
+      231 SETTABLEKS                       R10 R13 K51 ["Part"]
+      233 SETTABLEKS                       R8 R13 K43 ["Color3"]
+      235 CALL                             R11 2 1
+      236 SETTABLEKS                       R11 R4 K59 ["MajorLines"]
+      238 JUMPIFNOT                        R5 ; [+46]
+      239 NAMECALL                         R11 R2 K62 ["shouldGridSnap"]
+      241 CALL                             R11 1 1
+      242 JUMPIFNOT                        R11 ; [+42]
+      243 GETUPVAL                         R11 0
+      244 GETTABLEKS                       R11 R11 K8 ["createElement"]
+      246 LOADK                            R12 K63 ["SphereHandleAdornment"]
+      247 DUPTABLE                         R13 K70 [{["Radius"], ["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["AdornCullingMode"], ["Adornee"], ["ZIndex"] = 0}]
+      248 MOVE                             R17 R9
+      249 NAMECALL                         R15 R2 K72 ["getHandleScale"]
+      251 CALL                             R15 2 1
+      252 MULK                             R14 R15 K71 [0.15]
+      253 SETTABLEKS                       R14 R13 K64 ["Radius"]
+      255 GETTABLEKS                       R15 R5 K73 ["Rotation"]
+      257 ADD                              R14 R15 R9
+      258 SETTABLEKS                       R14 R13 K35 ["CFrame"]
+      260 GETTABLEKS                       R15 R1 K74 ["Pending"]
+      262 JUMPIFNOT                        R15 ; [+4]
+      263 NAMECALL                         R14 R2 K75 ["getChosenColor"]
+      265 CALL                             R14 1 1
+      266 JUMP                             ; [+3]
+      267 NAMECALL                         R14 R2 K6 ["getGridColor"]
+      269 CALL                             R14 1 1
+      270 SETTABLEKS                       R14 R13 K43 ["Color3"]
+      272 GETIMPORT                        R14 K77 [Enum.AdornCullingMode.Never]
+      274 SETTABLEKS                       R14 R13 K66 ["AdornCullingMode"]
+      276 GETIMPORT                        R14 K79 [workspace]
+      278 GETTABLEKS                       R14 R14 K80 ["Terrain"]
+      280 SETTABLEKS                       R14 R13 K67 ["Adornee"]
+      282 CALL                             R11 2 1
+      283 SETTABLEKS                       R11 R4 K81 ["SnapTo"]
+      285 GETUPVAL                         R10 0
+      286 GETTABLEKS                       R10 R10 K82 ["createFragment"]
+      288 MOVE                             R11 R4
+      289 CALL                             R10 1 -1
+      290 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

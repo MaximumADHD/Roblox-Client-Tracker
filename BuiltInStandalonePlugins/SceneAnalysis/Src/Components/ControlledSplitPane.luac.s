@@ -24,21 +24,17 @@ PROTO_2:
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
         8 GETUPVAL                         R5 2
-        9 DUPTABLE                         R6 K8 [{"Sizes", "OnSizesChange", "MinSizes", "PaneStyle", "BarStyle"}]
-       10 GETTABLEKS                       R7 R2 K9 ["sizes"]
+        9 DUPTABLE                         R6 K9 [{["Sizes"], ["OnSizesChange"], ["MinSizes"], ["PaneStyle"] = "BorderBox", ["BarStyle"] = "BorderBox"}]
+       10 GETTABLEKS                       R7 R2 K10 ["sizes"]
        12 SETTABLEKS                       R7 R6 K3 ["Sizes"]
-       14 GETTABLEKS                       R7 R0 K10 ["onSizesChange"]
+       14 GETTABLEKS                       R7 R0 K11 ["onSizesChange"]
        16 SETTABLEKS                       R7 R6 K4 ["OnSizesChange"]
        18 GETTABLEKS                       R7 R1 K5 ["MinSizes"]
        20 SETTABLEKS                       R7 R6 K5 ["MinSizes"]
-       22 LOADK                            R7 K11 ["BorderBox"]
-       23 SETTABLEKS                       R7 R6 K6 ["PaneStyle"]
-       25 LOADK                            R7 K11 ["BorderBox"]
-       26 SETTABLEKS                       R7 R6 K7 ["BarStyle"]
-       28 MOVE                             R7 R1
-       29 CALL                             R5 2 -1
-       30 CALL                             R3 -1 -1
-       31 RETURN                           R3 -1
+       22 MOVE                             R7 R1
+       23 CALL                             R5 2 -1
+       24 CALL                             R3 -1 -1
+       25 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

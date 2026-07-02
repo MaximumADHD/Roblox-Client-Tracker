@@ -36,17 +36,15 @@ PROTO_0:
        49 GETUPVAL                         R9 0
        50 GETTABLEKS                       R9 R9 K0 ["createElement"]
        52 LOADK                            R10 K13 ["TextLabel"]
-       53 DUPTABLE                         R11 K15 [{"Text", "LayoutOrder"}]
+       53 DUPTABLE                         R11 K16 [{["Text"], ["LayoutOrder"] = 2}]
        54 GETTABLEKS                       R12 R0 K9 ["ElapsedTime"]
        56 SETTABLEKS                       R12 R11 K14 ["Text"]
-       58 LOADN                            R12 2
-       59 SETTABLEKS                       R12 R11 K4 ["LayoutOrder"]
-       61 CALL                             R9 2 1
-       62 SETTABLEKS                       R9 R8 K9 ["ElapsedTime"]
-       64 CALL                             R5 3 1
-       65 SETTABLEKS                       R5 R4 K5 ["Container"]
-       67 CALL                             R1 3 -1
-       68 RETURN                           R1 -1
+       58 CALL                             R9 2 1
+       59 SETTABLEKS                       R9 R8 K9 ["ElapsedTime"]
+       61 CALL                             R5 3 1
+       62 SETTABLEKS                       R5 R4 K5 ["Container"]
+       64 CALL                             R1 3 -1
+       65 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

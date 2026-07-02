@@ -123,25 +123,23 @@ PROTO_6:
        63 GETUPVAL                         R6 1
        64 GETTABLEKS                       R6 R6 K9 ["createElement"]
        66 GETUPVAL                         R7 3
-       67 DUPTABLE                         R8 K14 [{"title", "Position", "AnchorPoint", "ZIndex"}]
-       68 GETTABLEKS                       R9 R0 K15 ["message"]
+       67 DUPTABLE                         R8 K15 [{["title"], ["Position"], ["AnchorPoint"], ["ZIndex"] = 100}]
+       68 GETTABLEKS                       R9 R0 K16 ["message"]
        70 SETTABLEKS                       R9 R8 K10 ["title"]
-       72 GETIMPORT                        R9 K18 [UDim2.new]
-       74 LOADK                            R10 K19 [0.5]
+       72 GETIMPORT                        R9 K19 [UDim2.new]
+       74 LOADK                            R10 K20 [0.5]
        75 LOADN                            R11 0
        76 LOADN                            R12 1
-       77 LOADN                            R13 224
+       77 LOADN                            R13 -32
        78 CALL                             R9 4 1
        79 SETTABLEKS                       R9 R8 K11 ["Position"]
-       81 GETIMPORT                        R9 K21 [Vector2.new]
-       83 LOADK                            R10 K19 [0.5]
+       81 GETIMPORT                        R9 K22 [Vector2.new]
+       83 LOADK                            R10 K20 [0.5]
        84 LOADN                            R11 1
        85 CALL                             R9 2 1
        86 SETTABLEKS                       R9 R8 K12 ["AnchorPoint"]
-       88 LOADN                            R9 100
-       89 SETTABLEKS                       R9 R8 K13 ["ZIndex"]
-       91 CALL                             R6 2 -1
-       92 RETURN                           R6 -1
+       88 CALL                             R6 2 -1
+       89 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

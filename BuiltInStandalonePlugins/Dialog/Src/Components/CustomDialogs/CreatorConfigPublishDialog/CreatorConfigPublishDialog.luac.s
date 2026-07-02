@@ -42,62 +42,58 @@ PROTO_2:
        35 GETUPVAL                         R7 0
        36 GETTABLEKS                       R7 R7 K6 ["createElement"]
        38 GETUPVAL                         R8 1
-       39 DUPTABLE                         R9 K13 [{"uri", "type", "title", "width", "primaryAction", "secondaryAction"}]
+       39 DUPTABLE                         R9 K15 [{["uri"], ["type"] = "Default", ["title"], ["width"] = 405, ["primaryAction"], ["secondaryAction"]}]
        40 GETTABLEKS                       R10 R0 K7 ["uri"]
        42 SETTABLEKS                       R10 R9 K7 ["uri"]
-       44 LOADK                            R10 K14 ["Default"]
-       45 SETTABLEKS                       R10 R9 K8 ["type"]
-       47 GETTABLEKS                       R10 R2 K15 ["Title"]
-       49 SETTABLEKS                       R10 R9 K9 ["title"]
-       51 LOADN                            R10 149
-       52 SETTABLEKS                       R10 R9 K10 ["width"]
-       54 DUPTABLE                         R10 K18 [{"uri", "text", "onActivated"}]
-       55 GETUPVAL                         R11 2
-       56 GETTABLEKS                       R11 R11 K19 ["child"]
-       58 GETTABLEKS                       R12 R0 K7 ["uri"]
-       60 LOADK                            R13 K20 ["Publish"]
-       61 CALL                             R11 2 1
-       62 SETTABLEKS                       R11 R10 K7 ["uri"]
-       64 GETTABLEKS                       R11 R2 K21 ["PublishButton"]
-       66 SETTABLEKS                       R11 R10 K16 ["text"]
-       68 SETTABLEKS                       R5 R10 K17 ["onActivated"]
-       70 SETTABLEKS                       R10 R9 K11 ["primaryAction"]
-       72 DUPTABLE                         R10 K18 [{"uri", "text", "onActivated"}]
-       73 GETUPVAL                         R11 2
-       74 GETTABLEKS                       R11 R11 K19 ["child"]
-       76 GETTABLEKS                       R12 R0 K7 ["uri"]
-       78 LOADK                            R13 K22 ["Cancel"]
-       79 CALL                             R11 2 1
-       80 SETTABLEKS                       R11 R10 K7 ["uri"]
-       82 GETTABLEKS                       R11 R2 K23 ["CancelButton"]
-       84 SETTABLEKS                       R11 R10 K16 ["text"]
-       86 SETTABLEKS                       R6 R10 K17 ["onActivated"]
-       88 SETTABLEKS                       R10 R9 K12 ["secondaryAction"]
-       90 DUPTABLE                         R10 K25 [{"MessageField"}]
-       91 GETUPVAL                         R11 0
-       92 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       94 GETUPVAL                         R12 3
-       95 DUPTABLE                         R13 K31 [{"text", "label", "hint", "placeholder", "size", "width", "onChanged"}]
-       96 SETTABLEKS                       R3 R13 K16 ["text"]
-       98 GETTABLEKS                       R14 R2 K32 ["MessageFieldLabel"]
-      100 SETTABLEKS                       R14 R13 K26 ["label"]
-      102 GETTABLEKS                       R14 R2 K33 ["MessageFieldHint"]
-      104 SETTABLEKS                       R14 R13 K27 ["hint"]
-      106 GETTABLEKS                       R14 R2 K34 ["MessageFieldPlaceholder"]
-      108 SETTABLEKS                       R14 R13 K28 ["placeholder"]
-      110 GETUPVAL                         R14 4
-      111 GETTABLEKS                       R14 R14 K35 ["Small"]
-      113 SETTABLEKS                       R14 R13 K29 ["size"]
-      115 GETIMPORT                        R14 K38 [UDim.new]
-      117 LOADN                            R15 1
-      118 LOADN                            R16 0
-      119 CALL                             R14 2 1
-      120 SETTABLEKS                       R14 R13 K10 ["width"]
-      122 SETTABLEKS                       R4 R13 K30 ["onChanged"]
-      124 CALL                             R11 2 1
-      125 SETTABLEKS                       R11 R10 K24 ["MessageField"]
-      127 CALL                             R7 3 -1
-      128 RETURN                           R7 -1
+       44 GETTABLEKS                       R10 R2 K16 ["Title"]
+       46 SETTABLEKS                       R10 R9 K10 ["title"]
+       48 DUPTABLE                         R10 K19 [{"uri", "text", "onActivated"}]
+       49 GETUPVAL                         R11 2
+       50 GETTABLEKS                       R11 R11 K20 ["child"]
+       52 GETTABLEKS                       R12 R0 K7 ["uri"]
+       54 LOADK                            R13 K21 ["Publish"]
+       55 CALL                             R11 2 1
+       56 SETTABLEKS                       R11 R10 K7 ["uri"]
+       58 GETTABLEKS                       R11 R2 K22 ["PublishButton"]
+       60 SETTABLEKS                       R11 R10 K17 ["text"]
+       62 SETTABLEKS                       R5 R10 K18 ["onActivated"]
+       64 SETTABLEKS                       R10 R9 K13 ["primaryAction"]
+       66 DUPTABLE                         R10 K19 [{"uri", "text", "onActivated"}]
+       67 GETUPVAL                         R11 2
+       68 GETTABLEKS                       R11 R11 K20 ["child"]
+       70 GETTABLEKS                       R12 R0 K7 ["uri"]
+       72 LOADK                            R13 K23 ["Cancel"]
+       73 CALL                             R11 2 1
+       74 SETTABLEKS                       R11 R10 K7 ["uri"]
+       76 GETTABLEKS                       R11 R2 K24 ["CancelButton"]
+       78 SETTABLEKS                       R11 R10 K17 ["text"]
+       80 SETTABLEKS                       R6 R10 K18 ["onActivated"]
+       82 SETTABLEKS                       R10 R9 K14 ["secondaryAction"]
+       84 DUPTABLE                         R10 K26 [{"MessageField"}]
+       85 GETUPVAL                         R11 0
+       86 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       88 GETUPVAL                         R12 3
+       89 DUPTABLE                         R13 K32 [{"text", "label", "hint", "placeholder", "size", "width", "onChanged"}]
+       90 SETTABLEKS                       R3 R13 K17 ["text"]
+       92 GETTABLEKS                       R14 R2 K33 ["MessageFieldLabel"]
+       94 SETTABLEKS                       R14 R13 K27 ["label"]
+       96 GETTABLEKS                       R14 R2 K34 ["MessageFieldHint"]
+       98 SETTABLEKS                       R14 R13 K28 ["hint"]
+      100 GETTABLEKS                       R14 R2 K35 ["MessageFieldPlaceholder"]
+      102 SETTABLEKS                       R14 R13 K29 ["placeholder"]
+      104 GETUPVAL                         R14 4
+      105 GETTABLEKS                       R14 R14 K36 ["Small"]
+      107 SETTABLEKS                       R14 R13 K30 ["size"]
+      109 GETIMPORT                        R14 K39 [UDim.new]
+      111 LOADN                            R15 1
+      112 LOADN                            R16 0
+      113 CALL                             R14 2 1
+      114 SETTABLEKS                       R14 R13 K11 ["width"]
+      116 SETTABLEKS                       R4 R13 K31 ["onChanged"]
+      118 CALL                             R11 2 1
+      119 SETTABLEKS                       R11 R10 K25 ["MessageField"]
+      121 CALL                             R7 3 -1
+      122 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

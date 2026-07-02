@@ -54,50 +54,38 @@ PROTO_3:
         2 GETTABLEKS                       R1 R1 K1 ["editingMode"]
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K2 ["Transform"]
-        7 JUMPIFNOTEQ                      R1 R2 ; [+62]
+        7 JUMPIFNOTEQ                      R1 R2 ; [+44]
         9 NEWTABLE                         R1 0 3
        11 GETUPVAL                         R2 1
        12 GETTABLEKS                       R2 R2 K3 ["new"]
        14 GETTABLEKS                       R3 R0 K4 ["_draggerContext"]
-       16 DUPTABLE                         R4 K9 [{"Outset", "ShowBoundingBox", "Summonable", "MustPositionAtPivot"}]
-       17 LOADK                            R5 K10 [0.5]
-       18 SETTABLEKS                       R5 R4 K5 ["Outset"]
-       20 LOADB                            R5 0
-       21 SETTABLEKS                       R5 R4 K6 ["ShowBoundingBox"]
-       23 LOADB                            R5 0
-       24 SETTABLEKS                       R5 R4 K7 ["Summonable"]
-       26 LOADB                            R5 1
-       27 SETTABLEKS                       R5 R4 K8 ["MustPositionAtPivot"]
-       29 GETUPVAL                         R5 2
-       30 GETTABLEKS                       R5 R5 K11 ["MoveHandlesImplementation"]
-       32 GETTABLEKS                       R5 R5 K3 ["new"]
-       34 GETTABLEKS                       R6 R0 K4 ["_draggerContext"]
-       36 LOADK                            R7 K12 ["EditPivot"]
-       37 CALL                             R5 2 -1
-       38 CALL                             R2 -1 1
-       39 GETUPVAL                         R3 3
-       40 GETTABLEKS                       R3 R3 K3 ["new"]
-       42 GETTABLEKS                       R4 R0 K4 ["_draggerContext"]
-       44 DUPTABLE                         R5 K13 [{"ShowBoundingBox", "Summonable"}]
-       45 LOADB                            R6 0
-       46 SETTABLEKS                       R6 R5 K6 ["ShowBoundingBox"]
-       48 LOADB                            R6 0
-       49 SETTABLEKS                       R6 R5 K7 ["Summonable"]
-       51 GETUPVAL                         R6 2
-       52 GETTABLEKS                       R6 R6 K14 ["RotateHandlesImplementation"]
-       54 GETTABLEKS                       R6 R6 K3 ["new"]
-       56 GETTABLEKS                       R7 R0 K4 ["_draggerContext"]
-       58 LOADK                            R8 K12 ["EditPivot"]
-       59 CALL                             R6 2 -1
-       60 CALL                             R3 -1 1
-       61 GETUPVAL                         R4 4
-       62 GETTABLEKS                       R4 R4 K3 ["new"]
-       64 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
-       66 CALL                             R4 1 -1
-       67 SETLIST                          R1 R2 -1 [1]
-       69 RETURN                           R1 1
-       70 NEWTABLE                         R1 0 0
-       72 RETURN                           R1 1
+       16 DUPTABLE                         R4 K12 [{["Outset"] = 0.5, ["ShowBoundingBox"] = False, ["Summonable"] = False, ["MustPositionAtPivot"] = True}]
+       17 GETUPVAL                         R5 2
+       18 GETTABLEKS                       R5 R5 K13 ["MoveHandlesImplementation"]
+       20 GETTABLEKS                       R5 R5 K3 ["new"]
+       22 GETTABLEKS                       R6 R0 K4 ["_draggerContext"]
+       24 LOADK                            R7 K14 ["EditPivot"]
+       25 CALL                             R5 2 -1
+       26 CALL                             R2 -1 1
+       27 GETUPVAL                         R3 3
+       28 GETTABLEKS                       R3 R3 K3 ["new"]
+       30 GETTABLEKS                       R4 R0 K4 ["_draggerContext"]
+       32 DUPTABLE                         R5 K15 [{["ShowBoundingBox"] = False, ["Summonable"] = False}]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K16 ["RotateHandlesImplementation"]
+       36 GETTABLEKS                       R6 R6 K3 ["new"]
+       38 GETTABLEKS                       R7 R0 K4 ["_draggerContext"]
+       40 LOADK                            R8 K14 ["EditPivot"]
+       41 CALL                             R6 2 -1
+       42 CALL                             R3 -1 1
+       43 GETUPVAL                         R4 4
+       44 GETTABLEKS                       R4 R4 K3 ["new"]
+       46 GETTABLEKS                       R5 R0 K4 ["_draggerContext"]
+       48 CALL                             R4 1 -1
+       49 SETLIST                          R1 R2 -1 [1]
+       51 RETURN                           R1 1
+       52 NEWTABLE                         R1 0 0
+       54 RETURN                           R1 1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -114,7 +102,7 @@ PROTO_4:
        19 JUMPIFEQ                         R1 R5 ; [+6]
        21 GETUPVAL                         R5 0
        22 GETTABLEKS                       R5 R5 K6 ["None"]
-       24 JUMPIFNOTEQ                      R1 R5 ; [+44]
+       24 JUMPIFNOTEQ                      R1 R5 ; [+35]
        26 GETUPVAL                         R6 0
        27 GETTABLEKS                       R6 R6 K5 ["Transform"]
        29 JUMPIFEQ                         R1 R6 ; [+2]
@@ -129,30 +117,24 @@ PROTO_4:
        42 SETTABLEKS                       R9 R8 K9 ["DraggerContext"]
        44 GETUPVAL                         R9 3
        45 SETTABLEKS                       R9 R8 K10 ["DraggerSchema"]
-       47 DUPTABLE                         R9 K19 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "HandlesList"}]
-       48 LOADK                            R10 K20 ["EditPivot"]
-       49 SETTABLEKS                       R10 R9 K14 ["AnalyticsName"]
-       51 LOADB                            R10 0
-       52 SETTABLEKS                       R10 R9 K15 ["AllowDragSelect"]
-       54 SETTABLEKS                       R5 R9 K16 ["AllowFreeformDrag"]
-       56 LOADB                            R10 0
-       57 SETTABLEKS                       R10 R9 K17 ["ShowLocalSpaceIndicator"]
-       59 NAMECALL                         R10 R0 K21 ["_getCurrentDraggerHandles"]
-       61 CALL                             R10 1 1
-       62 SETTABLEKS                       R10 R9 K18 ["HandlesList"]
-       64 SETTABLEKS                       R9 R8 K11 ["DraggerSettings"]
-       66 CALL                             R6 2 1
-       67 SETTABLEKS                       R6 R2 K22 ["DraggerToolComponent"]
-       69 GETUPVAL                         R5 1
-       70 GETTABLEKS                       R5 R5 K7 ["createElement"]
-       72 GETUPVAL                         R6 4
-       73 CALL                             R5 1 1
-       74 SETTABLEKS                       R5 R2 K23 ["SelectionUpdaterBound"]
-       76 GETUPVAL                         R5 1
-       77 GETTABLEKS                       R5 R5 K24 ["createFragment"]
-       79 MOVE                             R6 R2
-       80 CALL                             R5 1 -1
-       81 RETURN                           R5 -1
+       47 DUPTABLE                         R9 K21 [{["AnalyticsName"] = "EditPivot", ["AllowDragSelect"] = False, ["AllowFreeformDrag"], ["ShowLocalSpaceIndicator"] = False, ["HandlesList"]}]
+       48 SETTABLEKS                       R5 R9 K18 ["AllowFreeformDrag"]
+       50 NAMECALL                         R10 R0 K22 ["_getCurrentDraggerHandles"]
+       52 CALL                             R10 1 1
+       53 SETTABLEKS                       R10 R9 K20 ["HandlesList"]
+       55 SETTABLEKS                       R9 R8 K11 ["DraggerSettings"]
+       57 CALL                             R6 2 1
+       58 SETTABLEKS                       R6 R2 K23 ["DraggerToolComponent"]
+       60 GETUPVAL                         R5 1
+       61 GETTABLEKS                       R5 R5 K7 ["createElement"]
+       63 GETUPVAL                         R6 4
+       64 CALL                             R5 1 1
+       65 SETTABLEKS                       R5 R2 K24 ["SelectionUpdaterBound"]
+       67 GETUPVAL                         R5 1
+       68 GETTABLEKS                       R5 R5 K25 ["createFragment"]
+       70 MOVE                             R6 R2
+       71 CALL                             R5 1 -1
+       72 RETURN                           R5 -1
 
 PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["props"]

@@ -1,35 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R3 0
-        1 DUPTABLE                         R5 K1 [{"isHovered"}]
-        2 LOADB                            R6 1
-        3 SETTABLEKS                       R6 R5 K0 ["isHovered"]
-        5 NAMECALL                         R3 R3 K2 ["setState"]
-        7 CALL                             R3 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R5 K2 [{[1] = True}]
+        2 NAMECALL                         R3 R3 K3 ["setState"]
+        4 CALL                             R3 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R3 0
-        1 DUPTABLE                         R5 K1 [{"isHovered"}]
-        2 LOADB                            R6 0
-        3 SETTABLEKS                       R6 R5 K0 ["isHovered"]
-        5 NAMECALL                         R3 R3 K2 ["setState"]
-        7 CALL                             R3 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R5 K2 [{[1] = False}]
+        2 NAMECALL                         R3 R3 K3 ["setState"]
+        4 CALL                             R3 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R2 K2 [{"isHovered", "voteDownButtonHovered"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["voteDownButtonHovered"]
-        7 SETTABLEKS                       R2 R0 K3 ["state"]
-        9 NEWCLOSURE                       R2 P0
-       10 CAPTURE                          VAL R0
-       11 SETTABLEKS                       R2 R0 K4 ["onMouseEntered"]
-       13 NEWCLOSURE                       R2 P1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R2 R0 K5 ["onMouseLeft"]
-       17 RETURN                           R0 0
+        0 DUPTABLE                         R2 K3 [{[1] = False, ["voteDownButtonHovered"] = False}]
+        1 SETTABLEKS                       R2 R0 K4 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K5 ["onMouseEntered"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K6 ["onMouseLeft"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -51,9 +43,9 @@ PROTO_3:
        30 LOADN                            R13 0
        31 GETIMPORT                        R14 K14 [UDim2.new]
        33 LOADN                            R15 1
-       34 LOADN                            R16 254
+       34 LOADN                            R16 -2
        35 LOADN                            R17 1
-       36 LOADN                            R18 254
+       36 LOADN                            R18 -2
        37 CALL                             R14 4 1
        38 JUMPIFNOT                        R5 ; [+13]
        39 JUMPIFNOT                        R6 ; [+12]
@@ -107,33 +99,31 @@ PROTO_3:
       108 GETUPVAL                         R19 1
       109 GETTABLEKS                       R19 R19 K19 ["createElement"]
       111 LOADK                            R20 K35 ["ImageLabel"]
-      112 DUPTABLE                         R21 K41 [{"AnchorPoint", "Position", "Size", "Rotation", "BackgroundTransparency", "Image", "ImageTransparency"}]
-      113 GETIMPORT                        R22 K43 [Vector2.new]
-      115 LOADK                            R23 K44 [0.5]
-      116 LOADK                            R24 K44 [0.5]
+      112 DUPTABLE                         R21 K42 [{["AnchorPoint"], ["Position"], ["Size"], ["Rotation"], ["BackgroundTransparency"] = 1, ["Image"], ["ImageTransparency"]}]
+      113 GETIMPORT                        R22 K44 [Vector2.new]
+      115 LOADK                            R23 K45 [0.5]
+      116 LOADK                            R24 K45 [0.5]
       117 CALL                             R22 2 1
       118 SETTABLEKS                       R22 R21 K36 ["AnchorPoint"]
       120 GETIMPORT                        R22 K14 [UDim2.new]
-      122 LOADK                            R23 K44 [0.5]
+      122 LOADK                            R23 K45 [0.5]
       123 LOADN                            R24 0
-      124 LOADK                            R25 K44 [0.5]
+      124 LOADK                            R25 K45 [0.5]
       125 LOADN                            R26 0
       126 CALL                             R22 4 1
       127 SETTABLEKS                       R22 R21 K37 ["Position"]
       129 SETTABLEKS                       R14 R21 K25 ["Size"]
       131 SETTABLEKS                       R13 R21 K38 ["Rotation"]
-      133 LOADN                            R22 1
-      134 SETTABLEKS                       R22 R21 K21 ["BackgroundTransparency"]
-      136 SETTABLEKS                       R11 R21 K39 ["Image"]
-      138 JUMPIFNOT                        R8 ; [+2]
-      139 LOADN                            R22 0
-      140 JUMP                             ; [+1]
-      141 LOADK                            R22 K45 [0.2]
-      142 SETTABLEKS                       R22 R21 K40 ["ImageTransparency"]
-      144 CALL                             R19 2 1
-      145 SETTABLEKS                       R19 R18 K33 ["Thumb"]
-      147 CALL                             R15 3 -1
-      148 RETURN                           R15 -1
+      133 SETTABLEKS                       R11 R21 K40 ["Image"]
+      135 JUMPIFNOT                        R8 ; [+2]
+      136 LOADN                            R22 0
+      137 JUMP                             ; [+1]
+      138 LOADK                            R22 K46 [0.2]
+      139 SETTABLEKS                       R22 R21 K41 ["ImageTransparency"]
+      141 CALL                             R19 2 1
+      142 SETTABLEKS                       R19 R18 K33 ["Thumb"]
+      144 CALL                             R15 3 -1
+      145 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

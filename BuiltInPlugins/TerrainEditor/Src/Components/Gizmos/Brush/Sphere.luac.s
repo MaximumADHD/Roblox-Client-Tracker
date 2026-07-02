@@ -13,31 +13,27 @@ PROTO_0:
        19 GETUPVAL                         R10 0
        20 GETTABLEKS                       R10 R10 K5 ["createElement"]
        22 LOADK                            R11 K10 ["SphereHandleAdornment"]
-       23 DUPTABLE                         R12 K13 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Radius", "Transparency", "ZIndex"}]
+       23 DUPTABLE                         R12 K15 [{[1], ["AlwaysOnTop"] = True, ["CFrame"], ["Color"], ["Radius"], ["Transparency"], ["ZIndex"] = 0}]
        24 SETTABLEKS                       R1 R12 K0 ["Adornee"]
-       26 LOADB                            R13 1
-       27 SETTABLEKS                       R13 R12 K11 ["AlwaysOnTop"]
-       29 SETTABLEKS                       R2 R12 K1 ["CFrame"]
-       31 SETTABLEKS                       R3 R12 K2 ["Color"]
-       33 SETTABLEKS                       R4 R12 K3 ["Radius"]
-       35 SETTABLEKS                       R5 R12 K4 ["Transparency"]
-       37 LOADN                            R13 0
-       38 SETTABLEKS                       R13 R12 K12 ["ZIndex"]
-       40 CALL                             R10 2 1
-       41 SETTABLEKS                       R10 R9 K7 ["OnTop"]
-       43 GETUPVAL                         R10 0
-       44 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       46 LOADK                            R11 K10 ["SphereHandleAdornment"]
-       47 DUPTABLE                         R12 K14 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
-       48 SETTABLEKS                       R1 R12 K0 ["Adornee"]
-       50 SETTABLEKS                       R2 R12 K1 ["CFrame"]
-       52 SETTABLEKS                       R3 R12 K2 ["Color"]
-       54 SETTABLEKS                       R4 R12 K3 ["Radius"]
-       56 SETTABLEKS                       R5 R12 K4 ["Transparency"]
-       58 CALL                             R10 2 1
-       59 SETTABLEKS                       R10 R9 K8 ["Outline"]
-       61 CALL                             R6 3 -1
-       62 RETURN                           R6 -1
+       26 SETTABLEKS                       R2 R12 K1 ["CFrame"]
+       28 SETTABLEKS                       R3 R12 K2 ["Color"]
+       30 SETTABLEKS                       R4 R12 K3 ["Radius"]
+       32 SETTABLEKS                       R5 R12 K4 ["Transparency"]
+       34 CALL                             R10 2 1
+       35 SETTABLEKS                       R10 R9 K7 ["OnTop"]
+       37 GETUPVAL                         R10 0
+       38 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       40 LOADK                            R11 K10 ["SphereHandleAdornment"]
+       41 DUPTABLE                         R12 K16 [{"Adornee", "CFrame", "Color", "Radius", "Transparency"}]
+       42 SETTABLEKS                       R1 R12 K0 ["Adornee"]
+       44 SETTABLEKS                       R2 R12 K1 ["CFrame"]
+       46 SETTABLEKS                       R3 R12 K2 ["Color"]
+       48 SETTABLEKS                       R4 R12 K3 ["Radius"]
+       50 SETTABLEKS                       R5 R12 K4 ["Transparency"]
+       52 CALL                             R10 2 1
+       53 SETTABLEKS                       R10 R9 K8 ["Outline"]
+       55 CALL                             R6 3 -1
+       56 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

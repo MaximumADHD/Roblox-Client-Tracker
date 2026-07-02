@@ -1,9 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"type", "text"}]
-        1 LOADK                            R2 K3 ["SetSearch"]
-        2 SETTABLEKS                       R2 R1 K0 ["type"]
-        4 SETTABLEKS                       R0 R1 K1 ["text"]
-        6 RETURN                           R1 1
+        0 DUPTABLE                         R1 K3 [{[1] = "SetSearch", ["text"]}]
+        1 SETTABLEKS                       R0 R1 K2 ["text"]
+        3 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

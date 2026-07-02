@@ -50,24 +50,22 @@ MAIN:
        30 GETTABLEKS                       R3 R3 K9 ["Util"]
        32 GETTABLEKS                       R3 R3 K10 ["deepJoin"]
        34 GETTABLEKS                       R4 R2 K11 ["createReducer"]
-       36 DUPTABLE                         R5 K16 [{"allPolicies", "allPolicySortedKeys", "policySettingStatus", "policyListItemsModuleExpanded"}]
+       36 DUPTABLE                         R5 K17 [{["allPolicies"], ["allPolicySortedKeys"], ["policySettingStatus"], ["policyListItemsModuleExpanded"] = True}]
        37 NEWTABLE                         R6 0 0
        39 SETTABLEKS                       R6 R5 K12 ["allPolicies"]
        41 NEWTABLE                         R6 0 0
        43 SETTABLEKS                       R6 R5 K13 ["allPolicySortedKeys"]
        45 NEWTABLE                         R6 0 0
        47 SETTABLEKS                       R6 R5 K14 ["policySettingStatus"]
-       49 LOADB                            R6 1
-       50 SETTABLEKS                       R6 R5 K15 ["policyListItemsModuleExpanded"]
-       52 DUPTABLE                         R6 K20 [{"LoadAllPolicyValues", "UpdatePolicySettingStatus", "UpdatePolicySettingListItemsModuleExpanded"}]
-       53 DUPCLOSURE                       R7 K21 [PROTO_0]
-       54 CAPTURE                          VAL R1
-       55 SETTABLEKS                       R7 R6 K17 ["LoadAllPolicyValues"]
-       57 DUPCLOSURE                       R7 K22 [PROTO_1]
-       58 CAPTURE                          VAL R3
-       59 SETTABLEKS                       R7 R6 K18 ["UpdatePolicySettingStatus"]
-       61 DUPCLOSURE                       R7 K23 [PROTO_2]
-       62 CAPTURE                          VAL R3
-       63 SETTABLEKS                       R7 R6 K19 ["UpdatePolicySettingListItemsModuleExpanded"]
-       65 CALL                             R4 2 -1
-       66 RETURN                           R4 -1
+       49 DUPTABLE                         R6 K21 [{"LoadAllPolicyValues", "UpdatePolicySettingStatus", "UpdatePolicySettingListItemsModuleExpanded"}]
+       50 DUPCLOSURE                       R7 K22 [PROTO_0]
+       51 CAPTURE                          VAL R1
+       52 SETTABLEKS                       R7 R6 K18 ["LoadAllPolicyValues"]
+       54 DUPCLOSURE                       R7 K23 [PROTO_1]
+       55 CAPTURE                          VAL R3
+       56 SETTABLEKS                       R7 R6 K19 ["UpdatePolicySettingStatus"]
+       58 DUPCLOSURE                       R7 K24 [PROTO_2]
+       59 CAPTURE                          VAL R3
+       60 SETTABLEKS                       R7 R6 K20 ["UpdatePolicySettingListItemsModuleExpanded"]
+       62 CALL                             R4 2 -1
+       63 RETURN                           R4 -1

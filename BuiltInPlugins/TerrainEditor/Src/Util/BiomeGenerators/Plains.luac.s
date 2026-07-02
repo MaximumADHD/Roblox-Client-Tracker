@@ -101,7 +101,7 @@ PROTO_0:
       113 GETTABLEKS                       R16 R16 K19 ["MapHeight"]
       115 SUBK                             R15 R16 K18 [1]
       116 DIV                              R13 R14 R15
-      117 SUBRK                            R12 R18 K13 [0.6]
+      117 SUBRK                            R12 K18 [1] R13
       118 MULK                             R14 R12 K15 [0.5]
       119 MULK                             R15 R11 K15 [0.5]
       120 ADD                              R13 R14 R15
@@ -109,7 +109,7 @@ PROTO_0:
       122 GETUPVAL                         R17 0
       123 GETTABLEKS                       R17 R17 K21 ["SurfaceThickness"]
       125 MULK                             R16 R17 K20 [0.4]
-      126 SUBRK                            R15 R15 K16 [0.02]
+      126 SUBRK                            R15 K15 [0.5] R16
       127 JUMPIFNOTLT                      R15 R13 ; [+11]
       129 LOADK                            R16 K15 [0.5]
       130 GETUPVAL                         R18 0
@@ -131,7 +131,7 @@ PROTO_0:
       151 JUMPIFNOTLE                      R9 R16 ; [+4]
       153 GETIMPORT                        R15 K29 [Enum.Material.Water]
       155 JUMP                             ; [+9]
-      156 SUBRK                            R16 R18 K1 ["Y"]
+      156 SUBRK                            R16 K18 [1] R1
       157 SUBK                             R17 R6 K10 [0.01]
       158 JUMPIFNOTLT                      R16 R17 ; [+4]
       160 GETIMPORT                        R15 K31 [Enum.Material.Sand]

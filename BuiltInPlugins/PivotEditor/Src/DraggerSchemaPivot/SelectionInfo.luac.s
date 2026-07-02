@@ -1,27 +1,21 @@
 PROTO_0:
         0 GETTABLEN                        R2 R1 1
-        1 JUMPIFNOT                        R2 ; [+17]
+        1 JUMPIFNOT                        R2 ; [+14]
         2 LOADK                            R5 K0 ["PVInstance"]
         3 NAMECALL                         R3 R2 K1 ["IsA"]
         5 CALL                             R3 2 1
-        6 JUMPIFNOT                        R3 ; [+12]
-        7 DUPTABLE                         R3 K5 [{"_primaryObject", "_isEmpty", "_basisCFrame"}]
+        6 JUMPIFNOT                        R3 ; [+9]
+        7 DUPTABLE                         R3 K6 [{["_primaryObject"], ["_isEmpty"] = False, ["_basisCFrame"]}]
         8 SETTABLEKS                       R2 R3 K2 ["_primaryObject"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K3 ["_isEmpty"]
-       13 NAMECALL                         R4 R2 K6 ["GetPivot"]
-       15 CALL                             R4 1 1
-       16 SETTABLEKS                       R4 R3 K4 ["_basisCFrame"]
-       18 RETURN                           R3 1
-       19 DUPTABLE                         R3 K5 [{"_primaryObject", "_isEmpty", "_basisCFrame"}]
-       20 LOADNIL                          R4
-       21 SETTABLEKS                       R4 R3 K2 ["_primaryObject"]
-       23 LOADB                            R4 1
-       24 SETTABLEKS                       R4 R3 K3 ["_isEmpty"]
-       26 GETIMPORT                        R4 K9 [CFrame.new]
-       28 CALL                             R4 0 1
-       29 SETTABLEKS                       R4 R3 K4 ["_basisCFrame"]
-       31 RETURN                           R3 1
+       10 NAMECALL                         R4 R2 K7 ["GetPivot"]
+       12 CALL                             R4 1 1
+       13 SETTABLEKS                       R4 R3 K5 ["_basisCFrame"]
+       15 RETURN                           R3 1
+       16 DUPTABLE                         R3 K10 [{["_primaryObject"] = , ["_isEmpty"] = True, ["_basisCFrame"]}]
+       17 GETIMPORT                        R4 K13 [CFrame.new]
+       19 CALL                             R4 0 1
+       20 SETTABLEKS                       R4 R3 K5 ["_basisCFrame"]
+       22 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R3 0

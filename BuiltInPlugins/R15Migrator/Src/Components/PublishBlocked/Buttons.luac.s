@@ -29,43 +29,39 @@ PROTO_0:
        48 GETUPVAL                         R12 1
        49 GETTABLEKS                       R12 R12 K7 ["createElement"]
        51 GETUPVAL                         R13 3
-       52 DUPTABLE                         R14 K32 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
-       53 LOADK                            R15 K33 ["Round"]
-       54 SETTABLEKS                       R15 R14 K28 ["Style"]
-       56 LOADK                            R17 K34 ["PublishingBlockedAction"]
-       57 LOADK                            R18 K25 ["Close"]
-       58 NAMECALL                         R15 R5 K35 ["getText"]
-       60 CALL                             R15 3 1
-       61 SETTABLEKS                       R15 R14 K29 ["Text"]
-       63 GETTABLEKS                       R15 R6 K36 ["CloseButtonSize"]
-       65 SETTABLEKS                       R15 R14 K30 ["Size"]
-       67 SETTABLEKS                       R2 R14 K31 ["OnClick"]
-       69 NAMECALL                         R15 R7 K37 ["getNextOrder"]
-       71 CALL                             R15 1 1
-       72 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
-       74 CALL                             R12 2 1
-       75 SETTABLEKS                       R12 R11 K25 ["Close"]
-       77 GETUPVAL                         R12 1
-       78 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       80 GETUPVAL                         R13 3
-       81 DUPTABLE                         R14 K32 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
-       82 LOADK                            R15 K38 ["RoundPrimary"]
-       83 SETTABLEKS                       R15 R14 K28 ["Style"]
-       85 LOADK                            R17 K34 ["PublishingBlockedAction"]
-       86 LOADK                            R18 K26 ["GoTo"]
-       87 NAMECALL                         R15 R5 K35 ["getText"]
-       89 CALL                             R15 3 1
-       90 SETTABLEKS                       R15 R14 K29 ["Text"]
-       92 GETTABLEKS                       R15 R6 K39 ["GoToButtonSize"]
-       94 SETTABLEKS                       R15 R14 K30 ["Size"]
-       96 SETTABLEKS                       R3 R14 K31 ["OnClick"]
-       98 NAMECALL                         R15 R7 K37 ["getNextOrder"]
-      100 CALL                             R15 1 1
-      101 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
-      103 CALL                             R12 2 1
-      104 SETTABLEKS                       R12 R11 K26 ["GoTo"]
-      106 CALL                             R8 3 -1
-      107 RETURN                           R8 -1
+       52 DUPTABLE                         R14 K33 [{["Style"] = "Round", ["Text"], ["Size"], ["OnClick"], ["LayoutOrder"]}]
+       53 LOADK                            R17 K34 ["PublishingBlockedAction"]
+       54 LOADK                            R18 K25 ["Close"]
+       55 NAMECALL                         R15 R5 K35 ["getText"]
+       57 CALL                             R15 3 1
+       58 SETTABLEKS                       R15 R14 K30 ["Text"]
+       60 GETTABLEKS                       R15 R6 K36 ["CloseButtonSize"]
+       62 SETTABLEKS                       R15 R14 K31 ["Size"]
+       64 SETTABLEKS                       R2 R14 K32 ["OnClick"]
+       66 NAMECALL                         R15 R7 K37 ["getNextOrder"]
+       68 CALL                             R15 1 1
+       69 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
+       71 CALL                             R12 2 1
+       72 SETTABLEKS                       R12 R11 K25 ["Close"]
+       74 GETUPVAL                         R12 1
+       75 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       77 GETUPVAL                         R13 3
+       78 DUPTABLE                         R14 K39 [{["Style"] = "RoundPrimary", ["Text"], ["Size"], ["OnClick"], ["LayoutOrder"]}]
+       79 LOADK                            R17 K34 ["PublishingBlockedAction"]
+       80 LOADK                            R18 K26 ["GoTo"]
+       81 NAMECALL                         R15 R5 K35 ["getText"]
+       83 CALL                             R15 3 1
+       84 SETTABLEKS                       R15 R14 K30 ["Text"]
+       86 GETTABLEKS                       R15 R6 K40 ["GoToButtonSize"]
+       88 SETTABLEKS                       R15 R14 K31 ["Size"]
+       90 SETTABLEKS                       R3 R14 K32 ["OnClick"]
+       92 NAMECALL                         R15 R7 K37 ["getNextOrder"]
+       94 CALL                             R15 1 1
+       95 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
+       97 CALL                             R12 2 1
+       98 SETTABLEKS                       R12 R11 K26 ["GoTo"]
+      100 CALL                             R8 3 -1
+      101 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

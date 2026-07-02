@@ -13,33 +13,27 @@ PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R0 R0 K1 ["Enabled"]
-        5 JUMPIFNOT                        R0 ; [+13]
+        5 JUMPIFNOT                        R0 ; [+10]
         6 GETUPVAL                         R0 0
         7 LOADB                            R2 0
         8 NAMECALL                         R0 R0 K2 ["mouseHoverChanged"]
        10 CALL                             R0 2 0
        11 GETUPVAL                         R0 0
-       12 DUPTABLE                         R2 K4 [{"Pressed"}]
-       13 LOADB                            R3 0
-       14 SETTABLEKS                       R3 R2 K3 ["Pressed"]
-       16 NAMECALL                         R0 R0 K5 ["setState"]
-       18 CALL                             R0 2 0
-       19 RETURN                           R0 0
+       12 DUPTABLE                         R2 K5 [{["Pressed"] = False}]
+       13 NAMECALL                         R0 R0 K6 ["setState"]
+       15 CALL                             R0 2 0
+       16 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K2 [{"Hovering", "Pressed"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Hovering"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["Pressed"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 NEWCLOSURE                       R1 P0
-       10 CAPTURE                          VAL R0
-       11 SETTABLEKS                       R1 R0 K4 ["mouseEnter"]
-       13 NEWCLOSURE                       R1 P1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K5 ["mouseLeave"]
-       17 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["Pressed"] = False}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K5 ["mouseEnter"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K6 ["mouseLeave"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 JUMPIFNOT                        R1 ; [+9]
@@ -83,31 +77,27 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+14]
+        1 JUMPIFNOT                        R2 ; [+11]
         2 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         4 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
-        6 JUMPIFNOTEQ                      R2 R3 ; [+9]
+        6 JUMPIFNOTEQ                      R2 R3 ; [+6]
         8 GETUPVAL                         R2 1
-        9 DUPTABLE                         R4 K5 [{"Pressed"}]
-       10 LOADB                            R5 1
-       11 SETTABLEKS                       R5 R4 K4 ["Pressed"]
-       13 NAMECALL                         R2 R2 K6 ["setState"]
-       15 CALL                             R2 2 0
-       16 RETURN                           R0 0
+        9 DUPTABLE                         R4 K6 [{["Pressed"] = True}]
+       10 NAMECALL                         R2 R2 K7 ["setState"]
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
-        1 JUMPIFNOT                        R2 ; [+14]
+        1 JUMPIFNOT                        R2 ; [+11]
         2 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         4 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
-        6 JUMPIFNOTEQ                      R2 R3 ; [+9]
+        6 JUMPIFNOTEQ                      R2 R3 ; [+6]
         8 GETUPVAL                         R2 1
-        9 DUPTABLE                         R4 K5 [{"Pressed"}]
-       10 LOADB                            R5 0
-       11 SETTABLEKS                       R5 R4 K4 ["Pressed"]
-       13 NAMECALL                         R2 R2 K6 ["setState"]
-       15 CALL                             R2 2 0
-       16 RETURN                           R0 0
+        9 DUPTABLE                         R4 K6 [{["Pressed"] = False}]
+       10 NAMECALL                         R2 R2 K7 ["setState"]
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -226,7 +216,7 @@ PROTO_7:
       166 GETUPVAL                         R9 3
       167 GETTABLEKS                       R9 R9 K40 ["createElement"]
       169 LOADK                            R10 K45 ["ImageLabel"]
-      170 DUPTABLE                         R11 K46 [{"Size", "BackgroundTransparency", "Image", "ImageColor3", "ScaleType", "SliceCenter", "ZIndex"}]
+      170 DUPTABLE                         R11 K46 [{["Size"], ["BackgroundTransparency"] = 1, ["Image"], ["ImageColor3"], ["ScaleType"], ["SliceCenter"], ["ZIndex"]}]
       171 GETIMPORT                        R12 K17 [UDim2.new]
       173 LOADN                            R13 1
       174 LOADN                            R14 0
@@ -234,65 +224,57 @@ PROTO_7:
       176 LOADN                            R16 0
       177 CALL                             R12 4 1
       178 SETTABLEKS                       R12 R11 K19 ["Size"]
-      180 LOADN                            R12 1
-      181 SETTABLEKS                       R12 R11 K5 ["BackgroundTransparency"]
-      183 GETUPVAL                         R12 2
-      184 GETTABLEKS                       R12 R12 K47 ["ROUNDED_BORDER_IMAGE"]
-      186 SETTABLEKS                       R12 R11 K7 ["Image"]
-      188 JUMPIFNOT                        R3 ; [+3]
-      189 GETTABLEKS                       R12 R4 K36 ["ImageColor3"]
-      191 JUMPIF                           R12 ; [+2]
-      192 GETTABLEKS                       R12 R2 K48 ["BorderColor"]
-      194 SETTABLEKS                       R12 R11 K36 ["ImageColor3"]
-      196 GETIMPORT                        R12 K12 [Enum.ScaleType.Slice]
-      198 SETTABLEKS                       R12 R11 K10 ["ScaleType"]
-      200 GETUPVAL                         R12 2
-      201 GETTABLEKS                       R12 R12 K13 ["ROUNDED_FRAME_SLICE"]
-      203 SETTABLEKS                       R12 R11 K14 ["SliceCenter"]
-      205 GETUPVAL                         R13 0
-      206 GETTABLEKS                       R13 R13 K0 ["props"]
-      208 GETTABLEKS                       R13 R13 K24 ["ZIndex"]
-      210 ORK                              R12 R13 K22 [1]
-      211 SETTABLEKS                       R12 R11 K24 ["ZIndex"]
-      213 CALL                             R9 2 1
-      214 SETTABLEKS                       R9 R8 K42 ["Border"]
-      216 GETUPVAL                         R9 3
-      217 GETTABLEKS                       R9 R9 K40 ["createElement"]
-      219 LOADK                            R10 K49 ["TextLabel"]
-      220 DUPTABLE                         R11 K54 [{"Size", "BackgroundTransparency", "BorderSizePixel", "Font", "TextColor3", "TextSize", "Text", "ZIndex"}]
-      221 GETIMPORT                        R12 K17 [UDim2.new]
-      223 LOADN                            R13 1
-      224 LOADN                            R14 0
-      225 LOADN                            R15 1
-      226 LOADN                            R16 0
-      227 CALL                             R12 4 1
-      228 SETTABLEKS                       R12 R11 K19 ["Size"]
-      230 LOADN                            R12 1
-      231 SETTABLEKS                       R12 R11 K5 ["BackgroundTransparency"]
-      233 LOADN                            R12 0
-      234 SETTABLEKS                       R12 R11 K50 ["BorderSizePixel"]
-      236 GETIMPORT                        R12 K56 [Enum.Font.SourceSans]
-      238 SETTABLEKS                       R12 R11 K51 ["Font"]
-      240 JUMPIFNOT                        R0 ; [+3]
-      241 GETTABLEKS                       R12 R2 K57 ["TextColor"]
-      243 JUMPIF                           R12 ; [+2]
-      244 GETTABLEKS                       R12 R2 K58 ["TextDisabledColor"]
-      246 SETTABLEKS                       R12 R11 K52 ["TextColor3"]
-      248 LOADN                            R12 22
-      249 SETTABLEKS                       R12 R11 K53 ["TextSize"]
-      251 GETUPVAL                         R12 0
-      252 GETTABLEKS                       R12 R12 K0 ["props"]
-      254 GETTABLEKS                       R12 R12 K59 ["Name"]
-      256 SETTABLEKS                       R12 R11 K43 ["Text"]
-      258 GETUPVAL                         R13 0
-      259 GETTABLEKS                       R13 R13 K0 ["props"]
-      261 GETTABLEKS                       R13 R13 K24 ["ZIndex"]
-      263 ORK                              R12 R13 K22 [1]
-      264 SETTABLEKS                       R12 R11 K24 ["ZIndex"]
-      266 CALL                             R9 2 1
-      267 SETTABLEKS                       R9 R8 K43 ["Text"]
-      269 CALL                             R5 3 -1
-      270 RETURN                           R5 -1
+      180 GETUPVAL                         R12 2
+      181 GETTABLEKS                       R12 R12 K47 ["ROUNDED_BORDER_IMAGE"]
+      183 SETTABLEKS                       R12 R11 K7 ["Image"]
+      185 JUMPIFNOT                        R3 ; [+3]
+      186 GETTABLEKS                       R12 R4 K36 ["ImageColor3"]
+      188 JUMPIF                           R12 ; [+2]
+      189 GETTABLEKS                       R12 R2 K48 ["BorderColor"]
+      191 SETTABLEKS                       R12 R11 K36 ["ImageColor3"]
+      193 GETIMPORT                        R12 K12 [Enum.ScaleType.Slice]
+      195 SETTABLEKS                       R12 R11 K10 ["ScaleType"]
+      197 GETUPVAL                         R12 2
+      198 GETTABLEKS                       R12 R12 K13 ["ROUNDED_FRAME_SLICE"]
+      200 SETTABLEKS                       R12 R11 K14 ["SliceCenter"]
+      202 GETUPVAL                         R13 0
+      203 GETTABLEKS                       R13 R13 K0 ["props"]
+      205 GETTABLEKS                       R13 R13 K24 ["ZIndex"]
+      207 ORK                              R12 R13 K22 [1]
+      208 SETTABLEKS                       R12 R11 K24 ["ZIndex"]
+      210 CALL                             R9 2 1
+      211 SETTABLEKS                       R9 R8 K42 ["Border"]
+      213 GETUPVAL                         R9 3
+      214 GETTABLEKS                       R9 R9 K40 ["createElement"]
+      216 LOADK                            R10 K49 ["TextLabel"]
+      217 DUPTABLE                         R11 K56 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["Font"], ["TextColor3"], ["TextSize"] = 22, ["Text"], ["ZIndex"]}]
+      218 GETIMPORT                        R12 K17 [UDim2.new]
+      220 LOADN                            R13 1
+      221 LOADN                            R14 0
+      222 LOADN                            R15 1
+      223 LOADN                            R16 0
+      224 CALL                             R12 4 1
+      225 SETTABLEKS                       R12 R11 K19 ["Size"]
+      227 GETIMPORT                        R12 K58 [Enum.Font.SourceSans]
+      229 SETTABLEKS                       R12 R11 K52 ["Font"]
+      231 JUMPIFNOT                        R0 ; [+3]
+      232 GETTABLEKS                       R12 R2 K59 ["TextColor"]
+      234 JUMPIF                           R12 ; [+2]
+      235 GETTABLEKS                       R12 R2 K60 ["TextDisabledColor"]
+      237 SETTABLEKS                       R12 R11 K53 ["TextColor3"]
+      239 GETUPVAL                         R12 0
+      240 GETTABLEKS                       R12 R12 K0 ["props"]
+      242 GETTABLEKS                       R12 R12 K61 ["Name"]
+      244 SETTABLEKS                       R12 R11 K43 ["Text"]
+      246 GETUPVAL                         R13 0
+      247 GETTABLEKS                       R13 R13 K0 ["props"]
+      249 GETTABLEKS                       R13 R13 K24 ["ZIndex"]
+      251 ORK                              R12 R13 K22 [1]
+      252 SETTABLEKS                       R12 R11 K24 ["ZIndex"]
+      254 CALL                             R9 2 1
+      255 SETTABLEKS                       R9 R8 K43 ["Text"]
+      257 CALL                             R5 3 -1
+      258 RETURN                           R5 -1
 
 PROTO_8:
         0 NEWCLOSURE                       R1 P0

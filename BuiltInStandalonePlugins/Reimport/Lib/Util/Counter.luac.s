@@ -9,7 +9,7 @@ PROTO_1:
         0 JUMPIFNOT                        R0 ; [+2]
         1 SUBK                             R1 R0 K0 [1]
         2 JUMP                             ; [+1]
-        3 LOADN                            R1 255
+        3 LOADN                            R1 -1
         4 NEWCLOSURE                       R2 P0
         5 CAPTURE                          REF R1
         6 CLOSEUPVALS                      R1

@@ -57,60 +57,52 @@ PROTO_4:
        31 NEWTABLE                         R7 0 0
        33 CALL                             R5 2 0
        34 GETUPVAL                         R5 6
-       35 DUPTABLE                         R6 K11 [{"Width", "HeaderHeight", "MaxHeight", "InnerPadding", "Padding"}]
-       36 LOADN                            R7 69
-       37 SETTABLEKS                       R7 R6 K6 ["Width"]
-       39 LOADN                            R7 32
-       40 SETTABLEKS                       R7 R6 K7 ["HeaderHeight"]
-       42 LOADN                            R7 144
-       43 SETTABLEKS                       R7 R6 K8 ["MaxHeight"]
-       45 LOADN                            R7 5
-       46 SETTABLEKS                       R7 R6 K9 ["InnerPadding"]
-       48 GETIMPORT                        R7 K14 [Vector2.zero]
-       50 SETTABLEKS                       R7 R6 K10 ["Padding"]
-       52 CALL                             R5 1 1
-       53 GETUPVAL                         R6 3
-       54 GETTABLEKS                       R6 R6 K15 ["createElement"]
-       56 GETUPVAL                         R7 7
-       57 NEWTABLE                         R8 2 0
-       59 GETUPVAL                         R9 3
-       60 GETTABLEKS                       R9 R9 K16 ["Tag"]
-       62 LOADK                            R10 K17 ["X-Fill X-Column X-Top"]
-       63 SETTABLE                         R10 R8 R9
-       64 GETIMPORT                        R9 K20 [UDim2.fromOffset]
-       66 GETTABLEKS                       R10 R5 K21 ["size"]
-       68 GETTABLEKS                       R10 R10 K22 ["X"]
-       70 GETTABLEKS                       R11 R5 K21 ["size"]
-       72 GETTABLEKS                       R11 R11 K23 ["Y"]
-       74 CALL                             R9 2 1
-       75 SETTABLEKS                       R9 R8 K24 ["Size"]
-       77 DUPTABLE                         R9 K27 [{"StyleLink", "VisualizationModesMainView"}]
-       78 GETUPVAL                         R10 3
-       79 GETTABLEKS                       R10 R10 K15 ["createElement"]
-       81 LOADK                            R11 K25 ["StyleLink"]
-       82 DUPTABLE                         R12 K29 [{"StyleSheet"}]
-       83 SETTABLEKS                       R1 R12 K28 ["StyleSheet"]
-       85 CALL                             R10 2 1
-       86 SETTABLEKS                       R10 R9 K25 ["StyleLink"]
-       88 GETUPVAL                         R10 3
-       89 GETTABLEKS                       R10 R10 K15 ["createElement"]
-       91 GETUPVAL                         R11 8
-       92 DUPTABLE                         R12 K35 [{"OnVisualizationModeToggle", "OnVisualizationModeCategoryToggle", "SizeCalculator", "RecentVisualizationModes", "VisualizationModeCategories"}]
-       93 GETTABLEKS                       R13 R2 K36 ["onVisualizationModeToggle"]
-       95 SETTABLEKS                       R13 R12 K30 ["OnVisualizationModeToggle"]
-       97 GETTABLEKS                       R13 R2 K37 ["onVisualizationModeCategoryToggle"]
-       99 SETTABLEKS                       R13 R12 K31 ["OnVisualizationModeCategoryToggle"]
-      101 SETTABLEKS                       R5 R12 K32 ["SizeCalculator"]
-      103 GETTABLEKS                       R13 R2 K38 ["state"]
-      105 GETTABLEKS                       R13 R13 K39 ["recentModes"]
-      107 SETTABLEKS                       R13 R12 K33 ["RecentVisualizationModes"]
-      109 GETTABLEKS                       R13 R2 K38 ["state"]
-      111 GETTABLEKS                       R13 R13 K40 ["categories"]
-      113 SETTABLEKS                       R13 R12 K34 ["VisualizationModeCategories"]
-      115 CALL                             R10 2 1
-      116 SETTABLEKS                       R10 R9 K26 ["VisualizationModesMainView"]
-      118 CALL                             R6 3 -1
-      119 RETURN                           R6 -1
+       35 DUPTABLE                         R6 K15 [{["Width"] = 325, ["HeaderHeight"] = 32, ["MaxHeight"] = 400, ["InnerPadding"] = 5, ["Padding"]}]
+       36 GETIMPORT                        R7 K18 [Vector2.zero]
+       38 SETTABLEKS                       R7 R6 K14 ["Padding"]
+       40 CALL                             R5 1 1
+       41 GETUPVAL                         R6 3
+       42 GETTABLEKS                       R6 R6 K19 ["createElement"]
+       44 GETUPVAL                         R7 7
+       45 NEWTABLE                         R8 2 0
+       47 GETUPVAL                         R9 3
+       48 GETTABLEKS                       R9 R9 K20 ["Tag"]
+       50 LOADK                            R10 K21 ["X-Fill X-Column X-Top"]
+       51 SETTABLE                         R10 R8 R9
+       52 GETIMPORT                        R9 K24 [UDim2.fromOffset]
+       54 GETTABLEKS                       R10 R5 K25 ["size"]
+       56 GETTABLEKS                       R10 R10 K26 ["X"]
+       58 GETTABLEKS                       R11 R5 K25 ["size"]
+       60 GETTABLEKS                       R11 R11 K27 ["Y"]
+       62 CALL                             R9 2 1
+       63 SETTABLEKS                       R9 R8 K28 ["Size"]
+       65 DUPTABLE                         R9 K31 [{"StyleLink", "VisualizationModesMainView"}]
+       66 GETUPVAL                         R10 3
+       67 GETTABLEKS                       R10 R10 K19 ["createElement"]
+       69 LOADK                            R11 K29 ["StyleLink"]
+       70 DUPTABLE                         R12 K33 [{"StyleSheet"}]
+       71 SETTABLEKS                       R1 R12 K32 ["StyleSheet"]
+       73 CALL                             R10 2 1
+       74 SETTABLEKS                       R10 R9 K29 ["StyleLink"]
+       76 GETUPVAL                         R10 3
+       77 GETTABLEKS                       R10 R10 K19 ["createElement"]
+       79 GETUPVAL                         R11 8
+       80 DUPTABLE                         R12 K39 [{"OnVisualizationModeToggle", "OnVisualizationModeCategoryToggle", "SizeCalculator", "RecentVisualizationModes", "VisualizationModeCategories"}]
+       81 GETTABLEKS                       R13 R2 K40 ["onVisualizationModeToggle"]
+       83 SETTABLEKS                       R13 R12 K34 ["OnVisualizationModeToggle"]
+       85 GETTABLEKS                       R13 R2 K41 ["onVisualizationModeCategoryToggle"]
+       87 SETTABLEKS                       R13 R12 K35 ["OnVisualizationModeCategoryToggle"]
+       89 SETTABLEKS                       R5 R12 K36 ["SizeCalculator"]
+       91 GETTABLEKS                       R13 R2 K42 ["state"]
+       93 GETTABLEKS                       R13 R13 K43 ["recentModes"]
+       95 SETTABLEKS                       R13 R12 K37 ["RecentVisualizationModes"]
+       97 GETTABLEKS                       R13 R2 K42 ["state"]
+       99 GETTABLEKS                       R13 R13 K44 ["categories"]
+      101 SETTABLEKS                       R13 R12 K38 ["VisualizationModeCategories"]
+      103 CALL                             R10 2 1
+      104 SETTABLEKS                       R10 R9 K30 ["VisualizationModesMainView"]
+      106 CALL                             R6 3 -1
+      107 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -164,16 +156,10 @@ MAIN:
        79 CAPTURE                          VAL R6
        80 CAPTURE                          VAL R9
        81 CAPTURE                          VAL R5
-       82 DUPTABLE                         R11 K25 [{"name", "summary", "stories"}]
-       83 LOADK                            R12 K15 ["VisualizationModesMainView"]
-       84 SETTABLEKS                       R12 R11 K22 ["name"]
-       86 LOADK                            R12 K26 ["Renders the main visualization modes view with all sections and controls"]
-       87 SETTABLEKS                       R12 R11 K23 ["summary"]
-       89 NEWTABLE                         R12 0 1
-       91 DUPTABLE                         R13 K28 [{"name", "story"}]
-       92 LOADK                            R14 K15 ["VisualizationModesMainView"]
-       93 SETTABLEKS                       R14 R13 K22 ["name"]
-       95 SETTABLEKS                       R10 R13 K27 ["story"]
-       97 SETLIST                          R12 R13 1 [1]
-       99 SETTABLEKS                       R12 R11 K24 ["stories"]
-      101 RETURN                           R11 1
+       82 DUPTABLE                         R11 K26 [{["name"] = "VisualizationModesMainView", ["summary"] = "Renders the main visualization modes view with all sections and controls", ["stories"]}]
+       83 NEWTABLE                         R12 0 1
+       85 DUPTABLE                         R13 K28 [{["name"] = "VisualizationModesMainView", ["story"]}]
+       86 SETTABLEKS                       R10 R13 K27 ["story"]
+       88 SETLIST                          R12 R13 1 [1]
+       90 SETTABLEKS                       R12 R11 K25 ["stories"]
+       92 RETURN                           R11 1

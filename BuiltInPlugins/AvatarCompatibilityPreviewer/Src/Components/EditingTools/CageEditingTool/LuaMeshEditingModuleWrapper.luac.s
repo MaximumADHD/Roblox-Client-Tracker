@@ -59,37 +59,31 @@ PROTO_1:
        59 GETUPVAL                         R9 1
        60 GETTABLEKS                       R9 R9 K14 ["getCreatorData"]
        62 CALL                             R9 0 1
-       63 DUPTABLE                         R10 K20 [{"Name", "Description", "CreatorId", "CreatorType", "IsPackage"}]
-       64 LOADK                            R11 K21 ["Outer cage mesh (Edited by Roblox Studio)"]
-       65 SETTABLEKS                       R11 R10 K15 ["Name"]
-       67 LOADK                            R11 K22 ["Cage mesh edited in Studio via the Avatar Compatibility Previewer plugin"]
-       68 SETTABLEKS                       R11 R10 K16 ["Description"]
-       70 GETTABLEKS                       R11 R9 K23 ["creatorId"]
-       72 SETTABLEKS                       R11 R10 K17 ["CreatorId"]
-       74 GETTABLEKS                       R11 R9 K24 ["creatorType"]
-       76 SETTABLEKS                       R11 R10 K18 ["CreatorType"]
-       78 LOADB                            R11 0
-       79 SETTABLEKS                       R11 R10 K19 ["IsPackage"]
-       81 GETUPVAL                         R11 0
-       82 GETTABLEKS                       R11 R11 K25 ["createAssetAsync"]
-       84 MOVE                             R12 R6
-       85 GETIMPORT                        R13 K29 [Enum.AssetType.Mesh]
-       87 MOVE                             R14 R10
-       88 CALL                             R11 3 2
-       89 GETIMPORT                        R13 K32 [Enum.CreateAssetResult.Success]
-       91 JUMPIFNOTEQ                      R11 R13 ; [+9]
-       93 LOADK                            R14 K33 ["rbxassetid://%*"]
-       94 MOVE                             R16 R12
-       95 NAMECALL                         R14 R14 K34 ["format"]
-       97 CALL                             R14 2 1
-       98 MOVE                             R13 R14
-       99 CLOSEUPVALS                      R3
-      100 RETURN                           R13 1
-      101 GETIMPORT                        R13 K36 [error]
-      103 LOADK                            R14 K37 ["Failed to upload asset"]
-      104 CALL                             R13 1 0
-      105 CLOSEUPVALS                      R3
-      106 RETURN                           R0 0
+       63 DUPTABLE                         R10 K23 [{["Name"] = "Outer cage mesh (Edited by Roblox Studio)", ["Description"] = "Cage mesh edited in Studio via the Avatar Compatibility Previewer plugin", ["CreatorId"], ["CreatorType"], ["IsPackage"] = False}]
+       64 GETTABLEKS                       R11 R9 K24 ["creatorId"]
+       66 SETTABLEKS                       R11 R10 K19 ["CreatorId"]
+       68 GETTABLEKS                       R11 R9 K25 ["creatorType"]
+       70 SETTABLEKS                       R11 R10 K20 ["CreatorType"]
+       72 GETUPVAL                         R11 0
+       73 GETTABLEKS                       R11 R11 K26 ["createAssetAsync"]
+       75 MOVE                             R12 R6
+       76 GETIMPORT                        R13 K30 [Enum.AssetType.Mesh]
+       78 MOVE                             R14 R10
+       79 CALL                             R11 3 2
+       80 GETIMPORT                        R13 K33 [Enum.CreateAssetResult.Success]
+       82 JUMPIFNOTEQ                      R11 R13 ; [+9]
+       84 LOADK                            R14 K34 ["rbxassetid://%*"]
+       85 MOVE                             R16 R12
+       86 NAMECALL                         R14 R14 K35 ["format"]
+       88 CALL                             R14 2 1
+       89 MOVE                             R13 R14
+       90 CLOSEUPVALS                      R3
+       91 RETURN                           R13 1
+       92 GETIMPORT                        R13 K37 [error]
+       94 LOADK                            R14 K38 ["Failed to upload asset"]
+       95 CALL                             R13 1 0
+       96 CLOSEUPVALS                      R3
+       97 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

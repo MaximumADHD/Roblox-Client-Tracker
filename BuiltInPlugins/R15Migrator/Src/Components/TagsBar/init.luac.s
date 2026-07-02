@@ -2,12 +2,10 @@ PROTO_0:
         0 DUPTABLE                         R1 K2 [{"tags", "_Ref"}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["tags"]
-        5 DUPTABLE                         R2 K4 [{"Filters"}]
-        6 LOADNIL                          R3
-        7 SETTABLEKS                       R3 R2 K3 ["Filters"]
-        9 SETTABLEKS                       R2 R1 K1 ["_Ref"]
-       11 SETTABLEKS                       R1 R0 K5 ["state"]
-       13 RETURN                           R0 0
+        5 DUPTABLE                         R2 K5 [{["Filters"] = }]
+        6 SETTABLEKS                       R2 R1 K1 ["_Ref"]
+        8 SETTABLEKS                       R1 R0 K6 ["state"]
+       10 RETURN                           R0 0
 
 PROTO_1:
         0 DUPTABLE                         R1 K2 [{"Label", "Data"}]
@@ -126,24 +124,20 @@ PROTO_6:
        12 GETUPVAL                         R4 1
        13 GETTABLEKS                       R4 R4 K3 ["createElement"]
        15 GETUPVAL                         R5 3
-       16 DUPTABLE                         R6 K11 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "ClipsDescendants"}]
+       16 DUPTABLE                         R6 K13 [{["LayoutOrder"], ["Size"], ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"], ["Spacing"] = 4, ["ClipsDescendants"] = True}]
        17 GETTABLEKS                       R7 R2 K4 ["LayoutOrder"]
        19 SETTABLEKS                       R7 R6 K4 ["LayoutOrder"]
        21 GETTABLEKS                       R7 R2 K5 ["Size"]
        23 SETTABLEKS                       R7 R6 K5 ["Size"]
-       25 GETIMPORT                        R7 K15 [Enum.FillDirection.Horizontal]
+       25 GETIMPORT                        R7 K17 [Enum.FillDirection.Horizontal]
        27 SETTABLEKS                       R7 R6 K6 ["Layout"]
-       29 GETIMPORT                        R7 K17 [Enum.HorizontalAlignment.Left]
+       29 GETIMPORT                        R7 K19 [Enum.HorizontalAlignment.Left]
        31 SETTABLEKS                       R7 R6 K7 ["HorizontalAlignment"]
-       33 GETIMPORT                        R7 K19 [Enum.VerticalAlignment.Center]
+       33 GETIMPORT                        R7 K21 [Enum.VerticalAlignment.Center]
        35 SETTABLEKS                       R7 R6 K8 ["VerticalAlignment"]
-       37 LOADN                            R7 4
-       38 SETTABLEKS                       R7 R6 K9 ["Spacing"]
-       40 LOADB                            R7 1
-       41 SETTABLEKS                       R7 R6 K10 ["ClipsDescendants"]
-       43 MOVE                             R7 R3
-       44 CALL                             R4 3 -1
-       45 RETURN                           R4 -1
+       37 MOVE                             R7 R3
+       38 CALL                             R4 3 -1
+       39 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

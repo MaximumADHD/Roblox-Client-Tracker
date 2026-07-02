@@ -213,8 +213,8 @@ PROTO_10:
        65 GETUPVAL                         R10 0
        66 GETTABLEKS                       R10 R10 K17 ["createElement"]
        68 LOADK                            R11 K30 ["Frame"]
-       69 DUPTABLE                         R12 K33 [{"LayoutOrder", "Size", "BorderSizePixel", "BackgroundColor3"}]
-       70 NAMECALL                         R13 R0 K34 ["nextLayout"]
+       69 DUPTABLE                         R12 K34 [{["LayoutOrder"], ["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+       70 NAMECALL                         R13 R0 K35 ["nextLayout"]
        72 CALL                             R13 1 1
        73 SETTABLEKS                       R13 R12 K24 ["LayoutOrder"]
        75 GETIMPORT                        R13 K5 [UDim2.new]
@@ -224,125 +224,119 @@ PROTO_10:
        80 LOADN                            R17 0
        81 CALL                             R13 4 1
        82 SETTABLEKS                       R13 R12 K2 ["Size"]
-       84 LOADN                            R13 0
-       85 SETTABLEKS                       R13 R12 K31 ["BorderSizePixel"]
-       87 GETTABLEKS                       R13 R7 K35 ["tabBackground"]
-       89 SETTABLEKS                       R13 R12 K32 ["BackgroundColor3"]
-       91 CALL                             R10 2 1
-       92 SETTABLEKS                       R10 R9 K15 ["LeftPadding"]
-       94 LENGTH                           R11 R4
-       95 LOADN                            R12 0
-       96 JUMPIFNOTLT                      R12 R11 ; [+4]
-       98 LENGTH                           R11 R4
-       99 DIV                              R10 R8 R11
-      100 JUMPIF                           R10 ; [+1]
-      101 LOADN                            R10 0
-      102 GETUPVAL                         R12 1
-      103 CALL                             R12 0 1
-      104 JUMPIFNOT                        R12 ; [+9]
-      105 GETUPVAL                         R12 2
-      106 GETTABLEKS                       R13 R0 K0 ["props"]
-      108 GETTABLEKS                       R13 R13 K36 ["IXP"]
-      110 CALL                             R12 1 1
-      111 JUMPIFNOT                        R12 ; [+2]
-      112 LOADNIL                          R11
-      113 JUMP                             ; [+4]
-      114 GETUPVAL                         R11 3
-      115 MOVE                             R12 R4
-      116 MOVE                             R13 R10
-      117 CALL                             R11 2 1
-      118 GETIMPORT                        R12 K38 [ipairs]
-      120 MOVE                             R13 R4
-      121 CALL                             R12 1 3
-      122 FORGPREP_INEXT                   R12
-      123 GETTABLEKS                       R17 R16 K39 ["Key"]
-      125 GETTABLEKS                       R20 R16 K39 ["Key"]
-      127 MOVE                             R21 R5
-      128 GETTABLEKS                       R22 R16 K40 ["Text"]
-      130 GETTABLEKS                       R23 R16 K41 ["Image"]
-      132 MOVE                             R24 R10
-      133 MOVE                             R25 R11
-      134 MOVE                             R26 R6
-      135 NAMECALL                         R18 R0 K42 ["createTab"]
-      137 CALL                             R18 8 1
-      138 SETTABLE                         R18 R9 R17
-      139 FORGLOOP                         R12 2 [inext] ; [-17]
-      141 GETUPVAL                         R12 0
-      142 GETTABLEKS                       R12 R12 K17 ["createElement"]
-      144 LOADK                            R13 K30 ["Frame"]
-      145 DUPTABLE                         R14 K33 [{"LayoutOrder", "Size", "BorderSizePixel", "BackgroundColor3"}]
-      146 NAMECALL                         R15 R0 K34 ["nextLayout"]
-      148 CALL                             R15 1 1
-      149 SETTABLEKS                       R15 R14 K24 ["LayoutOrder"]
-      151 GETIMPORT                        R15 K5 [UDim2.new]
-      153 LOADN                            R16 1
-      154 LOADN                            R17 0
-      155 LOADN                            R18 1
-      156 LOADN                            R19 0
-      157 CALL                             R15 4 1
-      158 SETTABLEKS                       R15 R14 K2 ["Size"]
-      160 LOADN                            R15 0
-      161 SETTABLEKS                       R15 R14 K31 ["BorderSizePixel"]
-      163 GETTABLEKS                       R15 R7 K35 ["tabBackground"]
-      165 SETTABLEKS                       R15 R14 K32 ["BackgroundColor3"]
-      167 DUPTABLE                         R15 K44 [{"LowerBorder"}]
-      168 GETUPVAL                         R16 0
-      169 GETTABLEKS                       R16 R16 K17 ["createElement"]
-      171 LOADK                            R17 K30 ["Frame"]
-      172 DUPTABLE                         R18 K46 [{"Size", "AnchorPoint", "Position", "BorderSizePixel", "BackgroundColor3"}]
-      173 GETIMPORT                        R19 K5 [UDim2.new]
-      175 LOADN                            R20 1
-      176 LOADN                            R21 0
-      177 LOADN                            R22 0
-      178 LOADN                            R23 2
-      179 CALL                             R19 4 1
-      180 SETTABLEKS                       R19 R18 K2 ["Size"]
-      182 GETIMPORT                        R19 K48 [Vector2.new]
-      184 LOADN                            R20 0
-      185 LOADN                            R21 1
-      186 CALL                             R19 2 1
-      187 SETTABLEKS                       R19 R18 K45 ["AnchorPoint"]
-      189 GETIMPORT                        R19 K5 [UDim2.new]
-      191 LOADN                            R20 0
-      192 LOADN                            R21 0
-      193 LOADN                            R22 1
-      194 LOADN                            R23 0
-      195 CALL                             R19 4 1
-      196 SETTABLEKS                       R19 R18 K6 ["Position"]
-      198 LOADN                            R19 0
-      199 SETTABLEKS                       R19 R18 K31 ["BorderSizePixel"]
-      201 GETTABLEKS                       R19 R7 K49 ["borderColor"]
-      203 SETTABLEKS                       R19 R18 K32 ["BackgroundColor3"]
-      205 CALL                             R16 2 1
-      206 SETTABLEKS                       R16 R15 K43 ["LowerBorder"]
-      208 CALL                             R12 3 1
-      209 SETTABLEKS                       R12 R9 K50 ["RightPadding"]
-      211 GETUPVAL                         R12 0
-      212 GETTABLEKS                       R12 R12 K17 ["createElement"]
-      214 LOADK                            R13 K30 ["Frame"]
-      215 NEWTABLE                         R14 8 0
-      217 SETTABLEKS                       R2 R14 K2 ["Size"]
-      219 SETTABLEKS                       R3 R14 K6 ["Position"]
-      221 GETTABLEKS                       R15 R7 K51 ["backgroundColor"]
-      223 SETTABLEKS                       R15 R14 K32 ["BackgroundColor3"]
-      225 LOADN                            R15 0
-      226 SETTABLEKS                       R15 R14 K31 ["BorderSizePixel"]
-      228 GETUPVAL                         R15 0
-      229 GETTABLEKS                       R15 R15 K52 ["Ref"]
-      231 GETTABLEKS                       R16 R0 K53 ["tabSetRef"]
-      233 SETTABLE                         R16 R14 R15
-      234 GETUPVAL                         R15 0
-      235 GETTABLEKS                       R15 R15 K54 ["Change"]
-      237 GETTABLEKS                       R15 R15 K55 ["AbsoluteSize"]
-      239 GETTABLEKS                       R16 R0 K56 ["onAbsoluteSizeChange"]
-      241 SETTABLE                         R16 R14 R15
-      242 LOADN                            R16 0
-      243 JUMPIFNOTLE                      R8 R16 ; [+3]
-      245 LOADNIL                          R15
-      246 JUMP                             ; [+1]
-      247 MOVE                             R15 R9
-      248 CALL                             R12 3 -1
-      249 RETURN                           R12 -1
+       84 GETTABLEKS                       R13 R7 K36 ["tabBackground"]
+       86 SETTABLEKS                       R13 R12 K33 ["BackgroundColor3"]
+       88 CALL                             R10 2 1
+       89 SETTABLEKS                       R10 R9 K15 ["LeftPadding"]
+       91 LENGTH                           R11 R4
+       92 LOADN                            R12 0
+       93 JUMPIFNOTLT                      R12 R11 ; [+4]
+       95 LENGTH                           R11 R4
+       96 DIV                              R10 R8 R11
+       97 JUMPIF                           R10 ; [+1]
+       98 LOADN                            R10 0
+       99 GETUPVAL                         R12 1
+      100 CALL                             R12 0 1
+      101 JUMPIFNOT                        R12 ; [+9]
+      102 GETUPVAL                         R12 2
+      103 GETTABLEKS                       R13 R0 K0 ["props"]
+      105 GETTABLEKS                       R13 R13 K37 ["IXP"]
+      107 CALL                             R12 1 1
+      108 JUMPIFNOT                        R12 ; [+2]
+      109 LOADNIL                          R11
+      110 JUMP                             ; [+4]
+      111 GETUPVAL                         R11 3
+      112 MOVE                             R12 R4
+      113 MOVE                             R13 R10
+      114 CALL                             R11 2 1
+      115 GETIMPORT                        R12 K39 [ipairs]
+      117 MOVE                             R13 R4
+      118 CALL                             R12 1 3
+      119 FORGPREP_INEXT                   R12
+      120 GETTABLEKS                       R17 R16 K40 ["Key"]
+      122 GETTABLEKS                       R20 R16 K40 ["Key"]
+      124 MOVE                             R21 R5
+      125 GETTABLEKS                       R22 R16 K41 ["Text"]
+      127 GETTABLEKS                       R23 R16 K42 ["Image"]
+      129 MOVE                             R24 R10
+      130 MOVE                             R25 R11
+      131 MOVE                             R26 R6
+      132 NAMECALL                         R18 R0 K43 ["createTab"]
+      134 CALL                             R18 8 1
+      135 SETTABLE                         R18 R9 R17
+      136 FORGLOOP                         R12 2 [inext] ; [-17]
+      138 GETUPVAL                         R12 0
+      139 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      141 LOADK                            R13 K30 ["Frame"]
+      142 DUPTABLE                         R14 K34 [{["LayoutOrder"], ["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+      143 NAMECALL                         R15 R0 K35 ["nextLayout"]
+      145 CALL                             R15 1 1
+      146 SETTABLEKS                       R15 R14 K24 ["LayoutOrder"]
+      148 GETIMPORT                        R15 K5 [UDim2.new]
+      150 LOADN                            R16 1
+      151 LOADN                            R17 0
+      152 LOADN                            R18 1
+      153 LOADN                            R19 0
+      154 CALL                             R15 4 1
+      155 SETTABLEKS                       R15 R14 K2 ["Size"]
+      157 GETTABLEKS                       R15 R7 K36 ["tabBackground"]
+      159 SETTABLEKS                       R15 R14 K33 ["BackgroundColor3"]
+      161 DUPTABLE                         R15 K45 [{"LowerBorder"}]
+      162 GETUPVAL                         R16 0
+      163 GETTABLEKS                       R16 R16 K17 ["createElement"]
+      165 LOADK                            R17 K30 ["Frame"]
+      166 DUPTABLE                         R18 K47 [{["Size"], ["AnchorPoint"], ["Position"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+      167 GETIMPORT                        R19 K5 [UDim2.new]
+      169 LOADN                            R20 1
+      170 LOADN                            R21 0
+      171 LOADN                            R22 0
+      172 LOADN                            R23 2
+      173 CALL                             R19 4 1
+      174 SETTABLEKS                       R19 R18 K2 ["Size"]
+      176 GETIMPORT                        R19 K49 [Vector2.new]
+      178 LOADN                            R20 0
+      179 LOADN                            R21 1
+      180 CALL                             R19 2 1
+      181 SETTABLEKS                       R19 R18 K46 ["AnchorPoint"]
+      183 GETIMPORT                        R19 K5 [UDim2.new]
+      185 LOADN                            R20 0
+      186 LOADN                            R21 0
+      187 LOADN                            R22 1
+      188 LOADN                            R23 0
+      189 CALL                             R19 4 1
+      190 SETTABLEKS                       R19 R18 K6 ["Position"]
+      192 GETTABLEKS                       R19 R7 K50 ["borderColor"]
+      194 SETTABLEKS                       R19 R18 K33 ["BackgroundColor3"]
+      196 CALL                             R16 2 1
+      197 SETTABLEKS                       R16 R15 K44 ["LowerBorder"]
+      199 CALL                             R12 3 1
+      200 SETTABLEKS                       R12 R9 K51 ["RightPadding"]
+      202 GETUPVAL                         R12 0
+      203 GETTABLEKS                       R12 R12 K17 ["createElement"]
+      205 LOADK                            R13 K30 ["Frame"]
+      206 NEWTABLE                         R14 8 0
+      208 SETTABLEKS                       R2 R14 K2 ["Size"]
+      210 SETTABLEKS                       R3 R14 K6 ["Position"]
+      212 GETTABLEKS                       R15 R7 K52 ["backgroundColor"]
+      214 SETTABLEKS                       R15 R14 K33 ["BackgroundColor3"]
+      216 LOADN                            R15 0
+      217 SETTABLEKS                       R15 R14 K31 ["BorderSizePixel"]
+      219 GETUPVAL                         R15 0
+      220 GETTABLEKS                       R15 R15 K53 ["Ref"]
+      222 GETTABLEKS                       R16 R0 K54 ["tabSetRef"]
+      224 SETTABLE                         R16 R14 R15
+      225 GETUPVAL                         R15 0
+      226 GETTABLEKS                       R15 R15 K55 ["Change"]
+      228 GETTABLEKS                       R15 R15 K56 ["AbsoluteSize"]
+      230 GETTABLEKS                       R16 R0 K57 ["onAbsoluteSizeChange"]
+      232 SETTABLE                         R16 R14 R15
+      233 LOADN                            R16 0
+      234 JUMPIFNOTLE                      R8 R16 ; [+3]
+      236 LOADNIL                          R15
+      237 JUMP                             ; [+1]
+      238 MOVE                             R15 R9
+      239 CALL                             R12 3 -1
+      240 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

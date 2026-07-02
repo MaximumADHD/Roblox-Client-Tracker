@@ -33,68 +33,64 @@ PROTO_1:
        25 GETUPVAL                         R8 0
        26 GETTABLEKS                       R8 R8 K6 ["createElement"]
        28 GETUPVAL                         R9 3
-       29 DUPTABLE                         R10 K15 [{"Enabled", "Title", "Size", "MinSize", "Modal", "Resizable", "ZIndexBehavior", "OnClose"}]
-       30 LOADB                            R11 1
-       31 SETTABLEKS                       R11 R10 K7 ["Enabled"]
-       33 GETTABLEKS                       R11 R4 K8 ["Title"]
-       35 SETTABLEKS                       R11 R10 K8 ["Title"]
-       37 GETTABLEKS                       R11 R4 K9 ["Size"]
-       39 SETTABLEKS                       R11 R10 K9 ["Size"]
-       41 GETTABLEKS                       R12 R4 K10 ["MinSize"]
-       43 JUMPIFEQKNIL                     R12 ; [+4]
-       45 GETTABLEKS                       R11 R4 K10 ["MinSize"]
-       47 JUMP                             ; [+2]
-       48 GETTABLEKS                       R11 R4 K9 ["Size"]
-       50 SETTABLEKS                       R11 R10 K10 ["MinSize"]
-       52 GETTABLEKS                       R12 R4 K11 ["Modal"]
-       54 JUMPIFEQKNIL                     R12 ; [+4]
-       56 GETTABLEKS                       R11 R4 K11 ["Modal"]
-       58 JUMP                             ; [+1]
-       59 LOADB                            R11 1
-       60 SETTABLEKS                       R11 R10 K11 ["Modal"]
-       62 GETTABLEKS                       R12 R4 K12 ["Resizable"]
-       64 JUMPIFEQKNIL                     R12 ; [+4]
-       66 GETTABLEKS                       R11 R4 K12 ["Resizable"]
-       68 JUMP                             ; [+1]
-       69 LOADB                            R11 0
-       70 SETTABLEKS                       R11 R10 K12 ["Resizable"]
-       72 GETIMPORT                        R11 K18 [Enum.ZIndexBehavior.Sibling]
-       74 SETTABLEKS                       R11 R10 K13 ["ZIndexBehavior"]
-       76 SETTABLEKS                       R5 R10 K14 ["OnClose"]
-       78 NEWTABLE                         R11 0 1
-       80 GETUPVAL                         R12 0
-       81 GETTABLEKS                       R12 R12 K6 ["createElement"]
-       83 GETUPVAL                         R13 4
-       84 GETTABLEKS                       R13 R13 K19 ["FoundationProvider"]
-       86 DUPTABLE                         R14 K21 [{"theme"}]
-       87 GETUPVAL                         R15 5
-       88 CALL                             R15 0 1
-       89 SETTABLEKS                       R15 R14 K20 ["theme"]
-       91 GETUPVAL                         R15 0
-       92 GETTABLEKS                       R15 R15 K6 ["createElement"]
-       94 GETUPVAL                         R16 4
-       95 GETTABLEKS                       R16 R16 K22 ["View"]
-       97 DUPTABLE                         R17 K25 [{"tag", "ref"}]
-       98 LOADK                            R18 K26 ["size-full"]
-       99 SETTABLEKS                       R18 R17 K23 ["tag"]
-      101 SETTABLEKS                       R2 R17 K24 ["ref"]
-      103 GETUPVAL                         R18 0
-      104 GETTABLEKS                       R18 R18 K6 ["createElement"]
-      106 GETUPVAL                         R19 4
-      107 GETTABLEKS                       R19 R19 K27 ["OverlayProvider"]
-      109 DUPTABLE                         R20 K30 [{"key", "gui"}]
-      110 JUMPIFNOTEQKNIL                  R1 ; [+2]
-      112 LOADB                            R21 0 +1
-      113 LOADB                            R21 1
-      114 SETTABLEKS                       R21 R20 K28 ["key"]
-      116 SETTABLEKS                       R1 R20 K29 ["gui"]
-      118 MOVE                             R21 R7
-      119 CALL                             R18 3 -1
-      120 CALL                             R15 -1 -1
-      121 CALL                             R12 -1 -1
-      122 SETLIST                          R11 R12 -1 [1]
-      124 CALL                             R8 3 -1
-      125 RETURN                           R8 -1
+       29 DUPTABLE                         R10 K16 [{["Enabled"] = True, ["Title"], ["Size"], ["MinSize"], ["Modal"], ["Resizable"], ["ZIndexBehavior"], ["OnClose"]}]
+       30 GETTABLEKS                       R11 R4 K9 ["Title"]
+       32 SETTABLEKS                       R11 R10 K9 ["Title"]
+       34 GETTABLEKS                       R11 R4 K10 ["Size"]
+       36 SETTABLEKS                       R11 R10 K10 ["Size"]
+       38 GETTABLEKS                       R12 R4 K11 ["MinSize"]
+       40 JUMPIFEQKNIL                     R12 ; [+4]
+       42 GETTABLEKS                       R11 R4 K11 ["MinSize"]
+       44 JUMP                             ; [+2]
+       45 GETTABLEKS                       R11 R4 K10 ["Size"]
+       47 SETTABLEKS                       R11 R10 K11 ["MinSize"]
+       49 GETTABLEKS                       R12 R4 K12 ["Modal"]
+       51 JUMPIFEQKNIL                     R12 ; [+4]
+       53 GETTABLEKS                       R11 R4 K12 ["Modal"]
+       55 JUMP                             ; [+1]
+       56 LOADB                            R11 1
+       57 SETTABLEKS                       R11 R10 K12 ["Modal"]
+       59 GETTABLEKS                       R12 R4 K13 ["Resizable"]
+       61 JUMPIFEQKNIL                     R12 ; [+4]
+       63 GETTABLEKS                       R11 R4 K13 ["Resizable"]
+       65 JUMP                             ; [+1]
+       66 LOADB                            R11 0
+       67 SETTABLEKS                       R11 R10 K13 ["Resizable"]
+       69 GETIMPORT                        R11 K19 [Enum.ZIndexBehavior.Sibling]
+       71 SETTABLEKS                       R11 R10 K14 ["ZIndexBehavior"]
+       73 SETTABLEKS                       R5 R10 K15 ["OnClose"]
+       75 NEWTABLE                         R11 0 1
+       77 GETUPVAL                         R12 0
+       78 GETTABLEKS                       R12 R12 K6 ["createElement"]
+       80 GETUPVAL                         R13 4
+       81 GETTABLEKS                       R13 R13 K20 ["FoundationProvider"]
+       83 DUPTABLE                         R14 K22 [{"theme"}]
+       84 GETUPVAL                         R15 5
+       85 CALL                             R15 0 1
+       86 SETTABLEKS                       R15 R14 K21 ["theme"]
+       88 GETUPVAL                         R15 0
+       89 GETTABLEKS                       R15 R15 K6 ["createElement"]
+       91 GETUPVAL                         R16 4
+       92 GETTABLEKS                       R16 R16 K23 ["View"]
+       94 DUPTABLE                         R17 K27 [{["tag"] = "size-full", ["ref"]}]
+       95 SETTABLEKS                       R2 R17 K26 ["ref"]
+       97 GETUPVAL                         R18 0
+       98 GETTABLEKS                       R18 R18 K6 ["createElement"]
+      100 GETUPVAL                         R19 4
+      101 GETTABLEKS                       R19 R19 K28 ["OverlayProvider"]
+      103 DUPTABLE                         R20 K31 [{"key", "gui"}]
+      104 JUMPIFNOTEQKNIL                  R1 ; [+2]
+      106 LOADB                            R21 0 +1
+      107 LOADB                            R21 1
+      108 SETTABLEKS                       R21 R20 K29 ["key"]
+      110 SETTABLEKS                       R1 R20 K30 ["gui"]
+      112 MOVE                             R21 R7
+      113 CALL                             R18 3 -1
+      114 CALL                             R15 -1 -1
+      115 CALL                             R12 -1 -1
+      116 SETLIST                          R11 R12 -1 [1]
+      118 CALL                             R8 3 -1
+      119 RETURN                           R8 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

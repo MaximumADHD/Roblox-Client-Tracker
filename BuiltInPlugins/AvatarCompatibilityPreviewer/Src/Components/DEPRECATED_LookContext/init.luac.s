@@ -45,19 +45,17 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Flags"]
        27 GETTABLEKS                       R4 R4 K11 ["getFFlagAvatarPreviewerLookComposer"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K13 [{"canCreateLook"}]
-       31 LOADB                            R5 0
-       32 SETTABLEKS                       R5 R4 K12 ["canCreateLook"]
-       34 GETTABLEKS                       R5 R1 K14 ["createContext"]
-       36 MOVE                             R6 R4
-       37 CALL                             R5 1 1
-       38 DUPCLOSURE                       R6 K15 [PROTO_0]
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R1
-       41 CAPTURE                          VAL R5
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          VAL R2
-       44 DUPTABLE                         R7 K18 [{"Context", "Provider"}]
-       45 SETTABLEKS                       R5 R7 K16 ["Context"]
-       47 SETTABLEKS                       R6 R7 K17 ["Provider"]
-       49 RETURN                           R7 1
+       30 DUPTABLE                         R4 K14 [{["canCreateLook"] = False}]
+       31 GETTABLEKS                       R5 R1 K15 ["createContext"]
+       33 MOVE                             R6 R4
+       34 CALL                             R5 1 1
+       35 DUPCLOSURE                       R6 K16 [PROTO_0]
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R1
+       38 CAPTURE                          VAL R5
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          VAL R2
+       41 DUPTABLE                         R7 K19 [{"Context", "Provider"}]
+       42 SETTABLEKS                       R5 R7 K17 ["Context"]
+       44 SETTABLEKS                       R6 R7 K18 ["Provider"]
+       46 RETURN                           R7 1

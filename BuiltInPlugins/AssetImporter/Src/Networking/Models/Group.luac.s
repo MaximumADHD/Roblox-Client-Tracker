@@ -1,10 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"id", "name"}]
-        1 LOADK                            R1 K3 [13370420]
-        2 SETTABLEKS                       R1 R0 K0 ["id"]
-        4 LOADK                            R1 K4 ["RobloxLovers"]
-        5 SETTABLEKS                       R1 R0 K1 ["name"]
-        7 RETURN                           R0 1
+        0 DUPTABLE                         R0 K4 [{[1] = 13370420, ["name"] = "RobloxLovers"}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["id"]

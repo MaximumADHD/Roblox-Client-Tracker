@@ -4,21 +4,15 @@ PROTO_0:
         3 GETTABLEKS                       R1 R1 K1 ["PluginManagementApi"]
         5 GETUPVAL                         R2 0
         6 GETTABLEKS                       R2 R2 K0 ["props"]
-        8 GETTABLEKS                       R2 R2 K2 ["API"]
-       10 NAMECALL                         R2 R2 K3 ["get"]
-       12 CALL                             R2 1 1
-       13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R3 R3 K0 ["props"]
-       16 GETTABLEKS                       R3 R3 K4 ["assetId"]
-       18 GETUPVAL                         R4 0
-       19 GETTABLEKS                       R4 R4 K0 ["props"]
-       21 GETTABLEKS                       R4 R4 K5 ["setPluginPermission"]
-       23 MOVE                             R5 R1
-       24 MOVE                             R6 R2
-       25 MOVE                             R7 R3
-       26 MOVE                             R8 R0
-       27 CALL                             R4 4 -1
-       28 RETURN                           R4 -1
+        8 GETTABLEKS                       R2 R2 K2 ["assetId"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K0 ["props"]
+       13 GETTABLEKS                       R3 R3 K3 ["setPluginPermission"]
+       15 MOVE                             R4 R1
+       16 MOVE                             R5 R2
+       17 MOVE                             R6 R0
+       18 CALL                             R3 3 -1
+       19 RETURN                           R3 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -78,23 +72,21 @@ PROTO_3:
         1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["frameRef"]
-        6 DUPTABLE                         R1 K3 [{"frameWidth"}]
-        7 LOADN                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["frameWidth"]
-       10 SETTABLEKS                       R1 R0 K4 ["state"]
-       12 NEWCLOSURE                       R1 P0
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R1 R0 K5 ["onCheckboxActivated"]
-       16 NEWCLOSURE                       R1 P1
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R1 R0 K6 ["resizeFrame"]
-       20 NEWCLOSURE                       R1 P2
-       21 CAPTURE                          UPVAL U1
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U2
-       24 CAPTURE                          UPVAL U3
-       25 SETTABLEKS                       R1 R0 K7 ["getTruncatedText"]
-       27 RETURN                           R0 0
+        6 DUPTABLE                         R1 K4 [{["frameWidth"] = 0}]
+        7 SETTABLEKS                       R1 R0 K5 ["state"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K6 ["onCheckboxActivated"]
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K7 ["resizeFrame"]
+       17 NEWCLOSURE                       R1 P2
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U2
+       21 CAPTURE                          UPVAL U3
+       22 SETTABLEKS                       R1 R0 K8 ["getTruncatedText"]
+       24 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["resizeFrame"]
@@ -188,60 +180,49 @@ PROTO_7:
        76 GETUPVAL                         R10 0
        77 GETTABLEKS                       R10 R10 K11 ["createElement"]
        79 GETUPVAL                         R11 1
-       80 DUPTABLE                         R12 K26 [{"BackgroundTransparency", "contentPadding", "LayoutOrder", "width"}]
-       81 LOADN                            R13 1
-       82 SETTABLEKS                       R13 R12 K12 ["BackgroundTransparency"]
-       84 GETIMPORT                        R13 K15 [UDim.new]
-       86 LOADN                            R14 0
-       87 LOADN                            R15 8
-       88 CALL                             R13 2 1
-       89 SETTABLEKS                       R13 R12 K16 ["contentPadding"]
-       91 LOADN                            R13 0
-       92 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-       94 GETIMPORT                        R13 K15 [UDim.new]
-       96 LOADN                            R14 1
-       97 LOADN                            R15 0
-       98 CALL                             R13 2 1
-       99 SETTABLEKS                       R13 R12 K17 ["width"]
-      101 MOVE                             R13 R5
-      102 CALL                             R10 3 1
-      103 SETTABLEKS                       R10 R9 K23 ["Checkboxes"]
-      105 GETUPVAL                         R10 0
-      106 GETTABLEKS                       R10 R10 K11 ["createElement"]
-      108 GETUPVAL                         R11 2
-      109 DUPTABLE                         R12 K32 [{"BackgroundTransparency", "Font", "LayoutOrder", "TextSize", "Text", "TextXAlignment", "TextColor3"}]
-      110 LOADN                            R13 1
-      111 SETTABLEKS                       R13 R12 K12 ["BackgroundTransparency"]
-      113 GETTABLEKS                       R13 R4 K27 ["Font"]
-      115 SETTABLEKS                       R13 R12 K27 ["Font"]
-      117 LOADN                            R13 1
-      118 SETTABLEKS                       R13 R12 K3 ["LayoutOrder"]
-      120 LOADN                            R13 16
-      121 SETTABLEKS                       R13 R12 K28 ["TextSize"]
-      123 LOADK                            R15 K33 ["Details"]
-      124 LOADK                            R16 K34 ["HttpRequestInfo"]
-      125 NAMECALL                         R13 R1 K35 ["getText"]
-      127 CALL                             R13 3 1
-      128 SETTABLEKS                       R13 R12 K29 ["Text"]
-      130 GETIMPORT                        R13 K38 [Enum.TextXAlignment.Left]
-      132 SETTABLEKS                       R13 R12 K30 ["TextXAlignment"]
-      134 GETTABLEKS                       R13 R4 K39 ["InfoTextColor"]
-      136 SETTABLEKS                       R13 R12 K31 ["TextColor3"]
-      138 CALL                             R10 2 1
-      139 SETTABLEKS                       R10 R9 K24 ["InfoText"]
-      141 CALL                             R6 3 -1
-      142 RETURN                           R6 -1
+       80 DUPTABLE                         R12 K28 [{["BackgroundTransparency"] = 1, ["contentPadding"], ["LayoutOrder"] = 0, ["width"]}]
+       81 GETIMPORT                        R13 K15 [UDim.new]
+       83 LOADN                            R14 0
+       84 LOADN                            R15 8
+       85 CALL                             R13 2 1
+       86 SETTABLEKS                       R13 R12 K16 ["contentPadding"]
+       88 GETIMPORT                        R13 K15 [UDim.new]
+       90 LOADN                            R14 1
+       91 LOADN                            R15 0
+       92 CALL                             R13 2 1
+       93 SETTABLEKS                       R13 R12 K17 ["width"]
+       95 MOVE                             R13 R5
+       96 CALL                             R10 3 1
+       97 SETTABLEKS                       R10 R9 K23 ["Checkboxes"]
+       99 GETUPVAL                         R10 0
+      100 GETTABLEKS                       R10 R10 K11 ["createElement"]
+      102 GETUPVAL                         R11 2
+      103 DUPTABLE                         R12 K35 [{["BackgroundTransparency"] = 1, ["Font"], ["LayoutOrder"] = 1, ["TextSize"] = 16, ["Text"], ["TextXAlignment"], ["TextColor3"]}]
+      104 GETTABLEKS                       R13 R4 K29 ["Font"]
+      106 SETTABLEKS                       R13 R12 K29 ["Font"]
+      108 LOADK                            R15 K36 ["Details"]
+      109 LOADK                            R16 K37 ["HttpRequestInfo"]
+      110 NAMECALL                         R13 R1 K38 ["getText"]
+      112 CALL                             R13 3 1
+      113 SETTABLEKS                       R13 R12 K32 ["Text"]
+      115 GETIMPORT                        R13 K41 [Enum.TextXAlignment.Left]
+      117 SETTABLEKS                       R13 R12 K33 ["TextXAlignment"]
+      119 GETTABLEKS                       R13 R4 K42 ["InfoTextColor"]
+      121 SETTABLEKS                       R13 R12 K34 ["TextColor3"]
+      123 CALL                             R10 2 1
+      124 SETTABLEKS                       R10 R9 K24 ["InfoText"]
+      126 CALL                             R6 3 -1
+      127 RETURN                           R6 -1
 
 PROTO_8:
-        0 GETUPVAL                         R4 0
-        1 GETUPVAL                         R5 1
-        2 MOVE                             R6 R0
-        3 MOVE                             R7 R1
-        4 MOVE                             R8 R2
-        5 MOVE                             R9 R3
-        6 CALL                             R5 4 -1
-        7 CALL                             R4 -1 0
-        8 RETURN                           R0 0
+        0 GETUPVAL                         R3 0
+        1 GETUPVAL                         R4 1
+        2 MOVE                             R5 R0
+        3 MOVE                             R6 R1
+        4 MOVE                             R7 R2
+        5 CALL                             R4 3 -1
+        6 CALL                             R3 -1 0
+        7 RETURN                           R0 0
 
 PROTO_9:
         0 DUPTABLE                         R1 K1 [{"setPluginPermission"}]
@@ -295,71 +276,65 @@ MAIN:
        71 GETTABLEKS                       R10 R10 K20 ["Components"]
        73 GETTABLEKS                       R10 R10 K21 ["FluidFitTextLabel"]
        75 CALL                             R9 1 1
-       76 GETIMPORT                        R10 K8 [require]
-       78 GETTABLEKS                       R11 R0 K17 ["Src"]
-       80 GETTABLEKS                       R11 R11 K14 ["ContextServices"]
-       82 GETTABLEKS                       R11 R11 K22 ["PluginAPI2"]
-       84 CALL                             R10 1 1
-       85 GETTABLEKS                       R11 R4 K23 ["FitFrameVertical"]
-       87 GETIMPORT                        R12 K8 [require]
-       89 GETTABLEKS                       R13 R0 K17 ["Src"]
-       91 GETTABLEKS                       R13 R13 K24 ["Util"]
-       93 GETTABLEKS                       R13 R13 K25 ["Constants"]
-       95 CALL                             R12 1 1
-       96 GETTABLEKS                       R13 R7 K26 ["Checkbox"]
+       76 GETTABLEKS                       R10 R4 K22 ["FitFrameVertical"]
+       78 GETIMPORT                        R11 K8 [require]
+       80 GETTABLEKS                       R12 R0 K17 ["Src"]
+       82 GETTABLEKS                       R12 R12 K23 ["Util"]
+       84 GETTABLEKS                       R12 R12 K24 ["Constants"]
+       86 CALL                             R11 1 1
+       87 GETTABLEKS                       R12 R7 K25 ["Checkbox"]
+       89 GETIMPORT                        R13 K8 [require]
+       91 GETTABLEKS                       R14 R0 K17 ["Src"]
+       93 GETTABLEKS                       R14 R14 K23 ["Util"]
+       95 GETTABLEKS                       R14 R14 K26 ["truncateMiddleText"]
+       97 CALL                             R13 1 1
        98 GETIMPORT                        R14 K8 [require]
       100 GETTABLEKS                       R15 R0 K17 ["Src"]
-      102 GETTABLEKS                       R15 R15 K24 ["Util"]
-      104 GETTABLEKS                       R15 R15 K27 ["truncateMiddleText"]
+      102 GETTABLEKS                       R15 R15 K23 ["Util"]
+      104 GETTABLEKS                       R15 R15 K27 ["PluginManagementApi"]
       106 CALL                             R14 1 1
-      107 GETIMPORT                        R15 K8 [require]
-      109 GETTABLEKS                       R16 R0 K17 ["Src"]
-      111 GETTABLEKS                       R16 R16 K24 ["Util"]
-      113 GETTABLEKS                       R16 R16 K28 ["PluginManagementApi"]
-      115 CALL                             R15 1 1
-      116 GETTABLEKS                       R16 R2 K29 ["Component"]
-      118 LOADK                            R18 K30 ["HttpRequestHolder"]
-      119 NAMECALL                         R16 R16 K31 ["extend"]
-      121 CALL                             R16 2 1
-      122 DUPTABLE                         R17 K33 [{"httpPermissions"}]
-      123 NEWTABLE                         R18 0 0
-      125 SETTABLEKS                       R18 R17 K32 ["httpPermissions"]
-      127 SETTABLEKS                       R17 R16 K34 ["defaultProps"]
-      129 DUPCLOSURE                       R17 K35 [PROTO_3]
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R1
+      107 GETTABLEKS                       R15 R2 K28 ["Component"]
+      109 LOADK                            R17 K29 ["HttpRequestHolder"]
+      110 NAMECALL                         R15 R15 K30 ["extend"]
+      112 CALL                             R15 2 1
+      113 DUPTABLE                         R16 K32 [{"httpPermissions"}]
+      114 NEWTABLE                         R17 0 0
+      116 SETTABLEKS                       R17 R16 K31 ["httpPermissions"]
+      118 SETTABLEKS                       R16 R15 K33 ["defaultProps"]
+      120 DUPCLOSURE                       R16 K34 [PROTO_3]
+      121 CAPTURE                          VAL R2
+      122 CAPTURE                          VAL R1
+      123 CAPTURE                          VAL R11
+      124 CAPTURE                          VAL R13
+      125 SETTABLEKS                       R16 R15 K35 ["init"]
+      127 DUPCLOSURE                       R16 K36 [PROTO_4]
+      128 SETTABLEKS                       R16 R15 K37 ["didMount"]
+      130 DUPCLOSURE                       R16 K38 [PROTO_6]
+      131 CAPTURE                          VAL R2
       132 CAPTURE                          VAL R12
-      133 CAPTURE                          VAL R14
-      134 SETTABLEKS                       R17 R16 K36 ["init"]
-      136 DUPCLOSURE                       R17 K37 [PROTO_4]
-      137 SETTABLEKS                       R17 R16 K38 ["didMount"]
-      139 DUPCLOSURE                       R17 K39 [PROTO_6]
-      140 CAPTURE                          VAL R2
-      141 CAPTURE                          VAL R13
-      142 SETTABLEKS                       R17 R16 K40 ["renderCheckbox"]
-      144 DUPCLOSURE                       R17 K41 [PROTO_7]
-      145 CAPTURE                          VAL R2
-      146 CAPTURE                          VAL R11
-      147 CAPTURE                          VAL R9
-      148 SETTABLEKS                       R17 R16 K42 ["render"]
-      150 MOVE                             R17 R6
-      151 DUPTABLE                         R18 K46 [{"API", "Localization", "Stylizer", "PluginManagementApi"}]
-      152 SETTABLEKS                       R10 R18 K43 ["API"]
-      154 GETTABLEKS                       R19 R5 K44 ["Localization"]
-      156 SETTABLEKS                       R19 R18 K44 ["Localization"]
-      158 GETTABLEKS                       R19 R5 K45 ["Stylizer"]
-      160 SETTABLEKS                       R19 R18 K45 ["Stylizer"]
-      162 SETTABLEKS                       R15 R18 K28 ["PluginManagementApi"]
-      164 CALL                             R17 1 1
-      165 MOVE                             R18 R16
-      166 CALL                             R17 1 1
-      167 MOVE                             R16 R17
-      168 DUPCLOSURE                       R17 K47 [PROTO_9]
-      169 CAPTURE                          VAL R8
-      170 GETTABLEKS                       R18 R3 K48 ["connect"]
-      172 LOADNIL                          R19
-      173 MOVE                             R20 R17
-      174 CALL                             R18 2 1
-      175 MOVE                             R19 R16
-      176 CALL                             R18 1 -1
-      177 RETURN                           R18 -1
+      133 SETTABLEKS                       R16 R15 K39 ["renderCheckbox"]
+      135 DUPCLOSURE                       R16 K40 [PROTO_7]
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R10
+      138 CAPTURE                          VAL R9
+      139 SETTABLEKS                       R16 R15 K41 ["render"]
+      141 MOVE                             R16 R6
+      142 DUPTABLE                         R17 K44 [{"Localization", "Stylizer", "PluginManagementApi"}]
+      143 GETTABLEKS                       R18 R5 K42 ["Localization"]
+      145 SETTABLEKS                       R18 R17 K42 ["Localization"]
+      147 GETTABLEKS                       R18 R5 K43 ["Stylizer"]
+      149 SETTABLEKS                       R18 R17 K43 ["Stylizer"]
+      151 SETTABLEKS                       R14 R17 K27 ["PluginManagementApi"]
+      153 CALL                             R16 1 1
+      154 MOVE                             R17 R15
+      155 CALL                             R16 1 1
+      156 MOVE                             R15 R16
+      157 DUPCLOSURE                       R16 K45 [PROTO_9]
+      158 CAPTURE                          VAL R8
+      159 GETTABLEKS                       R17 R3 K46 ["connect"]
+      161 LOADNIL                          R18
+      162 MOVE                             R19 R16
+      163 CALL                             R17 2 1
+      164 MOVE                             R18 R15
+      165 CALL                             R17 1 -1
+      166 RETURN                           R17 -1

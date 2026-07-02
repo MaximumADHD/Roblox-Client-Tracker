@@ -16,54 +16,50 @@ PROTO_0:
        25 GETUPVAL                         R14 0
        26 GETTABLEKS                       R14 R14 K9 ["createElement"]
        28 GETUPVAL                         R15 2
-       29 DUPTABLE                         R16 K18 [{"Size", "Model", "AnimationId", "Loaded", "Label"}]
+       29 DUPTABLE                         R16 K19 [{["Size"], ["Model"], ["AnimationId"], ["Loaded"], ["Label"] = "R6"}]
        30 SETTABLEKS                       R8 R16 K14 ["Size"]
        32 SETTABLEKS                       R2 R16 K15 ["Model"]
        34 SETTABLEKS                       R4 R16 K16 ["AnimationId"]
        36 SETTABLEKS                       R7 R16 K6 ["Loaded"]
-       38 LOADK                            R17 K19 ["R6"]
-       39 SETTABLEKS                       R17 R16 K17 ["Label"]
-       41 CALL                             R14 2 1
-       42 SETTABLEKS                       R14 R13 K10 ["OriginalPreview"]
-       44 GETUPVAL                         R14 0
-       45 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       47 GETUPVAL                         R15 3
-       48 DUPTABLE                         R16 K25 [{"Size", "Position", "Image", "ImageRectSize", "ImageRectOffset", "ImageColor3"}]
-       49 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       51 GETTABLEKS                       R17 R17 K14 ["Size"]
-       53 SETTABLEKS                       R17 R16 K14 ["Size"]
-       55 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       57 GETTABLEKS                       R17 R17 K20 ["Position"]
-       59 SETTABLEKS                       R17 R16 K20 ["Position"]
-       61 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       63 GETTABLEKS                       R17 R17 K21 ["Image"]
-       65 SETTABLEKS                       R17 R16 K21 ["Image"]
-       67 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       69 GETTABLEKS                       R17 R17 K22 ["ImageRectSize"]
-       71 SETTABLEKS                       R17 R16 K22 ["ImageRectSize"]
-       73 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       75 GETTABLEKS                       R17 R17 K26 ["Offset"]
-       77 SETTABLEKS                       R17 R16 K23 ["ImageRectOffset"]
-       79 GETTABLEKS                       R17 R6 K11 ["Arrow"]
-       81 GETTABLEKS                       R17 R17 K27 ["Color"]
-       83 SETTABLEKS                       R17 R16 K24 ["ImageColor3"]
-       85 CALL                             R14 2 1
-       86 SETTABLEKS                       R14 R13 K11 ["Arrow"]
-       88 GETUPVAL                         R14 0
-       89 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       91 GETUPVAL                         R15 2
-       92 DUPTABLE                         R16 K28 [{"Size", "Position", "Model", "AnimationId", "Loaded", "Label"}]
-       93 SETTABLEKS                       R8 R16 K14 ["Size"]
-       95 SETTABLEKS                       R9 R16 K20 ["Position"]
-       97 SETTABLEKS                       R3 R16 K15 ["Model"]
-       99 SETTABLEKS                       R5 R16 K16 ["AnimationId"]
-      101 SETTABLEKS                       R7 R16 K6 ["Loaded"]
-      103 LOADK                            R17 K29 ["R15"]
-      104 SETTABLEKS                       R17 R16 K17 ["Label"]
-      106 CALL                             R14 2 1
-      107 SETTABLEKS                       R14 R13 K12 ["SuggestedPreview"]
-      109 CALL                             R10 3 -1
-      110 RETURN                           R10 -1
+       38 CALL                             R14 2 1
+       39 SETTABLEKS                       R14 R13 K10 ["OriginalPreview"]
+       41 GETUPVAL                         R14 0
+       42 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       44 GETUPVAL                         R15 3
+       45 DUPTABLE                         R16 K25 [{"Size", "Position", "Image", "ImageRectSize", "ImageRectOffset", "ImageColor3"}]
+       46 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       48 GETTABLEKS                       R17 R17 K14 ["Size"]
+       50 SETTABLEKS                       R17 R16 K14 ["Size"]
+       52 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       54 GETTABLEKS                       R17 R17 K20 ["Position"]
+       56 SETTABLEKS                       R17 R16 K20 ["Position"]
+       58 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       60 GETTABLEKS                       R17 R17 K21 ["Image"]
+       62 SETTABLEKS                       R17 R16 K21 ["Image"]
+       64 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       66 GETTABLEKS                       R17 R17 K22 ["ImageRectSize"]
+       68 SETTABLEKS                       R17 R16 K22 ["ImageRectSize"]
+       70 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       72 GETTABLEKS                       R17 R17 K26 ["Offset"]
+       74 SETTABLEKS                       R17 R16 K23 ["ImageRectOffset"]
+       76 GETTABLEKS                       R17 R6 K11 ["Arrow"]
+       78 GETTABLEKS                       R17 R17 K27 ["Color"]
+       80 SETTABLEKS                       R17 R16 K24 ["ImageColor3"]
+       82 CALL                             R14 2 1
+       83 SETTABLEKS                       R14 R13 K11 ["Arrow"]
+       85 GETUPVAL                         R14 0
+       86 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       88 GETUPVAL                         R15 2
+       89 DUPTABLE                         R16 K29 [{["Size"], ["Position"], ["Model"], ["AnimationId"], ["Loaded"], ["Label"] = "R15"}]
+       90 SETTABLEKS                       R8 R16 K14 ["Size"]
+       92 SETTABLEKS                       R9 R16 K20 ["Position"]
+       94 SETTABLEKS                       R3 R16 K15 ["Model"]
+       96 SETTABLEKS                       R5 R16 K16 ["AnimationId"]
+       98 SETTABLEKS                       R7 R16 K6 ["Loaded"]
+      100 CALL                             R14 2 1
+      101 SETTABLEKS                       R14 R13 K12 ["SuggestedPreview"]
+      103 CALL                             R10 3 -1
+      104 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -102,7 +102,7 @@ PROTO_5:
        45 GETUPVAL                         R8 2
        46 GETTABLEKS                       R8 R8 K5 ["createElement"]
        48 GETUPVAL                         R9 5
-       49 DUPTABLE                         R10 K19 [{"Rows", "GetRowProps", "RowHeight", "RowComponent", "ScrollBarThickness", "ScrollingDirection", "ScrollingEnabled"}]
+       49 DUPTABLE                         R10 K21 [{["Rows"], ["GetRowProps"], ["RowHeight"], ["RowComponent"], ["ScrollBarThickness"] = 0, ["ScrollingDirection"], ["ScrollingEnabled"] = False}]
        50 SETTABLEKS                       R3 R10 K12 ["Rows"]
        52 GETTABLEKS                       R11 R0 K13 ["GetRowProps"]
        54 SETTABLEKS                       R11 R10 K13 ["GetRowProps"]
@@ -110,16 +110,12 @@ PROTO_5:
        58 SETTABLEKS                       R11 R10 K14 ["RowHeight"]
        60 GETTABLEKS                       R11 R0 K15 ["RowComponent"]
        62 SETTABLEKS                       R11 R10 K15 ["RowComponent"]
-       64 LOADN                            R11 0
-       65 SETTABLEKS                       R11 R10 K16 ["ScrollBarThickness"]
-       67 GETIMPORT                        R11 K22 [Enum.ScrollingDirection.Y]
-       69 SETTABLEKS                       R11 R10 K17 ["ScrollingDirection"]
-       71 LOADB                            R11 0
-       72 SETTABLEKS                       R11 R10 K18 ["ScrollingEnabled"]
-       74 CALL                             R8 2 1
-       75 SETTABLEKS                       R8 R7 K10 ["List"]
-       77 CALL                             R4 3 -1
-       78 RETURN                           R4 -1
+       64 GETIMPORT                        R11 K24 [Enum.ScrollingDirection.Y]
+       66 SETTABLEKS                       R11 R10 K18 ["ScrollingDirection"]
+       68 CALL                             R8 2 1
+       69 SETTABLEKS                       R8 R7 K10 ["List"]
+       71 CALL                             R4 3 -1
+       72 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -41,71 +41,69 @@ PROTO_3:
         7 GETUPVAL                         R7 0
         8 GETTABLEKS                       R7 R7 K2 ["createElement"]
        10 LOADK                            R8 K3 ["Frame"]
-       11 DUPTABLE                         R9 K7 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
-       12 GETTABLEKS                       R10 R6 K8 ["Index"]
+       11 DUPTABLE                         R9 K8 [{["LayoutOrder"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       12 GETTABLEKS                       R10 R6 K9 ["Index"]
        14 SETTABLEKS                       R10 R9 K4 ["LayoutOrder"]
-       16 LOADN                            R10 1
-       17 SETTABLEKS                       R10 R9 K5 ["BackgroundTransparency"]
-       19 GETIMPORT                        R10 K11 [UDim2.new]
-       21 LOADN                            R11 1
-       22 LOADN                            R12 0
-       23 LOADN                            R13 0
-       24 GETUPVAL                         R14 1
-       25 CALL                             R10 4 1
-       26 SETTABLEKS                       R10 R9 K6 ["Size"]
-       28 DUPTABLE                         R10 K13 [{"Button"}]
-       29 GETTABLEKS                       R11 R6 K12 ["Button"]
-       31 SETTABLEKS                       R11 R10 K12 ["Button"]
-       33 CALL                             R7 3 1
-       34 SETTABLE                         R7 R1 R5
-       35 FORGLOOP                         R2 2 ; [-29]
-       37 GETUPVAL                         R2 0
-       38 GETTABLEKS                       R2 R2 K2 ["createElement"]
-       40 GETUPVAL                         R3 2
-       41 NEWTABLE                         R4 2 0
-       43 GETIMPORT                        R5 K17 [Enum.AutomaticSize.Y]
-       45 SETTABLEKS                       R5 R4 K18 ["AutomaticCanvasSize"]
-       47 GETUPVAL                         R5 0
-       48 GETTABLEKS                       R5 R5 K19 ["Ref"]
-       50 GETUPVAL                         R6 3
-       51 GETTABLEKS                       R6 R6 K20 ["canvasRef"]
-       53 SETTABLE                         R6 R4 R5
-       54 DUPTABLE                         R5 K23 [{"UIListLayout", "FitContent"}]
-       55 GETUPVAL                         R6 0
-       56 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       58 LOADK                            R7 K21 ["UIListLayout"]
-       59 NEWTABLE                         R8 8 0
-       61 GETUPVAL                         R9 4
-       62 SETTABLEKS                       R9 R8 K24 ["VerticalAlignment"]
-       64 GETUPVAL                         R9 5
-       65 SETTABLEKS                       R9 R8 K25 ["Padding"]
-       67 GETIMPORT                        R9 K27 [Enum.SortOrder.LayoutOrder]
-       69 SETTABLEKS                       R9 R8 K26 ["SortOrder"]
-       71 GETIMPORT                        R9 K30 [Enum.FillDirection.Horizontal]
-       73 SETTABLEKS                       R9 R8 K28 ["FillDirection"]
-       75 GETUPVAL                         R9 0
-       76 GETTABLEKS                       R9 R9 K31 ["Change"]
-       78 GETTABLEKS                       R9 R9 K32 ["AbsoluteContentSize"]
-       80 NEWCLOSURE                       R10 P0
-       81 CAPTURE                          UPVAL U3
-       82 SETTABLE                         R10 R8 R9
-       83 CALL                             R6 2 1
-       84 SETTABLEKS                       R6 R5 K21 ["UIListLayout"]
-       86 GETUPVAL                         R6 0
-       87 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       89 GETUPVAL                         R7 6
-       90 DUPTABLE                         R8 K35 [{"AutomaticSize", "HorizontalAlignment", "Layout"}]
-       91 GETIMPORT                        R9 K17 [Enum.AutomaticSize.Y]
-       93 SETTABLEKS                       R9 R8 K15 ["AutomaticSize"]
-       95 GETIMPORT                        R9 K37 [Enum.HorizontalAlignment.Left]
-       97 SETTABLEKS                       R9 R8 K33 ["HorizontalAlignment"]
-       99 GETIMPORT                        R9 K39 [Enum.FillDirection.Vertical]
-      101 SETTABLEKS                       R9 R8 K34 ["Layout"]
-      103 MOVE                             R9 R1
-      104 CALL                             R6 3 1
-      105 SETTABLEKS                       R6 R5 K22 ["FitContent"]
-      107 CALL                             R2 3 -1
-      108 RETURN                           R2 -1
+       16 GETIMPORT                        R10 K12 [UDim2.new]
+       18 LOADN                            R11 1
+       19 LOADN                            R12 0
+       20 LOADN                            R13 0
+       21 GETUPVAL                         R14 1
+       22 CALL                             R10 4 1
+       23 SETTABLEKS                       R10 R9 K7 ["Size"]
+       25 DUPTABLE                         R10 K14 [{"Button"}]
+       26 GETTABLEKS                       R11 R6 K13 ["Button"]
+       28 SETTABLEKS                       R11 R10 K13 ["Button"]
+       30 CALL                             R7 3 1
+       31 SETTABLE                         R7 R1 R5
+       32 FORGLOOP                         R2 2 ; [-26]
+       34 GETUPVAL                         R2 0
+       35 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       37 GETUPVAL                         R3 2
+       38 NEWTABLE                         R4 2 0
+       40 GETIMPORT                        R5 K18 [Enum.AutomaticSize.Y]
+       42 SETTABLEKS                       R5 R4 K19 ["AutomaticCanvasSize"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K20 ["Ref"]
+       47 GETUPVAL                         R6 3
+       48 GETTABLEKS                       R6 R6 K21 ["canvasRef"]
+       50 SETTABLE                         R6 R4 R5
+       51 DUPTABLE                         R5 K24 [{"UIListLayout", "FitContent"}]
+       52 GETUPVAL                         R6 0
+       53 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       55 LOADK                            R7 K22 ["UIListLayout"]
+       56 NEWTABLE                         R8 8 0
+       58 GETUPVAL                         R9 4
+       59 SETTABLEKS                       R9 R8 K25 ["VerticalAlignment"]
+       61 GETUPVAL                         R9 5
+       62 SETTABLEKS                       R9 R8 K26 ["Padding"]
+       64 GETIMPORT                        R9 K28 [Enum.SortOrder.LayoutOrder]
+       66 SETTABLEKS                       R9 R8 K27 ["SortOrder"]
+       68 GETIMPORT                        R9 K31 [Enum.FillDirection.Horizontal]
+       70 SETTABLEKS                       R9 R8 K29 ["FillDirection"]
+       72 GETUPVAL                         R9 0
+       73 GETTABLEKS                       R9 R9 K32 ["Change"]
+       75 GETTABLEKS                       R9 R9 K33 ["AbsoluteContentSize"]
+       77 NEWCLOSURE                       R10 P0
+       78 CAPTURE                          UPVAL U3
+       79 SETTABLE                         R10 R8 R9
+       80 CALL                             R6 2 1
+       81 SETTABLEKS                       R6 R5 K22 ["UIListLayout"]
+       83 GETUPVAL                         R6 0
+       84 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       86 GETUPVAL                         R7 6
+       87 DUPTABLE                         R8 K36 [{"AutomaticSize", "HorizontalAlignment", "Layout"}]
+       88 GETIMPORT                        R9 K18 [Enum.AutomaticSize.Y]
+       90 SETTABLEKS                       R9 R8 K16 ["AutomaticSize"]
+       92 GETIMPORT                        R9 K38 [Enum.HorizontalAlignment.Left]
+       94 SETTABLEKS                       R9 R8 K34 ["HorizontalAlignment"]
+       96 GETIMPORT                        R9 K40 [Enum.FillDirection.Vertical]
+       98 SETTABLEKS                       R9 R8 K35 ["Layout"]
+      100 MOVE                             R9 R1
+      101 CALL                             R6 3 1
+      102 SETTABLEKS                       R6 R5 K23 ["FitContent"]
+      104 CALL                             R2 3 -1
+      105 RETURN                           R2 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

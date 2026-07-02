@@ -484,7 +484,7 @@ PROTO_17:
         5 CALL                             R2 1 1
         6 NAMECALL                         R2 R2 K2 ["upper"]
         8 CALL                             R2 1 1
-        9 SUBRK                            R5 R0 K1 ["ToHex"]
+        9 SUBRK                            R5 K0 [1] R1
        10 MULK                             R4 R5 K3 [100]
        11 FASTCALL1                        MATH_ROUND R4 ; [+2]
        12 GETIMPORT                        R3 K6 [math.round]
@@ -831,67 +831,65 @@ MAIN:
        47 CALL                             R8 1 1
        48 GETTABLEKS                       R9 R8 K18 ["Style"]
        50 GETTABLEKS                       R9 R9 K19 ["ColorSystem"]
-       52 DUPTABLE                         R10 K21 [{"enabled"}]
-       53 LOADB                            R11 1
-       54 SETTABLEKS                       R11 R10 K20 ["enabled"]
-       56 GETIMPORT                        R11 K24 [Color3.fromRGB]
-       58 LOADN                            R12 200
-       59 LOADN                            R13 255
-       60 LOADN                            R14 0
-       61 CALL                             R11 3 1
-       62 DUPCLOSURE                       R12 K25 [PROTO_0]
-       63 CAPTURE                          VAL R11
-       64 GETIMPORT                        R14 K28 [Instance.new]
-       66 LOADK                            R15 K29 ["Frame"]
-       67 CALL                             R14 1 1
-       68 LOADN                            R15 1
-       69 SETTABLEKS                       R15 R14 K30 ["BackgroundTransparency"]
-       71 LOADK                            R15 K31 [∞]
-       72 SETTABLEKS                       R15 R14 K32 ["ZIndex"]
-       74 GETIMPORT                        R15 K28 [Instance.new]
-       76 LOADK                            R16 K33 ["UIStroke"]
-       77 CALL                             R15 1 1
-       78 SETTABLEKS                       R14 R15 K34 ["Parent"]
-       80 SETTABLEKS                       R11 R15 K35 ["Color"]
-       82 LOADK                            R16 K36 ["FoundationPicker"]
-       83 SETTABLEKS                       R16 R14 K37 ["Name"]
-       85 MOVE                             R13 R14
-       86 DUPCLOSURE                       R14 K38 [PROTO_4]
-       87 CAPTURE                          VAL R10
-       88 SETTABLEKS                       R14 R10 K39 ["watchDockWidgets"]
-       90 NEWCLOSURE                       R14 P2
-       91 CAPTURE                          VAL R10
-       92 CAPTURE                          REF R13
-       93 SETTABLEKS                       R14 R10 K40 ["watchEnabledState"]
-       95 NEWCLOSURE                       R14 P3
-       96 CAPTURE                          VAL R10
-       97 CAPTURE                          VAL R2
-       98 CAPTURE                          VAL R3
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          REF R13
-      101 SETTABLEKS                       R14 R10 K41 ["open"]
-      103 DUPCLOSURE                       R14 K42 [PROTO_10]
-      104 CAPTURE                          VAL R10
-      105 SETTABLEKS                       R14 R10 K43 ["watchPluginGui"]
-      107 NEWCLOSURE                       R14 P5
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          REF R13
-      110 CAPTURE                          VAL R11
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R4
-      113 SETTABLEKS                       R14 R10 K44 ["watchRoot"]
-      115 DUPCLOSURE                       R14 K45 [PROTO_15]
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R7
-      118 CAPTURE                          VAL R10
-      119 SETTABLEKS                       R14 R10 K46 ["intersect"]
-      121 DUPCLOSURE                       R14 K47 [PROTO_16]
-      122 NEWTABLE                         R15 0 0
-      124 DUPCLOSURE                       R16 K48 [PROTO_17]
-      125 CAPTURE                          VAL R15
-      126 CAPTURE                          VAL R9
-      127 DUPCLOSURE                       R17 K49 [PROTO_18]
-      128 CAPTURE                          VAL R16
-      129 SETTABLEKS                       R17 R10 K50 ["processChild"]
-      131 CLOSEUPVALS                      R13
-      132 RETURN                           R10 1
+       52 DUPTABLE                         R10 K22 [{["enabled"] = True}]
+       53 GETIMPORT                        R11 K25 [Color3.fromRGB]
+       55 LOADN                            R12 200
+       56 LOADN                            R13 255
+       57 LOADN                            R14 0
+       58 CALL                             R11 3 1
+       59 DUPCLOSURE                       R12 K26 [PROTO_0]
+       60 CAPTURE                          VAL R11
+       61 GETIMPORT                        R14 K29 [Instance.new]
+       63 LOADK                            R15 K30 ["Frame"]
+       64 CALL                             R14 1 1
+       65 LOADN                            R15 1
+       66 SETTABLEKS                       R15 R14 K31 ["BackgroundTransparency"]
+       68 LOADK                            R15 K32 [∞]
+       69 SETTABLEKS                       R15 R14 K33 ["ZIndex"]
+       71 GETIMPORT                        R15 K29 [Instance.new]
+       73 LOADK                            R16 K34 ["UIStroke"]
+       74 CALL                             R15 1 1
+       75 SETTABLEKS                       R14 R15 K35 ["Parent"]
+       77 SETTABLEKS                       R11 R15 K36 ["Color"]
+       79 LOADK                            R16 K37 ["FoundationPicker"]
+       80 SETTABLEKS                       R16 R14 K38 ["Name"]
+       82 MOVE                             R13 R14
+       83 DUPCLOSURE                       R14 K39 [PROTO_4]
+       84 CAPTURE                          VAL R10
+       85 SETTABLEKS                       R14 R10 K40 ["watchDockWidgets"]
+       87 NEWCLOSURE                       R14 P2
+       88 CAPTURE                          VAL R10
+       89 CAPTURE                          REF R13
+       90 SETTABLEKS                       R14 R10 K41 ["watchEnabledState"]
+       92 NEWCLOSURE                       R14 P3
+       93 CAPTURE                          VAL R10
+       94 CAPTURE                          VAL R2
+       95 CAPTURE                          VAL R3
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          REF R13
+       98 SETTABLEKS                       R14 R10 K42 ["open"]
+      100 DUPCLOSURE                       R14 K43 [PROTO_10]
+      101 CAPTURE                          VAL R10
+      102 SETTABLEKS                       R14 R10 K44 ["watchPluginGui"]
+      104 NEWCLOSURE                       R14 P5
+      105 CAPTURE                          VAL R10
+      106 CAPTURE                          REF R13
+      107 CAPTURE                          VAL R11
+      108 CAPTURE                          VAL R3
+      109 CAPTURE                          VAL R4
+      110 SETTABLEKS                       R14 R10 K45 ["watchRoot"]
+      112 DUPCLOSURE                       R14 K46 [PROTO_15]
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R10
+      116 SETTABLEKS                       R14 R10 K47 ["intersect"]
+      118 DUPCLOSURE                       R14 K48 [PROTO_16]
+      119 NEWTABLE                         R15 0 0
+      121 DUPCLOSURE                       R16 K49 [PROTO_17]
+      122 CAPTURE                          VAL R15
+      123 CAPTURE                          VAL R9
+      124 DUPCLOSURE                       R17 K50 [PROTO_18]
+      125 CAPTURE                          VAL R16
+      126 SETTABLEKS                       R17 R10 K51 ["processChild"]
+      128 CLOSEUPVALS                      R13
+      129 RETURN                           R10 1

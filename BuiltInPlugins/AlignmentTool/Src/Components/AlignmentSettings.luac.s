@@ -61,16 +61,14 @@ PROTO_0:
        94 GETUPVAL                         R5 0
        95 GETTABLEKS                       R5 R5 K13 ["createElement"]
        97 GETUPVAL                         R6 4
-       98 DUPTABLE                         R7 K37 [{"Collapsible", "Items", "LayoutOrder", "MaximumLabelWidth"}]
-       99 LOADB                            R8 1
-      100 SETTABLEKS                       R8 R7 K33 ["Collapsible"]
-      102 SETTABLEKS                       R4 R7 K34 ["Items"]
-      104 GETTABLEKS                       R8 R1 K35 ["LayoutOrder"]
-      106 SETTABLEKS                       R8 R7 K35 ["LayoutOrder"]
-      108 GETTABLEKS                       R8 R3 K36 ["MaximumLabelWidth"]
-      110 SETTABLEKS                       R8 R7 K36 ["MaximumLabelWidth"]
-      112 CALL                             R5 2 -1
-      113 RETURN                           R5 -1
+       98 DUPTABLE                         R7 K38 [{["Collapsible"] = True, ["Items"], ["LayoutOrder"], ["MaximumLabelWidth"]}]
+       99 SETTABLEKS                       R4 R7 K35 ["Items"]
+      101 GETTABLEKS                       R8 R1 K36 ["LayoutOrder"]
+      103 SETTABLEKS                       R8 R7 K36 ["LayoutOrder"]
+      105 GETTABLEKS                       R8 R3 K37 ["MaximumLabelWidth"]
+      107 SETTABLEKS                       R8 R7 K37 ["MaximumLabelWidth"]
+      109 CALL                             R5 2 -1
+      110 RETURN                           R5 -1
 
 PROTO_1:
         0 DUPTABLE                         R2 K4 [{"alignmentMode", "alignmentSpace", "enabledAxes", "relativeTo"}]

@@ -180,30 +180,26 @@ PROTO_5:
        61 CALL                             R8 1 0
        62 JUMPBACK                         ; [-50]
        63 GETTABLEN                        R7 R5 1
-       64 JUMPIF                           R7 ; [+20]
-       65 DUPTABLE                         R7 K19 [{"success", "errorDetails"}]
-       66 LOADB                            R8 0
-       67 SETTABLEKS                       R8 R7 K17 ["success"]
-       69 DUPTABLE                         R8 K22 [{"kind", "networkError"}]
-       70 LOADK                            R9 K23 ["Network"]
-       71 SETTABLEKS                       R9 R8 K20 ["kind"]
-       73 LOADK                            R10 K24 ["Operation failed after %* attempt(s). Last error: %*"]
-       74 ADDK                             R12 R3 K5 [1]
-       75 GETTABLEN                        R13 R5 2
-       76 NAMECALL                         R10 R10 K25 ["format"]
-       78 CALL                             R10 3 1
-       79 MOVE                             R9 R10
-       80 SETTABLEKS                       R9 R8 K21 ["networkError"]
-       82 SETTABLEKS                       R8 R7 K18 ["errorDetails"]
-       84 RETURN                           R7 1
-       85 GETIMPORT                        R7 K27 [select]
-       87 LOADN                            R8 2
-       88 FASTCALL1                        TABLE_UNPACK R5 ; [+3]
-       89 MOVE                             R10 R5
-       90 GETIMPORT                        R9 K30 [table.unpack]
-       92 CALL                             R9 1 -1
-       93 CALL                             R7 -1 -1
-       94 RETURN                           R7 -1
+       64 JUMPIF                           R7 ; [+14]
+       65 DUPTABLE                         R7 K20 [{["success"] = False, ["errorDetails"]}]
+       66 DUPTABLE                         R8 K24 [{["kind"] = "Network", ["networkError"]}]
+       67 LOADK                            R10 K25 ["Operation failed after %* attempt(s). Last error: %*"]
+       68 ADDK                             R12 R3 K5 [1]
+       69 GETTABLEN                        R13 R5 2
+       70 NAMECALL                         R10 R10 K26 ["format"]
+       72 CALL                             R10 3 1
+       73 MOVE                             R9 R10
+       74 SETTABLEKS                       R9 R8 K23 ["networkError"]
+       76 SETTABLEKS                       R8 R7 K19 ["errorDetails"]
+       78 RETURN                           R7 1
+       79 GETIMPORT                        R7 K28 [select]
+       81 LOADN                            R8 2
+       82 FASTCALL1                        TABLE_UNPACK R5 ; [+3]
+       83 MOVE                             R10 R5
+       84 GETIMPORT                        R9 K31 [table.unpack]
+       86 CALL                             R9 1 -1
+       87 CALL                             R7 -1 -1
+       88 RETURN                           R7 -1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

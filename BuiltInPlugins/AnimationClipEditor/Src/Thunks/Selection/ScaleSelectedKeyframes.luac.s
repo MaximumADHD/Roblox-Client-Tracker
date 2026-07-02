@@ -166,11 +166,11 @@ PROTO_3:
        46 FORNLOOP                         R4
        47 LENGTH                           R6 R2
        48 LOADN                            R4 1
-       49 LOADN                            R5 255
+       49 LOADN                            R5 -1
        50 FORNPREP                         R4
        51 MOVE                             R7 R3
        52 GETTABLE                         R8 R2 R6
-       53 LOADN                            R9 255
+       53 LOADN                            R9 -1
        54 CALL                             R7 2 1
        55 JUMPIF                           R7 ; [+38]
        56 FORNLOOP                         R4
@@ -195,7 +195,7 @@ PROTO_3:
        77 CAPTURE                          VAL R0
        78 MOVE                             R8 R3
        79 LOADN                            R6 1
-       80 LOADN                            R7 255
+       80 LOADN                            R7 -1
        81 FORNPREP                         R6
        82 MOVE                             R9 R5
        83 GETTABLE                         R10 R2 R8

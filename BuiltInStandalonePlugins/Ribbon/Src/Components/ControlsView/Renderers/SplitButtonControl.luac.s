@@ -465,22 +465,16 @@ MAIN:
       111 GETTABLEKS                       R16 R0 K12 ["Src"]
       113 GETTABLEKS                       R16 R16 K26 ["Types"]
       115 CALL                             R15 1 1
-      116 DUPTABLE                         R16 K30 [{"Enabled", "Icon", "Visible"}]
-      117 LOADB                            R17 1
-      118 SETTABLEKS                       R17 R16 K27 ["Enabled"]
-      120 LOADNIL                          R17
-      121 SETTABLEKS                       R17 R16 K28 ["Icon"]
-      123 LOADB                            R17 1
-      124 SETTABLEKS                       R17 R16 K29 ["Visible"]
-      126 DUPCLOSURE                       R17 K31 [PROTO_2]
-      127 CAPTURE                          VAL R11
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          VAL R16
-      130 CAPTURE                          VAL R13
-      131 CAPTURE                          VAL R2
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          VAL R8
-      134 CAPTURE                          VAL R7
-      135 CAPTURE                          VAL R6
-      136 CAPTURE                          VAL R12
-      137 RETURN                           R17 1
+      116 DUPTABLE                         R16 K32 [{["Enabled"] = True, ["Icon"] = , ["Visible"] = True}]
+      117 DUPCLOSURE                       R17 K33 [PROTO_2]
+      118 CAPTURE                          VAL R11
+      119 CAPTURE                          VAL R4
+      120 CAPTURE                          VAL R16
+      121 CAPTURE                          VAL R13
+      122 CAPTURE                          VAL R2
+      123 CAPTURE                          VAL R5
+      124 CAPTURE                          VAL R8
+      125 CAPTURE                          VAL R7
+      126 CAPTURE                          VAL R6
+      127 CAPTURE                          VAL R12
+      128 RETURN                           R17 1

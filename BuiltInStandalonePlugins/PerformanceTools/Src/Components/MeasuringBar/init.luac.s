@@ -449,7 +449,7 @@ PROTO_5:
       386 NEWTABLE                         R27 8 0
       388 GETIMPORT                        R28 K16 [UDim2.new]
       390 LOADN                            R29 1
-      391 LOADN                            R30 176
+      391 LOADN                            R30 -80
       392 LOADN                            R31 0
       393 LOADN                            R32 10
       394 CALL                             R28 4 1
@@ -479,11 +479,11 @@ PROTO_5:
       428 DUPTABLE                         R28 K93 [{"FillObject", "MaxPip", "Pips", "UICorner"}]
       429 SETTABLEKS                       R1 R28 K91 ["FillObject"]
       431 MOVE                             R29 R15
-      432 JUMPIFNOT                        R29 ; [+30]
+      432 JUMPIFNOT                        R29 ; [+27]
       433 GETUPVAL                         R29 0
       434 GETTABLEKS                       R29 R29 K12 ["createElement"]
       436 LOADK                            R30 K13 ["Frame"]
-      437 DUPTABLE                         R31 K95 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel"}]
+      437 DUPTABLE                         R31 K95 [{["Position"], ["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
       438 GETIMPORT                        R32 K16 [UDim2.new]
       440 MOVE                             R33 R2
       441 LOADN                            R34 0
@@ -500,72 +500,60 @@ PROTO_5:
       454 SETTABLEKS                       R32 R31 K18 ["Size"]
       456 GETUPVAL                         R32 4
       457 SETTABLEKS                       R32 R31 K94 ["BackgroundColor3"]
-      459 LOADN                            R32 0
-      460 SETTABLEKS                       R32 R31 K19 ["BorderSizePixel"]
-      462 CALL                             R29 2 1
-      463 SETTABLEKS                       R29 R28 K92 ["MaxPip"]
-      465 GETUPVAL                         R29 0
-      466 GETTABLEKS                       R29 R29 K12 ["createElement"]
-      468 LOADK                            R30 K13 ["Frame"]
-      469 DUPTABLE                         R31 K96 [{"Size", "BackgroundTransparency"}]
-      470 GETIMPORT                        R32 K16 [UDim2.new]
-      472 LOADN                            R33 1
-      473 LOADN                            R34 0
-      474 LOADN                            R35 1
-      475 LOADN                            R36 0
-      476 CALL                             R32 4 1
-      477 SETTABLEKS                       R32 R31 K18 ["Size"]
-      479 LOADN                            R32 1
-      480 SETTABLEKS                       R32 R31 K20 ["BackgroundTransparency"]
-      482 MOVE                             R32 R9
-      483 CALL                             R29 3 1
-      484 SETTABLEKS                       R29 R28 K35 ["Pips"]
-      486 GETUPVAL                         R29 0
-      487 GETTABLEKS                       R29 R29 K12 ["createElement"]
-      489 LOADK                            R30 K23 ["UICorner"]
-      490 DUPTABLE                         R31 K26 [{"CornerRadius"}]
-      491 GETIMPORT                        R32 K28 [UDim.new]
-      493 LOADK                            R33 K7 [0.5]
-      494 LOADN                            R34 0
-      495 CALL                             R32 2 1
-      496 SETTABLEKS                       R32 R31 K25 ["CornerRadius"]
-      498 CALL                             R29 2 1
-      499 SETTABLEKS                       R29 R28 K23 ["UICorner"]
-      501 CALL                             R25 3 1
-      502 SETTABLEKS                       R25 R23 K97 ["LabelBackground"]
-      504 GETUPVAL                         R24 0
-      505 GETTABLEKS                       R24 R24 K12 ["createElement"]
-      507 LOADK                            R25 K13 ["Frame"]
-      508 DUPTABLE                         R26 K98 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
-      509 LOADN                            R27 1
-      510 SETTABLEKS                       R27 R26 K20 ["BackgroundTransparency"]
-      512 GETIMPORT                        R27 K16 [UDim2.new]
-      514 LOADN                            R28 0
-      515 LOADN                            R29 6
-      516 LOADN                            R30 0
-      517 LOADN                            R31 0
-      518 CALL                             R27 4 1
-      519 SETTABLEKS                       R27 R26 K18 ["Size"]
-      521 LOADN                            R27 2
-      522 SETTABLEKS                       R27 R26 K51 ["LayoutOrder"]
-      524 CALL                             R24 2 1
-      525 SETLIST                          R23 R24 1 [1]
-      527 GETUPVAL                         R25 0
-      528 GETTABLEKS                       R25 R25 K12 ["createElement"]
-      530 LOADK                            R26 K56 ["TextLabel"]
-      531 DUPTABLE                         R27 K100 [{"Text", "TextSize", "LayoutOrder"}]
-      532 GETTABLEKS                       R28 R0 K58 ["Text"]
-      534 SETTABLEKS                       R28 R27 K58 ["Text"]
-      536 LOADN                            R28 14
-      537 SETTABLEKS                       R28 R27 K99 ["TextSize"]
-      539 LOADN                            R28 3
-      540 SETTABLEKS                       R28 R27 K51 ["LayoutOrder"]
-      542 CALL                             R25 2 1
-      543 SETTABLEKS                       R25 R23 K101 ["Label"]
-      545 CALL                             R20 3 1
-      546 SETTABLEKS                       R20 R19 K54 ["BarContainer"]
-      548 CALL                             R16 3 -1
-      549 RETURN                           R16 -1
+      459 CALL                             R29 2 1
+      460 SETTABLEKS                       R29 R28 K92 ["MaxPip"]
+      462 GETUPVAL                         R29 0
+      463 GETTABLEKS                       R29 R29 K12 ["createElement"]
+      465 LOADK                            R30 K13 ["Frame"]
+      466 DUPTABLE                         R31 K96 [{["Size"], ["BackgroundTransparency"] = 1}]
+      467 GETIMPORT                        R32 K16 [UDim2.new]
+      469 LOADN                            R33 1
+      470 LOADN                            R34 0
+      471 LOADN                            R35 1
+      472 LOADN                            R36 0
+      473 CALL                             R32 4 1
+      474 SETTABLEKS                       R32 R31 K18 ["Size"]
+      476 MOVE                             R32 R9
+      477 CALL                             R29 3 1
+      478 SETTABLEKS                       R29 R28 K35 ["Pips"]
+      480 GETUPVAL                         R29 0
+      481 GETTABLEKS                       R29 R29 K12 ["createElement"]
+      483 LOADK                            R30 K23 ["UICorner"]
+      484 DUPTABLE                         R31 K26 [{"CornerRadius"}]
+      485 GETIMPORT                        R32 K28 [UDim.new]
+      487 LOADK                            R33 K7 [0.5]
+      488 LOADN                            R34 0
+      489 CALL                             R32 2 1
+      490 SETTABLEKS                       R32 R31 K25 ["CornerRadius"]
+      492 CALL                             R29 2 1
+      493 SETTABLEKS                       R29 R28 K23 ["UICorner"]
+      495 CALL                             R25 3 1
+      496 SETTABLEKS                       R25 R23 K97 ["LabelBackground"]
+      498 GETUPVAL                         R24 0
+      499 GETTABLEKS                       R24 R24 K12 ["createElement"]
+      501 LOADK                            R25 K13 ["Frame"]
+      502 DUPTABLE                         R26 K99 [{["BackgroundTransparency"] = 1, ["Size"], ["LayoutOrder"] = 2}]
+      503 GETIMPORT                        R27 K16 [UDim2.new]
+      505 LOADN                            R28 0
+      506 LOADN                            R29 6
+      507 LOADN                            R30 0
+      508 LOADN                            R31 0
+      509 CALL                             R27 4 1
+      510 SETTABLEKS                       R27 R26 K18 ["Size"]
+      512 CALL                             R24 2 1
+      513 SETLIST                          R23 R24 1 [1]
+      515 GETUPVAL                         R25 0
+      516 GETTABLEKS                       R25 R25 K12 ["createElement"]
+      518 LOADK                            R26 K56 ["TextLabel"]
+      519 DUPTABLE                         R27 K103 [{["Text"], ["TextSize"] = 14, ["LayoutOrder"] = 3}]
+      520 GETTABLEKS                       R28 R0 K58 ["Text"]
+      522 SETTABLEKS                       R28 R27 K58 ["Text"]
+      524 CALL                             R25 2 1
+      525 SETTABLEKS                       R25 R23 K104 ["Label"]
+      527 CALL                             R20 3 1
+      528 SETTABLEKS                       R20 R19 K54 ["BarContainer"]
+      530 CALL                             R16 3 -1
+      531 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

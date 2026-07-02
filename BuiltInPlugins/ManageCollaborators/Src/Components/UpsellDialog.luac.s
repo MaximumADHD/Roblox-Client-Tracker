@@ -39,70 +39,62 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"userId", "action", "upsellEntrySurface"}]
+        2 DUPTABLE                         R3 K5 [{[1], ["action"] = "establish_TC", ["upsellEntrySurface"] = "collab_dialog"}]
         3 GETUPVAL                         R4 2
-        4 NAMECALL                         R4 R4 K4 ["GetUserId"]
+        4 NAMECALL                         R4 R4 K6 ["GetUserId"]
         6 CALL                             R4 1 1
         7 SETTABLEKS                       R4 R3 K0 ["userId"]
-        9 LOADK                            R4 K5 ["establish_TC"]
-       10 SETTABLEKS                       R4 R3 K1 ["action"]
-       12 LOADK                            R4 K6 ["collab_dialog"]
-       13 SETTABLEKS                       R4 R3 K2 ["upsellEntrySurface"]
-       15 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
-       17 CALL                             R0 3 0
-       18 GETUPVAL                         R0 3
-       19 GETIMPORT                        R1 K9 [pcall]
-       21 NEWCLOSURE                       R2 P0
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          VAL R0
-       24 CALL                             R1 1 2
-       25 JUMPIF                           R1 ; [+10]
-       26 GETIMPORT                        R3 K11 [warn]
-       28 LOADK                            R5 K12 ["OpenUrl failed: "]
-       29 FASTCALL1                        TOSTRING R2 ; [+3]
-       30 MOVE                             R7 R2
-       31 GETIMPORT                        R6 K14 [tostring]
-       33 CALL                             R6 1 1
-       34 CONCAT                           R4 R5 R6
-       35 CALL                             R3 1 0
-       36 GETUPVAL                         R0 5
-       37 GETTABLEKS                       R0 R0 K15 ["onClose"]
-       39 CALL                             R0 0 0
-       40 RETURN                           R0 0
+        9 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
+       11 CALL                             R0 3 0
+       12 GETUPVAL                         R0 3
+       13 GETIMPORT                        R1 K9 [pcall]
+       15 NEWCLOSURE                       R2 P0
+       16 CAPTURE                          UPVAL U4
+       17 CAPTURE                          VAL R0
+       18 CALL                             R1 1 2
+       19 JUMPIF                           R1 ; [+10]
+       20 GETIMPORT                        R3 K11 [warn]
+       22 LOADK                            R5 K12 ["OpenUrl failed: "]
+       23 FASTCALL1                        TOSTRING R2 ; [+3]
+       24 MOVE                             R7 R2
+       25 GETIMPORT                        R6 K14 [tostring]
+       27 CALL                             R6 1 1
+       28 CONCAT                           R4 R5 R6
+       29 CALL                             R3 1 0
+       30 GETUPVAL                         R0 5
+       31 GETTABLEKS                       R0 R0 K15 ["onClose"]
+       33 CALL                             R0 0 0
+       34 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"userId", "action", "upsellEntrySurface"}]
+        2 DUPTABLE                         R3 K5 [{[1], ["action"] = "get_consent", ["upsellEntrySurface"] = "collab_dialog"}]
         3 GETUPVAL                         R4 2
-        4 NAMECALL                         R4 R4 K4 ["GetUserId"]
+        4 NAMECALL                         R4 R4 K6 ["GetUserId"]
         6 CALL                             R4 1 1
         7 SETTABLEKS                       R4 R3 K0 ["userId"]
-        9 LOADK                            R4 K5 ["get_consent"]
-       10 SETTABLEKS                       R4 R3 K1 ["action"]
-       12 LOADK                            R4 K6 ["collab_dialog"]
-       13 SETTABLEKS                       R4 R3 K2 ["upsellEntrySurface"]
-       15 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
-       17 CALL                             R0 3 0
-       18 GETUPVAL                         R0 3
-       19 GETIMPORT                        R1 K9 [pcall]
-       21 NEWCLOSURE                       R2 P0
-       22 CAPTURE                          UPVAL U4
-       23 CAPTURE                          VAL R0
-       24 CALL                             R1 1 2
-       25 JUMPIF                           R1 ; [+10]
-       26 GETIMPORT                        R3 K11 [warn]
-       28 LOADK                            R5 K12 ["OpenUrl failed: "]
-       29 FASTCALL1                        TOSTRING R2 ; [+3]
-       30 MOVE                             R7 R2
-       31 GETIMPORT                        R6 K14 [tostring]
-       33 CALL                             R6 1 1
-       34 CONCAT                           R4 R5 R6
-       35 CALL                             R3 1 0
-       36 GETUPVAL                         R0 5
-       37 GETTABLEKS                       R0 R0 K15 ["onClose"]
-       39 CALL                             R0 0 0
-       40 RETURN                           R0 0
+        9 NAMECALL                         R0 R0 K7 ["logRobloxTelemetryEvent"]
+       11 CALL                             R0 3 0
+       12 GETUPVAL                         R0 3
+       13 GETIMPORT                        R1 K9 [pcall]
+       15 NEWCLOSURE                       R2 P0
+       16 CAPTURE                          UPVAL U4
+       17 CAPTURE                          VAL R0
+       18 CALL                             R1 1 2
+       19 JUMPIF                           R1 ; [+10]
+       20 GETIMPORT                        R3 K11 [warn]
+       22 LOADK                            R5 K12 ["OpenUrl failed: "]
+       23 FASTCALL1                        TOSTRING R2 ; [+3]
+       24 MOVE                             R7 R2
+       25 GETIMPORT                        R6 K14 [tostring]
+       27 CALL                             R6 1 1
+       28 CONCAT                           R4 R5 R6
+       29 CALL                             R3 1 0
+       30 GETUPVAL                         R0 5
+       31 GETTABLEKS                       R0 R0 K15 ["onClose"]
+       33 CALL                             R0 0 0
+       34 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -118,186 +110,168 @@ PROTO_5:
        16 GETUPVAL                         R7 2
        17 GETTABLEKS                       R7 R7 K6 ["UI"]
        19 GETTABLEKS                       R7 R7 K7 ["Dialog"]
-       21 DUPTABLE                         R8 K15 [{"Title", "Enabled", "Modal", "Resizable", "Size", "MinSize", "OnClose"}]
-       22 LOADK                            R9 K16 [""]
-       23 SETTABLEKS                       R9 R8 K8 ["Title"]
-       25 LOADB                            R9 1
-       26 SETTABLEKS                       R9 R8 K9 ["Enabled"]
-       28 GETUPVAL                         R10 3
-       29 NOT                              R9 R10
-       30 SETTABLEKS                       R9 R8 K10 ["Modal"]
-       32 LOADB                            R9 0
-       33 SETTABLEKS                       R9 R8 K11 ["Resizable"]
-       35 GETIMPORT                        R9 K18 [Vector2.new]
-       37 LOADN                            R10 94
-       38 LOADN                            R11 200
-       39 CALL                             R9 2 1
-       40 SETTABLEKS                       R9 R8 K12 ["Size"]
-       42 GETIMPORT                        R9 K18 [Vector2.new]
-       44 LOADN                            R10 94
-       45 LOADN                            R11 200
-       46 CALL                             R9 2 1
-       47 SETTABLEKS                       R9 R8 K13 ["MinSize"]
-       49 GETTABLEKS                       R9 R1 K19 ["onClose"]
-       51 SETTABLEKS                       R9 R8 K14 ["OnClose"]
-       53 DUPTABLE                         R9 K22 [{"StyleLink", "MainView"}]
-       54 JUMPIFNOT                        R5 ; [+9]
-       55 GETUPVAL                         R10 1
-       56 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       58 LOADK                            R11 K20 ["StyleLink"]
-       59 DUPTABLE                         R12 K24 [{"StyleSheet"}]
-       60 SETTABLEKS                       R5 R12 K23 ["StyleSheet"]
-       62 CALL                             R10 2 1
-       63 JUMPIF                           R10 ; [+1]
-       64 LOADNIL                          R10
-       65 SETTABLEKS                       R10 R9 K20 ["StyleLink"]
-       67 GETUPVAL                         R10 1
-       68 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       70 GETUPVAL                         R11 4
-       71 GETTABLEKS                       R11 R11 K25 ["View"]
-       73 DUPTABLE                         R12 K27 [{"tag"}]
-       74 LOADK                            R13 K28 ["size-full-full col gap-large padding-large bg-surface-200 radius-none"]
-       75 SETTABLEKS                       R13 R12 K26 ["tag"]
-       77 DUPTABLE                         R13 K33 [{"UpsellTitle", "UpsellBody", "Spacer", "Footer"}]
-       78 GETUPVAL                         R14 1
-       79 GETTABLEKS                       R14 R14 K5 ["createElement"]
-       81 GETUPVAL                         R15 4
-       82 GETTABLEKS                       R15 R15 K34 ["Text"]
-       84 DUPTABLE                         R16 K36 [{"tag", "LayoutOrder", "Text"}]
-       85 LOADK                            R17 K37 ["auto-xy size-0-0  text-align-y-center text-align-x-left text-title-medium text-wrap"]
-       86 SETTABLEKS                       R17 R16 K26 ["tag"]
-       88 NAMECALL                         R17 R2 K38 ["getNextOrder"]
-       90 CALL                             R17 1 1
-       91 SETTABLEKS                       R17 R16 K35 ["LayoutOrder"]
-       93 LOADK                            R19 K39 ["UpsellDialog"]
-       94 LOADK                            R20 K40 ["title"]
-       95 NAMECALL                         R17 R3 K41 ["getText"]
-       97 CALL                             R17 3 1
-       98 SETTABLEKS                       R17 R16 K34 ["Text"]
-      100 CALL                             R14 2 1
-      101 SETTABLEKS                       R14 R13 K29 ["UpsellTitle"]
-      103 GETUPVAL                         R14 1
-      104 GETTABLEKS                       R14 R14 K5 ["createElement"]
-      106 GETUPVAL                         R15 5
-      107 DUPTABLE                         R16 K42 [{"LayoutOrder", "tag", "Text"}]
-      108 NAMECALL                         R17 R2 K38 ["getNextOrder"]
-      110 CALL                             R17 1 1
-      111 SETTABLEKS                       R17 R16 K35 ["LayoutOrder"]
-      113 LOADK                            R17 K43 ["auto-xy size-0-0 text-align-x-left text-body-small text-wrap flex-y-fill"]
-      114 SETTABLEKS                       R17 R16 K26 ["tag"]
-      116 LOADK                            R19 K39 ["UpsellDialog"]
-      117 LOADK                            R20 K44 ["description"]
-      118 NAMECALL                         R17 R3 K41 ["getText"]
-      120 CALL                             R17 3 1
-      121 SETTABLEKS                       R17 R16 K34 ["Text"]
-      123 CALL                             R14 2 1
-      124 SETTABLEKS                       R14 R13 K30 ["UpsellBody"]
-      126 GETUPVAL                         R14 1
-      127 GETTABLEKS                       R14 R14 K5 ["createElement"]
-      129 GETUPVAL                         R15 4
-      130 GETTABLEKS                       R15 R15 K25 ["View"]
-      132 DUPTABLE                         R16 K45 [{"tag", "LayoutOrder"}]
-      133 LOADK                            R17 K46 ["fill"]
-      134 SETTABLEKS                       R17 R16 K26 ["tag"]
-      136 NAMECALL                         R17 R2 K38 ["getNextOrder"]
-      138 CALL                             R17 1 1
-      139 SETTABLEKS                       R17 R16 K35 ["LayoutOrder"]
-      141 CALL                             R14 2 1
-      142 SETTABLEKS                       R14 R13 K31 ["Spacer"]
-      144 GETUPVAL                         R14 1
-      145 GETTABLEKS                       R14 R14 K5 ["createElement"]
-      147 GETUPVAL                         R15 6
-      148 DUPTABLE                         R16 K45 [{"tag", "LayoutOrder"}]
-      149 LOADK                            R17 K47 ["size-full-0 auto-y row gap-small"]
-      150 SETTABLEKS                       R17 R16 K26 ["tag"]
-      152 NAMECALL                         R17 R2 K38 ["getNextOrder"]
-      154 CALL                             R17 1 1
-      155 SETTABLEKS                       R17 R16 K35 ["LayoutOrder"]
-      157 DUPTABLE                         R17 K50 [{"Spacer", "TrustedConnectionsButton", "VPCButton"}]
-      158 GETUPVAL                         R18 1
-      159 GETTABLEKS                       R18 R18 K5 ["createElement"]
-      161 GETUPVAL                         R19 4
-      162 GETTABLEKS                       R19 R19 K25 ["View"]
-      164 DUPTABLE                         R20 K45 [{"tag", "LayoutOrder"}]
-      165 LOADK                            R21 K46 ["fill"]
-      166 SETTABLEKS                       R21 R20 K26 ["tag"]
-      168 NAMECALL                         R21 R2 K38 ["getNextOrder"]
-      170 CALL                             R21 1 1
-      171 SETTABLEKS                       R21 R20 K35 ["LayoutOrder"]
-      173 CALL                             R18 2 1
-      174 SETTABLEKS                       R18 R17 K31 ["Spacer"]
-      176 GETUPVAL                         R18 1
-      177 GETTABLEKS                       R18 R18 K5 ["createElement"]
-      179 GETUPVAL                         R19 4
-      180 GETTABLEKS                       R19 R19 K51 ["Button"]
-      182 DUPTABLE                         R20 K56 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
-      183 LOADK                            R23 K39 ["UpsellDialog"]
-      184 LOADK                            R24 K48 ["TrustedConnectionsButton"]
-      185 NAMECALL                         R21 R3 K41 ["getText"]
-      187 CALL                             R21 3 1
-      188 SETTABLEKS                       R21 R20 K52 ["text"]
-      190 GETUPVAL                         R21 4
-      191 GETTABLEKS                       R21 R21 K57 ["Enums"]
-      193 GETTABLEKS                       R21 R21 K58 ["ButtonVariant"]
-      195 GETTABLEKS                       R21 R21 K59 ["Emphasis"]
-      197 SETTABLEKS                       R21 R20 K53 ["variant"]
-      199 NEWCLOSURE                       R21 P0
-      200 CAPTURE                          UPVAL U7
-      201 CAPTURE                          UPVAL U8
-      202 CAPTURE                          UPVAL U9
-      203 CAPTURE                          UPVAL U10
-      204 CAPTURE                          UPVAL U11
-      205 CAPTURE                          VAL R1
-      206 SETTABLEKS                       R21 R20 K54 ["onActivated"]
-      208 GETUPVAL                         R21 4
-      209 GETTABLEKS                       R21 R21 K57 ["Enums"]
-      211 GETTABLEKS                       R21 R21 K60 ["InputSize"]
-      213 GETTABLEKS                       R21 R21 K61 ["Small"]
-      215 SETTABLEKS                       R21 R20 K55 ["size"]
-      217 NAMECALL                         R21 R2 K38 ["getNextOrder"]
-      219 CALL                             R21 1 1
-      220 SETTABLEKS                       R21 R20 K35 ["LayoutOrder"]
-      222 CALL                             R18 2 1
-      223 SETTABLEKS                       R18 R17 K48 ["TrustedConnectionsButton"]
-      225 GETUPVAL                         R18 1
-      226 GETTABLEKS                       R18 R18 K5 ["createElement"]
-      228 GETUPVAL                         R19 4
-      229 GETTABLEKS                       R19 R19 K51 ["Button"]
-      231 DUPTABLE                         R20 K56 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
-      232 LOADK                            R23 K39 ["UpsellDialog"]
-      233 LOADK                            R24 K62 ["ParentalConsentButton"]
-      234 NAMECALL                         R21 R3 K41 ["getText"]
-      236 CALL                             R21 3 1
-      237 SETTABLEKS                       R21 R20 K52 ["text"]
-      239 GETUPVAL                         R21 4
-      240 GETTABLEKS                       R21 R21 K57 ["Enums"]
-      242 GETTABLEKS                       R21 R21 K58 ["ButtonVariant"]
-      244 GETTABLEKS                       R21 R21 K63 ["Standard"]
-      246 SETTABLEKS                       R21 R20 K53 ["variant"]
-      248 NEWCLOSURE                       R21 P1
-      249 CAPTURE                          UPVAL U7
-      250 CAPTURE                          UPVAL U8
-      251 CAPTURE                          UPVAL U9
-      252 CAPTURE                          UPVAL U12
-      253 CAPTURE                          UPVAL U11
-      254 CAPTURE                          VAL R1
-      255 SETTABLEKS                       R21 R20 K54 ["onActivated"]
-      257 GETUPVAL                         R21 4
-      258 GETTABLEKS                       R21 R21 K57 ["Enums"]
-      260 GETTABLEKS                       R21 R21 K60 ["InputSize"]
-      262 GETTABLEKS                       R21 R21 K61 ["Small"]
-      264 SETTABLEKS                       R21 R20 K55 ["size"]
-      266 NAMECALL                         R21 R2 K38 ["getNextOrder"]
-      268 CALL                             R21 1 1
-      269 SETTABLEKS                       R21 R20 K35 ["LayoutOrder"]
-      271 CALL                             R18 2 1
-      272 SETTABLEKS                       R18 R17 K49 ["VPCButton"]
-      274 CALL                             R14 3 1
-      275 SETTABLEKS                       R14 R13 K32 ["Footer"]
-      277 CALL                             R10 3 1
-      278 SETTABLEKS                       R10 R9 K21 ["MainView"]
-      280 CALL                             R6 3 -1
-      281 RETURN                           R6 -1
+       21 DUPTABLE                         R8 K18 [{["Title"] = "", ["Enabled"] = True, ["Modal"], ["Resizable"] = False, ["Size"], ["MinSize"], ["OnClose"]}]
+       22 GETUPVAL                         R10 3
+       23 NOT                              R9 R10
+       24 SETTABLEKS                       R9 R8 K12 ["Modal"]
+       26 GETIMPORT                        R9 K20 [Vector2.new]
+       28 LOADN                            R10 350
+       29 LOADN                            R11 200
+       30 CALL                             R9 2 1
+       31 SETTABLEKS                       R9 R8 K15 ["Size"]
+       33 GETIMPORT                        R9 K20 [Vector2.new]
+       35 LOADN                            R10 350
+       36 LOADN                            R11 200
+       37 CALL                             R9 2 1
+       38 SETTABLEKS                       R9 R8 K16 ["MinSize"]
+       40 GETTABLEKS                       R9 R1 K21 ["onClose"]
+       42 SETTABLEKS                       R9 R8 K17 ["OnClose"]
+       44 DUPTABLE                         R9 K24 [{"StyleLink", "MainView"}]
+       45 JUMPIFNOT                        R5 ; [+9]
+       46 GETUPVAL                         R10 1
+       47 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       49 LOADK                            R11 K22 ["StyleLink"]
+       50 DUPTABLE                         R12 K26 [{"StyleSheet"}]
+       51 SETTABLEKS                       R5 R12 K25 ["StyleSheet"]
+       53 CALL                             R10 2 1
+       54 JUMPIF                           R10 ; [+1]
+       55 LOADNIL                          R10
+       56 SETTABLEKS                       R10 R9 K22 ["StyleLink"]
+       58 GETUPVAL                         R10 1
+       59 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       61 GETUPVAL                         R11 4
+       62 GETTABLEKS                       R11 R11 K27 ["View"]
+       64 DUPTABLE                         R12 K30 [{["tag"] = "col gap-large size-full-full padding-large radius-none bg-surface-200"}]
+       65 DUPTABLE                         R13 K35 [{"UpsellTitle", "UpsellBody", "Spacer", "Footer"}]
+       66 GETUPVAL                         R14 1
+       67 GETTABLEKS                       R14 R14 K5 ["createElement"]
+       69 GETUPVAL                         R15 4
+       70 GETTABLEKS                       R15 R15 K36 ["Text"]
+       72 DUPTABLE                         R16 K39 [{["tag"] = "size-0-0 auto-xy text-title-medium text-wrap text-align-x-left text-align-y-center", ["LayoutOrder"], ["Text"]}]
+       73 NAMECALL                         R17 R2 K40 ["getNextOrder"]
+       75 CALL                             R17 1 1
+       76 SETTABLEKS                       R17 R16 K38 ["LayoutOrder"]
+       78 LOADK                            R19 K41 ["UpsellDialog"]
+       79 LOADK                            R20 K42 ["title"]
+       80 NAMECALL                         R17 R3 K43 ["getText"]
+       82 CALL                             R17 3 1
+       83 SETTABLEKS                       R17 R16 K36 ["Text"]
+       85 CALL                             R14 2 1
+       86 SETTABLEKS                       R14 R13 K31 ["UpsellTitle"]
+       88 GETUPVAL                         R14 1
+       89 GETTABLEKS                       R14 R14 K5 ["createElement"]
+       91 GETUPVAL                         R15 5
+       92 DUPTABLE                         R16 K45 [{["LayoutOrder"], ["tag"] = "flex-y-fill size-0-0 auto-xy text-body-small text-wrap text-align-x-left", ["Text"]}]
+       93 NAMECALL                         R17 R2 K40 ["getNextOrder"]
+       95 CALL                             R17 1 1
+       96 SETTABLEKS                       R17 R16 K38 ["LayoutOrder"]
+       98 LOADK                            R19 K41 ["UpsellDialog"]
+       99 LOADK                            R20 K46 ["description"]
+      100 NAMECALL                         R17 R3 K43 ["getText"]
+      102 CALL                             R17 3 1
+      103 SETTABLEKS                       R17 R16 K36 ["Text"]
+      105 CALL                             R14 2 1
+      106 SETTABLEKS                       R14 R13 K32 ["UpsellBody"]
+      108 GETUPVAL                         R14 1
+      109 GETTABLEKS                       R14 R14 K5 ["createElement"]
+      111 GETUPVAL                         R15 4
+      112 GETTABLEKS                       R15 R15 K27 ["View"]
+      114 DUPTABLE                         R16 K48 [{["tag"] = "fill", ["LayoutOrder"]}]
+      115 NAMECALL                         R17 R2 K40 ["getNextOrder"]
+      117 CALL                             R17 1 1
+      118 SETTABLEKS                       R17 R16 K38 ["LayoutOrder"]
+      120 CALL                             R14 2 1
+      121 SETTABLEKS                       R14 R13 K33 ["Spacer"]
+      123 GETUPVAL                         R14 1
+      124 GETTABLEKS                       R14 R14 K5 ["createElement"]
+      126 GETUPVAL                         R15 6
+      127 DUPTABLE                         R16 K50 [{["tag"] = "row gap-small size-full-0 auto-y", ["LayoutOrder"]}]
+      128 NAMECALL                         R17 R2 K40 ["getNextOrder"]
+      130 CALL                             R17 1 1
+      131 SETTABLEKS                       R17 R16 K38 ["LayoutOrder"]
+      133 DUPTABLE                         R17 K53 [{"Spacer", "TrustedConnectionsButton", "VPCButton"}]
+      134 GETUPVAL                         R18 1
+      135 GETTABLEKS                       R18 R18 K5 ["createElement"]
+      137 GETUPVAL                         R19 4
+      138 GETTABLEKS                       R19 R19 K27 ["View"]
+      140 DUPTABLE                         R20 K48 [{["tag"] = "fill", ["LayoutOrder"]}]
+      141 NAMECALL                         R21 R2 K40 ["getNextOrder"]
+      143 CALL                             R21 1 1
+      144 SETTABLEKS                       R21 R20 K38 ["LayoutOrder"]
+      146 CALL                             R18 2 1
+      147 SETTABLEKS                       R18 R17 K33 ["Spacer"]
+      149 GETUPVAL                         R18 1
+      150 GETTABLEKS                       R18 R18 K5 ["createElement"]
+      152 GETUPVAL                         R19 4
+      153 GETTABLEKS                       R19 R19 K54 ["Button"]
+      155 DUPTABLE                         R20 K59 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
+      156 LOADK                            R23 K41 ["UpsellDialog"]
+      157 LOADK                            R24 K51 ["TrustedConnectionsButton"]
+      158 NAMECALL                         R21 R3 K43 ["getText"]
+      160 CALL                             R21 3 1
+      161 SETTABLEKS                       R21 R20 K55 ["text"]
+      163 GETUPVAL                         R21 4
+      164 GETTABLEKS                       R21 R21 K60 ["Enums"]
+      166 GETTABLEKS                       R21 R21 K61 ["ButtonVariant"]
+      168 GETTABLEKS                       R21 R21 K62 ["Emphasis"]
+      170 SETTABLEKS                       R21 R20 K56 ["variant"]
+      172 NEWCLOSURE                       R21 P0
+      173 CAPTURE                          UPVAL U7
+      174 CAPTURE                          UPVAL U8
+      175 CAPTURE                          UPVAL U9
+      176 CAPTURE                          UPVAL U10
+      177 CAPTURE                          UPVAL U11
+      178 CAPTURE                          VAL R1
+      179 SETTABLEKS                       R21 R20 K57 ["onActivated"]
+      181 GETUPVAL                         R21 4
+      182 GETTABLEKS                       R21 R21 K60 ["Enums"]
+      184 GETTABLEKS                       R21 R21 K63 ["InputSize"]
+      186 GETTABLEKS                       R21 R21 K64 ["Small"]
+      188 SETTABLEKS                       R21 R20 K58 ["size"]
+      190 NAMECALL                         R21 R2 K40 ["getNextOrder"]
+      192 CALL                             R21 1 1
+      193 SETTABLEKS                       R21 R20 K38 ["LayoutOrder"]
+      195 CALL                             R18 2 1
+      196 SETTABLEKS                       R18 R17 K51 ["TrustedConnectionsButton"]
+      198 GETUPVAL                         R18 1
+      199 GETTABLEKS                       R18 R18 K5 ["createElement"]
+      201 GETUPVAL                         R19 4
+      202 GETTABLEKS                       R19 R19 K54 ["Button"]
+      204 DUPTABLE                         R20 K59 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
+      205 LOADK                            R23 K41 ["UpsellDialog"]
+      206 LOADK                            R24 K65 ["ParentalConsentButton"]
+      207 NAMECALL                         R21 R3 K43 ["getText"]
+      209 CALL                             R21 3 1
+      210 SETTABLEKS                       R21 R20 K55 ["text"]
+      212 GETUPVAL                         R21 4
+      213 GETTABLEKS                       R21 R21 K60 ["Enums"]
+      215 GETTABLEKS                       R21 R21 K61 ["ButtonVariant"]
+      217 GETTABLEKS                       R21 R21 K66 ["Standard"]
+      219 SETTABLEKS                       R21 R20 K56 ["variant"]
+      221 NEWCLOSURE                       R21 P1
+      222 CAPTURE                          UPVAL U7
+      223 CAPTURE                          UPVAL U8
+      224 CAPTURE                          UPVAL U9
+      225 CAPTURE                          UPVAL U12
+      226 CAPTURE                          UPVAL U11
+      227 CAPTURE                          VAL R1
+      228 SETTABLEKS                       R21 R20 K57 ["onActivated"]
+      230 GETUPVAL                         R21 4
+      231 GETTABLEKS                       R21 R21 K60 ["Enums"]
+      233 GETTABLEKS                       R21 R21 K63 ["InputSize"]
+      235 GETTABLEKS                       R21 R21 K64 ["Small"]
+      237 SETTABLEKS                       R21 R20 K58 ["size"]
+      239 NAMECALL                         R21 R2 K40 ["getNextOrder"]
+      241 CALL                             R21 1 1
+      242 SETTABLEKS                       R21 R20 K38 ["LayoutOrder"]
+      244 CALL                             R18 2 1
+      245 SETTABLEKS                       R18 R17 K52 ["VPCButton"]
+      247 CALL                             R14 3 1
+      248 SETTABLEKS                       R14 R13 K34 ["Footer"]
+      250 CALL                             R10 3 1
+      251 SETTABLEKS                       R10 R9 K23 ["MainView"]
+      253 CALL                             R6 3 -1
+      254 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

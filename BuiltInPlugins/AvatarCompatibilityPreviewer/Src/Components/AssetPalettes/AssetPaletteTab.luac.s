@@ -6,16 +6,12 @@ PROTO_0:
         5 GETTABLEKS                       R3 R3 K1 ["Dictionary"]
         7 GETTABLEKS                       R3 R3 K2 ["join"]
         9 MOVE                             R4 R0
-       10 DUPTABLE                         R5 K5 [{"Style", "WrapperProps"}]
-       11 LOADK                            R6 K6 ["AssetPaletteTab"]
-       12 SETTABLEKS                       R6 R5 K3 ["Style"]
-       14 DUPTABLE                         R6 K8 [{"BackgroundTransparency"}]
-       15 LOADN                            R7 1
-       16 SETTABLEKS                       R7 R6 K7 ["BackgroundTransparency"]
-       18 SETTABLEKS                       R6 R5 K4 ["WrapperProps"]
-       20 CALL                             R3 2 -1
-       21 CALL                             R1 -1 -1
-       22 RETURN                           R1 -1
+       10 DUPTABLE                         R5 K6 [{["Style"] = "AssetPaletteTab", ["WrapperProps"]}]
+       11 DUPTABLE                         R6 K9 [{["BackgroundTransparency"] = 1}]
+       12 SETTABLEKS                       R6 R5 K5 ["WrapperProps"]
+       14 CALL                             R3 2 -1
+       15 CALL                             R1 -1 -1
+       16 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

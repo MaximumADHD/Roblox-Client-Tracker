@@ -66,301 +66,269 @@ PROTO_5:
         9 NEWCLOSURE                       R3 P1
        10 CAPTURE                          VAL R1
        11 DUPTABLE                         R4 K11 [{"EditPlane", "CopySelected", "CutSelected", "DeleteSelected", "PasteSelected", "DuplicateSelected", "Apply", "Cancel"}]
-       12 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-       13 LOADB                            R6 0
-       14 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-       16 LOADK                            R6 K18 ["ctrl+shift+space"]
-       17 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R6 R6 K3 ["EditPlane"]
-       22 SETTABLEKS                       R6 R5 K14 ["id"]
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R7 R7 K3 ["EditPlane"]
-       27 LOADK                            R10 K19 ["PluginActions"]
-       28 MOVE                             R12 R7
-       29 LOADK                            R13 K20 ["StatusTip"]
-       30 CONCAT                           R11 R12 R13
-       31 NAMECALL                         R8 R1 K21 ["getText"]
-       33 CALL                             R8 3 1
-       34 MOVE                             R6 R8
-       35 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-       37 GETUPVAL                         R7 0
-       38 GETTABLEKS                       R7 R7 K3 ["EditPlane"]
-       40 LOADK                            R10 K19 ["PluginActions"]
-       41 MOVE                             R12 R7
-       42 LOADK                            R13 K22 ["Text"]
-       43 CONCAT                           R11 R12 R13
-       44 NAMECALL                         R8 R1 K21 ["getText"]
-       46 CALL                             R8 3 1
-       47 MOVE                             R6 R8
-       48 SETTABLEKS                       R6 R5 K16 ["text"]
-       50 SETTABLEKS                       R5 R4 K3 ["EditPlane"]
-       52 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-       53 LOADB                            R6 0
-       54 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-       56 LOADK                            R6 K23 ["ctrl+c"]
-       57 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-       59 GETUPVAL                         R6 0
-       60 GETTABLEKS                       R6 R6 K4 ["CopySelected"]
-       62 SETTABLEKS                       R6 R5 K14 ["id"]
-       64 GETUPVAL                         R7 0
-       65 GETTABLEKS                       R7 R7 K4 ["CopySelected"]
-       67 LOADK                            R10 K19 ["PluginActions"]
-       68 MOVE                             R12 R7
-       69 LOADK                            R13 K20 ["StatusTip"]
-       70 CONCAT                           R11 R12 R13
-       71 NAMECALL                         R8 R1 K21 ["getText"]
-       73 CALL                             R8 3 1
-       74 MOVE                             R6 R8
-       75 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-       77 GETUPVAL                         R7 0
-       78 GETTABLEKS                       R7 R7 K4 ["CopySelected"]
-       80 LOADK                            R10 K19 ["PluginActions"]
-       81 MOVE                             R12 R7
-       82 LOADK                            R13 K22 ["Text"]
-       83 CONCAT                           R11 R12 R13
-       84 NAMECALL                         R8 R1 K21 ["getText"]
-       86 CALL                             R8 3 1
-       87 MOVE                             R6 R8
-       88 SETTABLEKS                       R6 R5 K16 ["text"]
-       90 SETTABLEKS                       R5 R4 K4 ["CopySelected"]
-       92 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-       93 LOADB                            R6 0
-       94 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-       96 LOADK                            R6 K24 ["ctrl+x"]
-       97 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-       99 GETUPVAL                         R6 0
-      100 GETTABLEKS                       R6 R6 K5 ["CutSelected"]
-      102 SETTABLEKS                       R6 R5 K14 ["id"]
-      104 GETUPVAL                         R7 0
-      105 GETTABLEKS                       R7 R7 K5 ["CutSelected"]
-      107 LOADK                            R10 K19 ["PluginActions"]
-      108 MOVE                             R12 R7
-      109 LOADK                            R13 K20 ["StatusTip"]
-      110 CONCAT                           R11 R12 R13
-      111 NAMECALL                         R8 R1 K21 ["getText"]
-      113 CALL                             R8 3 1
-      114 MOVE                             R6 R8
-      115 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      117 GETUPVAL                         R7 0
-      118 GETTABLEKS                       R7 R7 K5 ["CutSelected"]
-      120 LOADK                            R10 K19 ["PluginActions"]
-      121 MOVE                             R12 R7
-      122 LOADK                            R13 K22 ["Text"]
-      123 CONCAT                           R11 R12 R13
-      124 NAMECALL                         R8 R1 K21 ["getText"]
-      126 CALL                             R8 3 1
-      127 MOVE                             R6 R8
-      128 SETTABLEKS                       R6 R5 K16 ["text"]
-      130 SETTABLEKS                       R5 R4 K5 ["CutSelected"]
-      132 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-      133 LOADB                            R6 0
-      134 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-      136 LOADK                            R6 K25 ["delete"]
-      137 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-      139 GETUPVAL                         R6 0
-      140 GETTABLEKS                       R6 R6 K6 ["DeleteSelected"]
-      142 SETTABLEKS                       R6 R5 K14 ["id"]
-      144 GETUPVAL                         R7 0
-      145 GETTABLEKS                       R7 R7 K6 ["DeleteSelected"]
-      147 LOADK                            R10 K19 ["PluginActions"]
-      148 MOVE                             R12 R7
-      149 LOADK                            R13 K20 ["StatusTip"]
-      150 CONCAT                           R11 R12 R13
-      151 NAMECALL                         R8 R1 K21 ["getText"]
-      153 CALL                             R8 3 1
-      154 MOVE                             R6 R8
-      155 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      157 GETUPVAL                         R7 0
-      158 GETTABLEKS                       R7 R7 K6 ["DeleteSelected"]
-      160 LOADK                            R10 K19 ["PluginActions"]
-      161 MOVE                             R12 R7
-      162 LOADK                            R13 K22 ["Text"]
-      163 CONCAT                           R11 R12 R13
-      164 NAMECALL                         R8 R1 K21 ["getText"]
-      166 CALL                             R8 3 1
-      167 MOVE                             R6 R8
-      168 SETTABLEKS                       R6 R5 K16 ["text"]
-      170 SETTABLEKS                       R5 R4 K6 ["DeleteSelected"]
-      172 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-      173 LOADB                            R6 0
-      174 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-      176 LOADK                            R6 K26 ["ctrl+v"]
-      177 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-      179 GETUPVAL                         R6 0
-      180 GETTABLEKS                       R6 R6 K7 ["PasteSelected"]
-      182 SETTABLEKS                       R6 R5 K14 ["id"]
-      184 GETUPVAL                         R7 0
-      185 GETTABLEKS                       R7 R7 K7 ["PasteSelected"]
-      187 LOADK                            R10 K19 ["PluginActions"]
-      188 MOVE                             R12 R7
-      189 LOADK                            R13 K20 ["StatusTip"]
-      190 CONCAT                           R11 R12 R13
-      191 NAMECALL                         R8 R1 K21 ["getText"]
-      193 CALL                             R8 3 1
-      194 MOVE                             R6 R8
-      195 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      197 GETUPVAL                         R7 0
-      198 GETTABLEKS                       R7 R7 K7 ["PasteSelected"]
-      200 LOADK                            R10 K19 ["PluginActions"]
-      201 MOVE                             R12 R7
-      202 LOADK                            R13 K22 ["Text"]
-      203 CONCAT                           R11 R12 R13
-      204 NAMECALL                         R8 R1 K21 ["getText"]
-      206 CALL                             R8 3 1
-      207 MOVE                             R6 R8
-      208 SETTABLEKS                       R6 R5 K16 ["text"]
-      210 SETTABLEKS                       R5 R4 K7 ["PasteSelected"]
-      212 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-      213 LOADB                            R6 0
-      214 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-      216 LOADK                            R6 K27 ["ctrl+d"]
-      217 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-      219 GETUPVAL                         R6 0
-      220 GETTABLEKS                       R6 R6 K8 ["DuplicateSelected"]
-      222 SETTABLEKS                       R6 R5 K14 ["id"]
-      224 GETUPVAL                         R7 0
-      225 GETTABLEKS                       R7 R7 K8 ["DuplicateSelected"]
-      227 LOADK                            R10 K19 ["PluginActions"]
-      228 MOVE                             R12 R7
-      229 LOADK                            R13 K20 ["StatusTip"]
-      230 CONCAT                           R11 R12 R13
-      231 NAMECALL                         R8 R1 K21 ["getText"]
-      233 CALL                             R8 3 1
-      234 MOVE                             R6 R8
-      235 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      237 GETUPVAL                         R7 0
-      238 GETTABLEKS                       R7 R7 K8 ["DuplicateSelected"]
-      240 LOADK                            R10 K19 ["PluginActions"]
-      241 MOVE                             R12 R7
-      242 LOADK                            R13 K22 ["Text"]
-      243 CONCAT                           R11 R12 R13
-      244 NAMECALL                         R8 R1 K21 ["getText"]
-      246 CALL                             R8 3 1
-      247 MOVE                             R6 R8
-      248 SETTABLEKS                       R6 R5 K16 ["text"]
-      250 SETTABLEKS                       R5 R4 K8 ["DuplicateSelected"]
-      252 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-      253 LOADB                            R6 0
-      254 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-      256 LOADK                            R6 K28 ["return"]
-      257 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-      259 GETUPVAL                         R6 0
-      260 GETTABLEKS                       R6 R6 K9 ["Apply"]
-      262 SETTABLEKS                       R6 R5 K14 ["id"]
-      264 GETUPVAL                         R7 0
-      265 GETTABLEKS                       R7 R7 K9 ["Apply"]
-      267 LOADK                            R10 K19 ["PluginActions"]
-      268 MOVE                             R12 R7
-      269 LOADK                            R13 K20 ["StatusTip"]
-      270 CONCAT                           R11 R12 R13
-      271 NAMECALL                         R8 R1 K21 ["getText"]
-      273 CALL                             R8 3 1
-      274 MOVE                             R6 R8
-      275 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      277 GETUPVAL                         R7 0
-      278 GETTABLEKS                       R7 R7 K9 ["Apply"]
-      280 LOADK                            R10 K19 ["PluginActions"]
-      281 MOVE                             R12 R7
-      282 LOADK                            R13 K22 ["Text"]
-      283 CONCAT                           R11 R12 R13
-      284 NAMECALL                         R8 R1 K21 ["getText"]
-      286 CALL                             R8 3 1
-      287 MOVE                             R6 R8
-      288 SETTABLEKS                       R6 R5 K16 ["text"]
-      290 SETTABLEKS                       R5 R4 K9 ["Apply"]
-      292 DUPTABLE                         R5 K17 [{"allowBinding", "defaultShortcut", "id", "statusTip", "text"}]
-      293 LOADB                            R6 0
-      294 SETTABLEKS                       R6 R5 K12 ["allowBinding"]
-      296 LOADK                            R6 K29 ["escape"]
-      297 SETTABLEKS                       R6 R5 K13 ["defaultShortcut"]
-      299 GETUPVAL                         R6 0
-      300 GETTABLEKS                       R6 R6 K30 ["Quit"]
-      302 SETTABLEKS                       R6 R5 K14 ["id"]
-      304 GETUPVAL                         R7 0
-      305 GETTABLEKS                       R7 R7 K30 ["Quit"]
-      307 LOADK                            R10 K19 ["PluginActions"]
-      308 MOVE                             R12 R7
-      309 LOADK                            R13 K20 ["StatusTip"]
-      310 CONCAT                           R11 R12 R13
-      311 NAMECALL                         R8 R1 K21 ["getText"]
-      313 CALL                             R8 3 1
-      314 MOVE                             R6 R8
-      315 SETTABLEKS                       R6 R5 K15 ["statusTip"]
-      317 GETUPVAL                         R7 0
-      318 GETTABLEKS                       R7 R7 K30 ["Quit"]
-      320 LOADK                            R10 K19 ["PluginActions"]
-      321 MOVE                             R12 R7
-      322 LOADK                            R13 K22 ["Text"]
-      323 CONCAT                           R11 R12 R13
-      324 NAMECALL                         R8 R1 K21 ["getText"]
-      326 CALL                             R8 3 1
-      327 MOVE                             R6 R8
-      328 SETTABLEKS                       R6 R5 K16 ["text"]
-      330 SETTABLEKS                       R5 R4 K10 ["Cancel"]
-      332 DUPTABLE                         R6 K43 [{"_mouse", "_pluginActions", "_cachedValues", "_originalValues", "_userInputService", "_workspace", "_reservedMouseMove", "_reservedMouseDown", "_brushMouse", "_brushScrollWheel", "MouseDownAction", "MouseMoveAction"}]
-      333 NAMECALL                         R7 R0 K44 ["GetMouse"]
-      335 CALL                             R7 1 1
-      336 SETTABLEKS                       R7 R6 K31 ["_mouse"]
-      338 GETUPVAL                         R7 1
-      339 GETTABLEKS                       R7 R7 K45 ["new"]
-      341 MOVE                             R8 R0
-      342 MOVE                             R9 R4
-      343 CALL                             R7 2 1
-      344 SETTABLEKS                       R7 R6 K32 ["_pluginActions"]
-      346 NEWTABLE                         R7 0 0
-      348 SETTABLEKS                       R7 R6 K33 ["_cachedValues"]
-      350 NEWTABLE                         R7 0 0
-      352 SETTABLEKS                       R7 R6 K34 ["_originalValues"]
-      354 GETIMPORT                        R7 K47 [game]
-      356 LOADK                            R9 K48 ["UserInputService"]
-      357 NAMECALL                         R7 R7 K49 ["GetService"]
-      359 CALL                             R7 2 1
-      360 SETTABLEKS                       R7 R6 K35 ["_userInputService"]
-      362 GETIMPORT                        R7 K47 [game]
-      364 LOADK                            R9 K50 ["Workspace"]
-      365 NAMECALL                         R7 R7 K49 ["GetService"]
-      367 CALL                             R7 2 1
-      368 SETTABLEKS                       R7 R6 K36 ["_workspace"]
-      370 NEWTABLE                         R7 0 0
-      372 SETTABLEKS                       R7 R6 K37 ["_reservedMouseMove"]
-      374 NEWTABLE                         R7 0 0
-      376 SETTABLEKS                       R7 R6 K38 ["_reservedMouseDown"]
-      378 NEWTABLE                         R7 0 0
-      380 SETTABLEKS                       R7 R6 K39 ["_brushMouse"]
-      382 NEWTABLE                         R7 0 0
-      384 SETTABLEKS                       R7 R6 K40 ["_brushScrollWheel"]
-      386 GETUPVAL                         R7 2
-      387 GETTABLEKS                       R7 R7 K45 ["new"]
-      389 CALL                             R7 0 1
-      390 SETTABLEKS                       R7 R6 K41 ["MouseDownAction"]
-      392 GETUPVAL                         R7 2
-      393 GETTABLEKS                       R7 R7 K45 ["new"]
-      395 CALL                             R7 0 1
-      396 SETTABLEKS                       R7 R6 K42 ["MouseMoveAction"]
-      398 GETUPVAL                         R7 3
-      399 FASTCALL2                        SETMETATABLE R6 R7 ; [+3]
-      401 GETIMPORT                        R5 K52 [setmetatable]
-      403 CALL                             R5 2 1
-      404 GETTABLEKS                       R6 R5 K31 ["_mouse"]
-      406 GETTABLEKS                       R6 R6 K53 ["Button1Down"]
-      408 NEWCLOSURE                       R8 P2
-      409 CAPTURE                          VAL R5
-      410 NAMECALL                         R6 R6 K54 ["Connect"]
-      412 CALL                             R6 2 0
-      413 GETTABLEKS                       R6 R5 K31 ["_mouse"]
-      415 GETTABLEKS                       R6 R6 K55 ["Button1Up"]
-      417 NEWCLOSURE                       R8 P3
-      418 CAPTURE                          VAL R5
-      419 NAMECALL                         R6 R6 K54 ["Connect"]
-      421 CALL                             R6 2 0
-      422 GETTABLEKS                       R6 R5 K31 ["_mouse"]
-      424 GETTABLEKS                       R6 R6 K56 ["Move"]
-      426 NEWCLOSURE                       R8 P4
-      427 CAPTURE                          VAL R5
-      428 NAMECALL                         R6 R6 K54 ["Connect"]
-      430 CALL                             R6 2 0
-      431 RETURN                           R5 1
+       12 DUPTABLE                         R5 K19 [{["allowBinding"] = False, ["defaultShortcut"] = "ctrl+shift+space", ["id"], ["statusTip"], ["text"]}]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K3 ["EditPlane"]
+       16 SETTABLEKS                       R6 R5 K16 ["id"]
+       18 GETUPVAL                         R7 0
+       19 GETTABLEKS                       R7 R7 K3 ["EditPlane"]
+       21 LOADK                            R10 K20 ["PluginActions"]
+       22 MOVE                             R12 R7
+       23 LOADK                            R13 K21 ["StatusTip"]
+       24 CONCAT                           R11 R12 R13
+       25 NAMECALL                         R8 R1 K22 ["getText"]
+       27 CALL                             R8 3 1
+       28 MOVE                             R6 R8
+       29 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+       31 GETUPVAL                         R7 0
+       32 GETTABLEKS                       R7 R7 K3 ["EditPlane"]
+       34 LOADK                            R10 K20 ["PluginActions"]
+       35 MOVE                             R12 R7
+       36 LOADK                            R13 K23 ["Text"]
+       37 CONCAT                           R11 R12 R13
+       38 NAMECALL                         R8 R1 K22 ["getText"]
+       40 CALL                             R8 3 1
+       41 MOVE                             R6 R8
+       42 SETTABLEKS                       R6 R5 K18 ["text"]
+       44 SETTABLEKS                       R5 R4 K3 ["EditPlane"]
+       46 DUPTABLE                         R5 K25 [{["allowBinding"] = False, ["defaultShortcut"] = "ctrl+c", ["id"], ["statusTip"], ["text"]}]
+       47 GETUPVAL                         R6 0
+       48 GETTABLEKS                       R6 R6 K4 ["CopySelected"]
+       50 SETTABLEKS                       R6 R5 K16 ["id"]
+       52 GETUPVAL                         R7 0
+       53 GETTABLEKS                       R7 R7 K4 ["CopySelected"]
+       55 LOADK                            R10 K20 ["PluginActions"]
+       56 MOVE                             R12 R7
+       57 LOADK                            R13 K21 ["StatusTip"]
+       58 CONCAT                           R11 R12 R13
+       59 NAMECALL                         R8 R1 K22 ["getText"]
+       61 CALL                             R8 3 1
+       62 MOVE                             R6 R8
+       63 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+       65 GETUPVAL                         R7 0
+       66 GETTABLEKS                       R7 R7 K4 ["CopySelected"]
+       68 LOADK                            R10 K20 ["PluginActions"]
+       69 MOVE                             R12 R7
+       70 LOADK                            R13 K23 ["Text"]
+       71 CONCAT                           R11 R12 R13
+       72 NAMECALL                         R8 R1 K22 ["getText"]
+       74 CALL                             R8 3 1
+       75 MOVE                             R6 R8
+       76 SETTABLEKS                       R6 R5 K18 ["text"]
+       78 SETTABLEKS                       R5 R4 K4 ["CopySelected"]
+       80 DUPTABLE                         R5 K27 [{["allowBinding"] = False, ["defaultShortcut"] = "ctrl+x", ["id"], ["statusTip"], ["text"]}]
+       81 GETUPVAL                         R6 0
+       82 GETTABLEKS                       R6 R6 K5 ["CutSelected"]
+       84 SETTABLEKS                       R6 R5 K16 ["id"]
+       86 GETUPVAL                         R7 0
+       87 GETTABLEKS                       R7 R7 K5 ["CutSelected"]
+       89 LOADK                            R10 K20 ["PluginActions"]
+       90 MOVE                             R12 R7
+       91 LOADK                            R13 K21 ["StatusTip"]
+       92 CONCAT                           R11 R12 R13
+       93 NAMECALL                         R8 R1 K22 ["getText"]
+       95 CALL                             R8 3 1
+       96 MOVE                             R6 R8
+       97 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+       99 GETUPVAL                         R7 0
+      100 GETTABLEKS                       R7 R7 K5 ["CutSelected"]
+      102 LOADK                            R10 K20 ["PluginActions"]
+      103 MOVE                             R12 R7
+      104 LOADK                            R13 K23 ["Text"]
+      105 CONCAT                           R11 R12 R13
+      106 NAMECALL                         R8 R1 K22 ["getText"]
+      108 CALL                             R8 3 1
+      109 MOVE                             R6 R8
+      110 SETTABLEKS                       R6 R5 K18 ["text"]
+      112 SETTABLEKS                       R5 R4 K5 ["CutSelected"]
+      114 DUPTABLE                         R5 K29 [{["allowBinding"] = False, ["defaultShortcut"] = "delete", ["id"], ["statusTip"], ["text"]}]
+      115 GETUPVAL                         R6 0
+      116 GETTABLEKS                       R6 R6 K6 ["DeleteSelected"]
+      118 SETTABLEKS                       R6 R5 K16 ["id"]
+      120 GETUPVAL                         R7 0
+      121 GETTABLEKS                       R7 R7 K6 ["DeleteSelected"]
+      123 LOADK                            R10 K20 ["PluginActions"]
+      124 MOVE                             R12 R7
+      125 LOADK                            R13 K21 ["StatusTip"]
+      126 CONCAT                           R11 R12 R13
+      127 NAMECALL                         R8 R1 K22 ["getText"]
+      129 CALL                             R8 3 1
+      130 MOVE                             R6 R8
+      131 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+      133 GETUPVAL                         R7 0
+      134 GETTABLEKS                       R7 R7 K6 ["DeleteSelected"]
+      136 LOADK                            R10 K20 ["PluginActions"]
+      137 MOVE                             R12 R7
+      138 LOADK                            R13 K23 ["Text"]
+      139 CONCAT                           R11 R12 R13
+      140 NAMECALL                         R8 R1 K22 ["getText"]
+      142 CALL                             R8 3 1
+      143 MOVE                             R6 R8
+      144 SETTABLEKS                       R6 R5 K18 ["text"]
+      146 SETTABLEKS                       R5 R4 K6 ["DeleteSelected"]
+      148 DUPTABLE                         R5 K31 [{["allowBinding"] = False, ["defaultShortcut"] = "ctrl+v", ["id"], ["statusTip"], ["text"]}]
+      149 GETUPVAL                         R6 0
+      150 GETTABLEKS                       R6 R6 K7 ["PasteSelected"]
+      152 SETTABLEKS                       R6 R5 K16 ["id"]
+      154 GETUPVAL                         R7 0
+      155 GETTABLEKS                       R7 R7 K7 ["PasteSelected"]
+      157 LOADK                            R10 K20 ["PluginActions"]
+      158 MOVE                             R12 R7
+      159 LOADK                            R13 K21 ["StatusTip"]
+      160 CONCAT                           R11 R12 R13
+      161 NAMECALL                         R8 R1 K22 ["getText"]
+      163 CALL                             R8 3 1
+      164 MOVE                             R6 R8
+      165 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+      167 GETUPVAL                         R7 0
+      168 GETTABLEKS                       R7 R7 K7 ["PasteSelected"]
+      170 LOADK                            R10 K20 ["PluginActions"]
+      171 MOVE                             R12 R7
+      172 LOADK                            R13 K23 ["Text"]
+      173 CONCAT                           R11 R12 R13
+      174 NAMECALL                         R8 R1 K22 ["getText"]
+      176 CALL                             R8 3 1
+      177 MOVE                             R6 R8
+      178 SETTABLEKS                       R6 R5 K18 ["text"]
+      180 SETTABLEKS                       R5 R4 K7 ["PasteSelected"]
+      182 DUPTABLE                         R5 K33 [{["allowBinding"] = False, ["defaultShortcut"] = "ctrl+d", ["id"], ["statusTip"], ["text"]}]
+      183 GETUPVAL                         R6 0
+      184 GETTABLEKS                       R6 R6 K8 ["DuplicateSelected"]
+      186 SETTABLEKS                       R6 R5 K16 ["id"]
+      188 GETUPVAL                         R7 0
+      189 GETTABLEKS                       R7 R7 K8 ["DuplicateSelected"]
+      191 LOADK                            R10 K20 ["PluginActions"]
+      192 MOVE                             R12 R7
+      193 LOADK                            R13 K21 ["StatusTip"]
+      194 CONCAT                           R11 R12 R13
+      195 NAMECALL                         R8 R1 K22 ["getText"]
+      197 CALL                             R8 3 1
+      198 MOVE                             R6 R8
+      199 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+      201 GETUPVAL                         R7 0
+      202 GETTABLEKS                       R7 R7 K8 ["DuplicateSelected"]
+      204 LOADK                            R10 K20 ["PluginActions"]
+      205 MOVE                             R12 R7
+      206 LOADK                            R13 K23 ["Text"]
+      207 CONCAT                           R11 R12 R13
+      208 NAMECALL                         R8 R1 K22 ["getText"]
+      210 CALL                             R8 3 1
+      211 MOVE                             R6 R8
+      212 SETTABLEKS                       R6 R5 K18 ["text"]
+      214 SETTABLEKS                       R5 R4 K8 ["DuplicateSelected"]
+      216 DUPTABLE                         R5 K35 [{["allowBinding"] = False, ["defaultShortcut"] = "return", ["id"], ["statusTip"], ["text"]}]
+      217 GETUPVAL                         R6 0
+      218 GETTABLEKS                       R6 R6 K9 ["Apply"]
+      220 SETTABLEKS                       R6 R5 K16 ["id"]
+      222 GETUPVAL                         R7 0
+      223 GETTABLEKS                       R7 R7 K9 ["Apply"]
+      225 LOADK                            R10 K20 ["PluginActions"]
+      226 MOVE                             R12 R7
+      227 LOADK                            R13 K21 ["StatusTip"]
+      228 CONCAT                           R11 R12 R13
+      229 NAMECALL                         R8 R1 K22 ["getText"]
+      231 CALL                             R8 3 1
+      232 MOVE                             R6 R8
+      233 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+      235 GETUPVAL                         R7 0
+      236 GETTABLEKS                       R7 R7 K9 ["Apply"]
+      238 LOADK                            R10 K20 ["PluginActions"]
+      239 MOVE                             R12 R7
+      240 LOADK                            R13 K23 ["Text"]
+      241 CONCAT                           R11 R12 R13
+      242 NAMECALL                         R8 R1 K22 ["getText"]
+      244 CALL                             R8 3 1
+      245 MOVE                             R6 R8
+      246 SETTABLEKS                       R6 R5 K18 ["text"]
+      248 SETTABLEKS                       R5 R4 K9 ["Apply"]
+      250 DUPTABLE                         R5 K37 [{["allowBinding"] = False, ["defaultShortcut"] = "escape", ["id"], ["statusTip"], ["text"]}]
+      251 GETUPVAL                         R6 0
+      252 GETTABLEKS                       R6 R6 K38 ["Quit"]
+      254 SETTABLEKS                       R6 R5 K16 ["id"]
+      256 GETUPVAL                         R7 0
+      257 GETTABLEKS                       R7 R7 K38 ["Quit"]
+      259 LOADK                            R10 K20 ["PluginActions"]
+      260 MOVE                             R12 R7
+      261 LOADK                            R13 K21 ["StatusTip"]
+      262 CONCAT                           R11 R12 R13
+      263 NAMECALL                         R8 R1 K22 ["getText"]
+      265 CALL                             R8 3 1
+      266 MOVE                             R6 R8
+      267 SETTABLEKS                       R6 R5 K17 ["statusTip"]
+      269 GETUPVAL                         R7 0
+      270 GETTABLEKS                       R7 R7 K38 ["Quit"]
+      272 LOADK                            R10 K20 ["PluginActions"]
+      273 MOVE                             R12 R7
+      274 LOADK                            R13 K23 ["Text"]
+      275 CONCAT                           R11 R12 R13
+      276 NAMECALL                         R8 R1 K22 ["getText"]
+      278 CALL                             R8 3 1
+      279 MOVE                             R6 R8
+      280 SETTABLEKS                       R6 R5 K18 ["text"]
+      282 SETTABLEKS                       R5 R4 K10 ["Cancel"]
+      284 DUPTABLE                         R6 K51 [{"_mouse", "_pluginActions", "_cachedValues", "_originalValues", "_userInputService", "_workspace", "_reservedMouseMove", "_reservedMouseDown", "_brushMouse", "_brushScrollWheel", "MouseDownAction", "MouseMoveAction"}]
+      285 NAMECALL                         R7 R0 K52 ["GetMouse"]
+      287 CALL                             R7 1 1
+      288 SETTABLEKS                       R7 R6 K39 ["_mouse"]
+      290 GETUPVAL                         R7 1
+      291 GETTABLEKS                       R7 R7 K53 ["new"]
+      293 MOVE                             R8 R0
+      294 MOVE                             R9 R4
+      295 CALL                             R7 2 1
+      296 SETTABLEKS                       R7 R6 K40 ["_pluginActions"]
+      298 NEWTABLE                         R7 0 0
+      300 SETTABLEKS                       R7 R6 K41 ["_cachedValues"]
+      302 NEWTABLE                         R7 0 0
+      304 SETTABLEKS                       R7 R6 K42 ["_originalValues"]
+      306 GETIMPORT                        R7 K55 [game]
+      308 LOADK                            R9 K56 ["UserInputService"]
+      309 NAMECALL                         R7 R7 K57 ["GetService"]
+      311 CALL                             R7 2 1
+      312 SETTABLEKS                       R7 R6 K43 ["_userInputService"]
+      314 GETIMPORT                        R7 K55 [game]
+      316 LOADK                            R9 K58 ["Workspace"]
+      317 NAMECALL                         R7 R7 K57 ["GetService"]
+      319 CALL                             R7 2 1
+      320 SETTABLEKS                       R7 R6 K44 ["_workspace"]
+      322 NEWTABLE                         R7 0 0
+      324 SETTABLEKS                       R7 R6 K45 ["_reservedMouseMove"]
+      326 NEWTABLE                         R7 0 0
+      328 SETTABLEKS                       R7 R6 K46 ["_reservedMouseDown"]
+      330 NEWTABLE                         R7 0 0
+      332 SETTABLEKS                       R7 R6 K47 ["_brushMouse"]
+      334 NEWTABLE                         R7 0 0
+      336 SETTABLEKS                       R7 R6 K48 ["_brushScrollWheel"]
+      338 GETUPVAL                         R7 2
+      339 GETTABLEKS                       R7 R7 K53 ["new"]
+      341 CALL                             R7 0 1
+      342 SETTABLEKS                       R7 R6 K49 ["MouseDownAction"]
+      344 GETUPVAL                         R7 2
+      345 GETTABLEKS                       R7 R7 K53 ["new"]
+      347 CALL                             R7 0 1
+      348 SETTABLEKS                       R7 R6 K50 ["MouseMoveAction"]
+      350 GETUPVAL                         R7 3
+      351 FASTCALL2                        SETMETATABLE R6 R7 ; [+3]
+      353 GETIMPORT                        R5 K60 [setmetatable]
+      355 CALL                             R5 2 1
+      356 GETTABLEKS                       R6 R5 K39 ["_mouse"]
+      358 GETTABLEKS                       R6 R6 K61 ["Button1Down"]
+      360 NEWCLOSURE                       R8 P2
+      361 CAPTURE                          VAL R5
+      362 NAMECALL                         R6 R6 K62 ["Connect"]
+      364 CALL                             R6 2 0
+      365 GETTABLEKS                       R6 R5 K39 ["_mouse"]
+      367 GETTABLEKS                       R6 R6 K63 ["Button1Up"]
+      369 NEWCLOSURE                       R8 P3
+      370 CAPTURE                          VAL R5
+      371 NAMECALL                         R6 R6 K62 ["Connect"]
+      373 CALL                             R6 2 0
+      374 GETTABLEKS                       R6 R5 K39 ["_mouse"]
+      376 GETTABLEKS                       R6 R6 K64 ["Move"]
+      378 NEWCLOSURE                       R8 P4
+      379 CAPTURE                          VAL R5
+      380 NAMECALL                         R6 R6 K62 ["Connect"]
+      382 CALL                             R6 2 0
+      383 RETURN                           R5 1
 
 PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["_reservedMouseMove"]
@@ -711,16 +679,16 @@ PROTO_18:
 PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]
         2 GETIMPORT                        R2 K3 [Enum.KeyCode.B]
-        4 JUMPIFNOTEQ                      R1 R2 ; [+116]
+        4 JUMPIFNOTEQ                      R1 R2 ; [+110]
         6 GETUPVAL                         R2 0
         7 GETTABLEKS                       R2 R2 K4 ["_cachedValues"]
         9 GETUPVAL                         R3 1
        10 GETTABLE                         R1 R2 R3
-       11 JUMPIF                           R1 ; [+47]
+       11 JUMPIF                           R1 ; [+41]
        12 GETUPVAL                         R1 1
        13 GETUPVAL                         R2 2
        14 GETTABLEKS                       R2 R2 K5 ["BrushSize"]
-       16 JUMPIFNOTEQ                      R1 R2 ; [+30]
+       16 JUMPIFNOTEQ                      R1 R2 ; [+24]
        18 GETUPVAL                         R1 0
        19 GETTABLEKS                       R1 R1 K6 ["_originalValues"]
        21 GETUPVAL                         R2 1
@@ -735,68 +703,64 @@ PROTO_19:
        34 GETUPVAL                         R1 0
        35 GETTABLEKS                       R1 R1 K4 ["_cachedValues"]
        37 GETUPVAL                         R2 1
-       38 DUPTABLE                         R3 K9 [{"Height", "Size"}]
-       39 LOADN                            R4 0
-       40 SETTABLEKS                       R4 R3 K7 ["Height"]
-       42 LOADN                            R4 0
-       43 SETTABLEKS                       R4 R3 K8 ["Size"]
-       45 SETTABLE                         R3 R1 R2
-       46 JUMP                             ; [+12]
+       38 DUPTABLE                         R3 K11 [{["Height"] = 0, ["Size"] = 0}]
+       39 SETTABLE                         R3 R1 R2
+       40 JUMP                             ; [+12]
+       41 GETUPVAL                         R1 0
+       42 GETTABLEKS                       R1 R1 K6 ["_originalValues"]
+       44 GETUPVAL                         R2 1
+       45 GETUPVAL                         R3 3
+       46 SETTABLE                         R3 R1 R2
        47 GETUPVAL                         R1 0
-       48 GETTABLEKS                       R1 R1 K6 ["_originalValues"]
+       48 GETTABLEKS                       R1 R1 K4 ["_cachedValues"]
        50 GETUPVAL                         R2 1
-       51 GETUPVAL                         R3 3
+       51 LOADN                            R3 0
        52 SETTABLE                         R3 R1 R2
        53 GETUPVAL                         R1 0
-       54 GETTABLEKS                       R1 R1 K4 ["_cachedValues"]
+       54 GETTABLEKS                       R1 R1 K12 ["_brushScrollWheel"]
        56 GETUPVAL                         R2 1
-       57 LOADN                            R3 0
+       57 LOADB                            R3 0
        58 SETTABLE                         R3 R1 R2
        59 GETUPVAL                         R1 0
-       60 GETTABLEKS                       R1 R1 K10 ["_brushScrollWheel"]
+       60 GETTABLEKS                       R1 R1 K13 ["_brushMouse"]
        62 GETUPVAL                         R2 1
-       63 LOADB                            R3 0
-       64 SETTABLE                         R3 R1 R2
-       65 GETUPVAL                         R1 0
-       66 GETTABLEKS                       R1 R1 K11 ["_brushMouse"]
-       68 GETUPVAL                         R2 1
-       69 GETIMPORT                        R3 K14 [Vector2.new]
-       71 GETUPVAL                         R4 0
-       72 GETTABLEKS                       R4 R4 K15 ["_mouse"]
-       74 GETTABLEKS                       R4 R4 K16 ["X"]
-       76 GETUPVAL                         R5 0
-       77 GETTABLEKS                       R5 R5 K15 ["_mouse"]
-       79 GETTABLEKS                       R5 R5 K17 ["Y"]
-       81 CALL                             R3 2 1
-       82 SETTABLE                         R3 R1 R2
-       83 GETUPVAL                         R1 0
-       84 GETUPVAL                         R2 0
-       85 GETTABLEKS                       R2 R2 K18 ["_workspace"]
-       87 GETTABLEKS                       R2 R2 K19 ["CurrentCamera"]
-       89 GETTABLEKS                       R2 R2 K20 ["CFrame"]
-       91 SETTABLEKS                       R2 R1 K21 ["_cameraPosition"]
-       93 GETUPVAL                         R1 0
-       94 GETTABLEKS                       R1 R1 K22 ["_mouseDown"]
-       96 JUMPIFNOT                        R1 ; [+7]
-       97 GETUPVAL                         R1 0
-       98 GETTABLEKS                       R1 R1 K10 ["_brushScrollWheel"]
-      100 GETUPVAL                         R2 1
-      101 LOADB                            R3 1
-      102 SETTABLE                         R3 R1 R2
-      103 RETURN                           R0 0
-      104 GETIMPORT                        R1 K25 [table.find]
-      106 GETUPVAL                         R2 0
-      107 GETTABLEKS                       R2 R2 K26 ["_reservedMouseMove"]
-      109 GETUPVAL                         R3 1
-      110 CALL                             R1 2 1
-      111 JUMPIF                           R1 ; [+9]
-      112 GETUPVAL                         R3 0
-      113 GETTABLEKS                       R3 R3 K26 ["_reservedMouseMove"]
-      115 GETUPVAL                         R4 1
-      116 FASTCALL2                        TABLE_INSERT R3 R4 ; [+3]
-      118 GETIMPORT                        R2 K28 [table.insert]
-      120 CALL                             R2 2 0
-      121 RETURN                           R0 0
+       63 GETIMPORT                        R3 K16 [Vector2.new]
+       65 GETUPVAL                         R4 0
+       66 GETTABLEKS                       R4 R4 K17 ["_mouse"]
+       68 GETTABLEKS                       R4 R4 K18 ["X"]
+       70 GETUPVAL                         R5 0
+       71 GETTABLEKS                       R5 R5 K17 ["_mouse"]
+       73 GETTABLEKS                       R5 R5 K19 ["Y"]
+       75 CALL                             R3 2 1
+       76 SETTABLE                         R3 R1 R2
+       77 GETUPVAL                         R1 0
+       78 GETUPVAL                         R2 0
+       79 GETTABLEKS                       R2 R2 K20 ["_workspace"]
+       81 GETTABLEKS                       R2 R2 K21 ["CurrentCamera"]
+       83 GETTABLEKS                       R2 R2 K22 ["CFrame"]
+       85 SETTABLEKS                       R2 R1 K23 ["_cameraPosition"]
+       87 GETUPVAL                         R1 0
+       88 GETTABLEKS                       R1 R1 K24 ["_mouseDown"]
+       90 JUMPIFNOT                        R1 ; [+7]
+       91 GETUPVAL                         R1 0
+       92 GETTABLEKS                       R1 R1 K12 ["_brushScrollWheel"]
+       94 GETUPVAL                         R2 1
+       95 LOADB                            R3 1
+       96 SETTABLE                         R3 R1 R2
+       97 RETURN                           R0 0
+       98 GETIMPORT                        R1 K27 [table.find]
+      100 GETUPVAL                         R2 0
+      101 GETTABLEKS                       R2 R2 K28 ["_reservedMouseMove"]
+      103 GETUPVAL                         R3 1
+      104 CALL                             R1 2 1
+      105 JUMPIF                           R1 ; [+9]
+      106 GETUPVAL                         R3 0
+      107 GETTABLEKS                       R3 R3 K28 ["_reservedMouseMove"]
+      109 GETUPVAL                         R4 1
+      110 FASTCALL2                        TABLE_INSERT R3 R4 ; [+3]
+      112 GETIMPORT                        R2 K30 [table.insert]
+      114 CALL                             R2 2 0
+      115 RETURN                           R0 0
 
 PROTO_20:
         0 GETTABLEKS                       R1 R0 K0 ["KeyCode"]

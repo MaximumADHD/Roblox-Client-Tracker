@@ -83,11 +83,9 @@ PROTO_4:
        13 CALL                             R0 1 1
        14 GETTABLEKS                       R0 R0 K3 ["getByText"]
        16 GETUPVAL                         R1 2
-       17 DUPTABLE                         R2 K5 [{"exact"}]
-       18 LOADB                            R3 0
-       19 SETTABLEKS                       R3 R2 K4 ["exact"]
-       21 CALL                             R0 2 -1
-       22 RETURN                           R0 -1
+       17 DUPTABLE                         R2 K6 [{["exact"] = False}]
+       18 CALL                             R0 2 -1
+       19 RETURN                           R0 -1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -103,11 +101,9 @@ PROTO_5:
        13 CALL                             R0 1 1
        14 GETTABLEKS                       R0 R0 K3 ["getByDisplayValue"]
        16 GETUPVAL                         R1 2
-       17 DUPTABLE                         R2 K5 [{"exact"}]
-       18 LOADB                            R3 0
-       19 SETTABLEKS                       R3 R2 K4 ["exact"]
-       21 CALL                             R0 2 -1
-       22 RETURN                           R0 -1
+       17 DUPTABLE                         R2 K6 [{["exact"] = False}]
+       18 CALL                             R0 2 -1
+       19 RETURN                           R0 -1
 
 PROTO_6:
         0 GETIMPORT                        R1 K1 [pcall]

@@ -92,19 +92,17 @@ PROTO_3:
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["binding"]
-        3 JUMPIFNOT                        R0 ; [+16]
+        3 JUMPIFNOT                        R0 ; [+13]
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["UpdateBinding"]
         7 LOADNIL                          R1
-        8 DUPTABLE                         R2 K3 [{"uuid", "binding"}]
+        8 DUPTABLE                         R2 K4 [{["uuid"], [2] = }]
         9 GETUPVAL                         R3 0
        10 GETTABLEKS                       R3 R3 K0 ["binding"]
        12 GETTABLEKS                       R3 R3 K2 ["uuid"]
        14 SETTABLEKS                       R3 R2 K2 ["uuid"]
-       16 LOADNIL                          R3
-       17 SETTABLEKS                       R3 R2 K0 ["binding"]
-       19 CALL                             R0 2 0
-       20 RETURN                           R0 0
+       16 CALL                             R0 2 0
+       17 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0

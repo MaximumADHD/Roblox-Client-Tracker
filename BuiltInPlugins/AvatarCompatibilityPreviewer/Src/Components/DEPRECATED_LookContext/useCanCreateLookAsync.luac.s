@@ -15,38 +15,36 @@ PROTO_1:
         5 GETUPVAL                         R0 1
         6 GETTABLEKS                       R0 R0 K0 ["getFeatureAccessUrl"]
         8 CALL                             R0 0 1
-        9 DUPTABLE                         R1 K4 [{"Url", "Method", "Headers"}]
+        9 DUPTABLE                         R1 K5 [{["Url"], ["Method"] = "GET", ["Headers"]}]
        10 SETTABLEKS                       R0 R1 K1 ["Url"]
-       12 LOADK                            R2 K5 ["GET"]
-       13 SETTABLEKS                       R2 R1 K2 ["Method"]
-       15 NEWTABLE                         R2 1 0
-       17 LOADK                            R3 K6 ["application/json"]
-       18 SETTABLEKS                       R3 R2 K7 ["Content-Type"]
-       20 SETTABLEKS                       R2 R1 K3 ["Headers"]
-       22 GETUPVAL                         R2 2
-       23 GETTABLEKS                       R2 R2 K8 ["requestInternal"]
-       25 MOVE                             R3 R1
-       26 CALL                             R2 1 1
-       27 NAMECALL                         R3 R2 K9 ["await"]
-       29 CALL                             R3 1 2
-       30 GETIMPORT                        R5 K11 [pcall]
-       32 NEWCLOSURE                       R6 P0
-       33 CAPTURE                          UPVAL U3
-       34 CAPTURE                          VAL R4
-       35 CALL                             R5 1 2
-       36 JUMPIFNOT                        R5 ; [+1]
-       37 JUMPIF                           R3 ; [+7]
-       38 GETUPVAL                         R7 4
-       39 LOADK                            R9 K12 ["marketplaceLookAccessFailure"]
-       40 NAMECALL                         R7 R7 K13 ["report"]
-       42 CALL                             R7 2 0
-       43 LOADB                            R7 0
-       44 RETURN                           R7 1
-       45 GETTABLEKS                       R8 R6 K14 ["makeupLookStudioCreation"]
-       47 JUMPIFEQKB                       R8 TRUE ; [+2]
-       49 LOADB                            R7 0 +1
-       50 LOADB                            R7 1
-       51 RETURN                           R7 1
+       12 NEWTABLE                         R2 1 0
+       14 LOADK                            R3 K6 ["application/json"]
+       15 SETTABLEKS                       R3 R2 K7 ["Content-Type"]
+       17 SETTABLEKS                       R2 R1 K4 ["Headers"]
+       19 GETUPVAL                         R2 2
+       20 GETTABLEKS                       R2 R2 K8 ["requestInternal"]
+       22 MOVE                             R3 R1
+       23 CALL                             R2 1 1
+       24 NAMECALL                         R3 R2 K9 ["await"]
+       26 CALL                             R3 1 2
+       27 GETIMPORT                        R5 K11 [pcall]
+       29 NEWCLOSURE                       R6 P0
+       30 CAPTURE                          UPVAL U3
+       31 CAPTURE                          VAL R4
+       32 CALL                             R5 1 2
+       33 JUMPIFNOT                        R5 ; [+1]
+       34 JUMPIF                           R3 ; [+7]
+       35 GETUPVAL                         R7 4
+       36 LOADK                            R9 K12 ["marketplaceLookAccessFailure"]
+       37 NAMECALL                         R7 R7 K13 ["report"]
+       39 CALL                             R7 2 0
+       40 LOADB                            R7 0
+       41 RETURN                           R7 1
+       42 GETTABLEKS                       R8 R6 K14 ["makeupLookStudioCreation"]
+       44 JUMPIFEQKB                       R8 TRUE ; [+2]
+       46 LOADB                            R7 0 +1
+       47 LOADB                            R7 1
+       48 RETURN                           R7 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

@@ -25,17 +25,13 @@ PROTO_1:
        11 GETUPVAL                         R3 1
        12 CALL                             R2 1 1
        13 GETTABLEKS                       R3 R1 K3 ["recordChange"]
-       15 DUPTABLE                         R4 K7 [{"Name", "DisplayName", "DoChange"}]
-       16 LOADK                            R5 K8 ["StyleEditor/DeleteStyleQuery"]
-       17 SETTABLEKS                       R5 R4 K4 ["Name"]
-       19 LOADK                            R5 K9 ["StyleEditor - Delete Style Query"]
-       20 SETTABLEKS                       R5 R4 K5 ["DisplayName"]
-       22 NEWCLOSURE                       R5 P0
-       23 CAPTURE                          UPVAL U1
-       24 CAPTURE                          VAL R2
-       25 SETTABLEKS                       R5 R4 K6 ["DoChange"]
-       27 CALL                             R3 1 0
-       28 RETURN                           R0 0
+       15 DUPTABLE                         R4 K9 [{["Name"] = "StyleEditor/DeleteStyleQuery", ["DisplayName"] = "StyleEditor - Delete Style Query", ["DoChange"]}]
+       16 NEWCLOSURE                       R5 P0
+       17 CAPTURE                          UPVAL U1
+       18 CAPTURE                          VAL R2
+       19 SETTABLEKS                       R5 R4 K8 ["DoChange"]
+       21 CALL                             R3 1 0
+       22 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0

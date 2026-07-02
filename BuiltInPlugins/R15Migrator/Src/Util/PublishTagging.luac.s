@@ -258,62 +258,58 @@ MAIN:
        33 GETTABLEKS                       R6 R3 K16 ["AttributePrefix"]
        35 LOADK                            R7 K17 ["Blocked"]
        36 CONCAT                           R5 R6 R7
-       37 DUPTABLE                         R6 K20 [{"_name", "mask"}]
-       38 LOADNIL                          R7
-       39 SETTABLEKS                       R7 R6 K18 ["_name"]
-       41 LOADN                            R7 0
-       42 SETTABLEKS                       R7 R6 K19 ["mask"]
-       44 SETTABLEKS                       R6 R6 K21 ["__index"]
-       46 DUPCLOSURE                       R7 K22 [PROTO_0]
-       47 CAPTURE                          VAL R6
-       48 SETTABLEKS                       R7 R6 K23 ["new"]
-       50 DUPCLOSURE                       R7 K24 [PROTO_1]
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R7 R6 K25 ["addTag"]
-       54 DUPCLOSURE                       R7 K26 [PROTO_2]
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R7 R6 K27 ["removeTag"]
-       58 DUPCLOSURE                       R7 K28 [PROTO_3]
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          VAL R5
-       61 SETTABLEKS                       R7 R6 K29 ["isBlocking"]
-       63 DUPCLOSURE                       R7 K30 [PROTO_4]
-       64 CAPTURE                          VAL R0
-       65 SETTABLEKS                       R7 R6 K31 ["removeAllTags"]
-       67 DUPCLOSURE                       R7 K32 [PROTO_5]
-       68 CAPTURE                          VAL R0
-       69 SETTABLEKS                       R7 R6 K33 ["getTagged"]
-       71 DUPCLOSURE                       R7 K34 [PROTO_6]
-       72 CAPTURE                          VAL R0
-       73 SETTABLEKS                       R7 R6 K35 ["hasTagged"]
-       75 MOVE                             R7 R4
-       76 LOADNIL                          R8
-       77 LOADNIL                          R9
-       78 FORGPREP                         R7
-       79 GETTABLEKS                       R12 R6 K23 ["new"]
-       81 MOVE                             R13 R11
-       82 CALL                             R12 1 1
-       83 SETTABLE                         R12 R6 R10
-       84 FORGLOOP                         R7 2 ; [-6]
-       86 DUPCLOSURE                       R7 K36 [PROTO_7]
-       87 CAPTURE                          VAL R4
-       88 CAPTURE                          VAL R6
-       89 SETTABLEKS                       R7 R6 K37 ["clearPublishTags"]
-       91 DUPCLOSURE                       R7 K38 [PROTO_8]
-       92 CAPTURE                          VAL R2
-       93 CAPTURE                          VAL R5
-       94 CAPTURE                          VAL R0
-       95 CAPTURE                          VAL R4
-       96 SETTABLEKS                       R7 R6 K39 ["checkPublishTags"]
-       98 DUPCLOSURE                       R7 K40 [PROTO_9]
-       99 CAPTURE                          VAL R2
-      100 CAPTURE                          VAL R5
-      101 SETTABLEKS                       R7 R6 K41 ["setPublishBlocked"]
-      103 DUPCLOSURE                       R7 K42 [PROTO_10]
-      104 CAPTURE                          VAL R2
-      105 CAPTURE                          VAL R5
-      106 SETTABLEKS                       R7 R6 K43 ["publishingIsBlocked"]
-      108 DUPCLOSURE                       R7 K44 [PROTO_11]
-      109 CAPTURE                          VAL R2
-      110 SETTABLEKS                       R7 R6 K45 ["prepareToPublish"]
-      112 RETURN                           R6 1
+       37 DUPTABLE                         R6 K22 [{["_name"] = , ["mask"] = 0}]
+       38 SETTABLEKS                       R6 R6 K23 ["__index"]
+       40 DUPCLOSURE                       R7 K24 [PROTO_0]
+       41 CAPTURE                          VAL R6
+       42 SETTABLEKS                       R7 R6 K25 ["new"]
+       44 DUPCLOSURE                       R7 K26 [PROTO_1]
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R7 R6 K27 ["addTag"]
+       48 DUPCLOSURE                       R7 K28 [PROTO_2]
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R7 R6 K29 ["removeTag"]
+       52 DUPCLOSURE                       R7 K30 [PROTO_3]
+       53 CAPTURE                          VAL R2
+       54 CAPTURE                          VAL R5
+       55 SETTABLEKS                       R7 R6 K31 ["isBlocking"]
+       57 DUPCLOSURE                       R7 K32 [PROTO_4]
+       58 CAPTURE                          VAL R0
+       59 SETTABLEKS                       R7 R6 K33 ["removeAllTags"]
+       61 DUPCLOSURE                       R7 K34 [PROTO_5]
+       62 CAPTURE                          VAL R0
+       63 SETTABLEKS                       R7 R6 K35 ["getTagged"]
+       65 DUPCLOSURE                       R7 K36 [PROTO_6]
+       66 CAPTURE                          VAL R0
+       67 SETTABLEKS                       R7 R6 K37 ["hasTagged"]
+       69 MOVE                             R7 R4
+       70 LOADNIL                          R8
+       71 LOADNIL                          R9
+       72 FORGPREP                         R7
+       73 GETTABLEKS                       R12 R6 K25 ["new"]
+       75 MOVE                             R13 R11
+       76 CALL                             R12 1 1
+       77 SETTABLE                         R12 R6 R10
+       78 FORGLOOP                         R7 2 ; [-6]
+       80 DUPCLOSURE                       R7 K38 [PROTO_7]
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R6
+       83 SETTABLEKS                       R7 R6 K39 ["clearPublishTags"]
+       85 DUPCLOSURE                       R7 K40 [PROTO_8]
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R0
+       89 CAPTURE                          VAL R4
+       90 SETTABLEKS                       R7 R6 K41 ["checkPublishTags"]
+       92 DUPCLOSURE                       R7 K42 [PROTO_9]
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R5
+       95 SETTABLEKS                       R7 R6 K43 ["setPublishBlocked"]
+       97 DUPCLOSURE                       R7 K44 [PROTO_10]
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R5
+      100 SETTABLEKS                       R7 R6 K45 ["publishingIsBlocked"]
+      102 DUPCLOSURE                       R7 K46 [PROTO_11]
+      103 CAPTURE                          VAL R2
+      104 SETTABLEKS                       R7 R6 K47 ["prepareToPublish"]
+      106 RETURN                           R6 1

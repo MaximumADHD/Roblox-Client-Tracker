@@ -59,12 +59,12 @@ PROTO_0:
        75 RETURN                           R0 0
 
 PROTO_1:
-        0 NEWCLOSURE                       R2 P0
+        0 NEWCLOSURE                       R1 P0
         1 CAPTURE                          UPVAL U0
         2 CAPTURE                          VAL R0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
-        5 RETURN                           R2 1
+        5 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

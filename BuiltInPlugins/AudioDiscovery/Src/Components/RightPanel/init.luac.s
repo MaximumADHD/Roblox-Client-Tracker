@@ -70,72 +70,60 @@ PROTO_4:
        30 CAPTURE                          VAL R2
        31 CALL                             R5 2 1
        32 GETTABLEKS                       R6 R1 K9 ["Rows"]
-       34 JUMPIFNOT                        R6 ; [+51]
+       34 JUMPIFNOT                        R6 ; [+42]
        35 GETTABLEKS                       R7 R1 K9 ["Rows"]
        37 LENGTH                           R6 R7
        38 LOADN                            R7 0
-       39 JUMPIFNOTLT                      R7 R6 ; [+46]
+       39 JUMPIFNOTLT                      R7 R6 ; [+37]
        41 GETUPVAL                         R6 2
        42 GETTABLEKS                       R6 R6 K10 ["createElement"]
        44 GETUPVAL                         R7 3
-       45 DUPTABLE                         R8 K21 [{"Scroll", "UseScale", "ClampSize", "OnColumnSizesChange", "SortIndex", "SortOrder", "OnSortChange", "Columns", "Rows", "CellComponent", "OnSelectRow"}]
-       46 LOADB                            R9 1
-       47 SETTABLEKS                       R9 R8 K11 ["Scroll"]
-       49 LOADB                            R9 1
-       50 SETTABLEKS                       R9 R8 K12 ["UseScale"]
-       52 LOADB                            R9 1
-       53 SETTABLEKS                       R9 R8 K13 ["ClampSize"]
-       55 GETTABLEKS                       R9 R0 K22 ["onSizesChange"]
-       57 SETTABLEKS                       R9 R8 K14 ["OnColumnSizesChange"]
-       59 GETTABLEKS                       R9 R1 K15 ["SortIndex"]
-       61 SETTABLEKS                       R9 R8 K15 ["SortIndex"]
-       63 GETTABLEKS                       R9 R1 K16 ["SortOrder"]
-       65 SETTABLEKS                       R9 R8 K16 ["SortOrder"]
-       67 GETTABLEKS                       R9 R1 K23 ["Sort"]
-       69 SETTABLEKS                       R9 R8 K17 ["OnSortChange"]
-       71 SETTABLEKS                       R5 R8 K18 ["Columns"]
-       73 GETTABLEKS                       R9 R1 K9 ["Rows"]
-       75 SETTABLEKS                       R9 R8 K9 ["Rows"]
-       77 GETUPVAL                         R9 4
-       78 SETTABLEKS                       R9 R8 K19 ["CellComponent"]
-       80 DUPCLOSURE                       R9 K24 [PROTO_3]
-       81 CAPTURE                          UPVAL U5
-       82 SETTABLEKS                       R9 R8 K20 ["OnSelectRow"]
-       84 CALL                             R6 2 -1
-       85 RETURN                           R6 -1
-       86 GETUPVAL                         R6 2
-       87 GETTABLEKS                       R6 R6 K10 ["createElement"]
-       89 GETUPVAL                         R7 6
-       90 DUPTABLE                         R8 K26 [{"Padding"}]
-       91 LOADN                            R9 5
-       92 SETTABLEKS                       R9 R8 K25 ["Padding"]
-       94 DUPTABLE                         R9 K28 [{"Child"}]
-       95 GETUPVAL                         R10 2
-       96 GETTABLEKS                       R10 R10 K10 ["createElement"]
-       98 GETUPVAL                         R11 7
-       99 DUPTABLE                         R12 K35 [{"TextXAlignment", "TextYAlignment", "TextWrapped", "Size", "RichText", "Text"}]
-      100 GETIMPORT                        R13 K38 [Enum.TextXAlignment.Left]
-      102 SETTABLEKS                       R13 R12 K29 ["TextXAlignment"]
-      104 GETIMPORT                        R13 K40 [Enum.TextYAlignment.Top]
-      106 SETTABLEKS                       R13 R12 K30 ["TextYAlignment"]
-      108 LOADB                            R13 1
-      109 SETTABLEKS                       R13 R12 K31 ["TextWrapped"]
-      111 GETIMPORT                        R13 K43 [UDim2.fromScale]
-      113 LOADN                            R14 1
-      114 LOADN                            R15 1
-      115 CALL                             R13 2 1
-      116 SETTABLEKS                       R13 R12 K32 ["Size"]
-      118 LOADB                            R13 1
-      119 SETTABLEKS                       R13 R12 K33 ["RichText"]
-      121 LOADK                            R15 K44 ["Plugin"]
-      122 LOADK                            R16 K45 ["Info"]
-      123 NAMECALL                         R13 R3 K7 ["getText"]
-      125 CALL                             R13 3 1
-      126 SETTABLEKS                       R13 R12 K34 ["Text"]
-      128 CALL                             R10 2 1
-      129 SETTABLEKS                       R10 R9 K27 ["Child"]
-      131 CALL                             R6 3 -1
-      132 RETURN                           R6 -1
+       45 DUPTABLE                         R8 K22 [{["Scroll"] = True, ["UseScale"] = True, ["ClampSize"] = True, ["OnColumnSizesChange"], ["SortIndex"], ["SortOrder"], ["OnSortChange"], ["Columns"], ["Rows"], ["CellComponent"], ["OnSelectRow"]}]
+       46 GETTABLEKS                       R9 R0 K23 ["onSizesChange"]
+       48 SETTABLEKS                       R9 R8 K15 ["OnColumnSizesChange"]
+       50 GETTABLEKS                       R9 R1 K16 ["SortIndex"]
+       52 SETTABLEKS                       R9 R8 K16 ["SortIndex"]
+       54 GETTABLEKS                       R9 R1 K17 ["SortOrder"]
+       56 SETTABLEKS                       R9 R8 K17 ["SortOrder"]
+       58 GETTABLEKS                       R9 R1 K24 ["Sort"]
+       60 SETTABLEKS                       R9 R8 K18 ["OnSortChange"]
+       62 SETTABLEKS                       R5 R8 K19 ["Columns"]
+       64 GETTABLEKS                       R9 R1 K9 ["Rows"]
+       66 SETTABLEKS                       R9 R8 K9 ["Rows"]
+       68 GETUPVAL                         R9 4
+       69 SETTABLEKS                       R9 R8 K20 ["CellComponent"]
+       71 DUPCLOSURE                       R9 K25 [PROTO_3]
+       72 CAPTURE                          UPVAL U5
+       73 SETTABLEKS                       R9 R8 K21 ["OnSelectRow"]
+       75 CALL                             R6 2 -1
+       76 RETURN                           R6 -1
+       77 GETUPVAL                         R6 2
+       78 GETTABLEKS                       R6 R6 K10 ["createElement"]
+       80 GETUPVAL                         R7 6
+       81 DUPTABLE                         R8 K28 [{["Padding"] = 5}]
+       82 DUPTABLE                         R9 K30 [{"Child"}]
+       83 GETUPVAL                         R10 2
+       84 GETTABLEKS                       R10 R10 K10 ["createElement"]
+       86 GETUPVAL                         R11 7
+       87 DUPTABLE                         R12 K37 [{["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["Size"], ["RichText"] = True, ["Text"]}]
+       88 GETIMPORT                        R13 K40 [Enum.TextXAlignment.Left]
+       90 SETTABLEKS                       R13 R12 K31 ["TextXAlignment"]
+       92 GETIMPORT                        R13 K42 [Enum.TextYAlignment.Top]
+       94 SETTABLEKS                       R13 R12 K32 ["TextYAlignment"]
+       96 GETIMPORT                        R13 K45 [UDim2.fromScale]
+       98 LOADN                            R14 1
+       99 LOADN                            R15 1
+      100 CALL                             R13 2 1
+      101 SETTABLEKS                       R13 R12 K34 ["Size"]
+      103 LOADK                            R15 K46 ["Plugin"]
+      104 LOADK                            R16 K47 ["Info"]
+      105 NAMECALL                         R13 R3 K7 ["getText"]
+      107 CALL                             R13 3 1
+      108 SETTABLEKS                       R13 R12 K36 ["Text"]
+      110 CALL                             R10 2 1
+      111 SETTABLEKS                       R10 R9 K29 ["Child"]
+      113 CALL                             R6 3 -1
+      114 RETURN                           R6 -1
 
 PROTO_5:
         0 GETTABLEKS                       R3 R0 K0 ["Audio"]

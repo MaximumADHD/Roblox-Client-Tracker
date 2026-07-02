@@ -3,23 +3,19 @@ PROTO_0:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K9 [{"ShowSearchIcon", "ShowSearchButton", "OnTextChanged", "OnSearchRequested", "LayoutOrder", "Size", "SearchTerm"}]
-        7 LOADB                            R5 1
-        8 SETTABLEKS                       R5 R4 K2 ["ShowSearchIcon"]
-       10 LOADB                            R5 0
-       11 SETTABLEKS                       R5 R4 K3 ["ShowSearchButton"]
-       13 GETTABLEKS                       R5 R1 K10 ["onFilterTextChanged"]
-       15 SETTABLEKS                       R5 R4 K4 ["OnTextChanged"]
-       17 GETTABLEKS                       R5 R1 K11 ["onSearchRequested"]
-       19 SETTABLEKS                       R5 R4 K5 ["OnSearchRequested"]
-       21 GETTABLEKS                       R5 R1 K6 ["LayoutOrder"]
-       23 SETTABLEKS                       R5 R4 K6 ["LayoutOrder"]
-       25 GETTABLEKS                       R5 R1 K7 ["Size"]
-       27 SETTABLEKS                       R5 R4 K7 ["Size"]
-       29 GETTABLEKS                       R5 R1 K8 ["SearchTerm"]
-       31 SETTABLEKS                       R5 R4 K8 ["SearchTerm"]
-       33 CALL                             R2 2 -1
-       34 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K11 [{["ShowSearchIcon"] = True, ["ShowSearchButton"] = False, ["OnTextChanged"], ["OnSearchRequested"], ["LayoutOrder"], ["Size"], ["SearchTerm"]}]
+        7 GETTABLEKS                       R5 R1 K12 ["onFilterTextChanged"]
+        9 SETTABLEKS                       R5 R4 K6 ["OnTextChanged"]
+       11 GETTABLEKS                       R5 R1 K13 ["onSearchRequested"]
+       13 SETTABLEKS                       R5 R4 K7 ["OnSearchRequested"]
+       15 GETTABLEKS                       R5 R1 K8 ["LayoutOrder"]
+       17 SETTABLEKS                       R5 R4 K8 ["LayoutOrder"]
+       19 GETTABLEKS                       R5 R1 K9 ["Size"]
+       21 SETTABLEKS                       R5 R4 K9 ["Size"]
+       23 GETTABLEKS                       R5 R1 K10 ["SearchTerm"]
+       25 SETTABLEKS                       R5 R4 K10 ["SearchTerm"]
+       27 CALL                             R2 2 -1
+       28 RETURN                           R2 -1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["Watch"]

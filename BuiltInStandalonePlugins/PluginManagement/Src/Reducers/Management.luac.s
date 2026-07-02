@@ -135,33 +135,59 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
-       23 DUPCLOSURE                       R3 K8 [PROTO_0]
-       24 CAPTURE                          VAL R1
-       25 DUPCLOSURE                       R4 K9 [PROTO_1]
-       26 CAPTURE                          VAL R1
-       27 GETTABLEKS                       R5 R2 K10 ["createReducer"]
-       29 DUPTABLE                         R6 K12 [{"plugins"}]
-       30 LOADNIL                          R7
-       31 SETTABLEKS                       R7 R6 K11 ["plugins"]
-       33 DUPTABLE                         R7 K18 [{"ClearAllPluginData", "RemovePluginData", "SetLoadedPluginData", "SetPluginEnabledState", "SetPluginUpdateStatus"}]
-       34 DUPCLOSURE                       R9 K20 [PROTO_2]
-       35 CAPTURE                          VAL R1
-       36 ORK                              R8 R9 K19 []
-       37 SETTABLEKS                       R8 R7 K13 ["ClearAllPluginData"]
-       39 DUPCLOSURE                       R9 K21 [PROTO_3]
-       40 CAPTURE                          VAL R1
-       41 ORK                              R8 R9 K19 []
-       42 SETTABLEKS                       R8 R7 K14 ["RemovePluginData"]
-       44 DUPCLOSURE                       R8 K22 [PROTO_4]
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R4
-       47 SETTABLEKS                       R8 R7 K15 ["SetLoadedPluginData"]
-       49 DUPCLOSURE                       R8 K23 [PROTO_5]
-       50 CAPTURE                          VAL R3
-       51 SETTABLEKS                       R8 R7 K16 ["SetPluginEnabledState"]
-       53 DUPCLOSURE                       R8 K24 [PROTO_6]
-       54 CAPTURE                          VAL R3
-       55 CAPTURE                          VAL R1
-       56 SETTABLEKS                       R8 R7 K17 ["SetPluginUpdateStatus"]
-       58 CALL                             R5 2 -1
-       59 RETURN                           R5 -1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R4 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R4 K9 ["Actions"]
+       29 GETTABLEKS                       R4 R4 K10 ["ClearAllPluginData"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K4 [require]
+       34 GETTABLEKS                       R5 R0 K8 ["Src"]
+       36 GETTABLEKS                       R5 R5 K9 ["Actions"]
+       38 GETTABLEKS                       R5 R5 K11 ["RemovePluginData"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K4 [require]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K9 ["Actions"]
+       47 GETTABLEKS                       R6 R6 K12 ["SetLoadedPluginData"]
+       49 CALL                             R5 1 1
+       50 GETIMPORT                        R6 K4 [require]
+       52 GETTABLEKS                       R7 R0 K8 ["Src"]
+       54 GETTABLEKS                       R7 R7 K9 ["Actions"]
+       56 GETTABLEKS                       R7 R7 K13 ["SetPluginEnabledState"]
+       58 CALL                             R6 1 1
+       59 GETIMPORT                        R7 K4 [require]
+       61 GETTABLEKS                       R8 R0 K8 ["Src"]
+       63 GETTABLEKS                       R8 R8 K9 ["Actions"]
+       65 GETTABLEKS                       R8 R8 K14 ["SetPluginUpdateStatus"]
+       67 CALL                             R7 1 1
+       68 GETIMPORT                        R8 K4 [require]
+       70 GETTABLEKS                       R9 R0 K8 ["Src"]
+       72 GETTABLEKS                       R9 R9 K15 ["Util"]
+       74 GETTABLEKS                       R9 R9 K16 ["Types"]
+       76 CALL                             R8 1 1
+       77 DUPCLOSURE                       R9 K17 [PROTO_0]
+       78 CAPTURE                          VAL R1
+       79 DUPCLOSURE                       R10 K18 [PROTO_1]
+       80 CAPTURE                          VAL R1
+       81 GETTABLEKS                       R11 R2 K19 ["createReducer"]
+       83 DUPTABLE                         R12 K22 [{["plugins"] = }]
+       84 DUPTABLE                         R13 K23 [{"ClearAllPluginData", "RemovePluginData", "SetLoadedPluginData", "SetPluginEnabledState", "SetPluginUpdateStatus"}]
+       85 DUPCLOSURE                       R14 K24 [PROTO_2]
+       86 CAPTURE                          VAL R1
+       87 SETTABLEKS                       R14 R13 K10 ["ClearAllPluginData"]
+       89 DUPCLOSURE                       R14 K25 [PROTO_3]
+       90 CAPTURE                          VAL R1
+       91 SETTABLEKS                       R14 R13 K11 ["RemovePluginData"]
+       93 DUPCLOSURE                       R14 K26 [PROTO_4]
+       94 CAPTURE                          VAL R1
+       95 CAPTURE                          VAL R10
+       96 SETTABLEKS                       R14 R13 K12 ["SetLoadedPluginData"]
+       98 DUPCLOSURE                       R14 K27 [PROTO_5]
+       99 CAPTURE                          VAL R9
+      100 SETTABLEKS                       R14 R13 K13 ["SetPluginEnabledState"]
+      102 DUPCLOSURE                       R14 K28 [PROTO_6]
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R1
+      105 SETTABLEKS                       R14 R13 K14 ["SetPluginUpdateStatus"]
+      107 CALL                             R11 2 -1
+      108 RETURN                           R11 -1

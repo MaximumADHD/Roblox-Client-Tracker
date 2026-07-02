@@ -109,17 +109,15 @@ PROTO_3:
        29 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K1 [{"selectedScaleTypeIndex"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["selectedScaleTypeIndex"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 SETTABLEKS                       R1 R0 K3 ["onClickScaleType"]
-       13 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = }]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 SETTABLEKS                       R1 R0 K4 ["onClickScaleType"]
+       10 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

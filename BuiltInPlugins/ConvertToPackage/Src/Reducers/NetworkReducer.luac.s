@@ -29,17 +29,13 @@ MAIN:
        25 GETTABLEKS                       R5 R5 K9 ["Actions"]
        27 GETTABLEKS                       R5 R5 K10 ["NetworkError"]
        29 CALL                             R4 1 1
-       30 DUPTABLE                         R5 K13 [{"networkError", "networkErrorAction"}]
-       31 LOADNIL                          R6
-       32 SETTABLEKS                       R6 R5 K11 ["networkError"]
-       34 LOADNIL                          R6
-       35 SETTABLEKS                       R6 R5 K12 ["networkErrorAction"]
-       37 GETTABLEKS                       R6 R3 K14 ["createReducer"]
-       39 MOVE                             R7 R5
-       40 NEWTABLE                         R8 1 0
-       42 GETTABLEKS                       R9 R4 K15 ["name"]
-       44 DUPCLOSURE                       R10 K16 [PROTO_0]
-       45 CAPTURE                          VAL R2
-       46 SETTABLE                         R10 R8 R9
-       47 CALL                             R6 2 -1
-       48 RETURN                           R6 -1
+       30 DUPTABLE                         R5 K14 [{["networkError"] = , ["networkErrorAction"] = }]
+       31 GETTABLEKS                       R6 R3 K15 ["createReducer"]
+       33 MOVE                             R7 R5
+       34 NEWTABLE                         R8 1 0
+       36 GETTABLEKS                       R9 R4 K16 ["name"]
+       38 DUPCLOSURE                       R10 K17 [PROTO_0]
+       39 CAPTURE                          VAL R2
+       40 SETTABLE                         R10 R8 R9
+       41 CALL                             R6 2 -1
+       42 RETURN                           R6 -1

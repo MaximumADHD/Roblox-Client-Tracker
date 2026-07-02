@@ -137,53 +137,51 @@ PROTO_10:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K18 [{"assetId", "assetData", "assetTileLocation", "canInsertAsset", "hideCreatorName", "isHovered", "logImpression", "originalAssetId", "onAssetHovered", "onAssetHoverEnded", "onAssetPreviewButtonClicked", "parentAbsolutePosition", "parentSize", "tryInsert", "tryOpenAssetConfig"}]
+        8 DUPTABLE                         R5 K19 [{["assetId"], ["assetData"], ["assetTileLocation"], ["canInsertAsset"], ["hideCreatorName"] = True, ["isHovered"], ["logImpression"], ["originalAssetId"], ["onAssetHovered"], ["onAssetHoverEnded"], ["onAssetPreviewButtonClicked"], ["parentAbsolutePosition"], ["parentSize"], ["tryInsert"], ["tryOpenAssetConfig"]}]
         9 SETTABLEKS                       R2 R5 K3 ["assetId"]
        11 SETTABLEKS                       R1 R5 K4 ["assetData"]
        13 GETUPVAL                         R6 2
-       14 GETTABLEKS                       R6 R6 K19 ["ASSET_TILE_LOCATION"]
-       16 GETTABLEKS                       R6 R6 K20 ["MORE_FROM"]
+       14 GETTABLEKS                       R6 R6 K20 ["ASSET_TILE_LOCATION"]
+       16 GETTABLEKS                       R6 R6 K21 ["MORE_FROM"]
        18 SETTABLEKS                       R6 R5 K5 ["assetTileLocation"]
        20 GETUPVAL                         R6 3
-       21 GETTABLEKS                       R6 R6 K21 ["CanInsertAsset"]
+       21 GETTABLEKS                       R6 R6 K22 ["CanInsertAsset"]
        23 SETTABLEKS                       R6 R5 K6 ["canInsertAsset"]
-       25 LOADB                            R6 1
-       26 SETTABLEKS                       R6 R5 K7 ["hideCreatorName"]
-       28 GETUPVAL                         R7 4
-       29 GETTABLEKS                       R7 R7 K22 ["hoveredAssetId"]
-       31 JUMPIFEQ                         R2 R7 ; [+2]
-       33 LOADB                            R6 0 +1
-       34 LOADB                            R6 1
-       35 SETTABLEKS                       R6 R5 K8 ["isHovered"]
-       37 GETUPVAL                         R6 3
-       38 GETTABLEKS                       R6 R6 K23 ["LogAssetImpression"]
-       40 SETTABLEKS                       R6 R5 K9 ["logImpression"]
-       42 GETUPVAL                         R6 3
-       43 GETTABLEKS                       R6 R6 K24 ["OriginalAssetId"]
-       45 SETTABLEKS                       R6 R5 K10 ["originalAssetId"]
-       47 GETUPVAL                         R6 5
-       48 GETTABLEKS                       R6 R6 K11 ["onAssetHovered"]
-       50 SETTABLEKS                       R6 R5 K11 ["onAssetHovered"]
-       52 GETUPVAL                         R6 5
-       53 GETTABLEKS                       R6 R6 K12 ["onAssetHoverEnded"]
-       55 SETTABLEKS                       R6 R5 K12 ["onAssetHoverEnded"]
-       57 GETUPVAL                         R6 5
-       58 GETTABLEKS                       R6 R6 K13 ["onAssetPreviewButtonClicked"]
-       60 SETTABLEKS                       R6 R5 K13 ["onAssetPreviewButtonClicked"]
-       62 GETUPVAL                         R6 3
-       63 GETTABLEKS                       R6 R6 K25 ["ParentAbsolutePosition"]
-       65 SETTABLEKS                       R6 R5 K14 ["parentAbsolutePosition"]
-       67 GETUPVAL                         R6 3
-       68 GETTABLEKS                       R6 R6 K26 ["ParentAbsoluteSize"]
-       70 SETTABLEKS                       R6 R5 K15 ["parentSize"]
-       72 GETUPVAL                         R6 5
-       73 GETTABLEKS                       R6 R6 K13 ["onAssetPreviewButtonClicked"]
-       75 SETTABLEKS                       R6 R5 K16 ["tryInsert"]
-       77 GETUPVAL                         R6 3
-       78 GETTABLEKS                       R6 R6 K27 ["TryOpenAssetConfig"]
-       80 SETTABLEKS                       R6 R5 K17 ["tryOpenAssetConfig"]
-       82 CALL                             R3 2 -1
-       83 RETURN                           R3 -1
+       25 GETUPVAL                         R7 4
+       26 GETTABLEKS                       R7 R7 K23 ["hoveredAssetId"]
+       28 JUMPIFEQ                         R2 R7 ; [+2]
+       30 LOADB                            R6 0 +1
+       31 LOADB                            R6 1
+       32 SETTABLEKS                       R6 R5 K9 ["isHovered"]
+       34 GETUPVAL                         R6 3
+       35 GETTABLEKS                       R6 R6 K24 ["LogAssetImpression"]
+       37 SETTABLEKS                       R6 R5 K10 ["logImpression"]
+       39 GETUPVAL                         R6 3
+       40 GETTABLEKS                       R6 R6 K25 ["OriginalAssetId"]
+       42 SETTABLEKS                       R6 R5 K11 ["originalAssetId"]
+       44 GETUPVAL                         R6 5
+       45 GETTABLEKS                       R6 R6 K12 ["onAssetHovered"]
+       47 SETTABLEKS                       R6 R5 K12 ["onAssetHovered"]
+       49 GETUPVAL                         R6 5
+       50 GETTABLEKS                       R6 R6 K13 ["onAssetHoverEnded"]
+       52 SETTABLEKS                       R6 R5 K13 ["onAssetHoverEnded"]
+       54 GETUPVAL                         R6 5
+       55 GETTABLEKS                       R6 R6 K14 ["onAssetPreviewButtonClicked"]
+       57 SETTABLEKS                       R6 R5 K14 ["onAssetPreviewButtonClicked"]
+       59 GETUPVAL                         R6 3
+       60 GETTABLEKS                       R6 R6 K26 ["ParentAbsolutePosition"]
+       62 SETTABLEKS                       R6 R5 K15 ["parentAbsolutePosition"]
+       64 GETUPVAL                         R6 3
+       65 GETTABLEKS                       R6 R6 K27 ["ParentAbsoluteSize"]
+       67 SETTABLEKS                       R6 R5 K16 ["parentSize"]
+       69 GETUPVAL                         R6 5
+       70 GETTABLEKS                       R6 R6 K14 ["onAssetPreviewButtonClicked"]
+       72 SETTABLEKS                       R6 R5 K17 ["tryInsert"]
+       74 GETUPVAL                         R6 3
+       75 GETTABLEKS                       R6 R6 K28 ["TryOpenAssetConfig"]
+       77 SETTABLEKS                       R6 R5 K18 ["tryOpenAssetConfig"]
+       79 CALL                             R3 2 -1
+       80 RETURN                           R3 -1
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
@@ -229,38 +227,34 @@ PROTO_11:
        57 GETUPVAL                         R9 1
        58 GETTABLEKS                       R9 R9 K8 ["createElement"]
        60 GETUPVAL                         R10 6
-       61 DUPTABLE                         R11 K32 [{"Data", "IsLoading", "IsHeaderResponsive", "OnClickSeeAll", "OnRenderItem", "Size", "SeeAllTextSize", "Title"}]
+       61 DUPTABLE                         R11 K34 [{["Data"], ["IsLoading"], ["IsHeaderResponsive"] = True, ["OnClickSeeAll"], ["OnRenderItem"], ["Size"], ["SeeAllTextSize"] = 18, ["Title"]}]
        62 GETTABLEKS                       R12 R1 K6 ["assetsList"]
        64 SETTABLEKS                       R12 R11 K25 ["Data"]
        66 GETTABLEKS                       R12 R2 K26 ["IsLoading"]
        68 SETTABLEKS                       R12 R11 K26 ["IsLoading"]
-       70 LOADB                            R12 1
-       71 SETTABLEKS                       R12 R11 K27 ["IsHeaderResponsive"]
-       73 GETTABLEKS                       R12 R2 K28 ["OnClickSeeAll"]
-       75 SETTABLEKS                       R12 R11 K28 ["OnClickSeeAll"]
-       77 SETTABLEKS                       R4 R11 K29 ["OnRenderItem"]
-       79 GETIMPORT                        R12 K22 [UDim2.new]
-       81 LOADN                            R13 1
-       82 LOADN                            R14 0
-       83 LOADN                            R15 0
-       84 MOVE                             R16 R3
-       85 CALL                             R12 4 1
-       86 SETTABLEKS                       R12 R11 K12 ["Size"]
-       88 LOADN                            R12 18
-       89 SETTABLEKS                       R12 R11 K30 ["SeeAllTextSize"]
-       91 GETTABLEKS                       R12 R2 K33 ["Localization"]
-       93 LOADK                            R14 K34 ["Suggestion"]
-       94 LOADK                            R15 K35 ["MoreFromCreator"]
-       95 DUPTABLE                         R16 K37 [{"creatorName"}]
-       96 GETTABLEKS                       R17 R2 K38 ["CreatorName"]
-       98 SETTABLEKS                       R17 R16 K36 ["creatorName"]
-      100 NAMECALL                         R12 R12 K39 ["getText"]
-      102 CALL                             R12 4 1
-      103 SETTABLEKS                       R12 R11 K31 ["Title"]
-      105 CALL                             R9 2 1
-      106 SETTABLEKS                       R9 R8 K23 ["Swimlane"]
-      108 CALL                             R5 3 -1
-      109 RETURN                           R5 -1
+       70 GETTABLEKS                       R12 R2 K29 ["OnClickSeeAll"]
+       72 SETTABLEKS                       R12 R11 K29 ["OnClickSeeAll"]
+       74 SETTABLEKS                       R4 R11 K30 ["OnRenderItem"]
+       76 GETIMPORT                        R12 K22 [UDim2.new]
+       78 LOADN                            R13 1
+       79 LOADN                            R14 0
+       80 LOADN                            R15 0
+       81 MOVE                             R16 R3
+       82 CALL                             R12 4 1
+       83 SETTABLEKS                       R12 R11 K12 ["Size"]
+       85 GETTABLEKS                       R12 R2 K35 ["Localization"]
+       87 LOADK                            R14 K36 ["Suggestion"]
+       88 LOADK                            R15 K37 ["MoreFromCreator"]
+       89 DUPTABLE                         R16 K39 [{"creatorName"}]
+       90 GETTABLEKS                       R17 R2 K40 ["CreatorName"]
+       92 SETTABLEKS                       R17 R16 K38 ["creatorName"]
+       94 NAMECALL                         R12 R12 K41 ["getText"]
+       96 CALL                             R12 4 1
+       97 SETTABLEKS                       R12 R11 K33 ["Title"]
+       99 CALL                             R9 2 1
+      100 SETTABLEKS                       R9 R8 K23 ["Swimlane"]
+      102 CALL                             R5 3 -1
+      103 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

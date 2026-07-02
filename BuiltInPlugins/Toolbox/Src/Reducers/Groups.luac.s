@@ -34,15 +34,13 @@ MAIN:
        37 GETTABLEKS                       R7 R7 K13 ["Actions"]
        39 GETTABLEKS                       R7 R7 K14 ["SetManageableGroups"]
        41 CALL                             R6 1 1
-       42 DUPTABLE                         R7 K16 [{"manageableGroups"}]
-       43 LOADNIL                          R8
-       44 SETTABLEKS                       R8 R7 K15 ["manageableGroups"]
-       46 GETTABLEKS                       R8 R2 K17 ["createReducer"]
-       48 MOVE                             R9 R7
-       49 NEWTABLE                         R10 1 0
-       51 GETTABLEKS                       R11 R6 K18 ["name"]
-       53 DUPCLOSURE                       R12 K19 [PROTO_0]
-       54 CAPTURE                          VAL R4
-       55 SETTABLE                         R12 R10 R11
-       56 CALL                             R8 2 -1
-       57 RETURN                           R8 -1
+       42 DUPTABLE                         R7 K17 [{["manageableGroups"] = }]
+       43 GETTABLEKS                       R8 R2 K18 ["createReducer"]
+       45 MOVE                             R9 R7
+       46 NEWTABLE                         R10 1 0
+       48 GETTABLEKS                       R11 R6 K19 ["name"]
+       50 DUPCLOSURE                       R12 K20 [PROTO_0]
+       51 CAPTURE                          VAL R4
+       52 SETTABLE                         R12 R10 R11
+       53 CALL                             R8 2 -1
+       54 RETURN                           R8 -1

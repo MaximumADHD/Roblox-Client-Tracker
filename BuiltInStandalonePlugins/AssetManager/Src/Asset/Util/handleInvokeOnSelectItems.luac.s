@@ -17,29 +17,25 @@ PROTO_0:
        18 CALL                             R9 -1 0
        19 FORGLOOP                         R4 2 ; [-9]
        21 LENGTH                           R4 R2
-       22 JUMPIFNOTEQKN                    R4 K2 [0] ; [+13]
+       22 JUMPIFNOTEQKN                    R4 K2 [0] ; [+7]
        24 LOADK                            R6 K3 ["ShowToast"]
-       25 DUPTABLE                         R7 K6 [{"Key", "SubKey"}]
-       26 LOADK                            R8 K7 ["Toast"]
-       27 SETTABLEKS                       R8 R7 K4 ["Key"]
-       29 LOADK                            R8 K8 ["FindInExplorerNotFound"]
-       30 SETTABLEKS                       R8 R7 K5 ["SubKey"]
-       32 NAMECALL                         R4 R0 K9 ["Invoke"]
-       34 CALL                             R4 3 0
-       35 RETURN                           R0 0
-       36 GETUPVAL                         R4 3
-       37 MOVE                             R6 R2
-       38 NAMECALL                         R4 R4 K10 ["Set"]
-       40 CALL                             R4 2 0
-       41 GETIMPORT                        R4 K12 [game]
-       43 GETTABLEKS                       R4 R4 K13 ["Workspace"]
-       45 GETTABLEKS                       R4 R4 K14 ["CurrentCamera"]
-       47 JUMPIFNOT                        R4 ; [+4]
-       48 GETUPVAL                         R5 4
-       49 MOVE                             R6 R4
-       50 MOVE                             R7 R2
-       51 CALL                             R5 2 0
-       52 RETURN                           R0 0
+       25 DUPTABLE                         R7 K8 [{["Key"] = "Toast", ["SubKey"] = "FindInExplorerNotFound"}]
+       26 NAMECALL                         R4 R0 K9 ["Invoke"]
+       28 CALL                             R4 3 0
+       29 RETURN                           R0 0
+       30 GETUPVAL                         R4 3
+       31 MOVE                             R6 R2
+       32 NAMECALL                         R4 R4 K10 ["Set"]
+       34 CALL                             R4 2 0
+       35 GETIMPORT                        R4 K12 [game]
+       37 GETTABLEKS                       R4 R4 K13 ["Workspace"]
+       39 GETTABLEKS                       R4 R4 K14 ["CurrentCamera"]
+       41 JUMPIFNOT                        R4 ; [+4]
+       42 GETUPVAL                         R5 4
+       43 MOVE                             R6 R4
+       44 MOVE                             R7 R2
+       45 CALL                             R5 2 0
+       46 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

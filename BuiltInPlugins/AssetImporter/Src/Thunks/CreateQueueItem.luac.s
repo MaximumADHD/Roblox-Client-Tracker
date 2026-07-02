@@ -16,7 +16,7 @@ PROTO_0:
        18 CALL                             R1 1 2
        19 GETUPVAL                         R3 3
        20 GETTABLEKS                       R3 R3 K4 ["new"]
-       22 DUPTABLE                         R4 K11 [{"assetName", "fileType", "filepath", "sortOrder", "state", "enabled"}]
+       22 DUPTABLE                         R4 K12 [{["assetName"], ["fileType"], ["filepath"], ["sortOrder"], ["state"], ["enabled"] = True}]
        23 SETTABLEKS                       R1 R4 K5 ["assetName"]
        25 SETTABLEKS                       R2 R4 K6 ["fileType"]
        27 GETUPVAL                         R5 0
@@ -24,21 +24,19 @@ PROTO_0:
        30 GETUPVAL                         R5 4
        31 SETTABLEKS                       R5 R4 K8 ["sortOrder"]
        33 GETUPVAL                         R5 5
-       34 GETTABLEKS                       R5 R5 K12 ["SessionState"]
-       36 GETTABLEKS                       R5 R5 K13 ["Parsing"]
+       34 GETTABLEKS                       R5 R5 K13 ["SessionState"]
+       36 GETTABLEKS                       R5 R5 K14 ["Parsing"]
        38 SETTABLEKS                       R5 R4 K9 ["state"]
-       40 LOADB                            R5 1
-       41 SETTABLEKS                       R5 R4 K10 ["enabled"]
-       43 CALL                             R3 1 1
-       44 GETUPVAL                         R5 4
-       45 ADDK                             R4 R5 K14 [1]
-       46 SETUPVAL                         R4 4
-       47 GETUPVAL                         R6 6
-       48 MOVE                             R7 R3
-       49 CALL                             R6 1 -1
-       50 NAMECALL                         R4 R0 K3 ["dispatch"]
-       52 CALL                             R4 -1 0
-       53 RETURN                           R3 1
+       40 CALL                             R3 1 1
+       41 GETUPVAL                         R5 4
+       42 ADDK                             R4 R5 K15 [1]
+       43 SETUPVAL                         R4 4
+       44 GETUPVAL                         R6 6
+       45 MOVE                             R7 R3
+       46 CALL                             R6 1 -1
+       47 NAMECALL                         R4 R0 K3 ["dispatch"]
+       49 CALL                             R4 -1 0
+       50 RETURN                           R3 1
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

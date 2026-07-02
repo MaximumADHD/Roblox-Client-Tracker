@@ -52,44 +52,40 @@ PROTO_0:
        71 GETTABLEKS                       R8 R8 K4 ["new"]
        73 MOVE                             R9 R3
        74 NEWTABLE                         R10 0 1
-       76 DUPTABLE                         R11 K21 [{"id", "text"}]
-       77 LOADK                            R12 K22 ["rerunLastStory"]
-       78 SETTABLEKS                       R12 R11 K19 ["id"]
-       80 LOADK                            R12 K23 ["MOCK"]
-       81 SETTABLEKS                       R12 R11 K20 ["text"]
-       83 SETLIST                          R10 R11 1 [1]
-       85 CALL                             R8 2 1
-       86 GETUPVAL                         R9 6
-       87 GETTABLEKS                       R9 R9 K4 ["new"]
-       89 GETUPVAL                         R10 7
-       90 GETTABLEKS                       R10 R10 K24 ["SIGNAL_KEYS"]
-       92 CALL                             R9 1 1
-       93 GETUPVAL                         R10 5
-       94 GETTABLEKS                       R10 R10 K25 ["Analytics"]
-       96 GETTABLEKS                       R10 R10 K1 ["mock"]
-       98 CALL                             R10 0 1
-       99 GETUPVAL                         R11 8
-      100 GETTABLEKS                       R11 R11 K4 ["new"]
-      102 GETUPVAL                         R12 9
-      103 GETTABLEKS                       R12 R12 K4 ["new"]
-      105 LOADK                            R13 K26 ["CalloutService"]
-      106 LOADB                            R14 1
-      107 CALL                             R12 2 1
-      108 NAMECALL                         R12 R12 K27 ["asService"]
-      110 CALL                             R12 1 -1
-      111 CALL                             R11 -1 1
-      112 DUPTABLE                         R12 K33 [{"focusGui", "plugin", "localization", "theme", "mouse", "store", "analytics", "pluginActions", "signals", "calloutController"}]
-      113 SETTABLEKS                       R2 R12 K2 ["focusGui"]
-      115 SETTABLEKS                       R3 R12 K11 ["plugin"]
-      117 SETTABLEKS                       R1 R12 K0 ["localization"]
-      119 SETTABLEKS                       R7 R12 K17 ["theme"]
-      121 SETTABLEKS                       R4 R12 K12 ["mouse"]
-      123 SETTABLEKS                       R6 R12 K28 ["store"]
-      125 SETTABLEKS                       R10 R12 K29 ["analytics"]
-      127 SETTABLEKS                       R8 R12 K30 ["pluginActions"]
-      129 SETTABLEKS                       R9 R12 K31 ["signals"]
-      131 SETTABLEKS                       R11 R12 K32 ["calloutController"]
-      133 RETURN                           R12 1
+       76 DUPTABLE                         R11 K23 [{["id"] = "rerunLastStory", ["text"] = "MOCK"}]
+       77 SETLIST                          R10 R11 1 [1]
+       79 CALL                             R8 2 1
+       80 GETUPVAL                         R9 6
+       81 GETTABLEKS                       R9 R9 K4 ["new"]
+       83 GETUPVAL                         R10 7
+       84 GETTABLEKS                       R10 R10 K24 ["SIGNAL_KEYS"]
+       86 CALL                             R9 1 1
+       87 GETUPVAL                         R10 5
+       88 GETTABLEKS                       R10 R10 K25 ["Analytics"]
+       90 GETTABLEKS                       R10 R10 K1 ["mock"]
+       92 CALL                             R10 0 1
+       93 GETUPVAL                         R11 8
+       94 GETTABLEKS                       R11 R11 K4 ["new"]
+       96 GETUPVAL                         R12 9
+       97 GETTABLEKS                       R12 R12 K4 ["new"]
+       99 LOADK                            R13 K26 ["CalloutService"]
+      100 LOADB                            R14 1
+      101 CALL                             R12 2 1
+      102 NAMECALL                         R12 R12 K27 ["asService"]
+      104 CALL                             R12 1 -1
+      105 CALL                             R11 -1 1
+      106 DUPTABLE                         R12 K33 [{"focusGui", "plugin", "localization", "theme", "mouse", "store", "analytics", "pluginActions", "signals", "calloutController"}]
+      107 SETTABLEKS                       R2 R12 K2 ["focusGui"]
+      109 SETTABLEKS                       R3 R12 K11 ["plugin"]
+      111 SETTABLEKS                       R1 R12 K0 ["localization"]
+      113 SETTABLEKS                       R7 R12 K17 ["theme"]
+      115 SETTABLEKS                       R4 R12 K12 ["mouse"]
+      117 SETTABLEKS                       R6 R12 K28 ["store"]
+      119 SETTABLEKS                       R10 R12 K29 ["analytics"]
+      121 SETTABLEKS                       R8 R12 K30 ["pluginActions"]
+      123 SETTABLEKS                       R9 R12 K31 ["signals"]
+      125 SETTABLEKS                       R11 R12 K32 ["calloutController"]
+      127 RETURN                           R12 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

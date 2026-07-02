@@ -72,58 +72,56 @@ PROTO_4:
        22 GETUPVAL                         R2 2
        23 GETTABLEKS                       R2 R2 K5 ["Localization"]
        25 GETTABLEKS                       R2 R2 K2 ["new"]
-       27 DUPTABLE                         R3 K9 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       27 DUPTABLE                         R3 K10 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PathEditor"}]
        28 GETUPVAL                         R4 3
        29 SETTABLEKS                       R4 R3 K6 ["stringResourceTable"]
        31 GETUPVAL                         R4 4
        32 SETTABLEKS                       R4 R3 K7 ["translationResourceTable"]
-       34 LOADK                            R4 K10 ["PathEditor"]
-       35 SETTABLEKS                       R4 R3 K8 ["pluginName"]
-       37 CALL                             R2 1 1
-       38 SETTABLEKS                       R2 R0 K11 ["localization"]
-       40 NEWCLOSURE                       R2 P0
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          UPVAL U5
-       43 CAPTURE                          UPVAL U6
-       44 SETTABLEKS                       R2 R0 K12 ["log"]
-       46 NEWCLOSURE                       R2 P1
-       47 CAPTURE                          UPVAL U7
-       48 CAPTURE                          VAL R0
-       49 CAPTURE                          UPVAL U8
-       50 SETTABLEKS                       R2 R0 K13 ["logUsageReport"]
-       52 GETUPVAL                         R2 9
-       53 GETTABLEKS                       R2 R2 K2 ["new"]
-       55 CALL                             R2 0 1
-       56 SETTABLEKS                       R2 R0 K14 ["telemetry"]
-       58 GETUPVAL                         R2 2
-       59 GETTABLEKS                       R2 R2 K15 ["Analytics"]
-       61 GETTABLEKS                       R2 R2 K2 ["new"]
-       63 DUPCLOSURE                       R3 K16 [PROTO_2]
-       64 NEWTABLE                         R4 0 0
-       66 CALL                             R2 2 1
-       67 SETTABLEKS                       R2 R0 K17 ["analytics"]
-       69 GETUPVAL                         R2 10
-       70 NAMECALL                         R2 R2 K18 ["IsClient"]
-       72 CALL                             R2 1 1
-       73 JUMPIF                           R2 ; [+9]
-       74 GETUPVAL                         R2 11
-       75 JUMPIF                           R2 ; [+7]
-       76 GETIMPORT                        R2 K20 [game]
-       78 NEWCLOSURE                       R4 P3
-       79 CAPTURE                          VAL R0
-       80 NAMECALL                         R2 R2 K21 ["BindToClose"]
-       82 CALL                             R2 2 0
-       83 GETUPVAL                         R2 2
-       84 GETTABLEKS                       R2 R2 K22 ["PluginActions"]
-       86 GETTABLEKS                       R2 R2 K2 ["new"]
-       88 GETTABLEKS                       R3 R1 K23 ["Plugin"]
-       90 GETUPVAL                         R4 12
-       91 GETTABLEKS                       R5 R1 K24 ["plugin"]
-       93 GETTABLEKS                       R6 R0 K11 ["localization"]
-       95 CALL                             R4 2 -1
-       96 CALL                             R2 -1 1
-       97 SETTABLEKS                       R2 R0 K25 ["actions"]
-       99 RETURN                           R0 0
+       34 CALL                             R2 1 1
+       35 SETTABLEKS                       R2 R0 K11 ["localization"]
+       37 NEWCLOSURE                       R2 P0
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U5
+       40 CAPTURE                          UPVAL U6
+       41 SETTABLEKS                       R2 R0 K12 ["log"]
+       43 NEWCLOSURE                       R2 P1
+       44 CAPTURE                          UPVAL U7
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          UPVAL U8
+       47 SETTABLEKS                       R2 R0 K13 ["logUsageReport"]
+       49 GETUPVAL                         R2 9
+       50 GETTABLEKS                       R2 R2 K2 ["new"]
+       52 CALL                             R2 0 1
+       53 SETTABLEKS                       R2 R0 K14 ["telemetry"]
+       55 GETUPVAL                         R2 2
+       56 GETTABLEKS                       R2 R2 K15 ["Analytics"]
+       58 GETTABLEKS                       R2 R2 K2 ["new"]
+       60 DUPCLOSURE                       R3 K16 [PROTO_2]
+       61 NEWTABLE                         R4 0 0
+       63 CALL                             R2 2 1
+       64 SETTABLEKS                       R2 R0 K17 ["analytics"]
+       66 GETUPVAL                         R2 10
+       67 NAMECALL                         R2 R2 K18 ["IsClient"]
+       69 CALL                             R2 1 1
+       70 JUMPIF                           R2 ; [+9]
+       71 GETUPVAL                         R2 11
+       72 JUMPIF                           R2 ; [+7]
+       73 GETIMPORT                        R2 K20 [game]
+       75 NEWCLOSURE                       R4 P3
+       76 CAPTURE                          VAL R0
+       77 NAMECALL                         R2 R2 K21 ["BindToClose"]
+       79 CALL                             R2 2 0
+       80 GETUPVAL                         R2 2
+       81 GETTABLEKS                       R2 R2 K22 ["PluginActions"]
+       83 GETTABLEKS                       R2 R2 K2 ["new"]
+       85 GETTABLEKS                       R3 R1 K23 ["Plugin"]
+       87 GETUPVAL                         R4 12
+       88 GETTABLEKS                       R5 R1 K24 ["plugin"]
+       90 GETTABLEKS                       R6 R0 K11 ["localization"]
+       92 CALL                             R4 2 -1
+       93 CALL                             R2 -1 1
+       94 SETTABLEKS                       R2 R0 K25 ["actions"]
+       96 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -157,54 +155,52 @@ PROTO_5:
        42 GETUPVAL                         R8 6
        43 GETTABLEKS                       R8 R8 K15 ["createElement"]
        45 LOADK                            R9 K16 ["Folder"]
-       46 DUPTABLE                         R10 K18 [{"Name"}]
-       47 LOADK                            R11 K13 ["PathEditFolder"]
-       48 SETTABLEKS                       R11 R10 K17 ["Name"]
-       50 DUPTABLE                         R11 K24 [{"ControlPointEditGui", "PathToolbar", "MoveBaseGui", "VisualizationGui", "AddPointComponent"}]
-       51 GETUPVAL                         R12 6
-       52 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       54 GETUPVAL                         R13 7
-       55 CALL                             R12 1 1
-       56 SETTABLEKS                       R12 R11 K19 ["ControlPointEditGui"]
-       58 GETUPVAL                         R12 6
-       59 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       61 GETUPVAL                         R13 8
-       62 CALL                             R12 1 1
-       63 SETTABLEKS                       R12 R11 K20 ["PathToolbar"]
-       65 GETUPVAL                         R12 6
-       66 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       68 GETUPVAL                         R13 9
-       69 CALL                             R12 1 1
-       70 SETTABLEKS                       R12 R11 K21 ["MoveBaseGui"]
-       72 GETUPVAL                         R12 6
-       73 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       75 GETUPVAL                         R13 10
-       76 CALL                             R12 1 1
-       77 SETTABLEKS                       R12 R11 K22 ["VisualizationGui"]
-       79 GETUPVAL                         R12 6
-       80 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       82 GETUPVAL                         R13 11
-       83 CALL                             R12 1 1
-       84 SETTABLEKS                       R12 R11 K23 ["AddPointComponent"]
-       86 CALL                             R8 3 1
-       87 SETTABLEKS                       R8 R7 K13 ["PathEditFolder"]
-       89 GETUPVAL                         R8 12
-       90 CALL                             R6 2 1
-       91 SETTABLEKS                       R6 R5 K9 ["Portal"]
-       93 GETUPVAL                         R6 6
-       94 GETTABLEKS                       R6 R6 K15 ["createElement"]
-       96 GETUPVAL                         R7 13
-       97 DUPTABLE                         R8 K26 [{"LogUsageReport"}]
-       98 GETUPVAL                         R10 14
-       99 JUMPIFNOT                        R10 ; [+3]
-      100 GETTABLEKS                       R9 R0 K27 ["logUsageReport"]
-      102 JUMP                             ; [+1]
-      103 LOADNIL                          R9
-      104 SETTABLEKS                       R9 R8 K25 ["LogUsageReport"]
-      106 CALL                             R6 2 1
-      107 SETTABLEKS                       R6 R5 K10 ["SelectionListener"]
-      109 CALL                             R3 2 -1
-      110 RETURN                           R3 -1
+       46 DUPTABLE                         R10 K18 [{["Name"] = "PathEditFolder"}]
+       47 DUPTABLE                         R11 K24 [{"ControlPointEditGui", "PathToolbar", "MoveBaseGui", "VisualizationGui", "AddPointComponent"}]
+       48 GETUPVAL                         R12 6
+       49 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       51 GETUPVAL                         R13 7
+       52 CALL                             R12 1 1
+       53 SETTABLEKS                       R12 R11 K19 ["ControlPointEditGui"]
+       55 GETUPVAL                         R12 6
+       56 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       58 GETUPVAL                         R13 8
+       59 CALL                             R12 1 1
+       60 SETTABLEKS                       R12 R11 K20 ["PathToolbar"]
+       62 GETUPVAL                         R12 6
+       63 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       65 GETUPVAL                         R13 9
+       66 CALL                             R12 1 1
+       67 SETTABLEKS                       R12 R11 K21 ["MoveBaseGui"]
+       69 GETUPVAL                         R12 6
+       70 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       72 GETUPVAL                         R13 10
+       73 CALL                             R12 1 1
+       74 SETTABLEKS                       R12 R11 K22 ["VisualizationGui"]
+       76 GETUPVAL                         R12 6
+       77 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       79 GETUPVAL                         R13 11
+       80 CALL                             R12 1 1
+       81 SETTABLEKS                       R12 R11 K23 ["AddPointComponent"]
+       83 CALL                             R8 3 1
+       84 SETTABLEKS                       R8 R7 K13 ["PathEditFolder"]
+       86 GETUPVAL                         R8 12
+       87 CALL                             R6 2 1
+       88 SETTABLEKS                       R6 R5 K9 ["Portal"]
+       90 GETUPVAL                         R6 6
+       91 GETTABLEKS                       R6 R6 K15 ["createElement"]
+       93 GETUPVAL                         R7 13
+       94 DUPTABLE                         R8 K26 [{"LogUsageReport"}]
+       95 GETUPVAL                         R10 14
+       96 JUMPIFNOT                        R10 ; [+3]
+       97 GETTABLEKS                       R9 R0 K27 ["logUsageReport"]
+       99 JUMP                             ; [+1]
+      100 LOADNIL                          R9
+      101 SETTABLEKS                       R9 R8 K25 ["LogUsageReport"]
+      103 CALL                             R6 2 1
+      104 SETTABLEKS                       R6 R5 K10 ["SelectionListener"]
+      106 CALL                             R3 2 -1
+      107 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

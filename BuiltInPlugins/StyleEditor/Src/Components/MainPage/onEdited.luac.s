@@ -42,10 +42,10 @@ PROTO_3:
        13 LOADK                            R4 K6 ["Edited row does not have a valid Instance associated"]
        14 CALL                             R3 1 0
        15 RETURN                           R0 0
-       16 JUMPIFNOT                        R2 ; [+129]
+       16 JUMPIFNOT                        R2 ; [+120]
        17 GETTABLEKS                       R3 R0 K7 ["newValue"]
        19 GETTABLEKS                       R4 R2 K8 ["Name"]
-       21 JUMPIFEQ                         R4 R3 ; [+102]
+       21 JUMPIFEQ                         R4 R3 ; [+96]
        23 LOADK                            R6 K9 ["StyleRule"]
        24 NAMECALL                         R4 R2 K10 ["IsA"]
        26 CALL                             R4 2 1
@@ -96,11 +96,11 @@ PROTO_3:
        81 CAPTURE                          VAL R0
        82 CAPTURE                          UPVAL U4
        83 CALL                             R8 1 0
-       84 JUMP                             ; [+60]
-       85 JUMPIFNOT                        R4 ; [+59]
-       86 JUMPIFNOT                        R6 ; [+58]
-       87 JUMPIFNOT                        R5 ; [+57]
-       88 JUMPIFNOT                        R7 ; [+56]
+       84 JUMP                             ; [+51]
+       85 JUMPIFNOT                        R4 ; [+50]
+       86 JUMPIFNOT                        R6 ; [+49]
+       87 JUMPIFNOT                        R5 ; [+48]
+       88 JUMPIFNOT                        R7 ; [+47]
        89 GETUPVAL                         R8 2
        90 GETTABLEKS                       R8 R8 K19 ["syncQueryRuleSelectors"]
        92 GETTABLEKS                       R9 R1 K3 ["Instance"]
@@ -108,44 +108,38 @@ PROTO_3:
        95 GETTABLEKS                       R11 R7 K8 ["Name"]
        97 GETTABLEKS                       R12 R0 K15 ["dispatch"]
        99 CALL                             R8 4 0
-      100 JUMP                             ; [+44]
+      100 JUMP                             ; [+35]
       101 GETTABLEKS                       R4 R0 K15 ["dispatch"]
       103 GETUPVAL                         R5 3
       104 MOVE                             R6 R2
       105 MOVE                             R7 R3
       106 CALL                             R5 2 -1
       107 CALL                             R4 -1 0
-      108 JUMP                             ; [+36]
+      108 JUMP                             ; [+27]
       109 GETUPVAL                         R4 5
-      110 DUPTABLE                         R5 K22 [{"Name", "DisplayName", "DoChange"}]
-      111 LOADK                            R6 K23 ["StyleEditor.EditInstanceName"]
-      112 SETTABLEKS                       R6 R5 K8 ["Name"]
-      114 LOADK                            R6 K24 ["Style Editor - Edit Instance Name"]
-      115 SETTABLEKS                       R6 R5 K20 ["DisplayName"]
-      117 NEWCLOSURE                       R6 P1
-      118 CAPTURE                          VAL R2
-      119 CAPTURE                          REF R3
-      120 SETTABLEKS                       R6 R5 K21 ["DoChange"]
-      122 CALL                             R4 1 0
-      123 JUMP                             ; [+21]
-      124 DUPTABLE                         R4 K26 [{"Schema"}]
-      125 GETUPVAL                         R5 6
-      126 GETTABLEKS                       R6 R1 K8 ["Name"]
-      128 GETTABLEKS                       R6 R6 K25 ["Schema"]
-      130 DUPTABLE                         R7 K28 [{"Editing"}]
-      131 LOADB                            R8 0
-      132 SETTABLEKS                       R8 R7 K27 ["Editing"]
-      134 CALL                             R5 2 1
-      135 SETTABLEKS                       R5 R4 K25 ["Schema"]
-      137 GETTABLEKS                       R5 R0 K29 ["setState"]
-      139 NEWCLOSURE                       R6 P2
-      140 CAPTURE                          UPVAL U0
-      141 CAPTURE                          VAL R4
-      142 CAPTURE                          VAL R0
-      143 CAPTURE                          UPVAL U7
-      144 CALL                             R5 1 0
-      145 CLOSEUPVALS                      R3
-      146 RETURN                           R0 0
+      110 DUPTABLE                         R5 K24 [{["Name"] = "StyleEditor.EditInstanceName", ["DisplayName"] = "Style Editor - Edit Instance Name", ["DoChange"]}]
+      111 NEWCLOSURE                       R6 P1
+      112 CAPTURE                          VAL R2
+      113 CAPTURE                          REF R3
+      114 SETTABLEKS                       R6 R5 K23 ["DoChange"]
+      116 CALL                             R4 1 0
+      117 JUMP                             ; [+18]
+      118 DUPTABLE                         R4 K26 [{"Schema"}]
+      119 GETUPVAL                         R5 6
+      120 GETTABLEKS                       R6 R1 K8 ["Name"]
+      122 GETTABLEKS                       R6 R6 K25 ["Schema"]
+      124 DUPTABLE                         R7 K29 [{["Editing"] = False}]
+      125 CALL                             R5 2 1
+      126 SETTABLEKS                       R5 R4 K25 ["Schema"]
+      128 GETTABLEKS                       R5 R0 K30 ["setState"]
+      130 NEWCLOSURE                       R6 P2
+      131 CAPTURE                          UPVAL U0
+      132 CAPTURE                          VAL R4
+      133 CAPTURE                          VAL R0
+      134 CAPTURE                          UPVAL U7
+      135 CALL                             R5 1 0
+      136 CLOSEUPVALS                      R3
+      137 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

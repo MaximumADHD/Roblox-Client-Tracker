@@ -253,189 +253,151 @@ PROTO_10:
       117 GETUPVAL                         R16 3
       118 GETTABLEKS                       R16 R16 K14 ["createElement"]
       120 GETUPVAL                         R17 5
-      121 DUPTABLE                         R18 K37 [{"Label", "Value", "Min", "Max", "Precision", "Size", "DragRange", "LayoutOrder", "OnInputBegan", "OnInputChanged", "OnInputEnded"}]
+      121 DUPTABLE                         R18 K40 [{["Label"], ["Value"], ["Min"], ["Max"] = 0, ["Precision"], ["Size"] = 25, ["DragRange"] = 70, ["LayoutOrder"], ["OnInputBegan"], ["OnInputChanged"], ["OnInputEnded"]}]
       122 LOADK                            R21 K27 ["Label"]
       123 JUMPIFNOT                        R2 ; [+2]
       124 LOADK                            R22 K7 ["Threshold"]
       125 JUMP                             ; [+1]
-      126 LOADK                            R22 K38 ["MaxLevel"]
-      127 NAMECALL                         R19 R4 K39 ["getText"]
+      126 LOADK                            R22 K41 ["MaxLevel"]
+      127 NAMECALL                         R19 R4 K42 ["getText"]
       129 CALL                             R19 3 1
       130 SETTABLEKS                       R19 R18 K27 ["Label"]
-      132 GETTABLEKS                       R19 R1 K40 ["threshold"]
+      132 GETTABLEKS                       R19 R1 K43 ["threshold"]
       134 SETTABLEKS                       R19 R18 K28 ["Value"]
       136 JUMPIFNOT                        R2 ; [+2]
-      137 LOADN                            R19 196
+      137 LOADN                            R19 -60
       138 JUMP                             ; [+1]
-      139 LOADN                            R19 244
+      139 LOADN                            R19 -12
       140 SETTABLEKS                       R19 R18 K29 ["Min"]
-      142 LOADN                            R19 0
-      143 SETTABLEKS                       R19 R18 K30 ["Max"]
-      145 JUMPIFNOT                        R2 ; [+2]
-      146 LOADN                            R19 1
-      147 JUMP                             ; [+1]
-      148 LOADN                            R19 2
-      149 SETTABLEKS                       R19 R18 K31 ["Precision"]
-      151 LOADN                            R19 25
-      152 SETTABLEKS                       R19 R18 K18 ["Size"]
-      154 LOADN                            R19 70
-      155 SETTABLEKS                       R19 R18 K32 ["DragRange"]
-      157 GETUPVAL                         R19 6
-      158 NAMECALL                         R19 R19 K41 ["getNextOrder"]
-      160 CALL                             R19 1 1
-      161 SETTABLEKS                       R19 R18 K33 ["LayoutOrder"]
-      163 SETTABLEKS                       R6 R18 K34 ["OnInputBegan"]
-      165 GETTABLEKS                       R19 R1 K42 ["setThreshold"]
-      167 SETTABLEKS                       R19 R18 K35 ["OnInputChanged"]
-      169 SETTABLEKS                       R11 R18 K36 ["OnInputEnded"]
-      171 CALL                             R16 2 1
-      172 SETTABLEKS                       R16 R15 K21 ["ThresholdKnob"]
-      174 MOVE                             R16 R2
-      175 JUMPIFNOT                        R16 ; [+49]
-      176 GETUPVAL                         R16 3
-      177 GETTABLEKS                       R16 R16 K14 ["createElement"]
-      179 GETUPVAL                         R17 5
-      180 DUPTABLE                         R18 K45 [{"Label", "Value", "Min", "Max", "CurveFunction", "InverseCurveFunction", "Size", "DragRange", "LayoutOrder", "OnInputBegan", "OnInputChanged", "OnInputEnded"}]
-      181 LOADK                            R21 K27 ["Label"]
-      182 LOADK                            R22 K9 ["Ratio"]
-      183 NAMECALL                         R19 R4 K39 ["getText"]
-      185 CALL                             R19 3 1
-      186 SETTABLEKS                       R19 R18 K27 ["Label"]
-      188 GETTABLEKS                       R19 R1 K46 ["ratio"]
-      190 SETTABLEKS                       R19 R18 K28 ["Value"]
-      192 LOADN                            R19 1
-      193 SETTABLEKS                       R19 R18 K29 ["Min"]
-      195 LOADN                            R19 40
-      196 SETTABLEKS                       R19 R18 K30 ["Max"]
-      198 GETUPVAL                         R19 7
-      199 SETTABLEKS                       R19 R18 K43 ["CurveFunction"]
-      201 GETUPVAL                         R19 8
-      202 SETTABLEKS                       R19 R18 K44 ["InverseCurveFunction"]
-      204 LOADN                            R19 25
-      205 SETTABLEKS                       R19 R18 K18 ["Size"]
-      207 LOADN                            R19 70
-      208 SETTABLEKS                       R19 R18 K32 ["DragRange"]
-      210 GETUPVAL                         R19 6
-      211 NAMECALL                         R19 R19 K41 ["getNextOrder"]
-      213 CALL                             R19 1 1
-      214 SETTABLEKS                       R19 R18 K33 ["LayoutOrder"]
-      216 SETTABLEKS                       R7 R18 K34 ["OnInputBegan"]
-      218 GETTABLEKS                       R19 R1 K47 ["setRatio"]
-      220 SETTABLEKS                       R19 R18 K35 ["OnInputChanged"]
-      222 SETTABLEKS                       R11 R18 K36 ["OnInputEnded"]
-      224 CALL                             R16 2 1
-      225 SETTABLEKS                       R16 R15 K22 ["RatioKnob"]
-      227 MOVE                             R16 R2
-      228 JUMPIFNOT                        R16 ; [+52]
-      229 GETUPVAL                         R16 3
-      230 GETTABLEKS                       R16 R16 K14 ["createElement"]
-      232 GETUPVAL                         R17 5
-      233 DUPTABLE                         R18 K48 [{"Label", "Value", "Min", "Max", "Precision", "CurveFunction", "InverseCurveFunction", "Size", "DragRange", "LayoutOrder", "OnInputBegan", "OnInputChanged", "OnInputEnded"}]
-      234 LOADK                            R21 K27 ["Label"]
-      235 LOADK                            R22 K10 ["Attack"]
-      236 NAMECALL                         R19 R4 K39 ["getText"]
-      238 CALL                             R19 3 1
-      239 SETTABLEKS                       R19 R18 K27 ["Label"]
-      241 GETTABLEKS                       R19 R1 K49 ["attack"]
-      243 SETTABLEKS                       R19 R18 K28 ["Value"]
-      245 LOADK                            R19 K50 [0.0001]
-      246 SETTABLEKS                       R19 R18 K29 ["Min"]
-      248 LOADK                            R19 K51 [0.5]
-      249 SETTABLEKS                       R19 R18 K30 ["Max"]
-      251 LOADN                            R19 3
-      252 SETTABLEKS                       R19 R18 K31 ["Precision"]
-      254 GETUPVAL                         R19 9
-      255 SETTABLEKS                       R19 R18 K43 ["CurveFunction"]
-      257 GETUPVAL                         R19 10
-      258 SETTABLEKS                       R19 R18 K44 ["InverseCurveFunction"]
-      260 LOADN                            R19 25
-      261 SETTABLEKS                       R19 R18 K18 ["Size"]
-      263 LOADN                            R19 70
-      264 SETTABLEKS                       R19 R18 K32 ["DragRange"]
-      266 GETUPVAL                         R19 6
-      267 NAMECALL                         R19 R19 K41 ["getNextOrder"]
-      269 CALL                             R19 1 1
-      270 SETTABLEKS                       R19 R18 K33 ["LayoutOrder"]
-      272 SETTABLEKS                       R8 R18 K34 ["OnInputBegan"]
-      274 GETTABLEKS                       R19 R1 K52 ["setAttack"]
-      276 SETTABLEKS                       R19 R18 K35 ["OnInputChanged"]
-      278 SETTABLEKS                       R11 R18 K36 ["OnInputEnded"]
-      280 CALL                             R16 2 1
-      281 SETTABLEKS                       R16 R15 K23 ["AttackKnob"]
-      283 GETUPVAL                         R16 3
-      284 GETTABLEKS                       R16 R16 K14 ["createElement"]
-      286 GETUPVAL                         R17 5
-      287 DUPTABLE                         R18 K48 [{"Label", "Value", "Min", "Max", "Precision", "CurveFunction", "InverseCurveFunction", "Size", "DragRange", "LayoutOrder", "OnInputBegan", "OnInputChanged", "OnInputEnded"}]
-      288 LOADK                            R21 K27 ["Label"]
-      289 LOADK                            R22 K11 ["Release"]
-      290 NAMECALL                         R19 R4 K39 ["getText"]
-      292 CALL                             R19 3 1
-      293 SETTABLEKS                       R19 R18 K27 ["Label"]
-      295 GETTABLEKS                       R19 R1 K53 ["release"]
-      297 SETTABLEKS                       R19 R18 K28 ["Value"]
-      299 JUMPIFNOT                        R2 ; [+2]
-      300 LOADK                            R19 K54 [0.01]
-      301 JUMP                             ; [+1]
-      302 LOADK                            R19 K55 [0.001]
-      303 SETTABLEKS                       R19 R18 K29 ["Min"]
-      305 JUMPIFNOT                        R2 ; [+2]
-      306 LOADN                            R19 5
-      307 JUMP                             ; [+1]
-      308 LOADN                            R19 1
-      309 SETTABLEKS                       R19 R18 K30 ["Max"]
-      311 LOADN                            R19 3
-      312 SETTABLEKS                       R19 R18 K31 ["Precision"]
-      314 GETUPVAL                         R19 11
-      315 SETTABLEKS                       R19 R18 K43 ["CurveFunction"]
-      317 GETUPVAL                         R19 12
-      318 SETTABLEKS                       R19 R18 K44 ["InverseCurveFunction"]
-      320 LOADN                            R19 25
-      321 SETTABLEKS                       R19 R18 K18 ["Size"]
-      323 LOADN                            R19 70
-      324 SETTABLEKS                       R19 R18 K32 ["DragRange"]
-      326 GETUPVAL                         R19 6
-      327 NAMECALL                         R19 R19 K41 ["getNextOrder"]
-      329 CALL                             R19 1 1
-      330 SETTABLEKS                       R19 R18 K33 ["LayoutOrder"]
-      332 SETTABLEKS                       R9 R18 K34 ["OnInputBegan"]
-      334 GETTABLEKS                       R19 R1 K56 ["setRelease"]
-      336 SETTABLEKS                       R19 R18 K35 ["OnInputChanged"]
-      338 SETTABLEKS                       R11 R18 K36 ["OnInputEnded"]
-      340 CALL                             R16 2 1
-      341 SETTABLEKS                       R16 R15 K24 ["ReleaseKnob"]
-      343 MOVE                             R16 R2
-      344 JUMPIFNOT                        R16 ; [+43]
-      345 GETUPVAL                         R16 3
-      346 GETTABLEKS                       R16 R16 K14 ["createElement"]
-      348 GETUPVAL                         R17 5
-      349 DUPTABLE                         R18 K57 [{"Label", "Value", "Min", "Max", "Size", "DragRange", "LayoutOrder", "OnInputBegan", "OnInputChanged", "OnInputEnded"}]
-      350 LOADK                            R21 K27 ["Label"]
-      351 LOADK                            R22 K12 ["MakeupGain"]
-      352 NAMECALL                         R19 R4 K39 ["getText"]
-      354 CALL                             R19 3 1
-      355 SETTABLEKS                       R19 R18 K27 ["Label"]
-      357 GETTABLEKS                       R19 R1 K58 ["makeupGain"]
-      359 SETTABLEKS                       R19 R18 K28 ["Value"]
-      361 LOADN                            R19 226
-      362 SETTABLEKS                       R19 R18 K29 ["Min"]
-      364 LOADN                            R19 30
-      365 SETTABLEKS                       R19 R18 K30 ["Max"]
-      367 LOADN                            R19 25
-      368 SETTABLEKS                       R19 R18 K18 ["Size"]
-      370 LOADN                            R19 70
-      371 SETTABLEKS                       R19 R18 K32 ["DragRange"]
-      373 GETUPVAL                         R19 6
-      374 NAMECALL                         R19 R19 K41 ["getNextOrder"]
-      376 CALL                             R19 1 1
-      377 SETTABLEKS                       R19 R18 K33 ["LayoutOrder"]
-      379 SETTABLEKS                       R10 R18 K34 ["OnInputBegan"]
-      381 GETTABLEKS                       R19 R1 K59 ["setMakeupGain"]
-      383 SETTABLEKS                       R19 R18 K35 ["OnInputChanged"]
-      385 SETTABLEKS                       R11 R18 K36 ["OnInputEnded"]
-      387 CALL                             R16 2 1
-      388 SETTABLEKS                       R16 R15 K25 ["MakeupGainKnob"]
-      390 CALL                             R12 3 -1
-      391 RETURN                           R12 -1
+      142 JUMPIFNOT                        R2 ; [+2]
+      143 LOADN                            R19 1
+      144 JUMP                             ; [+1]
+      145 LOADN                            R19 2
+      146 SETTABLEKS                       R19 R18 K32 ["Precision"]
+      148 GETUPVAL                         R19 6
+      149 NAMECALL                         R19 R19 K44 ["getNextOrder"]
+      151 CALL                             R19 1 1
+      152 SETTABLEKS                       R19 R18 K36 ["LayoutOrder"]
+      154 SETTABLEKS                       R6 R18 K37 ["OnInputBegan"]
+      156 GETTABLEKS                       R19 R1 K45 ["setThreshold"]
+      158 SETTABLEKS                       R19 R18 K38 ["OnInputChanged"]
+      160 SETTABLEKS                       R11 R18 K39 ["OnInputEnded"]
+      162 CALL                             R16 2 1
+      163 SETTABLEKS                       R16 R15 K21 ["ThresholdKnob"]
+      165 MOVE                             R16 R2
+      166 JUMPIFNOT                        R16 ; [+37]
+      167 GETUPVAL                         R16 3
+      168 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      170 GETUPVAL                         R17 5
+      171 DUPTABLE                         R18 K50 [{["Label"], ["Value"], ["Min"] = 1, ["Max"] = 40, ["CurveFunction"], ["InverseCurveFunction"], ["Size"] = 25, ["DragRange"] = 70, ["LayoutOrder"], ["OnInputBegan"], ["OnInputChanged"], ["OnInputEnded"]}]
+      172 LOADK                            R21 K27 ["Label"]
+      173 LOADK                            R22 K9 ["Ratio"]
+      174 NAMECALL                         R19 R4 K42 ["getText"]
+      176 CALL                             R19 3 1
+      177 SETTABLEKS                       R19 R18 K27 ["Label"]
+      179 GETTABLEKS                       R19 R1 K51 ["ratio"]
+      181 SETTABLEKS                       R19 R18 K28 ["Value"]
+      183 GETUPVAL                         R19 7
+      184 SETTABLEKS                       R19 R18 K48 ["CurveFunction"]
+      186 GETUPVAL                         R19 8
+      187 SETTABLEKS                       R19 R18 K49 ["InverseCurveFunction"]
+      189 GETUPVAL                         R19 6
+      190 NAMECALL                         R19 R19 K44 ["getNextOrder"]
+      192 CALL                             R19 1 1
+      193 SETTABLEKS                       R19 R18 K36 ["LayoutOrder"]
+      195 SETTABLEKS                       R7 R18 K37 ["OnInputBegan"]
+      197 GETTABLEKS                       R19 R1 K52 ["setRatio"]
+      199 SETTABLEKS                       R19 R18 K38 ["OnInputChanged"]
+      201 SETTABLEKS                       R11 R18 K39 ["OnInputEnded"]
+      203 CALL                             R16 2 1
+      204 SETTABLEKS                       R16 R15 K22 ["RatioKnob"]
+      206 MOVE                             R16 R2
+      207 JUMPIFNOT                        R16 ; [+37]
+      208 GETUPVAL                         R16 3
+      209 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      211 GETUPVAL                         R17 5
+      212 DUPTABLE                         R18 K56 [{["Label"], ["Value"], ["Min"] = 0.0001, ["Max"] = 0.5, ["Precision"] = 3, ["CurveFunction"], ["InverseCurveFunction"], ["Size"] = 25, ["DragRange"] = 70, ["LayoutOrder"], ["OnInputBegan"], ["OnInputChanged"], ["OnInputEnded"]}]
+      213 LOADK                            R21 K27 ["Label"]
+      214 LOADK                            R22 K10 ["Attack"]
+      215 NAMECALL                         R19 R4 K42 ["getText"]
+      217 CALL                             R19 3 1
+      218 SETTABLEKS                       R19 R18 K27 ["Label"]
+      220 GETTABLEKS                       R19 R1 K57 ["attack"]
+      222 SETTABLEKS                       R19 R18 K28 ["Value"]
+      224 GETUPVAL                         R19 9
+      225 SETTABLEKS                       R19 R18 K48 ["CurveFunction"]
+      227 GETUPVAL                         R19 10
+      228 SETTABLEKS                       R19 R18 K49 ["InverseCurveFunction"]
+      230 GETUPVAL                         R19 6
+      231 NAMECALL                         R19 R19 K44 ["getNextOrder"]
+      233 CALL                             R19 1 1
+      234 SETTABLEKS                       R19 R18 K36 ["LayoutOrder"]
+      236 SETTABLEKS                       R8 R18 K37 ["OnInputBegan"]
+      238 GETTABLEKS                       R19 R1 K58 ["setAttack"]
+      240 SETTABLEKS                       R19 R18 K38 ["OnInputChanged"]
+      242 SETTABLEKS                       R11 R18 K39 ["OnInputEnded"]
+      244 CALL                             R16 2 1
+      245 SETTABLEKS                       R16 R15 K23 ["AttackKnob"]
+      247 GETUPVAL                         R16 3
+      248 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      250 GETUPVAL                         R17 5
+      251 DUPTABLE                         R18 K59 [{["Label"], ["Value"], ["Min"], ["Max"], ["Precision"] = 3, ["CurveFunction"], ["InverseCurveFunction"], ["Size"] = 25, ["DragRange"] = 70, ["LayoutOrder"], ["OnInputBegan"], ["OnInputChanged"], ["OnInputEnded"]}]
+      252 LOADK                            R21 K27 ["Label"]
+      253 LOADK                            R22 K11 ["Release"]
+      254 NAMECALL                         R19 R4 K42 ["getText"]
+      256 CALL                             R19 3 1
+      257 SETTABLEKS                       R19 R18 K27 ["Label"]
+      259 GETTABLEKS                       R19 R1 K60 ["release"]
+      261 SETTABLEKS                       R19 R18 K28 ["Value"]
+      263 JUMPIFNOT                        R2 ; [+2]
+      264 LOADK                            R19 K61 [0.01]
+      265 JUMP                             ; [+1]
+      266 LOADK                            R19 K62 [0.001]
+      267 SETTABLEKS                       R19 R18 K29 ["Min"]
+      269 JUMPIFNOT                        R2 ; [+2]
+      270 LOADN                            R19 5
+      271 JUMP                             ; [+1]
+      272 LOADN                            R19 1
+      273 SETTABLEKS                       R19 R18 K30 ["Max"]
+      275 GETUPVAL                         R19 11
+      276 SETTABLEKS                       R19 R18 K48 ["CurveFunction"]
+      278 GETUPVAL                         R19 12
+      279 SETTABLEKS                       R19 R18 K49 ["InverseCurveFunction"]
+      281 GETUPVAL                         R19 6
+      282 NAMECALL                         R19 R19 K44 ["getNextOrder"]
+      284 CALL                             R19 1 1
+      285 SETTABLEKS                       R19 R18 K36 ["LayoutOrder"]
+      287 SETTABLEKS                       R9 R18 K37 ["OnInputBegan"]
+      289 GETTABLEKS                       R19 R1 K63 ["setRelease"]
+      291 SETTABLEKS                       R19 R18 K38 ["OnInputChanged"]
+      293 SETTABLEKS                       R11 R18 K39 ["OnInputEnded"]
+      295 CALL                             R16 2 1
+      296 SETTABLEKS                       R16 R15 K24 ["ReleaseKnob"]
+      298 MOVE                             R16 R2
+      299 JUMPIFNOT                        R16 ; [+31]
+      300 GETUPVAL                         R16 3
+      301 GETTABLEKS                       R16 R16 K14 ["createElement"]
+      303 GETUPVAL                         R17 5
+      304 DUPTABLE                         R18 K66 [{["Label"], ["Value"], ["Min"] = -30, ["Max"] = 30, ["Size"] = 25, ["DragRange"] = 70, ["LayoutOrder"], ["OnInputBegan"], ["OnInputChanged"], ["OnInputEnded"]}]
+      305 LOADK                            R21 K27 ["Label"]
+      306 LOADK                            R22 K12 ["MakeupGain"]
+      307 NAMECALL                         R19 R4 K42 ["getText"]
+      309 CALL                             R19 3 1
+      310 SETTABLEKS                       R19 R18 K27 ["Label"]
+      312 GETTABLEKS                       R19 R1 K67 ["makeupGain"]
+      314 SETTABLEKS                       R19 R18 K28 ["Value"]
+      316 GETUPVAL                         R19 6
+      317 NAMECALL                         R19 R19 K44 ["getNextOrder"]
+      319 CALL                             R19 1 1
+      320 SETTABLEKS                       R19 R18 K36 ["LayoutOrder"]
+      322 SETTABLEKS                       R10 R18 K37 ["OnInputBegan"]
+      324 GETTABLEKS                       R19 R1 K68 ["setMakeupGain"]
+      326 SETTABLEKS                       R19 R18 K38 ["OnInputChanged"]
+      328 SETTABLEKS                       R11 R18 K39 ["OnInputEnded"]
+      330 CALL                             R16 2 1
+      331 SETTABLEKS                       R16 R15 K25 ["MakeupGainKnob"]
+      333 CALL                             R12 3 -1
+      334 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

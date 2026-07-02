@@ -28,52 +28,44 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R4 0
-        1 DUPTABLE                         R5 K4 [{"analyticsEventType", "bubblesSeenOnSessionEndCount", "placeId", "universeId"}]
-        2 LOADK                            R6 K5 ["bubblesSeenOnSessionEnd"]
-        3 SETTABLEKS                       R6 R5 K0 ["analyticsEventType"]
-        5 SETTABLEKS                       R1 R5 K1 ["bubblesSeenOnSessionEndCount"]
-        7 SETTABLEKS                       R2 R5 K2 ["placeId"]
-        9 SETTABLEKS                       R3 R5 K3 ["universeId"]
-       11 CALL                             R4 1 0
-       12 RETURN                           R0 0
+        1 DUPTABLE                         R5 K5 [{[1] = "bubblesSeenOnSessionEnd", ["bubblesSeenOnSessionEndCount"], ["placeId"], ["universeId"]}]
+        2 SETTABLEKS                       R1 R5 K2 ["bubblesSeenOnSessionEndCount"]
+        4 SETTABLEKS                       R2 R5 K3 ["placeId"]
+        6 SETTABLEKS                       R3 R5 K4 ["universeId"]
+        8 CALL                             R4 1 0
+        9 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R5 0
-        1 DUPTABLE                         R6 K5 [{"analyticsEventType", "eventtype", "deeplinktype", "placeId", "universeId"}]
-        2 LOADK                            R7 K6 ["deeplink"]
-        3 SETTABLEKS                       R7 R6 K0 ["analyticsEventType"]
-        5 SETTABLEKS                       R1 R6 K1 ["eventtype"]
-        7 SETTABLEKS                       R2 R6 K2 ["deeplinktype"]
-        9 SETTABLEKS                       R3 R6 K3 ["placeId"]
-       11 SETTABLEKS                       R4 R6 K4 ["universeId"]
-       13 CALL                             R5 1 0
-       14 RETURN                           R0 0
+        1 DUPTABLE                         R6 K6 [{[1] = "deeplink", ["eventtype"], ["deeplinktype"], ["placeId"], ["universeId"]}]
+        2 SETTABLEKS                       R1 R6 K2 ["eventtype"]
+        4 SETTABLEKS                       R2 R6 K3 ["deeplinktype"]
+        6 SETTABLEKS                       R3 R6 K4 ["placeId"]
+        8 SETTABLEKS                       R4 R6 K5 ["universeId"]
+       10 CALL                             R5 1 0
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R9 0
-        1 DUPTABLE                         R10 K9 [{"analyticsEventType", "filterUsersNumSelected", "filterUsersNumOptions", "filterEventCategoriesNumSelected", "filterEventCategoriesNumOptions", "filterEventCategoriesSelected", "filterJumpToDaysAgo", "placeId", "universeId"}]
-        2 LOADK                            R11 K10 ["applyFilters"]
-        3 SETTABLEKS                       R11 R10 K0 ["analyticsEventType"]
-        5 SETTABLEKS                       R1 R10 K1 ["filterUsersNumSelected"]
-        7 SETTABLEKS                       R2 R10 K2 ["filterUsersNumOptions"]
-        9 SETTABLEKS                       R3 R10 K3 ["filterEventCategoriesNumSelected"]
-       11 SETTABLEKS                       R4 R10 K4 ["filterEventCategoriesNumOptions"]
-       13 SETTABLEKS                       R5 R10 K5 ["filterEventCategoriesSelected"]
-       15 SETTABLEKS                       R6 R10 K6 ["filterJumpToDaysAgo"]
-       17 SETTABLEKS                       R7 R10 K7 ["placeId"]
-       19 SETTABLEKS                       R8 R10 K8 ["universeId"]
-       21 CALL                             R9 1 0
-       22 RETURN                           R0 0
+        1 DUPTABLE                         R10 K10 [{[1] = "applyFilters", ["filterUsersNumSelected"], ["filterUsersNumOptions"], ["filterEventCategoriesNumSelected"], ["filterEventCategoriesNumOptions"], ["filterEventCategoriesSelected"], ["filterJumpToDaysAgo"], ["placeId"], ["universeId"]}]
+        2 SETTABLEKS                       R1 R10 K2 ["filterUsersNumSelected"]
+        4 SETTABLEKS                       R2 R10 K3 ["filterUsersNumOptions"]
+        6 SETTABLEKS                       R3 R10 K4 ["filterEventCategoriesNumSelected"]
+        8 SETTABLEKS                       R4 R10 K5 ["filterEventCategoriesNumOptions"]
+       10 SETTABLEKS                       R5 R10 K6 ["filterEventCategoriesSelected"]
+       12 SETTABLEKS                       R6 R10 K7 ["filterJumpToDaysAgo"]
+       14 SETTABLEKS                       R7 R10 K8 ["placeId"]
+       16 SETTABLEKS                       R8 R10 K9 ["universeId"]
+       18 CALL                             R9 1 0
+       19 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R3 0
-        1 DUPTABLE                         R4 K3 [{"analyticsEventType", "placeId", "universeId"}]
-        2 LOADK                            R5 K4 ["clearFilters"]
-        3 SETTABLEKS                       R5 R4 K0 ["analyticsEventType"]
-        5 SETTABLEKS                       R1 R4 K1 ["placeId"]
-        7 SETTABLEKS                       R2 R4 K2 ["universeId"]
-        9 CALL                             R3 1 0
-       10 RETURN                           R0 0
+        1 DUPTABLE                         R4 K4 [{[1] = "clearFilters", ["placeId"], ["universeId"]}]
+        2 SETTABLEKS                       R1 R4 K2 ["placeId"]
+        4 SETTABLEKS                       R2 R4 K3 ["universeId"]
+        6 CALL                             R3 1 0
+        7 RETURN                           R0 0
 
 PROTO_5:
         0 NEWCLOSURE                       R1 P0

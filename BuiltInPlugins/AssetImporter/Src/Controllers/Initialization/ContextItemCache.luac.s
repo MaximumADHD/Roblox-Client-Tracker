@@ -13,112 +13,110 @@ PROTO_0:
        15 GETIMPORT                        R4 K6 [Instance.new]
        17 LOADK                            R5 K7 ["StyleSheet"]
        18 CALL                             R4 1 1
-       19 JUMPIFNOT                        R2 ; [+15]
+       19 JUMPIFNOT                        R2 ; [+12]
        20 GETUPVAL                         R5 1
        21 GETTABLEKS                       R5 R5 K5 ["new"]
-       23 DUPTABLE                         R6 K11 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       23 DUPTABLE                         R6 K12 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetImporter"}]
        24 GETUPVAL                         R7 2
        25 SETTABLEKS                       R7 R6 K8 ["stringResourceTable"]
        27 GETUPVAL                         R7 3
        28 SETTABLEKS                       R7 R6 K9 ["translationResourceTable"]
-       30 LOADK                            R7 K12 ["AssetImporter"]
-       31 SETTABLEKS                       R7 R6 K10 ["pluginName"]
-       33 CALL                             R5 1 1
-       34 JUMP                             ; [+4]
-       35 GETUPVAL                         R5 1
-       36 GETTABLEKS                       R5 R5 K13 ["mock"]
-       38 CALL                             R5 0 1
-       39 GETUPVAL                         R6 4
-       40 GETTABLEKS                       R6 R6 K5 ["new"]
-       42 MOVE                             R7 R3
-       43 MOVE                             R8 R1
-       44 MOVE                             R9 R5
-       45 CALL                             R6 3 1
-       46 GETUPVAL                         R7 5
-       47 GETTABLEKS                       R7 R7 K5 ["new"]
-       49 CALL                             R7 0 1
-       50 GETUPVAL                         R8 6
-       51 GETTABLEKS                       R8 R8 K5 ["new"]
-       53 MOVE                             R9 R7
-       54 CALL                             R8 1 1
-       55 DUPTABLE                         R9 K26 [{"Plugin", "PluginLoaderContextItem", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "FileController", "UploadController", "PresetController", "Networking"}]
-       56 GETUPVAL                         R10 7
-       57 GETTABLEKS                       R10 R10 K14 ["Plugin"]
-       59 GETTABLEKS                       R10 R10 K5 ["new"]
-       61 MOVE                             R11 R3
-       62 CALL                             R10 1 1
-       63 SETTABLEKS                       R10 R9 K14 ["Plugin"]
-       65 GETTABLEKS                       R10 R0 K27 ["loader"]
-       67 SETTABLEKS                       R10 R9 K15 ["PluginLoaderContextItem"]
-       69 JUMPIFNOT                        R2 ; [+6]
-       70 GETUPVAL                         R10 8
-       71 GETTABLEKS                       R10 R10 K5 ["new"]
-       73 MOVE                             R11 R4
-       74 CALL                             R10 1 1
-       75 JUMP                             ; [+5]
-       76 GETUPVAL                         R10 8
-       77 GETTABLEKS                       R10 R10 K13 ["mock"]
-       79 MOVE                             R11 R4
-       80 CALL                             R10 1 1
-       81 SETTABLEKS                       R10 R9 K16 ["Design"]
-       83 GETUPVAL                         R10 9
-       84 GETTABLEKS                       R10 R10 K5 ["new"]
-       86 GETIMPORT                        R11 K6 [Instance.new]
-       88 LOADK                            R12 K28 ["ScreenGui"]
-       89 CALL                             R11 1 -1
-       90 CALL                             R10 -1 1
-       91 SETTABLEKS                       R10 R9 K17 ["Focus"]
-       93 SETTABLEKS                       R5 R9 K18 ["Localization"]
-       95 GETUPVAL                         R10 10
-       96 GETTABLEKS                       R10 R10 K5 ["new"]
-       98 NAMECALL                         R11 R3 K29 ["GetMouse"]
-      100 CALL                             R11 1 -1
-      101 CALL                             R10 -1 1
-      102 SETTABLEKS                       R10 R9 K19 ["Mouse"]
-      104 GETUPVAL                         R10 11
-      105 GETTABLEKS                       R10 R10 K5 ["new"]
-      107 MOVE                             R11 R1
-      108 CALL                             R10 1 1
-      109 SETTABLEKS                       R10 R9 K20 ["Store"]
-      111 GETUPVAL                         R10 12
-      112 NOT                              R11 R2
-      113 CALL                             R10 1 1
-      114 SETTABLEKS                       R10 R9 K21 ["Theme"]
-      116 GETUPVAL                         R10 13
-      117 GETTABLEKS                       R10 R10 K5 ["new"]
-      119 MOVE                             R11 R1
-      120 MOVE                             R12 R6
-      121 MOVE                             R13 R8
-      122 MOVE                             R14 R2
-      123 CALL                             R10 4 1
-      124 SETTABLEKS                       R10 R9 K22 ["FileController"]
-      126 GETUPVAL                         R10 14
-      127 GETTABLEKS                       R10 R10 K5 ["new"]
-      129 MOVE                             R11 R1
-      130 MOVE                             R12 R5
-      131 MOVE                             R13 R8
-      132 MOVE                             R14 R6
-      133 CALL                             R10 4 1
-      134 SETTABLEKS                       R10 R9 K23 ["UploadController"]
-      136 SETTABLEKS                       R6 R9 K24 ["PresetController"]
-      138 GETUPVAL                         R10 15
-      139 GETTABLEKS                       R10 R10 K5 ["new"]
-      141 MOVE                             R11 R1
-      142 NOT                              R12 R2
-      143 CALL                             R10 2 1
-      144 SETTABLEKS                       R10 R9 K25 ["Networking"]
-      146 GETUPVAL                         R10 16
-      147 GETTABLEKS                       R10 R10 K5 ["new"]
-      149 MOVE                             R11 R1
-      150 MOVE                             R12 R6
-      151 CALL                             R10 2 1
-      152 SETTABLEKS                       R10 R9 K30 ["QueueController"]
-      154 GETUPVAL                         R12 17
-      155 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
-      157 MOVE                             R11 R9
-      158 GETIMPORT                        R10 K32 [setmetatable]
-      160 CALL                             R10 2 1
-      161 RETURN                           R10 1
+       30 CALL                             R5 1 1
+       31 JUMP                             ; [+4]
+       32 GETUPVAL                         R5 1
+       33 GETTABLEKS                       R5 R5 K13 ["mock"]
+       35 CALL                             R5 0 1
+       36 GETUPVAL                         R6 4
+       37 GETTABLEKS                       R6 R6 K5 ["new"]
+       39 MOVE                             R7 R3
+       40 MOVE                             R8 R1
+       41 MOVE                             R9 R5
+       42 CALL                             R6 3 1
+       43 GETUPVAL                         R7 5
+       44 GETTABLEKS                       R7 R7 K5 ["new"]
+       46 CALL                             R7 0 1
+       47 GETUPVAL                         R8 6
+       48 GETTABLEKS                       R8 R8 K5 ["new"]
+       50 MOVE                             R9 R7
+       51 CALL                             R8 1 1
+       52 DUPTABLE                         R9 K26 [{"Plugin", "PluginLoaderContextItem", "Design", "Focus", "Localization", "Mouse", "Store", "Theme", "FileController", "UploadController", "PresetController", "Networking"}]
+       53 GETUPVAL                         R10 7
+       54 GETTABLEKS                       R10 R10 K14 ["Plugin"]
+       56 GETTABLEKS                       R10 R10 K5 ["new"]
+       58 MOVE                             R11 R3
+       59 CALL                             R10 1 1
+       60 SETTABLEKS                       R10 R9 K14 ["Plugin"]
+       62 GETTABLEKS                       R10 R0 K27 ["loader"]
+       64 SETTABLEKS                       R10 R9 K15 ["PluginLoaderContextItem"]
+       66 JUMPIFNOT                        R2 ; [+6]
+       67 GETUPVAL                         R10 8
+       68 GETTABLEKS                       R10 R10 K5 ["new"]
+       70 MOVE                             R11 R4
+       71 CALL                             R10 1 1
+       72 JUMP                             ; [+5]
+       73 GETUPVAL                         R10 8
+       74 GETTABLEKS                       R10 R10 K13 ["mock"]
+       76 MOVE                             R11 R4
+       77 CALL                             R10 1 1
+       78 SETTABLEKS                       R10 R9 K16 ["Design"]
+       80 GETUPVAL                         R10 9
+       81 GETTABLEKS                       R10 R10 K5 ["new"]
+       83 GETIMPORT                        R11 K6 [Instance.new]
+       85 LOADK                            R12 K28 ["ScreenGui"]
+       86 CALL                             R11 1 -1
+       87 CALL                             R10 -1 1
+       88 SETTABLEKS                       R10 R9 K17 ["Focus"]
+       90 SETTABLEKS                       R5 R9 K18 ["Localization"]
+       92 GETUPVAL                         R10 10
+       93 GETTABLEKS                       R10 R10 K5 ["new"]
+       95 NAMECALL                         R11 R3 K29 ["GetMouse"]
+       97 CALL                             R11 1 -1
+       98 CALL                             R10 -1 1
+       99 SETTABLEKS                       R10 R9 K19 ["Mouse"]
+      101 GETUPVAL                         R10 11
+      102 GETTABLEKS                       R10 R10 K5 ["new"]
+      104 MOVE                             R11 R1
+      105 CALL                             R10 1 1
+      106 SETTABLEKS                       R10 R9 K20 ["Store"]
+      108 GETUPVAL                         R10 12
+      109 NOT                              R11 R2
+      110 CALL                             R10 1 1
+      111 SETTABLEKS                       R10 R9 K21 ["Theme"]
+      113 GETUPVAL                         R10 13
+      114 GETTABLEKS                       R10 R10 K5 ["new"]
+      116 MOVE                             R11 R1
+      117 MOVE                             R12 R6
+      118 MOVE                             R13 R8
+      119 MOVE                             R14 R2
+      120 CALL                             R10 4 1
+      121 SETTABLEKS                       R10 R9 K22 ["FileController"]
+      123 GETUPVAL                         R10 14
+      124 GETTABLEKS                       R10 R10 K5 ["new"]
+      126 MOVE                             R11 R1
+      127 MOVE                             R12 R5
+      128 MOVE                             R13 R8
+      129 MOVE                             R14 R6
+      130 CALL                             R10 4 1
+      131 SETTABLEKS                       R10 R9 K23 ["UploadController"]
+      133 SETTABLEKS                       R6 R9 K24 ["PresetController"]
+      135 GETUPVAL                         R10 15
+      136 GETTABLEKS                       R10 R10 K5 ["new"]
+      138 MOVE                             R11 R1
+      139 NOT                              R12 R2
+      140 CALL                             R10 2 1
+      141 SETTABLEKS                       R10 R9 K25 ["Networking"]
+      143 GETUPVAL                         R10 16
+      144 GETTABLEKS                       R10 R10 K5 ["new"]
+      146 MOVE                             R11 R1
+      147 MOVE                             R12 R6
+      148 CALL                             R10 2 1
+      149 SETTABLEKS                       R10 R9 K30 ["QueueController"]
+      151 GETUPVAL                         R12 17
+      152 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
+      154 MOVE                             R11 R9
+      155 GETIMPORT                        R10 K32 [setmetatable]
+      157 CALL                             R10 2 1
+      158 RETURN                           R10 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 13

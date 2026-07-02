@@ -35,31 +35,19 @@ MAIN:
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 8 0
        20 NEWTABLE                         R3 0 3
-       22 DUPTABLE                         R4 K10 [{"name", "color"}]
-       23 LOADK                            R5 K11 ["White"]
-       24 SETTABLEKS                       R5 R4 K8 ["name"]
-       26 LOADK                            R5 K11 ["White"]
-       27 SETTABLEKS                       R5 R4 K9 ["color"]
-       29 DUPTABLE                         R5 K10 [{"name", "color"}]
-       30 LOADK                            R6 K12 ["Black"]
-       31 SETTABLEKS                       R6 R5 K8 ["name"]
-       33 LOADK                            R6 K12 ["Black"]
-       34 SETTABLEKS                       R6 R5 K9 ["color"]
-       36 DUPTABLE                         R6 K10 [{"name", "color"}]
-       37 LOADK                            R7 K13 ["None"]
-       38 SETTABLEKS                       R7 R6 K8 ["name"]
-       40 LOADK                            R7 K13 ["None"]
-       41 SETTABLEKS                       R7 R6 K9 ["color"]
-       43 SETLIST                          R3 R4 3 [1]
-       45 SETTABLEKS                       R3 R2 K14 ["BACKGROUNDS"]
-       47 LOADN                            R3 1
-       48 SETTABLEKS                       R3 R2 K15 ["WHITE"]
-       50 LOADN                            R3 2
-       51 SETTABLEKS                       R3 R2 K16 ["BLACK"]
-       53 LOADN                            R3 3
-       54 SETTABLEKS                       R3 R2 K17 ["NONE"]
-       56 DUPCLOSURE                       R3 K18 [PROTO_0]
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R2
-       59 SETTABLEKS                       R3 R2 K19 ["getBackgroundForStudioTheme"]
-       61 RETURN                           R2 1
+       22 DUPTABLE                         R4 K11 [{["name"] = "White", ["color"] = "White"}]
+       23 DUPTABLE                         R5 K13 [{["name"] = "Black", ["color"] = "Black"}]
+       24 DUPTABLE                         R6 K15 [{["name"] = "None", ["color"] = "None"}]
+       25 SETLIST                          R3 R4 3 [1]
+       27 SETTABLEKS                       R3 R2 K16 ["BACKGROUNDS"]
+       29 LOADN                            R3 1
+       30 SETTABLEKS                       R3 R2 K17 ["WHITE"]
+       32 LOADN                            R3 2
+       33 SETTABLEKS                       R3 R2 K18 ["BLACK"]
+       35 LOADN                            R3 3
+       36 SETTABLEKS                       R3 R2 K19 ["NONE"]
+       38 DUPCLOSURE                       R3 K20 [PROTO_0]
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R2
+       41 SETTABLEKS                       R3 R2 K21 ["getBackgroundForStudioTheme"]
+       43 RETURN                           R2 1

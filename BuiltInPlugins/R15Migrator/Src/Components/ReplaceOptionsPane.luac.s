@@ -78,7 +78,7 @@ PROTO_3:
        11 LOADNIL                          R7
        12 LOADNIL                          R8
        13 FORGPREP                         R6
-       14 DUPTABLE                         R13 K9 [{"Key", "FromText", "ToText", "Enabled", "Selectable"}]
+       14 DUPTABLE                         R13 K10 [{["Key"], ["FromText"], ["ToText"], ["Enabled"], ["Selectable"] = True}]
        15 SETTABLEKS                       R9 R13 K4 ["Key"]
        17 GETTABLEKS                       R14 R10 K5 ["FromText"]
        19 SETTABLEKS                       R14 R13 K5 ["FromText"]
@@ -86,33 +86,31 @@ PROTO_3:
        23 SETTABLEKS                       R14 R13 K6 ["ToText"]
        25 GETTABLEKS                       R14 R10 K7 ["Enabled"]
        27 SETTABLEKS                       R14 R13 K7 ["Enabled"]
-       29 LOADB                            R14 1
-       30 SETTABLEKS                       R14 R13 K8 ["Selectable"]
-       32 FASTCALL2                        TABLE_INSERT R5 R13 ; [+4]
-       34 MOVE                             R12 R5
-       35 GETIMPORT                        R11 K12 [table.insert]
-       37 CALL                             R11 2 0
-       38 FORGLOOP                         R6 2 ; [-25]
-       40 GETUPVAL                         R6 0
-       41 GETTABLEKS                       R6 R6 K13 ["createElement"]
-       43 GETUPVAL                         R7 1
-       44 DUPTABLE                         R8 K19 [{"Rows", "RowComponent", "RowHeight", "GetRowProps", "Size"}]
-       45 SETTABLEKS                       R5 R8 K14 ["Rows"]
-       47 GETUPVAL                         R9 2
-       48 SETTABLEKS                       R9 R8 K15 ["RowComponent"]
-       50 GETTABLEKS                       R9 R3 K16 ["RowHeight"]
-       52 SETTABLEKS                       R9 R8 K16 ["RowHeight"]
-       54 GETTABLEKS                       R9 R0 K20 ["getRowProps"]
-       56 SETTABLEKS                       R9 R8 K17 ["GetRowProps"]
-       58 GETIMPORT                        R9 K23 [UDim2.new]
-       60 LOADN                            R10 1
-       61 LOADN                            R11 0
-       62 LOADN                            R12 0
-       63 GETTABLEKS                       R13 R3 K24 ["PaneHeight"]
-       65 CALL                             R9 4 1
-       66 SETTABLEKS                       R9 R8 K18 ["Size"]
-       68 CALL                             R6 2 -1
-       69 RETURN                           R6 -1
+       29 FASTCALL2                        TABLE_INSERT R5 R13 ; [+4]
+       31 MOVE                             R12 R5
+       32 GETIMPORT                        R11 K13 [table.insert]
+       34 CALL                             R11 2 0
+       35 FORGLOOP                         R6 2 ; [-22]
+       37 GETUPVAL                         R6 0
+       38 GETTABLEKS                       R6 R6 K14 ["createElement"]
+       40 GETUPVAL                         R7 1
+       41 DUPTABLE                         R8 K20 [{"Rows", "RowComponent", "RowHeight", "GetRowProps", "Size"}]
+       42 SETTABLEKS                       R5 R8 K15 ["Rows"]
+       44 GETUPVAL                         R9 2
+       45 SETTABLEKS                       R9 R8 K16 ["RowComponent"]
+       47 GETTABLEKS                       R9 R3 K17 ["RowHeight"]
+       49 SETTABLEKS                       R9 R8 K17 ["RowHeight"]
+       51 GETTABLEKS                       R9 R0 K21 ["getRowProps"]
+       53 SETTABLEKS                       R9 R8 K18 ["GetRowProps"]
+       55 GETIMPORT                        R9 K24 [UDim2.new]
+       57 LOADN                            R10 1
+       58 LOADN                            R11 0
+       59 LOADN                            R12 0
+       60 GETTABLEKS                       R13 R3 K25 ["PaneHeight"]
+       62 CALL                             R9 4 1
+       63 SETTABLEKS                       R9 R8 K19 ["Size"]
+       65 CALL                             R6 2 -1
+       66 RETURN                           R6 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["paneSizeChanged"]

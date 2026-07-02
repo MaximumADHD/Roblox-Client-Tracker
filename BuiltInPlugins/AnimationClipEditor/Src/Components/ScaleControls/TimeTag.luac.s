@@ -9,61 +9,55 @@ PROTO_0:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 GETUPVAL                         R9 1
-       18 DUPTABLE                         R10 K11 [{"Style", "BackgroundColor3", "BorderSizePixel", "AnchorPoint", "Size", "Position", "ZIndex"}]
-       19 LOADK                            R11 K12 ["BorderBox"]
-       20 SETTABLEKS                       R11 R10 K8 ["Style"]
-       22 GETTABLEKS                       R11 R2 K13 ["scaleControlsTheme"]
-       24 GETTABLEKS                       R11 R11 K14 ["mainColor"]
-       26 SETTABLEKS                       R11 R10 K9 ["BackgroundColor3"]
-       28 LOADN                            R11 0
-       29 SETTABLEKS                       R11 R10 K10 ["BorderSizePixel"]
-       31 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
-       33 SETTABLEKS                       R4 R10 K3 ["Size"]
-       35 SETTABLEKS                       R3 R10 K2 ["Position"]
-       37 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
-       39 DUPTABLE                         R11 K15 [{"Time"}]
-       40 GETUPVAL                         R12 0
-       41 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       43 LOADK                            R13 K16 ["TextLabel"]
-       44 DUPTABLE                         R14 K24 [{"BackgroundTransparency", "Position", "AnchorPoint", "Size", "TextXAlignment", "TextYAlignment", "Text", "TextColor3", "TextSize", "Font"}]
-       45 LOADN                            R15 1
-       46 SETTABLEKS                       R15 R14 K17 ["BackgroundTransparency"]
-       48 GETIMPORT                        R15 K27 [UDim2.new]
-       50 LOADK                            R16 K28 [0.5]
-       51 LOADN                            R17 0
-       52 LOADK                            R18 K28 [0.5]
-       53 LOADN                            R19 0
-       54 CALL                             R15 4 1
-       55 SETTABLEKS                       R15 R14 K2 ["Position"]
-       57 GETIMPORT                        R15 K30 [Vector2.new]
-       59 LOADK                            R16 K28 [0.5]
-       60 LOADK                            R17 K28 [0.5]
-       61 CALL                             R15 2 1
-       62 SETTABLEKS                       R15 R14 K4 ["AnchorPoint"]
-       64 GETIMPORT                        R15 K27 [UDim2.new]
-       66 LOADN                            R16 1
-       67 LOADN                            R17 252
-       68 LOADN                            R18 1
-       69 LOADN                            R19 254
-       70 CALL                             R15 4 1
-       71 SETTABLEKS                       R15 R14 K3 ["Size"]
-       73 GETIMPORT                        R15 K33 [Enum.TextXAlignment.Center]
-       75 SETTABLEKS                       R15 R14 K18 ["TextXAlignment"]
-       77 GETIMPORT                        R15 K34 [Enum.TextYAlignment.Center]
-       79 SETTABLEKS                       R15 R14 K19 ["TextYAlignment"]
-       81 SETTABLEKS                       R6 R14 K20 ["Text"]
-       83 GETTABLEKS                       R15 R2 K13 ["scaleControlsTheme"]
-       85 GETTABLEKS                       R15 R15 K35 ["textColor"]
-       87 SETTABLEKS                       R15 R14 K21 ["TextColor3"]
-       89 GETTABLEKS                       R15 R2 K13 ["scaleControlsTheme"]
-       91 GETTABLEKS                       R15 R15 K36 ["textSize"]
-       93 SETTABLEKS                       R15 R14 K22 ["TextSize"]
-       95 GETTABLEKS                       R15 R2 K37 ["font"]
-       97 SETTABLEKS                       R15 R14 K23 ["Font"]
-       99 CALL                             R12 2 1
-      100 SETTABLEKS                       R12 R11 K5 ["Time"]
-      102 CALL                             R8 3 -1
-      103 RETURN                           R8 -1
+       18 DUPTABLE                         R10 K13 [{["Style"] = "BorderBox", ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["AnchorPoint"], ["Size"], ["Position"], ["ZIndex"]}]
+       19 GETTABLEKS                       R11 R2 K14 ["scaleControlsTheme"]
+       21 GETTABLEKS                       R11 R11 K15 ["mainColor"]
+       23 SETTABLEKS                       R11 R10 K10 ["BackgroundColor3"]
+       25 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
+       27 SETTABLEKS                       R4 R10 K3 ["Size"]
+       29 SETTABLEKS                       R3 R10 K2 ["Position"]
+       31 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
+       33 DUPTABLE                         R11 K16 [{"Time"}]
+       34 GETUPVAL                         R12 0
+       35 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       37 LOADK                            R13 K17 ["TextLabel"]
+       38 DUPTABLE                         R14 K26 [{["BackgroundTransparency"] = 1, ["Position"], ["AnchorPoint"], ["Size"], ["TextXAlignment"], ["TextYAlignment"], ["Text"], ["TextColor3"], ["TextSize"], ["Font"]}]
+       39 GETIMPORT                        R15 K29 [UDim2.new]
+       41 LOADK                            R16 K30 [0.5]
+       42 LOADN                            R17 0
+       43 LOADK                            R18 K30 [0.5]
+       44 LOADN                            R19 0
+       45 CALL                             R15 4 1
+       46 SETTABLEKS                       R15 R14 K2 ["Position"]
+       48 GETIMPORT                        R15 K32 [Vector2.new]
+       50 LOADK                            R16 K30 [0.5]
+       51 LOADK                            R17 K30 [0.5]
+       52 CALL                             R15 2 1
+       53 SETTABLEKS                       R15 R14 K4 ["AnchorPoint"]
+       55 GETIMPORT                        R15 K29 [UDim2.new]
+       57 LOADN                            R16 1
+       58 LOADN                            R17 -4
+       59 LOADN                            R18 1
+       60 LOADN                            R19 -2
+       61 CALL                             R15 4 1
+       62 SETTABLEKS                       R15 R14 K3 ["Size"]
+       64 GETIMPORT                        R15 K35 [Enum.TextXAlignment.Center]
+       66 SETTABLEKS                       R15 R14 K20 ["TextXAlignment"]
+       68 GETIMPORT                        R15 K36 [Enum.TextYAlignment.Center]
+       70 SETTABLEKS                       R15 R14 K21 ["TextYAlignment"]
+       72 SETTABLEKS                       R6 R14 K22 ["Text"]
+       74 GETTABLEKS                       R15 R2 K14 ["scaleControlsTheme"]
+       76 GETTABLEKS                       R15 R15 K37 ["textColor"]
+       78 SETTABLEKS                       R15 R14 K23 ["TextColor3"]
+       80 GETTABLEKS                       R15 R2 K14 ["scaleControlsTheme"]
+       82 GETTABLEKS                       R15 R15 K38 ["textSize"]
+       84 SETTABLEKS                       R15 R14 K24 ["TextSize"]
+       86 GETTABLEKS                       R15 R2 K39 ["font"]
+       88 SETTABLEKS                       R15 R14 K25 ["Font"]
+       90 CALL                             R12 2 1
+       91 SETTABLEKS                       R12 R11 K5 ["Time"]
+       93 CALL                             R8 3 -1
+       94 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

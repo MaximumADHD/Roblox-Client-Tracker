@@ -209,47 +209,35 @@ MAIN:
        46 CAPTURE                          VAL R2
        47 DUPCLOSURE                       R7 K15 [PROTO_3]
        48 CAPTURE                          VAL R3
-       49 DUPTABLE                         R8 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       50 LOADK                            R9 K21 ["ContextMenu"]
-       51 SETTABLEKS                       R9 R8 K16 ["TextKey"]
-       53 LOADK                            R9 K22 ["PluginUpdate"]
-       54 SETTABLEKS                       R9 R8 K17 ["TextSubKey"]
-       56 DUPCLOSURE                       R9 K23 [PROTO_4]
-       57 CAPTURE                          VAL R3
-       58 CAPTURE                          VAL R5
-       59 SETTABLEKS                       R9 R8 K18 ["OnItemClicked"]
-       61 DUPCLOSURE                       R9 K24 [PROTO_5]
+       49 DUPTABLE                         R8 K22 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginUpdate", ["OnItemClicked"], ["ShouldRender"]}]
+       50 DUPCLOSURE                       R9 K23 [PROTO_4]
+       51 CAPTURE                          VAL R3
+       52 CAPTURE                          VAL R5
+       53 SETTABLEKS                       R9 R8 K20 ["OnItemClicked"]
+       55 DUPCLOSURE                       R9 K24 [PROTO_5]
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R2
+       58 SETTABLEKS                       R9 R8 K21 ["ShouldRender"]
+       60 DUPTABLE                         R9 K26 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginInstall", ["OnItemClicked"], ["ShouldRender"]}]
+       61 DUPCLOSURE                       R10 K27 [PROTO_6]
        62 CAPTURE                          VAL R3
        63 CAPTURE                          VAL R2
-       64 SETTABLEKS                       R9 R8 K19 ["ShouldRender"]
-       66 DUPTABLE                         R9 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       67 LOADK                            R10 K21 ["ContextMenu"]
-       68 SETTABLEKS                       R10 R9 K16 ["TextKey"]
-       70 LOADK                            R10 K25 ["PluginInstall"]
-       71 SETTABLEKS                       R10 R9 K17 ["TextSubKey"]
-       73 DUPCLOSURE                       R10 K26 [PROTO_6]
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R2
-       76 SETTABLEKS                       R10 R9 K18 ["OnItemClicked"]
-       78 DUPCLOSURE                       R10 K27 [PROTO_7]
-       79 CAPTURE                          VAL R3
-       80 CAPTURE                          VAL R2
-       81 SETTABLEKS                       R10 R9 K19 ["ShouldRender"]
-       83 DUPTABLE                         R10 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       84 LOADK                            R11 K21 ["ContextMenu"]
-       85 SETTABLEKS                       R11 R10 K16 ["TextKey"]
-       87 LOADK                            R11 K28 ["PluginReport"]
-       88 SETTABLEKS                       R11 R10 K17 ["TextSubKey"]
-       90 DUPCLOSURE                       R11 K29 [PROTO_8]
-       91 CAPTURE                          VAL R3
-       92 CAPTURE                          VAL R4
-       93 SETTABLEKS                       R11 R10 K18 ["OnItemClicked"]
-       95 DUPCLOSURE                       R11 K30 [PROTO_9]
-       96 CAPTURE                          VAL R3
-       97 SETTABLEKS                       R11 R10 K19 ["ShouldRender"]
-       99 NEWTABLE                         R11 0 3
-      101 MOVE                             R12 R8
-      102 MOVE                             R13 R9
-      103 MOVE                             R14 R10
-      104 SETLIST                          R11 R12 3 [1]
-      106 RETURN                           R11 1
+       64 SETTABLEKS                       R10 R9 K20 ["OnItemClicked"]
+       66 DUPCLOSURE                       R10 K28 [PROTO_7]
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R2
+       69 SETTABLEKS                       R10 R9 K21 ["ShouldRender"]
+       71 DUPTABLE                         R10 K30 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "PluginReport", ["OnItemClicked"], ["ShouldRender"]}]
+       72 DUPCLOSURE                       R11 K31 [PROTO_8]
+       73 CAPTURE                          VAL R3
+       74 CAPTURE                          VAL R4
+       75 SETTABLEKS                       R11 R10 K20 ["OnItemClicked"]
+       77 DUPCLOSURE                       R11 K32 [PROTO_9]
+       78 CAPTURE                          VAL R3
+       79 SETTABLEKS                       R11 R10 K21 ["ShouldRender"]
+       81 NEWTABLE                         R11 0 3
+       83 MOVE                             R12 R8
+       84 MOVE                             R13 R9
+       85 MOVE                             R14 R10
+       86 SETLIST                          R11 R12 3 [1]
+       88 RETURN                           R11 1

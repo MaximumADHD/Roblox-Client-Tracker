@@ -2,25 +2,19 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K8 [{"BackgroundTransparency", "Font", "LayoutOrder", "TextSize", "Text", "TextXAlignment", "TextColor3"}]
-        5 LOADN                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["BackgroundTransparency"]
-        8 GETUPVAL                         R3 2
-        9 GETTABLEKS                       R3 R3 K2 ["Font"]
-       11 SETTABLEKS                       R3 R2 K2 ["Font"]
-       13 LOADN                            R3 1
-       14 SETTABLEKS                       R3 R2 K3 ["LayoutOrder"]
-       16 LOADN                            R3 16
-       17 SETTABLEKS                       R3 R2 K4 ["TextSize"]
-       19 GETUPVAL                         R3 3
-       20 SETTABLEKS                       R3 R2 K5 ["Text"]
-       22 GETIMPORT                        R3 K11 [Enum.TextXAlignment.Left]
-       24 SETTABLEKS                       R3 R2 K6 ["TextXAlignment"]
-       26 GETUPVAL                         R3 2
-       27 GETTABLEKS                       R3 R3 K12 ["TextColor"]
-       29 SETTABLEKS                       R3 R2 K7 ["TextColor3"]
-       31 CALL                             R0 2 -1
-       32 RETURN                           R0 -1
+        4 DUPTABLE                         R2 K10 [{["BackgroundTransparency"] = 1, ["Font"], ["LayoutOrder"] = 1, ["TextSize"] = 16, ["Text"], ["TextXAlignment"], ["TextColor3"]}]
+        5 GETUPVAL                         R3 2
+        6 GETTABLEKS                       R3 R3 K3 ["Font"]
+        8 SETTABLEKS                       R3 R2 K3 ["Font"]
+       10 GETUPVAL                         R3 3
+       11 SETTABLEKS                       R3 R2 K7 ["Text"]
+       13 GETIMPORT                        R3 K13 [Enum.TextXAlignment.Left]
+       15 SETTABLEKS                       R3 R2 K8 ["TextXAlignment"]
+       17 GETUPVAL                         R3 2
+       18 GETTABLEKS                       R3 R3 K14 ["TextColor"]
+       20 SETTABLEKS                       R3 R2 K9 ["TextColor3"]
+       22 CALL                             R0 2 -1
+       23 RETURN                           R0 -1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -86,25 +80,21 @@ MAIN:
        60 LOADK                            R9 K18 ["ListTextItem"]
        61 NAMECALL                         R7 R7 K19 ["extend"]
        63 CALL                             R7 2 1
-       64 DUPTABLE                         R8 K23 [{"description", "title", "titleWidth"}]
-       65 LOADK                            R9 K24 [""]
-       66 SETTABLEKS                       R9 R8 K20 ["description"]
-       68 LOADK                            R9 K24 [""]
-       69 SETTABLEKS                       R9 R8 K21 ["title"]
-       71 GETTABLEKS                       R9 R2 K25 ["LIST_ITEM_TITLE_WIDTH"]
-       73 SETTABLEKS                       R9 R8 K22 ["titleWidth"]
-       75 SETTABLEKS                       R8 R7 K26 ["defaultProps"]
-       77 DUPCLOSURE                       R8 K27 [PROTO_1]
-       78 CAPTURE                          VAL R1
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          VAL R6
-       81 SETTABLEKS                       R8 R7 K28 ["render"]
-       83 MOVE                             R8 R4
-       84 DUPTABLE                         R9 K30 [{"Stylizer"}]
-       85 GETTABLEKS                       R10 R3 K29 ["Stylizer"]
-       87 SETTABLEKS                       R10 R9 K29 ["Stylizer"]
-       89 CALL                             R8 1 1
-       90 MOVE                             R9 R7
-       91 CALL                             R8 1 1
-       92 MOVE                             R7 R8
-       93 RETURN                           R7 1
+       64 DUPTABLE                         R8 K24 [{["description"] = "", ["title"] = "", ["titleWidth"]}]
+       65 GETTABLEKS                       R9 R2 K25 ["LIST_ITEM_TITLE_WIDTH"]
+       67 SETTABLEKS                       R9 R8 K23 ["titleWidth"]
+       69 SETTABLEKS                       R8 R7 K26 ["defaultProps"]
+       71 DUPCLOSURE                       R8 K27 [PROTO_1]
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R6
+       75 SETTABLEKS                       R8 R7 K28 ["render"]
+       77 MOVE                             R8 R4
+       78 DUPTABLE                         R9 K30 [{"Stylizer"}]
+       79 GETTABLEKS                       R10 R3 K29 ["Stylizer"]
+       81 SETTABLEKS                       R10 R9 K29 ["Stylizer"]
+       83 CALL                             R8 1 1
+       84 MOVE                             R9 R7
+       85 CALL                             R8 1 1
+       86 MOVE                             R7 R8
+       87 RETURN                           R7 1

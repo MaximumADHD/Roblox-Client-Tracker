@@ -50,45 +50,39 @@ PROTO_2:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K6 [{"Style", "Layout"}]
-       11 LOADK                            R7 K7 ["RoundBox"]
-       12 SETTABLEKS                       R7 R6 K4 ["Style"]
-       14 GETIMPORT                        R7 K11 [Enum.FillDirection.Vertical]
-       16 SETTABLEKS                       R7 R6 K5 ["Layout"]
-       18 DUPTABLE                         R7 K14 [{"Header", "ScrollingContainer"}]
-       19 GETUPVAL                         R8 0
-       20 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       22 GETUPVAL                         R9 2
-       23 DUPTABLE                         R10 K17 [{"AutomaticSize", "TextXAlignment", "Style", "Text"}]
-       24 GETIMPORT                        R11 K19 [Enum.AutomaticSize.Y]
-       26 SETTABLEKS                       R11 R10 K15 ["AutomaticSize"]
-       28 GETIMPORT                        R11 K21 [Enum.TextXAlignment.Center]
-       30 SETTABLEKS                       R11 R10 K16 ["TextXAlignment"]
-       32 LOADK                            R11 K22 ["Bold"]
-       33 SETTABLEKS                       R11 R10 K4 ["Style"]
-       35 LOADK                            R11 K23 ["History"]
-       36 SETTABLEKS                       R11 R10 K2 ["Text"]
-       38 CALL                             R8 2 1
-       39 SETTABLEKS                       R8 R7 K12 ["Header"]
-       41 GETUPVAL                         R8 0
-       42 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       44 GETUPVAL                         R9 3
-       45 DUPTABLE                         R10 K25 [{"Size"}]
-       46 GETIMPORT                        R11 K28 [UDim2.new]
-       48 LOADN                            R12 1
-       49 LOADN                            R13 0
-       50 LOADN                            R14 1
-       51 GETTABLEKS                       R16 R3 K29 ["BrightText"]
-       53 GETTABLEKS                       R16 R16 K24 ["Size"]
-       55 MINUS                            R15 R16
-       56 CALL                             R11 4 1
-       57 SETTABLEKS                       R11 R10 K24 ["Size"]
-       59 GETTABLEKS                       R11 R0 K30 ["createChildren"]
-       61 CALL                             R11 0 -1
-       62 CALL                             R8 -1 1
-       63 SETTABLEKS                       R8 R7 K13 ["ScrollingContainer"]
-       65 CALL                             R4 3 -1
-       66 RETURN                           R4 -1
+       10 DUPTABLE                         R6 K7 [{["Style"] = "RoundBox", ["Layout"]}]
+       11 GETIMPORT                        R7 K11 [Enum.FillDirection.Vertical]
+       13 SETTABLEKS                       R7 R6 K6 ["Layout"]
+       15 DUPTABLE                         R7 K14 [{"Header", "ScrollingContainer"}]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       19 GETUPVAL                         R9 2
+       20 DUPTABLE                         R10 K19 [{["AutomaticSize"], ["TextXAlignment"], ["Style"] = "Bold", ["Text"] = "History"}]
+       21 GETIMPORT                        R11 K21 [Enum.AutomaticSize.Y]
+       23 SETTABLEKS                       R11 R10 K15 ["AutomaticSize"]
+       25 GETIMPORT                        R11 K23 [Enum.TextXAlignment.Center]
+       27 SETTABLEKS                       R11 R10 K16 ["TextXAlignment"]
+       29 CALL                             R8 2 1
+       30 SETTABLEKS                       R8 R7 K12 ["Header"]
+       32 GETUPVAL                         R8 0
+       33 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       35 GETUPVAL                         R9 3
+       36 DUPTABLE                         R10 K25 [{"Size"}]
+       37 GETIMPORT                        R11 K28 [UDim2.new]
+       39 LOADN                            R12 1
+       40 LOADN                            R13 0
+       41 LOADN                            R14 1
+       42 GETTABLEKS                       R16 R3 K29 ["BrightText"]
+       44 GETTABLEKS                       R16 R16 K24 ["Size"]
+       46 MINUS                            R15 R16
+       47 CALL                             R11 4 1
+       48 SETTABLEKS                       R11 R10 K24 ["Size"]
+       50 GETTABLEKS                       R11 R0 K30 ["createChildren"]
+       52 CALL                             R11 0 -1
+       53 CALL                             R8 -1 1
+       54 SETTABLEKS                       R8 R7 K13 ["ScrollingContainer"]
+       56 CALL                             R4 3 -1
+       57 RETURN                           R4 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"HistoryItems"}]

@@ -79,8 +79,8 @@ MAIN:
       110 LOADK                            R1 K42 ["rbxasset://textures/gradient.png"]
       111 SETTABLEKS                       R1 R0 K43 ["GRADIENT_IMAGE"]
       113 GETIMPORT                        R1 K45 [Vector2.new]
-      115 LOADN                            R2 0
-      116 LOADN                            R3 0
+      115 LOADN                            R2 512
+      116 LOADN                            R3 256
       117 CALL                             R1 2 1
       118 SETTABLEKS                       R1 R0 K46 ["GRADIENT_RECT_SIZE"]
       120 LOADK                            R1 K47 ["rbxasset://textures/GameSettings/ErrorIcon.png"]
@@ -99,12 +99,12 @@ MAIN:
       138 SETTABLEKS                       R1 R0 K55 ["VIDEO_PLACEHOLDER"]
       140 GETIMPORT                        R1 K57 [UDim2.new]
       142 LOADN                            R2 0
-      143 LOADN                            R3 11
+      143 LOADN                            R3 267
       144 LOADN                            R4 0
       145 LOADN                            R5 150
       146 CALL                             R1 4 1
       147 SETTABLEKS                       R1 R0 K58 ["THUMBNAIL_SIZE"]
-      149 LOADN                            R1 144
+      149 LOADN                            R1 400
       150 SETTABLEKS                       R1 R0 K59 ["BAD_REQUEST"]
       152 NEWTABLE                         R1 0 3
       154 LOADK                            R2 K60 ["jpg"]

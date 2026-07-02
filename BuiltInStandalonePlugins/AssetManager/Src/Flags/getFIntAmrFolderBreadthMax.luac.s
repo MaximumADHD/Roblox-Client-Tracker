@@ -9,7 +9,7 @@ MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
         3 LOADK                            R2 K2 ["AmrFolderBreadthMax"]
-        4 LOADN                            R3 244
+        4 LOADN                            R3 500
         5 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
         7 CALL                             R0 3 0
         8 DUPCLOSURE                       R0 K4 [PROTO_0]

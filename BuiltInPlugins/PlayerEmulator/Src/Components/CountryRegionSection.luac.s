@@ -129,79 +129,71 @@ PROTO_10:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 LOADK                            R9 K8 ["Frame"]
-       18 DUPTABLE                         R10 K12 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
-       19 GETIMPORT                        R11 K15 [Enum.AutomaticSize.Y]
+       18 DUPTABLE                         R10 K13 [{["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+       19 GETIMPORT                        R11 K16 [Enum.AutomaticSize.Y]
        21 SETTABLEKS                       R11 R10 K9 ["AutomaticSize"]
-       23 GETIMPORT                        R11 K18 [UDim2.fromScale]
+       23 GETIMPORT                        R11 K19 [UDim2.fromScale]
        25 LOADN                            R12 1
        26 LOADN                            R13 0
        27 CALL                             R11 2 1
        28 SETTABLEKS                       R11 R10 K10 ["Size"]
-       30 LOADN                            R11 1
-       31 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-       33 SETTABLEKS                       R7 R10 K6 ["LayoutOrder"]
-       35 DUPTABLE                         R11 K22 [{"Layout", "Label", "CountryRegionDropdown"}]
-       36 GETUPVAL                         R12 0
-       37 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       39 LOADK                            R13 K23 ["UIListLayout"]
-       40 DUPTABLE                         R14 K30 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment", "Padding", "Wraps"}]
-       41 GETIMPORT                        R15 K33 [Enum.UIFlexAlignment.SpaceBetween]
-       43 SETTABLEKS                       R15 R14 K24 ["HorizontalFlex"]
-       45 GETIMPORT                        R15 K34 [Enum.SortOrder.LayoutOrder]
-       47 SETTABLEKS                       R15 R14 K25 ["SortOrder"]
-       49 GETIMPORT                        R15 K36 [Enum.FillDirection.Horizontal]
-       51 SETTABLEKS                       R15 R14 K26 ["FillDirection"]
-       53 GETIMPORT                        R15 K38 [Enum.VerticalAlignment.Center]
-       55 SETTABLEKS                       R15 R14 K27 ["VerticalAlignment"]
-       57 GETTABLEKS                       R15 R5 K39 ["HORIZONTAL_LISTLAYOUT_PADDING"]
-       59 SETTABLEKS                       R15 R14 K28 ["Padding"]
-       61 LOADB                            R15 1
-       62 SETTABLEKS                       R15 R14 K29 ["Wraps"]
-       64 CALL                             R12 2 1
-       65 SETTABLEKS                       R12 R11 K19 ["Layout"]
-       67 GETUPVAL                         R12 0
-       68 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       70 GETUPVAL                         R13 1
-       71 DUPTABLE                         R14 K42 [{"AutomaticSize", "StyleModifier", "Text", "LayoutOrder"}]
-       72 GETIMPORT                        R15 K44 [Enum.AutomaticSize.XY]
-       74 SETTABLEKS                       R15 R14 K9 ["AutomaticSize"]
-       76 JUMPIFNOT                        R2 ; [+2]
-       77 LOADNIL                          R15
-       78 JUMP                             ; [+3]
-       79 GETUPVAL                         R15 2
-       80 GETTABLEKS                       R15 R15 K45 ["Disabled"]
-       82 SETTABLEKS                       R15 R14 K40 ["StyleModifier"]
-       84 LOADK                            R17 K46 ["CountryRegionSection"]
-       85 LOADK                            R18 K47 ["LabelText"]
-       86 NAMECALL                         R15 R6 K48 ["getText"]
-       88 CALL                             R15 3 1
-       89 SETTABLEKS                       R15 R14 K41 ["Text"]
-       91 LOADN                            R15 1
-       92 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-       94 CALL                             R12 2 1
-       95 SETTABLEKS                       R12 R11 K20 ["Label"]
-       97 GETUPVAL                         R12 0
-       98 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      100 GETUPVAL                         R13 3
-      101 DUPTABLE                         R14 K53 [{"Items", "LayoutOrder", "OnItemActivated", "SelectedId", "Enabled"}]
-      102 GETUPVAL                         R15 4
-      103 MOVE                             R16 R3
-      104 GETTABLEKS                       R17 R0 K54 ["createCountryRegionListForSelectInput"]
-      106 CALL                             R15 2 1
-      107 SETTABLEKS                       R15 R14 K49 ["Items"]
-      109 LOADN                            R15 2
-      110 SETTABLEKS                       R15 R14 K6 ["LayoutOrder"]
-      112 GETTABLEKS                       R15 R0 K55 ["onItemClicked"]
-      114 SETTABLEKS                       R15 R14 K50 ["OnItemActivated"]
-      116 MOVE                             R17 R4
-      117 NAMECALL                         R15 R0 K56 ["getCurrentCountryRegionText"]
-      119 CALL                             R15 2 1
-      120 SETTABLEKS                       R15 R14 K51 ["SelectedId"]
-      122 SETTABLEKS                       R2 R14 K52 ["Enabled"]
-      124 CALL                             R12 2 1
-      125 SETTABLEKS                       R12 R11 K21 ["CountryRegionDropdown"]
-      127 CALL                             R8 3 -1
-      128 RETURN                           R8 -1
+       30 SETTABLEKS                       R7 R10 K6 ["LayoutOrder"]
+       32 DUPTABLE                         R11 K23 [{"Layout", "Label", "CountryRegionDropdown"}]
+       33 GETUPVAL                         R12 0
+       34 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       36 LOADK                            R13 K24 ["UIListLayout"]
+       37 DUPTABLE                         R14 K32 [{["HorizontalFlex"], ["SortOrder"], ["FillDirection"], ["VerticalAlignment"], ["Padding"], ["Wraps"] = True}]
+       38 GETIMPORT                        R15 K35 [Enum.UIFlexAlignment.SpaceBetween]
+       40 SETTABLEKS                       R15 R14 K25 ["HorizontalFlex"]
+       42 GETIMPORT                        R15 K36 [Enum.SortOrder.LayoutOrder]
+       44 SETTABLEKS                       R15 R14 K26 ["SortOrder"]
+       46 GETIMPORT                        R15 K38 [Enum.FillDirection.Horizontal]
+       48 SETTABLEKS                       R15 R14 K27 ["FillDirection"]
+       50 GETIMPORT                        R15 K40 [Enum.VerticalAlignment.Center]
+       52 SETTABLEKS                       R15 R14 K28 ["VerticalAlignment"]
+       54 GETTABLEKS                       R15 R5 K41 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+       56 SETTABLEKS                       R15 R14 K29 ["Padding"]
+       58 CALL                             R12 2 1
+       59 SETTABLEKS                       R12 R11 K20 ["Layout"]
+       61 GETUPVAL                         R12 0
+       62 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       64 GETUPVAL                         R13 1
+       65 DUPTABLE                         R14 K44 [{["AutomaticSize"], ["StyleModifier"], ["Text"], ["LayoutOrder"] = 1}]
+       66 GETIMPORT                        R15 K46 [Enum.AutomaticSize.XY]
+       68 SETTABLEKS                       R15 R14 K9 ["AutomaticSize"]
+       70 JUMPIFNOT                        R2 ; [+2]
+       71 LOADNIL                          R15
+       72 JUMP                             ; [+3]
+       73 GETUPVAL                         R15 2
+       74 GETTABLEKS                       R15 R15 K47 ["Disabled"]
+       76 SETTABLEKS                       R15 R14 K42 ["StyleModifier"]
+       78 LOADK                            R17 K48 ["CountryRegionSection"]
+       79 LOADK                            R18 K49 ["LabelText"]
+       80 NAMECALL                         R15 R6 K50 ["getText"]
+       82 CALL                             R15 3 1
+       83 SETTABLEKS                       R15 R14 K43 ["Text"]
+       85 CALL                             R12 2 1
+       86 SETTABLEKS                       R12 R11 K21 ["Label"]
+       88 GETUPVAL                         R12 0
+       89 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       91 GETUPVAL                         R13 3
+       92 DUPTABLE                         R14 K56 [{["Items"], ["LayoutOrder"] = 2, ["OnItemActivated"], ["SelectedId"], ["Enabled"]}]
+       93 GETUPVAL                         R15 4
+       94 MOVE                             R16 R3
+       95 GETTABLEKS                       R17 R0 K57 ["createCountryRegionListForSelectInput"]
+       97 CALL                             R15 2 1
+       98 SETTABLEKS                       R15 R14 K51 ["Items"]
+      100 GETTABLEKS                       R15 R0 K58 ["onItemClicked"]
+      102 SETTABLEKS                       R15 R14 K53 ["OnItemActivated"]
+      104 MOVE                             R17 R4
+      105 NAMECALL                         R15 R0 K59 ["getCurrentCountryRegionText"]
+      107 CALL                             R15 2 1
+      108 SETTABLEKS                       R15 R14 K54 ["SelectedId"]
+      110 SETTABLEKS                       R2 R14 K55 ["Enabled"]
+      112 CALL                             R12 2 1
+      113 SETTABLEKS                       R12 R11 K22 ["CountryRegionDropdown"]
+      115 CALL                             R8 3 -1
+      116 RETURN                           R8 -1
 
 PROTO_11:
         0 DUPTABLE                         R2 K4 [{"mainSwitchEnabled", "countryRegionTable", "countryRegionList", "userCountryRegionCode"}]

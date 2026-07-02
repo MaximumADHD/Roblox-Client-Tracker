@@ -36,38 +36,24 @@ MAIN:
        57 GETTABLEKS                       R5 R5 K17 ["Resources"]
        59 GETTABLEKS                       R5 R5 K18 ["Localization"]
        61 GETTABLEKS                       R5 R5 K20 ["LocalizedStrings"]
-       63 DUPTABLE                         R6 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "noToolbar", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-       64 GETIMPORT                        R7 K32 [plugin]
+       63 DUPTABLE                         R6 K34 [{["plugin"], ["pluginName"] = "ManageCollaborators", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["noToolbar"] = True, ["getToolbarName"] = , ["buttonInfo"] = , ["dockWidgetInfo"] = }]
+       64 GETIMPORT                        R7 K35 [plugin]
        66 SETTABLEKS                       R7 R6 K21 ["plugin"]
-       68 LOADK                            R7 K33 ["ManageCollaborators"]
-       69 SETTABLEKS                       R7 R6 K22 ["pluginName"]
-       71 SETTABLEKS                       R5 R6 K23 ["translationResourceTable"]
-       73 SETTABLEKS                       R4 R6 K24 ["fallbackResourceTable"]
-       75 LOADNIL                          R7
-       76 SETTABLEKS                       R7 R6 K25 ["overrideLocaleId"]
-       78 LOADNIL                          R7
-       79 SETTABLEKS                       R7 R6 K26 ["localizationNamespace"]
-       81 LOADB                            R7 1
-       82 SETTABLEKS                       R7 R6 K27 ["noToolbar"]
-       84 LOADNIL                          R7
-       85 SETTABLEKS                       R7 R6 K28 ["getToolbarName"]
-       87 LOADNIL                          R7
-       88 SETTABLEKS                       R7 R6 K29 ["buttonInfo"]
-       90 LOADNIL                          R7
-       91 SETTABLEKS                       R7 R6 K30 ["dockWidgetInfo"]
-       93 GETTABLEKS                       R7 R3 K34 ["build"]
-       95 MOVE                             R8 R6
-       96 CALL                             R7 1 1
-       97 GETTABLEKS                       R8 R7 K35 ["pluginLoader"]
-       99 NAMECALL                         R8 R8 K36 ["waitForUserInteraction"]
-      101 CALL                             R8 1 0
-      102 GETIMPORT                        R8 K5 [require]
-      104 GETIMPORT                        R9 K7 [script]
-      106 GETTABLEKS                       R9 R9 K8 ["Parent"]
-      108 GETTABLEKS                       R9 R9 K37 ["main"]
-      110 CALL                             R8 1 1
-      111 MOVE                             R9 R8
-      112 GETIMPORT                        R10 K32 [plugin]
-      114 MOVE                             R11 R7
-      115 CALL                             R9 2 0
-      116 RETURN                           R0 0
+       68 SETTABLEKS                       R5 R6 K24 ["translationResourceTable"]
+       70 SETTABLEKS                       R4 R6 K25 ["fallbackResourceTable"]
+       72 GETTABLEKS                       R7 R3 K36 ["build"]
+       74 MOVE                             R8 R6
+       75 CALL                             R7 1 1
+       76 GETTABLEKS                       R8 R7 K37 ["pluginLoader"]
+       78 NAMECALL                         R8 R8 K38 ["waitForUserInteraction"]
+       80 CALL                             R8 1 0
+       81 GETIMPORT                        R8 K5 [require]
+       83 GETIMPORT                        R9 K7 [script]
+       85 GETTABLEKS                       R9 R9 K8 ["Parent"]
+       87 GETTABLEKS                       R9 R9 K39 ["main"]
+       89 CALL                             R8 1 1
+       90 MOVE                             R9 R8
+       91 GETIMPORT                        R10 K35 [plugin]
+       93 MOVE                             R11 R7
+       94 CALL                             R9 2 0
+       95 RETURN                           R0 0

@@ -352,7 +352,7 @@ PROTO_14:
        11 SETTABLEKS                       R2 R1 K7 ["BorderSizePixel"]
        13 GETIMPORT                        R2 K9 [UDim2.new]
        15 LOADN                            R3 1
-       16 LOADN                            R4 246
+       16 LOADN                            R4 -10
        17 LOADN                            R5 0
        18 LOADN                            R6 25
        19 CALL                             R2 4 1
@@ -423,7 +423,7 @@ PROTO_16:
        18 SETTABLEKS                       R4 R3 K9 ["BorderSizePixel"]
        20 GETIMPORT                        R4 K2 [UDim2.new]
        22 LOADN                            R5 1
-       23 LOADN                            R6 246
+       23 LOADN                            R6 -10
        24 LOADN                            R7 0
        25 LOADN                            R8 25
        26 CALL                             R4 4 1
@@ -448,7 +448,7 @@ PROTO_16:
        52 SETTABLEKS                       R3 R2 K11 ["Position"]
        54 GETIMPORT                        R3 K2 [UDim2.new]
        56 LOADK                            R4 K14 [0.5]
-       57 LOADN                            R5 251
+       57 LOADN                            R5 -5
        58 LOADN                            R6 0
        59 LOADN                            R7 25
        60 CALL                             R3 4 1
@@ -700,7 +700,7 @@ PROTO_23:
        18 SETTABLEKS                       R5 R4 K9 ["BorderSizePixel"]
        20 GETIMPORT                        R5 K2 [UDim2.new]
        22 LOADN                            R6 1
-       23 LOADN                            R7 246
+       23 LOADN                            R7 -10
        24 LOADN                            R8 0
        25 LOADN                            R9 25
        26 CALL                             R5 4 1
@@ -920,7 +920,7 @@ PROTO_29:
         5 LOADN                            R4 0
         6 LOADN                            R5 5
         7 LOADN                            R6 0
-        8 LOADN                            R7 59
+        8 LOADN                            R7 315
         9 CALL                             R3 4 1
        10 SETTABLEKS                       R3 R2 K4 ["Position"]
        12 NEWCLOSURE                       R3 P0
@@ -972,7 +972,7 @@ PROTO_30:
        24 LOADK                            R4 K11 [0.5]
        25 LOADN                            R5 0
        26 LOADN                            R6 1
-       27 LOADN                            R7 231
+       27 LOADN                            R7 -25
        28 CALL                             R3 4 1
        29 SETTABLEKS                       R3 R2 K12 ["Size"]
        31 LOADN                            R3 2
@@ -1014,7 +1014,7 @@ PROTO_30:
        73 LOADN                            R7 0
        74 LOADN                            R8 5
        75 LOADN                            R9 0
-       76 LOADN                            R10 34
+       76 LOADN                            R10 290
        77 CALL                             R6 4 -1
        78 CALL                             R3 -1 0
        79 MOVE                             R5 R2
@@ -1074,7 +1074,7 @@ PROTO_32:
        15 LOADN                            R4 1
        16 LOADN                            R5 0
        17 LOADN                            R6 1
-       18 LOADN                            R7 236
+       18 LOADN                            R7 -20
        19 CALL                             R3 4 1
        20 SETTABLEKS                       R3 R2 K10 ["Size"]
        22 GETIMPORT                        R3 K9 [UDim2.new]
@@ -1119,9 +1119,9 @@ PROTO_33:
        20 SETTABLEKS                       R3 R2 K11 ["Position"]
        22 GETIMPORT                        R3 K9 [UDim2.new]
        24 LOADK                            R4 K10 [0.5]
-       25 LOADN                            R5 251
+       25 LOADN                            R5 -5
        26 LOADN                            R6 1
-       27 LOADN                            R7 156
+       27 LOADN                            R7 -100
        28 CALL                             R3 4 1
        29 SETTABLEKS                       R3 R2 K12 ["Size"]
        31 LOADN                            R3 2
@@ -1178,16 +1178,16 @@ PROTO_36:
        22 SETTABLEKS                       R3 R2 K13 ["BorderSizePixel"]
        24 GETIMPORT                        R3 K15 [UDim2.new]
        26 LOADK                            R4 K11 [0.5]
-       27 LOADN                            R5 212
+       27 LOADN                            R5 -300
        28 LOADK                            R6 K11 [0.5]
-       29 LOADN                            R7 6
+       29 LOADN                            R7 -250
        30 CALL                             R3 4 1
        31 SETTABLEKS                       R3 R2 K16 ["Position"]
        33 GETIMPORT                        R3 K15 [UDim2.new]
        35 LOADN                            R4 0
-       36 LOADN                            R5 88
+       36 LOADN                            R5 600
        37 LOADN                            R6 0
-       38 LOADN                            R7 144
+       38 LOADN                            R7 400
        39 CALL                             R3 4 1
        40 SETTABLEKS                       R3 R2 K17 ["Size"]
        42 GETIMPORT                        R3 K2 [Instance.new]
@@ -1220,7 +1220,7 @@ PROTO_36:
        79 LOADN                            R5 0
        80 LOADN                            R6 2
        81 LOADN                            R7 1
-       82 LOADN                            R8 190
+       82 LOADN                            R8 -66
        83 CALL                             R4 4 1
        84 SETTABLEKS                       R4 R3 K17 ["Size"]
        86 SETTABLEKS                       R2 R3 K20 ["Parent"]
@@ -1325,9 +1325,9 @@ PROTO_36:
       223 SETTABLEKS                       R7 R6 K19 ["BorderColor3"]
       225 GETIMPORT                        R7 K15 [UDim2.new]
       227 LOADN                            R8 1
-      228 LOADN                            R9 242
+      228 LOADN                            R9 -270
       229 LOADN                            R10 1
-      230 LOADN                            R11 216
+      230 LOADN                            R11 -40
       231 CALL                             R7 4 1
       232 SETTABLEKS                       R7 R6 K16 ["Position"]
       234 GETIMPORT                        R7 K15 [UDim2.new]
@@ -1384,9 +1384,9 @@ PROTO_36:
       305 SETTABLEKS                       R8 R7 K19 ["BorderColor3"]
       307 GETIMPORT                        R8 K15 [UDim2.new]
       309 LOADN                            R9 1
-      310 LOADN                            R10 116
+      310 LOADN                            R10 -140
       311 LOADN                            R11 1
-      312 LOADN                            R12 216
+      312 LOADN                            R12 -40
       313 CALL                             R8 4 1
       314 SETTABLEKS                       R8 R7 K16 ["Position"]
       316 GETIMPORT                        R8 K15 [UDim2.new]

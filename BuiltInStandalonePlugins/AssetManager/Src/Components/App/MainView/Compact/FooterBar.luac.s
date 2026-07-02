@@ -3,35 +3,31 @@ PROTO_0:
         1 CALL                             R1 0 1
         2 GETTABLEKS                       R2 R1 K0 ["ShowSearchOptions"]
         4 NEWTABLE                         R3 1 0
-        6 JUMPIFNOT                        R2 ; [+11]
+        6 JUMPIFNOT                        R2 ; [+8]
         7 GETUPVAL                         R4 1
         8 GETTABLEKS                       R4 R4 K1 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K3 [{"LayoutOrder"}]
-       12 LOADN                            R7 1
-       13 SETTABLEKS                       R7 R6 K2 ["LayoutOrder"]
-       15 CALL                             R4 2 1
-       16 SETTABLEKS                       R4 R3 K4 ["SearchButtons"]
-       18 GETUPVAL                         R4 1
-       19 GETTABLEKS                       R4 R4 K1 ["createElement"]
-       21 GETUPVAL                         R5 3
-       22 GETTABLEKS                       R5 R5 K5 ["View"]
-       24 DUPTABLE                         R6 K8 [{"LayoutOrder", "tag", "testId"}]
-       25 GETTABLEKS                       R7 R0 K2 ["LayoutOrder"]
-       27 SETTABLEKS                       R7 R6 K2 ["LayoutOrder"]
-       29 GETIMPORT                        R8 K10 [next]
-       31 MOVE                             R9 R3
-       32 CALL                             R8 1 1
-       33 JUMPIFEQKNIL                     R8 ; [+3]
-       35 LOADK                            R7 K11 ["row size-full-0 auto-y gap-small padding-small"]
-       36 JUMP                             ; [+1]
-       37 LOADNIL                          R7
-       38 SETTABLEKS                       R7 R6 K6 ["tag"]
-       40 LOADK                            R7 K12 ["compact-footer-bar"]
-       41 SETTABLEKS                       R7 R6 K7 ["testId"]
-       43 MOVE                             R7 R3
-       44 CALL                             R4 3 -1
-       45 RETURN                           R4 -1
+       11 DUPTABLE                         R6 K4 [{["LayoutOrder"] = 1}]
+       12 CALL                             R4 2 1
+       13 SETTABLEKS                       R4 R3 K5 ["SearchButtons"]
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R4 R4 K1 ["createElement"]
+       18 GETUPVAL                         R5 3
+       19 GETTABLEKS                       R5 R5 K6 ["View"]
+       21 DUPTABLE                         R6 K10 [{["LayoutOrder"], ["tag"], ["testId"] = "compact-footer-bar"}]
+       22 GETTABLEKS                       R7 R0 K2 ["LayoutOrder"]
+       24 SETTABLEKS                       R7 R6 K2 ["LayoutOrder"]
+       26 GETIMPORT                        R8 K12 [next]
+       28 MOVE                             R9 R3
+       29 CALL                             R8 1 1
+       30 JUMPIFEQKNIL                     R8 ; [+3]
+       32 LOADK                            R7 K13 ["row gap-small size-full-0 auto-y padding-small"]
+       33 JUMP                             ; [+1]
+       34 LOADNIL                          R7
+       35 SETTABLEKS                       R7 R6 K7 ["tag"]
+       37 MOVE                             R7 R3
+       38 CALL                             R4 3 -1
+       39 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

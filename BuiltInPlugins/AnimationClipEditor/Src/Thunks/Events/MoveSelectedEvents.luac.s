@@ -155,7 +155,7 @@ PROTO_1:
       111 JUMP                             ; [+9]
       112 LENGTH                           R17 R8
       113 LOADN                            R15 1
-      114 LOADN                            R16 255
+      114 LOADN                            R16 -1
       115 FORNPREP                         R15
       116 GETTABLE                         R18 R8 R17
       117 MOVE                             R19 R14

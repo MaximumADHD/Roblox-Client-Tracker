@@ -121,263 +121,237 @@ PROTO_1:
       148 CALL                             R15 2 1
       149 SETTABLEKS                       R15 R14 K36 ["CustomClothingModeSelector"]
       151 MOVE                             R15 R9
-      152 JUMPIFNOT                        R15 ; [+41]
+      152 JUMPIFNOT                        R15 ; [+35]
       153 MOVE                             R15 R10
-      154 JUMPIFNOT                        R15 ; [+39]
+      154 JUMPIFNOT                        R15 ; [+33]
       155 GETUPVAL                         R15 6
       156 GETUPVAL                         R16 9
-      157 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
+      157 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
       158 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      160 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      161 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      163 LOADK                            R20 K13 ["ClothingSettings"]
-      164 LOADK                            R21 K59 ["CustomClothingSectionTops"]
-      165 NAMECALL                         R18 R1 K15 ["getText"]
-      167 CALL                             R18 3 1
-      168 SETTABLEKS                       R18 R17 K31 ["text"]
-      170 MOVE                             R18 R3
-      171 CALL                             R18 0 1
-      172 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      174 DUPTABLE                         R18 K61 [{"Content"}]
-      175 GETUPVAL                         R19 6
-      176 GETUPVAL                         R20 10
-      177 DUPTABLE                         R21 K65 [{"assetIdSetting", "expectedAssetType", "r15Only"}]
-      178 GETTABLEKS                       R22 R6 K66 ["customClothingTopsSetting"]
-      180 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      182 GETUPVAL                         R22 5
-      183 GETTABLEKS                       R22 R22 K67 ["TopsAssetSelectorExpectedAssetType"]
-      185 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      187 LOADB                            R22 1
-      188 SETTABLEKS                       R22 R21 K64 ["r15Only"]
-      190 CALL                             R19 2 1
-      191 SETTABLEKS                       R19 R18 K60 ["Content"]
-      193 CALL                             R15 3 1
-      194 SETTABLEKS                       R15 R14 K37 ["TopsAssetSelector"]
-      196 MOVE                             R15 R9
-      197 JUMPIFNOT                        R15 ; [+41]
-      198 MOVE                             R15 R10
-      199 JUMPIFNOT                        R15 ; [+39]
-      200 GETUPVAL                         R15 6
-      201 GETUPVAL                         R16 9
-      202 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      203 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      205 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      206 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      208 LOADK                            R20 K13 ["ClothingSettings"]
-      209 LOADK                            R21 K68 ["CustomClothingSectionOuterwear"]
-      210 NAMECALL                         R18 R1 K15 ["getText"]
-      212 CALL                             R18 3 1
-      213 SETTABLEKS                       R18 R17 K31 ["text"]
-      215 MOVE                             R18 R3
-      216 CALL                             R18 0 1
-      217 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      219 DUPTABLE                         R18 K61 [{"Content"}]
-      220 GETUPVAL                         R19 6
-      221 GETUPVAL                         R20 10
-      222 DUPTABLE                         R21 K65 [{"assetIdSetting", "expectedAssetType", "r15Only"}]
-      223 GETTABLEKS                       R22 R6 K69 ["customClothingOuterwearSetting"]
-      225 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      227 GETUPVAL                         R22 5
-      228 GETTABLEKS                       R22 R22 K70 ["OuterwearAssetSelectorExpectedAssetType"]
-      230 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      232 LOADB                            R22 1
-      233 SETTABLEKS                       R22 R21 K64 ["r15Only"]
-      235 CALL                             R19 2 1
-      236 SETTABLEKS                       R19 R18 K60 ["Content"]
-      238 CALL                             R15 3 1
-      239 SETTABLEKS                       R15 R14 K38 ["OuterwearAssetSelector"]
-      241 MOVE                             R15 R9
-      242 JUMPIFNOT                        R15 ; [+41]
-      243 MOVE                             R15 R10
-      244 JUMPIFNOT                        R15 ; [+39]
-      245 GETUPVAL                         R15 6
-      246 GETUPVAL                         R16 9
-      247 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      248 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      250 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      251 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      253 LOADK                            R20 K13 ["ClothingSettings"]
-      254 LOADK                            R21 K71 ["CustomClothingSectionBottoms"]
-      255 NAMECALL                         R18 R1 K15 ["getText"]
-      257 CALL                             R18 3 1
-      258 SETTABLEKS                       R18 R17 K31 ["text"]
-      260 MOVE                             R18 R3
-      261 CALL                             R18 0 1
-      262 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      264 DUPTABLE                         R18 K61 [{"Content"}]
-      265 GETUPVAL                         R19 6
-      266 GETUPVAL                         R20 10
-      267 DUPTABLE                         R21 K65 [{"assetIdSetting", "expectedAssetType", "r15Only"}]
-      268 GETTABLEKS                       R22 R6 K72 ["customClothingBottomsSetting"]
-      270 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      272 GETUPVAL                         R22 5
-      273 GETTABLEKS                       R22 R22 K73 ["BottomsAssetSelectorExpectedAssetType"]
-      275 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      277 LOADB                            R22 1
-      278 SETTABLEKS                       R22 R21 K64 ["r15Only"]
-      280 CALL                             R19 2 1
-      281 SETTABLEKS                       R19 R18 K60 ["Content"]
-      283 CALL                             R15 3 1
-      284 SETTABLEKS                       R15 R14 K39 ["BottomsAssetSelector"]
-      286 MOVE                             R15 R9
-      287 JUMPIFNOT                        R15 ; [+40]
-      288 MOVE                             R15 R10
-      289 JUMPIFNOT                        R15 ; [+38]
-      290 GETUPVAL                         R15 6
-      291 GETUPVAL                         R16 9
-      292 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      293 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      295 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      296 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      298 LOADK                            R20 K13 ["ClothingSettings"]
-      299 LOADK                            R21 K74 ["CustomClothingSectionLeftShoes"]
-      300 NAMECALL                         R18 R1 K15 ["getText"]
-      302 CALL                             R18 3 1
-      303 SETTABLEKS                       R18 R17 K31 ["text"]
-      305 MOVE                             R18 R3
-      306 CALL                             R18 0 1
-      307 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      309 DUPTABLE                         R18 K61 [{"Content"}]
-      310 GETUPVAL                         R19 6
-      311 GETUPVAL                         R20 10
-      312 DUPTABLE                         R21 K65 [{"assetIdSetting", "expectedAssetType", "r15Only"}]
-      313 GETTABLEKS                       R22 R6 K75 ["customClothingLeftShoesSetting"]
-      315 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      317 GETIMPORT                        R22 K78 [Enum.AssetType.LeftShoeAccessory]
-      319 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      321 LOADB                            R22 1
-      322 SETTABLEKS                       R22 R21 K64 ["r15Only"]
-      324 CALL                             R19 2 1
-      325 SETTABLEKS                       R19 R18 K60 ["Content"]
-      327 CALL                             R15 3 1
-      328 SETTABLEKS                       R15 R14 K40 ["LeftShoesAssetSelector"]
-      330 MOVE                             R15 R9
-      331 JUMPIFNOT                        R15 ; [+40]
-      332 MOVE                             R15 R10
-      333 JUMPIFNOT                        R15 ; [+38]
-      334 GETUPVAL                         R15 6
-      335 GETUPVAL                         R16 9
-      336 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      337 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      339 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      340 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      342 LOADK                            R20 K13 ["ClothingSettings"]
-      343 LOADK                            R21 K79 ["CustomClothingSectionRightShoes"]
-      344 NAMECALL                         R18 R1 K15 ["getText"]
-      346 CALL                             R18 3 1
-      347 SETTABLEKS                       R18 R17 K31 ["text"]
-      349 MOVE                             R18 R3
-      350 CALL                             R18 0 1
-      351 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      353 DUPTABLE                         R18 K61 [{"Content"}]
-      354 GETUPVAL                         R19 6
-      355 GETUPVAL                         R20 10
-      356 DUPTABLE                         R21 K65 [{"assetIdSetting", "expectedAssetType", "r15Only"}]
-      357 GETTABLEKS                       R22 R6 K80 ["customClothingRightShoesSetting"]
-      359 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      361 GETIMPORT                        R22 K82 [Enum.AssetType.RightShoeAccessory]
-      363 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      365 LOADB                            R22 1
-      366 SETTABLEKS                       R22 R21 K64 ["r15Only"]
-      368 CALL                             R19 2 1
-      369 SETTABLEKS                       R19 R18 K60 ["Content"]
-      371 CALL                             R15 3 1
-      372 SETTABLEKS                       R15 R14 K41 ["RightShoesAssetSelector"]
-      374 MOVE                             R15 R9
-      375 JUMPIFNOT                        R15 ; [+41]
-      376 GETUPVAL                         R15 6
-      377 GETUPVAL                         R16 9
-      378 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      379 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      381 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      382 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      384 LOADK                            R20 K13 ["ClothingSettings"]
-      385 LOADK                            R21 K83 ["CustomClothingSectionClassicShirts"]
-      386 NAMECALL                         R18 R1 K15 ["getText"]
-      388 CALL                             R18 3 1
-      389 SETTABLEKS                       R18 R17 K31 ["text"]
-      391 MOVE                             R18 R3
-      392 CALL                             R18 0 1
-      393 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      395 DUPTABLE                         R18 K61 [{"Content"}]
-      396 GETUPVAL                         R19 6
-      397 GETUPVAL                         R20 10
-      398 DUPTABLE                         R21 K84 [{"assetIdSetting", "expectedAssetType"}]
-      399 GETTABLEKS                       R22 R6 K85 ["customClothingClassicShirtsSetting"]
-      401 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      403 NEWTABLE                         R22 0 2
-      405 GETIMPORT                        R23 K87 [Enum.AssetType.Shirt]
-      407 GETIMPORT                        R24 K89 [Enum.AssetType.Model]
-      409 SETLIST                          R22 R23 2 [1]
-      411 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      413 CALL                             R19 2 1
-      414 SETTABLEKS                       R19 R18 K60 ["Content"]
-      416 CALL                             R15 3 1
-      417 SETTABLEKS                       R15 R14 K42 ["ClassicShirtsAssetSelector"]
-      419 MOVE                             R15 R9
-      420 JUMPIFNOT                        R15 ; [+41]
-      421 GETUPVAL                         R15 6
-      422 GETUPVAL                         R16 9
-      423 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      424 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      426 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      427 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      429 LOADK                            R20 K13 ["ClothingSettings"]
-      430 LOADK                            R21 K90 ["CustomClothingSectionClassicTShirts"]
-      431 NAMECALL                         R18 R1 K15 ["getText"]
-      433 CALL                             R18 3 1
-      434 SETTABLEKS                       R18 R17 K31 ["text"]
-      436 MOVE                             R18 R3
-      437 CALL                             R18 0 1
-      438 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      440 DUPTABLE                         R18 K61 [{"Content"}]
-      441 GETUPVAL                         R19 6
-      442 GETUPVAL                         R20 10
-      443 DUPTABLE                         R21 K84 [{"assetIdSetting", "expectedAssetType"}]
-      444 GETTABLEKS                       R22 R6 K91 ["customClothingClassicTShirtsSetting"]
-      446 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      448 NEWTABLE                         R22 0 2
-      450 GETIMPORT                        R23 K93 [Enum.AssetType.TShirt]
-      452 GETIMPORT                        R24 K89 [Enum.AssetType.Model]
-      454 SETLIST                          R22 R23 2 [1]
-      456 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      458 CALL                             R19 2 1
-      459 SETTABLEKS                       R19 R18 K60 ["Content"]
-      461 CALL                             R15 3 1
-      462 SETTABLEKS                       R15 R14 K43 ["ClassicTShirtsAssetSelector"]
-      464 MOVE                             R15 R9
-      465 JUMPIFNOT                        R15 ; [+41]
-      466 GETUPVAL                         R15 6
-      467 GETUPVAL                         R16 9
-      468 DUPTABLE                         R17 K57 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      469 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
-      471 LOADK                            R18 K58 ["AvatarSettings-LeftTextPrimary"]
-      472 SETTABLEKS                       R18 R17 K56 ["textLabelTags"]
-      474 LOADK                            R20 K13 ["ClothingSettings"]
-      475 LOADK                            R21 K94 ["CustomClothingSectionClassicPants"]
-      476 NAMECALL                         R18 R1 K15 ["getText"]
-      478 CALL                             R18 3 1
-      479 SETTABLEKS                       R18 R17 K31 ["text"]
-      481 MOVE                             R18 R3
-      482 CALL                             R18 0 1
-      483 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
-      485 DUPTABLE                         R18 K61 [{"Content"}]
-      486 GETUPVAL                         R19 6
-      487 GETUPVAL                         R20 10
-      488 DUPTABLE                         R21 K84 [{"assetIdSetting", "expectedAssetType"}]
-      489 GETTABLEKS                       R22 R6 K95 ["customClothingClassicPantsSetting"]
-      491 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
-      493 NEWTABLE                         R22 0 2
-      495 GETIMPORT                        R23 K97 [Enum.AssetType.Pants]
-      497 GETIMPORT                        R24 K89 [Enum.AssetType.Model]
-      499 SETLIST                          R22 R23 2 [1]
-      501 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
-      503 CALL                             R19 2 1
-      504 SETTABLEKS                       R19 R18 K60 ["Content"]
-      506 CALL                             R15 3 1
-      507 SETTABLEKS                       R15 R14 K44 ["ClassicPantsAssetSelector"]
-      509 CALL                             R11 3 -1
-      510 RETURN                           R11 -1
+      160 LOADK                            R20 K13 ["ClothingSettings"]
+      161 LOADK                            R21 K59 ["CustomClothingSectionTops"]
+      162 NAMECALL                         R18 R1 K15 ["getText"]
+      164 CALL                             R18 3 1
+      165 SETTABLEKS                       R18 R17 K31 ["text"]
+      167 MOVE                             R18 R3
+      168 CALL                             R18 0 1
+      169 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      171 DUPTABLE                         R18 K61 [{"Content"}]
+      172 GETUPVAL                         R19 6
+      173 GETUPVAL                         R20 10
+      174 DUPTABLE                         R21 K66 [{["assetIdSetting"], ["expectedAssetType"], ["r15Only"] = True}]
+      175 GETTABLEKS                       R22 R6 K67 ["customClothingTopsSetting"]
+      177 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      179 GETUPVAL                         R22 5
+      180 GETTABLEKS                       R22 R22 K68 ["TopsAssetSelectorExpectedAssetType"]
+      182 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      184 CALL                             R19 2 1
+      185 SETTABLEKS                       R19 R18 K60 ["Content"]
+      187 CALL                             R15 3 1
+      188 SETTABLEKS                       R15 R14 K37 ["TopsAssetSelector"]
+      190 MOVE                             R15 R9
+      191 JUMPIFNOT                        R15 ; [+35]
+      192 MOVE                             R15 R10
+      193 JUMPIFNOT                        R15 ; [+33]
+      194 GETUPVAL                         R15 6
+      195 GETUPVAL                         R16 9
+      196 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      197 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      199 LOADK                            R20 K13 ["ClothingSettings"]
+      200 LOADK                            R21 K69 ["CustomClothingSectionOuterwear"]
+      201 NAMECALL                         R18 R1 K15 ["getText"]
+      203 CALL                             R18 3 1
+      204 SETTABLEKS                       R18 R17 K31 ["text"]
+      206 MOVE                             R18 R3
+      207 CALL                             R18 0 1
+      208 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      210 DUPTABLE                         R18 K61 [{"Content"}]
+      211 GETUPVAL                         R19 6
+      212 GETUPVAL                         R20 10
+      213 DUPTABLE                         R21 K66 [{["assetIdSetting"], ["expectedAssetType"], ["r15Only"] = True}]
+      214 GETTABLEKS                       R22 R6 K70 ["customClothingOuterwearSetting"]
+      216 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      218 GETUPVAL                         R22 5
+      219 GETTABLEKS                       R22 R22 K71 ["OuterwearAssetSelectorExpectedAssetType"]
+      221 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      223 CALL                             R19 2 1
+      224 SETTABLEKS                       R19 R18 K60 ["Content"]
+      226 CALL                             R15 3 1
+      227 SETTABLEKS                       R15 R14 K38 ["OuterwearAssetSelector"]
+      229 MOVE                             R15 R9
+      230 JUMPIFNOT                        R15 ; [+35]
+      231 MOVE                             R15 R10
+      232 JUMPIFNOT                        R15 ; [+33]
+      233 GETUPVAL                         R15 6
+      234 GETUPVAL                         R16 9
+      235 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      236 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      238 LOADK                            R20 K13 ["ClothingSettings"]
+      239 LOADK                            R21 K72 ["CustomClothingSectionBottoms"]
+      240 NAMECALL                         R18 R1 K15 ["getText"]
+      242 CALL                             R18 3 1
+      243 SETTABLEKS                       R18 R17 K31 ["text"]
+      245 MOVE                             R18 R3
+      246 CALL                             R18 0 1
+      247 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      249 DUPTABLE                         R18 K61 [{"Content"}]
+      250 GETUPVAL                         R19 6
+      251 GETUPVAL                         R20 10
+      252 DUPTABLE                         R21 K66 [{["assetIdSetting"], ["expectedAssetType"], ["r15Only"] = True}]
+      253 GETTABLEKS                       R22 R6 K73 ["customClothingBottomsSetting"]
+      255 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      257 GETUPVAL                         R22 5
+      258 GETTABLEKS                       R22 R22 K74 ["BottomsAssetSelectorExpectedAssetType"]
+      260 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      262 CALL                             R19 2 1
+      263 SETTABLEKS                       R19 R18 K60 ["Content"]
+      265 CALL                             R15 3 1
+      266 SETTABLEKS                       R15 R14 K39 ["BottomsAssetSelector"]
+      268 MOVE                             R15 R9
+      269 JUMPIFNOT                        R15 ; [+34]
+      270 MOVE                             R15 R10
+      271 JUMPIFNOT                        R15 ; [+32]
+      272 GETUPVAL                         R15 6
+      273 GETUPVAL                         R16 9
+      274 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      275 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      277 LOADK                            R20 K13 ["ClothingSettings"]
+      278 LOADK                            R21 K75 ["CustomClothingSectionLeftShoes"]
+      279 NAMECALL                         R18 R1 K15 ["getText"]
+      281 CALL                             R18 3 1
+      282 SETTABLEKS                       R18 R17 K31 ["text"]
+      284 MOVE                             R18 R3
+      285 CALL                             R18 0 1
+      286 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      288 DUPTABLE                         R18 K61 [{"Content"}]
+      289 GETUPVAL                         R19 6
+      290 GETUPVAL                         R20 10
+      291 DUPTABLE                         R21 K66 [{["assetIdSetting"], ["expectedAssetType"], ["r15Only"] = True}]
+      292 GETTABLEKS                       R22 R6 K76 ["customClothingLeftShoesSetting"]
+      294 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      296 GETIMPORT                        R22 K79 [Enum.AssetType.LeftShoeAccessory]
+      298 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      300 CALL                             R19 2 1
+      301 SETTABLEKS                       R19 R18 K60 ["Content"]
+      303 CALL                             R15 3 1
+      304 SETTABLEKS                       R15 R14 K40 ["LeftShoesAssetSelector"]
+      306 MOVE                             R15 R9
+      307 JUMPIFNOT                        R15 ; [+34]
+      308 MOVE                             R15 R10
+      309 JUMPIFNOT                        R15 ; [+32]
+      310 GETUPVAL                         R15 6
+      311 GETUPVAL                         R16 9
+      312 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      313 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      315 LOADK                            R20 K13 ["ClothingSettings"]
+      316 LOADK                            R21 K80 ["CustomClothingSectionRightShoes"]
+      317 NAMECALL                         R18 R1 K15 ["getText"]
+      319 CALL                             R18 3 1
+      320 SETTABLEKS                       R18 R17 K31 ["text"]
+      322 MOVE                             R18 R3
+      323 CALL                             R18 0 1
+      324 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      326 DUPTABLE                         R18 K61 [{"Content"}]
+      327 GETUPVAL                         R19 6
+      328 GETUPVAL                         R20 10
+      329 DUPTABLE                         R21 K66 [{["assetIdSetting"], ["expectedAssetType"], ["r15Only"] = True}]
+      330 GETTABLEKS                       R22 R6 K81 ["customClothingRightShoesSetting"]
+      332 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      334 GETIMPORT                        R22 K83 [Enum.AssetType.RightShoeAccessory]
+      336 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      338 CALL                             R19 2 1
+      339 SETTABLEKS                       R19 R18 K60 ["Content"]
+      341 CALL                             R15 3 1
+      342 SETTABLEKS                       R15 R14 K41 ["RightShoesAssetSelector"]
+      344 MOVE                             R15 R9
+      345 JUMPIFNOT                        R15 ; [+38]
+      346 GETUPVAL                         R15 6
+      347 GETUPVAL                         R16 9
+      348 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      349 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      351 LOADK                            R20 K13 ["ClothingSettings"]
+      352 LOADK                            R21 K84 ["CustomClothingSectionClassicShirts"]
+      353 NAMECALL                         R18 R1 K15 ["getText"]
+      355 CALL                             R18 3 1
+      356 SETTABLEKS                       R18 R17 K31 ["text"]
+      358 MOVE                             R18 R3
+      359 CALL                             R18 0 1
+      360 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      362 DUPTABLE                         R18 K61 [{"Content"}]
+      363 GETUPVAL                         R19 6
+      364 GETUPVAL                         R20 10
+      365 DUPTABLE                         R21 K85 [{"assetIdSetting", "expectedAssetType"}]
+      366 GETTABLEKS                       R22 R6 K86 ["customClothingClassicShirtsSetting"]
+      368 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      370 NEWTABLE                         R22 0 2
+      372 GETIMPORT                        R23 K88 [Enum.AssetType.Shirt]
+      374 GETIMPORT                        R24 K90 [Enum.AssetType.Model]
+      376 SETLIST                          R22 R23 2 [1]
+      378 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      380 CALL                             R19 2 1
+      381 SETTABLEKS                       R19 R18 K60 ["Content"]
+      383 CALL                             R15 3 1
+      384 SETTABLEKS                       R15 R14 K42 ["ClassicShirtsAssetSelector"]
+      386 MOVE                             R15 R9
+      387 JUMPIFNOT                        R15 ; [+38]
+      388 GETUPVAL                         R15 6
+      389 GETUPVAL                         R16 9
+      390 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      391 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      393 LOADK                            R20 K13 ["ClothingSettings"]
+      394 LOADK                            R21 K91 ["CustomClothingSectionClassicTShirts"]
+      395 NAMECALL                         R18 R1 K15 ["getText"]
+      397 CALL                             R18 3 1
+      398 SETTABLEKS                       R18 R17 K31 ["text"]
+      400 MOVE                             R18 R3
+      401 CALL                             R18 0 1
+      402 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      404 DUPTABLE                         R18 K61 [{"Content"}]
+      405 GETUPVAL                         R19 6
+      406 GETUPVAL                         R20 10
+      407 DUPTABLE                         R21 K85 [{"assetIdSetting", "expectedAssetType"}]
+      408 GETTABLEKS                       R22 R6 K92 ["customClothingClassicTShirtsSetting"]
+      410 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      412 NEWTABLE                         R22 0 2
+      414 GETIMPORT                        R23 K94 [Enum.AssetType.TShirt]
+      416 GETIMPORT                        R24 K90 [Enum.AssetType.Model]
+      418 SETLIST                          R22 R23 2 [1]
+      420 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      422 CALL                             R19 2 1
+      423 SETTABLEKS                       R19 R18 K60 ["Content"]
+      425 CALL                             R15 3 1
+      426 SETTABLEKS                       R15 R14 K43 ["ClassicTShirtsAssetSelector"]
+      428 MOVE                             R15 R9
+      429 JUMPIFNOT                        R15 ; [+38]
+      430 GETUPVAL                         R15 6
+      431 GETUPVAL                         R16 9
+      432 DUPTABLE                         R17 K58 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      433 SETTABLEKS                       R8 R17 K55 ["minTextLabelWidth"]
+      435 LOADK                            R20 K13 ["ClothingSettings"]
+      436 LOADK                            R21 K95 ["CustomClothingSectionClassicPants"]
+      437 NAMECALL                         R18 R1 K15 ["getText"]
+      439 CALL                             R18 3 1
+      440 SETTABLEKS                       R18 R17 K31 ["text"]
+      442 MOVE                             R18 R3
+      443 CALL                             R18 0 1
+      444 SETTABLEKS                       R18 R17 K32 ["layoutOrder"]
+      446 DUPTABLE                         R18 K61 [{"Content"}]
+      447 GETUPVAL                         R19 6
+      448 GETUPVAL                         R20 10
+      449 DUPTABLE                         R21 K85 [{"assetIdSetting", "expectedAssetType"}]
+      450 GETTABLEKS                       R22 R6 K96 ["customClothingClassicPantsSetting"]
+      452 SETTABLEKS                       R22 R21 K62 ["assetIdSetting"]
+      454 NEWTABLE                         R22 0 2
+      456 GETIMPORT                        R23 K98 [Enum.AssetType.Pants]
+      458 GETIMPORT                        R24 K90 [Enum.AssetType.Model]
+      460 SETLIST                          R22 R23 2 [1]
+      462 SETTABLEKS                       R22 R21 K63 ["expectedAssetType"]
+      464 CALL                             R19 2 1
+      465 SETTABLEKS                       R19 R18 K60 ["Content"]
+      467 CALL                             R15 3 1
+      468 SETTABLEKS                       R15 R14 K44 ["ClassicPantsAssetSelector"]
+      470 CALL                             R11 3 -1
+      471 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

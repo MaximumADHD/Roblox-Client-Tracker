@@ -1,57 +1,53 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"InstanceType", "Bypass"}]
-        1 LOADK                            R2 K3 ["None"]
-        2 SETTABLEKS                       R2 R1 K0 ["InstanceType"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["Bypass"]
-        7 GETUPVAL                         R4 0
-        8 GETTABLEKS                       R4 R4 K4 ["EQUALIZER"]
-       10 NAMECALL                         R2 R0 K5 ["IsA"]
-       12 CALL                             R2 2 1
-       13 JUMPIFNOT                        R2 ; [+28]
-       14 DUPTABLE                         R2 K10 [{"InstanceType", "LowGain", "MidGain", "HighGain", "MidRange", "Bypass"}]
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K4 ["EQUALIZER"]
-       18 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
-       20 GETTABLEKS                       R3 R0 K6 ["LowGain"]
-       22 SETTABLEKS                       R3 R2 K6 ["LowGain"]
-       24 GETTABLEKS                       R3 R0 K7 ["MidGain"]
-       26 SETTABLEKS                       R3 R2 K7 ["MidGain"]
-       28 GETTABLEKS                       R3 R0 K8 ["HighGain"]
-       30 SETTABLEKS                       R3 R2 K8 ["HighGain"]
-       32 GETTABLEKS                       R3 R0 K9 ["MidRange"]
-       34 SETTABLEKS                       R3 R2 K9 ["MidRange"]
-       36 GETTABLEKS                       R3 R0 K1 ["Bypass"]
-       38 SETTABLEKS                       R3 R2 K1 ["Bypass"]
-       40 MOVE                             R1 R2
-       41 RETURN                           R1 1
-       42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R4 R4 K11 ["FILTER"]
-       45 NAMECALL                         R2 R0 K5 ["IsA"]
-       47 CALL                             R2 2 1
-       48 JUMPIFNOT                        R2 ; [+28]
-       49 DUPTABLE                         R2 K16 [{"InstanceType", "FilterType", "Frequency", "Gain", "Q", "Bypass"}]
-       50 GETUPVAL                         R3 0
-       51 GETTABLEKS                       R3 R3 K11 ["FILTER"]
-       53 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
-       55 GETTABLEKS                       R3 R0 K12 ["FilterType"]
-       57 SETTABLEKS                       R3 R2 K12 ["FilterType"]
-       59 GETTABLEKS                       R3 R0 K13 ["Frequency"]
-       61 SETTABLEKS                       R3 R2 K13 ["Frequency"]
-       63 GETTABLEKS                       R3 R0 K14 ["Gain"]
-       65 SETTABLEKS                       R3 R2 K14 ["Gain"]
-       67 GETTABLEKS                       R3 R0 K15 ["Q"]
-       69 SETTABLEKS                       R3 R2 K15 ["Q"]
-       71 GETTABLEKS                       R3 R0 K1 ["Bypass"]
-       73 SETTABLEKS                       R3 R2 K1 ["Bypass"]
-       75 MOVE                             R1 R2
-       76 RETURN                           R1 1
-       77 LOADB                            R3 0
-       78 FASTCALL2K                       ASSERT R3 K17 ; [+4]
-       80 LOADK                            R4 K17 ["Only Equalizers and Filters are supported."]
-       81 GETIMPORT                        R2 K19 [assert]
-       83 CALL                             R2 2 0
-       84 RETURN                           R1 1
+        0 DUPTABLE                         R1 K4 [{[1] = "None", ["Bypass"] = False}]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K5 ["EQUALIZER"]
+        4 NAMECALL                         R2 R0 K6 ["IsA"]
+        6 CALL                             R2 2 1
+        7 JUMPIFNOT                        R2 ; [+28]
+        8 DUPTABLE                         R2 K11 [{"InstanceType", "LowGain", "MidGain", "HighGain", "MidRange", "Bypass"}]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K5 ["EQUALIZER"]
+       12 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
+       14 GETTABLEKS                       R3 R0 K7 ["LowGain"]
+       16 SETTABLEKS                       R3 R2 K7 ["LowGain"]
+       18 GETTABLEKS                       R3 R0 K8 ["MidGain"]
+       20 SETTABLEKS                       R3 R2 K8 ["MidGain"]
+       22 GETTABLEKS                       R3 R0 K9 ["HighGain"]
+       24 SETTABLEKS                       R3 R2 K9 ["HighGain"]
+       26 GETTABLEKS                       R3 R0 K10 ["MidRange"]
+       28 SETTABLEKS                       R3 R2 K10 ["MidRange"]
+       30 GETTABLEKS                       R3 R0 K2 ["Bypass"]
+       32 SETTABLEKS                       R3 R2 K2 ["Bypass"]
+       34 MOVE                             R1 R2
+       35 RETURN                           R1 1
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K12 ["FILTER"]
+       39 NAMECALL                         R2 R0 K6 ["IsA"]
+       41 CALL                             R2 2 1
+       42 JUMPIFNOT                        R2 ; [+28]
+       43 DUPTABLE                         R2 K17 [{"InstanceType", "FilterType", "Frequency", "Gain", "Q", "Bypass"}]
+       44 GETUPVAL                         R3 0
+       45 GETTABLEKS                       R3 R3 K12 ["FILTER"]
+       47 SETTABLEKS                       R3 R2 K0 ["InstanceType"]
+       49 GETTABLEKS                       R3 R0 K13 ["FilterType"]
+       51 SETTABLEKS                       R3 R2 K13 ["FilterType"]
+       53 GETTABLEKS                       R3 R0 K14 ["Frequency"]
+       55 SETTABLEKS                       R3 R2 K14 ["Frequency"]
+       57 GETTABLEKS                       R3 R0 K15 ["Gain"]
+       59 SETTABLEKS                       R3 R2 K15 ["Gain"]
+       61 GETTABLEKS                       R3 R0 K16 ["Q"]
+       63 SETTABLEKS                       R3 R2 K16 ["Q"]
+       65 GETTABLEKS                       R3 R0 K2 ["Bypass"]
+       67 SETTABLEKS                       R3 R2 K2 ["Bypass"]
+       69 MOVE                             R1 R2
+       70 RETURN                           R1 1
+       71 LOADB                            R3 0
+       72 FASTCALL2K                       ASSERT R3 K18 ; [+4]
+       74 LOADK                            R4 K18 ["Only Equalizers and Filters are supported."]
+       75 GETIMPORT                        R2 K20 [assert]
+       77 CALL                             R2 2 0
+       78 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R4 R1 K0 ["InstanceType"]
@@ -131,7 +127,7 @@ PROTO_2:
 PROTO_3:
         0 LENGTH                           R3 R0
         1 LOADN                            R1 1
-        2 LOADN                            R2 255
+        2 LOADN                            R2 -1
         3 FORNPREP                         R1
         4 GETTABLE                         R4 R0 R3
         5 JUMPIFNOT                        R4 ; [+14]

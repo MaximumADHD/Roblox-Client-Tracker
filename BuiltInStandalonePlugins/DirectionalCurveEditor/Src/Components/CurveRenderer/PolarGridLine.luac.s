@@ -16,11 +16,11 @@ PROTO_0:
        23 GETTABLEKS                       R7 R0 K5 ["Position"]
        25 CALL                             R5 2 1
        26 GETIMPORT                        R6 K4 [Vector2.new]
-       28 LOADN                            R7 14
+       28 LOADN                            R7 270
        29 GETTABLEKS                       R8 R0 K5 ["Position"]
        31 CALL                             R6 2 1
        32 GETIMPORT                        R7 K4 [Vector2.new]
-       34 LOADN                            R8 104
+       34 LOADN                            R8 360
        35 GETTABLEKS                       R9 R0 K5 ["Position"]
        37 CALL                             R7 2 -1
        38 SETLIST                          R2 R3 -1 [1]
@@ -64,14 +64,12 @@ PROTO_0:
        92 GETUPVAL                         R6 1
        93 GETTABLEKS                       R6 R6 K9 ["createElement"]
        95 GETUPVAL                         R7 3
-       96 DUPTABLE                         R8 K19 [{"ControlPoints", "Tag"}]
+       96 DUPTABLE                         R8 K20 [{["ControlPoints"], ["Tag"] = "GridLinePath2D"}]
        97 SETTABLEKS                       R1 R8 K17 ["ControlPoints"]
-       99 LOADK                            R9 K20 ["GridLinePath2D"]
-      100 SETTABLEKS                       R9 R8 K18 ["Tag"]
-      102 CALL                             R6 2 1
-      103 SETTABLEKS                       R6 R5 K15 ["Path"]
-      105 CALL                             R2 3 -1
-      106 RETURN                           R2 -1
+       99 CALL                             R6 2 1
+      100 SETTABLEKS                       R6 R5 K15 ["Path"]
+      102 CALL                             R2 3 -1
+      103 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

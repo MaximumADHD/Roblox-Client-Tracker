@@ -9,7 +9,7 @@ PROTO_0:
        12 GETIMPORT                        R4 K7 [UDim.new]
        14 GETTABLEKS                       R7 R1 K1 ["Columns"]
        16 LENGTH                           R6 R7
-       17 DIVRK                            R5 R8 K6 ["new"]
+       17 DIVRK                            R5 K8 [1] R6
        18 LOADN                            R6 0
        19 CALL                             R4 2 1
        20 GETTABLEKS                       R5 R1 K9 ["Row"]

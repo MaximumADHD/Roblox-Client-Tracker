@@ -159,25 +159,23 @@ PROTO_15:
 
 PROTO_16:
         0 DUPCLOSURE                       R2 K0 [PROTO_9]
-        1 DUPTABLE                         R3 K8 [{"Activate", "Name", "Deactivate", "GetMouse", "CreateDockWidgetPluginGui", "CreatePluginAction", "CreateQWidgetPluginGui"}]
-        2 DUPCLOSURE                       R4 K9 [PROTO_10]
+        1 DUPTABLE                         R3 K9 [{["Activate"], ["Name"] = "MockPlugin", ["Deactivate"], ["GetMouse"], ["CreateDockWidgetPluginGui"], ["CreatePluginAction"], ["CreateQWidgetPluginGui"]}]
+        2 DUPCLOSURE                       R4 K10 [PROTO_10]
         3 SETTABLEKS                       R4 R3 K1 ["Activate"]
-        5 LOADK                            R4 K10 ["MockPlugin"]
-        6 SETTABLEKS                       R4 R3 K2 ["Name"]
-        8 DUPCLOSURE                       R4 K11 [PROTO_11]
-        9 SETTABLEKS                       R4 R3 K3 ["Deactivate"]
-       11 DUPCLOSURE                       R4 K12 [PROTO_12]
-       12 SETTABLEKS                       R4 R3 K4 ["GetMouse"]
-       14 NEWCLOSURE                       R4 P4
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R4 R3 K5 ["CreateDockWidgetPluginGui"]
-       18 DUPCLOSURE                       R4 K13 [PROTO_14]
-       19 CAPTURE                          UPVAL U0
-       20 SETTABLEKS                       R4 R3 K6 ["CreatePluginAction"]
-       22 NEWCLOSURE                       R4 P6
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R4 R3 K7 ["CreateQWidgetPluginGui"]
-       26 RETURN                           R3 1
+        5 DUPCLOSURE                       R4 K11 [PROTO_11]
+        6 SETTABLEKS                       R4 R3 K4 ["Deactivate"]
+        8 DUPCLOSURE                       R4 K12 [PROTO_12]
+        9 SETTABLEKS                       R4 R3 K5 ["GetMouse"]
+       11 NEWCLOSURE                       R4 P4
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R4 R3 K6 ["CreateDockWidgetPluginGui"]
+       15 DUPCLOSURE                       R4 K13 [PROTO_14]
+       16 CAPTURE                          UPVAL U0
+       17 SETTABLEKS                       R4 R3 K7 ["CreatePluginAction"]
+       19 NEWCLOSURE                       R4 P6
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R4 R3 K8 ["CreateQWidgetPluginGui"]
+       23 RETURN                           R3 1
 
 PROTO_17:
         0 GETUPVAL                         R1 0

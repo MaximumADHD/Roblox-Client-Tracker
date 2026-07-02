@@ -8,9 +8,7 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K1 [{"InvalidActiveObject"}]
-        2 LOADK                            R1 K0 ["InvalidActiveObject"]
-        3 SETTABLEKS                       R1 R0 K0 ["InvalidActiveObject"]
-        5 DUPCLOSURE                       R1 K2 [PROTO_0]
-        6 SETTABLEKS                       R1 R0 K3 ["getErrorText"]
-        8 RETURN                           R0 1
+        1 DUPTABLE                         R0 K1 [{[1] = "InvalidActiveObject"}]
+        2 DUPCLOSURE                       R1 K2 [PROTO_0]
+        3 SETTABLEKS                       R1 R0 K3 ["getErrorText"]
+        5 RETURN                           R0 1

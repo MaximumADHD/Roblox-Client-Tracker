@@ -166,94 +166,97 @@ PROTO_3:
        26 LOADNIL                          R12
        27 GETTABLEKS                       R13 R1 K2 ["Localization"]
        29 GETUPVAL                         R14 0
-       30 JUMPIFNOT                        R14 ; [+46]
+       30 JUMPIFNOT                        R14 ; [+57]
        31 GETTABLEKS                       R11 R1 K10 ["IsGroupGame"]
-       33 JUMPIF                           R7 ; [+43]
-       34 JUMPIFNOT                        R11 ; [+35]
-       35 JUMPIF                           R5 ; [+7]
-       36 LOADK                            R16 K11 ["PermissionDescriptions"]
-       37 LOADK                            R17 K12 ["GroupOwnerToEdit"]
-       38 NAMECALL                         R14 R13 K13 ["getText"]
-       40 CALL                             R14 3 1
-       41 MOVE                             R12 R14
-       42 JUMP                             ; [+34]
-       43 LENGTH                           R14 R10
-       44 LOADN                            R15 1
-       45 JUMPIFNOTLE                      R14 R15 ; [+31]
-       47 GETTABLEN                        R16 R10 1
-       48 GETTABLEKS                       R16 R16 K14 ["Display"]
-       50 LOADK                            R19 K15 ["PermissionLabels"]
-       51 LOADK                            R20 K16 ["Edit"]
-       52 NAMECALL                         R17 R13 K13 ["getText"]
-       54 CALL                             R17 3 1
-       55 JUMPIFEQ                         R16 R17 ; [+2]
-       57 LOADB                            R15 0 +1
-       58 LOADB                            R15 1
-       59 FASTCALL1                        ASSERT R15 ; [+2]
-       60 GETIMPORT                        R14 K18 [assert]
-       62 CALL                             R14 1 0
-       63 LOADK                            R16 K11 ["PermissionDescriptions"]
-       64 LOADK                            R17 K19 ["RoleHasEditPerms"]
-       65 NAMECALL                         R14 R13 K13 ["getText"]
-       67 CALL                             R14 3 1
-       68 MOVE                             R12 R14
-       69 JUMP                             ; [+7]
-       70 JUMPIF                           R5 ; [+6]
-       71 LOADK                            R16 K11 ["PermissionDescriptions"]
-       72 LOADK                            R17 K20 ["GameOwnerToEdit"]
-       73 NAMECALL                         R14 R13 K13 ["getText"]
-       75 CALL                             R14 3 1
-       76 MOVE                             R12 R14
-       77 GETUPVAL                         R15 0
-       78 JUMPIFNOT                        R15 ; [+11]
-       79 MOVE                             R14 R5
-       80 JUMPIFNOT                        R14 ; [+12]
-       81 NOT                              R14 R7
-       82 JUMPIFNOT                        R14 ; [+10]
-       83 LENGTH                           R15 R10
-       84 LOADN                            R16 1
-       85 JUMPIFLT                         R16 R15 ; [+2]
-       87 LOADB                            R14 0 +1
-       88 LOADB                            R14 1
-       89 JUMP                             ; [+3]
+       33 JUMPIF                           R7 ; [+54]
+       34 JUMPIFNOT                        R11 ; [+46]
+       35 JUMPIF                           R5 ; [+10]
+       36 GETTABLEKS                       R14 R1 K11 ["IsMigrating"]
+       38 JUMPIFNOT                        R14 ; [+7]
+       39 LOADK                            R16 K12 ["General"]
+       40 LOADK                            R17 K13 ["PV2MigrationReadOnlyBanner"]
+       41 NAMECALL                         R14 R13 K14 ["getText"]
+       43 CALL                             R14 3 1
+       44 MOVE                             R12 R14
+       45 JUMP                             ; [+42]
+       46 JUMPIF                           R5 ; [+7]
+       47 LOADK                            R16 K15 ["PermissionDescriptions"]
+       48 LOADK                            R17 K16 ["GroupOwnerToEdit"]
+       49 NAMECALL                         R14 R13 K14 ["getText"]
+       51 CALL                             R14 3 1
+       52 MOVE                             R12 R14
+       53 JUMP                             ; [+34]
+       54 LENGTH                           R14 R10
+       55 LOADN                            R15 1
+       56 JUMPIFNOTLE                      R14 R15 ; [+31]
+       58 GETTABLEN                        R16 R10 1
+       59 GETTABLEKS                       R16 R16 K17 ["Display"]
+       61 LOADK                            R19 K18 ["PermissionLabels"]
+       62 LOADK                            R20 K19 ["Edit"]
+       63 NAMECALL                         R17 R13 K14 ["getText"]
+       65 CALL                             R17 3 1
+       66 JUMPIFEQ                         R16 R17 ; [+2]
+       68 LOADB                            R15 0 +1
+       69 LOADB                            R15 1
+       70 FASTCALL1                        ASSERT R15 ; [+2]
+       71 GETIMPORT                        R14 K21 [assert]
+       73 CALL                             R14 1 0
+       74 LOADK                            R16 K15 ["PermissionDescriptions"]
+       75 LOADK                            R17 K22 ["RoleHasEditPerms"]
+       76 NAMECALL                         R14 R13 K14 ["getText"]
+       78 CALL                             R14 3 1
+       79 MOVE                             R12 R14
+       80 JUMP                             ; [+7]
+       81 JUMPIF                           R5 ; [+6]
+       82 LOADK                            R16 K15 ["PermissionDescriptions"]
+       83 LOADK                            R17 K23 ["GameOwnerToEdit"]
+       84 NAMECALL                         R14 R13 K14 ["getText"]
+       86 CALL                             R14 3 1
+       87 MOVE                             R12 R14
+       88 GETUPVAL                         R15 0
+       89 JUMPIFNOT                        R15 ; [+11]
        90 MOVE                             R14 R5
-       91 JUMPIFNOT                        R14 ; [+1]
+       91 JUMPIFNOT                        R14 ; [+12]
        92 NOT                              R14 R7
-       93 GETUPVAL                         R15 1
-       94 GETTABLEKS                       R15 R15 K21 ["createElement"]
-       96 GETUPVAL                         R16 2
-       97 DUPTABLE                         R17 K32 [{"LayoutOrder", "Name", "Writable", "Loading", "Removable", "IsRolesetCollaborator", "HideSeparator", "TooltipText", "HidePermissions", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged", "DisableEditPermission"}]
-       98 SETTABLEKS                       R2 R17 K1 ["LayoutOrder"]
-      100 SETTABLEKS                       R6 R17 K22 ["Name"]
-      102 SETTABLEKS                       R14 R17 K4 ["Writable"]
-      104 LOADB                            R18 0
-      105 SETTABLEKS                       R18 R17 K23 ["Loading"]
-      107 LOADB                            R18 0
-      108 SETTABLEKS                       R18 R17 K24 ["Removable"]
-      110 LOADB                            R18 1
-      111 SETTABLEKS                       R18 R17 K25 ["IsRolesetCollaborator"]
-      113 SETTABLEKS                       R8 R17 K7 ["HideSeparator"]
-      115 SETTABLEKS                       R12 R17 K26 ["TooltipText"]
-      117 GETUPVAL                         R19 0
-      118 JUMPIF                           R19 ; [+4]
-      119 NOT                              R18 R5
-      120 JUMPIFNOT                        R18 ; [+3]
-      121 NOT                              R18 R7
-      122 JUMP                             ; [+1]
-      123 LOADNIL                          R18
-      124 SETTABLEKS                       R18 R17 K27 ["HidePermissions"]
-      126 NAMECALL                         R18 R0 K33 ["getCurrentPermission"]
-      128 CALL                             R18 1 1
-      129 SETTABLEKS                       R18 R17 K28 ["CurrentPermission"]
-      131 SETTABLEKS                       R10 R17 K29 ["AvailablePermissions"]
-      133 NEWCLOSURE                       R18 P0
-      134 CAPTURE                          VAL R9
-      135 CAPTURE                          VAL R4
-      136 SETTABLEKS                       R18 R17 K30 ["OnPermissionChanged"]
-      138 GETTABLEKS                       R18 R1 K31 ["DisableEditPermission"]
-      140 SETTABLEKS                       R18 R17 K31 ["DisableEditPermission"]
-      142 CALL                             R15 2 -1
-      143 RETURN                           R15 -1
+       93 JUMPIFNOT                        R14 ; [+10]
+       94 LENGTH                           R15 R10
+       95 LOADN                            R16 1
+       96 JUMPIFLT                         R16 R15 ; [+2]
+       98 LOADB                            R14 0 +1
+       99 LOADB                            R14 1
+      100 JUMP                             ; [+3]
+      101 MOVE                             R14 R5
+      102 JUMPIFNOT                        R14 ; [+1]
+      103 NOT                              R14 R7
+      104 GETUPVAL                         R15 1
+      105 GETTABLEKS                       R15 R15 K24 ["createElement"]
+      107 GETUPVAL                         R16 2
+      108 DUPTABLE                         R17 K37 [{["LayoutOrder"], ["Name"], ["Writable"], ["Loading"] = False, ["Removable"] = False, ["IsRolesetCollaborator"] = True, ["HideSeparator"], ["TooltipText"], ["HidePermissions"], ["CurrentPermission"], ["AvailablePermissions"], ["OnPermissionChanged"], ["DisableEditPermission"]}]
+      109 SETTABLEKS                       R2 R17 K1 ["LayoutOrder"]
+      111 SETTABLEKS                       R6 R17 K25 ["Name"]
+      113 SETTABLEKS                       R14 R17 K4 ["Writable"]
+      115 SETTABLEKS                       R8 R17 K7 ["HideSeparator"]
+      117 SETTABLEKS                       R12 R17 K31 ["TooltipText"]
+      119 GETUPVAL                         R19 0
+      120 JUMPIF                           R19 ; [+4]
+      121 NOT                              R18 R5
+      122 JUMPIFNOT                        R18 ; [+3]
+      123 NOT                              R18 R7
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R18
+      126 SETTABLEKS                       R18 R17 K32 ["HidePermissions"]
+      128 NAMECALL                         R18 R0 K38 ["getCurrentPermission"]
+      130 CALL                             R18 1 1
+      131 SETTABLEKS                       R18 R17 K33 ["CurrentPermission"]
+      133 SETTABLEKS                       R10 R17 K34 ["AvailablePermissions"]
+      135 NEWCLOSURE                       R18 P0
+      136 CAPTURE                          VAL R9
+      137 CAPTURE                          VAL R4
+      138 SETTABLEKS                       R18 R17 K35 ["OnPermissionChanged"]
+      140 GETTABLEKS                       R18 R1 K36 ["DisableEditPermission"]
+      142 SETTABLEKS                       R18 R17 K36 ["DisableEditPermission"]
+      144 CALL                             R15 2 -1
+      145 RETURN                           R15 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K3 [{"IsRolesetOwner", "RolesetName", "CurrentPermission"}]

@@ -276,10 +276,10 @@ PROTO_11:
        58 GETUPVAL                         R9 1
        59 GETTABLEKS                       R9 R9 K5 ["createElement"]
        61 GETUPVAL                         R10 5
-       62 DUPTABLE                         R11 K29 [{"keyExtractor", "ref", "data", "getItem", "getItemCount", "getItemLayout", "renderItem", "windowSize", "viewabilityConfigCallbackPairs", "showsVerticalScrollIndicator", "showsHorizontalScrollIndicator", "showDefaultLoadingIndicators", "ListHeaderComponent", "ListFooterComponent", "onScroll", "ListEmptyComponent"}]
-       63 DUPCLOSURE                       R12 K30 [PROTO_10]
+       62 DUPTABLE                         R11 K31 [{["keyExtractor"], ["ref"], ["data"], ["getItem"], ["getItemCount"], ["getItemLayout"], ["renderItem"], ["windowSize"] = 3, ["viewabilityConfigCallbackPairs"], ["showsVerticalScrollIndicator"] = False, ["showsHorizontalScrollIndicator"] = False, ["showDefaultLoadingIndicators"] = False, ["ListHeaderComponent"], ["ListFooterComponent"], ["onScroll"], ["ListEmptyComponent"]}]
+       63 DUPCLOSURE                       R12 K32 [PROTO_10]
        64 SETTABLEKS                       R12 R11 K13 ["keyExtractor"]
-       66 GETTABLEKS                       R12 R0 K31 ["Vlref"]
+       66 GETTABLEKS                       R12 R0 K33 ["Vlref"]
        68 SETTABLEKS                       R12 R11 K14 ["ref"]
        70 SETTABLEKS                       R2 R11 K15 ["data"]
        72 GETUPVAL                         R12 6
@@ -290,44 +290,36 @@ PROTO_11:
        79 SETTABLEKS                       R12 R11 K18 ["getItemLayout"]
        81 GETUPVAL                         R12 9
        82 SETTABLEKS                       R12 R11 K19 ["renderItem"]
-       84 LOADN                            R12 3
-       85 SETTABLEKS                       R12 R11 K20 ["windowSize"]
-       87 NEWTABLE                         R12 0 1
-       89 MOVE                             R13 R4
-       90 SETLIST                          R12 R13 1 [1]
-       92 SETTABLEKS                       R12 R11 K21 ["viewabilityConfigCallbackPairs"]
-       94 LOADB                            R12 0
-       95 SETTABLEKS                       R12 R11 K22 ["showsVerticalScrollIndicator"]
-       97 LOADB                            R12 0
-       98 SETTABLEKS                       R12 R11 K23 ["showsHorizontalScrollIndicator"]
-      100 LOADB                            R12 0
-      101 SETTABLEKS                       R12 R11 K24 ["showDefaultLoadingIndicators"]
-      103 GETTABLEKS                       R13 R0 K32 ["ShowHeaderLoadingIndicator"]
-      105 JUMPIFNOT                        R13 ; [+2]
-      106 GETUPVAL                         R12 10
-      107 JUMPIF                           R12 ; [+1]
-      108 LOADNIL                          R12
-      109 SETTABLEKS                       R12 R11 K25 ["ListHeaderComponent"]
-      111 GETTABLEKS                       R13 R0 K33 ["ShowFooterLoadingIndicator"]
-      113 JUMPIFNOT                        R13 ; [+2]
-      114 GETUPVAL                         R12 10
-      115 JUMPIF                           R12 ; [+1]
-      116 LOADNIL                          R12
-      117 SETTABLEKS                       R12 R11 K26 ["ListFooterComponent"]
-      119 GETTABLEKS                       R12 R0 K34 ["OnScroll"]
-      121 SETTABLEKS                       R12 R11 K27 ["onScroll"]
-      123 GETUPVAL                         R12 1
-      124 GETTABLEKS                       R12 R12 K5 ["createElement"]
-      126 GETUPVAL                         R13 11
-      127 DUPTABLE                         R14 K36 [{"openFiltersFn"}]
-      128 GETTABLEKS                       R15 R0 K37 ["OpenFiltersFn"]
-      130 SETTABLEKS                       R15 R14 K35 ["openFiltersFn"]
-      132 CALL                             R12 2 1
-      133 SETTABLEKS                       R12 R11 K28 ["ListEmptyComponent"]
-      135 CALL                             R9 2 1
-      136 SETTABLEKS                       R9 R8 K11 ["VirtualizedList"]
-      138 CALL                             R5 3 -1
-      139 RETURN                           R5 -1
+       84 NEWTABLE                         R12 0 1
+       86 MOVE                             R13 R4
+       87 SETLIST                          R12 R13 1 [1]
+       89 SETTABLEKS                       R12 R11 K22 ["viewabilityConfigCallbackPairs"]
+       91 GETTABLEKS                       R13 R0 K34 ["ShowHeaderLoadingIndicator"]
+       93 JUMPIFNOT                        R13 ; [+2]
+       94 GETUPVAL                         R12 10
+       95 JUMPIF                           R12 ; [+1]
+       96 LOADNIL                          R12
+       97 SETTABLEKS                       R12 R11 K27 ["ListHeaderComponent"]
+       99 GETTABLEKS                       R13 R0 K35 ["ShowFooterLoadingIndicator"]
+      101 JUMPIFNOT                        R13 ; [+2]
+      102 GETUPVAL                         R12 10
+      103 JUMPIF                           R12 ; [+1]
+      104 LOADNIL                          R12
+      105 SETTABLEKS                       R12 R11 K28 ["ListFooterComponent"]
+      107 GETTABLEKS                       R12 R0 K36 ["OnScroll"]
+      109 SETTABLEKS                       R12 R11 K29 ["onScroll"]
+      111 GETUPVAL                         R12 1
+      112 GETTABLEKS                       R12 R12 K5 ["createElement"]
+      114 GETUPVAL                         R13 11
+      115 DUPTABLE                         R14 K38 [{"openFiltersFn"}]
+      116 GETTABLEKS                       R15 R0 K39 ["OpenFiltersFn"]
+      118 SETTABLEKS                       R15 R14 K37 ["openFiltersFn"]
+      120 CALL                             R12 2 1
+      121 SETTABLEKS                       R12 R11 K30 ["ListEmptyComponent"]
+      123 CALL                             R9 2 1
+      124 SETTABLEKS                       R9 R8 K11 ["VirtualizedList"]
+      126 CALL                             R5 3 -1
+      127 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -426,26 +418,18 @@ MAIN:
       157 CAPTURE                          VAL R15
       158 CAPTURE                          VAL R10
       159 CAPTURE                          VAL R16
-      160 DUPTABLE                         R26 K42 [{"minimumViewTime", "viewAreaCoveragePercentThreshold", "itemVisiblePercentThreshold", "waitForInteraction"}]
-      161 LOADN                            R27 208
-      162 SETTABLEKS                       R27 R26 K38 ["minimumViewTime"]
-      164 LOADN                            R27 80
-      165 SETTABLEKS                       R27 R26 K39 ["viewAreaCoveragePercentThreshold"]
-      167 LOADNIL                          R27
-      168 SETTABLEKS                       R27 R26 K40 ["itemVisiblePercentThreshold"]
-      170 LOADB                            R27 0
-      171 SETTABLEKS                       R27 R26 K41 ["waitForInteraction"]
-      173 DUPCLOSURE                       R27 K43 [PROTO_11]
-      174 CAPTURE                          VAL R25
-      175 CAPTURE                          VAL R1
-      176 CAPTURE                          VAL R17
-      177 CAPTURE                          VAL R26
-      178 CAPTURE                          VAL R18
-      179 CAPTURE                          VAL R14
-      180 CAPTURE                          VAL R21
-      181 CAPTURE                          VAL R22
-      182 CAPTURE                          VAL R23
-      183 CAPTURE                          VAL R24
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R12
-      186 RETURN                           R27 1
+      160 DUPTABLE                         R26 K46 [{["minimumViewTime"] = 2000, ["viewAreaCoveragePercentThreshold"] = 80, ["itemVisiblePercentThreshold"] = , ["waitForInteraction"] = False}]
+      161 DUPCLOSURE                       R27 K47 [PROTO_11]
+      162 CAPTURE                          VAL R25
+      163 CAPTURE                          VAL R1
+      164 CAPTURE                          VAL R17
+      165 CAPTURE                          VAL R26
+      166 CAPTURE                          VAL R18
+      167 CAPTURE                          VAL R14
+      168 CAPTURE                          VAL R21
+      169 CAPTURE                          VAL R22
+      170 CAPTURE                          VAL R23
+      171 CAPTURE                          VAL R24
+      172 CAPTURE                          VAL R11
+      173 CAPTURE                          VAL R12
+      174 RETURN                           R27 1

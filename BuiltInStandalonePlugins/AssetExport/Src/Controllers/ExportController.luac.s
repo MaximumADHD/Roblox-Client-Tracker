@@ -286,238 +286,204 @@ PROTO_12:
         4 RETURN                           R0 0
 
 PROTO_13:
-        0 DUPTABLE                         R2 K24 [{"_viewState", "_exportEnabled", "_exportProcessing", "_settings", "_settingEvents", "_onlySelection", "_plugin", "_permissionFailures", "_fileName", "_connections", "_permissionsReady", "_canceled", "_exportSuccess", "_cagesInProgress", "_attachmentsInProgress", "_cagesDeletionInProgress", "_attachmentsDeletionInProgress", "_isAnimationExportPending", "onViewStateChanged", "onPermissionLoadingChanged", "onPermissionFailuresChanged", "onExportEnabledChanged", "onExportProcessingChanged", "onPermissionsReadyChanged"}]
-        1 LOADK                            R3 K25 ["Main"]
-        2 SETTABLEKS                       R3 R2 K0 ["_viewState"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["_exportEnabled"]
-        7 LOADB                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["_exportProcessing"]
-       10 DUPTABLE                         R3 K30 [{"skinning", "textures", "attachments", "cages"}]
-       11 LOADB                            R4 1
-       12 SETTABLEKS                       R4 R3 K26 ["skinning"]
-       14 LOADB                            R4 1
-       15 SETTABLEKS                       R4 R3 K27 ["textures"]
-       17 LOADB                            R4 1
-       18 SETTABLEKS                       R4 R3 K28 ["attachments"]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K29 ["cages"]
-       23 SETTABLEKS                       R3 R2 K3 ["_settings"]
-       25 NEWTABLE                         R3 0 0
-       27 SETTABLEKS                       R3 R2 K4 ["_settingEvents"]
-       29 LOADB                            R3 0
-       30 SETTABLEKS                       R3 R2 K5 ["_onlySelection"]
-       32 SETTABLEKS                       R0 R2 K6 ["_plugin"]
-       34 NEWTABLE                         R3 0 0
-       36 SETTABLEKS                       R3 R2 K7 ["_permissionFailures"]
-       38 LOADNIL                          R3
-       39 SETTABLEKS                       R3 R2 K8 ["_fileName"]
-       41 NEWTABLE                         R3 0 0
-       43 SETTABLEKS                       R3 R2 K9 ["_connections"]
-       45 LOADB                            R3 0
-       46 SETTABLEKS                       R3 R2 K10 ["_permissionsReady"]
-       48 LOADB                            R3 0
-       49 SETTABLEKS                       R3 R2 K11 ["_canceled"]
-       51 LOADB                            R3 0
-       52 SETTABLEKS                       R3 R2 K12 ["_exportSuccess"]
-       54 LOADB                            R3 0
-       55 SETTABLEKS                       R3 R2 K13 ["_cagesInProgress"]
-       57 LOADB                            R3 0
-       58 SETTABLEKS                       R3 R2 K14 ["_attachmentsInProgress"]
-       60 LOADB                            R3 0
-       61 SETTABLEKS                       R3 R2 K15 ["_cagesDeletionInProgress"]
-       63 LOADB                            R3 0
-       64 SETTABLEKS                       R3 R2 K16 ["_attachmentsDeletionInProgress"]
-       66 LOADB                            R3 0
-       67 SETTABLEKS                       R3 R2 K17 ["_isAnimationExportPending"]
-       69 GETUPVAL                         R3 0
-       70 GETTABLEKS                       R3 R3 K31 ["new"]
-       72 CALL                             R3 0 1
-       73 SETTABLEKS                       R3 R2 K18 ["onViewStateChanged"]
-       75 GETUPVAL                         R3 0
-       76 GETTABLEKS                       R3 R3 K31 ["new"]
-       78 CALL                             R3 0 1
-       79 SETTABLEKS                       R3 R2 K19 ["onPermissionLoadingChanged"]
-       81 GETUPVAL                         R3 0
-       82 GETTABLEKS                       R3 R3 K31 ["new"]
-       84 CALL                             R3 0 1
-       85 SETTABLEKS                       R3 R2 K20 ["onPermissionFailuresChanged"]
-       87 GETUPVAL                         R3 0
-       88 GETTABLEKS                       R3 R3 K31 ["new"]
-       90 CALL                             R3 0 1
-       91 SETTABLEKS                       R3 R2 K21 ["onExportEnabledChanged"]
-       93 GETUPVAL                         R3 0
-       94 GETTABLEKS                       R3 R3 K31 ["new"]
-       96 CALL                             R3 0 1
-       97 SETTABLEKS                       R3 R2 K22 ["onExportProcessingChanged"]
-       99 GETUPVAL                         R3 0
-      100 GETTABLEKS                       R3 R3 K31 ["new"]
-      102 CALL                             R3 0 1
-      103 SETTABLEKS                       R3 R2 K23 ["onPermissionsReadyChanged"]
-      105 GETTABLEKS                       R3 R2 K3 ["_settings"]
-      107 LOADNIL                          R4
-      108 LOADNIL                          R5
-      109 FORGPREP                         R3
-      110 GETTABLEKS                       R8 R2 K4 ["_settingEvents"]
-      112 GETUPVAL                         R9 0
-      113 GETTABLEKS                       R9 R9 K31 ["new"]
-      115 CALL                             R9 0 1
-      116 SETTABLE                         R9 R8 R6
-      117 FORGLOOP                         R3 2 ; [-8]
-      119 GETUPVAL                         R5 1
-      120 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-      122 MOVE                             R4 R2
-      123 GETIMPORT                        R3 K33 [setmetatable]
-      125 CALL                             R3 2 0
-      126 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      128 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      130 LOADK                            R7 K34 ["OnExportSelectionActionActivated"]
-      131 NEWCLOSURE                       R8 P0
-      132 CAPTURE                          VAL R2
-      133 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      135 CALL                             R5 3 -1
-      136 FASTCALL                         TABLE_INSERT ; [+2]
-      137 GETIMPORT                        R3 K38 [table.insert]
-      139 CALL                             R3 -1 0
-      140 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      142 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      144 LOADK                            R7 K39 ["OnExportPlaceActionActivated"]
-      145 NEWCLOSURE                       R8 P1
-      146 CAPTURE                          VAL R2
-      147 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      149 CALL                             R5 3 -1
-      150 FASTCALL                         TABLE_INSERT ; [+2]
-      151 GETIMPORT                        R3 K38 [table.insert]
-      153 CALL                             R3 -1 0
-      154 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      156 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      158 LOADK                            R7 K40 ["OnCreateCagesSucceeded"]
-      159 NEWCLOSURE                       R8 P2
-      160 CAPTURE                          UPVAL U2
-      161 CAPTURE                          VAL R2
-      162 CAPTURE                          UPVAL U3
-      163 CAPTURE                          UPVAL U1
-      164 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      166 CALL                             R5 3 -1
-      167 FASTCALL                         TABLE_INSERT ; [+2]
-      168 GETIMPORT                        R3 K38 [table.insert]
-      170 CALL                             R3 -1 0
-      171 GETUPVAL                         R3 2
-      172 CALL                             R3 0 1
-      173 JUMPIFNOT                        R3 ; [+16]
-      174 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      176 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      178 LOADK                            R7 K41 ["OnCreateAttachmentsSucceeded"]
-      179 NEWCLOSURE                       R8 P3
-      180 CAPTURE                          VAL R2
-      181 CAPTURE                          UPVAL U3
-      182 CAPTURE                          UPVAL U1
-      183 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      185 CALL                             R5 3 -1
-      186 FASTCALL                         TABLE_INSERT ; [+2]
-      187 GETIMPORT                        R3 K38 [table.insert]
-      189 CALL                             R3 -1 0
-      190 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      192 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      194 LOADK                            R7 K42 ["OnExportFileNameInputted"]
-      195 NEWCLOSURE                       R8 P4
-      196 CAPTURE                          VAL R2
-      197 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      199 CALL                             R5 3 -1
-      200 FASTCALL                         TABLE_INSERT ; [+2]
-      201 GETIMPORT                        R3 K38 [table.insert]
-      203 CALL                             R3 -1 0
-      204 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      206 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      208 LOADK                            R7 K43 ["OnDestroyCagesSucceeded"]
-      209 NEWCLOSURE                       R8 P5
-      210 CAPTURE                          UPVAL U2
-      211 CAPTURE                          VAL R2
-      212 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      214 CALL                             R5 3 -1
-      215 FASTCALL                         TABLE_INSERT ; [+2]
-      216 GETIMPORT                        R3 K38 [table.insert]
-      218 CALL                             R3 -1 0
-      219 GETUPVAL                         R3 2
-      220 CALL                             R3 0 1
-      221 JUMPIFNOT                        R3 ; [+14]
-      222 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      224 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      226 LOADK                            R7 K44 ["OnDestroyAttachmentsSucceeded"]
-      227 NEWCLOSURE                       R8 P6
-      228 CAPTURE                          VAL R2
-      229 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      231 CALL                             R5 3 -1
-      232 FASTCALL                         TABLE_INSERT ; [+2]
-      233 GETIMPORT                        R3 K38 [table.insert]
-      235 CALL                             R3 -1 0
-      236 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      238 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      240 LOADK                            R7 K45 ["OnExportCompleteSuccess"]
-      241 NEWCLOSURE                       R8 P7
-      242 CAPTURE                          VAL R2
-      243 CAPTURE                          UPVAL U2
-      244 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      246 CALL                             R5 3 -1
-      247 FASTCALL                         TABLE_INSERT ; [+2]
-      248 GETIMPORT                        R3 K38 [table.insert]
-      250 CALL                             R3 -1 0
-      251 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      253 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      255 LOADK                            R7 K46 ["OnExportErrored"]
-      256 NEWCLOSURE                       R8 P8
-      257 CAPTURE                          VAL R2
-      258 CAPTURE                          UPVAL U2
-      259 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      261 CALL                             R5 3 -1
-      262 FASTCALL                         TABLE_INSERT ; [+2]
-      263 GETIMPORT                        R3 K38 [table.insert]
-      265 CALL                             R3 -1 0
-      266 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      268 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      270 LOADK                            R7 K47 ["OnFileSelectCanceled"]
-      271 NEWCLOSURE                       R8 P9
-      272 CAPTURE                          VAL R2
-      273 CAPTURE                          UPVAL U2
-      274 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      276 CALL                             R5 3 -1
-      277 FASTCALL                         TABLE_INSERT ; [+2]
-      278 GETIMPORT                        R3 K38 [table.insert]
-      280 CALL                             R3 -1 0
-      281 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      283 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      285 LOADK                            R7 K48 ["OnPermissionCheckComplete"]
-      286 NEWCLOSURE                       R8 P10
-      287 CAPTURE                          VAL R2
-      288 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      290 CALL                             R5 3 -1
-      291 FASTCALL                         TABLE_INSERT ; [+2]
-      292 GETIMPORT                        R3 K38 [table.insert]
-      294 CALL                             R3 -1 0
-      295 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      297 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      299 LOADK                            R7 K49 ["OnPermissionCheckFailed"]
-      300 NEWCLOSURE                       R8 P11
-      301 CAPTURE                          VAL R2
-      302 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      304 CALL                             R5 3 -1
-      305 FASTCALL                         TABLE_INSERT ; [+2]
-      306 GETIMPORT                        R3 K38 [table.insert]
-      308 CALL                             R3 -1 0
-      309 GETUPVAL                         R3 4
-      310 CALL                             R3 0 1
-      311 JUMPIFNOT                        R3 ; [+14]
-      312 GETTABLEKS                       R4 R2 K9 ["_connections"]
-      314 GETTABLEKS                       R5 R2 K6 ["_plugin"]
-      316 LOADK                            R7 K50 ["OnAnimationExportPending"]
-      317 NEWCLOSURE                       R8 P12
-      318 CAPTURE                          VAL R2
-      319 NAMECALL                         R5 R5 K35 ["OnInvoke"]
-      321 CALL                             R5 3 -1
-      322 FASTCALL                         TABLE_INSERT ; [+2]
-      323 GETIMPORT                        R3 K38 [table.insert]
-      325 CALL                             R3 -1 0
-      326 RETURN                           R2 1
+        0 DUPTABLE                         R2 K27 [{[1] = "Main", ["_exportEnabled"] = False, ["_exportProcessing"] = False, ["_settings"], ["_settingEvents"], ["_onlySelection"] = False, ["_plugin"], ["_permissionFailures"], ["_fileName"] = , ["_connections"], ["_permissionsReady"] = False, ["_canceled"] = False, ["_exportSuccess"] = False, ["_cagesInProgress"] = False, ["_attachmentsInProgress"] = False, ["_cagesDeletionInProgress"] = False, ["_attachmentsDeletionInProgress"] = False, ["_isAnimationExportPending"] = False, ["onViewStateChanged"], ["onPermissionLoadingChanged"], ["onPermissionFailuresChanged"], ["onExportEnabledChanged"], ["onExportProcessingChanged"], ["onPermissionsReadyChanged"]}]
+        1 DUPTABLE                         R3 K33 [{["skinning"] = True, ["textures"] = True, ["attachments"] = True, ["cages"] = False}]
+        2 SETTABLEKS                       R3 R2 K5 ["_settings"]
+        4 NEWTABLE                         R3 0 0
+        6 SETTABLEKS                       R3 R2 K6 ["_settingEvents"]
+        8 SETTABLEKS                       R0 R2 K8 ["_plugin"]
+       10 NEWTABLE                         R3 0 0
+       12 SETTABLEKS                       R3 R2 K9 ["_permissionFailures"]
+       14 NEWTABLE                         R3 0 0
+       16 SETTABLEKS                       R3 R2 K12 ["_connections"]
+       18 GETUPVAL                         R3 0
+       19 GETTABLEKS                       R3 R3 K34 ["new"]
+       21 CALL                             R3 0 1
+       22 SETTABLEKS                       R3 R2 K21 ["onViewStateChanged"]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R3 R3 K34 ["new"]
+       27 CALL                             R3 0 1
+       28 SETTABLEKS                       R3 R2 K22 ["onPermissionLoadingChanged"]
+       30 GETUPVAL                         R3 0
+       31 GETTABLEKS                       R3 R3 K34 ["new"]
+       33 CALL                             R3 0 1
+       34 SETTABLEKS                       R3 R2 K23 ["onPermissionFailuresChanged"]
+       36 GETUPVAL                         R3 0
+       37 GETTABLEKS                       R3 R3 K34 ["new"]
+       39 CALL                             R3 0 1
+       40 SETTABLEKS                       R3 R2 K24 ["onExportEnabledChanged"]
+       42 GETUPVAL                         R3 0
+       43 GETTABLEKS                       R3 R3 K34 ["new"]
+       45 CALL                             R3 0 1
+       46 SETTABLEKS                       R3 R2 K25 ["onExportProcessingChanged"]
+       48 GETUPVAL                         R3 0
+       49 GETTABLEKS                       R3 R3 K34 ["new"]
+       51 CALL                             R3 0 1
+       52 SETTABLEKS                       R3 R2 K26 ["onPermissionsReadyChanged"]
+       54 GETTABLEKS                       R3 R2 K5 ["_settings"]
+       56 LOADNIL                          R4
+       57 LOADNIL                          R5
+       58 FORGPREP                         R3
+       59 GETTABLEKS                       R8 R2 K6 ["_settingEvents"]
+       61 GETUPVAL                         R9 0
+       62 GETTABLEKS                       R9 R9 K34 ["new"]
+       64 CALL                             R9 0 1
+       65 SETTABLE                         R9 R8 R6
+       66 FORGLOOP                         R3 2 ; [-8]
+       68 GETUPVAL                         R5 1
+       69 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       71 MOVE                             R4 R2
+       72 GETIMPORT                        R3 K36 [setmetatable]
+       74 CALL                             R3 2 0
+       75 GETTABLEKS                       R4 R2 K12 ["_connections"]
+       77 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+       79 LOADK                            R7 K37 ["OnExportSelectionActionActivated"]
+       80 NEWCLOSURE                       R8 P0
+       81 CAPTURE                          VAL R2
+       82 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+       84 CALL                             R5 3 -1
+       85 FASTCALL                         TABLE_INSERT ; [+2]
+       86 GETIMPORT                        R3 K41 [table.insert]
+       88 CALL                             R3 -1 0
+       89 GETTABLEKS                       R4 R2 K12 ["_connections"]
+       91 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+       93 LOADK                            R7 K42 ["OnExportPlaceActionActivated"]
+       94 NEWCLOSURE                       R8 P1
+       95 CAPTURE                          VAL R2
+       96 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+       98 CALL                             R5 3 -1
+       99 FASTCALL                         TABLE_INSERT ; [+2]
+      100 GETIMPORT                        R3 K41 [table.insert]
+      102 CALL                             R3 -1 0
+      103 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      105 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      107 LOADK                            R7 K43 ["OnCreateCagesSucceeded"]
+      108 NEWCLOSURE                       R8 P2
+      109 CAPTURE                          UPVAL U2
+      110 CAPTURE                          VAL R2
+      111 CAPTURE                          UPVAL U3
+      112 CAPTURE                          UPVAL U1
+      113 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      115 CALL                             R5 3 -1
+      116 FASTCALL                         TABLE_INSERT ; [+2]
+      117 GETIMPORT                        R3 K41 [table.insert]
+      119 CALL                             R3 -1 0
+      120 GETUPVAL                         R3 2
+      121 CALL                             R3 0 1
+      122 JUMPIFNOT                        R3 ; [+16]
+      123 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      125 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      127 LOADK                            R7 K44 ["OnCreateAttachmentsSucceeded"]
+      128 NEWCLOSURE                       R8 P3
+      129 CAPTURE                          VAL R2
+      130 CAPTURE                          UPVAL U3
+      131 CAPTURE                          UPVAL U1
+      132 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      134 CALL                             R5 3 -1
+      135 FASTCALL                         TABLE_INSERT ; [+2]
+      136 GETIMPORT                        R3 K41 [table.insert]
+      138 CALL                             R3 -1 0
+      139 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      141 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      143 LOADK                            R7 K45 ["OnExportFileNameInputted"]
+      144 NEWCLOSURE                       R8 P4
+      145 CAPTURE                          VAL R2
+      146 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      148 CALL                             R5 3 -1
+      149 FASTCALL                         TABLE_INSERT ; [+2]
+      150 GETIMPORT                        R3 K41 [table.insert]
+      152 CALL                             R3 -1 0
+      153 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      155 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      157 LOADK                            R7 K46 ["OnDestroyCagesSucceeded"]
+      158 NEWCLOSURE                       R8 P5
+      159 CAPTURE                          UPVAL U2
+      160 CAPTURE                          VAL R2
+      161 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      163 CALL                             R5 3 -1
+      164 FASTCALL                         TABLE_INSERT ; [+2]
+      165 GETIMPORT                        R3 K41 [table.insert]
+      167 CALL                             R3 -1 0
+      168 GETUPVAL                         R3 2
+      169 CALL                             R3 0 1
+      170 JUMPIFNOT                        R3 ; [+14]
+      171 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      173 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      175 LOADK                            R7 K47 ["OnDestroyAttachmentsSucceeded"]
+      176 NEWCLOSURE                       R8 P6
+      177 CAPTURE                          VAL R2
+      178 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      180 CALL                             R5 3 -1
+      181 FASTCALL                         TABLE_INSERT ; [+2]
+      182 GETIMPORT                        R3 K41 [table.insert]
+      184 CALL                             R3 -1 0
+      185 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      187 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      189 LOADK                            R7 K48 ["OnExportCompleteSuccess"]
+      190 NEWCLOSURE                       R8 P7
+      191 CAPTURE                          VAL R2
+      192 CAPTURE                          UPVAL U2
+      193 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      195 CALL                             R5 3 -1
+      196 FASTCALL                         TABLE_INSERT ; [+2]
+      197 GETIMPORT                        R3 K41 [table.insert]
+      199 CALL                             R3 -1 0
+      200 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      202 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      204 LOADK                            R7 K49 ["OnExportErrored"]
+      205 NEWCLOSURE                       R8 P8
+      206 CAPTURE                          VAL R2
+      207 CAPTURE                          UPVAL U2
+      208 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      210 CALL                             R5 3 -1
+      211 FASTCALL                         TABLE_INSERT ; [+2]
+      212 GETIMPORT                        R3 K41 [table.insert]
+      214 CALL                             R3 -1 0
+      215 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      217 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      219 LOADK                            R7 K50 ["OnFileSelectCanceled"]
+      220 NEWCLOSURE                       R8 P9
+      221 CAPTURE                          VAL R2
+      222 CAPTURE                          UPVAL U2
+      223 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      225 CALL                             R5 3 -1
+      226 FASTCALL                         TABLE_INSERT ; [+2]
+      227 GETIMPORT                        R3 K41 [table.insert]
+      229 CALL                             R3 -1 0
+      230 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      232 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      234 LOADK                            R7 K51 ["OnPermissionCheckComplete"]
+      235 NEWCLOSURE                       R8 P10
+      236 CAPTURE                          VAL R2
+      237 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      239 CALL                             R5 3 -1
+      240 FASTCALL                         TABLE_INSERT ; [+2]
+      241 GETIMPORT                        R3 K41 [table.insert]
+      243 CALL                             R3 -1 0
+      244 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      246 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      248 LOADK                            R7 K52 ["OnPermissionCheckFailed"]
+      249 NEWCLOSURE                       R8 P11
+      250 CAPTURE                          VAL R2
+      251 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      253 CALL                             R5 3 -1
+      254 FASTCALL                         TABLE_INSERT ; [+2]
+      255 GETIMPORT                        R3 K41 [table.insert]
+      257 CALL                             R3 -1 0
+      258 GETUPVAL                         R3 4
+      259 CALL                             R3 0 1
+      260 JUMPIFNOT                        R3 ; [+14]
+      261 GETTABLEKS                       R4 R2 K12 ["_connections"]
+      263 GETTABLEKS                       R5 R2 K8 ["_plugin"]
+      265 LOADK                            R7 K53 ["OnAnimationExportPending"]
+      266 NEWCLOSURE                       R8 P12
+      267 CAPTURE                          VAL R2
+      268 NAMECALL                         R5 R5 K38 ["OnInvoke"]
+      270 CALL                             R5 3 -1
+      271 FASTCALL                         TABLE_INSERT ; [+2]
+      272 GETIMPORT                        R3 K41 [table.insert]
+      274 CALL                             R3 -1 0
+      275 RETURN                           R2 1
 
 PROTO_14:
         0 GETUPVAL                         R1 0

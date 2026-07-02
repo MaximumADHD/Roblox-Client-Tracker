@@ -44,34 +44,24 @@ PROTO_0:
        68 GETUPVAL                         R8 1
        69 GETTABLEKS                       R8 R8 K5 ["createElement"]
        71 GETUPVAL                         R9 3
-       72 DUPTABLE                         R10 K36 [{"LayoutOrder", "RoduxStoreContext"}]
-       73 LOADN                            R11 1
-       74 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
-       76 LOADK                            R11 K37 ["playbackTabFilter"]
-       77 SETTABLEKS                       R11 R10 K35 ["RoduxStoreContext"]
-       79 CALL                             R8 2 1
-       80 SETTABLEKS                       R8 R7 K30 ["FileSelector"]
-       82 GETUPVAL                         R8 1
-       83 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       85 GETUPVAL                         R9 4
-       86 DUPTABLE                         R10 K38 [{"LayoutOrder"}]
-       87 LOADN                            R11 2
-       88 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
-       90 CALL                             R8 2 1
-       91 SETTABLEKS                       R8 R7 K31 ["PlaybackInfoGroup"]
-       93 GETUPVAL                         R8 1
-       94 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       96 GETUPVAL                         R9 5
-       97 DUPTABLE                         R10 K39 [{"LayoutOrder", "RoduxStoreContext", "Disabled"}]
-       98 LOADN                            R11 3
-       99 SETTABLEKS                       R11 R10 K34 ["LayoutOrder"]
-      101 LOADK                            R11 K37 ["playbackTabFilter"]
-      102 SETTABLEKS                       R11 R10 K35 ["RoduxStoreContext"]
-      104 SETTABLEKS                       R3 R10 K4 ["Disabled"]
-      106 CALL                             R8 2 1
-      107 SETTABLEKS                       R8 R7 K32 ["FilterSettings"]
-      109 CALL                             R4 3 -1
-      110 RETURN                           R4 -1
+       72 DUPTABLE                         R10 K38 [{["LayoutOrder"] = 1, ["RoduxStoreContext"] = "playbackTabFilter"}]
+       73 CALL                             R8 2 1
+       74 SETTABLEKS                       R8 R7 K30 ["FileSelector"]
+       76 GETUPVAL                         R8 1
+       77 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       79 GETUPVAL                         R9 4
+       80 DUPTABLE                         R10 K40 [{["LayoutOrder"] = 2}]
+       81 CALL                             R8 2 1
+       82 SETTABLEKS                       R8 R7 K31 ["PlaybackInfoGroup"]
+       84 GETUPVAL                         R8 1
+       85 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       87 GETUPVAL                         R9 5
+       88 DUPTABLE                         R10 K42 [{["LayoutOrder"] = 3, ["RoduxStoreContext"] = "playbackTabFilter", ["Disabled"]}]
+       89 SETTABLEKS                       R3 R10 K4 ["Disabled"]
+       91 CALL                             R8 2 1
+       92 SETTABLEKS                       R8 R7 K32 ["FilterSettings"]
+       94 CALL                             R4 3 -1
+       95 RETURN                           R4 -1
 
 PROTO_1:
         0 DUPTABLE                         R2 K1 [{"PluginState"}]

@@ -71,361 +71,309 @@ PROTO_1:
        79 LOADB                            R10 1
        80 GETUPVAL                         R11 6
        81 GETUPVAL                         R12 7
-       82 DUPTABLE                         R13 K30 [{"text", "layoutOrder", "showWarning"}]
+       82 DUPTABLE                         R13 K31 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
        83 LOADK                            R16 K13 ["AnimationSettings"]
-       84 LOADK                            R17 K31 ["AnimationClipsSection"]
+       84 LOADK                            R17 K32 ["AnimationClipsSection"]
        85 NAMECALL                         R14 R1 K15 ["getText"]
        87 CALL                             R14 3 1
        88 SETTABLEKS                       R14 R13 K27 ["text"]
        90 GETTABLEKS                       R14 R0 K28 ["layoutOrder"]
        92 SETTABLEKS                       R14 R13 K28 ["layoutOrder"]
-       94 LOADB                            R14 1
-       95 SETTABLEKS                       R14 R13 K29 ["showWarning"]
-       97 DUPTABLE                         R14 K43 [{"AnimationClipsModeSelector", "RunAssetSelector", "WalkAssetSelector", "FallAssetSelector", "JumpAssetSelector", "IdleAssetSelector", "IdleAlt1AssetSelector", "IdleAlt2AssetSelector", "SwimAssetSelector", "SwimIdleAssetSelector", "ClimbAssetSelector"}]
-       98 GETUPVAL                         R15 6
-       99 GETUPVAL                         R16 8
-      100 DUPTABLE                         R17 K48 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-      101 MOVE                             R18 R3
-      102 CALL                             R18 0 1
-      103 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      105 SETTABLEKS                       R5 R17 K44 ["items"]
-      107 SETTABLEKS                       R8 R17 K45 ["selected"]
-      109 NEWCLOSURE                       R18 P0
-      110 CAPTURE                          VAL R8
-      111 CAPTURE                          VAL R2
-      112 CAPTURE                          VAL R6
-      113 SETTABLEKS                       R18 R17 K46 ["onItemActivated"]
-      115 LOADK                            R20 K13 ["AnimationSettings"]
-      116 GETIMPORT                        R22 K12 [Enum.AvatarSettingsAnimationClipsMode.PlayerChoice]
-      118 JUMPIFNOTEQ                      R8 R22 ; [+3]
-      120 LOADK                            R21 K49 ["AnimationClipsSectionPlayerChoiceSubText"]
-      121 JUMP                             ; [+13]
-      122 GETIMPORT                        R22 K51 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
-      124 JUMPIFNOTEQ                      R7 R22 ; [+3]
-      126 LOADK                            R21 K52 ["AnimationClipsSectionCustomClipsPlayerChoiceSubText"]
-      127 JUMP                             ; [+7]
-      128 GETIMPORT                        R22 K54 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
-      130 JUMPIFNOTEQ                      R7 R22 ; [+3]
-      132 LOADK                            R21 K55 ["AnimationClipsSectionCustomClipsStandardR15SubText"]
-      133 JUMP                             ; [+1]
-      134 LOADK                            R21 K56 ["AnimationClipsSectionCustomClipsStandardR6SubText"]
-      135 NAMECALL                         R18 R1 K15 ["getText"]
-      137 CALL                             R18 3 1
-      138 SETTABLEKS                       R18 R17 K47 ["subText"]
-      140 CALL                             R15 2 1
-      141 SETTABLEKS                       R15 R14 K32 ["AnimationClipsModeSelector"]
-      143 MOVE                             R15 R10
-      144 JUMPIFNOT                        R15 ; [+38]
-      145 GETUPVAL                         R15 6
-      146 GETUPVAL                         R16 9
-      147 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      148 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      150 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      151 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      153 LOADK                            R20 K13 ["AnimationSettings"]
-      154 LOADK                            R21 K61 ["AnimationClipsSectionCustomClipsRun"]
-      155 NAMECALL                         R18 R1 K15 ["getText"]
-      157 CALL                             R18 3 1
-      158 SETTABLEKS                       R18 R17 K27 ["text"]
-      160 MOVE                             R18 R3
-      161 CALL                             R18 0 1
-      162 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      164 DUPTABLE                         R18 K63 [{"Content"}]
-      165 GETUPVAL                         R19 6
-      166 GETUPVAL                         R20 10
-      167 DUPTABLE                         R21 K67 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
-      168 GETTABLEKS                       R22 R6 K68 ["animationClipsRunSetting"]
-      170 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      172 LOADB                            R22 1
-      173 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      175 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      177 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      179 CALL                             R19 2 1
-      180 SETTABLEKS                       R19 R18 K62 ["Content"]
-      182 CALL                             R15 3 1
-      183 SETTABLEKS                       R15 R14 K33 ["RunAssetSelector"]
-      185 MOVE                             R15 R10
-      186 JUMPIFNOT                        R15 ; [+38]
-      187 GETUPVAL                         R15 6
-      188 GETUPVAL                         R16 9
-      189 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      190 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      192 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      193 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      195 LOADK                            R20 K13 ["AnimationSettings"]
-      196 LOADK                            R21 K72 ["AnimationClipsSectionCustomClipsWalk"]
-      197 NAMECALL                         R18 R1 K15 ["getText"]
-      199 CALL                             R18 3 1
-      200 SETTABLEKS                       R18 R17 K27 ["text"]
-      202 MOVE                             R18 R3
-      203 CALL                             R18 0 1
-      204 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      206 DUPTABLE                         R18 K63 [{"Content"}]
-      207 GETUPVAL                         R19 6
-      208 GETUPVAL                         R20 10
-      209 DUPTABLE                         R21 K67 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
-      210 GETTABLEKS                       R22 R6 K73 ["animationClipsWalkSetting"]
-      212 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      214 LOADB                            R22 1
-      215 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      217 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      219 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      221 CALL                             R19 2 1
-      222 SETTABLEKS                       R19 R18 K62 ["Content"]
-      224 CALL                             R15 3 1
-      225 SETTABLEKS                       R15 R14 K34 ["WalkAssetSelector"]
-      227 MOVE                             R15 R10
-      228 JUMPIFNOT                        R15 ; [+38]
-      229 GETUPVAL                         R15 6
-      230 GETUPVAL                         R16 9
-      231 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      232 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      234 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      235 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      237 LOADK                            R20 K13 ["AnimationSettings"]
-      238 LOADK                            R21 K74 ["AnimationClipsSectionCustomClipsFall"]
-      239 NAMECALL                         R18 R1 K15 ["getText"]
-      241 CALL                             R18 3 1
-      242 SETTABLEKS                       R18 R17 K27 ["text"]
-      244 MOVE                             R18 R3
-      245 CALL                             R18 0 1
-      246 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      248 DUPTABLE                         R18 K63 [{"Content"}]
-      249 GETUPVAL                         R19 6
-      250 GETUPVAL                         R20 10
-      251 DUPTABLE                         R21 K67 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
-      252 GETTABLEKS                       R22 R6 K75 ["animationClipsFallSetting"]
-      254 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      256 LOADB                            R22 1
-      257 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      259 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      261 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      263 CALL                             R19 2 1
-      264 SETTABLEKS                       R19 R18 K62 ["Content"]
-      266 CALL                             R15 3 1
-      267 SETTABLEKS                       R15 R14 K35 ["FallAssetSelector"]
-      269 MOVE                             R15 R10
-      270 JUMPIFNOT                        R15 ; [+38]
-      271 GETUPVAL                         R15 6
-      272 GETUPVAL                         R16 9
-      273 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      274 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      276 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      277 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      279 LOADK                            R20 K13 ["AnimationSettings"]
-      280 LOADK                            R21 K76 ["AnimationClipsSectionCustomClipsJump"]
-      281 NAMECALL                         R18 R1 K15 ["getText"]
-      283 CALL                             R18 3 1
-      284 SETTABLEKS                       R18 R17 K27 ["text"]
-      286 MOVE                             R18 R3
-      287 CALL                             R18 0 1
-      288 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      290 DUPTABLE                         R18 K63 [{"Content"}]
-      291 GETUPVAL                         R19 6
-      292 GETUPVAL                         R20 10
-      293 DUPTABLE                         R21 K67 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
-      294 GETTABLEKS                       R22 R6 K77 ["animationClipsJumpSetting"]
-      296 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      298 LOADB                            R22 1
-      299 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      301 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      303 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      305 CALL                             R19 2 1
-      306 SETTABLEKS                       R19 R18 K62 ["Content"]
-      308 CALL                             R15 3 1
-      309 SETTABLEKS                       R15 R14 K36 ["JumpAssetSelector"]
-      311 MOVE                             R15 R10
-      312 JUMPIFNOT                        R15 ; [+41]
-      313 GETUPVAL                         R15 6
-      314 GETUPVAL                         R16 9
-      315 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      316 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      318 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      319 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      321 LOADK                            R20 K13 ["AnimationSettings"]
-      322 LOADK                            R21 K78 ["AnimationClipsSectionCustomClipsIdle"]
-      323 NAMECALL                         R18 R1 K15 ["getText"]
-      325 CALL                             R18 3 1
-      326 SETTABLEKS                       R18 R17 K27 ["text"]
-      328 MOVE                             R18 R3
-      329 CALL                             R18 0 1
-      330 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      332 DUPTABLE                         R18 K63 [{"Content"}]
-      333 GETUPVAL                         R19 6
-      334 GETUPVAL                         R20 10
-      335 DUPTABLE                         R21 K80 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType", "animationType"}]
-      336 GETTABLEKS                       R22 R6 K81 ["animationClipsIdleSetting"]
-      338 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      340 LOADB                            R22 1
-      341 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      343 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      345 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      347 LOADK                            R22 K82 ["Animation1"]
-      348 SETTABLEKS                       R22 R21 K79 ["animationType"]
+       94 DUPTABLE                         R14 K44 [{"AnimationClipsModeSelector", "RunAssetSelector", "WalkAssetSelector", "FallAssetSelector", "JumpAssetSelector", "IdleAssetSelector", "IdleAlt1AssetSelector", "IdleAlt2AssetSelector", "SwimAssetSelector", "SwimIdleAssetSelector", "ClimbAssetSelector"}]
+       95 GETUPVAL                         R15 6
+       96 GETUPVAL                         R16 8
+       97 DUPTABLE                         R17 K49 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+       98 MOVE                             R18 R3
+       99 CALL                             R18 0 1
+      100 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      102 SETTABLEKS                       R5 R17 K45 ["items"]
+      104 SETTABLEKS                       R8 R17 K46 ["selected"]
+      106 NEWCLOSURE                       R18 P0
+      107 CAPTURE                          VAL R8
+      108 CAPTURE                          VAL R2
+      109 CAPTURE                          VAL R6
+      110 SETTABLEKS                       R18 R17 K47 ["onItemActivated"]
+      112 LOADK                            R20 K13 ["AnimationSettings"]
+      113 GETIMPORT                        R22 K12 [Enum.AvatarSettingsAnimationClipsMode.PlayerChoice]
+      115 JUMPIFNOTEQ                      R8 R22 ; [+3]
+      117 LOADK                            R21 K50 ["AnimationClipsSectionPlayerChoiceSubText"]
+      118 JUMP                             ; [+13]
+      119 GETIMPORT                        R22 K52 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
+      121 JUMPIFNOTEQ                      R7 R22 ; [+3]
+      123 LOADK                            R21 K53 ["AnimationClipsSectionCustomClipsPlayerChoiceSubText"]
+      124 JUMP                             ; [+7]
+      125 GETIMPORT                        R22 K55 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
+      127 JUMPIFNOTEQ                      R7 R22 ; [+3]
+      129 LOADK                            R21 K56 ["AnimationClipsSectionCustomClipsStandardR15SubText"]
+      130 JUMP                             ; [+1]
+      131 LOADK                            R21 K57 ["AnimationClipsSectionCustomClipsStandardR6SubText"]
+      132 NAMECALL                         R18 R1 K15 ["getText"]
+      134 CALL                             R18 3 1
+      135 SETTABLEKS                       R18 R17 K48 ["subText"]
+      137 CALL                             R15 2 1
+      138 SETTABLEKS                       R15 R14 K33 ["AnimationClipsModeSelector"]
+      140 MOVE                             R15 R10
+      141 JUMPIFNOT                        R15 ; [+32]
+      142 GETUPVAL                         R15 6
+      143 GETUPVAL                         R16 9
+      144 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      145 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      147 LOADK                            R20 K13 ["AnimationSettings"]
+      148 LOADK                            R21 K62 ["AnimationClipsSectionCustomClipsRun"]
+      149 NAMECALL                         R18 R1 K15 ["getText"]
+      151 CALL                             R18 3 1
+      152 SETTABLEKS                       R18 R17 K27 ["text"]
+      154 MOVE                             R18 R3
+      155 CALL                             R18 0 1
+      156 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      158 DUPTABLE                         R18 K64 [{"Content"}]
+      159 GETUPVAL                         R19 6
+      160 GETUPVAL                         R20 10
+      161 DUPTABLE                         R21 K68 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"]}]
+      162 GETTABLEKS                       R22 R6 K69 ["animationClipsRunSetting"]
+      164 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      166 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      168 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      170 CALL                             R19 2 1
+      171 SETTABLEKS                       R19 R18 K63 ["Content"]
+      173 CALL                             R15 3 1
+      174 SETTABLEKS                       R15 R14 K34 ["RunAssetSelector"]
+      176 MOVE                             R15 R10
+      177 JUMPIFNOT                        R15 ; [+32]
+      178 GETUPVAL                         R15 6
+      179 GETUPVAL                         R16 9
+      180 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      181 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      183 LOADK                            R20 K13 ["AnimationSettings"]
+      184 LOADK                            R21 K73 ["AnimationClipsSectionCustomClipsWalk"]
+      185 NAMECALL                         R18 R1 K15 ["getText"]
+      187 CALL                             R18 3 1
+      188 SETTABLEKS                       R18 R17 K27 ["text"]
+      190 MOVE                             R18 R3
+      191 CALL                             R18 0 1
+      192 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      194 DUPTABLE                         R18 K64 [{"Content"}]
+      195 GETUPVAL                         R19 6
+      196 GETUPVAL                         R20 10
+      197 DUPTABLE                         R21 K68 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"]}]
+      198 GETTABLEKS                       R22 R6 K74 ["animationClipsWalkSetting"]
+      200 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      202 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      204 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      206 CALL                             R19 2 1
+      207 SETTABLEKS                       R19 R18 K63 ["Content"]
+      209 CALL                             R15 3 1
+      210 SETTABLEKS                       R15 R14 K35 ["WalkAssetSelector"]
+      212 MOVE                             R15 R10
+      213 JUMPIFNOT                        R15 ; [+32]
+      214 GETUPVAL                         R15 6
+      215 GETUPVAL                         R16 9
+      216 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      217 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      219 LOADK                            R20 K13 ["AnimationSettings"]
+      220 LOADK                            R21 K75 ["AnimationClipsSectionCustomClipsFall"]
+      221 NAMECALL                         R18 R1 K15 ["getText"]
+      223 CALL                             R18 3 1
+      224 SETTABLEKS                       R18 R17 K27 ["text"]
+      226 MOVE                             R18 R3
+      227 CALL                             R18 0 1
+      228 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      230 DUPTABLE                         R18 K64 [{"Content"}]
+      231 GETUPVAL                         R19 6
+      232 GETUPVAL                         R20 10
+      233 DUPTABLE                         R21 K68 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"]}]
+      234 GETTABLEKS                       R22 R6 K76 ["animationClipsFallSetting"]
+      236 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      238 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      240 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      242 CALL                             R19 2 1
+      243 SETTABLEKS                       R19 R18 K63 ["Content"]
+      245 CALL                             R15 3 1
+      246 SETTABLEKS                       R15 R14 K36 ["FallAssetSelector"]
+      248 MOVE                             R15 R10
+      249 JUMPIFNOT                        R15 ; [+32]
+      250 GETUPVAL                         R15 6
+      251 GETUPVAL                         R16 9
+      252 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      253 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      255 LOADK                            R20 K13 ["AnimationSettings"]
+      256 LOADK                            R21 K77 ["AnimationClipsSectionCustomClipsJump"]
+      257 NAMECALL                         R18 R1 K15 ["getText"]
+      259 CALL                             R18 3 1
+      260 SETTABLEKS                       R18 R17 K27 ["text"]
+      262 MOVE                             R18 R3
+      263 CALL                             R18 0 1
+      264 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      266 DUPTABLE                         R18 K64 [{"Content"}]
+      267 GETUPVAL                         R19 6
+      268 GETUPVAL                         R20 10
+      269 DUPTABLE                         R21 K68 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"]}]
+      270 GETTABLEKS                       R22 R6 K78 ["animationClipsJumpSetting"]
+      272 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      274 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      276 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      278 CALL                             R19 2 1
+      279 SETTABLEKS                       R19 R18 K63 ["Content"]
+      281 CALL                             R15 3 1
+      282 SETTABLEKS                       R15 R14 K37 ["JumpAssetSelector"]
+      284 MOVE                             R15 R10
+      285 JUMPIFNOT                        R15 ; [+32]
+      286 GETUPVAL                         R15 6
+      287 GETUPVAL                         R16 9
+      288 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      289 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      291 LOADK                            R20 K13 ["AnimationSettings"]
+      292 LOADK                            R21 K79 ["AnimationClipsSectionCustomClipsIdle"]
+      293 NAMECALL                         R18 R1 K15 ["getText"]
+      295 CALL                             R18 3 1
+      296 SETTABLEKS                       R18 R17 K27 ["text"]
+      298 MOVE                             R18 R3
+      299 CALL                             R18 0 1
+      300 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      302 DUPTABLE                         R18 K64 [{"Content"}]
+      303 GETUPVAL                         R19 6
+      304 GETUPVAL                         R20 10
+      305 DUPTABLE                         R21 K82 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"], ["animationType"] = "Animation1"}]
+      306 GETTABLEKS                       R22 R6 K83 ["animationClipsIdleSetting"]
+      308 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      310 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      312 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      314 CALL                             R19 2 1
+      315 SETTABLEKS                       R19 R18 K63 ["Content"]
+      317 CALL                             R15 3 1
+      318 SETTABLEKS                       R15 R14 K38 ["IdleAssetSelector"]
+      320 MOVE                             R15 R10
+      321 JUMPIFNOT                        R15 ; [+32]
+      322 GETUPVAL                         R15 6
+      323 GETUPVAL                         R16 9
+      324 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      325 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      327 LOADK                            R20 K13 ["AnimationSettings"]
+      328 LOADK                            R21 K84 ["AnimationClipsSectionCustomClipsIdleAlt1"]
+      329 NAMECALL                         R18 R1 K15 ["getText"]
+      331 CALL                             R18 3 1
+      332 SETTABLEKS                       R18 R17 K27 ["text"]
+      334 MOVE                             R18 R3
+      335 CALL                             R18 0 1
+      336 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      338 DUPTABLE                         R18 K64 [{"Content"}]
+      339 GETUPVAL                         R19 6
+      340 GETUPVAL                         R20 10
+      341 DUPTABLE                         R21 K86 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"], ["animationType"] = "Animation2"}]
+      342 GETTABLEKS                       R22 R6 K87 ["animationClipsIdleAlt1Setting"]
+      344 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      346 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      348 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
       350 CALL                             R19 2 1
-      351 SETTABLEKS                       R19 R18 K62 ["Content"]
+      351 SETTABLEKS                       R19 R18 K63 ["Content"]
       353 CALL                             R15 3 1
-      354 SETTABLEKS                       R15 R14 K37 ["IdleAssetSelector"]
+      354 SETTABLEKS                       R15 R14 K39 ["IdleAlt1AssetSelector"]
       356 MOVE                             R15 R10
-      357 JUMPIFNOT                        R15 ; [+41]
+      357 JUMPIFNOT                        R15 ; [+32]
       358 GETUPVAL                         R15 6
       359 GETUPVAL                         R16 9
-      360 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      361 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      363 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      364 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      366 LOADK                            R20 K13 ["AnimationSettings"]
-      367 LOADK                            R21 K83 ["AnimationClipsSectionCustomClipsIdleAlt1"]
-      368 NAMECALL                         R18 R1 K15 ["getText"]
-      370 CALL                             R18 3 1
-      371 SETTABLEKS                       R18 R17 K27 ["text"]
-      373 MOVE                             R18 R3
-      374 CALL                             R18 0 1
-      375 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      377 DUPTABLE                         R18 K63 [{"Content"}]
-      378 GETUPVAL                         R19 6
-      379 GETUPVAL                         R20 10
-      380 DUPTABLE                         R21 K80 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType", "animationType"}]
-      381 GETTABLEKS                       R22 R6 K84 ["animationClipsIdleAlt1Setting"]
-      383 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      385 LOADB                            R22 1
-      386 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      388 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      390 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      392 LOADK                            R22 K85 ["Animation2"]
-      393 SETTABLEKS                       R22 R21 K79 ["animationType"]
-      395 CALL                             R19 2 1
-      396 SETTABLEKS                       R19 R18 K62 ["Content"]
-      398 CALL                             R15 3 1
-      399 SETTABLEKS                       R15 R14 K38 ["IdleAlt1AssetSelector"]
-      401 MOVE                             R15 R10
-      402 JUMPIFNOT                        R15 ; [+41]
-      403 GETUPVAL                         R15 6
-      404 GETUPVAL                         R16 9
-      405 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      406 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      408 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      409 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      411 LOADK                            R20 K13 ["AnimationSettings"]
-      412 LOADK                            R21 K86 ["AnimationClipsSectionCustomClipsIdleAlt2"]
-      413 NAMECALL                         R18 R1 K15 ["getText"]
-      415 CALL                             R18 3 1
-      416 SETTABLEKS                       R18 R17 K27 ["text"]
-      418 MOVE                             R18 R3
-      419 CALL                             R18 0 1
-      420 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      422 DUPTABLE                         R18 K63 [{"Content"}]
-      423 GETUPVAL                         R19 6
-      424 GETUPVAL                         R20 10
-      425 DUPTABLE                         R21 K80 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType", "animationType"}]
-      426 GETTABLEKS                       R22 R6 K87 ["animationClipsIdleAlt2Setting"]
-      428 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      430 LOADB                            R22 1
-      431 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      433 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      435 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      437 LOADK                            R22 K88 ["Animation3"]
-      438 SETTABLEKS                       R22 R21 K79 ["animationType"]
-      440 CALL                             R19 2 1
-      441 SETTABLEKS                       R19 R18 K62 ["Content"]
-      443 CALL                             R15 3 1
-      444 SETTABLEKS                       R15 R14 K39 ["IdleAlt2AssetSelector"]
-      446 MOVE                             R15 R10
-      447 JUMPIFNOT                        R15 ; [+41]
-      448 GETUPVAL                         R15 6
-      449 GETUPVAL                         R16 9
-      450 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      451 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      453 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      454 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      456 LOADK                            R20 K13 ["AnimationSettings"]
-      457 LOADK                            R21 K89 ["AnimationClipsSectionCustomClipsSwim"]
-      458 NAMECALL                         R18 R1 K15 ["getText"]
-      460 CALL                             R18 3 1
-      461 SETTABLEKS                       R18 R17 K27 ["text"]
-      463 MOVE                             R18 R3
-      464 CALL                             R18 0 1
-      465 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      467 DUPTABLE                         R18 K63 [{"Content"}]
-      468 GETUPVAL                         R19 6
-      469 GETUPVAL                         R20 10
-      470 DUPTABLE                         R21 K80 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType", "animationType"}]
-      471 GETTABLEKS                       R22 R6 K90 ["animationClipsSwimSetting"]
-      473 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      475 LOADB                            R22 1
-      476 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      478 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      480 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      482 LOADK                            R22 K91 ["Swim"]
-      483 SETTABLEKS                       R22 R21 K79 ["animationType"]
-      485 CALL                             R19 2 1
-      486 SETTABLEKS                       R19 R18 K62 ["Content"]
-      488 CALL                             R15 3 1
-      489 SETTABLEKS                       R15 R14 K40 ["SwimAssetSelector"]
-      491 MOVE                             R15 R10
-      492 JUMPIFNOT                        R15 ; [+41]
-      493 GETUPVAL                         R15 6
-      494 GETUPVAL                         R16 9
-      495 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      496 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      498 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      499 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      501 LOADK                            R20 K13 ["AnimationSettings"]
-      502 LOADK                            R21 K92 ["AnimationClipsSectionCustomClipsSwimIdle"]
-      503 NAMECALL                         R18 R1 K15 ["getText"]
-      505 CALL                             R18 3 1
-      506 SETTABLEKS                       R18 R17 K27 ["text"]
-      508 MOVE                             R18 R3
-      509 CALL                             R18 0 1
-      510 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      512 DUPTABLE                         R18 K63 [{"Content"}]
-      513 GETUPVAL                         R19 6
-      514 GETUPVAL                         R20 10
-      515 DUPTABLE                         R21 K80 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType", "animationType"}]
-      516 GETTABLEKS                       R22 R6 K93 ["animationClipsSwimIdleSetting"]
-      518 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      520 LOADB                            R22 1
-      521 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      523 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      525 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      527 LOADK                            R22 K94 ["SwimIdle"]
-      528 SETTABLEKS                       R22 R21 K79 ["animationType"]
-      530 CALL                             R19 2 1
-      531 SETTABLEKS                       R19 R18 K62 ["Content"]
-      533 CALL                             R15 3 1
-      534 SETTABLEKS                       R15 R14 K41 ["SwimIdleAssetSelector"]
-      536 MOVE                             R15 R10
-      537 JUMPIFNOT                        R15 ; [+38]
-      538 GETUPVAL                         R15 6
-      539 GETUPVAL                         R16 9
-      540 DUPTABLE                         R17 K59 [{"minTextLabelWidth", "textLabelTags", "text", "layoutOrder"}]
-      541 SETTABLEKS                       R9 R17 K57 ["minTextLabelWidth"]
-      543 LOADK                            R18 K60 ["AvatarSettings-LeftTextPrimary"]
-      544 SETTABLEKS                       R18 R17 K58 ["textLabelTags"]
-      546 LOADK                            R20 K13 ["AnimationSettings"]
-      547 LOADK                            R21 K95 ["AnimationClipsSectionCustomClipsClimb"]
-      548 NAMECALL                         R18 R1 K15 ["getText"]
-      550 CALL                             R18 3 1
-      551 SETTABLEKS                       R18 R17 K27 ["text"]
-      553 MOVE                             R18 R3
-      554 CALL                             R18 0 1
-      555 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
-      557 DUPTABLE                         R18 K63 [{"Content"}]
-      558 GETUPVAL                         R19 6
-      559 GETUPVAL                         R20 10
-      560 DUPTABLE                         R21 K67 [{"assetIdSetting", "assetCannotBeEmpty", "expectedAssetType"}]
-      561 GETTABLEKS                       R22 R6 K96 ["animationClipsClimbSetting"]
-      563 SETTABLEKS                       R22 R21 K64 ["assetIdSetting"]
-      565 LOADB                            R22 1
-      566 SETTABLEKS                       R22 R21 K65 ["assetCannotBeEmpty"]
-      568 GETIMPORT                        R22 K71 [Enum.AssetType.Animation]
-      570 SETTABLEKS                       R22 R21 K66 ["expectedAssetType"]
-      572 CALL                             R19 2 1
-      573 SETTABLEKS                       R19 R18 K62 ["Content"]
-      575 CALL                             R15 3 1
-      576 SETTABLEKS                       R15 R14 K42 ["ClimbAssetSelector"]
-      578 CALL                             R11 3 -1
-      579 RETURN                           R11 -1
+      360 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      361 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      363 LOADK                            R20 K13 ["AnimationSettings"]
+      364 LOADK                            R21 K88 ["AnimationClipsSectionCustomClipsIdleAlt2"]
+      365 NAMECALL                         R18 R1 K15 ["getText"]
+      367 CALL                             R18 3 1
+      368 SETTABLEKS                       R18 R17 K27 ["text"]
+      370 MOVE                             R18 R3
+      371 CALL                             R18 0 1
+      372 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      374 DUPTABLE                         R18 K64 [{"Content"}]
+      375 GETUPVAL                         R19 6
+      376 GETUPVAL                         R20 10
+      377 DUPTABLE                         R21 K90 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"], ["animationType"] = "Animation3"}]
+      378 GETTABLEKS                       R22 R6 K91 ["animationClipsIdleAlt2Setting"]
+      380 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      382 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      384 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      386 CALL                             R19 2 1
+      387 SETTABLEKS                       R19 R18 K63 ["Content"]
+      389 CALL                             R15 3 1
+      390 SETTABLEKS                       R15 R14 K40 ["IdleAlt2AssetSelector"]
+      392 MOVE                             R15 R10
+      393 JUMPIFNOT                        R15 ; [+32]
+      394 GETUPVAL                         R15 6
+      395 GETUPVAL                         R16 9
+      396 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      397 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      399 LOADK                            R20 K13 ["AnimationSettings"]
+      400 LOADK                            R21 K92 ["AnimationClipsSectionCustomClipsSwim"]
+      401 NAMECALL                         R18 R1 K15 ["getText"]
+      403 CALL                             R18 3 1
+      404 SETTABLEKS                       R18 R17 K27 ["text"]
+      406 MOVE                             R18 R3
+      407 CALL                             R18 0 1
+      408 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      410 DUPTABLE                         R18 K64 [{"Content"}]
+      411 GETUPVAL                         R19 6
+      412 GETUPVAL                         R20 10
+      413 DUPTABLE                         R21 K94 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"], ["animationType"] = "Swim"}]
+      414 GETTABLEKS                       R22 R6 K95 ["animationClipsSwimSetting"]
+      416 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      418 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      420 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      422 CALL                             R19 2 1
+      423 SETTABLEKS                       R19 R18 K63 ["Content"]
+      425 CALL                             R15 3 1
+      426 SETTABLEKS                       R15 R14 K41 ["SwimAssetSelector"]
+      428 MOVE                             R15 R10
+      429 JUMPIFNOT                        R15 ; [+32]
+      430 GETUPVAL                         R15 6
+      431 GETUPVAL                         R16 9
+      432 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      433 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      435 LOADK                            R20 K13 ["AnimationSettings"]
+      436 LOADK                            R21 K96 ["AnimationClipsSectionCustomClipsSwimIdle"]
+      437 NAMECALL                         R18 R1 K15 ["getText"]
+      439 CALL                             R18 3 1
+      440 SETTABLEKS                       R18 R17 K27 ["text"]
+      442 MOVE                             R18 R3
+      443 CALL                             R18 0 1
+      444 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      446 DUPTABLE                         R18 K64 [{"Content"}]
+      447 GETUPVAL                         R19 6
+      448 GETUPVAL                         R20 10
+      449 DUPTABLE                         R21 K98 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"], ["animationType"] = "SwimIdle"}]
+      450 GETTABLEKS                       R22 R6 K99 ["animationClipsSwimIdleSetting"]
+      452 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      454 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      456 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      458 CALL                             R19 2 1
+      459 SETTABLEKS                       R19 R18 K63 ["Content"]
+      461 CALL                             R15 3 1
+      462 SETTABLEKS                       R15 R14 K42 ["SwimIdleAssetSelector"]
+      464 MOVE                             R15 R10
+      465 JUMPIFNOT                        R15 ; [+32]
+      466 GETUPVAL                         R15 6
+      467 GETUPVAL                         R16 9
+      468 DUPTABLE                         R17 K61 [{["minTextLabelWidth"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["text"], ["layoutOrder"]}]
+      469 SETTABLEKS                       R9 R17 K58 ["minTextLabelWidth"]
+      471 LOADK                            R20 K13 ["AnimationSettings"]
+      472 LOADK                            R21 K100 ["AnimationClipsSectionCustomClipsClimb"]
+      473 NAMECALL                         R18 R1 K15 ["getText"]
+      475 CALL                             R18 3 1
+      476 SETTABLEKS                       R18 R17 K27 ["text"]
+      478 MOVE                             R18 R3
+      479 CALL                             R18 0 1
+      480 SETTABLEKS                       R18 R17 K28 ["layoutOrder"]
+      482 DUPTABLE                         R18 K64 [{"Content"}]
+      483 GETUPVAL                         R19 6
+      484 GETUPVAL                         R20 10
+      485 DUPTABLE                         R21 K68 [{["assetIdSetting"], ["assetCannotBeEmpty"] = True, ["expectedAssetType"]}]
+      486 GETTABLEKS                       R22 R6 K101 ["animationClipsClimbSetting"]
+      488 SETTABLEKS                       R22 R21 K65 ["assetIdSetting"]
+      490 GETIMPORT                        R22 K72 [Enum.AssetType.Animation]
+      492 SETTABLEKS                       R22 R21 K67 ["expectedAssetType"]
+      494 CALL                             R19 2 1
+      495 SETTABLEKS                       R19 R18 K63 ["Content"]
+      497 CALL                             R15 3 1
+      498 SETTABLEKS                       R15 R14 K43 ["ClimbAssetSelector"]
+      500 CALL                             R11 3 -1
+      501 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

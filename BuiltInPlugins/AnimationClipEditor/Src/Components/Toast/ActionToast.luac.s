@@ -106,7 +106,7 @@ PROTO_2:
        93 SETTABLEKS                       R14 R13 K38 ["AnchorPoint"]
        95 GETIMPORT                        R14 K44 [UDim2.new]
        97 LOADN                            R15 0
-       98 LOADN                            R16 124
+       98 LOADN                            R16 380
        99 LOADN                            R17 0
       100 MOVE                             R18 R9
       101 CALL                             R14 4 1
@@ -145,7 +145,7 @@ PROTO_2:
       149 GETUPVAL                         R15 3
       150 GETTABLEKS                       R15 R15 K15 ["createElement"]
       152 LOADK                            R16 K53 ["TextLabel"]
-      153 DUPTABLE                         R17 K61 [{"Size", "BackgroundTransparency", "Text", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextSize", "TextColor3", "Font"}]
+      153 DUPTABLE                         R17 K63 [{["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"], ["TextSize"], ["TextColor3"], ["Font"]}]
       154 GETIMPORT                        R18 K44 [UDim2.new]
       156 LOADN                            R19 1
       157 LOADN                            R20 0
@@ -153,59 +153,53 @@ PROTO_2:
       159 LOADN                            R22 0
       160 CALL                             R18 4 1
       161 SETTABLEKS                       R18 R17 K39 ["Size"]
-      163 LOADN                            R18 1
-      164 SETTABLEKS                       R18 R17 K54 ["BackgroundTransparency"]
-      166 SETTABLEKS                       R6 R17 K6 ["Text"]
-      168 LOADB                            R18 1
-      169 SETTABLEKS                       R18 R17 K55 ["TextWrapped"]
-      171 GETIMPORT                        R18 K63 [Enum.TextXAlignment.Left]
-      173 SETTABLEKS                       R18 R17 K56 ["TextXAlignment"]
-      175 GETIMPORT                        R18 K65 [Enum.TextYAlignment.Top]
-      177 SETTABLEKS                       R18 R17 K57 ["TextYAlignment"]
-      179 GETTABLEKS                       R18 R3 K8 ["textSize"]
-      181 SETTABLEKS                       R18 R17 K58 ["TextSize"]
-      183 GETTABLEKS                       R18 R3 K66 ["textColor"]
-      185 SETTABLEKS                       R18 R17 K59 ["TextColor3"]
-      187 GETTABLEKS                       R18 R2 K9 ["font"]
-      189 SETTABLEKS                       R18 R17 K60 ["Font"]
-      191 CALL                             R15 2 1
-      192 SETTABLEKS                       R15 R14 K6 ["Text"]
-      194 GETUPVAL                         R15 3
-      195 GETTABLEKS                       R15 R15 K15 ["createElement"]
-      197 LOADK                            R16 K67 ["Frame"]
-      198 DUPTABLE                         R17 K69 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
-      199 GETIMPORT                        R18 K44 [UDim2.new]
-      201 LOADN                            R19 1
-      202 LOADN                            R20 0
-      203 LOADN                            R21 0
-      204 MOVE                             R22 R5
-      205 CALL                             R18 4 1
-      206 SETTABLEKS                       R18 R17 K39 ["Size"]
-      208 GETIMPORT                        R18 K42 [Vector2.new]
-      210 LOADK                            R19 K70 [0.5]
-      211 LOADN                            R20 1
-      212 CALL                             R18 2 1
-      213 SETTABLEKS                       R18 R17 K38 ["AnchorPoint"]
-      215 GETIMPORT                        R18 K44 [UDim2.new]
-      217 LOADK                            R19 K70 [0.5]
-      218 LOADN                            R20 0
-      219 LOADN                            R21 1
-      220 LOADN                            R22 0
-      221 CALL                             R18 4 1
-      222 SETTABLEKS                       R18 R17 K68 ["Position"]
-      224 LOADN                            R18 1
-      225 SETTABLEKS                       R18 R17 K54 ["BackgroundTransparency"]
-      227 MOVE                             R18 R10
-      228 CALL                             R15 3 1
-      229 SETTABLEKS                       R15 R14 K7 ["Buttons"]
-      231 CALL                             R11 3 -1
-      232 RETURN                           R11 -1
+      163 SETTABLEKS                       R6 R17 K6 ["Text"]
+      165 GETIMPORT                        R18 K65 [Enum.TextXAlignment.Left]
+      167 SETTABLEKS                       R18 R17 K58 ["TextXAlignment"]
+      169 GETIMPORT                        R18 K67 [Enum.TextYAlignment.Top]
+      171 SETTABLEKS                       R18 R17 K59 ["TextYAlignment"]
+      173 GETTABLEKS                       R18 R3 K8 ["textSize"]
+      175 SETTABLEKS                       R18 R17 K60 ["TextSize"]
+      177 GETTABLEKS                       R18 R3 K68 ["textColor"]
+      179 SETTABLEKS                       R18 R17 K61 ["TextColor3"]
+      181 GETTABLEKS                       R18 R2 K9 ["font"]
+      183 SETTABLEKS                       R18 R17 K62 ["Font"]
+      185 CALL                             R15 2 1
+      186 SETTABLEKS                       R15 R14 K6 ["Text"]
+      188 GETUPVAL                         R15 3
+      189 GETTABLEKS                       R15 R15 K15 ["createElement"]
+      191 LOADK                            R16 K69 ["Frame"]
+      192 DUPTABLE                         R17 K71 [{["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1}]
+      193 GETIMPORT                        R18 K44 [UDim2.new]
+      195 LOADN                            R19 1
+      196 LOADN                            R20 0
+      197 LOADN                            R21 0
+      198 MOVE                             R22 R5
+      199 CALL                             R18 4 1
+      200 SETTABLEKS                       R18 R17 K39 ["Size"]
+      202 GETIMPORT                        R18 K42 [Vector2.new]
+      204 LOADK                            R19 K72 [0.5]
+      205 LOADN                            R20 1
+      206 CALL                             R18 2 1
+      207 SETTABLEKS                       R18 R17 K38 ["AnchorPoint"]
+      209 GETIMPORT                        R18 K44 [UDim2.new]
+      211 LOADK                            R19 K72 [0.5]
+      212 LOADN                            R20 0
+      213 LOADN                            R21 1
+      214 LOADN                            R22 0
+      215 CALL                             R18 4 1
+      216 SETTABLEKS                       R18 R17 K70 ["Position"]
+      218 MOVE                             R18 R10
+      219 CALL                             R15 3 1
+      220 SETTABLEKS                       R15 R14 K7 ["Buttons"]
+      222 CALL                             R11 3 -1
+      223 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K2 [Vector2.new]
-        3 LOADN                            R1 84
-        4 LOADN                            R2 16
+        3 LOADN                            R1 340
+        4 LOADN                            R2 10000
         5 CALL                             R0 2 1
         6 GETIMPORT                        R1 K4 [game]
         8 LOADK                            R3 K5 ["TextService"]

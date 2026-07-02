@@ -311,54 +311,44 @@ PROTO_9:
        20 GETUPVAL                         R8 1
        21 GETTABLEKS                       R8 R8 K9 ["createElement"]
        23 GETUPVAL                         R9 2
-       24 DUPTABLE                         R10 K17 [{"BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
-       25 GETTABLEKS                       R11 R3 K18 ["ViewportBackgroundColor"]
+       24 DUPTABLE                         R10 K18 [{["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["LayoutOrder"], ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"], ["Size"]}]
+       25 GETTABLEKS                       R11 R3 K19 ["ViewportBackgroundColor"]
        27 SETTABLEKS                       R11 R10 K10 ["BackgroundColor3"]
-       29 LOADN                            R11 0
-       30 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-       32 NAMECALL                         R11 R5 K19 ["getNextOrder"]
-       34 CALL                             R11 1 1
-       35 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
-       37 GETIMPORT                        R11 K23 [Enum.FillDirection.Vertical]
-       39 SETTABLEKS                       R11 R10 K13 ["Layout"]
-       41 GETIMPORT                        R11 K25 [Enum.HorizontalAlignment.Left]
-       43 SETTABLEKS                       R11 R10 K14 ["HorizontalAlignment"]
-       45 GETIMPORT                        R11 K27 [Enum.VerticalAlignment.Top]
-       47 SETTABLEKS                       R11 R10 K15 ["VerticalAlignment"]
-       49 GETIMPORT                        R11 K29 [UDim2.new]
-       51 LOADN                            R12 1
-       52 LOADN                            R13 0
-       53 LOADN                            R14 0
-       54 GETTABLEKS                       R15 R3 K30 ["ViewportHeight"]
-       56 CALL                             R11 4 1
-       57 SETTABLEKS                       R11 R10 K16 ["Size"]
-       59 DUPTABLE                         R11 K32 [{"Viewport"}]
-       60 GETUPVAL                         R12 1
-       61 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       63 GETUPVAL                         R13 3
-       64 DUPTABLE                         R14 K39 [{"DisablePan", "DisableZoom", "FocusDirection", "Model", "OnViewModelLoaded", "RecenterModelOnUpdate", "Size"}]
-       65 LOADB                            R15 1
-       66 SETTABLEKS                       R15 R14 K33 ["DisablePan"]
-       68 LOADB                            R15 1
-       69 SETTABLEKS                       R15 R14 K34 ["DisableZoom"]
-       71 LOADK                            R15 K40 [{0, 0, -1}]
-       72 SETTABLEKS                       R15 R14 K35 ["FocusDirection"]
-       74 SETTABLEKS                       R4 R14 K36 ["Model"]
-       76 GETTABLEKS                       R15 R0 K41 ["onViewModelLoaded"]
-       78 SETTABLEKS                       R15 R14 K37 ["OnViewModelLoaded"]
-       80 LOADB                            R15 0
-       81 SETTABLEKS                       R15 R14 K38 ["RecenterModelOnUpdate"]
-       83 GETIMPORT                        R15 K43 [UDim2.fromScale]
-       85 LOADN                            R16 1
-       86 LOADN                            R17 1
-       87 CALL                             R15 2 1
-       88 SETTABLEKS                       R15 R14 K16 ["Size"]
-       90 CALL                             R12 2 1
-       91 SETTABLEKS                       R12 R11 K31 ["Viewport"]
-       93 CALL                             R8 3 1
-       94 SETTABLEKS                       R8 R7 K7 ["ViewPortPane"]
-       96 CALL                             R6 1 -1
-       97 RETURN                           R6 -1
+       29 NAMECALL                         R11 R5 K20 ["getNextOrder"]
+       31 CALL                             R11 1 1
+       32 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
+       34 GETIMPORT                        R11 K24 [Enum.FillDirection.Vertical]
+       36 SETTABLEKS                       R11 R10 K14 ["Layout"]
+       38 GETIMPORT                        R11 K26 [Enum.HorizontalAlignment.Left]
+       40 SETTABLEKS                       R11 R10 K15 ["HorizontalAlignment"]
+       42 GETIMPORT                        R11 K28 [Enum.VerticalAlignment.Top]
+       44 SETTABLEKS                       R11 R10 K16 ["VerticalAlignment"]
+       46 GETIMPORT                        R11 K30 [UDim2.new]
+       48 LOADN                            R12 1
+       49 LOADN                            R13 0
+       50 LOADN                            R14 0
+       51 GETTABLEKS                       R15 R3 K31 ["ViewportHeight"]
+       53 CALL                             R11 4 1
+       54 SETTABLEKS                       R11 R10 K17 ["Size"]
+       56 DUPTABLE                         R11 K33 [{"Viewport"}]
+       57 GETUPVAL                         R12 1
+       58 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       60 GETUPVAL                         R13 3
+       61 DUPTABLE                         R14 K43 [{["DisablePan"] = True, ["DisableZoom"] = True, ["FocusDirection"] = {0, 0, -1}, ["Model"], ["OnViewModelLoaded"], ["RecenterModelOnUpdate"] = False, ["Size"]}]
+       62 SETTABLEKS                       R4 R14 K39 ["Model"]
+       64 GETTABLEKS                       R15 R0 K44 ["onViewModelLoaded"]
+       66 SETTABLEKS                       R15 R14 K40 ["OnViewModelLoaded"]
+       68 GETIMPORT                        R15 K46 [UDim2.fromScale]
+       70 LOADN                            R16 1
+       71 LOADN                            R17 1
+       72 CALL                             R15 2 1
+       73 SETTABLEKS                       R15 R14 K17 ["Size"]
+       75 CALL                             R12 2 1
+       76 SETTABLEKS                       R12 R11 K32 ["Viewport"]
+       78 CALL                             R8 3 1
+       79 SETTABLEKS                       R8 R7 K7 ["ViewPortPane"]
+       81 CALL                             R6 1 -1
+       82 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

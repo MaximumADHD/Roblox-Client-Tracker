@@ -8,25 +8,21 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K1 [{"hoveredIndex"}]
-        2 LOADN                            R4 0
-        3 SETTABLEKS                       R4 R3 K0 ["hoveredIndex"]
-        5 NAMECALL                         R1 R1 K2 ["setState"]
-        7 CALL                             R1 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R3 K2 [{[1] = 0}]
+        2 NAMECALL                         R1 R1 K3 ["setState"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R2 K1 [{"hoveredIndex"}]
-        1 LOADN                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["hoveredIndex"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["onItemEntered"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onItemLeft"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = 0}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["onItemEntered"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onItemLeft"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -100,205 +96,197 @@ PROTO_6:
        63 GETUPVAL                         R19 0
        64 GETTABLEKS                       R19 R19 K3 ["createElement"]
        66 LOADK                            R20 K32 ["Frame"]
-       67 DUPTABLE                         R21 K35 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
-       68 GETIMPORT                        R22 K37 [UDim2.new]
-       70 LOADK                            R23 K38 [0.5]
+       67 DUPTABLE                         R21 K36 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+       68 GETIMPORT                        R22 K38 [UDim2.new]
+       70 LOADK                            R23 K39 [0.5]
        71 LOADN                            R24 0
        72 LOADN                            R25 0
        73 MOVE                             R26 R3
        74 CALL                             R22 4 1
        75 SETTABLEKS                       R22 R21 K33 ["Size"]
-       77 LOADN                            R22 1
-       78 SETTABLEKS                       R22 R21 K34 ["BackgroundTransparency"]
-       80 SETTABLEKS                       R14 R21 K17 ["LayoutOrder"]
-       82 DUPTABLE                         R22 K43 [{"Icon", "Text", "Selection", "Error"}]
-       83 GETUPVAL                         R23 0
-       84 GETTABLEKS                       R23 R23 K3 ["createElement"]
-       86 LOADK                            R24 K44 ["ImageButton"]
-       87 NEWTABLE                         R25 8 0
-       89 GETIMPORT                        R26 K46 [Vector2.new]
-       91 LOADN                            R27 0
-       92 LOADK                            R28 K38 [0.5]
-       93 CALL                             R26 2 1
-       94 SETTABLEKS                       R26 R25 K47 ["AnchorPoint"]
-       96 GETIMPORT                        R26 K37 [UDim2.new]
-       98 LOADN                            R27 0
-       99 LOADN                            R28 0
-      100 LOADK                            R29 K38 [0.5]
-      101 LOADN                            R30 0
-      102 CALL                             R26 4 1
-      103 SETTABLEKS                       R26 R25 K48 ["Position"]
-      105 GETIMPORT                        R26 K37 [UDim2.new]
-      107 LOADN                            R27 0
-      108 MOVE                             R28 R7
-      109 LOADN                            R29 0
-      110 MOVE                             R30 R7
-      111 CALL                             R26 4 1
-      112 SETTABLEKS                       R26 R25 K33 ["Size"]
-      114 LOADN                            R26 1
-      115 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
-      117 SETTABLEKS                       R18 R25 K49 ["ImageColor3"]
-      119 GETTABLEKS                       R26 R15 K50 ["image"]
-      121 SETTABLEKS                       R26 R25 K51 ["Image"]
-      123 GETUPVAL                         R26 0
-      124 GETTABLEKS                       R26 R26 K52 ["Event"]
-      126 GETTABLEKS                       R26 R26 K53 ["Activated"]
-      128 NEWCLOSURE                       R27 P0
-      129 CAPTURE                          VAL R0
-      130 CAPTURE                          VAL R14
-      131 CAPTURE                          VAL R15
-      132 SETTABLE                         R27 R25 R26
-      133 LOADN                            R26 1
-      134 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
-      136 CALL                             R23 2 1
-      137 SETTABLEKS                       R23 R22 K39 ["Icon"]
-      139 GETUPVAL                         R23 0
-      140 GETTABLEKS                       R23 R23 K3 ["createElement"]
-      142 LOADK                            R24 K54 ["TextButton"]
-      143 NEWTABLE                         R25 16 0
-      145 GETIMPORT                        R26 K37 [UDim2.new]
-      147 LOADN                            R27 0
-      148 MULK                             R28 R7 K55 [2]
-      149 LOADN                            R29 0
-      150 LOADN                            R30 0
-      151 CALL                             R26 4 1
-      152 SETTABLEKS                       R26 R25 K48 ["Position"]
-      154 GETIMPORT                        R26 K37 [UDim2.new]
-      156 LOADN                            R27 1
-      157 MINUS                            R28 R7
-      158 LOADN                            R29 1
-      159 LOADN                            R30 0
-      160 CALL                             R26 4 1
-      161 SETTABLEKS                       R26 R25 K33 ["Size"]
-      163 LOADN                            R26 1
-      164 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
-      166 SETTABLEKS                       R16 R25 K40 ["Text"]
-      168 GETUPVAL                         R26 2
-      169 GETTABLEKS                       R26 R26 K56 ["FONT"]
-      171 SETTABLEKS                       R26 R25 K57 ["Font"]
-      173 GETUPVAL                         R26 2
-      174 GETTABLEKS                       R26 R26 K58 ["FONT_SIZE_LARGE"]
-      176 SETTABLEKS                       R26 R25 K59 ["TextSize"]
-      178 GETIMPORT                        R26 K62 [Enum.TextXAlignment.Left]
-      180 SETTABLEKS                       R26 R25 K60 ["TextXAlignment"]
-      182 GETTABLEKS                       R26 R4 K30 ["sideTab"]
-      184 GETTABLEKS                       R26 R26 K63 ["textColor"]
-      186 SETTABLEKS                       R26 R25 K64 ["TextColor3"]
-      188 GETUPVAL                         R26 0
-      189 GETTABLEKS                       R26 R26 K52 ["Event"]
-      191 GETTABLEKS                       R26 R26 K53 ["Activated"]
-      193 NEWCLOSURE                       R27 P1
-      194 CAPTURE                          VAL R0
-      195 CAPTURE                          VAL R14
-      196 CAPTURE                          VAL R15
-      197 SETTABLE                         R27 R25 R26
-      198 LOADN                            R26 2
-      199 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
-      201 CALL                             R23 2 1
-      202 SETTABLEKS                       R23 R22 K40 ["Text"]
-      204 MOVE                             R23 R17
-      205 JUMPIFNOT                        R23 ; [+80]
-      206 GETUPVAL                         R23 0
-      207 GETTABLEKS                       R23 R23 K3 ["createElement"]
-      209 LOADK                            R24 K32 ["Frame"]
-      210 DUPTABLE                         R25 K68 [{"Position", "Size", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "ZIndex", "LayoutOrder"}]
-      211 GETIMPORT                        R26 K37 [UDim2.new]
-      213 LOADK                            R27 K69 [-0.5]
-      214 LOADN                            R28 0
-      215 LOADN                            R29 0
-      216 LOADN                            R30 0
-      217 CALL                             R26 4 1
-      218 SETTABLEKS                       R26 R25 K48 ["Position"]
-      220 GETIMPORT                        R26 K37 [UDim2.new]
-      222 LOADN                            R27 0
-      223 MOVE                             R28 R10
-      224 LOADN                            R29 1
-      225 LOADN                            R30 0
-      226 CALL                             R26 4 1
-      227 SETTABLEKS                       R26 R25 K33 ["Size"]
-      229 GETTABLEKS                       R26 R6 K70 ["selecteBarTrans"]
-      231 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
-      233 GETTABLEKS                       R26 R6 K71 ["selecteBarColor"]
-      235 SETTABLEKS                       R26 R25 K65 ["BackgroundColor3"]
-      237 LOADN                            R26 0
-      238 SETTABLEKS                       R26 R25 K66 ["BorderSizePixel"]
-      240 GETTABLEKS                       R26 R6 K72 ["selecteBarZindex"]
-      242 SETTABLEKS                       R26 R25 K67 ["ZIndex"]
-      244 LOADN                            R26 0
-      245 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
-      247 DUPTABLE                         R26 K74 [{"Indicator"}]
-      248 GETUPVAL                         R27 0
-      249 GETTABLEKS                       R27 R27 K3 ["createElement"]
-      251 LOADK                            R28 K32 ["Frame"]
-      252 DUPTABLE                         R29 K75 [{"Position", "Size", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel"}]
-      253 GETIMPORT                        R30 K37 [UDim2.new]
+       77 SETTABLEKS                       R14 R21 K17 ["LayoutOrder"]
+       79 DUPTABLE                         R22 K44 [{"Icon", "Text", "Selection", "Error"}]
+       80 GETUPVAL                         R23 0
+       81 GETTABLEKS                       R23 R23 K3 ["createElement"]
+       83 LOADK                            R24 K45 ["ImageButton"]
+       84 NEWTABLE                         R25 8 0
+       86 GETIMPORT                        R26 K47 [Vector2.new]
+       88 LOADN                            R27 0
+       89 LOADK                            R28 K39 [0.5]
+       90 CALL                             R26 2 1
+       91 SETTABLEKS                       R26 R25 K48 ["AnchorPoint"]
+       93 GETIMPORT                        R26 K38 [UDim2.new]
+       95 LOADN                            R27 0
+       96 LOADN                            R28 0
+       97 LOADK                            R29 K39 [0.5]
+       98 LOADN                            R30 0
+       99 CALL                             R26 4 1
+      100 SETTABLEKS                       R26 R25 K49 ["Position"]
+      102 GETIMPORT                        R26 K38 [UDim2.new]
+      104 LOADN                            R27 0
+      105 MOVE                             R28 R7
+      106 LOADN                            R29 0
+      107 MOVE                             R30 R7
+      108 CALL                             R26 4 1
+      109 SETTABLEKS                       R26 R25 K33 ["Size"]
+      111 LOADN                            R26 1
+      112 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
+      114 SETTABLEKS                       R18 R25 K50 ["ImageColor3"]
+      116 GETTABLEKS                       R26 R15 K51 ["image"]
+      118 SETTABLEKS                       R26 R25 K52 ["Image"]
+      120 GETUPVAL                         R26 0
+      121 GETTABLEKS                       R26 R26 K53 ["Event"]
+      123 GETTABLEKS                       R26 R26 K54 ["Activated"]
+      125 NEWCLOSURE                       R27 P0
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          VAL R14
+      128 CAPTURE                          VAL R15
+      129 SETTABLE                         R27 R25 R26
+      130 LOADN                            R26 1
+      131 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
+      133 CALL                             R23 2 1
+      134 SETTABLEKS                       R23 R22 K40 ["Icon"]
+      136 GETUPVAL                         R23 0
+      137 GETTABLEKS                       R23 R23 K3 ["createElement"]
+      139 LOADK                            R24 K55 ["TextButton"]
+      140 NEWTABLE                         R25 16 0
+      142 GETIMPORT                        R26 K38 [UDim2.new]
+      144 LOADN                            R27 0
+      145 MULK                             R28 R7 K56 [2]
+      146 LOADN                            R29 0
+      147 LOADN                            R30 0
+      148 CALL                             R26 4 1
+      149 SETTABLEKS                       R26 R25 K49 ["Position"]
+      151 GETIMPORT                        R26 K38 [UDim2.new]
+      153 LOADN                            R27 1
+      154 MINUS                            R28 R7
+      155 LOADN                            R29 1
+      156 LOADN                            R30 0
+      157 CALL                             R26 4 1
+      158 SETTABLEKS                       R26 R25 K33 ["Size"]
+      160 LOADN                            R26 1
+      161 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
+      163 SETTABLEKS                       R16 R25 K41 ["Text"]
+      165 GETUPVAL                         R26 2
+      166 GETTABLEKS                       R26 R26 K57 ["FONT"]
+      168 SETTABLEKS                       R26 R25 K58 ["Font"]
+      170 GETUPVAL                         R26 2
+      171 GETTABLEKS                       R26 R26 K59 ["FONT_SIZE_LARGE"]
+      173 SETTABLEKS                       R26 R25 K60 ["TextSize"]
+      175 GETIMPORT                        R26 K63 [Enum.TextXAlignment.Left]
+      177 SETTABLEKS                       R26 R25 K61 ["TextXAlignment"]
+      179 GETTABLEKS                       R26 R4 K30 ["sideTab"]
+      181 GETTABLEKS                       R26 R26 K64 ["textColor"]
+      183 SETTABLEKS                       R26 R25 K65 ["TextColor3"]
+      185 GETUPVAL                         R26 0
+      186 GETTABLEKS                       R26 R26 K53 ["Event"]
+      188 GETTABLEKS                       R26 R26 K54 ["Activated"]
+      190 NEWCLOSURE                       R27 P1
+      191 CAPTURE                          VAL R0
+      192 CAPTURE                          VAL R14
+      193 CAPTURE                          VAL R15
+      194 SETTABLE                         R27 R25 R26
+      195 LOADN                            R26 2
+      196 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
+      198 CALL                             R23 2 1
+      199 SETTABLEKS                       R23 R22 K41 ["Text"]
+      201 MOVE                             R23 R17
+      202 JUMPIFNOT                        R23 ; [+71]
+      203 GETUPVAL                         R23 0
+      204 GETTABLEKS                       R23 R23 K3 ["createElement"]
+      206 LOADK                            R24 K32 ["Frame"]
+      207 DUPTABLE                         R25 K70 [{["Position"], ["Size"], ["BackgroundTransparency"], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["ZIndex"], ["LayoutOrder"] = 0}]
+      208 GETIMPORT                        R26 K38 [UDim2.new]
+      210 LOADK                            R27 K71 [-0.5]
+      211 LOADN                            R28 0
+      212 LOADN                            R29 0
+      213 LOADN                            R30 0
+      214 CALL                             R26 4 1
+      215 SETTABLEKS                       R26 R25 K49 ["Position"]
+      217 GETIMPORT                        R26 K38 [UDim2.new]
+      219 LOADN                            R27 0
+      220 MOVE                             R28 R10
+      221 LOADN                            R29 1
+      222 LOADN                            R30 0
+      223 CALL                             R26 4 1
+      224 SETTABLEKS                       R26 R25 K33 ["Size"]
+      226 GETTABLEKS                       R26 R6 K72 ["selecteBarTrans"]
+      228 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
+      230 GETTABLEKS                       R26 R6 K73 ["selecteBarColor"]
+      232 SETTABLEKS                       R26 R25 K66 ["BackgroundColor3"]
+      234 GETTABLEKS                       R26 R6 K74 ["selecteBarZindex"]
+      236 SETTABLEKS                       R26 R25 K69 ["ZIndex"]
+      238 DUPTABLE                         R26 K76 [{"Indicator"}]
+      239 GETUPVAL                         R27 0
+      240 GETTABLEKS                       R27 R27 K3 ["createElement"]
+      242 LOADK                            R28 K32 ["Frame"]
+      243 DUPTABLE                         R29 K77 [{["Position"], ["Size"], ["BackgroundTransparency"], ["BackgroundColor3"], ["BorderSizePixel"] = 0}]
+      244 GETIMPORT                        R30 K38 [UDim2.new]
+      246 LOADN                            R31 0
+      247 LOADN                            R32 0
+      248 LOADN                            R33 0
+      249 LOADN                            R34 0
+      250 CALL                             R30 4 1
+      251 SETTABLEKS                       R30 R29 K49 ["Position"]
+      253 GETIMPORT                        R30 K38 [UDim2.new]
       255 LOADN                            R31 0
-      256 LOADN                            R32 0
-      257 LOADN                            R33 0
+      256 LOADN                            R32 4
+      257 LOADN                            R33 1
       258 LOADN                            R34 0
       259 CALL                             R30 4 1
-      260 SETTABLEKS                       R30 R29 K48 ["Position"]
-      262 GETIMPORT                        R30 K37 [UDim2.new]
-      264 LOADN                            R31 0
-      265 LOADN                            R32 4
-      266 LOADN                            R33 1
-      267 LOADN                            R34 0
-      268 CALL                             R30 4 1
-      269 SETTABLEKS                       R30 R29 K33 ["Size"]
-      271 GETTABLEKS                       R30 R6 K76 ["selecteIndicatorTrans"]
-      273 SETTABLEKS                       R30 R29 K34 ["BackgroundTransparency"]
-      275 GETTABLEKS                       R30 R6 K77 ["selecteIndicatorColor"]
-      277 SETTABLEKS                       R30 R29 K65 ["BackgroundColor3"]
-      279 LOADN                            R30 0
-      280 SETTABLEKS                       R30 R29 K66 ["BorderSizePixel"]
-      282 CALL                             R27 2 1
-      283 SETTABLEKS                       R27 R26 K73 ["Indicator"]
-      285 CALL                             R23 3 1
-      286 SETTABLEKS                       R23 R22 K41 ["Selection"]
-      288 GETTABLEKS                       R23 R0 K27 ["props"]
-      290 GETTABLEKS                       R23 R23 K78 ["tabHasErrors"]
-      292 GETTABLEKS                       R24 R15 K29 ["name"]
-      294 CALL                             R23 1 1
-      295 JUMPIFNOT                        R23 ; [+46]
-      296 GETUPVAL                         R23 0
-      297 GETTABLEKS                       R23 R23 K3 ["createElement"]
-      299 LOADK                            R24 K44 ["ImageButton"]
-      300 NEWTABLE                         R25 8 0
-      302 LOADN                            R26 1
-      303 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
-      305 GETIMPORT                        R26 K37 [UDim2.new]
-      307 LOADN                            R27 0
-      308 LOADN                            R28 20
-      309 LOADN                            R29 0
-      310 LOADN                            R30 20
-      311 CALL                             R26 4 1
-      312 SETTABLEKS                       R26 R25 K33 ["Size"]
-      314 GETIMPORT                        R26 K37 [UDim2.new]
-      316 LOADN                            R27 1
-      317 LOADN                            R28 236
-      318 LOADK                            R29 K38 [0.5]
-      319 LOADN                            R30 246
-      320 CALL                             R26 4 1
-      321 SETTABLEKS                       R26 R25 K48 ["Position"]
-      323 GETUPVAL                         R26 3
-      324 GETTABLEKS                       R26 R26 K79 ["ERROR_ICON"]
-      326 SETTABLEKS                       R26 R25 K51 ["Image"]
-      328 GETUPVAL                         R26 0
-      329 GETTABLEKS                       R26 R26 K52 ["Event"]
-      331 GETTABLEKS                       R26 R26 K53 ["Activated"]
-      333 NEWCLOSURE                       R27 P2
-      334 CAPTURE                          VAL R0
-      335 CAPTURE                          VAL R14
-      336 CAPTURE                          VAL R15
-      337 SETTABLE                         R27 R25 R26
-      338 LOADN                            R26 3
-      339 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
-      341 CALL                             R23 2 1
-      342 SETTABLEKS                       R23 R22 K42 ["Error"]
-      344 CALL                             R19 3 1
-      345 SETTABLE                         R19 R8 R16
-      346 FORGLOOP                         R11 2 ; [-301]
-      348 RETURN                           R8 1
+      260 SETTABLEKS                       R30 R29 K33 ["Size"]
+      262 GETTABLEKS                       R30 R6 K78 ["selecteIndicatorTrans"]
+      264 SETTABLEKS                       R30 R29 K34 ["BackgroundTransparency"]
+      266 GETTABLEKS                       R30 R6 K79 ["selecteIndicatorColor"]
+      268 SETTABLEKS                       R30 R29 K66 ["BackgroundColor3"]
+      270 CALL                             R27 2 1
+      271 SETTABLEKS                       R27 R26 K75 ["Indicator"]
+      273 CALL                             R23 3 1
+      274 SETTABLEKS                       R23 R22 K42 ["Selection"]
+      276 GETTABLEKS                       R23 R0 K27 ["props"]
+      278 GETTABLEKS                       R23 R23 K80 ["tabHasErrors"]
+      280 GETTABLEKS                       R24 R15 K29 ["name"]
+      282 CALL                             R23 1 1
+      283 JUMPIFNOT                        R23 ; [+46]
+      284 GETUPVAL                         R23 0
+      285 GETTABLEKS                       R23 R23 K3 ["createElement"]
+      287 LOADK                            R24 K45 ["ImageButton"]
+      288 NEWTABLE                         R25 8 0
+      290 LOADN                            R26 1
+      291 SETTABLEKS                       R26 R25 K34 ["BackgroundTransparency"]
+      293 GETIMPORT                        R26 K38 [UDim2.new]
+      295 LOADN                            R27 0
+      296 LOADN                            R28 20
+      297 LOADN                            R29 0
+      298 LOADN                            R30 20
+      299 CALL                             R26 4 1
+      300 SETTABLEKS                       R26 R25 K33 ["Size"]
+      302 GETIMPORT                        R26 K38 [UDim2.new]
+      304 LOADN                            R27 1
+      305 LOADN                            R28 -20
+      306 LOADK                            R29 K39 [0.5]
+      307 LOADN                            R30 -10
+      308 CALL                             R26 4 1
+      309 SETTABLEKS                       R26 R25 K49 ["Position"]
+      311 GETUPVAL                         R26 3
+      312 GETTABLEKS                       R26 R26 K81 ["ERROR_ICON"]
+      314 SETTABLEKS                       R26 R25 K52 ["Image"]
+      316 GETUPVAL                         R26 0
+      317 GETTABLEKS                       R26 R26 K53 ["Event"]
+      319 GETTABLEKS                       R26 R26 K54 ["Activated"]
+      321 NEWCLOSURE                       R27 P2
+      322 CAPTURE                          VAL R0
+      323 CAPTURE                          VAL R14
+      324 CAPTURE                          VAL R15
+      325 SETTABLE                         R27 R25 R26
+      326 LOADN                            R26 3
+      327 SETTABLEKS                       R26 R25 K17 ["LayoutOrder"]
+      329 CALL                             R23 2 1
+      330 SETTABLEKS                       R23 R22 K43 ["Error"]
+      332 CALL                             R19 3 1
+      333 SETTABLE                         R19 R8 R16
+      334 FORGLOOP                         R11 2 ; [-289]
+      336 RETURN                           R8 1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -322,17 +310,13 @@ PROTO_7:
        29 GETUPVAL                         R12 0
        30 GETTABLEKS                       R12 R12 K11 ["createElement"]
        32 LOADK                            R13 K12 ["Frame"]
-       33 DUPTABLE                         R14 K15 [{"Position", "Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
+       33 DUPTABLE                         R14 K17 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
        34 SETTABLEKS                       R5 R14 K4 ["Position"]
        36 SETTABLEKS                       R4 R14 K3 ["Size"]
-       38 LOADN                            R15 1
-       39 SETTABLEKS                       R15 R14 K13 ["BackgroundTransparency"]
-       41 LOADN                            R15 0
-       42 SETTABLEKS                       R15 R14 K14 ["BorderSizePixel"]
-       44 SETTABLEKS                       R3 R14 K2 ["LayoutOrder"]
-       46 MOVE                             R15 R11
-       47 CALL                             R12 3 -1
-       48 RETURN                           R12 -1
+       38 SETTABLEKS                       R3 R14 K2 ["LayoutOrder"]
+       40 MOVE                             R15 R11
+       41 CALL                             R12 3 -1
+       42 RETURN                           R12 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

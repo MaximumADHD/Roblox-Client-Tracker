@@ -93,150 +93,136 @@ PROTO_7:
        17 GETTABLEKS                       R5 R1 K5 ["ControlPointStates"]
        19 GETTABLE                         R4 R5 R2
        20 GETTABLEKS                       R5 R1 K6 ["SelectedTangentSide"]
-       22 JUMPIFNOTEQKNIL                  R5 ; [+153]
+       22 JUMPIFNOTEQKNIL                  R5 ; [+135]
        24 GETTABLEKS                       R5 R4 K7 ["Mirrored"]
-       26 JUMPIFNOT                        R5 ; [+25]
-       27 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-       28 LOADK                            R8 K12 [""]
-       29 SETTABLEKS                       R8 R7 K8 ["Icon"]
-       31 NEWCLOSURE                       R8 P0
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          VAL R2
-       35 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-       37 GETUPVAL                         R8 1
-       38 LOADK                            R10 K13 ["ContextMenu"]
-       39 LOADK                            R11 K14 ["BreakTangents"]
-       40 NAMECALL                         R8 R8 K15 ["getText"]
-       42 CALL                             R8 3 1
-       43 SETTABLEKS                       R8 R7 K10 ["Text"]
-       45 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-       47 MOVE                             R6 R3
-       48 GETIMPORT                        R5 K18 [table.insert]
-       50 CALL                             R5 2 0
-       51 JUMP                             ; [+24]
-       52 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-       53 LOADK                            R8 K12 [""]
-       54 SETTABLEKS                       R8 R7 K8 ["Icon"]
-       56 NEWCLOSURE                       R8 P1
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          UPVAL U0
-       59 CAPTURE                          VAL R2
-       60 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-       62 GETUPVAL                         R8 1
-       63 LOADK                            R10 K13 ["ContextMenu"]
-       64 LOADK                            R11 K19 ["MirrorTangents"]
-       65 NAMECALL                         R8 R8 K15 ["getText"]
-       67 CALL                             R8 3 1
-       68 SETTABLEKS                       R8 R7 K10 ["Text"]
-       70 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-       72 MOVE                             R6 R3
-       73 GETIMPORT                        R5 K18 [table.insert]
-       75 CALL                             R5 2 0
-       76 GETTABLEKS                       R5 R4 K20 ["Sharp"]
-       78 JUMPIFNOT                        R5 ; [+25]
-       79 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-       80 LOADK                            R8 K12 [""]
-       81 SETTABLEKS                       R8 R7 K8 ["Icon"]
-       83 NEWCLOSURE                       R8 P2
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          UPVAL U2
-       86 CAPTURE                          VAL R2
-       87 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-       89 GETUPVAL                         R8 1
-       90 LOADK                            R10 K13 ["ContextMenu"]
-       91 LOADK                            R11 K21 ["AddTangents"]
-       92 NAMECALL                         R8 R8 K15 ["getText"]
-       94 CALL                             R8 3 1
-       95 SETTABLEKS                       R8 R7 K10 ["Text"]
-       97 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-       99 MOVE                             R6 R3
-      100 GETIMPORT                        R5 K18 [table.insert]
-      102 CALL                             R5 2 0
-      103 JUMP                             ; [+24]
-      104 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-      105 LOADK                            R8 K12 [""]
-      106 SETTABLEKS                       R8 R7 K8 ["Icon"]
-      108 NEWCLOSURE                       R8 P3
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          UPVAL U3
-      111 CAPTURE                          VAL R2
-      112 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-      114 GETUPVAL                         R8 1
-      115 LOADK                            R10 K13 ["ContextMenu"]
-      116 LOADK                            R11 K22 ["ClearTangents"]
-      117 NAMECALL                         R8 R8 K15 ["getText"]
-      119 CALL                             R8 3 1
-      120 SETTABLEKS                       R8 R7 K10 ["Text"]
-      122 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-      124 MOVE                             R6 R3
-      125 GETIMPORT                        R5 K18 [table.insert]
-      127 CALL                             R5 2 0
-      128 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-      129 LOADK                            R8 K12 [""]
-      130 SETTABLEKS                       R8 R7 K8 ["Icon"]
-      132 NEWCLOSURE                       R8 P4
-      133 CAPTURE                          VAL R0
-      134 CAPTURE                          UPVAL U4
-      135 CAPTURE                          VAL R2
-      136 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-      138 GETUPVAL                         R8 1
-      139 LOADK                            R10 K13 ["ContextMenu"]
-      140 LOADK                            R11 K23 ["DeletePoint"]
-      141 NAMECALL                         R8 R8 K15 ["getText"]
-      143 CALL                             R8 3 1
-      144 SETTABLEKS                       R8 R7 K10 ["Text"]
-      146 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-      148 MOVE                             R6 R3
-      149 GETIMPORT                        R5 K18 [table.insert]
-      151 CALL                             R5 2 0
-      152 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-      153 LOADK                            R8 K12 [""]
-      154 SETTABLEKS                       R8 R7 K8 ["Icon"]
-      156 NEWCLOSURE                       R8 P5
-      157 CAPTURE                          VAL R0
-      158 CAPTURE                          UPVAL U5
-      159 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-      161 GETUPVAL                         R8 1
-      162 LOADK                            R10 K13 ["ContextMenu"]
-      163 LOADK                            R11 K24 ["ToggleClosed"]
-      164 NAMECALL                         R8 R8 K15 ["getText"]
-      166 CALL                             R8 3 1
-      167 SETTABLEKS                       R8 R7 K10 ["Text"]
-      169 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-      171 MOVE                             R6 R3
-      172 GETIMPORT                        R5 K18 [table.insert]
-      174 CALL                             R5 2 0
-      175 JUMP                             ; [+27]
-      176 DUPTABLE                         R7 K11 [{"Icon", "OnClick", "Text"}]
-      177 LOADK                            R8 K12 [""]
-      178 SETTABLEKS                       R8 R7 K8 ["Icon"]
-      180 NEWCLOSURE                       R8 P6
-      181 CAPTURE                          VAL R4
-      182 CAPTURE                          VAL R0
-      183 CAPTURE                          UPVAL U0
-      184 CAPTURE                          VAL R2
-      185 CAPTURE                          UPVAL U3
-      186 CAPTURE                          VAL R1
-      187 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-      189 GETUPVAL                         R8 1
-      190 LOADK                            R10 K13 ["ContextMenu"]
-      191 LOADK                            R11 K25 ["DeleteTangent"]
-      192 NAMECALL                         R8 R8 K15 ["getText"]
-      194 CALL                             R8 3 1
-      195 SETTABLEKS                       R8 R7 K10 ["Text"]
-      197 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-      199 MOVE                             R6 R3
-      200 GETIMPORT                        R5 K18 [table.insert]
-      202 CALL                             R5 2 0
-      203 GETUPVAL                         R5 6
-      204 GETUPVAL                         R6 7
-      205 NAMECALL                         R6 R6 K26 ["get"]
-      207 CALL                             R6 1 1
-      208 MOVE                             R7 R3
-      209 LOADK                            R8 K27 ["BaseMenu"]
-      210 CALL                             R5 3 0
-      211 RETURN                           R1 1
+       26 JUMPIFNOT                        R5 ; [+22]
+       27 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+       28 NEWCLOSURE                       R8 P0
+       29 CAPTURE                          VAL R0
+       30 CAPTURE                          UPVAL U0
+       31 CAPTURE                          VAL R2
+       32 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+       34 GETUPVAL                         R8 1
+       35 LOADK                            R10 K13 ["ContextMenu"]
+       36 LOADK                            R11 K14 ["BreakTangents"]
+       37 NAMECALL                         R8 R8 K15 ["getText"]
+       39 CALL                             R8 3 1
+       40 SETTABLEKS                       R8 R7 K11 ["Text"]
+       42 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+       44 MOVE                             R6 R3
+       45 GETIMPORT                        R5 K18 [table.insert]
+       47 CALL                             R5 2 0
+       48 JUMP                             ; [+21]
+       49 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+       50 NEWCLOSURE                       R8 P1
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          UPVAL U0
+       53 CAPTURE                          VAL R2
+       54 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+       56 GETUPVAL                         R8 1
+       57 LOADK                            R10 K13 ["ContextMenu"]
+       58 LOADK                            R11 K19 ["MirrorTangents"]
+       59 NAMECALL                         R8 R8 K15 ["getText"]
+       61 CALL                             R8 3 1
+       62 SETTABLEKS                       R8 R7 K11 ["Text"]
+       64 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+       66 MOVE                             R6 R3
+       67 GETIMPORT                        R5 K18 [table.insert]
+       69 CALL                             R5 2 0
+       70 GETTABLEKS                       R5 R4 K20 ["Sharp"]
+       72 JUMPIFNOT                        R5 ; [+22]
+       73 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+       74 NEWCLOSURE                       R8 P2
+       75 CAPTURE                          VAL R0
+       76 CAPTURE                          UPVAL U2
+       77 CAPTURE                          VAL R2
+       78 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+       80 GETUPVAL                         R8 1
+       81 LOADK                            R10 K13 ["ContextMenu"]
+       82 LOADK                            R11 K21 ["AddTangents"]
+       83 NAMECALL                         R8 R8 K15 ["getText"]
+       85 CALL                             R8 3 1
+       86 SETTABLEKS                       R8 R7 K11 ["Text"]
+       88 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+       90 MOVE                             R6 R3
+       91 GETIMPORT                        R5 K18 [table.insert]
+       93 CALL                             R5 2 0
+       94 JUMP                             ; [+21]
+       95 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+       96 NEWCLOSURE                       R8 P3
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          UPVAL U3
+       99 CAPTURE                          VAL R2
+      100 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+      102 GETUPVAL                         R8 1
+      103 LOADK                            R10 K13 ["ContextMenu"]
+      104 LOADK                            R11 K22 ["ClearTangents"]
+      105 NAMECALL                         R8 R8 K15 ["getText"]
+      107 CALL                             R8 3 1
+      108 SETTABLEKS                       R8 R7 K11 ["Text"]
+      110 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+      112 MOVE                             R6 R3
+      113 GETIMPORT                        R5 K18 [table.insert]
+      115 CALL                             R5 2 0
+      116 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+      117 NEWCLOSURE                       R8 P4
+      118 CAPTURE                          VAL R0
+      119 CAPTURE                          UPVAL U4
+      120 CAPTURE                          VAL R2
+      121 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+      123 GETUPVAL                         R8 1
+      124 LOADK                            R10 K13 ["ContextMenu"]
+      125 LOADK                            R11 K23 ["DeletePoint"]
+      126 NAMECALL                         R8 R8 K15 ["getText"]
+      128 CALL                             R8 3 1
+      129 SETTABLEKS                       R8 R7 K11 ["Text"]
+      131 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+      133 MOVE                             R6 R3
+      134 GETIMPORT                        R5 K18 [table.insert]
+      136 CALL                             R5 2 0
+      137 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+      138 NEWCLOSURE                       R8 P5
+      139 CAPTURE                          VAL R0
+      140 CAPTURE                          UPVAL U5
+      141 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+      143 GETUPVAL                         R8 1
+      144 LOADK                            R10 K13 ["ContextMenu"]
+      145 LOADK                            R11 K24 ["ToggleClosed"]
+      146 NAMECALL                         R8 R8 K15 ["getText"]
+      148 CALL                             R8 3 1
+      149 SETTABLEKS                       R8 R7 K11 ["Text"]
+      151 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+      153 MOVE                             R6 R3
+      154 GETIMPORT                        R5 K18 [table.insert]
+      156 CALL                             R5 2 0
+      157 JUMP                             ; [+24]
+      158 DUPTABLE                         R7 K12 [{["Icon"] = "", ["OnClick"], ["Text"]}]
+      159 NEWCLOSURE                       R8 P6
+      160 CAPTURE                          VAL R4
+      161 CAPTURE                          VAL R0
+      162 CAPTURE                          UPVAL U0
+      163 CAPTURE                          VAL R2
+      164 CAPTURE                          UPVAL U3
+      165 CAPTURE                          VAL R1
+      166 SETTABLEKS                       R8 R7 K10 ["OnClick"]
+      168 GETUPVAL                         R8 1
+      169 LOADK                            R10 K13 ["ContextMenu"]
+      170 LOADK                            R11 K25 ["DeleteTangent"]
+      171 NAMECALL                         R8 R8 K15 ["getText"]
+      173 CALL                             R8 3 1
+      174 SETTABLEKS                       R8 R7 K11 ["Text"]
+      176 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+      178 MOVE                             R6 R3
+      179 GETIMPORT                        R5 K18 [table.insert]
+      181 CALL                             R5 2 0
+      182 GETUPVAL                         R5 6
+      183 GETUPVAL                         R6 7
+      184 NAMECALL                         R6 R6 K26 ["get"]
+      186 CALL                             R6 1 1
+      187 MOVE                             R7 R3
+      188 LOADK                            R8 K27 ["BaseMenu"]
+      189 CALL                             R5 3 0
+      190 RETURN                           R1 1
 
 PROTO_8:
         0 NEWCLOSURE                       R2 P0

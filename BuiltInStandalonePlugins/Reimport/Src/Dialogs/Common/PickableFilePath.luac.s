@@ -26,40 +26,36 @@ PROTO_1:
        11 GETUPVAL                         R4 2
        12 GETUPVAL                         R5 3
        13 GETTABLEKS                       R5 R5 K4 ["View"]
-       15 DUPTABLE                         R6 K7 [{"tag", "onActivated"}]
-       16 LOADK                            R7 K8 ["size-full-800 bg-shift-100 radius-small padding-small align-y-center stroke-default data-testid=pickable-filepath-click-target"]
-       17 SETTABLEKS                       R7 R6 K5 ["tag"]
-       19 NEWCLOSURE                       R7 P0
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          VAL R3
-       22 SETTABLEKS                       R7 R6 K6 ["onActivated"]
-       24 DUPTABLE                         R7 K10 [{"filepathText"}]
-       25 GETUPVAL                         R8 2
-       26 GETUPVAL                         R9 3
-       27 GETTABLEKS                       R9 R9 K11 ["Text"]
-       29 DUPTABLE                         R10 K13 [{"Text", "TextTruncate", "tag"}]
-       30 JUMPIFNOT                        R2 ; [+2]
-       31 JUMPIFNOTEQKS                    R2 K2 [""] ; [+12]
-       33 GETUPVAL                         R12 4
-       34 CALL                             R12 0 1
-       35 JUMPIFNOT                        R12 ; [+6]
-       36 LOADK                            R13 K14 ["ConfigDialog"]
-       37 LOADK                            R14 K15 ["SelectFile"]
-       38 NAMECALL                         R11 R1 K16 ["getText"]
-       40 CALL                             R11 3 1
-       41 JUMP                             ; [+3]
-       42 LOADK                            R11 K17 ["Click to select file"]
-       43 JUMP                             ; [+1]
-       44 MOVE                             R11 R2
-       45 SETTABLEKS                       R11 R10 K11 ["Text"]
-       47 GETIMPORT                        R11 K20 [Enum.TextTruncate.SplitWord]
-       49 SETTABLEKS                       R11 R10 K12 ["TextTruncate"]
-       51 LOADK                            R11 K21 ["content-link text-body-medium auto-xy text-align-x-left text-align-y-center"]
-       52 SETTABLEKS                       R11 R10 K5 ["tag"]
-       54 CALL                             R8 2 1
-       55 SETTABLEKS                       R8 R7 K9 ["filepathText"]
-       57 CALL                             R4 3 -1
-       58 RETURN                           R4 -1
+       15 DUPTABLE                         R6 K8 [{["tag"] = "data-testid=pickable-filepath-click-target align-y-center size-full-800 padding-small stroke-default radius-small bg-shift-100", ["onActivated"]}]
+       16 NEWCLOSURE                       R7 P0
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          VAL R3
+       19 SETTABLEKS                       R7 R6 K7 ["onActivated"]
+       21 DUPTABLE                         R7 K10 [{"filepathText"}]
+       22 GETUPVAL                         R8 2
+       23 GETUPVAL                         R9 3
+       24 GETTABLEKS                       R9 R9 K11 ["Text"]
+       26 DUPTABLE                         R10 K14 [{["Text"], ["TextTruncate"], ["tag"] = "auto-xy text-body-medium text-align-x-left text-align-y-center content-link"}]
+       27 JUMPIFNOT                        R2 ; [+2]
+       28 JUMPIFNOTEQKS                    R2 K2 [""] ; [+12]
+       30 GETUPVAL                         R12 4
+       31 CALL                             R12 0 1
+       32 JUMPIFNOT                        R12 ; [+6]
+       33 LOADK                            R13 K15 ["ConfigDialog"]
+       34 LOADK                            R14 K16 ["SelectFile"]
+       35 NAMECALL                         R11 R1 K17 ["getText"]
+       37 CALL                             R11 3 1
+       38 JUMP                             ; [+3]
+       39 LOADK                            R11 K18 ["Click to select file"]
+       40 JUMP                             ; [+1]
+       41 MOVE                             R11 R2
+       42 SETTABLEKS                       R11 R10 K11 ["Text"]
+       44 GETIMPORT                        R11 K21 [Enum.TextTruncate.SplitWord]
+       46 SETTABLEKS                       R11 R10 K12 ["TextTruncate"]
+       48 CALL                             R8 2 1
+       49 SETTABLEKS                       R8 R7 K9 ["filepathText"]
+       51 CALL                             R4 3 -1
+       52 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

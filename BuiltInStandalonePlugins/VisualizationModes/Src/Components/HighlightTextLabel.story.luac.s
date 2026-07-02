@@ -14,8 +14,8 @@ PROTO_0:
        18 LOADK                            R6 K5 ["X-Fill X-Column X-Top"]
        19 SETTABLE                         R6 R4 R5
        20 GETIMPORT                        R5 K8 [UDim2.fromOffset]
-       22 LOADN                            R6 69
-       23 LOADN                            R7 44
+       22 LOADN                            R6 325
+       23 LOADN                            R7 300
        24 CALL                             R5 2 1
        25 SETTABLEKS                       R5 R4 K9 ["Size"]
        27 DUPTABLE                         R5 K12 [{"StyleLink", "HighlightTextLabel"}]
@@ -29,19 +29,17 @@ PROTO_0:
        38 GETUPVAL                         R6 2
        39 GETTABLEKS                       R6 R6 K3 ["createElement"]
        41 GETUPVAL                         R7 4
-       42 DUPTABLE                         R8 K17 [{"Text", "MatchIndexes"}]
-       43 LOADK                            R9 K18 ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus laoreet"]
-       44 SETTABLEKS                       R9 R8 K15 ["Text"]
-       46 NEWTABLE                         R9 0 3
-       48 LOADN                            R10 1
-       49 LOADN                            R11 3
-       50 LOADN                            R12 4
-       51 SETLIST                          R9 R10 3 [1]
-       53 SETTABLEKS                       R9 R8 K16 ["MatchIndexes"]
-       55 CALL                             R6 2 1
-       56 SETTABLEKS                       R6 R5 K11 ["HighlightTextLabel"]
-       58 CALL                             R2 3 -1
-       59 RETURN                           R2 -1
+       42 DUPTABLE                         R8 K18 [{["Text"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus laoreet", ["MatchIndexes"]}]
+       43 NEWTABLE                         R9 0 3
+       45 LOADN                            R10 1
+       46 LOADN                            R11 3
+       47 LOADN                            R12 4
+       48 SETLIST                          R9 R10 3 [1]
+       50 SETTABLEKS                       R9 R8 K17 ["MatchIndexes"]
+       52 CALL                             R6 2 1
+       53 SETTABLEKS                       R6 R5 K11 ["HighlightTextLabel"]
+       55 CALL                             R2 3 -1
+       56 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -70,16 +68,10 @@ MAIN:
        37 CAPTURE                          VAL R3
        38 CAPTURE                          VAL R5
        39 CAPTURE                          VAL R2
-       40 DUPTABLE                         R7 K18 [{"name", "summary", "stories"}]
-       41 LOADK                            R8 K10 ["HighlightTextLabel"]
-       42 SETTABLEKS                       R8 R7 K15 ["name"]
-       44 LOADK                            R8 K19 ["This text label allows for highlighting specific parts of the text based upon a fuzzy search match."]
-       45 SETTABLEKS                       R8 R7 K16 ["summary"]
-       47 NEWTABLE                         R8 0 1
-       49 DUPTABLE                         R9 K21 [{"name", "story"}]
-       50 LOADK                            R10 K10 ["HighlightTextLabel"]
-       51 SETTABLEKS                       R10 R9 K15 ["name"]
-       53 SETTABLEKS                       R6 R9 K20 ["story"]
-       55 SETLIST                          R8 R9 1 [1]
-       57 SETTABLEKS                       R8 R7 K17 ["stories"]
-       59 RETURN                           R7 1
+       40 DUPTABLE                         R7 K19 [{["name"] = "HighlightTextLabel", ["summary"] = "This text label allows for highlighting specific parts of the text based upon a fuzzy search match.", ["stories"]}]
+       41 NEWTABLE                         R8 0 1
+       43 DUPTABLE                         R9 K21 [{["name"] = "HighlightTextLabel", ["story"]}]
+       44 SETTABLEKS                       R6 R9 K20 ["story"]
+       46 SETLIST                          R8 R9 1 [1]
+       48 SETTABLEKS                       R8 R7 K18 ["stories"]
+       50 RETURN                           R7 1

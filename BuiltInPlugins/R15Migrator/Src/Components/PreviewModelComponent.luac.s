@@ -273,137 +273,125 @@ PROTO_9:
        94 GETUPVAL                         R17 1
        95 GETTABLEKS                       R17 R17 K12 ["createElement"]
        97 GETUPVAL                         R18 3
-       98 DUPTABLE                         R19 K47 [{"Text", "Style", "Size", "TextXAlignment", "AutomaticSize"}]
+       98 DUPTABLE                         R19 K48 [{["Text"], ["Style"] = "Bold", ["Size"], ["TextXAlignment"], ["AutomaticSize"]}]
        99 SETTABLEKS                       R5 R19 K44 ["Text"]
-      101 LOADK                            R20 K48 ["Bold"]
-      102 SETTABLEKS                       R20 R19 K45 ["Style"]
-      104 GETIMPORT                        R20 K41 [UDim2.fromScale]
-      106 LOADN                            R21 1
-      107 LOADN                            R22 0
-      108 CALL                             R20 2 1
-      109 SETTABLEKS                       R20 R19 K1 ["Size"]
-      111 GETIMPORT                        R20 K49 [Enum.TextXAlignment.Left]
-      113 SETTABLEKS                       R20 R19 K46 ["TextXAlignment"]
-      115 GETIMPORT                        R20 K51 [Enum.AutomaticSize.XY]
-      117 SETTABLEKS                       R20 R19 K13 ["AutomaticSize"]
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K9 ["Label"]
-      122 GETUPVAL                         R17 1
-      123 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      125 GETUPVAL                         R18 3
-      126 DUPTABLE                         R19 K47 [{"Text", "Style", "Size", "TextXAlignment", "AutomaticSize"}]
-      127 JUMPIFNOT                        R6 ; [+6]
-      128 GETIMPORT                        R20 K54 [string.match]
-      130 MOVE                             R21 R6
-      131 LOADK                            R22 K55 ["%d+$"]
-      132 CALL                             R20 2 1
-      133 JUMP                             ; [+1]
-      134 LOADK                            R20 K56 [""]
-      135 SETTABLEKS                       R20 R19 K44 ["Text"]
-      137 LOADK                            R20 K57 ["Body"]
-      138 SETTABLEKS                       R20 R19 K45 ["Style"]
-      140 GETIMPORT                        R20 K41 [UDim2.fromScale]
-      142 LOADN                            R21 1
-      143 LOADN                            R22 0
-      144 CALL                             R20 2 1
-      145 SETTABLEKS                       R20 R19 K1 ["Size"]
-      147 GETIMPORT                        R20 K59 [Enum.TextXAlignment.Right]
-      149 SETTABLEKS                       R20 R19 K46 ["TextXAlignment"]
-      151 GETIMPORT                        R20 K51 [Enum.AutomaticSize.XY]
-      153 SETTABLEKS                       R20 R19 K13 ["AutomaticSize"]
-      155 CALL                             R17 2 1
-      156 SETTABLEKS                       R17 R16 K42 ["AssetId"]
-      158 CALL                             R13 3 1
-      159 SETTABLEKS                       R13 R12 K34 ["Header"]
-      161 GETUPVAL                         R13 1
-      162 GETTABLEKS                       R13 R13 K12 ["createElement"]
-      164 GETUPVAL                         R14 2
-      165 DUPTABLE                         R15 K62 [{"LayoutOrder", "Style", "Padding", "BackgroundColor3", "Size", "SizeConstraint"}]
-      166 NAMECALL                         R16 R8 K39 ["getNextOrder"]
-      168 CALL                             R16 1 1
-      169 SETTABLEKS                       R16 R15 K37 ["LayoutOrder"]
-      171 LOADK                            R16 K63 ["RoundBox"]
-      172 SETTABLEKS                       R16 R15 K45 ["Style"]
-      174 GETTABLEKS                       R16 R7 K14 ["Padding"]
-      176 SETTABLEKS                       R16 R15 K14 ["Padding"]
-      178 GETTABLEKS                       R16 R7 K64 ["BackgroundColor"]
-      180 SETTABLEKS                       R16 R15 K60 ["BackgroundColor3"]
-      182 GETIMPORT                        R16 K41 [UDim2.fromScale]
-      184 LOADN                            R17 1
-      185 LOADN                            R18 1
-      186 CALL                             R16 2 1
-      187 SETTABLEKS                       R16 R15 K1 ["Size"]
-      189 GETIMPORT                        R16 K66 [Enum.SizeConstraint.RelativeXX]
-      191 SETTABLEKS                       R16 R15 K61 ["SizeConstraint"]
-      193 DUPTABLE                         R16 K69 [{"PreviewRender", "CameraResetButton"}]
-      194 GETUPVAL                         R17 1
-      195 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      197 GETUPVAL                         R18 4
-      198 DUPTABLE                         R19 K73 [{"Camera", "Model", "FocusDirection", "OnViewModelLoaded"}]
-      199 GETTABLEKS                       R20 R0 K74 ["camera"]
-      201 SETTABLEKS                       R20 R19 K70 ["Camera"]
-      203 SETTABLEKS                       R4 R19 K8 ["Model"]
-      205 LOADK                            R20 K75 [{-1, 1, -1}]
-      206 SETTABLEKS                       R20 R19 K71 ["FocusDirection"]
-      208 JUMPIFNOT                        R6 ; [+3]
-      209 GETTABLEKS                       R20 R0 K76 ["loadAnimation"]
-      211 JUMP                             ; [+1]
-      212 LOADNIL                          R20
-      213 SETTABLEKS                       R20 R19 K72 ["OnViewModelLoaded"]
-      215 CALL                             R17 2 1
-      216 SETTABLEKS                       R17 R16 K67 ["PreviewRender"]
-      218 GETUPVAL                         R17 1
-      219 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      221 GETUPVAL                         R18 5
-      222 DUPTABLE                         R19 K79 [{"OnClick", "Style", "Size", "AnchorPoint", "Position"}]
-      223 GETTABLEKS                       R20 R0 K80 ["resetCamera"]
-      225 SETTABLEKS                       R20 R19 K77 ["OnClick"]
-      227 LOADK                            R20 K81 ["RoundSubtle"]
-      228 SETTABLEKS                       R20 R19 K45 ["Style"]
-      230 GETTABLEKS                       R20 R7 K82 ["ResetButtonSize"]
-      232 SETTABLEKS                       R20 R19 K1 ["Size"]
-      234 GETIMPORT                        R20 K84 [Vector2.new]
-      236 LOADN                            R21 1
-      237 LOADN                            R22 0
-      238 CALL                             R20 2 1
-      239 SETTABLEKS                       R20 R19 K78 ["AnchorPoint"]
-      241 GETIMPORT                        R20 K41 [UDim2.fromScale]
-      243 LOADN                            R21 1
-      244 LOADN                            R22 0
-      245 CALL                             R20 2 1
-      246 SETTABLEKS                       R20 R19 K2 ["Position"]
-      248 DUPTABLE                         R20 K87 [{"Icon", "Tooltip"}]
-      249 GETUPVAL                         R21 1
-      250 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      252 GETUPVAL                         R22 6
-      253 DUPTABLE                         R23 K89 [{"Image"}]
-      254 GETUPVAL                         R25 7
-      255 GETTABLEKS                       R25 R25 K90 ["getThemeName"]
-      257 CALL                             R25 0 1
-      258 JUMPIFEQKS                       R25 K91 ["Dark"] ; [+3]
-      260 JUMPIFNOTEQKS                    R25 K92 ["Default"] ; [+5]
-      262 GETUPVAL                         R24 8
-      263 GETTABLEKS                       R24 R24 K93 ["RESET_CAM_DARK"]
-      265 JUMP                             ; [+3]
-      266 GETUPVAL                         R24 8
-      267 GETTABLEKS                       R24 R24 K94 ["RESET_CAM_LIGHT"]
-      269 SETTABLEKS                       R24 R23 K88 ["Image"]
-      271 CALL                             R21 2 1
-      272 SETTABLEKS                       R21 R20 K85 ["Icon"]
-      274 GETUPVAL                         R21 1
-      275 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      277 GETUPVAL                         R22 9
-      278 DUPTABLE                         R23 K95 [{"Text"}]
-      279 LOADK                            R24 K96 ["Reset Camera"]
-      280 SETTABLEKS                       R24 R23 K44 ["Text"]
-      282 CALL                             R21 2 1
-      283 SETTABLEKS                       R21 R20 K86 ["Tooltip"]
-      285 CALL                             R17 3 1
-      286 SETTABLEKS                       R17 R16 K68 ["CameraResetButton"]
-      288 CALL                             R13 3 1
-      289 SETTABLEKS                       R13 R12 K35 ["Preview"]
-      291 CALL                             R9 3 -1
-      292 RETURN                           R9 -1
+      101 GETIMPORT                        R20 K41 [UDim2.fromScale]
+      103 LOADN                            R21 1
+      104 LOADN                            R22 0
+      105 CALL                             R20 2 1
+      106 SETTABLEKS                       R20 R19 K1 ["Size"]
+      108 GETIMPORT                        R20 K49 [Enum.TextXAlignment.Left]
+      110 SETTABLEKS                       R20 R19 K47 ["TextXAlignment"]
+      112 GETIMPORT                        R20 K51 [Enum.AutomaticSize.XY]
+      114 SETTABLEKS                       R20 R19 K13 ["AutomaticSize"]
+      116 CALL                             R17 2 1
+      117 SETTABLEKS                       R17 R16 K9 ["Label"]
+      119 GETUPVAL                         R17 1
+      120 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      122 GETUPVAL                         R18 3
+      123 DUPTABLE                         R19 K53 [{["Text"], ["Style"] = "Body", ["Size"], ["TextXAlignment"], ["AutomaticSize"]}]
+      124 JUMPIFNOT                        R6 ; [+6]
+      125 GETIMPORT                        R20 K56 [string.match]
+      127 MOVE                             R21 R6
+      128 LOADK                            R22 K57 ["%d+$"]
+      129 CALL                             R20 2 1
+      130 JUMP                             ; [+1]
+      131 LOADK                            R20 K58 [""]
+      132 SETTABLEKS                       R20 R19 K44 ["Text"]
+      134 GETIMPORT                        R20 K41 [UDim2.fromScale]
+      136 LOADN                            R21 1
+      137 LOADN                            R22 0
+      138 CALL                             R20 2 1
+      139 SETTABLEKS                       R20 R19 K1 ["Size"]
+      141 GETIMPORT                        R20 K60 [Enum.TextXAlignment.Right]
+      143 SETTABLEKS                       R20 R19 K47 ["TextXAlignment"]
+      145 GETIMPORT                        R20 K51 [Enum.AutomaticSize.XY]
+      147 SETTABLEKS                       R20 R19 K13 ["AutomaticSize"]
+      149 CALL                             R17 2 1
+      150 SETTABLEKS                       R17 R16 K42 ["AssetId"]
+      152 CALL                             R13 3 1
+      153 SETTABLEKS                       R13 R12 K34 ["Header"]
+      155 GETUPVAL                         R13 1
+      156 GETTABLEKS                       R13 R13 K12 ["createElement"]
+      158 GETUPVAL                         R14 2
+      159 DUPTABLE                         R15 K64 [{["LayoutOrder"], ["Style"] = "RoundBox", ["Padding"], ["BackgroundColor3"], ["Size"], ["SizeConstraint"]}]
+      160 NAMECALL                         R16 R8 K39 ["getNextOrder"]
+      162 CALL                             R16 1 1
+      163 SETTABLEKS                       R16 R15 K37 ["LayoutOrder"]
+      165 GETTABLEKS                       R16 R7 K14 ["Padding"]
+      167 SETTABLEKS                       R16 R15 K14 ["Padding"]
+      169 GETTABLEKS                       R16 R7 K65 ["BackgroundColor"]
+      171 SETTABLEKS                       R16 R15 K62 ["BackgroundColor3"]
+      173 GETIMPORT                        R16 K41 [UDim2.fromScale]
+      175 LOADN                            R17 1
+      176 LOADN                            R18 1
+      177 CALL                             R16 2 1
+      178 SETTABLEKS                       R16 R15 K1 ["Size"]
+      180 GETIMPORT                        R16 K67 [Enum.SizeConstraint.RelativeXX]
+      182 SETTABLEKS                       R16 R15 K63 ["SizeConstraint"]
+      184 DUPTABLE                         R16 K70 [{"PreviewRender", "CameraResetButton"}]
+      185 GETUPVAL                         R17 1
+      186 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      188 GETUPVAL                         R18 4
+      189 DUPTABLE                         R19 K75 [{["Camera"], ["Model"], ["FocusDirection"] = {-1, 1, -1}, ["OnViewModelLoaded"]}]
+      190 GETTABLEKS                       R20 R0 K76 ["camera"]
+      192 SETTABLEKS                       R20 R19 K71 ["Camera"]
+      194 SETTABLEKS                       R4 R19 K8 ["Model"]
+      196 JUMPIFNOT                        R6 ; [+3]
+      197 GETTABLEKS                       R20 R0 K77 ["loadAnimation"]
+      199 JUMP                             ; [+1]
+      200 LOADNIL                          R20
+      201 SETTABLEKS                       R20 R19 K74 ["OnViewModelLoaded"]
+      203 CALL                             R17 2 1
+      204 SETTABLEKS                       R17 R16 K68 ["PreviewRender"]
+      206 GETUPVAL                         R17 1
+      207 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      209 GETUPVAL                         R18 5
+      210 DUPTABLE                         R19 K81 [{["OnClick"], ["Style"] = "RoundSubtle", ["Size"], ["AnchorPoint"], ["Position"]}]
+      211 GETTABLEKS                       R20 R0 K82 ["resetCamera"]
+      213 SETTABLEKS                       R20 R19 K78 ["OnClick"]
+      215 GETTABLEKS                       R20 R7 K83 ["ResetButtonSize"]
+      217 SETTABLEKS                       R20 R19 K1 ["Size"]
+      219 GETIMPORT                        R20 K85 [Vector2.new]
+      221 LOADN                            R21 1
+      222 LOADN                            R22 0
+      223 CALL                             R20 2 1
+      224 SETTABLEKS                       R20 R19 K80 ["AnchorPoint"]
+      226 GETIMPORT                        R20 K41 [UDim2.fromScale]
+      228 LOADN                            R21 1
+      229 LOADN                            R22 0
+      230 CALL                             R20 2 1
+      231 SETTABLEKS                       R20 R19 K2 ["Position"]
+      233 DUPTABLE                         R20 K88 [{"Icon", "Tooltip"}]
+      234 GETUPVAL                         R21 1
+      235 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      237 GETUPVAL                         R22 6
+      238 DUPTABLE                         R23 K90 [{"Image"}]
+      239 GETUPVAL                         R25 7
+      240 GETTABLEKS                       R25 R25 K91 ["getThemeName"]
+      242 CALL                             R25 0 1
+      243 JUMPIFEQKS                       R25 K92 ["Dark"] ; [+3]
+      245 JUMPIFNOTEQKS                    R25 K93 ["Default"] ; [+5]
+      247 GETUPVAL                         R24 8
+      248 GETTABLEKS                       R24 R24 K94 ["RESET_CAM_DARK"]
+      250 JUMP                             ; [+3]
+      251 GETUPVAL                         R24 8
+      252 GETTABLEKS                       R24 R24 K95 ["RESET_CAM_LIGHT"]
+      254 SETTABLEKS                       R24 R23 K89 ["Image"]
+      256 CALL                             R21 2 1
+      257 SETTABLEKS                       R21 R20 K86 ["Icon"]
+      259 GETUPVAL                         R21 1
+      260 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      262 GETUPVAL                         R22 9
+      263 DUPTABLE                         R23 K97 [{["Text"] = "Reset Camera"}]
+      264 CALL                             R21 2 1
+      265 SETTABLEKS                       R21 R20 K87 ["Tooltip"]
+      267 CALL                             R17 3 1
+      268 SETTABLEKS                       R17 R16 K69 ["CameraResetButton"]
+      270 CALL                             R13 3 1
+      271 SETTABLEKS                       R13 R12 K35 ["Preview"]
+      273 CALL                             R9 3 -1
+      274 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

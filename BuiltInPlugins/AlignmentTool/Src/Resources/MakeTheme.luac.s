@@ -170,134 +170,116 @@ MAIN:
       224 GETTABLEKS                       R21 R6 K65 ["MainText"]
       226 SETTABLEKS                       R21 R20 K61 ["InfoTextColor"]
       228 SETTABLEKS                       R20 R19 K66 ["InfoLabel"]
-      230 DUPTABLE                         R20 K70 [{"ListItemPadding", "Padding", "PrimaryButtonSize"}]
+      230 DUPTABLE                         R20 K71 [{["ListItemPadding"], ["Padding"] = 10, ["PrimaryButtonSize"]}]
       231 GETIMPORT                        R21 K48 [UDim.new]
       233 LOADN                            R22 0
       234 LOADN                            R23 10
       235 CALL                             R21 2 1
       236 SETTABLEKS                       R21 R20 K67 ["ListItemPadding"]
-      238 LOADN                            R21 10
-      239 SETTABLEKS                       R21 R20 K68 ["Padding"]
-      241 GETIMPORT                        R21 K72 [UDim2.new]
-      243 LOADN                            R22 0
-      244 LOADN                            R23 160
-      245 LOADN                            R24 0
-      246 LOADN                            R25 32
-      247 CALL                             R21 4 1
-      248 SETTABLEKS                       R21 R20 K69 ["PrimaryButtonSize"]
-      250 SETTABLEKS                       R20 R19 K73 ["MainView"]
-      252 DUPTABLE                         R20 K75 [{"HelpIconPadding"}]
-      253 GETIMPORT                        R21 K48 [UDim.new]
-      255 LOADN                            R22 0
-      256 LOADN                            R23 2
-      257 CALL                             R21 2 1
-      258 SETTABLEKS                       R21 R20 K74 ["HelpIconPadding"]
-      260 SETTABLEKS                       R20 R19 K76 ["RelativeToSetting"]
-      262 DUPTABLE                         R20 K81 [{"ItemContentPadding", "ItemPaddingHorizontal", "ItemPaddingVertical", "MaximumLabelWidth", "SectionPadding"}]
-      263 GETIMPORT                        R21 K48 [UDim.new]
-      265 LOADN                            R22 0
-      266 LOADN                            R23 10
-      267 CALL                             R21 2 1
-      268 SETTABLEKS                       R21 R20 K77 ["ItemContentPadding"]
-      270 GETIMPORT                        R21 K48 [UDim.new]
-      272 LOADN                            R22 0
-      273 LOADN                            R23 15
-      274 CALL                             R21 2 1
-      275 SETTABLEKS                       R21 R20 K78 ["ItemPaddingHorizontal"]
-      277 GETIMPORT                        R21 K48 [UDim.new]
-      279 LOADN                            R22 0
-      280 LOADN                            R23 8
-      281 CALL                             R21 2 1
-      282 SETTABLEKS                       R21 R20 K79 ["ItemPaddingVertical"]
-      284 LOADN                            R21 100
-      285 SETTABLEKS                       R21 R20 K80 ["MaximumLabelWidth"]
-      287 GETIMPORT                        R21 K48 [UDim.new]
-      289 LOADN                            R22 0
-      290 LOADN                            R23 15
-      291 CALL                             R21 2 1
-      292 SETTABLEKS                       R21 R20 K49 ["SectionPadding"]
-      294 SETTABLEKS                       R20 R19 K82 ["LabeledElementList"]
-      296 GETTABLEKS                       R20 R7 K83 ["Button"]
-      298 MOVE                             R21 R12
-      299 MOVE                             R22 R8
-      300 LOADK                            R23 K83 ["Button"]
-      301 CALL                             R22 1 1
-      302 NEWTABLE                         R23 1 0
-      304 NEWTABLE                         R24 4 0
-      306 DUPTABLE                         R25 K86 [{"BorderSize", "Transparency"}]
-      307 LOADN                            R26 1
-      308 SETTABLEKS                       R26 R25 K84 ["BorderSize"]
-      310 LOADN                            R26 1
-      311 SETTABLEKS                       R26 R25 K85 ["Transparency"]
-      313 SETTABLEKS                       R25 R24 K87 ["BackgroundStyle"]
-      315 GETTABLEKS                       R25 R10 K88 ["Hover"]
-      317 DUPTABLE                         R26 K89 [{"BackgroundStyle"}]
-      318 DUPTABLE                         R27 K92 [{"BorderColor", "BorderSize", "Color", "Transparency"}]
-      319 GETTABLEKS                       R28 R6 K30 ["SelectableButtonBorderColor"]
-      321 SETTABLEKS                       R28 R27 K90 ["BorderColor"]
-      323 LOADN                            R28 1
-      324 SETTABLEKS                       R28 R27 K84 ["BorderSize"]
-      326 GETTABLEKS                       R28 R6 K93 ["ButtonHover"]
-      328 SETTABLEKS                       R28 R27 K91 ["Color"]
-      330 LOADN                            R28 0
-      331 SETTABLEKS                       R28 R27 K85 ["Transparency"]
-      333 SETTABLEKS                       R27 R26 K87 ["BackgroundStyle"]
-      335 SETTABLE                         R26 R24 R25
-      336 GETTABLEKS                       R25 R10 K94 ["Selected"]
-      338 DUPTABLE                         R26 K89 [{"BackgroundStyle"}]
-      339 DUPTABLE                         R27 K92 [{"BorderColor", "BorderSize", "Color", "Transparency"}]
-      340 GETTABLEKS                       R28 R6 K30 ["SelectableButtonBorderColor"]
-      342 SETTABLEKS                       R28 R27 K90 ["BorderColor"]
-      344 LOADN                            R28 1
-      345 SETTABLEKS                       R28 R27 K84 ["BorderSize"]
-      347 GETTABLEKS                       R28 R6 K32 ["SelectableButtonSelectedColor"]
-      349 SETTABLEKS                       R28 R27 K91 ["Color"]
-      351 LOADN                            R28 0
-      352 SETTABLEKS                       R28 R27 K85 ["Transparency"]
-      354 SETTABLEKS                       R27 R26 K87 ["BackgroundStyle"]
-      356 SETTABLE                         R26 R24 R25
-      357 SETTABLEKS                       R24 R23 K95 ["&Selectable"]
-      359 CALL                             R21 2 1
-      360 SETTABLE                         R21 R19 R20
-      361 GETTABLEKS                       R20 R7 K52 ["Image"]
-      363 MOVE                             R21 R12
-      364 MOVE                             R22 R8
-      365 LOADK                            R23 K52 ["Image"]
-      366 CALL                             R22 1 1
-      367 NEWTABLE                         R23 1 0
-      369 NEWTABLE                         R24 8 0
-      371 GETIMPORT                        R25 K97 [Vector2.new]
-      373 LOADK                            R26 K98 [0.5]
-      374 LOADK                            R27 K98 [0.5]
+      238 GETIMPORT                        R21 K73 [UDim2.new]
+      240 LOADN                            R22 0
+      241 LOADN                            R23 160
+      242 LOADN                            R24 0
+      243 LOADN                            R25 32
+      244 CALL                             R21 4 1
+      245 SETTABLEKS                       R21 R20 K70 ["PrimaryButtonSize"]
+      247 SETTABLEKS                       R20 R19 K74 ["MainView"]
+      249 DUPTABLE                         R20 K76 [{"HelpIconPadding"}]
+      250 GETIMPORT                        R21 K48 [UDim.new]
+      252 LOADN                            R22 0
+      253 LOADN                            R23 2
+      254 CALL                             R21 2 1
+      255 SETTABLEKS                       R21 R20 K75 ["HelpIconPadding"]
+      257 SETTABLEKS                       R20 R19 K77 ["RelativeToSetting"]
+      259 DUPTABLE                         R20 K83 [{["ItemContentPadding"], ["ItemPaddingHorizontal"], ["ItemPaddingVertical"], ["MaximumLabelWidth"] = 100, ["SectionPadding"]}]
+      260 GETIMPORT                        R21 K48 [UDim.new]
+      262 LOADN                            R22 0
+      263 LOADN                            R23 10
+      264 CALL                             R21 2 1
+      265 SETTABLEKS                       R21 R20 K78 ["ItemContentPadding"]
+      267 GETIMPORT                        R21 K48 [UDim.new]
+      269 LOADN                            R22 0
+      270 LOADN                            R23 15
+      271 CALL                             R21 2 1
+      272 SETTABLEKS                       R21 R20 K79 ["ItemPaddingHorizontal"]
+      274 GETIMPORT                        R21 K48 [UDim.new]
+      276 LOADN                            R22 0
+      277 LOADN                            R23 8
+      278 CALL                             R21 2 1
+      279 SETTABLEKS                       R21 R20 K80 ["ItemPaddingVertical"]
+      281 GETIMPORT                        R21 K48 [UDim.new]
+      283 LOADN                            R22 0
+      284 LOADN                            R23 15
+      285 CALL                             R21 2 1
+      286 SETTABLEKS                       R21 R20 K49 ["SectionPadding"]
+      288 SETTABLEKS                       R20 R19 K84 ["LabeledElementList"]
+      290 GETTABLEKS                       R20 R7 K85 ["Button"]
+      292 MOVE                             R21 R12
+      293 MOVE                             R22 R8
+      294 LOADK                            R23 K85 ["Button"]
+      295 CALL                             R22 1 1
+      296 NEWTABLE                         R23 1 0
+      298 NEWTABLE                         R24 4 0
+      300 DUPTABLE                         R25 K89 [{["BorderSize"] = 1, ["Transparency"] = 1}]
+      301 SETTABLEKS                       R25 R24 K90 ["BackgroundStyle"]
+      303 GETTABLEKS                       R25 R10 K91 ["Hover"]
+      305 DUPTABLE                         R26 K92 [{"BackgroundStyle"}]
+      306 DUPTABLE                         R27 K96 [{["BorderColor"], ["BorderSize"] = 1, ["Color"], ["Transparency"] = 0}]
+      307 GETTABLEKS                       R28 R6 K30 ["SelectableButtonBorderColor"]
+      309 SETTABLEKS                       R28 R27 K93 ["BorderColor"]
+      311 GETTABLEKS                       R28 R6 K97 ["ButtonHover"]
+      313 SETTABLEKS                       R28 R27 K94 ["Color"]
+      315 SETTABLEKS                       R27 R26 K90 ["BackgroundStyle"]
+      317 SETTABLE                         R26 R24 R25
+      318 GETTABLEKS                       R25 R10 K98 ["Selected"]
+      320 DUPTABLE                         R26 K92 [{"BackgroundStyle"}]
+      321 DUPTABLE                         R27 K96 [{["BorderColor"], ["BorderSize"] = 1, ["Color"], ["Transparency"] = 0}]
+      322 GETTABLEKS                       R28 R6 K30 ["SelectableButtonBorderColor"]
+      324 SETTABLEKS                       R28 R27 K93 ["BorderColor"]
+      326 GETTABLEKS                       R28 R6 K32 ["SelectableButtonSelectedColor"]
+      328 SETTABLEKS                       R28 R27 K94 ["Color"]
+      330 SETTABLEKS                       R27 R26 K90 ["BackgroundStyle"]
+      332 SETTABLE                         R26 R24 R25
+      333 SETTABLEKS                       R24 R23 K99 ["&Selectable"]
+      335 CALL                             R21 2 1
+      336 SETTABLE                         R21 R19 R20
+      337 GETTABLEKS                       R20 R7 K52 ["Image"]
+      339 MOVE                             R21 R12
+      340 MOVE                             R22 R8
+      341 LOADK                            R23 K52 ["Image"]
+      342 CALL                             R22 1 1
+      343 NEWTABLE                         R23 1 0
+      345 NEWTABLE                         R24 8 0
+      347 GETIMPORT                        R25 K101 [Vector2.new]
+      349 LOADK                            R26 K102 [0.5]
+      350 LOADK                            R27 K102 [0.5]
+      351 CALL                             R25 2 1
+      352 SETTABLEKS                       R25 R24 K103 ["AnchorPoint"]
+      354 GETTABLEKS                       R25 R6 K28 ["HelpIconColor"]
+      356 SETTABLEKS                       R25 R24 K94 ["Color"]
+      358 GETTABLEKS                       R25 R6 K40 ["Help"]
+      360 SETTABLEKS                       R25 R24 K52 ["Image"]
+      362 GETIMPORT                        R25 K73 [UDim2.new]
+      364 LOADK                            R26 K102 [0.5]
+      365 LOADN                            R27 0
+      366 LOADK                            R28 K102 [0.5]
+      367 LOADN                            R29 0
+      368 CALL                             R25 4 1
+      369 SETTABLEKS                       R25 R24 K104 ["Position"]
+      371 GETIMPORT                        R25 K106 [UDim2.fromOffset]
+      373 LOADN                            R26 14
+      374 LOADN                            R27 14
       375 CALL                             R25 2 1
-      376 SETTABLEKS                       R25 R24 K99 ["AnchorPoint"]
-      378 GETTABLEKS                       R25 R6 K28 ["HelpIconColor"]
-      380 SETTABLEKS                       R25 R24 K91 ["Color"]
-      382 GETTABLEKS                       R25 R6 K40 ["Help"]
-      384 SETTABLEKS                       R25 R24 K52 ["Image"]
-      386 GETIMPORT                        R25 K72 [UDim2.new]
-      388 LOADK                            R26 K98 [0.5]
-      389 LOADN                            R27 0
-      390 LOADK                            R28 K98 [0.5]
-      391 LOADN                            R29 0
-      392 CALL                             R25 4 1
-      393 SETTABLEKS                       R25 R24 K100 ["Position"]
-      395 GETIMPORT                        R25 K102 [UDim2.fromOffset]
-      397 LOADN                            R26 14
-      398 LOADN                            R27 14
-      399 CALL                             R25 2 1
-      400 SETTABLEKS                       R25 R24 K103 ["Size"]
-      402 GETTABLEKS                       R25 R10 K104 ["Disabled"]
-      404 DUPTABLE                         R26 K105 [{"Transparency"}]
-      405 LOADK                            R27 K98 [0.5]
-      406 SETTABLEKS                       R27 R26 K85 ["Transparency"]
-      408 SETTABLE                         R26 R24 R25
-      409 SETTABLEKS                       R24 R23 K106 ["&HelpIcon"]
-      411 CALL                             R21 2 1
-      412 SETTABLE                         R21 R19 R20
-      413 DUPCLOSURE                       R20 K107 [PROTO_0]
-      414 CAPTURE                          VAL R5
-      415 CAPTURE                          VAL R17
-      416 CAPTURE                          VAL R18
-      417 CAPTURE                          VAL R19
-      418 RETURN                           R20 1
+      376 SETTABLEKS                       R25 R24 K107 ["Size"]
+      378 GETTABLEKS                       R25 R10 K108 ["Disabled"]
+      380 DUPTABLE                         R26 K109 [{["Transparency"] = 0.5}]
+      381 SETTABLE                         R26 R24 R25
+      382 SETTABLEKS                       R24 R23 K110 ["&HelpIcon"]
+      384 CALL                             R21 2 1
+      385 SETTABLE                         R21 R19 R20
+      386 DUPCLOSURE                       R20 K111 [PROTO_0]
+      387 CAPTURE                          VAL R5
+      388 CAPTURE                          VAL R17
+      389 CAPTURE                          VAL R18
+      390 CAPTURE                          VAL R19
+      391 RETURN                           R20 1

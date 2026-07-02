@@ -64,71 +64,69 @@ PROTO_3:
         2 GETTABLEKS                       R2 R2 K3 ["animations"]
         4 GETTABLEN                        R1 R2 1
         5 SETTABLEKS                       R1 R0 K0 ["palette"]
-        7 DUPTABLE                         R1 K6 [{"source", "builtinItem"}]
-        8 LOADK                            R2 K7 ["builtin"]
-        9 SETTABLEKS                       R2 R1 K4 ["source"]
-       11 GETUPVAL                         R2 1
-       12 GETTABLEKS                       R2 R2 K8 ["IDLE_ANIMATION_ID"]
-       14 SETTABLEKS                       R2 R1 K5 ["builtinItem"]
-       16 SETTABLEKS                       R1 R0 K1 ["item"]
-       18 GETUPVAL                         R1 2
-       19 GETTABLEKS                       R1 R1 K9 ["addEquippedItem"]
-       21 MOVE                             R2 R0
-       22 CALL                             R1 1 0
-       23 GETUPVAL                         R1 3
-       24 GETUPVAL                         R2 4
-       25 GETTABLEKS                       R2 R2 K10 ["filter"]
-       27 GETUPVAL                         R3 5
-       28 NAMECALL                         R3 R3 K11 ["GetChildren"]
-       30 CALL                             R3 1 1
-       31 DUPCLOSURE                       R4 K12 [PROTO_2]
-       32 CALL                             R2 2 -1
-       33 CALL                             R1 -1 0
-       34 GETUPVAL                         R1 6
-       35 CALL                             R1 0 1
-       36 JUMPIFNOT                        R1 ; [+55]
-       37 GETUPVAL                         R1 5
-       38 GETTABLEKS                       R1 R1 K13 ["Humanoid"]
-       40 LOADK                            R3 K14 ["HumanoidDescription"]
-       41 NAMECALL                         R1 R1 K15 ["FindFirstChildOfClass"]
-       43 CALL                             R1 2 1
-       44 MOVE                             R2 R1
-       45 JUMPIFNOT                        R2 ; [+6]
-       46 GETUPVAL                         R4 7
-       47 GETTABLEKS                       R4 R4 K16 ["MARKETPLACE_ITEMS_VALUE_NAME"]
-       49 NAMECALL                         R2 R1 K17 ["FindFirstChild"]
-       51 CALL                             R2 2 1
-       52 JUMPIFNOT                        R2 ; [+39]
-       53 LOADK                            R5 K18 ["StringValue"]
-       54 NAMECALL                         R3 R2 K19 ["IsA"]
-       56 CALL                             R3 2 1
-       57 JUMPIFNOT                        R3 ; [+34]
-       58 NEWTABLE                         R3 0 0
-       60 NAMECALL                         R4 R2 K11 ["GetChildren"]
-       62 CALL                             R4 1 3
-       63 FORGPREP                         R4
-       64 LOADK                            R11 K18 ["StringValue"]
-       65 NAMECALL                         R9 R8 K19 ["IsA"]
-       67 CALL                             R9 2 1
-       68 JUMPIFNOT                        R9 ; [+11]
-       69 MOVE                             R10 R3
-       70 GETUPVAL                         R11 7
-       71 GETTABLEKS                       R11 R11 K20 ["decodeMarketplaceItem"]
-       73 GETTABLEKS                       R12 R8 K21 ["Value"]
-       75 CALL                             R11 1 -1
-       76 FASTCALL                         TABLE_INSERT ; [+2]
-       77 GETIMPORT                        R9 K24 [table.insert]
-       79 CALL                             R9 -1 0
-       80 FORGLOOP                         R4 2 ; [-17]
-       82 NAMECALL                         R4 R2 K25 ["Destroy"]
-       84 CALL                             R4 1 0
-       85 LENGTH                           R4 R3
-       86 LOADN                            R5 0
-       87 JUMPIFNOTLT                      R5 R4 ; [+4]
-       89 GETUPVAL                         R4 8
-       90 MOVE                             R5 R3
-       91 CALL                             R4 1 0
-       92 RETURN                           R0 0
+        7 DUPTABLE                         R1 K7 [{["source"] = "builtin", ["builtinItem"]}]
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R2 R2 K8 ["IDLE_ANIMATION_ID"]
+       11 SETTABLEKS                       R2 R1 K6 ["builtinItem"]
+       13 SETTABLEKS                       R1 R0 K1 ["item"]
+       15 GETUPVAL                         R1 2
+       16 GETTABLEKS                       R1 R1 K9 ["addEquippedItem"]
+       18 MOVE                             R2 R0
+       19 CALL                             R1 1 0
+       20 GETUPVAL                         R1 3
+       21 GETUPVAL                         R2 4
+       22 GETTABLEKS                       R2 R2 K10 ["filter"]
+       24 GETUPVAL                         R3 5
+       25 NAMECALL                         R3 R3 K11 ["GetChildren"]
+       27 CALL                             R3 1 1
+       28 DUPCLOSURE                       R4 K12 [PROTO_2]
+       29 CALL                             R2 2 -1
+       30 CALL                             R1 -1 0
+       31 GETUPVAL                         R1 6
+       32 CALL                             R1 0 1
+       33 JUMPIFNOT                        R1 ; [+55]
+       34 GETUPVAL                         R1 5
+       35 GETTABLEKS                       R1 R1 K13 ["Humanoid"]
+       37 LOADK                            R3 K14 ["HumanoidDescription"]
+       38 NAMECALL                         R1 R1 K15 ["FindFirstChildOfClass"]
+       40 CALL                             R1 2 1
+       41 MOVE                             R2 R1
+       42 JUMPIFNOT                        R2 ; [+6]
+       43 GETUPVAL                         R4 7
+       44 GETTABLEKS                       R4 R4 K16 ["MARKETPLACE_ITEMS_VALUE_NAME"]
+       46 NAMECALL                         R2 R1 K17 ["FindFirstChild"]
+       48 CALL                             R2 2 1
+       49 JUMPIFNOT                        R2 ; [+39]
+       50 LOADK                            R5 K18 ["StringValue"]
+       51 NAMECALL                         R3 R2 K19 ["IsA"]
+       53 CALL                             R3 2 1
+       54 JUMPIFNOT                        R3 ; [+34]
+       55 NEWTABLE                         R3 0 0
+       57 NAMECALL                         R4 R2 K11 ["GetChildren"]
+       59 CALL                             R4 1 3
+       60 FORGPREP                         R4
+       61 LOADK                            R11 K18 ["StringValue"]
+       62 NAMECALL                         R9 R8 K19 ["IsA"]
+       64 CALL                             R9 2 1
+       65 JUMPIFNOT                        R9 ; [+11]
+       66 MOVE                             R10 R3
+       67 GETUPVAL                         R11 7
+       68 GETTABLEKS                       R11 R11 K20 ["decodeMarketplaceItem"]
+       70 GETTABLEKS                       R12 R8 K21 ["Value"]
+       72 CALL                             R11 1 -1
+       73 FASTCALL                         TABLE_INSERT ; [+2]
+       74 GETIMPORT                        R9 K24 [table.insert]
+       76 CALL                             R9 -1 0
+       77 FORGLOOP                         R4 2 ; [-17]
+       79 NAMECALL                         R4 R2 K25 ["Destroy"]
+       81 CALL                             R4 1 0
+       82 LENGTH                           R4 R3
+       83 LOADN                            R5 0
+       84 JUMPIFNOTLT                      R5 R4 ; [+4]
+       86 GETUPVAL                         R4 8
+       87 MOVE                             R5 R3
+       88 CALL                             R4 1 0
+       89 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

@@ -14,33 +14,29 @@ PROTO_0:
        21 GETUPVAL                         R11 0
        22 GETTABLEKS                       R11 R11 K6 ["createElement"]
        24 LOADK                            R12 K11 ["CylinderHandleAdornment"]
-       25 DUPTABLE                         R13 K14 [{"Adornee", "AlwaysOnTop", "CFrame", "Color", "Height", "Radius", "Transparency", "ZIndex"}]
+       25 DUPTABLE                         R13 K16 [{[1], ["AlwaysOnTop"] = True, ["CFrame"], ["Color"], ["Height"], ["Radius"], ["Transparency"], ["ZIndex"] = 0}]
        26 SETTABLEKS                       R1 R13 K0 ["Adornee"]
-       28 LOADB                            R14 1
-       29 SETTABLEKS                       R14 R13 K12 ["AlwaysOnTop"]
-       31 SETTABLEKS                       R2 R13 K1 ["CFrame"]
-       33 SETTABLEKS                       R3 R13 K2 ["Color"]
-       35 SETTABLEKS                       R4 R13 K3 ["Height"]
-       37 SETTABLEKS                       R5 R13 K4 ["Radius"]
-       39 SETTABLEKS                       R6 R13 K5 ["Transparency"]
-       41 LOADN                            R14 0
-       42 SETTABLEKS                       R14 R13 K13 ["ZIndex"]
-       44 CALL                             R11 2 1
-       45 SETTABLEKS                       R11 R10 K8 ["OnTop"]
-       47 GETUPVAL                         R11 0
-       48 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       50 LOADK                            R12 K11 ["CylinderHandleAdornment"]
-       51 DUPTABLE                         R13 K15 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
-       52 SETTABLEKS                       R1 R13 K0 ["Adornee"]
-       54 SETTABLEKS                       R2 R13 K1 ["CFrame"]
-       56 SETTABLEKS                       R3 R13 K2 ["Color"]
-       58 SETTABLEKS                       R4 R13 K3 ["Height"]
-       60 SETTABLEKS                       R5 R13 K4 ["Radius"]
-       62 SETTABLEKS                       R6 R13 K5 ["Transparency"]
-       64 CALL                             R11 2 1
-       65 SETTABLEKS                       R11 R10 K9 ["Outline"]
-       67 CALL                             R7 3 -1
-       68 RETURN                           R7 -1
+       28 SETTABLEKS                       R2 R13 K1 ["CFrame"]
+       30 SETTABLEKS                       R3 R13 K2 ["Color"]
+       32 SETTABLEKS                       R4 R13 K3 ["Height"]
+       34 SETTABLEKS                       R5 R13 K4 ["Radius"]
+       36 SETTABLEKS                       R6 R13 K5 ["Transparency"]
+       38 CALL                             R11 2 1
+       39 SETTABLEKS                       R11 R10 K8 ["OnTop"]
+       41 GETUPVAL                         R11 0
+       42 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       44 LOADK                            R12 K11 ["CylinderHandleAdornment"]
+       45 DUPTABLE                         R13 K17 [{"Adornee", "CFrame", "Color", "Height", "Radius", "Transparency"}]
+       46 SETTABLEKS                       R1 R13 K0 ["Adornee"]
+       48 SETTABLEKS                       R2 R13 K1 ["CFrame"]
+       50 SETTABLEKS                       R3 R13 K2 ["Color"]
+       52 SETTABLEKS                       R4 R13 K3 ["Height"]
+       54 SETTABLEKS                       R5 R13 K4 ["Radius"]
+       56 SETTABLEKS                       R6 R13 K5 ["Transparency"]
+       58 CALL                             R11 2 1
+       59 SETTABLEKS                       R11 R10 K9 ["Outline"]
+       61 CALL                             R7 3 -1
+       62 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

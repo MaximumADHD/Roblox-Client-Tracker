@@ -15,51 +15,45 @@ PROTO_0:
        18 GETUPVAL                         R4 1
        19 GETTABLEKS                       R4 R4 K8 ["createElement"]
        21 GETUPVAL                         R5 3
-       22 DUPTABLE                         R6 K15 [{"AnchorPoint", "LayoutOrder", "OnClick", "Style", "Size", "ZIndex"}]
-       23 GETIMPORT                        R7 K17 [Vector2.new]
+       22 DUPTABLE                         R6 K17 [{["AnchorPoint"], ["LayoutOrder"], ["OnClick"], ["Style"] = "Round", ["Size"], ["ZIndex"] = 2}]
+       23 GETIMPORT                        R7 K19 [Vector2.new]
        25 LOADN                            R8 1
        26 LOADN                            R9 0
        27 CALL                             R7 2 1
        28 SETTABLEKS                       R7 R6 K9 ["AnchorPoint"]
        30 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
        32 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
-       34 GETTABLEKS                       R7 R2 K18 ["resetCamera"]
+       34 GETTABLEKS                       R7 R2 K20 ["resetCamera"]
        36 SETTABLEKS                       R7 R6 K11 ["OnClick"]
-       38 LOADK                            R7 K19 ["Round"]
-       39 SETTABLEKS                       R7 R6 K12 ["Style"]
-       41 GETTABLEKS                       R7 R1 K13 ["Size"]
-       43 SETTABLEKS                       R7 R6 K13 ["Size"]
-       45 LOADN                            R7 2
-       46 SETTABLEKS                       R7 R6 K14 ["ZIndex"]
-       48 DUPTABLE                         R7 K22 [{"Spacing", "Icon", "Tooltip"}]
-       49 GETUPVAL                         R8 1
-       50 GETTABLEKS                       R8 R8 K8 ["createElement"]
-       52 LOADK                            R9 K23 ["UIPadding"]
-       53 DUPTABLE                         R10 K28 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-       54 SETTABLEKS                       R3 R10 K24 ["PaddingLeft"]
-       56 SETTABLEKS                       R3 R10 K25 ["PaddingRight"]
-       58 SETTABLEKS                       R3 R10 K26 ["PaddingTop"]
-       60 SETTABLEKS                       R3 R10 K27 ["PaddingBottom"]
-       62 CALL                             R8 2 1
-       63 SETTABLEKS                       R8 R7 K7 ["Spacing"]
-       65 GETUPVAL                         R8 1
-       66 GETTABLEKS                       R8 R8 K8 ["createElement"]
-       68 GETUPVAL                         R9 4
-       69 DUPTABLE                         R10 K30 [{"Image"}]
-       70 GETTABLEKS                       R11 R1 K29 ["Image"]
-       72 SETTABLEKS                       R11 R10 K29 ["Image"]
-       74 CALL                             R8 2 1
-       75 SETTABLEKS                       R8 R7 K20 ["Icon"]
-       77 GETUPVAL                         R8 1
-       78 GETTABLEKS                       R8 R8 K8 ["createElement"]
-       80 GETUPVAL                         R9 5
-       81 DUPTABLE                         R10 K32 [{"Text"}]
-       82 LOADK                            R11 K33 ["Reset Camera"]
-       83 SETTABLEKS                       R11 R10 K31 ["Text"]
-       85 CALL                             R8 2 1
-       86 SETTABLEKS                       R8 R7 K21 ["Tooltip"]
-       88 CALL                             R4 3 -1
-       89 RETURN                           R4 -1
+       38 GETTABLEKS                       R7 R1 K14 ["Size"]
+       40 SETTABLEKS                       R7 R6 K14 ["Size"]
+       42 DUPTABLE                         R7 K23 [{"Spacing", "Icon", "Tooltip"}]
+       43 GETUPVAL                         R8 1
+       44 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       46 LOADK                            R9 K24 ["UIPadding"]
+       47 DUPTABLE                         R10 K29 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+       48 SETTABLEKS                       R3 R10 K25 ["PaddingLeft"]
+       50 SETTABLEKS                       R3 R10 K26 ["PaddingRight"]
+       52 SETTABLEKS                       R3 R10 K27 ["PaddingTop"]
+       54 SETTABLEKS                       R3 R10 K28 ["PaddingBottom"]
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K7 ["Spacing"]
+       59 GETUPVAL                         R8 1
+       60 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       62 GETUPVAL                         R9 4
+       63 DUPTABLE                         R10 K31 [{"Image"}]
+       64 GETTABLEKS                       R11 R1 K30 ["Image"]
+       66 SETTABLEKS                       R11 R10 K30 ["Image"]
+       68 CALL                             R8 2 1
+       69 SETTABLEKS                       R8 R7 K21 ["Icon"]
+       71 GETUPVAL                         R8 1
+       72 GETTABLEKS                       R8 R8 K8 ["createElement"]
+       74 GETUPVAL                         R9 5
+       75 DUPTABLE                         R10 K34 [{["Text"] = "Reset Camera"}]
+       76 CALL                             R8 2 1
+       77 SETTABLEKS                       R8 R7 K22 ["Tooltip"]
+       79 CALL                             R4 3 -1
+       80 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

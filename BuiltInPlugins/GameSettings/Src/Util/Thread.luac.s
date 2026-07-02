@@ -1,24 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K6 [{"__running", "__finished", "__success", "__results", "__callback", "__event"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["__running"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["__finished"]
-        7 LOADNIL                          R2
-        8 SETTABLEKS                       R2 R1 K2 ["__success"]
-       10 LOADNIL                          R2
-       11 SETTABLEKS                       R2 R1 K3 ["__results"]
-       13 SETTABLEKS                       R0 R1 K4 ["__callback"]
-       15 GETIMPORT                        R2 K9 [Instance.new]
-       17 LOADK                            R3 K10 ["BindableEvent"]
-       18 CALL                             R2 1 1
-       19 SETTABLEKS                       R2 R1 K5 ["__event"]
-       21 GETUPVAL                         R4 0
-       22 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
-       24 MOVE                             R3 R1
-       25 GETIMPORT                        R2 K12 [setmetatable]
-       27 CALL                             R2 2 1
-       28 RETURN                           R2 1
+        0 DUPTABLE                         R1 K8 [{[1] = False, ["__finished"] = False, ["__success"] = , ["__results"] = , ["__callback"], ["__event"]}]
+        1 SETTABLEKS                       R0 R1 K6 ["__callback"]
+        3 GETIMPORT                        R2 K11 [Instance.new]
+        5 LOADK                            R3 K12 ["BindableEvent"]
+        6 CALL                             R2 1 1
+        7 SETTABLEKS                       R2 R1 K7 ["__event"]
+        9 GETUPVAL                         R4 0
+       10 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       12 MOVE                             R3 R1
+       13 GETIMPORT                        R2 K14 [setmetatable]
+       15 CALL                             R2 2 1
+       16 RETURN                           R2 1
 
 PROTO_1:
         0 NEWTABLE                         R0 0 1

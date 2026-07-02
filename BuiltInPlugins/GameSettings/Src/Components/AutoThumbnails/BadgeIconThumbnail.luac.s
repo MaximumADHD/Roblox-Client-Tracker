@@ -22,17 +22,15 @@ PROTO_1:
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["createElement"]
         9 LOADK                            R4 K2 ["ImageLabel"]
-       10 DUPTABLE                         R5 K6 [{"Size", "BackgroundTransparency", "Image"}]
-       11 GETIMPORT                        R6 K9 [UDim2.fromScale]
+       10 DUPTABLE                         R5 K7 [{["Size"], ["BackgroundTransparency"] = 1, ["Image"]}]
+       11 GETIMPORT                        R6 K10 [UDim2.fromScale]
        13 LOADN                            R7 1
        14 LOADN                            R8 1
        15 CALL                             R6 2 1
        16 SETTABLEKS                       R6 R5 K3 ["Size"]
-       18 LOADN                            R6 1
-       19 SETTABLEKS                       R6 R5 K4 ["BackgroundTransparency"]
-       21 SETTABLEKS                       R2 R5 K5 ["Image"]
-       23 CALL                             R3 2 -1
-       24 RETURN                           R3 -1
+       18 SETTABLEKS                       R2 R5 K6 ["Image"]
+       20 CALL                             R3 2 -1
+       21 RETURN                           R3 -1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -62,32 +60,26 @@ PROTO_2:
        36 GETUPVAL                         R8 0
        37 GETTABLEKS                       R8 R8 K15 ["createElement"]
        39 LOADK                            R9 K16 ["Frame"]
-       40 DUPTABLE                         R10 K18 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "LayoutOrder", "ZIndex"}]
-       41 LOADN                            R11 1
-       42 SETTABLEKS                       R11 R10 K17 ["BackgroundTransparency"]
-       44 SETTABLEKS                       R3 R10 K7 ["Size"]
-       46 SETTABLEKS                       R4 R10 K11 ["Position"]
-       48 SETTABLEKS                       R5 R10 K12 ["AnchorPoint"]
-       50 SETTABLEKS                       R6 R10 K13 ["LayoutOrder"]
-       52 SETTABLEKS                       R7 R10 K14 ["ZIndex"]
-       54 DUPTABLE                         R11 K20 [{"AutoThumbnail"}]
-       55 GETUPVAL                         R12 0
-       56 GETTABLEKS                       R12 R12 K15 ["createElement"]
-       58 GETUPVAL                         R13 1
-       59 DUPTABLE                         R14 K24 [{"Id", "ThumbnailType", "UseAssetThumbnailUrl", "RenderContents"}]
-       60 SETTABLEKS                       R2 R14 K1 ["Id"]
-       62 LOADK                            R15 K25 ["BadgeIcon"]
-       63 SETTABLEKS                       R15 R14 K21 ["ThumbnailType"]
-       65 LOADB                            R15 1
-       66 SETTABLEKS                       R15 R14 K22 ["UseAssetThumbnailUrl"]
-       68 NEWCLOSURE                       R15 P0
-       69 CAPTURE                          VAL R0
-       70 CAPTURE                          UPVAL U0
-       71 SETTABLEKS                       R15 R14 K23 ["RenderContents"]
-       73 CALL                             R12 2 1
-       74 SETTABLEKS                       R12 R11 K19 ["AutoThumbnail"]
-       76 CALL                             R8 3 -1
-       77 RETURN                           R8 -1
+       40 DUPTABLE                         R10 K19 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["LayoutOrder"], ["ZIndex"]}]
+       41 SETTABLEKS                       R3 R10 K7 ["Size"]
+       43 SETTABLEKS                       R4 R10 K11 ["Position"]
+       45 SETTABLEKS                       R5 R10 K12 ["AnchorPoint"]
+       47 SETTABLEKS                       R6 R10 K13 ["LayoutOrder"]
+       49 SETTABLEKS                       R7 R10 K14 ["ZIndex"]
+       51 DUPTABLE                         R11 K21 [{"AutoThumbnail"}]
+       52 GETUPVAL                         R12 0
+       53 GETTABLEKS                       R12 R12 K15 ["createElement"]
+       55 GETUPVAL                         R13 1
+       56 DUPTABLE                         R14 K27 [{["Id"], ["ThumbnailType"] = "BadgeIcon", ["UseAssetThumbnailUrl"] = True, ["RenderContents"]}]
+       57 SETTABLEKS                       R2 R14 K1 ["Id"]
+       59 NEWCLOSURE                       R15 P0
+       60 CAPTURE                          VAL R0
+       61 CAPTURE                          UPVAL U0
+       62 SETTABLEKS                       R15 R14 K26 ["RenderContents"]
+       64 CALL                             R12 2 1
+       65 SETTABLEKS                       R12 R11 K20 ["AutoThumbnail"]
+       67 CALL                             R8 3 -1
+       68 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,28 +1,22 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K6 [{"Name", "Id", "Textures", "BaseMaterial", "IsGenerating", "IsTemporary"}]
+        0 DUPTABLE                         R4 K9 [{[1], ["Id"], ["Textures"], ["BaseMaterial"] = , ["IsGenerating"] = False, ["IsTemporary"] = True}]
         1 GETUPVAL                         R5 0
         2 MOVE                             R6 R0
-        3 GETIMPORT                        R7 K8 [game]
-        5 LOADK                            R9 K9 ["MaterialService"]
-        6 NAMECALL                         R7 R7 K10 ["GetService"]
+        3 GETIMPORT                        R7 K11 [game]
+        5 LOADK                            R9 K12 ["MaterialService"]
+        6 NAMECALL                         R7 R7 K13 ["GetService"]
         8 CALL                             R7 2 -1
         9 CALL                             R5 -1 1
        10 SETTABLEKS                       R5 R4 K0 ["Name"]
        12 SETTABLEKS                       R1 R4 K1 ["Id"]
-       14 DUPTABLE                         R5 K12 [{"ColorMap"}]
-       15 SETTABLEKS                       R2 R5 K11 ["ColorMap"]
+       14 DUPTABLE                         R5 K15 [{"ColorMap"}]
+       15 SETTABLEKS                       R2 R5 K14 ["ColorMap"]
        17 SETTABLEKS                       R5 R4 K2 ["Textures"]
-       19 LOADNIL                          R5
-       20 SETTABLEKS                       R5 R4 K3 ["BaseMaterial"]
-       22 LOADB                            R5 0
-       23 SETTABLEKS                       R5 R4 K4 ["IsGenerating"]
-       25 LOADB                            R5 1
-       26 SETTABLEKS                       R5 R4 K5 ["IsTemporary"]
-       28 GETUPVAL                         R5 1
-       29 MOVE                             R6 R4
-       30 CALL                             R5 1 1
-       31 SETTABLEKS                       R5 R4 K13 ["MaterialVariant"]
-       33 RETURN                           R4 1
+       19 GETUPVAL                         R5 1
+       20 MOVE                             R6 R4
+       21 CALL                             R5 1 1
+       22 SETTABLEKS                       R5 R4 K16 ["MaterialVariant"]
+       24 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

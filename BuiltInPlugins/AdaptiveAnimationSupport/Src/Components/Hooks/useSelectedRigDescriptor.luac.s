@@ -27,47 +27,44 @@ PROTO_0:
        29 MOVE                             R1 R7
        30 JUMP                             ; [+2]
        31 FORGLOOP                         R2 2 ; [-25]
-       33 JUMPIFNOTEQKNIL                  R0 ; [+43]
+       33 JUMPIFNOTEQKNIL                  R0 ; [+40]
        35 GETUPVAL                         R2 3
-       36 CALL                             R2 0 1
-       37 JUMPIFNOT                        R2 ; [+39]
-       38 GETUPVAL                         R2 4
-       39 GETTABLEKS                       R2 R2 K6 ["current"]
-       41 JUMPIFNOT                        R2 ; [+35]
-       42 LOADK                            R5 K7 ["Model"]
-       43 NAMECALL                         R3 R2 K8 ["FindFirstAncestorOfClass"]
-       45 CALL                             R3 2 1
-       46 JUMPIFNOT                        R3 ; [+30]
-       47 GETIMPORT                        R4 K10 [workspace]
-       49 JUMPIFEQ                         R3 R4 ; [+27]
-       51 LOADB                            R4 1
-       52 GETUPVAL                         R5 0
-       53 NAMECALL                         R5 R5 K0 ["Get"]
-       55 CALL                             R5 1 1
-       56 LENGTH                           R6 R5
-       57 JUMPIFNOTEQKN                    R6 K11 [0] ; [+2]
-       59 LOADB                            R4 0
-       60 MOVE                             R6 R5
-       61 LOADNIL                          R7
-       62 LOADNIL                          R8
-       63 FORGPREP                         R6
-       64 JUMPIFEQ                         R10 R3 ; [+8]
-       66 MOVE                             R13 R3
-       67 NAMECALL                         R11 R10 K12 ["IsDescendantOf"]
-       69 CALL                             R11 2 1
-       70 JUMPIF                           R11 ; [+2]
-       71 LOADB                            R4 0
-       72 JUMP                             ; [+2]
-       73 FORGLOOP                         R6 2 ; [-10]
-       75 JUMPIFNOT                        R4 ; [+1]
-       76 RETURN                           R0 0
+       36 GETTABLEKS                       R2 R2 K6 ["current"]
+       38 JUMPIFNOT                        R2 ; [+35]
+       39 LOADK                            R5 K7 ["Model"]
+       40 NAMECALL                         R3 R2 K8 ["FindFirstAncestorOfClass"]
+       42 CALL                             R3 2 1
+       43 JUMPIFNOT                        R3 ; [+30]
+       44 GETIMPORT                        R4 K10 [workspace]
+       46 JUMPIFEQ                         R3 R4 ; [+27]
+       48 LOADB                            R4 1
+       49 GETUPVAL                         R5 0
+       50 NAMECALL                         R5 R5 K0 ["Get"]
+       52 CALL                             R5 1 1
+       53 LENGTH                           R6 R5
+       54 JUMPIFNOTEQKN                    R6 K11 [0] ; [+2]
+       56 LOADB                            R4 0
+       57 MOVE                             R6 R5
+       58 LOADNIL                          R7
+       59 LOADNIL                          R8
+       60 FORGPREP                         R6
+       61 JUMPIFEQ                         R10 R3 ; [+8]
+       63 MOVE                             R13 R3
+       64 NAMECALL                         R11 R10 K12 ["IsDescendantOf"]
+       66 CALL                             R11 2 1
+       67 JUMPIF                           R11 ; [+2]
+       68 LOADB                            R4 0
+       69 JUMP                             ; [+2]
+       70 FORGLOOP                         R6 2 ; [-10]
+       72 JUMPIFNOT                        R4 ; [+1]
+       73 RETURN                           R0 0
+       74 GETUPVAL                         R2 4
+       75 MOVE                             R3 R0
+       76 CALL                             R2 1 0
        77 GETUPVAL                         R2 5
-       78 MOVE                             R3 R0
+       78 MOVE                             R3 R1
        79 CALL                             R2 1 0
-       80 GETUPVAL                         R2 6
-       81 MOVE                             R3 R1
-       82 CALL                             R2 1 0
-       83 RETURN                           R0 0
+       80 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -97,30 +94,29 @@ PROTO_3:
         4 CAPTURE                          UPVAL U3
         5 CAPTURE                          UPVAL U4
         6 CAPTURE                          UPVAL U5
-        7 CAPTURE                          UPVAL U6
-        8 GETUPVAL                         R1 0
-        9 GETTABLEKS                       R1 R1 K0 ["SelectionChanged"]
-       11 MOVE                             R3 R0
-       12 NAMECALL                         R1 R1 K1 ["Connect"]
-       14 CALL                             R1 2 1
-       15 MOVE                             R2 R0
-       16 CALL                             R2 0 0
-       17 LOADNIL                          R2
-       18 GETUPVAL                         R3 7
-       19 JUMPIFNOT                        R3 ; [+10]
-       20 GETUPVAL                         R3 7
-       21 GETTABLEKS                       R3 R3 K2 ["Destroying"]
-       23 NEWCLOSURE                       R5 P1
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K0 ["SelectionChanged"]
+       10 MOVE                             R3 R0
+       11 NAMECALL                         R1 R1 K1 ["Connect"]
+       13 CALL                             R1 2 1
+       14 MOVE                             R2 R0
+       15 CALL                             R2 0 0
+       16 LOADNIL                          R2
+       17 GETUPVAL                         R3 6
+       18 JUMPIFNOT                        R3 ; [+10]
+       19 GETUPVAL                         R3 6
+       20 GETTABLEKS                       R3 R3 K2 ["Destroying"]
+       22 NEWCLOSURE                       R5 P1
+       23 CAPTURE                          UPVAL U4
        24 CAPTURE                          UPVAL U5
-       25 CAPTURE                          UPVAL U6
-       26 NAMECALL                         R3 R3 K1 ["Connect"]
-       28 CALL                             R3 2 1
-       29 MOVE                             R2 R3
-       30 NEWCLOSURE                       R3 P2
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          REF R2
-       33 CLOSEUPVALS                      R2
-       34 RETURN                           R3 1
+       25 NAMECALL                         R3 R3 K1 ["Connect"]
+       27 CALL                             R3 2 1
+       28 MOVE                             R2 R3
+       29 NEWCLOSURE                       R3 P2
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          REF R2
+       32 CLOSEUPVALS                      R2
+       33 RETURN                           R3 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -142,18 +138,17 @@ PROTO_4:
        21 CAPTURE                          UPVAL U1
        22 CAPTURE                          UPVAL U2
        23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          UPVAL U4
-       25 CAPTURE                          VAL R4
-       26 CAPTURE                          VAL R1
-       27 CAPTURE                          VAL R3
-       28 CAPTURE                          VAL R0
-       29 NEWTABLE                         R7 0 1
-       31 MOVE                             R8 R0
-       32 SETLIST                          R7 R8 1 [1]
-       34 CALL                             R5 2 0
-       35 MOVE                             R5 R0
-       36 MOVE                             R6 R2
-       37 RETURN                           R5 2
+       24 CAPTURE                          VAL R4
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R3
+       27 CAPTURE                          VAL R0
+       28 NEWTABLE                         R7 0 1
+       30 MOVE                             R8 R0
+       31 SETLIST                          R7 R8 1 [1]
+       33 CALL                             R5 2 0
+       34 MOVE                             R5 R0
+       35 MOVE                             R6 R2
+       36 RETURN                           R5 2
 
 MAIN:
         0 PREPVARARGS                      0
@@ -183,15 +178,9 @@ MAIN:
        40 GETTABLEKS                       R6 R6 K16 ["Flags"]
        42 GETTABLEKS                       R6 R6 K17 ["getFFlagAdaptiveAnimationHandRig"]
        44 CALL                             R5 1 1
-       45 GETIMPORT                        R6 K9 [require]
-       47 GETTABLEKS                       R7 R1 K12 ["Src"]
-       49 GETTABLEKS                       R7 R7 K16 ["Flags"]
-       51 GETTABLEKS                       R7 R7 K18 ["getFFlagAdaptiveAnimationActivationImprovement"]
-       53 CALL                             R6 1 1
-       54 DUPCLOSURE                       R7 K19 [PROTO_4]
-       55 CAPTURE                          VAL R2
-       56 CAPTURE                          VAL R0
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R4
-       59 CAPTURE                          VAL R6
-       60 RETURN                           R7 1
+       45 DUPCLOSURE                       R6 K18 [PROTO_4]
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R4
+       50 RETURN                           R6 1

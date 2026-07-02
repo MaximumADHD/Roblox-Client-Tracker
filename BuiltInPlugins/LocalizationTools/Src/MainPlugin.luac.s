@@ -59,73 +59,67 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"enabled"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["enabled"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 GETUPVAL                         R1 0
-        7 GETTABLEKS                       R1 R1 K3 ["Store"]
-        9 GETTABLEKS                       R1 R1 K4 ["new"]
-       11 GETUPVAL                         R2 1
-       12 NEWTABLE                         R3 0 0
-       14 NEWTABLE                         R4 0 1
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R5 R5 K5 ["thunkMiddleware"]
-       19 SETLIST                          R4 R5 1 [1]
-       21 CALL                             R1 3 1
-       22 SETTABLEKS                       R1 R0 K6 ["store"]
-       24 GETUPVAL                         R1 2
-       25 GETTABLEKS                       R1 R1 K7 ["Localization"]
-       27 GETTABLEKS                       R1 R1 K4 ["new"]
-       29 DUPTABLE                         R2 K11 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       30 GETUPVAL                         R3 3
-       31 SETTABLEKS                       R3 R2 K8 ["stringResourceTable"]
-       33 GETUPVAL                         R3 4
-       34 SETTABLEKS                       R3 R2 K9 ["translationResourceTable"]
-       36 LOADK                            R3 K12 ["LocalizationTools"]
-       37 SETTABLEKS                       R3 R2 K10 ["pluginName"]
-       39 CALL                             R1 1 1
-       40 SETTABLEKS                       R1 R0 K13 ["localization"]
-       42 GETUPVAL                         R1 5
-       43 CALL                             R1 0 1
-       44 SETTABLEKS                       R1 R0 K14 ["theme"]
-       46 GETUPVAL                         R1 2
-       47 GETTABLEKS                       R1 R1 K15 ["API"]
-       49 GETTABLEKS                       R1 R1 K4 ["new"]
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K4 ["Store"]
+        6 GETTABLEKS                       R1 R1 K5 ["new"]
+        8 GETUPVAL                         R2 1
+        9 NEWTABLE                         R3 0 0
+       11 NEWTABLE                         R4 0 1
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K6 ["thunkMiddleware"]
+       16 SETLIST                          R4 R5 1 [1]
+       18 CALL                             R1 3 1
+       19 SETTABLEKS                       R1 R0 K7 ["store"]
+       21 GETUPVAL                         R1 2
+       22 GETTABLEKS                       R1 R1 K8 ["Localization"]
+       24 GETTABLEKS                       R1 R1 K5 ["new"]
+       26 DUPTABLE                         R2 K13 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "LocalizationTools"}]
+       27 GETUPVAL                         R3 3
+       28 SETTABLEKS                       R3 R2 K9 ["stringResourceTable"]
+       30 GETUPVAL                         R3 4
+       31 SETTABLEKS                       R3 R2 K10 ["translationResourceTable"]
+       33 CALL                             R1 1 1
+       34 SETTABLEKS                       R1 R0 K14 ["localization"]
+       36 GETUPVAL                         R1 5
+       37 CALL                             R1 0 1
+       38 SETTABLEKS                       R1 R0 K15 ["theme"]
+       40 GETUPVAL                         R1 2
+       41 GETTABLEKS                       R1 R1 K16 ["API"]
+       43 GETTABLEKS                       R1 R1 K5 ["new"]
+       45 CALL                             R1 0 1
+       46 SETTABLEKS                       R1 R0 K17 ["api"]
+       48 GETUPVAL                         R1 6
+       49 GETTABLEKS                       R1 R1 K5 ["new"]
        51 CALL                             R1 0 1
-       52 SETTABLEKS                       R1 R0 K16 ["api"]
-       54 GETUPVAL                         R1 6
-       55 GETTABLEKS                       R1 R1 K4 ["new"]
-       57 CALL                             R1 0 1
-       58 SETTABLEKS                       R1 R0 K17 ["analyticsImpl"]
-       60 NEWCLOSURE                       R1 P0
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R1 R0 K18 ["toggleState"]
-       64 NEWCLOSURE                       R1 P1
-       65 CAPTURE                          VAL R0
-       66 SETTABLEKS                       R1 R0 K19 ["onRestore"]
-       68 NEWCLOSURE                       R1 P2
-       69 CAPTURE                          VAL R0
-       70 SETTABLEKS                       R1 R0 K20 ["onDockWidgetCreated"]
-       72 NEWCLOSURE                       R1 P3
-       73 CAPTURE                          VAL R0
-       74 SETTABLEKS                       R1 R0 K21 ["onDockWidgetEnabledChanged"]
-       76 NEWCLOSURE                       R1 P4
-       77 CAPTURE                          VAL R0
-       78 SETTABLEKS                       R1 R0 K22 ["onClose"]
-       80 GETTABLEKS                       R1 R0 K23 ["props"]
-       82 GETTABLEKS                       R1 R1 K24 ["pluginLoaderContext"]
-       84 GETTABLEKS                       R1 R1 K25 ["mainButton"]
-       86 SETTABLEKS                       R1 R0 K26 ["button"]
-       88 RETURN                           R0 0
+       52 SETTABLEKS                       R1 R0 K18 ["analyticsImpl"]
+       54 NEWCLOSURE                       R1 P0
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R1 R0 K19 ["toggleState"]
+       58 NEWCLOSURE                       R1 P1
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R1 R0 K20 ["onRestore"]
+       62 NEWCLOSURE                       R1 P2
+       63 CAPTURE                          VAL R0
+       64 SETTABLEKS                       R1 R0 K21 ["onDockWidgetCreated"]
+       66 NEWCLOSURE                       R1 P3
+       67 CAPTURE                          VAL R0
+       68 SETTABLEKS                       R1 R0 K22 ["onDockWidgetEnabledChanged"]
+       70 NEWCLOSURE                       R1 P4
+       71 CAPTURE                          VAL R0
+       72 SETTABLEKS                       R1 R0 K23 ["onClose"]
+       74 GETTABLEKS                       R1 R0 K24 ["props"]
+       76 GETTABLEKS                       R1 R1 K25 ["pluginLoaderContext"]
+       78 GETTABLEKS                       R1 R1 K26 ["mainButton"]
+       80 SETTABLEKS                       R1 R0 K27 ["button"]
+       82 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -335,7 +329,7 @@ MAIN:
       113 GETTABLEKS                       R19 R19 K33 ["Analytics"]
       115 CALL                             R18 1 1
       116 GETIMPORT                        R19 K36 [Vector2.new]
-      118 LOADN                            R20 124
+      118 LOADN                            R20 380
       119 LOADN                            R21 250
       120 CALL                             R19 2 1
       121 GETTABLEKS                       R20 R2 K37 ["PureComponent"]

@@ -57,19 +57,17 @@ PROTO_3:
        16 GETUPVAL                         R4 2
        17 GETTABLEKS                       R4 R4 K3 ["createElement"]
        19 GETUPVAL                         R5 3
-       20 DUPTABLE                         R6 K7 [{"OnChanged", "PlaceholderText", "Schema", "Value"}]
+       20 DUPTABLE                         R6 K8 [{["OnChanged"], ["PlaceholderText"] = "Bold (procedural)", ["Schema"], [4]}]
        21 NEWCLOSURE                       R7 P1
        22 CAPTURE                          VAL R1
        23 CAPTURE                          VAL R0
        24 SETTABLEKS                       R7 R6 K4 ["OnChanged"]
-       26 LOADK                            R7 K8 ["Bold (procedural)"]
-       27 SETTABLEKS                       R7 R6 K5 ["PlaceholderText"]
-       29 DUPTABLE                         R7 K10 [{"Items"}]
-       30 SETTABLEKS                       R3 R7 K9 ["Items"]
-       32 SETTABLEKS                       R7 R6 K6 ["Schema"]
-       34 SETTABLEKS                       R2 R6 K0 ["Value"]
-       36 CALL                             R4 2 -1
-       37 RETURN                           R4 -1
+       26 DUPTABLE                         R7 K10 [{"Items"}]
+       27 SETTABLEKS                       R3 R7 K9 ["Items"]
+       29 SETTABLEKS                       R7 R6 K7 ["Schema"]
+       31 SETTABLEKS                       R2 R6 K0 ["Value"]
+       33 CALL                             R4 2 -1
+       34 RETURN                           R4 -1
 
 PROTO_4:
         0 DUPTABLE                         R1 K1 [{"Fonts"}]

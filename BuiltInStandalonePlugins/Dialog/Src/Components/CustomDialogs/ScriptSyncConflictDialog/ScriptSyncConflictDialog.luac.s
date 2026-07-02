@@ -42,145 +42,135 @@ PROTO_2:
        36 CALL                             R6 2 1
        37 GETUPVAL                         R7 3
        38 GETUPVAL                         R8 4
-       39 DUPTABLE                         R9 K9 [{"uri", "width", "type", "title"}]
+       39 DUPTABLE                         R9 K11 [{["uri"], ["width"] = 470, ["type"] = "Warning", ["title"]}]
        40 GETTABLEKS                       R10 R0 K5 ["uri"]
        42 SETTABLEKS                       R10 R9 K5 ["uri"]
-       44 LOADN                            R10 214
-       45 SETTABLEKS                       R10 R9 K6 ["width"]
-       47 LOADK                            R10 K10 ["Warning"]
-       48 SETTABLEKS                       R10 R9 K7 ["type"]
-       50 LOADK                            R12 K11 ["ScriptSyncConflictDialog"]
-       51 LOADK                            R13 K12 ["Title"]
-       52 NAMECALL                         R10 R1 K13 ["getText"]
-       54 CALL                             R10 3 1
-       55 SETTABLEKS                       R10 R9 K8 ["title"]
-       57 DUPTABLE                         R10 K16 [{"Content", "Actions"}]
-       58 GETUPVAL                         R11 3
-       59 GETUPVAL                         R12 5
-       60 GETTABLEKS                       R12 R12 K17 ["View"]
-       62 DUPTABLE                         R13 K19 [{"tag"}]
-       63 LOADK                            R14 K20 ["col size-full-0 auto-y gap-large"]
-       64 SETTABLEKS                       R14 R13 K18 ["tag"]
-       66 DUPTABLE                         R14 K24 [{"SourceSelection", "Description", "ChangesPreview"}]
-       67 GETUPVAL                         R15 3
-       68 GETUPVAL                         R16 6
-       69 DUPTABLE                         R17 K30 [{"selectedSource", "onSelected", "studioVersionLabel", "diskVersionLabel", "LayoutOrder"}]
-       70 SETTABLEKS                       R3 R17 K25 ["selectedSource"]
-       72 SETTABLEKS                       R4 R17 K26 ["onSelected"]
-       74 LOADK                            R20 K11 ["ScriptSyncConflictDialog"]
-       75 LOADK                            R21 K31 ["SelectStudioButton"]
-       76 NAMECALL                         R18 R1 K13 ["getText"]
-       78 CALL                             R18 3 1
-       79 SETTABLEKS                       R18 R17 K27 ["studioVersionLabel"]
-       81 LOADK                            R20 K11 ["ScriptSyncConflictDialog"]
-       82 LOADK                            R21 K32 ["SelectDiskButton"]
-       83 NAMECALL                         R18 R1 K13 ["getText"]
-       85 CALL                             R18 3 1
-       86 SETTABLEKS                       R18 R17 K28 ["diskVersionLabel"]
-       88 MOVE                             R18 R2
-       89 CALL                             R18 0 1
-       90 SETTABLEKS                       R18 R17 K29 ["LayoutOrder"]
-       92 CALL                             R15 2 1
-       93 SETTABLEKS                       R15 R14 K21 ["SourceSelection"]
-       95 GETUPVAL                         R15 3
-       96 GETUPVAL                         R16 5
-       97 GETTABLEKS                       R16 R16 K33 ["Text"]
-       99 DUPTABLE                         R17 K34 [{"LayoutOrder", "tag", "Text"}]
-      100 MOVE                             R18 R2
-      101 CALL                             R18 0 1
-      102 SETTABLEKS                       R18 R17 K29 ["LayoutOrder"]
-      104 LOADK                            R18 K35 ["text-body-medium text-align-x-left size-full-0 auto-y text-wrap"]
-      105 SETTABLEKS                       R18 R17 K18 ["tag"]
-      107 LOADK                            R20 K11 ["ScriptSyncConflictDialog"]
-      108 JUMPIFNOTEQKS                    R3 K2 ["Studio"] ; [+3]
-      110 LOADK                            R21 K36 ["KeepStudioDescription"]
-      111 JUMP                             ; [+1]
-      112 LOADK                            R21 K37 ["KeepDiskDescription"]
-      113 NAMECALL                         R18 R1 K13 ["getText"]
-      115 CALL                             R18 3 1
-      116 SETTABLEKS                       R18 R17 K33 ["Text"]
-      118 CALL                             R15 2 1
-      119 SETTABLEKS                       R15 R14 K22 ["Description"]
-      121 GETUPVAL                         R15 3
-      122 GETUPVAL                         R16 7
-      123 DUPTABLE                         R17 K39 [{"selectedSource", "input", "LayoutOrder"}]
-      124 SETTABLEKS                       R3 R17 K25 ["selectedSource"]
-      126 GETTABLEKS                       R18 R0 K38 ["input"]
-      128 SETTABLEKS                       R18 R17 K38 ["input"]
-      130 MOVE                             R18 R2
-      131 CALL                             R18 0 1
-      132 SETTABLEKS                       R18 R17 K29 ["LayoutOrder"]
-      134 CALL                             R15 2 1
-      135 SETTABLEKS                       R15 R14 K23 ["ChangesPreview"]
-      137 CALL                             R11 3 1
-      138 SETTABLEKS                       R11 R10 K14 ["Content"]
-      140 GETUPVAL                         R11 3
-      141 GETUPVAL                         R12 5
-      142 GETTABLEKS                       R12 R12 K17 ["View"]
-      144 DUPTABLE                         R13 K40 [{"tag", "LayoutOrder"}]
-      145 LOADK                            R14 K41 ["row size-full-0 auto-y align-x-right gap-small"]
-      146 SETTABLEKS                       R14 R13 K18 ["tag"]
-      148 MOVE                             R14 R2
-      149 CALL                             R14 0 1
-      150 SETTABLEKS                       R14 R13 K29 ["LayoutOrder"]
-      152 DUPTABLE                         R14 K44 [{"Primary", "Secondary"}]
-      153 GETUPVAL                         R15 3
-      154 GETUPVAL                         R16 5
-      155 GETTABLEKS                       R16 R16 K45 ["Button"]
-      157 DUPTABLE                         R17 K50 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
-      158 LOADK                            R20 K11 ["ScriptSyncConflictDialog"]
-      159 JUMPIFNOTEQKS                    R3 K2 ["Studio"] ; [+3]
-      161 LOADK                            R21 K51 ["KeepStudioButton"]
-      162 JUMP                             ; [+1]
-      163 LOADK                            R21 K52 ["KeepDiskButton"]
-      164 NAMECALL                         R18 R1 K13 ["getText"]
-      166 CALL                             R18 3 1
-      167 SETTABLEKS                       R18 R17 K46 ["text"]
-      169 SETTABLEKS                       R5 R17 K47 ["onActivated"]
-      171 GETUPVAL                         R18 5
-      172 GETTABLEKS                       R18 R18 K53 ["Enums"]
-      174 GETTABLEKS                       R18 R18 K54 ["ButtonVariant"]
-      176 GETTABLEKS                       R18 R18 K55 ["Emphasis"]
-      178 SETTABLEKS                       R18 R17 K48 ["variant"]
-      180 GETUPVAL                         R18 5
-      181 GETTABLEKS                       R18 R18 K53 ["Enums"]
-      183 GETTABLEKS                       R18 R18 K56 ["InputSize"]
-      185 GETTABLEKS                       R18 R18 K57 ["XSmall"]
-      187 SETTABLEKS                       R18 R17 K49 ["size"]
-      189 MOVE                             R18 R2
-      190 CALL                             R18 0 1
-      191 SETTABLEKS                       R18 R17 K29 ["LayoutOrder"]
-      193 CALL                             R15 2 1
-      194 SETTABLEKS                       R15 R14 K42 ["Primary"]
-      196 GETUPVAL                         R15 3
-      197 GETUPVAL                         R16 5
-      198 GETTABLEKS                       R16 R16 K45 ["Button"]
-      200 DUPTABLE                         R17 K50 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
-      201 LOADK                            R20 K11 ["ScriptSyncConflictDialog"]
-      202 LOADK                            R21 K58 ["CancelButton"]
-      203 NAMECALL                         R18 R1 K13 ["getText"]
-      205 CALL                             R18 3 1
-      206 SETTABLEKS                       R18 R17 K46 ["text"]
-      208 SETTABLEKS                       R6 R17 K47 ["onActivated"]
-      210 GETUPVAL                         R18 5
-      211 GETTABLEKS                       R18 R18 K53 ["Enums"]
-      213 GETTABLEKS                       R18 R18 K54 ["ButtonVariant"]
-      215 GETTABLEKS                       R18 R18 K59 ["Standard"]
-      217 SETTABLEKS                       R18 R17 K48 ["variant"]
-      219 GETUPVAL                         R18 5
-      220 GETTABLEKS                       R18 R18 K53 ["Enums"]
-      222 GETTABLEKS                       R18 R18 K56 ["InputSize"]
-      224 GETTABLEKS                       R18 R18 K57 ["XSmall"]
-      226 SETTABLEKS                       R18 R17 K49 ["size"]
-      228 MOVE                             R18 R2
-      229 CALL                             R18 0 1
-      230 SETTABLEKS                       R18 R17 K29 ["LayoutOrder"]
-      232 CALL                             R15 2 1
-      233 SETTABLEKS                       R15 R14 K43 ["Secondary"]
-      235 CALL                             R11 3 1
-      236 SETTABLEKS                       R11 R10 K15 ["Actions"]
-      238 CALL                             R7 3 -1
-      239 RETURN                           R7 -1
+       44 LOADK                            R12 K12 ["ScriptSyncConflictDialog"]
+       45 LOADK                            R13 K13 ["Title"]
+       46 NAMECALL                         R10 R1 K14 ["getText"]
+       48 CALL                             R10 3 1
+       49 SETTABLEKS                       R10 R9 K10 ["title"]
+       51 DUPTABLE                         R10 K17 [{"Content", "Actions"}]
+       52 GETUPVAL                         R11 3
+       53 GETUPVAL                         R12 5
+       54 GETTABLEKS                       R12 R12 K18 ["View"]
+       56 DUPTABLE                         R13 K21 [{["tag"] = "col gap-large size-full-0 auto-y"}]
+       57 DUPTABLE                         R14 K25 [{"SourceSelection", "Description", "ChangesPreview"}]
+       58 GETUPVAL                         R15 3
+       59 GETUPVAL                         R16 6
+       60 DUPTABLE                         R17 K31 [{"selectedSource", "onSelected", "studioVersionLabel", "diskVersionLabel", "LayoutOrder"}]
+       61 SETTABLEKS                       R3 R17 K26 ["selectedSource"]
+       63 SETTABLEKS                       R4 R17 K27 ["onSelected"]
+       65 LOADK                            R20 K12 ["ScriptSyncConflictDialog"]
+       66 LOADK                            R21 K32 ["SelectStudioButton"]
+       67 NAMECALL                         R18 R1 K14 ["getText"]
+       69 CALL                             R18 3 1
+       70 SETTABLEKS                       R18 R17 K28 ["studioVersionLabel"]
+       72 LOADK                            R20 K12 ["ScriptSyncConflictDialog"]
+       73 LOADK                            R21 K33 ["SelectDiskButton"]
+       74 NAMECALL                         R18 R1 K14 ["getText"]
+       76 CALL                             R18 3 1
+       77 SETTABLEKS                       R18 R17 K29 ["diskVersionLabel"]
+       79 MOVE                             R18 R2
+       80 CALL                             R18 0 1
+       81 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+       83 CALL                             R15 2 1
+       84 SETTABLEKS                       R15 R14 K22 ["SourceSelection"]
+       86 GETUPVAL                         R15 3
+       87 GETUPVAL                         R16 5
+       88 GETTABLEKS                       R16 R16 K34 ["Text"]
+       90 DUPTABLE                         R17 K36 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y text-body-medium text-wrap text-align-x-left", ["Text"]}]
+       91 MOVE                             R18 R2
+       92 CALL                             R18 0 1
+       93 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+       95 LOADK                            R20 K12 ["ScriptSyncConflictDialog"]
+       96 JUMPIFNOTEQKS                    R3 K2 ["Studio"] ; [+3]
+       98 LOADK                            R21 K37 ["KeepStudioDescription"]
+       99 JUMP                             ; [+1]
+      100 LOADK                            R21 K38 ["KeepDiskDescription"]
+      101 NAMECALL                         R18 R1 K14 ["getText"]
+      103 CALL                             R18 3 1
+      104 SETTABLEKS                       R18 R17 K34 ["Text"]
+      106 CALL                             R15 2 1
+      107 SETTABLEKS                       R15 R14 K23 ["Description"]
+      109 GETUPVAL                         R15 3
+      110 GETUPVAL                         R16 7
+      111 DUPTABLE                         R17 K40 [{"selectedSource", "input", "LayoutOrder"}]
+      112 SETTABLEKS                       R3 R17 K26 ["selectedSource"]
+      114 GETTABLEKS                       R18 R0 K39 ["input"]
+      116 SETTABLEKS                       R18 R17 K39 ["input"]
+      118 MOVE                             R18 R2
+      119 CALL                             R18 0 1
+      120 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      122 CALL                             R15 2 1
+      123 SETTABLEKS                       R15 R14 K24 ["ChangesPreview"]
+      125 CALL                             R11 3 1
+      126 SETTABLEKS                       R11 R10 K15 ["Content"]
+      128 GETUPVAL                         R11 3
+      129 GETUPVAL                         R12 5
+      130 GETTABLEKS                       R12 R12 K18 ["View"]
+      132 DUPTABLE                         R13 K42 [{["tag"] = "row align-x-right gap-small size-full-0 auto-y", ["LayoutOrder"]}]
+      133 MOVE                             R14 R2
+      134 CALL                             R14 0 1
+      135 SETTABLEKS                       R14 R13 K30 ["LayoutOrder"]
+      137 DUPTABLE                         R14 K45 [{"Primary", "Secondary"}]
+      138 GETUPVAL                         R15 3
+      139 GETUPVAL                         R16 5
+      140 GETTABLEKS                       R16 R16 K46 ["Button"]
+      142 DUPTABLE                         R17 K51 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
+      143 LOADK                            R20 K12 ["ScriptSyncConflictDialog"]
+      144 JUMPIFNOTEQKS                    R3 K2 ["Studio"] ; [+3]
+      146 LOADK                            R21 K52 ["KeepStudioButton"]
+      147 JUMP                             ; [+1]
+      148 LOADK                            R21 K53 ["KeepDiskButton"]
+      149 NAMECALL                         R18 R1 K14 ["getText"]
+      151 CALL                             R18 3 1
+      152 SETTABLEKS                       R18 R17 K47 ["text"]
+      154 SETTABLEKS                       R5 R17 K48 ["onActivated"]
+      156 GETUPVAL                         R18 5
+      157 GETTABLEKS                       R18 R18 K54 ["Enums"]
+      159 GETTABLEKS                       R18 R18 K55 ["ButtonVariant"]
+      161 GETTABLEKS                       R18 R18 K56 ["Emphasis"]
+      163 SETTABLEKS                       R18 R17 K49 ["variant"]
+      165 GETUPVAL                         R18 5
+      166 GETTABLEKS                       R18 R18 K54 ["Enums"]
+      168 GETTABLEKS                       R18 R18 K57 ["InputSize"]
+      170 GETTABLEKS                       R18 R18 K58 ["XSmall"]
+      172 SETTABLEKS                       R18 R17 K50 ["size"]
+      174 MOVE                             R18 R2
+      175 CALL                             R18 0 1
+      176 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      178 CALL                             R15 2 1
+      179 SETTABLEKS                       R15 R14 K43 ["Primary"]
+      181 GETUPVAL                         R15 3
+      182 GETUPVAL                         R16 5
+      183 GETTABLEKS                       R16 R16 K46 ["Button"]
+      185 DUPTABLE                         R17 K51 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
+      186 LOADK                            R20 K12 ["ScriptSyncConflictDialog"]
+      187 LOADK                            R21 K59 ["CancelButton"]
+      188 NAMECALL                         R18 R1 K14 ["getText"]
+      190 CALL                             R18 3 1
+      191 SETTABLEKS                       R18 R17 K47 ["text"]
+      193 SETTABLEKS                       R6 R17 K48 ["onActivated"]
+      195 GETUPVAL                         R18 5
+      196 GETTABLEKS                       R18 R18 K54 ["Enums"]
+      198 GETTABLEKS                       R18 R18 K55 ["ButtonVariant"]
+      200 GETTABLEKS                       R18 R18 K60 ["Standard"]
+      202 SETTABLEKS                       R18 R17 K49 ["variant"]
+      204 GETUPVAL                         R18 5
+      205 GETTABLEKS                       R18 R18 K54 ["Enums"]
+      207 GETTABLEKS                       R18 R18 K57 ["InputSize"]
+      209 GETTABLEKS                       R18 R18 K58 ["XSmall"]
+      211 SETTABLEKS                       R18 R17 K50 ["size"]
+      213 MOVE                             R18 R2
+      214 CALL                             R18 0 1
+      215 SETTABLEKS                       R18 R17 K30 ["LayoutOrder"]
+      217 CALL                             R15 2 1
+      218 SETTABLEKS                       R15 R14 K44 ["Secondary"]
+      220 CALL                             R11 3 1
+      221 SETTABLEKS                       R11 R10 K16 ["Actions"]
+      223 CALL                             R7 3 -1
+      224 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

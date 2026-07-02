@@ -23,50 +23,48 @@ PROTO_2:
         4 SETTABLEKS                       R1 R0 K0 ["Name"]
         6 GETUPVAL                         R0 2
         7 GETTABLEKS                       R0 R0 K1 ["new"]
-        9 DUPTABLE                         R1 K3 [{"isInternal"}]
-       10 LOADB                            R2 1
-       11 SETTABLEKS                       R2 R1 K2 ["isInternal"]
-       13 CALL                             R0 1 1
-       14 GETUPVAL                         R1 4
-       15 GETTABLEKS                       R1 R1 K1 ["new"]
-       17 MOVE                             R2 R0
-       18 CALL                             R1 1 1
-       19 SETUPVAL                         R1 3
-       20 GETUPVAL                         R1 3
-       21 NAMECALL                         R1 R1 K4 ["start"]
-       23 CALL                             R1 1 0
-       24 GETUPVAL                         R1 5
-       25 GETTABLEKS                       R1 R1 K5 ["createElement"]
-       27 GETUPVAL                         R2 6
-       28 DUPTABLE                         R3 K10 [{"Plugin", "pluginLoaderContext", "SoundAssetChecker", "toggleUri"}]
-       29 GETUPVAL                         R4 0
-       30 SETTABLEKS                       R4 R3 K6 ["Plugin"]
-       32 GETUPVAL                         R4 7
-       33 SETTABLEKS                       R4 R3 K7 ["pluginLoaderContext"]
-       35 GETUPVAL                         R4 3
-       36 SETTABLEKS                       R4 R3 K8 ["SoundAssetChecker"]
-       38 GETUPVAL                         R5 8
-       39 GETTABLEKS                       R5 R5 K11 ["shouldMigrateToActions"]
-       41 CALL                             R5 0 1
-       42 JUMPIFNOT                        R5 ; [+2]
-       43 GETUPVAL                         R4 9
-       44 JUMP                             ; [+1]
-       45 LOADNIL                          R4
-       46 SETTABLEKS                       R4 R3 K9 ["toggleUri"]
-       48 CALL                             R1 2 1
-       49 GETUPVAL                         R2 5
-       50 GETTABLEKS                       R2 R2 K12 ["mount"]
-       52 MOVE                             R3 R1
-       53 CALL                             R2 1 1
-       54 SETUPVAL                         R2 10
-       55 GETUPVAL                         R2 11
-       56 JUMPIFNOT                        R2 ; [+6]
-       57 GETUPVAL                         R2 11
-       58 LOADK                            R4 K13 ["Roact tree"]
-       59 GETUPVAL                         R5 10
-       60 NAMECALL                         R2 R2 K14 ["addRoactTree"]
-       62 CALL                             R2 3 0
-       63 RETURN                           R0 0
+        9 DUPTABLE                         R1 K4 [{["isInternal"] = True}]
+       10 CALL                             R0 1 1
+       11 GETUPVAL                         R1 4
+       12 GETTABLEKS                       R1 R1 K1 ["new"]
+       14 MOVE                             R2 R0
+       15 CALL                             R1 1 1
+       16 SETUPVAL                         R1 3
+       17 GETUPVAL                         R1 3
+       18 NAMECALL                         R1 R1 K5 ["start"]
+       20 CALL                             R1 1 0
+       21 GETUPVAL                         R1 5
+       22 GETTABLEKS                       R1 R1 K6 ["createElement"]
+       24 GETUPVAL                         R2 6
+       25 DUPTABLE                         R3 K11 [{"Plugin", "pluginLoaderContext", "SoundAssetChecker", "toggleUri"}]
+       26 GETUPVAL                         R4 0
+       27 SETTABLEKS                       R4 R3 K7 ["Plugin"]
+       29 GETUPVAL                         R4 7
+       30 SETTABLEKS                       R4 R3 K8 ["pluginLoaderContext"]
+       32 GETUPVAL                         R4 3
+       33 SETTABLEKS                       R4 R3 K9 ["SoundAssetChecker"]
+       35 GETUPVAL                         R5 8
+       36 GETTABLEKS                       R5 R5 K12 ["shouldMigrateToActions"]
+       38 CALL                             R5 0 1
+       39 JUMPIFNOT                        R5 ; [+2]
+       40 GETUPVAL                         R4 9
+       41 JUMP                             ; [+1]
+       42 LOADNIL                          R4
+       43 SETTABLEKS                       R4 R3 K10 ["toggleUri"]
+       45 CALL                             R1 2 1
+       46 GETUPVAL                         R2 5
+       47 GETTABLEKS                       R2 R2 K13 ["mount"]
+       49 MOVE                             R3 R1
+       50 CALL                             R2 1 1
+       51 SETUPVAL                         R2 10
+       52 GETUPVAL                         R2 11
+       53 JUMPIFNOT                        R2 ; [+6]
+       54 GETUPVAL                         R2 11
+       55 LOADK                            R4 K14 ["Roact tree"]
+       56 GETUPVAL                         R5 10
+       57 NAMECALL                         R2 R2 K15 ["addRoactTree"]
+       59 CALL                             R2 3 0
+       60 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

@@ -165,97 +165,69 @@ PROTO_4:
         0 LOADK                            R3 K0 ["Actions"]
         1 NAMECALL                         R1 R0 K1 ["GetPluginComponent"]
         3 CALL                             R1 2 1
-        4 DUPTABLE                         R2 K9 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
-        5 DUPTABLE                         R3 K14 [{"DataModel", "PluginId", "Category", "ItemId"}]
-        6 LOADK                            R4 K15 ["Standalone"]
-        7 SETTABLEKS                       R4 R3 K10 ["DataModel"]
-        9 LOADK                            R4 K16 ["Audio"]
-       10 SETTABLEKS                       R4 R3 K11 ["PluginId"]
-       12 LOADK                            R4 K0 ["Actions"]
-       13 SETTABLEKS                       R4 R3 K12 ["Category"]
-       15 LOADK                            R4 K17 ["Select Inputs"]
-       16 SETTABLEKS                       R4 R3 K13 ["ItemId"]
-       18 SETTABLEKS                       R3 R2 K2 ["Uri"]
-       20 LOADB                            R3 1
-       21 SETTABLEKS                       R3 R2 K3 ["Enabled"]
-       23 LOADB                            R3 1
-       24 SETTABLEKS                       R3 R2 K4 ["Visible"]
-       26 GETUPVAL                         R3 0
-       27 GETTABLEKS                       R3 R3 K18 ["action"]
-       29 LOADK                            R4 K19 ["SelectInputs"]
-       30 CALL                             R3 1 1
-       31 SETTABLEKS                       R3 R2 K5 ["Text"]
-       33 GETUPVAL                         R3 0
-       34 GETTABLEKS                       R3 R3 K20 ["tooltip"]
-       36 LOADK                            R4 K19 ["SelectInputs"]
-       37 CALL                             R3 1 1
-       38 SETTABLEKS                       R3 R2 K6 ["Tooltip"]
-       40 LOADK                            R3 K21 ["Help"]
-       41 SETTABLEKS                       R3 R2 K7 ["Icon"]
-       43 NEWTABLE                         R3 0 0
-       45 SETTABLEKS                       R3 R2 K8 ["Shortcuts"]
-       47 DUPTABLE                         R3 K9 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
-       48 DUPTABLE                         R4 K14 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       49 LOADK                            R5 K15 ["Standalone"]
-       50 SETTABLEKS                       R5 R4 K10 ["DataModel"]
-       52 LOADK                            R5 K16 ["Audio"]
-       53 SETTABLEKS                       R5 R4 K11 ["PluginId"]
-       55 LOADK                            R5 K0 ["Actions"]
-       56 SETTABLEKS                       R5 R4 K12 ["Category"]
-       58 LOADK                            R5 K22 ["Select Outputs"]
-       59 SETTABLEKS                       R5 R4 K13 ["ItemId"]
-       61 SETTABLEKS                       R4 R3 K2 ["Uri"]
-       63 LOADB                            R4 1
-       64 SETTABLEKS                       R4 R3 K3 ["Enabled"]
-       66 LOADB                            R4 1
-       67 SETTABLEKS                       R4 R3 K4 ["Visible"]
-       69 GETUPVAL                         R4 0
-       70 GETTABLEKS                       R4 R4 K18 ["action"]
-       72 LOADK                            R5 K23 ["SelectOutputs"]
-       73 CALL                             R4 1 1
-       74 SETTABLEKS                       R4 R3 K5 ["Text"]
-       76 GETUPVAL                         R4 0
-       77 GETTABLEKS                       R4 R4 K20 ["tooltip"]
-       79 LOADK                            R5 K23 ["SelectOutputs"]
-       80 CALL                             R4 1 1
-       81 SETTABLEKS                       R4 R3 K6 ["Tooltip"]
-       83 LOADK                            R4 K21 ["Help"]
-       84 SETTABLEKS                       R4 R3 K7 ["Icon"]
-       86 NEWTABLE                         R4 0 0
-       88 SETTABLEKS                       R4 R3 K8 ["Shortcuts"]
-       90 GETUPVAL                         R4 1
-       91 JUMPIFNOT                        R4 ; [+6]
-       92 GETUPVAL                         R4 1
-       93 NAMECALL                         R4 R4 K24 ["Disconnect"]
-       95 CALL                             R4 1 0
-       96 LOADNIL                          R4
-       97 SETUPVAL                         R4 1
-       98 GETUPVAL                         R4 2
-       99 JUMPIFNOT                        R4 ; [+6]
-      100 GETUPVAL                         R4 2
-      101 NAMECALL                         R4 R4 K24 ["Disconnect"]
-      103 CALL                             R4 1 0
-      104 LOADNIL                          R4
-      105 SETUPVAL                         R4 2
-      106 MOVE                             R7 R2
-      107 LOADB                            R8 1
-      108 NAMECALL                         R5 R1 K25 ["CreateAsync"]
-      110 CALL                             R5 3 1
-      111 GETTABLEN                        R4 R5 1
-      112 GETUPVAL                         R6 3
-      113 NAMECALL                         R4 R4 K26 ["Connect"]
-      115 CALL                             R4 2 1
-      116 SETUPVAL                         R4 1
-      117 MOVE                             R7 R3
-      118 LOADB                            R8 1
-      119 NAMECALL                         R5 R1 K25 ["CreateAsync"]
-      121 CALL                             R5 3 1
-      122 GETTABLEN                        R4 R5 1
-      123 GETUPVAL                         R6 4
-      124 NAMECALL                         R4 R4 K26 ["Connect"]
-      126 CALL                             R4 2 1
-      127 SETUPVAL                         R4 2
-      128 RETURN                           R0 0
+        4 DUPTABLE                         R2 K11 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Text"], ["Tooltip"], ["Icon"] = "Help", ["Shortcuts"]}]
+        5 DUPTABLE                         R3 K19 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Select Inputs"}]
+        6 SETTABLEKS                       R3 R2 K2 ["Uri"]
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R3 R3 K20 ["action"]
+       11 LOADK                            R4 K21 ["SelectInputs"]
+       12 CALL                             R3 1 1
+       13 SETTABLEKS                       R3 R2 K6 ["Text"]
+       15 GETUPVAL                         R3 0
+       16 GETTABLEKS                       R3 R3 K22 ["tooltip"]
+       18 LOADK                            R4 K21 ["SelectInputs"]
+       19 CALL                             R3 1 1
+       20 SETTABLEKS                       R3 R2 K7 ["Tooltip"]
+       22 NEWTABLE                         R3 0 0
+       24 SETTABLEKS                       R3 R2 K10 ["Shortcuts"]
+       26 DUPTABLE                         R3 K11 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Text"], ["Tooltip"], ["Icon"] = "Help", ["Shortcuts"]}]
+       27 DUPTABLE                         R4 K24 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Select Outputs"}]
+       28 SETTABLEKS                       R4 R3 K2 ["Uri"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K20 ["action"]
+       33 LOADK                            R5 K25 ["SelectOutputs"]
+       34 CALL                             R4 1 1
+       35 SETTABLEKS                       R4 R3 K6 ["Text"]
+       37 GETUPVAL                         R4 0
+       38 GETTABLEKS                       R4 R4 K22 ["tooltip"]
+       40 LOADK                            R5 K25 ["SelectOutputs"]
+       41 CALL                             R4 1 1
+       42 SETTABLEKS                       R4 R3 K7 ["Tooltip"]
+       44 NEWTABLE                         R4 0 0
+       46 SETTABLEKS                       R4 R3 K10 ["Shortcuts"]
+       48 GETUPVAL                         R4 1
+       49 JUMPIFNOT                        R4 ; [+6]
+       50 GETUPVAL                         R4 1
+       51 NAMECALL                         R4 R4 K26 ["Disconnect"]
+       53 CALL                             R4 1 0
+       54 LOADNIL                          R4
+       55 SETUPVAL                         R4 1
+       56 GETUPVAL                         R4 2
+       57 JUMPIFNOT                        R4 ; [+6]
+       58 GETUPVAL                         R4 2
+       59 NAMECALL                         R4 R4 K26 ["Disconnect"]
+       61 CALL                             R4 1 0
+       62 LOADNIL                          R4
+       63 SETUPVAL                         R4 2
+       64 MOVE                             R7 R2
+       65 LOADB                            R8 1
+       66 NAMECALL                         R5 R1 K27 ["CreateAsync"]
+       68 CALL                             R5 3 1
+       69 GETTABLEN                        R4 R5 1
+       70 GETUPVAL                         R6 3
+       71 NAMECALL                         R4 R4 K28 ["Connect"]
+       73 CALL                             R4 2 1
+       74 SETUPVAL                         R4 1
+       75 MOVE                             R7 R3
+       76 LOADB                            R8 1
+       77 NAMECALL                         R5 R1 K27 ["CreateAsync"]
+       79 CALL                             R5 3 1
+       80 GETTABLEN                        R4 R5 1
+       81 GETUPVAL                         R6 4
+       82 NAMECALL                         R4 R4 K28 ["Connect"]
+       84 CALL                             R4 2 1
+       85 SETUPVAL                         R4 2
+       86 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0

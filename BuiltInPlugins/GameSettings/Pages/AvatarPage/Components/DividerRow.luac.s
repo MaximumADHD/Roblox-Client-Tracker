@@ -5,60 +5,54 @@ PROTO_0:
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 LOADK                            R3 K2 ["Frame"]
-        8 DUPTABLE                         R4 K7 [{"LayoutOrder", "Size", "BorderSizePixel", "BackgroundTransparency"}]
+        8 DUPTABLE                         R4 K9 [{["LayoutOrder"], ["Size"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1}]
         9 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
        11 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-       13 GETIMPORT                        R5 K9 [UDim2.new]
+       13 GETIMPORT                        R5 K11 [UDim2.new]
        15 LOADN                            R6 1
        16 LOADN                            R7 0
        17 LOADN                            R8 0
        18 LOADN                            R9 2
        19 CALL                             R5 4 1
        20 SETTABLEKS                       R5 R4 K4 ["Size"]
-       22 LOADN                            R5 0
-       23 SETTABLEKS                       R5 R4 K5 ["BorderSizePixel"]
-       25 LOADN                            R5 1
-       26 SETTABLEKS                       R5 R4 K6 ["BackgroundTransparency"]
-       28 DUPTABLE                         R5 K12 [{"UIListLayoutHorizontal", "DividerFrame"}]
-       29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       32 LOADK                            R7 K13 ["UIListLayout"]
-       33 DUPTABLE                         R8 K18 [{"SortOrder", "HorizontalAlignment", "VerticalAlignment", "FillDirection"}]
-       34 GETIMPORT                        R9 K20 [Enum.SortOrder.LayoutOrder]
-       36 SETTABLEKS                       R9 R8 K14 ["SortOrder"]
-       38 GETIMPORT                        R9 K22 [Enum.HorizontalAlignment.Left]
-       40 SETTABLEKS                       R9 R8 K15 ["HorizontalAlignment"]
-       42 GETIMPORT                        R9 K24 [Enum.VerticalAlignment.Center]
-       44 SETTABLEKS                       R9 R8 K16 ["VerticalAlignment"]
-       46 GETIMPORT                        R9 K26 [Enum.FillDirection.Horizontal]
-       48 SETTABLEKS                       R9 R8 K17 ["FillDirection"]
-       50 CALL                             R6 2 1
-       51 SETTABLEKS                       R6 R5 K10 ["UIListLayoutHorizontal"]
-       53 GETUPVAL                         R6 1
-       54 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       56 LOADK                            R7 K2 ["Frame"]
-       57 DUPTABLE                         R8 K28 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3"}]
-       58 GETIMPORT                        R9 K9 [UDim2.new]
-       60 LOADN                            R10 1
-       61 LOADN                            R11 0
-       62 LOADN                            R12 0
-       63 LOADN                            R13 1
-       64 CALL                             R9 4 1
-       65 SETTABLEKS                       R9 R8 K4 ["Size"]
-       67 NAMECALL                         R9 R1 K29 ["getNextOrder"]
-       69 CALL                             R9 1 1
-       70 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
-       72 LOADN                            R9 0
-       73 SETTABLEKS                       R9 R8 K5 ["BorderSizePixel"]
-       75 GETUPVAL                         R9 2
-       76 GETTABLEKS                       R9 R9 K30 ["getDividerColor"]
-       78 MOVE                             R10 R0
-       79 CALL                             R9 1 1
-       80 SETTABLEKS                       R9 R8 K27 ["BackgroundColor3"]
-       82 CALL                             R6 2 1
-       83 SETTABLEKS                       R6 R5 K11 ["DividerFrame"]
-       85 CALL                             R2 3 -1
-       86 RETURN                           R2 -1
+       22 DUPTABLE                         R5 K14 [{"UIListLayoutHorizontal", "DividerFrame"}]
+       23 GETUPVAL                         R6 1
+       24 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       26 LOADK                            R7 K15 ["UIListLayout"]
+       27 DUPTABLE                         R8 K20 [{"SortOrder", "HorizontalAlignment", "VerticalAlignment", "FillDirection"}]
+       28 GETIMPORT                        R9 K22 [Enum.SortOrder.LayoutOrder]
+       30 SETTABLEKS                       R9 R8 K16 ["SortOrder"]
+       32 GETIMPORT                        R9 K24 [Enum.HorizontalAlignment.Left]
+       34 SETTABLEKS                       R9 R8 K17 ["HorizontalAlignment"]
+       36 GETIMPORT                        R9 K26 [Enum.VerticalAlignment.Center]
+       38 SETTABLEKS                       R9 R8 K18 ["VerticalAlignment"]
+       40 GETIMPORT                        R9 K28 [Enum.FillDirection.Horizontal]
+       42 SETTABLEKS                       R9 R8 K19 ["FillDirection"]
+       44 CALL                             R6 2 1
+       45 SETTABLEKS                       R6 R5 K12 ["UIListLayoutHorizontal"]
+       47 GETUPVAL                         R6 1
+       48 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       50 LOADK                            R7 K2 ["Frame"]
+       51 DUPTABLE                         R8 K30 [{["Size"], ["LayoutOrder"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+       52 GETIMPORT                        R9 K11 [UDim2.new]
+       54 LOADN                            R10 1
+       55 LOADN                            R11 0
+       56 LOADN                            R12 0
+       57 LOADN                            R13 1
+       58 CALL                             R9 4 1
+       59 SETTABLEKS                       R9 R8 K4 ["Size"]
+       61 NAMECALL                         R9 R1 K31 ["getNextOrder"]
+       63 CALL                             R9 1 1
+       64 SETTABLEKS                       R9 R8 K3 ["LayoutOrder"]
+       66 GETUPVAL                         R9 2
+       67 GETTABLEKS                       R9 R9 K32 ["getDividerColor"]
+       69 MOVE                             R10 R0
+       70 CALL                             R9 1 1
+       71 SETTABLEKS                       R9 R8 K29 ["BackgroundColor3"]
+       73 CALL                             R6 2 1
+       74 SETTABLEKS                       R6 R5 K13 ["DividerFrame"]
+       76 CALL                             R2 3 -1
+       77 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

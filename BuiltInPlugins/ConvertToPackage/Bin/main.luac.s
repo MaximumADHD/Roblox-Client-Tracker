@@ -3,41 +3,37 @@ PROTO_0:
         1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 1
         4 MOVE                             R3 R0
-        5 DUPTABLE                         R4 K6 [{"Size", "MinSize", "Resizable", "Modal", "InitialEnabled"}]
-        6 GETIMPORT                        R5 K9 [Vector2.new]
-        8 LOADN                            R6 192
-        9 LOADN                            R7 88
+        5 DUPTABLE                         R4 K8 [{["Size"], ["MinSize"], ["Resizable"] = True, ["Modal"], ["InitialEnabled"] = False}]
+        6 GETIMPORT                        R5 K11 [Vector2.new]
+        8 LOADN                            R6 960
+        9 LOADN                            R7 600
        10 CALL                             R5 2 1
        11 SETTABLEKS                       R5 R4 K1 ["Size"]
-       13 GETIMPORT                        R5 K9 [Vector2.new]
-       15 LOADN                            R6 192
-       16 LOADN                            R7 88
+       13 GETIMPORT                        R5 K11 [Vector2.new]
+       15 LOADN                            R6 960
+       16 LOADN                            R7 600
        17 CALL                             R5 2 1
        18 SETTABLEKS                       R5 R4 K2 ["MinSize"]
-       20 LOADB                            R5 1
-       21 SETTABLEKS                       R5 R4 K3 ["Resizable"]
-       23 GETUPVAL                         R6 2
-       24 NOT                              R5 R6
-       25 SETTABLEKS                       R5 R4 K4 ["Modal"]
-       27 LOADB                            R5 0
-       28 SETTABLEKS                       R5 R4 K5 ["InitialEnabled"]
-       30 NAMECALL                         R1 R1 K10 ["CreateQWidgetPluginGui"]
-       32 CALL                             R1 3 1
-       33 GETUPVAL                         R2 3
-       34 LOADK                            R4 K11 ["Meta"]
-       35 LOADK                            R5 K12 ["PluginName"]
-       36 NAMECALL                         R2 R2 K13 ["getText"]
-       38 CALL                             R2 3 1
-       39 SETTABLEKS                       R2 R1 K0 ["Name"]
-       41 GETUPVAL                         R2 3
-       42 LOADK                            R4 K11 ["Meta"]
-       43 LOADK                            R5 K12 ["PluginName"]
-       44 NAMECALL                         R2 R2 K13 ["getText"]
-       46 CALL                             R2 3 1
-       47 SETTABLEKS                       R2 R1 K14 ["Title"]
-       49 GETIMPORT                        R2 K18 [Enum.ZIndexBehavior.Sibling]
-       51 SETTABLEKS                       R2 R1 K16 ["ZIndexBehavior"]
-       53 RETURN                           R1 1
+       20 GETUPVAL                         R6 2
+       21 NOT                              R5 R6
+       22 SETTABLEKS                       R5 R4 K5 ["Modal"]
+       24 NAMECALL                         R1 R1 K12 ["CreateQWidgetPluginGui"]
+       26 CALL                             R1 3 1
+       27 GETUPVAL                         R2 3
+       28 LOADK                            R4 K13 ["Meta"]
+       29 LOADK                            R5 K14 ["PluginName"]
+       30 NAMECALL                         R2 R2 K15 ["getText"]
+       32 CALL                             R2 3 1
+       33 SETTABLEKS                       R2 R1 K0 ["Name"]
+       35 GETUPVAL                         R2 3
+       36 LOADK                            R4 K13 ["Meta"]
+       37 LOADK                            R5 K14 ["PluginName"]
+       38 NAMECALL                         R2 R2 K15 ["getText"]
+       40 CALL                             R2 3 1
+       41 SETTABLEKS                       R2 R1 K16 ["Title"]
+       43 GETIMPORT                        R2 K20 [Enum.ZIndexBehavior.Sibling]
+       45 SETTABLEKS                       R2 R1 K18 ["ZIndexBehavior"]
+       47 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -58,55 +54,51 @@ PROTO_2:
         1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 2
         4 MOVE                             R3 R0
-        5 DUPTABLE                         R4 K6 [{"Size", "MinSize", "Resizable", "Modal", "InitialEnabled"}]
-        6 GETIMPORT                        R5 K9 [Vector2.new]
-        8 LOADN                            R6 192
-        9 LOADN                            R7 88
+        5 DUPTABLE                         R4 K8 [{["Size"], ["MinSize"], ["Resizable"] = True, ["Modal"], ["InitialEnabled"] = False}]
+        6 GETIMPORT                        R5 K11 [Vector2.new]
+        8 LOADN                            R6 960
+        9 LOADN                            R7 600
        10 CALL                             R5 2 1
        11 SETTABLEKS                       R5 R4 K1 ["Size"]
-       13 GETIMPORT                        R5 K9 [Vector2.new]
-       15 LOADN                            R6 192
-       16 LOADN                            R7 88
+       13 GETIMPORT                        R5 K11 [Vector2.new]
+       15 LOADN                            R6 960
+       16 LOADN                            R7 600
        17 CALL                             R5 2 1
        18 SETTABLEKS                       R5 R4 K2 ["MinSize"]
-       20 LOADB                            R5 1
-       21 SETTABLEKS                       R5 R4 K3 ["Resizable"]
-       23 GETUPVAL                         R6 3
-       24 NOT                              R5 R6
-       25 SETTABLEKS                       R5 R4 K4 ["Modal"]
-       27 LOADB                            R5 0
-       28 SETTABLEKS                       R5 R4 K5 ["InitialEnabled"]
-       30 NAMECALL                         R1 R1 K10 ["CreateQWidgetPluginGui"]
-       32 CALL                             R1 3 1
-       33 SETUPVAL                         R1 1
-       34 GETUPVAL                         R1 1
-       35 GETUPVAL                         R2 4
-       36 LOADK                            R4 K11 ["Meta"]
-       37 LOADK                            R5 K12 ["PluginName"]
-       38 NAMECALL                         R2 R2 K13 ["getText"]
-       40 CALL                             R2 3 1
-       41 SETTABLEKS                       R2 R1 K0 ["Name"]
-       43 GETUPVAL                         R1 1
-       44 GETUPVAL                         R2 4
-       45 LOADK                            R4 K11 ["Meta"]
-       46 LOADK                            R5 K12 ["PluginName"]
-       47 NAMECALL                         R2 R2 K13 ["getText"]
-       49 CALL                             R2 3 1
-       50 SETTABLEKS                       R2 R1 K14 ["Title"]
-       52 GETUPVAL                         R1 1
-       53 GETIMPORT                        R2 K18 [Enum.ZIndexBehavior.Sibling]
-       55 SETTABLEKS                       R2 R1 K16 ["ZIndexBehavior"]
-       57 GETUPVAL                         R1 1
-       58 LOADK                            R3 K19 ["Enabled"]
-       59 NAMECALL                         R1 R1 K20 ["GetPropertyChangedSignal"]
-       61 CALL                             R1 2 1
-       62 NEWCLOSURE                       R3 P0
-       63 CAPTURE                          UPVAL U1
-       64 CAPTURE                          UPVAL U5
-       65 CAPTURE                          UPVAL U6
-       66 NAMECALL                         R1 R1 K21 ["connect"]
-       68 CALL                             R1 2 0
-       69 RETURN                           R0 0
+       20 GETUPVAL                         R6 3
+       21 NOT                              R5 R6
+       22 SETTABLEKS                       R5 R4 K5 ["Modal"]
+       24 NAMECALL                         R1 R1 K12 ["CreateQWidgetPluginGui"]
+       26 CALL                             R1 3 1
+       27 SETUPVAL                         R1 1
+       28 GETUPVAL                         R1 1
+       29 GETUPVAL                         R2 4
+       30 LOADK                            R4 K13 ["Meta"]
+       31 LOADK                            R5 K14 ["PluginName"]
+       32 NAMECALL                         R2 R2 K15 ["getText"]
+       34 CALL                             R2 3 1
+       35 SETTABLEKS                       R2 R1 K0 ["Name"]
+       37 GETUPVAL                         R1 1
+       38 GETUPVAL                         R2 4
+       39 LOADK                            R4 K13 ["Meta"]
+       40 LOADK                            R5 K14 ["PluginName"]
+       41 NAMECALL                         R2 R2 K15 ["getText"]
+       43 CALL                             R2 3 1
+       44 SETTABLEKS                       R2 R1 K16 ["Title"]
+       46 GETUPVAL                         R1 1
+       47 GETIMPORT                        R2 K20 [Enum.ZIndexBehavior.Sibling]
+       49 SETTABLEKS                       R2 R1 K18 ["ZIndexBehavior"]
+       51 GETUPVAL                         R1 1
+       52 LOADK                            R3 K21 ["Enabled"]
+       53 NAMECALL                         R1 R1 K22 ["GetPropertyChangedSignal"]
+       55 CALL                             R1 2 1
+       56 NEWCLOSURE                       R3 P0
+       57 CAPTURE                          UPVAL U1
+       58 CAPTURE                          UPVAL U5
+       59 CAPTURE                          UPVAL U6
+       60 NAMECALL                         R1 R1 K23 ["connect"]
+       62 CALL                             R1 2 0
+       63 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0

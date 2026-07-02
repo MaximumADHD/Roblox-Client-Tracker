@@ -137,26 +137,22 @@ MAIN:
        62 GETTABLEKS                       R7 R2 K19 ["RobloxAPI"]
        64 GETTABLEKS                       R7 R7 K20 ["Url"]
        66 GETTABLEKS                       R8 R5 K21 ["new"]
-       68 DUPTABLE                         R9 K25 [{"isInternal", "loggingLevel", "retryAmount"}]
-       69 LOADB                            R10 1
-       70 SETTABLEKS                       R10 R9 K22 ["isInternal"]
-       72 SETTABLEKS                       R1 R9 K23 ["loggingLevel"]
-       74 LOADN                            R10 3
-       75 SETTABLEKS                       R10 R9 K24 ["retryAmount"]
-       77 CALL                             R8 1 1
-       78 GETIMPORT                        R9 K5 [require]
-       80 GETTABLEKS                       R10 R0 K6 ["Src"]
-       82 GETTABLEKS                       R10 R10 K13 ["Network"]
-       84 GETTABLEKS                       R10 R10 K26 ["GameCache"]
-       86 CALL                             R9 1 1
-       87 MOVE                             R10 R6
-       88 GETTABLEKS                       R11 R3 K27 ["validate"]
-       90 CALL                             R10 1 1
-       91 DUPCLOSURE                       R11 K28 [PROTO_0]
-       92 DUPCLOSURE                       R12 K29 [PROTO_3]
-       93 CAPTURE                          VAL R7
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          VAL R4
-       96 CAPTURE                          VAL R8
-       97 CAPTURE                          VAL R10
-       98 RETURN                           R12 1
+       68 DUPTABLE                         R9 K27 [{["isInternal"] = True, ["loggingLevel"], ["retryAmount"] = 3}]
+       69 SETTABLEKS                       R1 R9 K24 ["loggingLevel"]
+       71 CALL                             R8 1 1
+       72 GETIMPORT                        R9 K5 [require]
+       74 GETTABLEKS                       R10 R0 K6 ["Src"]
+       76 GETTABLEKS                       R10 R10 K13 ["Network"]
+       78 GETTABLEKS                       R10 R10 K28 ["GameCache"]
+       80 CALL                             R9 1 1
+       81 MOVE                             R10 R6
+       82 GETTABLEKS                       R11 R3 K29 ["validate"]
+       84 CALL                             R10 1 1
+       85 DUPCLOSURE                       R11 K30 [PROTO_0]
+       86 DUPCLOSURE                       R12 K31 [PROTO_3]
+       87 CAPTURE                          VAL R7
+       88 CAPTURE                          VAL R9
+       89 CAPTURE                          VAL R4
+       90 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R10
+       92 RETURN                           R12 1

@@ -280,27 +280,19 @@ MAIN:
        54 GETTABLEKS                       R7 R7 K15 ["Types"]
        56 CALL                             R6 1 1
        57 GETIMPORT                        R7 K18 [table.freeze]
-       59 DUPTABLE                         R8 K21 [{"datum", "yPosition"}]
+       59 DUPTABLE                         R8 K22 [{["datum"], ["yPosition"] = -1000}]
        60 GETIMPORT                        R9 K18 [table.freeze]
-       62 DUPTABLE                         R10 K26 [{"id", "text", "guid", "isFile"}]
-       63 GETTABLEKS                       R11 R3 K27 ["nilId"]
-       65 SETTABLEKS                       R11 R10 K22 ["id"]
-       67 LOADK                            R11 K28 [""]
-       68 SETTABLEKS                       R11 R10 K23 ["text"]
-       70 LOADK                            R11 K28 [""]
-       71 SETTABLEKS                       R11 R10 K24 ["guid"]
-       73 LOADB                            R11 0
-       74 SETTABLEKS                       R11 R10 K25 ["isFile"]
-       76 CALL                             R9 1 1
-       77 SETTABLEKS                       R9 R8 K19 ["datum"]
-       79 LOADN                            R9 24
-       80 SETTABLEKS                       R9 R8 K20 ["yPosition"]
-       82 CALL                             R7 1 1
-       83 DUPCLOSURE                       R8 K29 [PROTO_5]
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          VAL R7
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R5
-       90 RETURN                           R8 1
+       62 DUPTABLE                         R10 K29 [{["id"], ["text"] = "", ["guid"] = "", ["isFile"] = False}]
+       63 GETTABLEKS                       R11 R3 K30 ["nilId"]
+       65 SETTABLEKS                       R11 R10 K23 ["id"]
+       67 CALL                             R9 1 1
+       68 SETTABLEKS                       R9 R8 K19 ["datum"]
+       70 CALL                             R7 1 1
+       71 DUPCLOSURE                       R8 K31 [PROTO_5]
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R7
+       76 CAPTURE                          VAL R4
+       77 CAPTURE                          VAL R5
+       78 RETURN                           R8 1

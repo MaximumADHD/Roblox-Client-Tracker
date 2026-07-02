@@ -228,119 +228,81 @@ MAIN:
       113 GETTABLEKS                       R23 R23 K29 ["Types"]
       115 CALL                             R22 1 1
       116 GETTABLEKS                       R23 R2 K30 ["createReducer"]
-      118 DUPTABLE                         R24 K49 [{"ActiveLayersFilter", "Actor", "Adornments", "DebugDataConnection", "DebugDataEvent", "DebugPoseEvent", "ExpandedSections", "HistoryDuration", "HistoryField", "HistoryOffset", "HistoryFrame", "LayerFilters", "LayerSelectionEvent", "PropertyOverridesEvent", "SelectedLayer", "SendPayloadAnalytics", "SkipCounter", "SkipLimit"}]
-      119 LOADB                            R25 0
-      120 SETTABLEKS                       R25 R24 K31 ["ActiveLayersFilter"]
-      122 LOADNIL                          R25
-      123 SETTABLEKS                       R25 R24 K32 ["Actor"]
-      125 NEWTABLE                         R25 0 0
-      127 SETTABLEKS                       R25 R24 K33 ["Adornments"]
-      129 LOADNIL                          R25
-      130 SETTABLEKS                       R25 R24 K34 ["DebugDataConnection"]
-      132 LOADNIL                          R25
-      133 SETTABLEKS                       R25 R24 K35 ["DebugDataEvent"]
-      135 LOADNIL                          R25
-      136 SETTABLEKS                       R25 R24 K36 ["DebugPoseEvent"]
-      138 DUPTABLE                         R25 K55 [{"layerDetails", "linkData", "props", "state", "watches"}]
-      139 LOADB                            R26 1
-      140 SETTABLEKS                       R26 R25 K50 ["layerDetails"]
-      142 LOADB                            R26 1
-      143 SETTABLEKS                       R26 R25 K51 ["linkData"]
-      145 LOADB                            R26 1
-      146 SETTABLEKS                       R26 R25 K52 ["props"]
-      148 LOADB                            R26 1
-      149 SETTABLEKS                       R26 R25 K53 ["state"]
-      151 LOADB                            R26 1
-      152 SETTABLEKS                       R26 R25 K54 ["watches"]
-      154 SETTABLEKS                       R25 R24 K37 ["ExpandedSections"]
-      156 LOADN                            R25 88
-      157 SETTABLEKS                       R25 R24 K38 ["HistoryDuration"]
-      159 NEWTABLE                         R25 0 0
-      161 SETTABLEKS                       R25 R24 K39 ["HistoryField"]
-      163 LOADNIL                          R25
-      164 SETTABLEKS                       R25 R24 K40 ["HistoryOffset"]
-      166 LOADNIL                          R25
-      167 SETTABLEKS                       R25 R24 K41 ["HistoryFrame"]
-      169 NEWTABLE                         R25 0 0
-      171 SETTABLEKS                       R25 R24 K42 ["LayerFilters"]
-      173 LOADNIL                          R25
-      174 SETTABLEKS                       R25 R24 K43 ["LayerSelectionEvent"]
-      176 LOADNIL                          R25
-      177 SETTABLEKS                       R25 R24 K44 ["PropertyOverridesEvent"]
-      179 LOADNIL                          R25
-      180 SETTABLEKS                       R25 R24 K45 ["SelectedLayer"]
-      182 LOADB                            R25 0
-      183 SETTABLEKS                       R25 R24 K46 ["SendPayloadAnalytics"]
-      185 LOADN                            R25 0
-      186 SETTABLEKS                       R25 R24 K47 ["SkipCounter"]
-      188 LOADN                            R25 0
-      189 SETTABLEKS                       R25 R24 K48 ["SkipLimit"]
-      191 NEWTABLE                         R25 16 0
-      193 GETTABLEKS                       R26 R6 K56 ["name"]
-      195 DUPCLOSURE                       R27 K57 [PROTO_0]
-      196 CAPTURE                          VAL R3
-      197 SETTABLE                         R27 R25 R26
-      198 GETTABLEKS                       R26 R7 K56 ["name"]
-      200 DUPCLOSURE                       R27 K58 [PROTO_1]
-      201 CAPTURE                          VAL R3
-      202 CAPTURE                          VAL R4
-      203 SETTABLE                         R27 R25 R26
-      204 GETTABLEKS                       R26 R8 K56 ["name"]
-      206 DUPCLOSURE                       R27 K59 [PROTO_2]
-      207 CAPTURE                          VAL R3
-      208 SETTABLE                         R27 R25 R26
-      209 GETTABLEKS                       R26 R9 K56 ["name"]
-      211 DUPCLOSURE                       R27 K60 [PROTO_3]
-      212 CAPTURE                          VAL R3
-      213 SETTABLE                         R27 R25 R26
-      214 GETTABLEKS                       R26 R10 K56 ["name"]
-      216 DUPCLOSURE                       R27 K61 [PROTO_4]
-      217 CAPTURE                          VAL R3
-      218 SETTABLE                         R27 R25 R26
-      219 GETTABLEKS                       R26 R11 K56 ["name"]
-      221 DUPCLOSURE                       R27 K62 [PROTO_5]
-      222 CAPTURE                          VAL R3
-      223 SETTABLE                         R27 R25 R26
-      224 GETTABLEKS                       R26 R12 K56 ["name"]
-      226 DUPCLOSURE                       R27 K63 [PROTO_6]
-      227 CAPTURE                          VAL R3
-      228 SETTABLE                         R27 R25 R26
-      229 GETTABLEKS                       R26 R13 K56 ["name"]
-      231 DUPCLOSURE                       R27 K64 [PROTO_7]
-      232 CAPTURE                          VAL R3
-      233 SETTABLE                         R27 R25 R26
-      234 GETTABLEKS                       R26 R14 K56 ["name"]
-      236 DUPCLOSURE                       R27 K65 [PROTO_8]
-      237 CAPTURE                          VAL R3
-      238 SETTABLE                         R27 R25 R26
-      239 GETTABLEKS                       R26 R15 K56 ["name"]
-      241 DUPCLOSURE                       R27 K66 [PROTO_9]
-      242 CAPTURE                          VAL R3
-      243 SETTABLE                         R27 R25 R26
-      244 GETTABLEKS                       R26 R16 K56 ["name"]
-      246 DUPCLOSURE                       R27 K67 [PROTO_10]
-      247 CAPTURE                          VAL R3
-      248 SETTABLE                         R27 R25 R26
-      249 GETTABLEKS                       R26 R17 K56 ["name"]
-      251 DUPCLOSURE                       R27 K68 [PROTO_11]
-      252 CAPTURE                          VAL R3
-      253 SETTABLE                         R27 R25 R26
-      254 GETTABLEKS                       R26 R18 K56 ["name"]
-      256 DUPCLOSURE                       R27 K69 [PROTO_12]
-      257 CAPTURE                          VAL R3
-      258 CAPTURE                          VAL R4
-      259 SETTABLE                         R27 R25 R26
-      260 GETTABLEKS                       R26 R19 K56 ["name"]
-      262 DUPCLOSURE                       R27 K70 [PROTO_13]
-      263 CAPTURE                          VAL R3
-      264 SETTABLE                         R27 R25 R26
-      265 GETTABLEKS                       R26 R20 K56 ["name"]
-      267 DUPCLOSURE                       R27 K71 [PROTO_14]
-      268 CAPTURE                          VAL R3
-      269 SETTABLE                         R27 R25 R26
-      270 GETTABLEKS                       R26 R21 K56 ["name"]
-      272 DUPCLOSURE                       R27 K72 [PROTO_15]
-      273 CAPTURE                          VAL R3
-      274 SETTABLE                         R27 R25 R26
-      275 CALL                             R23 2 1
-      276 RETURN                           R23 1
+      118 DUPTABLE                         R24 K53 [{["ActiveLayersFilter"] = False, ["Actor"] = , ["Adornments"], ["DebugDataConnection"] = , ["DebugDataEvent"] = , ["DebugPoseEvent"] = , ["ExpandedSections"], ["HistoryDuration"] = 600, ["HistoryField"], ["HistoryOffset"] = , ["HistoryFrame"] = , ["LayerFilters"], ["LayerSelectionEvent"] = , ["PropertyOverridesEvent"] = , ["SelectedLayer"] = , ["SendPayloadAnalytics"] = False, ["SkipCounter"] = 0, ["SkipLimit"] = 0}]
+      119 NEWTABLE                         R25 0 0
+      121 SETTABLEKS                       R25 R24 K35 ["Adornments"]
+      123 DUPTABLE                         R25 K60 [{["layerDetails"] = True, ["linkData"] = True, ["props"] = True, ["state"] = True, ["watches"] = True}]
+      124 SETTABLEKS                       R25 R24 K39 ["ExpandedSections"]
+      126 NEWTABLE                         R25 0 0
+      128 SETTABLEKS                       R25 R24 K42 ["HistoryField"]
+      130 NEWTABLE                         R25 0 0
+      132 SETTABLEKS                       R25 R24 K45 ["LayerFilters"]
+      134 NEWTABLE                         R25 16 0
+      136 GETTABLEKS                       R26 R6 K61 ["name"]
+      138 DUPCLOSURE                       R27 K62 [PROTO_0]
+      139 CAPTURE                          VAL R3
+      140 SETTABLE                         R27 R25 R26
+      141 GETTABLEKS                       R26 R7 K61 ["name"]
+      143 DUPCLOSURE                       R27 K63 [PROTO_1]
+      144 CAPTURE                          VAL R3
+      145 CAPTURE                          VAL R4
+      146 SETTABLE                         R27 R25 R26
+      147 GETTABLEKS                       R26 R8 K61 ["name"]
+      149 DUPCLOSURE                       R27 K64 [PROTO_2]
+      150 CAPTURE                          VAL R3
+      151 SETTABLE                         R27 R25 R26
+      152 GETTABLEKS                       R26 R9 K61 ["name"]
+      154 DUPCLOSURE                       R27 K65 [PROTO_3]
+      155 CAPTURE                          VAL R3
+      156 SETTABLE                         R27 R25 R26
+      157 GETTABLEKS                       R26 R10 K61 ["name"]
+      159 DUPCLOSURE                       R27 K66 [PROTO_4]
+      160 CAPTURE                          VAL R3
+      161 SETTABLE                         R27 R25 R26
+      162 GETTABLEKS                       R26 R11 K61 ["name"]
+      164 DUPCLOSURE                       R27 K67 [PROTO_5]
+      165 CAPTURE                          VAL R3
+      166 SETTABLE                         R27 R25 R26
+      167 GETTABLEKS                       R26 R12 K61 ["name"]
+      169 DUPCLOSURE                       R27 K68 [PROTO_6]
+      170 CAPTURE                          VAL R3
+      171 SETTABLE                         R27 R25 R26
+      172 GETTABLEKS                       R26 R13 K61 ["name"]
+      174 DUPCLOSURE                       R27 K69 [PROTO_7]
+      175 CAPTURE                          VAL R3
+      176 SETTABLE                         R27 R25 R26
+      177 GETTABLEKS                       R26 R14 K61 ["name"]
+      179 DUPCLOSURE                       R27 K70 [PROTO_8]
+      180 CAPTURE                          VAL R3
+      181 SETTABLE                         R27 R25 R26
+      182 GETTABLEKS                       R26 R15 K61 ["name"]
+      184 DUPCLOSURE                       R27 K71 [PROTO_9]
+      185 CAPTURE                          VAL R3
+      186 SETTABLE                         R27 R25 R26
+      187 GETTABLEKS                       R26 R16 K61 ["name"]
+      189 DUPCLOSURE                       R27 K72 [PROTO_10]
+      190 CAPTURE                          VAL R3
+      191 SETTABLE                         R27 R25 R26
+      192 GETTABLEKS                       R26 R17 K61 ["name"]
+      194 DUPCLOSURE                       R27 K73 [PROTO_11]
+      195 CAPTURE                          VAL R3
+      196 SETTABLE                         R27 R25 R26
+      197 GETTABLEKS                       R26 R18 K61 ["name"]
+      199 DUPCLOSURE                       R27 K74 [PROTO_12]
+      200 CAPTURE                          VAL R3
+      201 CAPTURE                          VAL R4
+      202 SETTABLE                         R27 R25 R26
+      203 GETTABLEKS                       R26 R19 K61 ["name"]
+      205 DUPCLOSURE                       R27 K75 [PROTO_13]
+      206 CAPTURE                          VAL R3
+      207 SETTABLE                         R27 R25 R26
+      208 GETTABLEKS                       R26 R20 K61 ["name"]
+      210 DUPCLOSURE                       R27 K76 [PROTO_14]
+      211 CAPTURE                          VAL R3
+      212 SETTABLE                         R27 R25 R26
+      213 GETTABLEKS                       R26 R21 K61 ["name"]
+      215 DUPCLOSURE                       R27 K77 [PROTO_15]
+      216 CAPTURE                          VAL R3
+      217 SETTABLE                         R27 R25 R26
+      218 CALL                             R23 2 1
+      219 RETURN                           R23 1

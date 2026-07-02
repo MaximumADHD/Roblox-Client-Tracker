@@ -516,37 +516,17 @@ MAIN:
        74 GETTABLEKS                       R9 R9 K13 ["Flags"]
        76 GETTABLEKS                       R9 R9 K16 ["getFFlagAnimationExportSupport"]
        78 CALL                             R8 1 1
-       79 DUPTABLE                         R9 K22 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       80 LOADK                            R10 K23 ["Standalone"]
-       81 SETTABLEKS                       R10 R9 K17 ["DataModel"]
-       83 LOADK                            R10 K24 ["Unknown"]
-       84 SETTABLEKS                       R10 R9 K18 ["PluginType"]
-       86 LOADK                            R10 K25 ["Export"]
-       87 SETTABLEKS                       R10 R9 K19 ["PluginId"]
-       89 LOADK                            R10 K26 ["Actions"]
-       90 SETTABLEKS                       R10 R9 K20 ["Category"]
-       92 LOADK                            R10 K27 ["ExportAsGltf"]
-       93 SETTABLEKS                       R10 R9 K21 ["ItemId"]
-       95 DUPTABLE                         R10 K22 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       96 LOADK                            R11 K23 ["Standalone"]
-       97 SETTABLEKS                       R11 R10 K17 ["DataModel"]
-       99 LOADK                            R11 K24 ["Unknown"]
-      100 SETTABLEKS                       R11 R10 K18 ["PluginType"]
-      102 LOADK                            R11 K25 ["Export"]
-      103 SETTABLEKS                       R11 R10 K19 ["PluginId"]
-      105 LOADK                            R11 K26 ["Actions"]
-      106 SETTABLEKS                       R11 R10 K20 ["Category"]
-      108 LOADK                            R11 K28 ["ExportPlaceAsGltf"]
-      109 SETTABLEKS                       R11 R10 K21 ["ItemId"]
-      111 DUPCLOSURE                       R11 K29 [PROTO_19]
-      112 CAPTURE                          VAL R9
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R8
-      115 CAPTURE                          VAL R1
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R2
-      118 CAPTURE                          VAL R3
-      119 CAPTURE                          VAL R7
-      120 CAPTURE                          VAL R4
-      121 CAPTURE                          VAL R5
-      122 RETURN                           R11 1
+       79 DUPTABLE                         R9 K27 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportAsGltf"}]
+       80 DUPTABLE                         R10 K29 [{["DataModel"] = "Standalone", ["PluginType"] = "Unknown", ["PluginId"] = "Export", ["Category"] = "Actions", ["ItemId"] = "ExportPlaceAsGltf"}]
+       81 DUPCLOSURE                       R11 K30 [PROTO_19]
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R8
+       85 CAPTURE                          VAL R1
+       86 CAPTURE                          VAL R6
+       87 CAPTURE                          VAL R2
+       88 CAPTURE                          VAL R3
+       89 CAPTURE                          VAL R7
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R5
+       92 RETURN                           R11 1

@@ -2,13 +2,8 @@ PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["AudioDiscoveryMigrateToActions"]
         3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-        5 CALL                             R0 2 1
-        6 JUMPIFNOT                        R0 ; [+6]
-        7 GETIMPORT                        R0 K1 [game]
-        9 LOADK                            R2 K4 ["RegisterActionsPluginLoader"]
-       10 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
-       12 CALL                             R0 2 1
-       13 RETURN                           R0 1
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -49,22 +44,22 @@ MAIN:
        49 CALL                             R0 3 0
        50 GETIMPORT                        R0 K1 [game]
        52 LOADK                            R2 K11 ["StudioAudioDiscoveryOpenAnalyticThrottle"]
-       53 LOADN                            R3 16
+       53 LOADN                            R3 10000
        54 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        56 CALL                             R0 3 0
        57 GETIMPORT                        R0 K1 [game]
        59 LOADK                            R2 K12 ["StudioAudioDiscoverySelectAnalyticsThrottle"]
-       60 LOADN                            R3 16
+       60 LOADN                            R3 10000
        61 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        63 CALL                             R0 3 0
        64 GETIMPORT                        R0 K1 [game]
        66 LOADK                            R2 K13 ["StudioAudioDiscoveryBreakdownAnalyticsThrottle"]
-       67 LOADN                            R3 16
+       67 LOADN                            R3 10000
        68 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        70 CALL                             R0 3 0
        71 GETIMPORT                        R0 K1 [game]
        73 LOADK                            R2 K14 ["StudioAudioDiscoveryPermissionCheckAnalyticsThrottle"]
-       74 LOADN                            R3 232
+       74 LOADN                            R3 1000
        75 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        77 CALL                             R0 3 0
        78 GETIMPORT                        R0 K1 [game]

@@ -40,24 +40,20 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 DUPTABLE                         R4 K2 [{"telemetryType", "action"}]
-        3 LOADK                            R5 K3 ["featureShown"]
-        4 SETTABLEKS                       R5 R4 K0 ["telemetryType"]
-        6 SETTABLEKS                       R0 R4 K1 ["action"]
-        8 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
-       10 CALL                             R1 3 0
-       11 RETURN                           R0 0
+        2 DUPTABLE                         R4 K3 [{[1] = "featureShown", ["action"]}]
+        3 SETTABLEKS                       R0 R4 K2 ["action"]
+        5 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
+        7 CALL                             R1 3 0
+        8 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETUPVAL                         R3 1
-        2 DUPTABLE                         R4 K2 [{"telemetryType", "action"}]
-        3 LOADK                            R5 K3 ["buttonClicked"]
-        4 SETTABLEKS                       R5 R4 K0 ["telemetryType"]
-        6 SETTABLEKS                       R0 R4 K1 ["action"]
-        8 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
-       10 CALL                             R1 3 0
-       11 RETURN                           R0 0
+        2 DUPTABLE                         R4 K3 [{[1] = "buttonClicked", ["action"]}]
+        3 SETTABLEKS                       R0 R4 K2 ["action"]
+        5 NAMECALL                         R1 R1 K4 ["logRobloxTelemetryEvent"]
+        7 CALL                             R1 3 0
+        8 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

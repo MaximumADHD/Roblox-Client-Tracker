@@ -114,48 +114,44 @@ PROTO_3:
        43 GETTABLEKS                       R6 R6 K6 ["createElement"]
        45 GETUPVAL                         R7 5
        46 GETTABLEKS                       R7 R7 K7 ["ScrollView"]
-       48 DUPTABLE                         R8 K13 [{"tag", "scrollingFrameRef", "layout", "scroll", "LayoutOrder"}]
-       49 LOADK                            R9 K14 ["size-full-full"]
-       50 SETTABLEKS                       R9 R8 K8 ["tag"]
-       52 SETTABLEKS                       R4 R8 K9 ["scrollingFrameRef"]
-       54 DUPTABLE                         R9 K19 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
-       55 GETIMPORT                        R10 K22 [Enum.HorizontalAlignment.Left]
-       57 SETTABLEKS                       R10 R9 K15 ["HorizontalAlignment"]
-       59 GETIMPORT                        R10 K24 [Enum.FillDirection.Vertical]
-       61 SETTABLEKS                       R10 R9 K16 ["FillDirection"]
-       63 GETIMPORT                        R10 K25 [Enum.SortOrder.LayoutOrder]
-       65 SETTABLEKS                       R10 R9 K17 ["SortOrder"]
-       67 GETIMPORT                        R10 K28 [Enum.UIFlexAlignment.Fill]
-       69 SETTABLEKS                       R10 R9 K18 ["HorizontalFlex"]
-       71 SETTABLEKS                       R9 R8 K10 ["layout"]
-       73 DUPTABLE                         R9 K33 [{"AutomaticCanvasSize", "ScrollingDirection", "VerticalScrollBarInset", "CanvasSize"}]
-       74 GETIMPORT                        R10 K36 [Enum.AutomaticSize.Y]
-       76 SETTABLEKS                       R10 R9 K29 ["AutomaticCanvasSize"]
-       78 GETIMPORT                        R10 K37 [Enum.ScrollingDirection.Y]
-       80 SETTABLEKS                       R10 R9 K30 ["ScrollingDirection"]
-       82 GETIMPORT                        R10 K40 [Enum.ScrollBarInset.None]
-       84 SETTABLEKS                       R10 R9 K31 ["VerticalScrollBarInset"]
-       86 GETIMPORT                        R10 K43 [UDim2.fromScale]
-       88 LOADN                            R11 0
-       89 LOADN                            R12 0
-       90 CALL                             R10 2 1
-       91 SETTABLEKS                       R10 R9 K32 ["CanvasSize"]
-       93 SETTABLEKS                       R9 R8 K11 ["scroll"]
-       95 GETTABLEKS                       R9 R0 K12 ["LayoutOrder"]
-       97 SETTABLEKS                       R9 R8 K12 ["LayoutOrder"]
-       99 DUPTABLE                         R9 K45 [{"View"}]
-      100 GETUPVAL                         R10 3
-      101 GETTABLEKS                       R10 R10 K6 ["createElement"]
-      103 GETUPVAL                         R11 5
-      104 GETTABLEKS                       R11 R11 K44 ["View"]
-      106 DUPTABLE                         R12 K46 [{"tag"}]
-      107 LOADK                            R13 K47 ["size-0-0 auto-xy col flex-x-fill align-x-left padding-left-medium padding-right-medium padding-top-small gap-small"]
-      108 SETTABLEKS                       R13 R12 K8 ["tag"]
-      110 MOVE                             R13 R5
-      111 CALL                             R10 3 1
-      112 SETTABLEKS                       R10 R9 K44 ["View"]
-      114 CALL                             R6 3 -1
-      115 RETURN                           R6 -1
+       48 DUPTABLE                         R8 K14 [{["tag"] = "size-full-full", ["scrollingFrameRef"], ["layout"], ["scroll"], ["LayoutOrder"]}]
+       49 SETTABLEKS                       R4 R8 K10 ["scrollingFrameRef"]
+       51 DUPTABLE                         R9 K19 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
+       52 GETIMPORT                        R10 K22 [Enum.HorizontalAlignment.Left]
+       54 SETTABLEKS                       R10 R9 K15 ["HorizontalAlignment"]
+       56 GETIMPORT                        R10 K24 [Enum.FillDirection.Vertical]
+       58 SETTABLEKS                       R10 R9 K16 ["FillDirection"]
+       60 GETIMPORT                        R10 K25 [Enum.SortOrder.LayoutOrder]
+       62 SETTABLEKS                       R10 R9 K17 ["SortOrder"]
+       64 GETIMPORT                        R10 K28 [Enum.UIFlexAlignment.Fill]
+       66 SETTABLEKS                       R10 R9 K18 ["HorizontalFlex"]
+       68 SETTABLEKS                       R9 R8 K11 ["layout"]
+       70 DUPTABLE                         R9 K33 [{"AutomaticCanvasSize", "ScrollingDirection", "VerticalScrollBarInset", "CanvasSize"}]
+       71 GETIMPORT                        R10 K36 [Enum.AutomaticSize.Y]
+       73 SETTABLEKS                       R10 R9 K29 ["AutomaticCanvasSize"]
+       75 GETIMPORT                        R10 K37 [Enum.ScrollingDirection.Y]
+       77 SETTABLEKS                       R10 R9 K30 ["ScrollingDirection"]
+       79 GETIMPORT                        R10 K40 [Enum.ScrollBarInset.None]
+       81 SETTABLEKS                       R10 R9 K31 ["VerticalScrollBarInset"]
+       83 GETIMPORT                        R10 K43 [UDim2.fromScale]
+       85 LOADN                            R11 0
+       86 LOADN                            R12 0
+       87 CALL                             R10 2 1
+       88 SETTABLEKS                       R10 R9 K32 ["CanvasSize"]
+       90 SETTABLEKS                       R9 R8 K12 ["scroll"]
+       92 GETTABLEKS                       R9 R0 K13 ["LayoutOrder"]
+       94 SETTABLEKS                       R9 R8 K13 ["LayoutOrder"]
+       96 DUPTABLE                         R9 K45 [{"View"}]
+       97 GETUPVAL                         R10 3
+       98 GETTABLEKS                       R10 R10 K6 ["createElement"]
+      100 GETUPVAL                         R11 5
+      101 GETTABLEKS                       R11 R11 K44 ["View"]
+      103 DUPTABLE                         R12 K47 [{["tag"] = "col flex-x-fill align-x-left gap-small size-0-0 auto-xy padding-left-medium padding-right-medium padding-top-small"}]
+      104 MOVE                             R13 R5
+      105 CALL                             R10 3 1
+      106 SETTABLEKS                       R10 R9 K44 ["View"]
+      108 CALL                             R6 3 -1
+      109 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

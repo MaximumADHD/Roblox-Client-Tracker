@@ -209,159 +209,155 @@ PROTO_6:
        21 GETUPVAL                         R9 2
        22 GETTABLEKS                       R9 R9 K5 ["createElement"]
        24 GETUPVAL                         R10 3
-       25 DUPTABLE                         R11 K11 [{"LayoutOrder", "Size", "Layout", "Padding", "Position"}]
-       26 LOADN                            R12 1
-       27 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-       29 SETTABLEKS                       R3 R11 K7 ["Size"]
-       31 GETIMPORT                        R12 K15 [Enum.FillDirection.Horizontal]
-       33 SETTABLEKS                       R12 R11 K8 ["Layout"]
-       35 DUPTABLE                         R12 K20 [{"Right", "Left", "Top", "Bottom"}]
-       36 GETUPVAL                         R13 4
-       37 GETTABLEKS                       R13 R13 K21 ["ITEM_ROW"]
-       39 GETTABLEKS                       R13 R13 K22 ["BORDER_SIZE"]
-       41 SETTABLEKS                       R13 R12 K16 ["Right"]
-       43 GETUPVAL                         R13 4
-       44 GETTABLEKS                       R13 R13 K21 ["ITEM_ROW"]
-       46 GETTABLEKS                       R13 R13 K22 ["BORDER_SIZE"]
-       48 SETTABLEKS                       R13 R12 K17 ["Left"]
-       50 GETUPVAL                         R13 4
-       51 GETTABLEKS                       R13 R13 K21 ["ITEM_ROW"]
-       53 GETTABLEKS                       R13 R13 K22 ["BORDER_SIZE"]
-       55 SETTABLEKS                       R13 R12 K18 ["Top"]
-       57 GETUPVAL                         R13 4
-       58 GETTABLEKS                       R13 R13 K21 ["ITEM_ROW"]
-       60 GETTABLEKS                       R13 R13 K22 ["BORDER_SIZE"]
-       62 SETTABLEKS                       R13 R12 K19 ["Bottom"]
-       64 SETTABLEKS                       R12 R11 K9 ["Padding"]
-       66 SETTABLEKS                       R2 R11 K10 ["Position"]
-       68 DUPTABLE                         R12 K28 [{"Type", "Name", "Creator", "DateUpdated", "DateCreated"}]
-       69 GETUPVAL                         R14 4
-       70 GETTABLEKS                       R14 R14 K29 ["ASSET_ROW_COLUMNS"]
-       72 GETTABLEKS                       R14 R14 K30 ["ICON"]
-       74 NAMECALL                         R15 R7 K31 ["getNextOrder"]
-       76 CALL                             R15 1 1
-       77 GETUPVAL                         R16 0
-       78 GETTABLEKS                       R16 R16 K32 ["createHeaderElement"]
-       80 LOADK                            R17 K33 [""]
-       81 MOVE                             R18 R14
-       82 MOVE                             R19 R15
-       83 MOVE                             R20 R6
-       84 CALL                             R16 4 1
-       85 MOVE                             R13 R16
-       86 SETTABLEKS                       R13 R12 K23 ["Type"]
-       88 LOADK                            R16 K34 ["AssetTable"]
-       89 LOADK                            R17 K24 ["Name"]
-       90 NAMECALL                         R14 R5 K35 ["getText"]
-       92 CALL                             R14 3 1
-       93 NAMECALL                         R14 R14 K36 ["upper"]
-       95 CALL                             R14 1 1
-       96 GETUPVAL                         R15 4
-       97 GETTABLEKS                       R15 R15 K29 ["ASSET_ROW_COLUMNS"]
-       99 GETTABLEKS                       R15 R15 K37 ["NAME"]
-      101 NAMECALL                         R16 R7 K31 ["getNextOrder"]
-      103 CALL                             R16 1 1
-      104 GETUPVAL                         R17 0
-      105 GETTABLEKS                       R17 R17 K32 ["createHeaderElement"]
-      107 MOVE                             R18 R14
-      108 MOVE                             R19 R15
-      109 MOVE                             R20 R16
-      110 MOVE                             R21 R6
-      111 CALL                             R17 4 1
-      112 MOVE                             R13 R17
-      113 SETTABLEKS                       R13 R12 K24 ["Name"]
-      115 LOADK                            R16 K34 ["AssetTable"]
-      116 LOADK                            R17 K25 ["Creator"]
-      117 NAMECALL                         R14 R5 K35 ["getText"]
-      119 CALL                             R14 3 1
-      120 NAMECALL                         R14 R14 K36 ["upper"]
-      122 CALL                             R14 1 1
-      123 GETUPVAL                         R15 4
-      124 GETTABLEKS                       R15 R15 K29 ["ASSET_ROW_COLUMNS"]
-      126 GETTABLEKS                       R15 R15 K38 ["CREATOR"]
-      128 NAMECALL                         R16 R7 K31 ["getNextOrder"]
-      130 CALL                             R16 1 1
-      131 GETUPVAL                         R17 0
-      132 GETTABLEKS                       R17 R17 K32 ["createHeaderElement"]
-      134 MOVE                             R18 R14
-      135 MOVE                             R19 R15
-      136 MOVE                             R20 R16
-      137 MOVE                             R21 R6
-      138 CALL                             R17 4 1
-      139 MOVE                             R13 R17
-      140 SETTABLEKS                       R13 R12 K25 ["Creator"]
-      142 LOADK                            R16 K34 ["AssetTable"]
-      143 LOADK                            R17 K26 ["DateUpdated"]
-      144 NAMECALL                         R14 R5 K35 ["getText"]
-      146 CALL                             R14 3 1
-      147 NAMECALL                         R14 R14 K36 ["upper"]
-      149 CALL                             R14 1 1
-      150 GETUPVAL                         R15 4
-      151 GETTABLEKS                       R15 R15 K29 ["ASSET_ROW_COLUMNS"]
-      153 GETTABLEKS                       R15 R15 K39 ["DATE_UPDATED"]
-      155 NAMECALL                         R16 R7 K31 ["getNextOrder"]
-      157 CALL                             R16 1 1
-      158 GETUPVAL                         R17 0
-      159 GETTABLEKS                       R17 R17 K32 ["createHeaderElement"]
-      161 MOVE                             R18 R14
-      162 MOVE                             R19 R15
-      163 MOVE                             R20 R16
-      164 MOVE                             R21 R6
-      165 CALL                             R17 4 1
-      166 MOVE                             R13 R17
-      167 SETTABLEKS                       R13 R12 K26 ["DateUpdated"]
-      169 LOADK                            R16 K34 ["AssetTable"]
-      170 LOADK                            R17 K27 ["DateCreated"]
-      171 NAMECALL                         R14 R5 K35 ["getText"]
-      173 CALL                             R14 3 1
-      174 NAMECALL                         R14 R14 K36 ["upper"]
-      176 CALL                             R14 1 1
-      177 GETUPVAL                         R15 4
-      178 GETTABLEKS                       R15 R15 K29 ["ASSET_ROW_COLUMNS"]
-      180 GETTABLEKS                       R15 R15 K40 ["DATE_CREATED"]
-      182 NAMECALL                         R16 R7 K31 ["getNextOrder"]
-      184 CALL                             R16 1 1
-      185 GETUPVAL                         R17 0
-      186 GETTABLEKS                       R17 R17 K32 ["createHeaderElement"]
-      188 MOVE                             R18 R14
-      189 MOVE                             R19 R15
-      190 MOVE                             R20 R16
-      191 MOVE                             R21 R6
-      192 CALL                             R17 4 1
-      193 MOVE                             R13 R17
-      194 SETTABLEKS                       R13 R12 K27 ["DateCreated"]
-      196 CALL                             R9 3 -1
-      197 RETURN                           R9 -1
+       25 DUPTABLE                         R11 K12 [{["LayoutOrder"] = 1, ["Size"], ["Layout"], ["Padding"], ["Position"]}]
+       26 SETTABLEKS                       R3 R11 K8 ["Size"]
+       28 GETIMPORT                        R12 K16 [Enum.FillDirection.Horizontal]
+       30 SETTABLEKS                       R12 R11 K9 ["Layout"]
+       32 DUPTABLE                         R12 K21 [{"Right", "Left", "Top", "Bottom"}]
+       33 GETUPVAL                         R13 4
+       34 GETTABLEKS                       R13 R13 K22 ["ITEM_ROW"]
+       36 GETTABLEKS                       R13 R13 K23 ["BORDER_SIZE"]
+       38 SETTABLEKS                       R13 R12 K17 ["Right"]
+       40 GETUPVAL                         R13 4
+       41 GETTABLEKS                       R13 R13 K22 ["ITEM_ROW"]
+       43 GETTABLEKS                       R13 R13 K23 ["BORDER_SIZE"]
+       45 SETTABLEKS                       R13 R12 K18 ["Left"]
+       47 GETUPVAL                         R13 4
+       48 GETTABLEKS                       R13 R13 K22 ["ITEM_ROW"]
+       50 GETTABLEKS                       R13 R13 K23 ["BORDER_SIZE"]
+       52 SETTABLEKS                       R13 R12 K19 ["Top"]
+       54 GETUPVAL                         R13 4
+       55 GETTABLEKS                       R13 R13 K22 ["ITEM_ROW"]
+       57 GETTABLEKS                       R13 R13 K23 ["BORDER_SIZE"]
+       59 SETTABLEKS                       R13 R12 K20 ["Bottom"]
+       61 SETTABLEKS                       R12 R11 K10 ["Padding"]
+       63 SETTABLEKS                       R2 R11 K11 ["Position"]
+       65 DUPTABLE                         R12 K29 [{"Type", "Name", "Creator", "DateUpdated", "DateCreated"}]
+       66 GETUPVAL                         R14 4
+       67 GETTABLEKS                       R14 R14 K30 ["ASSET_ROW_COLUMNS"]
+       69 GETTABLEKS                       R14 R14 K31 ["ICON"]
+       71 NAMECALL                         R15 R7 K32 ["getNextOrder"]
+       73 CALL                             R15 1 1
+       74 GETUPVAL                         R16 0
+       75 GETTABLEKS                       R16 R16 K33 ["createHeaderElement"]
+       77 LOADK                            R17 K34 [""]
+       78 MOVE                             R18 R14
+       79 MOVE                             R19 R15
+       80 MOVE                             R20 R6
+       81 CALL                             R16 4 1
+       82 MOVE                             R13 R16
+       83 SETTABLEKS                       R13 R12 K24 ["Type"]
+       85 LOADK                            R16 K35 ["AssetTable"]
+       86 LOADK                            R17 K25 ["Name"]
+       87 NAMECALL                         R14 R5 K36 ["getText"]
+       89 CALL                             R14 3 1
+       90 NAMECALL                         R14 R14 K37 ["upper"]
+       92 CALL                             R14 1 1
+       93 GETUPVAL                         R15 4
+       94 GETTABLEKS                       R15 R15 K30 ["ASSET_ROW_COLUMNS"]
+       96 GETTABLEKS                       R15 R15 K38 ["NAME"]
+       98 NAMECALL                         R16 R7 K32 ["getNextOrder"]
+      100 CALL                             R16 1 1
+      101 GETUPVAL                         R17 0
+      102 GETTABLEKS                       R17 R17 K33 ["createHeaderElement"]
+      104 MOVE                             R18 R14
+      105 MOVE                             R19 R15
+      106 MOVE                             R20 R16
+      107 MOVE                             R21 R6
+      108 CALL                             R17 4 1
+      109 MOVE                             R13 R17
+      110 SETTABLEKS                       R13 R12 K25 ["Name"]
+      112 LOADK                            R16 K35 ["AssetTable"]
+      113 LOADK                            R17 K26 ["Creator"]
+      114 NAMECALL                         R14 R5 K36 ["getText"]
+      116 CALL                             R14 3 1
+      117 NAMECALL                         R14 R14 K37 ["upper"]
+      119 CALL                             R14 1 1
+      120 GETUPVAL                         R15 4
+      121 GETTABLEKS                       R15 R15 K30 ["ASSET_ROW_COLUMNS"]
+      123 GETTABLEKS                       R15 R15 K39 ["CREATOR"]
+      125 NAMECALL                         R16 R7 K32 ["getNextOrder"]
+      127 CALL                             R16 1 1
+      128 GETUPVAL                         R17 0
+      129 GETTABLEKS                       R17 R17 K33 ["createHeaderElement"]
+      131 MOVE                             R18 R14
+      132 MOVE                             R19 R15
+      133 MOVE                             R20 R16
+      134 MOVE                             R21 R6
+      135 CALL                             R17 4 1
+      136 MOVE                             R13 R17
+      137 SETTABLEKS                       R13 R12 K26 ["Creator"]
+      139 LOADK                            R16 K35 ["AssetTable"]
+      140 LOADK                            R17 K27 ["DateUpdated"]
+      141 NAMECALL                         R14 R5 K36 ["getText"]
+      143 CALL                             R14 3 1
+      144 NAMECALL                         R14 R14 K37 ["upper"]
+      146 CALL                             R14 1 1
+      147 GETUPVAL                         R15 4
+      148 GETTABLEKS                       R15 R15 K30 ["ASSET_ROW_COLUMNS"]
+      150 GETTABLEKS                       R15 R15 K40 ["DATE_UPDATED"]
+      152 NAMECALL                         R16 R7 K32 ["getNextOrder"]
+      154 CALL                             R16 1 1
+      155 GETUPVAL                         R17 0
+      156 GETTABLEKS                       R17 R17 K33 ["createHeaderElement"]
+      158 MOVE                             R18 R14
+      159 MOVE                             R19 R15
+      160 MOVE                             R20 R16
+      161 MOVE                             R21 R6
+      162 CALL                             R17 4 1
+      163 MOVE                             R13 R17
+      164 SETTABLEKS                       R13 R12 K27 ["DateUpdated"]
+      166 LOADK                            R16 K35 ["AssetTable"]
+      167 LOADK                            R17 K28 ["DateCreated"]
+      168 NAMECALL                         R14 R5 K36 ["getText"]
+      170 CALL                             R14 3 1
+      171 NAMECALL                         R14 R14 K37 ["upper"]
+      173 CALL                             R14 1 1
+      174 GETUPVAL                         R15 4
+      175 GETTABLEKS                       R15 R15 K30 ["ASSET_ROW_COLUMNS"]
+      177 GETTABLEKS                       R15 R15 K41 ["DATE_CREATED"]
+      179 NAMECALL                         R16 R7 K32 ["getNextOrder"]
+      181 CALL                             R16 1 1
+      182 GETUPVAL                         R17 0
+      183 GETTABLEKS                       R17 R17 K33 ["createHeaderElement"]
+      185 MOVE                             R18 R14
+      186 MOVE                             R19 R15
+      187 MOVE                             R20 R16
+      188 MOVE                             R21 R6
+      189 CALL                             R17 4 1
+      190 MOVE                             R13 R17
+      191 SETTABLEKS                       R13 R12 K28 ["DateCreated"]
+      193 CALL                             R9 3 -1
+      194 RETURN                           R9 -1
 
 PROTO_7:
-        0 DUPTABLE                         R1 K1 [{"expandedAssetId"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["expandedAssetId"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 SETTABLEKS                       R1 R0 K3 ["setExpandedAssetId"]
-       13 NEWCLOSURE                       R1 P1
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U0
-       17 CAPTURE                          UPVAL U4
-       18 CAPTURE                          UPVAL U5
-       19 SETTABLEKS                       R1 R0 K4 ["createHeaderElement"]
-       21 NEWCLOSURE                       R1 P2
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U6
-       24 SETTABLEKS                       R1 R0 K5 ["getAssetElementProps"]
-       26 NEWCLOSURE                       R1 P3
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          UPVAL U7
-       29 CAPTURE                          UPVAL U0
-       30 CAPTURE                          UPVAL U8
-       31 CAPTURE                          UPVAL U5
-       32 SETTABLEKS                       R1 R0 K6 ["renderHeader"]
-       34 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = }]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 SETTABLEKS                       R1 R0 K4 ["setExpandedAssetId"]
+       10 NEWCLOSURE                       R1 P1
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U4
+       15 CAPTURE                          UPVAL U5
+       16 SETTABLEKS                       R1 R0 K5 ["createHeaderElement"]
+       18 NEWCLOSURE                       R1 P2
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U6
+       21 SETTABLEKS                       R1 R0 K6 ["getAssetElementProps"]
+       23 NEWCLOSURE                       R1 P3
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          UPVAL U7
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          UPVAL U8
+       28 CAPTURE                          UPVAL U5
+       29 SETTABLEKS                       R1 R0 K7 ["renderHeader"]
+       31 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R4 0

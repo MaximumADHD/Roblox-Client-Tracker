@@ -15,77 +15,67 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["From"]
         2 GETTABLEKS                       R2 R0 K1 ["To"]
-        4 JUMPIFNOTEQ                      R1 R2 ; [+39]
+        4 JUMPIFNOTEQ                      R1 R2 ; [+33]
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K2 ["createElement"]
         9 LOADK                            R4 K3 ["BoxHandleAdornment"]
-       10 DUPTABLE                         R5 K10 [{"CFrame", "Adornee", "Size", "Color3", "ZIndex", "AlwaysOnTop"}]
-       11 GETIMPORT                        R6 K12 [CFrame.new]
+       10 DUPTABLE                         R5 K12 [{["CFrame"], ["Adornee"], ["Size"], ["Color3"], ["ZIndex"] = 0, ["AlwaysOnTop"] = True}]
+       11 GETIMPORT                        R6 K14 [CFrame.new]
        13 MOVE                             R7 R1
        14 CALL                             R6 1 1
        15 SETTABLEKS                       R6 R5 K4 ["CFrame"]
-       17 GETIMPORT                        R6 K14 [workspace]
-       19 GETTABLEKS                       R6 R6 K15 ["Terrain"]
+       17 GETIMPORT                        R6 K16 [workspace]
+       19 GETTABLEKS                       R6 R6 K17 ["Terrain"]
        21 SETTABLEKS                       R6 R5 K5 ["Adornee"]
-       23 LOADK                            R7 K16 [{1, 1, 1}]
-       24 LOADK                            R9 K17 [0.3]
-       25 GETTABLEKS                       R10 R0 K18 ["Scale"]
+       23 LOADK                            R7 K18 [{1, 1, 1}]
+       24 LOADK                            R9 K19 [0.3]
+       25 GETTABLEKS                       R10 R0 K20 ["Scale"]
        27 MUL                              R8 R9 R10
        28 MUL                              R6 R7 R8
        29 SETTABLEKS                       R6 R5 K6 ["Size"]
        31 GETTABLEKS                       R6 R0 K7 ["Color3"]
        33 SETTABLEKS                       R6 R5 K7 ["Color3"]
-       35 LOADN                            R6 0
-       36 SETTABLEKS                       R6 R5 K8 ["ZIndex"]
-       38 LOADB                            R6 1
-       39 SETTABLEKS                       R6 R5 K9 ["AlwaysOnTop"]
-       41 CALL                             R3 2 -1
-       42 CLOSEUPVALS                      R1
-       43 RETURN                           R3 -1
-       44 SUB                              R3 R2 R1
-       45 GETTABLEKS                       R4 R3 K19 ["Unit"]
-       47 LOADK                            R7 K20 [1.5]
-       48 GETTABLEKS                       R8 R0 K18 ["Scale"]
-       50 MUL                              R6 R7 R8
-       51 MUL                              R5 R4 R6
-       52 SUB                              R1 R1 R5
-       53 ADD                              R2 R2 R5
-       54 GETUPVAL                         R6 0
-       55 GETTABLEKS                       R6 R6 K21 ["createFragment"]
-       57 DUPTABLE                         R7 K24 [{"Bottom", "Top"}]
-       58 GETUPVAL                         R8 0
-       59 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       61 GETUPVAL                         R9 1
-       62 DUPTABLE                         R10 K26 [{"Color3", "AlwaysOnTop", "Render"}]
-       63 GETTABLEKS                       R11 R0 K7 ["Color3"]
-       65 SETTABLEKS                       R11 R10 K7 ["Color3"]
-       67 LOADB                            R11 0
-       68 SETTABLEKS                       R11 R10 K9 ["AlwaysOnTop"]
-       70 NEWCLOSURE                       R11 P0
-       71 CAPTURE                          REF R1
-       72 CAPTURE                          REF R2
-       73 SETTABLEKS                       R11 R10 K25 ["Render"]
-       75 CALL                             R8 2 1
-       76 SETTABLEKS                       R8 R7 K22 ["Bottom"]
-       78 GETUPVAL                         R8 0
-       79 GETTABLEKS                       R8 R8 K2 ["createElement"]
-       81 GETUPVAL                         R9 1
-       82 DUPTABLE                         R10 K28 [{"Color3", "AlwaysOnTop", "Transparency", "Render"}]
-       83 GETTABLEKS                       R11 R0 K7 ["Color3"]
-       85 SETTABLEKS                       R11 R10 K7 ["Color3"]
-       87 LOADB                            R11 1
-       88 SETTABLEKS                       R11 R10 K9 ["AlwaysOnTop"]
-       90 LOADK                            R11 K29 [0.6]
-       91 SETTABLEKS                       R11 R10 K27 ["Transparency"]
-       93 NEWCLOSURE                       R11 P1
-       94 CAPTURE                          REF R1
-       95 CAPTURE                          REF R2
-       96 SETTABLEKS                       R11 R10 K25 ["Render"]
-       98 CALL                             R8 2 1
-       99 SETTABLEKS                       R8 R7 K23 ["Top"]
-      101 CALL                             R6 1 -1
-      102 CLOSEUPVALS                      R1
-      103 RETURN                           R6 -1
+       35 CALL                             R3 2 -1
+       36 CLOSEUPVALS                      R1
+       37 RETURN                           R3 -1
+       38 SUB                              R3 R2 R1
+       39 GETTABLEKS                       R4 R3 K21 ["Unit"]
+       41 LOADK                            R7 K22 [1.5]
+       42 GETTABLEKS                       R8 R0 K20 ["Scale"]
+       44 MUL                              R6 R7 R8
+       45 MUL                              R5 R4 R6
+       46 SUB                              R1 R1 R5
+       47 ADD                              R2 R2 R5
+       48 GETUPVAL                         R6 0
+       49 GETTABLEKS                       R6 R6 K23 ["createFragment"]
+       51 DUPTABLE                         R7 K26 [{"Bottom", "Top"}]
+       52 GETUPVAL                         R8 0
+       53 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       55 GETUPVAL                         R9 1
+       56 DUPTABLE                         R10 K29 [{["Color3"], ["AlwaysOnTop"] = False, ["Render"]}]
+       57 GETTABLEKS                       R11 R0 K7 ["Color3"]
+       59 SETTABLEKS                       R11 R10 K7 ["Color3"]
+       61 NEWCLOSURE                       R11 P0
+       62 CAPTURE                          REF R1
+       63 CAPTURE                          REF R2
+       64 SETTABLEKS                       R11 R10 K28 ["Render"]
+       66 CALL                             R8 2 1
+       67 SETTABLEKS                       R8 R7 K24 ["Bottom"]
+       69 GETUPVAL                         R8 0
+       70 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       72 GETUPVAL                         R9 1
+       73 DUPTABLE                         R10 K32 [{["Color3"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.6, ["Render"]}]
+       74 GETTABLEKS                       R11 R0 K7 ["Color3"]
+       76 SETTABLEKS                       R11 R10 K7 ["Color3"]
+       78 NEWCLOSURE                       R11 P1
+       79 CAPTURE                          REF R1
+       80 CAPTURE                          REF R2
+       81 SETTABLEKS                       R11 R10 K28 ["Render"]
+       83 CALL                             R8 2 1
+       84 SETTABLEKS                       R8 R7 K25 ["Top"]
+       86 CALL                             R6 1 -1
+       87 CLOSEUPVALS                      R1
+       88 RETURN                           R6 -1
 
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+23]

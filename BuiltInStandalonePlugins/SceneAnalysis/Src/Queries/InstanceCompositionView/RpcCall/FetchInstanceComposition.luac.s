@@ -32,35 +32,29 @@ PROTO_2:
         9 CAPTURE                          VAL R0
        10 CALL                             R1 1 2
        11 JUMPIFNOT                        R1 ; [+1]
-       12 JUMPIF                           R2 ; [+15]
-       13 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
-       14 LOADN                            R4 0
-       15 SETTABLEKS                       R4 R3 K6 ["Id"]
-       17 LOADK                            R4 K11 ["Root"]
-       18 SETTABLEKS                       R4 R3 K7 ["Name"]
-       20 LOADN                            R4 0
-       21 SETTABLEKS                       R4 R3 K8 ["Size"]
-       23 NEWTABLE                         R4 0 0
-       25 SETTABLEKS                       R4 R3 K9 ["Children"]
-       27 RETURN                           R3 1
-       28 DUPCLOSURE                       R3 K12 [PROTO_1]
-       29 CAPTURE                          VAL R3
-       30 GETTABLEKS                       R4 R2 K13 ["childCount"]
-       32 JUMPIF                           R4 ; [+5]
-       33 GETTABLEKS                       R5 R2 K8 ["Size"]
-       35 ORK                              R4 R5 K14 [0]
-       36 SETTABLEKS                       R4 R2 K13 ["childCount"]
-       38 GETTABLEKS                       R4 R2 K9 ["Children"]
-       40 JUMPIFNOT                        R4 ; [+10]
-       41 GETTABLEKS                       R4 R2 K9 ["Children"]
-       43 LOADNIL                          R5
-       44 LOADNIL                          R6
-       45 FORGPREP                         R4
-       46 MOVE                             R9 R3
-       47 MOVE                             R10 R8
-       48 CALL                             R9 1 0
-       49 FORGLOOP                         R4 2 ; [-4]
-       51 RETURN                           R2 1
+       12 JUMPIF                           R2 ; [+6]
+       13 DUPTABLE                         R3 K12 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       14 NEWTABLE                         R4 0 0
+       16 SETTABLEKS                       R4 R3 K11 ["Children"]
+       18 RETURN                           R3 1
+       19 DUPCLOSURE                       R3 K13 [PROTO_1]
+       20 CAPTURE                          VAL R3
+       21 GETTABLEKS                       R4 R2 K14 ["childCount"]
+       23 JUMPIF                           R4 ; [+5]
+       24 GETTABLEKS                       R5 R2 K10 ["Size"]
+       26 ORK                              R4 R5 K7 [0]
+       27 SETTABLEKS                       R4 R2 K14 ["childCount"]
+       29 GETTABLEKS                       R4 R2 K11 ["Children"]
+       31 JUMPIFNOT                        R4 ; [+10]
+       32 GETTABLEKS                       R4 R2 K11 ["Children"]
+       34 LOADNIL                          R5
+       35 LOADNIL                          R6
+       36 FORGPREP                         R4
+       37 MOVE                             R9 R3
+       38 MOVE                             R10 R8
+       39 CALL                             R9 1 0
+       40 FORGLOOP                         R4 2 ; [-4]
+       42 RETURN                           R2 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [game]

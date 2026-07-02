@@ -170,55 +170,51 @@ PROTO_7:
        11 GETUPVAL                         R5 1
        12 GETTABLEKS                       R5 R5 K3 ["createElement"]
        14 LOADK                            R6 K4 ["ImageLabel"]
-       15 DUPTABLE                         R7 K10 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Image"}]
-       16 GETIMPORT                        R8 K13 [UDim2.fromScale]
+       15 DUPTABLE                         R7 K11 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0, ["Image"]}]
+       16 GETIMPORT                        R8 K14 [UDim2.fromScale]
        18 LOADN                            R9 1
        19 LOADN                            R10 1
        20 CALL                             R8 2 1
        21 SETTABLEKS                       R8 R7 K5 ["Size"]
-       23 GETTABLEKS                       R8 R4 K14 ["subjectThumbnail"]
-       25 GETTABLEKS                       R8 R8 K15 ["background"]
+       23 GETTABLEKS                       R8 R4 K15 ["subjectThumbnail"]
+       25 GETTABLEKS                       R8 R8 K16 ["background"]
        27 SETTABLEKS                       R8 R7 K6 ["BackgroundColor3"]
-       29 LOADN                            R8 0
-       30 SETTABLEKS                       R8 R7 K7 ["BackgroundTransparency"]
-       32 LOADN                            R8 0
-       33 SETTABLEKS                       R8 R7 K8 ["BorderSizePixel"]
-       35 SETTABLEKS                       R2 R7 K9 ["Image"]
-       37 DUPTABLE                         R8 K17 [{"Mask"}]
-       38 GETUPVAL                         R9 1
-       39 GETTABLEKS                       R9 R9 K3 ["createElement"]
-       41 LOADK                            R10 K4 ["ImageLabel"]
-       42 NEWTABLE                         R11 8 0
-       44 GETUPVAL                         R12 1
-       45 GETTABLEKS                       R12 R12 K18 ["Ref"]
-       47 GETUPVAL                         R14 2
-       48 JUMPIFNOT                        R14 ; [+2]
-       49 LOADNIL                          R13
-       50 JUMP                             ; [+3]
-       51 GETUPVAL                         R13 0
-       52 GETTABLEKS                       R13 R13 K19 ["maskRef"]
-       54 SETTABLE                         R13 R11 R12
-       55 GETIMPORT                        R12 K13 [UDim2.fromScale]
-       57 LOADN                            R13 1
-       58 LOADN                            R14 1
-       59 CALL                             R12 2 1
-       60 SETTABLEKS                       R12 R11 K5 ["Size"]
-       62 LOADN                            R12 1
-       63 SETTABLEKS                       R12 R11 K7 ["BackgroundTransparency"]
-       65 GETTABLEKS                       R12 R4 K14 ["subjectThumbnail"]
-       67 GETTABLEKS                       R12 R12 K20 ["maskImage"]
-       69 SETTABLEKS                       R12 R11 K9 ["Image"]
-       71 GETUPVAL                         R13 2
-       72 JUMPIFNOT                        R13 ; [+5]
-       73 GETTABLEKS                       R12 R4 K14 ["subjectThumbnail"]
-       75 GETTABLEKS                       R12 R12 K21 ["backgroundColor"]
-       77 JUMP                             ; [+1]
-       78 LOADNIL                          R12
-       79 SETTABLEKS                       R12 R11 K22 ["ImageColor3"]
-       81 CALL                             R9 2 1
-       82 SETTABLEKS                       R9 R8 K16 ["Mask"]
-       84 CALL                             R5 3 -1
-       85 RETURN                           R5 -1
+       29 SETTABLEKS                       R2 R7 K10 ["Image"]
+       31 DUPTABLE                         R8 K18 [{"Mask"}]
+       32 GETUPVAL                         R9 1
+       33 GETTABLEKS                       R9 R9 K3 ["createElement"]
+       35 LOADK                            R10 K4 ["ImageLabel"]
+       36 NEWTABLE                         R11 8 0
+       38 GETUPVAL                         R12 1
+       39 GETTABLEKS                       R12 R12 K19 ["Ref"]
+       41 GETUPVAL                         R14 2
+       42 JUMPIFNOT                        R14 ; [+2]
+       43 LOADNIL                          R13
+       44 JUMP                             ; [+3]
+       45 GETUPVAL                         R13 0
+       46 GETTABLEKS                       R13 R13 K20 ["maskRef"]
+       48 SETTABLE                         R13 R11 R12
+       49 GETIMPORT                        R12 K14 [UDim2.fromScale]
+       51 LOADN                            R13 1
+       52 LOADN                            R14 1
+       53 CALL                             R12 2 1
+       54 SETTABLEKS                       R12 R11 K5 ["Size"]
+       56 LOADN                            R12 1
+       57 SETTABLEKS                       R12 R11 K7 ["BackgroundTransparency"]
+       59 GETTABLEKS                       R12 R4 K15 ["subjectThumbnail"]
+       61 GETTABLEKS                       R12 R12 K21 ["maskImage"]
+       63 SETTABLEKS                       R12 R11 K10 ["Image"]
+       65 GETUPVAL                         R13 2
+       66 JUMPIFNOT                        R13 ; [+5]
+       67 GETTABLEKS                       R12 R4 K15 ["subjectThumbnail"]
+       69 GETTABLEKS                       R12 R12 K22 ["backgroundColor"]
+       71 JUMP                             ; [+1]
+       72 LOADNIL                          R12
+       73 SETTABLEKS                       R12 R11 K23 ["ImageColor3"]
+       75 CALL                             R9 2 1
+       76 SETTABLEKS                       R9 R8 K17 ["Mask"]
+       78 CALL                             R5 3 -1
+       79 RETURN                           R5 -1
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -231,31 +227,27 @@ PROTO_8:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 LOADK                            R9 K8 ["Frame"]
-       18 DUPTABLE                         R10 K10 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "LayoutOrder", "ZIndex"}]
-       19 LOADN                            R11 1
-       20 SETTABLEKS                       R11 R10 K9 ["BackgroundTransparency"]
-       22 SETTABLEKS                       R3 R10 K2 ["Size"]
-       24 SETTABLEKS                       R4 R10 K3 ["Position"]
-       26 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
-       28 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
-       30 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
-       32 DUPTABLE                         R11 K12 [{"AutoThumbnail"}]
-       33 GETUPVAL                         R12 0
-       34 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       36 GETUPVAL                         R13 1
-       37 DUPTABLE                         R14 K15 [{"Id", "ThumbnailType", "RenderContents"}]
-       38 SETTABLEKS                       R2 R14 K1 ["Id"]
-       40 LOADK                            R15 K16 ["AvatarHeadShot"]
-       41 SETTABLEKS                       R15 R14 K13 ["ThumbnailType"]
-       43 NEWCLOSURE                       R15 P0
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          UPVAL U0
-       46 CAPTURE                          UPVAL U2
-       47 SETTABLEKS                       R15 R14 K14 ["RenderContents"]
-       49 CALL                             R12 2 1
-       50 SETTABLEKS                       R12 R11 K11 ["AutoThumbnail"]
-       52 CALL                             R8 3 -1
-       53 RETURN                           R8 -1
+       18 DUPTABLE                         R10 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["LayoutOrder"], ["ZIndex"]}]
+       19 SETTABLEKS                       R3 R10 K2 ["Size"]
+       21 SETTABLEKS                       R4 R10 K3 ["Position"]
+       23 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
+       25 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
+       27 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
+       29 DUPTABLE                         R11 K13 [{"AutoThumbnail"}]
+       30 GETUPVAL                         R12 0
+       31 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       33 GETUPVAL                         R13 1
+       34 DUPTABLE                         R14 K17 [{["Id"], ["ThumbnailType"] = "AvatarHeadShot", ["RenderContents"]}]
+       35 SETTABLEKS                       R2 R14 K1 ["Id"]
+       37 NEWCLOSURE                       R15 P0
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U0
+       40 CAPTURE                          UPVAL U2
+       41 SETTABLEKS                       R15 R14 K16 ["RenderContents"]
+       43 CALL                             R12 2 1
+       44 SETTABLEKS                       R12 R11 K12 ["AutoThumbnail"]
+       46 CALL                             R8 3 -1
+       47 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

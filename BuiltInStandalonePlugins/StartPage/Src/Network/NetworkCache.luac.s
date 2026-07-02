@@ -5,58 +5,46 @@ PROTO_1:
         0 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R2 K8 [{"dirty", "itemsByKey", "lists", "signal", "getItemKey", "getQueryDetails", "load", "unload"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["dirty"]
-        4 NEWTABLE                         R3 0 0
-        6 SETTABLEKS                       R3 R2 K1 ["itemsByKey"]
-        8 NEWTABLE                         R3 0 0
-       10 SETTABLEKS                       R3 R2 K2 ["lists"]
-       12 GETUPVAL                         R3 0
-       13 GETTABLEKS                       R3 R3 K9 ["new"]
-       15 CALL                             R3 0 1
-       16 SETTABLEKS                       R3 R2 K3 ["signal"]
-       18 SETTABLEKS                       R0 R2 K4 ["getItemKey"]
-       20 SETTABLEKS                       R1 R2 K5 ["getQueryDetails"]
-       22 DUPCLOSURE                       R3 K10 [PROTO_0]
-       23 SETTABLEKS                       R3 R2 K6 ["load"]
-       25 DUPCLOSURE                       R3 K11 [PROTO_1]
-       26 SETTABLEKS                       R3 R2 K7 ["unload"]
-       28 DUPTABLE                         R5 K13 [{"__index"}]
-       29 GETUPVAL                         R6 1
-       30 SETTABLEKS                       R6 R5 K12 ["__index"]
-       32 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       34 MOVE                             R4 R2
-       35 GETIMPORT                        R3 K15 [setmetatable]
-       37 CALL                             R3 2 1
-       38 RETURN                           R3 1
+        0 DUPTABLE                         R2 K9 [{[1] = False, ["itemsByKey"], ["lists"], ["signal"], ["getItemKey"], ["getQueryDetails"], ["load"], ["unload"]}]
+        1 NEWTABLE                         R3 0 0
+        3 SETTABLEKS                       R3 R2 K2 ["itemsByKey"]
+        5 NEWTABLE                         R3 0 0
+        7 SETTABLEKS                       R3 R2 K3 ["lists"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R3 R3 K10 ["new"]
+       12 CALL                             R3 0 1
+       13 SETTABLEKS                       R3 R2 K4 ["signal"]
+       15 SETTABLEKS                       R0 R2 K5 ["getItemKey"]
+       17 SETTABLEKS                       R1 R2 K6 ["getQueryDetails"]
+       19 DUPCLOSURE                       R3 K11 [PROTO_0]
+       20 SETTABLEKS                       R3 R2 K7 ["load"]
+       22 DUPCLOSURE                       R3 K12 [PROTO_1]
+       23 SETTABLEKS                       R3 R2 K8 ["unload"]
+       25 DUPTABLE                         R5 K14 [{"__index"}]
+       26 GETUPVAL                         R6 1
+       27 SETTABLEKS                       R6 R5 K13 ["__index"]
+       29 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       31 MOVE                             R4 R2
+       32 GETIMPORT                        R3 K16 [setmetatable]
+       34 CALL                             R3 2 1
+       35 RETURN                           R3 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["lists"]
         2 GETTABLE                         R2 R3 R1
         3 JUMPIFNOT                        R2 ; [+1]
         4 RETURN                           R2 1
-        5 DUPTABLE                         R3 K10 [{"query", "dirty", "items", "pages", "memberSet", "requestedCount", "targetCount", "pageIndex", "pageSize"}]
+        5 DUPTABLE                         R3 K13 [{["query"], ["dirty"] = True, ["items"], ["pages"], ["memberSet"], ["requestedCount"] = , ["targetCount"] = , ["pageIndex"] = 0, ["pageSize"] = 0}]
         6 SETTABLEKS                       R1 R3 K1 ["query"]
-        8 LOADB                            R4 1
-        9 SETTABLEKS                       R4 R3 K2 ["dirty"]
-       11 NEWTABLE                         R4 0 0
-       13 SETTABLEKS                       R4 R3 K3 ["items"]
-       15 NEWTABLE                         R4 0 0
-       17 SETTABLEKS                       R4 R3 K4 ["pages"]
-       19 NEWTABLE                         R4 0 0
-       21 SETTABLEKS                       R4 R3 K5 ["memberSet"]
-       23 LOADNIL                          R4
-       24 SETTABLEKS                       R4 R3 K6 ["requestedCount"]
-       26 LOADNIL                          R4
-       27 SETTABLEKS                       R4 R3 K7 ["targetCount"]
-       29 LOADN                            R4 0
-       30 SETTABLEKS                       R4 R3 K8 ["pageIndex"]
-       32 LOADN                            R4 0
-       33 SETTABLEKS                       R4 R3 K9 ["pageSize"]
-       35 GETTABLEKS                       R4 R0 K0 ["lists"]
-       37 SETTABLE                         R3 R4 R1
-       38 RETURN                           R3 1
+        8 NEWTABLE                         R4 0 0
+       10 SETTABLEKS                       R4 R3 K4 ["items"]
+       12 NEWTABLE                         R4 0 0
+       14 SETTABLEKS                       R4 R3 K5 ["pages"]
+       16 NEWTABLE                         R4 0 0
+       18 SETTABLEKS                       R4 R3 K6 ["memberSet"]
+       20 GETTABLEKS                       R4 R0 K0 ["lists"]
+       22 SETTABLE                         R3 R4 R1
+       23 RETURN                           R3 1
 
 PROTO_4:
         0 MOVE                             R2 R1
@@ -289,7 +277,7 @@ PROTO_15:
        31 FORGPREP                         R3
        32 LENGTH                           R10 R7
        33 LOADN                            R8 1
-       34 LOADN                            R9 255
+       34 LOADN                            R9 -1
        35 FORNPREP                         R8
        36 GETTABLE                         R11 R7 R10
        37 JUMPIFNOTEQ                      R11 R2 ; [+6]
@@ -677,61 +665,59 @@ MAIN:
        63 GETIMPORT                        R12 K24 [table.insert]
        65 GETIMPORT                        R13 K26 [table.sort]
        67 NEWTABLE                         R14 32 0
-       69 DUPTABLE                         R15 K28 [{"IsPlaceholder"}]
-       70 LOADB                            R16 1
-       71 SETTABLEKS                       R16 R15 K27 ["IsPlaceholder"]
-       73 DUPCLOSURE                       R16 K29 [PROTO_2]
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R14
-       76 SETTABLEKS                       R16 R14 K30 ["new"]
-       78 DUPCLOSURE                       R16 K31 [PROTO_3]
-       79 SETTABLEKS                       R16 R14 K32 ["getList"]
-       81 DUPCLOSURE                       R16 K33 [PROTO_4]
-       82 SETTABLEKS                       R16 R14 K34 ["upsertItems"]
-       84 DUPCLOSURE                       R16 K35 [PROTO_5]
-       85 SETTABLEKS                       R16 R14 K36 ["getItem"]
-       87 DUPCLOSURE                       R16 K37 [PROTO_6]
-       88 SETTABLEKS                       R16 R14 K38 ["setItemsForPage"]
-       90 DUPCLOSURE                       R16 K39 [PROTO_7]
-       91 SETTABLEKS                       R16 R14 K40 ["upsertItemsForList"]
-       93 DUPCLOSURE                       R16 K41 [PROTO_9]
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R4
-       96 SETTABLEKS                       R16 R14 K42 ["upsertItem"]
-       98 DUPCLOSURE                       R16 K43 [PROTO_10]
-       99 CAPTURE                          VAL R12
-      100 SETTABLEKS                       R16 R14 K44 ["upsertItemForList"]
-      102 DUPCLOSURE                       R16 K45 [PROTO_11]
-      103 SETTABLEKS                       R16 R14 K46 ["setTargetCount"]
-      105 DUPCLOSURE                       R16 K47 [PROTO_12]
-      106 SETTABLEKS                       R16 R14 K48 ["updateItemsByFilter"]
-      108 DUPCLOSURE                       R16 K49 [PROTO_13]
-      109 SETTABLEKS                       R16 R14 K50 ["updateItemsInListByFilter"]
-      111 DUPCLOSURE                       R16 K51 [PROTO_14]
-      112 SETTABLEKS                       R16 R14 K52 ["deleteItem"]
-      114 DUPCLOSURE                       R16 K53 [PROTO_15]
-      115 SETTABLEKS                       R16 R14 K54 ["removeItemFromList"]
-      117 DUPCLOSURE                       R16 K55 [PROTO_16]
-      118 SETTABLEKS                       R16 R14 K56 ["dirtyList"]
-      120 DUPCLOSURE                       R16 K57 [PROTO_18]
-      121 SETTABLEKS                       R16 R14 K58 ["dirtyCache"]
-      123 DUPCLOSURE                       R16 K59 [PROTO_19]
-      124 SETTABLEKS                       R16 R14 K60 ["refresh"]
-      126 DUPCLOSURE                       R16 K61 [PROTO_20]
-      127 CAPTURE                          VAL R12
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R15
-      130 SETTABLEKS                       R16 R14 K62 ["updateList"]
-      132 DUPCLOSURE                       R16 K63 [PROTO_25]
-      133 CAPTURE                          VAL R10
-      134 CAPTURE                          VAL R9
-      135 CAPTURE                          VAL R8
-      136 CAPTURE                          VAL R11
-      137 CAPTURE                          VAL R7
-      138 SETTABLEKS                       R16 R14 K64 ["use"]
-      140 DUPCLOSURE                       R16 K65 [PROTO_26]
-      141 CAPTURE                          VAL R11
-      142 SETTABLEKS                       R16 R14 K66 ["invalidateList"]
-      144 DUPCLOSURE                       R16 K67 [PROTO_27]
-      145 SETTABLEKS                       R16 R14 K68 ["reset"]
-      147 RETURN                           R14 1
+       69 DUPTABLE                         R15 K29 [{["IsPlaceholder"] = True}]
+       70 DUPCLOSURE                       R16 K30 [PROTO_2]
+       71 CAPTURE                          VAL R2
+       72 CAPTURE                          VAL R14
+       73 SETTABLEKS                       R16 R14 K31 ["new"]
+       75 DUPCLOSURE                       R16 K32 [PROTO_3]
+       76 SETTABLEKS                       R16 R14 K33 ["getList"]
+       78 DUPCLOSURE                       R16 K34 [PROTO_4]
+       79 SETTABLEKS                       R16 R14 K35 ["upsertItems"]
+       81 DUPCLOSURE                       R16 K36 [PROTO_5]
+       82 SETTABLEKS                       R16 R14 K37 ["getItem"]
+       84 DUPCLOSURE                       R16 K38 [PROTO_6]
+       85 SETTABLEKS                       R16 R14 K39 ["setItemsForPage"]
+       87 DUPCLOSURE                       R16 K40 [PROTO_7]
+       88 SETTABLEKS                       R16 R14 K41 ["upsertItemsForList"]
+       90 DUPCLOSURE                       R16 K42 [PROTO_9]
+       91 CAPTURE                          VAL R5
+       92 CAPTURE                          VAL R4
+       93 SETTABLEKS                       R16 R14 K43 ["upsertItem"]
+       95 DUPCLOSURE                       R16 K44 [PROTO_10]
+       96 CAPTURE                          VAL R12
+       97 SETTABLEKS                       R16 R14 K45 ["upsertItemForList"]
+       99 DUPCLOSURE                       R16 K46 [PROTO_11]
+      100 SETTABLEKS                       R16 R14 K47 ["setTargetCount"]
+      102 DUPCLOSURE                       R16 K48 [PROTO_12]
+      103 SETTABLEKS                       R16 R14 K49 ["updateItemsByFilter"]
+      105 DUPCLOSURE                       R16 K50 [PROTO_13]
+      106 SETTABLEKS                       R16 R14 K51 ["updateItemsInListByFilter"]
+      108 DUPCLOSURE                       R16 K52 [PROTO_14]
+      109 SETTABLEKS                       R16 R14 K53 ["deleteItem"]
+      111 DUPCLOSURE                       R16 K54 [PROTO_15]
+      112 SETTABLEKS                       R16 R14 K55 ["removeItemFromList"]
+      114 DUPCLOSURE                       R16 K56 [PROTO_16]
+      115 SETTABLEKS                       R16 R14 K57 ["dirtyList"]
+      117 DUPCLOSURE                       R16 K58 [PROTO_18]
+      118 SETTABLEKS                       R16 R14 K59 ["dirtyCache"]
+      120 DUPCLOSURE                       R16 K60 [PROTO_19]
+      121 SETTABLEKS                       R16 R14 K61 ["refresh"]
+      123 DUPCLOSURE                       R16 K62 [PROTO_20]
+      124 CAPTURE                          VAL R12
+      125 CAPTURE                          VAL R13
+      126 CAPTURE                          VAL R15
+      127 SETTABLEKS                       R16 R14 K63 ["updateList"]
+      129 DUPCLOSURE                       R16 K64 [PROTO_25]
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R9
+      132 CAPTURE                          VAL R8
+      133 CAPTURE                          VAL R11
+      134 CAPTURE                          VAL R7
+      135 SETTABLEKS                       R16 R14 K65 ["use"]
+      137 DUPCLOSURE                       R16 K66 [PROTO_26]
+      138 CAPTURE                          VAL R11
+      139 SETTABLEKS                       R16 R14 K67 ["invalidateList"]
+      141 DUPCLOSURE                       R16 K68 [PROTO_27]
+      142 SETTABLEKS                       R16 R14 K69 ["reset"]
+      144 RETURN                           R14 1

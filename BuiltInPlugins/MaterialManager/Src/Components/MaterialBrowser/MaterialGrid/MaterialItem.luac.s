@@ -8,21 +8,17 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hover"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hover"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hover"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hover"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -57,11 +53,9 @@ PROTO_4:
        12 NEWCLOSURE                       R1 P3
        13 CAPTURE                          VAL R0
        14 SETTABLEKS                       R1 R0 K3 ["applyToSelection"]
-       16 DUPTABLE                         R1 K5 [{"hover"}]
-       17 LOADB                            R2 0
-       18 SETTABLEKS                       R2 R1 K4 ["hover"]
-       20 SETTABLEKS                       R1 R0 K6 ["state"]
-       22 RETURN                           R0 0
+       16 DUPTABLE                         R1 K6 [{["hover"] = False}]
+       17 SETTABLEKS                       R1 R0 K7 ["state"]
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

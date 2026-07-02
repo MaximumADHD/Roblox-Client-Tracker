@@ -113,111 +113,97 @@ MAIN:
       132 GETTABLEKS                       R10 R5 K25 ["RibbonBarHover"]
       134 SETTABLEKS                       R10 R9 K47 ["buttonHover"]
       136 SETTABLEKS                       R9 R8 K36 ["ribbonItem"]
-      138 DUPTABLE                         R9 K61 [{"height", "borderColor", "iconColor", "moreIcon", "uncheckedIcon", "checkedIcon", "disableTeamCreateColor"}]
-      139 LOADN                            R10 24
-      140 SETTABLEKS                       R10 R9 K54 ["height"]
-      142 GETTABLEKS                       R10 R5 K62 ["Border"]
-      144 SETTABLEKS                       R10 R9 K55 ["borderColor"]
-      146 GETTABLEKS                       R10 R5 K63 ["ButtonText"]
-      148 SETTABLEKS                       R10 R9 K56 ["iconColor"]
-      150 GETTABLEKS                       R10 R5 K23 ["MoreIcon"]
-      152 SETTABLEKS                       R10 R9 K57 ["moreIcon"]
-      154 GETTABLEKS                       R10 R5 K21 ["CheckboxOffIcon"]
-      156 SETTABLEKS                       R10 R9 K58 ["uncheckedIcon"]
-      158 GETTABLEKS                       R10 R5 K19 ["CheckboxOnIcon"]
-      160 SETTABLEKS                       R10 R9 K59 ["checkedIcon"]
-      162 GETIMPORT                        R10 K28 [Color3.fromRGB]
-      164 LOADN                            R11 244
-      165 LOADN                            R12 100
-      166 LOADN                            R13 93
-      167 CALL                             R10 3 1
-      168 SETTABLEKS                       R10 R9 K60 ["disableTeamCreateColor"]
-      170 SETTABLEKS                       R9 R8 K37 ["footer"]
-      172 DUPTABLE                         R9 K65 [{"height", "background", "border"}]
-      173 LOADN                            R10 28
-      174 SETTABLEKS                       R10 R9 K54 ["height"]
-      176 GETTABLEKS                       R10 R5 K66 ["SubBackground"]
-      178 SETTABLEKS                       R10 R9 K44 ["background"]
-      180 GETTABLEKS                       R10 R5 K62 ["Border"]
-      182 SETTABLEKS                       R10 R9 K64 ["border"]
-      184 SETTABLEKS                       R9 R8 K38 ["highlightToggle"]
-      186 DUPTABLE                         R9 K72 [{"size", "expandedSize", "thumbnailSize", "hoveredBackground", "usernamePosition", "subtitlePosition"}]
-      187 GETIMPORT                        R10 K51 [UDim2.new]
-      189 LOADN                            R11 1
-      190 LOADN                            R12 0
-      191 LOADN                            R13 0
-      192 LOADN                            R14 58
-      193 CALL                             R10 4 1
-      194 SETTABLEKS                       R10 R9 K43 ["size"]
-      196 GETIMPORT                        R10 K51 [UDim2.new]
-      198 LOADN                            R11 1
-      199 LOADN                            R12 0
-      200 LOADN                            R13 0
-      201 LOADN                            R14 96
-      202 CALL                             R10 4 1
-      203 SETTABLEKS                       R10 R9 K67 ["expandedSize"]
-      205 GETIMPORT                        R10 K74 [UDim2.fromOffset]
-      207 LOADN                            R11 42
-      208 LOADN                            R12 42
-      209 CALL                             R10 2 1
-      210 SETTABLEKS                       R10 R9 K68 ["thumbnailSize"]
-      212 GETTABLEKS                       R10 R5 K66 ["SubBackground"]
-      214 SETTABLEKS                       R10 R9 K69 ["hoveredBackground"]
-      216 GETIMPORT                        R10 K74 [UDim2.fromOffset]
-      218 LOADN                            R11 48
-      219 LOADN                            R12 4
-      220 CALL                             R10 2 1
-      221 SETTABLEKS                       R10 R9 K70 ["usernamePosition"]
-      223 GETIMPORT                        R10 K74 [UDim2.fromOffset]
-      225 LOADN                            R11 48
-      226 LOADN                            R12 24
-      227 CALL                             R10 2 1
-      228 SETTABLEKS                       R10 R9 K71 ["subtitlePosition"]
-      230 SETTABLEKS                       R9 R8 K39 ["collaboratorItem"]
-      232 DUPTABLE                         R9 K78 [{"background", "hoveredBackground", "pressedBackground", "textColor", "baseStyle"}]
-      233 GETTABLEKS                       R10 R5 K53 ["ImageButtonBackground"]
-      235 SETTABLEKS                       R10 R9 K44 ["background"]
-      237 GETTABLEKS                       R10 R5 K79 ["ButtonHover"]
-      239 SETTABLEKS                       R10 R9 K69 ["hoveredBackground"]
-      241 GETTABLEKS                       R10 R5 K80 ["ButtonPressed"]
-      243 SETTABLEKS                       R10 R9 K75 ["pressedBackground"]
-      245 GETTABLEKS                       R10 R5 K81 ["TextPrimary"]
-      247 SETTABLEKS                       R10 R9 K76 ["textColor"]
-      249 DUPTABLE                         R10 K85 [{"BackgroundImage", "SliceCenter", "BorderSize"}]
-      250 LOADK                            R11 K86 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
-      251 SETTABLEKS                       R11 R10 K82 ["BackgroundImage"]
-      253 GETIMPORT                        R11 K88 [Rect.new]
-      255 LOADN                            R12 3
-      256 LOADN                            R13 3
-      257 LOADN                            R14 13
-      258 LOADN                            R15 13
-      259 CALL                             R11 4 1
-      260 SETTABLEKS                       R11 R10 K83 ["SliceCenter"]
-      262 LOADN                            R11 0
-      263 SETTABLEKS                       R11 R10 K84 ["BorderSize"]
-      265 SETTABLEKS                       R10 R9 K77 ["baseStyle"]
-      267 SETTABLEKS                       R9 R8 K40 ["jumpButton"]
-      269 DUPTABLE                         R9 K95 [{"avatarBackground", "avatarIdleBackground", "avatarSizeRatio", "idleTint", "loadingImage", "loadFailureImage"}]
-      270 GETTABLEKS                       R10 R5 K96 ["SecondaryContrast"]
-      272 SETTABLEKS                       R10 R9 K89 ["avatarBackground"]
-      274 GETTABLEKS                       R10 R5 K97 ["ForegroundContrast"]
-      276 SETTABLEKS                       R10 R9 K90 ["avatarIdleBackground"]
-      278 LOADK                            R10 K98 [0.75]
-      279 SETTABLEKS                       R10 R9 K91 ["avatarSizeRatio"]
-      281 GETIMPORT                        R10 K28 [Color3.fromRGB]
-      283 LOADN                            R11 140
-      284 LOADN                            R12 140
-      285 LOADN                            R13 140
-      286 CALL                             R10 3 1
-      287 SETTABLEKS                       R10 R9 K92 ["idleTint"]
-      289 LOADK                            R10 K99 ["rbxasset://textures/StudioSharedUI/default_user.png"]
-      290 SETTABLEKS                       R10 R9 K93 ["loadingImage"]
-      292 LOADK                            R10 K100 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-      293 SETTABLEKS                       R10 R9 K94 ["loadFailureImage"]
-      295 SETTABLEKS                       R9 R8 K41 ["userThumbnail"]
-      297 DUPCLOSURE                       R9 K101 [PROTO_0]
-      298 CAPTURE                          VAL R4
-      299 CAPTURE                          VAL R7
-      300 CAPTURE                          VAL R6
-      301 CAPTURE                          VAL R8
-      302 RETURN                           R9 1
+      138 DUPTABLE                         R9 K62 [{["height"] = 24, ["borderColor"], ["iconColor"], ["moreIcon"], ["uncheckedIcon"], ["checkedIcon"], ["disableTeamCreateColor"]}]
+      139 GETTABLEKS                       R10 R5 K63 ["Border"]
+      141 SETTABLEKS                       R10 R9 K56 ["borderColor"]
+      143 GETTABLEKS                       R10 R5 K64 ["ButtonText"]
+      145 SETTABLEKS                       R10 R9 K57 ["iconColor"]
+      147 GETTABLEKS                       R10 R5 K23 ["MoreIcon"]
+      149 SETTABLEKS                       R10 R9 K58 ["moreIcon"]
+      151 GETTABLEKS                       R10 R5 K21 ["CheckboxOffIcon"]
+      153 SETTABLEKS                       R10 R9 K59 ["uncheckedIcon"]
+      155 GETTABLEKS                       R10 R5 K19 ["CheckboxOnIcon"]
+      157 SETTABLEKS                       R10 R9 K60 ["checkedIcon"]
+      159 GETIMPORT                        R10 K28 [Color3.fromRGB]
+      161 LOADN                            R11 244
+      162 LOADN                            R12 100
+      163 LOADN                            R13 93
+      164 CALL                             R10 3 1
+      165 SETTABLEKS                       R10 R9 K61 ["disableTeamCreateColor"]
+      167 SETTABLEKS                       R9 R8 K37 ["footer"]
+      169 DUPTABLE                         R9 K67 [{["height"] = 28, ["background"], ["border"]}]
+      170 GETTABLEKS                       R10 R5 K68 ["SubBackground"]
+      172 SETTABLEKS                       R10 R9 K44 ["background"]
+      174 GETTABLEKS                       R10 R5 K63 ["Border"]
+      176 SETTABLEKS                       R10 R9 K66 ["border"]
+      178 SETTABLEKS                       R9 R8 K38 ["highlightToggle"]
+      180 DUPTABLE                         R9 K74 [{"size", "expandedSize", "thumbnailSize", "hoveredBackground", "usernamePosition", "subtitlePosition"}]
+      181 GETIMPORT                        R10 K51 [UDim2.new]
+      183 LOADN                            R11 1
+      184 LOADN                            R12 0
+      185 LOADN                            R13 0
+      186 LOADN                            R14 58
+      187 CALL                             R10 4 1
+      188 SETTABLEKS                       R10 R9 K43 ["size"]
+      190 GETIMPORT                        R10 K51 [UDim2.new]
+      192 LOADN                            R11 1
+      193 LOADN                            R12 0
+      194 LOADN                            R13 0
+      195 LOADN                            R14 96
+      196 CALL                             R10 4 1
+      197 SETTABLEKS                       R10 R9 K69 ["expandedSize"]
+      199 GETIMPORT                        R10 K76 [UDim2.fromOffset]
+      201 LOADN                            R11 42
+      202 LOADN                            R12 42
+      203 CALL                             R10 2 1
+      204 SETTABLEKS                       R10 R9 K70 ["thumbnailSize"]
+      206 GETTABLEKS                       R10 R5 K68 ["SubBackground"]
+      208 SETTABLEKS                       R10 R9 K71 ["hoveredBackground"]
+      210 GETIMPORT                        R10 K76 [UDim2.fromOffset]
+      212 LOADN                            R11 48
+      213 LOADN                            R12 4
+      214 CALL                             R10 2 1
+      215 SETTABLEKS                       R10 R9 K72 ["usernamePosition"]
+      217 GETIMPORT                        R10 K76 [UDim2.fromOffset]
+      219 LOADN                            R11 48
+      220 LOADN                            R12 24
+      221 CALL                             R10 2 1
+      222 SETTABLEKS                       R10 R9 K73 ["subtitlePosition"]
+      224 SETTABLEKS                       R9 R8 K39 ["collaboratorItem"]
+      226 DUPTABLE                         R9 K80 [{"background", "hoveredBackground", "pressedBackground", "textColor", "baseStyle"}]
+      227 GETTABLEKS                       R10 R5 K53 ["ImageButtonBackground"]
+      229 SETTABLEKS                       R10 R9 K44 ["background"]
+      231 GETTABLEKS                       R10 R5 K81 ["ButtonHover"]
+      233 SETTABLEKS                       R10 R9 K71 ["hoveredBackground"]
+      235 GETTABLEKS                       R10 R5 K82 ["ButtonPressed"]
+      237 SETTABLEKS                       R10 R9 K77 ["pressedBackground"]
+      239 GETTABLEKS                       R10 R5 K83 ["TextPrimary"]
+      241 SETTABLEKS                       R10 R9 K78 ["textColor"]
+      243 DUPTABLE                         R10 K89 [{["BackgroundImage"] = "rbxasset://textures/StudioToolbox/RoundedBackground.png", ["SliceCenter"], ["BorderSize"] = 0}]
+      244 GETIMPORT                        R11 K91 [Rect.new]
+      246 LOADN                            R12 3
+      247 LOADN                            R13 3
+      248 LOADN                            R14 13
+      249 LOADN                            R15 13
+      250 CALL                             R11 4 1
+      251 SETTABLEKS                       R11 R10 K86 ["SliceCenter"]
+      253 SETTABLEKS                       R10 R9 K79 ["baseStyle"]
+      255 SETTABLEKS                       R9 R8 K40 ["jumpButton"]
+      257 DUPTABLE                         R9 K101 [{["avatarBackground"], ["avatarIdleBackground"], ["avatarSizeRatio"] = 0.75, ["idleTint"], ["loadingImage"] = "rbxasset://textures/StudioSharedUI/default_user.png", ["loadFailureImage"] = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"}]
+      258 GETTABLEKS                       R10 R5 K102 ["SecondaryContrast"]
+      260 SETTABLEKS                       R10 R9 K92 ["avatarBackground"]
+      262 GETTABLEKS                       R10 R5 K103 ["ForegroundContrast"]
+      264 SETTABLEKS                       R10 R9 K93 ["avatarIdleBackground"]
+      266 GETIMPORT                        R10 K28 [Color3.fromRGB]
+      268 LOADN                            R11 140
+      269 LOADN                            R12 140
+      270 LOADN                            R13 140
+      271 CALL                             R10 3 1
+      272 SETTABLEKS                       R10 R9 K96 ["idleTint"]
+      274 SETTABLEKS                       R9 R8 K41 ["userThumbnail"]
+      276 DUPCLOSURE                       R9 K104 [PROTO_0]
+      277 CAPTURE                          VAL R4
+      278 CAPTURE                          VAL R7
+      279 CAPTURE                          VAL R6
+      280 CAPTURE                          VAL R8
+      281 RETURN                           R9 1

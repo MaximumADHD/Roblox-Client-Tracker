@@ -1,37 +1,35 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K6 [{"lastImportName", "studioDefaultName", "defaultName", "_plugin", "_store", "_localization"}]
-        1 LOADK                            R7 K7 ["Templates"]
-        2 LOADK                            R8 K8 ["LastImported"]
-        3 NAMECALL                         R5 R2 K9 ["getText"]
+        0 DUPTABLE                         R4 K7 [{[1], ["studioDefaultName"], ["defaultName"] = "", ["_plugin"], ["_store"], ["_localization"]}]
+        1 LOADK                            R7 K8 ["Templates"]
+        2 LOADK                            R8 K9 ["LastImported"]
+        3 NAMECALL                         R5 R2 K10 ["getText"]
         5 CALL                             R5 3 1
         6 SETTABLEKS                       R5 R4 K0 ["lastImportName"]
-        8 LOADK                            R7 K7 ["Templates"]
-        9 LOADK                            R8 K10 ["StudioDefault"]
-       10 NAMECALL                         R5 R2 K9 ["getText"]
+        8 LOADK                            R7 K8 ["Templates"]
+        9 LOADK                            R8 K11 ["StudioDefault"]
+       10 NAMECALL                         R5 R2 K10 ["getText"]
        12 CALL                             R5 3 1
        13 SETTABLEKS                       R5 R4 K1 ["studioDefaultName"]
-       15 LOADK                            R5 K11 [""]
-       16 SETTABLEKS                       R5 R4 K2 ["defaultName"]
-       18 SETTABLEKS                       R0 R4 K3 ["_plugin"]
-       20 SETTABLEKS                       R1 R4 K4 ["_store"]
-       22 SETTABLEKS                       R2 R4 K5 ["_localization"]
-       24 GETUPVAL                         R5 0
-       25 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       27 GETIMPORT                        R3 K13 [setmetatable]
-       29 CALL                             R3 2 1
-       30 GETTABLEKS                       R5 R3 K3 ["_plugin"]
-       32 LOADK                            R7 K14 ["AssetImporter_DefaultPreset"]
-       33 NAMECALL                         R5 R5 K15 ["GetSetting"]
-       35 CALL                             R5 2 1
-       36 JUMPIFNOT                        R5 ; [+7]
-       37 GETTABLEKS                       R4 R3 K3 ["_plugin"]
-       39 LOADK                            R6 K14 ["AssetImporter_DefaultPreset"]
-       40 NAMECALL                         R4 R4 K15 ["GetSetting"]
-       42 CALL                             R4 2 1
-       43 JUMP                             ; [+2]
-       44 GETTABLEKS                       R4 R3 K1 ["studioDefaultName"]
-       46 SETTABLEKS                       R4 R3 K2 ["defaultName"]
-       48 RETURN                           R3 1
+       15 SETTABLEKS                       R0 R4 K4 ["_plugin"]
+       17 SETTABLEKS                       R1 R4 K5 ["_store"]
+       19 SETTABLEKS                       R2 R4 K6 ["_localization"]
+       21 GETUPVAL                         R5 0
+       22 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       24 GETIMPORT                        R3 K13 [setmetatable]
+       26 CALL                             R3 2 1
+       27 GETTABLEKS                       R5 R3 K4 ["_plugin"]
+       29 LOADK                            R7 K14 ["AssetImporter_DefaultPreset"]
+       30 NAMECALL                         R5 R5 K15 ["GetSetting"]
+       32 CALL                             R5 2 1
+       33 JUMPIFNOT                        R5 ; [+7]
+       34 GETTABLEKS                       R4 R3 K4 ["_plugin"]
+       36 LOADK                            R6 K14 ["AssetImporter_DefaultPreset"]
+       37 NAMECALL                         R4 R4 K15 ["GetSetting"]
+       39 CALL                             R4 2 1
+       40 JUMP                             ; [+2]
+       41 GETTABLEKS                       R4 R3 K1 ["studioDefaultName"]
+       43 SETTABLEKS                       R4 R3 K2 ["defaultName"]
+       45 RETURN                           R3 1
 
 PROTO_1:
         0 LOADK                            R1 K0 [""]
@@ -92,23 +90,21 @@ PROTO_3:
        51 CALL                             R7 1 1
        52 GETTABLEKS                       R7 R7 K4 ["Preview"]
        54 GETTABLEKS                       R7 R7 K10 ["activeQueueItem"]
-       56 JUMPIFNOT                        R7 ; [+14]
+       56 JUMPIFNOT                        R7 ; [+11]
        57 GETTABLEKS                       R8 R0 K2 ["_store"]
        59 GETUPVAL                         R10 2
        60 MOVE                             R11 R7
-       61 DUPTABLE                         R12 K13 [{"currentPreset", "settingsChanged"}]
+       61 DUPTABLE                         R12 K14 [{["currentPreset"], ["settingsChanged"] = False}]
        62 SETTABLEKS                       R1 R12 K11 ["currentPreset"]
-       64 LOADB                            R13 0
-       65 SETTABLEKS                       R13 R12 K12 ["settingsChanged"]
-       67 CALL                             R10 2 -1
-       68 NAMECALL                         R8 R8 K14 ["dispatch"]
-       70 CALL                             R8 -1 0
-       71 GETUPVAL                         R8 0
-       72 MOVE                             R10 R1
-       73 MOVE                             R11 R6
-       74 NAMECALL                         R8 R8 K15 ["SavePreset"]
-       76 CALL                             R8 3 -1
-       77 RETURN                           R8 -1
+       64 CALL                             R10 2 -1
+       65 NAMECALL                         R8 R8 K15 ["dispatch"]
+       67 CALL                             R8 -1 0
+       68 GETUPVAL                         R8 0
+       69 MOVE                             R10 R1
+       70 MOVE                             R11 R6
+       71 NAMECALL                         R8 R8 K16 ["SavePreset"]
+       73 CALL                             R8 3 -1
+       74 RETURN                           R8 -1
 
 PROTO_4:
         0 MOVE                             R5 R1
@@ -205,14 +201,12 @@ PROTO_7:
         9 GETTABLEKS                       R2 R0 K2 ["studioDefaultName"]
        11 SETTABLEKS                       R2 R0 K1 ["defaultName"]
        13 MOVE                             R4 R1
-       14 DUPTABLE                         R5 K5 [{"currentPreset", "settingsChanged"}]
+       14 DUPTABLE                         R5 K6 [{["currentPreset"], ["settingsChanged"] = True}]
        15 GETTABLEKS                       R6 R0 K2 ["studioDefaultName"]
        17 SETTABLEKS                       R6 R5 K3 ["currentPreset"]
-       19 LOADB                            R6 1
-       20 SETTABLEKS                       R6 R5 K4 ["settingsChanged"]
-       22 NAMECALL                         R2 R0 K6 ["_updateQueueItems"]
-       24 CALL                             R2 3 0
-       25 RETURN                           R0 0
+       19 NAMECALL                         R2 R0 K7 ["_updateQueueItems"]
+       21 CALL                             R2 3 0
+       22 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["_plugin"]
@@ -321,81 +315,79 @@ PROTO_14:
        35 RETURN                           R0 0
 
 PROTO_15:
-        0 DUPTABLE                         R3 K2 [{"currentPreset", "settingsChanged"}]
+        0 DUPTABLE                         R3 K3 [{[1], ["settingsChanged"] = False}]
         1 SETTABLEKS                       R1 R3 K0 ["currentPreset"]
-        3 LOADB                            R4 0
-        4 SETTABLEKS                       R4 R3 K1 ["settingsChanged"]
-        6 GETTABLEKS                       R4 R2 K3 ["session"]
-        8 JUMPIFNOT                        R4 ; [+88]
-        9 NAMECALL                         R5 R4 K4 ["GetImportTree"]
-       11 CALL                             R5 1 1
-       12 JUMPIFNOT                        R5 ; [+84]
-       13 MOVE                             R7 R4
-       14 NAMECALL                         R5 R0 K5 ["reset"]
-       16 CALL                             R5 2 0
-       17 MOVE                             R8 R1
-       18 NAMECALL                         R6 R0 K6 ["isLastImport"]
-       20 CALL                             R6 2 1
-       21 JUMPIFNOT                        R6 ; [+7]
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R7 R0 K7 ["lastImportName"]
-       25 NAMECALL                         R5 R5 K8 ["GetPreset"]
-       27 CALL                             R5 2 1
-       28 JUMP                             ; [+5]
-       29 GETUPVAL                         R5 0
-       30 MOVE                             R7 R1
-       31 NAMECALL                         R5 R5 K8 ["GetPreset"]
-       33 CALL                             R5 2 1
-       34 MOVE                             R8 R5
-       35 NAMECALL                         R6 R4 K9 ["ApplyPreset"]
-       37 CALL                             R6 2 0
-       38 GETTABLEKS                       R6 R0 K10 ["_store"]
-       40 NAMECALL                         R6 R6 K11 ["getState"]
-       42 CALL                             R6 1 1
-       43 GETTABLEKS                       R6 R6 K12 ["Dialogs"]
-       45 GETTABLEKS                       R6 R6 K13 ["showPreview"]
-       47 JUMPIFNOT                        R6 ; [+49]
-       48 NEWTABLE                         R6 0 0
-       50 GETTABLEKS                       R7 R0 K10 ["_store"]
-       52 NAMECALL                         R7 R7 K11 ["getState"]
-       54 CALL                             R7 1 1
-       55 GETTABLEKS                       R7 R7 K14 ["Preview"]
-       57 GETTABLEKS                       R7 R7 K15 ["importDataChecked"]
-       59 MOVE                             R8 R7
-       60 LOADNIL                          R9
-       61 LOADNIL                          R10
-       62 FORGPREP                         R8
-       63 GETTABLEKS                       R13 R11 K16 ["ShouldImport"]
-       65 SETTABLE                         R13 R6 R11
-       66 FORGLOOP                         R8 2 ; [-4]
-       68 GETTABLEKS                       R8 R0 K10 ["_store"]
-       70 GETUPVAL                         R10 1
-       71 MOVE                             R11 R6
-       72 CALL                             R10 1 -1
-       73 NAMECALL                         R8 R8 K17 ["dispatch"]
-       75 CALL                             R8 -1 0
-       76 GETTABLEKS                       R8 R0 K10 ["_store"]
-       78 NAMECALL                         R8 R8 K11 ["getState"]
-       80 CALL                             R8 1 1
-       81 GETTABLEKS                       R8 R8 K14 ["Preview"]
-       83 GETTABLEKS                       R8 R8 K18 ["selectedImportItem"]
-       85 JUMPIFNOT                        R8 ; [+11]
-       86 NAMECALL                         R9 R8 K19 ["GetPreview"]
-       88 CALL                             R9 1 1
-       89 GETTABLEKS                       R10 R0 K10 ["_store"]
-       91 GETUPVAL                         R12 2
-       92 MOVE                             R13 R9
-       93 CALL                             R12 1 -1
-       94 NAMECALL                         R10 R10 K17 ["dispatch"]
-       96 CALL                             R10 -1 0
-       97 GETTABLEKS                       R5 R0 K10 ["_store"]
-       99 GETUPVAL                         R7 3
-      100 MOVE                             R8 R2
-      101 MOVE                             R9 R3
-      102 CALL                             R7 2 -1
-      103 NAMECALL                         R5 R5 K17 ["dispatch"]
-      105 CALL                             R5 -1 -1
-      106 RETURN                           R5 -1
+        3 GETTABLEKS                       R4 R2 K4 ["session"]
+        5 JUMPIFNOT                        R4 ; [+88]
+        6 NAMECALL                         R5 R4 K5 ["GetImportTree"]
+        8 CALL                             R5 1 1
+        9 JUMPIFNOT                        R5 ; [+84]
+       10 MOVE                             R7 R4
+       11 NAMECALL                         R5 R0 K6 ["reset"]
+       13 CALL                             R5 2 0
+       14 MOVE                             R8 R1
+       15 NAMECALL                         R6 R0 K7 ["isLastImport"]
+       17 CALL                             R6 2 1
+       18 JUMPIFNOT                        R6 ; [+7]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R7 R0 K8 ["lastImportName"]
+       22 NAMECALL                         R5 R5 K9 ["GetPreset"]
+       24 CALL                             R5 2 1
+       25 JUMP                             ; [+5]
+       26 GETUPVAL                         R5 0
+       27 MOVE                             R7 R1
+       28 NAMECALL                         R5 R5 K9 ["GetPreset"]
+       30 CALL                             R5 2 1
+       31 MOVE                             R8 R5
+       32 NAMECALL                         R6 R4 K10 ["ApplyPreset"]
+       34 CALL                             R6 2 0
+       35 GETTABLEKS                       R6 R0 K11 ["_store"]
+       37 NAMECALL                         R6 R6 K12 ["getState"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R6 R6 K13 ["Dialogs"]
+       42 GETTABLEKS                       R6 R6 K14 ["showPreview"]
+       44 JUMPIFNOT                        R6 ; [+49]
+       45 NEWTABLE                         R6 0 0
+       47 GETTABLEKS                       R7 R0 K11 ["_store"]
+       49 NAMECALL                         R7 R7 K12 ["getState"]
+       51 CALL                             R7 1 1
+       52 GETTABLEKS                       R7 R7 K15 ["Preview"]
+       54 GETTABLEKS                       R7 R7 K16 ["importDataChecked"]
+       56 MOVE                             R8 R7
+       57 LOADNIL                          R9
+       58 LOADNIL                          R10
+       59 FORGPREP                         R8
+       60 GETTABLEKS                       R13 R11 K17 ["ShouldImport"]
+       62 SETTABLE                         R13 R6 R11
+       63 FORGLOOP                         R8 2 ; [-4]
+       65 GETTABLEKS                       R8 R0 K11 ["_store"]
+       67 GETUPVAL                         R10 1
+       68 MOVE                             R11 R6
+       69 CALL                             R10 1 -1
+       70 NAMECALL                         R8 R8 K18 ["dispatch"]
+       72 CALL                             R8 -1 0
+       73 GETTABLEKS                       R8 R0 K11 ["_store"]
+       75 NAMECALL                         R8 R8 K12 ["getState"]
+       77 CALL                             R8 1 1
+       78 GETTABLEKS                       R8 R8 K15 ["Preview"]
+       80 GETTABLEKS                       R8 R8 K19 ["selectedImportItem"]
+       82 JUMPIFNOT                        R8 ; [+11]
+       83 NAMECALL                         R9 R8 K20 ["GetPreview"]
+       85 CALL                             R9 1 1
+       86 GETTABLEKS                       R10 R0 K11 ["_store"]
+       88 GETUPVAL                         R12 2
+       89 MOVE                             R13 R9
+       90 CALL                             R12 1 -1
+       91 NAMECALL                         R10 R10 K18 ["dispatch"]
+       93 CALL                             R10 -1 0
+       94 GETTABLEKS                       R5 R0 K11 ["_store"]
+       96 GETUPVAL                         R7 3
+       97 MOVE                             R8 R2
+       98 MOVE                             R9 R3
+       99 CALL                             R7 2 -1
+      100 NAMECALL                         R5 R5 K18 ["dispatch"]
+      102 CALL                             R5 -1 -1
+      103 RETURN                           R5 -1
 
 PROTO_16:
         0 GETUPVAL                         R2 0

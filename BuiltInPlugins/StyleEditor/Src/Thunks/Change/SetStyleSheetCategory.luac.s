@@ -35,20 +35,16 @@ PROTO_1:
         3 GETTABLEKS                       R3 R2 K1 ["Window"]
         5 GETTABLEKS                       R3 R3 K2 ["Source"]
         7 GETTABLEKS                       R4 R1 K3 ["recordChange"]
-        9 DUPTABLE                         R5 K7 [{"Name", "DisplayName", "DoChange"}]
-       10 LOADK                            R6 K8 ["StyleEditor/SetStyleSheetCategory"]
-       11 SETTABLEKS                       R6 R5 K4 ["Name"]
-       13 LOADK                            R6 K9 ["StyleEditor - Set StyleSheet Category"]
-       14 SETTABLEKS                       R6 R5 K5 ["DisplayName"]
-       16 NEWCLOSURE                       R6 P0
-       17 CAPTURE                          UPVAL U0
-       18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          UPVAL U2
-       20 CAPTURE                          VAL R3
-       21 CAPTURE                          UPVAL U3
-       22 SETTABLEKS                       R6 R5 K6 ["DoChange"]
-       24 CALL                             R4 1 0
-       25 RETURN                           R0 0
+        9 DUPTABLE                         R5 K9 [{["Name"] = "StyleEditor/SetStyleSheetCategory", ["DisplayName"] = "StyleEditor - Set StyleSheet Category", ["DoChange"]}]
+       10 NEWCLOSURE                       R6 P0
+       11 CAPTURE                          UPVAL U0
+       12 CAPTURE                          UPVAL U1
+       13 CAPTURE                          UPVAL U2
+       14 CAPTURE                          VAL R3
+       15 CAPTURE                          UPVAL U3
+       16 SETTABLEKS                       R6 R5 K8 ["DoChange"]
+       18 CALL                             R4 1 0
+       19 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

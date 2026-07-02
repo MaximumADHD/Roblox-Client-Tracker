@@ -104,180 +104,176 @@ PROTO_6:
        14 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R3 K10 [{"store", "analytics", "updateTriggered", "enabled", "tags", "onUpdate", "_tagFolderSet", "_defaultTagsFolder", "_maid", "_gaveDuplicateWarningsFor"}]
+        0 DUPTABLE                         R3 K11 [{[1], ["analytics"], ["updateTriggered"] = False, ["enabled"] = False, ["tags"], ["onUpdate"], ["_tagFolderSet"], ["_defaultTagsFolder"], ["_maid"], ["_gaveDuplicateWarningsFor"]}]
         1 SETTABLEKS                       R0 R3 K0 ["store"]
         3 SETTABLEKS                       R1 R3 K1 ["analytics"]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K2 ["updateTriggered"]
-        8 LOADB                            R4 0
-        9 SETTABLEKS                       R4 R3 K3 ["enabled"]
-       11 NEWTABLE                         R4 0 0
-       13 SETTABLEKS                       R4 R3 K4 ["tags"]
-       15 NEWTABLE                         R4 0 0
-       17 SETTABLEKS                       R4 R3 K5 ["onUpdate"]
-       19 NEWTABLE                         R4 0 0
-       21 SETTABLEKS                       R4 R3 K6 ["_tagFolderSet"]
-       23 GETUPVAL                         R4 0
-       24 LOADK                            R6 K11 ["TagList"]
-       25 NAMECALL                         R4 R4 K12 ["FindFirstChild"]
-       27 CALL                             R4 2 1
-       28 JUMPIF                           R4 ; [+6]
-       29 GETUPVAL                         R5 1
-       30 LOADK                            R7 K13 ["TagEditorTagContainer"]
-       31 NAMECALL                         R5 R5 K14 ["GetTagged"]
-       33 CALL                             R5 2 1
-       34 GETTABLEN                        R4 R5 1
-       35 SETTABLEKS                       R4 R3 K7 ["_defaultTagsFolder"]
-       37 GETUPVAL                         R4 2
-       38 GETTABLEKS                       R4 R4 K15 ["new"]
-       40 CALL                             R4 0 1
-       41 SETTABLEKS                       R4 R3 K8 ["_maid"]
-       43 NEWTABLE                         R4 0 0
-       45 SETTABLEKS                       R4 R3 K9 ["_gaveDuplicateWarningsFor"]
-       47 GETUPVAL                         R4 3
-       48 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       50 GETIMPORT                        R2 K17 [setmetatable]
-       52 CALL                             R2 2 1
-       53 GETUPVAL                         R3 3
-       54 SETTABLEKS                       R2 R3 K18 ["_global"]
-       56 GETTABLEKS                       R4 R2 K7 ["_defaultTagsFolder"]
-       58 JUMPIF                           R4 ; [+2]
-       59 LOADB                            R3 0
-       60 JUMP                             ; [+14]
-       61 NAMECALL                         R5 R4 K19 ["GetChildren"]
-       63 CALL                             R5 1 3
-       64 FORGPREP                         R5
-       65 LOADK                            R12 K20 ["Folder"]
-       66 NAMECALL                         R10 R9 K21 ["IsA"]
-       68 CALL                             R10 2 1
-       69 JUMPIFNOT                        R10 ; [+2]
-       70 LOADB                            R3 1
-       71 JUMP                             ; [+3]
-       72 FORGLOOP                         R5 2 ; [-8]
-       74 LOADB                            R3 0
-       75 JUMPIFNOT                        R3 ; [+102]
-       76 GETUPVAL                         R3 4
-       77 LOADK                            R5 K22 ["Migrating tags folder"]
-       78 NAMECALL                         R3 R3 K23 ["SetWaypoint"]
-       80 CALL                             R3 2 0
-       81 LOADN                            R3 0
-       82 GETIMPORT                        R4 K25 [pairs]
-       84 GETTABLEKS                       R5 R2 K7 ["_defaultTagsFolder"]
-       86 NAMECALL                         R5 R5 K19 ["GetChildren"]
-       88 CALL                             R5 1 -1
-       89 CALL                             R4 -1 3
-       90 FORGPREP_NEXT                    R4
-       91 LOADK                            R11 K20 ["Folder"]
-       92 NAMECALL                         R9 R8 K21 ["IsA"]
-       94 CALL                             R9 2 1
-       95 JUMPIFNOT                        R9 ; [+57]
-       96 GETIMPORT                        R9 K27 [Instance.new]
-       98 LOADK                            R10 K28 ["Configuration"]
-       99 CALL                             R9 1 1
-      100 GETTABLEKS                       R10 R8 K29 ["Name"]
-      102 SETTABLEKS                       R10 R9 K29 ["Name"]
-      104 NEWTABLE                         R10 0 0
-      106 GETIMPORT                        R11 K25 [pairs]
-      108 NAMECALL                         R12 R8 K19 ["GetChildren"]
-      110 CALL                             R12 1 -1
-      111 CALL                             R11 -1 3
-      112 FORGPREP_NEXT                    R11
-      113 LOADK                            R18 K30 ["ValueBase"]
-      114 NAMECALL                         R16 R15 K21 ["IsA"]
-      116 CALL                             R16 2 1
-      117 JUMPIFNOT                        R16 ; [+11]
-      118 GETTABLEKS                       R18 R15 K29 ["Name"]
-      120 GETTABLEKS                       R19 R15 K31 ["Value"]
-      122 NAMECALL                         R16 R9 K32 ["SetAttribute"]
-      124 CALL                             R16 3 0
-      125 GETTABLEKS                       R16 R15 K29 ["Name"]
-      127 LOADB                            R17 1
-      128 SETTABLE                         R17 R10 R16
-      129 FORGLOOP                         R11 2 ; [-17]
-      131 GETIMPORT                        R11 K25 [pairs]
-      133 GETUPVAL                         R12 5
-      134 CALL                             R11 1 3
-      135 FORGPREP_NEXT                    R11
-      136 GETTABLE                         R16 R10 R14
-      137 JUMPIF                           R16 ; [+5]
-      138 MOVE                             R18 R14
-      139 MOVE                             R19 R15
-      140 NAMECALL                         R16 R9 K32 ["SetAttribute"]
-      142 CALL                             R16 3 0
-      143 FORGLOOP                         R11 2 ; [-8]
-      145 GETTABLEKS                       R11 R2 K7 ["_defaultTagsFolder"]
-      147 SETTABLEKS                       R11 R9 K33 ["Parent"]
-      149 LOADNIL                          R11
-      150 SETTABLEKS                       R11 R8 K33 ["Parent"]
-      152 ADDK                             R3 R3 K34 [1]
-      153 FORGLOOP                         R4 2 ; [-63]
-      155 LOADN                            R4 0
-      156 JUMPIFNOTLT                      R4 R3 ; [+9]
-      158 GETIMPORT                        R4 K36 [print]
-      160 GETIMPORT                        R5 K39 [string.format]
-      162 LOADK                            R6 K40 ["TagEditor: Converted %d tags to attribute-based format."]
-      163 MOVE                             R7 R3
-      164 CALL                             R5 2 -1
-      165 CALL                             R4 -1 0
-      166 GETUPVAL                         R4 6
-      167 GETTABLEKS                       R6 R2 K7 ["_defaultTagsFolder"]
-      169 LOADK                            R7 K13 ["TagEditorTagContainer"]
-      170 NAMECALL                         R4 R4 K41 ["AddTag"]
-      172 CALL                             R4 3 0
-      173 GETUPVAL                         R4 4
-      174 LOADK                            R6 K42 ["Migrated tags folder"]
-      175 NAMECALL                         R4 R4 K23 ["SetWaypoint"]
-      177 CALL                             R4 2 0
-      178 NAMECALL                         R3 R2 K43 ["_updateStore"]
-      180 CALL                             R3 1 0
-      181 GETTABLEKS                       R3 R2 K8 ["_maid"]
-      183 GETUPVAL                         R5 7
-      184 GETTABLEKS                       R5 R5 K44 ["SelectionChanged"]
-      186 NEWCLOSURE                       R7 P0
-      187 CAPTURE                          VAL R2
-      188 NAMECALL                         R5 R5 K45 ["Connect"]
-      190 CALL                             R5 2 -1
-      191 NAMECALL                         R3 R3 K46 ["give"]
-      193 CALL                             R3 -1 0
-      194 GETTABLEKS                       R3 R2 K7 ["_defaultTagsFolder"]
-      196 JUMPIFNOT                        R3 ; [+5]
-      197 GETTABLEKS                       R5 R2 K7 ["_defaultTagsFolder"]
-      199 NAMECALL                         R3 R2 K47 ["_watchFolder"]
-      201 CALL                             R3 2 0
-      202 GETTABLEKS                       R3 R2 K8 ["_maid"]
-      204 GETUPVAL                         R5 6
-      205 LOADK                            R7 K13 ["TagEditorTagContainer"]
-      206 NAMECALL                         R5 R5 K48 ["GetInstanceAddedSignal"]
-      208 CALL                             R5 2 1
-      209 NEWCLOSURE                       R7 P1
-      210 CAPTURE                          VAL R2
-      211 NAMECALL                         R5 R5 K45 ["Connect"]
-      213 CALL                             R5 2 -1
-      214 NAMECALL                         R3 R3 K46 ["give"]
-      216 CALL                             R3 -1 0
-      217 GETTABLEKS                       R3 R2 K8 ["_maid"]
-      219 GETUPVAL                         R5 6
-      220 LOADK                            R7 K13 ["TagEditorTagContainer"]
-      221 NAMECALL                         R5 R5 K49 ["GetInstanceRemovedSignal"]
-      223 CALL                             R5 2 1
-      224 NEWCLOSURE                       R7 P2
-      225 CAPTURE                          VAL R2
-      226 NAMECALL                         R5 R5 K45 ["Connect"]
-      228 CALL                             R5 2 -1
-      229 NAMECALL                         R3 R3 K46 ["give"]
-      231 CALL                             R3 -1 0
-      232 GETIMPORT                        R3 K25 [pairs]
-      234 GETUPVAL                         R4 6
-      235 LOADK                            R6 K13 ["TagEditorTagContainer"]
-      236 NAMECALL                         R4 R4 K14 ["GetTagged"]
-      238 CALL                             R4 2 -1
-      239 CALL                             R3 -1 3
-      240 FORGPREP_NEXT                    R3
-      241 MOVE                             R10 R7
-      242 NAMECALL                         R8 R2 K47 ["_watchFolder"]
-      244 CALL                             R8 2 0
-      245 FORGLOOP                         R3 2 ; [-5]
-      247 RETURN                           R2 1
+        5 NEWTABLE                         R4 0 0
+        7 SETTABLEKS                       R4 R3 K5 ["tags"]
+        9 NEWTABLE                         R4 0 0
+       11 SETTABLEKS                       R4 R3 K6 ["onUpdate"]
+       13 NEWTABLE                         R4 0 0
+       15 SETTABLEKS                       R4 R3 K7 ["_tagFolderSet"]
+       17 GETUPVAL                         R4 0
+       18 LOADK                            R6 K12 ["TagList"]
+       19 NAMECALL                         R4 R4 K13 ["FindFirstChild"]
+       21 CALL                             R4 2 1
+       22 JUMPIF                           R4 ; [+6]
+       23 GETUPVAL                         R5 1
+       24 LOADK                            R7 K14 ["TagEditorTagContainer"]
+       25 NAMECALL                         R5 R5 K15 ["GetTagged"]
+       27 CALL                             R5 2 1
+       28 GETTABLEN                        R4 R5 1
+       29 SETTABLEKS                       R4 R3 K8 ["_defaultTagsFolder"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLEKS                       R4 R4 K16 ["new"]
+       34 CALL                             R4 0 1
+       35 SETTABLEKS                       R4 R3 K9 ["_maid"]
+       37 NEWTABLE                         R4 0 0
+       39 SETTABLEKS                       R4 R3 K10 ["_gaveDuplicateWarningsFor"]
+       41 GETUPVAL                         R4 3
+       42 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       44 GETIMPORT                        R2 K18 [setmetatable]
+       46 CALL                             R2 2 1
+       47 GETUPVAL                         R3 3
+       48 SETTABLEKS                       R2 R3 K19 ["_global"]
+       50 GETTABLEKS                       R4 R2 K8 ["_defaultTagsFolder"]
+       52 JUMPIF                           R4 ; [+2]
+       53 LOADB                            R3 0
+       54 JUMP                             ; [+14]
+       55 NAMECALL                         R5 R4 K20 ["GetChildren"]
+       57 CALL                             R5 1 3
+       58 FORGPREP                         R5
+       59 LOADK                            R12 K21 ["Folder"]
+       60 NAMECALL                         R10 R9 K22 ["IsA"]
+       62 CALL                             R10 2 1
+       63 JUMPIFNOT                        R10 ; [+2]
+       64 LOADB                            R3 1
+       65 JUMP                             ; [+3]
+       66 FORGLOOP                         R5 2 ; [-8]
+       68 LOADB                            R3 0
+       69 JUMPIFNOT                        R3 ; [+102]
+       70 GETUPVAL                         R3 4
+       71 LOADK                            R5 K23 ["Migrating tags folder"]
+       72 NAMECALL                         R3 R3 K24 ["SetWaypoint"]
+       74 CALL                             R3 2 0
+       75 LOADN                            R3 0
+       76 GETIMPORT                        R4 K26 [pairs]
+       78 GETTABLEKS                       R5 R2 K8 ["_defaultTagsFolder"]
+       80 NAMECALL                         R5 R5 K20 ["GetChildren"]
+       82 CALL                             R5 1 -1
+       83 CALL                             R4 -1 3
+       84 FORGPREP_NEXT                    R4
+       85 LOADK                            R11 K21 ["Folder"]
+       86 NAMECALL                         R9 R8 K22 ["IsA"]
+       88 CALL                             R9 2 1
+       89 JUMPIFNOT                        R9 ; [+57]
+       90 GETIMPORT                        R9 K28 [Instance.new]
+       92 LOADK                            R10 K29 ["Configuration"]
+       93 CALL                             R9 1 1
+       94 GETTABLEKS                       R10 R8 K30 ["Name"]
+       96 SETTABLEKS                       R10 R9 K30 ["Name"]
+       98 NEWTABLE                         R10 0 0
+      100 GETIMPORT                        R11 K26 [pairs]
+      102 NAMECALL                         R12 R8 K20 ["GetChildren"]
+      104 CALL                             R12 1 -1
+      105 CALL                             R11 -1 3
+      106 FORGPREP_NEXT                    R11
+      107 LOADK                            R18 K31 ["ValueBase"]
+      108 NAMECALL                         R16 R15 K22 ["IsA"]
+      110 CALL                             R16 2 1
+      111 JUMPIFNOT                        R16 ; [+11]
+      112 GETTABLEKS                       R18 R15 K30 ["Name"]
+      114 GETTABLEKS                       R19 R15 K32 ["Value"]
+      116 NAMECALL                         R16 R9 K33 ["SetAttribute"]
+      118 CALL                             R16 3 0
+      119 GETTABLEKS                       R16 R15 K30 ["Name"]
+      121 LOADB                            R17 1
+      122 SETTABLE                         R17 R10 R16
+      123 FORGLOOP                         R11 2 ; [-17]
+      125 GETIMPORT                        R11 K26 [pairs]
+      127 GETUPVAL                         R12 5
+      128 CALL                             R11 1 3
+      129 FORGPREP_NEXT                    R11
+      130 GETTABLE                         R16 R10 R14
+      131 JUMPIF                           R16 ; [+5]
+      132 MOVE                             R18 R14
+      133 MOVE                             R19 R15
+      134 NAMECALL                         R16 R9 K33 ["SetAttribute"]
+      136 CALL                             R16 3 0
+      137 FORGLOOP                         R11 2 ; [-8]
+      139 GETTABLEKS                       R11 R2 K8 ["_defaultTagsFolder"]
+      141 SETTABLEKS                       R11 R9 K34 ["Parent"]
+      143 LOADNIL                          R11
+      144 SETTABLEKS                       R11 R8 K34 ["Parent"]
+      146 ADDK                             R3 R3 K35 [1]
+      147 FORGLOOP                         R4 2 ; [-63]
+      149 LOADN                            R4 0
+      150 JUMPIFNOTLT                      R4 R3 ; [+9]
+      152 GETIMPORT                        R4 K37 [print]
+      154 GETIMPORT                        R5 K40 [string.format]
+      156 LOADK                            R6 K41 ["TagEditor: Converted %d tags to attribute-based format."]
+      157 MOVE                             R7 R3
+      158 CALL                             R5 2 -1
+      159 CALL                             R4 -1 0
+      160 GETUPVAL                         R4 6
+      161 GETTABLEKS                       R6 R2 K8 ["_defaultTagsFolder"]
+      163 LOADK                            R7 K14 ["TagEditorTagContainer"]
+      164 NAMECALL                         R4 R4 K42 ["AddTag"]
+      166 CALL                             R4 3 0
+      167 GETUPVAL                         R4 4
+      168 LOADK                            R6 K43 ["Migrated tags folder"]
+      169 NAMECALL                         R4 R4 K24 ["SetWaypoint"]
+      171 CALL                             R4 2 0
+      172 NAMECALL                         R3 R2 K44 ["_updateStore"]
+      174 CALL                             R3 1 0
+      175 GETTABLEKS                       R3 R2 K9 ["_maid"]
+      177 GETUPVAL                         R5 7
+      178 GETTABLEKS                       R5 R5 K45 ["SelectionChanged"]
+      180 NEWCLOSURE                       R7 P0
+      181 CAPTURE                          VAL R2
+      182 NAMECALL                         R5 R5 K46 ["Connect"]
+      184 CALL                             R5 2 -1
+      185 NAMECALL                         R3 R3 K47 ["give"]
+      187 CALL                             R3 -1 0
+      188 GETTABLEKS                       R3 R2 K8 ["_defaultTagsFolder"]
+      190 JUMPIFNOT                        R3 ; [+5]
+      191 GETTABLEKS                       R5 R2 K8 ["_defaultTagsFolder"]
+      193 NAMECALL                         R3 R2 K48 ["_watchFolder"]
+      195 CALL                             R3 2 0
+      196 GETTABLEKS                       R3 R2 K9 ["_maid"]
+      198 GETUPVAL                         R5 6
+      199 LOADK                            R7 K14 ["TagEditorTagContainer"]
+      200 NAMECALL                         R5 R5 K49 ["GetInstanceAddedSignal"]
+      202 CALL                             R5 2 1
+      203 NEWCLOSURE                       R7 P1
+      204 CAPTURE                          VAL R2
+      205 NAMECALL                         R5 R5 K46 ["Connect"]
+      207 CALL                             R5 2 -1
+      208 NAMECALL                         R3 R3 K47 ["give"]
+      210 CALL                             R3 -1 0
+      211 GETTABLEKS                       R3 R2 K9 ["_maid"]
+      213 GETUPVAL                         R5 6
+      214 LOADK                            R7 K14 ["TagEditorTagContainer"]
+      215 NAMECALL                         R5 R5 K50 ["GetInstanceRemovedSignal"]
+      217 CALL                             R5 2 1
+      218 NEWCLOSURE                       R7 P2
+      219 CAPTURE                          VAL R2
+      220 NAMECALL                         R5 R5 K46 ["Connect"]
+      222 CALL                             R5 2 -1
+      223 NAMECALL                         R3 R3 K47 ["give"]
+      225 CALL                             R3 -1 0
+      226 GETIMPORT                        R3 K26 [pairs]
+      228 GETUPVAL                         R4 6
+      229 LOADK                            R6 K14 ["TagEditorTagContainer"]
+      230 NAMECALL                         R4 R4 K15 ["GetTagged"]
+      232 CALL                             R4 2 -1
+      233 CALL                             R3 -1 3
+      234 FORGPREP_NEXT                    R3
+      235 MOVE                             R10 R7
+      236 NAMECALL                         R8 R2 K48 ["_watchFolder"]
+      238 CALL                             R8 2 0
+      239 FORGLOOP                         R3 2 ; [-5]
+      241 RETURN                           R2 1
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["_maid"]
@@ -607,7 +603,7 @@ PROTO_29:
         9 LOADK                            R9 K3 ["Configuration"]
        10 NAMECALL                         R7 R6 K4 ["IsA"]
        12 CALL                             R7 2 1
-       13 JUMPIFNOT                        R7 ; [+176]
+       13 JUMPIFNOT                        R7 ; [+170]
        14 GETTABLEKS                       R8 R6 K5 ["Name"]
        16 GETTABLE                         R7 R1 R8
        17 JUMPIFNOT                        R7 ; [+27]
@@ -615,7 +611,7 @@ PROTO_29:
        19 GETTABLEKS                       R8 R8 K6 ["_gaveDuplicateWarningsFor"]
        21 GETTABLEKS                       R9 R6 K5 ["Name"]
        23 GETTABLE                         R7 R8 R9
-       24 JUMPIF                           R7 ; [+165]
+       24 JUMPIF                           R7 ; [+159]
        25 GETIMPORT                        R7 K8 [warn]
        27 GETIMPORT                        R8 K11 [string.format]
        29 LOADK                            R9 K12 ["Multiple tags in %s are named %q, consider removing the duplicates."]
@@ -629,29 +625,29 @@ PROTO_29:
        40 GETTABLEKS                       R8 R6 K5 ["Name"]
        42 LOADB                            R9 1
        43 SETTABLE                         R9 R7 R8
-       44 JUMP                             ; [+145]
+       44 JUMP                             ; [+139]
        45 GETTABLEKS                       R7 R6 K5 ["Name"]
        47 LOADB                            R8 1
        48 SETTABLE                         R8 R1 R7
        49 LOADB                            R7 0
        50 LOADB                            R8 0
-       51 DUPTABLE                         R9 K23 [{"Name", "Icon", "Visible", "DrawType", "ShowText", "AlwaysOnTop", "Group", "Color", "HasAll", "HasSome"}]
+       51 DUPTABLE                         R9 K24 [{["Name"], ["Icon"], ["Visible"], ["DrawType"], ["ShowText"], ["AlwaysOnTop"], ["Group"], ["Color"], ["HasAll"] = False, ["HasSome"] = False}]
        52 GETTABLEKS                       R10 R6 K5 ["Name"]
        54 SETTABLEKS                       R10 R9 K5 ["Name"]
        56 LOADK                            R12 K14 ["Icon"]
-       57 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+       57 NAMECALL                         R10 R6 K25 ["GetAttribute"]
        59 CALL                             R10 2 1
        60 JUMPIF                           R10 ; [+3]
        61 GETUPVAL                         R10 1
        62 GETTABLEKS                       R10 R10 K14 ["Icon"]
        64 SETTABLEKS                       R10 R9 K14 ["Icon"]
        66 LOADK                            R13 K15 ["Visible"]
-       67 NAMECALL                         R11 R6 K24 ["GetAttribute"]
+       67 NAMECALL                         R11 R6 K25 ["GetAttribute"]
        69 CALL                             R11 2 1
-       70 ORK                              R10 R11 K25 [False]
+       70 ORK                              R10 R11 K22 [False]
        71 SETTABLEKS                       R10 R9 K15 ["Visible"]
        73 LOADK                            R12 K16 ["DrawType"]
-       74 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+       74 NAMECALL                         R10 R6 K25 ["GetAttribute"]
        76 CALL                             R10 2 1
        77 JUMPIF                           R10 ; [+3]
        78 GETUPVAL                         R10 1
@@ -660,7 +656,7 @@ PROTO_29:
        83 GETUPVAL                         R11 2
        84 JUMPIFNOT                        R11 ; [+9]
        85 LOADK                            R12 K17 ["ShowText"]
-       86 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+       86 NAMECALL                         R10 R6 K25 ["GetAttribute"]
        88 CALL                             R10 2 1
        89 JUMPIF                           R10 ; [+5]
        90 GETUPVAL                         R10 1
@@ -669,76 +665,72 @@ PROTO_29:
        94 LOADNIL                          R10
        95 SETTABLEKS                       R10 R9 K17 ["ShowText"]
        97 LOADK                            R12 K18 ["AlwaysOnTop"]
-       98 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+       98 NAMECALL                         R10 R6 K25 ["GetAttribute"]
       100 CALL                             R10 2 1
       101 JUMPIF                           R10 ; [+3]
       102 GETUPVAL                         R10 1
       103 GETTABLEKS                       R10 R10 K18 ["AlwaysOnTop"]
       105 SETTABLEKS                       R10 R9 K18 ["AlwaysOnTop"]
       107 LOADK                            R12 K19 ["Group"]
-      108 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+      108 NAMECALL                         R10 R6 K25 ["GetAttribute"]
       110 CALL                             R10 2 1
       111 JUMPIF                           R10 ; [+3]
       112 GETUPVAL                         R10 1
       113 GETTABLEKS                       R10 R10 K19 ["Group"]
       115 SETTABLEKS                       R10 R9 K19 ["Group"]
       117 LOADK                            R12 K20 ["Color"]
-      118 NAMECALL                         R10 R6 K24 ["GetAttribute"]
+      118 NAMECALL                         R10 R6 K25 ["GetAttribute"]
       120 CALL                             R10 2 1
       121 JUMPIF                           R10 ; [+4]
       122 GETUPVAL                         R10 3
       123 GETTABLEKS                       R11 R6 K5 ["Name"]
       125 CALL                             R10 1 1
       126 SETTABLEKS                       R10 R9 K20 ["Color"]
-      128 LOADB                            R10 0
-      129 SETTABLEKS                       R10 R9 K21 ["HasAll"]
-      131 LOADB                            R10 0
-      132 SETTABLEKS                       R10 R9 K22 ["HasSome"]
-      134 GETTABLEKS                       R10 R9 K19 ["Group"]
-      136 JUMPIFNOTEQKS                    R10 K26 [""] ; [+4]
-      138 LOADNIL                          R10
-      139 SETTABLEKS                       R10 R9 K19 ["Group"]
-      141 GETTABLEKS                       R10 R9 K14 ["Icon"]
-      143 JUMPIFNOTEQKS                    R10 K26 [""] ; [+6]
-      145 GETUPVAL                         R10 1
-      146 GETTABLEKS                       R10 R10 K14 ["Icon"]
-      148 SETTABLEKS                       R10 R9 K14 ["Icon"]
-      150 LOADN                            R12 1
-      151 GETUPVAL                         R13 4
-      152 LENGTH                           R10 R13
-      153 LOADN                            R11 1
-      154 FORNPREP                         R10
-      155 GETUPVAL                         R14 4
-      156 GETTABLE                         R13 R14 R12
-      157 GETUPVAL                         R14 5
-      158 MOVE                             R16 R13
-      159 GETTABLEKS                       R17 R9 K5 ["Name"]
-      161 NAMECALL                         R14 R14 K27 ["HasTag"]
-      163 CALL                             R14 3 1
-      164 JUMPIFNOT                        R14 ; [+2]
-      165 LOADB                            R7 1
-      166 JUMP                             ; [+1]
-      167 LOADB                            R8 1
-      168 FORNLOOP                         R10
-      169 MOVE                             R10 R7
-      170 JUMPIFNOT                        R10 ; [+1]
-      171 NOT                              R10 R8
-      172 SETTABLEKS                       R10 R9 K21 ["HasAll"]
-      174 AND                              R10 R7 R8
-      175 SETTABLEKS                       R10 R9 K22 ["HasSome"]
-      177 GETUPVAL                         R10 6
-      178 GETUPVAL                         R13 6
-      179 LENGTH                           R12 R13
-      180 ADDK                             R11 R12 K28 [1]
-      181 SETTABLE                         R9 R10 R11
-      182 GETTABLEKS                       R10 R9 K19 ["Group"]
-      184 JUMPIFNOT                        R10 ; [+5]
-      185 GETUPVAL                         R10 7
-      186 GETTABLEKS                       R11 R9 K19 ["Group"]
-      188 LOADB                            R12 1
-      189 SETTABLE                         R12 R10 R11
-      190 FORGLOOP                         R2 2 ; [-182]
-      192 RETURN                           R0 0
+      128 GETTABLEKS                       R10 R9 K19 ["Group"]
+      130 JUMPIFNOTEQKS                    R10 K26 [""] ; [+4]
+      132 LOADNIL                          R10
+      133 SETTABLEKS                       R10 R9 K19 ["Group"]
+      135 GETTABLEKS                       R10 R9 K14 ["Icon"]
+      137 JUMPIFNOTEQKS                    R10 K26 [""] ; [+6]
+      139 GETUPVAL                         R10 1
+      140 GETTABLEKS                       R10 R10 K14 ["Icon"]
+      142 SETTABLEKS                       R10 R9 K14 ["Icon"]
+      144 LOADN                            R12 1
+      145 GETUPVAL                         R13 4
+      146 LENGTH                           R10 R13
+      147 LOADN                            R11 1
+      148 FORNPREP                         R10
+      149 GETUPVAL                         R14 4
+      150 GETTABLE                         R13 R14 R12
+      151 GETUPVAL                         R14 5
+      152 MOVE                             R16 R13
+      153 GETTABLEKS                       R17 R9 K5 ["Name"]
+      155 NAMECALL                         R14 R14 K27 ["HasTag"]
+      157 CALL                             R14 3 1
+      158 JUMPIFNOT                        R14 ; [+2]
+      159 LOADB                            R7 1
+      160 JUMP                             ; [+1]
+      161 LOADB                            R8 1
+      162 FORNLOOP                         R10
+      163 MOVE                             R10 R7
+      164 JUMPIFNOT                        R10 ; [+1]
+      165 NOT                              R10 R8
+      166 SETTABLEKS                       R10 R9 K21 ["HasAll"]
+      168 AND                              R10 R7 R8
+      169 SETTABLEKS                       R10 R9 K23 ["HasSome"]
+      171 GETUPVAL                         R10 6
+      172 GETUPVAL                         R13 6
+      173 LENGTH                           R12 R13
+      174 ADDK                             R11 R12 K28 [1]
+      175 SETTABLE                         R9 R10 R11
+      176 GETTABLEKS                       R10 R9 K19 ["Group"]
+      178 JUMPIFNOT                        R10 ; [+5]
+      179 GETUPVAL                         R10 7
+      180 GETTABLEKS                       R11 R9 K19 ["Group"]
+      182 LOADB                            R12 1
+      183 SETTABLE                         R12 R10 R11
+      184 FORGLOOP                         R2 2 ; [-176]
+      186 RETURN                           R0 0
 
 PROTO_30:
         0 GETTABLEKS                       R3 R0 K0 ["Name"]
@@ -1494,159 +1486,149 @@ MAIN:
        69 CALL                             R9 2 1
        70 NEWTABLE                         R10 64 0
        72 SETTABLEKS                       R10 R10 K18 ["__index"]
-       74 DUPTABLE                         R11 K25 [{"Icon", "Visible", "DrawType", "ShowText", "AlwaysOnTop", "Group"}]
-       75 LOADK                            R12 K26 ["rbxasset://textures/TagEditor/Tag.png"]
-       76 SETTABLEKS                       R12 R11 K19 ["Icon"]
-       78 LOADB                            R12 1
-       79 SETTABLEKS                       R12 R11 K20 ["Visible"]
-       81 LOADK                            R12 K27 ["Box"]
-       82 SETTABLEKS                       R12 R11 K21 ["DrawType"]
-       84 JUMPIFNOT                        R8 ; [+2]
-       85 LOADB                            R12 0
-       86 JUMP                             ; [+1]
-       87 LOADNIL                          R12
-       88 SETTABLEKS                       R12 R11 K22 ["ShowText"]
-       90 LOADB                            R12 0
-       91 SETTABLEKS                       R12 R11 K23 ["AlwaysOnTop"]
-       93 LOADK                            R12 K28 [""]
-       94 SETTABLEKS                       R12 R11 K24 ["Group"]
-       96 LOADNIL                          R12
-       97 SETTABLEKS                       R12 R10 K29 ["_global"]
-       99 DUPCLOSURE                       R12 K30 [PROTO_0]
-      100 DUPCLOSURE                       R13 K31 [PROTO_1]
-      101 DUPCLOSURE                       R14 K32 [PROTO_2]
-      102 DUPCLOSURE                       R15 K33 [PROTO_3]
-      103 CAPTURE                          VAL R7
-      104 CAPTURE                          VAL R3
-      105 DUPCLOSURE                       R16 K34 [PROTO_7]
-      106 CAPTURE                          VAL R7
-      107 CAPTURE                          VAL R3
-      108 CAPTURE                          VAL R5
-      109 CAPTURE                          VAL R10
-      110 CAPTURE                          VAL R2
-      111 CAPTURE                          VAL R11
-      112 CAPTURE                          VAL R0
-      113 CAPTURE                          VAL R1
-      114 SETTABLEKS                       R16 R10 K35 ["new"]
-      116 DUPCLOSURE                       R16 K36 [PROTO_8]
-      117 SETTABLEKS                       R16 R10 K37 ["Destroy"]
-      119 DUPCLOSURE                       R16 K38 [PROTO_9]
-      120 CAPTURE                          VAL R10
-      121 SETTABLEKS                       R16 R10 K39 ["Get"]
-      123 DUPCLOSURE                       R16 K40 [PROTO_10]
-      124 SETTABLEKS                       R16 R10 K41 ["GetTags"]
-      126 DUPCLOSURE                       R16 K42 [PROTO_12]
-      127 SETTABLEKS                       R16 R10 K43 ["OnTagsUpdated"]
-      129 DUPCLOSURE                       R16 K44 [PROTO_13]
-      130 SETTABLEKS                       R16 R10 K45 ["_stopWatchingFolder"]
-      132 DUPCLOSURE                       R16 K46 [PROTO_17]
-      133 CAPTURE                          VAL R5
-      134 SETTABLEKS                       R16 R10 K47 ["_watchFolder"]
-      136 DUPCLOSURE                       R16 K48 [PROTO_24]
-      137 CAPTURE                          VAL R5
-      138 CAPTURE                          VAL R0
-      139 CAPTURE                          VAL R9
-      140 SETTABLEKS                       R16 R10 K49 ["_watchChild"]
-      142 DUPCLOSURE                       R16 K50 [PROTO_25]
-      143 CAPTURE                          VAL R7
-      144 CAPTURE                          VAL R0
-      145 SETTABLEKS                       R16 R10 K51 ["_createTagFolder"]
-      147 DUPCLOSURE                       R16 K52 [PROTO_26]
-      148 CAPTURE                          VAL R7
-      149 CAPTURE                          VAL R3
-      150 SETTABLEKS                       R16 R10 K53 ["_ensureDefaultFolder"]
-      152 DUPCLOSURE                       R16 K54 [PROTO_28]
-      153 SETTABLEKS                       R16 R10 K55 ["_updateStore"]
-      155 DUPCLOSURE                       R16 K56 [PROTO_31]
-      156 CAPTURE                          VAL R1
-      157 CAPTURE                          VAL R11
-      158 CAPTURE                          VAL R8
-      159 CAPTURE                          VAL R13
-      160 CAPTURE                          VAL R0
-      161 CAPTURE                          VAL R4
-      162 SETTABLEKS                       R16 R10 K57 ["_doUpdateStore"]
-      164 DUPCLOSURE                       R16 K58 [PROTO_32]
-      165 CAPTURE                          VAL R1
-      166 CAPTURE                          VAL R0
-      167 CAPTURE                          VAL R4
-      168 SETTABLEKS                       R16 R10 K59 ["_updateUnknownTags"]
-      170 DUPCLOSURE                       R16 K60 [PROTO_33]
-      171 CAPTURE                          VAL R2
-      172 SETTABLEKS                       R16 R10 K61 ["_setProp"]
-      174 DUPCLOSURE                       R16 K62 [PROTO_34]
-      175 SETTABLEKS                       R16 R10 K63 ["_getProp"]
-      177 DUPCLOSURE                       R16 K64 [PROTO_35]
-      178 SETTABLEKS                       R16 R10 K65 ["_findTagInst"]
-      180 DUPCLOSURE                       R16 K66 [PROTO_36]
-      181 CAPTURE                          VAL R2
-      182 CAPTURE                          VAL R11
-      183 CAPTURE                          VAL R8
-      184 CAPTURE                          VAL R13
-      185 SETTABLEKS                       R16 R10 K67 ["AddTag"]
-      187 DUPCLOSURE                       R16 K68 [PROTO_37]
+       74 DUPTABLE                         R11 K30 [{["Icon"] = "rbxasset://textures/TagEditor/Tag.png", ["Visible"] = True, ["DrawType"] = "Box", ["ShowText"], ["AlwaysOnTop"] = False, ["Group"] = ""}]
+       75 JUMPIFNOT                        R8 ; [+2]
+       76 LOADB                            R12 0
+       77 JUMP                             ; [+1]
+       78 LOADNIL                          R12
+       79 SETTABLEKS                       R12 R11 K25 ["ShowText"]
+       81 LOADNIL                          R12
+       82 SETTABLEKS                       R12 R10 K31 ["_global"]
+       84 DUPCLOSURE                       R12 K32 [PROTO_0]
+       85 DUPCLOSURE                       R13 K33 [PROTO_1]
+       86 DUPCLOSURE                       R14 K34 [PROTO_2]
+       87 DUPCLOSURE                       R15 K35 [PROTO_3]
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R3
+       90 DUPCLOSURE                       R16 K36 [PROTO_7]
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R3
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R10
+       95 CAPTURE                          VAL R2
+       96 CAPTURE                          VAL R11
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          VAL R1
+       99 SETTABLEKS                       R16 R10 K37 ["new"]
+      101 DUPCLOSURE                       R16 K38 [PROTO_8]
+      102 SETTABLEKS                       R16 R10 K39 ["Destroy"]
+      104 DUPCLOSURE                       R16 K40 [PROTO_9]
+      105 CAPTURE                          VAL R10
+      106 SETTABLEKS                       R16 R10 K41 ["Get"]
+      108 DUPCLOSURE                       R16 K42 [PROTO_10]
+      109 SETTABLEKS                       R16 R10 K43 ["GetTags"]
+      111 DUPCLOSURE                       R16 K44 [PROTO_12]
+      112 SETTABLEKS                       R16 R10 K45 ["OnTagsUpdated"]
+      114 DUPCLOSURE                       R16 K46 [PROTO_13]
+      115 SETTABLEKS                       R16 R10 K47 ["_stopWatchingFolder"]
+      117 DUPCLOSURE                       R16 K48 [PROTO_17]
+      118 CAPTURE                          VAL R5
+      119 SETTABLEKS                       R16 R10 K49 ["_watchFolder"]
+      121 DUPCLOSURE                       R16 K50 [PROTO_24]
+      122 CAPTURE                          VAL R5
+      123 CAPTURE                          VAL R0
+      124 CAPTURE                          VAL R9
+      125 SETTABLEKS                       R16 R10 K51 ["_watchChild"]
+      127 DUPCLOSURE                       R16 K52 [PROTO_25]
+      128 CAPTURE                          VAL R7
+      129 CAPTURE                          VAL R0
+      130 SETTABLEKS                       R16 R10 K53 ["_createTagFolder"]
+      132 DUPCLOSURE                       R16 K54 [PROTO_26]
+      133 CAPTURE                          VAL R7
+      134 CAPTURE                          VAL R3
+      135 SETTABLEKS                       R16 R10 K55 ["_ensureDefaultFolder"]
+      137 DUPCLOSURE                       R16 K56 [PROTO_28]
+      138 SETTABLEKS                       R16 R10 K57 ["_updateStore"]
+      140 DUPCLOSURE                       R16 K58 [PROTO_31]
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R11
+      143 CAPTURE                          VAL R8
+      144 CAPTURE                          VAL R13
+      145 CAPTURE                          VAL R0
+      146 CAPTURE                          VAL R4
+      147 SETTABLEKS                       R16 R10 K59 ["_doUpdateStore"]
+      149 DUPCLOSURE                       R16 K60 [PROTO_32]
+      150 CAPTURE                          VAL R1
+      151 CAPTURE                          VAL R0
+      152 CAPTURE                          VAL R4
+      153 SETTABLEKS                       R16 R10 K61 ["_updateUnknownTags"]
+      155 DUPCLOSURE                       R16 K62 [PROTO_33]
+      156 CAPTURE                          VAL R2
+      157 SETTABLEKS                       R16 R10 K63 ["_setProp"]
+      159 DUPCLOSURE                       R16 K64 [PROTO_34]
+      160 SETTABLEKS                       R16 R10 K65 ["_getProp"]
+      162 DUPCLOSURE                       R16 K66 [PROTO_35]
+      163 SETTABLEKS                       R16 R10 K67 ["_findTagInst"]
+      165 DUPCLOSURE                       R16 K68 [PROTO_36]
+      166 CAPTURE                          VAL R2
+      167 CAPTURE                          VAL R11
+      168 CAPTURE                          VAL R8
+      169 CAPTURE                          VAL R13
+      170 SETTABLEKS                       R16 R10 K69 ["AddTag"]
+      172 DUPCLOSURE                       R16 K70 [PROTO_37]
+      173 CAPTURE                          VAL R2
+      174 CAPTURE                          VAL R0
+      175 SETTABLEKS                       R16 R10 K71 ["Rename"]
+      177 DUPCLOSURE                       R16 K72 [PROTO_38]
+      178 SETTABLEKS                       R16 R10 K73 ["ToggleGroupVisibility"]
+      180 DUPCLOSURE                       R16 K74 [PROTO_39]
+      181 SETTABLEKS                       R16 R10 K75 ["GetGroups"]
+      183 DUPCLOSURE                       R16 K76 [PROTO_40]
+      184 CAPTURE                          VAL R2
+      185 SETTABLEKS                       R16 R10 K77 ["RenameGroup"]
+      187 DUPCLOSURE                       R16 K78 [PROTO_41]
       188 CAPTURE                          VAL R2
-      189 CAPTURE                          VAL R0
-      190 SETTABLEKS                       R16 R10 K69 ["Rename"]
-      192 DUPCLOSURE                       R16 K70 [PROTO_38]
-      193 SETTABLEKS                       R16 R10 K71 ["ToggleGroupVisibility"]
-      195 DUPCLOSURE                       R16 K72 [PROTO_39]
-      196 SETTABLEKS                       R16 R10 K73 ["GetGroups"]
-      198 DUPCLOSURE                       R16 K74 [PROTO_40]
-      199 CAPTURE                          VAL R2
-      200 SETTABLEKS                       R16 R10 K75 ["RenameGroup"]
-      202 DUPCLOSURE                       R16 K76 [PROTO_41]
-      203 CAPTURE                          VAL R2
-      204 SETTABLEKS                       R16 R10 K77 ["DeleteGroup"]
-      206 DUPCLOSURE                       R16 K78 [PROTO_42]
-      207 CAPTURE                          VAL R1
-      208 CAPTURE                          VAL R0
-      209 SETTABLEKS                       R16 R10 K79 ["SelectAll"]
-      211 DUPCLOSURE                       R16 K80 [PROTO_43]
-      212 CAPTURE                          VAL R11
-      213 SETTABLEKS                       R16 R10 K81 ["GetIcon"]
-      215 DUPCLOSURE                       R16 K82 [PROTO_44]
-      216 CAPTURE                          VAL R11
-      217 SETTABLEKS                       R16 R10 K83 ["GetVisible"]
-      219 DUPCLOSURE                       R16 K84 [PROTO_45]
-      220 CAPTURE                          VAL R11
-      221 SETTABLEKS                       R16 R10 K85 ["GetDrawType"]
-      223 DUPCLOSURE                       R16 K86 [PROTO_46]
-      224 CAPTURE                          VAL R11
-      225 SETTABLEKS                       R16 R10 K87 ["GetColor"]
-      227 JUMPIFNOT                        R8 ; [+4]
-      228 DUPCLOSURE                       R16 K88 [PROTO_47]
-      229 CAPTURE                          VAL R11
-      230 SETTABLEKS                       R16 R10 K89 ["GetShowText"]
-      232 DUPCLOSURE                       R16 K90 [PROTO_48]
-      233 CAPTURE                          VAL R11
-      234 SETTABLEKS                       R16 R10 K91 ["GetAlwaysOnTop"]
-      236 DUPCLOSURE                       R16 K92 [PROTO_49]
-      237 CAPTURE                          VAL R11
-      238 SETTABLEKS                       R16 R10 K93 ["GetGroup"]
-      240 DUPCLOSURE                       R16 K94 [PROTO_50]
-      241 SETTABLEKS                       R16 R10 K95 ["SetIcon"]
-      243 DUPCLOSURE                       R16 K96 [PROTO_51]
-      244 SETTABLEKS                       R16 R10 K97 ["SetVisible"]
-      246 DUPCLOSURE                       R16 K98 [PROTO_52]
-      247 SETTABLEKS                       R16 R10 K99 ["SetDrawType"]
-      249 DUPCLOSURE                       R16 K100 [PROTO_53]
-      250 SETTABLEKS                       R16 R10 K101 ["SetColor"]
-      252 JUMPIFNOT                        R8 ; [+3]
-      253 DUPCLOSURE                       R16 K102 [PROTO_54]
-      254 SETTABLEKS                       R16 R10 K103 ["SetShowText"]
-      256 DUPCLOSURE                       R16 K104 [PROTO_55]
-      257 SETTABLEKS                       R16 R10 K105 ["SetAlwaysOnTop"]
-      259 DUPCLOSURE                       R16 K106 [PROTO_56]
-      260 SETTABLEKS                       R16 R10 K107 ["SetGroup"]
-      262 DUPCLOSURE                       R16 K108 [PROTO_57]
-      263 CAPTURE                          VAL R2
-      264 CAPTURE                          VAL R0
-      265 SETTABLEKS                       R16 R10 K109 ["DelTag"]
-      267 DUPCLOSURE                       R16 K110 [PROTO_58]
-      268 CAPTURE                          VAL R2
-      269 CAPTURE                          VAL R1
-      270 CAPTURE                          VAL R0
-      271 SETTABLEKS                       R16 R10 K111 ["SetTag"]
-      273 DUPCLOSURE                       R16 K112 [PROTO_59]
-      274 SETTABLEKS                       R16 R10 K113 ["SetEnabled"]
-      276 RETURN                           R10 1
+      189 SETTABLEKS                       R16 R10 K79 ["DeleteGroup"]
+      191 DUPCLOSURE                       R16 K80 [PROTO_42]
+      192 CAPTURE                          VAL R1
+      193 CAPTURE                          VAL R0
+      194 SETTABLEKS                       R16 R10 K81 ["SelectAll"]
+      196 DUPCLOSURE                       R16 K82 [PROTO_43]
+      197 CAPTURE                          VAL R11
+      198 SETTABLEKS                       R16 R10 K83 ["GetIcon"]
+      200 DUPCLOSURE                       R16 K84 [PROTO_44]
+      201 CAPTURE                          VAL R11
+      202 SETTABLEKS                       R16 R10 K85 ["GetVisible"]
+      204 DUPCLOSURE                       R16 K86 [PROTO_45]
+      205 CAPTURE                          VAL R11
+      206 SETTABLEKS                       R16 R10 K87 ["GetDrawType"]
+      208 DUPCLOSURE                       R16 K88 [PROTO_46]
+      209 CAPTURE                          VAL R11
+      210 SETTABLEKS                       R16 R10 K89 ["GetColor"]
+      212 JUMPIFNOT                        R8 ; [+4]
+      213 DUPCLOSURE                       R16 K90 [PROTO_47]
+      214 CAPTURE                          VAL R11
+      215 SETTABLEKS                       R16 R10 K91 ["GetShowText"]
+      217 DUPCLOSURE                       R16 K92 [PROTO_48]
+      218 CAPTURE                          VAL R11
+      219 SETTABLEKS                       R16 R10 K93 ["GetAlwaysOnTop"]
+      221 DUPCLOSURE                       R16 K94 [PROTO_49]
+      222 CAPTURE                          VAL R11
+      223 SETTABLEKS                       R16 R10 K95 ["GetGroup"]
+      225 DUPCLOSURE                       R16 K96 [PROTO_50]
+      226 SETTABLEKS                       R16 R10 K97 ["SetIcon"]
+      228 DUPCLOSURE                       R16 K98 [PROTO_51]
+      229 SETTABLEKS                       R16 R10 K99 ["SetVisible"]
+      231 DUPCLOSURE                       R16 K100 [PROTO_52]
+      232 SETTABLEKS                       R16 R10 K101 ["SetDrawType"]
+      234 DUPCLOSURE                       R16 K102 [PROTO_53]
+      235 SETTABLEKS                       R16 R10 K103 ["SetColor"]
+      237 JUMPIFNOT                        R8 ; [+3]
+      238 DUPCLOSURE                       R16 K104 [PROTO_54]
+      239 SETTABLEKS                       R16 R10 K105 ["SetShowText"]
+      241 DUPCLOSURE                       R16 K106 [PROTO_55]
+      242 SETTABLEKS                       R16 R10 K107 ["SetAlwaysOnTop"]
+      244 DUPCLOSURE                       R16 K108 [PROTO_56]
+      245 SETTABLEKS                       R16 R10 K109 ["SetGroup"]
+      247 DUPCLOSURE                       R16 K110 [PROTO_57]
+      248 CAPTURE                          VAL R2
+      249 CAPTURE                          VAL R0
+      250 SETTABLEKS                       R16 R10 K111 ["DelTag"]
+      252 DUPCLOSURE                       R16 K112 [PROTO_58]
+      253 CAPTURE                          VAL R2
+      254 CAPTURE                          VAL R1
+      255 CAPTURE                          VAL R0
+      256 SETTABLEKS                       R16 R10 K113 ["SetTag"]
+      258 DUPCLOSURE                       R16 K114 [PROTO_59]
+      259 SETTABLEKS                       R16 R10 K115 ["SetEnabled"]
+      261 RETURN                           R10 1

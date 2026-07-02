@@ -135,25 +135,23 @@ PROTO_2:
        99 GETTABLEKS                       R13 R13 K9 ["Utility"]
       101 GETTABLEKS                       R13 R13 K25 ["ToastNotification"]
       103 CALL                             R12 1 1
-      104 DUPTABLE                         R13 K29 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
-      105 LOADK                            R14 K30 ["PivotEditor"]
-      106 SETTABLEKS                       R14 R13 K26 ["pluginName"]
-      108 SETTABLEKS                       R10 R13 K27 ["stringResourceTable"]
-      110 SETTABLEKS                       R11 R13 K28 ["translationResourceTable"]
-      112 NEWCLOSURE                       R14 P0
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R7
-      115 CAPTURE                          VAL R0
-      116 CAPTURE                          VAL R6
-      117 CAPTURE                          VAL R8
-      118 CAPTURE                          VAL R13
-      119 CAPTURE                          VAL R12
-      120 CAPTURE                          VAL R3
-      121 CAPTURE                          VAL R9
-      122 CAPTURE                          VAL R1
-      123 MOVE                             R15 R14
-      124 CALL                             R15 0 0
-      125 RETURN                           R0 0
+      104 DUPTABLE                         R13 K30 [{["pluginName"] = "PivotEditor", ["stringResourceTable"], ["translationResourceTable"]}]
+      105 SETTABLEKS                       R10 R13 K28 ["stringResourceTable"]
+      107 SETTABLEKS                       R11 R13 K29 ["translationResourceTable"]
+      109 NEWCLOSURE                       R14 P0
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R7
+      112 CAPTURE                          VAL R0
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R8
+      115 CAPTURE                          VAL R13
+      116 CAPTURE                          VAL R12
+      117 CAPTURE                          VAL R3
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R1
+      120 MOVE                             R15 R14
+      121 CALL                             R15 0 0
+      122 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

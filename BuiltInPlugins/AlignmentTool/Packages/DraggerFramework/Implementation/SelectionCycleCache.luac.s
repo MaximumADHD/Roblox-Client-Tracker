@@ -74,24 +74,18 @@ PROTO_1:
        38 RETURN                           R2 2
 
 PROTO_2:
-        0 DUPTABLE                         R3 K7 [{"_draggerContext", "_draggerSchema", "_cachedRaycastResults", "_cachedSelectables", "_currentIndex", "_analyticsNumberOfClicks", "_hasCycled"}]
+        0 DUPTABLE                         R3 K9 [{[1], ["_draggerSchema"], ["_cachedRaycastResults"], ["_cachedSelectables"], ["_currentIndex"] = 0, ["_analyticsNumberOfClicks"] = 0, ["_hasCycled"] = False}]
         1 SETTABLEKS                       R0 R3 K0 ["_draggerContext"]
         3 SETTABLEKS                       R1 R3 K1 ["_draggerSchema"]
         5 NEWTABLE                         R4 0 0
         7 SETTABLEKS                       R4 R3 K2 ["_cachedRaycastResults"]
         9 NEWTABLE                         R4 0 0
        11 SETTABLEKS                       R4 R3 K3 ["_cachedSelectables"]
-       13 LOADN                            R4 0
-       14 SETTABLEKS                       R4 R3 K4 ["_currentIndex"]
-       16 LOADN                            R4 0
-       17 SETTABLEKS                       R4 R3 K5 ["_analyticsNumberOfClicks"]
-       19 LOADB                            R4 0
-       20 SETTABLEKS                       R4 R3 K6 ["_hasCycled"]
-       22 GETUPVAL                         R4 0
-       23 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       25 GETIMPORT                        R2 K9 [setmetatable]
-       27 CALL                             R2 2 1
-       28 RETURN                           R2 1
+       13 GETUPVAL                         R4 0
+       14 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       16 GETIMPORT                        R2 K11 [setmetatable]
+       18 CALL                             R2 2 1
+       19 RETURN                           R2 1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["_cachedSelectables"]
@@ -187,14 +181,12 @@ PROTO_4:
       120 GETTABLEKS                       R9 R3 K12 ["Instance"]
       122 GETTABLEKS                       R10 R3 K25 ["Distance"]
       124 GETIMPORT                        R11 K28 [table.freeze]
-      126 DUPTABLE                         R12 K33 [{"RaycastResult", "TargetMatrix", "TargetSize", "IsPivot"}]
+      126 DUPTABLE                         R12 K34 [{["RaycastResult"], ["TargetMatrix"], ["TargetSize"], ["IsPivot"] = False}]
       127 SETTABLEKS                       R3 R12 K29 ["RaycastResult"]
       129 SETTABLEKS                       R6 R12 K30 ["TargetMatrix"]
       131 SETTABLEKS                       R7 R12 K31 ["TargetSize"]
-      133 LOADB                            R13 0
-      134 SETTABLEKS                       R13 R12 K32 ["IsPivot"]
-      136 CALL                             R11 1 -1
-      137 RETURN                           R8 -1
+      133 CALL                             R11 1 -1
+      134 RETURN                           R8 -1
 
 PROTO_5:
         0 NAMECALL                         R1 R0 K0 ["isValid"]

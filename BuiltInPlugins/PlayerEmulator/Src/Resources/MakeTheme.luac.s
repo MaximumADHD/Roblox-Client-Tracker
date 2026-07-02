@@ -1,194 +1,164 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R1 K0 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-        2 DUPTABLE                         R2 K3 [{"SpriteSize", "NumSprites"}]
-        3 LOADN                            R3 12
-        4 SETTABLEKS                       R3 R2 K1 ["SpriteSize"]
-        6 LOADN                            R3 4
-        7 SETTABLEKS                       R3 R2 K2 ["NumSprites"]
-        9 CALL                             R0 2 1
-       10 DUPTABLE                         R1 K7 [{"rightArrowImage", "downArrowImage", "dimension"}]
-       11 GETTABLEN                        R2 R0 1
-       12 SETTABLEKS                       R2 R1 K4 ["rightArrowImage"]
-       14 GETTABLEN                        R2 R0 3
-       15 SETTABLEKS                       R2 R1 K5 ["downArrowImage"]
-       17 LOADN                            R2 12
-       18 SETTABLEKS                       R2 R1 K6 ["dimension"]
-       20 DUPTABLE                         R2 K20 [{"Arrow", "BackgroundColor", "ButtonColor", "HoverColor", "PressedColor", "BorderColor", "TextColor", "ErrorColor", "LinkColor", "Green", "White", "DisabledColor"}]
-       21 SETTABLEKS                       R1 R2 K8 ["Arrow"]
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R3 R3 K21 ["MainBackground"]
-       26 SETTABLEKS                       R3 R2 K9 ["BackgroundColor"]
-       28 GETUPVAL                         R3 1
-       29 GETTABLEKS                       R3 R3 K21 ["MainBackground"]
-       31 SETTABLEKS                       R3 R2 K10 ["ButtonColor"]
-       33 GETUPVAL                         R3 1
-       34 GETTABLEKS                       R3 R3 K22 ["ButtonHover"]
-       36 SETTABLEKS                       R3 R2 K11 ["HoverColor"]
-       38 GETUPVAL                         R3 1
-       39 GETTABLEKS                       R3 R3 K23 ["ButtonPressed"]
-       41 SETTABLEKS                       R3 R2 K12 ["PressedColor"]
-       43 GETUPVAL                         R3 1
-       44 GETTABLEKS                       R3 R3 K24 ["Border"]
-       46 SETTABLEKS                       R3 R2 K13 ["BorderColor"]
-       48 GETUPVAL                         R3 1
-       49 GETTABLEKS                       R3 R3 K25 ["MainText"]
-       51 SETTABLEKS                       R3 R2 K14 ["TextColor"]
-       53 GETUPVAL                         R3 1
-       54 GETTABLEKS                       R3 R3 K26 ["ErrorText"]
-       56 SETTABLEKS                       R3 R2 K15 ["ErrorColor"]
-       58 GETUPVAL                         R3 1
-       59 GETTABLEKS                       R3 R3 K27 ["LinkText"]
-       61 SETTABLEKS                       R3 R2 K16 ["LinkColor"]
-       63 GETIMPORT                        R3 K30 [Color3.fromRGB]
-       65 LOADN                            R4 64
-       66 LOADN                            R5 166
-       67 LOADN                            R6 81
-       68 CALL                             R3 3 1
-       69 SETTABLEKS                       R3 R2 K17 ["Green"]
-       71 GETIMPORT                        R3 K30 [Color3.fromRGB]
-       73 LOADN                            R4 255
-       74 LOADN                            R5 255
-       75 LOADN                            R6 255
-       76 CALL                             R3 3 1
-       77 SETTABLEKS                       R3 R2 K18 ["White"]
-       79 GETUPVAL                         R3 1
-       80 GETTABLEKS                       R3 R3 K31 ["MainTextDisabled"]
-       82 SETTABLEKS                       R3 R2 K19 ["DisabledColor"]
-       84 DUPTABLE                         R3 K60 [{"ROW_HEIGHT", "MAINVIEW_PADDING_TOP", "MAINVIEW_PADDING_LEFT", "MAINSWITCH_LABEL_SIZE", "TEXT_INDENT_PADDING", "HORIZONTAL_LISTLAYOUT_PADDING", "DROPDOWN_BUTTON_SIZE", "DROPDOWN_ARROW_IMAGE", "DROPDOWN_ARROW_POSITION", "DROPDOWN_ARROW_SIZE", "SELECTOR_SIZE", "DROPDOWN_MAX_HEIGHT", "SCROLLBAR_THICKNESS", "LANGUAGE_SECTION_SIZE", "LANGUAGE_INSTRUCTION_SIZE", "LANGUAGE_INSTRUCTION_TEXT_SIZE", "LOCALEID_TEXTBOX_SIZE", "PSEUDOLOCALIZATION_SECTION_SIZE", "TOGGLE_ITEM_FRAME_SIZE", "TOGGLE_BUTTON_HEIGHT", "TOGGLE_BUTTON_WIDTH", "TOGGLE_BUTTON_OFFSET", "COLLAPSE_ARROW_OFFSET", "LISTITEM_INDENT_LEFT", "LISTITEM_CHECKBOX_HEIGHT", "CHECKBOX_FRAME_SIZE", "CHECKBOX_HEIGHT", "CHECKBOX_TEXT_SIZE"}]
-       85 LOADN                            R4 25
-       86 SETTABLEKS                       R4 R3 K32 ["ROW_HEIGHT"]
-       88 GETIMPORT                        R4 K63 [UDim.new]
-       90 LOADN                            R5 0
-       91 LOADN                            R6 15
-       92 CALL                             R4 2 1
-       93 SETTABLEKS                       R4 R3 K33 ["MAINVIEW_PADDING_TOP"]
-       95 GETIMPORT                        R4 K63 [UDim.new]
-       97 LOADN                            R5 0
-       98 LOADN                            R6 10
-       99 CALL                             R4 2 1
-      100 SETTABLEKS                       R4 R3 K34 ["MAINVIEW_PADDING_LEFT"]
-      102 GETIMPORT                        R4 K65 [UDim2.new]
-      104 LOADN                            R5 0
-      105 LOADN                            R6 150
-      106 LOADN                            R7 0
-      107 LOADN                            R8 25
-      108 CALL                             R4 4 1
-      109 SETTABLEKS                       R4 R3 K35 ["MAINSWITCH_LABEL_SIZE"]
-      111 GETIMPORT                        R4 K63 [UDim.new]
-      113 LOADN                            R5 0
-      114 LOADN                            R6 4
-      115 CALL                             R4 2 1
-      116 SETTABLEKS                       R4 R3 K36 ["TEXT_INDENT_PADDING"]
-      118 GETIMPORT                        R4 K63 [UDim.new]
-      120 LOADN                            R5 0
-      121 LOADN                            R6 5
-      122 CALL                             R4 2 1
-      123 SETTABLEKS                       R4 R3 K37 ["HORIZONTAL_LISTLAYOUT_PADDING"]
-      125 GETIMPORT                        R4 K65 [UDim2.new]
-      127 LOADN                            R5 0
-      128 LOADN                            R6 170
-      129 LOADN                            R7 0
-      130 LOADN                            R8 25
-      131 CALL                             R4 4 1
-      132 SETTABLEKS                       R4 R3 K38 ["DROPDOWN_BUTTON_SIZE"]
-      134 LOADK                            R4 K66 ["rbxasset://textures/menuDownArrow.png"]
-      135 SETTABLEKS                       R4 R3 K39 ["DROPDOWN_ARROW_IMAGE"]
-      137 GETIMPORT                        R4 K65 [UDim2.new]
-      139 LOADN                            R5 1
-      140 LOADN                            R6 241
-      141 LOADK                            R7 K67 [0.5]
-      142 LOADN                            R8 0
-      143 CALL                             R4 4 1
-      144 SETTABLEKS                       R4 R3 K40 ["DROPDOWN_ARROW_POSITION"]
-      146 GETIMPORT                        R4 K65 [UDim2.new]
-      148 LOADN                            R5 0
-      149 LOADN                            R6 5
-      150 LOADN                            R7 0
-      151 LOADN                            R8 3
-      152 CALL                             R4 4 1
-      153 SETTABLEKS                       R4 R3 K41 ["DROPDOWN_ARROW_SIZE"]
-      155 GETIMPORT                        R4 K65 [UDim2.new]
-      157 LOADN                            R5 0
-      158 LOADN                            R6 44
-      159 LOADN                            R7 0
-      160 LOADN                            R8 32
-      161 CALL                             R4 4 1
-      162 SETTABLEKS                       R4 R3 K42 ["SELECTOR_SIZE"]
-      164 LOADN                            R4 200
-      165 SETTABLEKS                       R4 R3 K43 ["DROPDOWN_MAX_HEIGHT"]
-      167 LOADN                            R4 10
-      168 SETTABLEKS                       R4 R3 K44 ["SCROLLBAR_THICKNESS"]
-      170 GETIMPORT                        R4 K65 [UDim2.new]
-      172 LOADN                            R5 0
-      173 LOADN                            R6 44
-      174 LOADN                            R7 0
-      175 LOADN                            R8 50
-      176 CALL                             R4 4 1
-      177 SETTABLEKS                       R4 R3 K45 ["LANGUAGE_SECTION_SIZE"]
-      179 GETIMPORT                        R4 K65 [UDim2.new]
-      181 LOADN                            R5 0
-      182 LOADN                            R6 44
-      183 LOADN                            R7 0
-      184 LOADN                            R8 20
-      185 CALL                             R4 4 1
-      186 SETTABLEKS                       R4 R3 K46 ["LANGUAGE_INSTRUCTION_SIZE"]
-      188 LOADN                            R4 14
-      189 SETTABLEKS                       R4 R3 K47 ["LANGUAGE_INSTRUCTION_TEXT_SIZE"]
-      191 GETIMPORT                        R4 K65 [UDim2.new]
-      193 LOADN                            R5 0
-      194 LOADN                            R6 90
-      195 LOADN                            R7 0
-      196 LOADN                            R8 25
-      197 CALL                             R4 4 1
-      198 SETTABLEKS                       R4 R3 K48 ["LOCALEID_TEXTBOX_SIZE"]
-      200 GETIMPORT                        R4 K65 [UDim2.new]
-      202 LOADN                            R5 0
-      203 LOADN                            R6 44
-      204 LOADN                            R7 0
-      205 LOADN                            R8 50
-      206 CALL                             R4 4 1
-      207 SETTABLEKS                       R4 R3 K49 ["PSEUDOLOCALIZATION_SECTION_SIZE"]
-      209 GETIMPORT                        R4 K65 [UDim2.new]
-      211 LOADN                            R5 0
-      212 LOADN                            R6 44
-      213 LOADN                            R7 0
-      214 LOADN                            R8 25
-      215 CALL                             R4 4 1
-      216 SETTABLEKS                       R4 R3 K50 ["TOGGLE_ITEM_FRAME_SIZE"]
-      218 LOADN                            R4 15
-      219 SETTABLEKS                       R4 R3 K51 ["TOGGLE_BUTTON_HEIGHT"]
-      221 LOADN                            R4 25
-      222 SETTABLEKS                       R4 R3 K52 ["TOGGLE_BUTTON_WIDTH"]
-      224 LOADN                            R4 255
-      225 SETTABLEKS                       R4 R3 K53 ["TOGGLE_BUTTON_OFFSET"]
-      227 LOADN                            R4 9
-      228 SETTABLEKS                       R4 R3 K54 ["COLLAPSE_ARROW_OFFSET"]
-      230 GETIMPORT                        R4 K63 [UDim.new]
-      232 LOADN                            R5 0
-      233 LOADN                            R6 20
-      234 CALL                             R4 2 1
-      235 SETTABLEKS                       R4 R3 K55 ["LISTITEM_INDENT_LEFT"]
-      237 LOADN                            R4 18
-      238 SETTABLEKS                       R4 R3 K56 ["LISTITEM_CHECKBOX_HEIGHT"]
-      240 GETIMPORT                        R4 K65 [UDim2.new]
-      242 LOADN                            R5 1
-      243 LOADN                            R6 0
-      244 LOADN                            R7 0
-      245 LOADN                            R8 20
-      246 CALL                             R4 4 1
-      247 SETTABLEKS                       R4 R3 K57 ["CHECKBOX_FRAME_SIZE"]
-      249 LOADN                            R4 18
-      250 SETTABLEKS                       R4 R3 K58 ["CHECKBOX_HEIGHT"]
-      252 LOADN                            R4 11
-      253 SETTABLEKS                       R4 R3 K59 ["CHECKBOX_TEXT_SIZE"]
-      255 GETUPVAL                         R4 2
-      256 GETTABLEKS                       R4 R4 K68 ["Dictionary"]
-      258 GETTABLEKS                       R4 R4 K69 ["join"]
-      260 MOVE                             R5 R2
-      261 MOVE                             R6 R3
-      262 CALL                             R4 2 -1
-      263 RETURN                           R4 -1
+        2 DUPTABLE                         R2 K5 [{["SpriteSize"] = 12, ["NumSprites"] = 4}]
+        3 CALL                             R0 2 1
+        4 DUPTABLE                         R1 K9 [{["rightArrowImage"], ["downArrowImage"], ["dimension"] = 12}]
+        5 GETTABLEN                        R2 R0 1
+        6 SETTABLEKS                       R2 R1 K6 ["rightArrowImage"]
+        8 GETTABLEN                        R2 R0 3
+        9 SETTABLEKS                       R2 R1 K7 ["downArrowImage"]
+       11 DUPTABLE                         R2 K22 [{"Arrow", "BackgroundColor", "ButtonColor", "HoverColor", "PressedColor", "BorderColor", "TextColor", "ErrorColor", "LinkColor", "Green", "White", "DisabledColor"}]
+       12 SETTABLEKS                       R1 R2 K10 ["Arrow"]
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R3 R3 K23 ["MainBackground"]
+       17 SETTABLEKS                       R3 R2 K11 ["BackgroundColor"]
+       19 GETUPVAL                         R3 1
+       20 GETTABLEKS                       R3 R3 K23 ["MainBackground"]
+       22 SETTABLEKS                       R3 R2 K12 ["ButtonColor"]
+       24 GETUPVAL                         R3 1
+       25 GETTABLEKS                       R3 R3 K24 ["ButtonHover"]
+       27 SETTABLEKS                       R3 R2 K13 ["HoverColor"]
+       29 GETUPVAL                         R3 1
+       30 GETTABLEKS                       R3 R3 K25 ["ButtonPressed"]
+       32 SETTABLEKS                       R3 R2 K14 ["PressedColor"]
+       34 GETUPVAL                         R3 1
+       35 GETTABLEKS                       R3 R3 K26 ["Border"]
+       37 SETTABLEKS                       R3 R2 K15 ["BorderColor"]
+       39 GETUPVAL                         R3 1
+       40 GETTABLEKS                       R3 R3 K27 ["MainText"]
+       42 SETTABLEKS                       R3 R2 K16 ["TextColor"]
+       44 GETUPVAL                         R3 1
+       45 GETTABLEKS                       R3 R3 K28 ["ErrorText"]
+       47 SETTABLEKS                       R3 R2 K17 ["ErrorColor"]
+       49 GETUPVAL                         R3 1
+       50 GETTABLEKS                       R3 R3 K29 ["LinkText"]
+       52 SETTABLEKS                       R3 R2 K18 ["LinkColor"]
+       54 GETIMPORT                        R3 K32 [Color3.fromRGB]
+       56 LOADN                            R4 64
+       57 LOADN                            R5 166
+       58 LOADN                            R6 81
+       59 CALL                             R3 3 1
+       60 SETTABLEKS                       R3 R2 K19 ["Green"]
+       62 GETIMPORT                        R3 K32 [Color3.fromRGB]
+       64 LOADN                            R4 255
+       65 LOADN                            R5 255
+       66 LOADN                            R6 255
+       67 CALL                             R3 3 1
+       68 SETTABLEKS                       R3 R2 K20 ["White"]
+       70 GETUPVAL                         R3 1
+       71 GETTABLEKS                       R3 R3 K33 ["MainTextDisabled"]
+       73 SETTABLEKS                       R3 R2 K21 ["DisabledColor"]
+       75 DUPTABLE                         R3 K72 [{["ROW_HEIGHT"] = 25, ["MAINVIEW_PADDING_TOP"], ["MAINVIEW_PADDING_LEFT"], ["MAINSWITCH_LABEL_SIZE"], ["TEXT_INDENT_PADDING"], ["HORIZONTAL_LISTLAYOUT_PADDING"], ["DROPDOWN_BUTTON_SIZE"], ["DROPDOWN_ARROW_IMAGE"] = "rbxasset://textures/menuDownArrow.png", ["DROPDOWN_ARROW_POSITION"], ["DROPDOWN_ARROW_SIZE"], ["SELECTOR_SIZE"], ["DROPDOWN_MAX_HEIGHT"] = 200, ["SCROLLBAR_THICKNESS"] = 10, ["LANGUAGE_SECTION_SIZE"], ["LANGUAGE_INSTRUCTION_SIZE"], ["LANGUAGE_INSTRUCTION_TEXT_SIZE"] = 14, ["LOCALEID_TEXTBOX_SIZE"], ["PSEUDOLOCALIZATION_SECTION_SIZE"], ["TOGGLE_ITEM_FRAME_SIZE"], ["TOGGLE_BUTTON_HEIGHT"] = 15, ["TOGGLE_BUTTON_WIDTH"] = 25, ["TOGGLE_BUTTON_OFFSET"] = 255, ["COLLAPSE_ARROW_OFFSET"] = 265, ["LISTITEM_INDENT_LEFT"], ["LISTITEM_CHECKBOX_HEIGHT"] = 18, ["CHECKBOX_FRAME_SIZE"], ["CHECKBOX_HEIGHT"] = 18, ["CHECKBOX_TEXT_SIZE"] = 11}]
+       76 GETIMPORT                        R4 K75 [UDim.new]
+       78 LOADN                            R5 0
+       79 LOADN                            R6 15
+       80 CALL                             R4 2 1
+       81 SETTABLEKS                       R4 R3 K36 ["MAINVIEW_PADDING_TOP"]
+       83 GETIMPORT                        R4 K75 [UDim.new]
+       85 LOADN                            R5 0
+       86 LOADN                            R6 10
+       87 CALL                             R4 2 1
+       88 SETTABLEKS                       R4 R3 K37 ["MAINVIEW_PADDING_LEFT"]
+       90 GETIMPORT                        R4 K77 [UDim2.new]
+       92 LOADN                            R5 0
+       93 LOADN                            R6 150
+       94 LOADN                            R7 0
+       95 LOADN                            R8 25
+       96 CALL                             R4 4 1
+       97 SETTABLEKS                       R4 R3 K38 ["MAINSWITCH_LABEL_SIZE"]
+       99 GETIMPORT                        R4 K75 [UDim.new]
+      101 LOADN                            R5 0
+      102 LOADN                            R6 4
+      103 CALL                             R4 2 1
+      104 SETTABLEKS                       R4 R3 K39 ["TEXT_INDENT_PADDING"]
+      106 GETIMPORT                        R4 K75 [UDim.new]
+      108 LOADN                            R5 0
+      109 LOADN                            R6 5
+      110 CALL                             R4 2 1
+      111 SETTABLEKS                       R4 R3 K40 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+      113 GETIMPORT                        R4 K77 [UDim2.new]
+      115 LOADN                            R5 0
+      116 LOADN                            R6 170
+      117 LOADN                            R7 0
+      118 LOADN                            R8 25
+      119 CALL                             R4 4 1
+      120 SETTABLEKS                       R4 R3 K41 ["DROPDOWN_BUTTON_SIZE"]
+      122 GETIMPORT                        R4 K77 [UDim2.new]
+      124 LOADN                            R5 1
+      125 LOADN                            R6 -15
+      126 LOADK                            R7 K78 [0.5]
+      127 LOADN                            R8 0
+      128 CALL                             R4 4 1
+      129 SETTABLEKS                       R4 R3 K44 ["DROPDOWN_ARROW_POSITION"]
+      131 GETIMPORT                        R4 K77 [UDim2.new]
+      133 LOADN                            R5 0
+      134 LOADN                            R6 5
+      135 LOADN                            R7 0
+      136 LOADN                            R8 3
+      137 CALL                             R4 4 1
+      138 SETTABLEKS                       R4 R3 K45 ["DROPDOWN_ARROW_SIZE"]
+      140 GETIMPORT                        R4 K77 [UDim2.new]
+      142 LOADN                            R5 0
+      143 LOADN                            R6 300
+      144 LOADN                            R7 0
+      145 LOADN                            R8 32
+      146 CALL                             R4 4 1
+      147 SETTABLEKS                       R4 R3 K46 ["SELECTOR_SIZE"]
+      149 GETIMPORT                        R4 K77 [UDim2.new]
+      151 LOADN                            R5 0
+      152 LOADN                            R6 300
+      153 LOADN                            R7 0
+      154 LOADN                            R8 50
+      155 CALL                             R4 4 1
+      156 SETTABLEKS                       R4 R3 K51 ["LANGUAGE_SECTION_SIZE"]
+      158 GETIMPORT                        R4 K77 [UDim2.new]
+      160 LOADN                            R5 0
+      161 LOADN                            R6 300
+      162 LOADN                            R7 0
+      163 LOADN                            R8 20
+      164 CALL                             R4 4 1
+      165 SETTABLEKS                       R4 R3 K52 ["LANGUAGE_INSTRUCTION_SIZE"]
+      167 GETIMPORT                        R4 K77 [UDim2.new]
+      169 LOADN                            R5 0
+      170 LOADN                            R6 90
+      171 LOADN                            R7 0
+      172 LOADN                            R8 25
+      173 CALL                             R4 4 1
+      174 SETTABLEKS                       R4 R3 K55 ["LOCALEID_TEXTBOX_SIZE"]
+      176 GETIMPORT                        R4 K77 [UDim2.new]
+      178 LOADN                            R5 0
+      179 LOADN                            R6 300
+      180 LOADN                            R7 0
+      181 LOADN                            R8 50
+      182 CALL                             R4 4 1
+      183 SETTABLEKS                       R4 R3 K56 ["PSEUDOLOCALIZATION_SECTION_SIZE"]
+      185 GETIMPORT                        R4 K77 [UDim2.new]
+      187 LOADN                            R5 0
+      188 LOADN                            R6 300
+      189 LOADN                            R7 0
+      190 LOADN                            R8 25
+      191 CALL                             R4 4 1
+      192 SETTABLEKS                       R4 R3 K57 ["TOGGLE_ITEM_FRAME_SIZE"]
+      194 GETIMPORT                        R4 K75 [UDim.new]
+      196 LOADN                            R5 0
+      197 LOADN                            R6 20
+      198 CALL                             R4 2 1
+      199 SETTABLEKS                       R4 R3 K65 ["LISTITEM_INDENT_LEFT"]
+      201 GETIMPORT                        R4 K77 [UDim2.new]
+      203 LOADN                            R5 1
+      204 LOADN                            R6 0
+      205 LOADN                            R7 0
+      206 LOADN                            R8 20
+      207 CALL                             R4 4 1
+      208 SETTABLEKS                       R4 R3 K68 ["CHECKBOX_FRAME_SIZE"]
+      210 GETUPVAL                         R4 2
+      211 GETTABLEKS                       R4 R4 K79 ["Dictionary"]
+      213 GETTABLEKS                       R4 R4 K80 ["join"]
+      215 MOVE                             R5 R2
+      216 MOVE                             R6 R3
+      217 CALL                             R4 2 -1
+      218 RETURN                           R4 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

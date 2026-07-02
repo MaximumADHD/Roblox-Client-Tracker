@@ -685,24 +685,22 @@ PROTO_29:
        13 LOADNIL                          R5
        14 FORGPREP                         R3
        15 GETTABLEKS                       R8 R7 K3 ["creatorType"]
-       17 JUMPIFNOTEQKS                    R8 K4 ["User"] ; [+24]
+       17 JUMPIFNOTEQKS                    R8 K4 ["User"] ; [+21]
        19 GETUPVAL                         R8 1
        20 GETTABLEKS                       R9 R7 K5 ["paletteKey"]
        22 CALL                             R8 1 1
-       23 JUMPIFEQKNIL                     R8 ; [+18]
+       23 JUMPIFEQKNIL                     R8 ; [+15]
        25 DUPTABLE                         R11 K8 [{"item", "palette"}]
-       26 DUPTABLE                         R12 K11 [{"source", "marketplaceItem"}]
-       27 LOADK                            R13 K12 ["marketplace"]
-       28 SETTABLEKS                       R13 R12 K9 ["source"]
-       30 SETTABLEKS                       R6 R12 K10 ["marketplaceItem"]
-       32 SETTABLEKS                       R12 R11 K6 ["item"]
-       34 SETTABLEKS                       R8 R11 K7 ["palette"]
-       36 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
-       38 MOVE                             R10 R1
-       39 GETIMPORT                        R9 K15 [table.insert]
-       41 CALL                             R9 2 0
-       42 FORGLOOP                         R3 2 ; [-28]
-       44 RETURN                           R1 1
+       26 DUPTABLE                         R12 K12 [{["source"] = "marketplace", ["marketplaceItem"]}]
+       27 SETTABLEKS                       R6 R12 K11 ["marketplaceItem"]
+       29 SETTABLEKS                       R12 R11 K6 ["item"]
+       31 SETTABLEKS                       R8 R11 K7 ["palette"]
+       33 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
+       35 MOVE                             R10 R1
+       36 GETIMPORT                        R9 K15 [table.insert]
+       38 CALL                             R9 2 0
+       39 FORGLOOP                         R3 2 ; [-25]
+       41 RETURN                           R1 1
 
 PROTO_30:
         0 GETUPVAL                         R0 0
@@ -741,191 +739,167 @@ PROTO_31:
         6 LOADNIL                          R3
         7 FORGPREP                         R1
         8 GETTABLEKS                       R6 R5 K1 ["creatorType"]
-       10 JUMPIFNOTEQKS                    R6 K2 ["Group"] ; [+24]
+       10 JUMPIFNOTEQKS                    R6 K2 ["Group"] ; [+21]
        12 GETUPVAL                         R6 1
        13 GETTABLEKS                       R7 R5 K3 ["paletteKey"]
        15 CALL                             R6 1 1
-       16 JUMPIFEQKNIL                     R6 ; [+18]
+       16 JUMPIFEQKNIL                     R6 ; [+15]
        18 DUPTABLE                         R9 K6 [{"item", "palette"}]
-       19 DUPTABLE                         R10 K9 [{"source", "marketplaceItem"}]
-       20 LOADK                            R11 K10 ["marketplace"]
-       21 SETTABLEKS                       R11 R10 K7 ["source"]
-       23 SETTABLEKS                       R4 R10 K8 ["marketplaceItem"]
-       25 SETTABLEKS                       R10 R9 K4 ["item"]
-       27 SETTABLEKS                       R6 R9 K5 ["palette"]
-       29 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
-       31 MOVE                             R8 R0
-       32 GETIMPORT                        R7 K13 [table.insert]
-       34 CALL                             R7 2 0
-       35 FORGLOOP                         R1 2 ; [-28]
-       37 RETURN                           R0 1
+       19 DUPTABLE                         R10 K10 [{["source"] = "marketplace", ["marketplaceItem"]}]
+       20 SETTABLEKS                       R4 R10 K9 ["marketplaceItem"]
+       22 SETTABLEKS                       R10 R9 K4 ["item"]
+       24 SETTABLEKS                       R6 R9 K5 ["palette"]
+       26 FASTCALL2                        TABLE_INSERT R0 R9 ; [+4]
+       28 MOVE                             R8 R0
+       29 GETIMPORT                        R7 K13 [table.insert]
+       31 CALL                             R7 2 0
+       32 FORGLOOP                         R1 2 ; [-25]
+       34 RETURN                           R0 1
 
 PROTO_32:
         0 JUMPIFEQKS                       R2 K0 ["AvatarLook"] ; [+2]
         2 LOADB                            R3 0 +1
         3 LOADB                            R3 1
-        4 DUPTABLE                         R4 K7 [{"assets", "lookType", "name", "description", "avatarProperties", "groupId"}]
+        4 DUPTABLE                         R4 K8 [{["assets"], ["lookType"], ["name"], ["description"] = "", ["avatarProperties"], ["groupId"]}]
         5 NEWTABLE                         R5 0 0
         7 SETTABLEKS                       R5 R4 K1 ["assets"]
         9 JUMPIFNOT                        R3 ; [+2]
-       10 LOADK                            R5 K8 ["Avatar"]
+       10 LOADK                            R5 K9 ["Avatar"]
        11 JUMP                             ; [+1]
-       12 LOADK                            R5 K9 ["Makeup"]
+       12 LOADK                            R5 K10 ["Makeup"]
        13 SETTABLEKS                       R5 R4 K2 ["lookType"]
        15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R5 R5 K10 ["VALID_NAME"]
+       16 GETTABLEKS                       R5 R5 K11 ["VALID_NAME"]
        18 SETTABLEKS                       R5 R4 K3 ["name"]
-       20 LOADK                            R5 K11 [""]
-       21 SETTABLEKS                       R5 R4 K4 ["description"]
-       23 DUPTABLE                         R5 K15 [{"playerAvatarType", "bodyColor3s", "scale"}]
-       24 LOADK                            R6 K16 ["R15"]
-       25 SETTABLEKS                       R6 R5 K12 ["playerAvatarType"]
-       27 DUPTABLE                         R6 K23 [{"headColor3", "leftArmColor3", "leftLegColor3", "rightArmColor3", "rightLegColor3", "torsoColor3"}]
-       28 GETUPVAL                         R7 1
-       29 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       31 NAMECALL                         R7 R7 K25 ["ToHex"]
-       33 CALL                             R7 1 1
-       34 SETTABLEKS                       R7 R6 K17 ["headColor3"]
-       36 GETUPVAL                         R7 1
-       37 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       39 NAMECALL                         R7 R7 K25 ["ToHex"]
-       41 CALL                             R7 1 1
-       42 SETTABLEKS                       R7 R6 K18 ["leftArmColor3"]
-       44 GETUPVAL                         R7 1
-       45 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       47 NAMECALL                         R7 R7 K25 ["ToHex"]
-       49 CALL                             R7 1 1
-       50 SETTABLEKS                       R7 R6 K19 ["leftLegColor3"]
-       52 GETUPVAL                         R7 1
-       53 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       55 NAMECALL                         R7 R7 K25 ["ToHex"]
-       57 CALL                             R7 1 1
-       58 SETTABLEKS                       R7 R6 K20 ["rightArmColor3"]
-       60 GETUPVAL                         R7 1
-       61 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       63 NAMECALL                         R7 R7 K25 ["ToHex"]
-       65 CALL                             R7 1 1
-       66 SETTABLEKS                       R7 R6 K21 ["rightLegColor3"]
-       68 GETUPVAL                         R7 1
-       69 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
-       71 NAMECALL                         R7 R7 K25 ["ToHex"]
-       73 CALL                             R7 1 1
-       74 SETTABLEKS                       R7 R6 K22 ["torsoColor3"]
-       76 SETTABLEKS                       R6 R5 K13 ["bodyColor3s"]
-       78 DUPTABLE                         R6 K32 [{"bodyType", "depth", "head", "height", "proportion", "width"}]
-       79 LOADN                            R7 1
-       80 SETTABLEKS                       R7 R6 K26 ["bodyType"]
-       82 LOADN                            R7 1
-       83 SETTABLEKS                       R7 R6 K27 ["depth"]
-       85 LOADN                            R7 1
-       86 SETTABLEKS                       R7 R6 K28 ["head"]
-       88 LOADN                            R7 1
-       89 SETTABLEKS                       R7 R6 K29 ["height"]
-       91 LOADN                            R7 1
-       92 SETTABLEKS                       R7 R6 K30 ["proportion"]
-       94 LOADN                            R7 1
-       95 SETTABLEKS                       R7 R6 K31 ["width"]
-       97 SETTABLEKS                       R6 R5 K14 ["scale"]
-       99 SETTABLEKS                       R5 R4 K5 ["avatarProperties"]
-      101 JUMPIFNOTEQKS                    R0 K33 ["Group"] ; [+9]
-      103 GETUPVAL                         R6 0
-      104 GETTABLEKS                       R6 R6 K34 ["GROUP_ID"]
-      106 FASTCALL1                        TOSTRING R6 ; [+2]
-      107 GETIMPORT                        R5 K36 [tostring]
-      109 CALL                             R5 1 1
-      110 JUMP                             ; [+1]
-      111 LOADNIL                          R5
-      112 SETTABLEKS                       R5 R4 K6 ["groupId"]
-      114 NEWTABLE                         R5 0 0
-      116 JUMPIFNOT                        R3 ; [+4]
-      117 GETUPVAL                         R6 0
-      118 GETTABLEKS                       R6 R6 K37 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
-      120 JUMP                             ; [+3]
-      121 GETUPVAL                         R6 0
-      122 GETTABLEKS                       R6 R6 K38 ["MOCK_ITEM_DATA"]
-      124 LOADNIL                          R7
-      125 JUMPIFNOT                        R1 ; [+16]
-      126 NEWTABLE                         R7 0 0
-      128 MOVE                             R8 R1
-      129 LOADNIL                          R9
-      130 LOADNIL                          R10
-      131 FORGPREP                         R8
-      132 GETTABLE                         R15 R6 R12
-      133 FASTCALL2                        TABLE_INSERT R7 R15 ; [+4]
-      135 MOVE                             R14 R7
-      136 GETIMPORT                        R13 K41 [table.insert]
-      138 CALL                             R13 2 0
-      139 FORGLOOP                         R8 2 ; [-8]
-      141 JUMP                             ; [+1]
-      142 MOVE                             R7 R6
-      143 MOVE                             R8 R7
-      144 LOADNIL                          R9
-      145 LOADNIL                          R10
-      146 FORGPREP                         R8
-      147 GETTABLEKS                       R13 R12 K42 ["creatorType"]
-      149 JUMPIFNOTEQ                      R13 R0 ; [+67]
-      151 DUPTABLE                         R13 K45 [{"id", "meta"}]
-      152 GETTABLEKS                       R14 R12 K43 ["id"]
-      154 SETTABLEKS                       R14 R13 K43 ["id"]
-      156 DUPTABLE                         R14 K49 [{"order", "puffiness", "version"}]
-      157 LOADN                            R15 0
-      158 SETTABLEKS                       R15 R14 K46 ["order"]
-      160 LOADN                            R15 1
-      161 SETTABLEKS                       R15 R14 K47 ["puffiness"]
-      163 LOADN                            R15 1
-      164 SETTABLEKS                       R15 R14 K48 ["version"]
-      166 SETTABLEKS                       R14 R13 K44 ["meta"]
-      168 GETTABLEKS                       R14 R12 K50 ["bundleId"]
-      170 JUMPIFNOT                        R14 ; [+4]
-      171 GETTABLEKS                       R14 R12 K50 ["bundleId"]
-      173 SETTABLEKS                       R14 R13 K50 ["bundleId"]
-      175 JUMPIF                           R3 ; [+33]
-      176 GETTABLEKS                       R14 R12 K51 ["assetType"]
-      178 GETIMPORT                        R15 K55 [Enum.AssetType.FaceMakeup]
-      180 GETTABLEKS                       R15 R15 K56 ["Value"]
-      182 JUMPIFEQ                         R14 R15 ; [+17]
-      184 GETTABLEKS                       R14 R12 K51 ["assetType"]
-      186 GETIMPORT                        R15 K58 [Enum.AssetType.LipMakeup]
-      188 GETTABLEKS                       R15 R15 K56 ["Value"]
-      190 JUMPIFEQ                         R14 R15 ; [+9]
-      192 GETTABLEKS                       R14 R12 K51 ["assetType"]
-      194 GETIMPORT                        R15 K60 [Enum.AssetType.EyeMakeup]
-      196 GETTABLEKS                       R15 R15 K56 ["Value"]
-      198 JUMPIFNOTEQ                      R14 R15 ; [+10]
-      200 LOADN                            R16 1
-      201 FASTCALL3                        TABLE_INSERT R5 R16 R13
-      203 MOVE                             R15 R5
-      204 MOVE                             R17 R13
-      205 GETIMPORT                        R14 K41 [table.insert]
-      207 CALL                             R14 3 0
-      208 JUMP                             ; [+8]
-      209 GETTABLEKS                       R15 R4 K1 ["assets"]
-      211 FASTCALL2                        TABLE_INSERT R15 R13 ; [+4]
-      213 MOVE                             R16 R13
-      214 GETIMPORT                        R14 K41 [table.insert]
-      216 CALL                             R14 2 0
-      217 FORGLOOP                         R8 2 ; [-71]
-      219 JUMPIFNOT                        R3 ; [+1]
-      220 JUMP                             ; [+13]
-      221 GETUPVAL                         R8 2
-      222 GETTABLEKS                       R8 R8 K61 ["reverse"]
-      224 GETUPVAL                         R9 2
-      225 GETTABLEKS                       R9 R9 K62 ["append"]
-      227 GETTABLEKS                       R10 R4 K1 ["assets"]
-      229 MOVE                             R11 R5
-      230 CALL                             R9 2 -1
-      231 CALL                             R8 -1 1
-      232 SETTABLEKS                       R8 R4 K1 ["assets"]
-      234 LOADN                            R8 1
-      235 GETTABLEKS                       R9 R4 K1 ["assets"]
-      237 LOADNIL                          R10
-      238 LOADNIL                          R11
-      239 FORGPREP                         R9
-      240 GETTABLEKS                       R14 R13 K44 ["meta"]
-      242 SETTABLEKS                       R8 R14 K46 ["order"]
-      244 ADDK                             R8 R8 K63 [1]
-      245 FORGLOOP                         R9 2 ; [-6]
-      247 RETURN                           R4 1
+       20 DUPTABLE                         R5 K16 [{["playerAvatarType"] = "R15", ["bodyColor3s"], ["scale"]}]
+       21 DUPTABLE                         R6 K23 [{"headColor3", "leftArmColor3", "leftLegColor3", "rightArmColor3", "rightLegColor3", "torsoColor3"}]
+       22 GETUPVAL                         R7 1
+       23 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       25 NAMECALL                         R7 R7 K25 ["ToHex"]
+       27 CALL                             R7 1 1
+       28 SETTABLEKS                       R7 R6 K17 ["headColor3"]
+       30 GETUPVAL                         R7 1
+       31 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       33 NAMECALL                         R7 R7 K25 ["ToHex"]
+       35 CALL                             R7 1 1
+       36 SETTABLEKS                       R7 R6 K18 ["leftArmColor3"]
+       38 GETUPVAL                         R7 1
+       39 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       41 NAMECALL                         R7 R7 K25 ["ToHex"]
+       43 CALL                             R7 1 1
+       44 SETTABLEKS                       R7 R6 K19 ["leftLegColor3"]
+       46 GETUPVAL                         R7 1
+       47 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       49 NAMECALL                         R7 R7 K25 ["ToHex"]
+       51 CALL                             R7 1 1
+       52 SETTABLEKS                       R7 R6 K20 ["rightArmColor3"]
+       54 GETUPVAL                         R7 1
+       55 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       57 NAMECALL                         R7 R7 K25 ["ToHex"]
+       59 CALL                             R7 1 1
+       60 SETTABLEKS                       R7 R6 K21 ["rightLegColor3"]
+       62 GETUPVAL                         R7 1
+       63 GETTABLEKS                       R7 R7 K24 ["DEFAULT_SKIN_TONE"]
+       65 NAMECALL                         R7 R7 K25 ["ToHex"]
+       67 CALL                             R7 1 1
+       68 SETTABLEKS                       R7 R6 K22 ["torsoColor3"]
+       70 SETTABLEKS                       R6 R5 K14 ["bodyColor3s"]
+       72 DUPTABLE                         R6 K33 [{["bodyType"] = 1, ["depth"] = 1, ["head"] = 1, ["height"] = 1, ["proportion"] = 1, ["width"] = 1}]
+       73 SETTABLEKS                       R6 R5 K15 ["scale"]
+       75 SETTABLEKS                       R5 R4 K6 ["avatarProperties"]
+       77 JUMPIFNOTEQKS                    R0 K34 ["Group"] ; [+9]
+       79 GETUPVAL                         R6 0
+       80 GETTABLEKS                       R6 R6 K35 ["GROUP_ID"]
+       82 FASTCALL1                        TOSTRING R6 ; [+2]
+       83 GETIMPORT                        R5 K37 [tostring]
+       85 CALL                             R5 1 1
+       86 JUMP                             ; [+1]
+       87 LOADNIL                          R5
+       88 SETTABLEKS                       R5 R4 K7 ["groupId"]
+       90 NEWTABLE                         R5 0 0
+       92 JUMPIFNOT                        R3 ; [+4]
+       93 GETUPVAL                         R6 0
+       94 GETTABLEKS                       R6 R6 K38 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
+       96 JUMP                             ; [+3]
+       97 GETUPVAL                         R6 0
+       98 GETTABLEKS                       R6 R6 K39 ["MOCK_ITEM_DATA"]
+      100 LOADNIL                          R7
+      101 JUMPIFNOT                        R1 ; [+16]
+      102 NEWTABLE                         R7 0 0
+      104 MOVE                             R8 R1
+      105 LOADNIL                          R9
+      106 LOADNIL                          R10
+      107 FORGPREP                         R8
+      108 GETTABLE                         R15 R6 R12
+      109 FASTCALL2                        TABLE_INSERT R7 R15 ; [+4]
+      111 MOVE                             R14 R7
+      112 GETIMPORT                        R13 K42 [table.insert]
+      114 CALL                             R13 2 0
+      115 FORGLOOP                         R8 2 ; [-8]
+      117 JUMP                             ; [+1]
+      118 MOVE                             R7 R6
+      119 MOVE                             R8 R7
+      120 LOADNIL                          R9
+      121 LOADNIL                          R10
+      122 FORGPREP                         R8
+      123 GETTABLEKS                       R13 R12 K43 ["creatorType"]
+      125 JUMPIFNOTEQ                      R13 R0 ; [+58]
+      127 DUPTABLE                         R13 K46 [{"id", "meta"}]
+      128 GETTABLEKS                       R14 R12 K44 ["id"]
+      130 SETTABLEKS                       R14 R13 K44 ["id"]
+      132 DUPTABLE                         R14 K51 [{["order"] = 0, ["puffiness"] = 1, ["version"] = 1}]
+      133 SETTABLEKS                       R14 R13 K45 ["meta"]
+      135 GETTABLEKS                       R14 R12 K52 ["bundleId"]
+      137 JUMPIFNOT                        R14 ; [+4]
+      138 GETTABLEKS                       R14 R12 K52 ["bundleId"]
+      140 SETTABLEKS                       R14 R13 K52 ["bundleId"]
+      142 JUMPIF                           R3 ; [+33]
+      143 GETTABLEKS                       R14 R12 K53 ["assetType"]
+      145 GETIMPORT                        R15 K57 [Enum.AssetType.FaceMakeup]
+      147 GETTABLEKS                       R15 R15 K58 ["Value"]
+      149 JUMPIFEQ                         R14 R15 ; [+17]
+      151 GETTABLEKS                       R14 R12 K53 ["assetType"]
+      153 GETIMPORT                        R15 K60 [Enum.AssetType.LipMakeup]
+      155 GETTABLEKS                       R15 R15 K58 ["Value"]
+      157 JUMPIFEQ                         R14 R15 ; [+9]
+      159 GETTABLEKS                       R14 R12 K53 ["assetType"]
+      161 GETIMPORT                        R15 K62 [Enum.AssetType.EyeMakeup]
+      163 GETTABLEKS                       R15 R15 K58 ["Value"]
+      165 JUMPIFNOTEQ                      R14 R15 ; [+10]
+      167 LOADN                            R16 1
+      168 FASTCALL3                        TABLE_INSERT R5 R16 R13
+      170 MOVE                             R15 R5
+      171 MOVE                             R17 R13
+      172 GETIMPORT                        R14 K42 [table.insert]
+      174 CALL                             R14 3 0
+      175 JUMP                             ; [+8]
+      176 GETTABLEKS                       R15 R4 K1 ["assets"]
+      178 FASTCALL2                        TABLE_INSERT R15 R13 ; [+4]
+      180 MOVE                             R16 R13
+      181 GETIMPORT                        R14 K42 [table.insert]
+      183 CALL                             R14 2 0
+      184 FORGLOOP                         R8 2 ; [-62]
+      186 JUMPIFNOT                        R3 ; [+1]
+      187 JUMP                             ; [+13]
+      188 GETUPVAL                         R8 2
+      189 GETTABLEKS                       R8 R8 K63 ["reverse"]
+      191 GETUPVAL                         R9 2
+      192 GETTABLEKS                       R9 R9 K64 ["append"]
+      194 GETTABLEKS                       R10 R4 K1 ["assets"]
+      196 MOVE                             R11 R5
+      197 CALL                             R9 2 -1
+      198 CALL                             R8 -1 1
+      199 SETTABLEKS                       R8 R4 K1 ["assets"]
+      201 LOADN                            R8 1
+      202 GETTABLEKS                       R9 R4 K1 ["assets"]
+      204 LOADNIL                          R10
+      205 LOADNIL                          R11
+      206 FORGPREP                         R9
+      207 GETTABLEKS                       R14 R13 K45 ["meta"]
+      209 SETTABLEKS                       R8 R14 K47 ["order"]
+      211 ADDK                             R8 R8 K27 [1]
+      212 FORGLOOP                         R9 2 ; [-6]
+      214 RETURN                           R4 1
 
 PROTO_33:
         0 GETUPVAL                         R2 0
@@ -958,120 +932,102 @@ PROTO_34:
        22 GETUPVAL                         R3 3
        23 SETTABLEKS                       R2 R3 K4 ["lookCreationInfo"]
        25 NEWTABLE                         R3 0 0
-       27 DUPTABLE                         R4 K7 [{"id", "look"}]
-       28 LOADN                            R5 1
-       29 SETTABLEKS                       R5 R4 K5 ["id"]
-       31 DUPTABLE                         R5 K9 [{"items"}]
-       32 SETTABLEKS                       R3 R5 K8 ["items"]
-       34 SETTABLEKS                       R5 R4 K6 ["look"]
-       36 NEWTABLE                         R5 0 0
-       38 GETTABLEKS                       R6 R2 K10 ["assets"]
-       40 LOADNIL                          R7
-       41 LOADNIL                          R8
-       42 FORGPREP                         R6
-       43 GETTABLEKS                       R12 R10 K5 ["id"]
-       45 GETUPVAL                         R14 3
-       46 GETTABLEKS                       R14 R14 K11 ["MOCK_ITEM_DATA"]
-       48 GETTABLE                         R13 R14 R12
-       49 JUMPIFNOT                        R13 ; [+2]
-       50 MOVE                             R11 R13
-       51 JUMP                             ; [+4]
-       52 GETUPVAL                         R14 3
-       53 GETTABLEKS                       R14 R14 K12 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
-       55 GETTABLE                         R11 R14 R12
-       56 GETTABLEKS                       R12 R10 K13 ["bundleId"]
-       58 JUMPIF                           R12 ; [+4]
-       59 MOVE                             R12 R11
-       60 JUMPIFNOT                        R12 ; [+2]
-       61 GETTABLEKS                       R12 R11 K13 ["bundleId"]
-       63 JUMPIFNOT                        R12 ; [+61]
-       64 GETTABLE                         R13 R5 R12
-       65 JUMPIF                           R13 ; [+59]
-       66 GETUPVAL                         R14 3
-       67 GETTABLEKS                       R14 R14 K14 ["MOCK_AVATAR_LOOK_BUNDLE_DATA"]
-       69 GETTABLE                         R13 R14 R12
-       70 GETTABLEKS                       R14 R13 K15 ["creatorType"]
-       72 DUPTABLE                         R17 K22 [{"id", "name", "itemType", "bundleType", "assetsInBundle", "creator", "priceInRobux"}]
-       73 SETTABLEKS                       R12 R17 K5 ["id"]
-       75 GETTABLEKS                       R18 R13 K16 ["name"]
-       77 SETTABLEKS                       R18 R17 K16 ["name"]
-       79 LOADK                            R18 K23 ["Bundle"]
-       80 SETTABLEKS                       R18 R17 K17 ["itemType"]
-       82 GETTABLEKS                       R18 R13 K18 ["bundleType"]
-       84 SETTABLEKS                       R18 R17 K18 ["bundleType"]
-       86 GETTABLEKS                       R18 R13 K19 ["assetsInBundle"]
-       88 SETTABLEKS                       R18 R17 K19 ["assetsInBundle"]
-       90 DUPTABLE                         R18 K26 [{"id", "name", "type", "hasVerifiedBadge"}]
-       91 JUMPIFNOTEQKS                    R14 K27 ["User"] ; [+6]
-       93 GETUPVAL                         R19 4
-       94 GETTABLEKS                       R19 R19 K28 ["getUserId"]
-       96 CALL                             R19 0 1
-       97 JUMP                             ; [+3]
-       98 GETUPVAL                         R19 3
-       99 GETTABLEKS                       R19 R19 K29 ["GROUP_ID"]
-      101 SETTABLEKS                       R19 R18 K5 ["id"]
-      103 LOADK                            R19 K30 ["Test Creator"]
-      104 SETTABLEKS                       R19 R18 K16 ["name"]
-      106 SETTABLEKS                       R14 R18 K24 ["type"]
-      108 LOADB                            R19 0
-      109 SETTABLEKS                       R19 R18 K25 ["hasVerifiedBadge"]
-      111 SETTABLEKS                       R18 R17 K20 ["creator"]
-      113 LOADN                            R18 30
-      114 SETTABLEKS                       R18 R17 K21 ["priceInRobux"]
-      116 FASTCALL2                        TABLE_INSERT R3 R17 ; [+4]
-      118 MOVE                             R16 R3
-      119 GETIMPORT                        R15 K33 [table.insert]
-      121 CALL                             R15 2 0
-      122 LOADB                            R15 1
-      123 SETTABLE                         R15 R5 R12
-      124 JUMP                             ; [+57]
-      125 JUMPIF                           R12 ; [+56]
-      126 GETTABLEKS                       R13 R11 K34 ["assetType"]
-      128 GETTABLEKS                       R14 R11 K15 ["creatorType"]
-      130 DUPTABLE                         R17 K35 [{"id", "name", "itemType", "creator", "assetType", "priceInRobux"}]
-      131 GETTABLEKS                       R18 R10 K5 ["id"]
-      133 SETTABLEKS                       R18 R17 K5 ["id"]
-      135 LOADK                            R19 K36 ["Test Item"]
-      136 GETTABLEKS                       R21 R10 K5 ["id"]
-      138 FASTCALL1                        TOSTRING R21 ; [+2]
-      139 GETIMPORT                        R20 K38 [tostring]
-      141 CALL                             R20 1 1
-      142 CONCAT                           R18 R19 R20
-      143 SETTABLEKS                       R18 R17 K16 ["name"]
-      145 LOADK                            R18 K39 ["Asset"]
-      146 SETTABLEKS                       R18 R17 K17 ["itemType"]
-      148 DUPTABLE                         R18 K26 [{"id", "name", "type", "hasVerifiedBadge"}]
-      149 JUMPIFNOTEQKS                    R14 K27 ["User"] ; [+6]
-      151 GETUPVAL                         R19 4
-      152 GETTABLEKS                       R19 R19 K28 ["getUserId"]
-      154 CALL                             R19 0 1
-      155 JUMP                             ; [+3]
-      156 GETUPVAL                         R19 3
-      157 GETTABLEKS                       R19 R19 K29 ["GROUP_ID"]
-      159 SETTABLEKS                       R19 R18 K5 ["id"]
-      161 LOADK                            R19 K30 ["Test Creator"]
-      162 SETTABLEKS                       R19 R18 K16 ["name"]
-      164 SETTABLEKS                       R14 R18 K24 ["type"]
-      166 LOADB                            R19 0
-      167 SETTABLEKS                       R19 R18 K25 ["hasVerifiedBadge"]
-      169 SETTABLEKS                       R18 R17 K20 ["creator"]
-      171 SETTABLEKS                       R13 R17 K34 ["assetType"]
-      173 LOADN                            R18 30
-      174 SETTABLEKS                       R18 R17 K21 ["priceInRobux"]
-      176 FASTCALL2                        TABLE_INSERT R3 R17 ; [+4]
-      178 MOVE                             R16 R3
-      179 GETIMPORT                        R15 K33 [table.insert]
-      181 CALL                             R15 2 0
-      182 FORGLOOP                         R6 2 ; [-140]
-      184 MOVE                             R6 R0
-      185 DUPTABLE                         R7 K40 [{"Body"}]
-      186 GETUPVAL                         R8 1
-      187 MOVE                             R10 R4
-      188 NAMECALL                         R8 R8 K41 ["JSONEncode"]
-      190 CALL                             R8 2 1
-      191 SETTABLEKS                       R8 R7 K0 ["Body"]
-      193 CALL                             R6 1 0
-      194 RETURN                           R0 0
+       27 DUPTABLE                         R4 K8 [{["id"] = 1, ["look"]}]
+       28 DUPTABLE                         R5 K10 [{"items"}]
+       29 SETTABLEKS                       R3 R5 K9 ["items"]
+       31 SETTABLEKS                       R5 R4 K7 ["look"]
+       33 NEWTABLE                         R5 0 0
+       35 GETTABLEKS                       R6 R2 K11 ["assets"]
+       37 LOADNIL                          R7
+       38 LOADNIL                          R8
+       39 FORGPREP                         R6
+       40 GETTABLEKS                       R12 R10 K5 ["id"]
+       42 GETUPVAL                         R14 3
+       43 GETTABLEKS                       R14 R14 K12 ["MOCK_ITEM_DATA"]
+       45 GETTABLE                         R13 R14 R12
+       46 JUMPIFNOT                        R13 ; [+2]
+       47 MOVE                             R11 R13
+       48 JUMP                             ; [+4]
+       49 GETUPVAL                         R14 3
+       50 GETTABLEKS                       R14 R14 K13 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
+       52 GETTABLE                         R11 R14 R12
+       53 GETTABLEKS                       R12 R10 K14 ["bundleId"]
+       55 JUMPIF                           R12 ; [+4]
+       56 MOVE                             R12 R11
+       57 JUMPIFNOT                        R12 ; [+2]
+       58 GETTABLEKS                       R12 R11 K14 ["bundleId"]
+       60 JUMPIFNOT                        R12 ; [+49]
+       61 GETTABLE                         R13 R5 R12
+       62 JUMPIF                           R13 ; [+47]
+       63 GETUPVAL                         R14 3
+       64 GETTABLEKS                       R14 R14 K15 ["MOCK_AVATAR_LOOK_BUNDLE_DATA"]
+       66 GETTABLE                         R13 R14 R12
+       67 GETTABLEKS                       R14 R13 K16 ["creatorType"]
+       69 DUPTABLE                         R17 K25 [{["id"], ["name"], ["itemType"] = "Bundle", ["bundleType"], ["assetsInBundle"], ["creator"], ["priceInRobux"] = 30}]
+       70 SETTABLEKS                       R12 R17 K5 ["id"]
+       72 GETTABLEKS                       R18 R13 K17 ["name"]
+       74 SETTABLEKS                       R18 R17 K17 ["name"]
+       76 GETTABLEKS                       R18 R13 K20 ["bundleType"]
+       78 SETTABLEKS                       R18 R17 K20 ["bundleType"]
+       80 GETTABLEKS                       R18 R13 K21 ["assetsInBundle"]
+       82 SETTABLEKS                       R18 R17 K21 ["assetsInBundle"]
+       84 DUPTABLE                         R18 K30 [{["id"], ["name"] = "Test Creator", ["type"], ["hasVerifiedBadge"] = False}]
+       85 JUMPIFNOTEQKS                    R14 K31 ["User"] ; [+6]
+       87 GETUPVAL                         R19 4
+       88 GETTABLEKS                       R19 R19 K32 ["getUserId"]
+       90 CALL                             R19 0 1
+       91 JUMP                             ; [+3]
+       92 GETUPVAL                         R19 3
+       93 GETTABLEKS                       R19 R19 K33 ["GROUP_ID"]
+       95 SETTABLEKS                       R19 R18 K5 ["id"]
+       97 SETTABLEKS                       R14 R18 K27 ["type"]
+       99 SETTABLEKS                       R18 R17 K22 ["creator"]
+      101 FASTCALL2                        TABLE_INSERT R3 R17 ; [+4]
+      103 MOVE                             R16 R3
+      104 GETIMPORT                        R15 K36 [table.insert]
+      106 CALL                             R15 2 0
+      107 LOADB                            R15 1
+      108 SETTABLE                         R15 R5 R12
+      109 JUMP                             ; [+45]
+      110 JUMPIF                           R12 ; [+44]
+      111 GETTABLEKS                       R13 R11 K37 ["assetType"]
+      113 GETTABLEKS                       R14 R11 K16 ["creatorType"]
+      115 DUPTABLE                         R17 K39 [{["id"], ["name"], ["itemType"] = "Asset", ["creator"], ["assetType"], ["priceInRobux"] = 30}]
+      116 GETTABLEKS                       R18 R10 K5 ["id"]
+      118 SETTABLEKS                       R18 R17 K5 ["id"]
+      120 LOADK                            R19 K40 ["Test Item"]
+      121 GETTABLEKS                       R21 R10 K5 ["id"]
+      123 FASTCALL1                        TOSTRING R21 ; [+2]
+      124 GETIMPORT                        R20 K42 [tostring]
+      126 CALL                             R20 1 1
+      127 CONCAT                           R18 R19 R20
+      128 SETTABLEKS                       R18 R17 K17 ["name"]
+      130 DUPTABLE                         R18 K30 [{["id"], ["name"] = "Test Creator", ["type"], ["hasVerifiedBadge"] = False}]
+      131 JUMPIFNOTEQKS                    R14 K31 ["User"] ; [+6]
+      133 GETUPVAL                         R19 4
+      134 GETTABLEKS                       R19 R19 K32 ["getUserId"]
+      136 CALL                             R19 0 1
+      137 JUMP                             ; [+3]
+      138 GETUPVAL                         R19 3
+      139 GETTABLEKS                       R19 R19 K33 ["GROUP_ID"]
+      141 SETTABLEKS                       R19 R18 K5 ["id"]
+      143 SETTABLEKS                       R14 R18 K27 ["type"]
+      145 SETTABLEKS                       R18 R17 K22 ["creator"]
+      147 SETTABLEKS                       R13 R17 K37 ["assetType"]
+      149 FASTCALL2                        TABLE_INSERT R3 R17 ; [+4]
+      151 MOVE                             R16 R3
+      152 GETIMPORT                        R15 K36 [table.insert]
+      154 CALL                             R15 2 0
+      155 FORGLOOP                         R6 2 ; [-116]
+      157 MOVE                             R6 R0
+      158 DUPTABLE                         R7 K43 [{"Body"}]
+      159 GETUPVAL                         R8 1
+      160 MOVE                             R10 R4
+      161 NAMECALL                         R8 R8 K44 ["JSONEncode"]
+      163 CALL                             R8 2 1
+      164 SETTABLEKS                       R8 R7 K0 ["Body"]
+      166 CALL                             R6 1 0
+      167 RETURN                           R0 0
 
 PROTO_35:
         0 GETUPVAL                         R1 0
@@ -1101,29 +1057,27 @@ PROTO_36:
        16 GETUPVAL                         R4 2
        17 GETTABLEKS                       R4 R4 K3 ["lookPreviewUrl"]
        19 CALL                             R4 0 1
-       20 JUMPIFNOTEQ                      R3 R4 ; [+24]
+       20 JUMPIFNOTEQ                      R3 R4 ; [+21]
        22 GETTABLEKS                       R3 R2 K4 ["validationType"]
-       24 JUMPIFNOTEQKS                    R3 K5 ["filterUnsupportedTypes"] ; [+20]
+       24 JUMPIFNOTEQKS                    R3 K5 ["filterUnsupportedTypes"] ; [+17]
        26 MOVE                             R3 R0
        27 DUPTABLE                         R4 K6 [{"Body"}]
        28 GETUPVAL                         R5 1
-       29 DUPTABLE                         R7 K9 [{"errorDescription", "errorCode"}]
+       29 DUPTABLE                         R7 K10 [{["errorDescription"], ["errorCode"] = 1}]
        30 GETUPVAL                         R8 3
-       31 GETTABLEKS                       R8 R8 K10 ["LOOK_PREVIEW_FAILURE_MESSAGE"]
+       31 GETTABLEKS                       R8 R8 K11 ["LOOK_PREVIEW_FAILURE_MESSAGE"]
        33 SETTABLEKS                       R8 R7 K7 ["errorDescription"]
-       35 LOADN                            R8 1
-       36 SETTABLEKS                       R8 R7 K8 ["errorCode"]
-       38 NAMECALL                         R5 R5 K11 ["JSONEncode"]
-       40 CALL                             R5 2 1
-       41 SETTABLEKS                       R5 R4 K0 ["Body"]
-       43 CALL                             R3 1 0
-       44 RETURN                           R0 0
-       45 MOVE                             R3 R0
-       46 GETUPVAL                         R4 4
-       47 GETUPVAL                         R5 0
-       48 CALL                             R4 1 -1
-       49 CALL                             R3 -1 0
-       50 RETURN                           R0 0
+       35 NAMECALL                         R5 R5 K12 ["JSONEncode"]
+       37 CALL                             R5 2 1
+       38 SETTABLEKS                       R5 R4 K0 ["Body"]
+       40 CALL                             R3 1 0
+       41 RETURN                           R0 0
+       42 MOVE                             R3 R0
+       43 GETUPVAL                         R4 4
+       44 GETUPVAL                         R5 0
+       45 CALL                             R4 1 -1
+       46 CALL                             R3 -1 0
+       47 RETURN                           R0 0
 
 PROTO_37:
         0 GETUPVAL                         R1 0
@@ -1165,29 +1119,27 @@ PROTO_40:
        16 GETUPVAL                         R4 2
        17 GETTABLEKS                       R4 R4 K3 ["lookPreviewUrl"]
        19 CALL                             R4 0 1
-       20 JUMPIFNOTEQ                      R3 R4 ; [+24]
+       20 JUMPIFNOTEQ                      R3 R4 ; [+21]
        22 GETTABLEKS                       R3 R2 K4 ["validationType"]
-       24 JUMPIFNOTEQKS                    R3 K5 ["default"] ; [+20]
+       24 JUMPIFNOTEQKS                    R3 K5 ["default"] ; [+17]
        26 MOVE                             R3 R0
        27 DUPTABLE                         R4 K6 [{"Body"}]
        28 GETUPVAL                         R5 1
-       29 DUPTABLE                         R7 K9 [{"errorDescription", "errorCode"}]
+       29 DUPTABLE                         R7 K10 [{["errorDescription"], ["errorCode"] = 1}]
        30 GETUPVAL                         R8 3
-       31 GETTABLEKS                       R8 R8 K10 ["LOOK_VALIDATION_FAILURE_MESSAGE"]
+       31 GETTABLEKS                       R8 R8 K11 ["LOOK_VALIDATION_FAILURE_MESSAGE"]
        33 SETTABLEKS                       R8 R7 K7 ["errorDescription"]
-       35 LOADN                            R8 1
-       36 SETTABLEKS                       R8 R7 K8 ["errorCode"]
-       38 NAMECALL                         R5 R5 K11 ["JSONEncode"]
-       40 CALL                             R5 2 1
-       41 SETTABLEKS                       R5 R4 K0 ["Body"]
-       43 CALL                             R3 1 0
-       44 RETURN                           R0 0
-       45 MOVE                             R3 R0
-       46 GETUPVAL                         R4 4
-       47 GETUPVAL                         R5 0
-       48 CALL                             R4 1 -1
-       49 CALL                             R3 -1 0
-       50 RETURN                           R0 0
+       35 NAMECALL                         R5 R5 K12 ["JSONEncode"]
+       37 CALL                             R5 2 1
+       38 SETTABLEKS                       R5 R4 K0 ["Body"]
+       40 CALL                             R3 1 0
+       41 RETURN                           R0 0
+       42 MOVE                             R3 R0
+       43 GETUPVAL                         R4 4
+       44 GETUPVAL                         R5 0
+       45 CALL                             R4 1 -1
+       46 CALL                             R3 -1 0
+       47 RETURN                           R0 0
 
 PROTO_41:
         0 GETUPVAL                         R1 0
@@ -1207,27 +1159,25 @@ PROTO_42:
         3 GETUPVAL                         R3 1
         4 GETTABLEKS                       R3 R3 K1 ["lookCreateUrl"]
         6 CALL                             R3 0 1
-        7 JUMPIFNOTEQ                      R2 R3 ; [+20]
+        7 JUMPIFNOTEQ                      R2 R3 ; [+17]
         9 MOVE                             R2 R0
        10 DUPTABLE                         R3 K3 [{"Body"}]
        11 GETUPVAL                         R4 2
-       12 DUPTABLE                         R6 K6 [{"errorDescription", "errorCode"}]
+       12 DUPTABLE                         R6 K7 [{["errorDescription"], ["errorCode"] = 1}]
        13 GETUPVAL                         R7 3
-       14 GETTABLEKS                       R7 R7 K7 ["LOOK_CREATION_FAILURE_MESSAGE"]
+       14 GETTABLEKS                       R7 R7 K8 ["LOOK_CREATION_FAILURE_MESSAGE"]
        16 SETTABLEKS                       R7 R6 K4 ["errorDescription"]
-       18 LOADN                            R7 1
-       19 SETTABLEKS                       R7 R6 K5 ["errorCode"]
-       21 NAMECALL                         R4 R4 K8 ["JSONEncode"]
-       23 CALL                             R4 2 1
-       24 SETTABLEKS                       R4 R3 K2 ["Body"]
-       26 CALL                             R2 1 0
-       27 RETURN                           R0 0
-       28 MOVE                             R2 R0
-       29 GETUPVAL                         R3 4
-       30 GETUPVAL                         R4 0
-       31 CALL                             R3 1 -1
-       32 CALL                             R2 -1 0
-       33 RETURN                           R0 0
+       18 NAMECALL                         R4 R4 K9 ["JSONEncode"]
+       20 CALL                             R4 2 1
+       21 SETTABLEKS                       R4 R3 K2 ["Body"]
+       23 CALL                             R2 1 0
+       24 RETURN                           R0 0
+       25 MOVE                             R2 R0
+       26 GETUPVAL                         R3 4
+       27 GETUPVAL                         R4 0
+       28 CALL                             R3 1 -1
+       29 CALL                             R2 -1 0
+       30 RETURN                           R0 0
 
 PROTO_43:
         0 GETUPVAL                         R1 0
@@ -1390,53 +1340,41 @@ PROTO_51:
         5 DUPCLOSURE                       R2 K4 [PROTO_49]
         6 CAPTURE                          UPVAL U0
         7 SETTABLEKS                       R2 R1 K1 ["getBatchBundleDetailsAsync"]
-        9 DUPTABLE                         R2 K10 [{"showLookSaveMenu", "showCreateAvatarLook", "showCreateMakeupLook", "canCreateAvatarLook", "canCreateMakeupLook"}]
-       10 LOADB                            R3 1
-       11 SETTABLEKS                       R3 R2 K5 ["showLookSaveMenu"]
-       13 LOADB                            R3 1
-       14 SETTABLEKS                       R3 R2 K6 ["showCreateAvatarLook"]
-       16 LOADB                            R3 1
-       17 SETTABLEKS                       R3 R2 K7 ["showCreateMakeupLook"]
-       19 LOADB                            R3 1
-       20 SETTABLEKS                       R3 R2 K8 ["canCreateAvatarLook"]
-       22 LOADB                            R3 1
-       23 SETTABLEKS                       R3 R2 K9 ["canCreateMakeupLook"]
-       25 DUPTABLE                         R3 K12 [{"canCreateLook"}]
-       26 LOADB                            R4 1
-       27 SETTABLEKS                       R4 R3 K11 ["canCreateLook"]
-       29 GETUPVAL                         R4 1
-       30 GETTABLEKS                       R4 R4 K13 ["withPreviewerAndLizard"]
-       32 NEWCLOSURE                       R5 P2
-       33 CAPTURE                          VAL R0
-       34 DUPTABLE                         R6 K15 [{"wrapAppContexts"}]
-       35 NEWTABLE                         R7 0 3
-       37 GETUPVAL                         R8 2
-       38 GETTABLEKS                       R8 R8 K16 ["createElement"]
-       40 GETUPVAL                         R9 3
-       41 GETTABLEKS                       R9 R9 K17 ["Provider"]
-       43 DUPTABLE                         R10 K19 [{"value"}]
-       44 SETTABLEKS                       R1 R10 K18 ["value"]
-       46 CALL                             R8 2 1
-       47 GETUPVAL                         R9 2
-       48 GETTABLEKS                       R9 R9 K16 ["createElement"]
-       50 GETUPVAL                         R10 4
-       51 GETTABLEKS                       R10 R10 K20 ["Context"]
-       53 GETTABLEKS                       R10 R10 K17 ["Provider"]
-       55 DUPTABLE                         R11 K19 [{"value"}]
-       56 SETTABLEKS                       R2 R11 K18 ["value"]
-       58 CALL                             R9 2 1
-       59 GETUPVAL                         R10 2
-       60 GETTABLEKS                       R10 R10 K16 ["createElement"]
-       62 GETUPVAL                         R11 5
-       63 GETTABLEKS                       R11 R11 K20 ["Context"]
-       65 GETTABLEKS                       R11 R11 K17 ["Provider"]
-       67 DUPTABLE                         R12 K19 [{"value"}]
-       68 SETTABLEKS                       R3 R12 K18 ["value"]
-       70 CALL                             R10 2 -1
-       71 SETLIST                          R7 R8 -1 [1]
-       73 SETTABLEKS                       R7 R6 K14 ["wrapAppContexts"]
-       75 CALL                             R4 2 -1
-       76 RETURN                           R4 -1
+        9 DUPTABLE                         R2 K11 [{["showLookSaveMenu"] = True, ["showCreateAvatarLook"] = True, ["showCreateMakeupLook"] = True, ["canCreateAvatarLook"] = True, ["canCreateMakeupLook"] = True}]
+       10 DUPTABLE                         R3 K13 [{["canCreateLook"] = True}]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K14 ["withPreviewerAndLizard"]
+       14 NEWCLOSURE                       R5 P2
+       15 CAPTURE                          VAL R0
+       16 DUPTABLE                         R6 K16 [{"wrapAppContexts"}]
+       17 NEWTABLE                         R7 0 3
+       19 GETUPVAL                         R8 2
+       20 GETTABLEKS                       R8 R8 K17 ["createElement"]
+       22 GETUPVAL                         R9 3
+       23 GETTABLEKS                       R9 R9 K18 ["Provider"]
+       25 DUPTABLE                         R10 K20 [{"value"}]
+       26 SETTABLEKS                       R1 R10 K19 ["value"]
+       28 CALL                             R8 2 1
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R9 R9 K17 ["createElement"]
+       32 GETUPVAL                         R10 4
+       33 GETTABLEKS                       R10 R10 K21 ["Context"]
+       35 GETTABLEKS                       R10 R10 K18 ["Provider"]
+       37 DUPTABLE                         R11 K20 [{"value"}]
+       38 SETTABLEKS                       R2 R11 K19 ["value"]
+       40 CALL                             R9 2 1
+       41 GETUPVAL                         R10 2
+       42 GETTABLEKS                       R10 R10 K17 ["createElement"]
+       44 GETUPVAL                         R11 5
+       45 GETTABLEKS                       R11 R11 K21 ["Context"]
+       47 GETTABLEKS                       R11 R11 K18 ["Provider"]
+       49 DUPTABLE                         R12 K20 [{"value"}]
+       50 SETTABLEKS                       R3 R12 K19 ["value"]
+       52 CALL                             R10 2 -1
+       53 SETLIST                          R7 R8 -1 [1]
+       55 SETTABLEKS                       R7 R6 K15 ["wrapAppContexts"]
+       57 CALL                             R4 2 -1
+       58 RETURN                           R4 -1
 
 PROTO_52:
         0 NEWTABLE                         R1 0 0
@@ -1488,53 +1426,41 @@ PROTO_55:
         5 DUPCLOSURE                       R2 K4 [PROTO_53]
         6 CAPTURE                          UPVAL U0
         7 SETTABLEKS                       R2 R1 K1 ["getBatchBundleDetailsAsync"]
-        9 DUPTABLE                         R2 K10 [{"showLookSaveMenu", "showCreateAvatarLook", "showCreateMakeupLook", "canCreateAvatarLook", "canCreateMakeupLook"}]
-       10 LOADB                            R3 1
-       11 SETTABLEKS                       R3 R2 K5 ["showLookSaveMenu"]
-       13 LOADB                            R3 1
-       14 SETTABLEKS                       R3 R2 K6 ["showCreateAvatarLook"]
-       16 LOADB                            R3 1
-       17 SETTABLEKS                       R3 R2 K7 ["showCreateMakeupLook"]
-       19 LOADB                            R3 1
-       20 SETTABLEKS                       R3 R2 K8 ["canCreateAvatarLook"]
-       22 LOADB                            R3 1
-       23 SETTABLEKS                       R3 R2 K9 ["canCreateMakeupLook"]
-       25 DUPTABLE                         R3 K12 [{"canCreateLook"}]
-       26 LOADB                            R4 1
-       27 SETTABLEKS                       R4 R3 K11 ["canCreateLook"]
-       29 GETUPVAL                         R4 1
-       30 GETTABLEKS                       R4 R4 K13 ["withTestPreviewer"]
-       32 NEWCLOSURE                       R5 P2
-       33 CAPTURE                          VAL R0
-       34 DUPTABLE                         R6 K15 [{"wrapAppContexts"}]
-       35 NEWTABLE                         R7 0 3
-       37 GETUPVAL                         R8 2
-       38 GETTABLEKS                       R8 R8 K16 ["createElement"]
-       40 GETUPVAL                         R9 3
-       41 GETTABLEKS                       R9 R9 K17 ["Provider"]
-       43 DUPTABLE                         R10 K19 [{"value"}]
-       44 SETTABLEKS                       R1 R10 K18 ["value"]
-       46 CALL                             R8 2 1
-       47 GETUPVAL                         R9 2
-       48 GETTABLEKS                       R9 R9 K16 ["createElement"]
-       50 GETUPVAL                         R10 4
-       51 GETTABLEKS                       R10 R10 K20 ["Context"]
-       53 GETTABLEKS                       R10 R10 K17 ["Provider"]
-       55 DUPTABLE                         R11 K19 [{"value"}]
-       56 SETTABLEKS                       R2 R11 K18 ["value"]
-       58 CALL                             R9 2 1
-       59 GETUPVAL                         R10 2
-       60 GETTABLEKS                       R10 R10 K16 ["createElement"]
-       62 GETUPVAL                         R11 5
-       63 GETTABLEKS                       R11 R11 K20 ["Context"]
-       65 GETTABLEKS                       R11 R11 K17 ["Provider"]
-       67 DUPTABLE                         R12 K19 [{"value"}]
-       68 SETTABLEKS                       R3 R12 K18 ["value"]
-       70 CALL                             R10 2 -1
-       71 SETLIST                          R7 R8 -1 [1]
-       73 SETTABLEKS                       R7 R6 K14 ["wrapAppContexts"]
-       75 CALL                             R4 2 -1
-       76 RETURN                           R4 -1
+        9 DUPTABLE                         R2 K11 [{["showLookSaveMenu"] = True, ["showCreateAvatarLook"] = True, ["showCreateMakeupLook"] = True, ["canCreateAvatarLook"] = True, ["canCreateMakeupLook"] = True}]
+       10 DUPTABLE                         R3 K13 [{["canCreateLook"] = True}]
+       11 GETUPVAL                         R4 1
+       12 GETTABLEKS                       R4 R4 K14 ["withTestPreviewer"]
+       14 NEWCLOSURE                       R5 P2
+       15 CAPTURE                          VAL R0
+       16 DUPTABLE                         R6 K16 [{"wrapAppContexts"}]
+       17 NEWTABLE                         R7 0 3
+       19 GETUPVAL                         R8 2
+       20 GETTABLEKS                       R8 R8 K17 ["createElement"]
+       22 GETUPVAL                         R9 3
+       23 GETTABLEKS                       R9 R9 K18 ["Provider"]
+       25 DUPTABLE                         R10 K20 [{"value"}]
+       26 SETTABLEKS                       R1 R10 K19 ["value"]
+       28 CALL                             R8 2 1
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R9 R9 K17 ["createElement"]
+       32 GETUPVAL                         R10 4
+       33 GETTABLEKS                       R10 R10 K21 ["Context"]
+       35 GETTABLEKS                       R10 R10 K18 ["Provider"]
+       37 DUPTABLE                         R11 K20 [{"value"}]
+       38 SETTABLEKS                       R2 R11 K19 ["value"]
+       40 CALL                             R9 2 1
+       41 GETUPVAL                         R10 2
+       42 GETTABLEKS                       R10 R10 K17 ["createElement"]
+       44 GETUPVAL                         R11 5
+       45 GETTABLEKS                       R11 R11 K21 ["Context"]
+       47 GETTABLEKS                       R11 R11 K18 ["Provider"]
+       49 DUPTABLE                         R12 K20 [{"value"}]
+       50 SETTABLEKS                       R3 R12 K19 ["value"]
+       52 CALL                             R10 2 -1
+       53 SETLIST                          R7 R8 -1 [1]
+       55 SETTABLEKS                       R7 R6 K15 ["wrapAppContexts"]
+       57 CALL                             R4 2 -1
+       58 RETURN                           R4 -1
 
 PROTO_56:
         0 GETUPVAL                         R0 0
@@ -1615,7 +1541,7 @@ PROTO_58:
 
 PROTO_59:
         0 GETUPVAL                         R0 0
-        1 LOADN                            R1 16
+        1 LOADN                            R1 10000
         2 SETTABLEKS                       R1 R0 K0 ["ZIndex"]
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["fireEvent"]
@@ -1814,7 +1740,7 @@ PROTO_66:
        27 LOADN                            R3 50
        28 CALL                             R1 2 1
        29 SETTABLEKS                       R1 R0 K12 ["Position"]
-       31 LOADN                            R1 248
+       31 LOADN                            R1 11000
        32 SETTABLEKS                       R1 R0 K13 ["ZIndex"]
        34 GETUPVAL                         R1 2
        35 GETTABLEKS                       R1 R1 K14 ["act"]
@@ -1834,7 +1760,7 @@ PROTO_67:
 
 PROTO_68:
         0 GETUPVAL                         R0 0
-        1 LOADN                            R1 16
+        1 LOADN                            R1 10000
         2 SETTABLEKS                       R1 R0 K0 ["ZIndex"]
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["fireEvent"]
@@ -2056,847 +1982,639 @@ MAIN:
       178 NEWTABLE                         R22 0 5
       180 LOADN                            R23 111
       181 LOADN                            R24 222
-      182 LOADN                            R25 77
-      183 LOADN                            R26 188
-      184 LOADN                            R27 43
+      182 LOADN                            R25 333
+      183 LOADN                            R26 444
+      184 LOADN                            R27 555
       185 SETLIST                          R22 R23 5 [1]
       187 SETTABLEKS                       R22 R21 K48 ["USER_ASSET_IDS"]
       189 NEWTABLE                         R22 0 5
-      191 LOADN                            R23 154
-      192 LOADN                            R24 9
-      193 LOADN                            R25 120
-      194 LOADN                            R26 231
+      191 LOADN                            R23 666
+      192 LOADN                            R24 777
+      193 LOADN                            R25 888
+      194 LOADN                            R26 999
       195 LOADN                            R27 0
       196 SETLIST                          R22 R23 5 [1]
       198 SETTABLEKS                       R22 R21 K49 ["GROUP_ASSET_IDS"]
-      200 LOADN                            R22 87
+      200 LOADN                            R22 1111
       201 SETTABLEKS                       R22 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
       203 LOADN                            R22 60
       204 SETTABLEKS                       R22 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
       206 NEWTABLE                         R22 0 6
-      208 LOADN                            R23 209
-      209 LOADN                            R24 210
-      210 LOADN                            R25 211
-      211 LOADN                            R26 212
-      212 LOADN                            R27 213
-      213 LOADN                            R28 214
+      208 LOADN                            R23 2001
+      209 LOADN                            R24 2002
+      210 LOADN                            R25 2003
+      211 LOADN                            R26 2004
+      212 LOADN                            R27 2005
+      213 LOADN                            R28 2006
       214 SETLIST                          R22 R23 6 [1]
       216 SETTABLEKS                       R22 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
       218 NEWTABLE                         R22 16 0
       220 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
       222 GETTABLEN                        R23 R24 1
-      223 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      224 LOADK                            R25 K58 ["User"]
-      225 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      227 GETIMPORT                        R25 K62 [Enum.AssetType.EyebrowAccessory]
-      229 GETTABLEKS                       R25 R25 K63 ["Value"]
-      231 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      233 LOADK                            R25 K64 ["Eyebrows"]
-      234 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      236 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      238 GETTABLEN                        R25 R26 1
-      239 SETTABLEKS                       R25 R24 K56 ["id"]
-      241 SETTABLE                         R24 R22 R23
-      242 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      244 GETTABLEN                        R23 R24 2
-      245 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      246 LOADK                            R25 K58 ["User"]
-      247 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      249 GETIMPORT                        R25 K66 [Enum.AssetType.EyelashAccessory]
-      251 GETTABLEKS                       R25 R25 K63 ["Value"]
-      253 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      255 LOADK                            R25 K67 ["Eyelashes"]
-      256 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      258 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      260 GETTABLEN                        R25 R26 2
-      261 SETTABLEKS                       R25 R24 K56 ["id"]
-      263 SETTABLE                         R24 R22 R23
-      264 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      266 GETTABLEN                        R23 R24 3
-      267 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      268 LOADK                            R25 K58 ["User"]
-      269 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      271 GETIMPORT                        R25 K69 [Enum.AssetType.FaceMakeup]
-      273 GETTABLEKS                       R25 R25 K63 ["Value"]
-      275 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      277 LOADK                            R25 K68 ["FaceMakeup"]
-      278 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      280 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      282 GETTABLEN                        R25 R26 3
-      283 SETTABLEKS                       R25 R24 K56 ["id"]
-      285 SETTABLE                         R24 R22 R23
-      286 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      288 GETTABLEN                        R23 R24 4
-      289 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      290 LOADK                            R25 K58 ["User"]
-      291 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      293 GETIMPORT                        R25 K71 [Enum.AssetType.LipMakeup]
-      295 GETTABLEKS                       R25 R25 K63 ["Value"]
-      297 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      299 LOADK                            R25 K70 ["LipMakeup"]
-      300 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      302 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      304 GETTABLEN                        R25 R26 4
-      305 SETTABLEKS                       R25 R24 K56 ["id"]
-      307 SETTABLE                         R24 R22 R23
-      308 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      310 GETTABLEN                        R23 R24 5
-      311 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      312 LOADK                            R25 K58 ["User"]
-      313 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      315 GETIMPORT                        R25 K73 [Enum.AssetType.EyeMakeup]
-      317 GETTABLEKS                       R25 R25 K63 ["Value"]
-      319 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      321 LOADK                            R25 K72 ["EyeMakeup"]
-      322 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      324 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      326 GETTABLEN                        R25 R26 5
-      327 SETTABLEKS                       R25 R24 K56 ["id"]
-      329 SETTABLE                         R24 R22 R23
-      330 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
-      332 GETTABLEN                        R23 R24 1
-      333 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      334 LOADK                            R25 K74 ["Group"]
-      335 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      337 GETIMPORT                        R25 K62 [Enum.AssetType.EyebrowAccessory]
-      339 GETTABLEKS                       R25 R25 K63 ["Value"]
-      341 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      343 LOADK                            R25 K64 ["Eyebrows"]
-      344 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      346 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
-      348 GETTABLEN                        R25 R26 1
-      349 SETTABLEKS                       R25 R24 K56 ["id"]
-      351 SETTABLE                         R24 R22 R23
-      352 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
-      354 GETTABLEN                        R23 R24 2
-      355 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      356 LOADK                            R25 K74 ["Group"]
-      357 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      359 GETIMPORT                        R25 K66 [Enum.AssetType.EyelashAccessory]
-      361 GETTABLEKS                       R25 R25 K63 ["Value"]
-      363 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      365 LOADK                            R25 K67 ["Eyelashes"]
-      366 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      368 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
-      370 GETTABLEN                        R25 R26 2
-      371 SETTABLEKS                       R25 R24 K56 ["id"]
-      373 SETTABLE                         R24 R22 R23
-      374 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
-      376 GETTABLEN                        R23 R24 3
-      377 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      378 LOADK                            R25 K74 ["Group"]
-      379 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      381 GETIMPORT                        R25 K69 [Enum.AssetType.FaceMakeup]
-      383 GETTABLEKS                       R25 R25 K63 ["Value"]
-      385 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      387 LOADK                            R25 K68 ["FaceMakeup"]
-      388 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      390 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
-      392 GETTABLEN                        R25 R26 3
-      393 SETTABLEKS                       R25 R24 K56 ["id"]
-      395 SETTABLE                         R24 R22 R23
-      396 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
-      398 GETTABLEN                        R23 R24 4
-      399 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      400 LOADK                            R25 K74 ["Group"]
-      401 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      403 GETIMPORT                        R25 K71 [Enum.AssetType.LipMakeup]
-      405 GETTABLEKS                       R25 R25 K63 ["Value"]
-      407 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      409 LOADK                            R25 K72 ["EyeMakeup"]
-      410 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      412 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
-      414 GETTABLEN                        R25 R26 4
-      415 SETTABLEKS                       R25 R24 K56 ["id"]
-      417 SETTABLE                         R24 R22 R23
-      418 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
-      420 GETTABLEN                        R23 R24 5
-      421 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      422 LOADK                            R25 K74 ["Group"]
-      423 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      425 GETIMPORT                        R25 K73 [Enum.AssetType.EyeMakeup]
-      427 GETTABLEKS                       R25 R25 K63 ["Value"]
-      429 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      431 LOADK                            R25 K70 ["LipMakeup"]
-      432 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      434 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
-      436 GETTABLEN                        R25 R26 5
-      437 SETTABLEKS                       R25 R24 K56 ["id"]
-      439 SETTABLE                         R24 R22 R23
-      440 SETTABLEKS                       R22 R21 K75 ["MOCK_ITEM_DATA"]
-      442 NEWTABLE                         R22 16 0
-      444 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      446 GETTABLEN                        R23 R24 1
-      447 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      448 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      450 GETTABLEN                        R25 R26 1
-      451 SETTABLEKS                       R25 R24 K76 ["Id"]
-      453 LOADK                            R25 K83 ["User Asset 1"]
-      454 SETTABLEKS                       R25 R24 K77 ["Name"]
-      456 GETIMPORT                        R25 K62 [Enum.AssetType.EyebrowAccessory]
-      458 GETTABLEKS                       R25 R25 K77 ["Name"]
-      460 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      462 LOADN                            R25 1
-      463 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      465 LOADK                            R25 K58 ["User"]
-      466 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      468 LOADK                            R25 K84 ["Username"]
-      469 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      471 LOADB                            R25 1
-      472 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      474 SETTABLE                         R24 R22 R23
-      475 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      477 GETTABLEN                        R23 R24 2
-      478 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      479 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      481 GETTABLEN                        R25 R26 2
-      482 SETTABLEKS                       R25 R24 K76 ["Id"]
-      484 LOADK                            R25 K85 ["User Asset 2"]
-      485 SETTABLEKS                       R25 R24 K77 ["Name"]
-      487 GETIMPORT                        R25 K66 [Enum.AssetType.EyelashAccessory]
-      489 GETTABLEKS                       R25 R25 K77 ["Name"]
-      491 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      493 LOADN                            R25 1
-      494 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      496 LOADK                            R25 K58 ["User"]
-      497 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      499 LOADK                            R25 K84 ["Username"]
-      500 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      502 LOADB                            R25 1
-      503 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      505 SETTABLE                         R24 R22 R23
-      506 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      508 GETTABLEN                        R23 R24 3
-      509 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      510 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      512 GETTABLEN                        R25 R26 3
-      513 SETTABLEKS                       R25 R24 K76 ["Id"]
-      515 LOADK                            R25 K86 ["User Asset 3"]
-      516 SETTABLEKS                       R25 R24 K77 ["Name"]
-      518 GETIMPORT                        R25 K69 [Enum.AssetType.FaceMakeup]
-      520 GETTABLEKS                       R25 R25 K77 ["Name"]
-      522 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      524 LOADN                            R25 1
-      525 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      527 LOADK                            R25 K58 ["User"]
-      528 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      530 LOADK                            R25 K84 ["Username"]
-      531 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      533 LOADB                            R25 1
-      534 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      536 SETTABLE                         R24 R22 R23
-      537 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      539 GETTABLEN                        R23 R24 4
-      540 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      541 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      543 GETTABLEN                        R25 R26 4
-      544 SETTABLEKS                       R25 R24 K76 ["Id"]
-      546 LOADK                            R25 K87 ["User Asset 4"]
-      547 SETTABLEKS                       R25 R24 K77 ["Name"]
-      549 GETIMPORT                        R25 K71 [Enum.AssetType.LipMakeup]
-      551 GETTABLEKS                       R25 R25 K77 ["Name"]
-      553 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      555 LOADN                            R25 1
-      556 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      558 LOADK                            R25 K58 ["User"]
-      559 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      561 LOADK                            R25 K84 ["Username"]
-      562 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      564 LOADB                            R25 1
-      565 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      567 SETTABLE                         R24 R22 R23
-      568 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
-      570 GETTABLEN                        R23 R24 5
-      571 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      572 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
-      574 GETTABLEN                        R25 R26 5
-      575 SETTABLEKS                       R25 R24 K76 ["Id"]
-      577 LOADK                            R25 K88 ["User Asset 5"]
-      578 SETTABLEKS                       R25 R24 K77 ["Name"]
-      580 GETIMPORT                        R25 K73 [Enum.AssetType.EyeMakeup]
-      582 GETTABLEKS                       R25 R25 K77 ["Name"]
-      584 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      586 LOADN                            R25 1
-      587 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      589 LOADK                            R25 K58 ["User"]
-      590 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      592 LOADK                            R25 K84 ["Username"]
-      593 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      595 LOADB                            R25 1
-      596 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      598 SETTABLE                         R24 R22 R23
-      599 GETTABLEKS                       R23 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
-      601 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      602 GETTABLEKS                       R25 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
-      604 SETTABLEKS                       R25 R24 K76 ["Id"]
-      606 LOADK                            R25 K89 ["Avatar Look Asset 1"]
-      607 SETTABLEKS                       R25 R24 K77 ["Name"]
-      609 GETIMPORT                        R25 K91 [Enum.AssetType.ShirtAccessory]
-      611 GETTABLEKS                       R25 R25 K77 ["Name"]
-      613 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      615 LOADN                            R25 1
-      616 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      618 LOADK                            R25 K58 ["User"]
-      619 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      621 LOADK                            R25 K84 ["Username"]
-      622 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      624 LOADB                            R25 1
-      625 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      627 SETTABLE                         R24 R22 R23
-      628 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      630 GETTABLEN                        R23 R24 1
-      631 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      632 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      634 GETTABLEN                        R25 R26 1
-      635 SETTABLEKS                       R25 R24 K76 ["Id"]
-      637 LOADK                            R25 K92 ["Avatar Look Bundle Asset 1"]
-      638 SETTABLEKS                       R25 R24 K77 ["Name"]
-      640 GETIMPORT                        R25 K94 [Enum.AssetType.DynamicHead]
-      642 GETTABLEKS                       R25 R25 K77 ["Name"]
-      644 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      646 LOADN                            R25 1
-      647 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      649 LOADK                            R25 K58 ["User"]
-      650 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      652 LOADK                            R25 K84 ["Username"]
-      653 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      655 LOADB                            R25 1
-      656 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      658 SETTABLE                         R24 R22 R23
-      659 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      661 GETTABLEN                        R23 R24 2
-      662 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      663 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      665 GETTABLEN                        R25 R26 2
-      666 SETTABLEKS                       R25 R24 K76 ["Id"]
-      668 LOADK                            R25 K95 ["Avatar Look Bundle Asset 2"]
-      669 SETTABLEKS                       R25 R24 K77 ["Name"]
-      671 GETIMPORT                        R25 K97 [Enum.AssetType.Torso]
-      673 GETTABLEKS                       R25 R25 K77 ["Name"]
-      675 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      677 LOADN                            R25 1
-      678 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      680 LOADK                            R25 K58 ["User"]
-      681 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      683 LOADK                            R25 K84 ["Username"]
-      684 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      686 LOADB                            R25 1
-      687 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      689 SETTABLE                         R24 R22 R23
-      690 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      692 GETTABLEN                        R23 R24 3
-      693 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      694 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      696 GETTABLEN                        R25 R26 3
-      697 SETTABLEKS                       R25 R24 K76 ["Id"]
-      699 LOADK                            R25 K98 ["Avatar Look Bundle Asset 3"]
-      700 SETTABLEKS                       R25 R24 K77 ["Name"]
-      702 GETIMPORT                        R25 K100 [Enum.AssetType.LeftArm]
-      704 GETTABLEKS                       R25 R25 K77 ["Name"]
-      706 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      708 LOADN                            R25 1
-      709 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      711 LOADK                            R25 K58 ["User"]
-      712 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      714 LOADK                            R25 K84 ["Username"]
-      715 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      717 LOADB                            R25 1
-      718 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      720 SETTABLE                         R24 R22 R23
-      721 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      723 GETTABLEN                        R23 R24 4
-      724 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      725 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      727 GETTABLEN                        R25 R26 4
-      728 SETTABLEKS                       R25 R24 K76 ["Id"]
-      730 LOADK                            R25 K101 ["Avatar Look Bundle Asset 4"]
-      731 SETTABLEKS                       R25 R24 K77 ["Name"]
-      733 GETIMPORT                        R25 K103 [Enum.AssetType.LeftLeg]
-      735 GETTABLEKS                       R25 R25 K77 ["Name"]
-      737 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      739 LOADN                            R25 1
-      740 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      742 LOADK                            R25 K58 ["User"]
-      743 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      745 LOADK                            R25 K84 ["Username"]
-      746 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      748 LOADB                            R25 1
-      749 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      751 SETTABLE                         R24 R22 R23
-      752 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      754 GETTABLEN                        R23 R24 5
-      755 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      756 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      758 GETTABLEN                        R25 R26 5
-      759 SETTABLEKS                       R25 R24 K76 ["Id"]
-      761 LOADK                            R25 K104 ["Avatar Look Bundle Asset 5"]
-      762 SETTABLEKS                       R25 R24 K77 ["Name"]
-      764 GETIMPORT                        R25 K106 [Enum.AssetType.RightArm]
-      766 GETTABLEKS                       R25 R25 K77 ["Name"]
-      768 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      770 LOADN                            R25 1
-      771 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      773 LOADK                            R25 K58 ["User"]
-      774 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      776 LOADK                            R25 K84 ["Username"]
-      777 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      779 LOADB                            R25 1
-      780 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      782 SETTABLE                         R24 R22 R23
-      783 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      785 GETTABLEN                        R23 R24 6
-      786 DUPTABLE                         R24 K82 [{"Id", "Name", "AssetType", "CreatorTargetId", "CreatorType", "CreatorName", "CreatorHasVerifiedBadge"}]
-      787 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      789 GETTABLEN                        R25 R26 6
-      790 SETTABLEKS                       R25 R24 K76 ["Id"]
-      792 LOADK                            R25 K107 ["Avatar Look Bundle Asset 6"]
-      793 SETTABLEKS                       R25 R24 K77 ["Name"]
-      795 GETIMPORT                        R25 K109 [Enum.AssetType.RightLeg]
-      797 GETTABLEKS                       R25 R25 K77 ["Name"]
-      799 SETTABLEKS                       R25 R24 K60 ["AssetType"]
-      801 LOADN                            R25 1
-      802 SETTABLEKS                       R25 R24 K78 ["CreatorTargetId"]
-      804 LOADK                            R25 K58 ["User"]
-      805 SETTABLEKS                       R25 R24 K79 ["CreatorType"]
-      807 LOADK                            R25 K84 ["Username"]
-      808 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      810 LOADB                            R25 1
-      811 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      813 SETTABLE                         R24 R22 R23
-      814 SETTABLEKS                       R22 R21 K110 ["MOCK_AVATAR_EDITOR_SERVICE_ITEM_DETAILS"]
-      816 NEWTABLE                         R22 1 0
-      818 GETTABLEKS                       R23 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      820 DUPTABLE                         R24 K112 [{"Id", "Name", "CreatorName", "CreatorHasVerifiedBadge", "BundledItems"}]
-      821 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      823 SETTABLEKS                       R25 R24 K76 ["Id"]
-      825 LOADK                            R26 K113 ["Test Bundle"]
-      826 GETTABLEKS                       R28 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      828 FASTCALL1                        TOSTRING R28 ; [+2]
-      829 GETIMPORT                        R27 K115 [tostring]
-      831 CALL                             R27 1 1
-      832 CONCAT                           R25 R26 R27
-      833 SETTABLEKS                       R25 R24 K77 ["Name"]
-      835 LOADK                            R25 K84 ["Username"]
-      836 SETTABLEKS                       R25 R24 K80 ["CreatorName"]
-      838 LOADB                            R25 1
-      839 SETTABLEKS                       R25 R24 K81 ["CreatorHasVerifiedBadge"]
-      841 NEWTABLE                         R25 0 6
-      843 DUPTABLE                         R26 K116 [{"Id"}]
-      844 GETTABLEKS                       R28 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      846 GETTABLEN                        R27 R28 1
-      847 SETTABLEKS                       R27 R26 K76 ["Id"]
-      849 DUPTABLE                         R27 K116 [{"Id"}]
-      850 GETTABLEKS                       R29 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      852 GETTABLEN                        R28 R29 2
-      853 SETTABLEKS                       R28 R27 K76 ["Id"]
-      855 DUPTABLE                         R28 K116 [{"Id"}]
-      856 GETTABLEKS                       R30 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      858 GETTABLEN                        R29 R30 3
-      859 SETTABLEKS                       R29 R28 K76 ["Id"]
-      861 DUPTABLE                         R29 K116 [{"Id"}]
-      862 GETTABLEKS                       R31 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      864 GETTABLEN                        R30 R31 4
-      865 SETTABLEKS                       R30 R29 K76 ["Id"]
-      867 DUPTABLE                         R30 K116 [{"Id"}]
-      868 GETTABLEKS                       R32 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      870 GETTABLEN                        R31 R32 5
-      871 SETTABLEKS                       R31 R30 K76 ["Id"]
-      873 DUPTABLE                         R31 K116 [{"Id"}]
-      874 GETTABLEKS                       R33 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      876 GETTABLEN                        R32 R33 6
-      877 SETTABLEKS                       R32 R31 K76 ["Id"]
-      879 SETLIST                          R25 R26 6 [1]
-      881 SETTABLEKS                       R25 R24 K111 ["BundledItems"]
-      883 SETTABLE                         R24 R22 R23
-      884 SETTABLEKS                       R22 R21 K117 ["MOCK_AVATAR_EDITOR_SERVICE_BUNDLE_DETAILS"]
-      886 NEWTABLE                         R22 8 0
-      888 GETTABLEKS                       R23 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
-      890 DUPTABLE                         R24 K57 [{"creatorType", "assetType", "paletteKey", "id"}]
-      891 LOADK                            R25 K58 ["User"]
-      892 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      894 GETIMPORT                        R25 K91 [Enum.AssetType.ShirtAccessory]
-      896 GETTABLEKS                       R25 R25 K63 ["Value"]
-      898 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      900 LOADK                            R25 K118 ["Shirts"]
-      901 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      903 GETTABLEKS                       R25 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
-      905 SETTABLEKS                       R25 R24 K56 ["id"]
-      907 SETTABLE                         R24 R22 R23
-      908 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      910 GETTABLEN                        R23 R24 1
-      911 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-      912 LOADK                            R25 K58 ["User"]
-      913 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      915 GETIMPORT                        R25 K94 [Enum.AssetType.DynamicHead]
-      917 GETTABLEKS                       R25 R25 K63 ["Value"]
-      919 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      921 LOADK                            R25 K121 ["HeadBodyPart"]
-      922 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      924 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      926 GETTABLEN                        R25 R26 1
-      927 SETTABLEKS                       R25 R24 K56 ["id"]
-      929 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      931 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-      933 SETTABLE                         R24 R22 R23
-      934 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      936 GETTABLEN                        R23 R24 2
-      937 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-      938 LOADK                            R25 K58 ["User"]
-      939 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      941 GETIMPORT                        R25 K97 [Enum.AssetType.Torso]
-      943 GETTABLEKS                       R25 R25 K63 ["Value"]
-      945 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      947 LOADK                            R25 K96 ["Torso"]
-      948 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      950 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      952 GETTABLEN                        R25 R26 2
-      953 SETTABLEKS                       R25 R24 K56 ["id"]
-      955 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      957 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-      959 SETTABLE                         R24 R22 R23
-      960 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      962 GETTABLEN                        R23 R24 3
-      963 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-      964 LOADK                            R25 K58 ["User"]
-      965 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      967 GETIMPORT                        R25 K100 [Enum.AssetType.LeftArm]
-      969 GETTABLEKS                       R25 R25 K63 ["Value"]
-      971 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      973 LOADK                            R25 K99 ["LeftArm"]
-      974 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-      976 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      978 GETTABLEN                        R25 R26 3
-      979 SETTABLEKS                       R25 R24 K56 ["id"]
-      981 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-      983 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-      985 SETTABLE                         R24 R22 R23
-      986 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-      988 GETTABLEN                        R23 R24 4
-      989 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-      990 LOADK                            R25 K58 ["User"]
-      991 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-      993 GETIMPORT                        R25 K103 [Enum.AssetType.LeftLeg]
-      995 GETTABLEKS                       R25 R25 K63 ["Value"]
-      997 SETTABLEKS                       R25 R24 K54 ["assetType"]
-      999 LOADK                            R25 K102 ["LeftLeg"]
-     1000 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-     1002 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1004 GETTABLEN                        R25 R26 4
-     1005 SETTABLEKS                       R25 R24 K56 ["id"]
-     1007 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1009 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-     1011 SETTABLE                         R24 R22 R23
-     1012 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1014 GETTABLEN                        R23 R24 5
-     1015 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-     1016 LOADK                            R25 K58 ["User"]
-     1017 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-     1019 GETIMPORT                        R25 K106 [Enum.AssetType.RightArm]
-     1021 GETTABLEKS                       R25 R25 K63 ["Value"]
-     1023 SETTABLEKS                       R25 R24 K54 ["assetType"]
-     1025 LOADK                            R25 K105 ["RightArm"]
-     1026 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-     1028 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1030 GETTABLEN                        R25 R26 5
-     1031 SETTABLEKS                       R25 R24 K56 ["id"]
-     1033 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1035 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-     1037 SETTABLE                         R24 R22 R23
-     1038 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1040 GETTABLEN                        R23 R24 6
-     1041 DUPTABLE                         R24 K120 [{"creatorType", "assetType", "paletteKey", "id", "bundleId"}]
-     1042 LOADK                            R25 K58 ["User"]
-     1043 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-     1045 GETIMPORT                        R25 K109 [Enum.AssetType.RightLeg]
-     1047 GETTABLEKS                       R25 R25 K63 ["Value"]
-     1049 SETTABLEKS                       R25 R24 K54 ["assetType"]
-     1051 LOADK                            R25 K108 ["RightLeg"]
-     1052 SETTABLEKS                       R25 R24 K55 ["paletteKey"]
-     1054 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1056 GETTABLEN                        R25 R26 6
-     1057 SETTABLEKS                       R25 R24 K56 ["id"]
-     1059 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1061 SETTABLEKS                       R25 R24 K119 ["bundleId"]
-     1063 SETTABLE                         R24 R22 R23
-     1064 SETTABLEKS                       R22 R21 K122 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
-     1066 NEWTABLE                         R22 1 0
-     1068 GETTABLEKS                       R23 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1070 DUPTABLE                         R24 K126 [{"id", "name", "bundleType", "creatorType", "assetsInBundle"}]
-     1071 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1073 SETTABLEKS                       R25 R24 K56 ["id"]
-     1075 LOADK                            R26 K113 ["Test Bundle"]
-     1076 GETTABLEKS                       R28 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
-     1078 FASTCALL1                        TOSTRING R28 ; [+2]
-     1079 GETIMPORT                        R27 K115 [tostring]
-     1081 CALL                             R27 1 1
-     1082 CONCAT                           R25 R26 R27
-     1083 SETTABLEKS                       R25 R24 K123 ["name"]
-     1085 LOADN                            R25 1
-     1086 SETTABLEKS                       R25 R24 K124 ["bundleType"]
-     1088 LOADK                            R25 K58 ["User"]
-     1089 SETTABLEKS                       R25 R24 K53 ["creatorType"]
-     1091 NEWTABLE                         R25 0 6
-     1093 DUPTABLE                         R26 K128 [{"assetType", "id", "isIncluded"}]
-     1094 GETIMPORT                        R27 K94 [Enum.AssetType.DynamicHead]
-     1096 GETTABLEKS                       R27 R27 K63 ["Value"]
-     1098 SETTABLEKS                       R27 R26 K54 ["assetType"]
-     1100 GETTABLEKS                       R28 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1102 GETTABLEN                        R27 R28 1
-     1103 SETTABLEKS                       R27 R26 K56 ["id"]
-     1105 LOADB                            R27 1
-     1106 SETTABLEKS                       R27 R26 K127 ["isIncluded"]
-     1108 DUPTABLE                         R27 K128 [{"assetType", "id", "isIncluded"}]
-     1109 GETIMPORT                        R28 K97 [Enum.AssetType.Torso]
-     1111 GETTABLEKS                       R28 R28 K63 ["Value"]
-     1113 SETTABLEKS                       R28 R27 K54 ["assetType"]
-     1115 GETTABLEKS                       R29 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1117 GETTABLEN                        R28 R29 2
-     1118 SETTABLEKS                       R28 R27 K56 ["id"]
-     1120 LOADB                            R28 1
-     1121 SETTABLEKS                       R28 R27 K127 ["isIncluded"]
-     1123 DUPTABLE                         R28 K128 [{"assetType", "id", "isIncluded"}]
-     1124 GETIMPORT                        R29 K100 [Enum.AssetType.LeftArm]
-     1126 GETTABLEKS                       R29 R29 K63 ["Value"]
-     1128 SETTABLEKS                       R29 R28 K54 ["assetType"]
-     1130 GETTABLEKS                       R30 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1132 GETTABLEN                        R29 R30 3
-     1133 SETTABLEKS                       R29 R28 K56 ["id"]
-     1135 LOADB                            R29 1
-     1136 SETTABLEKS                       R29 R28 K127 ["isIncluded"]
-     1138 DUPTABLE                         R29 K128 [{"assetType", "id", "isIncluded"}]
-     1139 GETIMPORT                        R30 K103 [Enum.AssetType.LeftLeg]
-     1141 GETTABLEKS                       R30 R30 K63 ["Value"]
-     1143 SETTABLEKS                       R30 R29 K54 ["assetType"]
-     1145 GETTABLEKS                       R31 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1147 GETTABLEN                        R30 R31 4
-     1148 SETTABLEKS                       R30 R29 K56 ["id"]
-     1150 LOADB                            R30 1
-     1151 SETTABLEKS                       R30 R29 K127 ["isIncluded"]
-     1153 DUPTABLE                         R30 K128 [{"assetType", "id", "isIncluded"}]
-     1154 GETIMPORT                        R31 K106 [Enum.AssetType.RightArm]
-     1156 GETTABLEKS                       R31 R31 K63 ["Value"]
-     1158 SETTABLEKS                       R31 R30 K54 ["assetType"]
-     1160 GETTABLEKS                       R32 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1162 GETTABLEN                        R31 R32 5
-     1163 SETTABLEKS                       R31 R30 K56 ["id"]
-     1165 LOADB                            R31 1
-     1166 SETTABLEKS                       R31 R30 K127 ["isIncluded"]
-     1168 DUPTABLE                         R31 K128 [{"assetType", "id", "isIncluded"}]
-     1169 GETIMPORT                        R32 K109 [Enum.AssetType.RightLeg]
-     1171 GETTABLEKS                       R32 R32 K63 ["Value"]
-     1173 SETTABLEKS                       R32 R31 K54 ["assetType"]
-     1175 GETTABLEKS                       R33 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
-     1177 GETTABLEN                        R32 R33 6
-     1178 SETTABLEKS                       R32 R31 K56 ["id"]
-     1180 LOADB                            R32 1
-     1181 SETTABLEKS                       R32 R31 K127 ["isIncluded"]
-     1183 SETLIST                          R25 R26 6 [1]
-     1185 SETTABLEKS                       R25 R24 K125 ["assetsInBundle"]
-     1187 SETTABLE                         R24 R22 R23
-     1188 SETTABLEKS                       R22 R21 K129 ["MOCK_AVATAR_LOOK_BUNDLE_DATA"]
-     1190 DUPCLOSURE                       R22 K130 [PROTO_0]
-     1191 CAPTURE                          VAL R0
-     1192 SETTABLEKS                       R22 R21 K131 ["findTextInCoreGui"]
-     1194 DUPCLOSURE                       R22 K132 [PROTO_1]
-     1195 CAPTURE                          VAL R21
-     1196 SETTABLEKS                       R22 R21 K133 ["isConfirmItemsStage"]
-     1198 DUPCLOSURE                       R22 K134 [PROTO_2]
-     1199 CAPTURE                          VAL R21
-     1200 SETTABLEKS                       R22 R21 K135 ["isEditInfoStage"]
-     1202 DUPCLOSURE                       R22 K136 [PROTO_3]
-     1203 CAPTURE                          VAL R21
-     1204 SETTABLEKS                       R22 R21 K137 ["isFailureStage"]
-     1206 DUPCLOSURE                       R22 K138 [PROTO_4]
-     1207 CAPTURE                          VAL R21
-     1208 SETTABLEKS                       R22 R21 K139 ["isSuccessStage"]
-     1210 GETIMPORT                        R22 K142 [UDim2.fromOffset]
-     1212 LOADN                            R23 40
-     1213 LOADN                            R24 40
-     1214 CALL                             R22 2 1
-     1215 GETIMPORT                        R23 K142 [UDim2.fromOffset]
-     1217 LOADN                            R24 144
-     1218 LOADN                            R25 88
-     1219 CALL                             R23 2 1
-     1220 DUPCLOSURE                       R24 K143 [PROTO_5]
-     1221 CAPTURE                          VAL R23
-     1222 DUPCLOSURE                       R25 K144 [PROTO_6]
-     1223 DUPCLOSURE                       R26 K145 [PROTO_8]
-     1224 CAPTURE                          VAL R0
-     1225 CAPTURE                          VAL R22
-     1226 CAPTURE                          VAL R6
-     1227 CAPTURE                          VAL R7
-     1228 SETTABLEKS                       R26 R21 K146 ["clickContinueButton"]
-     1230 DUPCLOSURE                       R26 K147 [PROTO_10]
-     1231 CAPTURE                          VAL R0
-     1232 CAPTURE                          VAL R22
-     1233 CAPTURE                          VAL R6
-     1234 CAPTURE                          VAL R7
-     1235 SETTABLEKS                       R26 R21 K148 ["clickBackButton"]
-     1237 DUPCLOSURE                       R26 K149 [PROTO_13]
-     1238 CAPTURE                          VAL R0
-     1239 CAPTURE                          VAL R7
-     1240 CAPTURE                          VAL R23
-     1241 CAPTURE                          VAL R24
-     1242 CAPTURE                          VAL R22
-     1243 CAPTURE                          VAL R6
-     1244 SETTABLEKS                       R26 R21 K150 ["changeCreator"]
-     1246 DUPCLOSURE                       R26 K151 [PROTO_15]
-     1247 CAPTURE                          VAL R21
-     1248 CAPTURE                          VAL R0
-     1249 CAPTURE                          VAL R7
-     1250 CAPTURE                          VAL R24
-     1251 CAPTURE                          VAL R22
-     1252 CAPTURE                          VAL R6
-     1253 SETTABLEKS                       R26 R21 K152 ["toggleItem"]
-     1255 DUPCLOSURE                       R26 K153 [PROTO_16]
-     1256 CAPTURE                          VAL R0
-     1257 CAPTURE                          VAL R24
-     1258 CAPTURE                          VAL R22
-     1259 CAPTURE                          VAL R7
-     1260 SETTABLEKS                       R26 R21 K154 ["changeColor"]
-     1262 DUPCLOSURE                       R26 K155 [PROTO_20]
-     1263 CAPTURE                          VAL R21
-     1264 CAPTURE                          VAL R0
-     1265 CAPTURE                          VAL R6
-     1266 CAPTURE                          VAL R22
-     1267 CAPTURE                          VAL R7
-     1268 SETTABLEKS                       R26 R21 K156 ["enterName"]
-     1270 DUPCLOSURE                       R26 K157 [PROTO_21]
-     1271 CAPTURE                          VAL R21
-     1272 SETTABLEKS                       R26 R21 K158 ["checkErrorBannerText"]
-     1274 DUPCLOSURE                       R26 K159 [PROTO_22]
-     1275 CAPTURE                          VAL R7
-     1276 CAPTURE                          VAL R0
-     1277 SETTABLEKS                       R26 R21 K160 ["queryErrorBannerCloseButton"]
-     1279 DUPCLOSURE                       R26 K161 [PROTO_24]
-     1280 CAPTURE                          VAL R21
-     1281 CAPTURE                          VAL R24
-     1282 CAPTURE                          VAL R0
-     1283 CAPTURE                          VAL R22
-     1284 CAPTURE                          VAL R6
-     1285 CAPTURE                          VAL R7
-     1286 SETTABLEKS                       R26 R21 K162 ["clickErrorBannerDismiss"]
-     1288 DUPCLOSURE                       R26 K163 [PROTO_26]
-     1289 CAPTURE                          VAL R0
-     1290 CAPTURE                          VAL R22
-     1291 CAPTURE                          VAL R6
-     1292 CAPTURE                          VAL R7
-     1293 SETTABLEKS                       R26 R21 K164 ["openErrorDialog"]
-     1295 DUPCLOSURE                       R26 K165 [PROTO_27]
-     1296 CAPTURE                          VAL R21
-     1297 SETTABLEKS                       R26 R21 K166 ["checkErrorDialogText"]
-     1299 DUPCLOSURE                       R26 K167 [PROTO_28]
-     1300 CAPTURE                          VAL R21
-     1301 SETTABLEKS                       R26 R21 K168 ["isItemInDetailsList"]
-     1303 DUPCLOSURE                       R26 K169 [PROTO_29]
-     1304 CAPTURE                          VAL R21
-     1305 CAPTURE                          VAL R14
-     1306 SETTABLEKS                       R26 R21 K170 ["getUserEquippedItems"]
-     1308 DUPCLOSURE                       R26 K171 [PROTO_30]
-     1309 CAPTURE                          VAL R21
-     1310 SETTABLEKS                       R26 R21 K172 ["getMixedCreatorMakeupLookEquippedItems"]
-     1312 DUPCLOSURE                       R26 K173 [PROTO_31]
-     1313 CAPTURE                          VAL R21
-     1314 CAPTURE                          VAL R14
-     1315 SETTABLEKS                       R26 R21 K174 ["getGroupEquippedItems"]
-     1317 DUPCLOSURE                       R26 K175 [PROTO_32]
-     1318 CAPTURE                          VAL R21
-     1319 CAPTURE                          VAL R12
-     1320 CAPTURE                          VAL R9
-     1321 SETTABLEKS                       R26 R21 K176 ["getExpectedLook"]
-     1323 LOADNIL                          R26
-     1324 SETTABLEKS                       R26 R21 K177 ["lookCreationInfo"]
-     1326 DUPCLOSURE                       R26 K178 [PROTO_33]
-     1327 CAPTURE                          VAL R21
-     1328 DUPCLOSURE                       R27 K179 [PROTO_35]
-     1329 CAPTURE                          VAL R8
-     1330 CAPTURE                          VAL R1
-     1331 CAPTURE                          VAL R11
-     1332 CAPTURE                          VAL R21
-     1333 CAPTURE                          VAL R13
-     1334 DUPCLOSURE                       R28 K180 [PROTO_37]
-     1335 CAPTURE                          VAL R8
-     1336 CAPTURE                          VAL R1
-     1337 CAPTURE                          VAL R11
-     1338 CAPTURE                          VAL R21
-     1339 CAPTURE                          VAL R27
-     1340 DUPCLOSURE                       R29 K181 [PROTO_39]
-     1341 CAPTURE                          VAL R8
-     1342 DUPCLOSURE                       R30 K182 [PROTO_41]
-     1343 CAPTURE                          VAL R8
-     1344 CAPTURE                          VAL R1
-     1345 CAPTURE                          VAL R11
-     1346 CAPTURE                          VAL R21
-     1347 CAPTURE                          VAL R27
-     1348 DUPCLOSURE                       R31 K183 [PROTO_43]
-     1349 CAPTURE                          VAL R8
-     1350 CAPTURE                          VAL R11
-     1351 CAPTURE                          VAL R1
-     1352 CAPTURE                          VAL R21
-     1353 CAPTURE                          VAL R27
-     1354 DUPCLOSURE                       R32 K184 [PROTO_44]
-     1355 CAPTURE                          VAL R13
-     1356 CAPTURE                          VAL R28
-     1357 CAPTURE                          VAL R29
-     1358 CAPTURE                          VAL R30
-     1359 CAPTURE                          VAL R31
-     1360 CAPTURE                          VAL R27
-     1361 SETTABLEKS                       R32 R21 K185 ["createMockLookComposerRequestInternal"]
-     1363 DUPCLOSURE                       R32 K186 [PROTO_47]
-     1364 CAPTURE                          VAL R0
-     1365 CAPTURE                          VAL R20
-     1366 CAPTURE                          VAL R5
-     1367 CAPTURE                          VAL R3
-     1368 CAPTURE                          VAL R19
-     1369 CAPTURE                          VAL R6
-     1370 CAPTURE                          VAL R7
-     1371 SETTABLEKS                       R32 R21 K187 ["createLookComposerDialogTest"]
-     1373 DUPCLOSURE                       R32 K188 [PROTO_51]
-     1374 CAPTURE                          VAL R21
-     1375 CAPTURE                          VAL R15
-     1376 CAPTURE                          VAL R5
-     1377 CAPTURE                          VAL R16
-     1378 CAPTURE                          VAL R17
-     1379 CAPTURE                          VAL R18
-     1380 SETTABLEKS                       R32 R21 K189 ["lookCreationTest"]
-     1382 DUPCLOSURE                       R32 K190 [PROTO_55]
-     1383 CAPTURE                          VAL R21
-     1384 CAPTURE                          VAL R15
-     1385 CAPTURE                          VAL R5
-     1386 CAPTURE                          VAL R16
-     1387 CAPTURE                          VAL R17
-     1388 CAPTURE                          VAL R18
-     1389 SETTABLEKS                       R32 R21 K191 ["lookCreationStartFromAssetIdTest"]
-     1391 DUPCLOSURE                       R32 K192 [PROTO_57]
-     1392 CAPTURE                          VAL R0
-     1393 CAPTURE                          VAL R24
-     1394 CAPTURE                          VAL R22
-     1395 CAPTURE                          VAL R6
-     1396 CAPTURE                          VAL R7
-     1397 SETTABLEKS                       R32 R21 K193 ["clickAddAssetIdButton"]
-     1399 DUPCLOSURE                       R32 K194 [PROTO_60]
-     1400 CAPTURE                          VAL R0
-     1401 CAPTURE                          VAL R7
-     1402 CAPTURE                          VAL R6
-     1403 SETTABLEKS                       R32 R21 K195 ["openAssetImportDialog"]
-     1405 DUPCLOSURE                       R32 K196 [PROTO_64]
-     1406 CAPTURE                          VAL R0
-     1407 CAPTURE                          VAL R6
-     1408 CAPTURE                          VAL R22
-     1409 CAPTURE                          VAL R7
-     1410 SETTABLEKS                       R32 R21 K197 ["addAssetIdsToImportDialog"]
-     1412 DUPCLOSURE                       R32 K198 [PROTO_66]
-     1413 CAPTURE                          VAL R0
-     1414 CAPTURE                          VAL R22
-     1415 CAPTURE                          VAL R6
-     1416 CAPTURE                          VAL R7
-     1417 SETTABLEKS                       R32 R21 K199 ["clickAddItemsButtonImportDialog"]
-     1419 DUPCLOSURE                       R32 K200 [PROTO_69]
-     1420 CAPTURE                          VAL R0
-     1421 CAPTURE                          VAL R7
-     1422 CAPTURE                          VAL R6
-     1423 SETTABLEKS                       R32 R21 K201 ["openLookComposerDialog"]
-     1425 DUPCLOSURE                       R32 K202 [PROTO_70]
-     1426 CAPTURE                          VAL R21
-     1427 SETTABLEKS                       R32 R21 K203 ["importMarketplaceItems"]
-     1429 RETURN                           R21 1
+      223 DUPTABLE                         R24 K59 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "Eyebrows", ["id"]}]
+      224 GETIMPORT                        R25 K63 [Enum.AssetType.EyebrowAccessory]
+      226 GETTABLEKS                       R25 R25 K64 ["Value"]
+      228 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      230 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      232 GETTABLEN                        R25 R26 1
+      233 SETTABLEKS                       R25 R24 K58 ["id"]
+      235 SETTABLE                         R24 R22 R23
+      236 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      238 GETTABLEN                        R23 R24 2
+      239 DUPTABLE                         R24 K66 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "Eyelashes", ["id"]}]
+      240 GETIMPORT                        R25 K68 [Enum.AssetType.EyelashAccessory]
+      242 GETTABLEKS                       R25 R25 K64 ["Value"]
+      244 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      246 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      248 GETTABLEN                        R25 R26 2
+      249 SETTABLEKS                       R25 R24 K58 ["id"]
+      251 SETTABLE                         R24 R22 R23
+      252 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      254 GETTABLEN                        R23 R24 3
+      255 DUPTABLE                         R24 K70 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "FaceMakeup", ["id"]}]
+      256 GETIMPORT                        R25 K71 [Enum.AssetType.FaceMakeup]
+      258 GETTABLEKS                       R25 R25 K64 ["Value"]
+      260 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      262 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      264 GETTABLEN                        R25 R26 3
+      265 SETTABLEKS                       R25 R24 K58 ["id"]
+      267 SETTABLE                         R24 R22 R23
+      268 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      270 GETTABLEN                        R23 R24 4
+      271 DUPTABLE                         R24 K73 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "LipMakeup", ["id"]}]
+      272 GETIMPORT                        R25 K74 [Enum.AssetType.LipMakeup]
+      274 GETTABLEKS                       R25 R25 K64 ["Value"]
+      276 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      278 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      280 GETTABLEN                        R25 R26 4
+      281 SETTABLEKS                       R25 R24 K58 ["id"]
+      283 SETTABLE                         R24 R22 R23
+      284 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      286 GETTABLEN                        R23 R24 5
+      287 DUPTABLE                         R24 K76 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "EyeMakeup", ["id"]}]
+      288 GETIMPORT                        R25 K77 [Enum.AssetType.EyeMakeup]
+      290 GETTABLEKS                       R25 R25 K64 ["Value"]
+      292 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      294 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      296 GETTABLEN                        R25 R26 5
+      297 SETTABLEKS                       R25 R24 K58 ["id"]
+      299 SETTABLE                         R24 R22 R23
+      300 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
+      302 GETTABLEN                        R23 R24 1
+      303 DUPTABLE                         R24 K79 [{["creatorType"] = "Group", ["assetType"], ["paletteKey"] = "Eyebrows", ["id"]}]
+      304 GETIMPORT                        R25 K63 [Enum.AssetType.EyebrowAccessory]
+      306 GETTABLEKS                       R25 R25 K64 ["Value"]
+      308 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      310 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
+      312 GETTABLEN                        R25 R26 1
+      313 SETTABLEKS                       R25 R24 K58 ["id"]
+      315 SETTABLE                         R24 R22 R23
+      316 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
+      318 GETTABLEN                        R23 R24 2
+      319 DUPTABLE                         R24 K80 [{["creatorType"] = "Group", ["assetType"], ["paletteKey"] = "Eyelashes", ["id"]}]
+      320 GETIMPORT                        R25 K68 [Enum.AssetType.EyelashAccessory]
+      322 GETTABLEKS                       R25 R25 K64 ["Value"]
+      324 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      326 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
+      328 GETTABLEN                        R25 R26 2
+      329 SETTABLEKS                       R25 R24 K58 ["id"]
+      331 SETTABLE                         R24 R22 R23
+      332 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
+      334 GETTABLEN                        R23 R24 3
+      335 DUPTABLE                         R24 K81 [{["creatorType"] = "Group", ["assetType"], ["paletteKey"] = "FaceMakeup", ["id"]}]
+      336 GETIMPORT                        R25 K71 [Enum.AssetType.FaceMakeup]
+      338 GETTABLEKS                       R25 R25 K64 ["Value"]
+      340 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      342 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
+      344 GETTABLEN                        R25 R26 3
+      345 SETTABLEKS                       R25 R24 K58 ["id"]
+      347 SETTABLE                         R24 R22 R23
+      348 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
+      350 GETTABLEN                        R23 R24 4
+      351 DUPTABLE                         R24 K82 [{["creatorType"] = "Group", ["assetType"], ["paletteKey"] = "EyeMakeup", ["id"]}]
+      352 GETIMPORT                        R25 K74 [Enum.AssetType.LipMakeup]
+      354 GETTABLEKS                       R25 R25 K64 ["Value"]
+      356 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      358 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
+      360 GETTABLEN                        R25 R26 4
+      361 SETTABLEKS                       R25 R24 K58 ["id"]
+      363 SETTABLE                         R24 R22 R23
+      364 GETTABLEKS                       R24 R21 K49 ["GROUP_ASSET_IDS"]
+      366 GETTABLEN                        R23 R24 5
+      367 DUPTABLE                         R24 K83 [{["creatorType"] = "Group", ["assetType"], ["paletteKey"] = "LipMakeup", ["id"]}]
+      368 GETIMPORT                        R25 K77 [Enum.AssetType.EyeMakeup]
+      370 GETTABLEKS                       R25 R25 K64 ["Value"]
+      372 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      374 GETTABLEKS                       R26 R21 K49 ["GROUP_ASSET_IDS"]
+      376 GETTABLEN                        R25 R26 5
+      377 SETTABLEKS                       R25 R24 K58 ["id"]
+      379 SETTABLE                         R24 R22 R23
+      380 SETTABLEKS                       R22 R21 K84 ["MOCK_ITEM_DATA"]
+      382 NEWTABLE                         R22 16 0
+      384 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      386 GETTABLEN                        R23 R24 1
+      387 DUPTABLE                         R24 K95 [{["Id"], ["Name"] = "User Asset 1", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      388 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      390 GETTABLEN                        R25 R26 1
+      391 SETTABLEKS                       R25 R24 K85 ["Id"]
+      393 GETIMPORT                        R25 K63 [Enum.AssetType.EyebrowAccessory]
+      395 GETTABLEKS                       R25 R25 K86 ["Name"]
+      397 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      399 SETTABLE                         R24 R22 R23
+      400 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      402 GETTABLEN                        R23 R24 2
+      403 DUPTABLE                         R24 K97 [{["Id"], ["Name"] = "User Asset 2", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      404 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      406 GETTABLEN                        R25 R26 2
+      407 SETTABLEKS                       R25 R24 K85 ["Id"]
+      409 GETIMPORT                        R25 K68 [Enum.AssetType.EyelashAccessory]
+      411 GETTABLEKS                       R25 R25 K86 ["Name"]
+      413 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      415 SETTABLE                         R24 R22 R23
+      416 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      418 GETTABLEN                        R23 R24 3
+      419 DUPTABLE                         R24 K99 [{["Id"], ["Name"] = "User Asset 3", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      420 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      422 GETTABLEN                        R25 R26 3
+      423 SETTABLEKS                       R25 R24 K85 ["Id"]
+      425 GETIMPORT                        R25 K71 [Enum.AssetType.FaceMakeup]
+      427 GETTABLEKS                       R25 R25 K86 ["Name"]
+      429 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      431 SETTABLE                         R24 R22 R23
+      432 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      434 GETTABLEN                        R23 R24 4
+      435 DUPTABLE                         R24 K101 [{["Id"], ["Name"] = "User Asset 4", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      436 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      438 GETTABLEN                        R25 R26 4
+      439 SETTABLEKS                       R25 R24 K85 ["Id"]
+      441 GETIMPORT                        R25 K74 [Enum.AssetType.LipMakeup]
+      443 GETTABLEKS                       R25 R25 K86 ["Name"]
+      445 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      447 SETTABLE                         R24 R22 R23
+      448 GETTABLEKS                       R24 R21 K48 ["USER_ASSET_IDS"]
+      450 GETTABLEN                        R23 R24 5
+      451 DUPTABLE                         R24 K103 [{["Id"], ["Name"] = "User Asset 5", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      452 GETTABLEKS                       R26 R21 K48 ["USER_ASSET_IDS"]
+      454 GETTABLEN                        R25 R26 5
+      455 SETTABLEKS                       R25 R24 K85 ["Id"]
+      457 GETIMPORT                        R25 K77 [Enum.AssetType.EyeMakeup]
+      459 GETTABLEKS                       R25 R25 K86 ["Name"]
+      461 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      463 SETTABLE                         R24 R22 R23
+      464 GETTABLEKS                       R23 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
+      466 DUPTABLE                         R24 K105 [{["Id"], ["Name"] = "Avatar Look Asset 1", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      467 GETTABLEKS                       R25 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
+      469 SETTABLEKS                       R25 R24 K85 ["Id"]
+      471 GETIMPORT                        R25 K107 [Enum.AssetType.ShirtAccessory]
+      473 GETTABLEKS                       R25 R25 K86 ["Name"]
+      475 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      477 SETTABLE                         R24 R22 R23
+      478 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      480 GETTABLEN                        R23 R24 1
+      481 DUPTABLE                         R24 K109 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 1", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      482 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      484 GETTABLEN                        R25 R26 1
+      485 SETTABLEKS                       R25 R24 K85 ["Id"]
+      487 GETIMPORT                        R25 K111 [Enum.AssetType.DynamicHead]
+      489 GETTABLEKS                       R25 R25 K86 ["Name"]
+      491 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      493 SETTABLE                         R24 R22 R23
+      494 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      496 GETTABLEN                        R23 R24 2
+      497 DUPTABLE                         R24 K113 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 2", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      498 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      500 GETTABLEN                        R25 R26 2
+      501 SETTABLEKS                       R25 R24 K85 ["Id"]
+      503 GETIMPORT                        R25 K115 [Enum.AssetType.Torso]
+      505 GETTABLEKS                       R25 R25 K86 ["Name"]
+      507 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      509 SETTABLE                         R24 R22 R23
+      510 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      512 GETTABLEN                        R23 R24 3
+      513 DUPTABLE                         R24 K117 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 3", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      514 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      516 GETTABLEN                        R25 R26 3
+      517 SETTABLEKS                       R25 R24 K85 ["Id"]
+      519 GETIMPORT                        R25 K119 [Enum.AssetType.LeftArm]
+      521 GETTABLEKS                       R25 R25 K86 ["Name"]
+      523 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      525 SETTABLE                         R24 R22 R23
+      526 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      528 GETTABLEN                        R23 R24 4
+      529 DUPTABLE                         R24 K121 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 4", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      530 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      532 GETTABLEN                        R25 R26 4
+      533 SETTABLEKS                       R25 R24 K85 ["Id"]
+      535 GETIMPORT                        R25 K123 [Enum.AssetType.LeftLeg]
+      537 GETTABLEKS                       R25 R25 K86 ["Name"]
+      539 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      541 SETTABLE                         R24 R22 R23
+      542 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      544 GETTABLEN                        R23 R24 5
+      545 DUPTABLE                         R24 K125 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 5", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      546 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      548 GETTABLEN                        R25 R26 5
+      549 SETTABLEKS                       R25 R24 K85 ["Id"]
+      551 GETIMPORT                        R25 K127 [Enum.AssetType.RightArm]
+      553 GETTABLEKS                       R25 R25 K86 ["Name"]
+      555 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      557 SETTABLE                         R24 R22 R23
+      558 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      560 GETTABLEN                        R23 R24 6
+      561 DUPTABLE                         R24 K129 [{["Id"], ["Name"] = "Avatar Look Bundle Asset 6", ["AssetType"], ["CreatorTargetId"] = 1, ["CreatorType"] = "User", ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True}]
+      562 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      564 GETTABLEN                        R25 R26 6
+      565 SETTABLEKS                       R25 R24 K85 ["Id"]
+      567 GETIMPORT                        R25 K131 [Enum.AssetType.RightLeg]
+      569 GETTABLEKS                       R25 R25 K86 ["Name"]
+      571 SETTABLEKS                       R25 R24 K61 ["AssetType"]
+      573 SETTABLE                         R24 R22 R23
+      574 SETTABLEKS                       R22 R21 K132 ["MOCK_AVATAR_EDITOR_SERVICE_ITEM_DETAILS"]
+      576 NEWTABLE                         R22 1 0
+      578 GETTABLEKS                       R23 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      580 DUPTABLE                         R24 K134 [{["Id"], ["Name"], ["CreatorName"] = "Username", ["CreatorHasVerifiedBadge"] = True, ["BundledItems"]}]
+      581 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      583 SETTABLEKS                       R25 R24 K85 ["Id"]
+      585 LOADK                            R26 K135 ["Test Bundle"]
+      586 GETTABLEKS                       R28 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      588 FASTCALL1                        TOSTRING R28 ; [+2]
+      589 GETIMPORT                        R27 K137 [tostring]
+      591 CALL                             R27 1 1
+      592 CONCAT                           R25 R26 R27
+      593 SETTABLEKS                       R25 R24 K86 ["Name"]
+      595 NEWTABLE                         R25 0 6
+      597 DUPTABLE                         R26 K138 [{"Id"}]
+      598 GETTABLEKS                       R28 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      600 GETTABLEN                        R27 R28 1
+      601 SETTABLEKS                       R27 R26 K85 ["Id"]
+      603 DUPTABLE                         R27 K138 [{"Id"}]
+      604 GETTABLEKS                       R29 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      606 GETTABLEN                        R28 R29 2
+      607 SETTABLEKS                       R28 R27 K85 ["Id"]
+      609 DUPTABLE                         R28 K138 [{"Id"}]
+      610 GETTABLEKS                       R30 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      612 GETTABLEN                        R29 R30 3
+      613 SETTABLEKS                       R29 R28 K85 ["Id"]
+      615 DUPTABLE                         R29 K138 [{"Id"}]
+      616 GETTABLEKS                       R31 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      618 GETTABLEN                        R30 R31 4
+      619 SETTABLEKS                       R30 R29 K85 ["Id"]
+      621 DUPTABLE                         R30 K138 [{"Id"}]
+      622 GETTABLEKS                       R32 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      624 GETTABLEN                        R31 R32 5
+      625 SETTABLEKS                       R31 R30 K85 ["Id"]
+      627 DUPTABLE                         R31 K138 [{"Id"}]
+      628 GETTABLEKS                       R33 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      630 GETTABLEN                        R32 R33 6
+      631 SETTABLEKS                       R32 R31 K85 ["Id"]
+      633 SETLIST                          R25 R26 6 [1]
+      635 SETTABLEKS                       R25 R24 K133 ["BundledItems"]
+      637 SETTABLE                         R24 R22 R23
+      638 SETTABLEKS                       R22 R21 K139 ["MOCK_AVATAR_EDITOR_SERVICE_BUNDLE_DETAILS"]
+      640 NEWTABLE                         R22 8 0
+      642 GETTABLEKS                       R23 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
+      644 DUPTABLE                         R24 K141 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "Shirts", ["id"]}]
+      645 GETIMPORT                        R25 K107 [Enum.AssetType.ShirtAccessory]
+      647 GETTABLEKS                       R25 R25 K64 ["Value"]
+      649 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      651 GETTABLEKS                       R25 R21 K50 ["AVATAR_LOOK_ASSET_ID"]
+      653 SETTABLEKS                       R25 R24 K58 ["id"]
+      655 SETTABLE                         R24 R22 R23
+      656 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      658 GETTABLEN                        R23 R24 1
+      659 DUPTABLE                         R24 K144 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "HeadBodyPart", ["id"], ["bundleId"]}]
+      660 GETIMPORT                        R25 K111 [Enum.AssetType.DynamicHead]
+      662 GETTABLEKS                       R25 R25 K64 ["Value"]
+      664 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      666 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      668 GETTABLEN                        R25 R26 1
+      669 SETTABLEKS                       R25 R24 K58 ["id"]
+      671 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      673 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      675 SETTABLE                         R24 R22 R23
+      676 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      678 GETTABLEN                        R23 R24 2
+      679 DUPTABLE                         R24 K145 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "Torso", ["id"], ["bundleId"]}]
+      680 GETIMPORT                        R25 K115 [Enum.AssetType.Torso]
+      682 GETTABLEKS                       R25 R25 K64 ["Value"]
+      684 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      686 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      688 GETTABLEN                        R25 R26 2
+      689 SETTABLEKS                       R25 R24 K58 ["id"]
+      691 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      693 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      695 SETTABLE                         R24 R22 R23
+      696 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      698 GETTABLEN                        R23 R24 3
+      699 DUPTABLE                         R24 K146 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "LeftArm", ["id"], ["bundleId"]}]
+      700 GETIMPORT                        R25 K119 [Enum.AssetType.LeftArm]
+      702 GETTABLEKS                       R25 R25 K64 ["Value"]
+      704 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      706 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      708 GETTABLEN                        R25 R26 3
+      709 SETTABLEKS                       R25 R24 K58 ["id"]
+      711 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      713 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      715 SETTABLE                         R24 R22 R23
+      716 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      718 GETTABLEN                        R23 R24 4
+      719 DUPTABLE                         R24 K147 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "LeftLeg", ["id"], ["bundleId"]}]
+      720 GETIMPORT                        R25 K123 [Enum.AssetType.LeftLeg]
+      722 GETTABLEKS                       R25 R25 K64 ["Value"]
+      724 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      726 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      728 GETTABLEN                        R25 R26 4
+      729 SETTABLEKS                       R25 R24 K58 ["id"]
+      731 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      733 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      735 SETTABLE                         R24 R22 R23
+      736 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      738 GETTABLEN                        R23 R24 5
+      739 DUPTABLE                         R24 K148 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "RightArm", ["id"], ["bundleId"]}]
+      740 GETIMPORT                        R25 K127 [Enum.AssetType.RightArm]
+      742 GETTABLEKS                       R25 R25 K64 ["Value"]
+      744 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      746 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      748 GETTABLEN                        R25 R26 5
+      749 SETTABLEKS                       R25 R24 K58 ["id"]
+      751 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      753 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      755 SETTABLE                         R24 R22 R23
+      756 GETTABLEKS                       R24 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      758 GETTABLEN                        R23 R24 6
+      759 DUPTABLE                         R24 K149 [{["creatorType"] = "User", ["assetType"], ["paletteKey"] = "RightLeg", ["id"], ["bundleId"]}]
+      760 GETIMPORT                        R25 K131 [Enum.AssetType.RightLeg]
+      762 GETTABLEKS                       R25 R25 K64 ["Value"]
+      764 SETTABLEKS                       R25 R24 K55 ["assetType"]
+      766 GETTABLEKS                       R26 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      768 GETTABLEN                        R25 R26 6
+      769 SETTABLEKS                       R25 R24 K58 ["id"]
+      771 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      773 SETTABLEKS                       R25 R24 K143 ["bundleId"]
+      775 SETTABLE                         R24 R22 R23
+      776 SETTABLEKS                       R22 R21 K150 ["MOCK_AVATAR_LOOK_ITEM_DATA"]
+      778 NEWTABLE                         R22 1 0
+      780 GETTABLEKS                       R23 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      782 DUPTABLE                         R24 K154 [{["id"], ["name"], ["bundleType"] = 1, ["creatorType"] = "User", ["assetsInBundle"]}]
+      783 GETTABLEKS                       R25 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      785 SETTABLEKS                       R25 R24 K58 ["id"]
+      787 LOADK                            R26 K135 ["Test Bundle"]
+      788 GETTABLEKS                       R28 R21 K51 ["AVATAR_LOOK_BUNDLE_ID"]
+      790 FASTCALL1                        TOSTRING R28 ; [+2]
+      791 GETIMPORT                        R27 K137 [tostring]
+      793 CALL                             R27 1 1
+      794 CONCAT                           R25 R26 R27
+      795 SETTABLEKS                       R25 R24 K151 ["name"]
+      797 NEWTABLE                         R25 0 6
+      799 DUPTABLE                         R26 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      800 GETIMPORT                        R27 K111 [Enum.AssetType.DynamicHead]
+      802 GETTABLEKS                       R27 R27 K64 ["Value"]
+      804 SETTABLEKS                       R27 R26 K55 ["assetType"]
+      806 GETTABLEKS                       R28 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      808 GETTABLEN                        R27 R28 1
+      809 SETTABLEKS                       R27 R26 K58 ["id"]
+      811 DUPTABLE                         R27 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      812 GETIMPORT                        R28 K115 [Enum.AssetType.Torso]
+      814 GETTABLEKS                       R28 R28 K64 ["Value"]
+      816 SETTABLEKS                       R28 R27 K55 ["assetType"]
+      818 GETTABLEKS                       R29 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      820 GETTABLEN                        R28 R29 2
+      821 SETTABLEKS                       R28 R27 K58 ["id"]
+      823 DUPTABLE                         R28 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      824 GETIMPORT                        R29 K119 [Enum.AssetType.LeftArm]
+      826 GETTABLEKS                       R29 R29 K64 ["Value"]
+      828 SETTABLEKS                       R29 R28 K55 ["assetType"]
+      830 GETTABLEKS                       R30 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      832 GETTABLEN                        R29 R30 3
+      833 SETTABLEKS                       R29 R28 K58 ["id"]
+      835 DUPTABLE                         R29 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      836 GETIMPORT                        R30 K123 [Enum.AssetType.LeftLeg]
+      838 GETTABLEKS                       R30 R30 K64 ["Value"]
+      840 SETTABLEKS                       R30 R29 K55 ["assetType"]
+      842 GETTABLEKS                       R31 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      844 GETTABLEN                        R30 R31 4
+      845 SETTABLEKS                       R30 R29 K58 ["id"]
+      847 DUPTABLE                         R30 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      848 GETIMPORT                        R31 K127 [Enum.AssetType.RightArm]
+      850 GETTABLEKS                       R31 R31 K64 ["Value"]
+      852 SETTABLEKS                       R31 R30 K55 ["assetType"]
+      854 GETTABLEKS                       R32 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      856 GETTABLEN                        R31 R32 5
+      857 SETTABLEKS                       R31 R30 K58 ["id"]
+      859 DUPTABLE                         R31 K156 [{["assetType"], ["id"], ["isIncluded"] = True}]
+      860 GETIMPORT                        R32 K131 [Enum.AssetType.RightLeg]
+      862 GETTABLEKS                       R32 R32 K64 ["Value"]
+      864 SETTABLEKS                       R32 R31 K55 ["assetType"]
+      866 GETTABLEKS                       R33 R21 K52 ["AVATAR_LOOK_BUNDLE_ASSET_IDS"]
+      868 GETTABLEN                        R32 R33 6
+      869 SETTABLEKS                       R32 R31 K58 ["id"]
+      871 SETLIST                          R25 R26 6 [1]
+      873 SETTABLEKS                       R25 R24 K153 ["assetsInBundle"]
+      875 SETTABLE                         R24 R22 R23
+      876 SETTABLEKS                       R22 R21 K157 ["MOCK_AVATAR_LOOK_BUNDLE_DATA"]
+      878 DUPCLOSURE                       R22 K158 [PROTO_0]
+      879 CAPTURE                          VAL R0
+      880 SETTABLEKS                       R22 R21 K159 ["findTextInCoreGui"]
+      882 DUPCLOSURE                       R22 K160 [PROTO_1]
+      883 CAPTURE                          VAL R21
+      884 SETTABLEKS                       R22 R21 K161 ["isConfirmItemsStage"]
+      886 DUPCLOSURE                       R22 K162 [PROTO_2]
+      887 CAPTURE                          VAL R21
+      888 SETTABLEKS                       R22 R21 K163 ["isEditInfoStage"]
+      890 DUPCLOSURE                       R22 K164 [PROTO_3]
+      891 CAPTURE                          VAL R21
+      892 SETTABLEKS                       R22 R21 K165 ["isFailureStage"]
+      894 DUPCLOSURE                       R22 K166 [PROTO_4]
+      895 CAPTURE                          VAL R21
+      896 SETTABLEKS                       R22 R21 K167 ["isSuccessStage"]
+      898 GETIMPORT                        R22 K170 [UDim2.fromOffset]
+      900 LOADN                            R23 40
+      901 LOADN                            R24 40
+      902 CALL                             R22 2 1
+      903 GETIMPORT                        R23 K170 [UDim2.fromOffset]
+      905 LOADN                            R24 400
+      906 LOADN                            R25 600
+      907 CALL                             R23 2 1
+      908 DUPCLOSURE                       R24 K171 [PROTO_5]
+      909 CAPTURE                          VAL R23
+      910 DUPCLOSURE                       R25 K172 [PROTO_6]
+      911 DUPCLOSURE                       R26 K173 [PROTO_8]
+      912 CAPTURE                          VAL R0
+      913 CAPTURE                          VAL R22
+      914 CAPTURE                          VAL R6
+      915 CAPTURE                          VAL R7
+      916 SETTABLEKS                       R26 R21 K174 ["clickContinueButton"]
+      918 DUPCLOSURE                       R26 K175 [PROTO_10]
+      919 CAPTURE                          VAL R0
+      920 CAPTURE                          VAL R22
+      921 CAPTURE                          VAL R6
+      922 CAPTURE                          VAL R7
+      923 SETTABLEKS                       R26 R21 K176 ["clickBackButton"]
+      925 DUPCLOSURE                       R26 K177 [PROTO_13]
+      926 CAPTURE                          VAL R0
+      927 CAPTURE                          VAL R7
+      928 CAPTURE                          VAL R23
+      929 CAPTURE                          VAL R24
+      930 CAPTURE                          VAL R22
+      931 CAPTURE                          VAL R6
+      932 SETTABLEKS                       R26 R21 K178 ["changeCreator"]
+      934 DUPCLOSURE                       R26 K179 [PROTO_15]
+      935 CAPTURE                          VAL R21
+      936 CAPTURE                          VAL R0
+      937 CAPTURE                          VAL R7
+      938 CAPTURE                          VAL R24
+      939 CAPTURE                          VAL R22
+      940 CAPTURE                          VAL R6
+      941 SETTABLEKS                       R26 R21 K180 ["toggleItem"]
+      943 DUPCLOSURE                       R26 K181 [PROTO_16]
+      944 CAPTURE                          VAL R0
+      945 CAPTURE                          VAL R24
+      946 CAPTURE                          VAL R22
+      947 CAPTURE                          VAL R7
+      948 SETTABLEKS                       R26 R21 K182 ["changeColor"]
+      950 DUPCLOSURE                       R26 K183 [PROTO_20]
+      951 CAPTURE                          VAL R21
+      952 CAPTURE                          VAL R0
+      953 CAPTURE                          VAL R6
+      954 CAPTURE                          VAL R22
+      955 CAPTURE                          VAL R7
+      956 SETTABLEKS                       R26 R21 K184 ["enterName"]
+      958 DUPCLOSURE                       R26 K185 [PROTO_21]
+      959 CAPTURE                          VAL R21
+      960 SETTABLEKS                       R26 R21 K186 ["checkErrorBannerText"]
+      962 DUPCLOSURE                       R26 K187 [PROTO_22]
+      963 CAPTURE                          VAL R7
+      964 CAPTURE                          VAL R0
+      965 SETTABLEKS                       R26 R21 K188 ["queryErrorBannerCloseButton"]
+      967 DUPCLOSURE                       R26 K189 [PROTO_24]
+      968 CAPTURE                          VAL R21
+      969 CAPTURE                          VAL R24
+      970 CAPTURE                          VAL R0
+      971 CAPTURE                          VAL R22
+      972 CAPTURE                          VAL R6
+      973 CAPTURE                          VAL R7
+      974 SETTABLEKS                       R26 R21 K190 ["clickErrorBannerDismiss"]
+      976 DUPCLOSURE                       R26 K191 [PROTO_26]
+      977 CAPTURE                          VAL R0
+      978 CAPTURE                          VAL R22
+      979 CAPTURE                          VAL R6
+      980 CAPTURE                          VAL R7
+      981 SETTABLEKS                       R26 R21 K192 ["openErrorDialog"]
+      983 DUPCLOSURE                       R26 K193 [PROTO_27]
+      984 CAPTURE                          VAL R21
+      985 SETTABLEKS                       R26 R21 K194 ["checkErrorDialogText"]
+      987 DUPCLOSURE                       R26 K195 [PROTO_28]
+      988 CAPTURE                          VAL R21
+      989 SETTABLEKS                       R26 R21 K196 ["isItemInDetailsList"]
+      991 DUPCLOSURE                       R26 K197 [PROTO_29]
+      992 CAPTURE                          VAL R21
+      993 CAPTURE                          VAL R14
+      994 SETTABLEKS                       R26 R21 K198 ["getUserEquippedItems"]
+      996 DUPCLOSURE                       R26 K199 [PROTO_30]
+      997 CAPTURE                          VAL R21
+      998 SETTABLEKS                       R26 R21 K200 ["getMixedCreatorMakeupLookEquippedItems"]
+     1000 DUPCLOSURE                       R26 K201 [PROTO_31]
+     1001 CAPTURE                          VAL R21
+     1002 CAPTURE                          VAL R14
+     1003 SETTABLEKS                       R26 R21 K202 ["getGroupEquippedItems"]
+     1005 DUPCLOSURE                       R26 K203 [PROTO_32]
+     1006 CAPTURE                          VAL R21
+     1007 CAPTURE                          VAL R12
+     1008 CAPTURE                          VAL R9
+     1009 SETTABLEKS                       R26 R21 K204 ["getExpectedLook"]
+     1011 LOADNIL                          R26
+     1012 SETTABLEKS                       R26 R21 K205 ["lookCreationInfo"]
+     1014 DUPCLOSURE                       R26 K206 [PROTO_33]
+     1015 CAPTURE                          VAL R21
+     1016 DUPCLOSURE                       R27 K207 [PROTO_35]
+     1017 CAPTURE                          VAL R8
+     1018 CAPTURE                          VAL R1
+     1019 CAPTURE                          VAL R11
+     1020 CAPTURE                          VAL R21
+     1021 CAPTURE                          VAL R13
+     1022 DUPCLOSURE                       R28 K208 [PROTO_37]
+     1023 CAPTURE                          VAL R8
+     1024 CAPTURE                          VAL R1
+     1025 CAPTURE                          VAL R11
+     1026 CAPTURE                          VAL R21
+     1027 CAPTURE                          VAL R27
+     1028 DUPCLOSURE                       R29 K209 [PROTO_39]
+     1029 CAPTURE                          VAL R8
+     1030 DUPCLOSURE                       R30 K210 [PROTO_41]
+     1031 CAPTURE                          VAL R8
+     1032 CAPTURE                          VAL R1
+     1033 CAPTURE                          VAL R11
+     1034 CAPTURE                          VAL R21
+     1035 CAPTURE                          VAL R27
+     1036 DUPCLOSURE                       R31 K211 [PROTO_43]
+     1037 CAPTURE                          VAL R8
+     1038 CAPTURE                          VAL R11
+     1039 CAPTURE                          VAL R1
+     1040 CAPTURE                          VAL R21
+     1041 CAPTURE                          VAL R27
+     1042 DUPCLOSURE                       R32 K212 [PROTO_44]
+     1043 CAPTURE                          VAL R13
+     1044 CAPTURE                          VAL R28
+     1045 CAPTURE                          VAL R29
+     1046 CAPTURE                          VAL R30
+     1047 CAPTURE                          VAL R31
+     1048 CAPTURE                          VAL R27
+     1049 SETTABLEKS                       R32 R21 K213 ["createMockLookComposerRequestInternal"]
+     1051 DUPCLOSURE                       R32 K214 [PROTO_47]
+     1052 CAPTURE                          VAL R0
+     1053 CAPTURE                          VAL R20
+     1054 CAPTURE                          VAL R5
+     1055 CAPTURE                          VAL R3
+     1056 CAPTURE                          VAL R19
+     1057 CAPTURE                          VAL R6
+     1058 CAPTURE                          VAL R7
+     1059 SETTABLEKS                       R32 R21 K215 ["createLookComposerDialogTest"]
+     1061 DUPCLOSURE                       R32 K216 [PROTO_51]
+     1062 CAPTURE                          VAL R21
+     1063 CAPTURE                          VAL R15
+     1064 CAPTURE                          VAL R5
+     1065 CAPTURE                          VAL R16
+     1066 CAPTURE                          VAL R17
+     1067 CAPTURE                          VAL R18
+     1068 SETTABLEKS                       R32 R21 K217 ["lookCreationTest"]
+     1070 DUPCLOSURE                       R32 K218 [PROTO_55]
+     1071 CAPTURE                          VAL R21
+     1072 CAPTURE                          VAL R15
+     1073 CAPTURE                          VAL R5
+     1074 CAPTURE                          VAL R16
+     1075 CAPTURE                          VAL R17
+     1076 CAPTURE                          VAL R18
+     1077 SETTABLEKS                       R32 R21 K219 ["lookCreationStartFromAssetIdTest"]
+     1079 DUPCLOSURE                       R32 K220 [PROTO_57]
+     1080 CAPTURE                          VAL R0
+     1081 CAPTURE                          VAL R24
+     1082 CAPTURE                          VAL R22
+     1083 CAPTURE                          VAL R6
+     1084 CAPTURE                          VAL R7
+     1085 SETTABLEKS                       R32 R21 K221 ["clickAddAssetIdButton"]
+     1087 DUPCLOSURE                       R32 K222 [PROTO_60]
+     1088 CAPTURE                          VAL R0
+     1089 CAPTURE                          VAL R7
+     1090 CAPTURE                          VAL R6
+     1091 SETTABLEKS                       R32 R21 K223 ["openAssetImportDialog"]
+     1093 DUPCLOSURE                       R32 K224 [PROTO_64]
+     1094 CAPTURE                          VAL R0
+     1095 CAPTURE                          VAL R6
+     1096 CAPTURE                          VAL R22
+     1097 CAPTURE                          VAL R7
+     1098 SETTABLEKS                       R32 R21 K225 ["addAssetIdsToImportDialog"]
+     1100 DUPCLOSURE                       R32 K226 [PROTO_66]
+     1101 CAPTURE                          VAL R0
+     1102 CAPTURE                          VAL R22
+     1103 CAPTURE                          VAL R6
+     1104 CAPTURE                          VAL R7
+     1105 SETTABLEKS                       R32 R21 K227 ["clickAddItemsButtonImportDialog"]
+     1107 DUPCLOSURE                       R32 K228 [PROTO_69]
+     1108 CAPTURE                          VAL R0
+     1109 CAPTURE                          VAL R7
+     1110 CAPTURE                          VAL R6
+     1111 SETTABLEKS                       R32 R21 K229 ["openLookComposerDialog"]
+     1113 DUPCLOSURE                       R32 K230 [PROTO_70]
+     1114 CAPTURE                          VAL R21
+     1115 SETTABLEKS                       R32 R21 K231 ["importMarketplaceItems"]
+     1117 RETURN                           R21 1

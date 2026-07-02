@@ -40,18 +40,16 @@ PROTO_1:
        18 CAPTURE                          UPVAL U2
        19 CAPTURE                          VAL R1
        20 CAPTURE                          UPVAL U3
-       21 DUPTABLE                         R3 K6 [{"default", "getAnimationIdFrom"}]
-       22 LOADB                            R4 0
-       23 SETTABLEKS                       R4 R3 K1 ["default"]
-       25 SETTABLEKS                       R2 R3 K5 ["getAnimationIdFrom"]
-       27 GETUPVAL                         R4 4
-       28 GETUPVAL                         R5 5
-       29 GETTABLEKS                       R5 R5 K7 ["Provider"]
-       31 DUPTABLE                         R6 K9 [{"value"}]
-       32 SETTABLEKS                       R3 R6 K8 ["value"]
-       34 GETTABLEKS                       R7 R0 K10 ["children"]
-       36 CALL                             R4 3 -1
-       37 RETURN                           R4 -1
+       21 DUPTABLE                         R3 K7 [{["default"] = False, ["getAnimationIdFrom"]}]
+       22 SETTABLEKS                       R2 R3 K6 ["getAnimationIdFrom"]
+       24 GETUPVAL                         R4 4
+       25 GETUPVAL                         R5 5
+       26 GETTABLEKS                       R5 R5 K8 ["Provider"]
+       28 DUPTABLE                         R6 K10 [{"value"}]
+       29 SETTABLEKS                       R3 R6 K9 ["value"]
+       31 GETTABLEKS                       R7 R0 K11 ["children"]
+       33 CALL                             R4 3 -1
+       34 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

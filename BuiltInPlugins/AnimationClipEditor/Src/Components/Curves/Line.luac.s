@@ -57,31 +57,29 @@ PROTO_0:
        83 GETUPVAL                         R8 0
        84 GETTABLEKS                       R8 R8 K16 ["createElement"]
        86 LOADK                            R9 K17 ["Frame"]
-       87 DUPTABLE                         R10 K27 [{"Position", "Size", "AnchorPoint", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Rotation", "ZIndex"}]
+       87 DUPTABLE                         R10 K28 [{["Position"], ["Size"], ["AnchorPoint"], ["BackgroundTransparency"], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["BorderColor3"], ["Rotation"], ["ZIndex"]}]
        88 SETTABLEKS                       R4 R10 K18 ["Position"]
        90 SETTABLEKS                       R6 R10 K19 ["Size"]
-       92 GETIMPORT                        R11 K29 [Vector2.new]
-       94 LOADK                            R12 K30 [0.5]
-       95 LOADK                            R13 K30 [0.5]
+       92 GETIMPORT                        R11 K30 [Vector2.new]
+       94 LOADK                            R12 K31 [0.5]
+       95 LOADK                            R13 K31 [0.5]
        96 CALL                             R11 2 1
        97 SETTABLEKS                       R11 R10 K20 ["AnchorPoint"]
-       99 GETTABLEKS                       R11 R1 K31 ["Transparency"]
+       99 GETTABLEKS                       R11 R1 K32 ["Transparency"]
       101 SETTABLEKS                       R11 R10 K21 ["BackgroundTransparency"]
-      103 GETTABLEKS                       R11 R1 K32 ["Color"]
+      103 GETTABLEKS                       R11 R1 K33 ["Color"]
       105 SETTABLEKS                       R11 R10 K22 ["BackgroundColor3"]
-      107 LOADN                            R11 0
-      108 SETTABLEKS                       R11 R10 K23 ["BorderSizePixel"]
-      110 GETTABLEKS                       R11 R1 K32 ["Color"]
-      112 SETTABLEKS                       R11 R10 K24 ["BorderColor3"]
-      114 FASTCALL1                        MATH_DEG R7 ; [+3]
-      115 MOVE                             R12 R7
-      116 GETIMPORT                        R11 K34 [math.deg]
-      118 CALL                             R11 1 1
-      119 SETTABLEKS                       R11 R10 K25 ["Rotation"]
-      121 GETTABLEKS                       R11 R1 K26 ["ZIndex"]
-      123 SETTABLEKS                       R11 R10 K26 ["ZIndex"]
-      125 CALL                             R8 2 -1
-      126 RETURN                           R8 -1
+      107 GETTABLEKS                       R11 R1 K33 ["Color"]
+      109 SETTABLEKS                       R11 R10 K25 ["BorderColor3"]
+      111 FASTCALL1                        MATH_DEG R7 ; [+3]
+      112 MOVE                             R12 R7
+      113 GETIMPORT                        R11 K35 [math.deg]
+      115 CALL                             R11 1 1
+      116 SETTABLEKS                       R11 R10 K26 ["Rotation"]
+      118 GETTABLEKS                       R11 R1 K27 ["ZIndex"]
+      120 SETTABLEKS                       R11 R10 K27 ["ZIndex"]
+      122 CALL                             R8 2 -1
+      123 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

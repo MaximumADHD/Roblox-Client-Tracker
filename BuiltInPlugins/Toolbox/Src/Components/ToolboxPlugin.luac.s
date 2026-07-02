@@ -85,42 +85,38 @@ PROTO_4:
        15 GETIMPORT                        R2 K4 [error]
        17 LOADK                            R3 K5 ["ToolboxPlugin component requires plugin to be passed as prop"]
        18 CALL                             R2 1 0
-       19 DUPTABLE                         R2 K8 [{"enabled", "pluginGui"}]
-       20 LOADB                            R3 1
-       21 SETTABLEKS                       R3 R2 K6 ["enabled"]
-       23 LOADNIL                          R3
-       24 SETTABLEKS                       R3 R2 K7 ["pluginGui"]
-       26 SETTABLEKS                       R2 R0 K9 ["state"]
-       28 GETTABLEKS                       R2 R1 K10 ["pluginLoaderContext"]
-       30 GETTABLEKS                       R2 R2 K11 ["toolbar"]
-       32 SETTABLEKS                       R2 R0 K11 ["toolbar"]
-       34 GETTABLEKS                       R2 R1 K10 ["pluginLoaderContext"]
-       36 GETTABLEKS                       R2 R2 K12 ["mainButton"]
-       38 SETTABLEKS                       R2 R0 K13 ["toolboxButton"]
-       40 GETUPVAL                         R2 1
-       41 GETTABLEKS                       R2 R2 K14 ["setPluginUri"]
-       43 GETTABLEKS                       R3 R0 K2 ["plugin"]
-       45 NAMECALL                         R3 R3 K15 ["GetUri"]
-       47 CALL                             R3 1 -1
-       48 CALL                             R2 -1 0
-       49 NEWCLOSURE                       R2 P0
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          UPVAL U1
-       52 SETTABLEKS                       R2 R0 K16 ["onDockWidgetEnabledChanged"]
-       54 NEWCLOSURE                       R2 P1
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R2 R0 K17 ["onAncestryChanged"]
-       58 NEWCLOSURE                       R2 P2
-       59 CAPTURE                          VAL R0
-       60 SETTABLEKS                       R2 R0 K18 ["dockWidgetRefFunc"]
-       62 LOADNIL                          R2
-       63 NEWCLOSURE                       R3 P3
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          REF R2
-       66 CAPTURE                          UPVAL U1
-       67 SETTABLEKS                       R3 R0 K19 ["onDockWidgetInteraction"]
-       69 CLOSEUPVALS                      R2
-       70 RETURN                           R0 0
+       19 DUPTABLE                         R2 K10 [{["enabled"] = True, ["pluginGui"] = }]
+       20 SETTABLEKS                       R2 R0 K11 ["state"]
+       22 GETTABLEKS                       R2 R1 K12 ["pluginLoaderContext"]
+       24 GETTABLEKS                       R2 R2 K13 ["toolbar"]
+       26 SETTABLEKS                       R2 R0 K13 ["toolbar"]
+       28 GETTABLEKS                       R2 R1 K12 ["pluginLoaderContext"]
+       30 GETTABLEKS                       R2 R2 K14 ["mainButton"]
+       32 SETTABLEKS                       R2 R0 K15 ["toolboxButton"]
+       34 GETUPVAL                         R2 1
+       35 GETTABLEKS                       R2 R2 K16 ["setPluginUri"]
+       37 GETTABLEKS                       R3 R0 K2 ["plugin"]
+       39 NAMECALL                         R3 R3 K17 ["GetUri"]
+       41 CALL                             R3 1 -1
+       42 CALL                             R2 -1 0
+       43 NEWCLOSURE                       R2 P0
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          UPVAL U1
+       46 SETTABLEKS                       R2 R0 K18 ["onDockWidgetEnabledChanged"]
+       48 NEWCLOSURE                       R2 P1
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R2 R0 K19 ["onAncestryChanged"]
+       52 NEWCLOSURE                       R2 P2
+       53 CAPTURE                          VAL R0
+       54 SETTABLEKS                       R2 R0 K20 ["dockWidgetRefFunc"]
+       56 LOADNIL                          R2
+       57 NEWCLOSURE                       R3 P3
+       58 CAPTURE                          VAL R0
+       59 CAPTURE                          REF R2
+       60 CAPTURE                          UPVAL U1
+       61 SETTABLEKS                       R3 R0 K21 ["onDockWidgetInteraction"]
+       63 CLOSEUPVALS                      R2
+       64 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -341,7 +337,7 @@ PROTO_11:
        99 SETTABLE                         R19 R17 R18
       100 DUPTABLE                         R18 K41 [{"Toolbox"}]
       101 MOVE                             R19 R13
-      102 JUMPIFNOT                        R19 ; [+82]
+      102 JUMPIFNOT                        R19 ; [+79]
       103 GETUPVAL                         R19 3
       104 GETTABLEKS                       R19 R19 K42 ["provide"]
       106 NEWTABLE                         R20 0 3
@@ -356,45 +352,43 @@ PROTO_11:
       121 CALL                             R22 0 1
       122 GETUPVAL                         R23 5
       123 GETTABLEKS                       R23 R23 K44 ["new"]
-      125 DUPTABLE                         R24 K46 [{"namespace", "plugin"}]
-      126 LOADK                            R25 K47 ["toolbox"]
-      127 SETTABLEKS                       R25 R24 K45 ["namespace"]
-      129 SETTABLEKS                       R3 R24 K2 ["plugin"]
-      131 CALL                             R23 1 -1
-      132 SETLIST                          R20 R21 -1 [1]
-      134 NEWTABLE                         R21 0 1
-      136 GETUPVAL                         R22 1
-      137 GETTABLEKS                       R22 R22 K18 ["createElement"]
-      139 GETUPVAL                         R23 6
-      140 DUPTABLE                         R24 K48 [{"plugin", "pluginGui", "theme", "networkInterface", "localization"}]
-      141 SETTABLEKS                       R3 R24 K2 ["plugin"]
-      143 SETTABLEKS                       R11 R24 K10 ["pluginGui"]
-      145 SETTABLEKS                       R4 R24 K3 ["theme"]
-      147 SETTABLEKS                       R5 R24 K4 ["networkInterface"]
-      149 SETTABLEKS                       R6 R24 K5 ["localization"]
-      151 NEWTABLE                         R25 0 1
-      153 GETUPVAL                         R26 1
-      154 GETTABLEKS                       R26 R26 K18 ["createElement"]
-      156 GETUPVAL                         R27 7
-      157 DUPTABLE                         R28 K51 [{"initialWidth", "backgrounds", "suggestions", "tryOpenAssetConfig", "plugin", "pluginGui", "pluginLoaderContext", "onMouseEnter"}]
-      158 SETTABLEKS                       R12 R28 K49 ["initialWidth"]
-      160 SETTABLEKS                       R7 R28 K6 ["backgrounds"]
-      162 SETTABLEKS                       R8 R28 K7 ["suggestions"]
-      164 SETTABLEKS                       R9 R28 K8 ["tryOpenAssetConfig"]
-      166 SETTABLEKS                       R3 R28 K2 ["plugin"]
-      168 SETTABLEKS                       R11 R28 K10 ["pluginGui"]
-      170 GETTABLEKS                       R29 R1 K27 ["pluginLoaderContext"]
-      172 SETTABLEKS                       R29 R28 K27 ["pluginLoaderContext"]
-      174 GETTABLEKS                       R29 R0 K52 ["onDockWidgetInteraction"]
-      176 SETTABLEKS                       R29 R28 K50 ["onMouseEnter"]
-      178 CALL                             R26 2 -1
-      179 SETLIST                          R25 R26 -1 [1]
-      181 CALL                             R22 3 -1
-      182 SETLIST                          R21 R22 -1 [1]
-      184 CALL                             R19 2 1
-      185 SETTABLEKS                       R19 R18 K19 ["Toolbox"]
-      187 CALL                             R15 3 -1
-      188 RETURN                           R15 -1
+      125 DUPTABLE                         R24 K47 [{["namespace"] = "toolbox", ["plugin"]}]
+      126 SETTABLEKS                       R3 R24 K2 ["plugin"]
+      128 CALL                             R23 1 -1
+      129 SETLIST                          R20 R21 -1 [1]
+      131 NEWTABLE                         R21 0 1
+      133 GETUPVAL                         R22 1
+      134 GETTABLEKS                       R22 R22 K18 ["createElement"]
+      136 GETUPVAL                         R23 6
+      137 DUPTABLE                         R24 K48 [{"plugin", "pluginGui", "theme", "networkInterface", "localization"}]
+      138 SETTABLEKS                       R3 R24 K2 ["plugin"]
+      140 SETTABLEKS                       R11 R24 K10 ["pluginGui"]
+      142 SETTABLEKS                       R4 R24 K3 ["theme"]
+      144 SETTABLEKS                       R5 R24 K4 ["networkInterface"]
+      146 SETTABLEKS                       R6 R24 K5 ["localization"]
+      148 NEWTABLE                         R25 0 1
+      150 GETUPVAL                         R26 1
+      151 GETTABLEKS                       R26 R26 K18 ["createElement"]
+      153 GETUPVAL                         R27 7
+      154 DUPTABLE                         R28 K51 [{"initialWidth", "backgrounds", "suggestions", "tryOpenAssetConfig", "plugin", "pluginGui", "pluginLoaderContext", "onMouseEnter"}]
+      155 SETTABLEKS                       R12 R28 K49 ["initialWidth"]
+      157 SETTABLEKS                       R7 R28 K6 ["backgrounds"]
+      159 SETTABLEKS                       R8 R28 K7 ["suggestions"]
+      161 SETTABLEKS                       R9 R28 K8 ["tryOpenAssetConfig"]
+      163 SETTABLEKS                       R3 R28 K2 ["plugin"]
+      165 SETTABLEKS                       R11 R28 K10 ["pluginGui"]
+      167 GETTABLEKS                       R29 R1 K27 ["pluginLoaderContext"]
+      169 SETTABLEKS                       R29 R28 K27 ["pluginLoaderContext"]
+      171 GETTABLEKS                       R29 R0 K52 ["onDockWidgetInteraction"]
+      173 SETTABLEKS                       R29 R28 K50 ["onMouseEnter"]
+      175 CALL                             R26 2 -1
+      176 SETLIST                          R25 R26 -1 [1]
+      178 CALL                             R22 3 -1
+      179 SETLIST                          R21 R22 -1 [1]
+      181 CALL                             R19 2 1
+      182 SETTABLEKS                       R19 R18 K19 ["Toolbox"]
+      184 CALL                             R15 3 -1
+      185 RETURN                           R15 -1
 
 PROTO_12:
         0 GETUPVAL                         R0 0

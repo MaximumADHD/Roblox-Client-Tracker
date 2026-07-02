@@ -430,11 +430,9 @@ PROTO_10:
        17 RETURN                           R0 1
 
 PROTO_11:
-        0 DUPTABLE                         R1 K1 [{"success"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["success"]
-        4 SETUPVAL                         R1 0
-        5 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 SETUPVAL                         R1 0
+        2 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R2 0
@@ -832,7 +830,7 @@ PROTO_23:
        21 GETUPVAL                         R3 0
        22 GETTABLEKS                       R3 R3 K7 ["createElement"]
        24 GETUPVAL                         R4 1
-       25 DUPTABLE                         R5 K17 [{"Plugin", "PluginManagerComponent", "WebViewManagerContext", "Url", "analyticsContext", "offsetHeight", "initAutoRetryMaxAttempts", "retryTitle", "retryButtonText", "eventHandlers"}]
+       25 DUPTABLE                         R5 K19 [{["Plugin"], ["PluginManagerComponent"], ["WebViewManagerContext"], ["Url"], ["analyticsContext"] = "creatorConfig", ["offsetHeight"] = 0, ["initAutoRetryMaxAttempts"], ["retryTitle"], ["retryButtonText"], ["eventHandlers"]}]
        26 GETTABLEKS                       R6 R1 K4 ["Plugin"]
        28 SETTABLEKS                       R6 R5 K4 ["Plugin"]
        30 SETTABLEKS                       R2 R5 K8 ["PluginManagerComponent"]
@@ -841,21 +839,17 @@ PROTO_23:
        36 GETTABLEKS                       R6 R0 K1 ["state"]
        38 GETTABLEKS                       R6 R6 K2 ["configUrl"]
        40 SETTABLEKS                       R6 R5 K10 ["Url"]
-       42 LOADK                            R6 K18 ["creatorConfig"]
-       43 SETTABLEKS                       R6 R5 K11 ["analyticsContext"]
-       45 LOADN                            R6 0
-       46 SETTABLEKS                       R6 R5 K12 ["offsetHeight"]
-       48 GETUPVAL                         R6 2
-       49 CALL                             R6 0 1
-       50 SETTABLEKS                       R6 R5 K13 ["initAutoRetryMaxAttempts"]
-       52 GETTABLEKS                       R6 R1 K14 ["retryTitle"]
-       54 SETTABLEKS                       R6 R5 K14 ["retryTitle"]
-       56 GETTABLEKS                       R6 R1 K15 ["retryButtonText"]
-       58 SETTABLEKS                       R6 R5 K15 ["retryButtonText"]
-       60 GETTABLEKS                       R6 R0 K16 ["eventHandlers"]
-       62 SETTABLEKS                       R6 R5 K16 ["eventHandlers"]
-       64 CALL                             R3 2 -1
-       65 RETURN                           R3 -1
+       42 GETUPVAL                         R6 2
+       43 CALL                             R6 0 1
+       44 SETTABLEKS                       R6 R5 K15 ["initAutoRetryMaxAttempts"]
+       46 GETTABLEKS                       R6 R1 K16 ["retryTitle"]
+       48 SETTABLEKS                       R6 R5 K16 ["retryTitle"]
+       50 GETTABLEKS                       R6 R1 K17 ["retryButtonText"]
+       52 SETTABLEKS                       R6 R5 K17 ["retryButtonText"]
+       54 GETTABLEKS                       R6 R0 K18 ["eventHandlers"]
+       56 SETTABLEKS                       R6 R5 K18 ["eventHandlers"]
+       58 CALL                             R3 2 -1
+       59 RETURN                           R3 -1
 
 PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["idsUpdatedConnection"]
@@ -939,43 +933,35 @@ MAIN:
       116 LOADK                            R21 K2 ["CreatorConfig"]
       117 LOADK                            R22 K37 ["CancelPublishDialog"]
       118 CALL                             R20 2 1
-      119 DUPTABLE                         R21 K42 [{"unknown", "timeout", "ongoingPublish", "emptyDraft"}]
-      120 LOADK                            R22 K43 ["Unknown"]
-      121 SETTABLEKS                       R22 R21 K38 ["unknown"]
-      123 LOADK                            R22 K44 ["Timeout"]
-      124 SETTABLEKS                       R22 R21 K39 ["timeout"]
-      126 LOADK                            R22 K45 ["OngoingPublish"]
-      127 SETTABLEKS                       R22 R21 K40 ["ongoingPublish"]
-      129 LOADK                            R22 K46 ["EmptyDraft"]
-      130 SETTABLEKS                       R22 R21 K41 ["emptyDraft"]
-      132 DUPCLOSURE                       R22 K47 [PROTO_0]
-      133 CAPTURE                          VAL R14
-      134 DUPCLOSURE                       R23 K48 [PROTO_1]
-      135 CAPTURE                          VAL R14
-      136 SETTABLEKS                       R23 R13 K49 ["getConfigUrl"]
-      138 DUPCLOSURE                       R23 K50 [PROTO_2]
-      139 SETTABLEKS                       R23 R13 K51 ["getStaticTranslationStrings"]
-      141 DUPCLOSURE                       R23 K52 [PROTO_17]
-      142 CAPTURE                          VAL R1
-      143 CAPTURE                          VAL R18
-      144 CAPTURE                          VAL R20
-      145 CAPTURE                          VAL R11
-      146 CAPTURE                          VAL R12
-      147 CAPTURE                          VAL R21
-      148 CAPTURE                          VAL R19
-      149 SETTABLEKS                       R23 R13 K53 ["getEventHandlers"]
-      151 DUPCLOSURE                       R23 K54 [PROTO_20]
-      152 CAPTURE                          VAL R2
-      153 CAPTURE                          VAL R7
-      154 SETTABLEKS                       R23 R13 K55 ["requestPublish"]
-      156 DUPCLOSURE                       R23 K56 [PROTO_22]
-      157 CAPTURE                          VAL R16
-      158 SETTABLEKS                       R23 R13 K57 ["init"]
-      160 DUPCLOSURE                       R23 K58 [PROTO_23]
-      161 CAPTURE                          VAL R4
-      162 CAPTURE                          VAL R9
-      163 CAPTURE                          VAL R10
-      164 SETTABLEKS                       R23 R13 K59 ["render"]
-      166 DUPCLOSURE                       R23 K60 [PROTO_24]
-      167 SETTABLEKS                       R23 R13 K61 ["willUnmount"]
-      169 RETURN                           R13 1
+      119 DUPTABLE                         R21 K46 [{["unknown"] = "Unknown", ["timeout"] = "Timeout", ["ongoingPublish"] = "OngoingPublish", ["emptyDraft"] = "EmptyDraft"}]
+      120 DUPCLOSURE                       R22 K47 [PROTO_0]
+      121 CAPTURE                          VAL R14
+      122 DUPCLOSURE                       R23 K48 [PROTO_1]
+      123 CAPTURE                          VAL R14
+      124 SETTABLEKS                       R23 R13 K49 ["getConfigUrl"]
+      126 DUPCLOSURE                       R23 K50 [PROTO_2]
+      127 SETTABLEKS                       R23 R13 K51 ["getStaticTranslationStrings"]
+      129 DUPCLOSURE                       R23 K52 [PROTO_17]
+      130 CAPTURE                          VAL R1
+      131 CAPTURE                          VAL R18
+      132 CAPTURE                          VAL R20
+      133 CAPTURE                          VAL R11
+      134 CAPTURE                          VAL R12
+      135 CAPTURE                          VAL R21
+      136 CAPTURE                          VAL R19
+      137 SETTABLEKS                       R23 R13 K53 ["getEventHandlers"]
+      139 DUPCLOSURE                       R23 K54 [PROTO_20]
+      140 CAPTURE                          VAL R2
+      141 CAPTURE                          VAL R7
+      142 SETTABLEKS                       R23 R13 K55 ["requestPublish"]
+      144 DUPCLOSURE                       R23 K56 [PROTO_22]
+      145 CAPTURE                          VAL R16
+      146 SETTABLEKS                       R23 R13 K57 ["init"]
+      148 DUPCLOSURE                       R23 K58 [PROTO_23]
+      149 CAPTURE                          VAL R4
+      150 CAPTURE                          VAL R9
+      151 CAPTURE                          VAL R10
+      152 SETTABLEKS                       R23 R13 K59 ["render"]
+      154 DUPCLOSURE                       R23 K60 [PROTO_24]
+      155 SETTABLEKS                       R23 R13 K61 ["willUnmount"]
+      157 RETURN                           R13 1

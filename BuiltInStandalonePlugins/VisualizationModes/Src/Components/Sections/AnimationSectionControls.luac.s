@@ -97,7 +97,7 @@ PROTO_0:
       129 DUPTABLE                         R23 K35 [{"Size"}]
       130 GETIMPORT                        R24 K30 [UDim2.new]
       132 LOADN                            R25 1
-      133 LOADN                            R26 16
+      133 LOADN                            R26 -240
       134 LOADN                            R27 1
       135 LOADN                            R28 0
       136 CALL                             R24 4 1
@@ -132,121 +132,105 @@ PROTO_0:
       176 GETUPVAL                         R21 1
       177 GETTABLEKS                       R21 R21 K12 ["createElement"]
       179 GETUPVAL                         R22 8
-      180 DUPTABLE                         R23 K53 [{"Min", "Max", "SnapIncrement", "Value", "ShowInput", "OnValueChanged", "Size"}]
-      181 LOADK                            R24 K54 [0.1]
-      182 SETTABLEKS                       R24 R23 K47 ["Min"]
-      184 LOADN                            R24 10
-      185 SETTABLEKS                       R24 R23 K48 ["Max"]
-      187 LOADK                            R24 K54 [0.1]
-      188 SETTABLEKS                       R24 R23 K49 ["SnapIncrement"]
-      190 SETTABLEKS                       R5 R23 K50 ["Value"]
-      192 LOADB                            R24 1
-      193 SETTABLEKS                       R24 R23 K51 ["ShowInput"]
-      195 SETTABLEKS                       R6 R23 K52 ["OnValueChanged"]
-      197 GETIMPORT                        R24 K56 [UDim2.fromOffset]
-      199 LOADN                            R25 230
-      200 LOADN                            R26 26
-      201 CALL                             R24 2 1
-      202 SETTABLEKS                       R24 R23 K31 ["Size"]
-      204 CALL                             R21 2 1
-      205 SETTABLEKS                       R21 R20 K33 ["Slider"]
-      207 CALL                             R17 3 1
-      208 SETTABLEKS                       R17 R16 K26 ["Contents"]
-      210 CALL                             R13 3 1
-      211 SETTABLEKS                       R13 R12 K17 ["Scale"]
-      213 GETUPVAL                         R13 1
-      214 GETTABLEKS                       R13 R13 K12 ["createElement"]
-      216 GETUPVAL                         R14 5
-      217 NEWTABLE                         R15 2 0
-      219 GETUPVAL                         R16 1
-      220 GETTABLEKS                       R16 R16 K13 ["Tag"]
-      222 LOADK                            R17 K14 ["X-Fill X-Column X-Top X-FitY"]
-      223 SETTABLE                         R17 R15 R16
-      224 NAMECALL                         R16 R3 K25 ["getNextOrder"]
-      226 CALL                             R16 1 1
-      227 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
-      229 DUPTABLE                         R16 K27 [{"Contents"}]
-      230 GETUPVAL                         R17 1
-      231 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      233 GETUPVAL                         R18 5
-      234 NEWTABLE                         R19 2 0
-      236 GETUPVAL                         R20 1
-      237 GETTABLEKS                       R20 R20 K13 ["Tag"]
-      239 LOADK                            R21 K28 ["X-RowM X-Left X-Middle"]
-      240 SETTABLE                         R21 R19 R20
-      241 GETIMPORT                        R20 K30 [UDim2.new]
-      243 LOADN                            R21 1
-      244 LOADN                            R22 0
-      245 LOADN                            R23 0
-      246 LOADN                            R24 26
-      247 CALL                             R20 4 1
-      248 SETTABLEKS                       R20 R19 K31 ["Size"]
-      250 DUPTABLE                         R20 K34 [{"TextContainer", "Slider"}]
-      251 GETUPVAL                         R21 1
-      252 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      254 GETUPVAL                         R22 5
-      255 DUPTABLE                         R23 K35 [{"Size"}]
-      256 GETIMPORT                        R24 K30 [UDim2.new]
-      258 LOADN                            R25 1
-      259 LOADN                            R26 16
-      260 LOADN                            R27 1
-      261 LOADN                            R28 0
-      262 CALL                             R24 4 1
-      263 SETTABLEKS                       R24 R23 K31 ["Size"]
-      265 DUPTABLE                         R24 K38 [{"EntryTitle", "ToolTip"}]
-      266 GETUPVAL                         R25 1
-      267 GETTABLEKS                       R25 R25 K12 ["createElement"]
-      269 GETUPVAL                         R26 6
-      270 DUPTABLE                         R27 K40 [{"Text"}]
-      271 LOADK                            R30 K41 ["StudioModes"]
-      272 LOADK                            R31 K57 ["AnimationSkeletonTransparency"]
-      273 NAMECALL                         R28 R1 K43 ["getText"]
-      275 CALL                             R28 3 1
-      276 SETTABLEKS                       R28 R27 K39 ["Text"]
-      278 CALL                             R25 2 1
-      279 SETTABLEKS                       R25 R24 K36 ["EntryTitle"]
-      281 GETUPVAL                         R25 1
-      282 GETTABLEKS                       R25 R25 K12 ["createElement"]
-      284 GETUPVAL                         R26 7
-      285 DUPTABLE                         R27 K45 [{"Text", "Enabled"}]
-      286 LOADK                            R30 K41 ["StudioModes"]
-      287 LOADK                            R31 K58 ["AnimationSkeletonTransparencyToolTip"]
-      288 NAMECALL                         R28 R1 K43 ["getText"]
-      290 CALL                             R28 3 1
-      291 SETTABLEKS                       R28 R27 K39 ["Text"]
-      293 NOT                              R28 R2
-      294 SETTABLEKS                       R28 R27 K44 ["Enabled"]
-      296 CALL                             R25 2 1
-      297 SETTABLEKS                       R25 R24 K37 ["ToolTip"]
-      299 CALL                             R21 3 1
-      300 SETTABLEKS                       R21 R20 K32 ["TextContainer"]
-      302 GETUPVAL                         R21 1
-      303 GETTABLEKS                       R21 R21 K12 ["createElement"]
-      305 GETUPVAL                         R22 8
-      306 DUPTABLE                         R23 K53 [{"Min", "Max", "SnapIncrement", "Value", "ShowInput", "OnValueChanged", "Size"}]
-      307 LOADN                            R24 0
-      308 SETTABLEKS                       R24 R23 K47 ["Min"]
-      310 LOADN                            R24 1
-      311 SETTABLEKS                       R24 R23 K48 ["Max"]
-      313 LOADK                            R24 K59 [0.05]
-      314 SETTABLEKS                       R24 R23 K49 ["SnapIncrement"]
-      316 SETTABLEKS                       R7 R23 K50 ["Value"]
-      318 LOADB                            R24 1
-      319 SETTABLEKS                       R24 R23 K51 ["ShowInput"]
-      321 SETTABLEKS                       R8 R23 K52 ["OnValueChanged"]
-      323 GETIMPORT                        R24 K56 [UDim2.fromOffset]
-      325 LOADN                            R25 230
-      326 LOADN                            R26 26
-      327 CALL                             R24 2 1
-      328 SETTABLEKS                       R24 R23 K31 ["Size"]
-      330 CALL                             R21 2 1
-      331 SETTABLEKS                       R21 R20 K33 ["Slider"]
-      333 CALL                             R17 3 1
-      334 SETTABLEKS                       R17 R16 K26 ["Contents"]
-      336 CALL                             R13 3 1
-      337 SETTABLEKS                       R13 R12 K18 ["Transparency"]
-      339 CALL                             R9 3 -1
-      340 RETURN                           R9 -1
+      180 DUPTABLE                         R23 K56 [{["Min"] = 0.1, ["Max"] = 10, ["SnapIncrement"] = 0.1, ["Value"], ["ShowInput"] = True, ["OnValueChanged"], ["Size"]}]
+      181 SETTABLEKS                       R5 R23 K52 ["Value"]
+      183 SETTABLEKS                       R6 R23 K55 ["OnValueChanged"]
+      185 GETIMPORT                        R24 K58 [UDim2.fromOffset]
+      187 LOADN                            R25 230
+      188 LOADN                            R26 26
+      189 CALL                             R24 2 1
+      190 SETTABLEKS                       R24 R23 K31 ["Size"]
+      192 CALL                             R21 2 1
+      193 SETTABLEKS                       R21 R20 K33 ["Slider"]
+      195 CALL                             R17 3 1
+      196 SETTABLEKS                       R17 R16 K26 ["Contents"]
+      198 CALL                             R13 3 1
+      199 SETTABLEKS                       R13 R12 K17 ["Scale"]
+      201 GETUPVAL                         R13 1
+      202 GETTABLEKS                       R13 R13 K12 ["createElement"]
+      204 GETUPVAL                         R14 5
+      205 NEWTABLE                         R15 2 0
+      207 GETUPVAL                         R16 1
+      208 GETTABLEKS                       R16 R16 K13 ["Tag"]
+      210 LOADK                            R17 K14 ["X-Fill X-Column X-Top X-FitY"]
+      211 SETTABLE                         R17 R15 R16
+      212 NAMECALL                         R16 R3 K25 ["getNextOrder"]
+      214 CALL                             R16 1 1
+      215 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
+      217 DUPTABLE                         R16 K27 [{"Contents"}]
+      218 GETUPVAL                         R17 1
+      219 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      221 GETUPVAL                         R18 5
+      222 NEWTABLE                         R19 2 0
+      224 GETUPVAL                         R20 1
+      225 GETTABLEKS                       R20 R20 K13 ["Tag"]
+      227 LOADK                            R21 K28 ["X-RowM X-Left X-Middle"]
+      228 SETTABLE                         R21 R19 R20
+      229 GETIMPORT                        R20 K30 [UDim2.new]
+      231 LOADN                            R21 1
+      232 LOADN                            R22 0
+      233 LOADN                            R23 0
+      234 LOADN                            R24 26
+      235 CALL                             R20 4 1
+      236 SETTABLEKS                       R20 R19 K31 ["Size"]
+      238 DUPTABLE                         R20 K34 [{"TextContainer", "Slider"}]
+      239 GETUPVAL                         R21 1
+      240 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      242 GETUPVAL                         R22 5
+      243 DUPTABLE                         R23 K35 [{"Size"}]
+      244 GETIMPORT                        R24 K30 [UDim2.new]
+      246 LOADN                            R25 1
+      247 LOADN                            R26 -240
+      248 LOADN                            R27 1
+      249 LOADN                            R28 0
+      250 CALL                             R24 4 1
+      251 SETTABLEKS                       R24 R23 K31 ["Size"]
+      253 DUPTABLE                         R24 K38 [{"EntryTitle", "ToolTip"}]
+      254 GETUPVAL                         R25 1
+      255 GETTABLEKS                       R25 R25 K12 ["createElement"]
+      257 GETUPVAL                         R26 6
+      258 DUPTABLE                         R27 K40 [{"Text"}]
+      259 LOADK                            R30 K41 ["StudioModes"]
+      260 LOADK                            R31 K59 ["AnimationSkeletonTransparency"]
+      261 NAMECALL                         R28 R1 K43 ["getText"]
+      263 CALL                             R28 3 1
+      264 SETTABLEKS                       R28 R27 K39 ["Text"]
+      266 CALL                             R25 2 1
+      267 SETTABLEKS                       R25 R24 K36 ["EntryTitle"]
+      269 GETUPVAL                         R25 1
+      270 GETTABLEKS                       R25 R25 K12 ["createElement"]
+      272 GETUPVAL                         R26 7
+      273 DUPTABLE                         R27 K45 [{"Text", "Enabled"}]
+      274 LOADK                            R30 K41 ["StudioModes"]
+      275 LOADK                            R31 K60 ["AnimationSkeletonTransparencyToolTip"]
+      276 NAMECALL                         R28 R1 K43 ["getText"]
+      278 CALL                             R28 3 1
+      279 SETTABLEKS                       R28 R27 K39 ["Text"]
+      281 NOT                              R28 R2
+      282 SETTABLEKS                       R28 R27 K44 ["Enabled"]
+      284 CALL                             R25 2 1
+      285 SETTABLEKS                       R25 R24 K37 ["ToolTip"]
+      287 CALL                             R21 3 1
+      288 SETTABLEKS                       R21 R20 K32 ["TextContainer"]
+      290 GETUPVAL                         R21 1
+      291 GETTABLEKS                       R21 R21 K12 ["createElement"]
+      293 GETUPVAL                         R22 8
+      294 DUPTABLE                         R23 K64 [{["Min"] = 0, ["Max"] = 1, ["SnapIncrement"] = 0.05, ["Value"], ["ShowInput"] = True, ["OnValueChanged"], ["Size"]}]
+      295 SETTABLEKS                       R7 R23 K52 ["Value"]
+      297 SETTABLEKS                       R8 R23 K55 ["OnValueChanged"]
+      299 GETIMPORT                        R24 K58 [UDim2.fromOffset]
+      301 LOADN                            R25 230
+      302 LOADN                            R26 26
+      303 CALL                             R24 2 1
+      304 SETTABLEKS                       R24 R23 K31 ["Size"]
+      306 CALL                             R21 2 1
+      307 SETTABLEKS                       R21 R20 K33 ["Slider"]
+      309 CALL                             R17 3 1
+      310 SETTABLEKS                       R17 R16 K26 ["Contents"]
+      312 CALL                             R13 3 1
+      313 SETTABLEKS                       R13 R12 K18 ["Transparency"]
+      315 CALL                             R9 3 -1
+      316 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

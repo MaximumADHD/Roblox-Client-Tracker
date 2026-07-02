@@ -17,94 +17,66 @@ MAIN:
        25 GETTABLEKS                       R3 R3 K12 ["createStyleRule"]
        27 MOVE                             R4 R3
        28 LOADK                            R5 K13 [".FindReplaceAll-SearchBox"]
-       29 DUPTABLE                         R6 K15 [{"BackgroundTransparency"}]
-       30 LOADN                            R7 1
-       31 SETTABLEKS                       R7 R6 K14 ["BackgroundTransparency"]
-       33 NEWTABLE                         R7 0 5
-       35 MOVE                             R8 R3
-       36 LOADK                            R9 K16 ["::UIPadding"]
-       37 DUPTABLE                         R10 K18 [{"PaddingBottom"}]
-       38 GETIMPORT                        R11 K21 [UDim.new]
-       40 LOADN                            R12 0
-       41 GETTABLEKS                       R13 R1 K22 ["paddingXSmall"]
-       43 CALL                             R11 2 1
-       44 SETTABLEKS                       R11 R10 K17 ["PaddingBottom"]
-       46 CALL                             R8 2 1
-       47 MOVE                             R9 R3
-       48 LOADK                            R10 K23 [">> ImageButton"]
-       49 DUPTABLE                         R11 K26 [{"BorderSizePixel", "BackgroundColor3"}]
-       50 LOADN                            R12 1
-       51 SETTABLEKS                       R12 R11 K24 ["BorderSizePixel"]
-       53 LOADK                            R12 K27 ["$SemanticColorSurfaceOutline"]
-       54 SETTABLEKS                       R12 R11 K25 ["BackgroundColor3"]
-       56 CALL                             R9 2 1
-       57 MOVE                             R10 R3
-       58 LOADK                            R11 K28 [">> .FindReplaceAll-SearchBox-Corner ::UICorner"]
-       59 DUPTABLE                         R12 K30 [{"CornerRadius"}]
-       60 GETIMPORT                        R13 K21 [UDim.new]
-       62 LOADN                            R14 0
-       63 GETTABLEKS                       R15 R1 K31 ["radiusSmall"]
-       65 CALL                             R13 2 1
-       66 SETTABLEKS                       R13 R12 K29 ["CornerRadius"]
-       68 CALL                             R10 2 1
-       69 MOVE                             R11 R3
-       70 LOADK                            R12 K32 [">> .FindReplaceAll-SearchBox-SearchBar"]
-       71 DUPTABLE                         R13 K34 [{"ClipsDescendants"}]
-       72 LOADB                            R14 1
-       73 SETTABLEKS                       R14 R13 K33 ["ClipsDescendants"]
-       75 NEWTABLE                         R14 0 2
-       77 MOVE                             R15 R3
-       78 LOADK                            R16 K35 [">> UIStroke"]
-       79 DUPTABLE                         R17 K38 [{"Color", "Thickness"}]
-       80 LOADK                            R18 K39 ["$SemanticColorActionPrimaryBrandFill"]
-       81 SETTABLEKS                       R18 R17 K36 ["Color"]
-       83 LOADK                            R18 K40 [1.5]
-       84 SETTABLEKS                       R18 R17 K37 ["Thickness"]
-       86 CALL                             R15 2 1
-       87 MOVE                             R16 R3
-       88 LOADK                            R17 K41 [">> TextBox"]
-       89 DUPTABLE                         R18 K50 [{"AnchorPoint", "BackgroundTransparency", "BorderSizePixel", "ClearTextOnFocus", "ClipsDescendants", "Font", "Position", "TextColor3", "Text", "TextSize", "TextXAlignment"}]
-       90 GETIMPORT                        R19 K52 [Vector2.new]
-       92 LOADK                            R20 K53 [0.5]
-       93 LOADK                            R21 K53 [0.5]
-       94 CALL                             R19 2 1
-       95 SETTABLEKS                       R19 R18 K42 ["AnchorPoint"]
-       97 LOADN                            R19 1
-       98 SETTABLEKS                       R19 R18 K14 ["BackgroundTransparency"]
-      100 LOADN                            R19 0
-      101 SETTABLEKS                       R19 R18 K24 ["BorderSizePixel"]
-      103 LOADB                            R19 0
-      104 SETTABLEKS                       R19 R18 K43 ["ClearTextOnFocus"]
-      106 LOADB                            R19 1
-      107 SETTABLEKS                       R19 R18 K33 ["ClipsDescendants"]
-      109 GETTABLEKS                       R19 R1 K54 ["defaultFont"]
-      111 SETTABLEKS                       R19 R18 K44 ["Font"]
-      113 GETIMPORT                        R19 K57 [UDim2.fromScale]
-      115 LOADK                            R20 K53 [0.5]
-      116 LOADK                            R21 K53 [0.5]
-      117 CALL                             R19 2 1
-      118 SETTABLEKS                       R19 R18 K45 ["Position"]
-      120 LOADK                            R19 K58 ["$SemanticColorContentMuted"]
-      121 SETTABLEKS                       R19 R18 K46 ["TextColor3"]
-      123 LOADK                            R19 K59 [""]
-      124 SETTABLEKS                       R19 R18 K47 ["Text"]
-      126 LOADN                            R20 12
-      127 GETTABLEKS                       R21 R1 K60 ["defaultFontScale"]
-      129 MUL                              R19 R20 R21
-      130 SETTABLEKS                       R19 R18 K48 ["TextSize"]
-      132 GETIMPORT                        R19 K63 [Enum.TextXAlignment.Left]
-      134 SETTABLEKS                       R19 R18 K49 ["TextXAlignment"]
-      136 CALL                             R16 2 -1
-      137 SETLIST                          R14 R15 -1 [1]
-      139 CALL                             R11 3 1
-      140 MOVE                             R12 R3
-      141 LOADK                            R13 K64 [">> .FindReplaceAll-SearchBar-Error"]
-      142 DUPTABLE                         R14 K38 [{"Color", "Thickness"}]
-      143 LOADK                            R15 K65 ["$ColorActionAlert"]
-      144 SETTABLEKS                       R15 R14 K36 ["Color"]
-      146 LOADK                            R15 K40 [1.5]
-      147 SETTABLEKS                       R15 R14 K37 ["Thickness"]
-      149 CALL                             R12 2 -1
-      150 SETLIST                          R7 R8 -1 [1]
-      152 CALL                             R4 3 -1
-      153 RETURN                           R4 -1
+       29 DUPTABLE                         R6 K16 [{["BackgroundTransparency"] = 1}]
+       30 NEWTABLE                         R7 0 5
+       32 MOVE                             R8 R3
+       33 LOADK                            R9 K17 ["::UIPadding"]
+       34 DUPTABLE                         R10 K19 [{"PaddingBottom"}]
+       35 GETIMPORT                        R11 K22 [UDim.new]
+       37 LOADN                            R12 0
+       38 GETTABLEKS                       R13 R1 K23 ["paddingXSmall"]
+       40 CALL                             R11 2 1
+       41 SETTABLEKS                       R11 R10 K18 ["PaddingBottom"]
+       43 CALL                             R8 2 1
+       44 MOVE                             R9 R3
+       45 LOADK                            R10 K24 [">> ImageButton"]
+       46 DUPTABLE                         R11 K28 [{["BorderSizePixel"] = 1, ["BackgroundColor3"] = "$SemanticColorSurfaceOutline"}]
+       47 CALL                             R9 2 1
+       48 MOVE                             R10 R3
+       49 LOADK                            R11 K29 [">> .FindReplaceAll-SearchBox-Corner ::UICorner"]
+       50 DUPTABLE                         R12 K31 [{"CornerRadius"}]
+       51 GETIMPORT                        R13 K22 [UDim.new]
+       53 LOADN                            R14 0
+       54 GETTABLEKS                       R15 R1 K32 ["radiusSmall"]
+       56 CALL                             R13 2 1
+       57 SETTABLEKS                       R13 R12 K30 ["CornerRadius"]
+       59 CALL                             R10 2 1
+       60 MOVE                             R11 R3
+       61 LOADK                            R12 K33 [">> .FindReplaceAll-SearchBox-SearchBar"]
+       62 DUPTABLE                         R13 K36 [{["ClipsDescendants"] = True}]
+       63 NEWTABLE                         R14 0 2
+       65 MOVE                             R15 R3
+       66 LOADK                            R16 K37 [">> UIStroke"]
+       67 DUPTABLE                         R17 K42 [{["Color"] = "$SemanticColorActionPrimaryBrandFill", ["Thickness"] = 1.5}]
+       68 CALL                             R15 2 1
+       69 MOVE                             R16 R3
+       70 LOADK                            R17 K43 [">> TextBox"]
+       71 DUPTABLE                         R18 K56 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["ClearTextOnFocus"] = False, ["ClipsDescendants"] = True, ["Font"], ["Position"], ["TextColor3"] = "$SemanticColorContentMuted", ["Text"] = "", ["TextSize"], ["TextXAlignment"]}]
+       72 GETIMPORT                        R19 K58 [Vector2.new]
+       74 LOADK                            R20 K59 [0.5]
+       75 LOADK                            R21 K59 [0.5]
+       76 CALL                             R19 2 1
+       77 SETTABLEKS                       R19 R18 K44 ["AnchorPoint"]
+       79 GETTABLEKS                       R19 R1 K60 ["defaultFont"]
+       81 SETTABLEKS                       R19 R18 K48 ["Font"]
+       83 GETIMPORT                        R19 K63 [UDim2.fromScale]
+       85 LOADK                            R20 K59 [0.5]
+       86 LOADK                            R21 K59 [0.5]
+       87 CALL                             R19 2 1
+       88 SETTABLEKS                       R19 R18 K49 ["Position"]
+       90 LOADN                            R20 12
+       91 GETTABLEKS                       R21 R1 K64 ["defaultFontScale"]
+       93 MUL                              R19 R20 R21
+       94 SETTABLEKS                       R19 R18 K54 ["TextSize"]
+       96 GETIMPORT                        R19 K67 [Enum.TextXAlignment.Left]
+       98 SETTABLEKS                       R19 R18 K55 ["TextXAlignment"]
+      100 CALL                             R16 2 -1
+      101 SETLIST                          R14 R15 -1 [1]
+      103 CALL                             R11 3 1
+      104 MOVE                             R12 R3
+      105 LOADK                            R13 K68 [">> .FindReplaceAll-SearchBar-Error"]
+      106 DUPTABLE                         R14 K70 [{["Color"] = "$ColorActionAlert", ["Thickness"] = 1.5}]
+      107 CALL                             R12 2 -1
+      108 SETLIST                          R7 R8 -1 [1]
+      110 CALL                             R4 3 -1
+      111 RETURN                           R4 -1

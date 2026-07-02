@@ -121,25 +121,23 @@ PROTO_5:
        71 GETUPVAL                         R4 2
        72 GETTABLEKS                       R4 R4 K4 ["createElement"]
        74 GETUPVAL                         R5 4
-       75 DUPTABLE                         R6 K25 [{"Disabled", "LayoutOrder", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-       76 LOADB                            R7 0
-       77 SETTABLEKS                       R7 R6 K22 ["Disabled"]
-       79 GETTABLEKS                       R7 R0 K5 ["LayoutOrder"]
-       81 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
-       83 GETTABLEKS                       R7 R0 K6 ["Size"]
-       85 SETTABLEKS                       R7 R6 K6 ["Size"]
-       87 SETTABLEKS                       R1 R6 K8 ["Text"]
-       89 NEWCLOSURE                       R7 P1
-       90 CAPTURE                          VAL R2
-       91 SETTABLEKS                       R7 R6 K23 ["OnTextChanged"]
-       93 NEWCLOSURE                       R7 P2
-       94 CAPTURE                          VAL R1
-       95 CAPTURE                          VAL R0
-       96 CAPTURE                          VAL R2
-       97 CAPTURE                          UPVAL U1
-       98 SETTABLEKS                       R7 R6 K24 ["OnFocusLost"]
-      100 CALL                             R4 2 -1
-      101 RETURN                           R4 -1
+       75 DUPTABLE                         R6 K26 [{["Disabled"] = False, ["LayoutOrder"], ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+       76 GETTABLEKS                       R7 R0 K5 ["LayoutOrder"]
+       78 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
+       80 GETTABLEKS                       R7 R0 K6 ["Size"]
+       82 SETTABLEKS                       R7 R6 K6 ["Size"]
+       84 SETTABLEKS                       R1 R6 K8 ["Text"]
+       86 NEWCLOSURE                       R7 P1
+       87 CAPTURE                          VAL R2
+       88 SETTABLEKS                       R7 R6 K24 ["OnTextChanged"]
+       90 NEWCLOSURE                       R7 P2
+       91 CAPTURE                          VAL R1
+       92 CAPTURE                          VAL R0
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          UPVAL U1
+       95 SETTABLEKS                       R7 R6 K25 ["OnFocusLost"]
+       97 CALL                             R4 2 -1
+       98 RETURN                           R4 -1
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["Value"]
@@ -177,16 +175,14 @@ PROTO_6:
        53 GETUPVAL                         R2 0
        54 GETTABLEKS                       R2 R2 K4 ["createElement"]
        56 GETUPVAL                         R3 2
-       57 DUPTABLE                         R4 K23 [{"Disabled", "LayoutOrder", "Size", "Text"}]
-       58 LOADB                            R5 1
-       59 SETTABLEKS                       R5 R4 K22 ["Disabled"]
-       61 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
-       63 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       65 GETTABLEKS                       R5 R0 K6 ["Size"]
-       67 SETTABLEKS                       R5 R4 K6 ["Size"]
-       69 SETTABLEKS                       R1 R4 K8 ["Text"]
-       71 CALL                             R2 2 -1
-       72 RETURN                           R2 -1
+       57 DUPTABLE                         R4 K24 [{["Disabled"] = True, ["LayoutOrder"], ["Size"], ["Text"]}]
+       58 GETTABLEKS                       R5 R0 K5 ["LayoutOrder"]
+       60 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
+       62 GETTABLEKS                       R5 R0 K6 ["Size"]
+       64 SETTABLEKS                       R5 R4 K6 ["Size"]
+       66 SETTABLEKS                       R1 R4 K8 ["Text"]
+       68 CALL                             R2 2 -1
+       69 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

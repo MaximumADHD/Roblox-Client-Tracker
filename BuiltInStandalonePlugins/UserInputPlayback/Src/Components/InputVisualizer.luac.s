@@ -50,14 +50,12 @@ PROTO_2:
        49 SETTABLEKS                       R9 R10 K14 ["updateTransparency"]
        51 GETUPVAL                         R11 3
        52 GETTABLEKS                       R11 R11 K18 ["createGroupMotor"]
-       54 DUPTABLE                         R12 K19 [{"size", "transparency"}]
-       55 LOADN                            R13 0
-       56 SETTABLEKS                       R13 R12 K9 ["size"]
-       58 ORK                              R13 R3 K20 [0]
-       59 SETTABLEKS                       R13 R12 K11 ["transparency"]
-       61 CALL                             R11 1 1
-       62 SETTABLEKS                       R11 R10 K15 ["motor"]
-       64 RETURN                           R10 1
+       54 DUPTABLE                         R12 K20 [{["size"] = 0, ["transparency"]}]
+       55 ORK                              R13 R3 K19 [0]
+       56 SETTABLEKS                       R13 R12 K11 ["transparency"]
+       58 CALL                             R11 1 1
+       59 SETTABLEKS                       R11 R10 K15 ["motor"]
+       61 RETURN                           R10 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -151,42 +149,40 @@ PROTO_5:
        51 GETUPVAL                         R6 2
        52 GETTABLEKS                       R6 R6 K19 ["spring"]
        54 LOADN                            R7 50
-       55 DUPTABLE                         R8 K21 [{"frequency"}]
-       56 LOADN                            R9 1
-       57 SETTABLEKS                       R9 R8 K20 ["frequency"]
-       59 CALL                             R6 2 1
-       60 SETTABLEKS                       R6 R5 K16 ["size"]
-       62 GETUPVAL                         R6 2
-       63 GETTABLEKS                       R6 R6 K22 ["instant"]
-       65 LOADN                            R7 0
-       66 CALL                             R6 1 1
-       67 SETTABLEKS                       R6 R5 K17 ["transparency"]
-       69 NAMECALL                         R3 R3 K23 ["setGoal"]
-       71 CALL                             R3 2 0
-       72 GETUPVAL                         R3 0
-       73 DUPTABLE                         R5 K25 [{"visibleCursorRingIds"}]
-       74 GETUPVAL                         R6 3
-       75 GETTABLEKS                       R6 R6 K26 ["Dictionary"]
-       77 GETTABLEKS                       R6 R6 K27 ["join"]
-       79 GETUPVAL                         R7 0
-       80 GETTABLEKS                       R7 R7 K28 ["state"]
-       82 GETTABLEKS                       R7 R7 K24 ["visibleCursorRingIds"]
-       84 NEWTABLE                         R8 1 0
-       86 GETTABLEKS                       R9 R2 K29 ["id"]
-       88 LOADB                            R10 1
-       89 SETTABLE                         R10 R8 R9
-       90 CALL                             R6 2 1
-       91 SETTABLEKS                       R6 R5 K24 ["visibleCursorRingIds"]
-       93 NAMECALL                         R3 R3 K30 ["setState"]
-       95 CALL                             R3 2 0
-       96 GETUPVAL                         R3 0
-       97 GETTABLEKS                       R3 R3 K0 ["currentCursorRingsByButtonId"]
-       99 SETTABLE                         R2 R3 R1
-      100 GETUPVAL                         R3 0
-      101 GETTABLEKS                       R3 R3 K31 ["mouseButtonIsDown"]
-      103 LOADB                            R4 1
-      104 SETTABLE                         R4 R3 R1
-      105 RETURN                           R0 0
+       55 DUPTABLE                         R8 K22 [{["frequency"] = 1}]
+       56 CALL                             R6 2 1
+       57 SETTABLEKS                       R6 R5 K16 ["size"]
+       59 GETUPVAL                         R6 2
+       60 GETTABLEKS                       R6 R6 K23 ["instant"]
+       62 LOADN                            R7 0
+       63 CALL                             R6 1 1
+       64 SETTABLEKS                       R6 R5 K17 ["transparency"]
+       66 NAMECALL                         R3 R3 K24 ["setGoal"]
+       68 CALL                             R3 2 0
+       69 GETUPVAL                         R3 0
+       70 DUPTABLE                         R5 K26 [{"visibleCursorRingIds"}]
+       71 GETUPVAL                         R6 3
+       72 GETTABLEKS                       R6 R6 K27 ["Dictionary"]
+       74 GETTABLEKS                       R6 R6 K28 ["join"]
+       76 GETUPVAL                         R7 0
+       77 GETTABLEKS                       R7 R7 K29 ["state"]
+       79 GETTABLEKS                       R7 R7 K25 ["visibleCursorRingIds"]
+       81 NEWTABLE                         R8 1 0
+       83 GETTABLEKS                       R9 R2 K30 ["id"]
+       85 LOADB                            R10 1
+       86 SETTABLE                         R10 R8 R9
+       87 CALL                             R6 2 1
+       88 SETTABLEKS                       R6 R5 K25 ["visibleCursorRingIds"]
+       90 NAMECALL                         R3 R3 K31 ["setState"]
+       92 CALL                             R3 2 0
+       93 GETUPVAL                         R3 0
+       94 GETTABLEKS                       R3 R3 K0 ["currentCursorRingsByButtonId"]
+       96 SETTABLE                         R2 R3 R1
+       97 GETUPVAL                         R3 0
+       98 GETTABLEKS                       R3 R3 K32 ["mouseButtonIsDown"]
+      100 LOADB                            R4 1
+      101 SETTABLE                         R4 R3 R1
+      102 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -274,7 +270,7 @@ PROTO_9:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["currentCursorRingsByButtonId"]
         3 GETTABLE                         R2 R3 R1
-        4 JUMPIFNOT                        R2 ; [+46]
+        4 JUMPIFNOT                        R2 ; [+40]
         5 GETTABLEKS                       R3 R2 K1 ["updatePosition"]
         7 GETIMPORT                        R4 K4 [UDim2.fromOffset]
         9 GETTABLEKS                       R5 R0 K5 ["X"]
@@ -286,36 +282,32 @@ PROTO_9:
        18 GETUPVAL                         R6 1
        19 GETTABLEKS                       R6 R6 K11 ["spring"]
        21 LOADN                            R7 100
-       22 DUPTABLE                         R8 K13 [{"frequency"}]
-       23 LOADN                            R9 1
-       24 SETTABLEKS                       R9 R8 K12 ["frequency"]
-       26 CALL                             R6 2 1
-       27 SETTABLEKS                       R6 R5 K8 ["size"]
-       29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R6 R6 K11 ["spring"]
-       32 LOADN                            R7 1
-       33 DUPTABLE                         R8 K13 [{"frequency"}]
-       34 LOADN                            R9 1
-       35 SETTABLEKS                       R9 R8 K12 ["frequency"]
-       37 CALL                             R6 2 1
-       38 SETTABLEKS                       R6 R5 K9 ["transparency"]
-       40 NAMECALL                         R3 R3 K14 ["setGoal"]
-       42 CALL                             R3 2 0
-       43 GETTABLEKS                       R3 R2 K7 ["motor"]
-       45 NEWCLOSURE                       R5 P0
-       46 CAPTURE                          UPVAL U0
-       47 CAPTURE                          VAL R2
-       48 NAMECALL                         R3 R3 K15 ["onComplete"]
-       50 CALL                             R3 2 0
-       51 GETUPVAL                         R3 0
-       52 GETTABLEKS                       R3 R3 K0 ["currentCursorRingsByButtonId"]
-       54 LOADNIL                          R4
-       55 SETTABLE                         R4 R3 R1
-       56 GETUPVAL                         R3 0
-       57 GETTABLEKS                       R3 R3 K16 ["mouseButtonIsDown"]
-       59 LOADB                            R4 0
-       60 SETTABLE                         R4 R3 R1
-       61 RETURN                           R0 0
+       22 DUPTABLE                         R8 K14 [{["frequency"] = 1}]
+       23 CALL                             R6 2 1
+       24 SETTABLEKS                       R6 R5 K8 ["size"]
+       26 GETUPVAL                         R6 1
+       27 GETTABLEKS                       R6 R6 K11 ["spring"]
+       29 LOADN                            R7 1
+       30 DUPTABLE                         R8 K14 [{["frequency"] = 1}]
+       31 CALL                             R6 2 1
+       32 SETTABLEKS                       R6 R5 K9 ["transparency"]
+       34 NAMECALL                         R3 R3 K15 ["setGoal"]
+       36 CALL                             R3 2 0
+       37 GETTABLEKS                       R3 R2 K7 ["motor"]
+       39 NEWCLOSURE                       R5 P0
+       40 CAPTURE                          UPVAL U0
+       41 CAPTURE                          VAL R2
+       42 NAMECALL                         R3 R3 K16 ["onComplete"]
+       44 CALL                             R3 2 0
+       45 GETUPVAL                         R3 0
+       46 GETTABLEKS                       R3 R3 K0 ["currentCursorRingsByButtonId"]
+       48 LOADNIL                          R4
+       49 SETTABLE                         R4 R3 R1
+       50 GETUPVAL                         R3 0
+       51 GETTABLEKS                       R3 R3 K17 ["mouseButtonIsDown"]
+       53 LOADB                            R4 0
+       54 SETTABLE                         R4 R3 R1
+       55 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -369,82 +361,78 @@ PROTO_12:
        38 GETUPVAL                         R7 2
        39 GETTABLEKS                       R7 R7 K17 ["spring"]
        41 LOADN                            R8 50
-       42 DUPTABLE                         R9 K19 [{"frequency"}]
-       43 LOADN                            R10 1
-       44 SETTABLEKS                       R10 R9 K18 ["frequency"]
-       46 CALL                             R7 2 1
-       47 SETTABLEKS                       R7 R6 K14 ["size"]
-       49 GETUPVAL                         R7 2
-       50 GETTABLEKS                       R7 R7 K20 ["instant"]
-       52 LOADN                            R8 0
-       53 CALL                             R7 1 1
-       54 SETTABLEKS                       R7 R6 K15 ["transparency"]
-       56 NAMECALL                         R4 R4 K21 ["setGoal"]
-       58 CALL                             R4 2 0
-       59 GETUPVAL                         R4 0
-       60 LOADN                            R5 0
-       61 LOADK                            R6 K22 ["rbxasset://textures/UserInputPlaybackPlugin/TapCursor.png"]
-       62 LOADN                            R7 1
-       63 LOADN                            R8 1
-       64 CALL                             R4 4 1
-       65 GETUPVAL                         R6 1
-       66 GETTABLEKS                       R6 R6 K7 ["cursorRings"]
-       68 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
-       70 MOVE                             R7 R4
-       71 GETIMPORT                        R5 K10 [table.insert]
-       73 CALL                             R5 2 0
-       74 GETUPVAL                         R5 3
-       75 SETTABLEKS                       R5 R4 K23 ["color"]
-       77 GETTABLEKS                       R5 R4 K11 ["updatePosition"]
-       79 MOVE                             R6 R2
-       80 CALL                             R5 1 0
-       81 GETTABLEKS                       R5 R4 K24 ["updateTransparency"]
-       83 LOADN                            R6 1
-       84 CALL                             R5 1 0
-       85 GETTABLEKS                       R5 R4 K25 ["updateSize"]
-       87 GETIMPORT                        R6 K3 [UDim2.fromOffset]
-       89 LOADN                            R7 64
-       90 LOADN                            R8 64
-       91 CALL                             R6 2 -1
-       92 CALL                             R5 -1 0
-       93 GETTABLEKS                       R5 R4 K12 ["motor"]
-       95 NEWCLOSURE                       R7 P1
-       96 CAPTURE                          VAL R4
-       97 NAMECALL                         R5 R5 K13 ["onStep"]
-       99 CALL                             R5 2 0
-      100 GETTABLEKS                       R5 R4 K12 ["motor"]
-      102 DUPTABLE                         R7 K26 [{"transparency"}]
-      103 GETUPVAL                         R8 2
-      104 GETTABLEKS                       R8 R8 K17 ["spring"]
-      106 LOADN                            R9 0
-      107 DUPTABLE                         R10 K19 [{"frequency"}]
-      108 LOADK                            R11 K27 [2.5]
-      109 SETTABLEKS                       R11 R10 K18 ["frequency"]
-      111 CALL                             R8 2 1
-      112 SETTABLEKS                       R8 R7 K15 ["transparency"]
-      114 NAMECALL                         R5 R5 K21 ["setGoal"]
-      116 CALL                             R5 2 0
-      117 GETUPVAL                         R5 1
-      118 GETTABLEKS                       R5 R5 K28 ["state"]
-      120 GETTABLEKS                       R5 R5 K29 ["visibleCursorRingIds"]
-      122 GETTABLEKS                       R6 R3 K30 ["id"]
-      124 LOADB                            R7 1
-      125 SETTABLE                         R7 R5 R6
-      126 GETTABLEKS                       R6 R4 K30 ["id"]
-      128 LOADB                            R7 1
-      129 SETTABLE                         R7 R5 R6
-      130 GETUPVAL                         R6 1
-      131 DUPTABLE                         R8 K31 [{"visibleCursorRingIds"}]
-      132 SETTABLEKS                       R5 R8 K29 ["visibleCursorRingIds"]
-      134 NAMECALL                         R6 R6 K32 ["setState"]
-      136 CALL                             R6 2 0
-      137 GETUPVAL                         R6 1
-      138 GETTABLEKS                       R6 R6 K33 ["touchMap"]
-      140 DUPTABLE                         R7 K36 [{"tapImage", "ring"}]
-      141 SETTABLEKS                       R4 R7 K34 ["tapImage"]
-      143 SETTABLEKS                       R3 R7 K35 ["ring"]
-      145 SETTABLE                         R7 R6 R0
-      146 RETURN                           R0 0
+       42 DUPTABLE                         R9 K20 [{["frequency"] = 1}]
+       43 CALL                             R7 2 1
+       44 SETTABLEKS                       R7 R6 K14 ["size"]
+       46 GETUPVAL                         R7 2
+       47 GETTABLEKS                       R7 R7 K21 ["instant"]
+       49 LOADN                            R8 0
+       50 CALL                             R7 1 1
+       51 SETTABLEKS                       R7 R6 K15 ["transparency"]
+       53 NAMECALL                         R4 R4 K22 ["setGoal"]
+       55 CALL                             R4 2 0
+       56 GETUPVAL                         R4 0
+       57 LOADN                            R5 0
+       58 LOADK                            R6 K23 ["rbxasset://textures/UserInputPlaybackPlugin/TapCursor.png"]
+       59 LOADN                            R7 1
+       60 LOADN                            R8 1
+       61 CALL                             R4 4 1
+       62 GETUPVAL                         R6 1
+       63 GETTABLEKS                       R6 R6 K7 ["cursorRings"]
+       65 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
+       67 MOVE                             R7 R4
+       68 GETIMPORT                        R5 K10 [table.insert]
+       70 CALL                             R5 2 0
+       71 GETUPVAL                         R5 3
+       72 SETTABLEKS                       R5 R4 K24 ["color"]
+       74 GETTABLEKS                       R5 R4 K11 ["updatePosition"]
+       76 MOVE                             R6 R2
+       77 CALL                             R5 1 0
+       78 GETTABLEKS                       R5 R4 K25 ["updateTransparency"]
+       80 LOADN                            R6 1
+       81 CALL                             R5 1 0
+       82 GETTABLEKS                       R5 R4 K26 ["updateSize"]
+       84 GETIMPORT                        R6 K3 [UDim2.fromOffset]
+       86 LOADN                            R7 64
+       87 LOADN                            R8 64
+       88 CALL                             R6 2 -1
+       89 CALL                             R5 -1 0
+       90 GETTABLEKS                       R5 R4 K12 ["motor"]
+       92 NEWCLOSURE                       R7 P1
+       93 CAPTURE                          VAL R4
+       94 NAMECALL                         R5 R5 K13 ["onStep"]
+       96 CALL                             R5 2 0
+       97 GETTABLEKS                       R5 R4 K12 ["motor"]
+       99 DUPTABLE                         R7 K27 [{"transparency"}]
+      100 GETUPVAL                         R8 2
+      101 GETTABLEKS                       R8 R8 K17 ["spring"]
+      103 LOADN                            R9 0
+      104 DUPTABLE                         R10 K29 [{["frequency"] = 2.5}]
+      105 CALL                             R8 2 1
+      106 SETTABLEKS                       R8 R7 K15 ["transparency"]
+      108 NAMECALL                         R5 R5 K22 ["setGoal"]
+      110 CALL                             R5 2 0
+      111 GETUPVAL                         R5 1
+      112 GETTABLEKS                       R5 R5 K30 ["state"]
+      114 GETTABLEKS                       R5 R5 K31 ["visibleCursorRingIds"]
+      116 GETTABLEKS                       R6 R3 K32 ["id"]
+      118 LOADB                            R7 1
+      119 SETTABLE                         R7 R5 R6
+      120 GETTABLEKS                       R6 R4 K32 ["id"]
+      122 LOADB                            R7 1
+      123 SETTABLE                         R7 R5 R6
+      124 GETUPVAL                         R6 1
+      125 DUPTABLE                         R8 K33 [{"visibleCursorRingIds"}]
+      126 SETTABLEKS                       R5 R8 K31 ["visibleCursorRingIds"]
+      128 NAMECALL                         R6 R6 K34 ["setState"]
+      130 CALL                             R6 2 0
+      131 GETUPVAL                         R6 1
+      132 GETTABLEKS                       R6 R6 K35 ["touchMap"]
+      134 DUPTABLE                         R7 K38 [{"tapImage", "ring"}]
+      135 SETTABLEKS                       R4 R7 K36 ["tapImage"]
+      137 SETTABLEKS                       R3 R7 K37 ["ring"]
+      139 SETTABLE                         R7 R6 R0
+      140 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R2 0
@@ -486,7 +474,7 @@ PROTO_16:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["touchMap"]
         3 GETTABLE                         R1 R2 R0
-        4 JUMPIFNOT                        R1 ; [+74]
+        4 JUMPIFNOT                        R1 ; [+65]
         5 GETUPVAL                         R2 0
         6 GETTABLEKS                       R2 R2 K1 ["onTouchMoved"]
         8 MOVE                             R3 R0
@@ -497,49 +485,43 @@ PROTO_16:
        15 GETUPVAL                         R5 1
        16 GETTABLEKS                       R5 R5 K7 ["spring"]
        18 LOADN                            R6 100
-       19 DUPTABLE                         R7 K9 [{"frequency"}]
-       20 LOADN                            R8 1
-       21 SETTABLEKS                       R8 R7 K8 ["frequency"]
-       23 CALL                             R5 2 1
-       24 SETTABLEKS                       R5 R4 K4 ["size"]
-       26 GETUPVAL                         R5 1
-       27 GETTABLEKS                       R5 R5 K7 ["spring"]
-       29 LOADN                            R6 1
-       30 DUPTABLE                         R7 K9 [{"frequency"}]
-       31 LOADN                            R8 1
-       32 SETTABLEKS                       R8 R7 K8 ["frequency"]
-       34 CALL                             R5 2 1
-       35 SETTABLEKS                       R5 R4 K5 ["transparency"]
-       37 NAMECALL                         R2 R2 K10 ["setGoal"]
-       39 CALL                             R2 2 0
-       40 GETTABLEKS                       R2 R1 K2 ["ring"]
-       42 GETTABLEKS                       R2 R2 K3 ["motor"]
-       44 NEWCLOSURE                       R4 P0
-       45 CAPTURE                          UPVAL U0
-       46 CAPTURE                          VAL R1
-       47 NAMECALL                         R2 R2 K11 ["onComplete"]
-       49 CALL                             R2 2 0
-       50 GETTABLEKS                       R2 R1 K12 ["tapImage"]
-       52 GETTABLEKS                       R2 R2 K3 ["motor"]
-       54 DUPTABLE                         R4 K13 [{"transparency"}]
-       55 GETUPVAL                         R5 1
-       56 GETTABLEKS                       R5 R5 K7 ["spring"]
-       58 LOADN                            R6 1
-       59 DUPTABLE                         R7 K9 [{"frequency"}]
-       60 LOADN                            R8 1
-       61 SETTABLEKS                       R8 R7 K8 ["frequency"]
-       63 CALL                             R5 2 1
-       64 SETTABLEKS                       R5 R4 K5 ["transparency"]
-       66 NAMECALL                         R2 R2 K10 ["setGoal"]
-       68 CALL                             R2 2 0
-       69 GETTABLEKS                       R2 R1 K12 ["tapImage"]
-       71 GETTABLEKS                       R2 R2 K3 ["motor"]
-       73 NEWCLOSURE                       R4 P1
-       74 CAPTURE                          UPVAL U0
-       75 CAPTURE                          VAL R1
-       76 NAMECALL                         R2 R2 K11 ["onComplete"]
-       78 CALL                             R2 2 0
-       79 RETURN                           R0 0
+       19 DUPTABLE                         R7 K10 [{["frequency"] = 1}]
+       20 CALL                             R5 2 1
+       21 SETTABLEKS                       R5 R4 K4 ["size"]
+       23 GETUPVAL                         R5 1
+       24 GETTABLEKS                       R5 R5 K7 ["spring"]
+       26 LOADN                            R6 1
+       27 DUPTABLE                         R7 K10 [{["frequency"] = 1}]
+       28 CALL                             R5 2 1
+       29 SETTABLEKS                       R5 R4 K5 ["transparency"]
+       31 NAMECALL                         R2 R2 K11 ["setGoal"]
+       33 CALL                             R2 2 0
+       34 GETTABLEKS                       R2 R1 K2 ["ring"]
+       36 GETTABLEKS                       R2 R2 K3 ["motor"]
+       38 NEWCLOSURE                       R4 P0
+       39 CAPTURE                          UPVAL U0
+       40 CAPTURE                          VAL R1
+       41 NAMECALL                         R2 R2 K12 ["onComplete"]
+       43 CALL                             R2 2 0
+       44 GETTABLEKS                       R2 R1 K13 ["tapImage"]
+       46 GETTABLEKS                       R2 R2 K3 ["motor"]
+       48 DUPTABLE                         R4 K14 [{"transparency"}]
+       49 GETUPVAL                         R5 1
+       50 GETTABLEKS                       R5 R5 K7 ["spring"]
+       52 LOADN                            R6 1
+       53 DUPTABLE                         R7 K10 [{["frequency"] = 1}]
+       54 CALL                             R5 2 1
+       55 SETTABLEKS                       R5 R4 K5 ["transparency"]
+       57 NAMECALL                         R2 R2 K11 ["setGoal"]
+       59 CALL                             R2 2 0
+       60 GETTABLEKS                       R2 R1 K13 ["tapImage"]
+       62 GETTABLEKS                       R2 R2 K3 ["motor"]
+       64 NEWCLOSURE                       R4 P1
+       65 CAPTURE                          UPVAL U0
+       66 CAPTURE                          VAL R1
+       67 NAMECALL                         R2 R2 K12 ["onComplete"]
+       69 CALL                             R2 2 0
+       70 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -566,9 +548,9 @@ PROTO_18:
        16 GETUPVAL                         R1 0
        17 GETTABLEKS                       R1 R1 K7 ["updateBackgroundTransparency"]
        19 GETTABLEKS                       R5 R0 K6 ["transparency"]
-       21 SUBRK                            R4 R8 K5 ["updateForegroundTransparency"]
+       21 SUBRK                            R4 K8 [1] R5
        22 MULK                             R3 R4 K9 [0.6]
-       23 SUBRK                            R2 R8 K3 [UDim2.fromOffset]
+       23 SUBRK                            R2 K8 [1] R3
        24 CALL                             R1 1 0
        25 RETURN                           R0 0
 
@@ -583,107 +565,99 @@ PROTO_19:
        10 JUMPIFNOT                        R4 ; [+5]
        11 GETTABLEKS                       R5 R4 K3 ["numberOfKeys"]
        13 LOADN                            R6 6
-       14 JUMPIFNOTLE                      R6 R5 ; [+69]
-       16 DUPTABLE                         R5 K7 [{"lastUpdateTime", "numberOfKeys", "keys", "dataId"}]
-       17 GETIMPORT                        R6 K9 [tick]
+       14 JUMPIFNOTLE                      R6 R5 ; [+63]
+       16 DUPTABLE                         R5 K8 [{["lastUpdateTime"], ["numberOfKeys"] = 0, ["keys"], ["dataId"]}]
+       17 GETIMPORT                        R6 K10 [tick]
        19 CALL                             R6 0 1
        20 SETTABLEKS                       R6 R5 K4 ["lastUpdateTime"]
-       22 LOADN                            R6 0
-       23 SETTABLEKS                       R6 R5 K3 ["numberOfKeys"]
-       25 NEWTABLE                         R6 0 0
-       27 SETTABLEKS                       R6 R5 K5 ["keys"]
-       29 GETUPVAL                         R6 1
-       30 CALL                             R6 0 1
-       31 SETTABLEKS                       R6 R5 K6 ["dataId"]
-       33 MOVE                             R4 R5
-       34 LOADN                            R7 1
-       35 FASTCALL3                        TABLE_INSERT R3 R7 R4
-       37 MOVE                             R6 R3
-       38 MOVE                             R8 R4
-       39 GETIMPORT                        R5 K12 [table.insert]
-       41 CALL                             R5 3 0
-       42 GETUPVAL                         R5 2
-       43 LOADN                            R6 0
-       44 LOADN                            R7 1
-       45 CALL                             R5 2 1
-       46 GETUPVAL                         R6 3
-       47 GETTABLEKS                       R6 R6 K13 ["keyTileData"]
-       49 GETTABLEKS                       R7 R4 K6 ["dataId"]
-       51 SETTABLE                         R5 R6 R7
-       52 GETTABLEKS                       R6 R5 K14 ["updateSize"]
-       54 GETIMPORT                        R7 K17 [UDim2.fromOffset]
-       56 LOADN                            R8 50
-       57 LOADN                            R9 0
-       58 CALL                             R7 2 -1
-       59 CALL                             R6 -1 0
-       60 GETTABLEKS                       R6 R5 K18 ["motor"]
-       62 NEWCLOSURE                       R8 P0
-       63 CAPTURE                          VAL R5
-       64 NAMECALL                         R6 R6 K19 ["onStep"]
-       66 CALL                             R6 2 0
-       67 GETTABLEKS                       R6 R5 K18 ["motor"]
-       69 DUPTABLE                         R8 K21 [{"size"}]
-       70 GETUPVAL                         R9 4
-       71 GETTABLEKS                       R9 R9 K22 ["spring"]
-       73 LOADN                            R10 50
-       74 DUPTABLE                         R11 K24 [{"frequency"}]
-       75 LOADK                            R12 K25 [2.5]
-       76 SETTABLEKS                       R12 R11 K23 ["frequency"]
-       78 CALL                             R9 2 1
-       79 SETTABLEKS                       R9 R8 K20 ["size"]
-       81 NAMECALL                         R6 R6 K26 ["setGoal"]
-       83 CALL                             R6 2 0
-       84 GETUPVAL                         R5 2
-       85 LOADN                            R6 0
-       86 LOADN                            R7 1
-       87 CALL                             R5 2 1
-       88 GETUPVAL                         R6 1
-       89 CALL                             R6 0 1
-       90 GETUPVAL                         R7 3
-       91 GETTABLEKS                       R7 R7 K13 ["keyTileData"]
-       93 SETTABLE                         R5 R7 R6
-       94 GETTABLEKS                       R7 R5 K18 ["motor"]
-       96 NEWCLOSURE                       R9 P1
-       97 CAPTURE                          VAL R5
-       98 NAMECALL                         R7 R7 K19 ["onStep"]
-      100 CALL                             R7 2 0
-      101 GETTABLEKS                       R7 R5 K18 ["motor"]
-      103 DUPTABLE                         R9 K28 [{"size", "transparency"}]
-      104 GETUPVAL                         R10 4
-      105 GETTABLEKS                       R10 R10 K22 ["spring"]
-      107 LOADN                            R11 50
-      108 DUPTABLE                         R12 K24 [{"frequency"}]
-      109 LOADK                            R13 K25 [2.5]
-      110 SETTABLEKS                       R13 R12 K23 ["frequency"]
-      112 CALL                             R10 2 1
-      113 SETTABLEKS                       R10 R9 K20 ["size"]
-      115 GETUPVAL                         R10 4
-      116 GETTABLEKS                       R10 R10 K22 ["spring"]
-      118 LOADN                            R11 0
-      119 DUPTABLE                         R12 K24 [{"frequency"}]
-      120 LOADK                            R13 K25 [2.5]
-      121 SETTABLEKS                       R13 R12 K23 ["frequency"]
-      123 CALL                             R10 2 1
-      124 SETTABLEKS                       R10 R9 K27 ["transparency"]
-      126 NAMECALL                         R7 R7 K26 ["setGoal"]
-      128 CALL                             R7 2 0
-      129 GETIMPORT                        R7 K9 [tick]
-      131 CALL                             R7 0 1
-      132 SETTABLEKS                       R7 R4 K4 ["lastUpdateTime"]
-      134 GETTABLEKS                       R7 R4 K3 ["numberOfKeys"]
-      136 ADDK                             R7 R7 K29 [1]
-      137 SETTABLEKS                       R7 R4 K3 ["numberOfKeys"]
-      139 GETTABLEKS                       R8 R4 K5 ["keys"]
-      141 DUPTABLE                         R9 K31 [{"keyCode", "dataId"}]
-      142 GETUPVAL                         R10 5
-      143 SETTABLEKS                       R10 R9 K30 ["keyCode"]
-      145 SETTABLEKS                       R6 R9 K6 ["dataId"]
-      147 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
-      149 GETIMPORT                        R7 K12 [table.insert]
-      151 CALL                             R7 2 0
-      152 DUPTABLE                         R7 K32 [{"keyRows"}]
-      153 SETTABLEKS                       R3 R7 K0 ["keyRows"]
-      155 RETURN                           R7 1
+       22 NEWTABLE                         R6 0 0
+       24 SETTABLEKS                       R6 R5 K6 ["keys"]
+       26 GETUPVAL                         R6 1
+       27 CALL                             R6 0 1
+       28 SETTABLEKS                       R6 R5 K7 ["dataId"]
+       30 MOVE                             R4 R5
+       31 LOADN                            R7 1
+       32 FASTCALL3                        TABLE_INSERT R3 R7 R4
+       34 MOVE                             R6 R3
+       35 MOVE                             R8 R4
+       36 GETIMPORT                        R5 K13 [table.insert]
+       38 CALL                             R5 3 0
+       39 GETUPVAL                         R5 2
+       40 LOADN                            R6 0
+       41 LOADN                            R7 1
+       42 CALL                             R5 2 1
+       43 GETUPVAL                         R6 3
+       44 GETTABLEKS                       R6 R6 K14 ["keyTileData"]
+       46 GETTABLEKS                       R7 R4 K7 ["dataId"]
+       48 SETTABLE                         R5 R6 R7
+       49 GETTABLEKS                       R6 R5 K15 ["updateSize"]
+       51 GETIMPORT                        R7 K18 [UDim2.fromOffset]
+       53 LOADN                            R8 50
+       54 LOADN                            R9 0
+       55 CALL                             R7 2 -1
+       56 CALL                             R6 -1 0
+       57 GETTABLEKS                       R6 R5 K19 ["motor"]
+       59 NEWCLOSURE                       R8 P0
+       60 CAPTURE                          VAL R5
+       61 NAMECALL                         R6 R6 K20 ["onStep"]
+       63 CALL                             R6 2 0
+       64 GETTABLEKS                       R6 R5 K19 ["motor"]
+       66 DUPTABLE                         R8 K22 [{"size"}]
+       67 GETUPVAL                         R9 4
+       68 GETTABLEKS                       R9 R9 K23 ["spring"]
+       70 LOADN                            R10 50
+       71 DUPTABLE                         R11 K26 [{["frequency"] = 2.5}]
+       72 CALL                             R9 2 1
+       73 SETTABLEKS                       R9 R8 K21 ["size"]
+       75 NAMECALL                         R6 R6 K27 ["setGoal"]
+       77 CALL                             R6 2 0
+       78 GETUPVAL                         R5 2
+       79 LOADN                            R6 0
+       80 LOADN                            R7 1
+       81 CALL                             R5 2 1
+       82 GETUPVAL                         R6 1
+       83 CALL                             R6 0 1
+       84 GETUPVAL                         R7 3
+       85 GETTABLEKS                       R7 R7 K14 ["keyTileData"]
+       87 SETTABLE                         R5 R7 R6
+       88 GETTABLEKS                       R7 R5 K19 ["motor"]
+       90 NEWCLOSURE                       R9 P1
+       91 CAPTURE                          VAL R5
+       92 NAMECALL                         R7 R7 K20 ["onStep"]
+       94 CALL                             R7 2 0
+       95 GETTABLEKS                       R7 R5 K19 ["motor"]
+       97 DUPTABLE                         R9 K29 [{"size", "transparency"}]
+       98 GETUPVAL                         R10 4
+       99 GETTABLEKS                       R10 R10 K23 ["spring"]
+      101 LOADN                            R11 50
+      102 DUPTABLE                         R12 K26 [{["frequency"] = 2.5}]
+      103 CALL                             R10 2 1
+      104 SETTABLEKS                       R10 R9 K21 ["size"]
+      106 GETUPVAL                         R10 4
+      107 GETTABLEKS                       R10 R10 K23 ["spring"]
+      109 LOADN                            R11 0
+      110 DUPTABLE                         R12 K26 [{["frequency"] = 2.5}]
+      111 CALL                             R10 2 1
+      112 SETTABLEKS                       R10 R9 K28 ["transparency"]
+      114 NAMECALL                         R7 R7 K27 ["setGoal"]
+      116 CALL                             R7 2 0
+      117 GETIMPORT                        R7 K10 [tick]
+      119 CALL                             R7 0 1
+      120 SETTABLEKS                       R7 R4 K4 ["lastUpdateTime"]
+      122 GETTABLEKS                       R7 R4 K3 ["numberOfKeys"]
+      124 ADDK                             R7 R7 K30 [1]
+      125 SETTABLEKS                       R7 R4 K3 ["numberOfKeys"]
+      127 GETTABLEKS                       R8 R4 K6 ["keys"]
+      129 DUPTABLE                         R9 K32 [{"keyCode", "dataId"}]
+      130 GETUPVAL                         R10 5
+      131 SETTABLEKS                       R10 R9 K31 ["keyCode"]
+      133 SETTABLEKS                       R6 R9 K7 ["dataId"]
+      135 FASTCALL2                        TABLE_INSERT R8 R9 ; [+3]
+      137 GETIMPORT                        R7 K13 [table.insert]
+      139 CALL                             R7 2 0
+      140 DUPTABLE                         R7 K33 [{"keyRows"}]
+      141 SETTABLEKS                       R3 R7 K0 ["keyRows"]
+      143 RETURN                           R7 1
 
 PROTO_20:
         0 GETUPVAL                         R2 0
@@ -793,23 +767,21 @@ PROTO_24:
        15 GETUPVAL                         R10 1
        16 GETTABLEKS                       R10 R10 K8 ["spring"]
        18 LOADN                            R11 1
-       19 DUPTABLE                         R12 K10 [{"frequency"}]
-       20 LOADN                            R13 2
-       21 SETTABLEKS                       R13 R12 K9 ["frequency"]
-       23 CALL                             R10 2 1
-       24 SETTABLEKS                       R10 R9 K6 ["transparency"]
-       26 NAMECALL                         R7 R7 K11 ["setGoal"]
-       28 CALL                             R7 2 0
-       29 JUMPIFNOTEQKN                    R4 K12 [1] ; [+10]
-       31 GETTABLEKS                       R7 R6 K5 ["motor"]
-       33 NEWCLOSURE                       R9 P0
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          UPVAL U0
-       36 CAPTURE                          UPVAL U2
-       37 NAMECALL                         R7 R7 K13 ["onComplete"]
-       39 CALL                             R7 2 0
-       40 FORGLOOP                         R1 2 [inext] ; [-35]
-       42 RETURN                           R0 0
+       19 DUPTABLE                         R12 K11 [{["frequency"] = 2}]
+       20 CALL                             R10 2 1
+       21 SETTABLEKS                       R10 R9 K6 ["transparency"]
+       23 NAMECALL                         R7 R7 K12 ["setGoal"]
+       25 CALL                             R7 2 0
+       26 JUMPIFNOTEQKN                    R4 K13 [1] ; [+10]
+       28 GETTABLEKS                       R7 R6 K5 ["motor"]
+       30 NEWCLOSURE                       R9 P0
+       31 CAPTURE                          VAL R0
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          UPVAL U2
+       34 NAMECALL                         R7 R7 K14 ["onComplete"]
+       36 CALL                             R7 2 0
+       37 FORGLOOP                         R1 2 [inext] ; [-32]
+       39 RETURN                           R0 0
 
 PROTO_25:
         0 NEWCLOSURE                       R0 P0
@@ -1136,104 +1108,88 @@ PROTO_32:
        95 GETUPVAL                         R6 0
        96 GETTABLEKS                       R6 R6 K9 ["createElement"]
        98 LOADK                            R7 K37 ["ImageLabel"]
-       99 DUPTABLE                         R8 K45 [{"BackgroundTransparency", "BorderSizePixel", "Image", "Position", "Size", "AnchorPoint", "Visible", "ImageColor3", "ZIndex"}]
-      100 LOADN                            R9 1
-      101 SETTABLEKS                       R9 R8 K14 ["BackgroundTransparency"]
-      103 LOADN                            R9 0
-      104 SETTABLEKS                       R9 R8 K38 ["BorderSizePixel"]
-      106 LOADK                            R9 K46 ["rbxasset://textures/UserInputPlaybackPlugin/ArrowCursor.png"]
-      107 SETTABLEKS                       R9 R8 K39 ["Image"]
-      109 GETTABLEKS                       R9 R0 K47 ["fakeCursorPosition"]
-      111 SETTABLEKS                       R9 R8 K40 ["Position"]
-      113 GETIMPORT                        R9 K50 [UDim2.fromOffset]
-      115 LOADN                            R10 64
-      116 LOADN                            R11 64
-      117 CALL                             R9 2 1
-      118 SETTABLEKS                       R9 R8 K12 ["Size"]
-      120 GETIMPORT                        R9 K53 [Vector2.new]
-      122 LOADK                            R10 K54 [0.5]
-      123 LOADK                            R11 K54 [0.5]
-      124 CALL                             R9 2 1
-      125 SETTABLEKS                       R9 R8 K41 ["AnchorPoint"]
-      127 LOADB                            R9 1
-      128 SETTABLEKS                       R9 R8 K42 ["Visible"]
-      130 GETUPVAL                         R9 3
-      131 SETTABLEKS                       R9 R8 K43 ["ImageColor3"]
-      133 LOADN                            R9 1
-      134 SETTABLEKS                       R9 R8 K44 ["ZIndex"]
-      136 CALL                             R6 2 1
-      137 SETTABLEKS                       R6 R5 K34 ["FakeCursorImage"]
-      139 GETUPVAL                         R6 0
-      140 GETTABLEKS                       R6 R6 K9 ["createElement"]
-      142 GETUPVAL                         R7 2
-      143 DUPTABLE                         R8 K55 [{"Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment", "Size", "Position", "AnchorPoint"}]
-      144 GETIMPORT                        R9 K57 [Enum.FillDirection.Vertical]
-      146 SETTABLEKS                       R9 R8 K20 ["Layout"]
-      148 GETTABLEKS                       R9 R3 K33 ["KeyBarRowSpacingPx"]
-      150 SETTABLEKS                       R9 R8 K23 ["Spacing"]
-      152 GETIMPORT                        R9 K30 [Enum.HorizontalAlignment.Left]
-      154 SETTABLEKS                       R9 R8 K21 ["HorizontalAlignment"]
-      156 GETIMPORT                        R9 K32 [Enum.VerticalAlignment.Bottom]
-      158 SETTABLEKS                       R9 R8 K22 ["VerticalAlignment"]
-      160 GETTABLEKS                       R9 R3 K58 ["KeyBarSize"]
-      162 SETTABLEKS                       R9 R8 K12 ["Size"]
-      164 GETIMPORT                        R9 K60 [UDim2.fromScale]
-      166 LOADN                            R10 0
-      167 LOADN                            R11 1
-      168 CALL                             R9 2 1
-      169 SETTABLEKS                       R9 R8 K40 ["Position"]
-      171 GETIMPORT                        R9 K53 [Vector2.new]
-      173 LOADN                            R10 0
-      174 LOADN                            R11 1
-      175 CALL                             R9 2 1
-      176 SETTABLEKS                       R9 R8 K41 ["AnchorPoint"]
-      178 MOVE                             R9 R4
-      179 CALL                             R6 3 1
-      180 SETTABLEKS                       R6 R5 K35 ["KeyBar"]
-      182 GETIMPORT                        R6 K4 [ipairs]
-      184 GETTABLEKS                       R7 R0 K61 ["cursorRings"]
-      186 CALL                             R6 1 3
-      187 FORGPREP_INEXT                   R6
-      188 GETTABLEKS                       R12 R2 K62 ["visibleCursorRingIds"]
-      190 GETTABLEKS                       R13 R10 K63 ["id"]
-      192 GETTABLE                         R11 R12 R13
-      193 JUMPIFNOT                        R11 ; [+49]
-      194 GETTABLEKS                       R11 R10 K63 ["id"]
-      196 GETUPVAL                         R12 0
-      197 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      199 LOADK                            R13 K37 ["ImageLabel"]
-      200 DUPTABLE                         R14 K65 [{"BackgroundTransparency", "BorderSizePixel", "Image", "ZIndex", "AnchorPoint", "Size", "Position", "ImageTransparency", "ImageColor3", "Visible"}]
-      201 LOADN                            R15 1
-      202 SETTABLEKS                       R15 R14 K14 ["BackgroundTransparency"]
-      204 LOADN                            R15 0
-      205 SETTABLEKS                       R15 R14 K38 ["BorderSizePixel"]
-      207 GETTABLEKS                       R15 R10 K66 ["image"]
-      209 SETTABLEKS                       R15 R14 K39 ["Image"]
-      211 GETTABLEKS                       R15 R10 K67 ["zIndex"]
-      213 SETTABLEKS                       R15 R14 K44 ["ZIndex"]
-      215 GETIMPORT                        R15 K53 [Vector2.new]
-      217 LOADK                            R16 K54 [0.5]
-      218 LOADK                            R17 K54 [0.5]
-      219 CALL                             R15 2 1
-      220 SETTABLEKS                       R15 R14 K41 ["AnchorPoint"]
-      222 GETTABLEKS                       R15 R10 K17 ["size"]
-      224 SETTABLEKS                       R15 R14 K12 ["Size"]
-      226 GETTABLEKS                       R15 R10 K68 ["position"]
-      228 SETTABLEKS                       R15 R14 K40 ["Position"]
-      230 GETTABLEKS                       R15 R10 K69 ["transparency"]
-      232 SETTABLEKS                       R15 R14 K64 ["ImageTransparency"]
-      234 GETTABLEKS                       R15 R10 K70 ["color"]
-      236 SETTABLEKS                       R15 R14 K43 ["ImageColor3"]
-      238 LOADB                            R15 1
-      239 SETTABLEKS                       R15 R14 K42 ["Visible"]
-      241 CALL                             R12 2 1
-      242 SETTABLE                         R12 R5 R11
-      243 FORGLOOP                         R6 2 [inext] ; [-56]
-      245 GETUPVAL                         R6 0
-      246 GETTABLEKS                       R6 R6 K71 ["createFragment"]
-      248 MOVE                             R7 R5
-      249 CALL                             R6 1 -1
-      250 RETURN                           R6 -1
+       99 DUPTABLE                         R8 K49 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["Image"] = "rbxasset://textures/UserInputPlaybackPlugin/ArrowCursor.png", ["Position"], ["Size"], ["AnchorPoint"], ["Visible"] = True, ["ImageColor3"], ["ZIndex"] = 1}]
+      100 GETTABLEKS                       R9 R0 K50 ["fakeCursorPosition"]
+      102 SETTABLEKS                       R9 R8 K43 ["Position"]
+      104 GETIMPORT                        R9 K53 [UDim2.fromOffset]
+      106 LOADN                            R10 64
+      107 LOADN                            R11 64
+      108 CALL                             R9 2 1
+      109 SETTABLEKS                       R9 R8 K12 ["Size"]
+      111 GETIMPORT                        R9 K56 [Vector2.new]
+      113 LOADK                            R10 K57 [0.5]
+      114 LOADK                            R11 K57 [0.5]
+      115 CALL                             R9 2 1
+      116 SETTABLEKS                       R9 R8 K44 ["AnchorPoint"]
+      118 GETUPVAL                         R9 3
+      119 SETTABLEKS                       R9 R8 K47 ["ImageColor3"]
+      121 CALL                             R6 2 1
+      122 SETTABLEKS                       R6 R5 K34 ["FakeCursorImage"]
+      124 GETUPVAL                         R6 0
+      125 GETTABLEKS                       R6 R6 K9 ["createElement"]
+      127 GETUPVAL                         R7 2
+      128 DUPTABLE                         R8 K58 [{"Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment", "Size", "Position", "AnchorPoint"}]
+      129 GETIMPORT                        R9 K60 [Enum.FillDirection.Vertical]
+      131 SETTABLEKS                       R9 R8 K20 ["Layout"]
+      133 GETTABLEKS                       R9 R3 K33 ["KeyBarRowSpacingPx"]
+      135 SETTABLEKS                       R9 R8 K23 ["Spacing"]
+      137 GETIMPORT                        R9 K30 [Enum.HorizontalAlignment.Left]
+      139 SETTABLEKS                       R9 R8 K21 ["HorizontalAlignment"]
+      141 GETIMPORT                        R9 K32 [Enum.VerticalAlignment.Bottom]
+      143 SETTABLEKS                       R9 R8 K22 ["VerticalAlignment"]
+      145 GETTABLEKS                       R9 R3 K61 ["KeyBarSize"]
+      147 SETTABLEKS                       R9 R8 K12 ["Size"]
+      149 GETIMPORT                        R9 K63 [UDim2.fromScale]
+      151 LOADN                            R10 0
+      152 LOADN                            R11 1
+      153 CALL                             R9 2 1
+      154 SETTABLEKS                       R9 R8 K43 ["Position"]
+      156 GETIMPORT                        R9 K56 [Vector2.new]
+      158 LOADN                            R10 0
+      159 LOADN                            R11 1
+      160 CALL                             R9 2 1
+      161 SETTABLEKS                       R9 R8 K44 ["AnchorPoint"]
+      163 MOVE                             R9 R4
+      164 CALL                             R6 3 1
+      165 SETTABLEKS                       R6 R5 K35 ["KeyBar"]
+      167 GETIMPORT                        R6 K4 [ipairs]
+      169 GETTABLEKS                       R7 R0 K64 ["cursorRings"]
+      171 CALL                             R6 1 3
+      172 FORGPREP_INEXT                   R6
+      173 GETTABLEKS                       R12 R2 K65 ["visibleCursorRingIds"]
+      175 GETTABLEKS                       R13 R10 K66 ["id"]
+      177 GETTABLE                         R11 R12 R13
+      178 JUMPIFNOT                        R11 ; [+40]
+      179 GETTABLEKS                       R11 R10 K66 ["id"]
+      181 GETUPVAL                         R12 0
+      182 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      184 LOADK                            R13 K37 ["ImageLabel"]
+      185 DUPTABLE                         R14 K68 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["Image"], ["ZIndex"], ["AnchorPoint"], ["Size"], ["Position"], ["ImageTransparency"], ["ImageColor3"], ["Visible"] = True}]
+      186 GETTABLEKS                       R15 R10 K69 ["image"]
+      188 SETTABLEKS                       R15 R14 K41 ["Image"]
+      190 GETTABLEKS                       R15 R10 K70 ["zIndex"]
+      192 SETTABLEKS                       R15 R14 K48 ["ZIndex"]
+      194 GETIMPORT                        R15 K56 [Vector2.new]
+      196 LOADK                            R16 K57 [0.5]
+      197 LOADK                            R17 K57 [0.5]
+      198 CALL                             R15 2 1
+      199 SETTABLEKS                       R15 R14 K44 ["AnchorPoint"]
+      201 GETTABLEKS                       R15 R10 K17 ["size"]
+      203 SETTABLEKS                       R15 R14 K12 ["Size"]
+      205 GETTABLEKS                       R15 R10 K71 ["position"]
+      207 SETTABLEKS                       R15 R14 K43 ["Position"]
+      209 GETTABLEKS                       R15 R10 K72 ["transparency"]
+      211 SETTABLEKS                       R15 R14 K67 ["ImageTransparency"]
+      213 GETTABLEKS                       R15 R10 K73 ["color"]
+      215 SETTABLEKS                       R15 R14 K47 ["ImageColor3"]
+      217 CALL                             R12 2 1
+      218 SETTABLE                         R12 R5 R11
+      219 FORGLOOP                         R6 2 [inext] ; [-47]
+      221 GETUPVAL                         R6 0
+      222 GETTABLEKS                       R6 R6 K74 ["createFragment"]
+      224 MOVE                             R7 R5
+      225 CALL                             R6 1 -1
+      226 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

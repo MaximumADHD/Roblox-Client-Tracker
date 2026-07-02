@@ -73,157 +73,95 @@ MAIN:
        99 NEWTABLE                         R6 0 8
       101 MOVE                             R7 R2
       102 LOADK                            R8 K30 [".GridLine"]
-      103 DUPTABLE                         R9 K34 [{"BorderSizePixel", "ZIndex", "BackgroundColor3"}]
-      104 LOADN                            R10 0
-      105 SETTABLEKS                       R10 R9 K31 ["BorderSizePixel"]
-      107 LOADN                            R10 2
-      108 SETTABLEKS                       R10 R9 K32 ["ZIndex"]
-      110 LOADK                            R10 K35 ["$ColorGridLine"]
-      111 SETTABLEKS                       R10 R9 K33 ["BackgroundColor3"]
-      113 CALL                             R7 2 1
-      114 MOVE                             R8 R2
-      115 LOADK                            R9 K36 [".GridLabel"]
-      116 DUPTABLE                         R10 K39 [{"BackgroundTransparency", "TextColor3"}]
-      117 LOADN                            R11 1
-      118 SETTABLEKS                       R11 R10 K37 ["BackgroundTransparency"]
-      120 LOADK                            R11 K35 ["$ColorGridLine"]
-      121 SETTABLEKS                       R11 R10 K38 ["TextColor3"]
-      123 CALL                             R8 2 1
-      124 MOVE                             R9 R2
-      125 LOADK                            R10 K40 [".AnalyzerCurve"]
-      126 DUPTABLE                         R11 K42 [{"ZIndex", "Color3", "Thickness"}]
-      127 LOADN                            R12 10
-      128 SETTABLEKS                       R12 R11 K32 ["ZIndex"]
-      130 LOADK                            R12 K43 ["$ColorAnalyzerCurve"]
-      131 SETTABLEKS                       R12 R11 K25 ["Color3"]
-      133 LOADN                            R12 1
-      134 SETTABLEKS                       R12 R11 K41 ["Thickness"]
-      136 CALL                             R9 2 1
-      137 MOVE                             R10 R2
-      138 LOADK                            R11 K44 [".FullCurve"]
-      139 DUPTABLE                         R12 K42 [{"ZIndex", "Color3", "Thickness"}]
-      140 LOADN                            R13 10
-      141 SETTABLEKS                       R13 R12 K32 ["ZIndex"]
-      143 LOADK                            R13 K45 ["$ColorFullCurve"]
-      144 SETTABLEKS                       R13 R12 K25 ["Color3"]
-      146 LOADN                            R13 2
-      147 SETTABLEKS                       R13 R12 K41 ["Thickness"]
-      149 CALL                             R10 2 1
-      150 MOVE                             R11 R2
-      151 LOADK                            R12 K46 [".FullCurveDisabled"]
-      152 DUPTABLE                         R13 K42 [{"ZIndex", "Color3", "Thickness"}]
-      153 LOADN                            R14 10
-      154 SETTABLEKS                       R14 R13 K32 ["ZIndex"]
-      156 LOADK                            R14 K47 ["$ColorFullCurveDisabled"]
-      157 SETTABLEKS                       R14 R13 K25 ["Color3"]
-      159 LOADN                            R14 2
-      160 SETTABLEKS                       R14 R13 K41 ["Thickness"]
-      162 CALL                             R11 2 1
-      163 MOVE                             R12 R2
-      164 LOADK                            R13 K48 [".Curve"]
-      165 DUPTABLE                         R14 K42 [{"ZIndex", "Color3", "Thickness"}]
-      166 LOADN                            R15 9
-      167 SETTABLEKS                       R15 R14 K32 ["ZIndex"]
-      169 LOADK                            R15 K49 ["$ColorCurve"]
-      170 SETTABLEKS                       R15 R14 K25 ["Color3"]
-      172 LOADN                            R15 1
-      173 SETTABLEKS                       R15 R14 K41 ["Thickness"]
-      175 CALL                             R12 2 1
-      176 MOVE                             R13 R2
-      177 LOADK                            R14 K50 [".ControlPoint"]
-      178 DUPTABLE                         R15 K55 [{"AnchorPoint", "BackgroundTransparency", "Image", "ImageColor3", "Size", "ZIndex"}]
-      179 GETIMPORT                        R16 K58 [Vector2.new]
-      181 LOADK                            R17 K59 [0.5]
-      182 LOADK                            R18 K59 [0.5]
-      183 CALL                             R16 2 1
-      184 SETTABLEKS                       R16 R15 K51 ["AnchorPoint"]
-      186 LOADN                            R16 1
-      187 SETTABLEKS                       R16 R15 K37 ["BackgroundTransparency"]
-      189 LOADK                            R16 K60 ["rbxasset://textures/smallWhiteCircle.png"]
-      190 SETTABLEKS                       R16 R15 K52 ["Image"]
-      192 LOADK                            R16 K61 ["$ColorControlPoint"]
-      193 SETTABLEKS                       R16 R15 K53 ["ImageColor3"]
-      195 GETIMPORT                        R16 K64 [UDim2.fromOffset]
-      197 LOADN                            R17 24
-      198 LOADN                            R18 24
-      199 CALL                             R16 2 1
-      200 SETTABLEKS                       R16 R15 K54 ["Size"]
-      202 LOADN                            R16 20
-      203 SETTABLEKS                       R16 R15 K32 ["ZIndex"]
-      205 NEWTABLE                         R16 0 4
-      207 MOVE                             R17 R2
-      208 LOADK                            R18 K65 ["> ImageLabel"]
-      209 DUPTABLE                         R19 K68 [{"BackgroundTransparency", "Image", "ImageTransparency", "Position", "Size", "ZIndex"}]
-      210 LOADN                            R20 1
-      211 SETTABLEKS                       R20 R19 K37 ["BackgroundTransparency"]
-      213 LOADK                            R20 K60 ["rbxasset://textures/smallWhiteCircle.png"]
-      214 SETTABLEKS                       R20 R19 K52 ["Image"]
-      216 LOADK                            R20 K69 [0.6]
-      217 SETTABLEKS                       R20 R19 K66 ["ImageTransparency"]
-      219 GETIMPORT                        R20 K71 [UDim2.fromScale]
-      221 LOADK                            R21 K72 [0.1]
-      222 LOADK                            R22 K72 [0.1]
-      223 CALL                             R20 2 1
-      224 SETTABLEKS                       R20 R19 K67 ["Position"]
-      226 GETIMPORT                        R20 K71 [UDim2.fromScale]
-      228 LOADK                            R21 K73 [0.8]
-      229 LOADK                            R22 K73 [0.8]
-      230 CALL                             R20 2 1
-      231 SETTABLEKS                       R20 R19 K54 ["Size"]
-      233 LOADN                            R20 21
-      234 SETTABLEKS                       R20 R19 K32 ["ZIndex"]
-      236 CALL                             R17 2 1
-      237 MOVE                             R18 R2
-      238 LOADK                            R19 K74 ["> TextLabel"]
-      239 DUPTABLE                         R20 K77 [{"BackgroundTransparency", "FontFace", "Position", "Size", "TextSize", "ZIndex"}]
-      240 LOADN                            R21 1
-      241 SETTABLEKS                       R21 R20 K37 ["BackgroundTransparency"]
-      243 GETIMPORT                        R21 K79 [Font.new]
-      245 LOADK                            R22 K80 ["rbxasset://fonts/families/Montserrat.json"]
-      246 GETIMPORT                        R23 K84 [Enum.FontWeight.Bold]
-      248 CALL                             R21 2 1
-      249 SETTABLEKS                       R21 R20 K75 ["FontFace"]
-      251 GETIMPORT                        R21 K71 [UDim2.fromScale]
-      253 LOADK                            R22 K72 [0.1]
-      254 LOADK                            R23 K72 [0.1]
-      255 CALL                             R21 2 1
-      256 SETTABLEKS                       R21 R20 K67 ["Position"]
-      258 GETIMPORT                        R21 K71 [UDim2.fromScale]
-      260 LOADK                            R22 K73 [0.8]
-      261 LOADK                            R23 K73 [0.8]
-      262 CALL                             R21 2 1
-      263 SETTABLEKS                       R21 R20 K54 ["Size"]
-      265 LOADN                            R21 18
-      266 SETTABLEKS                       R21 R20 K76 ["TextSize"]
-      268 LOADN                            R21 22
-      269 SETTABLEKS                       R21 R20 K32 ["ZIndex"]
-      271 CALL                             R18 2 1
-      272 MOVE                             R19 R2
-      273 LOADK                            R20 K85 [".Hovered"]
-      274 DUPTABLE                         R21 K86 [{"ImageColor3"}]
-      275 LOADK                            R22 K87 ["$ColorControlPointHovered"]
-      276 SETTABLEKS                       R22 R21 K53 ["ImageColor3"]
-      278 CALL                             R19 2 1
-      279 MOVE                             R20 R2
-      280 LOADK                            R21 K88 [".Pressed"]
-      281 DUPTABLE                         R22 K86 [{"ImageColor3"}]
-      282 LOADK                            R23 K89 ["$ColorControlPointPressed"]
-      283 SETTABLEKS                       R23 R22 K53 ["ImageColor3"]
-      285 CALL                             R20 2 -1
-      286 SETLIST                          R16 R17 -1 [1]
-      288 CALL                             R13 3 1
-      289 MOVE                             R14 R2
-      290 LOADK                            R15 K90 ["TextLabel, TextButton, TextBox"]
-      291 DUPTABLE                         R16 K91 [{"Font", "TextSize"}]
-      292 GETIMPORT                        R17 K93 [Enum.Font.SourceSans]
-      294 SETTABLEKS                       R17 R16 K78 ["Font"]
-      296 LOADN                            R17 15
-      297 SETTABLEKS                       R17 R16 K76 ["TextSize"]
-      299 CALL                             R14 2 -1
-      300 SETLIST                          R6 R7 -1 [1]
-      302 MOVE                             R7 R3
-      303 LOADK                            R8 K2 ["AudioEqualizerEditor"]
-      304 MOVE                             R9 R6
-      305 MOVE                             R10 R5
-      306 CALL                             R7 3 -1
-      307 RETURN                           R7 -1
+      103 DUPTABLE                         R9 K37 [{["BorderSizePixel"] = 0, ["ZIndex"] = 2, ["BackgroundColor3"] = "$ColorGridLine"}]
+      104 CALL                             R7 2 1
+      105 MOVE                             R8 R2
+      106 LOADK                            R9 K38 [".GridLabel"]
+      107 DUPTABLE                         R10 K42 [{["BackgroundTransparency"] = 1, ["TextColor3"] = "$ColorGridLine"}]
+      108 CALL                             R8 2 1
+      109 MOVE                             R9 R2
+      110 LOADK                            R10 K43 [".AnalyzerCurve"]
+      111 DUPTABLE                         R11 K47 [{["ZIndex"] = 10, ["Color3"] = "$ColorAnalyzerCurve", ["Thickness"] = 1}]
+      112 CALL                             R9 2 1
+      113 MOVE                             R10 R2
+      114 LOADK                            R11 K48 [".FullCurve"]
+      115 DUPTABLE                         R12 K50 [{["ZIndex"] = 10, ["Color3"] = "$ColorFullCurve", ["Thickness"] = 2}]
+      116 CALL                             R10 2 1
+      117 MOVE                             R11 R2
+      118 LOADK                            R12 K51 [".FullCurveDisabled"]
+      119 DUPTABLE                         R13 K53 [{["ZIndex"] = 10, ["Color3"] = "$ColorFullCurveDisabled", ["Thickness"] = 2}]
+      120 CALL                             R11 2 1
+      121 MOVE                             R12 R2
+      122 LOADK                            R13 K54 [".Curve"]
+      123 DUPTABLE                         R14 K57 [{["ZIndex"] = 9, ["Color3"] = "$ColorCurve", ["Thickness"] = 1}]
+      124 CALL                             R12 2 1
+      125 MOVE                             R13 R2
+      126 LOADK                            R14 K58 [".ControlPoint"]
+      127 DUPTABLE                         R15 K66 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageColor3"] = "$ColorControlPoint", ["Size"], ["ZIndex"] = 20}]
+      128 GETIMPORT                        R16 K69 [Vector2.new]
+      130 LOADK                            R17 K70 [0.5]
+      131 LOADK                            R18 K70 [0.5]
+      132 CALL                             R16 2 1
+      133 SETTABLEKS                       R16 R15 K59 ["AnchorPoint"]
+      135 GETIMPORT                        R16 K73 [UDim2.fromOffset]
+      137 LOADN                            R17 24
+      138 LOADN                            R18 24
+      139 CALL                             R16 2 1
+      140 SETTABLEKS                       R16 R15 K64 ["Size"]
+      142 NEWTABLE                         R16 0 4
+      144 MOVE                             R17 R2
+      145 LOADK                            R18 K74 ["> ImageLabel"]
+      146 DUPTABLE                         R19 K79 [{["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/smallWhiteCircle.png", ["ImageTransparency"] = 0.6, ["Position"], ["Size"], ["ZIndex"] = 21}]
+      147 GETIMPORT                        R20 K81 [UDim2.fromScale]
+      149 LOADK                            R21 K82 [0.1]
+      150 LOADK                            R22 K82 [0.1]
+      151 CALL                             R20 2 1
+      152 SETTABLEKS                       R20 R19 K77 ["Position"]
+      154 GETIMPORT                        R20 K81 [UDim2.fromScale]
+      156 LOADK                            R21 K83 [0.8]
+      157 LOADK                            R22 K83 [0.8]
+      158 CALL                             R20 2 1
+      159 SETTABLEKS                       R20 R19 K64 ["Size"]
+      161 CALL                             R17 2 1
+      162 MOVE                             R18 R2
+      163 LOADK                            R19 K84 ["> TextLabel"]
+      164 DUPTABLE                         R20 K89 [{["BackgroundTransparency"] = 1, ["FontFace"], ["Position"], ["Size"], ["TextSize"] = 18, ["ZIndex"] = 22}]
+      165 GETIMPORT                        R21 K91 [Font.new]
+      167 LOADK                            R22 K92 ["rbxasset://fonts/families/Montserrat.json"]
+      168 GETIMPORT                        R23 K96 [Enum.FontWeight.Bold]
+      170 CALL                             R21 2 1
+      171 SETTABLEKS                       R21 R20 K85 ["FontFace"]
+      173 GETIMPORT                        R21 K81 [UDim2.fromScale]
+      175 LOADK                            R22 K82 [0.1]
+      176 LOADK                            R23 K82 [0.1]
+      177 CALL                             R21 2 1
+      178 SETTABLEKS                       R21 R20 K77 ["Position"]
+      180 GETIMPORT                        R21 K81 [UDim2.fromScale]
+      182 LOADK                            R22 K83 [0.8]
+      183 LOADK                            R23 K83 [0.8]
+      184 CALL                             R21 2 1
+      185 SETTABLEKS                       R21 R20 K64 ["Size"]
+      187 CALL                             R18 2 1
+      188 MOVE                             R19 R2
+      189 LOADK                            R20 K97 [".Hovered"]
+      190 DUPTABLE                         R21 K99 [{["ImageColor3"] = "$ColorControlPointHovered"}]
+      191 CALL                             R19 2 1
+      192 MOVE                             R20 R2
+      193 LOADK                            R21 K100 [".Pressed"]
+      194 DUPTABLE                         R22 K102 [{["ImageColor3"] = "$ColorControlPointPressed"}]
+      195 CALL                             R20 2 -1
+      196 SETLIST                          R16 R17 -1 [1]
+      198 CALL                             R13 3 1
+      199 MOVE                             R14 R2
+      200 LOADK                            R15 K103 ["TextLabel, TextButton, TextBox"]
+      201 DUPTABLE                         R16 K105 [{["Font"], ["TextSize"] = 15}]
+      202 GETIMPORT                        R17 K107 [Enum.Font.SourceSans]
+      204 SETTABLEKS                       R17 R16 K90 ["Font"]
+      206 CALL                             R14 2 -1
+      207 SETLIST                          R6 R7 -1 [1]
+      209 MOVE                             R7 R3
+      210 LOADK                            R8 K2 ["AudioEqualizerEditor"]
+      211 MOVE                             R9 R6
+      212 MOVE                             R10 R5
+      213 CALL                             R7 3 -1
+      214 RETURN                           R7 -1

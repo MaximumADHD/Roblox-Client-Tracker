@@ -38,112 +38,100 @@ PROTO_0:
        59 GETUPVAL                         R13 5
        60 DUPTABLE                         R14 K20 [{"Buttons", "MinContentSize", "OnButtonPressed", "OnClose", "Title"}]
        61 NEWTABLE                         R15 0 2
-       63 DUPTABLE                         R16 K23 [{"Key", "Text"}]
-       64 LOADB                            R17 0
-       65 SETTABLEKS                       R17 R16 K21 ["Key"]
-       67 LOADK                            R19 K24 ["Purchase"]
-       68 LOADK                            R20 K25 ["Cancel"]
-       69 NAMECALL                         R17 R1 K26 ["getText"]
-       71 CALL                             R17 3 1
-       72 SETTABLEKS                       R17 R16 K22 ["Text"]
-       74 DUPTABLE                         R17 K28 [{"Key", "Style", "Text"}]
-       75 LOADB                            R18 1
-       76 SETTABLEKS                       R18 R17 K21 ["Key"]
-       78 LOADK                            R18 K29 ["RoundPrimary"]
-       79 SETTABLEKS                       R18 R17 K27 ["Style"]
-       81 LOADK                            R20 K24 ["Purchase"]
-       82 LOADK                            R21 K30 ["Buy"]
-       83 NAMECALL                         R18 R1 K26 ["getText"]
-       85 CALL                             R18 3 1
-       86 SETTABLEKS                       R18 R17 K22 ["Text"]
-       88 SETLIST                          R15 R16 2 [1]
-       90 SETTABLEKS                       R15 R14 K16 ["Buttons"]
-       92 GETIMPORT                        R15 K32 [Vector2.new]
-       94 MOVE                             R16 R10
-       95 MOVE                             R17 R11
-       96 CALL                             R15 2 1
-       97 SETTABLEKS                       R15 R14 K17 ["MinContentSize"]
-       99 SETTABLEKS                       R5 R14 K18 ["OnButtonPressed"]
-      101 SETTABLEKS                       R6 R14 K5 ["OnClose"]
-      103 LOADK                            R17 K24 ["Purchase"]
-      104 LOADK                            R18 K33 ["BuyTitle"]
-      105 NAMECALL                         R15 R1 K26 ["getText"]
-      107 CALL                             R15 3 1
-      108 SETTABLEKS                       R15 R14 K19 ["Title"]
-      110 DUPTABLE                         R15 K35 [{"Container"}]
-      111 GETUPVAL                         R16 4
-      112 GETTABLEKS                       R16 R16 K15 ["createElement"]
-      114 GETUPVAL                         R17 6
-      115 DUPTABLE                         R18 K41 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing", "VerticalAlignment"}]
-      116 GETIMPORT                        R19 K44 [Enum.AutomaticSize.XY]
-      118 SETTABLEKS                       R19 R18 K36 ["AutomaticSize"]
-      120 GETIMPORT                        R19 K47 [Enum.FillDirection.Horizontal]
-      122 SETTABLEKS                       R19 R18 K37 ["Layout"]
-      124 GETTABLEKS                       R19 R0 K38 ["LayoutOrder"]
-      126 SETTABLEKS                       R19 R18 K38 ["LayoutOrder"]
-      128 LOADN                            R19 12
-      129 SETTABLEKS                       R19 R18 K39 ["Spacing"]
-      131 GETIMPORT                        R19 K49 [Enum.VerticalAlignment.Top]
-      133 SETTABLEKS                       R19 R18 K40 ["VerticalAlignment"]
-      135 DUPTABLE                         R19 K51 [{"Thumbnail", "Prompt"}]
-      136 GETUPVAL                         R20 4
-      137 GETTABLEKS                       R20 R20 K15 ["createElement"]
-      139 LOADK                            R21 K52 ["ImageLabel"]
-      140 DUPTABLE                         R22 K56 [{"BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
-      141 LOADN                            R23 1
-      142 SETTABLEKS                       R23 R22 K53 ["BackgroundTransparency"]
-      144 SETTABLEKS                       R8 R22 K54 ["Image"]
-      146 NAMECALL                         R23 R9 K57 ["getNextOrder"]
-      148 CALL                             R23 1 1
-      149 SETTABLEKS                       R23 R22 K38 ["LayoutOrder"]
-      151 GETUPVAL                         R23 3
-      152 GETTABLEKS                       R23 R23 K9 ["IMAGE_SIZE"]
-      154 SETTABLEKS                       R23 R22 K55 ["Size"]
-      156 CALL                             R20 2 1
-      157 SETTABLEKS                       R20 R19 K7 ["Thumbnail"]
-      159 GETUPVAL                         R20 4
-      160 GETTABLEKS                       R20 R20 K15 ["createElement"]
-      162 GETUPVAL                         R21 7
-      163 DUPTABLE                         R22 K62 [{"AutomaticSize", "Size", "LayoutOrder", "Text", "TextColor", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
-      164 GETIMPORT                        R23 K63 [Enum.AutomaticSize.Y]
-      166 SETTABLEKS                       R23 R22 K36 ["AutomaticSize"]
-      168 GETIMPORT                        R23 K65 [UDim2.new]
-      170 LOADN                            R24 0
-      171 GETUPVAL                         R25 3
-      172 GETTABLEKS                       R25 R25 K12 ["PROMPT_SIZE"]
-      174 GETTABLEKS                       R25 R25 K10 ["X"]
-      176 GETTABLEKS                       R25 R25 K11 ["Offset"]
-      178 LOADN                            R26 0
-      179 LOADN                            R27 0
-      180 CALL                             R23 4 1
-      181 SETTABLEKS                       R23 R22 K55 ["Size"]
-      183 NAMECALL                         R23 R9 K57 ["getNextOrder"]
-      185 CALL                             R23 1 1
-      186 SETTABLEKS                       R23 R22 K38 ["LayoutOrder"]
-      188 LOADK                            R25 K24 ["Purchase"]
-      189 LOADK                            R26 K66 ["FiatBuyPrompt"]
-      190 DUPTABLE                         R27 K70 [{"name", "creator", "price"}]
-      191 SETTABLEKS                       R4 R27 K67 ["name"]
-      193 SETTABLEKS                       R3 R27 K68 ["creator"]
-      195 SETTABLEKS                       R7 R27 K69 ["price"]
-      197 NAMECALL                         R23 R1 K26 ["getText"]
-      199 CALL                             R23 4 1
-      200 SETTABLEKS                       R23 R22 K22 ["Text"]
-      202 GETTABLEKS                       R23 R2 K71 ["purchaseDialog"]
-      204 GETTABLEKS                       R23 R23 K72 ["promptText"]
-      206 SETTABLEKS                       R23 R22 K58 ["TextColor"]
-      208 LOADB                            R23 1
-      209 SETTABLEKS                       R23 R22 K59 ["TextWrapped"]
-      211 GETIMPORT                        R23 K74 [Enum.TextXAlignment.Left]
-      213 SETTABLEKS                       R23 R22 K60 ["TextXAlignment"]
-      215 GETIMPORT                        R23 K75 [Enum.TextYAlignment.Top]
-      217 SETTABLEKS                       R23 R22 K61 ["TextYAlignment"]
-      219 CALL                             R20 2 1
-      220 SETTABLEKS                       R20 R19 K50 ["Prompt"]
-      222 CALL                             R16 3 1
-      223 SETTABLEKS                       R16 R15 K34 ["Container"]
-      225 CALL                             R12 3 -1
-      226 RETURN                           R12 -1
+       63 DUPTABLE                         R16 K24 [{["Key"] = False, ["Text"]}]
+       64 LOADK                            R19 K25 ["Purchase"]
+       65 LOADK                            R20 K26 ["Cancel"]
+       66 NAMECALL                         R17 R1 K27 ["getText"]
+       68 CALL                             R17 3 1
+       69 SETTABLEKS                       R17 R16 K23 ["Text"]
+       71 DUPTABLE                         R17 K31 [{["Key"] = True, ["Style"] = "RoundPrimary", ["Text"]}]
+       72 LOADK                            R20 K25 ["Purchase"]
+       73 LOADK                            R21 K32 ["Buy"]
+       74 NAMECALL                         R18 R1 K27 ["getText"]
+       76 CALL                             R18 3 1
+       77 SETTABLEKS                       R18 R17 K23 ["Text"]
+       79 SETLIST                          R15 R16 2 [1]
+       81 SETTABLEKS                       R15 R14 K16 ["Buttons"]
+       83 GETIMPORT                        R15 K34 [Vector2.new]
+       85 MOVE                             R16 R10
+       86 MOVE                             R17 R11
+       87 CALL                             R15 2 1
+       88 SETTABLEKS                       R15 R14 K17 ["MinContentSize"]
+       90 SETTABLEKS                       R5 R14 K18 ["OnButtonPressed"]
+       92 SETTABLEKS                       R6 R14 K5 ["OnClose"]
+       94 LOADK                            R17 K25 ["Purchase"]
+       95 LOADK                            R18 K35 ["BuyTitle"]
+       96 NAMECALL                         R15 R1 K27 ["getText"]
+       98 CALL                             R15 3 1
+       99 SETTABLEKS                       R15 R14 K19 ["Title"]
+      101 DUPTABLE                         R15 K37 [{"Container"}]
+      102 GETUPVAL                         R16 4
+      103 GETTABLEKS                       R16 R16 K15 ["createElement"]
+      105 GETUPVAL                         R17 6
+      106 DUPTABLE                         R18 K44 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Spacing"] = 12, ["VerticalAlignment"]}]
+      107 GETIMPORT                        R19 K47 [Enum.AutomaticSize.XY]
+      109 SETTABLEKS                       R19 R18 K38 ["AutomaticSize"]
+      111 GETIMPORT                        R19 K50 [Enum.FillDirection.Horizontal]
+      113 SETTABLEKS                       R19 R18 K39 ["Layout"]
+      115 GETTABLEKS                       R19 R0 K40 ["LayoutOrder"]
+      117 SETTABLEKS                       R19 R18 K40 ["LayoutOrder"]
+      119 GETIMPORT                        R19 K52 [Enum.VerticalAlignment.Top]
+      121 SETTABLEKS                       R19 R18 K43 ["VerticalAlignment"]
+      123 DUPTABLE                         R19 K54 [{"Thumbnail", "Prompt"}]
+      124 GETUPVAL                         R20 4
+      125 GETTABLEKS                       R20 R20 K15 ["createElement"]
+      127 LOADK                            R21 K55 ["ImageLabel"]
+      128 DUPTABLE                         R22 K60 [{["BackgroundTransparency"] = 1, ["Image"], ["LayoutOrder"], ["Size"]}]
+      129 SETTABLEKS                       R8 R22 K58 ["Image"]
+      131 NAMECALL                         R23 R9 K61 ["getNextOrder"]
+      133 CALL                             R23 1 1
+      134 SETTABLEKS                       R23 R22 K40 ["LayoutOrder"]
+      136 GETUPVAL                         R23 3
+      137 GETTABLEKS                       R23 R23 K9 ["IMAGE_SIZE"]
+      139 SETTABLEKS                       R23 R22 K59 ["Size"]
+      141 CALL                             R20 2 1
+      142 SETTABLEKS                       R20 R19 K7 ["Thumbnail"]
+      144 GETUPVAL                         R20 4
+      145 GETTABLEKS                       R20 R20 K15 ["createElement"]
+      147 GETUPVAL                         R21 7
+      148 DUPTABLE                         R22 K66 [{["AutomaticSize"], ["Size"], ["LayoutOrder"], ["Text"], ["TextColor"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"]}]
+      149 GETIMPORT                        R23 K67 [Enum.AutomaticSize.Y]
+      151 SETTABLEKS                       R23 R22 K38 ["AutomaticSize"]
+      153 GETIMPORT                        R23 K69 [UDim2.new]
+      155 LOADN                            R24 0
+      156 GETUPVAL                         R25 3
+      157 GETTABLEKS                       R25 R25 K12 ["PROMPT_SIZE"]
+      159 GETTABLEKS                       R25 R25 K10 ["X"]
+      161 GETTABLEKS                       R25 R25 K11 ["Offset"]
+      163 LOADN                            R26 0
+      164 LOADN                            R27 0
+      165 CALL                             R23 4 1
+      166 SETTABLEKS                       R23 R22 K59 ["Size"]
+      168 NAMECALL                         R23 R9 K61 ["getNextOrder"]
+      170 CALL                             R23 1 1
+      171 SETTABLEKS                       R23 R22 K40 ["LayoutOrder"]
+      173 LOADK                            R25 K25 ["Purchase"]
+      174 LOADK                            R26 K70 ["FiatBuyPrompt"]
+      175 DUPTABLE                         R27 K74 [{"name", "creator", "price"}]
+      176 SETTABLEKS                       R4 R27 K71 ["name"]
+      178 SETTABLEKS                       R3 R27 K72 ["creator"]
+      180 SETTABLEKS                       R7 R27 K73 ["price"]
+      182 NAMECALL                         R23 R1 K27 ["getText"]
+      184 CALL                             R23 4 1
+      185 SETTABLEKS                       R23 R22 K23 ["Text"]
+      187 GETTABLEKS                       R23 R2 K75 ["purchaseDialog"]
+      189 GETTABLEKS                       R23 R23 K76 ["promptText"]
+      191 SETTABLEKS                       R23 R22 K62 ["TextColor"]
+      193 GETIMPORT                        R23 K78 [Enum.TextXAlignment.Left]
+      195 SETTABLEKS                       R23 R22 K64 ["TextXAlignment"]
+      197 GETIMPORT                        R23 K79 [Enum.TextYAlignment.Top]
+      199 SETTABLEKS                       R23 R22 K65 ["TextYAlignment"]
+      201 CALL                             R20 2 1
+      202 SETTABLEKS                       R20 R19 K53 ["Prompt"]
+      204 CALL                             R16 3 1
+      205 SETTABLEKS                       R16 R15 K36 ["Container"]
+      207 CALL                             R12 3 -1
+      208 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

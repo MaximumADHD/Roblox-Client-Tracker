@@ -34,116 +34,92 @@ PROTO_3:
        12 CAPTURE                          VAL R1
        13 GETUPVAL                         R4 1
        14 MOVE                             R5 R0
-       15 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
+       15 DUPTABLE                         R6 K6 [{["ruleInstance"], ["property"] = "AnimationPacksMode"}]
        16 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       18 LOADK                            R7 K6 ["AnimationPacksMode"]
-       19 SETTABLEKS                       R7 R6 K4 ["property"]
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R7 R7 K7 ["animationPacksSetting"]
-       24 CALL                             R4 3 0
-       25 GETUPVAL                         R4 1
-       26 MOVE                             R5 R0
-       27 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-       28 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       30 LOADK                            R7 K8 ["AnimationClipsMode"]
-       31 SETTABLEKS                       R7 R6 K4 ["property"]
-       33 GETUPVAL                         R7 2
-       34 GETTABLEKS                       R7 R7 K9 ["animationClipsSetting"]
-       36 LOADB                            R8 0
-       37 DUPCLOSURE                       R9 K10 [PROTO_2]
-       38 CAPTURE                          UPVAL U3
-       39 CALL                             R4 5 0
-       40 GETUPVAL                         R4 4
-       41 MOVE                             R5 R0
-       42 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-       43 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       45 LOADK                            R7 K11 ["CustomRunAnimation"]
-       46 SETTABLEKS                       R7 R6 K4 ["property"]
+       18 GETUPVAL                         R7 2
+       19 GETTABLEKS                       R7 R7 K7 ["animationPacksSetting"]
+       21 CALL                             R4 3 0
+       22 GETUPVAL                         R4 1
+       23 MOVE                             R5 R0
+       24 DUPTABLE                         R6 K9 [{["ruleInstance"], ["property"] = "AnimationClipsMode"}]
+       25 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+       27 GETUPVAL                         R7 2
+       28 GETTABLEKS                       R7 R7 K10 ["animationClipsSetting"]
+       30 LOADB                            R8 0
+       31 DUPCLOSURE                       R9 K11 [PROTO_2]
+       32 CAPTURE                          UPVAL U3
+       33 CALL                             R4 5 0
+       34 GETUPVAL                         R4 4
+       35 MOVE                             R5 R0
+       36 DUPTABLE                         R6 K13 [{["ruleInstance"], ["property"] = "CustomRunAnimation"}]
+       37 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+       39 GETUPVAL                         R7 2
+       40 GETTABLEKS                       R7 R7 K14 ["animationClipsRunSetting"]
+       42 CALL                             R4 3 0
+       43 GETUPVAL                         R4 4
+       44 MOVE                             R5 R0
+       45 DUPTABLE                         R6 K16 [{["ruleInstance"], ["property"] = "CustomWalkAnimation"}]
+       46 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
        48 GETUPVAL                         R7 2
-       49 GETTABLEKS                       R7 R7 K12 ["animationClipsRunSetting"]
+       49 GETTABLEKS                       R7 R7 K17 ["animationClipsWalkSetting"]
        51 CALL                             R4 3 0
        52 GETUPVAL                         R4 4
        53 MOVE                             R5 R0
-       54 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
+       54 DUPTABLE                         R6 K19 [{["ruleInstance"], ["property"] = "CustomFallAnimation"}]
        55 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       57 LOADK                            R7 K13 ["CustomWalkAnimation"]
-       58 SETTABLEKS                       R7 R6 K4 ["property"]
-       60 GETUPVAL                         R7 2
-       61 GETTABLEKS                       R7 R7 K14 ["animationClipsWalkSetting"]
-       63 CALL                             R4 3 0
-       64 GETUPVAL                         R4 4
-       65 MOVE                             R5 R0
-       66 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-       67 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       69 LOADK                            R7 K15 ["CustomFallAnimation"]
-       70 SETTABLEKS                       R7 R6 K4 ["property"]
-       72 GETUPVAL                         R7 2
-       73 GETTABLEKS                       R7 R7 K16 ["animationClipsFallSetting"]
-       75 CALL                             R4 3 0
-       76 GETUPVAL                         R4 4
-       77 MOVE                             R5 R0
-       78 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-       79 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       81 LOADK                            R7 K17 ["CustomJumpAnimation"]
-       82 SETTABLEKS                       R7 R6 K4 ["property"]
+       57 GETUPVAL                         R7 2
+       58 GETTABLEKS                       R7 R7 K20 ["animationClipsFallSetting"]
+       60 CALL                             R4 3 0
+       61 GETUPVAL                         R4 4
+       62 MOVE                             R5 R0
+       63 DUPTABLE                         R6 K22 [{["ruleInstance"], ["property"] = "CustomJumpAnimation"}]
+       64 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+       66 GETUPVAL                         R7 2
+       67 GETTABLEKS                       R7 R7 K23 ["animationClipsJumpSetting"]
+       69 CALL                             R4 3 0
+       70 GETUPVAL                         R4 4
+       71 MOVE                             R5 R0
+       72 DUPTABLE                         R6 K25 [{["ruleInstance"], ["property"] = "CustomIdleAnimation"}]
+       73 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+       75 GETUPVAL                         R7 2
+       76 GETTABLEKS                       R7 R7 K26 ["animationClipsIdleSetting"]
+       78 CALL                             R4 3 0
+       79 GETUPVAL                         R4 4
+       80 MOVE                             R5 R0
+       81 DUPTABLE                         R6 K28 [{["ruleInstance"], ["property"] = "CustomIdleAlt1Animation"}]
+       82 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
        84 GETUPVAL                         R7 2
-       85 GETTABLEKS                       R7 R7 K18 ["animationClipsJumpSetting"]
+       85 GETTABLEKS                       R7 R7 K29 ["animationClipsIdleAlt1Setting"]
        87 CALL                             R4 3 0
        88 GETUPVAL                         R4 4
        89 MOVE                             R5 R0
-       90 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
+       90 DUPTABLE                         R6 K31 [{["ruleInstance"], ["property"] = "CustomIdleAlt2Animation"}]
        91 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-       93 LOADK                            R7 K19 ["CustomIdleAnimation"]
-       94 SETTABLEKS                       R7 R6 K4 ["property"]
-       96 GETUPVAL                         R7 2
-       97 GETTABLEKS                       R7 R7 K20 ["animationClipsIdleSetting"]
-       99 CALL                             R4 3 0
-      100 GETUPVAL                         R4 4
-      101 MOVE                             R5 R0
-      102 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-      103 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-      105 LOADK                            R7 K21 ["CustomIdleAlt1Animation"]
-      106 SETTABLEKS                       R7 R6 K4 ["property"]
-      108 GETUPVAL                         R7 2
-      109 GETTABLEKS                       R7 R7 K22 ["animationClipsIdleAlt1Setting"]
-      111 CALL                             R4 3 0
-      112 GETUPVAL                         R4 4
-      113 MOVE                             R5 R0
-      114 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-      115 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-      117 LOADK                            R7 K23 ["CustomIdleAlt2Animation"]
-      118 SETTABLEKS                       R7 R6 K4 ["property"]
+       93 GETUPVAL                         R7 2
+       94 GETTABLEKS                       R7 R7 K32 ["animationClipsIdleAlt2Setting"]
+       96 CALL                             R4 3 0
+       97 GETUPVAL                         R4 4
+       98 MOVE                             R5 R0
+       99 DUPTABLE                         R6 K34 [{["ruleInstance"], ["property"] = "CustomSwimAnimation"}]
+      100 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+      102 GETUPVAL                         R7 2
+      103 GETTABLEKS                       R7 R7 K35 ["animationClipsSwimSetting"]
+      105 CALL                             R4 3 0
+      106 GETUPVAL                         R4 4
+      107 MOVE                             R5 R0
+      108 DUPTABLE                         R6 K37 [{["ruleInstance"], ["property"] = "CustomSwimIdleAnimation"}]
+      109 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
+      111 GETUPVAL                         R7 2
+      112 GETTABLEKS                       R7 R7 K38 ["animationClipsSwimIdleSetting"]
+      114 CALL                             R4 3 0
+      115 GETUPVAL                         R4 4
+      116 MOVE                             R5 R0
+      117 DUPTABLE                         R6 K40 [{["ruleInstance"], ["property"] = "CustomClimbAnimation"}]
+      118 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
       120 GETUPVAL                         R7 2
-      121 GETTABLEKS                       R7 R7 K24 ["animationClipsIdleAlt2Setting"]
+      121 GETTABLEKS                       R7 R7 K41 ["animationClipsClimbSetting"]
       123 CALL                             R4 3 0
-      124 GETUPVAL                         R4 4
-      125 MOVE                             R5 R0
-      126 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-      127 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-      129 LOADK                            R7 K25 ["CustomSwimAnimation"]
-      130 SETTABLEKS                       R7 R6 K4 ["property"]
-      132 GETUPVAL                         R7 2
-      133 GETTABLEKS                       R7 R7 K26 ["animationClipsSwimSetting"]
-      135 CALL                             R4 3 0
-      136 GETUPVAL                         R4 4
-      137 MOVE                             R5 R0
-      138 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-      139 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-      141 LOADK                            R7 K27 ["CustomSwimIdleAnimation"]
-      142 SETTABLEKS                       R7 R6 K4 ["property"]
-      144 GETUPVAL                         R7 2
-      145 GETTABLEKS                       R7 R7 K28 ["animationClipsSwimIdleSetting"]
-      147 CALL                             R4 3 0
-      148 GETUPVAL                         R4 4
-      149 MOVE                             R5 R0
-      150 DUPTABLE                         R6 K5 [{"ruleInstance", "property"}]
-      151 SETTABLEKS                       R1 R6 K3 ["ruleInstance"]
-      153 LOADK                            R7 K29 ["CustomClimbAnimation"]
-      154 SETTABLEKS                       R7 R6 K4 ["property"]
-      156 GETUPVAL                         R7 2
-      157 GETTABLEKS                       R7 R7 K30 ["animationClipsClimbSetting"]
-      159 CALL                             R4 3 0
-      160 RETURN                           R0 0
+      124 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

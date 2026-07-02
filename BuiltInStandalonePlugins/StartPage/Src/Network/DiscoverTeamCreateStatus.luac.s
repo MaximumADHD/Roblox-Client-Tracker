@@ -115,26 +115,24 @@ MAIN:
        59 GETTABLEKS                       R7 R7 K17 ["createResponseValidator"]
        61 CALL                             R6 1 1
        62 GETTABLEKS                       R7 R5 K18 ["new"]
-       64 DUPTABLE                         R8 K21 [{"isInternal", "loggingLevel"}]
-       65 LOADB                            R9 1
-       66 SETTABLEKS                       R9 R8 K19 ["isInternal"]
-       68 SETTABLEKS                       R1 R8 K20 ["loggingLevel"]
-       70 CALL                             R7 1 1
-       71 GETIMPORT                        R8 K5 [require]
-       73 GETTABLEKS                       R9 R0 K22 ["Packages"]
-       75 GETTABLEKS                       R9 R9 K23 ["Dash"]
-       77 CALL                             R8 1 1
-       78 GETTABLEKS                       R9 R8 K24 ["collectArray"]
-       80 GETIMPORT                        R10 K5 [require]
-       82 GETTABLEKS                       R11 R0 K6 ["Src"]
-       84 GETTABLEKS                       R11 R11 K12 ["Network"]
-       86 GETTABLEKS                       R11 R11 K25 ["GameCache"]
-       88 CALL                             R10 1 1
-       89 DUPCLOSURE                       R11 K26 [PROTO_3]
-       90 CAPTURE                          VAL R4
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          VAL R9
-       95 CAPTURE                          VAL R10
-       96 RETURN                           R11 1
+       64 DUPTABLE                         R8 K22 [{["isInternal"] = True, ["loggingLevel"]}]
+       65 SETTABLEKS                       R1 R8 K21 ["loggingLevel"]
+       67 CALL                             R7 1 1
+       68 GETIMPORT                        R8 K5 [require]
+       70 GETTABLEKS                       R9 R0 K23 ["Packages"]
+       72 GETTABLEKS                       R9 R9 K24 ["Dash"]
+       74 CALL                             R8 1 1
+       75 GETTABLEKS                       R9 R8 K25 ["collectArray"]
+       77 GETIMPORT                        R10 K5 [require]
+       79 GETTABLEKS                       R11 R0 K6 ["Src"]
+       81 GETTABLEKS                       R11 R11 K12 ["Network"]
+       83 GETTABLEKS                       R11 R11 K26 ["GameCache"]
+       85 CALL                             R10 1 1
+       86 DUPCLOSURE                       R11 K27 [PROTO_3]
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R10
+       93 RETURN                           R11 1

@@ -133,23 +133,17 @@ PROTO_1:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K8 [{"idsToRender", "totalAssets", "assetsReceived", "hasReachedBottom", "currentCursor", "manageableAssets"}]
+        6 DUPTABLE                         R4 K10 [{["idsToRender"], ["totalAssets"] = 0, ["assetsReceived"] = 0, ["hasReachedBottom"] = False, ["currentCursor"], ["manageableAssets"]}]
         7 NEWTABLE                         R5 0 0
         9 SETTABLEKS                       R5 R4 K2 ["idsToRender"]
-       11 LOADN                            R5 0
-       12 SETTABLEKS                       R5 R4 K3 ["totalAssets"]
-       14 LOADN                            R5 0
-       15 SETTABLEKS                       R5 R4 K4 ["assetsReceived"]
-       17 LOADB                            R5 0
-       18 SETTABLEKS                       R5 R4 K5 ["hasReachedBottom"]
-       20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R5 R5 K9 ["createDefaultCursor"]
-       23 CALL                             R5 0 1
-       24 SETTABLEKS                       R5 R4 K6 ["currentCursor"]
-       26 NEWTABLE                         R5 0 0
-       28 SETTABLEKS                       R5 R4 K7 ["manageableAssets"]
-       30 CALL                             R2 2 -1
-       31 RETURN                           R2 -1
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R5 R5 K11 ["createDefaultCursor"]
+       14 CALL                             R5 0 1
+       15 SETTABLEKS                       R5 R4 K8 ["currentCursor"]
+       17 NEWTABLE                         R5 0 0
+       19 SETTABLEKS                       R5 R4 K9 ["manageableAssets"]
+       21 CALL                             R2 2 -1
+       22 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -482,109 +476,85 @@ MAIN:
       146 CAPTURE                          VAL R5
       147 CAPTURE                          VAL R7
       148 GETTABLEKS                       R27 R3 K33 ["createReducer"]
-      150 DUPTABLE                         R28 K51 [{"idToAssetMap", "idsToRender", "isLoading", "totalAssets", "assetsReceived", "hasReachedBottom", "currentCursor", "previewModel", "previewAssetId", "previewSwimlaneName", "isPreviewing", "mostRecentAssetInsertTime", "manageableAssets", "previewPluginData", "creatingUniverseName", "creatingUniverseRootPlaceId", "codeSummaryMap"}]
+      150 DUPTABLE                         R28 K55 [{["idToAssetMap"], ["idsToRender"], ["isLoading"] = True, ["totalAssets"] = 0, ["assetsReceived"] = 0, ["hasReachedBottom"] = False, ["currentCursor"], ["previewModel"] = , ["previewAssetId"] = , ["previewSwimlaneName"] = , ["isPreviewing"] = False, ["mostRecentAssetInsertTime"] = 0, ["manageableAssets"], ["previewPluginData"] = , ["creatingUniverseName"] = , ["creatingUniverseRootPlaceId"] = , ["codeSummaryMap"]}]
       151 NEWTABLE                         R29 0 0
       153 SETTABLEKS                       R29 R28 K34 ["idToAssetMap"]
       155 NEWTABLE                         R29 0 0
       157 SETTABLEKS                       R29 R28 K35 ["idsToRender"]
-      159 LOADB                            R29 1
-      160 SETTABLEKS                       R29 R28 K36 ["isLoading"]
-      162 LOADN                            R29 0
-      163 SETTABLEKS                       R29 R28 K37 ["totalAssets"]
-      165 LOADN                            R29 0
-      166 SETTABLEKS                       R29 R28 K38 ["assetsReceived"]
-      168 LOADB                            R29 0
-      169 SETTABLEKS                       R29 R28 K39 ["hasReachedBottom"]
-      171 GETTABLEKS                       R29 R7 K52 ["createDefaultCursor"]
-      173 CALL                             R29 0 1
-      174 SETTABLEKS                       R29 R28 K40 ["currentCursor"]
-      176 LOADNIL                          R29
-      177 SETTABLEKS                       R29 R28 K41 ["previewModel"]
-      179 LOADNIL                          R29
-      180 SETTABLEKS                       R29 R28 K42 ["previewAssetId"]
-      182 LOADNIL                          R29
-      183 SETTABLEKS                       R29 R28 K43 ["previewSwimlaneName"]
-      185 LOADB                            R29 0
-      186 SETTABLEKS                       R29 R28 K44 ["isPreviewing"]
-      188 LOADN                            R29 0
-      189 SETTABLEKS                       R29 R28 K45 ["mostRecentAssetInsertTime"]
-      191 NEWTABLE                         R29 0 0
-      193 SETTABLEKS                       R29 R28 K46 ["manageableAssets"]
-      195 LOADNIL                          R29
-      196 SETTABLEKS                       R29 R28 K47 ["previewPluginData"]
-      198 LOADNIL                          R29
-      199 SETTABLEKS                       R29 R28 K48 ["creatingUniverseName"]
-      201 LOADNIL                          R29
-      202 SETTABLEKS                       R29 R28 K49 ["creatingUniverseRootPlaceId"]
-      204 MOVE                             R30 R25
-      205 CALL                             R30 0 1
-      206 JUMPIFNOT                        R30 ; [+3]
-      207 NEWTABLE                         R29 0 0
-      209 JUMP                             ; [+1]
-      210 LOADNIL                          R29
-      211 SETTABLEKS                       R29 R28 K50 ["codeSummaryMap"]
-      213 NEWTABLE                         R29 16 0
-      215 GETTABLEKS                       R30 R11 K53 ["name"]
-      217 DUPCLOSURE                       R31 K54 [PROTO_1]
+      159 GETTABLEKS                       R29 R7 K56 ["createDefaultCursor"]
+      161 CALL                             R29 0 1
+      162 SETTABLEKS                       R29 R28 K43 ["currentCursor"]
+      164 NEWTABLE                         R29 0 0
+      166 SETTABLEKS                       R29 R28 K50 ["manageableAssets"]
+      168 MOVE                             R30 R25
+      169 CALL                             R30 0 1
+      170 JUMPIFNOT                        R30 ; [+3]
+      171 NEWTABLE                         R29 0 0
+      173 JUMP                             ; [+1]
+      174 LOADNIL                          R29
+      175 SETTABLEKS                       R29 R28 K54 ["codeSummaryMap"]
+      177 NEWTABLE                         R29 16 0
+      179 GETTABLEKS                       R30 R11 K57 ["name"]
+      181 DUPCLOSURE                       R31 K58 [PROTO_1]
+      182 CAPTURE                          VAL R2
+      183 CAPTURE                          VAL R7
+      184 SETTABLE                         R31 R29 R30
+      185 GETTABLEKS                       R30 R14 K57 ["name"]
+      187 DUPCLOSURE                       R31 K59 [PROTO_2]
+      188 CAPTURE                          VAL R2
+      189 SETTABLE                         R31 R29 R30
+      190 GETTABLEKS                       R30 R15 K57 ["name"]
+      192 DUPCLOSURE                       R31 K60 [PROTO_3]
+      193 CAPTURE                          VAL R2
+      194 SETTABLE                         R31 R29 R30
+      195 GETTABLEKS                       R30 R12 K57 ["name"]
+      197 DUPCLOSURE                       R31 K61 [PROTO_4]
+      198 CAPTURE                          VAL R2
+      199 SETTABLE                         R31 R29 R30
+      200 GETTABLEKS                       R30 R13 K57 ["name"]
+      202 DUPCLOSURE                       R31 K62 [PROTO_5]
+      203 CAPTURE                          VAL R26
+      204 SETTABLE                         R31 R29 R30
+      205 GETTABLEKS                       R30 R16 K57 ["name"]
+      207 DUPCLOSURE                       R31 K63 [PROTO_6]
+      208 CAPTURE                          VAL R2
+      209 SETTABLE                         R31 R29 R30
+      210 GETTABLEKS                       R30 R17 K57 ["name"]
+      212 DUPCLOSURE                       R31 K64 [PROTO_7]
+      213 CAPTURE                          VAL R2
+      214 SETTABLE                         R31 R29 R30
+      215 GETTABLEKS                       R30 R18 K57 ["name"]
+      217 DUPCLOSURE                       R31 K65 [PROTO_8]
       218 CAPTURE                          VAL R2
-      219 CAPTURE                          VAL R7
-      220 SETTABLE                         R31 R29 R30
-      221 GETTABLEKS                       R30 R14 K53 ["name"]
-      223 DUPCLOSURE                       R31 K55 [PROTO_2]
-      224 CAPTURE                          VAL R2
-      225 SETTABLE                         R31 R29 R30
-      226 GETTABLEKS                       R30 R15 K53 ["name"]
-      228 DUPCLOSURE                       R31 K56 [PROTO_3]
-      229 CAPTURE                          VAL R2
-      230 SETTABLE                         R31 R29 R30
-      231 GETTABLEKS                       R30 R12 K53 ["name"]
-      233 DUPCLOSURE                       R31 K57 [PROTO_4]
-      234 CAPTURE                          VAL R2
-      235 SETTABLE                         R31 R29 R30
-      236 GETTABLEKS                       R30 R13 K53 ["name"]
-      238 DUPCLOSURE                       R31 K58 [PROTO_5]
-      239 CAPTURE                          VAL R26
-      240 SETTABLE                         R31 R29 R30
-      241 GETTABLEKS                       R30 R16 K53 ["name"]
-      243 DUPCLOSURE                       R31 K59 [PROTO_6]
-      244 CAPTURE                          VAL R2
-      245 SETTABLE                         R31 R29 R30
-      246 GETTABLEKS                       R30 R17 K53 ["name"]
-      248 DUPCLOSURE                       R31 K60 [PROTO_7]
-      249 CAPTURE                          VAL R2
-      250 SETTABLE                         R31 R29 R30
-      251 GETTABLEKS                       R30 R18 K53 ["name"]
-      253 DUPCLOSURE                       R31 K61 [PROTO_8]
-      254 CAPTURE                          VAL R2
-      255 SETTABLE                         R31 R29 R30
-      256 GETTABLEKS                       R30 R19 K53 ["name"]
-      258 DUPCLOSURE                       R31 K62 [PROTO_9]
-      259 CAPTURE                          VAL R2
-      260 SETTABLE                         R31 R29 R30
-      261 GETTABLEKS                       R30 R21 K53 ["name"]
-      263 DUPCLOSURE                       R31 K63 [PROTO_10]
-      264 CAPTURE                          VAL R2
-      265 SETTABLE                         R31 R29 R30
-      266 GETTABLEKS                       R30 R22 K53 ["name"]
-      268 DUPCLOSURE                       R31 K64 [PROTO_11]
-      269 CAPTURE                          VAL R2
-      270 SETTABLE                         R31 R29 R30
-      271 GETTABLEKS                       R30 R23 K53 ["name"]
-      273 DUPCLOSURE                       R31 K65 [PROTO_12]
-      274 CAPTURE                          VAL R2
-      275 SETTABLE                         R31 R29 R30
-      276 GETTABLEKS                       R30 R20 K53 ["name"]
-      278 MOVE                             R32 R25
-      279 CALL                             R32 0 1
-      280 JUMPIFNOT                        R32 ; [+3]
-      281 DUPCLOSURE                       R31 K66 [PROTO_13]
-      282 CAPTURE                          VAL R2
-      283 JUMP                             ; [+1]
-      284 LOADNIL                          R31
-      285 SETTABLE                         R31 R29 R30
-      286 GETTABLEKS                       R30 R24 K53 ["name"]
-      288 DUPCLOSURE                       R31 K67 [PROTO_14]
-      289 CAPTURE                          VAL R2
-      290 SETTABLE                         R31 R29 R30
-      291 CALL                             R27 2 -1
-      292 RETURN                           R27 -1
+      219 SETTABLE                         R31 R29 R30
+      220 GETTABLEKS                       R30 R19 K57 ["name"]
+      222 DUPCLOSURE                       R31 K66 [PROTO_9]
+      223 CAPTURE                          VAL R2
+      224 SETTABLE                         R31 R29 R30
+      225 GETTABLEKS                       R30 R21 K57 ["name"]
+      227 DUPCLOSURE                       R31 K67 [PROTO_10]
+      228 CAPTURE                          VAL R2
+      229 SETTABLE                         R31 R29 R30
+      230 GETTABLEKS                       R30 R22 K57 ["name"]
+      232 DUPCLOSURE                       R31 K68 [PROTO_11]
+      233 CAPTURE                          VAL R2
+      234 SETTABLE                         R31 R29 R30
+      235 GETTABLEKS                       R30 R23 K57 ["name"]
+      237 DUPCLOSURE                       R31 K69 [PROTO_12]
+      238 CAPTURE                          VAL R2
+      239 SETTABLE                         R31 R29 R30
+      240 GETTABLEKS                       R30 R20 K57 ["name"]
+      242 MOVE                             R32 R25
+      243 CALL                             R32 0 1
+      244 JUMPIFNOT                        R32 ; [+3]
+      245 DUPCLOSURE                       R31 K70 [PROTO_13]
+      246 CAPTURE                          VAL R2
+      247 JUMP                             ; [+1]
+      248 LOADNIL                          R31
+      249 SETTABLE                         R31 R29 R30
+      250 GETTABLEKS                       R30 R24 K57 ["name"]
+      252 DUPCLOSURE                       R31 K71 [PROTO_14]
+      253 CAPTURE                          VAL R2
+      254 SETTABLE                         R31 R29 R30
+      255 CALL                             R27 2 -1
+      256 RETURN                           R27 -1

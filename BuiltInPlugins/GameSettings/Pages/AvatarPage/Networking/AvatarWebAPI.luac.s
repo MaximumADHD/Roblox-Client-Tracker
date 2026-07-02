@@ -160,66 +160,32 @@ MAIN:
        51 LOADK                            R7 K19 ["https://avatar."]
        52 MOVE                             R8 R5
        53 CONCAT                           R6 R7 R8
-       54 DUPTABLE                         R7 K37 [{"PENDING", "UNKNOWN_ERROR", "NO_CONNECTIVITY", "INVALID_JSON", "BAD_TLS", "MODERATED", "OK", "BAD_REQUEST", "UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND", "REQUEST_TIMEOUT", "INTERNAL_SERVER_ERROR", "NOT_IMPLEMENTED", "BAD_GATEWAY", "SERVICE_UNAVAILABLE", "GATEWAY_TIMEOUT"}]
-       55 LOADN                            R8 0
-       56 SETTABLEKS                       R8 R7 K20 ["PENDING"]
-       58 LOADN                            R8 255
-       59 SETTABLEKS                       R8 R7 K21 ["UNKNOWN_ERROR"]
-       61 LOADN                            R8 254
-       62 SETTABLEKS                       R8 R7 K22 ["NO_CONNECTIVITY"]
-       64 LOADN                            R8 253
-       65 SETTABLEKS                       R8 R7 K23 ["INVALID_JSON"]
-       67 LOADN                            R8 252
-       68 SETTABLEKS                       R8 R7 K24 ["BAD_TLS"]
-       70 LOADN                            R8 251
-       71 SETTABLEKS                       R8 R7 K25 ["MODERATED"]
-       73 LOADN                            R8 200
-       74 SETTABLEKS                       R8 R7 K26 ["OK"]
-       76 LOADN                            R8 144
-       77 SETTABLEKS                       R8 R7 K27 ["BAD_REQUEST"]
-       79 LOADN                            R8 145
-       80 SETTABLEKS                       R8 R7 K28 ["UNAUTHORIZED"]
-       82 LOADN                            R8 147
-       83 SETTABLEKS                       R8 R7 K29 ["FORBIDDEN"]
-       85 LOADN                            R8 148
-       86 SETTABLEKS                       R8 R7 K30 ["NOT_FOUND"]
-       88 LOADN                            R8 152
-       89 SETTABLEKS                       R8 R7 K31 ["REQUEST_TIMEOUT"]
-       91 LOADN                            R8 244
-       92 SETTABLEKS                       R8 R7 K32 ["INTERNAL_SERVER_ERROR"]
-       94 LOADN                            R8 245
-       95 SETTABLEKS                       R8 R7 K33 ["NOT_IMPLEMENTED"]
-       97 LOADN                            R8 246
-       98 SETTABLEKS                       R8 R7 K34 ["BAD_GATEWAY"]
-      100 LOADN                            R8 247
-      101 SETTABLEKS                       R8 R7 K35 ["SERVICE_UNAVAILABLE"]
-      103 LOADN                            R8 248
-      104 SETTABLEKS                       R8 R7 K36 ["GATEWAY_TIMEOUT"]
-      106 SETTABLEKS                       R7 R4 K38 ["Status"]
-      108 LOADNIL                          R7
-      109 LOADNIL                          R8
-      110 LOADNIL                          R9
-      111 LOADNIL                          R10
-      112 LOADNIL                          R11
-      113 DUPCLOSURE                       R12 K39 [PROTO_0]
-      114 CAPTURE                          VAL R2
-      115 NEWCLOSURE                       R13 P1
-      116 CAPTURE                          REF R11
-      117 SETTABLEKS                       R13 R4 K40 ["GetAvatarData"]
-      119 NEWCLOSURE                       R11 P2
-      120 CAPTURE                          VAL R6
-      121 CAPTURE                          REF R10
-      122 DUPCLOSURE                       R7 K41 [PROTO_3]
-      123 CAPTURE                          VAL R0
-      124 DUPCLOSURE                       R8 K42 [PROTO_4]
-      125 DUPCLOSURE                       R9 K43 [PROTO_5]
-      126 CAPTURE                          VAL R4
-      127 NEWCLOSURE                       R10 P6
-      128 CAPTURE                          VAL R3
-      129 CAPTURE                          VAL R12
-      130 CAPTURE                          REF R8
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          REF R9
-      133 CAPTURE                          REF R7
-      134 CLOSEUPVALS                      R7
-      135 RETURN                           R4 1
+       54 DUPTABLE                         R7 K54 [{["PENDING"] = 0, ["UNKNOWN_ERROR"] = -1, ["NO_CONNECTIVITY"] = -2, ["INVALID_JSON"] = -3, ["BAD_TLS"] = -4, ["MODERATED"] = -5, ["OK"] = 200, ["BAD_REQUEST"] = 400, ["UNAUTHORIZED"] = 401, ["FORBIDDEN"] = 403, ["NOT_FOUND"] = 404, ["REQUEST_TIMEOUT"] = 408, ["INTERNAL_SERVER_ERROR"] = 500, ["NOT_IMPLEMENTED"] = 501, ["BAD_GATEWAY"] = 502, ["SERVICE_UNAVAILABLE"] = 503, ["GATEWAY_TIMEOUT"] = 504}]
+       55 SETTABLEKS                       R7 R4 K55 ["Status"]
+       57 LOADNIL                          R7
+       58 LOADNIL                          R8
+       59 LOADNIL                          R9
+       60 LOADNIL                          R10
+       61 LOADNIL                          R11
+       62 DUPCLOSURE                       R12 K56 [PROTO_0]
+       63 CAPTURE                          VAL R2
+       64 NEWCLOSURE                       R13 P1
+       65 CAPTURE                          REF R11
+       66 SETTABLEKS                       R13 R4 K57 ["GetAvatarData"]
+       68 NEWCLOSURE                       R11 P2
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          REF R10
+       71 DUPCLOSURE                       R7 K58 [PROTO_3]
+       72 CAPTURE                          VAL R0
+       73 DUPCLOSURE                       R8 K59 [PROTO_4]
+       74 DUPCLOSURE                       R9 K60 [PROTO_5]
+       75 CAPTURE                          VAL R4
+       76 NEWCLOSURE                       R10 P6
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          VAL R12
+       79 CAPTURE                          REF R8
+       80 CAPTURE                          VAL R4
+       81 CAPTURE                          REF R9
+       82 CAPTURE                          REF R7
+       83 CLOSEUPVALS                      R7
+       84 RETURN                           R4 1

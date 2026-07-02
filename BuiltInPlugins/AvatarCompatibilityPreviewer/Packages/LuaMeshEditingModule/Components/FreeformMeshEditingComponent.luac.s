@@ -62,14 +62,12 @@ PROTO_3:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K5 [{"Mouse", "DraggerType", "Context"}]
+        8 DUPTABLE                         R5 K6 [{["Mouse"], ["DraggerType"] = , ["Context"]}]
         9 SETTABLEKS                       R2 R5 K1 ["Mouse"]
-       11 LOADNIL                          R6
-       12 SETTABLEKS                       R6 R5 K3 ["DraggerType"]
-       14 GETTABLEKS                       R6 R0 K6 ["draggerContext"]
-       16 SETTABLEKS                       R6 R5 K4 ["Context"]
-       18 CALL                             R3 2 -1
-       19 RETURN                           R3 -1
+       11 GETTABLEKS                       R6 R0 K7 ["draggerContext"]
+       13 SETTABLEKS                       R6 R5 K5 ["Context"]
+       15 CALL                             R3 2 -1
+       16 RETURN                           R3 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R1 K0 ["VertexToolBase"]

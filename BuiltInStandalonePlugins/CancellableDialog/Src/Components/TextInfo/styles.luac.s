@@ -25,91 +25,77 @@ MAIN:
        34 CALL                             R7 2 1
        35 MOVE                             R8 R2
        36 LOADK                            R9 K17 [">> .TitleText"]
-       37 DUPTABLE                         R10 K20 [{"TextColor3", "Font"}]
-       38 LOADK                            R11 K21 ["$TextPrimary"]
-       39 SETTABLEKS                       R11 R10 K18 ["TextColor3"]
-       41 GETIMPORT                        R11 K24 [Enum.Font.SourceSansSemibold]
-       43 SETTABLEKS                       R11 R10 K19 ["Font"]
-       45 CALL                             R8 2 1
-       46 MOVE                             R9 R2
-       47 LOADK                            R10 K25 [">> .SubtitleText"]
-       48 DUPTABLE                         R11 K20 [{"TextColor3", "Font"}]
-       49 LOADK                            R12 K26 ["$TextSecondary"]
-       50 SETTABLEKS                       R12 R11 K18 ["TextColor3"]
-       52 GETIMPORT                        R12 K24 [Enum.Font.SourceSansSemibold]
-       54 SETTABLEKS                       R12 R11 K19 ["Font"]
-       56 CALL                             R9 2 1
-       57 MOVE                             R10 R2
-       58 LOADK                            R11 K27 [">> .LoadingIconContainer"]
-       59 DUPTABLE                         R12 K29 [{"Size"}]
-       60 LOADK                            R13 K30 ["$IconSize"]
-       61 SETTABLEKS                       R13 R12 K28 ["Size"]
-       63 CALL                             R10 2 1
-       64 MOVE                             R11 R2
-       65 LOADK                            R12 K31 [">> .LoadingIcon"]
-       66 DUPTABLE                         R13 K36 [{"Size", "Image", "BackgroundTransparency", "AnchorPoint", "Position"}]
-       67 LOADK                            R14 K30 ["$IconSize"]
-       68 SETTABLEKS                       R14 R13 K28 ["Size"]
-       70 LOADK                            R14 K37 ["$LoadingSpinnerImage"]
-       71 SETTABLEKS                       R14 R13 K32 ["Image"]
-       73 LOADN                            R14 1
-       74 SETTABLEKS                       R14 R13 K33 ["BackgroundTransparency"]
-       76 GETIMPORT                        R14 K39 [Vector2.new]
-       78 LOADK                            R15 K40 [0.5]
-       79 LOADK                            R16 K40 [0.5]
-       80 CALL                             R14 2 1
-       81 SETTABLEKS                       R14 R13 K34 ["AnchorPoint"]
-       83 GETIMPORT                        R14 K42 [UDim2.new]
-       85 LOADK                            R15 K40 [0.5]
-       86 LOADN                            R16 0
-       87 LOADK                            R17 K40 [0.5]
-       88 LOADN                            R18 0
-       89 CALL                             R14 4 1
-       90 SETTABLEKS                       R14 R13 K35 ["Position"]
-       92 CALL                             R11 2 1
-       93 MOVE                             R12 R2
-       94 LOADK                            R13 K43 [">> .StatusTextFrame"]
-       95 DUPTABLE                         R14 K29 [{"Size"}]
-       96 GETIMPORT                        R15 K42 [UDim2.new]
-       98 LOADN                            R16 1
-       99 LOADN                            R17 0
-      100 LOADN                            R18 0
-      101 LOADN                            R19 20
-      102 CALL                             R15 4 1
-      103 SETTABLEKS                       R15 R14 K28 ["Size"]
-      105 NEWTABLE                         R15 0 2
-      107 MOVE                             R16 R2
-      108 LOADK                            R17 K11 ["::UIListLayout"]
-      109 DUPTABLE                         R18 K45 [{"Padding", "VerticalAlignment"}]
-      110 GETIMPORT                        R19 K16 [UDim.new]
-      112 LOADN                            R20 0
-      113 LOADN                            R21 4
-      114 CALL                             R19 2 1
-      115 SETTABLEKS                       R19 R18 K12 ["Padding"]
-      117 GETIMPORT                        R19 K47 [Enum.VerticalAlignment.Center]
-      119 SETTABLEKS                       R19 R18 K44 ["VerticalAlignment"]
-      121 CALL                             R16 2 1
-      122 MOVE                             R17 R2
-      123 LOADK                            R18 K48 [">> .StatusText"]
-      124 DUPTABLE                         R19 K50 [{"TextColor3", "TextYAlignment"}]
-      125 LOADK                            R20 K21 ["$TextPrimary"]
-      126 SETTABLEKS                       R20 R19 K18 ["TextColor3"]
-      128 GETIMPORT                        R20 K51 [Enum.TextYAlignment.Center]
-      130 SETTABLEKS                       R20 R19 K49 ["TextYAlignment"]
-      132 CALL                             R17 2 -1
-      133 SETLIST                          R15 R16 -1 [1]
-      135 CALL                             R12 3 -1
-      136 SETLIST                          R6 R7 -1 [1]
-      138 DUPTABLE                         R7 K54 [{"IconSize", "IconToContentPadding"}]
-      139 GETIMPORT                        R8 K56 [UDim2.fromOffset]
-      141 LOADN                            R9 16
-      142 LOADN                            R10 16
-      143 CALL                             R8 2 1
-      144 SETTABLEKS                       R8 R7 K52 ["IconSize"]
-      146 GETIMPORT                        R8 K16 [UDim.new]
-      148 LOADN                            R9 0
-      149 LOADN                            R10 8
-      150 CALL                             R8 2 1
-      151 SETTABLEKS                       R8 R7 K53 ["IconToContentPadding"]
-      153 CALL                             R3 4 -1
-      154 RETURN                           R3 -1
+       37 DUPTABLE                         R10 K21 [{["TextColor3"] = "$TextPrimary", ["Font"]}]
+       38 GETIMPORT                        R11 K24 [Enum.Font.SourceSansSemibold]
+       40 SETTABLEKS                       R11 R10 K20 ["Font"]
+       42 CALL                             R8 2 1
+       43 MOVE                             R9 R2
+       44 LOADK                            R10 K25 [">> .SubtitleText"]
+       45 DUPTABLE                         R11 K27 [{["TextColor3"] = "$TextSecondary", ["Font"]}]
+       46 GETIMPORT                        R12 K24 [Enum.Font.SourceSansSemibold]
+       48 SETTABLEKS                       R12 R11 K20 ["Font"]
+       50 CALL                             R9 2 1
+       51 MOVE                             R10 R2
+       52 LOADK                            R11 K28 [">> .LoadingIconContainer"]
+       53 DUPTABLE                         R12 K31 [{["Size"] = "$IconSize"}]
+       54 CALL                             R10 2 1
+       55 MOVE                             R11 R2
+       56 LOADK                            R12 K32 [">> .LoadingIcon"]
+       57 DUPTABLE                         R13 K39 [{["Size"] = "$IconSize", ["Image"] = "$LoadingSpinnerImage", ["BackgroundTransparency"] = 1, ["AnchorPoint"], ["Position"]}]
+       58 GETIMPORT                        R14 K41 [Vector2.new]
+       60 LOADK                            R15 K42 [0.5]
+       61 LOADK                            R16 K42 [0.5]
+       62 CALL                             R14 2 1
+       63 SETTABLEKS                       R14 R13 K37 ["AnchorPoint"]
+       65 GETIMPORT                        R14 K44 [UDim2.new]
+       67 LOADK                            R15 K42 [0.5]
+       68 LOADN                            R16 0
+       69 LOADK                            R17 K42 [0.5]
+       70 LOADN                            R18 0
+       71 CALL                             R14 4 1
+       72 SETTABLEKS                       R14 R13 K38 ["Position"]
+       74 CALL                             R11 2 1
+       75 MOVE                             R12 R2
+       76 LOADK                            R13 K45 [">> .StatusTextFrame"]
+       77 DUPTABLE                         R14 K46 [{"Size"}]
+       78 GETIMPORT                        R15 K44 [UDim2.new]
+       80 LOADN                            R16 1
+       81 LOADN                            R17 0
+       82 LOADN                            R18 0
+       83 LOADN                            R19 20
+       84 CALL                             R15 4 1
+       85 SETTABLEKS                       R15 R14 K29 ["Size"]
+       87 NEWTABLE                         R15 0 2
+       89 MOVE                             R16 R2
+       90 LOADK                            R17 K11 ["::UIListLayout"]
+       91 DUPTABLE                         R18 K48 [{"Padding", "VerticalAlignment"}]
+       92 GETIMPORT                        R19 K16 [UDim.new]
+       94 LOADN                            R20 0
+       95 LOADN                            R21 4
+       96 CALL                             R19 2 1
+       97 SETTABLEKS                       R19 R18 K12 ["Padding"]
+       99 GETIMPORT                        R19 K50 [Enum.VerticalAlignment.Center]
+      101 SETTABLEKS                       R19 R18 K47 ["VerticalAlignment"]
+      103 CALL                             R16 2 1
+      104 MOVE                             R17 R2
+      105 LOADK                            R18 K51 [">> .StatusText"]
+      106 DUPTABLE                         R19 K53 [{["TextColor3"] = "$TextPrimary", ["TextYAlignment"]}]
+      107 GETIMPORT                        R20 K54 [Enum.TextYAlignment.Center]
+      109 SETTABLEKS                       R20 R19 K52 ["TextYAlignment"]
+      111 CALL                             R17 2 -1
+      112 SETLIST                          R15 R16 -1 [1]
+      114 CALL                             R12 3 -1
+      115 SETLIST                          R6 R7 -1 [1]
+      117 DUPTABLE                         R7 K57 [{"IconSize", "IconToContentPadding"}]
+      118 GETIMPORT                        R8 K59 [UDim2.fromOffset]
+      120 LOADN                            R9 16
+      121 LOADN                            R10 16
+      122 CALL                             R8 2 1
+      123 SETTABLEKS                       R8 R7 K55 ["IconSize"]
+      125 GETIMPORT                        R8 K16 [UDim.new]
+      127 LOADN                            R9 0
+      128 LOADN                            R10 8
+      129 CALL                             R8 2 1
+      130 SETTABLEKS                       R8 R7 K56 ["IconToContentPadding"]
+      132 CALL                             R3 4 -1
+      133 RETURN                           R3 -1

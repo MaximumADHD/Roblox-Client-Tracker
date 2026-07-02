@@ -1,13 +1,9 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"Sender", "MimeType"}]
-        2 LOADK                            R3 K3 ["Explorer"]
-        3 SETTABLEKS                       R3 R2 K0 ["Sender"]
-        5 LOADK                            R3 K4 ["roblox/selection"]
-        6 SETTABLEKS                       R3 R2 K1 ["MimeType"]
-        8 NAMECALL                         R0 R0 K5 ["StartDrag"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = "Explorer", ["MimeType"] = "roblox/selection"}]
+        2 NAMECALL                         R0 R0 K5 ["StartDrag"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["MimeType"]

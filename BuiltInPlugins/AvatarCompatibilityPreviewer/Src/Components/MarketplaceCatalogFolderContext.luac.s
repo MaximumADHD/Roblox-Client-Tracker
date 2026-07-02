@@ -142,18 +142,16 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K11 ["Hooks"]
        29 GETTABLEKS                       R4 R4 K12 ["useRefWithInitial"]
        31 CALL                             R3 1 1
-       32 DUPTABLE                         R4 K14 [{"marketplaceCatalogFolder"}]
-       33 LOADNIL                          R5
-       34 SETTABLEKS                       R5 R4 K13 ["marketplaceCatalogFolder"]
-       36 GETTABLEKS                       R5 R1 K15 ["createContext"]
-       38 MOVE                             R6 R4
-       39 CALL                             R5 1 1
-       40 DUPCLOSURE                       R6 K16 [PROTO_7]
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R2
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R5
-       45 DUPTABLE                         R7 K19 [{"Context", "Provider"}]
-       46 SETTABLEKS                       R5 R7 K17 ["Context"]
-       48 SETTABLEKS                       R6 R7 K18 ["Provider"]
-       50 RETURN                           R7 1
+       32 DUPTABLE                         R4 K15 [{["marketplaceCatalogFolder"] = }]
+       33 GETTABLEKS                       R5 R1 K16 ["createContext"]
+       35 MOVE                             R6 R4
+       36 CALL                             R5 1 1
+       37 DUPCLOSURE                       R6 K17 [PROTO_7]
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R2
+       40 CAPTURE                          VAL R3
+       41 CAPTURE                          VAL R5
+       42 DUPTABLE                         R7 K20 [{"Context", "Provider"}]
+       43 SETTABLEKS                       R5 R7 K18 ["Context"]
+       45 SETTABLEKS                       R6 R7 K19 ["Provider"]
+       47 RETURN                           R7 1

@@ -1,17 +1,15 @@
 PROTO_0:
-        0 DUPTABLE                         R4 K4 [{"a", "b", "c", "area"}]
+        0 DUPTABLE                         R4 K5 [{[1], ["b"], ["c"], ["area"] = 0}]
         1 SETTABLEKS                       R0 R4 K0 ["a"]
         3 SETTABLEKS                       R1 R4 K1 ["b"]
         5 SETTABLEKS                       R2 R4 K2 ["c"]
-        7 LOADN                            R5 0
-        8 SETTABLEKS                       R5 R4 K3 ["area"]
-       10 GETUPVAL                         R5 0
-       11 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       13 GETIMPORT                        R3 K6 [setmetatable]
-       15 CALL                             R3 2 1
-       16 NAMECALL                         R4 R3 K7 ["updateArea"]
-       18 CALL                             R4 1 0
-       19 RETURN                           R3 1
+        7 GETUPVAL                         R5 0
+        8 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       10 GETIMPORT                        R3 K7 [setmetatable]
+       12 CALL                             R3 2 1
+       13 NAMECALL                         R4 R3 K8 ["updateArea"]
+       15 CALL                             R4 1 0
+       16 RETURN                           R3 1
 
 PROTO_1:
         0 LOADN                            R2 0

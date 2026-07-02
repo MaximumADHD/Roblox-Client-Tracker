@@ -49,7 +49,7 @@ MAIN:
        43 GETIMPORT                        R5 K4 [require]
        45 GETTABLEKS                       R6 R0 K7 ["Src"]
        47 GETTABLEKS                       R6 R6 K13 ["Flags"]
-       49 GETTABLEKS                       R6 R6 K14 ["getFFlagCOLLAB6755TimingBug"]
+       49 GETTABLEKS                       R6 R6 K14 ["getFFlagCOLLAB6755TimingBug2"]
        51 CALL                             R5 1 1
        52 MOVE                             R6 R4
        53 GETIMPORT                        R7 K1 [script]

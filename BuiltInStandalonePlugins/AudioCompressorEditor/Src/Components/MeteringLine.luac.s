@@ -7,7 +7,7 @@ PROTO_0:
         7 CALL                             R2 1 1
         8 MULK                             R1 R2 K1 [8.68588963806504]
         9 RETURN                           R1 1
-       10 LOADN                            R1 176
+       10 LOADN                            R1 -80
        11 RETURN                           R1 1
 
 PROTO_1:
@@ -50,7 +50,7 @@ PROTO_1:
        50 CALL                             R6 1 1
        51 MULK                             R5 R6 K7 [8.68588963806504]
        52 JUMP                             ; [+1]
-       53 LOADN                            R5 176
+       53 LOADN                            R5 -80
        54 SETTABLE                         R5 R4 R3
        55 GETUPVAL                         R4 0
        56 GETTABLEKS                       R4 R4 K11 ["Out"]
@@ -62,7 +62,7 @@ PROTO_1:
        65 CALL                             R6 1 1
        66 MULK                             R5 R6 K7 [8.68588963806504]
        67 JUMP                             ; [+1]
-       68 LOADN                            R5 176
+       68 LOADN                            R5 -80
        69 SETTABLE                         R5 R4 R3
        70 GETUPVAL                         R4 0
        71 GETTABLEKS                       R4 R4 K12 ["Sidechain"]
@@ -74,7 +74,7 @@ PROTO_1:
        80 CALL                             R6 1 1
        81 MULK                             R5 R6 K7 [8.68588963806504]
        82 JUMP                             ; [+1]
-       83 LOADN                            R5 176
+       83 LOADN                            R5 -80
        84 SETTABLE                         R5 R4 R3
        85 GETUPVAL                         R4 1
        86 GETUPVAL                         R5 0
@@ -228,7 +228,7 @@ PROTO_8:
         5 GETTABLEKS                       R5 R5 K1 ["In"]
         7 GETTABLE                         R4 R5 R0
         8 SUB                              R2 R3 R4
-        9 LOADN                            R3 176
+        9 LOADN                            R3 -80
        10 LOADN                            R4 30
        11 FASTCALL                         MATH_CLAMP ; [+2]
        12 GETIMPORT                        R1 K4 [math.clamp]
@@ -243,94 +243,84 @@ PROTO_9:
 
 PROTO_10:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K6 [{"In", "Out", "Sidechain", "MaxLength", "Length", "Head"}]
+        1 DUPTABLE                         R2 K9 [{[1], ["Out"], ["Sidechain"], ["MaxLength"] = 100, ["Length"] = 0, ["Head"] = 1}]
         2 NEWTABLE                         R3 0 0
         4 SETTABLEKS                       R3 R2 K0 ["In"]
         6 NEWTABLE                         R3 0 0
         8 SETTABLEKS                       R3 R2 K1 ["Out"]
        10 NEWTABLE                         R3 0 0
        12 SETTABLEKS                       R3 R2 K2 ["Sidechain"]
-       14 LOADN                            R3 100
-       15 SETTABLEKS                       R3 R2 K3 ["MaxLength"]
-       17 LOADN                            R3 0
-       18 SETTABLEKS                       R3 R2 K4 ["Length"]
-       20 LOADN                            R3 1
-       21 SETTABLEKS                       R3 R2 K5 ["Head"]
-       23 CALL                             R1 1 2
-       24 GETUPVAL                         R3 0
-       25 NEWTABLE                         R4 0 0
-       27 CALL                             R3 1 2
-       28 GETUPVAL                         R5 1
-       29 NEWCLOSURE                       R6 P0
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          VAL R1
-       32 CAPTURE                          VAL R2
-       33 CAPTURE                          UPVAL U2
-       34 CAPTURE                          VAL R4
-       35 NEWTABLE                         R7 0 2
-       37 GETTABLEKS                       R8 R0 K7 ["DisplaySettings"]
-       39 GETTABLEKS                       R8 R8 K8 ["IsPaused"]
-       41 GETTABLEKS                       R9 R0 K9 ["ForceRefresh"]
-       43 SETLIST                          R7 R8 2 [1]
-       45 CALL                             R5 2 0
-       46 NEWTABLE                         R5 0 0
-       48 NEWCLOSURE                       R6 P1
-       49 CAPTURE                          UPVAL U3
-       50 CAPTURE                          VAL R0
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          UPVAL U4
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          UPVAL U5
-       56 CAPTURE                          UPVAL U6
-       57 MOVE                             R7 R6
-       58 LOADK                            R8 K0 ["In"]
-       59 LOADK                            R9 K10 ["ShowInputWaveform"]
-       60 NEWCLOSURE                       R10 P2
-       61 CAPTURE                          VAL R1
-       62 CALL                             R7 3 0
-       63 MOVE                             R7 R6
-       64 LOADK                            R8 K1 ["Out"]
-       65 LOADK                            R9 K11 ["ShowOutputWaveform"]
-       66 NEWCLOSURE                       R10 P3
-       67 CAPTURE                          VAL R1
-       68 CALL                             R7 3 0
-       69 MOVE                             R7 R6
-       70 LOADK                            R8 K12 ["Gain"]
-       71 LOADK                            R9 K13 ["ShowGainChange"]
-       72 NEWCLOSURE                       R10 P4
-       73 CAPTURE                          VAL R1
-       74 CALL                             R7 3 0
-       75 MOVE                             R7 R6
-       76 LOADK                            R8 K2 ["Sidechain"]
-       77 LOADK                            R9 K14 ["ShowSidechain"]
-       78 NEWCLOSURE                       R10 P5
-       79 CAPTURE                          VAL R1
-       80 CALL                             R7 3 0
-       81 GETTABLEKS                       R7 R0 K15 ["InstanceType"]
-       83 JUMPIFNOTEQKS                    R7 K16 ["AudioLimiter"] ; [+4]
-       85 LOADNIL                          R7
-       86 SETTABLEKS                       R7 R5 K2 ["Sidechain"]
-       88 LOADB                            R7 0
-       89 GETTABLEKS                       R8 R1 K4 ["Length"]
-       91 LOADN                            R9 0
-       92 JUMPIFNOTLT                      R9 R8 ; [+21]
-       94 GETUPVAL                         R7 5
-       95 GETTABLEKS                       R7 R7 K17 ["createElement"]
-       97 GETUPVAL                         R8 7
-       98 DUPTABLE                         R9 K21 [{"BackgroundTransparency", "Size", "ZIndex"}]
-       99 LOADN                            R10 1
-      100 SETTABLEKS                       R10 R9 K18 ["BackgroundTransparency"]
-      102 GETIMPORT                        R10 K24 [UDim2.fromScale]
-      104 LOADN                            R11 1
-      105 LOADN                            R12 1
-      106 CALL                             R10 2 1
-      107 SETTABLEKS                       R10 R9 K19 ["Size"]
-      109 LOADN                            R10 2
-      110 SETTABLEKS                       R10 R9 K20 ["ZIndex"]
-      112 MOVE                             R10 R5
-      113 CALL                             R7 3 1
-      114 RETURN                           R7 1
+       14 CALL                             R1 1 2
+       15 GETUPVAL                         R3 0
+       16 NEWTABLE                         R4 0 0
+       18 CALL                             R3 1 2
+       19 GETUPVAL                         R5 1
+       20 NEWCLOSURE                       R6 P0
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R2
+       24 CAPTURE                          UPVAL U2
+       25 CAPTURE                          VAL R4
+       26 NEWTABLE                         R7 0 2
+       28 GETTABLEKS                       R8 R0 K10 ["DisplaySettings"]
+       30 GETTABLEKS                       R8 R8 K11 ["IsPaused"]
+       32 GETTABLEKS                       R9 R0 K12 ["ForceRefresh"]
+       34 SETLIST                          R7 R8 2 [1]
+       36 CALL                             R5 2 0
+       37 NEWTABLE                         R5 0 0
+       39 NEWCLOSURE                       R6 P1
+       40 CAPTURE                          UPVAL U3
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          UPVAL U4
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R5
+       46 CAPTURE                          UPVAL U5
+       47 CAPTURE                          UPVAL U6
+       48 MOVE                             R7 R6
+       49 LOADK                            R8 K0 ["In"]
+       50 LOADK                            R9 K13 ["ShowInputWaveform"]
+       51 NEWCLOSURE                       R10 P2
+       52 CAPTURE                          VAL R1
+       53 CALL                             R7 3 0
+       54 MOVE                             R7 R6
+       55 LOADK                            R8 K1 ["Out"]
+       56 LOADK                            R9 K14 ["ShowOutputWaveform"]
+       57 NEWCLOSURE                       R10 P3
+       58 CAPTURE                          VAL R1
+       59 CALL                             R7 3 0
+       60 MOVE                             R7 R6
+       61 LOADK                            R8 K15 ["Gain"]
+       62 LOADK                            R9 K16 ["ShowGainChange"]
+       63 NEWCLOSURE                       R10 P4
+       64 CAPTURE                          VAL R1
+       65 CALL                             R7 3 0
+       66 MOVE                             R7 R6
+       67 LOADK                            R8 K2 ["Sidechain"]
+       68 LOADK                            R9 K17 ["ShowSidechain"]
+       69 NEWCLOSURE                       R10 P5
+       70 CAPTURE                          VAL R1
+       71 CALL                             R7 3 0
+       72 GETTABLEKS                       R7 R0 K18 ["InstanceType"]
+       74 JUMPIFNOTEQKS                    R7 K19 ["AudioLimiter"] ; [+4]
+       76 LOADNIL                          R7
+       77 SETTABLEKS                       R7 R5 K2 ["Sidechain"]
+       79 LOADB                            R7 0
+       80 GETTABLEKS                       R8 R1 K5 ["Length"]
+       82 LOADN                            R9 0
+       83 JUMPIFNOTLT                      R9 R8 ; [+15]
+       85 GETUPVAL                         R7 5
+       86 GETTABLEKS                       R7 R7 K20 ["createElement"]
+       88 GETUPVAL                         R8 7
+       89 DUPTABLE                         R9 K25 [{["BackgroundTransparency"] = 1, ["Size"], ["ZIndex"] = 2}]
+       90 GETIMPORT                        R10 K28 [UDim2.fromScale]
+       92 LOADN                            R11 1
+       93 LOADN                            R12 1
+       94 CALL                             R10 2 1
+       95 SETTABLEKS                       R10 R9 K22 ["Size"]
+       97 MOVE                             R10 R5
+       98 CALL                             R7 3 1
+       99 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0

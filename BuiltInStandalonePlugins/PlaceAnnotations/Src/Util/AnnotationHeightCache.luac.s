@@ -57,7 +57,7 @@ PROTO_1:
        60 GETIMPORT                        R15 K13 [Enum.Font.SourceSans]
        62 GETIMPORT                        R16 K22 [Vector2.new]
        64 SUBK                             R17 R1 K15 [77]
-       65 LOADN                            R18 232
+       65 LOADN                            R18 1000
        66 CALL                             R16 2 -1
        67 NAMECALL                         R11 R11 K23 ["GetTextSize"]
        69 CALL                             R11 -1 1
@@ -76,21 +76,17 @@ PROTO_1:
        84 RETURN                           R12 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K4 [{"annotationMetadata", "indices", "rowWidth", "didInit"}]
+        0 DUPTABLE                         R0 K6 [{[1], ["indices"], ["rowWidth"] = 0, ["didInit"] = False}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["annotationMetadata"]
         5 NEWTABLE                         R1 0 0
         7 SETTABLEKS                       R1 R0 K1 ["indices"]
-        9 LOADN                            R1 0
-       10 SETTABLEKS                       R1 R0 K2 ["rowWidth"]
-       12 LOADB                            R1 0
-       13 SETTABLEKS                       R1 R0 K3 ["didInit"]
-       15 GETUPVAL                         R3 0
-       16 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       18 MOVE                             R2 R0
-       19 GETIMPORT                        R1 K6 [setmetatable]
-       21 CALL                             R1 2 0
-       22 RETURN                           R0 1
+        9 GETUPVAL                         R3 0
+       10 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       12 MOVE                             R2 R0
+       13 GETIMPORT                        R1 K8 [setmetatable]
+       15 CALL                             R1 2 0
+       16 RETURN                           R0 1
 
 PROTO_3:
         0 LOADB                            R4 1
@@ -186,27 +182,25 @@ PROTO_6:
        13 CALL                             R2 3 1
        14 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
        16 GETTABLEKS                       R4 R1 K1 ["Name"]
-       18 DUPTABLE                         R5 K7 [{"Annotation", "Height", "PositionOffset"}]
+       18 DUPTABLE                         R5 K8 [{["Annotation"], ["Height"], ["PositionOffset"] = 0}]
        19 SETTABLEKS                       R1 R5 K4 ["Annotation"]
        21 SETTABLEKS                       R2 R5 K5 ["Height"]
-       23 LOADN                            R6 0
-       24 SETTABLEKS                       R6 R5 K6 ["PositionOffset"]
-       26 SETTABLE                         R5 R3 R4
-       27 GETTABLEKS                       R4 R0 K8 ["indices"]
-       29 GETTABLEKS                       R6 R0 K0 ["annotationMetadata"]
-       31 GETTABLEKS                       R7 R1 K1 ["Name"]
-       33 GETTABLE                         R5 R6 R7
-       34 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
-       36 GETIMPORT                        R3 K11 [table.insert]
-       38 CALL                             R3 2 0
-       39 GETUPVAL                         R3 1
-       40 GETTABLEKS                       R3 R3 K12 ["List"]
-       42 GETTABLEKS                       R3 R3 K13 ["sort"]
-       44 GETTABLEKS                       R4 R0 K8 ["indices"]
-       46 DUPCLOSURE                       R5 K14 [PROTO_5]
-       47 CALL                             R3 2 1
-       48 SETTABLEKS                       R3 R0 K8 ["indices"]
-       50 RETURN                           R0 0
+       23 SETTABLE                         R5 R3 R4
+       24 GETTABLEKS                       R4 R0 K9 ["indices"]
+       26 GETTABLEKS                       R6 R0 K0 ["annotationMetadata"]
+       28 GETTABLEKS                       R7 R1 K1 ["Name"]
+       30 GETTABLE                         R5 R6 R7
+       31 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
+       33 GETIMPORT                        R3 K12 [table.insert]
+       35 CALL                             R3 2 0
+       36 GETUPVAL                         R3 1
+       37 GETTABLEKS                       R3 R3 K13 ["List"]
+       39 GETTABLEKS                       R3 R3 K14 ["sort"]
+       41 GETTABLEKS                       R4 R0 K9 ["indices"]
+       43 DUPCLOSURE                       R5 K15 [PROTO_5]
+       44 CALL                             R3 2 1
+       45 SETTABLEKS                       R3 R0 K9 ["indices"]
+       47 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
@@ -216,7 +210,7 @@ PROTO_7:
         7 GETTABLEKS                       R4 R1 K1 ["Name"]
         9 LOADNIL                          R5
        10 SETTABLE                         R5 R3 R4
-       11 LOADN                            R3 255
+       11 LOADN                            R3 -1
        12 GETIMPORT                        R4 K3 [ipairs]
        14 GETTABLEKS                       R5 R0 K4 ["indices"]
        16 CALL                             R4 1 3

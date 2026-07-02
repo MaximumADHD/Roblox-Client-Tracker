@@ -15,69 +15,45 @@ MAIN:
        22 NEWTABLE                         R4 0 6
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 [".WireAdorn"]
-       26 DUPTABLE                         R7 K14 [{"Color", "Transparency"}]
-       27 LOADK                            R8 K15 ["$Color.Extended.Gray.Gray_600"]
-       28 SETTABLEKS                       R8 R7 K12 ["Color"]
-       30 LOADN                            R8 0
-       31 SETTABLEKS                       R8 R7 K13 ["Transparency"]
-       33 CALL                             R5 2 1
-       34 MOVE                             R6 R2
-       35 LOADK                            R7 K16 [".Selected"]
-       36 DUPTABLE                         R8 K14 [{"Color", "Transparency"}]
-       37 LOADK                            R9 K17 ["$Color.Selection.Start"]
-       38 SETTABLEKS                       R9 R8 K12 ["Color"]
-       40 LOADK                            R9 K18 [0.5]
-       41 SETTABLEKS                       R9 R8 K13 ["Transparency"]
-       43 CALL                             R6 2 1
-       44 MOVE                             R7 R2
-       45 LOADK                            R8 K19 [".Assigned"]
-       46 DUPTABLE                         R9 K14 [{"Color", "Transparency"}]
-       47 LOADK                            R10 K20 ["$Color.Extended.Orange.Orange_800"]
-       48 SETTABLEKS                       R10 R9 K12 ["Color"]
-       50 LOADK                            R10 K18 [0.5]
-       51 SETTABLEKS                       R10 R9 K13 ["Transparency"]
-       53 CALL                             R7 2 1
-       54 MOVE                             R8 R2
-       55 LOADK                            R9 K21 [".AssignedHover"]
-       56 DUPTABLE                         R10 K14 [{"Color", "Transparency"}]
-       57 LOADK                            R11 K22 ["$Color.Extended.Orange.Orange_1100"]
-       58 SETTABLEKS                       R11 R10 K12 ["Color"]
-       60 LOADK                            R11 K18 [0.5]
-       61 SETTABLEKS                       R11 R10 K13 ["Transparency"]
-       63 CALL                             R8 2 1
-       64 MOVE                             R9 R2
-       65 LOADK                            R10 K23 [".NotAssigned"]
-       66 DUPTABLE                         R11 K14 [{"Color", "Transparency"}]
-       67 LOADK                            R12 K24 ["$Mist_800"]
-       68 SETTABLEKS                       R12 R11 K12 ["Color"]
-       70 LOADK                            R12 K18 [0.5]
-       71 SETTABLEKS                       R12 R11 K13 ["Transparency"]
-       73 CALL                             R9 2 1
-       74 MOVE                             R10 R2
-       75 LOADK                            R11 K25 [".NotAssignedHover"]
-       76 DUPTABLE                         R12 K14 [{"Color", "Transparency"}]
-       77 LOADK                            R13 K26 ["$Mist_1100"]
-       78 SETTABLEKS                       R13 R12 K12 ["Color"]
-       80 LOADK                            R13 K18 [0.5]
-       81 SETTABLEKS                       R13 R12 K13 ["Transparency"]
-       83 CALL                             R10 2 -1
-       84 SETLIST                          R4 R5 -1 [1]
-       86 DUPTABLE                         R5 K29 [{"Mist_800", "Mist_1100"}]
-       87 GETIMPORT                        R6 K32 [Color3.fromRGB]
-       89 LOADN                            R7 128
-       90 LOADN                            R8 137
-       91 LOADN                            R9 172
-       92 CALL                             R6 3 1
-       93 SETTABLEKS                       R6 R5 K27 ["Mist_800"]
-       95 GETIMPORT                        R6 K32 [Color3.fromRGB]
-       97 LOADN                            R7 196
-       98 LOADN                            R8 201
-       99 LOADN                            R9 217
-      100 CALL                             R6 3 1
-      101 SETTABLEKS                       R6 R5 K28 ["Mist_1100"]
-      103 MOVE                             R6 R3
-      104 LOADK                            R7 K2 ["AdaptiveAnimationSupport"]
-      105 MOVE                             R8 R4
-      106 MOVE                             R9 R5
-      107 CALL                             R6 3 -1
-      108 RETURN                           R6 -1
+       26 DUPTABLE                         R7 K16 [{["Color"] = "$Color.Extended.Gray.Gray_600", ["Transparency"] = 0}]
+       27 CALL                             R5 2 1
+       28 MOVE                             R6 R2
+       29 LOADK                            R7 K17 [".Selected"]
+       30 DUPTABLE                         R8 K20 [{["Color"] = "$Color.Selection.Start", ["Transparency"] = 0.5}]
+       31 CALL                             R6 2 1
+       32 MOVE                             R7 R2
+       33 LOADK                            R8 K21 [".Assigned"]
+       34 DUPTABLE                         R9 K23 [{["Color"] = "$Color.Extended.Orange.Orange_800", ["Transparency"] = 0.5}]
+       35 CALL                             R7 2 1
+       36 MOVE                             R8 R2
+       37 LOADK                            R9 K24 [".AssignedHover"]
+       38 DUPTABLE                         R10 K26 [{["Color"] = "$Color.Extended.Orange.Orange_1100", ["Transparency"] = 0.5}]
+       39 CALL                             R8 2 1
+       40 MOVE                             R9 R2
+       41 LOADK                            R10 K27 [".NotAssigned"]
+       42 DUPTABLE                         R11 K29 [{["Color"] = "$Mist_800", ["Transparency"] = 0.5}]
+       43 CALL                             R9 2 1
+       44 MOVE                             R10 R2
+       45 LOADK                            R11 K30 [".NotAssignedHover"]
+       46 DUPTABLE                         R12 K32 [{["Color"] = "$Mist_1100", ["Transparency"] = 0.5}]
+       47 CALL                             R10 2 -1
+       48 SETLIST                          R4 R5 -1 [1]
+       50 DUPTABLE                         R5 K35 [{"Mist_800", "Mist_1100"}]
+       51 GETIMPORT                        R6 K38 [Color3.fromRGB]
+       53 LOADN                            R7 128
+       54 LOADN                            R8 137
+       55 LOADN                            R9 172
+       56 CALL                             R6 3 1
+       57 SETTABLEKS                       R6 R5 K33 ["Mist_800"]
+       59 GETIMPORT                        R6 K38 [Color3.fromRGB]
+       61 LOADN                            R7 196
+       62 LOADN                            R8 201
+       63 LOADN                            R9 217
+       64 CALL                             R6 3 1
+       65 SETTABLEKS                       R6 R5 K34 ["Mist_1100"]
+       67 MOVE                             R6 R3
+       68 LOADK                            R7 K2 ["AdaptiveAnimationSupport"]
+       69 MOVE                             R8 R4
+       70 MOVE                             R9 R5
+       71 CALL                             R6 3 -1
+       72 RETURN                           R6 -1

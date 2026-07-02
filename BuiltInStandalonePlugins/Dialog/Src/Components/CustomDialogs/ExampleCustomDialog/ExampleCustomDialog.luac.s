@@ -72,42 +72,34 @@ PROTO_2:
        79 CALL                             R6 2 1
        80 GETUPVAL                         R7 2
        81 GETUPVAL                         R8 4
-       82 DUPTABLE                         R9 K23 [{"uri", "type", "title", "description", "primaryAction"}]
+       82 DUPTABLE                         R9 K26 [{["uri"], ["type"] = "Warning", ["title"] = "Custom dialog", ["description"] = "This is an example of a custom dialog!", ["primaryAction"]}]
        83 GETTABLEKS                       R10 R0 K18 ["uri"]
        85 SETTABLEKS                       R10 R9 K18 ["uri"]
-       87 LOADK                            R10 K24 ["Warning"]
-       88 SETTABLEKS                       R10 R9 K19 ["type"]
-       90 LOADK                            R10 K25 ["Custom dialog"]
-       91 SETTABLEKS                       R10 R9 K20 ["title"]
-       93 LOADK                            R10 K26 ["This is an example of a custom dialog!"]
-       94 SETTABLEKS                       R10 R9 K21 ["description"]
-       96 DUPTABLE                         R10 K28 [{"uri", "text", "onActivated"}]
-       97 GETUPVAL                         R11 5
-       98 GETTABLEKS                       R11 R11 K29 ["child"]
-      100 GETTABLEKS                       R12 R0 K18 ["uri"]
-      102 LOADK                            R13 K30 ["OK"]
-      103 CALL                             R11 2 1
-      104 SETTABLEKS                       R11 R10 K18 ["uri"]
-      106 LOADK                            R11 K30 ["OK"]
-      107 SETTABLEKS                       R11 R10 K12 ["text"]
-      109 SETTABLEKS                       R6 R10 K27 ["onActivated"]
-      111 SETTABLEKS                       R10 R9 K22 ["primaryAction"]
-      113 DUPTABLE                         R10 K31 [{"RadioGroup"}]
-      114 GETUPVAL                         R11 2
-      115 GETUPVAL                         R12 3
-      116 GETTABLEKS                       R12 R12 K5 ["RadioGroup"]
-      118 GETTABLEKS                       R12 R12 K32 ["Root"]
-      120 DUPTABLE                         R13 K34 [{"value", "onValueChanged", "LayoutOrder"}]
-      121 SETTABLEKS                       R4 R13 K7 ["value"]
-      123 SETTABLEKS                       R3 R13 K33 ["onValueChanged"]
-      125 MOVE                             R14 R1
-      126 CALL                             R14 0 1
-      127 SETTABLEKS                       R14 R13 K10 ["LayoutOrder"]
-      129 MOVE                             R14 R5
-      130 CALL                             R11 3 1
-      131 SETTABLEKS                       R11 R10 K5 ["RadioGroup"]
-      133 CALL                             R7 3 -1
-      134 RETURN                           R7 -1
+       87 DUPTABLE                         R10 K29 [{["uri"], ["text"] = "OK", ["onActivated"]}]
+       88 GETUPVAL                         R11 5
+       89 GETTABLEKS                       R11 R11 K30 ["child"]
+       91 GETTABLEKS                       R12 R0 K18 ["uri"]
+       93 LOADK                            R13 K27 ["OK"]
+       94 CALL                             R11 2 1
+       95 SETTABLEKS                       R11 R10 K18 ["uri"]
+       97 SETTABLEKS                       R6 R10 K28 ["onActivated"]
+       99 SETTABLEKS                       R10 R9 K25 ["primaryAction"]
+      101 DUPTABLE                         R10 K31 [{"RadioGroup"}]
+      102 GETUPVAL                         R11 2
+      103 GETUPVAL                         R12 3
+      104 GETTABLEKS                       R12 R12 K5 ["RadioGroup"]
+      106 GETTABLEKS                       R12 R12 K32 ["Root"]
+      108 DUPTABLE                         R13 K34 [{"value", "onValueChanged", "LayoutOrder"}]
+      109 SETTABLEKS                       R4 R13 K7 ["value"]
+      111 SETTABLEKS                       R3 R13 K33 ["onValueChanged"]
+      113 MOVE                             R14 R1
+      114 CALL                             R14 0 1
+      115 SETTABLEKS                       R14 R13 K10 ["LayoutOrder"]
+      117 MOVE                             R14 R5
+      118 CALL                             R11 3 1
+      119 SETTABLEKS                       R11 R10 K5 ["RadioGroup"]
+      121 CALL                             R7 3 -1
+      122 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

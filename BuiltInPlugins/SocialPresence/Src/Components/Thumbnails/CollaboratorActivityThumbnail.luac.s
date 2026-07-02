@@ -23,7 +23,7 @@ PROTO_1:
         7 GETTABLEKS                       R3 R3 K1 ["Stylizer"]
         9 GETTABLEKS                       R6 R3 K4 ["userThumbnail"]
        11 GETTABLEKS                       R6 R6 K5 ["avatarSizeRatio"]
-       13 SUBRK                            R5 R3 K6 ["IsIdle"]
+       13 SUBRK                            R5 K3 [1] R6
        14 DIVK                             R4 R5 K2 [2]
        15 GETUPVAL                         R6 1
        16 GETTABLEKS                       R6 R6 K6 ["IsIdle"]
@@ -80,7 +80,7 @@ PROTO_1:
        92 GETUPVAL                         R10 2
        93 GETTABLEKS                       R10 R10 K9 ["createElement"]
        95 LOADK                            R11 K31 ["ImageLabel"]
-       96 DUPTABLE                         R12 K34 [{"Image", "Size", "Position", "BackgroundColor3", "BackgroundTransparency", "ImageColor3", "ImageTransparency"}]
+       96 DUPTABLE                         R12 K35 [{["Image"], ["Size"], ["Position"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["ImageColor3"], ["ImageTransparency"]}]
        97 SETTABLEKS                       R2 R12 K17 ["Image"]
        99 GETIMPORT                        R13 K30 [UDim2.fromScale]
       101 GETTABLEKS                       R14 R3 K4 ["userThumbnail"]
@@ -95,50 +95,48 @@ PROTO_1:
       116 CALL                             R13 2 1
       117 SETTABLEKS                       R13 R12 K32 ["Position"]
       119 SETTABLEKS                       R5 R12 K10 ["BackgroundColor3"]
-      121 LOADN                            R13 0
-      122 SETTABLEKS                       R13 R12 K11 ["BackgroundTransparency"]
-      124 GETUPVAL                         R14 1
-      125 GETTABLEKS                       R14 R14 K6 ["IsIdle"]
-      127 JUMPIFNOT                        R14 ; [+5]
-      128 GETTABLEKS                       R13 R3 K4 ["userThumbnail"]
-      130 GETTABLEKS                       R13 R13 K23 ["idleTint"]
-      132 JUMPIF                           R13 ; [+1]
-      133 LOADNIL                          R13
-      134 SETTABLEKS                       R13 R12 K18 ["ImageColor3"]
-      136 GETUPVAL                         R14 1
-      137 GETTABLEKS                       R14 R14 K6 ["IsIdle"]
-      139 JUMPIFNOT                        R14 ; [+2]
-      140 LOADK                            R13 K27 [0.2]
-      141 JUMP                             ; [+1]
-      142 LOADN                            R13 0
-      143 SETTABLEKS                       R13 R12 K33 ["ImageTransparency"]
-      145 DUPTABLE                         R13 K35 [{"Corner"}]
-      146 GETUPVAL                         R14 2
-      147 GETTABLEKS                       R14 R14 K9 ["createElement"]
-      149 LOADK                            R15 K36 ["UICorner"]
-      150 DUPTABLE                         R16 K38 [{"CornerRadius"}]
-      151 GETIMPORT                        R17 K41 [UDim.new]
-      153 LOADK                            R18 K42 [0.5]
-      154 LOADN                            R19 0
-      155 CALL                             R17 2 1
-      156 SETTABLEKS                       R17 R16 K37 ["CornerRadius"]
-      158 CALL                             R14 2 1
-      159 SETTABLEKS                       R14 R13 K15 ["Corner"]
-      161 CALL                             R10 3 1
-      162 SETTABLEKS                       R10 R9 K14 ["Avatar"]
-      164 GETUPVAL                         R10 2
-      165 GETTABLEKS                       R10 R10 K9 ["createElement"]
-      167 LOADK                            R11 K36 ["UICorner"]
-      168 DUPTABLE                         R12 K38 [{"CornerRadius"}]
-      169 GETIMPORT                        R13 K41 [UDim.new]
-      171 LOADK                            R14 K42 [0.5]
-      172 LOADN                            R15 0
-      173 CALL                             R13 2 1
-      174 SETTABLEKS                       R13 R12 K37 ["CornerRadius"]
-      176 CALL                             R10 2 1
-      177 SETTABLEKS                       R10 R9 K15 ["Corner"]
-      179 CALL                             R6 3 -1
-      180 RETURN                           R6 -1
+      121 GETUPVAL                         R14 1
+      122 GETTABLEKS                       R14 R14 K6 ["IsIdle"]
+      124 JUMPIFNOT                        R14 ; [+5]
+      125 GETTABLEKS                       R13 R3 K4 ["userThumbnail"]
+      127 GETTABLEKS                       R13 R13 K23 ["idleTint"]
+      129 JUMPIF                           R13 ; [+1]
+      130 LOADNIL                          R13
+      131 SETTABLEKS                       R13 R12 K18 ["ImageColor3"]
+      133 GETUPVAL                         R14 1
+      134 GETTABLEKS                       R14 R14 K6 ["IsIdle"]
+      136 JUMPIFNOT                        R14 ; [+2]
+      137 LOADK                            R13 K27 [0.2]
+      138 JUMP                             ; [+1]
+      139 LOADN                            R13 0
+      140 SETTABLEKS                       R13 R12 K34 ["ImageTransparency"]
+      142 DUPTABLE                         R13 K36 [{"Corner"}]
+      143 GETUPVAL                         R14 2
+      144 GETTABLEKS                       R14 R14 K9 ["createElement"]
+      146 LOADK                            R15 K37 ["UICorner"]
+      147 DUPTABLE                         R16 K39 [{"CornerRadius"}]
+      148 GETIMPORT                        R17 K42 [UDim.new]
+      150 LOADK                            R18 K43 [0.5]
+      151 LOADN                            R19 0
+      152 CALL                             R17 2 1
+      153 SETTABLEKS                       R17 R16 K38 ["CornerRadius"]
+      155 CALL                             R14 2 1
+      156 SETTABLEKS                       R14 R13 K15 ["Corner"]
+      158 CALL                             R10 3 1
+      159 SETTABLEKS                       R10 R9 K14 ["Avatar"]
+      161 GETUPVAL                         R10 2
+      162 GETTABLEKS                       R10 R10 K9 ["createElement"]
+      164 LOADK                            R11 K37 ["UICorner"]
+      165 DUPTABLE                         R12 K39 [{"CornerRadius"}]
+      166 GETIMPORT                        R13 K42 [UDim.new]
+      168 LOADK                            R14 K43 [0.5]
+      169 LOADN                            R15 0
+      170 CALL                             R13 2 1
+      171 SETTABLEKS                       R13 R12 K38 ["CornerRadius"]
+      173 CALL                             R10 2 1
+      174 SETTABLEKS                       R10 R9 K15 ["Corner"]
+      176 CALL                             R6 3 -1
+      177 RETURN                           R6 -1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -151,31 +149,29 @@ PROTO_2:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 LOADK                            R9 K8 ["Frame"]
-       18 DUPTABLE                         R10 K10 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "LayoutOrder", "ZIndex"}]
-       19 LOADN                            R11 1
-       20 SETTABLEKS                       R11 R10 K9 ["BackgroundTransparency"]
-       22 SETTABLEKS                       R3 R10 K2 ["Size"]
-       24 SETTABLEKS                       R4 R10 K3 ["Position"]
-       26 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
-       28 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
-       30 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
-       32 DUPTABLE                         R11 K12 [{"AutoThumbnail"}]
-       33 GETUPVAL                         R12 0
-       34 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       36 GETUPVAL                         R13 1
-       37 DUPTABLE                         R14 K14 [{"Id", "RenderContents"}]
-       38 SETTABLEKS                       R2 R14 K1 ["Id"]
-       40 NEWCLOSURE                       R15 P0
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R1
-       43 CAPTURE                          UPVAL U0
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          UPVAL U3
-       46 SETTABLEKS                       R15 R14 K13 ["RenderContents"]
-       48 CALL                             R12 2 1
-       49 SETTABLEKS                       R12 R11 K11 ["AutoThumbnail"]
-       51 CALL                             R8 3 -1
-       52 RETURN                           R8 -1
+       18 DUPTABLE                         R10 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["LayoutOrder"], ["ZIndex"]}]
+       19 SETTABLEKS                       R3 R10 K2 ["Size"]
+       21 SETTABLEKS                       R4 R10 K3 ["Position"]
+       23 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
+       25 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
+       27 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
+       29 DUPTABLE                         R11 K13 [{"AutoThumbnail"}]
+       30 GETUPVAL                         R12 0
+       31 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       33 GETUPVAL                         R13 1
+       34 DUPTABLE                         R14 K15 [{"Id", "RenderContents"}]
+       35 SETTABLEKS                       R2 R14 K1 ["Id"]
+       37 NEWCLOSURE                       R15 P0
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          UPVAL U0
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          UPVAL U3
+       43 SETTABLEKS                       R15 R14 K14 ["RenderContents"]
+       45 CALL                             R12 2 1
+       46 SETTABLEKS                       R12 R11 K12 ["AutoThumbnail"]
+       48 CALL                             R8 3 -1
+       49 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

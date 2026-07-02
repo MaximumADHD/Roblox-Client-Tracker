@@ -110,87 +110,53 @@ MAIN:
        20 NEWTABLE                         R3 16 0
        22 NEWTABLE                         R4 0 0
        24 SETTABLEKS                       R4 R3 K12 ["Enums"]
-       26 DUPTABLE                         R4 K15 [{"RibbonClick", "GuiFocus"}]
-       27 LOADK                            R5 K16 ["ribbon_click"]
-       28 SETTABLEKS                       R5 R4 K13 ["RibbonClick"]
-       30 LOADK                            R5 K17 ["gui_focus"]
-       31 SETTABLEKS                       R5 R4 K14 ["GuiFocus"]
-       33 GETTABLEKS                       R5 R3 K12 ["Enums"]
-       35 SETTABLEKS                       R4 R5 K18 ["ActionType"]
-       37 DUPTABLE                         R5 K23 [{"Drag", "RightClickCamera", "RightClickPosition", "DoubleClick"}]
-       38 LOADK                            R6 K24 ["drag"]
-       39 SETTABLEKS                       R6 R5 K19 ["Drag"]
-       41 LOADK                            R6 K25 ["right_click_camera"]
-       42 SETTABLEKS                       R6 R5 K20 ["RightClickCamera"]
-       44 LOADK                            R6 K26 ["right_click_position"]
-       45 SETTABLEKS                       R6 R5 K21 ["RightClickPosition"]
-       47 LOADK                            R6 K27 ["double_click"]
-       48 SETTABLEKS                       R6 R5 K22 ["DoubleClick"]
-       50 GETTABLEKS                       R6 R3 K12 ["Enums"]
-       52 SETTABLEKS                       R5 R6 K28 ["InsertType"]
-       54 DUPTABLE                         R6 K31 [{"Browse", "Search"}]
-       55 LOADK                            R7 K32 ["browse"]
-       56 SETTABLEKS                       R7 R6 K29 ["Browse"]
-       58 LOADK                            R7 K33 ["search"]
-       59 SETTABLEKS                       R7 R6 K30 ["Search"]
-       61 GETTABLEKS                       R7 R3 K12 ["Enums"]
-       63 SETTABLEKS                       R6 R7 K34 ["InsertSource"]
-       65 DUPTABLE                         R7 K37 [{"Grid", "List"}]
-       66 LOADK                            R8 K38 ["grid"]
-       67 SETTABLEKS                       R8 R7 K35 ["Grid"]
-       69 LOADK                            R8 K39 ["list"]
-       70 SETTABLEKS                       R8 R7 K36 ["List"]
-       72 GETTABLEKS                       R8 R3 K12 ["Enums"]
-       74 SETTABLEKS                       R7 R8 K40 ["ViewMode"]
-       76 DUPTABLE                         R8 K47 [{"Enabled", "Search", "Upload", "Insert", "InsertRemains30", "InsertRemains120", "InsertRemains600"}]
-       77 LOADK                            R9 K48 ["enabled"]
-       78 SETTABLEKS                       R9 R8 K41 ["Enabled"]
-       80 LOADK                            R9 K33 ["search"]
-       81 SETTABLEKS                       R9 R8 K30 ["Search"]
-       83 LOADK                            R9 K49 ["upload"]
-       84 SETTABLEKS                       R9 R8 K42 ["Upload"]
-       86 LOADK                            R9 K50 ["insert"]
-       87 SETTABLEKS                       R9 R8 K43 ["Insert"]
-       89 LOADK                            R9 K51 ["insert_remains_30"]
-       90 SETTABLEKS                       R9 R8 K44 ["InsertRemains30"]
-       92 LOADK                            R9 K52 ["insert_remains_120"]
-       93 SETTABLEKS                       R9 R8 K45 ["InsertRemains120"]
-       95 LOADK                            R9 K53 ["insert_remains_600"]
-       96 SETTABLEKS                       R9 R8 K46 ["InsertRemains600"]
-       98 GETTABLEKS                       R9 R3 K12 ["Enums"]
-      100 SETTABLEKS                       R8 R9 K54 ["EventType"]
-      102 DUPCLOSURE                       R9 K55 [PROTO_0]
-      103 CAPTURE                          VAL R3
-      104 SETTABLEKS                       R9 R3 K56 ["setPlugin"]
-      106 DUPCLOSURE                       R9 K57 [PROTO_1]
-      107 CAPTURE                          VAL R3
-      108 SETTABLEKS                       R9 R3 K58 ["_sendEventSafe"]
-      110 DUPCLOSURE                       R9 K59 [PROTO_2]
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R8
-      113 SETTABLEKS                       R9 R3 K60 ["sendInsertEvent"]
-      115 DUPCLOSURE                       R9 K61 [PROTO_3]
-      116 CAPTURE                          VAL R3
-      117 CAPTURE                          VAL R8
-      118 SETTABLEKS                       R9 R3 K62 ["sendSearchEvent"]
-      120 DUPCLOSURE                       R9 K63 [PROTO_4]
-      121 CAPTURE                          VAL R3
-      122 SETTABLEKS                       R9 R3 K64 ["sendInsertRemains30Event"]
-      124 DUPCLOSURE                       R9 K65 [PROTO_5]
-      125 CAPTURE                          VAL R3
-      126 SETTABLEKS                       R9 R3 K66 ["sendInsertRemains120Event"]
-      128 DUPCLOSURE                       R9 K67 [PROTO_6]
-      129 CAPTURE                          VAL R3
-      130 SETTABLEKS                       R9 R3 K68 ["sendInsertRemains600Event"]
-      132 DUPCLOSURE                       R9 K69 [PROTO_7]
-      133 CAPTURE                          VAL R3
-      134 CAPTURE                          VAL R8
-      135 SETTABLEKS                       R9 R3 K70 ["sendEnabledEvent"]
-      137 DUPCLOSURE                       R9 K71 [PROTO_8]
-      138 CAPTURE                          VAL R3
-      139 CAPTURE                          VAL R8
-      140 SETTABLEKS                       R9 R3 K72 ["sendUploadEvent"]
-      142 DUPCLOSURE                       R9 K73 [PROTO_9]
-      143 CAPTURE                          VAL R2
-      144 SETTABLEKS                       R9 R3 K74 ["createSearchSessionId"]
-      146 RETURN                           R3 1
+       26 DUPTABLE                         R4 K17 [{["RibbonClick"] = "ribbon_click", ["GuiFocus"] = "gui_focus"}]
+       27 GETTABLEKS                       R5 R3 K12 ["Enums"]
+       29 SETTABLEKS                       R4 R5 K18 ["ActionType"]
+       31 DUPTABLE                         R5 K27 [{["Drag"] = "drag", ["RightClickCamera"] = "right_click_camera", ["RightClickPosition"] = "right_click_position", ["DoubleClick"] = "double_click"}]
+       32 GETTABLEKS                       R6 R3 K12 ["Enums"]
+       34 SETTABLEKS                       R5 R6 K28 ["InsertType"]
+       36 DUPTABLE                         R6 K33 [{["Browse"] = "browse", ["Search"] = "search"}]
+       37 GETTABLEKS                       R7 R3 K12 ["Enums"]
+       39 SETTABLEKS                       R6 R7 K34 ["InsertSource"]
+       41 DUPTABLE                         R7 K39 [{["Grid"] = "grid", ["List"] = "list"}]
+       42 GETTABLEKS                       R8 R3 K12 ["Enums"]
+       44 SETTABLEKS                       R7 R8 K40 ["ViewMode"]
+       46 DUPTABLE                         R8 K53 [{["Enabled"] = "enabled", ["Search"] = "search", ["Upload"] = "upload", ["Insert"] = "insert", ["InsertRemains30"] = "insert_remains_30", ["InsertRemains120"] = "insert_remains_120", ["InsertRemains600"] = "insert_remains_600"}]
+       47 GETTABLEKS                       R9 R3 K12 ["Enums"]
+       49 SETTABLEKS                       R8 R9 K54 ["EventType"]
+       51 DUPCLOSURE                       R9 K55 [PROTO_0]
+       52 CAPTURE                          VAL R3
+       53 SETTABLEKS                       R9 R3 K56 ["setPlugin"]
+       55 DUPCLOSURE                       R9 K57 [PROTO_1]
+       56 CAPTURE                          VAL R3
+       57 SETTABLEKS                       R9 R3 K58 ["_sendEventSafe"]
+       59 DUPCLOSURE                       R9 K59 [PROTO_2]
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R8
+       62 SETTABLEKS                       R9 R3 K60 ["sendInsertEvent"]
+       64 DUPCLOSURE                       R9 K61 [PROTO_3]
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R8
+       67 SETTABLEKS                       R9 R3 K62 ["sendSearchEvent"]
+       69 DUPCLOSURE                       R9 K63 [PROTO_4]
+       70 CAPTURE                          VAL R3
+       71 SETTABLEKS                       R9 R3 K64 ["sendInsertRemains30Event"]
+       73 DUPCLOSURE                       R9 K65 [PROTO_5]
+       74 CAPTURE                          VAL R3
+       75 SETTABLEKS                       R9 R3 K66 ["sendInsertRemains120Event"]
+       77 DUPCLOSURE                       R9 K67 [PROTO_6]
+       78 CAPTURE                          VAL R3
+       79 SETTABLEKS                       R9 R3 K68 ["sendInsertRemains600Event"]
+       81 DUPCLOSURE                       R9 K69 [PROTO_7]
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R8
+       84 SETTABLEKS                       R9 R3 K70 ["sendEnabledEvent"]
+       86 DUPCLOSURE                       R9 K71 [PROTO_8]
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R8
+       89 SETTABLEKS                       R9 R3 K72 ["sendUploadEvent"]
+       91 DUPCLOSURE                       R9 K73 [PROTO_9]
+       92 CAPTURE                          VAL R2
+       93 SETTABLEKS                       R9 R3 K74 ["createSearchSessionId"]
+       95 RETURN                           R3 1

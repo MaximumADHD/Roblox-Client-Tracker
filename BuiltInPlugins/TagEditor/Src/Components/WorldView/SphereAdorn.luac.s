@@ -13,23 +13,21 @@ PROTO_0:
        19 GETUPVAL                         R3 0
        20 GETTABLEKS                       R3 R3 K5 ["createElement"]
        22 LOADK                            R4 K6 ["SphereHandleAdornment"]
-       23 DUPTABLE                         R5 K11 [{"Adornee", "CFrame", "Color3", "AlwaysOnTop", "Transparency", "ZIndex"}]
+       23 DUPTABLE                         R5 K12 [{[1], ["CFrame"], ["Color3"], ["AlwaysOnTop"], ["Transparency"] = 0.3, ["ZIndex"]}]
        24 SETTABLEKS                       R1 R5 K0 ["Adornee"]
        26 SETTABLEKS                       R2 R5 K4 ["CFrame"]
-       28 GETTABLEKS                       R6 R0 K12 ["Color"]
+       28 GETTABLEKS                       R6 R0 K13 ["Color"]
        30 SETTABLEKS                       R6 R5 K7 ["Color3"]
        32 GETTABLEKS                       R6 R0 K8 ["AlwaysOnTop"]
        34 SETTABLEKS                       R6 R5 K8 ["AlwaysOnTop"]
-       36 LOADK                            R6 K13 [0.3]
-       37 SETTABLEKS                       R6 R5 K9 ["Transparency"]
-       39 GETTABLEKS                       R7 R0 K8 ["AlwaysOnTop"]
-       41 JUMPIFNOT                        R7 ; [+2]
-       42 LOADN                            R6 1
-       43 JUMP                             ; [+1]
-       44 LOADNIL                          R6
-       45 SETTABLEKS                       R6 R5 K10 ["ZIndex"]
-       47 CALL                             R3 2 -1
-       48 RETURN                           R3 -1
+       36 GETTABLEKS                       R7 R0 K8 ["AlwaysOnTop"]
+       38 JUMPIFNOT                        R7 ; [+2]
+       39 LOADN                            R6 1
+       40 JUMP                             ; [+1]
+       41 LOADNIL                          R6
+       42 SETTABLEKS                       R6 R5 K11 ["ZIndex"]
+       44 CALL                             R3 2 -1
+       45 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

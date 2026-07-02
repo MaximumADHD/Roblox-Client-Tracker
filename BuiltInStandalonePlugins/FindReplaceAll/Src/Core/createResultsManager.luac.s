@@ -237,18 +237,18 @@ PROTO_10:
        28 JUMPIFEQKN                       R2 K9 [-1] ; [+2]
        30 LOADB                            R14 0 +1
        31 LOADB                            R14 1
-       32 JUMPIFNOT                        R14 ; [+42]
-       33 DUPTABLE                         R15 K17 [{"id", "text", "guid", "scriptVersion", "isFile", "scriptType", "numMatches"}]
+       32 JUMPIFNOT                        R14 ; [+39]
+       33 DUPTABLE                         R15 K18 [{["id"], ["text"], ["guid"], ["scriptVersion"], ["isFile"] = True, ["scriptType"], ["numMatches"]}]
        34 SETTABLEKS                       R13 R15 K10 ["id"]
        36 LENGTH                           R17 R8
-       37 LOADN                            R18 208
+       37 LOADN                            R18 2000
        38 JUMPIFNOTLE                      R17 R18 ; [+3]
        40 MOVE                             R16 R8
        41 JUMP                             ; [+18]
-       42 GETIMPORT                        R17 K20 [utf8.offset]
+       42 GETIMPORT                        R17 K21 [utf8.offset]
        44 MOVE                             R18 R8
        45 LOADN                            R19 0
-       46 LOADN                            R20 209
+       46 LOADN                            R20 2001
        47 CALL                             R17 3 1
        48 JUMPIF                           R17 ; [+2]
        49 MOVE                             R16 R8
@@ -257,72 +257,68 @@ PROTO_10:
        52 SUBK                             R21 R17 K7 [1]
        53 FASTCALL3                        STRING_SUB R8 R20 R21
        55 MOVE                             R19 R8
-       56 GETIMPORT                        R18 K23 [string.sub]
+       56 GETIMPORT                        R18 K24 [string.sub]
        58 CALL                             R18 3 1
        59 MOVE                             R16 R18
        60 SETTABLEKS                       R16 R15 K11 ["text"]
        62 SETTABLEKS                       R6 R15 K12 ["guid"]
        64 SETTABLEKS                       R7 R15 K13 ["scriptVersion"]
-       66 LOADB                            R16 1
-       67 SETTABLEKS                       R16 R15 K14 ["isFile"]
-       69 SETTABLEKS                       R9 R15 K15 ["scriptType"]
-       71 SETTABLEKS                       R10 R15 K16 ["numMatches"]
-       73 SETTABLE                         R15 R4 R5
-       74 ADDK                             R5 R5 K7 [1]
-       75 JUMPIF                           R14 ; [+2]
-       76 MOVE                             R15 R2
-       77 JUMP                             ; [+1]
-       78 LOADN                            R15 0
-       79 LOADN                            R18 1
-       80 LENGTH                           R16 R12
-       81 LOADN                            R17 1
-       82 FORNPREP                         R16
-       83 DUPTABLE                         R19 K26 [{"id", "text", "guid", "scriptVersion", "isFile", "matchIndex", "lineNumber"}]
-       84 ADD                              R21 R13 R18
-       85 ADD                              R20 R21 R15
-       86 SETTABLEKS                       R20 R19 K10 ["id"]
-       88 GETTABLE                         R26 R11 R18
-       89 FASTCALL1                        TOSTRING R26 ; [+2]
-       90 GETIMPORT                        R25 K28 [tostring]
-       92 CALL                             R25 1 1
-       93 MOVE                             R22 R25
-       94 LOADK                            R23 K29 ["  "]
-       95 GETTABLE                         R24 R12 R18
-       96 CONCAT                           R21 R22 R24
-       97 LENGTH                           R22 R21
-       98 LOADN                            R23 208
-       99 JUMPIFNOTLE                      R22 R23 ; [+3]
-      101 MOVE                             R20 R21
-      102 JUMP                             ; [+18]
-      103 GETIMPORT                        R22 K20 [utf8.offset]
-      105 MOVE                             R23 R21
-      106 LOADN                            R24 0
-      107 LOADN                            R25 209
-      108 CALL                             R22 3 1
-      109 JUMPIF                           R22 ; [+2]
-      110 MOVE                             R20 R21
-      111 JUMP                             ; [+9]
-      112 LOADN                            R25 1
-      113 SUBK                             R26 R22 K7 [1]
-      114 FASTCALL3                        STRING_SUB R21 R25 R26
-      116 MOVE                             R24 R21
-      117 GETIMPORT                        R23 K23 [string.sub]
-      119 CALL                             R23 3 1
-      120 MOVE                             R20 R23
-      121 SETTABLEKS                       R20 R19 K11 ["text"]
-      123 SETTABLEKS                       R6 R19 K12 ["guid"]
-      125 SETTABLEKS                       R7 R19 K13 ["scriptVersion"]
-      127 LOADB                            R20 0
-      128 SETTABLEKS                       R20 R19 K14 ["isFile"]
-      130 SUBK                             R21 R18 K7 [1]
-      131 ADD                              R20 R21 R15
-      132 SETTABLEKS                       R20 R19 K24 ["matchIndex"]
-      134 GETTABLE                         R20 R11 R18
-      135 SETTABLEKS                       R20 R19 K25 ["lineNumber"]
-      137 SETTABLE                         R19 R4 R5
-      138 ADDK                             R5 R5 K7 [1]
-      139 FORNLOOP                         R16
-      140 RETURN                           R4 2
+       66 SETTABLEKS                       R9 R15 K16 ["scriptType"]
+       68 SETTABLEKS                       R10 R15 K17 ["numMatches"]
+       70 SETTABLE                         R15 R4 R5
+       71 ADDK                             R5 R5 K7 [1]
+       72 JUMPIF                           R14 ; [+2]
+       73 MOVE                             R15 R2
+       74 JUMP                             ; [+1]
+       75 LOADN                            R15 0
+       76 LOADN                            R18 1
+       77 LENGTH                           R16 R12
+       78 LOADN                            R17 1
+       79 FORNPREP                         R16
+       80 DUPTABLE                         R19 K28 [{["id"], ["text"], ["guid"], ["scriptVersion"], ["isFile"] = False, ["matchIndex"], ["lineNumber"]}]
+       81 ADD                              R21 R13 R18
+       82 ADD                              R20 R21 R15
+       83 SETTABLEKS                       R20 R19 K10 ["id"]
+       85 GETTABLE                         R26 R11 R18
+       86 FASTCALL1                        TOSTRING R26 ; [+2]
+       87 GETIMPORT                        R25 K30 [tostring]
+       89 CALL                             R25 1 1
+       90 MOVE                             R22 R25
+       91 LOADK                            R23 K31 ["  "]
+       92 GETTABLE                         R24 R12 R18
+       93 CONCAT                           R21 R22 R24
+       94 LENGTH                           R22 R21
+       95 LOADN                            R23 2000
+       96 JUMPIFNOTLE                      R22 R23 ; [+3]
+       98 MOVE                             R20 R21
+       99 JUMP                             ; [+18]
+      100 GETIMPORT                        R22 K21 [utf8.offset]
+      102 MOVE                             R23 R21
+      103 LOADN                            R24 0
+      104 LOADN                            R25 2001
+      105 CALL                             R22 3 1
+      106 JUMPIF                           R22 ; [+2]
+      107 MOVE                             R20 R21
+      108 JUMP                             ; [+9]
+      109 LOADN                            R25 1
+      110 SUBK                             R26 R22 K7 [1]
+      111 FASTCALL3                        STRING_SUB R21 R25 R26
+      113 MOVE                             R24 R21
+      114 GETIMPORT                        R23 K24 [string.sub]
+      116 CALL                             R23 3 1
+      117 MOVE                             R20 R23
+      118 SETTABLEKS                       R20 R19 K11 ["text"]
+      120 SETTABLEKS                       R6 R19 K12 ["guid"]
+      122 SETTABLEKS                       R7 R19 K13 ["scriptVersion"]
+      124 SUBK                             R21 R18 K7 [1]
+      125 ADD                              R20 R21 R15
+      126 SETTABLEKS                       R20 R19 K26 ["matchIndex"]
+      128 GETTABLE                         R20 R11 R18
+      129 SETTABLEKS                       R20 R19 K27 ["lineNumber"]
+      131 SETTABLE                         R19 R4 R5
+      132 ADDK                             R5 R5 K7 [1]
+      133 FORNLOOP                         R16
+      134 RETURN                           R4 2
 
 PROTO_11:
         0 JUMPIFEQKNIL                     R0 ; [+3]

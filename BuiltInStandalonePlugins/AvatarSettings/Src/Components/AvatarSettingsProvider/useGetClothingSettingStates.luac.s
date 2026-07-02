@@ -103,140 +103,126 @@ PROTO_1:
        42 CALL                             R4 -1 1
        43 SETTABLEKS                       R4 R2 K4 ["customClothingSetting"]
        45 NEWTABLE                         R4 0 2
-       47 DUPTABLE                         R5 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-       48 LOADK                            R6 K9 ["customClothingTShirtSetting"]
-       49 SETTABLEKS                       R6 R5 K5 ["stateTableString"]
-       51 GETIMPORT                        R6 K13 [Enum.AssetType.TShirtAccessory]
-       53 SETTABLEKS                       R6 R5 K6 ["assetType"]
-       55 GETUPVAL                         R6 6
-       56 GETTABLEKS                       R6 R6 K14 ["customClothingTopsSetting"]
-       58 GETTABLEKS                       R6 R6 K15 ["tshirt"]
-       60 SETTABLEKS                       R6 R5 K7 ["invokeKeys"]
-       62 DUPTABLE                         R6 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-       63 LOADK                            R7 K16 ["customClothingShirtSetting"]
-       64 SETTABLEKS                       R7 R6 K5 ["stateTableString"]
-       66 GETIMPORT                        R7 K18 [Enum.AssetType.ShirtAccessory]
-       68 SETTABLEKS                       R7 R6 K6 ["assetType"]
-       70 GETUPVAL                         R7 6
-       71 GETTABLEKS                       R7 R7 K14 ["customClothingTopsSetting"]
-       73 GETTABLEKS                       R7 R7 K19 ["shirt"]
-       75 SETTABLEKS                       R7 R6 K7 ["invokeKeys"]
-       77 SETLIST                          R4 R5 2 [1]
-       79 MOVE                             R5 R3
-       80 MOVE                             R6 R0
-       81 LOADK                            R7 K14 ["customClothingTopsSetting"]
-       82 MOVE                             R8 R4
-       83 CALL                             R5 3 0
-       84 NEWTABLE                         R5 0 2
-       86 DUPTABLE                         R6 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-       87 LOADK                            R7 K20 ["customClothingJacketSetting"]
-       88 SETTABLEKS                       R7 R6 K5 ["stateTableString"]
-       90 GETIMPORT                        R7 K22 [Enum.AssetType.JacketAccessory]
-       92 SETTABLEKS                       R7 R6 K6 ["assetType"]
-       94 GETUPVAL                         R7 6
-       95 GETTABLEKS                       R7 R7 K23 ["customClothingOuterwearSetting"]
-       97 GETTABLEKS                       R7 R7 K24 ["jacket"]
-       99 SETTABLEKS                       R7 R6 K7 ["invokeKeys"]
-      101 DUPTABLE                         R7 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-      102 LOADK                            R8 K25 ["customClothingSweaterSetting"]
-      103 SETTABLEKS                       R8 R7 K5 ["stateTableString"]
-      105 GETIMPORT                        R8 K27 [Enum.AssetType.SweaterAccessory]
-      107 SETTABLEKS                       R8 R7 K6 ["assetType"]
-      109 GETUPVAL                         R8 6
-      110 GETTABLEKS                       R8 R8 K23 ["customClothingOuterwearSetting"]
-      112 GETTABLEKS                       R8 R8 K28 ["sweater"]
-      114 SETTABLEKS                       R8 R7 K7 ["invokeKeys"]
-      116 SETLIST                          R5 R6 2 [1]
-      118 MOVE                             R6 R3
-      119 MOVE                             R7 R0
-      120 LOADK                            R8 K23 ["customClothingOuterwearSetting"]
-      121 MOVE                             R9 R5
-      122 CALL                             R6 3 0
-      123 NEWTABLE                         R6 0 3
-      125 DUPTABLE                         R7 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-      126 LOADK                            R8 K29 ["customClothingPantsSetting"]
-      127 SETTABLEKS                       R8 R7 K5 ["stateTableString"]
-      129 GETIMPORT                        R8 K31 [Enum.AssetType.PantsAccessory]
-      131 SETTABLEKS                       R8 R7 K6 ["assetType"]
-      133 GETUPVAL                         R8 6
-      134 GETTABLEKS                       R8 R8 K32 ["customClothingBottomsSetting"]
-      136 GETTABLEKS                       R8 R8 K33 ["pants"]
-      138 SETTABLEKS                       R8 R7 K7 ["invokeKeys"]
-      140 DUPTABLE                         R8 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-      141 LOADK                            R9 K34 ["customClothingShortsSetting"]
-      142 SETTABLEKS                       R9 R8 K5 ["stateTableString"]
-      144 GETIMPORT                        R9 K36 [Enum.AssetType.ShortsAccessory]
-      146 SETTABLEKS                       R9 R8 K6 ["assetType"]
-      148 GETUPVAL                         R9 6
-      149 GETTABLEKS                       R9 R9 K32 ["customClothingBottomsSetting"]
-      151 GETTABLEKS                       R9 R9 K37 ["shorts"]
-      153 SETTABLEKS                       R9 R8 K7 ["invokeKeys"]
-      155 DUPTABLE                         R9 K8 [{"stateTableString", "assetType", "invokeKeys"}]
-      156 LOADK                            R10 K38 ["customClothingDressSkirtSetting"]
-      157 SETTABLEKS                       R10 R9 K5 ["stateTableString"]
-      159 GETIMPORT                        R10 K40 [Enum.AssetType.DressSkirtAccessory]
-      161 SETTABLEKS                       R10 R9 K6 ["assetType"]
-      163 GETUPVAL                         R10 6
-      164 GETTABLEKS                       R10 R10 K32 ["customClothingBottomsSetting"]
-      166 GETTABLEKS                       R10 R10 K41 ["dressSkirt"]
-      168 SETTABLEKS                       R10 R9 K7 ["invokeKeys"]
-      170 SETLIST                          R6 R7 3 [1]
-      172 MOVE                             R7 R3
-      173 MOVE                             R8 R0
-      174 LOADK                            R9 K32 ["customClothingBottomsSetting"]
-      175 MOVE                             R10 R6
-      176 CALL                             R7 3 0
-      177 GETUPVAL                         R7 1
-      178 LOADB                            R8 0
-      179 LOADN                            R9 0
-      180 GETUPVAL                         R10 2
-      181 MOVE                             R11 R0
-      182 GETUPVAL                         R12 6
-      183 GETTABLEKS                       R12 R12 K42 ["customClothingLeftShoesSetting"]
-      185 CALL                             R10 2 -1
-      186 CALL                             R7 -1 1
-      187 SETTABLEKS                       R7 R2 K42 ["customClothingLeftShoesSetting"]
-      189 GETUPVAL                         R7 1
-      190 LOADB                            R8 0
-      191 LOADN                            R9 0
-      192 GETUPVAL                         R10 2
-      193 MOVE                             R11 R0
-      194 GETUPVAL                         R12 6
-      195 GETTABLEKS                       R12 R12 K43 ["customClothingRightShoesSetting"]
-      197 CALL                             R10 2 -1
-      198 CALL                             R7 -1 1
-      199 SETTABLEKS                       R7 R2 K43 ["customClothingRightShoesSetting"]
-      201 GETUPVAL                         R7 1
-      202 LOADB                            R8 0
-      203 LOADN                            R9 0
-      204 GETUPVAL                         R10 2
-      205 MOVE                             R11 R0
-      206 GETUPVAL                         R12 6
-      207 GETTABLEKS                       R12 R12 K44 ["customClothingClassicShirtsSetting"]
-      209 CALL                             R10 2 -1
-      210 CALL                             R7 -1 1
-      211 SETTABLEKS                       R7 R2 K44 ["customClothingClassicShirtsSetting"]
-      213 GETUPVAL                         R7 1
-      214 LOADB                            R8 0
-      215 LOADN                            R9 0
-      216 GETUPVAL                         R10 2
-      217 MOVE                             R11 R0
-      218 GETUPVAL                         R12 6
-      219 GETTABLEKS                       R12 R12 K45 ["customClothingClassicTShirtsSetting"]
-      221 CALL                             R10 2 -1
-      222 CALL                             R7 -1 1
-      223 SETTABLEKS                       R7 R2 K45 ["customClothingClassicTShirtsSetting"]
-      225 GETUPVAL                         R7 1
-      226 LOADB                            R8 0
-      227 LOADN                            R9 0
-      228 GETUPVAL                         R10 2
-      229 MOVE                             R11 R0
-      230 GETUPVAL                         R12 6
-      231 GETTABLEKS                       R12 R12 K46 ["customClothingClassicPantsSetting"]
-      233 CALL                             R10 2 -1
-      234 CALL                             R7 -1 1
-      235 SETTABLEKS                       R7 R2 K46 ["customClothingClassicPantsSetting"]
-      237 RETURN                           R2 1
+       47 DUPTABLE                         R5 K9 [{["stateTableString"] = "customClothingTShirtSetting", ["assetType"], ["invokeKeys"]}]
+       48 GETIMPORT                        R6 K13 [Enum.AssetType.TShirtAccessory]
+       50 SETTABLEKS                       R6 R5 K7 ["assetType"]
+       52 GETUPVAL                         R6 6
+       53 GETTABLEKS                       R6 R6 K14 ["customClothingTopsSetting"]
+       55 GETTABLEKS                       R6 R6 K15 ["tshirt"]
+       57 SETTABLEKS                       R6 R5 K8 ["invokeKeys"]
+       59 DUPTABLE                         R6 K17 [{["stateTableString"] = "customClothingShirtSetting", ["assetType"], ["invokeKeys"]}]
+       60 GETIMPORT                        R7 K19 [Enum.AssetType.ShirtAccessory]
+       62 SETTABLEKS                       R7 R6 K7 ["assetType"]
+       64 GETUPVAL                         R7 6
+       65 GETTABLEKS                       R7 R7 K14 ["customClothingTopsSetting"]
+       67 GETTABLEKS                       R7 R7 K20 ["shirt"]
+       69 SETTABLEKS                       R7 R6 K8 ["invokeKeys"]
+       71 SETLIST                          R4 R5 2 [1]
+       73 MOVE                             R5 R3
+       74 MOVE                             R6 R0
+       75 LOADK                            R7 K14 ["customClothingTopsSetting"]
+       76 MOVE                             R8 R4
+       77 CALL                             R5 3 0
+       78 NEWTABLE                         R5 0 2
+       80 DUPTABLE                         R6 K22 [{["stateTableString"] = "customClothingJacketSetting", ["assetType"], ["invokeKeys"]}]
+       81 GETIMPORT                        R7 K24 [Enum.AssetType.JacketAccessory]
+       83 SETTABLEKS                       R7 R6 K7 ["assetType"]
+       85 GETUPVAL                         R7 6
+       86 GETTABLEKS                       R7 R7 K25 ["customClothingOuterwearSetting"]
+       88 GETTABLEKS                       R7 R7 K26 ["jacket"]
+       90 SETTABLEKS                       R7 R6 K8 ["invokeKeys"]
+       92 DUPTABLE                         R7 K28 [{["stateTableString"] = "customClothingSweaterSetting", ["assetType"], ["invokeKeys"]}]
+       93 GETIMPORT                        R8 K30 [Enum.AssetType.SweaterAccessory]
+       95 SETTABLEKS                       R8 R7 K7 ["assetType"]
+       97 GETUPVAL                         R8 6
+       98 GETTABLEKS                       R8 R8 K25 ["customClothingOuterwearSetting"]
+      100 GETTABLEKS                       R8 R8 K31 ["sweater"]
+      102 SETTABLEKS                       R8 R7 K8 ["invokeKeys"]
+      104 SETLIST                          R5 R6 2 [1]
+      106 MOVE                             R6 R3
+      107 MOVE                             R7 R0
+      108 LOADK                            R8 K25 ["customClothingOuterwearSetting"]
+      109 MOVE                             R9 R5
+      110 CALL                             R6 3 0
+      111 NEWTABLE                         R6 0 3
+      113 DUPTABLE                         R7 K33 [{["stateTableString"] = "customClothingPantsSetting", ["assetType"], ["invokeKeys"]}]
+      114 GETIMPORT                        R8 K35 [Enum.AssetType.PantsAccessory]
+      116 SETTABLEKS                       R8 R7 K7 ["assetType"]
+      118 GETUPVAL                         R8 6
+      119 GETTABLEKS                       R8 R8 K36 ["customClothingBottomsSetting"]
+      121 GETTABLEKS                       R8 R8 K37 ["pants"]
+      123 SETTABLEKS                       R8 R7 K8 ["invokeKeys"]
+      125 DUPTABLE                         R8 K39 [{["stateTableString"] = "customClothingShortsSetting", ["assetType"], ["invokeKeys"]}]
+      126 GETIMPORT                        R9 K41 [Enum.AssetType.ShortsAccessory]
+      128 SETTABLEKS                       R9 R8 K7 ["assetType"]
+      130 GETUPVAL                         R9 6
+      131 GETTABLEKS                       R9 R9 K36 ["customClothingBottomsSetting"]
+      133 GETTABLEKS                       R9 R9 K42 ["shorts"]
+      135 SETTABLEKS                       R9 R8 K8 ["invokeKeys"]
+      137 DUPTABLE                         R9 K44 [{["stateTableString"] = "customClothingDressSkirtSetting", ["assetType"], ["invokeKeys"]}]
+      138 GETIMPORT                        R10 K46 [Enum.AssetType.DressSkirtAccessory]
+      140 SETTABLEKS                       R10 R9 K7 ["assetType"]
+      142 GETUPVAL                         R10 6
+      143 GETTABLEKS                       R10 R10 K36 ["customClothingBottomsSetting"]
+      145 GETTABLEKS                       R10 R10 K47 ["dressSkirt"]
+      147 SETTABLEKS                       R10 R9 K8 ["invokeKeys"]
+      149 SETLIST                          R6 R7 3 [1]
+      151 MOVE                             R7 R3
+      152 MOVE                             R8 R0
+      153 LOADK                            R9 K36 ["customClothingBottomsSetting"]
+      154 MOVE                             R10 R6
+      155 CALL                             R7 3 0
+      156 GETUPVAL                         R7 1
+      157 LOADB                            R8 0
+      158 LOADN                            R9 0
+      159 GETUPVAL                         R10 2
+      160 MOVE                             R11 R0
+      161 GETUPVAL                         R12 6
+      162 GETTABLEKS                       R12 R12 K48 ["customClothingLeftShoesSetting"]
+      164 CALL                             R10 2 -1
+      165 CALL                             R7 -1 1
+      166 SETTABLEKS                       R7 R2 K48 ["customClothingLeftShoesSetting"]
+      168 GETUPVAL                         R7 1
+      169 LOADB                            R8 0
+      170 LOADN                            R9 0
+      171 GETUPVAL                         R10 2
+      172 MOVE                             R11 R0
+      173 GETUPVAL                         R12 6
+      174 GETTABLEKS                       R12 R12 K49 ["customClothingRightShoesSetting"]
+      176 CALL                             R10 2 -1
+      177 CALL                             R7 -1 1
+      178 SETTABLEKS                       R7 R2 K49 ["customClothingRightShoesSetting"]
+      180 GETUPVAL                         R7 1
+      181 LOADB                            R8 0
+      182 LOADN                            R9 0
+      183 GETUPVAL                         R10 2
+      184 MOVE                             R11 R0
+      185 GETUPVAL                         R12 6
+      186 GETTABLEKS                       R12 R12 K50 ["customClothingClassicShirtsSetting"]
+      188 CALL                             R10 2 -1
+      189 CALL                             R7 -1 1
+      190 SETTABLEKS                       R7 R2 K50 ["customClothingClassicShirtsSetting"]
+      192 GETUPVAL                         R7 1
+      193 LOADB                            R8 0
+      194 LOADN                            R9 0
+      195 GETUPVAL                         R10 2
+      196 MOVE                             R11 R0
+      197 GETUPVAL                         R12 6
+      198 GETTABLEKS                       R12 R12 K51 ["customClothingClassicTShirtsSetting"]
+      200 CALL                             R10 2 -1
+      201 CALL                             R7 -1 1
+      202 SETTABLEKS                       R7 R2 K51 ["customClothingClassicTShirtsSetting"]
+      204 GETUPVAL                         R7 1
+      205 LOADB                            R8 0
+      206 LOADN                            R9 0
+      207 GETUPVAL                         R10 2
+      208 MOVE                             R11 R0
+      209 GETUPVAL                         R12 6
+      210 GETTABLEKS                       R12 R12 K52 ["customClothingClassicPantsSetting"]
+      212 CALL                             R10 2 -1
+      213 CALL                             R7 -1 1
+      214 SETTABLEKS                       R7 R2 K52 ["customClothingClassicPantsSetting"]
+      216 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

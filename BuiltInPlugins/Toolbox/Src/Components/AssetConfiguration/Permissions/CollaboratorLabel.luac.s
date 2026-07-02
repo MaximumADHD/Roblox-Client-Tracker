@@ -94,7 +94,7 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 LOADK                            R1 K1 ["Frame"]
-        4 DUPTABLE                         R2 K6 [{"Size", "LayoutOrder", "BackgroundTransparency", "BorderSizePixel"}]
+        4 DUPTABLE                         R2 K8 [{["Size"], ["LayoutOrder"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
         5 GETUPVAL                         R3 1
         6 GETTABLEKS                       R3 R3 K2 ["Size"]
         8 SETTABLEKS                       R3 R2 K2 ["Size"]
@@ -102,101 +102,87 @@ PROTO_5:
        11 GETTABLEKS                       R4 R4 K3 ["LayoutOrder"]
        13 ORK                              R3 R4 K7 [0]
        14 SETTABLEKS                       R3 R2 K3 ["LayoutOrder"]
-       16 LOADN                            R3 1
-       17 SETTABLEKS                       R3 R2 K4 ["BackgroundTransparency"]
-       19 LOADN                            R3 0
-       20 SETTABLEKS                       R3 R2 K5 ["BorderSizePixel"]
-       22 DUPTABLE                         R3 K11 [{"UIListLayout", "Icon", "Labels"}]
-       23 GETUPVAL                         R4 0
-       24 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       26 LOADK                            R5 K8 ["UIListLayout"]
-       27 DUPTABLE                         R6 K15 [{"Padding", "FillDirection", "SortOrder"}]
-       28 GETUPVAL                         R7 2
-       29 SETTABLEKS                       R7 R6 K12 ["Padding"]
-       31 GETIMPORT                        R7 K18 [Enum.FillDirection.Horizontal]
-       33 SETTABLEKS                       R7 R6 K13 ["FillDirection"]
-       35 GETIMPORT                        R7 K19 [Enum.SortOrder.LayoutOrder]
-       37 SETTABLEKS                       R7 R6 K14 ["SortOrder"]
-       39 CALL                             R4 2 1
-       40 SETTABLEKS                       R4 R3 K8 ["UIListLayout"]
-       42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       45 GETUPVAL                         R5 3
-       46 DUPTABLE                         R6 K24 [{"Size", "SizeConstraint", "Image", "LayoutOrder", "UseMask", "BackgroundTransparency", "IsLoadedThumbnail"}]
-       47 GETIMPORT                        R7 K27 [UDim2.fromScale]
-       49 LOADN                            R8 1
-       50 LOADN                            R9 1
-       51 CALL                             R7 2 1
-       52 SETTABLEKS                       R7 R6 K2 ["Size"]
-       54 GETIMPORT                        R7 K29 [Enum.SizeConstraint.RelativeYY]
-       56 SETTABLEKS                       R7 R6 K20 ["SizeConstraint"]
-       58 GETUPVAL                         R7 4
-       59 SETTABLEKS                       R7 R6 K21 ["Image"]
-       61 LOADN                            R7 0
-       62 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       64 GETUPVAL                         R8 1
-       65 GETTABLEKS                       R8 R8 K30 ["SubjectType"]
-       67 GETIMPORT                        R9 K33 [Enum.CreatorType.User]
-       69 JUMPIFEQ                         R8 R9 ; [+2]
-       71 LOADB                            R7 0 +1
-       72 LOADB                            R7 1
-       73 SETTABLEKS                       R7 R6 K22 ["UseMask"]
-       75 LOADN                            R7 1
-       76 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
-       78 GETUPVAL                         R7 5
-       79 SETTABLEKS                       R7 R6 K23 ["IsLoadedThumbnail"]
-       81 CALL                             R4 2 1
-       82 SETTABLEKS                       R4 R3 K9 ["Icon"]
-       84 GETUPVAL                         R4 0
-       85 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       87 LOADK                            R5 K1 ["Frame"]
-       88 DUPTABLE                         R6 K34 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
-       89 GETIMPORT                        R7 K27 [UDim2.fromScale]
-       91 LOADN                            R8 1
-       92 LOADN                            R9 1
-       93 CALL                             R7 2 1
-       94 SETTABLEKS                       R7 R6 K2 ["Size"]
-       96 LOADN                            R7 1
-       97 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       99 LOADN                            R7 1
-      100 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
-      102 DUPTABLE                         R7 K36 [{"PrimaryLabel"}]
-      103 GETUPVAL                         R8 0
-      104 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      106 LOADK                            R9 K37 ["TextLabel"]
-      107 DUPTABLE                         R10 K45 [{"Size", "Text", "TextYAlignment", "TextXAlignment", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundTransparency"}]
-      108 GETIMPORT                        R11 K27 [UDim2.fromScale]
-      110 LOADN                            R12 1
-      111 LOADN                            R13 1
-      112 CALL                             R11 2 1
-      113 SETTABLEKS                       R11 R10 K2 ["Size"]
-      115 GETUPVAL                         R11 6
-      116 SETTABLEKS                       R11 R10 K38 ["Text"]
-      118 GETIMPORT                        R11 K47 [Enum.TextYAlignment.Center]
-      120 SETTABLEKS                       R11 R10 K39 ["TextYAlignment"]
-      122 GETIMPORT                        R11 K49 [Enum.TextXAlignment.Left]
-      124 SETTABLEKS                       R11 R10 K40 ["TextXAlignment"]
-      126 GETUPVAL                         R11 7
-      127 GETTABLEKS                       R11 R11 K50 ["FONT"]
-      129 SETTABLEKS                       R11 R10 K41 ["Font"]
-      131 GETUPVAL                         R11 7
-      132 GETTABLEKS                       R11 R11 K51 ["FONT_SIZE_TITLE"]
-      134 SETTABLEKS                       R11 R10 K42 ["TextSize"]
-      136 GETUPVAL                         R11 8
-      137 GETTABLEKS                       R11 R11 K52 ["assetConfig"]
-      139 GETTABLEKS                       R11 R11 K53 ["packagePermissions"]
-      141 GETTABLEKS                       R11 R11 K54 ["subTextColor"]
-      143 SETTABLEKS                       R11 R10 K43 ["TextColor3"]
-      145 GETIMPORT                        R11 K56 [Enum.TextTruncate.AtEnd]
-      147 SETTABLEKS                       R11 R10 K44 ["TextTruncate"]
-      149 LOADN                            R11 1
-      150 SETTABLEKS                       R11 R10 K4 ["BackgroundTransparency"]
-      152 CALL                             R8 2 1
-      153 SETTABLEKS                       R8 R7 K35 ["PrimaryLabel"]
-      155 CALL                             R4 3 1
-      156 SETTABLEKS                       R4 R3 K10 ["Labels"]
-      158 CALL                             R0 3 -1
-      159 RETURN                           R0 -1
+       16 DUPTABLE                         R3 K12 [{"UIListLayout", "Icon", "Labels"}]
+       17 GETUPVAL                         R4 0
+       18 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       20 LOADK                            R5 K9 ["UIListLayout"]
+       21 DUPTABLE                         R6 K16 [{"Padding", "FillDirection", "SortOrder"}]
+       22 GETUPVAL                         R7 2
+       23 SETTABLEKS                       R7 R6 K13 ["Padding"]
+       25 GETIMPORT                        R7 K19 [Enum.FillDirection.Horizontal]
+       27 SETTABLEKS                       R7 R6 K14 ["FillDirection"]
+       29 GETIMPORT                        R7 K20 [Enum.SortOrder.LayoutOrder]
+       31 SETTABLEKS                       R7 R6 K15 ["SortOrder"]
+       33 CALL                             R4 2 1
+       34 SETTABLEKS                       R4 R3 K9 ["UIListLayout"]
+       36 GETUPVAL                         R4 0
+       37 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       39 GETUPVAL                         R5 3
+       40 DUPTABLE                         R6 K25 [{["Size"], ["SizeConstraint"], ["Image"], ["LayoutOrder"] = 0, ["UseMask"], ["BackgroundTransparency"] = 1, ["IsLoadedThumbnail"]}]
+       41 GETIMPORT                        R7 K28 [UDim2.fromScale]
+       43 LOADN                            R8 1
+       44 LOADN                            R9 1
+       45 CALL                             R7 2 1
+       46 SETTABLEKS                       R7 R6 K2 ["Size"]
+       48 GETIMPORT                        R7 K30 [Enum.SizeConstraint.RelativeYY]
+       50 SETTABLEKS                       R7 R6 K21 ["SizeConstraint"]
+       52 GETUPVAL                         R7 4
+       53 SETTABLEKS                       R7 R6 K22 ["Image"]
+       55 GETUPVAL                         R8 1
+       56 GETTABLEKS                       R8 R8 K31 ["SubjectType"]
+       58 GETIMPORT                        R9 K34 [Enum.CreatorType.User]
+       60 JUMPIFEQ                         R8 R9 ; [+2]
+       62 LOADB                            R7 0 +1
+       63 LOADB                            R7 1
+       64 SETTABLEKS                       R7 R6 K23 ["UseMask"]
+       66 GETUPVAL                         R7 5
+       67 SETTABLEKS                       R7 R6 K24 ["IsLoadedThumbnail"]
+       69 CALL                             R4 2 1
+       70 SETTABLEKS                       R4 R3 K10 ["Icon"]
+       72 GETUPVAL                         R4 0
+       73 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       75 LOADK                            R5 K1 ["Frame"]
+       76 DUPTABLE                         R6 K35 [{["Size"], ["LayoutOrder"] = 1, ["BackgroundTransparency"] = 1}]
+       77 GETIMPORT                        R7 K28 [UDim2.fromScale]
+       79 LOADN                            R8 1
+       80 LOADN                            R9 1
+       81 CALL                             R7 2 1
+       82 SETTABLEKS                       R7 R6 K2 ["Size"]
+       84 DUPTABLE                         R7 K37 [{"PrimaryLabel"}]
+       85 GETUPVAL                         R8 0
+       86 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       88 LOADK                            R9 K38 ["TextLabel"]
+       89 DUPTABLE                         R10 K46 [{["Size"], ["Text"], ["TextYAlignment"], ["TextXAlignment"], ["Font"], ["TextSize"], ["TextColor3"], ["TextTruncate"], ["BackgroundTransparency"] = 1}]
+       90 GETIMPORT                        R11 K28 [UDim2.fromScale]
+       92 LOADN                            R12 1
+       93 LOADN                            R13 1
+       94 CALL                             R11 2 1
+       95 SETTABLEKS                       R11 R10 K2 ["Size"]
+       97 GETUPVAL                         R11 6
+       98 SETTABLEKS                       R11 R10 K39 ["Text"]
+      100 GETIMPORT                        R11 K48 [Enum.TextYAlignment.Center]
+      102 SETTABLEKS                       R11 R10 K40 ["TextYAlignment"]
+      104 GETIMPORT                        R11 K50 [Enum.TextXAlignment.Left]
+      106 SETTABLEKS                       R11 R10 K41 ["TextXAlignment"]
+      108 GETUPVAL                         R11 7
+      109 GETTABLEKS                       R11 R11 K51 ["FONT"]
+      111 SETTABLEKS                       R11 R10 K42 ["Font"]
+      113 GETUPVAL                         R11 7
+      114 GETTABLEKS                       R11 R11 K52 ["FONT_SIZE_TITLE"]
+      116 SETTABLEKS                       R11 R10 K43 ["TextSize"]
+      118 GETUPVAL                         R11 8
+      119 GETTABLEKS                       R11 R11 K53 ["assetConfig"]
+      121 GETTABLEKS                       R11 R11 K54 ["packagePermissions"]
+      123 GETTABLEKS                       R11 R11 K55 ["subTextColor"]
+      125 SETTABLEKS                       R11 R10 K44 ["TextColor3"]
+      127 GETIMPORT                        R11 K57 [Enum.TextTruncate.AtEnd]
+      129 SETTABLEKS                       R11 R10 K45 ["TextTruncate"]
+      131 CALL                             R8 2 1
+      132 SETTABLEKS                       R8 R7 K36 ["PrimaryLabel"]
+      134 CALL                             R4 3 1
+      135 SETTABLEKS                       R4 R3 K11 ["Labels"]
+      137 CALL                             R0 3 -1
+      138 RETURN                           R0 -1
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["Id"]

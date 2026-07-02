@@ -128,97 +128,37 @@ MAIN:
       139 CAPTURE                          VAL R1
       140 NEWTABLE                         R14 0 0
       142 CALL                             R11 3 1
-      143 DUPTABLE                         R12 K72 [{"NO_CONNECTED_GAMEPAD_ID", "DEFAULT_THUMBSTICK_SIZE_RELATIVE", "DEFAULT_THUMBSTICK_SOCKET_SIZE_RELATIVE", "KEY_TO_KEY_NAME", "VECTOR_PRESSED", "VECTOR_RELEASED", "DEFAULT_ROOT_CONTAINER_INPUT_CONTEXT_STATE", "DEFAULT_MAPPINGS_STATE", "GAMEPAD_TYPE_TO_ID", "HAND_TRACKED_DEVICES", "GAMEPAD_ID_TO_ENUM", "GAMEPAD_ID_TO_TYPE", "LISTED_DEVICE_IDS", "MAPPING_LABELS_OFFSET_FROM_CENTER", "MAPPING_LABELS_TEXT_GAP_X", "MAPPING_LABELS_TEXT_GAP_Y", "MAPPING_LABELS_TEXT_SCALE", "THUMBSTICK_KEYCODE_TO_THUMBSTICK_CLICK", "NUMBER_OF_HORIZONTAL_BARS_TRIGGER", "MAPPINGS_KEYS_BLACKLIST", "DEFAULT_EMULATED_DEVICE_ID", "PS4_EMULATED_DEVICE_ID", "QUEST2_EMULATED_DEVICE_ID", "QUEST3_EMULATED_DEVICE_ID", "META_QUEST_3_NAME", "GENERIC_HANDHELD_720_EMULATED_DEVICE_ID", "GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID", "TOOLTIP_SHOWN_COUNT_SETTING", "MAX_NUM_TOOLTIP_SHOWN"}]
-      144 LOADNIL                          R13
-      145 SETTABLEKS                       R13 R12 K43 ["NO_CONNECTED_GAMEPAD_ID"]
-      147 LOADK                            R13 K73 [0.3]
-      148 SETTABLEKS                       R13 R12 K44 ["DEFAULT_THUMBSTICK_SIZE_RELATIVE"]
-      150 LOADK                            R13 K74 [0.15]
-      151 SETTABLEKS                       R13 R12 K45 ["DEFAULT_THUMBSTICK_SOCKET_SIZE_RELATIVE"]
-      153 SETTABLEKS                       R11 R12 K46 ["KEY_TO_KEY_NAME"]
-      155 LOADK                            R13 K75 [{0, 0, 1}]
-      156 SETTABLEKS                       R13 R12 K47 ["VECTOR_PRESSED"]
-      158 LOADK                            R13 K76 [{0, 0, 0}]
-      159 SETTABLEKS                       R13 R12 K48 ["VECTOR_RELEASED"]
-      161 DUPTABLE                         R13 K80 [{"InputChanged", "InputEnded", "InputBegan"}]
-      162 LOADNIL                          R14
-      163 SETTABLEKS                       R14 R13 K77 ["InputChanged"]
-      165 LOADNIL                          R14
-      166 SETTABLEKS                       R14 R13 K78 ["InputEnded"]
-      168 LOADNIL                          R14
-      169 SETTABLEKS                       R14 R13 K79 ["InputBegan"]
-      171 SETTABLEKS                       R13 R12 K49 ["DEFAULT_ROOT_CONTAINER_INPUT_CONTEXT_STATE"]
-      173 DUPTABLE                         R13 K93 [{"mappings", "mappingsOverrides", "gamepadId", "isUpdatingMappingForGamepadId", "isUpdatingMappingForKey", "isMappingsDialogOpen", "latestErrorMessage", "isVRConnected", "emulatedDeviceId", "availableDeviceIds", "activeVRUserCFrames", "shouldVRControlsRespond"}]
-      174 NEWTABLE                         R14 0 0
-      176 SETTABLEKS                       R14 R13 K81 ["mappings"]
-      178 NEWTABLE                         R14 0 0
-      180 SETTABLEKS                       R14 R13 K82 ["mappingsOverrides"]
-      182 LOADNIL                          R14
-      183 SETTABLEKS                       R14 R13 K83 ["gamepadId"]
-      185 LOADNIL                          R14
-      186 SETTABLEKS                       R14 R13 K84 ["isUpdatingMappingForGamepadId"]
-      188 LOADNIL                          R14
-      189 SETTABLEKS                       R14 R13 K85 ["isUpdatingMappingForKey"]
-      191 LOADB                            R14 0
-      192 SETTABLEKS                       R14 R13 K86 ["isMappingsDialogOpen"]
-      194 LOADNIL                          R14
-      195 SETTABLEKS                       R14 R13 K87 ["latestErrorMessage"]
-      197 LOADB                            R14 0
-      198 SETTABLEKS                       R14 R13 K88 ["isVRConnected"]
-      200 LOADNIL                          R14
-      201 SETTABLEKS                       R14 R13 K89 ["emulatedDeviceId"]
-      203 SETTABLEKS                       R10 R13 K90 ["availableDeviceIds"]
-      205 NEWTABLE                         R14 4 0
-      207 GETIMPORT                        R15 K96 [Enum.UserCFrame.Head]
-      209 LOADB                            R16 1
-      210 SETTABLE                         R16 R14 R15
-      211 GETIMPORT                        R15 K98 [Enum.UserCFrame.LeftHand]
-      213 LOADB                            R16 1
-      214 SETTABLE                         R16 R14 R15
-      215 GETIMPORT                        R15 K100 [Enum.UserCFrame.RightHand]
-      217 LOADB                            R16 1
-      218 SETTABLE                         R16 R14 R15
-      219 SETTABLEKS                       R14 R13 K91 ["activeVRUserCFrames"]
-      221 LOADB                            R14 0
-      222 SETTABLEKS                       R14 R13 K92 ["shouldVRControlsRespond"]
-      224 SETTABLEKS                       R13 R12 K50 ["DEFAULT_MAPPINGS_STATE"]
-      226 SETTABLEKS                       R4 R12 K51 ["GAMEPAD_TYPE_TO_ID"]
-      228 SETTABLEKS                       R6 R12 K52 ["HAND_TRACKED_DEVICES"]
-      230 SETTABLEKS                       R7 R12 K53 ["GAMEPAD_ID_TO_ENUM"]
-      232 SETTABLEKS                       R8 R12 K54 ["GAMEPAD_ID_TO_TYPE"]
-      234 SETTABLEKS                       R9 R12 K55 ["LISTED_DEVICE_IDS"]
-      236 LOADK                            R13 K101 [0.075]
-      237 SETTABLEKS                       R13 R12 K56 ["MAPPING_LABELS_OFFSET_FROM_CENTER"]
-      239 LOADK                            R13 K102 [0.04]
-      240 SETTABLEKS                       R13 R12 K57 ["MAPPING_LABELS_TEXT_GAP_X"]
-      242 LOADK                            R13 K103 [0.01]
-      243 SETTABLEKS                       R13 R12 K58 ["MAPPING_LABELS_TEXT_GAP_Y"]
-      245 LOADK                            R13 K104 [1.8]
-      246 SETTABLEKS                       R13 R12 K59 ["MAPPING_LABELS_TEXT_SCALE"]
-      248 SETTABLEKS                       R5 R12 K60 ["THUMBSTICK_KEYCODE_TO_THUMBSTICK_CLICK"]
-      250 LOADN                            R13 10
-      251 SETTABLEKS                       R13 R12 K61 ["NUMBER_OF_HORIZONTAL_BARS_TRIGGER"]
-      253 NEWTABLE                         R13 0 2
-      255 GETIMPORT                        R14 K106 [Enum.KeyCode.Backspace]
-      257 GETIMPORT                        R15 K108 [Enum.KeyCode.Delete]
-      259 SETLIST                          R13 R14 2 [1]
-      261 SETTABLEKS                       R13 R12 K62 ["MAPPINGS_KEYS_BLACKLIST"]
-      263 LOADK                            R13 K109 ["default"]
-      264 SETTABLEKS                       R13 R12 K63 ["DEFAULT_EMULATED_DEVICE_ID"]
-      266 LOADK                            R13 K110 ["ps4"]
-      267 SETTABLEKS                       R13 R12 K64 ["PS4_EMULATED_DEVICE_ID"]
-      269 LOADK                            R13 K111 ["meta_quest_2"]
-      270 SETTABLEKS                       R13 R12 K65 ["QUEST2_EMULATED_DEVICE_ID"]
-      272 LOADK                            R13 K112 ["meta_quest_3"]
-      273 SETTABLEKS                       R13 R12 K66 ["QUEST3_EMULATED_DEVICE_ID"]
-      275 LOADK                            R13 K113 ["Meta Quest 3"]
-      276 SETTABLEKS                       R13 R12 K67 ["META_QUEST_3_NAME"]
-      278 LOADK                            R13 K114 ["generic_handheld_720"]
-      279 SETTABLEKS                       R13 R12 K68 ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"]
-      281 LOADK                            R13 K115 ["generic_handheld_1080"]
-      282 SETTABLEKS                       R13 R12 K69 ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"]
-      284 LOADK                            R13 K116 ["TooltipShownCount999"]
-      285 SETTABLEKS                       R13 R12 K70 ["TOOLTIP_SHOWN_COUNT_SETTING"]
-      287 LOADN                            R13 3
-      288 SETTABLEKS                       R13 R12 K71 ["MAX_NUM_TOOLTIP_SHOWN"]
-      290 RETURN                           R12 1
+      143 DUPTABLE                         R12 K91 [{["NO_CONNECTED_GAMEPAD_ID"] = , ["DEFAULT_THUMBSTICK_SIZE_RELATIVE"] = 0.3, ["DEFAULT_THUMBSTICK_SOCKET_SIZE_RELATIVE"] = 0.15, ["KEY_TO_KEY_NAME"], ["VECTOR_PRESSED"] = {0, 0, 1}, ["VECTOR_RELEASED"] = {0, 0, 0}, ["DEFAULT_ROOT_CONTAINER_INPUT_CONTEXT_STATE"], ["DEFAULT_MAPPINGS_STATE"], ["GAMEPAD_TYPE_TO_ID"], ["HAND_TRACKED_DEVICES"], ["GAMEPAD_ID_TO_ENUM"], ["GAMEPAD_ID_TO_TYPE"], ["LISTED_DEVICE_IDS"], ["MAPPING_LABELS_OFFSET_FROM_CENTER"] = 0.075, ["MAPPING_LABELS_TEXT_GAP_X"] = 0.04, ["MAPPING_LABELS_TEXT_GAP_Y"] = 0.01, ["MAPPING_LABELS_TEXT_SCALE"] = 1.8, ["THUMBSTICK_KEYCODE_TO_THUMBSTICK_CLICK"], ["NUMBER_OF_HORIZONTAL_BARS_TRIGGER"] = 10, ["MAPPINGS_KEYS_BLACKLIST"], ["DEFAULT_EMULATED_DEVICE_ID"] = "default", ["PS4_EMULATED_DEVICE_ID"] = "ps4", ["QUEST2_EMULATED_DEVICE_ID"] = "meta_quest_2", ["QUEST3_EMULATED_DEVICE_ID"] = "meta_quest_3", ["META_QUEST_3_NAME"] = "Meta Quest 3", ["GENERIC_HANDHELD_720_EMULATED_DEVICE_ID"] = "generic_handheld_720", ["GENERIC_HANDHELD_1080_EMULATED_DEVICE_ID"] = "generic_handheld_1080", ["TOOLTIP_SHOWN_COUNT_SETTING"] = "TooltipShownCount999", ["MAX_NUM_TOOLTIP_SHOWN"] = 3}]
+      144 SETTABLEKS                       R11 R12 K49 ["KEY_TO_KEY_NAME"]
+      146 DUPTABLE                         R13 K95 [{["InputChanged"] = , ["InputEnded"] = , ["InputBegan"] = }]
+      147 SETTABLEKS                       R13 R12 K54 ["DEFAULT_ROOT_CONTAINER_INPUT_CONTEXT_STATE"]
+      149 DUPTABLE                         R13 K109 [{["mappings"], ["mappingsOverrides"], ["gamepadId"] = , ["isUpdatingMappingForGamepadId"] = , ["isUpdatingMappingForKey"] = , ["isMappingsDialogOpen"] = False, ["latestErrorMessage"] = , ["isVRConnected"] = False, ["emulatedDeviceId"] = , ["availableDeviceIds"], ["activeVRUserCFrames"], ["shouldVRControlsRespond"] = False}]
+      150 NEWTABLE                         R14 0 0
+      152 SETTABLEKS                       R14 R13 K96 ["mappings"]
+      154 NEWTABLE                         R14 0 0
+      156 SETTABLEKS                       R14 R13 K97 ["mappingsOverrides"]
+      158 SETTABLEKS                       R10 R13 K106 ["availableDeviceIds"]
+      160 NEWTABLE                         R14 4 0
+      162 GETIMPORT                        R15 K112 [Enum.UserCFrame.Head]
+      164 LOADB                            R16 1
+      165 SETTABLE                         R16 R14 R15
+      166 GETIMPORT                        R15 K114 [Enum.UserCFrame.LeftHand]
+      168 LOADB                            R16 1
+      169 SETTABLE                         R16 R14 R15
+      170 GETIMPORT                        R15 K116 [Enum.UserCFrame.RightHand]
+      172 LOADB                            R16 1
+      173 SETTABLE                         R16 R14 R15
+      174 SETTABLEKS                       R14 R13 K107 ["activeVRUserCFrames"]
+      176 SETTABLEKS                       R13 R12 K55 ["DEFAULT_MAPPINGS_STATE"]
+      178 SETTABLEKS                       R4 R12 K56 ["GAMEPAD_TYPE_TO_ID"]
+      180 SETTABLEKS                       R6 R12 K57 ["HAND_TRACKED_DEVICES"]
+      182 SETTABLEKS                       R7 R12 K58 ["GAMEPAD_ID_TO_ENUM"]
+      184 SETTABLEKS                       R8 R12 K59 ["GAMEPAD_ID_TO_TYPE"]
+      186 SETTABLEKS                       R9 R12 K60 ["LISTED_DEVICE_IDS"]
+      188 SETTABLEKS                       R5 R12 K69 ["THUMBSTICK_KEYCODE_TO_THUMBSTICK_CLICK"]
+      190 NEWTABLE                         R13 0 2
+      192 GETIMPORT                        R14 K118 [Enum.KeyCode.Backspace]
+      194 GETIMPORT                        R15 K120 [Enum.KeyCode.Delete]
+      196 SETLIST                          R13 R14 2 [1]
+      198 SETTABLEKS                       R13 R12 K72 ["MAPPINGS_KEYS_BLACKLIST"]
+      200 RETURN                           R12 1

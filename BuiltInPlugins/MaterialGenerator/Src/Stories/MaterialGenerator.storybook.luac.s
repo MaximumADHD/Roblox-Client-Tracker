@@ -37,44 +37,42 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
-        3 DUPTABLE                         R2 K5 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
+        3 DUPTABLE                         R2 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "MaterialGenerator", ["libraries"]}]
         4 GETUPVAL                         R3 1
-        5 GETTABLEKS                       R3 R3 K6 ["Localization"]
-        7 GETTABLEKS                       R3 R3 K7 ["SourceStrings"]
+        5 GETTABLEKS                       R3 R3 K7 ["Localization"]
+        7 GETTABLEKS                       R3 R3 K8 ["SourceStrings"]
         9 SETTABLEKS                       R3 R2 K1 ["stringResourceTable"]
        11 GETUPVAL                         R3 1
-       12 GETTABLEKS                       R3 R3 K6 ["Localization"]
-       14 GETTABLEKS                       R3 R3 K8 ["LocalizedStrings"]
+       12 GETTABLEKS                       R3 R3 K7 ["Localization"]
+       14 GETTABLEKS                       R3 R3 K9 ["LocalizedStrings"]
        16 SETTABLEKS                       R3 R2 K2 ["translationResourceTable"]
-       18 LOADK                            R3 K9 ["MaterialGenerator"]
-       19 SETTABLEKS                       R3 R2 K3 ["pluginName"]
-       21 NEWTABLE                         R3 1 0
-       23 GETUPVAL                         R4 2
-       24 GETTABLEKS                       R4 R4 K10 ["Resources"]
-       26 GETTABLEKS                       R4 R4 K11 ["LOCALIZATION_PROJECT_NAME"]
-       28 DUPTABLE                         R5 K12 [{"stringResourceTable", "translationResourceTable"}]
-       29 GETUPVAL                         R6 2
-       30 GETTABLEKS                       R6 R6 K10 ["Resources"]
-       32 GETTABLEKS                       R6 R6 K7 ["SourceStrings"]
-       34 SETTABLEKS                       R6 R5 K1 ["stringResourceTable"]
-       36 GETUPVAL                         R6 2
-       37 GETTABLEKS                       R6 R6 K10 ["Resources"]
-       39 GETTABLEKS                       R6 R6 K8 ["LocalizedStrings"]
-       41 SETTABLEKS                       R6 R5 K2 ["translationResourceTable"]
-       43 SETTABLE                         R5 R3 R4
-       44 SETTABLEKS                       R3 R2 K4 ["libraries"]
-       46 CALL                             R1 1 1
-       47 NEWCLOSURE                       R2 P0
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          UPVAL U3
-       50 CAPTURE                          UPVAL U4
-       51 CAPTURE                          UPVAL U5
-       52 CAPTURE                          UPVAL U6
-       53 CAPTURE                          UPVAL U7
-       54 CAPTURE                          UPVAL U8
-       55 CAPTURE                          UPVAL U9
-       56 CAPTURE                          VAL R0
-       57 RETURN                           R2 1
+       18 NEWTABLE                         R3 1 0
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R4 R4 K10 ["Resources"]
+       23 GETTABLEKS                       R4 R4 K11 ["LOCALIZATION_PROJECT_NAME"]
+       25 DUPTABLE                         R5 K12 [{"stringResourceTable", "translationResourceTable"}]
+       26 GETUPVAL                         R6 2
+       27 GETTABLEKS                       R6 R6 K10 ["Resources"]
+       29 GETTABLEKS                       R6 R6 K8 ["SourceStrings"]
+       31 SETTABLEKS                       R6 R5 K1 ["stringResourceTable"]
+       33 GETUPVAL                         R6 2
+       34 GETTABLEKS                       R6 R6 K10 ["Resources"]
+       36 GETTABLEKS                       R6 R6 K9 ["LocalizedStrings"]
+       38 SETTABLEKS                       R6 R5 K2 ["translationResourceTable"]
+       40 SETTABLE                         R5 R3 R4
+       41 SETTABLEKS                       R3 R2 K5 ["libraries"]
+       43 CALL                             R1 1 1
+       44 NEWCLOSURE                       R2 P0
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          UPVAL U3
+       47 CAPTURE                          UPVAL U4
+       48 CAPTURE                          UPVAL U5
+       49 CAPTURE                          UPVAL U6
+       50 CAPTURE                          UPVAL U7
+       51 CAPTURE                          UPVAL U8
+       52 CAPTURE                          UPVAL U9
+       53 CAPTURE                          VAL R0
+       54 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -139,31 +137,29 @@ MAIN:
        56 GETTABLEKS                       R13 R8 K21 ["Plugin"]
        58 GETTABLEKS                       R14 R2 K22 ["Context"]
        60 GETTABLEKS                       R14 R14 K23 ["StudioServices"]
-       62 DUPTABLE                         R15 K30 [{"name", "exclude", "storyRoots", "roact", "mapStory", "mapDefinition"}]
-       63 LOADK                            R16 K31 ["Material Generator"]
-       64 SETTABLEKS                       R16 R15 K24 ["name"]
-       66 NEWTABLE                         R16 0 1
-       68 LOADK                            R17 K32 ["_Index"]
-       69 SETLIST                          R16 R17 1 [1]
-       71 SETTABLEKS                       R16 R15 K25 ["exclude"]
-       73 NEWTABLE                         R16 0 1
-       75 GETTABLEKS                       R17 R0 K11 ["Src"]
-       77 SETLIST                          R16 R17 1 [1]
-       79 SETTABLEKS                       R16 R15 K26 ["storyRoots"]
-       81 SETTABLEKS                       R5 R15 K27 ["roact"]
-       83 DUPCLOSURE                       R16 K33 [PROTO_1]
-       84 CAPTURE                          VAL R11
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          VAL R10
-       88 CAPTURE                          VAL R12
-       89 CAPTURE                          VAL R13
-       90 CAPTURE                          VAL R14
-       91 CAPTURE                          VAL R7
-       92 CAPTURE                          VAL R8
-       93 CAPTURE                          VAL R4
-       94 SETTABLEKS                       R16 R15 K28 ["mapStory"]
-       96 DUPCLOSURE                       R16 K34 [PROTO_3]
-       97 CAPTURE                          VAL R9
-       98 SETTABLEKS                       R16 R15 K29 ["mapDefinition"]
-      100 RETURN                           R15 1
+       62 DUPTABLE                         R15 K31 [{["name"] = "Material Generator", ["exclude"], ["storyRoots"], ["roact"], ["mapStory"], ["mapDefinition"]}]
+       63 NEWTABLE                         R16 0 1
+       65 LOADK                            R17 K32 ["_Index"]
+       66 SETLIST                          R16 R17 1 [1]
+       68 SETTABLEKS                       R16 R15 K26 ["exclude"]
+       70 NEWTABLE                         R16 0 1
+       72 GETTABLEKS                       R17 R0 K11 ["Src"]
+       74 SETLIST                          R16 R17 1 [1]
+       76 SETTABLEKS                       R16 R15 K27 ["storyRoots"]
+       78 SETTABLEKS                       R5 R15 K28 ["roact"]
+       80 DUPCLOSURE                       R16 K33 [PROTO_1]
+       81 CAPTURE                          VAL R11
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R10
+       85 CAPTURE                          VAL R12
+       86 CAPTURE                          VAL R13
+       87 CAPTURE                          VAL R14
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R4
+       91 SETTABLEKS                       R16 R15 K29 ["mapStory"]
+       93 DUPCLOSURE                       R16 K34 [PROTO_3]
+       94 CAPTURE                          VAL R9
+       95 SETTABLEKS                       R16 R15 K30 ["mapDefinition"]
+       97 RETURN                           R15 1

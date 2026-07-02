@@ -19,58 +19,48 @@ PROTO_1:
        10 GETUPVAL                         R6 0
        11 GETTABLEKS                       R6 R6 K5 ["createElement"]
        13 GETUPVAL                         R7 1
-       14 DUPTABLE                         R8 K12 [{"Style", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
-       15 LOADK                            R9 K13 ["AcceptCancel"]
-       16 SETTABLEKS                       R9 R8 K6 ["Style"]
-       18 LOADB                            R9 1
-       19 SETTABLEKS                       R9 R8 K7 ["Modal"]
-       21 LOADK                            R11 K14 ["ScriptConversion"]
-       22 LOADK                            R12 K15 ["RevertingScripts"]
-       23 NAMECALL                         R9 R2 K16 ["getText"]
-       25 CALL                             R9 3 1
-       26 SETTABLEKS                       R9 R8 K8 ["Title"]
-       28 GETTABLEKS                       R9 R3 K9 ["MinContentSize"]
-       30 SETTABLEKS                       R9 R8 K9 ["MinContentSize"]
-       32 NEWTABLE                         R9 0 2
-       34 DUPTABLE                         R10 K19 [{"Key", "Text"}]
-       35 LOADK                            R11 K20 ["Confirm"]
-       36 SETTABLEKS                       R11 R10 K17 ["Key"]
-       38 LOADK                            R13 K14 ["ScriptConversion"]
-       39 LOADK                            R14 K20 ["Confirm"]
-       40 NAMECALL                         R11 R2 K16 ["getText"]
-       42 CALL                             R11 3 1
-       43 SETTABLEKS                       R11 R10 K18 ["Text"]
-       45 DUPTABLE                         R11 K19 [{"Key", "Text"}]
-       46 LOADK                            R12 K21 ["Cancel"]
-       47 SETTABLEKS                       R12 R11 K17 ["Key"]
-       49 LOADK                            R14 K14 ["ScriptConversion"]
-       50 LOADK                            R15 K21 ["Cancel"]
-       51 NAMECALL                         R12 R2 K16 ["getText"]
-       53 CALL                             R12 3 1
-       54 SETTABLEKS                       R12 R11 K18 ["Text"]
-       56 SETLIST                          R9 R10 2 [1]
-       58 SETTABLEKS                       R9 R8 K10 ["Buttons"]
-       60 NEWCLOSURE                       R9 P0
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R5
-       63 SETTABLEKS                       R9 R8 K11 ["OnButtonPressed"]
-       65 SETTABLEKS                       R5 R8 K4 ["OnClose"]
-       67 DUPTABLE                         R9 K23 [{"Contents"}]
-       68 GETUPVAL                         R10 0
-       69 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       71 GETUPVAL                         R11 2
-       72 DUPTABLE                         R12 K25 [{"Text", "TextWrapped"}]
-       73 LOADK                            R15 K14 ["ScriptConversion"]
-       74 LOADK                            R16 K26 ["RevertWarning"]
-       75 NAMECALL                         R13 R2 K16 ["getText"]
-       77 CALL                             R13 3 1
-       78 SETTABLEKS                       R13 R12 K18 ["Text"]
-       80 LOADB                            R13 1
-       81 SETTABLEKS                       R13 R12 K24 ["TextWrapped"]
-       83 CALL                             R10 2 1
-       84 SETTABLEKS                       R10 R9 K22 ["Contents"]
-       86 CALL                             R6 3 -1
-       87 RETURN                           R6 -1
+       14 DUPTABLE                         R8 K14 [{["Style"] = "AcceptCancel", ["Modal"] = True, ["Title"], ["MinContentSize"], ["Buttons"], ["OnButtonPressed"], ["OnClose"]}]
+       15 LOADK                            R11 K15 ["ScriptConversion"]
+       16 LOADK                            R12 K16 ["RevertingScripts"]
+       17 NAMECALL                         R9 R2 K17 ["getText"]
+       19 CALL                             R9 3 1
+       20 SETTABLEKS                       R9 R8 K10 ["Title"]
+       22 GETTABLEKS                       R9 R3 K11 ["MinContentSize"]
+       24 SETTABLEKS                       R9 R8 K11 ["MinContentSize"]
+       26 NEWTABLE                         R9 0 2
+       28 DUPTABLE                         R10 K21 [{["Key"] = "Confirm", ["Text"]}]
+       29 LOADK                            R13 K15 ["ScriptConversion"]
+       30 LOADK                            R14 K19 ["Confirm"]
+       31 NAMECALL                         R11 R2 K17 ["getText"]
+       33 CALL                             R11 3 1
+       34 SETTABLEKS                       R11 R10 K20 ["Text"]
+       36 DUPTABLE                         R11 K23 [{["Key"] = "Cancel", ["Text"]}]
+       37 LOADK                            R14 K15 ["ScriptConversion"]
+       38 LOADK                            R15 K22 ["Cancel"]
+       39 NAMECALL                         R12 R2 K17 ["getText"]
+       41 CALL                             R12 3 1
+       42 SETTABLEKS                       R12 R11 K20 ["Text"]
+       44 SETLIST                          R9 R10 2 [1]
+       46 SETTABLEKS                       R9 R8 K12 ["Buttons"]
+       48 NEWCLOSURE                       R9 P0
+       49 CAPTURE                          VAL R4
+       50 CAPTURE                          VAL R5
+       51 SETTABLEKS                       R9 R8 K13 ["OnButtonPressed"]
+       53 SETTABLEKS                       R5 R8 K4 ["OnClose"]
+       55 DUPTABLE                         R9 K25 [{"Contents"}]
+       56 GETUPVAL                         R10 0
+       57 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       59 GETUPVAL                         R11 2
+       60 DUPTABLE                         R12 K27 [{["Text"], ["TextWrapped"] = True}]
+       61 LOADK                            R15 K15 ["ScriptConversion"]
+       62 LOADK                            R16 K28 ["RevertWarning"]
+       63 NAMECALL                         R13 R2 K17 ["getText"]
+       65 CALL                             R13 3 1
+       66 SETTABLEKS                       R13 R12 K20 ["Text"]
+       68 CALL                             R10 2 1
+       69 SETTABLEKS                       R10 R9 K24 ["Contents"]
+       71 CALL                             R6 3 -1
+       72 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

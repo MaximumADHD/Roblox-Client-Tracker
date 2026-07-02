@@ -34,17 +34,13 @@ PROTO_1:
        35 GETUPVAL                         R5 6
        36 GETTABLEKS                       R5 R5 K11 ["Components"]
        38 GETTABLEKS                       R5 R5 K12 ["FoundationProviderAdapter"]
-       40 DUPTABLE                         R6 K16 [{"theme", "device", "children"}]
-       41 LOADK                            R7 K17 ["Dark"]
-       42 SETTABLEKS                       R7 R6 K13 ["theme"]
-       44 LOADK                            R7 K18 ["Desktop"]
-       45 SETTABLEKS                       R7 R6 K14 ["device"]
-       47 GETUPVAL                         R7 7
-       48 SETTABLEKS                       R7 R6 K15 ["children"]
-       50 CALL                             R4 2 1
-       51 SETTABLEKS                       R4 R3 K8 ["FoundationProvider"]
-       53 CALL                             R1 2 -1
-       54 RETURN                           R1 -1
+       40 DUPTABLE                         R6 K18 [{["theme"] = "Dark", ["device"] = "Desktop", ["children"]}]
+       41 GETUPVAL                         R7 7
+       42 SETTABLEKS                       R7 R6 K17 ["children"]
+       44 CALL                             R4 2 1
+       45 SETTABLEKS                       R4 R3 K8 ["FoundationProvider"]
+       47 CALL                             R1 2 -1
+       48 RETURN                           R1 -1
 
 PROTO_2:
         0 FASTCALL1                        TYPE R0 ; [+3]

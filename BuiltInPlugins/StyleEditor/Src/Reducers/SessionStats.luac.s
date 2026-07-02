@@ -75,34 +75,24 @@ MAIN:
        52 GETTABLEKS                       R9 R0 K9 ["Src"]
        54 GETTABLEKS                       R9 R9 K15 ["Types"]
        56 CALL                             R8 1 1
-       57 DUPTABLE                         R9 K22 [{"SessionStartTimestamp", "TotalPluginFocusTimeSeconds", "PluginFocusPeriodStartTimestamp", "PluginFocusEndWithStartCount", "PluginFocusEndWithoutStartCount", "ButtonPressCounts"}]
-       58 LOADN                            R10 0
-       59 SETTABLEKS                       R10 R9 K16 ["SessionStartTimestamp"]
-       61 LOADN                            R10 0
-       62 SETTABLEKS                       R10 R9 K17 ["TotalPluginFocusTimeSeconds"]
-       64 LOADNIL                          R10
-       65 SETTABLEKS                       R10 R9 K18 ["PluginFocusPeriodStartTimestamp"]
-       67 LOADN                            R10 0
-       68 SETTABLEKS                       R10 R9 K19 ["PluginFocusEndWithStartCount"]
-       70 LOADN                            R10 0
-       71 SETTABLEKS                       R10 R9 K20 ["PluginFocusEndWithoutStartCount"]
-       73 NEWTABLE                         R10 0 0
-       75 SETTABLEKS                       R10 R9 K21 ["ButtonPressCounts"]
-       77 GETTABLEKS                       R10 R1 K23 ["createReducer"]
-       79 MOVE                             R11 R9
-       80 NEWTABLE                         R12 4 0
-       82 GETTABLEKS                       R13 R7 K24 ["name"]
-       84 DUPCLOSURE                       R14 K25 [PROTO_0]
-       85 CAPTURE                          VAL R3
-       86 SETTABLE                         R14 R12 R13
-       87 GETTABLEKS                       R13 R6 K24 ["name"]
-       89 DUPCLOSURE                       R14 K26 [PROTO_1]
-       90 CAPTURE                          VAL R3
-       91 SETTABLE                         R14 R12 R13
-       92 GETTABLEKS                       R13 R5 K24 ["name"]
-       94 DUPCLOSURE                       R14 K27 [PROTO_2]
-       95 CAPTURE                          VAL R3
-       96 CAPTURE                          VAL R2
-       97 SETTABLE                         R14 R12 R13
-       98 CALL                             R10 2 -1
-       99 RETURN                           R10 -1
+       57 DUPTABLE                         R9 K24 [{["SessionStartTimestamp"] = 0, ["TotalPluginFocusTimeSeconds"] = 0, ["PluginFocusPeriodStartTimestamp"] = , ["PluginFocusEndWithStartCount"] = 0, ["PluginFocusEndWithoutStartCount"] = 0, ["ButtonPressCounts"]}]
+       58 NEWTABLE                         R10 0 0
+       60 SETTABLEKS                       R10 R9 K23 ["ButtonPressCounts"]
+       62 GETTABLEKS                       R10 R1 K25 ["createReducer"]
+       64 MOVE                             R11 R9
+       65 NEWTABLE                         R12 4 0
+       67 GETTABLEKS                       R13 R7 K26 ["name"]
+       69 DUPCLOSURE                       R14 K27 [PROTO_0]
+       70 CAPTURE                          VAL R3
+       71 SETTABLE                         R14 R12 R13
+       72 GETTABLEKS                       R13 R6 K26 ["name"]
+       74 DUPCLOSURE                       R14 K28 [PROTO_1]
+       75 CAPTURE                          VAL R3
+       76 SETTABLE                         R14 R12 R13
+       77 GETTABLEKS                       R13 R5 K26 ["name"]
+       79 DUPCLOSURE                       R14 K29 [PROTO_2]
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R2
+       82 SETTABLE                         R14 R12 R13
+       83 CALL                             R10 2 -1
+       84 RETURN                           R10 -1

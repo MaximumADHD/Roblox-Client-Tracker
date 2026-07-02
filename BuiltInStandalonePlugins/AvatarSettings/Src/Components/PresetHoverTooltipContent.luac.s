@@ -250,11 +250,11 @@ MAIN:
        67 GETTABLEKS                       R12 R5 K23 ["createNextOrder"]
        69 GETTABLEKS                       R13 R4 K24 ["createElement"]
        71 GETIMPORT                        R14 K27 [UDim2.fromOffset]
-       73 LOADN                            R15 0
+       73 LOADN                            R15 256
        74 LOADN                            R16 113
        75 CALL                             R14 2 1
        76 GETIMPORT                        R15 K27 [UDim2.fromOffset]
-       78 LOADN                            R16 0
+       78 LOADN                            R16 256
        79 LOADN                            R17 0
        80 CALL                             R15 2 1
        81 GETIMPORT                        R16 K30 [UDim.new]

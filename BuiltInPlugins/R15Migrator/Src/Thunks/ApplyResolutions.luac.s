@@ -11,7 +11,7 @@ PROTO_0:
        12 GETTABLEKS                       R8 R4 K3 ["_list"]
        14 LENGTH                           R7 R8
        15 LOADN                            R5 1
-       16 LOADN                            R6 255
+       16 LOADN                            R6 -1
        17 FORNPREP                         R5
        18 GETTABLEKS                       R9 R4 K3 ["_list"]
        20 GETTABLE                         R8 R9 R7

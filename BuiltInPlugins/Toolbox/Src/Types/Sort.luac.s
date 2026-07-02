@@ -48,43 +48,23 @@ MAIN:
        17 CALL                             R1 1 1
        18 NEWTABLE                         R2 8 0
        20 NEWTABLE                         R3 0 5
-       22 DUPTABLE                         R4 K10 [{"name", "sort"}]
-       23 LOADK                            R5 K11 ["Relevance"]
-       24 SETTABLEKS                       R5 R4 K8 ["name"]
-       26 LOADK                            R5 K11 ["Relevance"]
-       27 SETTABLEKS                       R5 R4 K9 ["sort"]
-       29 DUPTABLE                         R5 K10 [{"name", "sort"}]
-       30 LOADK                            R6 K12 ["MostTaken"]
-       31 SETTABLEKS                       R6 R5 K8 ["name"]
-       33 LOADK                            R6 K12 ["MostTaken"]
-       34 SETTABLEKS                       R6 R5 K9 ["sort"]
-       36 DUPTABLE                         R6 K10 [{"name", "sort"}]
-       37 LOADK                            R7 K13 ["Favorites"]
-       38 SETTABLEKS                       R7 R6 K8 ["name"]
-       40 LOADK                            R7 K13 ["Favorites"]
-       41 SETTABLEKS                       R7 R6 K9 ["sort"]
-       43 DUPTABLE                         R7 K10 [{"name", "sort"}]
-       44 LOADK                            R8 K14 ["Updated"]
-       45 SETTABLEKS                       R8 R7 K8 ["name"]
-       47 LOADK                            R8 K14 ["Updated"]
-       48 SETTABLEKS                       R8 R7 K9 ["sort"]
-       50 DUPTABLE                         R8 K10 [{"name", "sort"}]
-       51 LOADK                            R9 K15 ["Ratings"]
-       52 SETTABLEKS                       R9 R8 K8 ["name"]
-       54 LOADK                            R9 K15 ["Ratings"]
-       55 SETTABLEKS                       R9 R8 K9 ["sort"]
-       57 SETLIST                          R3 R4 5 [1]
-       59 SETTABLEKS                       R3 R2 K16 ["SORT_OPTIONS"]
-       61 DUPCLOSURE                       R3 K17 [PROTO_0]
-       62 CAPTURE                          VAL R1
-       63 SETTABLEKS                       R3 R2 K18 ["canSort"]
-       65 DUPCLOSURE                       R3 K19 [PROTO_1]
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R3 R2 K20 ["getDefaultSortForCategory"]
-       69 DUPCLOSURE                       R3 K21 [PROTO_2]
-       70 CAPTURE                          VAL R2
-       71 SETTABLEKS                       R3 R2 K22 ["getDefaultSortNameForCategory"]
-       73 DUPCLOSURE                       R3 K23 [PROTO_3]
-       74 CAPTURE                          VAL R2
-       75 SETTABLEKS                       R3 R2 K24 ["getDefaultSortForGroups"]
-       77 RETURN                           R2 1
+       22 DUPTABLE                         R4 K11 [{["name"] = "Relevance", ["sort"] = "Relevance"}]
+       23 DUPTABLE                         R5 K13 [{["name"] = "MostTaken", ["sort"] = "MostTaken"}]
+       24 DUPTABLE                         R6 K15 [{["name"] = "Favorites", ["sort"] = "Favorites"}]
+       25 DUPTABLE                         R7 K17 [{["name"] = "Updated", ["sort"] = "Updated"}]
+       26 DUPTABLE                         R8 K19 [{["name"] = "Ratings", ["sort"] = "Ratings"}]
+       27 SETLIST                          R3 R4 5 [1]
+       29 SETTABLEKS                       R3 R2 K20 ["SORT_OPTIONS"]
+       31 DUPCLOSURE                       R3 K21 [PROTO_0]
+       32 CAPTURE                          VAL R1
+       33 SETTABLEKS                       R3 R2 K22 ["canSort"]
+       35 DUPCLOSURE                       R3 K23 [PROTO_1]
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R3 R2 K24 ["getDefaultSortForCategory"]
+       39 DUPCLOSURE                       R3 K25 [PROTO_2]
+       40 CAPTURE                          VAL R2
+       41 SETTABLEKS                       R3 R2 K26 ["getDefaultSortNameForCategory"]
+       43 DUPCLOSURE                       R3 K27 [PROTO_3]
+       44 CAPTURE                          VAL R2
+       45 SETTABLEKS                       R3 R2 K28 ["getDefaultSortForGroups"]
+       47 RETURN                           R2 1

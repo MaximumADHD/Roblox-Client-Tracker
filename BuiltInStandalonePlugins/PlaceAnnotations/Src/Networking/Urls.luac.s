@@ -219,140 +219,138 @@ MAIN:
        87 DUPCLOSURE                       R9 K35 [PROTO_7]
        88 SETTABLEKS                       R9 R8 K9 ["Url"]
        90 SETTABLEKS                       R8 R7 K23 ["GROUPS_USERS_ROLES_URL"]
-       92 DUPTABLE                         R8 K27 [{"Prefix", "Url"}]
-       93 LOADK                            R9 K36 ["https://users.roblox.com/"]
-       94 SETTABLEKS                       R9 R8 K26 ["Prefix"]
-       96 DUPCLOSURE                       R9 K37 [PROTO_8]
-       97 SETTABLEKS                       R9 R8 K9 ["Url"]
-       99 SETTABLEKS                       R8 R7 K24 ["USERS_SEARCH_URL"]
-      101 GETTABLEKS                       R9 R7 K19 ["UNIVERSES_SEARCH_URL"]
-      103 GETTABLEKS                       R9 R9 K26 ["Prefix"]
-      105 GETTABLEKS                       R10 R7 K19 ["UNIVERSES_SEARCH_URL"]
-      107 GETTABLEKS                       R10 R10 K9 ["Url"]
-      109 LOADN                            R11 123
-      110 CALL                             R10 1 1
-      111 FASTCALL1                        TYPE R9 ; [+3]
-      112 MOVE                             R14 R9
-      113 GETIMPORT                        R13 K39 [type]
-      115 CALL                             R13 1 1
-      116 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      118 LOADB                            R12 0 +1
-      119 LOADB                            R12 1
-      120 FASTCALL2K                       ASSERT R12 K41 ; [+4]
-      122 LOADK                            R13 K41 ["Expected 'base' to be a string."]
-      123 GETIMPORT                        R11 K43 [assert]
-      125 CALL                             R11 2 0
-      126 FASTCALL1                        TYPE R10 ; [+3]
-      127 MOVE                             R14 R10
-      128 GETIMPORT                        R13 K39 [type]
-      130 CALL                             R13 1 1
-      131 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      133 LOADB                            R12 0 +1
-      134 LOADB                            R12 1
-      135 FASTCALL2K                       ASSERT R12 K44 ; [+4]
-      137 LOADK                            R13 K44 ["Expected 'path' to be a string."]
-      138 GETIMPORT                        R11 K43 [assert]
-      140 CALL                             R11 2 0
-      141 LENGTH                           R13 R9
-      142 NAMECALL                         R11 R9 K45 ["sub"]
-      144 CALL                             R11 2 1
-      145 JUMPIFEQKS                       R11 K46 ["/"] ; [+4]
-      147 MOVE                             R11 R9
-      148 LOADK                            R12 K46 ["/"]
-      149 CONCAT                           R9 R11 R12
-      150 GETIMPORT                        R11 K48 [string.format]
-      152 LOADK                            R12 K49 ["%s%s"]
-      153 MOVE                             R13 R9
-      154 MOVE                             R14 R10
-      155 CALL                             R11 3 1
-      156 MOVE                             R8 R11
-      157 SETTABLEKS                       R8 R7 K50 ["UNIVERSES_SEARCH_TEST_URL"]
-      159 GETTABLEKS                       R9 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
-      161 GETTABLEKS                       R9 R9 K26 ["Prefix"]
-      163 GETTABLEKS                       R10 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
-      165 GETTABLEKS                       R10 R10 K9 ["Url"]
-      167 LOADN                            R11 123
-      168 CALL                             R10 1 1
-      169 FASTCALL1                        TYPE R9 ; [+3]
-      170 MOVE                             R14 R9
-      171 GETIMPORT                        R13 K39 [type]
-      173 CALL                             R13 1 1
-      174 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      176 LOADB                            R12 0 +1
-      177 LOADB                            R12 1
-      178 FASTCALL2K                       ASSERT R12 K41 ; [+4]
-      180 LOADK                            R13 K41 ["Expected 'base' to be a string."]
-      181 GETIMPORT                        R11 K43 [assert]
-      183 CALL                             R11 2 0
-      184 FASTCALL1                        TYPE R10 ; [+3]
-      185 MOVE                             R14 R10
-      186 GETIMPORT                        R13 K39 [type]
-      188 CALL                             R13 1 1
-      189 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      191 LOADB                            R12 0 +1
-      192 LOADB                            R12 1
-      193 FASTCALL2K                       ASSERT R12 K44 ; [+4]
-      195 LOADK                            R13 K44 ["Expected 'path' to be a string."]
-      196 GETIMPORT                        R11 K43 [assert]
-      198 CALL                             R11 2 0
-      199 LENGTH                           R13 R9
-      200 NAMECALL                         R11 R9 K45 ["sub"]
-      202 CALL                             R11 2 1
-      203 JUMPIFEQKS                       R11 K46 ["/"] ; [+4]
-      205 MOVE                             R11 R9
-      206 LOADK                            R12 K46 ["/"]
-      207 CONCAT                           R9 R11 R12
-      208 GETIMPORT                        R11 K48 [string.format]
-      210 LOADK                            R12 K49 ["%s%s"]
-      211 MOVE                             R13 R9
-      212 MOVE                             R14 R10
-      213 CALL                             R11 3 1
-      214 MOVE                             R8 R11
-      215 SETTABLEKS                       R8 R7 K51 ["UNIVERSES_PERMISSIONS_TEST_URL"]
-      217 GETTABLEKS                       R9 R7 K22 ["GROUPS_INFO_URL"]
-      219 GETTABLEKS                       R9 R9 K26 ["Prefix"]
-      221 GETTABLEKS                       R10 R7 K22 ["GROUPS_INFO_URL"]
-      223 GETTABLEKS                       R10 R10 K9 ["Url"]
-      225 LOADN                            R11 57
-      226 CALL                             R10 1 1
-      227 FASTCALL1                        TYPE R9 ; [+3]
-      228 MOVE                             R14 R9
-      229 GETIMPORT                        R13 K39 [type]
-      231 CALL                             R13 1 1
-      232 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      234 LOADB                            R12 0 +1
-      235 LOADB                            R12 1
-      236 FASTCALL2K                       ASSERT R12 K41 ; [+4]
-      238 LOADK                            R13 K41 ["Expected 'base' to be a string."]
-      239 GETIMPORT                        R11 K43 [assert]
-      241 CALL                             R11 2 0
-      242 FASTCALL1                        TYPE R10 ; [+3]
-      243 MOVE                             R14 R10
-      244 GETIMPORT                        R13 K39 [type]
-      246 CALL                             R13 1 1
-      247 JUMPIFEQKS                       R13 K40 ["string"] ; [+2]
-      249 LOADB                            R12 0 +1
-      250 LOADB                            R12 1
-      251 FASTCALL2K                       ASSERT R12 K44 ; [+4]
-      253 LOADK                            R13 K44 ["Expected 'path' to be a string."]
-      254 GETIMPORT                        R11 K43 [assert]
-      256 CALL                             R11 2 0
-      257 LENGTH                           R13 R9
-      258 NAMECALL                         R11 R9 K45 ["sub"]
-      260 CALL                             R11 2 1
-      261 JUMPIFEQKS                       R11 K46 ["/"] ; [+4]
-      263 MOVE                             R11 R9
-      264 LOADK                            R12 K46 ["/"]
-      265 CONCAT                           R9 R11 R12
-      266 GETIMPORT                        R11 K48 [string.format]
-      268 LOADK                            R12 K49 ["%s%s"]
-      269 MOVE                             R13 R9
-      270 MOVE                             R14 R10
-      271 CALL                             R11 3 1
-      272 MOVE                             R8 R11
-      273 SETTABLEKS                       R8 R7 K52 ["GROUPS_INFO_TEST_URL"]
-      275 DUPTABLE                         R8 K56 [{"Urls", "composeUrl", "composeUrlWithArgs"}]
-      276 SETTABLEKS                       R7 R8 K53 ["Urls"]
-      278 SETTABLEKS                       R5 R8 K54 ["composeUrl"]
-      280 SETTABLEKS                       R6 R8 K55 ["composeUrlWithArgs"]
-      282 RETURN                           R8 1
+       92 DUPTABLE                         R8 K37 [{["Prefix"] = "https://users.roblox.com/", ["Url"]}]
+       93 DUPCLOSURE                       R9 K38 [PROTO_8]
+       94 SETTABLEKS                       R9 R8 K9 ["Url"]
+       96 SETTABLEKS                       R8 R7 K24 ["USERS_SEARCH_URL"]
+       98 GETTABLEKS                       R9 R7 K19 ["UNIVERSES_SEARCH_URL"]
+      100 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      102 GETTABLEKS                       R10 R7 K19 ["UNIVERSES_SEARCH_URL"]
+      104 GETTABLEKS                       R10 R10 K9 ["Url"]
+      106 LOADN                            R11 123
+      107 CALL                             R10 1 1
+      108 FASTCALL1                        TYPE R9 ; [+3]
+      109 MOVE                             R14 R9
+      110 GETIMPORT                        R13 K40 [type]
+      112 CALL                             R13 1 1
+      113 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      115 LOADB                            R12 0 +1
+      116 LOADB                            R12 1
+      117 FASTCALL2K                       ASSERT R12 K42 ; [+4]
+      119 LOADK                            R13 K42 ["Expected 'base' to be a string."]
+      120 GETIMPORT                        R11 K44 [assert]
+      122 CALL                             R11 2 0
+      123 FASTCALL1                        TYPE R10 ; [+3]
+      124 MOVE                             R14 R10
+      125 GETIMPORT                        R13 K40 [type]
+      127 CALL                             R13 1 1
+      128 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      130 LOADB                            R12 0 +1
+      131 LOADB                            R12 1
+      132 FASTCALL2K                       ASSERT R12 K45 ; [+4]
+      134 LOADK                            R13 K45 ["Expected 'path' to be a string."]
+      135 GETIMPORT                        R11 K44 [assert]
+      137 CALL                             R11 2 0
+      138 LENGTH                           R13 R9
+      139 NAMECALL                         R11 R9 K46 ["sub"]
+      141 CALL                             R11 2 1
+      142 JUMPIFEQKS                       R11 K47 ["/"] ; [+4]
+      144 MOVE                             R11 R9
+      145 LOADK                            R12 K47 ["/"]
+      146 CONCAT                           R9 R11 R12
+      147 GETIMPORT                        R11 K49 [string.format]
+      149 LOADK                            R12 K50 ["%s%s"]
+      150 MOVE                             R13 R9
+      151 MOVE                             R14 R10
+      152 CALL                             R11 3 1
+      153 MOVE                             R8 R11
+      154 SETTABLEKS                       R8 R7 K51 ["UNIVERSES_SEARCH_TEST_URL"]
+      156 GETTABLEKS                       R9 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
+      158 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      160 GETTABLEKS                       R10 R7 K18 ["UNIVERSES_PERMISSIONS_URL"]
+      162 GETTABLEKS                       R10 R10 K9 ["Url"]
+      164 LOADN                            R11 123
+      165 CALL                             R10 1 1
+      166 FASTCALL1                        TYPE R9 ; [+3]
+      167 MOVE                             R14 R9
+      168 GETIMPORT                        R13 K40 [type]
+      170 CALL                             R13 1 1
+      171 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      173 LOADB                            R12 0 +1
+      174 LOADB                            R12 1
+      175 FASTCALL2K                       ASSERT R12 K42 ; [+4]
+      177 LOADK                            R13 K42 ["Expected 'base' to be a string."]
+      178 GETIMPORT                        R11 K44 [assert]
+      180 CALL                             R11 2 0
+      181 FASTCALL1                        TYPE R10 ; [+3]
+      182 MOVE                             R14 R10
+      183 GETIMPORT                        R13 K40 [type]
+      185 CALL                             R13 1 1
+      186 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      188 LOADB                            R12 0 +1
+      189 LOADB                            R12 1
+      190 FASTCALL2K                       ASSERT R12 K45 ; [+4]
+      192 LOADK                            R13 K45 ["Expected 'path' to be a string."]
+      193 GETIMPORT                        R11 K44 [assert]
+      195 CALL                             R11 2 0
+      196 LENGTH                           R13 R9
+      197 NAMECALL                         R11 R9 K46 ["sub"]
+      199 CALL                             R11 2 1
+      200 JUMPIFEQKS                       R11 K47 ["/"] ; [+4]
+      202 MOVE                             R11 R9
+      203 LOADK                            R12 K47 ["/"]
+      204 CONCAT                           R9 R11 R12
+      205 GETIMPORT                        R11 K49 [string.format]
+      207 LOADK                            R12 K50 ["%s%s"]
+      208 MOVE                             R13 R9
+      209 MOVE                             R14 R10
+      210 CALL                             R11 3 1
+      211 MOVE                             R8 R11
+      212 SETTABLEKS                       R8 R7 K52 ["UNIVERSES_PERMISSIONS_TEST_URL"]
+      214 GETTABLEKS                       R9 R7 K22 ["GROUPS_INFO_URL"]
+      216 GETTABLEKS                       R9 R9 K26 ["Prefix"]
+      218 GETTABLEKS                       R10 R7 K22 ["GROUPS_INFO_URL"]
+      220 GETTABLEKS                       R10 R10 K9 ["Url"]
+      222 LOADN                            R11 12345
+      223 CALL                             R10 1 1
+      224 FASTCALL1                        TYPE R9 ; [+3]
+      225 MOVE                             R14 R9
+      226 GETIMPORT                        R13 K40 [type]
+      228 CALL                             R13 1 1
+      229 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      231 LOADB                            R12 0 +1
+      232 LOADB                            R12 1
+      233 FASTCALL2K                       ASSERT R12 K42 ; [+4]
+      235 LOADK                            R13 K42 ["Expected 'base' to be a string."]
+      236 GETIMPORT                        R11 K44 [assert]
+      238 CALL                             R11 2 0
+      239 FASTCALL1                        TYPE R10 ; [+3]
+      240 MOVE                             R14 R10
+      241 GETIMPORT                        R13 K40 [type]
+      243 CALL                             R13 1 1
+      244 JUMPIFEQKS                       R13 K41 ["string"] ; [+2]
+      246 LOADB                            R12 0 +1
+      247 LOADB                            R12 1
+      248 FASTCALL2K                       ASSERT R12 K45 ; [+4]
+      250 LOADK                            R13 K45 ["Expected 'path' to be a string."]
+      251 GETIMPORT                        R11 K44 [assert]
+      253 CALL                             R11 2 0
+      254 LENGTH                           R13 R9
+      255 NAMECALL                         R11 R9 K46 ["sub"]
+      257 CALL                             R11 2 1
+      258 JUMPIFEQKS                       R11 K47 ["/"] ; [+4]
+      260 MOVE                             R11 R9
+      261 LOADK                            R12 K47 ["/"]
+      262 CONCAT                           R9 R11 R12
+      263 GETIMPORT                        R11 K49 [string.format]
+      265 LOADK                            R12 K50 ["%s%s"]
+      266 MOVE                             R13 R9
+      267 MOVE                             R14 R10
+      268 CALL                             R11 3 1
+      269 MOVE                             R8 R11
+      270 SETTABLEKS                       R8 R7 K53 ["GROUPS_INFO_TEST_URL"]
+      272 DUPTABLE                         R8 K57 [{"Urls", "composeUrl", "composeUrlWithArgs"}]
+      273 SETTABLEKS                       R7 R8 K54 ["Urls"]
+      275 SETTABLEKS                       R5 R8 K55 ["composeUrl"]
+      277 SETTABLEKS                       R6 R8 K56 ["composeUrlWithArgs"]
+      279 RETURN                           R8 1

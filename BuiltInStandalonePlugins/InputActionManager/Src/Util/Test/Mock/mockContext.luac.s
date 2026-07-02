@@ -31,41 +31,37 @@ PROTO_0:
        40 GETUPVAL                         R10 3
        41 GETTABLEKS                       R10 R10 K11 ["createElement"]
        43 GETUPVAL                         R11 5
-       44 DUPTABLE                         R12 K16 [{"theme", "device"}]
-       45 LOADK                            R13 K17 ["Dark"]
-       46 SETTABLEKS                       R13 R12 K14 ["theme"]
-       48 LOADK                            R13 K18 ["Desktop"]
-       49 SETTABLEKS                       R13 R12 K15 ["device"]
-       51 CALL                             R10 2 1
-       52 GETUPVAL                         R11 3
-       53 GETTABLEKS                       R11 R11 K11 ["createElement"]
-       55 GETUPVAL                         R12 6
-       56 GETTABLEKS                       R12 R12 K19 ["Provider"]
-       58 DUPTABLE                         R13 K21 [{"localization"}]
-       59 GETUPVAL                         R14 7
-       60 SETTABLEKS                       R14 R13 K20 ["localization"]
-       62 CALL                             R11 2 1
-       63 GETUPVAL                         R12 3
-       64 GETTABLEKS                       R12 R12 K11 ["createElement"]
-       66 GETUPVAL                         R13 8
-       67 GETTABLEKS                       R13 R13 K19 ["Provider"]
-       69 DUPTABLE                         R14 K23 [{"value"}]
-       70 SETTABLEKS                       R1 R14 K22 ["value"]
-       72 CALL                             R12 2 1
-       73 GETUPVAL                         R13 3
-       74 GETTABLEKS                       R13 R13 K11 ["createElement"]
-       76 GETUPVAL                         R14 9
-       77 GETTABLEKS                       R14 R14 K19 ["Provider"]
-       79 DUPTABLE                         R15 K23 [{"value"}]
-       80 SETTABLEKS                       R2 R15 K22 ["value"]
-       82 CALL                             R13 2 -1
-       83 SETLIST                          R9 R10 -1 [1]
-       85 SETTABLEKS                       R9 R8 K12 ["providers"]
-       87 MOVE                             R9 R0
-       88 CALL                             R6 3 1
-       89 SETTABLEKS                       R6 R5 K9 ["ContextStack"]
-       91 CALL                             R3 2 -1
-       92 RETURN                           R3 -1
+       44 DUPTABLE                         R12 K18 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       45 CALL                             R10 2 1
+       46 GETUPVAL                         R11 3
+       47 GETTABLEKS                       R11 R11 K11 ["createElement"]
+       49 GETUPVAL                         R12 6
+       50 GETTABLEKS                       R12 R12 K19 ["Provider"]
+       52 DUPTABLE                         R13 K21 [{"localization"}]
+       53 GETUPVAL                         R14 7
+       54 SETTABLEKS                       R14 R13 K20 ["localization"]
+       56 CALL                             R11 2 1
+       57 GETUPVAL                         R12 3
+       58 GETTABLEKS                       R12 R12 K11 ["createElement"]
+       60 GETUPVAL                         R13 8
+       61 GETTABLEKS                       R13 R13 K19 ["Provider"]
+       63 DUPTABLE                         R14 K23 [{"value"}]
+       64 SETTABLEKS                       R1 R14 K22 ["value"]
+       66 CALL                             R12 2 1
+       67 GETUPVAL                         R13 3
+       68 GETTABLEKS                       R13 R13 K11 ["createElement"]
+       70 GETUPVAL                         R14 9
+       71 GETTABLEKS                       R14 R14 K19 ["Provider"]
+       73 DUPTABLE                         R15 K23 [{"value"}]
+       74 SETTABLEKS                       R2 R15 K22 ["value"]
+       76 CALL                             R13 2 -1
+       77 SETLIST                          R9 R10 -1 [1]
+       79 SETTABLEKS                       R9 R8 K12 ["providers"]
+       81 MOVE                             R9 R0
+       82 CALL                             R6 3 1
+       83 SETTABLEKS                       R6 R5 K9 ["ContextStack"]
+       85 CALL                             R3 2 -1
+       86 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -143,23 +139,19 @@ MAIN:
       126 SETLIST                          R16 R17 -1 [1]
       128 GETTABLEKS                       R17 R8 K16 ["Localization"]
       130 GETTABLEKS                       R17 R17 K35 ["new"]
-      132 DUPTABLE                         R18 K40 [{"stringResourceTable", "translationResourceTable", "pluginName", "overrideLocaleId"}]
+      132 DUPTABLE                         R18 K41 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "InputActionManager", ["overrideLocaleId"] = "en-us"}]
       133 SETTABLEKS                       R11 R18 K36 ["stringResourceTable"]
       135 SETTABLEKS                       R12 R18 K37 ["translationResourceTable"]
-      137 LOADK                            R19 K2 ["InputActionManager"]
-      138 SETTABLEKS                       R19 R18 K38 ["pluginName"]
-      140 LOADK                            R19 K41 ["en-us"]
-      141 SETTABLEKS                       R19 R18 K39 ["overrideLocaleId"]
-      143 CALL                             R17 1 1
-      144 DUPCLOSURE                       R18 K42 [PROTO_0]
-      145 CAPTURE                          VAL R13
-      146 CAPTURE                          VAL R4
-      147 CAPTURE                          VAL R16
-      148 CAPTURE                          VAL R1
-      149 CAPTURE                          VAL R2
-      150 CAPTURE                          VAL R7
-      151 CAPTURE                          VAL R8
-      152 CAPTURE                          VAL R17
-      153 CAPTURE                          VAL R10
-      154 CAPTURE                          VAL R9
-      155 RETURN                           R18 1
+      137 CALL                             R17 1 1
+      138 DUPCLOSURE                       R18 K42 [PROTO_0]
+      139 CAPTURE                          VAL R13
+      140 CAPTURE                          VAL R4
+      141 CAPTURE                          VAL R16
+      142 CAPTURE                          VAL R1
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          VAL R7
+      145 CAPTURE                          VAL R8
+      146 CAPTURE                          VAL R17
+      147 CAPTURE                          VAL R10
+      148 CAPTURE                          VAL R9
+      149 RETURN                           R18 1

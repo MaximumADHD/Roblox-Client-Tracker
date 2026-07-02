@@ -22,78 +22,72 @@ PROTO_2:
         3 GETUPVAL                         R1 1
         4 NAMECALL                         R1 R1 K1 ["GetUri"]
         6 CALL                             R1 1 1
-        7 DUPTABLE                         R2 K4 [{"Category", "ItemId"}]
-        8 LOADK                            R3 K5 ["Panels"]
-        9 SETTABLEKS                       R3 R2 K2 ["Category"]
-       11 GETUPVAL                         R3 2
-       12 SETTABLEKS                       R3 R2 K3 ["ItemId"]
-       14 CALL                             R0 2 -1
-       15 RETURN                           R0 -1
+        7 DUPTABLE                         R2 K5 [{["Category"] = "Panels", ["ItemId"]}]
+        8 GETUPVAL                         R3 2
+        9 SETTABLEKS                       R3 R2 K4 ["ItemId"]
+       11 CALL                             R0 2 -1
+       12 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 1
         1 GETUPVAL                         R2 2
-        2 DUPTABLE                         R3 K6 [{"Id", "InitialEnabled", "Modal", "Size", "DisableTitleBar", "TitleBarColor"}]
+        2 DUPTABLE                         R3 K7 [{[1], ["InitialEnabled"] = True, ["Modal"] = True, ["Size"], ["DisableTitleBar"], ["TitleBarColor"]}]
         3 GETUPVAL                         R4 2
         4 SETTABLEKS                       R4 R3 K0 ["Id"]
-        6 LOADB                            R4 1
-        7 SETTABLEKS                       R4 R3 K1 ["InitialEnabled"]
-        9 LOADB                            R4 1
-       10 SETTABLEKS                       R4 R3 K2 ["Modal"]
-       12 GETIMPORT                        R4 K9 [Vector2.max]
-       14 GETUPVAL                         R5 3
-       15 GETTABLEKS                       R5 R5 K10 ["getSize"]
-       17 LOADB                            R6 0
-       18 CALL                             R5 1 1
-       19 GETIMPORT                        R6 K12 [Vector2.new]
-       21 LOADN                            R7 1
-       22 LOADN                            R8 1
-       23 CALL                             R6 2 -1
-       24 CALL                             R4 -1 1
-       25 SETTABLEKS                       R4 R3 K3 ["Size"]
-       27 GETUPVAL                         R5 4
-       28 JUMPIFNOT                        R5 ; [+8]
-       29 GETUPVAL                         R5 3
-       30 GETTABLEKS                       R5 R5 K13 ["onClose"]
-       32 JUMPIFEQKNIL                     R5 ; [+2]
-       34 LOADB                            R4 0 +1
-       35 LOADB                            R4 1
-       36 JUMP                             ; [+1]
-       37 LOADB                            R4 1
-       38 SETTABLEKS                       R4 R3 K4 ["DisableTitleBar"]
-       40 GETUPVAL                         R5 5
-       41 JUMPIFNOT                        R5 ; [+2]
-       42 GETUPVAL                         R4 6
-       43 JUMP                             ; [+1]
-       44 LOADNIL                          R4
-       45 SETTABLEKS                       R4 R3 K5 ["TitleBarColor"]
-       47 NAMECALL                         R0 R0 K14 ["CreateQWidgetPluginGui"]
-       49 CALL                             R0 3 1
-       50 SETUPVAL                         R0 0
-       51 GETUPVAL                         R0 4
-       52 JUMPIFNOT                        R0 ; [+17]
-       53 GETUPVAL                         R0 0
-       54 LOADK                            R2 K15 ["PluginGui"]
-       55 NAMECALL                         R0 R0 K16 ["IsA"]
-       57 CALL                             R0 2 1
-       58 JUMPIFNOT                        R0 ; [+11]
-       59 GETUPVAL                         R0 3
-       60 GETTABLEKS                       R0 R0 K13 ["onClose"]
-       62 JUMPIFNOT                        R0 ; [+7]
-       63 GETUPVAL                         R0 0
-       64 GETUPVAL                         R2 3
-       65 GETTABLEKS                       R2 R2 K13 ["onClose"]
-       67 NAMECALL                         R0 R0 K17 ["BindToClose"]
-       69 CALL                             R0 2 0
-       70 GETUPVAL                         R0 7
-       71 JUMPIFNOT                        R0 ; [+5]
-       72 GETUPVAL                         R0 0
-       73 GETIMPORT                        R1 K21 [Enum.ZIndexBehavior.Sibling]
-       75 SETTABLEKS                       R1 R0 K19 ["ZIndexBehavior"]
-       77 GETUPVAL                         R0 8
-       78 GETUPVAL                         R1 0
-       79 CALL                             R0 1 0
-       80 RETURN                           R0 0
+        6 GETIMPORT                        R4 K10 [Vector2.max]
+        8 GETUPVAL                         R5 3
+        9 GETTABLEKS                       R5 R5 K11 ["getSize"]
+       11 LOADB                            R6 0
+       12 CALL                             R5 1 1
+       13 GETIMPORT                        R6 K13 [Vector2.new]
+       15 LOADN                            R7 1
+       16 LOADN                            R8 1
+       17 CALL                             R6 2 -1
+       18 CALL                             R4 -1 1
+       19 SETTABLEKS                       R4 R3 K4 ["Size"]
+       21 GETUPVAL                         R5 4
+       22 JUMPIFNOT                        R5 ; [+8]
+       23 GETUPVAL                         R5 3
+       24 GETTABLEKS                       R5 R5 K14 ["onClose"]
+       26 JUMPIFEQKNIL                     R5 ; [+2]
+       28 LOADB                            R4 0 +1
+       29 LOADB                            R4 1
+       30 JUMP                             ; [+1]
+       31 LOADB                            R4 1
+       32 SETTABLEKS                       R4 R3 K5 ["DisableTitleBar"]
+       34 GETUPVAL                         R5 5
+       35 JUMPIFNOT                        R5 ; [+2]
+       36 GETUPVAL                         R4 6
+       37 JUMP                             ; [+1]
+       38 LOADNIL                          R4
+       39 SETTABLEKS                       R4 R3 K6 ["TitleBarColor"]
+       41 NAMECALL                         R0 R0 K15 ["CreateQWidgetPluginGui"]
+       43 CALL                             R0 3 1
+       44 SETUPVAL                         R0 0
+       45 GETUPVAL                         R0 4
+       46 JUMPIFNOT                        R0 ; [+17]
+       47 GETUPVAL                         R0 0
+       48 LOADK                            R2 K16 ["PluginGui"]
+       49 NAMECALL                         R0 R0 K17 ["IsA"]
+       51 CALL                             R0 2 1
+       52 JUMPIFNOT                        R0 ; [+11]
+       53 GETUPVAL                         R0 3
+       54 GETTABLEKS                       R0 R0 K14 ["onClose"]
+       56 JUMPIFNOT                        R0 ; [+7]
+       57 GETUPVAL                         R0 0
+       58 GETUPVAL                         R2 3
+       59 GETTABLEKS                       R2 R2 K14 ["onClose"]
+       61 NAMECALL                         R0 R0 K18 ["BindToClose"]
+       63 CALL                             R0 2 0
+       64 GETUPVAL                         R0 7
+       65 JUMPIFNOT                        R0 ; [+5]
+       66 GETUPVAL                         R0 0
+       67 GETIMPORT                        R1 K22 [Enum.ZIndexBehavior.Sibling]
+       69 SETTABLEKS                       R1 R0 K20 ["ZIndexBehavior"]
+       71 GETUPVAL                         R0 8
+       72 GETUPVAL                         R1 0
+       73 CALL                             R0 1 0
+       74 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R0 K2 [task.cancel]

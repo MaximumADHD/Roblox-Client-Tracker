@@ -1,19 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K4 [{"id", "text", "statusTip", "allowBinding"}]
+        0 DUPTABLE                         R3 K5 [{[1], ["text"], ["statusTip"], ["allowBinding"] = True}]
         1 SETTABLEKS                       R2 R3 K0 ["id"]
-        3 LOADK                            R6 K5 ["ShortcutNames"]
+        3 LOADK                            R6 K6 ["ShortcutNames"]
         4 MOVE                             R7 R2
-        5 NAMECALL                         R4 R1 K6 ["getText"]
+        5 NAMECALL                         R4 R1 K7 ["getText"]
         7 CALL                             R4 3 1
         8 SETTABLEKS                       R4 R3 K1 ["text"]
-       10 LOADK                            R6 K7 ["ShortcutDescriptions"]
+       10 LOADK                            R6 K8 ["ShortcutDescriptions"]
        11 MOVE                             R7 R2
-       12 NAMECALL                         R4 R1 K6 ["getText"]
+       12 NAMECALL                         R4 R1 K7 ["getText"]
        14 CALL                             R4 3 1
        15 SETTABLEKS                       R4 R3 K2 ["statusTip"]
-       17 LOADB                            R4 1
-       18 SETTABLEKS                       R4 R3 K3 ["allowBinding"]
-       20 RETURN                           R3 1
+       17 RETURN                           R3 1
 
 PROTO_1:
         0 NEWTABLE                         R2 0 0
@@ -21,39 +19,37 @@ PROTO_1:
         4 GETUPVAL                         R4 0
         5 CALL                             R3 1 3
         6 FORGPREP_INEXT                   R3
-        7 DUPTABLE                         R8 K6 [{"id", "text", "statusTip", "allowBinding"}]
+        7 DUPTABLE                         R8 K7 [{["id"], ["text"], ["statusTip"], ["allowBinding"] = True}]
         8 SETTABLEKS                       R7 R8 K2 ["id"]
-       10 LOADK                            R11 K7 ["ShortcutNames"]
+       10 LOADK                            R11 K8 ["ShortcutNames"]
        11 MOVE                             R12 R7
-       12 NAMECALL                         R9 R1 K8 ["getText"]
+       12 NAMECALL                         R9 R1 K9 ["getText"]
        14 CALL                             R9 3 1
        15 SETTABLEKS                       R9 R8 K3 ["text"]
-       17 LOADK                            R11 K9 ["ShortcutDescriptions"]
+       17 LOADK                            R11 K10 ["ShortcutDescriptions"]
        18 MOVE                             R12 R7
-       19 NAMECALL                         R9 R1 K8 ["getText"]
+       19 NAMECALL                         R9 R1 K9 ["getText"]
        21 CALL                             R9 3 1
        22 SETTABLEKS                       R9 R8 K4 ["statusTip"]
-       24 LOADB                            R9 1
-       25 SETTABLEKS                       R9 R8 K5 ["allowBinding"]
-       27 SETTABLE                         R8 R2 R7
-       28 FORGLOOP                         R3 2 [inext] ; [-22]
-       30 GETTABLEKS                       R3 R2 K10 ["MoveTool"]
-       32 GETUPVAL                         R4 1
-       33 GETTABLEKS                       R4 R4 K11 ["Move"]
-       35 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
-       37 GETTABLEKS                       R3 R2 K13 ["AddPointMode"]
-       39 GETUPVAL                         R4 1
-       40 GETTABLEKS                       R4 R4 K14 ["AddPoint"]
-       42 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
-       44 GETTABLEKS                       R3 R2 K15 ["AddTangentMode"]
-       46 GETUPVAL                         R4 1
-       47 GETTABLEKS                       R4 R4 K16 ["AddTangent"]
-       49 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
-       51 GETTABLEKS                       R3 R2 K17 ["DoneEditing"]
-       53 GETUPVAL                         R4 1
-       54 GETTABLEKS                       R4 R4 K18 ["Done"]
-       56 SETTABLEKS                       R4 R3 K12 ["defaultShortcut"]
-       58 RETURN                           R2 1
+       24 SETTABLE                         R8 R2 R7
+       25 FORGLOOP                         R3 2 [inext] ; [-19]
+       27 GETTABLEKS                       R3 R2 K11 ["MoveTool"]
+       29 GETUPVAL                         R4 1
+       30 GETTABLEKS                       R4 R4 K12 ["Move"]
+       32 SETTABLEKS                       R4 R3 K13 ["defaultShortcut"]
+       34 GETTABLEKS                       R3 R2 K14 ["AddPointMode"]
+       36 GETUPVAL                         R4 1
+       37 GETTABLEKS                       R4 R4 K15 ["AddPoint"]
+       39 SETTABLEKS                       R4 R3 K13 ["defaultShortcut"]
+       41 GETTABLEKS                       R3 R2 K16 ["AddTangentMode"]
+       43 GETUPVAL                         R4 1
+       44 GETTABLEKS                       R4 R4 K17 ["AddTangent"]
+       46 SETTABLEKS                       R4 R3 K13 ["defaultShortcut"]
+       48 GETTABLEKS                       R3 R2 K18 ["DoneEditing"]
+       50 GETUPVAL                         R4 1
+       51 GETTABLEKS                       R4 R4 K19 ["Done"]
+       53 SETTABLEKS                       R4 R3 K13 ["defaultShortcut"]
+       55 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

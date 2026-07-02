@@ -62,105 +62,99 @@ PROTO_1:
        50 GETTABLEKS                       R12 R12 K9 ["createElement"]
        52 GETUPVAL                         R13 4
        53 GETTABLEKS                       R13 R13 K10 ["View"]
-       55 DUPTABLE                         R14 K16 [{"tag", "onActivated", "onStateChanged", "isDisabled", "LayoutOrder"}]
-       56 LOADK                            R15 K17 ["size-full-0 auto-y row align-y-top gap-small padding-small radius-small"]
-       57 SETTABLEKS                       R15 R14 K11 ["tag"]
-       59 GETTABLEKS                       R15 R2 K18 ["toggle"]
-       61 SETTABLEKS                       R15 R14 K12 ["onActivated"]
-       63 SETTABLEKS                       R11 R14 K13 ["onStateChanged"]
-       65 GETTABLEKS                       R15 R6 K19 ["isHovered"]
-       67 SETTABLEKS                       R15 R14 K14 ["isDisabled"]
-       69 GETTABLEKS                       R15 R0 K15 ["LayoutOrder"]
-       71 SETTABLEKS                       R15 R14 K15 ["LayoutOrder"]
-       73 DUPTABLE                         R15 K24 [{"ExpandButton", "VersionChip", "VersionNote", "OverflowMenu"}]
-       74 GETUPVAL                         R16 2
-       75 GETTABLEKS                       R16 R16 K9 ["createElement"]
-       77 GETUPVAL                         R17 4
-       78 GETTABLEKS                       R17 R17 K25 ["IconButton"]
-       80 DUPTABLE                         R18 K29 [{"onActivated", "icon", "size", "testId", "isDisabled", "LayoutOrder"}]
-       81 GETTABLEKS                       R19 R2 K18 ["toggle"]
-       83 SETTABLEKS                       R19 R18 K12 ["onActivated"]
-       85 JUMPIF                           R5 ; [+2]
-       86 LOADNIL                          R19
-       87 JUMP                             ; [+18]
-       88 GETTABLEKS                       R20 R2 K30 ["enabled"]
-       90 JUMPIFNOT                        R20 ; [+8]
-       91 GETUPVAL                         R19 4
-       92 GETTABLEKS                       R19 R19 K31 ["Enums"]
-       94 GETTABLEKS                       R19 R19 K32 ["IconName"]
-       96 GETTABLEKS                       R19 R19 K33 ["ChevronSmallUp"]
-       98 JUMP                             ; [+7]
-       99 GETUPVAL                         R19 4
-      100 GETTABLEKS                       R19 R19 K31 ["Enums"]
-      102 GETTABLEKS                       R19 R19 K32 ["IconName"]
-      104 GETTABLEKS                       R19 R19 K34 ["ChevronSmallDown"]
-      106 SETTABLEKS                       R19 R18 K26 ["icon"]
-      108 GETUPVAL                         R19 4
-      109 GETTABLEKS                       R19 R19 K31 ["Enums"]
-      111 GETTABLEKS                       R19 R19 K35 ["InputSize"]
-      113 GETTABLEKS                       R19 R19 K36 ["XSmall"]
-      115 SETTABLEKS                       R19 R18 K27 ["size"]
-      117 LOADK                            R19 K37 ["--place-version-item-expand-button"]
-      118 SETTABLEKS                       R19 R18 K28 ["testId"]
-      120 NOT                              R19 R5
-      121 SETTABLEKS                       R19 R18 K14 ["isDisabled"]
-      123 MOVE                             R19 R1
-      124 CALL                             R19 0 1
-      125 SETTABLEKS                       R19 R18 K15 ["LayoutOrder"]
-      127 CALL                             R16 2 1
-      128 SETTABLEKS                       R16 R15 K20 ["ExpandButton"]
-      130 GETUPVAL                         R16 2
-      131 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      133 GETUPVAL                         R17 4
-      134 GETTABLEKS                       R17 R17 K38 ["Chip"]
-      136 DUPTABLE                         R18 K40 [{"onActivated", "size", "text", "LayoutOrder"}]
-      137 LOADNIL                          R19
-      138 SETTABLEKS                       R19 R18 K12 ["onActivated"]
-      140 GETUPVAL                         R19 4
-      141 GETTABLEKS                       R19 R19 K31 ["Enums"]
-      143 GETTABLEKS                       R19 R19 K41 ["ChipSize"]
-      145 GETTABLEKS                       R19 R19 K42 ["Small"]
-      147 SETTABLEKS                       R19 R18 K27 ["size"]
-      149 LOADK                            R20 K43 ["v%*"]
-      150 GETTABLEKS                       R22 R0 K0 ["metadata"]
-      152 GETTABLEKS                       R22 R22 K44 ["version"]
-      154 NAMECALL                         R20 R20 K45 ["format"]
-      156 CALL                             R20 2 1
-      157 MOVE                             R19 R20
-      158 SETTABLEKS                       R19 R18 K39 ["text"]
-      160 MOVE                             R19 R1
-      161 CALL                             R19 0 1
-      162 SETTABLEKS                       R19 R18 K15 ["LayoutOrder"]
-      164 CALL                             R16 2 1
-      165 SETTABLEKS                       R16 R15 K21 ["VersionChip"]
-      167 GETUPVAL                         R16 2
-      168 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      170 GETUPVAL                         R17 5
-      171 DUPTABLE                         R18 K47 [{"metadata", "isExpanded", "LayoutOrder"}]
-      172 GETTABLEKS                       R19 R0 K0 ["metadata"]
-      174 SETTABLEKS                       R19 R18 K0 ["metadata"]
-      176 GETTABLEKS                       R19 R2 K30 ["enabled"]
-      178 SETTABLEKS                       R19 R18 K46 ["isExpanded"]
-      180 MOVE                             R19 R1
-      181 CALL                             R19 0 1
-      182 SETTABLEKS                       R19 R18 K15 ["LayoutOrder"]
-      184 CALL                             R16 2 1
-      185 SETTABLEKS                       R16 R15 K22 ["VersionNote"]
-      187 GETUPVAL                         R16 2
-      188 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      190 GETUPVAL                         R17 6
-      191 DUPTABLE                         R18 K49 [{"metadata", "isVisible", "isDisabled", "LayoutOrder"}]
-      192 GETTABLEKS                       R19 R0 K0 ["metadata"]
-      194 SETTABLEKS                       R19 R18 K0 ["metadata"]
-      196 SETTABLEKS                       R7 R18 K48 ["isVisible"]
-      198 SETTABLEKS                       R9 R18 K14 ["isDisabled"]
-      200 MOVE                             R19 R1
-      201 CALL                             R19 0 1
-      202 SETTABLEKS                       R19 R18 K15 ["LayoutOrder"]
-      204 CALL                             R16 2 1
-      205 SETTABLEKS                       R16 R15 K23 ["OverflowMenu"]
-      207 CALL                             R12 3 -1
-      208 RETURN                           R12 -1
+       55 DUPTABLE                         R14 K17 [{["tag"] = "row align-y-top gap-small size-full-0 auto-y padding-small radius-small", ["onActivated"], ["onStateChanged"], ["isDisabled"], ["LayoutOrder"]}]
+       56 GETTABLEKS                       R15 R2 K18 ["toggle"]
+       58 SETTABLEKS                       R15 R14 K13 ["onActivated"]
+       60 SETTABLEKS                       R11 R14 K14 ["onStateChanged"]
+       62 GETTABLEKS                       R15 R6 K19 ["isHovered"]
+       64 SETTABLEKS                       R15 R14 K15 ["isDisabled"]
+       66 GETTABLEKS                       R15 R0 K16 ["LayoutOrder"]
+       68 SETTABLEKS                       R15 R14 K16 ["LayoutOrder"]
+       70 DUPTABLE                         R15 K24 [{"ExpandButton", "VersionChip", "VersionNote", "OverflowMenu"}]
+       71 GETUPVAL                         R16 2
+       72 GETTABLEKS                       R16 R16 K9 ["createElement"]
+       74 GETUPVAL                         R17 4
+       75 GETTABLEKS                       R17 R17 K25 ["IconButton"]
+       77 DUPTABLE                         R18 K30 [{["onActivated"], ["icon"], ["size"], ["testId"] = "--place-version-item-expand-button", ["isDisabled"], ["LayoutOrder"]}]
+       78 GETTABLEKS                       R19 R2 K18 ["toggle"]
+       80 SETTABLEKS                       R19 R18 K13 ["onActivated"]
+       82 JUMPIF                           R5 ; [+2]
+       83 LOADNIL                          R19
+       84 JUMP                             ; [+18]
+       85 GETTABLEKS                       R20 R2 K31 ["enabled"]
+       87 JUMPIFNOT                        R20 ; [+8]
+       88 GETUPVAL                         R19 4
+       89 GETTABLEKS                       R19 R19 K32 ["Enums"]
+       91 GETTABLEKS                       R19 R19 K33 ["IconName"]
+       93 GETTABLEKS                       R19 R19 K34 ["ChevronSmallUp"]
+       95 JUMP                             ; [+7]
+       96 GETUPVAL                         R19 4
+       97 GETTABLEKS                       R19 R19 K32 ["Enums"]
+       99 GETTABLEKS                       R19 R19 K33 ["IconName"]
+      101 GETTABLEKS                       R19 R19 K35 ["ChevronSmallDown"]
+      103 SETTABLEKS                       R19 R18 K26 ["icon"]
+      105 GETUPVAL                         R19 4
+      106 GETTABLEKS                       R19 R19 K32 ["Enums"]
+      108 GETTABLEKS                       R19 R19 K36 ["InputSize"]
+      110 GETTABLEKS                       R19 R19 K37 ["XSmall"]
+      112 SETTABLEKS                       R19 R18 K27 ["size"]
+      114 NOT                              R19 R5
+      115 SETTABLEKS                       R19 R18 K15 ["isDisabled"]
+      117 MOVE                             R19 R1
+      118 CALL                             R19 0 1
+      119 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      121 CALL                             R16 2 1
+      122 SETTABLEKS                       R16 R15 K20 ["ExpandButton"]
+      124 GETUPVAL                         R16 2
+      125 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      127 GETUPVAL                         R17 4
+      128 GETTABLEKS                       R17 R17 K38 ["Chip"]
+      130 DUPTABLE                         R18 K41 [{["onActivated"] = , ["size"], ["text"], ["LayoutOrder"]}]
+      131 GETUPVAL                         R19 4
+      132 GETTABLEKS                       R19 R19 K32 ["Enums"]
+      134 GETTABLEKS                       R19 R19 K42 ["ChipSize"]
+      136 GETTABLEKS                       R19 R19 K43 ["Small"]
+      138 SETTABLEKS                       R19 R18 K27 ["size"]
+      140 LOADK                            R20 K44 ["v%*"]
+      141 GETTABLEKS                       R22 R0 K0 ["metadata"]
+      143 GETTABLEKS                       R22 R22 K45 ["version"]
+      145 NAMECALL                         R20 R20 K46 ["format"]
+      147 CALL                             R20 2 1
+      148 MOVE                             R19 R20
+      149 SETTABLEKS                       R19 R18 K40 ["text"]
+      151 MOVE                             R19 R1
+      152 CALL                             R19 0 1
+      153 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      155 CALL                             R16 2 1
+      156 SETTABLEKS                       R16 R15 K21 ["VersionChip"]
+      158 GETUPVAL                         R16 2
+      159 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      161 GETUPVAL                         R17 5
+      162 DUPTABLE                         R18 K48 [{"metadata", "isExpanded", "LayoutOrder"}]
+      163 GETTABLEKS                       R19 R0 K0 ["metadata"]
+      165 SETTABLEKS                       R19 R18 K0 ["metadata"]
+      167 GETTABLEKS                       R19 R2 K31 ["enabled"]
+      169 SETTABLEKS                       R19 R18 K47 ["isExpanded"]
+      171 MOVE                             R19 R1
+      172 CALL                             R19 0 1
+      173 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      175 CALL                             R16 2 1
+      176 SETTABLEKS                       R16 R15 K22 ["VersionNote"]
+      178 GETUPVAL                         R16 2
+      179 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      181 GETUPVAL                         R17 6
+      182 DUPTABLE                         R18 K50 [{"metadata", "isVisible", "isDisabled", "LayoutOrder"}]
+      183 GETTABLEKS                       R19 R0 K0 ["metadata"]
+      185 SETTABLEKS                       R19 R18 K0 ["metadata"]
+      187 SETTABLEKS                       R7 R18 K49 ["isVisible"]
+      189 SETTABLEKS                       R9 R18 K15 ["isDisabled"]
+      191 MOVE                             R19 R1
+      192 CALL                             R19 0 1
+      193 SETTABLEKS                       R19 R18 K16 ["LayoutOrder"]
+      195 CALL                             R16 2 1
+      196 SETTABLEKS                       R16 R15 K23 ["OverflowMenu"]
+      198 CALL                             R12 3 -1
+      199 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

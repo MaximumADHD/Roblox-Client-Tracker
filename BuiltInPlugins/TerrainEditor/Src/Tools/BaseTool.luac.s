@@ -165,63 +165,61 @@ PROTO_4:
        12 JUMPIF                           R3 ; [+2]
        13 NEWTABLE                         R3 0 0
        15 NEWTABLE                         R4 0 0
-       17 DUPTABLE                         R5 K4 [{"MaterialList"}]
-       18 LOADB                            R6 1
-       19 SETTABLEKS                       R6 R5 K3 ["MaterialList"]
-       21 GETTABLEKS                       R6 R0 K5 ["_configuration"]
-       23 LOADNIL                          R7
-       24 LOADNIL                          R8
-       25 FORGPREP                         R6
-       26 DUPCLOSURE                       R11 K6 [PROTO_2]
-       27 CAPTURE                          VAL R11
-       28 GETTABLEKS                       R13 R10 K7 ["Id"]
-       30 GETTABLE                         R12 R3 R13
-       31 JUMPIF                           R12 ; [+6]
-       32 GETTABLEKS                       R12 R10 K7 ["Id"]
-       34 GETTABLEKS                       R13 R10 K8 ["Defaults"]
-       36 SETTABLE                         R13 R3 R12
-       37 JUMP                             ; [+10]
-       38 GETTABLEKS                       R12 R10 K7 ["Id"]
-       40 MOVE                             R13 R11
-       41 GETTABLEKS                       R15 R10 K7 ["Id"]
-       43 GETTABLE                         R14 R3 R15
-       44 GETTABLEKS                       R15 R10 K8 ["Defaults"]
-       46 CALL                             R13 2 1
-       47 SETTABLE                         R13 R3 R12
-       48 GETUPVAL                         R13 1
-       49 GETTABLEKS                       R14 R10 K7 ["Id"]
-       51 GETTABLE                         R12 R13 R14
-       52 GETTABLEKS                       R12 R12 K9 ["Storage"]
-       54 GETTABLEKS                       R13 R10 K7 ["Id"]
-       56 NEWTABLE                         R14 0 0
-       58 SETTABLE                         R14 R4 R13
-       59 GETTABLEKS                       R13 R10 K8 ["Defaults"]
-       61 LOADNIL                          R14
-       62 LOADNIL                          R15
-       63 FORGPREP                         R13
-       64 GETTABLE                         R18 R12 R16
-       65 GETUPVAL                         R19 2
-       66 GETTABLEKS                       R19 R19 K10 ["LocalSession"]
-       68 JUMPIFNOTEQ                      R18 R19 ; [+5]
-       70 GETTABLEKS                       R19 R10 K7 ["Id"]
-       72 GETTABLE                         R18 R4 R19
-       73 SETTABLE                         R17 R18 R16
-       74 FORGLOOP                         R13 2 ; [-11]
-       76 NEWCLOSURE                       R13 P1
-       77 CAPTURE                          VAL R12
-       78 CAPTURE                          UPVAL U2
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          VAL R13
-       81 GETTABLEKS                       R14 R10 K7 ["Id"]
-       83 MOVE                             R15 R13
-       84 GETTABLEKS                       R17 R10 K7 ["Id"]
-       86 GETTABLE                         R16 R3 R17
-       87 GETTABLEKS                       R17 R10 K8 ["Defaults"]
-       89 LOADB                            R18 1
-       90 CALL                             R15 3 1
-       91 SETTABLE                         R15 R3 R14
-       92 FORGLOOP                         R6 2 ; [-67]
-       94 RETURN                           R3 2
+       17 DUPTABLE                         R5 K5 [{["MaterialList"] = True}]
+       18 GETTABLEKS                       R6 R0 K6 ["_configuration"]
+       20 LOADNIL                          R7
+       21 LOADNIL                          R8
+       22 FORGPREP                         R6
+       23 DUPCLOSURE                       R11 K7 [PROTO_2]
+       24 CAPTURE                          VAL R11
+       25 GETTABLEKS                       R13 R10 K8 ["Id"]
+       27 GETTABLE                         R12 R3 R13
+       28 JUMPIF                           R12 ; [+6]
+       29 GETTABLEKS                       R12 R10 K8 ["Id"]
+       31 GETTABLEKS                       R13 R10 K9 ["Defaults"]
+       33 SETTABLE                         R13 R3 R12
+       34 JUMP                             ; [+10]
+       35 GETTABLEKS                       R12 R10 K8 ["Id"]
+       37 MOVE                             R13 R11
+       38 GETTABLEKS                       R15 R10 K8 ["Id"]
+       40 GETTABLE                         R14 R3 R15
+       41 GETTABLEKS                       R15 R10 K9 ["Defaults"]
+       43 CALL                             R13 2 1
+       44 SETTABLE                         R13 R3 R12
+       45 GETUPVAL                         R13 1
+       46 GETTABLEKS                       R14 R10 K8 ["Id"]
+       48 GETTABLE                         R12 R13 R14
+       49 GETTABLEKS                       R12 R12 K10 ["Storage"]
+       51 GETTABLEKS                       R13 R10 K8 ["Id"]
+       53 NEWTABLE                         R14 0 0
+       55 SETTABLE                         R14 R4 R13
+       56 GETTABLEKS                       R13 R10 K9 ["Defaults"]
+       58 LOADNIL                          R14
+       59 LOADNIL                          R15
+       60 FORGPREP                         R13
+       61 GETTABLE                         R18 R12 R16
+       62 GETUPVAL                         R19 2
+       63 GETTABLEKS                       R19 R19 K11 ["LocalSession"]
+       65 JUMPIFNOTEQ                      R18 R19 ; [+5]
+       67 GETTABLEKS                       R19 R10 K8 ["Id"]
+       69 GETTABLE                         R18 R4 R19
+       70 SETTABLE                         R17 R18 R16
+       71 FORGLOOP                         R13 2 ; [-11]
+       73 NEWCLOSURE                       R13 P1
+       74 CAPTURE                          VAL R12
+       75 CAPTURE                          UPVAL U2
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R13
+       78 GETTABLEKS                       R14 R10 K8 ["Id"]
+       80 MOVE                             R15 R13
+       81 GETTABLEKS                       R17 R10 K8 ["Id"]
+       83 GETTABLE                         R16 R3 R17
+       84 GETTABLEKS                       R17 R10 K9 ["Defaults"]
+       86 LOADB                            R18 1
+       87 CALL                             R15 3 1
+       88 SETTABLE                         R15 R3 R14
+       89 FORGLOOP                         R6 2 ; [-67]
+       91 RETURN                           R3 2
 
 PROTO_5:
         0 NAMECALL                         R1 R0 K0 ["getPayload"]
@@ -256,16 +254,14 @@ PROTO_5:
        40 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R1 K2 [{"_configuration", "_name"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["_name"] = "Empty"}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["_configuration"]
-        5 LOADK                            R2 K3 ["Empty"]
-        6 SETTABLEKS                       R2 R1 K1 ["_name"]
-        8 GETUPVAL                         R2 0
-        9 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-       11 GETIMPORT                        R0 K5 [setmetatable]
-       13 CALL                             R0 2 1
-       14 RETURN                           R0 1
+        5 GETUPVAL                         R2 0
+        6 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        8 GETIMPORT                        R0 K5 [setmetatable]
+       10 CALL                             R0 2 1
+       11 RETURN                           R0 1
 
 PROTO_7:
         0 NEWTABLE                         R1 0 0

@@ -254,8 +254,8 @@ PROTO_11:
        22 MOVE                             R9 R1
        23 MOVE                             R10 R2
        24 GETIMPORT                        R11 K5 [Vector2.new]
-       26 LOADN                            R12 208
-       27 LOADN                            R13 208
+       26 LOADN                            R12 2000
+       27 LOADN                            R13 2000
        28 CALL                             R11 2 -1
        29 NAMECALL                         R6 R6 K6 ["GetTextSize"]
        31 CALL                             R6 -1 1
@@ -265,7 +265,7 @@ PROTO_11:
        35 SETUPVAL                         R6 1
        36 SETTABLE                         R5 R4 R0
        37 GETUPVAL                         R6 1
-       38 LOADN                            R7 232
+       38 LOADN                            R7 1000
        39 JUMPIFNOTLT                      R7 R6 ; [+6]
        41 LOADN                            R6 0
        42 SETUPVAL                         R6 1
@@ -1216,7 +1216,7 @@ PROTO_16:
         8 GETIMPORT                        R7 K4 [math.max]
        10 CALL                             R7 2 1
        11 MOVE                             R4 R7
-       12 LOADN                            R5 255
+       12 LOADN                            R5 -1
        13 FORNPREP                         R4
        14 FASTCALL1                        MATH_SQRT R6 ; [+3]
        15 MOVE                             R9 R6
@@ -1884,134 +1884,108 @@ MAIN:
        37 CAPTURE                          VAL R5
        38 NEWTABLE                         R7 0 0
        40 LOADN                            R8 0
-       41 DUPTABLE                         R9 K35 [{"cellGap", "cornerRadius", "headerBarHeight", "textPadding", "textLineHeight", "textLineGap", "selectionOutlineThickness", "selectionOutlineNudge", "edgePadding", "textLabelHeight", "fontSize", "font", "fontBold", "fontColor", "headerFontColor", "headerColor", "minWidth", "minHeight"}]
-       42 LOADN                            R10 2
-       43 SETTABLEKS                       R10 R9 K17 ["cellGap"]
-       45 LOADN                            R10 2
-       46 SETTABLEKS                       R10 R9 K18 ["cornerRadius"]
-       48 LOADN                            R10 22
-       49 SETTABLEKS                       R10 R9 K19 ["headerBarHeight"]
-       51 LOADN                            R10 4
-       52 SETTABLEKS                       R10 R9 K20 ["textPadding"]
-       54 LOADN                            R10 16
-       55 SETTABLEKS                       R10 R9 K21 ["textLineHeight"]
-       57 LOADN                            R10 2
-       58 SETTABLEKS                       R10 R9 K22 ["textLineGap"]
-       60 LOADN                            R10 2
-       61 SETTABLEKS                       R10 R9 K23 ["selectionOutlineThickness"]
-       63 LOADN                            R10 2
-       64 SETTABLEKS                       R10 R9 K24 ["selectionOutlineNudge"]
-       66 LOADN                            R10 1
-       67 SETTABLEKS                       R10 R9 K25 ["edgePadding"]
-       69 LOADN                            R10 11
-       70 SETTABLEKS                       R10 R9 K26 ["textLabelHeight"]
-       72 LOADN                            R10 11
-       73 SETTABLEKS                       R10 R9 K27 ["fontSize"]
-       75 GETIMPORT                        R10 K39 [Enum.Font.SourceSans]
-       77 SETTABLEKS                       R10 R9 K28 ["font"]
-       79 GETIMPORT                        R10 K41 [Enum.Font.SourceSansBold]
-       81 SETTABLEKS                       R10 R9 K29 ["fontBold"]
-       83 GETIMPORT                        R10 K2 [Color3.new]
-       85 LOADN                            R11 1
-       86 LOADN                            R12 1
-       87 LOADN                            R13 1
-       88 CALL                             R10 3 1
-       89 SETTABLEKS                       R10 R9 K30 ["fontColor"]
-       91 GETIMPORT                        R10 K2 [Color3.new]
-       93 LOADN                            R11 1
-       94 LOADN                            R12 1
-       95 LOADN                            R13 1
-       96 CALL                             R10 3 1
-       97 SETTABLEKS                       R10 R9 K31 ["headerFontColor"]
-       99 GETIMPORT                        R10 K2 [Color3.new]
-      101 LOADK                            R11 K42 [0.152941176470588]
-      102 LOADK                            R12 K43 [0.16078431372549]
-      103 LOADK                            R13 K44 [0.180392156862745]
-      104 CALL                             R10 3 1
-      105 SETTABLEKS                       R10 R9 K32 ["headerColor"]
-      107 LOADN                            R10 20
-      108 SETTABLEKS                       R10 R9 K33 ["minWidth"]
-      110 LOADN                            R10 20
-      111 SETTABLEKS                       R10 R9 K34 ["minHeight"]
-      113 NEWTABLE                         R10 0 0
-      115 NEWTABLE                         R11 0 0
-      117 NEWTABLE                         R12 0 0
-      119 SETTABLEKS                       R12 R0 K45 ["_selectionLayer"]
-      121 LOADNIL                          R12
-      122 SETTABLEKS                       R12 R0 K46 ["_hoverOutline"]
-      124 NEWCLOSURE                       R12 P2
-      125 CAPTURE                          REF R10
-      126 GETIMPORT                        R13 K9 [require]
-      128 GETTABLEKS                       R14 R3 K10 ["Src"]
-      130 GETTABLEKS                       R14 R14 K47 ["Resources"]
-      132 GETTABLEKS                       R14 R14 K48 ["ColorRamps"]
-      134 CALL                             R13 1 1
-      135 GETTABLEKS                       R14 R13 K49 ["Default"]
-      137 MOVE                             R15 R14
-      138 DUPCLOSURE                       R16 K50 [PROTO_3]
-      139 NEWCLOSURE                       R17 P4
-      140 CAPTURE                          REF R15
-      141 GETIMPORT                        R18 K9 [require]
-      143 GETTABLEKS                       R19 R3 K10 ["Src"]
-      145 GETTABLEKS                       R19 R19 K14 ["Util"]
-      147 GETTABLEKS                       R19 R19 K51 ["abridgePath"]
-      149 CALL                             R18 1 1
-      150 DUPCLOSURE                       R19 K52 [PROTO_5]
-      151 CAPTURE                          VAL R19
-      152 DUPCLOSURE                       R20 K53 [PROTO_7]
-      153 NEWCLOSURE                       R21 P7
+       41 DUPTABLE                         R9 K42 [{["cellGap"] = 2, ["cornerRadius"] = 2, ["headerBarHeight"] = 22, ["textPadding"] = 4, ["textLineHeight"] = 16, ["textLineGap"] = 2, ["selectionOutlineThickness"] = 2, ["selectionOutlineNudge"] = 2, ["edgePadding"] = 1, ["textLabelHeight"] = 11, ["fontSize"] = 11, ["font"], ["fontBold"], ["fontColor"], ["headerFontColor"], ["headerColor"], ["minWidth"] = 20, ["minHeight"] = 20}]
+       42 GETIMPORT                        R10 K46 [Enum.Font.SourceSans]
+       44 SETTABLEKS                       R10 R9 K34 ["font"]
+       46 GETIMPORT                        R10 K48 [Enum.Font.SourceSansBold]
+       48 SETTABLEKS                       R10 R9 K35 ["fontBold"]
+       50 GETIMPORT                        R10 K2 [Color3.new]
+       52 LOADN                            R11 1
+       53 LOADN                            R12 1
+       54 LOADN                            R13 1
+       55 CALL                             R10 3 1
+       56 SETTABLEKS                       R10 R9 K36 ["fontColor"]
+       58 GETIMPORT                        R10 K2 [Color3.new]
+       60 LOADN                            R11 1
+       61 LOADN                            R12 1
+       62 LOADN                            R13 1
+       63 CALL                             R10 3 1
+       64 SETTABLEKS                       R10 R9 K37 ["headerFontColor"]
+       66 GETIMPORT                        R10 K2 [Color3.new]
+       68 LOADK                            R11 K49 [0.152941176470588]
+       69 LOADK                            R12 K50 [0.16078431372549]
+       70 LOADK                            R13 K51 [0.180392156862745]
+       71 CALL                             R10 3 1
+       72 SETTABLEKS                       R10 R9 K38 ["headerColor"]
+       74 NEWTABLE                         R10 0 0
+       76 NEWTABLE                         R11 0 0
+       78 NEWTABLE                         R12 0 0
+       80 SETTABLEKS                       R12 R0 K52 ["_selectionLayer"]
+       82 LOADNIL                          R12
+       83 SETTABLEKS                       R12 R0 K53 ["_hoverOutline"]
+       85 NEWCLOSURE                       R12 P2
+       86 CAPTURE                          REF R10
+       87 GETIMPORT                        R13 K9 [require]
+       89 GETTABLEKS                       R14 R3 K10 ["Src"]
+       91 GETTABLEKS                       R14 R14 K54 ["Resources"]
+       93 GETTABLEKS                       R14 R14 K55 ["ColorRamps"]
+       95 CALL                             R13 1 1
+       96 GETTABLEKS                       R14 R13 K56 ["Default"]
+       98 MOVE                             R15 R14
+       99 DUPCLOSURE                       R16 K57 [PROTO_3]
+      100 NEWCLOSURE                       R17 P4
+      101 CAPTURE                          REF R15
+      102 GETIMPORT                        R18 K9 [require]
+      104 GETTABLEKS                       R19 R3 K10 ["Src"]
+      106 GETTABLEKS                       R19 R19 K14 ["Util"]
+      108 GETTABLEKS                       R19 R19 K58 ["abridgePath"]
+      110 CALL                             R18 1 1
+      111 DUPCLOSURE                       R19 K59 [PROTO_5]
+      112 CAPTURE                          VAL R19
+      113 DUPCLOSURE                       R20 K60 [PROTO_7]
+      114 NEWCLOSURE                       R21 P7
+      115 CAPTURE                          VAL R20
+      116 CAPTURE                          REF R15
+      117 NEWCLOSURE                       R22 P8
+      118 CAPTURE                          REF R7
+      119 CAPTURE                          REF R8
+      120 DUPCLOSURE                       R23 K61 [PROTO_12]
+      121 DUPCLOSURE                       R24 K62 [PROTO_13]
+      122 NEWCLOSURE                       R25 P11
+      123 CAPTURE                          REF R10
+      124 CAPTURE                          VAL R9
+      125 CAPTURE                          REF R15
+      126 CAPTURE                          VAL R23
+      127 CAPTURE                          VAL R13
+      128 CAPTURE                          VAL R18
+      129 CAPTURE                          REF R11
+      130 CAPTURE                          VAL R22
+      131 SETTABLEKS                       R25 R0 K63 ["renderHeaderNode"]
+      133 NEWCLOSURE                       R25 P12
+      134 CAPTURE                          REF R10
+      135 CAPTURE                          VAL R9
+      136 CAPTURE                          VAL R22
+      137 CAPTURE                          VAL R18
+      138 CAPTURE                          REF R11
+      139 CAPTURE                          VAL R23
+      140 SETTABLEKS                       R25 R0 K64 ["renderStandardNode"]
+      142 NEWCLOSURE                       R25 P13
+      143 CAPTURE                          VAL R9
+      144 CAPTURE                          REF R15
+      145 SETTABLEKS                       R25 R0 K65 ["fillTinybox"]
+      147 DUPCLOSURE                       R25 K66 [PROTO_18]
+      148 CAPTURE                          VAL R5
+      149 CAPTURE                          VAL R25
+      150 NEWCLOSURE                       R26 P15
+      151 CAPTURE                          REF R15
+      152 CAPTURE                          VAL R14
+      153 CAPTURE                          VAL R25
       154 CAPTURE                          VAL R20
-      155 CAPTURE                          REF R15
-      156 NEWCLOSURE                       R22 P8
-      157 CAPTURE                          REF R7
-      158 CAPTURE                          REF R8
-      159 DUPCLOSURE                       R23 K54 [PROTO_12]
-      160 DUPCLOSURE                       R24 K55 [PROTO_13]
-      161 NEWCLOSURE                       R25 P11
-      162 CAPTURE                          REF R10
-      163 CAPTURE                          VAL R9
-      164 CAPTURE                          REF R15
-      165 CAPTURE                          VAL R23
-      166 CAPTURE                          VAL R13
-      167 CAPTURE                          VAL R18
-      168 CAPTURE                          REF R11
-      169 CAPTURE                          VAL R22
-      170 SETTABLEKS                       R25 R0 K56 ["renderHeaderNode"]
-      172 NEWCLOSURE                       R25 P12
-      173 CAPTURE                          REF R10
-      174 CAPTURE                          VAL R9
-      175 CAPTURE                          VAL R22
-      176 CAPTURE                          VAL R18
-      177 CAPTURE                          REF R11
-      178 CAPTURE                          VAL R23
-      179 SETTABLEKS                       R25 R0 K57 ["renderStandardNode"]
-      181 NEWCLOSURE                       R25 P13
-      182 CAPTURE                          VAL R9
-      183 CAPTURE                          REF R15
-      184 SETTABLEKS                       R25 R0 K58 ["fillTinybox"]
-      186 DUPCLOSURE                       R25 K59 [PROTO_18]
-      187 CAPTURE                          VAL R5
-      188 CAPTURE                          VAL R25
-      189 NEWCLOSURE                       R26 P15
-      190 CAPTURE                          REF R15
-      191 CAPTURE                          VAL R14
-      192 CAPTURE                          VAL R25
-      193 CAPTURE                          VAL R20
-      194 CAPTURE                          REF R11
-      195 CAPTURE                          REF R10
-      196 SETTABLEKS                       R26 R0 K60 ["renderTreemap"]
-      198 DUPCLOSURE                       R26 K61 [PROTO_20]
-      199 SETTABLEKS                       R26 R0 K62 ["highlightGlowNode"]
-      201 DUPCLOSURE                       R26 K63 [PROTO_21]
-      202 CAPTURE                          VAL R1
-      203 CAPTURE                          VAL R23
-      204 SETTABLEKS                       R26 R0 K64 ["animateTreemap"]
-      206 SETTABLEKS                       R9 R0 K65 ["settings"]
-      208 DUPTABLE                         R26 K69 [{"formatNodeValue", "abridgePath", "collectRenderableNodes", "assignColorsByRank"}]
-      209 SETTABLEKS                       R6 R26 K66 ["formatNodeValue"]
-      211 SETTABLEKS                       R18 R26 K51 ["abridgePath"]
-      213 SETTABLEKS                       R19 R26 K67 ["collectRenderableNodes"]
-      215 SETTABLEKS                       R21 R26 K68 ["assignColorsByRank"]
-      217 SETTABLEKS                       R26 R0 K70 ["_testOnly"]
-      219 CLOSEUPVALS                      R7
-      220 RETURN                           R0 1
+      155 CAPTURE                          REF R11
+      156 CAPTURE                          REF R10
+      157 SETTABLEKS                       R26 R0 K67 ["renderTreemap"]
+      159 DUPCLOSURE                       R26 K68 [PROTO_20]
+      160 SETTABLEKS                       R26 R0 K69 ["highlightGlowNode"]
+      162 DUPCLOSURE                       R26 K70 [PROTO_21]
+      163 CAPTURE                          VAL R1
+      164 CAPTURE                          VAL R23
+      165 SETTABLEKS                       R26 R0 K71 ["animateTreemap"]
+      167 SETTABLEKS                       R9 R0 K72 ["settings"]
+      169 DUPTABLE                         R26 K76 [{"formatNodeValue", "abridgePath", "collectRenderableNodes", "assignColorsByRank"}]
+      170 SETTABLEKS                       R6 R26 K73 ["formatNodeValue"]
+      172 SETTABLEKS                       R18 R26 K58 ["abridgePath"]
+      174 SETTABLEKS                       R19 R26 K74 ["collectRenderableNodes"]
+      176 SETTABLEKS                       R21 R26 K75 ["assignColorsByRank"]
+      178 SETTABLEKS                       R26 R0 K77 ["_testOnly"]
+      180 CLOSEUPVALS                      R7
+      181 RETURN                           R0 1

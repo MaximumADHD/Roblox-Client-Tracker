@@ -41,61 +41,59 @@ PROTO_3:
         0 LOADNIL                          R0
         1 GETUPVAL                         R1 0
         2 GETUPVAL                         R3 1
-        3 DUPTABLE                         R4 K2 [{"Size", "Modal"}]
+        3 DUPTABLE                         R4 K3 [{[1], ["Modal"] = True}]
         4 GETUPVAL                         R5 2
         5 SETTABLEKS                       R5 R4 K0 ["Size"]
-        7 LOADB                            R5 1
-        8 SETTABLEKS                       R5 R4 K1 ["Modal"]
-       10 NAMECALL                         R1 R1 K3 ["CreateQWidgetPluginGui"]
-       12 CALL                             R1 3 1
-       13 LOADB                            R2 1
-       14 SETTABLEKS                       R2 R1 K4 ["Enabled"]
-       16 GETUPVAL                         R2 1
-       17 SETTABLEKS                       R2 R1 K5 ["Title"]
-       19 NEWCLOSURE                       R2 P0
-       20 CAPTURE                          UPVAL U3
-       21 CAPTURE                          REF R0
-       22 CAPTURE                          VAL R1
-       23 CAPTURE                          UPVAL U4
-       24 NEWCLOSURE                       R3 P1
-       25 CAPTURE                          UPVAL U3
-       26 CAPTURE                          REF R0
-       27 CAPTURE                          VAL R1
-       28 CAPTURE                          UPVAL U4
-       29 LOADK                            R6 K4 ["Enabled"]
-       30 NAMECALL                         R4 R1 K6 ["GetPropertyChangedSignal"]
-       32 CALL                             R4 2 1
-       33 NEWCLOSURE                       R6 P2
-       34 CAPTURE                          UPVAL U3
-       35 CAPTURE                          REF R0
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          UPVAL U4
-       38 NAMECALL                         R4 R4 K7 ["connect"]
-       40 CALL                             R4 2 0
-       41 GETUPVAL                         R4 5
-       42 CALL                             R4 0 1
-       43 GETUPVAL                         R5 6
-       44 GETTABLEKS                       R5 R5 K8 ["provide"]
-       46 NEWTABLE                         R6 0 3
-       48 GETUPVAL                         R7 7
-       49 MOVE                             R8 R4
-       50 GETUPVAL                         R9 8
-       51 SETLIST                          R6 R7 3 [1]
-       53 DUPTABLE                         R7 K10 [{"Content"}]
-       54 GETUPVAL                         R8 9
-       55 MOVE                             R9 R2
-       56 MOVE                             R10 R3
-       57 CALL                             R8 2 1
-       58 SETTABLEKS                       R8 R7 K9 ["Content"]
-       60 CALL                             R5 2 1
-       61 GETUPVAL                         R6 3
-       62 GETTABLEKS                       R6 R6 K11 ["mount"]
-       64 MOVE                             R7 R5
-       65 MOVE                             R8 R1
-       66 CALL                             R6 2 1
-       67 MOVE                             R0 R6
-       68 CLOSEUPVALS                      R0
-       69 RETURN                           R0 0
+        7 NAMECALL                         R1 R1 K4 ["CreateQWidgetPluginGui"]
+        9 CALL                             R1 3 1
+       10 LOADB                            R2 1
+       11 SETTABLEKS                       R2 R1 K5 ["Enabled"]
+       13 GETUPVAL                         R2 1
+       14 SETTABLEKS                       R2 R1 K6 ["Title"]
+       16 NEWCLOSURE                       R2 P0
+       17 CAPTURE                          UPVAL U3
+       18 CAPTURE                          REF R0
+       19 CAPTURE                          VAL R1
+       20 CAPTURE                          UPVAL U4
+       21 NEWCLOSURE                       R3 P1
+       22 CAPTURE                          UPVAL U3
+       23 CAPTURE                          REF R0
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          UPVAL U4
+       26 LOADK                            R6 K5 ["Enabled"]
+       27 NAMECALL                         R4 R1 K7 ["GetPropertyChangedSignal"]
+       29 CALL                             R4 2 1
+       30 NEWCLOSURE                       R6 P2
+       31 CAPTURE                          UPVAL U3
+       32 CAPTURE                          REF R0
+       33 CAPTURE                          VAL R1
+       34 CAPTURE                          UPVAL U4
+       35 NAMECALL                         R4 R4 K8 ["connect"]
+       37 CALL                             R4 2 0
+       38 GETUPVAL                         R4 5
+       39 CALL                             R4 0 1
+       40 GETUPVAL                         R5 6
+       41 GETTABLEKS                       R5 R5 K9 ["provide"]
+       43 NEWTABLE                         R6 0 3
+       45 GETUPVAL                         R7 7
+       46 MOVE                             R8 R4
+       47 GETUPVAL                         R9 8
+       48 SETLIST                          R6 R7 3 [1]
+       50 DUPTABLE                         R7 K11 [{"Content"}]
+       51 GETUPVAL                         R8 9
+       52 MOVE                             R9 R2
+       53 MOVE                             R10 R3
+       54 CALL                             R8 2 1
+       55 SETTABLEKS                       R8 R7 K10 ["Content"]
+       57 CALL                             R5 2 1
+       58 GETUPVAL                         R6 3
+       59 GETTABLEKS                       R6 R6 K12 ["mount"]
+       61 MOVE                             R7 R5
+       62 MOVE                             R8 R1
+       63 CALL                             R6 2 1
+       64 MOVE                             R0 R6
+       65 CLOSEUPVALS                      R0
+       66 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R2 K1 [spawn]
@@ -163,8 +161,8 @@ MAIN:
        35 GETTABLEKS                       R6 R6 K13 ["PluginTheme"]
        37 CALL                             R5 1 1
        38 GETIMPORT                        R6 K16 [Vector2.new]
-       40 LOADN                            R7 44
-       41 LOADN                            R8 114
+       40 LOADN                            R7 300
+       41 LOADN                            R8 370
        42 CALL                             R6 2 1
        43 DUPCLOSURE                       R7 K17 [PROTO_6]
        44 CAPTURE                          VAL R4

@@ -39,54 +39,46 @@ PROTO_1:
        18 GETUPVAL                         R3 2
        19 GETUPVAL                         R4 3
        20 GETTABLEKS                       R4 R4 K7 ["View"]
-       22 DUPTABLE                         R5 K9 [{"tag"}]
-       23 LOADK                            R6 K10 ["auto-xy"]
-       24 SETTABLEKS                       R6 R5 K8 ["tag"]
-       26 NEWTABLE                         R6 0 1
-       28 GETUPVAL                         R7 2
-       29 GETUPVAL                         R8 3
-       30 GETTABLEKS                       R8 R8 K11 ["Text"]
-       32 DUPTABLE                         R9 K14 [{"Size", "Text", "tag", "onAbsoluteSizeChanged"}]
-       33 SETTABLEKS                       R1 R9 K12 ["Size"]
-       35 SETTABLEKS                       R0 R9 K11 ["Text"]
-       37 LOADK                            R10 K15 ["text-label-medium auto-x text-align-x-left"]
-       38 SETTABLEKS                       R10 R9 K8 ["tag"]
-       40 NEWCLOSURE                       R10 P0
-       41 CAPTURE                          UPVAL U4
-       42 CAPTURE                          UPVAL U1
-       43 SETTABLEKS                       R10 R9 K13 ["onAbsoluteSizeChanged"]
-       45 CALL                             R7 2 -1
-       46 SETLIST                          R6 R7 -1 [1]
-       48 CALL                             R3 3 -1
-       49 RETURN                           R3 -1
+       22 DUPTABLE                         R5 K10 [{["tag"] = "auto-xy"}]
+       23 NEWTABLE                         R6 0 1
+       25 GETUPVAL                         R7 2
+       26 GETUPVAL                         R8 3
+       27 GETTABLEKS                       R8 R8 K11 ["Text"]
+       29 DUPTABLE                         R9 K15 [{["Size"], ["Text"], ["tag"] = "auto-x text-label-medium text-align-x-left", ["onAbsoluteSizeChanged"]}]
+       30 SETTABLEKS                       R1 R9 K12 ["Size"]
+       32 SETTABLEKS                       R0 R9 K11 ["Text"]
+       34 NEWCLOSURE                       R10 P0
+       35 CAPTURE                          UPVAL U4
+       36 CAPTURE                          UPVAL U1
+       37 SETTABLEKS                       R10 R9 K14 ["onAbsoluteSizeChanged"]
+       39 CALL                             R7 2 -1
+       40 SETLIST                          R6 R7 -1 [1]
+       42 CALL                             R3 3 -1
+       43 RETURN                           R3 -1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R3 R3 K0 ["View"]
-        4 DUPTABLE                         R4 K3 [{"layoutOrder", "tag"}]
+        4 DUPTABLE                         R4 K4 [{["layoutOrder"], ["tag"] = "row flex-y-fill gap-xlarge size-full-0 auto-y"}]
         5 GETUPVAL                         R5 2
         6 CALL                             R5 0 1
         7 SETTABLEKS                       R5 R4 K1 ["layoutOrder"]
-        9 LOADK                            R5 K4 ["row size-full-0 auto-y flex-y-fill gap-xlarge"]
-       10 SETTABLEKS                       R5 R4 K2 ["tag"]
-       12 NEWTABLE                         R5 0 2
-       14 GETUPVAL                         R6 3
-       15 MOVE                             R7 R0
-       16 CALL                             R6 1 1
-       17 GETUPVAL                         R7 0
-       18 GETUPVAL                         R8 1
-       19 GETTABLEKS                       R8 R8 K0 ["View"]
-       21 DUPTABLE                         R9 K5 [{"tag"}]
-       22 LOADK                            R10 K6 ["auto-y fill"]
-       23 SETTABLEKS                       R10 R9 K2 ["tag"]
-       25 NEWTABLE                         R10 0 1
-       27 MOVE                             R11 R1
-       28 SETLIST                          R10 R11 1 [1]
-       30 CALL                             R7 3 -1
-       31 SETLIST                          R5 R6 -1 [1]
-       33 CALL                             R2 3 -1
-       34 RETURN                           R2 -1
+        9 NEWTABLE                         R5 0 2
+       11 GETUPVAL                         R6 3
+       12 MOVE                             R7 R0
+       13 CALL                             R6 1 1
+       14 GETUPVAL                         R7 0
+       15 GETUPVAL                         R8 1
+       16 GETTABLEKS                       R8 R8 K0 ["View"]
+       18 DUPTABLE                         R9 K6 [{["tag"] = "fill auto-y"}]
+       19 NEWTABLE                         R10 0 1
+       21 MOVE                             R11 R1
+       22 SETLIST                          R10 R11 1 [1]
+       24 CALL                             R7 3 -1
+       25 SETLIST                          R5 R6 -1 [1]
+       27 CALL                             R2 3 -1
+       28 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -115,20 +107,18 @@ PROTO_4:
        18 GETUPVAL                         R6 1
        19 GETUPVAL                         R7 2
        20 GETTABLEKS                       R7 R7 K1 ["View"]
-       22 DUPTABLE                         R8 K3 [{"tag"}]
-       23 LOADK                            R9 K4 ["col size-full-0 auto-y gap-medium"]
-       24 SETTABLEKS                       R9 R8 K2 ["tag"]
-       26 NEWTABLE                         R9 0 1
-       28 GETUPVAL                         R10 4
-       29 GETTABLEKS                       R10 R10 K5 ["map"]
-       31 GETTABLEKS                       R11 R0 K6 ["children"]
-       33 NEWCLOSURE                       R12 P2
-       34 CAPTURE                          VAL R5
-       35 CALL                             R10 2 -1
-       36 SETLIST                          R9 R10 -1 [1]
-       38 CALL                             R6 3 -1
-       39 CLOSEUPVALS                      R1
-       40 RETURN                           R6 -1
+       22 DUPTABLE                         R8 K4 [{["tag"] = "col gap-medium size-full-0 auto-y"}]
+       23 NEWTABLE                         R9 0 1
+       25 GETUPVAL                         R10 4
+       26 GETTABLEKS                       R10 R10 K5 ["map"]
+       28 GETTABLEKS                       R11 R0 K6 ["children"]
+       30 NEWCLOSURE                       R12 P2
+       31 CAPTURE                          VAL R5
+       32 CALL                             R10 2 -1
+       33 SETLIST                          R9 R10 -1 [1]
+       35 CALL                             R6 3 -1
+       36 CLOSEUPVALS                      R1
+       37 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

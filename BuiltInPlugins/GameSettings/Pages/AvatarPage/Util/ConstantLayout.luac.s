@@ -3,7 +3,7 @@ MAIN:
         1 NEWTABLE                         R0 8 0
         3 LOADN                            R1 26
         4 SETTABLEKS                       R1 R0 K0 ["RowHeight"]
-        6 LOADN                            R1 144
+        6 LOADN                            R1 400
         7 SETTABLEKS                       R1 R0 K1 ["PlayerChoiceHorizontalOffset"]
         9 LOADN                            R1 100
        10 SETTABLEKS                       R1 R0 K2 ["TextLabelIdentifierWidth"]

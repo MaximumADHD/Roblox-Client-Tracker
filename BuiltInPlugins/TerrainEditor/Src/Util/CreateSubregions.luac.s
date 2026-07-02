@@ -111,19 +111,19 @@ PROTO_2:
       113 GETTABLEKS                       R12 R12 K1 ["X"]
       115 GETTABLEKS                       R10 R9 K7 ["Max"]
       117 GETTABLEKS                       R10 R10 K1 ["X"]
-      119 LOADN                            R11 144
+      119 LOADN                            R11 400
       120 FORNPREP                         R10
       121 GETTABLEKS                       R15 R9 K0 ["Min"]
       123 GETTABLEKS                       R15 R15 K2 ["Y"]
       125 GETTABLEKS                       R13 R9 K7 ["Max"]
       127 GETTABLEKS                       R13 R13 K2 ["Y"]
-      129 LOADN                            R14 144
+      129 LOADN                            R14 400
       130 FORNPREP                         R13
       131 GETTABLEKS                       R18 R9 K0 ["Min"]
       133 GETTABLEKS                       R18 R18 K3 ["Z"]
       135 GETTABLEKS                       R16 R9 K7 ["Max"]
       137 GETTABLEKS                       R16 R16 K3 ["Z"]
-      139 LOADN                            R17 144
+      139 LOADN                            R17 400
       140 FORNPREP                         R16
       141 FASTCALL3                        VECTOR R12 R15 R18
       143 MOVE                             R20 R12

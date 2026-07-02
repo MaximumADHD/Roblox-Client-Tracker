@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -43,55 +41,51 @@ PROTO_5:
         2 RETURN                           R0 1
 
 PROTO_6:
-        0 DUPTABLE                         R4 K1 [{"enabled"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       11 NEWCLOSURE                       R2 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       15 NEWCLOSURE                       R2 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       19 NEWCLOSURE                       R2 P3
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R2 R0 K6 ["onWidgetEnabledChanged"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K7 ["Store"]
-       26 GETTABLEKS                       R2 R2 K8 ["new"]
-       28 GETUPVAL                         R3 1
-       29 LOADNIL                          R4
-       30 NEWTABLE                         R5 0 1
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R6 R6 K9 ["thunkMiddleware"]
-       35 SETLIST                          R5 R6 1 [1]
-       37 LOADNIL                          R6
-       38 CALL                             R2 4 1
-       39 SETTABLEKS                       R2 R0 K10 ["store"]
-       41 GETUPVAL                         R2 2
-       42 GETTABLEKS                       R2 R2 K11 ["Localization"]
-       44 GETTABLEKS                       R2 R2 K8 ["new"]
-       46 DUPTABLE                         R3 K15 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       47 GETUPVAL                         R4 3
-       48 SETTABLEKS                       R4 R3 K12 ["stringResourceTable"]
-       50 GETUPVAL                         R4 4
-       51 SETTABLEKS                       R4 R3 K13 ["translationResourceTable"]
-       53 LOADK                            R4 K16 ["ForceVisualizationControl"]
-       54 SETTABLEKS                       R4 R3 K14 ["pluginName"]
-       56 CALL                             R2 1 1
-       57 SETTABLEKS                       R2 R0 K17 ["localization"]
-       59 GETUPVAL                         R2 2
-       60 GETTABLEKS                       R2 R2 K18 ["Analytics"]
-       62 GETTABLEKS                       R2 R2 K8 ["new"]
-       64 DUPCLOSURE                       R3 K19 [PROTO_5]
-       65 NEWTABLE                         R4 0 0
-       67 CALL                             R2 2 1
-       68 SETTABLEKS                       R2 R0 K20 ["analytics"]
-       70 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        8 NEWCLOSURE                       R2 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       16 NEWCLOSURE                       R2 P3
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K8 ["Store"]
+       23 GETTABLEKS                       R2 R2 K9 ["new"]
+       25 GETUPVAL                         R3 1
+       26 LOADNIL                          R4
+       27 NEWTABLE                         R5 0 1
+       29 GETUPVAL                         R6 0
+       30 GETTABLEKS                       R6 R6 K10 ["thunkMiddleware"]
+       32 SETLIST                          R5 R6 1 [1]
+       34 LOADNIL                          R6
+       35 CALL                             R2 4 1
+       36 SETTABLEKS                       R2 R0 K11 ["store"]
+       38 GETUPVAL                         R2 2
+       39 GETTABLEKS                       R2 R2 K12 ["Localization"]
+       41 GETTABLEKS                       R2 R2 K9 ["new"]
+       43 DUPTABLE                         R3 K17 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ForceVisualizationControl"}]
+       44 GETUPVAL                         R4 3
+       45 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
+       47 GETUPVAL                         R4 4
+       48 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
+       50 CALL                             R2 1 1
+       51 SETTABLEKS                       R2 R0 K18 ["localization"]
+       53 GETUPVAL                         R2 2
+       54 GETTABLEKS                       R2 R2 K19 ["Analytics"]
+       56 GETTABLEKS                       R2 R2 K9 ["new"]
+       58 DUPCLOSURE                       R3 K20 [PROTO_5]
+       59 NEWTABLE                         R4 0 0
+       61 CALL                             R2 2 1
+       62 SETTABLEKS                       R2 R0 K21 ["analytics"]
+       64 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
@@ -100,32 +94,26 @@ PROTO_7:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K13 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K16 [{["Toolbar"], ["Active"], ["Id"] = "template_button", ["Title"], ["Tooltip"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K14 ["template_button"]
-       15 SETTABLEKS                       R7 R6 K7 ["Id"]
-       17 GETTABLEKS                       R7 R0 K15 ["localization"]
-       19 LOADK                            R9 K16 ["Plugin"]
-       20 LOADK                            R10 K17 ["Button"]
-       21 NAMECALL                         R7 R7 K18 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K8 ["Title"]
-       26 GETTABLEKS                       R7 R0 K15 ["localization"]
-       28 LOADK                            R9 K16 ["Plugin"]
-       29 LOADK                            R10 K19 ["Description"]
-       30 NAMECALL                         R7 R7 K18 ["getText"]
-       32 CALL                             R7 3 1
-       33 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
-       35 LOADK                            R7 K20 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-       36 SETTABLEKS                       R7 R6 K10 ["Icon"]
-       38 GETTABLEKS                       R7 R0 K21 ["toggleEnabled"]
-       40 SETTABLEKS                       R7 R6 K11 ["OnClick"]
-       42 LOADB                            R7 1
-       43 SETTABLEKS                       R7 R6 K12 ["ClickableWhenViewportHidden"]
-       45 CALL                             R4 2 1
-       46 SETTABLEKS                       R4 R3 K2 ["Toggle"]
-       48 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K17 ["localization"]
+       16 LOADK                            R9 K18 ["Plugin"]
+       17 LOADK                            R10 K19 ["Button"]
+       18 NAMECALL                         R7 R7 K20 ["getText"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K9 ["Title"]
+       23 GETTABLEKS                       R7 R0 K17 ["localization"]
+       25 LOADK                            R9 K18 ["Plugin"]
+       26 LOADK                            R10 K21 ["Description"]
+       27 NAMECALL                         R7 R7 K20 ["getText"]
+       29 CALL                             R7 3 1
+       30 SETTABLEKS                       R7 R6 K10 ["Tooltip"]
+       32 GETTABLEKS                       R7 R0 K22 ["toggleEnabled"]
+       34 SETTABLEKS                       R7 R6 K13 ["OnClick"]
+       36 CALL                             R4 2 1
+       37 SETTABLEKS                       R4 R3 K2 ["Toggle"]
+       39 RETURN                           R3 1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

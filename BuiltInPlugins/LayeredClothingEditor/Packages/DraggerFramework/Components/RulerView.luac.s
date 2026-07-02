@@ -209,41 +209,37 @@ PROTO_3:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K5 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
+       10 DUPTABLE                         R6 K12 [{["CFrame"], ["Color3"], ["AlwaysOnTop"] = True, ["Transparency"], ["Render"]}]
        11 GETTABLEKS                       R7 R1 K6 ["CFrame"]
        13 SETTABLEKS                       R7 R6 K6 ["CFrame"]
        15 GETTABLEKS                       R7 R1 K7 ["Color3"]
        17 SETTABLEKS                       R7 R6 K7 ["Color3"]
-       19 LOADB                            R7 1
-       20 SETTABLEKS                       R7 R6 K8 ["AlwaysOnTop"]
-       22 GETTABLEKS                       R7 R1 K12 ["DimTransparency"]
-       24 SETTABLEKS                       R7 R6 K9 ["Transparency"]
-       26 NEWCLOSURE                       R7 P0
-       27 CAPTURE                          UPVAL U2
-       28 CAPTURE                          VAL R1
-       29 SETTABLEKS                       R7 R6 K10 ["Render"]
-       31 CALL                             R4 2 1
-       32 SETTABLEKS                       R4 R3 K2 ["OnTop"]
-       34 GETUPVAL                         R4 0
-       35 GETTABLEKS                       R4 R4 K5 ["createElement"]
-       37 GETUPVAL                         R5 1
-       38 DUPTABLE                         R6 K11 [{"CFrame", "Color3", "AlwaysOnTop", "Transparency", "Render"}]
-       39 GETTABLEKS                       R7 R1 K6 ["CFrame"]
-       41 SETTABLEKS                       R7 R6 K6 ["CFrame"]
-       43 GETTABLEKS                       R7 R1 K7 ["Color3"]
-       45 SETTABLEKS                       R7 R6 K7 ["Color3"]
-       47 LOADB                            R7 0
-       48 SETTABLEKS                       R7 R6 K8 ["AlwaysOnTop"]
-       50 GETTABLEKS                       R7 R1 K13 ["MainTransparency"]
-       52 SETTABLEKS                       R7 R6 K9 ["Transparency"]
-       54 NEWCLOSURE                       R7 P1
-       55 CAPTURE                          UPVAL U2
-       56 CAPTURE                          VAL R1
-       57 SETTABLEKS                       R7 R6 K10 ["Render"]
-       59 CALL                             R4 2 1
-       60 SETTABLEKS                       R4 R3 K3 ["Underneath"]
-       62 CALL                             R2 1 -1
-       63 RETURN                           R2 -1
+       19 GETTABLEKS                       R7 R1 K13 ["DimTransparency"]
+       21 SETTABLEKS                       R7 R6 K10 ["Transparency"]
+       23 NEWCLOSURE                       R7 P0
+       24 CAPTURE                          UPVAL U2
+       25 CAPTURE                          VAL R1
+       26 SETTABLEKS                       R7 R6 K11 ["Render"]
+       28 CALL                             R4 2 1
+       29 SETTABLEKS                       R4 R3 K2 ["OnTop"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R4 R4 K5 ["createElement"]
+       34 GETUPVAL                         R5 1
+       35 DUPTABLE                         R6 K15 [{["CFrame"], ["Color3"], ["AlwaysOnTop"] = False, ["Transparency"], ["Render"]}]
+       36 GETTABLEKS                       R7 R1 K6 ["CFrame"]
+       38 SETTABLEKS                       R7 R6 K6 ["CFrame"]
+       40 GETTABLEKS                       R7 R1 K7 ["Color3"]
+       42 SETTABLEKS                       R7 R6 K7 ["Color3"]
+       44 GETTABLEKS                       R7 R1 K16 ["MainTransparency"]
+       46 SETTABLEKS                       R7 R6 K10 ["Transparency"]
+       48 NEWCLOSURE                       R7 P1
+       49 CAPTURE                          UPVAL U2
+       50 CAPTURE                          VAL R1
+       51 SETTABLEKS                       R7 R6 K11 ["Render"]
+       53 CALL                             R4 2 1
+       54 SETTABLEKS                       R4 R3 K3 ["Underneath"]
+       56 CALL                             R2 1 -1
+       57 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

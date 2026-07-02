@@ -29,49 +29,31 @@ MAIN:
        42 CALL                             R7 2 1
        43 MOVE                             R8 R2
        44 LOADK                            R9 K24 [">> ImageButton"]
-       45 DUPTABLE                         R10 K27 [{"Size", "BackgroundTransparency"}]
-       46 GETIMPORT                        R11 K29 [UDim2.new]
+       45 DUPTABLE                         R10 K28 [{["Size"], ["BackgroundTransparency"] = 1}]
+       46 GETIMPORT                        R11 K30 [UDim2.new]
        48 LOADN                            R12 0
        49 LOADN                            R13 18
        50 LOADN                            R14 0
        51 LOADN                            R15 18
        52 CALL                             R11 4 1
        53 SETTABLEKS                       R11 R10 K25 ["Size"]
-       55 LOADN                            R11 1
-       56 SETTABLEKS                       R11 R10 K26 ["BackgroundTransparency"]
-       58 CALL                             R8 2 1
-       59 MOVE                             R9 R2
-       60 LOADK                            R10 K30 [">> .Unchecked"]
-       61 DUPTABLE                         R11 K33 [{"Image", "HoverImage"}]
-       62 LOADK                            R12 K34 ["$CheckboxUncheckedImage"]
-       63 SETTABLEKS                       R12 R11 K31 ["Image"]
-       65 LOADK                            R12 K35 ["$CheckboxHoveredImage"]
-       66 SETTABLEKS                       R12 R11 K32 ["HoverImage"]
-       68 CALL                             R9 2 1
-       69 MOVE                             R10 R2
-       70 LOADK                            R11 K36 [">> .Checked"]
-       71 DUPTABLE                         R12 K37 [{"Image"}]
-       72 LOADK                            R13 K38 ["$CheckboxCheckedImage"]
-       73 SETTABLEKS                       R13 R12 K31 ["Image"]
-       75 CALL                             R10 2 1
-       76 MOVE                             R11 R2
-       77 LOADK                            R12 K39 [">> TextButton"]
-       78 DUPTABLE                         R13 K46 [{"Font", "TextColor3", "TextSize", "TextWrapped", "RichText", "TextXAlignment", "BackgroundTransparency"}]
-       79 GETIMPORT                        R14 K48 [Enum.Font.SourceSans]
-       81 SETTABLEKS                       R14 R13 K40 ["Font"]
-       83 LOADK                            R14 K49 ["$TextPrimary"]
-       84 SETTABLEKS                       R14 R13 K41 ["TextColor3"]
-       86 LOADN                            R14 16
-       87 SETTABLEKS                       R14 R13 K42 ["TextSize"]
-       89 LOADB                            R14 1
-       90 SETTABLEKS                       R14 R13 K43 ["TextWrapped"]
-       92 LOADB                            R14 1
-       93 SETTABLEKS                       R14 R13 K44 ["RichText"]
-       95 GETIMPORT                        R14 K51 [Enum.TextXAlignment.Left]
-       97 SETTABLEKS                       R14 R13 K45 ["TextXAlignment"]
-       99 LOADN                            R14 1
-      100 SETTABLEKS                       R14 R13 K26 ["BackgroundTransparency"]
-      102 CALL                             R11 2 -1
-      103 SETLIST                          R6 R7 -1 [1]
-      105 CALL                             R3 3 -1
-      106 RETURN                           R3 -1
+       55 CALL                             R8 2 1
+       56 MOVE                             R9 R2
+       57 LOADK                            R10 K31 [">> .Unchecked"]
+       58 DUPTABLE                         R11 K36 [{["Image"] = "$CheckboxUncheckedImage", ["HoverImage"] = "$CheckboxHoveredImage"}]
+       59 CALL                             R9 2 1
+       60 MOVE                             R10 R2
+       61 LOADK                            R11 K37 [">> .Checked"]
+       62 DUPTABLE                         R12 K39 [{["Image"] = "$CheckboxCheckedImage"}]
+       63 CALL                             R10 2 1
+       64 MOVE                             R11 R2
+       65 LOADK                            R12 K40 [">> TextButton"]
+       66 DUPTABLE                         R13 K50 [{["Font"], ["TextColor3"] = "$TextPrimary", ["TextSize"] = 16, ["TextWrapped"] = True, ["RichText"] = True, ["TextXAlignment"], ["BackgroundTransparency"] = 1}]
+       67 GETIMPORT                        R14 K52 [Enum.Font.SourceSans]
+       69 SETTABLEKS                       R14 R13 K41 ["Font"]
+       71 GETIMPORT                        R14 K54 [Enum.TextXAlignment.Left]
+       73 SETTABLEKS                       R14 R13 K49 ["TextXAlignment"]
+       75 CALL                             R11 2 -1
+       76 SETLIST                          R6 R7 -1 [1]
+       78 CALL                             R3 3 -1
+       79 RETURN                           R3 -1

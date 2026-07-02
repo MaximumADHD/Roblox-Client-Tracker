@@ -23,7 +23,7 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 LOADN                            R2 255
+        1 LOADN                            R2 -1
         2 CALL                             R1 1 2
         3 GETUPVAL                         R3 1
         4 NEWCLOSURE                       R4 P0

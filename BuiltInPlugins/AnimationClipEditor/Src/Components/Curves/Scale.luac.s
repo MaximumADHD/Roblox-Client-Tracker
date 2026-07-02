@@ -1,11 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"majorInterval", "minorInterval"}]
-        1 LOADN                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["majorInterval"]
-        4 LOADN                            R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["minorInterval"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = 1, ["minorInterval"] = 1}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["VerticalZoom"]
@@ -16,7 +12,7 @@ PROTO_1:
         8 GETTABLEKS                       R4 R0 K5 ["MaxValue"]
        10 GETTABLEKS                       R5 R0 K6 ["MinValue"]
        12 SUB                              R3 R4 R5
-       13 SUBRK                            R4 R7 K1 [0.99]
+       13 SUBRK                            R4 K7 [1] R1
        14 MUL                              R2 R3 R4
        15 GETTABLEKS                       R3 R0 K8 ["ParentSize"]
        17 GETTABLEKS                       R3 R3 K9 ["Y"]
@@ -56,8 +52,8 @@ PROTO_2:
        14 GETIMPORT                        R7 K8 [math.min]
        16 CALL                             R7 2 1
        17 MOVE                             R6 R7
-       18 SUBRK                            R8 R9 K6 ["math"]
-       19 DIVRK                            R7 R9 K8 [math.min]
+       18 SUBRK                            R8 K9 [1] R6
+       19 DIVRK                            R7 K9 [1] R8
        20 SUB                              R8 R4 R1
        21 SUB                              R9 R4 R3
        22 DIV                              R1 R8 R9
@@ -71,7 +67,7 @@ PROTO_2:
        32 GETUPVAL                         R13 0
        33 GETTABLEKS                       R13 R13 K12 ["CURVE_CANVAS_PADDING"]
        35 MUL                              R11 R12 R13
-       36 SUBRK                            R10 R9 K11 ["Y"]
+       36 SUBRK                            R10 K9 [1] R11
        37 MUL                              R8 R9 R10
        38 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
        40 GETTABLEKS                       R10 R10 K11 ["Y"]
@@ -93,8 +89,8 @@ PROTO_3:
        14 GETIMPORT                        R7 K8 [math.min]
        16 CALL                             R7 2 1
        17 MOVE                             R6 R7
-       18 SUBRK                            R8 R9 K6 ["math"]
-       19 DIVRK                            R7 R9 K8 [math.min]
+       18 SUBRK                            R8 K9 [1] R6
+       19 DIVRK                            R7 K9 [1] R8
        20 GETTABLEKS                       R10 R2 K10 ["ParentSize"]
        22 GETTABLEKS                       R10 R10 K11 ["Y"]
        24 GETUPVAL                         R11 0
@@ -107,7 +103,7 @@ PROTO_3:
        34 GETUPVAL                         R14 0
        35 GETTABLEKS                       R14 R14 K12 ["CURVE_CANVAS_PADDING"]
        37 MUL                              R12 R13 R14
-       38 SUBRK                            R11 R9 K12 ["CURVE_CANVAS_PADDING"]
+       38 SUBRK                            R11 K9 [1] R12
        39 MUL                              R9 R10 R11
        40 DIV                              R1 R8 R9
        41 DIV                              R1 R1 R7
@@ -252,22 +248,20 @@ PROTO_7:
        92 GETUPVAL                         R7 0
        93 GETTABLEKS                       R7 R7 K20 ["createElement"]
        95 LOADK                            R8 K21 ["Frame"]
-       96 DUPTABLE                         R9 K28 [{"Size", "Position", "BackgroundColor3", "BorderColor3", "BorderSizePixel", "ZIndex"}]
+       96 DUPTABLE                         R9 K29 [{["Size"], ["Position"], ["BackgroundColor3"], ["BorderColor3"], ["BorderSizePixel"] = 1, ["ZIndex"]}]
        97 GETTABLEKS                       R10 R1 K22 ["Size"]
        99 SETTABLEKS                       R10 R9 K22 ["Size"]
       101 GETTABLEKS                       R10 R1 K23 ["Position"]
       103 SETTABLEKS                       R10 R9 K23 ["Position"]
-      105 GETTABLEKS                       R10 R3 K29 ["barColor"]
+      105 GETTABLEKS                       R10 R3 K30 ["barColor"]
       107 SETTABLEKS                       R10 R9 K24 ["BackgroundColor3"]
-      109 GETTABLEKS                       R10 R2 K30 ["borderColor"]
+      109 GETTABLEKS                       R10 R2 K31 ["borderColor"]
       111 SETTABLEKS                       R10 R9 K25 ["BorderColor3"]
-      113 LOADN                            R10 1
-      114 SETTABLEKS                       R10 R9 K26 ["BorderSizePixel"]
-      116 GETTABLEKS                       R10 R1 K27 ["ZIndex"]
-      118 SETTABLEKS                       R10 R9 K27 ["ZIndex"]
-      120 MOVE                             R10 R4
-      121 CALL                             R7 3 -1
-      122 RETURN                           R7 -1
+      113 GETTABLEKS                       R10 R1 K28 ["ZIndex"]
+      115 SETTABLEKS                       R10 R9 K28 ["ZIndex"]
+      117 MOVE                             R10 R4
+      118 CALL                             R7 3 -1
+      119 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

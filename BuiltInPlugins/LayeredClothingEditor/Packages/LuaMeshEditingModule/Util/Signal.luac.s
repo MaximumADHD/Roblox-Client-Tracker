@@ -68,22 +68,20 @@ PROTO_3:
        13 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R2 K2 [{"callback", "isConnected"}]
+        0 DUPTABLE                         R2 K3 [{[1], ["isConnected"] = True}]
         1 SETTABLEKS                       R1 R2 K0 ["callback"]
-        3 LOADB                            R3 1
-        4 SETTABLEKS                       R3 R2 K1 ["isConnected"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R4 R0 K3 ["_listeners"]
-        9 MOVE                             R5 R2
-       10 CALL                             R3 2 1
-       11 SETTABLEKS                       R3 R0 K3 ["_listeners"]
-       13 NEWCLOSURE                       R3 P0
-       14 CAPTURE                          VAL R2
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U1
-       17 DUPTABLE                         R4 K5 [{"Disconnect"}]
-       18 SETTABLEKS                       R3 R4 K4 ["Disconnect"]
-       20 RETURN                           R4 1
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R4 R0 K4 ["_listeners"]
+        6 MOVE                             R5 R2
+        7 CALL                             R3 2 1
+        8 SETTABLEKS                       R3 R0 K4 ["_listeners"]
+       10 NEWCLOSURE                       R3 P0
+       11 CAPTURE                          VAL R2
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U1
+       14 DUPTABLE                         R4 K6 [{"Disconnect"}]
+       15 SETTABLEKS                       R3 R4 K5 ["Disconnect"]
+       17 RETURN                           R4 1
 
 PROTO_5:
         0 PREPVARARGS                      1

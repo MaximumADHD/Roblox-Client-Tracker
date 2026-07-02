@@ -108,7 +108,7 @@ PROTO_5:
        50 LOADB                            R8 1
        51 SETTABLEKS                       R8 R7 K7 ["enabled"]
        53 GETIMPORT                        R8 K14 [Vector2.new]
-       55 LOADN                            R9 164
+       55 LOADN                            R9 420
        56 LOADN                            R10 135
        57 CALL                             R8 2 1
        58 SETTABLEKS                       R8 R7 K8 ["size"]

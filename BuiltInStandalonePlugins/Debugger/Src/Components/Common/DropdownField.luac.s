@@ -140,110 +140,104 @@ PROTO_5:
        29 GETUPVAL                         R10 1
        30 GETTABLEKS                       R10 R10 K3 ["createElement"]
        32 GETUPVAL                         R11 3
-       33 DUPTABLE                         R12 K22 [{"LayoutOrder", "Key", "Checked", "OnClick", "Text", "Stylizer"}]
-       34 LOADN                            R13 1
-       35 SETTABLEKS                       R13 R12 K5 ["LayoutOrder"]
-       37 SETTABLEKS                       R1 R12 K18 ["Key"]
-       39 JUMPIFNOTEQKN                    R1 K23 [1] ; [+35]
-       41 GETTABLEKS                       R14 R3 K24 ["KeyStates"]
-       43 GETIMPORT                        R16 K26 [pairs]
-       45 MOVE                             R17 R14
-       46 CALL                             R16 1 3
-       47 FORGPREP_NEXT                    R16
-       48 JUMPIF                           R20 ; [+2]
-       49 LOADB                            R15 0
-       50 JUMP                             ; [+3]
-       51 FORGLOOP                         R16 2 ; [-4]
-       53 LOADB                            R15 1
-       54 JUMPIFNOT                        R15 ; [+2]
-       55 LOADB                            R13 1
-       56 JUMP                             ; [+17]
-       57 GETIMPORT                        R16 K26 [pairs]
-       59 MOVE                             R17 R14
-       60 CALL                             R16 1 3
-       61 FORGPREP_NEXT                    R16
-       62 JUMPIFNOT                        R20 ; [+2]
-       63 LOADB                            R15 1
-       64 JUMP                             ; [+3]
-       65 FORGLOOP                         R16 2 ; [-4]
-       67 LOADB                            R15 0
-       68 JUMPIFNOT                        R15 ; [+4]
-       69 GETUPVAL                         R13 3
-       70 GETTABLEKS                       R13 R13 K27 ["Indeterminate"]
-       72 JUMP                             ; [+1]
-       73 LOADB                            R13 0
-       74 JUMPIF                           R13 ; [+3]
-       75 GETTABLEKS                       R14 R3 K24 ["KeyStates"]
-       77 GETTABLE                         R13 R14 R1
-       78 SETTABLEKS                       R13 R12 K19 ["Checked"]
-       80 JUMPIFNOTEQKN                    R1 K23 [1] ; [+5]
-       82 GETUPVAL                         R13 0
-       83 GETTABLEKS                       R13 R13 K28 ["onAllDropdownClick"]
-       85 JUMPIF                           R13 ; [+3]
-       86 GETUPVAL                         R13 0
-       87 GETTABLEKS                       R13 R13 K29 ["onDropdownClick"]
-       89 SETTABLEKS                       R13 R12 K20 ["OnClick"]
-       91 GETTABLEKS                       R15 R3 K30 ["Widget"]
-       93 GETUPVAL                         R17 0
-       94 GETTABLEKS                       R17 R17 K0 ["props"]
-       96 GETTABLEKS                       R17 R17 K31 ["KeyTexts"]
-       98 GETTABLE                         R16 R17 R1
-       99 NAMECALL                         R13 R4 K32 ["getText"]
-      101 CALL                             R13 3 1
-      102 SETTABLEKS                       R13 R12 K21 ["Text"]
-      104 SETTABLEKS                       R5 R12 K6 ["Stylizer"]
-      106 CALL                             R10 2 1
-      107 SETTABLEKS                       R10 R9 K14 ["CheckboxView"]
-      109 LOADB                            R10 0
-      110 JUMPIFNOTEQKN                    R1 K23 [1] ; [+29]
-      112 GETUPVAL                         R10 1
-      113 GETTABLEKS                       R10 R10 K3 ["createElement"]
-      115 GETUPVAL                         R11 4
-      116 DUPTABLE                         R12 K35 [{"LayoutOrder", "Position", "DominantAxis", "Style", "Stylizer"}]
-      117 LOADN                            R13 2
-      118 SETTABLEKS                       R13 R12 K5 ["LayoutOrder"]
-      120 GETIMPORT                        R13 K38 [UDim2.new]
-      122 LOADK                            R14 K39 [0.5]
-      123 LOADN                            R15 0
-      124 LOADN                            R16 1
-      125 LOADN                            R17 0
-      126 CALL                             R13 4 1
-      127 SETTABLEKS                       R13 R12 K33 ["Position"]
-      129 GETIMPORT                        R13 K41 [Enum.DominantAxis.Width]
-      131 SETTABLEKS                       R13 R12 K34 ["DominantAxis"]
-      133 GETTABLEKS                       R13 R5 K42 ["Separator"]
-      135 SETTABLEKS                       R13 R12 K2 ["Style"]
-      137 SETTABLEKS                       R5 R12 K6 ["Stylizer"]
-      139 CALL                             R10 2 1
-      140 SETTABLEKS                       R10 R9 K15 ["SeparatorView"]
-      142 GETUPVAL                         R10 0
-      143 GETTABLEKS                       R10 R10 K0 ["props"]
-      145 GETTABLEKS                       R10 R10 K43 ["Tooltips"]
-      147 JUMPIFNOT                        R10 ; [+21]
-      148 GETUPVAL                         R11 0
-      149 GETTABLEKS                       R11 R11 K0 ["props"]
-      151 GETTABLEKS                       R11 R11 K43 ["Tooltips"]
-      153 GETTABLE                         R10 R11 R1
-      154 JUMPIFNOT                        R10 ; [+14]
-      155 GETUPVAL                         R10 1
-      156 GETTABLEKS                       R10 R10 K3 ["createElement"]
-      158 GETUPVAL                         R11 5
-      159 DUPTABLE                         R12 K44 [{"Text"}]
-      160 GETUPVAL                         R14 0
-      161 GETTABLEKS                       R14 R14 K0 ["props"]
-      163 GETTABLEKS                       R14 R14 K43 ["Tooltips"]
-      165 GETTABLE                         R13 R14 R1
-      166 SETTABLEKS                       R13 R12 K21 ["Text"]
-      168 CALL                             R10 2 1
-      169 SETTABLEKS                       R10 R9 K16 ["Tooltip"]
-      171 CALL                             R6 3 -1
-      172 RETURN                           R6 -1
+       33 DUPTABLE                         R12 K23 [{["LayoutOrder"] = 1, ["Key"], ["Checked"], ["OnClick"], ["Text"], ["Stylizer"]}]
+       34 SETTABLEKS                       R1 R12 K19 ["Key"]
+       36 JUMPIFNOTEQKN                    R1 K18 [1] ; [+35]
+       38 GETTABLEKS                       R14 R3 K24 ["KeyStates"]
+       40 GETIMPORT                        R16 K26 [pairs]
+       42 MOVE                             R17 R14
+       43 CALL                             R16 1 3
+       44 FORGPREP_NEXT                    R16
+       45 JUMPIF                           R20 ; [+2]
+       46 LOADB                            R15 0
+       47 JUMP                             ; [+3]
+       48 FORGLOOP                         R16 2 ; [-4]
+       50 LOADB                            R15 1
+       51 JUMPIFNOT                        R15 ; [+2]
+       52 LOADB                            R13 1
+       53 JUMP                             ; [+17]
+       54 GETIMPORT                        R16 K26 [pairs]
+       56 MOVE                             R17 R14
+       57 CALL                             R16 1 3
+       58 FORGPREP_NEXT                    R16
+       59 JUMPIFNOT                        R20 ; [+2]
+       60 LOADB                            R15 1
+       61 JUMP                             ; [+3]
+       62 FORGLOOP                         R16 2 ; [-4]
+       64 LOADB                            R15 0
+       65 JUMPIFNOT                        R15 ; [+4]
+       66 GETUPVAL                         R13 3
+       67 GETTABLEKS                       R13 R13 K27 ["Indeterminate"]
+       69 JUMP                             ; [+1]
+       70 LOADB                            R13 0
+       71 JUMPIF                           R13 ; [+3]
+       72 GETTABLEKS                       R14 R3 K24 ["KeyStates"]
+       74 GETTABLE                         R13 R14 R1
+       75 SETTABLEKS                       R13 R12 K20 ["Checked"]
+       77 JUMPIFNOTEQKN                    R1 K18 [1] ; [+5]
+       79 GETUPVAL                         R13 0
+       80 GETTABLEKS                       R13 R13 K28 ["onAllDropdownClick"]
+       82 JUMPIF                           R13 ; [+3]
+       83 GETUPVAL                         R13 0
+       84 GETTABLEKS                       R13 R13 K29 ["onDropdownClick"]
+       86 SETTABLEKS                       R13 R12 K21 ["OnClick"]
+       88 GETTABLEKS                       R15 R3 K30 ["Widget"]
+       90 GETUPVAL                         R17 0
+       91 GETTABLEKS                       R17 R17 K0 ["props"]
+       93 GETTABLEKS                       R17 R17 K31 ["KeyTexts"]
+       95 GETTABLE                         R16 R17 R1
+       96 NAMECALL                         R13 R4 K32 ["getText"]
+       98 CALL                             R13 3 1
+       99 SETTABLEKS                       R13 R12 K22 ["Text"]
+      101 SETTABLEKS                       R5 R12 K6 ["Stylizer"]
+      103 CALL                             R10 2 1
+      104 SETTABLEKS                       R10 R9 K14 ["CheckboxView"]
+      106 LOADB                            R10 0
+      107 JUMPIFNOTEQKN                    R1 K18 [1] ; [+26]
+      109 GETUPVAL                         R10 1
+      110 GETTABLEKS                       R10 R10 K3 ["createElement"]
+      112 GETUPVAL                         R11 4
+      113 DUPTABLE                         R12 K36 [{["LayoutOrder"] = 2, ["Position"], ["DominantAxis"], ["Style"], ["Stylizer"]}]
+      114 GETIMPORT                        R13 K39 [UDim2.new]
+      116 LOADK                            R14 K40 [0.5]
+      117 LOADN                            R15 0
+      118 LOADN                            R16 1
+      119 LOADN                            R17 0
+      120 CALL                             R13 4 1
+      121 SETTABLEKS                       R13 R12 K34 ["Position"]
+      123 GETIMPORT                        R13 K42 [Enum.DominantAxis.Width]
+      125 SETTABLEKS                       R13 R12 K35 ["DominantAxis"]
+      127 GETTABLEKS                       R13 R5 K43 ["Separator"]
+      129 SETTABLEKS                       R13 R12 K2 ["Style"]
+      131 SETTABLEKS                       R5 R12 K6 ["Stylizer"]
+      133 CALL                             R10 2 1
+      134 SETTABLEKS                       R10 R9 K15 ["SeparatorView"]
+      136 GETUPVAL                         R10 0
+      137 GETTABLEKS                       R10 R10 K0 ["props"]
+      139 GETTABLEKS                       R10 R10 K44 ["Tooltips"]
+      141 JUMPIFNOT                        R10 ; [+21]
+      142 GETUPVAL                         R11 0
+      143 GETTABLEKS                       R11 R11 K0 ["props"]
+      145 GETTABLEKS                       R11 R11 K44 ["Tooltips"]
+      147 GETTABLE                         R10 R11 R1
+      148 JUMPIFNOT                        R10 ; [+14]
+      149 GETUPVAL                         R10 1
+      150 GETTABLEKS                       R10 R10 K3 ["createElement"]
+      152 GETUPVAL                         R11 5
+      153 DUPTABLE                         R12 K45 [{"Text"}]
+      154 GETUPVAL                         R14 0
+      155 GETTABLEKS                       R14 R14 K0 ["props"]
+      157 GETTABLEKS                       R14 R14 K44 ["Tooltips"]
+      159 GETTABLE                         R13 R14 R1
+      160 SETTABLEKS                       R13 R12 K22 ["Text"]
+      162 CALL                             R10 2 1
+      163 SETTABLEKS                       R10 R9 K16 ["Tooltip"]
+      165 CALL                             R6 3 -1
+      166 RETURN                           R6 -1
 
 PROTO_6:
-        0 DUPTABLE                         R1 K1 [{"isOpen"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["isOpen"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -253,10 +247,8 @@ PROTO_7:
         5 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R1 K1 [{"isOpen"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isOpen"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 RETURN                           R1 1
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -266,32 +258,30 @@ PROTO_9:
         5 RETURN                           R0 0
 
 PROTO_10:
-        0 DUPTABLE                         R1 K1 [{"isOpen"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isOpen"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 SETTABLEKS                       R1 R0 K3 ["onDropdownClick"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R1 R0 K4 ["onAllDropdownClick"]
-       15 NEWCLOSURE                       R1 P2
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          UPVAL U1
-       18 CAPTURE                          UPVAL U2
-       19 CAPTURE                          UPVAL U3
-       20 CAPTURE                          UPVAL U4
-       21 CAPTURE                          UPVAL U5
-       22 SETTABLEKS                       R1 R0 K5 ["onRenderItem"]
-       24 NEWCLOSURE                       R1 P3
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R1 R0 K6 ["openMenu"]
-       28 NEWCLOSURE                       R1 P4
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R1 R0 K7 ["closeMenu"]
-       32 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K4 ["onDropdownClick"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R1 R0 K5 ["onAllDropdownClick"]
+       12 NEWCLOSURE                       R1 P2
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          UPVAL U2
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          UPVAL U5
+       19 SETTABLEKS                       R1 R0 K6 ["onRenderItem"]
+       21 NEWCLOSURE                       R1 P3
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K7 ["openMenu"]
+       25 NEWCLOSURE                       R1 P4
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R1 R0 K8 ["closeMenu"]
+       29 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -424,11 +414,11 @@ PROTO_11:
       181 SETTABLEKS                       R11 R10 K33 ["LayoutOrder"]
       183 DUPTABLE                         R11 K42 [{"IconView", "HamburgerIconView", "ButtonView", "DropdownView"}]
       184 GETTABLEKS                       R12 R1 K3 ["ShouldShowDropdownIcon"]
-      186 JUMPIFNOT                        R12 ; [+30]
+      186 JUMPIFNOT                        R12 ; [+27]
       187 GETUPVAL                         R12 2
       188 GETTABLEKS                       R12 R12 K31 ["createElement"]
       190 GETUPVAL                         R13 4
-      191 DUPTABLE                         R14 K46 [{"Size", "LeftIcon", "TooltipText", "OnClick"}]
+      191 DUPTABLE                         R14 K47 [{["Size"], ["LeftIcon"] = "rbxasset://textures/Debugger/Breakpoints/filter.png", ["TooltipText"], ["OnClick"]}]
       192 GETIMPORT                        R15 K37 [UDim2.new]
       194 LOADN                            R16 0
       195 GETUPVAL                         R17 0
@@ -438,84 +428,76 @@ PROTO_11:
       200 GETTABLEKS                       R19 R19 K22 ["BUTTON_SIZE"]
       202 CALL                             R15 4 1
       203 SETTABLEKS                       R15 R14 K32 ["Size"]
-      205 LOADK                            R15 K47 ["rbxasset://textures/Debugger/Breakpoints/filter.png"]
-      206 SETTABLEKS                       R15 R14 K43 ["LeftIcon"]
-      208 GETTABLEKS                       R15 R1 K48 ["Tooltip"]
-      210 SETTABLEKS                       R15 R14 K44 ["TooltipText"]
-      212 GETTABLEKS                       R15 R0 K49 ["openMenu"]
-      214 SETTABLEKS                       R15 R14 K45 ["OnClick"]
-      216 CALL                             R12 2 1
-      217 SETTABLEKS                       R12 R11 K38 ["IconView"]
-      219 GETTABLEKS                       R12 R1 K4 ["HamburgerMenu"]
-      221 JUMPIFNOT                        R12 ; [+29]
-      222 GETUPVAL                         R12 2
-      223 GETTABLEKS                       R12 R12 K31 ["createElement"]
-      225 GETUPVAL                         R13 4
-      226 DUPTABLE                         R14 K51 [{"Size", "LeftIcon", "OnClick", "BackgroundStyle"}]
-      227 GETIMPORT                        R15 K37 [UDim2.new]
-      229 LOADN                            R16 0
-      230 GETUPVAL                         R17 0
-      231 GETTABLEKS                       R17 R17 K22 ["BUTTON_SIZE"]
-      233 LOADN                            R18 0
-      234 GETUPVAL                         R19 0
-      235 GETTABLEKS                       R19 R19 K22 ["BUTTON_SIZE"]
-      237 CALL                             R15 4 1
-      238 SETTABLEKS                       R15 R14 K32 ["Size"]
-      240 LOADK                            R15 K52 ["rbxasset://textures/Debugger/Breakpoints/MoreButton.png"]
-      241 SETTABLEKS                       R15 R14 K43 ["LeftIcon"]
-      243 GETTABLEKS                       R15 R0 K49 ["openMenu"]
-      245 SETTABLEKS                       R15 R14 K45 ["OnClick"]
-      247 LOADK                            R15 K53 ["Box"]
-      248 SETTABLEKS                       R15 R14 K50 ["BackgroundStyle"]
-      250 CALL                             R12 2 1
-      251 SETTABLEKS                       R12 R11 K39 ["HamburgerIconView"]
-      253 MOVE                             R12 R4
-      254 JUMPIFNOT                        R12 ; [+38]
-      255 GETUPVAL                         R12 2
-      256 GETTABLEKS                       R12 R12 K31 ["createElement"]
-      258 GETUPVAL                         R13 5
-      259 DUPTABLE                         R14 K59 [{"Text", "TextSize", "Font", "Size", "Stylizer", "BorderSizePixel", "OnClick", "Tooltip"}]
-      260 SETTABLEKS                       R5 R14 K54 ["Text"]
-      262 GETTABLEKS                       R15 R2 K55 ["TextSize"]
-      264 SETTABLEKS                       R15 R14 K55 ["TextSize"]
-      266 GETTABLEKS                       R15 R2 K56 ["Font"]
-      268 SETTABLEKS                       R15 R14 K56 ["Font"]
-      270 GETIMPORT                        R15 K37 [UDim2.new]
-      272 LOADN                            R16 1
-      273 LOADN                            R17 0
-      274 LOADN                            R18 1
-      275 LOADN                            R19 0
-      276 CALL                             R15 4 1
-      277 SETTABLEKS                       R15 R14 K32 ["Size"]
-      279 SETTABLEKS                       R2 R14 K57 ["Stylizer"]
-      281 LOADN                            R15 0
-      282 SETTABLEKS                       R15 R14 K58 ["BorderSizePixel"]
-      284 GETTABLEKS                       R15 R0 K49 ["openMenu"]
-      286 SETTABLEKS                       R15 R14 K45 ["OnClick"]
-      288 GETTABLEKS                       R15 R1 K48 ["Tooltip"]
-      290 SETTABLEKS                       R15 R14 K48 ["Tooltip"]
-      292 CALL                             R12 2 1
-      293 SETTABLEKS                       R12 R11 K40 ["ButtonView"]
-      295 GETUPVAL                         R12 2
-      296 GETTABLEKS                       R12 R12 K31 ["createElement"]
-      298 GETUPVAL                         R13 6
-      299 DUPTABLE                         R14 K65 [{"Width", "Hide", "Items", "OnFocusLost", "OnRenderItem", "Stylizer"}]
-      300 GETTABLEKS                       R15 R1 K21 ["DropdownWidth"]
-      302 SETTABLEKS                       R15 R14 K60 ["Width"]
-      304 GETTABLEKS                       R16 R0 K66 ["state"]
-      306 GETTABLEKS                       R16 R16 K67 ["isOpen"]
-      308 NOT                              R15 R16
-      309 SETTABLEKS                       R15 R14 K61 ["Hide"]
-      311 SETTABLEKS                       R7 R14 K62 ["Items"]
-      313 GETTABLEKS                       R15 R0 K68 ["closeMenu"]
-      315 SETTABLEKS                       R15 R14 K63 ["OnFocusLost"]
-      317 GETTABLEKS                       R15 R0 K69 ["onRenderItem"]
-      319 SETTABLEKS                       R15 R14 K64 ["OnRenderItem"]
-      321 SETTABLEKS                       R2 R14 K57 ["Stylizer"]
-      323 CALL                             R12 2 1
-      324 SETTABLEKS                       R12 R11 K41 ["DropdownView"]
-      326 CALL                             R8 3 -1
-      327 RETURN                           R8 -1
+      205 GETTABLEKS                       R15 R1 K48 ["Tooltip"]
+      207 SETTABLEKS                       R15 R14 K45 ["TooltipText"]
+      209 GETTABLEKS                       R15 R0 K49 ["openMenu"]
+      211 SETTABLEKS                       R15 R14 K46 ["OnClick"]
+      213 CALL                             R12 2 1
+      214 SETTABLEKS                       R12 R11 K38 ["IconView"]
+      216 GETTABLEKS                       R12 R1 K4 ["HamburgerMenu"]
+      218 JUMPIFNOT                        R12 ; [+23]
+      219 GETUPVAL                         R12 2
+      220 GETTABLEKS                       R12 R12 K31 ["createElement"]
+      222 GETUPVAL                         R13 4
+      223 DUPTABLE                         R14 K53 [{["Size"], ["LeftIcon"] = "rbxasset://textures/Debugger/Breakpoints/MoreButton.png", ["OnClick"], ["BackgroundStyle"] = "Box"}]
+      224 GETIMPORT                        R15 K37 [UDim2.new]
+      226 LOADN                            R16 0
+      227 GETUPVAL                         R17 0
+      228 GETTABLEKS                       R17 R17 K22 ["BUTTON_SIZE"]
+      230 LOADN                            R18 0
+      231 GETUPVAL                         R19 0
+      232 GETTABLEKS                       R19 R19 K22 ["BUTTON_SIZE"]
+      234 CALL                             R15 4 1
+      235 SETTABLEKS                       R15 R14 K32 ["Size"]
+      237 GETTABLEKS                       R15 R0 K49 ["openMenu"]
+      239 SETTABLEKS                       R15 R14 K46 ["OnClick"]
+      241 CALL                             R12 2 1
+      242 SETTABLEKS                       R12 R11 K39 ["HamburgerIconView"]
+      244 MOVE                             R12 R4
+      245 JUMPIFNOT                        R12 ; [+35]
+      246 GETUPVAL                         R12 2
+      247 GETTABLEKS                       R12 R12 K31 ["createElement"]
+      249 GETUPVAL                         R13 5
+      250 DUPTABLE                         R14 K59 [{["Text"], ["TextSize"], ["Font"], ["Size"], ["Stylizer"], ["BorderSizePixel"] = 0, ["OnClick"], ["Tooltip"]}]
+      251 SETTABLEKS                       R5 R14 K54 ["Text"]
+      253 GETTABLEKS                       R15 R2 K55 ["TextSize"]
+      255 SETTABLEKS                       R15 R14 K55 ["TextSize"]
+      257 GETTABLEKS                       R15 R2 K56 ["Font"]
+      259 SETTABLEKS                       R15 R14 K56 ["Font"]
+      261 GETIMPORT                        R15 K37 [UDim2.new]
+      263 LOADN                            R16 1
+      264 LOADN                            R17 0
+      265 LOADN                            R18 1
+      266 LOADN                            R19 0
+      267 CALL                             R15 4 1
+      268 SETTABLEKS                       R15 R14 K32 ["Size"]
+      270 SETTABLEKS                       R2 R14 K57 ["Stylizer"]
+      272 GETTABLEKS                       R15 R0 K49 ["openMenu"]
+      274 SETTABLEKS                       R15 R14 K46 ["OnClick"]
+      276 GETTABLEKS                       R15 R1 K48 ["Tooltip"]
+      278 SETTABLEKS                       R15 R14 K48 ["Tooltip"]
+      280 CALL                             R12 2 1
+      281 SETTABLEKS                       R12 R11 K40 ["ButtonView"]
+      283 GETUPVAL                         R12 2
+      284 GETTABLEKS                       R12 R12 K31 ["createElement"]
+      286 GETUPVAL                         R13 6
+      287 DUPTABLE                         R14 K65 [{"Width", "Hide", "Items", "OnFocusLost", "OnRenderItem", "Stylizer"}]
+      288 GETTABLEKS                       R15 R1 K21 ["DropdownWidth"]
+      290 SETTABLEKS                       R15 R14 K60 ["Width"]
+      292 GETTABLEKS                       R16 R0 K66 ["state"]
+      294 GETTABLEKS                       R16 R16 K67 ["isOpen"]
+      296 NOT                              R15 R16
+      297 SETTABLEKS                       R15 R14 K61 ["Hide"]
+      299 SETTABLEKS                       R7 R14 K62 ["Items"]
+      301 GETTABLEKS                       R15 R0 K68 ["closeMenu"]
+      303 SETTABLEKS                       R15 R14 K63 ["OnFocusLost"]
+      305 GETTABLEKS                       R15 R0 K69 ["onRenderItem"]
+      307 SETTABLEKS                       R15 R14 K64 ["OnRenderItem"]
+      309 SETTABLEKS                       R2 R14 K57 ["Stylizer"]
+      311 CALL                             R12 2 1
+      312 SETTABLEKS                       R12 R11 K41 ["DropdownView"]
+      314 CALL                             R8 3 -1
+      315 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

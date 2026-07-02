@@ -208,11 +208,11 @@ PROTO_2:
       250 GETTABLEKS                       R17 R14 K15 ["X"]
       252 GETTABLEKS                       R18 R5 K21 ["Y"]
       254 CALL                             R16 2 1
-      255 SUBRK                            R19 R22 K13 ["getXMax"]
+      255 SUBRK                            R19 K22 [1] R13
       256 MUL                              R18 R16 R19
       257 MUL                              R19 R14 R13
       258 ADD                              R17 R18 R19
-      259 SUBRK                            R20 R22 K13 ["getXMax"]
+      259 SUBRK                            R20 K22 [1] R13
       260 MUL                              R19 R11 R20
       261 MUL                              R20 R15 R13
       262 ADD                              R18 R19 R20
@@ -302,29 +302,27 @@ PROTO_3:
        19 GETUPVAL                         R3 3
        20 GETTABLEKS                       R3 R3 K3 ["createElement"]
        22 LOADK                            R4 K4 ["CanvasGroup"]
-       23 DUPTABLE                         R5 K7 [{"Size", "BackgroundTransparency"}]
-       24 GETIMPORT                        R6 K10 [UDim2.fromScale]
+       23 DUPTABLE                         R5 K8 [{["Size"], ["BackgroundTransparency"] = 1}]
+       24 GETIMPORT                        R6 K11 [UDim2.fromScale]
        26 LOADN                            R7 1
        27 LOADN                            R8 1
        28 CALL                             R6 2 1
        29 SETTABLEKS                       R6 R5 K5 ["Size"]
-       31 LOADN                            R6 1
-       32 SETTABLEKS                       R6 R5 K6 ["BackgroundTransparency"]
-       34 DUPTABLE                         R6 K12 [{"Curve"}]
-       35 GETUPVAL                         R7 3
-       36 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       38 GETUPVAL                         R8 4
-       39 DUPTABLE                         R9 K15 [{"ControlPoints", "Tag"}]
-       40 SETTABLEKS                       R2 R9 K13 ["ControlPoints"]
-       42 JUMPIFNOT                        R1 ; [+2]
-       43 LOADK                            R10 K16 ["FullCurve"]
-       44 JUMP                             ; [+1]
-       45 LOADK                            R10 K17 ["FullCurveDisabled"]
-       46 SETTABLEKS                       R10 R9 K14 ["Tag"]
-       48 CALL                             R7 2 1
-       49 SETTABLEKS                       R7 R6 K11 ["Curve"]
-       51 CALL                             R3 3 -1
-       52 RETURN                           R3 -1
+       31 DUPTABLE                         R6 K13 [{"Curve"}]
+       32 GETUPVAL                         R7 3
+       33 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       35 GETUPVAL                         R8 4
+       36 DUPTABLE                         R9 K16 [{"ControlPoints", "Tag"}]
+       37 SETTABLEKS                       R2 R9 K14 ["ControlPoints"]
+       39 JUMPIFNOT                        R1 ; [+2]
+       40 LOADK                            R10 K17 ["FullCurve"]
+       41 JUMP                             ; [+1]
+       42 LOADK                            R10 K18 ["FullCurveDisabled"]
+       43 SETTABLEKS                       R10 R9 K15 ["Tag"]
+       45 CALL                             R7 2 1
+       46 SETTABLEKS                       R7 R6 K12 ["Curve"]
+       48 CALL                             R3 3 -1
+       49 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

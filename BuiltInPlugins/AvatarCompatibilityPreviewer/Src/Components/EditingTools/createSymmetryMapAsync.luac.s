@@ -548,7 +548,7 @@ PROTO_12:
       353 FORGPREP                         R14
       354 LENGTH                           R21 R18
       355 LOADN                            R19 1
-      356 LOADN                            R20 255
+      356 LOADN                            R20 -1
       357 FORNPREP                         R19
       358 GETUPVAL                         R24 4
       359 GETTABLE                         R23 R24 R12

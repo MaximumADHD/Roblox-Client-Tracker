@@ -48,66 +48,56 @@ PROTO_0:
        69 GETUPVAL                         R11 1
        70 GETTABLEKS                       R11 R11 K12 ["createElement"]
        72 LOADK                            R12 K26 ["TextLabel"]
-       73 DUPTABLE                         R13 K35 [{"LayoutOrder", "AutomaticSize", "BackgroundTransparency", "Text", "TextXAlignment", "TextWrapped", "Font", "TextSize", "TextColor3"}]
-       74 NAMECALL                         R14 R9 K36 ["getNextOrder"]
+       73 DUPTABLE                         R13 K38 [{["LayoutOrder"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"], ["TextWrapped"] = True, ["Font"], ["TextSize"] = 22, ["TextColor3"]}]
+       74 NAMECALL                         R14 R9 K39 ["getNextOrder"]
        76 CALL                             R14 1 1
        77 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-       79 GETIMPORT                        R14 K38 [Enum.AutomaticSize.XY]
+       79 GETIMPORT                        R14 K41 [Enum.AutomaticSize.XY]
        81 SETTABLEKS                       R14 R13 K27 ["AutomaticSize"]
-       83 LOADN                            R14 1
-       84 SETTABLEKS                       R14 R13 K28 ["BackgroundTransparency"]
-       86 SETTABLEKS                       R4 R13 K29 ["Text"]
-       88 GETIMPORT                        R14 K40 [Enum.TextXAlignment.Left]
-       90 SETTABLEKS                       R14 R13 K30 ["TextXAlignment"]
-       92 LOADB                            R14 1
-       93 SETTABLEKS                       R14 R13 K31 ["TextWrapped"]
-       95 GETTABLEKS                       R14 R2 K41 ["listDialog"]
-       97 GETTABLEKS                       R14 R14 K42 ["font"]
-       99 SETTABLEKS                       R14 R13 K32 ["Font"]
-      101 LOADN                            R14 22
-      102 SETTABLEKS                       R14 R13 K33 ["TextSize"]
-      104 GETTABLEKS                       R14 R2 K41 ["listDialog"]
-      106 GETTABLEKS                       R14 R14 K43 ["textColor"]
-      108 SETTABLEKS                       R14 R13 K34 ["TextColor3"]
-      110 CALL                             R11 2 1
-      111 SETTABLEKS                       R11 R10 K3 ["Header"]
-      113 GETUPVAL                         R11 1
-      114 GETTABLEKS                       R11 R11 K12 ["createElement"]
-      116 GETUPVAL                         R12 2
-      117 DUPTABLE                         R13 K46 [{"Items", "LayoutOrder", "TextTruncate"}]
-      118 SETTABLEKS                       R5 R13 K44 ["Items"]
-      120 NAMECALL                         R14 R9 K36 ["getNextOrder"]
-      122 CALL                             R14 1 1
-      123 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
-      125 GETIMPORT                        R14 K48 [Enum.TextTruncate.AtEnd]
-      127 SETTABLEKS                       R14 R13 K45 ["TextTruncate"]
-      129 CALL                             R11 2 1
-      130 SETTABLEKS                       R11 R10 K49 ["List"]
-      132 GETUPVAL                         R11 1
-      133 GETTABLEKS                       R11 R11 K12 ["createElement"]
-      135 GETUPVAL                         R12 3
-      136 DUPTABLE                         R13 K55 [{"Title", "Modal", "Buttons", "MinContentSize", "ButtonHorizontalAlignment", "Style", "OnButtonPressed", "OnClose"}]
-      137 SETTABLEKS                       R3 R13 K2 ["Title"]
-      139 LOADB                            R14 1
-      140 SETTABLEKS                       R14 R13 K50 ["Modal"]
-      142 SETTABLEKS                       R6 R13 K5 ["Buttons"]
-      144 GETTABLEKS                       R14 R0 K0 ["props"]
-      146 GETTABLEKS                       R14 R14 K56 ["minContentSize"]
-      148 JUMPIF                           R14 ; [+5]
-      149 GETIMPORT                        R14 K58 [Vector2.new]
-      151 LOADN                            R15 194
-      152 LOADN                            R16 220
-      153 CALL                             R14 2 1
-      154 SETTABLEKS                       R14 R13 K51 ["MinContentSize"]
-      156 GETIMPORT                        R14 K61 [Enum.HorizontalAlignment.Center]
-      158 SETTABLEKS                       R14 R13 K52 ["ButtonHorizontalAlignment"]
-      160 LOADK                            R14 K62 ["LargeCenterButtons"]
-      161 SETTABLEKS                       R14 R13 K53 ["Style"]
-      163 SETTABLEKS                       R7 R13 K54 ["OnButtonPressed"]
-      165 SETTABLEKS                       R8 R13 K7 ["OnClose"]
-      167 MOVE                             R14 R10
-      168 CALL                             R11 3 -1
-      169 RETURN                           R11 -1
+       83 SETTABLEKS                       R4 R13 K30 ["Text"]
+       85 GETIMPORT                        R14 K43 [Enum.TextXAlignment.Left]
+       87 SETTABLEKS                       R14 R13 K31 ["TextXAlignment"]
+       89 GETTABLEKS                       R14 R2 K44 ["listDialog"]
+       91 GETTABLEKS                       R14 R14 K45 ["font"]
+       93 SETTABLEKS                       R14 R13 K34 ["Font"]
+       95 GETTABLEKS                       R14 R2 K44 ["listDialog"]
+       97 GETTABLEKS                       R14 R14 K46 ["textColor"]
+       99 SETTABLEKS                       R14 R13 K37 ["TextColor3"]
+      101 CALL                             R11 2 1
+      102 SETTABLEKS                       R11 R10 K3 ["Header"]
+      104 GETUPVAL                         R11 1
+      105 GETTABLEKS                       R11 R11 K12 ["createElement"]
+      107 GETUPVAL                         R12 2
+      108 DUPTABLE                         R13 K49 [{"Items", "LayoutOrder", "TextTruncate"}]
+      109 SETTABLEKS                       R5 R13 K47 ["Items"]
+      111 NAMECALL                         R14 R9 K39 ["getNextOrder"]
+      113 CALL                             R14 1 1
+      114 SETTABLEKS                       R14 R13 K19 ["LayoutOrder"]
+      116 GETIMPORT                        R14 K51 [Enum.TextTruncate.AtEnd]
+      118 SETTABLEKS                       R14 R13 K48 ["TextTruncate"]
+      120 CALL                             R11 2 1
+      121 SETTABLEKS                       R11 R10 K52 ["List"]
+      123 GETUPVAL                         R11 1
+      124 GETTABLEKS                       R11 R11 K12 ["createElement"]
+      126 GETUPVAL                         R12 3
+      127 DUPTABLE                         R13 K59 [{["Title"], ["Modal"] = True, ["Buttons"], ["MinContentSize"], ["ButtonHorizontalAlignment"], ["Style"] = "LargeCenterButtons", ["OnButtonPressed"], ["OnClose"]}]
+      128 SETTABLEKS                       R3 R13 K2 ["Title"]
+      130 SETTABLEKS                       R6 R13 K5 ["Buttons"]
+      132 GETTABLEKS                       R14 R0 K0 ["props"]
+      134 GETTABLEKS                       R14 R14 K60 ["minContentSize"]
+      136 JUMPIF                           R14 ; [+5]
+      137 GETIMPORT                        R14 K62 [Vector2.new]
+      139 LOADN                            R15 450
+      140 LOADN                            R16 220
+      141 CALL                             R14 2 1
+      142 SETTABLEKS                       R14 R13 K54 ["MinContentSize"]
+      144 GETIMPORT                        R14 K65 [Enum.HorizontalAlignment.Center]
+      146 SETTABLEKS                       R14 R13 K55 ["ButtonHorizontalAlignment"]
+      148 SETTABLEKS                       R7 R13 K58 ["OnButtonPressed"]
+      150 SETTABLEKS                       R8 R13 K7 ["OnClose"]
+      152 MOVE                             R14 R10
+      153 CALL                             R11 3 -1
+      154 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

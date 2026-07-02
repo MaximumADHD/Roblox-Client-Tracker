@@ -219,27 +219,21 @@ MAIN:
       327 LOADK                            R7 K180 ["rbxasset://textures/StudioToolbox/AssetPreview/OnSale.png"]
       328 SETTABLE                         R7 R5 R6
       329 SETTABLEKS                       R5 R4 K184 ["AssetStatus"]
-      331 DUPTABLE                         R5 K188 [{"error", "pending", "success"}]
-      332 LOADK                            R6 K189 ["rbxasset://textures/StudioToolbox/AssetConfig/rejected@2x.png"]
-      333 SETTABLEKS                       R6 R5 K185 ["error"]
-      335 LOADK                            R6 K190 ["rbxasset://textures/StudioToolbox/AssetConfig/recent@2x.png"]
-      336 SETTABLEKS                       R6 R5 K186 ["pending"]
-      338 LOADK                            R6 K114 ["rbxasset://textures/StudioToolbox/AssetConfig/selected@2x.png"]
-      339 SETTABLEKS                       R6 R5 K187 ["success"]
-      341 SETTABLEKS                       R5 R4 K191 ["UGCValidationStatus"]
-      343 LOADK                            R5 K192 ["rbxasset://textures/StudioToolbox/AssetConfig/plugin_temp.png"]
-      344 SETTABLEKS                       R5 R4 K193 ["PLUGIN_TEMP"]
-      346 LOADK                            R5 K194 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-      347 SETTABLEKS                       R5 R4 K195 ["ARROW_SPRITESHEET"]
-      349 LOADK                            R5 K196 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
-      350 SETTABLEKS                       R5 R4 K197 ["AVATAR_MASK"]
-      352 LOADK                            R5 K198 ["rbxasset://textures/StudioSharedUI/default_user.png"]
-      353 SETTABLEKS                       R5 R4 K199 ["DEFAULT_USER_THUMBNAIL"]
-      355 LOADK                            R5 K200 ["rbxasset://textures/StudioSharedUI/default_group.png"]
-      356 SETTABLEKS                       R5 R4 K201 ["DEFAULT_GROUP_THUMBNAIL"]
-      358 LOADK                            R5 K202 ["rbxasset://textures/GameSettings/ErrorIcon.png"]
-      359 SETTABLEKS                       R5 R4 K203 ["ERROR_ICON"]
-      361 MOVE                             R5 R1
-      362 MOVE                             R6 R4
-      363 CALL                             R5 1 -1
-      364 RETURN                           R5 -1
+      331 DUPTABLE                         R5 K190 [{["error"] = "rbxasset://textures/StudioToolbox/AssetConfig/rejected@2x.png", ["pending"] = "rbxasset://textures/StudioToolbox/AssetConfig/recent@2x.png", ["success"] = "rbxasset://textures/StudioToolbox/AssetConfig/selected@2x.png"}]
+      332 SETTABLEKS                       R5 R4 K191 ["UGCValidationStatus"]
+      334 LOADK                            R5 K192 ["rbxasset://textures/StudioToolbox/AssetConfig/plugin_temp.png"]
+      335 SETTABLEKS                       R5 R4 K193 ["PLUGIN_TEMP"]
+      337 LOADK                            R5 K194 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
+      338 SETTABLEKS                       R5 R4 K195 ["ARROW_SPRITESHEET"]
+      340 LOADK                            R5 K196 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
+      341 SETTABLEKS                       R5 R4 K197 ["AVATAR_MASK"]
+      343 LOADK                            R5 K198 ["rbxasset://textures/StudioSharedUI/default_user.png"]
+      344 SETTABLEKS                       R5 R4 K199 ["DEFAULT_USER_THUMBNAIL"]
+      346 LOADK                            R5 K200 ["rbxasset://textures/StudioSharedUI/default_group.png"]
+      347 SETTABLEKS                       R5 R4 K201 ["DEFAULT_GROUP_THUMBNAIL"]
+      349 LOADK                            R5 K202 ["rbxasset://textures/GameSettings/ErrorIcon.png"]
+      350 SETTABLEKS                       R5 R4 K203 ["ERROR_ICON"]
+      352 MOVE                             R5 R1
+      353 MOVE                             R6 R4
+      354 CALL                             R5 1 -1
+      355 RETURN                           R5 -1

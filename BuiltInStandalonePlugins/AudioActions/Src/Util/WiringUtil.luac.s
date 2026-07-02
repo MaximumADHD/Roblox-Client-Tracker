@@ -160,136 +160,62 @@ MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R0 8 0
         3 DUPTABLE                         R1 K18 [{"AudioPlayer", "AudioDeviceInput", "AudioDeviceOutput", "AudioEmitter", "AudioListener", "AudioChorus", "AudioCompressor", "AudioDistortion", "AudioEcho", "AudioEqualizer", "AudioFader", "AudioFilter", "AudioFlanger", "AudioLimiter", "AudioPitchShifter", "AudioReverb", "AudioAnalyzer", "Wire"}]
-        4 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-        8 LOADB                            R3 1
-        9 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       11 SETTABLEKS                       R2 R1 K0 ["AudioPlayer"]
-       13 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       14 LOADB                            R3 0
-       15 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       17 LOADB                            R3 1
-       18 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       20 SETTABLEKS                       R2 R1 K1 ["AudioDeviceInput"]
-       22 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       23 LOADB                            R3 1
-       24 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       26 LOADB                            R3 0
-       27 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       29 SETTABLEKS                       R2 R1 K2 ["AudioDeviceOutput"]
-       31 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       32 LOADB                            R3 1
-       33 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       35 LOADB                            R3 0
-       36 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       38 SETTABLEKS                       R2 R1 K3 ["AudioEmitter"]
-       40 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       41 LOADB                            R3 0
-       42 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       44 LOADB                            R3 1
-       45 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       47 SETTABLEKS                       R2 R1 K4 ["AudioListener"]
-       49 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       50 LOADB                            R3 1
-       51 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       53 LOADB                            R3 1
-       54 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       56 SETTABLEKS                       R2 R1 K5 ["AudioChorus"]
-       58 DUPTABLE                         R2 K23 [{"HasInput", "HasOutput", "HasSidechain"}]
-       59 LOADB                            R3 1
-       60 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       62 LOADB                            R3 1
-       63 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       65 LOADB                            R3 1
-       66 SETTABLEKS                       R3 R2 K22 ["HasSidechain"]
-       68 SETTABLEKS                       R2 R1 K6 ["AudioCompressor"]
-       70 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       71 LOADB                            R3 1
-       72 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       74 LOADB                            R3 1
-       75 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       77 SETTABLEKS                       R2 R1 K7 ["AudioDistortion"]
-       79 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       80 LOADB                            R3 1
-       81 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       83 LOADB                            R3 1
-       84 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       86 SETTABLEKS                       R2 R1 K8 ["AudioEcho"]
-       88 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       89 LOADB                            R3 1
-       90 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-       92 LOADB                            R3 1
-       93 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-       95 SETTABLEKS                       R2 R1 K9 ["AudioEqualizer"]
-       97 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-       98 LOADB                            R3 1
-       99 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      101 LOADB                            R3 1
-      102 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      104 SETTABLEKS                       R2 R1 K10 ["AudioFader"]
-      106 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      107 LOADB                            R3 1
-      108 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      110 LOADB                            R3 1
-      111 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      113 SETTABLEKS                       R2 R1 K11 ["AudioFilter"]
-      115 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      116 LOADB                            R3 1
-      117 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      119 LOADB                            R3 1
-      120 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      122 SETTABLEKS                       R2 R1 K12 ["AudioFlanger"]
-      124 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      125 LOADB                            R3 1
-      126 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      128 LOADB                            R3 1
-      129 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      131 SETTABLEKS                       R2 R1 K13 ["AudioLimiter"]
-      133 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      134 LOADB                            R3 1
-      135 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      137 LOADB                            R3 1
-      138 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      140 SETTABLEKS                       R2 R1 K14 ["AudioPitchShifter"]
-      142 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      143 LOADB                            R3 1
-      144 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      146 LOADB                            R3 1
-      147 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      149 SETTABLEKS                       R2 R1 K15 ["AudioReverb"]
-      151 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      152 LOADB                            R3 1
-      153 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      155 LOADB                            R3 0
-      156 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      158 SETTABLEKS                       R2 R1 K16 ["AudioAnalyzer"]
-      160 DUPTABLE                         R2 K21 [{"HasInput", "HasOutput"}]
-      161 LOADB                            R3 0
-      162 SETTABLEKS                       R3 R2 K19 ["HasInput"]
-      164 LOADB                            R3 0
-      165 SETTABLEKS                       R3 R2 K20 ["HasOutput"]
-      167 SETTABLEKS                       R2 R1 K17 ["Wire"]
-      169 DUPCLOSURE                       R2 K24 [PROTO_0]
-      170 CAPTURE                          VAL R1
-      171 SETTABLEKS                       R2 R0 K25 ["getAudioInstanceDefs"]
-      173 DUPCLOSURE                       R2 K26 [PROTO_1]
-      174 CAPTURE                          VAL R1
-      175 SETTABLEKS                       R2 R0 K27 ["hasInputPin"]
-      177 DUPCLOSURE                       R2 K28 [PROTO_2]
-      178 CAPTURE                          VAL R1
-      179 SETTABLEKS                       R2 R0 K29 ["hasOutputPin"]
-      181 DUPCLOSURE                       R2 K30 [PROTO_3]
-      182 CAPTURE                          VAL R1
-      183 SETTABLEKS                       R2 R0 K31 ["hasSidechainPin"]
-      185 DUPCLOSURE                       R2 K32 [PROTO_4]
-      186 CAPTURE                          VAL R0
-      187 SETTABLEKS                       R2 R0 K33 ["getWirableInstances"]
-      189 DUPCLOSURE                       R2 K34 [PROTO_5]
-      190 SETTABLEKS                       R2 R0 K35 ["findWire"]
-      192 DUPCLOSURE                       R2 K36 [PROTO_6]
-      193 SETTABLEKS                       R2 R0 K37 ["rewire"]
-      195 DUPCLOSURE                       R2 K38 [PROTO_7]
-      196 CAPTURE                          VAL R0
-      197 SETTABLEKS                       R2 R0 K39 ["connectByWire"]
-      199 RETURN                           R0 1
+        4 DUPTABLE                         R2 K23 [{["HasInput"] = False, ["HasOutput"] = True}]
+        5 SETTABLEKS                       R2 R1 K0 ["AudioPlayer"]
+        7 DUPTABLE                         R2 K23 [{["HasInput"] = False, ["HasOutput"] = True}]
+        8 SETTABLEKS                       R2 R1 K1 ["AudioDeviceInput"]
+       10 DUPTABLE                         R2 K24 [{["HasInput"] = True, ["HasOutput"] = False}]
+       11 SETTABLEKS                       R2 R1 K2 ["AudioDeviceOutput"]
+       13 DUPTABLE                         R2 K24 [{["HasInput"] = True, ["HasOutput"] = False}]
+       14 SETTABLEKS                       R2 R1 K3 ["AudioEmitter"]
+       16 DUPTABLE                         R2 K23 [{["HasInput"] = False, ["HasOutput"] = True}]
+       17 SETTABLEKS                       R2 R1 K4 ["AudioListener"]
+       19 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       20 SETTABLEKS                       R2 R1 K5 ["AudioChorus"]
+       22 DUPTABLE                         R2 K27 [{["HasInput"] = True, ["HasOutput"] = True, ["HasSidechain"] = True}]
+       23 SETTABLEKS                       R2 R1 K6 ["AudioCompressor"]
+       25 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       26 SETTABLEKS                       R2 R1 K7 ["AudioDistortion"]
+       28 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       29 SETTABLEKS                       R2 R1 K8 ["AudioEcho"]
+       31 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       32 SETTABLEKS                       R2 R1 K9 ["AudioEqualizer"]
+       34 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       35 SETTABLEKS                       R2 R1 K10 ["AudioFader"]
+       37 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       38 SETTABLEKS                       R2 R1 K11 ["AudioFilter"]
+       40 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       41 SETTABLEKS                       R2 R1 K12 ["AudioFlanger"]
+       43 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       44 SETTABLEKS                       R2 R1 K13 ["AudioLimiter"]
+       46 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       47 SETTABLEKS                       R2 R1 K14 ["AudioPitchShifter"]
+       49 DUPTABLE                         R2 K25 [{["HasInput"] = True, ["HasOutput"] = True}]
+       50 SETTABLEKS                       R2 R1 K15 ["AudioReverb"]
+       52 DUPTABLE                         R2 K24 [{["HasInput"] = True, ["HasOutput"] = False}]
+       53 SETTABLEKS                       R2 R1 K16 ["AudioAnalyzer"]
+       55 DUPTABLE                         R2 K28 [{["HasInput"] = False, ["HasOutput"] = False}]
+       56 SETTABLEKS                       R2 R1 K17 ["Wire"]
+       58 DUPCLOSURE                       R2 K29 [PROTO_0]
+       59 CAPTURE                          VAL R1
+       60 SETTABLEKS                       R2 R0 K30 ["getAudioInstanceDefs"]
+       62 DUPCLOSURE                       R2 K31 [PROTO_1]
+       63 CAPTURE                          VAL R1
+       64 SETTABLEKS                       R2 R0 K32 ["hasInputPin"]
+       66 DUPCLOSURE                       R2 K33 [PROTO_2]
+       67 CAPTURE                          VAL R1
+       68 SETTABLEKS                       R2 R0 K34 ["hasOutputPin"]
+       70 DUPCLOSURE                       R2 K35 [PROTO_3]
+       71 CAPTURE                          VAL R1
+       72 SETTABLEKS                       R2 R0 K36 ["hasSidechainPin"]
+       74 DUPCLOSURE                       R2 K37 [PROTO_4]
+       75 CAPTURE                          VAL R0
+       76 SETTABLEKS                       R2 R0 K38 ["getWirableInstances"]
+       78 DUPCLOSURE                       R2 K39 [PROTO_5]
+       79 SETTABLEKS                       R2 R0 K40 ["findWire"]
+       81 DUPCLOSURE                       R2 K41 [PROTO_6]
+       82 SETTABLEKS                       R2 R0 K42 ["rewire"]
+       84 DUPCLOSURE                       R2 K43 [PROTO_7]
+       85 CAPTURE                          VAL R0
+       86 SETTABLEKS                       R2 R0 K44 ["connectByWire"]
+       88 RETURN                           R0 1

@@ -96,85 +96,75 @@ PROTO_2:
        25 GETIMPORT                        R4 K11 [table.sort]
        27 MOVE                             R5 R2
        28 CALL                             R4 1 0
-       29 DUPTABLE                         R4 K17 [{"IsCurveTrack", "Type", "Keyframes", "Data", "Instance"}]
-       30 LOADB                            R5 1
-       31 SETTABLEKS                       R5 R4 K12 ["IsCurveTrack"]
-       33 SETTABLEKS                       R0 R4 K13 ["Type"]
-       35 SETTABLEKS                       R2 R4 K14 ["Keyframes"]
-       37 SETTABLEKS                       R3 R4 K15 ["Data"]
-       39 LOADK                            R5 K18 ["Root"]
-       40 SETTABLEKS                       R5 R4 K16 ["Instance"]
-       42 RETURN                           R4 1
+       29 DUPTABLE                         R4 K19 [{["IsCurveTrack"] = True, ["Type"], ["Keyframes"], ["Data"], ["Instance"] = "Root"}]
+       30 SETTABLEKS                       R0 R4 K14 ["Type"]
+       32 SETTABLEKS                       R2 R4 K15 ["Keyframes"]
+       34 SETTABLEKS                       R3 R4 K16 ["Data"]
+       36 RETURN                           R4 1
 
 PROTO_3:
-        0 DUPTABLE                         R0 K4 [{"IsCurveTrack", "Type", "Components", "Instance"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["IsCurveTrack"]
-        4 GETUPVAL                         R1 0
-        5 GETTABLEKS                       R1 R1 K5 ["TRACK_TYPES"]
-        7 GETTABLEKS                       R1 R1 K6 ["CFrame"]
-        9 SETTABLEKS                       R1 R0 K1 ["Type"]
-       11 DUPTABLE                         R1 K9 [{"Position", "Rotation"}]
-       12 DUPTABLE                         R2 K10 [{"IsCurveTrack", "Type", "Components"}]
-       13 LOADB                            R3 1
-       14 SETTABLEKS                       R3 R2 K0 ["IsCurveTrack"]
-       16 GETUPVAL                         R3 0
-       17 GETTABLEKS                       R3 R3 K5 ["TRACK_TYPES"]
-       19 GETTABLEKS                       R3 R3 K7 ["Position"]
-       21 SETTABLEKS                       R3 R2 K1 ["Type"]
-       23 DUPTABLE                         R3 K14 [{"X", "Y", "Z"}]
-       24 GETUPVAL                         R4 1
-       25 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
-       27 GETUPVAL                         R5 0
-       28 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
-       30 GETTABLEKS                       R5 R5 K16 ["Number"]
-       32 NEWTABLE                         R6 0 0
-       34 CALL                             R4 2 1
-       35 SETTABLEKS                       R4 R3 K11 ["X"]
-       37 GETUPVAL                         R4 1
-       38 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
-       40 GETUPVAL                         R5 0
-       41 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
-       43 GETTABLEKS                       R5 R5 K16 ["Number"]
-       45 NEWTABLE                         R6 0 0
-       47 CALL                             R4 2 1
-       48 SETTABLEKS                       R4 R3 K12 ["Y"]
-       50 GETUPVAL                         R4 1
-       51 GETTABLEKS                       R4 R4 K15 ["makeCurveTrack"]
-       53 GETUPVAL                         R5 0
-       54 GETTABLEKS                       R5 R5 K5 ["TRACK_TYPES"]
-       56 GETTABLEKS                       R5 R5 K16 ["Number"]
-       58 NEWTABLE                         R6 0 0
-       60 CALL                             R4 2 1
-       61 SETTABLEKS                       R4 R3 K13 ["Z"]
-       63 SETTABLEKS                       R3 R2 K2 ["Components"]
-       65 SETTABLEKS                       R2 R1 K7 ["Position"]
-       67 GETUPVAL                         R2 1
-       68 GETTABLEKS                       R2 R2 K15 ["makeCurveTrack"]
-       70 GETUPVAL                         R3 0
-       71 GETTABLEKS                       R3 R3 K5 ["TRACK_TYPES"]
-       73 GETTABLEKS                       R3 R3 K17 ["Quaternion"]
-       75 NEWTABLE                         R4 2 0
-       77 GETIMPORT                        R5 K19 [CFrame.fromEulerAngles]
-       79 LOADN                            R6 0
-       80 LOADN                            R7 0
-       81 LOADK                            R8 K20 [2.96705972839036]
-       82 GETIMPORT                        R9 K24 [Enum.RotationOrder.XYZ]
-       84 CALL                             R5 4 1
-       85 SETTABLEN                        R5 R4 100
-       86 GETIMPORT                        R5 K19 [CFrame.fromEulerAngles]
-       88 LOADN                            R6 0
-       89 LOADN                            R7 0
-       90 LOADK                            R8 K25 [-2.96705972839036]
-       91 GETIMPORT                        R9 K24 [Enum.RotationOrder.XYZ]
-       93 CALL                             R5 4 1
-       94 SETTABLEN                        R5 R4 200
-       95 CALL                             R2 2 1
-       96 SETTABLEKS                       R2 R1 K8 ["Rotation"]
-       98 SETTABLEKS                       R1 R0 K2 ["Components"]
-      100 LOADK                            R1 K26 ["Root"]
-      101 SETTABLEKS                       R1 R0 K3 ["Instance"]
-      103 RETURN                           R0 1
+        0 DUPTABLE                         R0 K6 [{[1] = True, ["Type"], ["Components"], ["Instance"] = "Root"}]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R1 R1 K7 ["TRACK_TYPES"]
+        4 GETTABLEKS                       R1 R1 K8 ["CFrame"]
+        6 SETTABLEKS                       R1 R0 K2 ["Type"]
+        8 DUPTABLE                         R1 K11 [{"Position", "Rotation"}]
+        9 DUPTABLE                         R2 K12 [{[1] = True, ["Type"], ["Components"]}]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K7 ["TRACK_TYPES"]
+       13 GETTABLEKS                       R3 R3 K9 ["Position"]
+       15 SETTABLEKS                       R3 R2 K2 ["Type"]
+       17 DUPTABLE                         R3 K16 [{"X", "Y", "Z"}]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K17 ["makeCurveTrack"]
+       21 GETUPVAL                         R5 0
+       22 GETTABLEKS                       R5 R5 K7 ["TRACK_TYPES"]
+       24 GETTABLEKS                       R5 R5 K18 ["Number"]
+       26 NEWTABLE                         R6 0 0
+       28 CALL                             R4 2 1
+       29 SETTABLEKS                       R4 R3 K13 ["X"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K17 ["makeCurveTrack"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K7 ["TRACK_TYPES"]
+       37 GETTABLEKS                       R5 R5 K18 ["Number"]
+       39 NEWTABLE                         R6 0 0
+       41 CALL                             R4 2 1
+       42 SETTABLEKS                       R4 R3 K14 ["Y"]
+       44 GETUPVAL                         R4 1
+       45 GETTABLEKS                       R4 R4 K17 ["makeCurveTrack"]
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R5 R5 K7 ["TRACK_TYPES"]
+       50 GETTABLEKS                       R5 R5 K18 ["Number"]
+       52 NEWTABLE                         R6 0 0
+       54 CALL                             R4 2 1
+       55 SETTABLEKS                       R4 R3 K15 ["Z"]
+       57 SETTABLEKS                       R3 R2 K3 ["Components"]
+       59 SETTABLEKS                       R2 R1 K9 ["Position"]
+       61 GETUPVAL                         R2 1
+       62 GETTABLEKS                       R2 R2 K17 ["makeCurveTrack"]
+       64 GETUPVAL                         R3 0
+       65 GETTABLEKS                       R3 R3 K7 ["TRACK_TYPES"]
+       67 GETTABLEKS                       R3 R3 K19 ["Quaternion"]
+       69 NEWTABLE                         R4 2 0
+       71 GETIMPORT                        R5 K21 [CFrame.fromEulerAngles]
+       73 LOADN                            R6 0
+       74 LOADN                            R7 0
+       75 LOADK                            R8 K22 [2.96705972839036]
+       76 GETIMPORT                        R9 K26 [Enum.RotationOrder.XYZ]
+       78 CALL                             R5 4 1
+       79 SETTABLEN                        R5 R4 100
+       80 GETIMPORT                        R5 K21 [CFrame.fromEulerAngles]
+       82 LOADN                            R6 0
+       83 LOADN                            R7 0
+       84 LOADK                            R8 K27 [-2.96705972839036]
+       85 GETIMPORT                        R9 K26 [Enum.RotationOrder.XYZ]
+       87 CALL                             R5 4 1
+       88 SETTABLEN                        R5 R4 200
+       89 CALL                             R2 2 1
+       90 SETTABLEKS                       R2 R1 K10 ["Rotation"]
+       92 SETTABLEKS                       R1 R0 K3 ["Components"]
+       94 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R1 0

@@ -1,21 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K5 [{"GroupRenaming", "GroupRenameDialogOpen", "Theme", "UISelectedGroupId", "InPlayMode"}]
-        1 LOADK                            R2 K6 [""]
-        2 SETTABLEKS                       R2 R1 K0 ["GroupRenaming"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["GroupRenameDialogOpen"]
-        7 LOADK                            R2 K6 [""]
-        8 SETTABLEKS                       R2 R1 K2 ["Theme"]
-       10 LOADK                            R2 K6 [""]
-       11 SETTABLEKS                       R2 R1 K3 ["UISelectedGroupId"]
-       13 LOADB                            R2 0
-       14 SETTABLEKS                       R2 R1 K4 ["InPlayMode"]
-       16 SETTABLEKS                       R1 R0 K7 ["state"]
-       18 GETTABLEKS                       R1 R0 K7 ["state"]
-       20 NAMECALL                         R2 R0 K8 ["GetGroups"]
-       22 CALL                             R2 1 1
-       23 SETTABLEKS                       R2 R1 K9 ["Groups"]
-       25 RETURN                           R0 0
+        0 DUPTABLE                         R1 K7 [{[1] = "", ["GroupRenameDialogOpen"] = False, ["Theme"] = "", ["UISelectedGroupId"] = "", ["InPlayMode"] = False}]
+        1 SETTABLEKS                       R1 R0 K8 ["state"]
+        3 GETTABLEKS                       R1 R0 K8 ["state"]
+        5 NAMECALL                         R2 R0 K9 ["GetGroups"]
+        7 CALL                             R2 1 1
+        8 SETTABLEKS                       R2 R1 K10 ["Groups"]
+       10 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -81,43 +71,39 @@ PROTO_4:
        12 GETTABLEKS                       R1 R1 K3 ["Name"]
        14 JUMPIFNOTEQKS                    R1 K4 ["Default"] ; [+2]
        16 RETURN                           R0 0
-       17 JUMPIFNOT                        R0 ; [+24]
+       17 JUMPIFNOT                        R0 ; [+21]
        18 GETUPVAL                         R1 1
-       19 DUPTABLE                         R3 K6 [{"GroupRenameDialogOpen"}]
-       20 LOADB                            R4 1
-       21 SETTABLEKS                       R4 R3 K5 ["GroupRenameDialogOpen"]
-       23 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
-       25 CALL                             R1 2 0
-       26 NEWTABLE                         R1 2 0
-       28 GETUPVAL                         R2 2
-       29 GETTABLEKS                       R2 R2 K3 ["Name"]
-       31 SETTABLEKS                       R2 R1 K8 ["oldName"]
-       33 SETTABLEKS                       R0 R1 K9 ["newName"]
-       35 GETUPVAL                         R2 3
-       36 LOADK                            R4 K10 ["RenameCollisionGroup"]
-       37 MOVE                             R5 R1
-       38 NAMECALL                         R2 R2 K11 ["Invoke"]
-       40 CALL                             R2 3 0
-       41 RETURN                           R0 0
-       42 GETUPVAL                         R1 1
-       43 GETTABLEKS                       R1 R1 K12 ["state"]
-       45 GETTABLEKS                       R1 R1 K13 ["GroupRenaming"]
-       47 JUMPIFNOTEQKS                    R1 K14 [""] ; [+12]
-       49 GETUPVAL                         R1 1
-       50 DUPTABLE                         R3 K15 [{"GroupRenaming"}]
-       51 GETUPVAL                         R4 2
-       52 GETTABLEKS                       R4 R4 K3 ["Name"]
-       54 SETTABLEKS                       R4 R3 K13 ["GroupRenaming"]
-       56 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
-       58 CALL                             R1 2 0
-       59 RETURN                           R0 0
-       60 GETUPVAL                         R1 1
-       61 DUPTABLE                         R3 K15 [{"GroupRenaming"}]
-       62 LOADK                            R4 K14 [""]
-       63 SETTABLEKS                       R4 R3 K13 ["GroupRenaming"]
-       65 NAMECALL                         R1 R1 K7 ["setStateAndRefresh"]
-       67 CALL                             R1 2 0
-       68 RETURN                           R0 0
+       19 DUPTABLE                         R3 K7 [{["GroupRenameDialogOpen"] = True}]
+       20 NAMECALL                         R1 R1 K8 ["setStateAndRefresh"]
+       22 CALL                             R1 2 0
+       23 NEWTABLE                         R1 2 0
+       25 GETUPVAL                         R2 2
+       26 GETTABLEKS                       R2 R2 K3 ["Name"]
+       28 SETTABLEKS                       R2 R1 K9 ["oldName"]
+       30 SETTABLEKS                       R0 R1 K10 ["newName"]
+       32 GETUPVAL                         R2 3
+       33 LOADK                            R4 K11 ["RenameCollisionGroup"]
+       34 MOVE                             R5 R1
+       35 NAMECALL                         R2 R2 K12 ["Invoke"]
+       37 CALL                             R2 3 0
+       38 RETURN                           R0 0
+       39 GETUPVAL                         R1 1
+       40 GETTABLEKS                       R1 R1 K13 ["state"]
+       42 GETTABLEKS                       R1 R1 K14 ["GroupRenaming"]
+       44 JUMPIFNOTEQKS                    R1 K15 [""] ; [+12]
+       46 GETUPVAL                         R1 1
+       47 DUPTABLE                         R3 K16 [{"GroupRenaming"}]
+       48 GETUPVAL                         R4 2
+       49 GETTABLEKS                       R4 R4 K3 ["Name"]
+       51 SETTABLEKS                       R4 R3 K14 ["GroupRenaming"]
+       53 NAMECALL                         R1 R1 K8 ["setStateAndRefresh"]
+       55 CALL                             R1 2 0
+       56 RETURN                           R0 0
+       57 GETUPVAL                         R1 1
+       58 DUPTABLE                         R3 K17 [{["GroupRenaming"] = ""}]
+       59 NAMECALL                         R1 R1 K8 ["setStateAndRefresh"]
+       61 CALL                             R1 2 0
+       62 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -399,12 +385,10 @@ PROTO_11:
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"GroupRenameDialogOpen"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["GroupRenameDialogOpen"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R1 0

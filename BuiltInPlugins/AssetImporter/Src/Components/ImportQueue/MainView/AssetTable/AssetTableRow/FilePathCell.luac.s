@@ -69,7 +69,7 @@ PROTO_1:
        72 LOADK                            R9 K15 [""]
        73 LENGTH                           R12 R1
        74 LOADN                            R10 1
-       75 LOADN                            R11 255
+       75 LOADN                            R11 -1
        76 FORNPREP                         R10
        77 LENGTH                           R16 R1
        78 FASTCALL3                        STRING_SUB R1 R12 R16
@@ -226,47 +226,43 @@ PROTO_8:
        93 GETUPVAL                         R16 5
        94 GETUPVAL                         R17 2
        95 GETTABLEKS                       R17 R17 K13 ["Text"]
-       97 DUPTABLE                         R18 K24 [{"Text", "RichText", "tag", "textStyle", "onAbsoluteSizeChanged", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "ref"}]
+       97 DUPTABLE                         R18 K26 [{["Text"], ["RichText"] = True, ["tag"] = "size-full-full text-body-small text-align-x-left text-align-y-center", ["textStyle"], ["onAbsoluteSizeChanged"], ["onActivated"], ["onSecondaryActivated"], ["onStateChanged"], ["stateLayer"], ["isDisabled"], ["ref"]}]
        98 JUMPIFNOT                        R9 ; [+5]
-       99 LOADK                            R20 K25 ["<u>"]
+       99 LOADK                            R20 K27 ["<u>"]
       100 MOVE                             R21 R7
-      101 LOADK                            R22 K26 ["</u>"]
+      101 LOADK                            R22 K28 ["</u>"]
       102 CONCAT                           R19 R20 R22
       103 JUMP                             ; [+1]
       104 MOVE                             R19 R7
       105 SETTABLEKS                       R19 R18 K13 ["Text"]
-      107 LOADB                            R19 1
-      108 SETTABLEKS                       R19 R18 K14 ["RichText"]
-      110 LOADK                            R19 K27 ["size-full-full text-body-small text-align-x-left text-align-y-center"]
-      111 SETTABLEKS                       R19 R18 K15 ["tag"]
-      113 DUPTABLE                         R19 K30 [{"Color3", "Transparency"}]
-      114 GETTABLEKS                       R20 R4 K31 ["Color"]
-      116 GETTABLEKS                       R20 R20 K32 ["Content"]
-      118 GETTABLEKS                       R20 R20 K33 ["Link"]
-      120 GETTABLEKS                       R20 R20 K28 ["Color3"]
-      122 SETTABLEKS                       R20 R19 K28 ["Color3"]
-      124 JUMPIFNOT                        R15 ; [+2]
-      125 LOADK                            R20 K34 [0.5]
-      126 JUMP                             ; [+1]
-      127 LOADN                            R20 0
-      128 SETTABLEKS                       R20 R19 K29 ["Transparency"]
-      130 SETTABLEKS                       R19 R18 K16 ["textStyle"]
-      132 SETTABLEKS                       R14 R18 K17 ["onAbsoluteSizeChanged"]
-      134 SETTABLEKS                       R13 R18 K18 ["onActivated"]
-      136 GETTABLEKS                       R19 R0 K35 ["SecondaryActivated"]
-      138 SETTABLEKS                       R19 R18 K19 ["onSecondaryActivated"]
-      140 SETTABLEKS                       R11 R18 K20 ["onStateChanged"]
-      142 DUPTABLE                         R19 K37 [{"affordance"}]
-      143 GETUPVAL                         R20 2
-      144 GETTABLEKS                       R20 R20 K38 ["Enums"]
-      146 GETTABLEKS                       R20 R20 K39 ["StateLayerAffordance"]
-      148 GETTABLEKS                       R20 R20 K40 ["None"]
-      150 SETTABLEKS                       R20 R19 K36 ["affordance"]
-      152 SETTABLEKS                       R19 R18 K21 ["stateLayer"]
-      154 SETTABLEKS                       R15 R18 K22 ["isDisabled"]
-      156 SETTABLEKS                       R12 R18 K23 ["ref"]
-      158 CALL                             R16 2 -1
-      159 RETURN                           R16 -1
+      107 DUPTABLE                         R19 K31 [{"Color3", "Transparency"}]
+      108 GETTABLEKS                       R20 R4 K32 ["Color"]
+      110 GETTABLEKS                       R20 R20 K33 ["Content"]
+      112 GETTABLEKS                       R20 R20 K34 ["Link"]
+      114 GETTABLEKS                       R20 R20 K29 ["Color3"]
+      116 SETTABLEKS                       R20 R19 K29 ["Color3"]
+      118 JUMPIFNOT                        R15 ; [+2]
+      119 LOADK                            R20 K35 [0.5]
+      120 JUMP                             ; [+1]
+      121 LOADN                            R20 0
+      122 SETTABLEKS                       R20 R19 K30 ["Transparency"]
+      124 SETTABLEKS                       R19 R18 K18 ["textStyle"]
+      126 SETTABLEKS                       R14 R18 K19 ["onAbsoluteSizeChanged"]
+      128 SETTABLEKS                       R13 R18 K20 ["onActivated"]
+      130 GETTABLEKS                       R19 R0 K36 ["SecondaryActivated"]
+      132 SETTABLEKS                       R19 R18 K21 ["onSecondaryActivated"]
+      134 SETTABLEKS                       R11 R18 K22 ["onStateChanged"]
+      136 DUPTABLE                         R19 K38 [{"affordance"}]
+      137 GETUPVAL                         R20 2
+      138 GETTABLEKS                       R20 R20 K39 ["Enums"]
+      140 GETTABLEKS                       R20 R20 K40 ["StateLayerAffordance"]
+      142 GETTABLEKS                       R20 R20 K41 ["None"]
+      144 SETTABLEKS                       R20 R19 K37 ["affordance"]
+      146 SETTABLEKS                       R19 R18 K23 ["stateLayer"]
+      148 SETTABLEKS                       R15 R18 K24 ["isDisabled"]
+      150 SETTABLEKS                       R12 R18 K25 ["ref"]
+      152 CALL                             R16 2 -1
+      153 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -307,7 +303,7 @@ MAIN:
        60 GETTABLEKS                       R9 R9 K20 ["QueuedSession"]
        62 CALL                             R8 1 1
        63 GETIMPORT                        R9 K23 [utf8.char]
-       65 LOADN                            R10 38
+       65 LOADN                            R10 8230
        66 CALL                             R9 1 1
        67 DUPCLOSURE                       R10 K24 [PROTO_1]
        68 CAPTURE                          VAL R2

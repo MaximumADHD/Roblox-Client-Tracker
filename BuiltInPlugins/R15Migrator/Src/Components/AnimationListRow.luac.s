@@ -7,14 +7,12 @@ PROTO_0:
         7 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R1 K1 [{"hovered"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["hovered"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["hover"]
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["hover"]
+        7 RETURN                           R0 0
 
 PROTO_2:
         0 JUMPIF                           R0 ; [+3]
@@ -279,13 +277,11 @@ PROTO_5:
       296 GETUPVAL                         R21 3
       297 GETTABLEKS                       R21 R21 K15 ["createElement"]
       299 GETUPVAL                         R22 10
-      300 DUPTABLE                         R23 K76 [{"Cursor"}]
-      301 LOADK                            R24 K77 ["PointingHand"]
-      302 SETTABLEKS                       R24 R23 K75 ["Cursor"]
-      304 CALL                             R21 2 1
-      305 SETTABLEKS                       R21 R20 K32 ["HoverArea"]
-      307 CALL                             R17 3 -1
-      308 RETURN                           R17 -1
+      300 DUPTABLE                         R23 K77 [{["Cursor"] = "PointingHand"}]
+      301 CALL                             R21 2 1
+      302 SETTABLEKS                       R21 R20 K32 ["HoverArea"]
+      304 CALL                             R17 3 -1
+      305 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -45,62 +45,52 @@ PROTO_2:
        16 CAPTURE                          VAL R0
        17 CALL                             R4 2 1
        18 NEWTABLE                         R5 0 3
-       20 DUPTABLE                         R6 K6 [{"ShowSeparator"}]
-       21 LOADB                            R7 1
-       22 SETTABLEKS                       R7 R6 K5 ["ShowSeparator"]
-       24 GETTABLEKS                       R8 R0 K7 ["Filters"]
-       26 GETTABLEKS                       R9 R0 K8 ["OnFilterSelected"]
-       28 LOADK                            R11 K9 ["R15 "]
-       29 LOADK                            R14 K10 ["ScriptPane"]
-       30 LOADK                            R15 K11 ["Unassigned"]
-       31 NAMECALL                         R12 R1 K12 ["getText"]
-       33 CALL                             R12 3 1
-       34 CONCAT                           R10 R11 R12
-       35 DUPTABLE                         R7 K17 [{"Text", "Checked", "Data", "OnItemClicked"}]
-       36 ORK                              R11 R10 K18 ["R15 Unassigned"]
-       37 SETTABLEKS                       R11 R7 K13 ["Text"]
-       39 GETTABLEKS                       R11 R8 K19 ["R15"]
-       41 JUMPIFNOT                        R11 ; [+4]
-       42 GETTABLEKS                       R12 R8 K19 ["R15"]
-       44 GETTABLEKS                       R11 R12 K11 ["Unassigned"]
-       46 SETTABLEKS                       R11 R7 K14 ["Checked"]
-       48 DUPTABLE                         R11 K22 [{"RigType", "InstanceName"}]
-       49 LOADK                            R12 K19 ["R15"]
-       50 SETTABLEKS                       R12 R11 K20 ["RigType"]
-       52 LOADK                            R12 K11 ["Unassigned"]
-       53 SETTABLEKS                       R12 R11 K21 ["InstanceName"]
-       55 SETTABLEKS                       R11 R7 K15 ["Data"]
-       57 SETTABLEKS                       R9 R7 K16 ["OnItemClicked"]
-       59 GETTABLEKS                       R9 R0 K7 ["Filters"]
-       61 GETTABLEKS                       R10 R0 K8 ["OnFilterSelected"]
-       63 LOADK                            R12 K9 ["R15 "]
-       64 LOADK                            R15 K10 ["ScriptPane"]
-       65 LOADK                            R16 K23 ["Assigned"]
-       66 NAMECALL                         R13 R1 K12 ["getText"]
-       68 CALL                             R13 3 1
-       69 CONCAT                           R11 R12 R13
-       70 DUPTABLE                         R8 K17 [{"Text", "Checked", "Data", "OnItemClicked"}]
-       71 ORK                              R12 R11 K24 ["R15 Assigned"]
-       72 SETTABLEKS                       R12 R8 K13 ["Text"]
-       74 GETTABLEKS                       R12 R9 K19 ["R15"]
-       76 JUMPIFNOT                        R12 ; [+4]
-       77 GETTABLEKS                       R13 R9 K19 ["R15"]
-       79 GETTABLEKS                       R12 R13 K23 ["Assigned"]
-       81 SETTABLEKS                       R12 R8 K14 ["Checked"]
-       83 DUPTABLE                         R12 K22 [{"RigType", "InstanceName"}]
-       84 LOADK                            R13 K19 ["R15"]
-       85 SETTABLEKS                       R13 R12 K20 ["RigType"]
-       87 LOADK                            R13 K23 ["Assigned"]
-       88 SETTABLEKS                       R13 R12 K21 ["InstanceName"]
-       90 SETTABLEKS                       R12 R8 K15 ["Data"]
-       92 SETTABLEKS                       R10 R8 K16 ["OnItemClicked"]
-       94 SETLIST                          R5 R6 3 [1]
-       96 CALL                             R3 2 1
-       97 GETUPVAL                         R4 4
-       98 MOVE                             R5 R2
-       99 MOVE                             R6 R3
-      100 CALL                             R4 2 0
-      101 RETURN                           R0 0
+       20 DUPTABLE                         R6 K7 [{["ShowSeparator"] = True}]
+       21 GETTABLEKS                       R8 R0 K8 ["Filters"]
+       23 GETTABLEKS                       R9 R0 K9 ["OnFilterSelected"]
+       25 LOADK                            R11 K10 ["R15 "]
+       26 LOADK                            R14 K11 ["ScriptPane"]
+       27 LOADK                            R15 K12 ["Unassigned"]
+       28 NAMECALL                         R12 R1 K13 ["getText"]
+       30 CALL                             R12 3 1
+       31 CONCAT                           R10 R11 R12
+       32 DUPTABLE                         R7 K18 [{"Text", "Checked", "Data", "OnItemClicked"}]
+       33 ORK                              R11 R10 K19 ["R15 Unassigned"]
+       34 SETTABLEKS                       R11 R7 K14 ["Text"]
+       36 GETTABLEKS                       R11 R8 K20 ["R15"]
+       38 JUMPIFNOT                        R11 ; [+4]
+       39 GETTABLEKS                       R12 R8 K20 ["R15"]
+       41 GETTABLEKS                       R11 R12 K12 ["Unassigned"]
+       43 SETTABLEKS                       R11 R7 K15 ["Checked"]
+       45 DUPTABLE                         R11 K23 [{["RigType"] = "R15", ["InstanceName"] = "Unassigned"}]
+       46 SETTABLEKS                       R11 R7 K16 ["Data"]
+       48 SETTABLEKS                       R9 R7 K17 ["OnItemClicked"]
+       50 GETTABLEKS                       R9 R0 K8 ["Filters"]
+       52 GETTABLEKS                       R10 R0 K9 ["OnFilterSelected"]
+       54 LOADK                            R12 K10 ["R15 "]
+       55 LOADK                            R15 K11 ["ScriptPane"]
+       56 LOADK                            R16 K24 ["Assigned"]
+       57 NAMECALL                         R13 R1 K13 ["getText"]
+       59 CALL                             R13 3 1
+       60 CONCAT                           R11 R12 R13
+       61 DUPTABLE                         R8 K18 [{"Text", "Checked", "Data", "OnItemClicked"}]
+       62 ORK                              R12 R11 K25 ["R15 Assigned"]
+       63 SETTABLEKS                       R12 R8 K14 ["Text"]
+       65 GETTABLEKS                       R12 R9 K20 ["R15"]
+       67 JUMPIFNOT                        R12 ; [+4]
+       68 GETTABLEKS                       R13 R9 K20 ["R15"]
+       70 GETTABLEKS                       R12 R13 K24 ["Assigned"]
+       72 SETTABLEKS                       R12 R8 K15 ["Checked"]
+       74 DUPTABLE                         R12 K26 [{["RigType"] = "R15", ["InstanceName"] = "Assigned"}]
+       75 SETTABLEKS                       R12 R8 K16 ["Data"]
+       77 SETTABLEKS                       R10 R8 K17 ["OnItemClicked"]
+       79 SETLIST                          R5 R6 3 [1]
+       81 CALL                             R3 2 1
+       82 GETUPVAL                         R4 4
+       83 MOVE                             R5 R2
+       84 MOVE                             R6 R3
+       85 CALL                             R4 2 0
+       86 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0
@@ -118,17 +108,15 @@ PROTO_4:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K7 [{"LayoutOrder", "Size", "LeftIcon", "OnClick"}]
+        8 DUPTABLE                         R5 K8 [{["LayoutOrder"], ["Size"], ["LeftIcon"] = "rbxasset://textures/StudioSharedUI/Filter.png", ["OnClick"]}]
         9 GETTABLEKS                       R6 R2 K3 ["LayoutOrder"]
        11 SETTABLEKS                       R6 R5 K3 ["LayoutOrder"]
        13 GETTABLEKS                       R6 R2 K4 ["Size"]
        15 SETTABLEKS                       R6 R5 K4 ["Size"]
-       17 LOADK                            R6 K8 ["rbxasset://textures/StudioSharedUI/Filter.png"]
-       18 SETTABLEKS                       R6 R5 K5 ["LeftIcon"]
-       20 GETTABLEKS                       R6 R0 K9 ["showMenu"]
-       22 SETTABLEKS                       R6 R5 K6 ["OnClick"]
-       24 CALL                             R3 2 -1
-       25 RETURN                           R3 -1
+       17 GETTABLEKS                       R6 R0 K9 ["showMenu"]
+       19 SETTABLEKS                       R6 R5 K7 ["OnClick"]
+       21 CALL                             R3 2 -1
+       22 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

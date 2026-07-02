@@ -71,55 +71,45 @@ PROTO_2:
        62 GETUPVAL                         R8 0
        63 GETTABLEKS                       R8 R8 K3 ["createElement"]
        65 GETUPVAL                         R9 2
-       66 DUPTABLE                         R10 K30 [{"OnLinkClicked", "Text", "LinkText", "LinkPlaceholder", "AutomaticSize", "TextXAlignment", "HorizontalAlignment", "MaxWidth", "TextProps"}]
-       67 GETTABLEKS                       R11 R0 K31 ["openCreatorDashboardConfigureLink"]
+       66 DUPTABLE                         R10 K32 [{["OnLinkClicked"], ["Text"], ["LinkText"], ["LinkPlaceholder"] = "{creatorDashboardLink}", ["AutomaticSize"], ["TextXAlignment"], ["HorizontalAlignment"], ["MaxWidth"] = 500, ["TextProps"]}]
+       67 GETTABLEKS                       R11 R0 K33 ["openCreatorDashboardConfigureLink"]
        69 SETTABLEKS                       R11 R10 K21 ["OnLinkClicked"]
        71 GETTABLEKS                       R11 R0 K0 ["props"]
-       73 GETTABLEKS                       R11 R11 K32 ["Localization"]
-       75 LOADK                            R13 K33 ["General"]
-       76 LOADK                            R14 K34 ["CreatorDashboardLinkMessage"]
-       77 DUPTABLE                         R15 K36 [{"creatorDashboardLink"}]
-       78 LOADK                            R16 K37 ["{creatorDashboardLink}"]
-       79 SETTABLEKS                       R16 R15 K35 ["creatorDashboardLink"]
-       81 NAMECALL                         R11 R11 K38 ["getText"]
-       83 CALL                             R11 4 1
-       84 SETTABLEKS                       R11 R10 K22 ["Text"]
-       86 GETTABLEKS                       R11 R0 K0 ["props"]
-       88 GETTABLEKS                       R11 R11 K32 ["Localization"]
-       90 LOADK                            R13 K33 ["General"]
-       91 LOADK                            R14 K39 ["CreatorDashboard"]
-       92 DUPTABLE                         R15 K36 [{"creatorDashboardLink"}]
-       93 LOADK                            R16 K37 ["{creatorDashboardLink}"]
-       94 SETTABLEKS                       R16 R15 K35 ["creatorDashboardLink"]
-       96 NAMECALL                         R11 R11 K38 ["getText"]
-       98 CALL                             R11 4 1
-       99 SETTABLEKS                       R11 R10 K23 ["LinkText"]
-      101 LOADK                            R11 K37 ["{creatorDashboardLink}"]
-      102 SETTABLEKS                       R11 R10 K24 ["LinkPlaceholder"]
-      104 GETIMPORT                        R11 K42 [Enum.AutomaticSize.Y]
-      106 SETTABLEKS                       R11 R10 K25 ["AutomaticSize"]
-      108 GETIMPORT                        R11 K44 [Enum.TextXAlignment.Center]
-      110 SETTABLEKS                       R11 R10 K26 ["TextXAlignment"]
-      112 GETIMPORT                        R11 K45 [Enum.HorizontalAlignment.Center]
-      114 SETTABLEKS                       R11 R10 K27 ["HorizontalAlignment"]
-      116 LOADN                            R11 244
-      117 SETTABLEKS                       R11 R10 K28 ["MaxWidth"]
-      119 DUPTABLE                         R11 K48 [{"BackgroundTransparency", "Font", "TextSize", "TextXAlignment"}]
-      120 LOADN                            R12 1
-      121 SETTABLEKS                       R12 R11 K5 ["BackgroundTransparency"]
-      123 GETUPVAL                         R12 3
-      124 GETTABLEKS                       R12 R12 K49 ["FONT"]
-      126 SETTABLEKS                       R12 R11 K46 ["Font"]
-      128 GETUPVAL                         R12 3
-      129 GETTABLEKS                       R12 R12 K50 ["FONT_SIZE_TITLE"]
-      131 SETTABLEKS                       R12 R11 K47 ["TextSize"]
-      133 GETIMPORT                        R12 K44 [Enum.TextXAlignment.Center]
-      135 SETTABLEKS                       R12 R11 K26 ["TextXAlignment"]
-      137 SETTABLEKS                       R11 R10 K29 ["TextProps"]
-      139 CALL                             R8 2 1
-      140 SETTABLEKS                       R8 R7 K10 ["Body"]
-      142 CALL                             R4 3 -1
-      143 RETURN                           R4 -1
+       73 GETTABLEKS                       R11 R11 K34 ["Localization"]
+       75 LOADK                            R13 K35 ["General"]
+       76 LOADK                            R14 K36 ["CreatorDashboardLinkMessage"]
+       77 DUPTABLE                         R15 K38 [{["creatorDashboardLink"] = "{creatorDashboardLink}"}]
+       78 NAMECALL                         R11 R11 K39 ["getText"]
+       80 CALL                             R11 4 1
+       81 SETTABLEKS                       R11 R10 K22 ["Text"]
+       83 GETTABLEKS                       R11 R0 K0 ["props"]
+       85 GETTABLEKS                       R11 R11 K34 ["Localization"]
+       87 LOADK                            R13 K35 ["General"]
+       88 LOADK                            R14 K40 ["CreatorDashboard"]
+       89 DUPTABLE                         R15 K38 [{["creatorDashboardLink"] = "{creatorDashboardLink}"}]
+       90 NAMECALL                         R11 R11 K39 ["getText"]
+       92 CALL                             R11 4 1
+       93 SETTABLEKS                       R11 R10 K23 ["LinkText"]
+       95 GETIMPORT                        R11 K43 [Enum.AutomaticSize.Y]
+       97 SETTABLEKS                       R11 R10 K26 ["AutomaticSize"]
+       99 GETIMPORT                        R11 K45 [Enum.TextXAlignment.Center]
+      101 SETTABLEKS                       R11 R10 K27 ["TextXAlignment"]
+      103 GETIMPORT                        R11 K46 [Enum.HorizontalAlignment.Center]
+      105 SETTABLEKS                       R11 R10 K28 ["HorizontalAlignment"]
+      107 DUPTABLE                         R11 K50 [{["BackgroundTransparency"] = 1, ["Font"], ["TextSize"], ["TextXAlignment"]}]
+      108 GETUPVAL                         R12 3
+      109 GETTABLEKS                       R12 R12 K51 ["FONT"]
+      111 SETTABLEKS                       R12 R11 K48 ["Font"]
+      113 GETUPVAL                         R12 3
+      114 GETTABLEKS                       R12 R12 K52 ["FONT_SIZE_TITLE"]
+      116 SETTABLEKS                       R12 R11 K49 ["TextSize"]
+      118 GETIMPORT                        R12 K45 [Enum.TextXAlignment.Center]
+      120 SETTABLEKS                       R12 R11 K27 ["TextXAlignment"]
+      122 SETTABLEKS                       R11 R10 K31 ["TextProps"]
+      124 CALL                             R8 2 1
+      125 SETTABLEKS                       R8 R7 K10 ["Body"]
+      127 CALL                             R4 3 -1
+      128 RETURN                           R4 -1
 
 PROTO_3:
         0 MOVE                             R2 R0

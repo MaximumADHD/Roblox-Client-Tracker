@@ -35,266 +35,218 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R1 8 0
-        2 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-        3 LOADK                            R3 K7 ["RootJoint"]
-        4 SETTABLEKS                       R3 R2 K0 ["Name"]
-        6 LOADK                            R3 K8 ["HumanoidRootPart"]
-        7 SETTABLEKS                       R3 R2 K1 ["Part0"]
-        9 LOADK                            R3 K9 ["Torso"]
-       10 SETTABLEKS                       R3 R2 K2 ["Part1"]
-       12 GETIMPORT                        R3 K12 [CFrame.new]
-       14 LOADN                            R4 0
-       15 LOADN                            R5 0
-       16 LOADN                            R6 0
-       17 LOADN                            R7 255
-       18 LOADK                            R8 K13 [0]
-       19 LOADK                            R9 K13 [0]
-       20 LOADN                            R10 0
-       21 LOADN                            R11 0
-       22 LOADN                            R12 1
-       23 LOADN                            R13 0
-       24 LOADN                            R14 1
-       25 LOADN                            R15 0
-       26 CALL                             R3 12 1
-       27 SETTABLEKS                       R3 R2 K3 ["C0"]
-       29 GETIMPORT                        R3 K12 [CFrame.new]
-       31 LOADN                            R4 0
-       32 LOADN                            R5 0
-       33 LOADN                            R6 0
-       34 LOADN                            R7 255
-       35 LOADK                            R8 K13 [0]
-       36 LOADK                            R9 K13 [0]
-       37 LOADN                            R10 0
-       38 LOADN                            R11 0
-       39 LOADN                            R12 1
-       40 LOADN                            R13 0
-       41 LOADN                            R14 1
-       42 LOADN                            R15 0
-       43 CALL                             R3 12 1
-       44 SETTABLEKS                       R3 R2 K4 ["C1"]
-       46 LOADK                            R3 K14 [0.1]
-       47 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-       49 SETTABLEKS                       R2 R1 K7 ["RootJoint"]
-       51 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-       52 LOADK                            R3 K15 ["Left Hip"]
-       53 SETTABLEKS                       R3 R2 K0 ["Name"]
-       55 LOADK                            R3 K9 ["Torso"]
-       56 SETTABLEKS                       R3 R2 K1 ["Part0"]
-       58 LOADK                            R3 K16 ["Left Leg"]
-       59 SETTABLEKS                       R3 R2 K2 ["Part1"]
-       61 GETIMPORT                        R3 K12 [CFrame.new]
-       63 LOADN                            R4 255
-       64 LOADN                            R5 255
-       65 LOADN                            R6 0
-       66 LOADK                            R7 K13 [0]
-       67 LOADK                            R8 K13 [0]
-       68 LOADN                            R9 255
-       69 LOADN                            R10 0
-       70 LOADN                            R11 1
-       71 LOADN                            R12 0
-       72 LOADN                            R13 1
-       73 LOADN                            R14 0
-       74 LOADN                            R15 0
-       75 CALL                             R3 12 1
-       76 SETTABLEKS                       R3 R2 K3 ["C0"]
-       78 GETIMPORT                        R3 K12 [CFrame.new]
-       80 LOADK                            R4 K17 [-0.5]
-       81 LOADN                            R5 1
-       82 LOADN                            R6 0
-       83 LOADK                            R7 K13 [0]
-       84 LOADK                            R8 K13 [0]
-       85 LOADN                            R9 255
-       86 LOADN                            R10 0
-       87 LOADN                            R11 1
-       88 LOADN                            R12 0
-       89 LOADN                            R13 1
-       90 LOADN                            R14 0
-       91 LOADN                            R15 0
-       92 CALL                             R3 12 1
-       93 SETTABLEKS                       R3 R2 K4 ["C1"]
-       95 LOADK                            R3 K14 [0.1]
-       96 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-       98 SETTABLEKS                       R2 R1 K15 ["Left Hip"]
-      100 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-      101 LOADK                            R3 K18 ["Left Shoulder"]
-      102 SETTABLEKS                       R3 R2 K0 ["Name"]
-      104 LOADK                            R3 K9 ["Torso"]
-      105 SETTABLEKS                       R3 R2 K1 ["Part0"]
-      107 LOADK                            R3 K19 ["Left Arm"]
-      108 SETTABLEKS                       R3 R2 K2 ["Part1"]
-      110 GETIMPORT                        R3 K12 [CFrame.new]
-      112 LOADN                            R4 255
-      113 LOADK                            R5 K20 [0.5]
-      114 LOADN                            R6 0
-      115 LOADK                            R7 K13 [0]
-      116 LOADK                            R8 K13 [0]
-      117 LOADN                            R9 255
-      118 LOADN                            R10 0
-      119 LOADN                            R11 1
-      120 LOADN                            R12 0
-      121 LOADN                            R13 1
-      122 LOADN                            R14 0
-      123 LOADN                            R15 0
-      124 CALL                             R3 12 1
-      125 SETTABLEKS                       R3 R2 K3 ["C0"]
-      127 GETIMPORT                        R3 K12 [CFrame.new]
-      129 LOADK                            R4 K20 [0.5]
-      130 LOADK                            R5 K20 [0.5]
-      131 LOADN                            R6 0
-      132 LOADK                            R7 K13 [0]
-      133 LOADK                            R8 K13 [0]
-      134 LOADN                            R9 255
-      135 LOADN                            R10 0
-      136 LOADN                            R11 1
-      137 LOADN                            R12 0
-      138 LOADN                            R13 1
-      139 LOADN                            R14 0
-      140 LOADN                            R15 0
-      141 CALL                             R3 12 1
-      142 SETTABLEKS                       R3 R2 K4 ["C1"]
-      144 LOADK                            R3 K14 [0.1]
-      145 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-      147 SETTABLEKS                       R2 R1 K18 ["Left Shoulder"]
-      149 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-      150 LOADK                            R3 K21 ["Neck"]
-      151 SETTABLEKS                       R3 R2 K0 ["Name"]
-      153 LOADK                            R3 K9 ["Torso"]
-      154 SETTABLEKS                       R3 R2 K1 ["Part0"]
-      156 LOADK                            R3 K22 ["Head"]
-      157 SETTABLEKS                       R3 R2 K2 ["Part1"]
-      159 GETIMPORT                        R3 K12 [CFrame.new]
-      161 LOADN                            R4 0
-      162 LOADN                            R5 1
-      163 LOADN                            R6 0
-      164 LOADN                            R7 255
-      165 LOADK                            R8 K13 [0]
-      166 LOADK                            R9 K13 [0]
-      167 LOADN                            R10 0
-      168 LOADN                            R11 0
-      169 LOADN                            R12 1
-      170 LOADN                            R13 0
-      171 LOADN                            R14 1
-      172 LOADN                            R15 0
-      173 CALL                             R3 12 1
-      174 SETTABLEKS                       R3 R2 K3 ["C0"]
-      176 GETIMPORT                        R3 K12 [CFrame.new]
-      178 LOADN                            R4 0
-      179 LOADK                            R5 K17 [-0.5]
-      180 LOADN                            R6 0
-      181 LOADN                            R7 255
-      182 LOADK                            R8 K13 [0]
-      183 LOADK                            R9 K13 [0]
-      184 LOADN                            R10 0
-      185 LOADN                            R11 0
-      186 LOADN                            R12 1
-      187 LOADN                            R13 0
-      188 LOADN                            R14 1
-      189 LOADN                            R15 0
-      190 CALL                             R3 12 1
-      191 SETTABLEKS                       R3 R2 K4 ["C1"]
-      193 LOADK                            R3 K14 [0.1]
-      194 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-      196 SETTABLEKS                       R2 R1 K21 ["Neck"]
-      198 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-      199 LOADK                            R3 K23 ["Right Shoulder"]
-      200 SETTABLEKS                       R3 R2 K0 ["Name"]
-      202 LOADK                            R3 K9 ["Torso"]
-      203 SETTABLEKS                       R3 R2 K1 ["Part0"]
-      205 LOADK                            R3 K24 ["Right Arm"]
-      206 SETTABLEKS                       R3 R2 K2 ["Part1"]
-      208 GETIMPORT                        R3 K12 [CFrame.new]
-      210 LOADN                            R4 1
-      211 LOADK                            R5 K20 [0.5]
-      212 LOADN                            R6 0
-      213 LOADN                            R7 0
-      214 LOADN                            R8 0
-      215 LOADN                            R9 1
-      216 LOADN                            R10 0
-      217 LOADN                            R11 1
-      218 LOADN                            R12 0
-      219 LOADN                            R13 255
-      220 LOADK                            R14 K13 [0]
-      221 LOADK                            R15 K13 [0]
-      222 CALL                             R3 12 1
-      223 SETTABLEKS                       R3 R2 K3 ["C0"]
-      225 GETIMPORT                        R3 K12 [CFrame.new]
-      227 LOADK                            R4 K17 [-0.5]
-      228 LOADK                            R5 K20 [0.5]
-      229 LOADN                            R6 0
-      230 LOADN                            R7 0
-      231 LOADN                            R8 0
-      232 LOADN                            R9 1
-      233 LOADN                            R10 0
-      234 LOADN                            R11 1
-      235 LOADN                            R12 0
-      236 LOADN                            R13 255
-      237 LOADK                            R14 K13 [0]
-      238 LOADK                            R15 K13 [0]
-      239 CALL                             R3 12 1
-      240 SETTABLEKS                       R3 R2 K4 ["C1"]
-      242 LOADK                            R3 K14 [0.1]
-      243 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-      245 SETTABLEKS                       R2 R1 K23 ["Right Shoulder"]
-      247 DUPTABLE                         R2 K6 [{"Name", "Part0", "Part1", "C0", "C1", "MaxVelocity"}]
-      248 LOADK                            R3 K25 ["Right Hip"]
-      249 SETTABLEKS                       R3 R2 K0 ["Name"]
-      251 LOADK                            R3 K9 ["Torso"]
-      252 SETTABLEKS                       R3 R2 K1 ["Part0"]
-      254 LOADK                            R3 K26 ["Right Leg"]
-      255 SETTABLEKS                       R3 R2 K2 ["Part1"]
-      257 GETIMPORT                        R3 K12 [CFrame.new]
-      259 LOADN                            R4 1
-      260 LOADN                            R5 255
-      261 LOADN                            R6 0
-      262 LOADN                            R7 0
-      263 LOADN                            R8 0
-      264 LOADN                            R9 1
-      265 LOADN                            R10 0
-      266 LOADN                            R11 1
-      267 LOADN                            R12 0
-      268 LOADN                            R13 255
-      269 LOADK                            R14 K13 [0]
-      270 LOADK                            R15 K13 [0]
-      271 CALL                             R3 12 1
-      272 SETTABLEKS                       R3 R2 K3 ["C0"]
-      274 GETIMPORT                        R3 K12 [CFrame.new]
-      276 LOADK                            R4 K20 [0.5]
-      277 LOADN                            R5 1
-      278 LOADN                            R6 0
-      279 LOADN                            R7 0
-      280 LOADN                            R8 0
-      281 LOADN                            R9 1
-      282 LOADN                            R10 0
-      283 LOADN                            R11 1
-      284 LOADN                            R12 0
-      285 LOADN                            R13 255
-      286 LOADK                            R14 K13 [0]
-      287 LOADK                            R15 K13 [0]
-      288 CALL                             R3 12 1
-      289 SETTABLEKS                       R3 R2 K4 ["C1"]
-      291 LOADK                            R3 K14 [0.1]
-      292 SETTABLEKS                       R3 R2 K5 ["MaxVelocity"]
-      294 SETTABLEKS                       R2 R1 K25 ["Right Hip"]
-      296 NEWCLOSURE                       R2 P0
-      297 CAPTURE                          VAL R0
-      298 LOADK                            R5 K27 ["Humanoid"]
-      299 NAMECALL                         R3 R0 K28 ["FindFirstChildWhichIsA"]
-      301 CALL                             R3 2 1
-      302 GETTABLEKS                       R4 R3 K29 ["RigType"]
-      304 GETIMPORT                        R5 K33 [Enum.HumanoidRigType.R6]
-      306 JUMPIFNOTEQ                      R4 R5 ; [+12]
-      308 GETIMPORT                        R4 K35 [pairs]
-      310 MOVE                             R5 R1
-      311 CALL                             R4 1 3
-      312 FORGPREP_NEXT                    R4
-      313 MOVE                             R9 R2
-      314 MOVE                             R10 R8
-      315 CALL                             R9 1 0
-      316 FORGLOOP                         R4 2 ; [-4]
-      318 RETURN                           R0 0
-      319 NAMECALL                         R4 R3 K36 ["BuildRigFromAttachments"]
-      321 CALL                             R4 1 0
-      322 RETURN                           R0 0
+        2 DUPTABLE                         R2 K10 [{[1] = "RootJoint", ["Part0"] = "HumanoidRootPart", ["Part1"] = "Torso", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+        3 GETIMPORT                        R3 K13 [CFrame.new]
+        5 LOADN                            R4 0
+        6 LOADN                            R5 0
+        7 LOADN                            R6 0
+        8 LOADN                            R7 -1
+        9 LOADK                            R8 K14 [0]
+       10 LOADK                            R9 K14 [0]
+       11 LOADN                            R10 0
+       12 LOADN                            R11 0
+       13 LOADN                            R12 1
+       14 LOADN                            R13 0
+       15 LOADN                            R14 1
+       16 LOADN                            R15 0
+       17 CALL                             R3 12 1
+       18 SETTABLEKS                       R3 R2 K6 ["C0"]
+       20 GETIMPORT                        R3 K13 [CFrame.new]
+       22 LOADN                            R4 0
+       23 LOADN                            R5 0
+       24 LOADN                            R6 0
+       25 LOADN                            R7 -1
+       26 LOADK                            R8 K14 [0]
+       27 LOADK                            R9 K14 [0]
+       28 LOADN                            R10 0
+       29 LOADN                            R11 0
+       30 LOADN                            R12 1
+       31 LOADN                            R13 0
+       32 LOADN                            R14 1
+       33 LOADN                            R15 0
+       34 CALL                             R3 12 1
+       35 SETTABLEKS                       R3 R2 K7 ["C1"]
+       37 SETTABLEKS                       R2 R1 K1 ["RootJoint"]
+       39 DUPTABLE                         R2 K17 [{[1] = "Left Hip", ["Part0"] = "Torso", ["Part1"] = "Left Leg", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+       40 GETIMPORT                        R3 K13 [CFrame.new]
+       42 LOADN                            R4 -1
+       43 LOADN                            R5 -1
+       44 LOADN                            R6 0
+       45 LOADK                            R7 K14 [0]
+       46 LOADK                            R8 K14 [0]
+       47 LOADN                            R9 -1
+       48 LOADN                            R10 0
+       49 LOADN                            R11 1
+       50 LOADN                            R12 0
+       51 LOADN                            R13 1
+       52 LOADN                            R14 0
+       53 LOADN                            R15 0
+       54 CALL                             R3 12 1
+       55 SETTABLEKS                       R3 R2 K6 ["C0"]
+       57 GETIMPORT                        R3 K13 [CFrame.new]
+       59 LOADK                            R4 K18 [-0.5]
+       60 LOADN                            R5 1
+       61 LOADN                            R6 0
+       62 LOADK                            R7 K14 [0]
+       63 LOADK                            R8 K14 [0]
+       64 LOADN                            R9 -1
+       65 LOADN                            R10 0
+       66 LOADN                            R11 1
+       67 LOADN                            R12 0
+       68 LOADN                            R13 1
+       69 LOADN                            R14 0
+       70 LOADN                            R15 0
+       71 CALL                             R3 12 1
+       72 SETTABLEKS                       R3 R2 K7 ["C1"]
+       74 SETTABLEKS                       R2 R1 K15 ["Left Hip"]
+       76 DUPTABLE                         R2 K21 [{[1] = "Left Shoulder", ["Part0"] = "Torso", ["Part1"] = "Left Arm", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+       77 GETIMPORT                        R3 K13 [CFrame.new]
+       79 LOADN                            R4 -1
+       80 LOADK                            R5 K22 [0.5]
+       81 LOADN                            R6 0
+       82 LOADK                            R7 K14 [0]
+       83 LOADK                            R8 K14 [0]
+       84 LOADN                            R9 -1
+       85 LOADN                            R10 0
+       86 LOADN                            R11 1
+       87 LOADN                            R12 0
+       88 LOADN                            R13 1
+       89 LOADN                            R14 0
+       90 LOADN                            R15 0
+       91 CALL                             R3 12 1
+       92 SETTABLEKS                       R3 R2 K6 ["C0"]
+       94 GETIMPORT                        R3 K13 [CFrame.new]
+       96 LOADK                            R4 K22 [0.5]
+       97 LOADK                            R5 K22 [0.5]
+       98 LOADN                            R6 0
+       99 LOADK                            R7 K14 [0]
+      100 LOADK                            R8 K14 [0]
+      101 LOADN                            R9 -1
+      102 LOADN                            R10 0
+      103 LOADN                            R11 1
+      104 LOADN                            R12 0
+      105 LOADN                            R13 1
+      106 LOADN                            R14 0
+      107 LOADN                            R15 0
+      108 CALL                             R3 12 1
+      109 SETTABLEKS                       R3 R2 K7 ["C1"]
+      111 SETTABLEKS                       R2 R1 K19 ["Left Shoulder"]
+      113 DUPTABLE                         R2 K25 [{[1] = "Neck", ["Part0"] = "Torso", ["Part1"] = "Head", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+      114 GETIMPORT                        R3 K13 [CFrame.new]
+      116 LOADN                            R4 0
+      117 LOADN                            R5 1
+      118 LOADN                            R6 0
+      119 LOADN                            R7 -1
+      120 LOADK                            R8 K14 [0]
+      121 LOADK                            R9 K14 [0]
+      122 LOADN                            R10 0
+      123 LOADN                            R11 0
+      124 LOADN                            R12 1
+      125 LOADN                            R13 0
+      126 LOADN                            R14 1
+      127 LOADN                            R15 0
+      128 CALL                             R3 12 1
+      129 SETTABLEKS                       R3 R2 K6 ["C0"]
+      131 GETIMPORT                        R3 K13 [CFrame.new]
+      133 LOADN                            R4 0
+      134 LOADK                            R5 K18 [-0.5]
+      135 LOADN                            R6 0
+      136 LOADN                            R7 -1
+      137 LOADK                            R8 K14 [0]
+      138 LOADK                            R9 K14 [0]
+      139 LOADN                            R10 0
+      140 LOADN                            R11 0
+      141 LOADN                            R12 1
+      142 LOADN                            R13 0
+      143 LOADN                            R14 1
+      144 LOADN                            R15 0
+      145 CALL                             R3 12 1
+      146 SETTABLEKS                       R3 R2 K7 ["C1"]
+      148 SETTABLEKS                       R2 R1 K23 ["Neck"]
+      150 DUPTABLE                         R2 K28 [{[1] = "Right Shoulder", ["Part0"] = "Torso", ["Part1"] = "Right Arm", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+      151 GETIMPORT                        R3 K13 [CFrame.new]
+      153 LOADN                            R4 1
+      154 LOADK                            R5 K22 [0.5]
+      155 LOADN                            R6 0
+      156 LOADN                            R7 0
+      157 LOADN                            R8 0
+      158 LOADN                            R9 1
+      159 LOADN                            R10 0
+      160 LOADN                            R11 1
+      161 LOADN                            R12 0
+      162 LOADN                            R13 -1
+      163 LOADK                            R14 K14 [0]
+      164 LOADK                            R15 K14 [0]
+      165 CALL                             R3 12 1
+      166 SETTABLEKS                       R3 R2 K6 ["C0"]
+      168 GETIMPORT                        R3 K13 [CFrame.new]
+      170 LOADK                            R4 K18 [-0.5]
+      171 LOADK                            R5 K22 [0.5]
+      172 LOADN                            R6 0
+      173 LOADN                            R7 0
+      174 LOADN                            R8 0
+      175 LOADN                            R9 1
+      176 LOADN                            R10 0
+      177 LOADN                            R11 1
+      178 LOADN                            R12 0
+      179 LOADN                            R13 -1
+      180 LOADK                            R14 K14 [0]
+      181 LOADK                            R15 K14 [0]
+      182 CALL                             R3 12 1
+      183 SETTABLEKS                       R3 R2 K7 ["C1"]
+      185 SETTABLEKS                       R2 R1 K26 ["Right Shoulder"]
+      187 DUPTABLE                         R2 K31 [{[1] = "Right Hip", ["Part0"] = "Torso", ["Part1"] = "Right Leg", ["C0"], ["C1"], ["MaxVelocity"] = 0.1}]
+      188 GETIMPORT                        R3 K13 [CFrame.new]
+      190 LOADN                            R4 1
+      191 LOADN                            R5 -1
+      192 LOADN                            R6 0
+      193 LOADN                            R7 0
+      194 LOADN                            R8 0
+      195 LOADN                            R9 1
+      196 LOADN                            R10 0
+      197 LOADN                            R11 1
+      198 LOADN                            R12 0
+      199 LOADN                            R13 -1
+      200 LOADK                            R14 K14 [0]
+      201 LOADK                            R15 K14 [0]
+      202 CALL                             R3 12 1
+      203 SETTABLEKS                       R3 R2 K6 ["C0"]
+      205 GETIMPORT                        R3 K13 [CFrame.new]
+      207 LOADK                            R4 K22 [0.5]
+      208 LOADN                            R5 1
+      209 LOADN                            R6 0
+      210 LOADN                            R7 0
+      211 LOADN                            R8 0
+      212 LOADN                            R9 1
+      213 LOADN                            R10 0
+      214 LOADN                            R11 1
+      215 LOADN                            R12 0
+      216 LOADN                            R13 -1
+      217 LOADK                            R14 K14 [0]
+      218 LOADK                            R15 K14 [0]
+      219 CALL                             R3 12 1
+      220 SETTABLEKS                       R3 R2 K7 ["C1"]
+      222 SETTABLEKS                       R2 R1 K29 ["Right Hip"]
+      224 NEWCLOSURE                       R2 P0
+      225 CAPTURE                          VAL R0
+      226 LOADK                            R5 K32 ["Humanoid"]
+      227 NAMECALL                         R3 R0 K33 ["FindFirstChildWhichIsA"]
+      229 CALL                             R3 2 1
+      230 GETTABLEKS                       R4 R3 K34 ["RigType"]
+      232 GETIMPORT                        R5 K38 [Enum.HumanoidRigType.R6]
+      234 JUMPIFNOTEQ                      R4 R5 ; [+12]
+      236 GETIMPORT                        R4 K40 [pairs]
+      238 MOVE                             R5 R1
+      239 CALL                             R4 1 3
+      240 FORGPREP_NEXT                    R4
+      241 MOVE                             R9 R2
+      242 MOVE                             R10 R8
+      243 CALL                             R9 1 0
+      244 FORGLOOP                         R4 2 ; [-4]
+      246 RETURN                           R0 0
+      247 NAMECALL                         R4 R3 K41 ["BuildRigFromAttachments"]
+      249 CALL                             R4 1 0
+      250 RETURN                           R0 0
 
 PROTO_2:
         0 MOVE                             R4 R3

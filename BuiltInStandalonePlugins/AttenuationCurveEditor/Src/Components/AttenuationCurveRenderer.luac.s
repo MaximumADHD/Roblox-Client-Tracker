@@ -195,7 +195,7 @@ PROTO_7:
        93 SETLIST                          R12 R13 2 [1]
        95 CALL                             R10 2 1
        96 GETTABLEKS                       R11 R0 K8 ["Enabled"]
-       98 JUMPIFNOT                        R11 ; [+116]
+       98 JUMPIFNOT                        R11 ; [+110]
        99 GETUPVAL                         R11 9
       100 GETTABLEKS                       R11 R11 K9 ["createElement"]
       102 GETUPVAL                         R12 10
@@ -228,54 +228,50 @@ PROTO_7:
       141 GETUPVAL                         R15 9
       142 GETTABLEKS                       R15 R15 K9 ["createElement"]
       144 GETUPVAL                         R16 10
-      145 DUPTABLE                         R17 K28 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      146 LOADN                            R18 1
-      147 SETTABLEKS                       R18 R17 K25 ["BackgroundTransparency"]
-      149 LOADN                            R18 1
-      150 SETTABLEKS                       R18 R17 K26 ["LayoutOrder"]
-      152 GETIMPORT                        R18 K31 [UDim2.new]
-      154 LOADN                            R19 1
-      155 LOADN                            R20 0
-      156 LOADN                            R21 1
-      157 LOADN                            R22 136
-      158 CALL                             R18 4 1
-      159 SETTABLEKS                       R18 R17 K27 ["Size"]
-      161 DUPTABLE                         R18 K34 [{"Plot", "Scrollbar"}]
-      162 GETUPVAL                         R19 9
-      163 GETTABLEKS                       R19 R19 K9 ["createElement"]
-      165 GETUPVAL                         R20 14
-      166 DUPTABLE                         R21 K40 [{"CurveHook", "PlotAbsoluteSize", "XRange", "SetXRange", "OnSizeChanged"}]
-      167 SETTABLEKS                       R4 R21 K35 ["CurveHook"]
-      169 SETTABLEKS                       R1 R21 K36 ["PlotAbsoluteSize"]
-      171 SETTABLEKS                       R5 R21 K37 ["XRange"]
-      173 SETTABLEKS                       R6 R21 K38 ["SetXRange"]
-      175 SETTABLEKS                       R8 R21 K39 ["OnSizeChanged"]
-      177 CALL                             R19 2 1
-      178 SETTABLEKS                       R19 R18 K32 ["Plot"]
-      180 GETUPVAL                         R19 9
-      181 GETTABLEKS                       R19 R19 K9 ["createElement"]
-      183 GETUPVAL                         R20 15
-      184 DUPTABLE                         R21 K42 [{"XRange", "SetXRange", "DefaultXMax"}]
-      185 SETTABLEKS                       R5 R21 K37 ["XRange"]
-      187 SETTABLEKS                       R6 R21 K38 ["SetXRange"]
-      189 SETTABLEKS                       R7 R21 K41 ["DefaultXMax"]
-      191 CALL                             R19 2 1
-      192 SETTABLEKS                       R19 R18 K33 ["Scrollbar"]
-      194 CALL                             R15 3 1
-      195 SETTABLEKS                       R15 R14 K14 ["Canvas"]
-      197 GETUPVAL                         R15 9
-      198 GETTABLEKS                       R15 R15 K9 ["createElement"]
-      200 GETUPVAL                         R16 16
-      201 DUPTABLE                         R17 K46 [{"Keypoint", "OnEdit", "OnDelete"}]
-      202 GETTABLEKS                       R18 R4 K47 ["getSelectedKeypoint"]
-      204 CALL                             R18 0 1
-      205 SETTABLEKS                       R18 R17 K43 ["Keypoint"]
-      207 SETTABLEKS                       R10 R17 K44 ["OnEdit"]
-      209 SETTABLEKS                       R9 R17 K45 ["OnDelete"]
-      211 CALL                             R15 2 1
-      212 SETTABLEKS                       R15 R14 K15 ["KeypointControls"]
-      214 CALL                             R11 3 1
-      215 RETURN                           R11 1
+      145 DUPTABLE                         R17 K29 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"]}]
+      146 GETIMPORT                        R18 K32 [UDim2.new]
+      148 LOADN                            R19 1
+      149 LOADN                            R20 0
+      150 LOADN                            R21 1
+      151 LOADN                            R22 -120
+      152 CALL                             R18 4 1
+      153 SETTABLEKS                       R18 R17 K28 ["Size"]
+      155 DUPTABLE                         R18 K35 [{"Plot", "Scrollbar"}]
+      156 GETUPVAL                         R19 9
+      157 GETTABLEKS                       R19 R19 K9 ["createElement"]
+      159 GETUPVAL                         R20 14
+      160 DUPTABLE                         R21 K41 [{"CurveHook", "PlotAbsoluteSize", "XRange", "SetXRange", "OnSizeChanged"}]
+      161 SETTABLEKS                       R4 R21 K36 ["CurveHook"]
+      163 SETTABLEKS                       R1 R21 K37 ["PlotAbsoluteSize"]
+      165 SETTABLEKS                       R5 R21 K38 ["XRange"]
+      167 SETTABLEKS                       R6 R21 K39 ["SetXRange"]
+      169 SETTABLEKS                       R8 R21 K40 ["OnSizeChanged"]
+      171 CALL                             R19 2 1
+      172 SETTABLEKS                       R19 R18 K33 ["Plot"]
+      174 GETUPVAL                         R19 9
+      175 GETTABLEKS                       R19 R19 K9 ["createElement"]
+      177 GETUPVAL                         R20 15
+      178 DUPTABLE                         R21 K43 [{"XRange", "SetXRange", "DefaultXMax"}]
+      179 SETTABLEKS                       R5 R21 K38 ["XRange"]
+      181 SETTABLEKS                       R6 R21 K39 ["SetXRange"]
+      183 SETTABLEKS                       R7 R21 K42 ["DefaultXMax"]
+      185 CALL                             R19 2 1
+      186 SETTABLEKS                       R19 R18 K34 ["Scrollbar"]
+      188 CALL                             R15 3 1
+      189 SETTABLEKS                       R15 R14 K14 ["Canvas"]
+      191 GETUPVAL                         R15 9
+      192 GETTABLEKS                       R15 R15 K9 ["createElement"]
+      194 GETUPVAL                         R16 16
+      195 DUPTABLE                         R17 K47 [{"Keypoint", "OnEdit", "OnDelete"}]
+      196 GETTABLEKS                       R18 R4 K48 ["getSelectedKeypoint"]
+      198 CALL                             R18 0 1
+      199 SETTABLEKS                       R18 R17 K44 ["Keypoint"]
+      201 SETTABLEKS                       R10 R17 K45 ["OnEdit"]
+      203 SETTABLEKS                       R9 R17 K46 ["OnDelete"]
+      205 CALL                             R15 2 1
+      206 SETTABLEKS                       R15 R14 K15 ["KeypointControls"]
+      208 CALL                             R11 3 1
+      209 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -325,12 +321,12 @@ MAIN:
        77 GETTABLEKS                       R16 R16 K25 ["AttenuationUtil"]
        79 CALL                             R15 1 1
        80 GETIMPORT                        R16 K28 [Vector2.new]
-       82 LOADN                            R17 28
-       83 LOADN                            R18 44
+       82 LOADN                            R17 540
+       83 LOADN                            R18 300
        84 CALL                             R16 2 1
        85 GETIMPORT                        R17 K28 [Vector2.new]
-       87 LOADN                            R18 208
-       88 LOADN                            R19 208
+       87 LOADN                            R18 2000
+       88 LOADN                            R19 2000
        89 CALL                             R17 2 1
        90 GETIMPORT                        R18 K30 [NumberRange.new]
        92 LOADN                            R19 0

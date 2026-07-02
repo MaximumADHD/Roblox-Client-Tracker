@@ -120,99 +120,97 @@ PROTO_4:
        26 MOVE                             R17 R11
        27 GETTABLEKS                       R18 R16 K2 ["Values"]
        29 CALL                             R17 1 1
-       30 DUPTABLE                         R20 K7 [{"identifier", "metadata", "translations", "delete"}]
-       31 DUPTABLE                         R21 K11 [{"key", "context", "source"}]
-       32 GETTABLEKS                       R23 R16 K13 ["Key"]
-       34 ORK                              R22 R23 K12 [""]
-       35 SETTABLEKS                       R22 R21 K8 ["key"]
-       37 GETTABLEKS                       R23 R16 K14 ["Context"]
-       39 ORK                              R22 R23 K12 [""]
-       40 SETTABLEKS                       R22 R21 K9 ["context"]
-       42 GETTABLEKS                       R23 R16 K15 ["Source"]
-       44 ORK                              R22 R23 K12 [""]
-       45 SETTABLEKS                       R22 R21 K10 ["source"]
+       30 DUPTABLE                         R20 K8 [{["identifier"], ["metadata"], ["translations"], ["delete"] = False}]
+       31 DUPTABLE                         R21 K12 [{"key", "context", "source"}]
+       32 GETTABLEKS                       R23 R16 K14 ["Key"]
+       34 ORK                              R22 R23 K13 [""]
+       35 SETTABLEKS                       R22 R21 K9 ["key"]
+       37 GETTABLEKS                       R23 R16 K15 ["Context"]
+       39 ORK                              R22 R23 K13 [""]
+       40 SETTABLEKS                       R22 R21 K10 ["context"]
+       42 GETTABLEKS                       R23 R16 K16 ["Source"]
+       44 ORK                              R22 R23 K13 [""]
+       45 SETTABLEKS                       R22 R21 K11 ["source"]
        47 SETTABLEKS                       R21 R20 K3 ["identifier"]
-       49 DUPTABLE                         R21 K17 [{"example"}]
-       50 GETTABLEKS                       R23 R16 K18 ["Example"]
-       52 ORK                              R22 R23 K12 [""]
-       53 SETTABLEKS                       R22 R21 K16 ["example"]
+       49 DUPTABLE                         R21 K18 [{"example"}]
+       50 GETTABLEKS                       R23 R16 K19 ["Example"]
+       52 ORK                              R22 R23 K13 [""]
+       53 SETTABLEKS                       R22 R21 K17 ["example"]
        55 SETTABLEKS                       R21 R20 K4 ["metadata"]
        57 SETTABLEKS                       R17 R20 K5 ["translations"]
-       59 LOADB                            R21 0
-       60 SETTABLEKS                       R21 R20 K6 ["delete"]
-       62 FASTCALL2                        TABLE_INSERT R4 R20 ; [+4]
-       64 MOVE                             R19 R4
-       65 GETIMPORT                        R18 K21 [table.insert]
-       67 CALL                             R18 2 0
-       68 ADDK                             R5 R5 K22 [1]
-       69 FORGLOOP                         R12 2 [inext] ; [-44]
-       71 DUPTABLE                         R12 K30 [{"entries", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "newLanguages", "newLanguagesSet"}]
-       72 SETTABLEKS                       R4 R12 K23 ["entries"]
-       74 SETTABLEKS                       R5 R12 K24 ["totalRows"]
-       76 SETTABLEKS                       R6 R12 K25 ["totalTranslations"]
-       78 GETIMPORT                        R13 K32 [table.concat]
-       80 NEWTABLE                         R16 0 0
-       82 GETIMPORT                        R17 K34 [pairs]
-       84 MOVE                             R18 R7
-       85 CALL                             R17 1 3
-       86 FORGPREP_NEXT                    R17
-       87 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
-       89 MOVE                             R23 R16
-       90 MOVE                             R24 R20
-       91 GETIMPORT                        R22 K21 [table.insert]
-       93 CALL                             R22 2 0
-       94 FORGLOOP                         R17 1 ; [-8]
-       96 MOVE                             R15 R16
-       97 GETIMPORT                        R16 K36 [table.sort]
-       99 MOVE                             R17 R15
-      100 CALL                             R16 1 0
-      101 MOVE                             R14 R15
-      102 LOADK                            R15 K37 [", "]
-      103 CALL                             R13 2 1
-      104 SETTABLEKS                       R13 R12 K26 ["supportedLocales"]
-      106 GETIMPORT                        R13 K32 [table.concat]
-      108 NEWTABLE                         R16 0 0
-      110 GETIMPORT                        R17 K34 [pairs]
-      112 MOVE                             R18 R8
-      113 CALL                             R17 1 3
-      114 FORGPREP_NEXT                    R17
-      115 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
-      117 MOVE                             R23 R16
-      118 MOVE                             R24 R20
-      119 GETIMPORT                        R22 K21 [table.insert]
-      121 CALL                             R22 2 0
-      122 FORGLOOP                         R17 1 ; [-8]
-      124 MOVE                             R15 R16
-      125 GETIMPORT                        R16 K36 [table.sort]
-      127 MOVE                             R17 R15
-      128 CALL                             R16 1 0
-      129 MOVE                             R14 R15
-      130 LOADK                            R15 K37 [", "]
-      131 CALL                             R13 2 1
-      132 SETTABLEKS                       R13 R12 K27 ["unsupportedLocales"]
-      134 GETIMPORT                        R13 K32 [table.concat]
-      136 NEWTABLE                         R16 0 0
-      138 GETIMPORT                        R17 K34 [pairs]
-      140 MOVE                             R18 R9
-      141 CALL                             R17 1 3
-      142 FORGPREP_NEXT                    R17
-      143 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
-      145 MOVE                             R23 R16
-      146 MOVE                             R24 R20
-      147 GETIMPORT                        R22 K21 [table.insert]
-      149 CALL                             R22 2 0
-      150 FORGLOOP                         R17 1 ; [-8]
-      152 MOVE                             R15 R16
-      153 GETIMPORT                        R16 K36 [table.sort]
-      155 MOVE                             R17 R15
-      156 CALL                             R16 1 0
-      157 MOVE                             R14 R15
-      158 LOADK                            R15 K37 [", "]
-      159 CALL                             R13 2 1
-      160 SETTABLEKS                       R13 R12 K28 ["newLanguages"]
-      162 SETTABLEKS                       R9 R12 K29 ["newLanguagesSet"]
-      164 CLOSEUPVALS                      R6
-      165 RETURN                           R12 1
+       59 FASTCALL2                        TABLE_INSERT R4 R20 ; [+4]
+       61 MOVE                             R19 R4
+       62 GETIMPORT                        R18 K22 [table.insert]
+       64 CALL                             R18 2 0
+       65 ADDK                             R5 R5 K23 [1]
+       66 FORGLOOP                         R12 2 [inext] ; [-41]
+       68 DUPTABLE                         R12 K31 [{"entries", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "newLanguages", "newLanguagesSet"}]
+       69 SETTABLEKS                       R4 R12 K24 ["entries"]
+       71 SETTABLEKS                       R5 R12 K25 ["totalRows"]
+       73 SETTABLEKS                       R6 R12 K26 ["totalTranslations"]
+       75 GETIMPORT                        R13 K33 [table.concat]
+       77 NEWTABLE                         R16 0 0
+       79 GETIMPORT                        R17 K35 [pairs]
+       81 MOVE                             R18 R7
+       82 CALL                             R17 1 3
+       83 FORGPREP_NEXT                    R17
+       84 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
+       86 MOVE                             R23 R16
+       87 MOVE                             R24 R20
+       88 GETIMPORT                        R22 K22 [table.insert]
+       90 CALL                             R22 2 0
+       91 FORGLOOP                         R17 1 ; [-8]
+       93 MOVE                             R15 R16
+       94 GETIMPORT                        R16 K37 [table.sort]
+       96 MOVE                             R17 R15
+       97 CALL                             R16 1 0
+       98 MOVE                             R14 R15
+       99 LOADK                            R15 K38 [", "]
+      100 CALL                             R13 2 1
+      101 SETTABLEKS                       R13 R12 K27 ["supportedLocales"]
+      103 GETIMPORT                        R13 K33 [table.concat]
+      105 NEWTABLE                         R16 0 0
+      107 GETIMPORT                        R17 K35 [pairs]
+      109 MOVE                             R18 R8
+      110 CALL                             R17 1 3
+      111 FORGPREP_NEXT                    R17
+      112 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
+      114 MOVE                             R23 R16
+      115 MOVE                             R24 R20
+      116 GETIMPORT                        R22 K22 [table.insert]
+      118 CALL                             R22 2 0
+      119 FORGLOOP                         R17 1 ; [-8]
+      121 MOVE                             R15 R16
+      122 GETIMPORT                        R16 K37 [table.sort]
+      124 MOVE                             R17 R15
+      125 CALL                             R16 1 0
+      126 MOVE                             R14 R15
+      127 LOADK                            R15 K38 [", "]
+      128 CALL                             R13 2 1
+      129 SETTABLEKS                       R13 R12 K28 ["unsupportedLocales"]
+      131 GETIMPORT                        R13 K33 [table.concat]
+      133 NEWTABLE                         R16 0 0
+      135 GETIMPORT                        R17 K35 [pairs]
+      137 MOVE                             R18 R9
+      138 CALL                             R17 1 3
+      139 FORGPREP_NEXT                    R17
+      140 FASTCALL2                        TABLE_INSERT R16 R20 ; [+5]
+      142 MOVE                             R23 R16
+      143 MOVE                             R24 R20
+      144 GETIMPORT                        R22 K22 [table.insert]
+      146 CALL                             R22 2 0
+      147 FORGLOOP                         R17 1 ; [-8]
+      149 MOVE                             R15 R16
+      150 GETIMPORT                        R16 K37 [table.sort]
+      152 MOVE                             R17 R15
+      153 CALL                             R16 1 0
+      154 MOVE                             R14 R15
+      155 LOADK                            R15 K38 [", "]
+      156 CALL                             R13 2 1
+      157 SETTABLEKS                       R13 R12 K29 ["newLanguages"]
+      159 SETTABLEKS                       R9 R12 K30 ["newLanguagesSet"]
+      161 CLOSEUPVALS                      R6
+      162 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0

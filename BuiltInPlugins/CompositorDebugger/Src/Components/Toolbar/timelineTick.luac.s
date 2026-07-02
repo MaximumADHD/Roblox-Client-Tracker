@@ -51,7 +51,7 @@ PROTO_0:
        71 GETIMPORT                        R9 K22 [Enum.AutomaticSize.XY]
        73 SETTABLEKS                       R9 R8 K20 ["AutomaticSize"]
        75 GETTABLEKS                       R11 R1 K9 ["Tick"]
-       77 SUBRK                            R10 R23 K11 [{"Tick", "Label"}]
+       77 SUBRK                            R10 K23 [0] R11
        78 FASTCALL1                        TOSTRING R10 ; [+2]
        79 GETIMPORT                        R9 K25 [tostring]
        81 CALL                             R9 1 1

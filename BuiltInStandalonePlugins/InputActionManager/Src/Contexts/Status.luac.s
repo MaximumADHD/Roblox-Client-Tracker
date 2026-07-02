@@ -248,17 +248,17 @@ PROTO_9:
        17 RETURN                           R6 1
 
 PROTO_10:
-        0 DUPTABLE                         R0 K4 [{"getKeycodeUsage", "addKeycodeUsage", "removeKeycodeUsage", "onKeycodeUsageChanged"}]
+        0 DUPTABLE                         R0 K4 [{"getBindingUsage", "addBindingUsage", "removeBindingUsage", "onBindingUsageChanged"}]
         1 NEWCLOSURE                       R1 P0
         2 CAPTURE                          UPVAL U0
-        3 SETTABLEKS                       R1 R0 K0 ["getKeycodeUsage"]
+        3 SETTABLEKS                       R1 R0 K0 ["getBindingUsage"]
         5 GETUPVAL                         R1 1
-        6 SETTABLEKS                       R1 R0 K1 ["addKeycodeUsage"]
+        6 SETTABLEKS                       R1 R0 K1 ["addBindingUsage"]
         8 GETUPVAL                         R1 2
-        9 SETTABLEKS                       R1 R0 K2 ["removeKeycodeUsage"]
+        9 SETTABLEKS                       R1 R0 K2 ["removeBindingUsage"]
        11 NEWCLOSURE                       R1 P1
        12 CAPTURE                          UPVAL U3
-       13 SETTABLEKS                       R1 R0 K3 ["onKeycodeUsageChanged"]
+       13 SETTABLEKS                       R1 R0 K3 ["onBindingUsageChanged"]
        15 RETURN                           R0 1
 
 PROTO_11:
@@ -341,23 +341,23 @@ MAIN:
        32 GETTABLEKS                       R5 R5 K11 ["Types"]
        34 CALL                             R4 1 1
        35 GETTABLEKS                       R5 R1 K12 ["createContext"]
-       37 DUPTABLE                         R6 K17 [{"getKeycodeUsage", "addKeycodeUsage", "removeKeycodeUsage", "onKeycodeUsageChanged"}]
+       37 DUPTABLE                         R6 K17 [{"getBindingUsage", "addBindingUsage", "removeBindingUsage", "onBindingUsageChanged"}]
        38 GETTABLEKS                       R7 R2 K18 ["createUnimplemented"]
-       40 LOADK                            R8 K13 ["getKeycodeUsage"]
+       40 LOADK                            R8 K13 ["getBindingUsage"]
        41 CALL                             R7 1 1
-       42 SETTABLEKS                       R7 R6 K13 ["getKeycodeUsage"]
+       42 SETTABLEKS                       R7 R6 K13 ["getBindingUsage"]
        44 GETTABLEKS                       R7 R2 K18 ["createUnimplemented"]
-       46 LOADK                            R8 K14 ["addKeycodeUsage"]
+       46 LOADK                            R8 K14 ["addBindingUsage"]
        47 CALL                             R7 1 1
-       48 SETTABLEKS                       R7 R6 K14 ["addKeycodeUsage"]
+       48 SETTABLEKS                       R7 R6 K14 ["addBindingUsage"]
        50 GETTABLEKS                       R7 R2 K18 ["createUnimplemented"]
-       52 LOADK                            R8 K15 ["removeKeycodeUsage"]
+       52 LOADK                            R8 K15 ["removeBindingUsage"]
        53 CALL                             R7 1 1
-       54 SETTABLEKS                       R7 R6 K15 ["removeKeycodeUsage"]
+       54 SETTABLEKS                       R7 R6 K15 ["removeBindingUsage"]
        56 GETTABLEKS                       R7 R2 K18 ["createUnimplemented"]
-       58 LOADK                            R8 K16 ["onKeycodeUsageChanged"]
+       58 LOADK                            R8 K16 ["onBindingUsageChanged"]
        59 CALL                             R7 1 1
-       60 SETTABLEKS                       R7 R6 K16 ["onKeycodeUsageChanged"]
+       60 SETTABLEKS                       R7 R6 K16 ["onBindingUsageChanged"]
        62 CALL                             R5 1 1
        63 DUPCLOSURE                       R6 K19 [PROTO_11]
        64 CAPTURE                          VAL R1

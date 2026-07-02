@@ -106,110 +106,104 @@ PROTO_3:
        66 GETUPVAL                         R12 0
        67 GETTABLEKS                       R12 R12 K7 ["createElement"]
        69 GETUPVAL                         R13 2
-       70 DUPTABLE                         R14 K25 [{"BackgroundColor", "Layout", "LayoutOrder", "VerticalAlignment", "Size"}]
+       70 DUPTABLE                         R14 K26 [{["BackgroundColor"], ["Layout"], ["LayoutOrder"] = 2, ["VerticalAlignment"], ["Size"]}]
        71 GETTABLEKS                       R15 R2 K10 ["BackgroundColor"]
        73 SETTABLEKS                       R15 R14 K10 ["BackgroundColor"]
-       75 GETIMPORT                        R15 K29 [Enum.FillDirection.Vertical]
+       75 GETIMPORT                        R15 K30 [Enum.FillDirection.Vertical]
        77 SETTABLEKS                       R15 R14 K22 ["Layout"]
-       79 LOADN                            R15 2
-       80 SETTABLEKS                       R15 R14 K23 ["LayoutOrder"]
-       82 GETIMPORT                        R15 K31 [Enum.VerticalAlignment.Top]
-       84 SETTABLEKS                       R15 R14 K24 ["VerticalAlignment"]
-       86 GETIMPORT                        R15 K20 [UDim2.new]
-       88 GETTABLEKS                       R16 R3 K32 ["Foreground"]
-       90 GETTABLEKS                       R16 R16 K21 ["WidthScale"]
-       92 LOADN                            R17 0
-       93 LOADN                            R18 1
-       94 LOADN                            R19 0
-       95 CALL                             R15 4 1
-       96 SETTABLEKS                       R15 R14 K13 ["Size"]
-       98 DUPTABLE                         R15 K35 [{"CloseButton", "FolderTree"}]
-       99 GETUPVAL                         R16 0
-      100 GETTABLEKS                       R16 R16 K7 ["createElement"]
-      102 GETUPVAL                         R17 2
-      103 DUPTABLE                         R18 K38 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Size"}]
-      104 GETIMPORT                        R19 K40 [Enum.HorizontalAlignment.Right]
-      106 SETTABLEKS                       R19 R18 K36 ["HorizontalAlignment"]
-      108 GETIMPORT                        R19 K42 [Enum.FillDirection.Horizontal]
-      110 SETTABLEKS                       R19 R18 K22 ["Layout"]
-      112 LOADN                            R19 1
-      113 SETTABLEKS                       R19 R18 K23 ["LayoutOrder"]
-      115 DUPTABLE                         R19 K43 [{"Right"}]
-      116 GETTABLEKS                       R20 R3 K37 ["Padding"]
-      118 GETTABLEKS                       R20 R20 K39 ["Right"]
-      120 SETTABLEKS                       R20 R19 K39 ["Right"]
-      122 SETTABLEKS                       R19 R18 K37 ["Padding"]
-      124 GETIMPORT                        R19 K20 [UDim2.new]
-      126 LOADN                            R20 1
-      127 LOADN                            R21 0
-      128 LOADN                            R22 0
-      129 LOADN                            R23 24
-      130 CALL                             R19 4 1
-      131 SETTABLEKS                       R19 R18 K13 ["Size"]
-      133 DUPTABLE                         R19 K45 [{"CloseIcon"}]
-      134 GETUPVAL                         R20 0
-      135 GETTABLEKS                       R20 R20 K7 ["createElement"]
-      137 LOADK                            R21 K46 ["ImageButton"]
-      138 NEWTABLE                         R22 8 0
-      140 GETIMPORT                        R23 K48 [Vector2.new]
-      142 LOADK                            R24 K49 [0.5]
-      143 LOADK                            R25 K49 [0.5]
-      144 CALL                             R23 2 1
-      145 SETTABLEKS                       R23 R22 K50 ["AnchorPoint"]
-      147 LOADN                            R23 1
-      148 SETTABLEKS                       R23 R22 K51 ["BackgroundTransparency"]
-      150 GETTABLEKS                       R23 R3 K33 ["CloseButton"]
-      152 GETTABLEKS                       R23 R23 K52 ["Images"]
-      154 GETTABLEKS                       R23 R23 K53 ["Close"]
-      156 SETTABLEKS                       R23 R22 K54 ["Image"]
-      158 GETIMPORT                        R23 K56 [UDim2.fromOffset]
-      160 GETTABLEKS                       R24 R3 K33 ["CloseButton"]
-      162 GETTABLEKS                       R24 R24 K13 ["Size"]
-      164 GETTABLEKS                       R25 R3 K33 ["CloseButton"]
-      166 GETTABLEKS                       R25 R25 K13 ["Size"]
-      168 CALL                             R23 2 1
-      169 SETTABLEKS                       R23 R22 K13 ["Size"]
-      171 GETUPVAL                         R24 3
-      172 JUMPIFNOT                        R24 ; [+3]
-      173 GETTABLEKS                       R23 R2 K57 ["TextColor"]
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R23
-      177 SETTABLEKS                       R23 R22 K58 ["ImageColor3"]
-      179 GETUPVAL                         R23 0
-      180 GETTABLEKS                       R23 R23 K59 ["Event"]
-      182 GETTABLEKS                       R23 R23 K60 ["Activated"]
-      184 SETTABLE                         R5 R22 R23
-      185 CALL                             R20 2 1
-      186 SETTABLEKS                       R20 R19 K44 ["CloseIcon"]
-      188 CALL                             R16 3 1
-      189 SETTABLEKS                       R16 R15 K33 ["CloseButton"]
-      191 GETUPVAL                         R16 0
-      192 GETTABLEKS                       R16 R16 K7 ["createElement"]
-      194 GETUPVAL                         R17 4
-      195 DUPTABLE                         R18 K65 [{"RootItems", "Size", "Expansion", "LayoutOrder", "OnExpansionChange", "OnSelectionChange"}]
-      196 GETTABLEKS                       R19 R0 K0 ["props"]
-      198 GETTABLEKS                       R19 R19 K66 ["FileExplorerData"]
-      200 SETTABLEKS                       R19 R18 K61 ["RootItems"]
-      202 GETIMPORT                        R19 K68 [UDim2.fromScale]
-      204 LOADN                            R20 1
-      205 LOADN                            R21 1
-      206 CALL                             R19 2 1
-      207 SETTABLEKS                       R19 R18 K13 ["Size"]
-      209 GETTABLEKS                       R19 R0 K69 ["state"]
-      211 GETTABLEKS                       R19 R19 K62 ["Expansion"]
-      213 SETTABLEKS                       R19 R18 K62 ["Expansion"]
-      215 LOADN                            R19 2
-      216 SETTABLEKS                       R19 R18 K23 ["LayoutOrder"]
-      218 GETTABLEKS                       R19 R0 K63 ["OnExpansionChange"]
-      220 SETTABLEKS                       R19 R18 K63 ["OnExpansionChange"]
-      222 GETTABLEKS                       R19 R0 K70 ["onSelectionChange"]
-      224 SETTABLEKS                       R19 R18 K64 ["OnSelectionChange"]
-      226 CALL                             R16 2 1
-      227 SETTABLEKS                       R16 R15 K34 ["FolderTree"]
-      229 CALL                             R12 3 1
-      230 SETTABLEKS                       R12 R11 K2 ["Overlay"]
-      232 CALL                             R8 3 -1
-      233 RETURN                           R8 -1
+       79 GETIMPORT                        R15 K32 [Enum.VerticalAlignment.Top]
+       81 SETTABLEKS                       R15 R14 K25 ["VerticalAlignment"]
+       83 GETIMPORT                        R15 K20 [UDim2.new]
+       85 GETTABLEKS                       R16 R3 K33 ["Foreground"]
+       87 GETTABLEKS                       R16 R16 K21 ["WidthScale"]
+       89 LOADN                            R17 0
+       90 LOADN                            R18 1
+       91 LOADN                            R19 0
+       92 CALL                             R15 4 1
+       93 SETTABLEKS                       R15 R14 K13 ["Size"]
+       95 DUPTABLE                         R15 K36 [{"CloseButton", "FolderTree"}]
+       96 GETUPVAL                         R16 0
+       97 GETTABLEKS                       R16 R16 K7 ["createElement"]
+       99 GETUPVAL                         R17 2
+      100 DUPTABLE                         R18 K40 [{["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 1, ["Padding"], ["Size"]}]
+      101 GETIMPORT                        R19 K42 [Enum.HorizontalAlignment.Right]
+      103 SETTABLEKS                       R19 R18 K37 ["HorizontalAlignment"]
+      105 GETIMPORT                        R19 K44 [Enum.FillDirection.Horizontal]
+      107 SETTABLEKS                       R19 R18 K22 ["Layout"]
+      109 DUPTABLE                         R19 K45 [{"Right"}]
+      110 GETTABLEKS                       R20 R3 K39 ["Padding"]
+      112 GETTABLEKS                       R20 R20 K41 ["Right"]
+      114 SETTABLEKS                       R20 R19 K41 ["Right"]
+      116 SETTABLEKS                       R19 R18 K39 ["Padding"]
+      118 GETIMPORT                        R19 K20 [UDim2.new]
+      120 LOADN                            R20 1
+      121 LOADN                            R21 0
+      122 LOADN                            R22 0
+      123 LOADN                            R23 24
+      124 CALL                             R19 4 1
+      125 SETTABLEKS                       R19 R18 K13 ["Size"]
+      127 DUPTABLE                         R19 K47 [{"CloseIcon"}]
+      128 GETUPVAL                         R20 0
+      129 GETTABLEKS                       R20 R20 K7 ["createElement"]
+      131 LOADK                            R21 K48 ["ImageButton"]
+      132 NEWTABLE                         R22 8 0
+      134 GETIMPORT                        R23 K50 [Vector2.new]
+      136 LOADK                            R24 K51 [0.5]
+      137 LOADK                            R25 K51 [0.5]
+      138 CALL                             R23 2 1
+      139 SETTABLEKS                       R23 R22 K52 ["AnchorPoint"]
+      141 LOADN                            R23 1
+      142 SETTABLEKS                       R23 R22 K53 ["BackgroundTransparency"]
+      144 GETTABLEKS                       R23 R3 K34 ["CloseButton"]
+      146 GETTABLEKS                       R23 R23 K54 ["Images"]
+      148 GETTABLEKS                       R23 R23 K55 ["Close"]
+      150 SETTABLEKS                       R23 R22 K56 ["Image"]
+      152 GETIMPORT                        R23 K58 [UDim2.fromOffset]
+      154 GETTABLEKS                       R24 R3 K34 ["CloseButton"]
+      156 GETTABLEKS                       R24 R24 K13 ["Size"]
+      158 GETTABLEKS                       R25 R3 K34 ["CloseButton"]
+      160 GETTABLEKS                       R25 R25 K13 ["Size"]
+      162 CALL                             R23 2 1
+      163 SETTABLEKS                       R23 R22 K13 ["Size"]
+      165 GETUPVAL                         R24 3
+      166 JUMPIFNOT                        R24 ; [+3]
+      167 GETTABLEKS                       R23 R2 K59 ["TextColor"]
+      169 JUMP                             ; [+1]
+      170 LOADNIL                          R23
+      171 SETTABLEKS                       R23 R22 K60 ["ImageColor3"]
+      173 GETUPVAL                         R23 0
+      174 GETTABLEKS                       R23 R23 K61 ["Event"]
+      176 GETTABLEKS                       R23 R23 K62 ["Activated"]
+      178 SETTABLE                         R5 R22 R23
+      179 CALL                             R20 2 1
+      180 SETTABLEKS                       R20 R19 K46 ["CloseIcon"]
+      182 CALL                             R16 3 1
+      183 SETTABLEKS                       R16 R15 K34 ["CloseButton"]
+      185 GETUPVAL                         R16 0
+      186 GETTABLEKS                       R16 R16 K7 ["createElement"]
+      188 GETUPVAL                         R17 4
+      189 DUPTABLE                         R18 K67 [{["RootItems"], ["Size"], ["Expansion"], ["LayoutOrder"] = 2, ["OnExpansionChange"], ["OnSelectionChange"]}]
+      190 GETTABLEKS                       R19 R0 K0 ["props"]
+      192 GETTABLEKS                       R19 R19 K68 ["FileExplorerData"]
+      194 SETTABLEKS                       R19 R18 K63 ["RootItems"]
+      196 GETIMPORT                        R19 K70 [UDim2.fromScale]
+      198 LOADN                            R20 1
+      199 LOADN                            R21 1
+      200 CALL                             R19 2 1
+      201 SETTABLEKS                       R19 R18 K13 ["Size"]
+      203 GETTABLEKS                       R19 R0 K71 ["state"]
+      205 GETTABLEKS                       R19 R19 K64 ["Expansion"]
+      207 SETTABLEKS                       R19 R18 K64 ["Expansion"]
+      209 GETTABLEKS                       R19 R0 K65 ["OnExpansionChange"]
+      211 SETTABLEKS                       R19 R18 K65 ["OnExpansionChange"]
+      213 GETTABLEKS                       R19 R0 K72 ["onSelectionChange"]
+      215 SETTABLEKS                       R19 R18 K66 ["OnSelectionChange"]
+      217 CALL                             R16 2 1
+      218 SETTABLEKS                       R16 R15 K35 ["FolderTree"]
+      220 CALL                             R12 3 1
+      221 SETTABLEKS                       R12 R11 K2 ["Overlay"]
+      223 CALL                             R8 3 -1
+      224 RETURN                           R8 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K1 [{"RecentViewToggled"}]

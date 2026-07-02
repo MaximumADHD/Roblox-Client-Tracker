@@ -49,25 +49,9 @@ PROTO_2:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K8 [{"Branch", "Consumer", "Fragment", "Functional", "Portal", "Provider", "Pure", "Stateful"}]
-        2 LOADK                            R1 K9 [5923556358]
-        3 SETTABLEKS                       R1 R0 K0 ["Branch"]
-        5 LOADK                            R1 K10 [5923556689]
-        6 SETTABLEKS                       R1 R0 K1 ["Consumer"]
-        8 LOADK                            R1 K11 [5923557006]
-        9 SETTABLEKS                       R1 R0 K2 ["Fragment"]
-       11 LOADK                            R1 K12 [5923557211]
-       12 SETTABLEKS                       R1 R0 K3 ["Functional"]
-       14 LOADK                            R1 K13 [5923557429]
-       15 SETTABLEKS                       R1 R0 K4 ["Portal"]
-       17 LOADK                            R1 K14 [5923557657]
-       18 SETTABLEKS                       R1 R0 K5 ["Provider"]
-       20 LOADK                            R1 K15 [5923557814]
-       21 SETTABLEKS                       R1 R0 K6 ["Pure"]
-       23 LOADK                            R1 K16 [5923557987]
-       24 SETTABLEKS                       R1 R0 K7 ["Stateful"]
-       26 DUPCLOSURE                       R1 K17 [PROTO_0]
-       27 DUPCLOSURE                       R2 K18 [PROTO_2]
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          VAL R1
-       30 RETURN                           R2 1
+        1 DUPTABLE                         R0 K16 [{[1] = 5923556358, ["Consumer"] = 5923556689, ["Fragment"] = 5923557006, ["Functional"] = 5923557211, ["Portal"] = 5923557429, ["Provider"] = 5923557657, ["Pure"] = 5923557814, ["Stateful"] = 5923557987}]
+        2 DUPCLOSURE                       R1 K17 [PROTO_0]
+        3 DUPCLOSURE                       R2 K18 [PROTO_2]
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          VAL R1
+        6 RETURN                           R2 1

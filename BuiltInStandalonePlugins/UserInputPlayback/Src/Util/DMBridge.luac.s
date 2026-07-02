@@ -18,66 +18,59 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["IsPlayMode"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["SetItem"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["IsPlayMode"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["SetItem"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["IsPlayMode"]
-        4 LOADB                            R3 0
-        5 NAMECALL                         R0 R0 K1 ["GetItem"]
-        7 CALL                             R0 3 -1
-        8 RETURN                           R0 -1
+        1 LOADK                            R2 K0 ["IsPlayMode"]
+        2 LOADB                            R3 0
+        3 NAMECALL                         R0 R0 K1 ["GetItem"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["PluginEnabled"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["SetItem"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["PluginEnabled"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["SetItem"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["PluginEnabled"]
-        4 LOADB                            R3 0
-        5 NAMECALL                         R0 R0 K1 ["GetItem"]
-        7 CALL                             R0 3 -1
-        8 RETURN                           R0 -1
+        1 LOADK                            R2 K0 ["PluginEnabled"]
+        2 LOADB                            R3 0
+        3 NAMECALL                         R0 R0 K1 ["GetItem"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_6:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["RoduxState"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["SetItem"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["RoduxState"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["SetItem"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["RoduxState"]
-        4 LOADNIL                          R3
-        5 NAMECALL                         R0 R0 K1 ["GetItem"]
-        7 CALL                             R0 3 -1
-        8 RETURN                           R0 -1
+        1 LOADK                            R2 K0 ["RoduxState"]
+        2 LOADNIL                          R3
+        3 NAMECALL                         R0 R0 K1 ["GetItem"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["SetPluginState"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["Invoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["SetPluginState"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["Invoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -92,21 +85,19 @@ PROTO_9:
 
 PROTO_10:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["SetPluginState"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["SetPluginState"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["SaveRecordingDataToDM"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["Invoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["SaveRecordingDataToDM"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["Invoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -156,84 +147,81 @@ PROTO_13:
        22 NAMECALL                         R1 R1 K8 ["JSONEncode"]
        24 CALL                             R1 2 1
        25 GETUPVAL                         R2 0
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R4 R4 K9 ["OpenSaveRecordingDialog"]
-       29 LOADK                            R5 K10 ["EnterNameForRecordingMessage"]
-       30 NEWTABLE                         R6 0 1
-       32 FASTCALL1                        STRING_LEN R1 ; [+3]
-       33 MOVE                             R8 R1
-       34 GETIMPORT                        R7 K13 [string.len]
-       36 CALL                             R7 1 1
-       37 SETLIST                          R6 R7 1 [1]
-       39 NAMECALL                         R2 R2 K14 ["Invoke"]
-       41 CALL                             R2 4 0
-       42 GETIMPORT                        R2 K17 [coroutine.yield]
-       44 CALL                             R2 0 1
-       45 JUMPIFNOT                        R2 ; [+64]
-       46 GETIMPORT                        R3 K20 [Instance.new]
-       48 LOADK                            R4 K21 ["StringValue"]
-       49 CALL                             R3 1 1
-       50 SETTABLEKS                       R1 R3 K22 ["Value"]
-       52 GETIMPORT                        R5 K25 [os.date]
-       54 LOADK                            R6 K26 ["%x %X"]
-       55 CALL                             R5 1 -1
-       56 FASTCALL                         TOSTRING ; [+2]
-       57 GETIMPORT                        R4 K28 [tostring]
-       59 CALL                             R4 -1 1
-       60 SETTABLEKS                       R4 R3 K29 ["Name"]
-       62 GETUPVAL                         R5 3
-       63 LOADK                            R7 K30 ["User Input Recordings"]
-       64 NAMECALL                         R5 R5 K31 ["FindFirstChild"]
-       66 CALL                             R5 2 1
-       67 JUMPIFNOTEQKNIL                  R5 ; [+14]
-       69 GETIMPORT                        R6 K20 [Instance.new]
-       71 LOADK                            R7 K32 ["Folder"]
-       72 CALL                             R6 1 1
-       73 MOVE                             R5 R6
-       74 GETUPVAL                         R6 4
-       75 GETTABLEKS                       R6 R6 K33 ["RecordingsFolderName"]
-       77 SETTABLEKS                       R6 R5 K29 ["Name"]
-       79 GETUPVAL                         R6 3
-       80 SETTABLEKS                       R6 R5 K34 ["Parent"]
-       82 FASTCALL1                        ASSERT R5 ; [+3]
-       83 MOVE                             R7 R5
-       84 GETIMPORT                        R6 K6 [assert]
-       86 CALL                             R6 1 0
-       87 LOADK                            R9 K32 ["Folder"]
-       88 NAMECALL                         R7 R5 K35 ["IsA"]
-       90 CALL                             R7 2 1
-       91 FASTCALL2K                       ASSERT R7 K36 ; [+4]
-       93 LOADK                            R8 K36 ["ReplicatedStorage.User Input Recordings must be a folder!"]
-       94 GETIMPORT                        R6 K6 [assert]
-       96 CALL                             R6 2 0
-       97 MOVE                             R4 R5
-       98 SETTABLEKS                       R4 R3 K34 ["Parent"]
-      100 FASTCALL1                        STRING_LEN R2 ; [+3]
-      101 MOVE                             R5 R2
-      102 GETIMPORT                        R4 K13 [string.len]
-      104 CALL                             R4 1 1
-      105 LOADN                            R5 0
-      106 JUMPIFNOTLT                      R5 R4 ; [+3]
-      108 SETTABLEKS                       R2 R3 K29 ["Name"]
-      110 RETURN                           R0 0
+       26 LOADK                            R4 K9 ["OpenSaveRecordingDialog"]
+       27 LOADK                            R5 K10 ["EnterNameForRecordingMessage"]
+       28 NEWTABLE                         R6 0 1
+       30 FASTCALL1                        STRING_LEN R1 ; [+3]
+       31 MOVE                             R8 R1
+       32 GETIMPORT                        R7 K13 [string.len]
+       34 CALL                             R7 1 1
+       35 SETLIST                          R6 R7 1 [1]
+       37 NAMECALL                         R2 R2 K14 ["Invoke"]
+       39 CALL                             R2 4 0
+       40 GETIMPORT                        R2 K17 [coroutine.yield]
+       42 CALL                             R2 0 1
+       43 JUMPIFNOT                        R2 ; [+64]
+       44 GETIMPORT                        R3 K20 [Instance.new]
+       46 LOADK                            R4 K21 ["StringValue"]
+       47 CALL                             R3 1 1
+       48 SETTABLEKS                       R1 R3 K22 ["Value"]
+       50 GETIMPORT                        R5 K25 [os.date]
+       52 LOADK                            R6 K26 ["%x %X"]
+       53 CALL                             R5 1 -1
+       54 FASTCALL                         TOSTRING ; [+2]
+       55 GETIMPORT                        R4 K28 [tostring]
+       57 CALL                             R4 -1 1
+       58 SETTABLEKS                       R4 R3 K29 ["Name"]
+       60 GETUPVAL                         R5 2
+       61 LOADK                            R7 K30 ["User Input Recordings"]
+       62 NAMECALL                         R5 R5 K31 ["FindFirstChild"]
+       64 CALL                             R5 2 1
+       65 JUMPIFNOTEQKNIL                  R5 ; [+14]
+       67 GETIMPORT                        R6 K20 [Instance.new]
+       69 LOADK                            R7 K32 ["Folder"]
+       70 CALL                             R6 1 1
+       71 MOVE                             R5 R6
+       72 GETUPVAL                         R6 3
+       73 GETTABLEKS                       R6 R6 K33 ["RecordingsFolderName"]
+       75 SETTABLEKS                       R6 R5 K29 ["Name"]
+       77 GETUPVAL                         R6 2
+       78 SETTABLEKS                       R6 R5 K34 ["Parent"]
+       80 FASTCALL1                        ASSERT R5 ; [+3]
+       81 MOVE                             R7 R5
+       82 GETIMPORT                        R6 K6 [assert]
+       84 CALL                             R6 1 0
+       85 LOADK                            R9 K32 ["Folder"]
+       86 NAMECALL                         R7 R5 K35 ["IsA"]
+       88 CALL                             R7 2 1
+       89 FASTCALL2K                       ASSERT R7 K36 ; [+4]
+       91 LOADK                            R8 K36 ["ReplicatedStorage.User Input Recordings must be a folder!"]
+       92 GETIMPORT                        R6 K6 [assert]
+       94 CALL                             R6 2 0
+       95 MOVE                             R4 R5
+       96 SETTABLEKS                       R4 R3 K34 ["Parent"]
+       98 FASTCALL1                        STRING_LEN R2 ; [+3]
+       99 MOVE                             R5 R2
+      100 GETIMPORT                        R4 K13 [string.len]
+      102 CALL                             R4 1 1
+      103 LOADN                            R5 0
+      104 JUMPIFNOTLT                      R5 R4 ; [+3]
+      106 SETTABLEKS                       R2 R3 K29 ["Name"]
+      108 RETURN                           R0 0
 
 PROTO_14:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["SetSavedRecordingName"]
-        4 LOADNIL                          R3
-        5 NAMECALL                         R0 R0 K1 ["Invoke"]
-        7 CALL                             R0 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["SetSavedRecordingName"]
+        2 LOADNIL                          R3
+        3 NAMECALL                         R0 R0 K1 ["Invoke"]
+        5 CALL                             R0 3 0
+        6 RETURN                           R0 0
 
 PROTO_15:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["SetSavedRecordingName"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["Invoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["SetSavedRecordingName"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["Invoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R2 0
@@ -288,104 +276,98 @@ PROTO_16:
        66 GETIMPORT                        R4 K10 [assert]
        68 CALL                             R4 1 0
        69 GETUPVAL                         R4 3
-       70 GETUPVAL                         R6 4
-       71 GETTABLEKS                       R6 R6 K22 ["PlaybackInfoChanged"]
-       73 LOADNIL                          R7
-       74 LOADN                            R8 0
-       75 LOADN                            R9 0
-       76 NAMECALL                         R4 R4 K23 ["Invoke"]
-       78 CALL                             R4 5 0
-       79 GETUPVAL                         R4 3
-       80 GETUPVAL                         R6 4
-       81 GETTABLEKS                       R6 R6 K24 ["CurrentPlaybackRecordingDataObj"]
-       83 LOADNIL                          R7
-       84 NAMECALL                         R4 R4 K25 ["SetItem"]
-       86 CALL                             R4 3 0
-       87 GETUPVAL                         R4 3
-       88 GETUPVAL                         R6 4
-       89 GETTABLEKS                       R6 R6 K26 ["CurrentPlaybackRecordingDataStr"]
-       91 LOADNIL                          R7
-       92 NAMECALL                         R4 R4 K25 ["SetItem"]
-       94 CALL                             R4 3 0
-       95 GETUPVAL                         R4 5
-       96 MOVE                             R6 R3
-       97 NAMECALL                         R4 R4 K27 ["JSONDecode"]
-       99 CALL                             R4 2 1
-      100 GETTABLEKS                       R5 R4 K28 ["additionalMetadata"]
-      102 FASTCALL2K                       ASSERT R5 K29 ; [+5]
-      104 MOVE                             R7 R5
-      105 LOADK                            R8 K29 ["metaData key not found"]
-      106 GETIMPORT                        R6 K10 [assert]
-      108 CALL                             R6 2 0
-      109 GETTABLEKS                       R6 R5 K30 ["resolution"]
-      111 FASTCALL2K                       ASSERT R6 K31 ; [+5]
-      113 MOVE                             R8 R6
-      114 LOADK                            R9 K31 ["resolution key not found"]
-      115 GETIMPORT                        R7 K10 [assert]
-      117 CALL                             R7 2 0
-      118 LENGTH                           R9 R6
-      119 JUMPIFEQKN                       R9 K32 [2] ; [+2]
-      121 LOADB                            R8 0 +1
-      122 LOADB                            R8 1
-      123 FASTCALL2K                       ASSERT R8 K33 ; [+4]
-      125 LOADK                            R9 K33 ["resolution key invalid"]
-      126 GETIMPORT                        R7 K10 [assert]
-      128 CALL                             R7 2 0
-      129 GETTABLEKS                       R7 R5 K34 ["deviceId"]
-      131 FASTCALL2K                       ASSERT R7 K35 ; [+5]
-      133 MOVE                             R9 R7
-      134 LOADK                            R10 K35 ["deviceId key not found"]
-      135 GETIMPORT                        R8 K10 [assert]
-      137 CALL                             R8 2 0
-      138 GETTABLEKS                       R8 R5 K36 ["orientation"]
-      140 FASTCALL2K                       ASSERT R8 K37 ; [+5]
-      142 MOVE                             R10 R8
-      143 LOADK                            R11 K37 ["orientation key not found"]
-      144 GETIMPORT                        R9 K10 [assert]
-      146 CALL                             R9 2 0
-      147 GETTABLEKS                       R9 R4 K38 ["events"]
-      149 FASTCALL2K                       ASSERT R9 K39 ; [+5]
-      151 MOVE                             R11 R9
-      152 LOADK                            R12 K39 ["events not found"]
-      153 GETIMPORT                        R10 K10 [assert]
-      155 CALL                             R10 2 0
-      156 GETTABLEKS                       R10 R4 K40 ["duration"]
-      158 FASTCALL2K                       ASSERT R10 K41 ; [+5]
-      160 MOVE                             R12 R10
-      161 LOADK                            R13 K41 ["duration not found"]
-      162 GETIMPORT                        R11 K10 [assert]
-      164 CALL                             R11 2 0
-      165 LOADN                            R13 0
-      166 JUMPIFLE                         R13 R10 ; [+2]
-      168 LOADB                            R12 0 +1
-      169 LOADB                            R12 1
-      170 FASTCALL2K                       ASSERT R12 K42 ; [+4]
-      172 LOADK                            R13 K42 ["recording duration cannot be negative"]
-      173 GETIMPORT                        R11 K10 [assert]
-      175 CALL                             R11 2 0
-      176 LENGTH                           R11 R9
-      177 DIVK                             R12 R10 K43 [1000]
-      178 GETUPVAL                         R13 3
-      179 GETUPVAL                         R15 4
-      180 GETTABLEKS                       R15 R15 K22 ["PlaybackInfoChanged"]
-      182 MOVE                             R16 R5
-      183 MOVE                             R17 R12
-      184 MOVE                             R18 R11
-      185 NAMECALL                         R13 R13 K23 ["Invoke"]
-      187 CALL                             R13 5 0
-      188 GETUPVAL                         R13 3
-      189 GETUPVAL                         R15 4
-      190 GETTABLEKS                       R15 R15 K24 ["CurrentPlaybackRecordingDataObj"]
-      192 MOVE                             R16 R4
-      193 NAMECALL                         R13 R13 K25 ["SetItem"]
-      195 CALL                             R13 3 0
-      196 GETUPVAL                         R13 3
-      197 GETUPVAL                         R15 4
-      198 GETTABLEKS                       R15 R15 K26 ["CurrentPlaybackRecordingDataStr"]
-      200 MOVE                             R16 R3
-      201 NAMECALL                         R13 R13 K25 ["SetItem"]
-      203 CALL                             R13 3 0
-      204 RETURN                           R0 0
+       70 LOADK                            R6 K22 ["PlaybackInfoChanged"]
+       71 LOADNIL                          R7
+       72 LOADN                            R8 0
+       73 LOADN                            R9 0
+       74 NAMECALL                         R4 R4 K23 ["Invoke"]
+       76 CALL                             R4 5 0
+       77 GETUPVAL                         R4 3
+       78 LOADK                            R6 K24 ["CurrentPlaybackRecordingDataObj"]
+       79 LOADNIL                          R7
+       80 NAMECALL                         R4 R4 K25 ["SetItem"]
+       82 CALL                             R4 3 0
+       83 GETUPVAL                         R4 3
+       84 LOADK                            R6 K26 ["CurrentPlaybackRecordingDataStr"]
+       85 LOADNIL                          R7
+       86 NAMECALL                         R4 R4 K25 ["SetItem"]
+       88 CALL                             R4 3 0
+       89 GETUPVAL                         R4 4
+       90 MOVE                             R6 R3
+       91 NAMECALL                         R4 R4 K27 ["JSONDecode"]
+       93 CALL                             R4 2 1
+       94 GETTABLEKS                       R5 R4 K28 ["additionalMetadata"]
+       96 FASTCALL2K                       ASSERT R5 K29 ; [+5]
+       98 MOVE                             R7 R5
+       99 LOADK                            R8 K29 ["metaData key not found"]
+      100 GETIMPORT                        R6 K10 [assert]
+      102 CALL                             R6 2 0
+      103 GETTABLEKS                       R6 R5 K30 ["resolution"]
+      105 FASTCALL2K                       ASSERT R6 K31 ; [+5]
+      107 MOVE                             R8 R6
+      108 LOADK                            R9 K31 ["resolution key not found"]
+      109 GETIMPORT                        R7 K10 [assert]
+      111 CALL                             R7 2 0
+      112 LENGTH                           R9 R6
+      113 JUMPIFEQKN                       R9 K32 [2] ; [+2]
+      115 LOADB                            R8 0 +1
+      116 LOADB                            R8 1
+      117 FASTCALL2K                       ASSERT R8 K33 ; [+4]
+      119 LOADK                            R9 K33 ["resolution key invalid"]
+      120 GETIMPORT                        R7 K10 [assert]
+      122 CALL                             R7 2 0
+      123 GETTABLEKS                       R7 R5 K34 ["deviceId"]
+      125 FASTCALL2K                       ASSERT R7 K35 ; [+5]
+      127 MOVE                             R9 R7
+      128 LOADK                            R10 K35 ["deviceId key not found"]
+      129 GETIMPORT                        R8 K10 [assert]
+      131 CALL                             R8 2 0
+      132 GETTABLEKS                       R8 R5 K36 ["orientation"]
+      134 FASTCALL2K                       ASSERT R8 K37 ; [+5]
+      136 MOVE                             R10 R8
+      137 LOADK                            R11 K37 ["orientation key not found"]
+      138 GETIMPORT                        R9 K10 [assert]
+      140 CALL                             R9 2 0
+      141 GETTABLEKS                       R9 R4 K38 ["events"]
+      143 FASTCALL2K                       ASSERT R9 K39 ; [+5]
+      145 MOVE                             R11 R9
+      146 LOADK                            R12 K39 ["events not found"]
+      147 GETIMPORT                        R10 K10 [assert]
+      149 CALL                             R10 2 0
+      150 GETTABLEKS                       R10 R4 K40 ["duration"]
+      152 FASTCALL2K                       ASSERT R10 K41 ; [+5]
+      154 MOVE                             R12 R10
+      155 LOADK                            R13 K41 ["duration not found"]
+      156 GETIMPORT                        R11 K10 [assert]
+      158 CALL                             R11 2 0
+      159 LOADN                            R13 0
+      160 JUMPIFLE                         R13 R10 ; [+2]
+      162 LOADB                            R12 0 +1
+      163 LOADB                            R12 1
+      164 FASTCALL2K                       ASSERT R12 K42 ; [+4]
+      166 LOADK                            R13 K42 ["recording duration cannot be negative"]
+      167 GETIMPORT                        R11 K10 [assert]
+      169 CALL                             R11 2 0
+      170 LENGTH                           R11 R9
+      171 DIVK                             R12 R10 K43 [1000]
+      172 GETUPVAL                         R13 3
+      173 LOADK                            R15 K22 ["PlaybackInfoChanged"]
+      174 MOVE                             R16 R5
+      175 MOVE                             R17 R12
+      176 MOVE                             R18 R11
+      177 NAMECALL                         R13 R13 K23 ["Invoke"]
+      179 CALL                             R13 5 0
+      180 GETUPVAL                         R13 3
+      181 LOADK                            R15 K24 ["CurrentPlaybackRecordingDataObj"]
+      182 MOVE                             R16 R4
+      183 NAMECALL                         R13 R13 K25 ["SetItem"]
+      185 CALL                             R13 3 0
+      186 GETUPVAL                         R13 3
+      187 LOADK                            R15 K26 ["CurrentPlaybackRecordingDataStr"]
+      188 MOVE                             R16 R3
+      189 NAMECALL                         R13 R13 K25 ["SetItem"]
+      191 CALL                             R13 3 0
+      192 RETURN                           R0 0
 
 PROTO_17:
         0 NEWTABLE                         R0 0 0
@@ -432,89 +414,82 @@ PROTO_17:
        58 CALL                             R8 2 0
        59 FORGLOOP                         R3 2 [inext] ; [-14]
        61 GETUPVAL                         R3 2
-       62 GETUPVAL                         R5 3
-       63 GETTABLEKS                       R5 R5 K20 ["SetPlayableRecordings"]
-       65 MOVE                             R6 R0
-       66 NAMECALL                         R3 R3 K21 ["Invoke"]
-       68 CALL                             R3 3 0
-       69 RETURN                           R0 0
+       62 LOADK                            R5 K20 ["SetPlayableRecordings"]
+       63 MOVE                             R6 R0
+       64 NAMECALL                         R3 R3 K21 ["Invoke"]
+       66 CALL                             R3 3 0
+       67 RETURN                           R0 0
 
 PROTO_18:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["EmulationDeviceIdChanged"]
-        4 GETUPVAL                         R3 2
-        5 NAMECALL                         R3 R3 K1 ["GetCurrentDeviceId"]
-        7 CALL                             R3 1 -1
-        8 NAMECALL                         R0 R0 K2 ["Invoke"]
-       10 CALL                             R0 -1 0
-       11 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["EmulationDeviceIdChanged"]
+        2 GETUPVAL                         R3 1
+        3 NAMECALL                         R3 R3 K1 ["GetCurrentDeviceId"]
+        5 CALL                             R3 1 -1
+        6 NAMECALL                         R0 R0 K2 ["Invoke"]
+        8 CALL                             R0 -1 0
+        9 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["EmulationDeviceOrientationChanged"]
-        4 GETUPVAL                         R3 2
-        5 NAMECALL                         R3 R3 K1 ["GetCurrentOrientation"]
-        7 CALL                             R3 1 1
-        8 GETTABLEKS                       R3 R3 K2 ["Name"]
-       10 NAMECALL                         R0 R0 K3 ["Invoke"]
-       12 CALL                             R0 3 0
-       13 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["EmulationDeviceOrientationChanged"]
+        2 GETUPVAL                         R3 1
+        3 NAMECALL                         R3 R3 K1 ["GetCurrentOrientation"]
+        5 CALL                             R3 1 1
+        6 GETTABLEKS                       R3 R3 K2 ["Name"]
+        8 NAMECALL                         R0 R0 K3 ["Invoke"]
+       10 CALL                             R0 3 0
+       11 RETURN                           R0 0
 
 PROTO_20:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["ViewportResolutionChanged"]
-        4 GETIMPORT                        R3 K2 [workspace]
-        6 GETTABLEKS                       R3 R3 K3 ["CurrentCamera"]
-        8 GETTABLEKS                       R3 R3 K4 ["ViewportSize"]
-       10 NAMECALL                         R0 R0 K5 ["Invoke"]
-       12 CALL                             R0 3 0
-       13 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["ViewportResolutionChanged"]
+        2 GETIMPORT                        R3 K2 [workspace]
+        4 GETTABLEKS                       R3 R3 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R3 R3 K4 ["ViewportSize"]
+        8 NAMECALL                         R0 R0 K5 ["Invoke"]
+       10 CALL                             R0 3 0
+       11 RETURN                           R0 0
 
 PROTO_21:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+30]
+        1 JUMPIFNOT                        R0 ; [+28]
         2 GETUPVAL                         R1 1
         3 GETUPVAL                         R2 0
         4 GETTABLEKS                       R2 R2 K0 ["CurrentDeviceIdChanged"]
         6 NEWCLOSURE                       R4 P0
         7 CAPTURE                          UPVAL U2
-        8 CAPTURE                          UPVAL U3
-        9 CAPTURE                          UPVAL U0
-       10 NAMECALL                         R2 R2 K1 ["Connect"]
-       12 CALL                             R2 2 -1
-       13 FASTCALL                         TABLE_INSERT ; [+2]
-       14 GETIMPORT                        R0 K4 [table.insert]
-       16 CALL                             R0 -1 0
-       17 GETUPVAL                         R1 1
-       18 GETUPVAL                         R2 0
-       19 GETTABLEKS                       R2 R2 K5 ["OrientationChanged"]
-       21 NEWCLOSURE                       R4 P1
-       22 CAPTURE                          UPVAL U2
-       23 CAPTURE                          UPVAL U3
-       24 CAPTURE                          UPVAL U0
-       25 NAMECALL                         R2 R2 K1 ["Connect"]
-       27 CALL                             R2 2 -1
-       28 FASTCALL                         TABLE_INSERT ; [+2]
-       29 GETIMPORT                        R0 K4 [table.insert]
-       31 CALL                             R0 -1 0
-       32 GETUPVAL                         R1 1
-       33 GETIMPORT                        R2 K7 [workspace]
-       35 GETTABLEKS                       R2 R2 K8 ["CurrentCamera"]
-       37 LOADK                            R4 K9 ["ViewportSize"]
-       38 NAMECALL                         R2 R2 K10 ["GetPropertyChangedSignal"]
-       40 CALL                             R2 2 1
-       41 NEWCLOSURE                       R4 P2
-       42 CAPTURE                          UPVAL U2
-       43 CAPTURE                          UPVAL U3
-       44 NAMECALL                         R2 R2 K1 ["Connect"]
-       46 CALL                             R2 2 -1
-       47 FASTCALL                         TABLE_INSERT ; [+2]
-       48 GETIMPORT                        R0 K4 [table.insert]
-       50 CALL                             R0 -1 0
-       51 RETURN                           R0 0
+        8 CAPTURE                          UPVAL U0
+        9 NAMECALL                         R2 R2 K1 ["Connect"]
+       11 CALL                             R2 2 -1
+       12 FASTCALL                         TABLE_INSERT ; [+2]
+       13 GETIMPORT                        R0 K4 [table.insert]
+       15 CALL                             R0 -1 0
+       16 GETUPVAL                         R1 1
+       17 GETUPVAL                         R2 0
+       18 GETTABLEKS                       R2 R2 K5 ["OrientationChanged"]
+       20 NEWCLOSURE                       R4 P1
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          UPVAL U0
+       23 NAMECALL                         R2 R2 K1 ["Connect"]
+       25 CALL                             R2 2 -1
+       26 FASTCALL                         TABLE_INSERT ; [+2]
+       27 GETIMPORT                        R0 K4 [table.insert]
+       29 CALL                             R0 -1 0
+       30 GETUPVAL                         R1 1
+       31 GETIMPORT                        R2 K7 [workspace]
+       33 GETTABLEKS                       R2 R2 K8 ["CurrentCamera"]
+       35 LOADK                            R4 K9 ["ViewportSize"]
+       36 NAMECALL                         R2 R2 K10 ["GetPropertyChangedSignal"]
+       38 CALL                             R2 2 1
+       39 NEWCLOSURE                       R4 P2
+       40 CAPTURE                          UPVAL U2
+       41 NAMECALL                         R2 R2 K1 ["Connect"]
+       43 CALL                             R2 2 -1
+       44 FASTCALL                         TABLE_INSERT ; [+2]
+       45 GETIMPORT                        R0 K4 [table.insert]
+       47 CALL                             R0 -1 0
+       48 RETURN                           R0 0
 
 PROTO_22:
         0 GETIMPORT                        R0 K1 [ipairs]
@@ -530,33 +505,30 @@ PROTO_22:
 
 PROTO_23:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+37]
+        1 JUMPIFNOT                        R0 ; [+31]
         2 GETUPVAL                         R0 1
-        3 GETUPVAL                         R2 2
-        4 GETTABLEKS                       R2 R2 K0 ["EmulationDeviceIdChanged"]
-        6 GETUPVAL                         R3 0
-        7 NAMECALL                         R3 R3 K1 ["GetCurrentDeviceId"]
-        9 CALL                             R3 1 -1
-       10 NAMECALL                         R0 R0 K2 ["Invoke"]
-       12 CALL                             R0 -1 0
-       13 GETUPVAL                         R0 1
-       14 GETUPVAL                         R2 2
-       15 GETTABLEKS                       R2 R2 K3 ["EmulationDeviceOrientationChanged"]
-       17 GETUPVAL                         R3 0
-       18 NAMECALL                         R3 R3 K4 ["GetCurrentOrientation"]
-       20 CALL                             R3 1 1
-       21 GETTABLEKS                       R3 R3 K5 ["Name"]
-       23 NAMECALL                         R0 R0 K2 ["Invoke"]
-       25 CALL                             R0 3 0
-       26 GETUPVAL                         R0 1
-       27 GETUPVAL                         R2 2
-       28 GETTABLEKS                       R2 R2 K6 ["ViewportResolutionChanged"]
-       30 GETIMPORT                        R3 K8 [workspace]
-       32 GETTABLEKS                       R3 R3 K9 ["CurrentCamera"]
-       34 GETTABLEKS                       R3 R3 K10 ["ViewportSize"]
-       36 NAMECALL                         R0 R0 K2 ["Invoke"]
-       38 CALL                             R0 3 0
-       39 RETURN                           R0 0
+        3 LOADK                            R2 K0 ["EmulationDeviceIdChanged"]
+        4 GETUPVAL                         R3 0
+        5 NAMECALL                         R3 R3 K1 ["GetCurrentDeviceId"]
+        7 CALL                             R3 1 -1
+        8 NAMECALL                         R0 R0 K2 ["Invoke"]
+       10 CALL                             R0 -1 0
+       11 GETUPVAL                         R0 1
+       12 LOADK                            R2 K3 ["EmulationDeviceOrientationChanged"]
+       13 GETUPVAL                         R3 0
+       14 NAMECALL                         R3 R3 K4 ["GetCurrentOrientation"]
+       16 CALL                             R3 1 1
+       17 GETTABLEKS                       R3 R3 K5 ["Name"]
+       19 NAMECALL                         R0 R0 K2 ["Invoke"]
+       21 CALL                             R0 3 0
+       22 GETUPVAL                         R0 1
+       23 LOADK                            R2 K6 ["ViewportResolutionChanged"]
+       24 GETIMPORT                        R3 K8 [workspace]
+       26 GETTABLEKS                       R3 R3 K9 ["CurrentCamera"]
+       28 GETTABLEKS                       R3 R3 K10 ["ViewportSize"]
+       30 NAMECALL                         R0 R0 K2 ["Invoke"]
+       32 CALL                             R0 3 0
+       33 RETURN                           R0 0
 
 PROTO_24:
         0 GETIMPORT                        R1 K2 [coroutine.create]
@@ -586,54 +558,46 @@ PROTO_26:
         8 LOADB                            R0 1
         9 SETUPVAL                         R0 0
        10 GETUPVAL                         R0 1
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R2 R2 K3 ["RequestDevicePropertiesUpdate"]
-       14 NEWCLOSURE                       R3 P0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U1
-       17 CAPTURE                          UPVAL U2
-       18 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       20 CALL                             R0 3 0
-       21 GETUPVAL                         R0 1
-       22 GETUPVAL                         R2 2
-       23 GETTABLEKS                       R2 R2 K5 ["ConnectToStudioDeviceEmulatorServiceEvents"]
-       25 GETUPVAL                         R3 4
-       26 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       28 CALL                             R0 3 0
-       29 GETUPVAL                         R0 1
-       30 GETUPVAL                         R2 2
-       31 GETTABLEKS                       R2 R2 K6 ["DisconnectStudioDeviceEmulatorServiceEvents"]
-       33 GETUPVAL                         R3 5
-       34 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       36 CALL                             R0 3 0
-       37 GETUPVAL                         R0 1
-       38 GETUPVAL                         R2 2
-       39 GETTABLEKS                       R2 R2 K7 ["SaveRecordingDataToDM"]
-       41 NEWCLOSURE                       R3 P1
-       42 CAPTURE                          UPVAL U6
-       43 CAPTURE                          UPVAL U7
-       44 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       46 CALL                             R0 3 0
-       47 GETUPVAL                         R0 1
-       48 GETUPVAL                         R2 2
-       49 GETTABLEKS                       R2 R2 K8 ["SetSavedRecordingName"]
-       51 NEWCLOSURE                       R3 P2
-       52 CAPTURE                          UPVAL U6
-       53 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       55 CALL                             R0 3 0
-       56 GETUPVAL                         R0 1
-       57 GETUPVAL                         R2 2
-       58 GETTABLEKS                       R2 R2 K9 ["SearchForUserInputRecordings"]
-       60 GETUPVAL                         R3 8
-       61 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       63 CALL                             R0 3 0
-       64 GETUPVAL                         R0 1
-       65 GETUPVAL                         R2 2
-       66 GETTABLEKS                       R2 R2 K10 ["LoadRecordingWithName"]
-       68 GETUPVAL                         R3 9
-       69 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       71 CALL                             R0 3 0
-       72 RETURN                           R0 0
+       11 LOADK                            R2 K3 ["RequestDevicePropertiesUpdate"]
+       12 NEWCLOSURE                       R3 P0
+       13 CAPTURE                          UPVAL U2
+       14 CAPTURE                          UPVAL U1
+       15 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       17 CALL                             R0 3 0
+       18 GETUPVAL                         R0 1
+       19 LOADK                            R2 K5 ["ConnectToStudioDeviceEmulatorServiceEvents"]
+       20 GETUPVAL                         R3 3
+       21 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       23 CALL                             R0 3 0
+       24 GETUPVAL                         R0 1
+       25 LOADK                            R2 K6 ["DisconnectStudioDeviceEmulatorServiceEvents"]
+       26 GETUPVAL                         R3 4
+       27 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       29 CALL                             R0 3 0
+       30 GETUPVAL                         R0 1
+       31 LOADK                            R2 K7 ["SaveRecordingDataToDM"]
+       32 NEWCLOSURE                       R3 P1
+       33 CAPTURE                          UPVAL U5
+       34 CAPTURE                          UPVAL U6
+       35 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       37 CALL                             R0 3 0
+       38 GETUPVAL                         R0 1
+       39 LOADK                            R2 K8 ["SetSavedRecordingName"]
+       40 NEWCLOSURE                       R3 P2
+       41 CAPTURE                          UPVAL U5
+       42 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       44 CALL                             R0 3 0
+       45 GETUPVAL                         R0 1
+       46 LOADK                            R2 K9 ["SearchForUserInputRecordings"]
+       47 GETUPVAL                         R3 7
+       48 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       50 CALL                             R0 3 0
+       51 GETUPVAL                         R0 1
+       52 LOADK                            R2 K10 ["LoadRecordingWithName"]
+       53 GETUPVAL                         R3 8
+       54 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       56 CALL                             R0 3 0
+       57 RETURN                           R0 0
 
 PROTO_27:
         0 GETUPVAL                         R2 0
@@ -645,114 +609,101 @@ PROTO_27:
         8 LOADB                            R0 1
         9 SETUPVAL                         R0 0
        10 GETUPVAL                         R0 1
-       11 GETUPVAL                         R2 2
-       12 GETTABLEKS                       R2 R2 K3 ["ConnectToStudioDeviceEmulatorServiceEvents"]
-       14 GETUPVAL                         R3 3
-       15 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       17 CALL                             R0 3 0
-       18 GETUPVAL                         R0 1
-       19 GETUPVAL                         R2 2
-       20 GETTABLEKS                       R2 R2 K5 ["DisconnectStudioDeviceEmulatorServiceEvents"]
-       22 GETUPVAL                         R3 4
-       23 NAMECALL                         R0 R0 K4 ["OnInvoke"]
-       25 CALL                             R0 3 0
-       26 RETURN                           R0 0
+       11 LOADK                            R2 K3 ["ConnectToStudioDeviceEmulatorServiceEvents"]
+       12 GETUPVAL                         R3 2
+       13 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       15 CALL                             R0 3 0
+       16 GETUPVAL                         R0 1
+       17 LOADK                            R2 K5 ["DisconnectStudioDeviceEmulatorServiceEvents"]
+       18 GETUPVAL                         R3 3
+       19 NAMECALL                         R0 R0 K4 ["OnInvoke"]
+       21 CALL                             R0 3 0
+       22 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["StartRecordingButtonClicked"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["StartRecordingButtonClicked"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_29:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["StartRecordingButtonClicked"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["StartRecordingButtonClicked"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_30:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["StopRecordingButtonClicked"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["StopRecordingButtonClicked"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_31:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["StopRecordingButtonClicked"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["StopRecordingButtonClicked"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_32:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["StartPlaybackButtonClicked"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["StartPlaybackButtonClicked"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_33:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["StartPlaybackButtonClicked"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["StartPlaybackButtonClicked"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["StopPlaybackButtonClicked"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["StopPlaybackButtonClicked"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_35:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["StopPlaybackButtonClicked"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["StopPlaybackButtonClicked"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_36:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 0
         2 GETUPVAL                         R0 1
-        3 GETUPVAL                         R2 2
-        4 GETTABLEKS                       R2 R2 K0 ["RequestDevicePropertiesUpdate"]
-        6 NAMECALL                         R0 R0 K1 ["Invoke"]
-        8 CALL                             R0 2 0
-        9 RETURN                           R0 0
+        3 LOADK                            R2 K0 ["RequestDevicePropertiesUpdate"]
+        4 NAMECALL                         R0 R0 K1 ["Invoke"]
+        6 CALL                             R0 2 0
+        7 RETURN                           R0 0
 
 PROTO_37:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["CurrentPlaybackRecordingDataStr"]
-        4 LOADNIL                          R3
-        5 NAMECALL                         R0 R0 K1 ["GetItem"]
-        7 CALL                             R0 3 -1
-        8 RETURN                           R0 -1
+        1 LOADK                            R2 K0 ["CurrentPlaybackRecordingDataStr"]
+        2 LOADNIL                          R3
+        3 NAMECALL                         R0 R0 K1 ["GetItem"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_38:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["CurrentPlaybackRecordingDataObj"]
-        4 LOADNIL                          R3
-        5 NAMECALL                         R0 R0 K1 ["GetItem"]
-        7 CALL                             R0 3 -1
-        8 RETURN                           R0 -1
+        1 LOADK                            R2 K0 ["CurrentPlaybackRecordingDataObj"]
+        2 LOADNIL                          R3
+        3 NAMECALL                         R0 R0 K1 ["GetItem"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_39:
         0 GETUPVAL                         R1 0
@@ -789,49 +740,45 @@ PROTO_42:
 PROTO_43:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
-        2 GETUPVAL                         R5 2
-        3 GETTABLEKS                       R5 R5 K0 ["EmulationDeviceIdChanged"]
-        5 NEWCLOSURE                       R6 P0
-        6 CAPTURE                          VAL R0
-        7 NAMECALL                         R3 R3 K1 ["OnInvoke"]
-        9 CALL                             R3 3 1
-       10 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
-       12 GETIMPORT                        R1 K4 [table.insert]
-       14 CALL                             R1 2 0
-       15 GETUPVAL                         R2 0
-       16 GETUPVAL                         R3 1
-       17 GETUPVAL                         R5 2
-       18 GETTABLEKS                       R5 R5 K5 ["EmulationDeviceOrientationChanged"]
-       20 NEWCLOSURE                       R6 P1
-       21 CAPTURE                          VAL R0
-       22 NAMECALL                         R3 R3 K1 ["OnInvoke"]
-       24 CALL                             R3 3 1
-       25 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
-       27 GETIMPORT                        R1 K4 [table.insert]
-       29 CALL                             R1 2 0
-       30 GETUPVAL                         R2 0
-       31 GETUPVAL                         R3 1
-       32 GETUPVAL                         R5 2
-       33 GETTABLEKS                       R5 R5 K6 ["ViewportResolutionChanged"]
-       35 NEWCLOSURE                       R6 P2
-       36 CAPTURE                          VAL R0
-       37 NAMECALL                         R3 R3 K1 ["OnInvoke"]
-       39 CALL                             R3 3 1
-       40 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
-       42 GETIMPORT                        R1 K4 [table.insert]
-       44 CALL                             R1 2 0
-       45 GETUPVAL                         R2 0
-       46 GETUPVAL                         R3 1
-       47 GETUPVAL                         R5 2
-       48 GETTABLEKS                       R5 R5 K7 ["OpenSaveRecordingDialog"]
-       50 NEWCLOSURE                       R6 P3
-       51 CAPTURE                          VAL R0
-       52 NAMECALL                         R3 R3 K1 ["OnInvoke"]
-       54 CALL                             R3 3 1
-       55 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
-       57 GETIMPORT                        R1 K4 [table.insert]
-       59 CALL                             R1 2 0
-       60 RETURN                           R0 0
+        2 LOADK                            R5 K0 ["EmulationDeviceIdChanged"]
+        3 NEWCLOSURE                       R6 P0
+        4 CAPTURE                          VAL R0
+        5 NAMECALL                         R3 R3 K1 ["OnInvoke"]
+        7 CALL                             R3 3 1
+        8 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
+       10 GETIMPORT                        R1 K4 [table.insert]
+       12 CALL                             R1 2 0
+       13 GETUPVAL                         R2 0
+       14 GETUPVAL                         R3 1
+       15 LOADK                            R5 K5 ["EmulationDeviceOrientationChanged"]
+       16 NEWCLOSURE                       R6 P1
+       17 CAPTURE                          VAL R0
+       18 NAMECALL                         R3 R3 K1 ["OnInvoke"]
+       20 CALL                             R3 3 1
+       21 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
+       23 GETIMPORT                        R1 K4 [table.insert]
+       25 CALL                             R1 2 0
+       26 GETUPVAL                         R2 0
+       27 GETUPVAL                         R3 1
+       28 LOADK                            R5 K6 ["ViewportResolutionChanged"]
+       29 NEWCLOSURE                       R6 P2
+       30 CAPTURE                          VAL R0
+       31 NAMECALL                         R3 R3 K1 ["OnInvoke"]
+       33 CALL                             R3 3 1
+       34 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
+       36 GETIMPORT                        R1 K4 [table.insert]
+       38 CALL                             R1 2 0
+       39 GETUPVAL                         R2 0
+       40 GETUPVAL                         R3 1
+       41 LOADK                            R5 K7 ["OpenSaveRecordingDialog"]
+       42 NEWCLOSURE                       R6 P3
+       43 CAPTURE                          VAL R0
+       44 NAMECALL                         R3 R3 K1 ["OnInvoke"]
+       46 CALL                             R3 3 1
+       47 FASTCALL2                        TABLE_INSERT R2 R3 ; [+3]
+       49 GETIMPORT                        R1 K4 [table.insert]
+       51 CALL                             R1 2 0
+       52 RETURN                           R0 0
 
 PROTO_44:
         0 GETIMPORT                        R0 K1 [ipairs]
@@ -847,24 +794,21 @@ PROTO_44:
 
 PROTO_45:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["RequestDevicePropertiesUpdate"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 GETUPVAL                         R0 0
-        8 GETUPVAL                         R2 1
-        9 GETTABLEKS                       R2 R2 K2 ["ConnectToStudioDeviceEmulatorServiceEvents"]
-       11 NAMECALL                         R0 R0 K1 ["Invoke"]
-       13 CALL                             R0 2 0
-       14 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["RequestDevicePropertiesUpdate"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 LOADK                            R2 K2 ["ConnectToStudioDeviceEmulatorServiceEvents"]
+        7 NAMECALL                         R0 R0 K1 ["Invoke"]
+        9 CALL                             R0 2 0
+       10 RETURN                           R0 0
 
 PROTO_46:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["DisconnectStudioDeviceEmulatorServiceEvents"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["DisconnectStudioDeviceEmulatorServiceEvents"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_47:
         0 GETUPVAL                         R0 0
@@ -881,40 +825,36 @@ PROTO_48:
         1 GETTABLEKS                       R1 R1 K0 ["disconnectSetPlayableRecordingsCallback"]
         3 CALL                             R1 0 0
         4 GETUPVAL                         R1 2
-        5 GETUPVAL                         R3 3
-        6 GETTABLEKS                       R3 R3 K1 ["SetPlayableRecordings"]
-        8 MOVE                             R4 R0
-        9 NAMECALL                         R1 R1 K2 ["OnInvoke"]
-       11 CALL                             R1 3 1
-       12 SETUPVAL                         R1 1
-       13 RETURN                           R0 0
+        5 LOADK                            R3 K1 ["SetPlayableRecordings"]
+        6 MOVE                             R4 R0
+        7 NAMECALL                         R1 R1 K2 ["OnInvoke"]
+        9 CALL                             R1 3 1
+       10 SETUPVAL                         R1 1
+       11 RETURN                           R0 0
 
 PROTO_49:
         0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R2 1
-        2 GETTABLEKS                       R2 R2 K0 ["SearchForUserInputRecordings"]
-        4 NAMECALL                         R0 R0 K1 ["Invoke"]
-        6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        1 LOADK                            R2 K0 ["SearchForUserInputRecordings"]
+        2 NAMECALL                         R0 R0 K1 ["Invoke"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_50:
         0 GETUPVAL                         R1 0
-        1 GETUPVAL                         R3 1
-        2 GETTABLEKS                       R3 R3 K0 ["LoadRecordingWithName"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["Invoke"]
-        7 CALL                             R1 3 0
-        8 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["LoadRecordingWithName"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["Invoke"]
+        5 CALL                             R1 3 0
+        6 RETURN                           R0 0
 
 PROTO_51:
         0 GETUPVAL                         R1 1
-        1 GETUPVAL                         R3 2
-        2 GETTABLEKS                       R3 R3 K0 ["PlaybackInfoChanged"]
-        4 MOVE                             R4 R0
-        5 NAMECALL                         R1 R1 K1 ["OnInvoke"]
-        7 CALL                             R1 3 1
-        8 SETUPVAL                         R1 0
-        9 RETURN                           R0 0
+        1 LOADK                            R3 K0 ["PlaybackInfoChanged"]
+        2 MOVE                             R4 R0
+        3 NAMECALL                         R1 R1 K1 ["OnInvoke"]
+        5 CALL                             R1 3 1
+        6 SETUPVAL                         R1 0
+        7 RETURN                           R0 0
 
 PROTO_52:
         0 GETUPVAL                         R0 0
@@ -954,247 +894,166 @@ MAIN:
        40 NAMECALL                         R5 R5 K12 ["GetService"]
        42 CALL                             R5 2 1
        43 NEWTABLE                         R6 64 0
-       45 DUPTABLE                         R7 K38 [{"PluginEnabled", "RequestDevicePropertiesUpdate", "ConnectToStudioDeviceEmulatorServiceEvents", "DisconnectStudioDeviceEmulatorServiceEvents", "EmulationDeviceIdChanged", "EmulationDeviceOrientationChanged", "ViewportResolutionChanged", "IsPlayMode", "StartRecordingButtonClicked", "StopRecordingButtonClicked", "StartPlaybackButtonClicked", "StopPlaybackButtonClicked", "SetPluginState", "RoduxState", "SaveRecordingDataToDM", "OpenSaveRecordingDialog", "SetSavedRecordingName", "SearchForUserInputRecordings", "SetPlayableRecordings", "LoadRecordingWithName", "CurrentPlaybackRecordingDataStr", "CurrentPlaybackRecordingDataObj", "PlaybackInfoChanged"}]
-       46 LOADK                            R8 K15 ["PluginEnabled"]
-       47 SETTABLEKS                       R8 R7 K15 ["PluginEnabled"]
-       49 LOADK                            R8 K16 ["RequestDevicePropertiesUpdate"]
-       50 SETTABLEKS                       R8 R7 K16 ["RequestDevicePropertiesUpdate"]
-       52 LOADK                            R8 K17 ["ConnectToStudioDeviceEmulatorServiceEvents"]
-       53 SETTABLEKS                       R8 R7 K17 ["ConnectToStudioDeviceEmulatorServiceEvents"]
-       55 LOADK                            R8 K18 ["DisconnectStudioDeviceEmulatorServiceEvents"]
-       56 SETTABLEKS                       R8 R7 K18 ["DisconnectStudioDeviceEmulatorServiceEvents"]
-       58 LOADK                            R8 K19 ["EmulationDeviceIdChanged"]
-       59 SETTABLEKS                       R8 R7 K19 ["EmulationDeviceIdChanged"]
-       61 LOADK                            R8 K20 ["EmulationDeviceOrientationChanged"]
-       62 SETTABLEKS                       R8 R7 K20 ["EmulationDeviceOrientationChanged"]
-       64 LOADK                            R8 K21 ["ViewportResolutionChanged"]
-       65 SETTABLEKS                       R8 R7 K21 ["ViewportResolutionChanged"]
-       67 LOADK                            R8 K22 ["IsPlayMode"]
-       68 SETTABLEKS                       R8 R7 K22 ["IsPlayMode"]
-       70 LOADK                            R8 K23 ["StartRecordingButtonClicked"]
-       71 SETTABLEKS                       R8 R7 K23 ["StartRecordingButtonClicked"]
-       73 LOADK                            R8 K24 ["StopRecordingButtonClicked"]
-       74 SETTABLEKS                       R8 R7 K24 ["StopRecordingButtonClicked"]
-       76 LOADK                            R8 K25 ["StartPlaybackButtonClicked"]
-       77 SETTABLEKS                       R8 R7 K25 ["StartPlaybackButtonClicked"]
-       79 LOADK                            R8 K26 ["StopPlaybackButtonClicked"]
-       80 SETTABLEKS                       R8 R7 K26 ["StopPlaybackButtonClicked"]
-       82 LOADK                            R8 K27 ["SetPluginState"]
-       83 SETTABLEKS                       R8 R7 K27 ["SetPluginState"]
-       85 LOADK                            R8 K28 ["RoduxState"]
-       86 SETTABLEKS                       R8 R7 K28 ["RoduxState"]
-       88 LOADK                            R8 K29 ["SaveRecordingDataToDM"]
-       89 SETTABLEKS                       R8 R7 K29 ["SaveRecordingDataToDM"]
-       91 LOADK                            R8 K30 ["OpenSaveRecordingDialog"]
-       92 SETTABLEKS                       R8 R7 K30 ["OpenSaveRecordingDialog"]
-       94 LOADK                            R8 K31 ["SetSavedRecordingName"]
-       95 SETTABLEKS                       R8 R7 K31 ["SetSavedRecordingName"]
-       97 LOADK                            R8 K32 ["SearchForUserInputRecordings"]
-       98 SETTABLEKS                       R8 R7 K32 ["SearchForUserInputRecordings"]
-      100 LOADK                            R8 K33 ["SetPlayableRecordings"]
-      101 SETTABLEKS                       R8 R7 K33 ["SetPlayableRecordings"]
-      103 LOADK                            R8 K34 ["LoadRecordingWithName"]
-      104 SETTABLEKS                       R8 R7 K34 ["LoadRecordingWithName"]
-      106 LOADK                            R8 K35 ["CurrentPlaybackRecordingDataStr"]
-      107 SETTABLEKS                       R8 R7 K35 ["CurrentPlaybackRecordingDataStr"]
-      109 LOADK                            R8 K36 ["CurrentPlaybackRecordingDataObj"]
-      110 SETTABLEKS                       R8 R7 K36 ["CurrentPlaybackRecordingDataObj"]
-      112 LOADK                            R8 K37 ["PlaybackInfoChanged"]
-      113 SETTABLEKS                       R8 R7 K37 ["PlaybackInfoChanged"]
-      115 LOADNIL                          R8
-      116 NEWCLOSURE                       R9 P0
+       45 DUPTABLE                         R7 K38 [{["PluginEnabled"] = "PluginEnabled", ["RequestDevicePropertiesUpdate"] = "RequestDevicePropertiesUpdate", ["ConnectToStudioDeviceEmulatorServiceEvents"] = "ConnectToStudioDeviceEmulatorServiceEvents", ["DisconnectStudioDeviceEmulatorServiceEvents"] = "DisconnectStudioDeviceEmulatorServiceEvents", ["EmulationDeviceIdChanged"] = "EmulationDeviceIdChanged", ["EmulationDeviceOrientationChanged"] = "EmulationDeviceOrientationChanged", ["ViewportResolutionChanged"] = "ViewportResolutionChanged", ["IsPlayMode"] = "IsPlayMode", ["StartRecordingButtonClicked"] = "StartRecordingButtonClicked", ["StopRecordingButtonClicked"] = "StopRecordingButtonClicked", ["StartPlaybackButtonClicked"] = "StartPlaybackButtonClicked", ["StopPlaybackButtonClicked"] = "StopPlaybackButtonClicked", ["SetPluginState"] = "SetPluginState", ["RoduxState"] = "RoduxState", ["SaveRecordingDataToDM"] = "SaveRecordingDataToDM", ["OpenSaveRecordingDialog"] = "OpenSaveRecordingDialog", ["SetSavedRecordingName"] = "SetSavedRecordingName", ["SearchForUserInputRecordings"] = "SearchForUserInputRecordings", ["SetPlayableRecordings"] = "SetPlayableRecordings", ["LoadRecordingWithName"] = "LoadRecordingWithName", ["CurrentPlaybackRecordingDataStr"] = "CurrentPlaybackRecordingDataStr", ["CurrentPlaybackRecordingDataObj"] = "CurrentPlaybackRecordingDataObj", ["PlaybackInfoChanged"] = "PlaybackInfoChanged"}]
+       46 LOADNIL                          R8
+       47 NEWCLOSURE                       R9 P0
+       48 CAPTURE                          REF R8
+       49 SETTABLEKS                       R9 R6 K39 ["setPluginObject"]
+       51 LOADNIL                          R9
+       52 NEWCLOSURE                       R10 P1
+       53 CAPTURE                          REF R9
+       54 SETTABLEKS                       R10 R6 K40 ["setLocalizationObject"]
+       56 NEWCLOSURE                       R10 P2
+       57 CAPTURE                          REF R8
+       58 SETTABLEKS                       R10 R6 K41 ["setIsPlayMode"]
+       60 NEWCLOSURE                       R10 P3
+       61 CAPTURE                          REF R8
+       62 SETTABLEKS                       R10 R6 K42 ["getIsPlayMode"]
+       64 NEWCLOSURE                       R10 P4
+       65 CAPTURE                          REF R8
+       66 SETTABLEKS                       R10 R6 K43 ["setPluginEnabled"]
+       68 NEWCLOSURE                       R10 P5
+       69 CAPTURE                          REF R8
+       70 SETTABLEKS                       R10 R6 K44 ["getPluginEnabled"]
+       72 NEWCLOSURE                       R10 P6
+       73 CAPTURE                          REF R8
+       74 SETTABLEKS                       R10 R6 K45 ["setRoduxState"]
+       76 NEWCLOSURE                       R10 P7
+       77 CAPTURE                          REF R8
+       78 SETTABLEKS                       R10 R6 K46 ["getRoduxState"]
+       80 NEWCLOSURE                       R10 P8
+       81 CAPTURE                          REF R8
+       82 SETTABLEKS                       R10 R6 K47 ["setPluginState"]
+       84 DUPCLOSURE                       R10 K48 [PROTO_9]
+       85 CAPTURE                          VAL R6
+       86 SETTABLEKS                       R10 R6 K49 ["getPluginState"]
+       88 NEWCLOSURE                       R10 P10
+       89 CAPTURE                          REF R8
+       90 SETTABLEKS                       R10 R6 K50 ["setPluginStateRoduxActionHandler"]
+       92 NEWCLOSURE                       R10 P11
+       93 CAPTURE                          REF R8
+       94 SETTABLEKS                       R10 R6 K51 ["saveRecordingDataToDM"]
+       96 DUPCLOSURE                       R10 K52 [PROTO_12]
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R2
+       99 LOADNIL                          R11
+      100 NEWCLOSURE                       R12 P13
+      101 CAPTURE                          REF R8
+      102 CAPTURE                          VAL R5
+      103 CAPTURE                          VAL R4
+      104 CAPTURE                          VAL R2
+      105 NEWCLOSURE                       R13 P14
+      106 CAPTURE                          REF R8
+      107 SETTABLEKS                       R13 R6 K53 ["onSaveRecordingDialogCancel"]
+      109 NEWCLOSURE                       R13 P15
+      110 CAPTURE                          REF R8
+      111 SETTABLEKS                       R13 R6 K54 ["onSaveRecordingDialogSave"]
+      113 NEWCLOSURE                       R13 P16
+      114 CAPTURE                          VAL R4
+      115 CAPTURE                          VAL R2
+      116 CAPTURE                          REF R9
       117 CAPTURE                          REF R8
-      118 SETTABLEKS                       R9 R6 K39 ["setPluginObject"]
-      120 LOADNIL                          R9
-      121 NEWCLOSURE                       R10 P1
-      122 CAPTURE                          REF R9
-      123 SETTABLEKS                       R10 R6 K40 ["setLocalizationObject"]
-      125 NEWCLOSURE                       R10 P2
-      126 CAPTURE                          REF R8
-      127 CAPTURE                          VAL R7
-      128 SETTABLEKS                       R10 R6 K41 ["setIsPlayMode"]
-      130 NEWCLOSURE                       R10 P3
-      131 CAPTURE                          REF R8
-      132 CAPTURE                          VAL R7
-      133 SETTABLEKS                       R10 R6 K42 ["getIsPlayMode"]
-      135 NEWCLOSURE                       R10 P4
-      136 CAPTURE                          REF R8
-      137 CAPTURE                          VAL R7
-      138 SETTABLEKS                       R10 R6 K43 ["setPluginEnabled"]
-      140 NEWCLOSURE                       R10 P5
-      141 CAPTURE                          REF R8
-      142 CAPTURE                          VAL R7
-      143 SETTABLEKS                       R10 R6 K44 ["getPluginEnabled"]
-      145 NEWCLOSURE                       R10 P6
-      146 CAPTURE                          REF R8
-      147 CAPTURE                          VAL R7
-      148 SETTABLEKS                       R10 R6 K45 ["setRoduxState"]
-      150 NEWCLOSURE                       R10 P7
-      151 CAPTURE                          REF R8
-      152 CAPTURE                          VAL R7
-      153 SETTABLEKS                       R10 R6 K46 ["getRoduxState"]
-      155 NEWCLOSURE                       R10 P8
-      156 CAPTURE                          REF R8
-      157 CAPTURE                          VAL R7
-      158 SETTABLEKS                       R10 R6 K47 ["setPluginState"]
-      160 DUPCLOSURE                       R10 K48 [PROTO_9]
-      161 CAPTURE                          VAL R6
-      162 SETTABLEKS                       R10 R6 K49 ["getPluginState"]
-      164 NEWCLOSURE                       R10 P10
+      118 CAPTURE                          VAL R5
+      119 NEWCLOSURE                       R14 P17
+      120 CAPTURE                          VAL R4
+      121 CAPTURE                          VAL R2
+      122 CAPTURE                          REF R8
+      123 NEWTABLE                         R15 0 0
+      125 NEWCLOSURE                       R16 P18
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          REF R15
+      128 CAPTURE                          REF R8
+      129 NEWCLOSURE                       R17 P19
+      130 CAPTURE                          REF R15
+      131 LOADB                            R18 0
+      132 NEWCLOSURE                       R19 P20
+      133 CAPTURE                          REF R18
+      134 CAPTURE                          REF R8
+      135 CAPTURE                          VAL R3
+      136 CAPTURE                          VAL R16
+      137 CAPTURE                          VAL R17
+      138 CAPTURE                          REF R11
+      139 CAPTURE                          VAL R12
+      140 CAPTURE                          VAL R14
+      141 CAPTURE                          VAL R13
+      142 SETTABLEKS                       R19 R6 K55 ["setupEditDMEventListeners"]
+      144 LOADB                            R19 0
+      145 NEWCLOSURE                       R20 P21
+      146 CAPTURE                          REF R19
+      147 CAPTURE                          REF R8
+      148 CAPTURE                          VAL R16
+      149 CAPTURE                          VAL R17
+      150 SETTABLEKS                       R20 R6 K56 ["setupPlayClientDMEventListeners"]
+      152 NEWCLOSURE                       R20 P22
+      153 CAPTURE                          REF R8
+      154 SETTABLEKS                       R20 R6 K57 ["connectToStartRecordButtonClicked"]
+      156 NEWCLOSURE                       R20 P23
+      157 CAPTURE                          REF R8
+      158 SETTABLEKS                       R20 R6 K58 ["onStartRecordingButtonClicked"]
+      160 NEWCLOSURE                       R20 P24
+      161 CAPTURE                          REF R8
+      162 SETTABLEKS                       R20 R6 K59 ["connectToStopRecordButtonClicked"]
+      164 NEWCLOSURE                       R20 P25
       165 CAPTURE                          REF R8
-      166 CAPTURE                          VAL R7
-      167 SETTABLEKS                       R10 R6 K50 ["setPluginStateRoduxActionHandler"]
-      169 NEWCLOSURE                       R10 P11
-      170 CAPTURE                          REF R8
-      171 CAPTURE                          VAL R7
-      172 SETTABLEKS                       R10 R6 K51 ["saveRecordingDataToDM"]
-      174 DUPCLOSURE                       R10 K52 [PROTO_12]
-      175 CAPTURE                          VAL R4
-      176 CAPTURE                          VAL R2
-      177 LOADNIL                          R11
-      178 NEWCLOSURE                       R12 P13
-      179 CAPTURE                          REF R8
-      180 CAPTURE                          VAL R5
-      181 CAPTURE                          VAL R7
-      182 CAPTURE                          VAL R4
-      183 CAPTURE                          VAL R2
-      184 NEWCLOSURE                       R13 P14
-      185 CAPTURE                          REF R8
-      186 CAPTURE                          VAL R7
-      187 SETTABLEKS                       R13 R6 K53 ["onSaveRecordingDialogCancel"]
-      189 NEWCLOSURE                       R13 P15
+      166 SETTABLEKS                       R20 R6 K60 ["onStopRecordingButtonClicked"]
+      168 NEWCLOSURE                       R20 P26
+      169 CAPTURE                          REF R8
+      170 SETTABLEKS                       R20 R6 K61 ["connectToStartPlaybackButtonClicked"]
+      172 NEWCLOSURE                       R20 P27
+      173 CAPTURE                          REF R8
+      174 SETTABLEKS                       R20 R6 K62 ["onStartPlaybackButtonClicked"]
+      176 NEWCLOSURE                       R20 P28
+      177 CAPTURE                          REF R8
+      178 SETTABLEKS                       R20 R6 K63 ["connectToStopPlaybackButtonClicked"]
+      180 NEWCLOSURE                       R20 P29
+      181 CAPTURE                          REF R8
+      182 SETTABLEKS                       R20 R6 K64 ["onStopPlaybackButtonClicked"]
+      184 NEWCLOSURE                       R20 P30
+      185 CAPTURE                          VAL R16
+      186 CAPTURE                          REF R8
+      187 SETTABLEKS                       R20 R6 K65 ["onPlayClientSessionStarted"]
+      189 NEWCLOSURE                       R20 P31
       190 CAPTURE                          REF R8
-      191 CAPTURE                          VAL R7
-      192 SETTABLEKS                       R13 R6 K54 ["onSaveRecordingDialogSave"]
-      194 NEWCLOSURE                       R13 P16
-      195 CAPTURE                          VAL R4
-      196 CAPTURE                          VAL R2
-      197 CAPTURE                          REF R9
-      198 CAPTURE                          REF R8
-      199 CAPTURE                          VAL R7
-      200 CAPTURE                          VAL R5
-      201 NEWCLOSURE                       R14 P17
-      202 CAPTURE                          VAL R4
-      203 CAPTURE                          VAL R2
-      204 CAPTURE                          REF R8
-      205 CAPTURE                          VAL R7
-      206 NEWTABLE                         R15 0 0
-      208 NEWCLOSURE                       R16 P18
-      209 CAPTURE                          VAL R3
-      210 CAPTURE                          REF R15
-      211 CAPTURE                          REF R8
-      212 CAPTURE                          VAL R7
-      213 NEWCLOSURE                       R17 P19
-      214 CAPTURE                          REF R15
-      215 LOADB                            R18 0
-      216 NEWCLOSURE                       R19 P20
-      217 CAPTURE                          REF R18
-      218 CAPTURE                          REF R8
-      219 CAPTURE                          VAL R7
-      220 CAPTURE                          VAL R3
-      221 CAPTURE                          VAL R16
-      222 CAPTURE                          VAL R17
-      223 CAPTURE                          REF R11
-      224 CAPTURE                          VAL R12
-      225 CAPTURE                          VAL R14
-      226 CAPTURE                          VAL R13
-      227 SETTABLEKS                       R19 R6 K55 ["setupEditDMEventListeners"]
-      229 LOADB                            R19 0
-      230 NEWCLOSURE                       R20 P21
-      231 CAPTURE                          REF R19
+      191 SETTABLEKS                       R20 R6 K66 ["getCurrentPlaybackRecordingDataStr"]
+      193 NEWCLOSURE                       R20 P32
+      194 CAPTURE                          REF R8
+      195 SETTABLEKS                       R20 R6 K67 ["getCurrentPlaybackRecordingDataObj"]
+      197 NEWTABLE                         R20 0 0
+      199 NEWCLOSURE                       R21 P33
+      200 CAPTURE                          REF R20
+      201 CAPTURE                          REF R8
+      202 SETTABLEKS                       R21 R6 K68 ["connectRecordTabEventListenersWithActions"]
+      204 NEWCLOSURE                       R21 P34
+      205 CAPTURE                          REF R20
+      206 SETTABLEKS                       R21 R6 K69 ["disconnectRecordTabEventListeners"]
+      208 NEWCLOSURE                       R21 P35
+      209 CAPTURE                          REF R8
+      210 SETTABLEKS                       R21 R6 K70 ["onRecordTabShown"]
+      212 NEWCLOSURE                       R21 P36
+      213 CAPTURE                          REF R8
+      214 SETTABLEKS                       R21 R6 K71 ["onRecordTabHidden"]
+      216 LOADNIL                          R21
+      217 NEWCLOSURE                       R22 P37
+      218 CAPTURE                          REF R21
+      219 SETTABLEKS                       R22 R6 K72 ["disconnectSetPlayableRecordingsCallback"]
+      221 NEWCLOSURE                       R22 P38
+      222 CAPTURE                          VAL R6
+      223 CAPTURE                          REF R21
+      224 CAPTURE                          REF R8
+      225 SETTABLEKS                       R22 R6 K73 ["connectSetPlayableRecordingsCallback"]
+      227 NEWCLOSURE                       R22 P39
+      228 CAPTURE                          REF R8
+      229 SETTABLEKS                       R22 R6 K74 ["searchForUserInputRecordings"]
+      231 NEWCLOSURE                       R22 P40
       232 CAPTURE                          REF R8
-      233 CAPTURE                          VAL R7
-      234 CAPTURE                          VAL R16
-      235 CAPTURE                          VAL R17
-      236 SETTABLEKS                       R20 R6 K56 ["setupPlayClientDMEventListeners"]
-      238 NEWCLOSURE                       R20 P22
-      239 CAPTURE                          REF R8
-      240 CAPTURE                          VAL R7
-      241 SETTABLEKS                       R20 R6 K57 ["connectToStartRecordButtonClicked"]
-      243 NEWCLOSURE                       R20 P23
-      244 CAPTURE                          REF R8
-      245 CAPTURE                          VAL R7
-      246 SETTABLEKS                       R20 R6 K58 ["onStartRecordingButtonClicked"]
-      248 NEWCLOSURE                       R20 P24
-      249 CAPTURE                          REF R8
-      250 CAPTURE                          VAL R7
-      251 SETTABLEKS                       R20 R6 K59 ["connectToStopRecordButtonClicked"]
-      253 NEWCLOSURE                       R20 P25
-      254 CAPTURE                          REF R8
-      255 CAPTURE                          VAL R7
-      256 SETTABLEKS                       R20 R6 K60 ["onStopRecordingButtonClicked"]
-      258 NEWCLOSURE                       R20 P26
-      259 CAPTURE                          REF R8
-      260 CAPTURE                          VAL R7
-      261 SETTABLEKS                       R20 R6 K61 ["connectToStartPlaybackButtonClicked"]
-      263 NEWCLOSURE                       R20 P27
-      264 CAPTURE                          REF R8
-      265 CAPTURE                          VAL R7
-      266 SETTABLEKS                       R20 R6 K62 ["onStartPlaybackButtonClicked"]
-      268 NEWCLOSURE                       R20 P28
-      269 CAPTURE                          REF R8
-      270 CAPTURE                          VAL R7
-      271 SETTABLEKS                       R20 R6 K63 ["connectToStopPlaybackButtonClicked"]
-      273 NEWCLOSURE                       R20 P29
-      274 CAPTURE                          REF R8
-      275 CAPTURE                          VAL R7
-      276 SETTABLEKS                       R20 R6 K64 ["onStopPlaybackButtonClicked"]
-      278 NEWCLOSURE                       R20 P30
-      279 CAPTURE                          VAL R16
-      280 CAPTURE                          REF R8
-      281 CAPTURE                          VAL R7
-      282 SETTABLEKS                       R20 R6 K65 ["onPlayClientSessionStarted"]
-      284 NEWCLOSURE                       R20 P31
-      285 CAPTURE                          REF R8
-      286 CAPTURE                          VAL R7
-      287 SETTABLEKS                       R20 R6 K66 ["getCurrentPlaybackRecordingDataStr"]
-      289 NEWCLOSURE                       R20 P32
-      290 CAPTURE                          REF R8
-      291 CAPTURE                          VAL R7
-      292 SETTABLEKS                       R20 R6 K67 ["getCurrentPlaybackRecordingDataObj"]
-      294 NEWTABLE                         R20 0 0
-      296 NEWCLOSURE                       R21 P33
-      297 CAPTURE                          REF R20
-      298 CAPTURE                          REF R8
-      299 CAPTURE                          VAL R7
-      300 SETTABLEKS                       R21 R6 K68 ["connectRecordTabEventListenersWithActions"]
-      302 NEWCLOSURE                       R21 P34
-      303 CAPTURE                          REF R20
-      304 SETTABLEKS                       R21 R6 K69 ["disconnectRecordTabEventListeners"]
-      306 NEWCLOSURE                       R21 P35
-      307 CAPTURE                          REF R8
-      308 CAPTURE                          VAL R7
-      309 SETTABLEKS                       R21 R6 K70 ["onRecordTabShown"]
-      311 NEWCLOSURE                       R21 P36
-      312 CAPTURE                          REF R8
-      313 CAPTURE                          VAL R7
-      314 SETTABLEKS                       R21 R6 K71 ["onRecordTabHidden"]
-      316 LOADNIL                          R21
-      317 NEWCLOSURE                       R22 P37
-      318 CAPTURE                          REF R21
-      319 SETTABLEKS                       R22 R6 K72 ["disconnectSetPlayableRecordingsCallback"]
-      321 NEWCLOSURE                       R22 P38
-      322 CAPTURE                          VAL R6
-      323 CAPTURE                          REF R21
-      324 CAPTURE                          REF R8
-      325 CAPTURE                          VAL R7
-      326 SETTABLEKS                       R22 R6 K73 ["connectSetPlayableRecordingsCallback"]
-      328 NEWCLOSURE                       R22 P39
-      329 CAPTURE                          REF R8
-      330 CAPTURE                          VAL R7
-      331 SETTABLEKS                       R22 R6 K74 ["searchForUserInputRecordings"]
-      333 NEWCLOSURE                       R22 P40
-      334 CAPTURE                          REF R8
-      335 CAPTURE                          VAL R7
-      336 SETTABLEKS                       R22 R6 K75 ["loadRecordingWithName"]
-      338 LOADNIL                          R22
-      339 NEWCLOSURE                       R23 P41
-      340 CAPTURE                          REF R22
-      341 CAPTURE                          REF R8
-      342 CAPTURE                          VAL R7
-      343 SETTABLEKS                       R23 R6 K76 ["connectPlaybackInfoChangedCallback"]
-      345 NEWCLOSURE                       R23 P42
-      346 CAPTURE                          REF R22
-      347 SETTABLEKS                       R23 R6 K77 ["disconnectPlaybackInfoChangedCallback"]
-      349 CLOSEUPVALS                      R8
-      350 RETURN                           R6 1
+      233 SETTABLEKS                       R22 R6 K75 ["loadRecordingWithName"]
+      235 LOADNIL                          R22
+      236 NEWCLOSURE                       R23 P41
+      237 CAPTURE                          REF R22
+      238 CAPTURE                          REF R8
+      239 SETTABLEKS                       R23 R6 K76 ["connectPlaybackInfoChangedCallback"]
+      241 NEWCLOSURE                       R23 P42
+      242 CAPTURE                          REF R22
+      243 SETTABLEKS                       R23 R6 K77 ["disconnectPlaybackInfoChangedCallback"]
+      245 CLOSEUPVALS                      R8
+      246 RETURN                           R6 1

@@ -1,7 +1,7 @@
 PROTO_0:
         0 NEWTABLE                         R0 0 0
         2 LOADN                            R3 1
-        3 LOADN                            R1 8
+        3 LOADN                            R1 1032
         4 LOADN                            R2 1
         5 FORNPREP                         R1
         6 GETIMPORT                        R4 K2 [BrickColor.new]

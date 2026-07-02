@@ -113,53 +113,49 @@ PROTO_9:
         3 LOADK                            R2 K1 ["apis"]
         4 LOADK                            R3 K2 ["/search-api/omni-search"]
         5 DUPTABLE                         R4 K4 [{"Params"}]
-        6 DUPTABLE                         R5 K9 [{"searchQuery", "sessionId", "pageType", "verticalType"}]
+        6 DUPTABLE                         R5 K11 [{["searchQuery"], ["sessionId"], ["pageType"] = "all", ["verticalType"] = "user"}]
         7 GETUPVAL                         R6 1
         8 SETTABLEKS                       R6 R5 K5 ["searchQuery"]
        10 GETUPVAL                         R6 2
        11 SETTABLEKS                       R6 R5 K6 ["sessionId"]
-       13 LOADK                            R6 K10 ["all"]
-       14 SETTABLEKS                       R6 R5 K7 ["pageType"]
-       16 LOADK                            R6 K11 ["user"]
-       17 SETTABLEKS                       R6 R5 K8 ["verticalType"]
-       19 SETTABLEKS                       R5 R4 K3 ["Params"]
-       21 NAMECALL                         R0 R0 K12 ["get"]
-       23 CALL                             R0 4 1
-       24 NAMECALL                         R0 R0 K13 ["await"]
-       26 CALL                             R0 1 1
-       27 GETTABLEKS                       R1 R0 K14 ["responseCode"]
-       29 JUMPIFEQKN                       R1 K15 [200] ; [+4]
-       31 NEWTABLE                         R1 0 0
-       33 RETURN                           R1 1
-       34 GETTABLEKS                       R2 R0 K16 ["responseBody"]
-       36 GETTABLEKS                       R2 R2 K17 ["searchResults"]
-       38 GETTABLEN                        R1 R2 1
-       39 GETTABLEKS                       R1 R1 K18 ["contents"]
-       41 NEWTABLE                         R2 0 0
-       43 LOADN                            R5 1
-       44 GETUPVAL                         R3 3
-       45 GETTABLEKS                       R3 R3 K19 ["MaxSearchResultsPerSubjectTypeUsers"]
-       47 LOADN                            R4 1
-       48 FORNPREP                         R3
-       49 GETTABLE                         R6 R1 R5
-       50 JUMPIFNOT                        R6 ; [+24]
-       51 DUPTABLE                         R9 K23 [{"UserId", "Name", "DisplayName"}]
-       52 GETTABLEKS                       R10 R6 K24 ["contentId"]
-       54 SETTABLEKS                       R10 R9 K20 ["UserId"]
-       56 GETTABLEKS                       R10 R6 K25 ["username"]
-       58 SETTABLEKS                       R10 R9 K21 ["Name"]
-       60 GETUPVAL                         R11 4
-       61 JUMPIFNOT                        R11 ; [+3]
-       62 GETTABLEKS                       R10 R6 K26 ["displayName"]
-       64 JUMP                             ; [+1]
-       65 LOADNIL                          R10
-       66 SETTABLEKS                       R10 R9 K22 ["DisplayName"]
-       68 FASTCALL2                        TABLE_INSERT R2 R9 ; [+4]
-       70 MOVE                             R8 R2
-       71 GETIMPORT                        R7 K29 [table.insert]
-       73 CALL                             R7 2 0
-       74 FORNLOOP                         R3
-       75 RETURN                           R2 1
+       13 SETTABLEKS                       R5 R4 K3 ["Params"]
+       15 NAMECALL                         R0 R0 K12 ["get"]
+       17 CALL                             R0 4 1
+       18 NAMECALL                         R0 R0 K13 ["await"]
+       20 CALL                             R0 1 1
+       21 GETTABLEKS                       R1 R0 K14 ["responseCode"]
+       23 JUMPIFEQKN                       R1 K15 [200] ; [+4]
+       25 NEWTABLE                         R1 0 0
+       27 RETURN                           R1 1
+       28 GETTABLEKS                       R2 R0 K16 ["responseBody"]
+       30 GETTABLEKS                       R2 R2 K17 ["searchResults"]
+       32 GETTABLEN                        R1 R2 1
+       33 GETTABLEKS                       R1 R1 K18 ["contents"]
+       35 NEWTABLE                         R2 0 0
+       37 LOADN                            R5 1
+       38 GETUPVAL                         R3 3
+       39 GETTABLEKS                       R3 R3 K19 ["MaxSearchResultsPerSubjectTypeUsers"]
+       41 LOADN                            R4 1
+       42 FORNPREP                         R3
+       43 GETTABLE                         R6 R1 R5
+       44 JUMPIFNOT                        R6 ; [+24]
+       45 DUPTABLE                         R9 K23 [{"UserId", "Name", "DisplayName"}]
+       46 GETTABLEKS                       R10 R6 K24 ["contentId"]
+       48 SETTABLEKS                       R10 R9 K20 ["UserId"]
+       50 GETTABLEKS                       R10 R6 K25 ["username"]
+       52 SETTABLEKS                       R10 R9 K21 ["Name"]
+       54 GETUPVAL                         R11 4
+       55 JUMPIFNOT                        R11 ; [+3]
+       56 GETTABLEKS                       R10 R6 K26 ["displayName"]
+       58 JUMP                             ; [+1]
+       59 LOADNIL                          R10
+       60 SETTABLEKS                       R10 R9 K22 ["DisplayName"]
+       62 FASTCALL2                        TABLE_INSERT R2 R9 ; [+4]
+       64 MOVE                             R8 R2
+       65 GETIMPORT                        R7 K29 [table.insert]
+       67 CALL                             R7 2 0
+       68 FORNLOOP                         R3
+       69 RETURN                           R2 1
 
 PROTO_10:
         0 GETIMPORT                        R2 K1 [pcall]
@@ -473,18 +469,16 @@ PROTO_23:
         2 LOADK                            R6 K1 ["apis"]
         3 LOADK                            R7 K2 ["/experience-guidelines-service/v1beta1/multi-creator-eligibility"]
         4 DUPTABLE                         R8 K4 [{"Body"}]
-        5 DUPTABLE                         R9 K9 [{"action", "universeId", "userIds", "locale"}]
-        6 LOADN                            R10 1
-        7 SETTABLEKS                       R10 R9 K5 ["action"]
-        9 SETTABLEKS                       R1 R9 K6 ["universeId"]
-       11 SETTABLEKS                       R2 R9 K7 ["userIds"]
-       13 GETUPVAL                         R10 0
-       14 GETTABLEKS                       R10 R10 K10 ["StudioLocaleId"]
-       16 SETTABLEKS                       R10 R9 K8 ["locale"]
-       18 SETTABLEKS                       R9 R8 K3 ["Body"]
-       20 NAMECALL                         R4 R3 K11 ["post"]
-       22 CALL                             R4 4 -1
-       23 RETURN                           R4 -1
+        5 DUPTABLE                         R9 K10 [{["action"] = 1, ["universeId"], ["userIds"], ["locale"]}]
+        6 SETTABLEKS                       R1 R9 K7 ["universeId"]
+        8 SETTABLEKS                       R2 R9 K8 ["userIds"]
+       10 GETUPVAL                         R10 0
+       11 GETTABLEKS                       R10 R10 K11 ["StudioLocaleId"]
+       13 SETTABLEKS                       R10 R9 K9 ["locale"]
+       15 SETTABLEKS                       R9 R8 K3 ["Body"]
+       17 NAMECALL                         R4 R3 K12 ["post"]
+       19 CALL                             R4 4 -1
+       20 RETURN                           R4 -1
 
 PROTO_24:
         0 MOVE                             R5 R1

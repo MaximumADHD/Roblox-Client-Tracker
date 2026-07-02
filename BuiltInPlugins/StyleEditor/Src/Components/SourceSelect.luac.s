@@ -237,7 +237,7 @@ PROTO_8:
        44 CALL                             R9 -1 0
        45 LENGTH                           R10 R6
        46 LOADN                            R11 1
-       47 JUMPIFNOTLT                      R11 R10 ; [+79]
+       47 JUMPIFNOTLT                      R11 R10 ; [+76]
        49 GETUPVAL                         R9 11
        50 GETTABLEKS                       R9 R9 K3 ["createElement"]
        52 GETUPVAL                         R10 12
@@ -269,31 +269,29 @@ PROTO_8:
        89 GETUPVAL                         R13 11
        90 GETTABLEKS                       R13 R13 K3 ["createElement"]
        92 GETUPVAL                         R14 14
-       93 DUPTABLE                         R15 K17 [{"Items", "LayoutOrder", "OnItemActivated", "SelectedId", "Size", "TextTruncate"}]
+       93 DUPTABLE                         R15 K18 [{["Items"], ["LayoutOrder"] = 2, ["OnItemActivated"], ["SelectedId"], ["Size"], ["TextTruncate"]}]
        94 SETTABLEKS                       R6 R15 K12 ["Items"]
-       96 LOADN                            R16 2
-       97 SETTABLEKS                       R16 R15 K4 ["LayoutOrder"]
-       99 SETTABLEKS                       R5 R15 K13 ["OnItemActivated"]
-      101 GETUPVAL                         R16 15
-      102 GETTABLEKS                       R16 R16 K18 ["createItemId"]
-      104 GETTABLEKS                       R17 R0 K1 ["Source"]
-      106 CALL                             R16 1 1
-      107 SETTABLEKS                       R16 R15 K14 ["SelectedId"]
-      109 GETIMPORT                        R16 K21 [UDim2.new]
-      111 LOADN                            R17 1
-      112 LOADN                            R18 0
-      113 LOADN                            R19 0
-      114 GETUPVAL                         R20 16
-      115 CALL                             R16 4 1
-      116 SETTABLEKS                       R16 R15 K15 ["Size"]
-      118 GETIMPORT                        R16 K24 [Enum.TextTruncate.SplitWord]
-      120 SETTABLEKS                       R16 R15 K16 ["TextTruncate"]
-      122 CALL                             R13 2 1
-      123 SETTABLEKS                       R13 R12 K7 ["SourceSelect"]
-      125 CALL                             R9 3 1
-      126 RETURN                           R9 1
-      127 LOADNIL                          R9
-      128 RETURN                           R9 1
+       96 SETTABLEKS                       R5 R15 K14 ["OnItemActivated"]
+       98 GETUPVAL                         R16 15
+       99 GETTABLEKS                       R16 R16 K19 ["createItemId"]
+      101 GETTABLEKS                       R17 R0 K1 ["Source"]
+      103 CALL                             R16 1 1
+      104 SETTABLEKS                       R16 R15 K15 ["SelectedId"]
+      106 GETIMPORT                        R16 K22 [UDim2.new]
+      108 LOADN                            R17 1
+      109 LOADN                            R18 0
+      110 LOADN                            R19 0
+      111 GETUPVAL                         R20 16
+      112 CALL                             R16 4 1
+      113 SETTABLEKS                       R16 R15 K16 ["Size"]
+      115 GETIMPORT                        R16 K25 [Enum.TextTruncate.SplitWord]
+      117 SETTABLEKS                       R16 R15 K17 ["TextTruncate"]
+      119 CALL                             R13 2 1
+      120 SETTABLEKS                       R13 R12 K7 ["SourceSelect"]
+      122 CALL                             R9 3 1
+      123 RETURN                           R9 1
+      124 LOADNIL                          R9
+      125 RETURN                           R9 1
 
 PROTO_9:
         0 DUPTABLE                         R1 K1 [{"Source"}]

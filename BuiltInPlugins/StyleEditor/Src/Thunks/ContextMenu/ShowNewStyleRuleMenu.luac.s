@@ -11,41 +11,37 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["Localization"]
-        2 DUPTABLE                         R3 K3 [{"Id", "Children"}]
-        3 LOADK                            R4 K4 ["DesignCategory"]
-        4 SETTABLEKS                       R4 R3 K1 ["Id"]
-        6 NEWTABLE                         R4 0 1
-        8 DUPTABLE                         R5 K8 [{"Id", "Text", "Icon", "OnItemClicked"}]
-        9 LOADK                            R6 K9 ["New"]
-       10 SETTABLEKS                       R6 R5 K1 ["Id"]
-       12 LOADK                            R8 K10 ["ContextMenu"]
-       13 LOADK                            R9 K9 ["New"]
-       14 NAMECALL                         R6 R2 K11 ["getText"]
-       16 CALL                             R6 3 1
-       17 SETTABLEKS                       R6 R5 K5 ["Text"]
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R6 R6 K12 ["new"]
-       22 CALL                             R6 0 1
-       23 SETTABLEKS                       R6 R5 K6 ["Icon"]
-       25 NEWCLOSURE                       R6 P0
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U1
-       28 CAPTURE                          UPVAL U2
-       29 CAPTURE                          UPVAL U3
-       30 SETTABLEKS                       R6 R5 K7 ["OnItemClicked"]
-       32 SETLIST                          R4 R5 1 [1]
-       34 SETTABLEKS                       R4 R3 K2 ["Children"]
-       36 GETUPVAL                         R4 4
-       37 GETTABLEKS                       R4 R4 K13 ["trackClicks"]
-       39 MOVE                             R5 R3
-       40 GETTABLEKS                       R6 R1 K14 ["Telemetry"]
-       42 CALL                             R4 2 0
-       43 GETUPVAL                         R4 4
-       44 GETTABLEKS                       R4 R4 K15 ["showContextMenu"]
-       46 GETTABLEKS                       R5 R1 K16 ["Plugin"]
-       48 MOVE                             R6 R3
-       49 CALL                             R4 2 0
-       50 RETURN                           R0 0
+        2 DUPTABLE                         R3 K4 [{["Id"] = "DesignCategory", ["Children"]}]
+        3 NEWTABLE                         R4 0 1
+        5 DUPTABLE                         R5 K9 [{["Id"] = "New", ["Text"], ["Icon"], ["OnItemClicked"]}]
+        6 LOADK                            R8 K10 ["ContextMenu"]
+        7 LOADK                            R9 K5 ["New"]
+        8 NAMECALL                         R6 R2 K11 ["getText"]
+       10 CALL                             R6 3 1
+       11 SETTABLEKS                       R6 R5 K6 ["Text"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K12 ["new"]
+       16 CALL                             R6 0 1
+       17 SETTABLEKS                       R6 R5 K7 ["Icon"]
+       19 NEWCLOSURE                       R6 P0
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U1
+       22 CAPTURE                          UPVAL U2
+       23 CAPTURE                          UPVAL U3
+       24 SETTABLEKS                       R6 R5 K8 ["OnItemClicked"]
+       26 SETLIST                          R4 R5 1 [1]
+       28 SETTABLEKS                       R4 R3 K3 ["Children"]
+       30 GETUPVAL                         R4 4
+       31 GETTABLEKS                       R4 R4 K13 ["trackClicks"]
+       33 MOVE                             R5 R3
+       34 GETTABLEKS                       R6 R1 K14 ["Telemetry"]
+       36 CALL                             R4 2 0
+       37 GETUPVAL                         R4 4
+       38 GETTABLEKS                       R4 R4 K15 ["showContextMenu"]
+       40 GETTABLEKS                       R5 R1 K16 ["Plugin"]
+       42 MOVE                             R6 R3
+       43 CALL                             R4 2 0
+       44 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

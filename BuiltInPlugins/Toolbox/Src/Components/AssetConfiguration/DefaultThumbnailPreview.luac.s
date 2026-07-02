@@ -43,98 +43,88 @@ PROTO_1:
        36 GETUPVAL                         R9 0
        37 GETTABLEKS                       R9 R9 K16 ["createElement"]
        39 LOADK                            R10 K17 ["Frame"]
-       40 DUPTABLE                         R11 K20 [{"BackgroundTransparency", "Size", "Position", "LayoutOrder"}]
-       41 LOADN                            R12 1
-       42 SETTABLEKS                       R12 R11 K18 ["BackgroundTransparency"]
-       44 GETTABLEKS                       R12 R1 K19 ["Size"]
-       46 SETTABLEKS                       R12 R11 K19 ["Size"]
-       48 SETTABLEKS                       R5 R11 K6 ["Position"]
-       50 SETTABLEKS                       R8 R11 K15 ["LayoutOrder"]
-       52 DUPTABLE                         R12 K23 [{"PreviewFrame", "Title"}]
-       53 GETUPVAL                         R13 0
-       54 GETTABLEKS                       R13 R13 K16 ["createElement"]
-       56 GETUPVAL                         R14 1
-       57 DUPTABLE                         R15 K26 [{"BackgroundColor3", "BorderColor3", "Size"}]
-       58 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
-       60 GETTABLEKS                       R16 R16 K28 ["background"]
-       62 SETTABLEKS                       R16 R15 K24 ["BackgroundColor3"]
-       64 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
-       66 GETTABLEKS                       R16 R16 K29 ["border"]
-       68 SETTABLEKS                       R16 R15 K25 ["BorderColor3"]
-       70 JUMPIFNOT                        R4 ; [+9]
-       71 GETIMPORT                        R16 K9 [UDim2.new]
-       73 LOADN                            R17 1
-       74 LOADN                            R18 0
-       75 LOADN                            R19 1
-       76 ADD                              R21 R6 R7
-       77 MINUS                            R20 R21
-       78 CALL                             R16 4 1
-       79 JUMPIF                           R16 ; [+7]
-       80 GETIMPORT                        R16 K9 [UDim2.new]
-       82 LOADN                            R17 1
-       83 LOADN                            R18 0
-       84 LOADN                            R19 1
-       85 LOADN                            R20 0
-       86 CALL                             R16 4 1
-       87 SETTABLEKS                       R16 R15 K19 ["Size"]
-       89 DUPTABLE                         R16 K31 [{"Thumbnail"}]
-       90 GETUPVAL                         R17 0
-       91 GETTABLEKS                       R17 R17 K16 ["createElement"]
-       93 GETUPVAL                         R18 2
-       94 DUPTABLE                         R19 K34 [{"Size", "BackgroundTransparency", "Image", "defaultImage"}]
-       95 GETIMPORT                        R20 K9 [UDim2.new]
-       97 LOADN                            R21 1
-       98 LOADN                            R22 0
-       99 LOADN                            R23 1
-      100 LOADN                            R24 0
-      101 CALL                             R20 4 1
-      102 SETTABLEKS                       R20 R19 K19 ["Size"]
-      104 LOADN                            R20 1
-      105 SETTABLEKS                       R20 R19 K18 ["BackgroundTransparency"]
-      107 LOADK                            R20 K35 ["rbxasset://textures/StudioToolbox/Animation.png"]
-      108 SETTABLEKS                       R20 R19 K32 ["Image"]
-      110 LOADK                            R20 K36 [""]
-      111 SETTABLEKS                       R20 R19 K33 ["defaultImage"]
-      113 CALL                             R17 2 1
-      114 SETTABLEKS                       R17 R16 K30 ["Thumbnail"]
-      116 CALL                             R13 3 1
-      117 SETTABLEKS                       R13 R12 K21 ["PreviewFrame"]
-      119 MOVE                             R13 R4
-      120 JUMPIFNOT                        R13 ; [+45]
-      121 GETUPVAL                         R13 0
-      122 GETTABLEKS                       R13 R13 K16 ["createElement"]
-      124 LOADK                            R14 K37 ["TextLabel"]
-      125 DUPTABLE                         R15 K42 [{"Text", "Font", "TextSize", "TextColor3", "Position", "Size", "BackgroundTransparency"}]
-      126 SETTABLEKS                       R3 R15 K38 ["Text"]
-      128 GETUPVAL                         R16 3
-      129 GETTABLEKS                       R16 R16 K43 ["FONT"]
-      131 SETTABLEKS                       R16 R15 K39 ["Font"]
-      133 GETUPVAL                         R16 3
-      134 GETTABLEKS                       R16 R16 K44 ["FONT_SIZE_MEDIUM"]
-      136 SETTABLEKS                       R16 R15 K40 ["TextSize"]
-      138 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
-      140 GETTABLEKS                       R16 R16 K45 ["text"]
-      142 SETTABLEKS                       R16 R15 K41 ["TextColor3"]
-      144 GETIMPORT                        R16 K9 [UDim2.new]
-      146 LOADN                            R17 0
-      147 LOADN                            R18 0
-      148 LOADN                            R19 1
-      149 MINUS                            R20 R6
-      150 CALL                             R16 4 1
-      151 SETTABLEKS                       R16 R15 K6 ["Position"]
-      153 GETIMPORT                        R16 K9 [UDim2.new]
-      155 LOADN                            R17 1
-      156 LOADN                            R18 0
-      157 LOADN                            R19 0
-      158 MOVE                             R20 R6
-      159 CALL                             R16 4 1
-      160 SETTABLEKS                       R16 R15 K19 ["Size"]
-      162 LOADN                            R16 1
-      163 SETTABLEKS                       R16 R15 K18 ["BackgroundTransparency"]
-      165 CALL                             R13 2 1
-      166 SETTABLEKS                       R13 R12 K22 ["Title"]
-      168 CALL                             R9 3 -1
-      169 RETURN                           R9 -1
+       40 DUPTABLE                         R11 K20 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["LayoutOrder"]}]
+       41 GETTABLEKS                       R12 R1 K19 ["Size"]
+       43 SETTABLEKS                       R12 R11 K19 ["Size"]
+       45 SETTABLEKS                       R5 R11 K6 ["Position"]
+       47 SETTABLEKS                       R8 R11 K15 ["LayoutOrder"]
+       49 DUPTABLE                         R12 K23 [{"PreviewFrame", "Title"}]
+       50 GETUPVAL                         R13 0
+       51 GETTABLEKS                       R13 R13 K16 ["createElement"]
+       53 GETUPVAL                         R14 1
+       54 DUPTABLE                         R15 K26 [{"BackgroundColor3", "BorderColor3", "Size"}]
+       55 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
+       57 GETTABLEKS                       R16 R16 K28 ["background"]
+       59 SETTABLEKS                       R16 R15 K24 ["BackgroundColor3"]
+       61 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
+       63 GETTABLEKS                       R16 R16 K29 ["border"]
+       65 SETTABLEKS                       R16 R15 K25 ["BorderColor3"]
+       67 JUMPIFNOT                        R4 ; [+9]
+       68 GETIMPORT                        R16 K9 [UDim2.new]
+       70 LOADN                            R17 1
+       71 LOADN                            R18 0
+       72 LOADN                            R19 1
+       73 ADD                              R21 R6 R7
+       74 MINUS                            R20 R21
+       75 CALL                             R16 4 1
+       76 JUMPIF                           R16 ; [+7]
+       77 GETIMPORT                        R16 K9 [UDim2.new]
+       79 LOADN                            R17 1
+       80 LOADN                            R18 0
+       81 LOADN                            R19 1
+       82 LOADN                            R20 0
+       83 CALL                             R16 4 1
+       84 SETTABLEKS                       R16 R15 K19 ["Size"]
+       86 DUPTABLE                         R16 K31 [{"Thumbnail"}]
+       87 GETUPVAL                         R17 0
+       88 GETTABLEKS                       R17 R17 K16 ["createElement"]
+       90 GETUPVAL                         R18 2
+       91 DUPTABLE                         R19 K36 [{["Size"], ["BackgroundTransparency"] = 1, ["Image"] = "rbxasset://textures/StudioToolbox/Animation.png", ["defaultImage"] = ""}]
+       92 GETIMPORT                        R20 K9 [UDim2.new]
+       94 LOADN                            R21 1
+       95 LOADN                            R22 0
+       96 LOADN                            R23 1
+       97 LOADN                            R24 0
+       98 CALL                             R20 4 1
+       99 SETTABLEKS                       R20 R19 K19 ["Size"]
+      101 CALL                             R17 2 1
+      102 SETTABLEKS                       R17 R16 K30 ["Thumbnail"]
+      104 CALL                             R13 3 1
+      105 SETTABLEKS                       R13 R12 K21 ["PreviewFrame"]
+      107 MOVE                             R13 R4
+      108 JUMPIFNOT                        R13 ; [+42]
+      109 GETUPVAL                         R13 0
+      110 GETTABLEKS                       R13 R13 K16 ["createElement"]
+      112 LOADK                            R14 K37 ["TextLabel"]
+      113 DUPTABLE                         R15 K42 [{["Text"], ["Font"], ["TextSize"], ["TextColor3"], ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
+      114 SETTABLEKS                       R3 R15 K38 ["Text"]
+      116 GETUPVAL                         R16 3
+      117 GETTABLEKS                       R16 R16 K43 ["FONT"]
+      119 SETTABLEKS                       R16 R15 K39 ["Font"]
+      121 GETUPVAL                         R16 3
+      122 GETTABLEKS                       R16 R16 K44 ["FONT_SIZE_MEDIUM"]
+      124 SETTABLEKS                       R16 R15 K40 ["TextSize"]
+      126 GETTABLEKS                       R16 R2 K27 ["thumbnailPreview"]
+      128 GETTABLEKS                       R16 R16 K45 ["text"]
+      130 SETTABLEKS                       R16 R15 K41 ["TextColor3"]
+      132 GETIMPORT                        R16 K9 [UDim2.new]
+      134 LOADN                            R17 0
+      135 LOADN                            R18 0
+      136 LOADN                            R19 1
+      137 MINUS                            R20 R6
+      138 CALL                             R16 4 1
+      139 SETTABLEKS                       R16 R15 K6 ["Position"]
+      141 GETIMPORT                        R16 K9 [UDim2.new]
+      143 LOADN                            R17 1
+      144 LOADN                            R18 0
+      145 LOADN                            R19 0
+      146 MOVE                             R20 R6
+      147 CALL                             R16 4 1
+      148 SETTABLEKS                       R16 R15 K19 ["Size"]
+      150 CALL                             R13 2 1
+      151 SETTABLEKS                       R13 R12 K22 ["Title"]
+      153 CALL                             R9 3 -1
+      154 RETURN                           R9 -1
 
 PROTO_2:
         0 MOVE                             R2 R0

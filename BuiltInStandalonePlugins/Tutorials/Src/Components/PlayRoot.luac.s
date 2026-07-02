@@ -1,37 +1,31 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"stepData", "widget"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["stepData"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["widget"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K4 ["new"]
-       12 DUPTABLE                         R2 K9 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
-       13 GETUPVAL                         R3 1
-       14 SETTABLEKS                       R3 R2 K5 ["stringResourceTable"]
-       16 GETUPVAL                         R3 2
-       17 SETTABLEKS                       R3 R2 K6 ["translationResourceTable"]
-       19 LOADK                            R3 K10 ["Tutorials"]
-       20 SETTABLEKS                       R3 R2 K7 ["pluginName"]
-       22 NEWTABLE                         R3 1 0
-       24 GETUPVAL                         R4 3
-       25 GETTABLEKS                       R4 R4 K11 ["Resources"]
-       27 GETTABLEKS                       R4 R4 K12 ["LOCALIZATION_PROJECT_NAME"]
-       29 DUPTABLE                         R5 K13 [{"stringResourceTable", "translationResourceTable"}]
-       30 GETUPVAL                         R6 3
-       31 GETTABLEKS                       R6 R6 K11 ["Resources"]
-       33 GETTABLEKS                       R6 R6 K14 ["SourceStrings"]
-       35 SETTABLEKS                       R6 R5 K5 ["stringResourceTable"]
-       37 GETUPVAL                         R6 3
-       38 GETTABLEKS                       R6 R6 K11 ["Resources"]
-       40 GETTABLEKS                       R6 R6 K15 ["LocalizedStrings"]
-       42 SETTABLEKS                       R6 R5 K6 ["translationResourceTable"]
-       44 SETTABLE                         R5 R3 R4
-       45 SETTABLEKS                       R3 R2 K8 ["libraries"]
-       47 CALL                             R1 1 1
-       48 SETTABLEKS                       R1 R0 K16 ["localization"]
-       50 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = , ["widget"] = }]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K5 ["new"]
+        6 DUPTABLE                         R2 K11 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Tutorials", ["libraries"]}]
+        7 GETUPVAL                         R3 1
+        8 SETTABLEKS                       R3 R2 K6 ["stringResourceTable"]
+       10 GETUPVAL                         R3 2
+       11 SETTABLEKS                       R3 R2 K7 ["translationResourceTable"]
+       13 NEWTABLE                         R3 1 0
+       15 GETUPVAL                         R4 3
+       16 GETTABLEKS                       R4 R4 K12 ["Resources"]
+       18 GETTABLEKS                       R4 R4 K13 ["LOCALIZATION_PROJECT_NAME"]
+       20 DUPTABLE                         R5 K14 [{"stringResourceTable", "translationResourceTable"}]
+       21 GETUPVAL                         R6 3
+       22 GETTABLEKS                       R6 R6 K12 ["Resources"]
+       24 GETTABLEKS                       R6 R6 K15 ["SourceStrings"]
+       26 SETTABLEKS                       R6 R5 K6 ["stringResourceTable"]
+       28 GETUPVAL                         R6 3
+       29 GETTABLEKS                       R6 R6 K12 ["Resources"]
+       31 GETTABLEKS                       R6 R6 K16 ["LocalizedStrings"]
+       33 SETTABLEKS                       R6 R5 K7 ["translationResourceTable"]
+       35 SETTABLE                         R5 R3 R4
+       36 SETTABLEKS                       R3 R2 K10 ["libraries"]
+       38 CALL                             R1 1 1
+       39 SETTABLEKS                       R1 R0 K17 ["localization"]
+       41 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -70,44 +64,38 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R1 R1 K1 ["Plugin"]
         4 LOADK                            R4 K2 ["PlaytestWidget"]
-        5 DUPTABLE                         R5 K8 [{"Size", "MinSize", "Modal", "Callout", "InitialEnabled"}]
-        6 GETIMPORT                        R6 K11 [Vector2.new]
-        8 LOADN                            R7 19
-        9 LOADN                            R8 94
+        5 DUPTABLE                         R5 K10 [{["Size"], ["MinSize"], ["Modal"] = False, ["Callout"] = True, ["InitialEnabled"] = True}]
+        6 GETIMPORT                        R6 K13 [Vector2.new]
+        8 LOADN                            R7 275
+        9 LOADN                            R8 350
        10 CALL                             R6 2 1
        11 SETTABLEKS                       R6 R5 K3 ["Size"]
-       13 GETIMPORT                        R6 K11 [Vector2.new]
-       15 LOADN                            R7 19
-       16 LOADN                            R8 94
+       13 GETIMPORT                        R6 K13 [Vector2.new]
+       15 LOADN                            R7 275
+       16 LOADN                            R8 350
        17 CALL                             R6 2 1
        18 SETTABLEKS                       R6 R5 K4 ["MinSize"]
-       20 LOADB                            R6 0
-       21 SETTABLEKS                       R6 R5 K5 ["Modal"]
-       23 LOADB                            R6 1
-       24 SETTABLEKS                       R6 R5 K6 ["Callout"]
-       26 LOADB                            R6 1
-       27 SETTABLEKS                       R6 R5 K7 ["InitialEnabled"]
-       29 NAMECALL                         R2 R1 K12 ["CreateQWidgetPluginGui"]
-       31 CALL                             R2 3 1
-       32 LOADK                            R3 K2 ["PlaytestWidget"]
-       33 SETTABLEKS                       R3 R2 K13 ["Name"]
-       35 LOADK                            R5 K14 ["SendPlayStep"]
-       36 NEWCLOSURE                       R6 P0
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          UPVAL U0
-       40 CAPTURE                          UPVAL U1
-       41 NAMECALL                         R3 R1 K15 ["OnInvoke"]
-       43 CALL                             R3 3 1
-       44 SETTABLEKS                       R3 R0 K16 ["connection"]
-       46 DUPTABLE                         R5 K18 [{"widget"}]
-       47 SETTABLEKS                       R2 R5 K17 ["widget"]
-       49 NAMECALL                         R3 R0 K19 ["setState"]
-       51 CALL                             R3 2 0
-       52 LOADK                            R5 K20 ["GetPlayStep"]
-       53 NAMECALL                         R3 R1 K21 ["Invoke"]
-       55 CALL                             R3 2 0
-       56 RETURN                           R0 0
+       20 NAMECALL                         R2 R1 K14 ["CreateQWidgetPluginGui"]
+       22 CALL                             R2 3 1
+       23 LOADK                            R3 K2 ["PlaytestWidget"]
+       24 SETTABLEKS                       R3 R2 K15 ["Name"]
+       26 LOADK                            R5 K16 ["SendPlayStep"]
+       27 NEWCLOSURE                       R6 P0
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          VAL R1
+       30 CAPTURE                          UPVAL U0
+       31 CAPTURE                          UPVAL U1
+       32 NAMECALL                         R3 R1 K17 ["OnInvoke"]
+       34 CALL                             R3 3 1
+       35 SETTABLEKS                       R3 R0 K18 ["connection"]
+       37 DUPTABLE                         R5 K20 [{"widget"}]
+       38 SETTABLEKS                       R2 R5 K19 ["widget"]
+       40 NAMECALL                         R3 R0 K21 ["setState"]
+       42 CALL                             R3 2 0
+       43 LOADK                            R5 K22 ["GetPlayStep"]
+       44 NAMECALL                         R3 R1 K23 ["Invoke"]
+       46 CALL                             R3 2 0
+       47 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["connection"]
@@ -220,45 +208,29 @@ MAIN:
        58 GETTABLEKS                       R10 R10 K16 ["Components"]
        60 GETTABLEKS                       R10 R10 K17 ["TourWidget"]
        62 CALL                             R9 1 1
-       63 DUPTABLE                         R10 K23 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       64 LOADK                            R11 K24 ["PlayClient"]
-       65 SETTABLEKS                       R11 R10 K18 ["DataModel"]
-       67 LOADK                            R11 K25 ["Standalone"]
-       68 SETTABLEKS                       R11 R10 K19 ["PluginType"]
-       70 LOADK                            R11 K26 ["Tutorials"]
-       71 SETTABLEKS                       R11 R10 K20 ["PluginId"]
-       73 LOADK                            R11 K27 ["Panels"]
-       74 SETTABLEKS                       R11 R10 K21 ["Category"]
-       76 LOADK                            R11 K28 ["PlaytestWidget"]
-       77 SETTABLEKS                       R11 R10 K22 ["ItemId"]
-       79 DUPTABLE                         R11 K29 [{"PluginId", "Category", "ItemId"}]
-       80 LOADK                            R12 K30 ["MainWindow"]
-       81 SETTABLEKS                       R12 R11 K20 ["PluginId"]
-       83 LOADK                            R12 K31 ["Widgets"]
-       84 SETTABLEKS                       R12 R11 K21 ["Category"]
-       86 LOADK                            R12 K32 ["Main"]
-       87 SETTABLEKS                       R12 R11 K22 ["ItemId"]
-       89 GETTABLEKS                       R12 R1 K33 ["PureComponent"]
-       91 LOADK                            R14 K34 ["PlayRoot"]
-       92 NAMECALL                         R12 R12 K35 ["extend"]
-       94 CALL                             R12 2 1
-       95 DUPCLOSURE                       R13 K36 [PROTO_0]
-       96 CAPTURE                          VAL R5
-       97 CAPTURE                          VAL R6
-       98 CAPTURE                          VAL R7
-       99 CAPTURE                          VAL R2
-      100 SETTABLEKS                       R13 R12 K37 ["init"]
-      102 DUPCLOSURE                       R13 K38 [PROTO_2]
-      103 CAPTURE                          VAL R10
-      104 CAPTURE                          VAL R11
-      105 SETTABLEKS                       R13 R12 K39 ["didMount"]
-      107 DUPCLOSURE                       R13 K40 [PROTO_3]
-      108 SETTABLEKS                       R13 R12 K41 ["willUnmount"]
-      110 DUPCLOSURE                       R13 K42 [PROTO_7]
-      111 CAPTURE                          VAL R3
-      112 CAPTURE                          VAL R4
-      113 CAPTURE                          VAL R8
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R9
-      116 SETTABLEKS                       R13 R12 K43 ["render"]
-      118 RETURN                           R12 1
+       63 DUPTABLE                         R10 K28 [{["DataModel"] = "PlayClient", ["PluginType"] = "Standalone", ["PluginId"] = "Tutorials", ["Category"] = "Panels", ["ItemId"] = "PlaytestWidget"}]
+       64 DUPTABLE                         R11 K32 [{["PluginId"] = "MainWindow", ["Category"] = "Widgets", ["ItemId"] = "Main"}]
+       65 GETTABLEKS                       R12 R1 K33 ["PureComponent"]
+       67 LOADK                            R14 K34 ["PlayRoot"]
+       68 NAMECALL                         R12 R12 K35 ["extend"]
+       70 CALL                             R12 2 1
+       71 DUPCLOSURE                       R13 K36 [PROTO_0]
+       72 CAPTURE                          VAL R5
+       73 CAPTURE                          VAL R6
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          VAL R2
+       76 SETTABLEKS                       R13 R12 K37 ["init"]
+       78 DUPCLOSURE                       R13 K38 [PROTO_2]
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          VAL R11
+       81 SETTABLEKS                       R13 R12 K39 ["didMount"]
+       83 DUPCLOSURE                       R13 K40 [PROTO_3]
+       84 SETTABLEKS                       R13 R12 K41 ["willUnmount"]
+       86 DUPCLOSURE                       R13 K42 [PROTO_7]
+       87 CAPTURE                          VAL R3
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R8
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R9
+       92 SETTABLEKS                       R13 R12 K43 ["render"]
+       94 RETURN                           R12 1

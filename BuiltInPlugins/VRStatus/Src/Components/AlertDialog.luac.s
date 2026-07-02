@@ -37,66 +37,56 @@ PROTO_0:
        49 GETUPVAL                         R5 0
        50 GETTABLEKS                       R5 R5 K14 ["createElement"]
        52 GETUPVAL                         R6 1
-       53 DUPTABLE                         R7 K23 [{"Style", "Enabled", "Title", "Buttons", "OnButtonPressed", "OnClose", "MinContentSize", "Modal"}]
-       54 LOADK                            R8 K24 ["Alert"]
-       55 SETTABLEKS                       R8 R7 K15 ["Style"]
-       57 GETTABLEKS                       R8 R0 K0 ["props"]
-       59 GETTABLEKS                       R8 R8 K25 ["enabled"]
-       61 SETTABLEKS                       R8 R7 K16 ["Enabled"]
-       63 LOADK                            R8 K26 ["VR Status Information"]
-       64 SETTABLEKS                       R8 R7 K17 ["Title"]
-       66 NEWTABLE                         R8 0 1
-       68 DUPTABLE                         R9 K29 [{"Key", "Text"}]
-       69 LOADK                            R10 K30 ["ok"]
-       70 SETTABLEKS                       R10 R9 K27 ["Key"]
-       72 LOADK                            R12 K3 ["AlertDialog"]
-       73 LOADK                            R13 K31 ["OkButtonText"]
-       74 NAMECALL                         R10 R3 K5 ["getText"]
-       76 CALL                             R10 3 1
-       77 SETTABLEKS                       R10 R9 K28 ["Text"]
-       79 SETLIST                          R8 R9 1 [1]
-       81 SETTABLEKS                       R8 R7 K18 ["Buttons"]
-       83 GETTABLEKS                       R8 R1 K20 ["OnClose"]
-       85 SETTABLEKS                       R8 R7 K19 ["OnButtonPressed"]
-       87 GETTABLEKS                       R8 R1 K20 ["OnClose"]
-       89 SETTABLEKS                       R8 R7 K20 ["OnClose"]
-       91 GETTABLEKS                       R8 R2 K32 ["PopupMessageSize"]
-       93 SETTABLEKS                       R8 R7 K21 ["MinContentSize"]
-       95 LOADB                            R8 1
-       96 SETTABLEKS                       R8 R7 K22 ["Modal"]
-       98 DUPTABLE                         R8 K34 [{"Label"}]
-       99 GETUPVAL                         R9 0
-      100 GETTABLEKS                       R9 R9 K14 ["createElement"]
-      102 GETUPVAL                         R10 2
-      103 DUPTABLE                         R11 K42 [{"Size", "AnchorPoint", "Position", "Text", "TextColor", "TextWrapped", "TextSize", "TextXAlignment"}]
-      104 GETIMPORT                        R12 K45 [UDim2.fromScale]
-      106 LOADK                            R13 K46 [0.95]
-      107 LOADN                            R14 1
-      108 CALL                             R12 2 1
-      109 SETTABLEKS                       R12 R11 K35 ["Size"]
-      111 GETIMPORT                        R12 K49 [Vector2.new]
-      113 LOADK                            R13 K50 [0.5]
-      114 LOADN                            R14 0
-      115 CALL                             R12 2 1
-      116 SETTABLEKS                       R12 R11 K36 ["AnchorPoint"]
-      118 GETIMPORT                        R12 K45 [UDim2.fromScale]
-      120 LOADK                            R13 K50 [0.5]
-      121 LOADN                            R14 0
-      122 CALL                             R12 2 1
-      123 SETTABLEKS                       R12 R11 K37 ["Position"]
-      125 SETTABLEKS                       R4 R11 K28 ["Text"]
-      127 GETTABLEKS                       R12 R2 K38 ["TextColor"]
-      129 SETTABLEKS                       R12 R11 K38 ["TextColor"]
-      131 LOADB                            R12 1
-      132 SETTABLEKS                       R12 R11 K39 ["TextWrapped"]
-      134 GETTABLEKS                       R12 R2 K40 ["TextSize"]
-      136 SETTABLEKS                       R12 R11 K40 ["TextSize"]
-      138 GETIMPORT                        R12 K53 [Enum.TextXAlignment.Left]
-      140 SETTABLEKS                       R12 R11 K41 ["TextXAlignment"]
-      142 CALL                             R9 2 1
-      143 SETTABLEKS                       R9 R8 K33 ["Label"]
-      145 CALL                             R5 3 -1
-      146 RETURN                           R5 -1
+       53 DUPTABLE                         R7 K26 [{["Style"] = "Alert", ["Enabled"], ["Title"] = "VR Status Information", ["Buttons"], ["OnButtonPressed"], ["OnClose"], ["MinContentSize"], ["Modal"] = True}]
+       54 GETTABLEKS                       R8 R0 K0 ["props"]
+       56 GETTABLEKS                       R8 R8 K27 ["enabled"]
+       58 SETTABLEKS                       R8 R7 K17 ["Enabled"]
+       60 NEWTABLE                         R8 0 1
+       62 DUPTABLE                         R9 K31 [{["Key"] = "ok", ["Text"]}]
+       63 LOADK                            R12 K3 ["AlertDialog"]
+       64 LOADK                            R13 K32 ["OkButtonText"]
+       65 NAMECALL                         R10 R3 K5 ["getText"]
+       67 CALL                             R10 3 1
+       68 SETTABLEKS                       R10 R9 K30 ["Text"]
+       70 SETLIST                          R8 R9 1 [1]
+       72 SETTABLEKS                       R8 R7 K20 ["Buttons"]
+       74 GETTABLEKS                       R8 R1 K22 ["OnClose"]
+       76 SETTABLEKS                       R8 R7 K21 ["OnButtonPressed"]
+       78 GETTABLEKS                       R8 R1 K22 ["OnClose"]
+       80 SETTABLEKS                       R8 R7 K22 ["OnClose"]
+       82 GETTABLEKS                       R8 R2 K33 ["PopupMessageSize"]
+       84 SETTABLEKS                       R8 R7 K23 ["MinContentSize"]
+       86 DUPTABLE                         R8 K35 [{"Label"}]
+       87 GETUPVAL                         R9 0
+       88 GETTABLEKS                       R9 R9 K14 ["createElement"]
+       90 GETUPVAL                         R10 2
+       91 DUPTABLE                         R11 K43 [{["Size"], ["AnchorPoint"], ["Position"], ["Text"], ["TextColor"], ["TextWrapped"] = True, ["TextSize"], ["TextXAlignment"]}]
+       92 GETIMPORT                        R12 K46 [UDim2.fromScale]
+       94 LOADK                            R13 K47 [0.95]
+       95 LOADN                            R14 1
+       96 CALL                             R12 2 1
+       97 SETTABLEKS                       R12 R11 K36 ["Size"]
+       99 GETIMPORT                        R12 K50 [Vector2.new]
+      101 LOADK                            R13 K51 [0.5]
+      102 LOADN                            R14 0
+      103 CALL                             R12 2 1
+      104 SETTABLEKS                       R12 R11 K37 ["AnchorPoint"]
+      106 GETIMPORT                        R12 K46 [UDim2.fromScale]
+      108 LOADK                            R13 K51 [0.5]
+      109 LOADN                            R14 0
+      110 CALL                             R12 2 1
+      111 SETTABLEKS                       R12 R11 K38 ["Position"]
+      113 SETTABLEKS                       R4 R11 K30 ["Text"]
+      115 GETTABLEKS                       R12 R2 K39 ["TextColor"]
+      117 SETTABLEKS                       R12 R11 K39 ["TextColor"]
+      119 GETTABLEKS                       R12 R2 K41 ["TextSize"]
+      121 SETTABLEKS                       R12 R11 K41 ["TextSize"]
+      123 GETIMPORT                        R12 K54 [Enum.TextXAlignment.Left]
+      125 SETTABLEKS                       R12 R11 K42 ["TextXAlignment"]
+      127 CALL                             R9 2 1
+      128 SETTABLEKS                       R9 R8 K34 ["Label"]
+      130 CALL                             R5 3 -1
+      131 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

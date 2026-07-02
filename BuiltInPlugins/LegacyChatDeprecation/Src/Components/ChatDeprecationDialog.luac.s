@@ -100,48 +100,44 @@ PROTO_3:
        58 CALL                             R7 3 1
        59 MOVE                             R6 R7
        60 GETUPVAL                         R7 1
-       61 DUPTABLE                         R8 K20 [{"Intent", "Modal", "Heading", "Body", "ActionPrimary", "ActionSecondary", "OnClosed"}]
-       62 LOADK                            R10 K21 ["Warning"]
-       63 SETTABLEKS                       R10 R8 K14 ["Intent"]
-       65 LOADB                            R10 1
-       66 SETTABLEKS                       R10 R8 K15 ["Modal"]
-       68 SETTABLEKS                       R3 R8 K16 ["Heading"]
-       70 SETTABLEKS                       R4 R8 K9 ["Body"]
-       72 DUPTABLE                         R10 K23 [{"Label", "OnActivated"}]
-       73 SETTABLEKS                       R5 R10 K2 ["Label"]
-       75 DUPCLOSURE                       R11 K24 [PROTO_0]
-       76 SETTABLEKS                       R11 R10 K22 ["OnActivated"]
-       78 SETTABLEKS                       R10 R8 K17 ["ActionPrimary"]
-       80 GETUPVAL                         R10 2
-       81 GETUPVAL                         R11 3
-       82 GETTABLEKS                       R11 R11 K25 ["CLOSE"]
-       84 DUPTABLE                         R12 K23 [{"Label", "OnActivated"}]
-       85 SETTABLEKS                       R6 R12 K2 ["Label"]
-       87 NEWCLOSURE                       R13 P1
-       88 CAPTURE                          UPVAL U4
-       89 CAPTURE                          UPVAL U5
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          UPVAL U6
-       92 SETTABLEKS                       R13 R12 K22 ["OnActivated"]
-       94 CALL                             R10 2 1
-       95 SETTABLEKS                       R10 R8 K18 ["ActionSecondary"]
-       97 GETTABLEKS                       R10 R0 K26 ["onClosed"]
-       99 SETTABLEKS                       R10 R8 K19 ["OnClosed"]
-      101 CALL                             R7 1 3
-      102 GETUPVAL                         R10 7
-      103 GETTABLEKS                       R10 R10 K27 ["useEffect"]
-      105 NEWCLOSURE                       R11 P2
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          VAL R9
-      108 CAPTURE                          VAL R7
-      109 CAPTURE                          VAL R8
-      110 NEWTABLE                         R12 0 2
-      112 GETTABLEKS                       R13 R0 K28 ["Enabled"]
-      114 MOVE                             R14 R9
-      115 SETLIST                          R12 R13 2 [1]
-      117 CALL                             R10 2 0
-      118 LOADNIL                          R10
-      119 RETURN                           R10 1
+       61 DUPTABLE                         R8 K22 [{["Intent"] = "Warning", ["Modal"] = True, ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["OnClosed"]}]
+       62 SETTABLEKS                       R3 R8 K18 ["Heading"]
+       64 SETTABLEKS                       R4 R8 K9 ["Body"]
+       66 DUPTABLE                         R10 K24 [{"Label", "OnActivated"}]
+       67 SETTABLEKS                       R5 R10 K2 ["Label"]
+       69 DUPCLOSURE                       R11 K25 [PROTO_0]
+       70 SETTABLEKS                       R11 R10 K23 ["OnActivated"]
+       72 SETTABLEKS                       R10 R8 K19 ["ActionPrimary"]
+       74 GETUPVAL                         R10 2
+       75 GETUPVAL                         R11 3
+       76 GETTABLEKS                       R11 R11 K26 ["CLOSE"]
+       78 DUPTABLE                         R12 K24 [{"Label", "OnActivated"}]
+       79 SETTABLEKS                       R6 R12 K2 ["Label"]
+       81 NEWCLOSURE                       R13 P1
+       82 CAPTURE                          UPVAL U4
+       83 CAPTURE                          UPVAL U5
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          UPVAL U6
+       86 SETTABLEKS                       R13 R12 K23 ["OnActivated"]
+       88 CALL                             R10 2 1
+       89 SETTABLEKS                       R10 R8 K20 ["ActionSecondary"]
+       91 GETTABLEKS                       R10 R0 K27 ["onClosed"]
+       93 SETTABLEKS                       R10 R8 K21 ["OnClosed"]
+       95 CALL                             R7 1 3
+       96 GETUPVAL                         R10 7
+       97 GETTABLEKS                       R10 R10 K28 ["useEffect"]
+       99 NEWCLOSURE                       R11 P2
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          VAL R9
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R8
+      104 NEWTABLE                         R12 0 2
+      106 GETTABLEKS                       R13 R0 K29 ["Enabled"]
+      108 MOVE                             R14 R9
+      109 SETLIST                          R12 R13 2 [1]
+      111 CALL                             R10 2 0
+      112 LOADNIL                          R10
+      113 RETURN                           R10 1
 
 MAIN:
         0 PREPVARARGS                      0

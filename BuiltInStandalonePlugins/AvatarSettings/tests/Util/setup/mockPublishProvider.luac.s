@@ -60,27 +60,25 @@ PROTO_6:
        24 NEWTABLE                         R5 0 0
        26 CALL                             R3 2 0
        27 DUPTABLE                         R3 K5 [{"content"}]
-       28 DUPTABLE                         R4 K11 [{"databaseLoaded", "canPublish", "isAvatarTypeOutOfSync", "isSettingOutOfSync", "saveUnpublishedSettings", "discardUnpublishedSettings"}]
+       28 DUPTABLE                         R4 K12 [{[1], ["canPublish"] = False, ["isAvatarTypeOutOfSync"], ["isSettingOutOfSync"], ["saveUnpublishedSettings"], ["discardUnpublishedSettings"]}]
        29 SETTABLEKS                       R1 R4 K0 ["databaseLoaded"]
-       31 LOADB                            R5 0
-       32 SETTABLEKS                       R5 R4 K6 ["canPublish"]
-       34 DUPCLOSURE                       R5 K12 [PROTO_2]
-       35 SETTABLEKS                       R5 R4 K7 ["isAvatarTypeOutOfSync"]
-       37 DUPCLOSURE                       R5 K13 [PROTO_3]
-       38 SETTABLEKS                       R5 R4 K8 ["isSettingOutOfSync"]
-       40 DUPCLOSURE                       R5 K14 [PROTO_4]
-       41 SETTABLEKS                       R5 R4 K9 ["saveUnpublishedSettings"]
-       43 DUPCLOSURE                       R5 K15 [PROTO_5]
-       44 SETTABLEKS                       R5 R4 K10 ["discardUnpublishedSettings"]
-       46 SETTABLEKS                       R4 R3 K4 ["content"]
-       48 GETUPVAL                         R4 4
-       49 GETUPVAL                         R5 5
-       50 GETTABLEKS                       R5 R5 K16 ["Provider"]
-       52 DUPTABLE                         R6 K18 [{"value"}]
-       53 SETTABLEKS                       R3 R6 K17 ["value"]
-       55 GETTABLEKS                       R7 R0 K19 ["children"]
-       57 CALL                             R4 3 -1
-       58 RETURN                           R4 -1
+       31 DUPCLOSURE                       R5 K13 [PROTO_2]
+       32 SETTABLEKS                       R5 R4 K8 ["isAvatarTypeOutOfSync"]
+       34 DUPCLOSURE                       R5 K14 [PROTO_3]
+       35 SETTABLEKS                       R5 R4 K9 ["isSettingOutOfSync"]
+       37 DUPCLOSURE                       R5 K15 [PROTO_4]
+       38 SETTABLEKS                       R5 R4 K10 ["saveUnpublishedSettings"]
+       40 DUPCLOSURE                       R5 K16 [PROTO_5]
+       41 SETTABLEKS                       R5 R4 K11 ["discardUnpublishedSettings"]
+       43 SETTABLEKS                       R4 R3 K4 ["content"]
+       45 GETUPVAL                         R4 4
+       46 GETUPVAL                         R5 5
+       47 GETTABLEKS                       R5 R5 K17 ["Provider"]
+       49 DUPTABLE                         R6 K19 [{"value"}]
+       50 SETTABLEKS                       R3 R6 K18 ["value"]
+       52 GETTABLEKS                       R7 R0 K20 ["children"]
+       54 CALL                             R4 3 -1
+       55 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

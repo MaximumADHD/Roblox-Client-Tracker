@@ -903,14 +903,12 @@ PROTO_1:
      1110 CALL                             R18 1 3
      1111 FORGPREP_INEXT                   R18
      1112 ADDK                             R17 R17 K47 [1]
-     1113 DUPTABLE                         R23 K62 [{"position", "id", "type"}]
+     1113 DUPTABLE                         R23 K63 [{["position"], ["id"], ["type"] = "Vertex"}]
      1114 SETTABLEKS                       R22 R23 K61 ["position"]
      1116 SETTABLEKS                       R17 R23 K48 ["id"]
-     1118 LOADK                            R24 K63 ["Vertex"]
-     1119 SETTABLEKS                       R24 R23 K54 ["type"]
-     1121 SETTABLE                         R23 R11 R21
-     1122 FORGLOOP                         R18 2 [inext] ; [-11]
-     1124 RETURN                           R16 1
+     1118 SETTABLE                         R23 R11 R21
+     1119 FORGLOOP                         R18 2 [inext] ; [-8]
+     1121 RETURN                           R16 1
 
 MAIN:
         0 PREPVARARGS                      0

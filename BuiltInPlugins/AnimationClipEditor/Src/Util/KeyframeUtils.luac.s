@@ -342,7 +342,7 @@ PROTO_11:
         1 GETTABLEKS                       R1 R1 K0 ["CLAMPED_AUTO_TANGENT_THRESHOLD"]
         3 LOADN                            R3 0
         4 DIV                              R5 R0 R1
-        5 SUBRK                            R7 R1 K0 ["CLAMPED_AUTO_TANGENT_THRESHOLD"]
+        5 SUBRK                            R7 K1 [1] R0
         6 DIV                              R6 R7 R1
         7 LOADN                            R7 1
         8 FASTCALL                         MATH_MIN ; [+2]
@@ -389,10 +389,10 @@ PROTO_12:
        40 LOADK                            R5 K6 [0.5]
        41 GETUPVAL                         R9 3
        42 SUB                              R8 R2 R9
-       43 DIVRK                            R7 R1 K8 ["Value"]
+       43 DIVRK                            R7 K1 [1] R8
        44 GETUPVAL                         R10 3
        45 SUB                              R9 R10 R0
-       46 DIVRK                            R8 R1 K9 ["CLAMPED_AUTO_TANGENT_THRESHOLD"]
+       46 DIVRK                            R8 K1 [1] R9
        47 ADD                              R6 R7 R8
        48 MUL                              R4 R5 R6
        49 RETURN                           R4 1
@@ -427,7 +427,7 @@ PROTO_12:
        86 GETTABLEKS                       R8 R8 K9 ["CLAMPED_AUTO_TANGENT_THRESHOLD"]
        88 LOADN                            R10 0
        89 DIV                              R12 R7 R8
-       90 SUBRK                            R14 R1 K7 [PROTO_11]
+       90 SUBRK                            R14 K1 [1] R7
        91 DIV                              R13 R14 R8
        92 LOADN                            R14 1
        93 FASTCALL                         MATH_MIN ; [+2]
@@ -495,7 +495,7 @@ PROTO_13:
        67 JUMPIFNOTEQ                      R12 R13 ; [+7]
        69 JUMPIFNOT                        R11 ; [+3]
        70 SUB                              R13 R10 R1
-       71 DIVRK                            R12 R12 K13 ["Type"]
+       71 DIVRK                            R12 K12 [1] R13
        72 JUMPIF                           R12 ; [+1]
        73 LOADN                            R12 0
        74 RETURN                           R12 1
@@ -551,7 +551,7 @@ PROTO_13:
       140 GETTABLEKS                       R13 R13 K15 ["Quaternion"]
       142 JUMPIFNOTEQ                      R12 R13 ; [+4]
       144 SUB                              R13 R1 R10
-      145 DIVRK                            R12 R12 K13 ["Type"]
+      145 DIVRK                            R12 K12 [1] R13
       146 RETURN                           R12 1
       147 GETTABLEKS                       R14 R11 K16 ["Value"]
       149 GETTABLEKS                       R15 R6 K16 ["Value"]
@@ -648,7 +648,7 @@ PROTO_15:
        73 GETTABLEKS                       R12 R12 K17 ["Quaternion"]
        75 JUMPIFNOTEQ                      R11 R12 ; [+4]
        77 SUB                              R11 R7 R6
-       78 DIVRK                            R10 R18 K11 [Enum.KeyInterpolationMode.Constant]
+       78 DIVRK                            R10 K18 [1] R11
        79 JUMP                             ; [+7]
        80 GETTABLEKS                       R12 R9 K19 ["Value"]
        82 GETTABLEKS                       R13 R8 K19 ["Value"]
@@ -709,7 +709,7 @@ PROTO_15:
       148 MUL                              R20 R21 R13
       149 LOADN                            R24 2
       150 MUL                              R23 R24 R13
-      151 SUBRK                            R22 R21 K23 [NULL]
+      151 SUBRK                            R22 K21 [3] R23
       152 MUL                              R21 R19 R22
       153 SUBK                             R23 R13 K18 [1]
       154 MUL                              R22 R19 R23
@@ -720,7 +720,7 @@ PROTO_15:
       159 MUL                              R25 R26 R11
       160 ADD                              R23 R24 R25
       161 DIV                              R24 R18 R23
-      162 SUBRK                            R26 R18 K23 [NULL]
+      162 SUBRK                            R26 K18 [1] R23
       163 DIV                              R25 R18 R26
       164 RETURN                           R24 2
       165 GETTABLEKS                       R23 R8 K19 ["Value"]
@@ -797,7 +797,7 @@ PROTO_16:
        73 MUL                              R13 R14 R8
        74 LOADN                            R17 2
        75 MUL                              R16 R17 R8
-       76 SUBRK                            R15 R18 K16 ["Left"]
+       76 SUBRK                            R15 K18 [3] R16
        77 MUL                              R14 R11 R15
        78 SUBK                             R16 R8 K17 [1]
        79 MUL                              R15 R11 R16

@@ -61,18 +61,16 @@ PROTO_3:
        20 GETIMPORT                        R14 K2 [table.insert]
        22 CALL                             R14 2 0
        23 FORGLOOP                         R9 2 ; [-8]
-       25 DUPTABLE                         R11 K6 [{"index", "row", "isValueUpdated"}]
+       25 DUPTABLE                         R11 K7 [{["index"], ["row"], ["isValueUpdated"] = False}]
        26 SETTABLEKS                       R2 R11 K3 ["index"]
        28 SETTABLEKS                       R8 R11 K4 ["row"]
-       30 LOADB                            R12 0
-       31 SETTABLEKS                       R12 R11 K5 ["isValueUpdated"]
-       33 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
-       35 MOVE                             R10 R1
-       36 GETIMPORT                        R9 K2 [table.insert]
-       38 CALL                             R9 2 0
-       39 ADDK                             R2 R2 K7 [1]
-       40 FORGLOOP                         R3 2 ; [-34]
-       42 RETURN                           R1 1
+       30 FASTCALL2                        TABLE_INSERT R1 R11 ; [+4]
+       32 MOVE                             R10 R1
+       33 GETIMPORT                        R9 K2 [table.insert]
+       35 CALL                             R9 2 0
+       36 ADDK                             R2 R2 K8 [1]
+       37 FORGLOOP                         R3 2 ; [-31]
+       39 RETURN                           R1 1
 
 PROTO_4:
         0 NEWTABLE                         R3 0 0
@@ -174,20 +172,18 @@ PROTO_6:
        57 LOADK                            R7 K10 [")"]
        58 CONCAT                           R4 R5 R7
        59 LOADN                            R7 1
-       60 DUPTABLE                         R8 K2 [{"index", "row"}]
-       61 LOADN                            R9 1
-       62 SETTABLEKS                       R9 R8 K0 ["index"]
-       64 NEWTABLE                         R9 0 3
-       66 MOVE                             R10 R4
-       67 LOADK                            R11 K11 [""]
-       68 LOADK                            R12 K12 ["*"]
-       69 SETLIST                          R9 R10 3 [1]
-       71 SETTABLEKS                       R9 R8 K1 ["row"]
-       73 FASTCALL3                        TABLE_INSERT R1 R7 R8
-       75 MOVE                             R6 R1
-       76 GETIMPORT                        R5 K8 [table.insert]
-       78 CALL                             R5 3 0
-       79 RETURN                           R1 1
+       60 DUPTABLE                         R8 K11 [{[1] = 1, ["row"]}]
+       61 NEWTABLE                         R9 0 3
+       63 MOVE                             R10 R4
+       64 LOADK                            R11 K12 [""]
+       65 LOADK                            R12 K13 ["*"]
+       66 SETLIST                          R9 R10 3 [1]
+       68 SETTABLEKS                       R9 R8 K1 ["row"]
+       70 FASTCALL3                        TABLE_INSERT R1 R7 R8
+       72 MOVE                             R6 R1
+       73 GETIMPORT                        R5 K8 [table.insert]
+       75 CALL                             R5 3 0
+       76 RETURN                           R1 1
 
 PROTO_7:
         0 NEWTABLE                         R2 0 0

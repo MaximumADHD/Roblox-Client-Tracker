@@ -17,33 +17,6 @@ PROTO_1:
         6 RETURN                           R3 -1
 
 PROTO_2:
-        0 MOVE                             R3 R0
-        1 MOVE                             R4 R1
-        2 MOVE                             R5 R2
-        3 LOADK                            R6 K0 ["Plugin"]
-        4 LOADK                            R7 K1 ["Button"]
-        5 CALL                             R3 4 -1
-        6 RETURN                           R3 -1
-
-PROTO_3:
-        0 MOVE                             R3 R0
-        1 MOVE                             R4 R1
-        2 MOVE                             R5 R2
-        3 LOADK                            R6 K0 ["Plugin"]
-        4 LOADK                            R7 K1 ["Description"]
-        5 CALL                             R3 4 -1
-        6 RETURN                           R3 -1
-
-PROTO_4:
-        0 MOVE                             R3 R0
-        1 MOVE                             R4 R1
-        2 MOVE                             R5 R2
-        3 LOADK                            R6 K0 ["Plugin"]
-        4 LOADK                            R7 K1 ["Toolbar"]
-        5 CALL                             R3 4 -1
-        6 RETURN                           R3 -1
-
-PROTO_5:
         0 LOADK                            R3 K0 ["HumanoidRigDescription"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
@@ -62,7 +35,7 @@ PROTO_5:
        17 LOADB                            R1 0
        18 RETURN                           R1 1
 
-PROTO_6:
+PROTO_3:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Get"]
         3 CALL                             R0 1 1
@@ -97,7 +70,7 @@ PROTO_6:
        37 LOADB                            R1 0
        38 RETURN                           R1 1
 
-PROTO_7:
+PROTO_4:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Get"]
         3 CALL                             R0 1 1
@@ -138,7 +111,7 @@ PROTO_7:
        46 FORGLOOP                         R1 2 ; [-33]
        48 RETURN                           R0 0
 
-PROTO_8:
+PROTO_5:
         0 GETUPVAL                         R0 0
         1 JUMPIFNOT                        R0 ; [+4]
         2 GETUPVAL                         R0 0
@@ -146,7 +119,7 @@ PROTO_8:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
 
-PROTO_9:
+PROTO_6:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["Disconnect"]
         3 CALL                             R0 1 0
@@ -156,180 +129,113 @@ PROTO_9:
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
-PROTO_10:
+PROTO_7:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Name"]
         3 SETTABLEKS                       R2 R0 K0 ["Name"]
-        5 LOADNIL                          R2
-        6 LOADNIL                          R3
+        5 NEWTABLE                         R2 0 1
         7 GETUPVAL                         R4 1
-        8 JUMPIFNOT                        R4 ; [+73]
-        9 NEWTABLE                         R4 0 1
-       11 GETUPVAL                         R6 2
-       12 CALL                             R6 0 1
-       13 JUMPIFNOT                        R6 ; [+20]
-       14 DUPTABLE                         R5 K3 [{"uri", "isPreexistingAction"}]
-       15 DUPTABLE                         R6 K8 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       16 LOADK                            R7 K9 ["Standalone"]
-       17 SETTABLEKS                       R7 R6 K4 ["DataModel"]
-       19 LOADK                            R7 K10 ["AdaptiveAnimationSupport"]
-       20 SETTABLEKS                       R7 R6 K5 ["PluginId"]
-       22 LOADK                            R7 K11 ["Actions"]
-       23 SETTABLEKS                       R7 R6 K6 ["Category"]
-       25 LOADK                            R7 K12 ["Toggle"]
-       26 SETTABLEKS                       R7 R6 K7 ["ItemId"]
-       28 SETTABLEKS                       R6 R5 K1 ["uri"]
-       30 LOADB                            R6 1
-       31 SETTABLEKS                       R6 R5 K2 ["isPreexistingAction"]
-       33 JUMP                             ; [+44]
-       34 DUPTABLE                         R5 K20 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "checkable", "checked"}]
-       35 DUPTABLE                         R6 K8 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       36 LOADK                            R7 K9 ["Standalone"]
-       37 SETTABLEKS                       R7 R6 K4 ["DataModel"]
-       39 LOADK                            R7 K10 ["AdaptiveAnimationSupport"]
-       40 SETTABLEKS                       R7 R6 K5 ["PluginId"]
-       42 LOADK                            R7 K11 ["Actions"]
-       43 SETTABLEKS                       R7 R6 K6 ["Category"]
-       45 LOADK                            R7 K12 ["Toggle"]
-       46 SETTABLEKS                       R7 R6 K7 ["ItemId"]
-       48 SETTABLEKS                       R6 R5 K1 ["uri"]
-       50 LOADB                            R6 0
-       51 SETTABLEKS                       R6 R5 K2 ["isPreexistingAction"]
-       53 DUPCLOSURE                       R6 K21 [PROTO_0]
-       54 SETTABLEKS                       R6 R5 K13 ["getText"]
-       56 DUPCLOSURE                       R6 K22 [PROTO_1]
-       57 SETTABLEKS                       R6 R5 K14 ["getTooltip"]
-       59 LOADK                            R6 K23 ["rbxlocaltheme://RemapRig"]
-       60 SETTABLEKS                       R6 R5 K15 ["icon"]
-       62 LOADB                            R6 1
-       63 SETTABLEKS                       R6 R5 K16 ["enabled"]
-       65 LOADB                            R6 1
-       66 SETTABLEKS                       R6 R5 K17 ["visible"]
-       68 GETUPVAL                         R7 3
-       69 JUMPIFNOT                        R7 ; [+2]
-       70 LOADB                            R6 1
-       71 JUMP                             ; [+1]
-       72 LOADNIL                          R6
-       73 SETTABLEKS                       R6 R5 K18 ["checkable"]
-       75 LOADB                            R6 0
-       76 SETTABLEKS                       R6 R5 K19 ["checked"]
-       78 SETLIST                          R4 R5 1 [1]
-       80 MOVE                             R3 R4
-       81 JUMP                             ; [+11]
-       82 DUPTABLE                         R4 K26 [{"getName", "getDescription", "enabled"}]
-       83 DUPCLOSURE                       R5 K27 [PROTO_2]
-       84 SETTABLEKS                       R5 R4 K24 ["getName"]
-       86 DUPCLOSURE                       R5 K28 [PROTO_3]
-       87 SETTABLEKS                       R5 R4 K25 ["getDescription"]
-       89 LOADB                            R5 0
-       90 SETTABLEKS                       R5 R4 K16 ["enabled"]
-       92 MOVE                             R2 R4
-       93 DUPTABLE                         R4 K37 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
-       94 SETTABLEKS                       R0 R4 K29 ["plugin"]
-       96 LOADK                            R5 K10 ["AdaptiveAnimationSupport"]
-       97 SETTABLEKS                       R5 R4 K30 ["pluginName"]
-       99 GETUPVAL                         R5 4
-      100 SETTABLEKS                       R5 R4 K31 ["translationResourceTable"]
-      102 GETUPVAL                         R5 5
-      103 SETTABLEKS                       R5 R4 K32 ["fallbackResourceTable"]
-      105 GETUPVAL                         R5 1
-      106 SETTABLEKS                       R5 R4 K33 ["noToolbar"]
-      108 GETUPVAL                         R6 1
-      109 JUMPIFNOT                        R6 ; [+2]
-      110 LOADNIL                          R5
-      111 JUMP                             ; [+1]
-      112 DUPCLOSURE                       R5 K38 [PROTO_4]
-      113 SETTABLEKS                       R5 R4 K34 ["getToolbarName"]
-      115 GETUPVAL                         R6 1
-      116 JUMPIFNOT                        R6 ; [+2]
-      117 LOADNIL                          R5
-      118 JUMP                             ; [+1]
-      119 MOVE                             R5 R2
-      120 SETTABLEKS                       R5 R4 K35 ["buttonInfo"]
-      122 GETUPVAL                         R6 1
-      123 JUMPIFNOT                        R6 ; [+2]
-      124 MOVE                             R5 R3
-      125 JUMP                             ; [+1]
-      126 LOADNIL                          R5
-      127 SETTABLEKS                       R5 R4 K36 ["actionInfos"]
-      129 GETIMPORT                        R5 K40 [require]
-      131 GETUPVAL                         R6 0
-      132 GETTABLEKS                       R6 R6 K41 ["Src"]
-      134 GETTABLEKS                       R6 R6 K42 ["Flags"]
-      136 GETTABLEKS                       R6 R6 K43 ["getFFlagAdaptiveAnimationHandRig"]
-      138 CALL                             R5 1 1
-      139 GETIMPORT                        R6 K45 [game]
-      141 LOADK                            R8 K46 ["RunService"]
-      142 NAMECALL                         R6 R6 K47 ["GetService"]
-      144 CALL                             R6 2 1
-      145 GETUPVAL                         R8 6
-      146 GETTABLEKS                       R8 R8 K48 ["get"]
-      148 CALL                             R8 0 1
-      149 GETUPVAL                         R9 6
-      150 GETTABLEKS                       R9 R9 K9 ["Standalone"]
-      152 JUMPIFEQ                         R8 R9 ; [+2]
-      154 LOADB                            R7 0 +1
-      155 LOADB                            R7 1
-      156 NAMECALL                         R8 R6 K49 ["IsEdit"]
-      158 CALL                             R8 1 1
-      159 JUMPIF                           R7 ; [+1]
-      160 JUMPIFNOT                        R8 ; [+63]
-      161 GETUPVAL                         R9 1
-      162 JUMPIF                           R9 ; [+3]
-      163 LOADB                            R9 1
-      164 SETTABLEKS                       R9 R2 K16 ["enabled"]
-      166 GETUPVAL                         R9 7
-      167 GETTABLEKS                       R9 R9 K50 ["build"]
-      169 MOVE                             R10 R4
-      170 CALL                             R9 1 1
-      171 GETIMPORT                        R10 K45 [game]
-      173 LOADK                            R12 K51 ["Selection"]
-      174 NAMECALL                         R10 R10 K47 ["GetService"]
-      176 CALL                             R10 2 1
-      177 NEWCLOSURE                       R11 P5
-      178 CAPTURE                          VAL R5
-      179 NEWCLOSURE                       R12 P6
-      180 CAPTURE                          VAL R10
-      181 CAPTURE                          VAL R5
-      182 GETTABLEKS                       R13 R10 K52 ["SelectionChangedThisFrame"]
-      184 NEWCLOSURE                       R15 P7
-      185 CAPTURE                          VAL R10
-      186 CAPTURE                          VAL R5
-      187 CAPTURE                          VAL R9
-      188 NAMECALL                         R13 R13 K53 ["Connect"]
-      190 CALL                             R13 2 1
-      191 GETTABLEKS                       R14 R0 K54 ["Unloading"]
-      193 NEWCLOSURE                       R16 P8
-      194 CAPTURE                          VAL R13
-      195 NAMECALL                         R14 R14 K53 ["Connect"]
-      197 CALL                             R14 2 0
-      198 MOVE                             R14 R12
-      199 CALL                             R14 0 1
-      200 JUMPIFNOT                        R14 ; [+11]
-      201 LOADNIL                          R15
-      202 GETTABLEKS                       R16 R6 K55 ["Heartbeat"]
-      204 NEWCLOSURE                       R18 P9
-      205 CAPTURE                          REF R15
-      206 CAPTURE                          VAL R9
-      207 NAMECALL                         R16 R16 K53 ["Connect"]
-      209 CALL                             R16 2 1
-      210 MOVE                             R15 R16
-      211 CLOSEUPVALS                      R15
-      212 GETTABLEKS                       R15 R9 K56 ["pluginLoader"]
-      214 NAMECALL                         R15 R15 K57 ["waitForUserInteraction"]
-      216 CALL                             R15 1 1
-      217 JUMPIF                           R15 ; [+1]
-      218 RETURN                           R0 0
-      219 MOVE                             R16 R1
-      220 MOVE                             R17 R0
-      221 MOVE                             R18 R9
-      222 CALL                             R16 2 0
-      223 RETURN                           R0 0
-      224 GETUPVAL                         R9 7
-      225 GETTABLEKS                       R9 R9 K50 ["build"]
-      227 MOVE                             R10 R4
-      228 CALL                             R9 1 0
-      229 RETURN                           R0 0
+        8 CALL                             R4 0 1
+        9 JUMPIFNOT                        R4 ; [+5]
+       10 DUPTABLE                         R3 K4 [{["uri"], ["isPreexistingAction"] = True}]
+       11 DUPTABLE                         R4 K13 [{["DataModel"] = "Standalone", ["PluginId"] = "AdaptiveAnimationSupport", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       12 SETTABLEKS                       R4 R3 K1 ["uri"]
+       14 JUMP                             ; [+17]
+       15 DUPTABLE                         R3 K23 [{["uri"], ["isPreexistingAction"] = False, ["getText"], ["getTooltip"], ["icon"] = "rbxlocaltheme://RemapRig", ["enabled"] = True, ["visible"] = True, ["checkable"], ["checked"] = False}]
+       16 DUPTABLE                         R4 K13 [{["DataModel"] = "Standalone", ["PluginId"] = "AdaptiveAnimationSupport", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       17 SETTABLEKS                       R4 R3 K1 ["uri"]
+       19 DUPCLOSURE                       R4 K24 [PROTO_0]
+       20 SETTABLEKS                       R4 R3 K15 ["getText"]
+       22 DUPCLOSURE                       R4 K25 [PROTO_1]
+       23 SETTABLEKS                       R4 R3 K16 ["getTooltip"]
+       25 GETUPVAL                         R5 2
+       26 JUMPIFNOT                        R5 ; [+2]
+       27 LOADB                            R4 1
+       28 JUMP                             ; [+1]
+       29 LOADNIL                          R4
+       30 SETTABLEKS                       R4 R3 K21 ["checkable"]
+       32 SETLIST                          R2 R3 1 [1]
+       34 DUPTABLE                         R3 K32 [{["plugin"], ["pluginName"] = "AdaptiveAnimationSupport", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["actionInfos"]}]
+       35 SETTABLEKS                       R0 R3 K26 ["plugin"]
+       37 GETUPVAL                         R4 3
+       38 SETTABLEKS                       R4 R3 K28 ["translationResourceTable"]
+       40 GETUPVAL                         R4 4
+       41 SETTABLEKS                       R4 R3 K29 ["fallbackResourceTable"]
+       43 SETTABLEKS                       R2 R3 K31 ["actionInfos"]
+       45 GETIMPORT                        R4 K34 [require]
+       47 GETUPVAL                         R5 0
+       48 GETTABLEKS                       R5 R5 K35 ["Src"]
+       50 GETTABLEKS                       R5 R5 K36 ["Flags"]
+       52 GETTABLEKS                       R5 R5 K37 ["getFFlagAdaptiveAnimationHandRig"]
+       54 CALL                             R4 1 1
+       55 GETIMPORT                        R5 K39 [game]
+       57 LOADK                            R7 K40 ["RunService"]
+       58 NAMECALL                         R5 R5 K41 ["GetService"]
+       60 CALL                             R5 2 1
+       61 GETUPVAL                         R7 5
+       62 GETTABLEKS                       R7 R7 K42 ["get"]
+       64 CALL                             R7 0 1
+       65 GETUPVAL                         R8 5
+       66 GETTABLEKS                       R8 R8 K6 ["Standalone"]
+       68 JUMPIFEQ                         R7 R8 ; [+2]
+       70 LOADB                            R6 0 +1
+       71 LOADB                            R6 1
+       72 NAMECALL                         R7 R5 K43 ["IsEdit"]
+       74 CALL                             R7 1 1
+       75 JUMPIF                           R6 ; [+1]
+       76 JUMPIFNOT                        R7 ; [+58]
+       77 GETUPVAL                         R8 6
+       78 GETTABLEKS                       R8 R8 K44 ["build"]
+       80 MOVE                             R9 R3
+       81 CALL                             R8 1 1
+       82 GETIMPORT                        R9 K39 [game]
+       84 LOADK                            R11 K45 ["Selection"]
+       85 NAMECALL                         R9 R9 K41 ["GetService"]
+       87 CALL                             R9 2 1
+       88 NEWCLOSURE                       R10 P2
+       89 CAPTURE                          VAL R4
+       90 NEWCLOSURE                       R11 P3
+       91 CAPTURE                          VAL R9
+       92 CAPTURE                          VAL R4
+       93 GETTABLEKS                       R12 R9 K46 ["SelectionChangedThisFrame"]
+       95 NEWCLOSURE                       R14 P4
+       96 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R4
+       98 CAPTURE                          VAL R8
+       99 NAMECALL                         R12 R12 K47 ["Connect"]
+      101 CALL                             R12 2 1
+      102 GETTABLEKS                       R13 R0 K48 ["Unloading"]
+      104 NEWCLOSURE                       R15 P5
+      105 CAPTURE                          VAL R12
+      106 NAMECALL                         R13 R13 K47 ["Connect"]
+      108 CALL                             R13 2 0
+      109 MOVE                             R13 R11
+      110 CALL                             R13 0 1
+      111 JUMPIFNOT                        R13 ; [+11]
+      112 LOADNIL                          R14
+      113 GETTABLEKS                       R15 R5 K49 ["Heartbeat"]
+      115 NEWCLOSURE                       R17 P6
+      116 CAPTURE                          REF R14
+      117 CAPTURE                          VAL R8
+      118 NAMECALL                         R15 R15 K47 ["Connect"]
+      120 CALL                             R15 2 1
+      121 MOVE                             R14 R15
+      122 CLOSEUPVALS                      R14
+      123 GETTABLEKS                       R14 R8 K50 ["pluginLoader"]
+      125 NAMECALL                         R14 R14 K51 ["waitForUserInteraction"]
+      127 CALL                             R14 1 1
+      128 JUMPIF                           R14 ; [+1]
+      129 RETURN                           R0 0
+      130 MOVE                             R15 R1
+      131 MOVE                             R16 R0
+      132 MOVE                             R17 R8
+      133 CALL                             R15 2 0
+      134 RETURN                           R0 0
+      135 GETUPVAL                         R8 6
+      136 GETTABLEKS                       R8 R8 K44 ["build"]
+      138 MOVE                             R9 R3
+      139 CALL                             R8 1 0
+      140 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -355,29 +261,21 @@ MAIN:
        36 GETTABLEKS                       R6 R6 K15 ["Common"]
        38 GETTABLEKS                       R6 R6 K16 ["pluginType"]
        40 CALL                             R5 1 1
-       41 GETIMPORT                        R6 K5 [require]
-       43 GETTABLEKS                       R7 R0 K14 ["Bin"]
-       45 GETTABLEKS                       R7 R7 K15 ["Common"]
-       47 GETTABLEKS                       R7 R7 K17 ["defineLuaFlags"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R7 R6 K18 ["getFFlagRegisterActionsPluginLoader"]
-       52 CALL                             R7 0 1
-       53 GETIMPORT                        R8 K20 [game]
-       55 LOADK                            R10 K21 ["ReplaceIsCheckableWithCheckable"]
-       56 NAMECALL                         R8 R8 K22 ["GetEngineFeature"]
-       58 CALL                             R8 2 1
-       59 GETIMPORT                        R9 K5 [require]
-       61 GETTABLEKS                       R10 R0 K9 ["Src"]
-       63 GETTABLEKS                       R10 R10 K23 ["Flags"]
-       65 GETTABLEKS                       R10 R10 K24 ["getFFlagAdaptiveAnimationHandRig"]
-       67 CALL                             R9 1 1
-       68 DUPCLOSURE                       R10 K25 [PROTO_10]
-       69 CAPTURE                          VAL R0
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R9
-       72 CAPTURE                          VAL R8
-       73 CAPTURE                          VAL R4
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R5
-       76 CAPTURE                          VAL R2
-       77 RETURN                           R10 1
+       41 GETIMPORT                        R6 K18 [game]
+       43 LOADK                            R8 K19 ["ReplaceIsCheckableWithCheckable"]
+       44 NAMECALL                         R6 R6 K20 ["GetEngineFeature"]
+       46 CALL                             R6 2 1
+       47 GETIMPORT                        R7 K5 [require]
+       49 GETTABLEKS                       R8 R0 K9 ["Src"]
+       51 GETTABLEKS                       R8 R8 K21 ["Flags"]
+       53 GETTABLEKS                       R8 R8 K22 ["getFFlagAdaptiveAnimationHandRig"]
+       55 CALL                             R7 1 1
+       56 DUPCLOSURE                       R8 K23 [PROTO_7]
+       57 CAPTURE                          VAL R0
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R2
+       64 RETURN                           R8 1

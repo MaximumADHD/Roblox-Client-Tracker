@@ -1,26 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R6 K10 [{"AssetType", "ContentType", "CreatorId", "CreatorType", "AssetName", "Description", "AssetId", "ExpectedPrice", "Token", "AdditionalParameters"}]
-        1 LOADK                            R7 K11 ["Model"]
-        2 SETTABLEKS                       R7 R6 K0 ["AssetType"]
-        4 LOADK                            R7 K12 ["model/x-rbxm"]
-        5 SETTABLEKS                       R7 R6 K1 ["ContentType"]
-        7 SETTABLEKS                       R1 R6 K2 ["CreatorId"]
-        9 SETTABLEKS                       R2 R6 K3 ["CreatorType"]
-       11 SETTABLEKS                       R3 R6 K4 ["AssetName"]
-       13 SETTABLEKS                       R4 R6 K5 ["Description"]
-       15 LOADN                            R7 0
-       16 SETTABLEKS                       R7 R6 K6 ["AssetId"]
-       18 LOADN                            R7 0
-       19 SETTABLEKS                       R7 R6 K7 ["ExpectedPrice"]
-       21 LOADK                            R7 K13 [""]
-       22 SETTABLEKS                       R7 R6 K8 ["Token"]
-       24 NEWTABLE                         R7 0 0
-       26 SETTABLEKS                       R7 R6 K9 ["AdditionalParameters"]
-       28 MOVE                             R9 R0
-       29 MOVE                             R10 R6
-       30 NAMECALL                         R7 R5 K14 ["createAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson"]
-       32 CALL                             R7 3 -1
-       33 RETURN                           R7 -1
+        0 DUPTABLE                         R6 K14 [{[1] = "Model", ["ContentType"] = "model/x-rbxm", ["CreatorId"], ["CreatorType"], ["AssetName"], ["Description"], ["AssetId"] = 0, ["ExpectedPrice"] = 0, ["Token"] = "", ["AdditionalParameters"]}]
+        1 SETTABLEKS                       R1 R6 K4 ["CreatorId"]
+        3 SETTABLEKS                       R2 R6 K5 ["CreatorType"]
+        5 SETTABLEKS                       R3 R6 K6 ["AssetName"]
+        7 SETTABLEKS                       R4 R6 K7 ["Description"]
+        9 NEWTABLE                         R7 0 0
+       11 SETTABLEKS                       R7 R6 K13 ["AdditionalParameters"]
+       13 MOVE                             R9 R0
+       14 MOVE                             R10 R6
+       15 NAMECALL                         R7 R5 K15 ["createAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson"]
+       17 CALL                             R7 3 -1
+       18 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

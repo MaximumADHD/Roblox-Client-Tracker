@@ -132,7 +132,7 @@ PROTO_0:
       148 ADD                              R16 R17 R18
       149 MULK                             R17 R14 K26 [0.02]
       150 ADD                              R15 R16 R17
-      151 SUBRK                            R17 R27 K1 ["Y"]
+      151 SUBRK                            R17 K27 [1] R1
       152 ADDK                             R18 R7 K28 [0.015]
       153 JUMPIFNOTLT                      R17 R18 ; [+4]
       155 GETIMPORT                        R16 K32 [Enum.Material.Sand]
@@ -153,7 +153,7 @@ PROTO_0:
       176 GETIMPORT                        R23 K5 [Vector3.new]
       178 CALL                             R23 3 1
       179 CALL                             R22 1 1
-      180 SUBRK                            R21 R27 K22 [0.06]
+      180 SUBRK                            R21 K27 [1] R22
       181 MULK                             R20 R21 K35 [10]
       182 FASTCALL1                        MATH_CEIL R20 ; [+2]
       183 GETIMPORT                        R19 K38 [math.ceil]

@@ -33,16 +33,8 @@ MAIN:
        14 GETIMPORT                        R3 K6 [require]
        16 GETTABLEKS                       R4 R1 K8 ["Dash"]
        18 CALL                             R3 1 1
-       19 DUPTABLE                         R4 K13 [{"Invalid", "Ad", "MaterialPack", "Package"}]
-       20 LOADK                            R5 K9 ["Invalid"]
-       21 SETTABLEKS                       R5 R4 K9 ["Invalid"]
-       23 LOADK                            R5 K10 ["Ad"]
-       24 SETTABLEKS                       R5 R4 K10 ["Ad"]
-       26 LOADK                            R5 K11 ["MaterialPack"]
-       27 SETTABLEKS                       R5 R4 K11 ["MaterialPack"]
-       29 LOADK                            R5 K12 ["Package"]
-       30 SETTABLEKS                       R5 R4 K12 ["Package"]
-       32 DUPCLOSURE                       R5 K14 [PROTO_1]
-       33 CAPTURE                          VAL R3
-       34 SETTABLEKS                       R5 R4 K15 ["contains"]
-       36 RETURN                           R4 1
+       19 DUPTABLE                         R4 K13 [{["Invalid"] = "Invalid", ["Ad"] = "Ad", ["MaterialPack"] = "MaterialPack", ["Package"] = "Package"}]
+       20 DUPCLOSURE                       R5 K14 [PROTO_1]
+       21 CAPTURE                          VAL R3
+       22 SETTABLEKS                       R5 R4 K15 ["contains"]
+       24 RETURN                           R4 1

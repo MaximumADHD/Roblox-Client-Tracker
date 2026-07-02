@@ -1,35 +1,17 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+25]
-        3 DUPTABLE                         R0 K5 [{"creatorTargetId", "rootPlaceId", "name", "universeId", "audiences"}]
-        4 LOADK                            R1 K6 [22915773]
-        5 SETTABLEKS                       R1 R0 K0 ["creatorTargetId"]
-        7 LOADK                            R1 K7 [10395446]
-        8 SETTABLEKS                       R1 R0 K1 ["rootPlaceId"]
-       10 LOADK                            R1 K8 ["yeet game"]
-       11 SETTABLEKS                       R1 R0 K2 ["name"]
-       13 LOADK                            R1 K9 [149757]
-       14 SETTABLEKS                       R1 R0 K3 ["universeId"]
-       16 NEWTABLE                         R1 0 1
-       18 GETUPVAL                         R2 1
-       19 GETTABLEKS                       R2 R2 K10 ["AUDIENCE"]
-       21 GETTABLEKS                       R2 R2 K11 ["PUBLIC"]
-       23 SETLIST                          R1 R2 1 [1]
-       25 SETTABLEKS                       R1 R0 K4 ["audiences"]
-       27 RETURN                           R0 1
-       28 DUPTABLE                         R0 K13 [{"creatorTargetId", "rootPlaceId", "name", "universeId", "privateType"}]
-       29 LOADK                            R1 K6 [22915773]
-       30 SETTABLEKS                       R1 R0 K0 ["creatorTargetId"]
-       32 LOADK                            R1 K7 [10395446]
-       33 SETTABLEKS                       R1 R0 K1 ["rootPlaceId"]
-       35 LOADK                            R1 K8 ["yeet game"]
-       36 SETTABLEKS                       R1 R0 K2 ["name"]
-       38 LOADK                            R1 K9 [149757]
-       39 SETTABLEKS                       R1 R0 K3 ["universeId"]
-       41 LOADK                            R1 K14 ["Public"]
-       42 SETTABLEKS                       R1 R0 K12 ["privateType"]
-       44 RETURN                           R0 1
+        2 JUMPIFNOT                        R0 ; [+13]
+        3 DUPTABLE                         R0 K9 [{[1] = 22915773, ["rootPlaceId"] = 10395446, ["name"] = "yeet game", ["universeId"] = 149757, ["audiences"]}]
+        4 NEWTABLE                         R1 0 1
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K10 ["AUDIENCE"]
+        9 GETTABLEKS                       R2 R2 K11 ["PUBLIC"]
+       11 SETLIST                          R1 R2 1 [1]
+       13 SETTABLEKS                       R1 R0 K8 ["audiences"]
+       15 RETURN                           R0 1
+       16 DUPTABLE                         R0 K14 [{[1] = 22915773, ["rootPlaceId"] = 10395446, ["name"] = "yeet game", ["universeId"] = 149757, ["privateType"] = "Public"}]
+       17 RETURN                           R0 1
 
 PROTO_1:
         0 FASTCALL1                        TYPE R0 ; [+3]

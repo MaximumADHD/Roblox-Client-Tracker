@@ -59,22 +59,20 @@ MAIN:
        25 GETTABLEKS                       R3 R3 K11 ["FFlagDebugLogAssistantUI"]
        27 GETTABLEKS                       R4 R2 K12 ["Implementations"]
        29 GETTABLEKS                       R4 R4 K13 ["StudioNetworking"]
-       31 DUPTABLE                         R5 K15 [{"plugin"}]
+       31 DUPTABLE                         R5 K16 [{["plugin"] = }]
        32 LOADNIL                          R6
-       33 SETTABLEKS                       R6 R5 K14 ["plugin"]
-       35 LOADNIL                          R6
-       36 NEWCLOSURE                       R7 P0
-       37 CAPTURE                          VAL R5
-       38 CAPTURE                          VAL R4
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          REF R6
-       41 CAPTURE                          VAL R2
-       42 SETTABLEKS                       R7 R5 K16 ["create"]
-       44 NEWCLOSURE                       R7 P1
-       45 CAPTURE                          REF R6
-       46 SETTABLEKS                       R7 R5 K17 ["get"]
-       48 NEWCLOSURE                       R7 P2
-       49 CAPTURE                          REF R6
-       50 SETTABLEKS                       R7 R5 K18 ["Destroy"]
-       52 CLOSEUPVALS                      R6
-       53 RETURN                           R5 1
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          VAL R5
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          REF R6
+       38 CAPTURE                          VAL R2
+       39 SETTABLEKS                       R7 R5 K17 ["create"]
+       41 NEWCLOSURE                       R7 P1
+       42 CAPTURE                          REF R6
+       43 SETTABLEKS                       R7 R5 K18 ["get"]
+       45 NEWCLOSURE                       R7 P2
+       46 CAPTURE                          REF R6
+       47 SETTABLEKS                       R7 R5 K19 ["Destroy"]
+       49 CLOSEUPVALS                      R6
+       50 RETURN                           R5 1

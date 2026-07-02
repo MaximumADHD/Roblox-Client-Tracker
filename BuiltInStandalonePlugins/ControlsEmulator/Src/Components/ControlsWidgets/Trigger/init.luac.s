@@ -1,6 +1,6 @@
 PROTO_0:
         0 DIVK                             R3 R1 K1 [2]
-        1 DIVRK                            R2 R0 K3 [0.63]
+        1 DIVRK                            R2 K0 [0.847297860387203] R3
         2 SUBK                             R9 R0 K4 [1]
         3 MUL                              R8 R2 R9
         4 FASTCALL1                        MATH_EXP R8 ; [+2]
@@ -177,7 +177,7 @@ PROTO_6:
        29 GETIMPORT                        R9 K9 [UDim2.new]
        31 GETUPVAL                         R11 1
        32 DIVK                             R13 R11 K11 [2]
-       33 DIVRK                            R12 R10 K13 [0.63]
+       33 DIVRK                            R12 K10 [0.847297860387203] R13
        34 SUBK                             R18 R4 K14 [1]
        35 MUL                              R17 R12 R18
        36 FASTCALL1                        MATH_EXP R17 ; [+2]
@@ -578,7 +578,7 @@ MAIN:
        73 GETTABLEKS                       R9 R9 K22 ["joinTags"]
        75 GETTABLEKS                       R10 R5 K23 ["NUMBER_OF_HORIZONTAL_BARS_TRIGGER"]
        77 MULK                             R12 R10 K25 [2]
-       78 DIVRK                            R11 R24 K12 ["React"]
+       78 DIVRK                            R11 K24 [1] R12
        79 DUPCLOSURE                       R12 K26 [PROTO_0]
        80 DUPCLOSURE                       R13 K27 [PROTO_15]
        81 CAPTURE                          VAL R3

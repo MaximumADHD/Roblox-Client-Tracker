@@ -41,45 +41,39 @@ PROTO_3:
        14 GETUPVAL                         R5 0
        15 GETTABLEKS                       R5 R5 K0 ["createElement"]
        17 LOADK                            R6 K3 ["Frame"]
-       18 DUPTABLE                         R7 K7 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
-       19 GETIMPORT                        R8 K10 [UDim2.new]
+       18 DUPTABLE                         R7 K9 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1}]
+       19 GETIMPORT                        R8 K12 [UDim2.new]
        21 LOADN                            R9 1
        22 LOADN                            R10 0
        23 LOADN                            R11 1
        24 LOADN                            R12 0
        25 CALL                             R8 4 1
        26 SETTABLEKS                       R8 R7 K4 ["Size"]
-       28 LOADN                            R8 0
-       29 SETTABLEKS                       R8 R7 K5 ["BorderSizePixel"]
-       31 LOADN                            R8 1
-       32 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
-       34 DUPTABLE                         R8 K12 [{"MorpherTemplateContainer"}]
-       35 GETUPVAL                         R9 0
-       36 GETTABLEKS                       R9 R9 K0 ["createElement"]
-       38 GETUPVAL                         R10 2
-       39 DUPTABLE                         R11 K19 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
-       40 GETTABLEKS                       R12 R0 K20 ["props"]
-       42 GETTABLEKS                       R12 R12 K21 ["StateTheme"]
-       44 SETTABLEKS                       R12 R11 K13 ["ThemeData"]
-       46 GETTABLEKS                       R12 R0 K20 ["props"]
-       48 GETTABLEKS                       R12 R12 K14 ["StateTemplates"]
-       50 SETTABLEKS                       R12 R11 K14 ["StateTemplates"]
-       52 LOADB                            R12 1
-       53 SETTABLEKS                       R12 R11 K15 ["IsEnabled"]
-       55 GETTABLEKS                       R12 R0 K20 ["props"]
-       57 GETTABLEKS                       R12 R12 K16 ["Mouse"]
-       59 SETTABLEKS                       R12 R11 K16 ["Mouse"]
-       61 GETTABLEKS                       R12 R0 K20 ["props"]
-       63 GETTABLEKS                       R12 R12 K17 ["clobberTemplate"]
-       65 SETTABLEKS                       R12 R11 K17 ["clobberTemplate"]
-       67 GETTABLEKS                       R12 R0 K22 ["contentHeightChanged"]
-       69 SETTABLEKS                       R12 R11 K18 ["ContentHeightChanged"]
-       71 CALL                             R9 2 1
-       72 SETTABLEKS                       R9 R8 K11 ["MorpherTemplateContainer"]
-       74 CALL                             R5 3 -1
-       75 SETLIST                          R4 R5 -1 [1]
-       77 CALL                             R1 3 -1
-       78 RETURN                           R1 -1
+       28 DUPTABLE                         R8 K14 [{"MorpherTemplateContainer"}]
+       29 GETUPVAL                         R9 0
+       30 GETTABLEKS                       R9 R9 K0 ["createElement"]
+       32 GETUPVAL                         R10 2
+       33 DUPTABLE                         R11 K22 [{["ThemeData"], ["StateTemplates"], ["IsEnabled"] = True, ["Mouse"], ["clobberTemplate"], ["ContentHeightChanged"]}]
+       34 GETTABLEKS                       R12 R0 K23 ["props"]
+       36 GETTABLEKS                       R12 R12 K24 ["StateTheme"]
+       38 SETTABLEKS                       R12 R11 K15 ["ThemeData"]
+       40 GETTABLEKS                       R12 R0 K23 ["props"]
+       42 GETTABLEKS                       R12 R12 K16 ["StateTemplates"]
+       44 SETTABLEKS                       R12 R11 K16 ["StateTemplates"]
+       46 GETTABLEKS                       R12 R0 K23 ["props"]
+       48 GETTABLEKS                       R12 R12 K19 ["Mouse"]
+       50 SETTABLEKS                       R12 R11 K19 ["Mouse"]
+       52 GETTABLEKS                       R12 R0 K23 ["props"]
+       54 GETTABLEKS                       R12 R12 K20 ["clobberTemplate"]
+       56 SETTABLEKS                       R12 R11 K20 ["clobberTemplate"]
+       58 GETTABLEKS                       R12 R0 K25 ["contentHeightChanged"]
+       60 SETTABLEKS                       R12 R11 K21 ["ContentHeightChanged"]
+       62 CALL                             R9 2 1
+       63 SETTABLEKS                       R9 R8 K13 ["MorpherTemplateContainer"]
+       65 CALL                             R5 3 -1
+       66 SETLIST                          R4 R5 -1 [1]
+       68 CALL                             R1 3 -1
+       69 RETURN                           R1 -1
 
 PROTO_4:
         0 DUPTABLE                         R2 K2 [{"StateTemplates", "StateTheme"}]

@@ -10,63 +10,23 @@ PROTO_0:
 
 PROTO_1:
         0 DUPTABLE                         R1 K4 [{"asset", "creator", "thumbnail", "voting"}]
-        1 DUPTABLE                         R2 K14 [{"id", "name", "duration", "typeId", "isEndorsed", "description", "createdUtc", "updatedUtc", "assetGenres"}]
+        1 DUPTABLE                         R2 K20 [{["id"], ["name"], ["duration"] = 0, ["typeId"] = 10, ["isEndorsed"] = True, ["description"] = "mocked asset item", ["createdUtc"] = "2018-05-10T02:28:14.227Z", ["updatedUtc"] = "2018-06-10T02:28:14.24Z", ["assetGenres"]}]
         2 SETTABLEKS                       R0 R2 K5 ["id"]
-        4 LOADK                            R4 K15 ["Observation Tower Mock"]
+        4 LOADK                            R4 K21 ["Observation Tower Mock"]
         5 MOVE                             R5 R0
         6 CONCAT                           R3 R4 R5
         7 SETTABLEKS                       R3 R2 K6 ["name"]
-        9 LOADN                            R3 0
-       10 SETTABLEKS                       R3 R2 K7 ["duration"]
-       12 LOADN                            R3 10
-       13 SETTABLEKS                       R3 R2 K8 ["typeId"]
-       15 LOADB                            R3 1
-       16 SETTABLEKS                       R3 R2 K9 ["isEndorsed"]
-       18 LOADK                            R3 K16 ["mocked asset item"]
-       19 SETTABLEKS                       R3 R2 K10 ["description"]
-       21 LOADK                            R3 K17 ["2018-05-10T02:28:14.227Z"]
-       22 SETTABLEKS                       R3 R2 K11 ["createdUtc"]
-       24 LOADK                            R3 K18 ["2018-06-10T02:28:14.24Z"]
-       25 SETTABLEKS                       R3 R2 K12 ["updatedUtc"]
-       27 NEWTABLE                         R3 0 0
-       29 SETTABLEKS                       R3 R2 K13 ["assetGenres"]
-       31 SETTABLEKS                       R2 R1 K0 ["asset"]
-       33 DUPTABLE                         R2 K20 [{"id", "name", "type"}]
-       34 SETTABLEKS                       R0 R2 K5 ["id"]
-       36 LOADK                            R3 K21 ["JUSTforTEST"]
-       37 SETTABLEKS                       R3 R2 K6 ["name"]
-       39 LOADN                            R3 1
-       40 SETTABLEKS                       R3 R2 K19 ["type"]
-       42 SETTABLEKS                       R2 R1 K1 ["creator"]
-       44 DUPTABLE                         R2 K27 [{"final", "Url", "retryUrl", "userId", "endpointType"}]
-       45 LOADB                            R3 1
-       46 SETTABLEKS                       R3 R2 K22 ["final"]
-       48 LOADK                            R3 K28 ["rbxasset://textures/StudioToolbox/Animation.png"]
-       49 SETTABLEKS                       R3 R2 K23 ["Url"]
-       51 LOADNIL                          R3
-       52 SETTABLEKS                       R3 R2 K24 ["retryUrl"]
-       54 LOADN                            R3 0
-       55 SETTABLEKS                       R3 R2 K25 ["userId"]
-       57 LOADK                            R3 K29 ["Avatar"]
-       58 SETTABLEKS                       R3 R2 K26 ["endpointType"]
-       60 SETTABLEKS                       R2 R1 K2 ["thumbnail"]
-       62 DUPTABLE                         R2 K37 [{"showVotes", "upVotes", "downVotes", "canVote", "userVote", "hasVoted", "reasonForNotVoteable"}]
-       63 LOADB                            R3 1
-       64 SETTABLEKS                       R3 R2 K30 ["showVotes"]
-       66 LOADN                            R3 154
-       67 SETTABLEKS                       R3 R2 K31 ["upVotes"]
-       69 LOADN                            R3 69
-       70 SETTABLEKS                       R3 R2 K32 ["downVotes"]
-       72 LOADB                            R3 1
-       73 SETTABLEKS                       R3 R2 K33 ["canVote"]
-       75 LOADK                            R3 K38 [""]
-       76 SETTABLEKS                       R3 R2 K34 ["userVote"]
-       78 LOADB                            R3 0
-       79 SETTABLEKS                       R3 R2 K35 ["hasVoted"]
-       81 LOADK                            R3 K38 [""]
-       82 SETTABLEKS                       R3 R2 K36 ["reasonForNotVoteable"]
-       84 SETTABLEKS                       R2 R1 K3 ["voting"]
-       86 RETURN                           R1 1
+        9 NEWTABLE                         R3 0 0
+       11 SETTABLEKS                       R3 R2 K19 ["assetGenres"]
+       13 SETTABLEKS                       R2 R1 K0 ["asset"]
+       15 DUPTABLE                         R2 K25 [{["id"], ["name"] = "JUSTforTEST", ["type"] = 1}]
+       16 SETTABLEKS                       R0 R2 K5 ["id"]
+       18 SETTABLEKS                       R2 R1 K1 ["creator"]
+       20 DUPTABLE                         R2 K34 [{["final"] = True, ["Url"] = "rbxasset://textures/StudioToolbox/Animation.png", ["retryUrl"] = , ["userId"] = 0, ["endpointType"] = "Avatar"}]
+       21 SETTABLEKS                       R2 R1 K2 ["thumbnail"]
+       23 DUPTABLE                         R2 K46 [{["showVotes"] = True, ["upVotes"] = 4506, ["downVotes"] = 581, ["canVote"] = True, ["userVote"] = "", ["hasVoted"] = False, ["reasonForNotVoteable"] = ""}]
+       24 SETTABLEKS                       R2 R1 K3 ["voting"]
+       26 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -75,25 +35,19 @@ PROTO_2:
         3 RETURN                           R2 1
 
 PROTO_3:
-        0 DUPTABLE                         R1 K2 [{"id", "itemType"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["itemType"] = "Asset"}]
         1 SETTABLEKS                       R0 R1 K0 ["id"]
-        3 LOADK                            R2 K3 ["Asset"]
-        4 SETTABLEKS                       R2 R1 K1 ["itemType"]
-        6 RETURN                           R1 1
+        3 RETURN                           R1 1
 
 PROTO_4:
-        0 DUPTABLE                         R2 K2 [{"id", "itemType"}]
+        0 DUPTABLE                         R2 K3 [{[1], ["itemType"] = "Asset"}]
         1 SETTABLEKS                       R1 R2 K0 ["id"]
-        3 LOADK                            R3 K3 ["Asset"]
-        4 SETTABLEKS                       R3 R2 K1 ["itemType"]
-        6 RETURN                           R2 1
+        3 RETURN                           R2 1
 
 PROTO_5:
-        0 DUPTABLE                         R1 K2 [{"assetId", "name"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["name"] = "Dummy"}]
         1 SETTABLEKS                       R0 R1 K0 ["assetId"]
-        3 LOADK                            R2 K3 ["Dummy"]
-        4 SETTABLEKS                       R2 R1 K1 ["name"]
-        6 RETURN                           R1 1
+        3 RETURN                           R1 1
 
 PROTO_6:
         0 GETIMPORT                        R2 K1 [ipairs]
@@ -162,96 +116,28 @@ PROTO_7:
 
 PROTO_8:
         0 DUPTABLE                         R3 K1 [{"responseBody"}]
-        1 DUPTABLE                         R4 K3 [{"TotalResults"}]
-        2 LOADN                            R5 11
-        3 SETTABLEKS                       R5 R4 K2 ["TotalResults"]
-        5 SETTABLEKS                       R4 R3 K0 ["responseBody"]
-        7 NEWTABLE                         R4 0 11
-        9 DUPTABLE                         R5 K7 [{"action", "assetId", "status"}]
-       10 LOADK                            R6 K8 ["Use"]
-       11 SETTABLEKS                       R6 R5 K4 ["action"]
-       13 LOADN                            R6 159
-       14 SETTABLEKS                       R6 R5 K5 ["assetId"]
-       16 LOADK                            R6 K9 ["HasPermission"]
-       17 SETTABLEKS                       R6 R5 K6 ["status"]
-       19 DUPTABLE                         R6 K7 [{"action", "assetId", "status"}]
-       20 LOADK                            R7 K10 ["Edit"]
-       21 SETTABLEKS                       R7 R6 K4 ["action"]
-       23 LOADN                            R7 159
-       24 SETTABLEKS                       R7 R6 K5 ["assetId"]
-       26 LOADK                            R7 K9 ["HasPermission"]
-       27 SETTABLEKS                       R7 R6 K6 ["status"]
-       29 DUPTABLE                         R7 K7 [{"action", "assetId", "status"}]
-       30 LOADK                            R8 K11 ["GrantAssetPermissions"]
-       31 SETTABLEKS                       R8 R7 K4 ["action"]
-       33 LOADN                            R8 159
-       34 SETTABLEKS                       R8 R7 K5 ["assetId"]
-       36 LOADK                            R8 K9 ["HasPermission"]
-       37 SETTABLEKS                       R8 R7 K6 ["status"]
-       39 DUPTABLE                         R8 K7 [{"action", "assetId", "status"}]
-       40 LOADK                            R9 K8 ["Use"]
-       41 SETTABLEKS                       R9 R8 K4 ["action"]
-       43 LOADN                            R9 55
-       44 SETTABLEKS                       R9 R8 K5 ["assetId"]
-       46 LOADK                            R9 K9 ["HasPermission"]
-       47 SETTABLEKS                       R9 R8 K6 ["status"]
-       49 DUPTABLE                         R9 K7 [{"action", "assetId", "status"}]
-       50 LOADK                            R10 K10 ["Edit"]
-       51 SETTABLEKS                       R10 R9 K4 ["action"]
-       53 LOADN                            R10 55
-       54 SETTABLEKS                       R10 R9 K5 ["assetId"]
-       56 LOADK                            R10 K9 ["HasPermission"]
-       57 SETTABLEKS                       R10 R9 K6 ["status"]
-       59 DUPTABLE                         R10 K7 [{"action", "assetId", "status"}]
-       60 LOADK                            R11 K11 ["GrantAssetPermissions"]
-       61 SETTABLEKS                       R11 R10 K4 ["action"]
-       63 LOADN                            R11 55
-       64 SETTABLEKS                       R11 R10 K5 ["assetId"]
-       66 LOADK                            R11 K12 ["NoPermission"]
-       67 SETTABLEKS                       R11 R10 K6 ["status"]
-       69 DUPTABLE                         R11 K7 [{"action", "assetId", "status"}]
-       70 LOADK                            R12 K11 ["GrantAssetPermissions"]
-       71 SETTABLEKS                       R12 R11 K4 ["action"]
-       73 LOADN                            R12 86
-       74 SETTABLEKS                       R12 R11 K5 ["assetId"]
-       76 LOADK                            R12 K13 ["AssetNotFound"]
-       77 SETTABLEKS                       R12 R11 K6 ["status"]
-       79 DUPTABLE                         R12 K7 [{"action", "assetId", "status"}]
-       80 LOADK                            R13 K10 ["Edit"]
-       81 SETTABLEKS                       R13 R12 K4 ["action"]
-       83 LOADN                            R13 37
-       84 SETTABLEKS                       R13 R12 K5 ["assetId"]
-       86 LOADK                            R13 K14 ["UnknownError"]
-       87 SETTABLEKS                       R13 R12 K6 ["status"]
-       89 DUPTABLE                         R13 K7 [{"action", "assetId", "status"}]
-       90 LOADK                            R14 K8 ["Use"]
-       91 SETTABLEKS                       R14 R13 K4 ["action"]
-       93 LOADN                            R14 172
-       94 SETTABLEKS                       R14 R13 K5 ["assetId"]
-       96 LOADK                            R14 K12 ["NoPermission"]
-       97 SETTABLEKS                       R14 R13 K6 ["status"]
-       99 DUPTABLE                         R14 K7 [{"action", "assetId", "status"}]
-      100 LOADK                            R15 K10 ["Edit"]
-      101 SETTABLEKS                       R15 R14 K4 ["action"]
-      103 LOADN                            R15 172
-      104 SETTABLEKS                       R15 R14 K5 ["assetId"]
-      106 LOADK                            R15 K12 ["NoPermission"]
-      107 SETTABLEKS                       R15 R14 K6 ["status"]
-      109 DUPTABLE                         R15 K7 [{"action", "assetId", "status"}]
-      110 LOADK                            R16 K11 ["GrantAssetPermissions"]
-      111 SETTABLEKS                       R16 R15 K4 ["action"]
-      113 LOADN                            R16 172
-      114 SETTABLEKS                       R16 R15 K5 ["assetId"]
-      116 LOADK                            R16 K12 ["NoPermission"]
-      117 SETTABLEKS                       R16 R15 K6 ["status"]
-      119 SETLIST                          R4 R5 11 [1]
-      121 GETTABLEKS                       R5 R3 K0 ["responseBody"]
-      123 SETTABLEKS                       R4 R5 K15 ["results"]
-      125 GETUPVAL                         R5 0
-      126 GETTABLEKS                       R5 R5 K16 ["resolve"]
-      128 MOVE                             R6 R3
-      129 CALL                             R5 1 -1
-      130 RETURN                           R5 -1
+        1 DUPTABLE                         R4 K4 [{["TotalResults"] = 11}]
+        2 SETTABLEKS                       R4 R3 K0 ["responseBody"]
+        4 NEWTABLE                         R4 0 11
+        6 DUPTABLE                         R5 K11 [{["action"] = "Use", ["assetId"] = 7327, ["status"] = "HasPermission"}]
+        7 DUPTABLE                         R6 K13 [{["action"] = "Edit", ["assetId"] = 7327, ["status"] = "HasPermission"}]
+        8 DUPTABLE                         R7 K15 [{["action"] = "GrantAssetPermissions", ["assetId"] = 7327, ["status"] = "HasPermission"}]
+        9 DUPTABLE                         R8 K17 [{["action"] = "Use", ["assetId"] = 3127, ["status"] = "HasPermission"}]
+       10 DUPTABLE                         R9 K18 [{["action"] = "Edit", ["assetId"] = 3127, ["status"] = "HasPermission"}]
+       11 DUPTABLE                         R10 K20 [{["action"] = "GrantAssetPermissions", ["assetId"] = 3127, ["status"] = "NoPermission"}]
+       12 DUPTABLE                         R11 K23 [{["action"] = "GrantAssetPermissions", ["assetId"] = 2134, ["status"] = "AssetNotFound"}]
+       13 DUPTABLE                         R12 K26 [{["action"] = "Edit", ["assetId"] = 9765, ["status"] = "UnknownError"}]
+       14 DUPTABLE                         R13 K28 [{["action"] = "Use", ["assetId"] = 7340, ["status"] = "NoPermission"}]
+       15 DUPTABLE                         R14 K29 [{["action"] = "Edit", ["assetId"] = 7340, ["status"] = "NoPermission"}]
+       16 DUPTABLE                         R15 K30 [{["action"] = "GrantAssetPermissions", ["assetId"] = 7340, ["status"] = "NoPermission"}]
+       17 SETLIST                          R4 R5 11 [1]
+       19 GETTABLEKS                       R5 R3 K0 ["responseBody"]
+       21 SETTABLEKS                       R4 R5 K31 ["results"]
+       23 GETUPVAL                         R5 0
+       24 GETTABLEKS                       R5 R5 K32 ["resolve"]
+       26 MOVE                             R6 R3
+       27 CALL                             R5 1 -1
+       28 RETURN                           R5 -1
 
 PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["categoryName"]
@@ -261,30 +147,26 @@ PROTO_9:
         6 MOVE                             R6 R3
         7 CALL                             R4 2 0
         8 DUPTABLE                         R4 K3 [{"responseBody"}]
-        9 DUPTABLE                         R5 K6 [{"totalResults", "nextPageCursor"}]
+        9 DUPTABLE                         R5 K6 [{["totalResults"], ["nextPageCursor"] = "nextPageCursor"}]
        10 GETTABLEKS                       R6 R0 K7 ["assetCount"]
        12 SETTABLEKS                       R6 R5 K4 ["totalResults"]
-       14 LOADK                            R6 K5 ["nextPageCursor"]
-       15 SETTABLEKS                       R6 R5 K5 ["nextPageCursor"]
-       17 SETTABLEKS                       R5 R4 K2 ["responseBody"]
-       19 NEWTABLE                         R5 0 0
-       21 LOADN                            R8 1
-       22 GETTABLEKS                       R6 R0 K7 ["assetCount"]
-       24 LOADN                            R7 1
-       25 FORNPREP                         R6
-       26 DUPTABLE                         R9 K10 [{"id", "itemType"}]
-       27 SETTABLEKS                       R8 R9 K8 ["id"]
-       29 LOADK                            R10 K11 ["Asset"]
-       30 SETTABLEKS                       R10 R9 K9 ["itemType"]
-       32 SETTABLE                         R9 R5 R8
-       33 FORNLOOP                         R6
-       34 GETTABLEKS                       R6 R4 K2 ["responseBody"]
-       36 SETTABLEKS                       R5 R6 K12 ["data"]
-       38 GETUPVAL                         R6 1
-       39 GETTABLEKS                       R6 R6 K13 ["resolve"]
-       41 MOVE                             R7 R4
-       42 CALL                             R6 1 -1
-       43 RETURN                           R6 -1
+       14 SETTABLEKS                       R5 R4 K2 ["responseBody"]
+       16 NEWTABLE                         R5 0 0
+       18 LOADN                            R8 1
+       19 GETTABLEKS                       R6 R0 K7 ["assetCount"]
+       21 LOADN                            R7 1
+       22 FORNPREP                         R6
+       23 DUPTABLE                         R9 K11 [{["id"], ["itemType"] = "Asset"}]
+       24 SETTABLEKS                       R8 R9 K8 ["id"]
+       26 SETTABLE                         R9 R5 R8
+       27 FORNLOOP                         R6
+       28 GETTABLEKS                       R6 R4 K2 ["responseBody"]
+       30 SETTABLEKS                       R5 R6 K12 ["data"]
+       32 GETUPVAL                         R6 1
+       33 GETTABLEKS                       R6 R6 K13 ["resolve"]
+       35 MOVE                             R7 R4
+       36 CALL                             R6 1 -1
+       37 RETURN                           R6 -1
 
 PROTO_10:
         0 NEWTABLE                         R2 0 0
@@ -347,20 +229,18 @@ PROTO_12:
        15 GETTABLEKS                       R4 R0 K5 ["assetCount"]
        17 LOADN                            R5 1
        18 FORNPREP                         R4
-       19 DUPTABLE                         R7 K8 [{"id", "itemType"}]
+       19 DUPTABLE                         R7 K9 [{["id"], ["itemType"] = "Asset"}]
        20 SETTABLEKS                       R6 R7 K6 ["id"]
-       22 LOADK                            R8 K9 ["Asset"]
-       23 SETTABLEKS                       R8 R7 K7 ["itemType"]
-       25 SETTABLE                         R7 R3 R6
-       26 FORNLOOP                         R4
-       27 GETTABLEKS                       R4 R2 K0 ["responseBody"]
-       29 GETTABLEKS                       R4 R4 K3 ["results"]
-       31 SETTABLEKS                       R3 R4 K10 ["data"]
-       33 GETUPVAL                         R4 0
-       34 GETTABLEKS                       R4 R4 K11 ["resolve"]
-       36 MOVE                             R5 R2
-       37 CALL                             R4 1 -1
-       38 RETURN                           R4 -1
+       22 SETTABLE                         R7 R3 R6
+       23 FORNLOOP                         R4
+       24 GETTABLEKS                       R4 R2 K0 ["responseBody"]
+       26 GETTABLEKS                       R4 R4 K3 ["results"]
+       28 SETTABLEKS                       R3 R4 K10 ["data"]
+       30 GETUPVAL                         R4 0
+       31 GETTABLEKS                       R4 R4 K11 ["resolve"]
+       33 MOVE                             R5 R2
+       34 CALL                             R4 1 -1
+       35 RETURN                           R4 -1
 
 PROTO_13:
         0 DUPTABLE                         R0 K1 [{"responseBody"}]
@@ -371,19 +251,17 @@ PROTO_13:
         8 LOADN                            R2 10
         9 LOADN                            R3 1
        10 FORNPREP                         R2
-       11 DUPTABLE                         R5 K4 [{"assetId", "name"}]
+       11 DUPTABLE                         R5 K5 [{["assetId"], ["name"] = "Dummy"}]
        12 SETTABLEKS                       R4 R5 K2 ["assetId"]
-       14 LOADK                            R6 K5 ["Dummy"]
-       15 SETTABLEKS                       R6 R5 K3 ["name"]
-       17 SETTABLE                         R5 R1 R4
-       18 FORNLOOP                         R2
-       19 GETTABLEKS                       R2 R0 K0 ["responseBody"]
-       21 SETTABLEKS                       R1 R2 K6 ["data"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K7 ["resolve"]
-       26 MOVE                             R3 R0
-       27 CALL                             R2 1 -1
-       28 RETURN                           R2 -1
+       14 SETTABLE                         R5 R1 R4
+       15 FORNLOOP                         R2
+       16 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+       18 SETTABLEKS                       R1 R2 K6 ["data"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K7 ["resolve"]
+       23 MOVE                             R3 R0
+       24 CALL                             R2 1 -1
+       25 RETURN                           R2 -1
 
 PROTO_14:
         0 GETUPVAL                         R2 0
@@ -419,60 +297,58 @@ PROTO_16:
        25 FORNPREP                         R2
        26 DUPTABLE                         R5 K1 [{"assetItem"}]
        27 DUPTABLE                         R6 K3 [{"asset"}]
-       28 DUPTABLE                         R7 K9 [{"assetId", "displayName", "assetSubType"}]
+       28 DUPTABLE                         R7 K10 [{["assetId"], ["displayName"], ["assetSubType"] = "AnimationGraph"}]
        29 SETTABLEKS                       R4 R7 K4 ["assetId"]
        31 LOADK                            R9 K7 ["Asset "]
        32 MOVE                             R10 R4
        33 CONCAT                           R8 R9 R10
        34 SETTABLEKS                       R8 R7 K5 ["displayName"]
-       36 LOADK                            R8 K10 ["AnimationGraph"]
-       37 SETTABLEKS                       R8 R7 K8 ["assetSubType"]
-       39 SETTABLEKS                       R7 R6 K2 ["asset"]
-       41 SETTABLEKS                       R6 R5 K0 ["assetItem"]
-       43 SETTABLE                         R5 R1 R4
-       44 FORNLOOP                         R2
-       45 MOVE                             R2 R1
-       46 JUMPIFNOTEQKS                    R0 K11 ["Animation"] ; [+25]
-       48 NEWTABLE                         R2 0 0
-       50 MOVE                             R3 R1
-       51 LOADNIL                          R4
-       52 LOADNIL                          R5
-       53 FORGPREP                         R3
-       54 GETTABLEKS                       R8 R7 K0 ["assetItem"]
-       56 GETTABLEKS                       R8 R8 K2 ["asset"]
-       58 GETTABLEKS                       R8 R8 K8 ["assetSubType"]
-       60 JUMPIFNOTEQKNIL                  R8 ; [+8]
-       62 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
-       64 MOVE                             R9 R2
-       65 MOVE                             R10 R7
-       66 GETIMPORT                        R8 K14 [table.insert]
-       68 CALL                             R8 2 0
-       69 FORGLOOP                         R3 2 ; [-16]
-       71 JUMP                             ; [+25]
-       72 JUMPIFNOTEQKS                    R0 K10 ["AnimationGraph"] ; [+24]
-       74 NEWTABLE                         R2 0 0
-       76 MOVE                             R3 R1
-       77 LOADNIL                          R4
-       78 LOADNIL                          R5
-       79 FORGPREP                         R3
-       80 GETTABLEKS                       R8 R7 K0 ["assetItem"]
-       82 GETTABLEKS                       R8 R8 K2 ["asset"]
-       84 GETTABLEKS                       R8 R8 K8 ["assetSubType"]
-       86 JUMPIFNOTEQKS                    R8 K10 ["AnimationGraph"] ; [+8]
-       88 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
-       90 MOVE                             R9 R2
-       91 MOVE                             R10 R7
-       92 GETIMPORT                        R8 K14 [table.insert]
-       94 CALL                             R8 2 0
-       95 FORGLOOP                         R3 2 ; [-16]
-       97 GETUPVAL                         R3 0
-       98 GETTABLEKS                       R3 R3 K15 ["resolve"]
-      100 DUPTABLE                         R4 K17 [{"responseBody"}]
-      101 DUPTABLE                         R5 K19 [{"items"}]
-      102 SETTABLEKS                       R2 R5 K18 ["items"]
-      104 SETTABLEKS                       R5 R4 K16 ["responseBody"]
-      106 CALL                             R3 1 -1
-      107 RETURN                           R3 -1
+       36 SETTABLEKS                       R7 R6 K2 ["asset"]
+       38 SETTABLEKS                       R6 R5 K0 ["assetItem"]
+       40 SETTABLE                         R5 R1 R4
+       41 FORNLOOP                         R2
+       42 MOVE                             R2 R1
+       43 JUMPIFNOTEQKS                    R0 K11 ["Animation"] ; [+25]
+       45 NEWTABLE                         R2 0 0
+       47 MOVE                             R3 R1
+       48 LOADNIL                          R4
+       49 LOADNIL                          R5
+       50 FORGPREP                         R3
+       51 GETTABLEKS                       R8 R7 K0 ["assetItem"]
+       53 GETTABLEKS                       R8 R8 K2 ["asset"]
+       55 GETTABLEKS                       R8 R8 K8 ["assetSubType"]
+       57 JUMPIFNOTEQKNIL                  R8 ; [+8]
+       59 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
+       61 MOVE                             R9 R2
+       62 MOVE                             R10 R7
+       63 GETIMPORT                        R8 K14 [table.insert]
+       65 CALL                             R8 2 0
+       66 FORGLOOP                         R3 2 ; [-16]
+       68 JUMP                             ; [+25]
+       69 JUMPIFNOTEQKS                    R0 K9 ["AnimationGraph"] ; [+24]
+       71 NEWTABLE                         R2 0 0
+       73 MOVE                             R3 R1
+       74 LOADNIL                          R4
+       75 LOADNIL                          R5
+       76 FORGPREP                         R3
+       77 GETTABLEKS                       R8 R7 K0 ["assetItem"]
+       79 GETTABLEKS                       R8 R8 K2 ["asset"]
+       81 GETTABLEKS                       R8 R8 K8 ["assetSubType"]
+       83 JUMPIFNOTEQKS                    R8 K9 ["AnimationGraph"] ; [+8]
+       85 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
+       87 MOVE                             R9 R2
+       88 MOVE                             R10 R7
+       89 GETIMPORT                        R8 K14 [table.insert]
+       91 CALL                             R8 2 0
+       92 FORGLOOP                         R3 2 ; [-16]
+       94 GETUPVAL                         R3 0
+       95 GETTABLEKS                       R3 R3 K15 ["resolve"]
+       97 DUPTABLE                         R4 K17 [{"responseBody"}]
+       98 DUPTABLE                         R5 K19 [{"items"}]
+       99 SETTABLEKS                       R2 R5 K18 ["items"]
+      101 SETTABLEKS                       R5 R4 K16 ["responseBody"]
+      103 CALL                             R3 1 -1
+      104 RETURN                           R3 -1
 
 PROTO_17:
         0 GETUPVAL                         R2 0
@@ -482,17 +358,13 @@ PROTO_17:
 
 PROTO_18:
         0 DUPTABLE                         R3 K1 [{"responseBody"}]
-        1 DUPTABLE                         R4 K4 [{"id", "name"}]
-        2 LOADK                            R5 K5 ["1010101"]
-        3 SETTABLEKS                       R5 R4 K2 ["id"]
-        5 LOADK                            R5 K6 ["testAccount"]
-        6 SETTABLEKS                       R5 R4 K3 ["name"]
-        8 SETTABLEKS                       R4 R3 K0 ["responseBody"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R4 R4 K7 ["resolve"]
-       13 MOVE                             R5 R3
-       14 CALL                             R4 1 -1
-       15 RETURN                           R4 -1
+        1 DUPTABLE                         R4 K6 [{["id"] = "1010101", ["name"] = "testAccount"}]
+        2 SETTABLEKS                       R4 R3 K0 ["responseBody"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R4 R4 K7 ["resolve"]
+        7 MOVE                             R5 R3
+        8 CALL                             R4 1 -1
+        9 RETURN                           R4 -1
 
 PROTO_19:
         0 GETUPVAL                         R4 0
@@ -524,64 +396,30 @@ PROTO_21:
        17 RETURN                           R4 -1
 
 PROTO_22:
-        0 DUPTABLE                         R3 K1 [{"userVote"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["userVote"]
-        4 GETUPVAL                         R4 0
-        5 GETTABLEKS                       R4 R4 K2 ["resolve"]
-        7 MOVE                             R5 R3
-        8 CALL                             R4 1 -1
-        9 RETURN                           R4 -1
+        0 DUPTABLE                         R3 K2 [{[1] = True}]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R4 R4 K3 ["resolve"]
+        4 MOVE                             R5 R3
+        5 CALL                             R4 1 -1
+        6 RETURN                           R4 -1
 
 PROTO_23:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
-        3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
-        4 DUPTABLE                         R4 K11 [{"HasVoted", "CanVote", "upVotes", "UserVote", "DownVote", "ShowVotes"}]
-        5 LOADB                            R5 1
-        6 SETTABLEKS                       R5 R4 K5 ["HasVoted"]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K6 ["CanVote"]
-       11 LOADN                            R5 155
-       12 SETTABLEKS                       R5 R4 K7 ["upVotes"]
-       14 LOADB                            R5 1
-       15 SETTABLEKS                       R5 R4 K8 ["UserVote"]
-       17 LOADN                            R5 69
-       18 SETTABLEKS                       R5 R4 K9 ["DownVote"]
-       20 LOADB                            R5 1
-       21 SETTABLEKS                       R5 R4 K10 ["ShowVotes"]
-       23 SETTABLEKS                       R4 R3 K1 ["model"]
-       25 LOADB                            R4 1
-       26 SETTABLEKS                       R4 R3 K2 ["success"]
-       28 LOADK                            R4 K12 ["This is a test message"]
-       29 SETTABLEKS                       R4 R3 K3 ["message"]
-       31 CALL                             R2 1 -1
-       32 RETURN                           R2 -1
+        3 DUPTABLE                         R3 K6 [{["model"], ["success"] = True, ["message"] = "This is a test message"}]
+        4 DUPTABLE                         R4 K15 [{["HasVoted"] = True, ["CanVote"] = True, ["upVotes"] = 4507, ["UserVote"] = True, ["DownVote"] = 581, ["ShowVotes"] = True}]
+        5 SETTABLEKS                       R4 R3 K1 ["model"]
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_24:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
-        3 DUPTABLE                         R3 K4 [{"model", "success", "message"}]
-        4 DUPTABLE                         R4 K11 [{"HasVoted", "CanVote", "upVotes", "UserVote", "DownVote", "ShowVotes"}]
-        5 LOADB                            R5 0
-        6 SETTABLEKS                       R5 R4 K5 ["HasVoted"]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K6 ["CanVote"]
-       11 LOADN                            R5 154
-       12 SETTABLEKS                       R5 R4 K7 ["upVotes"]
-       14 LOADK                            R5 K12 [""]
-       15 SETTABLEKS                       R5 R4 K8 ["UserVote"]
-       17 LOADN                            R5 69
-       18 SETTABLEKS                       R5 R4 K9 ["DownVote"]
-       20 LOADB                            R5 1
-       21 SETTABLEKS                       R5 R4 K10 ["ShowVotes"]
-       23 SETTABLEKS                       R4 R3 K1 ["model"]
-       25 LOADB                            R4 1
-       26 SETTABLEKS                       R4 R3 K2 ["success"]
-       28 LOADK                            R4 K13 ["This is a test message"]
-       29 SETTABLEKS                       R4 R3 K3 ["message"]
-       31 CALL                             R2 1 -1
-       32 RETURN                           R2 -1
+        3 DUPTABLE                         R3 K6 [{["model"], ["success"] = True, ["message"] = "This is a test message"}]
+        4 DUPTABLE                         R4 K17 [{["HasVoted"] = False, ["CanVote"] = True, ["upVotes"] = 4506, ["UserVote"] = "", ["DownVote"] = 581, ["ShowVotes"] = True}]
+        5 SETTABLEKS                       R4 R3 K1 ["model"]
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_25:
         0 GETUPVAL                         R3 0
@@ -634,32 +472,26 @@ PROTO_31:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
-        4 DUPTABLE                         R4 K4 [{"robux"}]
-        5 LOADK                            R5 K5 ["16"]
-        6 SETTABLEKS                       R5 R4 K3 ["robux"]
-        8 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       10 CALL                             R2 1 -1
-       11 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K5 [{["robux"] = "16"}]
+        5 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_32:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
-        3 DUPTABLE                         R3 K2 [{"responseBody"}]
-        4 LOADK                            R4 K3 ["10"]
-        5 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-        7 CALL                             R2 1 -1
-        8 RETURN                           R2 -1
+        3 DUPTABLE                         R3 K3 [{["responseBody"] = "10"}]
+        4 CALL                             R2 1 -1
+        5 RETURN                           R2 -1
 
 PROTO_33:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
-        4 DUPTABLE                         R5 K4 [{"totalCount"}]
-        5 LOADN                            R6 0
-        6 SETTABLEKS                       R6 R5 K3 ["totalCount"]
-        8 SETTABLEKS                       R5 R4 K1 ["responseBody"]
-       10 CALL                             R3 1 -1
-       11 RETURN                           R3 -1
+        4 DUPTABLE                         R5 K5 [{["totalCount"] = 0}]
+        5 SETTABLEKS                       R5 R4 K1 ["responseBody"]
+        7 CALL                             R3 1 -1
+        8 RETURN                           R3 -1
 
 PROTO_34:
         0 GETUPVAL                         R1 0
@@ -702,33 +534,25 @@ PROTO_39:
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K4 [{"data"}]
         5 NEWTABLE                         R5 0 1
-        7 DUPTABLE                         R6 K8 [{"imageUrl", "state", "targetId"}]
-        8 LOADK                            R7 K9 ["fake_image_url"]
-        9 SETTABLEKS                       R7 R6 K5 ["imageUrl"]
-       11 LOADK                            R7 K10 ["Completed"]
-       12 SETTABLEKS                       R7 R6 K6 ["state"]
-       14 LOADN                            R7 57
-       15 SETTABLEKS                       R7 R6 K7 ["targetId"]
-       17 SETTABLEN                        R6 R5 1
-       18 SETTABLEKS                       R5 R4 K3 ["data"]
-       20 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       22 CALL                             R2 1 -1
-       23 RETURN                           R2 -1
+        7 DUPTABLE                         R6 K11 [{["imageUrl"] = "fake_image_url", ["state"] = "Completed", ["targetId"] = 12345}]
+        8 SETTABLEN                        R6 R5 1
+        9 SETTABLEKS                       R5 R4 K3 ["data"]
+       11 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
 
 PROTO_40:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["resolve"]
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
-        4 DUPTABLE                         R3 K4 [{"isVerifiedCreator"}]
-        5 LOADB                            R4 1
-        6 SETTABLEKS                       R4 R3 K3 ["isVerifiedCreator"]
-        8 SETTABLEKS                       R3 R2 K1 ["responseBody"]
-       10 CALL                             R1 1 -1
-       11 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K5 [{["isVerifiedCreator"] = True}]
+        5 SETTABLEKS                       R3 R2 K1 ["responseBody"]
+        7 CALL                             R1 1 -1
+        8 RETURN                           R1 -1
 
 PROTO_41:
         0 GETIMPORT                        R2 K3 [Enum.AssetType.Audio]
-        2 JUMPIFNOTEQ                      R1 R2 ; [+177]
+        2 JUMPIFNOTEQ                      R1 R2 ; [+72]
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K4 ["resolve"]
         7 DUPTABLE                         R3 K6 [{"responseBody"}]
@@ -736,192 +560,106 @@ PROTO_41:
         9 NEWTABLE                         R5 0 0
        11 SETTABLEKS                       R5 R4 K7 ["topKeywords"]
        13 NEWTABLE                         R5 0 1
-       15 DUPTABLE                         R6 K13 [{"displayName", "name", "subcategory"}]
-       16 LOADK                            R7 K14 ["Categories"]
-       17 SETTABLEKS                       R7 R6 K10 ["displayName"]
-       19 LOADK                            R7 K15 ["categories"]
-       20 SETTABLEKS                       R7 R6 K11 ["name"]
-       22 DUPTABLE                         R7 K23 [{"name", "displayName", "hidden", "searchKeywords", "queryParams", "path", "index", "children", "childCount"}]
-       23 LOADK                            R8 K24 ["audio"]
-       24 SETTABLEKS                       R8 R7 K11 ["name"]
-       26 LOADK                            R8 K2 ["Audio"]
-       27 SETTABLEKS                       R8 R7 K10 ["displayName"]
-       29 LOADB                            R8 0
-       30 SETTABLEKS                       R8 R7 K16 ["hidden"]
-       32 LOADK                            R8 K24 ["audio"]
-       33 SETTABLEKS                       R8 R7 K17 ["searchKeywords"]
-       35 DUPTABLE                         R8 K30 [{"keyword", "assetSubTypes", "creatorTargetId", "creatorType", "excludeAssetSubTypes"}]
-       36 LOADK                            R9 K24 ["audio"]
-       37 SETTABLEKS                       R9 R8 K25 ["keyword"]
-       39 LOADNIL                          R9
-       40 SETTABLEKS                       R9 R8 K26 ["assetSubTypes"]
-       42 LOADNIL                          R9
-       43 SETTABLEKS                       R9 R8 K27 ["creatorTargetId"]
-       45 LOADNIL                          R9
-       46 SETTABLEKS                       R9 R8 K28 ["creatorType"]
-       48 LOADNIL                          R9
-       49 SETTABLEKS                       R9 R8 K29 ["excludeAssetSubTypes"]
-       51 SETTABLEKS                       R8 R7 K18 ["queryParams"]
-       53 NEWTABLE                         R8 0 1
-       55 LOADK                            R9 K24 ["audio"]
-       56 SETTABLEN                        R9 R8 1
-       57 SETTABLEKS                       R8 R7 K19 ["path"]
-       59 LOADN                            R8 0
-       60 SETTABLEKS                       R8 R7 K20 ["index"]
-       62 NEWTABLE                         R8 2 0
-       64 DUPTABLE                         R9 K23 [{"name", "displayName", "hidden", "searchKeywords", "queryParams", "path", "index", "children", "childCount"}]
-       65 LOADK                            R10 K31 ["music"]
-       66 SETTABLEKS                       R10 R9 K11 ["name"]
-       68 LOADK                            R10 K32 ["Music"]
-       69 SETTABLEKS                       R10 R9 K10 ["displayName"]
-       71 LOADB                            R10 0
-       72 SETTABLEKS                       R10 R9 K16 ["hidden"]
-       74 LOADK                            R10 K31 ["music"]
-       75 SETTABLEKS                       R10 R9 K17 ["searchKeywords"]
-       77 DUPTABLE                         R10 K30 [{"keyword", "assetSubTypes", "creatorTargetId", "creatorType", "excludeAssetSubTypes"}]
-       78 LOADK                            R11 K31 ["music"]
-       79 SETTABLEKS                       R11 R10 K25 ["keyword"]
-       81 LOADNIL                          R11
-       82 SETTABLEKS                       R11 R10 K26 ["assetSubTypes"]
-       84 LOADNIL                          R11
-       85 SETTABLEKS                       R11 R10 K27 ["creatorTargetId"]
-       87 LOADNIL                          R11
-       88 SETTABLEKS                       R11 R10 K28 ["creatorType"]
-       90 LOADNIL                          R11
-       91 SETTABLEKS                       R11 R10 K29 ["excludeAssetSubTypes"]
-       93 SETTABLEKS                       R10 R9 K18 ["queryParams"]
-       95 NEWTABLE                         R10 0 2
-       97 LOADK                            R11 K24 ["audio"]
-       98 SETTABLEN                        R11 R10 1
-       99 LOADK                            R11 K31 ["music"]
-      100 SETTABLEN                        R11 R10 2
-      101 SETTABLEKS                       R10 R9 K19 ["path"]
-      103 LOADN                            R10 0
-      104 SETTABLEKS                       R10 R9 K20 ["index"]
-      106 NEWTABLE                         R10 0 0
-      108 SETTABLEKS                       R10 R9 K21 ["children"]
-      110 LOADN                            R10 0
-      111 SETTABLEKS                       R10 R9 K22 ["childCount"]
-      113 SETTABLEKS                       R9 R8 K31 ["music"]
-      115 DUPTABLE                         R9 K23 [{"name", "displayName", "hidden", "searchKeywords", "queryParams", "path", "index", "children", "childCount"}]
-      116 LOADK                            R10 K33 ["sound-effect"]
-      117 SETTABLEKS                       R10 R9 K11 ["name"]
-      119 LOADK                            R10 K34 ["Sound Effect"]
-      120 SETTABLEKS                       R10 R9 K10 ["displayName"]
-      122 LOADB                            R10 0
-      123 SETTABLEKS                       R10 R9 K16 ["hidden"]
-      125 LOADK                            R10 K33 ["sound-effect"]
-      126 SETTABLEKS                       R10 R9 K17 ["searchKeywords"]
-      128 DUPTABLE                         R10 K30 [{"keyword", "assetSubTypes", "creatorTargetId", "creatorType", "excludeAssetSubTypes"}]
-      129 LOADK                            R11 K33 ["sound-effect"]
-      130 SETTABLEKS                       R11 R10 K25 ["keyword"]
-      132 LOADNIL                          R11
-      133 SETTABLEKS                       R11 R10 K26 ["assetSubTypes"]
-      135 LOADNIL                          R11
-      136 SETTABLEKS                       R11 R10 K27 ["creatorTargetId"]
-      138 LOADNIL                          R11
-      139 SETTABLEKS                       R11 R10 K28 ["creatorType"]
-      141 LOADNIL                          R11
-      142 SETTABLEKS                       R11 R10 K29 ["excludeAssetSubTypes"]
-      144 SETTABLEKS                       R10 R9 K18 ["queryParams"]
-      146 NEWTABLE                         R10 0 2
-      148 LOADK                            R11 K24 ["audio"]
-      149 SETTABLEN                        R11 R10 1
-      150 LOADK                            R11 K33 ["sound-effect"]
-      151 SETTABLEN                        R11 R10 2
-      152 SETTABLEKS                       R10 R9 K19 ["path"]
-      154 LOADN                            R10 1
-      155 SETTABLEKS                       R10 R9 K20 ["index"]
-      157 NEWTABLE                         R10 0 0
-      159 SETTABLEKS                       R10 R9 K21 ["children"]
-      161 LOADN                            R10 0
-      162 SETTABLEKS                       R10 R9 K22 ["childCount"]
-      164 SETTABLEKS                       R9 R8 K33 ["sound-effect"]
-      166 SETTABLEKS                       R8 R7 K21 ["children"]
-      168 LOADN                            R8 2
-      169 SETTABLEKS                       R8 R7 K22 ["childCount"]
-      171 SETTABLEKS                       R7 R6 K12 ["subcategory"]
-      173 SETTABLEN                        R6 R5 1
-      174 SETTABLEKS                       R5 R4 K8 ["sections"]
-      176 SETTABLEKS                       R4 R3 K5 ["responseBody"]
-      178 CALL                             R2 1 -1
-      179 RETURN                           R2 -1
-      180 GETUPVAL                         R2 0
-      181 GETTABLEKS                       R2 R2 K4 ["resolve"]
-      183 DUPTABLE                         R3 K6 [{"responseBody"}]
-      184 DUPTABLE                         R4 K9 [{"topKeywords", "sections"}]
-      185 NEWTABLE                         R5 0 0
-      187 SETTABLEKS                       R5 R4 K7 ["topKeywords"]
-      189 NEWTABLE                         R5 0 0
-      191 SETTABLEKS                       R5 R4 K8 ["sections"]
-      193 SETTABLEKS                       R4 R3 K5 ["responseBody"]
-      195 CALL                             R2 1 -1
-      196 RETURN                           R2 -1
+       15 DUPTABLE                         R6 K15 [{["displayName"] = "Categories", ["name"] = "categories", ["subcategory"]}]
+       16 DUPTABLE                         R7 K27 [{["name"] = "audio", ["displayName"] = "Audio", ["hidden"] = False, ["searchKeywords"] = "audio", ["queryParams"], ["path"], ["index"] = 0, ["children"], ["childCount"] = 2}]
+       17 DUPTABLE                         R8 K34 [{["keyword"] = "audio", ["assetSubTypes"] = , ["creatorTargetId"] = , ["creatorType"] = , ["excludeAssetSubTypes"] = }]
+       18 SETTABLEKS                       R8 R7 K20 ["queryParams"]
+       20 NEWTABLE                         R8 0 1
+       22 LOADK                            R9 K16 ["audio"]
+       23 SETTABLEN                        R9 R8 1
+       24 SETTABLEKS                       R8 R7 K21 ["path"]
+       26 NEWTABLE                         R8 2 0
+       28 DUPTABLE                         R9 K37 [{["name"] = "music", ["displayName"] = "Music", ["hidden"] = False, ["searchKeywords"] = "music", ["queryParams"], ["path"], ["index"] = 0, ["children"], ["childCount"] = 0}]
+       29 DUPTABLE                         R10 K38 [{["keyword"] = "music", ["assetSubTypes"] = , ["creatorTargetId"] = , ["creatorType"] = , ["excludeAssetSubTypes"] = }]
+       30 SETTABLEKS                       R10 R9 K20 ["queryParams"]
+       32 NEWTABLE                         R10 0 2
+       34 LOADK                            R11 K16 ["audio"]
+       35 SETTABLEN                        R11 R10 1
+       36 LOADK                            R11 K35 ["music"]
+       37 SETTABLEN                        R11 R10 2
+       38 SETTABLEKS                       R10 R9 K21 ["path"]
+       40 NEWTABLE                         R10 0 0
+       42 SETTABLEKS                       R10 R9 K24 ["children"]
+       44 SETTABLEKS                       R9 R8 K35 ["music"]
+       46 DUPTABLE                         R9 K42 [{["name"] = "sound-effect", ["displayName"] = "Sound Effect", ["hidden"] = False, ["searchKeywords"] = "sound-effect", ["queryParams"], ["path"], ["index"] = 1, ["children"], ["childCount"] = 0}]
+       47 DUPTABLE                         R10 K43 [{["keyword"] = "sound-effect", ["assetSubTypes"] = , ["creatorTargetId"] = , ["creatorType"] = , ["excludeAssetSubTypes"] = }]
+       48 SETTABLEKS                       R10 R9 K20 ["queryParams"]
+       50 NEWTABLE                         R10 0 2
+       52 LOADK                            R11 K16 ["audio"]
+       53 SETTABLEN                        R11 R10 1
+       54 LOADK                            R11 K39 ["sound-effect"]
+       55 SETTABLEN                        R11 R10 2
+       56 SETTABLEKS                       R10 R9 K21 ["path"]
+       58 NEWTABLE                         R10 0 0
+       60 SETTABLEKS                       R10 R9 K24 ["children"]
+       62 SETTABLEKS                       R9 R8 K39 ["sound-effect"]
+       64 SETTABLEKS                       R8 R7 K24 ["children"]
+       66 SETTABLEKS                       R7 R6 K14 ["subcategory"]
+       68 SETTABLEN                        R6 R5 1
+       69 SETTABLEKS                       R5 R4 K8 ["sections"]
+       71 SETTABLEKS                       R4 R3 K5 ["responseBody"]
+       73 CALL                             R2 1 -1
+       74 RETURN                           R2 -1
+       75 GETUPVAL                         R2 0
+       76 GETTABLEKS                       R2 R2 K4 ["resolve"]
+       78 DUPTABLE                         R3 K6 [{"responseBody"}]
+       79 DUPTABLE                         R4 K9 [{"topKeywords", "sections"}]
+       80 NEWTABLE                         R5 0 0
+       82 SETTABLEKS                       R5 R4 K7 ["topKeywords"]
+       84 NEWTABLE                         R5 0 0
+       86 SETTABLEKS                       R5 R4 K8 ["sections"]
+       88 SETTABLEKS                       R4 R3 K5 ["responseBody"]
+       90 CALL                             R2 1 -1
+       91 RETURN                           R2 -1
 
 PROTO_42:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
-        4 DUPTABLE                         R4 K5 [{"name", "rootPlaceId"}]
-        5 LOADK                            R5 K6 ["Universe"]
-        6 SETTABLEKS                       R5 R4 K3 ["name"]
-        8 LOADN                            R5 57
-        9 SETTABLEKS                       R5 R4 K4 ["rootPlaceId"]
-       11 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       13 CALL                             R2 1 -1
-       14 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K7 [{["name"] = "Universe", ["rootPlaceId"] = 12345}]
+        5 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_43:
-        0 JUMPIFNOT                        R1 ; [+18]
+        0 JUMPIFNOT                        R1 ; [+15]
         1 GETUPVAL                         R4 0
         2 GETTABLEKS                       R4 R4 K0 ["resolve"]
-        4 DUPTABLE                         R5 K4 [{"actualPrice", "checkoutUrl", "purchaseTransactionStatus"}]
-        5 GETTABLEKS                       R6 R2 K5 ["expectedPrice"]
+        4 DUPTABLE                         R5 K5 [{["actualPrice"], ["checkoutUrl"] = "http://create.roblox.com", ["purchaseTransactionStatus"]}]
+        5 GETTABLEKS                       R6 R2 K6 ["expectedPrice"]
         7 SETTABLEKS                       R6 R5 K1 ["actualPrice"]
-        9 LOADK                            R6 K6 ["http://create.roblox.com"]
-       10 SETTABLEKS                       R6 R5 K2 ["checkoutUrl"]
-       12 GETUPVAL                         R6 1
-       13 GETTABLEKS                       R6 R6 K7 ["Success"]
-       15 SETTABLEKS                       R6 R5 K3 ["purchaseTransactionStatus"]
-       17 CALL                             R4 1 -1
-       18 RETURN                           R4 -1
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R4 R4 K0 ["resolve"]
-       22 DUPTABLE                         R5 K9 [{"responseBody"}]
-       23 DUPTABLE                         R6 K11 [{"purchased"}]
-       24 LOADB                            R7 1
-       25 SETTABLEKS                       R7 R6 K10 ["purchased"]
-       27 SETTABLEKS                       R6 R5 K8 ["responseBody"]
-       29 CALL                             R4 1 -1
-       30 RETURN                           R4 -1
+        9 GETUPVAL                         R6 1
+       10 GETTABLEKS                       R6 R6 K7 ["Success"]
+       12 SETTABLEKS                       R6 R5 K4 ["purchaseTransactionStatus"]
+       14 CALL                             R4 1 -1
+       15 RETURN                           R4 -1
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K0 ["resolve"]
+       19 DUPTABLE                         R5 K9 [{"responseBody"}]
+       20 DUPTABLE                         R6 K12 [{["purchased"] = True}]
+       21 SETTABLEKS                       R6 R5 K8 ["responseBody"]
+       23 CALL                             R4 1 -1
+       24 RETURN                           R4 -1
 
 PROTO_44:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
-        4 DUPTABLE                         R4 K5 [{"isEligible", "configurations"}]
-        5 LOADB                            R5 1
-        6 SETTABLEKS                       R5 R4 K3 ["isEligible"]
-        8 NEWTABLE                         R5 0 1
-       10 DUPTABLE                         R6 K8 [{"type", "isOptOut"}]
-       11 LOADK                            R7 K9 ["AvatarBundles"]
-       12 SETTABLEKS                       R7 R6 K6 ["type"]
-       14 LOADB                            R7 0
-       15 SETTABLEKS                       R7 R6 K7 ["isOptOut"]
-       17 SETTABLEN                        R6 R5 1
-       18 SETTABLEKS                       R5 R4 K4 ["configurations"]
-       20 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       22 CALL                             R2 1 -1
-       23 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K6 [{["isEligible"] = True, ["configurations"]}]
+        5 NEWTABLE                         R5 0 1
+        7 DUPTABLE                         R6 K11 [{["type"] = "AvatarBundles", ["isOptOut"] = False}]
+        8 SETTABLEN                        R6 R5 1
+        9 SETTABLEKS                       R5 R4 K5 ["configurations"]
+       11 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
 
 PROTO_45:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["resolve"]
-        3 DUPTABLE                         R4 K2 [{"responseCode"}]
-        4 LOADN                            R5 200
-        5 SETTABLEKS                       R5 R4 K1 ["responseCode"]
-        7 CALL                             R3 1 -1
-        8 RETURN                           R3 -1
+        3 DUPTABLE                         R4 K3 [{["responseCode"] = 200}]
+        4 CALL                             R3 1 -1
+        5 RETURN                           R3 -1
 
 PROTO_46:
         0 GETUPVAL                         R1 0
@@ -949,11 +687,9 @@ PROTO_47:
 PROTO_48:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["resolve"]
-        3 DUPTABLE                         R4 K2 [{"responseBody"}]
-        4 LOADB                            R5 0
-        5 SETTABLEKS                       R5 R4 K1 ["responseBody"]
-        7 CALL                             R3 1 -1
-        8 RETURN                           R3 -1
+        3 DUPTABLE                         R4 K3 [{["responseBody"] = False}]
+        4 CALL                             R3 1 -1
+        5 RETURN                           R3 -1
 
 PROTO_49:
         0 LOADB                            R2 0
@@ -965,81 +701,55 @@ PROTO_50:
         3 DUPTABLE                         R2 K2 [{"responseBody"}]
         4 DUPTABLE                         R3 K4 [{"data"}]
         5 NEWTABLE                         R4 0 1
-        7 DUPTABLE                         R5 K6 [{"versionId"}]
-        8 LOADN                            R6 1
-        9 SETTABLEKS                       R6 R5 K5 ["versionId"]
-       11 SETTABLEN                        R5 R4 1
-       12 SETTABLEKS                       R4 R3 K3 ["data"]
-       14 SETTABLEKS                       R3 R2 K1 ["responseBody"]
-       16 CALL                             R1 1 -1
-       17 RETURN                           R1 -1
+        7 DUPTABLE                         R5 K7 [{["versionId"] = 1}]
+        8 SETTABLEN                        R5 R4 1
+        9 SETTABLEKS                       R4 R3 K3 ["data"]
+       11 SETTABLEKS                       R3 R2 K1 ["responseBody"]
+       13 CALL                             R1 1 -1
+       14 RETURN                           R1 -1
 
 PROTO_51:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["resolve"]
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
-        4 DUPTABLE                         R4 K5 [{"price", "canAfford"}]
-        5 LOADN                            R5 238
-        6 SETTABLEKS                       R5 R4 K3 ["price"]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K4 ["canAfford"]
-       11 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       13 CALL                             R2 1 -1
-       14 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K7 [{["price"] = 750, ["canAfford"] = True}]
+        5 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_52:
         0 DUPTABLE                         R2 K1 [{"data"}]
         1 NEWTABLE                         R3 0 1
-        3 DUPTABLE                         R4 K8 [{"assetId", "name", "description", "assetType", "created", "updated"}]
+        3 DUPTABLE                         R4 K13 [{["assetId"], ["name"] = "Test Asset", ["description"] = "Test Description", ["assetType"] = "Models", ["created"] = "2019-08-09T21:41:51.97Z", ["updated"] = "2021-05-06T19:56:54.437Z"}]
         4 SETTABLEKS                       R1 R4 K2 ["assetId"]
-        6 LOADK                            R5 K9 ["Test Asset"]
-        7 SETTABLEKS                       R5 R4 K3 ["name"]
-        9 LOADK                            R5 K10 ["Test Description"]
-       10 SETTABLEKS                       R5 R4 K4 ["description"]
-       12 LOADK                            R5 K11 ["Models"]
-       13 SETTABLEKS                       R5 R4 K5 ["assetType"]
-       15 LOADK                            R5 K12 ["2019-08-09T21:41:51.97Z"]
-       16 SETTABLEKS                       R5 R4 K6 ["created"]
-       18 LOADK                            R5 K13 ["2021-05-06T19:56:54.437Z"]
-       19 SETTABLEKS                       R5 R4 K7 ["updated"]
-       21 SETLIST                          R3 R4 1 [1]
-       23 SETTABLEKS                       R3 R2 K0 ["data"]
-       25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R3 R3 K14 ["resolve"]
-       28 DUPTABLE                         R4 K16 [{"responseBody"}]
-       29 GETUPVAL                         R5 1
-       30 MOVE                             R7 R2
-       31 NAMECALL                         R5 R5 K17 ["JSONEncode"]
-       33 CALL                             R5 2 1
-       34 SETTABLEKS                       R5 R4 K15 ["responseBody"]
-       36 CALL                             R3 1 -1
-       37 RETURN                           R3 -1
+        6 SETLIST                          R3 R4 1 [1]
+        8 SETTABLEKS                       R3 R2 K0 ["data"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R3 R3 K14 ["resolve"]
+       13 DUPTABLE                         R4 K16 [{"responseBody"}]
+       14 GETUPVAL                         R5 1
+       15 MOVE                             R7 R2
+       16 NAMECALL                         R5 R5 K17 ["JSONEncode"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K15 ["responseBody"]
+       21 CALL                             R3 1 -1
+       22 RETURN                           R3 -1
 
 PROTO_53:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["resolve"]
         3 DUPTABLE                         R4 K2 [{"responseBody"}]
         4 NEWTABLE                         R5 0 1
-        6 DUPTABLE                         R6 K9 [{"assetId", "name", "description", "assetType", "created", "updated"}]
+        6 DUPTABLE                         R6 K14 [{["assetId"], ["name"] = "Test Asset", ["description"] = "Test Description", ["assetType"] = "Models", ["created"] = "2019-08-09T21:41:51.97Z", ["updated"] = "2021-05-06T19:56:54.437Z"}]
         7 FASTCALL1                        TONUMBER R2 ; [+3]
         8 MOVE                             R8 R2
-        9 GETIMPORT                        R7 K11 [tonumber]
+        9 GETIMPORT                        R7 K16 [tonumber]
        11 CALL                             R7 1 1
        12 SETTABLEKS                       R7 R6 K3 ["assetId"]
-       14 LOADK                            R7 K12 ["Test Asset"]
-       15 SETTABLEKS                       R7 R6 K4 ["name"]
-       17 LOADK                            R7 K13 ["Test Description"]
-       18 SETTABLEKS                       R7 R6 K5 ["description"]
-       20 LOADK                            R7 K14 ["Models"]
-       21 SETTABLEKS                       R7 R6 K6 ["assetType"]
-       23 LOADK                            R7 K15 ["2019-08-09T21:41:51.97Z"]
-       24 SETTABLEKS                       R7 R6 K7 ["created"]
-       26 LOADK                            R7 K16 ["2021-05-06T19:56:54.437Z"]
-       27 SETTABLEKS                       R7 R6 K8 ["updated"]
-       29 SETLIST                          R5 R6 1 [1]
-       31 SETTABLEKS                       R5 R4 K1 ["responseBody"]
-       33 CALL                             R3 1 -1
-       34 RETURN                           R3 -1
+       14 SETLIST                          R5 R6 1 [1]
+       16 SETTABLEKS                       R5 R4 K1 ["responseBody"]
+       18 CALL                             R3 1 -1
+       19 RETURN                           R3 -1
 
 PROTO_54:
         0 GETUPVAL                         R2 0
@@ -1047,23 +757,15 @@ PROTO_54:
         3 DUPTABLE                         R3 K2 [{"responseBody"}]
         4 DUPTABLE                         R4 K4 [{"results"}]
         5 NEWTABLE                         R5 0 2
-        7 DUPTABLE                         R6 K8 [{"action", "assetId", "status"}]
-        8 LOADK                            R7 K9 ["Use"]
-        9 SETTABLEKS                       R7 R6 K5 ["action"]
-       11 SETTABLEKS                       R1 R6 K6 ["assetId"]
-       13 LOADK                            R7 K10 ["HasPermission"]
-       14 SETTABLEKS                       R7 R6 K7 ["status"]
-       16 DUPTABLE                         R7 K8 [{"action", "assetId", "status"}]
-       17 LOADK                            R8 K11 ["Edit"]
-       18 SETTABLEKS                       R8 R7 K5 ["action"]
-       20 SETTABLEKS                       R1 R7 K6 ["assetId"]
-       22 LOADK                            R8 K10 ["HasPermission"]
-       23 SETTABLEKS                       R8 R7 K7 ["status"]
-       25 SETLIST                          R5 R6 2 [1]
-       27 SETTABLEKS                       R5 R4 K3 ["results"]
-       29 SETTABLEKS                       R4 R3 K1 ["responseBody"]
-       31 CALL                             R2 1 -1
-       32 RETURN                           R2 -1
+        7 DUPTABLE                         R6 K10 [{["action"] = "Use", ["assetId"], ["status"] = "HasPermission"}]
+        8 SETTABLEKS                       R1 R6 K7 ["assetId"]
+       10 DUPTABLE                         R7 K12 [{["action"] = "Edit", ["assetId"], ["status"] = "HasPermission"}]
+       11 SETTABLEKS                       R1 R7 K7 ["assetId"]
+       13 SETLIST                          R5 R6 2 [1]
+       15 SETTABLEKS                       R5 R4 K3 ["results"]
+       17 SETTABLEKS                       R4 R3 K1 ["responseBody"]
+       19 CALL                             R2 1 -1
+       20 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

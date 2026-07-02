@@ -8,10 +8,8 @@ MAIN:
        11 GETTABLEKS                       R2 R0 K5 ["Packages"]
        13 GETTABLEKS                       R2 R2 K6 ["React"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K8 [{"trayVisible"}]
-       17 LOADB                            R3 0
-       18 SETTABLEKS                       R3 R2 K7 ["trayVisible"]
-       20 GETTABLEKS                       R3 R1 K9 ["createContext"]
-       22 MOVE                             R4 R2
-       23 CALL                             R3 1 1
-       24 RETURN                           R3 1
+       16 DUPTABLE                         R2 K9 [{["trayVisible"] = False}]
+       17 GETTABLEKS                       R3 R1 K10 ["createContext"]
+       19 MOVE                             R4 R2
+       20 CALL                             R3 1 1
+       21 RETURN                           R3 1

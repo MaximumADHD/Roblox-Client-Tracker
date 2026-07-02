@@ -10,25 +10,23 @@ PROTO_0:
        11 LOADK                            R3 K3 ["Expected story to be a table"]
        12 GETIMPORT                        R1 K5 [assert]
        14 CALL                             R1 2 0
-       15 DUPTABLE                         R1 K8 [{"activityHistoryClient", "contextType"}]
+       15 DUPTABLE                         R1 K9 [{["activityHistoryClient"], ["contextType"] = "mock context"}]
        16 GETUPVAL                         R2 0
        17 SETTABLEKS                       R2 R1 K6 ["activityHistoryClient"]
-       19 LOADK                            R2 K9 ["mock context"]
-       20 SETTABLEKS                       R2 R1 K7 ["contextType"]
-       22 DUPTABLE                         R2 K11 [{"ActivityHistoryProvider"}]
-       23 GETUPVAL                         R3 1
-       24 GETTABLEKS                       R3 R3 K12 ["createElement"]
-       26 GETUPVAL                         R4 2
-       27 MOVE                             R5 R1
-       28 MOVE                             R6 R0
-       29 CALL                             R3 3 1
-       30 SETTABLEKS                       R3 R2 K10 ["ActivityHistoryProvider"]
-       32 GETUPVAL                         R3 3
-       33 GETTABLEKS                       R3 R3 K13 ["provideMockContext"]
-       35 GETUPVAL                         R4 4
-       36 MOVE                             R5 R2
-       37 CALL                             R3 2 -1
-       38 RETURN                           R3 -1
+       19 DUPTABLE                         R2 K11 [{"ActivityHistoryProvider"}]
+       20 GETUPVAL                         R3 1
+       21 GETTABLEKS                       R3 R3 K12 ["createElement"]
+       23 GETUPVAL                         R4 2
+       24 MOVE                             R5 R1
+       25 MOVE                             R6 R0
+       26 CALL                             R3 3 1
+       27 SETTABLEKS                       R3 R2 K10 ["ActivityHistoryProvider"]
+       29 GETUPVAL                         R3 3
+       30 GETTABLEKS                       R3 R3 K13 ["provideMockContext"]
+       32 GETUPVAL                         R4 4
+       33 MOVE                             R5 R2
+       34 CALL                             R3 2 -1
+       35 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -34,28 +34,24 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K8 ["Clients"]
        22 GETTABLEKS                       R3 R3 K9 ["NotificationClient"]
        24 CALL                             R2 1 1
-       25 DUPTABLE                         R3 K20 [{"notifications", "allLoaded", "setNotifications", "setCursor", "setAllLoaded", "markNotificationRead", "markNotificationReadFromId", "markAllNotificationsRead", "logNotificationImpressions", "notificationClient"}]
+       25 DUPTABLE                         R3 K22 [{["notifications"], ["allLoaded"] = False, ["setNotifications"], ["setCursor"], ["setAllLoaded"], ["markNotificationRead"], ["markNotificationReadFromId"], ["markAllNotificationsRead"], ["logNotificationImpressions"], ["notificationClient"] = }]
        26 NEWTABLE                         R4 0 0
        28 SETTABLEKS                       R4 R3 K10 ["notifications"]
-       30 LOADB                            R4 0
-       31 SETTABLEKS                       R4 R3 K11 ["allLoaded"]
-       33 DUPCLOSURE                       R4 K21 [PROTO_0]
-       34 SETTABLEKS                       R4 R3 K12 ["setNotifications"]
-       36 DUPCLOSURE                       R4 K22 [PROTO_1]
-       37 SETTABLEKS                       R4 R3 K13 ["setCursor"]
-       39 DUPCLOSURE                       R4 K23 [PROTO_2]
-       40 SETTABLEKS                       R4 R3 K14 ["setAllLoaded"]
-       42 DUPCLOSURE                       R4 K24 [PROTO_3]
-       43 SETTABLEKS                       R4 R3 K15 ["markNotificationRead"]
-       45 DUPCLOSURE                       R4 K25 [PROTO_4]
-       46 SETTABLEKS                       R4 R3 K16 ["markNotificationReadFromId"]
-       48 DUPCLOSURE                       R4 K26 [PROTO_5]
-       49 SETTABLEKS                       R4 R3 K17 ["markAllNotificationsRead"]
-       51 DUPCLOSURE                       R4 K27 [PROTO_6]
-       52 SETTABLEKS                       R4 R3 K18 ["logNotificationImpressions"]
-       54 LOADNIL                          R4
-       55 SETTABLEKS                       R4 R3 K19 ["notificationClient"]
-       57 GETTABLEKS                       R4 R1 K28 ["createContext"]
-       59 MOVE                             R5 R3
-       60 CALL                             R4 1 1
-       61 RETURN                           R4 1
+       30 DUPCLOSURE                       R4 K23 [PROTO_0]
+       31 SETTABLEKS                       R4 R3 K13 ["setNotifications"]
+       33 DUPCLOSURE                       R4 K24 [PROTO_1]
+       34 SETTABLEKS                       R4 R3 K14 ["setCursor"]
+       36 DUPCLOSURE                       R4 K25 [PROTO_2]
+       37 SETTABLEKS                       R4 R3 K15 ["setAllLoaded"]
+       39 DUPCLOSURE                       R4 K26 [PROTO_3]
+       40 SETTABLEKS                       R4 R3 K16 ["markNotificationRead"]
+       42 DUPCLOSURE                       R4 K27 [PROTO_4]
+       43 SETTABLEKS                       R4 R3 K17 ["markNotificationReadFromId"]
+       45 DUPCLOSURE                       R4 K28 [PROTO_5]
+       46 SETTABLEKS                       R4 R3 K18 ["markAllNotificationsRead"]
+       48 DUPCLOSURE                       R4 K29 [PROTO_6]
+       49 SETTABLEKS                       R4 R3 K19 ["logNotificationImpressions"]
+       51 GETTABLEKS                       R4 R1 K30 ["createContext"]
+       53 MOVE                             R5 R3
+       54 CALL                             R4 1 1
+       55 RETURN                           R4 1

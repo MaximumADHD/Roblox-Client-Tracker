@@ -188,8 +188,8 @@ PROTO_9:
        33 GETUPVAL                         R12 2
        34 GETTABLEKS                       R12 R12 K11 ["defaultFont"]
        36 GETIMPORT                        R13 K14 [Vector2.new]
-       38 LOADN                            R14 16
-       39 LOADN                            R15 16
+       38 LOADN                            R14 10000
+       39 LOADN                            R15 10000
        40 CALL                             R13 2 -1
        41 NAMECALL                         R8 R8 K15 ["GetTextSize"]
        43 CALL                             R8 -1 1
@@ -669,56 +669,54 @@ PROTO_31:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 LOADK                            R3 K1 ["Frame"]
-        4 DUPTABLE                         R4 K7 [{"BackgroundTransparency", "ClipsDescendants", "Position", "Size", "ZIndex"}]
-        5 LOADN                            R5 1
-        6 SETTABLEKS                       R5 R4 K2 ["BackgroundTransparency"]
-        8 GETUPVAL                         R5 1
-        9 SETTABLEKS                       R5 R4 K3 ["ClipsDescendants"]
-       11 GETTABLEKS                       R5 R0 K8 ["getBinding"]
-       13 CALL                             R5 0 1
-       14 DUPCLOSURE                       R7 K9 [PROTO_30]
-       15 NAMECALL                         R5 R5 K10 ["map"]
-       17 CALL                             R5 2 1
-       18 SETTABLEKS                       R5 R4 K4 ["Position"]
-       20 GETIMPORT                        R5 K13 [UDim2.new]
-       22 LOADN                            R6 1
-       23 LOADN                            R7 253
-       24 LOADN                            R8 0
-       25 GETUPVAL                         R9 2
-       26 GETTABLEKS                       R9 R9 K14 ["rowHeight"]
-       28 CALL                             R5 4 1
-       29 SETTABLEKS                       R5 R4 K5 ["Size"]
-       31 GETUPVAL                         R5 3
-       32 GETTABLEKS                       R5 R5 K6 ["ZIndex"]
-       34 SETTABLEKS                       R5 R4 K6 ["ZIndex"]
-       36 GETUPVAL                         R5 0
-       37 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       39 GETUPVAL                         R6 4
-       40 DUPTABLE                         R7 K24 [{"visibleNodeObservable", "hoveredNodeId", "selectedNodeId", "selectedIdsHash", "columnWidths", "onNodeClicked", "onNodeRightClicked", "query", "queryInfo"}]
-       41 SETTABLEKS                       R0 R7 K15 ["visibleNodeObservable"]
-       43 GETUPVAL                         R8 5
-       44 SETTABLEKS                       R8 R7 K16 ["hoveredNodeId"]
-       46 GETUPVAL                         R8 6
-       47 SETTABLEKS                       R8 R7 K17 ["selectedNodeId"]
-       49 GETUPVAL                         R8 7
-       50 SETTABLEKS                       R8 R7 K18 ["selectedIdsHash"]
-       52 GETUPVAL                         R8 8
-       53 SETTABLEKS                       R8 R7 K19 ["columnWidths"]
-       55 GETUPVAL                         R8 3
-       56 GETTABLEKS                       R8 R8 K20 ["onNodeClicked"]
-       58 SETTABLEKS                       R8 R7 K20 ["onNodeClicked"]
-       60 GETUPVAL                         R8 3
-       61 GETTABLEKS                       R8 R8 K21 ["onNodeRightClicked"]
-       63 SETTABLEKS                       R8 R7 K21 ["onNodeRightClicked"]
-       65 GETUPVAL                         R8 3
-       66 GETTABLEKS                       R8 R8 K22 ["query"]
-       68 SETTABLEKS                       R8 R7 K22 ["query"]
-       70 GETUPVAL                         R8 3
-       71 GETTABLEKS                       R8 R8 K23 ["queryInfo"]
-       73 SETTABLEKS                       R8 R7 K23 ["queryInfo"]
-       75 CALL                             R5 2 -1
-       76 CALL                             R2 -1 -1
-       77 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K8 [{["BackgroundTransparency"] = 1, ["ClipsDescendants"], ["Position"], ["Size"], ["ZIndex"]}]
+        5 GETUPVAL                         R5 1
+        6 SETTABLEKS                       R5 R4 K4 ["ClipsDescendants"]
+        8 GETTABLEKS                       R5 R0 K9 ["getBinding"]
+       10 CALL                             R5 0 1
+       11 DUPCLOSURE                       R7 K10 [PROTO_30]
+       12 NAMECALL                         R5 R5 K11 ["map"]
+       14 CALL                             R5 2 1
+       15 SETTABLEKS                       R5 R4 K5 ["Position"]
+       17 GETIMPORT                        R5 K14 [UDim2.new]
+       19 LOADN                            R6 1
+       20 LOADN                            R7 -3
+       21 LOADN                            R8 0
+       22 GETUPVAL                         R9 2
+       23 GETTABLEKS                       R9 R9 K15 ["rowHeight"]
+       25 CALL                             R5 4 1
+       26 SETTABLEKS                       R5 R4 K6 ["Size"]
+       28 GETUPVAL                         R5 3
+       29 GETTABLEKS                       R5 R5 K7 ["ZIndex"]
+       31 SETTABLEKS                       R5 R4 K7 ["ZIndex"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       36 GETUPVAL                         R6 4
+       37 DUPTABLE                         R7 K25 [{"visibleNodeObservable", "hoveredNodeId", "selectedNodeId", "selectedIdsHash", "columnWidths", "onNodeClicked", "onNodeRightClicked", "query", "queryInfo"}]
+       38 SETTABLEKS                       R0 R7 K16 ["visibleNodeObservable"]
+       40 GETUPVAL                         R8 5
+       41 SETTABLEKS                       R8 R7 K17 ["hoveredNodeId"]
+       43 GETUPVAL                         R8 6
+       44 SETTABLEKS                       R8 R7 K18 ["selectedNodeId"]
+       46 GETUPVAL                         R8 7
+       47 SETTABLEKS                       R8 R7 K19 ["selectedIdsHash"]
+       49 GETUPVAL                         R8 8
+       50 SETTABLEKS                       R8 R7 K20 ["columnWidths"]
+       52 GETUPVAL                         R8 3
+       53 GETTABLEKS                       R8 R8 K21 ["onNodeClicked"]
+       55 SETTABLEKS                       R8 R7 K21 ["onNodeClicked"]
+       57 GETUPVAL                         R8 3
+       58 GETTABLEKS                       R8 R8 K22 ["onNodeRightClicked"]
+       60 SETTABLEKS                       R8 R7 K22 ["onNodeRightClicked"]
+       62 GETUPVAL                         R8 3
+       63 GETTABLEKS                       R8 R8 K23 ["query"]
+       65 SETTABLEKS                       R8 R7 K23 ["query"]
+       67 GETUPVAL                         R8 3
+       68 GETTABLEKS                       R8 R8 K24 ["queryInfo"]
+       70 SETTABLEKS                       R8 R7 K24 ["queryInfo"]
+       72 CALL                             R5 2 -1
+       73 CALL                             R2 -1 -1
+       74 RETURN                           R2 -1
 
 PROTO_32:
         0 GETTABLEKS                       R2 R0 K0 ["query"]
@@ -1075,368 +1073,338 @@ PROTO_32:
       446 GETUPVAL                         R49 1
       447 GETTABLEKS                       R49 R49 K24 ["createElement"]
       449 LOADK                            R50 K25 ["Frame"]
-      450 DUPTABLE                         R51 K42 [{"Size", "Position", "BackgroundTransparency", "ZIndex"}]
+      450 DUPTABLE                         R51 K43 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2}]
       451 GETIMPORT                        R52 K28 [UDim2.new]
       453 LOADN                            R53 1
       454 LOADN                            R56 2
       455 ADD                              R55 R56 R44
       456 MINUS                            R54 R55
       457 LOADN                            R55 1
-      458 LOADN                            R56 252
+      458 LOADN                            R56 -4
       459 CALL                             R52 4 1
       460 SETTABLEKS                       R52 R51 K29 ["Size"]
-      462 GETIMPORT                        R52 K44 [UDim2.fromOffset]
+      462 GETIMPORT                        R52 K45 [UDim2.fromOffset]
       464 LOADN                            R53 2
       465 LOADN                            R54 2
       466 CALL                             R52 2 1
       467 SETTABLEKS                       R52 R51 K40 ["Position"]
-      469 LOADN                            R52 1
-      470 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
-      472 LOADN                            R52 2
-      473 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      475 DUPTABLE                         R52 K47 [{"Corner", "Stroke"}]
-      476 GETUPVAL                         R53 1
-      477 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      479 LOADK                            R54 K48 ["UICorner"]
-      480 DUPTABLE                         R55 K50 [{"CornerRadius"}]
-      481 GETIMPORT                        R56 K52 [UDim.new]
-      483 LOADN                            R57 0
-      484 LOADN                            R58 8
-      485 CALL                             R56 2 1
-      486 SETTABLEKS                       R56 R55 K49 ["CornerRadius"]
-      488 CALL                             R53 2 1
-      489 SETTABLEKS                       R53 R52 K45 ["Corner"]
-      491 GETUPVAL                         R53 1
-      492 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      494 LOADK                            R54 K53 ["UIStroke"]
-      495 DUPTABLE                         R55 K57 [{"Color", "Transparency", "Thickness"}]
-      496 SETTABLEKS                       R6 R55 K54 ["Color"]
-      498 LOADK                            R56 K58 [0.88]
-      499 SETTABLEKS                       R56 R55 K55 ["Transparency"]
-      501 LOADN                            R56 1
-      502 SETTABLEKS                       R56 R55 K56 ["Thickness"]
-      504 CALL                             R53 2 1
-      505 SETTABLEKS                       R53 R52 K46 ["Stroke"]
-      507 CALL                             R49 3 1
-      508 SETTABLEKS                       R49 R48 K33 ["BorderFrame"]
-      510 GETUPVAL                         R49 1
-      511 GETTABLEKS                       R49 R49 K24 ["createElement"]
-      513 LOADK                            R50 K25 ["Frame"]
-      514 DUPTABLE                         R51 K60 [{"Size", "Position", "BackgroundTransparency", "ClipsDescendants", "ZIndex"}]
-      515 GETIMPORT                        R52 K28 [UDim2.new]
-      517 LOADN                            R53 1
-      518 LOADN                            R56 2
-      519 ADD                              R55 R56 R44
-      520 MINUS                            R54 R55
-      521 LOADN                            R55 0
-      522 GETUPVAL                         R57 8
-      523 GETTABLEKS                       R57 R57 K62 ["headerHeight"]
-      525 ADDK                             R56 R57 K61 [1]
-      526 CALL                             R52 4 1
-      527 SETTABLEKS                       R52 R51 K29 ["Size"]
-      529 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      531 LOADN                            R53 2
-      532 LOADN                            R54 0
-      533 CALL                             R52 2 1
-      534 SETTABLEKS                       R52 R51 K40 ["Position"]
-      536 LOADN                            R52 1
-      537 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
-      539 LOADB                            R52 1
-      540 SETTABLEKS                       R52 R51 K59 ["ClipsDescendants"]
-      542 LOADN                            R52 1
-      543 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      545 DUPTABLE                         R52 K64 [{"Corner", "Headers"}]
-      546 GETUPVAL                         R53 1
-      547 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      549 LOADK                            R54 K48 ["UICorner"]
-      550 DUPTABLE                         R55 K50 [{"CornerRadius"}]
-      551 GETIMPORT                        R56 K52 [UDim.new]
-      553 LOADN                            R57 0
-      554 LOADN                            R58 8
-      555 CALL                             R56 2 1
-      556 SETTABLEKS                       R56 R55 K49 ["CornerRadius"]
-      558 CALL                             R53 2 1
-      559 SETTABLEKS                       R53 R52 K45 ["Corner"]
-      561 GETUPVAL                         R53 1
-      562 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      564 LOADK                            R54 K25 ["Frame"]
-      565 DUPTABLE                         R55 K66 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
-      566 GETIMPORT                        R56 K28 [UDim2.new]
-      568 LOADN                            R57 1
-      569 LOADN                            R58 0
-      570 LOADN                            R59 0
-      571 GETUPVAL                         R61 8
-      572 GETTABLEKS                       R61 R61 K62 ["headerHeight"]
-      574 ADDK                             R60 R61 K61 [1]
-      575 CALL                             R56 4 1
-      576 SETTABLEKS                       R56 R55 K29 ["Size"]
-      578 LOADN                            R56 0
-      579 SETTABLEKS                       R56 R55 K65 ["BorderSizePixel"]
-      581 LOADN                            R56 1
-      582 SETTABLEKS                       R56 R55 K30 ["BackgroundTransparency"]
-      584 MOVE                             R56 R42
-      585 CALL                             R53 3 1
-      586 SETTABLEKS                       R53 R52 K63 ["Headers"]
-      588 CALL                             R49 3 1
-      589 SETTABLEKS                       R49 R48 K34 ["Content"]
-      591 GETUPVAL                         R49 1
-      592 GETTABLEKS                       R49 R49 K24 ["createElement"]
-      594 LOADK                            R50 K25 ["Frame"]
-      595 DUPTABLE                         R51 K60 [{"Size", "Position", "BackgroundTransparency", "ClipsDescendants", "ZIndex"}]
-      596 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      598 LOADN                            R53 8
-      599 GETUPVAL                         R56 8
-      600 GETTABLEKS                       R56 R56 K62 ["headerHeight"]
-      602 SUBK                             R55 R56 K61 [1]
-      603 SUBK                             R54 R55 K17 [2]
-      604 CALL                             R52 2 1
-      605 SETTABLEKS                       R52 R51 K29 ["Size"]
-      607 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      609 LOADN                            R53 2
-      610 LOADN                            R54 2
-      611 CALL                             R52 2 1
-      612 SETTABLEKS                       R52 R51 K40 ["Position"]
-      614 LOADN                            R52 1
-      615 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
-      617 LOADB                            R52 1
-      618 SETTABLEKS                       R52 R51 K59 ["ClipsDescendants"]
-      620 LOADN                            R52 2
-      621 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      623 DUPTABLE                         R52 K68 [{"Fill"}]
-      624 GETUPVAL                         R53 1
-      625 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      627 LOADK                            R54 K25 ["Frame"]
-      628 NEWTABLE                         R55 8 0
-      630 GETIMPORT                        R56 K28 [UDim2.new]
-      632 LOADN                            R57 0
-      633 LOADN                            R58 16
-      634 LOADN                            R59 1
-      635 LOADN                            R60 8
-      636 CALL                             R56 4 1
-      637 SETTABLEKS                       R56 R55 K29 ["Size"]
-      639 GETIMPORT                        R56 K44 [UDim2.fromOffset]
-      641 LOADN                            R57 0
-      642 LOADN                            R58 0
-      643 CALL                             R56 2 1
-      644 SETTABLEKS                       R56 R55 K40 ["Position"]
-      646 LOADN                            R56 0
-      647 SETTABLEKS                       R56 R55 K65 ["BorderSizePixel"]
-      649 SETTABLEKS                       R37 R55 K69 ["ref"]
-      651 GETUPVAL                         R56 1
-      652 GETTABLEKS                       R56 R56 K70 ["Tag"]
-      654 LOADK                            R57 K71 ["SceneAnalysis-BackgroundColor"]
-      655 SETTABLE                         R57 R55 R56
-      656 DUPTABLE                         R56 K72 [{"Corner"}]
-      657 GETUPVAL                         R57 1
-      658 GETTABLEKS                       R57 R57 K24 ["createElement"]
-      660 LOADK                            R58 K48 ["UICorner"]
-      661 DUPTABLE                         R59 K50 [{"CornerRadius"}]
-      662 GETIMPORT                        R60 K52 [UDim.new]
-      664 LOADN                            R61 0
-      665 LOADN                            R62 8
-      666 CALL                             R60 2 1
-      667 SETTABLEKS                       R60 R59 K49 ["CornerRadius"]
-      669 CALL                             R57 2 1
-      670 SETTABLEKS                       R57 R56 K45 ["Corner"]
-      672 CALL                             R53 3 1
-      673 SETTABLEKS                       R53 R52 K67 ["Fill"]
-      675 CALL                             R49 3 1
-      676 SETTABLEKS                       R49 R48 K35 ["CornerFillLeft"]
-      678 GETUPVAL                         R49 1
-      679 GETTABLEKS                       R49 R49 K24 ["createElement"]
-      681 LOADK                            R50 K25 ["Frame"]
-      682 NEWTABLE                         R51 8 0
-      684 GETIMPORT                        R52 K28 [UDim2.new]
-      686 LOADN                            R53 1
-      687 LOADN                            R56 2
-      688 ADD                              R55 R56 R44
-      689 MINUS                            R54 R55
-      690 LOADN                            R55 0
-      691 LOADN                            R56 1
-      692 CALL                             R52 4 1
-      693 SETTABLEKS                       R52 R51 K29 ["Size"]
-      695 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      697 LOADN                            R53 2
-      698 GETUPVAL                         R55 8
-      699 GETTABLEKS                       R55 R55 K62 ["headerHeight"]
-      701 SUBK                             R54 R55 K61 [1]
-      702 CALL                             R52 2 1
-      703 SETTABLEKS                       R52 R51 K40 ["Position"]
-      705 LOADN                            R52 0
-      706 SETTABLEKS                       R52 R51 K65 ["BorderSizePixel"]
-      708 LOADN                            R52 1
-      709 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      711 GETUPVAL                         R52 1
-      712 GETTABLEKS                       R52 R52 K70 ["Tag"]
-      714 LOADK                            R53 K73 ["SceneAnalysis-StrokeDefault"]
-      715 SETTABLE                         R53 R51 R52
-      716 CALL                             R49 2 1
-      717 SETTABLEKS                       R49 R48 K36 ["HeaderDivider"]
-      719 GETUPVAL                         R49 1
-      720 GETTABLEKS                       R49 R49 K24 ["createElement"]
-      722 LOADK                            R50 K25 ["Frame"]
-      723 DUPTABLE                         R51 K75 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "ClipsDescendants", "ZIndex"}]
-      724 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      726 LOADN                            R53 13
-      727 GETUPVAL                         R56 8
-      728 GETTABLEKS                       R56 R56 K62 ["headerHeight"]
-      730 SUBK                             R55 R56 K61 [1]
-      731 SUBK                             R54 R55 K17 [2]
-      732 CALL                             R52 2 1
-      733 SETTABLEKS                       R52 R51 K29 ["Size"]
-      735 GETIMPORT                        R52 K28 [UDim2.new]
-      737 LOADN                            R53 1
-      738 SUBK                             R55 R44 K61 [1]
-      739 MINUS                            R54 R55
-      740 LOADN                            R55 0
-      741 LOADN                            R56 2
-      742 CALL                             R52 4 1
-      743 SETTABLEKS                       R52 R51 K40 ["Position"]
-      745 GETIMPORT                        R52 K77 [Vector2.new]
-      747 LOADN                            R53 1
-      748 LOADN                            R54 0
-      749 CALL                             R52 2 1
-      750 SETTABLEKS                       R52 R51 K74 ["AnchorPoint"]
-      752 LOADN                            R52 1
-      753 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
-      755 LOADB                            R52 1
-      756 SETTABLEKS                       R52 R51 K59 ["ClipsDescendants"]
-      758 LOADN                            R52 1
-      759 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      761 DUPTABLE                         R52 K68 [{"Fill"}]
-      762 GETUPVAL                         R53 1
-      763 GETTABLEKS                       R53 R53 K24 ["createElement"]
-      765 LOADK                            R54 K25 ["Frame"]
-      766 NEWTABLE                         R55 8 0
-      768 GETIMPORT                        R56 K28 [UDim2.new]
-      770 LOADN                            R57 0
-      771 LOADN                            R58 16
-      772 LOADN                            R59 1
-      773 LOADN                            R60 8
-      774 CALL                             R56 4 1
-      775 SETTABLEKS                       R56 R55 K29 ["Size"]
-      777 GETIMPORT                        R56 K28 [UDim2.new]
-      779 LOADN                            R57 1
-      780 LOADN                            R58 0
-      781 LOADN                            R59 0
-      782 LOADN                            R60 0
-      783 CALL                             R56 4 1
-      784 SETTABLEKS                       R56 R55 K40 ["Position"]
-      786 GETIMPORT                        R56 K77 [Vector2.new]
-      788 LOADN                            R57 1
-      789 LOADN                            R58 0
-      790 CALL                             R56 2 1
-      791 SETTABLEKS                       R56 R55 K74 ["AnchorPoint"]
-      793 LOADN                            R56 0
-      794 SETTABLEKS                       R56 R55 K65 ["BorderSizePixel"]
-      796 SETTABLEKS                       R32 R55 K69 ["ref"]
-      798 GETUPVAL                         R56 1
-      799 GETTABLEKS                       R56 R56 K70 ["Tag"]
-      801 LOADK                            R57 K71 ["SceneAnalysis-BackgroundColor"]
-      802 SETTABLE                         R57 R55 R56
-      803 DUPTABLE                         R56 K72 [{"Corner"}]
-      804 GETUPVAL                         R57 1
-      805 GETTABLEKS                       R57 R57 K24 ["createElement"]
-      807 LOADK                            R58 K48 ["UICorner"]
-      808 DUPTABLE                         R59 K50 [{"CornerRadius"}]
-      809 GETIMPORT                        R60 K52 [UDim.new]
-      811 LOADN                            R61 0
-      812 LOADN                            R62 8
-      813 CALL                             R60 2 1
-      814 SETTABLEKS                       R60 R59 K49 ["CornerRadius"]
-      816 CALL                             R57 2 1
-      817 SETTABLEKS                       R57 R56 K45 ["Corner"]
-      819 CALL                             R53 3 1
-      820 SETTABLEKS                       R53 R52 K67 ["Fill"]
-      822 CALL                             R49 3 1
-      823 SETTABLEKS                       R49 R48 K37 ["CornerFill"]
-      825 GETUPVAL                         R49 1
-      826 GETTABLEKS                       R49 R49 K24 ["createElement"]
-      828 LOADK                            R50 K38 ["ScrollingFrame"]
-      829 NEWTABLE                         R51 16 0
-      831 GETIMPORT                        R52 K28 [UDim2.new]
-      833 LOADN                            R53 1
-      834 LOADN                            R54 253
-      835 LOADN                            R55 1
-      836 GETUPVAL                         R60 8
-      837 GETTABLEKS                       R60 R60 K62 ["headerHeight"]
-      839 MINUS                            R59 R60
-      840 SUBK                             R58 R59 K61 [1]
-      841 SUBK                             R57 R58 K17 [2]
-      842 SUBK                             R56 R57 K17 [2]
-      843 CALL                             R52 4 1
-      844 SETTABLEKS                       R52 R51 K29 ["Size"]
-      846 GETIMPORT                        R52 K44 [UDim2.fromOffset]
-      848 LOADN                            R53 1
-      849 GETUPVAL                         R54 8
-      850 GETTABLEKS                       R54 R54 K62 ["headerHeight"]
-      852 CALL                             R52 2 1
-      853 SETTABLEKS                       R52 R51 K40 ["Position"]
-      855 LOADB                            R52 0
-      856 SETTABLEKS                       R52 R51 K78 ["SmoothScroll"]
-      858 GETUPVAL                         R54 8
-      859 GETTABLEKS                       R54 R54 K80 ["rowHeight"]
-      861 GETUPVAL                         R55 13
-      862 GETTABLEKS                       R55 R55 K81 ["SCROLL_RATE"]
-      864 MUL                              R53 R54 R55
-      865 DIVK                             R52 R53 K79 [140]
-      866 SETTABLEKS                       R52 R51 K82 ["ScrollRate"]
-      868 LOADN                            R52 1
-      869 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
-      871 LOADN                            R52 0
-      872 SETTABLEKS                       R52 R51 K65 ["BorderSizePixel"]
-      874 GETTABLEKS                       R52 R2 K83 ["getTotalCountObservable"]
-      876 CALL                             R52 0 1
-      877 GETTABLEKS                       R52 R52 K84 ["getBinding"]
-      879 CALL                             R52 0 1
-      880 DUPCLOSURE                       R54 K85 [PROTO_29]
-      881 CAPTURE                          UPVAL U8
-      882 NAMECALL                         R52 R52 K86 ["map"]
-      884 CALL                             R52 2 1
-      885 SETTABLEKS                       R52 R51 K87 ["CanvasSize"]
-      887 SUBK                             R52 R43 K88 [4]
-      888 SETTABLEKS                       R52 R51 K89 ["ScrollBarThickness"]
-      890 GETIMPORT                        R52 K93 [Enum.ScrollBarInset.Always]
-      892 SETTABLEKS                       R52 R51 K94 ["VerticalScrollBarInset"]
-      894 GETIMPORT                        R52 K96 [Enum.ScrollBarInset.None]
-      896 SETTABLEKS                       R52 R51 K97 ["HorizontalScrollBarInset"]
-      898 LOADB                            R52 1
-      899 SETTABLEKS                       R52 R51 K59 ["ClipsDescendants"]
-      901 LOADN                            R52 1
-      902 SETTABLEKS                       R52 R51 K41 ["ZIndex"]
-      904 GETTABLEKS                       R52 R0 K22 ["scrollRef"]
-      906 SETTABLEKS                       R52 R51 K69 ["ref"]
-      908 GETUPVAL                         R52 1
-      909 GETTABLEKS                       R52 R52 K31 ["Change"]
-      911 GETTABLEKS                       R52 R52 K32 ["AbsoluteSize"]
-      913 GETTABLEKS                       R53 R0 K98 ["onAbsoluteSizeChange"]
-      915 SETTABLE                         R53 R51 R52
-      916 GETUPVAL                         R52 1
-      917 GETTABLEKS                       R52 R52 K31 ["Change"]
-      919 GETTABLEKS                       R52 R52 K99 ["CanvasPosition"]
-      921 GETTABLEKS                       R53 R0 K100 ["onCanvasPositionChange"]
-      923 SETTABLE                         R53 R51 R52
-      924 GETUPVAL                         R52 1
-      925 GETTABLEKS                       R52 R52 K70 ["Tag"]
-      927 LOADK                            R53 K101 ["SceneAnalysis-ScrollingFrame"]
-      928 SETTABLE                         R53 R51 R52
-      929 GETUPVAL                         R52 14
-      930 MOVE                             R53 R24
-      931 NEWCLOSURE                       R54 P17
-      932 CAPTURE                          UPVAL U1
-      933 CAPTURE                          UPVAL U4
-      934 CAPTURE                          UPVAL U8
-      935 CAPTURE                          VAL R0
-      936 CAPTURE                          UPVAL U15
-      937 CAPTURE                          VAL R25
-      938 CAPTURE                          VAL R27
-      939 CAPTURE                          VAL R29
-      940 CAPTURE                          VAL R15
-      941 CALL                             R52 2 1
-      942 CALL                             R49 3 1
-      943 SETTABLEKS                       R49 R48 K38 ["ScrollingFrame"]
-      945 CALL                             R45 3 -1
-      946 RETURN                           R45 -1
+      469 DUPTABLE                         R52 K48 [{"Corner", "Stroke"}]
+      470 GETUPVAL                         R53 1
+      471 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      473 LOADK                            R54 K49 ["UICorner"]
+      474 DUPTABLE                         R55 K51 [{"CornerRadius"}]
+      475 GETIMPORT                        R56 K53 [UDim.new]
+      477 LOADN                            R57 0
+      478 LOADN                            R58 8
+      479 CALL                             R56 2 1
+      480 SETTABLEKS                       R56 R55 K50 ["CornerRadius"]
+      482 CALL                             R53 2 1
+      483 SETTABLEKS                       R53 R52 K46 ["Corner"]
+      485 GETUPVAL                         R53 1
+      486 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      488 LOADK                            R54 K54 ["UIStroke"]
+      489 DUPTABLE                         R55 K59 [{["Color"], ["Transparency"] = 0.88, ["Thickness"] = 1}]
+      490 SETTABLEKS                       R6 R55 K55 ["Color"]
+      492 CALL                             R53 2 1
+      493 SETTABLEKS                       R53 R52 K47 ["Stroke"]
+      495 CALL                             R49 3 1
+      496 SETTABLEKS                       R49 R48 K33 ["BorderFrame"]
+      498 GETUPVAL                         R49 1
+      499 GETTABLEKS                       R49 R49 K24 ["createElement"]
+      501 LOADK                            R50 K25 ["Frame"]
+      502 DUPTABLE                         R51 K62 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["ZIndex"] = 1}]
+      503 GETIMPORT                        R52 K28 [UDim2.new]
+      505 LOADN                            R53 1
+      506 LOADN                            R56 2
+      507 ADD                              R55 R56 R44
+      508 MINUS                            R54 R55
+      509 LOADN                            R55 0
+      510 GETUPVAL                         R57 8
+      511 GETTABLEKS                       R57 R57 K63 ["headerHeight"]
+      513 ADDK                             R56 R57 K41 [1]
+      514 CALL                             R52 4 1
+      515 SETTABLEKS                       R52 R51 K29 ["Size"]
+      517 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      519 LOADN                            R53 2
+      520 LOADN                            R54 0
+      521 CALL                             R52 2 1
+      522 SETTABLEKS                       R52 R51 K40 ["Position"]
+      524 DUPTABLE                         R52 K65 [{"Corner", "Headers"}]
+      525 GETUPVAL                         R53 1
+      526 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      528 LOADK                            R54 K49 ["UICorner"]
+      529 DUPTABLE                         R55 K51 [{"CornerRadius"}]
+      530 GETIMPORT                        R56 K53 [UDim.new]
+      532 LOADN                            R57 0
+      533 LOADN                            R58 8
+      534 CALL                             R56 2 1
+      535 SETTABLEKS                       R56 R55 K50 ["CornerRadius"]
+      537 CALL                             R53 2 1
+      538 SETTABLEKS                       R53 R52 K46 ["Corner"]
+      540 GETUPVAL                         R53 1
+      541 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      543 LOADK                            R54 K25 ["Frame"]
+      544 DUPTABLE                         R55 K68 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 1}]
+      545 GETIMPORT                        R56 K28 [UDim2.new]
+      547 LOADN                            R57 1
+      548 LOADN                            R58 0
+      549 LOADN                            R59 0
+      550 GETUPVAL                         R61 8
+      551 GETTABLEKS                       R61 R61 K63 ["headerHeight"]
+      553 ADDK                             R60 R61 K41 [1]
+      554 CALL                             R56 4 1
+      555 SETTABLEKS                       R56 R55 K29 ["Size"]
+      557 MOVE                             R56 R42
+      558 CALL                             R53 3 1
+      559 SETTABLEKS                       R53 R52 K64 ["Headers"]
+      561 CALL                             R49 3 1
+      562 SETTABLEKS                       R49 R48 K34 ["Content"]
+      564 GETUPVAL                         R49 1
+      565 GETTABLEKS                       R49 R49 K24 ["createElement"]
+      567 LOADK                            R50 K25 ["Frame"]
+      568 DUPTABLE                         R51 K69 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["ZIndex"] = 2}]
+      569 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      571 LOADN                            R53 8
+      572 GETUPVAL                         R56 8
+      573 GETTABLEKS                       R56 R56 K63 ["headerHeight"]
+      575 SUBK                             R55 R56 K41 [1]
+      576 SUBK                             R54 R55 K17 [2]
+      577 CALL                             R52 2 1
+      578 SETTABLEKS                       R52 R51 K29 ["Size"]
+      580 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      582 LOADN                            R53 2
+      583 LOADN                            R54 2
+      584 CALL                             R52 2 1
+      585 SETTABLEKS                       R52 R51 K40 ["Position"]
+      587 DUPTABLE                         R52 K71 [{"Fill"}]
+      588 GETUPVAL                         R53 1
+      589 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      591 LOADK                            R54 K25 ["Frame"]
+      592 NEWTABLE                         R55 8 0
+      594 GETIMPORT                        R56 K28 [UDim2.new]
+      596 LOADN                            R57 0
+      597 LOADN                            R58 16
+      598 LOADN                            R59 1
+      599 LOADN                            R60 8
+      600 CALL                             R56 4 1
+      601 SETTABLEKS                       R56 R55 K29 ["Size"]
+      603 GETIMPORT                        R56 K45 [UDim2.fromOffset]
+      605 LOADN                            R57 0
+      606 LOADN                            R58 0
+      607 CALL                             R56 2 1
+      608 SETTABLEKS                       R56 R55 K40 ["Position"]
+      610 LOADN                            R56 0
+      611 SETTABLEKS                       R56 R55 K66 ["BorderSizePixel"]
+      613 SETTABLEKS                       R37 R55 K72 ["ref"]
+      615 GETUPVAL                         R56 1
+      616 GETTABLEKS                       R56 R56 K73 ["Tag"]
+      618 LOADK                            R57 K74 ["SceneAnalysis-BackgroundColor"]
+      619 SETTABLE                         R57 R55 R56
+      620 DUPTABLE                         R56 K75 [{"Corner"}]
+      621 GETUPVAL                         R57 1
+      622 GETTABLEKS                       R57 R57 K24 ["createElement"]
+      624 LOADK                            R58 K49 ["UICorner"]
+      625 DUPTABLE                         R59 K51 [{"CornerRadius"}]
+      626 GETIMPORT                        R60 K53 [UDim.new]
+      628 LOADN                            R61 0
+      629 LOADN                            R62 8
+      630 CALL                             R60 2 1
+      631 SETTABLEKS                       R60 R59 K50 ["CornerRadius"]
+      633 CALL                             R57 2 1
+      634 SETTABLEKS                       R57 R56 K46 ["Corner"]
+      636 CALL                             R53 3 1
+      637 SETTABLEKS                       R53 R52 K70 ["Fill"]
+      639 CALL                             R49 3 1
+      640 SETTABLEKS                       R49 R48 K35 ["CornerFillLeft"]
+      642 GETUPVAL                         R49 1
+      643 GETTABLEKS                       R49 R49 K24 ["createElement"]
+      645 LOADK                            R50 K25 ["Frame"]
+      646 NEWTABLE                         R51 8 0
+      648 GETIMPORT                        R52 K28 [UDim2.new]
+      650 LOADN                            R53 1
+      651 LOADN                            R56 2
+      652 ADD                              R55 R56 R44
+      653 MINUS                            R54 R55
+      654 LOADN                            R55 0
+      655 LOADN                            R56 1
+      656 CALL                             R52 4 1
+      657 SETTABLEKS                       R52 R51 K29 ["Size"]
+      659 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      661 LOADN                            R53 2
+      662 GETUPVAL                         R55 8
+      663 GETTABLEKS                       R55 R55 K63 ["headerHeight"]
+      665 SUBK                             R54 R55 K41 [1]
+      666 CALL                             R52 2 1
+      667 SETTABLEKS                       R52 R51 K40 ["Position"]
+      669 LOADN                            R52 0
+      670 SETTABLEKS                       R52 R51 K66 ["BorderSizePixel"]
+      672 LOADN                            R52 1
+      673 SETTABLEKS                       R52 R51 K42 ["ZIndex"]
+      675 GETUPVAL                         R52 1
+      676 GETTABLEKS                       R52 R52 K73 ["Tag"]
+      678 LOADK                            R53 K76 ["SceneAnalysis-StrokeDefault"]
+      679 SETTABLE                         R53 R51 R52
+      680 CALL                             R49 2 1
+      681 SETTABLEKS                       R49 R48 K36 ["HeaderDivider"]
+      683 GETUPVAL                         R49 1
+      684 GETTABLEKS                       R49 R49 K24 ["createElement"]
+      686 LOADK                            R50 K25 ["Frame"]
+      687 DUPTABLE                         R51 K78 [{["Size"], ["Position"], ["AnchorPoint"], ["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["ZIndex"] = 1}]
+      688 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      690 LOADN                            R53 13
+      691 GETUPVAL                         R56 8
+      692 GETTABLEKS                       R56 R56 K63 ["headerHeight"]
+      694 SUBK                             R55 R56 K41 [1]
+      695 SUBK                             R54 R55 K17 [2]
+      696 CALL                             R52 2 1
+      697 SETTABLEKS                       R52 R51 K29 ["Size"]
+      699 GETIMPORT                        R52 K28 [UDim2.new]
+      701 LOADN                            R53 1
+      702 SUBK                             R55 R44 K41 [1]
+      703 MINUS                            R54 R55
+      704 LOADN                            R55 0
+      705 LOADN                            R56 2
+      706 CALL                             R52 4 1
+      707 SETTABLEKS                       R52 R51 K40 ["Position"]
+      709 GETIMPORT                        R52 K80 [Vector2.new]
+      711 LOADN                            R53 1
+      712 LOADN                            R54 0
+      713 CALL                             R52 2 1
+      714 SETTABLEKS                       R52 R51 K77 ["AnchorPoint"]
+      716 DUPTABLE                         R52 K71 [{"Fill"}]
+      717 GETUPVAL                         R53 1
+      718 GETTABLEKS                       R53 R53 K24 ["createElement"]
+      720 LOADK                            R54 K25 ["Frame"]
+      721 NEWTABLE                         R55 8 0
+      723 GETIMPORT                        R56 K28 [UDim2.new]
+      725 LOADN                            R57 0
+      726 LOADN                            R58 16
+      727 LOADN                            R59 1
+      728 LOADN                            R60 8
+      729 CALL                             R56 4 1
+      730 SETTABLEKS                       R56 R55 K29 ["Size"]
+      732 GETIMPORT                        R56 K28 [UDim2.new]
+      734 LOADN                            R57 1
+      735 LOADN                            R58 0
+      736 LOADN                            R59 0
+      737 LOADN                            R60 0
+      738 CALL                             R56 4 1
+      739 SETTABLEKS                       R56 R55 K40 ["Position"]
+      741 GETIMPORT                        R56 K80 [Vector2.new]
+      743 LOADN                            R57 1
+      744 LOADN                            R58 0
+      745 CALL                             R56 2 1
+      746 SETTABLEKS                       R56 R55 K77 ["AnchorPoint"]
+      748 LOADN                            R56 0
+      749 SETTABLEKS                       R56 R55 K66 ["BorderSizePixel"]
+      751 SETTABLEKS                       R32 R55 K72 ["ref"]
+      753 GETUPVAL                         R56 1
+      754 GETTABLEKS                       R56 R56 K73 ["Tag"]
+      756 LOADK                            R57 K74 ["SceneAnalysis-BackgroundColor"]
+      757 SETTABLE                         R57 R55 R56
+      758 DUPTABLE                         R56 K75 [{"Corner"}]
+      759 GETUPVAL                         R57 1
+      760 GETTABLEKS                       R57 R57 K24 ["createElement"]
+      762 LOADK                            R58 K49 ["UICorner"]
+      763 DUPTABLE                         R59 K51 [{"CornerRadius"}]
+      764 GETIMPORT                        R60 K53 [UDim.new]
+      766 LOADN                            R61 0
+      767 LOADN                            R62 8
+      768 CALL                             R60 2 1
+      769 SETTABLEKS                       R60 R59 K50 ["CornerRadius"]
+      771 CALL                             R57 2 1
+      772 SETTABLEKS                       R57 R56 K46 ["Corner"]
+      774 CALL                             R53 3 1
+      775 SETTABLEKS                       R53 R52 K70 ["Fill"]
+      777 CALL                             R49 3 1
+      778 SETTABLEKS                       R49 R48 K37 ["CornerFill"]
+      780 GETUPVAL                         R49 1
+      781 GETTABLEKS                       R49 R49 K24 ["createElement"]
+      783 LOADK                            R50 K38 ["ScrollingFrame"]
+      784 NEWTABLE                         R51 16 0
+      786 GETIMPORT                        R52 K28 [UDim2.new]
+      788 LOADN                            R53 1
+      789 LOADN                            R54 -3
+      790 LOADN                            R55 1
+      791 GETUPVAL                         R60 8
+      792 GETTABLEKS                       R60 R60 K63 ["headerHeight"]
+      794 MINUS                            R59 R60
+      795 SUBK                             R58 R59 K41 [1]
+      796 SUBK                             R57 R58 K17 [2]
+      797 SUBK                             R56 R57 K17 [2]
+      798 CALL                             R52 4 1
+      799 SETTABLEKS                       R52 R51 K29 ["Size"]
+      801 GETIMPORT                        R52 K45 [UDim2.fromOffset]
+      803 LOADN                            R53 1
+      804 GETUPVAL                         R54 8
+      805 GETTABLEKS                       R54 R54 K63 ["headerHeight"]
+      807 CALL                             R52 2 1
+      808 SETTABLEKS                       R52 R51 K40 ["Position"]
+      810 LOADB                            R52 0
+      811 SETTABLEKS                       R52 R51 K81 ["SmoothScroll"]
+      813 GETUPVAL                         R54 8
+      814 GETTABLEKS                       R54 R54 K83 ["rowHeight"]
+      816 GETUPVAL                         R55 13
+      817 GETTABLEKS                       R55 R55 K84 ["SCROLL_RATE"]
+      819 MUL                              R53 R54 R55
+      820 DIVK                             R52 R53 K82 [140]
+      821 SETTABLEKS                       R52 R51 K85 ["ScrollRate"]
+      823 LOADN                            R52 1
+      824 SETTABLEKS                       R52 R51 K30 ["BackgroundTransparency"]
+      826 LOADN                            R52 0
+      827 SETTABLEKS                       R52 R51 K66 ["BorderSizePixel"]
+      829 GETTABLEKS                       R52 R2 K86 ["getTotalCountObservable"]
+      831 CALL                             R52 0 1
+      832 GETTABLEKS                       R52 R52 K87 ["getBinding"]
+      834 CALL                             R52 0 1
+      835 DUPCLOSURE                       R54 K88 [PROTO_29]
+      836 CAPTURE                          UPVAL U8
+      837 NAMECALL                         R52 R52 K89 ["map"]
+      839 CALL                             R52 2 1
+      840 SETTABLEKS                       R52 R51 K90 ["CanvasSize"]
+      842 SUBK                             R52 R43 K91 [4]
+      843 SETTABLEKS                       R52 R51 K92 ["ScrollBarThickness"]
+      845 GETIMPORT                        R52 K96 [Enum.ScrollBarInset.Always]
+      847 SETTABLEKS                       R52 R51 K97 ["VerticalScrollBarInset"]
+      849 GETIMPORT                        R52 K99 [Enum.ScrollBarInset.None]
+      851 SETTABLEKS                       R52 R51 K100 ["HorizontalScrollBarInset"]
+      853 LOADB                            R52 1
+      854 SETTABLEKS                       R52 R51 K60 ["ClipsDescendants"]
+      856 LOADN                            R52 1
+      857 SETTABLEKS                       R52 R51 K42 ["ZIndex"]
+      859 GETTABLEKS                       R52 R0 K22 ["scrollRef"]
+      861 SETTABLEKS                       R52 R51 K72 ["ref"]
+      863 GETUPVAL                         R52 1
+      864 GETTABLEKS                       R52 R52 K31 ["Change"]
+      866 GETTABLEKS                       R52 R52 K32 ["AbsoluteSize"]
+      868 GETTABLEKS                       R53 R0 K101 ["onAbsoluteSizeChange"]
+      870 SETTABLE                         R53 R51 R52
+      871 GETUPVAL                         R52 1
+      872 GETTABLEKS                       R52 R52 K31 ["Change"]
+      874 GETTABLEKS                       R52 R52 K102 ["CanvasPosition"]
+      876 GETTABLEKS                       R53 R0 K103 ["onCanvasPositionChange"]
+      878 SETTABLE                         R53 R51 R52
+      879 GETUPVAL                         R52 1
+      880 GETTABLEKS                       R52 R52 K73 ["Tag"]
+      882 LOADK                            R53 K104 ["SceneAnalysis-ScrollingFrame"]
+      883 SETTABLE                         R53 R51 R52
+      884 GETUPVAL                         R52 14
+      885 MOVE                             R53 R24
+      886 NEWCLOSURE                       R54 P17
+      887 CAPTURE                          UPVAL U1
+      888 CAPTURE                          UPVAL U4
+      889 CAPTURE                          UPVAL U8
+      890 CAPTURE                          VAL R0
+      891 CAPTURE                          UPVAL U15
+      892 CAPTURE                          VAL R25
+      893 CAPTURE                          VAL R27
+      894 CAPTURE                          VAL R29
+      895 CAPTURE                          VAL R15
+      896 CALL                             R52 2 1
+      897 CALL                             R49 3 1
+      898 SETTABLEKS                       R49 R48 K38 ["ScrollingFrame"]
+      900 CALL                             R45 3 -1
+      901 RETURN                           R45 -1
 
 MAIN:
         0 PREPVARARGS                      0

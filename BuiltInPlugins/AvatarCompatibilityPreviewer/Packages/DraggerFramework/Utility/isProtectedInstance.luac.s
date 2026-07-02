@@ -22,16 +22,14 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 NEWTABLE                         R1 0 0
-        3 DUPTABLE                         R2 K1 [{"__mode"}]
-        4 LOADK                            R3 K2 ["k"]
-        5 SETTABLEKS                       R3 R2 K0 ["__mode"]
-        7 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        9 GETIMPORT                        R0 K4 [setmetatable]
-       11 CALL                             R0 2 1
-       12 DUPCLOSURE                       R1 K5 [PROTO_0]
-       13 DUPCLOSURE                       R2 K6 [PROTO_1]
-       14 DUPCLOSURE                       R3 K7 [PROTO_2]
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          VAL R2
-       17 CAPTURE                          VAL R1
-       18 RETURN                           R3 1
+        3 DUPTABLE                         R2 K2 [{[1] = "k"}]
+        4 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        6 GETIMPORT                        R0 K4 [setmetatable]
+        8 CALL                             R0 2 1
+        9 DUPCLOSURE                       R1 K5 [PROTO_0]
+       10 DUPCLOSURE                       R2 K6 [PROTO_1]
+       11 DUPCLOSURE                       R3 K7 [PROTO_2]
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          VAL R2
+       14 CAPTURE                          VAL R1
+       15 RETURN                           R3 1

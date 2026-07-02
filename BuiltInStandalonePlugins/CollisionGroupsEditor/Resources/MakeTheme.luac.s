@@ -89,332 +89,240 @@ PROTO_0:
       127 GETUPVAL                         R8 2
       128 GETTABLEKS                       R8 R8 K26 ["Button"]
       130 GETTABLE                         R6 R7 R8
-      131 DUPTABLE                         R7 K28 [{"TextWrapped"}]
-      132 LOADB                            R8 1
-      133 SETTABLEKS                       R8 R7 K27 ["TextWrapped"]
-      135 CALL                             R5 2 1
-      136 SETTABLE                         R5 R3 R4
-      137 GETUPVAL                         R4 2
-      138 GETTABLEKS                       R4 R4 K29 ["Table"]
-      140 DUPTABLE                         R5 K30 [{"Border"}]
-      141 GETUPVAL                         R6 4
-      142 GETTABLEKS                       R6 R6 K31 ["MainBackground"]
-      144 SETTABLEKS                       R6 R5 K11 ["Border"]
-      146 SETTABLE                         R5 R3 R4
-      147 GETUPVAL                         R4 2
-      148 GETTABLEKS                       R4 R4 K32 ["GroupButton"]
-      150 NEWTABLE                         R5 8 0
-      152 GETIMPORT                        R6 K35 [UDim2.fromOffset]
-      154 LOADN                            R7 32
-      155 LOADN                            R8 32
-      156 CALL                             R6 2 1
-      157 SETTABLEKS                       R6 R5 K36 ["Size"]
-      159 GETIMPORT                        R6 K35 [UDim2.fromOffset]
-      161 LOADN                            R7 26
-      162 LOADN                            R8 26
-      163 CALL                             R6 2 1
-      164 SETTABLEKS                       R6 R5 K37 ["ImageSize"]
-      166 LOADN                            R6 6
-      167 SETTABLEKS                       R6 R5 K38 ["Padding"]
-      169 DUPTABLE                         R6 K41 [{"Image", "HoveredImage"}]
-      170 LOADK                            R7 K42 ["rbxasset://textures/CollisionGroupsEditor/rename.png"]
-      171 SETTABLEKS                       R7 R6 K39 ["Image"]
-      173 LOADK                            R7 K43 ["rbxasset://textures/CollisionGroupsEditor/rename-hover.png"]
-      174 SETTABLEKS                       R7 R6 K40 ["HoveredImage"]
-      176 SETTABLEKS                       R6 R5 K44 ["&Rename"]
-      178 DUPTABLE                         R6 K45 [{"Padding", "ImageSize", "Image", "HoveredImage"}]
-      179 LOADN                            R7 10
-      180 SETTABLEKS                       R7 R6 K38 ["Padding"]
-      182 GETIMPORT                        R7 K35 [UDim2.fromOffset]
-      184 LOADN                            R8 22
-      185 LOADN                            R9 22
-      186 CALL                             R7 2 1
-      187 SETTABLEKS                       R7 R6 K37 ["ImageSize"]
-      189 LOADK                            R7 K46 ["rbxasset://textures/CollisionGroupsEditor/assign.png"]
-      190 SETTABLEKS                       R7 R6 K39 ["Image"]
-      192 LOADK                            R7 K47 ["rbxasset://textures/CollisionGroupsEditor/assign-hover.png"]
-      193 SETTABLEKS                       R7 R6 K40 ["HoveredImage"]
-      195 SETTABLEKS                       R6 R5 K48 ["&SetMembership"]
-      197 DUPTABLE                         R6 K41 [{"Image", "HoveredImage"}]
-      198 LOADK                            R7 K49 ["rbxasset://textures/CollisionGroupsEditor/delete.png"]
-      199 SETTABLEKS                       R7 R6 K39 ["Image"]
-      201 LOADK                            R7 K50 ["rbxasset://textures/CollisionGroupsEditor/delete-hover.png"]
-      202 SETTABLEKS                       R7 R6 K40 ["HoveredImage"]
-      204 SETTABLEKS                       R6 R5 K51 ["&Delete"]
-      206 SETTABLE                         R5 R3 R4
-      207 GETUPVAL                         R4 3
-      208 GETTABLEKS                       R4 R4 K5 ["join"]
-      210 GETUPVAL                         R6 1
-      211 GETUPVAL                         R7 2
-      212 GETTABLEKS                       R7 R7 K3 ["ScrollingFrame"]
-      214 GETTABLE                         R5 R6 R7
-      215 DUPTABLE                         R6 K52 [{"ScrollBarThickness"}]
-      216 LOADN                            R7 0
-      217 SETTABLEKS                       R7 R6 K2 ["ScrollBarThickness"]
-      219 CALL                             R4 2 1
-      220 SETTABLEKS                       R4 R3 K53 ["ScrollingFrameNoBar"]
-      222 GETUPVAL                         R4 4
-      223 GETTABLEKS                       R4 R4 K12 ["ForegroundMain"]
-      225 SETTABLEKS                       R4 R3 K54 ["TableEntryBackground"]
-      227 GETUPVAL                         R4 4
-      228 GETTABLEKS                       R4 R4 K19 ["ActionFocusBorder"]
-      230 SETTABLEKS                       R4 R3 K55 ["TableEntrySelected"]
-      232 GETUPVAL                         R4 4
-      233 GETTABLEKS                       R4 R4 K17 ["ButtonHover"]
-      235 SETTABLEKS                       R4 R3 K56 ["TableEntryHover"]
-      237 GETIMPORT                        R4 K58 [UDim2.new]
-      239 LOADN                            R5 0
-      240 MOVE                             R6 R1
-      241 LOADN                            R7 0
-      242 LOADN                            R8 34
-      243 CALL                             R4 4 1
-      244 SETTABLEKS                       R4 R3 K59 ["AddGroupInternalButtonSize"]
-      246 SETTABLEKS                       R2 R3 K2 ["ScrollBarThickness"]
-      248 DUPTABLE                         R4 K63 [{"GroupSetMembershipButtonWidth", "GroupNameLabelSize", "CursorGroupNameLabelSize"}]
-      249 LOADN                            R5 36
-      250 SETTABLEKS                       R5 R4 K60 ["GroupSetMembershipButtonWidth"]
-      252 GETIMPORT                        R5 K58 [UDim2.new]
-      254 LOADN                            R6 1
-      255 LOADN                            R7 220
-      256 LOADN                            R8 1
-      257 LOADN                            R9 254
-      258 CALL                             R5 4 1
-      259 SETTABLEKS                       R5 R4 K61 ["GroupNameLabelSize"]
-      261 GETIMPORT                        R5 K58 [UDim2.new]
-      263 LOADN                            R6 1
-      264 LOADN                            R7 0
-      265 LOADN                            R8 1
-      266 LOADN                            R9 254
-      267 CALL                             R5 4 1
-      268 SETTABLEKS                       R5 R4 K62 ["CursorGroupNameLabelSize"]
-      270 SETTABLEKS                       R4 R3 K64 ["GroupLabelStyle"]
-      272 DUPTABLE                         R4 K65 [{"Padding"}]
-      273 DUPTABLE                         R5 K70 [{"Top", "Bottom", "Left", "Right"}]
-      274 LOADN                            R6 1
-      275 SETTABLEKS                       R6 R5 K66 ["Top"]
-      277 LOADN                            R6 1
-      278 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      280 LOADN                            R6 1
-      281 SETTABLEKS                       R6 R5 K68 ["Left"]
-      283 LOADN                            R6 1
-      284 SETTABLEKS                       R6 R5 K69 ["Right"]
-      286 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      288 SETTABLEKS                       R4 R3 K71 ["GroupLabelColumn"]
-      290 DUPTABLE                         R4 K74 [{"Padding", "ScrollingFrameSize", "ScrollingFramePadding"}]
-      291 DUPTABLE                         R5 K70 [{"Top", "Bottom", "Left", "Right"}]
-      292 LOADN                            R6 1
-      293 SETTABLEKS                       R6 R5 K66 ["Top"]
-      295 LOADN                            R6 1
-      296 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      298 LOADN                            R6 2
-      299 SETTABLEKS                       R6 R5 K68 ["Left"]
-      301 SETTABLEKS                       R2 R5 K69 ["Right"]
-      303 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      305 GETIMPORT                        R5 K58 [UDim2.new]
-      307 LOADN                            R6 1
-      308 GETUPVAL                         R9 0
-      309 GETTABLEKS                       R9 R9 K76 ["GroupRowWidth"]
-      311 MINUS                            R8 R9
-      312 ADDK                             R7 R8 K75 [1]
-      313 LOADN                            R8 0
-      314 GETUPVAL                         R9 0
-      315 GETTABLEKS                       R9 R9 K0 ["GroupRowHeight"]
-      317 CALL                             R5 4 1
-      318 SETTABLEKS                       R5 R4 K72 ["ScrollingFrameSize"]
-      320 DUPTABLE                         R5 K70 [{"Top", "Bottom", "Left", "Right"}]
-      321 LOADN                            R6 0
-      322 SETTABLEKS                       R6 R5 K66 ["Top"]
-      324 LOADN                            R6 0
-      325 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      327 LOADN                            R6 0
-      328 SETTABLEKS                       R6 R5 K68 ["Left"]
-      330 SETTABLEKS                       R2 R5 K69 ["Right"]
-      332 SETTABLEKS                       R5 R4 K73 ["ScrollingFramePadding"]
-      334 SETTABLEKS                       R4 R3 K77 ["TableHeader"]
-      336 DUPTABLE                         R4 K79 [{"Padding", "LabelPanePadding"}]
-      337 DUPTABLE                         R5 K70 [{"Top", "Bottom", "Left", "Right"}]
-      338 LOADN                            R6 1
-      339 SETTABLEKS                       R6 R5 K66 ["Top"]
-      341 LOADN                            R6 1
-      342 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      344 LOADN                            R6 2
-      345 SETTABLEKS                       R6 R5 K68 ["Left"]
-      347 LOADN                            R6 0
-      348 SETTABLEKS                       R6 R5 K69 ["Right"]
-      350 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      352 DUPTABLE                         R5 K81 [{"Top", "Bottom", "Left", "right"}]
-      353 LOADN                            R6 0
-      354 SETTABLEKS                       R6 R5 K66 ["Top"]
-      356 LOADN                            R6 0
-      357 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      359 LOADN                            R6 12
-      360 SETTABLEKS                       R6 R5 K68 ["Left"]
-      362 LOADN                            R6 0
-      363 SETTABLEKS                       R6 R5 K80 ["right"]
-      365 SETTABLEKS                       R5 R4 K78 ["LabelPanePadding"]
-      367 SETTABLEKS                       R4 R3 K82 ["ListHeader"]
-      369 DUPTABLE                         R4 K86 [{"MiddlePaneSize", "GridFrameSize", "ListFrameSize"}]
-      370 GETIMPORT                        R5 K58 [UDim2.new]
-      372 LOADN                            R6 1
-      373 LOADN                            R7 0
-      374 LOADN                            R8 1
-      375 MINUS                            R11 R0
-      376 MULK                             R10 R11 K88 [2]
-      377 SUBK                             R9 R10 K87 [12]
-      378 CALL                             R5 4 1
-      379 SETTABLEKS                       R5 R4 K83 ["MiddlePaneSize"]
-      381 GETIMPORT                        R5 K58 [UDim2.new]
-      383 LOADN                            R6 1
-      384 GETUPVAL                         R8 0
-      385 GETTABLEKS                       R8 R8 K76 ["GroupRowWidth"]
-      387 MINUS                            R7 R8
+      131 DUPTABLE                         R7 K29 [{["TextWrapped"] = True}]
+      132 CALL                             R5 2 1
+      133 SETTABLE                         R5 R3 R4
+      134 GETUPVAL                         R4 2
+      135 GETTABLEKS                       R4 R4 K30 ["Table"]
+      137 DUPTABLE                         R5 K31 [{"Border"}]
+      138 GETUPVAL                         R6 4
+      139 GETTABLEKS                       R6 R6 K32 ["MainBackground"]
+      141 SETTABLEKS                       R6 R5 K11 ["Border"]
+      143 SETTABLE                         R5 R3 R4
+      144 GETUPVAL                         R4 2
+      145 GETTABLEKS                       R4 R4 K33 ["GroupButton"]
+      147 NEWTABLE                         R5 8 0
+      149 GETIMPORT                        R6 K36 [UDim2.fromOffset]
+      151 LOADN                            R7 32
+      152 LOADN                            R8 32
+      153 CALL                             R6 2 1
+      154 SETTABLEKS                       R6 R5 K37 ["Size"]
+      156 GETIMPORT                        R6 K36 [UDim2.fromOffset]
+      158 LOADN                            R7 26
+      159 LOADN                            R8 26
+      160 CALL                             R6 2 1
+      161 SETTABLEKS                       R6 R5 K38 ["ImageSize"]
+      163 LOADN                            R6 6
+      164 SETTABLEKS                       R6 R5 K39 ["Padding"]
+      166 DUPTABLE                         R6 K44 [{["Image"] = "rbxasset://textures/CollisionGroupsEditor/rename.png", ["HoveredImage"] = "rbxasset://textures/CollisionGroupsEditor/rename-hover.png"}]
+      167 SETTABLEKS                       R6 R5 K45 ["&Rename"]
+      169 DUPTABLE                         R6 K49 [{["Padding"] = 10, ["ImageSize"], ["Image"] = "rbxasset://textures/CollisionGroupsEditor/assign.png", ["HoveredImage"] = "rbxasset://textures/CollisionGroupsEditor/assign-hover.png"}]
+      170 GETIMPORT                        R7 K36 [UDim2.fromOffset]
+      172 LOADN                            R8 22
+      173 LOADN                            R9 22
+      174 CALL                             R7 2 1
+      175 SETTABLEKS                       R7 R6 K38 ["ImageSize"]
+      177 SETTABLEKS                       R6 R5 K50 ["&SetMembership"]
+      179 DUPTABLE                         R6 K53 [{["Image"] = "rbxasset://textures/CollisionGroupsEditor/delete.png", ["HoveredImage"] = "rbxasset://textures/CollisionGroupsEditor/delete-hover.png"}]
+      180 SETTABLEKS                       R6 R5 K54 ["&Delete"]
+      182 SETTABLE                         R5 R3 R4
+      183 GETUPVAL                         R4 3
+      184 GETTABLEKS                       R4 R4 K5 ["join"]
+      186 GETUPVAL                         R6 1
+      187 GETUPVAL                         R7 2
+      188 GETTABLEKS                       R7 R7 K3 ["ScrollingFrame"]
+      190 GETTABLE                         R5 R6 R7
+      191 DUPTABLE                         R6 K56 [{["ScrollBarThickness"] = 0}]
+      192 CALL                             R4 2 1
+      193 SETTABLEKS                       R4 R3 K57 ["ScrollingFrameNoBar"]
+      195 GETUPVAL                         R4 4
+      196 GETTABLEKS                       R4 R4 K12 ["ForegroundMain"]
+      198 SETTABLEKS                       R4 R3 K58 ["TableEntryBackground"]
+      200 GETUPVAL                         R4 4
+      201 GETTABLEKS                       R4 R4 K19 ["ActionFocusBorder"]
+      203 SETTABLEKS                       R4 R3 K59 ["TableEntrySelected"]
+      205 GETUPVAL                         R4 4
+      206 GETTABLEKS                       R4 R4 K17 ["ButtonHover"]
+      208 SETTABLEKS                       R4 R3 K60 ["TableEntryHover"]
+      210 GETIMPORT                        R4 K62 [UDim2.new]
+      212 LOADN                            R5 0
+      213 MOVE                             R6 R1
+      214 LOADN                            R7 0
+      215 LOADN                            R8 34
+      216 CALL                             R4 4 1
+      217 SETTABLEKS                       R4 R3 K63 ["AddGroupInternalButtonSize"]
+      219 SETTABLEKS                       R2 R3 K2 ["ScrollBarThickness"]
+      221 DUPTABLE                         R4 K68 [{["GroupSetMembershipButtonWidth"] = 36, ["GroupNameLabelSize"], ["CursorGroupNameLabelSize"]}]
+      222 GETIMPORT                        R5 K62 [UDim2.new]
+      224 LOADN                            R6 1
+      225 LOADN                            R7 -36
+      226 LOADN                            R8 1
+      227 LOADN                            R9 -2
+      228 CALL                             R5 4 1
+      229 SETTABLEKS                       R5 R4 K66 ["GroupNameLabelSize"]
+      231 GETIMPORT                        R5 K62 [UDim2.new]
+      233 LOADN                            R6 1
+      234 LOADN                            R7 0
+      235 LOADN                            R8 1
+      236 LOADN                            R9 -2
+      237 CALL                             R5 4 1
+      238 SETTABLEKS                       R5 R4 K67 ["CursorGroupNameLabelSize"]
+      240 SETTABLEKS                       R4 R3 K69 ["GroupLabelStyle"]
+      242 DUPTABLE                         R4 K70 [{"Padding"}]
+      243 DUPTABLE                         R5 K76 [{["Top"] = 1, ["Bottom"] = 1, ["Left"] = 1, ["Right"] = 1}]
+      244 SETTABLEKS                       R5 R4 K39 ["Padding"]
+      246 SETTABLEKS                       R4 R3 K77 ["GroupLabelColumn"]
+      248 DUPTABLE                         R4 K80 [{"Padding", "ScrollingFrameSize", "ScrollingFramePadding"}]
+      249 DUPTABLE                         R5 K82 [{["Top"] = 1, ["Bottom"] = 1, ["Left"] = 2, ["Right"]}]
+      250 SETTABLEKS                       R2 R5 K75 ["Right"]
+      252 SETTABLEKS                       R5 R4 K39 ["Padding"]
+      254 GETIMPORT                        R5 K62 [UDim2.new]
+      256 LOADN                            R6 1
+      257 GETUPVAL                         R9 0
+      258 GETTABLEKS                       R9 R9 K83 ["GroupRowWidth"]
+      260 MINUS                            R8 R9
+      261 ADDK                             R7 R8 K72 [1]
+      262 LOADN                            R8 0
+      263 GETUPVAL                         R9 0
+      264 GETTABLEKS                       R9 R9 K0 ["GroupRowHeight"]
+      266 CALL                             R5 4 1
+      267 SETTABLEKS                       R5 R4 K78 ["ScrollingFrameSize"]
+      269 DUPTABLE                         R5 K84 [{["Top"] = 0, ["Bottom"] = 0, ["Left"] = 0, ["Right"]}]
+      270 SETTABLEKS                       R2 R5 K75 ["Right"]
+      272 SETTABLEKS                       R5 R4 K79 ["ScrollingFramePadding"]
+      274 SETTABLEKS                       R4 R3 K85 ["TableHeader"]
+      276 DUPTABLE                         R4 K87 [{"Padding", "LabelPanePadding"}]
+      277 DUPTABLE                         R5 K88 [{["Top"] = 1, ["Bottom"] = 1, ["Left"] = 2, ["Right"] = 0}]
+      278 SETTABLEKS                       R5 R4 K39 ["Padding"]
+      280 DUPTABLE                         R5 K91 [{["Top"] = 0, ["Bottom"] = 0, ["Left"] = 12, ["right"] = 0}]
+      281 SETTABLEKS                       R5 R4 K86 ["LabelPanePadding"]
+      283 SETTABLEKS                       R4 R3 K92 ["ListHeader"]
+      285 DUPTABLE                         R4 K96 [{"MiddlePaneSize", "GridFrameSize", "ListFrameSize"}]
+      286 GETIMPORT                        R5 K62 [UDim2.new]
+      288 LOADN                            R6 1
+      289 LOADN                            R7 0
+      290 LOADN                            R8 1
+      291 MINUS                            R11 R0
+      292 MULK                             R10 R11 K81 [2]
+      293 SUBK                             R9 R10 K89 [12]
+      294 CALL                             R5 4 1
+      295 SETTABLEKS                       R5 R4 K93 ["MiddlePaneSize"]
+      297 GETIMPORT                        R5 K62 [UDim2.new]
+      299 LOADN                            R6 1
+      300 GETUPVAL                         R8 0
+      301 GETTABLEKS                       R8 R8 K83 ["GroupRowWidth"]
+      303 MINUS                            R7 R8
+      304 LOADN                            R8 1
+      305 LOADN                            R9 0
+      306 CALL                             R5 4 1
+      307 SETTABLEKS                       R5 R4 K94 ["GridFrameSize"]
+      309 GETIMPORT                        R5 K62 [UDim2.new]
+      311 LOADN                            R6 1
+      312 GETUPVAL                         R9 0
+      313 GETTABLEKS                       R9 R9 K83 ["GroupRowWidth"]
+      315 MINUS                            R8 R9
+      316 SUB                              R7 R8 R2
+      317 LOADN                            R8 1
+      318 LOADN                            R9 0
+      319 CALL                             R5 4 1
+      320 SETTABLEKS                       R5 R4 K95 ["ListFrameSize"]
+      322 SETTABLEKS                       R4 R3 K97 ["MainView"]
+      324 DUPTABLE                         R4 K100 [{"MainPanePadding", "UnselectedViewPadding"}]
+      325 DUPTABLE                         R5 K103 [{["Top"] = 2, ["Bottom"] = 5, ["Left"] = 4, ["Right"] = 4}]
+      326 SETTABLEKS                       R5 R4 K98 ["MainPanePadding"]
+      328 SETTABLEKS                       R2 R4 K99 ["UnselectedViewPadding"]
+      330 SETTABLEKS                       R4 R3 K104 ["GroupListView"]
+      332 GETUPVAL                         R4 3
+      333 GETTABLEKS                       R4 R4 K5 ["join"]
+      335 GETUPVAL                         R5 2
+      336 GETTABLEKS                       R5 R5 K105 ["TableRow"]
+      338 DUPTABLE                         R6 K111 [{"Border", "BackgroundOdd", "BackgroundEven", "CheckboxUncheckedImage", "CheckboxCheckedImage", "NoCheckboxPanelColor"}]
+      339 GETUPVAL                         R7 4
+      340 GETTABLEKS                       R7 R7 K10 ["SubBackground"]
+      342 SETTABLEKS                       R7 R6 K11 ["Border"]
+      344 GETUPVAL                         R7 4
+      345 GETTABLEKS                       R7 R7 K32 ["MainBackground"]
+      347 SETTABLEKS                       R7 R6 K106 ["BackgroundOdd"]
+      349 GETUPVAL                         R7 4
+      350 GETTABLEKS                       R7 R7 K112 ["SubBackground2"]
+      352 SETTABLEKS                       R7 R6 K107 ["BackgroundEven"]
+      354 GETUPVAL                         R7 4
+      355 GETTABLEKS                       R7 R7 K108 ["CheckboxUncheckedImage"]
+      357 SETTABLEKS                       R7 R6 K108 ["CheckboxUncheckedImage"]
+      359 GETUPVAL                         R7 4
+      360 GETTABLEKS                       R7 R7 K109 ["CheckboxCheckedImage"]
+      362 SETTABLEKS                       R7 R6 K109 ["CheckboxCheckedImage"]
+      364 GETUPVAL                         R7 4
+      365 GETTABLEKS                       R7 R7 K12 ["ForegroundMain"]
+      367 SETTABLEKS                       R7 R6 K110 ["NoCheckboxPanelColor"]
+      369 CALL                             R4 2 1
+      370 SETTABLEKS                       R4 R3 K113 ["CollisionCheckbox"]
+      372 DUPTABLE                         R4 K121 [{["Size"], ["Padding"] = 6, ["Spacing"] = 6, ["ButtonWidth"], ["ButtonHeight"] = 34, ["GroupButtonsPaneSize"], ["TextButtonPane"]}]
+      373 GETIMPORT                        R5 K62 [UDim2.new]
+      375 LOADN                            R6 1
+      376 LOADN                            R7 0
+      377 LOADN                            R8 0
+      378 ADDK                             R9 R0 K89 [12]
+      379 CALL                             R5 4 1
+      380 SETTABLEKS                       R5 R4 K37 ["Size"]
+      382 SETTABLEKS                       R1 R4 K116 ["ButtonWidth"]
+      384 GETIMPORT                        R5 K62 [UDim2.new]
+      386 LOADN                            R6 0
+      387 LOADN                            R7 63
       388 LOADN                            R8 1
       389 LOADN                            R9 0
       390 CALL                             R5 4 1
-      391 SETTABLEKS                       R5 R4 K84 ["GridFrameSize"]
-      393 GETIMPORT                        R5 K58 [UDim2.new]
-      395 LOADN                            R6 1
-      396 GETUPVAL                         R9 0
-      397 GETTABLEKS                       R9 R9 K76 ["GroupRowWidth"]
-      399 MINUS                            R8 R9
-      400 SUB                              R7 R8 R2
-      401 LOADN                            R8 1
-      402 LOADN                            R9 0
-      403 CALL                             R5 4 1
-      404 SETTABLEKS                       R5 R4 K85 ["ListFrameSize"]
-      406 SETTABLEKS                       R4 R3 K89 ["MainView"]
-      408 DUPTABLE                         R4 K92 [{"MainPanePadding", "UnselectedViewPadding"}]
-      409 DUPTABLE                         R5 K70 [{"Top", "Bottom", "Left", "Right"}]
-      410 LOADN                            R6 2
-      411 SETTABLEKS                       R6 R5 K66 ["Top"]
-      413 LOADN                            R6 5
-      414 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      416 LOADN                            R6 4
-      417 SETTABLEKS                       R6 R5 K68 ["Left"]
-      419 LOADN                            R6 4
-      420 SETTABLEKS                       R6 R5 K69 ["Right"]
-      422 SETTABLEKS                       R5 R4 K90 ["MainPanePadding"]
-      424 SETTABLEKS                       R2 R4 K91 ["UnselectedViewPadding"]
-      426 SETTABLEKS                       R4 R3 K93 ["GroupListView"]
-      428 GETUPVAL                         R4 3
-      429 GETTABLEKS                       R4 R4 K5 ["join"]
-      431 GETUPVAL                         R5 2
-      432 GETTABLEKS                       R5 R5 K94 ["TableRow"]
-      434 DUPTABLE                         R6 K100 [{"Border", "BackgroundOdd", "BackgroundEven", "CheckboxUncheckedImage", "CheckboxCheckedImage", "NoCheckboxPanelColor"}]
-      435 GETUPVAL                         R7 4
-      436 GETTABLEKS                       R7 R7 K10 ["SubBackground"]
-      438 SETTABLEKS                       R7 R6 K11 ["Border"]
-      440 GETUPVAL                         R7 4
-      441 GETTABLEKS                       R7 R7 K31 ["MainBackground"]
-      443 SETTABLEKS                       R7 R6 K95 ["BackgroundOdd"]
-      445 GETUPVAL                         R7 4
-      446 GETTABLEKS                       R7 R7 K101 ["SubBackground2"]
-      448 SETTABLEKS                       R7 R6 K96 ["BackgroundEven"]
-      450 GETUPVAL                         R7 4
-      451 GETTABLEKS                       R7 R7 K97 ["CheckboxUncheckedImage"]
-      453 SETTABLEKS                       R7 R6 K97 ["CheckboxUncheckedImage"]
-      455 GETUPVAL                         R7 4
-      456 GETTABLEKS                       R7 R7 K98 ["CheckboxCheckedImage"]
-      458 SETTABLEKS                       R7 R6 K98 ["CheckboxCheckedImage"]
-      460 GETUPVAL                         R7 4
-      461 GETTABLEKS                       R7 R7 K12 ["ForegroundMain"]
-      463 SETTABLEKS                       R7 R6 K99 ["NoCheckboxPanelColor"]
-      465 CALL                             R4 2 1
-      466 SETTABLEKS                       R4 R3 K102 ["CollisionCheckbox"]
-      468 DUPTABLE                         R4 K108 [{"Size", "Padding", "Spacing", "ButtonWidth", "ButtonHeight", "GroupButtonsPaneSize", "TextButtonPane"}]
-      469 GETIMPORT                        R5 K58 [UDim2.new]
-      471 LOADN                            R6 1
-      472 LOADN                            R7 0
-      473 LOADN                            R8 0
-      474 ADDK                             R9 R0 K87 [12]
-      475 CALL                             R5 4 1
-      476 SETTABLEKS                       R5 R4 K36 ["Size"]
-      478 LOADN                            R5 6
-      479 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      481 LOADN                            R5 6
-      482 SETTABLEKS                       R5 R4 K103 ["Spacing"]
-      484 SETTABLEKS                       R1 R4 K104 ["ButtonWidth"]
-      486 LOADN                            R5 34
-      487 SETTABLEKS                       R5 R4 K105 ["ButtonHeight"]
-      489 GETIMPORT                        R5 K58 [UDim2.new]
-      491 LOADN                            R6 0
-      492 LOADN                            R7 63
-      493 LOADN                            R8 1
-      494 LOADN                            R9 0
-      495 CALL                             R5 4 1
-      496 SETTABLEKS                       R5 R4 K106 ["GroupButtonsPaneSize"]
-      498 DUPTABLE                         R5 K109 [{"Size", "Padding", "Spacing"}]
-      499 GETIMPORT                        R6 K58 [UDim2.new]
-      501 LOADN                            R7 1
-      502 LOADN                            R8 190
-      503 LOADN                            R9 1
-      504 LOADN                            R10 0
-      505 CALL                             R6 4 1
-      506 SETTABLEKS                       R6 R5 K36 ["Size"]
-      508 LOADN                            R6 0
-      509 SETTABLEKS                       R6 R5 K38 ["Padding"]
-      511 LOADN                            R6 6
-      512 SETTABLEKS                       R6 R5 K103 ["Spacing"]
-      514 SETTABLEKS                       R5 R4 K107 ["TextButtonPane"]
-      516 SETTABLEKS                       R4 R3 K110 ["ControlsHeaderRow"]
-      518 DUPTABLE                         R4 K113 [{"DialogMinimumSize", "Padding", "Spacing", "WarningTextSize"}]
-      519 GETIMPORT                        R5 K115 [Vector2.new]
-      521 LOADN                            R6 194
-      522 LOADN                            R7 200
-      523 CALL                             R5 2 1
-      524 SETTABLEKS                       R5 R4 K111 ["DialogMinimumSize"]
-      526 LOADN                            R5 5
-      527 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      529 LOADN                            R5 5
-      530 SETTABLEKS                       R5 R4 K103 ["Spacing"]
-      532 GETIMPORT                        R5 K58 [UDim2.new]
-      534 LOADN                            R6 1
-      535 LOADN                            R7 0
-      536 LOADN                            R8 1
-      537 LOADN                            R9 196
-      538 CALL                             R5 4 1
-      539 SETTABLEKS                       R5 R4 K112 ["WarningTextSize"]
-      541 SETTABLEKS                       R4 R3 K116 ["GroupRenameDialog"]
-      543 DUPTABLE                         R4 K117 [{"DialogMinimumSize"}]
-      544 GETIMPORT                        R5 K115 [Vector2.new]
-      546 LOADN                            R6 194
-      547 LOADN                            R7 100
-      548 CALL                             R5 2 1
-      549 SETTABLEKS                       R5 R4 K111 ["DialogMinimumSize"]
-      551 SETTABLEKS                       R4 R3 K118 ["CannotConfigureSelectionDialog"]
-      553 DUPTABLE                         R4 K125 [{"CornerRadius", "StrokeColor", "BackgroundColor", "BackgroundColorHoverDarkerMultiplier", "Padding", "LinePadding", "LineSpacing"}]
-      554 GETIMPORT                        R5 K127 [UDim.new]
-      556 LOADN                            R6 0
-      557 LOADN                            R7 4
-      558 CALL                             R5 2 1
-      559 SETTABLEKS                       R5 R4 K119 ["CornerRadius"]
-      561 GETIMPORT                        R5 K129 [Color3.new]
-      563 LOADN                            R6 1
-      564 LOADN                            R7 0
-      565 LOADN                            R8 0
-      566 CALL                             R5 3 1
-      567 SETTABLEKS                       R5 R4 K120 ["StrokeColor"]
-      569 GETUPVAL                         R5 4
-      570 GETTABLEKS                       R5 R5 K31 ["MainBackground"]
-      572 SETTABLEKS                       R5 R4 K121 ["BackgroundColor"]
-      574 LOADK                            R5 K130 [0.15]
-      575 SETTABLEKS                       R5 R4 K122 ["BackgroundColorHoverDarkerMultiplier"]
-      577 DUPTABLE                         R5 K131 [{"Top", "Left", "Right", "Bottom"}]
-      578 LOADN                            R6 2
-      579 SETTABLEKS                       R6 R5 K66 ["Top"]
-      581 LOADN                            R6 4
-      582 SETTABLEKS                       R6 R5 K68 ["Left"]
-      584 LOADN                            R6 4
-      585 SETTABLEKS                       R6 R5 K69 ["Right"]
-      587 LOADN                            R6 6
-      588 SETTABLEKS                       R6 R5 K67 ["Bottom"]
-      590 SETTABLEKS                       R5 R4 K38 ["Padding"]
-      592 LOADN                            R5 4
-      593 SETTABLEKS                       R5 R4 K123 ["LinePadding"]
-      595 LOADN                            R5 4
-      596 SETTABLEKS                       R5 R4 K124 ["LineSpacing"]
-      598 SETTABLEKS                       R4 R3 K132 ["CGEAlert"]
-      600 RETURN                           R3 1
+      391 SETTABLEKS                       R5 R4 K119 ["GroupButtonsPaneSize"]
+      393 DUPTABLE                         R5 K122 [{["Size"], ["Padding"] = 0, ["Spacing"] = 6}]
+      394 GETIMPORT                        R6 K62 [UDim2.new]
+      396 LOADN                            R7 1
+      397 LOADN                            R8 -66
+      398 LOADN                            R9 1
+      399 LOADN                            R10 0
+      400 CALL                             R6 4 1
+      401 SETTABLEKS                       R6 R5 K37 ["Size"]
+      403 SETTABLEKS                       R5 R4 K120 ["TextButtonPane"]
+      405 SETTABLEKS                       R4 R3 K123 ["ControlsHeaderRow"]
+      407 DUPTABLE                         R4 K126 [{["DialogMinimumSize"], ["Padding"] = 5, ["Spacing"] = 5, ["WarningTextSize"]}]
+      408 GETIMPORT                        R5 K128 [Vector2.new]
+      410 LOADN                            R6 450
+      411 LOADN                            R7 200
+      412 CALL                             R5 2 1
+      413 SETTABLEKS                       R5 R4 K124 ["DialogMinimumSize"]
+      415 GETIMPORT                        R5 K62 [UDim2.new]
+      417 LOADN                            R6 1
+      418 LOADN                            R7 0
+      419 LOADN                            R8 1
+      420 LOADN                            R9 -60
+      421 CALL                             R5 4 1
+      422 SETTABLEKS                       R5 R4 K125 ["WarningTextSize"]
+      424 SETTABLEKS                       R4 R3 K129 ["GroupRenameDialog"]
+      426 DUPTABLE                         R4 K130 [{"DialogMinimumSize"}]
+      427 GETIMPORT                        R5 K128 [Vector2.new]
+      429 LOADN                            R6 450
+      430 LOADN                            R7 100
+      431 CALL                             R5 2 1
+      432 SETTABLEKS                       R5 R4 K124 ["DialogMinimumSize"]
+      434 SETTABLEKS                       R4 R3 K131 ["CannotConfigureSelectionDialog"]
+      436 DUPTABLE                         R4 K139 [{["CornerRadius"], ["StrokeColor"], ["BackgroundColor"], ["BackgroundColorHoverDarkerMultiplier"] = 0.15, ["Padding"], ["LinePadding"] = 4, ["LineSpacing"] = 4}]
+      437 GETIMPORT                        R5 K141 [UDim.new]
+      439 LOADN                            R6 0
+      440 LOADN                            R7 4
+      441 CALL                             R5 2 1
+      442 SETTABLEKS                       R5 R4 K132 ["CornerRadius"]
+      444 GETIMPORT                        R5 K143 [Color3.new]
+      446 LOADN                            R6 1
+      447 LOADN                            R7 0
+      448 LOADN                            R8 0
+      449 CALL                             R5 3 1
+      450 SETTABLEKS                       R5 R4 K133 ["StrokeColor"]
+      452 GETUPVAL                         R5 4
+      453 GETTABLEKS                       R5 R5 K32 ["MainBackground"]
+      455 SETTABLEKS                       R5 R4 K134 ["BackgroundColor"]
+      457 DUPTABLE                         R5 K144 [{["Top"] = 2, ["Left"] = 4, ["Right"] = 4, ["Bottom"] = 6}]
+      458 SETTABLEKS                       R5 R4 K39 ["Padding"]
+      460 SETTABLEKS                       R4 R3 K145 ["CGEAlert"]
+      462 RETURN                           R3 1
 
 PROTO_1:
         0 LOADNIL                          R1

@@ -171,33 +171,31 @@ MAIN:
        59 GETTABLEKS                       R7 R7 K17 ["createResponseValidator"]
        61 CALL                             R6 1 1
        62 GETTABLEKS                       R7 R5 K18 ["new"]
-       64 DUPTABLE                         R8 K21 [{"isInternal", "loggingLevel"}]
-       65 LOADB                            R9 1
-       66 SETTABLEKS                       R9 R8 K19 ["isInternal"]
-       68 SETTABLEKS                       R1 R8 K20 ["loggingLevel"]
-       70 CALL                             R7 1 1
-       71 GETIMPORT                        R8 K5 [require]
-       73 GETTABLEKS                       R9 R0 K22 ["Packages"]
-       75 GETTABLEKS                       R9 R9 K23 ["Dash"]
-       77 CALL                             R8 1 1
-       78 GETTABLEKS                       R9 R8 K24 ["collectArray"]
-       80 GETIMPORT                        R10 K5 [require]
-       82 GETTABLEKS                       R11 R0 K6 ["Src"]
-       84 GETTABLEKS                       R11 R11 K12 ["Network"]
-       86 GETTABLEKS                       R11 R11 K25 ["GameCache"]
-       88 CALL                             R10 1 1
-       89 GETIMPORT                        R11 K5 [require]
-       91 GETTABLEKS                       R12 R0 K6 ["Src"]
-       93 GETTABLEKS                       R12 R12 K7 ["SharedFlags"]
-       95 GETTABLEKS                       R12 R12 K26 ["getFFlagLuaStartPageAudiencesReplacement"]
-       97 CALL                             R11 1 1
-       98 CALL                             R11 0 1
-       99 DUPCLOSURE                       R12 K27 [PROTO_4]
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R4
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R6
-      104 CAPTURE                          VAL R3
-      105 CAPTURE                          VAL R11
-      106 CAPTURE                          VAL R10
-      107 RETURN                           R12 1
+       64 DUPTABLE                         R8 K22 [{["isInternal"] = True, ["loggingLevel"]}]
+       65 SETTABLEKS                       R1 R8 K21 ["loggingLevel"]
+       67 CALL                             R7 1 1
+       68 GETIMPORT                        R8 K5 [require]
+       70 GETTABLEKS                       R9 R0 K23 ["Packages"]
+       72 GETTABLEKS                       R9 R9 K24 ["Dash"]
+       74 CALL                             R8 1 1
+       75 GETTABLEKS                       R9 R8 K25 ["collectArray"]
+       77 GETIMPORT                        R10 K5 [require]
+       79 GETTABLEKS                       R11 R0 K6 ["Src"]
+       81 GETTABLEKS                       R11 R11 K12 ["Network"]
+       83 GETTABLEKS                       R11 R11 K26 ["GameCache"]
+       85 CALL                             R10 1 1
+       86 GETIMPORT                        R11 K5 [require]
+       88 GETTABLEKS                       R12 R0 K6 ["Src"]
+       90 GETTABLEKS                       R12 R12 K7 ["SharedFlags"]
+       92 GETTABLEKS                       R12 R12 K27 ["getFFlagLuaStartPageAudiencesReplacement"]
+       94 CALL                             R11 1 1
+       95 CALL                             R11 0 1
+       96 DUPCLOSURE                       R12 K28 [PROTO_4]
+       97 CAPTURE                          VAL R9
+       98 CAPTURE                          VAL R4
+       99 CAPTURE                          VAL R7
+      100 CAPTURE                          VAL R6
+      101 CAPTURE                          VAL R3
+      102 CAPTURE                          VAL R11
+      103 CAPTURE                          VAL R10
+      104 RETURN                           R12 1

@@ -57,7 +57,7 @@ PROTO_0:
        78 LOADK                            R6 K18 ["NoDragger"]
        79 JUMPIFNOT                        R3 ; [+2]
        80 GETTABLEKS                       R6 R3 K19 ["Name"]
-       82 DUPTABLE                         R7 K24 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "HandlesList"}]
+       82 DUPTABLE                         R7 K25 [{["AnalyticsName"], ["AllowDragSelect"] = True, ["AllowFreeformDrag"], ["HandlesList"]}]
        83 GETUPVAL                         R9 4
        84 CALL                             R9 0 1
        85 JUMPIFNOT                        R9 ; [+2]
@@ -65,27 +65,25 @@ PROTO_0:
        87 JUMP                             ; [+2]
        88 GETTABLEKS                       R8 R3 K19 ["Name"]
        90 SETTABLEKS                       R8 R7 K20 ["AnalyticsName"]
-       92 LOADB                            R8 1
-       93 SETTABLEKS                       R8 R7 K21 ["AllowDragSelect"]
-       95 GETUPVAL                         R8 4
-       96 CALL                             R8 0 1
-       97 JUMPIFNOT                        R8 ; [+4]
-       98 JUMPIFEQKNIL                     R3 ; [+2]
-      100 LOADB                            R8 0 +1
-      101 LOADB                            R8 1
-      102 SETTABLEKS                       R8 R7 K22 ["AllowFreeformDrag"]
-      104 SETTABLEKS                       R5 R7 K23 ["HandlesList"]
-      106 GETUPVAL                         R8 5
-      107 GETTABLEKS                       R8 R8 K25 ["createElement"]
-      109 GETUPVAL                         R9 6
-      110 DUPTABLE                         R10 K29 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
-      111 SETTABLEKS                       R2 R10 K1 ["Mouse"]
-      113 SETTABLEKS                       R4 R10 K26 ["DraggerContext"]
-      115 GETUPVAL                         R11 1
-      116 SETTABLEKS                       R11 R10 K27 ["DraggerSchema"]
-      118 SETTABLEKS                       R7 R10 K28 ["DraggerSettings"]
-      120 CALL                             R8 2 -1
-      121 RETURN                           R8 -1
+       92 GETUPVAL                         R8 4
+       93 CALL                             R8 0 1
+       94 JUMPIFNOT                        R8 ; [+4]
+       95 JUMPIFEQKNIL                     R3 ; [+2]
+       97 LOADB                            R8 0 +1
+       98 LOADB                            R8 1
+       99 SETTABLEKS                       R8 R7 K23 ["AllowFreeformDrag"]
+      101 SETTABLEKS                       R5 R7 K24 ["HandlesList"]
+      103 GETUPVAL                         R8 5
+      104 GETTABLEKS                       R8 R8 K26 ["createElement"]
+      106 GETUPVAL                         R9 6
+      107 DUPTABLE                         R10 K30 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+      108 SETTABLEKS                       R2 R10 K1 ["Mouse"]
+      110 SETTABLEKS                       R4 R10 K27 ["DraggerContext"]
+      112 GETUPVAL                         R11 1
+      113 SETTABLEKS                       R11 R10 K28 ["DraggerSchema"]
+      115 SETTABLEKS                       R7 R10 K29 ["DraggerSettings"]
+      117 CALL                             R8 2 -1
+      118 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

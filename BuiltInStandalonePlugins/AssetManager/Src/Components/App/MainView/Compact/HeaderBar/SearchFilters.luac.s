@@ -112,44 +112,40 @@ PROTO_6:
        16 GETTABLEKS                       R4 R4 K1 ["createElement"]
        18 GETUPVAL                         R5 3
        19 GETTABLEKS                       R5 R5 K2 ["ScrollView"]
-       21 DUPTABLE                         R6 K7 [{"LayoutOrder", "layout", "scroll", "tag"}]
+       21 DUPTABLE                         R6 K8 [{["LayoutOrder"], ["layout"], ["scroll"], ["tag"] = "size-full-700"}]
        22 GETTABLEKS                       R7 R0 K3 ["LayoutOrder"]
        24 SETTABLEKS                       R7 R6 K3 ["LayoutOrder"]
-       26 DUPTABLE                         R7 K9 [{"FillDirection"}]
-       27 GETIMPORT                        R8 K12 [Enum.FillDirection.Horizontal]
-       29 SETTABLEKS                       R8 R7 K8 ["FillDirection"]
+       26 DUPTABLE                         R7 K10 [{"FillDirection"}]
+       27 GETIMPORT                        R8 K13 [Enum.FillDirection.Horizontal]
+       29 SETTABLEKS                       R8 R7 K9 ["FillDirection"]
        31 SETTABLEKS                       R7 R6 K4 ["layout"]
-       33 DUPTABLE                         R7 K16 [{"AutomaticCanvasSize", "ScrollingDirection", "scrollBarVisibility"}]
-       34 GETIMPORT                        R8 K19 [Enum.AutomaticSize.XY]
-       36 SETTABLEKS                       R8 R7 K13 ["AutomaticCanvasSize"]
-       38 GETIMPORT                        R8 K21 [Enum.ScrollingDirection.X]
-       40 SETTABLEKS                       R8 R7 K14 ["ScrollingDirection"]
+       33 DUPTABLE                         R7 K17 [{"AutomaticCanvasSize", "ScrollingDirection", "scrollBarVisibility"}]
+       34 GETIMPORT                        R8 K20 [Enum.AutomaticSize.XY]
+       36 SETTABLEKS                       R8 R7 K14 ["AutomaticCanvasSize"]
+       38 GETIMPORT                        R8 K22 [Enum.ScrollingDirection.X]
+       40 SETTABLEKS                       R8 R7 K15 ["ScrollingDirection"]
        42 GETUPVAL                         R8 3
-       43 GETTABLEKS                       R8 R8 K22 ["Enums"]
-       45 GETTABLEKS                       R8 R8 K23 ["Visibility"]
-       47 GETTABLEKS                       R8 R8 K24 ["None"]
-       49 SETTABLEKS                       R8 R7 K15 ["scrollBarVisibility"]
+       43 GETTABLEKS                       R8 R8 K23 ["Enums"]
+       45 GETTABLEKS                       R8 R8 K24 ["Visibility"]
+       47 GETTABLEKS                       R8 R8 K25 ["None"]
+       49 SETTABLEKS                       R8 R7 K16 ["scrollBarVisibility"]
        51 SETTABLEKS                       R7 R6 K5 ["scroll"]
-       53 LOADK                            R7 K25 ["size-full-700"]
-       54 SETTABLEKS                       R7 R6 K6 ["tag"]
-       56 GETUPVAL                         R7 1
-       57 GETTABLEKS                       R7 R7 K1 ["createElement"]
-       59 GETUPVAL                         R8 3
-       60 GETTABLEKS                       R8 R8 K26 ["View"]
-       62 DUPTABLE                         R9 K27 [{"tag"}]
-       63 LOADK                            R10 K28 ["row auto-xy padding-left-xsmall padding-right-xsmall gap-small"]
-       64 SETTABLEKS                       R10 R9 K6 ["tag"]
-       66 GETUPVAL                         R10 2
-       67 GETTABLEKS                       R10 R10 K29 ["map"]
-       69 MOVE                             R11 R3
-       70 NEWCLOSURE                       R12 P1
-       71 CAPTURE                          UPVAL U1
-       72 CAPTURE                          UPVAL U4
-       73 CAPTURE                          VAL R1
-       74 CALL                             R10 2 -1
-       75 CALL                             R7 -1 -1
-       76 CALL                             R4 -1 -1
-       77 RETURN                           R4 -1
+       53 GETUPVAL                         R7 1
+       54 GETTABLEKS                       R7 R7 K1 ["createElement"]
+       56 GETUPVAL                         R8 3
+       57 GETTABLEKS                       R8 R8 K26 ["View"]
+       59 DUPTABLE                         R9 K28 [{["tag"] = "row gap-small auto-xy padding-left-xsmall padding-right-xsmall"}]
+       60 GETUPVAL                         R10 2
+       61 GETTABLEKS                       R10 R10 K29 ["map"]
+       63 MOVE                             R11 R3
+       64 NEWCLOSURE                       R12 P1
+       65 CAPTURE                          UPVAL U1
+       66 CAPTURE                          UPVAL U4
+       67 CAPTURE                          VAL R1
+       68 CALL                             R10 2 -1
+       69 CALL                             R7 -1 -1
+       70 CALL                             R4 -1 -1
+       71 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

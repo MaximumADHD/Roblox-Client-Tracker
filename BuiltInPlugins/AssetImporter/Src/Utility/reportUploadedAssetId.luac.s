@@ -1,31 +1,29 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+29]
+        2 JUMPIFNOT                        R1 ; [+26]
         3 GETUPVAL                         R1 1
         4 CALL                             R1 0 1
-        5 JUMPIFNOT                        R1 ; [+16]
+        5 JUMPIFNOT                        R1 ; [+13]
         6 GETUPVAL                         R1 2
         7 LOADK                            R3 K0 ["AssetsUploaded"]
         8 GETUPVAL                         R4 3
-        9 DUPTABLE                         R6 K3 [{"Source", "AssetIds"}]
-       10 LOADK                            R7 K4 ["Import"]
-       11 SETTABLEKS                       R7 R6 K1 ["Source"]
-       13 SETTABLEKS                       R0 R6 K2 ["AssetIds"]
-       15 NAMECALL                         R4 R4 K5 ["JSONEncode"]
-       17 CALL                             R4 2 -1
-       18 NAMECALL                         R1 R1 K6 ["Fire"]
-       20 CALL                             R1 -1 0
-       21 RETURN                           R0 0
-       22 GETUPVAL                         R1 2
-       23 LOADK                            R3 K0 ["AssetsUploaded"]
-       24 GETUPVAL                         R4 3
-       25 MOVE                             R6 R0
-       26 NAMECALL                         R4 R4 K5 ["JSONEncode"]
-       28 CALL                             R4 2 -1
-       29 NAMECALL                         R1 R1 K6 ["Fire"]
-       31 CALL                             R1 -1 0
-       32 RETURN                           R0 0
+        9 DUPTABLE                         R6 K4 [{["Source"] = "Import", ["AssetIds"]}]
+       10 SETTABLEKS                       R0 R6 K3 ["AssetIds"]
+       12 NAMECALL                         R4 R4 K5 ["JSONEncode"]
+       14 CALL                             R4 2 -1
+       15 NAMECALL                         R1 R1 K6 ["Fire"]
+       17 CALL                             R1 -1 0
+       18 RETURN                           R0 0
+       19 GETUPVAL                         R1 2
+       20 LOADK                            R3 K0 ["AssetsUploaded"]
+       21 GETUPVAL                         R4 3
+       22 MOVE                             R6 R0
+       23 NAMECALL                         R4 R4 K5 ["JSONEncode"]
+       25 CALL                             R4 2 -1
+       26 NAMECALL                         R1 R1 K6 ["Fire"]
+       28 CALL                             R1 -1 0
+       29 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -29,29 +29,27 @@ PROTO_0:
        43 JUMPIFNOTEQKN                    R4 K7 [0] ; [+3]
        45 LOADNIL                          R4
        46 RETURN                           R4 1
-       47 JUMPIF                           R1 ; [+8]
-       48 DUPTABLE                         R4 K9 [{"Identifier", "VisibleTabIndex"}]
+       47 JUMPIF                           R1 ; [+5]
+       48 DUPTABLE                         R4 K10 [{["Identifier"], ["VisibleTabIndex"] = 1}]
        49 GETTABLEN                        R5 R3 1
        50 SETTABLEKS                       R5 R4 K1 ["Identifier"]
-       52 LOADN                            R5 1
-       53 SETTABLEKS                       R5 R4 K8 ["VisibleTabIndex"]
-       55 RETURN                           R4 1
-       56 JUMPIFNOT                        R2 ; [+8]
-       57 DUPTABLE                         R4 K9 [{"Identifier", "VisibleTabIndex"}]
-       58 GETTABLEKS                       R5 R1 K1 ["Identifier"]
-       60 SETTABLEKS                       R5 R4 K1 ["Identifier"]
-       62 SETTABLEKS                       R2 R4 K8 ["VisibleTabIndex"]
-       64 RETURN                           R4 1
-       65 GETTABLEKS                       R5 R1 K8 ["VisibleTabIndex"]
-       67 LENGTH                           R6 R3
-       68 FASTCALL2                        MATH_MIN R5 R6 ; [+3]
-       70 GETIMPORT                        R4 K12 [math.min]
-       72 CALL                             R4 2 1
-       73 GETTABLE                         R5 R3 R4
-       74 DUPTABLE                         R6 K9 [{"Identifier", "VisibleTabIndex"}]
-       75 SETTABLEKS                       R5 R6 K1 ["Identifier"]
-       77 SETTABLEKS                       R4 R6 K8 ["VisibleTabIndex"]
-       79 RETURN                           R6 1
+       52 RETURN                           R4 1
+       53 JUMPIFNOT                        R2 ; [+8]
+       54 DUPTABLE                         R4 K11 [{"Identifier", "VisibleTabIndex"}]
+       55 GETTABLEKS                       R5 R1 K1 ["Identifier"]
+       57 SETTABLEKS                       R5 R4 K1 ["Identifier"]
+       59 SETTABLEKS                       R2 R4 K8 ["VisibleTabIndex"]
+       61 RETURN                           R4 1
+       62 GETTABLEKS                       R5 R1 K8 ["VisibleTabIndex"]
+       64 LENGTH                           R6 R3
+       65 FASTCALL2                        MATH_MIN R5 R6 ; [+3]
+       67 GETIMPORT                        R4 K14 [math.min]
+       69 CALL                             R4 2 1
+       70 GETTABLE                         R5 R3 R4
+       71 DUPTABLE                         R6 K11 [{"Identifier", "VisibleTabIndex"}]
+       72 SETTABLEKS                       R5 R6 K1 ["Identifier"]
+       74 SETTABLEKS                       R4 R6 K8 ["VisibleTabIndex"]
+       76 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0

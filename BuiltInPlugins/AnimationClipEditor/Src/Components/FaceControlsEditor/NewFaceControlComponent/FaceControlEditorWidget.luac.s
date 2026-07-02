@@ -44,10 +44,10 @@ PROTO_4:
         7 GETIMPORT                        R3 K7 [Enum.InitialDockState.Left]
         9 LOADB                            R4 1
        10 LOADB                            R5 1
-       11 LOADN                            R6 44
-       12 LOADN                            R7 88
-       13 LOADN                            R8 44
-       14 LOADN                            R9 88
+       11 LOADN                            R6 300
+       12 LOADN                            R7 600
+       13 LOADN                            R8 300
+       14 LOADN                            R9 600
        15 CALL                             R2 7 1
        16 GETUPVAL                         R3 0
        17 GETTABLEKS                       R4 R0 K8 ["plugin"]

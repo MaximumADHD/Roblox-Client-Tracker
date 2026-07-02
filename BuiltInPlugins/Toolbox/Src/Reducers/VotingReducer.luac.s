@@ -56,20 +56,16 @@ PROTO_1:
        46 GETTABLEKS                       R10 R10 K6 ["Dictionary"]
        48 GETTABLEKS                       R10 R10 K7 ["join"]
        50 GETTABLE                         R11 R0 R1
-       51 DUPTABLE                         R12 K9 [{"HasVoted", "UserVote", "UpVotes", "DownVotes", "VoteCount", "showVoteButtons"}]
-       52 LOADB                            R13 1
-       53 SETTABLEKS                       R13 R12 K3 ["HasVoted"]
-       55 SETTABLEKS                       R2 R12 K4 ["UserVote"]
-       57 SETTABLEKS                       R4 R12 K0 ["UpVotes"]
-       59 SETTABLEKS                       R5 R12 K1 ["DownVotes"]
-       61 GETTABLEKS                       R13 R3 K2 ["VoteCount"]
-       63 SETTABLEKS                       R13 R12 K2 ["VoteCount"]
-       65 LOADB                            R13 1
-       66 SETTABLEKS                       R13 R12 K8 ["showVoteButtons"]
-       68 CALL                             R10 2 1
-       69 SETTABLE                         R10 R9 R1
-       70 CALL                             R7 2 -1
-       71 RETURN                           R7 -1
+       51 DUPTABLE                         R12 K10 [{["HasVoted"] = True, ["UserVote"], [3], ["DownVotes"], ["VoteCount"], ["showVoteButtons"] = True}]
+       52 SETTABLEKS                       R2 R12 K4 ["UserVote"]
+       54 SETTABLEKS                       R4 R12 K0 ["UpVotes"]
+       56 SETTABLEKS                       R5 R12 K1 ["DownVotes"]
+       58 GETTABLEKS                       R13 R3 K2 ["VoteCount"]
+       60 SETTABLEKS                       R13 R12 K2 ["VoteCount"]
+       62 CALL                             R10 2 1
+       63 SETTABLE                         R10 R9 R1
+       64 CALL                             R7 2 -1
+       65 RETURN                           R7 -1
 
 PROTO_2:
         0 GETTABLE                         R2 R0 R1
@@ -93,20 +89,18 @@ PROTO_2:
        27 GETTABLEKS                       R9 R9 K6 ["Dictionary"]
        29 GETTABLEKS                       R9 R9 K7 ["join"]
        31 GETTABLE                         R10 R0 R1
-       32 DUPTABLE                         R11 K8 [{"HasVoted", "UserVote", "UpVotes", "DownVotes", "VoteCount"}]
-       33 LOADB                            R12 0
-       34 SETTABLEKS                       R12 R11 K3 ["HasVoted"]
-       36 GETUPVAL                         R12 0
-       37 GETTABLEKS                       R12 R12 K9 ["None"]
-       39 SETTABLEKS                       R12 R11 K4 ["UserVote"]
-       41 SETTABLEKS                       R3 R11 K0 ["UpVotes"]
-       43 SETTABLEKS                       R4 R11 K1 ["DownVotes"]
-       45 GETTABLEKS                       R12 R2 K2 ["VoteCount"]
-       47 SETTABLEKS                       R12 R11 K2 ["VoteCount"]
-       49 CALL                             R9 2 1
-       50 SETTABLE                         R9 R8 R1
-       51 CALL                             R6 2 -1
-       52 RETURN                           R6 -1
+       32 DUPTABLE                         R11 K9 [{["HasVoted"] = False, ["UserVote"], [3], ["DownVotes"], ["VoteCount"]}]
+       33 GETUPVAL                         R12 0
+       34 GETTABLEKS                       R12 R12 K10 ["None"]
+       36 SETTABLEKS                       R12 R11 K4 ["UserVote"]
+       38 SETTABLEKS                       R3 R11 K0 ["UpVotes"]
+       40 SETTABLEKS                       R4 R11 K1 ["DownVotes"]
+       42 GETTABLEKS                       R12 R2 K2 ["VoteCount"]
+       44 SETTABLEKS                       R12 R11 K2 ["VoteCount"]
+       46 CALL                             R9 2 1
+       47 SETTABLE                         R9 R8 R1
+       48 CALL                             R6 2 -1
+       49 RETURN                           R6 -1
 
 PROTO_3:
         0 GETTABLE                         R2 R0 R1
@@ -121,13 +115,11 @@ PROTO_3:
        13 GETTABLEKS                       R6 R6 K0 ["Dictionary"]
        15 GETTABLEKS                       R6 R6 K1 ["join"]
        17 MOVE                             R7 R2
-       18 DUPTABLE                         R8 K3 [{"showVoteButtons"}]
-       19 LOADB                            R9 1
-       20 SETTABLEKS                       R9 R8 K2 ["showVoteButtons"]
-       22 CALL                             R6 2 1
-       23 SETTABLE                         R6 R5 R1
-       24 CALL                             R3 2 -1
-       25 RETURN                           R3 -1
+       18 DUPTABLE                         R8 K4 [{["showVoteButtons"] = True}]
+       19 CALL                             R6 2 1
+       20 SETTABLE                         R6 R5 R1
+       21 CALL                             R3 2 -1
+       22 RETURN                           R3 -1
 
 PROTO_4:
         0 GETTABLE                         R4 R0 R1

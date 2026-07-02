@@ -45,28 +45,26 @@ PROTO_2:
        25 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K2 [{"callback", "isConnected"}]
+        0 DUPTABLE                         R2 K3 [{[1], ["isConnected"] = True}]
         1 SETTABLEKS                       R1 R2 K0 ["callback"]
-        3 LOADB                            R3 1
-        4 SETTABLEKS                       R3 R2 K1 ["isConnected"]
-        6 GETUPVAL                         R3 0
-        7 GETTABLEKS                       R3 R3 K3 ["Append"]
-        9 GETTABLEKS                       R4 R0 K4 ["_listeners"]
-       11 MOVE                             R5 R2
-       12 CALL                             R3 2 1
-       13 SETTABLEKS                       R3 R0 K4 ["_listeners"]
-       15 NEWCLOSURE                       R3 P0
-       16 CAPTURE                          VAL R2
-       17 CAPTURE                          VAL R0
-       18 CAPTURE                          UPVAL U0
-       19 DUPTABLE                         R4 K7 [{"Disconnect", "disconnect"}]
-       20 NEWCLOSURE                       R5 P1
-       21 CAPTURE                          VAL R2
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U0
-       24 SETTABLEKS                       R5 R4 K5 ["Disconnect"]
-       26 SETTABLEKS                       R3 R4 K6 ["disconnect"]
-       28 RETURN                           R4 1
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R3 R3 K4 ["Append"]
+        6 GETTABLEKS                       R4 R0 K5 ["_listeners"]
+        8 MOVE                             R5 R2
+        9 CALL                             R3 2 1
+       10 SETTABLEKS                       R3 R0 K5 ["_listeners"]
+       12 NEWCLOSURE                       R3 P0
+       13 CAPTURE                          VAL R2
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          UPVAL U0
+       16 DUPTABLE                         R4 K8 [{"Disconnect", "disconnect"}]
+       17 NEWCLOSURE                       R5 P1
+       18 CAPTURE                          VAL R2
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U0
+       21 SETTABLEKS                       R5 R4 K6 ["Disconnect"]
+       23 SETTABLEKS                       R3 R4 K7 ["disconnect"]
+       25 RETURN                           R4 1
 
 PROTO_4:
         0 PREPVARARGS                      1

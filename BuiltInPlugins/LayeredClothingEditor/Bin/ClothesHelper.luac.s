@@ -12,7 +12,7 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["Name"]
-        2 LOADN                            R5 246
+        2 LOADN                            R5 -10
         3 NAMECALL                         R3 R2 K1 ["sub"]
         5 CALL                             R3 2 1
         6 JUMPIFEQKS                       R3 K2 ["Attachment"] ; [+2]
@@ -131,7 +131,7 @@ PROTO_2:
       137 JUMPIFNOT                        R19 ; [+23]
       138 ADDK                             R13 R13 K34 [1]
       139 GETTABLEKS                       R20 R18 K3 ["Name"]
-      141 LOADN                            R23 246
+      141 LOADN                            R23 -10
       142 NAMECALL                         R21 R20 K35 ["sub"]
       144 CALL                             R21 2 1
       145 JUMPIFEQKS                       R21 K32 ["Attachment"] ; [+2]
@@ -191,7 +191,7 @@ PROTO_4:
         0 JUMPIFNOT                        R3 ; [+4]
         1 LENGTH                           R4 R3
         2 LOADN                            R5 0
-        3 JUMPIFNOTLT                      R5 R4 ; [+18]
+        3 JUMPIFNOTLT                      R5 R4 ; [+15]
         5 GETUPVAL                         R4 0
         6 MOVE                             R5 R3
         7 CALL                             R4 1 1
@@ -199,15 +199,13 @@ PROTO_4:
         9 MOVE                             R6 R0
        10 MOVE                             R7 R1
        11 GETUPVAL                         R8 2
-       12 DUPTABLE                         R9 K2 [{"Text", "Resizable"}]
+       12 DUPTABLE                         R9 K3 [{[1], ["Resizable"] = True}]
        13 MOVE                             R11 R2
        14 MOVE                             R12 R4
        15 CONCAT                           R10 R11 R12
        16 SETTABLEKS                       R10 R9 K0 ["Text"]
-       18 LOADB                            R10 1
-       19 SETTABLEKS                       R10 R9 K1 ["Resizable"]
-       21 CALL                             R5 4 0
-       22 RETURN                           R0 0
+       18 CALL                             R5 4 0
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R3 0

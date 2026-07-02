@@ -12,7 +12,7 @@ PROTO_0:
        18 SUB                              R6 R7 R8
        19 GETTABLEKS                       R7 R1 K8 ["Height"]
        21 DIV                              R5 R6 R7
-       22 SUBRK                            R4 R6 K5 ["Width"]
+       22 SUBRK                            R4 K6 [1] R5
        23 CALL                             R2 2 -1
        24 RETURN                           R2 -1
 
@@ -28,7 +28,7 @@ PROTO_1:
        14 GETTABLEKS                       R5 R5 K6 ["Y"]
        16 GETTABLEKS                       R7 R1 K7 ["Height"]
        18 GETTABLEKS                       R9 R0 K6 ["Y"]
-       20 SUBRK                            R8 R8 K9 [NULL]
+       20 SUBRK                            R8 K8 [1] R9
        21 MUL                              R6 R7 R8
        22 ADD                              R4 R5 R6
        23 CALL                             R2 2 -1
@@ -279,7 +279,7 @@ PROTO_8:
        19 JUMPIFNOT                        R1 ; [+2]
        20 LOADN                            R9 1
        21 JUMP                             ; [+1]
-       22 LOADN                            R9 255
+       22 LOADN                            R9 -1
        23 GETTABLEKS                       R13 R0 K1 ["X"]
        25 MULK                             R12 R13 K11 [3.14159265358979]
        26 DIVK                             R11 R12 K10 [180]
@@ -330,7 +330,7 @@ PROTO_9:
        37 FASTCALL1                        MATH_ABS R7 ; [+2]
        38 GETIMPORT                        R6 K13 [math.abs]
        40 CALL                             R6 1 1
-       41 SUBRK                            R5 R8 K6 [0.15]
+       41 SUBRK                            R5 K8 [180] R6
        42 SUB                              R6 R0 R2
        43 GETTABLEKS                       R6 R6 K14 ["Magnitude"]
        45 SUB                              R7 R6 R4
@@ -492,9 +492,9 @@ PROTO_13:
       116 FASTCALL1                        MATH_ABS R25 ; [+2]
       117 GETIMPORT                        R24 K17 [math.abs]
       119 CALL                             R24 1 1
-      120 DIVRK                            R23 R14 K24 [NULL]
+      120 DIVRK                            R23 K14 [360] R24
       121 MULK                             R22 R23 K8 [2]
-      122 DIVRK                            R21 R13 K22 [NULL]
+      122 DIVRK                            R21 K13 [3.14159265358979] R22
       123 FASTCALL1                        MATH_TAN R21 ; [+2]
       124 GETIMPORT                        R20 K19 [math.tan]
       126 CALL                             R20 1 1
@@ -508,9 +508,9 @@ PROTO_13:
       137 FASTCALL1                        MATH_ABS R26 ; [+2]
       138 GETIMPORT                        R25 K17 [math.abs]
       140 CALL                             R25 1 1
-      141 DIVRK                            R24 R14 K25 [NULL]
+      141 DIVRK                            R24 K14 [360] R25
       142 MULK                             R23 R24 K8 [2]
-      143 DIVRK                            R22 R13 K23 [NULL]
+      143 DIVRK                            R22 K13 [3.14159265358979] R23
       144 FASTCALL1                        MATH_TAN R22 ; [+2]
       145 GETIMPORT                        R21 K19 [math.tan]
       147 CALL                             R21 1 1

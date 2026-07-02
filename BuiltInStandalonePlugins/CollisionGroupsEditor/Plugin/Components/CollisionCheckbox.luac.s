@@ -134,71 +134,69 @@ PROTO_3:
       134 CALL                             R9 2 1
       135 SETTABLEKS                       R9 R8 K17 ["Button"]
       137 MOVE                             R7 R8
-      138 JUMP                             ; [+42]
+      138 JUMP                             ; [+39]
       139 DUPTABLE                         R8 K49 [{"Dash"}]
       140 GETUPVAL                         R9 0
       141 GETTABLEKS                       R9 R9 K19 ["createElement"]
       143 LOADK                            R10 K50 ["Frame"]
-      144 DUPTABLE                         R11 K53 [{"Size", "BorderSizePixel", "BackgroundColor3", "AnchorPoint", "Position"}]
+      144 DUPTABLE                         R11 K54 [{["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"], ["AnchorPoint"], ["Position"]}]
       145 GETIMPORT                        R12 K34 [UDim2.new]
-      147 LOADK                            R13 K54 [0.25]
+      147 LOADK                            R13 K55 [0.25]
       148 LOADN                            R14 0
       149 LOADN                            R15 0
       150 LOADN                            R16 2
       151 CALL                             R12 4 1
       152 SETTABLEKS                       R12 R11 K35 ["Size"]
-      154 LOADN                            R12 0
-      155 SETTABLEKS                       R12 R11 K51 ["BorderSizePixel"]
-      157 GETTABLEKS                       R12 R2 K55 ["NoCheckboxPanelColor"]
-      159 SETTABLEKS                       R12 R11 K52 ["BackgroundColor3"]
-      161 GETIMPORT                        R12 K41 [Vector2.new]
-      163 LOADK                            R13 K42 [0.5]
-      164 LOADK                            R14 K42 [0.5]
-      165 CALL                             R12 2 1
-      166 SETTABLEKS                       R12 R11 K43 ["AnchorPoint"]
-      168 GETIMPORT                        R12 K34 [UDim2.new]
-      170 LOADK                            R13 K42 [0.5]
-      171 LOADN                            R14 0
-      172 LOADK                            R15 K42 [0.5]
-      173 LOADN                            R16 0
-      174 CALL                             R12 4 1
-      175 SETTABLEKS                       R12 R11 K44 ["Position"]
-      177 CALL                             R9 2 1
-      178 SETTABLEKS                       R9 R8 K48 ["Dash"]
-      180 MOVE                             R7 R8
-      181 GETUPVAL                         R8 0
-      182 GETTABLEKS                       R8 R8 K19 ["createElement"]
-      184 LOADK                            R9 K50 ["Frame"]
-      185 NEWTABLE                         R10 8 0
-      187 GETTABLEKS                       R11 R0 K56 ["LayoutOrder"]
-      189 SETTABLEKS                       R11 R10 K56 ["LayoutOrder"]
-      191 GETUPVAL                         R11 1
-      192 GETTABLEKS                       R11 R11 K57 ["GridCellSize"]
-      194 SETTABLEKS                       R11 R10 K35 ["Size"]
-      196 LOADN                            R11 1
-      197 SETTABLEKS                       R11 R10 K51 ["BorderSizePixel"]
-      199 GETTABLEKS                       R11 R2 K58 ["Border"]
-      201 SETTABLEKS                       R11 R10 K59 ["BorderColor3"]
-      203 SETTABLEKS                       R6 R10 K52 ["BackgroundColor3"]
-      205 GETUPVAL                         R11 0
-      206 GETTABLEKS                       R11 R11 K46 ["Event"]
-      208 GETTABLEKS                       R11 R11 K60 ["MouseEnter"]
-      210 NEWCLOSURE                       R12 P1
-      211 CAPTURE                          VAL R0
-      212 CAPTURE                          VAL R4
-      213 CAPTURE                          VAL R3
-      214 SETTABLE                         R12 R10 R11
-      215 GETUPVAL                         R11 0
-      216 GETTABLEKS                       R11 R11 K46 ["Event"]
-      218 GETTABLEKS                       R11 R11 K61 ["MouseLeave"]
-      220 NEWCLOSURE                       R12 P2
-      221 CAPTURE                          VAL R0
-      222 CAPTURE                          VAL R4
-      223 CAPTURE                          VAL R3
-      224 SETTABLE                         R12 R10 R11
-      225 MOVE                             R11 R7
-      226 CALL                             R8 3 -1
-      227 RETURN                           R8 -1
+      154 GETTABLEKS                       R12 R2 K56 ["NoCheckboxPanelColor"]
+      156 SETTABLEKS                       R12 R11 K53 ["BackgroundColor3"]
+      158 GETIMPORT                        R12 K41 [Vector2.new]
+      160 LOADK                            R13 K42 [0.5]
+      161 LOADK                            R14 K42 [0.5]
+      162 CALL                             R12 2 1
+      163 SETTABLEKS                       R12 R11 K43 ["AnchorPoint"]
+      165 GETIMPORT                        R12 K34 [UDim2.new]
+      167 LOADK                            R13 K42 [0.5]
+      168 LOADN                            R14 0
+      169 LOADK                            R15 K42 [0.5]
+      170 LOADN                            R16 0
+      171 CALL                             R12 4 1
+      172 SETTABLEKS                       R12 R11 K44 ["Position"]
+      174 CALL                             R9 2 1
+      175 SETTABLEKS                       R9 R8 K48 ["Dash"]
+      177 MOVE                             R7 R8
+      178 GETUPVAL                         R8 0
+      179 GETTABLEKS                       R8 R8 K19 ["createElement"]
+      181 LOADK                            R9 K50 ["Frame"]
+      182 NEWTABLE                         R10 8 0
+      184 GETTABLEKS                       R11 R0 K57 ["LayoutOrder"]
+      186 SETTABLEKS                       R11 R10 K57 ["LayoutOrder"]
+      188 GETUPVAL                         R11 1
+      189 GETTABLEKS                       R11 R11 K58 ["GridCellSize"]
+      191 SETTABLEKS                       R11 R10 K35 ["Size"]
+      193 LOADN                            R11 1
+      194 SETTABLEKS                       R11 R10 K51 ["BorderSizePixel"]
+      196 GETTABLEKS                       R11 R2 K59 ["Border"]
+      198 SETTABLEKS                       R11 R10 K60 ["BorderColor3"]
+      200 SETTABLEKS                       R6 R10 K53 ["BackgroundColor3"]
+      202 GETUPVAL                         R11 0
+      203 GETTABLEKS                       R11 R11 K46 ["Event"]
+      205 GETTABLEKS                       R11 R11 K61 ["MouseEnter"]
+      207 NEWCLOSURE                       R12 P1
+      208 CAPTURE                          VAL R0
+      209 CAPTURE                          VAL R4
+      210 CAPTURE                          VAL R3
+      211 SETTABLE                         R12 R10 R11
+      212 GETUPVAL                         R11 0
+      213 GETTABLEKS                       R11 R11 K46 ["Event"]
+      215 GETTABLEKS                       R11 R11 K62 ["MouseLeave"]
+      217 NEWCLOSURE                       R12 P2
+      218 CAPTURE                          VAL R0
+      219 CAPTURE                          VAL R4
+      220 CAPTURE                          VAL R3
+      221 SETTABLE                         R12 R10 R11
+      222 MOVE                             R11 R7
+      223 CALL                             R8 3 -1
+      224 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

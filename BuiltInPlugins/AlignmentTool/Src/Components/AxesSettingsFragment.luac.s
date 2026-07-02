@@ -84,28 +84,26 @@ PROTO_3:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["createElement"]
         3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K7 [{"Disabled", "Key", "LayoutOrder", "Selected", "Text", "OnClick"}]
-        5 LOADB                            R5 0
-        6 SETTABLEKS                       R5 R4 K1 ["Disabled"]
-        8 SETTABLEKS                       R0 R4 K2 ["Key"]
-       10 SETTABLEKS                       R1 R4 K3 ["LayoutOrder"]
-       12 GETUPVAL                         R6 2
-       13 GETTABLEKS                       R6 R6 K8 ["AlignmentSpace"]
-       15 JUMPIFEQ                         R6 R0 ; [+2]
-       17 LOADB                            R5 0 +1
-       18 LOADB                            R5 1
-       19 SETTABLEKS                       R5 R4 K4 ["Selected"]
-       21 GETUPVAL                         R5 3
-       22 LOADK                            R7 K9 ["AxesSettingsFragment"]
-       23 MOVE                             R8 R0
-       24 NAMECALL                         R5 R5 K10 ["getText"]
-       26 CALL                             R5 3 1
-       27 SETTABLEKS                       R5 R4 K5 ["Text"]
-       29 GETUPVAL                         R5 4
-       30 GETTABLEKS                       R5 R5 K11 ["setAlignmentSpace"]
-       32 SETTABLEKS                       R5 R4 K6 ["OnClick"]
-       34 CALL                             R2 2 -1
-       35 RETURN                           R2 -1
+        4 DUPTABLE                         R4 K8 [{["Disabled"] = False, ["Key"], ["LayoutOrder"], ["Selected"], ["Text"], ["OnClick"]}]
+        5 SETTABLEKS                       R0 R4 K3 ["Key"]
+        7 SETTABLEKS                       R1 R4 K4 ["LayoutOrder"]
+        9 GETUPVAL                         R6 2
+       10 GETTABLEKS                       R6 R6 K9 ["AlignmentSpace"]
+       12 JUMPIFEQ                         R6 R0 ; [+2]
+       14 LOADB                            R5 0 +1
+       15 LOADB                            R5 1
+       16 SETTABLEKS                       R5 R4 K5 ["Selected"]
+       18 GETUPVAL                         R5 3
+       19 LOADK                            R7 K10 ["AxesSettingsFragment"]
+       20 MOVE                             R8 R0
+       21 NAMECALL                         R5 R5 K11 ["getText"]
+       23 CALL                             R5 3 1
+       24 SETTABLEKS                       R5 R4 K6 ["Text"]
+       26 GETUPVAL                         R5 4
+       27 GETTABLEKS                       R5 R5 K12 ["setAlignmentSpace"]
+       29 SETTABLEKS                       R5 R4 K7 ["OnClick"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -136,81 +134,71 @@ PROTO_4:
        35 GETUPVAL                         R15 1
        36 GETTABLEKS                       R15 R15 K12 ["createElement"]
        38 GETUPVAL                         R16 2
-       39 DUPTABLE                         R17 K19 [{"Key", "Checked", "Disabled", "LayoutOrder", "Text", "OnClick"}]
+       39 DUPTABLE                         R17 K20 [{["Key"], ["Checked"], ["Disabled"] = False, ["LayoutOrder"], ["Text"], ["OnClick"]}]
        40 SETTABLEKS                       R12 R17 K13 ["Key"]
        42 SETTABLEKS                       R13 R17 K14 ["Checked"]
-       44 LOADB                            R18 0
-       45 SETTABLEKS                       R18 R17 K15 ["Disabled"]
-       47 NAMECALL                         R18 R5 K20 ["getNextOrder"]
-       49 CALL                             R18 1 1
-       50 SETTABLEKS                       R18 R17 K16 ["LayoutOrder"]
-       52 SETTABLEKS                       R14 R17 K17 ["Text"]
-       54 GETTABLEKS                       R18 R0 K21 ["toggleAxis"]
-       56 SETTABLEKS                       R18 R17 K18 ["OnClick"]
-       58 CALL                             R15 2 1
-       59 SETTABLE                         R15 R6 R12
-       60 FORGLOOP                         R8 2 [inext] ; [-35]
-       62 NEWCLOSURE                       R8 P0
-       63 CAPTURE                          UPVAL U1
-       64 CAPTURE                          UPVAL U3
-       65 CAPTURE                          VAL R1
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R0
-       68 GETUPVAL                         R9 1
-       69 GETTABLEKS                       R9 R9 K22 ["createFragment"]
-       71 DUPTABLE                         R10 K25 [{"AlignmentSpaceButtons", "AxisCheckboxes"}]
-       72 GETUPVAL                         R11 1
-       73 GETTABLEKS                       R11 R11 K12 ["createElement"]
-       75 GETUPVAL                         R12 4
-       76 DUPTABLE                         R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-       77 GETUPVAL                         R14 4
-       78 GETTABLEKS                       R14 R14 K31 ["Axis"]
-       80 GETTABLEKS                       R14 R14 K32 ["Both"]
-       82 SETTABLEKS                       R14 R13 K26 ["axis"]
-       84 GETTABLEKS                       R14 R4 K33 ["SectionContentPadding"]
-       86 SETTABLEKS                       R14 R13 K27 ["contentPadding"]
-       88 LOADN                            R14 1
-       89 SETTABLEKS                       R14 R13 K28 ["BackgroundTransparency"]
-       91 GETIMPORT                        R14 K36 [Enum.FillDirection.Horizontal]
-       93 SETTABLEKS                       R14 R13 K29 ["FillDirection"]
-       95 LOADN                            R14 1
-       96 SETTABLEKS                       R14 R13 K16 ["LayoutOrder"]
-       98 DUPTABLE                         R14 K39 [{"WorldSpaceButton", "LocalSpaceButton"}]
-       99 MOVE                             R15 R8
-      100 GETUPVAL                         R16 5
-      101 GETTABLEKS                       R16 R16 K40 ["World"]
-      103 LOADN                            R17 1
-      104 CALL                             R15 2 1
-      105 SETTABLEKS                       R15 R14 K37 ["WorldSpaceButton"]
-      107 MOVE                             R15 R8
-      108 GETUPVAL                         R16 5
-      109 GETTABLEKS                       R16 R16 K41 ["Local"]
-      111 LOADN                            R17 2
-      112 CALL                             R15 2 1
-      113 SETTABLEKS                       R15 R14 K38 ["LocalSpaceButton"]
-      115 CALL                             R11 3 1
-      116 SETTABLEKS                       R11 R10 K23 ["AlignmentSpaceButtons"]
-      118 GETUPVAL                         R11 1
-      119 GETTABLEKS                       R11 R11 K12 ["createElement"]
-      121 GETUPVAL                         R12 4
-      122 DUPTABLE                         R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
-      123 GETUPVAL                         R14 4
-      124 GETTABLEKS                       R14 R14 K31 ["Axis"]
-      126 GETTABLEKS                       R14 R14 K32 ["Both"]
-      128 SETTABLEKS                       R14 R13 K26 ["axis"]
-      130 GETTABLEKS                       R14 R4 K33 ["SectionContentPadding"]
-      132 SETTABLEKS                       R14 R13 K27 ["contentPadding"]
-      134 LOADN                            R14 1
-      135 SETTABLEKS                       R14 R13 K28 ["BackgroundTransparency"]
-      137 GETIMPORT                        R14 K36 [Enum.FillDirection.Horizontal]
-      139 SETTABLEKS                       R14 R13 K29 ["FillDirection"]
-      141 LOADN                            R14 1
-      142 SETTABLEKS                       R14 R13 K16 ["LayoutOrder"]
-      144 MOVE                             R14 R6
-      145 CALL                             R11 3 1
-      146 SETTABLEKS                       R11 R10 K24 ["AxisCheckboxes"]
-      148 CALL                             R9 1 -1
-      149 RETURN                           R9 -1
+       44 NAMECALL                         R18 R5 K21 ["getNextOrder"]
+       46 CALL                             R18 1 1
+       47 SETTABLEKS                       R18 R17 K17 ["LayoutOrder"]
+       49 SETTABLEKS                       R14 R17 K18 ["Text"]
+       51 GETTABLEKS                       R18 R0 K22 ["toggleAxis"]
+       53 SETTABLEKS                       R18 R17 K19 ["OnClick"]
+       55 CALL                             R15 2 1
+       56 SETTABLE                         R15 R6 R12
+       57 FORGLOOP                         R8 2 [inext] ; [-32]
+       59 NEWCLOSURE                       R8 P0
+       60 CAPTURE                          UPVAL U1
+       61 CAPTURE                          UPVAL U3
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R0
+       65 GETUPVAL                         R9 1
+       66 GETTABLEKS                       R9 R9 K23 ["createFragment"]
+       68 DUPTABLE                         R10 K26 [{"AlignmentSpaceButtons", "AxisCheckboxes"}]
+       69 GETUPVAL                         R11 1
+       70 GETTABLEKS                       R11 R11 K12 ["createElement"]
+       72 GETUPVAL                         R12 4
+       73 DUPTABLE                         R13 K32 [{["axis"], ["contentPadding"], ["BackgroundTransparency"] = 1, ["FillDirection"], ["LayoutOrder"] = 1}]
+       74 GETUPVAL                         R14 4
+       75 GETTABLEKS                       R14 R14 K33 ["Axis"]
+       77 GETTABLEKS                       R14 R14 K34 ["Both"]
+       79 SETTABLEKS                       R14 R13 K27 ["axis"]
+       81 GETTABLEKS                       R14 R4 K35 ["SectionContentPadding"]
+       83 SETTABLEKS                       R14 R13 K28 ["contentPadding"]
+       85 GETIMPORT                        R14 K38 [Enum.FillDirection.Horizontal]
+       87 SETTABLEKS                       R14 R13 K31 ["FillDirection"]
+       89 DUPTABLE                         R14 K41 [{"WorldSpaceButton", "LocalSpaceButton"}]
+       90 MOVE                             R15 R8
+       91 GETUPVAL                         R16 5
+       92 GETTABLEKS                       R16 R16 K42 ["World"]
+       94 LOADN                            R17 1
+       95 CALL                             R15 2 1
+       96 SETTABLEKS                       R15 R14 K39 ["WorldSpaceButton"]
+       98 MOVE                             R15 R8
+       99 GETUPVAL                         R16 5
+      100 GETTABLEKS                       R16 R16 K43 ["Local"]
+      102 LOADN                            R17 2
+      103 CALL                             R15 2 1
+      104 SETTABLEKS                       R15 R14 K40 ["LocalSpaceButton"]
+      106 CALL                             R11 3 1
+      107 SETTABLEKS                       R11 R10 K24 ["AlignmentSpaceButtons"]
+      109 GETUPVAL                         R11 1
+      110 GETTABLEKS                       R11 R11 K12 ["createElement"]
+      112 GETUPVAL                         R12 4
+      113 DUPTABLE                         R13 K32 [{["axis"], ["contentPadding"], ["BackgroundTransparency"] = 1, ["FillDirection"], ["LayoutOrder"] = 1}]
+      114 GETUPVAL                         R14 4
+      115 GETTABLEKS                       R14 R14 K33 ["Axis"]
+      117 GETTABLEKS                       R14 R14 K34 ["Both"]
+      119 SETTABLEKS                       R14 R13 K27 ["axis"]
+      121 GETTABLEKS                       R14 R4 K35 ["SectionContentPadding"]
+      123 SETTABLEKS                       R14 R13 K28 ["contentPadding"]
+      125 GETIMPORT                        R14 K38 [Enum.FillDirection.Horizontal]
+      127 SETTABLEKS                       R14 R13 K31 ["FillDirection"]
+      129 MOVE                             R14 R6
+      130 CALL                             R11 3 1
+      131 SETTABLEKS                       R11 R10 K25 ["AxisCheckboxes"]
+      133 CALL                             R9 1 -1
+      134 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

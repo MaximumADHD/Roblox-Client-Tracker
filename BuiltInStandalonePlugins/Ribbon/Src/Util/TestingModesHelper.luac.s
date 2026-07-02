@@ -46,7 +46,7 @@ PROTO_3:
        11 CALL                             R2 2 1
        12 GETTABLEN                        R3 R2 1
        13 JUMPIF                           R3 ; [+2]
-       14 LOADN                            R3 255
+       14 LOADN                            R3 -1
        15 RETURN                           R3 1
        16 GETTABLEN                        R3 R2 1
        17 GETTABLEKS                       R3 R3 K3 ["Value"]

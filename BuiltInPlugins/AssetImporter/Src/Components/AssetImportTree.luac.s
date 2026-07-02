@@ -297,31 +297,27 @@ PROTO_11:
        87 GETUPVAL                         R13 1
        88 GETTABLEKS                       R13 R13 K21 ["createElement"]
        90 GETUPVAL                         R14 2
-       91 DUPTABLE                         R15 K29 [{"LayoutOrder", "IconSize", "LeftIcon", "OnClick", "Style", "Size", "TooltipText"}]
-       92 NAMECALL                         R16 R5 K30 ["getNextOrder"]
+       91 DUPTABLE                         R15 K31 [{["LayoutOrder"], ["IconSize"] = 20, ["LeftIcon"], ["OnClick"], ["Style"] = "IconOnly", ["Size"], ["TooltipText"]}]
+       92 NAMECALL                         R16 R5 K32 ["getNextOrder"]
        94 CALL                             R16 1 1
        95 SETTABLEKS                       R16 R15 K22 ["LayoutOrder"]
-       97 LOADN                            R16 20
-       98 SETTABLEKS                       R16 R15 K23 ["IconSize"]
-      100 SETTABLEKS                       R6 R15 K24 ["LeftIcon"]
-      102 NEWCLOSURE                       R16 P0
-      103 CAPTURE                          UPVAL U3
-      104 CAPTURE                          VAL R3
-      105 CAPTURE                          VAL R2
-      106 CAPTURE                          VAL R0
-      107 SETTABLEKS                       R16 R15 K25 ["OnClick"]
-      109 LOADK                            R16 K31 ["IconOnly"]
-      110 SETTABLEKS                       R16 R15 K26 ["Style"]
-      112 GETIMPORT                        R16 K34 [UDim2.new]
-      114 LOADN                            R17 0
-      115 LOADN                            R18 20
-      116 LOADN                            R19 0
-      117 LOADN                            R20 20
-      118 CALL                             R16 4 1
-      119 SETTABLEKS                       R16 R15 K27 ["Size"]
-      121 SETTABLEKS                       R12 R15 K28 ["TooltipText"]
-      123 CALL                             R13 2 -1
-      124 RETURN                           R13 -1
+       97 SETTABLEKS                       R6 R15 K25 ["LeftIcon"]
+       99 NEWCLOSURE                       R16 P0
+      100 CAPTURE                          UPVAL U3
+      101 CAPTURE                          VAL R3
+      102 CAPTURE                          VAL R2
+      103 CAPTURE                          VAL R0
+      104 SETTABLEKS                       R16 R15 K26 ["OnClick"]
+      106 GETIMPORT                        R16 K35 [UDim2.new]
+      108 LOADN                            R17 0
+      109 LOADN                            R18 20
+      110 LOADN                            R19 0
+      111 LOADN                            R20 20
+      112 CALL                             R16 4 1
+      113 SETTABLEKS                       R16 R15 K29 ["Size"]
+      115 SETTABLEKS                       R12 R15 K30 ["TooltipText"]
+      117 CALL                             R13 2 -1
+      118 RETURN                           R13 -1
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -397,15 +393,15 @@ PROTO_13:
        92 GETUPVAL                         R11 2
        93 GETTABLEKS                       R11 R11 K10 ["createElement"]
        95 GETUPVAL                         R12 6
-       96 DUPTABLE                         R13 K43 [{"RootItems", "Selection", "Expansion", "Checked", "LayoutOrder", "Size", "OnSelectionChange", "OnExpansionChange", "OnCheck", "GetChildren", "GetContents", "ExpandableRoot", "AfterItem", "OnRightClick"}]
+       96 DUPTABLE                         R13 K44 [{["RootItems"], ["Selection"], ["Expansion"], ["Checked"], ["LayoutOrder"], ["Size"], ["OnSelectionChange"], ["OnExpansionChange"], ["OnCheck"], ["GetChildren"], ["GetContents"], ["ExpandableRoot"] = False, ["AfterItem"], ["OnRightClick"]}]
        97 GETTABLEKS                       R14 R1 K6 ["Instances"]
        99 JUMPIF                           R14 ; [+2]
       100 NEWTABLE                         R14 0 0
       102 SETTABLEKS                       R14 R13 K34 ["RootItems"]
-      104 GETTABLEKS                       R15 R1 K44 ["SelectedImportItem"]
+      104 GETTABLEKS                       R15 R1 K45 ["SelectedImportItem"]
       106 JUMPIFNOT                        R15 ; [+7]
       107 NEWTABLE                         R14 1 0
-      109 GETTABLEKS                       R15 R1 K44 ["SelectedImportItem"]
+      109 GETTABLEKS                       R15 R1 K45 ["SelectedImportItem"]
       111 LOADB                            R16 1
       112 SETTABLE                         R16 R14 R15
       113 JUMPIF                           R14 ; [+2]
@@ -424,25 +420,23 @@ PROTO_13:
       134 MINUS                            R18 R3
       135 CALL                             R14 4 1
       136 SETTABLEKS                       R14 R13 K24 ["Size"]
-      138 GETTABLEKS                       R14 R0 K45 ["SelectItem"]
+      138 GETTABLEKS                       R14 R0 K46 ["SelectItem"]
       140 SETTABLEKS                       R14 R13 K36 ["OnSelectionChange"]
       142 GETTABLEKS                       R14 R1 K27 ["SetExpansion"]
       144 SETTABLEKS                       R14 R13 K23 ["OnExpansionChange"]
-      146 GETTABLEKS                       R14 R0 K46 ["setChecked"]
+      146 GETTABLEKS                       R14 R0 K47 ["setChecked"]
       148 SETTABLEKS                       R14 R13 K37 ["OnCheck"]
-      150 GETTABLEKS                       R14 R0 K47 ["getChildren"]
+      150 GETTABLEKS                       R14 R0 K48 ["getChildren"]
       152 SETTABLEKS                       R14 R13 K38 ["GetChildren"]
-      154 GETTABLEKS                       R14 R0 K48 ["getContents"]
+      154 GETTABLEKS                       R14 R0 K49 ["getContents"]
       156 SETTABLEKS                       R14 R13 K39 ["GetContents"]
-      158 LOADB                            R14 0
-      159 SETTABLEKS                       R14 R13 K40 ["ExpandableRoot"]
-      161 GETTABLEKS                       R14 R0 K49 ["afterItem"]
-      163 SETTABLEKS                       R14 R13 K41 ["AfterItem"]
-      165 SETTABLEKS                       R6 R13 K42 ["OnRightClick"]
-      167 CALL                             R11 2 1
-      168 SETTABLEKS                       R11 R10 K19 ["TreeView"]
-      170 CALL                             R7 3 -1
-      171 RETURN                           R7 -1
+      158 GETTABLEKS                       R14 R0 K50 ["afterItem"]
+      160 SETTABLEKS                       R14 R13 K42 ["AfterItem"]
+      162 SETTABLEKS                       R6 R13 K43 ["OnRightClick"]
+      164 CALL                             R11 2 1
+      165 SETTABLEKS                       R11 R10 K19 ["TreeView"]
+      167 CALL                             R7 3 -1
+      168 RETURN                           R7 -1
 
 PROTO_14:
         0 DUPTABLE                         R1 K5 [{"AssetImportSession", "ImportTree", "SelectedImportItem", "Expansion", "Checked"}]

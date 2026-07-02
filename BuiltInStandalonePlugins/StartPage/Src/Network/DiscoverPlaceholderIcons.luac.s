@@ -2,19 +2,13 @@ PROTO_0:
         0 LENGTH                           R2 R0
         1 JUMPIFNOTEQKN                    R2 K0 [0] ; [+2]
         3 RETURN                           R0 0
-        4 DUPTABLE                         R2 K5 [{"returnPolicy", "size", "format", "universeIds"}]
-        5 LOADK                            R3 K6 ["Placeholder"]
-        6 SETTABLEKS                       R3 R2 K1 ["returnPolicy"]
-        8 LOADK                            R3 K7 ["256x256"]
-        9 SETTABLEKS                       R3 R2 K2 ["size"]
-       11 LOADK                            R3 K8 ["png"]
-       12 SETTABLEKS                       R3 R2 K3 ["format"]
-       14 SETTABLEKS                       R0 R2 K4 ["universeIds"]
-       16 GETUPVAL                         R3 0
-       17 MOVE                             R4 R2
-       18 MOVE                             R5 R1
-       19 CALL                             R3 2 0
-       20 RETURN                           R0 0
+        4 DUPTABLE                         R2 K8 [{["returnPolicy"] = "Placeholder", ["size"] = "256x256", ["format"] = "png", ["universeIds"]}]
+        5 SETTABLEKS                       R0 R2 K7 ["universeIds"]
+        7 GETUPVAL                         R3 0
+        8 MOVE                             R4 R2
+        9 MOVE                             R5 R1
+       10 CALL                             R3 2 0
+       11 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

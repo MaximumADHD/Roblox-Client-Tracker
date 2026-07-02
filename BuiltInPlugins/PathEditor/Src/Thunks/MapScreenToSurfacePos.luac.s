@@ -78,10 +78,10 @@ PROTO_0:
       115 ADDK                             R11 R12 K30 [0.5]
       116 GETTABLEKS                       R12 R9 K34 ["invertX"]
       118 JUMPIFNOT                        R12 ; [+1]
-      119 SUBRK                            R10 R35 K10 ["Y"]
+      119 SUBRK                            R10 K35 [1] R10
       120 GETTABLEKS                       R12 R9 K36 ["invertY"]
       122 JUMPIFNOT                        R12 ; [+1]
-      123 SUBRK                            R11 R35 K11 ["ScreenPointToRay"]
+      123 SUBRK                            R11 K35 [1] R11
       124 GETIMPORT                        R12 K38 [Vector2.new]
       126 GETTABLEKS                       R14 R1 K3 ["SelectedObjectGui"]
       128 GETTABLEKS                       R14 R14 K39 ["AbsoluteSize"]
@@ -119,73 +119,25 @@ MAIN:
        23 CALL                             R2 1 1
        24 NEWTABLE                         R3 8 0
        26 GETIMPORT                        R4 K15 [Enum.NormalId.Top]
-       28 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-       29 LOADK                            R6 K21 ["Z"]
-       30 SETTABLEKS                       R6 R5 K16 ["axisX"]
-       32 LOADK                            R6 K22 ["X"]
-       33 SETTABLEKS                       R6 R5 K17 ["axisY"]
-       35 LOADB                            R6 1
-       36 SETTABLEKS                       R6 R5 K18 ["invertX"]
-       38 LOADB                            R6 0
-       39 SETTABLEKS                       R6 R5 K19 ["invertY"]
+       28 DUPTABLE                         R5 K24 [{["axisX"] = "Z", ["axisY"] = "X", ["invertX"] = True, ["invertY"] = False}]
+       29 SETTABLE                         R5 R3 R4
+       30 GETIMPORT                        R4 K26 [Enum.NormalId.Bottom]
+       32 DUPTABLE                         R5 K27 [{["axisX"] = "Z", ["axisY"] = "X", ["invertX"] = True, ["invertY"] = True}]
+       33 SETTABLE                         R5 R3 R4
+       34 GETIMPORT                        R4 K29 [Enum.NormalId.Left]
+       36 DUPTABLE                         R5 K31 [{["axisX"] = "Z", ["axisY"] = "Y", ["invertX"] = False, ["invertY"] = True}]
+       37 SETTABLE                         R5 R3 R4
+       38 GETIMPORT                        R4 K33 [Enum.NormalId.Right]
+       40 DUPTABLE                         R5 K34 [{["axisX"] = "Z", ["axisY"] = "Y", ["invertX"] = True, ["invertY"] = True}]
        41 SETTABLE                         R5 R3 R4
-       42 GETIMPORT                        R4 K24 [Enum.NormalId.Bottom]
-       44 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-       45 LOADK                            R6 K21 ["Z"]
-       46 SETTABLEKS                       R6 R5 K16 ["axisX"]
-       48 LOADK                            R6 K22 ["X"]
-       49 SETTABLEKS                       R6 R5 K17 ["axisY"]
-       51 LOADB                            R6 1
-       52 SETTABLEKS                       R6 R5 K18 ["invertX"]
-       54 LOADB                            R6 1
-       55 SETTABLEKS                       R6 R5 K19 ["invertY"]
-       57 SETTABLE                         R5 R3 R4
-       58 GETIMPORT                        R4 K26 [Enum.NormalId.Left]
-       60 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-       61 LOADK                            R6 K21 ["Z"]
-       62 SETTABLEKS                       R6 R5 K16 ["axisX"]
-       64 LOADK                            R6 K27 ["Y"]
-       65 SETTABLEKS                       R6 R5 K17 ["axisY"]
-       67 LOADB                            R6 0
-       68 SETTABLEKS                       R6 R5 K18 ["invertX"]
-       70 LOADB                            R6 1
-       71 SETTABLEKS                       R6 R5 K19 ["invertY"]
-       73 SETTABLE                         R5 R3 R4
-       74 GETIMPORT                        R4 K29 [Enum.NormalId.Right]
-       76 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-       77 LOADK                            R6 K21 ["Z"]
-       78 SETTABLEKS                       R6 R5 K16 ["axisX"]
-       80 LOADK                            R6 K27 ["Y"]
-       81 SETTABLEKS                       R6 R5 K17 ["axisY"]
-       83 LOADB                            R6 1
-       84 SETTABLEKS                       R6 R5 K18 ["invertX"]
-       86 LOADB                            R6 1
-       87 SETTABLEKS                       R6 R5 K19 ["invertY"]
-       89 SETTABLE                         R5 R3 R4
-       90 GETIMPORT                        R4 K31 [Enum.NormalId.Front]
-       92 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-       93 LOADK                            R6 K22 ["X"]
-       94 SETTABLEKS                       R6 R5 K16 ["axisX"]
-       96 LOADK                            R6 K27 ["Y"]
-       97 SETTABLEKS                       R6 R5 K17 ["axisY"]
-       99 LOADB                            R6 1
-      100 SETTABLEKS                       R6 R5 K18 ["invertX"]
-      102 LOADB                            R6 1
-      103 SETTABLEKS                       R6 R5 K19 ["invertY"]
-      105 SETTABLE                         R5 R3 R4
-      106 GETIMPORT                        R4 K33 [Enum.NormalId.Back]
-      108 DUPTABLE                         R5 K20 [{"axisX", "axisY", "invertX", "invertY"}]
-      109 LOADK                            R6 K22 ["X"]
-      110 SETTABLEKS                       R6 R5 K16 ["axisX"]
-      112 LOADK                            R6 K27 ["Y"]
-      113 SETTABLEKS                       R6 R5 K17 ["axisY"]
-      115 LOADB                            R6 0
-      116 SETTABLEKS                       R6 R5 K18 ["invertX"]
-      118 LOADB                            R6 1
-      119 SETTABLEKS                       R6 R5 K19 ["invertY"]
-      121 SETTABLE                         R5 R3 R4
-      122 DUPCLOSURE                       R4 K34 [PROTO_1]
-      123 CAPTURE                          VAL R0
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          VAL R3
-      126 RETURN                           R4 1
+       42 GETIMPORT                        R4 K36 [Enum.NormalId.Front]
+       44 DUPTABLE                         R5 K37 [{["axisX"] = "X", ["axisY"] = "Y", ["invertX"] = True, ["invertY"] = True}]
+       45 SETTABLE                         R5 R3 R4
+       46 GETIMPORT                        R4 K39 [Enum.NormalId.Back]
+       48 DUPTABLE                         R5 K40 [{["axisX"] = "X", ["axisY"] = "Y", ["invertX"] = False, ["invertY"] = True}]
+       49 SETTABLE                         R5 R3 R4
+       50 DUPCLOSURE                       R4 K41 [PROTO_1]
+       51 CAPTURE                          VAL R0
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R3
+       54 RETURN                           R4 1

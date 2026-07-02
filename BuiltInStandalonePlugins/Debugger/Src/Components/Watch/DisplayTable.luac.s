@@ -1006,59 +1006,47 @@ PROTO_27:
        48 GETUPVAL                         R9 5
        49 GETTABLEKS                       R9 R9 K7 ["createElement"]
        51 GETUPVAL                         R10 6
-       52 DUPTABLE                         R11 K31 [{"Scroll", "Size", "Columns", "RootItems", "Stylizer", "OnExpansionChange", "GetChildren", "Expansion", "OnFocusLost", "TextInputCols", "RightClick", "OnDoubleClick", "DisableTooltip", "SortIndex", "SortOrder", "OnSortChange", "SortChildren", "OnColumnSizesChange", "UseDeficit", "UseScale", "ClampSize", "ColumnHeaderHeight", "RowHeight", "ExpandOnDoubleClick"}]
-       53 LOADB                            R12 1
-       54 SETTABLEKS                       R12 R11 K8 ["Scroll"]
-       56 GETIMPORT                        R12 K34 [UDim2.fromScale]
-       58 LOADN                            R13 1
-       59 LOADN                            R14 1
-       60 CALL                             R12 2 1
-       61 SETTABLEKS                       R12 R11 K9 ["Size"]
-       63 SETTABLEKS                       R7 R11 K10 ["Columns"]
-       65 GETTABLEKS                       R12 R1 K11 ["RootItems"]
-       67 SETTABLEKS                       R12 R11 K11 ["RootItems"]
-       69 SETTABLEKS                       R2 R11 K1 ["Stylizer"]
-       71 GETTABLEKS                       R12 R0 K35 ["onExpansionChange"]
-       73 SETTABLEKS                       R12 R11 K12 ["OnExpansionChange"]
-       75 GETTABLEKS                       R12 R0 K36 ["getTreeChildren"]
-       77 SETTABLEKS                       R12 R11 K13 ["GetChildren"]
-       79 GETTABLEKS                       R12 R1 K37 ["ExpansionTable"]
-       81 SETTABLEKS                       R12 R11 K14 ["Expansion"]
-       83 GETTABLEKS                       R12 R0 K15 ["OnFocusLost"]
-       85 SETTABLEKS                       R12 R11 K15 ["OnFocusLost"]
-       87 SETTABLEKS                       R8 R11 K16 ["TextInputCols"]
-       89 GETTABLEKS                       R12 R0 K38 ["onRightClick"]
-       91 SETTABLEKS                       R12 R11 K17 ["RightClick"]
-       93 GETTABLEKS                       R12 R0 K18 ["OnDoubleClick"]
-       95 SETTABLEKS                       R12 R11 K18 ["OnDoubleClick"]
-       97 LOADB                            R12 0
-       98 SETTABLEKS                       R12 R11 K19 ["DisableTooltip"]
-      100 GETTABLEKS                       R12 R1 K20 ["SortIndex"]
-      102 SETTABLEKS                       R12 R11 K20 ["SortIndex"]
-      104 GETTABLEKS                       R12 R1 K21 ["SortOrder"]
-      106 SETTABLEKS                       R12 R11 K21 ["SortOrder"]
-      108 GETTABLEKS                       R12 R0 K22 ["OnSortChange"]
-      110 SETTABLEKS                       R12 R11 K22 ["OnSortChange"]
-      112 GETTABLEKS                       R12 R0 K39 ["childSort"]
-      114 SETTABLEKS                       R12 R11 K23 ["SortChildren"]
-      116 GETTABLEKS                       R12 R0 K24 ["OnColumnSizesChange"]
-      118 SETTABLEKS                       R12 R11 K24 ["OnColumnSizesChange"]
-      120 LOADB                            R12 0
-      121 SETTABLEKS                       R12 R11 K25 ["UseDeficit"]
-      123 LOADB                            R12 1
-      124 SETTABLEKS                       R12 R11 K26 ["UseScale"]
-      126 LOADB                            R12 1
-      127 SETTABLEKS                       R12 R11 K27 ["ClampSize"]
-      129 GETUPVAL                         R12 7
-      130 GETTABLEKS                       R12 R12 K40 ["COLUMN_HEADER_HEIGHT"]
-      132 SETTABLEKS                       R12 R11 K28 ["ColumnHeaderHeight"]
-      134 GETUPVAL                         R12 7
-      135 GETTABLEKS                       R12 R12 K41 ["ROW_HEIGHT"]
-      137 SETTABLEKS                       R12 R11 K29 ["RowHeight"]
-      139 LOADB                            R12 1
-      140 SETTABLEKS                       R12 R11 K30 ["ExpandOnDoubleClick"]
-      142 CALL                             R9 2 -1
-      143 RETURN                           R9 -1
+       52 DUPTABLE                         R11 K33 [{["Scroll"] = True, ["Size"], ["Columns"], ["RootItems"], ["Stylizer"], ["OnExpansionChange"], ["GetChildren"], ["Expansion"], ["OnFocusLost"], ["TextInputCols"], ["RightClick"], ["OnDoubleClick"], ["DisableTooltip"] = False, ["SortIndex"], ["SortOrder"], ["OnSortChange"], ["SortChildren"], ["OnColumnSizesChange"], ["UseDeficit"] = False, ["UseScale"] = True, ["ClampSize"] = True, ["ColumnHeaderHeight"], ["RowHeight"], ["ExpandOnDoubleClick"] = True}]
+       53 GETIMPORT                        R12 K36 [UDim2.fromScale]
+       55 LOADN                            R13 1
+       56 LOADN                            R14 1
+       57 CALL                             R12 2 1
+       58 SETTABLEKS                       R12 R11 K10 ["Size"]
+       60 SETTABLEKS                       R7 R11 K11 ["Columns"]
+       62 GETTABLEKS                       R12 R1 K12 ["RootItems"]
+       64 SETTABLEKS                       R12 R11 K12 ["RootItems"]
+       66 SETTABLEKS                       R2 R11 K1 ["Stylizer"]
+       68 GETTABLEKS                       R12 R0 K37 ["onExpansionChange"]
+       70 SETTABLEKS                       R12 R11 K13 ["OnExpansionChange"]
+       72 GETTABLEKS                       R12 R0 K38 ["getTreeChildren"]
+       74 SETTABLEKS                       R12 R11 K14 ["GetChildren"]
+       76 GETTABLEKS                       R12 R1 K39 ["ExpansionTable"]
+       78 SETTABLEKS                       R12 R11 K15 ["Expansion"]
+       80 GETTABLEKS                       R12 R0 K16 ["OnFocusLost"]
+       82 SETTABLEKS                       R12 R11 K16 ["OnFocusLost"]
+       84 SETTABLEKS                       R8 R11 K17 ["TextInputCols"]
+       86 GETTABLEKS                       R12 R0 K40 ["onRightClick"]
+       88 SETTABLEKS                       R12 R11 K18 ["RightClick"]
+       90 GETTABLEKS                       R12 R0 K19 ["OnDoubleClick"]
+       92 SETTABLEKS                       R12 R11 K19 ["OnDoubleClick"]
+       94 GETTABLEKS                       R12 R1 K22 ["SortIndex"]
+       96 SETTABLEKS                       R12 R11 K22 ["SortIndex"]
+       98 GETTABLEKS                       R12 R1 K23 ["SortOrder"]
+      100 SETTABLEKS                       R12 R11 K23 ["SortOrder"]
+      102 GETTABLEKS                       R12 R0 K24 ["OnSortChange"]
+      104 SETTABLEKS                       R12 R11 K24 ["OnSortChange"]
+      106 GETTABLEKS                       R12 R0 K41 ["childSort"]
+      108 SETTABLEKS                       R12 R11 K25 ["SortChildren"]
+      110 GETTABLEKS                       R12 R0 K26 ["OnColumnSizesChange"]
+      112 SETTABLEKS                       R12 R11 K26 ["OnColumnSizesChange"]
+      114 GETUPVAL                         R12 7
+      115 GETTABLEKS                       R12 R12 K42 ["COLUMN_HEADER_HEIGHT"]
+      117 SETTABLEKS                       R12 R11 K30 ["ColumnHeaderHeight"]
+      119 GETUPVAL                         R12 7
+      120 GETTABLEKS                       R12 R12 K43 ["ROW_HEIGHT"]
+      122 SETTABLEKS                       R12 R11 K31 ["RowHeight"]
+      124 CALL                             R9 2 -1
+      125 RETURN                           R9 -1
 
 PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["Common"]
@@ -1545,119 +1533,109 @@ MAIN:
       246 NEWTABLE                         R45 0 1
       248 LOADK                            R46 K57 ["expressionColumn"]
       249 SETTABLEN                        R46 R45 1
-      250 DUPTABLE                         R46 K58 [{"nameColumn", "expressionColumn"}]
-      251 LOADK                            R47 K59 ["NameColumn"]
-      252 SETTABLEKS                       R47 R46 K56 ["nameColumn"]
-      254 LOADK                            R47 K60 ["ExpressionColumn"]
-      255 SETTABLEKS                       R47 R46 K57 ["expressionColumn"]
-      257 DUPTABLE                         R47 K64 [{"ScopeColumn", "ValueColumn", "DataTypeColumn"}]
-      258 LOADK                            R48 K65 ["scopeColumn"]
-      259 SETTABLEKS                       R48 R47 K61 ["ScopeColumn"]
-      261 LOADK                            R48 K66 ["valueColumn"]
-      262 SETTABLEKS                       R48 R47 K62 ["ValueColumn"]
-      264 LOADK                            R48 K67 ["dataTypeColumn"]
-      265 SETTABLEKS                       R48 R47 K63 ["DataTypeColumn"]
-      267 NEWTABLE                         R48 0 4
-      269 LOADK                            R49 K56 ["nameColumn"]
-      270 SETTABLEN                        R49 R48 1
-      271 LOADK                            R49 K65 ["scopeColumn"]
-      272 SETTABLEN                        R49 R48 2
-      273 LOADK                            R49 K66 ["valueColumn"]
-      274 SETTABLEN                        R49 R48 3
-      275 LOADK                            R49 K67 ["dataTypeColumn"]
-      276 SETTABLEN                        R49 R48 4
-      277 NEWTABLE                         R49 0 3
-      279 LOADK                            R50 K57 ["expressionColumn"]
-      280 SETTABLEN                        R50 R49 1
-      281 LOADK                            R50 K66 ["valueColumn"]
-      282 SETTABLEN                        R50 R49 2
-      283 LOADK                            R50 K67 ["dataTypeColumn"]
-      284 SETTABLEN                        R50 R49 3
-      285 DUPCLOSURE                       R50 K68 [PROTO_0]
-      286 CAPTURE                          VAL R19
-      287 CAPTURE                          VAL R50
-      288 CAPTURE                          VAL R22
-      289 DUPCLOSURE                       R51 K69 [PROTO_1]
-      290 CAPTURE                          VAL R51
-      291 DUPCLOSURE                       R52 K70 [PROTO_2]
-      292 DUPCLOSURE                       R53 K71 [PROTO_3]
-      293 CAPTURE                          VAL R19
-      294 DUPCLOSURE                       R54 K72 [PROTO_19]
-      295 CAPTURE                          VAL R46
-      296 CAPTURE                          VAL R47
-      297 CAPTURE                          VAL R48
-      298 CAPTURE                          VAL R49
-      299 CAPTURE                          VAL R21
-      300 CAPTURE                          VAL R10
-      301 CAPTURE                          VAL R40
-      302 CAPTURE                          VAL R42
-      303 CAPTURE                          VAL R12
-      304 CAPTURE                          VAL R24
-      305 SETTABLEKS                       R54 R43 K73 ["init"]
-      307 DUPCLOSURE                       R54 K74 [PROTO_21]
-      308 CAPTURE                          VAL R40
-      309 CAPTURE                          VAL R41
-      310 SETTABLEKS                       R54 R43 K75 ["didMount"]
-      312 DUPCLOSURE                       R54 K76 [PROTO_22]
-      313 CAPTURE                          VAL R40
-      314 CAPTURE                          VAL R41
-      315 SETTABLEKS                       R54 R43 K77 ["willUnmount"]
-      317 DUPCLOSURE                       R54 K78 [PROTO_25]
-      318 CAPTURE                          VAL R21
-      319 CAPTURE                          VAL R44
-      320 CAPTURE                          VAL R45
-      321 CAPTURE                          VAL R4
-      322 CAPTURE                          VAL R41
-      323 SETTABLEKS                       R54 R43 K79 ["didUpdate"]
-      325 DUPCLOSURE                       R54 K80 [PROTO_27]
-      326 CAPTURE                          VAL R21
-      327 CAPTURE                          VAL R44
-      328 CAPTURE                          VAL R45
-      329 CAPTURE                          VAL R14
-      330 CAPTURE                          VAL R15
-      331 CAPTURE                          VAL R1
-      332 CAPTURE                          VAL R16
-      333 CAPTURE                          VAL R40
-      334 SETTABLEKS                       R54 R43 K81 ["render"]
-      336 MOVE                             R54 R6
-      337 DUPTABLE                         R55 K82 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
-      338 SETTABLEKS                       R7 R55 K12 ["Analytics"]
-      340 SETTABLEKS                       R8 R55 K13 ["Localization"]
-      342 SETTABLEKS                       R17 R55 K25 ["Stylizer"]
-      344 SETTABLEKS                       R9 R55 K14 ["Plugin"]
-      346 CALL                             R54 1 1
-      347 MOVE                             R55 R43
-      348 CALL                             R54 1 1
-      349 MOVE                             R43 R54
-      350 GETTABLEKS                       R54 R2 K83 ["connect"]
-      352 DUPCLOSURE                       R55 K84 [PROTO_28]
-      353 CAPTURE                          VAL R21
-      354 CAPTURE                          VAL R19
-      355 CAPTURE                          VAL R53
-      356 CAPTURE                          VAL R50
-      357 CAPTURE                          VAL R52
-      358 CAPTURE                          VAL R51
-      359 CAPTURE                          VAL R22
-      360 CAPTURE                          VAL R48
-      361 CAPTURE                          VAL R49
-      362 CAPTURE                          VAL R24
-      363 CAPTURE                          VAL R23
-      364 DUPCLOSURE                       R56 K85 [PROTO_42]
-      365 CAPTURE                          VAL R26
-      366 CAPTURE                          VAL R27
-      367 CAPTURE                          VAL R28
-      368 CAPTURE                          VAL R29
-      369 CAPTURE                          VAL R36
-      370 CAPTURE                          VAL R37
-      371 CAPTURE                          VAL R30
-      372 CAPTURE                          VAL R31
-      373 CAPTURE                          VAL R32
-      374 CAPTURE                          VAL R38
-      375 CAPTURE                          VAL R33
-      376 CAPTURE                          VAL R35
-      377 CAPTURE                          VAL R34
-      378 CALL                             R54 2 1
-      379 MOVE                             R55 R43
-      380 CALL                             R54 1 1
-      381 MOVE                             R43 R54
-      382 RETURN                           R43 1
+      250 DUPTABLE                         R46 K60 [{["nameColumn"] = "NameColumn", ["expressionColumn"] = "ExpressionColumn"}]
+      251 DUPTABLE                         R47 K67 [{["ScopeColumn"] = "scopeColumn", ["ValueColumn"] = "valueColumn", ["DataTypeColumn"] = "dataTypeColumn"}]
+      252 NEWTABLE                         R48 0 4
+      254 LOADK                            R49 K56 ["nameColumn"]
+      255 SETTABLEN                        R49 R48 1
+      256 LOADK                            R49 K62 ["scopeColumn"]
+      257 SETTABLEN                        R49 R48 2
+      258 LOADK                            R49 K64 ["valueColumn"]
+      259 SETTABLEN                        R49 R48 3
+      260 LOADK                            R49 K66 ["dataTypeColumn"]
+      261 SETTABLEN                        R49 R48 4
+      262 NEWTABLE                         R49 0 3
+      264 LOADK                            R50 K57 ["expressionColumn"]
+      265 SETTABLEN                        R50 R49 1
+      266 LOADK                            R50 K64 ["valueColumn"]
+      267 SETTABLEN                        R50 R49 2
+      268 LOADK                            R50 K66 ["dataTypeColumn"]
+      269 SETTABLEN                        R50 R49 3
+      270 DUPCLOSURE                       R50 K68 [PROTO_0]
+      271 CAPTURE                          VAL R19
+      272 CAPTURE                          VAL R50
+      273 CAPTURE                          VAL R22
+      274 DUPCLOSURE                       R51 K69 [PROTO_1]
+      275 CAPTURE                          VAL R51
+      276 DUPCLOSURE                       R52 K70 [PROTO_2]
+      277 DUPCLOSURE                       R53 K71 [PROTO_3]
+      278 CAPTURE                          VAL R19
+      279 DUPCLOSURE                       R54 K72 [PROTO_19]
+      280 CAPTURE                          VAL R46
+      281 CAPTURE                          VAL R47
+      282 CAPTURE                          VAL R48
+      283 CAPTURE                          VAL R49
+      284 CAPTURE                          VAL R21
+      285 CAPTURE                          VAL R10
+      286 CAPTURE                          VAL R40
+      287 CAPTURE                          VAL R42
+      288 CAPTURE                          VAL R12
+      289 CAPTURE                          VAL R24
+      290 SETTABLEKS                       R54 R43 K73 ["init"]
+      292 DUPCLOSURE                       R54 K74 [PROTO_21]
+      293 CAPTURE                          VAL R40
+      294 CAPTURE                          VAL R41
+      295 SETTABLEKS                       R54 R43 K75 ["didMount"]
+      297 DUPCLOSURE                       R54 K76 [PROTO_22]
+      298 CAPTURE                          VAL R40
+      299 CAPTURE                          VAL R41
+      300 SETTABLEKS                       R54 R43 K77 ["willUnmount"]
+      302 DUPCLOSURE                       R54 K78 [PROTO_25]
+      303 CAPTURE                          VAL R21
+      304 CAPTURE                          VAL R44
+      305 CAPTURE                          VAL R45
+      306 CAPTURE                          VAL R4
+      307 CAPTURE                          VAL R41
+      308 SETTABLEKS                       R54 R43 K79 ["didUpdate"]
+      310 DUPCLOSURE                       R54 K80 [PROTO_27]
+      311 CAPTURE                          VAL R21
+      312 CAPTURE                          VAL R44
+      313 CAPTURE                          VAL R45
+      314 CAPTURE                          VAL R14
+      315 CAPTURE                          VAL R15
+      316 CAPTURE                          VAL R1
+      317 CAPTURE                          VAL R16
+      318 CAPTURE                          VAL R40
+      319 SETTABLEKS                       R54 R43 K81 ["render"]
+      321 MOVE                             R54 R6
+      322 DUPTABLE                         R55 K82 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+      323 SETTABLEKS                       R7 R55 K12 ["Analytics"]
+      325 SETTABLEKS                       R8 R55 K13 ["Localization"]
+      327 SETTABLEKS                       R17 R55 K25 ["Stylizer"]
+      329 SETTABLEKS                       R9 R55 K14 ["Plugin"]
+      331 CALL                             R54 1 1
+      332 MOVE                             R55 R43
+      333 CALL                             R54 1 1
+      334 MOVE                             R43 R54
+      335 GETTABLEKS                       R54 R2 K83 ["connect"]
+      337 DUPCLOSURE                       R55 K84 [PROTO_28]
+      338 CAPTURE                          VAL R21
+      339 CAPTURE                          VAL R19
+      340 CAPTURE                          VAL R53
+      341 CAPTURE                          VAL R50
+      342 CAPTURE                          VAL R52
+      343 CAPTURE                          VAL R51
+      344 CAPTURE                          VAL R22
+      345 CAPTURE                          VAL R48
+      346 CAPTURE                          VAL R49
+      347 CAPTURE                          VAL R24
+      348 CAPTURE                          VAL R23
+      349 DUPCLOSURE                       R56 K85 [PROTO_42]
+      350 CAPTURE                          VAL R26
+      351 CAPTURE                          VAL R27
+      352 CAPTURE                          VAL R28
+      353 CAPTURE                          VAL R29
+      354 CAPTURE                          VAL R36
+      355 CAPTURE                          VAL R37
+      356 CAPTURE                          VAL R30
+      357 CAPTURE                          VAL R31
+      358 CAPTURE                          VAL R32
+      359 CAPTURE                          VAL R38
+      360 CAPTURE                          VAL R33
+      361 CAPTURE                          VAL R35
+      362 CAPTURE                          VAL R34
+      363 CALL                             R54 2 1
+      364 MOVE                             R55 R43
+      365 CALL                             R54 1 1
+      366 MOVE                             R43 R54
+      367 RETURN                           R43 1

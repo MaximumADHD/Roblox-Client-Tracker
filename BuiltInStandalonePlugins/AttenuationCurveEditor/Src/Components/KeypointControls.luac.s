@@ -124,75 +124,69 @@ PROTO_3:
        78 GETUPVAL                         R14 6
        79 GETTABLEKS                       R14 R14 K8 ["createElement"]
        81 GETUPVAL                         R15 8
-       82 DUPTABLE                         R16 K25 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-       83 LOADN                            R17 1
-       84 SETTABLEKS                       R17 R16 K9 ["LayoutOrder"]
-       86 LOADK                            R19 K26 ["Label"]
-       87 LOADK                            R20 K27 ["Distance"]
-       88 NAMECALL                         R17 R2 K28 ["getText"]
-       90 CALL                             R17 3 1
-       91 SETTABLEKS                       R17 R16 K21 ["Text"]
-       93 GETUPVAL                         R17 4
-       94 SETTABLEKS                       R17 R16 K22 ["Schema"]
-       96 SETTABLEKS                       R4 R16 K23 ["Value"]
-       98 MOVE                             R17 R3
-       99 LOADK                            R18 K6 ["X"]
-      100 CALL                             R17 1 1
-      101 SETTABLEKS                       R17 R16 K24 ["OnChanged"]
-      103 CALL                             R14 2 1
-      104 SETTABLEKS                       R14 R13 K6 ["X"]
-      106 GETUPVAL                         R14 6
-      107 GETTABLEKS                       R14 R14 K8 ["createElement"]
-      109 GETUPVAL                         R15 8
-      110 DUPTABLE                         R16 K25 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-      111 LOADN                            R17 2
-      112 SETTABLEKS                       R17 R16 K9 ["LayoutOrder"]
-      114 LOADK                            R19 K26 ["Label"]
-      115 LOADK                            R20 K29 ["Volume"]
-      116 NAMECALL                         R17 R2 K28 ["getText"]
-      118 CALL                             R17 3 1
-      119 SETTABLEKS                       R17 R16 K21 ["Text"]
-      121 GETUPVAL                         R17 5
-      122 SETTABLEKS                       R17 R16 K22 ["Schema"]
-      124 SETTABLEKS                       R5 R16 K23 ["Value"]
-      126 MOVE                             R17 R3
-      127 LOADK                            R18 K7 ["Y"]
-      128 CALL                             R17 1 1
-      129 SETTABLEKS                       R17 R16 K24 ["OnChanged"]
-      131 CALL                             R14 2 1
-      132 SETTABLEKS                       R14 R13 K7 ["Y"]
-      134 CALL                             R10 3 1
-      135 SETTABLEKS                       R10 R9 K16 ["SequenceButtonsContainer"]
-      137 GETUPVAL                         R10 6
-      138 GETTABLEKS                       R10 R10 K8 ["createElement"]
-      140 GETUPVAL                         R11 7
-      141 NEWTABLE                         R12 2 0
-      143 LOADN                            R13 3
-      144 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
-      146 GETUPVAL                         R13 6
-      147 GETTABLEKS                       R13 R13 K14 ["Tag"]
-      149 LOADK                            R14 K30 ["X-Right X-Pad X-RowM X-Fit"]
-      150 SETTABLE                         R14 R12 R13
-      151 DUPTABLE                         R13 K32 [{"Delete"}]
-      152 GETUPVAL                         R14 6
-      153 GETTABLEKS                       R14 R14 K8 ["createElement"]
-      155 GETUPVAL                         R15 9
-      156 DUPTABLE                         R16 K34 [{"LayoutOrder", "Text", "OnClick"}]
-      157 LOADN                            R17 1
-      158 SETTABLEKS                       R17 R16 K9 ["LayoutOrder"]
-      160 LOADK                            R19 K35 ["Control"]
-      161 LOADK                            R20 K31 ["Delete"]
-      162 NAMECALL                         R17 R2 K28 ["getText"]
-      164 CALL                             R17 3 1
-      165 SETTABLEKS                       R17 R16 K21 ["Text"]
-      167 GETTABLEKS                       R17 R0 K36 ["OnDelete"]
-      169 SETTABLEKS                       R17 R16 K33 ["OnClick"]
-      171 CALL                             R14 2 1
-      172 SETTABLEKS                       R14 R13 K31 ["Delete"]
-      174 CALL                             R10 3 1
-      175 SETTABLEKS                       R10 R9 K17 ["CommitButtonsContainer"]
-      177 CALL                             R6 3 -1
-      178 RETURN                           R6 -1
+       82 DUPTABLE                         R16 K26 [{["LayoutOrder"] = 1, ["Text"], ["Schema"], ["Value"], ["OnChanged"]}]
+       83 LOADK                            R19 K27 ["Label"]
+       84 LOADK                            R20 K28 ["Distance"]
+       85 NAMECALL                         R17 R2 K29 ["getText"]
+       87 CALL                             R17 3 1
+       88 SETTABLEKS                       R17 R16 K22 ["Text"]
+       90 GETUPVAL                         R17 4
+       91 SETTABLEKS                       R17 R16 K23 ["Schema"]
+       93 SETTABLEKS                       R4 R16 K24 ["Value"]
+       95 MOVE                             R17 R3
+       96 LOADK                            R18 K6 ["X"]
+       97 CALL                             R17 1 1
+       98 SETTABLEKS                       R17 R16 K25 ["OnChanged"]
+      100 CALL                             R14 2 1
+      101 SETTABLEKS                       R14 R13 K6 ["X"]
+      103 GETUPVAL                         R14 6
+      104 GETTABLEKS                       R14 R14 K8 ["createElement"]
+      106 GETUPVAL                         R15 8
+      107 DUPTABLE                         R16 K31 [{["LayoutOrder"] = 2, ["Text"], ["Schema"], ["Value"], ["OnChanged"]}]
+      108 LOADK                            R19 K27 ["Label"]
+      109 LOADK                            R20 K32 ["Volume"]
+      110 NAMECALL                         R17 R2 K29 ["getText"]
+      112 CALL                             R17 3 1
+      113 SETTABLEKS                       R17 R16 K22 ["Text"]
+      115 GETUPVAL                         R17 5
+      116 SETTABLEKS                       R17 R16 K23 ["Schema"]
+      118 SETTABLEKS                       R5 R16 K24 ["Value"]
+      120 MOVE                             R17 R3
+      121 LOADK                            R18 K7 ["Y"]
+      122 CALL                             R17 1 1
+      123 SETTABLEKS                       R17 R16 K25 ["OnChanged"]
+      125 CALL                             R14 2 1
+      126 SETTABLEKS                       R14 R13 K7 ["Y"]
+      128 CALL                             R10 3 1
+      129 SETTABLEKS                       R10 R9 K16 ["SequenceButtonsContainer"]
+      131 GETUPVAL                         R10 6
+      132 GETTABLEKS                       R10 R10 K8 ["createElement"]
+      134 GETUPVAL                         R11 7
+      135 NEWTABLE                         R12 2 0
+      137 LOADN                            R13 3
+      138 SETTABLEKS                       R13 R12 K9 ["LayoutOrder"]
+      140 GETUPVAL                         R13 6
+      141 GETTABLEKS                       R13 R13 K14 ["Tag"]
+      143 LOADK                            R14 K33 ["X-Right X-Pad X-RowM X-Fit"]
+      144 SETTABLE                         R14 R12 R13
+      145 DUPTABLE                         R13 K35 [{"Delete"}]
+      146 GETUPVAL                         R14 6
+      147 GETTABLEKS                       R14 R14 K8 ["createElement"]
+      149 GETUPVAL                         R15 9
+      150 DUPTABLE                         R16 K37 [{["LayoutOrder"] = 1, ["Text"], ["OnClick"]}]
+      151 LOADK                            R19 K38 ["Control"]
+      152 LOADK                            R20 K34 ["Delete"]
+      153 NAMECALL                         R17 R2 K29 ["getText"]
+      155 CALL                             R17 3 1
+      156 SETTABLEKS                       R17 R16 K22 ["Text"]
+      158 GETTABLEKS                       R17 R0 K39 ["OnDelete"]
+      160 SETTABLEKS                       R17 R16 K36 ["OnClick"]
+      162 CALL                             R14 2 1
+      163 SETTABLEKS                       R14 R13 K34 ["Delete"]
+      165 CALL                             R10 3 1
+      166 SETTABLEKS                       R10 R9 K17 ["CommitButtonsContainer"]
+      168 CALL                             R6 3 -1
+      169 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -235,29 +229,19 @@ MAIN:
        66 GETTABLEKS                       R12 R12 K22 ["Common"]
        68 GETTABLEKS                       R12 R12 K23 ["defineLuaFlags"]
        70 CALL                             R11 1 1
-       71 DUPTABLE                         R12 K27 [{"Type", "Min", "Max"}]
-       72 LOADK                            R13 K28 ["Number"]
-       73 SETTABLEKS                       R13 R12 K24 ["Type"]
-       75 LOADN                            R13 0
-       76 SETTABLEKS                       R13 R12 K25 ["Min"]
-       78 GETTABLEKS                       R13 R10 K29 ["MAX_ZOOM"]
-       80 SETTABLEKS                       R13 R12 K26 ["Max"]
-       82 DUPTABLE                         R13 K27 [{"Type", "Min", "Max"}]
-       83 LOADK                            R14 K28 ["Number"]
-       84 SETTABLEKS                       R14 R13 K24 ["Type"]
-       86 LOADN                            R14 0
-       87 SETTABLEKS                       R14 R13 K25 ["Min"]
-       89 LOADN                            R14 1
-       90 SETTABLEKS                       R14 R13 K26 ["Max"]
-       92 DUPCLOSURE                       R14 K30 [PROTO_3]
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          VAL R5
-       95 CAPTURE                          VAL R2
-       96 CAPTURE                          VAL R11
-       97 CAPTURE                          VAL R12
-       98 CAPTURE                          VAL R13
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R7
-      101 CAPTURE                          VAL R9
-      102 CAPTURE                          VAL R6
-      103 RETURN                           R14 1
+       71 DUPTABLE                         R12 K29 [{["Type"] = "Number", ["Min"] = 0, ["Max"]}]
+       72 GETTABLEKS                       R13 R10 K30 ["MAX_ZOOM"]
+       74 SETTABLEKS                       R13 R12 K28 ["Max"]
+       76 DUPTABLE                         R13 K32 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1}]
+       77 DUPCLOSURE                       R14 K33 [PROTO_3]
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R2
+       81 CAPTURE                          VAL R11
+       82 CAPTURE                          VAL R12
+       83 CAPTURE                          VAL R13
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          VAL R7
+       86 CAPTURE                          VAL R9
+       87 CAPTURE                          VAL R6
+       88 RETURN                           R14 1

@@ -12,41 +12,35 @@ PROTO_1:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["View"]
-        6 DUPTABLE                         R3 K4 [{"tag", "LayoutOrder"}]
-        7 LOADK                            R4 K5 ["row auto-xy size-0-0 padding-left-small"]
-        8 SETTABLEKS                       R4 R3 K2 ["tag"]
-       10 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
-       12 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
-       14 DUPTABLE                         R4 K8 [{"Icon", "text"}]
-       15 GETUPVAL                         R5 0
-       16 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       18 GETUPVAL                         R6 2
-       19 DUPTABLE                         R7 K12 [{"name", "iconVariant", "size", "tag"}]
-       20 GETTABLEKS                       R8 R0 K13 ["iconEnum"]
-       22 SETTABLEKS                       R8 R7 K9 ["name"]
-       24 GETUPVAL                         R8 3
-       25 GETTABLEKS                       R8 R8 K14 ["Regular"]
-       27 SETTABLEKS                       R8 R7 K10 ["iconVariant"]
-       29 GETUPVAL                         R8 4
-       30 GETTABLEKS                       R8 R8 K15 ["IconSize"]
-       32 GETTABLEKS                       R8 R8 K16 ["Small"]
-       34 SETTABLEKS                       R8 R7 K11 ["size"]
-       36 LOADK                            R8 K17 ["auto-xy size-0-0"]
-       37 SETTABLEKS                       R8 R7 K2 ["tag"]
-       39 CALL                             R5 2 1
-       40 SETTABLEKS                       R5 R4 K6 ["Icon"]
-       42 GETUPVAL                         R5 0
-       43 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       45 GETUPVAL                         R6 5
-       46 DUPTABLE                         R7 K19 [{"Text", "tag"}]
-       47 GETTABLEKS                       R8 R0 K7 ["text"]
-       49 SETTABLEKS                       R8 R7 K18 ["Text"]
-       51 LOADK                            R8 K20 ["auto-xy size-0-0 text-align-x-left text-caption-large padding-left-xsmall"]
-       52 SETTABLEKS                       R8 R7 K2 ["tag"]
-       54 CALL                             R5 2 1
-       55 SETTABLEKS                       R5 R4 K7 ["text"]
-       57 CALL                             R1 3 -1
-       58 RETURN                           R1 -1
+        6 DUPTABLE                         R3 K5 [{["tag"] = "row size-0-0 auto-xy padding-left-small", ["LayoutOrder"]}]
+        7 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
+        9 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
+       11 DUPTABLE                         R4 K8 [{"Icon", "text"}]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       15 GETUPVAL                         R6 2
+       16 DUPTABLE                         R7 K13 [{["name"], ["iconVariant"], ["size"], ["tag"] = "size-0-0 auto-xy"}]
+       17 GETTABLEKS                       R8 R0 K14 ["iconEnum"]
+       19 SETTABLEKS                       R8 R7 K9 ["name"]
+       21 GETUPVAL                         R8 3
+       22 GETTABLEKS                       R8 R8 K15 ["Regular"]
+       24 SETTABLEKS                       R8 R7 K10 ["iconVariant"]
+       26 GETUPVAL                         R8 4
+       27 GETTABLEKS                       R8 R8 K16 ["IconSize"]
+       29 GETTABLEKS                       R8 R8 K17 ["Small"]
+       31 SETTABLEKS                       R8 R7 K11 ["size"]
+       33 CALL                             R5 2 1
+       34 SETTABLEKS                       R5 R4 K6 ["Icon"]
+       36 GETUPVAL                         R5 0
+       37 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       39 GETUPVAL                         R6 5
+       40 DUPTABLE                         R7 K20 [{["Text"], ["tag"] = "size-0-0 auto-xy padding-left-xsmall text-caption-large text-align-x-left"}]
+       41 GETTABLEKS                       R8 R0 K7 ["text"]
+       43 SETTABLEKS                       R8 R7 K18 ["Text"]
+       45 CALL                             R5 2 1
+       46 SETTABLEKS                       R5 R4 K7 ["text"]
+       48 CALL                             R1 3 -1
+       49 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -62,116 +56,110 @@ PROTO_2:
        11 GETTABLEKS                       R5 R5 K1 ["createElement"]
        13 GETUPVAL                         R6 3
        14 GETTABLEKS                       R6 R6 K2 ["View"]
-       16 DUPTABLE                         R7 K5 [{"LayoutOrder", "tag"}]
+       16 DUPTABLE                         R7 K6 [{["LayoutOrder"], ["tag"] = "col align-y-center gap-xsmall size-0-0 auto-xy"}]
        17 GETTABLEKS                       R8 R0 K3 ["LayoutOrder"]
        19 SETTABLEKS                       R8 R7 K3 ["LayoutOrder"]
-       21 LOADK                            R8 K6 ["col align-y-center size-0-0 auto-xy gap-xsmall"]
-       22 SETTABLEKS                       R8 R7 K4 ["tag"]
-       24 DUPTABLE                         R8 K9 [{"row1", "row2"}]
-       25 GETUPVAL                         R9 2
-       26 GETTABLEKS                       R9 R9 K1 ["createElement"]
-       28 GETUPVAL                         R10 3
-       29 GETTABLEKS                       R10 R10 K2 ["View"]
-       31 DUPTABLE                         R11 K10 [{"tag", "LayoutOrder"}]
-       32 LOADK                            R12 K11 ["row gap-xsmall auto-xy size-0-0"]
-       33 SETTABLEKS                       R12 R11 K4 ["tag"]
-       35 MOVE                             R12 R2
-       36 CALL                             R12 0 1
-       37 SETTABLEKS                       R12 R11 K3 ["LayoutOrder"]
-       39 DUPTABLE                         R12 K14 [{"AgeChecked", "friendshipAge"}]
-       40 GETUPVAL                         R13 2
-       41 GETTABLEKS                       R13 R13 K1 ["createElement"]
-       43 GETGLOBAL                        R14 K15 ["iconBadge"]
-       45 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
-       46 GETUPVAL                         R16 4
-       47 GETTABLEKS                       R16 R16 K19 ["ageChecked"]
-       49 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
-       51 GETTABLEKS                       R17 R0 K20 ["ProfileInsight"]
-       53 GETTABLEKS                       R17 R17 K21 ["userAgeVerified"]
-       55 JUMPIFNOT                        R17 ; [+6]
+       21 DUPTABLE                         R8 K9 [{"row1", "row2"}]
+       22 GETUPVAL                         R9 2
+       23 GETTABLEKS                       R9 R9 K1 ["createElement"]
+       25 GETUPVAL                         R10 3
+       26 GETTABLEKS                       R10 R10 K2 ["View"]
+       28 DUPTABLE                         R11 K11 [{["tag"] = "row gap-xsmall size-0-0 auto-xy", ["LayoutOrder"]}]
+       29 MOVE                             R12 R2
+       30 CALL                             R12 0 1
+       31 SETTABLEKS                       R12 R11 K3 ["LayoutOrder"]
+       33 DUPTABLE                         R12 K14 [{"AgeChecked", "friendshipAge"}]
+       34 GETUPVAL                         R13 2
+       35 GETTABLEKS                       R13 R13 K1 ["createElement"]
+       37 GETGLOBAL                        R14 K15 ["iconBadge"]
+       39 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
+       40 GETUPVAL                         R16 4
+       41 GETTABLEKS                       R16 R16 K19 ["ageChecked"]
+       43 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
+       45 GETTABLEKS                       R17 R0 K20 ["ProfileInsight"]
+       47 GETTABLEKS                       R17 R17 K21 ["userAgeVerified"]
+       49 JUMPIFNOT                        R17 ; [+6]
+       50 LOADK                            R18 K22 ["TrustedConnectionWidget"]
+       51 LOADK                            R19 K23 ["AgeVerified"]
+       52 NAMECALL                         R16 R1 K24 ["getText"]
+       54 CALL                             R16 3 1
+       55 JUMPIF                           R16 ; [+5]
        56 LOADK                            R18 K22 ["TrustedConnectionWidget"]
-       57 LOADK                            R19 K23 ["AgeVerified"]
+       57 LOADK                            R19 K25 ["AgeNotVerified"]
        58 NAMECALL                         R16 R1 K24 ["getText"]
        60 CALL                             R16 3 1
-       61 JUMPIF                           R16 ; [+5]
-       62 LOADK                            R18 K22 ["TrustedConnectionWidget"]
-       63 LOADK                            R19 K25 ["AgeNotVerified"]
-       64 NAMECALL                         R16 R1 K24 ["getText"]
-       66 CALL                             R16 3 1
-       67 SETTABLEKS                       R16 R15 K17 ["text"]
-       69 MOVE                             R16 R3
-       70 CALL                             R16 0 1
-       71 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
-       73 CALL                             R13 2 1
-       74 SETTABLEKS                       R13 R12 K12 ["AgeChecked"]
-       76 GETUPVAL                         R13 2
-       77 GETTABLEKS                       R13 R13 K1 ["createElement"]
-       79 GETGLOBAL                        R14 K15 ["iconBadge"]
-       81 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
-       82 GETUPVAL                         R16 4
-       83 GETTABLEKS                       R16 R16 K26 ["friendshipAgeUnixSeconds"]
-       85 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
-       87 GETTABLEKS                       R16 R0 K20 ["ProfileInsight"]
-       89 GETTABLEKS                       R16 R16 K27 ["friendshipAgeTranslation"]
-       91 SETTABLEKS                       R16 R15 K17 ["text"]
-       93 MOVE                             R16 R3
-       94 CALL                             R16 0 1
-       95 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
-       97 CALL                             R13 2 1
-       98 SETTABLEKS                       R13 R12 K13 ["friendshipAge"]
-      100 CALL                             R9 3 1
-      101 SETTABLEKS                       R9 R8 K7 ["row1"]
-      103 GETUPVAL                         R9 2
-      104 GETTABLEKS                       R9 R9 K1 ["createElement"]
-      106 GETUPVAL                         R10 3
-      107 GETTABLEKS                       R10 R10 K2 ["View"]
-      109 DUPTABLE                         R11 K10 [{"tag", "LayoutOrder"}]
-      110 LOADK                            R12 K11 ["row gap-xsmall auto-xy size-0-0"]
-      111 SETTABLEKS                       R12 R11 K4 ["tag"]
-      113 MOVE                             R12 R2
-      114 CALL                             R12 0 1
-      115 SETTABLEKS                       R12 R11 K3 ["LayoutOrder"]
-      117 DUPTABLE                         R12 K30 [{"MutualConnections", "JoinDate"}]
-      118 GETUPVAL                         R13 2
-      119 GETTABLEKS                       R13 R13 K1 ["createElement"]
-      121 GETGLOBAL                        R14 K15 ["iconBadge"]
-      123 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
-      124 GETUPVAL                         R16 4
-      125 GETTABLEKS                       R16 R16 K31 ["mutualFriends"]
-      127 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
-      129 LOADK                            R18 K22 ["TrustedConnectionWidget"]
-      130 LOADK                            R19 K28 ["MutualConnections"]
-      131 DUPTABLE                         R20 K33 [{"count"}]
-      132 GETTABLEKS                       R21 R0 K20 ["ProfileInsight"]
-      134 GETTABLEKS                       R21 R21 K34 ["mutualFriendCount"]
-      136 SETTABLEKS                       R21 R20 K32 ["count"]
-      138 NAMECALL                         R16 R1 K24 ["getText"]
-      140 CALL                             R16 4 1
-      141 SETTABLEKS                       R16 R15 K17 ["text"]
-      143 MOVE                             R16 R4
-      144 CALL                             R16 0 1
-      145 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
-      147 CALL                             R13 2 1
-      148 SETTABLEKS                       R13 R12 K28 ["MutualConnections"]
-      150 GETUPVAL                         R13 2
-      151 GETTABLEKS                       R13 R13 K1 ["createElement"]
-      153 GETGLOBAL                        R14 K15 ["iconBadge"]
-      155 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
-      156 GETUPVAL                         R16 4
-      157 GETTABLEKS                       R16 R16 K35 ["accountCreationDateUnixSeconds"]
-      159 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
-      161 GETTABLEKS                       R16 R0 K20 ["ProfileInsight"]
-      163 GETTABLEKS                       R16 R16 K36 ["accountCreationTranslation"]
-      165 SETTABLEKS                       R16 R15 K17 ["text"]
-      167 MOVE                             R16 R4
-      168 CALL                             R16 0 1
-      169 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
-      171 CALL                             R13 2 1
-      172 SETTABLEKS                       R13 R12 K29 ["JoinDate"]
-      174 CALL                             R9 3 1
-      175 SETTABLEKS                       R9 R8 K8 ["row2"]
-      177 CALL                             R5 3 -1
-      178 RETURN                           R5 -1
+       61 SETTABLEKS                       R16 R15 K17 ["text"]
+       63 MOVE                             R16 R3
+       64 CALL                             R16 0 1
+       65 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
+       67 CALL                             R13 2 1
+       68 SETTABLEKS                       R13 R12 K12 ["AgeChecked"]
+       70 GETUPVAL                         R13 2
+       71 GETTABLEKS                       R13 R13 K1 ["createElement"]
+       73 GETGLOBAL                        R14 K15 ["iconBadge"]
+       75 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
+       76 GETUPVAL                         R16 4
+       77 GETTABLEKS                       R16 R16 K26 ["friendshipAgeUnixSeconds"]
+       79 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
+       81 GETTABLEKS                       R16 R0 K20 ["ProfileInsight"]
+       83 GETTABLEKS                       R16 R16 K27 ["friendshipAgeTranslation"]
+       85 SETTABLEKS                       R16 R15 K17 ["text"]
+       87 MOVE                             R16 R3
+       88 CALL                             R16 0 1
+       89 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
+       91 CALL                             R13 2 1
+       92 SETTABLEKS                       R13 R12 K13 ["friendshipAge"]
+       94 CALL                             R9 3 1
+       95 SETTABLEKS                       R9 R8 K7 ["row1"]
+       97 GETUPVAL                         R9 2
+       98 GETTABLEKS                       R9 R9 K1 ["createElement"]
+      100 GETUPVAL                         R10 3
+      101 GETTABLEKS                       R10 R10 K2 ["View"]
+      103 DUPTABLE                         R11 K11 [{["tag"] = "row gap-xsmall size-0-0 auto-xy", ["LayoutOrder"]}]
+      104 MOVE                             R12 R2
+      105 CALL                             R12 0 1
+      106 SETTABLEKS                       R12 R11 K3 ["LayoutOrder"]
+      108 DUPTABLE                         R12 K30 [{"MutualConnections", "JoinDate"}]
+      109 GETUPVAL                         R13 2
+      110 GETTABLEKS                       R13 R13 K1 ["createElement"]
+      112 GETGLOBAL                        R14 K15 ["iconBadge"]
+      114 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
+      115 GETUPVAL                         R16 4
+      116 GETTABLEKS                       R16 R16 K31 ["mutualFriends"]
+      118 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
+      120 LOADK                            R18 K22 ["TrustedConnectionWidget"]
+      121 LOADK                            R19 K28 ["MutualConnections"]
+      122 DUPTABLE                         R20 K33 [{"count"}]
+      123 GETTABLEKS                       R21 R0 K20 ["ProfileInsight"]
+      125 GETTABLEKS                       R21 R21 K34 ["mutualFriendCount"]
+      127 SETTABLEKS                       R21 R20 K32 ["count"]
+      129 NAMECALL                         R16 R1 K24 ["getText"]
+      131 CALL                             R16 4 1
+      132 SETTABLEKS                       R16 R15 K17 ["text"]
+      134 MOVE                             R16 R4
+      135 CALL                             R16 0 1
+      136 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
+      138 CALL                             R13 2 1
+      139 SETTABLEKS                       R13 R12 K28 ["MutualConnections"]
+      141 GETUPVAL                         R13 2
+      142 GETTABLEKS                       R13 R13 K1 ["createElement"]
+      144 GETGLOBAL                        R14 K15 ["iconBadge"]
+      146 DUPTABLE                         R15 K18 [{"iconEnum", "text", "LayoutOrder"}]
+      147 GETUPVAL                         R16 4
+      148 GETTABLEKS                       R16 R16 K35 ["accountCreationDateUnixSeconds"]
+      150 SETTABLEKS                       R16 R15 K16 ["iconEnum"]
+      152 GETTABLEKS                       R16 R0 K20 ["ProfileInsight"]
+      154 GETTABLEKS                       R16 R16 K36 ["accountCreationTranslation"]
+      156 SETTABLEKS                       R16 R15 K17 ["text"]
+      158 MOVE                             R16 R4
+      159 CALL                             R16 0 1
+      160 SETTABLEKS                       R16 R15 K3 ["LayoutOrder"]
+      162 CALL                             R13 2 1
+      163 SETTABLEKS                       R13 R12 K29 ["JoinDate"]
+      165 CALL                             R9 3 1
+      166 SETTABLEKS                       R9 R8 K8 ["row2"]
+      168 CALL                             R5 3 -1
+      169 RETURN                           R5 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -191,102 +179,90 @@ PROTO_3:
        19 GETTABLEKS                       R7 R7 K5 ["createElement"]
        21 GETUPVAL                         R8 3
        22 GETTABLEKS                       R8 R8 K6 ["View"]
-       24 DUPTABLE                         R9 K9 [{"tag", "LayoutOrder"}]
-       25 LOADK                            R10 K10 ["size-full-0 auto-y row bg-shift-100 radius-medium padding-medium align-y-center"]
-       26 SETTABLEKS                       R10 R9 K7 ["tag"]
-       28 GETTABLEKS                       R10 R0 K8 ["LayoutOrder"]
-       30 SETTABLEKS                       R10 R9 K8 ["LayoutOrder"]
-       32 DUPTABLE                         R10 K13 [{"Avatar", "SocialMetadata"}]
-       33 GETUPVAL                         R11 1
-       34 GETTABLEKS                       R11 R11 K5 ["createElement"]
-       36 GETUPVAL                         R12 3
-       37 GETTABLEKS                       R12 R12 K11 ["Avatar"]
-       39 DUPTABLE                         R13 K16 [{"userId", "size", "backgroundStyle", "tag", "LayoutOrder"}]
-       40 GETTABLEKS                       R14 R3 K4 ["userId"]
-       42 SETTABLEKS                       R14 R13 K4 ["userId"]
-       44 GETUPVAL                         R14 3
-       45 GETTABLEKS                       R14 R14 K17 ["Enums"]
-       47 GETTABLEKS                       R14 R14 K18 ["InputSize"]
-       49 GETTABLEKS                       R14 R14 K19 ["Large"]
-       51 SETTABLEKS                       R14 R13 K14 ["size"]
-       53 DUPTABLE                         R14 K22 [{"Color3", "Transparency"}]
-       54 GETTABLEKS                       R16 R3 K4 ["userId"]
-       56 GETUPVAL                         R17 4
-       57 GETUPVAL                         R21 4
-       58 LENGTH                           R20 R21
-       59 MOD                              R19 R16 R20
-       60 ADDK                             R18 R19 K23 [1]
-       61 GETTABLE                         R15 R17 R18
-       62 SETTABLEKS                       R15 R14 K20 ["Color3"]
-       64 LOADN                            R15 0
-       65 SETTABLEKS                       R15 R14 K21 ["Transparency"]
-       67 SETTABLEKS                       R14 R13 K15 ["backgroundStyle"]
-       69 LOADK                            R14 K24 ["align-y-center"]
-       70 SETTABLEKS                       R14 R13 K7 ["tag"]
-       72 MOVE                             R14 R1
-       73 CALL                             R14 0 1
-       74 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-       76 CALL                             R11 2 1
-       77 SETTABLEKS                       R11 R10 K11 ["Avatar"]
-       79 GETUPVAL                         R11 1
-       80 GETTABLEKS                       R11 R11 K5 ["createElement"]
-       82 GETUPVAL                         R12 3
-       83 GETTABLEKS                       R12 R12 K6 ["View"]
-       85 DUPTABLE                         R13 K9 [{"tag", "LayoutOrder"}]
-       86 LOADK                            R14 K25 ["col auto-xy size-0-0 gap-xsmall"]
-       87 SETTABLEKS                       R14 R13 K7 ["tag"]
-       89 MOVE                             R14 R1
-       90 CALL                             R14 0 1
-       91 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-       93 DUPTABLE                         R14 K29 [{"DisplayName", "UserName", "MetadataRow"}]
-       94 GETUPVAL                         R15 1
-       95 GETTABLEKS                       R15 R15 K5 ["createElement"]
-       97 GETUPVAL                         R16 5
-       98 DUPTABLE                         R17 K31 [{"Text", "LayoutOrder", "tag"}]
-       99 JUMPIFNOT                        R6 ; [+3]
-      100 GETTABLEKS                       R18 R6 K32 ["displayName"]
-      102 JUMP                             ; [+1]
-      103 LOADK                            R18 K33 [""]
-      104 SETTABLEKS                       R18 R17 K30 ["Text"]
-      106 MOVE                             R18 R2
-      107 CALL                             R18 0 1
-      108 SETTABLEKS                       R18 R17 K8 ["LayoutOrder"]
-      110 LOADK                            R18 K34 ["auto-xy size-0-0 text-align-x-left text-title-medium padding-x-small"]
-      111 SETTABLEKS                       R18 R17 K7 ["tag"]
-      113 CALL                             R15 2 1
-      114 SETTABLEKS                       R15 R14 K26 ["DisplayName"]
-      116 GETUPVAL                         R15 1
-      117 GETTABLEKS                       R15 R15 K5 ["createElement"]
-      119 GETUPVAL                         R16 5
-      120 DUPTABLE                         R17 K31 [{"Text", "LayoutOrder", "tag"}]
-      121 JUMPIFNOT                        R6 ; [+5]
-      122 LOADK                            R19 K35 ["@"]
-      123 GETTABLEKS                       R20 R6 K36 ["username"]
-      125 CONCAT                           R18 R19 R20
-      126 JUMP                             ; [+1]
-      127 LOADK                            R18 K33 [""]
-      128 SETTABLEKS                       R18 R17 K30 ["Text"]
-      130 MOVE                             R18 R2
-      131 CALL                             R18 0 1
-      132 SETTABLEKS                       R18 R17 K8 ["LayoutOrder"]
-      134 LOADK                            R18 K37 ["auto-xy size-0-0 text-align-x-left text-body-medium padding-x-small padding-bottom-xsmall"]
-      135 SETTABLEKS                       R18 R17 K7 ["tag"]
-      137 CALL                             R15 2 1
-      138 SETTABLEKS                       R15 R14 K27 ["UserName"]
-      140 GETUPVAL                         R15 1
-      141 GETTABLEKS                       R15 R15 K5 ["createElement"]
-      143 GETGLOBAL                        R16 K28 ["MetadataRow"]
-      145 DUPTABLE                         R17 K38 [{"LayoutOrder", "ProfileInsight"}]
-      146 MOVE                             R18 R2
-      147 CALL                             R18 0 1
-      148 SETTABLEKS                       R18 R17 K8 ["LayoutOrder"]
-      150 SETTABLEKS                       R3 R17 K0 ["ProfileInsight"]
-      152 CALL                             R15 2 1
-      153 SETTABLEKS                       R15 R14 K28 ["MetadataRow"]
-      155 CALL                             R11 3 1
-      156 SETTABLEKS                       R11 R10 K12 ["SocialMetadata"]
-      158 CALL                             R7 3 -1
-      159 RETURN                           R7 -1
+       24 DUPTABLE                         R9 K10 [{["tag"] = "row align-y-center size-full-0 auto-y padding-medium radius-medium bg-shift-100", ["LayoutOrder"]}]
+       25 GETTABLEKS                       R10 R0 K9 ["LayoutOrder"]
+       27 SETTABLEKS                       R10 R9 K9 ["LayoutOrder"]
+       29 DUPTABLE                         R10 K13 [{"Avatar", "SocialMetadata"}]
+       30 GETUPVAL                         R11 1
+       31 GETTABLEKS                       R11 R11 K5 ["createElement"]
+       33 GETUPVAL                         R12 3
+       34 GETTABLEKS                       R12 R12 K11 ["Avatar"]
+       36 DUPTABLE                         R13 K17 [{["userId"], ["size"], ["backgroundStyle"], ["tag"] = "align-y-center", ["LayoutOrder"]}]
+       37 GETTABLEKS                       R14 R3 K4 ["userId"]
+       39 SETTABLEKS                       R14 R13 K4 ["userId"]
+       41 GETUPVAL                         R14 3
+       42 GETTABLEKS                       R14 R14 K18 ["Enums"]
+       44 GETTABLEKS                       R14 R14 K19 ["InputSize"]
+       46 GETTABLEKS                       R14 R14 K20 ["Large"]
+       48 SETTABLEKS                       R14 R13 K14 ["size"]
+       50 DUPTABLE                         R14 K24 [{["Color3"], ["Transparency"] = 0}]
+       51 GETTABLEKS                       R16 R3 K4 ["userId"]
+       53 GETUPVAL                         R17 4
+       54 GETUPVAL                         R21 4
+       55 LENGTH                           R20 R21
+       56 MOD                              R19 R16 R20
+       57 ADDK                             R18 R19 K25 [1]
+       58 GETTABLE                         R15 R17 R18
+       59 SETTABLEKS                       R15 R14 K21 ["Color3"]
+       61 SETTABLEKS                       R14 R13 K15 ["backgroundStyle"]
+       63 MOVE                             R14 R1
+       64 CALL                             R14 0 1
+       65 SETTABLEKS                       R14 R13 K9 ["LayoutOrder"]
+       67 CALL                             R11 2 1
+       68 SETTABLEKS                       R11 R10 K11 ["Avatar"]
+       70 GETUPVAL                         R11 1
+       71 GETTABLEKS                       R11 R11 K5 ["createElement"]
+       73 GETUPVAL                         R12 3
+       74 GETTABLEKS                       R12 R12 K6 ["View"]
+       76 DUPTABLE                         R13 K27 [{["tag"] = "col gap-xsmall size-0-0 auto-xy", ["LayoutOrder"]}]
+       77 MOVE                             R14 R1
+       78 CALL                             R14 0 1
+       79 SETTABLEKS                       R14 R13 K9 ["LayoutOrder"]
+       81 DUPTABLE                         R14 K31 [{"DisplayName", "UserName", "MetadataRow"}]
+       82 GETUPVAL                         R15 1
+       83 GETTABLEKS                       R15 R15 K5 ["createElement"]
+       85 GETUPVAL                         R16 5
+       86 DUPTABLE                         R17 K34 [{["Text"], ["LayoutOrder"], ["tag"] = "size-0-0 auto-xy padding-x-small text-title-medium text-align-x-left"}]
+       87 JUMPIFNOT                        R6 ; [+3]
+       88 GETTABLEKS                       R18 R6 K35 ["displayName"]
+       90 JUMP                             ; [+1]
+       91 LOADK                            R18 K36 [""]
+       92 SETTABLEKS                       R18 R17 K32 ["Text"]
+       94 MOVE                             R18 R2
+       95 CALL                             R18 0 1
+       96 SETTABLEKS                       R18 R17 K9 ["LayoutOrder"]
+       98 CALL                             R15 2 1
+       99 SETTABLEKS                       R15 R14 K28 ["DisplayName"]
+      101 GETUPVAL                         R15 1
+      102 GETTABLEKS                       R15 R15 K5 ["createElement"]
+      104 GETUPVAL                         R16 5
+      105 DUPTABLE                         R17 K38 [{["Text"], ["LayoutOrder"], ["tag"] = "size-0-0 auto-xy padding-x-small padding-bottom-xsmall text-body-medium text-align-x-left"}]
+      106 JUMPIFNOT                        R6 ; [+5]
+      107 LOADK                            R19 K39 ["@"]
+      108 GETTABLEKS                       R20 R6 K40 ["username"]
+      110 CONCAT                           R18 R19 R20
+      111 JUMP                             ; [+1]
+      112 LOADK                            R18 K36 [""]
+      113 SETTABLEKS                       R18 R17 K32 ["Text"]
+      115 MOVE                             R18 R2
+      116 CALL                             R18 0 1
+      117 SETTABLEKS                       R18 R17 K9 ["LayoutOrder"]
+      119 CALL                             R15 2 1
+      120 SETTABLEKS                       R15 R14 K29 ["UserName"]
+      122 GETUPVAL                         R15 1
+      123 GETTABLEKS                       R15 R15 K5 ["createElement"]
+      125 GETGLOBAL                        R16 K30 ["MetadataRow"]
+      127 DUPTABLE                         R17 K41 [{"LayoutOrder", "ProfileInsight"}]
+      128 MOVE                             R18 R2
+      129 CALL                             R18 0 1
+      130 SETTABLEKS                       R18 R17 K9 ["LayoutOrder"]
+      132 SETTABLEKS                       R3 R17 K0 ["ProfileInsight"]
+      134 CALL                             R15 2 1
+      135 SETTABLEKS                       R15 R14 K30 ["MetadataRow"]
+      137 CALL                             R11 3 1
+      138 SETTABLEKS                       R11 R10 K12 ["SocialMetadata"]
+      140 CALL                             R7 3 -1
+      141 RETURN                           R7 -1
 
 PROTO_4:
         0 GETIMPORT                        R0 K1 [pairs]
@@ -347,48 +323,44 @@ PROTO_6:
         3 GETTABLEKS                       R2 R2 K0 ["createElement"]
         5 GETUPVAL                         R3 2
         6 GETTABLEKS                       R3 R3 K1 ["ScrollView"]
-        8 DUPTABLE                         R4 K6 [{"LayoutOrder", "scroll", "layout", "tag"}]
+        8 DUPTABLE                         R4 K7 [{["LayoutOrder"], ["scroll"], ["layout"], ["tag"] = "fill size-full-0"}]
         9 GETTABLEKS                       R5 R0 K2 ["LayoutOrder"]
        11 SETTABLEKS                       R5 R4 K2 ["LayoutOrder"]
-       13 DUPTABLE                         R5 K11 [{"scrollBarVisibility", "ScrollingDirection", "AutomaticCanvasSize", "CanvasSize"}]
+       13 DUPTABLE                         R5 K12 [{"scrollBarVisibility", "ScrollingDirection", "AutomaticCanvasSize", "CanvasSize"}]
        14 GETUPVAL                         R6 3
-       15 GETTABLEKS                       R6 R6 K12 ["Auto"]
-       17 SETTABLEKS                       R6 R5 K7 ["scrollBarVisibility"]
-       19 GETIMPORT                        R6 K15 [Enum.ScrollingDirection.Y]
-       21 SETTABLEKS                       R6 R5 K8 ["ScrollingDirection"]
-       23 GETIMPORT                        R6 K17 [Enum.AutomaticSize.Y]
-       25 SETTABLEKS                       R6 R5 K9 ["AutomaticCanvasSize"]
-       27 GETIMPORT                        R6 K20 [UDim2.fromScale]
+       15 GETTABLEKS                       R6 R6 K13 ["Auto"]
+       17 SETTABLEKS                       R6 R5 K8 ["scrollBarVisibility"]
+       19 GETIMPORT                        R6 K16 [Enum.ScrollingDirection.Y]
+       21 SETTABLEKS                       R6 R5 K9 ["ScrollingDirection"]
+       23 GETIMPORT                        R6 K18 [Enum.AutomaticSize.Y]
+       25 SETTABLEKS                       R6 R5 K10 ["AutomaticCanvasSize"]
+       27 GETIMPORT                        R6 K21 [UDim2.fromScale]
        29 LOADN                            R7 0
        30 LOADN                            R8 0
        31 CALL                             R6 2 1
-       32 SETTABLEKS                       R6 R5 K10 ["CanvasSize"]
+       32 SETTABLEKS                       R6 R5 K11 ["CanvasSize"]
        34 SETTABLEKS                       R5 R4 K3 ["scroll"]
-       36 DUPTABLE                         R5 K25 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
-       37 GETIMPORT                        R6 K27 [Enum.HorizontalAlignment.Left]
-       39 SETTABLEKS                       R6 R5 K21 ["HorizontalAlignment"]
-       41 GETIMPORT                        R6 K29 [Enum.FillDirection.Vertical]
-       43 SETTABLEKS                       R6 R5 K22 ["FillDirection"]
-       45 GETIMPORT                        R6 K30 [Enum.SortOrder.LayoutOrder]
-       47 SETTABLEKS                       R6 R5 K23 ["SortOrder"]
-       49 GETIMPORT                        R6 K33 [Enum.UIFlexAlignment.Fill]
-       51 SETTABLEKS                       R6 R5 K24 ["HorizontalFlex"]
+       36 DUPTABLE                         R5 K26 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
+       37 GETIMPORT                        R6 K28 [Enum.HorizontalAlignment.Left]
+       39 SETTABLEKS                       R6 R5 K22 ["HorizontalAlignment"]
+       41 GETIMPORT                        R6 K30 [Enum.FillDirection.Vertical]
+       43 SETTABLEKS                       R6 R5 K23 ["FillDirection"]
+       45 GETIMPORT                        R6 K31 [Enum.SortOrder.LayoutOrder]
+       47 SETTABLEKS                       R6 R5 K24 ["SortOrder"]
+       49 GETIMPORT                        R6 K34 [Enum.UIFlexAlignment.Fill]
+       51 SETTABLEKS                       R6 R5 K25 ["HorizontalFlex"]
        53 SETTABLEKS                       R5 R4 K4 ["layout"]
-       55 LOADK                            R5 K34 ["size-full-0 fill"]
-       56 SETTABLEKS                       R5 R4 K5 ["tag"]
-       58 DUPTABLE                         R5 K36 [{"View"}]
-       59 GETUPVAL                         R6 1
-       60 GETTABLEKS                       R6 R6 K0 ["createElement"]
-       62 GETUPVAL                         R7 2
-       63 GETTABLEKS                       R7 R7 K35 ["View"]
-       65 DUPTABLE                         R8 K37 [{"tag"}]
-       66 LOADK                            R9 K38 ["size-0-0 auto-xy col flex-x-fill align-x-left gap-xsmall margin-top-xsmall padding-top-xsmall"]
-       67 SETTABLEKS                       R9 R8 K5 ["tag"]
-       69 MOVE                             R9 R1
-       70 CALL                             R6 3 1
-       71 SETTABLEKS                       R6 R5 K35 ["View"]
-       73 CALL                             R2 3 -1
-       74 RETURN                           R2 -1
+       55 DUPTABLE                         R5 K36 [{"View"}]
+       56 GETUPVAL                         R6 1
+       57 GETTABLEKS                       R6 R6 K0 ["createElement"]
+       59 GETUPVAL                         R7 2
+       60 GETTABLEKS                       R7 R7 K35 ["View"]
+       62 DUPTABLE                         R8 K38 [{["tag"] = "margin-top-xsmall col flex-x-fill align-x-left gap-xsmall size-0-0 auto-xy padding-top-xsmall"}]
+       63 MOVE                             R9 R1
+       64 CALL                             R6 3 1
+       65 SETTABLEKS                       R6 R5 K35 ["View"]
+       67 CALL                             R2 3 -1
+       68 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -13,25 +13,23 @@ PROTO_1:
         7 GETUPVAL                         R3 2
         8 GETUPVAL                         R4 3
         9 GETTABLEKS                       R4 R4 K2 ["View"]
-       11 DUPTABLE                         R5 K5 [{"tag", "onAbsoluteSizeChanged"}]
-       12 LOADK                            R6 K6 ["size-full"]
-       13 SETTABLEKS                       R6 R5 K3 ["tag"]
-       15 NEWCLOSURE                       R6 P0
-       16 CAPTURE                          VAL R2
-       17 SETTABLEKS                       R6 R5 K4 ["onAbsoluteSizeChanged"]
-       19 NEWTABLE                         R6 0 1
-       21 GETUPVAL                         R7 2
-       22 GETUPVAL                         R8 4
-       23 GETTABLEKS                       R8 R8 K7 ["Provider"]
-       25 DUPTABLE                         R9 K9 [{"value"}]
-       26 DUPTABLE                         R10 K11 [{"dialogSize"}]
-       27 SETTABLEKS                       R1 R10 K10 ["dialogSize"]
-       29 SETTABLEKS                       R10 R9 K8 ["value"]
-       31 GETTABLEKS                       R10 R0 K12 ["children"]
-       33 CALL                             R7 3 -1
-       34 SETLIST                          R6 R7 -1 [1]
-       36 CALL                             R3 3 -1
-       37 RETURN                           R3 -1
+       11 DUPTABLE                         R5 K6 [{["tag"] = "size-full", ["onAbsoluteSizeChanged"]}]
+       12 NEWCLOSURE                       R6 P0
+       13 CAPTURE                          VAL R2
+       14 SETTABLEKS                       R6 R5 K5 ["onAbsoluteSizeChanged"]
+       16 NEWTABLE                         R6 0 1
+       18 GETUPVAL                         R7 2
+       19 GETUPVAL                         R8 4
+       20 GETTABLEKS                       R8 R8 K7 ["Provider"]
+       22 DUPTABLE                         R9 K9 [{"value"}]
+       23 DUPTABLE                         R10 K11 [{"dialogSize"}]
+       24 SETTABLEKS                       R1 R10 K10 ["dialogSize"]
+       26 SETTABLEKS                       R10 R9 K8 ["value"]
+       28 GETTABLEKS                       R10 R0 K12 ["children"]
+       30 CALL                             R7 3 -1
+       31 SETLIST                          R6 R7 -1 [1]
+       33 CALL                             R3 3 -1
+       34 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

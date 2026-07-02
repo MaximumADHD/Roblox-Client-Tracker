@@ -25,31 +25,27 @@ PROTO_0:
 PROTO_1:
         0 LOADNIL                          R2
         1 GETTABLEKS                       R3 R1 K0 ["recordChange"]
-        3 DUPTABLE                         R4 K4 [{"Name", "DisplayName", "DoChange"}]
-        4 LOADK                            R5 K5 ["StyleEditor/CreateStyleRuleInFolder"]
-        5 SETTABLEKS                       R5 R4 K1 ["Name"]
-        7 LOADK                            R5 K6 ["StyleEditor - Create StyleRule in Folder"]
-        8 SETTABLEKS                       R5 R4 K2 ["DisplayName"]
-       10 NEWCLOSURE                       R5 P0
-       11 CAPTURE                          REF R2
-       12 CAPTURE                          UPVAL U0
-       13 CAPTURE                          UPVAL U1
-       14 SETTABLEKS                       R5 R4 K3 ["DoChange"]
-       16 CALL                             R3 1 0
-       17 GETUPVAL                         R3 2
-       18 JUMPIFNOT                        R3 ; [+12]
-       19 JUMPIFNOT                        R2 ; [+11]
-       20 GETUPVAL                         R3 3
-       21 GETTABLEKS                       R3 R3 K7 ["createItemId"]
-       23 MOVE                             R4 R2
-       24 CALL                             R3 1 1
-       25 GETUPVAL                         R6 4
-       26 MOVE                             R7 R3
-       27 CALL                             R6 1 -1
-       28 NAMECALL                         R4 R0 K8 ["dispatch"]
-       30 CALL                             R4 -1 0
-       31 CLOSEUPVALS                      R2
-       32 RETURN                           R2 1
+        3 DUPTABLE                         R4 K6 [{["Name"] = "StyleEditor/CreateStyleRuleInFolder", ["DisplayName"] = "StyleEditor - Create StyleRule in Folder", ["DoChange"]}]
+        4 NEWCLOSURE                       R5 P0
+        5 CAPTURE                          REF R2
+        6 CAPTURE                          UPVAL U0
+        7 CAPTURE                          UPVAL U1
+        8 SETTABLEKS                       R5 R4 K5 ["DoChange"]
+       10 CALL                             R3 1 0
+       11 GETUPVAL                         R3 2
+       12 JUMPIFNOT                        R3 ; [+12]
+       13 JUMPIFNOT                        R2 ; [+11]
+       14 GETUPVAL                         R3 3
+       15 GETTABLEKS                       R3 R3 K7 ["createItemId"]
+       17 MOVE                             R4 R2
+       18 CALL                             R3 1 1
+       19 GETUPVAL                         R6 4
+       20 MOVE                             R7 R3
+       21 CALL                             R6 1 -1
+       22 NAMECALL                         R4 R0 K8 ["dispatch"]
+       24 CALL                             R4 -1 0
+       25 CLOSEUPVALS                      R2
+       26 RETURN                           R2 1
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

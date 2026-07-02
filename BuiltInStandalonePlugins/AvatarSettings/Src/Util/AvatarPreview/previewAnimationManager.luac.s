@@ -63,13 +63,11 @@ PROTO_2:
        32 CALL                             R3 1 0
        33 GETUPVAL                         R3 0
        34 GETTABLEKS                       R3 R3 K8 ["avatarsToAnimate"]
-       36 DUPTABLE                         R4 K12 [{"animator", "animationTrack", "lastTimeStamp"}]
+       36 DUPTABLE                         R4 K13 [{["animator"], ["animationTrack"], ["lastTimeStamp"] = }]
        37 SETTABLEKS                       R1 R4 K9 ["animator"]
        39 SETTABLEKS                       R2 R4 K10 ["animationTrack"]
-       41 LOADNIL                          R5
-       42 SETTABLEKS                       R5 R4 K11 ["lastTimeStamp"]
-       44 SETTABLE                         R4 R3 R0
-       45 RETURN                           R0 0
+       41 SETTABLE                         R4 R3 R0
+       42 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -316,42 +314,36 @@ MAIN:
        35 GETTABLEKS                       R4 R4 K12 ["AssetDmFiles"]
        37 GETTABLEKS                       R4 R4 K13 ["assetDmTypes"]
        39 CALL                             R3 1 1
-       40 DUPTABLE                         R4 K17 [{"animationPlayingThread", "currentAnimation", "avatarsToAnimate"}]
-       41 LOADNIL                          R5
-       42 SETTABLEKS                       R5 R4 K14 ["animationPlayingThread"]
-       44 DUPTABLE                         R5 K20 [{"animationInstance", "animationId"}]
-       45 LOADNIL                          R6
-       46 SETTABLEKS                       R6 R5 K18 ["animationInstance"]
-       48 LOADN                            R6 0
-       49 SETTABLEKS                       R6 R5 K19 ["animationId"]
-       51 SETTABLEKS                       R5 R4 K15 ["currentAnimation"]
-       53 NEWTABLE                         R5 0 0
-       55 SETTABLEKS                       R5 R4 K16 ["avatarsToAnimate"]
-       57 DUPCLOSURE                       R5 K21 [PROTO_0]
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R5 R4 K22 ["unloadAvatar"]
-       61 DUPCLOSURE                       R5 K23 [PROTO_1]
+       40 DUPTABLE                         R4 K18 [{["animationPlayingThread"] = , ["currentAnimation"], ["avatarsToAnimate"]}]
+       41 DUPTABLE                         R5 K22 [{["animationInstance"] = , ["animationId"] = 0}]
+       42 SETTABLEKS                       R5 R4 K16 ["currentAnimation"]
+       44 NEWTABLE                         R5 0 0
+       46 SETTABLEKS                       R5 R4 K17 ["avatarsToAnimate"]
+       48 DUPCLOSURE                       R5 K23 [PROTO_0]
+       49 CAPTURE                          VAL R4
+       50 SETTABLEKS                       R5 R4 K24 ["unloadAvatar"]
+       52 DUPCLOSURE                       R5 K25 [PROTO_1]
+       53 CAPTURE                          VAL R4
+       54 SETTABLEKS                       R5 R4 K26 ["unloadAllAvatars"]
+       56 DUPCLOSURE                       R5 K27 [PROTO_2]
+       57 CAPTURE                          VAL R4
+       58 CAPTURE                          VAL R1
+       59 SETTABLEKS                       R5 R4 K28 ["loadAvatar"]
+       61 DUPCLOSURE                       R5 K29 [PROTO_3]
        62 CAPTURE                          VAL R4
-       63 SETTABLEKS                       R5 R4 K24 ["unloadAllAvatars"]
-       65 DUPCLOSURE                       R5 K25 [PROTO_2]
-       66 CAPTURE                          VAL R4
-       67 CAPTURE                          VAL R1
-       68 SETTABLEKS                       R5 R4 K26 ["loadAvatar"]
-       70 DUPCLOSURE                       R5 K27 [PROTO_3]
+       63 CAPTURE                          VAL R1
+       64 SETTABLEKS                       R5 R4 K30 ["updateAvatars"]
+       66 DUPCLOSURE                       R5 K31 [PROTO_4]
+       67 CAPTURE                          VAL R4
+       68 SETTABLEKS                       R5 R4 K32 ["terminate"]
+       70 DUPCLOSURE                       R5 K33 [PROTO_6]
        71 CAPTURE                          VAL R4
-       72 CAPTURE                          VAL R1
-       73 SETTABLEKS                       R5 R4 K28 ["updateAvatars"]
-       75 DUPCLOSURE                       R5 K29 [PROTO_4]
-       76 CAPTURE                          VAL R4
-       77 SETTABLEKS                       R5 R4 K30 ["terminate"]
-       79 DUPCLOSURE                       R5 K31 [PROTO_6]
+       72 SETTABLEKS                       R5 R4 K34 ["playAnimations"]
+       74 DUPCLOSURE                       R5 K35 [PROTO_7]
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R2
+       77 SETTABLEKS                       R5 R4 K36 ["setCurrentAnimationAsync"]
+       79 DUPCLOSURE                       R5 K37 [PROTO_8]
        80 CAPTURE                          VAL R4
-       81 SETTABLEKS                       R5 R4 K32 ["playAnimations"]
-       83 DUPCLOSURE                       R5 K33 [PROTO_7]
-       84 CAPTURE                          VAL R4
-       85 CAPTURE                          VAL R2
-       86 SETTABLEKS                       R5 R4 K34 ["setCurrentAnimationAsync"]
-       88 DUPCLOSURE                       R5 K35 [PROTO_8]
-       89 CAPTURE                          VAL R4
-       90 SETTABLEKS                       R5 R4 K36 ["clearAllData"]
-       92 RETURN                           R4 1
+       81 SETTABLEKS                       R5 R4 K38 ["clearAllData"]
+       83 RETURN                           R4 1

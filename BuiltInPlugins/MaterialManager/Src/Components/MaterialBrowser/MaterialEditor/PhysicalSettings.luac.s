@@ -190,203 +190,189 @@ PROTO_6:
       153 GETUPVAL                         R14 1
       154 GETTABLEKS                       R14 R14 K24 ["createElement"]
       156 GETUPVAL                         R15 4
-      157 DUPTABLE                         R16 K47 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      158 LOADK                            R17 K48 ["FilledRoundedBorder"]
-      159 SETTABLEKS                       R17 R16 K29 ["Style"]
-      161 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
-      163 SETTABLEKS                       R17 R16 K44 ["Size"]
-      165 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
-      167 GETTABLEKS                       R17 R17 K10 ["Density"]
-      169 SETTABLEKS                       R17 R16 K28 ["Text"]
-      171 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
-      173 LOADK                            R18 K10 ["Density"]
-      174 CALL                             R17 1 1
-      175 SETTABLEKS                       R17 R16 K45 ["OnTextChanged"]
-      177 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
-      179 SETTABLEKS                       R17 R16 K46 ["OnFocusLost"]
-      181 CALL                             R14 2 -1
-      182 SETLIST                          R13 R14 -1 [1]
-      184 CALL                             R10 3 1
-      185 SETTABLEKS                       R10 R9 K10 ["Density"]
-      187 GETUPVAL                         R10 1
-      188 GETTABLEKS                       R10 R10 K24 ["createElement"]
-      190 GETUPVAL                         R11 3
-      191 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      192 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
-      194 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
-      196 NAMECALL                         R13 R4 K43 ["getNextOrder"]
-      198 CALL                             R13 1 1
-      199 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
-      201 LOADK                            R15 K7 ["PhysicalProperties"]
-      202 LOADK                            R16 K11 ["Elasticity"]
-      203 NAMECALL                         R13 R3 K35 ["getText"]
-      205 CALL                             R13 3 1
-      206 SETTABLEKS                       R13 R12 K28 ["Text"]
-      208 NEWTABLE                         R13 0 1
-      210 GETUPVAL                         R14 1
-      211 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      213 GETUPVAL                         R15 4
-      214 DUPTABLE                         R16 K47 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      215 LOADK                            R17 K48 ["FilledRoundedBorder"]
-      216 SETTABLEKS                       R17 R16 K29 ["Style"]
-      218 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
-      220 SETTABLEKS                       R17 R16 K44 ["Size"]
-      222 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
-      224 GETTABLEKS                       R17 R17 K11 ["Elasticity"]
-      226 SETTABLEKS                       R17 R16 K28 ["Text"]
-      228 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
-      230 LOADK                            R18 K11 ["Elasticity"]
-      231 CALL                             R17 1 1
-      232 SETTABLEKS                       R17 R16 K45 ["OnTextChanged"]
-      234 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
-      236 SETTABLEKS                       R17 R16 K46 ["OnFocusLost"]
-      238 CALL                             R14 2 -1
-      239 SETLIST                          R13 R14 -1 [1]
-      241 CALL                             R10 3 1
-      242 SETTABLEKS                       R10 R9 K11 ["Elasticity"]
-      244 GETUPVAL                         R10 1
-      245 GETTABLEKS                       R10 R10 K24 ["createElement"]
-      247 GETUPVAL                         R11 3
-      248 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      249 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
-      251 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
-      253 NAMECALL                         R13 R4 K43 ["getNextOrder"]
-      255 CALL                             R13 1 1
-      256 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
-      258 LOADK                            R15 K7 ["PhysicalProperties"]
-      259 LOADK                            R16 K13 ["Friction"]
-      260 NAMECALL                         R13 R3 K35 ["getText"]
-      262 CALL                             R13 3 1
-      263 SETTABLEKS                       R13 R12 K28 ["Text"]
-      265 NEWTABLE                         R13 0 1
-      267 GETUPVAL                         R14 1
-      268 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      270 GETUPVAL                         R15 4
-      271 DUPTABLE                         R16 K47 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      272 LOADK                            R17 K48 ["FilledRoundedBorder"]
-      273 SETTABLEKS                       R17 R16 K29 ["Style"]
-      275 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
-      277 SETTABLEKS                       R17 R16 K44 ["Size"]
-      279 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
-      281 GETTABLEKS                       R17 R17 K13 ["Friction"]
-      283 SETTABLEKS                       R17 R16 K28 ["Text"]
-      285 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
-      287 LOADK                            R18 K13 ["Friction"]
-      288 CALL                             R17 1 1
-      289 SETTABLEKS                       R17 R16 K45 ["OnTextChanged"]
-      291 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
-      293 SETTABLEKS                       R17 R16 K46 ["OnFocusLost"]
-      295 CALL                             R14 2 -1
-      296 SETLIST                          R13 R14 -1 [1]
-      298 CALL                             R10 3 1
-      299 SETTABLEKS                       R10 R9 K13 ["Friction"]
-      301 GETUPVAL                         R10 1
-      302 GETTABLEKS                       R10 R10 K24 ["createElement"]
-      304 GETUPVAL                         R11 3
-      305 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      306 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
-      308 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
-      310 NAMECALL                         R13 R4 K43 ["getNextOrder"]
-      312 CALL                             R13 1 1
-      313 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
-      315 LOADK                            R15 K7 ["PhysicalProperties"]
-      316 LOADK                            R16 K12 ["ElasticityWeight"]
-      317 NAMECALL                         R13 R3 K35 ["getText"]
-      319 CALL                             R13 3 1
-      320 SETTABLEKS                       R13 R12 K28 ["Text"]
-      322 NEWTABLE                         R13 0 1
-      324 GETUPVAL                         R14 1
-      325 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      327 GETUPVAL                         R15 4
-      328 DUPTABLE                         R16 K47 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      329 LOADK                            R17 K48 ["FilledRoundedBorder"]
-      330 SETTABLEKS                       R17 R16 K29 ["Style"]
-      332 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
-      334 SETTABLEKS                       R17 R16 K44 ["Size"]
-      336 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
-      338 GETTABLEKS                       R17 R17 K12 ["ElasticityWeight"]
-      340 SETTABLEKS                       R17 R16 K28 ["Text"]
-      342 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
-      344 LOADK                            R18 K12 ["ElasticityWeight"]
-      345 CALL                             R17 1 1
-      346 SETTABLEKS                       R17 R16 K45 ["OnTextChanged"]
-      348 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
-      350 SETTABLEKS                       R17 R16 K46 ["OnFocusLost"]
-      352 CALL                             R14 2 -1
-      353 SETLIST                          R13 R14 -1 [1]
-      355 CALL                             R10 3 1
-      356 SETTABLEKS                       R10 R9 K12 ["ElasticityWeight"]
-      358 GETUPVAL                         R10 1
-      359 GETTABLEKS                       R10 R10 K24 ["createElement"]
-      361 GETUPVAL                         R11 3
-      362 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      363 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
-      365 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
-      367 NAMECALL                         R13 R4 K43 ["getNextOrder"]
-      369 CALL                             R13 1 1
-      370 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
-      372 LOADK                            R15 K7 ["PhysicalProperties"]
-      373 LOADK                            R16 K14 ["FrictionWeight"]
-      374 NAMECALL                         R13 R3 K35 ["getText"]
-      376 CALL                             R13 3 1
-      377 SETTABLEKS                       R13 R12 K28 ["Text"]
-      379 NEWTABLE                         R13 0 1
-      381 GETUPVAL                         R14 1
-      382 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      384 GETUPVAL                         R15 4
-      385 DUPTABLE                         R16 K47 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-      386 LOADK                            R17 K48 ["FilledRoundedBorder"]
-      387 SETTABLEKS                       R17 R16 K29 ["Style"]
-      389 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
-      391 SETTABLEKS                       R17 R16 K44 ["Size"]
-      393 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
-      395 GETTABLEKS                       R17 R17 K14 ["FrictionWeight"]
-      397 SETTABLEKS                       R17 R16 K28 ["Text"]
-      399 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
-      401 LOADK                            R18 K14 ["FrictionWeight"]
-      402 CALL                             R17 1 1
-      403 SETTABLEKS                       R17 R16 K45 ["OnTextChanged"]
-      405 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
-      407 SETTABLEKS                       R17 R16 K46 ["OnFocusLost"]
-      409 CALL                             R14 2 -1
-      410 SETLIST                          R13 R14 -1 [1]
-      412 CALL                             R10 3 1
-      413 SETTABLEKS                       R10 R9 K14 ["FrictionWeight"]
-      415 GETUPVAL                         R10 1
-      416 GETTABLEKS                       R10 R10 K24 ["createElement"]
-      418 GETUPVAL                         R11 5
-      419 DUPTABLE                         R12 K53 [{"LayoutOrder", "Padding", "Size"}]
-      420 NAMECALL                         R13 R4 K43 ["getNextOrder"]
-      422 CALL                             R13 1 1
-      423 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
-      425 DUPTABLE                         R13 K55 [{"Left"}]
-      426 GETTABLEKS                       R14 R2 K56 ["ButtonPadding"]
-      428 SETTABLEKS                       R14 R13 K54 ["Left"]
-      430 SETTABLEKS                       R13 R12 K52 ["Padding"]
-      432 GETTABLEKS                       R13 R2 K57 ["ButtonSize"]
-      434 SETTABLEKS                       R13 R12 K44 ["Size"]
-      436 DUPTABLE                         R13 K59 [{"Button"}]
-      437 GETUPVAL                         R14 1
-      438 GETTABLEKS                       R14 R14 K24 ["createElement"]
-      440 GETUPVAL                         R15 6
-      441 DUPTABLE                         R16 K62 [{"HorizontalAlignment", "OnClick", "Text", "Style"}]
-      442 GETIMPORT                        R17 K65 [Enum.HorizontalAlignment.Center]
-      444 SETTABLEKS                       R17 R16 K60 ["HorizontalAlignment"]
-      446 GETTABLEKS                       R17 R0 K66 ["reset"]
-      448 SETTABLEKS                       R17 R16 K61 ["OnClick"]
-      450 LOADK                            R19 K7 ["PhysicalProperties"]
-      451 LOADK                            R20 K39 ["Reset"]
-      452 NAMECALL                         R17 R3 K35 ["getText"]
-      454 CALL                             R17 3 1
-      455 SETTABLEKS                       R17 R16 K28 ["Text"]
-      457 LOADK                            R17 K67 ["Round"]
-      458 SETTABLEKS                       R17 R16 K29 ["Style"]
-      460 CALL                             R14 2 1
-      461 SETTABLEKS                       R14 R13 K58 ["Button"]
-      463 CALL                             R10 3 1
-      464 SETTABLEKS                       R10 R9 K39 ["Reset"]
-      466 CALL                             R6 3 -1
-      467 RETURN                           R6 -1
+      157 DUPTABLE                         R16 K48 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      158 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
+      160 SETTABLEKS                       R17 R16 K45 ["Size"]
+      162 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
+      164 GETTABLEKS                       R17 R17 K10 ["Density"]
+      166 SETTABLEKS                       R17 R16 K28 ["Text"]
+      168 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
+      170 LOADK                            R18 K10 ["Density"]
+      171 CALL                             R17 1 1
+      172 SETTABLEKS                       R17 R16 K46 ["OnTextChanged"]
+      174 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
+      176 SETTABLEKS                       R17 R16 K47 ["OnFocusLost"]
+      178 CALL                             R14 2 -1
+      179 SETLIST                          R13 R14 -1 [1]
+      181 CALL                             R10 3 1
+      182 SETTABLEKS                       R10 R9 K10 ["Density"]
+      184 GETUPVAL                         R10 1
+      185 GETTABLEKS                       R10 R10 K24 ["createElement"]
+      187 GETUPVAL                         R11 3
+      188 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+      189 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
+      191 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
+      193 NAMECALL                         R13 R4 K43 ["getNextOrder"]
+      195 CALL                             R13 1 1
+      196 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
+      198 LOADK                            R15 K7 ["PhysicalProperties"]
+      199 LOADK                            R16 K11 ["Elasticity"]
+      200 NAMECALL                         R13 R3 K35 ["getText"]
+      202 CALL                             R13 3 1
+      203 SETTABLEKS                       R13 R12 K28 ["Text"]
+      205 NEWTABLE                         R13 0 1
+      207 GETUPVAL                         R14 1
+      208 GETTABLEKS                       R14 R14 K24 ["createElement"]
+      210 GETUPVAL                         R15 4
+      211 DUPTABLE                         R16 K48 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      212 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
+      214 SETTABLEKS                       R17 R16 K45 ["Size"]
+      216 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
+      218 GETTABLEKS                       R17 R17 K11 ["Elasticity"]
+      220 SETTABLEKS                       R17 R16 K28 ["Text"]
+      222 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
+      224 LOADK                            R18 K11 ["Elasticity"]
+      225 CALL                             R17 1 1
+      226 SETTABLEKS                       R17 R16 K46 ["OnTextChanged"]
+      228 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
+      230 SETTABLEKS                       R17 R16 K47 ["OnFocusLost"]
+      232 CALL                             R14 2 -1
+      233 SETLIST                          R13 R14 -1 [1]
+      235 CALL                             R10 3 1
+      236 SETTABLEKS                       R10 R9 K11 ["Elasticity"]
+      238 GETUPVAL                         R10 1
+      239 GETTABLEKS                       R10 R10 K24 ["createElement"]
+      241 GETUPVAL                         R11 3
+      242 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+      243 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
+      245 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
+      247 NAMECALL                         R13 R4 K43 ["getNextOrder"]
+      249 CALL                             R13 1 1
+      250 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
+      252 LOADK                            R15 K7 ["PhysicalProperties"]
+      253 LOADK                            R16 K13 ["Friction"]
+      254 NAMECALL                         R13 R3 K35 ["getText"]
+      256 CALL                             R13 3 1
+      257 SETTABLEKS                       R13 R12 K28 ["Text"]
+      259 NEWTABLE                         R13 0 1
+      261 GETUPVAL                         R14 1
+      262 GETTABLEKS                       R14 R14 K24 ["createElement"]
+      264 GETUPVAL                         R15 4
+      265 DUPTABLE                         R16 K48 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      266 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
+      268 SETTABLEKS                       R17 R16 K45 ["Size"]
+      270 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
+      272 GETTABLEKS                       R17 R17 K13 ["Friction"]
+      274 SETTABLEKS                       R17 R16 K28 ["Text"]
+      276 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
+      278 LOADK                            R18 K13 ["Friction"]
+      279 CALL                             R17 1 1
+      280 SETTABLEKS                       R17 R16 K46 ["OnTextChanged"]
+      282 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
+      284 SETTABLEKS                       R17 R16 K47 ["OnFocusLost"]
+      286 CALL                             R14 2 -1
+      287 SETLIST                          R13 R14 -1 [1]
+      289 CALL                             R10 3 1
+      290 SETTABLEKS                       R10 R9 K13 ["Friction"]
+      292 GETUPVAL                         R10 1
+      293 GETTABLEKS                       R10 R10 K24 ["createElement"]
+      295 GETUPVAL                         R11 3
+      296 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+      297 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
+      299 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
+      301 NAMECALL                         R13 R4 K43 ["getNextOrder"]
+      303 CALL                             R13 1 1
+      304 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
+      306 LOADK                            R15 K7 ["PhysicalProperties"]
+      307 LOADK                            R16 K12 ["ElasticityWeight"]
+      308 NAMECALL                         R13 R3 K35 ["getText"]
+      310 CALL                             R13 3 1
+      311 SETTABLEKS                       R13 R12 K28 ["Text"]
+      313 NEWTABLE                         R13 0 1
+      315 GETUPVAL                         R14 1
+      316 GETTABLEKS                       R14 R14 K24 ["createElement"]
+      318 GETUPVAL                         R15 4
+      319 DUPTABLE                         R16 K48 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      320 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
+      322 SETTABLEKS                       R17 R16 K45 ["Size"]
+      324 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
+      326 GETTABLEKS                       R17 R17 K12 ["ElasticityWeight"]
+      328 SETTABLEKS                       R17 R16 K28 ["Text"]
+      330 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
+      332 LOADK                            R18 K12 ["ElasticityWeight"]
+      333 CALL                             R17 1 1
+      334 SETTABLEKS                       R17 R16 K46 ["OnTextChanged"]
+      336 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
+      338 SETTABLEKS                       R17 R16 K47 ["OnFocusLost"]
+      340 CALL                             R14 2 -1
+      341 SETLIST                          R13 R14 -1 [1]
+      343 CALL                             R10 3 1
+      344 SETTABLEKS                       R10 R9 K12 ["ElasticityWeight"]
+      346 GETUPVAL                         R10 1
+      347 GETTABLEKS                       R10 R10 K24 ["createElement"]
+      349 GETUPVAL                         R11 3
+      350 DUPTABLE                         R12 K42 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+      351 GETTABLEKS                       R13 R2 K41 ["LabelColumnWidth"]
+      353 SETTABLEKS                       R13 R12 K41 ["LabelColumnWidth"]
+      355 NAMECALL                         R13 R4 K43 ["getNextOrder"]
+      357 CALL                             R13 1 1
+      358 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
+      360 LOADK                            R15 K7 ["PhysicalProperties"]
+      361 LOADK                            R16 K14 ["FrictionWeight"]
+      362 NAMECALL                         R13 R3 K35 ["getText"]
+      364 CALL                             R13 3 1
+      365 SETTABLEKS                       R13 R12 K28 ["Text"]
+      367 NEWTABLE                         R13 0 1
+      369 GETUPVAL                         R14 1
+      370 GETTABLEKS                       R14 R14 K24 ["createElement"]
+      372 GETUPVAL                         R15 4
+      373 DUPTABLE                         R16 K48 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+      374 GETTABLEKS                       R17 R2 K49 ["DialogColumnSize"]
+      376 SETTABLEKS                       R17 R16 K45 ["Size"]
+      378 GETTABLEKS                       R17 R0 K23 ["physicalProperties"]
+      380 GETTABLEKS                       R17 R17 K14 ["FrictionWeight"]
+      382 SETTABLEKS                       R17 R16 K28 ["Text"]
+      384 GETTABLEKS                       R17 R0 K50 ["setPhysicalProperty"]
+      386 LOADK                            R18 K14 ["FrictionWeight"]
+      387 CALL                             R17 1 1
+      388 SETTABLEKS                       R17 R16 K46 ["OnTextChanged"]
+      390 GETTABLEKS                       R17 R0 K51 ["onFocusLost"]
+      392 SETTABLEKS                       R17 R16 K47 ["OnFocusLost"]
+      394 CALL                             R14 2 -1
+      395 SETLIST                          R13 R14 -1 [1]
+      397 CALL                             R10 3 1
+      398 SETTABLEKS                       R10 R9 K14 ["FrictionWeight"]
+      400 GETUPVAL                         R10 1
+      401 GETTABLEKS                       R10 R10 K24 ["createElement"]
+      403 GETUPVAL                         R11 5
+      404 DUPTABLE                         R12 K53 [{"LayoutOrder", "Padding", "Size"}]
+      405 NAMECALL                         R13 R4 K43 ["getNextOrder"]
+      407 CALL                             R13 1 1
+      408 SETTABLEKS                       R13 R12 K25 ["LayoutOrder"]
+      410 DUPTABLE                         R13 K55 [{"Left"}]
+      411 GETTABLEKS                       R14 R2 K56 ["ButtonPadding"]
+      413 SETTABLEKS                       R14 R13 K54 ["Left"]
+      415 SETTABLEKS                       R13 R12 K52 ["Padding"]
+      417 GETTABLEKS                       R13 R2 K57 ["ButtonSize"]
+      419 SETTABLEKS                       R13 R12 K45 ["Size"]
+      421 DUPTABLE                         R13 K59 [{"Button"}]
+      422 GETUPVAL                         R14 1
+      423 GETTABLEKS                       R14 R14 K24 ["createElement"]
+      425 GETUPVAL                         R15 6
+      426 DUPTABLE                         R16 K62 [{["OnClick"], ["Text"], ["Style"] = "Round"}]
+      427 GETTABLEKS                       R17 R0 K63 ["reset"]
+      429 SETTABLEKS                       R17 R16 K60 ["OnClick"]
+      431 LOADK                            R19 K7 ["PhysicalProperties"]
+      432 LOADK                            R20 K39 ["Reset"]
+      433 NAMECALL                         R17 R3 K35 ["getText"]
+      435 CALL                             R17 3 1
+      436 SETTABLEKS                       R17 R16 K28 ["Text"]
+      438 CALL                             R14 2 1
+      439 SETTABLEKS                       R14 R13 K58 ["Button"]
+      441 CALL                             R10 3 1
+      442 SETTABLEKS                       R10 R9 K39 ["Reset"]
+      444 CALL                             R6 3 -1
+      445 RETURN                           R6 -1
 
 PROTO_7:
         0 DUPTABLE                         R2 K2 [{"ExpandedPane", "Material"}]

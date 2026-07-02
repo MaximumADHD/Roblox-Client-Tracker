@@ -35,7 +35,7 @@ PROTO_1:
 
 PROTO_2:
         0 DIV                              R6 R3 R4
-        1 SUBRK                            R5 R0 K6 [NULL]
+        1 SUBRK                            R5 K0 [1] R6
         2 GETTABLE                         R6 R0 R1
         3 JUMPIF                           R6 ; [+3]
         4 NEWTABLE                         R6 0 0
@@ -174,29 +174,27 @@ PROTO_5:
         5 LOADNIL                          R6
         6 LOADNIL                          R7
         7 FORGPREP                         R5
-        8 DUPTABLE                         R10 K4 [{"MeshName", "Index", "Distance"}]
+        8 DUPTABLE                         R10 K5 [{["MeshName"], ["Index"], ["Distance"] = 0}]
         9 GETTABLEKS                       R11 R9 K1 ["MeshName"]
        11 SETTABLEKS                       R11 R10 K1 ["MeshName"]
        13 GETTABLEKS                       R11 R9 K2 ["Index"]
        15 SETTABLEKS                       R11 R10 K2 ["Index"]
-       17 LOADN                            R11 0
-       18 SETTABLEKS                       R11 R10 K3 ["Distance"]
-       20 GETUPVAL                         R11 1
-       21 MOVE                             R12 R0
-       22 MOVE                             R13 R4
-       23 MOVE                             R14 R1
-       24 MOVE                             R15 R3
-       25 MOVE                             R16 R10
-       26 CALL                             R11 5 0
-       27 GETUPVAL                         R11 2
-       28 MOVE                             R12 R0
-       29 MOVE                             R13 R4
-       30 MOVE                             R14 R1
-       31 MOVE                             R15 R3
-       32 MOVE                             R16 R10
-       33 CALL                             R11 5 0
-       34 FORGLOOP                         R5 2 ; [-27]
-       36 RETURN                           R4 1
+       17 GETUPVAL                         R11 1
+       18 MOVE                             R12 R0
+       19 MOVE                             R13 R4
+       20 MOVE                             R14 R1
+       21 MOVE                             R15 R3
+       22 MOVE                             R16 R10
+       23 CALL                             R11 5 0
+       24 GETUPVAL                         R11 2
+       25 MOVE                             R12 R0
+       26 MOVE                             R13 R4
+       27 MOVE                             R14 R1
+       28 MOVE                             R15 R3
+       29 MOVE                             R16 R10
+       30 CALL                             R11 5 0
+       31 FORGLOOP                         R5 2 ; [-24]
+       33 RETURN                           R4 1
 
 PROTO_6:
         0 JUMPIFNOTEQKN                    R3 K0 [0] ; [+2]

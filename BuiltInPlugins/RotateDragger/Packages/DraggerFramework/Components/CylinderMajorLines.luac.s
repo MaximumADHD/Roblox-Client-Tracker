@@ -136,12 +136,12 @@ PROTO_1:
        39 GETIMPORT                        R7 K11 [Vector3.new]
        41 CALL                             R7 3 1
        42 NEWTABLE                         R8 0 0
-       44 LOADN                            R11 253
+       44 LOADN                            R11 -3
        45 LOADN                            R9 3
        46 LOADN                            R10 1
        47 FORNPREP                         R9
        48 GETIMPORT                        R13 K13 [Vector2.new]
-       50 LOADN                            R14 253
+       50 LOADN                            R14 -3
        51 MOVE                             R15 R11
        52 CALL                             R13 2 1
        53 GETTABLEKS                       R13 R13 K14 ["Unit"]
@@ -157,7 +157,7 @@ PROTO_1:
        68 GETIMPORT                        R13 K17 [table.insert]
        70 CALL                             R13 2 0
        71 FORNLOOP                         R9
-       72 LOADN                            R11 253
+       72 LOADN                            R11 -3
        73 LOADN                            R9 3
        74 LOADN                            R10 1
        75 FORNPREP                         R9
@@ -179,8 +179,8 @@ PROTO_1:
        98 CALL                             R13 2 0
        99 FORNLOOP                         R9
       100 LOADN                            R11 3
-      101 LOADN                            R9 253
-      102 LOADN                            R10 255
+      101 LOADN                            R9 -3
+      102 LOADN                            R10 -1
       103 FORNPREP                         R9
       104 GETIMPORT                        R13 K13 [Vector2.new]
       106 LOADN                            R14 3
@@ -200,12 +200,12 @@ PROTO_1:
       126 CALL                             R13 2 0
       127 FORNLOOP                         R9
       128 LOADN                            R11 3
-      129 LOADN                            R9 253
-      130 LOADN                            R10 255
+      129 LOADN                            R9 -3
+      130 LOADN                            R10 -1
       131 FORNPREP                         R9
       132 GETIMPORT                        R13 K13 [Vector2.new]
       134 MOVE                             R14 R11
-      135 LOADN                            R15 253
+      135 LOADN                            R15 -3
       136 CALL                             R13 2 1
       137 GETTABLEKS                       R13 R13 K14 ["Unit"]
       139 MUL                              R12 R13 R3
@@ -223,22 +223,20 @@ PROTO_1:
       156 GETUPVAL                         R9 0
       157 GETTABLEKS                       R9 R9 K18 ["createElement"]
       159 GETUPVAL                         R10 1
-      160 DUPTABLE                         R11 K23 [{"Adornee", "Color3", "AlwaysOnTop", "Render"}]
+      160 DUPTABLE                         R11 K24 [{["Adornee"], ["Color3"], ["AlwaysOnTop"] = False, ["Render"]}]
       161 SETTABLEKS                       R1 R11 K19 ["Adornee"]
       163 GETTABLEKS                       R12 R0 K20 ["Color3"]
       165 SETTABLEKS                       R12 R11 K20 ["Color3"]
-      167 LOADB                            R12 0
-      168 SETTABLEKS                       R12 R11 K21 ["AlwaysOnTop"]
-      170 NEWCLOSURE                       R12 P0
-      171 CAPTURE                          VAL R5
-      172 CAPTURE                          VAL R7
-      173 CAPTURE                          VAL R6
-      174 CAPTURE                          VAL R8
-      175 CAPTURE                          VAL R4
-      176 CAPTURE                          VAL R3
-      177 SETTABLEKS                       R12 R11 K22 ["Render"]
-      179 CALL                             R9 2 -1
-      180 RETURN                           R9 -1
+      167 NEWCLOSURE                       R12 P0
+      168 CAPTURE                          VAL R5
+      169 CAPTURE                          VAL R7
+      170 CAPTURE                          VAL R6
+      171 CAPTURE                          VAL R8
+      172 CAPTURE                          VAL R4
+      173 CAPTURE                          VAL R3
+      174 SETTABLEKS                       R12 R11 K23 ["Render"]
+      176 CALL                             R9 2 -1
+      177 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

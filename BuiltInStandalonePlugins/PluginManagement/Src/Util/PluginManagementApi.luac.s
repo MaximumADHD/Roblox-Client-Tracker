@@ -5,54 +5,52 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R5 K8 [{"_studioService", "_pluginManagementService", "_permissionsService", "_marketplaceService", "_pluginPolicyService", "_installedPluginData", "_installedPlugins", "_installedPluginIds"}]
+        0 DUPTABLE                         R5 K9 [{[1], ["_pluginManagementService"], ["_permissionsService"], ["_marketplaceService"], ["_pluginPolicyService"], ["_installedPluginData"] = "{}", ["_installedPlugins"], ["_installedPluginIds"]}]
         1 SETTABLEKS                       R0 R5 K0 ["_studioService"]
         3 SETTABLEKS                       R1 R5 K1 ["_pluginManagementService"]
         5 SETTABLEKS                       R2 R5 K2 ["_permissionsService"]
         7 SETTABLEKS                       R3 R5 K3 ["_marketplaceService"]
         9 SETTABLEKS                       R4 R5 K4 ["_pluginPolicyService"]
-       11 LOADK                            R6 K9 ["{}"]
-       12 SETTABLEKS                       R6 R5 K5 ["_installedPluginData"]
-       14 NEWTABLE                         R6 0 0
-       16 SETTABLEKS                       R6 R5 K6 ["_installedPlugins"]
-       18 NEWTABLE                         R6 0 0
-       20 SETTABLEKS                       R6 R5 K7 ["_installedPluginIds"]
-       22 GETTABLEKS                       R6 R5 K0 ["_studioService"]
-       24 GETTABLEKS                       R6 R6 K10 ["OnPluginInstalledFromToolbox"]
-       26 SETTABLEKS                       R6 R5 K10 ["OnPluginInstalledFromToolbox"]
-       28 GETUPVAL                         R6 0
-       29 CALL                             R6 0 1
-       30 JUMPIFNOT                        R6 ; [+32]
-       31 GETUPVAL                         R6 1
-       32 GETTABLEKS                       R6 R6 K11 ["new"]
-       34 CALL                             R6 0 1
-       35 SETTABLEKS                       R6 R5 K12 ["InstalledPluginsChanged"]
-       37 GETUPVAL                         R8 2
-       38 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
-       40 MOVE                             R7 R5
-       41 GETIMPORT                        R6 K14 [setmetatable]
-       43 CALL                             R6 2 1
-       44 MOVE                             R5 R6
-       45 GETTABLEKS                       R6 R5 K0 ["_studioService"]
-       47 LOADK                            R8 K15 ["InstalledPluginData"]
-       48 NAMECALL                         R6 R6 K16 ["GetPropertyChangedSignal"]
-       50 CALL                             R6 2 1
-       51 NEWCLOSURE                       R8 P0
-       52 CAPTURE                          REF R5
-       53 NAMECALL                         R6 R6 K17 ["Connect"]
-       55 CALL                             R6 2 1
-       56 SETTABLEKS                       R6 R5 K18 ["_installedPluginDataChangedConnection"]
-       58 NAMECALL                         R6 R5 K19 ["_onInstalledPluginsChanged"]
-       60 CALL                             R6 1 0
-       61 CLOSEUPVALS                      R5
-       62 RETURN                           R5 1
-       63 GETUPVAL                         R8 2
-       64 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
-       66 MOVE                             R7 R5
-       67 GETIMPORT                        R6 K14 [setmetatable]
-       69 CALL                             R6 2 1
-       70 CLOSEUPVALS                      R5
-       71 RETURN                           R6 1
+       11 NEWTABLE                         R6 0 0
+       13 SETTABLEKS                       R6 R5 K7 ["_installedPlugins"]
+       15 NEWTABLE                         R6 0 0
+       17 SETTABLEKS                       R6 R5 K8 ["_installedPluginIds"]
+       19 GETTABLEKS                       R6 R5 K0 ["_studioService"]
+       21 GETTABLEKS                       R6 R6 K10 ["OnPluginInstalledFromToolbox"]
+       23 SETTABLEKS                       R6 R5 K10 ["OnPluginInstalledFromToolbox"]
+       25 GETUPVAL                         R6 0
+       26 CALL                             R6 0 1
+       27 JUMPIFNOT                        R6 ; [+32]
+       28 GETUPVAL                         R6 1
+       29 GETTABLEKS                       R6 R6 K11 ["new"]
+       31 CALL                             R6 0 1
+       32 SETTABLEKS                       R6 R5 K12 ["InstalledPluginsChanged"]
+       34 GETUPVAL                         R8 2
+       35 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
+       37 MOVE                             R7 R5
+       38 GETIMPORT                        R6 K14 [setmetatable]
+       40 CALL                             R6 2 1
+       41 MOVE                             R5 R6
+       42 GETTABLEKS                       R6 R5 K0 ["_studioService"]
+       44 LOADK                            R8 K15 ["InstalledPluginData"]
+       45 NAMECALL                         R6 R6 K16 ["GetPropertyChangedSignal"]
+       47 CALL                             R6 2 1
+       48 NEWCLOSURE                       R8 P0
+       49 CAPTURE                          REF R5
+       50 NAMECALL                         R6 R6 K17 ["Connect"]
+       52 CALL                             R6 2 1
+       53 SETTABLEKS                       R6 R5 K18 ["_installedPluginDataChangedConnection"]
+       55 NAMECALL                         R6 R5 K19 ["_onInstalledPluginsChanged"]
+       57 CALL                             R6 1 0
+       58 CLOSEUPVALS                      R5
+       59 RETURN                           R5 1
+       60 GETUPVAL                         R8 2
+       61 FASTCALL2                        SETMETATABLE R5 R8 ; [+4]
+       63 MOVE                             R7 R5
+       64 GETIMPORT                        R6 K14 [setmetatable]
+       66 CALL                             R6 2 1
+       67 CLOSEUPVALS                      R5
+       68 RETURN                           R6 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["_installedPluginDataChangedConnection"]

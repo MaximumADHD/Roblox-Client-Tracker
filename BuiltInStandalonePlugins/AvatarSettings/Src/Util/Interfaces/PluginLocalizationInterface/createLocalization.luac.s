@@ -10,19 +10,17 @@ PROTO_1:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["Localization"]
         3 GETTABLEKS                       R3 R3 K1 ["new"]
-        5 DUPTABLE                         R4 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R4 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AvatarSettings"}]
         6 GETUPVAL                         R5 1
         7 SETTABLEKS                       R5 R4 K2 ["stringResourceTable"]
         9 GETUPVAL                         R5 2
        10 SETTABLEKS                       R5 R4 K3 ["translationResourceTable"]
-       12 LOADK                            R5 K6 ["AvatarSettings"]
-       13 SETTABLEKS                       R5 R4 K4 ["pluginName"]
-       15 CALL                             R3 1 1
-       16 DUPTABLE                         R4 K8 [{"getText"}]
-       17 NEWCLOSURE                       R5 P0
-       18 CAPTURE                          VAL R3
-       19 SETTABLEKS                       R5 R4 K7 ["getText"]
-       21 RETURN                           R4 1
+       12 CALL                             R3 1 1
+       13 DUPTABLE                         R4 K8 [{"getText"}]
+       14 NEWCLOSURE                       R5 P0
+       15 CAPTURE                          VAL R3
+       16 SETTABLEKS                       R5 R4 K7 ["getText"]
+       18 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -6,7 +6,7 @@ PROTO_0:
         6 CALL                             R1 2 1
         7 JUMPIFNOTEQKS                    R1 K4 ["*"] ; [+10]
         9 LOADN                            R3 1
-       10 LOADN                            R4 254
+       10 LOADN                            R4 -2
        11 FASTCALL3                        STRING_SUB R0 R3 R4
        13 MOVE                             R2 R0
        14 GETIMPORT                        R1 K3 [string.sub]
@@ -31,7 +31,7 @@ PROTO_1:
        20 CALL                             R9 2 1
        21 JUMPIFNOTEQKS                    R9 K8 ["*"] ; [+10]
        23 LOADN                            R11 1
-       24 LOADN                            R12 254
+       24 LOADN                            R12 -2
        25 FASTCALL3                        STRING_SUB R8 R11 R12
        27 MOVE                             R10 R8
        28 GETIMPORT                        R9 K7 [string.sub]
@@ -138,7 +138,7 @@ PROTO_4:
         7 CALL                             R4 2 1
         8 JUMPIFNOTEQKS                    R4 K4 ["*"] ; [+10]
        10 LOADN                            R6 1
-       11 LOADN                            R7 254
+       11 LOADN                            R7 -2
        12 FASTCALL3                        STRING_SUB R3 R6 R7
        14 MOVE                             R5 R3
        15 GETIMPORT                        R4 K3 [string.sub]
@@ -226,35 +226,33 @@ MAIN:
        64 NAMECALL                         R16 R16 K27 ["extend"]
        66 CALL                             R16 2 1
        67 DUPCLOSURE                       R17 K28 [PROTO_0]
-       68 DUPTABLE                         R18 K31 [{"Enabled", "Size"}]
-       69 LOADB                            R19 1
-       70 SETTABLEKS                       R19 R18 K29 ["Enabled"]
-       72 GETIMPORT                        R19 K34 [UDim2.new]
-       74 LOADN                            R20 1
-       75 LOADN                            R21 0
-       76 LOADN                            R22 1
-       77 LOADN                            R23 0
-       78 CALL                             R19 4 1
-       79 SETTABLEKS                       R19 R18 K30 ["Size"]
-       81 SETTABLEKS                       R18 R16 K35 ["defaultProps"]
-       83 DUPCLOSURE                       R18 K36 [PROTO_3]
-       84 CAPTURE                          VAL R13
-       85 CAPTURE                          VAL R1
-       86 CAPTURE                          VAL R9
-       87 CAPTURE                          VAL R11
-       88 SETTABLEKS                       R18 R16 K37 ["init"]
-       90 DUPCLOSURE                       R18 K38 [PROTO_5]
-       91 CAPTURE                          VAL R14
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          VAL R10
-       94 SETTABLEKS                       R18 R16 K39 ["render"]
-       96 MOVE                             R18 R5
-       97 DUPTABLE                         R19 K40 [{"Localization", "Stylizer", "PresetController"}]
-       98 SETTABLEKS                       R6 R19 K12 ["Localization"]
-      100 SETTABLEKS                       R7 R19 K14 ["Stylizer"]
-      102 SETTABLEKS                       R15 R19 K24 ["PresetController"]
-      104 CALL                             R18 1 1
-      105 MOVE                             R19 R16
-      106 CALL                             R18 1 1
-      107 MOVE                             R16 R18
-      108 RETURN                           R16 1
+       68 DUPTABLE                         R18 K32 [{["Enabled"] = True, ["Size"]}]
+       69 GETIMPORT                        R19 K35 [UDim2.new]
+       71 LOADN                            R20 1
+       72 LOADN                            R21 0
+       73 LOADN                            R22 1
+       74 LOADN                            R23 0
+       75 CALL                             R19 4 1
+       76 SETTABLEKS                       R19 R18 K31 ["Size"]
+       78 SETTABLEKS                       R18 R16 K36 ["defaultProps"]
+       80 DUPCLOSURE                       R18 K37 [PROTO_3]
+       81 CAPTURE                          VAL R13
+       82 CAPTURE                          VAL R1
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          VAL R11
+       85 SETTABLEKS                       R18 R16 K38 ["init"]
+       87 DUPCLOSURE                       R18 K39 [PROTO_5]
+       88 CAPTURE                          VAL R14
+       89 CAPTURE                          VAL R1
+       90 CAPTURE                          VAL R10
+       91 SETTABLEKS                       R18 R16 K40 ["render"]
+       93 MOVE                             R18 R5
+       94 DUPTABLE                         R19 K41 [{"Localization", "Stylizer", "PresetController"}]
+       95 SETTABLEKS                       R6 R19 K12 ["Localization"]
+       97 SETTABLEKS                       R7 R19 K14 ["Stylizer"]
+       99 SETTABLEKS                       R15 R19 K24 ["PresetController"]
+      101 CALL                             R18 1 1
+      102 MOVE                             R19 R16
+      103 CALL                             R18 1 1
+      104 MOVE                             R16 R18
+      105 RETURN                           R16 1

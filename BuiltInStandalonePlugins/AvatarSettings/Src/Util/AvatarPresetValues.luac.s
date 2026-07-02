@@ -10,59 +10,55 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K8 ["getFFlagColliderHeight"]
        15 CALL                             R1 1 1
        16 NEWTABLE                         R2 2 0
-       18 DUPTABLE                         R3 K21 [{"bodyScaleSetting", "bodyAppearanceSetting", "bodyBuildSetting", "collisionSetting", "animationPacksSetting", "animationClipsSetting", "accessoryScaleSetting", "customAccessoriesSetting", "accessoryBehaviorEnableSoundSetting", "accessoryBehaviorEnableVFXSetting", "clothingScaleSetting", "customClothingSetting"}]
-       19 GETIMPORT                        R4 K25 [Enum.AvatarSettingsScaleMode.PlayerChoice]
+       18 DUPTABLE                         R3 K22 [{["bodyScaleSetting"], ["bodyAppearanceSetting"], ["bodyBuildSetting"], ["collisionSetting"], ["animationPacksSetting"], ["animationClipsSetting"], ["accessoryScaleSetting"], ["customAccessoriesSetting"], ["accessoryBehaviorEnableSoundSetting"] = True, ["accessoryBehaviorEnableVFXSetting"] = True, ["clothingScaleSetting"], ["customClothingSetting"]}]
+       19 GETIMPORT                        R4 K26 [Enum.AvatarSettingsScaleMode.PlayerChoice]
        21 SETTABLEKS                       R4 R3 K9 ["bodyScaleSetting"]
-       23 GETIMPORT                        R4 K27 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+       23 GETIMPORT                        R4 K28 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
        25 SETTABLEKS                       R4 R3 K10 ["bodyAppearanceSetting"]
-       27 GETIMPORT                        R4 K29 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+       27 GETIMPORT                        R4 K30 [Enum.AvatarSettingsBuildMode.PlayerChoice]
        29 SETTABLEKS                       R4 R3 K11 ["bodyBuildSetting"]
-       31 GETIMPORT                        R4 K32 [Enum.AvatarSettingsCollisionMode.Default]
+       31 GETIMPORT                        R4 K33 [Enum.AvatarSettingsCollisionMode.Default]
        33 SETTABLEKS                       R4 R3 K12 ["collisionSetting"]
-       35 GETIMPORT                        R4 K34 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
+       35 GETIMPORT                        R4 K35 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
        37 SETTABLEKS                       R4 R3 K13 ["animationPacksSetting"]
-       39 GETIMPORT                        R4 K36 [Enum.AvatarSettingsAnimationClipsMode.PlayerChoice]
+       39 GETIMPORT                        R4 K37 [Enum.AvatarSettingsAnimationClipsMode.PlayerChoice]
        41 SETTABLEKS                       R4 R3 K14 ["animationClipsSetting"]
-       43 GETIMPORT                        R4 K38 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
+       43 GETIMPORT                        R4 K39 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
        45 SETTABLEKS                       R4 R3 K15 ["accessoryScaleSetting"]
-       47 GETIMPORT                        R4 K40 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
+       47 GETIMPORT                        R4 K41 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
        49 SETTABLEKS                       R4 R3 K16 ["customAccessoriesSetting"]
-       51 LOADB                            R4 1
-       52 SETTABLEKS                       R4 R3 K17 ["accessoryBehaviorEnableSoundSetting"]
-       54 LOADB                            R4 1
-       55 SETTABLEKS                       R4 R3 K18 ["accessoryBehaviorEnableVFXSetting"]
-       57 GETIMPORT                        R4 K42 [Enum.AvatarSettingsClothingMode.PlayerChoice]
-       59 SETTABLEKS                       R4 R3 K19 ["clothingScaleSetting"]
-       61 GETIMPORT                        R4 K44 [Enum.AvatarSettingsCustomClothingMode.PlayerChoice]
-       63 SETTABLEKS                       R4 R3 K20 ["customClothingSetting"]
-       65 SETTABLEKS                       R3 R2 K45 ["PlayerSettingPresetValues"]
-       67 DUPTABLE                         R3 K49 [{"bodyScaleSetting", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyBuildSetting", "collisionSetting", "collisionSizeSetting", "collisionHitAndTouchDetectionSetting"}]
-       68 GETIMPORT                        R4 K51 [Enum.AvatarSettingsScaleMode.CustomScale]
-       70 SETTABLEKS                       R4 R3 K9 ["bodyScaleSetting"]
-       72 GETIMPORT                        R4 K54 [NumberRange.new]
-       74 LOADK                            R5 K55 [5.5]
-       75 LOADK                            R6 K55 [5.5]
-       76 CALL                             R4 2 1
-       77 SETTABLEKS                       R4 R3 K46 ["bodyScaleCustomHeight"]
-       79 GETIMPORT                        R4 K27 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
-       81 SETTABLEKS                       R4 R3 K10 ["bodyAppearanceSetting"]
-       83 GETIMPORT                        R4 K29 [Enum.AvatarSettingsBuildMode.PlayerChoice]
-       85 SETTABLEKS                       R4 R3 K11 ["bodyBuildSetting"]
-       87 GETIMPORT                        R4 K57 [Enum.AvatarSettingsCollisionMode.SingleCollider]
-       89 SETTABLEKS                       R4 R3 K12 ["collisionSetting"]
-       91 LOADN                            R5 2
-       92 MOVE                             R7 R1
-       93 CALL                             R7 0 1
-       94 JUMPIFNOT                        R7 ; [+2]
-       95 LOADN                            R6 3
-       96 JUMP                             ; [+1]
-       97 LOADN                            R6 4
-       98 LOADN                            R7 1
-       99 FASTCALL                         VECTOR ; [+2]
-      100 GETIMPORT                        R4 K59 [Vector3.new]
-      102 CALL                             R4 3 1
-      103 SETTABLEKS                       R4 R3 K47 ["collisionSizeSetting"]
-      105 GETIMPORT                        R4 K62 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
-      107 SETTABLEKS                       R4 R3 K48 ["collisionHitAndTouchDetectionSetting"]
-      109 SETTABLEKS                       R3 R2 K63 ["ConsistentGameplayPresetValues"]
-      111 RETURN                           R2 1
+       51 GETIMPORT                        R4 K43 [Enum.AvatarSettingsClothingMode.PlayerChoice]
+       53 SETTABLEKS                       R4 R3 K20 ["clothingScaleSetting"]
+       55 GETIMPORT                        R4 K45 [Enum.AvatarSettingsCustomClothingMode.PlayerChoice]
+       57 SETTABLEKS                       R4 R3 K21 ["customClothingSetting"]
+       59 SETTABLEKS                       R3 R2 K46 ["PlayerSettingPresetValues"]
+       61 DUPTABLE                         R3 K50 [{"bodyScaleSetting", "bodyScaleCustomHeight", "bodyAppearanceSetting", "bodyBuildSetting", "collisionSetting", "collisionSizeSetting", "collisionHitAndTouchDetectionSetting"}]
+       62 GETIMPORT                        R4 K52 [Enum.AvatarSettingsScaleMode.CustomScale]
+       64 SETTABLEKS                       R4 R3 K9 ["bodyScaleSetting"]
+       66 GETIMPORT                        R4 K55 [NumberRange.new]
+       68 LOADK                            R5 K56 [5.5]
+       69 LOADK                            R6 K56 [5.5]
+       70 CALL                             R4 2 1
+       71 SETTABLEKS                       R4 R3 K47 ["bodyScaleCustomHeight"]
+       73 GETIMPORT                        R4 K28 [Enum.AvatarSettingsAppearanceMode.PlayerChoice]
+       75 SETTABLEKS                       R4 R3 K10 ["bodyAppearanceSetting"]
+       77 GETIMPORT                        R4 K30 [Enum.AvatarSettingsBuildMode.PlayerChoice]
+       79 SETTABLEKS                       R4 R3 K11 ["bodyBuildSetting"]
+       81 GETIMPORT                        R4 K58 [Enum.AvatarSettingsCollisionMode.SingleCollider]
+       83 SETTABLEKS                       R4 R3 K12 ["collisionSetting"]
+       85 LOADN                            R5 2
+       86 MOVE                             R7 R1
+       87 CALL                             R7 0 1
+       88 JUMPIFNOT                        R7 ; [+2]
+       89 LOADN                            R6 3
+       90 JUMP                             ; [+1]
+       91 LOADN                            R6 4
+       92 LOADN                            R7 1
+       93 FASTCALL                         VECTOR ; [+2]
+       94 GETIMPORT                        R4 K60 [Vector3.new]
+       96 CALL                             R4 3 1
+       97 SETTABLEKS                       R4 R3 K48 ["collisionSizeSetting"]
+       99 GETIMPORT                        R4 K63 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseParts]
+      101 SETTABLEKS                       R4 R3 K49 ["collisionHitAndTouchDetectionSetting"]
+      103 SETTABLEKS                       R3 R2 K64 ["ConsistentGameplayPresetValues"]
+      105 RETURN                           R2 1

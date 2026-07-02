@@ -247,7 +247,7 @@ PROTO_3:
       194 SUB                              R13 R9 R2
       195 GETTABLEKS                       R13 R13 K16 ["Magnitude"]
       197 JUMPIF                           R13 ; [+1]
-      198 LOADN                            R13 16
+      198 LOADN                            R13 10000
       199 GETTABLEKS                       R15 R11 K7 ["X"]
       201 GETTABLEKS                       R16 R4 K7 ["X"]
       203 JUMPIFNOTLE                      R15 R16 ; [+25]
@@ -265,7 +265,7 @@ PROTO_3:
       225 SUB                              R14 R11 R2
       226 GETTABLEKS                       R14 R14 K16 ["Magnitude"]
       228 JUMPIF                           R14 ; [+1]
-      229 LOADN                            R14 16
+      229 LOADN                            R14 10000
       230 GETTABLEKS                       R16 R12 K7 ["X"]
       232 GETTABLEKS                       R17 R4 K7 ["X"]
       234 JUMPIFNOTLE                      R16 R17 ; [+25]
@@ -283,7 +283,7 @@ PROTO_3:
       256 SUB                              R15 R12 R2
       257 GETTABLEKS                       R15 R15 K16 ["Magnitude"]
       259 JUMPIF                           R15 ; [+1]
-      260 LOADN                            R15 16
+      260 LOADN                            R15 10000
       261 GETUPVAL                         R16 0
       262 GETTABLEKS                       R16 R16 K17 ["min"]
       264 MOVE                             R17 R13
@@ -415,7 +415,7 @@ PROTO_5:
        78 FASTCALL                         MATH_MIN ; [+2]
        79 GETIMPORT                        R10 K17 [math.min]
        81 CALL                             R10 3 1
-       82 SUBRK                            R9 R1 K10 [2]
+       82 SUBRK                            R9 K1 [0] R10
        83 GETTABLEKS                       R10 R0 K18 ["CFrame"]
        85 GETTABLEKS                       R10 R10 K19 ["p"]
        87 LOADNIL                          R11
@@ -492,7 +492,7 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R6 R2 K0 ["Magnitude"]
-        2 LOADN                            R7 232
+        2 LOADN                            R7 1000
         3 JUMPIFNOTLT                      R7 R6 ; [+2]
         5 RETURN                           R0 0
         6 GETTABLEKS                       R6 R3 K1 ["Unit"]
@@ -558,7 +558,7 @@ PROTO_8:
 
 PROTO_9:
         0 GETTABLEKS                       R7 R2 K0 ["Magnitude"]
-        2 LOADN                            R8 232
+        2 LOADN                            R8 1000
         3 JUMPIFNOTLT                      R8 R7 ; [+3]
         5 LOADB                            R8 0
         6 RETURN                           R8 1

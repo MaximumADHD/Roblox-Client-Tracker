@@ -180,64 +180,62 @@ PROTO_9:
        42 GETUPVAL                         R7 1
        43 GETTABLEKS                       R7 R7 K7 ["createElement"]
        45 GETUPVAL                         R8 2
-       46 DUPTABLE                         R9 K21 [{"BackgroundColor3", "BorderSizePixel", "Layout", "HorizontalAlignment", "VerticalAlignment", "ForwardRef"}]
-       47 GETTABLEKS                       R10 R4 K22 ["BackgroundColor"]
+       46 DUPTABLE                         R9 K22 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"], ["ForwardRef"]}]
+       47 GETTABLEKS                       R10 R4 K23 ["BackgroundColor"]
        49 SETTABLEKS                       R10 R9 K15 ["BackgroundColor3"]
-       51 LOADN                            R10 0
-       52 SETTABLEKS                       R10 R9 K16 ["BorderSizePixel"]
-       54 GETIMPORT                        R10 K26 [Enum.FillDirection.Vertical]
-       56 SETTABLEKS                       R10 R9 K17 ["Layout"]
-       58 GETIMPORT                        R10 K28 [Enum.HorizontalAlignment.Left]
-       60 SETTABLEKS                       R10 R9 K18 ["HorizontalAlignment"]
-       62 GETIMPORT                        R10 K30 [Enum.VerticalAlignment.Top]
-       64 SETTABLEKS                       R10 R9 K19 ["VerticalAlignment"]
-       66 GETTABLEKS                       R10 R0 K31 ["ref"]
-       68 SETTABLEKS                       R10 R9 K20 ["ForwardRef"]
-       70 DUPTABLE                         R10 K35 [{"ReplacementRulesExpandablePane", "ScriptConversionExpandablePane", "ReplaceProgressBar"}]
-       71 GETUPVAL                         R11 1
-       72 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       74 GETUPVAL                         R12 4
-       75 DUPTABLE                         R13 K38 [{"LayoutOrder", "HeaderSize"}]
-       76 NAMECALL                         R14 R6 K39 ["getNextOrder"]
-       78 CALL                             R14 1 1
-       79 SETTABLEKS                       R14 R13 K36 ["LayoutOrder"]
-       81 GETTABLEKS                       R14 R4 K40 ["ExpandablePaneHeaderSize"]
-       83 SETTABLEKS                       R14 R13 K37 ["HeaderSize"]
-       85 CALL                             R11 2 1
-       86 SETTABLEKS                       R11 R10 K32 ["ReplacementRulesExpandablePane"]
-       88 GETUPVAL                         R11 1
-       89 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       91 GETUPVAL                         R12 5
-       92 DUPTABLE                         R13 K43 [{"LayoutOrder", "HeaderSize", "ContentSize", "OnResetPlugin"}]
-       93 NAMECALL                         R14 R6 K39 ["getNextOrder"]
-       95 CALL                             R14 1 1
-       96 SETTABLEKS                       R14 R13 K36 ["LayoutOrder"]
-       98 GETTABLEKS                       R14 R4 K40 ["ExpandablePaneHeaderSize"]
-      100 SETTABLEKS                       R14 R13 K37 ["HeaderSize"]
-      102 NAMECALL                         R14 R0 K44 ["getScriptExpandablePaneSize"]
-      104 CALL                             R14 1 1
-      105 SETTABLEKS                       R14 R13 K41 ["ContentSize"]
-      107 GETTABLEKS                       R14 R1 K42 ["OnResetPlugin"]
-      109 SETTABLEKS                       R14 R13 K42 ["OnResetPlugin"]
-      111 CALL                             R11 2 1
-      112 SETTABLEKS                       R11 R10 K33 ["ScriptConversionExpandablePane"]
-      114 JUMPIFNOT                        R3 ; [+16]
-      115 GETUPVAL                         R11 1
-      116 GETTABLEKS                       R11 R11 K7 ["createElement"]
-      118 GETUPVAL                         R12 6
-      119 DUPTABLE                         R13 K46 [{"Text", "Progress"}]
-      120 LOADK                            R16 K47 ["ProgressBar"]
-      121 MOVE                             R17 R2
-      122 NAMECALL                         R14 R5 K14 ["getText"]
-      124 CALL                             R14 3 1
-      125 SETTABLEKS                       R14 R13 K10 ["Text"]
-      127 SETTABLEKS                       R3 R13 K45 ["Progress"]
-      129 CALL                             R11 2 1
-      130 JUMP                             ; [+1]
-      131 LOADNIL                          R11
-      132 SETTABLEKS                       R11 R10 K34 ["ReplaceProgressBar"]
-      134 CALL                             R7 3 -1
-      135 RETURN                           R7 -1
+       51 GETIMPORT                        R10 K27 [Enum.FillDirection.Vertical]
+       53 SETTABLEKS                       R10 R9 K18 ["Layout"]
+       55 GETIMPORT                        R10 K29 [Enum.HorizontalAlignment.Left]
+       57 SETTABLEKS                       R10 R9 K19 ["HorizontalAlignment"]
+       59 GETIMPORT                        R10 K31 [Enum.VerticalAlignment.Top]
+       61 SETTABLEKS                       R10 R9 K20 ["VerticalAlignment"]
+       63 GETTABLEKS                       R10 R0 K32 ["ref"]
+       65 SETTABLEKS                       R10 R9 K21 ["ForwardRef"]
+       67 DUPTABLE                         R10 K36 [{"ReplacementRulesExpandablePane", "ScriptConversionExpandablePane", "ReplaceProgressBar"}]
+       68 GETUPVAL                         R11 1
+       69 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       71 GETUPVAL                         R12 4
+       72 DUPTABLE                         R13 K39 [{"LayoutOrder", "HeaderSize"}]
+       73 NAMECALL                         R14 R6 K40 ["getNextOrder"]
+       75 CALL                             R14 1 1
+       76 SETTABLEKS                       R14 R13 K37 ["LayoutOrder"]
+       78 GETTABLEKS                       R14 R4 K41 ["ExpandablePaneHeaderSize"]
+       80 SETTABLEKS                       R14 R13 K38 ["HeaderSize"]
+       82 CALL                             R11 2 1
+       83 SETTABLEKS                       R11 R10 K33 ["ReplacementRulesExpandablePane"]
+       85 GETUPVAL                         R11 1
+       86 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       88 GETUPVAL                         R12 5
+       89 DUPTABLE                         R13 K44 [{"LayoutOrder", "HeaderSize", "ContentSize", "OnResetPlugin"}]
+       90 NAMECALL                         R14 R6 K40 ["getNextOrder"]
+       92 CALL                             R14 1 1
+       93 SETTABLEKS                       R14 R13 K37 ["LayoutOrder"]
+       95 GETTABLEKS                       R14 R4 K41 ["ExpandablePaneHeaderSize"]
+       97 SETTABLEKS                       R14 R13 K38 ["HeaderSize"]
+       99 NAMECALL                         R14 R0 K45 ["getScriptExpandablePaneSize"]
+      101 CALL                             R14 1 1
+      102 SETTABLEKS                       R14 R13 K42 ["ContentSize"]
+      104 GETTABLEKS                       R14 R1 K43 ["OnResetPlugin"]
+      106 SETTABLEKS                       R14 R13 K43 ["OnResetPlugin"]
+      108 CALL                             R11 2 1
+      109 SETTABLEKS                       R11 R10 K34 ["ScriptConversionExpandablePane"]
+      111 JUMPIFNOT                        R3 ; [+16]
+      112 GETUPVAL                         R11 1
+      113 GETTABLEKS                       R11 R11 K7 ["createElement"]
+      115 GETUPVAL                         R12 6
+      116 DUPTABLE                         R13 K47 [{"Text", "Progress"}]
+      117 LOADK                            R16 K48 ["ProgressBar"]
+      118 MOVE                             R17 R2
+      119 NAMECALL                         R14 R5 K14 ["getText"]
+      121 CALL                             R14 3 1
+      122 SETTABLEKS                       R14 R13 K10 ["Text"]
+      124 SETTABLEKS                       R3 R13 K46 ["Progress"]
+      126 CALL                             R11 2 1
+      127 JUMP                             ; [+1]
+      128 LOADNIL                          R11
+      129 SETTABLEKS                       R11 R10 K35 ["ReplaceProgressBar"]
+      131 CALL                             R7 3 -1
+      132 RETURN                           R7 -1
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["onPaneSizeChanged"]

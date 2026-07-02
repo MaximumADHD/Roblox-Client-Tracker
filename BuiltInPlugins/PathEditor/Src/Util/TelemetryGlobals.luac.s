@@ -17,15 +17,9 @@ PROTO_1:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K3 [{"selectModeCount", "addPointModeCount", "addTangentModeCount"}]
-        2 LOADN                            R1 0
-        3 SETTABLEKS                       R1 R0 K0 ["selectModeCount"]
-        5 LOADN                            R1 0
-        6 SETTABLEKS                       R1 R0 K1 ["addPointModeCount"]
-        8 LOADN                            R1 0
-        9 SETTABLEKS                       R1 R0 K2 ["addTangentModeCount"]
-       11 DUPCLOSURE                       R1 K4 [PROTO_0]
-       12 SETTABLEKS                       R1 R0 K5 ["totalCount"]
-       14 DUPCLOSURE                       R1 K6 [PROTO_1]
-       15 SETTABLEKS                       R1 R0 K7 ["reset"]
-       17 RETURN                           R0 1
+        1 DUPTABLE                         R0 K4 [{[1] = 0, ["addPointModeCount"] = 0, ["addTangentModeCount"] = 0}]
+        2 DUPCLOSURE                       R1 K5 [PROTO_0]
+        3 SETTABLEKS                       R1 R0 K6 ["totalCount"]
+        5 DUPCLOSURE                       R1 K7 [PROTO_1]
+        6 SETTABLEKS                       R1 R0 K8 ["reset"]
+        8 RETURN                           R0 1

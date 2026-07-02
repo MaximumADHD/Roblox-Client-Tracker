@@ -33,7 +33,7 @@ PROTO_2:
        18 GETTABLEKS                       R4 R3 K3 ["_dispatchSetMessage"]
        20 MOVE                             R5 R0
        21 CALL                             R4 1 0
-       22 LOADN                            R4 255
+       22 LOADN                            R4 -1
        23 SETTABLEKS                       R4 R3 K4 ["_progress"]
        25 FASTCALL2K                       MATH_MAX R1 K5 ; [+5]
        27 MOVE                             R5 R1

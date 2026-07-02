@@ -17,7 +17,7 @@ PROTO_0:
        26 GETUPVAL                         R11 0
        27 GETTABLEKS                       R11 R11 K11 ["createElement"]
        29 LOADK                            R12 K12 ["Frame"]
-       30 DUPTABLE                         R13 K16 [{"Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "ZIndex", "LayoutOrder"}]
+       30 DUPTABLE                         R13 K17 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"], ["BorderSizePixel"] = 0, ["ZIndex"], ["LayoutOrder"]}]
        31 SETTABLEKS                       R4 R13 K3 ["Size"]
        33 SETTABLEKS                       R10 R13 K13 ["BackgroundColor3"]
        35 JUMPIFNOT                        R10 ; [+2]
@@ -25,45 +25,41 @@ PROTO_0:
        37 JUMP                             ; [+1]
        38 LOADN                            R14 1
        39 SETTABLEKS                       R14 R13 K14 ["BackgroundTransparency"]
-       41 LOADN                            R14 0
-       42 SETTABLEKS                       R14 R13 K15 ["BorderSizePixel"]
-       44 SETTABLEKS                       R7 R13 K6 ["ZIndex"]
-       46 SETTABLEKS                       R6 R13 K5 ["LayoutOrder"]
-       48 DUPTABLE                         R14 K18 [{"KeyframeDisplayArea"}]
-       49 GETUPVAL                         R15 0
-       50 GETTABLEKS                       R15 R15 K11 ["createElement"]
-       52 LOADK                            R16 K12 ["Frame"]
-       53 DUPTABLE                         R17 K21 [{"BackgroundTransparency", "AnchorPoint", "Position", "Size", "ZIndex"}]
-       54 LOADN                            R18 1
-       55 SETTABLEKS                       R18 R17 K14 ["BackgroundTransparency"]
-       57 GETIMPORT                        R18 K24 [Vector2.new]
-       59 LOADK                            R19 K25 [0.5]
-       60 LOADN                            R20 0
-       61 CALL                             R18 2 1
-       62 SETTABLEKS                       R18 R17 K19 ["AnchorPoint"]
-       64 GETIMPORT                        R18 K27 [UDim2.new]
-       66 LOADK                            R19 K25 [0.5]
-       67 LOADN                            R20 0
-       68 LOADN                            R21 0
-       69 LOADN                            R22 0
-       70 CALL                             R18 4 1
-       71 SETTABLEKS                       R18 R17 K20 ["Position"]
-       73 GETIMPORT                        R18 K27 [UDim2.new]
-       75 LOADN                            R19 0
-       76 MOVE                             R20 R5
-       77 LOADN                            R21 1
-       78 LOADN                            R22 0
-       79 CALL                             R18 4 1
-       80 SETTABLEKS                       R18 R17 K3 ["Size"]
-       82 SETTABLEKS                       R7 R17 K6 ["ZIndex"]
-       84 GETTABLEKS                       R19 R0 K0 ["props"]
-       86 GETUPVAL                         R20 0
-       87 GETTABLEKS                       R20 R20 K28 ["Children"]
-       89 GETTABLE                         R18 R19 R20
-       90 CALL                             R15 3 1
-       91 SETTABLEKS                       R15 R14 K17 ["KeyframeDisplayArea"]
-       93 CALL                             R11 3 -1
-       94 RETURN                           R11 -1
+       41 SETTABLEKS                       R7 R13 K6 ["ZIndex"]
+       43 SETTABLEKS                       R6 R13 K5 ["LayoutOrder"]
+       45 DUPTABLE                         R14 K19 [{"KeyframeDisplayArea"}]
+       46 GETUPVAL                         R15 0
+       47 GETTABLEKS                       R15 R15 K11 ["createElement"]
+       49 LOADK                            R16 K12 ["Frame"]
+       50 DUPTABLE                         R17 K23 [{["BackgroundTransparency"] = 1, ["AnchorPoint"], ["Position"], ["Size"], ["ZIndex"]}]
+       51 GETIMPORT                        R18 K26 [Vector2.new]
+       53 LOADK                            R19 K27 [0.5]
+       54 LOADN                            R20 0
+       55 CALL                             R18 2 1
+       56 SETTABLEKS                       R18 R17 K21 ["AnchorPoint"]
+       58 GETIMPORT                        R18 K29 [UDim2.new]
+       60 LOADK                            R19 K27 [0.5]
+       61 LOADN                            R20 0
+       62 LOADN                            R21 0
+       63 LOADN                            R22 0
+       64 CALL                             R18 4 1
+       65 SETTABLEKS                       R18 R17 K22 ["Position"]
+       67 GETIMPORT                        R18 K29 [UDim2.new]
+       69 LOADN                            R19 0
+       70 MOVE                             R20 R5
+       71 LOADN                            R21 1
+       72 LOADN                            R22 0
+       73 CALL                             R18 4 1
+       74 SETTABLEKS                       R18 R17 K3 ["Size"]
+       76 SETTABLEKS                       R7 R17 K6 ["ZIndex"]
+       78 GETTABLEKS                       R19 R0 K0 ["props"]
+       80 GETUPVAL                         R20 0
+       81 GETTABLEKS                       R20 R20 K30 ["Children"]
+       83 GETTABLE                         R18 R19 R20
+       84 CALL                             R15 3 1
+       85 SETTABLEKS                       R15 R14 K18 ["KeyframeDisplayArea"]
+       87 CALL                             R11 3 -1
+       88 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

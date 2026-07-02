@@ -2,15 +2,13 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Localization"]
         3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 DUPTABLE                         R1 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R1 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Notifications"}]
         6 GETUPVAL                         R2 1
         7 SETTABLEKS                       R2 R1 K2 ["stringResourceTable"]
         9 GETUPVAL                         R2 2
        10 SETTABLEKS                       R2 R1 K3 ["translationResourceTable"]
-       12 LOADK                            R2 K6 ["Notifications"]
-       13 SETTABLEKS                       R2 R1 K4 ["pluginName"]
-       15 CALL                             R0 1 -1
-       16 RETURN                           R0 -1
+       12 CALL                             R0 1 -1
+       13 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0

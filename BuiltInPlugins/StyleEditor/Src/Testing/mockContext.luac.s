@@ -5,25 +5,21 @@ PROTO_1:
         0 GETIMPORT                        R4 K2 [Instance.new]
         2 LOADK                            R5 K3 ["BindableEvent"]
         3 CALL                             R4 1 1
-        4 DUPTABLE                         R5 K10 [{"ActionId", "Text", "Icon", "Enabled", "Checked", "Triggered", "BindableEvent"}]
+        4 DUPTABLE                         R5 K12 [{["ActionId"], ["Text"], ["Icon"], ["Enabled"] = True, ["Checked"] = False, ["Triggered"], ["BindableEvent"]}]
         5 SETTABLEKS                       R1 R5 K4 ["ActionId"]
         7 SETTABLEKS                       R2 R5 K5 ["Text"]
         9 SETTABLEKS                       R3 R5 K6 ["Icon"]
-       11 LOADB                            R6 1
-       12 SETTABLEKS                       R6 R5 K7 ["Enabled"]
-       14 LOADB                            R6 0
-       15 SETTABLEKS                       R6 R5 K8 ["Checked"]
-       17 GETTABLEKS                       R6 R4 K11 ["Event"]
-       19 SETTABLEKS                       R6 R5 K9 ["Triggered"]
-       21 SETTABLEKS                       R4 R5 K3 ["BindableEvent"]
-       23 GETUPVAL                         R6 0
-       24 GETTABLEKS                       R6 R6 K12 ["OnAddPluginMenuAction"]
-       26 JUMPIFNOT                        R6 ; [+5]
-       27 GETUPVAL                         R6 0
-       28 GETTABLEKS                       R6 R6 K12 ["OnAddPluginMenuAction"]
-       30 MOVE                             R7 R5
-       31 CALL                             R6 1 0
-       32 RETURN                           R5 1
+       11 GETTABLEKS                       R6 R4 K13 ["Event"]
+       13 SETTABLEKS                       R6 R5 K11 ["Triggered"]
+       15 SETTABLEKS                       R4 R5 K3 ["BindableEvent"]
+       17 GETUPVAL                         R6 0
+       18 GETTABLEKS                       R6 R6 K14 ["OnAddPluginMenuAction"]
+       20 JUMPIFNOT                        R6 ; [+5]
+       21 GETUPVAL                         R6 0
+       22 GETTABLEKS                       R6 R6 K14 ["OnAddPluginMenuAction"]
+       24 MOVE                             R7 R5
+       25 CALL                             R6 1 0
+       26 RETURN                           R5 1
 
 PROTO_2:
         0 RETURN                           R0 0
@@ -102,22 +98,20 @@ PROTO_8:
        52 GETUPVAL                         R8 7
        53 MOVE                             R9 R7
        54 CALL                             R8 1 1
-       55 DUPTABLE                         R9 K24 [{"_config", "_destroyed", "plugin", "localization", "networking", "telemetry", "store"}]
+       55 DUPTABLE                         R9 K25 [{["_config"], ["_destroyed"] = False, ["plugin"], ["localization"], ["networking"], ["telemetry"], ["store"]}]
        56 SETTABLEKS                       R1 R9 K17 ["_config"]
-       58 LOADB                            R10 0
-       59 SETTABLEKS                       R10 R9 K18 ["_destroyed"]
-       61 SETTABLEKS                       R2 R9 K19 ["plugin"]
-       63 SETTABLEKS                       R5 R9 K20 ["localization"]
-       65 SETTABLEKS                       R3 R9 K21 ["networking"]
-       67 SETTABLEKS                       R4 R9 K22 ["telemetry"]
-       69 SETTABLEKS                       R8 R9 K23 ["store"]
-       71 GETUPVAL                         R12 8
-       72 GETTABLEKS                       R12 R12 K25 ["__index"]
-       74 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
-       76 MOVE                             R11 R9
-       77 GETIMPORT                        R10 K27 [setmetatable]
-       79 CALL                             R10 2 1
-       80 RETURN                           R10 1
+       58 SETTABLEKS                       R2 R9 K20 ["plugin"]
+       60 SETTABLEKS                       R5 R9 K21 ["localization"]
+       62 SETTABLEKS                       R3 R9 K22 ["networking"]
+       64 SETTABLEKS                       R4 R9 K23 ["telemetry"]
+       66 SETTABLEKS                       R8 R9 K24 ["store"]
+       68 GETUPVAL                         R12 8
+       69 GETTABLEKS                       R12 R12 K26 ["__index"]
+       71 FASTCALL2                        SETMETATABLE R9 R12 ; [+4]
+       73 MOVE                             R11 R9
+       74 GETIMPORT                        R10 K28 [setmetatable]
+       76 CALL                             R10 2 1
+       77 RETURN                           R10 1
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -205,26 +199,22 @@ PROTO_11:
        27 GETUPVAL                         R4 0
        28 GETTABLEKS                       R4 R4 K6 ["createElement"]
        30 LOADK                            R5 K7 ["ScreenGui"]
-       31 DUPTABLE                         R6 K12 [{"Name", "DisplayOrder", "ZIndexBehavior", "ref"}]
-       32 LOADK                            R7 K13 ["MockPlugin"]
-       33 SETTABLEKS                       R7 R6 K8 ["Name"]
-       35 LOADN                            R7 1
-       36 SETTABLEKS                       R7 R6 K9 ["DisplayOrder"]
-       38 GETIMPORT                        R7 K16 [Enum.ZIndexBehavior.Sibling]
-       40 SETTABLEKS                       R7 R6 K10 ["ZIndexBehavior"]
-       42 NEWCLOSURE                       R7 P1
-       43 CAPTURE                          UPVAL U4
-       44 CAPTURE                          UPVAL U5
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          UPVAL U1
-       47 CAPTURE                          UPVAL U6
-       48 CAPTURE                          UPVAL U7
-       49 CAPTURE                          VAL R1
-       50 SETTABLEKS                       R7 R6 K11 ["ref"]
-       52 DUPTABLE                         R7 K18 [{"Elements"}]
-       53 SETTABLEKS                       R3 R7 K17 ["Elements"]
-       55 CALL                             R4 3 -1
-       56 RETURN                           R4 -1
+       31 DUPTABLE                         R6 K14 [{["Name"] = "MockPlugin", ["DisplayOrder"] = 1, ["ZIndexBehavior"], ["ref"]}]
+       32 GETIMPORT                        R7 K17 [Enum.ZIndexBehavior.Sibling]
+       34 SETTABLEKS                       R7 R6 K12 ["ZIndexBehavior"]
+       36 NEWCLOSURE                       R7 P1
+       37 CAPTURE                          UPVAL U4
+       38 CAPTURE                          UPVAL U5
+       39 CAPTURE                          VAL R2
+       40 CAPTURE                          UPVAL U1
+       41 CAPTURE                          UPVAL U6
+       42 CAPTURE                          UPVAL U7
+       43 CAPTURE                          VAL R1
+       44 SETTABLEKS                       R7 R6 K13 ["ref"]
+       46 DUPTABLE                         R7 K19 [{"Elements"}]
+       47 SETTABLEKS                       R3 R7 K18 ["Elements"]
+       49 CALL                             R4 3 -1
+       50 RETURN                           R4 -1
 
 PROTO_12:
         0 GETTABLEKS                       R4 R0 K0 ["_destroyed"]

@@ -68,47 +68,45 @@ PROTO_1:
        73 GETTABLEKS                       R7 R7 K24 ["value"]
        75 GETUPVAL                         R8 5
        76 GETUPVAL                         R9 6
-       77 DUPTABLE                         R10 K28 [{"text", "layoutOrder", "showWarning"}]
+       77 DUPTABLE                         R10 K29 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
        78 LOADK                            R13 K13 ["AnimationSettings"]
-       79 LOADK                            R14 K29 ["AnimationPacksSection"]
+       79 LOADK                            R14 K30 ["AnimationPacksSection"]
        80 NAMECALL                         R11 R1 K15 ["getText"]
        82 CALL                             R11 3 1
        83 SETTABLEKS                       R11 R10 K25 ["text"]
        85 GETTABLEKS                       R11 R0 K26 ["layoutOrder"]
        87 SETTABLEKS                       R11 R10 K26 ["layoutOrder"]
-       89 LOADB                            R11 1
-       90 SETTABLEKS                       R11 R10 K27 ["showWarning"]
-       92 DUPTABLE                         R11 K31 [{"AnimationPacksModeSelector"}]
-       93 GETUPVAL                         R12 5
-       94 GETUPVAL                         R13 7
-       95 DUPTABLE                         R14 K36 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-       96 MOVE                             R15 R3
-       97 CALL                             R15 0 1
-       98 SETTABLEKS                       R15 R14 K26 ["layoutOrder"]
-      100 SETTABLEKS                       R5 R14 K32 ["items"]
-      102 SETTABLEKS                       R7 R14 K33 ["selected"]
-      104 NEWCLOSURE                       R15 P0
-      105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R6
-      108 SETTABLEKS                       R15 R14 K34 ["onItemActivated"]
-      110 LOADK                            R17 K13 ["AnimationSettings"]
-      111 GETIMPORT                        R19 K12 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
-      113 JUMPIFNOTEQ                      R7 R19 ; [+3]
-      115 LOADK                            R18 K37 ["AnimationPacksSectionPlayerChoiceSubText"]
-      116 JUMP                             ; [+7]
-      117 GETIMPORT                        R19 K17 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
-      119 JUMPIFNOTEQ                      R7 R19 ; [+3]
-      121 LOADK                            R18 K38 ["AnimationPacksSectionStandardR15SubText"]
-      122 JUMP                             ; [+1]
-      123 LOADK                            R18 K39 ["AnimationPacksSectionStandardR6SubText"]
-      124 NAMECALL                         R15 R1 K15 ["getText"]
-      126 CALL                             R15 3 1
-      127 SETTABLEKS                       R15 R14 K35 ["subText"]
-      129 CALL                             R12 2 1
-      130 SETTABLEKS                       R12 R11 K30 ["AnimationPacksModeSelector"]
-      132 CALL                             R8 3 -1
-      133 RETURN                           R8 -1
+       89 DUPTABLE                         R11 K32 [{"AnimationPacksModeSelector"}]
+       90 GETUPVAL                         R12 5
+       91 GETUPVAL                         R13 7
+       92 DUPTABLE                         R14 K37 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+       93 MOVE                             R15 R3
+       94 CALL                             R15 0 1
+       95 SETTABLEKS                       R15 R14 K26 ["layoutOrder"]
+       97 SETTABLEKS                       R5 R14 K33 ["items"]
+       99 SETTABLEKS                       R7 R14 K34 ["selected"]
+      101 NEWCLOSURE                       R15 P0
+      102 CAPTURE                          VAL R7
+      103 CAPTURE                          VAL R2
+      104 CAPTURE                          VAL R6
+      105 SETTABLEKS                       R15 R14 K35 ["onItemActivated"]
+      107 LOADK                            R17 K13 ["AnimationSettings"]
+      108 GETIMPORT                        R19 K12 [Enum.AvatarSettingsAnimationPacksMode.PlayerChoice]
+      110 JUMPIFNOTEQ                      R7 R19 ; [+3]
+      112 LOADK                            R18 K38 ["AnimationPacksSectionPlayerChoiceSubText"]
+      113 JUMP                             ; [+7]
+      114 GETIMPORT                        R19 K17 [Enum.AvatarSettingsAnimationPacksMode.StandardR15]
+      116 JUMPIFNOTEQ                      R7 R19 ; [+3]
+      118 LOADK                            R18 K39 ["AnimationPacksSectionStandardR15SubText"]
+      119 JUMP                             ; [+1]
+      120 LOADK                            R18 K40 ["AnimationPacksSectionStandardR6SubText"]
+      121 NAMECALL                         R15 R1 K15 ["getText"]
+      123 CALL                             R15 3 1
+      124 SETTABLEKS                       R15 R14 K36 ["subText"]
+      126 CALL                             R12 2 1
+      127 SETTABLEKS                       R12 R11 K31 ["AnimationPacksModeSelector"]
+      129 CALL                             R8 3 -1
+      130 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

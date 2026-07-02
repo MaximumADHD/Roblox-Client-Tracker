@@ -3,50 +3,44 @@ PROTO_0:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K3 [{"tag"}]
-        7 LOADK                            R5 K4 ["size-full row gap-medium align-y-center flex-x-between"]
-        8 SETTABLEKS                       R5 R4 K2 ["tag"]
-       10 DUPTABLE                         R5 K8 [{"Padding", "Spacer", "CopyLinkButton"}]
-       11 GETUPVAL                         R6 0
-       12 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       14 LOADK                            R7 K9 ["UIPadding"]
-       15 DUPTABLE                         R8 K13 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-       16 GETTABLEKS                       R9 R1 K14 ["header"]
-       18 GETTABLEKS                       R9 R9 K15 ["paddingTop"]
-       20 SETTABLEKS                       R9 R8 K10 ["PaddingTop"]
-       22 GETTABLEKS                       R9 R1 K14 ["header"]
-       24 GETTABLEKS                       R9 R9 K16 ["paddingLeft"]
-       26 SETTABLEKS                       R9 R8 K11 ["PaddingLeft"]
-       28 GETTABLEKS                       R9 R1 K14 ["header"]
-       30 GETTABLEKS                       R9 R9 K17 ["paddingRight"]
-       32 SETTABLEKS                       R9 R8 K12 ["PaddingRight"]
-       34 CALL                             R6 2 1
-       35 SETTABLEKS                       R6 R5 K5 ["Padding"]
-       37 GETUPVAL                         R6 0
-       38 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       40 GETUPVAL                         R7 1
-       41 DUPTABLE                         R8 K19 [{"LayoutOrder"}]
-       42 LOADN                            R9 2
-       43 SETTABLEKS                       R9 R8 K18 ["LayoutOrder"]
-       45 CALL                             R6 2 1
-       46 SETTABLEKS                       R6 R5 K6 ["Spacer"]
-       48 GETUPVAL                         R6 2
-       49 JUMPIFNOT                        R6 ; [+16]
-       50 GETUPVAL                         R6 0
-       51 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       53 GETUPVAL                         R7 3
-       54 GETUPVAL                         R8 4
-       55 GETTABLEKS                       R8 R8 K20 ["Dictionary"]
-       57 GETTABLEKS                       R8 R8 K21 ["join"]
-       59 DUPTABLE                         R9 K19 [{"LayoutOrder"}]
-       60 LOADN                            R10 3
-       61 SETTABLEKS                       R10 R9 K18 ["LayoutOrder"]
-       63 MOVE                             R10 R0
-       64 CALL                             R8 2 -1
-       65 CALL                             R6 -1 1
-       66 SETTABLEKS                       R6 R5 K7 ["CopyLinkButton"]
-       68 CALL                             R2 3 -1
-       69 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K4 [{["tag"] = "row flex-x-between align-y-center gap-medium size-full"}]
+        7 DUPTABLE                         R5 K8 [{"Padding", "Spacer", "CopyLinkButton"}]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       11 LOADK                            R7 K9 ["UIPadding"]
+       12 DUPTABLE                         R8 K13 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+       13 GETTABLEKS                       R9 R1 K14 ["header"]
+       15 GETTABLEKS                       R9 R9 K15 ["paddingTop"]
+       17 SETTABLEKS                       R9 R8 K10 ["PaddingTop"]
+       19 GETTABLEKS                       R9 R1 K14 ["header"]
+       21 GETTABLEKS                       R9 R9 K16 ["paddingLeft"]
+       23 SETTABLEKS                       R9 R8 K11 ["PaddingLeft"]
+       25 GETTABLEKS                       R9 R1 K14 ["header"]
+       27 GETTABLEKS                       R9 R9 K17 ["paddingRight"]
+       29 SETTABLEKS                       R9 R8 K12 ["PaddingRight"]
+       31 CALL                             R6 2 1
+       32 SETTABLEKS                       R6 R5 K5 ["Padding"]
+       34 GETUPVAL                         R6 0
+       35 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       37 GETUPVAL                         R7 1
+       38 DUPTABLE                         R8 K20 [{["LayoutOrder"] = 2}]
+       39 CALL                             R6 2 1
+       40 SETTABLEKS                       R6 R5 K6 ["Spacer"]
+       42 GETUPVAL                         R6 2
+       43 JUMPIFNOT                        R6 ; [+13]
+       44 GETUPVAL                         R6 0
+       45 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       47 GETUPVAL                         R7 3
+       48 GETUPVAL                         R8 4
+       49 GETTABLEKS                       R8 R8 K21 ["Dictionary"]
+       51 GETTABLEKS                       R8 R8 K22 ["join"]
+       53 DUPTABLE                         R9 K24 [{["LayoutOrder"] = 3}]
+       54 MOVE                             R10 R0
+       55 CALL                             R8 2 -1
+       56 CALL                             R6 -1 1
+       57 SETTABLEKS                       R6 R5 K7 ["CopyLinkButton"]
+       59 CALL                             R2 3 -1
+       60 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

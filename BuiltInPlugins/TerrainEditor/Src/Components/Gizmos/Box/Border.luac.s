@@ -8,7 +8,7 @@ PROTO_0:
        12 GETUPVAL                         R7 0
        13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 LOADK                            R8 K7 ["BoxHandleAdornment"]
-       16 DUPTABLE                         R9 K11 [{"Adornee", "AlwaysOnTop", "Color3", "CFrame", "Size", "Transparency", "ZIndex"}]
+       16 DUPTABLE                         R9 K12 [{[1], ["AlwaysOnTop"], ["Color3"], ["CFrame"], ["Size"], ["Transparency"], ["ZIndex"] = 0}]
        17 SETTABLEKS                       R1 R9 K0 ["Adornee"]
        19 SETTABLEKS                       R2 R9 K1 ["AlwaysOnTop"]
        21 SETTABLEKS                       R3 R9 K8 ["Color3"]
@@ -19,10 +19,8 @@ PROTO_0:
        29 JUMP                             ; [+1]
        30 LOADNIL                          R10
        31 SETTABLEKS                       R10 R9 K5 ["Transparency"]
-       33 LOADN                            R10 0
-       34 SETTABLEKS                       R10 R9 K10 ["ZIndex"]
-       36 CALL                             R7 2 -1
-       37 RETURN                           R7 -1
+       33 CALL                             R7 2 -1
+       34 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

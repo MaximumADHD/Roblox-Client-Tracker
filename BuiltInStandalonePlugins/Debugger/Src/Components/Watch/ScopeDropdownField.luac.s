@@ -32,22 +32,19 @@ PROTO_2:
         0 NEWTABLE                         R1 0 4
         2 LOADK                            R2 K0 ["AllScopes"]
         3 SETTABLEN                        R2 R1 1
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K1 ["LocalScope"]
-        7 SETTABLEN                        R2 R1 2
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R2 R2 K2 ["UpvalueScope"]
-       11 SETTABLEN                        R2 R1 3
-       12 GETUPVAL                         R2 0
-       13 GETTABLEKS                       R2 R2 K3 ["GlobalScope"]
-       15 SETTABLEN                        R2 R1 4
-       16 SETTABLEKS                       R1 R0 K4 ["keyColumns"]
-       18 NEWCLOSURE                       R1 P0
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U2
-       22 SETTABLEKS                       R1 R0 K5 ["clickCallback"]
-       24 RETURN                           R0 0
+        4 LOADK                            R2 K1 ["Local"]
+        5 SETTABLEN                        R2 R1 2
+        6 LOADK                            R2 K2 ["Upvalue"]
+        7 SETTABLEN                        R2 R1 3
+        8 LOADK                            R2 K3 ["Global"]
+        9 SETTABLEN                        R2 R1 4
+       10 SETTABLEKS                       R1 R0 K4 ["keyColumns"]
+       12 NEWCLOSURE                       R1 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          UPVAL U0
+       15 CAPTURE                          UPVAL U1
+       16 SETTABLEKS                       R1 R0 K5 ["clickCallback"]
+       18 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -74,81 +71,69 @@ PROTO_3:
        28 GETUPVAL                         R5 0
        29 GETTABLEKS                       R5 R5 K8 ["createElement"]
        31 GETUPVAL                         R6 1
-       32 DUPTABLE                         R7 K21 [{"KeyTexts", "Tooltips", "NumDisplay", "MaxDisplay", "ClickCallback", "KeyStates", "Localization", "Style", "Widget", "DropdownWidth", "ShouldShowDropdownIcon", "Tooltip", "LayoutOrder"}]
-       33 GETTABLEKS                       R8 R0 K22 ["keyColumns"]
+       32 DUPTABLE                         R7 K23 [{["KeyTexts"], ["Tooltips"], ["NumDisplay"], ["MaxDisplay"] = 3, ["ClickCallback"], ["KeyStates"], ["Localization"], ["Style"], ["Widget"] = "Watch", ["DropdownWidth"] = 100, ["ShouldShowDropdownIcon"], ["Tooltip"], ["LayoutOrder"]}]
+       33 GETTABLEKS                       R8 R0 K24 ["keyColumns"]
        35 SETTABLEKS                       R8 R7 K9 ["KeyTexts"]
        37 SETTABLEKS                       R4 R7 K10 ["Tooltips"]
-       39 GETTABLEKS                       R8 R1 K23 ["NumEnabledChoices"]
+       39 GETTABLEKS                       R8 R1 K25 ["NumEnabledChoices"]
        41 SETTABLEKS                       R8 R7 K11 ["NumDisplay"]
-       43 LOADN                            R8 3
-       44 SETTABLEKS                       R8 R7 K12 ["MaxDisplay"]
-       46 GETTABLEKS                       R8 R0 K24 ["clickCallback"]
-       48 SETTABLEKS                       R8 R7 K13 ["ClickCallback"]
-       50 GETTABLEKS                       R8 R1 K14 ["KeyStates"]
-       52 SETTABLEKS                       R8 R7 K14 ["KeyStates"]
-       54 SETTABLEKS                       R3 R7 K2 ["Localization"]
-       56 SETTABLEKS                       R2 R7 K15 ["Style"]
-       58 LOADK                            R8 K3 ["Watch"]
-       59 SETTABLEKS                       R8 R7 K16 ["Widget"]
-       61 LOADN                            R8 100
-       62 SETTABLEKS                       R8 R7 K17 ["DropdownWidth"]
-       64 GETTABLEKS                       R8 R1 K18 ["ShouldShowDropdownIcon"]
-       66 SETTABLEKS                       R8 R7 K18 ["ShouldShowDropdownIcon"]
-       68 LOADK                            R10 K3 ["Watch"]
-       69 LOADK                            R11 K25 ["FilterScopes"]
-       70 NAMECALL                         R8 R3 K5 ["getText"]
-       72 CALL                             R8 3 1
-       73 SETTABLEKS                       R8 R7 K19 ["Tooltip"]
-       75 GETTABLEKS                       R8 R1 K20 ["LayoutOrder"]
-       77 SETTABLEKS                       R8 R7 K20 ["LayoutOrder"]
-       79 CALL                             R5 2 -1
-       80 RETURN                           R5 -1
+       43 GETTABLEKS                       R8 R0 K26 ["clickCallback"]
+       45 SETTABLEKS                       R8 R7 K14 ["ClickCallback"]
+       47 GETTABLEKS                       R8 R1 K15 ["KeyStates"]
+       49 SETTABLEKS                       R8 R7 K15 ["KeyStates"]
+       51 SETTABLEKS                       R3 R7 K2 ["Localization"]
+       53 SETTABLEKS                       R2 R7 K16 ["Style"]
+       55 GETTABLEKS                       R8 R1 K20 ["ShouldShowDropdownIcon"]
+       57 SETTABLEKS                       R8 R7 K20 ["ShouldShowDropdownIcon"]
+       59 LOADK                            R10 K3 ["Watch"]
+       60 LOADK                            R11 K27 ["FilterScopes"]
+       61 NAMECALL                         R8 R3 K5 ["getText"]
+       63 CALL                             R8 3 1
+       64 SETTABLEKS                       R8 R7 K21 ["Tooltip"]
+       66 GETTABLEKS                       R8 R1 K22 ["LayoutOrder"]
+       68 SETTABLEKS                       R8 R7 K22 ["LayoutOrder"]
+       70 CALL                             R5 2 -1
+       71 RETURN                           R5 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["Watch"]
         2 GETTABLEKS                       R2 R2 K1 ["listOfEnabledScopes"]
         4 NEWTABLE                         R3 0 0
-        6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R5 R5 K2 ["LocalScope"]
-        9 GETIMPORT                        R6 K4 [pairs]
-       11 MOVE                             R7 R2
-       12 CALL                             R6 1 3
-       13 FORGPREP_NEXT                    R6
-       14 JUMPIFNOTEQ                      R10 R5 ; [+3]
-       16 LOADB                            R4 1
-       17 JUMP                             ; [+3]
-       18 FORGLOOP                         R6 2 ; [-5]
-       20 LOADB                            R4 0
-       21 SETTABLEN                        R4 R3 2
-       22 GETUPVAL                         R5 0
-       23 GETTABLEKS                       R5 R5 K5 ["UpvalueScope"]
-       25 GETIMPORT                        R6 K4 [pairs]
-       27 MOVE                             R7 R2
-       28 CALL                             R6 1 3
-       29 FORGPREP_NEXT                    R6
-       30 JUMPIFNOTEQ                      R10 R5 ; [+3]
-       32 LOADB                            R4 1
-       33 JUMP                             ; [+3]
-       34 FORGLOOP                         R6 2 ; [-5]
-       36 LOADB                            R4 0
-       37 SETTABLEN                        R4 R3 3
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R5 R5 K6 ["GlobalScope"]
-       41 GETIMPORT                        R6 K4 [pairs]
-       43 MOVE                             R7 R2
-       44 CALL                             R6 1 3
-       45 FORGPREP_NEXT                    R6
-       46 JUMPIFNOTEQ                      R10 R5 ; [+3]
-       48 LOADB                            R4 1
-       49 JUMP                             ; [+3]
-       50 FORGLOOP                         R6 2 ; [-5]
-       52 LOADB                            R4 0
-       53 SETTABLEN                        R4 R3 4
-       54 DUPTABLE                         R4 K9 [{"NumEnabledChoices", "KeyStates"}]
-       55 LENGTH                           R5 R2
-       56 SETTABLEKS                       R5 R4 K7 ["NumEnabledChoices"]
-       58 SETTABLEKS                       R3 R4 K8 ["KeyStates"]
-       60 RETURN                           R4 1
+        6 GETIMPORT                        R5 K3 [pairs]
+        8 MOVE                             R6 R2
+        9 CALL                             R5 1 3
+       10 FORGPREP_NEXT                    R5
+       11 JUMPIFNOTEQKS                    R9 K4 ["Local"] ; [+3]
+       13 LOADB                            R4 1
+       14 JUMP                             ; [+3]
+       15 FORGLOOP                         R5 2 ; [-5]
+       17 LOADB                            R4 0
+       18 SETTABLEN                        R4 R3 2
+       19 GETIMPORT                        R5 K3 [pairs]
+       21 MOVE                             R6 R2
+       22 CALL                             R5 1 3
+       23 FORGPREP_NEXT                    R5
+       24 JUMPIFNOTEQKS                    R9 K5 ["Upvalue"] ; [+3]
+       26 LOADB                            R4 1
+       27 JUMP                             ; [+3]
+       28 FORGLOOP                         R5 2 ; [-5]
+       30 LOADB                            R4 0
+       31 SETTABLEN                        R4 R3 3
+       32 GETIMPORT                        R5 K3 [pairs]
+       34 MOVE                             R6 R2
+       35 CALL                             R5 1 3
+       36 FORGPREP_NEXT                    R5
+       37 JUMPIFNOTEQKS                    R9 K6 ["Global"] ; [+3]
+       39 LOADB                            R4 1
+       40 JUMP                             ; [+3]
+       41 FORGLOOP                         R5 2 ; [-5]
+       43 LOADB                            R4 0
+       44 SETTABLEN                        R4 R3 4
+       45 DUPTABLE                         R4 K9 [{"NumEnabledChoices", "KeyStates"}]
+       46 LENGTH                           R5 R2
+       47 SETTABLEKS                       R5 R4 K7 ["NumEnabledChoices"]
+       49 SETTABLEKS                       R3 R4 K8 ["KeyStates"]
+       51 RETURN                           R4 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -217,39 +202,31 @@ MAIN:
        86 LOADK                            R16 K27 ["ScopeDropdownField"]
        87 NAMECALL                         R14 R14 K28 ["extend"]
        89 CALL                             R14 2 1
-       90 DUPTABLE                         R15 K32 [{"LocalScope", "UpvalueScope", "GlobalScope"}]
-       91 LOADK                            R16 K33 ["Local"]
-       92 SETTABLEKS                       R16 R15 K29 ["LocalScope"]
-       94 LOADK                            R16 K34 ["Upvalue"]
-       95 SETTABLEKS                       R16 R15 K30 ["UpvalueScope"]
-       97 LOADK                            R16 K35 ["Global"]
-       98 SETTABLEKS                       R16 R15 K31 ["GlobalScope"]
-      100 DUPCLOSURE                       R16 K36 [PROTO_0]
-      101 DUPCLOSURE                       R17 K37 [PROTO_2]
-      102 CAPTURE                          VAL R15
-      103 CAPTURE                          VAL R8
-      104 CAPTURE                          VAL R13
-      105 SETTABLEKS                       R17 R14 K38 ["init"]
-      107 DUPCLOSURE                       R17 K39 [PROTO_3]
-      108 CAPTURE                          VAL R1
-      109 CAPTURE                          VAL R10
-      110 SETTABLEKS                       R17 R14 K40 ["render"]
-      112 MOVE                             R17 R5
-      113 DUPTABLE                         R18 K41 [{"Analytics", "Localization", "Stylizer"}]
-      114 SETTABLEKS                       R7 R18 K12 ["Analytics"]
-      116 SETTABLEKS                       R6 R18 K11 ["Localization"]
-      118 SETTABLEKS                       R9 R18 K17 ["Stylizer"]
-      120 CALL                             R17 1 1
-      121 MOVE                             R18 R14
-      122 CALL                             R17 1 1
-      123 MOVE                             R14 R17
-      124 GETTABLEKS                       R17 R2 K42 ["connect"]
-      126 DUPCLOSURE                       R18 K43 [PROTO_4]
-      127 CAPTURE                          VAL R15
-      128 DUPCLOSURE                       R19 K44 [PROTO_6]
-      129 CAPTURE                          VAL R12
-      130 CALL                             R17 2 1
-      131 MOVE                             R18 R14
-      132 CALL                             R17 1 1
-      133 MOVE                             R14 R17
-      134 RETURN                           R14 1
+       90 DUPTABLE                         R15 K35 [{["LocalScope"] = "Local", ["UpvalueScope"] = "Upvalue", ["GlobalScope"] = "Global"}]
+       91 DUPCLOSURE                       R16 K36 [PROTO_0]
+       92 DUPCLOSURE                       R17 K37 [PROTO_2]
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R13
+       95 SETTABLEKS                       R17 R14 K38 ["init"]
+       97 DUPCLOSURE                       R17 K39 [PROTO_3]
+       98 CAPTURE                          VAL R1
+       99 CAPTURE                          VAL R10
+      100 SETTABLEKS                       R17 R14 K40 ["render"]
+      102 MOVE                             R17 R5
+      103 DUPTABLE                         R18 K41 [{"Analytics", "Localization", "Stylizer"}]
+      104 SETTABLEKS                       R7 R18 K12 ["Analytics"]
+      106 SETTABLEKS                       R6 R18 K11 ["Localization"]
+      108 SETTABLEKS                       R9 R18 K17 ["Stylizer"]
+      110 CALL                             R17 1 1
+      111 MOVE                             R18 R14
+      112 CALL                             R17 1 1
+      113 MOVE                             R14 R17
+      114 GETTABLEKS                       R17 R2 K42 ["connect"]
+      116 DUPCLOSURE                       R18 K43 [PROTO_4]
+      117 DUPCLOSURE                       R19 K44 [PROTO_6]
+      118 CAPTURE                          VAL R12
+      119 CALL                             R17 2 1
+      120 MOVE                             R18 R14
+      121 CALL                             R17 1 1
+      122 MOVE                             R14 R17
+      123 RETURN                           R14 1

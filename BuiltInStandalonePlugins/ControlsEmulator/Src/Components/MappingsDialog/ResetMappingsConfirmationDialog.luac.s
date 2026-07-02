@@ -47,123 +47,113 @@ PROTO_1:
        48 GETUPVAL                         R8 1
        49 GETTABLEKS                       R8 R8 K3 ["createElement"]
        51 LOADK                            R9 K20 ["Frame"]
-       52 DUPTABLE                         R10 K22 [{"Name", "LayoutOrder"}]
-       53 LOADK                            R11 K18 ["DialogContents"]
-       54 SETTABLEKS                       R11 R10 K21 ["Name"]
-       56 GETUPVAL                         R11 4
-       57 NAMECALL                         R11 R11 K11 ["getNextOrder"]
-       59 CALL                             R11 1 1
-       60 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
-       62 DUPTABLE                         R11 K25 [{"IconAndTextContainer", "Buttons"}]
-       63 GETUPVAL                         R12 1
-       64 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       66 LOADK                            R13 K20 ["Frame"]
-       67 DUPTABLE                         R14 K22 [{"Name", "LayoutOrder"}]
-       68 LOADK                            R15 K23 ["IconAndTextContainer"]
-       69 SETTABLEKS                       R15 R14 K21 ["Name"]
-       71 GETUPVAL                         R15 4
-       72 NAMECALL                         R15 R15 K11 ["getNextOrder"]
-       74 CALL                             R15 1 1
-       75 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
-       77 DUPTABLE                         R15 K28 [{"WarningIcon", "ConfirmationText"}]
-       78 GETUPVAL                         R16 1
-       79 GETTABLEKS                       R16 R16 K3 ["createElement"]
-       81 LOADK                            R17 K29 ["ImageLabel"]
-       82 DUPTABLE                         R18 K22 [{"Name", "LayoutOrder"}]
-       83 LOADK                            R19 K26 ["WarningIcon"]
-       84 SETTABLEKS                       R19 R18 K21 ["Name"]
-       86 GETUPVAL                         R19 4
-       87 NAMECALL                         R19 R19 K11 ["getNextOrder"]
-       89 CALL                             R19 1 1
-       90 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
-       92 CALL                             R16 2 1
-       93 SETTABLEKS                       R16 R15 K26 ["WarningIcon"]
-       95 GETUPVAL                         R16 1
-       96 GETTABLEKS                       R16 R16 K3 ["createElement"]
-       98 LOADK                            R17 K30 ["TextLabel"]
-       99 DUPTABLE                         R18 K31 [{"Name", "Text", "LayoutOrder"}]
-      100 LOADK                            R19 K27 ["ConfirmationText"]
-      101 SETTABLEKS                       R19 R18 K21 ["Name"]
-      103 LOADK                            R21 K32 ["ResetMappingsConfirmationDialog"]
-      104 LOADK                            R22 K33 ["RestoreDefaultsConfirmation"]
-      105 NAMECALL                         R19 R1 K34 ["getText"]
-      107 CALL                             R19 3 1
-      108 SETTABLEKS                       R19 R18 K14 ["Text"]
-      110 GETUPVAL                         R19 4
-      111 NAMECALL                         R19 R19 K11 ["getNextOrder"]
-      113 CALL                             R19 1 1
-      114 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
-      116 CALL                             R16 2 1
-      117 SETTABLEKS                       R16 R15 K27 ["ConfirmationText"]
-      119 CALL                             R12 3 1
-      120 SETTABLEKS                       R12 R11 K23 ["IconAndTextContainer"]
-      122 GETUPVAL                         R12 1
-      123 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      125 LOADK                            R13 K20 ["Frame"]
-      126 DUPTABLE                         R14 K22 [{"Name", "LayoutOrder"}]
-      127 LOADK                            R15 K35 ["ButtonsContainer"]
-      128 SETTABLEKS                       R15 R14 K21 ["Name"]
-      130 GETUPVAL                         R15 4
-      131 NAMECALL                         R15 R15 K11 ["getNextOrder"]
-      133 CALL                             R15 1 1
-      134 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
-      136 DUPTABLE                         R15 K38 [{"NoButton", "YesButton"}]
-      137 GETUPVAL                         R16 1
-      138 GETTABLEKS                       R16 R16 K3 ["createElement"]
-      140 LOADK                            R17 K4 ["TextButton"]
-      141 NEWTABLE                         R18 4 0
-      143 GETUPVAL                         R19 1
-      144 GETTABLEKS                       R19 R19 K5 ["Tag"]
-      146 LOADK                            R20 K39 ["Button HeaderButton Secondary"]
-      147 SETTABLE                         R20 R18 R19
-      148 LOADK                            R21 K32 ["ResetMappingsConfirmationDialog"]
-      149 LOADK                            R22 K40 ["No"]
-      150 NAMECALL                         R19 R1 K34 ["getText"]
-      152 CALL                             R19 3 1
-      153 SETTABLEKS                       R19 R18 K14 ["Text"]
-      155 GETUPVAL                         R19 4
-      156 NAMECALL                         R19 R19 K11 ["getNextOrder"]
-      158 CALL                             R19 1 1
-      159 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
-      161 GETUPVAL                         R19 1
-      162 GETTABLEKS                       R19 R19 K15 ["Event"]
-      164 GETTABLEKS                       R19 R19 K16 ["Activated"]
-      166 GETTABLEKS                       R20 R0 K17 ["hideConfirmationDialog"]
-      168 SETTABLE                         R20 R18 R19
-      169 CALL                             R16 2 1
-      170 SETTABLEKS                       R16 R15 K36 ["NoButton"]
-      172 GETUPVAL                         R16 1
-      173 GETTABLEKS                       R16 R16 K3 ["createElement"]
-      175 LOADK                            R17 K4 ["TextButton"]
-      176 NEWTABLE                         R18 4 0
-      178 GETUPVAL                         R19 1
-      179 GETTABLEKS                       R19 R19 K5 ["Tag"]
-      181 LOADK                            R20 K41 ["Button HeaderButton Primary"]
-      182 SETTABLE                         R20 R18 R19
-      183 LOADK                            R21 K32 ["ResetMappingsConfirmationDialog"]
-      184 LOADK                            R22 K42 ["Yes"]
-      185 NAMECALL                         R19 R1 K34 ["getText"]
-      187 CALL                             R19 3 1
-      188 SETTABLEKS                       R19 R18 K14 ["Text"]
-      190 GETUPVAL                         R19 4
-      191 NAMECALL                         R19 R19 K11 ["getNextOrder"]
-      193 CALL                             R19 1 1
-      194 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
-      196 GETUPVAL                         R19 1
-      197 GETTABLEKS                       R19 R19 K15 ["Event"]
-      199 GETTABLEKS                       R19 R19 K16 ["Activated"]
-      201 NEWCLOSURE                       R20 P0
-      202 CAPTURE                          VAL R0
-      203 CAPTURE                          VAL R3
-      204 SETTABLE                         R20 R18 R19
-      205 CALL                             R16 2 1
-      206 SETTABLEKS                       R16 R15 K37 ["YesButton"]
-      208 CALL                             R12 3 1
-      209 SETTABLEKS                       R12 R11 K24 ["Buttons"]
-      211 CALL                             R8 3 1
-      212 SETTABLEKS                       R8 R7 K18 ["DialogContents"]
-      214 CALL                             R4 3 -1
-      215 RETURN                           R4 -1
+       52 DUPTABLE                         R10 K22 [{["Name"] = "DialogContents", ["LayoutOrder"]}]
+       53 GETUPVAL                         R11 4
+       54 NAMECALL                         R11 R11 K11 ["getNextOrder"]
+       56 CALL                             R11 1 1
+       57 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
+       59 DUPTABLE                         R11 K25 [{"IconAndTextContainer", "Buttons"}]
+       60 GETUPVAL                         R12 1
+       61 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       63 LOADK                            R13 K20 ["Frame"]
+       64 DUPTABLE                         R14 K26 [{["Name"] = "IconAndTextContainer", ["LayoutOrder"]}]
+       65 GETUPVAL                         R15 4
+       66 NAMECALL                         R15 R15 K11 ["getNextOrder"]
+       68 CALL                             R15 1 1
+       69 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
+       71 DUPTABLE                         R15 K29 [{"WarningIcon", "ConfirmationText"}]
+       72 GETUPVAL                         R16 1
+       73 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       75 LOADK                            R17 K30 ["ImageLabel"]
+       76 DUPTABLE                         R18 K31 [{["Name"] = "WarningIcon", ["LayoutOrder"]}]
+       77 GETUPVAL                         R19 4
+       78 NAMECALL                         R19 R19 K11 ["getNextOrder"]
+       80 CALL                             R19 1 1
+       81 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
+       83 CALL                             R16 2 1
+       84 SETTABLEKS                       R16 R15 K27 ["WarningIcon"]
+       86 GETUPVAL                         R16 1
+       87 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       89 LOADK                            R17 K32 ["TextLabel"]
+       90 DUPTABLE                         R18 K33 [{["Name"] = "ConfirmationText", ["Text"], ["LayoutOrder"]}]
+       91 LOADK                            R21 K34 ["ResetMappingsConfirmationDialog"]
+       92 LOADK                            R22 K35 ["RestoreDefaultsConfirmation"]
+       93 NAMECALL                         R19 R1 K36 ["getText"]
+       95 CALL                             R19 3 1
+       96 SETTABLEKS                       R19 R18 K14 ["Text"]
+       98 GETUPVAL                         R19 4
+       99 NAMECALL                         R19 R19 K11 ["getNextOrder"]
+      101 CALL                             R19 1 1
+      102 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
+      104 CALL                             R16 2 1
+      105 SETTABLEKS                       R16 R15 K28 ["ConfirmationText"]
+      107 CALL                             R12 3 1
+      108 SETTABLEKS                       R12 R11 K23 ["IconAndTextContainer"]
+      110 GETUPVAL                         R12 1
+      111 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      113 LOADK                            R13 K20 ["Frame"]
+      114 DUPTABLE                         R14 K38 [{["Name"] = "ButtonsContainer", ["LayoutOrder"]}]
+      115 GETUPVAL                         R15 4
+      116 NAMECALL                         R15 R15 K11 ["getNextOrder"]
+      118 CALL                             R15 1 1
+      119 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
+      121 DUPTABLE                         R15 K41 [{"NoButton", "YesButton"}]
+      122 GETUPVAL                         R16 1
+      123 GETTABLEKS                       R16 R16 K3 ["createElement"]
+      125 LOADK                            R17 K4 ["TextButton"]
+      126 NEWTABLE                         R18 4 0
+      128 GETUPVAL                         R19 1
+      129 GETTABLEKS                       R19 R19 K5 ["Tag"]
+      131 LOADK                            R20 K42 ["Button HeaderButton Secondary"]
+      132 SETTABLE                         R20 R18 R19
+      133 LOADK                            R21 K34 ["ResetMappingsConfirmationDialog"]
+      134 LOADK                            R22 K43 ["No"]
+      135 NAMECALL                         R19 R1 K36 ["getText"]
+      137 CALL                             R19 3 1
+      138 SETTABLEKS                       R19 R18 K14 ["Text"]
+      140 GETUPVAL                         R19 4
+      141 NAMECALL                         R19 R19 K11 ["getNextOrder"]
+      143 CALL                             R19 1 1
+      144 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
+      146 GETUPVAL                         R19 1
+      147 GETTABLEKS                       R19 R19 K15 ["Event"]
+      149 GETTABLEKS                       R19 R19 K16 ["Activated"]
+      151 GETTABLEKS                       R20 R0 K17 ["hideConfirmationDialog"]
+      153 SETTABLE                         R20 R18 R19
+      154 CALL                             R16 2 1
+      155 SETTABLEKS                       R16 R15 K39 ["NoButton"]
+      157 GETUPVAL                         R16 1
+      158 GETTABLEKS                       R16 R16 K3 ["createElement"]
+      160 LOADK                            R17 K4 ["TextButton"]
+      161 NEWTABLE                         R18 4 0
+      163 GETUPVAL                         R19 1
+      164 GETTABLEKS                       R19 R19 K5 ["Tag"]
+      166 LOADK                            R20 K44 ["Button HeaderButton Primary"]
+      167 SETTABLE                         R20 R18 R19
+      168 LOADK                            R21 K34 ["ResetMappingsConfirmationDialog"]
+      169 LOADK                            R22 K45 ["Yes"]
+      170 NAMECALL                         R19 R1 K36 ["getText"]
+      172 CALL                             R19 3 1
+      173 SETTABLEKS                       R19 R18 K14 ["Text"]
+      175 GETUPVAL                         R19 4
+      176 NAMECALL                         R19 R19 K11 ["getNextOrder"]
+      178 CALL                             R19 1 1
+      179 SETTABLEKS                       R19 R18 K12 ["LayoutOrder"]
+      181 GETUPVAL                         R19 1
+      182 GETTABLEKS                       R19 R19 K15 ["Event"]
+      184 GETTABLEKS                       R19 R19 K16 ["Activated"]
+      186 NEWCLOSURE                       R20 P0
+      187 CAPTURE                          VAL R0
+      188 CAPTURE                          VAL R3
+      189 SETTABLE                         R20 R18 R19
+      190 CALL                             R16 2 1
+      191 SETTABLEKS                       R16 R15 K40 ["YesButton"]
+      193 CALL                             R12 3 1
+      194 SETTABLEKS                       R12 R11 K24 ["Buttons"]
+      196 CALL                             R8 3 1
+      197 SETTABLEKS                       R8 R7 K18 ["DialogContents"]
+      199 CALL                             R4 3 -1
+      200 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

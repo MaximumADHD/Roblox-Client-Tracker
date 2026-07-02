@@ -14,81 +14,67 @@ PROTO_1:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["state"]
        10 GETTABLEKS                       R4 R4 K2 ["widget"]
-       12 JUMPIFNOT                        R4 ; [+86]
+       12 JUMPIFNOT                        R4 ; [+65]
        13 JUMPIF                           R3 ; [+1]
-       14 JUMPIFNOT                        R1 ; [+84]
+       14 JUMPIFNOT                        R1 ; [+63]
        15 GETUPVAL                         R4 1
        16 GETTABLEKS                       R4 R4 K3 ["Plugin"]
        18 NAMECALL                         R4 R4 K4 ["GetUri"]
        20 CALL                             R4 1 1
-       21 DUPTABLE                         R5 K10 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+       21 DUPTABLE                         R5 K12 [{["DataModel"], ["PluginType"], ["PluginId"], ["Category"] = "Panels", ["ItemId"] = "Notifications"}]
        22 GETTABLEKS                       R6 R4 K5 ["DataModel"]
        24 SETTABLEKS                       R6 R5 K5 ["DataModel"]
        26 GETTABLEKS                       R6 R4 K6 ["PluginType"]
        28 SETTABLEKS                       R6 R5 K6 ["PluginType"]
        30 GETTABLEKS                       R6 R4 K7 ["PluginId"]
        32 SETTABLEKS                       R6 R5 K7 ["PluginId"]
-       34 LOADK                            R6 K11 ["Panels"]
-       35 SETTABLEKS                       R6 R5 K8 ["Category"]
-       37 LOADK                            R6 K12 ["Notifications"]
-       38 SETTABLEKS                       R6 R5 K9 ["ItemId"]
-       40 GETUPVAL                         R6 1
-       41 GETTABLEKS                       R6 R6 K3 ["Plugin"]
-       43 LOADK                            R8 K11 ["Panels"]
-       44 NAMECALL                         R6 R6 K13 ["GetPluginComponent"]
-       46 CALL                             R6 2 1
-       47 DUPTABLE                         R7 K10 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       48 LOADK                            R8 K14 ["Standalone"]
-       49 SETTABLEKS                       R8 R7 K5 ["DataModel"]
-       51 LOADK                            R8 K14 ["Standalone"]
-       52 SETTABLEKS                       R8 R7 K6 ["PluginType"]
-       54 LOADK                            R8 K15 ["Ribbon"]
-       55 SETTABLEKS                       R8 R7 K7 ["PluginId"]
-       57 LOADK                            R8 K16 ["Widgets"]
-       58 SETTABLEKS                       R8 R7 K8 ["Category"]
-       60 LOADK                            R8 K17 ["RightMezzanine/Notifications"]
-       61 SETTABLEKS                       R8 R7 K9 ["ItemId"]
-       63 MOVE                             R10 R5
-       64 DUPTABLE                         R11 K22 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-       65 SETTABLEKS                       R7 R11 K18 ["TargetWidgetUri"]
-       67 GETIMPORT                        R12 K25 [Vector2.new]
-       69 LOADN                            R13 1
-       70 LOADN                            R14 1
-       71 CALL                             R12 2 1
-       72 SETTABLEKS                       R12 R11 K19 ["TargetAnchorPoint"]
-       74 GETIMPORT                        R12 K25 [Vector2.new]
-       76 LOADN                            R13 1
-       77 LOADN                            R14 0
-       78 CALL                             R12 2 1
-       79 SETTABLEKS                       R12 R11 K20 ["SubjectAnchorPoint"]
-       81 GETIMPORT                        R12 K25 [Vector2.new]
-       83 LOADN                            R13 0
-       84 LOADN                            R14 0
-       85 CALL                             R12 2 1
-       86 SETTABLEKS                       R12 R11 K21 ["Offset"]
-       88 NAMECALL                         R8 R6 K26 ["SetAttachmentAsync"]
-       90 CALL                             R8 3 0
-       91 GETUPVAL                         R8 0
-       92 GETTABLEKS                       R8 R8 K0 ["state"]
-       94 GETTABLEKS                       R8 R8 K2 ["widget"]
-       96 LOADB                            R9 1
-       97 SETTABLEKS                       R9 R8 K27 ["Enabled"]
-       99 GETUPVAL                         R4 0
-      100 GETTABLEKS                       R4 R4 K0 ["state"]
-      102 GETTABLEKS                       R4 R4 K2 ["widget"]
-      104 JUMPIFNOT                        R4 ; [+8]
-      105 JUMPIFNOT                        R3 ; [+7]
-      106 JUMPIFNOT                        R2 ; [+6]
-      107 GETUPVAL                         R4 2
-      108 GETTABLEKS                       R4 R4 K28 ["eventHandlers"]
-      110 GETTABLEKS                       R4 R4 K29 ["trayOpened"]
-      112 CALL                             R4 0 0
-      113 GETUPVAL                         R4 0
-      114 DUPTABLE                         R6 K30 [{"enabled"}]
-      115 SETTABLEKS                       R0 R6 K1 ["enabled"]
-      117 NAMECALL                         R4 R4 K31 ["setState"]
-      119 CALL                             R4 2 0
-      120 RETURN                           R0 0
+       34 GETUPVAL                         R6 1
+       35 GETTABLEKS                       R6 R6 K3 ["Plugin"]
+       37 LOADK                            R8 K9 ["Panels"]
+       38 NAMECALL                         R6 R6 K13 ["GetPluginComponent"]
+       40 CALL                             R6 2 1
+       41 DUPTABLE                         R7 K18 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "RightMezzanine/Notifications"}]
+       42 MOVE                             R10 R5
+       43 DUPTABLE                         R11 K23 [{"TargetWidgetUri", "TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+       44 SETTABLEKS                       R7 R11 K19 ["TargetWidgetUri"]
+       46 GETIMPORT                        R12 K26 [Vector2.new]
+       48 LOADN                            R13 1
+       49 LOADN                            R14 1
+       50 CALL                             R12 2 1
+       51 SETTABLEKS                       R12 R11 K20 ["TargetAnchorPoint"]
+       53 GETIMPORT                        R12 K26 [Vector2.new]
+       55 LOADN                            R13 1
+       56 LOADN                            R14 0
+       57 CALL                             R12 2 1
+       58 SETTABLEKS                       R12 R11 K21 ["SubjectAnchorPoint"]
+       60 GETIMPORT                        R12 K26 [Vector2.new]
+       62 LOADN                            R13 0
+       63 LOADN                            R14 0
+       64 CALL                             R12 2 1
+       65 SETTABLEKS                       R12 R11 K22 ["Offset"]
+       67 NAMECALL                         R8 R6 K27 ["SetAttachmentAsync"]
+       69 CALL                             R8 3 0
+       70 GETUPVAL                         R8 0
+       71 GETTABLEKS                       R8 R8 K0 ["state"]
+       73 GETTABLEKS                       R8 R8 K2 ["widget"]
+       75 LOADB                            R9 1
+       76 SETTABLEKS                       R9 R8 K28 ["Enabled"]
+       78 GETUPVAL                         R4 0
+       79 GETTABLEKS                       R4 R4 K0 ["state"]
+       81 GETTABLEKS                       R4 R4 K2 ["widget"]
+       83 JUMPIFNOT                        R4 ; [+8]
+       84 JUMPIFNOT                        R3 ; [+7]
+       85 JUMPIFNOT                        R2 ; [+6]
+       86 GETUPVAL                         R4 2
+       87 GETTABLEKS                       R4 R4 K29 ["eventHandlers"]
+       89 GETTABLEKS                       R4 R4 K30 ["trayOpened"]
+       91 CALL                             R4 0 0
+       92 GETUPVAL                         R4 0
+       93 DUPTABLE                         R6 K31 [{"enabled"}]
+       94 SETTABLEKS                       R0 R6 K1 ["enabled"]
+       96 NAMECALL                         R4 R4 K32 ["setState"]
+       98 CALL                             R4 2 0
+       99 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -155,66 +141,60 @@ PROTO_6:
        23 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R2 K2 [{"enabled", "widget"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 LOADNIL                          R3
-        5 SETTABLEKS                       R3 R2 K1 ["widget"]
-        7 SETTABLEKS                       R2 R0 K3 ["state"]
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R2 R2 K4 ["DatamodelSessionUnloadedAttachmentInfo"]
-       12 SETTABLEKS                       R2 R0 K5 ["attachmentInfo"]
-       14 NEWCLOSURE                       R2 P0
+        0 DUPTABLE                         R2 K4 [{[1] = False, ["widget"] = }]
+        1 SETTABLEKS                       R2 R0 K5 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K6 ["DatamodelSessionUnloadedAttachmentInfo"]
+        6 SETTABLEKS                       R2 R0 K7 ["attachmentInfo"]
+        8 NEWCLOSURE                       R2 P0
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          VAL R1
+       11 CAPTURE                          UPVAL U1
+       12 SETTABLEKS                       R2 R0 K8 ["toggleEnabled"]
+       14 NEWCLOSURE                       R2 P1
        15 CAPTURE                          VAL R0
-       16 CAPTURE                          VAL R1
-       17 CAPTURE                          UPVAL U1
-       18 SETTABLEKS                       R2 R0 K6 ["toggleEnabled"]
-       20 NEWCLOSURE                       R2 P1
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R2 R0 K7 ["onRestore"]
-       24 NEWCLOSURE                       R2 P2
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R2 R0 K8 ["onWidgetEnabledChanged"]
-       28 GETUPVAL                         R2 2
-       29 GETTABLEKS                       R2 R2 K9 ["Localization"]
-       31 GETTABLEKS                       R2 R2 K10 ["new"]
-       33 DUPTABLE                         R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       34 GETUPVAL                         R4 3
-       35 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
-       37 GETUPVAL                         R4 4
-       38 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       40 LOADK                            R4 K15 ["Notifications"]
-       41 SETTABLEKS                       R4 R3 K13 ["pluginName"]
-       43 CALL                             R2 1 1
-       44 SETTABLEKS                       R2 R0 K16 ["localization"]
-       46 GETUPVAL                         R2 5
-       47 GETTABLEKS                       R3 R1 K17 ["Plugin"]
-       49 CALL                             R2 1 1
-       50 SETTABLEKS                       R2 R0 K18 ["design"]
-       52 GETUPVAL                         R2 6
-       53 GETTABLEKS                       R2 R2 K19 ["ToggleNotificationTray"]
-       55 NEWCLOSURE                       R4 P3
-       56 CAPTURE                          VAL R0
-       57 NAMECALL                         R2 R2 K20 ["Connect"]
-       59 CALL                             R2 2 1
-       60 SETTABLEKS                       R2 R0 K21 ["toggleNotificationTrayConnection"]
-       62 GETTABLEKS                       R2 R1 K17 ["Plugin"]
-       64 GETTABLEKS                       R2 R2 K22 ["MultipleDocumentInterfaceInstance"]
-       66 GETTABLEKS                       R3 R2 K23 ["DataModelSessionStarted"]
-       68 NEWCLOSURE                       R5 P4
-       69 CAPTURE                          VAL R0
-       70 CAPTURE                          UPVAL U0
-       71 NAMECALL                         R3 R3 K20 ["Connect"]
-       73 CALL                             R3 2 1
-       74 SETTABLEKS                       R3 R0 K24 ["dmOpenSession"]
-       76 GETTABLEKS                       R3 R2 K25 ["DataModelSessionEnded"]
-       78 NEWCLOSURE                       R5 P5
-       79 CAPTURE                          VAL R0
-       80 CAPTURE                          UPVAL U0
-       81 NAMECALL                         R3 R3 K20 ["Connect"]
-       83 CALL                             R3 2 1
-       84 SETTABLEKS                       R3 R0 K26 ["dmCloseSession"]
-       86 RETURN                           R0 0
+       16 SETTABLEKS                       R2 R0 K9 ["onRestore"]
+       18 NEWCLOSURE                       R2 P2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R0 K10 ["onWidgetEnabledChanged"]
+       22 GETUPVAL                         R2 2
+       23 GETTABLEKS                       R2 R2 K11 ["Localization"]
+       25 GETTABLEKS                       R2 R2 K12 ["new"]
+       27 DUPTABLE                         R3 K17 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Notifications"}]
+       28 GETUPVAL                         R4 3
+       29 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
+       31 GETUPVAL                         R4 4
+       32 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
+       34 CALL                             R2 1 1
+       35 SETTABLEKS                       R2 R0 K18 ["localization"]
+       37 GETUPVAL                         R2 5
+       38 GETTABLEKS                       R3 R1 K19 ["Plugin"]
+       40 CALL                             R2 1 1
+       41 SETTABLEKS                       R2 R0 K20 ["design"]
+       43 GETUPVAL                         R2 6
+       44 GETTABLEKS                       R2 R2 K21 ["ToggleNotificationTray"]
+       46 NEWCLOSURE                       R4 P3
+       47 CAPTURE                          VAL R0
+       48 NAMECALL                         R2 R2 K22 ["Connect"]
+       50 CALL                             R2 2 1
+       51 SETTABLEKS                       R2 R0 K23 ["toggleNotificationTrayConnection"]
+       53 GETTABLEKS                       R2 R1 K19 ["Plugin"]
+       55 GETTABLEKS                       R2 R2 K24 ["MultipleDocumentInterfaceInstance"]
+       57 GETTABLEKS                       R3 R2 K25 ["DataModelSessionStarted"]
+       59 NEWCLOSURE                       R5 P4
+       60 CAPTURE                          VAL R0
+       61 CAPTURE                          UPVAL U0
+       62 NAMECALL                         R3 R3 K22 ["Connect"]
+       64 CALL                             R3 2 1
+       65 SETTABLEKS                       R3 R0 K26 ["dmOpenSession"]
+       67 GETTABLEKS                       R3 R2 K27 ["DataModelSessionEnded"]
+       69 NEWCLOSURE                       R5 P5
+       70 CAPTURE                          VAL R0
+       71 CAPTURE                          UPVAL U0
+       72 NAMECALL                         R3 R3 K22 ["Connect"]
+       74 CALL                             R3 2 1
+       75 SETTABLEKS                       R3 R0 K28 ["dmCloseSession"]
+       77 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
@@ -225,30 +205,24 @@ PROTO_8:
         8 GETTABLEKS                       R1 R1 K3 ["Plugin"]
        10 GETUPVAL                         R3 0
        11 GETTABLEKS                       R3 R3 K4 ["Name"]
-       13 DUPTABLE                         R4 K10 [{"Size", "MinSize", "Modal", "Callout", "InitialEnabled"}]
-       14 GETIMPORT                        R5 K13 [Vector2.new]
+       13 DUPTABLE                         R4 K12 [{["Size"], ["MinSize"], ["Modal"] = False, ["Callout"] = True, ["InitialEnabled"] = False}]
+       14 GETIMPORT                        R5 K15 [Vector2.new]
        16 GETUPVAL                         R6 1
        17 GETUPVAL                         R7 2
        18 CALL                             R5 2 1
        19 SETTABLEKS                       R5 R4 K5 ["Size"]
-       21 GETIMPORT                        R5 K13 [Vector2.new]
+       21 GETIMPORT                        R5 K15 [Vector2.new]
        23 GETUPVAL                         R6 1
        24 GETUPVAL                         R7 2
        25 CALL                             R5 2 1
        26 SETTABLEKS                       R5 R4 K6 ["MinSize"]
-       28 LOADB                            R5 0
-       29 SETTABLEKS                       R5 R4 K7 ["Modal"]
-       31 LOADB                            R5 1
-       32 SETTABLEKS                       R5 R4 K8 ["Callout"]
-       34 LOADB                            R5 0
-       35 SETTABLEKS                       R5 R4 K9 ["InitialEnabled"]
-       37 NAMECALL                         R1 R1 K14 ["CreateQWidgetPluginGui"]
-       39 CALL                             R1 3 1
-       40 DUPTABLE                         R4 K15 [{"widget"}]
-       41 SETTABLEKS                       R1 R4 K1 ["widget"]
-       43 NAMECALL                         R2 R0 K16 ["setState"]
-       45 CALL                             R2 2 0
-       46 RETURN                           R0 0
+       28 NAMECALL                         R1 R1 K16 ["CreateQWidgetPluginGui"]
+       30 CALL                             R1 3 1
+       31 DUPTABLE                         R4 K17 [{"widget"}]
+       32 SETTABLEKS                       R1 R4 K1 ["widget"]
+       34 NAMECALL                         R2 R0 K18 ["setState"]
+       36 CALL                             R2 2 0
+       37 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["toggleNotificationTrayConnection"]

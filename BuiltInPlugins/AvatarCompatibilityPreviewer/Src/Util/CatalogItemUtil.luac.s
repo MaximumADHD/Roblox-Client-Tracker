@@ -230,24 +230,22 @@ PROTO_12:
         4 RETURN                           R0 0
 
 PROTO_13:
-        0 DUPTABLE                         R3 K9 [{"Key", "Items", "PreviewComponent", "PublishAssetType", "MaxItems", "WearBuiltin", "CreateCustomInstanceFromSelection", "WearInstance", "GetBuiltinItemData"}]
+        0 DUPTABLE                         R3 K10 [{[1], ["Items"], ["PreviewComponent"], ["PublishAssetType"], ["MaxItems"] = 1, ["WearBuiltin"], ["CreateCustomInstanceFromSelection"], ["WearInstance"], ["GetBuiltinItemData"]}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
         3 SETTABLEKS                       R2 R3 K1 ["Items"]
         5 GETUPVAL                         R4 0
         6 SETTABLEKS                       R4 R3 K2 ["PreviewComponent"]
         8 SETTABLEKS                       R1 R3 K3 ["PublishAssetType"]
-       10 LOADN                            R4 1
-       11 SETTABLEKS                       R4 R3 K4 ["MaxItems"]
-       13 NEWCLOSURE                       R4 P0
-       14 CAPTURE                          VAL R1
-       15 SETTABLEKS                       R4 R3 K5 ["WearBuiltin"]
-       17 GETUPVAL                         R4 1
-       18 SETTABLEKS                       R4 R3 K6 ["CreateCustomInstanceFromSelection"]
-       20 GETUPVAL                         R4 2
-       21 SETTABLEKS                       R4 R3 K7 ["WearInstance"]
-       23 GETUPVAL                         R4 3
-       24 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
-       26 RETURN                           R3 1
+       10 NEWCLOSURE                       R4 P0
+       11 CAPTURE                          VAL R1
+       12 SETTABLEKS                       R4 R3 K6 ["WearBuiltin"]
+       14 GETUPVAL                         R4 1
+       15 SETTABLEKS                       R4 R3 K7 ["CreateCustomInstanceFromSelection"]
+       17 GETUPVAL                         R4 2
+       18 SETTABLEKS                       R4 R3 K8 ["WearInstance"]
+       20 GETUPVAL                         R4 3
+       21 SETTABLEKS                       R4 R3 K9 ["GetBuiltinItemData"]
+       23 RETURN                           R3 1
 
 PROTO_14:
         0 GETTABLEKS                       R3 R1 K0 ["clothing"]
@@ -481,18 +479,16 @@ PROTO_25:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K5 [{"AnimationId", "AnimateTargetAsset", "Style", "Transparency"}]
-        5 GETTABLEKS                       R4 R0 K6 ["Item"]
+        4 DUPTABLE                         R3 K6 [{["AnimationId"], ["AnimateTargetAsset"], ["Style"] = "BodyPreview", ["Transparency"]}]
+        5 GETTABLEKS                       R4 R0 K7 ["Item"]
         7 SETTABLEKS                       R4 R3 K1 ["AnimationId"]
         9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R4 R4 K7 ["BODY_PREVIEW_PATH"]
+       10 GETTABLEKS                       R4 R4 K8 ["BODY_PREVIEW_PATH"]
        12 SETTABLEKS                       R4 R3 K2 ["AnimateTargetAsset"]
-       14 LOADK                            R4 K8 ["BodyPreview"]
-       15 SETTABLEKS                       R4 R3 K3 ["Style"]
-       17 GETTABLEKS                       R4 R0 K4 ["Transparency"]
-       19 SETTABLEKS                       R4 R3 K4 ["Transparency"]
-       21 CALL                             R1 2 -1
-       22 RETURN                           R1 -1
+       14 GETTABLEKS                       R4 R0 K5 ["Transparency"]
+       16 SETTABLEKS                       R4 R3 K5 ["Transparency"]
+       18 CALL                             R1 2 -1
+       19 RETURN                           R1 -1
 
 PROTO_26:
         0 SETTABLEKS                       R0 R1 K0 ["animation"]
@@ -503,25 +499,23 @@ PROTO_27:
         1 RETURN                           R0 1
 
 PROTO_28:
-        0 DUPTABLE                         R2 K8 [{"Key", "OverrideEquipKey", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance"}]
+        0 DUPTABLE                         R2 K9 [{[1], ["OverrideEquipKey"] = "animations", ["Items"], ["PreviewComponent"], ["WearBuiltin"], ["CreateCustomInstanceFromSelection"], ["GetBuiltinItemData"], ["WearInstance"]}]
         1 SETTABLEKS                       R0 R2 K0 ["Key"]
-        3 LOADK                            R3 K9 ["animations"]
-        4 SETTABLEKS                       R3 R2 K1 ["OverrideEquipKey"]
-        6 SETTABLEKS                       R1 R2 K2 ["Items"]
-        8 DUPCLOSURE                       R3 K10 [PROTO_25]
-        9 CAPTURE                          UPVAL U0
-       10 CAPTURE                          UPVAL U1
-       11 CAPTURE                          UPVAL U2
-       12 SETTABLEKS                       R3 R2 K3 ["PreviewComponent"]
-       14 DUPCLOSURE                       R3 K11 [PROTO_26]
-       15 SETTABLEKS                       R3 R2 K4 ["WearBuiltin"]
-       17 GETUPVAL                         R3 3
-       18 SETTABLEKS                       R3 R2 K5 ["CreateCustomInstanceFromSelection"]
-       20 DUPCLOSURE                       R3 K12 [PROTO_27]
-       21 SETTABLEKS                       R3 R2 K6 ["GetBuiltinItemData"]
-       23 GETUPVAL                         R3 4
-       24 SETTABLEKS                       R3 R2 K7 ["WearInstance"]
-       26 RETURN                           R2 1
+        3 SETTABLEKS                       R1 R2 K3 ["Items"]
+        5 DUPCLOSURE                       R3 K10 [PROTO_25]
+        6 CAPTURE                          UPVAL U0
+        7 CAPTURE                          UPVAL U1
+        8 CAPTURE                          UPVAL U2
+        9 SETTABLEKS                       R3 R2 K4 ["PreviewComponent"]
+       11 DUPCLOSURE                       R3 K11 [PROTO_26]
+       12 SETTABLEKS                       R3 R2 K5 ["WearBuiltin"]
+       14 GETUPVAL                         R3 3
+       15 SETTABLEKS                       R3 R2 K6 ["CreateCustomInstanceFromSelection"]
+       17 DUPCLOSURE                       R3 K12 [PROTO_27]
+       18 SETTABLEKS                       R3 R2 K7 ["GetBuiltinItemData"]
+       20 GETUPVAL                         R3 4
+       21 SETTABLEKS                       R3 R2 K8 ["WearInstance"]
+       23 RETURN                           R2 1
 
 PROTO_29:
         0 GETUPVAL                         R1 0
@@ -728,58 +722,54 @@ PROTO_35:
        20 RETURN                           R0 0
 
 PROTO_36:
-        0 DUPTABLE                         R1 K10 [{"Key", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "WearInstance", "UpdateInstances", "GetBuiltinItemData", "Serializer", "PreferredLayer"}]
-        1 LOADK                            R2 K11 ["Shoes"]
-        2 SETTABLEKS                       R2 R1 K0 ["Key"]
-        4 SETTABLEKS                       R0 R1 K1 ["Items"]
-        6 DUPCLOSURE                       R2 K12 [PROTO_29]
-        7 CAPTURE                          UPVAL U0
-        8 CAPTURE                          UPVAL U1
-        9 SETTABLEKS                       R2 R1 K2 ["PreviewComponent"]
-       11 DUPCLOSURE                       R2 K13 [PROTO_30]
-       12 SETTABLEKS                       R2 R1 K3 ["WearBuiltin"]
-       14 DUPCLOSURE                       R2 K14 [PROTO_31]
-       15 CAPTURE                          UPVAL U2
-       16 SETTABLEKS                       R2 R1 K4 ["CreateCustomInstanceFromSelection"]
-       18 DUPCLOSURE                       R2 K15 [PROTO_32]
-       19 CAPTURE                          UPVAL U3
-       20 SETTABLEKS                       R2 R1 K5 ["WearInstance"]
-       22 GETUPVAL                         R2 4
-       23 SETTABLEKS                       R2 R1 K6 ["UpdateInstances"]
-       25 DUPCLOSURE                       R2 K16 [PROTO_33]
-       26 CAPTURE                          UPVAL U5
-       27 CAPTURE                          UPVAL U6
-       28 CAPTURE                          UPVAL U7
-       29 SETTABLEKS                       R2 R1 K7 ["GetBuiltinItemData"]
-       31 DUPTABLE                         R2 K19 [{"serialize", "deserialize"}]
-       32 DUPCLOSURE                       R3 K20 [PROTO_34]
-       33 SETTABLEKS                       R3 R2 K17 ["serialize"]
-       35 NEWCLOSURE                       R3 P6
-       36 CAPTURE                          VAL R0
-       37 SETTABLEKS                       R3 R2 K18 ["deserialize"]
-       39 SETTABLEKS                       R2 R1 K8 ["Serializer"]
-       41 GETUPVAL                         R2 7
-       42 GETTABLEKS                       R2 R2 K21 ["PREFERRED_LAYERS"]
-       44 GETTABLEKS                       R2 R2 K11 ["Shoes"]
-       46 SETTABLEKS                       R2 R1 K9 ["PreferredLayer"]
-       48 RETURN                           R1 1
+        0 DUPTABLE                         R1 K11 [{[1] = "Shoes", ["Items"], ["PreviewComponent"], ["WearBuiltin"], ["CreateCustomInstanceFromSelection"], ["WearInstance"], ["UpdateInstances"], ["GetBuiltinItemData"], ["Serializer"], ["PreferredLayer"]}]
+        1 SETTABLEKS                       R0 R1 K2 ["Items"]
+        3 DUPCLOSURE                       R2 K12 [PROTO_29]
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 SETTABLEKS                       R2 R1 K3 ["PreviewComponent"]
+        8 DUPCLOSURE                       R2 K13 [PROTO_30]
+        9 SETTABLEKS                       R2 R1 K4 ["WearBuiltin"]
+       11 DUPCLOSURE                       R2 K14 [PROTO_31]
+       12 CAPTURE                          UPVAL U2
+       13 SETTABLEKS                       R2 R1 K5 ["CreateCustomInstanceFromSelection"]
+       15 DUPCLOSURE                       R2 K15 [PROTO_32]
+       16 CAPTURE                          UPVAL U3
+       17 SETTABLEKS                       R2 R1 K6 ["WearInstance"]
+       19 GETUPVAL                         R2 4
+       20 SETTABLEKS                       R2 R1 K7 ["UpdateInstances"]
+       22 DUPCLOSURE                       R2 K16 [PROTO_33]
+       23 CAPTURE                          UPVAL U5
+       24 CAPTURE                          UPVAL U6
+       25 CAPTURE                          UPVAL U7
+       26 SETTABLEKS                       R2 R1 K8 ["GetBuiltinItemData"]
+       28 DUPTABLE                         R2 K19 [{"serialize", "deserialize"}]
+       29 DUPCLOSURE                       R3 K20 [PROTO_34]
+       30 SETTABLEKS                       R3 R2 K17 ["serialize"]
+       32 NEWCLOSURE                       R3 P6
+       33 CAPTURE                          VAL R0
+       34 SETTABLEKS                       R3 R2 K18 ["deserialize"]
+       36 SETTABLEKS                       R2 R1 K9 ["Serializer"]
+       38 GETUPVAL                         R2 7
+       39 GETTABLEKS                       R2 R2 K21 ["PREFERRED_LAYERS"]
+       41 GETTABLEKS                       R2 R2 K1 ["Shoes"]
+       43 SETTABLEKS                       R2 R1 K10 ["PreferredLayer"]
+       45 RETURN                           R1 1
 
 PROTO_37:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K5 [{"AnimationId", "AnimateTargetAsset", "Style", "Transparency"}]
-        5 GETTABLEKS                       R4 R0 K6 ["Item"]
+        4 DUPTABLE                         R3 K6 [{["AnimationId"], ["AnimateTargetAsset"], ["Style"] = "FacePreview", ["Transparency"]}]
+        5 GETTABLEKS                       R4 R0 K7 ["Item"]
         7 SETTABLEKS                       R4 R3 K1 ["AnimationId"]
         9 GETUPVAL                         R4 2
-       10 GETTABLEKS                       R4 R4 K7 ["HEAD_PREVIEW_PATH"]
+       10 GETTABLEKS                       R4 R4 K8 ["HEAD_PREVIEW_PATH"]
        12 SETTABLEKS                       R4 R3 K2 ["AnimateTargetAsset"]
-       14 LOADK                            R4 K8 ["FacePreview"]
-       15 SETTABLEKS                       R4 R3 K3 ["Style"]
-       17 GETTABLEKS                       R4 R0 K4 ["Transparency"]
-       19 SETTABLEKS                       R4 R3 K4 ["Transparency"]
-       21 CALL                             R1 2 -1
-       22 RETURN                           R1 -1
+       14 GETTABLEKS                       R4 R0 K5 ["Transparency"]
+       16 SETTABLEKS                       R4 R3 K5 ["Transparency"]
+       18 CALL                             R1 2 -1
+       19 RETURN                           R1 -1
 
 PROTO_38:
         0 SETTABLEKS                       R0 R1 K0 ["emotion"]
@@ -790,24 +780,22 @@ PROTO_39:
         1 RETURN                           R0 1
 
 PROTO_40:
-        0 DUPTABLE                         R1 K7 [{"Key", "Items", "PreviewComponent", "WearBuiltin", "GetBuiltinItemData", "CreateCustomInstanceFromSelection", "WearInstance"}]
-        1 LOADK                            R2 K8 ["Emotions"]
-        2 SETTABLEKS                       R2 R1 K0 ["Key"]
-        4 SETTABLEKS                       R0 R1 K1 ["Items"]
-        6 DUPCLOSURE                       R2 K9 [PROTO_37]
-        7 CAPTURE                          UPVAL U0
-        8 CAPTURE                          UPVAL U1
-        9 CAPTURE                          UPVAL U2
-       10 SETTABLEKS                       R2 R1 K2 ["PreviewComponent"]
-       12 DUPCLOSURE                       R2 K10 [PROTO_38]
-       13 SETTABLEKS                       R2 R1 K3 ["WearBuiltin"]
-       15 DUPCLOSURE                       R2 K11 [PROTO_39]
-       16 SETTABLEKS                       R2 R1 K4 ["GetBuiltinItemData"]
-       18 GETUPVAL                         R2 3
-       19 SETTABLEKS                       R2 R1 K5 ["CreateCustomInstanceFromSelection"]
-       21 GETUPVAL                         R2 4
-       22 SETTABLEKS                       R2 R1 K6 ["WearInstance"]
-       24 RETURN                           R1 1
+        0 DUPTABLE                         R1 K8 [{[1] = "Emotions", ["Items"], ["PreviewComponent"], ["WearBuiltin"], ["GetBuiltinItemData"], ["CreateCustomInstanceFromSelection"], ["WearInstance"]}]
+        1 SETTABLEKS                       R0 R1 K2 ["Items"]
+        3 DUPCLOSURE                       R2 K9 [PROTO_37]
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 SETTABLEKS                       R2 R1 K3 ["PreviewComponent"]
+        9 DUPCLOSURE                       R2 K10 [PROTO_38]
+       10 SETTABLEKS                       R2 R1 K4 ["WearBuiltin"]
+       12 DUPCLOSURE                       R2 K11 [PROTO_39]
+       13 SETTABLEKS                       R2 R1 K5 ["GetBuiltinItemData"]
+       15 GETUPVAL                         R2 3
+       16 SETTABLEKS                       R2 R1 K6 ["CreateCustomInstanceFromSelection"]
+       18 GETUPVAL                         R2 4
+       19 SETTABLEKS                       R2 R1 K7 ["WearInstance"]
+       21 RETURN                           R1 1
 
 PROTO_41:
         0 SETTABLEKS                       R0 R1 K0 ["skinTone"]
@@ -834,29 +822,25 @@ PROTO_44:
         6 RETURN                           R1 -1
 
 PROTO_45:
-        0 DUPTABLE                         R1 K9 [{"Key", "Items", "PreviewAspectRatio", "PreviewComponent", "CreateCustomInstanceFromSelection", "WearBuiltin", "WearInstance", "GetBuiltinItemData", "Serializer"}]
-        1 LOADK                            R2 K10 ["Skin"]
-        2 SETTABLEKS                       R2 R1 K0 ["Key"]
-        4 SETTABLEKS                       R0 R1 K1 ["Items"]
-        6 LOADN                            R2 2
-        7 SETTABLEKS                       R2 R1 K2 ["PreviewAspectRatio"]
-        9 GETUPVAL                         R2 0
-       10 SETTABLEKS                       R2 R1 K3 ["PreviewComponent"]
-       12 GETUPVAL                         R2 1
-       13 SETTABLEKS                       R2 R1 K4 ["CreateCustomInstanceFromSelection"]
-       15 DUPCLOSURE                       R2 K11 [PROTO_41]
-       16 SETTABLEKS                       R2 R1 K5 ["WearBuiltin"]
-       18 GETUPVAL                         R2 2
-       19 SETTABLEKS                       R2 R1 K6 ["WearInstance"]
-       21 DUPCLOSURE                       R2 K12 [PROTO_42]
-       22 SETTABLEKS                       R2 R1 K7 ["GetBuiltinItemData"]
-       24 DUPTABLE                         R2 K15 [{"serialize", "deserialize"}]
-       25 DUPCLOSURE                       R3 K16 [PROTO_43]
-       26 SETTABLEKS                       R3 R2 K13 ["serialize"]
-       28 DUPCLOSURE                       R3 K17 [PROTO_44]
-       29 SETTABLEKS                       R3 R2 K14 ["deserialize"]
-       31 SETTABLEKS                       R2 R1 K8 ["Serializer"]
-       33 RETURN                           R1 1
+        0 DUPTABLE                         R1 K11 [{[1] = "Skin", ["Items"], ["PreviewAspectRatio"] = 2, ["PreviewComponent"], ["CreateCustomInstanceFromSelection"], ["WearBuiltin"], ["WearInstance"], ["GetBuiltinItemData"], ["Serializer"]}]
+        1 SETTABLEKS                       R0 R1 K2 ["Items"]
+        3 GETUPVAL                         R2 0
+        4 SETTABLEKS                       R2 R1 K5 ["PreviewComponent"]
+        6 GETUPVAL                         R2 1
+        7 SETTABLEKS                       R2 R1 K6 ["CreateCustomInstanceFromSelection"]
+        9 DUPCLOSURE                       R2 K12 [PROTO_41]
+       10 SETTABLEKS                       R2 R1 K7 ["WearBuiltin"]
+       12 GETUPVAL                         R2 2
+       13 SETTABLEKS                       R2 R1 K8 ["WearInstance"]
+       15 DUPCLOSURE                       R2 K13 [PROTO_42]
+       16 SETTABLEKS                       R2 R1 K9 ["GetBuiltinItemData"]
+       18 DUPTABLE                         R2 K16 [{"serialize", "deserialize"}]
+       19 DUPCLOSURE                       R3 K17 [PROTO_43]
+       20 SETTABLEKS                       R3 R2 K14 ["serialize"]
+       22 DUPCLOSURE                       R3 K18 [PROTO_44]
+       23 SETTABLEKS                       R3 R2 K15 ["deserialize"]
+       25 SETTABLEKS                       R2 R1 K10 ["Serializer"]
+       27 RETURN                           R1 1
 
 PROTO_46:
         0 GETTABLEKS                       R2 R1 K0 ["gear"]
@@ -955,31 +939,29 @@ PROTO_51:
         2 RETURN                           R3 1
 
 PROTO_52:
-        0 DUPTABLE                         R3 K10 [{"Key", "OverrideEquipKey", "MaxItems", "PublishAssetType", "Items", "PreviewComponent", "WearBuiltin", "CreateCustomInstanceFromSelection", "GetBuiltinItemData", "WearInstance"}]
+        0 DUPTABLE                         R3 K11 [{[1], ["OverrideEquipKey"], ["MaxItems"] = 6, ["PublishAssetType"], ["Items"], ["PreviewComponent"], ["WearBuiltin"], ["CreateCustomInstanceFromSelection"], ["GetBuiltinItemData"], ["WearInstance"]}]
         1 SETTABLEKS                       R0 R3 K0 ["Key"]
         3 GETUPVAL                         R5 0
         4 CALL                             R5 0 1
         5 JUMPIFNOT                        R5 ; [+2]
-        6 LOADK                            R4 K11 ["Makeup"]
+        6 LOADK                            R4 K12 ["Makeup"]
         7 JUMP                             ; [+1]
         8 LOADNIL                          R4
         9 SETTABLEKS                       R4 R3 K1 ["OverrideEquipKey"]
-       11 LOADN                            R4 6
-       12 SETTABLEKS                       R4 R3 K2 ["MaxItems"]
-       14 SETTABLEKS                       R1 R3 K3 ["PublishAssetType"]
-       16 SETTABLEKS                       R2 R3 K4 ["Items"]
-       18 GETUPVAL                         R4 1
-       19 SETTABLEKS                       R4 R3 K5 ["PreviewComponent"]
-       21 NEWCLOSURE                       R4 P0
-       22 CAPTURE                          VAL R1
-       23 SETTABLEKS                       R4 R3 K6 ["WearBuiltin"]
-       25 DUPCLOSURE                       R4 K12 [PROTO_50]
-       26 SETTABLEKS                       R4 R3 K7 ["CreateCustomInstanceFromSelection"]
-       28 GETUPVAL                         R4 2
-       29 SETTABLEKS                       R4 R3 K8 ["GetBuiltinItemData"]
-       31 DUPCLOSURE                       R4 K13 [PROTO_51]
-       32 SETTABLEKS                       R4 R3 K9 ["WearInstance"]
-       34 RETURN                           R3 1
+       11 SETTABLEKS                       R1 R3 K4 ["PublishAssetType"]
+       13 SETTABLEKS                       R2 R3 K5 ["Items"]
+       15 GETUPVAL                         R4 1
+       16 SETTABLEKS                       R4 R3 K6 ["PreviewComponent"]
+       18 NEWCLOSURE                       R4 P0
+       19 CAPTURE                          VAL R1
+       20 SETTABLEKS                       R4 R3 K7 ["WearBuiltin"]
+       22 DUPCLOSURE                       R4 K13 [PROTO_50]
+       23 SETTABLEKS                       R4 R3 K8 ["CreateCustomInstanceFromSelection"]
+       25 GETUPVAL                         R4 2
+       26 SETTABLEKS                       R4 R3 K9 ["GetBuiltinItemData"]
+       28 DUPCLOSURE                       R4 K14 [PROTO_51]
+       29 SETTABLEKS                       R4 R3 K10 ["WearInstance"]
+       31 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

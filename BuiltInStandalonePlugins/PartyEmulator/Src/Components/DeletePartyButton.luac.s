@@ -33,25 +33,23 @@ PROTO_1:
        22 GETTABLEKS                       R4 R4 K3 ["createElement"]
        24 GETUPVAL                         R5 4
        25 GETTABLEKS                       R5 R5 K4 ["Button"]
-       27 DUPTABLE                         R6 K11 [{"text", "tag", "variant", "size", "onActivated", "LayoutOrder"}]
-       28 LOADK                            R9 K12 ["Action"]
-       29 LOADK                            R10 K13 ["Delete"]
-       30 NAMECALL                         R7 R1 K14 ["getText"]
+       27 DUPTABLE                         R6 K12 [{["text"], ["tag"] = "align-y-center padding-medium", ["variant"], ["size"], ["onActivated"], ["LayoutOrder"]}]
+       28 LOADK                            R9 K13 ["Action"]
+       29 LOADK                            R10 K14 ["Delete"]
+       30 NAMECALL                         R7 R1 K15 ["getText"]
        32 CALL                             R7 3 1
        33 SETTABLEKS                       R7 R6 K5 ["text"]
-       35 LOADK                            R7 K15 ["align-y-center padding-medium"]
-       36 SETTABLEKS                       R7 R6 K6 ["tag"]
-       38 GETUPVAL                         R7 5
-       39 GETTABLEKS                       R7 R7 K16 ["Subtle"]
-       41 SETTABLEKS                       R7 R6 K7 ["variant"]
-       43 GETUPVAL                         R7 6
-       44 GETTABLEKS                       R7 R7 K17 ["Small"]
-       46 SETTABLEKS                       R7 R6 K8 ["size"]
-       48 SETTABLEKS                       R3 R6 K9 ["onActivated"]
-       50 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
-       52 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
-       54 CALL                             R4 2 -1
-       55 RETURN                           R4 -1
+       35 GETUPVAL                         R7 5
+       36 GETTABLEKS                       R7 R7 K16 ["Subtle"]
+       38 SETTABLEKS                       R7 R6 K8 ["variant"]
+       40 GETUPVAL                         R7 6
+       41 GETTABLEKS                       R7 R7 K17 ["Small"]
+       43 SETTABLEKS                       R7 R6 K9 ["size"]
+       45 SETTABLEKS                       R3 R6 K10 ["onActivated"]
+       47 GETTABLEKS                       R7 R0 K11 ["LayoutOrder"]
+       49 SETTABLEKS                       R7 R6 K11 ["LayoutOrder"]
+       51 CALL                             R4 2 -1
+       52 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

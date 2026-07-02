@@ -42,7 +42,7 @@ PROTO_4:
         5 CALL                             R0 1 0
         6 RETURN                           R0 0
         7 GETUPVAL                         R0 1
-        8 LOADN                            R1 255
+        8 LOADN                            R1 -1
         9 CALL                             R0 1 0
        10 RETURN                           R0 0
 
@@ -91,229 +91,175 @@ PROTO_5:
        56 GETUPVAL                         R8 0
        57 GETTABLEKS                       R8 R8 K9 ["createElement"]
        59 GETUPVAL                         R9 3
-       60 DUPTABLE                         R10 K12 [{"ZIndex", "tag"}]
-       61 LOADN                            R11 0
-       62 SETTABLEKS                       R11 R10 K10 ["ZIndex"]
-       64 LOADK                            R11 K13 ["col align-y-center align-x-center flex-evenly gap-small size-full padding-large bg-surface-200"]
-       65 SETTABLEKS                       R11 R10 K11 ["tag"]
-       67 DUPTABLE                         R11 K19 [{"Image", "Heading", "Subheading", "Divider", "ActionsRow"}]
-       68 GETUPVAL                         R12 0
-       69 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       71 GETUPVAL                         R13 4
-       72 DUPTABLE                         R14 K21 [{"LayoutOrder", "Image", "tag"}]
-       73 LOADN                            R15 0
-       74 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-       76 LOADK                            R15 K22 ["icons/graphic/success_xlarge"]
-       77 SETTABLEKS                       R15 R14 K14 ["Image"]
-       79 LOADK                            R15 K23 ["size-2000"]
-       80 SETTABLEKS                       R15 R14 K11 ["tag"]
-       82 CALL                             R12 2 1
-       83 SETTABLEKS                       R12 R11 K14 ["Image"]
-       85 GETUPVAL                         R12 0
-       86 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       88 GETUPVAL                         R13 5
-       89 DUPTABLE                         R14 K25 [{"LayoutOrder", "Text", "tag"}]
-       90 LOADN                            R15 1
-       91 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-       93 LOADK                            R17 K26 ["Plugin"]
-       94 LOADK                            R18 K27 ["Congratulations"]
-       95 DUPTABLE                         R19 K29 [{"tutorialTitle"}]
-       96 GETTABLEKS                       R20 R1 K30 ["title"]
-       98 SETTABLEKS                       R20 R19 K28 ["tutorialTitle"]
-      100 NAMECALL                         R15 R6 K31 ["getText"]
-      102 CALL                             R15 4 1
-      103 SETTABLEKS                       R15 R14 K24 ["Text"]
-      105 LOADK                            R15 K32 ["text-heading-medium size-full-0 text-align-x-center auto-y"]
-      106 SETTABLEKS                       R15 R14 K11 ["tag"]
-      108 CALL                             R12 2 1
-      109 SETTABLEKS                       R12 R11 K15 ["Heading"]
-      111 GETUPVAL                         R12 0
-      112 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      114 GETUPVAL                         R13 5
-      115 DUPTABLE                         R14 K25 [{"LayoutOrder", "Text", "tag"}]
-      116 LOADN                            R15 2
-      117 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-      119 LOADK                            R17 K26 ["Plugin"]
-      120 LOADK                            R18 K33 ["YouveCompleted"]
-      121 DUPTABLE                         R19 K29 [{"tutorialTitle"}]
-      122 GETTABLEKS                       R20 R1 K30 ["title"]
-      124 SETTABLEKS                       R20 R19 K28 ["tutorialTitle"]
-      126 NAMECALL                         R15 R6 K31 ["getText"]
-      128 CALL                             R15 4 1
-      129 SETTABLEKS                       R15 R14 K24 ["Text"]
-      131 LOADK                            R15 K34 ["text-body-large size-full-0 text-wrap text-align-x-center auto-y"]
-      132 SETTABLEKS                       R15 R14 K11 ["tag"]
-      134 CALL                             R12 2 1
-      135 SETTABLEKS                       R12 R11 K16 ["Subheading"]
-      137 GETUPVAL                         R12 0
-      138 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      140 GETUPVAL                         R13 6
-      141 DUPTABLE                         R14 K35 [{"LayoutOrder"}]
-      142 LOADN                            R15 9
-      143 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-      145 CALL                             R12 2 1
-      146 SETTABLEKS                       R12 R11 K17 ["Divider"]
-      148 GETUPVAL                         R12 0
-      149 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      151 GETUPVAL                         R13 3
-      152 DUPTABLE                         R14 K36 [{"LayoutOrder", "tag"}]
-      153 LOADN                            R15 10
-      154 SETTABLEKS                       R15 R14 K20 ["LayoutOrder"]
-      156 LOADK                            R15 K37 ["auto-y size-full-0 row flex-between align-y-center gap-medium"]
-      157 SETTABLEKS                       R15 R14 K11 ["tag"]
-      159 DUPTABLE                         R15 K40 [{"Rating", "Buttons"}]
-      160 GETUPVAL                         R16 0
-      161 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      163 GETUPVAL                         R17 3
-      164 DUPTABLE                         R18 K36 [{"LayoutOrder", "tag"}]
-      165 LOADN                            R19 1
-      166 SETTABLEKS                       R19 R18 K20 ["LayoutOrder"]
-      168 LOADK                            R19 K41 ["row gap-small align-x-left align-y-center auto-x size-0-1000"]
-      169 SETTABLEKS                       R19 R18 K11 ["tag"]
-      171 DUPTABLE                         R19 K44 [{"RatingText", "VoteButtons"}]
-      172 GETUPVAL                         R20 0
-      173 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      175 GETUPVAL                         R21 5
-      176 DUPTABLE                         R22 K25 [{"LayoutOrder", "Text", "tag"}]
-      177 LOADN                            R23 0
-      178 SETTABLEKS                       R23 R22 K20 ["LayoutOrder"]
-      180 LOADK                            R25 K26 ["Plugin"]
-      181 LOADK                            R26 K45 ["RatingPrompt"]
-      182 NAMECALL                         R23 R6 K31 ["getText"]
-      184 CALL                             R23 3 1
-      185 SETTABLEKS                       R23 R22 K24 ["Text"]
-      187 LOADK                            R23 K46 ["text-body-medium content-muted text-align-x-center auto-xy"]
-      188 SETTABLEKS                       R23 R22 K11 ["tag"]
-      190 CALL                             R20 2 1
-      191 SETTABLEKS                       R20 R19 K42 ["RatingText"]
-      193 GETUPVAL                         R20 0
-      194 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      196 GETUPVAL                         R21 3
-      197 DUPTABLE                         R22 K36 [{"LayoutOrder", "tag"}]
-      198 LOADN                            R23 1
-      199 SETTABLEKS                       R23 R22 K20 ["LayoutOrder"]
-      201 LOADK                            R23 K47 ["auto-xy"]
-      202 SETTABLEKS                       R23 R22 K11 ["tag"]
-      204 DUPTABLE                         R23 K50 [{"Upvote", "Downvote"}]
-      205 GETUPVAL                         R24 0
-      206 GETTABLEKS                       R24 R24 K9 ["createElement"]
-      208 GETUPVAL                         R25 4
-      209 DUPTABLE                         R26 K53 [{"Image", "tag", "imageStyle", "onActivated"}]
-      210 LOADK                            R27 K54 ["rbxasset://textures/DeveloperFramework/Votes/rating_up_white.png"]
-      211 SETTABLEKS                       R27 R26 K14 ["Image"]
-      213 LOADK                            R27 K55 ["size-400"]
-      214 SETTABLEKS                       R27 R26 K11 ["tag"]
-      216 JUMPIFNOTEQKN                    R2 K56 [1] ; [+10]
-      218 GETTABLEKS                       R27 R7 K57 ["Color"]
-      220 GETTABLEKS                       R27 R27 K58 ["Extended"]
-      222 GETTABLEKS                       R27 R27 K59 ["Green"]
-      224 GETTABLEKS                       R27 R27 K60 ["Green_500"]
-      226 JUMP                             ; [+6]
-      227 GETTABLEKS                       R27 R7 K57 ["Color"]
-      229 GETTABLEKS                       R27 R27 K61 ["Content"]
-      231 GETTABLEKS                       R27 R27 K62 ["Muted"]
-      233 SETTABLEKS                       R27 R26 K51 ["imageStyle"]
-      235 NEWCLOSURE                       R27 P2
-      236 CAPTURE                          VAL R2
-      237 CAPTURE                          VAL R3
-      238 SETTABLEKS                       R27 R26 K52 ["onActivated"]
-      240 CALL                             R24 2 1
-      241 SETTABLEKS                       R24 R23 K48 ["Upvote"]
-      243 GETUPVAL                         R24 0
-      244 GETTABLEKS                       R24 R24 K9 ["createElement"]
-      246 GETUPVAL                         R25 4
-      247 DUPTABLE                         R26 K65 [{"Image", "Rotation", "Position", "tag", "imageStyle", "onActivated"}]
-      248 LOADK                            R27 K54 ["rbxasset://textures/DeveloperFramework/Votes/rating_up_white.png"]
-      249 SETTABLEKS                       R27 R26 K14 ["Image"]
-      251 LOADN                            R27 180
-      252 SETTABLEKS                       R27 R26 K63 ["Rotation"]
-      254 GETIMPORT                        R27 K68 [UDim2.fromOffset]
-      256 LOADN                            R28 20
-      257 LOADN                            R29 0
-      258 CALL                             R27 2 1
-      259 SETTABLEKS                       R27 R26 K64 ["Position"]
-      261 LOADK                            R27 K55 ["size-400"]
-      262 SETTABLEKS                       R27 R26 K11 ["tag"]
-      264 JUMPIFNOTEQKN                    R2 K69 [-1] ; [+10]
-      266 GETTABLEKS                       R27 R7 K57 ["Color"]
-      268 GETTABLEKS                       R27 R27 K58 ["Extended"]
-      270 GETTABLEKS                       R27 R27 K70 ["Red"]
-      272 GETTABLEKS                       R27 R27 K71 ["Red_600"]
-      274 JUMP                             ; [+6]
-      275 GETTABLEKS                       R27 R7 K57 ["Color"]
-      277 GETTABLEKS                       R27 R27 K61 ["Content"]
-      279 GETTABLEKS                       R27 R27 K62 ["Muted"]
-      281 SETTABLEKS                       R27 R26 K51 ["imageStyle"]
-      283 NEWCLOSURE                       R27 P3
-      284 CAPTURE                          VAL R2
-      285 CAPTURE                          VAL R3
-      286 SETTABLEKS                       R27 R26 K52 ["onActivated"]
-      288 CALL                             R24 2 1
-      289 SETTABLEKS                       R24 R23 K49 ["Downvote"]
-      291 CALL                             R20 3 1
-      292 SETTABLEKS                       R20 R19 K43 ["VoteButtons"]
-      294 CALL                             R16 3 1
-      295 SETTABLEKS                       R16 R15 K38 ["Rating"]
-      297 GETUPVAL                         R16 0
-      298 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      300 GETUPVAL                         R17 3
-      301 DUPTABLE                         R18 K36 [{"LayoutOrder", "tag"}]
-      302 LOADN                            R19 2
-      303 SETTABLEKS                       R19 R18 K20 ["LayoutOrder"]
-      305 LOADK                            R19 K72 ["auto-xy row align-x-right align-y-bottom gap-medium"]
-      306 SETTABLEKS                       R19 R18 K11 ["tag"]
-      308 DUPTABLE                         R19 K75 [{"RestartButton", "CloseButton"}]
-      309 GETUPVAL                         R20 0
-      310 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      312 GETUPVAL                         R21 7
-      313 DUPTABLE                         R22 K78 [{"LayoutOrder", "text", "variant", "onActivated"}]
-      314 LOADN                            R23 0
-      315 SETTABLEKS                       R23 R22 K20 ["LayoutOrder"]
-      317 LOADK                            R25 K26 ["Plugin"]
-      318 LOADK                            R26 K79 ["Restart"]
-      319 NAMECALL                         R23 R6 K31 ["getText"]
-      321 CALL                             R23 3 1
-      322 SETTABLEKS                       R23 R22 K76 ["text"]
-      324 GETUPVAL                         R23 2
-      325 GETTABLEKS                       R23 R23 K80 ["Enums"]
-      327 GETTABLEKS                       R23 R23 K81 ["ButtonVariant"]
-      329 GETTABLEKS                       R23 R23 K82 ["Standard"]
-      331 SETTABLEKS                       R23 R22 K77 ["variant"]
-      333 GETTABLEKS                       R23 R0 K83 ["onRestart"]
-      335 SETTABLEKS                       R23 R22 K52 ["onActivated"]
-      337 CALL                             R20 2 1
-      338 SETTABLEKS                       R20 R19 K73 ["RestartButton"]
-      340 GETUPVAL                         R20 0
-      341 GETTABLEKS                       R20 R20 K9 ["createElement"]
-      343 GETUPVAL                         R21 7
-      344 DUPTABLE                         R22 K85 [{"LayoutOrder", "text", "variant", "size", "onActivated"}]
-      345 LOADN                            R23 1
-      346 SETTABLEKS                       R23 R22 K20 ["LayoutOrder"]
-      348 LOADK                            R25 K26 ["Plugin"]
-      349 LOADK                            R26 K86 ["Close"]
-      350 NAMECALL                         R23 R6 K31 ["getText"]
-      352 CALL                             R23 3 1
-      353 SETTABLEKS                       R23 R22 K76 ["text"]
-      355 GETUPVAL                         R23 2
-      356 GETTABLEKS                       R23 R23 K80 ["Enums"]
-      358 GETTABLEKS                       R23 R23 K81 ["ButtonVariant"]
-      360 GETTABLEKS                       R23 R23 K87 ["Emphasis"]
-      362 SETTABLEKS                       R23 R22 K77 ["variant"]
-      364 GETUPVAL                         R23 2
-      365 GETTABLEKS                       R23 R23 K80 ["Enums"]
-      367 GETTABLEKS                       R23 R23 K88 ["InputSize"]
-      369 GETTABLEKS                       R23 R23 K89 ["Medium"]
-      371 SETTABLEKS                       R23 R22 K84 ["size"]
-      373 GETTABLEKS                       R23 R0 K90 ["onClose"]
-      375 SETTABLEKS                       R23 R22 K52 ["onActivated"]
-      377 CALL                             R20 2 1
-      378 SETTABLEKS                       R20 R19 K74 ["CloseButton"]
-      380 CALL                             R16 3 1
-      381 SETTABLEKS                       R16 R15 K39 ["Buttons"]
-      383 CALL                             R12 3 1
-      384 SETTABLEKS                       R12 R11 K18 ["ActionsRow"]
-      386 CALL                             R8 3 -1
-      387 RETURN                           R8 -1
+       60 DUPTABLE                         R10 K14 [{["ZIndex"] = 0, ["tag"] = "col flex-evenly align-x-center align-y-center gap-small size-full padding-large bg-surface-200"}]
+       61 DUPTABLE                         R11 K20 [{"Image", "Heading", "Subheading", "Divider", "ActionsRow"}]
+       62 GETUPVAL                         R12 0
+       63 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       65 GETUPVAL                         R13 4
+       66 DUPTABLE                         R14 K24 [{["LayoutOrder"] = 0, ["Image"] = "icons/graphic/success_xlarge", ["tag"] = "size-2000"}]
+       67 CALL                             R12 2 1
+       68 SETTABLEKS                       R12 R11 K15 ["Image"]
+       70 GETUPVAL                         R12 0
+       71 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       73 GETUPVAL                         R13 5
+       74 DUPTABLE                         R14 K28 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "size-full-0 auto-y text-heading-medium text-align-x-center"}]
+       75 LOADK                            R17 K29 ["Plugin"]
+       76 LOADK                            R18 K30 ["Congratulations"]
+       77 DUPTABLE                         R19 K32 [{"tutorialTitle"}]
+       78 GETTABLEKS                       R20 R1 K33 ["title"]
+       80 SETTABLEKS                       R20 R19 K31 ["tutorialTitle"]
+       82 NAMECALL                         R15 R6 K34 ["getText"]
+       84 CALL                             R15 4 1
+       85 SETTABLEKS                       R15 R14 K26 ["Text"]
+       87 CALL                             R12 2 1
+       88 SETTABLEKS                       R12 R11 K16 ["Heading"]
+       90 GETUPVAL                         R12 0
+       91 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       93 GETUPVAL                         R13 5
+       94 DUPTABLE                         R14 K37 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "size-full-0 auto-y text-body-large text-wrap text-align-x-center"}]
+       95 LOADK                            R17 K29 ["Plugin"]
+       96 LOADK                            R18 K38 ["YouveCompleted"]
+       97 DUPTABLE                         R19 K32 [{"tutorialTitle"}]
+       98 GETTABLEKS                       R20 R1 K33 ["title"]
+      100 SETTABLEKS                       R20 R19 K31 ["tutorialTitle"]
+      102 NAMECALL                         R15 R6 K34 ["getText"]
+      104 CALL                             R15 4 1
+      105 SETTABLEKS                       R15 R14 K26 ["Text"]
+      107 CALL                             R12 2 1
+      108 SETTABLEKS                       R12 R11 K17 ["Subheading"]
+      110 GETUPVAL                         R12 0
+      111 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      113 GETUPVAL                         R13 6
+      114 DUPTABLE                         R14 K40 [{["LayoutOrder"] = 9}]
+      115 CALL                             R12 2 1
+      116 SETTABLEKS                       R12 R11 K18 ["Divider"]
+      118 GETUPVAL                         R12 0
+      119 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      121 GETUPVAL                         R13 3
+      122 DUPTABLE                         R14 K43 [{["LayoutOrder"] = 10, ["tag"] = "row flex-between align-y-center gap-medium size-full-0 auto-y"}]
+      123 DUPTABLE                         R15 K46 [{"Rating", "Buttons"}]
+      124 GETUPVAL                         R16 0
+      125 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      127 GETUPVAL                         R17 3
+      128 DUPTABLE                         R18 K48 [{["LayoutOrder"] = 1, ["tag"] = "row align-x-left align-y-center gap-small size-0-1000 auto-x"}]
+      129 DUPTABLE                         R19 K51 [{"RatingText", "VoteButtons"}]
+      130 GETUPVAL                         R20 0
+      131 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      133 GETUPVAL                         R21 5
+      134 DUPTABLE                         R22 K53 [{["LayoutOrder"] = 0, ["Text"], ["tag"] = "auto-xy text-body-medium text-align-x-center content-muted"}]
+      135 LOADK                            R25 K29 ["Plugin"]
+      136 LOADK                            R26 K54 ["RatingPrompt"]
+      137 NAMECALL                         R23 R6 K34 ["getText"]
+      139 CALL                             R23 3 1
+      140 SETTABLEKS                       R23 R22 K26 ["Text"]
+      142 CALL                             R20 2 1
+      143 SETTABLEKS                       R20 R19 K49 ["RatingText"]
+      145 GETUPVAL                         R20 0
+      146 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      148 GETUPVAL                         R21 3
+      149 DUPTABLE                         R22 K56 [{["LayoutOrder"] = 1, ["tag"] = "auto-xy"}]
+      150 DUPTABLE                         R23 K59 [{"Upvote", "Downvote"}]
+      151 GETUPVAL                         R24 0
+      152 GETTABLEKS                       R24 R24 K9 ["createElement"]
+      154 GETUPVAL                         R25 4
+      155 DUPTABLE                         R26 K64 [{["Image"] = "rbxasset://textures/DeveloperFramework/Votes/rating_up_white.png", ["tag"] = "size-400", ["imageStyle"], ["onActivated"]}]
+      156 JUMPIFNOTEQKN                    R2 K25 [1] ; [+10]
+      158 GETTABLEKS                       R27 R7 K65 ["Color"]
+      160 GETTABLEKS                       R27 R27 K66 ["Extended"]
+      162 GETTABLEKS                       R27 R27 K67 ["Green"]
+      164 GETTABLEKS                       R27 R27 K68 ["Green_500"]
+      166 JUMP                             ; [+6]
+      167 GETTABLEKS                       R27 R7 K65 ["Color"]
+      169 GETTABLEKS                       R27 R27 K69 ["Content"]
+      171 GETTABLEKS                       R27 R27 K70 ["Muted"]
+      173 SETTABLEKS                       R27 R26 K62 ["imageStyle"]
+      175 NEWCLOSURE                       R27 P2
+      176 CAPTURE                          VAL R2
+      177 CAPTURE                          VAL R3
+      178 SETTABLEKS                       R27 R26 K63 ["onActivated"]
+      180 CALL                             R24 2 1
+      181 SETTABLEKS                       R24 R23 K57 ["Upvote"]
+      183 GETUPVAL                         R24 0
+      184 GETTABLEKS                       R24 R24 K9 ["createElement"]
+      186 GETUPVAL                         R25 4
+      187 DUPTABLE                         R26 K74 [{["Image"] = "rbxasset://textures/DeveloperFramework/Votes/rating_up_white.png", ["Rotation"] = 180, ["Position"], ["tag"] = "size-400", ["imageStyle"], ["onActivated"]}]
+      188 GETIMPORT                        R27 K77 [UDim2.fromOffset]
+      190 LOADN                            R28 20
+      191 LOADN                            R29 0
+      192 CALL                             R27 2 1
+      193 SETTABLEKS                       R27 R26 K73 ["Position"]
+      195 JUMPIFNOTEQKN                    R2 K78 [-1] ; [+10]
+      197 GETTABLEKS                       R27 R7 K65 ["Color"]
+      199 GETTABLEKS                       R27 R27 K66 ["Extended"]
+      201 GETTABLEKS                       R27 R27 K79 ["Red"]
+      203 GETTABLEKS                       R27 R27 K80 ["Red_600"]
+      205 JUMP                             ; [+6]
+      206 GETTABLEKS                       R27 R7 K65 ["Color"]
+      208 GETTABLEKS                       R27 R27 K69 ["Content"]
+      210 GETTABLEKS                       R27 R27 K70 ["Muted"]
+      212 SETTABLEKS                       R27 R26 K62 ["imageStyle"]
+      214 NEWCLOSURE                       R27 P3
+      215 CAPTURE                          VAL R2
+      216 CAPTURE                          VAL R3
+      217 SETTABLEKS                       R27 R26 K63 ["onActivated"]
+      219 CALL                             R24 2 1
+      220 SETTABLEKS                       R24 R23 K58 ["Downvote"]
+      222 CALL                             R20 3 1
+      223 SETTABLEKS                       R20 R19 K50 ["VoteButtons"]
+      225 CALL                             R16 3 1
+      226 SETTABLEKS                       R16 R15 K44 ["Rating"]
+      228 GETUPVAL                         R16 0
+      229 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      231 GETUPVAL                         R17 3
+      232 DUPTABLE                         R18 K82 [{["LayoutOrder"] = 2, ["tag"] = "row align-x-right align-y-bottom gap-medium auto-xy"}]
+      233 DUPTABLE                         R19 K85 [{"RestartButton", "CloseButton"}]
+      234 GETUPVAL                         R20 0
+      235 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      237 GETUPVAL                         R21 7
+      238 DUPTABLE                         R22 K88 [{["LayoutOrder"] = 0, ["text"], ["variant"], ["onActivated"]}]
+      239 LOADK                            R25 K29 ["Plugin"]
+      240 LOADK                            R26 K89 ["Restart"]
+      241 NAMECALL                         R23 R6 K34 ["getText"]
+      243 CALL                             R23 3 1
+      244 SETTABLEKS                       R23 R22 K86 ["text"]
+      246 GETUPVAL                         R23 2
+      247 GETTABLEKS                       R23 R23 K90 ["Enums"]
+      249 GETTABLEKS                       R23 R23 K91 ["ButtonVariant"]
+      251 GETTABLEKS                       R23 R23 K92 ["Standard"]
+      253 SETTABLEKS                       R23 R22 K87 ["variant"]
+      255 GETTABLEKS                       R23 R0 K93 ["onRestart"]
+      257 SETTABLEKS                       R23 R22 K63 ["onActivated"]
+      259 CALL                             R20 2 1
+      260 SETTABLEKS                       R20 R19 K83 ["RestartButton"]
+      262 GETUPVAL                         R20 0
+      263 GETTABLEKS                       R20 R20 K9 ["createElement"]
+      265 GETUPVAL                         R21 7
+      266 DUPTABLE                         R22 K95 [{["LayoutOrder"] = 1, ["text"], ["variant"], ["size"], ["onActivated"]}]
+      267 LOADK                            R25 K29 ["Plugin"]
+      268 LOADK                            R26 K96 ["Close"]
+      269 NAMECALL                         R23 R6 K34 ["getText"]
+      271 CALL                             R23 3 1
+      272 SETTABLEKS                       R23 R22 K86 ["text"]
+      274 GETUPVAL                         R23 2
+      275 GETTABLEKS                       R23 R23 K90 ["Enums"]
+      277 GETTABLEKS                       R23 R23 K91 ["ButtonVariant"]
+      279 GETTABLEKS                       R23 R23 K97 ["Emphasis"]
+      281 SETTABLEKS                       R23 R22 K87 ["variant"]
+      283 GETUPVAL                         R23 2
+      284 GETTABLEKS                       R23 R23 K90 ["Enums"]
+      286 GETTABLEKS                       R23 R23 K98 ["InputSize"]
+      288 GETTABLEKS                       R23 R23 K99 ["Medium"]
+      290 SETTABLEKS                       R23 R22 K94 ["size"]
+      292 GETTABLEKS                       R23 R0 K100 ["onClose"]
+      294 SETTABLEKS                       R23 R22 K63 ["onActivated"]
+      296 CALL                             R20 2 1
+      297 SETTABLEKS                       R20 R19 K84 ["CloseButton"]
+      299 CALL                             R16 3 1
+      300 SETTABLEKS                       R16 R15 K45 ["Buttons"]
+      302 CALL                             R12 3 1
+      303 SETTABLEKS                       R12 R11 K19 ["ActionsRow"]
+      305 CALL                             R8 3 -1
+      306 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

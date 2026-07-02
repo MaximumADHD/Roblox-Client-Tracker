@@ -77,7 +77,7 @@ PROTO_2:
        25 GETTABLEKS                       R7 R7 K4 ["EditKey"]
        27 SETTABLE                         R7 R5 R6
        28 SETTABLEN                        R5 R4 123
-       29 LOADN                            R5 200
+       29 LOADN                            R5 456
        30 NEWTABLE                         R6 1 0
        32 GETUPVAL                         R7 0
        33 GETTABLEKS                       R7 R7 K3 ["ActionKey"]

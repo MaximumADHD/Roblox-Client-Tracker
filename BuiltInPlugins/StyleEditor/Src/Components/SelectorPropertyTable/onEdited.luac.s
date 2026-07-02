@@ -12,20 +12,18 @@ PROTO_1:
         1 GETUPVAL                         R2 0
         2 GETUPVAL                         R3 1
         3 GETTABLEKS                       R3 R3 K2 ["SelectorSchema"]
-        5 DUPTABLE                         R4 K4 [{"Editing"}]
-        6 LOADB                            R5 0
-        7 SETTABLEKS                       R5 R4 K3 ["Editing"]
-        9 CALL                             R2 2 1
-       10 SETTABLEKS                       R2 R1 K0 ["Schema"]
-       12 GETUPVAL                         R2 2
-       13 MOVE                             R4 R0
-       14 MOVE                             R5 R1
-       15 GETUPVAL                         R6 3
-       16 GETTABLEKS                       R6 R6 K5 ["path"]
-       18 LOADN                            R7 1
-       19 NAMECALL                         R2 R2 K6 ["updateCell"]
-       21 CALL                             R2 5 -1
-       22 RETURN                           R2 -1
+        5 DUPTABLE                         R4 K5 [{["Editing"] = False}]
+        6 CALL                             R2 2 1
+        7 SETTABLEKS                       R2 R1 K0 ["Schema"]
+        9 GETUPVAL                         R2 2
+       10 MOVE                             R4 R0
+       11 MOVE                             R5 R1
+       12 GETUPVAL                         R6 3
+       13 GETTABLEKS                       R6 R6 K6 ["path"]
+       15 LOADN                            R7 1
+       16 NAMECALL                         R2 R2 K7 ["updateCell"]
+       18 CALL                             R2 5 -1
+       19 RETURN                           R2 -1
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -112,22 +110,20 @@ PROTO_3:
         1 GETUPVAL                         R2 0
         2 GETUPVAL                         R3 1
         3 GETTABLEKS                       R3 R3 K3 ["FolderSchema"]
-        5 DUPTABLE                         R4 K5 [{"Editing"}]
-        6 LOADB                            R5 0
-        7 SETTABLEKS                       R5 R4 K4 ["Editing"]
-        9 CALL                             R2 2 1
-       10 SETTABLEKS                       R2 R1 K0 ["Schema"]
-       12 GETUPVAL                         R2 2
-       13 SETTABLEKS                       R2 R1 K1 ["Value"]
-       15 GETUPVAL                         R2 3
-       16 MOVE                             R4 R0
-       17 MOVE                             R5 R1
-       18 GETUPVAL                         R6 4
-       19 GETTABLEKS                       R6 R6 K6 ["path"]
-       21 LOADN                            R7 1
-       22 NAMECALL                         R2 R2 K7 ["updateCell"]
-       24 CALL                             R2 5 -1
-       25 RETURN                           R2 -1
+        5 DUPTABLE                         R4 K6 [{["Editing"] = False}]
+        6 CALL                             R2 2 1
+        7 SETTABLEKS                       R2 R1 K0 ["Schema"]
+        9 GETUPVAL                         R2 2
+       10 SETTABLEKS                       R2 R1 K1 ["Value"]
+       12 GETUPVAL                         R2 3
+       13 MOVE                             R4 R0
+       14 MOVE                             R5 R1
+       15 GETUPVAL                         R6 4
+       16 GETTABLEKS                       R6 R6 K7 ["path"]
+       18 LOADN                            R7 1
+       19 NAMECALL                         R2 R2 K8 ["updateCell"]
+       21 CALL                             R2 5 -1
+       22 RETURN                           R2 -1
 
 PROTO_4:
         0 JUMPIFEQKS                       R2 K0 [""] ; [+9]
@@ -473,40 +469,32 @@ MAIN:
       124 GETTABLEKS                       R17 R17 K26 ["Tree"]
       126 CALL                             R16 1 1
       127 GETTABLEKS                       R17 R16 K27 ["EditTree"]
-      129 DUPTABLE                         R18 K32 [{"Slider", "Color", "ColorSequence", "NumberSequence"}]
-      130 LOADB                            R19 1
-      131 SETTABLEKS                       R19 R18 K28 ["Slider"]
-      133 LOADB                            R19 1
-      134 SETTABLEKS                       R19 R18 K29 ["Color"]
-      136 LOADB                            R19 1
-      137 SETTABLEKS                       R19 R18 K30 ["ColorSequence"]
-      139 LOADB                            R19 1
-      140 SETTABLEKS                       R19 R18 K31 ["NumberSequence"]
-      142 DUPCLOSURE                       R19 K33 [PROTO_2]
-      143 CAPTURE                          VAL R10
-      144 CAPTURE                          VAL R13
-      145 CAPTURE                          VAL R3
-      146 CAPTURE                          VAL R9
-      147 CAPTURE                          VAL R15
-      148 CAPTURE                          VAL R1
-      149 CAPTURE                          VAL R17
-      150 DUPCLOSURE                       R20 K34 [PROTO_4]
-      151 CAPTURE                          VAL R7
-      152 CAPTURE                          VAL R15
-      153 CAPTURE                          VAL R1
-      154 CAPTURE                          VAL R17
-      155 DUPCLOSURE                       R21 K35 [PROTO_5]
-      156 CAPTURE                          VAL R17
-      157 CAPTURE                          VAL R10
-      158 CAPTURE                          VAL R19
-      159 CAPTURE                          VAL R7
-      160 CAPTURE                          VAL R15
-      161 CAPTURE                          VAL R1
-      162 CAPTURE                          VAL R12
-      163 CAPTURE                          VAL R11
-      164 CAPTURE                          VAL R18
-      165 CAPTURE                          VAL R16
-      166 CAPTURE                          VAL R6
-      167 CAPTURE                          VAL R5
-      168 CAPTURE                          VAL R4
-      169 RETURN                           R21 1
+      129 DUPTABLE                         R18 K33 [{["Slider"] = True, ["Color"] = True, ["ColorSequence"] = True, ["NumberSequence"] = True}]
+      130 DUPCLOSURE                       R19 K34 [PROTO_2]
+      131 CAPTURE                          VAL R10
+      132 CAPTURE                          VAL R13
+      133 CAPTURE                          VAL R3
+      134 CAPTURE                          VAL R9
+      135 CAPTURE                          VAL R15
+      136 CAPTURE                          VAL R1
+      137 CAPTURE                          VAL R17
+      138 DUPCLOSURE                       R20 K35 [PROTO_4]
+      139 CAPTURE                          VAL R7
+      140 CAPTURE                          VAL R15
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R17
+      143 DUPCLOSURE                       R21 K36 [PROTO_5]
+      144 CAPTURE                          VAL R17
+      145 CAPTURE                          VAL R10
+      146 CAPTURE                          VAL R19
+      147 CAPTURE                          VAL R7
+      148 CAPTURE                          VAL R15
+      149 CAPTURE                          VAL R1
+      150 CAPTURE                          VAL R12
+      151 CAPTURE                          VAL R11
+      152 CAPTURE                          VAL R18
+      153 CAPTURE                          VAL R16
+      154 CAPTURE                          VAL R6
+      155 CAPTURE                          VAL R5
+      156 CAPTURE                          VAL R4
+      157 RETURN                           R21 1

@@ -58,25 +58,19 @@ PROTO_3:
        26 GETUPVAL                         R8 0
        27 GETTABLEKS                       R8 R8 K3 ["createElement"]
        29 GETUPVAL                         R9 2
-       30 DUPTABLE                         R10 K18 [{"Sizes", "OnSizesChange", "MinSizes", "BarStyle", "UseScale", "ClampSize", "Layout"}]
-       31 GETTABLEKS                       R11 R1 K19 ["sizes"]
+       30 DUPTABLE                         R10 K20 [{["Sizes"], ["OnSizesChange"], ["MinSizes"], ["BarStyle"] = "BorderBox", ["UseScale"] = True, ["ClampSize"] = True, ["Layout"]}]
+       31 GETTABLEKS                       R11 R1 K21 ["sizes"]
        33 SETTABLEKS                       R11 R10 K11 ["Sizes"]
-       35 GETTABLEKS                       R11 R0 K20 ["onSizesChange"]
+       35 GETTABLEKS                       R11 R0 K22 ["onSizesChange"]
        37 SETTABLEKS                       R11 R10 K12 ["OnSizesChange"]
        39 GETUPVAL                         R11 3
        40 SETTABLEKS                       R11 R10 K13 ["MinSizes"]
-       42 LOADK                            R11 K21 ["BorderBox"]
-       43 SETTABLEKS                       R11 R10 K14 ["BarStyle"]
-       45 LOADB                            R11 1
-       46 SETTABLEKS                       R11 R10 K15 ["UseScale"]
-       48 LOADB                            R11 1
-       49 SETTABLEKS                       R11 R10 K16 ["ClampSize"]
-       51 SETTABLEKS                       R3 R10 K17 ["Layout"]
-       53 GETTABLEKS                       R11 R2 K22 ["children"]
-       55 CALL                             R8 3 1
-       56 SETTABLEKS                       R8 R7 K9 ["SplitPane"]
-       58 CALL                             R4 3 -1
-       59 RETURN                           R4 -1
+       42 SETTABLEKS                       R3 R10 K19 ["Layout"]
+       44 GETTABLEKS                       R11 R2 K23 ["children"]
+       46 CALL                             R8 3 1
+       47 SETTABLEKS                       R8 R7 K9 ["SplitPane"]
+       49 CALL                             R4 3 -1
+       50 RETURN                           R4 -1
 
 PROTO_4:
         0 DUPTABLE                         R1 K1 [{"FrameBuffer"}]

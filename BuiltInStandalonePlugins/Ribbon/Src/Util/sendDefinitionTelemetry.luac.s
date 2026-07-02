@@ -90,7 +90,7 @@ MAIN:
        56 CALL                             R7 1 1
        57 GETIMPORT                        R8 K5 [game]
        59 LOADK                            R10 K20 ["RibbonDefinitionEventMaxStringLength"]
-       60 LOADN                            R11 16
+       60 LOADN                            R11 10000
        61 NAMECALL                         R8 R8 K21 ["DefineFastInt"]
        63 CALL                             R8 3 1
        64 DUPCLOSURE                       R9 K22 [PROTO_0]

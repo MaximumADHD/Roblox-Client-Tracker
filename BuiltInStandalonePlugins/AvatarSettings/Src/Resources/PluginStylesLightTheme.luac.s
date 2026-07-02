@@ -10,52 +10,14 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["Styling"]
        16 GETTABLEKS                       R2 R2 K9 ["createStyleSheet"]
-       18 DUPTABLE                         R3 K30 [{"CategoryListTextContrast", "PresetInfoImage", "PresetTooltipCheckImage", "PresetTooltipXImage", "PreviewTooltipSettingVisibleImage", "PreviewTooltipSettingInvisibleImage", "PreviewTooltipPlayImage", "PreviewTooltipPlayDisabledImage", "PreviewTooltipAddAvatarImage", "PreviewTooltipResetAvatarsToCameraImage", "GeneralCategoryImage", "BodyCategoryImage", "MovementCategoryImage", "AccessoriesCategoryImage", "ClothingCategoryImage", "CollapseSidebarImage", "ExpandSidebarImage", "AvatarTypeDropdownToggleImage", "PlayerChoicePresetImage", "ConsistentPresetImage"}]
-       19 GETIMPORT                        R4 K33 [Color3.fromHex]
-       21 LOADK                            R5 K34 ["3B3B3b"]
+       18 DUPTABLE                         R3 K49 [{["CategoryListTextContrast"], ["PresetInfoImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/info-light@2x.png", ["PresetTooltipCheckImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/Check-LightMode@3x.png", ["PresetTooltipXImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/X-LightMode@3x.png", ["PreviewTooltipSettingVisibleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-slash-fill-light@3x.png", ["PreviewTooltipSettingInvisibleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-fill-light@3x.png", ["PreviewTooltipPlayImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-light@3x.png", ["PreviewTooltipPlayDisabledImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-disabled-light@3x.png", ["PreviewTooltipAddAvatarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/plus-heavy-light@3x.png", ["PreviewTooltipResetAvatarsToCameraImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/reset-to-mannequin-light@3x.png", ["GeneralCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/settings-light@3x.png", ["BodyCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/avatar-light@3x.png", ["MovementCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/animation-light@3x.png", ["AccessoriesCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/accessories-light@3x.png", ["ClothingCategoryImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/clothing-light@3x.png", ["CollapseSidebarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/collapsesidebar-light@3x.png", ["ExpandSidebarImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/expandsidebar-light@3x.png", ["AvatarTypeDropdownToggleImage"] = "rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/more-options-light@3x.png", ["PlayerChoicePresetImage"] = "rbxasset://textures/AvatarSettings/Light/player-choice_lightx1.png", ["ConsistentPresetImage"] = "rbxasset://textures/AvatarSettings/Light/consistent-lightx1.png"}]
+       19 GETIMPORT                        R4 K52 [Color3.fromHex]
+       21 LOADK                            R5 K53 ["3B3B3b"]
        22 CALL                             R4 1 1
        23 SETTABLEKS                       R4 R3 K10 ["CategoryListTextContrast"]
-       25 LOADK                            R4 K35 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/info-light@2x.png"]
-       26 SETTABLEKS                       R4 R3 K11 ["PresetInfoImage"]
-       28 LOADK                            R4 K36 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/Check-LightMode@3x.png"]
-       29 SETTABLEKS                       R4 R3 K12 ["PresetTooltipCheckImage"]
-       31 LOADK                            R4 K37 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/X-LightMode@3x.png"]
-       32 SETTABLEKS                       R4 R3 K13 ["PresetTooltipXImage"]
-       34 LOADK                            R4 K38 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-slash-fill-light@3x.png"]
-       35 SETTABLEKS                       R4 R3 K14 ["PreviewTooltipSettingVisibleImage"]
-       37 LOADK                            R4 K39 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/eye-fill-light@3x.png"]
-       38 SETTABLEKS                       R4 R3 K15 ["PreviewTooltipSettingInvisibleImage"]
-       40 LOADK                            R4 K40 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-light@3x.png"]
-       41 SETTABLEKS                       R4 R3 K16 ["PreviewTooltipPlayImage"]
-       43 LOADK                            R4 K41 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/play-large-disabled-light@3x.png"]
-       44 SETTABLEKS                       R4 R3 K17 ["PreviewTooltipPlayDisabledImage"]
-       46 LOADK                            R4 K42 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/plus-heavy-light@3x.png"]
-       47 SETTABLEKS                       R4 R3 K18 ["PreviewTooltipAddAvatarImage"]
-       49 LOADK                            R4 K43 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/reset-to-mannequin-light@3x.png"]
-       50 SETTABLEKS                       R4 R3 K19 ["PreviewTooltipResetAvatarsToCameraImage"]
-       52 LOADK                            R4 K44 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/settings-light@3x.png"]
-       53 SETTABLEKS                       R4 R3 K20 ["GeneralCategoryImage"]
-       55 LOADK                            R4 K45 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/avatar-light@3x.png"]
-       56 SETTABLEKS                       R4 R3 K21 ["BodyCategoryImage"]
-       58 LOADK                            R4 K46 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/animation-light@3x.png"]
-       59 SETTABLEKS                       R4 R3 K22 ["MovementCategoryImage"]
-       61 LOADK                            R4 K47 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/accessories-light@3x.png"]
-       62 SETTABLEKS                       R4 R3 K23 ["AccessoriesCategoryImage"]
-       64 LOADK                            R4 K48 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/clothing-light@3x.png"]
-       65 SETTABLEKS                       R4 R3 K24 ["ClothingCategoryImage"]
-       67 LOADK                            R4 K49 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/collapsesidebar-light@3x.png"]
-       68 SETTABLEKS                       R4 R3 K25 ["CollapseSidebarImage"]
-       70 LOADK                            R4 K50 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/expandsidebar-light@3x.png"]
-       71 SETTABLEKS                       R4 R3 K26 ["ExpandSidebarImage"]
-       73 LOADK                            R4 K51 ["rbxasset://studio_svg_textures/Lua/AvatarSettings/Light/Standard/more-options-light@3x.png"]
-       74 SETTABLEKS                       R4 R3 K27 ["AvatarTypeDropdownToggleImage"]
-       76 LOADK                            R4 K52 ["rbxasset://textures/AvatarSettings/Light/player-choice_lightx1.png"]
-       77 SETTABLEKS                       R4 R3 K28 ["PlayerChoicePresetImage"]
-       79 LOADK                            R4 K53 ["rbxasset://textures/AvatarSettings/Light/consistent-lightx1.png"]
-       80 SETTABLEKS                       R4 R3 K29 ["ConsistentPresetImage"]
-       82 MOVE                             R4 R2
-       83 LOADK                            R5 K54 ["AvatarSettingsLightTheme"]
-       84 NEWTABLE                         R6 0 0
-       86 MOVE                             R7 R3
-       87 CALL                             R4 3 -1
-       88 RETURN                           R4 -1
+       25 MOVE                             R4 R2
+       26 LOADK                            R5 K54 ["AvatarSettingsLightTheme"]
+       27 NEWTABLE                         R6 0 0
+       29 MOVE                             R7 R3
+       30 CALL                             R4 3 -1
+       31 RETURN                           R4 -1

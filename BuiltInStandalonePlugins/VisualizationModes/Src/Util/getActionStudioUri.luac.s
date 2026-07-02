@@ -1,12 +1,8 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"DataModel", "PluginId", "Category", "ItemId"}]
-        1 LOADK                            R3 K5 ["Standalone"]
-        2 SETTABLEKS                       R3 R2 K0 ["DataModel"]
-        4 SETTABLEKS                       R0 R2 K1 ["PluginId"]
-        6 LOADK                            R3 K6 ["Actions"]
-        7 SETTABLEKS                       R3 R2 K2 ["Category"]
-        9 SETTABLEKS                       R1 R2 K3 ["ItemId"]
-       11 RETURN                           R2 1
+        0 DUPTABLE                         R2 K6 [{[1] = "Standalone", ["PluginId"], ["Category"] = "Actions", ["ItemId"]}]
+        1 SETTABLEKS                       R0 R2 K2 ["PluginId"]
+        3 SETTABLEKS                       R1 R2 K5 ["ItemId"]
+        5 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

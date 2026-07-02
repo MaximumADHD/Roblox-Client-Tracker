@@ -15,7 +15,7 @@ PROTO_0:
        17 GETUPVAL                         R2 0
        18 GETUPVAL                         R4 4
        19 GETUPVAL                         R5 2
-       20 LOADN                            R6 255
+       20 LOADN                            R6 -1
        21 CALL                             R4 2 -1
        22 NAMECALL                         R2 R2 K3 ["dispatch"]
        24 CALL                             R2 -1 0

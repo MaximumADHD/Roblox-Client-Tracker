@@ -46,26 +46,24 @@ PROTO_5:
        33 GETUPVAL                         R5 1
        34 GETTABLEKS                       R5 R5 K7 ["createElement"]
        36 GETUPVAL                         R6 3
-       37 DUPTABLE                         R7 K13 [{"Sections", "PageSize", "AssetLogicWrapperProps"}]
+       37 DUPTABLE                         R7 K14 [{["Sections"], ["PageSize"] = 10, ["AssetLogicWrapperProps"]}]
        38 SETTABLEKS                       R0 R7 K10 ["Sections"]
-       40 LOADN                            R8 10
-       41 SETTABLEKS                       R8 R7 K11 ["PageSize"]
-       43 DUPTABLE                         R8 K19 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
-       44 DUPCLOSURE                       R9 K20 [PROTO_0]
-       45 SETTABLEKS                       R9 R8 K14 ["CanInsertAsset"]
-       47 DUPCLOSURE                       R9 K21 [PROTO_1]
-       48 SETTABLEKS                       R9 R8 K15 ["LogAssetImpression"]
-       50 DUPCLOSURE                       R9 K22 [PROTO_2]
-       51 SETTABLEKS                       R9 R8 K16 ["OnAssetPreviewButtonClicked"]
-       53 DUPCLOSURE                       R9 K23 [PROTO_3]
-       54 SETTABLEKS                       R9 R8 K17 ["TryInsert"]
-       56 DUPCLOSURE                       R9 K24 [PROTO_4]
-       57 SETTABLEKS                       R9 R8 K18 ["TryOpenAssetConfig"]
-       59 SETTABLEKS                       R8 R7 K12 ["AssetLogicWrapperProps"]
-       61 CALL                             R5 2 1
-       62 SETTABLEKS                       R5 R4 K8 ["AudioView"]
-       64 CALL                             R1 3 -1
-       65 RETURN                           R1 -1
+       40 DUPTABLE                         R8 K20 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+       41 DUPCLOSURE                       R9 K21 [PROTO_0]
+       42 SETTABLEKS                       R9 R8 K15 ["CanInsertAsset"]
+       44 DUPCLOSURE                       R9 K22 [PROTO_1]
+       45 SETTABLEKS                       R9 R8 K16 ["LogAssetImpression"]
+       47 DUPCLOSURE                       R9 K23 [PROTO_2]
+       48 SETTABLEKS                       R9 R8 K17 ["OnAssetPreviewButtonClicked"]
+       50 DUPCLOSURE                       R9 K24 [PROTO_3]
+       51 SETTABLEKS                       R9 R8 K18 ["TryInsert"]
+       53 DUPCLOSURE                       R9 K25 [PROTO_4]
+       54 SETTABLEKS                       R9 R8 K19 ["TryOpenAssetConfig"]
+       56 SETTABLEKS                       R8 R7 K13 ["AssetLogicWrapperProps"]
+       58 CALL                             R5 2 1
+       59 SETTABLEKS                       R5 R4 K8 ["AudioView"]
+       61 CALL                             R1 3 -1
+       62 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

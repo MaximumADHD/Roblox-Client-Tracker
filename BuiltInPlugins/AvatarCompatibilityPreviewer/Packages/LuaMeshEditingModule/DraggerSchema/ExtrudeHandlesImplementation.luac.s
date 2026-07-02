@@ -24,28 +24,16 @@ PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["_draggerContext"]
         2 NAMECALL                         R3 R3 K1 ["isShiftKeyDown"]
         4 CALL                             R3 1 1
-        5 JUMPIFNOT                        R3 ; [+11]
-        6 DUPTABLE                         R3 K5 [{"X", "Y", "Z"}]
-        7 LOADB                            R4 1
-        8 SETTABLEKS                       R4 R3 K2 ["X"]
-       10 LOADB                            R4 1
-       11 SETTABLEKS                       R4 R3 K3 ["Y"]
-       13 LOADB                            R4 1
-       14 SETTABLEKS                       R4 R3 K4 ["Z"]
-       16 RETURN                           R3 1
-       17 NEWTABLE                         R3 0 3
-       19 DUPTABLE                         R4 K6 [{"X"}]
-       20 LOADB                            R5 1
-       21 SETTABLEKS                       R5 R4 K2 ["X"]
-       23 DUPTABLE                         R5 K7 [{"Y"}]
-       24 LOADB                            R6 1
-       25 SETTABLEKS                       R6 R5 K3 ["Y"]
-       27 DUPTABLE                         R6 K8 [{"Z"}]
-       28 LOADB                            R7 1
-       29 SETTABLEKS                       R7 R6 K4 ["Z"]
-       31 SETLIST                          R3 R4 3 [1]
-       33 GETTABLE                         R4 R3 R2
-       34 RETURN                           R4 1
+        5 JUMPIFNOT                        R3 ; [+2]
+        6 DUPTABLE                         R3 K6 [{["X"] = True, ["Y"] = True, ["Z"] = True}]
+        7 RETURN                           R3 1
+        8 NEWTABLE                         R3 0 3
+       10 DUPTABLE                         R4 K7 [{["X"] = True}]
+       11 DUPTABLE                         R5 K8 [{["Y"] = True}]
+       12 DUPTABLE                         R6 K9 [{["Z"] = True}]
+       13 SETLIST                          R3 R4 3 [1]
+       15 GETTABLE                         R4 R3 R2
+       16 RETURN                           R4 1
 
 PROTO_4:
         0 NAMECALL                         R4 R2 K0 ["getBoundingBox"]

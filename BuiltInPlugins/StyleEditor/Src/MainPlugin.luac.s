@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
@@ -96,12 +94,10 @@ PROTO_8:
         3 MOVE                             R2 R0
         4 CALL                             R1 1 0
         5 GETUPVAL                         R1 0
-        6 DUPTABLE                         R3 K2 [{"enabled"}]
-        7 LOADB                            R4 1
-        8 SETTABLEKS                       R4 R3 K1 ["enabled"]
-       10 NAMECALL                         R1 R1 K3 ["setState"]
-       12 CALL                             R1 2 0
-       13 RETURN                           R0 0
+        6 DUPTABLE                         R3 K3 [{["enabled"] = True}]
+        7 NAMECALL                         R1 R1 K4 ["setState"]
+        9 CALL                             R1 2 0
+       10 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -130,106 +126,100 @@ PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 LOADB                            R2 1
         3 SETTABLEKS                       R2 R0 K1 ["firstRender"]
-        5 DUPTABLE                         R4 K3 [{"enabled"}]
-        6 LOADB                            R5 0
-        7 SETTABLEKS                       R5 R4 K2 ["enabled"]
-        9 NAMECALL                         R2 R0 K4 ["setState"]
-       11 CALL                             R2 2 0
-       12 NEWCLOSURE                       R2 P0
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R2 R0 K5 ["toggleEnabled"]
-       16 NEWCLOSURE                       R2 P1
-       17 CAPTURE                          VAL R0
-       18 SETTABLEKS                       R2 R0 K6 ["onClose"]
-       20 NEWCLOSURE                       R2 P2
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R2 R0 K7 ["onRestore"]
-       24 NEWCLOSURE                       R2 P3
-       25 CAPTURE                          VAL R0
-       26 SETTABLEKS                       R2 R0 K8 ["onWidgetEnabledChanged"]
-       28 NEWCLOSURE                       R2 P4
-       29 CAPTURE                          VAL R0
-       30 SETTABLEKS                       R2 R0 K9 ["onDockWidgetCreated"]
-       32 GETUPVAL                         R2 0
-       33 GETTABLEKS                       R2 R2 K10 ["Localization"]
-       35 GETTABLEKS                       R2 R2 K11 ["new"]
-       37 DUPTABLE                         R3 K16 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
-       38 GETUPVAL                         R4 1
-       39 SETTABLEKS                       R4 R3 K12 ["stringResourceTable"]
-       41 GETUPVAL                         R4 2
-       42 SETTABLEKS                       R4 R3 K13 ["translationResourceTable"]
-       44 LOADK                            R4 K17 ["StyleEditor"]
-       45 SETTABLEKS                       R4 R3 K14 ["pluginName"]
-       47 NEWTABLE                         R4 1 0
-       49 GETUPVAL                         R5 3
-       50 GETTABLEKS                       R5 R5 K18 ["Resources"]
-       52 GETTABLEKS                       R5 R5 K19 ["LOCALIZATION_PROJECT_NAME"]
-       54 DUPTABLE                         R6 K20 [{"stringResourceTable", "translationResourceTable"}]
-       55 GETUPVAL                         R7 3
-       56 GETTABLEKS                       R7 R7 K18 ["Resources"]
-       58 GETTABLEKS                       R7 R7 K21 ["SourceStrings"]
-       60 SETTABLEKS                       R7 R6 K12 ["stringResourceTable"]
-       62 GETUPVAL                         R7 3
-       63 GETTABLEKS                       R7 R7 K18 ["Resources"]
-       65 GETTABLEKS                       R7 R7 K22 ["LocalizedStrings"]
-       67 SETTABLEKS                       R7 R6 K13 ["translationResourceTable"]
-       69 SETTABLE                         R6 R4 R5
-       70 SETTABLEKS                       R4 R3 K15 ["libraries"]
-       72 CALL                             R2 1 1
-       73 SETTABLEKS                       R2 R0 K23 ["localization"]
-       75 GETUPVAL                         R2 4
-       76 GETTABLEKS                       R2 R2 K11 ["new"]
-       78 GETUPVAL                         R3 5
+        5 DUPTABLE                         R4 K4 [{["enabled"] = False}]
+        6 NAMECALL                         R2 R0 K5 ["setState"]
+        8 CALL                             R2 2 0
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R2 R0 K6 ["toggleEnabled"]
+       13 NEWCLOSURE                       R2 P1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R2 R0 K7 ["onClose"]
+       17 NEWCLOSURE                       R2 P2
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R2 R0 K8 ["onRestore"]
+       21 NEWCLOSURE                       R2 P3
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R2 R0 K9 ["onWidgetEnabledChanged"]
+       25 NEWCLOSURE                       R2 P4
+       26 CAPTURE                          VAL R0
+       27 SETTABLEKS                       R2 R0 K10 ["onDockWidgetCreated"]
+       29 GETUPVAL                         R2 0
+       30 GETTABLEKS                       R2 R2 K11 ["Localization"]
+       32 GETTABLEKS                       R2 R2 K12 ["new"]
+       34 DUPTABLE                         R3 K18 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "StyleEditor", ["libraries"]}]
+       35 GETUPVAL                         R4 1
+       36 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
+       38 GETUPVAL                         R4 2
+       39 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
+       41 NEWTABLE                         R4 1 0
+       43 GETUPVAL                         R5 3
+       44 GETTABLEKS                       R5 R5 K19 ["Resources"]
+       46 GETTABLEKS                       R5 R5 K20 ["LOCALIZATION_PROJECT_NAME"]
+       48 DUPTABLE                         R6 K21 [{"stringResourceTable", "translationResourceTable"}]
+       49 GETUPVAL                         R7 3
+       50 GETTABLEKS                       R7 R7 K19 ["Resources"]
+       52 GETTABLEKS                       R7 R7 K22 ["SourceStrings"]
+       54 SETTABLEKS                       R7 R6 K13 ["stringResourceTable"]
+       56 GETUPVAL                         R7 3
+       57 GETTABLEKS                       R7 R7 K19 ["Resources"]
+       59 GETTABLEKS                       R7 R7 K23 ["LocalizedStrings"]
+       61 SETTABLEKS                       R7 R6 K14 ["translationResourceTable"]
+       63 SETTABLE                         R6 R4 R5
+       64 SETTABLEKS                       R4 R3 K17 ["libraries"]
+       66 CALL                             R2 1 1
+       67 SETTABLEKS                       R2 R0 K24 ["localization"]
+       69 GETUPVAL                         R2 4
+       70 GETTABLEKS                       R2 R2 K12 ["new"]
+       72 GETUPVAL                         R3 5
+       73 CALL                             R2 1 1
+       74 SETTABLEKS                       R2 R0 K25 ["telemetry"]
+       76 GETUPVAL                         R2 6
+       77 GETTABLEKS                       R3 R1 K26 ["Plugin"]
        79 CALL                             R2 1 1
-       80 SETTABLEKS                       R2 R0 K24 ["telemetry"]
-       82 GETUPVAL                         R2 6
-       83 GETTABLEKS                       R3 R1 K25 ["Plugin"]
-       85 CALL                             R2 1 1
-       86 SETTABLEKS                       R2 R0 K26 ["design"]
-       88 GETUPVAL                         R2 7
-       89 DUPTABLE                         R3 K30 [{"Localization", "Networking", "Plugin", "Telemetry", "recordChange"}]
-       90 GETTABLEKS                       R4 R0 K23 ["localization"]
-       92 SETTABLEKS                       R4 R3 K10 ["Localization"]
-       94 GETUPVAL                         R4 8
-       95 GETTABLEKS                       R4 R4 K11 ["new"]
-       97 DUPTABLE                         R5 K32 [{"isInternal"}]
-       98 LOADB                            R6 1
-       99 SETTABLEKS                       R6 R5 K31 ["isInternal"]
-      101 CALL                             R4 1 1
-      102 SETTABLEKS                       R4 R3 K27 ["Networking"]
-      104 GETTABLEKS                       R4 R1 K25 ["Plugin"]
-      106 SETTABLEKS                       R4 R3 K25 ["Plugin"]
-      108 GETTABLEKS                       R4 R0 K24 ["telemetry"]
-      110 SETTABLEKS                       R4 R3 K28 ["Telemetry"]
-      112 GETUPVAL                         R4 9
-      113 GETUPVAL                         R5 10
-      114 CALL                             R4 1 1
-      115 SETTABLEKS                       R4 R3 K29 ["recordChange"]
-      117 CALL                             R2 1 1
-      118 SETTABLEKS                       R2 R0 K33 ["store"]
-      120 NEWCLOSURE                       R2 P5
-      121 CAPTURE                          UPVAL U11
-      122 CAPTURE                          VAL R0
-      123 CAPTURE                          UPVAL U12
-      124 CAPTURE                          UPVAL U13
-      125 CAPTURE                          UPVAL U14
-      126 SETTABLEKS                       R2 R0 K34 ["selectStyle"]
-      128 GETTABLEKS                       R3 R1 K36 ["PluginLoaderContext"]
-      130 GETTABLEKS                       R3 R3 K37 ["signals"]
-      132 GETTABLEKS                       R2 R3 K35 ["GuiService.OpenStyleEditor"]
-      134 NEWCLOSURE                       R4 P6
-      135 CAPTURE                          VAL R0
-      136 NAMECALL                         R2 R2 K38 ["Connect"]
-      138 CALL                             R2 2 1
-      139 SETTABLEKS                       R2 R0 K39 ["openConnection"]
-      141 GETTABLEKS                       R2 R1 K25 ["Plugin"]
-      143 GETTABLEKS                       R2 R2 K40 ["Unloading"]
-      145 NEWCLOSURE                       R4 P7
-      146 CAPTURE                          VAL R0
-      147 CAPTURE                          UPVAL U15
-      148 NAMECALL                         R2 R2 K38 ["Connect"]
-      150 CALL                             R2 2 0
-      151 RETURN                           R0 0
+       80 SETTABLEKS                       R2 R0 K27 ["design"]
+       82 GETUPVAL                         R2 7
+       83 DUPTABLE                         R3 K31 [{"Localization", "Networking", "Plugin", "Telemetry", "recordChange"}]
+       84 GETTABLEKS                       R4 R0 K24 ["localization"]
+       86 SETTABLEKS                       R4 R3 K11 ["Localization"]
+       88 GETUPVAL                         R4 8
+       89 GETTABLEKS                       R4 R4 K12 ["new"]
+       91 DUPTABLE                         R5 K34 [{["isInternal"] = True}]
+       92 CALL                             R4 1 1
+       93 SETTABLEKS                       R4 R3 K28 ["Networking"]
+       95 GETTABLEKS                       R4 R1 K26 ["Plugin"]
+       97 SETTABLEKS                       R4 R3 K26 ["Plugin"]
+       99 GETTABLEKS                       R4 R0 K25 ["telemetry"]
+      101 SETTABLEKS                       R4 R3 K29 ["Telemetry"]
+      103 GETUPVAL                         R4 9
+      104 GETUPVAL                         R5 10
+      105 CALL                             R4 1 1
+      106 SETTABLEKS                       R4 R3 K30 ["recordChange"]
+      108 CALL                             R2 1 1
+      109 SETTABLEKS                       R2 R0 K35 ["store"]
+      111 NEWCLOSURE                       R2 P5
+      112 CAPTURE                          UPVAL U11
+      113 CAPTURE                          VAL R0
+      114 CAPTURE                          UPVAL U12
+      115 CAPTURE                          UPVAL U13
+      116 CAPTURE                          UPVAL U14
+      117 SETTABLEKS                       R2 R0 K36 ["selectStyle"]
+      119 GETTABLEKS                       R3 R1 K38 ["PluginLoaderContext"]
+      121 GETTABLEKS                       R3 R3 K39 ["signals"]
+      123 GETTABLEKS                       R2 R3 K37 ["GuiService.OpenStyleEditor"]
+      125 NEWCLOSURE                       R4 P6
+      126 CAPTURE                          VAL R0
+      127 NAMECALL                         R2 R2 K40 ["Connect"]
+      129 CALL                             R2 2 1
+      130 SETTABLEKS                       R2 R0 K41 ["openConnection"]
+      132 GETTABLEKS                       R2 R1 K26 ["Plugin"]
+      134 GETTABLEKS                       R2 R2 K42 ["Unloading"]
+      136 NEWCLOSURE                       R4 P7
+      137 CAPTURE                          VAL R0
+      138 CAPTURE                          UPVAL U15
+      139 NAMECALL                         R2 R2 K40 ["Connect"]
+      141 CALL                             R2 2 0
+      142 RETURN                           R0 0
 
 PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -305,8 +295,8 @@ PROTO_12:
        68 GETIMPORT                        R11 K25 [Enum.InitialDockState.Right]
        70 SETTABLEKS                       R11 R10 K23 ["InitialDockState"]
        72 GETIMPORT                        R11 K27 [Vector2.new]
-       74 LOADN                            R12 68
-       75 LOADN                            R13 244
+       74 LOADN                            R12 580
+       75 LOADN                            R13 500
        76 CALL                             R11 2 1
        77 SETTABLEKS                       R11 R10 K28 ["Size"]
        79 GETTABLEKS                       R11 R0 K29 ["onClose"]

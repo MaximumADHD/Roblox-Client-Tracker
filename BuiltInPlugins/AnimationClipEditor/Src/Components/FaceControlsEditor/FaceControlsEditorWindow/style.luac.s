@@ -30,32 +30,28 @@ PROTO_0:
        42 GETTABLEKS                       R4 R4 K10 ["Dictionary"]
        44 GETTABLEKS                       R4 R4 K11 ["join"]
        46 GETUPVAL                         R5 3
-       47 DUPTABLE                         R6 K19 [{"Transparency", "Color"}]
-       48 LOADK                            R7 K20 [0.5]
-       49 SETTABLEKS                       R7 R6 K18 ["Transparency"]
-       51 GETUPVAL                         R7 4
-       52 GETTABLEKS                       R7 R7 K21 ["ImageButtonHover"]
-       54 SETTABLEKS                       R7 R6 K12 ["Color"]
-       56 CALL                             R4 2 1
-       57 SETTABLEKS                       R4 R3 K15 ["BackgroundStyle"]
-       59 SETTABLE                         R3 R1 R2
-       60 GETUPVAL                         R2 5
-       61 GETTABLEKS                       R2 R2 K22 ["Disabled"]
-       63 DUPTABLE                         R3 K17 [{"BackgroundStyle"}]
-       64 GETUPVAL                         R4 2
-       65 GETTABLEKS                       R4 R4 K10 ["Dictionary"]
-       67 GETTABLEKS                       R4 R4 K11 ["join"]
-       69 GETUPVAL                         R5 3
-       70 DUPTABLE                         R6 K23 [{"Color", "Transparency"}]
-       71 GETUPVAL                         R7 4
-       72 GETTABLEKS                       R7 R7 K24 ["ButtonDisabled"]
-       74 SETTABLEKS                       R7 R6 K12 ["Color"]
-       76 LOADK                            R7 K20 [0.5]
-       77 SETTABLEKS                       R7 R6 K18 ["Transparency"]
-       79 CALL                             R4 2 1
-       80 SETTABLEKS                       R4 R3 K15 ["BackgroundStyle"]
-       82 SETTABLE                         R3 R1 R2
-       83 RETURN                           R1 1
+       47 DUPTABLE                         R6 K20 [{["Transparency"] = 0.5, ["Color"]}]
+       48 GETUPVAL                         R7 4
+       49 GETTABLEKS                       R7 R7 K21 ["ImageButtonHover"]
+       51 SETTABLEKS                       R7 R6 K12 ["Color"]
+       53 CALL                             R4 2 1
+       54 SETTABLEKS                       R4 R3 K15 ["BackgroundStyle"]
+       56 SETTABLE                         R3 R1 R2
+       57 GETUPVAL                         R2 5
+       58 GETTABLEKS                       R2 R2 K22 ["Disabled"]
+       60 DUPTABLE                         R3 K17 [{"BackgroundStyle"}]
+       61 GETUPVAL                         R4 2
+       62 GETTABLEKS                       R4 R4 K10 ["Dictionary"]
+       64 GETTABLEKS                       R4 R4 K11 ["join"]
+       66 GETUPVAL                         R5 3
+       67 DUPTABLE                         R6 K23 [{["Color"], ["Transparency"] = 0.5}]
+       68 GETUPVAL                         R7 4
+       69 GETTABLEKS                       R7 R7 K24 ["ButtonDisabled"]
+       71 SETTABLEKS                       R7 R6 K12 ["Color"]
+       73 CALL                             R4 2 1
+       74 SETTABLEKS                       R4 R3 K15 ["BackgroundStyle"]
+       76 SETTABLE                         R3 R1 R2
+       77 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -100,23 +96,15 @@ MAIN:
        58 LOADN                            R19 46
        59 CALL                             R15 4 1
        60 SETTABLEKS                       R15 R14 K22 ["Size"]
-       62 DUPTABLE                         R15 K34 [{"Top", "Left", "Bottom", "Right"}]
-       63 LOADN                            R16 5
-       64 SETTABLEKS                       R16 R15 K30 ["Top"]
-       66 LOADN                            R16 11
-       67 SETTABLEKS                       R16 R15 K31 ["Left"]
-       69 LOADN                            R16 11
-       70 SETTABLEKS                       R16 R15 K32 ["Bottom"]
-       72 LOADN                            R16 11
-       73 SETTABLEKS                       R16 R15 K33 ["Right"]
-       75 SETTABLEKS                       R15 R14 K23 ["Padding"]
-       77 MOVE                             R15 R12
-       78 LOADK                            R16 K35 ["rbxasset://textures/DeveloperFramework/MediaPlayerControls/pause_button.png"]
-       79 CALL                             R15 1 1
-       80 SETTABLEKS                       R15 R14 K24 ["PauseButton"]
-       82 MOVE                             R15 R12
-       83 LOADK                            R16 K36 ["rbxasset://textures/DeveloperFramework/MediaPlayerControls/play_button.png"]
-       84 CALL                             R15 1 1
-       85 SETTABLEKS                       R15 R14 K25 ["PlayButton"]
-       87 SETTABLEKS                       R14 R13 K20 ["Controls"]
-       89 RETURN                           R13 1
+       62 DUPTABLE                         R15 K36 [{["Top"] = 5, ["Left"] = 11, ["Bottom"] = 11, ["Right"] = 11}]
+       63 SETTABLEKS                       R15 R14 K23 ["Padding"]
+       65 MOVE                             R15 R12
+       66 LOADK                            R16 K37 ["rbxasset://textures/DeveloperFramework/MediaPlayerControls/pause_button.png"]
+       67 CALL                             R15 1 1
+       68 SETTABLEKS                       R15 R14 K24 ["PauseButton"]
+       70 MOVE                             R15 R12
+       71 LOADK                            R16 K38 ["rbxasset://textures/DeveloperFramework/MediaPlayerControls/play_button.png"]
+       72 CALL                             R15 1 1
+       73 SETTABLEKS                       R15 R14 K25 ["PlayButton"]
+       75 SETTABLEKS                       R14 R13 K20 ["Controls"]
+       77 RETURN                           R13 1

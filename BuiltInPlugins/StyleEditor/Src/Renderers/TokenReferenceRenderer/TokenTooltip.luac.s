@@ -77,7 +77,7 @@ PROTO_1:
        95 CALL                             R11 2 1
        96 SETTABLEKS                       R11 R10 K18 ["ErrorLabel"]
        98 MOVE                             R6 R10
-       99 JUMP                             ; [+131]
+       99 JUMP                             ; [+128]
       100 DUPTABLE                         R8 K33 [{"ValuePreview", "TypeLabel", "SourceContainer"}]
       101 GETUPVAL                         R9 6
       102 GETTABLEKS                       R9 R9 K20 ["createElement"]
@@ -120,7 +120,7 @@ PROTO_1:
       156 SETTABLEKS                       R9 R8 K31 ["TypeLabel"]
       158 GETTABLEKS                       R9 R0 K1 ["TokenInfo"]
       160 GETTABLEKS                       R9 R9 K40 ["Source"]
-      162 JUMPIFNOT                        R9 ; [+65]
+      162 JUMPIFNOT                        R9 ; [+62]
       163 GETUPVAL                         R9 6
       164 GETTABLEKS                       R9 R9 K20 ["createElement"]
       166 GETUPVAL                         R10 11
@@ -158,41 +158,39 @@ PROTO_1:
       210 GETUPVAL                         R13 6
       211 GETTABLEKS                       R13 R13 K20 ["createElement"]
       213 GETUPVAL                         R14 12
-      214 DUPTABLE                         R15 K46 [{"Source", "LayoutOrder"}]
+      214 DUPTABLE                         R15 K47 [{["Source"], ["LayoutOrder"] = 2}]
       215 GETTABLEKS                       R16 R0 K1 ["TokenInfo"]
       217 GETTABLEKS                       R16 R16 K40 ["Source"]
       219 SETTABLEKS                       R16 R15 K40 ["Source"]
-      221 LOADN                            R16 2
-      222 SETTABLEKS                       R16 R15 K21 ["LayoutOrder"]
-      224 CALL                             R13 2 1
-      225 SETTABLEKS                       R13 R12 K43 ["SourceLink"]
-      227 CALL                             R9 3 1
-      228 SETTABLEKS                       R9 R8 K32 ["SourceContainer"]
-      230 MOVE                             R6 R8
-      231 GETUPVAL                         R8 6
-      232 GETTABLEKS                       R8 R8 K20 ["createElement"]
-      234 GETUPVAL                         R9 13
-      235 DUPTABLE                         R10 K49 [{"Content", "ContentExtents"}]
-      236 GETUPVAL                         R11 6
-      237 GETTABLEKS                       R11 R11 K20 ["createElement"]
-      239 GETUPVAL                         R12 11
-      240 NEWTABLE                         R13 2 0
-      242 GETUPVAL                         R14 6
-      243 GETTABLEKS                       R14 R14 K27 ["Tag"]
-      245 LOADK                            R15 K50 ["X-Column X-Fit"]
-      246 SETTABLE                         R15 R13 R14
-      247 GETUPVAL                         R14 6
-      248 GETTABLEKS                       R14 R14 K51 ["Change"]
-      250 GETTABLEKS                       R14 R14 K52 ["AbsoluteSize"]
-      252 NEWCLOSURE                       R15 P0
-      253 CAPTURE                          VAL R2
-      254 SETTABLE                         R15 R13 R14
-      255 MOVE                             R14 R6
-      256 CALL                             R11 3 1
-      257 SETTABLEKS                       R11 R10 K47 ["Content"]
-      259 SETTABLEKS                       R1 R10 K48 ["ContentExtents"]
-      261 CALL                             R8 2 -1
-      262 RETURN                           R8 -1
+      221 CALL                             R13 2 1
+      222 SETTABLEKS                       R13 R12 K43 ["SourceLink"]
+      224 CALL                             R9 3 1
+      225 SETTABLEKS                       R9 R8 K32 ["SourceContainer"]
+      227 MOVE                             R6 R8
+      228 GETUPVAL                         R8 6
+      229 GETTABLEKS                       R8 R8 K20 ["createElement"]
+      231 GETUPVAL                         R9 13
+      232 DUPTABLE                         R10 K50 [{"Content", "ContentExtents"}]
+      233 GETUPVAL                         R11 6
+      234 GETTABLEKS                       R11 R11 K20 ["createElement"]
+      236 GETUPVAL                         R12 11
+      237 NEWTABLE                         R13 2 0
+      239 GETUPVAL                         R14 6
+      240 GETTABLEKS                       R14 R14 K27 ["Tag"]
+      242 LOADK                            R15 K51 ["X-Column X-Fit"]
+      243 SETTABLE                         R15 R13 R14
+      244 GETUPVAL                         R14 6
+      245 GETTABLEKS                       R14 R14 K52 ["Change"]
+      247 GETTABLEKS                       R14 R14 K53 ["AbsoluteSize"]
+      249 NEWCLOSURE                       R15 P0
+      250 CAPTURE                          VAL R2
+      251 SETTABLE                         R15 R13 R14
+      252 MOVE                             R14 R6
+      253 CALL                             R11 3 1
+      254 SETTABLEKS                       R11 R10 K48 ["Content"]
+      256 SETTABLEKS                       R1 R10 K49 ["ContentExtents"]
+      258 CALL                             R8 2 -1
+      259 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -259,7 +257,7 @@ MAIN:
       112 GETTABLEKS                       R16 R16 K27 ["Types"]
       114 CALL                             R15 1 1
       115 GETIMPORT                        R16 K30 [Vector2.new]
-      117 LOADN                            R17 94
+      117 LOADN                            R17 350
       118 LOADN                            R18 60
       119 CALL                             R16 2 1
       120 LOADK                            R19 K31 ["TokenTooltipRowHeight"]

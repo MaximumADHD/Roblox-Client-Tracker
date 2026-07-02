@@ -1,23 +1,19 @@
 PROTO_0:
-        0 JUMPIFNOTEQKS                    R0 K0 ["None"] ; [+14]
+        0 JUMPIFNOTEQKS                    R0 K0 ["None"] ; [+11]
         2 DUPTABLE                         R1 K2 [{"permissions"}]
         3 NEWTABLE                         R2 1 0
         5 GETUPVAL                         R4 0
         6 GETTABLEN                        R3 R4 1
-        7 DUPTABLE                         R4 K4 [{"isGranted"}]
-        8 LOADB                            R5 0
-        9 SETTABLEKS                       R5 R4 K3 ["isGranted"]
-       11 SETTABLE                         R4 R2 R3
-       12 SETTABLEKS                       R2 R1 K1 ["permissions"]
-       14 RETURN                           R1 1
-       15 DUPTABLE                         R1 K2 [{"permissions"}]
-       16 NEWTABLE                         R2 1 0
-       18 DUPTABLE                         R3 K4 [{"isGranted"}]
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K3 ["isGranted"]
-       22 SETTABLE                         R3 R2 R0
-       23 SETTABLEKS                       R2 R1 K1 ["permissions"]
-       25 RETURN                           R1 1
+        7 DUPTABLE                         R4 K5 [{["isGranted"] = False}]
+        8 SETTABLE                         R4 R2 R3
+        9 SETTABLEKS                       R2 R1 K1 ["permissions"]
+       11 RETURN                           R1 1
+       12 DUPTABLE                         R1 K2 [{"permissions"}]
+       13 NEWTABLE                         R2 1 0
+       15 DUPTABLE                         R3 K7 [{["isGranted"] = True}]
+       16 SETTABLE                         R3 R2 R0
+       17 SETTABLEKS                       R2 R1 K1 ["permissions"]
+       19 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R4 R0 K0 ["permissions"]

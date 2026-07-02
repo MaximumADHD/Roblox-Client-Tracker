@@ -19,35 +19,33 @@ PROTO_2:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
-       11 DUPTABLE                         R6 K6 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
+       11 DUPTABLE                         R6 K7 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       12 GETIMPORT                        R7 K10 [Enum.AutomaticSize.Y]
        14 SETTABLEKS                       R7 R6 K3 ["AutomaticSize"]
-       16 LOADN                            R7 1
-       17 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
-       19 GETIMPORT                        R7 K12 [UDim2.new]
-       21 LOADN                            R8 1
-       22 LOADN                            R9 0
-       23 LOADN                            R10 0
-       24 LOADN                            R11 0
-       25 CALL                             R7 4 1
-       26 SETTABLEKS                       R7 R6 K5 ["Size"]
-       28 DUPTABLE                         R7 K14 [{"List"}]
-       29 GETUPVAL                         R8 0
-       30 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       32 GETUPVAL                         R9 2
-       33 DUPTABLE                         R10 K18 [{"AssetInfo", "OnAssetPreviewButtonClicked", "OnInsertClicked"}]
-       34 GETUPVAL                         R11 3
-       35 SETTABLEKS                       R11 R10 K15 ["AssetInfo"]
-       37 DUPCLOSURE                       R11 K19 [PROTO_0]
-       38 SETTABLEKS                       R11 R10 K16 ["OnAssetPreviewButtonClicked"]
-       40 DUPCLOSURE                       R11 K20 [PROTO_1]
-       41 SETTABLEKS                       R11 R10 K17 ["OnInsertClicked"]
-       43 CALL                             R8 2 1
-       44 SETTABLEKS                       R8 R7 K13 ["List"]
-       46 CALL                             R4 3 1
-       47 SETTABLEKS                       R4 R3 K1 ["Frame"]
-       49 CALL                             R0 3 -1
-       50 RETURN                           R0 -1
+       16 GETIMPORT                        R7 K13 [UDim2.new]
+       18 LOADN                            R8 1
+       19 LOADN                            R9 0
+       20 LOADN                            R10 0
+       21 LOADN                            R11 0
+       22 CALL                             R7 4 1
+       23 SETTABLEKS                       R7 R6 K6 ["Size"]
+       25 DUPTABLE                         R7 K15 [{"List"}]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       29 GETUPVAL                         R9 2
+       30 DUPTABLE                         R10 K19 [{"AssetInfo", "OnAssetPreviewButtonClicked", "OnInsertClicked"}]
+       31 GETUPVAL                         R11 3
+       32 SETTABLEKS                       R11 R10 K16 ["AssetInfo"]
+       34 DUPCLOSURE                       R11 K20 [PROTO_0]
+       35 SETTABLEKS                       R11 R10 K17 ["OnAssetPreviewButtonClicked"]
+       37 DUPCLOSURE                       R11 K21 [PROTO_1]
+       38 SETTABLEKS                       R11 R10 K18 ["OnInsertClicked"]
+       40 CALL                             R8 2 1
+       41 SETTABLEKS                       R8 R7 K14 ["List"]
+       43 CALL                             R4 3 1
+       44 SETTABLEKS                       R4 R3 K1 ["Frame"]
+       46 CALL                             R0 3 -1
+       47 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -77,19 +75,15 @@ MAIN:
        41 LOADK                            R6 K17 [11322590111]
        42 LOADK                            R7 K18 ["Roboto"]
        43 CALL                             R5 2 1
-       44 DUPTABLE                         R6 K21 [{"summary", "stories"}]
-       45 LOADK                            R7 K9 ["AssetRowExpandedContent"]
-       46 SETTABLEKS                       R7 R6 K19 ["summary"]
-       48 NEWTABLE                         R7 0 1
-       50 DUPTABLE                         R8 K24 [{"name", "story"}]
-       51 LOADK                            R9 K9 ["AssetRowExpandedContent"]
-       52 SETTABLEKS                       R9 R8 K22 ["name"]
-       54 DUPCLOSURE                       R9 K25 [PROTO_2]
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R4
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R5
-       59 SETTABLEKS                       R9 R8 K23 ["story"]
-       61 SETLIST                          R7 R8 1 [1]
-       63 SETTABLEKS                       R7 R6 K20 ["stories"]
-       65 RETURN                           R6 1
+       44 DUPTABLE                         R6 K21 [{["summary"] = "AssetRowExpandedContent", ["stories"]}]
+       45 NEWTABLE                         R7 0 1
+       47 DUPTABLE                         R8 K24 [{["name"] = "AssetRowExpandedContent", ["story"]}]
+       48 DUPCLOSURE                       R9 K25 [PROTO_2]
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R4
+       51 CAPTURE                          VAL R1
+       52 CAPTURE                          VAL R5
+       53 SETTABLEKS                       R9 R8 K23 ["story"]
+       55 SETLIST                          R7 R8 1 [1]
+       57 SETTABLEKS                       R7 R6 K20 ["stories"]
+       59 RETURN                           R6 1

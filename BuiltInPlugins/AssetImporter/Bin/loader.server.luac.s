@@ -148,90 +148,68 @@ MAIN:
       112 GETTABLEKS                       R11 R11 K21 ["Flags"]
       114 GETTABLEKS                       R11 R11 K30 ["getFFlagImportQueueRibbonDropdown"]
       116 CALL                             R10 1 1
-      117 DUPTABLE                         R11 K41 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "shouldImmediatelyOpen", "actionInfos"}]
+      117 DUPTABLE                         R11 K42 [{["plugin"], ["pluginName"] = "AssetImporter", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"] = , ["shouldImmediatelyOpen"], ["actionInfos"]}]
       118 GETIMPORT                        R12 K4 [plugin]
       120 SETTABLEKS                       R12 R11 K3 ["plugin"]
-      122 LOADK                            R12 K12 ["AssetImporter"]
-      123 SETTABLEKS                       R12 R11 K31 ["pluginName"]
-      125 SETTABLEKS                       R9 R11 K32 ["translationResourceTable"]
-      127 SETTABLEKS                       R8 R11 K33 ["fallbackResourceTable"]
-      129 LOADNIL                          R12
-      130 SETTABLEKS                       R12 R11 K34 ["overrideLocaleId"]
-      132 LOADNIL                          R12
-      133 SETTABLEKS                       R12 R11 K35 ["localizationNamespace"]
-      135 DUPCLOSURE                       R12 K42 [PROTO_0]
-      136 SETTABLEKS                       R12 R11 K36 ["getToolbarName"]
-      138 DUPTABLE                         R12 K48 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-      139 DUPCLOSURE                       R13 K49 [PROTO_1]
-      140 SETTABLEKS                       R13 R12 K43 ["getName"]
-      142 DUPCLOSURE                       R13 K50 [PROTO_2]
-      143 SETTABLEKS                       R13 R12 K44 ["getDescription"]
-      145 LOADK                            R13 K51 [""]
-      146 SETTABLEKS                       R13 R12 K45 ["icon"]
-      148 DUPCLOSURE                       R13 K52 [PROTO_3]
-      149 SETTABLEKS                       R13 R12 K46 ["text"]
-      151 LOADB                            R13 1
-      152 SETTABLEKS                       R13 R12 K47 ["clickableWhenViewportHidden"]
-      154 SETTABLEKS                       R12 R11 K37 ["buttonInfo"]
-      156 LOADNIL                          R12
-      157 SETTABLEKS                       R12 R11 K38 ["dockWidgetInfo"]
-      159 MOVE                             R13 R10
-      160 CALL                             R13 0 1
-      161 JUMPIFNOT                        R13 ; [+2]
-      162 DUPCLOSURE                       R12 K53 [PROTO_4]
-      163 JUMP                             ; [+1]
-      164 LOADNIL                          R12
-      165 SETTABLEKS                       R12 R11 K39 ["shouldImmediatelyOpen"]
-      167 NEWTABLE                         R12 0 1
-      169 DUPTABLE                         R13 K56 [{"uri", "isPreexistingAction"}]
-      170 DUPTABLE                         R14 K61 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      171 LOADK                            R15 K62 ["Standalone"]
-      172 SETTABLEKS                       R15 R14 K57 ["DataModel"]
-      174 LOADK                            R15 K63 ["MeshImporter"]
-      175 SETTABLEKS                       R15 R14 K58 ["PluginId"]
-      177 LOADK                            R15 K64 ["Actions"]
-      178 SETTABLEKS                       R15 R14 K59 ["Category"]
-      180 LOADK                            R15 K65 ["Toggle"]
-      181 SETTABLEKS                       R15 R14 K60 ["ItemId"]
-      183 SETTABLEKS                       R14 R13 K54 ["uri"]
-      185 LOADB                            R14 1
-      186 SETTABLEKS                       R14 R13 K55 ["isPreexistingAction"]
-      188 SETLIST                          R12 R13 1 [1]
-      190 SETTABLEKS                       R12 R11 K40 ["actionInfos"]
-      192 GETTABLEKS                       R12 R7 K66 ["build"]
-      194 MOVE                             R13 R11
-      195 CALL                             R12 1 1
-      196 GETIMPORT                        R13 K6 [require]
-      198 GETTABLEKS                       R14 R0 K67 ["Bin"]
-      200 GETTABLEKS                       R14 R14 K68 ["Debug"]
-      202 CALL                             R13 1 1
-      203 GETTABLEKS                       R14 R13 K69 ["enabled"]
-      205 JUMPIF                           R14 ; [+5]
-      206 GETTABLEKS                       R14 R12 K70 ["pluginLoader"]
-      208 NAMECALL                         R14 R14 K71 ["waitForUserInteraction"]
-      210 CALL                             R14 1 1
-      211 JUMPIF                           R14 ; [+2]
-      212 CLOSEUPVALS                      R5
-      213 RETURN                           R0 0
-      214 GETIMPORT                        R15 K1 [script]
-      216 GETTABLEKS                       R15 R15 K2 ["Parent"]
-      218 GETTABLEKS                       R15 R15 K2 ["Parent"]
-      220 LOADNIL                          R16
-      221 NEWCLOSURE                       R17 P5
-      222 CAPTURE                          VAL R15
-      223 CAPTURE                          REF R16
-      224 CAPTURE                          VAL R12
-      225 CAPTURE                          VAL R13
-      226 SETGLOBAL                        R17 K72 ["init"]
-      228 GETIMPORT                        R17 K4 [plugin]
-      230 GETTABLEKS                       R17 R17 K73 ["Unloading"]
-      232 NEWCLOSURE                       R19 P6
-      233 CAPTURE                          VAL R3
-      234 CAPTURE                          REF R5
-      235 CAPTURE                          REF R16
-      236 NAMECALL                         R17 R17 K74 ["Connect"]
-      238 CALL                             R17 2 0
-      239 GETGLOBAL                        R17 K72 ["init"]
-      241 CALL                             R17 0 0
-      242 CLOSEUPVALS                      R5
-      243 RETURN                           R0 0
+      122 SETTABLEKS                       R9 R11 K32 ["translationResourceTable"]
+      124 SETTABLEKS                       R8 R11 K33 ["fallbackResourceTable"]
+      126 DUPCLOSURE                       R12 K43 [PROTO_0]
+      127 SETTABLEKS                       R12 R11 K37 ["getToolbarName"]
+      129 DUPTABLE                         R12 K51 [{["getName"], ["getDescription"], ["icon"] = "", ["text"], ["clickableWhenViewportHidden"] = True}]
+      130 DUPCLOSURE                       R13 K52 [PROTO_1]
+      131 SETTABLEKS                       R13 R12 K44 ["getName"]
+      133 DUPCLOSURE                       R13 K53 [PROTO_2]
+      134 SETTABLEKS                       R13 R12 K45 ["getDescription"]
+      136 DUPCLOSURE                       R13 K54 [PROTO_3]
+      137 SETTABLEKS                       R13 R12 K48 ["text"]
+      139 SETTABLEKS                       R12 R11 K38 ["buttonInfo"]
+      141 MOVE                             R13 R10
+      142 CALL                             R13 0 1
+      143 JUMPIFNOT                        R13 ; [+2]
+      144 DUPCLOSURE                       R12 K55 [PROTO_4]
+      145 JUMP                             ; [+1]
+      146 LOADNIL                          R12
+      147 SETTABLEKS                       R12 R11 K40 ["shouldImmediatelyOpen"]
+      149 NEWTABLE                         R12 0 1
+      151 DUPTABLE                         R13 K58 [{["uri"], ["isPreexistingAction"] = True}]
+      152 DUPTABLE                         R14 K67 [{["DataModel"] = "Standalone", ["PluginId"] = "MeshImporter", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      153 SETTABLEKS                       R14 R13 K56 ["uri"]
+      155 SETLIST                          R12 R13 1 [1]
+      157 SETTABLEKS                       R12 R11 K41 ["actionInfos"]
+      159 GETTABLEKS                       R12 R7 K68 ["build"]
+      161 MOVE                             R13 R11
+      162 CALL                             R12 1 1
+      163 GETIMPORT                        R13 K6 [require]
+      165 GETTABLEKS                       R14 R0 K69 ["Bin"]
+      167 GETTABLEKS                       R14 R14 K70 ["Debug"]
+      169 CALL                             R13 1 1
+      170 GETTABLEKS                       R14 R13 K71 ["enabled"]
+      172 JUMPIF                           R14 ; [+5]
+      173 GETTABLEKS                       R14 R12 K72 ["pluginLoader"]
+      175 NAMECALL                         R14 R14 K73 ["waitForUserInteraction"]
+      177 CALL                             R14 1 1
+      178 JUMPIF                           R14 ; [+2]
+      179 CLOSEUPVALS                      R5
+      180 RETURN                           R0 0
+      181 GETIMPORT                        R15 K1 [script]
+      183 GETTABLEKS                       R15 R15 K2 ["Parent"]
+      185 GETTABLEKS                       R15 R15 K2 ["Parent"]
+      187 LOADNIL                          R16
+      188 NEWCLOSURE                       R17 P5
+      189 CAPTURE                          VAL R15
+      190 CAPTURE                          REF R16
+      191 CAPTURE                          VAL R12
+      192 CAPTURE                          VAL R13
+      193 SETGLOBAL                        R17 K74 ["init"]
+      195 GETIMPORT                        R17 K4 [plugin]
+      197 GETTABLEKS                       R17 R17 K75 ["Unloading"]
+      199 NEWCLOSURE                       R19 P6
+      200 CAPTURE                          VAL R3
+      201 CAPTURE                          REF R5
+      202 CAPTURE                          REF R16
+      203 NAMECALL                         R17 R17 K76 ["Connect"]
+      205 CALL                             R17 2 0
+      206 GETGLOBAL                        R17 K74 ["init"]
+      208 CALL                             R17 0 0
+      209 CLOSEUPVALS                      R5
+      210 RETURN                           R0 0

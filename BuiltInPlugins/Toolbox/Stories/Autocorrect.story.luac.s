@@ -27,49 +27,43 @@ PROTO_0:
        34 GETUPVAL                         R8 0
        35 GETTABLEKS                       R8 R8 K0 ["createElement"]
        37 GETUPVAL                         R9 2
-       38 DUPTABLE                         R10 K22 [{"CorrectionState", "CurrentQuery", "CorrectedQuery", "UserQuery"}]
+       38 DUPTABLE                         R10 K25 [{["CorrectionState"], ["CurrentQuery"] = "foo", ["CorrectedQuery"] = "bar", ["UserQuery"] = }]
        39 GETUPVAL                         R11 3
-       40 GETTABLEKS                       R11 R11 K23 ["AutocorrectResponseState"]
-       42 GETTABLEKS                       R11 R11 K24 ["CorrectionAvailable"]
+       40 GETTABLEKS                       R11 R11 K26 ["AutocorrectResponseState"]
+       42 GETTABLEKS                       R11 R11 K27 ["CorrectionAvailable"]
        44 SETTABLEKS                       R11 R10 K18 ["CorrectionState"]
-       46 LOADK                            R11 K25 ["foo"]
-       47 SETTABLEKS                       R11 R10 K19 ["CurrentQuery"]
-       49 LOADK                            R11 K26 ["bar"]
-       50 SETTABLEKS                       R11 R10 K20 ["CorrectedQuery"]
-       52 LOADNIL                          R11
-       53 SETTABLEKS                       R11 R10 K21 ["UserQuery"]
-       55 CALL                             R8 2 1
-       56 SETTABLEKS                       R8 R7 K15 ["Autocorrect"]
-       58 GETUPVAL                         R8 0
-       59 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       61 LOADK                            R9 K27 ["UIPadding"]
-       62 DUPTABLE                         R10 K32 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-       63 GETIMPORT                        R11 K34 [UDim.new]
-       65 LOADN                            R12 0
-       66 LOADN                            R13 10
-       67 CALL                             R11 2 1
-       68 SETTABLEKS                       R11 R10 K28 ["PaddingTop"]
-       70 GETIMPORT                        R11 K34 [UDim.new]
-       72 LOADN                            R12 0
-       73 LOADN                            R13 10
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K29 ["PaddingBottom"]
-       77 GETIMPORT                        R11 K34 [UDim.new]
-       79 LOADN                            R12 0
-       80 LOADN                            R13 10
-       81 CALL                             R11 2 1
-       82 SETTABLEKS                       R11 R10 K30 ["PaddingLeft"]
-       84 GETIMPORT                        R11 K34 [UDim.new]
-       86 LOADN                            R12 0
-       87 LOADN                            R13 10
-       88 CALL                             R11 2 1
-       89 SETTABLEKS                       R11 R10 K31 ["PaddingRight"]
-       91 CALL                             R8 2 1
-       92 SETTABLEKS                       R8 R7 K16 ["Padding"]
-       94 CALL                             R4 3 1
-       95 SETTABLEKS                       R4 R3 K1 ["Frame"]
-       97 CALL                             R0 3 -1
-       98 RETURN                           R0 -1
+       46 CALL                             R8 2 1
+       47 SETTABLEKS                       R8 R7 K15 ["Autocorrect"]
+       49 GETUPVAL                         R8 0
+       50 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       52 LOADK                            R9 K28 ["UIPadding"]
+       53 DUPTABLE                         R10 K33 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       54 GETIMPORT                        R11 K35 [UDim.new]
+       56 LOADN                            R12 0
+       57 LOADN                            R13 10
+       58 CALL                             R11 2 1
+       59 SETTABLEKS                       R11 R10 K29 ["PaddingTop"]
+       61 GETIMPORT                        R11 K35 [UDim.new]
+       63 LOADN                            R12 0
+       64 LOADN                            R13 10
+       65 CALL                             R11 2 1
+       66 SETTABLEKS                       R11 R10 K30 ["PaddingBottom"]
+       68 GETIMPORT                        R11 K35 [UDim.new]
+       70 LOADN                            R12 0
+       71 LOADN                            R13 10
+       72 CALL                             R11 2 1
+       73 SETTABLEKS                       R11 R10 K31 ["PaddingLeft"]
+       75 GETIMPORT                        R11 K35 [UDim.new]
+       77 LOADN                            R12 0
+       78 LOADN                            R13 10
+       79 CALL                             R11 2 1
+       80 SETTABLEKS                       R11 R10 K32 ["PaddingRight"]
+       82 CALL                             R8 2 1
+       83 SETTABLEKS                       R8 R7 K16 ["Padding"]
+       85 CALL                             R4 3 1
+       86 SETTABLEKS                       R4 R3 K1 ["Frame"]
+       88 CALL                             R0 3 -1
+       89 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -96,15 +90,11 @@ MAIN:
        36 GETTABLEKS                       R5 R5 K13 ["Types"]
        38 GETTABLEKS                       R5 R5 K14 ["AutocorrectTypes"]
        40 CALL                             R4 1 1
-       41 DUPTABLE                         R5 K18 [{"name", "summary", "story"}]
-       42 LOADK                            R6 K8 ["Autocorrect"]
-       43 SETTABLEKS                       R6 R5 K15 ["name"]
-       45 LOADK                            R6 K19 ["An Autocorrect component"]
-       46 SETTABLEKS                       R6 R5 K16 ["summary"]
-       48 DUPCLOSURE                       R6 K20 [PROTO_0]
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          VAL R4
-       53 SETTABLEKS                       R6 R5 K17 ["story"]
-       55 RETURN                           R5 1
+       41 DUPTABLE                         R5 K19 [{["name"] = "Autocorrect", ["summary"] = "An Autocorrect component", ["story"]}]
+       42 DUPCLOSURE                       R6 K20 [PROTO_0]
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R4
+       47 SETTABLEKS                       R6 R5 K18 ["story"]
+       49 RETURN                           R5 1

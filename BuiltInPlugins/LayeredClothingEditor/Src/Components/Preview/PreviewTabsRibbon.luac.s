@@ -104,12 +104,12 @@ PROTO_3:
        88 GETUPVAL                         R14 3
        89 GETTABLEKS                       R14 R14 K20 ["createElement"]
        91 GETUPVAL                         R15 4
-       92 DUPTABLE                         R16 K34 [{"Size", "Position", "AnchorPoint", "BackgroundColor", "ZIndex"}]
+       92 DUPTABLE                         R16 K35 [{["Size"], ["Position"], ["AnchorPoint"], ["BackgroundColor"], ["ZIndex"] = 0}]
        93 GETIMPORT                        R17 K25 [UDim2.new]
        95 LOADN                            R18 1
        96 LOADN                            R19 0
        97 LOADN                            R20 0
-       98 GETTABLEKS                       R21 R6 K35 ["BorderSize"]
+       98 GETTABLEKS                       R21 R6 K36 ["BorderSize"]
       100 CALL                             R17 4 1
       101 SETTABLEKS                       R17 R16 K21 ["Size"]
       103 GETIMPORT                        R17 K25 [UDim2.new]
@@ -119,29 +119,27 @@ PROTO_3:
       108 LOADN                            R21 0
       109 CALL                             R17 4 1
       110 SETTABLEKS                       R17 R16 K30 ["Position"]
-      112 GETIMPORT                        R17 K37 [Vector2.new]
+      112 GETIMPORT                        R17 K38 [Vector2.new]
       114 LOADN                            R18 0
       115 LOADN                            R19 1
       116 CALL                             R17 2 1
       117 SETTABLEKS                       R17 R16 K31 ["AnchorPoint"]
-      119 GETTABLEKS                       R17 R6 K38 ["BorderColor"]
+      119 GETTABLEKS                       R17 R6 K39 ["BorderColor"]
       121 SETTABLEKS                       R17 R16 K32 ["BackgroundColor"]
-      123 LOADN                            R17 0
-      124 SETTABLEKS                       R17 R16 K33 ["ZIndex"]
-      126 CALL                             R14 2 1
-      127 SETTABLEKS                       R14 R13 K27 ["BottomLine"]
-      129 GETUPVAL                         R14 3
-      130 GETTABLEKS                       R14 R14 K20 ["createElement"]
-      132 GETUPVAL                         R15 5
-      133 DUPTABLE                         R16 K40 [{"Tabs", "OnTabSelected", "SelectedTab"}]
-      134 SETTABLEKS                       R7 R16 K28 ["Tabs"]
-      136 GETTABLEKS                       R17 R0 K41 ["onClick"]
-      138 SETTABLEKS                       R17 R16 K39 ["OnTabSelected"]
-      140 SETTABLEKS                       R9 R16 K3 ["SelectedTab"]
-      142 CALL                             R14 2 1
-      143 SETTABLEKS                       R14 R13 K28 ["Tabs"]
-      145 CALL                             R10 3 -1
-      146 RETURN                           R10 -1
+      123 CALL                             R14 2 1
+      124 SETTABLEKS                       R14 R13 K27 ["BottomLine"]
+      126 GETUPVAL                         R14 3
+      127 GETTABLEKS                       R14 R14 K20 ["createElement"]
+      129 GETUPVAL                         R15 5
+      130 DUPTABLE                         R16 K41 [{"Tabs", "OnTabSelected", "SelectedTab"}]
+      131 SETTABLEKS                       R7 R16 K28 ["Tabs"]
+      133 GETTABLEKS                       R17 R0 K42 ["onClick"]
+      135 SETTABLEKS                       R17 R16 K40 ["OnTabSelected"]
+      137 SETTABLEKS                       R9 R16 K3 ["SelectedTab"]
+      139 CALL                             R14 2 1
+      140 SETTABLEKS                       R14 R13 K28 ["Tabs"]
+      142 CALL                             R10 3 -1
+      143 RETURN                           R10 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["previewStatus"]

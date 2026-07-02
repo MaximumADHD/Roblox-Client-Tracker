@@ -12,9 +12,9 @@ PROTO_1:
         3 JUMPIFNOTEQ                      R0 R1 ; [+12]
         5 LOADN                            R1 200
         6 SETUPVAL                         R1 1
-        7 LOADN                            R1 32
+        7 LOADN                            R1 20000
         8 SETUPVAL                         R1 2
-        9 LOADN                            R1 176
+        9 LOADN                            R1 -80
        10 SETUPVAL                         R1 3
        11 LOADN                            R1 10
        12 SETUPVAL                         R1 4
@@ -26,9 +26,9 @@ PROTO_1:
        19 JUMPIFNOTEQ                      R0 R1 ; [+12]
        21 LOADN                            R1 20
        22 SETUPVAL                         R1 1
-       23 LOADN                            R1 240
+       23 LOADN                            R1 22000
        24 SETUPVAL                         R1 2
-       25 LOADN                            R1 226
+       25 LOADN                            R1 -30
        26 SETUPVAL                         R1 3
        27 LOADN                            R1 30
        28 SETUPVAL                         R1 4
@@ -101,7 +101,7 @@ PROTO_6:
        53 DIV                              R8 R9 R10
        54 GETUPVAL                         R9 1
        55 POW                              R7 R8 R9
-       56 SUBRK                            R6 R10 K7 ["math"]
+       56 SUBRK                            R6 K10 [1] R7
        57 GETIMPORT                        R7 K13 [Vector2.new]
        59 MOVE                             R8 R4
        60 MOVE                             R9 R6
@@ -118,7 +118,7 @@ PROTO_7:
         9 CALL                             R4 -1 1
        10 MUL                              R2 R3 R4
        11 GETTABLEKS                       R5 R0 K0 ["X"]
-       13 SUBRK                            R4 R3 K5 ["Y"]
+       13 SUBRK                            R4 K3 [1] R5
        14 GETUPVAL                         R5 0
        15 GETTABLEKS                       R5 R5 K1 ["log2"]
        17 GETUPVAL                         R6 0
@@ -130,14 +130,14 @@ PROTO_7:
        24 LOADN                            R3 2
        25 POW                              R2 R3 R1
        26 GETTABLEKS                       R5 R0 K5 ["Y"]
-       28 SUBRK                            R4 R3 K5 ["Y"]
+       28 SUBRK                            R4 K3 [1] R5
        29 LOADN                            R5 0
        30 LOADN                            R6 1
        31 FASTCALL                         MATH_CLAMP ; [+2]
        32 GETIMPORT                        R3 K8 [math.clamp]
        34 CALL                             R3 3 1
        35 GETUPVAL                         R8 1
-       36 DIVRK                            R7 R3 K8 [math.clamp]
+       36 DIVRK                            R7 K3 [1] R8
        37 POW                              R6 R3 R7
        38 GETUPVAL                         R8 0
        39 GETTABLEKS                       R8 R8 K9 ["getYMax"]
@@ -213,8 +213,8 @@ MAIN:
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 16 0
        16 LOADN                            R3 200
-       17 LOADN                            R4 32
-       18 LOADN                            R5 176
+       17 LOADN                            R4 20000
+       18 LOADN                            R5 -80
        19 LOADN                            R6 10
        20 LOADN                            R7 3
        21 DUPCLOSURE                       R8 K8 [PROTO_0]

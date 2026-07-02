@@ -14,22 +14,12 @@ PROTO_0:
        18 NAMECALL                         R0 R0 K5 ["Invoke"]
        20 CALL                             R0 2 0
        21 GETUPVAL                         R0 0
-       22 DUPTABLE                         R2 K11 [{"enabled", "initialData", "initialPropertyType", "instanceId", "instanceName", "closeDMConnection"}]
-       23 LOADB                            R3 0
-       24 SETTABLEKS                       R3 R2 K6 ["enabled"]
-       26 GETUPVAL                         R3 2
-       27 SETTABLEKS                       R3 R2 K7 ["initialData"]
-       29 LOADK                            R3 K12 ["None"]
-       30 SETTABLEKS                       R3 R2 K8 ["initialPropertyType"]
-       32 LOADN                            R3 255
-       33 SETTABLEKS                       R3 R2 K9 ["instanceId"]
-       35 LOADK                            R3 K13 [""]
-       36 SETTABLEKS                       R3 R2 K10 ["instanceName"]
-       38 LOADNIL                          R3
-       39 SETTABLEKS                       R3 R2 K1 ["closeDMConnection"]
-       41 NAMECALL                         R0 R0 K14 ["setState"]
-       43 CALL                             R0 2 0
-       44 RETURN                           R0 0
+       22 DUPTABLE                         R2 K16 [{["enabled"] = False, ["initialData"], ["initialPropertyType"] = "None", ["instanceId"] = -1, ["instanceName"] = "", ["closeDMConnection"] = }]
+       23 GETUPVAL                         R3 2
+       24 SETTABLEKS                       R3 R2 K8 ["initialData"]
+       26 NAMECALL                         R0 R0 K17 ["setState"]
+       28 CALL                             R0 2 0
+       29 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -85,16 +75,14 @@ PROTO_5:
         1 GETTABLEKS                       R4 R4 K0 ["closeOnDMChange"]
         3 CALL                             R4 0 0
         4 GETUPVAL                         R4 0
-        5 DUPTABLE                         R6 K6 [{"enabled", "instanceId", "instanceName", "initialData", "initialPropertyType"}]
-        6 LOADB                            R7 1
-        7 SETTABLEKS                       R7 R6 K1 ["enabled"]
-        9 SETTABLEKS                       R2 R6 K2 ["instanceId"]
-       11 SETTABLEKS                       R3 R6 K3 ["instanceName"]
-       13 SETTABLEKS                       R0 R6 K4 ["initialData"]
-       15 SETTABLEKS                       R1 R6 K5 ["initialPropertyType"]
-       17 NAMECALL                         R4 R4 K7 ["setState"]
-       19 CALL                             R4 2 0
-       20 RETURN                           R0 0
+        5 DUPTABLE                         R6 K7 [{["enabled"] = True, ["instanceId"], ["instanceName"], ["initialData"], ["initialPropertyType"]}]
+        6 SETTABLEKS                       R2 R6 K3 ["instanceId"]
+        8 SETTABLEKS                       R3 R6 K4 ["instanceName"]
+       10 SETTABLEKS                       R0 R6 K5 ["initialData"]
+       12 SETTABLEKS                       R1 R6 K6 ["initialPropertyType"]
+       14 NAMECALL                         R4 R4 K8 ["setState"]
+       16 CALL                             R4 2 0
+       17 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R3 0
@@ -119,76 +107,62 @@ PROTO_8:
         8 SETTABLEKS                       R3 R2 K1 ["DistanceCurve"]
        10 NEWTABLE                         R3 0 0
        12 SETTABLEKS                       R3 R2 K2 ["AngleCurve"]
-       14 DUPTABLE                         R3 K12 [{"enabled", "instanceId", "instanceName", "initialData", "initialPropertyType", "closeDMConnection", "forceRerender"}]
-       15 LOADB                            R4 0
-       16 SETTABLEKS                       R4 R3 K5 ["enabled"]
-       18 LOADN                            R4 255
-       19 SETTABLEKS                       R4 R3 K6 ["instanceId"]
-       21 LOADK                            R4 K13 [""]
-       22 SETTABLEKS                       R4 R3 K7 ["instanceName"]
-       24 SETTABLEKS                       R2 R3 K8 ["initialData"]
-       26 LOADK                            R4 K14 ["None"]
-       27 SETTABLEKS                       R4 R3 K9 ["initialPropertyType"]
-       29 LOADNIL                          R4
-       30 SETTABLEKS                       R4 R3 K10 ["closeDMConnection"]
-       32 LOADB                            R4 0
-       33 SETTABLEKS                       R4 R3 K11 ["forceRerender"]
-       35 SETTABLEKS                       R3 R0 K15 ["state"]
-       37 NEWCLOSURE                       R3 P0
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          VAL R1
-       40 CAPTURE                          VAL R2
-       41 SETTABLEKS                       R3 R0 K16 ["setDisabled"]
-       43 NEWCLOSURE                       R3 P1
-       44 CAPTURE                          VAL R1
-       45 SETTABLEKS                       R3 R0 K17 ["onChanged"]
-       47 NEWCLOSURE                       R3 P2
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R3 R0 K18 ["onWidgetEnabledChanged"]
-       51 NEWCLOSURE                       R3 P3
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R3 R0 K19 ["closeOnDMChange"]
-       56 GETTABLEKS                       R3 R1 K20 ["Plugin"]
-       58 LOADK                            R5 K21 ["OnOpen"]
-       59 NEWCLOSURE                       R6 P4
-       60 CAPTURE                          VAL R0
-       61 NAMECALL                         R3 R3 K22 ["OnInvoke"]
-       63 CALL                             R3 3 0
-       64 GETTABLEKS                       R3 R1 K20 ["Plugin"]
-       66 LOADK                            R5 K23 ["OnInstanceChanged"]
-       67 NEWCLOSURE                       R6 P5
-       68 CAPTURE                          VAL R0
-       69 NAMECALL                         R3 R3 K22 ["OnInvoke"]
-       71 CALL                             R3 3 0
-       72 GETUPVAL                         R3 1
-       73 GETTABLEKS                       R3 R3 K24 ["Localization"]
-       75 GETTABLEKS                       R3 R3 K25 ["new"]
-       77 DUPTABLE                         R4 K29 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       78 GETUPVAL                         R5 2
-       79 SETTABLEKS                       R5 R4 K26 ["stringResourceTable"]
-       81 GETUPVAL                         R5 3
-       82 SETTABLEKS                       R5 R4 K27 ["translationResourceTable"]
-       84 LOADK                            R5 K30 ["DirectionalCurveEditor"]
-       85 SETTABLEKS                       R5 R4 K28 ["pluginName"]
-       87 CALL                             R3 1 1
-       88 SETTABLEKS                       R3 R0 K31 ["localization"]
-       90 GETUPVAL                         R3 1
-       91 GETTABLEKS                       R3 R3 K32 ["Analytics"]
-       93 GETTABLEKS                       R3 R3 K25 ["new"]
-       95 DUPCLOSURE                       R4 K33 [PROTO_7]
-       96 NEWTABLE                         R5 0 0
-       98 CALL                             R3 2 1
-       99 SETTABLEKS                       R3 R0 K34 ["analytics"]
-      101 GETUPVAL                         R3 4
-      102 GETTABLEKS                       R3 R3 K25 ["new"]
-      104 CALL                             R3 0 1
-      105 SETTABLEKS                       R3 R0 K35 ["DEPRECATED_stylizer"]
-      107 GETUPVAL                         R3 5
-      108 GETTABLEKS                       R4 R1 K20 ["Plugin"]
-      110 CALL                             R3 1 1
-      111 SETTABLEKS                       R3 R0 K36 ["design"]
-      113 RETURN                           R0 0
+       14 DUPTABLE                         R3 K17 [{["enabled"] = False, ["instanceId"] = -1, ["instanceName"] = "", ["initialData"], ["initialPropertyType"] = "None", ["closeDMConnection"] = , ["forceRerender"] = False}]
+       15 SETTABLEKS                       R2 R3 K11 ["initialData"]
+       17 SETTABLEKS                       R3 R0 K18 ["state"]
+       19 NEWCLOSURE                       R3 P0
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          VAL R1
+       22 CAPTURE                          VAL R2
+       23 SETTABLEKS                       R3 R0 K19 ["setDisabled"]
+       25 NEWCLOSURE                       R3 P1
+       26 CAPTURE                          VAL R1
+       27 SETTABLEKS                       R3 R0 K20 ["onChanged"]
+       29 NEWCLOSURE                       R3 P2
+       30 CAPTURE                          VAL R0
+       31 SETTABLEKS                       R3 R0 K21 ["onWidgetEnabledChanged"]
+       33 NEWCLOSURE                       R3 P3
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R3 R0 K22 ["closeOnDMChange"]
+       38 GETTABLEKS                       R3 R1 K23 ["Plugin"]
+       40 LOADK                            R5 K24 ["OnOpen"]
+       41 NEWCLOSURE                       R6 P4
+       42 CAPTURE                          VAL R0
+       43 NAMECALL                         R3 R3 K25 ["OnInvoke"]
+       45 CALL                             R3 3 0
+       46 GETTABLEKS                       R3 R1 K23 ["Plugin"]
+       48 LOADK                            R5 K26 ["OnInstanceChanged"]
+       49 NEWCLOSURE                       R6 P5
+       50 CAPTURE                          VAL R0
+       51 NAMECALL                         R3 R3 K25 ["OnInvoke"]
+       53 CALL                             R3 3 0
+       54 GETUPVAL                         R3 1
+       55 GETTABLEKS                       R3 R3 K27 ["Localization"]
+       57 GETTABLEKS                       R3 R3 K28 ["new"]
+       59 DUPTABLE                         R4 K33 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DirectionalCurveEditor"}]
+       60 GETUPVAL                         R5 2
+       61 SETTABLEKS                       R5 R4 K29 ["stringResourceTable"]
+       63 GETUPVAL                         R5 3
+       64 SETTABLEKS                       R5 R4 K30 ["translationResourceTable"]
+       66 CALL                             R3 1 1
+       67 SETTABLEKS                       R3 R0 K34 ["localization"]
+       69 GETUPVAL                         R3 1
+       70 GETTABLEKS                       R3 R3 K35 ["Analytics"]
+       72 GETTABLEKS                       R3 R3 K28 ["new"]
+       74 DUPCLOSURE                       R4 K36 [PROTO_7]
+       75 NEWTABLE                         R5 0 0
+       77 CALL                             R3 2 1
+       78 SETTABLEKS                       R3 R0 K37 ["analytics"]
+       80 GETUPVAL                         R3 4
+       81 GETTABLEKS                       R3 R3 K28 ["new"]
+       83 CALL                             R3 0 1
+       84 SETTABLEKS                       R3 R0 K38 ["DEPRECATED_stylizer"]
+       86 GETUPVAL                         R3 5
+       87 GETTABLEKS                       R4 R1 K23 ["Plugin"]
+       89 CALL                             R3 1 1
+       90 SETTABLEKS                       R3 R0 K39 ["design"]
+       92 RETURN                           R0 0
 
 PROTO_9:
         0 RETURN                           R0 0
@@ -255,13 +229,13 @@ PROTO_10:
        91 GETIMPORT                        R12 K36 [Enum.InitialDockState.Float]
        93 SETTABLEKS                       R12 R11 K34 ["InitialDockState"]
        95 GETIMPORT                        R12 K38 [Vector2.new]
-       97 LOADN                            R13 28
-       98 LOADN                            R14 28
+       97 LOADN                            R13 540
+       98 LOADN                            R14 540
        99 CALL                             R12 2 1
       100 SETTABLEKS                       R12 R11 K39 ["Size"]
       102 GETIMPORT                        R12 K38 [Vector2.new]
-      104 LOADN                            R13 28
-      105 LOADN                            R14 44
+      104 LOADN                            R13 540
+      105 LOADN                            R14 300
       106 CALL                             R12 2 1
       107 SETTABLEKS                       R12 R11 K40 ["MinSize"]
       109 GETTABLEKS                       R12 R0 K41 ["setDisabled"]

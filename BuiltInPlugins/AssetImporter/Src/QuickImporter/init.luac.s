@@ -5,34 +5,32 @@ PROTO_0:
         5 GETUPVAL                         R3 0
         6 GETTABLEKS                       R3 R3 K1 ["mock"]
         8 CALL                             R3 0 1
-        9 JUMP                             ; [+14]
+        9 JUMP                             ; [+11]
        10 GETUPVAL                         R3 0
        11 GETTABLEKS                       R3 R3 K2 ["new"]
-       13 DUPTABLE                         R4 K6 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       13 DUPTABLE                         R4 K7 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetImporter"}]
        14 GETUPVAL                         R5 1
        15 SETTABLEKS                       R5 R4 K3 ["stringResourceTable"]
        17 GETUPVAL                         R5 2
        18 SETTABLEKS                       R5 R4 K4 ["translationResourceTable"]
-       20 LOADK                            R5 K7 ["AssetImporter"]
-       21 SETTABLEKS                       R5 R4 K5 ["pluginName"]
-       23 CALL                             R3 1 1
-       24 SETTABLEKS                       R3 R2 K8 ["localization"]
-       26 LOADNIL                          R3
-       27 SETTABLEKS                       R3 R2 K9 ["actionConnection"]
-       29 GETUPVAL                         R3 3
-       30 GETTABLEKS                       R3 R3 K2 ["new"]
-       32 MOVE                             R4 R0
-       33 LOADNIL                          R5
-       34 GETTABLEKS                       R6 R2 K8 ["localization"]
-       36 MOVE                             R7 R1
-       37 CALL                             R3 4 1
-       38 SETTABLEKS                       R3 R2 K10 ["storelessPresetController"]
-       40 GETUPVAL                         R5 4
-       41 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       43 MOVE                             R4 R2
-       44 GETIMPORT                        R3 K12 [setmetatable]
-       46 CALL                             R3 2 1
-       47 RETURN                           R3 1
+       20 CALL                             R3 1 1
+       21 SETTABLEKS                       R3 R2 K8 ["localization"]
+       23 LOADNIL                          R3
+       24 SETTABLEKS                       R3 R2 K9 ["actionConnection"]
+       26 GETUPVAL                         R3 3
+       27 GETTABLEKS                       R3 R3 K2 ["new"]
+       29 MOVE                             R4 R0
+       30 LOADNIL                          R5
+       31 GETTABLEKS                       R6 R2 K8 ["localization"]
+       33 MOVE                             R7 R1
+       34 CALL                             R3 4 1
+       35 SETTABLEKS                       R3 R2 K10 ["storelessPresetController"]
+       37 GETUPVAL                         R5 4
+       38 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       40 MOVE                             R4 R2
+       41 GETIMPORT                        R3 K12 [setmetatable]
+       43 CALL                             R3 2 1
+       44 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -52,53 +50,47 @@ PROTO_2:
         2 LOADK                            R4 K1 ["Actions"]
         3 NAMECALL                         R2 R2 K2 ["GetPluginComponent"]
         5 CALL                             R2 2 1
-        6 DUPTABLE                         R3 K10 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
+        6 DUPTABLE                         R3 K12 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Text"], ["Tooltip"], ["Icon"] = "3DImport", ["Shortcuts"]}]
         7 GETUPVAL                         R4 0
         8 SETTABLEKS                       R4 R3 K3 ["Uri"]
-       10 LOADB                            R4 1
-       11 SETTABLEKS                       R4 R3 K4 ["Enabled"]
-       13 LOADB                            R4 1
-       14 SETTABLEKS                       R4 R3 K5 ["Visible"]
-       16 GETTABLEKS                       R4 R0 K11 ["localization"]
-       18 LOADK                            R6 K12 ["QuickImport"]
-       19 LOADK                            R7 K13 ["ActionText"]
-       20 NAMECALL                         R4 R4 K14 ["getText"]
-       22 CALL                             R4 3 1
-       23 SETTABLEKS                       R4 R3 K6 ["Text"]
-       25 GETTABLEKS                       R4 R0 K11 ["localization"]
-       27 LOADK                            R6 K12 ["QuickImport"]
-       28 LOADK                            R7 K7 ["Tooltip"]
-       29 NAMECALL                         R4 R4 K14 ["getText"]
-       31 CALL                             R4 3 1
-       32 SETTABLEKS                       R4 R3 K7 ["Tooltip"]
-       34 LOADK                            R4 K15 ["3DImport"]
-       35 SETTABLEKS                       R4 R3 K8 ["Icon"]
-       37 NEWTABLE                         R4 0 1
-       39 LOADK                            R5 K16 ["Alt+M"]
-       40 SETLIST                          R4 R5 1 [1]
-       42 SETTABLEKS                       R4 R3 K9 ["Shortcuts"]
-       44 GETTABLEKS                       R4 R0 K17 ["actionConnection"]
-       46 JUMPIFNOT                        R4 ; [+8]
-       47 GETTABLEKS                       R4 R0 K17 ["actionConnection"]
-       49 NAMECALL                         R4 R4 K18 ["Disconnect"]
-       51 CALL                             R4 1 0
-       52 LOADNIL                          R4
-       53 SETTABLEKS                       R4 R0 K17 ["actionConnection"]
-       55 MOVE                             R7 R3
-       56 LOADB                            R8 1
-       57 NAMECALL                         R5 R2 K19 ["CreateAsync"]
-       59 CALL                             R5 3 1
-       60 GETTABLEN                        R4 R5 1
-       61 NEWCLOSURE                       R6 P0
-       62 CAPTURE                          UPVAL U1
-       63 CAPTURE                          VAL R0
-       64 NAMECALL                         R4 R4 K20 ["Connect"]
-       66 CALL                             R4 2 1
-       67 SETTABLEKS                       R4 R0 K17 ["actionConnection"]
-       69 JUMPIFNOT                        R1 ; [+2]
-       70 MOVE                             R4 R1
-       71 CALL                             R4 0 0
-       72 RETURN                           R0 0
+       10 GETTABLEKS                       R4 R0 K13 ["localization"]
+       12 LOADK                            R6 K14 ["QuickImport"]
+       13 LOADK                            R7 K15 ["ActionText"]
+       14 NAMECALL                         R4 R4 K16 ["getText"]
+       16 CALL                             R4 3 1
+       17 SETTABLEKS                       R4 R3 K7 ["Text"]
+       19 GETTABLEKS                       R4 R0 K13 ["localization"]
+       21 LOADK                            R6 K14 ["QuickImport"]
+       22 LOADK                            R7 K8 ["Tooltip"]
+       23 NAMECALL                         R4 R4 K16 ["getText"]
+       25 CALL                             R4 3 1
+       26 SETTABLEKS                       R4 R3 K8 ["Tooltip"]
+       28 NEWTABLE                         R4 0 1
+       30 LOADK                            R5 K17 ["Alt+M"]
+       31 SETLIST                          R4 R5 1 [1]
+       33 SETTABLEKS                       R4 R3 K11 ["Shortcuts"]
+       35 GETTABLEKS                       R4 R0 K18 ["actionConnection"]
+       37 JUMPIFNOT                        R4 ; [+8]
+       38 GETTABLEKS                       R4 R0 K18 ["actionConnection"]
+       40 NAMECALL                         R4 R4 K19 ["Disconnect"]
+       42 CALL                             R4 1 0
+       43 LOADNIL                          R4
+       44 SETTABLEKS                       R4 R0 K18 ["actionConnection"]
+       46 MOVE                             R7 R3
+       47 LOADB                            R8 1
+       48 NAMECALL                         R5 R2 K20 ["CreateAsync"]
+       50 CALL                             R5 3 1
+       51 GETTABLEN                        R4 R5 1
+       52 NEWCLOSURE                       R6 P0
+       53 CAPTURE                          UPVAL U1
+       54 CAPTURE                          VAL R0
+       55 NAMECALL                         R4 R4 K21 ["Connect"]
+       57 CALL                             R4 2 1
+       58 SETTABLEKS                       R4 R0 K18 ["actionConnection"]
+       60 JUMPIFNOT                        R1 ; [+2]
+       61 MOVE                             R4 R1
+       62 CALL                             R4 0 0
+       63 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["actionConnection"]
@@ -169,84 +161,70 @@ PROTO_6:
 PROTO_7:
         0 JUMPIFNOT                        R3 ; [+3]
         1 GETTABLEKS                       R4 R3 K0 ["ErrorMessages"]
-        3 JUMP                             ; [+18]
+        3 JUMP                             ; [+12]
         4 NEWTABLE                         R4 1 0
         6 GETUPVAL                         R5 0
-        7 DUPTABLE                         R7 K4 [{"httpResponse", "simpleErrorMessage", "operationId"}]
+        7 DUPTABLE                         R7 K6 [{["httpResponse"], ["simpleErrorMessage"] = "Corrupted", ["operationId"] = -1}]
         8 NEWTABLE                         R8 0 0
        10 SETTABLEKS                       R8 R7 K1 ["httpResponse"]
-       12 LOADK                            R8 K5 ["Corrupted"]
-       13 SETTABLEKS                       R8 R7 K2 ["simpleErrorMessage"]
-       15 LOADN                            R8 255
-       16 SETTABLEKS                       R8 R7 K3 ["operationId"]
-       18 NAMECALL                         R5 R5 K6 ["JSONEncode"]
-       20 CALL                             R5 2 1
-       21 SETTABLE                         R5 R4 R2
-       22 NEWTABLE                         R5 0 2
-       24 DUPTABLE                         R6 K10 [{"Key", "Text", "Style"}]
-       25 LOADK                            R7 K11 ["Retry"]
-       26 SETTABLEKS                       R7 R6 K7 ["Key"]
-       28 GETTABLEKS                       R7 R0 K12 ["localization"]
-       30 LOADK                            R9 K13 ["Plugin"]
-       31 LOADK                            R10 K11 ["Retry"]
-       32 NAMECALL                         R7 R7 K14 ["getText"]
-       34 CALL                             R7 3 1
-       35 SETTABLEKS                       R7 R6 K8 ["Text"]
-       37 LOADK                            R7 K15 ["RoundPrimary"]
-       38 SETTABLEKS                       R7 R6 K9 ["Style"]
-       40 DUPTABLE                         R7 K16 [{"Key", "Text"}]
-       41 LOADK                            R8 K17 ["Close"]
-       42 SETTABLEKS                       R8 R7 K7 ["Key"]
-       44 GETTABLEKS                       R8 R0 K12 ["localization"]
-       46 LOADK                            R10 K13 ["Plugin"]
-       47 LOADK                            R11 K17 ["Close"]
-       48 NAMECALL                         R8 R8 K14 ["getText"]
-       50 CALL                             R8 3 1
-       51 SETTABLEKS                       R8 R7 K8 ["Text"]
-       53 SETLIST                          R5 R6 2 [1]
-       55 NEWCLOSURE                       R6 P0
-       56 CAPTURE                          REF R1
-       57 NEWCLOSURE                       R7 P1
-       58 CAPTURE                          REF R1
-       59 CAPTURE                          VAL R0
-       60 CAPTURE                          VAL R2
-       61 GETUPVAL                         R8 1
-       62 GETTABLEKS                       R8 R8 K18 ["createElement"]
-       64 GETUPVAL                         R9 2
-       65 DUPTABLE                         R10 K24 [{"Title", "Buttons", "OnClose", "OnButtonPressed", "MinContentSize"}]
-       66 GETTABLEKS                       R11 R0 K12 ["localization"]
-       68 LOADK                            R13 K25 ["Error"]
-       69 LOADK                            R14 K26 ["WindowTitle"]
-       70 NAMECALL                         R11 R11 K14 ["getText"]
-       72 CALL                             R11 3 1
-       73 SETTABLEKS                       R11 R10 K19 ["Title"]
-       75 SETTABLEKS                       R5 R10 K20 ["Buttons"]
-       77 SETTABLEKS                       R6 R10 K21 ["OnClose"]
-       79 SETTABLEKS                       R7 R10 K22 ["OnButtonPressed"]
-       81 GETIMPORT                        R11 K29 [Vector2.new]
-       83 LOADN                            R12 144
-       84 LOADN                            R13 110
-       85 CALL                             R11 2 1
-       86 SETTABLEKS                       R11 R10 K23 ["MinContentSize"]
-       88 DUPTABLE                         R11 K31 [{"Content"}]
-       89 GETUPVAL                         R12 1
-       90 GETTABLEKS                       R12 R12 K18 ["createElement"]
-       92 GETUPVAL                         R13 3
-       93 DUPTABLE                         R14 K36 [{"LayoutOrder", "ErrorMap", "ExistingPackageId", "UploadWidgetItem"}]
-       94 LOADN                            R15 1
-       95 SETTABLEKS                       R15 R14 K32 ["LayoutOrder"]
-       97 SETTABLEKS                       R4 R14 K33 ["ErrorMap"]
-       99 LOADN                            R15 255
-      100 SETTABLEKS                       R15 R14 K34 ["ExistingPackageId"]
-      102 GETUPVAL                         R15 4
-      103 GETTABLEKS                       R15 R15 K28 ["new"]
-      105 CALL                             R15 0 1
-      106 SETTABLEKS                       R15 R14 K35 ["UploadWidgetItem"]
-      108 CALL                             R12 2 1
-      109 SETTABLEKS                       R12 R11 K30 ["Content"]
-      111 CALL                             R8 3 -1
-      112 CLOSEUPVALS                      R1
-      113 RETURN                           R8 -1
+       12 NAMECALL                         R5 R5 K7 ["JSONEncode"]
+       14 CALL                             R5 2 1
+       15 SETTABLE                         R5 R4 R2
+       16 NEWTABLE                         R5 0 2
+       18 DUPTABLE                         R6 K13 [{["Key"] = "Retry", ["Text"], ["Style"] = "RoundPrimary"}]
+       19 GETTABLEKS                       R7 R0 K14 ["localization"]
+       21 LOADK                            R9 K15 ["Plugin"]
+       22 LOADK                            R10 K9 ["Retry"]
+       23 NAMECALL                         R7 R7 K16 ["getText"]
+       25 CALL                             R7 3 1
+       26 SETTABLEKS                       R7 R6 K10 ["Text"]
+       28 DUPTABLE                         R7 K18 [{["Key"] = "Close", ["Text"]}]
+       29 GETTABLEKS                       R8 R0 K14 ["localization"]
+       31 LOADK                            R10 K15 ["Plugin"]
+       32 LOADK                            R11 K17 ["Close"]
+       33 NAMECALL                         R8 R8 K16 ["getText"]
+       35 CALL                             R8 3 1
+       36 SETTABLEKS                       R8 R7 K10 ["Text"]
+       38 SETLIST                          R5 R6 2 [1]
+       40 NEWCLOSURE                       R6 P0
+       41 CAPTURE                          REF R1
+       42 NEWCLOSURE                       R7 P1
+       43 CAPTURE                          REF R1
+       44 CAPTURE                          VAL R0
+       45 CAPTURE                          VAL R2
+       46 GETUPVAL                         R8 1
+       47 GETTABLEKS                       R8 R8 K19 ["createElement"]
+       49 GETUPVAL                         R9 2
+       50 DUPTABLE                         R10 K25 [{"Title", "Buttons", "OnClose", "OnButtonPressed", "MinContentSize"}]
+       51 GETTABLEKS                       R11 R0 K14 ["localization"]
+       53 LOADK                            R13 K26 ["Error"]
+       54 LOADK                            R14 K27 ["WindowTitle"]
+       55 NAMECALL                         R11 R11 K16 ["getText"]
+       57 CALL                             R11 3 1
+       58 SETTABLEKS                       R11 R10 K20 ["Title"]
+       60 SETTABLEKS                       R5 R10 K21 ["Buttons"]
+       62 SETTABLEKS                       R6 R10 K22 ["OnClose"]
+       64 SETTABLEKS                       R7 R10 K23 ["OnButtonPressed"]
+       66 GETIMPORT                        R11 K30 [Vector2.new]
+       68 LOADN                            R12 400
+       69 LOADN                            R13 110
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K24 ["MinContentSize"]
+       73 DUPTABLE                         R11 K32 [{"Content"}]
+       74 GETUPVAL                         R12 1
+       75 GETTABLEKS                       R12 R12 K19 ["createElement"]
+       77 GETUPVAL                         R13 3
+       78 DUPTABLE                         R14 K38 [{["LayoutOrder"] = 1, ["ErrorMap"], ["ExistingPackageId"] = -1, ["UploadWidgetItem"]}]
+       79 SETTABLEKS                       R4 R14 K35 ["ErrorMap"]
+       81 GETUPVAL                         R15 4
+       82 GETTABLEKS                       R15 R15 K29 ["new"]
+       84 CALL                             R15 0 1
+       85 SETTABLEKS                       R15 R14 K37 ["UploadWidgetItem"]
+       87 CALL                             R12 2 1
+       88 SETTABLEKS                       R12 R11 K31 ["Content"]
+       90 CALL                             R8 3 -1
+       91 CLOSEUPVALS                      R1
+       92 RETURN                           R8 -1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

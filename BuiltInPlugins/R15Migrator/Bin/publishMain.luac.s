@@ -61,44 +61,40 @@ PROTO_2:
 PROTO_3:
         0 GETUPVAL                         R0 1
         1 LOADK                            R2 K0 ["PublishBlocked"]
-        2 DUPTABLE                         R3 K5 [{"Size", "Resizable", "Modal", "InitialEnabled"}]
-        3 GETIMPORT                        R4 K8 [Vector2.new]
-        5 LOADN                            R5 144
+        2 DUPTABLE                         R3 K6 [{["Size"], ["Resizable"] = False, ["Modal"], ["InitialEnabled"] = False}]
+        3 GETIMPORT                        R4 K9 [Vector2.new]
+        5 LOADN                            R5 400
         6 LOADN                            R6 160
         7 CALL                             R4 2 1
         8 SETTABLEKS                       R4 R3 K1 ["Size"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K2 ["Resizable"]
-       13 GETUPVAL                         R5 2
-       14 NOT                              R4 R5
-       15 SETTABLEKS                       R4 R3 K3 ["Modal"]
-       17 LOADB                            R4 0
-       18 SETTABLEKS                       R4 R3 K4 ["InitialEnabled"]
-       20 NAMECALL                         R0 R0 K9 ["CreateQWidgetPluginGui"]
-       22 CALL                             R0 3 1
-       23 SETUPVAL                         R0 0
+       10 GETUPVAL                         R5 2
+       11 NOT                              R4 R5
+       12 SETTABLEKS                       R4 R3 K4 ["Modal"]
+       14 NAMECALL                         R0 R0 K10 ["CreateQWidgetPluginGui"]
+       16 CALL                             R0 3 1
+       17 SETUPVAL                         R0 0
+       18 GETUPVAL                         R0 0
+       19 GETUPVAL                         R1 3
+       20 GETTABLEKS                       R1 R1 K11 ["Name"]
+       22 SETTABLEKS                       R1 R0 K11 ["Name"]
        24 GETUPVAL                         R0 0
-       25 GETUPVAL                         R1 3
-       26 GETTABLEKS                       R1 R1 K10 ["Name"]
-       28 SETTABLEKS                       R1 R0 K10 ["Name"]
-       30 GETUPVAL                         R0 0
-       31 GETUPVAL                         R1 4
-       32 LOADK                            R3 K11 ["PublishingBlocked"]
-       33 LOADK                            R4 K12 ["Title"]
-       34 NAMECALL                         R1 R1 K13 ["getText"]
-       36 CALL                             R1 3 1
-       37 SETTABLEKS                       R1 R0 K12 ["Title"]
-       39 GETUPVAL                         R0 0
-       40 GETIMPORT                        R1 K17 [Enum.ZIndexBehavior.Sibling]
-       42 SETTABLEKS                       R1 R0 K15 ["ZIndexBehavior"]
-       44 GETUPVAL                         R0 0
-       45 NEWCLOSURE                       R2 P0
-       46 CAPTURE                          UPVAL U5
-       47 CAPTURE                          UPVAL U6
-       48 CAPTURE                          UPVAL U0
-       49 NAMECALL                         R0 R0 K18 ["BindToClose"]
-       51 CALL                             R0 2 0
-       52 RETURN                           R0 0
+       25 GETUPVAL                         R1 4
+       26 LOADK                            R3 K12 ["PublishingBlocked"]
+       27 LOADK                            R4 K13 ["Title"]
+       28 NAMECALL                         R1 R1 K14 ["getText"]
+       30 CALL                             R1 3 1
+       31 SETTABLEKS                       R1 R0 K13 ["Title"]
+       33 GETUPVAL                         R0 0
+       34 GETIMPORT                        R1 K18 [Enum.ZIndexBehavior.Sibling]
+       36 SETTABLEKS                       R1 R0 K16 ["ZIndexBehavior"]
+       38 GETUPVAL                         R0 0
+       39 NEWCLOSURE                       R2 P0
+       40 CAPTURE                          UPVAL U5
+       41 CAPTURE                          UPVAL U6
+       42 CAPTURE                          UPVAL U0
+       43 NAMECALL                         R0 R0 K19 ["BindToClose"]
+       45 CALL                             R0 2 0
+       46 RETURN                           R0 0
 
 PROTO_4:
         0 LOADNIL                          R1
@@ -145,7 +141,7 @@ PROTO_5:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["publishingIsBlocked"]
         3 CALL                             R1 1 1
-        4 JUMPIFEQKNIL                     R1 ; [+72]
+        4 JUMPIFEQKNIL                     R1 ; [+69]
         6 LOADB                            R2 0
         7 NEWTABLE                         R3 0 0
         9 LOADB                            R4 0
@@ -180,26 +176,24 @@ PROTO_5:
        49 JUMPIFEQ                         R5 R6 ; [+2]
        51 LOADB                            R4 0 +1
        52 LOADB                            R4 1
-       53 DUPTABLE                         R7 K3 [{"name", "blocking"}]
-       54 LOADK                            R8 K17 ["AvatarTypeIsR6"]
-       55 SETTABLEKS                       R8 R7 K1 ["name"]
-       57 SETTABLEKS                       R4 R7 K2 ["blocking"]
-       59 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
-       61 MOVE                             R6 R3
-       62 GETIMPORT                        R5 K8 [table.insert]
-       64 CALL                             R5 2 0
-       65 OR                               R2 R2 R4
-       66 GETUPVAL                         R5 3
-       67 LOADK                            R7 K18 ["onPublish"]
-       68 NAMECALL                         R5 R5 K19 ["getHandler"]
-       70 CALL                             R5 2 1
-       71 MOVE                             R6 R3
-       72 CALL                             R5 1 0
-       73 SETUPVAL                         R0 4
-       74 GETUPVAL                         R5 5
-       75 MOVE                             R6 R2
-       76 CALL                             R5 1 0
-       77 RETURN                           R0 0
+       53 DUPTABLE                         R7 K18 [{["name"] = "AvatarTypeIsR6", ["blocking"]}]
+       54 SETTABLEKS                       R4 R7 K2 ["blocking"]
+       56 FASTCALL2                        TABLE_INSERT R3 R7 ; [+4]
+       58 MOVE                             R6 R3
+       59 GETIMPORT                        R5 K8 [table.insert]
+       61 CALL                             R5 2 0
+       62 OR                               R2 R2 R4
+       63 GETUPVAL                         R5 3
+       64 LOADK                            R7 K19 ["onPublish"]
+       65 NAMECALL                         R5 R5 K20 ["getHandler"]
+       67 CALL                             R5 2 1
+       68 MOVE                             R6 R3
+       69 CALL                             R5 1 0
+       70 SETUPVAL                         R0 4
+       71 GETUPVAL                         R5 5
+       72 MOVE                             R6 R2
+       73 CALL                             R5 1 0
+       74 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0

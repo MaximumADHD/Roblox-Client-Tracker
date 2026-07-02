@@ -21,17 +21,15 @@ PROTO_2:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K6 [{"AutomaticSize", "Text", "OnClick"}]
-       12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.XY]
+       11 DUPTABLE                         R6 K7 [{["AutomaticSize"], ["Text"] = "Clickable", ["OnClick"]}]
+       12 GETIMPORT                        R7 K10 [Enum.AutomaticSize.XY]
        14 SETTABLEKS                       R7 R6 K3 ["AutomaticSize"]
-       16 LOADK                            R7 K10 ["Clickable"]
-       17 SETTABLEKS                       R7 R6 K4 ["Text"]
-       19 DUPCLOSURE                       R7 K11 [PROTO_1]
-       20 SETTABLEKS                       R7 R6 K5 ["OnClick"]
-       22 CALL                             R4 2 1
-       23 SETTABLEKS                       R4 R3 K1 ["SearchPill"]
-       25 CALL                             R0 3 -1
-       26 RETURN                           R0 -1
+       16 DUPCLOSURE                       R7 K11 [PROTO_1]
+       17 SETTABLEKS                       R7 R6 K6 ["OnClick"]
+       19 CALL                             R4 2 1
+       20 SETTABLEKS                       R4 R3 K1 ["SearchPill"]
+       22 CALL                             R0 3 -1
+       23 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -42,20 +40,18 @@ PROTO_3:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K5 [{"Text", "Size"}]
-       12 LOADK                            R7 K6 ["Size 100x50"]
-       13 SETTABLEKS                       R7 R6 K3 ["Text"]
-       15 GETIMPORT                        R7 K9 [UDim2.new]
-       17 LOADN                            R8 0
-       18 LOADN                            R9 100
-       19 LOADN                            R10 0
-       20 LOADN                            R11 50
-       21 CALL                             R7 4 1
-       22 SETTABLEKS                       R7 R6 K4 ["Size"]
-       24 CALL                             R4 2 1
-       25 SETTABLEKS                       R4 R3 K1 ["SearchPill"]
-       27 CALL                             R0 3 -1
-       28 RETURN                           R0 -1
+       11 DUPTABLE                         R6 K6 [{["Text"] = "Size 100x50", ["Size"]}]
+       12 GETIMPORT                        R7 K9 [UDim2.new]
+       14 LOADN                            R8 0
+       15 LOADN                            R9 100
+       16 LOADN                            R10 0
+       17 LOADN                            R11 50
+       18 CALL                             R7 4 1
+       19 SETTABLEKS                       R7 R6 K5 ["Size"]
+       21 CALL                             R4 2 1
+       22 SETTABLEKS                       R4 R3 K1 ["SearchPill"]
+       24 CALL                             R0 3 -1
+       25 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -79,26 +75,20 @@ MAIN:
        32 DUPCLOSURE                       R5 K13 [PROTO_0]
        33 CAPTURE                          VAL R2
        34 CAPTURE                          VAL R3
-       35 DUPTABLE                         R6 K16 [{"summary", "stories"}]
-       36 LOADK                            R7 K17 ["A generic search pill."]
-       37 SETTABLEKS                       R7 R6 K14 ["summary"]
-       39 NEWTABLE                         R7 0 2
-       41 DUPTABLE                         R8 K20 [{"name", "story"}]
-       42 LOADK                            R9 K21 ["Clickable"]
-       43 SETTABLEKS                       R9 R8 K18 ["name"]
-       45 DUPCLOSURE                       R9 K22 [PROTO_2]
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R4
-       49 SETTABLEKS                       R9 R8 K19 ["story"]
-       51 DUPTABLE                         R9 K20 [{"name", "story"}]
-       52 LOADK                            R10 K23 ["Constant Size"]
-       53 SETTABLEKS                       R10 R9 K18 ["name"]
-       55 DUPCLOSURE                       R10 K24 [PROTO_3]
-       56 CAPTURE                          VAL R2
-       57 CAPTURE                          VAL R5
-       58 CAPTURE                          VAL R4
-       59 SETTABLEKS                       R10 R9 K19 ["story"]
-       61 SETLIST                          R7 R8 2 [1]
-       63 SETTABLEKS                       R7 R6 K15 ["stories"]
-       65 RETURN                           R6 1
+       35 DUPTABLE                         R6 K17 [{["summary"] = "A generic search pill.", ["stories"]}]
+       36 NEWTABLE                         R7 0 2
+       38 DUPTABLE                         R8 K21 [{["name"] = "Clickable", ["story"]}]
+       39 DUPCLOSURE                       R9 K22 [PROTO_2]
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R5
+       42 CAPTURE                          VAL R4
+       43 SETTABLEKS                       R9 R8 K20 ["story"]
+       45 DUPTABLE                         R9 K24 [{["name"] = "Constant Size", ["story"]}]
+       46 DUPCLOSURE                       R10 K25 [PROTO_3]
+       47 CAPTURE                          VAL R2
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R4
+       50 SETTABLEKS                       R10 R9 K20 ["story"]
+       52 SETLIST                          R7 R8 2 [1]
+       54 SETTABLEKS                       R7 R6 K16 ["stories"]
+       56 RETURN                           R6 1

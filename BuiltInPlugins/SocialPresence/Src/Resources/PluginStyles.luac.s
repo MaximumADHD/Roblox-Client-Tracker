@@ -15,61 +15,45 @@ MAIN:
        22 NEWTABLE                         R4 0 2
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 [".RibbonElement"]
-       26 DUPTABLE                         R7 K14 [{"Size", "BackgroundTransparency"}]
-       27 GETIMPORT                        R8 K17 [UDim2.new]
+       26 DUPTABLE                         R7 K15 [{["Size"], ["BackgroundTransparency"] = 1}]
+       27 GETIMPORT                        R8 K18 [UDim2.new]
        29 LOADN                            R9 0
        30 LOADN                            R10 24
        31 LOADN                            R11 0
        32 LOADN                            R12 24
        33 CALL                             R8 4 1
        34 SETTABLEKS                       R8 R7 K12 ["Size"]
-       36 LOADN                            R8 1
-       37 SETTABLEKS                       R8 R7 K13 ["BackgroundTransparency"]
-       39 NEWTABLE                         R8 0 1
-       41 MOVE                             R9 R2
-       42 LOADK                            R10 K18 ["::UICorner"]
-       43 DUPTABLE                         R11 K20 [{"CornerRadius"}]
-       44 GETIMPORT                        R12 K22 [UDim.new]
-       46 LOADK                            R13 K23 [0.5]
-       47 LOADN                            R14 0
-       48 CALL                             R12 2 1
-       49 SETTABLEKS                       R12 R11 K19 ["CornerRadius"]
-       51 CALL                             R9 2 -1
-       52 SETLIST                          R8 R9 -1 [1]
-       54 CALL                             R5 3 1
-       55 MOVE                             R6 R2
-       56 LOADK                            R7 K24 [".Button"]
-       57 DUPTABLE                         R8 K27 [{"AutoButtonColor", "BackgroundTransparency", "BorderSizePixel"}]
-       58 LOADB                            R9 0
-       59 SETTABLEKS                       R9 R8 K25 ["AutoButtonColor"]
-       61 LOADN                            R9 1
-       62 SETTABLEKS                       R9 R8 K13 ["BackgroundTransparency"]
-       64 LOADN                            R9 0
-       65 SETTABLEKS                       R9 R8 K26 ["BorderSizePixel"]
-       67 NEWTABLE                         R9 0 2
-       69 MOVE                             R10 R2
-       70 LOADK                            R11 K28 [":hover"]
-       71 DUPTABLE                         R12 K30 [{"BackgroundColor3", "BackgroundTransparency"}]
-       72 LOADK                            R13 K31 ["$BackgroundPaper"]
-       73 SETTABLEKS                       R13 R12 K29 ["BackgroundColor3"]
-       75 LOADN                            R13 0
-       76 SETTABLEKS                       R13 R12 K13 ["BackgroundTransparency"]
-       78 CALL                             R10 2 1
-       79 MOVE                             R11 R2
-       80 LOADK                            R12 K32 [":press"]
-       81 DUPTABLE                         R13 K30 [{"BackgroundColor3", "BackgroundTransparency"}]
-       82 LOADK                            R14 K33 ["$ActionActivated"]
-       83 SETTABLEKS                       R14 R13 K29 ["BackgroundColor3"]
-       85 LOADN                            R14 0
-       86 SETTABLEKS                       R14 R13 K13 ["BackgroundTransparency"]
-       88 CALL                             R11 2 -1
-       89 SETLIST                          R9 R10 -1 [1]
-       91 CALL                             R6 3 -1
-       92 SETLIST                          R4 R5 -1 [1]
-       94 NEWTABLE                         R5 0 0
-       96 MOVE                             R6 R3
-       97 LOADK                            R7 K2 ["SocialPresence"]
-       98 MOVE                             R8 R4
-       99 MOVE                             R9 R5
-      100 CALL                             R6 3 -1
-      101 RETURN                           R6 -1
+       36 NEWTABLE                         R8 0 1
+       38 MOVE                             R9 R2
+       39 LOADK                            R10 K19 ["::UICorner"]
+       40 DUPTABLE                         R11 K21 [{"CornerRadius"}]
+       41 GETIMPORT                        R12 K23 [UDim.new]
+       43 LOADK                            R13 K24 [0.5]
+       44 LOADN                            R14 0
+       45 CALL                             R12 2 1
+       46 SETTABLEKS                       R12 R11 K20 ["CornerRadius"]
+       48 CALL                             R9 2 -1
+       49 SETLIST                          R8 R9 -1 [1]
+       51 CALL                             R5 3 1
+       52 MOVE                             R6 R2
+       53 LOADK                            R7 K25 [".Button"]
+       54 DUPTABLE                         R8 K30 [{["AutoButtonColor"] = False, ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+       55 NEWTABLE                         R9 0 2
+       57 MOVE                             R10 R2
+       58 LOADK                            R11 K31 [":hover"]
+       59 DUPTABLE                         R12 K34 [{["BackgroundColor3"] = "$BackgroundPaper", ["BackgroundTransparency"] = 0}]
+       60 CALL                             R10 2 1
+       61 MOVE                             R11 R2
+       62 LOADK                            R12 K35 [":press"]
+       63 DUPTABLE                         R13 K37 [{["BackgroundColor3"] = "$ActionActivated", ["BackgroundTransparency"] = 0}]
+       64 CALL                             R11 2 -1
+       65 SETLIST                          R9 R10 -1 [1]
+       67 CALL                             R6 3 -1
+       68 SETLIST                          R4 R5 -1 [1]
+       70 NEWTABLE                         R5 0 0
+       72 MOVE                             R6 R3
+       73 LOADK                            R7 K2 ["SocialPresence"]
+       74 MOVE                             R8 R4
+       75 MOVE                             R9 R5
+       76 CALL                             R6 3 -1
+       77 RETURN                           R6 -1

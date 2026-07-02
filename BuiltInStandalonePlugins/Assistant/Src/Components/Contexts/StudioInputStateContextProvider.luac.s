@@ -1,22 +1,20 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+15]
+        1 JUMPIF                           R0 ; [+12]
         2 GETUPVAL                         R0 1
-        3 DUPTABLE                         R1 K2 [{"overrideText", "iconType"}]
+        3 DUPTABLE                         R1 K3 [{[1], ["iconType"] = "loading"}]
         4 GETUPVAL                         R2 2
-        5 LOADK                            R4 K3 ["InputArea"]
-        6 LOADK                            R5 K4 ["StudioNotificationServiceWarning"]
-        7 NAMECALL                         R2 R2 K5 ["getText"]
+        5 LOADK                            R4 K4 ["InputArea"]
+        6 LOADK                            R5 K5 ["StudioNotificationServiceWarning"]
+        7 NAMECALL                         R2 R2 K6 ["getText"]
         9 CALL                             R2 3 1
        10 SETTABLEKS                       R2 R1 K0 ["overrideText"]
-       12 LOADK                            R2 K6 ["loading"]
-       13 SETTABLEKS                       R2 R1 K1 ["iconType"]
-       15 CALL                             R0 1 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R0 1
-       18 LOADNIL                          R1
-       19 CALL                             R0 1 0
-       20 RETURN                           R0 0
+       12 CALL                             R0 1 0
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R0 1
+       15 LOADNIL                          R1
+       16 CALL                             R0 1 0
+       17 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0

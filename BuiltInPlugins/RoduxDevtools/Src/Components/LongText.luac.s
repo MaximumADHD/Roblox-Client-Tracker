@@ -61,53 +61,49 @@ PROTO_2:
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R2 K6 ["createElement"]
        11 LOADK                            R3 K7 ["Frame"]
-       12 DUPTABLE                         R4 K14 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "AutomaticSize", "LayoutOrder"}]
-       13 LOADN                            R5 1
-       14 SETTABLEKS                       R5 R4 K8 ["BackgroundTransparency"]
-       16 GETIMPORT                        R5 K17 [UDim2.new]
-       18 LOADN                            R6 1
-       19 LOADN                            R7 0
-       20 LOADN                            R8 0
-       21 GETTABLEKS                       R10 R0 K3 ["props"]
-       23 GETTABLEKS                       R10 R10 K18 ["MaxHeight"]
-       25 LENGTH                           R12 R1
-       26 MULK                             R11 R12 K19 [20]
-       27 FASTCALL2                        MATH_MIN R10 R11 ; [+3]
-       29 GETIMPORT                        R9 K22 [math.min]
-       31 CALL                             R9 2 1
-       32 CALL                             R5 4 1
-       33 SETTABLEKS                       R5 R4 K9 ["Size"]
-       35 GETTABLEKS                       R5 R0 K3 ["props"]
-       37 GETTABLEKS                       R5 R5 K10 ["Position"]
-       39 SETTABLEKS                       R5 R4 K10 ["Position"]
-       41 GETTABLEKS                       R5 R0 K3 ["props"]
-       43 GETTABLEKS                       R5 R5 K11 ["AnchorPoint"]
-       45 SETTABLEKS                       R5 R4 K11 ["AnchorPoint"]
-       47 GETTABLEKS                       R5 R0 K3 ["props"]
-       49 GETTABLEKS                       R5 R5 K12 ["AutomaticSize"]
-       51 SETTABLEKS                       R5 R4 K12 ["AutomaticSize"]
-       53 GETTABLEKS                       R5 R0 K3 ["props"]
-       55 GETTABLEKS                       R5 R5 K13 ["LayoutOrder"]
-       57 SETTABLEKS                       R5 R4 K13 ["LayoutOrder"]
-       59 DUPTABLE                         R5 K24 [{"List"}]
-       60 GETUPVAL                         R6 0
-       61 GETTABLEKS                       R6 R6 K6 ["createElement"]
-       63 GETUPVAL                         R7 1
-       64 DUPTABLE                         R8 K29 [{"Rows", "RowHeight", "RowComponent", "GetRowProps"}]
-       65 SETTABLEKS                       R1 R8 K25 ["Rows"]
-       67 LOADN                            R9 20
-       68 SETTABLEKS                       R9 R8 K26 ["RowHeight"]
-       70 DUPCLOSURE                       R9 K30 [PROTO_0]
-       71 CAPTURE                          UPVAL U0
-       72 CAPTURE                          UPVAL U2
-       73 SETTABLEKS                       R9 R8 K27 ["RowComponent"]
-       75 NEWCLOSURE                       R9 P1
-       76 CAPTURE                          VAL R0
-       77 SETTABLEKS                       R9 R8 K28 ["GetRowProps"]
-       79 CALL                             R6 2 1
-       80 SETTABLEKS                       R6 R5 K23 ["List"]
-       82 CALL                             R2 3 -1
-       83 RETURN                           R2 -1
+       12 DUPTABLE                         R4 K15 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["AutomaticSize"], ["LayoutOrder"]}]
+       13 GETIMPORT                        R5 K18 [UDim2.new]
+       15 LOADN                            R6 1
+       16 LOADN                            R7 0
+       17 LOADN                            R8 0
+       18 GETTABLEKS                       R10 R0 K3 ["props"]
+       20 GETTABLEKS                       R10 R10 K19 ["MaxHeight"]
+       22 LENGTH                           R12 R1
+       23 MULK                             R11 R12 K20 [20]
+       24 FASTCALL2                        MATH_MIN R10 R11 ; [+3]
+       26 GETIMPORT                        R9 K23 [math.min]
+       28 CALL                             R9 2 1
+       29 CALL                             R5 4 1
+       30 SETTABLEKS                       R5 R4 K10 ["Size"]
+       32 GETTABLEKS                       R5 R0 K3 ["props"]
+       34 GETTABLEKS                       R5 R5 K11 ["Position"]
+       36 SETTABLEKS                       R5 R4 K11 ["Position"]
+       38 GETTABLEKS                       R5 R0 K3 ["props"]
+       40 GETTABLEKS                       R5 R5 K12 ["AnchorPoint"]
+       42 SETTABLEKS                       R5 R4 K12 ["AnchorPoint"]
+       44 GETTABLEKS                       R5 R0 K3 ["props"]
+       46 GETTABLEKS                       R5 R5 K13 ["AutomaticSize"]
+       48 SETTABLEKS                       R5 R4 K13 ["AutomaticSize"]
+       50 GETTABLEKS                       R5 R0 K3 ["props"]
+       52 GETTABLEKS                       R5 R5 K14 ["LayoutOrder"]
+       54 SETTABLEKS                       R5 R4 K14 ["LayoutOrder"]
+       56 DUPTABLE                         R5 K25 [{"List"}]
+       57 GETUPVAL                         R6 0
+       58 GETTABLEKS                       R6 R6 K6 ["createElement"]
+       60 GETUPVAL                         R7 1
+       61 DUPTABLE                         R8 K30 [{["Rows"], ["RowHeight"] = 20, ["RowComponent"], ["GetRowProps"]}]
+       62 SETTABLEKS                       R1 R8 K26 ["Rows"]
+       64 DUPCLOSURE                       R9 K31 [PROTO_0]
+       65 CAPTURE                          UPVAL U0
+       66 CAPTURE                          UPVAL U2
+       67 SETTABLEKS                       R9 R8 K28 ["RowComponent"]
+       69 NEWCLOSURE                       R9 P1
+       70 CAPTURE                          VAL R0
+       71 SETTABLEKS                       R9 R8 K29 ["GetRowProps"]
+       73 CALL                             R6 2 1
+       74 SETTABLEKS                       R6 R5 K24 ["List"]
+       76 CALL                             R2 3 -1
+       77 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

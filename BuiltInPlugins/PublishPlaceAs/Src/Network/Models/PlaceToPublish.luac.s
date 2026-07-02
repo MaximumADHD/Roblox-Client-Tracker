@@ -1,14 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K4 [{"placeId", "universeId", "name", "description"}]
-        1 LOADK                            R1 K5 [3262491642]
-        2 SETTABLEKS                       R1 R0 K0 ["placeId"]
-        4 LOADK                            R1 K6 [1177385430]
-        5 SETTABLEKS                       R1 R0 K1 ["universeId"]
-        7 LOADK                            R1 K7 ["test place to publish"]
-        8 SETTABLEKS                       R1 R0 K2 ["name"]
-       10 LOADK                            R1 K8 ["MOCK_DESCRIPTION"]
-       11 SETTABLEKS                       R1 R0 K3 ["description"]
-       13 RETURN                           R0 1
+        0 DUPTABLE                         R0 K8 [{[1] = 3262491642, ["universeId"] = 1177385430, ["name"] = "test place to publish", ["description"] = "MOCK_DESCRIPTION"}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 JUMPIF                           R0 ; [+3]

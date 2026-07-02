@@ -11,21 +11,11 @@ MAIN:
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["Style"]
        20 GETTABLEKS                       R2 R2 K8 ["StyleKey"]
-       22 DUPTABLE                         R3 K16 [{"Border", "ScrollHeaderPadding", "RowHeight", "HeaderCellPadding", "HeaderHeight", "FooterHeight", "IconColor"}]
+       22 DUPTABLE                         R3 K20 [{["Border"], ["ScrollHeaderPadding"], ["RowHeight"] = 24, ["HeaderCellPadding"] = 5, ["HeaderHeight"] = 32, ["FooterHeight"] = 36, ["IconColor"]}]
        23 GETTABLEKS                       R4 R2 K9 ["Border"]
        25 SETTABLEKS                       R4 R3 K9 ["Border"]
-       27 DUPTABLE                         R4 K18 [{"Right"}]
-       28 LOADN                            R5 8
-       29 SETTABLEKS                       R5 R4 K17 ["Right"]
-       31 SETTABLEKS                       R4 R3 K10 ["ScrollHeaderPadding"]
-       33 LOADN                            R4 24
-       34 SETTABLEKS                       R4 R3 K11 ["RowHeight"]
-       36 LOADN                            R4 5
-       37 SETTABLEKS                       R4 R3 K12 ["HeaderCellPadding"]
-       39 LOADN                            R4 32
-       40 SETTABLEKS                       R4 R3 K13 ["HeaderHeight"]
-       42 LOADN                            R4 36
-       43 SETTABLEKS                       R4 R3 K14 ["FooterHeight"]
-       45 GETTABLEKS                       R4 R2 K19 ["Icon"]
-       47 SETTABLEKS                       R4 R3 K15 ["IconColor"]
-       49 RETURN                           R3 1
+       27 DUPTABLE                         R4 K23 [{["Right"] = 8}]
+       28 SETTABLEKS                       R4 R3 K10 ["ScrollHeaderPadding"]
+       30 GETTABLEKS                       R4 R2 K24 ["Icon"]
+       32 SETTABLEKS                       R4 R3 K19 ["IconColor"]
+       34 RETURN                           R3 1

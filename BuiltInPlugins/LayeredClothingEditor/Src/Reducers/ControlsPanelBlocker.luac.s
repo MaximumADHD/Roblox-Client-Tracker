@@ -35,17 +35,13 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K11 [{"isActive", "message"}]
-       26 LOADB                            R5 0
-       27 SETTABLEKS                       R5 R4 K9 ["isActive"]
-       29 LOADK                            R5 K12 [""]
-       30 SETTABLEKS                       R5 R4 K10 ["message"]
-       32 DUPTABLE                         R5 K15 [{"SetControlsPanelBlockerActivity", "SetControlsPanelBlockerMessage"}]
-       33 DUPCLOSURE                       R6 K16 [PROTO_0]
-       34 CAPTURE                          VAL R2
-       35 SETTABLEKS                       R6 R5 K13 ["SetControlsPanelBlockerActivity"]
-       37 DUPCLOSURE                       R6 K17 [PROTO_1]
-       38 CAPTURE                          VAL R2
-       39 SETTABLEKS                       R6 R5 K14 ["SetControlsPanelBlockerMessage"]
-       41 CALL                             R3 2 -1
-       42 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K13 [{["isActive"] = False, ["message"] = ""}]
+       26 DUPTABLE                         R5 K16 [{"SetControlsPanelBlockerActivity", "SetControlsPanelBlockerMessage"}]
+       27 DUPCLOSURE                       R6 K17 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 SETTABLEKS                       R6 R5 K14 ["SetControlsPanelBlockerActivity"]
+       31 DUPCLOSURE                       R6 K18 [PROTO_1]
+       32 CAPTURE                          VAL R2
+       33 SETTABLEKS                       R6 R5 K15 ["SetControlsPanelBlockerMessage"]
+       35 CALL                             R3 2 -1
+       36 RETURN                           R3 -1

@@ -4,7 +4,7 @@ PROTO_0:
         3 LOADN                            R3 200
         4 JUMPIFLT                         R2 R3 ; [+6]
         6 GETTABLEKS                       R2 R1 K0 ["StatusCode"]
-        8 LOADN                            R3 44
+        8 LOADN                            R3 300
         9 JUMPIFNOTLE                      R3 R2 ; [+17]
        11 GETUPVAL                         R2 0
        12 DUPTABLE                         R3 K4 [{"statusCode", "statusMessage", "body"}]

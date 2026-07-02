@@ -303,43 +303,41 @@ MAIN:
        50 LOADK                            R14 K21 ["ScriptIconView"]
        51 NAMECALL                         R12 R12 K22 ["extend"]
        53 CALL                             R12 2 1
-       54 DUPTABLE                         R13 K24 [{"AllowTooltips"}]
-       55 LOADB                            R14 1
-       56 SETTABLEKS                       R14 R13 K23 ["AllowTooltips"]
-       58 SETTABLEKS                       R13 R12 K25 ["defaultProps"]
-       60 DUPCLOSURE                       R13 K26 [PROTO_0]
-       61 CAPTURE                          VAL R4
-       62 DUPCLOSURE                       R14 K27 [PROTO_1]
-       63 CAPTURE                          VAL R4
-       64 DUPCLOSURE                       R15 K28 [PROTO_2]
-       65 CAPTURE                          VAL R4
-       66 DUPCLOSURE                       R16 K29 [PROTO_3]
-       67 CAPTURE                          VAL R4
-       68 DUPCLOSURE                       R17 K30 [PROTO_4]
-       69 CAPTURE                          VAL R4
-       70 DUPCLOSURE                       R18 K31 [PROTO_5]
-       71 CAPTURE                          VAL R1
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R9
-       74 SETTABLEKS                       R18 R12 K32 ["renderIcon"]
-       76 DUPCLOSURE                       R18 K33 [PROTO_6]
-       77 CAPTURE                          VAL R1
-       78 CAPTURE                          VAL R7
-       79 SETTABLEKS                       R18 R12 K34 ["renderCount"]
-       81 DUPCLOSURE                       R18 K35 [PROTO_7]
-       82 CAPTURE                          VAL R4
-       83 CAPTURE                          VAL R11
-       84 CAPTURE                          VAL R1
-       85 CAPTURE                          VAL R8
-       86 SETTABLEKS                       R18 R12 K36 ["render"]
-       88 GETTABLEKS                       R18 R3 K37 ["withContext"]
-       90 DUPTABLE                         R19 K40 [{"Stylizer", "Localization"}]
-       91 GETTABLEKS                       R20 R3 K38 ["Stylizer"]
-       93 SETTABLEKS                       R20 R19 K38 ["Stylizer"]
-       95 GETTABLEKS                       R20 R3 K39 ["Localization"]
-       97 SETTABLEKS                       R20 R19 K39 ["Localization"]
-       99 CALL                             R18 1 1
-      100 MOVE                             R19 R12
-      101 CALL                             R18 1 1
-      102 MOVE                             R12 R18
-      103 RETURN                           R12 1
+       54 DUPTABLE                         R13 K25 [{["AllowTooltips"] = True}]
+       55 SETTABLEKS                       R13 R12 K26 ["defaultProps"]
+       57 DUPCLOSURE                       R13 K27 [PROTO_0]
+       58 CAPTURE                          VAL R4
+       59 DUPCLOSURE                       R14 K28 [PROTO_1]
+       60 CAPTURE                          VAL R4
+       61 DUPCLOSURE                       R15 K29 [PROTO_2]
+       62 CAPTURE                          VAL R4
+       63 DUPCLOSURE                       R16 K30 [PROTO_3]
+       64 CAPTURE                          VAL R4
+       65 DUPCLOSURE                       R17 K31 [PROTO_4]
+       66 CAPTURE                          VAL R4
+       67 DUPCLOSURE                       R18 K32 [PROTO_5]
+       68 CAPTURE                          VAL R1
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R9
+       71 SETTABLEKS                       R18 R12 K33 ["renderIcon"]
+       73 DUPCLOSURE                       R18 K34 [PROTO_6]
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R7
+       76 SETTABLEKS                       R18 R12 K35 ["renderCount"]
+       78 DUPCLOSURE                       R18 K36 [PROTO_7]
+       79 CAPTURE                          VAL R4
+       80 CAPTURE                          VAL R11
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R8
+       83 SETTABLEKS                       R18 R12 K37 ["render"]
+       85 GETTABLEKS                       R18 R3 K38 ["withContext"]
+       87 DUPTABLE                         R19 K41 [{"Stylizer", "Localization"}]
+       88 GETTABLEKS                       R20 R3 K39 ["Stylizer"]
+       90 SETTABLEKS                       R20 R19 K39 ["Stylizer"]
+       92 GETTABLEKS                       R20 R3 K40 ["Localization"]
+       94 SETTABLEKS                       R20 R19 K40 ["Localization"]
+       96 CALL                             R18 1 1
+       97 MOVE                             R19 R12
+       98 CALL                             R18 1 1
+       99 MOVE                             R12 R18
+      100 RETURN                           R12 1

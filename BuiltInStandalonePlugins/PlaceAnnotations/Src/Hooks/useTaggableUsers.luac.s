@@ -184,7 +184,7 @@ PROTO_3:
        89 MOVE                             R8 R2
        90 CALL                             R7 1 1
        91 LENGTH                           R6 R7
-       92 LOADN                            R7 136
+       92 LOADN                            R7 5000
        93 JUMPIFNOTLE                      R7 R6 ; [+5]
        95 GETUPVAL                         R7 11
        96 LOADB                            R8 1
@@ -286,7 +286,7 @@ PROTO_5:
         5 CALL                             R3 1 2
         6 GETUPVAL                         R5 0
         7 GETTABLEKS                       R5 R5 K0 ["useState"]
-        9 LOADN                            R6 255
+        9 LOADN                            R6 -1
        10 CALL                             R5 1 2
        11 GETUPVAL                         R7 0
        12 GETTABLEKS                       R7 R7 K0 ["useState"]

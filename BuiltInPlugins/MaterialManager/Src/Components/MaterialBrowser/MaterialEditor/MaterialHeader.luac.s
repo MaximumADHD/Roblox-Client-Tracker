@@ -34,55 +34,49 @@ PROTO_2:
        29 GETUPVAL                         R8 0
        30 GETTABLEKS                       R8 R8 K4 ["createElement"]
        32 GETUPVAL                         R9 2
-       33 DUPTABLE                         R10 K16 [{"BackgroundColor", "DisableZoom", "LayoutOrder", "Material", "MaterialVariant", "Position"}]
-       34 GETTABLEKS                       R11 R2 K17 ["HeaderBackground"]
+       33 DUPTABLE                         R10 K18 [{["BackgroundColor"], ["DisableZoom"] = True, ["LayoutOrder"] = 1, ["Material"], ["MaterialVariant"], ["Position"]}]
+       34 GETTABLEKS                       R11 R2 K19 ["HeaderBackground"]
        36 SETTABLEKS                       R11 R10 K12 ["BackgroundColor"]
-       38 LOADB                            R11 1
-       39 SETTABLEKS                       R11 R10 K13 ["DisableZoom"]
-       41 LOADN                            R11 1
-       42 SETTABLEKS                       R11 R10 K5 ["LayoutOrder"]
-       44 GETTABLEKS                       R11 R3 K3 ["Material"]
-       46 SETTABLEKS                       R11 R10 K3 ["Material"]
-       48 GETTABLEKS                       R11 R3 K14 ["MaterialVariant"]
-       50 SETTABLEKS                       R11 R10 K14 ["MaterialVariant"]
-       52 GETIMPORT                        R11 K20 [UDim2.fromOffset]
-       54 LOADN                            R12 0
-       55 LOADN                            R13 0
-       56 CALL                             R11 2 1
-       57 SETTABLEKS                       R11 R10 K15 ["Position"]
-       59 CALL                             R8 2 1
-       60 SETTABLEKS                       R8 R7 K9 ["Preview"]
-       62 GETUPVAL                         R8 0
-       63 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       65 GETUPVAL                         R9 3
-       66 DUPTABLE                         R10 K24 [{"OnClick", "Position", "Size", "Style", "ZIndex"}]
-       67 GETTABLEKS                       R11 R0 K25 ["onClose"]
-       69 SETTABLEKS                       R11 R10 K21 ["OnClick"]
-       71 GETTABLEKS                       R11 R2 K26 ["ButtonPosition"]
-       73 SETTABLEKS                       R11 R10 K15 ["Position"]
-       75 GETTABLEKS                       R11 R2 K27 ["ButtonSize"]
-       77 SETTABLEKS                       R11 R10 K6 ["Size"]
-       79 GETTABLEKS                       R11 R2 K28 ["ButtonStyle"]
-       81 SETTABLEKS                       R11 R10 K22 ["Style"]
-       83 LOADN                            R11 2
-       84 SETTABLEKS                       R11 R10 K23 ["ZIndex"]
-       86 DUPTABLE                         R11 K30 [{"Image"}]
-       87 GETUPVAL                         R12 0
-       88 GETTABLEKS                       R12 R12 K4 ["createElement"]
-       90 GETUPVAL                         R13 4
-       91 DUPTABLE                         R14 K31 [{"Style", "Size", "Position"}]
-       92 GETTABLEKS                       R15 R2 K10 ["Close"]
-       94 SETTABLEKS                       R15 R14 K22 ["Style"]
-       96 GETTABLEKS                       R15 R2 K32 ["ImageSize"]
-       98 SETTABLEKS                       R15 R14 K6 ["Size"]
-      100 GETTABLEKS                       R15 R2 K33 ["ImagePosition"]
-      102 SETTABLEKS                       R15 R14 K15 ["Position"]
-      104 CALL                             R12 2 1
-      105 SETTABLEKS                       R12 R11 K29 ["Image"]
-      107 CALL                             R8 3 1
-      108 SETTABLEKS                       R8 R7 K10 ["Close"]
-      110 CALL                             R4 3 -1
-      111 RETURN                           R4 -1
+       38 GETTABLEKS                       R11 R3 K3 ["Material"]
+       40 SETTABLEKS                       R11 R10 K3 ["Material"]
+       42 GETTABLEKS                       R11 R3 K16 ["MaterialVariant"]
+       44 SETTABLEKS                       R11 R10 K16 ["MaterialVariant"]
+       46 GETIMPORT                        R11 K22 [UDim2.fromOffset]
+       48 LOADN                            R12 0
+       49 LOADN                            R13 0
+       50 CALL                             R11 2 1
+       51 SETTABLEKS                       R11 R10 K17 ["Position"]
+       53 CALL                             R8 2 1
+       54 SETTABLEKS                       R8 R7 K9 ["Preview"]
+       56 GETUPVAL                         R8 0
+       57 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       59 GETUPVAL                         R9 3
+       60 DUPTABLE                         R10 K27 [{["OnClick"], ["Position"], ["Size"], ["Style"], ["ZIndex"] = 2}]
+       61 GETTABLEKS                       R11 R0 K28 ["onClose"]
+       63 SETTABLEKS                       R11 R10 K23 ["OnClick"]
+       65 GETTABLEKS                       R11 R2 K29 ["ButtonPosition"]
+       67 SETTABLEKS                       R11 R10 K17 ["Position"]
+       69 GETTABLEKS                       R11 R2 K30 ["ButtonSize"]
+       71 SETTABLEKS                       R11 R10 K6 ["Size"]
+       73 GETTABLEKS                       R11 R2 K31 ["ButtonStyle"]
+       75 SETTABLEKS                       R11 R10 K24 ["Style"]
+       77 DUPTABLE                         R11 K33 [{"Image"}]
+       78 GETUPVAL                         R12 0
+       79 GETTABLEKS                       R12 R12 K4 ["createElement"]
+       81 GETUPVAL                         R13 4
+       82 DUPTABLE                         R14 K34 [{"Style", "Size", "Position"}]
+       83 GETTABLEKS                       R15 R2 K10 ["Close"]
+       85 SETTABLEKS                       R15 R14 K24 ["Style"]
+       87 GETTABLEKS                       R15 R2 K35 ["ImageSize"]
+       89 SETTABLEKS                       R15 R14 K6 ["Size"]
+       91 GETTABLEKS                       R15 R2 K36 ["ImagePosition"]
+       93 SETTABLEKS                       R15 R14 K17 ["Position"]
+       95 CALL                             R12 2 1
+       96 SETTABLEKS                       R12 R11 K32 ["Image"]
+       98 CALL                             R8 3 1
+       99 SETTABLEKS                       R8 R7 K10 ["Close"]
+      101 CALL                             R4 3 -1
+      102 RETURN                           R4 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"Material"}]

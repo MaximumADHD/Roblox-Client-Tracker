@@ -191,58 +191,54 @@ PROTO_11:
         3 RETURN                           R3 1
         4 GETUPVAL                         R4 0
         5 GETTABLE                         R3 R4 R0
-        6 JUMPIF                           R3 ; [+29]
+        6 JUMPIF                           R3 ; [+23]
         7 GETUPVAL                         R3 1
         8 GETTABLEKS                       R3 R3 K0 ["wrap"]
-       10 DUPTABLE                         R4 K6 [{"DataModel", "PluginType", "PluginId", "ItemId", "Category"}]
-       11 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       10 DUPTABLE                         R4 K8 [{["DataModel"], ["PluginType"], ["PluginId"], ["ItemId"] = "Toolbar", ["Category"] = "Tool"}]
+       11 GETTABLEKS                       R5 R2 K9 ["Uri"]
        13 GETTABLEKS                       R5 R5 K1 ["DataModel"]
        15 SETTABLEKS                       R5 R4 K1 ["DataModel"]
-       17 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       17 GETTABLEKS                       R5 R2 K9 ["Uri"]
        19 GETTABLEKS                       R5 R5 K2 ["PluginType"]
        21 SETTABLEKS                       R5 R4 K2 ["PluginType"]
-       23 GETTABLEKS                       R5 R2 K7 ["Uri"]
+       23 GETTABLEKS                       R5 R2 K9 ["Uri"]
        25 GETTABLEKS                       R5 R5 K3 ["PluginId"]
        27 SETTABLEKS                       R5 R4 K3 ["PluginId"]
-       29 LOADK                            R5 K8 ["Toolbar"]
-       30 SETTABLEKS                       R5 R4 K4 ["ItemId"]
-       32 LOADK                            R5 K9 ["Tool"]
-       33 SETTABLEKS                       R5 R4 K5 ["Category"]
-       35 CALL                             R3 1 1
-       36 DUPTABLE                         R4 K15 [{"Children", "Icon", "Title", "Description", "Placed", "Uri"}]
-       37 GETUPVAL                         R5 2
-       38 MOVE                             R6 R1
-       39 NEWCLOSURE                       R7 P0
-       40 CAPTURE                          UPVAL U3
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          UPVAL U4
-       43 CAPTURE                          UPVAL U5
-       44 CALL                             R5 2 1
-       45 SETTABLEKS                       R5 R4 K10 ["Children"]
-       47 GETTABLEN                        R5 R1 1
-       48 GETTABLEKS                       R5 R5 K11 ["Icon"]
-       50 SETTABLEKS                       R5 R4 K11 ["Icon"]
-       52 GETTABLEKS                       R5 R3 K4 ["ItemId"]
-       54 SETTABLEKS                       R5 R4 K12 ["Title"]
-       56 GETUPVAL                         R5 6
-       57 LOADK                            R7 K16 ["Plugin"]
-       58 LOADK                            R8 K17 ["ToolPluginName"]
-       59 DUPTABLE                         R9 K20 [{"pluginType", "pluginName"}]
-       60 GETTABLEKS                       R10 R3 K2 ["PluginType"]
-       62 SETTABLEKS                       R10 R9 K18 ["pluginType"]
-       64 GETTABLEKS                       R10 R3 K3 ["PluginId"]
-       66 SETTABLEKS                       R10 R9 K19 ["pluginName"]
-       68 NAMECALL                         R5 R5 K21 ["getText"]
-       70 CALL                             R5 4 1
-       71 SETTABLEKS                       R5 R4 K13 ["Description"]
-       73 GETUPVAL                         R5 4
-       74 GETTABLEKS                       R5 R5 K22 ["isActionGroupPlacedInTab"]
-       76 GETUPVAL                         R6 5
-       77 MOVE                             R7 R1
-       78 CALL                             R5 2 1
-       79 SETTABLEKS                       R5 R4 K14 ["Placed"]
-       81 SETTABLEKS                       R3 R4 K7 ["Uri"]
-       83 RETURN                           R4 1
+       29 CALL                             R3 1 1
+       30 DUPTABLE                         R4 K15 [{"Children", "Icon", "Title", "Description", "Placed", "Uri"}]
+       31 GETUPVAL                         R5 2
+       32 MOVE                             R6 R1
+       33 NEWCLOSURE                       R7 P0
+       34 CAPTURE                          UPVAL U3
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          UPVAL U4
+       37 CAPTURE                          UPVAL U5
+       38 CALL                             R5 2 1
+       39 SETTABLEKS                       R5 R4 K10 ["Children"]
+       41 GETTABLEN                        R5 R1 1
+       42 GETTABLEKS                       R5 R5 K11 ["Icon"]
+       44 SETTABLEKS                       R5 R4 K11 ["Icon"]
+       46 GETTABLEKS                       R5 R3 K4 ["ItemId"]
+       48 SETTABLEKS                       R5 R4 K12 ["Title"]
+       50 GETUPVAL                         R5 6
+       51 LOADK                            R7 K16 ["Plugin"]
+       52 LOADK                            R8 K17 ["ToolPluginName"]
+       53 DUPTABLE                         R9 K20 [{"pluginType", "pluginName"}]
+       54 GETTABLEKS                       R10 R3 K2 ["PluginType"]
+       56 SETTABLEKS                       R10 R9 K18 ["pluginType"]
+       58 GETTABLEKS                       R10 R3 K3 ["PluginId"]
+       60 SETTABLEKS                       R10 R9 K19 ["pluginName"]
+       62 NAMECALL                         R5 R5 K21 ["getText"]
+       64 CALL                             R5 4 1
+       65 SETTABLEKS                       R5 R4 K13 ["Description"]
+       67 GETUPVAL                         R5 4
+       68 GETTABLEKS                       R5 R5 K22 ["isActionGroupPlacedInTab"]
+       70 GETUPVAL                         R6 5
+       71 MOVE                             R7 R1
+       72 CALL                             R5 2 1
+       73 SETTABLEKS                       R5 R4 K14 ["Placed"]
+       75 SETTABLEKS                       R3 R4 K9 ["Uri"]
+       77 RETURN                           R4 1
 
 PROTO_12:
         0 GETUPVAL                         R1 0

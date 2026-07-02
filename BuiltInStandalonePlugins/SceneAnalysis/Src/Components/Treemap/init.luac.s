@@ -27,22 +27,14 @@ PROTO_0:
        39 SETTABLEKS                       R1 R0 K12 ["selectedNodeIds"]
        41 LOADN                            R1 8
        42 SETTABLEKS                       R1 R0 K13 ["maxDepth"]
-       44 DUPTABLE                         R1 K19 [{"hasData", "tooltipVisible", "tooltipNode", "tooltipPosition", "legendData"}]
-       45 LOADB                            R2 1
-       46 SETTABLEKS                       R2 R1 K14 ["hasData"]
-       48 LOADB                            R2 0
-       49 SETTABLEKS                       R2 R1 K15 ["tooltipVisible"]
-       51 LOADNIL                          R2
-       52 SETTABLEKS                       R2 R1 K16 ["tooltipNode"]
-       54 GETIMPORT                        R2 K22 [UDim2.fromOffset]
-       56 LOADN                            R3 0
-       57 LOADN                            R4 0
-       58 CALL                             R2 2 1
-       59 SETTABLEKS                       R2 R1 K17 ["tooltipPosition"]
-       61 LOADNIL                          R2
-       62 SETTABLEKS                       R2 R1 K18 ["legendData"]
-       64 SETTABLEKS                       R1 R0 K23 ["state"]
-       66 RETURN                           R0 0
+       44 DUPTABLE                         R1 K22 [{["hasData"] = True, ["tooltipVisible"] = False, ["tooltipNode"] = , ["tooltipPosition"], ["legendData"] = }]
+       45 GETIMPORT                        R2 K25 [UDim2.fromOffset]
+       47 LOADN                            R3 0
+       48 LOADN                            R4 0
+       49 CALL                             R2 2 1
+       50 SETTABLEKS                       R2 R1 K20 ["tooltipPosition"]
+       52 SETTABLEKS                       R1 R0 K26 ["state"]
+       54 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["zoomDownNodePath"]
@@ -324,12 +316,10 @@ PROTO_13:
         7 LOADNIL                          R1
         8 SETTABLEKS                       R1 R0 K1 ["lastMousePosition"]
        10 GETUPVAL                         R0 0
-       11 DUPTABLE                         R2 K3 [{"tooltipVisible"}]
-       12 LOADB                            R3 0
-       13 SETTABLEKS                       R3 R2 K2 ["tooltipVisible"]
-       15 NAMECALL                         R0 R0 K4 ["setState"]
-       17 CALL                             R0 2 0
-       18 RETURN                           R0 0
+       11 DUPTABLE                         R2 K4 [{["tooltipVisible"] = False}]
+       12 NAMECALL                         R0 R0 K5 ["setState"]
+       14 CALL                             R0 2 0
+       15 RETURN                           R0 0
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["renderRef"]
@@ -403,8 +393,8 @@ PROTO_15:
 
 PROTO_16:
         0 SETTABLEKS                       R1 R0 K0 ["currentlyHoveredNode"]
-        2 JUMPIFNOT                        R1 ; [+91]
-        3 JUMPIFNOT                        R2 ; [+90]
+        2 JUMPIFNOT                        R1 ; [+85]
+        3 JUMPIFNOT                        R2 ; [+84]
         4 GETUPVAL                         R3 0
         5 MOVE                             R5 R1
         6 NAMECALL                         R3 R3 K1 ["highlightGlowNode"]
@@ -424,54 +414,48 @@ PROTO_16:
        27 GETTABLEKS                       R5 R0 K5 ["renderRef"]
        29 NAMECALL                         R5 R5 K6 ["getValue"]
        31 CALL                             R5 1 1
-       32 JUMPIF                           R5 ; [+8]
-       33 DUPTABLE                         R8 K8 [{"tooltipVisible"}]
-       34 LOADB                            R9 0
-       35 SETTABLEKS                       R9 R8 K7 ["tooltipVisible"]
-       37 NAMECALL                         R6 R0 K9 ["setState"]
-       39 CALL                             R6 2 0
-       40 RETURN                           R0 0
-       41 GETTABLEKS                       R7 R2 K3 ["X"]
-       43 GETTABLEKS                       R8 R5 K10 ["AbsolutePosition"]
-       45 GETTABLEKS                       R8 R8 K3 ["X"]
-       47 SUB                              R6 R7 R8
-       48 GETTABLEKS                       R8 R2 K4 ["Y"]
-       50 GETTABLEKS                       R9 R5 K10 ["AbsolutePosition"]
-       52 GETTABLEKS                       R9 R9 K4 ["Y"]
-       54 SUB                              R7 R8 R9
-       55 ADDK                             R8 R6 K11 [15]
-       56 ADDK                             R9 R7 K11 [15]
-       57 GETTABLEKS                       R10 R5 K12 ["AbsoluteSize"]
-       59 GETTABLEKS                       R10 R10 K3 ["X"]
-       61 GETTABLEKS                       R11 R5 K12 ["AbsoluteSize"]
-       63 GETTABLEKS                       R11 R11 K4 ["Y"]
-       65 ADD                              R12 R8 R3
-       66 JUMPIFNOTLT                      R10 R12 ; [+3]
-       68 SUB                              R12 R6 R3
-       69 SUBK                             R8 R12 K11 [15]
-       70 ADD                              R12 R9 R4
-       71 JUMPIFNOTLT                      R11 R12 ; [+3]
-       73 SUB                              R12 R7 R4
-       74 SUBK                             R9 R12 K11 [15]
-       75 DUPTABLE                         R14 K15 [{"tooltipVisible", "tooltipNode", "tooltipPosition"}]
-       76 LOADB                            R15 1
-       77 SETTABLEKS                       R15 R14 K7 ["tooltipVisible"]
-       79 GETTABLEKS                       R15 R1 K16 ["original"]
-       81 SETTABLEKS                       R15 R14 K13 ["tooltipNode"]
-       83 GETIMPORT                        R15 K19 [UDim2.fromOffset]
-       85 MOVE                             R16 R8
-       86 MOVE                             R17 R9
-       87 CALL                             R15 2 1
-       88 SETTABLEKS                       R15 R14 K14 ["tooltipPosition"]
-       90 NAMECALL                         R12 R0 K9 ["setState"]
-       92 CALL                             R12 2 0
-       93 RETURN                           R0 0
-       94 DUPTABLE                         R5 K8 [{"tooltipVisible"}]
-       95 LOADB                            R6 0
-       96 SETTABLEKS                       R6 R5 K7 ["tooltipVisible"]
-       98 NAMECALL                         R3 R0 K9 ["setState"]
-      100 CALL                             R3 2 0
-      101 RETURN                           R0 0
+       32 JUMPIF                           R5 ; [+5]
+       33 DUPTABLE                         R8 K9 [{["tooltipVisible"] = False}]
+       34 NAMECALL                         R6 R0 K10 ["setState"]
+       36 CALL                             R6 2 0
+       37 RETURN                           R0 0
+       38 GETTABLEKS                       R7 R2 K3 ["X"]
+       40 GETTABLEKS                       R8 R5 K11 ["AbsolutePosition"]
+       42 GETTABLEKS                       R8 R8 K3 ["X"]
+       44 SUB                              R6 R7 R8
+       45 GETTABLEKS                       R8 R2 K4 ["Y"]
+       47 GETTABLEKS                       R9 R5 K11 ["AbsolutePosition"]
+       49 GETTABLEKS                       R9 R9 K4 ["Y"]
+       51 SUB                              R7 R8 R9
+       52 ADDK                             R8 R6 K12 [15]
+       53 ADDK                             R9 R7 K12 [15]
+       54 GETTABLEKS                       R10 R5 K13 ["AbsoluteSize"]
+       56 GETTABLEKS                       R10 R10 K3 ["X"]
+       58 GETTABLEKS                       R11 R5 K13 ["AbsoluteSize"]
+       60 GETTABLEKS                       R11 R11 K4 ["Y"]
+       62 ADD                              R12 R8 R3
+       63 JUMPIFNOTLT                      R10 R12 ; [+3]
+       65 SUB                              R12 R6 R3
+       66 SUBK                             R8 R12 K12 [15]
+       67 ADD                              R12 R9 R4
+       68 JUMPIFNOTLT                      R11 R12 ; [+3]
+       70 SUB                              R12 R7 R4
+       71 SUBK                             R9 R12 K12 [15]
+       72 DUPTABLE                         R14 K17 [{["tooltipVisible"] = True, ["tooltipNode"], ["tooltipPosition"]}]
+       73 GETTABLEKS                       R15 R1 K18 ["original"]
+       75 SETTABLEKS                       R15 R14 K15 ["tooltipNode"]
+       77 GETIMPORT                        R15 K21 [UDim2.fromOffset]
+       79 MOVE                             R16 R8
+       80 MOVE                             R17 R9
+       81 CALL                             R15 2 1
+       82 SETTABLEKS                       R15 R14 K16 ["tooltipPosition"]
+       84 NAMECALL                         R12 R0 K10 ["setState"]
+       86 CALL                             R12 2 0
+       87 RETURN                           R0 0
+       88 DUPTABLE                         R5 K9 [{["tooltipVisible"] = False}]
+       89 NAMECALL                         R3 R0 K10 ["setState"]
+       91 CALL                             R3 2 0
+       92 RETURN                           R0 0
 
 PROTO_17:
         0 GETUPVAL                         R1 0
@@ -677,17 +661,15 @@ PROTO_20:
        49 SETTABLEKS                       R8 R7 K9 ["hasData"]
        51 NAMECALL                         R5 R0 K11 ["setState"]
        53 CALL                             R5 2 0
-       54 JUMP                             ; [+10]
+       54 JUMP                             ; [+7]
        55 LOADN                            R5 0
-       56 JUMPIFNOTLT                      R5 R3 ; [+8]
-       58 DUPTABLE                         R7 K10 [{"hasData"}]
-       59 LOADB                            R8 1
-       60 SETTABLEKS                       R8 R7 K9 ["hasData"]
-       62 NAMECALL                         R5 R0 K11 ["setState"]
-       64 CALL                             R5 2 0
-       65 NAMECALL                         R5 R0 K12 ["repaintTreemap"]
-       67 CALL                             R5 1 0
-       68 RETURN                           R0 0
+       56 JUMPIFNOTLT                      R5 R3 ; [+5]
+       58 DUPTABLE                         R7 K13 [{["hasData"] = True}]
+       59 NAMECALL                         R5 R0 K11 ["setState"]
+       61 CALL                             R5 2 0
+       62 NAMECALL                         R5 R0 K14 ["repaintTreemap"]
+       64 CALL                             R5 1 0
+       65 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -241,59 +241,57 @@ MAIN:
       356 LOADK                            R23 K91 ["PlayerChoice, CustomScale"]
       357 SETLIST                          R20 R21 3 [1]
       359 SETLIST                          R6 R7 14 [1]
-      361 DUPTABLE                         R7 K96 [{"throttlingPercentage", "lastUpdated", "backends", "links"}]
+      361 DUPTABLE                         R7 K97 [{["throttlingPercentage"], ["lastUpdated"], ["backends"], ["links"] = "https://grafana.rbx.com/d/feutjrfrb5kw0b/avatar-settings-plugin-telemetry?orgId=1"}]
       362 SETTABLEKS                       R2 R7 K92 ["throttlingPercentage"]
       364 NEWTABLE                         R8 0 3
-      366 LOADN                            R9 233
+      366 LOADN                            R9 2025
       367 LOADN                            R10 8
       368 LOADN                            R11 14
       369 SETLIST                          R8 R9 3 [1]
       371 SETTABLEKS                       R8 R7 K93 ["lastUpdated"]
       373 NEWTABLE                         R8 0 1
-      375 LOADK                            R9 K97 ["RobloxTelemetryCounter"]
+      375 LOADK                            R9 K98 ["RobloxTelemetryCounter"]
       376 SETLIST                          R8 R9 1 [1]
       378 SETTABLEKS                       R8 R7 K94 ["backends"]
-      380 LOADK                            R8 K98 ["https://grafana.rbx.com/d/feutjrfrb5kw0b/avatar-settings-plugin-telemetry?orgId=1"]
-      381 SETTABLEKS                       R8 R7 K95 ["links"]
-      383 MOVE                             R8 R6
-      384 LOADNIL                          R9
-      385 LOADNIL                          R10
-      386 FORGPREP                         R8
-      387 FASTCALL1                        TABLE_UNPACK R12 ; [+3]
-      388 MOVE                             R14 R12
-      389 GETIMPORT                        R13 K101 [table.unpack]
-      391 CALL                             R13 1 3
-      392 MOVE                             R17 R13
-      393 LOADK                            R18 K102 ["Selected"]
-      394 CONCAT                           R16 R17 R18
-      395 GETTABLEKS                       R17 R1 K103 ["Dictionary"]
-      397 GETTABLEKS                       R17 R17 K104 ["join"]
-      399 MOVE                             R18 R7
-      400 DUPTABLE                         R19 K106 [{"description"}]
-      401 GETIMPORT                        R20 K109 [string.format]
-      403 LOADK                            R21 K110 ["Counter to track %s selections. Additional fields: %s: [%s]"]
-      404 MOVE                             R22 R13
-      405 MOVE                             R23 R14
-      406 MOVE                             R24 R15
-      407 CALL                             R20 4 1
-      408 SETTABLEKS                       R20 R19 K105 ["description"]
-      410 CALL                             R17 2 1
-      411 SETTABLE                         R17 R4 R16
-      412 FORGLOOP                         R8 2 ; [-26]
-      414 MOVE                             R8 R5
-      415 LOADNIL                          R9
-      416 LOADNIL                          R10
-      417 FORGPREP                         R8
-      418 FASTCALL1                        TABLE_UNPACK R12 ; [+3]
-      419 MOVE                             R14 R12
-      420 GETIMPORT                        R13 K101 [table.unpack]
-      422 CALL                             R13 1 2
-      423 GETTABLEKS                       R15 R1 K103 ["Dictionary"]
-      425 GETTABLEKS                       R15 R15 K104 ["join"]
-      427 MOVE                             R16 R7
-      428 DUPTABLE                         R17 K106 [{"description"}]
-      429 SETTABLEKS                       R14 R17 K105 ["description"]
-      431 CALL                             R15 2 1
-      432 SETTABLE                         R15 R4 R13
-      433 FORGLOOP                         R8 2 ; [-16]
-      435 RETURN                           R4 1
+      380 MOVE                             R8 R6
+      381 LOADNIL                          R9
+      382 LOADNIL                          R10
+      383 FORGPREP                         R8
+      384 FASTCALL1                        TABLE_UNPACK R12 ; [+3]
+      385 MOVE                             R14 R12
+      386 GETIMPORT                        R13 K101 [table.unpack]
+      388 CALL                             R13 1 3
+      389 MOVE                             R17 R13
+      390 LOADK                            R18 K102 ["Selected"]
+      391 CONCAT                           R16 R17 R18
+      392 GETTABLEKS                       R17 R1 K103 ["Dictionary"]
+      394 GETTABLEKS                       R17 R17 K104 ["join"]
+      396 MOVE                             R18 R7
+      397 DUPTABLE                         R19 K106 [{"description"}]
+      398 GETIMPORT                        R20 K109 [string.format]
+      400 LOADK                            R21 K110 ["Counter to track %s selections. Additional fields: %s: [%s]"]
+      401 MOVE                             R22 R13
+      402 MOVE                             R23 R14
+      403 MOVE                             R24 R15
+      404 CALL                             R20 4 1
+      405 SETTABLEKS                       R20 R19 K105 ["description"]
+      407 CALL                             R17 2 1
+      408 SETTABLE                         R17 R4 R16
+      409 FORGLOOP                         R8 2 ; [-26]
+      411 MOVE                             R8 R5
+      412 LOADNIL                          R9
+      413 LOADNIL                          R10
+      414 FORGPREP                         R8
+      415 FASTCALL1                        TABLE_UNPACK R12 ; [+3]
+      416 MOVE                             R14 R12
+      417 GETIMPORT                        R13 K101 [table.unpack]
+      419 CALL                             R13 1 2
+      420 GETTABLEKS                       R15 R1 K103 ["Dictionary"]
+      422 GETTABLEKS                       R15 R15 K104 ["join"]
+      424 MOVE                             R16 R7
+      425 DUPTABLE                         R17 K106 [{"description"}]
+      426 SETTABLEKS                       R14 R17 K105 ["description"]
+      428 CALL                             R15 2 1
+      429 SETTABLE                         R15 R4 R13
+      430 FORGLOOP                         R8 2 ; [-16]
+      432 RETURN                           R4 1

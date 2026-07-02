@@ -1,16 +1,10 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K6 [{"searchKey", "isArchived", "isTemplates", "pageSize", "creatorType", "creatorTargetId"}]
-        1 LOADK                            R3 K7 ["ImpactedExperiences"]
-        2 SETTABLEKS                       R3 R2 K0 ["searchKey"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["isArchived"]
-        7 LOADB                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["isTemplates"]
-       10 GETUPVAL                         R3 0
-       11 SETTABLEKS                       R3 R2 K3 ["pageSize"]
-       13 SETTABLEKS                       R0 R2 K4 ["creatorType"]
-       15 SETTABLEKS                       R1 R2 K5 ["creatorTargetId"]
-       17 RETURN                           R2 1
+        0 DUPTABLE                         R2 K8 [{[1] = "ImpactedExperiences", ["isArchived"] = False, ["isTemplates"] = False, ["pageSize"], ["creatorType"], ["creatorTargetId"]}]
+        1 GETUPVAL                         R3 0
+        2 SETTABLEKS                       R3 R2 K5 ["pageSize"]
+        4 SETTABLEKS                       R0 R2 K6 ["creatorType"]
+        6 SETTABLEKS                       R1 R2 K7 ["creatorTargetId"]
+        8 RETURN                           R2 1
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [warn]
@@ -20,59 +14,53 @@ PROTO_1:
         6 CALL                             R3 2 1
         7 MOVE                             R2 R3
         8 CALL                             R1 1 0
-        9 DUPTABLE                         R1 K6 [{"games", "targetResults"}]
+        9 DUPTABLE                         R1 K7 [{["games"], ["targetResults"] = 0}]
        10 NEWTABLE                         R2 0 0
        12 SETTABLEKS                       R2 R1 K4 ["games"]
-       14 LOADN                            R2 0
-       15 SETTABLEKS                       R2 R1 K5 ["targetResults"]
-       17 RETURN                           R1 1
+       14 RETURN                           R1 1
 
 PROTO_2:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 LOADN                            R3 0
         3 CALL                             R1 2 1
-        4 JUMPIF                           R1 ; [+13]
+        4 JUMPIF                           R1 ; [+10]
         5 GETUPVAL                         R2 1
         6 GETTABLEKS                       R2 R2 K0 ["resolve"]
-        8 DUPTABLE                         R3 K3 [{"games", "targetResults"}]
+        8 DUPTABLE                         R3 K4 [{["games"], ["targetResults"] = 0}]
         9 NEWTABLE                         R4 0 0
        11 SETTABLEKS                       R4 R3 K1 ["games"]
-       13 LOADN                            R4 0
-       14 SETTABLEKS                       R4 R3 K2 ["targetResults"]
-       16 CALL                             R2 1 -1
-       17 RETURN                           R2 -1
-       18 DUPCLOSURE                       R4 K4 [PROTO_1]
-       19 NAMECALL                         R2 R1 K5 ["catch"]
-       21 CALL                             R2 2 -1
-       22 RETURN                           R2 -1
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
+       15 DUPCLOSURE                       R4 K5 [PROTO_1]
+       16 NAMECALL                         R2 R1 K6 ["catch"]
+       18 CALL                             R2 2 -1
+       19 RETURN                           R2 -1
 
 PROTO_3:
-        0 DUPTABLE                         R2 K4 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
-        1 LOADK                            R3 K5 ["load"]
-        2 SETTABLEKS                       R3 R2 K0 ["telemetryType"]
-        4 SETTABLEKS                       R0 R2 K1 ["upsellEntrySurface"]
-        6 GETUPVAL                         R3 0
-        7 NAMECALL                         R3 R3 K6 ["GetUserId"]
-        9 CALL                             R3 1 1
-       10 SETTABLEKS                       R3 R2 K2 ["userId"]
-       12 GETUPVAL                         R3 1
-       13 NAMECALL                         R3 R3 K7 ["GetSessionId"]
-       15 CALL                             R3 1 1
-       16 SETTABLEKS                       R3 R2 K3 ["studioSid"]
-       18 JUMPIFNOT                        R1 ; [+7]
-       19 MOVE                             R3 R1
-       20 LOADNIL                          R4
-       21 LOADNIL                          R5
-       22 FORGPREP                         R3
-       23 SETTABLE                         R7 R2 R6
-       24 FORGLOOP                         R3 2 ; [-2]
-       26 GETUPVAL                         R3 2
-       27 GETUPVAL                         R5 3
-       28 MOVE                             R6 R2
-       29 NAMECALL                         R3 R3 K8 ["log"]
-       31 CALL                             R3 3 0
-       32 RETURN                           R0 0
+        0 DUPTABLE                         R2 K5 [{[1] = "load", ["upsellEntrySurface"], ["userId"], ["studioSid"]}]
+        1 SETTABLEKS                       R0 R2 K2 ["upsellEntrySurface"]
+        3 GETUPVAL                         R3 0
+        4 NAMECALL                         R3 R3 K6 ["GetUserId"]
+        6 CALL                             R3 1 1
+        7 SETTABLEKS                       R3 R2 K3 ["userId"]
+        9 GETUPVAL                         R3 1
+       10 NAMECALL                         R3 R3 K7 ["GetSessionId"]
+       12 CALL                             R3 1 1
+       13 SETTABLEKS                       R3 R2 K4 ["studioSid"]
+       15 JUMPIFNOT                        R1 ; [+7]
+       16 MOVE                             R3 R1
+       17 LOADNIL                          R4
+       18 LOADNIL                          R5
+       19 FORGPREP                         R3
+       20 SETTABLE                         R7 R2 R6
+       21 FORGLOOP                         R3 2 ; [-2]
+       23 GETUPVAL                         R3 2
+       24 GETUPVAL                         R5 3
+       25 MOVE                             R6 R2
+       26 NAMECALL                         R3 R3 K8 ["log"]
+       28 CALL                             R3 3 0
+       29 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -177,26 +165,22 @@ PROTO_8:
        11 SETLIST                          R3 R4 1 [1]
        13 NAMECALL                         R1 R1 K1 ["UpdateAsync"]
        15 CALL                             R1 2 0
-       16 JUMPIFNOT                        R0 ; [+25]
-       17 DUPTABLE                         R1 K6 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
-       18 LOADK                            R2 K7 ["load"]
-       19 SETTABLEKS                       R2 R1 K2 ["telemetryType"]
-       21 LOADK                            R2 K8 ["start_page"]
-       22 SETTABLEKS                       R2 R1 K3 ["upsellEntrySurface"]
-       24 GETUPVAL                         R2 3
-       25 NAMECALL                         R2 R2 K9 ["GetUserId"]
+       16 JUMPIFNOT                        R0 ; [+19]
+       17 DUPTABLE                         R1 K8 [{["telemetryType"] = "load", ["upsellEntrySurface"] = "start_page", ["userId"], ["studioSid"]}]
+       18 GETUPVAL                         R2 3
+       19 NAMECALL                         R2 R2 K9 ["GetUserId"]
+       21 CALL                             R2 1 1
+       22 SETTABLEKS                       R2 R1 K6 ["userId"]
+       24 GETUPVAL                         R2 4
+       25 NAMECALL                         R2 R2 K10 ["GetSessionId"]
        27 CALL                             R2 1 1
-       28 SETTABLEKS                       R2 R1 K4 ["userId"]
-       30 GETUPVAL                         R2 4
-       31 NAMECALL                         R2 R2 K10 ["GetSessionId"]
-       33 CALL                             R2 1 1
-       34 SETTABLEKS                       R2 R1 K5 ["studioSid"]
-       36 GETUPVAL                         R2 5
-       37 GETUPVAL                         R4 6
-       38 MOVE                             R5 R1
-       39 NAMECALL                         R2 R2 K11 ["log"]
-       41 CALL                             R2 3 0
-       42 RETURN                           R0 0
+       28 SETTABLEKS                       R2 R1 K7 ["studioSid"]
+       30 GETUPVAL                         R2 5
+       31 GETUPVAL                         R4 6
+       32 MOVE                             R5 R1
+       33 NAMECALL                         R2 R2 K11 ["log"]
+       35 CALL                             R2 3 0
+       36 RETURN                           R0 0
 
 PROTO_9:
         0 GETIMPORT                        R1 K1 [warn]
@@ -217,20 +201,12 @@ PROTO_10:
         2 MOVE                             R4 R0
         3 GETIMPORT                        R3 K1 [tostring]
         5 CALL                             R3 1 1
-        6 DUPTABLE                         R2 K8 [{"searchKey", "isArchived", "isTemplates", "pageSize", "creatorType", "creatorTargetId"}]
-        7 LOADK                            R4 K9 ["ImpactedExperiences"]
-        8 SETTABLEKS                       R4 R2 K2 ["searchKey"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R2 K3 ["isArchived"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R2 K4 ["isTemplates"]
-       16 GETUPVAL                         R4 1
-       17 SETTABLEKS                       R4 R2 K5 ["pageSize"]
-       19 LOADK                            R4 K10 ["Group"]
-       20 SETTABLEKS                       R4 R2 K6 ["creatorType"]
-       22 SETTABLEKS                       R3 R2 K7 ["creatorTargetId"]
-       24 CALL                             R1 1 -1
-       25 RETURN                           R1 -1
+        6 DUPTABLE                         R2 K11 [{["searchKey"] = "ImpactedExperiences", ["isArchived"] = False, ["isTemplates"] = False, ["pageSize"], ["creatorType"] = "Group", ["creatorTargetId"]}]
+        7 GETUPVAL                         R4 1
+        8 SETTABLEKS                       R4 R2 K7 ["pageSize"]
+       10 SETTABLEKS                       R3 R2 K10 ["creatorTargetId"]
+       12 CALL                             R1 1 -1
+       13 RETURN                           R1 -1
 
 PROTO_11:
         0 LENGTH                           R1 R0
@@ -403,26 +379,22 @@ PROTO_19:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 0
-        3 JUMPIFNOT                        R0 ; [+25]
-        4 DUPTABLE                         R1 K4 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
-        5 LOADK                            R2 K5 ["load"]
-        6 SETTABLEKS                       R2 R1 K0 ["telemetryType"]
-        8 LOADK                            R2 K6 ["start_page_age_reverification"]
-        9 SETTABLEKS                       R2 R1 K1 ["upsellEntrySurface"]
-       11 GETUPVAL                         R2 1
-       12 NAMECALL                         R2 R2 K7 ["GetUserId"]
+        3 JUMPIFNOT                        R0 ; [+19]
+        4 DUPTABLE                         R1 K6 [{[1] = "load", ["upsellEntrySurface"] = "start_page_age_reverification", ["userId"], ["studioSid"]}]
+        5 GETUPVAL                         R2 1
+        6 NAMECALL                         R2 R2 K7 ["GetUserId"]
+        8 CALL                             R2 1 1
+        9 SETTABLEKS                       R2 R1 K4 ["userId"]
+       11 GETUPVAL                         R2 2
+       12 NAMECALL                         R2 R2 K8 ["GetSessionId"]
        14 CALL                             R2 1 1
-       15 SETTABLEKS                       R2 R1 K2 ["userId"]
-       17 GETUPVAL                         R2 2
-       18 NAMECALL                         R2 R2 K8 ["GetSessionId"]
-       20 CALL                             R2 1 1
-       21 SETTABLEKS                       R2 R1 K3 ["studioSid"]
-       23 GETUPVAL                         R2 3
-       24 GETUPVAL                         R4 4
-       25 MOVE                             R5 R1
-       26 NAMECALL                         R2 R2 K9 ["log"]
-       28 CALL                             R2 3 0
-       29 RETURN                           R0 0
+       15 SETTABLEKS                       R2 R1 K5 ["studioSid"]
+       17 GETUPVAL                         R2 3
+       18 GETUPVAL                         R4 4
+       19 MOVE                             R5 R1
+       20 NAMECALL                         R2 R2 K9 ["log"]
+       22 CALL                             R2 3 0
+       23 RETURN                           R0 0
 
 PROTO_20:
         0 GETIMPORT                        R1 K1 [warn]
@@ -463,16 +435,16 @@ PROTO_21:
        25 CAPTURE                          UPVAL U4
        26 NAMECALL                         R2 R2 K3 ["catch"]
        28 CALL                             R2 2 0
-       29 JUMP                             ; [+171]
+       29 JUMP                             ; [+147]
        30 GETIMPORT                        R2 K5 [error]
        32 LOADK                            R3 K6 ["Error: DiscoverShowStudioFAEBanner returned "]
        33 MOVE                             R4 R1
        34 CALL                             R2 2 0
-       35 JUMP                             ; [+165]
+       35 JUMP                             ; [+141]
        36 GETUPVAL                         R1 1
-       37 JUMPIFNOTEQKB                    R1 FALSE ; [+163]
+       37 JUMPIFNOTEQKB                    R1 FALSE ; [+139]
        39 GETUPVAL                         R1 9
-       40 JUMPIFNOT                        R1 ; [+160]
+       40 JUMPIFNOT                        R1 ; [+136]
        41 GETUPVAL                         R1 2
        42 MOVE                             R2 R0
        43 LOADK                            R3 K7 ["ShowEstablishTrustBanner"]
@@ -493,146 +465,130 @@ PROTO_21:
        59 LOADB                            R7 1
        60 CALL                             R6 1 1
        61 MOVE                             R5 R6
-       62 JUMP                             ; [+84]
+       62 JUMP                             ; [+60]
        63 FASTCALL1                        TOSTRING R0 ; [+3]
        64 MOVE                             R7 R0
        65 GETIMPORT                        R6 K11 [tostring]
        67 CALL                             R6 1 1
        68 GETUPVAL                         R7 12
-       69 DUPTABLE                         R8 K18 [{"searchKey", "isArchived", "isTemplates", "pageSize", "creatorType", "creatorTargetId"}]
-       70 LOADK                            R9 K19 ["ImpactedExperiences"]
-       71 SETTABLEKS                       R9 R8 K12 ["searchKey"]
-       73 LOADB                            R9 0
-       74 SETTABLEKS                       R9 R8 K13 ["isArchived"]
-       76 LOADB                            R9 0
-       77 SETTABLEKS                       R9 R8 K14 ["isTemplates"]
-       79 GETUPVAL                         R9 13
-       80 SETTABLEKS                       R9 R8 K15 ["pageSize"]
-       82 LOADK                            R9 K20 ["User"]
-       83 SETTABLEKS                       R9 R8 K16 ["creatorType"]
-       85 SETTABLEKS                       R6 R8 K17 ["creatorTargetId"]
-       87 CALL                             R7 1 1
-       88 GETUPVAL                         R8 12
-       89 DUPTABLE                         R9 K18 [{"searchKey", "isArchived", "isTemplates", "pageSize", "creatorType", "creatorTargetId"}]
-       90 LOADK                            R10 K19 ["ImpactedExperiences"]
-       91 SETTABLEKS                       R10 R9 K12 ["searchKey"]
-       93 LOADB                            R10 0
-       94 SETTABLEKS                       R10 R9 K13 ["isArchived"]
-       96 LOADB                            R10 0
-       97 SETTABLEKS                       R10 R9 K14 ["isTemplates"]
-       99 GETUPVAL                         R10 13
-      100 SETTABLEKS                       R10 R9 K15 ["pageSize"]
-      102 LOADK                            R10 K21 ["Team"]
-      103 SETTABLEKS                       R10 R9 K16 ["creatorType"]
-      105 SETTABLEKS                       R6 R9 K17 ["creatorTargetId"]
-      107 CALL                             R8 1 1
-      108 GETUPVAL                         R9 14
-      109 CALL                             R9 0 1
-      110 DUPCLOSURE                       R11 K22 [PROTO_11]
-      111 CAPTURE                          UPVAL U15
-      112 CAPTURE                          UPVAL U12
-      113 CAPTURE                          UPVAL U13
-      114 CAPTURE                          UPVAL U11
-      115 NAMECALL                         R9 R9 K2 ["andThen"]
-      117 CALL                             R9 2 1
-      118 DUPCLOSURE                       R11 K23 [PROTO_12]
-      119 NAMECALL                         R9 R9 K3 ["catch"]
-      121 CALL                             R9 2 1
-      122 GETUPVAL                         R10 11
-      123 GETTABLEKS                       R10 R10 K24 ["all"]
-      125 NEWTABLE                         R11 0 3
-      127 MOVE                             R12 R7
-      128 MOVE                             R13 R8
-      129 MOVE                             R14 R9
-      130 SETLIST                          R11 R12 3 [1]
-      132 CALL                             R10 1 1
-      133 NEWCLOSURE                       R12 P4
-      134 CAPTURE                          REF R3
-      135 CAPTURE                          REF R4
-      136 CAPTURE                          UPVAL U16
-      137 CAPTURE                          UPVAL U17
-      138 NAMECALL                         R10 R10 K2 ["andThen"]
-      140 CALL                             R10 2 1
-      141 DUPCLOSURE                       R12 K25 [PROTO_16]
-      142 CAPTURE                          UPVAL U15
-      143 NAMECALL                         R10 R10 K2 ["andThen"]
-      145 CALL                             R10 2 1
-      146 MOVE                             R5 R10
-      147 JUMPIF                           R5 ; [+12]
-      148 GETIMPORT                        R6 K27 [warn]
-      150 LOADK                            R7 K28 ["DiscoverImpactedStatus failed to return a valid promise."]
-      151 CALL                             R6 1 0
-      152 GETUPVAL                         R6 18
-      153 LOADB                            R7 0
-      154 CALL                             R6 1 0
-      155 GETUPVAL                         R6 19
-      156 LOADB                            R7 0
-      157 CALL                             R6 1 0
-      158 CLOSEUPVALS                      R3
-      159 RETURN                           R0 0
-      160 JUMPIFNOT                        R1 ; [+1]
-      161 JUMPIF                           R2 ; [+12]
-      162 GETIMPORT                        R6 K27 [warn]
-      164 LOADK                            R7 K29 ["DiscoverShowStudioFAEBanner failed to return a valid promise."]
-      165 CALL                             R6 1 0
-      166 GETUPVAL                         R6 18
-      167 LOADB                            R7 0
-      168 CALL                             R6 1 0
-      169 GETUPVAL                         R6 19
-      170 LOADB                            R7 0
-      171 CALL                             R6 1 0
-      172 CLOSEUPVALS                      R3
-      173 RETURN                           R0 0
-      174 GETUPVAL                         R6 11
-      175 GETTABLEKS                       R6 R6 K24 ["all"]
-      177 NEWTABLE                         R7 0 3
-      179 MOVE                             R8 R1
-      180 MOVE                             R9 R2
-      181 MOVE                             R10 R5
-      182 SETLIST                          R7 R8 3 [1]
-      184 CALL                             R6 1 1
-      185 NEWCLOSURE                       R8 P6
-      186 CAPTURE                          UPVAL U18
-      187 CAPTURE                          UPVAL U19
-      188 CAPTURE                          UPVAL U20
-      189 CAPTURE                          REF R3
-      190 CAPTURE                          REF R4
-      191 NAMECALL                         R6 R6 K2 ["andThen"]
-      193 CALL                             R6 2 1
-      194 NEWCLOSURE                       R8 P7
-      195 CAPTURE                          UPVAL U18
-      196 CAPTURE                          UPVAL U19
-      197 NAMECALL                         R6 R6 K3 ["catch"]
-      199 CALL                             R6 2 0
-      200 CLOSEUPVALS                      R3
-      201 GETUPVAL                         R1 21
-      202 JUMPIFNOT                        R1 ; [+29]
-      203 GETUPVAL                         R1 22
-      204 JUMPIFNOTEQKNIL                  R1 ; [+27]
-      206 GETUPVAL                         R1 2
-      207 MOVE                             R2 R0
-      208 LOADK                            R3 K30 ["ShouldShowStudioAgeReverificationRequiredBanner"]
-      209 GETUPVAL                         R4 3
-      210 CALL                             R1 3 1
-      211 JUMPIFNOT                        R1 ; [+15]
-      212 NEWCLOSURE                       R4 P8
-      213 CAPTURE                          UPVAL U23
-      214 CAPTURE                          UPVAL U0
-      215 CAPTURE                          UPVAL U7
-      216 CAPTURE                          UPVAL U3
-      217 CAPTURE                          UPVAL U8
-      218 NAMECALL                         R2 R1 K2 ["andThen"]
-      220 CALL                             R2 2 1
-      221 NEWCLOSURE                       R4 P9
-      222 CAPTURE                          UPVAL U23
-      223 NAMECALL                         R2 R2 K3 ["catch"]
-      225 CALL                             R2 2 0
-      226 RETURN                           R0 0
-      227 GETIMPORT                        R2 K5 [error]
-      229 LOADK                            R3 K6 ["Error: DiscoverShowStudioFAEBanner returned "]
-      230 MOVE                             R4 R1
-      231 CALL                             R2 2 0
-      232 RETURN                           R0 0
+       69 DUPTABLE                         R8 K21 [{["searchKey"] = "ImpactedExperiences", ["isArchived"] = False, ["isTemplates"] = False, ["pageSize"], ["creatorType"] = "User", ["creatorTargetId"]}]
+       70 GETUPVAL                         R9 13
+       71 SETTABLEKS                       R9 R8 K17 ["pageSize"]
+       73 SETTABLEKS                       R6 R8 K20 ["creatorTargetId"]
+       75 CALL                             R7 1 1
+       76 GETUPVAL                         R8 12
+       77 DUPTABLE                         R9 K23 [{["searchKey"] = "ImpactedExperiences", ["isArchived"] = False, ["isTemplates"] = False, ["pageSize"], ["creatorType"] = "Team", ["creatorTargetId"]}]
+       78 GETUPVAL                         R10 13
+       79 SETTABLEKS                       R10 R9 K17 ["pageSize"]
+       81 SETTABLEKS                       R6 R9 K20 ["creatorTargetId"]
+       83 CALL                             R8 1 1
+       84 GETUPVAL                         R9 14
+       85 CALL                             R9 0 1
+       86 DUPCLOSURE                       R11 K24 [PROTO_11]
+       87 CAPTURE                          UPVAL U15
+       88 CAPTURE                          UPVAL U12
+       89 CAPTURE                          UPVAL U13
+       90 CAPTURE                          UPVAL U11
+       91 NAMECALL                         R9 R9 K2 ["andThen"]
+       93 CALL                             R9 2 1
+       94 DUPCLOSURE                       R11 K25 [PROTO_12]
+       95 NAMECALL                         R9 R9 K3 ["catch"]
+       97 CALL                             R9 2 1
+       98 GETUPVAL                         R10 11
+       99 GETTABLEKS                       R10 R10 K26 ["all"]
+      101 NEWTABLE                         R11 0 3
+      103 MOVE                             R12 R7
+      104 MOVE                             R13 R8
+      105 MOVE                             R14 R9
+      106 SETLIST                          R11 R12 3 [1]
+      108 CALL                             R10 1 1
+      109 NEWCLOSURE                       R12 P4
+      110 CAPTURE                          REF R3
+      111 CAPTURE                          REF R4
+      112 CAPTURE                          UPVAL U16
+      113 CAPTURE                          UPVAL U17
+      114 NAMECALL                         R10 R10 K2 ["andThen"]
+      116 CALL                             R10 2 1
+      117 DUPCLOSURE                       R12 K27 [PROTO_16]
+      118 CAPTURE                          UPVAL U15
+      119 NAMECALL                         R10 R10 K2 ["andThen"]
+      121 CALL                             R10 2 1
+      122 MOVE                             R5 R10
+      123 JUMPIF                           R5 ; [+12]
+      124 GETIMPORT                        R6 K29 [warn]
+      126 LOADK                            R7 K30 ["DiscoverImpactedStatus failed to return a valid promise."]
+      127 CALL                             R6 1 0
+      128 GETUPVAL                         R6 18
+      129 LOADB                            R7 0
+      130 CALL                             R6 1 0
+      131 GETUPVAL                         R6 19
+      132 LOADB                            R7 0
+      133 CALL                             R6 1 0
+      134 CLOSEUPVALS                      R3
+      135 RETURN                           R0 0
+      136 JUMPIFNOT                        R1 ; [+1]
+      137 JUMPIF                           R2 ; [+12]
+      138 GETIMPORT                        R6 K29 [warn]
+      140 LOADK                            R7 K31 ["DiscoverShowStudioFAEBanner failed to return a valid promise."]
+      141 CALL                             R6 1 0
+      142 GETUPVAL                         R6 18
+      143 LOADB                            R7 0
+      144 CALL                             R6 1 0
+      145 GETUPVAL                         R6 19
+      146 LOADB                            R7 0
+      147 CALL                             R6 1 0
+      148 CLOSEUPVALS                      R3
+      149 RETURN                           R0 0
+      150 GETUPVAL                         R6 11
+      151 GETTABLEKS                       R6 R6 K26 ["all"]
+      153 NEWTABLE                         R7 0 3
+      155 MOVE                             R8 R1
+      156 MOVE                             R9 R2
+      157 MOVE                             R10 R5
+      158 SETLIST                          R7 R8 3 [1]
+      160 CALL                             R6 1 1
+      161 NEWCLOSURE                       R8 P6
+      162 CAPTURE                          UPVAL U18
+      163 CAPTURE                          UPVAL U19
+      164 CAPTURE                          UPVAL U20
+      165 CAPTURE                          REF R3
+      166 CAPTURE                          REF R4
+      167 NAMECALL                         R6 R6 K2 ["andThen"]
+      169 CALL                             R6 2 1
+      170 NEWCLOSURE                       R8 P7
+      171 CAPTURE                          UPVAL U18
+      172 CAPTURE                          UPVAL U19
+      173 NAMECALL                         R6 R6 K3 ["catch"]
+      175 CALL                             R6 2 0
+      176 CLOSEUPVALS                      R3
+      177 GETUPVAL                         R1 21
+      178 JUMPIFNOT                        R1 ; [+29]
+      179 GETUPVAL                         R1 22
+      180 JUMPIFNOTEQKNIL                  R1 ; [+27]
+      182 GETUPVAL                         R1 2
+      183 MOVE                             R2 R0
+      184 LOADK                            R3 K32 ["ShouldShowStudioAgeReverificationRequiredBanner"]
+      185 GETUPVAL                         R4 3
+      186 CALL                             R1 3 1
+      187 JUMPIFNOT                        R1 ; [+15]
+      188 NEWCLOSURE                       R4 P8
+      189 CAPTURE                          UPVAL U23
+      190 CAPTURE                          UPVAL U0
+      191 CAPTURE                          UPVAL U7
+      192 CAPTURE                          UPVAL U3
+      193 CAPTURE                          UPVAL U8
+      194 NAMECALL                         R2 R1 K2 ["andThen"]
+      196 CALL                             R2 2 1
+      197 NEWCLOSURE                       R4 P9
+      198 CAPTURE                          UPVAL U23
+      199 NAMECALL                         R2 R2 K3 ["catch"]
+      201 CALL                             R2 2 0
+      202 RETURN                           R0 0
+      203 GETIMPORT                        R2 K5 [error]
+      205 LOADK                            R3 K6 ["Error: DiscoverShowStudioFAEBanner returned "]
+      206 MOVE                             R4 R1
+      207 CALL                             R2 2 0
+      208 RETURN                           R0 0
 
 PROTO_22:
         0 GETUPVAL                         R0 0
@@ -965,65 +921,53 @@ MAIN:
       157 MOVE                             R21 R4
       158 LOADNIL                          R22
       159 CALL                             R21 1 1
-      160 DUPTABLE                         R22 K36 [{"Uri", "Text", "Enabled"}]
-      161 DUPTABLE                         R23 K41 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      162 LOADK                            R24 K42 ["Standalone"]
-      163 SETTABLEKS                       R24 R23 K37 ["DataModel"]
-      165 LOADK                            R24 K43 ["LogoutMenu"]
-      166 SETTABLEKS                       R24 R23 K38 ["PluginId"]
-      168 LOADK                            R24 K44 ["Settings"]
-      169 SETTABLEKS                       R24 R23 K39 ["Category"]
-      171 LOADK                            R24 K45 ["UserIsAMPAgeVerified"]
-      172 SETTABLEKS                       R24 R23 K40 ["ItemId"]
-      174 SETTABLEKS                       R23 R22 K33 ["Uri"]
-      176 LOADK                            R23 K46 ["placeholder"]
-      177 SETTABLEKS                       R23 R22 K34 ["Text"]
-      179 LOADB                            R23 1
-      180 SETTABLEKS                       R23 R22 K35 ["Enabled"]
-      182 GETIMPORT                        R23 K5 [require]
-      184 GETTABLEKS                       R24 R0 K9 ["Src"]
-      186 GETTABLEKS                       R24 R24 K21 ["SharedFlags"]
-      188 GETTABLEKS                       R24 R24 K47 ["getFIntStartPageImpactedExperiencesPageSize"]
-      190 CALL                             R23 1 1
-      191 CALL                             R23 0 1
-      192 GETIMPORT                        R24 K5 [require]
-      194 GETTABLEKS                       R25 R0 K9 ["Src"]
-      196 GETTABLEKS                       R25 R25 K21 ["SharedFlags"]
-      198 GETTABLEKS                       R25 R25 K48 ["getFIntStartPageImpactedExperiencesShortCircuitThreshold"]
-      200 CALL                             R24 1 1
-      201 CALL                             R24 0 1
-      202 DUPCLOSURE                       R25 K49 [PROTO_0]
-      203 CAPTURE                          VAL R23
-      204 DUPCLOSURE                       R26 K50 [PROTO_2]
-      205 CAPTURE                          VAL R19
-      206 CAPTURE                          VAL R16
-      207 DUPCLOSURE                       R27 K51 [PROTO_25]
-      208 CAPTURE                          VAL R10
-      209 CAPTURE                          VAL R9
-      210 CAPTURE                          VAL R6
-      211 CAPTURE                          VAL R7
-      212 CAPTURE                          VAL R2
-      213 CAPTURE                          VAL R15
-      214 CAPTURE                          VAL R14
-      215 CAPTURE                          VAL R8
-      216 CAPTURE                          VAL R11
-      217 CAPTURE                          VAL R13
-      218 CAPTURE                          VAL R22
-      219 CAPTURE                          VAL R5
-      220 CAPTURE                          VAL R12
-      221 CAPTURE                          VAL R16
-      222 CAPTURE                          VAL R26
-      223 CAPTURE                          VAL R23
-      224 CAPTURE                          VAL R20
-      225 CAPTURE                          VAL R3
-      226 CAPTURE                          VAL R24
-      227 CAPTURE                          VAL R18
-      228 CAPTURE                          VAL R21
-      229 DUPCLOSURE                       R28 K52 [PROTO_26]
-      230 CAPTURE                          VAL R10
-      231 CAPTURE                          VAL R2
-      232 CAPTURE                          VAL R21
-      233 DUPTABLE                         R29 K55 [{"Provider", "useContext"}]
-      234 SETTABLEKS                       R27 R29 K53 ["Provider"]
-      236 SETTABLEKS                       R28 R29 K54 ["useContext"]
-      238 RETURN                           R29 1
+      160 DUPTABLE                         R22 K38 [{["Uri"], ["Text"] = "placeholder", ["Enabled"] = True}]
+      161 DUPTABLE                         R23 K47 [{["DataModel"] = "Standalone", ["PluginId"] = "LogoutMenu", ["Category"] = "Settings", ["ItemId"] = "UserIsAMPAgeVerified"}]
+      162 SETTABLEKS                       R23 R22 K33 ["Uri"]
+      164 GETIMPORT                        R23 K5 [require]
+      166 GETTABLEKS                       R24 R0 K9 ["Src"]
+      168 GETTABLEKS                       R24 R24 K21 ["SharedFlags"]
+      170 GETTABLEKS                       R24 R24 K48 ["getFIntStartPageImpactedExperiencesPageSize"]
+      172 CALL                             R23 1 1
+      173 CALL                             R23 0 1
+      174 GETIMPORT                        R24 K5 [require]
+      176 GETTABLEKS                       R25 R0 K9 ["Src"]
+      178 GETTABLEKS                       R25 R25 K21 ["SharedFlags"]
+      180 GETTABLEKS                       R25 R25 K49 ["getFIntStartPageImpactedExperiencesShortCircuitThreshold"]
+      182 CALL                             R24 1 1
+      183 CALL                             R24 0 1
+      184 DUPCLOSURE                       R25 K50 [PROTO_0]
+      185 CAPTURE                          VAL R23
+      186 DUPCLOSURE                       R26 K51 [PROTO_2]
+      187 CAPTURE                          VAL R19
+      188 CAPTURE                          VAL R16
+      189 DUPCLOSURE                       R27 K52 [PROTO_25]
+      190 CAPTURE                          VAL R10
+      191 CAPTURE                          VAL R9
+      192 CAPTURE                          VAL R6
+      193 CAPTURE                          VAL R7
+      194 CAPTURE                          VAL R2
+      195 CAPTURE                          VAL R15
+      196 CAPTURE                          VAL R14
+      197 CAPTURE                          VAL R8
+      198 CAPTURE                          VAL R11
+      199 CAPTURE                          VAL R13
+      200 CAPTURE                          VAL R22
+      201 CAPTURE                          VAL R5
+      202 CAPTURE                          VAL R12
+      203 CAPTURE                          VAL R16
+      204 CAPTURE                          VAL R26
+      205 CAPTURE                          VAL R23
+      206 CAPTURE                          VAL R20
+      207 CAPTURE                          VAL R3
+      208 CAPTURE                          VAL R24
+      209 CAPTURE                          VAL R18
+      210 CAPTURE                          VAL R21
+      211 DUPCLOSURE                       R28 K53 [PROTO_26]
+      212 CAPTURE                          VAL R10
+      213 CAPTURE                          VAL R2
+      214 CAPTURE                          VAL R21
+      215 DUPTABLE                         R29 K56 [{"Provider", "useContext"}]
+      216 SETTABLEKS                       R27 R29 K54 ["Provider"]
+      218 SETTABLEKS                       R28 R29 K55 ["useContext"]
+      220 RETURN                           R29 1

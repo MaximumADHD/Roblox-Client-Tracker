@@ -99,7 +99,7 @@ PROTO_1:
        96 LOADK                            R11 K21 ["rbxassetid://"]
        97 MOVE                             R12 R10
        98 CONCAT                           R9 R11 R12
-       99 DUPTABLE                         R13 K28 [{"Texture", "Id", "Size", "Count", "Instances", "ZoomedInstanceIndex"}]
+       99 DUPTABLE                         R13 K29 [{["Texture"], ["Id"], ["Size"], ["Count"], ["Instances"], ["ZoomedInstanceIndex"] = 0}]
       100 SETTABLEKS                       R9 R13 K22 ["Texture"]
       102 SETTABLEKS                       R10 R13 K23 ["Id"]
       104 GETTABLE                         R15 R2 R10
@@ -111,18 +111,16 @@ PROTO_1:
       111 SETTABLEKS                       R8 R13 K25 ["Count"]
       113 GETTABLE                         R14 R1 R7
       114 SETTABLEKS                       R14 R13 K26 ["Instances"]
-      116 LOADN                            R14 0
-      117 SETTABLEKS                       R14 R13 K27 ["ZoomedInstanceIndex"]
-      119 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
-      121 MOVE                             R12 R3
-      122 GETIMPORT                        R11 K15 [table.insert]
-      124 CALL                             R11 2 0
-      125 FORGLOOP                         R4 2 ; [-48]
-      127 GETIMPORT                        R4 K30 [table.sort]
-      129 MOVE                             R5 R3
-      130 DUPCLOSURE                       R6 K31 [PROTO_0]
-      131 CALL                             R4 2 0
-      132 RETURN                           R3 1
+      116 FASTCALL2                        TABLE_INSERT R3 R13 ; [+4]
+      118 MOVE                             R12 R3
+      119 GETIMPORT                        R11 K15 [table.insert]
+      121 CALL                             R11 2 0
+      122 FORGLOOP                         R4 2 ; [-45]
+      124 GETIMPORT                        R4 K31 [table.sort]
+      126 MOVE                             R5 R3
+      127 DUPCLOSURE                       R6 K32 [PROTO_0]
+      128 CALL                             R4 2 0
+      129 RETURN                           R3 1
 
 PROTO_2:
         0 GETIMPORT                        R2 K1 [pairs]

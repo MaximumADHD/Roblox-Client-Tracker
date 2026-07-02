@@ -28,46 +28,42 @@ PROTO_0:
        36 LOADNIL                          R4
        37 FORGPREP                         R2
        38 GETTABLEKS                       R7 R6 K10 ["isLocalized"]
-       40 JUMPIFNOT                        R7 ; [+19]
-       41 DUPTABLE                         R9 K13 [{"message", "isBlocking", "isLocalized"}]
+       40 JUMPIFNOT                        R7 ; [+16]
+       41 DUPTABLE                         R9 K14 [{["message"], ["isBlocking"], ["isLocalized"] = True}]
        42 GETTABLEKS                       R10 R6 K11 ["message"]
        44 SETTABLEKS                       R10 R9 K11 ["message"]
        46 GETTABLEKS                       R10 R6 K12 ["isBlocking"]
        48 SETTABLEKS                       R10 R9 K12 ["isBlocking"]
-       50 LOADB                            R10 1
-       51 SETTABLEKS                       R10 R9 K10 ["isLocalized"]
-       53 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       55 MOVE                             R8 R1
-       56 GETIMPORT                        R7 K16 [table.insert]
-       58 CALL                             R7 2 0
-       59 JUMP                             ; [+23]
-       60 DUPTABLE                         R9 K13 [{"message", "isBlocking", "isLocalized"}]
-       61 GETUPVAL                         R10 4
-       62 LOADK                            R12 K17 ["LookComposerDialog"]
-       63 GETTABLEKS                       R13 R6 K11 ["message"]
-       65 NAMECALL                         R10 R10 K18 ["getText"]
-       67 CALL                             R10 3 1
-       68 SETTABLEKS                       R10 R9 K11 ["message"]
-       70 GETTABLEKS                       R10 R6 K12 ["isBlocking"]
-       72 SETTABLEKS                       R10 R9 K12 ["isBlocking"]
-       74 LOADB                            R10 1
-       75 SETTABLEKS                       R10 R9 K10 ["isLocalized"]
-       77 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
-       79 MOVE                             R8 R1
-       80 GETIMPORT                        R7 K16 [table.insert]
-       82 CALL                             R7 2 0
-       83 FORGLOOP                         R2 2 ; [-46]
-       85 GETUPVAL                         R2 5
-       86 MOVE                             R3 R1
-       87 CALL                             R2 1 0
-       88 GETUPVAL                         R2 2
-       89 LOADK                            R3 K19 ["Failure"]
-       90 CALL                             R2 1 0
-       91 GETUPVAL                         R2 3
-       92 LOADK                            R4 K20 ["marketplaceLookValidationError"]
-       93 NAMECALL                         R2 R2 K8 ["report"]
-       95 CALL                             R2 2 0
-       96 RETURN                           R0 0
+       50 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       52 MOVE                             R8 R1
+       53 GETIMPORT                        R7 K17 [table.insert]
+       55 CALL                             R7 2 0
+       56 JUMP                             ; [+20]
+       57 DUPTABLE                         R9 K14 [{["message"], ["isBlocking"], ["isLocalized"] = True}]
+       58 GETUPVAL                         R10 4
+       59 LOADK                            R12 K18 ["LookComposerDialog"]
+       60 GETTABLEKS                       R13 R6 K11 ["message"]
+       62 NAMECALL                         R10 R10 K19 ["getText"]
+       64 CALL                             R10 3 1
+       65 SETTABLEKS                       R10 R9 K11 ["message"]
+       67 GETTABLEKS                       R10 R6 K12 ["isBlocking"]
+       69 SETTABLEKS                       R10 R9 K12 ["isBlocking"]
+       71 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       73 MOVE                             R8 R1
+       74 GETIMPORT                        R7 K17 [table.insert]
+       76 CALL                             R7 2 0
+       77 FORGLOOP                         R2 2 ; [-40]
+       79 GETUPVAL                         R2 5
+       80 MOVE                             R3 R1
+       81 CALL                             R2 1 0
+       82 GETUPVAL                         R2 2
+       83 LOADK                            R3 K20 ["Failure"]
+       84 CALL                             R2 1 0
+       85 GETUPVAL                         R2 3
+       86 LOADK                            R4 K21 ["marketplaceLookValidationError"]
+       87 NAMECALL                         R2 R2 K8 ["report"]
+       89 CALL                             R2 2 0
+       90 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

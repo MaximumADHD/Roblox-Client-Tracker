@@ -25,68 +25,62 @@ PROTO_0:
        29 GETUPVAL                         R7 2
        30 GETTABLEKS                       R7 R7 K11 ["createElement"]
        32 GETUPVAL                         R8 3
-       33 DUPTABLE                         R9 K18 [{"AnchorPoint", "Position", "Size", "ZIndex", "BackgroundColor3", "BackgroundTransparency"}]
+       33 DUPTABLE                         R9 K20 [{["AnchorPoint"], ["Position"], ["Size"], ["ZIndex"] = 10, ["BackgroundColor3"], ["BackgroundTransparency"] = 0.2}]
        34 GETIMPORT                        R10 K6 [Vector2.new]
-       36 LOADK                            R11 K19 [0.5]
+       36 LOADK                            R11 K21 [0.5]
        37 LOADN                            R12 1
        38 CALL                             R10 2 1
        39 SETTABLEKS                       R10 R9 K12 ["AnchorPoint"]
-       41 GETIMPORT                        R10 K21 [UDim2.new]
-       43 LOADK                            R11 K19 [0.5]
+       41 GETIMPORT                        R10 K23 [UDim2.new]
+       43 LOADK                            R11 K21 [0.5]
        44 LOADN                            R12 0
        45 LOADN                            R13 1
-       46 LOADN                            R14 240
+       46 LOADN                            R14 -16
        47 CALL                             R10 4 1
        48 SETTABLEKS                       R10 R9 K13 ["Position"]
-       50 GETIMPORT                        R10 K21 [UDim2.new]
+       50 GETIMPORT                        R10 K23 [UDim2.new]
        52 LOADN                            R11 0
        53 MOVE                             R12 R5
        54 LOADN                            R13 0
        55 MOVE                             R14 R6
        56 CALL                             R10 4 1
        57 SETTABLEKS                       R10 R9 K14 ["Size"]
-       59 LOADN                            R10 10
-       60 SETTABLEKS                       R10 R9 K15 ["ZIndex"]
-       62 GETUPVAL                         R10 4
-       63 GETTABLEKS                       R10 R10 K22 ["GRAY_2"]
-       65 SETTABLEKS                       R10 R9 K16 ["BackgroundColor3"]
-       67 LOADK                            R10 K23 [0.2]
-       68 SETTABLEKS                       R10 R9 K17 ["BackgroundTransparency"]
-       70 DUPTABLE                         R10 K25 [{"TextLabel"}]
-       71 GETUPVAL                         R11 2
-       72 GETTABLEKS                       R11 R11 K11 ["createElement"]
-       74 LOADK                            R12 K24 ["TextLabel"]
-       75 DUPTABLE                         R13 K29 [{"Position", "Size", "BackgroundTransparency", "Text", "Font", "TextSize", "TextColor3"}]
-       76 GETIMPORT                        R14 K21 [UDim2.new]
-       78 LOADN                            R15 0
-       79 LOADN                            R16 0
-       80 LOADN                            R17 0
-       81 LOADN                            R18 255
-       82 CALL                             R14 4 1
-       83 SETTABLEKS                       R14 R13 K13 ["Position"]
-       85 GETIMPORT                        R14 K21 [UDim2.new]
-       87 LOADN                            R15 1
-       88 LOADN                            R16 0
-       89 LOADN                            R17 1
-       90 LOADN                            R18 0
-       91 CALL                             R14 4 1
-       92 SETTABLEKS                       R14 R13 K14 ["Size"]
-       94 LOADN                            R14 1
-       95 SETTABLEKS                       R14 R13 K17 ["BackgroundTransparency"]
-       97 SETTABLEKS                       R1 R13 K1 ["Text"]
-       99 GETUPVAL                         R14 0
-      100 GETTABLEKS                       R14 R14 K3 ["FONT"]
-      102 SETTABLEKS                       R14 R13 K26 ["Font"]
-      104 GETUPVAL                         R14 0
-      105 GETTABLEKS                       R14 R14 K2 ["FONT_SIZE_SMALL"]
-      107 SETTABLEKS                       R14 R13 K27 ["TextSize"]
-      109 GETUPVAL                         R14 4
-      110 GETTABLEKS                       R14 R14 K30 ["GRAY_6"]
-      112 SETTABLEKS                       R14 R13 K28 ["TextColor3"]
-      114 CALL                             R11 2 1
-      115 SETTABLEKS                       R11 R10 K24 ["TextLabel"]
-      117 CALL                             R7 3 -1
-      118 RETURN                           R7 -1
+       59 GETUPVAL                         R10 4
+       60 GETTABLEKS                       R10 R10 K24 ["GRAY_2"]
+       62 SETTABLEKS                       R10 R9 K17 ["BackgroundColor3"]
+       64 DUPTABLE                         R10 K26 [{"TextLabel"}]
+       65 GETUPVAL                         R11 2
+       66 GETTABLEKS                       R11 R11 K11 ["createElement"]
+       68 LOADK                            R12 K25 ["TextLabel"]
+       69 DUPTABLE                         R13 K31 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["Font"], ["TextSize"], ["TextColor3"]}]
+       70 GETIMPORT                        R14 K23 [UDim2.new]
+       72 LOADN                            R15 0
+       73 LOADN                            R16 0
+       74 LOADN                            R17 0
+       75 LOADN                            R18 -1
+       76 CALL                             R14 4 1
+       77 SETTABLEKS                       R14 R13 K13 ["Position"]
+       79 GETIMPORT                        R14 K23 [UDim2.new]
+       81 LOADN                            R15 1
+       82 LOADN                            R16 0
+       83 LOADN                            R17 1
+       84 LOADN                            R18 0
+       85 CALL                             R14 4 1
+       86 SETTABLEKS                       R14 R13 K14 ["Size"]
+       88 SETTABLEKS                       R1 R13 K1 ["Text"]
+       90 GETUPVAL                         R14 0
+       91 GETTABLEKS                       R14 R14 K3 ["FONT"]
+       93 SETTABLEKS                       R14 R13 K28 ["Font"]
+       95 GETUPVAL                         R14 0
+       96 GETTABLEKS                       R14 R14 K2 ["FONT_SIZE_SMALL"]
+       98 SETTABLEKS                       R14 R13 K29 ["TextSize"]
+      100 GETUPVAL                         R14 4
+      101 GETTABLEKS                       R14 R14 K32 ["GRAY_6"]
+      103 SETTABLEKS                       R14 R13 K30 ["TextColor3"]
+      105 CALL                             R11 2 1
+      106 SETTABLEKS                       R11 R10 K25 ["TextLabel"]
+      108 CALL                             R7 3 -1
+      109 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

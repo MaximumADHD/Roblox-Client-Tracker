@@ -73,66 +73,54 @@ PROTO_2:
        84 GETUPVAL                         R9 5
        85 GETUPVAL                         R10 7
        86 GETTABLEKS                       R10 R10 K22 ["View"]
-       88 DUPTABLE                         R11 K24 [{"tag"}]
-       89 LOADK                            R12 K25 ["col size-full-full align-y-top"]
-       90 SETTABLEKS                       R12 R11 K23 ["tag"]
-       92 DUPTABLE                         R12 K28 [{"HeaderRow", "Divider", "ScrollView"}]
-       93 GETUPVAL                         R13 5
-       94 GETUPVAL                         R14 9
-       95 DUPTABLE                         R15 K30 [{"ColumnWidths", "SetColumnWidths", "LayoutOrder"}]
-       96 SETTABLEKS                       R6 R15 K6 ["ColumnWidths"]
-       98 SETTABLEKS                       R7 R15 K29 ["SetColumnWidths"]
-      100 LOADN                            R16 1
-      101 SETTABLEKS                       R16 R15 K7 ["LayoutOrder"]
-      103 CALL                             R13 2 1
-      104 SETTABLEKS                       R13 R12 K26 ["HeaderRow"]
-      106 GETUPVAL                         R13 5
-      107 GETUPVAL                         R14 7
-      108 GETTABLEKS                       R14 R14 K14 ["Divider"]
-      110 DUPTABLE                         R15 K17 [{"variant", "orientation", "LayoutOrder"}]
-      111 GETUPVAL                         R16 8
-      112 GETTABLEKS                       R16 R16 K18 ["DividerVariant"]
-      114 GETTABLEKS                       R16 R16 K19 ["Default"]
-      116 SETTABLEKS                       R16 R15 K15 ["variant"]
-      118 GETUPVAL                         R16 8
-      119 GETTABLEKS                       R16 R16 K20 ["Orientation"]
-      121 GETTABLEKS                       R16 R16 K21 ["Horizontal"]
-      123 SETTABLEKS                       R16 R15 K16 ["orientation"]
-      125 LOADN                            R16 2
-      126 SETTABLEKS                       R16 R15 K7 ["LayoutOrder"]
-      128 CALL                             R13 2 1
-      129 SETTABLEKS                       R13 R12 K14 ["Divider"]
-      131 GETUPVAL                         R13 5
-      132 GETUPVAL                         R14 7
-      133 GETTABLEKS                       R14 R14 K27 ["ScrollView"]
-      135 DUPTABLE                         R15 K32 [{"tag", "scroll", "LayoutOrder"}]
-      136 LOADK                            R16 K33 ["size-full-0 fill"]
-      137 SETTABLEKS                       R16 R15 K23 ["tag"]
-      139 DUPTABLE                         R16 K37 [{"AutomaticCanvasSize", "CanvasSize", "VerticalScrollBarInset"}]
-      140 GETIMPORT                        R17 K41 [Enum.AutomaticSize.Y]
-      142 SETTABLEKS                       R17 R16 K34 ["AutomaticCanvasSize"]
-      144 GETIMPORT                        R17 K44 [UDim2.fromScale]
-      146 LOADN                            R18 0
-      147 LOADN                            R19 1
-      148 CALL                             R17 2 1
-      149 SETTABLEKS                       R17 R16 K35 ["CanvasSize"]
-      151 GETIMPORT                        R17 K47 [Enum.ScrollBarInset.ScrollBar]
-      153 SETTABLEKS                       R17 R16 K36 ["VerticalScrollBarInset"]
-      155 SETTABLEKS                       R16 R15 K31 ["scroll"]
-      157 LOADN                            R16 3
-      158 SETTABLEKS                       R16 R15 K7 ["LayoutOrder"]
-      160 GETUPVAL                         R16 5
-      161 GETUPVAL                         R17 7
-      162 GETTABLEKS                       R17 R17 K22 ["View"]
-      164 DUPTABLE                         R18 K24 [{"tag"}]
-      165 LOADK                            R19 K48 ["col size-full-0 auto-y"]
-      166 SETTABLEKS                       R19 R18 K23 ["tag"]
-      168 MOVE                             R19 R8
-      169 CALL                             R16 3 -1
-      170 CALL                             R13 -1 1
-      171 SETTABLEKS                       R13 R12 K27 ["ScrollView"]
-      173 CALL                             R9 3 -1
-      174 RETURN                           R9 -1
+       88 DUPTABLE                         R11 K25 [{["tag"] = "col align-y-top size-full-full"}]
+       89 DUPTABLE                         R12 K28 [{"HeaderRow", "Divider", "ScrollView"}]
+       90 GETUPVAL                         R13 5
+       91 GETUPVAL                         R14 9
+       92 DUPTABLE                         R15 K31 [{["ColumnWidths"], ["SetColumnWidths"], ["LayoutOrder"] = 1}]
+       93 SETTABLEKS                       R6 R15 K6 ["ColumnWidths"]
+       95 SETTABLEKS                       R7 R15 K29 ["SetColumnWidths"]
+       97 CALL                             R13 2 1
+       98 SETTABLEKS                       R13 R12 K26 ["HeaderRow"]
+      100 GETUPVAL                         R13 5
+      101 GETUPVAL                         R14 7
+      102 GETTABLEKS                       R14 R14 K14 ["Divider"]
+      104 DUPTABLE                         R15 K33 [{["variant"], ["orientation"], ["LayoutOrder"] = 2}]
+      105 GETUPVAL                         R16 8
+      106 GETTABLEKS                       R16 R16 K18 ["DividerVariant"]
+      108 GETTABLEKS                       R16 R16 K19 ["Default"]
+      110 SETTABLEKS                       R16 R15 K15 ["variant"]
+      112 GETUPVAL                         R16 8
+      113 GETTABLEKS                       R16 R16 K20 ["Orientation"]
+      115 GETTABLEKS                       R16 R16 K21 ["Horizontal"]
+      117 SETTABLEKS                       R16 R15 K16 ["orientation"]
+      119 CALL                             R13 2 1
+      120 SETTABLEKS                       R13 R12 K14 ["Divider"]
+      122 GETUPVAL                         R13 5
+      123 GETUPVAL                         R14 7
+      124 GETTABLEKS                       R14 R14 K27 ["ScrollView"]
+      126 DUPTABLE                         R15 K37 [{["tag"] = "fill size-full-0", ["scroll"], ["LayoutOrder"] = 3}]
+      127 DUPTABLE                         R16 K41 [{"AutomaticCanvasSize", "CanvasSize", "VerticalScrollBarInset"}]
+      128 GETIMPORT                        R17 K45 [Enum.AutomaticSize.Y]
+      130 SETTABLEKS                       R17 R16 K38 ["AutomaticCanvasSize"]
+      132 GETIMPORT                        R17 K48 [UDim2.fromScale]
+      134 LOADN                            R18 0
+      135 LOADN                            R19 1
+      136 CALL                             R17 2 1
+      137 SETTABLEKS                       R17 R16 K39 ["CanvasSize"]
+      139 GETIMPORT                        R17 K51 [Enum.ScrollBarInset.ScrollBar]
+      141 SETTABLEKS                       R17 R16 K40 ["VerticalScrollBarInset"]
+      143 SETTABLEKS                       R16 R15 K35 ["scroll"]
+      145 GETUPVAL                         R16 5
+      146 GETUPVAL                         R17 7
+      147 GETTABLEKS                       R17 R17 K22 ["View"]
+      149 DUPTABLE                         R18 K53 [{["tag"] = "col size-full-0 auto-y"}]
+      150 MOVE                             R19 R8
+      151 CALL                             R16 3 -1
+      152 CALL                             R13 -1 1
+      153 SETTABLEKS                       R13 R12 K27 ["ScrollView"]
+      155 CALL                             R9 3 -1
+      156 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

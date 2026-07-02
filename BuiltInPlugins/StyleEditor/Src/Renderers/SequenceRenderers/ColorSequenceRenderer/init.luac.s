@@ -576,8 +576,8 @@ PROTO_23:
       209 GETUPVAL                         R34 11
       210 GETTABLEKS                       R34 R34 K11 ["createElement"]
       212 GETUPVAL                         R35 14
-      213 DUPTABLE                         R36 K24 [{"Position", "Value", "Selected", "Tag", "OnMoved", "OnHoverStart", "OnDragStart", "OnDragEnd"}]
-      214 GETIMPORT                        R37 K27 [Vector2.new]
+      213 DUPTABLE                         R36 K25 [{["Position"], [2], ["Selected"], ["Tag"] = "ColorSequenceKeypoint", ["OnMoved"], ["OnHoverStart"], ["OnDragStart"], ["OnDragEnd"]}]
+      214 GETIMPORT                        R37 K28 [Vector2.new]
       216 GETTABLEKS                       R38 R31 K19 ["Time"]
       218 LOADN                            R39 0
       219 CALL                             R37 2 1
@@ -585,192 +585,188 @@ PROTO_23:
       222 GETTABLEKS                       R37 R31 K0 ["Value"]
       224 SETTABLEKS                       R37 R36 K0 ["Value"]
       226 SETTABLEKS                       R33 R36 K13 ["Selected"]
-      228 LOADK                            R37 K28 ["ColorSequenceKeypoint"]
-      229 SETTABLEKS                       R37 R36 K20 ["Tag"]
-      231 SETTABLEKS                       R20 R36 K21 ["OnMoved"]
-      233 GETUPVAL                         R37 13
-      234 MOVE                             R38 R22
-      235 NEWTABLE                         R39 0 1
-      237 MOVE                             R40 R30
-      238 SETLIST                          R39 R40 1 [1]
-      240 CALL                             R37 2 1
-      241 SETTABLEKS                       R37 R36 K14 ["OnHoverStart"]
-      243 SETTABLEKS                       R23 R36 K22 ["OnDragStart"]
-      245 SETTABLEKS                       R24 R36 K23 ["OnDragEnd"]
-      247 CALL                             R34 2 1
-      248 SETTABLE                         R34 R25 R32
-      249 FORGLOOP                         R27 2 ; [-81]
-      251 JUMPIFNOTEQKNIL                  R9 ; [+2]
-      253 LOADB                            R27 0 +1
-      254 LOADB                            R27 1
-      255 GETUPVAL                         R28 11
-      256 GETTABLEKS                       R28 R28 K11 ["createElement"]
-      258 GETUPVAL                         R29 15
-      259 NEWTABLE                         R30 1 0
-      261 GETUPVAL                         R31 11
-      262 GETTABLEKS                       R31 R31 K20 ["Tag"]
-      264 LOADK                            R32 K29 ["X-Fill"]
-      265 SETTABLE                         R32 R30 R31
-      266 DUPTABLE                         R31 K33 [{"Input", "Tooltip", "SequencePickerModal"}]
-      267 GETUPVAL                         R32 11
-      268 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      270 GETUPVAL                         R33 16
-      271 NEWTABLE                         R34 8 0
-      273 GETTABLEKS                       R35 R0 K34 ["Disabled"]
-      275 SETTABLEKS                       R35 R34 K34 ["Disabled"]
-      277 GETUPVAL                         R35 17
-      278 SETTABLEKS                       R35 R34 K35 ["LeadingComponent"]
-      280 DUPTABLE                         R35 K40 [{"Color", "OnClick", "ForwardRef", "Size"}]
-      281 GETTABLEKS                       R36 R0 K0 ["Value"]
-      283 SETTABLEKS                       R36 R35 K36 ["Color"]
-      285 SETTABLEKS                       R14 R35 K37 ["OnClick"]
-      287 SETTABLEKS                       R1 R35 K38 ["ForwardRef"]
-      289 GETUPVAL                         R36 18
-      290 SETTABLEKS                       R36 R35 K39 ["Size"]
-      292 SETTABLEKS                       R35 R34 K41 ["LeadingComponentProps"]
-      294 SETTABLEKS                       R18 R34 K42 ["OnFocusLost"]
-      296 SETTABLEKS                       R19 R34 K43 ["OnTextChanged"]
-      298 GETTABLEKS                       R36 R0 K44 ["AutomaticSize"]
-      300 JUMPIFNOT                        R36 ; [+10]
-      301 GETIMPORT                        R35 K45 [UDim2.new]
-      303 LOADN                            R36 1
-      304 LOADN                            R37 0
-      305 LOADN                            R38 0
-      306 GETTABLEKS                       R40 R0 K47 ["MinimumHeight"]
-      308 ORK                              R39 R40 K46 [24]
-      309 CALL                             R35 4 1
-      310 JUMP                             ; [+5]
-      311 GETIMPORT                        R35 K18 [UDim2.fromScale]
-      313 LOADN                            R36 1
-      314 LOADN                            R37 1
-      315 CALL                             R35 2 1
-      316 SETTABLEKS                       R35 R34 K39 ["Size"]
-      318 SETTABLEKS                       R7 R34 K48 ["Text"]
-      320 GETUPVAL                         R35 11
-      321 GETTABLEKS                       R35 R35 K20 ["Tag"]
-      323 JUMPIFNOT                        R27 ; [+2]
-      324 LOADK                            R36 K49 ["PropertyCellError"]
-      325 JUMP                             ; [+1]
-      326 LOADNIL                          R36
-      327 SETTABLE                         R36 R34 R35
-      328 CALL                             R32 2 1
-      329 SETTABLEKS                       R32 R31 K30 ["Input"]
-      331 GETUPVAL                         R32 11
-      332 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      334 GETUPVAL                         R33 19
-      335 DUPTABLE                         R34 K51 [{"Enabled", "Text"}]
-      336 SETTABLEKS                       R27 R34 K50 ["Enabled"]
-      338 ORK                              R35 R9 K52 [""]
-      339 SETTABLEKS                       R35 R34 K48 ["Text"]
-      341 CALL                             R32 2 1
-      342 SETTABLEKS                       R32 R31 K31 ["Tooltip"]
-      344 GETUPVAL                         R32 11
-      345 GETTABLEKS                       R32 R32 K11 ["createElement"]
-      347 GETUPVAL                         R33 20
-      348 DUPTABLE                         R34 K57 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
-      349 SETTABLEKS                       R5 R34 K53 ["Open"]
-      351 GETIMPORT                        R35 K27 [Vector2.new]
-      353 LOADN                            R36 32
-      354 LOADN                            R37 225
-      355 CALL                             R35 2 1
-      356 SETTABLEKS                       R35 R34 K54 ["MaxSize"]
-      358 GETIMPORT                        R35 K27 [Vector2.new]
-      360 LOADN                            R36 144
-      361 LOADN                            R37 200
-      362 CALL                             R35 2 1
-      363 SETTABLEKS                       R35 R34 K55 ["MinSize"]
-      365 SETTABLEKS                       R1 R34 K56 ["ObjectRef"]
-      367 SETTABLEKS                       R15 R34 K42 ["OnFocusLost"]
-      369 DUPTABLE                         R35 K60 [{"SequenceTimelinePane", "KeypointControls"}]
-      370 GETUPVAL                         R36 11
-      371 GETTABLEKS                       R36 R36 K11 ["createElement"]
-      373 GETUPVAL                         R37 15
-      374 NEWTABLE                         R38 4 0
-      376 LOADN                            R39 1
-      377 SETTABLEKS                       R39 R38 K61 ["LayoutOrder"]
-      379 GETIMPORT                        R39 K45 [UDim2.new]
-      381 LOADN                            R40 1
-      382 LOADN                            R41 0
-      383 LOADN                            R42 0
-      384 LOADN                            R43 150
-      385 CALL                             R39 4 1
-      386 SETTABLEKS                       R39 R38 K39 ["Size"]
-      388 GETUPVAL                         R39 11
-      389 GETTABLEKS                       R39 R39 K20 ["Tag"]
-      391 LOADK                            R40 K62 ["X-Pad X-Column"]
-      392 SETTABLE                         R40 R38 R39
-      393 SETTABLEKS                       R21 R38 K37 ["OnClick"]
-      395 DUPTABLE                         R39 K65 [{"SequenceTimelineContainer", "KeypointContainer"}]
-      396 GETUPVAL                         R40 11
-      397 GETTABLEKS                       R40 R40 K11 ["createElement"]
-      399 GETUPVAL                         R41 15
-      400 NEWTABLE                         R42 8 0
-      402 LOADN                            R43 1
-      403 SETTABLEKS                       R43 R42 K61 ["LayoutOrder"]
-      405 LOADN                            R43 0
-      406 SETTABLEKS                       R43 R42 K66 ["BackgroundTransparency"]
-      408 GETIMPORT                        R43 K68 [Color3.new]
-      410 LOADN                            R44 1
-      411 LOADN                            R45 1
-      412 LOADN                            R46 1
-      413 CALL                             R43 3 1
-      414 SETTABLEKS                       R43 R42 K69 ["BackgroundColor3"]
-      416 SETTABLEKS                       R2 R42 K38 ["ForwardRef"]
-      418 GETUPVAL                         R43 11
-      419 GETTABLEKS                       R43 R43 K20 ["Tag"]
-      421 LOADK                            R44 K29 ["X-Fill"]
-      422 SETTABLE                         R44 R42 R43
-      423 NEWTABLE                         R43 0 1
-      425 GETUPVAL                         R44 8
-      426 MOVE                             R45 R26
-      427 DUPTABLE                         R46 K71 [{"UIGradient"}]
-      428 GETUPVAL                         R47 11
-      429 GETTABLEKS                       R47 R47 K11 ["createElement"]
-      431 LOADK                            R48 K70 ["UIGradient"]
-      432 DUPTABLE                         R49 K72 [{"Color"}]
-      433 SETTABLEKS                       R12 R49 K36 ["Color"]
-      435 CALL                             R47 2 1
-      436 SETTABLEKS                       R47 R46 K70 ["UIGradient"]
-      438 CALL                             R44 2 -1
-      439 SETLIST                          R43 R44 -1 [1]
-      441 CALL                             R40 3 1
-      442 SETTABLEKS                       R40 R39 K63 ["SequenceTimelineContainer"]
-      444 GETUPVAL                         R40 11
-      445 GETTABLEKS                       R40 R40 K11 ["createElement"]
-      447 GETUPVAL                         R41 15
-      448 NEWTABLE                         R42 2 0
-      450 LOADN                            R43 2
-      451 SETTABLEKS                       R43 R42 K61 ["LayoutOrder"]
-      453 GETUPVAL                         R43 11
-      454 GETTABLEKS                       R43 R43 K20 ["Tag"]
-      456 LOADK                            R44 K73 ["X-FitY"]
-      457 SETTABLE                         R44 R42 R43
-      458 MOVE                             R43 R25
-      459 CALL                             R40 3 1
-      460 SETTABLEKS                       R40 R39 K64 ["KeypointContainer"]
-      462 CALL                             R36 3 1
-      463 SETTABLEKS                       R36 R35 K58 ["SequenceTimelinePane"]
-      465 GETUPVAL                         R36 11
-      466 GETTABLEKS                       R36 R36 K11 ["createElement"]
-      468 GETUPVAL                         R37 21
-      469 DUPTABLE                         R38 K79 [{"LayoutOrder", "Keypoint", "IsKeypointFixed", "OnSave", "OnDelete", "OnEdit"}]
-      470 LOADN                            R39 2
-      471 SETTABLEKS                       R39 R38 K61 ["LayoutOrder"]
-      473 GETTABLEKS                       R39 R11 K80 ["getSelectedKeypoint"]
-      475 CALL                             R39 0 1
-      476 SETTABLEKS                       R39 R38 K74 ["Keypoint"]
-      478 GETTABLEKS                       R39 R11 K81 ["isFixedKeypointSelected"]
-      480 CALL                             R39 0 1
-      481 SETTABLEKS                       R39 R38 K75 ["IsKeypointFixed"]
-      483 SETTABLEKS                       R15 R38 K76 ["OnSave"]
-      485 SETTABLEKS                       R16 R38 K77 ["OnDelete"]
-      487 SETTABLEKS                       R17 R38 K78 ["OnEdit"]
-      489 CALL                             R36 2 1
-      490 SETTABLEKS                       R36 R35 K59 ["KeypointControls"]
-      492 CALL                             R32 3 1
-      493 SETTABLEKS                       R32 R31 K32 ["SequencePickerModal"]
-      495 CALL                             R28 3 -1
-      496 RETURN                           R28 -1
+      228 SETTABLEKS                       R20 R36 K22 ["OnMoved"]
+      230 GETUPVAL                         R37 13
+      231 MOVE                             R38 R22
+      232 NEWTABLE                         R39 0 1
+      234 MOVE                             R40 R30
+      235 SETLIST                          R39 R40 1 [1]
+      237 CALL                             R37 2 1
+      238 SETTABLEKS                       R37 R36 K14 ["OnHoverStart"]
+      240 SETTABLEKS                       R23 R36 K23 ["OnDragStart"]
+      242 SETTABLEKS                       R24 R36 K24 ["OnDragEnd"]
+      244 CALL                             R34 2 1
+      245 SETTABLE                         R34 R25 R32
+      246 FORGLOOP                         R27 2 ; [-78]
+      248 JUMPIFNOTEQKNIL                  R9 ; [+2]
+      250 LOADB                            R27 0 +1
+      251 LOADB                            R27 1
+      252 GETUPVAL                         R28 11
+      253 GETTABLEKS                       R28 R28 K11 ["createElement"]
+      255 GETUPVAL                         R29 15
+      256 NEWTABLE                         R30 1 0
+      258 GETUPVAL                         R31 11
+      259 GETTABLEKS                       R31 R31 K20 ["Tag"]
+      261 LOADK                            R32 K29 ["X-Fill"]
+      262 SETTABLE                         R32 R30 R31
+      263 DUPTABLE                         R31 K33 [{"Input", "Tooltip", "SequencePickerModal"}]
+      264 GETUPVAL                         R32 11
+      265 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      267 GETUPVAL                         R33 16
+      268 NEWTABLE                         R34 8 0
+      270 GETTABLEKS                       R35 R0 K34 ["Disabled"]
+      272 SETTABLEKS                       R35 R34 K34 ["Disabled"]
+      274 GETUPVAL                         R35 17
+      275 SETTABLEKS                       R35 R34 K35 ["LeadingComponent"]
+      277 DUPTABLE                         R35 K40 [{"Color", "OnClick", "ForwardRef", "Size"}]
+      278 GETTABLEKS                       R36 R0 K0 ["Value"]
+      280 SETTABLEKS                       R36 R35 K36 ["Color"]
+      282 SETTABLEKS                       R14 R35 K37 ["OnClick"]
+      284 SETTABLEKS                       R1 R35 K38 ["ForwardRef"]
+      286 GETUPVAL                         R36 18
+      287 SETTABLEKS                       R36 R35 K39 ["Size"]
+      289 SETTABLEKS                       R35 R34 K41 ["LeadingComponentProps"]
+      291 SETTABLEKS                       R18 R34 K42 ["OnFocusLost"]
+      293 SETTABLEKS                       R19 R34 K43 ["OnTextChanged"]
+      295 GETTABLEKS                       R36 R0 K44 ["AutomaticSize"]
+      297 JUMPIFNOT                        R36 ; [+10]
+      298 GETIMPORT                        R35 K45 [UDim2.new]
+      300 LOADN                            R36 1
+      301 LOADN                            R37 0
+      302 LOADN                            R38 0
+      303 GETTABLEKS                       R40 R0 K47 ["MinimumHeight"]
+      305 ORK                              R39 R40 K46 [24]
+      306 CALL                             R35 4 1
+      307 JUMP                             ; [+5]
+      308 GETIMPORT                        R35 K18 [UDim2.fromScale]
+      310 LOADN                            R36 1
+      311 LOADN                            R37 1
+      312 CALL                             R35 2 1
+      313 SETTABLEKS                       R35 R34 K39 ["Size"]
+      315 SETTABLEKS                       R7 R34 K48 ["Text"]
+      317 GETUPVAL                         R35 11
+      318 GETTABLEKS                       R35 R35 K20 ["Tag"]
+      320 JUMPIFNOT                        R27 ; [+2]
+      321 LOADK                            R36 K49 ["PropertyCellError"]
+      322 JUMP                             ; [+1]
+      323 LOADNIL                          R36
+      324 SETTABLE                         R36 R34 R35
+      325 CALL                             R32 2 1
+      326 SETTABLEKS                       R32 R31 K30 ["Input"]
+      328 GETUPVAL                         R32 11
+      329 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      331 GETUPVAL                         R33 19
+      332 DUPTABLE                         R34 K51 [{"Enabled", "Text"}]
+      333 SETTABLEKS                       R27 R34 K50 ["Enabled"]
+      335 ORK                              R35 R9 K52 [""]
+      336 SETTABLEKS                       R35 R34 K48 ["Text"]
+      338 CALL                             R32 2 1
+      339 SETTABLEKS                       R32 R31 K31 ["Tooltip"]
+      341 GETUPVAL                         R32 11
+      342 GETTABLEKS                       R32 R32 K11 ["createElement"]
+      344 GETUPVAL                         R33 20
+      345 DUPTABLE                         R34 K57 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
+      346 SETTABLEKS                       R5 R34 K53 ["Open"]
+      348 GETIMPORT                        R35 K28 [Vector2.new]
+      350 LOADN                            R36 800
+      351 LOADN                            R37 225
+      352 CALL                             R35 2 1
+      353 SETTABLEKS                       R35 R34 K54 ["MaxSize"]
+      355 GETIMPORT                        R35 K28 [Vector2.new]
+      357 LOADN                            R36 400
+      358 LOADN                            R37 200
+      359 CALL                             R35 2 1
+      360 SETTABLEKS                       R35 R34 K55 ["MinSize"]
+      362 SETTABLEKS                       R1 R34 K56 ["ObjectRef"]
+      364 SETTABLEKS                       R15 R34 K42 ["OnFocusLost"]
+      366 DUPTABLE                         R35 K60 [{"SequenceTimelinePane", "KeypointControls"}]
+      367 GETUPVAL                         R36 11
+      368 GETTABLEKS                       R36 R36 K11 ["createElement"]
+      370 GETUPVAL                         R37 15
+      371 NEWTABLE                         R38 4 0
+      373 LOADN                            R39 1
+      374 SETTABLEKS                       R39 R38 K61 ["LayoutOrder"]
+      376 GETIMPORT                        R39 K45 [UDim2.new]
+      378 LOADN                            R40 1
+      379 LOADN                            R41 0
+      380 LOADN                            R42 0
+      381 LOADN                            R43 150
+      382 CALL                             R39 4 1
+      383 SETTABLEKS                       R39 R38 K39 ["Size"]
+      385 GETUPVAL                         R39 11
+      386 GETTABLEKS                       R39 R39 K20 ["Tag"]
+      388 LOADK                            R40 K62 ["X-Pad X-Column"]
+      389 SETTABLE                         R40 R38 R39
+      390 SETTABLEKS                       R21 R38 K37 ["OnClick"]
+      392 DUPTABLE                         R39 K65 [{"SequenceTimelineContainer", "KeypointContainer"}]
+      393 GETUPVAL                         R40 11
+      394 GETTABLEKS                       R40 R40 K11 ["createElement"]
+      396 GETUPVAL                         R41 15
+      397 NEWTABLE                         R42 8 0
+      399 LOADN                            R43 1
+      400 SETTABLEKS                       R43 R42 K61 ["LayoutOrder"]
+      402 LOADN                            R43 0
+      403 SETTABLEKS                       R43 R42 K66 ["BackgroundTransparency"]
+      405 GETIMPORT                        R43 K68 [Color3.new]
+      407 LOADN                            R44 1
+      408 LOADN                            R45 1
+      409 LOADN                            R46 1
+      410 CALL                             R43 3 1
+      411 SETTABLEKS                       R43 R42 K69 ["BackgroundColor3"]
+      413 SETTABLEKS                       R2 R42 K38 ["ForwardRef"]
+      415 GETUPVAL                         R43 11
+      416 GETTABLEKS                       R43 R43 K20 ["Tag"]
+      418 LOADK                            R44 K29 ["X-Fill"]
+      419 SETTABLE                         R44 R42 R43
+      420 NEWTABLE                         R43 0 1
+      422 GETUPVAL                         R44 8
+      423 MOVE                             R45 R26
+      424 DUPTABLE                         R46 K71 [{"UIGradient"}]
+      425 GETUPVAL                         R47 11
+      426 GETTABLEKS                       R47 R47 K11 ["createElement"]
+      428 LOADK                            R48 K70 ["UIGradient"]
+      429 DUPTABLE                         R49 K72 [{"Color"}]
+      430 SETTABLEKS                       R12 R49 K36 ["Color"]
+      432 CALL                             R47 2 1
+      433 SETTABLEKS                       R47 R46 K70 ["UIGradient"]
+      435 CALL                             R44 2 -1
+      436 SETLIST                          R43 R44 -1 [1]
+      438 CALL                             R40 3 1
+      439 SETTABLEKS                       R40 R39 K63 ["SequenceTimelineContainer"]
+      441 GETUPVAL                         R40 11
+      442 GETTABLEKS                       R40 R40 K11 ["createElement"]
+      444 GETUPVAL                         R41 15
+      445 NEWTABLE                         R42 2 0
+      447 LOADN                            R43 2
+      448 SETTABLEKS                       R43 R42 K61 ["LayoutOrder"]
+      450 GETUPVAL                         R43 11
+      451 GETTABLEKS                       R43 R43 K20 ["Tag"]
+      453 LOADK                            R44 K73 ["X-FitY"]
+      454 SETTABLE                         R44 R42 R43
+      455 MOVE                             R43 R25
+      456 CALL                             R40 3 1
+      457 SETTABLEKS                       R40 R39 K64 ["KeypointContainer"]
+      459 CALL                             R36 3 1
+      460 SETTABLEKS                       R36 R35 K58 ["SequenceTimelinePane"]
+      462 GETUPVAL                         R36 11
+      463 GETTABLEKS                       R36 R36 K11 ["createElement"]
+      465 GETUPVAL                         R37 21
+      466 DUPTABLE                         R38 K80 [{["LayoutOrder"] = 2, ["Keypoint"], ["IsKeypointFixed"], ["OnSave"], ["OnDelete"], ["OnEdit"]}]
+      467 GETTABLEKS                       R39 R11 K81 ["getSelectedKeypoint"]
+      469 CALL                             R39 0 1
+      470 SETTABLEKS                       R39 R38 K75 ["Keypoint"]
+      472 GETTABLEKS                       R39 R11 K82 ["isFixedKeypointSelected"]
+      474 CALL                             R39 0 1
+      475 SETTABLEKS                       R39 R38 K76 ["IsKeypointFixed"]
+      477 SETTABLEKS                       R15 R38 K77 ["OnSave"]
+      479 SETTABLEKS                       R16 R38 K78 ["OnDelete"]
+      481 SETTABLEKS                       R17 R38 K79 ["OnEdit"]
+      483 CALL                             R36 2 1
+      484 SETTABLEKS                       R36 R35 K59 ["KeypointControls"]
+      486 CALL                             R32 3 1
+      487 SETTABLEKS                       R32 R31 K32 ["SequencePickerModal"]
+      489 CALL                             R28 3 -1
+      490 RETURN                           R28 -1
 
 MAIN:
         0 PREPVARARGS                      0

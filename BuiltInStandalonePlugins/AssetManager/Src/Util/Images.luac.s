@@ -46,164 +46,106 @@ MAIN:
        25 NEWTABLE                         R4 8 0
        27 MOVE                             R5 R2
        28 LOADK                            R6 K11 ["AvailableImages"]
-       29 DUPTABLE                         R7 K41 [{"Checkmark", "Placeholder", "Sort", "SidebarCollapse", "SidebarExpand", "DefaultThumbnail", "User", "UserLarge", "Group", "GroupLarge", "Search", "Universe", "ArrowDown", "ArrowRight", "ArrowUp", "Clear", "Filter", "Folder", "GroupFolder", "Import", "Notification", "PackageLink", "PlaceholderAsset", "PlacesFolder", "Refresh", "UniverseLarge", "UserFolder", "IndentGuide", "GameFolder"}]
-       30 LOADN                            R8 1
-       31 SETTABLEKS                       R8 R7 K12 ["Checkmark"]
-       33 LOADN                            R8 2
-       34 SETTABLEKS                       R8 R7 K13 ["Placeholder"]
-       36 LOADN                            R8 3
-       37 SETTABLEKS                       R8 R7 K14 ["Sort"]
-       39 LOADN                            R8 4
-       40 SETTABLEKS                       R8 R7 K15 ["SidebarCollapse"]
-       42 LOADN                            R8 5
-       43 SETTABLEKS                       R8 R7 K16 ["SidebarExpand"]
-       45 LOADN                            R8 6
-       46 SETTABLEKS                       R8 R7 K17 ["DefaultThumbnail"]
-       48 LOADN                            R8 7
-       49 SETTABLEKS                       R8 R7 K18 ["User"]
-       51 LOADN                            R8 8
-       52 SETTABLEKS                       R8 R7 K19 ["UserLarge"]
-       54 LOADN                            R8 9
-       55 SETTABLEKS                       R8 R7 K20 ["Group"]
-       57 LOADN                            R8 10
-       58 SETTABLEKS                       R8 R7 K21 ["GroupLarge"]
-       60 LOADN                            R8 11
-       61 SETTABLEKS                       R8 R7 K22 ["Search"]
-       63 LOADN                            R8 12
-       64 SETTABLEKS                       R8 R7 K23 ["Universe"]
-       66 LOADN                            R8 13
-       67 SETTABLEKS                       R8 R7 K24 ["ArrowDown"]
-       69 LOADN                            R8 14
-       70 SETTABLEKS                       R8 R7 K25 ["ArrowRight"]
-       72 LOADN                            R8 15
-       73 SETTABLEKS                       R8 R7 K26 ["ArrowUp"]
-       75 LOADN                            R8 16
-       76 SETTABLEKS                       R8 R7 K27 ["Clear"]
-       78 LOADN                            R8 17
-       79 SETTABLEKS                       R8 R7 K28 ["Filter"]
-       81 LOADN                            R8 18
-       82 SETTABLEKS                       R8 R7 K29 ["Folder"]
-       84 LOADN                            R8 19
-       85 SETTABLEKS                       R8 R7 K30 ["GroupFolder"]
-       87 LOADN                            R8 20
-       88 SETTABLEKS                       R8 R7 K31 ["Import"]
-       90 LOADN                            R8 21
-       91 SETTABLEKS                       R8 R7 K32 ["Notification"]
-       93 LOADN                            R8 22
-       94 SETTABLEKS                       R8 R7 K33 ["PackageLink"]
-       96 LOADN                            R8 23
-       97 SETTABLEKS                       R8 R7 K34 ["PlaceholderAsset"]
-       99 LOADN                            R8 24
-      100 SETTABLEKS                       R8 R7 K35 ["PlacesFolder"]
-      102 LOADN                            R8 25
-      103 SETTABLEKS                       R8 R7 K36 ["Refresh"]
-      105 LOADN                            R8 26
-      106 SETTABLEKS                       R8 R7 K37 ["UniverseLarge"]
-      108 LOADN                            R8 27
-      109 SETTABLEKS                       R8 R7 K38 ["UserFolder"]
-      111 LOADN                            R8 28
-      112 SETTABLEKS                       R8 R7 K39 ["IndentGuide"]
-      114 LOADN                            R8 29
-      115 SETTABLEKS                       R8 R7 K40 ["GameFolder"]
-      117 CALL                             R5 2 1
-      118 SETTABLEKS                       R5 R4 K11 ["AvailableImages"]
-      120 NEWTABLE                         R6 32 0
-      122 GETTABLEKS                       R7 R5 K24 ["ArrowDown"]
-      124 LOADK                            R8 K42 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowDown.png"]
-      125 SETTABLE                         R8 R6 R7
-      126 GETTABLEKS                       R7 R5 K25 ["ArrowRight"]
-      128 LOADK                            R8 K43 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowRight.png"]
-      129 SETTABLE                         R8 R6 R7
-      130 GETTABLEKS                       R7 R5 K26 ["ArrowUp"]
-      132 LOADK                            R8 K44 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowUp.png"]
-      133 SETTABLE                         R8 R6 R7
-      134 GETTABLEKS                       R7 R5 K12 ["Checkmark"]
-      136 LOADK                            R8 K45 ["rbxasset://studio_svg_textures/Lua/Tutorials/%s/Standard/Checkmark.png"]
-      137 SETTABLE                         R8 R6 R7
-      138 GETTABLEKS                       R7 R5 K27 ["Clear"]
-      140 LOADK                            R8 K46 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Cleanup.png"]
-      141 SETTABLE                         R8 R6 R7
-      142 GETTABLEKS                       R7 R5 K17 ["DefaultThumbnail"]
-      144 LOADK                            R8 K47 ["rbxasset://studio_svg_textures/Lua/StartPage/%s/SI-Standard/Placeholder.png"]
-      145 SETTABLE                         R8 R6 R7
-      146 GETTABLEKS                       R7 R5 K28 ["Filter"]
-      148 LOADK                            R8 K48 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/Filter.png"]
-      149 SETTABLE                         R8 R6 R7
-      150 GETTABLEKS                       R7 R5 K29 ["Folder"]
-      152 LOADK                            R8 K49 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Folder.png"]
-      153 SETTABLE                         R8 R6 R7
-      154 GETTABLEKS                       R7 R5 K40 ["GameFolder"]
-      156 LOADK                            R8 K50 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/ExperienceFolder.png"]
-      157 SETTABLE                         R8 R6 R7
-      158 GETTABLEKS                       R7 R5 K20 ["Group"]
-      160 LOADK                            R8 K51 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/Group.png"]
-      161 SETTABLE                         R8 R6 R7
-      162 GETTABLEKS                       R7 R5 K30 ["GroupFolder"]
-      164 LOADK                            R8 K52 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Teams.png"]
-      165 SETTABLE                         R8 R6 R7
-      166 GETTABLEKS                       R7 R5 K21 ["GroupLarge"]
-      168 LOADK                            R8 K53 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Large/Group.png"]
-      169 SETTABLE                         R8 R6 R7
-      170 GETTABLEKS                       R7 R5 K31 ["Import"]
-      172 LOADK                            R8 K54 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Large/Import.png"]
-      173 SETTABLE                         R8 R6 R7
-      174 GETTABLEKS                       R7 R5 K32 ["Notification"]
-      176 LOADK                            R8 K55 ["rbxasset://studio_svg_textures/Lua/Notifications/%s/Standard/NotificationBadgeUnread.png"]
-      177 SETTABLE                         R8 R6 R7
-      178 GETTABLEKS                       R7 R5 K33 ["PackageLink"]
-      180 LOADK                            R8 K56 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/PackageLink.png"]
-      181 SETTABLE                         R8 R6 R7
-      182 GETTABLEKS                       R7 R5 K34 ["PlaceholderAsset"]
-      184 LOADK                            R8 K57 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
-      185 SETTABLE                         R8 R6 R7
-      186 GETTABLEKS                       R7 R5 K13 ["Placeholder"]
-      188 LOADK                            R8 K57 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
-      189 SETTABLE                         R8 R6 R7
-      190 GETTABLEKS                       R7 R5 K35 ["PlacesFolder"]
-      192 LOADK                            R8 K58 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/PlacesFolder.png"]
-      193 SETTABLE                         R8 R6 R7
-      194 GETTABLEKS                       R7 R5 K36 ["Refresh"]
-      196 LOADK                            R8 K59 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Standard/Refresh.png"]
-      197 SETTABLE                         R8 R6 R7
-      198 GETTABLEKS                       R7 R5 K22 ["Search"]
-      200 LOADK                            R8 K60 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/%s/Standard/Search.png"]
-      201 SETTABLE                         R8 R6 R7
-      202 GETTABLEKS                       R7 R5 K15 ["SidebarCollapse"]
-      204 LOADK                            R8 K61 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%s/Standard/DoubleChevronLeft.png"]
-      205 SETTABLE                         R8 R6 R7
-      206 GETTABLEKS                       R7 R5 K16 ["SidebarExpand"]
-      208 LOADK                            R8 K62 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%s/Standard/DoubleChevronRight.png"]
-      209 SETTABLE                         R8 R6 R7
-      210 GETTABLEKS                       R7 R5 K14 ["Sort"]
-      212 LOADK                            R8 K63 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/Sort.png"]
-      213 SETTABLE                         R8 R6 R7
-      214 GETTABLEKS                       R7 R5 K23 ["Universe"]
-      216 LOADK                            R8 K57 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
-      217 SETTABLE                         R8 R6 R7
-      218 GETTABLEKS                       R7 R5 K37 ["UniverseLarge"]
-      220 LOADK                            R8 K57 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
-      221 SETTABLE                         R8 R6 R7
-      222 GETTABLEKS                       R7 R5 K18 ["User"]
-      224 LOADK                            R8 K64 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/User.png"]
-      225 SETTABLE                         R8 R6 R7
-      226 GETTABLEKS                       R7 R5 K38 ["UserFolder"]
-      228 LOADK                            R8 K65 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/StarterPlayer.png"]
-      229 SETTABLE                         R8 R6 R7
-      230 GETTABLEKS                       R7 R5 K19 ["UserLarge"]
-      232 LOADK                            R8 K66 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Large/User.png"]
-      233 SETTABLE                         R8 R6 R7
-      234 GETTABLEKS                       R7 R5 K39 ["IndentGuide"]
-      236 LOADK                            R8 K67 ["rbxasset://studio_svg_textures/Lua/Explorer/%s/Standard/indentGuide.png"]
-      237 SETTABLE                         R8 R6 R7
-      238 SETTABLEKS                       R6 R4 K68 ["_Uris"]
-      240 DUPCLOSURE                       R6 K69 [PROTO_0]
-      241 CAPTURE                          VAL R4
-      242 CAPTURE                          VAL R3
-      243 SETTABLEKS                       R6 R4 K70 ["get"]
-      245 DUPCLOSURE                       R6 K71 [PROTO_1]
-      246 CAPTURE                          VAL R4
-      247 SETTABLEKS                       R6 R4 K72 ["getLight"]
-      249 DUPCLOSURE                       R6 K73 [PROTO_2]
-      250 CAPTURE                          VAL R4
-      251 SETTABLEKS                       R6 R4 K74 ["getDark"]
-      253 RETURN                           R4 1
+       29 DUPTABLE                         R7 K70 [{["Checkmark"] = 1, ["Placeholder"] = 2, ["Sort"] = 3, ["SidebarCollapse"] = 4, ["SidebarExpand"] = 5, ["DefaultThumbnail"] = 6, ["User"] = 7, ["UserLarge"] = 8, ["Group"] = 9, ["GroupLarge"] = 10, ["Search"] = 11, ["Universe"] = 12, ["ArrowDown"] = 13, ["ArrowRight"] = 14, ["ArrowUp"] = 15, ["Clear"] = 16, ["Filter"] = 17, ["Folder"] = 18, ["GroupFolder"] = 19, ["Import"] = 20, ["Notification"] = 21, ["PackageLink"] = 22, ["PlaceholderAsset"] = 23, ["PlacesFolder"] = 24, ["Refresh"] = 25, ["UniverseLarge"] = 26, ["UserFolder"] = 27, ["IndentGuide"] = 28, ["GameFolder"] = 29}]
+       30 CALL                             R5 2 1
+       31 SETTABLEKS                       R5 R4 K11 ["AvailableImages"]
+       33 NEWTABLE                         R6 32 0
+       35 GETTABLEKS                       R7 R5 K36 ["ArrowDown"]
+       37 LOADK                            R8 K71 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowDown.png"]
+       38 SETTABLE                         R8 R6 R7
+       39 GETTABLEKS                       R7 R5 K38 ["ArrowRight"]
+       41 LOADK                            R8 K72 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowRight.png"]
+       42 SETTABLE                         R8 R6 R7
+       43 GETTABLEKS                       R7 R5 K40 ["ArrowUp"]
+       45 LOADK                            R8 K73 ["rbxasset://studio_svg_textures/Shared/Navigation/%s/Standard/ArrowUp.png"]
+       46 SETTABLE                         R8 R6 R7
+       47 GETTABLEKS                       R7 R5 K12 ["Checkmark"]
+       49 LOADK                            R8 K74 ["rbxasset://studio_svg_textures/Lua/Tutorials/%s/Standard/Checkmark.png"]
+       50 SETTABLE                         R8 R6 R7
+       51 GETTABLEKS                       R7 R5 K42 ["Clear"]
+       53 LOADK                            R8 K75 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Cleanup.png"]
+       54 SETTABLE                         R8 R6 R7
+       55 GETTABLEKS                       R7 R5 K22 ["DefaultThumbnail"]
+       57 LOADK                            R8 K76 ["rbxasset://studio_svg_textures/Lua/StartPage/%s/SI-Standard/Placeholder.png"]
+       58 SETTABLE                         R8 R6 R7
+       59 GETTABLEKS                       R7 R5 K44 ["Filter"]
+       61 LOADK                            R8 K77 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/Filter.png"]
+       62 SETTABLE                         R8 R6 R7
+       63 GETTABLEKS                       R7 R5 K46 ["Folder"]
+       65 LOADK                            R8 K78 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Folder.png"]
+       66 SETTABLE                         R8 R6 R7
+       67 GETTABLEKS                       R7 R5 K68 ["GameFolder"]
+       69 LOADK                            R8 K79 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/ExperienceFolder.png"]
+       70 SETTABLE                         R8 R6 R7
+       71 GETTABLEKS                       R7 R5 K28 ["Group"]
+       73 LOADK                            R8 K80 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/Group.png"]
+       74 SETTABLE                         R8 R6 R7
+       75 GETTABLEKS                       R7 R5 K48 ["GroupFolder"]
+       77 LOADK                            R8 K81 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/Teams.png"]
+       78 SETTABLE                         R8 R6 R7
+       79 GETTABLEKS                       R7 R5 K30 ["GroupLarge"]
+       81 LOADK                            R8 K82 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Large/Group.png"]
+       82 SETTABLE                         R8 R6 R7
+       83 GETTABLEKS                       R7 R5 K50 ["Import"]
+       85 LOADK                            R8 K83 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Large/Import.png"]
+       86 SETTABLE                         R8 R6 R7
+       87 GETTABLEKS                       R7 R5 K52 ["Notification"]
+       89 LOADK                            R8 K84 ["rbxasset://studio_svg_textures/Lua/Notifications/%s/Standard/NotificationBadgeUnread.png"]
+       90 SETTABLE                         R8 R6 R7
+       91 GETTABLEKS                       R7 R5 K54 ["PackageLink"]
+       93 LOADK                            R8 K85 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/PackageLink.png"]
+       94 SETTABLE                         R8 R6 R7
+       95 GETTABLEKS                       R7 R5 K56 ["PlaceholderAsset"]
+       97 LOADK                            R8 K86 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
+       98 SETTABLE                         R8 R6 R7
+       99 GETTABLEKS                       R7 R5 K14 ["Placeholder"]
+      101 LOADK                            R8 K86 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
+      102 SETTABLE                         R8 R6 R7
+      103 GETTABLEKS                       R7 R5 K58 ["PlacesFolder"]
+      105 LOADK                            R8 K87 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/PlacesFolder.png"]
+      106 SETTABLE                         R8 R6 R7
+      107 GETTABLEKS                       R7 R5 K60 ["Refresh"]
+      109 LOADK                            R8 K88 ["rbxasset://studio_svg_textures/Lua/FileSync/%s/Standard/Refresh.png"]
+      110 SETTABLE                         R8 R6 R7
+      111 GETTABLEKS                       R7 R5 K32 ["Search"]
+      113 LOADK                            R8 K89 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/%s/Standard/Search.png"]
+      114 SETTABLE                         R8 R6 R7
+      115 GETTABLEKS                       R7 R5 K18 ["SidebarCollapse"]
+      117 LOADK                            R8 K90 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%s/Standard/DoubleChevronLeft.png"]
+      118 SETTABLE                         R8 R6 R7
+      119 GETTABLEKS                       R7 R5 K20 ["SidebarExpand"]
+      121 LOADK                            R8 K91 ["rbxasset://studio_svg_textures/Lua/SystemArrows/%s/Standard/DoubleChevronRight.png"]
+      122 SETTABLE                         R8 R6 R7
+      123 GETTABLEKS                       R7 R5 K16 ["Sort"]
+      125 LOADK                            R8 K92 ["rbxasset://studio_svg_textures/Lua/AssetManager/%s/Standard/Sort.png"]
+      126 SETTABLE                         R8 R6 R7
+      127 GETTABLEKS                       R7 R5 K34 ["Universe"]
+      129 LOADK                            R8 K86 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
+      130 SETTABLE                         R8 R6 R7
+      131 GETTABLEKS                       R7 R5 K62 ["UniverseLarge"]
+      133 LOADK                            R8 K86 ["rbxasset://studio_svg_textures/Shared/Placeholder/%s/Standard/Placeholder.png"]
+      134 SETTABLE                         R8 R6 R7
+      135 GETTABLEKS                       R7 R5 K24 ["User"]
+      137 LOADK                            R8 K93 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Standard/User.png"]
+      138 SETTABLE                         R8 R6 R7
+      139 GETTABLEKS                       R7 R5 K64 ["UserFolder"]
+      141 LOADK                            R8 K94 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/%s/Standard/StarterPlayer.png"]
+      142 SETTABLE                         R8 R6 R7
+      143 GETTABLEKS                       R7 R5 K26 ["UserLarge"]
+      145 LOADK                            R8 K95 ["rbxasset://studio_svg_textures/Shared/Utility/%s/Large/User.png"]
+      146 SETTABLE                         R8 R6 R7
+      147 GETTABLEKS                       R7 R5 K66 ["IndentGuide"]
+      149 LOADK                            R8 K96 ["rbxasset://studio_svg_textures/Lua/Explorer/%s/Standard/indentGuide.png"]
+      150 SETTABLE                         R8 R6 R7
+      151 SETTABLEKS                       R6 R4 K97 ["_Uris"]
+      153 DUPCLOSURE                       R6 K98 [PROTO_0]
+      154 CAPTURE                          VAL R4
+      155 CAPTURE                          VAL R3
+      156 SETTABLEKS                       R6 R4 K99 ["get"]
+      158 DUPCLOSURE                       R6 K100 [PROTO_1]
+      159 CAPTURE                          VAL R4
+      160 SETTABLEKS                       R6 R4 K101 ["getLight"]
+      162 DUPCLOSURE                       R6 K102 [PROTO_2]
+      163 CAPTURE                          VAL R4
+      164 SETTABLEKS                       R6 R4 K103 ["getDark"]
+      166 RETURN                           R4 1

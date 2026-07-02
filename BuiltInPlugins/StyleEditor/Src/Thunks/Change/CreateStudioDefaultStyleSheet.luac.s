@@ -24,32 +24,28 @@ PROTO_1:
        17 GETTABLEKS                       R4 R3 K5 ["Window"]
        19 GETTABLEKS                       R4 R4 K6 ["Source"]
        21 GETTABLEKS                       R5 R1 K7 ["recordChange"]
-       23 DUPTABLE                         R6 K11 [{"Name", "DisplayName", "DoChange"}]
-       24 LOADK                            R7 K12 ["StyleEditor/CreateStudioDefaultStyleSheet"]
-       25 SETTABLEKS                       R7 R6 K8 ["Name"]
-       27 LOADK                            R7 K13 ["StyleEditor - Create Studio Default StyleSheet"]
-       28 SETTABLEKS                       R7 R6 K9 ["DisplayName"]
-       30 NEWCLOSURE                       R7 P0
-       31 CAPTURE                          UPVAL U1
-       32 CAPTURE                          REF R2
-       33 CAPTURE                          VAL R4
-       34 SETTABLEKS                       R7 R6 K10 ["DoChange"]
-       36 CALL                             R5 1 0
-       37 GETUPVAL                         R5 2
-       38 GETTABLEKS                       R5 R5 K14 ["StudioDefaultStyleSheet"]
-       40 JUMPIFNOT                        R5 ; [+13]
-       41 GETUPVAL                         R5 3
-       42 GETTABLEKS                       R5 R5 K15 ["createItemId"]
-       44 GETUPVAL                         R6 2
-       45 GETTABLEKS                       R6 R6 K14 ["StudioDefaultStyleSheet"]
-       47 CALL                             R5 1 1
-       48 GETUPVAL                         R8 4
-       49 MOVE                             R9 R5
-       50 CALL                             R8 1 -1
-       51 NAMECALL                         R6 R0 K16 ["dispatch"]
-       53 CALL                             R6 -1 0
-       54 CLOSEUPVALS                      R2
-       55 RETURN                           R0 0
+       23 DUPTABLE                         R6 K13 [{["Name"] = "StyleEditor/CreateStudioDefaultStyleSheet", ["DisplayName"] = "StyleEditor - Create Studio Default StyleSheet", ["DoChange"]}]
+       24 NEWCLOSURE                       R7 P0
+       25 CAPTURE                          UPVAL U1
+       26 CAPTURE                          REF R2
+       27 CAPTURE                          VAL R4
+       28 SETTABLEKS                       R7 R6 K12 ["DoChange"]
+       30 CALL                             R5 1 0
+       31 GETUPVAL                         R5 2
+       32 GETTABLEKS                       R5 R5 K14 ["StudioDefaultStyleSheet"]
+       34 JUMPIFNOT                        R5 ; [+13]
+       35 GETUPVAL                         R5 3
+       36 GETTABLEKS                       R5 R5 K15 ["createItemId"]
+       38 GETUPVAL                         R6 2
+       39 GETTABLEKS                       R6 R6 K14 ["StudioDefaultStyleSheet"]
+       41 CALL                             R5 1 1
+       42 GETUPVAL                         R8 4
+       43 MOVE                             R9 R5
+       44 CALL                             R8 1 -1
+       45 NAMECALL                         R6 R0 K16 ["dispatch"]
+       47 CALL                             R6 -1 0
+       48 CLOSEUPVALS                      R2
+       49 RETURN                           R0 0
 
 PROTO_2:
         0 DUPCLOSURE                       R0 K0 [PROTO_1]

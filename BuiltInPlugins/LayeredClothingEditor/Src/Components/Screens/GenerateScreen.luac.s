@@ -148,34 +148,30 @@ PROTO_3:
        91 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K3 [{"items", "generateText", "generateKey"}]
+        0 DUPTABLE                         R1 K4 [{[1], ["generateText"] = , ["generateKey"] = }]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["items"]
-        5 LOADNIL                          R2
-        6 SETTABLEKS                       R2 R1 K1 ["generateText"]
-        8 LOADNIL                          R2
-        9 SETTABLEKS                       R2 R1 K2 ["generateKey"]
-       11 SETTABLEKS                       R1 R0 K4 ["state"]
-       13 NEWCLOSURE                       R1 P0
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K5 ["startGeneration"]
-       17 NEWCLOSURE                       R1 P1
-       18 CAPTURE                          VAL R0
-       19 CAPTURE                          UPVAL U0
-       20 CAPTURE                          UPVAL U1
-       21 CAPTURE                          UPVAL U2
-       22 CAPTURE                          UPVAL U3
-       23 CAPTURE                          UPVAL U4
-       24 SETTABLEKS                       R1 R0 K6 ["onGenerateClicked"]
-       26 NEWCLOSURE                       R1 P2
-       27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R1 R0 K7 ["onSelectGenerateDropdownItem"]
-       30 NEWCLOSURE                       R1 P3
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          UPVAL U0
-       33 CAPTURE                          UPVAL U1
-       34 SETTABLEKS                       R1 R0 K8 ["setupDropdownMenu"]
-       36 RETURN                           R0 0
+        5 SETTABLEKS                       R1 R0 K5 ["state"]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K6 ["startGeneration"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U1
+       15 CAPTURE                          UPVAL U2
+       16 CAPTURE                          UPVAL U3
+       17 CAPTURE                          UPVAL U4
+       18 SETTABLEKS                       R1 R0 K7 ["onGenerateClicked"]
+       20 NEWCLOSURE                       R1 P2
+       21 CAPTURE                          VAL R0
+       22 SETTABLEKS                       R1 R0 K8 ["onSelectGenerateDropdownItem"]
+       24 NEWCLOSURE                       R1 P3
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          UPVAL U1
+       28 SETTABLEKS                       R1 R0 K9 ["setupDropdownMenu"]
+       30 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["setupDropdownMenu"]
@@ -210,82 +206,78 @@ PROTO_6:
        35 GETUPVAL                         R11 1
        36 GETTABLEKS                       R11 R11 K13 ["createElement"]
        38 GETUPVAL                         R12 2
-       39 DUPTABLE                         R13 K19 [{"Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing"}]
-       40 GETIMPORT                        R14 K21 [UDim2.new]
+       39 DUPTABLE                         R13 K20 [{["Size"], ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"], ["Spacing"] = 10}]
+       40 GETIMPORT                        R14 K22 [UDim2.new]
        42 LOADN                            R15 1
        43 LOADN                            R16 0
        44 LOADN                            R17 1
        45 LOADN                            R18 0
        46 CALL                             R14 4 1
        47 SETTABLEKS                       R14 R13 K14 ["Size"]
-       49 GETIMPORT                        R14 K25 [Enum.FillDirection.Horizontal]
+       49 GETIMPORT                        R14 K26 [Enum.FillDirection.Horizontal]
        51 SETTABLEKS                       R14 R13 K15 ["Layout"]
-       53 GETIMPORT                        R14 K27 [Enum.HorizontalAlignment.Center]
+       53 GETIMPORT                        R14 K28 [Enum.HorizontalAlignment.Center]
        55 SETTABLEKS                       R14 R13 K16 ["HorizontalAlignment"]
-       57 GETIMPORT                        R14 K28 [Enum.VerticalAlignment.Center]
+       57 GETIMPORT                        R14 K29 [Enum.VerticalAlignment.Center]
        59 SETTABLEKS                       R14 R13 K17 ["VerticalAlignment"]
-       61 LOADN                            R14 10
-       62 SETTABLEKS                       R14 R13 K18 ["Spacing"]
-       64 DUPTABLE                         R14 K31 [{"BackButton", "GenerateDropdownButton"}]
-       65 GETUPVAL                         R15 1
-       66 GETTABLEKS                       R15 R15 K13 ["createElement"]
-       68 GETUPVAL                         R16 3
-       69 DUPTABLE                         R17 K36 [{"Text", "Style", "Size", "OnClick", "LayoutOrder"}]
-       70 LOADK                            R20 K37 ["Flow"]
-       71 LOADK                            R21 K38 ["Back"]
-       72 NAMECALL                         R18 R7 K10 ["getText"]
-       74 CALL                             R18 3 1
-       75 SETTABLEKS                       R18 R17 K32 ["Text"]
-       77 LOADK                            R18 K39 ["Round"]
-       78 SETTABLEKS                       R18 R17 K33 ["Style"]
-       80 GETIMPORT                        R18 K21 [UDim2.new]
-       82 LOADN                            R19 0
-       83 GETTABLEKS                       R20 R8 K40 ["BackButtonWidth"]
-       85 LOADN                            R21 0
-       86 GETTABLEKS                       R22 R8 K41 ["GenerateDropdownButtonHeight"]
-       88 CALL                             R18 4 1
-       89 SETTABLEKS                       R18 R17 K14 ["Size"]
-       91 SETTABLEKS                       R6 R17 K34 ["OnClick"]
-       93 NAMECALL                         R18 R10 K42 ["getNextOrder"]
-       95 CALL                             R18 1 1
-       96 SETTABLEKS                       R18 R17 K35 ["LayoutOrder"]
-       98 CALL                             R15 2 1
-       99 SETTABLEKS                       R15 R14 K29 ["BackButton"]
-      101 GETUPVAL                         R15 1
-      102 GETTABLEKS                       R15 R15 K13 ["createElement"]
-      104 GETUPVAL                         R16 4
-      105 DUPTABLE                         R17 K54 [{"AutomaticSize", "Height", "ButtonWidth", "ArrowWidth", "LayoutOrder", "TooltipText", "ButtonIcon", "IconSize", "ButtonText", "Items", "ItemHeight", "OnSelectItem", "OnClick"}]
-      106 GETIMPORT                        R18 K56 [Enum.AutomaticSize.XY]
-      108 SETTABLEKS                       R18 R17 K43 ["AutomaticSize"]
-      110 GETTABLEKS                       R18 R8 K41 ["GenerateDropdownButtonHeight"]
-      112 SETTABLEKS                       R18 R17 K44 ["Height"]
-      114 GETTABLEKS                       R18 R8 K57 ["GenerateDropdownButtonWidth"]
-      116 SETTABLEKS                       R18 R17 K45 ["ButtonWidth"]
-      118 GETTABLEKS                       R18 R8 K46 ["ArrowWidth"]
-      120 SETTABLEKS                       R18 R17 K46 ["ArrowWidth"]
-      122 NAMECALL                         R18 R10 K42 ["getNextOrder"]
-      124 CALL                             R18 1 1
-      125 SETTABLEKS                       R18 R17 K35 ["LayoutOrder"]
-      127 SETTABLEKS                       R9 R17 K47 ["TooltipText"]
-      129 JUMPIF                           R5 ; [+3]
-      130 GETTABLEKS                       R18 R8 K58 ["WarningIcon"]
-      132 JUMP                             ; [+1]
-      133 LOADNIL                          R18
-      134 SETTABLEKS                       R18 R17 K48 ["ButtonIcon"]
-      136 GETTABLEKS                       R18 R8 K49 ["IconSize"]
-      138 SETTABLEKS                       R18 R17 K49 ["IconSize"]
-      140 SETTABLEKS                       R4 R17 K50 ["ButtonText"]
-      142 SETTABLEKS                       R3 R17 K51 ["Items"]
-      144 GETTABLEKS                       R18 R8 K59 ["DropdownItemHeight"]
-      146 SETTABLEKS                       R18 R17 K52 ["ItemHeight"]
-      148 GETTABLEKS                       R18 R0 K60 ["onSelectGenerateDropdownItem"]
-      150 SETTABLEKS                       R18 R17 K53 ["OnSelectItem"]
-      152 GETTABLEKS                       R18 R0 K61 ["onGenerateClicked"]
-      154 SETTABLEKS                       R18 R17 K34 ["OnClick"]
-      156 CALL                             R15 2 1
-      157 SETTABLEKS                       R15 R14 K30 ["GenerateDropdownButton"]
-      159 CALL                             R11 3 -1
-      160 RETURN                           R11 -1
+       61 DUPTABLE                         R14 K32 [{"BackButton", "GenerateDropdownButton"}]
+       62 GETUPVAL                         R15 1
+       63 GETTABLEKS                       R15 R15 K13 ["createElement"]
+       65 GETUPVAL                         R16 3
+       66 DUPTABLE                         R17 K38 [{["Text"], ["Style"] = "Round", ["Size"], ["OnClick"], ["LayoutOrder"]}]
+       67 LOADK                            R20 K39 ["Flow"]
+       68 LOADK                            R21 K40 ["Back"]
+       69 NAMECALL                         R18 R7 K10 ["getText"]
+       71 CALL                             R18 3 1
+       72 SETTABLEKS                       R18 R17 K33 ["Text"]
+       74 GETIMPORT                        R18 K22 [UDim2.new]
+       76 LOADN                            R19 0
+       77 GETTABLEKS                       R20 R8 K41 ["BackButtonWidth"]
+       79 LOADN                            R21 0
+       80 GETTABLEKS                       R22 R8 K42 ["GenerateDropdownButtonHeight"]
+       82 CALL                             R18 4 1
+       83 SETTABLEKS                       R18 R17 K14 ["Size"]
+       85 SETTABLEKS                       R6 R17 K36 ["OnClick"]
+       87 NAMECALL                         R18 R10 K43 ["getNextOrder"]
+       89 CALL                             R18 1 1
+       90 SETTABLEKS                       R18 R17 K37 ["LayoutOrder"]
+       92 CALL                             R15 2 1
+       93 SETTABLEKS                       R15 R14 K30 ["BackButton"]
+       95 GETUPVAL                         R15 1
+       96 GETTABLEKS                       R15 R15 K13 ["createElement"]
+       98 GETUPVAL                         R16 4
+       99 DUPTABLE                         R17 K55 [{"AutomaticSize", "Height", "ButtonWidth", "ArrowWidth", "LayoutOrder", "TooltipText", "ButtonIcon", "IconSize", "ButtonText", "Items", "ItemHeight", "OnSelectItem", "OnClick"}]
+      100 GETIMPORT                        R18 K57 [Enum.AutomaticSize.XY]
+      102 SETTABLEKS                       R18 R17 K44 ["AutomaticSize"]
+      104 GETTABLEKS                       R18 R8 K42 ["GenerateDropdownButtonHeight"]
+      106 SETTABLEKS                       R18 R17 K45 ["Height"]
+      108 GETTABLEKS                       R18 R8 K58 ["GenerateDropdownButtonWidth"]
+      110 SETTABLEKS                       R18 R17 K46 ["ButtonWidth"]
+      112 GETTABLEKS                       R18 R8 K47 ["ArrowWidth"]
+      114 SETTABLEKS                       R18 R17 K47 ["ArrowWidth"]
+      116 NAMECALL                         R18 R10 K43 ["getNextOrder"]
+      118 CALL                             R18 1 1
+      119 SETTABLEKS                       R18 R17 K37 ["LayoutOrder"]
+      121 SETTABLEKS                       R9 R17 K48 ["TooltipText"]
+      123 JUMPIF                           R5 ; [+3]
+      124 GETTABLEKS                       R18 R8 K59 ["WarningIcon"]
+      126 JUMP                             ; [+1]
+      127 LOADNIL                          R18
+      128 SETTABLEKS                       R18 R17 K49 ["ButtonIcon"]
+      130 GETTABLEKS                       R18 R8 K50 ["IconSize"]
+      132 SETTABLEKS                       R18 R17 K50 ["IconSize"]
+      134 SETTABLEKS                       R4 R17 K51 ["ButtonText"]
+      136 SETTABLEKS                       R3 R17 K52 ["Items"]
+      138 GETTABLEKS                       R18 R8 K60 ["DropdownItemHeight"]
+      140 SETTABLEKS                       R18 R17 K53 ["ItemHeight"]
+      142 GETTABLEKS                       R18 R0 K61 ["onSelectGenerateDropdownItem"]
+      144 SETTABLEKS                       R18 R17 K54 ["OnSelectItem"]
+      146 GETTABLEKS                       R18 R0 K62 ["onGenerateClicked"]
+      148 SETTABLEKS                       R18 R17 K36 ["OnClick"]
+      150 CALL                             R15 2 1
+      151 SETTABLEKS                       R15 R14 K31 ["GenerateDropdownButton"]
+      153 CALL                             R11 3 -1
+      154 RETURN                           R11 -1
 
 PROTO_7:
         0 RETURN                           R0 0

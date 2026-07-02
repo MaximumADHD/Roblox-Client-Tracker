@@ -87,98 +87,94 @@ PROTO_6:
        11 GETUPVAL                         R2 0
        12 GETTABLEKS                       R2 R2 K2 ["createElement"]
        14 LOADK                            R3 K3 ["Frame"]
-       15 DUPTABLE                         R4 K7 [{"Size", "BackgroundTransparency", "ClipsDescendants"}]
-       16 GETIMPORT                        R5 K10 [UDim2.new]
+       15 DUPTABLE                         R4 K9 [{["Size"], ["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True}]
+       16 GETIMPORT                        R5 K12 [UDim2.new]
        18 LOADN                            R6 1
        19 LOADN                            R7 0
        20 LOADN                            R8 1
        21 LOADN                            R9 0
        22 CALL                             R5 4 1
        23 SETTABLEKS                       R5 R4 K4 ["Size"]
-       25 LOADN                            R5 1
-       26 SETTABLEKS                       R5 R4 K5 ["BackgroundTransparency"]
-       28 LOADB                            R5 1
-       29 SETTABLEKS                       R5 R4 K6 ["ClipsDescendants"]
-       31 DUPTABLE                         R5 K12 [{"Text"}]
-       32 GETUPVAL                         R6 0
-       33 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       35 LOADK                            R7 K13 ["TextBox"]
-       36 NEWTABLE                         R8 32 0
-       38 GETTABLEKS                       R9 R0 K0 ["props"]
-       40 GETTABLEKS                       R9 R9 K14 ["Visible"]
-       42 SETTABLEKS                       R9 R8 K14 ["Visible"]
-       44 GETIMPORT                        R9 K10 [UDim2.new]
-       46 LOADN                            R10 1
-       47 LOADN                            R11 0
-       48 LOADN                            R12 1
-       49 LOADN                            R13 0
-       50 CALL                             R9 4 1
-       51 SETTABLEKS                       R9 R8 K4 ["Size"]
-       53 LOADN                            R9 1
-       54 SETTABLEKS                       R9 R8 K5 ["BackgroundTransparency"]
-       56 LOADN                            R9 0
-       57 SETTABLEKS                       R9 R8 K15 ["BorderSizePixel"]
-       59 LOADB                            R9 0
-       60 SETTABLEKS                       R9 R8 K16 ["ClearTextOnFocus"]
-       62 SETTABLEKS                       R1 R8 K17 ["TextEditable"]
-       64 GETIMPORT                        R9 K21 [Enum.Font.SourceSans]
-       66 SETTABLEKS                       R9 R8 K19 ["Font"]
-       68 LOADN                            R9 22
-       69 SETTABLEKS                       R9 R8 K22 ["TextSize"]
+       25 DUPTABLE                         R5 K14 [{"Text"}]
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       29 LOADK                            R7 K15 ["TextBox"]
+       30 NEWTABLE                         R8 32 0
+       32 GETTABLEKS                       R9 R0 K0 ["props"]
+       34 GETTABLEKS                       R9 R9 K16 ["Visible"]
+       36 SETTABLEKS                       R9 R8 K16 ["Visible"]
+       38 GETIMPORT                        R9 K12 [UDim2.new]
+       40 LOADN                            R10 1
+       41 LOADN                            R11 0
+       42 LOADN                            R12 1
+       43 LOADN                            R13 0
+       44 CALL                             R9 4 1
+       45 SETTABLEKS                       R9 R8 K4 ["Size"]
+       47 LOADN                            R9 1
+       48 SETTABLEKS                       R9 R8 K5 ["BackgroundTransparency"]
+       50 LOADN                            R9 0
+       51 SETTABLEKS                       R9 R8 K17 ["BorderSizePixel"]
+       53 LOADB                            R9 0
+       54 SETTABLEKS                       R9 R8 K18 ["ClearTextOnFocus"]
+       56 SETTABLEKS                       R1 R8 K19 ["TextEditable"]
+       58 GETIMPORT                        R9 K23 [Enum.Font.SourceSans]
+       60 SETTABLEKS                       R9 R8 K21 ["Font"]
+       62 LOADN                            R9 22
+       63 SETTABLEKS                       R9 R8 K24 ["TextSize"]
+       65 GETTABLEKS                       R9 R0 K0 ["props"]
+       67 GETTABLEKS                       R9 R9 K25 ["TextColor3"]
+       69 SETTABLEKS                       R9 R8 K25 ["TextColor3"]
        71 GETTABLEKS                       R9 R0 K0 ["props"]
-       73 GETTABLEKS                       R9 R9 K23 ["TextColor3"]
-       75 SETTABLEKS                       R9 R8 K23 ["TextColor3"]
+       73 GETTABLEKS                       R9 R9 K13 ["Text"]
+       75 SETTABLEKS                       R9 R8 K13 ["Text"]
        77 GETTABLEKS                       R9 R0 K0 ["props"]
-       79 GETTABLEKS                       R9 R9 K11 ["Text"]
-       81 SETTABLEKS                       R9 R8 K11 ["Text"]
+       79 GETTABLEKS                       R9 R9 K26 ["PlaceholderText"]
+       81 SETTABLEKS                       R9 R8 K26 ["PlaceholderText"]
        83 GETTABLEKS                       R9 R0 K0 ["props"]
-       85 GETTABLEKS                       R9 R9 K24 ["PlaceholderText"]
-       87 SETTABLEKS                       R9 R8 K24 ["PlaceholderText"]
-       89 GETTABLEKS                       R9 R0 K0 ["props"]
-       91 GETTABLEKS                       R9 R9 K25 ["HorizontalAlignment"]
-       93 JUMPIF                           R9 ; [+2]
-       94 GETIMPORT                        R9 K28 [Enum.TextXAlignment.Left]
-       96 SETTABLEKS                       R9 R8 K26 ["TextXAlignment"]
-       98 JUMPIF                           R1 ; [+2]
-       99 LOADK                            R9 K29 [0.5]
-      100 JUMP                             ; [+1]
-      101 LOADN                            R9 0
-      102 SETTABLEKS                       R9 R8 K30 ["TextTransparency"]
+       85 GETTABLEKS                       R9 R9 K27 ["HorizontalAlignment"]
+       87 JUMPIF                           R9 ; [+2]
+       88 GETIMPORT                        R9 K30 [Enum.TextXAlignment.Left]
+       90 SETTABLEKS                       R9 R8 K28 ["TextXAlignment"]
+       92 JUMPIF                           R1 ; [+2]
+       93 LOADK                            R9 K31 [0.5]
+       94 JUMP                             ; [+1]
+       95 LOADN                            R9 0
+       96 SETTABLEKS                       R9 R8 K32 ["TextTransparency"]
+       98 GETUPVAL                         R9 0
+       99 GETTABLEKS                       R9 R9 K33 ["Ref"]
+      101 GETTABLEKS                       R10 R0 K34 ["textBoxRef"]
+      103 SETTABLE                         R10 R8 R9
       104 GETUPVAL                         R9 0
-      105 GETTABLEKS                       R9 R9 K31 ["Ref"]
-      107 GETTABLEKS                       R10 R0 K32 ["textBoxRef"]
-      109 SETTABLE                         R10 R8 R9
-      110 GETUPVAL                         R9 0
-      111 GETTABLEKS                       R9 R9 K33 ["Event"]
-      113 GETTABLEKS                       R9 R9 K34 ["MouseEnter"]
-      115 GETTABLEKS                       R10 R0 K35 ["mouseEnter"]
-      117 SETTABLE                         R10 R8 R9
-      118 GETUPVAL                         R9 0
-      119 GETTABLEKS                       R9 R9 K33 ["Event"]
-      121 GETTABLEKS                       R9 R9 K36 ["MouseLeave"]
-      123 GETTABLEKS                       R10 R0 K37 ["mouseLeave"]
-      125 SETTABLE                         R10 R8 R9
-      126 GETUPVAL                         R9 0
-      127 GETTABLEKS                       R9 R9 K33 ["Event"]
-      129 GETTABLEKS                       R9 R9 K38 ["Focused"]
-      131 NEWCLOSURE                       R10 P0
-      132 CAPTURE                          VAL R0
-      133 SETTABLE                         R10 R8 R9
-      134 GETUPVAL                         R9 0
-      135 GETTABLEKS                       R9 R9 K33 ["Event"]
-      137 GETTABLEKS                       R9 R9 K39 ["FocusLost"]
-      139 NEWCLOSURE                       R10 P1
-      140 CAPTURE                          VAL R0
-      141 SETTABLE                         R10 R8 R9
-      142 GETUPVAL                         R9 0
-      143 GETTABLEKS                       R9 R9 K40 ["Change"]
-      145 GETTABLEKS                       R9 R9 K11 ["Text"]
-      147 GETTABLEKS                       R10 R0 K41 ["onTextChanged"]
-      149 SETTABLE                         R10 R8 R9
-      150 CALL                             R6 2 1
-      151 SETTABLEKS                       R6 R5 K11 ["Text"]
-      153 CALL                             R2 3 -1
-      154 RETURN                           R2 -1
+      105 GETTABLEKS                       R9 R9 K35 ["Event"]
+      107 GETTABLEKS                       R9 R9 K36 ["MouseEnter"]
+      109 GETTABLEKS                       R10 R0 K37 ["mouseEnter"]
+      111 SETTABLE                         R10 R8 R9
+      112 GETUPVAL                         R9 0
+      113 GETTABLEKS                       R9 R9 K35 ["Event"]
+      115 GETTABLEKS                       R9 R9 K38 ["MouseLeave"]
+      117 GETTABLEKS                       R10 R0 K39 ["mouseLeave"]
+      119 SETTABLE                         R10 R8 R9
+      120 GETUPVAL                         R9 0
+      121 GETTABLEKS                       R9 R9 K35 ["Event"]
+      123 GETTABLEKS                       R9 R9 K40 ["Focused"]
+      125 NEWCLOSURE                       R10 P0
+      126 CAPTURE                          VAL R0
+      127 SETTABLE                         R10 R8 R9
+      128 GETUPVAL                         R9 0
+      129 GETTABLEKS                       R9 R9 K35 ["Event"]
+      131 GETTABLEKS                       R9 R9 K41 ["FocusLost"]
+      133 NEWCLOSURE                       R10 P1
+      134 CAPTURE                          VAL R0
+      135 SETTABLE                         R10 R8 R9
+      136 GETUPVAL                         R9 0
+      137 GETTABLEKS                       R9 R9 K42 ["Change"]
+      139 GETTABLEKS                       R9 R9 K13 ["Text"]
+      141 GETTABLEKS                       R10 R0 K43 ["onTextChanged"]
+      143 SETTABLE                         R10 R8 R9
+      144 CALL                             R6 2 1
+      145 SETTABLEKS                       R6 R5 K13 ["Text"]
+      147 CALL                             R2 3 -1
+      148 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -4,29 +4,19 @@ PROTO_0:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K10 [{"Max", "Min", "OnValueChanged", "ShowInput", "Size", "SnapIncrement", "VerticalDragTolerance", "Value"}]
-        9 LOADN                            R6 64
-       10 SETTABLEKS                       R6 R5 K3 ["Max"]
-       12 LOADN                            R6 1
-       13 SETTABLEKS                       R6 R5 K4 ["Min"]
-       15 GETTABLEKS                       R6 R0 K11 ["OnChanged"]
-       17 SETTABLEKS                       R6 R5 K5 ["OnValueChanged"]
-       19 LOADB                            R6 1
-       20 SETTABLEKS                       R6 R5 K6 ["ShowInput"]
-       22 GETIMPORT                        R6 K14 [UDim2.new]
-       24 LOADN                            R7 1
-       25 LOADN                            R8 0
-       26 LOADN                            R9 0
-       27 MOVE                             R10 R1
-       28 CALL                             R6 4 1
-       29 SETTABLEKS                       R6 R5 K7 ["Size"]
-       31 LOADN                            R6 1
-       32 SETTABLEKS                       R6 R5 K8 ["SnapIncrement"]
-       34 LOADN                            R6 0
-       35 SETTABLEKS                       R6 R5 K9 ["VerticalDragTolerance"]
-       37 SETTABLEKS                       R2 R5 K1 ["Value"]
-       39 CALL                             R3 2 -1
-       40 RETURN                           R3 -1
+        8 DUPTABLE                         R5 K14 [{["Max"] = 64, ["Min"] = 1, ["OnValueChanged"], ["ShowInput"] = True, ["Size"], ["SnapIncrement"] = 1, ["VerticalDragTolerance"] = 0, ["Value"]}]
+        9 GETTABLEKS                       R6 R0 K15 ["OnChanged"]
+       11 SETTABLEKS                       R6 R5 K7 ["OnValueChanged"]
+       13 GETIMPORT                        R6 K18 [UDim2.new]
+       15 LOADN                            R7 1
+       16 LOADN                            R8 0
+       17 LOADN                            R9 0
+       18 MOVE                             R10 R1
+       19 CALL                             R6 4 1
+       20 SETTABLEKS                       R6 R5 K10 ["Size"]
+       22 SETTABLEKS                       R2 R5 K1 ["Value"]
+       24 CALL                             R3 2 -1
+       25 RETURN                           R3 -1
 
 PROTO_1:
         0 GETIMPORT                        R2 K2 [table.clone]
@@ -156,249 +146,243 @@ PROTO_5:
        97 GETUPVAL                         R13 3
        98 GETTABLEKS                       R13 R13 K9 ["createElement"]
       100 GETUPVAL                         R14 4
-      101 DUPTABLE                         R15 K30 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
+      101 DUPTABLE                         R15 K31 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Size"], ["Spacing"] = 10, ["VerticalAlignment"]}]
       102 GETIMPORT                        R16 K16 [Enum.AutomaticSize.Y]
       104 SETTABLEKS                       R16 R15 K10 ["AutomaticSize"]
-      106 GETIMPORT                        R16 K32 [Enum.FillDirection.Vertical]
+      106 GETIMPORT                        R16 K33 [Enum.FillDirection.Vertical]
       108 SETTABLEKS                       R16 R15 K11 ["Layout"]
-      110 NAMECALL                         R16 R4 K33 ["getNextOrder"]
+      110 NAMECALL                         R16 R4 K34 ["getNextOrder"]
       112 CALL                             R16 1 1
       113 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      115 GETIMPORT                        R16 K34 [UDim2.new]
+      115 GETIMPORT                        R16 K35 [UDim2.new]
       117 LOADN                            R17 1
-      118 GETTABLEKS                       R19 R2 K35 ["LockButtonWidth"]
+      118 GETTABLEKS                       R19 R2 K36 ["LockButtonWidth"]
       120 MINUS                            R18 R19
       121 LOADN                            R19 0
       122 LOADN                            R20 0
       123 CALL                             R16 4 1
       124 SETTABLEKS                       R16 R15 K6 ["Size"]
-      126 LOADN                            R16 10
-      127 SETTABLEKS                       R16 R15 K29 ["Spacing"]
-      129 GETIMPORT                        R16 K24 [Enum.VerticalAlignment.Top]
-      131 SETTABLEKS                       R16 R15 K12 ["VerticalAlignment"]
-      133 DUPTABLE                         R16 K36 [{"Size", "Height"}]
-      134 GETUPVAL                         R17 3
-      135 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      137 GETUPVAL                         R18 4
-      138 DUPTABLE                         R19 K37 [{"AutomaticSize", "Layout", "LayoutOrder"}]
-      139 GETIMPORT                        R20 K16 [Enum.AutomaticSize.Y]
-      141 SETTABLEKS                       R20 R19 K10 ["AutomaticSize"]
-      143 GETIMPORT                        R20 K19 [Enum.FillDirection.Horizontal]
-      145 SETTABLEKS                       R20 R19 K11 ["Layout"]
-      147 NAMECALL                         R20 R4 K33 ["getNextOrder"]
-      149 CALL                             R20 1 1
-      150 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
-      152 DUPTABLE                         R20 K40 [{"SizeLabel", "SizeSliderContainer"}]
-      153 GETUPVAL                         R21 3
-      154 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      156 GETUPVAL                         R22 5
-      157 DUPTABLE                         R23 K43 [{"LayoutOrder", "Size", "Text", "TextYAlignment"}]
-      158 NAMECALL                         R24 R4 K33 ["getNextOrder"]
-      160 CALL                             R24 1 1
-      161 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
-      163 GETIMPORT                        R24 K45 [UDim2.fromOffset]
-      165 GETTABLEKS                       R25 R2 K46 ["LabelWidth"]
-      167 GETTABLEKS                       R26 R2 K47 ["RowHeight"]
-      169 CALL                             R24 2 1
-      170 SETTABLEKS                       R24 R23 K6 ["Size"]
-      172 GETUPVAL                         R25 6
-      173 GETTABLEKS                       R25 R25 K48 ["Cylinder"]
-      175 JUMPIFNOTEQ                      R3 R25 ; [+3]
-      177 LOADK                            R24 K49 ["R"]
-      178 JUMP                             ; [+1]
-      179 LOADK                            R24 K50 ["W"]
-      180 SETTABLEKS                       R24 R23 K41 ["Text"]
-      182 GETIMPORT                        R24 K52 [Enum.TextYAlignment.Center]
-      184 SETTABLEKS                       R24 R23 K42 ["TextYAlignment"]
-      186 CALL                             R21 2 1
-      187 SETTABLEKS                       R21 R20 K38 ["SizeLabel"]
-      189 GETUPVAL                         R21 3
-      190 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      192 GETUPVAL                         R22 4
-      193 DUPTABLE                         R23 K53 [{"LayoutOrder", "Size"}]
-      194 NAMECALL                         R24 R4 K33 ["getNextOrder"]
-      196 CALL                             R24 1 1
-      197 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
-      199 GETIMPORT                        R24 K34 [UDim2.new]
-      201 LOADN                            R25 1
-      202 GETTABLEKS                       R27 R2 K46 ["LabelWidth"]
-      204 MINUS                            R26 R27
-      205 LOADN                            R27 0
-      206 GETTABLEKS                       R28 R2 K47 ["RowHeight"]
-      208 CALL                             R24 4 1
-      209 SETTABLEKS                       R24 R23 K6 ["Size"]
-      211 DUPTABLE                         R24 K55 [{"SizeSlider"}]
-      212 GETUPVAL                         R25 3
-      213 GETTABLEKS                       R25 R25 K9 ["createElement"]
-      215 GETUPVAL                         R26 7
-      216 DUPTABLE                         R27 K57 [{"Height", "OnChanged", "Value"}]
-      217 GETTABLEKS                       R28 R2 K47 ["RowHeight"]
-      219 SETTABLEKS                       R28 R27 K7 ["Height"]
-      221 SETTABLEKS                       R6 R27 K56 ["OnChanged"]
-      223 GETTABLEKS                       R28 R0 K5 ["Value"]
-      225 GETTABLEKS                       R28 R28 K6 ["Size"]
-      227 SETTABLEKS                       R28 R27 K5 ["Value"]
-      229 CALL                             R25 2 1
-      230 SETTABLEKS                       R25 R24 K54 ["SizeSlider"]
-      232 CALL                             R21 3 1
-      233 SETTABLEKS                       R21 R20 K39 ["SizeSliderContainer"]
-      235 CALL                             R17 3 1
-      236 SETTABLEKS                       R17 R16 K6 ["Size"]
-      238 GETUPVAL                         R17 3
-      239 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      241 GETUPVAL                         R18 4
-      242 DUPTABLE                         R19 K37 [{"AutomaticSize", "Layout", "LayoutOrder"}]
-      243 GETIMPORT                        R20 K16 [Enum.AutomaticSize.Y]
-      245 SETTABLEKS                       R20 R19 K10 ["AutomaticSize"]
-      247 GETIMPORT                        R20 K19 [Enum.FillDirection.Horizontal]
-      249 SETTABLEKS                       R20 R19 K11 ["Layout"]
-      251 NAMECALL                         R20 R4 K33 ["getNextOrder"]
-      253 CALL                             R20 1 1
-      254 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
-      256 DUPTABLE                         R20 K60 [{"HeightLabel", "HeightSliderContainer"}]
-      257 GETUPVAL                         R21 3
-      258 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      260 GETUPVAL                         R22 5
-      261 DUPTABLE                         R23 K43 [{"LayoutOrder", "Size", "Text", "TextYAlignment"}]
-      262 NAMECALL                         R24 R4 K33 ["getNextOrder"]
-      264 CALL                             R24 1 1
-      265 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
-      267 GETIMPORT                        R24 K45 [UDim2.fromOffset]
-      269 GETTABLEKS                       R25 R2 K46 ["LabelWidth"]
-      271 GETTABLEKS                       R26 R2 K47 ["RowHeight"]
-      273 CALL                             R24 2 1
-      274 SETTABLEKS                       R24 R23 K6 ["Size"]
-      276 LOADK                            R24 K61 ["H"]
-      277 SETTABLEKS                       R24 R23 K41 ["Text"]
-      279 GETIMPORT                        R24 K52 [Enum.TextYAlignment.Center]
-      281 SETTABLEKS                       R24 R23 K42 ["TextYAlignment"]
-      283 CALL                             R21 2 1
-      284 SETTABLEKS                       R21 R20 K58 ["HeightLabel"]
-      286 GETUPVAL                         R21 3
-      287 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      289 GETUPVAL                         R22 4
-      290 DUPTABLE                         R23 K53 [{"LayoutOrder", "Size"}]
-      291 NAMECALL                         R24 R4 K33 ["getNextOrder"]
-      293 CALL                             R24 1 1
-      294 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
-      296 GETIMPORT                        R24 K34 [UDim2.new]
-      298 LOADN                            R25 1
-      299 GETTABLEKS                       R27 R2 K46 ["LabelWidth"]
-      301 MINUS                            R26 R27
-      302 LOADN                            R27 0
-      303 GETTABLEKS                       R28 R2 K47 ["RowHeight"]
-      305 CALL                             R24 4 1
-      306 SETTABLEKS                       R24 R23 K6 ["Size"]
-      308 DUPTABLE                         R24 K63 [{"HeightSlider"}]
-      309 GETUPVAL                         R25 3
-      310 GETTABLEKS                       R25 R25 K9 ["createElement"]
-      312 GETUPVAL                         R26 7
-      313 DUPTABLE                         R27 K57 [{"Height", "OnChanged", "Value"}]
-      314 GETTABLEKS                       R28 R2 K47 ["RowHeight"]
-      316 SETTABLEKS                       R28 R27 K7 ["Height"]
-      318 SETTABLEKS                       R7 R27 K56 ["OnChanged"]
-      320 GETTABLEKS                       R28 R0 K5 ["Value"]
-      322 GETTABLEKS                       R28 R28 K7 ["Height"]
-      324 SETTABLEKS                       R28 R27 K5 ["Value"]
-      326 CALL                             R25 2 1
-      327 SETTABLEKS                       R25 R24 K62 ["HeightSlider"]
-      329 CALL                             R21 3 1
-      330 SETTABLEKS                       R21 R20 K59 ["HeightSliderContainer"]
-      332 CALL                             R17 3 1
-      333 SETTABLEKS                       R17 R16 K7 ["Height"]
-      335 CALL                             R13 3 1
-      336 SETTABLEKS                       R13 R12 K25 ["Inputs"]
-      338 GETUPVAL                         R13 3
-      339 GETTABLEKS                       R13 R13 K9 ["createElement"]
-      341 GETUPVAL                         R14 4
-      342 DUPTABLE                         R15 K64 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "VerticalAlignment"}]
-      343 GETIMPORT                        R16 K66 [Enum.AutomaticSize.X]
-      345 SETTABLEKS                       R16 R15 K10 ["AutomaticSize"]
-      347 GETIMPORT                        R16 K19 [Enum.FillDirection.Horizontal]
-      349 SETTABLEKS                       R16 R15 K11 ["Layout"]
-      351 NAMECALL                         R16 R4 K33 ["getNextOrder"]
-      353 CALL                             R16 1 1
-      354 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      356 GETIMPORT                        R16 K45 [UDim2.fromOffset]
-      358 LOADN                            R17 0
-      359 GETTABLEKS                       R20 R2 K47 ["RowHeight"]
-      361 MULK                             R19 R20 K68 [2]
-      362 ADDK                             R18 R19 K67 [10]
-      363 CALL                             R16 2 1
-      364 SETTABLEKS                       R16 R15 K6 ["Size"]
-      366 GETIMPORT                        R16 K69 [Enum.VerticalAlignment.Center]
-      368 SETTABLEKS                       R16 R15 K12 ["VerticalAlignment"]
-      370 DUPTABLE                         R16 K71 [{"Locking"}]
-      371 GETUPVAL                         R17 3
-      372 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      374 GETUPVAL                         R18 8
-      375 DUPTABLE                         R19 K74 [{"LayoutOrder", "OnClick", "Size", "Style"}]
-      376 NAMECALL                         R20 R4 K33 ["getNextOrder"]
-      378 CALL                             R20 1 1
-      379 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
-      381 SETTABLEKS                       R8 R19 K72 ["OnClick"]
-      383 GETIMPORT                        R20 K45 [UDim2.fromOffset]
-      385 GETTABLEKS                       R21 R2 K35 ["LockButtonWidth"]
-      387 GETTABLEKS                       R22 R2 K35 ["LockButtonWidth"]
-      389 CALL                             R20 2 1
-      390 SETTABLEKS                       R20 R19 K6 ["Size"]
-      392 LOADK                            R20 K75 ["RoundSubtle"]
-      393 SETTABLEKS                       R20 R19 K73 ["Style"]
-      395 DUPTABLE                         R20 K77 [{"ImageContainer"}]
-      396 GETUPVAL                         R21 3
-      397 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      399 GETUPVAL                         R22 4
-      400 DUPTABLE                         R23 K79 [{"HorizontalAlignment", "Layout", "VerticalAlignment"}]
-      401 GETIMPORT                        R24 K80 [Enum.HorizontalAlignment.Center]
-      403 SETTABLEKS                       R24 R23 K78 ["HorizontalAlignment"]
-      405 GETIMPORT                        R24 K32 [Enum.FillDirection.Vertical]
-      407 SETTABLEKS                       R24 R23 K11 ["Layout"]
-      409 GETIMPORT                        R24 K69 [Enum.VerticalAlignment.Center]
-      411 SETTABLEKS                       R24 R23 K12 ["VerticalAlignment"]
-      413 DUPTABLE                         R24 K82 [{"Icon"}]
-      414 GETUPVAL                         R25 3
-      415 GETTABLEKS                       R25 R25 K9 ["createElement"]
-      417 GETUPVAL                         R26 9
-      418 DUPTABLE                         R27 K84 [{"Image", "Size"}]
-      419 GETTABLEKS                       R29 R0 K5 ["Value"]
-      421 GETTABLEKS                       R29 R29 K8 ["Locked"]
-      423 JUMPIFNOT                        R29 ; [+3]
-      424 GETTABLEKS                       R28 R2 K8 ["Locked"]
-      426 JUMP                             ; [+2]
-      427 GETTABLEKS                       R28 R2 K85 ["Unlocked"]
-      429 SETTABLEKS                       R28 R27 K83 ["Image"]
-      431 GETIMPORT                        R28 K45 [UDim2.fromOffset]
-      433 LOADN                            R29 16
-      434 LOADN                            R30 16
-      435 CALL                             R28 2 1
-      436 SETTABLEKS                       R28 R27 K6 ["Size"]
-      438 CALL                             R25 2 1
-      439 SETTABLEKS                       R25 R24 K81 ["Icon"]
-      441 CALL                             R21 3 1
-      442 SETTABLEKS                       R21 R20 K76 ["ImageContainer"]
-      444 CALL                             R17 3 1
-      445 SETTABLEKS                       R17 R16 K70 ["Locking"]
-      447 CALL                             R13 3 1
-      448 SETTABLEKS                       R13 R12 K26 ["LockingContainer"]
-      450 CALL                             R9 3 1
-      451 GETUPVAL                         R10 3
-      452 GETTABLEKS                       R10 R10 K9 ["createElement"]
-      454 GETUPVAL                         R11 7
-      455 DUPTABLE                         R12 K57 [{"Height", "OnChanged", "Value"}]
-      456 GETTABLEKS                       R13 R2 K47 ["RowHeight"]
-      458 SETTABLEKS                       R13 R12 K7 ["Height"]
-      460 SETTABLEKS                       R6 R12 K56 ["OnChanged"]
-      462 GETTABLEKS                       R13 R0 K5 ["Value"]
-      464 GETTABLEKS                       R13 R13 K6 ["Size"]
-      466 SETTABLEKS                       R13 R12 K5 ["Value"]
-      468 CALL                             R10 2 1
-      469 GETUPVAL                         R12 6
-      470 GETTABLEKS                       R12 R12 K86 ["Sphere"]
-      472 JUMPIFNOTEQ                      R3 R12 ; [+3]
-      474 MOVE                             R11 R10
-      475 RETURN                           R11 1
-      476 MOVE                             R11 R9
-      477 RETURN                           R11 1
+      126 GETIMPORT                        R16 K24 [Enum.VerticalAlignment.Top]
+      128 SETTABLEKS                       R16 R15 K12 ["VerticalAlignment"]
+      130 DUPTABLE                         R16 K37 [{"Size", "Height"}]
+      131 GETUPVAL                         R17 3
+      132 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      134 GETUPVAL                         R18 4
+      135 DUPTABLE                         R19 K38 [{"AutomaticSize", "Layout", "LayoutOrder"}]
+      136 GETIMPORT                        R20 K16 [Enum.AutomaticSize.Y]
+      138 SETTABLEKS                       R20 R19 K10 ["AutomaticSize"]
+      140 GETIMPORT                        R20 K19 [Enum.FillDirection.Horizontal]
+      142 SETTABLEKS                       R20 R19 K11 ["Layout"]
+      144 NAMECALL                         R20 R4 K34 ["getNextOrder"]
+      146 CALL                             R20 1 1
+      147 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
+      149 DUPTABLE                         R20 K41 [{"SizeLabel", "SizeSliderContainer"}]
+      150 GETUPVAL                         R21 3
+      151 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      153 GETUPVAL                         R22 5
+      154 DUPTABLE                         R23 K44 [{"LayoutOrder", "Size", "Text", "TextYAlignment"}]
+      155 NAMECALL                         R24 R4 K34 ["getNextOrder"]
+      157 CALL                             R24 1 1
+      158 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
+      160 GETIMPORT                        R24 K46 [UDim2.fromOffset]
+      162 GETTABLEKS                       R25 R2 K47 ["LabelWidth"]
+      164 GETTABLEKS                       R26 R2 K48 ["RowHeight"]
+      166 CALL                             R24 2 1
+      167 SETTABLEKS                       R24 R23 K6 ["Size"]
+      169 GETUPVAL                         R25 6
+      170 GETTABLEKS                       R25 R25 K49 ["Cylinder"]
+      172 JUMPIFNOTEQ                      R3 R25 ; [+3]
+      174 LOADK                            R24 K50 ["R"]
+      175 JUMP                             ; [+1]
+      176 LOADK                            R24 K51 ["W"]
+      177 SETTABLEKS                       R24 R23 K42 ["Text"]
+      179 GETIMPORT                        R24 K53 [Enum.TextYAlignment.Center]
+      181 SETTABLEKS                       R24 R23 K43 ["TextYAlignment"]
+      183 CALL                             R21 2 1
+      184 SETTABLEKS                       R21 R20 K39 ["SizeLabel"]
+      186 GETUPVAL                         R21 3
+      187 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      189 GETUPVAL                         R22 4
+      190 DUPTABLE                         R23 K54 [{"LayoutOrder", "Size"}]
+      191 NAMECALL                         R24 R4 K34 ["getNextOrder"]
+      193 CALL                             R24 1 1
+      194 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
+      196 GETIMPORT                        R24 K35 [UDim2.new]
+      198 LOADN                            R25 1
+      199 GETTABLEKS                       R27 R2 K47 ["LabelWidth"]
+      201 MINUS                            R26 R27
+      202 LOADN                            R27 0
+      203 GETTABLEKS                       R28 R2 K48 ["RowHeight"]
+      205 CALL                             R24 4 1
+      206 SETTABLEKS                       R24 R23 K6 ["Size"]
+      208 DUPTABLE                         R24 K56 [{"SizeSlider"}]
+      209 GETUPVAL                         R25 3
+      210 GETTABLEKS                       R25 R25 K9 ["createElement"]
+      212 GETUPVAL                         R26 7
+      213 DUPTABLE                         R27 K58 [{"Height", "OnChanged", "Value"}]
+      214 GETTABLEKS                       R28 R2 K48 ["RowHeight"]
+      216 SETTABLEKS                       R28 R27 K7 ["Height"]
+      218 SETTABLEKS                       R6 R27 K57 ["OnChanged"]
+      220 GETTABLEKS                       R28 R0 K5 ["Value"]
+      222 GETTABLEKS                       R28 R28 K6 ["Size"]
+      224 SETTABLEKS                       R28 R27 K5 ["Value"]
+      226 CALL                             R25 2 1
+      227 SETTABLEKS                       R25 R24 K55 ["SizeSlider"]
+      229 CALL                             R21 3 1
+      230 SETTABLEKS                       R21 R20 K40 ["SizeSliderContainer"]
+      232 CALL                             R17 3 1
+      233 SETTABLEKS                       R17 R16 K6 ["Size"]
+      235 GETUPVAL                         R17 3
+      236 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      238 GETUPVAL                         R18 4
+      239 DUPTABLE                         R19 K38 [{"AutomaticSize", "Layout", "LayoutOrder"}]
+      240 GETIMPORT                        R20 K16 [Enum.AutomaticSize.Y]
+      242 SETTABLEKS                       R20 R19 K10 ["AutomaticSize"]
+      244 GETIMPORT                        R20 K19 [Enum.FillDirection.Horizontal]
+      246 SETTABLEKS                       R20 R19 K11 ["Layout"]
+      248 NAMECALL                         R20 R4 K34 ["getNextOrder"]
+      250 CALL                             R20 1 1
+      251 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
+      253 DUPTABLE                         R20 K61 [{"HeightLabel", "HeightSliderContainer"}]
+      254 GETUPVAL                         R21 3
+      255 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      257 GETUPVAL                         R22 5
+      258 DUPTABLE                         R23 K63 [{["LayoutOrder"], ["Size"], ["Text"] = "H", ["TextYAlignment"]}]
+      259 NAMECALL                         R24 R4 K34 ["getNextOrder"]
+      261 CALL                             R24 1 1
+      262 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
+      264 GETIMPORT                        R24 K46 [UDim2.fromOffset]
+      266 GETTABLEKS                       R25 R2 K47 ["LabelWidth"]
+      268 GETTABLEKS                       R26 R2 K48 ["RowHeight"]
+      270 CALL                             R24 2 1
+      271 SETTABLEKS                       R24 R23 K6 ["Size"]
+      273 GETIMPORT                        R24 K53 [Enum.TextYAlignment.Center]
+      275 SETTABLEKS                       R24 R23 K43 ["TextYAlignment"]
+      277 CALL                             R21 2 1
+      278 SETTABLEKS                       R21 R20 K59 ["HeightLabel"]
+      280 GETUPVAL                         R21 3
+      281 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      283 GETUPVAL                         R22 4
+      284 DUPTABLE                         R23 K54 [{"LayoutOrder", "Size"}]
+      285 NAMECALL                         R24 R4 K34 ["getNextOrder"]
+      287 CALL                             R24 1 1
+      288 SETTABLEKS                       R24 R23 K28 ["LayoutOrder"]
+      290 GETIMPORT                        R24 K35 [UDim2.new]
+      292 LOADN                            R25 1
+      293 GETTABLEKS                       R27 R2 K47 ["LabelWidth"]
+      295 MINUS                            R26 R27
+      296 LOADN                            R27 0
+      297 GETTABLEKS                       R28 R2 K48 ["RowHeight"]
+      299 CALL                             R24 4 1
+      300 SETTABLEKS                       R24 R23 K6 ["Size"]
+      302 DUPTABLE                         R24 K65 [{"HeightSlider"}]
+      303 GETUPVAL                         R25 3
+      304 GETTABLEKS                       R25 R25 K9 ["createElement"]
+      306 GETUPVAL                         R26 7
+      307 DUPTABLE                         R27 K58 [{"Height", "OnChanged", "Value"}]
+      308 GETTABLEKS                       R28 R2 K48 ["RowHeight"]
+      310 SETTABLEKS                       R28 R27 K7 ["Height"]
+      312 SETTABLEKS                       R7 R27 K57 ["OnChanged"]
+      314 GETTABLEKS                       R28 R0 K5 ["Value"]
+      316 GETTABLEKS                       R28 R28 K7 ["Height"]
+      318 SETTABLEKS                       R28 R27 K5 ["Value"]
+      320 CALL                             R25 2 1
+      321 SETTABLEKS                       R25 R24 K64 ["HeightSlider"]
+      323 CALL                             R21 3 1
+      324 SETTABLEKS                       R21 R20 K60 ["HeightSliderContainer"]
+      326 CALL                             R17 3 1
+      327 SETTABLEKS                       R17 R16 K7 ["Height"]
+      329 CALL                             R13 3 1
+      330 SETTABLEKS                       R13 R12 K25 ["Inputs"]
+      332 GETUPVAL                         R13 3
+      333 GETTABLEKS                       R13 R13 K9 ["createElement"]
+      335 GETUPVAL                         R14 4
+      336 DUPTABLE                         R15 K66 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "VerticalAlignment"}]
+      337 GETIMPORT                        R16 K68 [Enum.AutomaticSize.X]
+      339 SETTABLEKS                       R16 R15 K10 ["AutomaticSize"]
+      341 GETIMPORT                        R16 K19 [Enum.FillDirection.Horizontal]
+      343 SETTABLEKS                       R16 R15 K11 ["Layout"]
+      345 NAMECALL                         R16 R4 K34 ["getNextOrder"]
+      347 CALL                             R16 1 1
+      348 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
+      350 GETIMPORT                        R16 K46 [UDim2.fromOffset]
+      352 LOADN                            R17 0
+      353 GETTABLEKS                       R20 R2 K48 ["RowHeight"]
+      355 MULK                             R19 R20 K69 [2]
+      356 ADDK                             R18 R19 K30 [10]
+      357 CALL                             R16 2 1
+      358 SETTABLEKS                       R16 R15 K6 ["Size"]
+      360 GETIMPORT                        R16 K70 [Enum.VerticalAlignment.Center]
+      362 SETTABLEKS                       R16 R15 K12 ["VerticalAlignment"]
+      364 DUPTABLE                         R16 K72 [{"Locking"}]
+      365 GETUPVAL                         R17 3
+      366 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      368 GETUPVAL                         R18 8
+      369 DUPTABLE                         R19 K76 [{["LayoutOrder"], ["OnClick"], ["Size"], ["Style"] = "RoundSubtle"}]
+      370 NAMECALL                         R20 R4 K34 ["getNextOrder"]
+      372 CALL                             R20 1 1
+      373 SETTABLEKS                       R20 R19 K28 ["LayoutOrder"]
+      375 SETTABLEKS                       R8 R19 K73 ["OnClick"]
+      377 GETIMPORT                        R20 K46 [UDim2.fromOffset]
+      379 GETTABLEKS                       R21 R2 K36 ["LockButtonWidth"]
+      381 GETTABLEKS                       R22 R2 K36 ["LockButtonWidth"]
+      383 CALL                             R20 2 1
+      384 SETTABLEKS                       R20 R19 K6 ["Size"]
+      386 DUPTABLE                         R20 K78 [{"ImageContainer"}]
+      387 GETUPVAL                         R21 3
+      388 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      390 GETUPVAL                         R22 4
+      391 DUPTABLE                         R23 K80 [{"HorizontalAlignment", "Layout", "VerticalAlignment"}]
+      392 GETIMPORT                        R24 K81 [Enum.HorizontalAlignment.Center]
+      394 SETTABLEKS                       R24 R23 K79 ["HorizontalAlignment"]
+      396 GETIMPORT                        R24 K33 [Enum.FillDirection.Vertical]
+      398 SETTABLEKS                       R24 R23 K11 ["Layout"]
+      400 GETIMPORT                        R24 K70 [Enum.VerticalAlignment.Center]
+      402 SETTABLEKS                       R24 R23 K12 ["VerticalAlignment"]
+      404 DUPTABLE                         R24 K83 [{"Icon"}]
+      405 GETUPVAL                         R25 3
+      406 GETTABLEKS                       R25 R25 K9 ["createElement"]
+      408 GETUPVAL                         R26 9
+      409 DUPTABLE                         R27 K85 [{"Image", "Size"}]
+      410 GETTABLEKS                       R29 R0 K5 ["Value"]
+      412 GETTABLEKS                       R29 R29 K8 ["Locked"]
+      414 JUMPIFNOT                        R29 ; [+3]
+      415 GETTABLEKS                       R28 R2 K8 ["Locked"]
+      417 JUMP                             ; [+2]
+      418 GETTABLEKS                       R28 R2 K86 ["Unlocked"]
+      420 SETTABLEKS                       R28 R27 K84 ["Image"]
+      422 GETIMPORT                        R28 K46 [UDim2.fromOffset]
+      424 LOADN                            R29 16
+      425 LOADN                            R30 16
+      426 CALL                             R28 2 1
+      427 SETTABLEKS                       R28 R27 K6 ["Size"]
+      429 CALL                             R25 2 1
+      430 SETTABLEKS                       R25 R24 K82 ["Icon"]
+      432 CALL                             R21 3 1
+      433 SETTABLEKS                       R21 R20 K77 ["ImageContainer"]
+      435 CALL                             R17 3 1
+      436 SETTABLEKS                       R17 R16 K71 ["Locking"]
+      438 CALL                             R13 3 1
+      439 SETTABLEKS                       R13 R12 K26 ["LockingContainer"]
+      441 CALL                             R9 3 1
+      442 GETUPVAL                         R10 3
+      443 GETTABLEKS                       R10 R10 K9 ["createElement"]
+      445 GETUPVAL                         R11 7
+      446 DUPTABLE                         R12 K58 [{"Height", "OnChanged", "Value"}]
+      447 GETTABLEKS                       R13 R2 K48 ["RowHeight"]
+      449 SETTABLEKS                       R13 R12 K7 ["Height"]
+      451 SETTABLEKS                       R6 R12 K57 ["OnChanged"]
+      453 GETTABLEKS                       R13 R0 K5 ["Value"]
+      455 GETTABLEKS                       R13 R13 K6 ["Size"]
+      457 SETTABLEKS                       R13 R12 K5 ["Value"]
+      459 CALL                             R10 2 1
+      460 GETUPVAL                         R12 6
+      461 GETTABLEKS                       R12 R12 K87 ["Sphere"]
+      463 JUMPIFNOTEQ                      R3 R12 ; [+3]
+      465 MOVE                             R11 R10
+      466 RETURN                           R11 1
+      467 MOVE                             R11 R9
+      468 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

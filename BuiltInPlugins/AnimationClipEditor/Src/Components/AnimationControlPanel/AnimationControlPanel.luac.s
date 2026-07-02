@@ -112,114 +112,104 @@ PROTO_8:
        32 GETUPVAL                         R17 0
        33 GETTABLEKS                       R17 R17 K16 ["createElement"]
        35 LOADK                            R18 K17 ["Frame"]
-       36 DUPTABLE                         R19 K23 [{"Size", "BorderSizePixel", "LayoutOrder", "BackgroundColor3", "BorderColor3"}]
-       37 GETIMPORT                        R20 K26 [UDim2.new]
+       36 DUPTABLE                         R19 K25 [{["Size"], ["BorderSizePixel"] = 1, ["LayoutOrder"] = 0, ["BackgroundColor3"], ["BorderColor3"]}]
+       37 GETIMPORT                        R20 K28 [UDim2.new]
        39 LOADN                            R21 1
        40 LOADN                            R22 0
        41 LOADN                            R23 0
        42 GETUPVAL                         R24 1
-       43 GETTABLEKS                       R24 R24 K27 ["TIMELINE_HEIGHT"]
+       43 GETTABLEKS                       R24 R24 K29 ["TIMELINE_HEIGHT"]
        45 CALL                             R20 4 1
        46 SETTABLEKS                       R20 R19 K18 ["Size"]
-       48 LOADN                            R20 1
-       49 SETTABLEKS                       R20 R19 K19 ["BorderSizePixel"]
-       51 LOADN                            R20 0
-       52 SETTABLEKS                       R20 R19 K20 ["LayoutOrder"]
-       54 GETTABLEKS                       R20 R2 K28 ["backgroundColor"]
-       56 SETTABLEKS                       R20 R19 K21 ["BackgroundColor3"]
-       58 GETTABLEKS                       R20 R2 K29 ["borderColor"]
-       60 SETTABLEKS                       R20 R19 K22 ["BorderColor3"]
-       62 DUPTABLE                         R20 K34 [{"Layout", "AnimationClipDropdown", "MediaControls", "TimeDisplay"}]
-       63 GETUPVAL                         R21 0
-       64 GETTABLEKS                       R21 R21 K16 ["createElement"]
-       66 LOADK                            R22 K35 ["UIListLayout"]
-       67 DUPTABLE                         R23 K40 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
-       68 GETIMPORT                        R24 K43 [Enum.FillDirection.Horizontal]
-       70 SETTABLEKS                       R24 R23 K36 ["FillDirection"]
-       72 GETIMPORT                        R24 K45 [Enum.HorizontalAlignment.Left]
-       74 SETTABLEKS                       R24 R23 K37 ["HorizontalAlignment"]
-       76 GETIMPORT                        R24 K46 [Enum.SortOrder.LayoutOrder]
-       78 SETTABLEKS                       R24 R23 K38 ["SortOrder"]
-       80 GETIMPORT                        R24 K48 [Enum.VerticalAlignment.Center]
-       82 SETTABLEKS                       R24 R23 K39 ["VerticalAlignment"]
-       84 CALL                             R21 2 1
-       85 SETTABLEKS                       R21 R20 K30 ["Layout"]
-       87 GETUPVAL                         R21 0
-       88 GETTABLEKS                       R21 R21 K16 ["createElement"]
-       90 GETUPVAL                         R22 2
-       91 DUPTABLE                         R23 K52 [{"AnimationName", "IsLegacyAnimSaves", "RootInstance", "LoadAnimationData", "InstanceType", "LayoutOrder", "IsChannelAnimation"}]
-       92 JUMPIFNOT                        R3 ; [+5]
-       93 GETTABLEKS                       R24 R3 K53 ["Metadata"]
-       95 GETTABLEKS                       R24 R24 K54 ["Name"]
-       97 JUMPIF                           R24 ; [+1]
-       98 LOADK                            R24 K55 [""]
-       99 SETTABLEKS                       R24 R23 K49 ["AnimationName"]
-      101 SETTABLEKS                       R4 R23 K3 ["IsLegacyAnimSaves"]
-      103 SETTABLEKS                       R6 R23 K5 ["RootInstance"]
-      105 GETTABLEKS                       R24 R0 K56 ["loadAnimationDataWrapper"]
-      107 SETTABLEKS                       R24 R23 K50 ["LoadAnimationData"]
-      109 MOVE                             R24 R6
-      110 JUMPIFNOT                        R24 ; [+8]
-      111 MOVE                             R24 R3
-      112 JUMPIFNOT                        R24 ; [+6]
-      113 GETTABLEKS                       R24 R3 K57 ["Instances"]
-      115 GETTABLEKS                       R24 R24 K58 ["Root"]
-      117 GETTABLEKS                       R24 R24 K59 ["Type"]
-      119 SETTABLEKS                       R24 R23 K51 ["InstanceType"]
-      121 LOADN                            R24 0
-      122 SETTABLEKS                       R24 R23 K20 ["LayoutOrder"]
-      124 SETTABLEKS                       R15 R23 K14 ["IsChannelAnimation"]
-      126 CALL                             R21 2 1
-      127 SETTABLEKS                       R21 R20 K31 ["AnimationClipDropdown"]
-      129 GETUPVAL                         R21 0
-      130 GETTABLEKS                       R21 R21 K16 ["createElement"]
-      132 GETUPVAL                         R22 3
-      133 DUPTABLE                         R23 K67 [{"PlayState", "IsLooping", "SkipBackward", "SkipForward", "SetPlayState", "ToggleLooping", "GoToFirstFrame", "GoToLastFrame", "LayoutOrder"}]
-      134 SETTABLEKS                       R5 R23 K4 ["PlayState"]
-      136 JUMPIFNOT                        R3 ; [+8]
-      137 GETTABLEKS                       R25 R3 K53 ["Metadata"]
-      139 JUMPIFNOT                        R25 ; [+5]
-      140 GETTABLEKS                       R24 R3 K53 ["Metadata"]
-      142 GETTABLEKS                       R24 R24 K68 ["Looping"]
-      144 JUMPIF                           R24 ; [+1]
-      145 LOADB                            R24 0
-      146 SETTABLEKS                       R24 R23 K60 ["IsLooping"]
-      148 GETTABLEKS                       R24 R0 K69 ["skipBackwardWrapper"]
-      150 SETTABLEKS                       R24 R23 K61 ["SkipBackward"]
-      152 GETTABLEKS                       R24 R0 K70 ["skipForwardWrapper"]
-      154 SETTABLEKS                       R24 R23 K62 ["SkipForward"]
-      156 GETTABLEKS                       R24 R0 K71 ["setPlayStateWrapper"]
-      158 SETTABLEKS                       R24 R23 K63 ["SetPlayState"]
-      160 GETTABLEKS                       R24 R0 K72 ["toggleLoopingWrapper"]
-      162 SETTABLEKS                       R24 R23 K64 ["ToggleLooping"]
-      164 GETTABLEKS                       R24 R0 K73 ["goToFirstFrameWrapper"]
-      166 SETTABLEKS                       R24 R23 K65 ["GoToFirstFrame"]
-      168 GETTABLEKS                       R24 R0 K74 ["goToLastFrameWrapper"]
-      170 SETTABLEKS                       R24 R23 K66 ["GoToLastFrame"]
-      172 LOADN                            R24 1
-      173 SETTABLEKS                       R24 R23 K20 ["LayoutOrder"]
-      175 CALL                             R21 2 1
-      176 SETTABLEKS                       R21 R20 K32 ["MediaControls"]
-      178 GETUPVAL                         R21 0
-      179 GETTABLEKS                       R21 R21 K16 ["createElement"]
-      181 GETUPVAL                         R22 4
-      182 DUPTABLE                         R23 K75 [{"StartTick", "EndTick", "FrameRate", "TimelineUnit", "AnimationData", "Playhead", "EditingLength", "StepAnimation", "UpdateEditingLength", "ReadOnly", "LayoutOrder"}]
-      183 SETTABLEKS                       R7 R23 K6 ["StartTick"]
-      185 SETTABLEKS                       R8 R23 K7 ["EndTick"]
-      187 SETTABLEKS                       R14 R23 K13 ["FrameRate"]
-      189 SETTABLEKS                       R11 R23 K10 ["TimelineUnit"]
-      191 SETTABLEKS                       R3 R23 K2 ["AnimationData"]
-      193 SETTABLEKS                       R9 R23 K8 ["Playhead"]
-      195 SETTABLEKS                       R10 R23 K9 ["EditingLength"]
-      197 SETTABLEKS                       R13 R23 K12 ["StepAnimation"]
-      199 SETTABLEKS                       R12 R23 K11 ["UpdateEditingLength"]
-      201 SETTABLEKS                       R16 R23 K15 ["ReadOnly"]
-      203 LOADN                            R24 2
-      204 SETTABLEKS                       R24 R23 K20 ["LayoutOrder"]
-      206 CALL                             R21 2 1
-      207 SETTABLEKS                       R21 R20 K33 ["TimeDisplay"]
-      209 CALL                             R17 3 -1
-      210 RETURN                           R17 -1
+       48 GETTABLEKS                       R20 R2 K30 ["backgroundColor"]
+       50 SETTABLEKS                       R20 R19 K23 ["BackgroundColor3"]
+       52 GETTABLEKS                       R20 R2 K31 ["borderColor"]
+       54 SETTABLEKS                       R20 R19 K24 ["BorderColor3"]
+       56 DUPTABLE                         R20 K36 [{"Layout", "AnimationClipDropdown", "MediaControls", "TimeDisplay"}]
+       57 GETUPVAL                         R21 0
+       58 GETTABLEKS                       R21 R21 K16 ["createElement"]
+       60 LOADK                            R22 K37 ["UIListLayout"]
+       61 DUPTABLE                         R23 K42 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
+       62 GETIMPORT                        R24 K45 [Enum.FillDirection.Horizontal]
+       64 SETTABLEKS                       R24 R23 K38 ["FillDirection"]
+       66 GETIMPORT                        R24 K47 [Enum.HorizontalAlignment.Left]
+       68 SETTABLEKS                       R24 R23 K39 ["HorizontalAlignment"]
+       70 GETIMPORT                        R24 K48 [Enum.SortOrder.LayoutOrder]
+       72 SETTABLEKS                       R24 R23 K40 ["SortOrder"]
+       74 GETIMPORT                        R24 K50 [Enum.VerticalAlignment.Center]
+       76 SETTABLEKS                       R24 R23 K41 ["VerticalAlignment"]
+       78 CALL                             R21 2 1
+       79 SETTABLEKS                       R21 R20 K32 ["Layout"]
+       81 GETUPVAL                         R21 0
+       82 GETTABLEKS                       R21 R21 K16 ["createElement"]
+       84 GETUPVAL                         R22 2
+       85 DUPTABLE                         R23 K54 [{["AnimationName"], ["IsLegacyAnimSaves"], ["RootInstance"], ["LoadAnimationData"], ["InstanceType"], ["LayoutOrder"] = 0, ["IsChannelAnimation"]}]
+       86 JUMPIFNOT                        R3 ; [+5]
+       87 GETTABLEKS                       R24 R3 K55 ["Metadata"]
+       89 GETTABLEKS                       R24 R24 K56 ["Name"]
+       91 JUMPIF                           R24 ; [+1]
+       92 LOADK                            R24 K57 [""]
+       93 SETTABLEKS                       R24 R23 K51 ["AnimationName"]
+       95 SETTABLEKS                       R4 R23 K3 ["IsLegacyAnimSaves"]
+       97 SETTABLEKS                       R6 R23 K5 ["RootInstance"]
+       99 GETTABLEKS                       R24 R0 K58 ["loadAnimationDataWrapper"]
+      101 SETTABLEKS                       R24 R23 K52 ["LoadAnimationData"]
+      103 MOVE                             R24 R6
+      104 JUMPIFNOT                        R24 ; [+8]
+      105 MOVE                             R24 R3
+      106 JUMPIFNOT                        R24 ; [+6]
+      107 GETTABLEKS                       R24 R3 K59 ["Instances"]
+      109 GETTABLEKS                       R24 R24 K60 ["Root"]
+      111 GETTABLEKS                       R24 R24 K61 ["Type"]
+      113 SETTABLEKS                       R24 R23 K53 ["InstanceType"]
+      115 SETTABLEKS                       R15 R23 K14 ["IsChannelAnimation"]
+      117 CALL                             R21 2 1
+      118 SETTABLEKS                       R21 R20 K33 ["AnimationClipDropdown"]
+      120 GETUPVAL                         R21 0
+      121 GETTABLEKS                       R21 R21 K16 ["createElement"]
+      123 GETUPVAL                         R22 3
+      124 DUPTABLE                         R23 K69 [{["PlayState"], ["IsLooping"], ["SkipBackward"], ["SkipForward"], ["SetPlayState"], ["ToggleLooping"], ["GoToFirstFrame"], ["GoToLastFrame"], ["LayoutOrder"] = 1}]
+      125 SETTABLEKS                       R5 R23 K4 ["PlayState"]
+      127 JUMPIFNOT                        R3 ; [+8]
+      128 GETTABLEKS                       R25 R3 K55 ["Metadata"]
+      130 JUMPIFNOT                        R25 ; [+5]
+      131 GETTABLEKS                       R24 R3 K55 ["Metadata"]
+      133 GETTABLEKS                       R24 R24 K70 ["Looping"]
+      135 JUMPIF                           R24 ; [+1]
+      136 LOADB                            R24 0
+      137 SETTABLEKS                       R24 R23 K62 ["IsLooping"]
+      139 GETTABLEKS                       R24 R0 K71 ["skipBackwardWrapper"]
+      141 SETTABLEKS                       R24 R23 K63 ["SkipBackward"]
+      143 GETTABLEKS                       R24 R0 K72 ["skipForwardWrapper"]
+      145 SETTABLEKS                       R24 R23 K64 ["SkipForward"]
+      147 GETTABLEKS                       R24 R0 K73 ["setPlayStateWrapper"]
+      149 SETTABLEKS                       R24 R23 K65 ["SetPlayState"]
+      151 GETTABLEKS                       R24 R0 K74 ["toggleLoopingWrapper"]
+      153 SETTABLEKS                       R24 R23 K66 ["ToggleLooping"]
+      155 GETTABLEKS                       R24 R0 K75 ["goToFirstFrameWrapper"]
+      157 SETTABLEKS                       R24 R23 K67 ["GoToFirstFrame"]
+      159 GETTABLEKS                       R24 R0 K76 ["goToLastFrameWrapper"]
+      161 SETTABLEKS                       R24 R23 K68 ["GoToLastFrame"]
+      163 CALL                             R21 2 1
+      164 SETTABLEKS                       R21 R20 K34 ["MediaControls"]
+      166 GETUPVAL                         R21 0
+      167 GETTABLEKS                       R21 R21 K16 ["createElement"]
+      169 GETUPVAL                         R22 4
+      170 DUPTABLE                         R23 K78 [{["StartTick"], ["EndTick"], ["FrameRate"], ["TimelineUnit"], ["AnimationData"], ["Playhead"], ["EditingLength"], ["StepAnimation"], ["UpdateEditingLength"], ["ReadOnly"], ["LayoutOrder"] = 2}]
+      171 SETTABLEKS                       R7 R23 K6 ["StartTick"]
+      173 SETTABLEKS                       R8 R23 K7 ["EndTick"]
+      175 SETTABLEKS                       R14 R23 K13 ["FrameRate"]
+      177 SETTABLEKS                       R11 R23 K10 ["TimelineUnit"]
+      179 SETTABLEKS                       R3 R23 K2 ["AnimationData"]
+      181 SETTABLEKS                       R9 R23 K8 ["Playhead"]
+      183 SETTABLEKS                       R10 R23 K9 ["EditingLength"]
+      185 SETTABLEKS                       R13 R23 K12 ["StepAnimation"]
+      187 SETTABLEKS                       R12 R23 K11 ["UpdateEditingLength"]
+      189 SETTABLEKS                       R16 R23 K15 ["ReadOnly"]
+      191 CALL                             R21 2 1
+      192 SETTABLEKS                       R21 R20 K35 ["TimeDisplay"]
+      194 CALL                             R17 3 -1
+      195 RETURN                           R17 -1
 
 PROTO_9:
         0 DUPTABLE                         R1 K4 [{"FrameRate", "PlayState", "ReadOnly", "RootInstance"}]

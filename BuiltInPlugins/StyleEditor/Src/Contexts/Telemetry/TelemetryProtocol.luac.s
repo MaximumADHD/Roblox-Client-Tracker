@@ -94,109 +94,83 @@ MAIN:
        43 GETTABLEKS                       R6 R6 K6 ["Parent"]
        45 GETTABLEKS                       R6 R6 K16 ["Types"]
        47 CALL                             R5 1 1
-       48 DUPTABLE                         R6 K20 [{"RobloxTelemetry", "EphemeralCounter", "EphemeralStat"}]
-       49 LOADK                            R7 K17 ["RobloxTelemetry"]
-       50 SETTABLEKS                       R7 R6 K17 ["RobloxTelemetry"]
-       52 LOADK                            R7 K18 ["EphemeralCounter"]
-       53 SETTABLEKS                       R7 R6 K18 ["EphemeralCounter"]
-       55 LOADK                            R7 K19 ["EphemeralStat"]
-       56 SETTABLEKS                       R7 R6 K19 ["EphemeralStat"]
-       58 DUPTABLE                         R7 K24 [{"UNSPECIFIED", "EventIngest", "Points", "EphemeralCounter", "EphemeralStat"}]
-       59 LOADK                            R8 K21 ["UNSPECIFIED"]
-       60 SETTABLEKS                       R8 R7 K21 ["UNSPECIFIED"]
-       62 LOADK                            R8 K22 ["EventIngest"]
-       63 SETTABLEKS                       R8 R7 K22 ["EventIngest"]
-       65 LOADK                            R8 K23 ["Points"]
-       66 SETTABLEKS                       R8 R7 K23 ["Points"]
-       68 LOADK                            R8 K18 ["EphemeralCounter"]
-       69 SETTABLEKS                       R8 R7 K18 ["EphemeralCounter"]
-       71 LOADK                            R8 K19 ["EphemeralStat"]
-       72 SETTABLEKS                       R8 R7 K19 ["EphemeralStat"]
-       74 DUPTABLE                         R8 K29 [{"addPlaceId", "addUniverseId", "addPlaceInstanceId", "addSessionId"}]
-       75 LOADK                            R9 K25 ["addPlaceId"]
-       76 SETTABLEKS                       R9 R8 K25 ["addPlaceId"]
-       78 LOADK                            R9 K26 ["addUniverseId"]
-       79 SETTABLEKS                       R9 R8 K26 ["addUniverseId"]
-       81 LOADK                            R9 K27 ["addPlaceInstanceId"]
-       82 SETTABLEKS                       R9 R8 K27 ["addPlaceInstanceId"]
-       84 LOADK                            R9 K28 ["addSessionId"]
-       85 SETTABLEKS                       R9 R8 K28 ["addSessionId"]
-       87 GETTABLEKS                       R9 R3 K30 ["interface"]
-       89 DUPTABLE                         R10 K33 [{"eventName", "backends"}]
-       90 GETTABLEKS                       R11 R3 K34 ["string"]
-       92 SETTABLEKS                       R11 R10 K31 ["eventName"]
-       94 GETTABLEKS                       R11 R3 K35 ["array"]
-       96 GETTABLEKS                       R12 R3 K36 ["valueOf"]
-       98 MOVE                             R13 R7
-       99 CALL                             R12 1 -1
-      100 CALL                             R11 -1 1
-      101 SETTABLEKS                       R11 R10 K32 ["backends"]
-      103 CALL                             R9 1 1
-      104 GETTABLEKS                       R10 R3 K30 ["interface"]
-      106 DUPTABLE                         R11 K40 [{"eventType", "config", "data"}]
-      107 GETTABLEKS                       R12 R3 K36 ["valueOf"]
-      109 MOVE                             R13 R6
-      110 CALL                             R12 1 1
-      111 SETTABLEKS                       R12 R11 K37 ["eventType"]
-      113 SETTABLEKS                       R9 R11 K38 ["config"]
-      115 GETTABLEKS                       R12 R3 K41 ["union"]
-      117 GETTABLEKS                       R13 R3 K42 ["none"]
-      119 GETTABLEKS                       R14 R3 K30 ["interface"]
-      121 DUPTABLE                         R15 K44 [{"customFields"}]
-      122 GETTABLEKS                       R16 R3 K45 ["optional"]
-      124 GETTABLEKS                       R17 R3 K46 ["keys"]
-      126 GETTABLEKS                       R18 R3 K34 ["string"]
-      128 CALL                             R17 1 -1
-      129 CALL                             R16 -1 1
-      130 SETTABLEKS                       R16 R15 K43 ["customFields"]
-      132 CALL                             R14 1 1
-      133 GETTABLEKS                       R15 R3 K30 ["interface"]
-      135 DUPTABLE                         R16 K48 [{"incrementValue"}]
-      136 GETTABLEKS                       R17 R3 K49 ["number"]
-      138 SETTABLEKS                       R17 R16 K47 ["incrementValue"]
-      140 CALL                             R15 1 1
-      141 GETTABLEKS                       R16 R3 K30 ["interface"]
-      143 DUPTABLE                         R17 K51 [{"statValue"}]
-      144 GETTABLEKS                       R18 R3 K49 ["number"]
-      146 SETTABLEKS                       R18 R17 K50 ["statValue"]
-      148 CALL                             R16 1 -1
-      149 CALL                             R12 -1 1
-      150 SETTABLEKS                       R12 R11 K39 ["data"]
-      152 CALL                             R10 1 1
-      153 DUPTABLE                         R11 K59 [{"EventTypes", "Backends", "StandardizedFields", "LOG_EVENT_WITH_TIMESTAMP", "GET_TIMESTAMP", "LOG_EVENT_FROM_LUA", "ONE_HUNDRED_PERCENT"}]
-      154 SETTABLEKS                       R6 R11 K52 ["EventTypes"]
-      156 SETTABLEKS                       R7 R11 K53 ["Backends"]
-      158 SETTABLEKS                       R8 R11 K54 ["StandardizedFields"]
-      160 LOADK                            R14 K60 ["Logging"]
-      161 LOADK                            R15 K61 ["logEventWithTimestamp"]
-      162 NAMECALL                         R12 R0 K62 ["GetMessageId"]
-      164 CALL                             R12 3 1
-      165 SETTABLEKS                       R12 R11 K55 ["LOG_EVENT_WITH_TIMESTAMP"]
-      167 LOADK                            R14 K60 ["Logging"]
-      168 LOADK                            R15 K63 ["getTimestamp"]
-      169 NAMECALL                         R12 R0 K62 ["GetMessageId"]
-      171 CALL                             R12 3 1
-      172 SETTABLEKS                       R12 R11 K56 ["GET_TIMESTAMP"]
-      174 LOADK                            R14 K60 ["Logging"]
-      175 LOADK                            R15 K64 ["logEventFromLua"]
-      176 NAMECALL                         R12 R0 K62 ["GetMessageId"]
-      178 CALL                             R12 3 1
-      179 SETTABLEKS                       R12 R11 K57 ["LOG_EVENT_FROM_LUA"]
-      181 LOADN                            R12 16
-      182 SETTABLEKS                       R12 R11 K58 ["ONE_HUNDRED_PERCENT"]
-      184 SETTABLEKS                       R11 R11 K65 ["__index"]
-      186 DUPCLOSURE                       R12 K66 [PROTO_0]
-      187 CAPTURE                          VAL R0
-      188 CAPTURE                          VAL R11
-      189 SETTABLEKS                       R12 R11 K67 ["new"]
-      191 DUPCLOSURE                       R12 K68 [PROTO_1]
-      192 SETTABLEKS                       R12 R11 K61 ["logEventWithTimestamp"]
-      194 DUPCLOSURE                       R12 K69 [PROTO_2]
-      195 SETTABLEKS                       R12 R11 K70 ["logEvent"]
-      197 DUPCLOSURE                       R12 K71 [PROTO_3]
-      198 SETTABLEKS                       R12 R11 K63 ["getTimestamp"]
-      200 DUPCLOSURE                       R12 K72 [PROTO_4]
-      201 CAPTURE                          VAL R10
-      202 CAPTURE                          VAL R4
-      203 SETTABLEKS                       R12 R11 K73 ["logTelemetryEvent"]
-      205 RETURN                           R11 1
+       48 DUPTABLE                         R6 K20 [{["RobloxTelemetry"] = "RobloxTelemetry", ["EphemeralCounter"] = "EphemeralCounter", ["EphemeralStat"] = "EphemeralStat"}]
+       49 DUPTABLE                         R7 K24 [{["UNSPECIFIED"] = "UNSPECIFIED", ["EventIngest"] = "EventIngest", ["Points"] = "Points", ["EphemeralCounter"] = "EphemeralCounter", ["EphemeralStat"] = "EphemeralStat"}]
+       50 DUPTABLE                         R8 K29 [{["addPlaceId"] = "addPlaceId", ["addUniverseId"] = "addUniverseId", ["addPlaceInstanceId"] = "addPlaceInstanceId", ["addSessionId"] = "addSessionId"}]
+       51 GETTABLEKS                       R9 R3 K30 ["interface"]
+       53 DUPTABLE                         R10 K33 [{"eventName", "backends"}]
+       54 GETTABLEKS                       R11 R3 K34 ["string"]
+       56 SETTABLEKS                       R11 R10 K31 ["eventName"]
+       58 GETTABLEKS                       R11 R3 K35 ["array"]
+       60 GETTABLEKS                       R12 R3 K36 ["valueOf"]
+       62 MOVE                             R13 R7
+       63 CALL                             R12 1 -1
+       64 CALL                             R11 -1 1
+       65 SETTABLEKS                       R11 R10 K32 ["backends"]
+       67 CALL                             R9 1 1
+       68 GETTABLEKS                       R10 R3 K30 ["interface"]
+       70 DUPTABLE                         R11 K40 [{"eventType", "config", "data"}]
+       71 GETTABLEKS                       R12 R3 K36 ["valueOf"]
+       73 MOVE                             R13 R6
+       74 CALL                             R12 1 1
+       75 SETTABLEKS                       R12 R11 K37 ["eventType"]
+       77 SETTABLEKS                       R9 R11 K38 ["config"]
+       79 GETTABLEKS                       R12 R3 K41 ["union"]
+       81 GETTABLEKS                       R13 R3 K42 ["none"]
+       83 GETTABLEKS                       R14 R3 K30 ["interface"]
+       85 DUPTABLE                         R15 K44 [{"customFields"}]
+       86 GETTABLEKS                       R16 R3 K45 ["optional"]
+       88 GETTABLEKS                       R17 R3 K46 ["keys"]
+       90 GETTABLEKS                       R18 R3 K34 ["string"]
+       92 CALL                             R17 1 -1
+       93 CALL                             R16 -1 1
+       94 SETTABLEKS                       R16 R15 K43 ["customFields"]
+       96 CALL                             R14 1 1
+       97 GETTABLEKS                       R15 R3 K30 ["interface"]
+       99 DUPTABLE                         R16 K48 [{"incrementValue"}]
+      100 GETTABLEKS                       R17 R3 K49 ["number"]
+      102 SETTABLEKS                       R17 R16 K47 ["incrementValue"]
+      104 CALL                             R15 1 1
+      105 GETTABLEKS                       R16 R3 K30 ["interface"]
+      107 DUPTABLE                         R17 K51 [{"statValue"}]
+      108 GETTABLEKS                       R18 R3 K49 ["number"]
+      110 SETTABLEKS                       R18 R17 K50 ["statValue"]
+      112 CALL                             R16 1 -1
+      113 CALL                             R12 -1 1
+      114 SETTABLEKS                       R12 R11 K39 ["data"]
+      116 CALL                             R10 1 1
+      117 DUPTABLE                         R11 K60 [{["EventTypes"], ["Backends"], ["StandardizedFields"], ["LOG_EVENT_WITH_TIMESTAMP"], ["GET_TIMESTAMP"], ["LOG_EVENT_FROM_LUA"], ["ONE_HUNDRED_PERCENT"] = 10000}]
+      118 SETTABLEKS                       R6 R11 K52 ["EventTypes"]
+      120 SETTABLEKS                       R7 R11 K53 ["Backends"]
+      122 SETTABLEKS                       R8 R11 K54 ["StandardizedFields"]
+      124 LOADK                            R14 K61 ["Logging"]
+      125 LOADK                            R15 K62 ["logEventWithTimestamp"]
+      126 NAMECALL                         R12 R0 K63 ["GetMessageId"]
+      128 CALL                             R12 3 1
+      129 SETTABLEKS                       R12 R11 K55 ["LOG_EVENT_WITH_TIMESTAMP"]
+      131 LOADK                            R14 K61 ["Logging"]
+      132 LOADK                            R15 K64 ["getTimestamp"]
+      133 NAMECALL                         R12 R0 K63 ["GetMessageId"]
+      135 CALL                             R12 3 1
+      136 SETTABLEKS                       R12 R11 K56 ["GET_TIMESTAMP"]
+      138 LOADK                            R14 K61 ["Logging"]
+      139 LOADK                            R15 K65 ["logEventFromLua"]
+      140 NAMECALL                         R12 R0 K63 ["GetMessageId"]
+      142 CALL                             R12 3 1
+      143 SETTABLEKS                       R12 R11 K57 ["LOG_EVENT_FROM_LUA"]
+      145 SETTABLEKS                       R11 R11 K66 ["__index"]
+      147 DUPCLOSURE                       R12 K67 [PROTO_0]
+      148 CAPTURE                          VAL R0
+      149 CAPTURE                          VAL R11
+      150 SETTABLEKS                       R12 R11 K68 ["new"]
+      152 DUPCLOSURE                       R12 K69 [PROTO_1]
+      153 SETTABLEKS                       R12 R11 K62 ["logEventWithTimestamp"]
+      155 DUPCLOSURE                       R12 K70 [PROTO_2]
+      156 SETTABLEKS                       R12 R11 K71 ["logEvent"]
+      158 DUPCLOSURE                       R12 K72 [PROTO_3]
+      159 SETTABLEKS                       R12 R11 K64 ["getTimestamp"]
+      161 DUPCLOSURE                       R12 K73 [PROTO_4]
+      162 CAPTURE                          VAL R10
+      163 CAPTURE                          VAL R4
+      164 SETTABLEKS                       R12 R11 K74 ["logTelemetryEvent"]
+      166 RETURN                           R11 1

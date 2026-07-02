@@ -31,42 +31,38 @@ PROTO_1:
         1 NEWTABLE                         R3 0 0
         3 GETVARARGS                       R4 -1
         4 SETLIST                          R3 R4 -1 [1]
-        6 JUMPIFNOTEQKS                    R2 K0 ["register"] ; [+30]
+        6 JUMPIFNOTEQKS                    R2 K0 ["register"] ; [+24]
         8 GETTABLEN                        R4 R3 1
         9 GETTABLEKS                       R6 R0 K1 ["clients"]
        11 GETTABLE                         R5 R6 R1
-       12 JUMPIF                           R5 ; [+12]
+       12 JUMPIF                           R5 ; [+6]
        13 GETTABLEKS                       R5 R0 K1 ["clients"]
-       15 DUPTABLE                         R6 K5 [{"id", "client", "onMessageConnection"}]
-       16 LOADNIL                          R7
-       17 SETTABLEKS                       R7 R6 K2 ["id"]
-       19 SETTABLEKS                       R1 R6 K3 ["client"]
-       21 LOADNIL                          R7
-       22 SETTABLEKS                       R7 R6 K4 ["onMessageConnection"]
-       24 SETTABLE                         R6 R5 R1
-       25 GETTABLEKS                       R6 R0 K1 ["clients"]
-       27 GETTABLE                         R5 R6 R1
-       28 SETTABLEKS                       R4 R5 K2 ["id"]
-       30 GETTABLEKS                       R5 R0 K6 ["onClientConnected"]
-       32 MOVE                             R7 R4
-       33 NAMECALL                         R5 R5 K7 ["Fire"]
-       35 CALL                             R5 2 0
-       36 RETURN                           R0 0
-       37 GETTABLEKS                       R5 R0 K1 ["clients"]
-       39 GETTABLE                         R4 R5 R1
-       40 GETTABLEKS                       R4 R4 K2 ["id"]
-       42 FASTCALL2K                       ASSERT R4 K8 ; [+5]
-       44 MOVE                             R6 R4
-       45 LOADK                            R7 K8 ["Client must be registered before sending commands"]
-       46 GETIMPORT                        R5 K10 [assert]
-       48 CALL                             R5 2 0
-       49 GETTABLEKS                       R5 R0 K11 ["onCommand"]
-       51 MOVE                             R7 R4
-       52 MOVE                             R8 R2
-       53 GETVARARGS                       R9 -1
-       54 NAMECALL                         R5 R5 K7 ["Fire"]
-       56 CALL                             R5 -1 0
-       57 RETURN                           R0 0
+       15 DUPTABLE                         R6 K6 [{["id"] = , ["client"], ["onMessageConnection"] = }]
+       16 SETTABLEKS                       R1 R6 K4 ["client"]
+       18 SETTABLE                         R6 R5 R1
+       19 GETTABLEKS                       R6 R0 K1 ["clients"]
+       21 GETTABLE                         R5 R6 R1
+       22 SETTABLEKS                       R4 R5 K2 ["id"]
+       24 GETTABLEKS                       R5 R0 K7 ["onClientConnected"]
+       26 MOVE                             R7 R4
+       27 NAMECALL                         R5 R5 K8 ["Fire"]
+       29 CALL                             R5 2 0
+       30 RETURN                           R0 0
+       31 GETTABLEKS                       R5 R0 K1 ["clients"]
+       33 GETTABLE                         R4 R5 R1
+       34 GETTABLEKS                       R4 R4 K2 ["id"]
+       36 FASTCALL2K                       ASSERT R4 K9 ; [+5]
+       38 MOVE                             R6 R4
+       39 LOADK                            R7 K9 ["Client must be registered before sending commands"]
+       40 GETIMPORT                        R5 K11 [assert]
+       42 CALL                             R5 2 0
+       43 GETTABLEKS                       R5 R0 K12 ["onCommand"]
+       45 MOVE                             R7 R4
+       46 MOVE                             R8 R2
+       47 GETVARARGS                       R9 -1
+       48 NAMECALL                         R5 R5 K8 ["Fire"]
+       50 CALL                             R5 -1 0
+       51 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -137,21 +133,19 @@ PROTO_6:
        11 NAMECALL                         R2 R1 K4 ["BindToMessage"]
        13 CALL                             R2 2 1
        14 GETTABLEKS                       R3 R0 K5 ["clients"]
-       16 DUPTABLE                         R4 K9 [{"id", "onMessageConnection", "client"}]
-       17 LOADNIL                          R5
-       18 SETTABLEKS                       R5 R4 K6 ["id"]
-       20 SETTABLEKS                       R2 R4 K7 ["onMessageConnection"]
-       22 SETTABLEKS                       R1 R4 K8 ["client"]
-       24 SETTABLE                         R4 R3 R1
-       25 LOADK                            R5 K0 ["Connected"]
-       26 NAMECALL                         R3 R1 K10 ["GetPropertyChangedSignal"]
-       28 CALL                             R3 2 1
-       29 NEWCLOSURE                       R5 P1
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          VAL R1
-       32 NAMECALL                         R3 R3 K11 ["Once"]
-       34 CALL                             R3 2 0
-       35 RETURN                           R0 0
+       16 DUPTABLE                         R4 K10 [{["id"] = , ["onMessageConnection"], ["client"]}]
+       17 SETTABLEKS                       R2 R4 K8 ["onMessageConnection"]
+       19 SETTABLEKS                       R1 R4 K9 ["client"]
+       21 SETTABLE                         R4 R3 R1
+       22 LOADK                            R5 K0 ["Connected"]
+       23 NAMECALL                         R3 R1 K11 ["GetPropertyChangedSignal"]
+       25 CALL                             R3 2 1
+       26 NEWCLOSURE                       R5 P1
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          VAL R1
+       29 NAMECALL                         R3 R3 K12 ["Once"]
+       31 CALL                             R3 2 0
+       32 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["clients"]
@@ -230,19 +224,17 @@ PROTO_11:
         0 PREPVARARGS                      3
         1 MOVE                             R5 R1
         2 GETUPVAL                         R6 0
-        3 DUPTABLE                         R8 K3 [{"type", "command", "args"}]
-        4 LOADK                            R9 K1 ["command"]
-        5 SETTABLEKS                       R9 R8 K0 ["type"]
-        7 SETTABLEKS                       R2 R8 K1 ["command"]
-        9 NEWTABLE                         R9 0 0
-       11 GETVARARGS                       R10 -1
-       12 SETLIST                          R9 R10 -1 [1]
-       14 SETTABLEKS                       R9 R8 K2 ["args"]
-       16 NAMECALL                         R6 R6 K4 ["JSONEncode"]
-       18 CALL                             R6 2 -1
-       19 NAMECALL                         R3 R0 K5 ["sendMessage"]
-       21 CALL                             R3 -1 0
-       22 RETURN                           R0 0
+        3 DUPTABLE                         R8 K3 [{[1] = "command", ["command"], ["args"]}]
+        4 SETTABLEKS                       R2 R8 K1 ["command"]
+        6 NEWTABLE                         R9 0 0
+        8 GETVARARGS                       R10 -1
+        9 SETLIST                          R9 R10 -1 [1]
+       11 SETTABLEKS                       R9 R8 K2 ["args"]
+       13 NAMECALL                         R6 R6 K4 ["JSONEncode"]
+       15 CALL                             R6 2 -1
+       16 NAMECALL                         R3 R0 K5 ["sendMessage"]
+       18 CALL                             R3 -1 0
+       19 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["clients"]

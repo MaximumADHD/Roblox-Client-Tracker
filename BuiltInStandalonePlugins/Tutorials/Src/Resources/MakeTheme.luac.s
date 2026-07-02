@@ -31,64 +31,42 @@ MAIN:
        18 GETTABLEKS                       R3 R2 K8 ["Themes"]
        20 GETTABLEKS                       R3 R3 K9 ["StudioTheme"]
        22 GETTABLEKS                       R4 R2 K10 ["StyleKey"]
-       24 DUPTABLE                         R5 K25 [{"ContentHeight", "SelectedTopicTextColor", "TopicTextColor", "CircleColor", "CircleSize", "HintKeyBorder", "HintKeyBackground", "HintKeyBorderPressed", "HintKeyBackgroundPressed", "HintKeyTextColor", "HintKeyTextColorPressed", "IconSize", "Padding", "PaddingSmall"}]
-       25 GETIMPORT                        R6 K28 [UDim2.new]
+       24 DUPTABLE                         R5 K28 [{["ContentHeight"], ["SelectedTopicTextColor"], ["TopicTextColor"], ["CircleColor"], ["CircleSize"] = 24, ["HintKeyBorder"], ["HintKeyBackground"], ["HintKeyBorderPressed"], ["HintKeyBackgroundPressed"], ["HintKeyTextColor"], ["HintKeyTextColorPressed"], ["IconSize"], ["Padding"] = 15, ["PaddingSmall"] = 5}]
+       25 GETIMPORT                        R6 K31 [UDim2.new]
        27 LOADN                            R7 1
        28 LOADN                            R8 0
        29 LOADN                            R9 1
-       30 LOADN                            R10 126
+       30 LOADN                            R10 -130
        31 CALL                             R6 4 1
        32 SETTABLEKS                       R6 R5 K11 ["ContentHeight"]
-       34 GETTABLEKS                       R6 R4 K29 ["MainText"]
+       34 GETTABLEKS                       R6 R4 K32 ["MainText"]
        36 SETTABLEKS                       R6 R5 K12 ["SelectedTopicTextColor"]
-       38 GETTABLEKS                       R6 R4 K30 ["SubText"]
+       38 GETTABLEKS                       R6 R4 K33 ["SubText"]
        40 SETTABLEKS                       R6 R5 K13 ["TopicTextColor"]
-       42 GETTABLEKS                       R6 R4 K31 ["ForegroundContrast"]
+       42 GETTABLEKS                       R6 R4 K34 ["ForegroundContrast"]
        44 SETTABLEKS                       R6 R5 K14 ["CircleColor"]
-       46 LOADN                            R6 24
-       47 SETTABLEKS                       R6 R5 K15 ["CircleSize"]
-       49 GETTABLEKS                       R6 R4 K30 ["SubText"]
-       51 SETTABLEKS                       R6 R5 K16 ["HintKeyBorder"]
-       53 GETTABLEKS                       R6 R4 K31 ["ForegroundContrast"]
-       55 SETTABLEKS                       R6 R5 K17 ["HintKeyBackground"]
-       57 GETTABLEKS                       R6 R4 K29 ["MainText"]
-       59 SETTABLEKS                       R6 R5 K18 ["HintKeyBorderPressed"]
-       61 GETTABLEKS                       R6 R4 K30 ["SubText"]
-       63 SETTABLEKS                       R6 R5 K19 ["HintKeyBackgroundPressed"]
-       65 GETTABLEKS                       R6 R4 K29 ["MainText"]
-       67 SETTABLEKS                       R6 R5 K20 ["HintKeyTextColor"]
-       69 GETTABLEKS                       R6 R4 K32 ["TextContrast"]
-       71 SETTABLEKS                       R6 R5 K21 ["HintKeyTextColorPressed"]
-       73 GETIMPORT                        R6 K34 [UDim2.fromOffset]
-       75 LOADN                            R7 16
-       76 LOADN                            R8 16
-       77 CALL                             R6 2 1
-       78 SETTABLEKS                       R6 R5 K22 ["IconSize"]
-       80 LOADN                            R6 15
-       81 SETTABLEKS                       R6 R5 K23 ["Padding"]
-       83 LOADN                            R6 5
-       84 SETTABLEKS                       R6 R5 K24 ["PaddingSmall"]
-       86 DUPTABLE                         R6 K39 [{"CheckmarkImage", "ListSelectedImage", "ListImage", "CloseImage"}]
-       87 LOADK                            R7 K40 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Checkmark.png"]
-       88 SETTABLEKS                       R7 R6 K35 ["CheckmarkImage"]
-       90 LOADK                            R7 K41 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/List-Selected.png"]
-       91 SETTABLEKS                       R7 R6 K36 ["ListSelectedImage"]
-       93 LOADK                            R7 K42 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/List.png"]
-       94 SETTABLEKS                       R7 R6 K37 ["ListImage"]
-       96 LOADK                            R7 K43 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Close.png"]
-       97 SETTABLEKS                       R7 R6 K38 ["CloseImage"]
-       99 DUPTABLE                         R7 K39 [{"CheckmarkImage", "ListSelectedImage", "ListImage", "CloseImage"}]
-      100 LOADK                            R8 K44 ["rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/Checkmark.png"]
-      101 SETTABLEKS                       R8 R7 K35 ["CheckmarkImage"]
-      103 LOADK                            R8 K45 ["rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/List-Selected.png"]
-      104 SETTABLEKS                       R8 R7 K36 ["ListSelectedImage"]
-      106 LOADK                            R8 K46 ["rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/List.png"]
-      107 SETTABLEKS                       R8 R7 K37 ["ListImage"]
-      109 LOADK                            R8 K47 ["rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/Close.png"]
-      110 SETTABLEKS                       R8 R7 K38 ["CloseImage"]
-      112 DUPCLOSURE                       R8 K48 [PROTO_0]
-      113 CAPTURE                          VAL R3
-      114 CAPTURE                          VAL R7
-      115 CAPTURE                          VAL R6
-      116 CAPTURE                          VAL R5
-      117 RETURN                           R8 1
+       46 GETTABLEKS                       R6 R4 K33 ["SubText"]
+       48 SETTABLEKS                       R6 R5 K17 ["HintKeyBorder"]
+       50 GETTABLEKS                       R6 R4 K34 ["ForegroundContrast"]
+       52 SETTABLEKS                       R6 R5 K18 ["HintKeyBackground"]
+       54 GETTABLEKS                       R6 R4 K32 ["MainText"]
+       56 SETTABLEKS                       R6 R5 K19 ["HintKeyBorderPressed"]
+       58 GETTABLEKS                       R6 R4 K33 ["SubText"]
+       60 SETTABLEKS                       R6 R5 K20 ["HintKeyBackgroundPressed"]
+       62 GETTABLEKS                       R6 R4 K32 ["MainText"]
+       64 SETTABLEKS                       R6 R5 K21 ["HintKeyTextColor"]
+       66 GETTABLEKS                       R6 R4 K35 ["TextContrast"]
+       68 SETTABLEKS                       R6 R5 K22 ["HintKeyTextColorPressed"]
+       70 GETIMPORT                        R6 K37 [UDim2.fromOffset]
+       72 LOADN                            R7 16
+       73 LOADN                            R8 16
+       74 CALL                             R6 2 1
+       75 SETTABLEKS                       R6 R5 K23 ["IconSize"]
+       77 DUPTABLE                         R6 K46 [{["CheckmarkImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Checkmark.png", ["ListSelectedImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/List-Selected.png", ["ListImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/List.png", ["CloseImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Close.png"}]
+       78 DUPTABLE                         R7 K51 [{["CheckmarkImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/Checkmark.png", ["ListSelectedImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/List-Selected.png", ["ListImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/List.png", ["CloseImage"] = "rbxasset://studio_svg_textures/Lua/Tutorials/Dark/Standard/Close.png"}]
+       79 DUPCLOSURE                       R8 K52 [PROTO_0]
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R7
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R5
+       84 RETURN                           R8 1

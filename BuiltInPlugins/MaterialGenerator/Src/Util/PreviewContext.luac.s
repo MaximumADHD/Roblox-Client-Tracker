@@ -17,18 +17,16 @@ MAIN:
        25 GETTABLEKS                       R5 R0 K10 ["Src"]
        27 GETTABLEKS                       R5 R5 K11 ["Types"]
        29 CALL                             R4 1 1
-       30 DUPTABLE                         R5 K15 [{"selectedMaterial", "setSelectedMaterial", "applySelectedMaterial"}]
-       31 LOADNIL                          R6
-       32 SETTABLEKS                       R6 R5 K12 ["selectedMaterial"]
-       34 MOVE                             R6 R3
-       35 LOADK                            R7 K13 ["setSelectedMaterial"]
-       36 CALL                             R6 1 1
-       37 SETTABLEKS                       R6 R5 K13 ["setSelectedMaterial"]
-       39 MOVE                             R6 R3
-       40 LOADK                            R7 K14 ["applySelectedMaterial"]
-       41 CALL                             R6 1 1
-       42 SETTABLEKS                       R6 R5 K14 ["applySelectedMaterial"]
-       44 GETTABLEKS                       R6 R1 K16 ["createContext"]
-       46 MOVE                             R7 R5
-       47 CALL                             R6 1 1
-       48 RETURN                           R6 1
+       30 DUPTABLE                         R5 K16 [{["selectedMaterial"] = , ["setSelectedMaterial"], ["applySelectedMaterial"]}]
+       31 MOVE                             R6 R3
+       32 LOADK                            R7 K14 ["setSelectedMaterial"]
+       33 CALL                             R6 1 1
+       34 SETTABLEKS                       R6 R5 K14 ["setSelectedMaterial"]
+       36 MOVE                             R6 R3
+       37 LOADK                            R7 K15 ["applySelectedMaterial"]
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K15 ["applySelectedMaterial"]
+       41 GETTABLEKS                       R6 R1 K17 ["createContext"]
+       43 MOVE                             R7 R5
+       44 CALL                             R6 1 1
+       45 RETURN                           R6 1

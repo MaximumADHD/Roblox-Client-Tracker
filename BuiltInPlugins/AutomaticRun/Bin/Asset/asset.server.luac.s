@@ -53,24 +53,16 @@ MAIN:
        78 CALL                             R5 2 1
        79 NAMECALL                         R5 R5 K27 ["IsEdit"]
        81 CALL                             R5 1 1
-       82 JUMPIFNOT                        R5 ; [+27]
+       82 JUMPIFNOT                        R5 ; [+15]
        83 GETIMPORT                        R5 K29 [wait]
        85 MOVE                             R6 R0
        86 CALL                             R5 1 0
-       87 DUPTABLE                         R5 K34 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       88 LOADK                            R6 K35 ["Standalone"]
-       89 SETTABLEKS                       R6 R5 K30 ["DataModel"]
-       91 LOADK                            R6 K36 ["RunTools"]
-       92 SETTABLEKS                       R6 R5 K31 ["PluginId"]
-       94 LOADK                            R6 K37 ["Actions"]
-       95 SETTABLEKS                       R6 R5 K32 ["Category"]
-       97 LOADK                            R6 K38 ["Run"]
-       98 SETTABLEKS                       R6 R5 K33 ["ItemId"]
-      100 GETIMPORT                        R6 K1 [plugin]
-      102 LOADK                            R8 K37 ["Actions"]
-      103 NAMECALL                         R6 R6 K39 ["GetPluginComponent"]
-      105 CALL                             R6 2 1
-      106 MOVE                             R9 R5
-      107 NAMECALL                         R7 R6 K40 ["ActivateAsync"]
-      109 CALL                             R7 2 0
-      110 RETURN                           R0 0
+       87 DUPTABLE                         R5 K38 [{["DataModel"] = "Standalone", ["PluginId"] = "RunTools", ["Category"] = "Actions", ["ItemId"] = "Run"}]
+       88 GETIMPORT                        R6 K1 [plugin]
+       90 LOADK                            R8 K35 ["Actions"]
+       91 NAMECALL                         R6 R6 K39 ["GetPluginComponent"]
+       93 CALL                             R6 2 1
+       94 MOVE                             R9 R5
+       95 NAMECALL                         R7 R6 K40 ["ActivateAsync"]
+       97 CALL                             R7 2 0
+       98 RETURN                           R0 0

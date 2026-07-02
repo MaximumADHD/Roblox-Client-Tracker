@@ -104,46 +104,32 @@ MAIN:
        88 GETTABLEKS                       R10 R10 K12 ["PlaybackTab"]
        90 GETTABLEKS                       R10 R10 K18 ["SetCurrentRecordingDeviceOrientation"]
        92 CALL                             R9 1 1
-       93 DUPTABLE                         R10 K28 [{"selectedRecordingIndex", "playbackFileNameOptions", "currentPlaybackRecordingDataValid", "currentRecordingDurationSec", "currentRecordingNumEvents", "currentRecordingResolution", "currentRecordingDeviceId", "currentRecordingDeviceOrientation", "shouldSetEmulationDevice"}]
-       94 LOADN                            R11 1
-       95 SETTABLEKS                       R11 R10 K19 ["selectedRecordingIndex"]
-       97 NEWTABLE                         R11 0 0
-       99 SETTABLEKS                       R11 R10 K20 ["playbackFileNameOptions"]
-      101 LOADB                            R11 0
-      102 SETTABLEKS                       R11 R10 K21 ["currentPlaybackRecordingDataValid"]
-      104 LOADN                            R11 0
-      105 SETTABLEKS                       R11 R10 K22 ["currentRecordingDurationSec"]
-      107 LOADN                            R11 0
-      108 SETTABLEKS                       R11 R10 K23 ["currentRecordingNumEvents"]
-      110 GETIMPORT                        R11 K31 [Vector2.new]
-      112 CALL                             R11 0 1
-      113 SETTABLEKS                       R11 R10 K24 ["currentRecordingResolution"]
-      115 LOADK                            R11 K32 ["Unknown"]
-      116 SETTABLEKS                       R11 R10 K25 ["currentRecordingDeviceId"]
-      118 LOADK                            R11 K32 ["Unknown"]
-      119 SETTABLEKS                       R11 R10 K26 ["currentRecordingDeviceOrientation"]
-      121 LOADB                            R11 1
-      122 SETTABLEKS                       R11 R10 K27 ["shouldSetEmulationDevice"]
-      124 GETTABLEKS                       R11 R1 K33 ["createReducer"]
-      126 MOVE                             R12 R10
-      127 DUPTABLE                         R13 K34 [{"SetCurrentRecordingDurationSec", "SetCurrentRecordingNumEvents", "SetCurrentRecordingResolution", "SetCurrentRecordingDeviceId", "SetCurrentRecordingDeviceOrientation", "SetShouldSetEmulationDevice"}]
-      128 DUPCLOSURE                       R14 K35 [PROTO_0]
-      129 CAPTURE                          VAL R3
-      130 SETTABLEKS                       R14 R13 K14 ["SetCurrentRecordingDurationSec"]
-      132 DUPCLOSURE                       R14 K36 [PROTO_1]
-      133 CAPTURE                          VAL R3
-      134 SETTABLEKS                       R14 R13 K15 ["SetCurrentRecordingNumEvents"]
-      136 DUPCLOSURE                       R14 K37 [PROTO_2]
-      137 CAPTURE                          VAL R3
-      138 SETTABLEKS                       R14 R13 K16 ["SetCurrentRecordingResolution"]
-      140 DUPCLOSURE                       R14 K38 [PROTO_3]
-      141 CAPTURE                          VAL R3
-      142 SETTABLEKS                       R14 R13 K17 ["SetCurrentRecordingDeviceId"]
-      144 DUPCLOSURE                       R14 K39 [PROTO_4]
-      145 CAPTURE                          VAL R3
-      146 SETTABLEKS                       R14 R13 K18 ["SetCurrentRecordingDeviceOrientation"]
-      148 DUPCLOSURE                       R14 K40 [PROTO_5]
-      149 CAPTURE                          VAL R3
-      150 SETTABLEKS                       R14 R13 K13 ["SetShouldSetEmulationDevice"]
-      152 CALL                             R11 2 -1
-      153 RETURN                           R11 -1
+       93 DUPTABLE                         R10 K33 [{["selectedRecordingIndex"] = 1, ["playbackFileNameOptions"], ["currentPlaybackRecordingDataValid"] = False, ["currentRecordingDurationSec"] = 0, ["currentRecordingNumEvents"] = 0, ["currentRecordingResolution"], ["currentRecordingDeviceId"] = "Unknown", ["currentRecordingDeviceOrientation"] = "Unknown", ["shouldSetEmulationDevice"] = True}]
+       94 NEWTABLE                         R11 0 0
+       96 SETTABLEKS                       R11 R10 K21 ["playbackFileNameOptions"]
+       98 GETIMPORT                        R11 K36 [Vector2.new]
+      100 CALL                             R11 0 1
+      101 SETTABLEKS                       R11 R10 K27 ["currentRecordingResolution"]
+      103 GETTABLEKS                       R11 R1 K37 ["createReducer"]
+      105 MOVE                             R12 R10
+      106 DUPTABLE                         R13 K38 [{"SetCurrentRecordingDurationSec", "SetCurrentRecordingNumEvents", "SetCurrentRecordingResolution", "SetCurrentRecordingDeviceId", "SetCurrentRecordingDeviceOrientation", "SetShouldSetEmulationDevice"}]
+      107 DUPCLOSURE                       R14 K39 [PROTO_0]
+      108 CAPTURE                          VAL R3
+      109 SETTABLEKS                       R14 R13 K14 ["SetCurrentRecordingDurationSec"]
+      111 DUPCLOSURE                       R14 K40 [PROTO_1]
+      112 CAPTURE                          VAL R3
+      113 SETTABLEKS                       R14 R13 K15 ["SetCurrentRecordingNumEvents"]
+      115 DUPCLOSURE                       R14 K41 [PROTO_2]
+      116 CAPTURE                          VAL R3
+      117 SETTABLEKS                       R14 R13 K16 ["SetCurrentRecordingResolution"]
+      119 DUPCLOSURE                       R14 K42 [PROTO_3]
+      120 CAPTURE                          VAL R3
+      121 SETTABLEKS                       R14 R13 K17 ["SetCurrentRecordingDeviceId"]
+      123 DUPCLOSURE                       R14 K43 [PROTO_4]
+      124 CAPTURE                          VAL R3
+      125 SETTABLEKS                       R14 R13 K18 ["SetCurrentRecordingDeviceOrientation"]
+      127 DUPCLOSURE                       R14 K44 [PROTO_5]
+      128 CAPTURE                          VAL R3
+      129 SETTABLEKS                       R14 R13 K13 ["SetShouldSetEmulationDevice"]
+      131 CALL                             R11 2 -1
+      132 RETURN                           R11 -1

@@ -56,8 +56,8 @@ PROTO_2:
         9 CALL                             R11 2 1
        10 DIV                              R10 R11 R7
        11 DIV                              R9 R10 R8
-       12 DIVRK                            R10 R2 K7 [0.0001]
-       13 DIVRK                            R11 R2 K8 [0.001]
+       12 DIVRK                            R10 K2 [0.01] R7
+       13 DIVRK                            R11 K2 [0.01] R8
        14 FASTCALL1                        MATH_ABS R9 ; [+3]
        15 MOVE                             R15 R9
        16 GETIMPORT                        R14 K6 [math.abs]
@@ -119,7 +119,7 @@ PROTO_2:
        86 CALL                             R12 4 2
        87 JUMPIFNOT                        R12 ; [+5]
        88 JUMPIFLT                         R13 R10 ; [+4]
-       90 SUBRK                            R14 R3 K10 [math.clamp]
+       90 SUBRK                            R14 K3 [1] R10
        91 JUMPIFNOTLT                      R14 R13 ; [+3]
        93 LOADB                            R14 0
        94 RETURN                           R14 1
@@ -136,7 +136,7 @@ PROTO_2:
       107 CALL                             R16 1 0
       108 LOADB                            R16 0
       109 JUMPIFNOTLE                      R11 R15 ; [+6]
-      111 SUBRK                            R17 R3 K11 ["intersectRayRay"]
+      111 SUBRK                            R17 K3 [1] R11
       112 JUMPIFLE                         R15 R17 ; [+2]
       114 LOADB                            R16 0 +1
       115 LOADB                            R16 1
@@ -266,10 +266,8 @@ PROTO_6:
        59 RETURN                           R5 1
 
 PROTO_7:
-        0 DUPTABLE                         R0 K1 [{"ClassName"}]
-        1 LOADK                            R1 K2 ["None"]
-        2 SETTABLEKS                       R1 R0 K0 ["ClassName"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = "None"}]
+        1 RETURN                           R0 1
 
 PROTO_8:
         0 LOADB                            R6 1
@@ -332,7 +330,7 @@ PROTO_9:
        32 NAMECALL                         R21 R19 K6 ["Dot"]
        34 CALL                             R21 2 1
        35 LOADK                            R22 K7 [-0.999]
-       36 JUMPIFNOTLT                      R21 R22 ; [+122]
+       36 JUMPIFNOTLT                      R21 R22 ; [+119]
        38 GETTABLEKS                       R24 R13 K8 ["point"]
        40 NAMECALL                         R22 R0 K9 ["PointToWorldSpace"]
        42 CALL                             R22 2 1
@@ -346,7 +344,7 @@ PROTO_9:
        53 GETIMPORT                        R24 K12 [math.abs]
        55 CALL                             R24 1 1
        56 LOADK                            R25 K13 [0.05]
-       57 JUMPIFNOTLT                      R24 R25 ; [+101]
+       57 JUMPIFNOTLT                      R24 R25 ; [+98]
        59 GETTABLE                         R24 R8 R13
        60 JUMPIF                           R24 ; [+34]
        61 NEWTABLE                         R25 0 0
@@ -392,7 +390,7 @@ PROTO_9:
       121 MOVE                             R31 R27
       122 CALL                             R28 3 1
       123 MOVE                             R25 R28
-      124 JUMPIFNOT                        R25 ; [+34]
+      124 JUMPIFNOT                        R25 ; [+31]
       125 GETUPVAL                         R26 2
       126 MOVE                             R27 R1
       127 MOVE                             R28 R2
@@ -415,17 +413,15 @@ PROTO_9:
       148 LOADB                            R27 1
       149 MOVE                             R28 R26
       150 RETURN                           R27 2
-      151 DUPTABLE                         R26 K24 [{"ClassName"}]
-      152 LOADK                            R27 K25 ["None"]
-      153 SETTABLEKS                       R27 R26 K23 ["ClassName"]
-      155 SETTABLE                         R26 R3 R24
-      156 SETTABLE                         R26 R3 R18
-      157 LOADB                            R27 0
-      158 RETURN                           R27 1
-      159 FORGLOOP                         R14 2 [inext] ; [-140]
-      161 FORGLOOP                         R9 2 [inext] ; [-148]
-      163 LOADB                            R9 0
-      164 RETURN                           R9 1
+      151 DUPTABLE                         R26 K25 [{["ClassName"] = "None"}]
+      152 SETTABLE                         R26 R3 R24
+      153 SETTABLE                         R26 R3 R18
+      154 LOADB                            R27 0
+      155 RETURN                           R27 1
+      156 FORGLOOP                         R14 2 [inext] ; [-137]
+      158 FORGLOOP                         R9 2 [inext] ; [-145]
+      160 LOADB                            R9 0
+      161 RETURN                           R9 1
 
 PROTO_10:
         0 JUMPIF                           R0 ; [+2]
@@ -482,78 +478,76 @@ PROTO_11:
        45 ADD                              R23 R24 R18
        46 CALL                             R21 2 1
        47 NEWTABLE                         R22 0 0
-       49 LOADN                            R23 16
+       49 LOADN                            R23 10000
        50 NAMECALL                         R19 R19 K15 ["FindPartsInRegion3WithIgnoreList"]
        52 CALL                             R19 4 1
-       53 JUMPIFEQ                         R16 R9 ; [+39]
+       53 JUMPIFEQ                         R16 R9 ; [+36]
        55 GETIMPORT                        R20 K4 [ipairs]
        57 NAMECALL                         R21 R16 K16 ["GetTouchingParts"]
        59 CALL                             R21 1 -1
        60 CALL                             R20 -1 3
        61 FORGPREP_INEXT                   R20
-       62 JUMPIFNOTEQ                      R24 R9 ; [+28]
+       62 JUMPIFNOTEQ                      R24 R9 ; [+25]
        64 GETTABLE                         R26 R4 R16
        65 GETTABLE                         R25 R26 R9
-       66 JUMPIF                           R25 ; [+26]
-       67 DUPTABLE                         R27 K22 [{"ClassName", "C0", "C1", "Part0", "Part1"}]
-       68 LOADK                            R28 K23 ["Weld"]
-       69 SETTABLEKS                       R28 R27 K17 ["ClassName"]
-       71 GETIMPORT                        R28 K25 [CFrame.new]
-       73 CALL                             R28 0 1
-       74 SETTABLEKS                       R28 R27 K18 ["C0"]
-       76 GETTABLEKS                       R28 R16 K24 ["CFrame"]
-       78 SETTABLEKS                       R28 R27 K19 ["C1"]
-       80 SETTABLEKS                       R16 R27 K20 ["Part0"]
-       82 SETTABLEKS                       R9 R27 K21 ["Part1"]
-       84 FASTCALL2                        TABLE_INSERT R11 R27 ; [+4]
-       86 MOVE                             R26 R11
-       87 GETIMPORT                        R25 K28 [table.insert]
-       89 CALL                             R25 2 0
-       90 JUMP                             ; [+2]
-       91 FORGLOOP                         R20 2 [inext] ; [-30]
-       93 GETIMPORT                        R20 K4 [ipairs]
-       95 MOVE                             R21 R19
-       96 CALL                             R20 1 3
-       97 FORGPREP_INEXT                   R20
-       98 GETTABLE                         R25 R1 R24
-       99 JUMPIF                           R25 ; [+42]
-      100 NAMECALL                         R26 R24 K29 ["GetRootPart"]
-      102 CALL                             R26 1 1
-      103 GETTABLE                         R25 R2 R26
-      104 JUMPIF                           R25 ; [+37]
-      105 JUMPIFEQ                         R24 R9 ; [+36]
-      107 GETTABLEKS                       R26 R24 K6 ["Size"]
-      109 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
-      111 DIVK                             R25 R26 K5 [2]
-      112 GETTABLEKS                       R27 R24 K14 ["Position"]
-      114 GETTABLEKS                       R28 R16 K14 ["Position"]
-      116 SUB                              R26 R27 R28
-      117 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
-      119 ADD                              R28 R17 R25
-      120 ADDK                             R27 R28 K30 [0.05]
-      121 JUMPIFNOTLE                      R26 R27 ; [+20]
-      123 GETTABLE                         R27 R4 R16
-      124 GETTABLE                         R26 R27 R24
-      125 JUMPIF                           R26 ; [+16]
-      126 GETUPVAL                         R26 2
-      127 MOVE                             R27 R3
-      128 MOVE                             R28 R16
-      129 MOVE                             R29 R24
-      130 MOVE                             R30 R10
-      131 MOVE                             R31 R5
-      132 MOVE                             R32 R8
-      133 CALL                             R26 6 2
-      134 JUMPIFNOT                        R26 ; [+7]
-      135 FASTCALL2                        TABLE_INSERT R11 R27 ; [+5]
-      137 MOVE                             R29 R11
-      138 MOVE                             R30 R27
-      139 GETIMPORT                        R28 K28 [table.insert]
-      141 CALL                             R28 2 0
-      142 FORGLOOP                         R20 2 [inext] ; [-45]
-      144 FORGLOOP                         R12 2 [inext] ; [-120]
-      146 SETTABLEKS                       R11 R6 K31 ["_jointPairs"]
-      148 SETTABLEKS                       R10 R6 K32 ["_facesToHighlightSet"]
-      150 RETURN                           R6 1
+       66 JUMPIF                           R25 ; [+23]
+       67 DUPTABLE                         R27 K23 [{["ClassName"] = "Weld", ["C0"], ["C1"], ["Part0"], ["Part1"]}]
+       68 GETIMPORT                        R28 K25 [CFrame.new]
+       70 CALL                             R28 0 1
+       71 SETTABLEKS                       R28 R27 K19 ["C0"]
+       73 GETTABLEKS                       R28 R16 K24 ["CFrame"]
+       75 SETTABLEKS                       R28 R27 K20 ["C1"]
+       77 SETTABLEKS                       R16 R27 K21 ["Part0"]
+       79 SETTABLEKS                       R9 R27 K22 ["Part1"]
+       81 FASTCALL2                        TABLE_INSERT R11 R27 ; [+4]
+       83 MOVE                             R26 R11
+       84 GETIMPORT                        R25 K28 [table.insert]
+       86 CALL                             R25 2 0
+       87 JUMP                             ; [+2]
+       88 FORGLOOP                         R20 2 [inext] ; [-27]
+       90 GETIMPORT                        R20 K4 [ipairs]
+       92 MOVE                             R21 R19
+       93 CALL                             R20 1 3
+       94 FORGPREP_INEXT                   R20
+       95 GETTABLE                         R25 R1 R24
+       96 JUMPIF                           R25 ; [+42]
+       97 NAMECALL                         R26 R24 K29 ["GetRootPart"]
+       99 CALL                             R26 1 1
+      100 GETTABLE                         R25 R2 R26
+      101 JUMPIF                           R25 ; [+37]
+      102 JUMPIFEQ                         R24 R9 ; [+36]
+      104 GETTABLEKS                       R26 R24 K6 ["Size"]
+      106 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
+      108 DIVK                             R25 R26 K5 [2]
+      109 GETTABLEKS                       R27 R24 K14 ["Position"]
+      111 GETTABLEKS                       R28 R16 K14 ["Position"]
+      113 SUB                              R26 R27 R28
+      114 GETTABLEKS                       R26 R26 K7 ["Magnitude"]
+      116 ADD                              R28 R17 R25
+      117 ADDK                             R27 R28 K30 [0.05]
+      118 JUMPIFNOTLE                      R26 R27 ; [+20]
+      120 GETTABLE                         R27 R4 R16
+      121 GETTABLE                         R26 R27 R24
+      122 JUMPIF                           R26 ; [+16]
+      123 GETUPVAL                         R26 2
+      124 MOVE                             R27 R3
+      125 MOVE                             R28 R16
+      126 MOVE                             R29 R24
+      127 MOVE                             R30 R10
+      128 MOVE                             R31 R5
+      129 MOVE                             R32 R8
+      130 CALL                             R26 6 2
+      131 JUMPIFNOT                        R26 ; [+7]
+      132 FASTCALL2                        TABLE_INSERT R11 R27 ; [+5]
+      134 MOVE                             R29 R11
+      135 MOVE                             R30 R27
+      136 GETIMPORT                        R28 K28 [table.insert]
+      138 CALL                             R28 2 0
+      139 FORGLOOP                         R20 2 [inext] ; [-45]
+      141 FORGLOOP                         R12 2 [inext] ; [-117]
+      143 SETTABLEKS                       R11 R6 K31 ["_jointPairs"]
+      145 SETTABLEKS                       R10 R6 K32 ["_facesToHighlightSet"]
+      147 RETURN                           R6 1
 
 PROTO_12:
         0 NEWTABLE                         R2 0 0

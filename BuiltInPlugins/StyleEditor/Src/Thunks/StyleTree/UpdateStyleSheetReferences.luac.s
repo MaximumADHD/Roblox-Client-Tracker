@@ -67,18 +67,14 @@ PROTO_2:
        20 NAMECALL                         R5 R0 K5 ["dispatch"]
        22 CALL                             R5 -1 0
        23 GETTABLEKS                       R4 R1 K6 ["recordChange"]
-       25 DUPTABLE                         R5 K10 [{"Name", "DisplayName", "DoChange"}]
-       26 LOADK                            R6 K11 ["StyleEditor/UpdateStyleSheetReferences"]
-       27 SETTABLEKS                       R6 R5 K7 ["Name"]
-       29 LOADK                            R6 K12 ["StyleEditor - Update StyleSheet References"]
-       30 SETTABLEKS                       R6 R5 K8 ["DisplayName"]
-       32 NEWCLOSURE                       R6 P0
-       33 CAPTURE                          UPVAL U3
-       34 CAPTURE                          UPVAL U0
-       35 CAPTURE                          VAL R3
-       36 SETTABLEKS                       R6 R5 K9 ["DoChange"]
-       38 CALL                             R4 1 0
-       39 RETURN                           R0 0
+       25 DUPTABLE                         R5 K12 [{["Name"] = "StyleEditor/UpdateStyleSheetReferences", ["DisplayName"] = "StyleEditor - Update StyleSheet References", ["DoChange"]}]
+       26 NEWCLOSURE                       R6 P0
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          UPVAL U0
+       29 CAPTURE                          VAL R3
+       30 SETTABLEKS                       R6 R5 K11 ["DoChange"]
+       32 CALL                             R4 1 0
+       33 RETURN                           R0 0
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0

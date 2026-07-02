@@ -22,18 +22,16 @@ PROTO_1:
         4 CAPTURE                          UPVAL U1
         5 NEWTABLE                         R3 0 0
         7 CALL                             R1 2 1
-        8 DUPTABLE                         R2 K4 [{"default", "getProductInfo"}]
-        9 LOADB                            R3 0
-       10 SETTABLEKS                       R3 R2 K2 ["default"]
-       12 SETTABLEKS                       R1 R2 K3 ["getProductInfo"]
-       14 GETUPVAL                         R3 2
-       15 GETUPVAL                         R4 3
-       16 GETTABLEKS                       R4 R4 K5 ["Provider"]
-       18 DUPTABLE                         R5 K7 [{"value"}]
-       19 SETTABLEKS                       R2 R5 K6 ["value"]
-       21 GETTABLEKS                       R6 R0 K8 ["children"]
-       23 CALL                             R3 3 -1
-       24 RETURN                           R3 -1
+        8 DUPTABLE                         R2 K5 [{["default"] = False, ["getProductInfo"]}]
+        9 SETTABLEKS                       R1 R2 K4 ["getProductInfo"]
+       11 GETUPVAL                         R3 2
+       12 GETUPVAL                         R4 3
+       13 GETTABLEKS                       R4 R4 K6 ["Provider"]
+       15 DUPTABLE                         R5 K8 [{"value"}]
+       16 SETTABLEKS                       R2 R5 K7 ["value"]
+       18 GETTABLEKS                       R6 R0 K9 ["children"]
+       20 CALL                             R3 3 -1
+       21 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

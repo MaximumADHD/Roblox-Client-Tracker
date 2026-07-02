@@ -89,105 +89,97 @@ PROTO_3:
        41 GETUPVAL                         R8 1
        42 GETTABLEKS                       R8 R8 K9 ["createElement"]
        44 GETUPVAL                         R9 2
-       45 DUPTABLE                         R10 K13 [{"Style", "Layout", "VerticalAlignment"}]
-       46 LOADK                            R11 K14 ["Box"]
-       47 SETTABLEKS                       R11 R10 K10 ["Style"]
-       49 GETIMPORT                        R11 K18 [Enum.FillDirection.Vertical]
-       51 SETTABLEKS                       R11 R10 K11 ["Layout"]
-       53 GETIMPORT                        R11 K20 [Enum.VerticalAlignment.Top]
-       55 SETTABLEKS                       R11 R10 K12 ["VerticalAlignment"]
-       57 DUPTABLE                         R11 K27 [{"KeyboardListener", "IconPicker", "ColorPicker", "SplitPane", "SoloTopPane", "ShowTagSettingsButton"}]
-       58 GETUPVAL                         R12 1
-       59 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       61 GETUPVAL                         R13 3
-       62 DUPTABLE                         R14 K29 [{"OnKeyPressed"}]
-       63 NEWCLOSURE                       R15 P0
-       64 CAPTURE                          VAL R1
-       65 SETTABLEKS                       R15 R14 K28 ["OnKeyPressed"]
-       67 CALL                             R12 2 1
-       68 SETTABLEKS                       R12 R11 K21 ["KeyboardListener"]
-       70 MOVE                             R12 R4
-       71 JUMPIFNOT                        R12 ; [+5]
-       72 GETUPVAL                         R12 1
-       73 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       75 GETUPVAL                         R13 4
-       76 CALL                             R12 1 1
-       77 SETTABLEKS                       R12 R11 K22 ["IconPicker"]
-       79 MOVE                             R12 R5
-       80 JUMPIFNOT                        R12 ; [+5]
-       81 GETUPVAL                         R12 1
-       82 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       84 GETUPVAL                         R13 5
-       85 CALL                             R12 1 1
-       86 SETTABLEKS                       R12 R11 K23 ["ColorPicker"]
-       88 MOVE                             R12 R6
-       89 JUMPIFNOT                        R12 ; [+52]
-       90 GETUPVAL                         R12 1
-       91 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       93 GETUPVAL                         R13 6
-       94 DUPTABLE                         R14 K37 [{"LayoutOrder", "ClampSize", "UseScale", "Layout", "Sizes", "MinSizes", "OnSizesChange", "BarStyle"}]
-       95 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-       97 CALL                             R15 1 1
-       98 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
-      100 LOADB                            R15 1
-      101 SETTABLEKS                       R15 R14 K31 ["ClampSize"]
-      103 LOADB                            R15 1
-      104 SETTABLEKS                       R15 R14 K32 ["UseScale"]
-      106 GETIMPORT                        R15 K18 [Enum.FillDirection.Vertical]
-      108 SETTABLEKS                       R15 R14 K11 ["Layout"]
-      110 GETTABLEKS                       R15 R0 K39 ["state"]
-      112 GETTABLEKS                       R15 R15 K40 ["sizes"]
-      114 SETTABLEKS                       R15 R14 K33 ["Sizes"]
-      116 GETTABLEKS                       R15 R2 K41 ["SplitPaneMinsizes"]
-      118 SETTABLEKS                       R15 R14 K34 ["MinSizes"]
-      120 GETTABLEKS                       R15 R0 K42 ["onSizesChange"]
-      122 SETTABLEKS                       R15 R14 K35 ["OnSizesChange"]
-      124 LOADK                            R15 K43 ["WStyle"]
-      125 SETTABLEKS                       R15 R14 K36 ["BarStyle"]
-      127 NEWTABLE                         R15 0 2
-      129 GETUPVAL                         R16 1
-      130 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      132 GETUPVAL                         R17 7
-      133 CALL                             R16 1 1
-      134 GETUPVAL                         R17 1
-      135 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      137 GETUPVAL                         R18 8
-      138 CALL                             R17 1 -1
-      139 SETLIST                          R15 R16 -1 [1]
-      141 CALL                             R12 3 1
-      142 SETTABLEKS                       R12 R11 K24 ["SplitPane"]
-      144 MOVE                             R12 R7
-      145 JUMPIFNOT                        R12 ; [+23]
-      146 GETUPVAL                         R12 1
-      147 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      149 GETUPVAL                         R13 2
-      150 DUPTABLE                         R14 K45 [{"LayoutOrder", "Size"}]
-      151 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      153 CALL                             R15 1 1
-      154 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
-      156 GETTABLEKS                       R15 R2 K46 ["SoloTopPaneSize"]
-      158 SETTABLEKS                       R15 R14 K44 ["Size"]
-      160 DUPTABLE                         R15 K48 [{"TopPane"}]
-      161 GETUPVAL                         R16 1
-      162 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      164 GETUPVAL                         R17 7
-      165 CALL                             R16 1 1
-      166 SETTABLEKS                       R16 R15 K47 ["TopPane"]
-      168 CALL                             R12 3 1
-      169 SETTABLEKS                       R12 R11 K25 ["SoloTopPane"]
-      171 MOVE                             R12 R7
-      172 JUMPIFNOT                        R12 ; [+11]
-      173 GETUPVAL                         R12 1
-      174 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      176 GETUPVAL                         R13 9
-      177 DUPTABLE                         R14 K49 [{"LayoutOrder"}]
-      178 NAMECALL                         R15 R3 K38 ["getNextOrder"]
-      180 CALL                             R15 1 1
-      181 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
-      183 CALL                             R12 2 1
-      184 SETTABLEKS                       R12 R11 K26 ["ShowTagSettingsButton"]
-      186 CALL                             R8 3 -1
-      187 RETURN                           R8 -1
+       45 DUPTABLE                         R10 K14 [{["Style"] = "Box", ["Layout"], ["VerticalAlignment"]}]
+       46 GETIMPORT                        R11 K18 [Enum.FillDirection.Vertical]
+       48 SETTABLEKS                       R11 R10 K12 ["Layout"]
+       50 GETIMPORT                        R11 K20 [Enum.VerticalAlignment.Top]
+       52 SETTABLEKS                       R11 R10 K13 ["VerticalAlignment"]
+       54 DUPTABLE                         R11 K27 [{"KeyboardListener", "IconPicker", "ColorPicker", "SplitPane", "SoloTopPane", "ShowTagSettingsButton"}]
+       55 GETUPVAL                         R12 1
+       56 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       58 GETUPVAL                         R13 3
+       59 DUPTABLE                         R14 K29 [{"OnKeyPressed"}]
+       60 NEWCLOSURE                       R15 P0
+       61 CAPTURE                          VAL R1
+       62 SETTABLEKS                       R15 R14 K28 ["OnKeyPressed"]
+       64 CALL                             R12 2 1
+       65 SETTABLEKS                       R12 R11 K21 ["KeyboardListener"]
+       67 MOVE                             R12 R4
+       68 JUMPIFNOT                        R12 ; [+5]
+       69 GETUPVAL                         R12 1
+       70 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       72 GETUPVAL                         R13 4
+       73 CALL                             R12 1 1
+       74 SETTABLEKS                       R12 R11 K22 ["IconPicker"]
+       76 MOVE                             R12 R5
+       77 JUMPIFNOT                        R12 ; [+5]
+       78 GETUPVAL                         R12 1
+       79 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       81 GETUPVAL                         R13 5
+       82 CALL                             R12 1 1
+       83 SETTABLEKS                       R12 R11 K23 ["ColorPicker"]
+       85 MOVE                             R12 R6
+       86 JUMPIFNOT                        R12 ; [+43]
+       87 GETUPVAL                         R12 1
+       88 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       90 GETUPVAL                         R13 6
+       91 DUPTABLE                         R14 K39 [{["LayoutOrder"], ["ClampSize"] = True, ["UseScale"] = True, ["Layout"], ["Sizes"], ["MinSizes"], ["OnSizesChange"], ["BarStyle"] = "WStyle"}]
+       92 NAMECALL                         R15 R3 K40 ["getNextOrder"]
+       94 CALL                             R15 1 1
+       95 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
+       97 GETIMPORT                        R15 K18 [Enum.FillDirection.Vertical]
+       99 SETTABLEKS                       R15 R14 K12 ["Layout"]
+      101 GETTABLEKS                       R15 R0 K41 ["state"]
+      103 GETTABLEKS                       R15 R15 K42 ["sizes"]
+      105 SETTABLEKS                       R15 R14 K34 ["Sizes"]
+      107 GETTABLEKS                       R15 R2 K43 ["SplitPaneMinsizes"]
+      109 SETTABLEKS                       R15 R14 K35 ["MinSizes"]
+      111 GETTABLEKS                       R15 R0 K44 ["onSizesChange"]
+      113 SETTABLEKS                       R15 R14 K36 ["OnSizesChange"]
+      115 NEWTABLE                         R15 0 2
+      117 GETUPVAL                         R16 1
+      118 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      120 GETUPVAL                         R17 7
+      121 CALL                             R16 1 1
+      122 GETUPVAL                         R17 1
+      123 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      125 GETUPVAL                         R18 8
+      126 CALL                             R17 1 -1
+      127 SETLIST                          R15 R16 -1 [1]
+      129 CALL                             R12 3 1
+      130 SETTABLEKS                       R12 R11 K24 ["SplitPane"]
+      132 MOVE                             R12 R7
+      133 JUMPIFNOT                        R12 ; [+23]
+      134 GETUPVAL                         R12 1
+      135 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      137 GETUPVAL                         R13 2
+      138 DUPTABLE                         R14 K46 [{"LayoutOrder", "Size"}]
+      139 NAMECALL                         R15 R3 K40 ["getNextOrder"]
+      141 CALL                             R15 1 1
+      142 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
+      144 GETTABLEKS                       R15 R2 K47 ["SoloTopPaneSize"]
+      146 SETTABLEKS                       R15 R14 K45 ["Size"]
+      148 DUPTABLE                         R15 K49 [{"TopPane"}]
+      149 GETUPVAL                         R16 1
+      150 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      152 GETUPVAL                         R17 7
+      153 CALL                             R16 1 1
+      154 SETTABLEKS                       R16 R15 K48 ["TopPane"]
+      156 CALL                             R12 3 1
+      157 SETTABLEKS                       R12 R11 K25 ["SoloTopPane"]
+      159 MOVE                             R12 R7
+      160 JUMPIFNOT                        R12 ; [+11]
+      161 GETUPVAL                         R12 1
+      162 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      164 GETUPVAL                         R13 9
+      165 DUPTABLE                         R14 K50 [{"LayoutOrder"}]
+      166 NAMECALL                         R15 R3 K40 ["getNextOrder"]
+      168 CALL                             R15 1 1
+      169 SETTABLEKS                       R15 R14 K30 ["LayoutOrder"]
+      171 CALL                             R12 2 1
+      172 SETTABLEKS                       R12 R11 K26 ["ShowTagSettingsButton"]
+      174 CALL                             R8 3 -1
+      175 RETURN                           R8 -1
 
 PROTO_4:
         0 DUPTABLE                         R3 K1 [{"sizes"}]

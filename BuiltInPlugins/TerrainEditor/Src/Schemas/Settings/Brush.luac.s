@@ -93,312 +93,280 @@ PROTO_5:
        29 CALL                             R11 3 1
        30 SETTABLEKS                       R11 R10 K7 ["Items"]
        32 SETTABLEKS                       R10 R9 K3 ["Schema"]
-       34 DUPTABLE                         R10 K12 [{"Height", "Id", "Schema"}]
-       35 LOADN                            R11 52
-       36 SETTABLEKS                       R11 R10 K11 ["Height"]
-       38 GETUPVAL                         R11 1
-       39 GETTABLEKS                       R11 R11 K13 ["BrushShape"]
-       41 SETTABLEKS                       R11 R10 K2 ["Id"]
-       43 DUPTABLE                         R11 K8 [{"Type", "Items"}]
-       44 LOADK                            R12 K10 ["SingleSelectButton"]
-       45 SETTABLEKS                       R12 R11 K6 ["Type"]
-       47 GETUPVAL                         R12 3
-       48 LOADNIL                          R13
-       49 MOVE                             R14 R5
-       50 GETUPVAL                         R15 4
-       51 GETTABLEKS                       R15 R15 K13 ["BrushShape"]
-       53 CALL                             R12 3 1
-       54 SETTABLEKS                       R12 R11 K7 ["Items"]
-       56 SETTABLEKS                       R11 R10 K3 ["Schema"]
-       58 DUPTABLE                         R11 K12 [{"Height", "Id", "Schema"}]
-       59 LOADN                            R12 52
-       60 SETTABLEKS                       R12 R11 K11 ["Height"]
-       62 GETUPVAL                         R12 1
-       63 GETTABLEKS                       R12 R12 K14 ["FlattenMode"]
-       65 SETTABLEKS                       R12 R11 K2 ["Id"]
-       67 DUPTABLE                         R12 K8 [{"Type", "Items"}]
-       68 LOADK                            R13 K10 ["SingleSelectButton"]
-       69 SETTABLEKS                       R13 R12 K6 ["Type"]
-       71 GETUPVAL                         R13 3
-       72 LOADNIL                          R14
-       73 MOVE                             R15 R5
-       74 GETUPVAL                         R16 4
-       75 GETTABLEKS                       R16 R16 K14 ["FlattenMode"]
-       77 CALL                             R13 3 1
-       78 SETTABLEKS                       R13 R12 K7 ["Items"]
-       80 SETTABLEKS                       R12 R11 K3 ["Schema"]
-       82 DUPTABLE                         R12 K4 [{"Id", "Schema"}]
-       83 GETUPVAL                         R13 1
-       84 GETTABLEKS                       R13 R13 K15 ["BrushSize"]
-       86 SETTABLEKS                       R13 R12 K2 ["Id"]
-       88 DUPTABLE                         R13 K17 [{"Shape", "Type"}]
-       89 GETUPVAL                         R15 1
-       90 GETTABLEKS                       R15 R15 K13 ["BrushShape"]
-       92 GETTABLE                         R14 R1 R15
-       93 SETTABLEKS                       R14 R13 K16 ["Shape"]
-       95 LOADK                            R14 K15 ["BrushSize"]
-       96 SETTABLEKS                       R14 R13 K6 ["Type"]
-       98 SETTABLEKS                       R13 R12 K3 ["Schema"]
-      100 DUPTABLE                         R13 K4 [{"Id", "Schema"}]
-      101 GETUPVAL                         R14 1
-      102 GETTABLEKS                       R14 R14 K18 ["Strength"]
-      104 SETTABLEKS                       R14 R13 K2 ["Id"]
-      106 DUPTABLE                         R14 K23 [{"Type", "Min", "Max", "ShowInput", "SnapIncrement"}]
-      107 LOADK                            R15 K24 ["Slider"]
-      108 SETTABLEKS                       R15 R14 K6 ["Type"]
-      110 LOADN                            R15 0
-      111 SETTABLEKS                       R15 R14 K19 ["Min"]
-      113 LOADN                            R15 1
-      114 SETTABLEKS                       R15 R14 K20 ["Max"]
-      116 LOADB                            R15 1
-      117 SETTABLEKS                       R15 R14 K21 ["ShowInput"]
-      119 LOADK                            R15 K25 [0.01]
-      120 SETTABLEKS                       R15 R14 K22 ["SnapIncrement"]
-      122 SETTABLEKS                       R14 R13 K3 ["Schema"]
-      124 DUPTABLE                         R14 K4 [{"Id", "Schema"}]
-      125 GETUPVAL                         R15 1
-      126 GETTABLEKS                       R15 R15 K26 ["PivotPosition"]
-      128 SETTABLEKS                       R15 R14 K2 ["Id"]
-      130 DUPTABLE                         R15 K8 [{"Type", "Items"}]
-      131 GETUPVAL                         R17 2
-      132 CALL                             R17 0 1
-      133 JUMPIFNOT                        R17 ; [+2]
-      134 LOADK                            R16 K9 ["SegmentedControl"]
-      135 JUMP                             ; [+1]
-      136 LOADK                            R16 K10 ["SingleSelectButton"]
-      137 SETTABLEKS                       R16 R15 K6 ["Type"]
-      139 GETUPVAL                         R16 3
-      140 MOVE                             R17 R4
-      141 LOADNIL                          R18
-      142 GETUPVAL                         R19 4
-      143 GETTABLEKS                       R19 R19 K26 ["PivotPosition"]
-      145 CALL                             R16 3 1
-      146 SETTABLEKS                       R16 R15 K7 ["Items"]
-      148 SETTABLEKS                       R15 R14 K3 ["Schema"]
-      150 DUPTABLE                         R15 K4 [{"Id", "Schema"}]
-      151 GETUPVAL                         R16 1
-      152 GETTABLEKS                       R16 R16 K27 ["Snapping"]
-      154 SETTABLEKS                       R16 R15 K2 ["Id"]
-      156 DUPTABLE                         R16 K8 [{"Type", "Items"}]
-      157 GETUPVAL                         R18 2
-      158 CALL                             R18 0 1
-      159 JUMPIFNOT                        R18 ; [+2]
-      160 LOADK                            R17 K9 ["SegmentedControl"]
-      161 JUMP                             ; [+1]
-      162 LOADK                            R17 K10 ["SingleSelectButton"]
-      163 SETTABLEKS                       R17 R16 K6 ["Type"]
-      165 GETUPVAL                         R17 3
-      166 MOVE                             R18 R4
-      167 LOADNIL                          R19
-      168 GETUPVAL                         R20 4
-      169 GETTABLEKS                       R20 R20 K27 ["Snapping"]
-      171 CALL                             R17 3 1
-      172 SETTABLEKS                       R17 R16 K7 ["Items"]
-      174 SETTABLEKS                       R16 R15 K3 ["Schema"]
-      176 DUPTABLE                         R16 K4 [{"Id", "Schema"}]
-      177 GETUPVAL                         R17 1
-      178 GETTABLEKS                       R17 R17 K28 ["FlattenPlane"]
-      180 SETTABLEKS                       R17 R16 K2 ["Id"]
-      182 DUPTABLE                         R17 K8 [{"Type", "Items"}]
-      183 GETUPVAL                         R19 2
-      184 CALL                             R19 0 1
-      185 JUMPIFNOT                        R19 ; [+2]
-      186 LOADK                            R18 K9 ["SegmentedControl"]
-      187 JUMP                             ; [+1]
-      188 LOADK                            R18 K10 ["SingleSelectButton"]
-      189 SETTABLEKS                       R18 R17 K6 ["Type"]
-      191 GETUPVAL                         R18 3
-      192 MOVE                             R19 R4
-      193 LOADNIL                          R20
-      194 GETUPVAL                         R21 4
-      195 GETTABLEKS                       R21 R21 K28 ["FlattenPlane"]
-      197 CALL                             R18 3 1
-      198 SETTABLEKS                       R18 R17 K7 ["Items"]
-      200 SETTABLEKS                       R17 R16 K3 ["Schema"]
-      202 DUPTABLE                         R17 K30 [{"Hidden", "Id", "Schema"}]
-      203 GETUPVAL                         R20 1
-      204 GETTABLEKS                       R20 R20 K28 ["FlattenPlane"]
-      206 GETTABLE                         R19 R1 R20
-      207 GETUPVAL                         R20 5
-      208 GETTABLEKS                       R20 R20 K31 ["Auto"]
-      210 JUMPIFEQ                         R19 R20 ; [+2]
-      212 LOADB                            R18 0 +1
-      213 LOADB                            R18 1
-      214 SETTABLEKS                       R18 R17 K29 ["Hidden"]
-      216 GETUPVAL                         R18 1
-      217 GETTABLEKS                       R18 R18 K32 ["FixedYPlane"]
-      219 SETTABLEKS                       R18 R17 K2 ["Id"]
-      221 DUPTABLE                         R18 K33 [{"Type"}]
-      222 LOADK                            R19 K34 ["Number"]
-      223 SETTABLEKS                       R19 R18 K6 ["Type"]
-      225 SETTABLEKS                       R18 R17 K3 ["Schema"]
-      227 DUPTABLE                         R18 K4 [{"Id", "Schema"}]
-      228 GETUPVAL                         R19 1
-      229 GETTABLEKS                       R19 R19 K35 ["PlaneLock"]
-      231 SETTABLEKS                       R19 R18 K2 ["Id"]
-      233 DUPTABLE                         R19 K8 [{"Type", "Items"}]
-      234 GETUPVAL                         R21 2
-      235 CALL                             R21 0 1
-      236 JUMPIFNOT                        R21 ; [+2]
-      237 LOADK                            R20 K9 ["SegmentedControl"]
-      238 JUMP                             ; [+1]
-      239 LOADK                            R20 K10 ["SingleSelectButton"]
-      240 SETTABLEKS                       R20 R19 K6 ["Type"]
-      242 GETUPVAL                         R20 3
-      243 MOVE                             R21 R4
-      244 LOADNIL                          R22
-      245 GETUPVAL                         R23 4
-      246 GETTABLEKS                       R23 R23 K35 ["PlaneLock"]
-      248 CALL                             R20 3 1
-      249 SETTABLEKS                       R20 R19 K7 ["Items"]
-      251 SETTABLEKS                       R19 R18 K3 ["Schema"]
-      253 DUPTABLE                         R19 K30 [{"Hidden", "Id", "Schema"}]
-      254 GETUPVAL                         R22 1
-      255 GETTABLEKS                       R22 R22 K35 ["PlaneLock"]
-      257 GETTABLE                         R21 R1 R22
-      258 GETUPVAL                         R22 6
-      259 GETTABLEKS                       R22 R22 K36 ["Manual"]
-      261 JUMPIFNOTEQ                      R21 R22 ; [+2]
-      263 LOADB                            R20 0 +1
-      264 LOADB                            R20 1
-      265 SETTABLEKS                       R20 R19 K29 ["Hidden"]
-      267 GETUPVAL                         R20 1
-      268 GETTABLEKS                       R20 R20 K37 ["ManualPlaneLock"]
-      270 SETTABLEKS                       R20 R19 K2 ["Id"]
-      272 DUPTABLE                         R20 K41 [{"ApplyLabel", "EditLabel", "OnReset", "Type"}]
-      273 GETUPVAL                         R23 7
-      274 GETTABLEKS                       R23 R23 K42 ["BrushSettings"]
-      276 LOADK                            R24 K43 ["Apply"]
-      277 NAMECALL                         R21 R4 K44 ["getText"]
-      279 CALL                             R21 3 1
-      280 SETTABLEKS                       R21 R20 K38 ["ApplyLabel"]
-      282 GETUPVAL                         R23 7
-      283 GETTABLEKS                       R23 R23 K42 ["BrushSettings"]
-      285 LOADK                            R24 K45 ["Edit"]
-      286 NAMECALL                         R21 R4 K44 ["getText"]
-      288 CALL                             R21 3 1
-      289 SETTABLEKS                       R21 R20 K39 ["EditLabel"]
-      291 DUPCLOSURE                       R21 K46 [PROTO_0]
-      292 SETTABLEKS                       R21 R20 K40 ["OnReset"]
-      294 LOADK                            R21 K35 ["PlaneLock"]
-      295 SETTABLEKS                       R21 R20 K6 ["Type"]
-      297 SETTABLEKS                       R20 R19 K3 ["Schema"]
-      299 DUPTABLE                         R20 K49 [{"DataId", "Id", "Height", "Hidden", "Schema", "Value"}]
-      300 GETUPVAL                         R21 1
-      301 GETTABLEKS                       R21 R21 K50 ["PlaneTransform"]
-      303 SETTABLEKS                       R21 R20 K47 ["DataId"]
-      305 GETUPVAL                         R21 1
-      306 GETTABLEKS                       R21 R21 K51 ["PlanePosition"]
-      308 SETTABLEKS                       R21 R20 K2 ["Id"]
-      310 GETUPVAL                         R22 8
-      311 CALL                             R22 0 1
-      312 JUMPIFNOT                        R22 ; [+2]
-      313 LOADN                            R21 26
-      314 JUMP                             ; [+1]
-      315 LOADNIL                          R21
-      316 SETTABLEKS                       R21 R20 K11 ["Height"]
-      318 LOADB                            R21 1
-      319 GETUPVAL                         R23 1
-      320 GETTABLEKS                       R23 R23 K35 ["PlaneLock"]
-      322 GETTABLE                         R22 R1 R23
-      323 GETUPVAL                         R23 6
-      324 GETTABLEKS                       R23 R23 K36 ["Manual"]
-      326 JUMPIFNOTEQ                      R22 R23 ; [+6]
-      328 GETUPVAL                         R23 1
-      329 GETTABLEKS                       R23 R23 K37 ["ManualPlaneLock"]
-      331 GETTABLE                         R22 R1 R23
-      332 NOT                              R21 R22
-      333 SETTABLEKS                       R21 R20 K29 ["Hidden"]
-      335 DUPTABLE                         R21 K55 [{"Type", "Components", "GetValue", "GetComponents"}]
-      336 LOADK                            R22 K56 ["Vector"]
-      337 SETTABLEKS                       R22 R21 K6 ["Type"]
-      339 NEWTABLE                         R22 0 3
-      341 LOADK                            R23 K57 ["X"]
-      342 LOADK                            R24 K58 ["Y"]
-      343 LOADK                            R25 K59 ["Z"]
-      344 SETLIST                          R22 R23 3 [1]
-      346 SETTABLEKS                       R22 R21 K52 ["Components"]
-      348 NEWCLOSURE                       R22 P1
-      349 CAPTURE                          VAL R1
-      350 CAPTURE                          UPVAL U1
-      351 SETTABLEKS                       R22 R21 K53 ["GetValue"]
-      353 DUPCLOSURE                       R22 K60 [PROTO_2]
-      354 SETTABLEKS                       R22 R21 K54 ["GetComponents"]
-      356 SETTABLEKS                       R21 R20 K3 ["Schema"]
-      358 GETUPVAL                         R22 1
-      359 GETTABLEKS                       R22 R22 K50 ["PlaneTransform"]
-      361 GETTABLE                         R21 R1 R22
-      362 SETTABLEKS                       R21 R20 K48 ["Value"]
-      364 DUPTABLE                         R21 K49 [{"DataId", "Id", "Height", "Hidden", "Schema", "Value"}]
-      365 GETUPVAL                         R22 1
-      366 GETTABLEKS                       R22 R22 K50 ["PlaneTransform"]
-      368 SETTABLEKS                       R22 R21 K47 ["DataId"]
-      370 GETUPVAL                         R22 1
-      371 GETTABLEKS                       R22 R22 K61 ["PlaneRotation"]
-      373 SETTABLEKS                       R22 R21 K2 ["Id"]
-      375 GETUPVAL                         R23 8
-      376 CALL                             R23 0 1
-      377 JUMPIFNOT                        R23 ; [+2]
-      378 LOADN                            R22 26
-      379 JUMP                             ; [+1]
-      380 LOADNIL                          R22
-      381 SETTABLEKS                       R22 R21 K11 ["Height"]
-      383 LOADB                            R22 1
-      384 GETUPVAL                         R24 1
-      385 GETTABLEKS                       R24 R24 K35 ["PlaneLock"]
-      387 GETTABLE                         R23 R1 R24
-      388 GETUPVAL                         R24 6
-      389 GETTABLEKS                       R24 R24 K36 ["Manual"]
-      391 JUMPIFNOTEQ                      R23 R24 ; [+6]
-      393 GETUPVAL                         R24 1
-      394 GETTABLEKS                       R24 R24 K37 ["ManualPlaneLock"]
-      396 GETTABLE                         R23 R1 R24
-      397 NOT                              R22 R23
-      398 SETTABLEKS                       R22 R21 K29 ["Hidden"]
-      400 DUPTABLE                         R22 K55 [{"Type", "Components", "GetValue", "GetComponents"}]
-      401 LOADK                            R23 K56 ["Vector"]
-      402 SETTABLEKS                       R23 R22 K6 ["Type"]
-      404 NEWTABLE                         R23 0 3
-      406 LOADK                            R24 K57 ["X"]
-      407 LOADK                            R25 K58 ["Y"]
-      408 LOADK                            R26 K59 ["Z"]
-      409 SETLIST                          R23 R24 3 [1]
-      411 SETTABLEKS                       R23 R22 K52 ["Components"]
-      413 NEWCLOSURE                       R23 P3
-      414 CAPTURE                          VAL R1
-      415 CAPTURE                          UPVAL U1
-      416 SETTABLEKS                       R23 R22 K53 ["GetValue"]
-      418 DUPCLOSURE                       R23 K62 [PROTO_4]
-      419 SETTABLEKS                       R23 R22 K54 ["GetComponents"]
-      421 SETTABLEKS                       R22 R21 K3 ["Schema"]
-      423 GETUPVAL                         R23 1
-      424 GETTABLEKS                       R23 R23 K50 ["PlaneTransform"]
-      426 GETTABLE                         R22 R1 R23
-      427 SETTABLEKS                       R22 R21 K48 ["Value"]
-      429 DUPTABLE                         R22 K4 [{"Id", "Schema"}]
-      430 GETUPVAL                         R23 1
-      431 GETTABLEKS                       R23 R23 K63 ["IgnoreWater"]
-      433 SETTABLEKS                       R23 R22 K2 ["Id"]
-      435 DUPTABLE                         R23 K33 [{"Type"}]
-      436 LOADK                            R24 K64 ["Checkbox"]
-      437 SETTABLEKS                       R24 R23 K6 ["Type"]
-      439 SETTABLEKS                       R23 R22 K3 ["Schema"]
-      441 DUPTABLE                         R23 K4 [{"Id", "Schema"}]
-      442 GETUPVAL                         R24 1
-      443 GETTABLEKS                       R24 R24 K65 ["IgnoreParts"]
-      445 SETTABLEKS                       R24 R23 K2 ["Id"]
-      447 DUPTABLE                         R24 K33 [{"Type"}]
-      448 LOADK                            R25 K64 ["Checkbox"]
-      449 SETTABLEKS                       R25 R24 K6 ["Type"]
-      451 SETTABLEKS                       R24 R23 K3 ["Schema"]
-      453 SETLIST                          R8 R9 15 [1]
-      455 DUPTABLE                         R9 K69 [{"Category", "Data", "Overrides"}]
-      456 GETUPVAL                         R10 9
-      457 SETTABLEKS                       R10 R9 K66 ["Category"]
-      459 SETTABLEKS                       R1 R9 K67 ["Data"]
-      461 SETTABLEKS                       R3 R9 K68 ["Overrides"]
-      463 CALL                             R6 3 -1
-      464 RETURN                           R6 -1
+       34 DUPTABLE                         R10 K13 [{["Height"] = 52, ["Id"], ["Schema"]}]
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K14 ["BrushShape"]
+       38 SETTABLEKS                       R11 R10 K2 ["Id"]
+       40 DUPTABLE                         R11 K15 [{["Type"] = "SingleSelectButton", ["Items"]}]
+       41 GETUPVAL                         R12 3
+       42 LOADNIL                          R13
+       43 MOVE                             R14 R5
+       44 GETUPVAL                         R15 4
+       45 GETTABLEKS                       R15 R15 K14 ["BrushShape"]
+       47 CALL                             R12 3 1
+       48 SETTABLEKS                       R12 R11 K7 ["Items"]
+       50 SETTABLEKS                       R11 R10 K3 ["Schema"]
+       52 DUPTABLE                         R11 K13 [{["Height"] = 52, ["Id"], ["Schema"]}]
+       53 GETUPVAL                         R12 1
+       54 GETTABLEKS                       R12 R12 K16 ["FlattenMode"]
+       56 SETTABLEKS                       R12 R11 K2 ["Id"]
+       58 DUPTABLE                         R12 K15 [{["Type"] = "SingleSelectButton", ["Items"]}]
+       59 GETUPVAL                         R13 3
+       60 LOADNIL                          R14
+       61 MOVE                             R15 R5
+       62 GETUPVAL                         R16 4
+       63 GETTABLEKS                       R16 R16 K16 ["FlattenMode"]
+       65 CALL                             R13 3 1
+       66 SETTABLEKS                       R13 R12 K7 ["Items"]
+       68 SETTABLEKS                       R12 R11 K3 ["Schema"]
+       70 DUPTABLE                         R12 K4 [{"Id", "Schema"}]
+       71 GETUPVAL                         R13 1
+       72 GETTABLEKS                       R13 R13 K17 ["BrushSize"]
+       74 SETTABLEKS                       R13 R12 K2 ["Id"]
+       76 DUPTABLE                         R13 K19 [{["Shape"], ["Type"] = "BrushSize"}]
+       77 GETUPVAL                         R15 1
+       78 GETTABLEKS                       R15 R15 K14 ["BrushShape"]
+       80 GETTABLE                         R14 R1 R15
+       81 SETTABLEKS                       R14 R13 K18 ["Shape"]
+       83 SETTABLEKS                       R13 R12 K3 ["Schema"]
+       85 DUPTABLE                         R13 K4 [{"Id", "Schema"}]
+       86 GETUPVAL                         R14 1
+       87 GETTABLEKS                       R14 R14 K20 ["Strength"]
+       89 SETTABLEKS                       R14 R13 K2 ["Id"]
+       91 DUPTABLE                         R14 K30 [{["Type"] = "Slider", ["Min"] = 0, ["Max"] = 1, ["ShowInput"] = True, ["SnapIncrement"] = 0.01}]
+       92 SETTABLEKS                       R14 R13 K3 ["Schema"]
+       94 DUPTABLE                         R14 K4 [{"Id", "Schema"}]
+       95 GETUPVAL                         R15 1
+       96 GETTABLEKS                       R15 R15 K31 ["PivotPosition"]
+       98 SETTABLEKS                       R15 R14 K2 ["Id"]
+      100 DUPTABLE                         R15 K8 [{"Type", "Items"}]
+      101 GETUPVAL                         R17 2
+      102 CALL                             R17 0 1
+      103 JUMPIFNOT                        R17 ; [+2]
+      104 LOADK                            R16 K9 ["SegmentedControl"]
+      105 JUMP                             ; [+1]
+      106 LOADK                            R16 K10 ["SingleSelectButton"]
+      107 SETTABLEKS                       R16 R15 K6 ["Type"]
+      109 GETUPVAL                         R16 3
+      110 MOVE                             R17 R4
+      111 LOADNIL                          R18
+      112 GETUPVAL                         R19 4
+      113 GETTABLEKS                       R19 R19 K31 ["PivotPosition"]
+      115 CALL                             R16 3 1
+      116 SETTABLEKS                       R16 R15 K7 ["Items"]
+      118 SETTABLEKS                       R15 R14 K3 ["Schema"]
+      120 DUPTABLE                         R15 K4 [{"Id", "Schema"}]
+      121 GETUPVAL                         R16 1
+      122 GETTABLEKS                       R16 R16 K32 ["Snapping"]
+      124 SETTABLEKS                       R16 R15 K2 ["Id"]
+      126 DUPTABLE                         R16 K8 [{"Type", "Items"}]
+      127 GETUPVAL                         R18 2
+      128 CALL                             R18 0 1
+      129 JUMPIFNOT                        R18 ; [+2]
+      130 LOADK                            R17 K9 ["SegmentedControl"]
+      131 JUMP                             ; [+1]
+      132 LOADK                            R17 K10 ["SingleSelectButton"]
+      133 SETTABLEKS                       R17 R16 K6 ["Type"]
+      135 GETUPVAL                         R17 3
+      136 MOVE                             R18 R4
+      137 LOADNIL                          R19
+      138 GETUPVAL                         R20 4
+      139 GETTABLEKS                       R20 R20 K32 ["Snapping"]
+      141 CALL                             R17 3 1
+      142 SETTABLEKS                       R17 R16 K7 ["Items"]
+      144 SETTABLEKS                       R16 R15 K3 ["Schema"]
+      146 DUPTABLE                         R16 K4 [{"Id", "Schema"}]
+      147 GETUPVAL                         R17 1
+      148 GETTABLEKS                       R17 R17 K33 ["FlattenPlane"]
+      150 SETTABLEKS                       R17 R16 K2 ["Id"]
+      152 DUPTABLE                         R17 K8 [{"Type", "Items"}]
+      153 GETUPVAL                         R19 2
+      154 CALL                             R19 0 1
+      155 JUMPIFNOT                        R19 ; [+2]
+      156 LOADK                            R18 K9 ["SegmentedControl"]
+      157 JUMP                             ; [+1]
+      158 LOADK                            R18 K10 ["SingleSelectButton"]
+      159 SETTABLEKS                       R18 R17 K6 ["Type"]
+      161 GETUPVAL                         R18 3
+      162 MOVE                             R19 R4
+      163 LOADNIL                          R20
+      164 GETUPVAL                         R21 4
+      165 GETTABLEKS                       R21 R21 K33 ["FlattenPlane"]
+      167 CALL                             R18 3 1
+      168 SETTABLEKS                       R18 R17 K7 ["Items"]
+      170 SETTABLEKS                       R17 R16 K3 ["Schema"]
+      172 DUPTABLE                         R17 K35 [{"Hidden", "Id", "Schema"}]
+      173 GETUPVAL                         R20 1
+      174 GETTABLEKS                       R20 R20 K33 ["FlattenPlane"]
+      176 GETTABLE                         R19 R1 R20
+      177 GETUPVAL                         R20 5
+      178 GETTABLEKS                       R20 R20 K36 ["Auto"]
+      180 JUMPIFEQ                         R19 R20 ; [+2]
+      182 LOADB                            R18 0 +1
+      183 LOADB                            R18 1
+      184 SETTABLEKS                       R18 R17 K34 ["Hidden"]
+      186 GETUPVAL                         R18 1
+      187 GETTABLEKS                       R18 R18 K37 ["FixedYPlane"]
+      189 SETTABLEKS                       R18 R17 K2 ["Id"]
+      191 DUPTABLE                         R18 K39 [{["Type"] = "Number"}]
+      192 SETTABLEKS                       R18 R17 K3 ["Schema"]
+      194 DUPTABLE                         R18 K4 [{"Id", "Schema"}]
+      195 GETUPVAL                         R19 1
+      196 GETTABLEKS                       R19 R19 K40 ["PlaneLock"]
+      198 SETTABLEKS                       R19 R18 K2 ["Id"]
+      200 DUPTABLE                         R19 K8 [{"Type", "Items"}]
+      201 GETUPVAL                         R21 2
+      202 CALL                             R21 0 1
+      203 JUMPIFNOT                        R21 ; [+2]
+      204 LOADK                            R20 K9 ["SegmentedControl"]
+      205 JUMP                             ; [+1]
+      206 LOADK                            R20 K10 ["SingleSelectButton"]
+      207 SETTABLEKS                       R20 R19 K6 ["Type"]
+      209 GETUPVAL                         R20 3
+      210 MOVE                             R21 R4
+      211 LOADNIL                          R22
+      212 GETUPVAL                         R23 4
+      213 GETTABLEKS                       R23 R23 K40 ["PlaneLock"]
+      215 CALL                             R20 3 1
+      216 SETTABLEKS                       R20 R19 K7 ["Items"]
+      218 SETTABLEKS                       R19 R18 K3 ["Schema"]
+      220 DUPTABLE                         R19 K35 [{"Hidden", "Id", "Schema"}]
+      221 GETUPVAL                         R22 1
+      222 GETTABLEKS                       R22 R22 K40 ["PlaneLock"]
+      224 GETTABLE                         R21 R1 R22
+      225 GETUPVAL                         R22 6
+      226 GETTABLEKS                       R22 R22 K41 ["Manual"]
+      228 JUMPIFNOTEQ                      R21 R22 ; [+2]
+      230 LOADB                            R20 0 +1
+      231 LOADB                            R20 1
+      232 SETTABLEKS                       R20 R19 K34 ["Hidden"]
+      234 GETUPVAL                         R20 1
+      235 GETTABLEKS                       R20 R20 K42 ["ManualPlaneLock"]
+      237 SETTABLEKS                       R20 R19 K2 ["Id"]
+      239 DUPTABLE                         R20 K46 [{["ApplyLabel"], ["EditLabel"], ["OnReset"], ["Type"] = "PlaneLock"}]
+      240 GETUPVAL                         R23 7
+      241 GETTABLEKS                       R23 R23 K47 ["BrushSettings"]
+      243 LOADK                            R24 K48 ["Apply"]
+      244 NAMECALL                         R21 R4 K49 ["getText"]
+      246 CALL                             R21 3 1
+      247 SETTABLEKS                       R21 R20 K43 ["ApplyLabel"]
+      249 GETUPVAL                         R23 7
+      250 GETTABLEKS                       R23 R23 K47 ["BrushSettings"]
+      252 LOADK                            R24 K50 ["Edit"]
+      253 NAMECALL                         R21 R4 K49 ["getText"]
+      255 CALL                             R21 3 1
+      256 SETTABLEKS                       R21 R20 K44 ["EditLabel"]
+      258 DUPCLOSURE                       R21 K51 [PROTO_0]
+      259 SETTABLEKS                       R21 R20 K45 ["OnReset"]
+      261 SETTABLEKS                       R20 R19 K3 ["Schema"]
+      263 DUPTABLE                         R20 K54 [{"DataId", "Id", "Height", "Hidden", "Schema", "Value"}]
+      264 GETUPVAL                         R21 1
+      265 GETTABLEKS                       R21 R21 K55 ["PlaneTransform"]
+      267 SETTABLEKS                       R21 R20 K52 ["DataId"]
+      269 GETUPVAL                         R21 1
+      270 GETTABLEKS                       R21 R21 K56 ["PlanePosition"]
+      272 SETTABLEKS                       R21 R20 K2 ["Id"]
+      274 GETUPVAL                         R22 8
+      275 CALL                             R22 0 1
+      276 JUMPIFNOT                        R22 ; [+2]
+      277 LOADN                            R21 26
+      278 JUMP                             ; [+1]
+      279 LOADNIL                          R21
+      280 SETTABLEKS                       R21 R20 K11 ["Height"]
+      282 LOADB                            R21 1
+      283 GETUPVAL                         R23 1
+      284 GETTABLEKS                       R23 R23 K40 ["PlaneLock"]
+      286 GETTABLE                         R22 R1 R23
+      287 GETUPVAL                         R23 6
+      288 GETTABLEKS                       R23 R23 K41 ["Manual"]
+      290 JUMPIFNOTEQ                      R22 R23 ; [+6]
+      292 GETUPVAL                         R23 1
+      293 GETTABLEKS                       R23 R23 K42 ["ManualPlaneLock"]
+      295 GETTABLE                         R22 R1 R23
+      296 NOT                              R21 R22
+      297 SETTABLEKS                       R21 R20 K34 ["Hidden"]
+      299 DUPTABLE                         R21 K61 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+      300 NEWTABLE                         R22 0 3
+      302 LOADK                            R23 K62 ["X"]
+      303 LOADK                            R24 K63 ["Y"]
+      304 LOADK                            R25 K64 ["Z"]
+      305 SETLIST                          R22 R23 3 [1]
+      307 SETTABLEKS                       R22 R21 K58 ["Components"]
+      309 NEWCLOSURE                       R22 P1
+      310 CAPTURE                          VAL R1
+      311 CAPTURE                          UPVAL U1
+      312 SETTABLEKS                       R22 R21 K59 ["GetValue"]
+      314 DUPCLOSURE                       R22 K65 [PROTO_2]
+      315 SETTABLEKS                       R22 R21 K60 ["GetComponents"]
+      317 SETTABLEKS                       R21 R20 K3 ["Schema"]
+      319 GETUPVAL                         R22 1
+      320 GETTABLEKS                       R22 R22 K55 ["PlaneTransform"]
+      322 GETTABLE                         R21 R1 R22
+      323 SETTABLEKS                       R21 R20 K53 ["Value"]
+      325 DUPTABLE                         R21 K54 [{"DataId", "Id", "Height", "Hidden", "Schema", "Value"}]
+      326 GETUPVAL                         R22 1
+      327 GETTABLEKS                       R22 R22 K55 ["PlaneTransform"]
+      329 SETTABLEKS                       R22 R21 K52 ["DataId"]
+      331 GETUPVAL                         R22 1
+      332 GETTABLEKS                       R22 R22 K66 ["PlaneRotation"]
+      334 SETTABLEKS                       R22 R21 K2 ["Id"]
+      336 GETUPVAL                         R23 8
+      337 CALL                             R23 0 1
+      338 JUMPIFNOT                        R23 ; [+2]
+      339 LOADN                            R22 26
+      340 JUMP                             ; [+1]
+      341 LOADNIL                          R22
+      342 SETTABLEKS                       R22 R21 K11 ["Height"]
+      344 LOADB                            R22 1
+      345 GETUPVAL                         R24 1
+      346 GETTABLEKS                       R24 R24 K40 ["PlaneLock"]
+      348 GETTABLE                         R23 R1 R24
+      349 GETUPVAL                         R24 6
+      350 GETTABLEKS                       R24 R24 K41 ["Manual"]
+      352 JUMPIFNOTEQ                      R23 R24 ; [+6]
+      354 GETUPVAL                         R24 1
+      355 GETTABLEKS                       R24 R24 K42 ["ManualPlaneLock"]
+      357 GETTABLE                         R23 R1 R24
+      358 NOT                              R22 R23
+      359 SETTABLEKS                       R22 R21 K34 ["Hidden"]
+      361 DUPTABLE                         R22 K61 [{["Type"] = "Vector", ["Components"], ["GetValue"], ["GetComponents"]}]
+      362 NEWTABLE                         R23 0 3
+      364 LOADK                            R24 K62 ["X"]
+      365 LOADK                            R25 K63 ["Y"]
+      366 LOADK                            R26 K64 ["Z"]
+      367 SETLIST                          R23 R24 3 [1]
+      369 SETTABLEKS                       R23 R22 K58 ["Components"]
+      371 NEWCLOSURE                       R23 P3
+      372 CAPTURE                          VAL R1
+      373 CAPTURE                          UPVAL U1
+      374 SETTABLEKS                       R23 R22 K59 ["GetValue"]
+      376 DUPCLOSURE                       R23 K67 [PROTO_4]
+      377 SETTABLEKS                       R23 R22 K60 ["GetComponents"]
+      379 SETTABLEKS                       R22 R21 K3 ["Schema"]
+      381 GETUPVAL                         R23 1
+      382 GETTABLEKS                       R23 R23 K55 ["PlaneTransform"]
+      384 GETTABLE                         R22 R1 R23
+      385 SETTABLEKS                       R22 R21 K53 ["Value"]
+      387 DUPTABLE                         R22 K4 [{"Id", "Schema"}]
+      388 GETUPVAL                         R23 1
+      389 GETTABLEKS                       R23 R23 K68 ["IgnoreWater"]
+      391 SETTABLEKS                       R23 R22 K2 ["Id"]
+      393 DUPTABLE                         R23 K70 [{["Type"] = "Checkbox"}]
+      394 SETTABLEKS                       R23 R22 K3 ["Schema"]
+      396 DUPTABLE                         R23 K4 [{"Id", "Schema"}]
+      397 GETUPVAL                         R24 1
+      398 GETTABLEKS                       R24 R24 K71 ["IgnoreParts"]
+      400 SETTABLEKS                       R24 R23 K2 ["Id"]
+      402 DUPTABLE                         R24 K70 [{["Type"] = "Checkbox"}]
+      403 SETTABLEKS                       R24 R23 K3 ["Schema"]
+      405 SETLIST                          R8 R9 15 [1]
+      407 DUPTABLE                         R9 K75 [{"Category", "Data", "Overrides"}]
+      408 GETUPVAL                         R10 9
+      409 SETTABLEKS                       R10 R9 K72 ["Category"]
+      411 SETTABLEKS                       R1 R9 K73 ["Data"]
+      413 SETTABLEKS                       R3 R9 K74 ["Overrides"]
+      415 CALL                             R6 3 -1
+      416 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

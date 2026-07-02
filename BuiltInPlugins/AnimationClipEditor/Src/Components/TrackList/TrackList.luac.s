@@ -920,31 +920,27 @@ PROTO_27:
        59 GETUPVAL                         R11 1
        60 GETTABLEKS                       R11 R11 K19 ["createElement"]
        62 GETUPVAL                         R12 2
-       63 DUPTABLE                         R13 K26 [{"Size", "Width", "LayoutOrder", "BackgroundTransparency", "CanvasSize", "ZIndex", "OnWheelTick", "OnSizeChanged"}]
+       63 DUPTABLE                         R13 K27 [{["Size"], ["Width"], ["LayoutOrder"], ["BackgroundTransparency"] = 1, ["CanvasSize"], ["ZIndex"] = 2, ["OnWheelTick"], ["OnSizeChanged"]}]
        64 SETTABLEKS                       R4 R13 K5 ["Size"]
        66 SETTABLEKS                       R7 R13 K20 ["Width"]
        68 SETTABLEKS                       R8 R13 K10 ["LayoutOrder"]
-       70 LOADN                            R14 1
-       71 SETTABLEKS                       R14 R13 K21 ["BackgroundTransparency"]
-       73 GETIMPORT                        R14 K29 [UDim2.new]
-       75 LOADN                            R15 0
-       76 GETTABLEKS                       R17 R0 K1 ["maxTrackWidth"]
-       78 GETUPVAL                         R18 0
-       79 GETTABLEKS                       R18 R18 K30 ["TRACKLIST_RIGHT_PADDING"]
-       81 ADD                              R16 R17 R18
-       82 LOADN                            R17 0
-       83 LOADN                            R18 0
-       84 CALL                             R14 4 1
-       85 SETTABLEKS                       R14 R13 K22 ["CanvasSize"]
-       87 LOADN                            R14 2
-       88 SETTABLEKS                       R14 R13 K23 ["ZIndex"]
-       90 GETTABLEKS                       R14 R0 K31 ["wheelTick"]
-       92 SETTABLEKS                       R14 R13 K24 ["OnWheelTick"]
-       94 GETTABLEKS                       R14 R0 K32 ["sizeChanged"]
-       96 SETTABLEKS                       R14 R13 K25 ["OnSizeChanged"]
-       98 MOVE                             R14 R10
-       99 CALL                             R11 3 -1
-      100 RETURN                           R11 -1
+       70 GETIMPORT                        R14 K30 [UDim2.new]
+       72 LOADN                            R15 0
+       73 GETTABLEKS                       R17 R0 K1 ["maxTrackWidth"]
+       75 GETUPVAL                         R18 0
+       76 GETTABLEKS                       R18 R18 K31 ["TRACKLIST_RIGHT_PADDING"]
+       78 ADD                              R16 R17 R18
+       79 LOADN                            R17 0
+       80 LOADN                            R18 0
+       81 CALL                             R14 4 1
+       82 SETTABLEKS                       R14 R13 K22 ["CanvasSize"]
+       84 GETTABLEKS                       R14 R0 K32 ["wheelTick"]
+       86 SETTABLEKS                       R14 R13 K25 ["OnWheelTick"]
+       88 GETTABLEKS                       R14 R0 K33 ["sizeChanged"]
+       90 SETTABLEKS                       R14 R13 K26 ["OnSizeChanged"]
+       92 MOVE                             R14 R10
+       93 CALL                             R11 3 -1
+       94 RETURN                           R11 -1
 
 PROTO_28:
         0 GETTABLEKS                       R2 R0 K0 ["Status"]

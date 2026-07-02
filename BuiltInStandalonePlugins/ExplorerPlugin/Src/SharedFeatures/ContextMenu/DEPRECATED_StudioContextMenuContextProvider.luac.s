@@ -73,39 +73,37 @@ PROTO_2:
        26 CALL                             R10 2 0
        27 GETTABLEKS                       R11 R8 K4 ["index"]
        29 GETTABLE                         R10 R9 R11
-       30 JUMPIFNOTEQKNIL                  R10 ; [+15]
-       32 DUPTABLE                         R11 K8 [{"key", "type", "items"}]
+       30 JUMPIFNOTEQKNIL                  R10 ; [+12]
+       32 DUPTABLE                         R11 K9 [{["key"], ["type"] = "submenu", ["items"]}]
        33 SETTABLEKS                       R7 R11 K5 ["key"]
-       35 LOADK                            R12 K9 ["submenu"]
-       36 SETTABLEKS                       R12 R11 K6 ["type"]
-       38 NEWTABLE                         R12 0 0
-       40 SETTABLEKS                       R12 R11 K7 ["items"]
-       42 MOVE                             R10 R11
-       43 GETTABLEKS                       R11 R8 K4 ["index"]
-       45 SETTABLE                         R10 R9 R11
-       46 JUMPIFNOTEQKNIL                  R10 ; [+2]
-       48 LOADB                            R12 0 +1
-       49 LOADB                            R12 1
-       50 FASTCALL2K                       ASSERT R12 K1 ; [+4]
-       52 LOADK                            R13 K1 ["Luau"]
-       53 GETIMPORT                        R11 K3 [assert]
-       55 CALL                             R11 2 0
-       56 GETTABLEKS                       R13 R10 K6 ["type"]
-       58 JUMPIFEQKS                       R13 K9 ["submenu"] ; [+2]
-       60 LOADB                            R12 0 +1
-       61 LOADB                            R12 1
-       62 FASTCALL2K                       ASSERT R12 K10 ; [+4]
-       64 LOADK                            R13 K10 ["Found submenu is not a submenu"]
-       65 GETIMPORT                        R11 K3 [assert]
-       67 CALL                             R11 2 0
-       68 GETTABLEKS                       R2 R10 K7 ["items"]
-       70 FORGLOOP                         R3 2 ; [-66]
-       72 GETTABLE                         R3 R2 R1
-       73 JUMPIFNOTEQKNIL                  R3 ; [+5]
-       75 NEWTABLE                         R4 0 0
-       77 SETTABLE                         R4 R2 R1
-       78 RETURN                           R4 1
-       79 RETURN                           R3 1
+       35 NEWTABLE                         R12 0 0
+       37 SETTABLEKS                       R12 R11 K8 ["items"]
+       39 MOVE                             R10 R11
+       40 GETTABLEKS                       R11 R8 K4 ["index"]
+       42 SETTABLE                         R10 R9 R11
+       43 JUMPIFNOTEQKNIL                  R10 ; [+2]
+       45 LOADB                            R12 0 +1
+       46 LOADB                            R12 1
+       47 FASTCALL2K                       ASSERT R12 K1 ; [+4]
+       49 LOADK                            R13 K1 ["Luau"]
+       50 GETIMPORT                        R11 K3 [assert]
+       52 CALL                             R11 2 0
+       53 GETTABLEKS                       R13 R10 K6 ["type"]
+       55 JUMPIFEQKS                       R13 K7 ["submenu"] ; [+2]
+       57 LOADB                            R12 0 +1
+       58 LOADB                            R12 1
+       59 FASTCALL2K                       ASSERT R12 K10 ; [+4]
+       61 LOADK                            R13 K10 ["Found submenu is not a submenu"]
+       62 GETIMPORT                        R11 K3 [assert]
+       64 CALL                             R11 2 0
+       65 GETTABLEKS                       R2 R10 K8 ["items"]
+       67 FORGLOOP                         R3 2 ; [-63]
+       69 GETTABLE                         R3 R2 R1
+       70 JUMPIFNOTEQKNIL                  R3 ; [+5]
+       72 NEWTABLE                         R4 0 0
+       74 SETTABLE                         R4 R2 R1
+       75 RETURN                           R4 1
+       76 RETURN                           R3 1
 
 PROTO_3:
         0 NEWTABLE                         R2 0 0
@@ -133,41 +131,39 @@ PROTO_3:
        28 GETTABLEKS                       R11 R9 K6 ["item"]
        30 GETTABLEKS                       R11 R11 K7 ["source"]
        32 GETTABLEKS                       R11 R11 K8 ["type"]
-       34 JUMPIFNOTEQKS                    R11 K9 ["studioAction"] ; [+25]
+       34 JUMPIFNOTEQKS                    R11 K9 ["studioAction"] ; [+22]
        36 GETTABLEKS                       R11 R1 K10 ["getStudioActionState"]
        38 GETTABLEKS                       R12 R9 K6 ["item"]
        40 GETTABLEKS                       R12 R12 K7 ["source"]
        42 GETTABLEKS                       R12 R12 K11 ["uri"]
        44 CALL                             R11 1 1
        45 GETTABLEKS                       R12 R9 K12 ["index"]
-       47 DUPTABLE                         R13 K14 [{"type", "action"}]
-       48 LOADK                            R14 K13 ["action"]
-       49 SETTABLEKS                       R14 R13 K8 ["type"]
-       51 DUPTABLE                         R14 K17 [{"key", "state"}]
-       52 SETTABLEKS                       R7 R14 K15 ["key"]
-       54 SETTABLEKS                       R11 R14 K16 ["state"]
-       56 SETTABLEKS                       R14 R13 K13 ["action"]
-       58 SETTABLE                         R13 R10 R12
-       59 JUMP                             ; [+26]
-       60 GETTABLEKS                       R11 R9 K6 ["item"]
-       62 GETTABLEKS                       R11 R11 K7 ["source"]
-       64 GETTABLEKS                       R11 R11 K8 ["type"]
-       66 JUMPIFNOTEQKS                    R11 K18 ["submenu"] ; [+11]
-       68 GETIMPORT                        R11 K1 [error]
-       70 LOADK                            R13 K19 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
-       71 MOVE                             R15 R7
-       72 NAMECALL                         R13 R13 K3 ["format"]
-       74 CALL                             R13 2 1
-       75 MOVE                             R12 R13
-       76 CALL                             R11 1 0
-       77 JUMP                             ; [+8]
-       78 GETUPVAL                         R11 1
-       79 GETTABLEKS                       R12 R9 K6 ["item"]
-       81 GETTABLEKS                       R12 R12 K7 ["source"]
-       83 GETTABLEKS                       R12 R12 K8 ["type"]
-       85 CALL                             R11 1 0
-       86 FORGLOOP                         R4 1 ; [-78]
-       88 RETURN                           R2 1
+       47 DUPTABLE                         R13 K14 [{["type"] = "action", ["action"]}]
+       48 DUPTABLE                         R14 K17 [{"key", "state"}]
+       49 SETTABLEKS                       R7 R14 K15 ["key"]
+       51 SETTABLEKS                       R11 R14 K16 ["state"]
+       53 SETTABLEKS                       R14 R13 K13 ["action"]
+       55 SETTABLE                         R13 R10 R12
+       56 JUMP                             ; [+26]
+       57 GETTABLEKS                       R11 R9 K6 ["item"]
+       59 GETTABLEKS                       R11 R11 K7 ["source"]
+       61 GETTABLEKS                       R11 R11 K8 ["type"]
+       63 JUMPIFNOTEQKS                    R11 K18 ["submenu"] ; [+11]
+       65 GETIMPORT                        R11 K1 [error]
+       67 LOADK                            R13 K19 ["Submenu is being sent as something that is enabled, but this should just be real actions: %*"]
+       68 MOVE                             R15 R7
+       69 NAMECALL                         R13 R13 K3 ["format"]
+       71 CALL                             R13 2 1
+       72 MOVE                             R12 R13
+       73 CALL                             R11 1 0
+       74 JUMP                             ; [+8]
+       75 GETUPVAL                         R11 1
+       76 GETTABLEKS                       R12 R9 K6 ["item"]
+       78 GETTABLEKS                       R12 R12 K7 ["source"]
+       80 GETTABLEKS                       R12 R12 K8 ["type"]
+       82 CALL                             R11 1 0
+       83 FORGLOOP                         R4 1 ; [-75]
+       85 RETURN                           R2 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

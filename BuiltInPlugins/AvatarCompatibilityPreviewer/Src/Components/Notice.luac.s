@@ -35,7 +35,7 @@ PROTO_0:
        49 GETUPVAL                         R6 1
        50 GETTABLEKS                       R6 R6 K2 ["createElement"]
        52 GETUPVAL                         R7 3
-       53 DUPTABLE                         R8 K28 [{"AutomaticSize", "Text", "TextColor", "TextSize", "TextWrapped"}]
+       53 DUPTABLE                         R8 K29 [{["AutomaticSize"], ["Text"], ["TextColor"], ["TextSize"], ["TextWrapped"] = True}]
        54 GETIMPORT                        R9 K18 [Enum.AutomaticSize.XY]
        56 SETTABLEKS                       R9 R8 K5 ["AutomaticSize"]
        58 GETTABLEKS                       R9 R0 K24 ["Text"]
@@ -44,12 +44,10 @@ PROTO_0:
        64 SETTABLEKS                       R9 R8 K25 ["TextColor"]
        66 GETTABLEKS                       R9 R1 K26 ["TextSize"]
        68 SETTABLEKS                       R9 R8 K26 ["TextSize"]
-       70 LOADB                            R9 1
-       71 SETTABLEKS                       R9 R8 K27 ["TextWrapped"]
-       73 CALL                             R6 2 1
-       74 SETTABLEKS                       R6 R5 K20 ["NoticeText"]
-       76 CALL                             R2 3 -1
-       77 RETURN                           R2 -1
+       70 CALL                             R6 2 1
+       71 SETTABLEKS                       R6 R5 K20 ["NoticeText"]
+       73 CALL                             R2 3 -1
+       74 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,11 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"text", "focused"}]
-        1 LOADK                            R2 K3 [""]
-        2 SETTABLEKS                       R2 R1 K0 ["text"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["focused"]
-        7 SETTABLEKS                       R1 R0 K4 ["state"]
-        9 RETURN                           R0 0
+        0 DUPTABLE                         R1 K4 [{[1] = "", ["focused"] = False}]
+        1 SETTABLEKS                       R1 R0 K5 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 JUMPIFEQKNIL                     R0 ; [+18]
@@ -176,32 +172,30 @@ PROTO_5:
        59 GETUPVAL                         R7 0
        60 GETTABLEKS                       R7 R7 K2 ["createElement"]
        62 GETUPVAL                         R8 4
-       63 DUPTABLE                         R9 K26 [{"Size", "Position", "Text", "Style", "OnClick"}]
-       64 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+       63 DUPTABLE                         R9 K27 [{["Size"], ["Position"], ["Text"], ["Style"] = "RoundPrimary", ["OnClick"]}]
+       64 GETIMPORT                        R10 K29 [UDim2.fromOffset]
        66 LOADN                            R11 100
        67 LOADN                            R12 24
        68 CALL                             R10 2 1
        69 SETTABLEKS                       R10 R9 K3 ["Size"]
-       71 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+       71 GETIMPORT                        R10 K29 [UDim2.fromOffset]
        73 LOADN                            R11 8
        74 LOADN                            R12 50
        75 CALL                             R10 2 1
        76 SETTABLEKS                       R10 R9 K23 ["Position"]
-       78 LOADK                            R12 K29 ["General"]
-       79 LOADK                            R13 K30 ["Save"]
+       78 LOADK                            R12 K30 ["General"]
+       79 LOADK                            R13 K31 ["Save"]
        80 NAMECALL                         R10 R2 K22 ["getText"]
        82 CALL                             R10 3 1
        83 SETTABLEKS                       R10 R9 K9 ["Text"]
-       85 LOADK                            R10 K31 ["RoundPrimary"]
-       86 SETTABLEKS                       R10 R9 K24 ["Style"]
-       88 NEWCLOSURE                       R10 P2
-       89 CAPTURE                          VAL R0
-       90 CAPTURE                          UPVAL U5
-       91 SETTABLEKS                       R10 R9 K25 ["OnClick"]
-       93 CALL                             R7 2 1
-       94 SETTABLEKS                       R7 R6 K7 ["Submit"]
-       96 CALL                             R3 3 -1
-       97 RETURN                           R3 -1
+       85 NEWCLOSURE                       R10 P2
+       86 CAPTURE                          VAL R0
+       87 CAPTURE                          UPVAL U5
+       88 SETTABLEKS                       R10 R9 K26 ["OnClick"]
+       90 CALL                             R7 2 1
+       91 SETTABLEKS                       R7 R6 K7 ["Submit"]
+       93 CALL                             R3 3 -1
+       94 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -20,21 +20,17 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isContainerHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isContainerHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isContainerHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isContainerHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -93,12 +89,10 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K1 [{"isFocused"}]
-        2 LOADB                            R4 1
-        3 SETTABLEKS                       R4 R3 K0 ["isFocused"]
-        5 NAMECALL                         R1 R1 K2 ["setState"]
-        7 CALL                             R1 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R3 K2 [{[1] = True}]
+        2 NAMECALL                         R1 R1 K3 ["setState"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R3 0
@@ -121,80 +115,64 @@ PROTO_9:
 PROTO_10:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+14]
+        2 JUMPIFNOT                        R0 ; [+8]
         3 GETUPVAL                         R0 1
-        4 DUPTABLE                         R2 K2 [{"text", "isFocused"}]
-        5 LOADK                            R3 K3 [""]
-        6 SETTABLEKS                       R3 R2 K0 ["text"]
-        8 LOADB                            R3 1
-        9 SETTABLEKS                       R3 R2 K1 ["isFocused"]
-       11 NEWCLOSURE                       R3 P0
-       12 CAPTURE                          UPVAL U1
-       13 NAMECALL                         R0 R0 K4 ["setState"]
-       15 CALL                             R0 3 0
-       16 RETURN                           R0 0
-       17 GETUPVAL                         R0 1
-       18 DUPTABLE                         R2 K2 [{"text", "isFocused"}]
-       19 LOADK                            R3 K3 [""]
-       20 SETTABLEKS                       R3 R2 K0 ["text"]
-       22 LOADB                            R3 1
-       23 SETTABLEKS                       R3 R2 K1 ["isFocused"]
-       25 NAMECALL                         R0 R0 K4 ["setState"]
-       27 CALL                             R0 2 0
-       28 GETUPVAL                         R0 1
-       29 GETTABLEKS                       R0 R0 K5 ["textBoxRef"]
-       31 GETTABLEKS                       R0 R0 K6 ["current"]
-       33 NAMECALL                         R0 R0 K7 ["CaptureFocus"]
-       35 CALL                             R0 1 0
-       36 GETUPVAL                         R0 1
-       37 GETTABLEKS                       R0 R0 K8 ["requestSearch"]
-       39 CALL                             R0 0 0
-       40 RETURN                           R0 0
+        4 DUPTABLE                         R2 K4 [{[1] = "", ["isFocused"] = True}]
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          UPVAL U1
+        7 NAMECALL                         R0 R0 K5 ["setState"]
+        9 CALL                             R0 3 0
+       10 RETURN                           R0 0
+       11 GETUPVAL                         R0 1
+       12 DUPTABLE                         R2 K4 [{[1] = "", ["isFocused"] = True}]
+       13 NAMECALL                         R0 R0 K5 ["setState"]
+       15 CALL                             R0 2 0
+       16 GETUPVAL                         R0 1
+       17 GETTABLEKS                       R0 R0 K6 ["textBoxRef"]
+       19 GETTABLEKS                       R0 R0 K7 ["current"]
+       21 NAMECALL                         R0 R0 K8 ["CaptureFocus"]
+       23 CALL                             R0 1 0
+       24 GETUPVAL                         R0 1
+       25 GETTABLEKS                       R0 R0 K9 ["requestSearch"]
+       27 CALL                             R0 0 0
+       28 RETURN                           R0 0
 
 PROTO_11:
-        0 DUPTABLE                         R1 K4 [{"text", "lastSearchTermAsProp", "isFocused", "isContainerHovered"}]
-        1 LOADK                            R2 K5 [""]
-        2 SETTABLEKS                       R2 R1 K0 ["text"]
-        4 LOADK                            R2 K5 [""]
-        5 SETTABLEKS                       R2 R1 K1 ["lastSearchTermAsProp"]
-        7 LOADB                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["isFocused"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["isContainerHovered"]
-       13 SETTABLEKS                       R1 R0 K6 ["state"]
-       15 GETUPVAL                         R1 0
-       16 GETTABLEKS                       R1 R1 K7 ["createRef"]
-       18 CALL                             R1 0 1
-       19 SETTABLEKS                       R1 R0 K8 ["textBoxRef"]
-       21 NEWCLOSURE                       R1 P0
+        0 DUPTABLE                         R1 K6 [{[1] = "", ["lastSearchTermAsProp"] = "", ["isFocused"] = False, ["isContainerHovered"] = False}]
+        1 SETTABLEKS                       R1 R0 K7 ["state"]
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K8 ["createRef"]
+        6 CALL                             R1 0 1
+        7 SETTABLEKS                       R1 R0 K9 ["textBoxRef"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K10 ["requestSearch"]
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K11 ["onContainerHovered"]
+       17 NEWCLOSURE                       R1 P2
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K12 ["onContainerHoverEnded"]
+       21 NEWCLOSURE                       R1 P3
        22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K9 ["requestSearch"]
-       25 NEWCLOSURE                       R1 P1
+       23 SETTABLEKS                       R1 R0 K13 ["onBackgroundClicked"]
+       25 NEWCLOSURE                       R1 P4
        26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K10 ["onContainerHovered"]
-       29 NEWCLOSURE                       R1 P2
+       27 SETTABLEKS                       R1 R0 K14 ["onBackgroundFocusLost"]
+       29 NEWCLOSURE                       R1 P5
        30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R1 R0 K11 ["onContainerHoverEnded"]
-       33 NEWCLOSURE                       R1 P3
+       31 SETTABLEKS                       R1 R0 K15 ["onTextChanged"]
+       33 NEWCLOSURE                       R1 P6
        34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R1 R0 K12 ["onBackgroundClicked"]
-       37 NEWCLOSURE                       R1 P4
+       35 SETTABLEKS                       R1 R0 K16 ["onTextBoxFocused"]
+       37 NEWCLOSURE                       R1 P7
        38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R1 R0 K13 ["onBackgroundFocusLost"]
-       41 NEWCLOSURE                       R1 P5
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R1 R0 K14 ["onTextChanged"]
-       45 NEWCLOSURE                       R1 P6
-       46 CAPTURE                          VAL R0
-       47 SETTABLEKS                       R1 R0 K15 ["onTextBoxFocused"]
-       49 NEWCLOSURE                       R1 P7
-       50 CAPTURE                          VAL R0
-       51 SETTABLEKS                       R1 R0 K16 ["onTextBoxFocusLost"]
-       53 NEWCLOSURE                       R1 P8
-       54 CAPTURE                          UPVAL U1
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R1 R0 K17 ["onClearButtonClicked"]
-       58 RETURN                           R0 0
+       39 SETTABLEKS                       R1 R0 K17 ["onTextBoxFocusLost"]
+       41 NEWCLOSURE                       R1 P8
+       42 CAPTURE                          UPVAL U1
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R1 R0 K18 ["onClearButtonClicked"]
+       46 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R3 R0 K0 ["searchTerm"]
@@ -217,17 +195,13 @@ PROTO_12:
        24 RETURN                           R4 1
 
 PROTO_13:
-        0 DUPTABLE                         R4 K2 [{"isFocused", "isContainerHovered"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["isFocused"]
-        4 LOADB                            R5 0
-        5 SETTABLEKS                       R5 R4 K1 ["isContainerHovered"]
-        7 NAMECALL                         R2 R0 K3 ["setState"]
-        9 CALL                             R2 2 0
-       10 JUMPIFNOT                        R1 ; [+3]
-       11 GETTABLEKS                       R2 R0 K4 ["requestSearch"]
-       13 CALL                             R2 0 0
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R4 K3 [{[1] = False, ["isContainerHovered"] = False}]
+        1 NAMECALL                         R2 R0 K4 ["setState"]
+        3 CALL                             R2 2 0
+        4 JUMPIFNOT                        R1 ; [+3]
+        5 GETTABLEKS                       R2 R0 K5 ["requestSearch"]
+        7 CALL                             R2 0 0
+        8 RETURN                           R0 0
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -287,7 +261,7 @@ PROTO_14:
        77 GETUPVAL                         R20 2
        78 GETTABLEKS                       R20 R20 K25 ["createElement"]
        80 LOADK                            R21 K26 ["Frame"]
-       81 DUPTABLE                         R22 K29 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+       81 DUPTABLE                         R22 K29 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
        82 GETIMPORT                        R23 K31 [UDim2.new]
        84 LOADN                            R24 0
        85 MOVE                             R25 R4
@@ -295,166 +269,160 @@ PROTO_14:
        87 LOADN                            R27 0
        88 CALL                             R23 4 1
        89 SETTABLEKS                       R23 R22 K27 ["Size"]
-       91 LOADN                            R23 1
-       92 SETTABLEKS                       R23 R22 K28 ["BackgroundTransparency"]
-       94 SETTABLEKS                       R5 R22 K5 ["LayoutOrder"]
-       96 DUPTABLE                         R23 K33 [{"Background"}]
-       97 GETUPVAL                         R24 2
-       98 GETTABLEKS                       R24 R24 K25 ["createElement"]
-      100 GETUPVAL                         R25 3
-      101 NEWTABLE                         R26 16 0
-      103 GETIMPORT                        R27 K31 [UDim2.new]
-      105 LOADN                            R28 0
-      106 LOADN                            R29 255
-      107 LOADN                            R30 0
-      108 LOADN                            R31 255
-      109 CALL                             R27 4 1
-      110 SETTABLEKS                       R27 R26 K34 ["Position"]
-      112 GETIMPORT                        R27 K31 [UDim2.new]
-      114 LOADN                            R28 1
-      115 LOADN                            R29 2
-      116 LOADN                            R30 1
-      117 LOADN                            R31 2
-      118 CALL                             R27 4 1
-      119 SETTABLEKS                       R27 R26 K27 ["Size"]
-      121 SETTABLEKS                       R18 R26 K35 ["BorderColor3"]
-      123 LOADB                            R27 1
-      124 SETTABLEKS                       R27 R26 K36 ["ClipsDescendants"]
-      126 JUMPIFNOT                        R11 ; [+3]
-      127 GETTABLEKS                       R27 R17 K37 ["liveBackgroundColor"]
-      129 JUMPIF                           R27 ; [+2]
-      130 GETTABLEKS                       R27 R17 K38 ["backgroundColor"]
-      132 SETTABLEKS                       R27 R26 K39 ["BackgroundColor3"]
-      134 GETUPVAL                         R27 2
-      135 GETTABLEKS                       R27 R27 K40 ["Event"]
-      137 GETTABLEKS                       R27 R27 K41 ["MouseEnter"]
-      139 GETTABLEKS                       R28 R0 K42 ["onContainerHovered"]
-      141 SETTABLE                         R28 R26 R27
-      142 GETUPVAL                         R27 2
-      143 GETTABLEKS                       R27 R27 K40 ["Event"]
-      145 GETTABLEKS                       R27 R27 K43 ["MouseMoved"]
-      147 GETTABLEKS                       R28 R0 K42 ["onContainerHovered"]
-      149 SETTABLE                         R28 R26 R27
-      150 GETUPVAL                         R27 2
-      151 GETTABLEKS                       R27 R27 K40 ["Event"]
-      153 GETTABLEKS                       R27 R27 K44 ["MouseLeave"]
-      155 GETTABLEKS                       R28 R0 K45 ["onContainerHoverEnded"]
-      157 SETTABLE                         R28 R26 R27
-      158 GETUPVAL                         R27 2
-      159 GETTABLEKS                       R27 R27 K40 ["Event"]
-      161 GETTABLEKS                       R27 R27 K46 ["MouseButton1Down"]
-      163 GETTABLEKS                       R28 R0 K47 ["onBackgroundClicked"]
-      165 SETTABLE                         R28 R26 R27
-      166 GETUPVAL                         R27 2
-      167 GETTABLEKS                       R27 R27 K40 ["Event"]
-      169 GETTABLEKS                       R27 R27 K48 ["InputEnded"]
-      171 GETTABLEKS                       R28 R0 K49 ["onBackgroundFocusLost"]
-      173 SETTABLE                         R28 R26 R27
-      174 DUPTABLE                         R27 K52 [{"TextContainer", "Buttons"}]
-      175 GETUPVAL                         R28 2
-      176 GETTABLEKS                       R28 R28 K25 ["createElement"]
-      178 LOADK                            R29 K26 ["Frame"]
-      179 DUPTABLE                         R30 K54 [{"Position", "Size", "BackgroundTransparency", "ZIndex"}]
-      180 GETIMPORT                        R31 K31 [UDim2.new]
-      182 LOADN                            R32 0
-      183 LOADN                            R33 10
-      184 LOADN                            R34 0
-      185 LOADN                            R35 0
-      186 CALL                             R31 4 1
-      187 SETTABLEKS                       R31 R30 K34 ["Position"]
-      189 GETIMPORT                        R31 K31 [UDim2.new]
-      191 LOADN                            R32 1
-      192 ADDK                             R34 R13 K14 [20]
-      193 MINUS                            R33 R34
-      194 LOADN                            R34 1
-      195 LOADN                            R35 0
-      196 CALL                             R31 4 1
-      197 SETTABLEKS                       R31 R30 K27 ["Size"]
-      199 LOADN                            R31 1
-      200 SETTABLEKS                       R31 R30 K28 ["BackgroundTransparency"]
-      202 LOADN                            R31 2
-      203 SETTABLEKS                       R31 R30 K53 ["ZIndex"]
-      205 DUPTABLE                         R31 K56 [{"TextBox"}]
-      206 GETUPVAL                         R32 2
-      207 GETTABLEKS                       R32 R32 K25 ["createElement"]
-      209 LOADK                            R33 K55 ["TextBox"]
-      210 NEWTABLE                         R34 16 0
-      212 LOADN                            R35 1
-      213 SETTABLEKS                       R35 R34 K5 ["LayoutOrder"]
-      215 GETIMPORT                        R35 K31 [UDim2.new]
-      217 LOADN                            R36 1
-      218 LOADN                            R37 0
-      219 LOADN                            R38 1
-      220 LOADN                            R39 0
-      221 CALL                             R35 4 1
-      222 SETTABLEKS                       R35 R34 K27 ["Size"]
-      224 LOADN                            R35 1
-      225 SETTABLEKS                       R35 R34 K28 ["BackgroundTransparency"]
-      227 LOADB                            R35 1
-      228 SETTABLEKS                       R35 R34 K36 ["ClipsDescendants"]
-      230 LOADB                            R35 0
-      231 SETTABLEKS                       R35 R34 K57 ["ClearTextOnFocus"]
-      233 GETUPVAL                         R35 0
-      234 GETTABLEKS                       R35 R35 K58 ["FONT"]
-      236 SETTABLEKS                       R35 R34 K59 ["Font"]
-      238 GETUPVAL                         R35 0
-      239 GETTABLEKS                       R35 R35 K60 ["FONT_SIZE_MEDIUM"]
-      241 SETTABLEKS                       R35 R34 K61 ["TextSize"]
-      243 JUMPIFNOT                        R16 ; [+3]
-      244 GETIMPORT                        R35 K65 [Enum.TextXAlignment.Left]
-      246 JUMPIF                           R35 ; [+2]
-      247 GETIMPORT                        R35 K67 [Enum.TextXAlignment.Right]
-      249 SETTABLEKS                       R35 R34 K63 ["TextXAlignment"]
-      251 GETTABLEKS                       R35 R17 K68 ["textColor"]
-      253 SETTABLEKS                       R35 R34 K69 ["TextColor3"]
-      255 SETTABLEKS                       R6 R34 K70 ["Text"]
-      257 GETTABLEKS                       R35 R1 K71 ["Localization"]
-      259 LOADK                            R37 K72 ["General"]
-      260 MOVE                             R38 R19
-      261 NAMECALL                         R35 R35 K73 ["getText"]
-      263 CALL                             R35 3 1
-      264 SETTABLEKS                       R35 R34 K74 ["PlaceholderText"]
-      266 GETTABLEKS                       R35 R17 K75 ["placeholderTextColor"]
-      268 SETTABLEKS                       R35 R34 K76 ["PlaceholderColor3"]
-      270 GETUPVAL                         R35 2
-      271 GETTABLEKS                       R35 R35 K77 ["Ref"]
-      273 GETTABLEKS                       R36 R0 K78 ["textBoxRef"]
-      275 SETTABLE                         R36 R34 R35
-      276 GETUPVAL                         R35 2
-      277 GETTABLEKS                       R35 R35 K79 ["Change"]
-      279 GETTABLEKS                       R35 R35 K70 ["Text"]
-      281 GETTABLEKS                       R36 R0 K80 ["onTextChanged"]
-      283 SETTABLE                         R36 R34 R35
-      284 GETUPVAL                         R35 2
-      285 GETTABLEKS                       R35 R35 K40 ["Event"]
-      287 GETTABLEKS                       R35 R35 K81 ["Focused"]
-      289 GETTABLEKS                       R36 R0 K82 ["onTextBoxFocused"]
-      291 SETTABLE                         R36 R34 R35
-      292 GETUPVAL                         R35 2
-      293 GETTABLEKS                       R35 R35 K40 ["Event"]
-      295 GETTABLEKS                       R35 R35 K83 ["FocusLost"]
-      297 GETTABLEKS                       R36 R0 K84 ["onTextBoxFocusLost"]
-      299 SETTABLE                         R36 R34 R35
-      300 CALL                             R32 2 1
-      301 SETTABLEKS                       R32 R31 K55 ["TextBox"]
-      303 CALL                             R28 3 1
-      304 SETTABLEKS                       R28 R27 K50 ["TextContainer"]
-      306 GETUPVAL                         R28 2
-      307 GETTABLEKS                       R28 R28 K25 ["createElement"]
-      309 GETUPVAL                         R29 4
-      310 DUPTABLE                         R30 K88 [{"showClearButton", "showSearchButton", "onClearButtonClicked", "onSearchButtonClicked"}]
-      311 SETTABLEKS                       R9 R30 K85 ["showClearButton"]
-      313 SETTABLEKS                       R10 R30 K9 ["showSearchButton"]
-      315 GETTABLEKS                       R31 R0 K86 ["onClearButtonClicked"]
-      317 SETTABLEKS                       R31 R30 K86 ["onClearButtonClicked"]
-      319 GETTABLEKS                       R31 R0 K89 ["requestSearch"]
-      321 SETTABLEKS                       R31 R30 K87 ["onSearchButtonClicked"]
-      323 CALL                             R28 2 1
-      324 SETTABLEKS                       R28 R27 K51 ["Buttons"]
-      326 CALL                             R24 3 1
-      327 SETTABLEKS                       R24 R23 K32 ["Background"]
-      329 CALL                             R20 3 -1
-      330 RETURN                           R20 -1
+       91 SETTABLEKS                       R5 R22 K5 ["LayoutOrder"]
+       93 DUPTABLE                         R23 K33 [{"Background"}]
+       94 GETUPVAL                         R24 2
+       95 GETTABLEKS                       R24 R24 K25 ["createElement"]
+       97 GETUPVAL                         R25 3
+       98 NEWTABLE                         R26 16 0
+      100 GETIMPORT                        R27 K31 [UDim2.new]
+      102 LOADN                            R28 0
+      103 LOADN                            R29 -1
+      104 LOADN                            R30 0
+      105 LOADN                            R31 -1
+      106 CALL                             R27 4 1
+      107 SETTABLEKS                       R27 R26 K34 ["Position"]
+      109 GETIMPORT                        R27 K31 [UDim2.new]
+      111 LOADN                            R28 1
+      112 LOADN                            R29 2
+      113 LOADN                            R30 1
+      114 LOADN                            R31 2
+      115 CALL                             R27 4 1
+      116 SETTABLEKS                       R27 R26 K27 ["Size"]
+      118 SETTABLEKS                       R18 R26 K35 ["BorderColor3"]
+      120 LOADB                            R27 1
+      121 SETTABLEKS                       R27 R26 K36 ["ClipsDescendants"]
+      123 JUMPIFNOT                        R11 ; [+3]
+      124 GETTABLEKS                       R27 R17 K37 ["liveBackgroundColor"]
+      126 JUMPIF                           R27 ; [+2]
+      127 GETTABLEKS                       R27 R17 K38 ["backgroundColor"]
+      129 SETTABLEKS                       R27 R26 K39 ["BackgroundColor3"]
+      131 GETUPVAL                         R27 2
+      132 GETTABLEKS                       R27 R27 K40 ["Event"]
+      134 GETTABLEKS                       R27 R27 K41 ["MouseEnter"]
+      136 GETTABLEKS                       R28 R0 K42 ["onContainerHovered"]
+      138 SETTABLE                         R28 R26 R27
+      139 GETUPVAL                         R27 2
+      140 GETTABLEKS                       R27 R27 K40 ["Event"]
+      142 GETTABLEKS                       R27 R27 K43 ["MouseMoved"]
+      144 GETTABLEKS                       R28 R0 K42 ["onContainerHovered"]
+      146 SETTABLE                         R28 R26 R27
+      147 GETUPVAL                         R27 2
+      148 GETTABLEKS                       R27 R27 K40 ["Event"]
+      150 GETTABLEKS                       R27 R27 K44 ["MouseLeave"]
+      152 GETTABLEKS                       R28 R0 K45 ["onContainerHoverEnded"]
+      154 SETTABLE                         R28 R26 R27
+      155 GETUPVAL                         R27 2
+      156 GETTABLEKS                       R27 R27 K40 ["Event"]
+      158 GETTABLEKS                       R27 R27 K46 ["MouseButton1Down"]
+      160 GETTABLEKS                       R28 R0 K47 ["onBackgroundClicked"]
+      162 SETTABLE                         R28 R26 R27
+      163 GETUPVAL                         R27 2
+      164 GETTABLEKS                       R27 R27 K40 ["Event"]
+      166 GETTABLEKS                       R27 R27 K48 ["InputEnded"]
+      168 GETTABLEKS                       R28 R0 K49 ["onBackgroundFocusLost"]
+      170 SETTABLE                         R28 R26 R27
+      171 DUPTABLE                         R27 K52 [{"TextContainer", "Buttons"}]
+      172 GETUPVAL                         R28 2
+      173 GETTABLEKS                       R28 R28 K25 ["createElement"]
+      175 LOADK                            R29 K26 ["Frame"]
+      176 DUPTABLE                         R30 K55 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2}]
+      177 GETIMPORT                        R31 K31 [UDim2.new]
+      179 LOADN                            R32 0
+      180 LOADN                            R33 10
+      181 LOADN                            R34 0
+      182 LOADN                            R35 0
+      183 CALL                             R31 4 1
+      184 SETTABLEKS                       R31 R30 K34 ["Position"]
+      186 GETIMPORT                        R31 K31 [UDim2.new]
+      188 LOADN                            R32 1
+      189 ADDK                             R34 R13 K14 [20]
+      190 MINUS                            R33 R34
+      191 LOADN                            R34 1
+      192 LOADN                            R35 0
+      193 CALL                             R31 4 1
+      194 SETTABLEKS                       R31 R30 K27 ["Size"]
+      196 DUPTABLE                         R31 K57 [{"TextBox"}]
+      197 GETUPVAL                         R32 2
+      198 GETTABLEKS                       R32 R32 K25 ["createElement"]
+      200 LOADK                            R33 K56 ["TextBox"]
+      201 NEWTABLE                         R34 16 0
+      203 LOADN                            R35 1
+      204 SETTABLEKS                       R35 R34 K5 ["LayoutOrder"]
+      206 GETIMPORT                        R35 K31 [UDim2.new]
+      208 LOADN                            R36 1
+      209 LOADN                            R37 0
+      210 LOADN                            R38 1
+      211 LOADN                            R39 0
+      212 CALL                             R35 4 1
+      213 SETTABLEKS                       R35 R34 K27 ["Size"]
+      215 LOADN                            R35 1
+      216 SETTABLEKS                       R35 R34 K28 ["BackgroundTransparency"]
+      218 LOADB                            R35 1
+      219 SETTABLEKS                       R35 R34 K36 ["ClipsDescendants"]
+      221 LOADB                            R35 0
+      222 SETTABLEKS                       R35 R34 K58 ["ClearTextOnFocus"]
+      224 GETUPVAL                         R35 0
+      225 GETTABLEKS                       R35 R35 K59 ["FONT"]
+      227 SETTABLEKS                       R35 R34 K60 ["Font"]
+      229 GETUPVAL                         R35 0
+      230 GETTABLEKS                       R35 R35 K61 ["FONT_SIZE_MEDIUM"]
+      232 SETTABLEKS                       R35 R34 K62 ["TextSize"]
+      234 JUMPIFNOT                        R16 ; [+3]
+      235 GETIMPORT                        R35 K66 [Enum.TextXAlignment.Left]
+      237 JUMPIF                           R35 ; [+2]
+      238 GETIMPORT                        R35 K68 [Enum.TextXAlignment.Right]
+      240 SETTABLEKS                       R35 R34 K64 ["TextXAlignment"]
+      242 GETTABLEKS                       R35 R17 K69 ["textColor"]
+      244 SETTABLEKS                       R35 R34 K70 ["TextColor3"]
+      246 SETTABLEKS                       R6 R34 K71 ["Text"]
+      248 GETTABLEKS                       R35 R1 K72 ["Localization"]
+      250 LOADK                            R37 K73 ["General"]
+      251 MOVE                             R38 R19
+      252 NAMECALL                         R35 R35 K74 ["getText"]
+      254 CALL                             R35 3 1
+      255 SETTABLEKS                       R35 R34 K75 ["PlaceholderText"]
+      257 GETTABLEKS                       R35 R17 K76 ["placeholderTextColor"]
+      259 SETTABLEKS                       R35 R34 K77 ["PlaceholderColor3"]
+      261 GETUPVAL                         R35 2
+      262 GETTABLEKS                       R35 R35 K78 ["Ref"]
+      264 GETTABLEKS                       R36 R0 K79 ["textBoxRef"]
+      266 SETTABLE                         R36 R34 R35
+      267 GETUPVAL                         R35 2
+      268 GETTABLEKS                       R35 R35 K80 ["Change"]
+      270 GETTABLEKS                       R35 R35 K71 ["Text"]
+      272 GETTABLEKS                       R36 R0 K81 ["onTextChanged"]
+      274 SETTABLE                         R36 R34 R35
+      275 GETUPVAL                         R35 2
+      276 GETTABLEKS                       R35 R35 K40 ["Event"]
+      278 GETTABLEKS                       R35 R35 K82 ["Focused"]
+      280 GETTABLEKS                       R36 R0 K83 ["onTextBoxFocused"]
+      282 SETTABLE                         R36 R34 R35
+      283 GETUPVAL                         R35 2
+      284 GETTABLEKS                       R35 R35 K40 ["Event"]
+      286 GETTABLEKS                       R35 R35 K84 ["FocusLost"]
+      288 GETTABLEKS                       R36 R0 K85 ["onTextBoxFocusLost"]
+      290 SETTABLE                         R36 R34 R35
+      291 CALL                             R32 2 1
+      292 SETTABLEKS                       R32 R31 K56 ["TextBox"]
+      294 CALL                             R28 3 1
+      295 SETTABLEKS                       R28 R27 K50 ["TextContainer"]
+      297 GETUPVAL                         R28 2
+      298 GETTABLEKS                       R28 R28 K25 ["createElement"]
+      300 GETUPVAL                         R29 4
+      301 DUPTABLE                         R30 K89 [{"showClearButton", "showSearchButton", "onClearButtonClicked", "onSearchButtonClicked"}]
+      302 SETTABLEKS                       R9 R30 K86 ["showClearButton"]
+      304 SETTABLEKS                       R10 R30 K9 ["showSearchButton"]
+      306 GETTABLEKS                       R31 R0 K87 ["onClearButtonClicked"]
+      308 SETTABLEKS                       R31 R30 K87 ["onClearButtonClicked"]
+      310 GETTABLEKS                       R31 R0 K90 ["requestSearch"]
+      312 SETTABLEKS                       R31 R30 K88 ["onSearchButtonClicked"]
+      314 CALL                             R28 2 1
+      315 SETTABLEKS                       R28 R27 K51 ["Buttons"]
+      317 CALL                             R24 3 1
+      318 SETTABLEKS                       R24 R23 K32 ["Background"]
+      320 CALL                             R20 3 -1
+      321 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -87,63 +87,59 @@ PROTO_3:
        81 GETUPVAL                         R12 0
        82 GETTABLEKS                       R12 R12 K7 ["createElement"]
        84 LOADK                            R13 K29 ["TextLabel"]
-       85 DUPTABLE                         R14 K35 [{"Size", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "BackgroundTransparency"}]
-       86 GETIMPORT                        R15 K37 [UDim2.new]
+       85 DUPTABLE                         R14 K36 [{["Size"], ["Text"], ["TextColor3"], ["Font"], ["TextSize"], ["TextXAlignment"], ["BackgroundTransparency"] = 1}]
+       86 GETIMPORT                        R15 K38 [UDim2.new]
        88 LOADN                            R16 1
        89 GETUPVAL                         R18 1
-       90 GETTABLEKS                       R18 R18 K38 ["TRACKLIST_BUTTON_SIZE"]
+       90 GETTABLEKS                       R18 R18 K39 ["TRACKLIST_BUTTON_SIZE"]
        92 MINUS                            R17 R18
        93 LOADN                            R18 1
        94 LOADN                            R19 0
        95 CALL                             R15 4 1
        96 SETTABLEKS                       R15 R14 K3 ["Size"]
-       98 LOADK                            R17 K39 ["Title"]
-       99 LOADK                            R18 K40 ["AddEvent"]
-      100 NAMECALL                         R15 R1 K41 ["getText"]
+       98 LOADK                            R17 K40 ["Title"]
+       99 LOADK                            R18 K41 ["AddEvent"]
+      100 NAMECALL                         R15 R1 K42 ["getText"]
       102 CALL                             R15 3 1
       103 SETTABLEKS                       R15 R14 K30 ["Text"]
-      105 GETTABLEKS                       R15 R7 K42 ["subTextColor"]
+      105 GETTABLEKS                       R15 R7 K43 ["subTextColor"]
       107 SETTABLEKS                       R15 R14 K31 ["TextColor3"]
-      109 GETTABLEKS                       R15 R3 K43 ["font"]
+      109 GETTABLEKS                       R15 R3 K44 ["font"]
       111 SETTABLEKS                       R15 R14 K32 ["Font"]
-      113 GETTABLEKS                       R15 R7 K44 ["textSize"]
+      113 GETTABLEKS                       R15 R7 K45 ["textSize"]
       115 SETTABLEKS                       R15 R14 K33 ["TextSize"]
-      117 GETIMPORT                        R15 K47 [Enum.TextXAlignment.Left]
+      117 GETIMPORT                        R15 K48 [Enum.TextXAlignment.Left]
       119 SETTABLEKS                       R15 R14 K34 ["TextXAlignment"]
-      121 LOADN                            R15 1
-      122 SETTABLEKS                       R15 R14 K9 ["BackgroundTransparency"]
-      124 CALL                             R12 2 1
-      125 SETTABLEKS                       R12 R11 K19 ["Label"]
-      127 GETUPVAL                         R12 0
-      128 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      130 LOADK                            R13 K48 ["ImageLabel"]
-      131 DUPTABLE                         R14 K53 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image", "ImageColor3"}]
-      132 GETUPVAL                         R15 2
-      133 SETTABLEKS                       R15 R14 K3 ["Size"]
-      135 GETIMPORT                        R15 K55 [Vector2.new]
-      137 LOADK                            R16 K56 [0.5]
-      138 LOADK                            R17 K56 [0.5]
-      139 CALL                             R15 2 1
-      140 SETTABLEKS                       R15 R14 K49 ["AnchorPoint"]
-      142 GETIMPORT                        R15 K37 [UDim2.new]
-      144 LOADN                            R16 0
-      145 GETTABLEKS                       R19 R5 K58 ["Offset"]
-      147 MINUS                            R18 R19
-      148 DIVK                             R17 R18 K57 [2]
-      149 LOADK                            R18 K56 [0.5]
-      150 LOADN                            R19 0
-      151 CALL                             R15 4 1
-      152 SETTABLEKS                       R15 R14 K50 ["Position"]
-      154 LOADN                            R15 1
-      155 SETTABLEKS                       R15 R14 K9 ["BackgroundTransparency"]
-      157 GETTABLEKS                       R15 R7 K59 ["addImage"]
-      159 SETTABLEKS                       R15 R14 K51 ["Image"]
-      161 GETTABLEKS                       R15 R7 K42 ["subTextColor"]
-      163 SETTABLEKS                       R15 R14 K52 ["ImageColor3"]
-      165 CALL                             R12 2 1
-      166 SETTABLEKS                       R12 R11 K20 ["AddImage"]
-      168 CALL                             R8 3 -1
-      169 RETURN                           R8 -1
+      121 CALL                             R12 2 1
+      122 SETTABLEKS                       R12 R11 K19 ["Label"]
+      124 GETUPVAL                         R12 0
+      125 GETTABLEKS                       R12 R12 K7 ["createElement"]
+      127 LOADK                            R13 K49 ["ImageLabel"]
+      128 DUPTABLE                         R14 K54 [{["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1, ["Image"], ["ImageColor3"]}]
+      129 GETUPVAL                         R15 2
+      130 SETTABLEKS                       R15 R14 K3 ["Size"]
+      132 GETIMPORT                        R15 K56 [Vector2.new]
+      134 LOADK                            R16 K57 [0.5]
+      135 LOADK                            R17 K57 [0.5]
+      136 CALL                             R15 2 1
+      137 SETTABLEKS                       R15 R14 K50 ["AnchorPoint"]
+      139 GETIMPORT                        R15 K38 [UDim2.new]
+      141 LOADN                            R16 0
+      142 GETTABLEKS                       R19 R5 K59 ["Offset"]
+      144 MINUS                            R18 R19
+      145 DIVK                             R17 R18 K58 [2]
+      146 LOADK                            R18 K57 [0.5]
+      147 LOADN                            R19 0
+      148 CALL                             R15 4 1
+      149 SETTABLEKS                       R15 R14 K51 ["Position"]
+      151 GETTABLEKS                       R15 R7 K60 ["addImage"]
+      153 SETTABLEKS                       R15 R14 K52 ["Image"]
+      155 GETTABLEKS                       R15 R7 K43 ["subTextColor"]
+      157 SETTABLEKS                       R15 R14 K53 ["ImageColor3"]
+      159 CALL                             R12 2 1
+      160 SETTABLEKS                       R12 R11 K20 ["AddImage"]
+      162 CALL                             R8 3 -1
+      163 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

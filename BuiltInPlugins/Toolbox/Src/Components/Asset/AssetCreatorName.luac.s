@@ -1,29 +1,25 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["Modal"]
-       11 GETTABLEKS                       R1 R0 K4 ["onTooltipTriggered"]
-       13 GETUPVAL                         R2 1
-       14 GETTABLEKS                       R2 R2 K5 ["assetId"]
-       16 GETUPVAL                         R3 2
-       17 GETTABLEKS                       R3 R3 K6 ["TOOLTIP_TYPE"]
-       19 GETTABLEKS                       R3 R3 K7 ["CREATOR_NAME"]
-       21 CALL                             R1 2 0
-       22 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K4 ["Modal"]
+        8 GETTABLEKS                       R1 R0 K5 ["onTooltipTriggered"]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R2 R2 K6 ["assetId"]
+       13 GETUPVAL                         R3 2
+       14 GETTABLEKS                       R3 R3 K7 ["TOOLTIP_TYPE"]
+       16 GETTABLEKS                       R3 R3 K8 ["CREATOR_NAME"]
+       18 CALL                             R1 2 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -68,29 +64,27 @@ PROTO_2:
        55 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K1 [{"isHovered"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K3 ["createRef"]
-        9 CALL                             R2 0 1
-       10 SETTABLEKS                       R2 R0 K4 ["textButtonRef"]
-       12 LOADN                            R2 0
-       13 SETTABLEKS                       R2 R0 K5 ["underLineWidth"]
-       15 NEWCLOSURE                       R2 P0
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          VAL R1
-       18 CAPTURE                          UPVAL U1
-       19 SETTABLEKS                       R2 R0 K6 ["onMouseEnter"]
-       21 NEWCLOSURE                       R2 P1
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R2 R0 K7 ["onMouseLeave"]
-       25 NEWCLOSURE                       R2 P2
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U2
-       28 SETTABLEKS                       R2 R0 K8 ["onActivated"]
-       30 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K4 ["createRef"]
+        6 CALL                             R2 0 1
+        7 SETTABLEKS                       R2 R0 K5 ["textButtonRef"]
+        9 LOADN                            R2 0
+       10 SETTABLEKS                       R2 R0 K6 ["underLineWidth"]
+       12 NEWCLOSURE                       R2 P0
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R1
+       15 CAPTURE                          UPVAL U1
+       16 SETTABLEKS                       R2 R0 K7 ["onMouseEnter"]
+       18 NEWCLOSURE                       R2 P1
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R0 K8 ["onMouseLeave"]
+       22 NEWCLOSURE                       R2 P2
+       23 CAPTURE                          VAL R0
+       24 CAPTURE                          UPVAL U2
+       25 SETTABLEKS                       R2 R0 K9 ["onActivated"]
+       27 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["textButtonRef"]
@@ -213,15 +207,15 @@ PROTO_5:
       171 CALL                             R20 2 1
       172 SETTABLEKS                       R20 R19 K61 ["TooltipWrapper"]
       174 MOVE                             R20 R11
-      175 JUMPIFNOT                        R20 ; [+42]
+      175 JUMPIFNOT                        R20 ; [+39]
       176 GETTABLEKS                       R21 R1 K65 ["clickable"]
       178 JUMPIFEQKNIL                     R21 ; [+4]
       180 GETTABLEKS                       R20 R1 K65 ["clickable"]
-      182 JUMPIFNOT                        R20 ; [+35]
+      182 JUMPIFNOT                        R20 ; [+32]
       183 GETUPVAL                         R20 2
       184 GETTABLEKS                       R20 R20 K16 ["createElement"]
       186 LOADK                            R21 K66 ["Frame"]
-      187 DUPTABLE                         R22 K70 [{"AnchorPoint", "Position", "Size", "BorderSizePixel"}]
+      187 DUPTABLE                         R22 K70 [{["AnchorPoint"], ["Position"], ["Size"], ["BorderSizePixel"] = 0}]
       188 GETIMPORT                        R23 K72 [Vector2.new]
       190 LOADK                            R24 K73 [0.5]
       191 LOADK                            R25 K73 [0.5]
@@ -241,24 +235,20 @@ PROTO_5:
       210 LOADN                            R27 1
       211 CALL                             R23 4 1
       212 SETTABLEKS                       R23 R22 K19 ["Size"]
-      214 LOADN                            R23 0
-      215 SETTABLEKS                       R23 R22 K69 ["BorderSizePixel"]
-      217 CALL                             R20 2 1
-      218 SETTABLEKS                       R20 R19 K62 ["UnderLine"]
-      220 CALL                             R16 3 1
-      221 SETTABLEKS                       R16 R15 K31 ["Text"]
-      223 MOVE                             R16 R2
-      224 JUMPIFNOT                        R16 ; [+9]
-      225 GETUPVAL                         R16 2
-      226 GETTABLEKS                       R16 R16 K16 ["createElement"]
-      228 GETUPVAL                         R17 5
-      229 DUPTABLE                         R18 K75 [{"LayoutOrder"}]
-      230 LOADN                            R19 2
-      231 SETTABLEKS                       R19 R18 K5 ["LayoutOrder"]
-      233 CALL                             R16 2 1
-      234 SETTABLEKS                       R16 R15 K32 ["CreatorBadge"]
-      236 CALL                             R12 3 -1
-      237 RETURN                           R12 -1
+      214 CALL                             R20 2 1
+      215 SETTABLEKS                       R20 R19 K62 ["UnderLine"]
+      217 CALL                             R16 3 1
+      218 SETTABLEKS                       R16 R15 K31 ["Text"]
+      220 MOVE                             R16 R2
+      221 JUMPIFNOT                        R16 ; [+6]
+      222 GETUPVAL                         R16 2
+      223 GETTABLEKS                       R16 R16 K16 ["createElement"]
+      225 GETUPVAL                         R17 5
+      226 DUPTABLE                         R18 K76 [{["LayoutOrder"] = 2}]
+      227 CALL                             R16 2 1
+      228 SETTABLEKS                       R16 R15 K32 ["CreatorBadge"]
+      230 CALL                             R12 3 -1
+      231 RETURN                           R12 -1
 
 PROTO_6:
         0 MOVE                             R2 R0

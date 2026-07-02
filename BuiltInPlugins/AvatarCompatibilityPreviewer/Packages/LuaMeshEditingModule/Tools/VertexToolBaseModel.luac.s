@@ -232,7 +232,7 @@ PROTO_16:
 PROTO_17:
         0 GETTABLEKS                       R1 R0 K0 ["_radius"]
         2 GETTABLEKS                       R5 R0 K2 ["_falloff"]
-        4 SUBRK                            R4 R1 K5 [math.clamp]
+        4 SUBRK                            R4 K1 [1] R5
         5 LOADN                            R5 0
         6 LOADN                            R6 1
         7 FASTCALL                         MATH_CLAMP ; [+2]

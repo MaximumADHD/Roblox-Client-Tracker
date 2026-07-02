@@ -13,7 +13,7 @@ PROTO_1:
         2 JUMPIF                           R1 ; [+5]
         3 GETIMPORT                        R1 K3 [UDim.new]
         5 LOADN                            R2 0
-        6 LOADN                            R3 44
+        6 LOADN                            R3 300
         7 CALL                             R1 2 1
         8 GETUPVAL                         R2 0
         9 GETTABLEKS                       R2 R2 K4 ["useState"]
@@ -23,22 +23,20 @@ PROTO_1:
        15 GETUPVAL                         R4 1
        16 GETUPVAL                         R5 2
        17 GETTABLEKS                       R5 R5 K6 ["View"]
-       19 DUPTABLE                         R6 K9 [{"tag", "onAbsoluteSizeChanged"}]
-       20 LOADK                            R7 K10 ["size-full"]
-       21 SETTABLEKS                       R7 R6 K7 ["tag"]
-       23 NEWCLOSURE                       R7 P0
-       24 CAPTURE                          VAL R3
-       25 SETTABLEKS                       R7 R6 K8 ["onAbsoluteSizeChanged"]
-       27 NEWTABLE                         R7 0 1
-       29 GETUPVAL                         R8 1
-       30 GETUPVAL                         R9 2
-       31 GETTABLEKS                       R9 R9 K11 ["Dropdown"]
-       33 GETTABLEKS                       R9 R9 K12 ["Root"]
-       35 MOVE                             R10 R0
-       36 CALL                             R8 2 -1
-       37 SETLIST                          R7 R8 -1 [1]
-       39 CALL                             R4 3 -1
-       40 RETURN                           R4 -1
+       19 DUPTABLE                         R6 K10 [{["tag"] = "size-full", ["onAbsoluteSizeChanged"]}]
+       20 NEWCLOSURE                       R7 P0
+       21 CAPTURE                          VAL R3
+       22 SETTABLEKS                       R7 R6 K9 ["onAbsoluteSizeChanged"]
+       24 NEWTABLE                         R7 0 1
+       26 GETUPVAL                         R8 1
+       27 GETUPVAL                         R9 2
+       28 GETTABLEKS                       R9 R9 K11 ["Dropdown"]
+       30 GETTABLEKS                       R9 R9 K12 ["Root"]
+       32 MOVE                             R10 R0
+       33 CALL                             R8 2 -1
+       34 SETLIST                          R7 R8 -1 [1]
+       36 CALL                             R4 3 -1
+       37 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

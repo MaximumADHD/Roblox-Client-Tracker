@@ -1,11 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K2 [{"hovered", "pressed"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["hovered"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["pressed"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = False, ["pressed"] = False}]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 LOADNIL                          R1
@@ -65,46 +61,36 @@ PROTO_3:
 PROTO_4:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseMovement]
-        4 JUMPIFNOTEQ                      R2 R3 ; [+9]
+        4 JUMPIFNOTEQ                      R2 R3 ; [+6]
         6 GETUPVAL                         R2 0
-        7 DUPTABLE                         R4 K5 [{"hovered"}]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K4 ["hovered"]
-       11 NAMECALL                         R2 R2 K6 ["setState"]
-       13 CALL                             R2 2 0
-       14 RETURN                           R0 0
+        7 DUPTABLE                         R4 K6 [{["hovered"] = True}]
+        8 NAMECALL                         R2 R2 K7 ["setState"]
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseMovement]
-        4 JUMPIFNOTEQ                      R2 R3 ; [+12]
+        4 JUMPIFNOTEQ                      R2 R3 ; [+6]
         6 GETUPVAL                         R2 0
-        7 DUPTABLE                         R4 K6 [{"hovered", "pressed"}]
-        8 LOADB                            R5 0
-        9 SETTABLEKS                       R5 R4 K4 ["hovered"]
-       11 LOADB                            R5 0
-       12 SETTABLEKS                       R5 R4 K5 ["pressed"]
-       14 NAMECALL                         R2 R2 K7 ["setState"]
-       16 CALL                             R2 2 0
-       17 RETURN                           R0 0
+        7 DUPTABLE                         R4 K7 [{["hovered"] = False, ["pressed"] = False}]
+        8 NAMECALL                         R2 R2 K8 ["setState"]
+       10 CALL                             R2 2 0
+       11 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"pressed"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["pressed"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"pressed"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["pressed"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -185,62 +171,58 @@ PROTO_8:
       107 GETUPVAL                         R5 0
       108 GETTABLEKS                       R5 R5 K0 ["createElement"]
       110 LOADK                            R6 K31 ["ImageLabel"]
-      111 DUPTABLE                         R7 K32 [{"BackgroundTransparency", "Image", "ScaleType", "Size", "SliceCenter", "ImageColor3"}]
-      112 LOADN                            R8 1
-      113 SETTABLEKS                       R8 R7 K2 ["BackgroundTransparency"]
-      115 GETUPVAL                         R8 1
-      116 GETTABLEKS                       R8 R8 K33 ["BUTTON_AVATAR_TYPE_BORDER"]
-      118 SETTABLEKS                       R8 R7 K4 ["Image"]
-      120 GETIMPORT                        R8 K8 [Enum.ScaleType.Slice]
-      122 SETTABLEKS                       R8 R7 K6 ["ScaleType"]
-      124 GETIMPORT                        R8 K13 [UDim2.new]
-      126 LOADN                            R9 1
-      127 LOADN                            R10 0
-      128 LOADN                            R11 1
-      129 LOADN                            R12 0
-      130 CALL                             R8 4 1
-      131 SETTABLEKS                       R8 R7 K14 ["Size"]
-      133 GETIMPORT                        R8 K16 [Rect.new]
-      135 LOADN                            R9 4
-      136 LOADN                            R10 4
-      137 LOADN                            R11 5
-      138 LOADN                            R12 5
-      139 CALL                             R8 4 1
-      140 SETTABLEKS                       R8 R7 K17 ["SliceCenter"]
-      142 NAMECALL                         R8 R0 K34 ["getBorderThemeConfig"]
-      144 CALL                             R8 1 1
-      145 SETTABLEKS                       R8 R7 K19 ["ImageColor3"]
-      147 CALL                             R5 2 1
-      148 SETTABLEKS                       R5 R4 K28 ["border"]
-      150 GETUPVAL                         R5 0
-      151 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      153 LOADK                            R6 K35 ["TextLabel"]
-      154 DUPTABLE                         R7 K40 [{"BackgroundTransparency", "Font", "Size", "TextSize", "Text", "TextColor3"}]
-      155 LOADN                            R8 1
-      156 SETTABLEKS                       R8 R7 K2 ["BackgroundTransparency"]
-      158 GETUPVAL                         R8 2
-      159 GETTABLEKS                       R8 R8 K41 ["FONT"]
-      161 SETTABLEKS                       R8 R7 K36 ["Font"]
-      163 GETIMPORT                        R8 K13 [UDim2.new]
-      165 LOADN                            R9 1
-      166 LOADN                            R10 0
-      167 LOADN                            R11 1
-      168 LOADN                            R12 0
-      169 CALL                             R8 4 1
-      170 SETTABLEKS                       R8 R7 K14 ["Size"]
-      172 GETUPVAL                         R8 2
-      173 GETTABLEKS                       R8 R8 K42 ["FONT_SIZE_TITLE"]
-      175 SETTABLEKS                       R8 R7 K37 ["TextSize"]
-      177 GETTABLEKS                       R8 R0 K9 ["props"]
-      179 GETTABLEKS                       R8 R8 K43 ["labelText"]
-      181 SETTABLEKS                       R8 R7 K38 ["Text"]
-      183 NAMECALL                         R8 R0 K44 ["getLabelThemeConfig"]
-      185 CALL                             R8 1 1
-      186 SETTABLEKS                       R8 R7 K39 ["TextColor3"]
-      188 CALL                             R5 2 1
-      189 SETTABLEKS                       R5 R4 K29 ["label"]
-      191 CALL                             R1 3 -1
-      192 RETURN                           R1 -1
+      111 DUPTABLE                         R7 K33 [{["BackgroundTransparency"] = 1, ["Image"], ["ScaleType"], ["Size"], ["SliceCenter"], ["ImageColor3"]}]
+      112 GETUPVAL                         R8 1
+      113 GETTABLEKS                       R8 R8 K34 ["BUTTON_AVATAR_TYPE_BORDER"]
+      115 SETTABLEKS                       R8 R7 K4 ["Image"]
+      117 GETIMPORT                        R8 K8 [Enum.ScaleType.Slice]
+      119 SETTABLEKS                       R8 R7 K6 ["ScaleType"]
+      121 GETIMPORT                        R8 K13 [UDim2.new]
+      123 LOADN                            R9 1
+      124 LOADN                            R10 0
+      125 LOADN                            R11 1
+      126 LOADN                            R12 0
+      127 CALL                             R8 4 1
+      128 SETTABLEKS                       R8 R7 K14 ["Size"]
+      130 GETIMPORT                        R8 K16 [Rect.new]
+      132 LOADN                            R9 4
+      133 LOADN                            R10 4
+      134 LOADN                            R11 5
+      135 LOADN                            R12 5
+      136 CALL                             R8 4 1
+      137 SETTABLEKS                       R8 R7 K17 ["SliceCenter"]
+      139 NAMECALL                         R8 R0 K35 ["getBorderThemeConfig"]
+      141 CALL                             R8 1 1
+      142 SETTABLEKS                       R8 R7 K19 ["ImageColor3"]
+      144 CALL                             R5 2 1
+      145 SETTABLEKS                       R5 R4 K28 ["border"]
+      147 GETUPVAL                         R5 0
+      148 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      150 LOADK                            R6 K36 ["TextLabel"]
+      151 DUPTABLE                         R7 K41 [{["BackgroundTransparency"] = 1, ["Font"], ["Size"], ["TextSize"], ["Text"], ["TextColor3"]}]
+      152 GETUPVAL                         R8 2
+      153 GETTABLEKS                       R8 R8 K42 ["FONT"]
+      155 SETTABLEKS                       R8 R7 K37 ["Font"]
+      157 GETIMPORT                        R8 K13 [UDim2.new]
+      159 LOADN                            R9 1
+      160 LOADN                            R10 0
+      161 LOADN                            R11 1
+      162 LOADN                            R12 0
+      163 CALL                             R8 4 1
+      164 SETTABLEKS                       R8 R7 K14 ["Size"]
+      166 GETUPVAL                         R8 2
+      167 GETTABLEKS                       R8 R8 K43 ["FONT_SIZE_TITLE"]
+      169 SETTABLEKS                       R8 R7 K38 ["TextSize"]
+      171 GETTABLEKS                       R8 R0 K9 ["props"]
+      173 GETTABLEKS                       R8 R8 K44 ["labelText"]
+      175 SETTABLEKS                       R8 R7 K39 ["Text"]
+      177 NAMECALL                         R8 R0 K45 ["getLabelThemeConfig"]
+      179 CALL                             R8 1 1
+      180 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
+      182 CALL                             R5 2 1
+      183 SETTABLEKS                       R5 R4 K29 ["label"]
+      185 CALL                             R1 3 -1
+      186 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

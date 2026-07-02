@@ -20,14 +20,14 @@ PROTO_1:
         3 MULK                             R1 R0 K1 [2]
         4 RETURN                           R1 1
         5 MULK                             R2 R0 K1 [2]
-        6 SUBRK                            R1 R1 K2 [NULL]
+        6 SUBRK                            R1 K1 [2] R2
         7 RETURN                           R1 1
 
 PROTO_2:
         0 LOADK                            R2 K0 [0.5]
         1 JUMPIFNOTLT                      R0 R2 ; [+4]
         3 MULK                             R2 R0 K2 [2]
-        4 SUBRK                            R1 R1 K2 [2]
+        4 SUBRK                            R1 K1 [1] R2
         5 RETURN                           R1 1
         6 MULK                             R2 R0 K2 [2]
         7 SUBK                             R1 R2 K1 [1]

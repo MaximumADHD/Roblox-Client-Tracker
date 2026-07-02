@@ -11,49 +11,41 @@ PROTO_1:
         4 GETUPVAL                         R2 1
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
-        8 DUPTABLE                         R4 K10 [{"Enabled", "Modal", "Resizable", "Title", "ZIndexBehavior", "MinSize", "Size", "OnClose"}]
-        9 LOADB                            R5 1
-       10 SETTABLEKS                       R5 R4 K2 ["Enabled"]
-       12 LOADB                            R5 1
-       13 SETTABLEKS                       R5 R4 K3 ["Modal"]
-       15 LOADB                            R5 0
-       16 SETTABLEKS                       R5 R4 K4 ["Resizable"]
-       18 LOADK                            R5 K11 ["Export Complete"]
-       19 SETTABLEKS                       R5 R4 K5 ["Title"]
-       21 GETIMPORT                        R5 K14 [Enum.ZIndexBehavior.Sibling]
-       23 SETTABLEKS                       R5 R4 K6 ["ZIndexBehavior"]
-       25 GETIMPORT                        R5 K17 [Vector2.new]
-       27 LOADN                            R6 8
-       28 LOADN                            R7 150
-       29 CALL                             R5 2 1
-       30 SETTABLEKS                       R5 R4 K7 ["MinSize"]
-       32 GETIMPORT                        R5 K17 [Vector2.new]
-       34 LOADN                            R6 8
-       35 LOADN                            R7 150
-       36 CALL                             R5 2 1
-       37 SETTABLEKS                       R5 R4 K8 ["Size"]
-       39 NEWCLOSURE                       R5 P0
-       40 CAPTURE                          VAL R1
-       41 SETTABLEKS                       R5 R4 K9 ["OnClose"]
-       43 DUPTABLE                         R5 K19 [{"MainProvider"}]
-       44 GETUPVAL                         R6 1
-       45 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       47 GETUPVAL                         R7 3
-       48 DUPTABLE                         R8 K21 [{"theme"}]
-       49 GETUPVAL                         R9 4
-       50 CALL                             R9 0 1
-       51 SETTABLEKS                       R9 R8 K20 ["theme"]
-       53 DUPTABLE                         R9 K23 [{"DialogView"}]
-       54 GETUPVAL                         R10 1
-       55 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       57 GETUPVAL                         R11 5
-       58 NEWTABLE                         R12 0 0
-       60 CALL                             R10 2 1
-       61 SETTABLEKS                       R10 R9 K22 ["DialogView"]
-       63 CALL                             R6 3 1
-       64 SETTABLEKS                       R6 R5 K18 ["MainProvider"]
-       66 CALL                             R2 3 -1
-       67 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K13 [{["Enabled"] = True, ["Modal"] = True, ["Resizable"] = False, ["Title"] = "Export Complete", ["ZIndexBehavior"], ["MinSize"], ["Size"], ["OnClose"]}]
+        9 GETIMPORT                        R5 K16 [Enum.ZIndexBehavior.Sibling]
+       11 SETTABLEKS                       R5 R4 K9 ["ZIndexBehavior"]
+       13 GETIMPORT                        R5 K19 [Vector2.new]
+       15 LOADN                            R6 520
+       16 LOADN                            R7 150
+       17 CALL                             R5 2 1
+       18 SETTABLEKS                       R5 R4 K10 ["MinSize"]
+       20 GETIMPORT                        R5 K19 [Vector2.new]
+       22 LOADN                            R6 520
+       23 LOADN                            R7 150
+       24 CALL                             R5 2 1
+       25 SETTABLEKS                       R5 R4 K11 ["Size"]
+       27 NEWCLOSURE                       R5 P0
+       28 CAPTURE                          VAL R1
+       29 SETTABLEKS                       R5 R4 K12 ["OnClose"]
+       31 DUPTABLE                         R5 K21 [{"MainProvider"}]
+       32 GETUPVAL                         R6 1
+       33 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       35 GETUPVAL                         R7 3
+       36 DUPTABLE                         R8 K23 [{"theme"}]
+       37 GETUPVAL                         R9 4
+       38 CALL                             R9 0 1
+       39 SETTABLEKS                       R9 R8 K22 ["theme"]
+       41 DUPTABLE                         R9 K25 [{"DialogView"}]
+       42 GETUPVAL                         R10 1
+       43 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       45 GETUPVAL                         R11 5
+       46 NEWTABLE                         R12 0 0
+       48 CALL                             R10 2 1
+       49 SETTABLEKS                       R10 R9 K24 ["DialogView"]
+       51 CALL                             R6 3 1
+       52 SETTABLEKS                       R6 R5 K20 ["MainProvider"]
+       54 CALL                             R2 3 -1
+       55 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

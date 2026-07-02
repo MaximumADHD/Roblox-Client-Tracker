@@ -139,20 +139,18 @@ PROTO_6:
 PROTO_7:
         0 LOADNIL                          R1
         1 SETTABLEKS                       R1 R0 K0 ["_enteredButton"]
-        3 DUPTABLE                         R1 K2 [{"modifier"}]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["modifier"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 NEWCLOSURE                       R1 P0
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U0
-       12 SETTABLEKS                       R1 R0 K4 ["_onSelect"]
-       14 NEWCLOSURE                       R1 P1
-       15 CAPTURE                          VAL R0
-       16 CAPTURE                          UPVAL U0
-       17 CAPTURE                          UPVAL U1
-       18 SETTABLEKS                       R1 R0 K5 ["GetIconProps"]
-       20 RETURN                           R0 0
+        3 DUPTABLE                         R1 K3 [{["modifier"] = }]
+        4 SETTABLEKS                       R1 R0 K4 ["state"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U0
+        9 SETTABLEKS                       R1 R0 K5 ["_onSelect"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U1
+       15 SETTABLEKS                       R1 R0 K6 ["GetIconProps"]
+       17 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -213,74 +211,70 @@ PROTO_8:
        80 GETUPVAL                         R8 1
        81 GETTABLEKS                       R8 R8 K18 ["createElement"]
        83 GETUPVAL                         R9 2
-       84 DUPTABLE                         R10 K22 [{"Size", "modifier", "currentMod", "onSelect"}]
-       85 GETTABLEKS                       R11 R2 K23 ["SkinToneModifierButtonSize"]
+       84 DUPTABLE                         R10 K23 [{["Size"], ["modifier"] = , ["currentMod"], ["onSelect"]}]
+       85 GETTABLEKS                       R11 R2 K24 ["SkinToneModifierButtonSize"]
        87 SETTABLEKS                       R11 R10 K19 ["Size"]
-       89 LOADNIL                          R11
-       90 SETTABLEKS                       R11 R10 K5 ["modifier"]
-       92 SETTABLEKS                       R5 R10 K20 ["currentMod"]
-       94 GETTABLEKS                       R11 R0 K24 ["_onSelect"]
-       96 SETTABLEKS                       R11 R10 K21 ["onSelect"]
-       98 CALL                             R8 2 1
-       99 SETTABLEN                        R8 R7 1
-      100 GETIMPORT                        R8 K7 [pairs]
-      102 GETUPVAL                         R9 3
-      103 CALL                             R8 1 3
-      104 FORGPREP_NEXT                    R8
-      105 GETUPVAL                         R13 1
-      106 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      108 GETUPVAL                         R14 2
-      109 DUPTABLE                         R15 K22 [{"Size", "modifier", "currentMod", "onSelect"}]
-      110 GETTABLEKS                       R16 R2 K23 ["SkinToneModifierButtonSize"]
-      112 SETTABLEKS                       R16 R15 K19 ["Size"]
-      114 SETTABLEKS                       R11 R15 K5 ["modifier"]
-      116 SETTABLEKS                       R5 R15 K20 ["currentMod"]
-      118 GETTABLEKS                       R16 R0 K24 ["_onSelect"]
-      120 SETTABLEKS                       R16 R15 K21 ["onSelect"]
-      122 CALL                             R13 2 1
-      123 SETTABLE                         R13 R7 R11
-      124 FORGLOOP                         R8 2 ; [-20]
-      126 GETUPVAL                         R8 1
-      127 GETTABLEKS                       R8 R8 K18 ["createElement"]
-      129 GETUPVAL                         R9 4
-      130 DUPTABLE                         R10 K27 [{"Size", "LayoutOrder", "Padding"}]
-      131 GETTABLEKS                       R11 R1 K19 ["Size"]
-      133 SETTABLEKS                       R11 R10 K19 ["Size"]
-      135 GETTABLEKS                       R11 R1 K25 ["LayoutOrder"]
-      137 SETTABLEKS                       R11 R10 K25 ["LayoutOrder"]
-      139 GETTABLEKS                       R11 R2 K26 ["Padding"]
-      141 SETTABLEKS                       R11 R10 K26 ["Padding"]
-      143 DUPTABLE                         R11 K30 [{"SkinToneModifierPane", "Grid"}]
-      144 GETUPVAL                         R12 1
-      145 GETTABLEKS                       R12 R12 K18 ["createElement"]
-      147 GETUPVAL                         R13 4
-      148 DUPTABLE                         R14 K32 [{"Size", "Layout"}]
-      149 GETTABLEKS                       R15 R2 K33 ["SkinToneModifierPaneSize"]
-      151 SETTABLEKS                       R15 R14 K19 ["Size"]
-      153 GETIMPORT                        R15 K37 [Enum.FillDirection.Horizontal]
-      155 SETTABLEKS                       R15 R14 K31 ["Layout"]
-      157 MOVE                             R15 R7
-      158 CALL                             R12 3 1
-      159 SETTABLEKS                       R12 R11 K28 ["SkinToneModifierPane"]
-      161 GETUPVAL                         R12 1
-      162 GETTABLEKS                       R12 R12 K18 ["createElement"]
-      164 GETUPVAL                         R13 5
-      165 DUPTABLE                         R14 K43 [{"Size", "Position", "CellSize", "Cells", "CellComponent", "GetCellProps"}]
-      166 GETTABLEKS                       R15 R2 K44 ["GridSize"]
-      168 SETTABLEKS                       R15 R14 K19 ["Size"]
-      170 GETTABLEKS                       R15 R2 K45 ["GridPosition"]
-      172 SETTABLEKS                       R15 R14 K38 ["Position"]
-      174 GETTABLEKS                       R15 R2 K46 ["GridCellSize"]
-      176 SETTABLEKS                       R15 R14 K39 ["CellSize"]
-      178 SETTABLEKS                       R3 R14 K40 ["Cells"]
-      180 LOADK                            R15 K47 ["TextButton"]
-      181 SETTABLEKS                       R15 R14 K41 ["CellComponent"]
-      183 GETTABLEKS                       R15 R0 K48 ["GetIconProps"]
-      185 SETTABLEKS                       R15 R14 K42 ["GetCellProps"]
-      187 CALL                             R12 2 1
-      188 SETTABLEKS                       R12 R11 K29 ["Grid"]
-      190 CALL                             R8 3 -1
-      191 RETURN                           R8 -1
+       89 SETTABLEKS                       R5 R10 K21 ["currentMod"]
+       91 GETTABLEKS                       R11 R0 K25 ["_onSelect"]
+       93 SETTABLEKS                       R11 R10 K22 ["onSelect"]
+       95 CALL                             R8 2 1
+       96 SETTABLEN                        R8 R7 1
+       97 GETIMPORT                        R8 K7 [pairs]
+       99 GETUPVAL                         R9 3
+      100 CALL                             R8 1 3
+      101 FORGPREP_NEXT                    R8
+      102 GETUPVAL                         R13 1
+      103 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      105 GETUPVAL                         R14 2
+      106 DUPTABLE                         R15 K26 [{"Size", "modifier", "currentMod", "onSelect"}]
+      107 GETTABLEKS                       R16 R2 K24 ["SkinToneModifierButtonSize"]
+      109 SETTABLEKS                       R16 R15 K19 ["Size"]
+      111 SETTABLEKS                       R11 R15 K5 ["modifier"]
+      113 SETTABLEKS                       R5 R15 K21 ["currentMod"]
+      115 GETTABLEKS                       R16 R0 K25 ["_onSelect"]
+      117 SETTABLEKS                       R16 R15 K22 ["onSelect"]
+      119 CALL                             R13 2 1
+      120 SETTABLE                         R13 R7 R11
+      121 FORGLOOP                         R8 2 ; [-20]
+      123 GETUPVAL                         R8 1
+      124 GETTABLEKS                       R8 R8 K18 ["createElement"]
+      126 GETUPVAL                         R9 4
+      127 DUPTABLE                         R10 K29 [{"Size", "LayoutOrder", "Padding"}]
+      128 GETTABLEKS                       R11 R1 K19 ["Size"]
+      130 SETTABLEKS                       R11 R10 K19 ["Size"]
+      132 GETTABLEKS                       R11 R1 K27 ["LayoutOrder"]
+      134 SETTABLEKS                       R11 R10 K27 ["LayoutOrder"]
+      136 GETTABLEKS                       R11 R2 K28 ["Padding"]
+      138 SETTABLEKS                       R11 R10 K28 ["Padding"]
+      140 DUPTABLE                         R11 K32 [{"SkinToneModifierPane", "Grid"}]
+      141 GETUPVAL                         R12 1
+      142 GETTABLEKS                       R12 R12 K18 ["createElement"]
+      144 GETUPVAL                         R13 4
+      145 DUPTABLE                         R14 K34 [{"Size", "Layout"}]
+      146 GETTABLEKS                       R15 R2 K35 ["SkinToneModifierPaneSize"]
+      148 SETTABLEKS                       R15 R14 K19 ["Size"]
+      150 GETIMPORT                        R15 K39 [Enum.FillDirection.Horizontal]
+      152 SETTABLEKS                       R15 R14 K33 ["Layout"]
+      154 MOVE                             R15 R7
+      155 CALL                             R12 3 1
+      156 SETTABLEKS                       R12 R11 K30 ["SkinToneModifierPane"]
+      158 GETUPVAL                         R12 1
+      159 GETTABLEKS                       R12 R12 K18 ["createElement"]
+      161 GETUPVAL                         R13 5
+      162 DUPTABLE                         R14 K46 [{["Size"], ["Position"], ["CellSize"], ["Cells"], ["CellComponent"] = "TextButton", ["GetCellProps"]}]
+      163 GETTABLEKS                       R15 R2 K47 ["GridSize"]
+      165 SETTABLEKS                       R15 R14 K19 ["Size"]
+      167 GETTABLEKS                       R15 R2 K48 ["GridPosition"]
+      169 SETTABLEKS                       R15 R14 K40 ["Position"]
+      171 GETTABLEKS                       R15 R2 K49 ["GridCellSize"]
+      173 SETTABLEKS                       R15 R14 K41 ["CellSize"]
+      175 SETTABLEKS                       R3 R14 K42 ["Cells"]
+      177 GETTABLEKS                       R15 R0 K50 ["GetIconProps"]
+      179 SETTABLEKS                       R15 R14 K45 ["GetCellProps"]
+      181 CALL                             R12 2 1
+      182 SETTABLEKS                       R12 R11 K31 ["Grid"]
+      184 CALL                             R8 3 -1
+      185 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

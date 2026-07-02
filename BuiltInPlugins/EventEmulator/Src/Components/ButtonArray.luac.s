@@ -27,84 +27,70 @@ PROTO_2:
        22 GETUPVAL                         R8 1
        23 GETTABLEKS                       R8 R8 K8 ["createElement"]
        25 LOADK                            R9 K9 ["Frame"]
-       26 DUPTABLE                         R10 K13 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
-       27 GETIMPORT                        R11 K16 [UDim2.new]
+       26 DUPTABLE                         R10 K14 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+       27 GETIMPORT                        R11 K17 [UDim2.new]
        29 LOADN                            R12 1
        30 LOADN                            R13 0
        31 LOADN                            R14 0
-       32 GETTABLEKS                       R15 R7 K17 ["ShortHeight"]
+       32 GETTABLEKS                       R15 R7 K18 ["ShortHeight"]
        34 CALL                             R11 4 1
        35 SETTABLEKS                       R11 R10 K10 ["Size"]
-       37 LOADN                            R11 1
-       38 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-       40 GETUPVAL                         R11 2
-       41 GETTABLEKS                       R11 R11 K18 ["ConfirmationButtons"]
-       43 SETTABLEKS                       R11 R10 K12 ["LayoutOrder"]
-       45 DUPTABLE                         R11 K22 [{"Layout", "Clear", "Save", "Send"}]
-       46 GETUPVAL                         R12 1
-       47 GETTABLEKS                       R12 R12 K8 ["createElement"]
-       49 LOADK                            R13 K23 ["UIListLayout"]
-       50 MOVE                             R14 R6
-       51 CALL                             R12 2 1
-       52 SETTABLEKS                       R12 R11 K5 ["Layout"]
-       54 GETUPVAL                         R12 1
-       55 GETTABLEKS                       R12 R12 K8 ["createElement"]
-       57 GETUPVAL                         R13 3
-       58 DUPTABLE                         R14 K26 [{"Size", "Text", "LayoutOrder", "OnClick"}]
-       59 GETIMPORT                        R15 K16 [UDim2.new]
-       61 LOADN                            R16 0
-       62 GETTABLEKS                       R17 R7 K27 ["ConfirmationButtonWidth"]
-       64 LOADN                            R18 1
-       65 LOADN                            R19 0
-       66 CALL                             R15 4 1
-       67 SETTABLEKS                       R15 R14 K10 ["Size"]
-       69 LOADK                            R15 K19 ["Clear"]
-       70 SETTABLEKS                       R15 R14 K24 ["Text"]
-       72 LOADN                            R15 1
-       73 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
-       75 SETTABLEKS                       R2 R14 K25 ["OnClick"]
-       77 CALL                             R12 2 1
-       78 SETTABLEKS                       R12 R11 K19 ["Clear"]
-       80 GETUPVAL                         R12 1
-       81 GETTABLEKS                       R12 R12 K8 ["createElement"]
-       83 GETUPVAL                         R13 3
-       84 DUPTABLE                         R14 K26 [{"Size", "Text", "LayoutOrder", "OnClick"}]
-       85 GETIMPORT                        R15 K16 [UDim2.new]
-       87 LOADN                            R16 0
-       88 GETTABLEKS                       R17 R7 K27 ["ConfirmationButtonWidth"]
-       90 LOADN                            R18 1
-       91 LOADN                            R19 0
-       92 CALL                             R15 4 1
-       93 SETTABLEKS                       R15 R14 K10 ["Size"]
-       95 LOADK                            R15 K20 ["Save"]
-       96 SETTABLEKS                       R15 R14 K24 ["Text"]
-       98 LOADN                            R15 2
-       99 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
-      101 SETTABLEKS                       R3 R14 K25 ["OnClick"]
-      103 CALL                             R12 2 1
-      104 SETTABLEKS                       R12 R11 K20 ["Save"]
-      106 GETUPVAL                         R12 1
-      107 GETTABLEKS                       R12 R12 K8 ["createElement"]
-      109 GETUPVAL                         R13 3
-      110 DUPTABLE                         R14 K26 [{"Size", "Text", "LayoutOrder", "OnClick"}]
-      111 GETIMPORT                        R15 K16 [UDim2.new]
-      113 LOADN                            R16 0
-      114 GETTABLEKS                       R17 R7 K27 ["ConfirmationButtonWidth"]
-      116 LOADN                            R18 1
-      117 LOADN                            R19 0
-      118 CALL                             R15 4 1
-      119 SETTABLEKS                       R15 R14 K10 ["Size"]
-      121 LOADK                            R15 K21 ["Send"]
-      122 SETTABLEKS                       R15 R14 K24 ["Text"]
-      124 LOADN                            R15 3
-      125 SETTABLEKS                       R15 R14 K12 ["LayoutOrder"]
-      127 NEWCLOSURE                       R15 P0
-      128 CAPTURE                          VAL R4
-      129 SETTABLEKS                       R15 R14 K25 ["OnClick"]
-      131 CALL                             R12 2 1
-      132 SETTABLEKS                       R12 R11 K21 ["Send"]
-      134 CALL                             R8 3 -1
-      135 RETURN                           R8 -1
+       37 GETUPVAL                         R11 2
+       38 GETTABLEKS                       R11 R11 K19 ["ConfirmationButtons"]
+       40 SETTABLEKS                       R11 R10 K13 ["LayoutOrder"]
+       42 DUPTABLE                         R11 K23 [{"Layout", "Clear", "Save", "Send"}]
+       43 GETUPVAL                         R12 1
+       44 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       46 LOADK                            R13 K24 ["UIListLayout"]
+       47 MOVE                             R14 R6
+       48 CALL                             R12 2 1
+       49 SETTABLEKS                       R12 R11 K5 ["Layout"]
+       51 GETUPVAL                         R12 1
+       52 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       54 GETUPVAL                         R13 3
+       55 DUPTABLE                         R14 K27 [{["Size"], ["Text"] = "Clear", ["LayoutOrder"] = 1, ["OnClick"]}]
+       56 GETIMPORT                        R15 K17 [UDim2.new]
+       58 LOADN                            R16 0
+       59 GETTABLEKS                       R17 R7 K28 ["ConfirmationButtonWidth"]
+       61 LOADN                            R18 1
+       62 LOADN                            R19 0
+       63 CALL                             R15 4 1
+       64 SETTABLEKS                       R15 R14 K10 ["Size"]
+       66 SETTABLEKS                       R2 R14 K26 ["OnClick"]
+       68 CALL                             R12 2 1
+       69 SETTABLEKS                       R12 R11 K20 ["Clear"]
+       71 GETUPVAL                         R12 1
+       72 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       74 GETUPVAL                         R13 3
+       75 DUPTABLE                         R14 K30 [{["Size"], ["Text"] = "Save", ["LayoutOrder"] = 2, ["OnClick"]}]
+       76 GETIMPORT                        R15 K17 [UDim2.new]
+       78 LOADN                            R16 0
+       79 GETTABLEKS                       R17 R7 K28 ["ConfirmationButtonWidth"]
+       81 LOADN                            R18 1
+       82 LOADN                            R19 0
+       83 CALL                             R15 4 1
+       84 SETTABLEKS                       R15 R14 K10 ["Size"]
+       86 SETTABLEKS                       R3 R14 K26 ["OnClick"]
+       88 CALL                             R12 2 1
+       89 SETTABLEKS                       R12 R11 K21 ["Save"]
+       91 GETUPVAL                         R12 1
+       92 GETTABLEKS                       R12 R12 K8 ["createElement"]
+       94 GETUPVAL                         R13 3
+       95 DUPTABLE                         R14 K32 [{["Size"], ["Text"] = "Send", ["LayoutOrder"] = 3, ["OnClick"]}]
+       96 GETIMPORT                        R15 K17 [UDim2.new]
+       98 LOADN                            R16 0
+       99 GETTABLEKS                       R17 R7 K28 ["ConfirmationButtonWidth"]
+      101 LOADN                            R18 1
+      102 LOADN                            R19 0
+      103 CALL                             R15 4 1
+      104 SETTABLEKS                       R15 R14 K10 ["Size"]
+      106 NEWCLOSURE                       R15 P0
+      107 CAPTURE                          VAL R4
+      108 SETTABLEKS                       R15 R14 K26 ["OnClick"]
+      110 CALL                             R12 2 1
+      111 SETTABLEKS                       R12 R11 K22 ["Send"]
+      113 CALL                             R8 3 -1
+      114 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

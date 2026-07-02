@@ -108,12 +108,12 @@ MAIN:
        82 GETTABLEKS                       R12 R11 K13 ["Components"]
        84 GETTABLEKS                       R12 R12 K22 ["FoundationProviderAdapter"]
        86 GETIMPORT                        R13 K25 [Vector2.new]
-       88 LOADN                            R14 139
-       89 LOADN                            R15 64
+       88 LOADN                            R14 395
+       89 LOADN                            R15 320
        90 CALL                             R13 2 1
        91 GETIMPORT                        R14 K25 [Vector2.new]
-       93 LOADN                            R15 139
-       94 LOADN                            R16 64
+       93 LOADN                            R15 395
+       94 LOADN                            R16 320
        95 CALL                             R14 2 1
        96 DUPCLOSURE                       R15 K26 [PROTO_2]
        97 CAPTURE                          VAL R9

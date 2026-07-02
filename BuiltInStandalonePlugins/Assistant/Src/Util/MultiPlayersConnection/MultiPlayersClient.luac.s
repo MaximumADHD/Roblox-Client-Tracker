@@ -1,33 +1,29 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K8 [{"pluginConnectionService", "clientId", "onServerConnected", "onServerDisconnected", "onServerMessage", "connection", "onMessageConnection", "onCommand"}]
+        0 DUPTABLE                         R2 K9 [{[1], ["clientId"], ["onServerConnected"], ["onServerDisconnected"], ["onServerMessage"], ["connection"] = , ["onMessageConnection"] = , ["onCommand"]}]
         1 SETTABLEKS                       R0 R2 K0 ["pluginConnectionService"]
         3 SETTABLEKS                       R1 R2 K1 ["clientId"]
         5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R3 R3 K9 ["new"]
+        6 GETTABLEKS                       R3 R3 K10 ["new"]
         8 CALL                             R3 0 1
         9 SETTABLEKS                       R3 R2 K2 ["onServerConnected"]
        11 GETUPVAL                         R3 0
-       12 GETTABLEKS                       R3 R3 K9 ["new"]
+       12 GETTABLEKS                       R3 R3 K10 ["new"]
        14 CALL                             R3 0 1
        15 SETTABLEKS                       R3 R2 K3 ["onServerDisconnected"]
        17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R3 R3 K9 ["new"]
+       18 GETTABLEKS                       R3 R3 K10 ["new"]
        20 CALL                             R3 0 1
        21 SETTABLEKS                       R3 R2 K4 ["onServerMessage"]
-       23 LOADNIL                          R3
-       24 SETTABLEKS                       R3 R2 K5 ["connection"]
-       26 LOADNIL                          R3
-       27 SETTABLEKS                       R3 R2 K6 ["onMessageConnection"]
-       29 GETUPVAL                         R3 0
-       30 GETTABLEKS                       R3 R3 K9 ["new"]
-       32 CALL                             R3 0 1
-       33 SETTABLEKS                       R3 R2 K7 ["onCommand"]
-       35 GETUPVAL                         R5 1
-       36 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       38 MOVE                             R4 R2
-       39 GETIMPORT                        R3 K11 [setmetatable]
-       41 CALL                             R3 2 1
-       42 RETURN                           R3 1
+       23 GETUPVAL                         R3 0
+       24 GETTABLEKS                       R3 R3 K10 ["new"]
+       26 CALL                             R3 0 1
+       27 SETTABLEKS                       R3 R2 K8 ["onCommand"]
+       29 GETUPVAL                         R5 1
+       30 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       32 MOVE                             R4 R2
+       33 GETIMPORT                        R3 K12 [setmetatable]
+       35 CALL                             R3 2 1
+       36 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -87,16 +83,14 @@ PROTO_4:
         3 GETVARARGS                       R3 -1
         4 SETLIST                          R2 R3 -1 [1]
         6 GETUPVAL                         R5 0
-        7 DUPTABLE                         R7 K3 [{"type", "command", "args"}]
-        8 LOADK                            R8 K1 ["command"]
-        9 SETTABLEKS                       R8 R7 K0 ["type"]
-       11 SETTABLEKS                       R1 R7 K1 ["command"]
-       13 SETTABLEKS                       R2 R7 K2 ["args"]
-       15 NAMECALL                         R5 R5 K4 ["JSONEncode"]
-       17 CALL                             R5 2 -1
-       18 NAMECALL                         R3 R0 K5 ["sendMessage"]
-       20 CALL                             R3 -1 0
-       21 RETURN                           R0 0
+        7 DUPTABLE                         R7 K3 [{[1] = "command", ["command"], ["args"]}]
+        8 SETTABLEKS                       R1 R7 K1 ["command"]
+       10 SETTABLEKS                       R2 R7 K2 ["args"]
+       12 NAMECALL                         R5 R5 K4 ["JSONEncode"]
+       14 CALL                             R5 2 -1
+       15 NAMECALL                         R3 R0 K5 ["sendMessage"]
+       17 CALL                             R3 -1 0
+       18 RETURN                           R0 0
 
 PROTO_5:
         0 LOADK                            R3 K0 ["register"]

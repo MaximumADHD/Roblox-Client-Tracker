@@ -58,7 +58,7 @@ PROTO_1:
        51 RETURN                           R2 1
 
 PROTO_2:
-        0 LOADN                            R2 156
+        0 LOADN                            R2 -100
         1 LOADN                            R3 100
         2 MINUS                            R4 R0
         3 NEWCLOSURE                       R5 P0
@@ -103,15 +103,15 @@ PROTO_3:
         4 LOADK                            R3 K2 ["p"]
         5 SETLIST                          R0 R1 3 [1]
         7 NEWTABLE                         R1 0 0
-        9 LOADN                            R4 255
+        9 LOADN                            R4 -1
        10 LOADN                            R2 1
        11 LOADN                            R3 1
        12 FORNPREP                         R2
-       13 LOADN                            R7 255
+       13 LOADN                            R7 -1
        14 LOADN                            R5 1
        15 LOADN                            R6 1
        16 FORNPREP                         R5
-       17 LOADN                            R10 255
+       17 LOADN                            R10 -1
        18 LOADN                            R8 1
        19 LOADN                            R9 1
        20 FORNPREP                         R8
@@ -1230,7 +1230,7 @@ PROTO_30:
       362 NAMECALL                         R31 R13 K5 ["WaitForChild"]
       364 CALL                             R31 2 1
       365 GETIMPORT                        R32 K61 [Vector2.new]
-      367 LOADN                            R33 255
+      367 LOADN                            R33 -1
       368 LOADN                            R34 0
       369 CALL                             R32 2 -1
       370 CALL                             R30 -1 0
@@ -1249,7 +1249,7 @@ PROTO_30:
       386 CALL                             R31 2 1
       387 GETIMPORT                        R32 K61 [Vector2.new]
       389 LOADN                            R33 0
-      390 LOADN                            R34 255
+      390 LOADN                            R34 -1
       391 CALL                             R32 2 -1
       392 CALL                             R30 -1 0
       393 CLOSEUPVALS                      R1
@@ -1284,22 +1284,18 @@ PROTO_33:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
-        4 DUPTABLE                         R3 K6 [{"ref", "Size", "BackgroundTransparency", "ClipsDescendants"}]
-        5 GETTABLEKS                       R4 R0 K7 ["frame"]
+        4 DUPTABLE                         R3 K8 [{["ref"], ["Size"], ["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True}]
+        5 GETTABLEKS                       R4 R0 K9 ["frame"]
         7 SETTABLEKS                       R4 R3 K2 ["ref"]
-        9 GETIMPORT                        R4 K10 [UDim2.new]
+        9 GETIMPORT                        R4 K12 [UDim2.new]
        11 LOADN                            R5 0
        12 LOADN                            R6 128
        13 LOADN                            R7 0
        14 LOADN                            R8 128
        15 CALL                             R4 4 1
        16 SETTABLEKS                       R4 R3 K3 ["Size"]
-       18 LOADN                            R4 1
-       19 SETTABLEKS                       R4 R3 K4 ["BackgroundTransparency"]
-       21 LOADB                            R4 1
-       22 SETTABLEKS                       R4 R3 K5 ["ClipsDescendants"]
-       24 CALL                             R1 2 -1
-       25 RETURN                           R1 -1
+       18 CALL                             R1 2 -1
+       19 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

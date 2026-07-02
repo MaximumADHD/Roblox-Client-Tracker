@@ -41,23 +41,21 @@ PROTO_2:
        18 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R2 K1 [{"currentPage"}]
-        1 LOADN                            R3 1
-        2 SETTABLEKS                       R3 R2 K0 ["currentPage"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 GETUPVAL                         R2 0
-        7 GETTABLEKS                       R2 R2 K3 ["createRef"]
-        9 CALL                             R2 0 1
-       10 SETTABLEKS                       R2 R0 K4 ["scrollingFrameRef"]
-       12 DUPCLOSURE                       R2 K5 [PROTO_0]
-       13 SETTABLEKS                       R2 R0 K6 ["checkCanvasAndRequest"]
-       15 NEWCLOSURE                       R2 P1
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R2 R0 K7 ["onScroll"]
-       19 NEWCLOSURE                       R2 P2
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R2 R0 K8 ["requestNextPage"]
-       23 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = 1}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K4 ["createRef"]
+        6 CALL                             R2 0 1
+        7 SETTABLEKS                       R2 R0 K5 ["scrollingFrameRef"]
+        9 DUPCLOSURE                       R2 K6 [PROTO_0]
+       10 SETTABLEKS                       R2 R0 K7 ["checkCanvasAndRequest"]
+       12 NEWCLOSURE                       R2 P1
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K8 ["onScroll"]
+       16 NEWCLOSURE                       R2 P2
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R0 K9 ["requestNextPage"]
+       20 RETURN                           R0 0
 
 PROTO_4:
         0 DUPTABLE                         R2 K1 [{"currentPage"}]
@@ -85,7 +83,7 @@ PROTO_7:
         8 GETTABLEKS                       R5 R1 K4 ["LayoutOrder"]
        10 GETTABLEKS                       R6 R1 K5 ["layouterRef"]
        12 GETTABLEKS                       R6 R6 K6 ["current"]
-       14 LOADN                            R7 132
+       14 LOADN                            R7 900
        15 JUMPIFNOT                        R6 ; [+4]
        16 GETTABLEKS                       R8 R6 K7 ["AbsoluteContentSize"]
        18 GETTABLEKS                       R7 R8 K8 ["Y"]

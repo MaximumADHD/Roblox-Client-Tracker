@@ -44,36 +44,14 @@ PROTO_3:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
        10 GETUPVAL                         R1 2
-       11 DUPTABLE                         R2 K14 [{"created", "creatorName", "creatorTargetId", "creatorType", "description", "id", "isActive", "isArchived", "name", "privacyType", "rootPlaceId", "updated"}]
-       12 LOADK                            R3 K15 [""]
-       13 SETTABLEKS                       R3 R2 K2 ["created"]
-       15 LOADK                            R3 K16 ["TestUser"]
-       16 SETTABLEKS                       R3 R2 K3 ["creatorName"]
-       18 LOADN                            R3 0
-       19 SETTABLEKS                       R3 R2 K4 ["creatorTargetId"]
-       21 GETIMPORT                        R4 K20 [Enum.CreatorType.User]
-       23 FASTCALL1                        TOSTRING R4 ; [+2]
-       24 GETIMPORT                        R3 K22 [tostring]
-       26 CALL                             R3 1 1
-       27 SETTABLEKS                       R3 R2 K5 ["creatorType"]
-       29 LOADK                            R3 K15 [""]
-       30 SETTABLEKS                       R3 R2 K6 ["description"]
-       32 LOADN                            R3 1
-       33 SETTABLEKS                       R3 R2 K7 ["id"]
-       35 LOADB                            R3 0
-       36 SETTABLEKS                       R3 R2 K8 ["isActive"]
-       38 LOADB                            R3 0
-       39 SETTABLEKS                       R3 R2 K9 ["isArchived"]
-       41 LOADK                            R3 K23 ["TestGame"]
-       42 SETTABLEKS                       R3 R2 K10 ["name"]
-       44 LOADK                            R3 K15 [""]
-       45 SETTABLEKS                       R3 R2 K11 ["privacyType"]
-       47 LOADN                            R3 1
-       48 SETTABLEKS                       R3 R2 K12 ["rootPlaceId"]
-       50 LOADK                            R3 K15 [""]
-       51 SETTABLEKS                       R3 R2 K13 ["updated"]
-       53 CALL                             R1 1 0
-       54 RETURN                           R0 0
+       11 DUPTABLE                         R2 K20 [{["created"] = "", ["creatorName"] = "TestUser", ["creatorTargetId"] = 0, ["creatorType"], ["description"] = "", ["id"] = 1, ["isActive"] = False, ["isArchived"] = False, ["name"] = "TestGame", ["privacyType"] = "", ["rootPlaceId"] = 1, ["updated"] = ""}]
+       12 GETIMPORT                        R4 K24 [Enum.CreatorType.User]
+       14 FASTCALL1                        TOSTRING R4 ; [+2]
+       15 GETIMPORT                        R3 K26 [tostring]
+       17 CALL                             R3 1 1
+       18 SETTABLEKS                       R3 R2 K8 ["creatorType"]
+       20 CALL                             R1 1 0
+       21 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R3 0
@@ -415,13 +393,9 @@ PROTO_21:
         3 RETURN                           R2 2
 
 PROTO_22:
-        0 DUPTABLE                         R2 K3 [{"assetId", "errorCode", "code"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["errorCode"] = 123, ["code"] = "MockError"}]
         1 SETTABLEKS                       R0 R2 K0 ["assetId"]
-        3 LOADN                            R3 123
-        4 SETTABLEKS                       R3 R2 K1 ["errorCode"]
-        6 LOADK                            R3 K4 ["MockError"]
-        7 SETTABLEKS                       R3 R2 K2 ["code"]
-        9 RETURN                           R2 1
+        3 RETURN                           R2 1
 
 PROTO_23:
         0 JUMPIFNOT                        R0 ; [+20]
@@ -465,13 +439,9 @@ PROTO_25:
         5 GETTABLEKS                       R4 R4 K6 ["UnknownError"]
         7 SETTABLEKS                       R4 R3 K3 ["status"]
         9 SETTABLEKS                       R3 R2 K0 ["value"]
-       11 DUPTABLE                         R3 K9 [{"code", "message"}]
-       12 LOADN                            R4 123
-       13 SETTABLEKS                       R4 R3 K7 ["code"]
-       15 LOADK                            R4 K10 ["MockError"]
-       16 SETTABLEKS                       R4 R3 K8 ["message"]
-       18 SETTABLEKS                       R3 R2 K1 ["error"]
-       20 RETURN                           R2 1
+       11 DUPTABLE                         R3 K11 [{["code"] = 123, ["message"] = "MockError"}]
+       12 SETTABLEKS                       R3 R2 K1 ["error"]
+       14 RETURN                           R2 1
 
 PROTO_26:
         0 JUMPIFNOT                        R0 ; [+11]
@@ -562,10 +532,10 @@ PROTO_33:
         7 MOVE                             R2 R3
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
-       10 DUPTABLE                         R1 K14 [{"Path", "AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
-       11 LOADK                            R3 K15 ["users/%*/creator-inventory-items/asset-%*"]
+       10 DUPTABLE                         R1 K19 [{["Path"], ["AssetId"], ["AssetType"], ["DisplayName"] = "Mock Individual Asset", ["Description"] = "A mock asset fetched via fetching asset info directly", ["VersionNumber"] = 1, ["Created"] = "2021-01-01T00:00:00Z", ["Modified"] = "2021-01-01T00:00:00Z", ["ModerationStatus"], ["Creator"], ["Source"], ["Archived"] = False}]
+       11 LOADK                            R3 K20 ["users/%*/creator-inventory-items/asset-%*"]
        12 GETUPVAL                         R5 2
-       13 GETTABLEKS                       R5 R5 K16 ["Id"]
+       13 GETTABLEKS                       R5 R5 K21 ["Id"]
        15 GETUPVAL                         R6 1
        16 NAMECALL                         R3 R3 K1 ["format"]
        18 CALL                             R3 3 1
@@ -575,78 +545,54 @@ PROTO_33:
        23 SETTABLEKS                       R2 R1 K3 ["AssetId"]
        25 GETUPVAL                         R2 3
        26 GETTABLEKS                       R2 R2 K4 ["AssetType"]
-       28 GETTABLEKS                       R2 R2 K17 ["Model"]
+       28 GETTABLEKS                       R2 R2 K22 ["Model"]
        30 SETTABLEKS                       R2 R1 K4 ["AssetType"]
-       32 LOADK                            R2 K18 ["Mock Individual Asset"]
-       33 SETTABLEKS                       R2 R1 K5 ["DisplayName"]
-       35 LOADK                            R2 K19 ["A mock asset fetched via fetching asset info directly"]
-       36 SETTABLEKS                       R2 R1 K6 ["Description"]
-       38 LOADN                            R2 1
-       39 SETTABLEKS                       R2 R1 K7 ["VersionNumber"]
-       41 LOADK                            R2 K20 ["2021-01-01T00:00:00Z"]
-       42 SETTABLEKS                       R2 R1 K8 ["Created"]
-       44 LOADK                            R2 K20 ["2021-01-01T00:00:00Z"]
-       45 SETTABLEKS                       R2 R1 K9 ["Modified"]
-       47 GETUPVAL                         R2 3
-       48 GETTABLEKS                       R2 R2 K10 ["ModerationStatus"]
-       50 GETTABLEKS                       R2 R2 K21 ["Approved"]
-       52 SETTABLEKS                       R2 R1 K10 ["ModerationStatus"]
-       54 GETUPVAL                         R2 2
-       55 SETTABLEKS                       R2 R1 K11 ["Creator"]
-       57 GETUPVAL                         R2 3
-       58 GETTABLEKS                       R2 R2 K22 ["AssetSource"]
-       60 GETTABLEKS                       R2 R2 K23 ["Uploaded"]
-       62 SETTABLEKS                       R2 R1 K12 ["Source"]
-       64 LOADB                            R2 0
-       65 SETTABLEKS                       R2 R1 K13 ["Archived"]
-       67 DUPTABLE                         R2 K14 [{"Path", "AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
-       68 LOADK                            R4 K15 ["users/%*/creator-inventory-items/asset-%*"]
-       69 GETUPVAL                         R6 2
-       70 GETTABLEKS                       R6 R6 K16 ["Id"]
-       72 GETUPVAL                         R8 1
-       73 ADDK                             R7 R8 K24 [1]
-       74 NAMECALL                         R4 R4 K1 ["format"]
-       76 CALL                             R4 3 1
-       77 MOVE                             R3 R4
-       78 SETTABLEKS                       R3 R2 K2 ["Path"]
-       80 GETUPVAL                         R4 1
-       81 ADDK                             R3 R4 K24 [1]
-       82 SETTABLEKS                       R3 R2 K3 ["AssetId"]
-       84 GETUPVAL                         R3 3
-       85 GETTABLEKS                       R3 R3 K4 ["AssetType"]
-       87 GETTABLEKS                       R3 R3 K25 ["Mesh"]
-       89 SETTABLEKS                       R3 R2 K4 ["AssetType"]
-       91 LOADK                            R3 K26 ["Mock Dependency Asset"]
-       92 SETTABLEKS                       R3 R2 K5 ["DisplayName"]
-       94 LOADK                            R3 K27 ["A mock asset that another asset depends on"]
-       95 SETTABLEKS                       R3 R2 K6 ["Description"]
-       97 LOADN                            R3 1
-       98 SETTABLEKS                       R3 R2 K7 ["VersionNumber"]
-      100 LOADK                            R3 K20 ["2021-01-01T00:00:00Z"]
-      101 SETTABLEKS                       R3 R2 K8 ["Created"]
-      103 LOADK                            R3 K20 ["2021-01-01T00:00:00Z"]
-      104 SETTABLEKS                       R3 R2 K9 ["Modified"]
-      106 GETUPVAL                         R3 3
-      107 GETTABLEKS                       R3 R3 K10 ["ModerationStatus"]
-      109 GETTABLEKS                       R3 R3 K21 ["Approved"]
-      111 SETTABLEKS                       R3 R2 K10 ["ModerationStatus"]
-      113 GETUPVAL                         R3 2
-      114 SETTABLEKS                       R3 R2 K11 ["Creator"]
-      116 GETUPVAL                         R3 3
-      117 GETTABLEKS                       R3 R3 K22 ["AssetSource"]
-      119 GETTABLEKS                       R3 R3 K23 ["Uploaded"]
-      121 SETTABLEKS                       R3 R2 K12 ["Source"]
-      123 LOADB                            R3 0
-      124 SETTABLEKS                       R3 R2 K13 ["Archived"]
-      126 GETUPVAL                         R3 4
-      127 MOVE                             R4 R1
-      128 CALL                             R3 1 0
-      129 GETUPVAL                         R3 5
-      130 JUMPIFNOT                        R3 ; [+3]
-      131 GETUPVAL                         R3 4
-      132 MOVE                             R4 R2
-      133 CALL                             R3 1 0
-      134 RETURN                           R0 0
+       32 GETUPVAL                         R2 3
+       33 GETTABLEKS                       R2 R2 K14 ["ModerationStatus"]
+       35 GETTABLEKS                       R2 R2 K23 ["Approved"]
+       37 SETTABLEKS                       R2 R1 K14 ["ModerationStatus"]
+       39 GETUPVAL                         R2 2
+       40 SETTABLEKS                       R2 R1 K15 ["Creator"]
+       42 GETUPVAL                         R2 3
+       43 GETTABLEKS                       R2 R2 K24 ["AssetSource"]
+       45 GETTABLEKS                       R2 R2 K25 ["Uploaded"]
+       47 SETTABLEKS                       R2 R1 K16 ["Source"]
+       49 DUPTABLE                         R2 K28 [{["Path"], ["AssetId"], ["AssetType"], ["DisplayName"] = "Mock Dependency Asset", ["Description"] = "A mock asset that another asset depends on", ["VersionNumber"] = 1, ["Created"] = "2021-01-01T00:00:00Z", ["Modified"] = "2021-01-01T00:00:00Z", ["ModerationStatus"], ["Creator"], ["Source"], ["Archived"] = False}]
+       50 LOADK                            R4 K20 ["users/%*/creator-inventory-items/asset-%*"]
+       51 GETUPVAL                         R6 2
+       52 GETTABLEKS                       R6 R6 K21 ["Id"]
+       54 GETUPVAL                         R8 1
+       55 ADDK                             R7 R8 K10 [1]
+       56 NAMECALL                         R4 R4 K1 ["format"]
+       58 CALL                             R4 3 1
+       59 MOVE                             R3 R4
+       60 SETTABLEKS                       R3 R2 K2 ["Path"]
+       62 GETUPVAL                         R4 1
+       63 ADDK                             R3 R4 K10 [1]
+       64 SETTABLEKS                       R3 R2 K3 ["AssetId"]
+       66 GETUPVAL                         R3 3
+       67 GETTABLEKS                       R3 R3 K4 ["AssetType"]
+       69 GETTABLEKS                       R3 R3 K29 ["Mesh"]
+       71 SETTABLEKS                       R3 R2 K4 ["AssetType"]
+       73 GETUPVAL                         R3 3
+       74 GETTABLEKS                       R3 R3 K14 ["ModerationStatus"]
+       76 GETTABLEKS                       R3 R3 K23 ["Approved"]
+       78 SETTABLEKS                       R3 R2 K14 ["ModerationStatus"]
+       80 GETUPVAL                         R3 2
+       81 SETTABLEKS                       R3 R2 K15 ["Creator"]
+       83 GETUPVAL                         R3 3
+       84 GETTABLEKS                       R3 R3 K24 ["AssetSource"]
+       86 GETTABLEKS                       R3 R3 K25 ["Uploaded"]
+       88 SETTABLEKS                       R3 R2 K16 ["Source"]
+       90 GETUPVAL                         R3 4
+       91 MOVE                             R4 R1
+       92 CALL                             R3 1 0
+       93 GETUPVAL                         R3 5
+       94 JUMPIFNOT                        R3 ; [+3]
+       95 GETUPVAL                         R3 4
+       96 MOVE                             R4 R2
+       97 CALL                             R3 1 0
+       98 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R5 0
@@ -672,11 +618,9 @@ PROTO_35:
         8 CALL                             R1 1 0
         9 RETURN                           R0 0
        10 GETUPVAL                         R1 2
-       11 DUPTABLE                         R2 K3 [{"versionId"}]
-       12 LOADN                            R3 1
-       13 SETTABLEKS                       R3 R2 K2 ["versionId"]
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
+       11 DUPTABLE                         R2 K4 [{["versionId"] = 1}]
+       12 CALL                             R1 1 0
+       13 RETURN                           R0 0
 
 PROTO_36:
         0 GETUPVAL                         R3 0
@@ -728,44 +672,36 @@ PROTO_39:
         1 GETUPVAL                         R2 0
         2 LOADK                            R3 K0 ["Test createFolderAsync error"]
         3 CALL                             R2 1 0
-        4 DUPTABLE                         R2 K12 [{"AssetId", "DisplayName", "AssetType", "Path", "Creator", "Created", "Modified", "VersionNumber", "ModerationStatus", "Source", "Archived"}]
+        4 DUPTABLE                         R2 K15 [{["AssetId"], ["DisplayName"], ["AssetType"], ["Path"], ["Creator"], ["Created"] = "2021-01-01T00:00:00Z", ["Modified"] = "2021-01-01T00:00:00Z", ["VersionNumber"] = 1, ["ModerationStatus"], ["Source"], ["Archived"] = False}]
         5 SETTABLEKS                       R0 R2 K1 ["AssetId"]
         7 GETUPVAL                         R3 1
-        8 GETTABLEKS                       R3 R3 K13 ["FolderName"]
+        8 GETTABLEKS                       R3 R3 K16 ["FolderName"]
        10 SETTABLEKS                       R3 R2 K2 ["DisplayName"]
        12 GETUPVAL                         R3 2
-       13 GETTABLEKS                       R3 R3 K14 ["ScopeType"]
-       15 GETTABLEKS                       R3 R3 K15 ["Folder"]
+       13 GETTABLEKS                       R3 R3 K17 ["ScopeType"]
+       15 GETTABLEKS                       R3 R3 K18 ["Folder"]
        17 SETTABLEKS                       R3 R2 K3 ["AssetType"]
-       19 LOADK                            R4 K16 ["folder-%*"]
+       19 LOADK                            R4 K19 ["folder-%*"]
        20 MOVE                             R6 R0
-       21 NAMECALL                         R4 R4 K17 ["format"]
+       21 NAMECALL                         R4 R4 K20 ["format"]
        23 CALL                             R4 2 1
        24 MOVE                             R3 R4
        25 SETTABLEKS                       R3 R2 K4 ["Path"]
        27 GETUPVAL                         R3 1
-       28 GETTABLEKS                       R3 R3 K18 ["RootScope"]
+       28 GETTABLEKS                       R3 R3 K21 ["RootScope"]
        30 SETTABLEKS                       R3 R2 K5 ["Creator"]
-       32 LOADK                            R3 K19 ["2021-01-01T00:00:00Z"]
-       33 SETTABLEKS                       R3 R2 K6 ["Created"]
-       35 LOADK                            R3 K19 ["2021-01-01T00:00:00Z"]
-       36 SETTABLEKS                       R3 R2 K7 ["Modified"]
-       38 LOADN                            R3 1
-       39 SETTABLEKS                       R3 R2 K8 ["VersionNumber"]
-       41 GETUPVAL                         R3 2
-       42 GETTABLEKS                       R3 R3 K9 ["ModerationStatus"]
-       44 GETTABLEKS                       R3 R3 K20 ["Approved"]
-       46 SETTABLEKS                       R3 R2 K9 ["ModerationStatus"]
-       48 GETUPVAL                         R3 2
-       49 GETTABLEKS                       R3 R3 K21 ["AssetSource"]
-       51 GETTABLEKS                       R3 R3 K22 ["Uploaded"]
-       53 SETTABLEKS                       R3 R2 K10 ["Source"]
-       55 LOADB                            R3 0
-       56 SETTABLEKS                       R3 R2 K11 ["Archived"]
-       58 GETUPVAL                         R3 3
-       59 MOVE                             R4 R2
-       60 CALL                             R3 1 0
-       61 RETURN                           R0 0
+       32 GETUPVAL                         R3 2
+       33 GETTABLEKS                       R3 R3 K11 ["ModerationStatus"]
+       35 GETTABLEKS                       R3 R3 K22 ["Approved"]
+       37 SETTABLEKS                       R3 R2 K11 ["ModerationStatus"]
+       39 GETUPVAL                         R3 2
+       40 GETTABLEKS                       R3 R3 K23 ["AssetSource"]
+       42 GETTABLEKS                       R3 R3 K24 ["Uploaded"]
+       44 SETTABLEKS                       R3 R2 K12 ["Source"]
+       46 GETUPVAL                         R3 3
+       47 MOVE                             R4 R2
+       48 CALL                             R3 1 0
+       49 RETURN                           R0 0
 
 PROTO_40:
         0 NEWCLOSURE                       R2 P0
@@ -872,23 +808,19 @@ PROTO_50:
         9 RETURN                           R3 -1
 
 PROTO_51:
-        0 JUMPIFNOT                        R0 ; [+10]
+        0 JUMPIFNOT                        R0 ; [+4]
         1 GETUPVAL                         R2 0
-        2 DUPTABLE                         R3 K2 [{"code", "message"}]
-        3 LOADN                            R4 144
-        4 SETTABLEKS                       R4 R3 K0 ["code"]
-        6 LOADK                            R4 K3 ["Test moveItemsAsync error"]
-        7 SETTABLEKS                       R4 R3 K1 ["message"]
-        9 CALL                             R2 1 0
-       10 RETURN                           R0 0
-       11 GETUPVAL                         R2 1
-       12 DUPTABLE                         R3 K5 [{"errors"}]
-       13 MOVE                             R4 R1
-       14 JUMPIF                           R4 ; [+2]
-       15 NEWTABLE                         R4 0 0
-       17 SETTABLEKS                       R4 R3 K4 ["errors"]
-       19 CALL                             R2 1 0
-       20 RETURN                           R0 0
+        2 DUPTABLE                         R3 K4 [{[1] = 400, ["message"] = "Test moveItemsAsync error"}]
+        3 CALL                             R2 1 0
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R2 1
+        6 DUPTABLE                         R3 K6 [{"errors"}]
+        7 MOVE                             R4 R1
+        8 JUMPIF                           R4 ; [+2]
+        9 NEWTABLE                         R4 0 0
+       11 SETTABLEKS                       R4 R3 K5 ["errors"]
+       13 CALL                             R2 1 0
+       14 RETURN                           R0 0
 
 PROTO_52:
         0 NEWCLOSURE                       R2 P0

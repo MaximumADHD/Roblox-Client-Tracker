@@ -419,70 +419,60 @@ PROTO_22:
        10 LOADK                            R4 K3 ["Argument #2 to Promise.new must be a promise or nil"]
        11 LOADN                            R5 2
        12 CALL                             R3 2 0
-       13 DUPTABLE                         R3 K16 [{"_thread", "_source", "_status", "_values", "_valuesLength", "_unhandledRejection", "_queuedResolve", "_queuedReject", "_queuedFinally", "_cancellationHook", "_parent", "_consumers"}]
-       14 LOADNIL                          R4
-       15 SETTABLEKS                       R4 R3 K4 ["_thread"]
-       17 SETTABLEKS                       R0 R3 K5 ["_source"]
-       19 GETUPVAL                         R4 0
-       20 GETTABLEKS                       R4 R4 K17 ["Status"]
-       22 GETTABLEKS                       R4 R4 K18 ["Started"]
-       24 SETTABLEKS                       R4 R3 K6 ["_status"]
-       26 LOADNIL                          R4
-       27 SETTABLEKS                       R4 R3 K7 ["_values"]
-       29 LOADN                            R4 255
-       30 SETTABLEKS                       R4 R3 K8 ["_valuesLength"]
-       32 LOADB                            R4 1
-       33 SETTABLEKS                       R4 R3 K9 ["_unhandledRejection"]
-       35 NEWTABLE                         R4 0 0
-       37 SETTABLEKS                       R4 R3 K10 ["_queuedResolve"]
-       39 NEWTABLE                         R4 0 0
-       41 SETTABLEKS                       R4 R3 K11 ["_queuedReject"]
-       43 NEWTABLE                         R4 0 0
-       45 SETTABLEKS                       R4 R3 K12 ["_queuedFinally"]
-       47 LOADNIL                          R4
-       48 SETTABLEKS                       R4 R3 K13 ["_cancellationHook"]
-       50 SETTABLEKS                       R2 R3 K14 ["_parent"]
-       52 NEWTABLE                         R5 0 0
-       54 GETUPVAL                         R6 1
-       55 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
-       57 GETIMPORT                        R4 K20 [setmetatable]
-       59 CALL                             R4 2 1
-       60 SETTABLEKS                       R4 R3 K15 ["_consumers"]
-       62 JUMPIFNOT                        R2 ; [+13]
-       63 GETTABLEKS                       R4 R2 K6 ["_status"]
-       65 GETUPVAL                         R5 0
-       66 GETTABLEKS                       R5 R5 K17 ["Status"]
-       68 GETTABLEKS                       R5 R5 K18 ["Started"]
-       70 JUMPIFNOTEQ                      R4 R5 ; [+5]
-       72 GETTABLEKS                       R4 R2 K15 ["_consumers"]
-       74 LOADB                            R5 1
-       75 SETTABLE                         R5 R4 R3
-       76 GETUPVAL                         R6 0
-       77 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       79 MOVE                             R5 R3
-       80 GETIMPORT                        R4 K20 [setmetatable]
-       82 CALL                             R4 2 0
-       83 NEWCLOSURE                       R4 P0
-       84 CAPTURE                          VAL R3
-       85 NEWCLOSURE                       R5 P1
-       86 CAPTURE                          VAL R3
-       87 NEWCLOSURE                       R6 P2
-       88 CAPTURE                          VAL R3
-       89 CAPTURE                          UPVAL U0
-       90 GETIMPORT                        R7 K23 [coroutine.create]
-       92 NEWCLOSURE                       R8 P3
-       93 CAPTURE                          UPVAL U2
-       94 CAPTURE                          VAL R3
-       95 CAPTURE                          VAL R1
-       96 CAPTURE                          VAL R4
-       97 CAPTURE                          VAL R5
-       98 CAPTURE                          VAL R6
-       99 CALL                             R7 1 1
-      100 SETTABLEKS                       R7 R3 K4 ["_thread"]
-      102 GETIMPORT                        R7 K26 [task.spawn]
-      104 GETTABLEKS                       R8 R3 K4 ["_thread"]
-      106 CALL                             R7 1 0
-      107 RETURN                           R3 1
+       13 DUPTABLE                         R3 K19 [{["_thread"] = , ["_source"], ["_status"], ["_values"] = , ["_valuesLength"] = -1, ["_unhandledRejection"] = True, ["_queuedResolve"], ["_queuedReject"], ["_queuedFinally"], ["_cancellationHook"] = , ["_parent"], ["_consumers"]}]
+       14 SETTABLEKS                       R0 R3 K6 ["_source"]
+       16 GETUPVAL                         R4 0
+       17 GETTABLEKS                       R4 R4 K20 ["Status"]
+       19 GETTABLEKS                       R4 R4 K21 ["Started"]
+       21 SETTABLEKS                       R4 R3 K7 ["_status"]
+       23 NEWTABLE                         R4 0 0
+       25 SETTABLEKS                       R4 R3 K13 ["_queuedResolve"]
+       27 NEWTABLE                         R4 0 0
+       29 SETTABLEKS                       R4 R3 K14 ["_queuedReject"]
+       31 NEWTABLE                         R4 0 0
+       33 SETTABLEKS                       R4 R3 K15 ["_queuedFinally"]
+       35 SETTABLEKS                       R2 R3 K17 ["_parent"]
+       37 NEWTABLE                         R5 0 0
+       39 GETUPVAL                         R6 1
+       40 FASTCALL2                        SETMETATABLE R5 R6 ; [+3]
+       42 GETIMPORT                        R4 K23 [setmetatable]
+       44 CALL                             R4 2 1
+       45 SETTABLEKS                       R4 R3 K18 ["_consumers"]
+       47 JUMPIFNOT                        R2 ; [+13]
+       48 GETTABLEKS                       R4 R2 K7 ["_status"]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K20 ["Status"]
+       53 GETTABLEKS                       R5 R5 K21 ["Started"]
+       55 JUMPIFNOTEQ                      R4 R5 ; [+5]
+       57 GETTABLEKS                       R4 R2 K18 ["_consumers"]
+       59 LOADB                            R5 1
+       60 SETTABLE                         R5 R4 R3
+       61 GETUPVAL                         R6 0
+       62 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       64 MOVE                             R5 R3
+       65 GETIMPORT                        R4 K23 [setmetatable]
+       67 CALL                             R4 2 0
+       68 NEWCLOSURE                       R4 P0
+       69 CAPTURE                          VAL R3
+       70 NEWCLOSURE                       R5 P1
+       71 CAPTURE                          VAL R3
+       72 NEWCLOSURE                       R6 P2
+       73 CAPTURE                          VAL R3
+       74 CAPTURE                          UPVAL U0
+       75 GETIMPORT                        R7 K26 [coroutine.create]
+       77 NEWCLOSURE                       R8 P3
+       78 CAPTURE                          UPVAL U2
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R1
+       81 CAPTURE                          VAL R4
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R6
+       84 CALL                             R7 1 1
+       85 SETTABLEKS                       R7 R3 K4 ["_thread"]
+       87 GETIMPORT                        R7 K29 [task.spawn]
+       89 GETTABLEKS                       R8 R3 K4 ["_thread"]
+       91 CALL                             R7 1 0
+       92 RETURN                           R3 1
 
 PROTO_23:
         0 GETUPVAL                         R1 0
@@ -1272,13 +1262,13 @@ PROTO_62:
        20 GETTABLEKS                       R13 R13 K2 ["is"]
        22 MOVE                             R14 R12
        23 CALL                             R13 1 1
-       24 JUMPIFNOT                        R13 ; [+92]
+       24 JUMPIFNOT                        R13 ; [+89]
        25 NAMECALL                         R13 R12 K3 ["getStatus"]
        27 CALL                             R13 1 1
        28 GETUPVAL                         R14 1
        29 GETTABLEKS                       R14 R14 K4 ["Status"]
        31 GETTABLEKS                       R14 R14 K5 ["Cancelled"]
-       33 JUMPIFNOTEQ                      R13 R14 ; [+39]
+       33 JUMPIFNOTEQ                      R13 R14 ; [+36]
        35 GETIMPORT                        R13 K1 [ipairs]
        37 MOVE                             R14 R4
        38 CALL                             R13 1 3
@@ -1289,121 +1279,119 @@ PROTO_62:
        45 MOVE                             R13 R1
        46 GETUPVAL                         R14 2
        47 GETTABLEKS                       R14 R14 K7 ["new"]
-       49 DUPTABLE                         R15 K11 [{"error", "kind", "context"}]
-       50 LOADK                            R16 K12 ["Promise is cancelled"]
-       51 SETTABLEKS                       R16 R15 K8 ["error"]
-       53 GETUPVAL                         R16 2
-       54 GETTABLEKS                       R16 R16 K13 ["Kind"]
-       56 GETTABLEKS                       R16 R16 K14 ["AlreadyCancelled"]
-       58 SETTABLEKS                       R16 R15 K9 ["kind"]
-       60 GETIMPORT                        R16 K17 [string.format]
-       62 LOADK                            R17 K18 ["The Promise that was part of the array at index %d passed into Promise.each was already cancelled when Promise.each began.\n\nThat Promise was created at:\n\n%s"]
-       63 MOVE                             R18 R11
-       64 GETTABLEKS                       R19 R12 K19 ["_source"]
-       66 CALL                             R16 3 1
-       67 SETTABLEKS                       R16 R15 K10 ["context"]
-       69 CALL                             R14 1 -1
-       70 CALL                             R13 -1 -1
-       71 CLOSEUPVALS                      R5
-       72 RETURN                           R13 -1
-       73 NAMECALL                         R13 R12 K3 ["getStatus"]
-       75 CALL                             R13 1 1
-       76 GETUPVAL                         R14 1
-       77 GETTABLEKS                       R14 R14 K4 ["Status"]
-       79 GETTABLEKS                       R14 R14 K20 ["Rejected"]
-       81 JUMPIFNOTEQ                      R13 R14 ; [+22]
-       83 GETIMPORT                        R13 K1 [ipairs]
-       85 MOVE                             R14 R4
-       86 CALL                             R13 1 3
-       87 FORGPREP_INEXT                   R13
-       88 NAMECALL                         R18 R17 K6 ["cancel"]
-       90 CALL                             R18 1 0
-       91 FORGLOOP                         R13 2 [inext] ; [-4]
-       93 MOVE                             R13 R1
-       94 GETIMPORT                        R14 K22 [select]
-       96 LOADN                            R15 2
-       97 NAMECALL                         R16 R12 K23 ["await"]
-       99 CALL                             R16 1 -1
-      100 CALL                             R14 -1 -1
-      101 CALL                             R13 -1 -1
-      102 CLOSEUPVALS                      R5
-      103 RETURN                           R13 -1
-      104 DUPCLOSURE                       R15 K24 [PROTO_61]
-      105 NAMECALL                         R13 R12 K25 ["andThen"]
-      107 CALL                             R13 2 1
-      108 FASTCALL2                        TABLE_INSERT R4 R13 ; [+5]
-      110 MOVE                             R15 R4
-      111 MOVE                             R16 R13
-      112 GETIMPORT                        R14 K28 [table.insert]
-      114 CALL                             R14 2 0
-      115 SETTABLE                         R13 R7 R11
-      116 JUMP                             ; [+1]
-      117 SETTABLE                         R12 R7 R11
-      118 FORGLOOP                         R8 2 [inext] ; [-100]
-      120 GETIMPORT                        R8 K1 [ipairs]
-      122 MOVE                             R9 R7
-      123 CALL                             R8 1 3
-      124 FORGPREP_INEXT                   R8
-      125 GETUPVAL                         R13 1
-      126 GETTABLEKS                       R13 R13 K2 ["is"]
-      128 MOVE                             R14 R12
-      129 CALL                             R13 1 1
-      130 JUMPIFNOT                        R13 ; [+22]
-      131 LOADNIL                          R13
-      132 NAMECALL                         R14 R12 K23 ["await"]
-      134 CALL                             R14 1 2
-      135 MOVE                             R13 R14
-      136 MOVE                             R12 R15
-      137 JUMPIF                           R13 ; [+15]
-      138 GETIMPORT                        R14 K1 [ipairs]
-      140 MOVE                             R15 R4
-      141 CALL                             R14 1 3
-      142 FORGPREP_INEXT                   R14
-      143 NAMECALL                         R19 R18 K6 ["cancel"]
-      145 CALL                             R19 1 0
-      146 FORGLOOP                         R14 2 [inext] ; [-4]
-      148 MOVE                             R14 R1
-      149 MOVE                             R15 R12
-      150 CALL                             R14 1 -1
+       49 DUPTABLE                         R15 K12 [{["error"] = "Promise is cancelled", ["kind"], ["context"]}]
+       50 GETUPVAL                         R16 2
+       51 GETTABLEKS                       R16 R16 K13 ["Kind"]
+       53 GETTABLEKS                       R16 R16 K14 ["AlreadyCancelled"]
+       55 SETTABLEKS                       R16 R15 K10 ["kind"]
+       57 GETIMPORT                        R16 K17 [string.format]
+       59 LOADK                            R17 K18 ["The Promise that was part of the array at index %d passed into Promise.each was already cancelled when Promise.each began.\n\nThat Promise was created at:\n\n%s"]
+       60 MOVE                             R18 R11
+       61 GETTABLEKS                       R19 R12 K19 ["_source"]
+       63 CALL                             R16 3 1
+       64 SETTABLEKS                       R16 R15 K11 ["context"]
+       66 CALL                             R14 1 -1
+       67 CALL                             R13 -1 -1
+       68 CLOSEUPVALS                      R5
+       69 RETURN                           R13 -1
+       70 NAMECALL                         R13 R12 K3 ["getStatus"]
+       72 CALL                             R13 1 1
+       73 GETUPVAL                         R14 1
+       74 GETTABLEKS                       R14 R14 K4 ["Status"]
+       76 GETTABLEKS                       R14 R14 K20 ["Rejected"]
+       78 JUMPIFNOTEQ                      R13 R14 ; [+22]
+       80 GETIMPORT                        R13 K1 [ipairs]
+       82 MOVE                             R14 R4
+       83 CALL                             R13 1 3
+       84 FORGPREP_INEXT                   R13
+       85 NAMECALL                         R18 R17 K6 ["cancel"]
+       87 CALL                             R18 1 0
+       88 FORGLOOP                         R13 2 [inext] ; [-4]
+       90 MOVE                             R13 R1
+       91 GETIMPORT                        R14 K22 [select]
+       93 LOADN                            R15 2
+       94 NAMECALL                         R16 R12 K23 ["await"]
+       96 CALL                             R16 1 -1
+       97 CALL                             R14 -1 -1
+       98 CALL                             R13 -1 -1
+       99 CLOSEUPVALS                      R5
+      100 RETURN                           R13 -1
+      101 DUPCLOSURE                       R15 K24 [PROTO_61]
+      102 NAMECALL                         R13 R12 K25 ["andThen"]
+      104 CALL                             R13 2 1
+      105 FASTCALL2                        TABLE_INSERT R4 R13 ; [+5]
+      107 MOVE                             R15 R4
+      108 MOVE                             R16 R13
+      109 GETIMPORT                        R14 K28 [table.insert]
+      111 CALL                             R14 2 0
+      112 SETTABLE                         R13 R7 R11
+      113 JUMP                             ; [+1]
+      114 SETTABLE                         R12 R7 R11
+      115 FORGLOOP                         R8 2 [inext] ; [-97]
+      117 GETIMPORT                        R8 K1 [ipairs]
+      119 MOVE                             R9 R7
+      120 CALL                             R8 1 3
+      121 FORGPREP_INEXT                   R8
+      122 GETUPVAL                         R13 1
+      123 GETTABLEKS                       R13 R13 K2 ["is"]
+      125 MOVE                             R14 R12
+      126 CALL                             R13 1 1
+      127 JUMPIFNOT                        R13 ; [+22]
+      128 LOADNIL                          R13
+      129 NAMECALL                         R14 R12 K23 ["await"]
+      131 CALL                             R14 1 2
+      132 MOVE                             R13 R14
+      133 MOVE                             R12 R15
+      134 JUMPIF                           R13 ; [+15]
+      135 GETIMPORT                        R14 K1 [ipairs]
+      137 MOVE                             R15 R4
+      138 CALL                             R14 1 3
+      139 FORGPREP_INEXT                   R14
+      140 NAMECALL                         R19 R18 K6 ["cancel"]
+      142 CALL                             R19 1 0
+      143 FORGLOOP                         R14 2 [inext] ; [-4]
+      145 MOVE                             R14 R1
+      146 MOVE                             R15 R12
+      147 CALL                             R14 1 -1
+      148 CLOSEUPVALS                      R5
+      149 RETURN                           R14 -1
+      150 JUMPIFNOT                        R5 ; [+2]
       151 CLOSEUPVALS                      R5
-      152 RETURN                           R14 -1
-      153 JUMPIFNOT                        R5 ; [+2]
-      154 CLOSEUPVALS                      R5
-      155 RETURN                           R0 0
-      156 GETUPVAL                         R13 1
-      157 GETTABLEKS                       R13 R13 K29 ["resolve"]
-      159 GETUPVAL                         R14 3
-      160 MOVE                             R15 R12
-      161 MOVE                             R16 R11
-      162 CALL                             R14 2 -1
-      163 CALL                             R13 -1 1
-      164 FASTCALL2                        TABLE_INSERT R4 R13 ; [+5]
-      166 MOVE                             R15 R4
-      167 MOVE                             R16 R13
-      168 GETIMPORT                        R14 K28 [table.insert]
-      170 CALL                             R14 2 0
-      171 NAMECALL                         R14 R13 K23 ["await"]
-      173 CALL                             R14 1 2
-      174 JUMPIF                           R14 ; [+15]
-      175 GETIMPORT                        R16 K1 [ipairs]
-      177 MOVE                             R17 R4
-      178 CALL                             R16 1 3
-      179 FORGPREP_INEXT                   R16
-      180 NAMECALL                         R21 R20 K6 ["cancel"]
-      182 CALL                             R21 1 0
-      183 FORGLOOP                         R16 2 [inext] ; [-4]
-      185 MOVE                             R16 R1
-      186 MOVE                             R17 R15
-      187 CALL                             R16 1 -1
-      188 CLOSEUPVALS                      R5
-      189 RETURN                           R16 -1
-      190 SETTABLE                         R15 R3 R11
-      191 FORGLOOP                         R8 2 [inext] ; [-67]
-      193 MOVE                             R8 R0
-      194 MOVE                             R9 R3
-      195 CALL                             R8 1 -1
-      196 CLOSEUPVALS                      R5
-      197 RETURN                           R8 -1
+      152 RETURN                           R0 0
+      153 GETUPVAL                         R13 1
+      154 GETTABLEKS                       R13 R13 K29 ["resolve"]
+      156 GETUPVAL                         R14 3
+      157 MOVE                             R15 R12
+      158 MOVE                             R16 R11
+      159 CALL                             R14 2 -1
+      160 CALL                             R13 -1 1
+      161 FASTCALL2                        TABLE_INSERT R4 R13 ; [+5]
+      163 MOVE                             R15 R4
+      164 MOVE                             R16 R13
+      165 GETIMPORT                        R14 K28 [table.insert]
+      167 CALL                             R14 2 0
+      168 NAMECALL                         R14 R13 K23 ["await"]
+      170 CALL                             R14 1 2
+      171 JUMPIF                           R14 ; [+15]
+      172 GETIMPORT                        R16 K1 [ipairs]
+      174 MOVE                             R17 R4
+      175 CALL                             R16 1 3
+      176 FORGPREP_INEXT                   R16
+      177 NAMECALL                         R21 R20 K6 ["cancel"]
+      179 CALL                             R21 1 0
+      180 FORGLOOP                         R16 2 [inext] ; [-4]
+      182 MOVE                             R16 R1
+      183 MOVE                             R17 R15
+      184 CALL                             R16 1 -1
+      185 CLOSEUPVALS                      R5
+      186 RETURN                           R16 -1
+      187 SETTABLE                         R15 R3 R11
+      188 FORGLOOP                         R8 2 [inext] ; [-67]
+      190 MOVE                             R8 R0
+      191 MOVE                             R9 R3
+      192 CALL                             R8 1 -1
+      193 CLOSEUPVALS                      R5
+      194 RETURN                           R8 -1
 
 PROTO_63:
         0 FASTCALL1                        TYPE R0 ; [+3]
@@ -1740,27 +1728,25 @@ PROTO_71:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["reject"]
         3 GETUPVAL                         R2 1
-        4 JUMPIFNOTEQKNIL                  R2 ; [+25]
+        4 JUMPIFNOTEQKNIL                  R2 ; [+22]
         6 GETUPVAL                         R1 2
         7 GETTABLEKS                       R1 R1 K1 ["new"]
-        9 DUPTABLE                         R2 K5 [{"kind", "error", "context"}]
+        9 DUPTABLE                         R2 K6 [{["kind"], ["error"] = "Timed out", ["context"]}]
        10 GETUPVAL                         R3 2
-       11 GETTABLEKS                       R3 R3 K6 ["Kind"]
-       13 GETTABLEKS                       R3 R3 K7 ["TimedOut"]
+       11 GETTABLEKS                       R3 R3 K7 ["Kind"]
+       13 GETTABLEKS                       R3 R3 K8 ["TimedOut"]
        15 SETTABLEKS                       R3 R2 K2 ["kind"]
-       17 LOADK                            R3 K8 ["Timed out"]
-       18 SETTABLEKS                       R3 R2 K3 ["error"]
-       20 GETIMPORT                        R3 K11 [string.format]
-       22 LOADK                            R4 K12 ["Timeout of %d seconds exceeded.\n:timeout() called at:\n\n%s"]
-       23 GETUPVAL                         R5 3
-       24 GETUPVAL                         R6 4
-       25 CALL                             R3 3 1
-       26 SETTABLEKS                       R3 R2 K4 ["context"]
-       28 CALL                             R1 1 1
-       29 JUMPIF                           R1 ; [+1]
-       30 GETUPVAL                         R1 1
-       31 CALL                             R0 1 -1
-       32 RETURN                           R0 -1
+       17 GETIMPORT                        R3 K11 [string.format]
+       19 LOADK                            R4 K12 ["Timeout of %d seconds exceeded.\n:timeout() called at:\n\n%s"]
+       20 GETUPVAL                         R5 3
+       21 GETUPVAL                         R6 4
+       22 CALL                             R3 3 1
+       23 SETTABLEKS                       R3 R2 K5 ["context"]
+       25 CALL                             R1 1 1
+       26 JUMPIF                           R1 ; [+1]
+       27 GETUPVAL                         R1 1
+       28 CALL                             R0 1 -1
+       29 RETURN                           R0 -1
 
 PROTO_72:
         0 GETIMPORT                        R3 K2 [debug.traceback]
@@ -1872,24 +1858,22 @@ PROTO_74:
       102 GETUPVAL                         R5 5
       103 GETTABLEKS                       R5 R5 K1 ["Status"]
       105 GETTABLEKS                       R5 R5 K14 ["Cancelled"]
-      107 JUMPIFNOTEQ                      R4 R5 ; [+23]
+      107 JUMPIFNOTEQ                      R4 R5 ; [+20]
       109 MOVE                             R4 R1
       110 GETUPVAL                         R5 6
       111 GETTABLEKS                       R5 R5 K15 ["new"]
-      113 DUPTABLE                         R6 K19 [{"error", "kind", "context"}]
-      114 LOADK                            R7 K20 ["Promise is cancelled"]
-      115 SETTABLEKS                       R7 R6 K16 ["error"]
-      117 GETUPVAL                         R7 6
-      118 GETTABLEKS                       R7 R7 K21 ["Kind"]
-      120 GETTABLEKS                       R7 R7 K22 ["AlreadyCancelled"]
-      122 SETTABLEKS                       R7 R6 K17 ["kind"]
-      124 LOADK                            R8 K23 ["Promise created at\n\n"]
-      125 GETUPVAL                         R9 1
-      126 CONCAT                           R7 R8 R9
-      127 SETTABLEKS                       R7 R6 K18 ["context"]
-      129 CALL                             R5 1 -1
-      130 CALL                             R4 -1 0
-      131 RETURN                           R0 0
+      113 DUPTABLE                         R6 K20 [{["error"] = "Promise is cancelled", ["kind"], ["context"]}]
+      114 GETUPVAL                         R7 6
+      115 GETTABLEKS                       R7 R7 K21 ["Kind"]
+      117 GETTABLEKS                       R7 R7 K22 ["AlreadyCancelled"]
+      119 SETTABLEKS                       R7 R6 K18 ["kind"]
+      121 LOADK                            R8 K23 ["Promise created at\n\n"]
+      122 GETUPVAL                         R9 1
+      123 CONCAT                           R7 R8 R9
+      124 SETTABLEKS                       R7 R6 K19 ["context"]
+      126 CALL                             R5 1 -1
+      127 CALL                             R4 -1 0
+      128 RETURN                           R0 0
 
 PROTO_75:
         0 LOADB                            R4 0
@@ -2895,51 +2879,45 @@ PROTO_113:
         4 GETTABLEN                        R0 R1 1
         5 GETUPVAL                         R1 0
         6 GETTABLEKS                       R1 R1 K1 ["_error"]
-        8 JUMPIFNOT                        R1 ; [+21]
+        8 JUMPIFNOT                        R1 ; [+18]
         9 GETUPVAL                         R1 1
        10 GETTABLEKS                       R1 R1 K2 ["new"]
-       12 DUPTABLE                         R2 K6 [{"error", "kind", "context"}]
+       12 DUPTABLE                         R2 K7 [{["error"], ["kind"], ["context"] = "[No stack trace available as this Promise originated from an older version of the Promise library (< v2)]"}]
        13 GETUPVAL                         R3 0
        14 GETTABLEKS                       R3 R3 K1 ["_error"]
        16 SETTABLEKS                       R3 R2 K3 ["error"]
        18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R3 R3 K7 ["Kind"]
-       21 GETTABLEKS                       R3 R3 K8 ["ExecutionError"]
+       19 GETTABLEKS                       R3 R3 K8 ["Kind"]
+       21 GETTABLEKS                       R3 R3 K9 ["ExecutionError"]
        23 SETTABLEKS                       R3 R2 K4 ["kind"]
-       25 LOADK                            R3 K9 ["[No stack trace available as this Promise originated from an older version of the Promise library (< v2)]"]
-       26 SETTABLEKS                       R3 R2 K5 ["context"]
-       28 CALL                             R1 1 1
-       29 MOVE                             R0 R1
-       30 GETUPVAL                         R1 1
-       31 GETTABLEKS                       R1 R1 K10 ["isKind"]
-       33 MOVE                             R2 R0
-       34 GETUPVAL                         R3 1
-       35 GETTABLEKS                       R3 R3 K7 ["Kind"]
-       37 GETTABLEKS                       R3 R3 K8 ["ExecutionError"]
-       39 CALL                             R1 2 1
-       40 JUMPIFNOT                        R1 ; [+24]
-       41 GETUPVAL                         R1 2
-       42 DUPTABLE                         R5 K12 [{"error", "trace", "context"}]
-       43 LOADK                            R6 K13 ["This Promise was chained to a Promise that errored."]
-       44 SETTABLEKS                       R6 R5 K3 ["error"]
-       46 LOADK                            R6 K14 [""]
-       47 SETTABLEKS                       R6 R5 K11 ["trace"]
-       49 GETIMPORT                        R6 K17 [string.format]
-       51 LOADK                            R7 K18 ["The Promise at:\n\n%s\n...Rejected because it was chained to the following Promise, which encountered an error:\n"]
-       52 GETUPVAL                         R8 2
-       53 GETTABLEKS                       R8 R8 K19 ["_source"]
-       55 CALL                             R6 2 1
-       56 SETTABLEKS                       R6 R5 K5 ["context"]
-       58 NAMECALL                         R3 R0 K20 ["extend"]
-       60 CALL                             R3 2 -1
-       61 NAMECALL                         R1 R1 K21 ["_reject"]
-       63 CALL                             R1 -1 -1
-       64 RETURN                           R1 -1
-       65 GETUPVAL                         R1 2
-       66 GETVARARGS                       R3 -1
-       67 NAMECALL                         R1 R1 K21 ["_reject"]
-       69 CALL                             R1 -1 -1
-       70 RETURN                           R1 -1
+       25 CALL                             R1 1 1
+       26 MOVE                             R0 R1
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R1 R1 K10 ["isKind"]
+       30 MOVE                             R2 R0
+       31 GETUPVAL                         R3 1
+       32 GETTABLEKS                       R3 R3 K8 ["Kind"]
+       34 GETTABLEKS                       R3 R3 K9 ["ExecutionError"]
+       36 CALL                             R1 2 1
+       37 JUMPIFNOT                        R1 ; [+18]
+       38 GETUPVAL                         R1 2
+       39 DUPTABLE                         R5 K14 [{["error"] = "This Promise was chained to a Promise that errored.", ["trace"] = "", ["context"]}]
+       40 GETIMPORT                        R6 K17 [string.format]
+       42 LOADK                            R7 K18 ["The Promise at:\n\n%s\n...Rejected because it was chained to the following Promise, which encountered an error:\n"]
+       43 GETUPVAL                         R8 2
+       44 GETTABLEKS                       R8 R8 K19 ["_source"]
+       46 CALL                             R6 2 1
+       47 SETTABLEKS                       R6 R5 K5 ["context"]
+       49 NAMECALL                         R3 R0 K20 ["extend"]
+       51 CALL                             R3 2 -1
+       52 NAMECALL                         R1 R1 K21 ["_reject"]
+       54 CALL                             R1 -1 -1
+       55 RETURN                           R1 -1
+       56 GETUPVAL                         R1 2
+       57 GETVARARGS                       R3 -1
+       58 NAMECALL                         R1 R1 K21 ["_reject"]
+       60 CALL                             R1 -1 -1
+       61 RETURN                           R1 -1
 
 PROTO_114:
         0 PREPVARARGS                      1
@@ -3172,25 +3150,23 @@ PROTO_119:
        19 RETURN                           R3 -1
        20 GETUPVAL                         R3 0
        21 GETTABLEKS                       R3 R3 K8 ["reject"]
-       23 JUMPIFNOTEQKNIL                  R1 ; [+22]
+       23 JUMPIFNOTEQKNIL                  R1 ; [+19]
        25 GETUPVAL                         R4 1
        26 GETTABLEKS                       R4 R4 K9 ["new"]
-       28 DUPTABLE                         R5 K13 [{"kind", "error", "context"}]
+       28 DUPTABLE                         R5 K14 [{["kind"], ["error"] = "This Promise was not resolved in time for :now()", ["context"]}]
        29 GETUPVAL                         R6 1
-       30 GETTABLEKS                       R6 R6 K14 ["Kind"]
-       32 GETTABLEKS                       R6 R6 K15 ["NotResolvedInTime"]
+       30 GETTABLEKS                       R6 R6 K15 ["Kind"]
+       32 GETTABLEKS                       R6 R6 K16 ["NotResolvedInTime"]
        34 SETTABLEKS                       R6 R5 K10 ["kind"]
-       36 LOADK                            R6 K16 ["This Promise was not resolved in time for :now()"]
-       37 SETTABLEKS                       R6 R5 K11 ["error"]
-       39 LOADK                            R7 K17 [":now() was called at:\n\n"]
-       40 MOVE                             R8 R2
-       41 CONCAT                           R6 R7 R8
-       42 SETTABLEKS                       R6 R5 K12 ["context"]
-       44 CALL                             R4 1 1
-       45 JUMPIF                           R4 ; [+1]
-       46 MOVE                             R4 R1
-       47 CALL                             R3 1 -1
-       48 RETURN                           R3 -1
+       36 LOADK                            R7 K17 [":now() was called at:\n\n"]
+       37 MOVE                             R8 R2
+       38 CONCAT                           R6 R7 R8
+       39 SETTABLEKS                       R6 R5 K13 ["context"]
+       41 CALL                             R4 1 1
+       42 JUMPIF                           R4 ; [+1]
+       43 MOVE                             R4 R1
+       44 CALL                             R3 1 -1
+       45 RETURN                           R3 -1
 
 PROTO_120:
         0 PREPVARARGS                      0
@@ -3513,274 +3489,272 @@ PROTO_130:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K1 [{"__mode"}]
-        2 LOADK                            R1 K2 ["k"]
-        3 SETTABLEKS                       R1 R0 K0 ["__mode"]
-        5 DUPCLOSURE                       R1 K3 [PROTO_0]
-        6 DUPCLOSURE                       R2 K4 [PROTO_3]
-        7 LOADNIL                          R3
-        8 DUPTABLE                         R4 K6 [{"Kind"}]
-        9 MOVE                             R5 R2
-       10 LOADK                            R6 K7 ["Promise.Error.Kind"]
-       11 NEWTABLE                         R7 0 4
-       13 LOADK                            R8 K8 ["ExecutionError"]
-       14 LOADK                            R9 K9 ["AlreadyCancelled"]
-       15 LOADK                            R10 K10 ["NotResolvedInTime"]
-       16 LOADK                            R11 K11 ["TimedOut"]
-       17 SETLIST                          R7 R8 4 [1]
-       19 CALL                             R5 2 1
-       20 SETTABLEKS                       R5 R4 K5 ["Kind"]
-       22 MOVE                             R3 R4
-       23 SETTABLEKS                       R3 R3 K12 ["__index"]
-       25 NEWCLOSURE                       R4 P2
-       26 CAPTURE                          REF R3
-       27 SETTABLEKS                       R4 R3 K13 ["new"]
-       29 DUPCLOSURE                       R4 K14 [PROTO_5]
-       30 SETTABLEKS                       R4 R3 K15 ["is"]
-       32 NEWCLOSURE                       R4 P4
-       33 CAPTURE                          REF R3
-       34 SETTABLEKS                       R4 R3 K16 ["isKind"]
-       36 NEWCLOSURE                       R4 P5
-       37 CAPTURE                          REF R3
-       38 SETTABLEKS                       R4 R3 K17 ["extend"]
-       40 DUPCLOSURE                       R4 K18 [PROTO_8]
-       41 SETTABLEKS                       R4 R3 K19 ["getErrorChain"]
-       43 DUPCLOSURE                       R4 K20 [PROTO_9]
-       44 SETTABLEKS                       R4 R3 K21 ["__tostring"]
-       46 DUPCLOSURE                       R4 K22 [PROTO_10]
-       47 DUPCLOSURE                       R5 K23 [PROTO_11]
-       48 NEWCLOSURE                       R6 P10
+        1 DUPTABLE                         R0 K2 [{[1] = "k"}]
+        2 DUPCLOSURE                       R1 K3 [PROTO_0]
+        3 DUPCLOSURE                       R2 K4 [PROTO_3]
+        4 LOADNIL                          R3
+        5 DUPTABLE                         R4 K6 [{"Kind"}]
+        6 MOVE                             R5 R2
+        7 LOADK                            R6 K7 ["Promise.Error.Kind"]
+        8 NEWTABLE                         R7 0 4
+       10 LOADK                            R8 K8 ["ExecutionError"]
+       11 LOADK                            R9 K9 ["AlreadyCancelled"]
+       12 LOADK                            R10 K10 ["NotResolvedInTime"]
+       13 LOADK                            R11 K11 ["TimedOut"]
+       14 SETLIST                          R7 R8 4 [1]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K5 ["Kind"]
+       19 MOVE                             R3 R4
+       20 SETTABLEKS                       R3 R3 K12 ["__index"]
+       22 NEWCLOSURE                       R4 P2
+       23 CAPTURE                          REF R3
+       24 SETTABLEKS                       R4 R3 K13 ["new"]
+       26 DUPCLOSURE                       R4 K14 [PROTO_5]
+       27 SETTABLEKS                       R4 R3 K15 ["is"]
+       29 NEWCLOSURE                       R4 P4
+       30 CAPTURE                          REF R3
+       31 SETTABLEKS                       R4 R3 K16 ["isKind"]
+       33 NEWCLOSURE                       R4 P5
+       34 CAPTURE                          REF R3
+       35 SETTABLEKS                       R4 R3 K17 ["extend"]
+       37 DUPCLOSURE                       R4 K18 [PROTO_8]
+       38 SETTABLEKS                       R4 R3 K19 ["getErrorChain"]
+       40 DUPCLOSURE                       R4 K20 [PROTO_9]
+       41 SETTABLEKS                       R4 R3 K21 ["__tostring"]
+       43 DUPCLOSURE                       R4 K22 [PROTO_10]
+       44 DUPCLOSURE                       R5 K23 [PROTO_11]
+       45 NEWCLOSURE                       R6 P10
+       46 CAPTURE                          REF R3
+       47 NEWCLOSURE                       R7 P11
+       48 CAPTURE                          VAL R5
        49 CAPTURE                          REF R3
-       50 NEWCLOSURE                       R7 P11
-       51 CAPTURE                          VAL R5
-       52 CAPTURE                          REF R3
-       53 DUPCLOSURE                       R8 K24 [PROTO_16]
-       54 CAPTURE                          VAL R7
-       55 DUPCLOSURE                       R9 K25 [PROTO_17]
-       56 DUPTABLE                         R10 K31 [{"Error", "Status", "_getTime", "_timeEvent", "_unhandledRejectionCallbacks"}]
-       57 SETTABLEKS                       R3 R10 K26 ["Error"]
-       59 MOVE                             R11 R2
-       60 LOADK                            R12 K32 ["Promise.Status"]
-       61 NEWTABLE                         R13 0 4
-       63 LOADK                            R14 K33 ["Started"]
-       64 LOADK                            R15 K34 ["Resolved"]
-       65 LOADK                            R16 K35 ["Rejected"]
-       66 LOADK                            R17 K36 ["Cancelled"]
-       67 SETLIST                          R13 R14 4 [1]
-       69 CALL                             R11 2 1
-       70 SETTABLEKS                       R11 R10 K27 ["Status"]
-       72 GETIMPORT                        R11 K39 [os.clock]
-       74 SETTABLEKS                       R11 R10 K28 ["_getTime"]
-       76 GETIMPORT                        R11 K41 [game]
-       78 LOADK                            R13 K42 ["RunService"]
-       79 NAMECALL                         R11 R11 K43 ["GetService"]
-       81 CALL                             R11 2 1
-       82 GETTABLEKS                       R11 R11 K44 ["Heartbeat"]
-       84 SETTABLEKS                       R11 R10 K29 ["_timeEvent"]
-       86 NEWTABLE                         R11 0 0
-       88 SETTABLEKS                       R11 R10 K30 ["_unhandledRejectionCallbacks"]
-       90 NEWTABLE                         R11 0 0
-       92 SETTABLEKS                       R11 R10 K45 ["prototype"]
-       94 GETTABLEKS                       R11 R10 K45 ["prototype"]
-       96 SETTABLEKS                       R11 R10 K12 ["__index"]
-       98 DUPCLOSURE                       R11 K46 [PROTO_22]
-       99 CAPTURE                          VAL R10
-      100 CAPTURE                          VAL R0
-      101 CAPTURE                          VAL R7
-      102 SETTABLEKS                       R11 R10 K47 ["_new"]
-      104 DUPCLOSURE                       R11 K48 [PROTO_23]
-      105 CAPTURE                          VAL R10
-      106 SETTABLEKS                       R11 R10 K13 ["new"]
-      108 DUPCLOSURE                       R11 K49 [PROTO_24]
-      109 SETTABLEKS                       R11 R10 K21 ["__tostring"]
-      111 DUPCLOSURE                       R11 K50 [PROTO_27]
-      112 CAPTURE                          VAL R10
-      113 CAPTURE                          VAL R7
-      114 SETTABLEKS                       R11 R10 K51 ["defer"]
-      116 GETTABLEKS                       R11 R10 K51 ["defer"]
-      118 SETTABLEKS                       R11 R10 K52 ["async"]
-      120 DUPCLOSURE                       R11 K53 [PROTO_29]
-      121 CAPTURE                          VAL R4
-      122 CAPTURE                          VAL R10
-      123 SETTABLEKS                       R11 R10 K54 ["resolve"]
-      125 DUPCLOSURE                       R11 K55 [PROTO_31]
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R10
-      128 SETTABLEKS                       R11 R10 K56 ["reject"]
-      130 DUPCLOSURE                       R11 K57 [PROTO_33]
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R10
-      133 SETTABLEKS                       R11 R10 K58 ["_try"]
-      135 DUPCLOSURE                       R11 K59 [PROTO_34]
-      136 CAPTURE                          VAL R10
-      137 SETTABLEKS                       R11 R10 K60 ["try"]
-      139 DUPCLOSURE                       R11 K61 [PROTO_40]
-      140 CAPTURE                          VAL R10
-      141 SETTABLEKS                       R11 R10 K62 ["_all"]
-      143 DUPCLOSURE                       R11 K63 [PROTO_41]
-      144 CAPTURE                          VAL R10
-      145 SETTABLEKS                       R11 R10 K64 ["all"]
-      147 DUPCLOSURE                       R11 K65 [PROTO_45]
-      148 CAPTURE                          VAL R10
-      149 SETTABLEKS                       R11 R10 K66 ["fold"]
-      151 DUPCLOSURE                       R11 K67 [PROTO_46]
-      152 CAPTURE                          VAL R10
-      153 SETTABLEKS                       R11 R10 K68 ["some"]
-      155 DUPCLOSURE                       R11 K69 [PROTO_48]
-      156 CAPTURE                          VAL R10
-      157 SETTABLEKS                       R11 R10 K70 ["any"]
-      159 DUPCLOSURE                       R11 K71 [PROTO_53]
-      160 CAPTURE                          VAL R10
-      161 SETTABLEKS                       R11 R10 K72 ["allSettled"]
-      163 DUPCLOSURE                       R11 K73 [PROTO_58]
-      164 CAPTURE                          VAL R10
-      165 SETTABLEKS                       R11 R10 K74 ["race"]
-      167 NEWCLOSURE                       R11 P29
-      168 CAPTURE                          VAL R10
-      169 CAPTURE                          REF R3
-      170 SETTABLEKS                       R11 R10 K75 ["each"]
-      172 DUPCLOSURE                       R11 K76 [PROTO_64]
-      173 CAPTURE                          VAL R10
-      174 SETTABLEKS                       R11 R10 K15 ["is"]
-      176 DUPCLOSURE                       R11 K77 [PROTO_66]
-      177 CAPTURE                          VAL R10
-      178 SETTABLEKS                       R11 R10 K78 ["promisify"]
-      180 LOADNIL                          R11
-      181 LOADNIL                          R12
-      182 NEWCLOSURE                       R13 P32
-      183 CAPTURE                          VAL R10
-      184 CAPTURE                          REF R12
-      185 CAPTURE                          REF R11
-      186 SETTABLEKS                       R13 R10 K79 ["delay"]
-      188 CLOSEUPVALS                      R11
-      189 NEWCLOSURE                       R11 P33
-      190 CAPTURE                          VAL R10
-      191 CAPTURE                          REF R3
-      192 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      194 SETTABLEKS                       R11 R12 K80 ["timeout"]
-      196 DUPCLOSURE                       R11 K81 [PROTO_73]
-      197 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      199 SETTABLEKS                       R11 R12 K82 ["getStatus"]
-      201 NEWCLOSURE                       R11 P35
-      202 CAPTURE                          VAL R10
-      203 CAPTURE                          VAL R7
-      204 CAPTURE                          REF R3
-      205 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      207 SETTABLEKS                       R11 R12 K83 ["_andThen"]
-      209 DUPCLOSURE                       R11 K84 [PROTO_76]
-      210 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      212 SETTABLEKS                       R11 R12 K85 ["andThen"]
-      214 DUPCLOSURE                       R11 K86 [PROTO_81]
-      215 CAPTURE                          VAL R4
-      216 CAPTURE                          VAL R10
-      217 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      219 SETTABLEKS                       R11 R12 K87 ["andThenAsync"]
-      221 DUPCLOSURE                       R11 K88 [PROTO_82]
-      222 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      224 SETTABLEKS                       R11 R12 K89 ["catch"]
-      226 DUPCLOSURE                       R11 K90 [PROTO_85]
-      227 CAPTURE                          VAL R10
-      228 CAPTURE                          VAL R4
-      229 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      231 SETTABLEKS                       R11 R12 K91 ["tap"]
-      233 DUPCLOSURE                       R11 K92 [PROTO_87]
-      234 CAPTURE                          VAL R4
-      235 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      237 SETTABLEKS                       R11 R12 K93 ["andThenCall"]
-      239 DUPCLOSURE                       R11 K94 [PROTO_89]
-      240 CAPTURE                          VAL R4
-      241 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      243 SETTABLEKS                       R11 R12 K95 ["andThenReturn"]
-      245 DUPCLOSURE                       R11 K96 [PROTO_90]
-      246 CAPTURE                          VAL R10
-      247 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      249 SETTABLEKS                       R11 R12 K97 ["cancel"]
-      251 DUPCLOSURE                       R11 K98 [PROTO_91]
-      252 CAPTURE                          VAL R10
-      253 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      255 SETTABLEKS                       R11 R12 K99 ["_consumerCancelled"]
-      257 DUPCLOSURE                       R11 K100 [PROTO_94]
-      258 CAPTURE                          VAL R10
-      259 CAPTURE                          VAL R7
-      260 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      262 SETTABLEKS                       R11 R12 K101 ["_finally"]
-      264 DUPCLOSURE                       R11 K102 [PROTO_95]
-      265 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      267 SETTABLEKS                       R11 R12 K103 ["finally"]
-      269 DUPCLOSURE                       R11 K104 [PROTO_97]
-      270 CAPTURE                          VAL R4
-      271 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      273 SETTABLEKS                       R11 R12 K105 ["finallyCall"]
-      275 DUPCLOSURE                       R11 K106 [PROTO_99]
-      276 CAPTURE                          VAL R4
-      277 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      279 SETTABLEKS                       R11 R12 K107 ["finallyReturn"]
-      281 DUPCLOSURE                       R11 K108 [PROTO_100]
-      282 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      284 SETTABLEKS                       R11 R12 K109 ["done"]
-      286 DUPCLOSURE                       R11 K110 [PROTO_102]
-      287 CAPTURE                          VAL R4
-      288 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      290 SETTABLEKS                       R11 R12 K111 ["doneCall"]
-      292 DUPCLOSURE                       R11 K112 [PROTO_104]
-      293 CAPTURE                          VAL R4
-      294 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      296 SETTABLEKS                       R11 R12 K113 ["doneReturn"]
-      298 DUPCLOSURE                       R11 K114 [PROTO_106]
-      299 CAPTURE                          VAL R10
-      300 GETTABLEKS                       R12 R10 K45 ["prototype"]
-      302 SETTABLEKS                       R11 R12 K115 ["awaitStatus"]
-      304 DUPCLOSURE                       R11 K116 [PROTO_107]
-      305 CAPTURE                          VAL R10
-      306 DUPCLOSURE                       R12 K117 [PROTO_108]
-      307 CAPTURE                          VAL R11
-      308 GETTABLEKS                       R13 R10 K45 ["prototype"]
-      310 SETTABLEKS                       R12 R13 K118 ["await"]
-      312 DUPCLOSURE                       R12 K119 [PROTO_109]
-      313 CAPTURE                          VAL R10
-      314 DUPCLOSURE                       R13 K120 [PROTO_110]
-      315 CAPTURE                          VAL R12
-      316 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      318 SETTABLEKS                       R13 R14 K121 ["expect"]
-      320 GETTABLEKS                       R13 R10 K45 ["prototype"]
-      322 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      324 GETTABLEKS                       R14 R14 K121 ["expect"]
-      326 SETTABLEKS                       R14 R13 K122 ["awaitValue"]
-      328 DUPCLOSURE                       R13 K123 [PROTO_111]
-      329 CAPTURE                          VAL R10
-      330 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      332 SETTABLEKS                       R13 R14 K124 ["_unwrap"]
-      334 NEWCLOSURE                       R13 P57
-      335 CAPTURE                          VAL R10
-      336 CAPTURE                          REF R3
-      337 CAPTURE                          VAL R4
-      338 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      340 SETTABLEKS                       R13 R14 K125 ["_resolve"]
-      342 DUPCLOSURE                       R13 K126 [PROTO_116]
-      343 CAPTURE                          VAL R10
-      344 CAPTURE                          VAL R4
-      345 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      347 SETTABLEKS                       R13 R14 K127 ["_reject"]
-      349 DUPCLOSURE                       R13 K128 [PROTO_117]
-      350 CAPTURE                          VAL R10
-      351 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      353 SETTABLEKS                       R13 R14 K129 ["_finalize"]
-      355 NEWCLOSURE                       R13 P60
-      356 CAPTURE                          VAL R10
-      357 CAPTURE                          REF R3
-      358 GETTABLEKS                       R14 R10 K45 ["prototype"]
-      360 SETTABLEKS                       R13 R14 K130 ["now"]
-      362 DUPCLOSURE                       R13 K131 [PROTO_121]
-      363 CAPTURE                          VAL R10
-      364 SETTABLEKS                       R13 R10 K132 ["retry"]
-      366 DUPCLOSURE                       R13 K133 [PROTO_123]
-      367 CAPTURE                          VAL R10
-      368 SETTABLEKS                       R13 R10 K134 ["retryWithDelay"]
-      370 DUPCLOSURE                       R13 K135 [PROTO_128]
-      371 CAPTURE                          VAL R10
-      372 SETTABLEKS                       R13 R10 K136 ["fromEvent"]
-      374 DUPCLOSURE                       R13 K137 [PROTO_130]
-      375 CAPTURE                          VAL R10
-      376 SETTABLEKS                       R13 R10 K138 ["onUnhandledRejection"]
-      378 CLOSEUPVALS                      R3
-      379 RETURN                           R10 1
+       50 DUPCLOSURE                       R8 K24 [PROTO_16]
+       51 CAPTURE                          VAL R7
+       52 DUPCLOSURE                       R9 K25 [PROTO_17]
+       53 DUPTABLE                         R10 K31 [{"Error", "Status", "_getTime", "_timeEvent", "_unhandledRejectionCallbacks"}]
+       54 SETTABLEKS                       R3 R10 K26 ["Error"]
+       56 MOVE                             R11 R2
+       57 LOADK                            R12 K32 ["Promise.Status"]
+       58 NEWTABLE                         R13 0 4
+       60 LOADK                            R14 K33 ["Started"]
+       61 LOADK                            R15 K34 ["Resolved"]
+       62 LOADK                            R16 K35 ["Rejected"]
+       63 LOADK                            R17 K36 ["Cancelled"]
+       64 SETLIST                          R13 R14 4 [1]
+       66 CALL                             R11 2 1
+       67 SETTABLEKS                       R11 R10 K27 ["Status"]
+       69 GETIMPORT                        R11 K39 [os.clock]
+       71 SETTABLEKS                       R11 R10 K28 ["_getTime"]
+       73 GETIMPORT                        R11 K41 [game]
+       75 LOADK                            R13 K42 ["RunService"]
+       76 NAMECALL                         R11 R11 K43 ["GetService"]
+       78 CALL                             R11 2 1
+       79 GETTABLEKS                       R11 R11 K44 ["Heartbeat"]
+       81 SETTABLEKS                       R11 R10 K29 ["_timeEvent"]
+       83 NEWTABLE                         R11 0 0
+       85 SETTABLEKS                       R11 R10 K30 ["_unhandledRejectionCallbacks"]
+       87 NEWTABLE                         R11 0 0
+       89 SETTABLEKS                       R11 R10 K45 ["prototype"]
+       91 GETTABLEKS                       R11 R10 K45 ["prototype"]
+       93 SETTABLEKS                       R11 R10 K12 ["__index"]
+       95 DUPCLOSURE                       R11 K46 [PROTO_22]
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          VAL R7
+       99 SETTABLEKS                       R11 R10 K47 ["_new"]
+      101 DUPCLOSURE                       R11 K48 [PROTO_23]
+      102 CAPTURE                          VAL R10
+      103 SETTABLEKS                       R11 R10 K13 ["new"]
+      105 DUPCLOSURE                       R11 K49 [PROTO_24]
+      106 SETTABLEKS                       R11 R10 K21 ["__tostring"]
+      108 DUPCLOSURE                       R11 K50 [PROTO_27]
+      109 CAPTURE                          VAL R10
+      110 CAPTURE                          VAL R7
+      111 SETTABLEKS                       R11 R10 K51 ["defer"]
+      113 GETTABLEKS                       R11 R10 K51 ["defer"]
+      115 SETTABLEKS                       R11 R10 K52 ["async"]
+      117 DUPCLOSURE                       R11 K53 [PROTO_29]
+      118 CAPTURE                          VAL R4
+      119 CAPTURE                          VAL R10
+      120 SETTABLEKS                       R11 R10 K54 ["resolve"]
+      122 DUPCLOSURE                       R11 K55 [PROTO_31]
+      123 CAPTURE                          VAL R4
+      124 CAPTURE                          VAL R10
+      125 SETTABLEKS                       R11 R10 K56 ["reject"]
+      127 DUPCLOSURE                       R11 K57 [PROTO_33]
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R10
+      130 SETTABLEKS                       R11 R10 K58 ["_try"]
+      132 DUPCLOSURE                       R11 K59 [PROTO_34]
+      133 CAPTURE                          VAL R10
+      134 SETTABLEKS                       R11 R10 K60 ["try"]
+      136 DUPCLOSURE                       R11 K61 [PROTO_40]
+      137 CAPTURE                          VAL R10
+      138 SETTABLEKS                       R11 R10 K62 ["_all"]
+      140 DUPCLOSURE                       R11 K63 [PROTO_41]
+      141 CAPTURE                          VAL R10
+      142 SETTABLEKS                       R11 R10 K64 ["all"]
+      144 DUPCLOSURE                       R11 K65 [PROTO_45]
+      145 CAPTURE                          VAL R10
+      146 SETTABLEKS                       R11 R10 K66 ["fold"]
+      148 DUPCLOSURE                       R11 K67 [PROTO_46]
+      149 CAPTURE                          VAL R10
+      150 SETTABLEKS                       R11 R10 K68 ["some"]
+      152 DUPCLOSURE                       R11 K69 [PROTO_48]
+      153 CAPTURE                          VAL R10
+      154 SETTABLEKS                       R11 R10 K70 ["any"]
+      156 DUPCLOSURE                       R11 K71 [PROTO_53]
+      157 CAPTURE                          VAL R10
+      158 SETTABLEKS                       R11 R10 K72 ["allSettled"]
+      160 DUPCLOSURE                       R11 K73 [PROTO_58]
+      161 CAPTURE                          VAL R10
+      162 SETTABLEKS                       R11 R10 K74 ["race"]
+      164 NEWCLOSURE                       R11 P29
+      165 CAPTURE                          VAL R10
+      166 CAPTURE                          REF R3
+      167 SETTABLEKS                       R11 R10 K75 ["each"]
+      169 DUPCLOSURE                       R11 K76 [PROTO_64]
+      170 CAPTURE                          VAL R10
+      171 SETTABLEKS                       R11 R10 K15 ["is"]
+      173 DUPCLOSURE                       R11 K77 [PROTO_66]
+      174 CAPTURE                          VAL R10
+      175 SETTABLEKS                       R11 R10 K78 ["promisify"]
+      177 LOADNIL                          R11
+      178 LOADNIL                          R12
+      179 NEWCLOSURE                       R13 P32
+      180 CAPTURE                          VAL R10
+      181 CAPTURE                          REF R12
+      182 CAPTURE                          REF R11
+      183 SETTABLEKS                       R13 R10 K79 ["delay"]
+      185 CLOSEUPVALS                      R11
+      186 NEWCLOSURE                       R11 P33
+      187 CAPTURE                          VAL R10
+      188 CAPTURE                          REF R3
+      189 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      191 SETTABLEKS                       R11 R12 K80 ["timeout"]
+      193 DUPCLOSURE                       R11 K81 [PROTO_73]
+      194 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      196 SETTABLEKS                       R11 R12 K82 ["getStatus"]
+      198 NEWCLOSURE                       R11 P35
+      199 CAPTURE                          VAL R10
+      200 CAPTURE                          VAL R7
+      201 CAPTURE                          REF R3
+      202 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      204 SETTABLEKS                       R11 R12 K83 ["_andThen"]
+      206 DUPCLOSURE                       R11 K84 [PROTO_76]
+      207 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      209 SETTABLEKS                       R11 R12 K85 ["andThen"]
+      211 DUPCLOSURE                       R11 K86 [PROTO_81]
+      212 CAPTURE                          VAL R4
+      213 CAPTURE                          VAL R10
+      214 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      216 SETTABLEKS                       R11 R12 K87 ["andThenAsync"]
+      218 DUPCLOSURE                       R11 K88 [PROTO_82]
+      219 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      221 SETTABLEKS                       R11 R12 K89 ["catch"]
+      223 DUPCLOSURE                       R11 K90 [PROTO_85]
+      224 CAPTURE                          VAL R10
+      225 CAPTURE                          VAL R4
+      226 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      228 SETTABLEKS                       R11 R12 K91 ["tap"]
+      230 DUPCLOSURE                       R11 K92 [PROTO_87]
+      231 CAPTURE                          VAL R4
+      232 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      234 SETTABLEKS                       R11 R12 K93 ["andThenCall"]
+      236 DUPCLOSURE                       R11 K94 [PROTO_89]
+      237 CAPTURE                          VAL R4
+      238 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      240 SETTABLEKS                       R11 R12 K95 ["andThenReturn"]
+      242 DUPCLOSURE                       R11 K96 [PROTO_90]
+      243 CAPTURE                          VAL R10
+      244 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      246 SETTABLEKS                       R11 R12 K97 ["cancel"]
+      248 DUPCLOSURE                       R11 K98 [PROTO_91]
+      249 CAPTURE                          VAL R10
+      250 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      252 SETTABLEKS                       R11 R12 K99 ["_consumerCancelled"]
+      254 DUPCLOSURE                       R11 K100 [PROTO_94]
+      255 CAPTURE                          VAL R10
+      256 CAPTURE                          VAL R7
+      257 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      259 SETTABLEKS                       R11 R12 K101 ["_finally"]
+      261 DUPCLOSURE                       R11 K102 [PROTO_95]
+      262 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      264 SETTABLEKS                       R11 R12 K103 ["finally"]
+      266 DUPCLOSURE                       R11 K104 [PROTO_97]
+      267 CAPTURE                          VAL R4
+      268 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      270 SETTABLEKS                       R11 R12 K105 ["finallyCall"]
+      272 DUPCLOSURE                       R11 K106 [PROTO_99]
+      273 CAPTURE                          VAL R4
+      274 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      276 SETTABLEKS                       R11 R12 K107 ["finallyReturn"]
+      278 DUPCLOSURE                       R11 K108 [PROTO_100]
+      279 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      281 SETTABLEKS                       R11 R12 K109 ["done"]
+      283 DUPCLOSURE                       R11 K110 [PROTO_102]
+      284 CAPTURE                          VAL R4
+      285 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      287 SETTABLEKS                       R11 R12 K111 ["doneCall"]
+      289 DUPCLOSURE                       R11 K112 [PROTO_104]
+      290 CAPTURE                          VAL R4
+      291 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      293 SETTABLEKS                       R11 R12 K113 ["doneReturn"]
+      295 DUPCLOSURE                       R11 K114 [PROTO_106]
+      296 CAPTURE                          VAL R10
+      297 GETTABLEKS                       R12 R10 K45 ["prototype"]
+      299 SETTABLEKS                       R11 R12 K115 ["awaitStatus"]
+      301 DUPCLOSURE                       R11 K116 [PROTO_107]
+      302 CAPTURE                          VAL R10
+      303 DUPCLOSURE                       R12 K117 [PROTO_108]
+      304 CAPTURE                          VAL R11
+      305 GETTABLEKS                       R13 R10 K45 ["prototype"]
+      307 SETTABLEKS                       R12 R13 K118 ["await"]
+      309 DUPCLOSURE                       R12 K119 [PROTO_109]
+      310 CAPTURE                          VAL R10
+      311 DUPCLOSURE                       R13 K120 [PROTO_110]
+      312 CAPTURE                          VAL R12
+      313 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      315 SETTABLEKS                       R13 R14 K121 ["expect"]
+      317 GETTABLEKS                       R13 R10 K45 ["prototype"]
+      319 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      321 GETTABLEKS                       R14 R14 K121 ["expect"]
+      323 SETTABLEKS                       R14 R13 K122 ["awaitValue"]
+      325 DUPCLOSURE                       R13 K123 [PROTO_111]
+      326 CAPTURE                          VAL R10
+      327 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      329 SETTABLEKS                       R13 R14 K124 ["_unwrap"]
+      331 NEWCLOSURE                       R13 P57
+      332 CAPTURE                          VAL R10
+      333 CAPTURE                          REF R3
+      334 CAPTURE                          VAL R4
+      335 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      337 SETTABLEKS                       R13 R14 K125 ["_resolve"]
+      339 DUPCLOSURE                       R13 K126 [PROTO_116]
+      340 CAPTURE                          VAL R10
+      341 CAPTURE                          VAL R4
+      342 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      344 SETTABLEKS                       R13 R14 K127 ["_reject"]
+      346 DUPCLOSURE                       R13 K128 [PROTO_117]
+      347 CAPTURE                          VAL R10
+      348 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      350 SETTABLEKS                       R13 R14 K129 ["_finalize"]
+      352 NEWCLOSURE                       R13 P60
+      353 CAPTURE                          VAL R10
+      354 CAPTURE                          REF R3
+      355 GETTABLEKS                       R14 R10 K45 ["prototype"]
+      357 SETTABLEKS                       R13 R14 K130 ["now"]
+      359 DUPCLOSURE                       R13 K131 [PROTO_121]
+      360 CAPTURE                          VAL R10
+      361 SETTABLEKS                       R13 R10 K132 ["retry"]
+      363 DUPCLOSURE                       R13 K133 [PROTO_123]
+      364 CAPTURE                          VAL R10
+      365 SETTABLEKS                       R13 R10 K134 ["retryWithDelay"]
+      367 DUPCLOSURE                       R13 K135 [PROTO_128]
+      368 CAPTURE                          VAL R10
+      369 SETTABLEKS                       R13 R10 K136 ["fromEvent"]
+      371 DUPCLOSURE                       R13 K137 [PROTO_130]
+      372 CAPTURE                          VAL R10
+      373 SETTABLEKS                       R13 R10 K138 ["onUnhandledRejection"]
+      375 CLOSEUPVALS                      R3
+      376 RETURN                           R10 1

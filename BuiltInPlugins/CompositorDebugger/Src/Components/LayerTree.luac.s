@@ -174,7 +174,7 @@ PROTO_9:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K16 [{"Size", "LayoutOrder", "RootItems", "Expansion", "Selection", "GetItemId", "RowComponent", "RowProps", "RowHeight", "OnExpansionChange", "OnSelectionChange", "ScrollingDirection"}]
+       10 DUPTABLE                         R6 K17 [{["Size"], ["LayoutOrder"], ["RootItems"], ["Expansion"], ["Selection"], ["GetItemId"], ["RowComponent"], ["RowProps"], ["RowHeight"] = 26, ["OnExpansionChange"], ["OnSelectionChange"], ["ScrollingDirection"]}]
        11 GETTABLEKS                       R7 R2 K4 ["Size"]
        13 SETTABLEKS                       R7 R6 K4 ["Size"]
        15 GETTABLEKS                       R7 R2 K5 ["LayoutOrder"]
@@ -187,29 +187,27 @@ PROTO_9:
        28 SETTABLEKS                       R7 R6 K7 ["Expansion"]
        30 GETTABLEKS                       R7 R1 K8 ["Selection"]
        32 SETTABLEKS                       R7 R6 K8 ["Selection"]
-       34 GETTABLEKS                       R7 R0 K17 ["getItemId"]
+       34 GETTABLEKS                       R7 R0 K18 ["getItemId"]
        36 SETTABLEKS                       R7 R6 K9 ["GetItemId"]
        38 GETUPVAL                         R7 2
        39 SETTABLEKS                       R7 R6 K10 ["RowComponent"]
-       41 DUPTABLE                         R7 K20 [{"GetItemId", "Adornments", "OnToggleAdornment"}]
-       42 GETTABLEKS                       R8 R0 K17 ["getItemId"]
+       41 DUPTABLE                         R7 K21 [{"GetItemId", "Adornments", "OnToggleAdornment"}]
+       42 GETTABLEKS                       R8 R0 K18 ["getItemId"]
        44 SETTABLEKS                       R8 R7 K9 ["GetItemId"]
-       46 GETTABLEKS                       R8 R2 K18 ["Adornments"]
-       48 SETTABLEKS                       R8 R7 K18 ["Adornments"]
-       50 GETTABLEKS                       R8 R0 K21 ["onToggleAdornment"]
-       52 SETTABLEKS                       R8 R7 K19 ["OnToggleAdornment"]
+       46 GETTABLEKS                       R8 R2 K19 ["Adornments"]
+       48 SETTABLEKS                       R8 R7 K19 ["Adornments"]
+       50 GETTABLEKS                       R8 R0 K22 ["onToggleAdornment"]
+       52 SETTABLEKS                       R8 R7 K20 ["OnToggleAdornment"]
        54 SETTABLEKS                       R7 R6 K11 ["RowProps"]
-       56 LOADN                            R7 26
-       57 SETTABLEKS                       R7 R6 K12 ["RowHeight"]
-       59 GETTABLEKS                       R7 R0 K22 ["onExpand"]
-       61 SETTABLEKS                       R7 R6 K13 ["OnExpansionChange"]
-       63 GETTABLEKS                       R7 R0 K23 ["onSelect"]
-       65 SETTABLEKS                       R7 R6 K14 ["OnSelectionChange"]
-       67 GETIMPORT                        R7 K26 [Enum.ScrollingDirection.Y]
-       69 SETTABLEKS                       R7 R6 K15 ["ScrollingDirection"]
-       71 NEWTABLE                         R7 0 0
-       73 CALL                             R4 3 -1
-       74 RETURN                           R4 -1
+       56 GETTABLEKS                       R7 R0 K23 ["onExpand"]
+       58 SETTABLEKS                       R7 R6 K14 ["OnExpansionChange"]
+       60 GETTABLEKS                       R7 R0 K24 ["onSelect"]
+       62 SETTABLEKS                       R7 R6 K15 ["OnSelectionChange"]
+       64 GETIMPORT                        R7 K27 [Enum.ScrollingDirection.Y]
+       66 SETTABLEKS                       R7 R6 K16 ["ScrollingDirection"]
+       68 NEWTABLE                         R7 0 0
+       70 CALL                             R4 3 -1
+       71 RETURN                           R4 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K1 [{"HistoryOffset"}]

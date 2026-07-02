@@ -85,7 +85,7 @@ PROTO_0:
       119 GETUPVAL                         R12 2
       120 GETTABLEKS                       R12 R12 K13 ["createElement"]
       122 LOADK                            R13 K38 ["TextLabel"]
-      123 DUPTABLE                         R14 K45 [{"Font", "TextSize", "TextColor3", "Size", "BackgroundTransparency", "ZIndex", "Text"}]
+      123 DUPTABLE                         R14 K46 [{["Font"], ["TextSize"], ["TextColor3"], ["Size"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2, ["Text"]}]
       124 GETUPVAL                         R15 1
       125 GETTABLEKS                       R15 R15 K10 ["FONT_BOLD"]
       127 SETTABLEKS                       R15 R14 K39 ["Font"]
@@ -93,7 +93,7 @@ PROTO_0:
       130 GETTABLEKS                       R15 R15 K9 ["FONT_SIZE_MEDIUM"]
       132 SETTABLEKS                       R15 R14 K40 ["TextSize"]
       134 GETTABLEKS                       R15 R1 K23 ["searchTag"]
-      136 GETTABLEKS                       R15 R15 K46 ["textColor"]
+      136 GETTABLEKS                       R15 R15 K47 ["textColor"]
       138 SETTABLEKS                       R15 R14 K41 ["TextColor3"]
       140 GETIMPORT                        R15 K22 [UDim2.new]
       142 LOADN                            R16 0
@@ -102,86 +102,78 @@ PROTO_0:
       145 LOADN                            R19 0
       146 CALL                             R15 4 1
       147 SETTABLEKS                       R15 R14 K14 ["Size"]
-      149 LOADN                            R15 1
-      150 SETTABLEKS                       R15 R14 K42 ["BackgroundTransparency"]
-      152 LOADN                            R15 2
-      153 SETTABLEKS                       R15 R14 K43 ["ZIndex"]
-      155 SETTABLEKS                       R2 R14 K44 ["Text"]
-      157 CALL                             R12 2 1
-      158 SETTABLEKS                       R12 R11 K29 ["ByLabel"]
-      160 GETUPVAL                         R12 2
-      161 GETTABLEKS                       R12 R12 K13 ["createElement"]
-      163 LOADK                            R13 K38 ["TextLabel"]
-      164 DUPTABLE                         R14 K47 [{"Font", "TextSize", "TextColor3", "Size", "Position", "BackgroundTransparency", "ZIndex", "Text"}]
-      165 GETUPVAL                         R15 1
-      166 GETTABLEKS                       R15 R15 K48 ["FONT"]
-      168 SETTABLEKS                       R15 R14 K39 ["Font"]
-      170 GETUPVAL                         R15 1
-      171 GETTABLEKS                       R15 R15 K9 ["FONT_SIZE_MEDIUM"]
-      173 SETTABLEKS                       R15 R14 K40 ["TextSize"]
-      175 GETTABLEKS                       R15 R1 K23 ["searchTag"]
-      177 GETTABLEKS                       R15 R15 K46 ["textColor"]
-      179 SETTABLEKS                       R15 R14 K41 ["TextColor3"]
-      181 GETIMPORT                        R15 K22 [UDim2.new]
-      183 LOADN                            R16 0
-      184 MOVE                             R17 R5
-      185 LOADN                            R18 1
-      186 LOADN                            R19 0
-      187 CALL                             R15 4 1
-      188 SETTABLEKS                       R15 R14 K14 ["Size"]
-      190 GETIMPORT                        R15 K22 [UDim2.new]
-      192 LOADN                            R16 0
-      193 ADDK                             R17 R6 K49 [4]
-      194 LOADN                            R18 0
-      195 LOADN                            R19 0
-      196 CALL                             R15 4 1
-      197 SETTABLEKS                       R15 R14 K18 ["Position"]
-      199 LOADN                            R15 1
-      200 SETTABLEKS                       R15 R14 K42 ["BackgroundTransparency"]
-      202 LOADN                            R15 2
-      203 SETTABLEKS                       R15 R14 K43 ["ZIndex"]
-      205 SETTABLEKS                       R3 R14 K44 ["Text"]
-      207 CALL                             R12 2 1
-      208 SETTABLEKS                       R12 R11 K30 ["NameLabel"]
-      210 GETUPVAL                         R12 2
-      211 GETTABLEKS                       R12 R12 K13 ["createElement"]
-      213 LOADK                            R13 K50 ["ImageButton"]
-      214 NEWTABLE                         R14 8 0
-      216 GETIMPORT                        R15 K7 [Vector2.new]
-      218 LOADN                            R16 1
-      219 LOADK                            R17 K26 [0.5]
-      220 CALL                             R15 2 1
-      221 SETTABLEKS                       R15 R14 K17 ["AnchorPoint"]
-      223 GETIMPORT                        R15 K22 [UDim2.new]
-      225 LOADN                            R16 1
-      226 LOADN                            R17 0
-      227 LOADK                            R18 K26 [0.5]
-      228 LOADN                            R19 0
-      229 CALL                             R15 4 1
-      230 SETTABLEKS                       R15 R14 K18 ["Position"]
-      232 GETIMPORT                        R15 K22 [UDim2.new]
-      234 LOADN                            R16 0
-      235 LOADN                            R17 10
-      236 LOADN                            R18 0
-      237 LOADN                            R19 10
-      238 CALL                             R15 4 1
-      239 SETTABLEKS                       R15 R14 K14 ["Size"]
-      241 LOADN                            R15 1
-      242 SETTABLEKS                       R15 R14 K42 ["BackgroundTransparency"]
-      244 GETUPVAL                         R15 5
-      245 GETTABLEKS                       R15 R15 K51 ["DELETE_BUTTON"]
-      247 SETTABLEKS                       R15 R14 K52 ["Image"]
-      249 GETTABLEKS                       R15 R1 K23 ["searchTag"]
-      251 GETTABLEKS                       R15 R15 K46 ["textColor"]
-      253 SETTABLEKS                       R15 R14 K53 ["ImageColor3"]
-      255 GETUPVAL                         R15 2
-      256 GETTABLEKS                       R15 R15 K54 ["Event"]
-      258 GETTABLEKS                       R15 R15 K55 ["Activated"]
-      260 SETTABLE                         R4 R14 R15
-      261 CALL                             R12 2 1
-      262 SETTABLEKS                       R12 R11 K31 ["DeleteButton"]
-      264 CALL                             R8 3 -1
-      265 RETURN                           R8 -1
+      149 SETTABLEKS                       R2 R14 K45 ["Text"]
+      151 CALL                             R12 2 1
+      152 SETTABLEKS                       R12 R11 K29 ["ByLabel"]
+      154 GETUPVAL                         R12 2
+      155 GETTABLEKS                       R12 R12 K13 ["createElement"]
+      157 LOADK                            R13 K38 ["TextLabel"]
+      158 DUPTABLE                         R14 K48 [{["Font"], ["TextSize"], ["TextColor3"], ["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 2, ["Text"]}]
+      159 GETUPVAL                         R15 1
+      160 GETTABLEKS                       R15 R15 K49 ["FONT"]
+      162 SETTABLEKS                       R15 R14 K39 ["Font"]
+      164 GETUPVAL                         R15 1
+      165 GETTABLEKS                       R15 R15 K9 ["FONT_SIZE_MEDIUM"]
+      167 SETTABLEKS                       R15 R14 K40 ["TextSize"]
+      169 GETTABLEKS                       R15 R1 K23 ["searchTag"]
+      171 GETTABLEKS                       R15 R15 K47 ["textColor"]
+      173 SETTABLEKS                       R15 R14 K41 ["TextColor3"]
+      175 GETIMPORT                        R15 K22 [UDim2.new]
+      177 LOADN                            R16 0
+      178 MOVE                             R17 R5
+      179 LOADN                            R18 1
+      180 LOADN                            R19 0
+      181 CALL                             R15 4 1
+      182 SETTABLEKS                       R15 R14 K14 ["Size"]
+      184 GETIMPORT                        R15 K22 [UDim2.new]
+      186 LOADN                            R16 0
+      187 ADDK                             R17 R6 K50 [4]
+      188 LOADN                            R18 0
+      189 LOADN                            R19 0
+      190 CALL                             R15 4 1
+      191 SETTABLEKS                       R15 R14 K18 ["Position"]
+      193 SETTABLEKS                       R3 R14 K45 ["Text"]
+      195 CALL                             R12 2 1
+      196 SETTABLEKS                       R12 R11 K30 ["NameLabel"]
+      198 GETUPVAL                         R12 2
+      199 GETTABLEKS                       R12 R12 K13 ["createElement"]
+      201 LOADK                            R13 K51 ["ImageButton"]
+      202 NEWTABLE                         R14 8 0
+      204 GETIMPORT                        R15 K7 [Vector2.new]
+      206 LOADN                            R16 1
+      207 LOADK                            R17 K26 [0.5]
+      208 CALL                             R15 2 1
+      209 SETTABLEKS                       R15 R14 K17 ["AnchorPoint"]
+      211 GETIMPORT                        R15 K22 [UDim2.new]
+      213 LOADN                            R16 1
+      214 LOADN                            R17 0
+      215 LOADK                            R18 K26 [0.5]
+      216 LOADN                            R19 0
+      217 CALL                             R15 4 1
+      218 SETTABLEKS                       R15 R14 K18 ["Position"]
+      220 GETIMPORT                        R15 K22 [UDim2.new]
+      222 LOADN                            R16 0
+      223 LOADN                            R17 10
+      224 LOADN                            R18 0
+      225 LOADN                            R19 10
+      226 CALL                             R15 4 1
+      227 SETTABLEKS                       R15 R14 K14 ["Size"]
+      229 LOADN                            R15 1
+      230 SETTABLEKS                       R15 R14 K42 ["BackgroundTransparency"]
+      232 GETUPVAL                         R15 5
+      233 GETTABLEKS                       R15 R15 K52 ["DELETE_BUTTON"]
+      235 SETTABLEKS                       R15 R14 K53 ["Image"]
+      237 GETTABLEKS                       R15 R1 K23 ["searchTag"]
+      239 GETTABLEKS                       R15 R15 K47 ["textColor"]
+      241 SETTABLEKS                       R15 R14 K54 ["ImageColor3"]
+      243 GETUPVAL                         R15 2
+      244 GETTABLEKS                       R15 R15 K55 ["Event"]
+      246 GETTABLEKS                       R15 R15 K56 ["Activated"]
+      248 SETTABLE                         R4 R14 R15
+      249 CALL                             R12 2 1
+      250 SETTABLEKS                       R12 R11 K31 ["DeleteButton"]
+      252 CALL                             R8 3 -1
+      253 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -221,26 +213,22 @@ MAIN:
        62 LOADK                            R13 K19 ["SearchTag"]
        63 NAMECALL                         R11 R11 K20 ["extend"]
        65 CALL                             R11 2 1
-       66 DUPTABLE                         R12 K23 [{"Name", "prefix"}]
-       67 LOADK                            R13 K24 [""]
-       68 SETTABLEKS                       R13 R12 K21 ["Name"]
-       70 LOADK                            R13 K24 [""]
-       71 SETTABLEKS                       R13 R12 K22 ["prefix"]
-       73 SETTABLEKS                       R12 R11 K25 ["defaultProps"]
-       75 DUPCLOSURE                       R12 K26 [PROTO_0]
-       76 CAPTURE                          VAL R9
-       77 CAPTURE                          VAL R5
-       78 CAPTURE                          VAL R2
-       79 CAPTURE                          VAL R6
-       80 CAPTURE                          VAL R10
-       81 CAPTURE                          VAL R4
-       82 SETTABLEKS                       R12 R11 K27 ["render"]
-       84 MOVE                             R12 R8
-       85 DUPTABLE                         R13 K29 [{"Stylizer"}]
-       86 GETTABLEKS                       R14 R7 K28 ["Stylizer"]
-       88 SETTABLEKS                       R14 R13 K28 ["Stylizer"]
-       90 CALL                             R12 1 1
-       91 MOVE                             R13 R11
-       92 CALL                             R12 1 1
-       93 MOVE                             R11 R12
-       94 RETURN                           R11 1
+       66 DUPTABLE                         R12 K24 [{["Name"] = "", ["prefix"] = ""}]
+       67 SETTABLEKS                       R12 R11 K25 ["defaultProps"]
+       69 DUPCLOSURE                       R12 K26 [PROTO_0]
+       70 CAPTURE                          VAL R9
+       71 CAPTURE                          VAL R5
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          VAL R6
+       74 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R4
+       76 SETTABLEKS                       R12 R11 K27 ["render"]
+       78 MOVE                             R12 R8
+       79 DUPTABLE                         R13 K29 [{"Stylizer"}]
+       80 GETTABLEKS                       R14 R7 K28 ["Stylizer"]
+       82 SETTABLEKS                       R14 R13 K28 ["Stylizer"]
+       84 CALL                             R12 1 1
+       85 MOVE                             R13 R11
+       86 CALL                             R12 1 1
+       87 MOVE                             R11 R12
+       88 RETURN                           R11 1

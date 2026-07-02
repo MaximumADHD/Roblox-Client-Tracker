@@ -6,75 +6,67 @@ PROTO_0:
         8 GETUPVAL                         R3 0
         9 GETTABLEKS                       R3 R3 K3 ["createElement"]
        11 LOADK                            R4 K4 ["Frame"]
-       12 DUPTABLE                         R5 K7 [{"BackgroundTransparency", "Size"}]
-       13 LOADN                            R6 1
-       14 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       16 GETIMPORT                        R6 K10 [UDim2.new]
-       18 LOADN                            R7 1
-       19 LOADN                            R8 0
-       20 LOADN                            R9 1
-       21 LOADN                            R10 0
-       22 CALL                             R6 4 1
-       23 SETTABLEKS                       R6 R5 K6 ["Size"]
-       25 DUPTABLE                         R6 K13 [{"UIPadding", "Error"}]
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       29 LOADK                            R8 K11 ["UIPadding"]
-       30 DUPTABLE                         R9 K18 [{"PaddingBottom", "PaddingTop", "PaddingLeft", "PaddingRight"}]
-       31 GETIMPORT                        R10 K20 [UDim.new]
-       33 LOADN                            R11 0
-       34 LOADN                            R12 16
-       35 CALL                             R10 2 1
-       36 SETTABLEKS                       R10 R9 K14 ["PaddingBottom"]
-       38 GETIMPORT                        R10 K20 [UDim.new]
-       40 LOADN                            R11 0
-       41 LOADN                            R12 16
-       42 CALL                             R10 2 1
-       43 SETTABLEKS                       R10 R9 K15 ["PaddingTop"]
-       45 GETIMPORT                        R10 K20 [UDim.new]
-       47 LOADN                            R11 0
-       48 LOADN                            R12 16
-       49 CALL                             R10 2 1
-       50 SETTABLEKS                       R10 R9 K16 ["PaddingLeft"]
-       52 GETIMPORT                        R10 K20 [UDim.new]
-       54 LOADN                            R11 0
-       55 LOADN                            R12 16
-       56 CALL                             R10 2 1
-       57 SETTABLEKS                       R10 R9 K17 ["PaddingRight"]
-       59 CALL                             R7 2 1
-       60 SETTABLEKS                       R7 R6 K11 ["UIPadding"]
-       62 GETUPVAL                         R7 0
-       63 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       65 LOADK                            R8 K21 ["TextLabel"]
-       66 DUPTABLE                         R9 K28 [{"Size", "BackgroundTransparency", "Text", "Font", "TextColor3", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped"}]
-       67 GETIMPORT                        R10 K10 [UDim2.new]
-       69 LOADN                            R11 1
-       70 LOADN                            R12 0
-       71 LOADN                            R13 1
-       72 LOADN                            R14 0
-       73 CALL                             R10 4 1
-       74 SETTABLEKS                       R10 R9 K6 ["Size"]
-       76 LOADN                            R10 1
-       77 SETTABLEKS                       R10 R9 K5 ["BackgroundTransparency"]
-       79 SETTABLEKS                       R2 R9 K2 ["Text"]
-       81 GETTABLEKS                       R10 R1 K29 ["labels"]
-       83 GETTABLEKS                       R10 R10 K30 ["MainFont"]
-       85 SETTABLEKS                       R10 R9 K22 ["Font"]
-       87 GETTABLEKS                       R10 R1 K29 ["labels"]
-       89 GETTABLEKS                       R10 R10 K31 ["MainText"]
-       91 SETTABLEKS                       R10 R9 K23 ["TextColor3"]
-       93 LOADN                            R10 18
-       94 SETTABLEKS                       R10 R9 K24 ["TextSize"]
-       96 GETIMPORT                        R10 K34 [Enum.TextXAlignment.Center]
-       98 SETTABLEKS                       R10 R9 K25 ["TextXAlignment"]
-      100 GETIMPORT                        R10 K35 [Enum.TextYAlignment.Center]
-      102 SETTABLEKS                       R10 R9 K26 ["TextYAlignment"]
-      104 LOADB                            R10 1
-      105 SETTABLEKS                       R10 R9 K27 ["TextWrapped"]
-      107 CALL                             R7 2 1
-      108 SETTABLEKS                       R7 R6 K12 ["Error"]
-      110 CALL                             R3 3 -1
-      111 RETURN                           R3 -1
+       12 DUPTABLE                         R5 K8 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       13 GETIMPORT                        R6 K11 [UDim2.new]
+       15 LOADN                            R7 1
+       16 LOADN                            R8 0
+       17 LOADN                            R9 1
+       18 LOADN                            R10 0
+       19 CALL                             R6 4 1
+       20 SETTABLEKS                       R6 R5 K7 ["Size"]
+       22 DUPTABLE                         R6 K14 [{"UIPadding", "Error"}]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       26 LOADK                            R8 K12 ["UIPadding"]
+       27 DUPTABLE                         R9 K19 [{"PaddingBottom", "PaddingTop", "PaddingLeft", "PaddingRight"}]
+       28 GETIMPORT                        R10 K21 [UDim.new]
+       30 LOADN                            R11 0
+       31 LOADN                            R12 16
+       32 CALL                             R10 2 1
+       33 SETTABLEKS                       R10 R9 K15 ["PaddingBottom"]
+       35 GETIMPORT                        R10 K21 [UDim.new]
+       37 LOADN                            R11 0
+       38 LOADN                            R12 16
+       39 CALL                             R10 2 1
+       40 SETTABLEKS                       R10 R9 K16 ["PaddingTop"]
+       42 GETIMPORT                        R10 K21 [UDim.new]
+       44 LOADN                            R11 0
+       45 LOADN                            R12 16
+       46 CALL                             R10 2 1
+       47 SETTABLEKS                       R10 R9 K17 ["PaddingLeft"]
+       49 GETIMPORT                        R10 K21 [UDim.new]
+       51 LOADN                            R11 0
+       52 LOADN                            R12 16
+       53 CALL                             R10 2 1
+       54 SETTABLEKS                       R10 R9 K18 ["PaddingRight"]
+       56 CALL                             R7 2 1
+       57 SETTABLEKS                       R7 R6 K12 ["UIPadding"]
+       59 GETUPVAL                         R7 0
+       60 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       62 LOADK                            R8 K22 ["TextLabel"]
+       63 DUPTABLE                         R9 K31 [{["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["Font"], ["TextColor3"], ["TextSize"] = 18, ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True}]
+       64 GETIMPORT                        R10 K11 [UDim2.new]
+       66 LOADN                            R11 1
+       67 LOADN                            R12 0
+       68 LOADN                            R13 1
+       69 LOADN                            R14 0
+       70 CALL                             R10 4 1
+       71 SETTABLEKS                       R10 R9 K7 ["Size"]
+       73 SETTABLEKS                       R2 R9 K2 ["Text"]
+       75 GETTABLEKS                       R10 R1 K32 ["labels"]
+       77 GETTABLEKS                       R10 R10 K33 ["MainFont"]
+       79 SETTABLEKS                       R10 R9 K23 ["Font"]
+       81 GETTABLEKS                       R10 R1 K32 ["labels"]
+       83 GETTABLEKS                       R10 R10 K34 ["MainText"]
+       85 SETTABLEKS                       R10 R9 K24 ["TextColor3"]
+       87 GETIMPORT                        R10 K37 [Enum.TextXAlignment.Center]
+       89 SETTABLEKS                       R10 R9 K27 ["TextXAlignment"]
+       91 GETIMPORT                        R10 K38 [Enum.TextYAlignment.Center]
+       93 SETTABLEKS                       R10 R9 K28 ["TextYAlignment"]
+       95 CALL                             R7 2 1
+       96 SETTABLEKS                       R7 R6 K13 ["Error"]
+       98 CALL                             R3 3 -1
+       99 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

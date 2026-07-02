@@ -8,19 +8,7 @@ MAIN:
        11 GETTABLEKS                       R2 R0 K5 ["Src"]
        13 GETTABLEKS                       R2 R2 K6 ["Types"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K13 [{"Default", "Recording", "Playing", "Disabled", "ShouldStartPlayback", "ShouldStartRecording"}]
-       17 LOADK                            R3 K7 ["Default"]
-       18 SETTABLEKS                       R3 R2 K7 ["Default"]
-       20 LOADK                            R3 K8 ["Recording"]
-       21 SETTABLEKS                       R3 R2 K8 ["Recording"]
-       23 LOADK                            R3 K9 ["Playing"]
-       24 SETTABLEKS                       R3 R2 K9 ["Playing"]
-       26 LOADK                            R3 K10 ["Disabled"]
-       27 SETTABLEKS                       R3 R2 K10 ["Disabled"]
-       29 LOADK                            R3 K11 ["ShouldStartPlayback"]
-       30 SETTABLEKS                       R3 R2 K11 ["ShouldStartPlayback"]
-       32 LOADK                            R3 K12 ["ShouldStartRecording"]
-       33 SETTABLEKS                       R3 R2 K12 ["ShouldStartRecording"]
-       35 DUPTABLE                         R3 K15 [{"PluginState"}]
-       36 SETTABLEKS                       R2 R3 K14 ["PluginState"]
-       38 RETURN                           R3 1
+       16 DUPTABLE                         R2 K13 [{["Default"] = "Default", ["Recording"] = "Recording", ["Playing"] = "Playing", ["Disabled"] = "Disabled", ["ShouldStartPlayback"] = "ShouldStartPlayback", ["ShouldStartRecording"] = "ShouldStartRecording"}]
+       17 DUPTABLE                         R3 K15 [{"PluginState"}]
+       18 SETTABLEKS                       R2 R3 K14 ["PluginState"]
+       20 RETURN                           R3 1

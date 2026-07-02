@@ -23,178 +23,176 @@ PROTO_1:
        15 GETUPVAL                         R6 1
        16 GETTABLEKS                       R6 R6 K5 ["createElement"]
        18 LOADK                            R7 K6 ["Frame"]
-       19 DUPTABLE                         R8 K10 [{"BackgroundTransparency", "Position", "Size"}]
-       20 LOADN                            R9 1
-       21 SETTABLEKS                       R9 R8 K7 ["BackgroundTransparency"]
-       23 GETIMPORT                        R9 K13 [UDim2.new]
-       25 LOADK                            R10 K14 [0.5]
-       26 LOADN                            R11 56
-       27 LOADN                            R12 0
-       28 LOADN                            R13 58
-       29 CALL                             R9 4 1
-       30 SETTABLEKS                       R9 R8 K8 ["Position"]
-       32 GETIMPORT                        R9 K13 [UDim2.new]
-       34 LOADN                            R10 0
-       35 LOADN                            R11 144
-       36 LOADN                            R12 0
-       37 LOADN                            R13 6
-       38 CALL                             R9 4 1
-       39 SETTABLEKS                       R9 R8 K9 ["Size"]
-       41 DUPTABLE                         R9 K20 [{"ProgressTitle", "ProgressMessage", "LoadingBar", "ProgressPercentText", "TimeWarning"}]
-       42 JUMPIFNOT                        R5 ; [+40]
-       43 GETUPVAL                         R10 1
-       44 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       46 GETUPVAL                         R11 2
-       47 DUPTABLE                         R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
-       48 GETIMPORT                        R13 K13 [UDim2.new]
-       50 LOADN                            R14 0
-       51 LOADN                            R15 0
-       52 LOADN                            R16 0
-       53 LOADN                            R17 202
-       54 CALL                             R13 4 1
-       55 SETTABLEKS                       R13 R12 K8 ["Position"]
-       57 GETIMPORT                        R13 K13 [UDim2.new]
-       59 LOADN                            R14 1
-       60 LOADN                            R15 0
-       61 LOADN                            R16 0
-       62 LOADN                            R17 30
-       63 CALL                             R13 4 1
-       64 SETTABLEKS                       R13 R12 K9 ["Size"]
-       66 SETTABLEKS                       R5 R12 K21 ["Text"]
-       68 GETUPVAL                         R13 3
-       69 GETTABLEKS                       R13 R13 K26 ["FONT_SIZE_TITLE"]
-       71 SETTABLEKS                       R13 R12 K22 ["TextSize"]
-       73 GETIMPORT                        R13 K29 [Enum.TextXAlignment.Center]
-       75 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
-       77 GETIMPORT                        R13 K30 [Enum.TextYAlignment.Center]
-       79 SETTABLEKS                       R13 R12 K24 ["TextYAlignment"]
-       81 CALL                             R10 2 1
-       82 JUMP                             ; [+1]
-       83 LOADNIL                          R10
-       84 SETTABLEKS                       R10 R9 K15 ["ProgressTitle"]
-       86 JUMPIFNOT                        R4 ; [+40]
-       87 GETUPVAL                         R10 1
-       88 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       90 GETUPVAL                         R11 2
-       91 DUPTABLE                         R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
-       92 GETIMPORT                        R13 K13 [UDim2.new]
-       94 LOADN                            R14 0
-       95 LOADN                            R15 0
-       96 LOADN                            R16 0
-       97 LOADN                            R17 224
-       98 CALL                             R13 4 1
-       99 SETTABLEKS                       R13 R12 K8 ["Position"]
-      101 GETIMPORT                        R13 K13 [UDim2.new]
-      103 LOADN                            R14 1
-      104 LOADN                            R15 0
-      105 LOADN                            R16 0
-      106 LOADN                            R17 30
-      107 CALL                             R13 4 1
-      108 SETTABLEKS                       R13 R12 K9 ["Size"]
-      110 SETTABLEKS                       R4 R12 K21 ["Text"]
-      112 GETUPVAL                         R13 3
-      113 GETTABLEKS                       R13 R13 K26 ["FONT_SIZE_TITLE"]
-      115 SETTABLEKS                       R13 R12 K22 ["TextSize"]
-      117 GETIMPORT                        R13 K29 [Enum.TextXAlignment.Center]
-      119 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
-      121 GETIMPORT                        R13 K30 [Enum.TextYAlignment.Center]
-      123 SETTABLEKS                       R13 R12 K24 ["TextYAlignment"]
-      125 CALL                             R10 2 1
-      126 JUMP                             ; [+1]
-      127 LOADNIL                          R10
-      128 SETTABLEKS                       R10 R9 K16 ["ProgressMessage"]
-      130 GETUPVAL                         R10 1
-      131 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      133 GETUPVAL                         R11 4
-      134 DUPTABLE                         R12 K32 [{"Progress", "Size"}]
-      135 SETTABLEKS                       R3 R12 K31 ["Progress"]
-      137 GETIMPORT                        R13 K13 [UDim2.new]
-      139 LOADN                            R14 1
-      140 LOADN                            R15 0
-      141 LOADN                            R16 1
-      142 LOADN                            R17 0
-      143 CALL                             R13 4 1
-      144 SETTABLEKS                       R13 R12 K9 ["Size"]
-      146 CALL                             R10 2 1
-      147 SETTABLEKS                       R10 R9 K17 ["LoadingBar"]
-      149 GETUPVAL                         R10 1
-      150 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      152 GETUPVAL                         R11 2
-      153 DUPTABLE                         R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
-      154 GETIMPORT                        R13 K13 [UDim2.new]
-      156 LOADN                            R14 0
-      157 LOADN                            R15 0
-      158 LOADN                            R16 0
-      159 LOADN                            R17 15
-      160 CALL                             R13 4 1
-      161 SETTABLEKS                       R13 R12 K8 ["Position"]
-      163 GETIMPORT                        R13 K13 [UDim2.new]
-      165 LOADN                            R14 1
-      166 LOADN                            R15 0
-      167 LOADN                            R16 0
-      168 LOADN                            R17 10
-      169 CALL                             R13 4 1
-      170 SETTABLEKS                       R13 R12 K9 ["Size"]
-      172 LOADK                            R15 K35 ["AssetConfig"]
-      173 LOADK                            R16 K36 ["ProgressBarProgressText"]
-      174 DUPTABLE                         R17 K38 [{"percent"}]
-      175 MULK                             R19 R3 K39 [100]
-      176 FASTCALL1                        MATH_FLOOR R19 ; [+2]
-      177 GETIMPORT                        R18 K42 [math.floor]
-      179 CALL                             R18 1 1
-      180 SETTABLEKS                       R18 R17 K37 ["percent"]
-      182 NAMECALL                         R13 R2 K43 ["getText"]
-      184 CALL                             R13 4 1
-      185 SETTABLEKS                       R13 R12 K21 ["Text"]
-      187 GETUPVAL                         R13 5
-      188 GETTABLEKS                       R13 R13 K44 ["GRAY_3"]
-      190 SETTABLEKS                       R13 R12 K33 ["TextColor"]
-      192 GETUPVAL                         R13 3
-      193 GETTABLEKS                       R13 R13 K45 ["FONT_SIZE_LARGE"]
-      195 SETTABLEKS                       R13 R12 K22 ["TextSize"]
-      197 GETIMPORT                        R13 K47 [Enum.TextXAlignment.Left]
-      199 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
-      201 GETIMPORT                        R13 K30 [Enum.TextYAlignment.Center]
-      203 SETTABLEKS                       R13 R12 K24 ["TextYAlignment"]
-      205 CALL                             R10 2 1
-      206 SETTABLEKS                       R10 R9 K18 ["ProgressPercentText"]
-      208 GETUPVAL                         R10 1
-      209 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      211 GETUPVAL                         R11 2
-      212 DUPTABLE                         R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
-      213 GETIMPORT                        R13 K13 [UDim2.new]
-      215 LOADN                            R14 0
-      216 LOADN                            R15 0
-      217 LOADN                            R16 0
-      218 LOADN                            R17 15
-      219 CALL                             R13 4 1
-      220 SETTABLEKS                       R13 R12 K8 ["Position"]
-      222 GETIMPORT                        R13 K13 [UDim2.new]
-      224 LOADN                            R14 1
-      225 LOADN                            R15 0
-      226 LOADN                            R16 0
-      227 LOADN                            R17 10
-      228 CALL                             R13 4 1
-      229 SETTABLEKS                       R13 R12 K9 ["Size"]
-      231 LOADK                            R15 K35 ["AssetConfig"]
-      232 LOADK                            R16 K48 ["ProgressUploadWaitTimeWarning"]
-      233 NAMECALL                         R13 R2 K43 ["getText"]
-      235 CALL                             R13 3 1
-      236 SETTABLEKS                       R13 R12 K21 ["Text"]
-      238 GETUPVAL                         R13 5
-      239 GETTABLEKS                       R13 R13 K49 ["GRAY_2"]
-      241 SETTABLEKS                       R13 R12 K33 ["TextColor"]
-      243 GETUPVAL                         R13 3
-      244 GETTABLEKS                       R13 R13 K50 ["FONT_SIZE_MEDIUM"]
-      246 SETTABLEKS                       R13 R12 K22 ["TextSize"]
-      248 GETIMPORT                        R13 K52 [Enum.TextXAlignment.Right]
-      250 SETTABLEKS                       R13 R12 K23 ["TextXAlignment"]
-      252 GETIMPORT                        R13 K30 [Enum.TextYAlignment.Center]
-      254 SETTABLEKS                       R13 R12 K24 ["TextYAlignment"]
-      256 CALL                             R10 2 1
-      257 SETTABLEKS                       R10 R9 K19 ["TimeWarning"]
-      259 CALL                             R6 3 -1
-      260 RETURN                           R6 -1
+       19 DUPTABLE                         R8 K11 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"]}]
+       20 GETIMPORT                        R9 K14 [UDim2.new]
+       22 LOADK                            R10 K15 [0.5]
+       23 LOADN                            R11 -200
+       24 LOADN                            R12 0
+       25 LOADN                            R13 314
+       26 CALL                             R9 4 1
+       27 SETTABLEKS                       R9 R8 K9 ["Position"]
+       29 GETIMPORT                        R9 K14 [UDim2.new]
+       31 LOADN                            R10 0
+       32 LOADN                            R11 400
+       33 LOADN                            R12 0
+       34 LOADN                            R13 6
+       35 CALL                             R9 4 1
+       36 SETTABLEKS                       R9 R8 K10 ["Size"]
+       38 DUPTABLE                         R9 K21 [{"ProgressTitle", "ProgressMessage", "LoadingBar", "ProgressPercentText", "TimeWarning"}]
+       39 JUMPIFNOT                        R5 ; [+40]
+       40 GETUPVAL                         R10 1
+       41 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       43 GETUPVAL                         R11 2
+       44 DUPTABLE                         R12 K26 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
+       45 GETIMPORT                        R13 K14 [UDim2.new]
+       47 LOADN                            R14 0
+       48 LOADN                            R15 0
+       49 LOADN                            R16 0
+       50 LOADN                            R17 -54
+       51 CALL                             R13 4 1
+       52 SETTABLEKS                       R13 R12 K9 ["Position"]
+       54 GETIMPORT                        R13 K14 [UDim2.new]
+       56 LOADN                            R14 1
+       57 LOADN                            R15 0
+       58 LOADN                            R16 0
+       59 LOADN                            R17 30
+       60 CALL                             R13 4 1
+       61 SETTABLEKS                       R13 R12 K10 ["Size"]
+       63 SETTABLEKS                       R5 R12 K22 ["Text"]
+       65 GETUPVAL                         R13 3
+       66 GETTABLEKS                       R13 R13 K27 ["FONT_SIZE_TITLE"]
+       68 SETTABLEKS                       R13 R12 K23 ["TextSize"]
+       70 GETIMPORT                        R13 K30 [Enum.TextXAlignment.Center]
+       72 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
+       74 GETIMPORT                        R13 K31 [Enum.TextYAlignment.Center]
+       76 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
+       78 CALL                             R10 2 1
+       79 JUMP                             ; [+1]
+       80 LOADNIL                          R10
+       81 SETTABLEKS                       R10 R9 K16 ["ProgressTitle"]
+       83 JUMPIFNOT                        R4 ; [+40]
+       84 GETUPVAL                         R10 1
+       85 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       87 GETUPVAL                         R11 2
+       88 DUPTABLE                         R12 K26 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
+       89 GETIMPORT                        R13 K14 [UDim2.new]
+       91 LOADN                            R14 0
+       92 LOADN                            R15 0
+       93 LOADN                            R16 0
+       94 LOADN                            R17 -32
+       95 CALL                             R13 4 1
+       96 SETTABLEKS                       R13 R12 K9 ["Position"]
+       98 GETIMPORT                        R13 K14 [UDim2.new]
+      100 LOADN                            R14 1
+      101 LOADN                            R15 0
+      102 LOADN                            R16 0
+      103 LOADN                            R17 30
+      104 CALL                             R13 4 1
+      105 SETTABLEKS                       R13 R12 K10 ["Size"]
+      107 SETTABLEKS                       R4 R12 K22 ["Text"]
+      109 GETUPVAL                         R13 3
+      110 GETTABLEKS                       R13 R13 K27 ["FONT_SIZE_TITLE"]
+      112 SETTABLEKS                       R13 R12 K23 ["TextSize"]
+      114 GETIMPORT                        R13 K30 [Enum.TextXAlignment.Center]
+      116 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
+      118 GETIMPORT                        R13 K31 [Enum.TextYAlignment.Center]
+      120 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
+      122 CALL                             R10 2 1
+      123 JUMP                             ; [+1]
+      124 LOADNIL                          R10
+      125 SETTABLEKS                       R10 R9 K17 ["ProgressMessage"]
+      127 GETUPVAL                         R10 1
+      128 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      130 GETUPVAL                         R11 4
+      131 DUPTABLE                         R12 K33 [{"Progress", "Size"}]
+      132 SETTABLEKS                       R3 R12 K32 ["Progress"]
+      134 GETIMPORT                        R13 K14 [UDim2.new]
+      136 LOADN                            R14 1
+      137 LOADN                            R15 0
+      138 LOADN                            R16 1
+      139 LOADN                            R17 0
+      140 CALL                             R13 4 1
+      141 SETTABLEKS                       R13 R12 K10 ["Size"]
+      143 CALL                             R10 2 1
+      144 SETTABLEKS                       R10 R9 K18 ["LoadingBar"]
+      146 GETUPVAL                         R10 1
+      147 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      149 GETUPVAL                         R11 2
+      150 DUPTABLE                         R12 K35 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
+      151 GETIMPORT                        R13 K14 [UDim2.new]
+      153 LOADN                            R14 0
+      154 LOADN                            R15 0
+      155 LOADN                            R16 0
+      156 LOADN                            R17 15
+      157 CALL                             R13 4 1
+      158 SETTABLEKS                       R13 R12 K9 ["Position"]
+      160 GETIMPORT                        R13 K14 [UDim2.new]
+      162 LOADN                            R14 1
+      163 LOADN                            R15 0
+      164 LOADN                            R16 0
+      165 LOADN                            R17 10
+      166 CALL                             R13 4 1
+      167 SETTABLEKS                       R13 R12 K10 ["Size"]
+      169 LOADK                            R15 K36 ["AssetConfig"]
+      170 LOADK                            R16 K37 ["ProgressBarProgressText"]
+      171 DUPTABLE                         R17 K39 [{"percent"}]
+      172 MULK                             R19 R3 K40 [100]
+      173 FASTCALL1                        MATH_FLOOR R19 ; [+2]
+      174 GETIMPORT                        R18 K43 [math.floor]
+      176 CALL                             R18 1 1
+      177 SETTABLEKS                       R18 R17 K38 ["percent"]
+      179 NAMECALL                         R13 R2 K44 ["getText"]
+      181 CALL                             R13 4 1
+      182 SETTABLEKS                       R13 R12 K22 ["Text"]
+      184 GETUPVAL                         R13 5
+      185 GETTABLEKS                       R13 R13 K45 ["GRAY_3"]
+      187 SETTABLEKS                       R13 R12 K34 ["TextColor"]
+      189 GETUPVAL                         R13 3
+      190 GETTABLEKS                       R13 R13 K46 ["FONT_SIZE_LARGE"]
+      192 SETTABLEKS                       R13 R12 K23 ["TextSize"]
+      194 GETIMPORT                        R13 K48 [Enum.TextXAlignment.Left]
+      196 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
+      198 GETIMPORT                        R13 K31 [Enum.TextYAlignment.Center]
+      200 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
+      202 CALL                             R10 2 1
+      203 SETTABLEKS                       R10 R9 K19 ["ProgressPercentText"]
+      205 GETUPVAL                         R10 1
+      206 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      208 GETUPVAL                         R11 2
+      209 DUPTABLE                         R12 K35 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
+      210 GETIMPORT                        R13 K14 [UDim2.new]
+      212 LOADN                            R14 0
+      213 LOADN                            R15 0
+      214 LOADN                            R16 0
+      215 LOADN                            R17 15
+      216 CALL                             R13 4 1
+      217 SETTABLEKS                       R13 R12 K9 ["Position"]
+      219 GETIMPORT                        R13 K14 [UDim2.new]
+      221 LOADN                            R14 1
+      222 LOADN                            R15 0
+      223 LOADN                            R16 0
+      224 LOADN                            R17 10
+      225 CALL                             R13 4 1
+      226 SETTABLEKS                       R13 R12 K10 ["Size"]
+      228 LOADK                            R15 K36 ["AssetConfig"]
+      229 LOADK                            R16 K49 ["ProgressUploadWaitTimeWarning"]
+      230 NAMECALL                         R13 R2 K44 ["getText"]
+      232 CALL                             R13 3 1
+      233 SETTABLEKS                       R13 R12 K22 ["Text"]
+      235 GETUPVAL                         R13 5
+      236 GETTABLEKS                       R13 R13 K50 ["GRAY_2"]
+      238 SETTABLEKS                       R13 R12 K34 ["TextColor"]
+      240 GETUPVAL                         R13 3
+      241 GETTABLEKS                       R13 R13 K51 ["FONT_SIZE_MEDIUM"]
+      243 SETTABLEKS                       R13 R12 K23 ["TextSize"]
+      245 GETIMPORT                        R13 K53 [Enum.TextXAlignment.Right]
+      247 SETTABLEKS                       R13 R12 K24 ["TextXAlignment"]
+      249 GETIMPORT                        R13 K31 [Enum.TextYAlignment.Center]
+      251 SETTABLEKS                       R13 R12 K25 ["TextYAlignment"]
+      253 CALL                             R10 2 1
+      254 SETTABLEKS                       R10 R9 K20 ["TimeWarning"]
+      256 CALL                             R6 3 -1
+      257 RETURN                           R6 -1
 
 PROTO_2:
         0 MOVE                             R2 R0

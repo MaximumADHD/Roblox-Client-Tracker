@@ -23,12 +23,12 @@ PROTO_0:
        27 GETTABLEKS                       R4 R4 K4 ["Mountains"]
        29 JUMPIFNOTEQ                      R0 R4 ; [+7]
        31 POWK                             R4 R1 K5 [3]
-       32 SUBRK                            R7 R6 K4 ["Mountains"]
+       32 SUBRK                            R7 K6 [1] R4
        33 MUL                              R6 R3 R7
        34 MUL                              R7 R2 R4
        35 ADD                              R5 R6 R7
        36 RETURN                           R5 1
-       37 SUBRK                            R6 R6 K1 [0.2]
+       37 SUBRK                            R6 K6 [1] R1
        38 MUL                              R5 R3 R6
        39 MUL                              R6 R2 R1
        40 ADD                              R4 R5 R6

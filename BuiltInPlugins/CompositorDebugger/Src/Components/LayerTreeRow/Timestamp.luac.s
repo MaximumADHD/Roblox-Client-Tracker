@@ -64,64 +64,62 @@ PROTO_3:
        46 GETTABLE                         R8 R1 R9
        47 SETTABLE                         R8 R6 R7
        48 LOADN                            R8 0
-       49 JUMPIFNOTLT                      R8 R2 ; [+78]
+       49 JUMPIFNOTLT                      R8 R2 ; [+75]
        51 DUPTABLE                         R7 K15 [{"ProgressBar", "TextLabel"}]
        52 GETUPVAL                         R8 0
        53 GETTABLEKS                       R8 R8 K9 ["createElement"]
        55 GETUPVAL                         R9 1
-       56 DUPTABLE                         R10 K17 [{"ZIndex"}]
-       57 LOADN                            R11 1
-       58 SETTABLEKS                       R11 R10 K16 ["ZIndex"]
-       60 DUPTABLE                         R11 K19 [{"Progress"}]
-       61 GETUPVAL                         R12 0
-       62 GETTABLEKS                       R12 R12 K9 ["createElement"]
-       64 GETUPVAL                         R13 1
-       65 DUPTABLE                         R14 K21 [{"Size", "BackgroundColor"}]
-       66 GETIMPORT                        R15 K24 [UDim2.fromScale]
-       68 GETTABLEKS                       R17 R1 K6 ["TimePercentage"]
-       70 LOADN                            R18 0
-       71 LOADN                            R19 1
-       72 FASTCALL                         MATH_CLAMP ; [+2]
-       73 GETIMPORT                        R16 K8 [math.clamp]
-       75 CALL                             R16 3 1
-       76 LOADN                            R17 1
-       77 CALL                             R15 2 1
-       78 SETTABLEKS                       R15 R14 K10 ["Size"]
-       80 GETTABLEKS                       R15 R0 K0 ["props"]
-       82 GETTABLEKS                       R15 R15 K25 ["BarColor"]
-       84 SETTABLEKS                       R15 R14 K20 ["BackgroundColor"]
-       86 CALL                             R12 2 1
-       87 SETTABLEKS                       R12 R11 K18 ["Progress"]
-       89 CALL                             R8 3 1
-       90 SETTABLEKS                       R8 R7 K13 ["ProgressBar"]
-       92 GETUPVAL                         R8 0
-       93 GETTABLEKS                       R8 R8 K9 ["createElement"]
-       95 GETUPVAL                         R9 2
-       96 NEWTABLE                         R10 4 0
-       98 GETTABLEKS                       R11 R1 K26 ["TextColor"]
-      100 SETTABLEKS                       R11 R10 K26 ["TextColor"]
-      102 GETIMPORT                        R11 K29 [string.format]
-      104 LOADK                            R12 K30 ["%s / %s"]
-      105 GETTABLEKS                       R13 R0 K31 ["formatTime"]
-      107 MOVE                             R14 R3
-      108 CALL                             R13 1 1
-      109 GETTABLEKS                       R14 R0 K31 ["formatTime"]
-      111 MOVE                             R15 R2
-      112 CALL                             R14 1 -1
-      113 CALL                             R11 -1 1
-      114 SETTABLEKS                       R11 R10 K32 ["Text"]
-      116 LOADN                            R11 2
-      117 SETTABLEKS                       R11 R10 K16 ["ZIndex"]
-      119 GETUPVAL                         R11 0
-      120 GETTABLEKS                       R11 R11 K12 ["Tag"]
-      122 LOADK                            R12 K33 ["X-Center"]
-      123 SETTABLE                         R12 R10 R11
-      124 CALL                             R8 2 1
-      125 SETTABLEKS                       R8 R7 K14 ["TextLabel"]
-      127 JUMP                             ; [+1]
-      128 LOADNIL                          R7
-      129 CALL                             R4 3 -1
-      130 RETURN                           R4 -1
+       56 DUPTABLE                         R10 K18 [{["ZIndex"] = 1}]
+       57 DUPTABLE                         R11 K20 [{"Progress"}]
+       58 GETUPVAL                         R12 0
+       59 GETTABLEKS                       R12 R12 K9 ["createElement"]
+       61 GETUPVAL                         R13 1
+       62 DUPTABLE                         R14 K22 [{"Size", "BackgroundColor"}]
+       63 GETIMPORT                        R15 K25 [UDim2.fromScale]
+       65 GETTABLEKS                       R17 R1 K6 ["TimePercentage"]
+       67 LOADN                            R18 0
+       68 LOADN                            R19 1
+       69 FASTCALL                         MATH_CLAMP ; [+2]
+       70 GETIMPORT                        R16 K8 [math.clamp]
+       72 CALL                             R16 3 1
+       73 LOADN                            R17 1
+       74 CALL                             R15 2 1
+       75 SETTABLEKS                       R15 R14 K10 ["Size"]
+       77 GETTABLEKS                       R15 R0 K0 ["props"]
+       79 GETTABLEKS                       R15 R15 K26 ["BarColor"]
+       81 SETTABLEKS                       R15 R14 K21 ["BackgroundColor"]
+       83 CALL                             R12 2 1
+       84 SETTABLEKS                       R12 R11 K19 ["Progress"]
+       86 CALL                             R8 3 1
+       87 SETTABLEKS                       R8 R7 K13 ["ProgressBar"]
+       89 GETUPVAL                         R8 0
+       90 GETTABLEKS                       R8 R8 K9 ["createElement"]
+       92 GETUPVAL                         R9 2
+       93 NEWTABLE                         R10 4 0
+       95 GETTABLEKS                       R11 R1 K27 ["TextColor"]
+       97 SETTABLEKS                       R11 R10 K27 ["TextColor"]
+       99 GETIMPORT                        R11 K30 [string.format]
+      101 LOADK                            R12 K31 ["%s / %s"]
+      102 GETTABLEKS                       R13 R0 K32 ["formatTime"]
+      104 MOVE                             R14 R3
+      105 CALL                             R13 1 1
+      106 GETTABLEKS                       R14 R0 K32 ["formatTime"]
+      108 MOVE                             R15 R2
+      109 CALL                             R14 1 -1
+      110 CALL                             R11 -1 1
+      111 SETTABLEKS                       R11 R10 K33 ["Text"]
+      113 LOADN                            R11 2
+      114 SETTABLEKS                       R11 R10 K16 ["ZIndex"]
+      116 GETUPVAL                         R11 0
+      117 GETTABLEKS                       R11 R11 K12 ["Tag"]
+      119 LOADK                            R12 K34 ["X-Center"]
+      120 SETTABLE                         R12 R10 R11
+      121 CALL                             R8 2 1
+      122 SETTABLEKS                       R8 R7 K14 ["TextLabel"]
+      124 JUMP                             ; [+1]
+      125 LOADNIL                          R7
+      126 CALL                             R4 3 -1
+      127 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

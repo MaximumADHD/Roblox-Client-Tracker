@@ -8,189 +8,175 @@ PROTO_1:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K10 [{"VerticalAlignment", "Layout", "Size", "Position", "Spacing", "ZIndex"}]
-       11 GETIMPORT                        R7 K13 [Enum.VerticalAlignment.Top]
+       10 DUPTABLE                         R6 K11 [{["VerticalAlignment"], ["Layout"], ["Size"], ["Position"], ["Spacing"], ["ZIndex"] = 4}]
+       11 GETIMPORT                        R7 K14 [Enum.VerticalAlignment.Top]
        13 SETTABLEKS                       R7 R6 K4 ["VerticalAlignment"]
-       15 GETIMPORT                        R7 K16 [Enum.FillDirection.Vertical]
+       15 GETIMPORT                        R7 K17 [Enum.FillDirection.Vertical]
        17 SETTABLEKS                       R7 R6 K5 ["Layout"]
-       19 GETTABLEKS                       R7 R2 K17 ["PreviewWindow"]
-       21 GETTABLEKS                       R7 R7 K18 ["PreviewButtonBar"]
+       19 GETTABLEKS                       R7 R2 K18 ["PreviewWindow"]
+       21 GETTABLEKS                       R7 R7 K19 ["PreviewButtonBar"]
        23 GETTABLEKS                       R7 R7 K6 ["Size"]
        25 SETTABLEKS                       R7 R6 K6 ["Size"]
-       27 GETTABLEKS                       R7 R2 K17 ["PreviewWindow"]
-       29 GETTABLEKS                       R7 R7 K18 ["PreviewButtonBar"]
+       27 GETTABLEKS                       R7 R2 K18 ["PreviewWindow"]
+       29 GETTABLEKS                       R7 R7 K19 ["PreviewButtonBar"]
        31 GETTABLEKS                       R7 R7 K7 ["Position"]
        33 SETTABLEKS                       R7 R6 K7 ["Position"]
-       35 GETTABLEKS                       R7 R2 K17 ["PreviewWindow"]
-       37 GETTABLEKS                       R7 R7 K18 ["PreviewButtonBar"]
+       35 GETTABLEKS                       R7 R2 K18 ["PreviewWindow"]
+       37 GETTABLEKS                       R7 R7 K19 ["PreviewButtonBar"]
        39 GETTABLEKS                       R7 R7 K8 ["Spacing"]
        41 SETTABLEKS                       R7 R6 K8 ["Spacing"]
-       43 LOADN                            R7 4
-       44 SETTABLEKS                       R7 R6 K9 ["ZIndex"]
-       46 DUPTABLE                         R7 K22 [{"CameraResetButtonContainer", "InsertContextToggleButtonContainer", "RigVisualizationButtonContainer"}]
-       47 GETUPVAL                         R8 0
-       48 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       50 GETUPVAL                         R9 1
-       51 DUPTABLE                         R10 K25 [{"LayoutOrder", "Size", "AnchorPoint"}]
-       52 LOADN                            R11 1
-       53 SETTABLEKS                       R11 R10 K23 ["LayoutOrder"]
-       55 GETTABLEKS                       R11 R2 K17 ["PreviewWindow"]
-       57 GETTABLEKS                       R11 R11 K26 ["OptionIconSize"]
-       59 SETTABLEKS                       R11 R10 K6 ["Size"]
-       61 GETIMPORT                        R11 K29 [Vector2.new]
-       63 LOADN                            R12 1
-       64 LOADN                            R13 0
-       65 CALL                             R11 2 1
-       66 SETTABLEKS                       R11 R10 K24 ["AnchorPoint"]
-       68 DUPTABLE                         R11 K31 [{"CameraResetButton"}]
-       69 GETUPVAL                         R12 0
-       70 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       72 GETUPVAL                         R13 2
-       73 DUPTABLE                         R14 K34 [{"OnClick", "Style"}]
-       74 GETTABLEKS                       R15 R0 K0 ["props"]
-       76 GETTABLEKS                       R15 R15 K35 ["ResetCameraCallback"]
-       78 SETTABLEKS                       R15 R14 K32 ["OnClick"]
-       80 LOADK                            R15 K36 ["RoundSubtle"]
-       81 SETTABLEKS                       R15 R14 K33 ["Style"]
-       83 DUPTABLE                         R15 K38 [{"Icon"}]
-       84 GETUPVAL                         R16 0
-       85 GETTABLEKS                       R16 R16 K3 ["createElement"]
-       87 GETUPVAL                         R17 3
-       88 DUPTABLE                         R18 K40 [{"Image"}]
-       89 GETTABLEKS                       R19 R2 K17 ["PreviewWindow"]
-       91 GETTABLEKS                       R19 R19 K41 ["ResetCameraImage"]
-       93 SETTABLEKS                       R19 R18 K39 ["Image"]
-       95 DUPTABLE                         R19 K43 [{"Tooltip"}]
-       96 GETUPVAL                         R20 0
-       97 GETTABLEKS                       R20 R20 K3 ["createElement"]
-       99 GETUPVAL                         R21 4
-      100 DUPTABLE                         R22 K45 [{"Text"}]
-      101 GETUPVAL                         R23 5
-      102 MOVE                             R24 R3
-      103 LOADK                            R25 K46 ["PreviewTooltip"]
-      104 LOADK                            R26 K47 ["ResetCam"]
-      105 CALL                             R23 3 1
-      106 SETTABLEKS                       R23 R22 K44 ["Text"]
-      108 CALL                             R20 2 1
-      109 SETTABLEKS                       R20 R19 K42 ["Tooltip"]
-      111 CALL                             R16 3 1
-      112 SETTABLEKS                       R16 R15 K37 ["Icon"]
-      114 CALL                             R12 3 1
-      115 SETTABLEKS                       R12 R11 K30 ["CameraResetButton"]
-      117 CALL                             R8 3 1
-      118 SETTABLEKS                       R8 R7 K19 ["CameraResetButtonContainer"]
-      120 GETTABLEKS                       R9 R1 K48 ["ShouldShowWorkspaceToggle"]
-      122 JUMPIFNOT                        R9 ; [+72]
-      123 GETUPVAL                         R8 0
-      124 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      126 GETUPVAL                         R9 1
-      127 DUPTABLE                         R10 K25 [{"LayoutOrder", "Size", "AnchorPoint"}]
-      128 LOADN                            R11 2
-      129 SETTABLEKS                       R11 R10 K23 ["LayoutOrder"]
-      131 GETTABLEKS                       R11 R2 K17 ["PreviewWindow"]
-      133 GETTABLEKS                       R11 R11 K26 ["OptionIconSize"]
-      135 SETTABLEKS                       R11 R10 K6 ["Size"]
-      137 GETIMPORT                        R11 K29 [Vector2.new]
-      139 LOADN                            R12 1
-      140 LOADN                            R13 0
-      141 CALL                             R11 2 1
-      142 SETTABLEKS                       R11 R10 K24 ["AnchorPoint"]
-      144 DUPTABLE                         R11 K50 [{"InsertContextToggleButton"}]
-      145 GETUPVAL                         R12 0
-      146 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      148 GETUPVAL                         R13 2
-      149 DUPTABLE                         R14 K34 [{"OnClick", "Style"}]
-      150 GETTABLEKS                       R15 R0 K0 ["props"]
-      152 GETTABLEKS                       R15 R15 K51 ["InsertContextCallback"]
-      154 SETTABLEKS                       R15 R14 K32 ["OnClick"]
-      156 LOADK                            R15 K36 ["RoundSubtle"]
-      157 SETTABLEKS                       R15 R14 K33 ["Style"]
-      159 DUPTABLE                         R15 K38 [{"Icon"}]
-      160 GETUPVAL                         R16 0
-      161 GETTABLEKS                       R16 R16 K3 ["createElement"]
-      163 GETUPVAL                         R17 3
-      164 DUPTABLE                         R18 K40 [{"Image"}]
-      165 GETTABLEKS                       R19 R2 K17 ["PreviewWindow"]
-      167 GETTABLEKS                       R19 R19 K52 ["ShowWorkspaceImage"]
-      169 SETTABLEKS                       R19 R18 K39 ["Image"]
-      171 DUPTABLE                         R19 K43 [{"Tooltip"}]
-      172 GETUPVAL                         R20 0
-      173 GETTABLEKS                       R20 R20 K3 ["createElement"]
-      175 GETUPVAL                         R21 4
-      176 DUPTABLE                         R22 K45 [{"Text"}]
-      177 GETUPVAL                         R23 5
-      178 MOVE                             R24 R3
-      179 LOADK                            R25 K46 ["PreviewTooltip"]
-      180 LOADK                            R26 K53 ["ToggleInsertContext"]
-      181 CALL                             R23 3 1
-      182 SETTABLEKS                       R23 R22 K44 ["Text"]
-      184 CALL                             R20 2 1
-      185 SETTABLEKS                       R20 R19 K42 ["Tooltip"]
-      187 CALL                             R16 3 1
-      188 SETTABLEKS                       R16 R15 K37 ["Icon"]
-      190 CALL                             R12 3 1
-      191 SETTABLEKS                       R12 R11 K49 ["InsertContextToggleButton"]
-      193 CALL                             R8 3 1
-      194 JUMP                             ; [+1]
-      195 LOADNIL                          R8
-      196 SETTABLEKS                       R8 R7 K20 ["InsertContextToggleButtonContainer"]
-      198 GETTABLEKS                       R9 R1 K54 ["ShouldShowRigVisualizationToggle"]
-      200 JUMPIFNOT                        R9 ; [+72]
-      201 GETUPVAL                         R8 0
-      202 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      204 GETUPVAL                         R9 1
-      205 DUPTABLE                         R10 K25 [{"LayoutOrder", "Size", "AnchorPoint"}]
-      206 LOADN                            R11 3
-      207 SETTABLEKS                       R11 R10 K23 ["LayoutOrder"]
-      209 GETTABLEKS                       R11 R2 K17 ["PreviewWindow"]
-      211 GETTABLEKS                       R11 R11 K26 ["OptionIconSize"]
-      213 SETTABLEKS                       R11 R10 K6 ["Size"]
-      215 GETIMPORT                        R11 K29 [Vector2.new]
-      217 LOADN                            R12 1
-      218 LOADN                            R13 0
-      219 CALL                             R11 2 1
-      220 SETTABLEKS                       R11 R10 K24 ["AnchorPoint"]
-      222 DUPTABLE                         R11 K56 [{"RigVisualizationButton"}]
-      223 GETUPVAL                         R12 0
-      224 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      226 GETUPVAL                         R13 2
-      227 DUPTABLE                         R14 K34 [{"OnClick", "Style"}]
-      228 GETTABLEKS                       R15 R0 K0 ["props"]
-      230 GETTABLEKS                       R15 R15 K57 ["VisualizeRigCallback"]
-      232 SETTABLEKS                       R15 R14 K32 ["OnClick"]
-      234 LOADK                            R15 K36 ["RoundSubtle"]
-      235 SETTABLEKS                       R15 R14 K33 ["Style"]
-      237 DUPTABLE                         R15 K38 [{"Icon"}]
-      238 GETUPVAL                         R16 0
-      239 GETTABLEKS                       R16 R16 K3 ["createElement"]
-      241 GETUPVAL                         R17 3
-      242 DUPTABLE                         R18 K40 [{"Image"}]
-      243 GETTABLEKS                       R19 R2 K17 ["PreviewWindow"]
-      245 GETTABLEKS                       R19 R19 K58 ["ShowRigVisualizationImage"]
-      247 SETTABLEKS                       R19 R18 K39 ["Image"]
-      249 DUPTABLE                         R19 K43 [{"Tooltip"}]
-      250 GETUPVAL                         R20 0
-      251 GETTABLEKS                       R20 R20 K3 ["createElement"]
-      253 GETUPVAL                         R21 4
-      254 DUPTABLE                         R22 K45 [{"Text"}]
-      255 GETUPVAL                         R23 5
-      256 MOVE                             R24 R3
-      257 LOADK                            R25 K46 ["PreviewTooltip"]
-      258 LOADK                            R26 K59 ["RigVisualization"]
-      259 CALL                             R23 3 1
-      260 SETTABLEKS                       R23 R22 K44 ["Text"]
-      262 CALL                             R20 2 1
-      263 SETTABLEKS                       R20 R19 K42 ["Tooltip"]
-      265 CALL                             R16 3 1
-      266 SETTABLEKS                       R16 R15 K37 ["Icon"]
-      268 CALL                             R12 3 1
-      269 SETTABLEKS                       R12 R11 K55 ["RigVisualizationButton"]
-      271 CALL                             R8 3 1
-      272 JUMP                             ; [+1]
-      273 LOADNIL                          R8
-      274 SETTABLEKS                       R8 R7 K21 ["RigVisualizationButtonContainer"]
-      276 CALL                             R4 3 -1
-      277 RETURN                           R4 -1
+       43 DUPTABLE                         R7 K23 [{"CameraResetButtonContainer", "InsertContextToggleButtonContainer", "RigVisualizationButtonContainer"}]
+       44 GETUPVAL                         R8 0
+       45 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       47 GETUPVAL                         R9 1
+       48 DUPTABLE                         R10 K27 [{["LayoutOrder"] = 1, ["Size"], ["AnchorPoint"]}]
+       49 GETTABLEKS                       R11 R2 K18 ["PreviewWindow"]
+       51 GETTABLEKS                       R11 R11 K28 ["OptionIconSize"]
+       53 SETTABLEKS                       R11 R10 K6 ["Size"]
+       55 GETIMPORT                        R11 K31 [Vector2.new]
+       57 LOADN                            R12 1
+       58 LOADN                            R13 0
+       59 CALL                             R11 2 1
+       60 SETTABLEKS                       R11 R10 K26 ["AnchorPoint"]
+       62 DUPTABLE                         R11 K33 [{"CameraResetButton"}]
+       63 GETUPVAL                         R12 0
+       64 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       66 GETUPVAL                         R13 2
+       67 DUPTABLE                         R14 K37 [{["OnClick"], ["Style"] = "RoundSubtle"}]
+       68 GETTABLEKS                       R15 R0 K0 ["props"]
+       70 GETTABLEKS                       R15 R15 K38 ["ResetCameraCallback"]
+       72 SETTABLEKS                       R15 R14 K34 ["OnClick"]
+       74 DUPTABLE                         R15 K40 [{"Icon"}]
+       75 GETUPVAL                         R16 0
+       76 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       78 GETUPVAL                         R17 3
+       79 DUPTABLE                         R18 K42 [{"Image"}]
+       80 GETTABLEKS                       R19 R2 K18 ["PreviewWindow"]
+       82 GETTABLEKS                       R19 R19 K43 ["ResetCameraImage"]
+       84 SETTABLEKS                       R19 R18 K41 ["Image"]
+       86 DUPTABLE                         R19 K45 [{"Tooltip"}]
+       87 GETUPVAL                         R20 0
+       88 GETTABLEKS                       R20 R20 K3 ["createElement"]
+       90 GETUPVAL                         R21 4
+       91 DUPTABLE                         R22 K47 [{"Text"}]
+       92 GETUPVAL                         R23 5
+       93 MOVE                             R24 R3
+       94 LOADK                            R25 K48 ["PreviewTooltip"]
+       95 LOADK                            R26 K49 ["ResetCam"]
+       96 CALL                             R23 3 1
+       97 SETTABLEKS                       R23 R22 K46 ["Text"]
+       99 CALL                             R20 2 1
+      100 SETTABLEKS                       R20 R19 K44 ["Tooltip"]
+      102 CALL                             R16 3 1
+      103 SETTABLEKS                       R16 R15 K39 ["Icon"]
+      105 CALL                             R12 3 1
+      106 SETTABLEKS                       R12 R11 K32 ["CameraResetButton"]
+      108 CALL                             R8 3 1
+      109 SETTABLEKS                       R8 R7 K20 ["CameraResetButtonContainer"]
+      111 GETTABLEKS                       R9 R1 K50 ["ShouldShowWorkspaceToggle"]
+      113 JUMPIFNOT                        R9 ; [+66]
+      114 GETUPVAL                         R8 0
+      115 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      117 GETUPVAL                         R9 1
+      118 DUPTABLE                         R10 K52 [{["LayoutOrder"] = 2, ["Size"], ["AnchorPoint"]}]
+      119 GETTABLEKS                       R11 R2 K18 ["PreviewWindow"]
+      121 GETTABLEKS                       R11 R11 K28 ["OptionIconSize"]
+      123 SETTABLEKS                       R11 R10 K6 ["Size"]
+      125 GETIMPORT                        R11 K31 [Vector2.new]
+      127 LOADN                            R12 1
+      128 LOADN                            R13 0
+      129 CALL                             R11 2 1
+      130 SETTABLEKS                       R11 R10 K26 ["AnchorPoint"]
+      132 DUPTABLE                         R11 K54 [{"InsertContextToggleButton"}]
+      133 GETUPVAL                         R12 0
+      134 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      136 GETUPVAL                         R13 2
+      137 DUPTABLE                         R14 K37 [{["OnClick"], ["Style"] = "RoundSubtle"}]
+      138 GETTABLEKS                       R15 R0 K0 ["props"]
+      140 GETTABLEKS                       R15 R15 K55 ["InsertContextCallback"]
+      142 SETTABLEKS                       R15 R14 K34 ["OnClick"]
+      144 DUPTABLE                         R15 K40 [{"Icon"}]
+      145 GETUPVAL                         R16 0
+      146 GETTABLEKS                       R16 R16 K3 ["createElement"]
+      148 GETUPVAL                         R17 3
+      149 DUPTABLE                         R18 K42 [{"Image"}]
+      150 GETTABLEKS                       R19 R2 K18 ["PreviewWindow"]
+      152 GETTABLEKS                       R19 R19 K56 ["ShowWorkspaceImage"]
+      154 SETTABLEKS                       R19 R18 K41 ["Image"]
+      156 DUPTABLE                         R19 K45 [{"Tooltip"}]
+      157 GETUPVAL                         R20 0
+      158 GETTABLEKS                       R20 R20 K3 ["createElement"]
+      160 GETUPVAL                         R21 4
+      161 DUPTABLE                         R22 K47 [{"Text"}]
+      162 GETUPVAL                         R23 5
+      163 MOVE                             R24 R3
+      164 LOADK                            R25 K48 ["PreviewTooltip"]
+      165 LOADK                            R26 K57 ["ToggleInsertContext"]
+      166 CALL                             R23 3 1
+      167 SETTABLEKS                       R23 R22 K46 ["Text"]
+      169 CALL                             R20 2 1
+      170 SETTABLEKS                       R20 R19 K44 ["Tooltip"]
+      172 CALL                             R16 3 1
+      173 SETTABLEKS                       R16 R15 K39 ["Icon"]
+      175 CALL                             R12 3 1
+      176 SETTABLEKS                       R12 R11 K53 ["InsertContextToggleButton"]
+      178 CALL                             R8 3 1
+      179 JUMP                             ; [+1]
+      180 LOADNIL                          R8
+      181 SETTABLEKS                       R8 R7 K21 ["InsertContextToggleButtonContainer"]
+      183 GETTABLEKS                       R9 R1 K58 ["ShouldShowRigVisualizationToggle"]
+      185 JUMPIFNOT                        R9 ; [+66]
+      186 GETUPVAL                         R8 0
+      187 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      189 GETUPVAL                         R9 1
+      190 DUPTABLE                         R10 K60 [{["LayoutOrder"] = 3, ["Size"], ["AnchorPoint"]}]
+      191 GETTABLEKS                       R11 R2 K18 ["PreviewWindow"]
+      193 GETTABLEKS                       R11 R11 K28 ["OptionIconSize"]
+      195 SETTABLEKS                       R11 R10 K6 ["Size"]
+      197 GETIMPORT                        R11 K31 [Vector2.new]
+      199 LOADN                            R12 1
+      200 LOADN                            R13 0
+      201 CALL                             R11 2 1
+      202 SETTABLEKS                       R11 R10 K26 ["AnchorPoint"]
+      204 DUPTABLE                         R11 K62 [{"RigVisualizationButton"}]
+      205 GETUPVAL                         R12 0
+      206 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      208 GETUPVAL                         R13 2
+      209 DUPTABLE                         R14 K37 [{["OnClick"], ["Style"] = "RoundSubtle"}]
+      210 GETTABLEKS                       R15 R0 K0 ["props"]
+      212 GETTABLEKS                       R15 R15 K63 ["VisualizeRigCallback"]
+      214 SETTABLEKS                       R15 R14 K34 ["OnClick"]
+      216 DUPTABLE                         R15 K40 [{"Icon"}]
+      217 GETUPVAL                         R16 0
+      218 GETTABLEKS                       R16 R16 K3 ["createElement"]
+      220 GETUPVAL                         R17 3
+      221 DUPTABLE                         R18 K42 [{"Image"}]
+      222 GETTABLEKS                       R19 R2 K18 ["PreviewWindow"]
+      224 GETTABLEKS                       R19 R19 K64 ["ShowRigVisualizationImage"]
+      226 SETTABLEKS                       R19 R18 K41 ["Image"]
+      228 DUPTABLE                         R19 K45 [{"Tooltip"}]
+      229 GETUPVAL                         R20 0
+      230 GETTABLEKS                       R20 R20 K3 ["createElement"]
+      232 GETUPVAL                         R21 4
+      233 DUPTABLE                         R22 K47 [{"Text"}]
+      234 GETUPVAL                         R23 5
+      235 MOVE                             R24 R3
+      236 LOADK                            R25 K48 ["PreviewTooltip"]
+      237 LOADK                            R26 K65 ["RigVisualization"]
+      238 CALL                             R23 3 1
+      239 SETTABLEKS                       R23 R22 K46 ["Text"]
+      241 CALL                             R20 2 1
+      242 SETTABLEKS                       R20 R19 K44 ["Tooltip"]
+      244 CALL                             R16 3 1
+      245 SETTABLEKS                       R16 R15 K39 ["Icon"]
+      247 CALL                             R12 3 1
+      248 SETTABLEKS                       R12 R11 K61 ["RigVisualizationButton"]
+      250 CALL                             R8 3 1
+      251 JUMP                             ; [+1]
+      252 LOADNIL                          R8
+      253 SETTABLEKS                       R8 R7 K22 ["RigVisualizationButtonContainer"]
+      255 CALL                             R4 3 -1
+      256 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

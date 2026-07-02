@@ -113,25 +113,21 @@ PROTO_6:
        16 NEWCLOSURE                       R1 P2
        17 CAPTURE                          VAL R0
        18 SETTABLEKS                       R1 R0 K7 ["OnChange"]
-       20 DUPTABLE                         R1 K10 [{"Key", "Value"}]
-       21 LOADK                            R2 K11 [""]
-       22 SETTABLEKS                       R2 R1 K8 ["Key"]
-       24 LOADK                            R2 K11 [""]
-       25 SETTABLEKS                       R2 R1 K9 ["Value"]
-       27 NEWCLOSURE                       R2 P3
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          VAL R1
-       30 SETTABLEKS                       R2 R0 K12 ["onClearClicked"]
-       32 NEWCLOSURE                       R2 P4
-       33 CAPTURE                          VAL R0
-       34 SETTABLEKS                       R2 R0 K13 ["onSaveClicked"]
-       36 NEWCLOSURE                       R2 P5
-       37 CAPTURE                          VAL R0
-       38 CAPTURE                          UPVAL U0
-       39 CAPTURE                          UPVAL U1
-       40 CAPTURE                          UPVAL U2
-       41 SETTABLEKS                       R2 R0 K14 ["onSendClicked"]
-       43 RETURN                           R0 0
+       20 DUPTABLE                         R1 K11 [{["Key"] = "", ["Value"] = ""}]
+       21 NEWCLOSURE                       R2 P3
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          VAL R1
+       24 SETTABLEKS                       R2 R0 K12 ["onClearClicked"]
+       26 NEWCLOSURE                       R2 P4
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R2 R0 K13 ["onSaveClicked"]
+       30 NEWCLOSURE                       R2 P5
+       31 CAPTURE                          VAL R0
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          UPVAL U1
+       34 CAPTURE                          UPVAL U2
+       35 SETTABLEKS                       R2 R0 K14 ["onSendClicked"]
+       37 RETURN                           R0 0
 
 PROTO_7:
         0 PREPVARARGS                      0
@@ -197,49 +193,45 @@ PROTO_9:
        64 GETUPVAL                         R9 0
        65 GETTABLEKS                       R9 R9 K4 ["createElement"]
        67 GETUPVAL                         R10 6
-       68 DUPTABLE                         R11 K29 [{"LayoutOrder", "Label", "Text", "OnChange"}]
+       68 DUPTABLE                         R11 K29 [{["LayoutOrder"], ["Label"] = "Key", ["Text"], ["OnChange"]}]
        69 GETUPVAL                         R12 5
        70 GETTABLEKS                       R12 R12 K13 ["Key"]
        72 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-       74 LOADK                            R12 K13 ["Key"]
-       75 SETTABLEKS                       R12 R11 K26 ["Label"]
-       77 GETTABLEKS                       R12 R2 K13 ["Key"]
-       79 SETTABLEKS                       R12 R11 K27 ["Text"]
-       81 NEWCLOSURE                       R12 P0
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R12 R11 K28 ["OnChange"]
-       85 CALL                             R9 2 1
-       86 SETTABLEKS                       R9 R8 K13 ["Key"]
-       88 GETUPVAL                         R9 0
-       89 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       91 GETUPVAL                         R10 6
-       92 DUPTABLE                         R11 K29 [{"LayoutOrder", "Label", "Text", "OnChange"}]
-       93 GETUPVAL                         R12 5
-       94 GETTABLEKS                       R12 R12 K14 ["Value"]
-       96 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-       98 LOADK                            R12 K14 ["Value"]
-       99 SETTABLEKS                       R12 R11 K26 ["Label"]
-      101 GETTABLEKS                       R12 R2 K14 ["Value"]
-      103 SETTABLEKS                       R12 R11 K27 ["Text"]
-      105 NEWCLOSURE                       R12 P1
-      106 CAPTURE                          VAL R0
-      107 SETTABLEKS                       R12 R11 K28 ["OnChange"]
-      109 CALL                             R9 2 1
-      110 SETTABLEKS                       R9 R8 K14 ["Value"]
-      112 GETUPVAL                         R9 0
-      113 GETTABLEKS                       R9 R9 K4 ["createElement"]
-      115 GETUPVAL                         R10 7
-      116 DUPTABLE                         R11 K33 [{"OnClearClicked", "OnSaveClicked", "OnSendClicked"}]
-      117 GETTABLEKS                       R12 R0 K34 ["onClearClicked"]
-      119 SETTABLEKS                       R12 R11 K30 ["OnClearClicked"]
-      121 GETTABLEKS                       R12 R0 K35 ["onSaveClicked"]
-      123 SETTABLEKS                       R12 R11 K31 ["OnSaveClicked"]
-      125 GETTABLEKS                       R12 R0 K36 ["onSendClicked"]
-      127 SETTABLEKS                       R12 R11 K32 ["OnSendClicked"]
-      129 CALL                             R9 2 1
-      130 SETTABLEKS                       R9 R8 K15 ["Activators"]
-      132 CALL                             R5 3 -1
-      133 RETURN                           R5 -1
+       74 GETTABLEKS                       R12 R2 K13 ["Key"]
+       76 SETTABLEKS                       R12 R11 K27 ["Text"]
+       78 NEWCLOSURE                       R12 P0
+       79 CAPTURE                          VAL R0
+       80 SETTABLEKS                       R12 R11 K28 ["OnChange"]
+       82 CALL                             R9 2 1
+       83 SETTABLEKS                       R9 R8 K13 ["Key"]
+       85 GETUPVAL                         R9 0
+       86 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       88 GETUPVAL                         R10 6
+       89 DUPTABLE                         R11 K30 [{["LayoutOrder"], ["Label"] = "Value", ["Text"], ["OnChange"]}]
+       90 GETUPVAL                         R12 5
+       91 GETTABLEKS                       R12 R12 K14 ["Value"]
+       93 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
+       95 GETTABLEKS                       R12 R2 K14 ["Value"]
+       97 SETTABLEKS                       R12 R11 K27 ["Text"]
+       99 NEWCLOSURE                       R12 P1
+      100 CAPTURE                          VAL R0
+      101 SETTABLEKS                       R12 R11 K28 ["OnChange"]
+      103 CALL                             R9 2 1
+      104 SETTABLEKS                       R9 R8 K14 ["Value"]
+      106 GETUPVAL                         R9 0
+      107 GETTABLEKS                       R9 R9 K4 ["createElement"]
+      109 GETUPVAL                         R10 7
+      110 DUPTABLE                         R11 K34 [{"OnClearClicked", "OnSaveClicked", "OnSendClicked"}]
+      111 GETTABLEKS                       R12 R0 K35 ["onClearClicked"]
+      113 SETTABLEKS                       R12 R11 K31 ["OnClearClicked"]
+      115 GETTABLEKS                       R12 R0 K36 ["onSaveClicked"]
+      117 SETTABLEKS                       R12 R11 K32 ["OnSaveClicked"]
+      119 GETTABLEKS                       R12 R0 K37 ["onSendClicked"]
+      121 SETTABLEKS                       R12 R11 K33 ["OnSendClicked"]
+      123 CALL                             R9 2 1
+      124 SETTABLEKS                       R9 R8 K15 ["Activators"]
+      126 CALL                             R5 3 -1
+      127 RETURN                           R5 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K2 [{"KeyValuePair", "CurrentEventName"}]

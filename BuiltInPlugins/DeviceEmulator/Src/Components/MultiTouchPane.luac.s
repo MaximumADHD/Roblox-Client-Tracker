@@ -31,61 +31,49 @@ PROTO_2:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
-       11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
+       10 DUPTABLE                         R6 K10 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["Padding"] = 10, ["Spacing"] = 10}]
+       11 GETIMPORT                        R7 K13 [Enum.AutomaticSize.Y]
        13 SETTABLEKS                       R7 R6 K4 ["AutomaticSize"]
-       15 GETIMPORT                        R7 K14 [Enum.HorizontalAlignment.Left]
+       15 GETIMPORT                        R7 K15 [Enum.HorizontalAlignment.Left]
        17 SETTABLEKS                       R7 R6 K5 ["HorizontalAlignment"]
-       19 GETIMPORT                        R7 K17 [Enum.FillDirection.Vertical]
+       19 GETIMPORT                        R7 K18 [Enum.FillDirection.Vertical]
        21 SETTABLEKS                       R7 R6 K6 ["Layout"]
-       23 LOADN                            R7 10
-       24 SETTABLEKS                       R7 R6 K7 ["Padding"]
-       26 LOADN                            R7 10
-       27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
-       29 DUPTABLE                         R7 K19 [{"MultiTouchPane"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
-       35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
-       37 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
-       39 GETIMPORT                        R11 K14 [Enum.HorizontalAlignment.Left]
-       41 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
-       43 GETIMPORT                        R11 K17 [Enum.FillDirection.Vertical]
-       45 SETTABLEKS                       R11 R10 K6 ["Layout"]
-       47 LOADB                            R11 1
-       48 SETTABLEKS                       R11 R10 K20 ["AlwaysExpanded"]
-       50 LOADN                            R11 3
-       51 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
-       53 LOADK                            R11 K25 ["Box"]
-       54 SETTABLEKS                       R11 R10 K22 ["Style"]
-       56 LOADK                            R13 K18 ["MultiTouchPane"]
-       57 LOADK                            R14 K26 ["MultiTouchPaneLabel"]
-       58 NAMECALL                         R11 R3 K27 ["getText"]
-       60 CALL                             R11 3 1
-       61 SETTABLEKS                       R11 R10 K23 ["Text"]
-       63 NEWTABLE                         R11 0 1
-       65 GETUPVAL                         R12 0
-       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       68 GETUPVAL                         R13 3
-       69 DUPTABLE                         R14 K31 [{"Checked", "Key", "OnClick", "Text"}]
-       70 GETTABLEKS                       R15 R2 K32 ["multiTouchEmulationOn"]
-       72 SETTABLEKS                       R15 R14 K28 ["Checked"]
-       74 LOADK                            R15 K32 ["multiTouchEmulationOn"]
-       75 SETTABLEKS                       R15 R14 K29 ["Key"]
-       77 GETTABLEKS                       R15 R0 K33 ["toggleMultiTouchEmulationOn"]
-       79 SETTABLEKS                       R15 R14 K30 ["OnClick"]
-       81 LOADK                            R17 K18 ["MultiTouchPane"]
-       82 LOADK                            R18 K34 ["MultiTouchPaneCheckboxLabel"]
-       83 NAMECALL                         R15 R3 K27 ["getText"]
-       85 CALL                             R15 3 1
-       86 SETTABLEKS                       R15 R14 K23 ["Text"]
-       88 CALL                             R12 2 -1
-       89 SETLIST                          R11 R12 -1 [1]
-       91 CALL                             R8 3 1
-       92 SETTABLEKS                       R8 R7 K18 ["MultiTouchPane"]
-       94 CALL                             R4 3 -1
-       95 RETURN                           R4 -1
+       23 DUPTABLE                         R7 K20 [{"MultiTouchPane"}]
+       24 GETUPVAL                         R8 0
+       25 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       27 GETUPVAL                         R9 2
+       28 DUPTABLE                         R10 K28 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["AlwaysExpanded"] = True, ["LayoutOrder"] = 3, ["Style"] = "Box", ["Text"]}]
+       29 GETIMPORT                        R11 K13 [Enum.AutomaticSize.Y]
+       31 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
+       33 GETIMPORT                        R11 K15 [Enum.HorizontalAlignment.Left]
+       35 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
+       37 GETIMPORT                        R11 K18 [Enum.FillDirection.Vertical]
+       39 SETTABLEKS                       R11 R10 K6 ["Layout"]
+       41 LOADK                            R13 K19 ["MultiTouchPane"]
+       42 LOADK                            R14 K29 ["MultiTouchPaneLabel"]
+       43 NAMECALL                         R11 R3 K30 ["getText"]
+       45 CALL                             R11 3 1
+       46 SETTABLEKS                       R11 R10 K27 ["Text"]
+       48 NEWTABLE                         R11 0 1
+       50 GETUPVAL                         R12 0
+       51 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       53 GETUPVAL                         R13 3
+       54 DUPTABLE                         R14 K35 [{["Checked"], ["Key"] = "multiTouchEmulationOn", ["OnClick"], ["Text"]}]
+       55 GETTABLEKS                       R15 R2 K33 ["multiTouchEmulationOn"]
+       57 SETTABLEKS                       R15 R14 K31 ["Checked"]
+       59 GETTABLEKS                       R15 R0 K36 ["toggleMultiTouchEmulationOn"]
+       61 SETTABLEKS                       R15 R14 K34 ["OnClick"]
+       63 LOADK                            R17 K19 ["MultiTouchPane"]
+       64 LOADK                            R18 K37 ["MultiTouchPaneCheckboxLabel"]
+       65 NAMECALL                         R15 R3 K30 ["getText"]
+       67 CALL                             R15 3 1
+       68 SETTABLEKS                       R15 R14 K27 ["Text"]
+       70 CALL                             R12 2 -1
+       71 SETLIST                          R11 R12 -1 [1]
+       73 CALL                             R8 3 1
+       74 SETTABLEKS                       R8 R7 K19 ["MultiTouchPane"]
+       76 CALL                             R4 3 -1
+       77 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -22,24 +22,22 @@ PROTO_1:
         5 RETURN                           R1 1
 
 PROTO_2:
-        0 DUPTABLE                         R2 K4 [{"BackgroundColor", "Image", "Key", "Title"}]
-        1 GETIMPORT                        R3 K7 [Color3.fromRGB]
-        3 GETIMPORT                        R4 K10 [math.random]
+        0 DUPTABLE                         R2 K5 [{[1], ["Image"] = "rbxassetid://6002241241", ["Key"], ["Title"]}]
+        1 GETIMPORT                        R3 K8 [Color3.fromRGB]
+        3 GETIMPORT                        R4 K11 [math.random]
         5 LOADN                            R5 255
         6 CALL                             R4 1 1
-        7 GETIMPORT                        R5 K10 [math.random]
+        7 GETIMPORT                        R5 K11 [math.random]
         9 LOADN                            R6 255
        10 CALL                             R5 1 1
-       11 GETIMPORT                        R6 K10 [math.random]
+       11 GETIMPORT                        R6 K11 [math.random]
        13 LOADN                            R7 255
        14 CALL                             R6 1 -1
        15 CALL                             R3 -1 1
        16 SETTABLEKS                       R3 R2 K0 ["BackgroundColor"]
-       18 LOADK                            R3 K11 ["rbxassetid://6002241241"]
-       19 SETTABLEKS                       R3 R2 K1 ["Image"]
-       21 SETTABLEKS                       R0 R2 K2 ["Key"]
-       23 SETTABLEKS                       R1 R2 K3 ["Title"]
-       25 RETURN                           R2 1
+       18 SETTABLEKS                       R0 R2 K3 ["Key"]
+       20 SETTABLEKS                       R1 R2 K4 ["Title"]
+       22 RETURN                           R2 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [print]
@@ -134,103 +132,85 @@ MAIN:
        45 CAPTURE                          VAL R3
        46 CAPTURE                          VAL R2
        47 DUPCLOSURE                       R6 K15 [PROTO_2]
-       48 DUPTABLE                         R7 K18 [{"summary", "stories"}]
-       49 LOADK                            R8 K19 ["A section with a title, horizontal list, and optional 'see all' button"]
-       50 SETTABLEKS                       R8 R7 K16 ["summary"]
-       52 NEWTABLE                         R8 0 2
-       54 DUPTABLE                         R9 K22 [{"name", "summary", "story"}]
-       55 LOADK                            R10 K23 ["Simple example"]
-       56 SETTABLEKS                       R10 R9 K20 ["name"]
-       58 LOADK                            R10 K24 ["a general example with data"]
-       59 SETTABLEKS                       R10 R9 K16 ["summary"]
-       61 DUPTABLE                         R11 K30 [{"Data", "Total", "Title", "OnClickSeeAll", "OnRenderItem"}]
-       62 NEWTABLE                         R12 0 4
-       64 LOADK                            R13 K31 ["This"]
-       65 LOADK                            R14 K32 ["is"]
-       66 LOADK                            R15 K33 ["a"]
-       67 LOADK                            R16 K34 ["test"]
-       68 SETLIST                          R12 R13 4 [1]
-       70 SETTABLEKS                       R12 R11 K25 ["Data"]
-       72 LOADN                            R12 123
-       73 SETTABLEKS                       R12 R11 K26 ["Total"]
-       75 LOADK                            R12 K35 ["Just a bunch of Frames"]
-       76 SETTABLEKS                       R12 R11 K27 ["Title"]
-       78 DUPCLOSURE                       R12 K36 [PROTO_3]
-       79 SETTABLEKS                       R12 R11 K28 ["OnClickSeeAll"]
-       81 DUPCLOSURE                       R12 K37 [PROTO_4]
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R12 R11 K29 ["OnRenderItem"]
-       85 NEWCLOSURE                       R10 P4
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R3
-       88 CAPTURE                          VAL R2
-       89 CAPTURE                          VAL R11
-       90 SETTABLEKS                       R10 R9 K21 ["story"]
-       92 DUPTABLE                         R10 K22 [{"name", "summary", "story"}]
-       93 LOADK                            R11 K38 ["Icon Tiles"]
-       94 SETTABLEKS                       R11 R10 K20 ["name"]
-       96 LOADK                            R11 K39 ["Tiles that represent products to buy"]
-       97 SETTABLEKS                       R11 R10 K16 ["summary"]
-       99 DUPTABLE                         R12 K40 [{"Data", "Title", "Total", "OnClickSeeAll", "OnRenderItem"}]
-      100 NEWTABLE                         R13 0 10
-      102 MOVE                             R14 R6
-      103 LOADK                            R15 K41 ["1"]
-      104 LOADK                            R16 K42 ["Blonde Hair"]
-      105 CALL                             R14 2 1
-      106 MOVE                             R15 R6
-      107 LOADK                            R16 K43 ["2"]
-      108 LOADK                            R17 K44 ["Cool Blonde Hair"]
-      109 CALL                             R15 2 1
-      110 MOVE                             R16 R6
-      111 LOADK                            R17 K45 ["3"]
-      112 LOADK                            R18 K46 ["Original Blonde"]
-      113 CALL                             R16 2 1
-      114 MOVE                             R17 R6
-      115 LOADK                            R18 K47 ["4"]
-      116 LOADK                            R19 K48 ["Blonde"]
-      117 CALL                             R17 2 1
-      118 MOVE                             R18 R6
-      119 LOADK                            R19 K49 ["5"]
-      120 LOADK                            R20 K50 ["Blondie"]
-      121 CALL                             R18 2 1
-      122 MOVE                             R19 R6
-      123 LOADK                            R20 K51 ["6"]
-      124 LOADK                            R21 K52 ["Bulond"]
-      125 CALL                             R19 2 1
-      126 MOVE                             R20 R6
-      127 LOADK                            R21 K53 ["7"]
-      128 LOADK                            R22 K54 ["Blund"]
-      129 CALL                             R20 2 1
-      130 MOVE                             R21 R6
-      131 LOADK                            R22 K55 ["8"]
-      132 LOADK                            R23 K56 ["Real Blonde"]
-      133 CALL                             R21 2 1
-      134 MOVE                             R22 R6
-      135 LOADK                            R23 K57 ["9"]
-      136 LOADK                            R24 K58 ["Blond"]
-      137 CALL                             R22 2 1
-      138 MOVE                             R23 R6
-      139 LOADK                            R24 K59 ["10"]
-      140 LOADK                            R25 K48 ["Blonde"]
-      141 CALL                             R23 2 1
-      142 SETLIST                          R13 R14 10 [1]
-      144 SETTABLEKS                       R13 R12 K25 ["Data"]
-      146 LOADK                            R13 K60 ["Check Out This Hair!"]
-      147 SETTABLEKS                       R13 R12 K27 ["Title"]
-      149 LOADK                            R13 K61 [12341115]
-      150 SETTABLEKS                       R13 R12 K26 ["Total"]
-      152 DUPCLOSURE                       R13 K62 [PROTO_5]
-      153 SETTABLEKS                       R13 R12 K28 ["OnClickSeeAll"]
-      155 DUPCLOSURE                       R13 K63 [PROTO_7]
-      156 CAPTURE                          VAL R1
-      157 CAPTURE                          VAL R4
-      158 SETTABLEKS                       R13 R12 K29 ["OnRenderItem"]
-      160 NEWCLOSURE                       R11 P4
-      161 CAPTURE                          VAL R1
-      162 CAPTURE                          VAL R3
-      163 CAPTURE                          VAL R2
-      164 CAPTURE                          VAL R12
-      165 SETTABLEKS                       R11 R10 K21 ["story"]
-      167 SETLIST                          R8 R9 2 [1]
-      169 SETTABLEKS                       R8 R7 K17 ["stories"]
-      171 RETURN                           R7 1
+       48 DUPTABLE                         R7 K19 [{["summary"] = "A section with a title, horizontal list, and optional 'see all' button", ["stories"]}]
+       49 NEWTABLE                         R8 0 2
+       51 DUPTABLE                         R9 K24 [{["name"] = "Simple example", ["summary"] = "a general example with data", ["story"]}]
+       52 DUPTABLE                         R11 K32 [{["Data"], ["Total"] = 123, ["Title"] = "Just a bunch of Frames", ["OnClickSeeAll"], ["OnRenderItem"]}]
+       53 NEWTABLE                         R12 0 4
+       55 LOADK                            R13 K33 ["This"]
+       56 LOADK                            R14 K34 ["is"]
+       57 LOADK                            R15 K35 ["a"]
+       58 LOADK                            R16 K36 ["test"]
+       59 SETLIST                          R12 R13 4 [1]
+       61 SETTABLEKS                       R12 R11 K25 ["Data"]
+       63 DUPCLOSURE                       R12 K37 [PROTO_3]
+       64 SETTABLEKS                       R12 R11 K30 ["OnClickSeeAll"]
+       66 DUPCLOSURE                       R12 K38 [PROTO_4]
+       67 CAPTURE                          VAL R1
+       68 SETTABLEKS                       R12 R11 K31 ["OnRenderItem"]
+       70 NEWCLOSURE                       R10 P4
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R3
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R11
+       75 SETTABLEKS                       R10 R9 K23 ["story"]
+       77 DUPTABLE                         R10 K41 [{["name"] = "Icon Tiles", ["summary"] = "Tiles that represent products to buy", ["story"]}]
+       78 DUPTABLE                         R12 K44 [{["Data"], ["Title"] = "Check Out This Hair!", ["Total"] = 12341115, ["OnClickSeeAll"], ["OnRenderItem"]}]
+       79 NEWTABLE                         R13 0 10
+       81 MOVE                             R14 R6
+       82 LOADK                            R15 K45 ["1"]
+       83 LOADK                            R16 K46 ["Blonde Hair"]
+       84 CALL                             R14 2 1
+       85 MOVE                             R15 R6
+       86 LOADK                            R16 K47 ["2"]
+       87 LOADK                            R17 K48 ["Cool Blonde Hair"]
+       88 CALL                             R15 2 1
+       89 MOVE                             R16 R6
+       90 LOADK                            R17 K49 ["3"]
+       91 LOADK                            R18 K50 ["Original Blonde"]
+       92 CALL                             R16 2 1
+       93 MOVE                             R17 R6
+       94 LOADK                            R18 K51 ["4"]
+       95 LOADK                            R19 K52 ["Blonde"]
+       96 CALL                             R17 2 1
+       97 MOVE                             R18 R6
+       98 LOADK                            R19 K53 ["5"]
+       99 LOADK                            R20 K54 ["Blondie"]
+      100 CALL                             R18 2 1
+      101 MOVE                             R19 R6
+      102 LOADK                            R20 K55 ["6"]
+      103 LOADK                            R21 K56 ["Bulond"]
+      104 CALL                             R19 2 1
+      105 MOVE                             R20 R6
+      106 LOADK                            R21 K57 ["7"]
+      107 LOADK                            R22 K58 ["Blund"]
+      108 CALL                             R20 2 1
+      109 MOVE                             R21 R6
+      110 LOADK                            R22 K59 ["8"]
+      111 LOADK                            R23 K60 ["Real Blonde"]
+      112 CALL                             R21 2 1
+      113 MOVE                             R22 R6
+      114 LOADK                            R23 K61 ["9"]
+      115 LOADK                            R24 K62 ["Blond"]
+      116 CALL                             R22 2 1
+      117 MOVE                             R23 R6
+      118 LOADK                            R24 K63 ["10"]
+      119 LOADK                            R25 K52 ["Blonde"]
+      120 CALL                             R23 2 1
+      121 SETLIST                          R13 R14 10 [1]
+      123 SETTABLEKS                       R13 R12 K25 ["Data"]
+      125 DUPCLOSURE                       R13 K64 [PROTO_5]
+      126 SETTABLEKS                       R13 R12 K30 ["OnClickSeeAll"]
+      128 DUPCLOSURE                       R13 K65 [PROTO_7]
+      129 CAPTURE                          VAL R1
+      130 CAPTURE                          VAL R4
+      131 SETTABLEKS                       R13 R12 K31 ["OnRenderItem"]
+      133 NEWCLOSURE                       R11 P4
+      134 CAPTURE                          VAL R1
+      135 CAPTURE                          VAL R3
+      136 CAPTURE                          VAL R2
+      137 CAPTURE                          VAL R12
+      138 SETTABLEKS                       R11 R10 K23 ["story"]
+      140 SETLIST                          R8 R9 2 [1]
+      142 SETTABLEKS                       R8 R7 K18 ["stories"]
+      144 RETURN                           R7 1

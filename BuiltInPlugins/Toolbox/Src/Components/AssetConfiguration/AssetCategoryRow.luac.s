@@ -11,96 +11,76 @@ PROTO_0:
        14 GETTABLEKS                       R3 R3 K3 ["createElement"]
        16 GETUPVAL                         R4 1
        17 GETTABLEKS                       R4 R4 K4 ["View"]
-       19 DUPTABLE                         R5 K7 [{"tag", "LayoutOrder"}]
-       20 LOADK                            R6 K8 ["row align-y-center gap-small auto-xy"]
-       21 SETTABLEKS                       R6 R5 K5 ["tag"]
-       23 GETTABLEKS                       R6 R0 K6 ["LayoutOrder"]
-       25 SETTABLEKS                       R6 R5 K6 ["LayoutOrder"]
-       27 DUPTABLE                         R6 K13 [{"Dropdown", "ValidationResult", "ErrorIconButton", "ErrorMessageTextButton"}]
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       31 GETUPVAL                         R8 2
-       32 DUPTABLE                         R9 K20 [{"LayoutOrder", "items", "selectedDropDownIndex", "onItemClicked", "placeholder", "isDisabled", "width"}]
-       33 LOADN                            R10 1
-       34 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       36 GETTABLEKS                       R10 R0 K21 ["dropdownItems"]
-       38 SETTABLEKS                       R10 R9 K14 ["items"]
-       40 GETTABLEKS                       R10 R0 K15 ["selectedDropDownIndex"]
-       42 SETTABLEKS                       R10 R9 K15 ["selectedDropDownIndex"]
-       44 GETTABLEKS                       R10 R0 K16 ["onItemClicked"]
-       46 SETTABLEKS                       R10 R9 K16 ["onItemClicked"]
-       48 GETTABLEKS                       R10 R0 K17 ["placeholder"]
-       50 SETTABLEKS                       R10 R9 K17 ["placeholder"]
-       52 LOADB                            R10 0
-       53 SETTABLEKS                       R10 R9 K18 ["isDisabled"]
-       55 GETTABLEKS                       R10 R0 K22 ["dropdownWidth"]
-       57 SETTABLEKS                       R10 R9 K19 ["width"]
-       59 CALL                             R7 2 1
-       60 SETTABLEKS                       R7 R6 K9 ["Dropdown"]
-       62 JUMPIF                           R1 ; [+27]
-       63 JUMPIFNOT                        R2 ; [+26]
-       64 GETUPVAL                         R7 0
-       65 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       67 GETUPVAL                         R8 1
-       68 GETTABLEKS                       R8 R8 K23 ["Text"]
-       70 DUPTABLE                         R9 K25 [{"tag", "Text", "textStyle", "LayoutOrder"}]
-       71 LOADK                            R10 K26 ["auto-xy text-body-medium"]
-       72 SETTABLEKS                       R10 R9 K5 ["tag"]
-       74 GETTABLEKS                       R10 R0 K1 ["validationStatusMessage"]
-       76 SETTABLEKS                       R10 R9 K23 ["Text"]
-       78 DUPTABLE                         R10 K28 [{"Color3"}]
-       79 GETTABLEKS                       R11 R0 K29 ["validationStatusColor"]
-       81 SETTABLEKS                       R11 R10 K27 ["Color3"]
-       83 SETTABLEKS                       R10 R9 K24 ["textStyle"]
-       85 LOADN                            R10 2
-       86 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       88 CALL                             R7 2 1
-       89 JUMP                             ; [+1]
-       90 LOADNIL                          R7
-       91 SETTABLEKS                       R7 R6 K10 ["ValidationResult"]
-       93 JUMPIFNOT                        R1 ; [+29]
-       94 GETUPVAL                         R7 0
-       95 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       97 GETUPVAL                         R8 1
-       98 GETTABLEKS                       R8 R8 K30 ["Image"]
-      100 DUPTABLE                         R9 K33 [{"tag", "Image", "Size", "onActivated", "LayoutOrder"}]
-      101 LOADK                            R10 K34 ["content-alert shrink-0"]
-      102 SETTABLEKS                       R10 R9 K5 ["tag"]
-      104 LOADK                            R10 K35 ["rbxasset://textures/ui/ErrorIcon.png"]
-      105 SETTABLEKS                       R10 R9 K30 ["Image"]
-      107 GETIMPORT                        R10 K38 [UDim2.fromOffset]
-      109 LOADN                            R11 24
-      110 LOADN                            R12 24
-      111 CALL                             R10 2 1
-      112 SETTABLEKS                       R10 R9 K31 ["Size"]
-      114 GETTABLEKS                       R10 R0 K39 ["onErrorClicked"]
-      116 SETTABLEKS                       R10 R9 K32 ["onActivated"]
-      118 LOADN                            R10 2
-      119 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-      121 CALL                             R7 2 1
-      122 JUMP                             ; [+1]
-      123 LOADNIL                          R7
-      124 SETTABLEKS                       R7 R6 K11 ["ErrorIconButton"]
-      126 JUMPIFNOT                        R1 ; [+23]
-      127 GETUPVAL                         R7 0
-      128 GETTABLEKS                       R7 R7 K3 ["createElement"]
-      130 GETUPVAL                         R8 1
-      131 GETTABLEKS                       R8 R8 K23 ["Text"]
-      133 DUPTABLE                         R9 K40 [{"tag", "Text", "onActivated", "LayoutOrder"}]
-      134 LOADK                            R10 K41 ["auto-xy content-alert text-body-medium"]
-      135 SETTABLEKS                       R10 R9 K5 ["tag"]
-      137 GETTABLEKS                       R10 R0 K1 ["validationStatusMessage"]
-      139 SETTABLEKS                       R10 R9 K23 ["Text"]
-      141 GETTABLEKS                       R10 R0 K39 ["onErrorClicked"]
-      143 SETTABLEKS                       R10 R9 K32 ["onActivated"]
-      145 LOADN                            R10 3
-      146 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-      148 CALL                             R7 2 1
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R7
-      151 SETTABLEKS                       R7 R6 K12 ["ErrorMessageTextButton"]
-      153 CALL                             R3 3 -1
-      154 RETURN                           R3 -1
+       19 DUPTABLE                         R5 K8 [{["tag"] = "row align-y-center gap-small auto-xy", ["LayoutOrder"]}]
+       20 GETTABLEKS                       R6 R0 K7 ["LayoutOrder"]
+       22 SETTABLEKS                       R6 R5 K7 ["LayoutOrder"]
+       24 DUPTABLE                         R6 K13 [{"Dropdown", "ValidationResult", "ErrorIconButton", "ErrorMessageTextButton"}]
+       25 GETUPVAL                         R7 0
+       26 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       28 GETUPVAL                         R8 2
+       29 DUPTABLE                         R9 K22 [{["LayoutOrder"] = 1, ["items"], ["selectedDropDownIndex"], ["onItemClicked"], ["placeholder"], ["isDisabled"] = False, ["width"]}]
+       30 GETTABLEKS                       R10 R0 K23 ["dropdownItems"]
+       32 SETTABLEKS                       R10 R9 K15 ["items"]
+       34 GETTABLEKS                       R10 R0 K16 ["selectedDropDownIndex"]
+       36 SETTABLEKS                       R10 R9 K16 ["selectedDropDownIndex"]
+       38 GETTABLEKS                       R10 R0 K17 ["onItemClicked"]
+       40 SETTABLEKS                       R10 R9 K17 ["onItemClicked"]
+       42 GETTABLEKS                       R10 R0 K18 ["placeholder"]
+       44 SETTABLEKS                       R10 R9 K18 ["placeholder"]
+       46 GETTABLEKS                       R10 R0 K24 ["dropdownWidth"]
+       48 SETTABLEKS                       R10 R9 K21 ["width"]
+       50 CALL                             R7 2 1
+       51 SETTABLEKS                       R7 R6 K9 ["Dropdown"]
+       53 JUMPIF                           R1 ; [+21]
+       54 JUMPIFNOT                        R2 ; [+20]
+       55 GETUPVAL                         R7 0
+       56 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K25 ["Text"]
+       61 DUPTABLE                         R9 K29 [{["tag"] = "auto-xy text-body-medium", ["Text"], ["textStyle"], ["LayoutOrder"] = 2}]
+       62 GETTABLEKS                       R10 R0 K1 ["validationStatusMessage"]
+       64 SETTABLEKS                       R10 R9 K25 ["Text"]
+       66 DUPTABLE                         R10 K31 [{"Color3"}]
+       67 GETTABLEKS                       R11 R0 K32 ["validationStatusColor"]
+       69 SETTABLEKS                       R11 R10 K30 ["Color3"]
+       71 SETTABLEKS                       R10 R9 K27 ["textStyle"]
+       73 CALL                             R7 2 1
+       74 JUMP                             ; [+1]
+       75 LOADNIL                          R7
+       76 SETTABLEKS                       R7 R6 K10 ["ValidationResult"]
+       78 JUMPIFNOT                        R1 ; [+20]
+       79 GETUPVAL                         R7 0
+       80 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       82 GETUPVAL                         R8 1
+       83 GETTABLEKS                       R8 R8 K33 ["Image"]
+       85 DUPTABLE                         R9 K38 [{["tag"] = "shrink-0 content-alert", ["Image"] = "rbxasset://textures/ui/ErrorIcon.png", ["Size"], ["onActivated"], ["LayoutOrder"] = 2}]
+       86 GETIMPORT                        R10 K41 [UDim2.fromOffset]
+       88 LOADN                            R11 24
+       89 LOADN                            R12 24
+       90 CALL                             R10 2 1
+       91 SETTABLEKS                       R10 R9 K36 ["Size"]
+       93 GETTABLEKS                       R10 R0 K42 ["onErrorClicked"]
+       95 SETTABLEKS                       R10 R9 K37 ["onActivated"]
+       97 CALL                             R7 2 1
+       98 JUMP                             ; [+1]
+       99 LOADNIL                          R7
+      100 SETTABLEKS                       R7 R6 K11 ["ErrorIconButton"]
+      102 JUMPIFNOT                        R1 ; [+17]
+      103 GETUPVAL                         R7 0
+      104 GETTABLEKS                       R7 R7 K3 ["createElement"]
+      106 GETUPVAL                         R8 1
+      107 GETTABLEKS                       R8 R8 K25 ["Text"]
+      109 DUPTABLE                         R9 K45 [{["tag"] = "auto-xy text-body-medium content-alert", ["Text"], ["onActivated"], ["LayoutOrder"] = 3}]
+      110 GETTABLEKS                       R10 R0 K1 ["validationStatusMessage"]
+      112 SETTABLEKS                       R10 R9 K25 ["Text"]
+      114 GETTABLEKS                       R10 R0 K42 ["onErrorClicked"]
+      116 SETTABLEKS                       R10 R9 K37 ["onActivated"]
+      118 CALL                             R7 2 1
+      119 JUMP                             ; [+1]
+      120 LOADNIL                          R7
+      121 SETTABLEKS                       R7 R6 K12 ["ErrorMessageTextButton"]
+      123 CALL                             R3 3 -1
+      124 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

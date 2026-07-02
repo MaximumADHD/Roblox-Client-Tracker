@@ -184,7 +184,7 @@ PROTO_7:
        77 GETTABLEKS                       R2 R2 K0 ["E"]
        79 GETIMPORT                        R3 K13 [UDim2.new]
        81 LOADN                            R4 1
-       82 LOADN                            R5 254
+       82 LOADN                            R5 -2
        83 LOADK                            R6 K4 [0.5]
        84 LOADN                            R7 0
        85 CALL                             R3 4 1
@@ -193,9 +193,9 @@ PROTO_7:
        88 GETTABLEKS                       R2 R2 K5 ["SE"]
        90 GETIMPORT                        R3 K13 [UDim2.new]
        92 LOADN                            R4 1
-       93 LOADN                            R5 254
+       93 LOADN                            R5 -2
        94 LOADN                            R6 1
-       95 LOADN                            R7 254
+       95 LOADN                            R7 -2
        96 CALL                             R3 4 1
        97 SETTABLE                         R3 R1 R2
        98 GETUPVAL                         R2 0
@@ -204,7 +204,7 @@ PROTO_7:
       103 LOADK                            R4 K4 [0.5]
       104 LOADN                            R5 0
       105 LOADN                            R6 1
-      106 LOADN                            R7 254
+      106 LOADN                            R7 -2
       107 CALL                             R3 4 1
       108 SETTABLE                         R3 R1 R2
       109 GETUPVAL                         R2 0
@@ -213,7 +213,7 @@ PROTO_7:
       114 LOADN                            R4 0
       115 LOADN                            R5 2
       116 LOADN                            R6 1
-      117 LOADN                            R7 254
+      117 LOADN                            R7 -2
       118 CALL                             R3 4 1
       119 SETTABLE                         R3 R1 R2
       120 GETUPVAL                         R2 0
@@ -247,7 +247,7 @@ PROTO_7:
       154 GETTABLEKS                       R2 R2 K11 ["NE"]
       156 GETIMPORT                        R3 K13 [UDim2.new]
       158 LOADN                            R4 1
-      159 LOADN                            R5 254
+      159 LOADN                            R5 -2
       160 LOADN                            R6 0
       161 LOADN                            R7 2
       162 CALL                             R3 4 1
@@ -325,9 +325,9 @@ PROTO_7:
       259 SETTABLEKS                       R7 R6 K29 ["Size"]
       261 GETIMPORT                        R7 K13 [UDim2.new]
       263 LOADN                            R8 0
-      264 LOADN                            R9 252
+      264 LOADN                            R9 -4
       265 LOADN                            R10 0
-      266 LOADN                            R11 253
+      266 LOADN                            R11 -3
       267 CALL                             R7 4 1
       268 SETTABLEKS                       R7 R6 K30 ["Position"]
       270 LOADN                            R7 1
@@ -1004,7 +1004,7 @@ PROTO_24:
       111 JUMPIFNOTEQ                      R6 R7 ; [+60]
       113 GETIMPORT                        R6 K3 [Vector2.new]
       115 LOADN                            R7 1
-      116 LOADN                            R8 255
+      116 LOADN                            R8 -1
       117 CALL                             R6 2 1
       118 GETUPVAL                         R9 7
       119 GETTABLEKS                       R9 R9 K10 ["BottomLeft"]
@@ -1048,7 +1048,7 @@ PROTO_24:
       173 GETUPVAL                         R7 9
       174 JUMPIFNOTEQ                      R6 R7 ; [+60]
       176 GETIMPORT                        R6 K3 [Vector2.new]
-      178 LOADN                            R7 255
+      178 LOADN                            R7 -1
       179 LOADN                            R8 1
       180 CALL                             R6 2 1
       181 GETUPVAL                         R9 7
@@ -1093,8 +1093,8 @@ PROTO_24:
       236 GETUPVAL                         R7 10
       237 JUMPIFNOTEQ                      R6 R7 ; [+61]
       239 GETIMPORT                        R6 K3 [Vector2.new]
-      241 LOADN                            R7 255
-      242 LOADN                            R8 255
+      241 LOADN                            R7 -1
+      242 LOADN                            R8 -1
       243 CALL                             R6 2 1
       244 GETUPVAL                         R9 7
       245 GETTABLEKS                       R9 R9 K9 ["BottomRight"]

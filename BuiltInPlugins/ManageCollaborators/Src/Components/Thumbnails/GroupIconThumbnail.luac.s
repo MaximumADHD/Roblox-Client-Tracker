@@ -22,17 +22,15 @@ PROTO_1:
         6 GETUPVAL                         R3 1
         7 GETTABLEKS                       R3 R3 K1 ["createElement"]
         9 LOADK                            R4 K2 ["ImageLabel"]
-       10 DUPTABLE                         R5 K6 [{"Size", "BackgroundTransparency", "Image"}]
-       11 GETIMPORT                        R6 K9 [UDim2.fromScale]
+       10 DUPTABLE                         R5 K7 [{["Size"], ["BackgroundTransparency"] = 1, ["Image"]}]
+       11 GETIMPORT                        R6 K10 [UDim2.fromScale]
        13 LOADN                            R7 1
        14 LOADN                            R8 1
        15 CALL                             R6 2 1
        16 SETTABLEKS                       R6 R5 K3 ["Size"]
-       18 LOADN                            R6 1
-       19 SETTABLEKS                       R6 R5 K4 ["BackgroundTransparency"]
-       21 SETTABLEKS                       R2 R5 K5 ["Image"]
-       23 CALL                             R3 2 -1
-       24 RETURN                           R3 -1
+       18 SETTABLEKS                       R2 R5 K6 ["Image"]
+       20 CALL                             R3 2 -1
+       21 RETURN                           R3 -1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -45,30 +43,26 @@ PROTO_2:
        14 GETUPVAL                         R8 0
        15 GETTABLEKS                       R8 R8 K7 ["createElement"]
        17 LOADK                            R9 K8 ["Frame"]
-       18 DUPTABLE                         R10 K10 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "LayoutOrder", "ZIndex"}]
-       19 LOADN                            R11 1
-       20 SETTABLEKS                       R11 R10 K9 ["BackgroundTransparency"]
-       22 SETTABLEKS                       R3 R10 K2 ["Size"]
-       24 SETTABLEKS                       R4 R10 K3 ["Position"]
-       26 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
-       28 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
-       30 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
-       32 DUPTABLE                         R11 K12 [{"AutoThumbnail"}]
-       33 GETUPVAL                         R12 0
-       34 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       36 GETUPVAL                         R13 1
-       37 DUPTABLE                         R14 K15 [{"Id", "ThumbnailType", "RenderContents"}]
-       38 SETTABLEKS                       R2 R14 K1 ["Id"]
-       40 LOADK                            R15 K16 ["GroupIcon"]
-       41 SETTABLEKS                       R15 R14 K13 ["ThumbnailType"]
-       43 NEWCLOSURE                       R15 P0
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          UPVAL U0
-       46 SETTABLEKS                       R15 R14 K14 ["RenderContents"]
-       48 CALL                             R12 2 1
-       49 SETTABLEKS                       R12 R11 K11 ["AutoThumbnail"]
-       51 CALL                             R8 3 -1
-       52 RETURN                           R8 -1
+       18 DUPTABLE                         R10 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["LayoutOrder"], ["ZIndex"]}]
+       19 SETTABLEKS                       R3 R10 K2 ["Size"]
+       21 SETTABLEKS                       R4 R10 K3 ["Position"]
+       23 SETTABLEKS                       R5 R10 K4 ["AnchorPoint"]
+       25 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
+       27 SETTABLEKS                       R7 R10 K6 ["ZIndex"]
+       29 DUPTABLE                         R11 K13 [{"AutoThumbnail"}]
+       30 GETUPVAL                         R12 0
+       31 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       33 GETUPVAL                         R13 1
+       34 DUPTABLE                         R14 K17 [{["Id"], ["ThumbnailType"] = "GroupIcon", ["RenderContents"]}]
+       35 SETTABLEKS                       R2 R14 K1 ["Id"]
+       37 NEWCLOSURE                       R15 P0
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U0
+       40 SETTABLEKS                       R15 R14 K16 ["RenderContents"]
+       42 CALL                             R12 2 1
+       43 SETTABLEKS                       R12 R11 K12 ["AutoThumbnail"]
+       45 CALL                             R8 3 -1
+       46 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

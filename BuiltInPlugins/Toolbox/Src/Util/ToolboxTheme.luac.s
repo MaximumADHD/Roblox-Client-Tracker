@@ -35,15 +35,15 @@ PROTO_2:
         4 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K9 [{"_externalThemeGetter", "_isDarkThemeGetter", "_externalThemeChangedSignal", "_studioStyleGuideColor", "_studioStyleGuideModifier", "_externalThemeChangedConnection", "_values", "_UILibraryTheme", "_signal"}]
+        0 DUPTABLE                         R1 K10 [{[1], ["_isDarkThemeGetter"], ["_externalThemeChangedSignal"], ["_studioStyleGuideColor"], ["_studioStyleGuideModifier"], ["_externalThemeChangedConnection"] = , ["_values"], ["_UILibraryTheme"], ["_signal"]}]
         1 GETTABLEKS                       R3 R0 K11 ["getTheme"]
-        3 ORK                              R2 R3 K10 []
+        3 ORK                              R2 R3 K6 []
         4 SETTABLEKS                       R2 R1 K0 ["_externalThemeGetter"]
         6 GETTABLEKS                       R3 R0 K13 ["isDarkerTheme"]
         8 ORK                              R2 R3 K12 [False]
         9 SETTABLEKS                       R2 R1 K1 ["_isDarkThemeGetter"]
        11 GETTABLEKS                       R3 R0 K14 ["themeChanged"]
-       13 ORK                              R2 R3 K10 []
+       13 ORK                              R2 R3 K6 []
        14 SETTABLEKS                       R2 R1 K2 ["_externalThemeChangedSignal"]
        16 GETTABLEKS                       R2 R0 K15 ["studioStyleGuideColor"]
        18 JUMPIF                           R2 ; [+2]
@@ -53,36 +53,34 @@ PROTO_3:
        25 JUMPIF                           R2 ; [+2]
        26 GETIMPORT                        R2 K21 [Enum.StudioStyleGuideModifier]
        28 SETTABLEKS                       R2 R1 K4 ["_studioStyleGuideModifier"]
-       30 LOADNIL                          R2
-       31 SETTABLEKS                       R2 R1 K5 ["_externalThemeChangedConnection"]
-       33 NEWTABLE                         R2 0 0
-       35 SETTABLEKS                       R2 R1 K6 ["_values"]
-       37 NEWTABLE                         R2 0 0
-       39 SETTABLEKS                       R2 R1 K7 ["_UILibraryTheme"]
-       41 GETUPVAL                         R2 0
-       42 CALL                             R2 0 1
-       43 SETTABLEKS                       R2 R1 K8 ["_signal"]
-       45 GETUPVAL                         R2 1
-       46 GETTABLEKS                       R3 R1 K6 ["_values"]
-       48 LOADK                            R4 K22 ["theme"]
-       49 CALL                             R2 2 1
-       50 SETTABLEKS                       R2 R1 K23 ["values"]
-       52 GETUPVAL                         R4 2
-       53 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
-       55 MOVE                             R3 R1
-       56 GETIMPORT                        R2 K25 [setmetatable]
-       58 CALL                             R2 2 0
+       30 NEWTABLE                         R2 0 0
+       32 SETTABLEKS                       R2 R1 K7 ["_values"]
+       34 NEWTABLE                         R2 0 0
+       36 SETTABLEKS                       R2 R1 K8 ["_UILibraryTheme"]
+       38 GETUPVAL                         R2 0
+       39 CALL                             R2 0 1
+       40 SETTABLEKS                       R2 R1 K9 ["_signal"]
+       42 GETUPVAL                         R2 1
+       43 GETTABLEKS                       R3 R1 K7 ["_values"]
+       45 LOADK                            R4 K22 ["theme"]
+       46 CALL                             R2 2 1
+       47 SETTABLEKS                       R2 R1 K23 ["values"]
+       49 GETUPVAL                         R4 2
+       50 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       52 MOVE                             R3 R1
+       53 GETIMPORT                        R2 K25 [setmetatable]
+       55 CALL                             R2 2 0
+       56 GETTABLEKS                       R2 R1 K2 ["_externalThemeChangedSignal"]
+       58 JUMPIFNOT                        R2 ; [+9]
        59 GETTABLEKS                       R2 R1 K2 ["_externalThemeChangedSignal"]
-       61 JUMPIFNOT                        R2 ; [+9]
-       62 GETTABLEKS                       R2 R1 K2 ["_externalThemeChangedSignal"]
-       64 NEWCLOSURE                       R4 P0
-       65 CAPTURE                          VAL R1
-       66 NAMECALL                         R2 R2 K26 ["Connect"]
-       68 CALL                             R2 2 1
-       69 SETTABLEKS                       R2 R1 K5 ["_externalThemeChangedConnection"]
-       71 NAMECALL                         R2 R1 K27 ["_recalculateTheme"]
-       73 CALL                             R2 1 0
-       74 RETURN                           R1 1
+       61 NEWCLOSURE                       R4 P0
+       62 CAPTURE                          VAL R1
+       63 NAMECALL                         R2 R2 K26 ["Connect"]
+       65 CALL                             R2 2 1
+       66 SETTABLEKS                       R2 R1 K5 ["_externalThemeChangedConnection"]
+       68 NAMECALL                         R2 R1 K27 ["_recalculateTheme"]
+       70 CALL                             R2 1 0
+       71 RETURN                           R1 1
 
 PROTO_4:
         0 PREPVARARGS                      1

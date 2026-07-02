@@ -120,124 +120,104 @@ PROTO_2:
        77 SETTABLEKS                       R9 R8 K20 ["Layout"]
        79 GETTABLEKS                       R10 R0 K0 ["props"]
        81 GETTABLEKS                       R10 R10 K31 ["ItemButtonContentOverride"]
-       83 JUMPIFNOT                        R10 ; [+93]
+       83 JUMPIFNOT                        R10 ; [+78]
        84 GETUPVAL                         R9 1
        85 GETTABLEKS                       R9 R9 K5 ["createElement"]
        87 LOADK                            R10 K32 ["Frame"]
-       88 DUPTABLE                         R11 K34 [{"BackgroundTransparency", "Size"}]
-       89 LOADN                            R12 1
-       90 SETTABLEKS                       R12 R11 K33 ["BackgroundTransparency"]
-       92 GETIMPORT                        R12 K37 [UDim2.fromScale]
-       94 LOADN                            R13 1
-       95 LOADN                            R14 1
-       96 CALL                             R12 2 1
-       97 SETTABLEKS                       R12 R11 K9 ["Size"]
-       99 DUPTABLE                         R12 K39 [{"ItemLabel", "ButtonComponent"}]
-      100 GETUPVAL                         R13 1
-      101 GETTABLEKS                       R13 R13 K5 ["createElement"]
-      103 LOADK                            R14 K40 ["TextLabel"]
-      104 DUPTABLE                         R15 K48 [{"BackgroundTransparency", "ClipsDescendants", "Font", "LayoutOrder", "RichText", "Size", "Text", "TextColor3", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
-      105 LOADN                            R16 1
-      106 SETTABLEKS                       R16 R15 K33 ["BackgroundTransparency"]
-      108 LOADB                            R16 1
-      109 SETTABLEKS                       R16 R15 K41 ["ClipsDescendants"]
-      111 GETTABLEKS                       R16 R2 K42 ["Font"]
-      113 SETTABLEKS                       R16 R15 K42 ["Font"]
-      115 LOADN                            R16 1
-      116 SETTABLEKS                       R16 R15 K10 ["LayoutOrder"]
-      118 LOADB                            R16 1
-      119 SETTABLEKS                       R16 R15 K43 ["RichText"]
-      121 GETIMPORT                        R16 K50 [UDim2.new]
-      123 LOADN                            R17 1
-      124 LOADN                            R18 216
-      125 LOADN                            R19 1
-      126 LOADN                            R20 0
-      127 CALL                             R16 4 1
-      128 SETTABLEKS                       R16 R15 K9 ["Size"]
-      130 SETTABLEKS                       R4 R15 K4 ["Text"]
-      132 GETTABLEKS                       R16 R2 K51 ["TextColor"]
-      134 SETTABLEKS                       R16 R15 K44 ["TextColor3"]
-      136 SETTABLEKS                       R3 R15 K2 ["TextSize"]
-      138 GETIMPORT                        R16 K53 [Enum.TextTruncate.AtEnd]
-      140 SETTABLEKS                       R16 R15 K45 ["TextTruncate"]
-      142 GETIMPORT                        R16 K55 [Enum.TextXAlignment.Left]
-      144 SETTABLEKS                       R16 R15 K46 ["TextXAlignment"]
-      146 GETIMPORT                        R16 K57 [Enum.TextYAlignment.Center]
-      148 SETTABLEKS                       R16 R15 K47 ["TextYAlignment"]
-      150 DUPTABLE                         R16 K59 [{"Padding"}]
-      151 GETUPVAL                         R17 1
-      152 GETTABLEKS                       R17 R17 K5 ["createElement"]
-      154 LOADK                            R18 K60 ["UIPadding"]
-      155 DUPTABLE                         R19 K62 [{"PaddingLeft"}]
-      156 GETIMPORT                        R20 K64 [UDim.new]
-      158 LOADN                            R21 0
-      159 LOADN                            R22 10
-      160 CALL                             R20 2 1
-      161 SETTABLEKS                       R20 R19 K61 ["PaddingLeft"]
-      163 CALL                             R17 2 1
-      164 SETTABLEKS                       R17 R16 K58 ["Padding"]
-      166 CALL                             R13 3 1
-      167 SETTABLEKS                       R13 R12 K21 ["ItemLabel"]
-      169 GETTABLEKS                       R13 R0 K0 ["props"]
-      171 GETTABLEKS                       R13 R13 K31 ["ItemButtonContentOverride"]
-      173 SETTABLEKS                       R13 R12 K38 ["ButtonComponent"]
-      175 CALL                             R9 3 1
-      176 JUMP                             ; [+62]
-      177 GETUPVAL                         R9 1
-      178 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      180 LOADK                            R10 K40 ["TextLabel"]
-      181 DUPTABLE                         R11 K48 [{"BackgroundTransparency", "ClipsDescendants", "Font", "LayoutOrder", "RichText", "Size", "Text", "TextColor3", "TextSize", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
-      182 LOADN                            R12 1
-      183 SETTABLEKS                       R12 R11 K33 ["BackgroundTransparency"]
-      185 LOADB                            R12 1
-      186 SETTABLEKS                       R12 R11 K41 ["ClipsDescendants"]
-      188 GETTABLEKS                       R12 R2 K42 ["Font"]
-      190 SETTABLEKS                       R12 R11 K42 ["Font"]
-      192 LOADN                            R12 1
-      193 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-      195 LOADB                            R12 1
-      196 SETTABLEKS                       R12 R11 K43 ["RichText"]
-      198 GETTABLEKS                       R12 R1 K9 ["Size"]
-      200 SETTABLEKS                       R12 R11 K9 ["Size"]
-      202 SETTABLEKS                       R4 R11 K4 ["Text"]
-      204 GETTABLEKS                       R12 R2 K51 ["TextColor"]
-      206 SETTABLEKS                       R12 R11 K44 ["TextColor3"]
-      208 SETTABLEKS                       R3 R11 K2 ["TextSize"]
-      210 GETIMPORT                        R12 K53 [Enum.TextTruncate.AtEnd]
-      212 SETTABLEKS                       R12 R11 K45 ["TextTruncate"]
-      214 GETIMPORT                        R12 K55 [Enum.TextXAlignment.Left]
-      216 SETTABLEKS                       R12 R11 K46 ["TextXAlignment"]
-      218 GETIMPORT                        R12 K57 [Enum.TextYAlignment.Center]
-      220 SETTABLEKS                       R12 R11 K47 ["TextYAlignment"]
-      222 DUPTABLE                         R12 K59 [{"Padding"}]
-      223 GETUPVAL                         R13 1
-      224 GETTABLEKS                       R13 R13 K5 ["createElement"]
-      226 LOADK                            R14 K60 ["UIPadding"]
-      227 DUPTABLE                         R15 K62 [{"PaddingLeft"}]
-      228 GETIMPORT                        R16 K64 [UDim.new]
-      230 LOADN                            R17 0
-      231 LOADN                            R18 10
-      232 CALL                             R16 2 1
-      233 SETTABLEKS                       R16 R15 K61 ["PaddingLeft"]
-      235 CALL                             R13 2 1
-      236 SETTABLEKS                       R13 R12 K58 ["Padding"]
-      238 CALL                             R9 3 1
-      239 SETTABLEKS                       R9 R8 K21 ["ItemLabel"]
-      241 GETTABLEKS                       R10 R1 K65 ["HideSeparator"]
-      243 NOT                              R9 R10
-      244 JUMPIFNOT                        R9 ; [+13]
-      245 GETUPVAL                         R9 1
-      246 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      248 GETUPVAL                         R10 3
-      249 DUPTABLE                         R11 K67 [{"DominantAxis", "LayoutOrder"}]
-      250 GETIMPORT                        R12 K69 [Enum.DominantAxis.Width]
-      252 SETTABLEKS                       R12 R11 K66 ["DominantAxis"]
-      254 LOADN                            R12 2
-      255 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-      257 CALL                             R9 2 1
-      258 SETTABLEKS                       R9 R8 K22 ["Separator"]
-      260 CALL                             R5 3 -1
-      261 RETURN                           R5 -1
+       88 DUPTABLE                         R11 K35 [{["BackgroundTransparency"] = 1, ["Size"]}]
+       89 GETIMPORT                        R12 K38 [UDim2.fromScale]
+       91 LOADN                            R13 1
+       92 LOADN                            R14 1
+       93 CALL                             R12 2 1
+       94 SETTABLEKS                       R12 R11 K9 ["Size"]
+       96 DUPTABLE                         R12 K40 [{"ItemLabel", "ButtonComponent"}]
+       97 GETUPVAL                         R13 1
+       98 GETTABLEKS                       R13 R13 K5 ["createElement"]
+      100 LOADK                            R14 K41 ["TextLabel"]
+      101 DUPTABLE                         R15 K50 [{["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["Font"], ["LayoutOrder"] = 1, ["RichText"] = True, ["Size"], ["Text"], ["TextColor3"], ["TextSize"], ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"]}]
+      102 GETTABLEKS                       R16 R2 K44 ["Font"]
+      104 SETTABLEKS                       R16 R15 K44 ["Font"]
+      106 GETIMPORT                        R16 K52 [UDim2.new]
+      108 LOADN                            R17 1
+      109 LOADN                            R18 -40
+      110 LOADN                            R19 1
+      111 LOADN                            R20 0
+      112 CALL                             R16 4 1
+      113 SETTABLEKS                       R16 R15 K9 ["Size"]
+      115 SETTABLEKS                       R4 R15 K4 ["Text"]
+      117 GETTABLEKS                       R16 R2 K53 ["TextColor"]
+      119 SETTABLEKS                       R16 R15 K46 ["TextColor3"]
+      121 SETTABLEKS                       R3 R15 K2 ["TextSize"]
+      123 GETIMPORT                        R16 K55 [Enum.TextTruncate.AtEnd]
+      125 SETTABLEKS                       R16 R15 K47 ["TextTruncate"]
+      127 GETIMPORT                        R16 K57 [Enum.TextXAlignment.Left]
+      129 SETTABLEKS                       R16 R15 K48 ["TextXAlignment"]
+      131 GETIMPORT                        R16 K59 [Enum.TextYAlignment.Center]
+      133 SETTABLEKS                       R16 R15 K49 ["TextYAlignment"]
+      135 DUPTABLE                         R16 K61 [{"Padding"}]
+      136 GETUPVAL                         R17 1
+      137 GETTABLEKS                       R17 R17 K5 ["createElement"]
+      139 LOADK                            R18 K62 ["UIPadding"]
+      140 DUPTABLE                         R19 K64 [{"PaddingLeft"}]
+      141 GETIMPORT                        R20 K66 [UDim.new]
+      143 LOADN                            R21 0
+      144 LOADN                            R22 10
+      145 CALL                             R20 2 1
+      146 SETTABLEKS                       R20 R19 K63 ["PaddingLeft"]
+      148 CALL                             R17 2 1
+      149 SETTABLEKS                       R17 R16 K60 ["Padding"]
+      151 CALL                             R13 3 1
+      152 SETTABLEKS                       R13 R12 K21 ["ItemLabel"]
+      154 GETTABLEKS                       R13 R0 K0 ["props"]
+      156 GETTABLEKS                       R13 R13 K31 ["ItemButtonContentOverride"]
+      158 SETTABLEKS                       R13 R12 K39 ["ButtonComponent"]
+      160 CALL                             R9 3 1
+      161 JUMP                             ; [+50]
+      162 GETUPVAL                         R9 1
+      163 GETTABLEKS                       R9 R9 K5 ["createElement"]
+      165 LOADK                            R10 K41 ["TextLabel"]
+      166 DUPTABLE                         R11 K50 [{["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["Font"], ["LayoutOrder"] = 1, ["RichText"] = True, ["Size"], ["Text"], ["TextColor3"], ["TextSize"], ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"]}]
+      167 GETTABLEKS                       R12 R2 K44 ["Font"]
+      169 SETTABLEKS                       R12 R11 K44 ["Font"]
+      171 GETTABLEKS                       R12 R1 K9 ["Size"]
+      173 SETTABLEKS                       R12 R11 K9 ["Size"]
+      175 SETTABLEKS                       R4 R11 K4 ["Text"]
+      177 GETTABLEKS                       R12 R2 K53 ["TextColor"]
+      179 SETTABLEKS                       R12 R11 K46 ["TextColor3"]
+      181 SETTABLEKS                       R3 R11 K2 ["TextSize"]
+      183 GETIMPORT                        R12 K55 [Enum.TextTruncate.AtEnd]
+      185 SETTABLEKS                       R12 R11 K47 ["TextTruncate"]
+      187 GETIMPORT                        R12 K57 [Enum.TextXAlignment.Left]
+      189 SETTABLEKS                       R12 R11 K48 ["TextXAlignment"]
+      191 GETIMPORT                        R12 K59 [Enum.TextYAlignment.Center]
+      193 SETTABLEKS                       R12 R11 K49 ["TextYAlignment"]
+      195 DUPTABLE                         R12 K61 [{"Padding"}]
+      196 GETUPVAL                         R13 1
+      197 GETTABLEKS                       R13 R13 K5 ["createElement"]
+      199 LOADK                            R14 K62 ["UIPadding"]
+      200 DUPTABLE                         R15 K64 [{"PaddingLeft"}]
+      201 GETIMPORT                        R16 K66 [UDim.new]
+      203 LOADN                            R17 0
+      204 LOADN                            R18 10
+      205 CALL                             R16 2 1
+      206 SETTABLEKS                       R16 R15 K63 ["PaddingLeft"]
+      208 CALL                             R13 2 1
+      209 SETTABLEKS                       R13 R12 K60 ["Padding"]
+      211 CALL                             R9 3 1
+      212 SETTABLEKS                       R9 R8 K21 ["ItemLabel"]
+      214 GETTABLEKS                       R10 R1 K67 ["HideSeparator"]
+      216 NOT                              R9 R10
+      217 JUMPIFNOT                        R9 ; [+10]
+      218 GETUPVAL                         R9 1
+      219 GETTABLEKS                       R9 R9 K5 ["createElement"]
+      221 GETUPVAL                         R10 3
+      222 DUPTABLE                         R11 K70 [{["DominantAxis"], ["LayoutOrder"] = 2}]
+      223 GETIMPORT                        R12 K72 [Enum.DominantAxis.Width]
+      225 SETTABLEKS                       R12 R11 K68 ["DominantAxis"]
+      227 CALL                             R9 2 1
+      228 SETTABLEKS                       R9 R8 K22 ["Separator"]
+      230 CALL                             R5 3 -1
+      231 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

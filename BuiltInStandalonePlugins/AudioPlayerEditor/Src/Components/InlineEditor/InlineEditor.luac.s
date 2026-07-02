@@ -85,7 +85,7 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 LOADN                            R1 255
+        1 LOADN                            R1 -1
         2 CALL                             R0 1 0
         3 GETUPVAL                         R0 1
         4 GETTABLEKS                       R0 R0 K0 ["loadAndFetchTimeLength"]
@@ -114,7 +114,7 @@ PROTO_9:
         4 CALL                             R1 1 2
         5 GETUPVAL                         R3 0
         6 GETTABLEKS                       R3 R3 K0 ["useState"]
-        8 LOADN                            R4 255
+        8 LOADN                            R4 -1
         9 CALL                             R3 1 2
        10 GETUPVAL                         R5 0
        11 GETTABLEKS                       R5 R5 K0 ["useState"]
@@ -135,7 +135,7 @@ PROTO_9:
        32 CALL                             R11 1 2
        33 GETUPVAL                         R13 0
        34 GETTABLEKS                       R13 R13 K0 ["useState"]
-       36 LOADN                            R14 244
+       36 LOADN                            R14 500
        37 CALL                             R13 1 2
        38 MOVE                             R15 R1
        39 JUMPIF                           R15 ; [+1]
@@ -237,197 +237,161 @@ PROTO_9:
       161 GETUPVAL                         R21 0
       162 GETTABLEKS                       R21 R21 K7 ["createElement"]
       164 GETUPVAL                         R22 2
-      165 DUPTABLE                         R23 K9 [{"tag"}]
-      166 LOADK                            R24 K10 ["col size-full-0 auto-y gap-none"]
-      167 SETTABLEKS                       R24 R23 K8 ["tag"]
-      169 DUPTABLE                         R24 K12 [{"WaveformRow"}]
-      170 GETUPVAL                         R25 0
-      171 GETTABLEKS                       R25 R25 K7 ["createElement"]
-      173 GETUPVAL                         R26 2
-      174 DUPTABLE                         R27 K14 [{"LayoutOrder", "tag"}]
-      175 LOADN                            R28 2
-      176 SETTABLEKS                       R28 R27 K13 ["LayoutOrder"]
-      178 LOADK                            R28 K15 ["row align-y-center gap-medium size-full-1000 padding-xsmall"]
-      179 SETTABLEKS                       R28 R27 K8 ["tag"]
-      181 DUPTABLE                         R28 K19 [{"LeftButtons", "WaveformContent", "RightButtons"}]
-      182 GETUPVAL                         R29 0
-      183 GETTABLEKS                       R29 R29 K7 ["createElement"]
-      185 GETUPVAL                         R30 2
-      186 DUPTABLE                         R31 K14 [{"LayoutOrder", "tag"}]
-      187 LOADN                            R32 1
-      188 SETTABLEKS                       R32 R31 K13 ["LayoutOrder"]
-      190 LOADK                            R32 K20 ["col size-0-full auto-x flex-y-evenly align-x-center gap-none"]
-      191 SETTABLEKS                       R32 R31 K8 ["tag"]
-      193 DUPTABLE                         R32 K22 [{"PlayButton"}]
-      194 GETUPVAL                         R33 0
-      195 GETTABLEKS                       R33 R33 K7 ["createElement"]
-      197 GETUPVAL                         R34 3
-      198 DUPTABLE                         R35 K28 [{"LayoutOrder", "icon", "isCircular", "variant", "size", "onActivated"}]
-      199 LOADN                            R36 1
-      200 SETTABLEKS                       R36 R35 K13 ["LayoutOrder"]
-      202 JUMPIFNOT                        R15 ; [+8]
-      203 GETUPVAL                         R36 4
-      204 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      206 GETTABLEKS                       R36 R36 K30 ["IconName"]
-      208 GETTABLEKS                       R36 R36 K31 ["PauseLarge"]
-      210 JUMP                             ; [+7]
+      165 DUPTABLE                         R23 K10 [{["tag"] = "col gap-none size-full-0 auto-y"}]
+      166 DUPTABLE                         R24 K12 [{"WaveformRow"}]
+      167 GETUPVAL                         R25 0
+      168 GETTABLEKS                       R25 R25 K7 ["createElement"]
+      170 GETUPVAL                         R26 2
+      171 DUPTABLE                         R27 K16 [{["LayoutOrder"] = 2, ["tag"] = "row align-y-center gap-medium size-full-1000 padding-xsmall"}]
+      172 DUPTABLE                         R28 K20 [{"LeftButtons", "WaveformContent", "RightButtons"}]
+      173 GETUPVAL                         R29 0
+      174 GETTABLEKS                       R29 R29 K7 ["createElement"]
+      176 GETUPVAL                         R30 2
+      177 DUPTABLE                         R31 K23 [{["LayoutOrder"] = 1, ["tag"] = "col flex-y-evenly align-x-center gap-none size-0-full auto-x"}]
+      178 DUPTABLE                         R32 K25 [{"PlayButton"}]
+      179 GETUPVAL                         R33 0
+      180 GETTABLEKS                       R33 R33 K7 ["createElement"]
+      182 GETUPVAL                         R34 3
+      183 DUPTABLE                         R35 K32 [{["LayoutOrder"] = 1, ["icon"], ["isCircular"] = True, ["variant"], ["size"], ["onActivated"]}]
+      184 JUMPIFNOT                        R15 ; [+8]
+      185 GETUPVAL                         R36 4
+      186 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      188 GETTABLEKS                       R36 R36 K34 ["IconName"]
+      190 GETTABLEKS                       R36 R36 K35 ["PauseLarge"]
+      192 JUMP                             ; [+7]
+      193 GETUPVAL                         R36 4
+      194 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      196 GETTABLEKS                       R36 R36 K34 ["IconName"]
+      198 GETTABLEKS                       R36 R36 K36 ["PlayLarge"]
+      200 SETTABLEKS                       R36 R35 K26 ["icon"]
+      202 GETUPVAL                         R36 4
+      203 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      205 GETTABLEKS                       R36 R36 K37 ["ButtonVariant"]
+      207 GETTABLEKS                       R36 R36 K38 ["Emphasis"]
+      209 SETTABLEKS                       R36 R35 K29 ["variant"]
       211 GETUPVAL                         R36 4
-      212 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      214 GETTABLEKS                       R36 R36 K30 ["IconName"]
-      216 GETTABLEKS                       R36 R36 K32 ["PlayLarge"]
-      218 SETTABLEKS                       R36 R35 K23 ["icon"]
-      220 LOADB                            R36 1
-      221 SETTABLEKS                       R36 R35 K24 ["isCircular"]
-      223 GETUPVAL                         R36 4
-      224 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      226 GETTABLEKS                       R36 R36 K33 ["ButtonVariant"]
-      228 GETTABLEKS                       R36 R36 K34 ["Emphasis"]
-      230 SETTABLEKS                       R36 R35 K25 ["variant"]
-      232 GETUPVAL                         R36 4
-      233 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      235 GETTABLEKS                       R36 R36 K35 ["IconSize"]
-      237 GETTABLEKS                       R36 R36 K36 ["Small"]
-      239 SETTABLEKS                       R36 R35 K26 ["size"]
-      241 SETTABLEKS                       R20 R35 K27 ["onActivated"]
-      243 CALL                             R33 2 1
-      244 SETTABLEKS                       R33 R32 K21 ["PlayButton"]
-      246 CALL                             R29 3 1
-      247 SETTABLEKS                       R29 R28 K16 ["LeftButtons"]
-      249 GETUPVAL                         R29 0
-      250 GETTABLEKS                       R29 R29 K7 ["createElement"]
-      252 GETUPVAL                         R30 2
-      253 DUPTABLE                         R31 K14 [{"LayoutOrder", "tag"}]
-      254 LOADN                            R32 2
-      255 SETTABLEKS                       R32 R31 K13 ["LayoutOrder"]
-      257 LOADK                            R32 K37 ["col size-0-full fill align-x-left gap-none"]
-      258 SETTABLEKS                       R32 R31 K8 ["tag"]
-      260 DUPTABLE                         R32 K39 [{"WaveformView"}]
-      261 GETUPVAL                         R33 0
-      262 GETTABLEKS                       R33 R33 K7 ["createElement"]
-      264 GETUPVAL                         R34 2
-      265 DUPTABLE                         R35 K14 [{"LayoutOrder", "tag"}]
-      266 LOADN                            R36 1
-      267 SETTABLEKS                       R36 R35 K13 ["LayoutOrder"]
-      269 LOADK                            R36 K40 ["size-full-0 fill"]
-      270 SETTABLEKS                       R36 R35 K8 ["tag"]
-      272 DUPTABLE                         R36 K42 [{"GraphCanvas"}]
-      273 GETUPVAL                         R37 0
-      274 GETTABLEKS                       R37 R37 K7 ["createElement"]
-      276 GETUPVAL                         R38 5
-      277 DUPTABLE                         R39 K50 [{"GraphRect", "ViewportPaddingLeft", "ViewportPaddingRight", "ViewportPaddingTop", "ViewportPaddingBottom", "CullingEpsilon", "children"}]
-      278 GETIMPORT                        R40 K53 [Rect.new]
-      280 LOADN                            R41 0
-      281 LOADN                            R42 255
-      282 LOADN                            R44 0
-      283 JUMPIFNOTLT                      R44 R3 ; [+3]
-      285 MOVE                             R43 R3
-      286 JUMP                             ; [+1]
-      287 LOADN                            R43 1
-      288 LOADN                            R44 1
-      289 CALL                             R40 4 1
-      290 SETTABLEKS                       R40 R39 K43 ["GraphRect"]
-      292 GETIMPORT                        R40 K55 [UDim.new]
-      294 LOADN                            R41 0
-      295 LOADN                            R42 0
-      296 CALL                             R40 2 1
-      297 SETTABLEKS                       R40 R39 K44 ["ViewportPaddingLeft"]
-      299 GETIMPORT                        R40 K55 [UDim.new]
-      301 LOADN                            R41 0
-      302 LOADN                            R42 0
-      303 CALL                             R40 2 1
-      304 SETTABLEKS                       R40 R39 K45 ["ViewportPaddingRight"]
-      306 GETIMPORT                        R40 K55 [UDim.new]
-      308 LOADN                            R41 0
-      309 LOADN                            R42 0
-      310 CALL                             R40 2 1
-      311 SETTABLEKS                       R40 R39 K46 ["ViewportPaddingTop"]
-      313 GETIMPORT                        R40 K55 [UDim.new]
-      315 LOADN                            R41 0
-      316 LOADN                            R42 0
-      317 CALL                             R40 2 1
-      318 SETTABLEKS                       R40 R39 K47 ["ViewportPaddingBottom"]
-      320 LOADN                            R40 1
-      321 SETTABLEKS                       R40 R39 K48 ["CullingEpsilon"]
-      323 DUPTABLE                         R40 K58 [{"Waveform", "Touch"}]
-      324 GETUPVAL                         R41 0
-      325 GETTABLEKS                       R41 R41 K7 ["createElement"]
-      327 GETUPVAL                         R42 6
-      328 DUPTABLE                         R43 K63 [{"AssetId", "HoveredPosition", "TimeLength", "TimePosition", "Volume", "Resolution"}]
-      329 GETTABLEKS                       R44 R0 K1 ["Data"]
-      331 GETTABLEKS                       R44 R44 K5 ["AssetId"]
-      333 SETTABLEKS                       R44 R43 K5 ["AssetId"]
-      335 SETTABLEKS                       R7 R43 K59 ["HoveredPosition"]
-      337 SETTABLEKS                       R3 R43 K60 ["TimeLength"]
-      339 SETTABLEKS                       R5 R43 K2 ["TimePosition"]
-      341 GETTABLEKS                       R44 R0 K1 ["Data"]
-      343 GETTABLEKS                       R44 R44 K61 ["Volume"]
-      345 SETTABLEKS                       R44 R43 K61 ["Volume"]
-      347 SETTABLEKS                       R13 R43 K62 ["Resolution"]
-      349 CALL                             R41 2 1
-      350 SETTABLEKS                       R41 R40 K56 ["Waveform"]
-      352 GETUPVAL                         R41 0
-      353 GETTABLEKS                       R41 R41 K7 ["createElement"]
-      355 GETUPVAL                         R42 7
-      356 DUPTABLE                         R43 K70 [{"ZIndex", "TreatMouseAsAnchor", "OnHoverMoved", "OnDragStart", "OnDragMoved", "OnDragEnded"}]
-      357 LOADN                            R44 10
-      358 SETTABLEKS                       R44 R43 K64 ["ZIndex"]
-      360 LOADB                            R44 1
-      361 SETTABLEKS                       R44 R43 K65 ["TreatMouseAsAnchor"]
-      363 SETTABLEKS                       R17 R43 K66 ["OnHoverMoved"]
-      365 SETTABLEKS                       R18 R43 K67 ["OnDragStart"]
-      367 SETTABLEKS                       R17 R43 K68 ["OnDragMoved"]
-      369 SETTABLEKS                       R19 R43 K69 ["OnDragEnded"]
-      371 CALL                             R41 2 1
-      372 SETTABLEKS                       R41 R40 K57 ["Touch"]
-      374 SETTABLEKS                       R40 R39 K49 ["children"]
-      376 CALL                             R37 2 1
-      377 SETTABLEKS                       R37 R36 K41 ["GraphCanvas"]
-      379 CALL                             R33 3 1
-      380 SETTABLEKS                       R33 R32 K38 ["WaveformView"]
-      382 CALL                             R29 3 1
-      383 SETTABLEKS                       R29 R28 K17 ["WaveformContent"]
-      385 GETUPVAL                         R29 0
-      386 GETTABLEKS                       R29 R29 K7 ["createElement"]
-      388 GETUPVAL                         R30 2
-      389 DUPTABLE                         R31 K14 [{"LayoutOrder", "tag"}]
-      390 LOADN                            R32 3
-      391 SETTABLEKS                       R32 R31 K13 ["LayoutOrder"]
-      393 LOADK                            R32 K20 ["col size-0-full auto-x flex-y-evenly align-x-center gap-none"]
-      394 SETTABLEKS                       R32 R31 K8 ["tag"]
-      396 DUPTABLE                         R32 K72 [{"EditorButton"}]
-      397 GETUPVAL                         R33 0
-      398 GETTABLEKS                       R33 R33 K7 ["createElement"]
-      400 GETUPVAL                         R34 3
-      401 DUPTABLE                         R35 K28 [{"LayoutOrder", "icon", "isCircular", "variant", "size", "onActivated"}]
-      402 LOADN                            R36 1
-      403 SETTABLEKS                       R36 R35 K13 ["LayoutOrder"]
-      405 GETUPVAL                         R36 4
-      406 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      408 GETTABLEKS                       R36 R36 K30 ["IconName"]
-      410 GETTABLEKS                       R36 R36 K73 ["ThreeDotsHorizontal"]
-      412 SETTABLEKS                       R36 R35 K23 ["icon"]
-      414 LOADB                            R36 1
-      415 SETTABLEKS                       R36 R35 K24 ["isCircular"]
-      417 GETUPVAL                         R36 4
-      418 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      420 GETTABLEKS                       R36 R36 K33 ["ButtonVariant"]
-      422 GETTABLEKS                       R36 R36 K74 ["Standard"]
-      424 SETTABLEKS                       R36 R35 K25 ["variant"]
-      426 GETUPVAL                         R36 4
-      427 GETTABLEKS                       R36 R36 K29 ["Enums"]
-      429 GETTABLEKS                       R36 R36 K35 ["IconSize"]
-      431 GETTABLEKS                       R36 R36 K36 ["Small"]
-      433 SETTABLEKS                       R36 R35 K26 ["size"]
-      435 GETTABLEKS                       R36 R0 K75 ["OnOpenEditor"]
-      437 SETTABLEKS                       R36 R35 K27 ["onActivated"]
-      439 CALL                             R33 2 1
-      440 SETTABLEKS                       R33 R32 K71 ["EditorButton"]
-      442 CALL                             R29 3 1
-      443 SETTABLEKS                       R29 R28 K18 ["RightButtons"]
-      445 CALL                             R25 3 1
-      446 SETTABLEKS                       R25 R24 K11 ["WaveformRow"]
-      448 CALL                             R21 3 -1
-      449 RETURN                           R21 -1
+      212 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      214 GETTABLEKS                       R36 R36 K39 ["IconSize"]
+      216 GETTABLEKS                       R36 R36 K40 ["Small"]
+      218 SETTABLEKS                       R36 R35 K30 ["size"]
+      220 SETTABLEKS                       R20 R35 K31 ["onActivated"]
+      222 CALL                             R33 2 1
+      223 SETTABLEKS                       R33 R32 K24 ["PlayButton"]
+      225 CALL                             R29 3 1
+      226 SETTABLEKS                       R29 R28 K17 ["LeftButtons"]
+      228 GETUPVAL                         R29 0
+      229 GETTABLEKS                       R29 R29 K7 ["createElement"]
+      231 GETUPVAL                         R30 2
+      232 DUPTABLE                         R31 K42 [{["LayoutOrder"] = 2, ["tag"] = "col align-x-left fill gap-none size-0-full"}]
+      233 DUPTABLE                         R32 K44 [{"WaveformView"}]
+      234 GETUPVAL                         R33 0
+      235 GETTABLEKS                       R33 R33 K7 ["createElement"]
+      237 GETUPVAL                         R34 2
+      238 DUPTABLE                         R35 K46 [{["LayoutOrder"] = 1, ["tag"] = "fill size-full-0"}]
+      239 DUPTABLE                         R36 K48 [{"GraphCanvas"}]
+      240 GETUPVAL                         R37 0
+      241 GETTABLEKS                       R37 R37 K7 ["createElement"]
+      243 GETUPVAL                         R38 5
+      244 DUPTABLE                         R39 K56 [{["GraphRect"], ["ViewportPaddingLeft"], ["ViewportPaddingRight"], ["ViewportPaddingTop"], ["ViewportPaddingBottom"], ["CullingEpsilon"] = 1, ["children"]}]
+      245 GETIMPORT                        R40 K59 [Rect.new]
+      247 LOADN                            R41 0
+      248 LOADN                            R42 -1
+      249 LOADN                            R44 0
+      250 JUMPIFNOTLT                      R44 R3 ; [+3]
+      252 MOVE                             R43 R3
+      253 JUMP                             ; [+1]
+      254 LOADN                            R43 1
+      255 LOADN                            R44 1
+      256 CALL                             R40 4 1
+      257 SETTABLEKS                       R40 R39 K49 ["GraphRect"]
+      259 GETIMPORT                        R40 K61 [UDim.new]
+      261 LOADN                            R41 0
+      262 LOADN                            R42 0
+      263 CALL                             R40 2 1
+      264 SETTABLEKS                       R40 R39 K50 ["ViewportPaddingLeft"]
+      266 GETIMPORT                        R40 K61 [UDim.new]
+      268 LOADN                            R41 0
+      269 LOADN                            R42 0
+      270 CALL                             R40 2 1
+      271 SETTABLEKS                       R40 R39 K51 ["ViewportPaddingRight"]
+      273 GETIMPORT                        R40 K61 [UDim.new]
+      275 LOADN                            R41 0
+      276 LOADN                            R42 0
+      277 CALL                             R40 2 1
+      278 SETTABLEKS                       R40 R39 K52 ["ViewportPaddingTop"]
+      280 GETIMPORT                        R40 K61 [UDim.new]
+      282 LOADN                            R41 0
+      283 LOADN                            R42 0
+      284 CALL                             R40 2 1
+      285 SETTABLEKS                       R40 R39 K53 ["ViewportPaddingBottom"]
+      287 DUPTABLE                         R40 K64 [{"Waveform", "Touch"}]
+      288 GETUPVAL                         R41 0
+      289 GETTABLEKS                       R41 R41 K7 ["createElement"]
+      291 GETUPVAL                         R42 6
+      292 DUPTABLE                         R43 K69 [{"AssetId", "HoveredPosition", "TimeLength", "TimePosition", "Volume", "Resolution"}]
+      293 GETTABLEKS                       R44 R0 K1 ["Data"]
+      295 GETTABLEKS                       R44 R44 K5 ["AssetId"]
+      297 SETTABLEKS                       R44 R43 K5 ["AssetId"]
+      299 SETTABLEKS                       R7 R43 K65 ["HoveredPosition"]
+      301 SETTABLEKS                       R3 R43 K66 ["TimeLength"]
+      303 SETTABLEKS                       R5 R43 K2 ["TimePosition"]
+      305 GETTABLEKS                       R44 R0 K1 ["Data"]
+      307 GETTABLEKS                       R44 R44 K67 ["Volume"]
+      309 SETTABLEKS                       R44 R43 K67 ["Volume"]
+      311 SETTABLEKS                       R13 R43 K68 ["Resolution"]
+      313 CALL                             R41 2 1
+      314 SETTABLEKS                       R41 R40 K62 ["Waveform"]
+      316 GETUPVAL                         R41 0
+      317 GETTABLEKS                       R41 R41 K7 ["createElement"]
+      319 GETUPVAL                         R42 7
+      320 DUPTABLE                         R43 K77 [{["ZIndex"] = 10, ["TreatMouseAsAnchor"] = True, ["OnHoverMoved"], ["OnDragStart"], ["OnDragMoved"], ["OnDragEnded"]}]
+      321 SETTABLEKS                       R17 R43 K73 ["OnHoverMoved"]
+      323 SETTABLEKS                       R18 R43 K74 ["OnDragStart"]
+      325 SETTABLEKS                       R17 R43 K75 ["OnDragMoved"]
+      327 SETTABLEKS                       R19 R43 K76 ["OnDragEnded"]
+      329 CALL                             R41 2 1
+      330 SETTABLEKS                       R41 R40 K63 ["Touch"]
+      332 SETTABLEKS                       R40 R39 K55 ["children"]
+      334 CALL                             R37 2 1
+      335 SETTABLEKS                       R37 R36 K47 ["GraphCanvas"]
+      337 CALL                             R33 3 1
+      338 SETTABLEKS                       R33 R32 K43 ["WaveformView"]
+      340 CALL                             R29 3 1
+      341 SETTABLEKS                       R29 R28 K18 ["WaveformContent"]
+      343 GETUPVAL                         R29 0
+      344 GETTABLEKS                       R29 R29 K7 ["createElement"]
+      346 GETUPVAL                         R30 2
+      347 DUPTABLE                         R31 K79 [{["LayoutOrder"] = 3, ["tag"] = "col flex-y-evenly align-x-center gap-none size-0-full auto-x"}]
+      348 DUPTABLE                         R32 K81 [{"EditorButton"}]
+      349 GETUPVAL                         R33 0
+      350 GETTABLEKS                       R33 R33 K7 ["createElement"]
+      352 GETUPVAL                         R34 3
+      353 DUPTABLE                         R35 K32 [{["LayoutOrder"] = 1, ["icon"], ["isCircular"] = True, ["variant"], ["size"], ["onActivated"]}]
+      354 GETUPVAL                         R36 4
+      355 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      357 GETTABLEKS                       R36 R36 K34 ["IconName"]
+      359 GETTABLEKS                       R36 R36 K82 ["ThreeDotsHorizontal"]
+      361 SETTABLEKS                       R36 R35 K26 ["icon"]
+      363 GETUPVAL                         R36 4
+      364 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      366 GETTABLEKS                       R36 R36 K37 ["ButtonVariant"]
+      368 GETTABLEKS                       R36 R36 K83 ["Standard"]
+      370 SETTABLEKS                       R36 R35 K29 ["variant"]
+      372 GETUPVAL                         R36 4
+      373 GETTABLEKS                       R36 R36 K33 ["Enums"]
+      375 GETTABLEKS                       R36 R36 K39 ["IconSize"]
+      377 GETTABLEKS                       R36 R36 K40 ["Small"]
+      379 SETTABLEKS                       R36 R35 K30 ["size"]
+      381 GETTABLEKS                       R36 R0 K84 ["OnOpenEditor"]
+      383 SETTABLEKS                       R36 R35 K31 ["onActivated"]
+      385 CALL                             R33 2 1
+      386 SETTABLEKS                       R33 R32 K80 ["EditorButton"]
+      388 CALL                             R29 3 1
+      389 SETTABLEKS                       R29 R28 K19 ["RightButtons"]
+      391 CALL                             R25 3 1
+      392 SETTABLEKS                       R25 R24 K11 ["WaveformRow"]
+      394 CALL                             R21 3 -1
+      395 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0

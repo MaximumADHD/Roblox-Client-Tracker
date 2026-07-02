@@ -32,56 +32,52 @@ PROTO_2:
         1 GETTABLEKS                       R0 R0 K0 ["Name"]
         3 GETUPVAL                         R1 2
         4 MOVE                             R3 R0
-        5 DUPTABLE                         R4 K7 [{"Size", "MinSize", "MaxSize", "Resizable", "Modal", "InitialEnabled"}]
-        6 GETIMPORT                        R5 K10 [Vector2.new]
-        8 LOADN                            R6 192
-        9 LOADN                            R7 208
+        5 DUPTABLE                         R4 K9 [{["Size"], ["MinSize"], ["MaxSize"], ["Resizable"] = True, ["Modal"], ["InitialEnabled"] = False}]
+        6 GETIMPORT                        R5 K12 [Vector2.new]
+        8 LOADN                            R6 960
+        9 LOADN                            R7 720
        10 CALL                             R5 2 1
        11 SETTABLEKS                       R5 R4 K1 ["Size"]
-       13 GETIMPORT                        R5 K10 [Vector2.new]
-       15 LOADN                            R6 122
-       16 LOADN                            R7 38
+       13 GETIMPORT                        R5 K12 [Vector2.new]
+       15 LOADN                            R6 890
+       16 LOADN                            R7 550
        17 CALL                             R5 2 1
        18 SETTABLEKS                       R5 R4 K2 ["MinSize"]
-       20 GETIMPORT                        R5 K10 [Vector2.new]
-       22 LOADN                            R6 192
-       23 LOADN                            R7 238
+       20 GETIMPORT                        R5 K12 [Vector2.new]
+       22 LOADN                            R6 960
+       23 LOADN                            R7 750
        24 CALL                             R5 2 1
        25 SETTABLEKS                       R5 R4 K3 ["MaxSize"]
-       27 LOADB                            R5 1
-       28 SETTABLEKS                       R5 R4 K4 ["Resizable"]
-       30 GETUPVAL                         R6 3
-       31 NOT                              R5 R6
-       32 SETTABLEKS                       R5 R4 K5 ["Modal"]
-       34 LOADB                            R5 0
-       35 SETTABLEKS                       R5 R4 K6 ["InitialEnabled"]
-       37 NAMECALL                         R1 R1 K11 ["CreateQWidgetPluginGui"]
-       39 CALL                             R1 3 1
-       40 SETUPVAL                         R1 1
+       27 GETUPVAL                         R6 3
+       28 NOT                              R5 R6
+       29 SETTABLEKS                       R5 R4 K6 ["Modal"]
+       31 NAMECALL                         R1 R1 K13 ["CreateQWidgetPluginGui"]
+       33 CALL                             R1 3 1
+       34 SETUPVAL                         R1 1
+       35 GETUPVAL                         R1 1
+       36 GETUPVAL                         R2 0
+       37 GETTABLEKS                       R2 R2 K0 ["Name"]
+       39 SETTABLEKS                       R2 R1 K0 ["Name"]
        41 GETUPVAL                         R1 1
-       42 GETUPVAL                         R2 0
-       43 GETTABLEKS                       R2 R2 K0 ["Name"]
-       45 SETTABLEKS                       R2 R1 K0 ["Name"]
-       47 GETUPVAL                         R1 1
-       48 GETUPVAL                         R2 4
-       49 LOADK                            R4 K12 ["General"]
-       50 LOADK                            R5 K13 ["PublishPlace"]
-       51 NAMECALL                         R2 R2 K14 ["getText"]
-       53 CALL                             R2 3 1
-       54 SETTABLEKS                       R2 R1 K15 ["Title"]
-       56 GETUPVAL                         R1 1
-       57 GETIMPORT                        R2 K19 [Enum.ZIndexBehavior.Sibling]
-       59 SETTABLEKS                       R2 R1 K17 ["ZIndexBehavior"]
-       61 GETUPVAL                         R1 1
-       62 NEWCLOSURE                       R3 P0
-       63 CAPTURE                          UPVAL U5
-       64 CAPTURE                          UPVAL U6
-       65 CAPTURE                          UPVAL U7
-       66 CAPTURE                          UPVAL U8
-       67 CAPTURE                          UPVAL U1
-       68 NAMECALL                         R1 R1 K20 ["BindToClose"]
-       70 CALL                             R1 2 0
-       71 RETURN                           R0 0
+       42 GETUPVAL                         R2 4
+       43 LOADK                            R4 K14 ["General"]
+       44 LOADK                            R5 K15 ["PublishPlace"]
+       45 NAMECALL                         R2 R2 K16 ["getText"]
+       47 CALL                             R2 3 1
+       48 SETTABLEKS                       R2 R1 K17 ["Title"]
+       50 GETUPVAL                         R1 1
+       51 GETIMPORT                        R2 K21 [Enum.ZIndexBehavior.Sibling]
+       53 SETTABLEKS                       R2 R1 K19 ["ZIndexBehavior"]
+       55 GETUPVAL                         R1 1
+       56 NEWCLOSURE                       R3 P0
+       57 CAPTURE                          UPVAL U5
+       58 CAPTURE                          UPVAL U6
+       59 CAPTURE                          UPVAL U7
+       60 CAPTURE                          UPVAL U8
+       61 CAPTURE                          UPVAL U1
+       62 NAMECALL                         R1 R1 K22 ["BindToClose"]
+       64 CALL                             R1 2 0
+       65 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R3 0

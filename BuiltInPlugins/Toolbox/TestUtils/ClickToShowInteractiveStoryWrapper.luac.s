@@ -34,48 +34,46 @@ PROTO_3:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K7 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-        9 GETIMPORT                        R6 K10 [Enum.AutomaticSize.Y]
+        8 DUPTABLE                         R5 K8 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+        9 GETIMPORT                        R6 K11 [Enum.AutomaticSize.Y]
        11 SETTABLEKS                       R6 R5 K4 ["AutomaticSize"]
-       13 LOADN                            R6 1
-       14 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       16 GETIMPORT                        R6 K13 [UDim2.new]
-       18 LOADN                            R7 1
-       19 LOADN                            R8 0
-       20 LOADN                            R9 0
-       21 LOADN                            R10 0
-       22 CALL                             R6 4 1
-       23 SETTABLEKS                       R6 R5 K6 ["Size"]
-       25 DUPTABLE                         R6 K16 [{"Button", "SearchOption"}]
-       26 GETUPVAL                         R7 0
-       27 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       29 LOADK                            R8 K17 ["TextButton"]
-       30 NEWTABLE                         R9 4 0
-       32 GETIMPORT                        R10 K19 [UDim2.fromOffset]
-       34 LOADN                            R11 200
-       35 LOADN                            R12 50
-       36 CALL                             R10 2 1
-       37 SETTABLEKS                       R10 R9 K6 ["Size"]
-       39 LOADK                            R10 K20 ["Click to View Component"]
-       40 SETTABLEKS                       R10 R9 K21 ["Text"]
-       42 GETUPVAL                         R10 0
-       43 GETTABLEKS                       R10 R10 K22 ["Event"]
-       45 GETTABLEKS                       R10 R10 K23 ["Activated"]
-       47 GETTABLEKS                       R11 R0 K24 ["toggleIsShowing"]
-       49 SETTABLE                         R11 R9 R10
-       50 CALL                             R7 2 1
-       51 SETTABLEKS                       R7 R6 K14 ["Button"]
-       53 GETTABLEKS                       R8 R2 K25 ["isShowing"]
-       55 JUMPIFNOT                        R8 ; [+8]
-       56 GETTABLEKS                       R7 R1 K26 ["OnRender"]
-       58 GETTABLEKS                       R8 R2 K25 ["isShowing"]
-       60 GETTABLEKS                       R9 R0 K24 ["toggleIsShowing"]
-       62 CALL                             R7 2 1
-       63 JUMP                             ; [+1]
-       64 LOADNIL                          R7
-       65 SETTABLEKS                       R7 R6 K15 ["SearchOption"]
-       67 CALL                             R3 3 -1
-       68 RETURN                           R3 -1
+       13 GETIMPORT                        R6 K14 [UDim2.new]
+       15 LOADN                            R7 1
+       16 LOADN                            R8 0
+       17 LOADN                            R9 0
+       18 LOADN                            R10 0
+       19 CALL                             R6 4 1
+       20 SETTABLEKS                       R6 R5 K7 ["Size"]
+       22 DUPTABLE                         R6 K17 [{"Button", "SearchOption"}]
+       23 GETUPVAL                         R7 0
+       24 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       26 LOADK                            R8 K18 ["TextButton"]
+       27 NEWTABLE                         R9 4 0
+       29 GETIMPORT                        R10 K20 [UDim2.fromOffset]
+       31 LOADN                            R11 200
+       32 LOADN                            R12 50
+       33 CALL                             R10 2 1
+       34 SETTABLEKS                       R10 R9 K7 ["Size"]
+       36 LOADK                            R10 K21 ["Click to View Component"]
+       37 SETTABLEKS                       R10 R9 K22 ["Text"]
+       39 GETUPVAL                         R10 0
+       40 GETTABLEKS                       R10 R10 K23 ["Event"]
+       42 GETTABLEKS                       R10 R10 K24 ["Activated"]
+       44 GETTABLEKS                       R11 R0 K25 ["toggleIsShowing"]
+       46 SETTABLE                         R11 R9 R10
+       47 CALL                             R7 2 1
+       48 SETTABLEKS                       R7 R6 K15 ["Button"]
+       50 GETTABLEKS                       R8 R2 K26 ["isShowing"]
+       52 JUMPIFNOT                        R8 ; [+8]
+       53 GETTABLEKS                       R7 R1 K27 ["OnRender"]
+       55 GETTABLEKS                       R8 R2 K26 ["isShowing"]
+       57 GETTABLEKS                       R9 R0 K25 ["toggleIsShowing"]
+       59 CALL                             R7 2 1
+       60 JUMP                             ; [+1]
+       61 LOADNIL                          R7
+       62 SETTABLEKS                       R7 R6 K16 ["SearchOption"]
+       64 CALL                             R3 3 -1
+       65 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

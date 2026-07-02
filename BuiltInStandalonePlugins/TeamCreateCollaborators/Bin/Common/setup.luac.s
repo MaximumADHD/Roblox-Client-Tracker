@@ -13,45 +13,43 @@ PROTO_1:
         5 GETTABLEKS                       R2 R2 K3 ["ReactDeveloperTools"]
         7 CALL                             R1 1 1
         8 GETTABLEKS                       R2 R1 K4 ["tryEnableDevtools"]
-       10 DUPTABLE                         R3 K6 [{"pluginName"}]
-       11 LOADK                            R4 K7 ["TeamCreateCollaborators"]
-       12 SETTABLEKS                       R4 R3 K5 ["pluginName"]
-       14 CALL                             R2 1 0
-       15 GETIMPORT                        R2 K1 [require]
-       17 GETUPVAL                         R3 0
-       18 GETTABLEKS                       R3 R3 K2 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K8 ["React"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K1 [require]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R4 R4 K2 ["Packages"]
-       28 GETTABLEKS                       R4 R4 K9 ["ReactRoblox"]
-       30 CALL                             R3 1 1
-       31 GETIMPORT                        R4 K1 [require]
-       33 GETUPVAL                         R5 0
-       34 GETTABLEKS                       R5 R5 K10 ["Src"]
-       36 GETTABLEKS                       R5 R5 K11 ["MainPlugin"]
-       38 CALL                             R4 1 1
-       39 GETTABLEKS                       R5 R2 K12 ["createElement"]
-       41 MOVE                             R6 R4
-       42 DUPTABLE                         R7 K14 [{"plugin"}]
-       43 SETTABLEKS                       R0 R7 K13 ["plugin"]
-       45 CALL                             R5 2 1
-       46 GETIMPORT                        R6 K17 [Instance.new]
-       48 LOADK                            R7 K18 ["Frame"]
-       49 CALL                             R6 1 1
-       50 GETTABLEKS                       R7 R3 K19 ["createRoot"]
-       52 MOVE                             R8 R6
-       53 CALL                             R7 1 1
-       54 MOVE                             R10 R5
-       55 NAMECALL                         R8 R7 K20 ["render"]
-       57 CALL                             R8 2 0
-       58 GETTABLEKS                       R8 R0 K21 ["Unloading"]
-       60 NEWCLOSURE                       R10 P0
-       61 CAPTURE                          VAL R7
-       62 NAMECALL                         R8 R8 K22 ["Connect"]
-       64 CALL                             R8 2 0
-       65 RETURN                           R0 0
+       10 DUPTABLE                         R3 K7 [{["pluginName"] = "TeamCreateCollaborators"}]
+       11 CALL                             R2 1 0
+       12 GETIMPORT                        R2 K1 [require]
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R3 R3 K2 ["Packages"]
+       17 GETTABLEKS                       R3 R3 K8 ["React"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K1 [require]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K2 ["Packages"]
+       25 GETTABLEKS                       R4 R4 K9 ["ReactRoblox"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K1 [require]
+       30 GETUPVAL                         R5 0
+       31 GETTABLEKS                       R5 R5 K10 ["Src"]
+       33 GETTABLEKS                       R5 R5 K11 ["MainPlugin"]
+       35 CALL                             R4 1 1
+       36 GETTABLEKS                       R5 R2 K12 ["createElement"]
+       38 MOVE                             R6 R4
+       39 DUPTABLE                         R7 K14 [{"plugin"}]
+       40 SETTABLEKS                       R0 R7 K13 ["plugin"]
+       42 CALL                             R5 2 1
+       43 GETIMPORT                        R6 K17 [Instance.new]
+       45 LOADK                            R7 K18 ["Frame"]
+       46 CALL                             R6 1 1
+       47 GETTABLEKS                       R7 R3 K19 ["createRoot"]
+       49 MOVE                             R8 R6
+       50 CALL                             R7 1 1
+       51 MOVE                             R10 R5
+       52 NAMECALL                         R8 R7 K20 ["render"]
+       54 CALL                             R8 2 0
+       55 GETTABLEKS                       R8 R0 K21 ["Unloading"]
+       57 NEWCLOSURE                       R10 P0
+       58 CAPTURE                          VAL R7
+       59 NAMECALL                         R8 R8 K22 ["Connect"]
+       61 CALL                             R8 2 0
+       62 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0

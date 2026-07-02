@@ -55,25 +55,21 @@ PROTO_3:
        28 CALL                             R5 4 1
        29 SETTABLEKS                       R5 R4 K4 ["Size"]
        31 NEWTABLE                         R5 0 1
-       33 DUPTABLE                         R6 K21 [{"Key", "Text", "Style"}]
-       34 LOADB                            R7 0
-       35 SETTABLEKS                       R7 R6 K18 ["Key"]
-       37 LOADK                            R9 K9 ["Dialog"]
-       38 LOADK                            R10 K22 ["Cancel"]
-       39 NAMECALL                         R7 R1 K11 ["getText"]
-       41 CALL                             R7 3 1
-       42 SETTABLEKS                       R7 R6 K19 ["Text"]
-       44 LOADK                            R7 K23 ["Round"]
-       45 SETTABLEKS                       R7 R6 K20 ["Style"]
-       47 SETLIST                          R5 R6 1 [1]
-       49 SETTABLEKS                       R5 R4 K5 ["Buttons"]
-       51 NEWCLOSURE                       R5 P0
-       52 CAPTURE                          VAL R0
-       53 SETTABLEKS                       R5 R4 K6 ["OnButtonClicked"]
-       55 GETTABLEKS                       R5 R0 K24 ["onClose"]
-       57 SETTABLEKS                       R5 R4 K7 ["OnClose"]
-       59 CALL                             R2 2 -1
-       60 RETURN                           R2 -1
+       33 DUPTABLE                         R6 K23 [{["Key"] = False, ["Text"], ["Style"] = "Round"}]
+       34 LOADK                            R9 K9 ["Dialog"]
+       35 LOADK                            R10 K24 ["Cancel"]
+       36 NAMECALL                         R7 R1 K11 ["getText"]
+       38 CALL                             R7 3 1
+       39 SETTABLEKS                       R7 R6 K20 ["Text"]
+       41 SETLIST                          R5 R6 1 [1]
+       43 SETTABLEKS                       R5 R4 K5 ["Buttons"]
+       45 NEWCLOSURE                       R5 P0
+       46 CAPTURE                          VAL R0
+       47 SETTABLEKS                       R5 R4 K6 ["OnButtonClicked"]
+       49 GETTABLEKS                       R5 R0 K25 ["onClose"]
+       51 SETTABLEKS                       R5 R4 K7 ["OnClose"]
+       53 CALL                             R2 2 -1
+       54 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0

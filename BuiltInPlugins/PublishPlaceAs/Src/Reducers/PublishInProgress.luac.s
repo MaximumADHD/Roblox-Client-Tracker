@@ -29,23 +29,17 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 DUPTABLE                         R3 K9 [{"publishInProgress"}]
-       24 DUPTABLE                         R4 K15 [{"universe", "place", "isPublish", "failCount", "requestInFlight"}]
+       24 DUPTABLE                         R4 K17 [{["universe"], ["place"], ["isPublish"] = False, ["failCount"] = 0, ["requestInFlight"] = False}]
        25 NEWTABLE                         R5 0 0
        27 SETTABLEKS                       R5 R4 K10 ["universe"]
        29 NEWTABLE                         R5 0 0
        31 SETTABLEKS                       R5 R4 K11 ["place"]
-       33 LOADB                            R5 0
-       34 SETTABLEKS                       R5 R4 K12 ["isPublish"]
-       36 LOADN                            R5 0
-       37 SETTABLEKS                       R5 R4 K13 ["failCount"]
-       39 LOADB                            R5 0
-       40 SETTABLEKS                       R5 R4 K14 ["requestInFlight"]
-       42 SETTABLEKS                       R4 R3 K8 ["publishInProgress"]
-       44 GETTABLEKS                       R4 R1 K16 ["createReducer"]
-       46 MOVE                             R5 R3
-       47 DUPTABLE                         R6 K18 [{"SetPublishInProgress"}]
-       48 DUPCLOSURE                       R7 K19 [PROTO_0]
-       49 CAPTURE                          VAL R2
-       50 SETTABLEKS                       R7 R6 K17 ["SetPublishInProgress"]
-       52 CALL                             R4 2 -1
-       53 RETURN                           R4 -1
+       33 SETTABLEKS                       R4 R3 K8 ["publishInProgress"]
+       35 GETTABLEKS                       R4 R1 K18 ["createReducer"]
+       37 MOVE                             R5 R3
+       38 DUPTABLE                         R6 K20 [{"SetPublishInProgress"}]
+       39 DUPCLOSURE                       R7 K21 [PROTO_0]
+       40 CAPTURE                          VAL R2
+       41 SETTABLEKS                       R7 R6 K19 ["SetPublishInProgress"]
+       43 CALL                             R4 2 -1
+       44 RETURN                           R4 -1

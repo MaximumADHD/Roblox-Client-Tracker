@@ -21,7 +21,7 @@ PROTO_1:
         7 CALL                             R1 3 1
         8 MUL                              R3 R1 R1
         9 MULK                             R5 R1 K4 [2]
-       10 SUBRK                            R4 R3 K5 [NULL]
+       10 SUBRK                            R4 K3 [3] R5
        11 MUL                              R2 R3 R4
        12 RETURN                           R2 1
 
@@ -407,7 +407,7 @@ PROTO_9:
       103 CALL                             R11 3 1
       104 MUL                              R12 R11 R11
       105 MULK                             R14 R11 K20 [2]
-      106 SUBRK                            R13 R19 K14 [1]
+      106 SUBRK                            R13 K19 [3] R14
       107 MUL                              R9 R12 R13
       108 GETTABLEKS                       R11 R3 K21 ["Rotation"]
       110 ADD                              R10 R11 R5
@@ -416,16 +416,14 @@ PROTO_9:
       114 MUL                              R11 R12 R2
       115 GETTABLEKS                       R12 R11 K11 ["Position"]
       117 GETTABLEKS                       R12 R12 K12 ["Magnitude"]
-      119 DUPTABLE                         R13 K30 [{"target", "weight", "surfacePt", "surfacePtNorm", "surfaceOffset", "surfaceDist", "targetNamespace"}]
+      119 DUPTABLE                         R13 K31 [{["target"], ["weight"], ["surfacePt"], ["surfacePtNorm"], ["surfaceOffset"], ["surfaceDist"], ["targetNamespace"] = ""}]
       120 SETTABLEKS                       R1 R13 K23 ["target"]
       122 SETTABLEKS                       R9 R13 K24 ["weight"]
       124 SETTABLEKS                       R5 R13 K25 ["surfacePt"]
       126 SETTABLEKS                       R7 R13 K26 ["surfacePtNorm"]
       128 SETTABLEKS                       R11 R13 K27 ["surfaceOffset"]
       130 SETTABLEKS                       R12 R13 K28 ["surfaceDist"]
-      132 LOADK                            R14 K31 [""]
-      133 SETTABLEKS                       R14 R13 K29 ["targetNamespace"]
-      135 RETURN                           R13 1
+      132 RETURN                           R13 1
 
 PROTO_10:
         0 NEWTABLE                         R2 0 0
@@ -620,7 +618,7 @@ PROTO_13:
        96 GETTABLEKS                       R28 R26 K18 ["surfacePtNorm"]
        98 GETTABLEKS                       R29 R26 K19 ["surfaceOffset"]
       100 GETTABLEKS                       R31 R26 K20 ["weight"]
-      102 SUBRK                            R32 R21 K21 [1]
+      102 SUBRK                            R32 K21 [1] R21
       103 FASTCALL2                        MATH_MIN R31 R32 ; [+3]
       105 GETIMPORT                        R30 K24 [math.min]
       107 CALL                             R30 2 1

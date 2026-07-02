@@ -23,17 +23,13 @@ PROTO_1:
        18 GETUPVAL                         R1 3
        19 GETTABLEKS                       R1 R1 K7 ["createElement"]
        21 GETUPVAL                         R2 4
-       22 DUPTABLE                         R3 K12 [{"LayoutOrder", "OnClick", "Style", "Text"}]
-       23 LOADN                            R4 1
-       24 SETTABLEKS                       R4 R3 K8 ["LayoutOrder"]
-       26 GETUPVAL                         R4 2
-       27 GETTABLEKS                       R4 R4 K13 ["OnClickBack"]
-       29 SETTABLEKS                       R4 R3 K9 ["OnClick"]
-       31 LOADK                            R4 K14 ["Unobtrusive"]
-       32 SETTABLEKS                       R4 R3 K10 ["Style"]
-       34 SETTABLEKS                       R0 R3 K11 ["Text"]
-       36 CALL                             R1 2 -1
-       37 RETURN                           R1 -1
+       22 DUPTABLE                         R3 K14 [{["LayoutOrder"] = 1, ["OnClick"], ["Style"] = "Unobtrusive", ["Text"]}]
+       23 GETUPVAL                         R4 2
+       24 GETTABLEKS                       R4 R4 K15 ["OnClickBack"]
+       26 SETTABLEKS                       R4 R3 K10 ["OnClick"]
+       28 SETTABLEKS                       R0 R3 K13 ["Text"]
+       30 CALL                             R1 2 -1
+       31 RETURN                           R1 -1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["loading"]
@@ -320,43 +316,39 @@ MAIN:
       146 GETTABLEKS                       R17 R17 K33 ["LinkText"]
       148 GETTABLEKS                       R18 R1 K34 ["useCallback"]
       150 GETTABLEKS                       R19 R8 K35 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
-      152 DUPTABLE                         R20 K40 [{"Size", "Category", "SearchTerm", "SectionName", "SortName"}]
-      153 GETIMPORT                        R21 K43 [UDim2.new]
+      152 DUPTABLE                         R20 K41 [{["Size"], ["Category"], ["SearchTerm"] = , ["SectionName"] = , ["SortName"]}]
+      153 GETIMPORT                        R21 K44 [UDim2.new]
       155 LOADN                            R22 1
       156 LOADN                            R23 0
       157 LOADN                            R24 0
       158 LOADN                            R25 0
       159 CALL                             R21 4 1
       160 SETTABLEKS                       R21 R20 K36 ["Size"]
-      162 GETTABLEKS                       R21 R7 K44 ["FREE_MODELS"]
-      164 GETTABLEKS                       R21 R21 K45 ["name"]
+      162 GETTABLEKS                       R21 R7 K45 ["FREE_MODELS"]
+      164 GETTABLEKS                       R21 R21 K46 ["name"]
       166 SETTABLEKS                       R21 R20 K17 ["Category"]
-      168 LOADNIL                          R21
-      169 SETTABLEKS                       R21 R20 K37 ["SearchTerm"]
-      171 LOADNIL                          R21
-      172 SETTABLEKS                       R21 R20 K38 ["SectionName"]
-      174 GETTABLEKS                       R21 R13 K46 ["getDefaultSortNameForCategory"]
-      176 GETTABLEKS                       R22 R7 K44 ["FREE_MODELS"]
-      178 GETTABLEKS                       R22 R22 K45 ["name"]
-      180 CALL                             R21 1 1
-      181 SETTABLEKS                       R21 R20 K39 ["SortName"]
-      183 DUPCLOSURE                       R21 K47 [PROTO_0]
-      184 DUPCLOSURE                       R22 K48 [PROTO_3]
-      185 CAPTURE                          VAL R3
-      186 CAPTURE                          VAL R20
-      187 CAPTURE                          VAL R2
-      188 CAPTURE                          VAL R11
-      189 CAPTURE                          VAL R14
-      190 CAPTURE                          VAL R21
-      191 CAPTURE                          VAL R18
-      192 CAPTURE                          VAL R9
-      193 CAPTURE                          VAL R1
-      194 CAPTURE                          VAL R17
-      195 CAPTURE                          VAL R16
-      196 CAPTURE                          VAL R7
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          VAL R19
-      199 CAPTURE                          VAL R4
-      200 CAPTURE                          VAL R15
-      201 CAPTURE                          VAL R12
-      202 RETURN                           R22 1
+      168 GETTABLEKS                       R21 R13 K47 ["getDefaultSortNameForCategory"]
+      170 GETTABLEKS                       R22 R7 K45 ["FREE_MODELS"]
+      172 GETTABLEKS                       R22 R22 K46 ["name"]
+      174 CALL                             R21 1 1
+      175 SETTABLEKS                       R21 R20 K40 ["SortName"]
+      177 DUPCLOSURE                       R21 K48 [PROTO_0]
+      178 DUPCLOSURE                       R22 K49 [PROTO_3]
+      179 CAPTURE                          VAL R3
+      180 CAPTURE                          VAL R20
+      181 CAPTURE                          VAL R2
+      182 CAPTURE                          VAL R11
+      183 CAPTURE                          VAL R14
+      184 CAPTURE                          VAL R21
+      185 CAPTURE                          VAL R18
+      186 CAPTURE                          VAL R9
+      187 CAPTURE                          VAL R1
+      188 CAPTURE                          VAL R17
+      189 CAPTURE                          VAL R16
+      190 CAPTURE                          VAL R7
+      191 CAPTURE                          VAL R6
+      192 CAPTURE                          VAL R19
+      193 CAPTURE                          VAL R4
+      194 CAPTURE                          VAL R15
+      195 CAPTURE                          VAL R12
+      196 RETURN                           R22 1

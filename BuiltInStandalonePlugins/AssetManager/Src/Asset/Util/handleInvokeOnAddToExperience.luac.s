@@ -1,13 +1,9 @@
 PROTO_0:
         0 LOADK                            R3 K0 ["ShowToast"]
-        1 DUPTABLE                         R4 K3 [{"Key", "SubKey"}]
-        2 LOADK                            R5 K4 ["Toast"]
-        3 SETTABLEKS                       R5 R4 K1 ["Key"]
-        5 LOADK                            R5 K5 ["AddToExperienceFailed"]
-        6 SETTABLEKS                       R5 R4 K2 ["SubKey"]
-        8 NAMECALL                         R1 R0 K6 ["Invoke"]
-       10 CALL                             R1 3 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R4 K5 [{["Key"] = "Toast", ["SubKey"] = "AddToExperienceFailed"}]
+        2 NAMECALL                         R1 R0 K6 ["Invoke"]
+        4 CALL                             R1 3 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R4 R1 K0 ["assetIds"]
@@ -32,30 +28,26 @@ PROTO_1:
        26 LOADK                            R7 K6 ["AssetAccessController"]
        27 NAMECALL                         R5 R0 K7 ["GetPluginComponent"]
        29 CALL                             R5 2 1
-       30 JUMPIF                           R5 ; [+12]
+       30 JUMPIF                           R5 ; [+6]
        31 LOADK                            R8 K8 ["ShowToast"]
-       32 DUPTABLE                         R9 K11 [{"Key", "SubKey"}]
-       33 LOADK                            R10 K12 ["Toast"]
-       34 SETTABLEKS                       R10 R9 K9 ["Key"]
-       36 LOADK                            R10 K13 ["AddToExperienceFailed"]
-       37 SETTABLEKS                       R10 R9 K10 ["SubKey"]
-       39 NAMECALL                         R6 R0 K14 ["Invoke"]
-       41 CALL                             R6 3 0
-       42 RETURN                           R0 0
-       43 GETUPVAL                         R6 1
-       44 GETTABLEKS                       R6 R6 K15 ["Utils"]
-       46 GETTABLEKS                       R6 R6 K16 ["grantUniversePermissions"]
-       48 MOVE                             R7 R3
-       49 MOVE                             R8 R4
-       50 MOVE                             R9 R5
-       51 CALL                             R6 3 1
-       52 LOADK                            R9 K17 ["OnAddToExperienceFinished"]
-       53 MOVE                             R10 R1
-       54 MOVE                             R11 R6
-       55 MOVE                             R12 R2
-       56 NAMECALL                         R7 R0 K14 ["Invoke"]
-       58 CALL                             R7 5 0
-       59 RETURN                           R0 0
+       32 DUPTABLE                         R9 K13 [{["Key"] = "Toast", ["SubKey"] = "AddToExperienceFailed"}]
+       33 NAMECALL                         R6 R0 K14 ["Invoke"]
+       35 CALL                             R6 3 0
+       36 RETURN                           R0 0
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R6 R6 K15 ["Utils"]
+       40 GETTABLEKS                       R6 R6 K16 ["grantUniversePermissions"]
+       42 MOVE                             R7 R3
+       43 MOVE                             R8 R4
+       44 MOVE                             R9 R5
+       45 CALL                             R6 3 1
+       46 LOADK                            R9 K17 ["OnAddToExperienceFinished"]
+       47 MOVE                             R10 R1
+       48 MOVE                             R11 R6
+       49 MOVE                             R12 R2
+       50 NAMECALL                         R7 R0 K14 ["Invoke"]
+       52 CALL                             R7 5 0
+       53 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

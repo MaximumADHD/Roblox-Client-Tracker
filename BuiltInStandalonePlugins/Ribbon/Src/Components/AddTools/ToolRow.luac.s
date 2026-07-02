@@ -218,101 +218,99 @@ PROTO_5:
       210 SETTABLEKS                       R16 R15 K31 ["Arrow"]
       212 GETUPVAL                         R17 10
       213 CALL                             R17 0 1
-      214 JUMPIFNOT                        R17 ; [+25]
+      214 JUMPIFNOT                        R17 ; [+22]
       215 GETUPVAL                         R16 7
       216 GETUPVAL                         R17 11
-      217 DUPTABLE                         R18 K52 [{"LayoutOrder", "isChecked", "onActivated", "size", "label"}]
+      217 DUPTABLE                         R18 K53 [{["LayoutOrder"], ["isChecked"], ["onActivated"], ["size"], ["label"] = ""}]
       218 MOVE                             R19 R1
       219 CALL                             R19 0 1
       220 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
-      222 GETTABLEKS                       R19 R2 K53 ["Placed"]
+      222 GETTABLEKS                       R19 R2 K54 ["Placed"]
       224 SETTABLEKS                       R19 R18 K48 ["isChecked"]
       226 NEWCLOSURE                       R19 P3
       227 CAPTURE                          VAL R0
       228 SETTABLEKS                       R19 R18 K49 ["onActivated"]
       230 GETUPVAL                         R19 12
-      231 GETTABLEKS                       R19 R19 K54 ["XSmall"]
+      231 GETTABLEKS                       R19 R19 K55 ["XSmall"]
       233 SETTABLEKS                       R19 R18 K50 ["size"]
-      235 LOADK                            R19 K55 [""]
-      236 SETTABLEKS                       R19 R18 K51 ["label"]
-      238 CALL                             R16 2 1
-      239 JUMP                             ; [+16]
-      240 GETUPVAL                         R16 7
-      241 GETUPVAL                         R17 13
-      242 DUPTABLE                         R18 K58 [{"LayoutOrder", "Checked", "OnClick"}]
-      243 MOVE                             R19 R1
-      244 CALL                             R19 0 1
-      245 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
-      247 GETTABLEKS                       R19 R2 K53 ["Placed"]
-      249 SETTABLEKS                       R19 R18 K56 ["Checked"]
-      251 NEWCLOSURE                       R19 P4
-      252 CAPTURE                          VAL R0
-      253 SETTABLEKS                       R19 R18 K57 ["OnClick"]
-      255 CALL                             R16 2 1
-      256 SETTABLEKS                       R16 R15 K32 ["Checkbox"]
-      258 GETUPVAL                         R16 7
-      259 LOADK                            R17 K59 ["ImageLabel"]
-      260 DUPTABLE                         R18 K60 [{"LayoutOrder", "Image"}]
-      261 MOVE                             R19 R1
-      262 CALL                             R19 0 1
-      263 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
-      265 SETTABLEKS                       R7 R18 K45 ["Image"]
-      267 CALL                             R16 2 1
-      268 SETTABLEKS                       R16 R15 K8 ["Icon"]
-      270 GETUPVAL                         R16 7
-      271 LOADK                            R17 K34 ["Frame"]
-      272 NEWTABLE                         R18 2 0
-      274 MOVE                             R19 R1
-      275 CALL                             R19 0 1
-      276 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
-      278 GETUPVAL                         R19 8
-      279 GETTABLEKS                       R19 R19 K21 ["Tag"]
-      281 LOADK                            R20 K61 ["Role-Surface X-Column"]
-      282 SETTABLE                         R20 R18 R19
-      283 DUPTABLE                         R19 K62 [{"Title", "Description"}]
-      284 JUMPIFNOT                        R10 ; [+31]
-      285 GETUPVAL                         R20 7
-      286 LOADK                            R21 K34 ["Frame"]
-      287 NEWTABLE                         R22 1 0
-      289 GETUPVAL                         R23 8
-      290 GETTABLEKS                       R23 R23 K21 ["Tag"]
-      292 LOADK                            R24 K63 ["X-FitY X-RowSpace100 Role-Surface X-Middle"]
-      293 SETTABLE                         R24 R22 R23
-      294 DUPTABLE                         R23 K64 [{"Title", "Tag"}]
-      295 SETTABLEKS                       R11 R23 K3 ["Title"]
-      297 GETUPVAL                         R24 7
-      298 GETUPVAL                         R25 14
-      299 DUPTABLE                         R26 K67 [{"LayoutOrder", "text", "variant"}]
-      300 MOVE                             R27 R1
-      301 CALL                             R27 0 1
-      302 SETTABLEKS                       R27 R26 K19 ["LayoutOrder"]
-      304 SETTABLEKS                       R10 R26 K65 ["text"]
-      306 GETUPVAL                         R27 15
-      307 GETTABLEKS                       R27 R27 K68 ["Secondary"]
-      309 SETTABLEKS                       R27 R26 K66 ["variant"]
-      311 CALL                             R24 2 1
-      312 SETTABLEKS                       R24 R23 K21 ["Tag"]
-      314 CALL                             R20 3 1
-      315 JUMP                             ; [+1]
-      316 MOVE                             R20 R11
-      317 SETTABLEKS                       R20 R19 K3 ["Title"]
-      319 GETUPVAL                         R20 7
-      320 LOADK                            R21 K18 ["TextLabel"]
-      321 NEWTABLE                         R22 4 0
-      323 MOVE                             R23 R1
-      324 CALL                             R23 0 1
-      325 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
-      327 SETTABLEKS                       R6 R22 K20 ["Text"]
-      329 GETUPVAL                         R23 8
-      330 GETTABLEKS                       R23 R23 K21 ["Tag"]
-      332 LOADK                            R24 K69 ["X-FitY"]
-      333 SETTABLE                         R24 R22 R23
-      334 CALL                             R20 2 1
-      335 SETTABLEKS                       R20 R19 K7 ["Description"]
-      337 CALL                             R16 3 1
-      338 SETTABLEKS                       R16 R15 K20 ["Text"]
-      340 CALL                             R12 3 -1
-      341 RETURN                           R12 -1
+      235 CALL                             R16 2 1
+      236 JUMP                             ; [+16]
+      237 GETUPVAL                         R16 7
+      238 GETUPVAL                         R17 13
+      239 DUPTABLE                         R18 K58 [{"LayoutOrder", "Checked", "OnClick"}]
+      240 MOVE                             R19 R1
+      241 CALL                             R19 0 1
+      242 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
+      244 GETTABLEKS                       R19 R2 K54 ["Placed"]
+      246 SETTABLEKS                       R19 R18 K56 ["Checked"]
+      248 NEWCLOSURE                       R19 P4
+      249 CAPTURE                          VAL R0
+      250 SETTABLEKS                       R19 R18 K57 ["OnClick"]
+      252 CALL                             R16 2 1
+      253 SETTABLEKS                       R16 R15 K32 ["Checkbox"]
+      255 GETUPVAL                         R16 7
+      256 LOADK                            R17 K59 ["ImageLabel"]
+      257 DUPTABLE                         R18 K60 [{"LayoutOrder", "Image"}]
+      258 MOVE                             R19 R1
+      259 CALL                             R19 0 1
+      260 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
+      262 SETTABLEKS                       R7 R18 K45 ["Image"]
+      264 CALL                             R16 2 1
+      265 SETTABLEKS                       R16 R15 K8 ["Icon"]
+      267 GETUPVAL                         R16 7
+      268 LOADK                            R17 K34 ["Frame"]
+      269 NEWTABLE                         R18 2 0
+      271 MOVE                             R19 R1
+      272 CALL                             R19 0 1
+      273 SETTABLEKS                       R19 R18 K19 ["LayoutOrder"]
+      275 GETUPVAL                         R19 8
+      276 GETTABLEKS                       R19 R19 K21 ["Tag"]
+      278 LOADK                            R20 K61 ["Role-Surface X-Column"]
+      279 SETTABLE                         R20 R18 R19
+      280 DUPTABLE                         R19 K62 [{"Title", "Description"}]
+      281 JUMPIFNOT                        R10 ; [+31]
+      282 GETUPVAL                         R20 7
+      283 LOADK                            R21 K34 ["Frame"]
+      284 NEWTABLE                         R22 1 0
+      286 GETUPVAL                         R23 8
+      287 GETTABLEKS                       R23 R23 K21 ["Tag"]
+      289 LOADK                            R24 K63 ["X-FitY X-RowSpace100 Role-Surface X-Middle"]
+      290 SETTABLE                         R24 R22 R23
+      291 DUPTABLE                         R23 K64 [{"Title", "Tag"}]
+      292 SETTABLEKS                       R11 R23 K3 ["Title"]
+      294 GETUPVAL                         R24 7
+      295 GETUPVAL                         R25 14
+      296 DUPTABLE                         R26 K67 [{"LayoutOrder", "text", "variant"}]
+      297 MOVE                             R27 R1
+      298 CALL                             R27 0 1
+      299 SETTABLEKS                       R27 R26 K19 ["LayoutOrder"]
+      301 SETTABLEKS                       R10 R26 K65 ["text"]
+      303 GETUPVAL                         R27 15
+      304 GETTABLEKS                       R27 R27 K68 ["Secondary"]
+      306 SETTABLEKS                       R27 R26 K66 ["variant"]
+      308 CALL                             R24 2 1
+      309 SETTABLEKS                       R24 R23 K21 ["Tag"]
+      311 CALL                             R20 3 1
+      312 JUMP                             ; [+1]
+      313 MOVE                             R20 R11
+      314 SETTABLEKS                       R20 R19 K3 ["Title"]
+      316 GETUPVAL                         R20 7
+      317 LOADK                            R21 K18 ["TextLabel"]
+      318 NEWTABLE                         R22 4 0
+      320 MOVE                             R23 R1
+      321 CALL                             R23 0 1
+      322 SETTABLEKS                       R23 R22 K19 ["LayoutOrder"]
+      324 SETTABLEKS                       R6 R22 K20 ["Text"]
+      326 GETUPVAL                         R23 8
+      327 GETTABLEKS                       R23 R23 K21 ["Tag"]
+      329 LOADK                            R24 K69 ["X-FitY"]
+      330 SETTABLE                         R24 R22 R23
+      331 CALL                             R20 2 1
+      332 SETTABLEKS                       R20 R19 K7 ["Description"]
+      334 CALL                             R16 3 1
+      335 SETTABLEKS                       R16 R15 K20 ["Text"]
+      337 CALL                             R12 3 -1
+      338 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

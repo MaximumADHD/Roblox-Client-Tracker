@@ -325,92 +325,76 @@ MAIN:
        62 DUPCLOSURE                       R9 K20 [PROTO_2]
        63 SETTABLEKS                       R9 R8 K21 ["leave"]
        65 GETIMPORT                        R9 K24 [table.freeze]
-       67 DUPTABLE                         R10 K27 [{"Hotkey", "LabelLocEntry"}]
-       68 LOADK                            R11 K28 ["T"]
-       69 SETTABLEKS                       R11 R10 K25 ["Hotkey"]
-       71 LOADK                            R11 K29 ["DragTilt"]
-       72 SETTABLEKS                       R11 R10 K26 ["LabelLocEntry"]
-       74 CALL                             R9 1 1
-       75 GETIMPORT                        R10 K24 [table.freeze]
-       77 DUPTABLE                         R11 K27 [{"Hotkey", "LabelLocEntry"}]
-       78 LOADK                            R12 K30 ["R"]
-       79 SETTABLEKS                       R12 R11 K25 ["Hotkey"]
-       81 LOADK                            R12 K31 ["DragRotate"]
-       82 SETTABLEKS                       R12 R11 K26 ["LabelLocEntry"]
-       84 CALL                             R10 1 1
-       85 GETIMPORT                        R11 K24 [table.freeze]
-       87 DUPTABLE                         R12 K27 [{"Hotkey", "LabelLocEntry"}]
-       88 LOADK                            R13 K32 ["⬇Alt"]
-       89 SETTABLEKS                       R13 R12 K25 ["Hotkey"]
-       91 LOADK                            R13 K33 ["HoldOrientation"]
-       92 SETTABLEKS                       R13 R12 K26 ["LabelLocEntry"]
-       94 CALL                             R11 1 1
-       95 GETIMPORT                        R12 K24 [table.freeze]
-       97 DUPTABLE                         R13 K27 [{"Hotkey", "LabelLocEntry"}]
-       98 LOADK                            R14 K34 ["⬆Alt"]
-       99 SETTABLEKS                       R14 R13 K25 ["Hotkey"]
-      101 LOADK                            R14 K35 ["UnholdOrientation"]
-      102 SETTABLEKS                       R14 R13 K26 ["LabelLocEntry"]
-      104 CALL                             R12 1 1
-      105 DUPCLOSURE                       R13 K36 [PROTO_3]
-      106 CAPTURE                          VAL R9
-      107 CAPTURE                          VAL R10
-      108 CAPTURE                          VAL R12
-      109 CAPTURE                          VAL R11
-      110 CAPTURE                          VAL R6
-      111 SETTABLEKS                       R13 R8 K37 ["_getHotkeyList"]
-      113 DUPCLOSURE                       R13 K38 [PROTO_4]
-      114 CAPTURE                          VAL R5
-      115 CAPTURE                          VAL R7
-      116 CAPTURE                          VAL R2
-      117 CAPTURE                          VAL R3
-      118 SETTABLEKS                       R13 R8 K39 ["render"]
-      120 DUPCLOSURE                       R13 K40 [PROTO_5]
-      121 SETTABLEKS                       R13 R8 K41 ["processSelectionChanged"]
-      123 DUPCLOSURE                       R13 K42 [PROTO_6]
-      124 SETTABLEKS                       R13 R8 K43 ["processMouseDown"]
-      126 DUPCLOSURE                       R13 K44 [PROTO_7]
-      127 SETTABLEKS                       R13 R8 K45 ["processViewChanged"]
-      129 DUPCLOSURE                       R13 K46 [PROTO_8]
-      130 SETTABLEKS                       R13 R8 K47 ["processMouseUp"]
-      132 DUPCLOSURE                       R13 K48 [PROTO_9]
-      133 SETTABLEKS                       R13 R8 K49 ["processMouseEnter"]
-      135 DUPCLOSURE                       R13 K50 [PROTO_10]
-      136 SETTABLEKS                       R13 R8 K51 ["processMouseLeave"]
-      138 GETIMPORT                        R13 K24 [table.freeze]
-      140 NEWTABLE                         R14 8 0
-      142 GETIMPORT                        R15 K55 [Enum.KeyCode.RightShift]
-      144 LOADB                            R16 1
-      145 SETTABLE                         R16 R14 R15
-      146 GETIMPORT                        R15 K57 [Enum.KeyCode.LeftShift]
-      148 LOADB                            R16 1
-      149 SETTABLE                         R16 R14 R15
-      150 GETIMPORT                        R15 K59 [Enum.KeyCode.RightControl]
-      152 LOADB                            R16 1
-      153 SETTABLE                         R16 R14 R15
-      154 GETIMPORT                        R15 K61 [Enum.KeyCode.LeftControl]
-      156 LOADB                            R16 1
-      157 SETTABLE                         R16 R14 R15
-      158 GETIMPORT                        R15 K63 [Enum.KeyCode.RightAlt]
-      160 LOADB                            R16 1
-      161 SETTABLE                         R16 R14 R15
-      162 GETIMPORT                        R15 K65 [Enum.KeyCode.LeftAlt]
-      164 LOADB                            R16 1
-      165 SETTABLE                         R16 R14 R15
-      166 CALL                             R13 1 1
-      167 DUPCLOSURE                       R14 K66 [PROTO_11]
-      168 CAPTURE                          VAL R7
-      169 CAPTURE                          VAL R13
-      170 SETTABLEKS                       R14 R8 K67 ["processKeyDown"]
-      172 DUPCLOSURE                       R14 K68 [PROTO_12]
-      173 CAPTURE                          VAL R7
-      174 CAPTURE                          VAL R13
-      175 SETTABLEKS                       R14 R8 K69 ["processKeyUp"]
-      177 DUPCLOSURE                       R14 K70 [PROTO_13]
-      178 SETTABLEKS                       R14 R8 K71 ["_tiltRotateFreeformSelectionDrag"]
-      180 DUPCLOSURE                       R14 K72 [PROTO_14]
-      181 SETTABLEKS                       R14 R8 K73 ["_updateFreeformSelectionDrag"]
-      183 DUPCLOSURE                       R14 K74 [PROTO_15]
-      184 CAPTURE                          VAL R4
-      185 SETTABLEKS                       R14 R8 K75 ["_endFreeformSelectionDrag"]
-      187 RETURN                           R8 1
+       67 DUPTABLE                         R10 K29 [{["Hotkey"] = "T", ["LabelLocEntry"] = "DragTilt"}]
+       68 CALL                             R9 1 1
+       69 GETIMPORT                        R10 K24 [table.freeze]
+       71 DUPTABLE                         R11 K32 [{["Hotkey"] = "R", ["LabelLocEntry"] = "DragRotate"}]
+       72 CALL                             R10 1 1
+       73 GETIMPORT                        R11 K24 [table.freeze]
+       75 DUPTABLE                         R12 K35 [{["Hotkey"] = "⬇Alt", ["LabelLocEntry"] = "HoldOrientation"}]
+       76 CALL                             R11 1 1
+       77 GETIMPORT                        R12 K24 [table.freeze]
+       79 DUPTABLE                         R13 K38 [{["Hotkey"] = "⬆Alt", ["LabelLocEntry"] = "UnholdOrientation"}]
+       80 CALL                             R12 1 1
+       81 DUPCLOSURE                       R13 K39 [PROTO_3]
+       82 CAPTURE                          VAL R9
+       83 CAPTURE                          VAL R10
+       84 CAPTURE                          VAL R12
+       85 CAPTURE                          VAL R11
+       86 CAPTURE                          VAL R6
+       87 SETTABLEKS                       R13 R8 K40 ["_getHotkeyList"]
+       89 DUPCLOSURE                       R13 K41 [PROTO_4]
+       90 CAPTURE                          VAL R5
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R3
+       94 SETTABLEKS                       R13 R8 K42 ["render"]
+       96 DUPCLOSURE                       R13 K43 [PROTO_5]
+       97 SETTABLEKS                       R13 R8 K44 ["processSelectionChanged"]
+       99 DUPCLOSURE                       R13 K45 [PROTO_6]
+      100 SETTABLEKS                       R13 R8 K46 ["processMouseDown"]
+      102 DUPCLOSURE                       R13 K47 [PROTO_7]
+      103 SETTABLEKS                       R13 R8 K48 ["processViewChanged"]
+      105 DUPCLOSURE                       R13 K49 [PROTO_8]
+      106 SETTABLEKS                       R13 R8 K50 ["processMouseUp"]
+      108 DUPCLOSURE                       R13 K51 [PROTO_9]
+      109 SETTABLEKS                       R13 R8 K52 ["processMouseEnter"]
+      111 DUPCLOSURE                       R13 K53 [PROTO_10]
+      112 SETTABLEKS                       R13 R8 K54 ["processMouseLeave"]
+      114 GETIMPORT                        R13 K24 [table.freeze]
+      116 NEWTABLE                         R14 8 0
+      118 GETIMPORT                        R15 K58 [Enum.KeyCode.RightShift]
+      120 LOADB                            R16 1
+      121 SETTABLE                         R16 R14 R15
+      122 GETIMPORT                        R15 K60 [Enum.KeyCode.LeftShift]
+      124 LOADB                            R16 1
+      125 SETTABLE                         R16 R14 R15
+      126 GETIMPORT                        R15 K62 [Enum.KeyCode.RightControl]
+      128 LOADB                            R16 1
+      129 SETTABLE                         R16 R14 R15
+      130 GETIMPORT                        R15 K64 [Enum.KeyCode.LeftControl]
+      132 LOADB                            R16 1
+      133 SETTABLE                         R16 R14 R15
+      134 GETIMPORT                        R15 K66 [Enum.KeyCode.RightAlt]
+      136 LOADB                            R16 1
+      137 SETTABLE                         R16 R14 R15
+      138 GETIMPORT                        R15 K68 [Enum.KeyCode.LeftAlt]
+      140 LOADB                            R16 1
+      141 SETTABLE                         R16 R14 R15
+      142 CALL                             R13 1 1
+      143 DUPCLOSURE                       R14 K69 [PROTO_11]
+      144 CAPTURE                          VAL R7
+      145 CAPTURE                          VAL R13
+      146 SETTABLEKS                       R14 R8 K70 ["processKeyDown"]
+      148 DUPCLOSURE                       R14 K71 [PROTO_12]
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R13
+      151 SETTABLEKS                       R14 R8 K72 ["processKeyUp"]
+      153 DUPCLOSURE                       R14 K73 [PROTO_13]
+      154 SETTABLEKS                       R14 R8 K74 ["_tiltRotateFreeformSelectionDrag"]
+      156 DUPCLOSURE                       R14 K75 [PROTO_14]
+      157 SETTABLEKS                       R14 R8 K76 ["_updateFreeformSelectionDrag"]
+      159 DUPCLOSURE                       R14 K77 [PROTO_15]
+      160 CAPTURE                          VAL R4
+      161 SETTABLEKS                       R14 R8 K78 ["_endFreeformSelectionDrag"]
+      163 RETURN                           R8 1

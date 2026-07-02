@@ -220,7 +220,7 @@ PROTO_2:
        75 SETTABLEKS                       R3 R0 K17 ["spinY"]
        77 GETTABLEKS                       R6 R1 K19 ["y"]
        79 MINUS                            R5 R6
-       80 LOADN                            R6 255
+       80 LOADN                            R6 -1
        81 LOADN                            R7 1
        82 FASTCALL                         MATH_CLAMP ; [+2]
        83 GETIMPORT                        R4 K21 [math.clamp]
@@ -408,14 +408,14 @@ PROTO_6:
        83 GETTABLEKS                       R8 R8 K20 ["y"]
        85 LOADN                            R9 0
        86 JUMPIFNOTLE                      R9 R8 ; [+3]
-       88 LOADN                            R7 255
+       88 LOADN                            R7 -1
        89 JUMP                             ; [+1]
        90 LOADN                            R7 1
        91 GETTABLEKS                       R8 R0 K21 ["spinY"]
        93 MOVE                             R14 R6
        94 NAMECALL                         R12 R5 K22 ["Dot"]
        96 CALL                             R12 2 1
-       97 LOADN                            R13 255
+       97 LOADN                            R13 -1
        98 LOADN                            R14 1
        99 FASTCALL                         MATH_CLAMP ; [+2]
       100 GETIMPORT                        R11 K25 [math.clamp]
@@ -469,7 +469,7 @@ PROTO_6:
       171 GETTABLEKS                       R7 R7 K18 ["Unit"]
       173 GETTABLEKS                       R11 R6 K20 ["y"]
       175 MINUS                            R10 R11
-      176 LOADN                            R11 255
+      176 LOADN                            R11 -1
       177 LOADN                            R12 1
       178 FASTCALL                         MATH_CLAMP ; [+2]
       179 GETIMPORT                        R9 K25 [math.clamp]
@@ -809,11 +809,11 @@ PROTO_12:
       220 GETTABLEKS                       R14 R0 K19 ["windhoseSimulation"]
       222 GETTABLEKS                       R14 R14 K42 ["cone"]
       224 GETIMPORT                        R15 K45 [CFrame.lookAt]
-      226 LOADN                            R17 251
+      226 LOADN                            R17 -5
       227 GETTABLEKS                       R18 R5 K14 ["CFrame"]
       229 GETTABLEKS                       R18 R18 K15 ["LookVector"]
       231 MUL                              R16 R17 R18
-      232 LOADN                            R18 246
+      232 LOADN                            R18 -10
       233 GETTABLEKS                       R19 R5 K29 ["Position"]
       235 MUL                              R17 R18 R19
       236 CALL                             R15 2 1
@@ -910,9 +910,9 @@ PROTO_12:
       375 GETTABLEKS                       R19 R19 K29 ["Position"]
       377 SUB                              R17 R18 R19
       378 GETIMPORT                        R19 K28 [CFrame.new]
-      380 LOADN                            R20 255
-      381 LOADN                            R21 255
-      382 LOADN                            R22 255
+      380 LOADN                            R20 -1
+      381 LOADN                            R21 -1
+      382 LOADN                            R22 -1
       383 CALL                             R19 3 -1
       384 NAMECALL                         R17 R17 K71 ["ToWorldSpace"]
       386 CALL                             R17 -1 1

@@ -21,35 +21,31 @@ PROTO_1:
        13 RETURN                           R2 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K3 [{"_mockTemplateCache", "_mockFiles", "_isMockGlobalLibrary"}]
+        0 DUPTABLE                         R0 K4 [{[1], ["_mockFiles"], ["_isMockGlobalLibrary"] = False}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["_mockTemplateCache"]
         5 NEWTABLE                         R1 0 0
         7 SETTABLEKS                       R1 R0 K1 ["_mockFiles"]
-        9 LOADB                            R1 0
-       10 SETTABLEKS                       R1 R0 K2 ["_isMockGlobalLibrary"]
-       12 GETUPVAL                         R3 0
-       13 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       15 MOVE                             R2 R0
-       16 GETIMPORT                        R1 K5 [setmetatable]
-       18 CALL                             R1 2 1
-       19 RETURN                           R1 1
+        9 GETUPVAL                         R3 0
+       10 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       12 MOVE                             R2 R0
+       13 GETIMPORT                        R1 K6 [setmetatable]
+       15 CALL                             R1 2 1
+       16 RETURN                           R1 1
 
 PROTO_3:
-        0 DUPTABLE                         R2 K3 [{"Image", "ImageRectOffset", "ImageRectSize"}]
-        1 LOADK                            R3 K4 ["rbxasset://textures/ClassImages.png"]
-        2 SETTABLEKS                       R3 R2 K0 ["Image"]
-        4 GETIMPORT                        R3 K7 [Vector2.new]
-        6 LOADN                            R4 0
-        7 LOADN                            R5 0
-        8 CALL                             R3 2 1
-        9 SETTABLEKS                       R3 R2 K1 ["ImageRectOffset"]
-       11 GETIMPORT                        R3 K7 [Vector2.new]
-       13 LOADN                            R4 16
-       14 LOADN                            R5 16
-       15 CALL                             R3 2 1
-       16 SETTABLEKS                       R3 R2 K2 ["ImageRectSize"]
-       18 RETURN                           R2 1
+        0 DUPTABLE                         R2 K4 [{[1] = "rbxasset://textures/ClassImages.png", ["ImageRectOffset"], ["ImageRectSize"]}]
+        1 GETIMPORT                        R3 K7 [Vector2.new]
+        3 LOADN                            R4 0
+        4 LOADN                            R5 0
+        5 CALL                             R3 2 1
+        6 SETTABLEKS                       R3 R2 K2 ["ImageRectOffset"]
+        8 GETIMPORT                        R3 K7 [Vector2.new]
+       10 LOADN                            R4 16
+       11 LOADN                            R5 16
+       12 CALL                             R3 2 1
+       13 SETTABLEKS                       R3 R2 K3 ["ImageRectSize"]
+       15 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

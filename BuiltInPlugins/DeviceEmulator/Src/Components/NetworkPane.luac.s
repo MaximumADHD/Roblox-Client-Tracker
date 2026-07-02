@@ -93,72 +93,56 @@ PROTO_6:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
-       11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
+       10 DUPTABLE                         R6 K10 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["Padding"] = 10, ["Spacing"] = 10}]
+       11 GETIMPORT                        R7 K13 [Enum.AutomaticSize.Y]
        13 SETTABLEKS                       R7 R6 K4 ["AutomaticSize"]
-       15 GETIMPORT                        R7 K14 [Enum.HorizontalAlignment.Left]
+       15 GETIMPORT                        R7 K15 [Enum.HorizontalAlignment.Left]
        17 SETTABLEKS                       R7 R6 K5 ["HorizontalAlignment"]
-       19 GETIMPORT                        R7 K17 [Enum.FillDirection.Vertical]
+       19 GETIMPORT                        R7 K18 [Enum.FillDirection.Vertical]
        21 SETTABLEKS                       R7 R6 K6 ["Layout"]
-       23 LOADN                            R7 10
-       24 SETTABLEKS                       R7 R6 K7 ["Padding"]
-       26 LOADN                            R7 10
-       27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
-       29 DUPTABLE                         R7 K19 [{"networkPane"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
-       35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
-       37 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
-       39 GETIMPORT                        R11 K14 [Enum.HorizontalAlignment.Left]
-       41 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
-       43 GETIMPORT                        R11 K17 [Enum.FillDirection.Vertical]
-       45 SETTABLEKS                       R11 R10 K6 ["Layout"]
-       47 LOADB                            R11 1
-       48 SETTABLEKS                       R11 R10 K20 ["AlwaysExpanded"]
-       50 LOADN                            R11 2
-       51 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
-       53 LOADK                            R11 K25 ["Box"]
-       54 SETTABLEKS                       R11 R10 K22 ["Style"]
-       56 LOADK                            R13 K26 ["NetworkSettings"]
-       57 LOADK                            R14 K27 ["NetworkReplicationLagLabel"]
-       58 NAMECALL                         R11 R3 K28 ["getText"]
-       60 CALL                             R11 3 1
-       61 SETTABLEKS                       R11 R10 K23 ["Text"]
-       63 NEWTABLE                         R11 0 1
-       65 GETUPVAL                         R12 0
-       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       68 GETUPVAL                         R13 3
-       69 DUPTABLE                         R14 K36 [{"PlaceholderText", "ShouldFocus", "Width", "MaxLength", "OnValidateText", "OnFormatText", "Text", "OnTextChanged"}]
-       70 LOADK                            R17 K26 ["NetworkSettings"]
-       71 LOADK                            R18 K37 ["NetworkReplicationLagPlaceholder"]
-       72 NAMECALL                         R15 R3 K28 ["getText"]
-       74 CALL                             R15 3 1
-       75 SETTABLEKS                       R15 R14 K29 ["PlaceholderText"]
-       77 LOADB                            R15 1
-       78 SETTABLEKS                       R15 R14 K30 ["ShouldFocus"]
-       80 LOADN                            R15 100
-       81 SETTABLEKS                       R15 R14 K31 ["Width"]
-       83 LOADN                            R15 5
-       84 SETTABLEKS                       R15 R14 K32 ["MaxLength"]
-       86 NEWCLOSURE                       R15 P0
-       87 CAPTURE                          VAL R3
-       88 SETTABLEKS                       R15 R14 K33 ["OnValidateText"]
-       90 DUPCLOSURE                       R15 K38 [PROTO_4]
-       91 SETTABLEKS                       R15 R14 K34 ["OnFormatText"]
-       93 GETTABLEKS                       R15 R2 K39 ["incomingReplicationLag"]
-       95 SETTABLEKS                       R15 R14 K23 ["Text"]
-       97 NEWCLOSURE                       R15 P2
-       98 CAPTURE                          UPVAL U4
-       99 CAPTURE                          VAL R0
-      100 SETTABLEKS                       R15 R14 K35 ["OnTextChanged"]
-      102 CALL                             R12 2 -1
-      103 SETLIST                          R11 R12 -1 [1]
-      105 CALL                             R8 3 1
-      106 SETTABLEKS                       R8 R7 K18 ["networkPane"]
-      108 CALL                             R4 3 -1
-      109 RETURN                           R4 -1
+       23 DUPTABLE                         R7 K20 [{"networkPane"}]
+       24 GETUPVAL                         R8 0
+       25 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       27 GETUPVAL                         R9 2
+       28 DUPTABLE                         R10 K28 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["AlwaysExpanded"] = True, ["LayoutOrder"] = 2, ["Style"] = "Box", ["Text"]}]
+       29 GETIMPORT                        R11 K13 [Enum.AutomaticSize.Y]
+       31 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
+       33 GETIMPORT                        R11 K15 [Enum.HorizontalAlignment.Left]
+       35 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
+       37 GETIMPORT                        R11 K18 [Enum.FillDirection.Vertical]
+       39 SETTABLEKS                       R11 R10 K6 ["Layout"]
+       41 LOADK                            R13 K29 ["NetworkSettings"]
+       42 LOADK                            R14 K30 ["NetworkReplicationLagLabel"]
+       43 NAMECALL                         R11 R3 K31 ["getText"]
+       45 CALL                             R11 3 1
+       46 SETTABLEKS                       R11 R10 K27 ["Text"]
+       48 NEWTABLE                         R11 0 1
+       50 GETUPVAL                         R12 0
+       51 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       53 GETUPVAL                         R13 3
+       54 DUPTABLE                         R14 K41 [{["PlaceholderText"], ["ShouldFocus"] = True, ["Width"] = 100, ["MaxLength"] = 5, ["OnValidateText"], ["OnFormatText"], ["Text"], ["OnTextChanged"]}]
+       55 LOADK                            R17 K29 ["NetworkSettings"]
+       56 LOADK                            R18 K42 ["NetworkReplicationLagPlaceholder"]
+       57 NAMECALL                         R15 R3 K31 ["getText"]
+       59 CALL                             R15 3 1
+       60 SETTABLEKS                       R15 R14 K32 ["PlaceholderText"]
+       62 NEWCLOSURE                       R15 P0
+       63 CAPTURE                          VAL R3
+       64 SETTABLEKS                       R15 R14 K38 ["OnValidateText"]
+       66 DUPCLOSURE                       R15 K43 [PROTO_4]
+       67 SETTABLEKS                       R15 R14 K39 ["OnFormatText"]
+       69 GETTABLEKS                       R15 R2 K44 ["incomingReplicationLag"]
+       71 SETTABLEKS                       R15 R14 K27 ["Text"]
+       73 NEWCLOSURE                       R15 P2
+       74 CAPTURE                          UPVAL U4
+       75 CAPTURE                          VAL R0
+       76 SETTABLEKS                       R15 R14 K40 ["OnTextChanged"]
+       78 CALL                             R12 2 -1
+       79 SETLIST                          R11 R12 -1 [1]
+       81 CALL                             R8 3 1
+       82 SETTABLEKS                       R8 R7 K19 ["networkPane"]
+       84 CALL                             R4 3 -1
+       85 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

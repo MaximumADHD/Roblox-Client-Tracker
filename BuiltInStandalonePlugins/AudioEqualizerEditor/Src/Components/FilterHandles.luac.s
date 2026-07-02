@@ -164,54 +164,46 @@ PROTO_6:
       119 GETTABLEKS                       R15 R0 K4 ["FilterHook"]
       121 GETTABLEKS                       R14 R15 K16 ["gain"]
       123 MOVE                             R15 R3
-      124 JUMPIFNOT                        R15 ; [+67]
+      124 JUMPIFNOT                        R15 ; [+55]
       125 GETUPVAL                         R15 8
       126 GETTABLEKS                       R15 R15 K17 ["createElement"]
       128 GETUPVAL                         R16 9
-      129 DUPTABLE                         R17 K23 [{"Active", "LayoutOrder", "Position", "Size", "BackgroundTransparency"}]
-      130 LOADB                            R18 1
-      131 SETTABLEKS                       R18 R17 K18 ["Active"]
-      133 LOADN                            R18 1
-      134 SETTABLEKS                       R18 R17 K19 ["LayoutOrder"]
-      136 GETIMPORT                        R18 K26 [UDim2.new]
-      138 LOADN                            R19 0
-      139 LOADN                            R20 0
-      140 LOADN                            R21 0
-      141 LOADN                            R22 0
-      142 CALL                             R18 4 1
-      143 SETTABLEKS                       R18 R17 K20 ["Position"]
-      145 GETIMPORT                        R18 K26 [UDim2.new]
-      147 LOADN                            R19 1
-      148 LOADN                            R20 0
-      149 LOADN                            R21 1
-      150 LOADN                            R22 0
-      151 CALL                             R18 4 1
-      152 SETTABLEKS                       R18 R17 K21 ["Size"]
-      154 LOADN                            R18 1
-      155 SETTABLEKS                       R18 R17 K22 ["BackgroundTransparency"]
-      157 DUPTABLE                         R18 K28 [{"Control"}]
-      158 GETUPVAL                         R19 8
-      159 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      161 GETUPVAL                         R20 10
-      162 DUPTABLE                         R21 K36 [{"Position", "Label", "DragTarget", "OnDragStart", "OnMoved", "OnDragEnd", "OnRightClick", "OnScroll"}]
-      163 GETIMPORT                        R22 K38 [Vector2.new]
-      165 GETTABLEKS                       R23 R0 K4 ["FilterHook"]
-      167 GETTABLEKS                       R23 R23 K39 ["frequency"]
-      169 MOVE                             R24 R14
-      170 CALL                             R22 2 1
-      171 SETTABLEKS                       R22 R21 K20 ["Position"]
-      173 LOADK                            R22 K40 ["F"]
-      174 SETTABLEKS                       R22 R21 K29 ["Label"]
-      176 SETTABLEKS                       R4 R21 K30 ["DragTarget"]
-      178 SETTABLEKS                       R8 R21 K31 ["OnDragStart"]
-      180 SETTABLEKS                       R10 R21 K32 ["OnMoved"]
-      182 SETTABLEKS                       R9 R21 K33 ["OnDragEnd"]
-      184 SETTABLEKS                       R12 R21 K34 ["OnRightClick"]
-      186 SETTABLEKS                       R13 R21 K35 ["OnScroll"]
-      188 CALL                             R19 2 1
-      189 SETTABLEKS                       R19 R18 K27 ["Control"]
-      191 CALL                             R15 3 1
-      192 RETURN                           R15 1
+      129 DUPTABLE                         R17 K25 [{["Active"] = True, ["LayoutOrder"] = 1, ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
+      130 GETIMPORT                        R18 K28 [UDim2.new]
+      132 LOADN                            R19 0
+      133 LOADN                            R20 0
+      134 LOADN                            R21 0
+      135 LOADN                            R22 0
+      136 CALL                             R18 4 1
+      137 SETTABLEKS                       R18 R17 K22 ["Position"]
+      139 GETIMPORT                        R18 K28 [UDim2.new]
+      141 LOADN                            R19 1
+      142 LOADN                            R20 0
+      143 LOADN                            R21 1
+      144 LOADN                            R22 0
+      145 CALL                             R18 4 1
+      146 SETTABLEKS                       R18 R17 K23 ["Size"]
+      148 DUPTABLE                         R18 K30 [{"Control"}]
+      149 GETUPVAL                         R19 8
+      150 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      152 GETUPVAL                         R20 10
+      153 DUPTABLE                         R21 K39 [{["Position"], ["Label"] = "F", ["DragTarget"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"], ["OnRightClick"], ["OnScroll"]}]
+      154 GETIMPORT                        R22 K41 [Vector2.new]
+      156 GETTABLEKS                       R23 R0 K4 ["FilterHook"]
+      158 GETTABLEKS                       R23 R23 K42 ["frequency"]
+      160 MOVE                             R24 R14
+      161 CALL                             R22 2 1
+      162 SETTABLEKS                       R22 R21 K22 ["Position"]
+      164 SETTABLEKS                       R4 R21 K33 ["DragTarget"]
+      166 SETTABLEKS                       R8 R21 K34 ["OnDragStart"]
+      168 SETTABLEKS                       R10 R21 K35 ["OnMoved"]
+      170 SETTABLEKS                       R9 R21 K36 ["OnDragEnd"]
+      172 SETTABLEKS                       R12 R21 K37 ["OnRightClick"]
+      174 SETTABLEKS                       R13 R21 K38 ["OnScroll"]
+      176 CALL                             R19 2 1
+      177 SETTABLEKS                       R19 R18 K29 ["Control"]
+      179 CALL                             R15 3 1
+      180 RETURN                           R15 1
 
 MAIN:
         0 PREPVARARGS                      0

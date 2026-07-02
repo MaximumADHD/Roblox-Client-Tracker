@@ -15,94 +15,88 @@ PROTO_0:
        15 GETUPVAL                         R7 0
        16 GETTABLEKS                       R7 R7 K3 ["createElement"]
        18 GETUPVAL                         R8 1
-       19 DUPTABLE                         R9 K7 [{"Position", "PlotAbsoluteSize", "Orientation"}]
+       19 DUPTABLE                         R9 K8 [{["Position"], ["PlotAbsoluteSize"], ["Orientation"] = "Vertical"}]
        20 SETTABLEKS                       R5 R9 K4 ["Position"]
        22 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
-       24 LOADK                            R10 K8 ["Vertical"]
-       25 SETTABLEKS                       R10 R9 K6 ["Orientation"]
-       27 CALL                             R7 2 1
-       28 SETTABLE                         R7 R1 R6
-       29 LOADK                            R7 K9 ["GridLabel_V_"]
-       30 MOVE                             R8 R4
-       31 CONCAT                           R6 R7 R8
-       32 GETUPVAL                         R7 0
-       33 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       35 GETUPVAL                         R8 2
-       36 DUPTABLE                         R9 K13 [{"Position", "OffsetDirection", "PlotAbsoluteSize", "Value", "FormatString"}]
-       37 GETIMPORT                        R10 K16 [Vector2.new]
-       39 MOVE                             R11 R5
-       40 LOADN                            R12 1
-       41 CALL                             R10 2 1
-       42 SETTABLEKS                       R10 R9 K4 ["Position"]
-       44 GETIMPORT                        R10 K16 [Vector2.new]
-       46 MULK                             R13 R5 K18 [3.14159265358979]
-       47 DIVK                             R12 R13 K17 [180]
-       48 FASTCALL1                        MATH_SIN R12 ; [+2]
-       49 GETIMPORT                        R11 K21 [math.sin]
-       51 CALL                             R11 1 1
-       52 MULK                             R15 R5 K18 [3.14159265358979]
-       53 DIVK                             R14 R15 K17 [180]
-       54 FASTCALL1                        MATH_COS R14 ; [+2]
-       55 GETIMPORT                        R13 K23 [math.cos]
-       57 CALL                             R13 1 1
-       58 MINUS                            R12 R13
-       59 CALL                             R10 2 1
-       60 SETTABLEKS                       R10 R9 K10 ["OffsetDirection"]
-       62 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
-       64 SETTABLEKS                       R5 R9 K11 ["Value"]
-       66 LOADK                            R10 K24 ["%.0f°"]
-       67 SETTABLEKS                       R10 R9 K12 ["FormatString"]
-       69 CALL                             R7 2 1
-       70 SETTABLE                         R7 R1 R6
-       71 FORNLOOP                         R2
-       72 LOADN                            R4 0
-       73 LOADN                            R2 5
-       74 LOADN                            R3 1
-       75 FORNPREP                         R2
-       76 DIVK                             R5 R4 K25 [5]
-       77 LOADK                            R7 K26 ["GridLine_H_"]
-       78 MOVE                             R8 R4
-       79 CONCAT                           R6 R7 R8
-       80 GETUPVAL                         R7 0
-       81 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       83 GETUPVAL                         R8 1
-       84 DUPTABLE                         R9 K7 [{"Position", "PlotAbsoluteSize", "Orientation"}]
-       85 SETTABLEKS                       R5 R9 K4 ["Position"]
-       87 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
-       89 LOADK                            R10 K27 ["Horizontal"]
-       90 SETTABLEKS                       R10 R9 K6 ["Orientation"]
-       92 CALL                             R7 2 1
-       93 SETTABLE                         R7 R1 R6
-       94 LOADK                            R7 K28 ["GridLabel_H_"]
-       95 MOVE                             R8 R4
-       96 CONCAT                           R6 R7 R8
-       97 GETUPVAL                         R7 0
-       98 GETTABLEKS                       R7 R7 K3 ["createElement"]
-      100 GETUPVAL                         R8 2
-      101 DUPTABLE                         R9 K13 [{"Position", "OffsetDirection", "PlotAbsoluteSize", "Value", "FormatString"}]
-      102 GETIMPORT                        R10 K16 [Vector2.new]
-      104 LOADN                            R11 90
-      105 MOVE                             R12 R5
-      106 CALL                             R10 2 1
-      107 SETTABLEKS                       R10 R9 K4 ["Position"]
-      109 GETIMPORT                        R10 K16 [Vector2.new]
-      111 LOADN                            R11 1
-      112 LOADN                            R12 255
-      113 CALL                             R10 2 1
-      114 SETTABLEKS                       R10 R9 K10 ["OffsetDirection"]
-      116 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
-      118 SETTABLEKS                       R5 R9 K11 ["Value"]
-      120 MODK                             R11 R5 K29 [1]
-      121 LOADN                            R12 0
-      122 JUMPIFNOTLT                      R12 R11 ; [+3]
-      124 LOADK                            R10 K30 ["%.1f"]
-      125 JUMP                             ; [+1]
-      126 LOADK                            R10 K31 ["%.0f"]
-      127 SETTABLEKS                       R10 R9 K12 ["FormatString"]
-      129 CALL                             R7 2 1
-      130 SETTABLE                         R7 R1 R6
-      131 FORNLOOP                         R2
-      132 RETURN                           R1 1
+       24 CALL                             R7 2 1
+       25 SETTABLE                         R7 R1 R6
+       26 LOADK                            R7 K9 ["GridLabel_V_"]
+       27 MOVE                             R8 R4
+       28 CONCAT                           R6 R7 R8
+       29 GETUPVAL                         R7 0
+       30 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       32 GETUPVAL                         R8 2
+       33 DUPTABLE                         R9 K14 [{["Position"], ["OffsetDirection"], ["PlotAbsoluteSize"], ["Value"], ["FormatString"] = "%.0f°"}]
+       34 GETIMPORT                        R10 K17 [Vector2.new]
+       36 MOVE                             R11 R5
+       37 LOADN                            R12 1
+       38 CALL                             R10 2 1
+       39 SETTABLEKS                       R10 R9 K4 ["Position"]
+       41 GETIMPORT                        R10 K17 [Vector2.new]
+       43 MULK                             R13 R5 K19 [3.14159265358979]
+       44 DIVK                             R12 R13 K18 [180]
+       45 FASTCALL1                        MATH_SIN R12 ; [+2]
+       46 GETIMPORT                        R11 K22 [math.sin]
+       48 CALL                             R11 1 1
+       49 MULK                             R15 R5 K19 [3.14159265358979]
+       50 DIVK                             R14 R15 K18 [180]
+       51 FASTCALL1                        MATH_COS R14 ; [+2]
+       52 GETIMPORT                        R13 K24 [math.cos]
+       54 CALL                             R13 1 1
+       55 MINUS                            R12 R13
+       56 CALL                             R10 2 1
+       57 SETTABLEKS                       R10 R9 K10 ["OffsetDirection"]
+       59 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
+       61 SETTABLEKS                       R5 R9 K11 ["Value"]
+       63 CALL                             R7 2 1
+       64 SETTABLE                         R7 R1 R6
+       65 FORNLOOP                         R2
+       66 LOADN                            R4 0
+       67 LOADN                            R2 5
+       68 LOADN                            R3 1
+       69 FORNPREP                         R2
+       70 DIVK                             R5 R4 K25 [5]
+       71 LOADK                            R7 K26 ["GridLine_H_"]
+       72 MOVE                             R8 R4
+       73 CONCAT                           R6 R7 R8
+       74 GETUPVAL                         R7 0
+       75 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       77 GETUPVAL                         R8 1
+       78 DUPTABLE                         R9 K28 [{["Position"], ["PlotAbsoluteSize"], ["Orientation"] = "Horizontal"}]
+       79 SETTABLEKS                       R5 R9 K4 ["Position"]
+       81 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
+       83 CALL                             R7 2 1
+       84 SETTABLE                         R7 R1 R6
+       85 LOADK                            R7 K29 ["GridLabel_H_"]
+       86 MOVE                             R8 R4
+       87 CONCAT                           R6 R7 R8
+       88 GETUPVAL                         R7 0
+       89 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       91 GETUPVAL                         R8 2
+       92 DUPTABLE                         R9 K30 [{"Position", "OffsetDirection", "PlotAbsoluteSize", "Value", "FormatString"}]
+       93 GETIMPORT                        R10 K17 [Vector2.new]
+       95 LOADN                            R11 90
+       96 MOVE                             R12 R5
+       97 CALL                             R10 2 1
+       98 SETTABLEKS                       R10 R9 K4 ["Position"]
+      100 GETIMPORT                        R10 K17 [Vector2.new]
+      102 LOADN                            R11 1
+      103 LOADN                            R12 -1
+      104 CALL                             R10 2 1
+      105 SETTABLEKS                       R10 R9 K10 ["OffsetDirection"]
+      107 SETTABLEKS                       R0 R9 K5 ["PlotAbsoluteSize"]
+      109 SETTABLEKS                       R5 R9 K11 ["Value"]
+      111 MODK                             R11 R5 K31 [1]
+      112 LOADN                            R12 0
+      113 JUMPIFNOTLT                      R12 R11 ; [+3]
+      115 LOADK                            R10 K32 ["%.1f"]
+      116 JUMP                             ; [+1]
+      117 LOADK                            R10 K33 ["%.0f"]
+      118 SETTABLEKS                       R10 R9 K12 ["FormatString"]
+      120 CALL                             R7 2 1
+      121 SETTABLE                         R7 R1 R6
+      122 FORNLOOP                         R2
+      123 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

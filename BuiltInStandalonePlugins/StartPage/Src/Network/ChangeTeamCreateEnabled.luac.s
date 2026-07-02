@@ -104,26 +104,22 @@ MAIN:
        63 GETTABLEKS                       R7 R3 K18 ["RobloxAPI"]
        65 GETTABLEKS                       R7 R7 K19 ["Url"]
        67 GETTABLEKS                       R8 R5 K20 ["new"]
-       69 DUPTABLE                         R9 K24 [{"isInternal", "loggingLevel", "retryAmount"}]
-       70 LOADB                            R10 1
-       71 SETTABLEKS                       R10 R9 K21 ["isInternal"]
-       73 SETTABLEKS                       R1 R9 K22 ["loggingLevel"]
-       75 LOADN                            R10 3
-       76 SETTABLEKS                       R10 R9 K23 ["retryAmount"]
-       78 CALL                             R8 1 1
-       79 NEWTABLE                         R9 1 0
-       81 LOADK                            R10 K25 ["application/json"]
-       82 SETTABLEKS                       R10 R9 K26 ["Content-Type"]
-       84 GETIMPORT                        R10 K28 [game]
-       86 LOADK                            R12 K29 ["HttpService"]
-       87 NAMECALL                         R10 R10 K30 ["GetService"]
-       89 CALL                             R10 2 1
-       90 DUPCLOSURE                       R11 K31 [PROTO_2]
-       91 CAPTURE                          VAL R2
-       92 CAPTURE                          VAL R7
-       93 CAPTURE                          VAL R4
-       94 CAPTURE                          VAL R8
-       95 CAPTURE                          VAL R10
-       96 CAPTURE                          VAL R9
-       97 CAPTURE                          VAL R6
-       98 RETURN                           R11 1
+       69 DUPTABLE                         R9 K26 [{["isInternal"] = True, ["loggingLevel"], ["retryAmount"] = 3}]
+       70 SETTABLEKS                       R1 R9 K23 ["loggingLevel"]
+       72 CALL                             R8 1 1
+       73 NEWTABLE                         R9 1 0
+       75 LOADK                            R10 K27 ["application/json"]
+       76 SETTABLEKS                       R10 R9 K28 ["Content-Type"]
+       78 GETIMPORT                        R10 K30 [game]
+       80 LOADK                            R12 K31 ["HttpService"]
+       81 NAMECALL                         R10 R10 K32 ["GetService"]
+       83 CALL                             R10 2 1
+       84 DUPCLOSURE                       R11 K33 [PROTO_2]
+       85 CAPTURE                          VAL R2
+       86 CAPTURE                          VAL R7
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R9
+       91 CAPTURE                          VAL R6
+       92 RETURN                           R11 1

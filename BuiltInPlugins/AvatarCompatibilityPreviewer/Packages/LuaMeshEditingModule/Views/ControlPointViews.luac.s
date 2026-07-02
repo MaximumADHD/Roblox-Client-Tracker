@@ -12,12 +12,12 @@ PROTO_0:
        17 MOVE                             R12 R6
        18 NAMECALL                         R10 R10 K3 ["getMeshOrigin"]
        20 CALL                             R10 2 1
-       21 JUMPIFEQKNIL                     R10 ; [+93]
+       21 JUMPIFEQKNIL                     R10 ; [+84]
        23 GETTABLEKS                       R11 R0 K2 ["MeshEditingContext"]
        25 MOVE                             R13 R6
        26 NAMECALL                         R11 R11 K4 ["getMeshPart"]
        28 CALL                             R11 2 1
-       29 JUMPIFEQKNIL                     R11 ; [+85]
+       29 JUMPIFEQKNIL                     R11 ; [+76]
        31 GETTABLEKS                       R13 R0 K0 ["ExternalProps"]
        33 GETTABLEKS                       R13 R13 K5 ["ControlPointFacingCamera"]
        35 GETTABLE                         R12 R13 R6
@@ -43,7 +43,7 @@ PROTO_0:
        58 GETUPVAL                         R22 0
        59 GETTABLEKS                       R22 R22 K9 ["createElement"]
        61 GETUPVAL                         R23 1
-       62 DUPTABLE                         R24 K18 [{"Position", "MeshOrigin", "Transparency", "IsFacingCamera", "Adornee", "Shape", "PointRadius", "SelectedWeight"}]
+       62 DUPTABLE                         R24 K19 [{["Position"], ["MeshOrigin"], ["Transparency"], ["IsFacingCamera"], ["Adornee"], ["Shape"] = "Sphere", ["PointRadius"], ["SelectedWeight"]}]
        63 SETTABLEKS                       R18 R24 K10 ["Position"]
        65 SETTABLEKS                       R10 R24 K11 ["MeshOrigin"]
        67 GETTABLEKS                       R25 R0 K0 ["ExternalProps"]
@@ -51,64 +51,56 @@ PROTO_0:
        71 SETTABLEKS                       R25 R24 K12 ["Transparency"]
        73 SETTABLEKS                       R20 R24 K13 ["IsFacingCamera"]
        75 SETTABLEKS                       R11 R24 K14 ["Adornee"]
-       77 LOADK                            R25 K19 ["Sphere"]
-       78 SETTABLEKS                       R25 R24 K15 ["Shape"]
-       80 GETUPVAL                         R25 2
-       81 GETTABLEKS                       R25 R25 K20 ["ControlPoint"]
-       83 GETTABLEKS                       R25 R25 K16 ["PointRadius"]
-       85 SETTABLEKS                       R25 R24 K16 ["PointRadius"]
-       87 SETTABLEKS                       R19 R24 K17 ["SelectedWeight"]
-       89 CALL                             R22 2 1
-       90 SETTABLE                         R22 R8 R21
-       91 FORGLOOP                         R14 2 ; [-47]
-       93 GETUPVAL                         R14 0
-       94 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       96 LOADK                            R15 K21 ["Folder"]
-       97 DUPTABLE                         R16 K23 [{"Archivable"}]
-       98 LOADB                            R17 0
-       99 SETTABLEKS                       R17 R16 K22 ["Archivable"]
-      101 MOVE                             R17 R9
-      102 CALL                             R14 3 1
-      103 SETTABLE                         R14 R1 R6
-      104 GETUPVAL                         R14 0
-      105 GETTABLEKS                       R14 R14 K9 ["createElement"]
-      107 LOADK                            R15 K21 ["Folder"]
-      108 DUPTABLE                         R16 K23 [{"Archivable"}]
-      109 LOADB                            R17 0
-      110 SETTABLEKS                       R17 R16 K22 ["Archivable"]
-      112 MOVE                             R17 R8
-      113 CALL                             R14 3 1
-      114 SETTABLE                         R14 R2 R6
-      115 FORGLOOP                         R3 2 ; [-105]
-      117 GETUPVAL                         R3 0
-      118 GETTABLEKS                       R3 R3 K9 ["createElement"]
-      120 GETUPVAL                         R4 0
-      121 GETTABLEKS                       R4 R4 K24 ["Fragment"]
-      123 NEWTABLE                         R5 0 0
-      125 NEWTABLE                         R6 1 0
-      127 GETUPVAL                         R7 2
-      128 GETTABLEKS                       R7 R7 K25 ["ControlPointsAdornmentsFolderName"]
-      130 GETUPVAL                         R8 3
-      131 GETTABLEKS                       R8 R8 K26 ["createPortal"]
-      133 GETUPVAL                         R9 0
-      134 GETTABLEKS                       R9 R9 K9 ["createElement"]
-      136 LOADK                            R10 K21 ["Folder"]
-      137 DUPTABLE                         R11 K28 [{"key", "Archivable"}]
-      138 GETUPVAL                         R12 2
-      139 GETTABLEKS                       R12 R12 K25 ["ControlPointsAdornmentsFolderName"]
-      141 SETTABLEKS                       R12 R11 K27 ["key"]
-      143 LOADB                            R12 0
-      144 SETTABLEKS                       R12 R11 K22 ["Archivable"]
-      146 MOVE                             R12 R2
-      147 CALL                             R9 3 1
-      148 GETTABLEKS                       R10 R0 K0 ["ExternalProps"]
-      150 GETTABLEKS                       R10 R10 K29 ["OverrideCoreGuiParent"]
-      152 JUMPIF                           R10 ; [+1]
-      153 GETUPVAL                         R10 4
-      154 CALL                             R8 2 1
-      155 SETTABLE                         R8 R6 R7
-      156 CALL                             R3 3 -1
-      157 RETURN                           R3 -1
+       77 GETUPVAL                         R25 2
+       78 GETTABLEKS                       R25 R25 K20 ["ControlPoint"]
+       80 GETTABLEKS                       R25 R25 K17 ["PointRadius"]
+       82 SETTABLEKS                       R25 R24 K17 ["PointRadius"]
+       84 SETTABLEKS                       R19 R24 K18 ["SelectedWeight"]
+       86 CALL                             R22 2 1
+       87 SETTABLE                         R22 R8 R21
+       88 FORGLOOP                         R14 2 ; [-44]
+       90 GETUPVAL                         R14 0
+       91 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       93 LOADK                            R15 K21 ["Folder"]
+       94 DUPTABLE                         R16 K24 [{["Archivable"] = False}]
+       95 MOVE                             R17 R9
+       96 CALL                             R14 3 1
+       97 SETTABLE                         R14 R1 R6
+       98 GETUPVAL                         R14 0
+       99 GETTABLEKS                       R14 R14 K9 ["createElement"]
+      101 LOADK                            R15 K21 ["Folder"]
+      102 DUPTABLE                         R16 K24 [{["Archivable"] = False}]
+      103 MOVE                             R17 R8
+      104 CALL                             R14 3 1
+      105 SETTABLE                         R14 R2 R6
+      106 FORGLOOP                         R3 2 ; [-96]
+      108 GETUPVAL                         R3 0
+      109 GETTABLEKS                       R3 R3 K9 ["createElement"]
+      111 GETUPVAL                         R4 0
+      112 GETTABLEKS                       R4 R4 K25 ["Fragment"]
+      114 NEWTABLE                         R5 0 0
+      116 NEWTABLE                         R6 1 0
+      118 GETUPVAL                         R7 2
+      119 GETTABLEKS                       R7 R7 K26 ["ControlPointsAdornmentsFolderName"]
+      121 GETUPVAL                         R8 3
+      122 GETTABLEKS                       R8 R8 K27 ["createPortal"]
+      124 GETUPVAL                         R9 0
+      125 GETTABLEKS                       R9 R9 K9 ["createElement"]
+      127 LOADK                            R10 K21 ["Folder"]
+      128 DUPTABLE                         R11 K29 [{["key"], ["Archivable"] = False}]
+      129 GETUPVAL                         R12 2
+      130 GETTABLEKS                       R12 R12 K26 ["ControlPointsAdornmentsFolderName"]
+      132 SETTABLEKS                       R12 R11 K28 ["key"]
+      134 MOVE                             R12 R2
+      135 CALL                             R9 3 1
+      136 GETTABLEKS                       R10 R0 K0 ["ExternalProps"]
+      138 GETTABLEKS                       R10 R10 K30 ["OverrideCoreGuiParent"]
+      140 JUMPIF                           R10 ; [+1]
+      141 GETUPVAL                         R10 4
+      142 CALL                             R8 2 1
+      143 SETTABLE                         R8 R6 R7
+      144 CALL                             R3 3 -1
+      145 RETURN                           R3 -1
 
 PROTO_1:
         0 NEWTABLE                         R2 4 0

@@ -58,24 +58,22 @@ PROTO_0:
        92 GETUPVAL                         R8 2
        93 GETTABLEKS                       R8 R8 K7 ["createElement"]
        95 LOADK                            R9 K41 ["ImageLabel"]
-       96 DUPTABLE                         R10 K45 [{"BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
-       97 LOADN                            R11 1
-       98 SETTABLEKS                       R11 R10 K42 ["BackgroundTransparency"]
-      100 GETUPVAL                         R11 5
-      101 GETTABLEKS                       R11 R11 K46 ["CLOSE_BUTTON"]
-      103 SETTABLEKS                       R11 R10 K43 ["Image"]
-      105 NAMECALL                         R11 R3 K40 ["getNextOrder"]
-      107 CALL                             R11 1 1
-      108 SETTABLEKS                       R11 R10 K11 ["LayoutOrder"]
-      110 GETIMPORT                        R11 K49 [UDim2.fromOffset]
-      112 LOADN                            R12 16
-      113 LOADN                            R13 16
-      114 CALL                             R11 2 1
-      115 SETTABLEKS                       R11 R10 K44 ["Size"]
-      117 CALL                             R8 2 1
-      118 SETTABLEKS                       R8 R7 K31 ["Close"]
-      120 CALL                             R4 3 -1
-      121 RETURN                           R4 -1
+       96 DUPTABLE                         R10 K46 [{["BackgroundTransparency"] = 1, ["Image"], ["LayoutOrder"], ["Size"]}]
+       97 GETUPVAL                         R11 5
+       98 GETTABLEKS                       R11 R11 K47 ["CLOSE_BUTTON"]
+      100 SETTABLEKS                       R11 R10 K44 ["Image"]
+      102 NAMECALL                         R11 R3 K40 ["getNextOrder"]
+      104 CALL                             R11 1 1
+      105 SETTABLEKS                       R11 R10 K11 ["LayoutOrder"]
+      107 GETIMPORT                        R11 K50 [UDim2.fromOffset]
+      109 LOADN                            R12 16
+      110 LOADN                            R13 16
+      111 CALL                             R11 2 1
+      112 SETTABLEKS                       R11 R10 K45 ["Size"]
+      114 CALL                             R8 2 1
+      115 SETTABLEKS                       R8 R7 K31 ["Close"]
+      117 CALL                             R4 3 -1
+      118 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

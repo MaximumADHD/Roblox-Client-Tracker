@@ -22,36 +22,32 @@ PROTO_1:
        24 GETTABLEKS                       R3 R3 K10 ["fn"]
        26 CALL                             R3 0 1
        27 SETTABLEKS                       R3 R2 K4 ["Select"]
-       29 DUPTABLE                         R3 K14 [{"depth", "isOpen"}]
-       30 LOADN                            R4 1
-       31 SETTABLEKS                       R4 R3 K12 ["depth"]
-       33 LOADB                            R4 0
-       34 SETTABLEKS                       R4 R3 K13 ["isOpen"]
-       36 SETTABLEKS                       R3 R2 K5 ["MenuData"]
-       38 GETUPVAL                         R3 0
-       39 DUPTABLE                         R4 K17 [{"Actions", "Settings"}]
-       40 NEWTABLE                         R5 0 0
-       42 SETTABLEKS                       R5 R4 K15 ["Actions"]
-       44 NEWTABLE                         R5 0 0
-       46 SETTABLEKS                       R5 R4 K16 ["Settings"]
-       48 GETTABLEKS                       R5 R0 K6 ["Items"]
-       50 CALL                             R3 2 1
-       51 SETTABLEKS                       R3 R2 K6 ["Items"]
-       53 GETIMPORT                        R3 K19 [require]
-       55 GETUPVAL                         R4 2
-       56 GETTABLEKS                       R4 R4 K20 ["Src"]
-       58 GETTABLEKS                       R4 R4 K21 ["Components"]
-       60 GETTABLEKS                       R4 R4 K22 ["ControlsView"]
-       62 GETTABLEKS                       R4 R4 K7 ["Renderers"]
-       64 CALL                             R3 1 1
-       65 SETTABLEKS                       R3 R2 K7 ["Renderers"]
-       67 GETUPVAL                         R3 1
-       68 GETTABLEKS                       R3 R3 K10 ["fn"]
-       70 CALL                             R3 0 1
-       71 SETTABLEKS                       R3 R2 K8 ["Warn"]
-       73 MOVE                             R3 R0
-       74 CALL                             R1 2 -1
-       75 RETURN                           R1 -1
+       29 DUPTABLE                         R3 K16 [{["depth"] = 1, ["isOpen"] = False}]
+       30 SETTABLEKS                       R3 R2 K5 ["MenuData"]
+       32 GETUPVAL                         R3 0
+       33 DUPTABLE                         R4 K19 [{"Actions", "Settings"}]
+       34 NEWTABLE                         R5 0 0
+       36 SETTABLEKS                       R5 R4 K17 ["Actions"]
+       38 NEWTABLE                         R5 0 0
+       40 SETTABLEKS                       R5 R4 K18 ["Settings"]
+       42 GETTABLEKS                       R5 R0 K6 ["Items"]
+       44 CALL                             R3 2 1
+       45 SETTABLEKS                       R3 R2 K6 ["Items"]
+       47 GETIMPORT                        R3 K21 [require]
+       49 GETUPVAL                         R4 2
+       50 GETTABLEKS                       R4 R4 K22 ["Src"]
+       52 GETTABLEKS                       R4 R4 K23 ["Components"]
+       54 GETTABLEKS                       R4 R4 K24 ["ControlsView"]
+       56 GETTABLEKS                       R4 R4 K7 ["Renderers"]
+       58 CALL                             R3 1 1
+       59 SETTABLEKS                       R3 R2 K7 ["Renderers"]
+       61 GETUPVAL                         R3 1
+       62 GETTABLEKS                       R3 R3 K10 ["fn"]
+       64 CALL                             R3 0 1
+       65 SETTABLEKS                       R3 R2 K8 ["Warn"]
+       67 MOVE                             R3 R0
+       68 CALL                             R1 2 -1
+       69 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

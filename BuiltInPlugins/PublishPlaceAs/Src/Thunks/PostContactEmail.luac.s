@@ -9,7 +9,7 @@ PROTO_1:
         3 RETURN                           R0 0
 
 PROTO_2:
-        0 LOADN                            R3 255
+        0 LOADN                            R3 -1
         1 GETTABLEKS                       R4 R0 K0 ["APIS"]
         3 GETTABLEKS                       R4 R4 K1 ["StudioModeration"]
         5 GETTABLEKS                       R4 R4 K2 ["contacts"]

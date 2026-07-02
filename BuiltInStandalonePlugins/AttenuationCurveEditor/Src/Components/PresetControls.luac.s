@@ -155,79 +155,65 @@ PROTO_3:
       123 GETUPVAL                         R14 4
       124 GETTABLEKS                       R14 R14 K13 ["createElement"]
       126 GETUPVAL                         R15 6
-      127 DUPTABLE                         R16 K27 [{"LayoutOrder", "PlaceholderText", "Items", "OnItemActivated"}]
-      128 LOADN                            R17 0
-      129 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
-      131 LOADK                            R19 K8 ["Label"]
-      132 GETTABLEKS                       R20 R5 K11 ["CurveType"]
-      134 NAMECALL                         R17 R2 K9 ["getText"]
-      136 CALL                             R17 3 1
-      137 SETTABLEKS                       R17 R16 K24 ["PlaceholderText"]
-      139 SETTABLEKS                       R4 R16 K25 ["Items"]
-      141 SETTABLEKS                       R7 R16 K26 ["OnItemActivated"]
-      143 CALL                             R14 2 1
-      144 SETTABLEKS                       R14 R13 K20 ["TypeDropdown"]
-      146 NOT                              R14 R6
-      147 JUMPIFNOT                        R14 ; [+82]
-      148 GETUPVAL                         R14 4
-      149 GETTABLEKS                       R14 R14 K13 ["createElement"]
-      151 GETUPVAL                         R15 5
-      152 NEWTABLE                         R16 2 0
-      154 LOADN                            R17 1
-      155 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
-      157 GETUPVAL                         R17 4
-      158 GETTABLEKS                       R17 R17 K18 ["Tag"]
-      160 LOADK                            R18 K28 ["X-Left X-RowM X-FitY"]
-      161 SETTABLE                         R18 R16 R17
-      162 DUPTABLE                         R17 K31 [{"Min", "Max"}]
-      163 GETUPVAL                         R18 4
-      164 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      166 GETUPVAL                         R19 7
-      167 DUPTABLE                         R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-      168 LOADN                            R21 1
-      169 SETTABLEKS                       R21 R20 K23 ["LayoutOrder"]
-      171 LOADK                            R23 K8 ["Label"]
-      172 LOADK                            R24 K29 ["Min"]
-      173 NAMECALL                         R21 R2 K9 ["getText"]
-      175 CALL                             R21 3 1
-      176 SETTABLEKS                       R21 R20 K32 ["Text"]
-      178 DUPTABLE                         R21 K38 [{"Type", "Min"}]
-      179 LOADK                            R22 K39 ["Number"]
-      180 SETTABLEKS                       R22 R21 K37 ["Type"]
-      182 LOADN                            R22 0
-      183 SETTABLEKS                       R22 R21 K29 ["Min"]
-      185 SETTABLEKS                       R21 R20 K33 ["Schema"]
-      187 GETTABLEKS                       R21 R5 K29 ["Min"]
-      189 SETTABLEKS                       R21 R20 K34 ["Value"]
-      191 SETTABLEKS                       R8 R20 K35 ["OnChanged"]
-      193 CALL                             R18 2 1
-      194 SETTABLEKS                       R18 R17 K29 ["Min"]
-      196 GETUPVAL                         R18 4
-      197 GETTABLEKS                       R18 R18 K13 ["createElement"]
-      199 GETUPVAL                         R19 7
-      200 DUPTABLE                         R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-      201 LOADN                            R21 2
-      202 SETTABLEKS                       R21 R20 K23 ["LayoutOrder"]
-      204 LOADK                            R23 K8 ["Label"]
-      205 LOADK                            R24 K30 ["Max"]
-      206 NAMECALL                         R21 R2 K9 ["getText"]
-      208 CALL                             R21 3 1
-      209 SETTABLEKS                       R21 R20 K32 ["Text"]
-      211 DUPTABLE                         R21 K38 [{"Type", "Min"}]
-      212 LOADK                            R22 K39 ["Number"]
-      213 SETTABLEKS                       R22 R21 K37 ["Type"]
-      215 LOADK                            R22 K40 [0.01]
-      216 SETTABLEKS                       R22 R21 K29 ["Min"]
-      218 SETTABLEKS                       R21 R20 K33 ["Schema"]
-      220 GETTABLEKS                       R21 R5 K30 ["Max"]
-      222 SETTABLEKS                       R21 R20 K34 ["Value"]
-      224 SETTABLEKS                       R9 R20 K35 ["OnChanged"]
-      226 CALL                             R18 2 1
-      227 SETTABLEKS                       R18 R17 K30 ["Max"]
-      229 CALL                             R14 3 1
-      230 SETTABLEKS                       R14 R13 K21 ["ParamsContainer"]
-      232 CALL                             R10 3 -1
-      233 RETURN                           R10 -1
+      127 DUPTABLE                         R16 K28 [{["LayoutOrder"] = 0, ["PlaceholderText"], ["Items"], ["OnItemActivated"]}]
+      128 LOADK                            R19 K8 ["Label"]
+      129 GETTABLEKS                       R20 R5 K11 ["CurveType"]
+      131 NAMECALL                         R17 R2 K9 ["getText"]
+      133 CALL                             R17 3 1
+      134 SETTABLEKS                       R17 R16 K25 ["PlaceholderText"]
+      136 SETTABLEKS                       R4 R16 K26 ["Items"]
+      138 SETTABLEKS                       R7 R16 K27 ["OnItemActivated"]
+      140 CALL                             R14 2 1
+      141 SETTABLEKS                       R14 R13 K20 ["TypeDropdown"]
+      143 NOT                              R14 R6
+      144 JUMPIFNOT                        R14 ; [+64]
+      145 GETUPVAL                         R14 4
+      146 GETTABLEKS                       R14 R14 K13 ["createElement"]
+      148 GETUPVAL                         R15 5
+      149 NEWTABLE                         R16 2 0
+      151 LOADN                            R17 1
+      152 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
+      154 GETUPVAL                         R17 4
+      155 GETTABLEKS                       R17 R17 K18 ["Tag"]
+      157 LOADK                            R18 K29 ["X-Left X-RowM X-FitY"]
+      158 SETTABLE                         R18 R16 R17
+      159 DUPTABLE                         R17 K32 [{"Min", "Max"}]
+      160 GETUPVAL                         R18 4
+      161 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      163 GETUPVAL                         R19 7
+      164 DUPTABLE                         R20 K38 [{["LayoutOrder"] = 1, ["Text"], ["Schema"], ["Value"], ["OnChanged"]}]
+      165 LOADK                            R23 K8 ["Label"]
+      166 LOADK                            R24 K30 ["Min"]
+      167 NAMECALL                         R21 R2 K9 ["getText"]
+      169 CALL                             R21 3 1
+      170 SETTABLEKS                       R21 R20 K34 ["Text"]
+      172 DUPTABLE                         R21 K41 [{["Type"] = "Number", ["Min"] = 0}]
+      173 SETTABLEKS                       R21 R20 K35 ["Schema"]
+      175 GETTABLEKS                       R21 R5 K30 ["Min"]
+      177 SETTABLEKS                       R21 R20 K36 ["Value"]
+      179 SETTABLEKS                       R8 R20 K37 ["OnChanged"]
+      181 CALL                             R18 2 1
+      182 SETTABLEKS                       R18 R17 K30 ["Min"]
+      184 GETUPVAL                         R18 4
+      185 GETTABLEKS                       R18 R18 K13 ["createElement"]
+      187 GETUPVAL                         R19 7
+      188 DUPTABLE                         R20 K43 [{["LayoutOrder"] = 2, ["Text"], ["Schema"], ["Value"], ["OnChanged"]}]
+      189 LOADK                            R23 K8 ["Label"]
+      190 LOADK                            R24 K31 ["Max"]
+      191 NAMECALL                         R21 R2 K9 ["getText"]
+      193 CALL                             R21 3 1
+      194 SETTABLEKS                       R21 R20 K34 ["Text"]
+      196 DUPTABLE                         R21 K45 [{["Type"] = "Number", ["Min"] = 0.01}]
+      197 SETTABLEKS                       R21 R20 K35 ["Schema"]
+      199 GETTABLEKS                       R21 R5 K31 ["Max"]
+      201 SETTABLEKS                       R21 R20 K36 ["Value"]
+      203 SETTABLEKS                       R9 R20 K37 ["OnChanged"]
+      205 CALL                             R18 2 1
+      206 SETTABLEKS                       R18 R17 K31 ["Max"]
+      208 CALL                             R14 3 1
+      209 SETTABLEKS                       R14 R13 K21 ["ParamsContainer"]
+      211 CALL                             R10 3 -1
+      212 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

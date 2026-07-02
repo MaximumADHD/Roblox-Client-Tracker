@@ -88,8 +88,8 @@ PROTO_4:
        13 CALL                             R4 1 1
        14 NAMECALL                         R5 R2 K5 ["shouldShowHover"]
        16 CALL                             R5 1 1
-       17 JUMPIFNOT                        R5 ; [+136]
-       18 JUMPIFNOT                        R3 ; [+135]
+       17 JUMPIFNOT                        R5 ; [+133]
+       18 JUMPIFNOT                        R3 ; [+132]
        19 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
        21 NAMECALL                         R5 R5 K6 ["getSchema"]
        23 CALL                             R5 1 1
@@ -97,7 +97,7 @@ PROTO_4:
        26 MOVE                             R6 R2
        27 MOVE                             R7 R3
        28 CALL                             R5 2 1
-       29 JUMPIFNOT                        R5 ; [+124]
+       29 JUMPIFNOT                        R5 ; [+121]
        30 LOADNIL                          R6
        31 NAMECALL                         R7 R2 K8 ["shouldAnimateHover"]
        33 CALL                             R7 1 1
@@ -148,119 +148,117 @@ PROTO_4:
       100 SETTABLEKS                       R8 R1 K30 ["HoverBox"]
       102 GETUPVAL                         R8 2
       103 CALL                             R8 0 1
-      104 JUMPIFNOT                        R8 ; [+49]
+      104 JUMPIFNOT                        R8 ; [+46]
       105 GETTABLEKS                       R8 R0 K2 ["_hoverTracker"]
       107 NAMECALL                         R8 R8 K31 ["getHoverHandleId"]
       109 CALL                             R8 1 1
-      110 JUMPIF                           R8 ; [+43]
+      110 JUMPIF                           R8 ; [+40]
       111 GETTABLEKS                       R8 R0 K0 ["_draggerToolModel"]
       113 NAMECALL                         R8 R8 K32 ["_isSummoned"]
       115 CALL                             R8 1 1
-      116 JUMPIF                           R8 ; [+37]
+      116 JUMPIF                           R8 ; [+34]
       117 GETTABLEKS                       R8 R0 K0 ["_draggerToolModel"]
       119 NAMECALL                         R8 R8 K6 ["getSchema"]
       121 CALL                             R8 1 1
       122 GETTABLEKS                       R8 R8 K33 ["getHoverComponent"]
-      124 JUMPIFNOT                        R8 ; [+29]
+      124 JUMPIFNOT                        R8 ; [+26]
       125 MOVE                             R9 R8
       126 MOVE                             R10 R2
       127 MOVE                             R11 R3
       128 CALL                             R9 2 1
-      129 JUMPIFNOT                        R9 ; [+24]
+      129 JUMPIFNOT                        R9 ; [+21]
       130 GETUPVAL                         R10 0
       131 GETTABLEKS                       R10 R10 K13 ["createElement"]
       133 MOVE                             R11 R9
-      134 DUPTABLE                         R12 K37 [{"DraggerContext", "HoverMetadata", "Pending"}]
+      134 DUPTABLE                         R12 K38 [{["DraggerContext"], ["HoverMetadata"], ["Pending"] = False}]
       135 GETTABLEKS                       R13 R0 K0 ["_draggerToolModel"]
       137 GETTABLEKS                       R13 R13 K1 ["_draggerContext"]
       139 SETTABLEKS                       R13 R12 K34 ["DraggerContext"]
       141 GETTABLEKS                       R13 R0 K2 ["_hoverTracker"]
-      143 NAMECALL                         R13 R13 K38 ["getHoverMetadata"]
+      143 NAMECALL                         R13 R13 K39 ["getHoverMetadata"]
       145 CALL                             R13 1 1
       146 SETTABLEKS                       R13 R12 K35 ["HoverMetadata"]
-      148 LOADB                            R13 0
-      149 SETTABLEKS                       R13 R12 K36 ["Pending"]
-      151 CALL                             R10 2 1
-      152 SETTABLEKS                       R10 R1 K39 ["HoverDisplay"]
-      154 JUMPIF                           R3 ; [+6]
-      155 GETTABLEKS                       R5 R0 K2 ["_hoverTracker"]
-      157 NAMECALL                         R5 R5 K31 ["getHoverHandleId"]
-      159 CALL                             R5 1 1
-      160 JUMPIFNOT                        R5 ; [+10]
-      161 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
-      163 GETUPVAL                         R7 3
-      164 GETTABLEKS                       R7 R7 K40 ["getOpenHand"]
-      166 CALL                             R7 0 -1
-      167 NAMECALL                         R5 R5 K41 ["setMouseCursor"]
-      169 CALL                             R5 -1 0
-      170 JUMP                             ; [+9]
-      171 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
-      173 GETUPVAL                         R7 3
-      174 GETTABLEKS                       R7 R7 K42 ["getArrow"]
-      176 CALL                             R7 0 -1
-      177 NAMECALL                         R5 R5 K41 ["setMouseCursor"]
-      179 CALL                             R5 -1 0
-      180 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
-      182 NAMECALL                         R5 R5 K43 ["shouldShowLocalSpaceIndicator"]
-      184 CALL                             R5 1 1
-      185 JUMPIFNOT                        R5 ; [+46]
-      186 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
-      188 GETTABLEKS                       R5 R5 K44 ["_selectionInfo"]
-      190 NAMECALL                         R6 R5 K45 ["isEmpty"]
-      192 CALL                             R6 1 1
-      193 JUMPIF                           R6 ; [+38]
-      194 NAMECALL                         R6 R2 K46 ["shouldUseLocalSpace"]
-      196 CALL                             R6 1 1
-      197 JUMPIFNOT                        R6 ; [+34]
-      198 NAMECALL                         R6 R5 K47 ["getBoundingBox"]
-      200 CALL                             R6 1 3
-      201 GETUPVAL                         R9 0
-      202 GETTABLEKS                       R9 R9 K13 ["createElement"]
-      204 GETUPVAL                         R10 4
-      205 DUPTABLE                         R11 K51 [{"CFrame", "Size", "TextColor3", "DraggerContext"}]
-      206 GETIMPORT                        R13 K53 [CFrame.new]
-      208 MOVE                             R14 R7
-      209 CALL                             R13 1 1
-      210 MUL                              R12 R6 R13
-      211 SETTABLEKS                       R12 R11 K48 ["CFrame"]
-      213 SETTABLEKS                       R8 R11 K49 ["Size"]
-      215 GETUPVAL                         R13 5
-      216 CALL                             R13 0 1
-      217 JUMPIFNOT                        R13 ; [+4]
-      218 NAMECALL                         R12 R2 K54 ["getGridColor"]
-      220 CALL                             R12 1 1
-      221 JUMP                             ; [+3]
-      222 NAMECALL                         R12 R2 K24 ["getSelectionBoxColor"]
-      224 CALL                             R12 1 1
-      225 SETTABLEKS                       R12 R11 K50 ["TextColor3"]
-      227 SETTABLEKS                       R2 R11 K34 ["DraggerContext"]
-      229 CALL                             R9 2 1
-      230 SETTABLEKS                       R9 R1 K55 ["LocalSpaceIndicator"]
-      232 GETTABLEKS                       R5 R0 K2 ["_hoverTracker"]
-      234 NAMECALL                         R5 R5 K31 ["getHoverHandleId"]
-      236 CALL                             R5 1 2
-      237 GETIMPORT                        R7 K57 [pairs]
-      239 GETTABLEKS                       R8 R0 K0 ["_draggerToolModel"]
-      241 NAMECALL                         R8 R8 K58 ["getHandlesList"]
-      243 CALL                             R8 1 -1
-      244 CALL                             R7 -1 3
-      245 FORGPREP_NEXT                    R7
-      246 LOADK                            R13 K59 ["ImplementationUI"]
-      247 MOVE                             R14 R10
-      248 CONCAT                           R12 R13 R14
-      249 JUMPIFNOTEQ                      R5 R11 ; [+3]
-      251 MOVE                             R15 R6
-      252 JUMPIF                           R15 ; [+1]
-      253 LOADNIL                          R15
-      254 NAMECALL                         R13 R11 K60 ["render"]
-      256 CALL                             R13 2 1
-      257 SETTABLE                         R13 R1 R12
-      258 FORGLOOP                         R7 2 ; [-13]
-      260 GETUPVAL                         R7 0
-      261 GETTABLEKS                       R7 R7 K61 ["createFragment"]
-      263 MOVE                             R8 R1
-      264 CALL                             R7 1 -1
-      265 RETURN                           R7 -1
+      148 CALL                             R10 2 1
+      149 SETTABLEKS                       R10 R1 K40 ["HoverDisplay"]
+      151 JUMPIF                           R3 ; [+6]
+      152 GETTABLEKS                       R5 R0 K2 ["_hoverTracker"]
+      154 NAMECALL                         R5 R5 K31 ["getHoverHandleId"]
+      156 CALL                             R5 1 1
+      157 JUMPIFNOT                        R5 ; [+10]
+      158 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
+      160 GETUPVAL                         R7 3
+      161 GETTABLEKS                       R7 R7 K41 ["getOpenHand"]
+      163 CALL                             R7 0 -1
+      164 NAMECALL                         R5 R5 K42 ["setMouseCursor"]
+      166 CALL                             R5 -1 0
+      167 JUMP                             ; [+9]
+      168 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
+      170 GETUPVAL                         R7 3
+      171 GETTABLEKS                       R7 R7 K43 ["getArrow"]
+      173 CALL                             R7 0 -1
+      174 NAMECALL                         R5 R5 K42 ["setMouseCursor"]
+      176 CALL                             R5 -1 0
+      177 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
+      179 NAMECALL                         R5 R5 K44 ["shouldShowLocalSpaceIndicator"]
+      181 CALL                             R5 1 1
+      182 JUMPIFNOT                        R5 ; [+46]
+      183 GETTABLEKS                       R5 R0 K0 ["_draggerToolModel"]
+      185 GETTABLEKS                       R5 R5 K45 ["_selectionInfo"]
+      187 NAMECALL                         R6 R5 K46 ["isEmpty"]
+      189 CALL                             R6 1 1
+      190 JUMPIF                           R6 ; [+38]
+      191 NAMECALL                         R6 R2 K47 ["shouldUseLocalSpace"]
+      193 CALL                             R6 1 1
+      194 JUMPIFNOT                        R6 ; [+34]
+      195 NAMECALL                         R6 R5 K48 ["getBoundingBox"]
+      197 CALL                             R6 1 3
+      198 GETUPVAL                         R9 0
+      199 GETTABLEKS                       R9 R9 K13 ["createElement"]
+      201 GETUPVAL                         R10 4
+      202 DUPTABLE                         R11 K52 [{"CFrame", "Size", "TextColor3", "DraggerContext"}]
+      203 GETIMPORT                        R13 K54 [CFrame.new]
+      205 MOVE                             R14 R7
+      206 CALL                             R13 1 1
+      207 MUL                              R12 R6 R13
+      208 SETTABLEKS                       R12 R11 K49 ["CFrame"]
+      210 SETTABLEKS                       R8 R11 K50 ["Size"]
+      212 GETUPVAL                         R13 5
+      213 CALL                             R13 0 1
+      214 JUMPIFNOT                        R13 ; [+4]
+      215 NAMECALL                         R12 R2 K55 ["getGridColor"]
+      217 CALL                             R12 1 1
+      218 JUMP                             ; [+3]
+      219 NAMECALL                         R12 R2 K24 ["getSelectionBoxColor"]
+      221 CALL                             R12 1 1
+      222 SETTABLEKS                       R12 R11 K51 ["TextColor3"]
+      224 SETTABLEKS                       R2 R11 K34 ["DraggerContext"]
+      226 CALL                             R9 2 1
+      227 SETTABLEKS                       R9 R1 K56 ["LocalSpaceIndicator"]
+      229 GETTABLEKS                       R5 R0 K2 ["_hoverTracker"]
+      231 NAMECALL                         R5 R5 K31 ["getHoverHandleId"]
+      233 CALL                             R5 1 2
+      234 GETIMPORT                        R7 K58 [pairs]
+      236 GETTABLEKS                       R8 R0 K0 ["_draggerToolModel"]
+      238 NAMECALL                         R8 R8 K59 ["getHandlesList"]
+      240 CALL                             R8 1 -1
+      241 CALL                             R7 -1 3
+      242 FORGPREP_NEXT                    R7
+      243 LOADK                            R13 K60 ["ImplementationUI"]
+      244 MOVE                             R14 R10
+      245 CONCAT                           R12 R13 R14
+      246 JUMPIFNOTEQ                      R5 R11 ; [+3]
+      248 MOVE                             R15 R6
+      249 JUMPIF                           R15 ; [+1]
+      250 LOADNIL                          R15
+      251 NAMECALL                         R13 R11 K61 ["render"]
+      253 CALL                             R13 2 1
+      254 SETTABLE                         R13 R1 R12
+      255 FORGLOOP                         R7 2 ; [-13]
+      257 GETUPVAL                         R7 0
+      258 GETTABLEKS                       R7 R7 K62 ["createFragment"]
+      260 MOVE                             R8 R1
+      261 CALL                             R7 1 -1
+      262 RETURN                           R7 -1
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_hoverTracker"]

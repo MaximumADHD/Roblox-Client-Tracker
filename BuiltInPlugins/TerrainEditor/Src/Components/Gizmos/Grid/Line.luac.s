@@ -13,37 +13,35 @@ PROTO_0:
        15 GETUPVAL                         R5 2
        16 GETTABLEKS                       R5 R5 K5 ["createElement"]
        18 LOADK                            R6 K6 ["BoxHandleAdornment"]
-       19 DUPTABLE                         R7 K14 [{"Adornee", "AlwaysOnTop", "Archivable", "CFrame", "Color", "Size", "Transparency", "Visible", "ZIndex"}]
+       19 DUPTABLE                         R7 K15 [{["Adornee"], ["AlwaysOnTop"], ["Archivable"] = False, ["CFrame"], ["Color"], ["Size"], ["Transparency"], ["Visible"], ["ZIndex"]}]
        20 GETTABLEKS                       R8 R0 K7 ["Adornee"]
        22 SETTABLEKS                       R8 R7 K7 ["Adornee"]
        24 GETTABLEKS                       R8 R0 K8 ["AlwaysOnTop"]
        26 SETTABLEKS                       R8 R7 K8 ["AlwaysOnTop"]
-       28 LOADB                            R8 0
-       29 SETTABLEKS                       R8 R7 K9 ["Archivable"]
-       31 GETTABLEKS                       R8 R0 K10 ["CFrame"]
-       33 SETTABLEKS                       R8 R7 K10 ["CFrame"]
-       35 SETTABLEKS                       R2 R7 K2 ["Color"]
-       37 GETTABLEKS                       R8 R0 K11 ["Size"]
-       39 SETTABLEKS                       R8 R7 K11 ["Size"]
-       41 GETTABLEKS                       R9 R0 K8 ["AlwaysOnTop"]
-       43 JUMPIFNOT                        R9 ; [+5]
-       44 LOADK                            R9 K15 [0.5]
-       45 LOADK                            R11 K15 [0.5]
-       46 MUL                              R10 R11 R4
-       47 ADD                              R8 R9 R10
-       48 JUMP                             ; [+1]
-       49 MOVE                             R8 R4
-       50 SETTABLEKS                       R8 R7 K4 ["Transparency"]
-       52 GETTABLEKS                       R8 R0 K12 ["Visible"]
-       54 SETTABLEKS                       R8 R7 K12 ["Visible"]
-       56 GETTABLEKS                       R9 R0 K8 ["AlwaysOnTop"]
-       58 JUMPIFNOT                        R9 ; [+2]
-       59 LOADN                            R8 0
-       60 JUMP                             ; [+1]
-       61 LOADN                            R8 255
-       62 SETTABLEKS                       R8 R7 K13 ["ZIndex"]
-       64 CALL                             R5 2 -1
-       65 RETURN                           R5 -1
+       28 GETTABLEKS                       R8 R0 K11 ["CFrame"]
+       30 SETTABLEKS                       R8 R7 K11 ["CFrame"]
+       32 SETTABLEKS                       R2 R7 K2 ["Color"]
+       34 GETTABLEKS                       R8 R0 K12 ["Size"]
+       36 SETTABLEKS                       R8 R7 K12 ["Size"]
+       38 GETTABLEKS                       R9 R0 K8 ["AlwaysOnTop"]
+       40 JUMPIFNOT                        R9 ; [+5]
+       41 LOADK                            R9 K16 [0.5]
+       42 LOADK                            R11 K16 [0.5]
+       43 MUL                              R10 R11 R4
+       44 ADD                              R8 R9 R10
+       45 JUMP                             ; [+1]
+       46 MOVE                             R8 R4
+       47 SETTABLEKS                       R8 R7 K4 ["Transparency"]
+       49 GETTABLEKS                       R8 R0 K13 ["Visible"]
+       51 SETTABLEKS                       R8 R7 K13 ["Visible"]
+       53 GETTABLEKS                       R9 R0 K8 ["AlwaysOnTop"]
+       55 JUMPIFNOT                        R9 ; [+2]
+       56 LOADN                            R8 0
+       57 JUMP                             ; [+1]
+       58 LOADN                            R8 -1
+       59 SETTABLEKS                       R8 R7 K14 ["ZIndex"]
+       61 CALL                             R5 2 -1
+       62 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -167,44 +167,42 @@ PROTO_3:
        44 RETURN                           R4 1
 
 PROTO_4:
-        0 DUPTABLE                         R3 K1 [{"draftName"}]
-        1 LOADNIL                          R4
-        2 SETTABLEKS                       R4 R3 K0 ["draftName"]
-        4 NAMECALL                         R1 R0 K2 ["setState"]
-        6 CALL                             R1 2 0
-        7 NEWCLOSURE                       R1 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R1 R0 K3 ["nameUpdated"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 CAPTURE                          UPVAL U0
-       14 CAPTURE                          UPVAL U1
-       15 CAPTURE                          UPVAL U2
-       16 CAPTURE                          UPVAL U3
-       17 SETTABLEKS                       R1 R0 K4 ["getDraftIndicator"]
-       19 NEWCLOSURE                       R1 P2
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U0
-       22 CAPTURE                          UPVAL U1
-       23 CAPTURE                          UPVAL U4
-       24 SETTABLEKS                       R1 R0 K5 ["getStatusText"]
-       26 NEWCLOSURE                       R1 P3
-       27 CAPTURE                          VAL R0
-       28 CAPTURE                          UPVAL U0
-       29 CAPTURE                          UPVAL U1
-       30 SETTABLEKS                       R1 R0 K6 ["getLabelText"]
-       32 GETTABLEKS                       R1 R0 K7 ["props"]
-       34 GETTABLEKS                       R1 R1 K8 ["Draft"]
-       36 LOADK                            R3 K9 ["Name"]
-       37 NAMECALL                         R1 R1 K10 ["GetPropertyChangedSignal"]
-       39 CALL                             R1 2 1
-       40 GETTABLEKS                       R3 R0 K3 ["nameUpdated"]
-       42 NAMECALL                         R1 R1 K11 ["Connect"]
-       44 CALL                             R1 2 1
-       45 SETTABLEKS                       R1 R0 K12 ["nameChangedConnection"]
-       47 GETTABLEKS                       R1 R0 K3 ["nameUpdated"]
-       49 CALL                             R1 0 0
-       50 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = }]
+        1 NAMECALL                         R1 R0 K3 ["setState"]
+        3 CALL                             R1 2 0
+        4 NEWCLOSURE                       R1 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R1 R0 K4 ["nameUpdated"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U0
+       11 CAPTURE                          UPVAL U1
+       12 CAPTURE                          UPVAL U2
+       13 CAPTURE                          UPVAL U3
+       14 SETTABLEKS                       R1 R0 K5 ["getDraftIndicator"]
+       16 NEWCLOSURE                       R1 P2
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U0
+       19 CAPTURE                          UPVAL U1
+       20 CAPTURE                          UPVAL U4
+       21 SETTABLEKS                       R1 R0 K6 ["getStatusText"]
+       23 NEWCLOSURE                       R1 P3
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          UPVAL U0
+       26 CAPTURE                          UPVAL U1
+       27 SETTABLEKS                       R1 R0 K7 ["getLabelText"]
+       29 GETTABLEKS                       R1 R0 K8 ["props"]
+       31 GETTABLEKS                       R1 R1 K9 ["Draft"]
+       33 LOADK                            R3 K10 ["Name"]
+       34 NAMECALL                         R1 R1 K11 ["GetPropertyChangedSignal"]
+       36 CALL                             R1 2 1
+       37 GETTABLEKS                       R3 R0 K4 ["nameUpdated"]
+       39 NAMECALL                         R1 R1 K12 ["Connect"]
+       41 CALL                             R1 2 1
+       42 SETTABLEKS                       R1 R0 K13 ["nameChangedConnection"]
+       44 GETTABLEKS                       R1 R0 K4 ["nameUpdated"]
+       46 CALL                             R1 0 0
+       47 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R4 R1 K0 ["Draft"]
@@ -229,15 +227,13 @@ PROTO_7:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K4 [{"AutomaticSize", "Style", "Text"}]
-        5 GETIMPORT                        R3 K7 [Enum.AutomaticSize.XY]
+        4 DUPTABLE                         R2 K5 [{["AutomaticSize"], ["Style"] = "Label", ["Text"]}]
+        5 GETIMPORT                        R3 K8 [Enum.AutomaticSize.XY]
         7 SETTABLEKS                       R3 R2 K1 ["AutomaticSize"]
-        9 LOADK                            R3 K8 ["Label"]
-       10 SETTABLEKS                       R3 R2 K2 ["Style"]
-       12 GETUPVAL                         R3 2
-       13 SETTABLEKS                       R3 R2 K3 ["Text"]
-       15 CALL                             R0 2 -1
-       16 RETURN                           R0 -1
+        9 GETUPVAL                         R3 2
+       10 SETTABLEKS                       R3 R2 K4 ["Text"]
+       12 CALL                             R0 2 -1
+       13 RETURN                           R0 -1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -266,7 +262,7 @@ PROTO_10:
        22 GETUPVAL                         R7 0
        23 GETTABLEKS                       R7 R7 K6 ["createElement"]
        25 GETUPVAL                         R8 1
-       26 DUPTABLE                         R9 K17 [{"TailItem", "BeforeIcon", "Children", "Depth", "Index", "Item", "OnToggle", "OnPress", "OnSecondaryPress", "Selected"}]
+       26 DUPTABLE                         R9 K19 [{["TailItem"], ["BeforeIcon"], ["Children"], ["Depth"] = 0, ["Index"] = 1, ["Item"], ["OnToggle"], ["OnPress"], ["OnSecondaryPress"], ["Selected"]}]
        27 NEWCLOSURE                       R10 P0
        28 CAPTURE                          UPVAL U0
        29 CAPTURE                          UPVAL U2
@@ -277,26 +273,22 @@ PROTO_10:
        35 SETTABLEKS                       R10 R9 K8 ["BeforeIcon"]
        37 NEWTABLE                         R10 0 0
        39 SETTABLEKS                       R10 R9 K9 ["Children"]
-       41 LOADN                            R10 0
-       42 SETTABLEKS                       R10 R9 K10 ["Depth"]
-       44 LOADN                            R10 1
-       45 SETTABLEKS                       R10 R9 K11 ["Index"]
-       47 DUPTABLE                         R10 K20 [{"text", "tooltip"}]
-       48 SETTABLEKS                       R4 R10 K18 ["text"]
-       50 NAMECALL                         R11 R2 K21 ["getFullName"]
-       52 CALL                             R11 1 1
-       53 SETTABLEKS                       R11 R10 K19 ["tooltip"]
-       55 SETTABLEKS                       R10 R9 K12 ["Item"]
-       57 DUPCLOSURE                       R10 K22 [PROTO_9]
-       58 SETTABLEKS                       R10 R9 K13 ["OnToggle"]
-       60 GETTABLEKS                       R10 R6 K14 ["OnPress"]
-       62 SETTABLEKS                       R10 R9 K14 ["OnPress"]
-       64 GETTABLEKS                       R10 R6 K15 ["OnSecondaryPress"]
-       66 SETTABLEKS                       R10 R9 K15 ["OnSecondaryPress"]
-       68 GETTABLEKS                       R10 R6 K16 ["Selected"]
-       70 SETTABLEKS                       R10 R9 K16 ["Selected"]
-       72 CALL                             R7 2 -1
-       73 RETURN                           R7 -1
+       41 DUPTABLE                         R10 K22 [{"text", "tooltip"}]
+       42 SETTABLEKS                       R4 R10 K20 ["text"]
+       44 NAMECALL                         R11 R2 K23 ["getFullName"]
+       46 CALL                             R11 1 1
+       47 SETTABLEKS                       R11 R10 K21 ["tooltip"]
+       49 SETTABLEKS                       R10 R9 K14 ["Item"]
+       51 DUPCLOSURE                       R10 K24 [PROTO_9]
+       52 SETTABLEKS                       R10 R9 K15 ["OnToggle"]
+       54 GETTABLEKS                       R10 R6 K16 ["OnPress"]
+       56 SETTABLEKS                       R10 R9 K16 ["OnPress"]
+       58 GETTABLEKS                       R10 R6 K17 ["OnSecondaryPress"]
+       60 SETTABLEKS                       R10 R9 K17 ["OnSecondaryPress"]
+       62 GETTABLEKS                       R10 R6 K18 ["Selected"]
+       64 SETTABLEKS                       R10 R9 K18 ["Selected"]
+       66 CALL                             R7 2 -1
+       67 RETURN                           R7 -1
 
 PROTO_11:
         0 GETTABLEKS                       R2 R0 K0 ["Drafts"]

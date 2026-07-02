@@ -282,58 +282,30 @@ MAIN:
        31 LOADK                            R16 K22 ["RightLowerLeg"]
        32 LOADK                            R17 K23 ["RightUpperLeg"]
        33 SETLIST                          R2 R3 15 [1]
-       35 DUPTABLE                         R3 K24 [{"Head", "UpperTorso", "LeftHand", "LeftLowerArm", "LeftUpperArm", "RightHand", "RightLowerArm", "RightUpperArm", "LeftFoot", "LeftLowerLeg", "LeftUpperLeg", "RightFoot", "RightLowerLeg", "RightUpperLeg"}]
-       36 LOADK                            R4 K10 ["UpperTorso"]
-       37 SETTABLEKS                       R4 R3 K9 ["Head"]
-       39 LOADK                            R4 K11 ["LowerTorso"]
-       40 SETTABLEKS                       R4 R3 K10 ["UpperTorso"]
-       42 LOADK                            R4 K13 ["LeftLowerArm"]
-       43 SETTABLEKS                       R4 R3 K12 ["LeftHand"]
-       45 LOADK                            R4 K14 ["LeftUpperArm"]
-       46 SETTABLEKS                       R4 R3 K13 ["LeftLowerArm"]
-       48 LOADK                            R4 K10 ["UpperTorso"]
-       49 SETTABLEKS                       R4 R3 K14 ["LeftUpperArm"]
-       51 LOADK                            R4 K16 ["RightLowerArm"]
-       52 SETTABLEKS                       R4 R3 K15 ["RightHand"]
-       54 LOADK                            R4 K17 ["RightUpperArm"]
-       55 SETTABLEKS                       R4 R3 K16 ["RightLowerArm"]
-       57 LOADK                            R4 K10 ["UpperTorso"]
-       58 SETTABLEKS                       R4 R3 K17 ["RightUpperArm"]
-       60 LOADK                            R4 K19 ["LeftLowerLeg"]
-       61 SETTABLEKS                       R4 R3 K18 ["LeftFoot"]
-       63 LOADK                            R4 K20 ["LeftUpperLeg"]
-       64 SETTABLEKS                       R4 R3 K19 ["LeftLowerLeg"]
-       66 LOADK                            R4 K11 ["LowerTorso"]
-       67 SETTABLEKS                       R4 R3 K20 ["LeftUpperLeg"]
-       69 LOADK                            R4 K22 ["RightLowerLeg"]
-       70 SETTABLEKS                       R4 R3 K21 ["RightFoot"]
-       72 LOADK                            R4 K23 ["RightUpperLeg"]
-       73 SETTABLEKS                       R4 R3 K22 ["RightLowerLeg"]
-       75 LOADK                            R4 K11 ["LowerTorso"]
-       76 SETTABLEKS                       R4 R3 K23 ["RightUpperLeg"]
-       78 NEWTABLE                         R4 8 0
-       80 SETTABLEKS                       R4 R4 K25 ["__index"]
-       82 DUPCLOSURE                       R5 K26 [PROTO_0]
-       83 CAPTURE                          VAL R1
-       84 DUPCLOSURE                       R6 K27 [PROTO_1]
-       85 CAPTURE                          VAL R4
-       86 CAPTURE                          VAL R1
-       87 SETTABLEKS                       R6 R4 K28 ["new"]
-       89 DUPCLOSURE                       R6 K29 [PROTO_2]
-       90 DUPCLOSURE                       R7 K30 [PROTO_4]
-       91 SETTABLEKS                       R7 R4 K31 ["DrawLine"]
-       93 DUPCLOSURE                       R7 K32 [PROTO_6]
-       94 CAPTURE                          VAL R6
-       95 SETTABLEKS                       R7 R4 K33 ["DrawSphere"]
-       97 DUPCLOSURE                       R7 K34 [PROTO_7]
-       98 CAPTURE                          VAL R2
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R3
-      101 SETTABLEKS                       R7 R4 K35 ["DrawPose"]
-      103 DUPCLOSURE                       R7 K36 [PROTO_8]
-      104 SETTABLEKS                       R7 R4 K37 ["SetColor"]
-      106 DUPCLOSURE                       R7 K38 [PROTO_9]
-      107 SETTABLEKS                       R7 R4 K39 ["Update"]
-      109 DUPCLOSURE                       R7 K40 [PROTO_10]
-      110 SETTABLEKS                       R7 R4 K41 ["Destroy"]
-      112 RETURN                           R4 1
+       35 DUPTABLE                         R3 K24 [{["Head"] = "UpperTorso", ["UpperTorso"] = "LowerTorso", ["LeftHand"] = "LeftLowerArm", ["LeftLowerArm"] = "LeftUpperArm", ["LeftUpperArm"] = "UpperTorso", ["RightHand"] = "RightLowerArm", ["RightLowerArm"] = "RightUpperArm", ["RightUpperArm"] = "UpperTorso", ["LeftFoot"] = "LeftLowerLeg", ["LeftLowerLeg"] = "LeftUpperLeg", ["LeftUpperLeg"] = "LowerTorso", ["RightFoot"] = "RightLowerLeg", ["RightLowerLeg"] = "RightUpperLeg", ["RightUpperLeg"] = "LowerTorso"}]
+       36 NEWTABLE                         R4 8 0
+       38 SETTABLEKS                       R4 R4 K25 ["__index"]
+       40 DUPCLOSURE                       R5 K26 [PROTO_0]
+       41 CAPTURE                          VAL R1
+       42 DUPCLOSURE                       R6 K27 [PROTO_1]
+       43 CAPTURE                          VAL R4
+       44 CAPTURE                          VAL R1
+       45 SETTABLEKS                       R6 R4 K28 ["new"]
+       47 DUPCLOSURE                       R6 K29 [PROTO_2]
+       48 DUPCLOSURE                       R7 K30 [PROTO_4]
+       49 SETTABLEKS                       R7 R4 K31 ["DrawLine"]
+       51 DUPCLOSURE                       R7 K32 [PROTO_6]
+       52 CAPTURE                          VAL R6
+       53 SETTABLEKS                       R7 R4 K33 ["DrawSphere"]
+       55 DUPCLOSURE                       R7 K34 [PROTO_7]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R3
+       59 SETTABLEKS                       R7 R4 K35 ["DrawPose"]
+       61 DUPCLOSURE                       R7 K36 [PROTO_8]
+       62 SETTABLEKS                       R7 R4 K37 ["SetColor"]
+       64 DUPCLOSURE                       R7 K38 [PROTO_9]
+       65 SETTABLEKS                       R7 R4 K39 ["Update"]
+       67 DUPCLOSURE                       R7 K40 [PROTO_10]
+       68 SETTABLEKS                       R7 R4 K41 ["Destroy"]
+       70 RETURN                           R4 1

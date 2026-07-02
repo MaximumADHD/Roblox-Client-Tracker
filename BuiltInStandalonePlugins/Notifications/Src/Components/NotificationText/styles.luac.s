@@ -13,133 +13,105 @@ MAIN:
        20 GETTABLEKS                       R2 R2 K8 ["createStyleRule"]
        22 MOVE                             R3 R2
        23 LOADK                            R4 K9 [".Component-NotificationText"]
-       24 DUPTABLE                         R5 K13 [{"AutomaticSize", "BackgroundTransparency", "BorderSizePixel"}]
-       25 GETIMPORT                        R6 K16 [Enum.AutomaticSize.Y]
+       24 DUPTABLE                         R5 K15 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+       25 GETIMPORT                        R6 K18 [Enum.AutomaticSize.Y]
        27 SETTABLEKS                       R6 R5 K10 ["AutomaticSize"]
-       29 LOADN                            R6 1
-       30 SETTABLEKS                       R6 R5 K11 ["BackgroundTransparency"]
-       32 LOADN                            R6 0
-       33 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       35 NEWTABLE                         R6 0 3
-       37 MOVE                             R7 R2
-       38 LOADK                            R8 K17 ["> #Subject"]
-       39 DUPTABLE                         R9 K27 [{"RichText", "Size", "AutomaticSize", "BackgroundTransparency", "TextColor3", "TextSize", "Font", "TextWrapped", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
-       40 LOADB                            R10 1
-       41 SETTABLEKS                       R10 R9 K18 ["RichText"]
-       43 GETIMPORT                        R10 K30 [UDim2.new]
-       45 LOADN                            R11 1
-       46 LOADN                            R12 0
-       47 LOADN                            R13 0
-       48 LOADN                            R14 0
-       49 CALL                             R10 4 1
-       50 SETTABLEKS                       R10 R9 K19 ["Size"]
-       52 GETIMPORT                        R10 K16 [Enum.AutomaticSize.Y]
-       54 SETTABLEKS                       R10 R9 K10 ["AutomaticSize"]
-       56 LOADN                            R10 1
-       57 SETTABLEKS                       R10 R9 K11 ["BackgroundTransparency"]
-       59 LOADK                            R10 K31 ["$TextPrimary"]
-       60 SETTABLEKS                       R10 R9 K20 ["TextColor3"]
-       62 LOADK                            R10 K32 ["$CardSubjectTextSize"]
-       63 SETTABLEKS                       R10 R9 K21 ["TextSize"]
-       65 GETIMPORT                        R10 K34 [Enum.Font.SourceSans]
-       67 SETTABLEKS                       R10 R9 K22 ["Font"]
-       69 LOADB                            R10 1
-       70 SETTABLEKS                       R10 R9 K23 ["TextWrapped"]
-       72 GETIMPORT                        R10 K36 [Enum.TextTruncate.AtEnd]
-       74 SETTABLEKS                       R10 R9 K24 ["TextTruncate"]
-       76 GETIMPORT                        R10 K38 [Enum.TextXAlignment.Left]
-       78 SETTABLEKS                       R10 R9 K25 ["TextXAlignment"]
-       80 GETIMPORT                        R10 K40 [Enum.TextYAlignment.Top]
-       82 SETTABLEKS                       R10 R9 K26 ["TextYAlignment"]
-       84 NEWTABLE                         R10 0 1
-       86 MOVE                             R11 R2
-       87 LOADK                            R12 K41 ["::UISizeConstraint"]
-       88 DUPTABLE                         R13 K44 [{"MaxSize", "MinSize"}]
-       89 GETIMPORT                        R14 K46 [Vector2.new]
-       91 LOADK                            R15 K47 [∞]
-       92 LOADN                            R16 36
-       93 CALL                             R14 2 1
-       94 SETTABLEKS                       R14 R13 K42 ["MaxSize"]
-       96 GETIMPORT                        R14 K46 [Vector2.new]
-       98 LOADN                            R15 0
-       99 LOADN                            R16 18
-      100 CALL                             R14 2 1
-      101 SETTABLEKS                       R14 R13 K43 ["MinSize"]
-      103 CALL                             R11 2 -1
-      104 SETLIST                          R10 R11 -1 [1]
-      106 CALL                             R7 3 1
-      107 MOVE                             R8 R2
-      108 LOADK                            R9 K48 ["> #Subline"]
-      109 DUPTABLE                         R10 K49 [{"Size", "AutomaticSize", "BackgroundTransparency", "TextColor3", "TextSize", "Font", "TextWrapped", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
-      110 GETIMPORT                        R11 K30 [UDim2.new]
-      112 LOADN                            R12 1
-      113 LOADN                            R13 0
-      114 LOADN                            R14 0
-      115 LOADN                            R15 0
-      116 CALL                             R11 4 1
-      117 SETTABLEKS                       R11 R10 K19 ["Size"]
-      119 GETIMPORT                        R11 K16 [Enum.AutomaticSize.Y]
-      121 SETTABLEKS                       R11 R10 K10 ["AutomaticSize"]
-      123 LOADN                            R11 1
-      124 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-      126 LOADK                            R11 K50 ["$TextSecondary"]
-      127 SETTABLEKS                       R11 R10 K20 ["TextColor3"]
-      129 LOADN                            R11 18
-      130 SETTABLEKS                       R11 R10 K21 ["TextSize"]
-      132 GETIMPORT                        R11 K34 [Enum.Font.SourceSans]
-      134 SETTABLEKS                       R11 R10 K22 ["Font"]
-      136 LOADB                            R11 1
-      137 SETTABLEKS                       R11 R10 K23 ["TextWrapped"]
-      139 GETIMPORT                        R11 K36 [Enum.TextTruncate.AtEnd]
-      141 SETTABLEKS                       R11 R10 K24 ["TextTruncate"]
-      143 GETIMPORT                        R11 K38 [Enum.TextXAlignment.Left]
-      145 SETTABLEKS                       R11 R10 K25 ["TextXAlignment"]
-      147 GETIMPORT                        R11 K40 [Enum.TextYAlignment.Top]
-      149 SETTABLEKS                       R11 R10 K26 ["TextYAlignment"]
-      151 NEWTABLE                         R11 0 1
-      153 MOVE                             R12 R2
-      154 LOADK                            R13 K41 ["::UISizeConstraint"]
-      155 DUPTABLE                         R14 K44 [{"MaxSize", "MinSize"}]
-      156 GETIMPORT                        R15 K46 [Vector2.new]
-      158 LOADK                            R16 K47 [∞]
-      159 LOADN                            R17 36
-      160 CALL                             R15 2 1
-      161 SETTABLEKS                       R15 R14 K42 ["MaxSize"]
-      163 GETIMPORT                        R15 K46 [Vector2.new]
-      165 LOADN                            R16 0
-      166 LOADN                            R17 18
-      167 CALL                             R15 2 1
-      168 SETTABLEKS                       R15 R14 K43 ["MinSize"]
-      170 CALL                             R12 2 -1
-      171 SETLIST                          R11 R12 -1 [1]
-      173 CALL                             R8 3 1
-      174 MOVE                             R9 R2
-      175 LOADK                            R10 K51 ["> #ElapsedTime"]
-      176 DUPTABLE                         R11 K52 [{"Size", "AutomaticSize", "BackgroundTransparency", "TextColor3", "TextSize", "Font", "TextTruncate", "TextXAlignment", "TextYAlignment"}]
-      177 GETIMPORT                        R12 K30 [UDim2.new]
-      179 LOADN                            R13 1
-      180 LOADN                            R14 0
-      181 LOADN                            R15 0
-      182 LOADN                            R16 0
-      183 CALL                             R12 4 1
-      184 SETTABLEKS                       R12 R11 K19 ["Size"]
-      186 GETIMPORT                        R12 K16 [Enum.AutomaticSize.Y]
-      188 SETTABLEKS                       R12 R11 K10 ["AutomaticSize"]
-      190 LOADN                            R12 1
-      191 SETTABLEKS                       R12 R11 K11 ["BackgroundTransparency"]
-      193 LOADK                            R12 K50 ["$TextSecondary"]
-      194 SETTABLEKS                       R12 R11 K20 ["TextColor3"]
-      196 LOADN                            R12 15
-      197 SETTABLEKS                       R12 R11 K21 ["TextSize"]
-      199 GETIMPORT                        R12 K34 [Enum.Font.SourceSans]
-      201 SETTABLEKS                       R12 R11 K22 ["Font"]
-      203 GETIMPORT                        R12 K36 [Enum.TextTruncate.AtEnd]
-      205 SETTABLEKS                       R12 R11 K24 ["TextTruncate"]
-      207 GETIMPORT                        R12 K38 [Enum.TextXAlignment.Left]
-      209 SETTABLEKS                       R12 R11 K25 ["TextXAlignment"]
-      211 GETIMPORT                        R12 K40 [Enum.TextYAlignment.Top]
-      213 SETTABLEKS                       R12 R11 K26 ["TextYAlignment"]
-      215 CALL                             R9 2 -1
-      216 SETLIST                          R6 R7 -1 [1]
-      218 CALL                             R3 3 -1
-      219 RETURN                           R3 -1
+       29 NEWTABLE                         R6 0 3
+       31 MOVE                             R7 R2
+       32 LOADK                            R8 K19 ["> #Subject"]
+       33 DUPTABLE                         R9 K32 [{["RichText"] = True, ["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextColor3"] = "$TextPrimary", ["TextSize"] = "$CardSubjectTextSize", ["Font"], ["TextWrapped"] = True, ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"]}]
+       34 GETIMPORT                        R10 K35 [UDim2.new]
+       36 LOADN                            R11 1
+       37 LOADN                            R12 0
+       38 LOADN                            R13 0
+       39 LOADN                            R14 0
+       40 CALL                             R10 4 1
+       41 SETTABLEKS                       R10 R9 K22 ["Size"]
+       43 GETIMPORT                        R10 K18 [Enum.AutomaticSize.Y]
+       45 SETTABLEKS                       R10 R9 K10 ["AutomaticSize"]
+       47 GETIMPORT                        R10 K37 [Enum.Font.SourceSans]
+       49 SETTABLEKS                       R10 R9 K27 ["Font"]
+       51 GETIMPORT                        R10 K39 [Enum.TextTruncate.AtEnd]
+       53 SETTABLEKS                       R10 R9 K29 ["TextTruncate"]
+       55 GETIMPORT                        R10 K41 [Enum.TextXAlignment.Left]
+       57 SETTABLEKS                       R10 R9 K30 ["TextXAlignment"]
+       59 GETIMPORT                        R10 K43 [Enum.TextYAlignment.Top]
+       61 SETTABLEKS                       R10 R9 K31 ["TextYAlignment"]
+       63 NEWTABLE                         R10 0 1
+       65 MOVE                             R11 R2
+       66 LOADK                            R12 K44 ["::UISizeConstraint"]
+       67 DUPTABLE                         R13 K47 [{"MaxSize", "MinSize"}]
+       68 GETIMPORT                        R14 K49 [Vector2.new]
+       70 LOADK                            R15 K50 [∞]
+       71 LOADN                            R16 36
+       72 CALL                             R14 2 1
+       73 SETTABLEKS                       R14 R13 K45 ["MaxSize"]
+       75 GETIMPORT                        R14 K49 [Vector2.new]
+       77 LOADN                            R15 0
+       78 LOADN                            R16 18
+       79 CALL                             R14 2 1
+       80 SETTABLEKS                       R14 R13 K46 ["MinSize"]
+       82 CALL                             R11 2 -1
+       83 SETLIST                          R10 R11 -1 [1]
+       85 CALL                             R7 3 1
+       86 MOVE                             R8 R2
+       87 LOADK                            R9 K51 ["> #Subline"]
+       88 DUPTABLE                         R10 K54 [{["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextColor3"] = "$TextSecondary", ["TextSize"] = 18, ["Font"], ["TextWrapped"] = True, ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"]}]
+       89 GETIMPORT                        R11 K35 [UDim2.new]
+       91 LOADN                            R12 1
+       92 LOADN                            R13 0
+       93 LOADN                            R14 0
+       94 LOADN                            R15 0
+       95 CALL                             R11 4 1
+       96 SETTABLEKS                       R11 R10 K22 ["Size"]
+       98 GETIMPORT                        R11 K18 [Enum.AutomaticSize.Y]
+      100 SETTABLEKS                       R11 R10 K10 ["AutomaticSize"]
+      102 GETIMPORT                        R11 K37 [Enum.Font.SourceSans]
+      104 SETTABLEKS                       R11 R10 K27 ["Font"]
+      106 GETIMPORT                        R11 K39 [Enum.TextTruncate.AtEnd]
+      108 SETTABLEKS                       R11 R10 K29 ["TextTruncate"]
+      110 GETIMPORT                        R11 K41 [Enum.TextXAlignment.Left]
+      112 SETTABLEKS                       R11 R10 K30 ["TextXAlignment"]
+      114 GETIMPORT                        R11 K43 [Enum.TextYAlignment.Top]
+      116 SETTABLEKS                       R11 R10 K31 ["TextYAlignment"]
+      118 NEWTABLE                         R11 0 1
+      120 MOVE                             R12 R2
+      121 LOADK                            R13 K44 ["::UISizeConstraint"]
+      122 DUPTABLE                         R14 K47 [{"MaxSize", "MinSize"}]
+      123 GETIMPORT                        R15 K49 [Vector2.new]
+      125 LOADK                            R16 K50 [∞]
+      126 LOADN                            R17 36
+      127 CALL                             R15 2 1
+      128 SETTABLEKS                       R15 R14 K45 ["MaxSize"]
+      130 GETIMPORT                        R15 K49 [Vector2.new]
+      132 LOADN                            R16 0
+      133 LOADN                            R17 18
+      134 CALL                             R15 2 1
+      135 SETTABLEKS                       R15 R14 K46 ["MinSize"]
+      137 CALL                             R12 2 -1
+      138 SETLIST                          R11 R12 -1 [1]
+      140 CALL                             R8 3 1
+      141 MOVE                             R9 R2
+      142 LOADK                            R10 K55 ["> #ElapsedTime"]
+      143 DUPTABLE                         R11 K57 [{["Size"], ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextColor3"] = "$TextSecondary", ["TextSize"] = 15, ["Font"], ["TextTruncate"], ["TextXAlignment"], ["TextYAlignment"]}]
+      144 GETIMPORT                        R12 K35 [UDim2.new]
+      146 LOADN                            R13 1
+      147 LOADN                            R14 0
+      148 LOADN                            R15 0
+      149 LOADN                            R16 0
+      150 CALL                             R12 4 1
+      151 SETTABLEKS                       R12 R11 K22 ["Size"]
+      153 GETIMPORT                        R12 K18 [Enum.AutomaticSize.Y]
+      155 SETTABLEKS                       R12 R11 K10 ["AutomaticSize"]
+      157 GETIMPORT                        R12 K37 [Enum.Font.SourceSans]
+      159 SETTABLEKS                       R12 R11 K27 ["Font"]
+      161 GETIMPORT                        R12 K39 [Enum.TextTruncate.AtEnd]
+      163 SETTABLEKS                       R12 R11 K29 ["TextTruncate"]
+      165 GETIMPORT                        R12 K41 [Enum.TextXAlignment.Left]
+      167 SETTABLEKS                       R12 R11 K30 ["TextXAlignment"]
+      169 GETIMPORT                        R12 K43 [Enum.TextYAlignment.Top]
+      171 SETTABLEKS                       R12 R11 K31 ["TextYAlignment"]
+      173 CALL                             R9 2 -1
+      174 SETLIST                          R6 R7 -1 [1]
+      176 CALL                             R3 3 -1
+      177 RETURN                           R3 -1

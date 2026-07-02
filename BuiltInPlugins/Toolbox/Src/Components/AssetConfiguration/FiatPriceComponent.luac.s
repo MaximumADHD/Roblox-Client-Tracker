@@ -117,41 +117,33 @@ PROTO_3:
        66 GETUPVAL                         R11 2
        67 GETTABLEKS                       R11 R11 K7 ["createElement"]
        69 GETUPVAL                         R12 5
-       70 DUPTABLE                         R13 K19 [{"Title", "TitleWidth"}]
-       71 LOADK                            R16 K20 ["General"]
-       72 LOADK                            R17 K21 ["SalesPrice"]
-       73 NAMECALL                         R14 R2 K22 ["getText"]
+       70 DUPTABLE                         R13 K20 [{["Title"], ["TitleWidth"] = 165}]
+       71 LOADK                            R16 K21 ["General"]
+       72 LOADK                            R17 K22 ["SalesPrice"]
+       73 NAMECALL                         R14 R2 K23 ["getText"]
        75 CALL                             R14 3 1
        76 SETTABLEKS                       R14 R13 K17 ["Title"]
-       78 LOADN                            R14 165
-       79 SETTABLEKS                       R14 R13 K18 ["TitleWidth"]
-       81 DUPTABLE                         R14 K24 [{"FiatPriceDropdown"}]
-       82 GETUPVAL                         R15 2
-       83 GETTABLEKS                       R15 R15 K7 ["createElement"]
-       85 GETUPVAL                         R16 6
-       86 DUPTABLE                         R17 K31 [{"fontSize", "items", "onItemClicked", "rowHeight", "selectedDropDownIndex", "Size", "visibleDropDownCount"}]
-       87 LOADN                            R18 20
-       88 SETTABLEKS                       R18 R17 K25 ["fontSize"]
-       90 SETTABLEKS                       R6 R17 K26 ["items"]
-       92 SETTABLEKS                       R5 R17 K27 ["onItemClicked"]
-       94 LOADN                            R18 24
-       95 SETTABLEKS                       R18 R17 K28 ["rowHeight"]
-       97 SETTABLEKS                       R3 R17 K29 ["selectedDropDownIndex"]
-       99 GETIMPORT                        R18 K13 [UDim2.new]
-      101 LOADN                            R19 0
-      102 LOADN                            R20 225
-      103 LOADN                            R21 0
-      104 LOADN                            R22 40
-      105 CALL                             R18 4 1
-      106 SETTABLEKS                       R18 R17 K9 ["Size"]
-      108 LOADN                            R18 6
-      109 SETTABLEKS                       R18 R17 K30 ["visibleDropDownCount"]
-      111 CALL                             R15 2 1
-      112 SETTABLEKS                       R15 R14 K23 ["FiatPriceDropdown"]
-      114 CALL                             R11 3 1
-      115 SETTABLEKS                       R11 R10 K15 ["TitledFrame"]
-      117 CALL                             R7 3 -1
-      118 RETURN                           R7 -1
+       78 DUPTABLE                         R14 K25 [{"FiatPriceDropdown"}]
+       79 GETUPVAL                         R15 2
+       80 GETTABLEKS                       R15 R15 K7 ["createElement"]
+       82 GETUPVAL                         R16 6
+       83 DUPTABLE                         R17 K35 [{["fontSize"] = 20, ["items"], ["onItemClicked"], ["rowHeight"] = 24, ["selectedDropDownIndex"], ["Size"], ["visibleDropDownCount"] = 6}]
+       84 SETTABLEKS                       R6 R17 K28 ["items"]
+       86 SETTABLEKS                       R5 R17 K29 ["onItemClicked"]
+       88 SETTABLEKS                       R3 R17 K32 ["selectedDropDownIndex"]
+       90 GETIMPORT                        R18 K13 [UDim2.new]
+       92 LOADN                            R19 0
+       93 LOADN                            R20 225
+       94 LOADN                            R21 0
+       95 LOADN                            R22 40
+       96 CALL                             R18 4 1
+       97 SETTABLEKS                       R18 R17 K9 ["Size"]
+       99 CALL                             R15 2 1
+      100 SETTABLEKS                       R15 R14 K24 ["FiatPriceDropdown"]
+      102 CALL                             R11 3 1
+      103 SETTABLEKS                       R11 R10 K15 ["TitledFrame"]
+      105 CALL                             R7 3 -1
+      106 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

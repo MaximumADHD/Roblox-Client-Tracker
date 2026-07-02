@@ -10,14 +10,6 @@ MAIN:
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 LOADK                            R3 K7 ["NotificationTargetType"]
-       18 DUPTABLE                         R4 K12 [{"Invalid", "Universe", "User", "Static"}]
-       19 LOADN                            R5 0
-       20 SETTABLEKS                       R5 R4 K8 ["Invalid"]
-       22 LOADN                            R5 1
-       23 SETTABLEKS                       R5 R4 K9 ["Universe"]
-       25 LOADN                            R5 2
-       26 SETTABLEKS                       R5 R4 K10 ["User"]
-       28 LOADN                            R5 3
-       29 SETTABLEKS                       R5 R4 K11 ["Static"]
-       31 CALL                             R2 2 -1
-       32 RETURN                           R2 -1
+       18 DUPTABLE                         R4 K16 [{["Invalid"] = 0, ["Universe"] = 1, ["User"] = 2, ["Static"] = 3}]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1

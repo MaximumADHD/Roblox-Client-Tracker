@@ -26,53 +26,47 @@ PROTO_1:
        12 GETUPVAL                         R4 3
        13 NAMECALL                         R4 R4 K1 ["isTutorialBannerClosed"]
        15 CALL                             R4 1 1
-       16 JUMPIFNOT                        R4 ; [+32]
-       17 DUPTABLE                         R6 K7 [{"ContentId", "ImageUrl", "Name", "Description", "LaunchTutorialOnClick"}]
-       18 LOADK                            R7 K8 ["Momentum/Tour"]
-       19 SETTABLEKS                       R7 R6 K2 ["ContentId"]
-       21 LOADK                            R7 K9 ["rbxasset://textures/StartPage/StudioTour.png"]
-       22 SETTABLEKS                       R7 R6 K3 ["ImageUrl"]
-       24 GETUPVAL                         R7 2
-       25 LOADK                            R9 K10 ["DiscoverStudioPlaceholder"]
-       26 LOADK                            R10 K11 ["StudioTour.Title"]
-       27 NAMECALL                         R7 R7 K12 ["getText"]
-       29 CALL                             R7 3 1
-       30 SETTABLEKS                       R7 R6 K4 ["Name"]
-       32 GETUPVAL                         R7 2
-       33 LOADK                            R9 K10 ["DiscoverStudioPlaceholder"]
-       34 LOADK                            R10 K13 ["StudioTour.Desc"]
-       35 NAMECALL                         R7 R7 K12 ["getText"]
-       37 CALL                             R7 3 1
-       38 SETTABLEKS                       R7 R6 K5 ["Description"]
-       40 LOADB                            R7 1
-       41 SETTABLEKS                       R7 R6 K6 ["LaunchTutorialOnClick"]
-       43 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
-       45 MOVE                             R5 R3
-       46 GETIMPORT                        R4 K16 [table.insert]
-       48 CALL                             R4 2 0
-       49 GETUPVAL                         R4 4
-       50 GETUPVAL                         R6 5
-       51 GETUPVAL                         R7 6
-       52 MOVE                             R8 R3
-       53 NAMECALL                         R4 R4 K17 ["setItemsForPage"]
-       55 CALL                             R4 4 0
-       56 GETUPVAL                         R4 4
-       57 GETUPVAL                         R6 5
-       58 LENGTH                           R7 R3
-       59 NAMECALL                         R4 R4 K18 ["setTargetCount"]
-       61 CALL                             R4 3 0
-       62 MOVE                             R4 R3
-       63 LOADNIL                          R5
-       64 LOADNIL                          R6
-       65 FORGPREP                         R4
-       66 GETTABLEKS                       R9 R8 K19 ["CDNUrl"]
-       68 JUMPIFNOT                        R9 ; [+6]
-       69 GETUPVAL                         R9 3
-       70 GETTABLEKS                       R11 R8 K19 ["CDNUrl"]
-       72 NAMECALL                         R9 R9 K20 ["generateTempUrlInContentProvider"]
-       74 CALL                             R9 2 0
-       75 FORGLOOP                         R4 2 ; [-10]
-       77 RETURN                           R0 0
+       16 JUMPIFNOT                        R4 ; [+23]
+       17 DUPTABLE                         R6 K10 [{["ContentId"] = "Momentum/Tour", ["ImageUrl"] = "rbxasset://textures/StartPage/StudioTour.png", ["Name"], ["Description"], ["LaunchTutorialOnClick"] = True}]
+       18 GETUPVAL                         R7 2
+       19 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+       20 LOADK                            R10 K12 ["StudioTour.Title"]
+       21 NAMECALL                         R7 R7 K13 ["getText"]
+       23 CALL                             R7 3 1
+       24 SETTABLEKS                       R7 R6 K6 ["Name"]
+       26 GETUPVAL                         R7 2
+       27 LOADK                            R9 K11 ["DiscoverStudioPlaceholder"]
+       28 LOADK                            R10 K14 ["StudioTour.Desc"]
+       29 NAMECALL                         R7 R7 K13 ["getText"]
+       31 CALL                             R7 3 1
+       32 SETTABLEKS                       R7 R6 K7 ["Description"]
+       34 FASTCALL2                        TABLE_INSERT R3 R6 ; [+4]
+       36 MOVE                             R5 R3
+       37 GETIMPORT                        R4 K17 [table.insert]
+       39 CALL                             R4 2 0
+       40 GETUPVAL                         R4 4
+       41 GETUPVAL                         R6 5
+       42 GETUPVAL                         R7 6
+       43 MOVE                             R8 R3
+       44 NAMECALL                         R4 R4 K18 ["setItemsForPage"]
+       46 CALL                             R4 4 0
+       47 GETUPVAL                         R4 4
+       48 GETUPVAL                         R6 5
+       49 LENGTH                           R7 R3
+       50 NAMECALL                         R4 R4 K19 ["setTargetCount"]
+       52 CALL                             R4 3 0
+       53 MOVE                             R4 R3
+       54 LOADNIL                          R5
+       55 LOADNIL                          R6
+       56 FORGPREP                         R4
+       57 GETTABLEKS                       R9 R8 K20 ["CDNUrl"]
+       59 JUMPIFNOT                        R9 ; [+6]
+       60 GETUPVAL                         R9 3
+       61 GETTABLEKS                       R11 R8 K20 ["CDNUrl"]
+       63 NAMECALL                         R9 R9 K21 ["generateTempUrlInContentProvider"]
+       65 CALL                             R9 2 0
+       66 FORGLOOP                         R4 2 ; [-10]
+       68 RETURN                           R0 0
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]
@@ -196,36 +190,34 @@ MAIN:
        79 GETTABLEKS                       R12 R12 K22 ["convertKnowledgeFeedItems"]
        81 CALL                             R11 1 1
        82 GETTABLEKS                       R12 R9 K23 ["new"]
-       84 DUPTABLE                         R13 K26 [{"isInternal", "loggingLevel"}]
-       85 LOADB                            R14 1
-       86 SETTABLEKS                       R14 R13 K24 ["isInternal"]
-       88 SETTABLEKS                       R1 R13 K25 ["loggingLevel"]
-       90 CALL                             R12 1 1
-       91 GETIMPORT                        R13 K5 [require]
-       93 GETTABLEKS                       R14 R0 K6 ["Src"]
-       95 GETTABLEKS                       R14 R14 K16 ["Util"]
-       97 GETTABLEKS                       R14 R14 K27 ["Telemetry"]
-       99 GETTABLEKS                       R14 R14 K28 ["TelemetryContext"]
-      101 CALL                             R13 1 1
-      102 GETTABLEKS                       R14 R4 K29 ["RobloxAPI"]
-      104 GETTABLEKS                       R14 R14 K30 ["Url"]
-      106 GETIMPORT                        R15 K5 [require]
-      108 GETTABLEKS                       R16 R0 K6 ["Src"]
-      110 GETTABLEKS                       R16 R16 K14 ["Network"]
-      112 GETTABLEKS                       R16 R16 K31 ["GameCache"]
-      114 CALL                             R15 1 1
-      115 MOVE                             R16 R10
-      116 GETTABLEKS                       R17 R3 K32 ["validate"]
-      118 CALL                             R16 1 1
-      119 DUPCLOSURE                       R17 K33 [PROTO_0]
-      120 CAPTURE                          VAL R8
-      121 DUPCLOSURE                       R18 K34 [PROTO_3]
-      122 CAPTURE                          VAL R14
-      123 CAPTURE                          VAL R5
-      124 CAPTURE                          VAL R7
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R16
-      127 CAPTURE                          VAL R11
-      128 CAPTURE                          VAL R8
-      129 CAPTURE                          VAL R15
-      130 RETURN                           R18 1
+       84 DUPTABLE                         R13 K27 [{["isInternal"] = True, ["loggingLevel"]}]
+       85 SETTABLEKS                       R1 R13 K26 ["loggingLevel"]
+       87 CALL                             R12 1 1
+       88 GETIMPORT                        R13 K5 [require]
+       90 GETTABLEKS                       R14 R0 K6 ["Src"]
+       92 GETTABLEKS                       R14 R14 K16 ["Util"]
+       94 GETTABLEKS                       R14 R14 K28 ["Telemetry"]
+       96 GETTABLEKS                       R14 R14 K29 ["TelemetryContext"]
+       98 CALL                             R13 1 1
+       99 GETTABLEKS                       R14 R4 K30 ["RobloxAPI"]
+      101 GETTABLEKS                       R14 R14 K31 ["Url"]
+      103 GETIMPORT                        R15 K5 [require]
+      105 GETTABLEKS                       R16 R0 K6 ["Src"]
+      107 GETTABLEKS                       R16 R16 K14 ["Network"]
+      109 GETTABLEKS                       R16 R16 K32 ["GameCache"]
+      111 CALL                             R15 1 1
+      112 MOVE                             R16 R10
+      113 GETTABLEKS                       R17 R3 K33 ["validate"]
+      115 CALL                             R16 1 1
+      116 DUPCLOSURE                       R17 K34 [PROTO_0]
+      117 CAPTURE                          VAL R8
+      118 DUPCLOSURE                       R18 K35 [PROTO_3]
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R7
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R16
+      124 CAPTURE                          VAL R11
+      125 CAPTURE                          VAL R8
+      126 CAPTURE                          VAL R15
+      127 RETURN                           R18 1

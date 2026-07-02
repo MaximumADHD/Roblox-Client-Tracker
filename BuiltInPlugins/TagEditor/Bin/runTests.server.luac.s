@@ -40,7 +40,7 @@ MAIN:
        33 JUMPIF                           R3 ; [+4]
        34 GETTABLEKS                       R3 R2 K16 ["RunTests"]
        36 CALL                             R3 0 1
-       37 JUMPIFNOT                        R3 ; [+77]
+       37 JUMPIFNOT                        R3 ; [+71]
        38 JUMPIFNOT                        R1 ; [+11]
        39 GETIMPORT                        R3 K11 [require]
        41 GETIMPORT                        R4 K1 [script]
@@ -60,34 +60,30 @@ MAIN:
        64 CALL                             R4 1 2
        65 MOVE                             R6 R3
        66 GETTABLEKS                       R7 R0 K12 ["Src"]
-       68 DUPTABLE                         R8 K25 [{"verbose", "ci"}]
-       69 LOADB                            R9 0
-       70 SETTABLEKS                       R9 R8 K23 ["verbose"]
-       72 LOADB                            R9 0
-       73 SETTABLEKS                       R9 R8 K24 ["ci"]
-       75 NEWTABLE                         R9 0 1
-       77 GETTABLEKS                       R10 R0 K12 ["Src"]
-       79 SETLIST                          R9 R10 1 [1]
-       81 CALL                             R6 3 1
-       82 NAMECALL                         R6 R6 K26 ["awaitStatus"]
-       84 CALL                             R6 1 2
-       85 JUMPIFNOTEQKS                    R6 K27 ["Rejected"] ; [+5]
-       87 GETIMPORT                        R8 K29 [print]
-       89 MOVE                             R9 R7
-       90 CALL                             R8 1 0
-       91 JUMPIFNOTEQKS                    R6 K30 ["Resolved"] ; [+18]
-       93 GETTABLEKS                       R8 R7 K31 ["results"]
-       95 GETTABLEKS                       R8 R8 K32 ["numFailedTestSuites"]
-       97 JUMPIFNOTEQKN                    R8 K33 [0] ; [+12]
-       99 GETTABLEKS                       R8 R7 K31 ["results"]
-      101 GETTABLEKS                       R8 R8 K34 ["numFailedTests"]
-      103 JUMPIFNOTEQKN                    R8 K33 [0] ; [+6]
-      105 JUMPIFNOT                        R4 ; [+4]
-      106 LOADN                            R10 0
-      107 NAMECALL                         R8 R5 K35 ["ExitAsync"]
-      109 CALL                             R8 2 0
-      110 JUMPIFNOT                        R4 ; [+4]
-      111 LOADN                            R10 1
-      112 NAMECALL                         R8 R5 K35 ["ExitAsync"]
-      114 CALL                             R8 2 0
-      115 RETURN                           R0 0
+       68 DUPTABLE                         R8 K26 [{["verbose"] = False, ["ci"] = False}]
+       69 NEWTABLE                         R9 0 1
+       71 GETTABLEKS                       R10 R0 K12 ["Src"]
+       73 SETLIST                          R9 R10 1 [1]
+       75 CALL                             R6 3 1
+       76 NAMECALL                         R6 R6 K27 ["awaitStatus"]
+       78 CALL                             R6 1 2
+       79 JUMPIFNOTEQKS                    R6 K28 ["Rejected"] ; [+5]
+       81 GETIMPORT                        R8 K30 [print]
+       83 MOVE                             R9 R7
+       84 CALL                             R8 1 0
+       85 JUMPIFNOTEQKS                    R6 K31 ["Resolved"] ; [+18]
+       87 GETTABLEKS                       R8 R7 K32 ["results"]
+       89 GETTABLEKS                       R8 R8 K33 ["numFailedTestSuites"]
+       91 JUMPIFNOTEQKN                    R8 K34 [0] ; [+12]
+       93 GETTABLEKS                       R8 R7 K32 ["results"]
+       95 GETTABLEKS                       R8 R8 K35 ["numFailedTests"]
+       97 JUMPIFNOTEQKN                    R8 K34 [0] ; [+6]
+       99 JUMPIFNOT                        R4 ; [+4]
+      100 LOADN                            R10 0
+      101 NAMECALL                         R8 R5 K36 ["ExitAsync"]
+      103 CALL                             R8 2 0
+      104 JUMPIFNOT                        R4 ; [+4]
+      105 LOADN                            R10 1
+      106 NAMECALL                         R8 R5 K36 ["ExitAsync"]
+      108 CALL                             R8 2 0
+      109 RETURN                           R0 0

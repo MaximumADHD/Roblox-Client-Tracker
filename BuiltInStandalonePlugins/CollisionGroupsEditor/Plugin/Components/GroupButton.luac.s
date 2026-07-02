@@ -1,33 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Hovering"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["Hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"Hovering"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["Hovering"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"Hovering"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Hovering"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["mouseEnter"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["mouseLeave"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["mouseEnter"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["mouseLeave"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -42,64 +36,60 @@ PROTO_3:
        15 SETTABLEKS                       R6 R5 K4 ["Padding"]
        17 GETTABLEKS                       R6 R1 K5 ["LayoutOrder"]
        19 SETTABLEKS                       R6 R5 K5 ["LayoutOrder"]
-       21 DUPTABLE                         R6 K15 [{"Foreground", "ForegroundStyle", "Background", "BackgroundStyle"}]
+       21 DUPTABLE                         R6 K16 [{["Foreground"], ["ForegroundStyle"], ["Background"], ["BackgroundStyle"] = "None"}]
        22 GETUPVAL                         R7 2
        23 SETTABLEKS                       R7 R6 K11 ["Foreground"]
-       25 DUPTABLE                         R7 K20 [{"Image", "Size", "AnchorPoint", "Position", "ScaleType"}]
-       26 GETTABLEKS                       R9 R0 K21 ["state"]
-       28 GETTABLEKS                       R9 R9 K22 ["Hovering"]
+       25 DUPTABLE                         R7 K21 [{"Image", "Size", "AnchorPoint", "Position", "ScaleType"}]
+       26 GETTABLEKS                       R9 R0 K22 ["state"]
+       28 GETTABLEKS                       R9 R9 K23 ["Hovering"]
        30 JUMPIFNOT                        R9 ; [+3]
-       31 GETTABLEKS                       R8 R2 K23 ["HoveredImage"]
+       31 GETTABLEKS                       R8 R2 K24 ["HoveredImage"]
        33 JUMP                             ; [+2]
-       34 GETTABLEKS                       R8 R2 K16 ["Image"]
-       36 SETTABLEKS                       R8 R7 K16 ["Image"]
-       38 GETTABLEKS                       R8 R2 K24 ["ImageSize"]
+       34 GETTABLEKS                       R8 R2 K17 ["Image"]
+       36 SETTABLEKS                       R8 R7 K17 ["Image"]
+       38 GETTABLEKS                       R8 R2 K25 ["ImageSize"]
        40 SETTABLEKS                       R8 R7 K3 ["Size"]
-       42 GETIMPORT                        R8 K27 [Vector2.new]
-       44 LOADK                            R9 K28 [0.5]
-       45 LOADK                            R10 K28 [0.5]
+       42 GETIMPORT                        R8 K28 [Vector2.new]
+       44 LOADK                            R9 K29 [0.5]
+       45 LOADK                            R10 K29 [0.5]
        46 CALL                             R8 2 1
-       47 SETTABLEKS                       R8 R7 K17 ["AnchorPoint"]
-       49 GETIMPORT                        R8 K30 [UDim2.new]
-       51 LOADK                            R9 K28 [0.5]
+       47 SETTABLEKS                       R8 R7 K18 ["AnchorPoint"]
+       49 GETIMPORT                        R8 K31 [UDim2.new]
+       51 LOADK                            R9 K29 [0.5]
        52 LOADN                            R10 0
-       53 LOADK                            R11 K28 [0.5]
+       53 LOADK                            R11 K29 [0.5]
        54 LOADN                            R12 0
        55 CALL                             R8 4 1
-       56 SETTABLEKS                       R8 R7 K18 ["Position"]
-       58 GETIMPORT                        R8 K33 [Enum.ScaleType.Stretch]
-       60 SETTABLEKS                       R8 R7 K19 ["ScaleType"]
+       56 SETTABLEKS                       R8 R7 K19 ["Position"]
+       58 GETIMPORT                        R8 K34 [Enum.ScaleType.Stretch]
+       60 SETTABLEKS                       R8 R7 K20 ["ScaleType"]
        62 SETTABLEKS                       R7 R6 K12 ["ForegroundStyle"]
        64 GETUPVAL                         R7 3
        65 SETTABLEKS                       R7 R6 K13 ["Background"]
-       67 LOADK                            R7 K34 ["None"]
-       68 SETTABLEKS                       R7 R6 K14 ["BackgroundStyle"]
-       70 SETTABLEKS                       R6 R5 K6 ["Style"]
-       72 GETTABLEKS                       R6 R1 K7 ["OnClick"]
-       74 SETTABLEKS                       R6 R5 K7 ["OnClick"]
-       76 GETTABLEKS                       R6 R0 K35 ["mouseEnter"]
-       78 SETTABLEKS                       R6 R5 K8 ["OnMouseEnter"]
-       80 GETTABLEKS                       R6 R0 K36 ["mouseLeave"]
-       82 SETTABLEKS                       R6 R5 K9 ["OnMouseLeave"]
-       84 DUPTABLE                         R6 K39 [{"HoverArea", "Tooltip"}]
-       85 GETUPVAL                         R7 0
-       86 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       88 GETUPVAL                         R8 4
-       89 DUPTABLE                         R9 K41 [{"Cursor"}]
-       90 LOADK                            R10 K42 ["PointingHand"]
-       91 SETTABLEKS                       R10 R9 K40 ["Cursor"]
-       93 CALL                             R7 2 1
-       94 SETTABLEKS                       R7 R6 K37 ["HoverArea"]
-       96 GETUPVAL                         R7 0
-       97 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       99 GETUPVAL                         R8 5
-      100 DUPTABLE                         R9 K44 [{"Text"}]
-      101 GETTABLEKS                       R10 R1 K45 ["TooltipMessage"]
-      103 SETTABLEKS                       R10 R9 K43 ["Text"]
-      105 CALL                             R7 2 1
-      106 SETTABLEKS                       R7 R6 K38 ["Tooltip"]
-      108 CALL                             R3 3 -1
-      109 RETURN                           R3 -1
+       67 SETTABLEKS                       R6 R5 K6 ["Style"]
+       69 GETTABLEKS                       R6 R1 K7 ["OnClick"]
+       71 SETTABLEKS                       R6 R5 K7 ["OnClick"]
+       73 GETTABLEKS                       R6 R0 K35 ["mouseEnter"]
+       75 SETTABLEKS                       R6 R5 K8 ["OnMouseEnter"]
+       77 GETTABLEKS                       R6 R0 K36 ["mouseLeave"]
+       79 SETTABLEKS                       R6 R5 K9 ["OnMouseLeave"]
+       81 DUPTABLE                         R6 K39 [{"HoverArea", "Tooltip"}]
+       82 GETUPVAL                         R7 0
+       83 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       85 GETUPVAL                         R8 4
+       86 DUPTABLE                         R9 K42 [{["Cursor"] = "PointingHand"}]
+       87 CALL                             R7 2 1
+       88 SETTABLEKS                       R7 R6 K37 ["HoverArea"]
+       90 GETUPVAL                         R7 0
+       91 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       93 GETUPVAL                         R8 5
+       94 DUPTABLE                         R9 K44 [{"Text"}]
+       95 GETTABLEKS                       R10 R1 K45 ["TooltipMessage"]
+       97 SETTABLEKS                       R10 R9 K43 ["Text"]
+       99 CALL                             R7 2 1
+      100 SETTABLEKS                       R7 R6 K38 ["Tooltip"]
+      102 CALL                             R3 3 -1
+      103 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

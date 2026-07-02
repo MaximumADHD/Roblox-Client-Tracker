@@ -96,89 +96,85 @@ PROTO_7:
         7 GETTABLEKS                       R4 R4 K5 ["state"]
         9 GETTABLEKS                       R4 R4 K6 ["ValidJson"]
        11 NOT                              R3 R4
-       12 JUMPIFNOT                        R3 ; [+18]
+       12 JUMPIFNOT                        R3 ; [+15]
        13 GETUPVAL                         R3 1
        14 GETTABLEKS                       R3 R3 K7 ["createElement"]
        16 GETUPVAL                         R4 2
-       17 DUPTABLE                         R5 K11 [{"LayoutOrder", "AutomaticSize", "Style"}]
+       17 DUPTABLE                         R5 K11 [{["LayoutOrder"], ["AutomaticSize"], ["Style"] = "Warning"}]
        18 GETUPVAL                         R6 3
        19 GETTABLEKS                       R6 R6 K2 ["Warning"]
        21 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
        23 GETIMPORT                        R6 K14 [Enum.AutomaticSize.Y]
        25 SETTABLEKS                       R6 R5 K9 ["AutomaticSize"]
-       27 LOADK                            R6 K2 ["Warning"]
-       28 SETTABLEKS                       R6 R5 K10 ["Style"]
-       30 CALL                             R3 2 1
-       31 SETTABLEKS                       R3 R2 K2 ["Warning"]
-       33 GETUPVAL                         R3 1
-       34 GETTABLEKS                       R3 R3 K7 ["createElement"]
-       36 GETUPVAL                         R4 4
-       37 DUPTABLE                         R5 K18 [{"OnClearClicked", "OnSaveClicked", "OnSendClicked"}]
-       38 GETUPVAL                         R6 0
-       39 GETTABLEKS                       R6 R6 K19 ["onClearClicked"]
-       41 SETTABLEKS                       R6 R5 K15 ["OnClearClicked"]
-       43 GETUPVAL                         R6 0
-       44 GETTABLEKS                       R6 R6 K20 ["onSaveClicked"]
-       46 SETTABLEKS                       R6 R5 K16 ["OnSaveClicked"]
-       48 GETUPVAL                         R6 0
-       49 GETTABLEKS                       R6 R6 K21 ["onSendClicked"]
-       51 SETTABLEKS                       R6 R5 K17 ["OnSendClicked"]
-       53 CALL                             R3 2 1
-       54 SETTABLEKS                       R3 R2 K3 ["Activators"]
-       56 GETIMPORT                        R3 K23 [pairs]
-       58 MOVE                             R4 R1
-       59 CALL                             R3 1 3
-       60 FORGPREP_NEXT                    R3
-       61 GETUPVAL                         R8 1
-       62 GETTABLEKS                       R8 R8 K7 ["createElement"]
-       64 GETUPVAL                         R9 5
-       65 DUPTABLE                         R10 K27 [{"LayoutOrder", "Label", "Text", "OnChange"}]
-       66 GETUPVAL                         R12 3
-       67 GETTABLE                         R11 R12 R6
-       68 SETTABLEKS                       R11 R10 K8 ["LayoutOrder"]
-       70 SETTABLEKS                       R6 R10 K24 ["Label"]
-       72 SETTABLEKS                       R7 R10 K25 ["Text"]
-       74 NEWCLOSURE                       R11 P0
-       75 CAPTURE                          UPVAL U0
-       76 CAPTURE                          VAL R6
-       77 SETTABLEKS                       R11 R10 K26 ["OnChange"]
-       79 CALL                             R8 2 1
-       80 SETTABLE                         R8 R2 R6
-       81 FORGLOOP                         R3 2 ; [-21]
-       83 RETURN                           R2 1
+       27 CALL                             R3 2 1
+       28 SETTABLEKS                       R3 R2 K2 ["Warning"]
+       30 GETUPVAL                         R3 1
+       31 GETTABLEKS                       R3 R3 K7 ["createElement"]
+       33 GETUPVAL                         R4 4
+       34 DUPTABLE                         R5 K18 [{"OnClearClicked", "OnSaveClicked", "OnSendClicked"}]
+       35 GETUPVAL                         R6 0
+       36 GETTABLEKS                       R6 R6 K19 ["onClearClicked"]
+       38 SETTABLEKS                       R6 R5 K15 ["OnClearClicked"]
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K20 ["onSaveClicked"]
+       43 SETTABLEKS                       R6 R5 K16 ["OnSaveClicked"]
+       45 GETUPVAL                         R6 0
+       46 GETTABLEKS                       R6 R6 K21 ["onSendClicked"]
+       48 SETTABLEKS                       R6 R5 K17 ["OnSendClicked"]
+       50 CALL                             R3 2 1
+       51 SETTABLEKS                       R3 R2 K3 ["Activators"]
+       53 GETIMPORT                        R3 K23 [pairs]
+       55 MOVE                             R4 R1
+       56 CALL                             R3 1 3
+       57 FORGPREP_NEXT                    R3
+       58 GETUPVAL                         R8 1
+       59 GETTABLEKS                       R8 R8 K7 ["createElement"]
+       61 GETUPVAL                         R9 5
+       62 DUPTABLE                         R10 K27 [{"LayoutOrder", "Label", "Text", "OnChange"}]
+       63 GETUPVAL                         R12 3
+       64 GETTABLE                         R11 R12 R6
+       65 SETTABLEKS                       R11 R10 K8 ["LayoutOrder"]
+       67 SETTABLEKS                       R6 R10 K24 ["Label"]
+       69 SETTABLEKS                       R7 R10 K25 ["Text"]
+       71 NEWCLOSURE                       R11 P0
+       72 CAPTURE                          UPVAL U0
+       73 CAPTURE                          VAL R6
+       74 SETTABLEKS                       R11 R10 K26 ["OnChange"]
+       76 CALL                             R8 2 1
+       77 SETTABLE                         R8 R2 R6
+       78 FORGLOOP                         R3 2 ; [-21]
+       80 RETURN                           R2 1
 
 PROTO_8:
-        0 DUPTABLE                         R1 K1 [{"ValidJson"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["ValidJson"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          UPVAL U0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R1 R0 K3 ["IsCurrentJSONValid"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R1 R0 K4 ["onClearClicked"]
-       15 NEWCLOSURE                       R1 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R1 R0 K5 ["onSaveClicked"]
-       19 NEWCLOSURE                       R1 P3
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U1
-       22 SETTABLEKS                       R1 R0 K6 ["onSendClicked"]
-       24 NEWCLOSURE                       R1 P4
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          UPVAL U2
-       27 SETTABLEKS                       R1 R0 K7 ["focusLost"]
-       29 NEWCLOSURE                       R1 P5
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          UPVAL U4
-       33 CAPTURE                          UPVAL U5
-       34 CAPTURE                          UPVAL U6
-       35 CAPTURE                          UPVAL U7
-       36 SETTABLEKS                       R1 R0 K8 ["createChildren"]
-       38 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          UPVAL U0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R1 R0 K4 ["IsCurrentJSONValid"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R1 R0 K5 ["onClearClicked"]
+       12 NEWCLOSURE                       R1 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R1 R0 K6 ["onSaveClicked"]
+       16 NEWCLOSURE                       R1 P3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U1
+       19 SETTABLEKS                       R1 R0 K7 ["onSendClicked"]
+       21 NEWCLOSURE                       R1 P4
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U2
+       24 SETTABLEKS                       R1 R0 K8 ["focusLost"]
+       26 NEWCLOSURE                       R1 P5
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U3
+       29 CAPTURE                          UPVAL U4
+       30 CAPTURE                          UPVAL U5
+       31 CAPTURE                          UPVAL U6
+       32 CAPTURE                          UPVAL U7
+       33 SETTABLEKS                       R1 R0 K9 ["createChildren"]
+       35 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R1 0

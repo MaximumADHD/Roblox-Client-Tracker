@@ -15,51 +15,37 @@ PROTO_0:
        16 LOADK                            R8 K5 ["PlaceSafetyBlockedDialog.SecondaryAction"]
        17 NAMECALL                         R5 R1 K2 ["getText"]
        19 CALL                             R5 3 1
-       20 DUPTABLE                         R8 K8 [{"PluginId", "ItemId"}]
-       21 LOADK                            R9 K9 ["StartPage"]
-       22 SETTABLEKS                       R9 R8 K6 ["PluginId"]
-       24 LOADK                            R9 K10 ["PlaceSafetyBlockedDialog"]
-       25 SETTABLEKS                       R9 R8 K7 ["ItemId"]
-       27 DUPTABLE                         R9 K16 [{"Type", "Title", "Description", "PrimaryButton", "SecondaryButton"}]
-       28 LOADK                            R10 K17 ["Critical"]
-       29 SETTABLEKS                       R10 R9 K11 ["Type"]
-       31 SETTABLEKS                       R2 R9 K12 ["Title"]
-       33 SETTABLEKS                       R3 R9 K13 ["Description"]
-       35 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
-       36 DUPTABLE                         R11 K8 [{"PluginId", "ItemId"}]
-       37 LOADK                            R12 K9 ["StartPage"]
-       38 SETTABLEKS                       R12 R11 K6 ["PluginId"]
-       40 LOADK                            R12 K21 ["PlaceSafetyBlockedDialog/OK"]
-       41 SETTABLEKS                       R12 R11 K7 ["ItemId"]
-       43 SETTABLEKS                       R11 R10 K18 ["Uri"]
-       45 SETTABLEKS                       R4 R10 K19 ["Text"]
-       47 SETTABLEKS                       R10 R9 K14 ["PrimaryButton"]
-       49 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
-       50 DUPTABLE                         R11 K8 [{"PluginId", "ItemId"}]
-       51 LOADK                            R12 K9 ["StartPage"]
-       52 SETTABLEKS                       R12 R11 K6 ["PluginId"]
-       54 LOADK                            R12 K22 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"]
-       55 SETTABLEKS                       R12 R11 K7 ["ItemId"]
-       57 SETTABLEKS                       R11 R10 K18 ["Uri"]
-       59 SETTABLEKS                       R5 R10 K19 ["Text"]
-       61 SETTABLEKS                       R10 R9 K15 ["SecondaryButton"]
-       63 NAMECALL                         R6 R0 K23 ["ShowDialogAsync"]
-       65 CALL                             R6 3 1
-       66 JUMPIFNOT                        R6 ; [+20]
-       67 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
-       69 JUMPIFNOT                        R7 ; [+17]
-       70 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
-       72 GETTABLEKS                       R7 R7 K7 ["ItemId"]
-       74 JUMPIFNOT                        R7 ; [+12]
-       75 GETTABLEKS                       R7 R6 K24 ["SelectedButtonUri"]
-       77 GETTABLEKS                       R7 R7 K7 ["ItemId"]
-       79 JUMPIFNOTEQKS                    R7 K22 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"] ; [+7]
-       81 GETUPVAL                         R7 0
-       82 GETUPVAL                         R9 1
-       83 CALL                             R9 0 -1
-       84 NAMECALL                         R7 R7 K25 ["openLink"]
-       86 CALL                             R7 -1 0
-       87 RETURN                           R0 0
+       20 DUPTABLE                         R8 K10 [{["PluginId"] = "StartPage", ["ItemId"] = "PlaceSafetyBlockedDialog"}]
+       21 DUPTABLE                         R9 K17 [{["Type"] = "Critical", ["Title"], ["Description"], ["PrimaryButton"], ["SecondaryButton"]}]
+       22 SETTABLEKS                       R2 R9 K13 ["Title"]
+       24 SETTABLEKS                       R3 R9 K14 ["Description"]
+       26 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
+       27 DUPTABLE                         R11 K22 [{["PluginId"] = "StartPage", ["ItemId"] = "PlaceSafetyBlockedDialog/OK"}]
+       28 SETTABLEKS                       R11 R10 K18 ["Uri"]
+       30 SETTABLEKS                       R4 R10 K19 ["Text"]
+       32 SETTABLEKS                       R10 R9 K15 ["PrimaryButton"]
+       34 DUPTABLE                         R10 K20 [{"Uri", "Text"}]
+       35 DUPTABLE                         R11 K24 [{["PluginId"] = "StartPage", ["ItemId"] = "PlaceSafetyBlockedDialog/ViewTermsOfUse"}]
+       36 SETTABLEKS                       R11 R10 K18 ["Uri"]
+       38 SETTABLEKS                       R5 R10 K19 ["Text"]
+       40 SETTABLEKS                       R10 R9 K16 ["SecondaryButton"]
+       42 NAMECALL                         R6 R0 K25 ["ShowDialogAsync"]
+       44 CALL                             R6 3 1
+       45 JUMPIFNOT                        R6 ; [+20]
+       46 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
+       48 JUMPIFNOT                        R7 ; [+17]
+       49 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
+       51 GETTABLEKS                       R7 R7 K8 ["ItemId"]
+       53 JUMPIFNOT                        R7 ; [+12]
+       54 GETTABLEKS                       R7 R6 K26 ["SelectedButtonUri"]
+       56 GETTABLEKS                       R7 R7 K8 ["ItemId"]
+       58 JUMPIFNOTEQKS                    R7 K23 ["PlaceSafetyBlockedDialog/ViewTermsOfUse"] ; [+7]
+       60 GETUPVAL                         R7 0
+       61 GETUPVAL                         R9 1
+       62 CALL                             R9 0 -1
+       63 NAMECALL                         R7 R7 K27 ["openLink"]
+       65 CALL                             R7 -1 0
+       66 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

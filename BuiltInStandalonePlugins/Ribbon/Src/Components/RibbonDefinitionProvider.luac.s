@@ -41,7 +41,7 @@ PROTO_1:
         3 GETTABLEKS                       R6 R6 K1 ["TabLayout"]
         5 LENGTH                           R5 R6
         6 LOADN                            R3 1
-        7 LOADN                            R4 255
+        7 LOADN                            R4 -1
         8 FORNPREP                         R3
         9 GETTABLEKS                       R7 R0 K0 ["Layout"]
        11 GETTABLEKS                       R7 R7 K1 ["TabLayout"]
@@ -382,39 +382,37 @@ PROTO_18:
         5 CALL                             R3 1 1
         6 GETTABLEKS                       R5 R2 K0 ["Layout"]
         8 GETTABLEKS                       R5 R5 K1 ["TabLayout"]
-       10 DUPTABLE                         R6 K4 [{"Identifier", "Visible"}]
+       10 DUPTABLE                         R6 K5 [{["Identifier"], ["Visible"] = True}]
        11 SETTABLEKS                       R3 R6 K2 ["Identifier"]
-       13 LOADB                            R7 1
-       14 SETTABLEKS                       R7 R6 K3 ["Visible"]
-       16 FASTCALL2                        TABLE_INSERT R5 R6 ; [+3]
-       18 GETIMPORT                        R4 K7 [table.insert]
-       20 CALL                             R4 2 0
-       21 GETTABLEKS                       R4 R2 K8 ["TabControls"]
-       23 GETUPVAL                         R5 3
-       24 MOVE                             R6 R3
-       25 CALL                             R5 1 1
-       26 DUPTABLE                         R6 K11 [{"Controls", "Name"}]
-       27 MOVE                             R7 R1
-       28 JUMPIF                           R7 ; [+2]
-       29 NEWTABLE                         R7 0 0
-       31 SETTABLEKS                       R7 R6 K9 ["Controls"]
-       33 SETTABLEKS                       R0 R6 K10 ["Name"]
-       35 SETTABLE                         R6 R4 R5
-       36 GETIMPORT                        R4 K13 [table.freeze]
-       38 MOVE                             R5 R2
-       39 CALL                             R4 1 0
-       40 GETUPVAL                         R4 4
-       41 NEWCLOSURE                       R5 P0
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R2
+       13 FASTCALL2                        TABLE_INSERT R5 R6 ; [+3]
+       15 GETIMPORT                        R4 K8 [table.insert]
+       17 CALL                             R4 2 0
+       18 GETTABLEKS                       R4 R2 K9 ["TabControls"]
+       20 GETUPVAL                         R5 3
+       21 MOVE                             R6 R3
+       22 CALL                             R5 1 1
+       23 DUPTABLE                         R6 K12 [{"Controls", "Name"}]
+       24 MOVE                             R7 R1
+       25 JUMPIF                           R7 ; [+2]
+       26 NEWTABLE                         R7 0 0
+       28 SETTABLEKS                       R7 R6 K10 ["Controls"]
+       30 SETTABLEKS                       R0 R6 K11 ["Name"]
+       32 SETTABLE                         R6 R4 R5
+       33 GETIMPORT                        R4 K14 [table.freeze]
+       35 MOVE                             R5 R2
+       36 CALL                             R4 1 0
+       37 GETUPVAL                         R4 4
+       38 NEWCLOSURE                       R5 P0
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R2
+       41 CALL                             R4 1 0
+       42 GETUPVAL                         R4 5
+       43 MOVE                             R5 R2
        44 CALL                             R4 1 0
-       45 GETUPVAL                         R4 5
+       45 GETUPVAL                         R4 6
        46 MOVE                             R5 R2
        47 CALL                             R4 1 0
-       48 GETUPVAL                         R4 6
-       49 MOVE                             R5 R2
-       50 CALL                             R4 1 0
-       51 RETURN                           R3 1
+       48 RETURN                           R3 1
 
 PROTO_19:
         0 GETUPVAL                         R3 0
@@ -592,7 +590,7 @@ PROTO_23:
        38 RETURN                           R0 0
        39 LENGTH                           R7 R4
        40 LOADN                            R5 1
-       41 LOADN                            R6 255
+       41 LOADN                            R6 -1
        42 FORNPREP                         R5
        43 GETTABLE                         R8 R4 R7
        44 GETUPVAL                         R9 3
@@ -735,7 +733,7 @@ PROTO_26:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 CALL                             R2 1 1
-        3 LOADN                            R3 255
+        3 LOADN                            R3 -1
         4 GETTABLEKS                       R4 R2 K0 ["Layout"]
         6 GETTABLEKS                       R4 R4 K1 ["TabLayout"]
         8 LOADNIL                          R5
@@ -812,7 +810,7 @@ PROTO_27:
         3 GETUPVAL                         R2 2
         4 MOVE                             R3 R0
         5 CALL                             R2 1 1
-        6 LOADN                            R3 255
+        6 LOADN                            R3 -1
         7 GETTABLEKS                       R4 R1 K0 ["Layout"]
         9 GETTABLEKS                       R4 R4 K1 ["TabLayout"]
        11 LOADNIL                          R5
@@ -889,7 +887,7 @@ PROTO_28:
        39 FORGLOOP                         R3 2 ; [-26]
        41 LENGTH                           R5 R1
        42 LOADN                            R3 1
-       43 LOADN                            R4 255
+       43 LOADN                            R4 -1
        44 FORNPREP                         R3
        45 GETTABLE                         R6 R1 R5
        46 GETIMPORT                        R7 K10 [table.remove]
@@ -925,19 +923,15 @@ PROTO_29:
         1 LOADK                            R2 K0 ["InteractionTelemetry"]
         2 NAMECALL                         R0 R0 K1 ["GetPluginComponent"]
         4 CALL                             R0 2 1
-        5 DUPTABLE                         R3 K5 [{"functionType", "sourceType", "sourceData"}]
-        6 LOADK                            R4 K6 ["Navigation"]
-        7 SETTABLEKS                       R4 R3 K2 ["functionType"]
-        9 LOADK                            R4 K7 ["Widget"]
-       10 SETTABLEKS                       R4 R3 K3 ["sourceType"]
-       12 GETUPVAL                         R4 1
-       13 GETTABLEKS                       R4 R4 K8 ["toString"]
-       15 GETUPVAL                         R5 2
-       16 CALL                             R4 1 1
-       17 SETTABLEKS                       R4 R3 K4 ["sourceData"]
-       19 NAMECALL                         R1 R0 K9 ["ReportInteractionAsync"]
-       21 CALL                             R1 2 0
-       22 RETURN                           R0 0
+        5 DUPTABLE                         R3 K7 [{["functionType"] = "Navigation", ["sourceType"] = "Widget", ["sourceData"]}]
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R4 R4 K8 ["toString"]
+        9 GETUPVAL                         R5 2
+       10 CALL                             R4 1 1
+       11 SETTABLEKS                       R4 R3 K6 ["sourceData"]
+       13 NAMECALL                         R1 R0 K9 ["ReportInteractionAsync"]
+       15 CALL                             R1 2 0
+       16 RETURN                           R0 0
 
 PROTO_30:
         0 JUMPIFNOT                        R0 ; [+31]

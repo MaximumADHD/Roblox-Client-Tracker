@@ -29,33 +29,19 @@ MAIN:
         3 LOADN                            R1 85
         4 LOADN                            R2 34
         5 CALL                             R0 2 1
-        6 DUPTABLE                         R1 K14 [{"CursorGroupName", "GroupCountMax", "GroupRowHeight", "GroupRowWidth", "ControlsHeaderButtonWidth", "GroupLabelFixedSize", "GroupListRowHeight", "GridCellWidth", "GridHeaderLabelSize", "GridCellSize", "CalculateTableSize"}]
-        7 LOADK                            R2 K15 ["StudioSelectable"]
-        8 SETTABLEKS                       R2 R1 K3 ["CursorGroupName"]
-       10 LOADN                            R2 32
-       11 SETTABLEKS                       R2 R1 K4 ["GroupCountMax"]
-       13 LOADN                            R2 35
-       14 SETTABLEKS                       R2 R1 K5 ["GroupRowHeight"]
-       16 LOADN                            R2 120
-       17 SETTABLEKS                       R2 R1 K6 ["GroupRowWidth"]
-       19 LOADN                            R2 106
-       20 SETTABLEKS                       R2 R1 K7 ["ControlsHeaderButtonWidth"]
-       22 GETIMPORT                        R2 K2 [UDim2.fromOffset]
-       24 LOADN                            R3 120
-       25 LOADN                            R4 35
-       26 CALL                             R2 2 1
-       27 SETTABLEKS                       R2 R1 K8 ["GroupLabelFixedSize"]
-       29 LOADN                            R2 24
-       30 SETTABLEKS                       R2 R1 K9 ["GroupListRowHeight"]
-       32 LOADN                            R2 85
-       33 SETTABLEKS                       R2 R1 K10 ["GridCellWidth"]
-       35 GETIMPORT                        R2 K2 [UDim2.fromOffset]
-       37 LOADN                            R3 86
-       38 LOADN                            R4 35
-       39 CALL                             R2 2 1
-       40 SETTABLEKS                       R2 R1 K11 ["GridHeaderLabelSize"]
-       42 SETTABLEKS                       R0 R1 K12 ["GridCellSize"]
-       44 DUPCLOSURE                       R2 K16 [PROTO_0]
-       45 CAPTURE                          VAL R0
-       46 SETTABLEKS                       R2 R1 K13 ["CalculateTableSize"]
-       48 RETURN                           R1 1
+        6 DUPTABLE                         R1 K21 [{["CursorGroupName"] = "StudioSelectable", ["GroupCountMax"] = 32, ["GroupRowHeight"] = 35, ["GroupRowWidth"] = 120, ["ControlsHeaderButtonWidth"] = 106, ["GroupLabelFixedSize"], ["GroupListRowHeight"] = 24, ["GridCellWidth"] = 85, ["GridHeaderLabelSize"], ["GridCellSize"], ["CalculateTableSize"]}]
+        7 GETIMPORT                        R2 K2 [UDim2.fromOffset]
+        9 LOADN                            R3 120
+       10 LOADN                            R4 35
+       11 CALL                             R2 2 1
+       12 SETTABLEKS                       R2 R1 K13 ["GroupLabelFixedSize"]
+       14 GETIMPORT                        R2 K2 [UDim2.fromOffset]
+       16 LOADN                            R3 86
+       17 LOADN                            R4 35
+       18 CALL                             R2 2 1
+       19 SETTABLEKS                       R2 R1 K18 ["GridHeaderLabelSize"]
+       21 SETTABLEKS                       R0 R1 K19 ["GridCellSize"]
+       23 DUPCLOSURE                       R2 K22 [PROTO_0]
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R2 R1 K20 ["CalculateTableSize"]
+       27 RETURN                           R1 1

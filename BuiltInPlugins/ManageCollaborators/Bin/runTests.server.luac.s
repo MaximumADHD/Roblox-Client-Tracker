@@ -35,7 +35,7 @@ MAIN:
        37 JUMPIF                           R3 ; [+4]
        38 GETTABLEKS                       R3 R2 K14 ["RunTests"]
        40 CALL                             R3 0 1
-       41 JUMPIFNOT                        R3 ; [+74]
+       41 JUMPIFNOT                        R3 ; [+68]
        42 JUMPIFNOT                        R0 ; [+11]
        43 GETIMPORT                        R3 K8 [require]
        45 GETIMPORT                        R4 K5 [script]
@@ -61,33 +61,29 @@ MAIN:
        79 JUMPIF                           R7 ; [+1]
        80 MOVE                             R7 R6
        81 GETTABLEKS                       R8 R1 K10 ["Src"]
-       83 DUPTABLE                         R9 K28 [{"showTimingInfo", "testNamePattern", "extraEnvironment"}]
-       84 LOADB                            R10 0
-       85 SETTABLEKS                       R10 R9 K25 ["showTimingInfo"]
-       87 LOADNIL                          R10
-       88 SETTABLEKS                       R10 R9 K26 ["testNamePattern"]
-       90 NEWTABLE                         R10 0 0
-       92 SETTABLEKS                       R10 R9 K27 ["extraEnvironment"]
-       94 GETIMPORT                        R10 K30 [print]
-       96 LOADK                            R12 K31 ["----- All "]
-       97 GETTABLEKS                       R13 R1 K32 ["Name"]
-       99 LOADK                            R14 K33 [" Tests ------"]
-      100 CONCAT                           R11 R12 R14
-      101 CALL                             R10 1 0
-      102 NEWTABLE                         R12 0 1
-      104 MOVE                             R13 R8
-      105 SETLIST                          R12 R13 1 [1]
-      107 MOVE                             R13 R7
-      108 MOVE                             R14 R9
-      109 NAMECALL                         R10 R4 K34 ["run"]
-      111 CALL                             R10 4 0
-      112 GETIMPORT                        R10 K30 [print]
-      114 LOADK                            R11 K35 ["----------------------------------"]
-      115 CALL                             R10 1 0
-      116 GETTABLEKS                       R3 R2 K13 ["RunningUnderCLI"]
-      118 CALL                             R3 0 1
-      119 JUMPIFNOT                        R3 ; [+4]
-      120 GETIMPORT                        R3 K37 [pcall]
-      122 DUPCLOSURE                       R4 K38 [PROTO_0]
-      123 CALL                             R3 1 0
-      124 RETURN                           R0 0
+       83 DUPTABLE                         R9 K30 [{["showTimingInfo"] = False, ["testNamePattern"] = , ["extraEnvironment"]}]
+       84 NEWTABLE                         R10 0 0
+       86 SETTABLEKS                       R10 R9 K29 ["extraEnvironment"]
+       88 GETIMPORT                        R10 K32 [print]
+       90 LOADK                            R12 K33 ["----- All "]
+       91 GETTABLEKS                       R13 R1 K34 ["Name"]
+       93 LOADK                            R14 K35 [" Tests ------"]
+       94 CONCAT                           R11 R12 R14
+       95 CALL                             R10 1 0
+       96 NEWTABLE                         R12 0 1
+       98 MOVE                             R13 R8
+       99 SETLIST                          R12 R13 1 [1]
+      101 MOVE                             R13 R7
+      102 MOVE                             R14 R9
+      103 NAMECALL                         R10 R4 K36 ["run"]
+      105 CALL                             R10 4 0
+      106 GETIMPORT                        R10 K32 [print]
+      108 LOADK                            R11 K37 ["----------------------------------"]
+      109 CALL                             R10 1 0
+      110 GETTABLEKS                       R3 R2 K13 ["RunningUnderCLI"]
+      112 CALL                             R3 0 1
+      113 JUMPIFNOT                        R3 ; [+4]
+      114 GETIMPORT                        R3 K39 [pcall]
+      116 DUPCLOSURE                       R4 K40 [PROTO_0]
+      117 CALL                             R3 1 0
+      118 RETURN                           R0 0

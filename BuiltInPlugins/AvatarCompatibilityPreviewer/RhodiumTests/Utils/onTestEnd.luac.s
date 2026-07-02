@@ -4,7 +4,7 @@ PROTO_0:
         3 SETUPVAL                         R1 0
         4 LENGTH                           R3 R0
         5 LOADN                            R1 1
-        6 LOADN                            R2 255
+        6 LOADN                            R2 -1
         7 FORNPREP                         R1
         8 GETTABLE                         R4 R0 R3
         9 CALL                             R4 0 0

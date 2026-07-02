@@ -91,7 +91,7 @@ MAIN:
        42 GETTABLEKS                       R9 R4 K14 ["PermissionsMock"]
        44 CALL                             R8 1 1
        45 DUPTABLE                         R9 K17 [{"controls", "story"}]
-       46 DUPTABLE                         R10 K21 [{"CollaboratorCount", "Enabled", "MockLoadTime"}]
+       46 DUPTABLE                         R10 K23 [{["CollaboratorCount"], ["Enabled"] = True, ["MockLoadTime"] = False}]
        47 NEWTABLE                         R11 0 6
        49 LOADN                            R12 8
        50 LOADN                            R13 0
@@ -101,16 +101,12 @@ MAIN:
        54 LOADN                            R17 100
        55 SETLIST                          R11 R12 6 [1]
        57 SETTABLEKS                       R11 R10 K18 ["CollaboratorCount"]
-       59 LOADB                            R11 1
-       60 SETTABLEKS                       R11 R10 K19 ["Enabled"]
-       62 LOADB                            R11 0
-       63 SETTABLEKS                       R11 R10 K20 ["MockLoadTime"]
-       65 SETTABLEKS                       R10 R9 K15 ["controls"]
-       67 DUPCLOSURE                       R10 K22 [PROTO_2]
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R7
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R8
-       73 SETTABLEKS                       R10 R9 K16 ["story"]
-       75 RETURN                           R9 1
+       59 SETTABLEKS                       R10 R9 K15 ["controls"]
+       61 DUPCLOSURE                       R10 K24 [PROTO_2]
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R7
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R8
+       67 SETTABLEKS                       R10 R9 K16 ["story"]
+       69 RETURN                           R9 1

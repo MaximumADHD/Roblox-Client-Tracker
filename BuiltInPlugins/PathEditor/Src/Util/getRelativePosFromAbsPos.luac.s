@@ -31,7 +31,7 @@ PROTO_0:
        35 LOADK                            R5 K7 [0.5]
        36 GETTABLEKS                       R6 R1 K8 ["AbsoluteSize"]
        38 MUL                              R4 R5 R6
-       39 LOADN                            R6 255
+       39 LOADN                            R6 -1
        40 GETTABLEKS                       R7 R1 K9 ["AbsoluteRotation"]
        42 MUL                              R5 R6 R7
        43 CALL                             R2 3 1

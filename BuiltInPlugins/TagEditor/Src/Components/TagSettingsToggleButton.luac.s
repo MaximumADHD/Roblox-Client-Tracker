@@ -30,50 +30,46 @@ PROTO_2:
        20 GETUPVAL                         R7 0
        21 GETTABLEKS                       R7 R7 K9 ["createElement"]
        23 GETUPVAL                         R8 1
-       24 DUPTABLE                         R9 K16 [{"Style", "Size", "LayoutOrder", "Layout", "HorizontalAlignment", "Spacing"}]
-       25 LOADK                            R10 K17 ["SubtleBox"]
-       26 SETTABLEKS                       R10 R9 K10 ["Style"]
-       28 GETTABLEKS                       R10 R3 K11 ["Size"]
-       30 SETTABLEKS                       R10 R9 K11 ["Size"]
-       32 GETTABLEKS                       R10 R1 K12 ["LayoutOrder"]
-       34 SETTABLEKS                       R10 R9 K12 ["LayoutOrder"]
-       36 GETIMPORT                        R10 K21 [Enum.FillDirection.Horizontal]
-       38 SETTABLEKS                       R10 R9 K13 ["Layout"]
-       40 GETIMPORT                        R10 K23 [Enum.HorizontalAlignment.Left]
-       42 SETTABLEKS                       R10 R9 K14 ["HorizontalAlignment"]
-       44 GETTABLEKS                       R10 R3 K15 ["Spacing"]
-       46 SETTABLEKS                       R10 R9 K15 ["Spacing"]
-       48 DUPTABLE                         R10 K25 [{"ExpandCollapseButton"}]
-       49 GETUPVAL                         R11 0
-       50 GETTABLEKS                       R11 R11 K9 ["createElement"]
-       52 GETUPVAL                         R12 2
-       53 DUPTABLE                         R13 K31 [{"Text", "LeftIcon", "OnClick", "Size", "AutomaticSize", "BackgroundStyle"}]
-       54 JUMPIFEQKNIL                     R6 ; [+6]
-       56 MOVE                             R15 R4
-       57 LOADK                            R16 K32 [" "]
-       58 MOVE                             R17 R6
-       59 CONCAT                           R14 R15 R17
-       60 JUMP                             ; [+1]
-       61 MOVE                             R14 R5
-       62 SETTABLEKS                       R14 R13 K26 ["Text"]
-       64 GETTABLEKS                       R15 R1 K33 ["minimizedSettingsPane"]
-       66 JUMPIFNOT                        R15 ; [+3]
-       67 GETTABLEKS                       R14 R3 K34 ["ClosedArrowImage"]
-       69 JUMP                             ; [+2]
-       70 GETTABLEKS                       R14 R3 K35 ["OpenArrowImage"]
-       72 SETTABLEKS                       R14 R13 K27 ["LeftIcon"]
-       74 GETTABLEKS                       R14 R0 K36 ["onExpandCollapseClicked"]
-       76 SETTABLEKS                       R14 R13 K28 ["OnClick"]
-       78 GETTABLEKS                       R14 R3 K11 ["Size"]
-       80 SETTABLEKS                       R14 R13 K11 ["Size"]
-       82 GETIMPORT                        R14 K38 [Enum.AutomaticSize.X]
-       84 SETTABLEKS                       R14 R13 K29 ["AutomaticSize"]
-       86 LOADK                            R14 K17 ["SubtleBox"]
-       87 SETTABLEKS                       R14 R13 K30 ["BackgroundStyle"]
-       89 CALL                             R11 2 1
-       90 SETTABLEKS                       R11 R10 K24 ["ExpandCollapseButton"]
-       92 CALL                             R7 3 -1
-       93 RETURN                           R7 -1
+       24 DUPTABLE                         R9 K17 [{["Style"] = "SubtleBox", ["Size"], ["LayoutOrder"], ["Layout"], ["HorizontalAlignment"], ["Spacing"]}]
+       25 GETTABLEKS                       R10 R3 K12 ["Size"]
+       27 SETTABLEKS                       R10 R9 K12 ["Size"]
+       29 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
+       31 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
+       33 GETIMPORT                        R10 K21 [Enum.FillDirection.Horizontal]
+       35 SETTABLEKS                       R10 R9 K14 ["Layout"]
+       37 GETIMPORT                        R10 K23 [Enum.HorizontalAlignment.Left]
+       39 SETTABLEKS                       R10 R9 K15 ["HorizontalAlignment"]
+       41 GETTABLEKS                       R10 R3 K16 ["Spacing"]
+       43 SETTABLEKS                       R10 R9 K16 ["Spacing"]
+       45 DUPTABLE                         R10 K25 [{"ExpandCollapseButton"}]
+       46 GETUPVAL                         R11 0
+       47 GETTABLEKS                       R11 R11 K9 ["createElement"]
+       49 GETUPVAL                         R12 2
+       50 DUPTABLE                         R13 K31 [{["Text"], ["LeftIcon"], ["OnClick"], ["Size"], ["AutomaticSize"], ["BackgroundStyle"] = "SubtleBox"}]
+       51 JUMPIFEQKNIL                     R6 ; [+6]
+       53 MOVE                             R15 R4
+       54 LOADK                            R16 K32 [" "]
+       55 MOVE                             R17 R6
+       56 CONCAT                           R14 R15 R17
+       57 JUMP                             ; [+1]
+       58 MOVE                             R14 R5
+       59 SETTABLEKS                       R14 R13 K26 ["Text"]
+       61 GETTABLEKS                       R15 R1 K33 ["minimizedSettingsPane"]
+       63 JUMPIFNOT                        R15 ; [+3]
+       64 GETTABLEKS                       R14 R3 K34 ["ClosedArrowImage"]
+       66 JUMP                             ; [+2]
+       67 GETTABLEKS                       R14 R3 K35 ["OpenArrowImage"]
+       69 SETTABLEKS                       R14 R13 K27 ["LeftIcon"]
+       71 GETTABLEKS                       R14 R0 K36 ["onExpandCollapseClicked"]
+       73 SETTABLEKS                       R14 R13 K28 ["OnClick"]
+       75 GETTABLEKS                       R14 R3 K12 ["Size"]
+       77 SETTABLEKS                       R14 R13 K12 ["Size"]
+       79 GETIMPORT                        R14 K38 [Enum.AutomaticSize.X]
+       81 SETTABLEKS                       R14 R13 K29 ["AutomaticSize"]
+       83 CALL                             R11 2 1
+       84 SETTABLEKS                       R11 R10 K24 ["ExpandCollapseButton"]
+       86 CALL                             R7 3 -1
+       87 RETURN                           R7 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K2 [{"tagMenu", "minimizedSettingsPane"}]

@@ -11,19 +11,11 @@ MAIN:
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["Style"]
        20 GETTABLEKS                       R2 R2 K8 ["StyleKey"]
-       22 DUPTABLE                         R3 K16 [{"Padding", "HeaderHeight", "ButtonSize", "IconSize", "HeaderBorderColor", "SelectedIconColor", "IconColor"}]
-       23 LOADN                            R4 2
-       24 SETTABLEKS                       R4 R3 K9 ["Padding"]
-       26 LOADN                            R4 33
-       27 SETTABLEKS                       R4 R3 K10 ["HeaderHeight"]
-       29 LOADN                            R4 32
-       30 SETTABLEKS                       R4 R3 K11 ["ButtonSize"]
-       32 LOADN                            R4 24
-       33 SETTABLEKS                       R4 R3 K12 ["IconSize"]
-       35 GETTABLEKS                       R4 R2 K17 ["Border"]
-       37 SETTABLEKS                       R4 R3 K13 ["HeaderBorderColor"]
-       39 GETTABLEKS                       R4 R2 K18 ["DialogMainButton"]
-       41 SETTABLEKS                       R4 R3 K14 ["SelectedIconColor"]
-       43 GETTABLEKS                       R4 R2 K19 ["MainText"]
-       45 SETTABLEKS                       R4 R3 K15 ["IconColor"]
-       47 RETURN                           R3 1
+       22 DUPTABLE                         R3 K20 [{["Padding"] = 2, ["HeaderHeight"] = 33, ["ButtonSize"] = 32, ["IconSize"] = 24, ["HeaderBorderColor"], ["SelectedIconColor"], ["IconColor"]}]
+       23 GETTABLEKS                       R4 R2 K21 ["Border"]
+       25 SETTABLEKS                       R4 R3 K17 ["HeaderBorderColor"]
+       27 GETTABLEKS                       R4 R2 K22 ["DialogMainButton"]
+       29 SETTABLEKS                       R4 R3 K18 ["SelectedIconColor"]
+       31 GETTABLEKS                       R4 R2 K23 ["MainText"]
+       33 SETTABLEKS                       R4 R3 K19 ["IconColor"]
+       35 RETURN                           R3 1

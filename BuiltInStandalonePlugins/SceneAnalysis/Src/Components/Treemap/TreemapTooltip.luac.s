@@ -131,139 +131,137 @@ PROTO_0:
       167 GETUPVAL                         R8 1
       168 GETTABLEKS                       R8 R8 K40 ["createElement"]
       170 LOADK                            R9 K35 ["UIStroke"]
-      171 DUPTABLE                         R10 K48 [{"Color", "Thickness"}]
+      171 DUPTABLE                         R10 K49 [{["Color"], ["Thickness"] = 1.5}]
       172 GETUPVAL                         R11 2
-      173 GETTABLEKS                       R11 R11 K49 ["getTooltipStrokeColor"]
+      173 GETTABLEKS                       R11 R11 K50 ["getTooltipStrokeColor"]
       175 CALL                             R11 0 1
       176 SETTABLEKS                       R11 R10 K46 ["Color"]
-      178 LOADK                            R11 K50 [1.5]
-      179 SETTABLEKS                       R11 R10 K47 ["Thickness"]
-      181 CALL                             R8 2 1
-      182 SETTABLEKS                       R8 R7 K35 ["UIStroke"]
-      184 GETUPVAL                         R8 1
-      185 GETTABLEKS                       R8 R8 K40 ["createElement"]
-      187 LOADK                            R9 K36 ["UIPadding"]
-      188 DUPTABLE                         R10 K55 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      189 GETIMPORT                        R11 K45 [UDim.new]
-      191 LOADN                            R12 0
-      192 LOADN                            R13 10
-      193 CALL                             R11 2 1
-      194 SETTABLEKS                       R11 R10 K51 ["PaddingLeft"]
-      196 GETIMPORT                        R11 K45 [UDim.new]
-      198 LOADN                            R12 0
-      199 LOADN                            R13 10
-      200 CALL                             R11 2 1
-      201 SETTABLEKS                       R11 R10 K52 ["PaddingRight"]
-      203 GETIMPORT                        R11 K45 [UDim.new]
-      205 LOADN                            R12 0
-      206 LOADN                            R13 8
-      207 CALL                             R11 2 1
-      208 SETTABLEKS                       R11 R10 K53 ["PaddingTop"]
-      210 GETIMPORT                        R11 K45 [UDim.new]
-      212 LOADN                            R12 0
-      213 LOADN                            R13 8
-      214 CALL                             R11 2 1
-      215 SETTABLEKS                       R11 R10 K54 ["PaddingBottom"]
-      217 CALL                             R8 2 1
-      218 SETTABLEKS                       R8 R7 K36 ["UIPadding"]
-      220 GETUPVAL                         R8 1
-      221 GETTABLEKS                       R8 R8 K40 ["createElement"]
-      223 LOADK                            R9 K37 ["UIListLayout"]
-      224 DUPTABLE                         R10 K59 [{"FillDirection", "SortOrder", "Padding"}]
-      225 GETIMPORT                        R11 K62 [Enum.FillDirection.Vertical]
-      227 SETTABLEKS                       R11 R10 K56 ["FillDirection"]
-      229 GETIMPORT                        R11 K64 [Enum.SortOrder.LayoutOrder]
-      231 SETTABLEKS                       R11 R10 K57 ["SortOrder"]
-      233 GETIMPORT                        R11 K45 [UDim.new]
-      235 LOADN                            R12 0
-      236 LOADN                            R13 4
-      237 CALL                             R11 2 1
-      238 SETTABLEKS                       R11 R10 K58 ["Padding"]
-      240 CALL                             R8 2 1
-      241 SETTABLEKS                       R8 R7 K37 ["UIListLayout"]
-      243 GETUPVAL                         R8 1
-      244 GETTABLEKS                       R8 R8 K40 ["createElement"]
-      246 LOADK                            R9 K65 ["TextLabel"]
-      247 NEWTABLE                         R10 8 0
-      249 LOADN                            R11 1
-      250 SETTABLEKS                       R11 R10 K63 ["LayoutOrder"]
-      252 SETTABLEKS                       R5 R10 K66 ["Text"]
-      254 LOADN                            R11 18
-      255 SETTABLEKS                       R11 R10 K67 ["TextSize"]
-      257 GETIMPORT                        R11 K70 [Enum.TextXAlignment.Left]
-      259 SETTABLEKS                       R11 R10 K68 ["TextXAlignment"]
-      261 LOADN                            R11 1
-      262 SETTABLEKS                       R11 R10 K71 ["BackgroundTransparency"]
-      264 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
-      266 SETTABLEKS                       R11 R10 K72 ["AutomaticSize"]
-      268 GETUPVAL                         R11 1
-      269 GETTABLEKS                       R11 R11 K75 ["Tag"]
-      271 LOADK                            R12 K76 ["SceneAnalysis-TooltipText"]
-      272 SETTABLE                         R12 R10 R11
-      273 CALL                             R8 2 1
-      274 SETTABLEKS                       R8 R7 K38 ["NameLabel"]
-      276 GETIMPORT                        R8 K78 [ipairs]
-      278 MOVE                             R9 R6
-      279 CALL                             R8 1 3
-      280 FORGPREP_INEXT                   R8
-      281 LOADK                            R14 K79 ["SizeLabel_"]
-      282 FASTCALL1                        TOSTRING R11 ; [+3]
-      283 MOVE                             R16 R11
-      284 GETIMPORT                        R15 K15 [tostring]
-      286 CALL                             R15 1 1
-      287 CONCAT                           R13 R14 R15
-      288 GETUPVAL                         R14 1
-      289 GETTABLEKS                       R14 R14 K40 ["createElement"]
-      291 LOADK                            R15 K65 ["TextLabel"]
-      292 NEWTABLE                         R16 8 0
-      294 LOADN                            R18 1
-      295 ADD                              R17 R18 R11
-      296 SETTABLEKS                       R17 R16 K63 ["LayoutOrder"]
-      298 SETTABLEKS                       R12 R16 K66 ["Text"]
-      300 LOADN                            R17 16
-      301 SETTABLEKS                       R17 R16 K67 ["TextSize"]
-      303 GETIMPORT                        R17 K70 [Enum.TextXAlignment.Left]
-      305 SETTABLEKS                       R17 R16 K68 ["TextXAlignment"]
-      307 LOADN                            R17 1
-      308 SETTABLEKS                       R17 R16 K71 ["BackgroundTransparency"]
-      310 GETIMPORT                        R17 K74 [Enum.AutomaticSize.XY]
-      312 SETTABLEKS                       R17 R16 K72 ["AutomaticSize"]
-      314 GETUPVAL                         R17 1
-      315 GETTABLEKS                       R17 R17 K75 ["Tag"]
-      317 LOADK                            R18 K76 ["SceneAnalysis-TooltipText"]
-      318 SETTABLE                         R18 R16 R17
-      319 CALL                             R14 2 1
-      320 SETTABLE                         R14 R7 R13
-      321 FORGLOOP                         R8 2 [inext] ; [-41]
-      323 GETUPVAL                         R8 1
-      324 GETTABLEKS                       R8 R8 K40 ["createElement"]
-      326 LOADK                            R9 K80 ["Frame"]
-      327 NEWTABLE                         R10 8 0
-      329 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
-      331 SETTABLEKS                       R11 R10 K72 ["AutomaticSize"]
-      333 GETIMPORT                        R11 K82 [Vector2.new]
-      335 LOADN                            R12 0
-      336 LOADN                            R13 0
-      337 CALL                             R11 2 1
-      338 SETTABLEKS                       R11 R10 K83 ["AnchorPoint"]
-      340 SETTABLEKS                       R2 R10 K84 ["Position"]
-      342 LOADN                            R11 0
-      343 SETTABLEKS                       R11 R10 K85 ["BorderSizePixel"]
-      345 LOADN                            R11 100
-      346 SETTABLEKS                       R11 R10 K86 ["ZIndex"]
-      348 SETTABLEKS                       R3 R10 K87 ["Visible"]
-      350 GETUPVAL                         R11 1
-      351 GETTABLEKS                       R11 R11 K88 ["Change"]
-      353 GETTABLEKS                       R11 R11 K89 ["AbsoluteSize"]
-      355 GETTABLEKS                       R12 R0 K90 ["onSizeChange"]
-      357 SETTABLE                         R12 R10 R11
-      358 GETUPVAL                         R11 1
-      359 GETTABLEKS                       R11 R11 K75 ["Tag"]
-      361 LOADK                            R12 K91 ["SceneAnalysis-TooltipFill"]
-      362 SETTABLE                         R12 R10 R11
-      363 MOVE                             R11 R7
-      364 CALL                             R8 3 1
-      365 RETURN                           R8 1
+      178 CALL                             R8 2 1
+      179 SETTABLEKS                       R8 R7 K35 ["UIStroke"]
+      181 GETUPVAL                         R8 1
+      182 GETTABLEKS                       R8 R8 K40 ["createElement"]
+      184 LOADK                            R9 K36 ["UIPadding"]
+      185 DUPTABLE                         R10 K55 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+      186 GETIMPORT                        R11 K45 [UDim.new]
+      188 LOADN                            R12 0
+      189 LOADN                            R13 10
+      190 CALL                             R11 2 1
+      191 SETTABLEKS                       R11 R10 K51 ["PaddingLeft"]
+      193 GETIMPORT                        R11 K45 [UDim.new]
+      195 LOADN                            R12 0
+      196 LOADN                            R13 10
+      197 CALL                             R11 2 1
+      198 SETTABLEKS                       R11 R10 K52 ["PaddingRight"]
+      200 GETIMPORT                        R11 K45 [UDim.new]
+      202 LOADN                            R12 0
+      203 LOADN                            R13 8
+      204 CALL                             R11 2 1
+      205 SETTABLEKS                       R11 R10 K53 ["PaddingTop"]
+      207 GETIMPORT                        R11 K45 [UDim.new]
+      209 LOADN                            R12 0
+      210 LOADN                            R13 8
+      211 CALL                             R11 2 1
+      212 SETTABLEKS                       R11 R10 K54 ["PaddingBottom"]
+      214 CALL                             R8 2 1
+      215 SETTABLEKS                       R8 R7 K36 ["UIPadding"]
+      217 GETUPVAL                         R8 1
+      218 GETTABLEKS                       R8 R8 K40 ["createElement"]
+      220 LOADK                            R9 K37 ["UIListLayout"]
+      221 DUPTABLE                         R10 K59 [{"FillDirection", "SortOrder", "Padding"}]
+      222 GETIMPORT                        R11 K62 [Enum.FillDirection.Vertical]
+      224 SETTABLEKS                       R11 R10 K56 ["FillDirection"]
+      226 GETIMPORT                        R11 K64 [Enum.SortOrder.LayoutOrder]
+      228 SETTABLEKS                       R11 R10 K57 ["SortOrder"]
+      230 GETIMPORT                        R11 K45 [UDim.new]
+      232 LOADN                            R12 0
+      233 LOADN                            R13 4
+      234 CALL                             R11 2 1
+      235 SETTABLEKS                       R11 R10 K58 ["Padding"]
+      237 CALL                             R8 2 1
+      238 SETTABLEKS                       R8 R7 K37 ["UIListLayout"]
+      240 GETUPVAL                         R8 1
+      241 GETTABLEKS                       R8 R8 K40 ["createElement"]
+      243 LOADK                            R9 K65 ["TextLabel"]
+      244 NEWTABLE                         R10 8 0
+      246 LOADN                            R11 1
+      247 SETTABLEKS                       R11 R10 K63 ["LayoutOrder"]
+      249 SETTABLEKS                       R5 R10 K66 ["Text"]
+      251 LOADN                            R11 18
+      252 SETTABLEKS                       R11 R10 K67 ["TextSize"]
+      254 GETIMPORT                        R11 K70 [Enum.TextXAlignment.Left]
+      256 SETTABLEKS                       R11 R10 K68 ["TextXAlignment"]
+      258 LOADN                            R11 1
+      259 SETTABLEKS                       R11 R10 K71 ["BackgroundTransparency"]
+      261 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
+      263 SETTABLEKS                       R11 R10 K72 ["AutomaticSize"]
+      265 GETUPVAL                         R11 1
+      266 GETTABLEKS                       R11 R11 K75 ["Tag"]
+      268 LOADK                            R12 K76 ["SceneAnalysis-TooltipText"]
+      269 SETTABLE                         R12 R10 R11
+      270 CALL                             R8 2 1
+      271 SETTABLEKS                       R8 R7 K38 ["NameLabel"]
+      273 GETIMPORT                        R8 K78 [ipairs]
+      275 MOVE                             R9 R6
+      276 CALL                             R8 1 3
+      277 FORGPREP_INEXT                   R8
+      278 LOADK                            R14 K79 ["SizeLabel_"]
+      279 FASTCALL1                        TOSTRING R11 ; [+3]
+      280 MOVE                             R16 R11
+      281 GETIMPORT                        R15 K15 [tostring]
+      283 CALL                             R15 1 1
+      284 CONCAT                           R13 R14 R15
+      285 GETUPVAL                         R14 1
+      286 GETTABLEKS                       R14 R14 K40 ["createElement"]
+      288 LOADK                            R15 K65 ["TextLabel"]
+      289 NEWTABLE                         R16 8 0
+      291 LOADN                            R18 1
+      292 ADD                              R17 R18 R11
+      293 SETTABLEKS                       R17 R16 K63 ["LayoutOrder"]
+      295 SETTABLEKS                       R12 R16 K66 ["Text"]
+      297 LOADN                            R17 16
+      298 SETTABLEKS                       R17 R16 K67 ["TextSize"]
+      300 GETIMPORT                        R17 K70 [Enum.TextXAlignment.Left]
+      302 SETTABLEKS                       R17 R16 K68 ["TextXAlignment"]
+      304 LOADN                            R17 1
+      305 SETTABLEKS                       R17 R16 K71 ["BackgroundTransparency"]
+      307 GETIMPORT                        R17 K74 [Enum.AutomaticSize.XY]
+      309 SETTABLEKS                       R17 R16 K72 ["AutomaticSize"]
+      311 GETUPVAL                         R17 1
+      312 GETTABLEKS                       R17 R17 K75 ["Tag"]
+      314 LOADK                            R18 K76 ["SceneAnalysis-TooltipText"]
+      315 SETTABLE                         R18 R16 R17
+      316 CALL                             R14 2 1
+      317 SETTABLE                         R14 R7 R13
+      318 FORGLOOP                         R8 2 [inext] ; [-41]
+      320 GETUPVAL                         R8 1
+      321 GETTABLEKS                       R8 R8 K40 ["createElement"]
+      323 LOADK                            R9 K80 ["Frame"]
+      324 NEWTABLE                         R10 8 0
+      326 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
+      328 SETTABLEKS                       R11 R10 K72 ["AutomaticSize"]
+      330 GETIMPORT                        R11 K82 [Vector2.new]
+      332 LOADN                            R12 0
+      333 LOADN                            R13 0
+      334 CALL                             R11 2 1
+      335 SETTABLEKS                       R11 R10 K83 ["AnchorPoint"]
+      337 SETTABLEKS                       R2 R10 K84 ["Position"]
+      339 LOADN                            R11 0
+      340 SETTABLEKS                       R11 R10 K85 ["BorderSizePixel"]
+      342 LOADN                            R11 100
+      343 SETTABLEKS                       R11 R10 K86 ["ZIndex"]
+      345 SETTABLEKS                       R3 R10 K87 ["Visible"]
+      347 GETUPVAL                         R11 1
+      348 GETTABLEKS                       R11 R11 K88 ["Change"]
+      350 GETTABLEKS                       R11 R11 K89 ["AbsoluteSize"]
+      352 GETTABLEKS                       R12 R0 K90 ["onSizeChange"]
+      354 SETTABLE                         R12 R10 R11
+      355 GETUPVAL                         R11 1
+      356 GETTABLEKS                       R11 R11 K75 ["Tag"]
+      358 LOADK                            R12 K91 ["SceneAnalysis-TooltipFill"]
+      359 SETTABLE                         R12 R10 R11
+      360 MOVE                             R11 R7
+      361 CALL                             R8 3 1
+      362 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0

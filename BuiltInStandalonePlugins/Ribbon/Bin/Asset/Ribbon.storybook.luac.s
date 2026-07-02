@@ -42,23 +42,21 @@ MAIN:
        28 GETTABLEKS                       R4 R1 K10 ["Util"]
        30 GETTABLEKS                       R4 R4 K11 ["Typecheck"]
        32 GETTABLEKS                       R4 R4 K12 ["DocParser"]
-       34 DUPTABLE                         R5 K19 [{"name", "storyRoots", "mapStory", "roact", "reactRoblox", "mapDefinition"}]
-       35 LOADK                            R6 K2 ["Ribbon"]
-       36 SETTABLEKS                       R6 R5 K13 ["name"]
-       38 NEWTABLE                         R6 0 1
-       40 GETTABLEKS                       R7 R0 K20 ["Src"]
-       42 GETTABLEKS                       R7 R7 K21 ["Components"]
-       44 SETLIST                          R6 R7 1 [1]
-       46 SETTABLEKS                       R6 R5 K14 ["storyRoots"]
-       48 GETIMPORT                        R6 K5 [require]
-       50 GETIMPORT                        R7 K1 [script]
-       52 GETTABLEKS                       R7 R7 K22 ["Parent"]
-       54 GETTABLEKS                       R7 R7 K23 ["StoryMiddleware"]
-       56 CALL                             R6 1 1
-       57 SETTABLEKS                       R6 R5 K15 ["mapStory"]
-       59 SETTABLEKS                       R2 R5 K16 ["roact"]
-       61 SETTABLEKS                       R3 R5 K17 ["reactRoblox"]
-       63 DUPCLOSURE                       R6 K24 [PROTO_1]
-       64 CAPTURE                          VAL R4
-       65 SETTABLEKS                       R6 R5 K18 ["mapDefinition"]
-       67 RETURN                           R5 1
+       34 DUPTABLE                         R5 K19 [{["name"] = "Ribbon", ["storyRoots"], ["mapStory"], ["roact"], ["reactRoblox"], ["mapDefinition"]}]
+       35 NEWTABLE                         R6 0 1
+       37 GETTABLEKS                       R7 R0 K20 ["Src"]
+       39 GETTABLEKS                       R7 R7 K21 ["Components"]
+       41 SETLIST                          R6 R7 1 [1]
+       43 SETTABLEKS                       R6 R5 K14 ["storyRoots"]
+       45 GETIMPORT                        R6 K5 [require]
+       47 GETIMPORT                        R7 K1 [script]
+       49 GETTABLEKS                       R7 R7 K22 ["Parent"]
+       51 GETTABLEKS                       R7 R7 K23 ["StoryMiddleware"]
+       53 CALL                             R6 1 1
+       54 SETTABLEKS                       R6 R5 K15 ["mapStory"]
+       56 SETTABLEKS                       R2 R5 K16 ["roact"]
+       58 SETTABLEKS                       R3 R5 K17 ["reactRoblox"]
+       60 DUPCLOSURE                       R6 K24 [PROTO_1]
+       61 CAPTURE                          VAL R4
+       62 SETTABLEKS                       R6 R5 K18 ["mapDefinition"]
+       64 RETURN                           R5 1

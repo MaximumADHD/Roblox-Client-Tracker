@@ -3,50 +3,36 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["View"]
-        6 DUPTABLE                         R3 K4 [{"LayoutOrder", "tag"}]
+        6 DUPTABLE                         R3 K5 [{["LayoutOrder"], ["tag"] = "row align-y-center gap-xsmall auto-xy padding-large"}]
         7 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         9 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       11 LOADK                            R4 K5 ["row auto-xy gap-xsmall align-y-center padding-large"]
-       12 SETTABLEKS                       R4 R3 K3 ["tag"]
-       14 GETUPVAL                         R4 0
-       15 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       17 GETUPVAL                         R5 1
-       18 GETTABLEKS                       R5 R5 K1 ["View"]
-       20 DUPTABLE                         R6 K4 [{"LayoutOrder", "tag"}]
-       21 LOADN                            R7 1
-       22 SETTABLEKS                       R7 R6 K2 ["LayoutOrder"]
-       24 LOADK                            R7 K6 ["col auto-xy"]
-       25 SETTABLEKS                       R7 R6 K3 ["tag"]
-       27 DUPTABLE                         R7 K9 [{"Text", "Subtext"}]
-       28 GETUPVAL                         R8 0
-       29 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       31 GETUPVAL                         R9 1
-       32 GETTABLEKS                       R9 R9 K7 ["Text"]
-       34 DUPTABLE                         R10 K10 [{"LayoutOrder", "Text", "tag"}]
-       35 LOADN                            R11 1
-       36 SETTABLEKS                       R11 R10 K2 ["LayoutOrder"]
-       38 GETTABLEKS                       R11 R0 K11 ["PlaceholderText"]
-       40 SETTABLEKS                       R11 R10 K7 ["Text"]
-       42 LOADK                            R11 K12 ["auto-xy gap-none text-title-medium"]
-       43 SETTABLEKS                       R11 R10 K3 ["tag"]
-       45 CALL                             R8 2 1
-       46 SETTABLEKS                       R8 R7 K7 ["Text"]
-       48 GETUPVAL                         R8 0
-       49 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       51 GETUPVAL                         R9 1
-       52 GETTABLEKS                       R9 R9 K7 ["Text"]
-       54 DUPTABLE                         R10 K10 [{"LayoutOrder", "Text", "tag"}]
-       55 LOADN                            R11 2
-       56 SETTABLEKS                       R11 R10 K2 ["LayoutOrder"]
-       58 GETTABLEKS                       R11 R0 K13 ["PlaceholderSubtext"]
-       60 SETTABLEKS                       R11 R10 K7 ["Text"]
-       62 LOADK                            R11 K14 ["auto-xy gap-none text-body-medium"]
-       63 SETTABLEKS                       R11 R10 K3 ["tag"]
-       65 CALL                             R8 2 1
-       66 SETTABLEKS                       R8 R7 K8 ["Subtext"]
-       68 CALL                             R4 3 -1
-       69 CALL                             R1 -1 -1
-       70 RETURN                           R1 -1
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R5 R5 K1 ["View"]
+       17 DUPTABLE                         R6 K8 [{["LayoutOrder"] = 1, ["tag"] = "col auto-xy"}]
+       18 DUPTABLE                         R7 K11 [{"Text", "Subtext"}]
+       19 GETUPVAL                         R8 0
+       20 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       22 GETUPVAL                         R9 1
+       23 GETTABLEKS                       R9 R9 K9 ["Text"]
+       25 DUPTABLE                         R10 K13 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "gap-none auto-xy text-title-medium"}]
+       26 GETTABLEKS                       R11 R0 K14 ["PlaceholderText"]
+       28 SETTABLEKS                       R11 R10 K9 ["Text"]
+       30 CALL                             R8 2 1
+       31 SETTABLEKS                       R8 R7 K9 ["Text"]
+       33 GETUPVAL                         R8 0
+       34 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       36 GETUPVAL                         R9 1
+       37 GETTABLEKS                       R9 R9 K9 ["Text"]
+       39 DUPTABLE                         R10 K17 [{["LayoutOrder"] = 2, ["Text"], ["tag"] = "gap-none auto-xy text-body-medium"}]
+       40 GETTABLEKS                       R11 R0 K18 ["PlaceholderSubtext"]
+       42 SETTABLEKS                       R11 R10 K9 ["Text"]
+       44 CALL                             R8 2 1
+       45 SETTABLEKS                       R8 R7 K10 ["Subtext"]
+       47 CALL                             R4 3 -1
+       48 CALL                             R1 -1 -1
+       49 RETURN                           R1 -1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["children"]
@@ -54,53 +40,47 @@ PROTO_1:
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
         6 GETTABLEKS                       R3 R3 K2 ["ScrollView"]
-        8 DUPTABLE                         R4 K6 [{"LayoutOrder", "tag", "scroll"}]
+        8 DUPTABLE                         R4 K7 [{["LayoutOrder"], ["tag"] = "fill size-full-0 stroke-emphasis radius-medium", ["scroll"]}]
         9 GETTABLEKS                       R5 R0 K3 ["LayoutOrder"]
        11 SETTABLEKS                       R5 R4 K3 ["LayoutOrder"]
-       13 LOADK                            R5 K7 ["size-full-0 fill radius-medium stroke-emphasis"]
-       14 SETTABLEKS                       R5 R4 K4 ["tag"]
-       16 DUPTABLE                         R5 K11 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-       17 GETIMPORT                        R6 K15 [Enum.AutomaticSize.Y]
-       19 SETTABLEKS                       R6 R5 K8 ["AutomaticCanvasSize"]
-       21 GETIMPORT                        R6 K18 [UDim2.new]
-       23 LOADN                            R7 0
-       24 LOADN                            R8 0
-       25 CALL                             R6 2 1
-       26 SETTABLEKS                       R6 R5 K9 ["CanvasSize"]
-       28 GETIMPORT                        R6 K19 [Enum.ScrollingDirection.Y]
-       30 SETTABLEKS                       R6 R5 K10 ["ScrollingDirection"]
-       32 SETTABLEKS                       R5 R4 K5 ["scroll"]
-       34 GETUPVAL                         R6 0
-       35 GETTABLEKS                       R6 R6 K20 ["Children"]
-       37 GETTABLEKS                       R6 R6 K21 ["count"]
-       39 MOVE                             R7 R1
-       40 CALL                             R6 1 1
-       41 JUMPIFEQKN                       R6 K22 [0] ; [+14]
-       43 GETUPVAL                         R5 0
-       44 GETTABLEKS                       R5 R5 K1 ["createElement"]
-       46 GETUPVAL                         R6 1
-       47 GETTABLEKS                       R6 R6 K23 ["View"]
-       49 DUPTABLE                         R7 K24 [{"tag"}]
-       50 LOADK                            R8 K25 ["col size-full-0 auto-y"]
-       51 SETTABLEKS                       R8 R7 K4 ["tag"]
-       53 MOVE                             R8 R1
-       54 CALL                             R5 3 1
-       55 JUMP                             ; [+17]
-       56 GETUPVAL                         R5 0
-       57 GETTABLEKS                       R5 R5 K1 ["createElement"]
-       59 GETUPVAL                         R6 1
-       60 GETTABLEKS                       R6 R6 K23 ["View"]
-       62 DUPTABLE                         R7 K24 [{"tag"}]
-       63 LOADK                            R8 K26 ["size-full col align-y-center"]
-       64 SETTABLEKS                       R8 R7 K4 ["tag"]
-       66 GETUPVAL                         R8 0
-       67 GETTABLEKS                       R8 R8 K1 ["createElement"]
-       69 GETUPVAL                         R9 2
-       70 MOVE                             R10 R0
-       71 CALL                             R8 2 -1
-       72 CALL                             R5 -1 1
-       73 CALL                             R2 3 -1
-       74 RETURN                           R2 -1
+       13 DUPTABLE                         R5 K11 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+       14 GETIMPORT                        R6 K15 [Enum.AutomaticSize.Y]
+       16 SETTABLEKS                       R6 R5 K8 ["AutomaticCanvasSize"]
+       18 GETIMPORT                        R6 K18 [UDim2.new]
+       20 LOADN                            R7 0
+       21 LOADN                            R8 0
+       22 CALL                             R6 2 1
+       23 SETTABLEKS                       R6 R5 K9 ["CanvasSize"]
+       25 GETIMPORT                        R6 K19 [Enum.ScrollingDirection.Y]
+       27 SETTABLEKS                       R6 R5 K10 ["ScrollingDirection"]
+       29 SETTABLEKS                       R5 R4 K6 ["scroll"]
+       31 GETUPVAL                         R6 0
+       32 GETTABLEKS                       R6 R6 K20 ["Children"]
+       34 GETTABLEKS                       R6 R6 K21 ["count"]
+       36 MOVE                             R7 R1
+       37 CALL                             R6 1 1
+       38 JUMPIFEQKN                       R6 K22 [0] ; [+11]
+       40 GETUPVAL                         R5 0
+       41 GETTABLEKS                       R5 R5 K1 ["createElement"]
+       43 GETUPVAL                         R6 1
+       44 GETTABLEKS                       R6 R6 K23 ["View"]
+       46 DUPTABLE                         R7 K25 [{["tag"] = "col size-full-0 auto-y"}]
+       47 MOVE                             R8 R1
+       48 CALL                             R5 3 1
+       49 JUMP                             ; [+14]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K1 ["createElement"]
+       53 GETUPVAL                         R6 1
+       54 GETTABLEKS                       R6 R6 K23 ["View"]
+       56 DUPTABLE                         R7 K27 [{["tag"] = "col align-y-center size-full"}]
+       57 GETUPVAL                         R8 0
+       58 GETTABLEKS                       R8 R8 K1 ["createElement"]
+       60 GETUPVAL                         R9 2
+       61 MOVE                             R10 R0
+       62 CALL                             R8 2 -1
+       63 CALL                             R5 -1 1
+       64 CALL                             R2 3 -1
+       65 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

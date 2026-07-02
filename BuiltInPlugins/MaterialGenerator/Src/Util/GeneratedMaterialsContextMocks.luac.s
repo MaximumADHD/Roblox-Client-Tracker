@@ -72,16 +72,12 @@ PROTO_8:
 
 PROTO_9:
         0 NEWTABLE                         R0 0 1
-        2 DUPTABLE                         R1 K3 [{"materialVariants", "promptText", "filteredPromptText"}]
+        2 DUPTABLE                         R1 K4 [{[1], ["promptText"] = "test prompt", ["filteredPromptText"] = "test prompt"}]
         3 GETUPVAL                         R2 0
-        4 GETTABLEKS                       R2 R2 K4 ["instances"]
+        4 GETTABLEKS                       R2 R2 K5 ["instances"]
         6 SETTABLEKS                       R2 R1 K0 ["materialVariants"]
-        8 LOADK                            R2 K5 ["test prompt"]
-        9 SETTABLEKS                       R2 R1 K1 ["promptText"]
-       11 LOADK                            R2 K5 ["test prompt"]
-       12 SETTABLEKS                       R2 R1 K2 ["filteredPromptText"]
-       14 SETLIST                          R0 R1 1 [1]
-       16 RETURN                           R0 1
+        8 SETLIST                          R0 R1 1 [1]
+       10 RETURN                           R0 1
 
 PROTO_10:
         0 NEWTABLE                         R2 2 1

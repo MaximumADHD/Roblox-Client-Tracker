@@ -134,7 +134,7 @@ PROTO_6:
        78 GETTABLEKS                       R10 R10 K20 ["X"]
        80 GETTABLEKS                       R12 R0 K19 ["Position"]
        82 GETTABLEKS                       R12 R12 K22 ["Y"]
-       84 SUBRK                            R11 R21 K12 ["OnDragStart"]
+       84 SUBRK                            R11 K21 [1] R12
        85 CALL                             R9 2 1
        86 SETTABLEKS                       R9 R8 K19 ["Position"]
        88 GETUPVAL                         R9 0

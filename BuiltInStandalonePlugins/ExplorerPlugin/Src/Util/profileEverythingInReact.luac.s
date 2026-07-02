@@ -277,62 +277,60 @@ PROTO_9:
 
 PROTO_10:
         0 NEWTABLE                         R1 0 0
-        2 DUPTABLE                         R2 K1 [{"__mode"}]
-        3 LOADK                            R3 K2 ["k"]
-        4 SETTABLEKS                       R3 R2 K0 ["__mode"]
-        6 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        8 GETIMPORT                        R0 K4 [setmetatable]
-       10 CALL                             R0 2 1
-       11 NEWTABLE                         R1 0 0
-       13 NEWCLOSURE                       R2 P0
-       14 CAPTURE                          VAL R1
-       15 GETUPVAL                         R3 0
-       16 GETTABLEKS                       R3 R3 K5 ["createElement"]
-       18 GETUPVAL                         R4 0
-       19 NEWCLOSURE                       R5 P1
-       20 CAPTURE                          VAL R1
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          VAL R3
-       23 SETTABLEKS                       R5 R4 K5 ["createElement"]
-       25 GETUPVAL                         R4 0
-       26 GETTABLEKS                       R4 R4 K6 ["useEffect"]
-       28 GETUPVAL                         R5 0
-       29 NEWCLOSURE                       R6 P2
-       30 CAPTURE                          VAL R1
-       31 CAPTURE                          VAL R4
-       32 SETTABLEKS                       R6 R5 K6 ["useEffect"]
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R5 R5 K7 ["useMemo"]
-       37 GETUPVAL                         R6 0
-       38 NEWCLOSURE                       R7 P3
-       39 CAPTURE                          VAL R5
-       40 CAPTURE                          VAL R1
-       41 SETTABLEKS                       R7 R6 K7 ["useMemo"]
-       43 GETUPVAL                         R6 0
-       44 GETTABLEKS                       R6 R6 K8 ["useContext"]
-       46 GETUPVAL                         R7 0
-       47 NEWCLOSURE                       R8 P4
-       48 CAPTURE                          VAL R6
-       49 SETTABLEKS                       R8 R7 K8 ["useContext"]
-       51 GETUPVAL                         R7 0
-       52 GETTABLEKS                       R7 R7 K9 ["useCallback"]
-       54 GETUPVAL                         R8 0
-       55 NEWCLOSURE                       R9 P5
-       56 CAPTURE                          VAL R1
-       57 CAPTURE                          VAL R7
-       58 SETTABLEKS                       R9 R8 K9 ["useCallback"]
-       60 GETIMPORT                        R8 K11 [require]
-       62 GETUPVAL                         R9 1
-       63 GETTABLEKS                       R9 R9 K12 ["Packages"]
-       65 GETTABLEKS                       R9 R9 K13 ["Framework"]
-       67 CALL                             R8 1 1
-       68 GETTABLEKS                       R9 R8 K14 ["Styling"]
-       70 GETTABLEKS                       R9 R9 K15 ["joinTags"]
-       72 GETTABLEKS                       R10 R8 K14 ["Styling"]
-       74 NEWCLOSURE                       R11 P6
-       75 CAPTURE                          VAL R9
-       76 SETTABLEKS                       R11 R10 K15 ["joinTags"]
-       78 RETURN                           R0 0
+        2 DUPTABLE                         R2 K2 [{[1] = "k"}]
+        3 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        5 GETIMPORT                        R0 K4 [setmetatable]
+        7 CALL                             R0 2 1
+        8 NEWTABLE                         R1 0 0
+       10 NEWCLOSURE                       R2 P0
+       11 CAPTURE                          VAL R1
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R3 R3 K5 ["createElement"]
+       15 GETUPVAL                         R4 0
+       16 NEWCLOSURE                       R5 P1
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          VAL R3
+       20 SETTABLEKS                       R5 R4 K5 ["createElement"]
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K6 ["useEffect"]
+       25 GETUPVAL                         R5 0
+       26 NEWCLOSURE                       R6 P2
+       27 CAPTURE                          VAL R1
+       28 CAPTURE                          VAL R4
+       29 SETTABLEKS                       R6 R5 K6 ["useEffect"]
+       31 GETUPVAL                         R5 0
+       32 GETTABLEKS                       R5 R5 K7 ["useMemo"]
+       34 GETUPVAL                         R6 0
+       35 NEWCLOSURE                       R7 P3
+       36 CAPTURE                          VAL R5
+       37 CAPTURE                          VAL R1
+       38 SETTABLEKS                       R7 R6 K7 ["useMemo"]
+       40 GETUPVAL                         R6 0
+       41 GETTABLEKS                       R6 R6 K8 ["useContext"]
+       43 GETUPVAL                         R7 0
+       44 NEWCLOSURE                       R8 P4
+       45 CAPTURE                          VAL R6
+       46 SETTABLEKS                       R8 R7 K8 ["useContext"]
+       48 GETUPVAL                         R7 0
+       49 GETTABLEKS                       R7 R7 K9 ["useCallback"]
+       51 GETUPVAL                         R8 0
+       52 NEWCLOSURE                       R9 P5
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R7
+       55 SETTABLEKS                       R9 R8 K9 ["useCallback"]
+       57 GETIMPORT                        R8 K11 [require]
+       59 GETUPVAL                         R9 1
+       60 GETTABLEKS                       R9 R9 K12 ["Packages"]
+       62 GETTABLEKS                       R9 R9 K13 ["Framework"]
+       64 CALL                             R8 1 1
+       65 GETTABLEKS                       R9 R8 K14 ["Styling"]
+       67 GETTABLEKS                       R9 R9 K15 ["joinTags"]
+       69 GETTABLEKS                       R10 R8 K14 ["Styling"]
+       71 NEWCLOSURE                       R11 P6
+       72 CAPTURE                          VAL R9
+       73 SETTABLEKS                       R11 R10 K15 ["joinTags"]
+       75 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

@@ -80,268 +80,216 @@ MAIN:
       122 NAMECALL                         R16 R7 K25 ["add"]
       124 CALL                             R16 2 0
       125 GETTABLEKS                       R16 R7 K39 ["Prompt"]
-      127 DUPTABLE                         R17 K44 [{"BackgroundColor", "MultiLine", "Padding", "PromptToolbarSize"}]
-      128 GETTABLEKS                       R18 R5 K45 ["Titlebar"]
+      127 DUPTABLE                         R17 K46 [{["BackgroundColor"], ["MultiLine"] = True, ["Padding"] = 8, ["PromptToolbarSize"]}]
+      128 GETTABLEKS                       R18 R5 K47 ["Titlebar"]
       130 SETTABLEKS                       R18 R17 K40 ["BackgroundColor"]
-      132 LOADB                            R18 1
-      133 SETTABLEKS                       R18 R17 K41 ["MultiLine"]
-      135 LOADN                            R18 8
-      136 SETTABLEKS                       R18 R17 K42 ["Padding"]
-      138 GETIMPORT                        R18 K37 [UDim2.new]
-      140 LOADN                            R19 1
-      141 LOADN                            R20 0
-      142 LOADN                            R21 0
-      143 MOVE                             R22 R14
-      144 CALL                             R18 4 1
-      145 SETTABLEKS                       R18 R17 K43 ["PromptToolbarSize"]
-      147 SETTABLE                         R17 R15 R16
-      148 LOADK                            R18 K46 ["PromptToolbar"]
-      149 NAMECALL                         R16 R7 K25 ["add"]
-      151 CALL                             R16 2 0
-      152 GETTABLEKS                       R16 R7 K46 ["PromptToolbar"]
-      154 DUPTABLE                         R17 K48 [{"GenerateButtonSize"}]
-      155 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      157 LOADN                            R19 80
-      158 LOADN                            R20 32
-      159 CALL                             R18 2 1
-      160 SETTABLEKS                       R18 R17 K47 ["GenerateButtonSize"]
-      162 SETTABLE                         R17 R15 R16
-      163 LOADK                            R18 K49 ["Browser"]
-      164 NAMECALL                         R16 R7 K25 ["add"]
-      166 CALL                             R16 2 0
-      167 GETTABLEKS                       R16 R7 K49 ["Browser"]
-      169 DUPTABLE                         R17 K54 [{"CellGroupHeader", "Padding", "StatusIconImageColor", "StatusIconPosition", "StatusIconSize"}]
-      170 DUPTABLE                         R18 K58 [{"AfterContent", "Collapsible", "Size"}]
-      171 LOADB                            R19 1
-      172 SETTABLEKS                       R19 R18 K55 ["AfterContent"]
-      174 LOADB                            R19 0
-      175 SETTABLEKS                       R19 R18 K56 ["Collapsible"]
-      177 GETIMPORT                        R19 K37 [UDim2.new]
-      179 LOADN                            R20 1
-      180 LOADN                            R21 0
-      181 LOADN                            R22 0
-      182 MOVE                             R23 R14
-      183 CALL                             R19 4 1
-      184 SETTABLEKS                       R19 R18 K57 ["Size"]
-      186 SETTABLEKS                       R18 R17 K50 ["CellGroupHeader"]
-      188 LOADN                            R18 4
-      189 SETTABLEKS                       R18 R17 K42 ["Padding"]
-      191 GETTABLEKS                       R18 R4 K59 ["Gray_Light"]
-      193 SETTABLEKS                       R18 R17 K51 ["StatusIconImageColor"]
-      195 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      197 LOADN                            R19 6
-      198 LOADN                            R20 6
-      199 CALL                             R18 2 1
-      200 SETTABLEKS                       R18 R17 K52 ["StatusIconPosition"]
-      202 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      204 LOADN                            R19 16
-      205 LOADN                            R20 16
-      206 CALL                             R18 2 1
-      207 SETTABLEKS                       R18 R17 K53 ["StatusIconSize"]
-      209 SETTABLE                         R17 R15 R16
-      210 LOADK                            R18 K60 ["PromptGroupFooter"]
-      211 NAMECALL                         R16 R7 K25 ["add"]
-      213 CALL                             R16 2 0
-      214 GETTABLEKS                       R16 R7 K60 ["PromptGroupFooter"]
-      216 DUPTABLE                         R17 K68 [{"BackgroundColor", "ButtonColor", "ButtonImageSize", "ButtonSize", "ButtonSpacing", "CopyPromptButtonImage", "CornerRadius", "Padding", "Style", "TextColor"}]
-      217 GETTABLEKS                       R18 R5 K69 ["ForegroundContrast"]
-      219 SETTABLEKS                       R18 R17 K40 ["BackgroundColor"]
-      221 GETTABLEKS                       R18 R5 K70 ["TextSecondary"]
-      223 SETTABLEKS                       R18 R17 K61 ["ButtonColor"]
-      225 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      227 LOADN                            R19 16
-      228 LOADN                            R20 16
-      229 CALL                             R18 2 1
-      230 SETTABLEKS                       R18 R17 K62 ["ButtonImageSize"]
-      232 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      234 LOADN                            R19 24
-      235 LOADN                            R20 24
-      236 CALL                             R18 2 1
-      237 SETTABLEKS                       R18 R17 K63 ["ButtonSize"]
-      239 LOADN                            R18 4
-      240 SETTABLEKS                       R18 R17 K64 ["ButtonSpacing"]
-      242 LOADK                            R18 K71 ["rbxasset://textures/MaterialGenerator/Copy_16x16.png"]
-      243 SETTABLEKS                       R18 R17 K65 ["CopyPromptButtonImage"]
-      245 GETIMPORT                        R18 K73 [UDim.new]
-      247 LOADN                            R19 0
-      248 LOADN                            R20 4
-      249 CALL                             R18 2 1
-      250 SETTABLEKS                       R18 R17 K66 ["CornerRadius"]
-      252 DUPTABLE                         R18 K76 [{"Left", "Right"}]
-      253 LOADN                            R19 6
-      254 SETTABLEKS                       R19 R18 K74 ["Left"]
-      256 LOADN                            R19 4
-      257 SETTABLEKS                       R19 R18 K75 ["Right"]
-      259 SETTABLEKS                       R18 R17 K42 ["Padding"]
-      261 LOADK                            R18 K77 ["RoundBox"]
-      262 SETTABLEKS                       R18 R17 K8 ["Style"]
-      264 GETTABLEKS                       R18 R5 K70 ["TextSecondary"]
-      266 SETTABLEKS                       R18 R17 K67 ["TextColor"]
-      268 SETTABLE                         R17 R15 R16
-      269 LOADK                            R18 K78 ["Editor"]
-      270 NAMECALL                         R16 R7 K25 ["add"]
-      272 CALL                             R16 2 0
-      273 GETTABLEKS                       R16 R7 K78 ["Editor"]
-      275 DUPTABLE                         R17 K92 [{"ApplyButtonBackgroundColor", "ApplyButtonIcon", "ApplyButtonSize", "CloseButtonSize", "LabelWidth", "Padding", "PreviewBackgroundColor", "PreviewHeight", "PreviewTileSize", "SettingsPadding", "SettingSpacing", "StudsPerTileSettingSize", "UploadAndApplyButtonIcon", "UploadAndApplyButtonSize"}]
-      276 GETTABLEKS                       R18 R5 K19 ["Button"]
-      278 SETTABLEKS                       R18 R17 K79 ["ApplyButtonBackgroundColor"]
-      280 LOADK                            R18 K93 ["rbxasset://textures/MaterialManager/Apply_to_Selection.png"]
-      281 SETTABLEKS                       R18 R17 K80 ["ApplyButtonIcon"]
-      283 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      285 LOADN                            R19 0
-      286 LOADN                            R20 32
-      287 CALL                             R18 2 1
-      288 SETTABLEKS                       R18 R17 K81 ["ApplyButtonSize"]
-      290 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      292 LOADN                            R19 24
-      293 LOADN                            R20 24
-      294 CALL                             R18 2 1
-      295 SETTABLEKS                       R18 R17 K82 ["CloseButtonSize"]
-      297 LOADN                            R18 100
-      298 SETTABLEKS                       R18 R17 K83 ["LabelWidth"]
-      300 LOADN                            R18 8
-      301 SETTABLEKS                       R18 R17 K42 ["Padding"]
-      303 GETTABLEKS                       R18 R5 K94 ["ScrollBarBackground"]
-      305 SETTABLEKS                       R18 R17 K84 ["PreviewBackgroundColor"]
-      307 LOADN                            R18 44
-      308 SETTABLEKS                       R18 R17 K85 ["PreviewHeight"]
-      310 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      312 LOADN                            R19 192
-      313 LOADN                            R20 192
-      314 CALL                             R18 2 1
-      315 SETTABLEKS                       R18 R17 K86 ["PreviewTileSize"]
-      317 DUPTABLE                         R18 K97 [{"Left", "Right", "Top", "Bottom"}]
-      318 LOADN                            R19 10
-      319 SETTABLEKS                       R19 R18 K74 ["Left"]
-      321 LOADN                            R19 10
-      322 SETTABLEKS                       R19 R18 K75 ["Right"]
-      324 LOADN                            R19 10
-      325 SETTABLEKS                       R19 R18 K95 ["Top"]
-      327 LOADN                            R19 30
-      328 SETTABLEKS                       R19 R18 K96 ["Bottom"]
-      330 SETTABLEKS                       R18 R17 K87 ["SettingsPadding"]
-      332 LOADN                            R18 8
-      333 SETTABLEKS                       R18 R17 K88 ["SettingSpacing"]
-      335 GETIMPORT                        R18 K37 [UDim2.new]
-      337 LOADN                            R19 1
-      338 LOADN                            R20 0
-      339 LOADN                            R21 0
-      340 LOADN                            R22 30
-      341 CALL                             R18 4 1
-      342 SETTABLEKS                       R18 R17 K89 ["StudsPerTileSettingSize"]
-      344 LOADK                            R18 K98 ["rbxasset://textures/MaterialGenerator/Submit_16x16.png"]
-      345 SETTABLEKS                       R18 R17 K90 ["UploadAndApplyButtonIcon"]
-      347 GETIMPORT                        R18 K30 [UDim2.fromOffset]
-      349 LOADN                            R19 180
-      350 LOADN                            R20 32
-      351 CALL                             R18 2 1
-      352 SETTABLEKS                       R18 R17 K91 ["UploadAndApplyButtonSize"]
-      354 SETTABLE                         R17 R15 R16
-      355 LOADK                            R18 K99 ["Setting"]
-      356 NAMECALL                         R16 R7 K25 ["add"]
-      358 CALL                             R16 2 0
-      359 GETTABLEKS                       R16 R7 K99 ["Setting"]
-      361 DUPTABLE                         R17 K102 [{"HorizontalSpacing", "Size", "ValueLabelWidth"}]
-      362 LOADN                            R18 16
-      363 SETTABLEKS                       R18 R17 K100 ["HorizontalSpacing"]
-      365 GETIMPORT                        R18 K37 [UDim2.new]
-      367 LOADN                            R19 1
-      368 LOADN                            R20 0
-      369 LOADN                            R21 0
-      370 LOADN                            R22 30
-      371 CALL                             R18 4 1
-      372 SETTABLEKS                       R18 R17 K57 ["Size"]
-      374 LOADN                            R18 30
-      375 SETTABLEKS                       R18 R17 K101 ["ValueLabelWidth"]
-      377 SETTABLE                         R17 R15 R16
-      378 GETTABLEKS                       R16 R7 K17 ["Alert"]
-      380 GETTABLEKS                       R17 R1 K103 ["join"]
-      382 MOVE                             R18 R10
-      383 NEWTABLE                         R19 1 0
-      385 GETTABLEKS                       R20 R1 K103 ["join"]
-      387 GETTABLEKS                       R21 R10 K104 ["&Error"]
-      389 DUPTABLE                         R22 K107 [{"HorizontalPadding", "MaxWidth"}]
-      390 GETIMPORT                        R23 K73 [UDim.new]
-      392 LOADN                            R24 0
-      393 LOADN                            R25 16
-      394 CALL                             R23 2 1
-      395 SETTABLEKS                       R23 R22 K105 ["HorizontalPadding"]
-      397 LOADK                            R23 K108 [∞]
-      398 SETTABLEKS                       R23 R22 K106 ["MaxWidth"]
-      400 CALL                             R20 2 1
-      401 SETTABLEKS                       R20 R19 K109 ["&AppError"]
-      403 CALL                             R17 2 1
-      404 SETTABLE                         R17 R15 R16
-      405 DUPTABLE                         R16 K111 [{"Color", "Image", "Size"}]
-      406 GETTABLEKS                       R17 R5 K112 ["ErrorText"]
-      408 SETTABLEKS                       R17 R16 K110 ["Color"]
-      410 LOADK                            R17 K113 ["rbxasset://textures/DevConsole/Close.png"]
-      411 SETTABLEKS                       R17 R16 K15 ["Image"]
-      413 GETIMPORT                        R17 K115 [UDim2.fromScale]
-      415 LOADN                            R18 1
-      416 LOADN                            R19 1
-      417 CALL                             R17 2 1
-      418 SETTABLEKS                       R17 R16 K57 ["Size"]
-      420 GETTABLEKS                       R17 R7 K19 ["Button"]
-      422 GETTABLEKS                       R18 R1 K103 ["join"]
-      424 MOVE                             R19 R11
-      425 NEWTABLE                         R20 2 0
-      427 NEWTABLE                         R21 4 0
-      429 SETTABLEKS                       R8 R21 K116 ["Background"]
-      431 DUPTABLE                         R22 K119 [{"AnchorPoint", "Image", "Color", "Position", "Size"}]
-      432 GETIMPORT                        R23 K121 [Vector2.new]
-      434 LOADK                            R24 K122 [0.5]
-      435 LOADK                            R25 K122 [0.5]
-      436 CALL                             R23 2 1
-      437 SETTABLEKS                       R23 R22 K117 ["AnchorPoint"]
-      439 LOADK                            R23 K123 ["rbxasset://textures/ui/TopBar/close.png"]
-      440 SETTABLEKS                       R23 R22 K15 ["Image"]
-      442 GETTABLEKS                       R23 R5 K124 ["ButtonText"]
-      444 SETTABLEKS                       R23 R22 K110 ["Color"]
-      446 GETIMPORT                        R23 K115 [UDim2.fromScale]
-      448 LOADK                            R24 K122 [0.5]
-      449 LOADK                            R25 K122 [0.5]
-      450 CALL                             R23 2 1
-      451 SETTABLEKS                       R23 R22 K118 ["Position"]
-      453 GETIMPORT                        R23 K30 [UDim2.fromOffset]
-      455 LOADN                            R24 18
-      456 LOADN                            R25 18
-      457 CALL                             R23 2 1
-      458 SETTABLEKS                       R23 R22 K57 ["Size"]
-      460 SETTABLEKS                       R22 R21 K125 ["BackgroundStyle"]
-      462 GETTABLEKS                       R22 R6 K126 ["Hover"]
-      464 DUPTABLE                         R23 K127 [{"BackgroundStyle"}]
-      465 DUPTABLE                         R24 K119 [{"AnchorPoint", "Image", "Color", "Position", "Size"}]
-      466 GETIMPORT                        R25 K121 [Vector2.new]
-      468 LOADK                            R26 K122 [0.5]
-      469 LOADK                            R27 K122 [0.5]
-      470 CALL                             R25 2 1
-      471 SETTABLEKS                       R25 R24 K117 ["AnchorPoint"]
-      473 LOADK                            R25 K123 ["rbxasset://textures/ui/TopBar/close.png"]
-      474 SETTABLEKS                       R25 R24 K15 ["Image"]
-      476 GETTABLEKS                       R25 R5 K128 ["BrightText"]
-      478 SETTABLEKS                       R25 R24 K110 ["Color"]
-      480 GETIMPORT                        R25 K115 [UDim2.fromScale]
-      482 LOADK                            R26 K122 [0.5]
-      483 LOADK                            R27 K122 [0.5]
-      484 CALL                             R25 2 1
-      485 SETTABLEKS                       R25 R24 K118 ["Position"]
-      487 GETIMPORT                        R25 K30 [UDim2.fromOffset]
-      489 LOADN                            R26 18
-      490 LOADN                            R27 18
-      491 CALL                             R25 2 1
-      492 SETTABLEKS                       R25 R24 K57 ["Size"]
-      494 SETTABLEKS                       R24 R23 K125 ["BackgroundStyle"]
-      496 SETTABLE                         R23 R21 R22
-      497 SETTABLEKS                       R21 R20 K129 ["&Close"]
-      499 NEWTABLE                         R21 4 0
-      501 SETTABLEKS                       R8 R21 K116 ["Background"]
-      503 SETTABLEKS                       R16 R21 K125 ["BackgroundStyle"]
-      505 GETTABLEKS                       R22 R6 K126 ["Hover"]
-      507 DUPTABLE                         R23 K127 [{"BackgroundStyle"}]
-      508 SETTABLEKS                       R16 R23 K125 ["BackgroundStyle"]
-      510 SETTABLE                         R23 R21 R22
-      511 SETTABLEKS                       R21 R20 K130 ["&ErrorClose"]
-      513 CALL                             R18 2 1
-      514 SETTABLE                         R18 R15 R17
-      515 RETURN                           R15 1
+      132 GETIMPORT                        R18 K37 [UDim2.new]
+      134 LOADN                            R19 1
+      135 LOADN                            R20 0
+      136 LOADN                            R21 0
+      137 MOVE                             R22 R14
+      138 CALL                             R18 4 1
+      139 SETTABLEKS                       R18 R17 K45 ["PromptToolbarSize"]
+      141 SETTABLE                         R17 R15 R16
+      142 LOADK                            R18 K48 ["PromptToolbar"]
+      143 NAMECALL                         R16 R7 K25 ["add"]
+      145 CALL                             R16 2 0
+      146 GETTABLEKS                       R16 R7 K48 ["PromptToolbar"]
+      148 DUPTABLE                         R17 K50 [{"GenerateButtonSize"}]
+      149 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      151 LOADN                            R19 80
+      152 LOADN                            R20 32
+      153 CALL                             R18 2 1
+      154 SETTABLEKS                       R18 R17 K49 ["GenerateButtonSize"]
+      156 SETTABLE                         R17 R15 R16
+      157 LOADK                            R18 K51 ["Browser"]
+      158 NAMECALL                         R16 R7 K25 ["add"]
+      160 CALL                             R16 2 0
+      161 GETTABLEKS                       R16 R7 K51 ["Browser"]
+      163 DUPTABLE                         R17 K57 [{["CellGroupHeader"], ["Padding"] = 4, ["StatusIconImageColor"], ["StatusIconPosition"], ["StatusIconSize"]}]
+      164 DUPTABLE                         R18 K62 [{["AfterContent"] = True, ["Collapsible"] = False, ["Size"]}]
+      165 GETIMPORT                        R19 K37 [UDim2.new]
+      167 LOADN                            R20 1
+      168 LOADN                            R21 0
+      169 LOADN                            R22 0
+      170 MOVE                             R23 R14
+      171 CALL                             R19 4 1
+      172 SETTABLEKS                       R19 R18 K61 ["Size"]
+      174 SETTABLEKS                       R18 R17 K52 ["CellGroupHeader"]
+      176 GETTABLEKS                       R18 R4 K63 ["Gray_Light"]
+      178 SETTABLEKS                       R18 R17 K54 ["StatusIconImageColor"]
+      180 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      182 LOADN                            R19 6
+      183 LOADN                            R20 6
+      184 CALL                             R18 2 1
+      185 SETTABLEKS                       R18 R17 K55 ["StatusIconPosition"]
+      187 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      189 LOADN                            R19 16
+      190 LOADN                            R20 16
+      191 CALL                             R18 2 1
+      192 SETTABLEKS                       R18 R17 K56 ["StatusIconSize"]
+      194 SETTABLE                         R17 R15 R16
+      195 LOADK                            R18 K64 ["PromptGroupFooter"]
+      196 NAMECALL                         R16 R7 K25 ["add"]
+      198 CALL                             R16 2 0
+      199 GETTABLEKS                       R16 R7 K64 ["PromptGroupFooter"]
+      201 DUPTABLE                         R17 K74 [{["BackgroundColor"], ["ButtonColor"], ["ButtonImageSize"], ["ButtonSize"], ["ButtonSpacing"] = 4, ["CopyPromptButtonImage"] = "rbxasset://textures/MaterialGenerator/Copy_16x16.png", ["CornerRadius"], ["Padding"], ["Style"] = "RoundBox", ["TextColor"]}]
+      202 GETTABLEKS                       R18 R5 K75 ["ForegroundContrast"]
+      204 SETTABLEKS                       R18 R17 K40 ["BackgroundColor"]
+      206 GETTABLEKS                       R18 R5 K76 ["TextSecondary"]
+      208 SETTABLEKS                       R18 R17 K65 ["ButtonColor"]
+      210 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      212 LOADN                            R19 16
+      213 LOADN                            R20 16
+      214 CALL                             R18 2 1
+      215 SETTABLEKS                       R18 R17 K66 ["ButtonImageSize"]
+      217 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      219 LOADN                            R19 24
+      220 LOADN                            R20 24
+      221 CALL                             R18 2 1
+      222 SETTABLEKS                       R18 R17 K67 ["ButtonSize"]
+      224 GETIMPORT                        R18 K78 [UDim.new]
+      226 LOADN                            R19 0
+      227 LOADN                            R20 4
+      228 CALL                             R18 2 1
+      229 SETTABLEKS                       R18 R17 K71 ["CornerRadius"]
+      231 DUPTABLE                         R18 K82 [{["Left"] = 6, ["Right"] = 4}]
+      232 SETTABLEKS                       R18 R17 K43 ["Padding"]
+      234 GETTABLEKS                       R18 R5 K76 ["TextSecondary"]
+      236 SETTABLEKS                       R18 R17 K73 ["TextColor"]
+      238 SETTABLE                         R17 R15 R16
+      239 LOADK                            R18 K83 ["Editor"]
+      240 NAMECALL                         R16 R7 K25 ["add"]
+      242 CALL                             R16 2 0
+      243 GETTABLEKS                       R16 R7 K83 ["Editor"]
+      245 DUPTABLE                         R17 K101 [{["ApplyButtonBackgroundColor"], ["ApplyButtonIcon"] = "rbxasset://textures/MaterialManager/Apply_to_Selection.png", ["ApplyButtonSize"], ["CloseButtonSize"], ["LabelWidth"] = 100, ["Padding"] = 8, ["PreviewBackgroundColor"], ["PreviewHeight"] = 300, ["PreviewTileSize"], ["SettingsPadding"], ["SettingSpacing"] = 8, ["StudsPerTileSettingSize"], ["UploadAndApplyButtonIcon"] = "rbxasset://textures/MaterialGenerator/Submit_16x16.png", ["UploadAndApplyButtonSize"]}]
+      246 GETTABLEKS                       R18 R5 K19 ["Button"]
+      248 SETTABLEKS                       R18 R17 K84 ["ApplyButtonBackgroundColor"]
+      250 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      252 LOADN                            R19 0
+      253 LOADN                            R20 32
+      254 CALL                             R18 2 1
+      255 SETTABLEKS                       R18 R17 K87 ["ApplyButtonSize"]
+      257 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      259 LOADN                            R19 24
+      260 LOADN                            R20 24
+      261 CALL                             R18 2 1
+      262 SETTABLEKS                       R18 R17 K88 ["CloseButtonSize"]
+      264 GETTABLEKS                       R18 R5 K102 ["ScrollBarBackground"]
+      266 SETTABLEKS                       R18 R17 K91 ["PreviewBackgroundColor"]
+      268 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      270 LOADN                            R19 192
+      271 LOADN                            R20 192
+      272 CALL                             R18 2 1
+      273 SETTABLEKS                       R18 R17 K94 ["PreviewTileSize"]
+      275 DUPTABLE                         R18 K106 [{["Left"] = 10, ["Right"] = 10, ["Top"] = 10, ["Bottom"] = 30}]
+      276 SETTABLEKS                       R18 R17 K95 ["SettingsPadding"]
+      278 GETIMPORT                        R18 K37 [UDim2.new]
+      280 LOADN                            R19 1
+      281 LOADN                            R20 0
+      282 LOADN                            R21 0
+      283 LOADN                            R22 30
+      284 CALL                             R18 4 1
+      285 SETTABLEKS                       R18 R17 K97 ["StudsPerTileSettingSize"]
+      287 GETIMPORT                        R18 K30 [UDim2.fromOffset]
+      289 LOADN                            R19 180
+      290 LOADN                            R20 32
+      291 CALL                             R18 2 1
+      292 SETTABLEKS                       R18 R17 K100 ["UploadAndApplyButtonSize"]
+      294 SETTABLE                         R17 R15 R16
+      295 LOADK                            R18 K107 ["Setting"]
+      296 NAMECALL                         R16 R7 K25 ["add"]
+      298 CALL                             R16 2 0
+      299 GETTABLEKS                       R16 R7 K107 ["Setting"]
+      301 DUPTABLE                         R17 K111 [{["HorizontalSpacing"] = 16, ["Size"], ["ValueLabelWidth"] = 30}]
+      302 GETIMPORT                        R18 K37 [UDim2.new]
+      304 LOADN                            R19 1
+      305 LOADN                            R20 0
+      306 LOADN                            R21 0
+      307 LOADN                            R22 30
+      308 CALL                             R18 4 1
+      309 SETTABLEKS                       R18 R17 K61 ["Size"]
+      311 SETTABLE                         R17 R15 R16
+      312 GETTABLEKS                       R16 R7 K17 ["Alert"]
+      314 GETTABLEKS                       R17 R1 K112 ["join"]
+      316 MOVE                             R18 R10
+      317 NEWTABLE                         R19 1 0
+      319 GETTABLEKS                       R20 R1 K112 ["join"]
+      321 GETTABLEKS                       R21 R10 K113 ["&Error"]
+      323 DUPTABLE                         R22 K117 [{["HorizontalPadding"], ["MaxWidth"] = ∞}]
+      324 GETIMPORT                        R23 K78 [UDim.new]
+      326 LOADN                            R24 0
+      327 LOADN                            R25 16
+      328 CALL                             R23 2 1
+      329 SETTABLEKS                       R23 R22 K114 ["HorizontalPadding"]
+      331 CALL                             R20 2 1
+      332 SETTABLEKS                       R20 R19 K118 ["&AppError"]
+      334 CALL                             R17 2 1
+      335 SETTABLE                         R17 R15 R16
+      336 DUPTABLE                         R16 K121 [{["Color"], ["Image"] = "rbxasset://textures/DevConsole/Close.png", ["Size"]}]
+      337 GETTABLEKS                       R17 R5 K122 ["ErrorText"]
+      339 SETTABLEKS                       R17 R16 K119 ["Color"]
+      341 GETIMPORT                        R17 K124 [UDim2.fromScale]
+      343 LOADN                            R18 1
+      344 LOADN                            R19 1
+      345 CALL                             R17 2 1
+      346 SETTABLEKS                       R17 R16 K61 ["Size"]
+      348 GETTABLEKS                       R17 R7 K19 ["Button"]
+      350 GETTABLEKS                       R18 R1 K112 ["join"]
+      352 MOVE                             R19 R11
+      353 NEWTABLE                         R20 2 0
+      355 NEWTABLE                         R21 4 0
+      357 SETTABLEKS                       R8 R21 K125 ["Background"]
+      359 DUPTABLE                         R22 K129 [{["AnchorPoint"], ["Image"] = "rbxasset://textures/ui/TopBar/close.png", ["Color"], ["Position"], ["Size"]}]
+      360 GETIMPORT                        R23 K131 [Vector2.new]
+      362 LOADK                            R24 K132 [0.5]
+      363 LOADK                            R25 K132 [0.5]
+      364 CALL                             R23 2 1
+      365 SETTABLEKS                       R23 R22 K126 ["AnchorPoint"]
+      367 GETTABLEKS                       R23 R5 K133 ["ButtonText"]
+      369 SETTABLEKS                       R23 R22 K119 ["Color"]
+      371 GETIMPORT                        R23 K124 [UDim2.fromScale]
+      373 LOADK                            R24 K132 [0.5]
+      374 LOADK                            R25 K132 [0.5]
+      375 CALL                             R23 2 1
+      376 SETTABLEKS                       R23 R22 K128 ["Position"]
+      378 GETIMPORT                        R23 K30 [UDim2.fromOffset]
+      380 LOADN                            R24 18
+      381 LOADN                            R25 18
+      382 CALL                             R23 2 1
+      383 SETTABLEKS                       R23 R22 K61 ["Size"]
+      385 SETTABLEKS                       R22 R21 K134 ["BackgroundStyle"]
+      387 GETTABLEKS                       R22 R6 K135 ["Hover"]
+      389 DUPTABLE                         R23 K136 [{"BackgroundStyle"}]
+      390 DUPTABLE                         R24 K129 [{["AnchorPoint"], ["Image"] = "rbxasset://textures/ui/TopBar/close.png", ["Color"], ["Position"], ["Size"]}]
+      391 GETIMPORT                        R25 K131 [Vector2.new]
+      393 LOADK                            R26 K132 [0.5]
+      394 LOADK                            R27 K132 [0.5]
+      395 CALL                             R25 2 1
+      396 SETTABLEKS                       R25 R24 K126 ["AnchorPoint"]
+      398 GETTABLEKS                       R25 R5 K137 ["BrightText"]
+      400 SETTABLEKS                       R25 R24 K119 ["Color"]
+      402 GETIMPORT                        R25 K124 [UDim2.fromScale]
+      404 LOADK                            R26 K132 [0.5]
+      405 LOADK                            R27 K132 [0.5]
+      406 CALL                             R25 2 1
+      407 SETTABLEKS                       R25 R24 K128 ["Position"]
+      409 GETIMPORT                        R25 K30 [UDim2.fromOffset]
+      411 LOADN                            R26 18
+      412 LOADN                            R27 18
+      413 CALL                             R25 2 1
+      414 SETTABLEKS                       R25 R24 K61 ["Size"]
+      416 SETTABLEKS                       R24 R23 K134 ["BackgroundStyle"]
+      418 SETTABLE                         R23 R21 R22
+      419 SETTABLEKS                       R21 R20 K138 ["&Close"]
+      421 NEWTABLE                         R21 4 0
+      423 SETTABLEKS                       R8 R21 K125 ["Background"]
+      425 SETTABLEKS                       R16 R21 K134 ["BackgroundStyle"]
+      427 GETTABLEKS                       R22 R6 K135 ["Hover"]
+      429 DUPTABLE                         R23 K136 [{"BackgroundStyle"}]
+      430 SETTABLEKS                       R16 R23 K134 ["BackgroundStyle"]
+      432 SETTABLE                         R23 R21 R22
+      433 SETTABLEKS                       R21 R20 K139 ["&ErrorClose"]
+      435 CALL                             R18 2 1
+      436 SETTABLE                         R18 R15 R17
+      437 RETURN                           R15 1

@@ -68,173 +68,155 @@ PROTO_3:
        19 JUMPIFNOTEQKS                    R5 K4 ["CantShare"] ; [+3]
        21 GETTABLEKS                       R4 R1 K5 ["assetModels"]
        23 GETUPVAL                         R5 2
-       24 DUPTABLE                         R6 K15 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "OnClosed", "Width"}]
-       25 LOADK                            R7 K16 ["Warning"]
-       26 SETTABLEKS                       R7 R6 K6 ["Intent"]
-       28 LOADK                            R9 K17 ["ShareDialogView"]
-       29 LOADK                            R10 K18 ["PromptHeading"]
-       30 NAMECALL                         R7 R0 K19 ["getText"]
-       32 CALL                             R7 3 1
-       33 SETTABLEKS                       R7 R6 K7 ["Heading"]
-       35 LOADK                            R9 K17 ["ShareDialogView"]
-       36 LOADK                            R10 K20 ["PromptBody"]
-       37 NAMECALL                         R7 R0 K19 ["getText"]
-       39 CALL                             R7 3 1
-       40 SETTABLEKS                       R7 R6 K8 ["Body"]
-       42 GETUPVAL                         R7 3
-       43 GETTABLEKS                       R7 R7 K21 ["createElement"]
-       45 GETUPVAL                         R8 4
-       46 DUPTABLE                         R9 K23 [{"AssetModels"}]
-       47 SETTABLEKS                       R4 R9 K22 ["AssetModels"]
-       49 CALL                             R7 2 1
-       50 SETTABLEKS                       R7 R6 K9 ["Contents"]
-       52 JUMPIFNOT                        R1 ; [+25]
-       53 GETTABLEKS                       R8 R1 K1 ["state"]
-       55 JUMPIFNOTEQKS                    R8 K2 ["Prompt"] ; [+22]
-       57 DUPTABLE                         R7 K27 [{"Label", "OnActivated", "Enabled"}]
-       58 LOADK                            R10 K17 ["ShareDialogView"]
-       59 LOADK                            R11 K28 ["PromptActionShare"]
-       60 NAMECALL                         R8 R0 K19 ["getText"]
-       62 CALL                             R8 3 1
-       63 SETTABLEKS                       R8 R7 K24 ["Label"]
-       65 SETTABLEKS                       R2 R7 K25 ["OnActivated"]
-       67 GETIMPORT                        R9 K30 [next]
-       69 MOVE                             R10 R4
-       70 CALL                             R9 1 1
-       71 JUMPIFNOTEQKNIL                  R9 ; [+2]
-       73 LOADB                            R8 0 +1
-       74 LOADB                            R8 1
-       75 SETTABLEKS                       R8 R7 K26 ["Enabled"]
-       77 JUMP                             ; [+18]
-       78 JUMPIFNOT                        R1 ; [+16]
-       79 GETTABLEKS                       R8 R1 K1 ["state"]
-       81 JUMPIFNOTEQKS                    R8 K3 ["Sharing"] ; [+13]
-       83 DUPTABLE                         R7 K31 [{"Label", "Enabled"}]
-       84 LOADK                            R10 K17 ["ShareDialogView"]
-       85 LOADK                            R11 K32 ["PromptActionSharing"]
-       86 NAMECALL                         R8 R0 K19 ["getText"]
-       88 CALL                             R8 3 1
-       89 SETTABLEKS                       R8 R7 K24 ["Label"]
-       91 LOADB                            R8 0
-       92 SETTABLEKS                       R8 R7 K26 ["Enabled"]
-       94 JUMP                             ; [+1]
-       95 LOADNIL                          R7
-       96 SETTABLEKS                       R7 R6 K10 ["ActionPrimary"]
-       98 GETUPVAL                         R8 5
-       99 GETTABLEKS                       R8 R8 K33 ["CLOSE"]
-      101 DUPTABLE                         R9 K34 [{"OnActivated"}]
-      102 SETTABLEKS                       R3 R9 K25 ["OnActivated"]
-      104 GETIMPORT                        R10 K37 [table.clone]
-      106 MOVE                             R11 R8
-      107 CALL                             R10 1 1
-      108 MOVE                             R11 R9
-      109 LOADNIL                          R12
-      110 LOADNIL                          R13
-      111 FORGPREP                         R11
-      112 SETTABLE                         R15 R10 R14
-      113 FORGLOOP                         R11 2 ; [-2]
-      115 MOVE                             R7 R10
-      116 SETTABLEKS                       R7 R6 K11 ["ActionSecondary"]
-      118 LOADB                            R7 1
-      119 SETTABLEKS                       R7 R6 K12 ["Modal"]
-      121 SETTABLEKS                       R3 R6 K13 ["OnClosed"]
-      123 LOADN                            R7 215
-      124 SETTABLEKS                       R7 R6 K14 ["Width"]
-      126 CALL                             R5 1 2
-      127 GETUPVAL                         R7 2
-      128 DUPTABLE                         R8 K38 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "Modal", "OnClosed", "Width"}]
-      129 LOADK                            R9 K39 ["Error"]
-      130 SETTABLEKS                       R9 R8 K6 ["Intent"]
-      132 LOADK                            R11 K17 ["ShareDialogView"]
-      133 LOADK                            R12 K40 ["CantShareHeading"]
-      134 NAMECALL                         R9 R0 K19 ["getText"]
-      136 CALL                             R9 3 1
-      137 SETTABLEKS                       R9 R8 K7 ["Heading"]
-      139 LOADK                            R11 K17 ["ShareDialogView"]
-      140 LOADK                            R12 K41 ["CantShareBody"]
-      141 NAMECALL                         R9 R0 K19 ["getText"]
-      143 CALL                             R9 3 1
-      144 SETTABLEKS                       R9 R8 K8 ["Body"]
-      146 GETUPVAL                         R9 3
-      147 GETTABLEKS                       R9 R9 K21 ["createElement"]
-      149 GETUPVAL                         R10 4
-      150 DUPTABLE                         R11 K23 [{"AssetModels"}]
-      151 SETTABLEKS                       R4 R11 K22 ["AssetModels"]
-      153 CALL                             R9 2 1
-      154 SETTABLEKS                       R9 R8 K9 ["Contents"]
-      156 GETUPVAL                         R10 5
-      157 GETTABLEKS                       R10 R10 K42 ["OK"]
-      159 DUPTABLE                         R11 K34 [{"OnActivated"}]
-      160 SETTABLEKS                       R3 R11 K25 ["OnActivated"]
-      162 GETIMPORT                        R12 K37 [table.clone]
-      164 MOVE                             R13 R10
-      165 CALL                             R12 1 1
-      166 MOVE                             R13 R11
-      167 LOADNIL                          R14
-      168 LOADNIL                          R15
-      169 FORGPREP                         R13
-      170 SETTABLE                         R17 R12 R16
-      171 FORGLOOP                         R13 2 ; [-2]
-      173 MOVE                             R9 R12
-      174 SETTABLEKS                       R9 R8 K10 ["ActionPrimary"]
-      176 LOADB                            R9 1
-      177 SETTABLEKS                       R9 R8 K12 ["Modal"]
-      179 SETTABLEKS                       R3 R8 K13 ["OnClosed"]
-      181 LOADN                            R9 215
-      182 SETTABLEKS                       R9 R8 K14 ["Width"]
-      184 CALL                             R7 1 2
-      185 GETUPVAL                         R9 2
-      186 DUPTABLE                         R10 K43 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal", "OnClosed"}]
-      187 LOADK                            R11 K39 ["Error"]
-      188 SETTABLEKS                       R11 R10 K6 ["Intent"]
-      190 LOADK                            R13 K17 ["ShareDialogView"]
-      191 LOADK                            R14 K44 ["UnexpectedErrorHeading"]
-      192 NAMECALL                         R11 R0 K19 ["getText"]
-      194 CALL                             R11 3 1
-      195 SETTABLEKS                       R11 R10 K7 ["Heading"]
-      197 LOADK                            R13 K17 ["ShareDialogView"]
-      198 LOADK                            R14 K45 ["UnexpectedErrorBody"]
-      199 NAMECALL                         R11 R0 K19 ["getText"]
-      201 CALL                             R11 3 1
-      202 SETTABLEKS                       R11 R10 K8 ["Body"]
-      204 GETUPVAL                         R12 5
-      205 GETTABLEKS                       R12 R12 K42 ["OK"]
-      207 DUPTABLE                         R13 K34 [{"OnActivated"}]
-      208 SETTABLEKS                       R3 R13 K25 ["OnActivated"]
-      210 GETIMPORT                        R14 K37 [table.clone]
-      212 MOVE                             R15 R12
-      213 CALL                             R14 1 1
-      214 MOVE                             R15 R13
-      215 LOADNIL                          R16
-      216 LOADNIL                          R17
-      217 FORGPREP                         R15
-      218 SETTABLE                         R19 R14 R18
-      219 FORGLOOP                         R15 2 ; [-2]
-      221 MOVE                             R11 R14
-      222 SETTABLEKS                       R11 R10 K10 ["ActionPrimary"]
-      224 LOADB                            R11 1
-      225 SETTABLEKS                       R11 R10 K12 ["Modal"]
-      227 SETTABLEKS                       R3 R10 K13 ["OnClosed"]
-      229 CALL                             R9 1 2
-      230 GETUPVAL                         R11 3
-      231 GETTABLEKS                       R11 R11 K46 ["useEffect"]
-      233 NEWCLOSURE                       R12 P0
-      234 CAPTURE                          VAL R1
-      235 CAPTURE                          VAL R5
-      236 CAPTURE                          VAL R7
-      237 CAPTURE                          VAL R9
-      238 CAPTURE                          VAL R6
-      239 CAPTURE                          VAL R8
-      240 CAPTURE                          VAL R10
-      241 NEWTABLE                         R13 0 1
-      243 JUMPIFNOT                        R1 ; [+3]
-      244 GETTABLEKS                       R14 R1 K1 ["state"]
-      246 JUMP                             ; [+1]
-      247 LOADK                            R14 K47 ["Inactive"]
-      248 SETLIST                          R13 R14 1 [1]
-      250 CALL                             R11 2 0
-      251 LOADNIL                          R11
-      252 RETURN                           R11 1
+       24 DUPTABLE                         R6 K18 [{["Intent"] = "Warning", ["Heading"], ["Body"], ["Contents"], ["ActionPrimary"], ["ActionSecondary"], ["Modal"] = True, ["OnClosed"], ["Width"] = 727}]
+       25 LOADK                            R9 K19 ["ShareDialogView"]
+       26 LOADK                            R10 K20 ["PromptHeading"]
+       27 NAMECALL                         R7 R0 K21 ["getText"]
+       29 CALL                             R7 3 1
+       30 SETTABLEKS                       R7 R6 K8 ["Heading"]
+       32 LOADK                            R9 K19 ["ShareDialogView"]
+       33 LOADK                            R10 K22 ["PromptBody"]
+       34 NAMECALL                         R7 R0 K21 ["getText"]
+       36 CALL                             R7 3 1
+       37 SETTABLEKS                       R7 R6 K9 ["Body"]
+       39 GETUPVAL                         R7 3
+       40 GETTABLEKS                       R7 R7 K23 ["createElement"]
+       42 GETUPVAL                         R8 4
+       43 DUPTABLE                         R9 K25 [{"AssetModels"}]
+       44 SETTABLEKS                       R4 R9 K24 ["AssetModels"]
+       46 CALL                             R7 2 1
+       47 SETTABLEKS                       R7 R6 K10 ["Contents"]
+       49 JUMPIFNOT                        R1 ; [+25]
+       50 GETTABLEKS                       R8 R1 K1 ["state"]
+       52 JUMPIFNOTEQKS                    R8 K2 ["Prompt"] ; [+22]
+       54 DUPTABLE                         R7 K29 [{"Label", "OnActivated", "Enabled"}]
+       55 LOADK                            R10 K19 ["ShareDialogView"]
+       56 LOADK                            R11 K30 ["PromptActionShare"]
+       57 NAMECALL                         R8 R0 K21 ["getText"]
+       59 CALL                             R8 3 1
+       60 SETTABLEKS                       R8 R7 K26 ["Label"]
+       62 SETTABLEKS                       R2 R7 K27 ["OnActivated"]
+       64 GETIMPORT                        R9 K32 [next]
+       66 MOVE                             R10 R4
+       67 CALL                             R9 1 1
+       68 JUMPIFNOTEQKNIL                  R9 ; [+2]
+       70 LOADB                            R8 0 +1
+       71 LOADB                            R8 1
+       72 SETTABLEKS                       R8 R7 K28 ["Enabled"]
+       74 JUMP                             ; [+15]
+       75 JUMPIFNOT                        R1 ; [+13]
+       76 GETTABLEKS                       R8 R1 K1 ["state"]
+       78 JUMPIFNOTEQKS                    R8 K3 ["Sharing"] ; [+10]
+       80 DUPTABLE                         R7 K34 [{["Label"], ["Enabled"] = False}]
+       81 LOADK                            R10 K19 ["ShareDialogView"]
+       82 LOADK                            R11 K35 ["PromptActionSharing"]
+       83 NAMECALL                         R8 R0 K21 ["getText"]
+       85 CALL                             R8 3 1
+       86 SETTABLEKS                       R8 R7 K26 ["Label"]
+       88 JUMP                             ; [+1]
+       89 LOADNIL                          R7
+       90 SETTABLEKS                       R7 R6 K11 ["ActionPrimary"]
+       92 GETUPVAL                         R8 5
+       93 GETTABLEKS                       R8 R8 K36 ["CLOSE"]
+       95 DUPTABLE                         R9 K37 [{"OnActivated"}]
+       96 SETTABLEKS                       R3 R9 K27 ["OnActivated"]
+       98 GETIMPORT                        R10 K40 [table.clone]
+      100 MOVE                             R11 R8
+      101 CALL                             R10 1 1
+      102 MOVE                             R11 R9
+      103 LOADNIL                          R12
+      104 LOADNIL                          R13
+      105 FORGPREP                         R11
+      106 SETTABLE                         R15 R10 R14
+      107 FORGLOOP                         R11 2 ; [-2]
+      109 MOVE                             R7 R10
+      110 SETTABLEKS                       R7 R6 K12 ["ActionSecondary"]
+      112 SETTABLEKS                       R3 R6 K15 ["OnClosed"]
+      114 CALL                             R5 1 2
+      115 GETUPVAL                         R7 2
+      116 DUPTABLE                         R8 K42 [{["Intent"] = "Error", ["Heading"], ["Body"], ["Contents"], ["ActionPrimary"], ["Modal"] = True, ["OnClosed"], ["Width"] = 727}]
+      117 LOADK                            R11 K19 ["ShareDialogView"]
+      118 LOADK                            R12 K43 ["CantShareHeading"]
+      119 NAMECALL                         R9 R0 K21 ["getText"]
+      121 CALL                             R9 3 1
+      122 SETTABLEKS                       R9 R8 K8 ["Heading"]
+      124 LOADK                            R11 K19 ["ShareDialogView"]
+      125 LOADK                            R12 K44 ["CantShareBody"]
+      126 NAMECALL                         R9 R0 K21 ["getText"]
+      128 CALL                             R9 3 1
+      129 SETTABLEKS                       R9 R8 K9 ["Body"]
+      131 GETUPVAL                         R9 3
+      132 GETTABLEKS                       R9 R9 K23 ["createElement"]
+      134 GETUPVAL                         R10 4
+      135 DUPTABLE                         R11 K25 [{"AssetModels"}]
+      136 SETTABLEKS                       R4 R11 K24 ["AssetModels"]
+      138 CALL                             R9 2 1
+      139 SETTABLEKS                       R9 R8 K10 ["Contents"]
+      141 GETUPVAL                         R10 5
+      142 GETTABLEKS                       R10 R10 K45 ["OK"]
+      144 DUPTABLE                         R11 K37 [{"OnActivated"}]
+      145 SETTABLEKS                       R3 R11 K27 ["OnActivated"]
+      147 GETIMPORT                        R12 K40 [table.clone]
+      149 MOVE                             R13 R10
+      150 CALL                             R12 1 1
+      151 MOVE                             R13 R11
+      152 LOADNIL                          R14
+      153 LOADNIL                          R15
+      154 FORGPREP                         R13
+      155 SETTABLE                         R17 R12 R16
+      156 FORGLOOP                         R13 2 ; [-2]
+      158 MOVE                             R9 R12
+      159 SETTABLEKS                       R9 R8 K11 ["ActionPrimary"]
+      161 SETTABLEKS                       R3 R8 K15 ["OnClosed"]
+      163 CALL                             R7 1 2
+      164 GETUPVAL                         R9 2
+      165 DUPTABLE                         R10 K46 [{["Intent"] = "Error", ["Heading"], ["Body"], ["ActionPrimary"], ["Modal"] = True, ["OnClosed"]}]
+      166 LOADK                            R13 K19 ["ShareDialogView"]
+      167 LOADK                            R14 K47 ["UnexpectedErrorHeading"]
+      168 NAMECALL                         R11 R0 K21 ["getText"]
+      170 CALL                             R11 3 1
+      171 SETTABLEKS                       R11 R10 K8 ["Heading"]
+      173 LOADK                            R13 K19 ["ShareDialogView"]
+      174 LOADK                            R14 K48 ["UnexpectedErrorBody"]
+      175 NAMECALL                         R11 R0 K21 ["getText"]
+      177 CALL                             R11 3 1
+      178 SETTABLEKS                       R11 R10 K9 ["Body"]
+      180 GETUPVAL                         R12 5
+      181 GETTABLEKS                       R12 R12 K45 ["OK"]
+      183 DUPTABLE                         R13 K37 [{"OnActivated"}]
+      184 SETTABLEKS                       R3 R13 K27 ["OnActivated"]
+      186 GETIMPORT                        R14 K40 [table.clone]
+      188 MOVE                             R15 R12
+      189 CALL                             R14 1 1
+      190 MOVE                             R15 R13
+      191 LOADNIL                          R16
+      192 LOADNIL                          R17
+      193 FORGPREP                         R15
+      194 SETTABLE                         R19 R14 R18
+      195 FORGLOOP                         R15 2 ; [-2]
+      197 MOVE                             R11 R14
+      198 SETTABLEKS                       R11 R10 K11 ["ActionPrimary"]
+      200 SETTABLEKS                       R3 R10 K15 ["OnClosed"]
+      202 CALL                             R9 1 2
+      203 GETUPVAL                         R11 3
+      204 GETTABLEKS                       R11 R11 K49 ["useEffect"]
+      206 NEWCLOSURE                       R12 P0
+      207 CAPTURE                          VAL R1
+      208 CAPTURE                          VAL R5
+      209 CAPTURE                          VAL R7
+      210 CAPTURE                          VAL R9
+      211 CAPTURE                          VAL R6
+      212 CAPTURE                          VAL R8
+      213 CAPTURE                          VAL R10
+      214 NEWTABLE                         R13 0 1
+      216 JUMPIFNOT                        R1 ; [+3]
+      217 GETTABLEKS                       R14 R1 K1 ["state"]
+      219 JUMP                             ; [+1]
+      220 LOADK                            R14 K50 ["Inactive"]
+      221 SETLIST                          R13 R14 1 [1]
+      223 CALL                             R11 2 0
+      224 LOADNIL                          R11
+      225 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0

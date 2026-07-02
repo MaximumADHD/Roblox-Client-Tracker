@@ -14,144 +14,128 @@ PROTO_0:
        13 GETUPVAL                         R8 0
        14 GETTABLEKS                       R8 R8 K0 ["getXMin"]
        16 CALL                             R8 0 1
-       17 JUMPIFLT                         R7 R8 ; [+51]
+       17 JUMPIFLT                         R7 R8 ; [+45]
        19 GETUPVAL                         R8 0
        20 GETTABLEKS                       R8 R8 K1 ["getXMax"]
        22 CALL                             R8 0 1
-       23 JUMPIFLT                         R8 R7 ; [+45]
+       23 JUMPIFLT                         R8 R7 ; [+39]
        25 LOADK                            R9 K2 ["GridLine_V_"]
        26 MOVE                             R10 R7
        27 CONCAT                           R8 R9 R10
        28 GETUPVAL                         R9 1
        29 GETTABLEKS                       R9 R9 K3 ["createElement"]
        31 GETUPVAL                         R10 2
-       32 DUPTABLE                         R11 K9 [{"Position", "PlotAbsoluteSize", "PlotFramePadding", "Orientation", "IsMinor"}]
+       32 DUPTABLE                         R11 K11 [{["Position"], ["PlotAbsoluteSize"], ["PlotFramePadding"] = 50, ["Orientation"] = "Vertical", ["IsMinor"]}]
        33 SETTABLEKS                       R7 R11 K4 ["Position"]
        35 GETUPVAL                         R12 3
        36 GETTABLEKS                       R12 R12 K5 ["PlotAbsoluteSize"]
        38 SETTABLEKS                       R12 R11 K5 ["PlotAbsoluteSize"]
-       40 LOADN                            R12 50
-       41 SETTABLEKS                       R12 R11 K6 ["PlotFramePadding"]
-       43 LOADK                            R12 K10 ["Vertical"]
-       44 SETTABLEKS                       R12 R11 K7 ["Orientation"]
-       46 LOADB                            R13 1
-       47 JUMPIFEQKN                       R6 K11 [1] ; [+16]
-       49 LOADB                            R13 1
+       40 LOADB                            R13 1
+       41 JUMPIFEQKN                       R6 K12 [1] ; [+16]
+       43 LOADB                            R13 1
+       44 GETUPVAL                         R14 0
+       45 GETTABLEKS                       R14 R14 K0 ["getXMin"]
+       47 CALL                             R14 0 1
+       48 JUMPIFEQ                         R7 R14 ; [+9]
        50 GETUPVAL                         R14 0
-       51 GETTABLEKS                       R14 R14 K0 ["getXMin"]
+       51 GETTABLEKS                       R14 R14 K1 ["getXMax"]
        53 CALL                             R14 0 1
-       54 JUMPIFEQ                         R7 R14 ; [+9]
-       56 GETUPVAL                         R14 0
-       57 GETTABLEKS                       R14 R14 K1 ["getXMax"]
-       59 CALL                             R14 0 1
-       60 JUMPIFEQ                         R7 R14 ; [+2]
-       62 LOADB                            R13 0 +1
-       63 LOADB                            R13 1
-       64 NOT                              R12 R13
-       65 SETTABLEKS                       R12 R11 K8 ["IsMinor"]
-       67 CALL                             R9 2 1
-       68 SETTABLE                         R9 R0 R8
-       69 FORNLOOP                         R4
-       70 FORNLOOP                         R1
-       71 LOADK                            R2 K2 ["GridLine_V_"]
-       72 GETUPVAL                         R3 0
-       73 GETTABLEKS                       R3 R3 K0 ["getXMin"]
-       75 CALL                             R3 0 1
-       76 CONCAT                           R1 R2 R3
-       77 GETUPVAL                         R2 1
-       78 GETTABLEKS                       R2 R2 K3 ["createElement"]
-       80 GETUPVAL                         R3 2
-       81 DUPTABLE                         R4 K12 [{"Position", "PlotAbsoluteSize", "PlotFramePadding", "Orientation"}]
-       82 GETUPVAL                         R5 0
-       83 GETTABLEKS                       R5 R5 K0 ["getXMin"]
-       85 CALL                             R5 0 1
-       86 SETTABLEKS                       R5 R4 K4 ["Position"]
-       88 GETUPVAL                         R5 3
-       89 GETTABLEKS                       R5 R5 K5 ["PlotAbsoluteSize"]
-       91 SETTABLEKS                       R5 R4 K5 ["PlotAbsoluteSize"]
-       93 LOADN                            R5 50
-       94 SETTABLEKS                       R5 R4 K6 ["PlotFramePadding"]
-       96 LOADK                            R5 K10 ["Vertical"]
-       97 SETTABLEKS                       R5 R4 K7 ["Orientation"]
-       99 CALL                             R2 2 1
-      100 SETTABLE                         R2 R0 R1
-      101 LOADK                            R2 K2 ["GridLine_V_"]
-      102 GETUPVAL                         R3 0
-      103 GETTABLEKS                       R3 R3 K1 ["getXMax"]
-      105 CALL                             R3 0 1
-      106 CONCAT                           R1 R2 R3
-      107 GETUPVAL                         R2 1
-      108 GETTABLEKS                       R2 R2 K3 ["createElement"]
-      110 GETUPVAL                         R3 2
-      111 DUPTABLE                         R4 K12 [{"Position", "PlotAbsoluteSize", "PlotFramePadding", "Orientation"}]
-      112 GETUPVAL                         R5 0
-      113 GETTABLEKS                       R5 R5 K1 ["getXMax"]
-      115 CALL                             R5 0 1
-      116 SETTABLEKS                       R5 R4 K4 ["Position"]
-      118 GETUPVAL                         R5 3
-      119 GETTABLEKS                       R5 R5 K5 ["PlotAbsoluteSize"]
-      121 SETTABLEKS                       R5 R4 K5 ["PlotAbsoluteSize"]
-      123 LOADN                            R5 50
-      124 SETTABLEKS                       R5 R4 K6 ["PlotFramePadding"]
-      126 LOADK                            R5 K10 ["Vertical"]
-      127 SETTABLEKS                       R5 R4 K7 ["Orientation"]
-      129 CALL                             R2 2 1
-      130 SETTABLE                         R2 R0 R1
-      131 NEWTABLE                         R1 0 0
-      133 GETUPVAL                         R2 3
-      134 GETTABLEKS                       R2 R2 K13 ["InstanceType"]
-      136 GETUPVAL                         R3 4
-      137 GETTABLEKS                       R3 R3 K14 ["EQUALIZER"]
-      139 JUMPIFNOTEQ                      R2 R3 ; [+14]
-      141 NEWTABLE                         R2 0 7
-      143 LOADN                            R3 176
-      144 LOADN                            R4 216
-      145 LOADN                            R5 236
-      146 LOADN                            R6 246
-      147 LOADN                            R7 0
-      148 LOADN                            R8 5
-      149 LOADN                            R9 10
-      150 SETLIST                          R2 R3 7 [1]
-      152 MOVE                             R1 R2
-      153 JUMP                             ; [+20]
-      154 GETUPVAL                         R2 3
-      155 GETTABLEKS                       R2 R2 K13 ["InstanceType"]
-      157 GETUPVAL                         R3 4
-      158 GETTABLEKS                       R3 R3 K15 ["FILTER"]
-      160 JUMPIFNOTEQ                      R2 R3 ; [+13]
-      162 NEWTABLE                         R2 0 7
-      164 LOADN                            R3 226
-      165 LOADN                            R4 236
-      166 LOADN                            R5 246
-      167 LOADN                            R6 0
-      168 LOADN                            R7 10
-      169 LOADN                            R8 20
-      170 LOADN                            R9 30
-      171 SETLIST                          R2 R3 7 [1]
-      173 MOVE                             R1 R2
-      174 MOVE                             R2 R1
-      175 LOADNIL                          R3
-      176 LOADNIL                          R4
-      177 FORGPREP                         R2
-      178 LOADK                            R8 K16 ["GridLine_H_"]
-      179 MOVE                             R9 R6
-      180 CONCAT                           R7 R8 R9
-      181 GETUPVAL                         R8 1
-      182 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      184 GETUPVAL                         R9 2
-      185 DUPTABLE                         R10 K12 [{"Position", "PlotAbsoluteSize", "PlotFramePadding", "Orientation"}]
-      186 SETTABLEKS                       R6 R10 K4 ["Position"]
-      188 GETUPVAL                         R11 3
-      189 GETTABLEKS                       R11 R11 K5 ["PlotAbsoluteSize"]
-      191 SETTABLEKS                       R11 R10 K5 ["PlotAbsoluteSize"]
-      193 LOADN                            R11 50
-      194 SETTABLEKS                       R11 R10 K6 ["PlotFramePadding"]
-      196 LOADK                            R11 K17 ["Horizontal"]
-      197 SETTABLEKS                       R11 R10 K7 ["Orientation"]
-      199 CALL                             R8 2 1
-      200 SETTABLE                         R8 R0 R7
-      201 FORGLOOP                         R2 2 ; [-24]
-      203 RETURN                           R0 1
+       54 JUMPIFEQ                         R7 R14 ; [+2]
+       56 LOADB                            R13 0 +1
+       57 LOADB                            R13 1
+       58 NOT                              R12 R13
+       59 SETTABLEKS                       R12 R11 K10 ["IsMinor"]
+       61 CALL                             R9 2 1
+       62 SETTABLE                         R9 R0 R8
+       63 FORNLOOP                         R4
+       64 FORNLOOP                         R1
+       65 LOADK                            R2 K2 ["GridLine_V_"]
+       66 GETUPVAL                         R3 0
+       67 GETTABLEKS                       R3 R3 K0 ["getXMin"]
+       69 CALL                             R3 0 1
+       70 CONCAT                           R1 R2 R3
+       71 GETUPVAL                         R2 1
+       72 GETTABLEKS                       R2 R2 K3 ["createElement"]
+       74 GETUPVAL                         R3 2
+       75 DUPTABLE                         R4 K13 [{["Position"], ["PlotAbsoluteSize"], ["PlotFramePadding"] = 50, ["Orientation"] = "Vertical"}]
+       76 GETUPVAL                         R5 0
+       77 GETTABLEKS                       R5 R5 K0 ["getXMin"]
+       79 CALL                             R5 0 1
+       80 SETTABLEKS                       R5 R4 K4 ["Position"]
+       82 GETUPVAL                         R5 3
+       83 GETTABLEKS                       R5 R5 K5 ["PlotAbsoluteSize"]
+       85 SETTABLEKS                       R5 R4 K5 ["PlotAbsoluteSize"]
+       87 CALL                             R2 2 1
+       88 SETTABLE                         R2 R0 R1
+       89 LOADK                            R2 K2 ["GridLine_V_"]
+       90 GETUPVAL                         R3 0
+       91 GETTABLEKS                       R3 R3 K1 ["getXMax"]
+       93 CALL                             R3 0 1
+       94 CONCAT                           R1 R2 R3
+       95 GETUPVAL                         R2 1
+       96 GETTABLEKS                       R2 R2 K3 ["createElement"]
+       98 GETUPVAL                         R3 2
+       99 DUPTABLE                         R4 K13 [{["Position"], ["PlotAbsoluteSize"], ["PlotFramePadding"] = 50, ["Orientation"] = "Vertical"}]
+      100 GETUPVAL                         R5 0
+      101 GETTABLEKS                       R5 R5 K1 ["getXMax"]
+      103 CALL                             R5 0 1
+      104 SETTABLEKS                       R5 R4 K4 ["Position"]
+      106 GETUPVAL                         R5 3
+      107 GETTABLEKS                       R5 R5 K5 ["PlotAbsoluteSize"]
+      109 SETTABLEKS                       R5 R4 K5 ["PlotAbsoluteSize"]
+      111 CALL                             R2 2 1
+      112 SETTABLE                         R2 R0 R1
+      113 NEWTABLE                         R1 0 0
+      115 GETUPVAL                         R2 3
+      116 GETTABLEKS                       R2 R2 K14 ["InstanceType"]
+      118 GETUPVAL                         R3 4
+      119 GETTABLEKS                       R3 R3 K15 ["EQUALIZER"]
+      121 JUMPIFNOTEQ                      R2 R3 ; [+14]
+      123 NEWTABLE                         R2 0 7
+      125 LOADN                            R3 -80
+      126 LOADN                            R4 -40
+      127 LOADN                            R5 -20
+      128 LOADN                            R6 -10
+      129 LOADN                            R7 0
+      130 LOADN                            R8 5
+      131 LOADN                            R9 10
+      132 SETLIST                          R2 R3 7 [1]
+      134 MOVE                             R1 R2
+      135 JUMP                             ; [+20]
+      136 GETUPVAL                         R2 3
+      137 GETTABLEKS                       R2 R2 K14 ["InstanceType"]
+      139 GETUPVAL                         R3 4
+      140 GETTABLEKS                       R3 R3 K16 ["FILTER"]
+      142 JUMPIFNOTEQ                      R2 R3 ; [+13]
+      144 NEWTABLE                         R2 0 7
+      146 LOADN                            R3 -30
+      147 LOADN                            R4 -20
+      148 LOADN                            R5 -10
+      149 LOADN                            R6 0
+      150 LOADN                            R7 10
+      151 LOADN                            R8 20
+      152 LOADN                            R9 30
+      153 SETLIST                          R2 R3 7 [1]
+      155 MOVE                             R1 R2
+      156 MOVE                             R2 R1
+      157 LOADNIL                          R3
+      158 LOADNIL                          R4
+      159 FORGPREP                         R2
+      160 LOADK                            R8 K17 ["GridLine_H_"]
+      161 MOVE                             R9 R6
+      162 CONCAT                           R7 R8 R9
+      163 GETUPVAL                         R8 1
+      164 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      166 GETUPVAL                         R9 2
+      167 DUPTABLE                         R10 K19 [{["Position"], ["PlotAbsoluteSize"], ["PlotFramePadding"] = 50, ["Orientation"] = "Horizontal"}]
+      168 SETTABLEKS                       R6 R10 K4 ["Position"]
+      170 GETUPVAL                         R11 3
+      171 GETTABLEKS                       R11 R11 K5 ["PlotAbsoluteSize"]
+      173 SETTABLEKS                       R11 R10 K5 ["PlotAbsoluteSize"]
+      175 CALL                             R8 2 1
+      176 SETTABLE                         R8 R0 R7
+      177 FORGLOOP                         R2 2 ; [-18]
+      179 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -169,30 +153,24 @@ PROTO_1:
        16 GETUPVAL                         R2 2
        17 GETTABLEKS                       R2 R2 K2 ["createElement"]
        19 GETUPVAL                         R3 5
-       20 DUPTABLE                         R4 K8 [{"Active", "LayoutOrder", "Position", "Size", "BackgroundTransparency"}]
-       21 LOADB                            R5 1
-       22 SETTABLEKS                       R5 R4 K3 ["Active"]
-       24 LOADN                            R5 1
-       25 SETTABLEKS                       R5 R4 K4 ["LayoutOrder"]
-       27 GETIMPORT                        R5 K11 [UDim2.new]
-       29 LOADN                            R6 0
-       30 LOADN                            R7 0
-       31 LOADN                            R8 0
-       32 LOADN                            R9 0
-       33 CALL                             R5 4 1
-       34 SETTABLEKS                       R5 R4 K5 ["Position"]
-       36 GETIMPORT                        R5 K11 [UDim2.new]
-       38 LOADN                            R6 1
-       39 LOADN                            R7 0
-       40 LOADN                            R8 1
-       41 LOADN                            R9 0
-       42 CALL                             R5 4 1
-       43 SETTABLEKS                       R5 R4 K6 ["Size"]
-       45 LOADN                            R5 1
-       46 SETTABLEKS                       R5 R4 K7 ["BackgroundTransparency"]
-       48 MOVE                             R5 R1
-       49 CALL                             R2 3 -1
-       50 RETURN                           R2 -1
+       20 DUPTABLE                         R4 K10 [{["Active"] = True, ["LayoutOrder"] = 1, ["Position"], ["Size"], ["BackgroundTransparency"] = 1}]
+       21 GETIMPORT                        R5 K13 [UDim2.new]
+       23 LOADN                            R6 0
+       24 LOADN                            R7 0
+       25 LOADN                            R8 0
+       26 LOADN                            R9 0
+       27 CALL                             R5 4 1
+       28 SETTABLEKS                       R5 R4 K7 ["Position"]
+       30 GETIMPORT                        R5 K13 [UDim2.new]
+       32 LOADN                            R6 1
+       33 LOADN                            R7 0
+       34 LOADN                            R8 1
+       35 LOADN                            R9 0
+       36 CALL                             R5 4 1
+       37 SETTABLEKS                       R5 R4 K8 ["Size"]
+       39 MOVE                             R5 R1
+       40 CALL                             R2 3 -1
+       41 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

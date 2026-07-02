@@ -41,10 +41,10 @@ PROTO_1:
        30 GETIMPORT                        R4 K12 [Enum.TextXAlignment.Right]
        32 SETTABLEKS                       R4 R2 K8 ["TextXAlignment"]
        34 LOADN                            R4 0
-       35 LOADN                            R7 255
+       35 LOADN                            R7 -1
        36 LENGTH                           R8 R1
        37 MINUS                            R5 R8
-       38 LOADN                            R6 255
+       38 LOADN                            R6 -1
        39 FORNPREP                         R5
        40 GETUPVAL                         R8 0
        41 GETTABLEKS                       R8 R8 K6 ["getTextWidth"]
@@ -56,7 +56,7 @@ PROTO_1:
        50 JUMP                             ; [+2]
        51 MOVE                             R4 R7
        52 FORNLOOP                         R5
-       53 LOADN                            R5 254
+       53 LOADN                            R5 -2
        54 JUMPIFNOTLE                      R5 R4 ; [+5]
        56 GETUPVAL                         R5 1
        57 SETTABLEKS                       R5 R2 K1 ["Text"]
@@ -167,7 +167,7 @@ MAIN:
        34 NAMECALL                         R7 R7 K15 ["GetService"]
        36 CALL                             R7 2 1
        37 GETIMPORT                        R8 K18 [utf8.char]
-       39 LOADN                            R9 38
+       39 LOADN                            R9 8230
        40 CALL                             R8 1 1
        41 GETTABLEKS                       R9 R1 K19 ["PureComponent"]
        43 LOADK                            R11 K20 ["FooLabel"]

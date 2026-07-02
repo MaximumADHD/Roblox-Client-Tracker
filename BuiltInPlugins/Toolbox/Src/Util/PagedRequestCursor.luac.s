@@ -1,8 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"begin"}]
-        1 LOADB                            R1 1
-        2 SETTABLEKS                       R1 R0 K0 ["begin"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = True}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 JUMPIFNOT                        R0 ; [+6]

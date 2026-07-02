@@ -21,21 +21,19 @@ PROTO_1:
        13 RETURN                           R2 1
 
 PROTO_2:
-        0 DUPTABLE                         R0 K4 [{"_mockTemplateCache", "_mockFiles", "_isMockGlobalLibrary", "_mockSessions"}]
+        0 DUPTABLE                         R0 K5 [{[1], ["_mockFiles"], ["_isMockGlobalLibrary"] = False, ["_mockSessions"]}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["_mockTemplateCache"]
         5 NEWTABLE                         R1 0 0
         7 SETTABLEKS                       R1 R0 K1 ["_mockFiles"]
-        9 LOADB                            R1 0
-       10 SETTABLEKS                       R1 R0 K2 ["_isMockGlobalLibrary"]
-       12 NEWTABLE                         R1 0 0
-       14 SETTABLEKS                       R1 R0 K3 ["_mockSessions"]
-       16 GETUPVAL                         R3 0
-       17 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       19 MOVE                             R2 R0
-       20 GETIMPORT                        R1 K6 [setmetatable]
-       22 CALL                             R1 2 1
-       23 RETURN                           R1 1
+        9 NEWTABLE                         R1 0 0
+       11 SETTABLEKS                       R1 R0 K4 ["_mockSessions"]
+       13 GETUPVAL                         R3 0
+       14 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       16 MOVE                             R2 R0
+       17 GETIMPORT                        R1 K7 [setmetatable]
+       19 CALL                             R1 2 1
+       20 RETURN                           R1 1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R0 K0 ["_mockTemplateCache"]

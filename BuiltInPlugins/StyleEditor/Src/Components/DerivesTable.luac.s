@@ -40,32 +40,26 @@ PROTO_4:
         8 GETTABLEKS                       R6 R3 K3 ["dispatch"]
        10 GETUPVAL                         R7 1
        11 GETUPVAL                         R8 2
-       12 DUPTABLE                         R9 K6 [{"eventType", "path"}]
+       12 DUPTABLE                         R9 K7 [{["eventType"], ["path"] = "DerivesView/SetDerives"}]
        13 GETUPVAL                         R10 3
-       14 GETTABLEKS                       R10 R10 K7 ["ButtonPressed"]
-       16 GETTABLEKS                       R10 R10 K8 ["rawValue"]
+       14 GETTABLEKS                       R10 R10 K8 ["ButtonPressed"]
+       16 GETTABLEKS                       R10 R10 K9 ["rawValue"]
        18 CALL                             R10 0 1
        19 SETTABLEKS                       R10 R9 K4 ["eventType"]
-       21 LOADK                            R10 K9 ["DerivesView/SetDerives"]
-       22 SETTABLEKS                       R10 R9 K5 ["path"]
-       24 CALL                             R8 1 -1
-       25 CALL                             R7 -1 -1
-       26 CALL                             R6 -1 0
-       27 GETUPVAL                         R6 4
-       28 DUPTABLE                         R7 K13 [{"Name", "DisplayName", "DoChange"}]
-       29 LOADK                            R8 K14 ["StyleEditor.SetDerives"]
-       30 SETTABLEKS                       R8 R7 K10 ["Name"]
-       32 LOADK                            R8 K15 ["Style Editor - Set Derives"]
-       33 SETTABLEKS                       R8 R7 K11 ["DisplayName"]
-       35 NEWCLOSURE                       R8 P0
-       36 CAPTURE                          VAL R4
-       37 CAPTURE                          UPVAL U5
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          UPVAL U6
-       40 CAPTURE                          VAL R5
-       41 SETTABLEKS                       R8 R7 K12 ["DoChange"]
-       43 CALL                             R6 1 0
-       44 RETURN                           R0 0
+       21 CALL                             R8 1 -1
+       22 CALL                             R7 -1 -1
+       23 CALL                             R6 -1 0
+       24 GETUPVAL                         R6 4
+       25 DUPTABLE                         R7 K15 [{["Name"] = "StyleEditor.SetDerives", ["DisplayName"] = "Style Editor - Set Derives", ["DoChange"]}]
+       26 NEWCLOSURE                       R8 P0
+       27 CAPTURE                          VAL R4
+       28 CAPTURE                          UPVAL U5
+       29 CAPTURE                          VAL R0
+       30 CAPTURE                          UPVAL U6
+       31 CAPTURE                          VAL R5
+       32 SETTABLEKS                       R8 R7 K14 ["DoChange"]
+       34 CALL                             R6 1 0
+       35 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["Children"]
@@ -310,60 +304,58 @@ PROTO_15:
        49 RETURN                           R0 0
 
 PROTO_16:
-        0 DUPTABLE                         R1 K3 [{"allSheets", "styleSheet", "table"}]
+        0 DUPTABLE                         R1 K4 [{[1], ["styleSheet"] = , ["table"]}]
         1 NEWTABLE                         R2 0 0
         3 SETTABLEKS                       R2 R1 K0 ["allSheets"]
-        5 LOADNIL                          R2
-        6 SETTABLEKS                       R2 R1 K1 ["styleSheet"]
-        8 DUPTABLE                         R2 K8 [{"Columns", "Expansion", "Selection", "Items"}]
-        9 GETUPVAL                         R3 0
-       10 GETUPVAL                         R4 1
-       11 CALL                             R3 1 1
-       12 SETTABLEKS                       R3 R2 K4 ["Columns"]
-       14 NEWTABLE                         R3 0 0
-       16 SETTABLEKS                       R3 R2 K5 ["Expansion"]
-       18 NEWTABLE                         R3 0 0
-       20 SETTABLEKS                       R3 R2 K6 ["Selection"]
-       22 NEWTABLE                         R3 0 0
-       24 SETTABLEKS                       R3 R2 K7 ["Items"]
-       26 SETTABLEKS                       R2 R1 K2 ["table"]
-       28 SETTABLEKS                       R1 R0 K9 ["state"]
-       30 GETUPVAL                         R1 2
-       31 MOVE                             R3 R0
-       32 LOADK                            R4 K2 ["table"]
-       33 NAMECALL                         R1 R1 K10 ["getStateAdaptor"]
-       35 CALL                             R1 3 1
-       36 GETUPVAL                         R2 2
-       37 MOVE                             R4 R1
-       38 NAMECALL                         R2 R2 K11 ["getCallbacks"]
-       40 CALL                             R2 2 1
-       41 SETTABLEKS                       R2 R0 K12 ["tableCallbacks"]
-       43 NEWCLOSURE                       R2 P0
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          UPVAL U3
-       46 CAPTURE                          UPVAL U4
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          UPVAL U6
-       49 CAPTURE                          UPVAL U7
-       50 CAPTURE                          UPVAL U8
-       51 SETTABLEKS                       R2 R0 K13 ["onEdited"]
-       53 DUPCLOSURE                       R2 K14 [PROTO_5]
-       54 SETTABLEKS                       R2 R0 K15 ["getChildren"]
-       56 NEWCLOSURE                       R2 P2
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          UPVAL U9
-       59 CAPTURE                          UPVAL U8
-       60 CAPTURE                          UPVAL U10
-       61 SETTABLEKS                       R2 R0 K16 ["getCellAutocomplete"]
-       63 NEWCLOSURE                       R2 P3
-       64 CAPTURE                          VAL R0
-       65 CAPTURE                          UPVAL U11
-       66 CAPTURE                          UPVAL U12
-       67 SETTABLEKS                       R2 R0 K17 ["createDeriveConnections"]
-       69 NEWCLOSURE                       R2 P4
-       70 CAPTURE                          VAL R0
-       71 SETTABLEKS                       R2 R0 K18 ["removeDeriveConnections"]
-       73 RETURN                           R0 0
+        5 DUPTABLE                         R2 K9 [{"Columns", "Expansion", "Selection", "Items"}]
+        6 GETUPVAL                         R3 0
+        7 GETUPVAL                         R4 1
+        8 CALL                             R3 1 1
+        9 SETTABLEKS                       R3 R2 K5 ["Columns"]
+       11 NEWTABLE                         R3 0 0
+       13 SETTABLEKS                       R3 R2 K6 ["Expansion"]
+       15 NEWTABLE                         R3 0 0
+       17 SETTABLEKS                       R3 R2 K7 ["Selection"]
+       19 NEWTABLE                         R3 0 0
+       21 SETTABLEKS                       R3 R2 K8 ["Items"]
+       23 SETTABLEKS                       R2 R1 K3 ["table"]
+       25 SETTABLEKS                       R1 R0 K10 ["state"]
+       27 GETUPVAL                         R1 2
+       28 MOVE                             R3 R0
+       29 LOADK                            R4 K3 ["table"]
+       30 NAMECALL                         R1 R1 K11 ["getStateAdaptor"]
+       32 CALL                             R1 3 1
+       33 GETUPVAL                         R2 2
+       34 MOVE                             R4 R1
+       35 NAMECALL                         R2 R2 K12 ["getCallbacks"]
+       37 CALL                             R2 2 1
+       38 SETTABLEKS                       R2 R0 K13 ["tableCallbacks"]
+       40 NEWCLOSURE                       R2 P0
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          UPVAL U3
+       43 CAPTURE                          UPVAL U4
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          UPVAL U6
+       46 CAPTURE                          UPVAL U7
+       47 CAPTURE                          UPVAL U8
+       48 SETTABLEKS                       R2 R0 K14 ["onEdited"]
+       50 DUPCLOSURE                       R2 K15 [PROTO_5]
+       51 SETTABLEKS                       R2 R0 K16 ["getChildren"]
+       53 NEWCLOSURE                       R2 P2
+       54 CAPTURE                          VAL R0
+       55 CAPTURE                          UPVAL U9
+       56 CAPTURE                          UPVAL U8
+       57 CAPTURE                          UPVAL U10
+       58 SETTABLEKS                       R2 R0 K17 ["getCellAutocomplete"]
+       60 NEWCLOSURE                       R2 P3
+       61 CAPTURE                          VAL R0
+       62 CAPTURE                          UPVAL U11
+       63 CAPTURE                          UPVAL U12
+       64 SETTABLEKS                       R2 R0 K18 ["createDeriveConnections"]
+       66 NEWCLOSURE                       R2 P4
+       67 CAPTURE                          VAL R0
+       68 SETTABLEKS                       R2 R0 K19 ["removeDeriveConnections"]
+       70 RETURN                           R0 0
 
 PROTO_17:
         0 LOADK                            R3 K0 ["StyleSheet"]
@@ -387,52 +379,40 @@ PROTO_18:
 
 PROTO_19:
         0 DUPTABLE                         R0 K2 [{"Name", "Value"}]
-        1 DUPTABLE                         R1 K4 [{"Schema", "Value"}]
+        1 DUPTABLE                         R1 K5 [{["Schema"], ["Value"] = ""}]
         2 GETUPVAL                         R2 0
         3 GETUPVAL                         R3 1
-        4 GETTABLEKS                       R3 R3 K5 ["TextSchema"]
-        6 DUPTABLE                         R4 K7 [{"PlaceholderText"}]
-        7 LOADK                            R5 K8 ["Add a Derive..."]
-        8 SETTABLEKS                       R5 R4 K6 ["PlaceholderText"]
-       10 CALL                             R2 2 1
-       11 SETTABLEKS                       R2 R1 K3 ["Schema"]
-       13 LOADK                            R2 K9 [""]
-       14 SETTABLEKS                       R2 R1 K1 ["Value"]
-       16 SETTABLEKS                       R1 R0 K0 ["Name"]
-       18 DUPTABLE                         R1 K4 [{"Schema", "Value"}]
-       19 DUPTABLE                         R2 K11 [{"Type"}]
-       20 LOADK                            R3 K12 ["Empty"]
-       21 SETTABLEKS                       R3 R2 K10 ["Type"]
-       23 SETTABLEKS                       R2 R1 K3 ["Schema"]
-       25 LOADK                            R2 K9 [""]
-       26 SETTABLEKS                       R2 R1 K1 ["Value"]
-       28 SETTABLEKS                       R1 R0 K1 ["Value"]
-       30 RETURN                           R0 1
+        4 GETTABLEKS                       R3 R3 K6 ["TextSchema"]
+        6 DUPTABLE                         R4 K9 [{["PlaceholderText"] = "Add a Derive..."}]
+        7 CALL                             R2 2 1
+        8 SETTABLEKS                       R2 R1 K3 ["Schema"]
+       10 SETTABLEKS                       R1 R0 K0 ["Name"]
+       12 DUPTABLE                         R1 K5 [{["Schema"], ["Value"] = ""}]
+       13 DUPTABLE                         R2 K12 [{["Type"] = "Empty"}]
+       14 SETTABLEKS                       R2 R1 K3 ["Schema"]
+       16 SETTABLEKS                       R1 R0 K1 ["Value"]
+       18 RETURN                           R0 1
 
 PROTO_20:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["moveDerive"]
         3 GETUPVAL                         R1 1
         4 GETUPVAL                         R2 2
-        5 LOADN                            R3 255
+        5 LOADN                            R3 -1
         6 CALL                             R0 3 0
         7 GETIMPORT                        R0 K4 [Enum.FinishRecordingOperation.Commit]
         9 RETURN                           R0 1
 
 PROTO_21:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K3 [{"Name", "DisplayName", "DoChange"}]
-        2 LOADK                            R2 K4 ["StyleEditor.MoveDeriveDown"]
-        3 SETTABLEKS                       R2 R1 K0 ["Name"]
-        5 LOADK                            R2 K5 ["Style Editor - Move Derive Down"]
-        6 SETTABLEKS                       R2 R1 K1 ["DisplayName"]
-        8 NEWCLOSURE                       R2 P0
-        9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 CAPTURE                          UPVAL U3
-       12 SETTABLEKS                       R2 R1 K2 ["DoChange"]
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+        1 DUPTABLE                         R1 K5 [{[1] = "StyleEditor.MoveDeriveDown", ["DisplayName"] = "Style Editor - Move Derive Down", ["DoChange"]}]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 SETTABLEKS                       R2 R1 K4 ["DoChange"]
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
 
 PROTO_22:
         0 GETUPVAL                         R0 0
@@ -446,18 +426,14 @@ PROTO_22:
 
 PROTO_23:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R1 K3 [{"Name", "DisplayName", "DoChange"}]
-        2 LOADK                            R2 K4 ["StyleEditor.MoveDeriveUp"]
-        3 SETTABLEKS                       R2 R1 K0 ["Name"]
-        5 LOADK                            R2 K5 ["Style Editor - Move Derive Up"]
-        6 SETTABLEKS                       R2 R1 K1 ["DisplayName"]
-        8 NEWCLOSURE                       R2 P0
-        9 CAPTURE                          UPVAL U1
-       10 CAPTURE                          UPVAL U2
-       11 CAPTURE                          UPVAL U3
-       12 SETTABLEKS                       R2 R1 K2 ["DoChange"]
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+        1 DUPTABLE                         R1 K5 [{[1] = "StyleEditor.MoveDeriveUp", ["DisplayName"] = "Style Editor - Move Derive Up", ["DoChange"]}]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 SETTABLEKS                       R2 R1 K4 ["DoChange"]
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
 
 PROTO_24:
         0 GETUPVAL                         R0 0
@@ -482,33 +458,25 @@ PROTO_26:
         1 LOADNIL                          R1
         2 RETURN                           R1 1
         3 GETUPVAL                         R1 0
-        4 JUMPIFNOT                        R1 ; [+16]
+        4 JUMPIFNOT                        R1 ; [+10]
         5 GETUPVAL                         R1 1
-        6 DUPTABLE                         R2 K3 [{"Name", "DisplayName", "DoChange"}]
-        7 LOADK                            R3 K4 ["StyleEditor.RemoveDerive"]
-        8 SETTABLEKS                       R3 R2 K0 ["Name"]
-       10 LOADK                            R3 K5 ["Style Editor - Remove Derive"]
-       11 SETTABLEKS                       R3 R2 K1 ["DisplayName"]
-       13 NEWCLOSURE                       R3 P0
-       14 CAPTURE                          UPVAL U2
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U4
-       17 SETTABLEKS                       R3 R2 K2 ["DoChange"]
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
-       21 GETUPVAL                         R1 1
-       22 DUPTABLE                         R2 K3 [{"Name", "DisplayName", "DoChange"}]
-       23 LOADK                            R3 K4 ["StyleEditor.RemoveDerive"]
-       24 SETTABLEKS                       R3 R2 K0 ["Name"]
-       26 LOADK                            R3 K6 ["Style Editor - Remove Derive from {derivedSheet.Name}"]
-       27 SETTABLEKS                       R3 R2 K1 ["DisplayName"]
-       29 NEWCLOSURE                       R3 P1
-       30 CAPTURE                          UPVAL U2
-       31 CAPTURE                          UPVAL U3
-       32 CAPTURE                          VAL R0
-       33 SETTABLEKS                       R3 R2 K2 ["DoChange"]
-       35 CALL                             R1 1 0
-       36 RETURN                           R0 0
+        6 DUPTABLE                         R2 K5 [{[1] = "StyleEditor.RemoveDerive", ["DisplayName"] = "Style Editor - Remove Derive", ["DoChange"]}]
+        7 NEWCLOSURE                       R3 P0
+        8 CAPTURE                          UPVAL U2
+        9 CAPTURE                          UPVAL U3
+       10 CAPTURE                          UPVAL U4
+       11 SETTABLEKS                       R3 R2 K4 ["DoChange"]
+       13 CALL                             R1 1 0
+       14 RETURN                           R0 0
+       15 GETUPVAL                         R1 1
+       16 DUPTABLE                         R2 K7 [{[1] = "StyleEditor.RemoveDerive", ["DisplayName"] = "Style Editor - Remove Derive from {derivedSheet.Name}", ["DoChange"]}]
+       17 NEWCLOSURE                       R3 P1
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          UPVAL U3
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R3 R2 K4 ["DoChange"]
+       23 CALL                             R1 1 0
+       24 RETURN                           R0 0
 
 PROTO_27:
         0 GETUPVAL                         R3 0
@@ -598,44 +566,38 @@ PROTO_28:
        33 CALL                             R4 1 1
        34 MOVE                             R3 R4
        35 DUPTABLE                         R4 K6 [{"Name", "Children"}]
-       36 DUPTABLE                         R5 K11 [{"Schema", "FullSpan", "Value", "LeftIcon"}]
+       36 DUPTABLE                         R5 K13 [{["Schema"], ["FullSpan"] = True, ["Value"] = "Derives", ["LeftIcon"]}]
        37 GETUPVAL                         R6 2
        38 GETUPVAL                         R7 3
-       39 GETTABLEKS                       R7 R7 K12 ["SelectorSchema"]
-       41 DUPTABLE                         R8 K14 [{"Editing"}]
-       42 LOADB                            R9 0
-       43 SETTABLEKS                       R9 R8 K13 ["Editing"]
-       45 CALL                             R6 2 1
-       46 SETTABLEKS                       R6 R5 K7 ["Schema"]
-       48 LOADB                            R6 1
-       49 SETTABLEKS                       R6 R5 K8 ["FullSpan"]
-       51 LOADK                            R6 K15 ["Derives"]
-       52 SETTABLEKS                       R6 R5 K9 ["Value"]
-       54 DUPTABLE                         R6 K18 [{"Image", "Size"}]
-       55 GETUPVAL                         R7 6
-       56 GETTABLEKS                       R7 R7 K19 ["getClassIcon"]
-       58 LOADK                            R8 K20 ["StyleDerive"]
-       59 CALL                             R7 1 1
-       60 SETTABLEKS                       R7 R6 K16 ["Image"]
-       62 GETUPVAL                         R7 7
-       63 SETTABLEKS                       R7 R6 K17 ["Size"]
-       65 SETTABLEKS                       R6 R5 K10 ["LeftIcon"]
-       67 SETTABLEKS                       R5 R4 K4 ["Name"]
-       69 SETTABLEKS                       R3 R4 K5 ["Children"]
-       71 GETTABLEKS                       R6 R4 K5 ["Children"]
-       73 GETUPVAL                         R7 9
-       74 GETTABLEKS                       R7 R7 K21 ["getEmptyRow"]
-       76 CALL                             R7 0 -1
-       77 FASTCALL                         TABLE_INSERT ; [+1]
-       78 GETUPVAL                         R5 10
-       79 CALL                             R5 -1 0
-       80 GETUPVAL                         R5 11
-       81 NEWTABLE                         R7 0 1
-       83 MOVE                             R8 R4
-       84 SETLIST                          R7 R8 1 [1]
-       86 NAMECALL                         R5 R5 K22 ["updatePaths"]
-       88 CALL                             R5 2 -1
-       89 RETURN                           R5 -1
+       39 GETTABLEKS                       R7 R7 K14 ["SelectorSchema"]
+       41 DUPTABLE                         R8 K17 [{["Editing"] = False}]
+       42 CALL                             R6 2 1
+       43 SETTABLEKS                       R6 R5 K7 ["Schema"]
+       45 DUPTABLE                         R6 K20 [{"Image", "Size"}]
+       46 GETUPVAL                         R7 6
+       47 GETTABLEKS                       R7 R7 K21 ["getClassIcon"]
+       49 LOADK                            R8 K22 ["StyleDerive"]
+       50 CALL                             R7 1 1
+       51 SETTABLEKS                       R7 R6 K18 ["Image"]
+       53 GETUPVAL                         R7 7
+       54 SETTABLEKS                       R7 R6 K19 ["Size"]
+       56 SETTABLEKS                       R6 R5 K12 ["LeftIcon"]
+       58 SETTABLEKS                       R5 R4 K4 ["Name"]
+       60 SETTABLEKS                       R3 R4 K5 ["Children"]
+       62 GETTABLEKS                       R6 R4 K5 ["Children"]
+       64 GETUPVAL                         R7 9
+       65 GETTABLEKS                       R7 R7 K23 ["getEmptyRow"]
+       67 CALL                             R7 0 -1
+       68 FASTCALL                         TABLE_INSERT ; [+1]
+       69 GETUPVAL                         R5 10
+       70 CALL                             R5 -1 0
+       71 GETUPVAL                         R5 11
+       72 NEWTABLE                         R7 0 1
+       74 MOVE                             R8 R4
+       75 SETLIST                          R7 R8 1 [1]
+       77 NAMECALL                         R5 R5 K24 ["updatePaths"]
+       79 CALL                             R5 2 -1
+       80 RETURN                           R5 -1
 
 PROTO_29:
         0 GETUPVAL                         R3 0
@@ -908,92 +870,88 @@ MAIN:
       224 NAMECALL                         R35 R13 K59 ["GetAttribute"]
       226 CALL                             R35 2 1
       227 NEWTABLE                         R36 0 1
-      229 DUPTABLE                         R37 K64 [{"Name", "Key", "Width"}]
-      230 LOADK                            R38 K61 ["Name"]
-      231 SETTABLEKS                       R38 R37 K61 ["Name"]
-      233 LOADK                            R38 K61 ["Name"]
-      234 SETTABLEKS                       R38 R37 K62 ["Key"]
-      236 GETIMPORT                        R38 K66 [UDim.new]
-      238 LOADN                            R39 1
-      239 LOADN                            R40 0
-      240 CALL                             R38 2 1
-      241 SETTABLEKS                       R38 R37 K63 ["Width"]
-      243 SETLIST                          R36 R37 1 [1]
-      245 GETTABLEKS                       R37 R2 K67 ["PureComponent"]
-      247 LOADK                            R39 K68 ["DerivesTable"]
-      248 NAMECALL                         R37 R37 K69 ["extend"]
-      250 CALL                             R37 2 1
-      251 NEWCLOSURE                       R38 P2
-      252 CAPTURE                          VAL R30
-      253 CAPTURE                          VAL R36
-      254 CAPTURE                          VAL R33
-      255 CAPTURE                          VAL R22
-      256 CAPTURE                          VAL R20
-      257 CAPTURE                          VAL R21
-      258 CAPTURE                          VAL R17
-      259 CAPTURE                          VAL R29
-      260 CAPTURE                          VAL R12
-      261 CAPTURE                          VAL R26
-      262 CAPTURE                          VAL R15
-      263 CAPTURE                          REF R37
-      264 CAPTURE                          VAL R4
-      265 SETTABLEKS                       R38 R37 K70 ["init"]
-      267 DUPCLOSURE                       R38 K71 [PROTO_18]
-      268 CAPTURE                          VAL R27
-      269 SETTABLEKS                       R38 R37 K72 ["getAllSheets"]
-      271 DUPCLOSURE                       R38 K73 [PROTO_19]
-      272 CAPTURE                          VAL R28
-      273 CAPTURE                          VAL R14
-      274 SETTABLEKS                       R38 R37 K74 ["getEmptyRow"]
-      276 NEWCLOSURE                       R38 P5
-      277 CAPTURE                          VAL R26
-      278 CAPTURE                          VAL R4
-      279 CAPTURE                          VAL R28
-      280 CAPTURE                          VAL R14
-      281 CAPTURE                          VAL R17
-      282 CAPTURE                          VAL R12
-      283 CAPTURE                          VAL R19
-      284 CAPTURE                          VAL R35
-      285 CAPTURE                          VAL R31
+      229 DUPTABLE                         R37 K64 [{["Name"] = "Name", ["Key"] = "Name", ["Width"]}]
+      230 GETIMPORT                        R38 K66 [UDim.new]
+      232 LOADN                            R39 1
+      233 LOADN                            R40 0
+      234 CALL                             R38 2 1
+      235 SETTABLEKS                       R38 R37 K63 ["Width"]
+      237 SETLIST                          R36 R37 1 [1]
+      239 GETTABLEKS                       R37 R2 K67 ["PureComponent"]
+      241 LOADK                            R39 K68 ["DerivesTable"]
+      242 NAMECALL                         R37 R37 K69 ["extend"]
+      244 CALL                             R37 2 1
+      245 NEWCLOSURE                       R38 P2
+      246 CAPTURE                          VAL R30
+      247 CAPTURE                          VAL R36
+      248 CAPTURE                          VAL R33
+      249 CAPTURE                          VAL R22
+      250 CAPTURE                          VAL R20
+      251 CAPTURE                          VAL R21
+      252 CAPTURE                          VAL R17
+      253 CAPTURE                          VAL R29
+      254 CAPTURE                          VAL R12
+      255 CAPTURE                          VAL R26
+      256 CAPTURE                          VAL R15
+      257 CAPTURE                          REF R37
+      258 CAPTURE                          VAL R4
+      259 SETTABLEKS                       R38 R37 K70 ["init"]
+      261 DUPCLOSURE                       R38 K71 [PROTO_18]
+      262 CAPTURE                          VAL R27
+      263 SETTABLEKS                       R38 R37 K72 ["getAllSheets"]
+      265 DUPCLOSURE                       R38 K73 [PROTO_19]
+      266 CAPTURE                          VAL R28
+      267 CAPTURE                          VAL R14
+      268 SETTABLEKS                       R38 R37 K74 ["getEmptyRow"]
+      270 NEWCLOSURE                       R38 P5
+      271 CAPTURE                          VAL R26
+      272 CAPTURE                          VAL R4
+      273 CAPTURE                          VAL R28
+      274 CAPTURE                          VAL R14
+      275 CAPTURE                          VAL R17
+      276 CAPTURE                          VAL R12
+      277 CAPTURE                          VAL R19
+      278 CAPTURE                          VAL R35
+      279 CAPTURE                          VAL R31
+      280 CAPTURE                          REF R37
+      281 CAPTURE                          VAL R32
+      282 CAPTURE                          VAL R33
+      283 SETTABLEKS                       R38 R37 K75 ["getItems"]
+      285 NEWCLOSURE                       R38 P6
       286 CAPTURE                          REF R37
-      287 CAPTURE                          VAL R32
+      287 CAPTURE                          VAL R18
       288 CAPTURE                          VAL R33
-      289 SETTABLEKS                       R38 R37 K75 ["getItems"]
-      291 NEWCLOSURE                       R38 P6
-      292 CAPTURE                          REF R37
-      293 CAPTURE                          VAL R18
-      294 CAPTURE                          VAL R33
-      295 CAPTURE                          VAL R28
-      296 SETTABLEKS                       R38 R37 K76 ["rebuildTableState"]
-      298 NEWCLOSURE                       R38 P7
-      299 CAPTURE                          REF R37
-      300 SETTABLEKS                       R38 R37 K77 ["getDerivedStateFromProps"]
-      302 DUPCLOSURE                       R38 K78 [PROTO_31]
-      303 SETTABLEKS                       R38 R37 K79 ["didMount"]
-      305 DUPCLOSURE                       R38 K80 [PROTO_32]
-      306 SETTABLEKS                       R38 R37 K81 ["didUpdate"]
-      308 DUPCLOSURE                       R38 K82 [PROTO_33]
-      309 SETTABLEKS                       R38 R37 K83 ["willUnmount"]
-      311 DUPCLOSURE                       R38 K84 [PROTO_34]
-      312 CAPTURE                          VAL R28
-      313 CAPTURE                          VAL R11
-      314 CAPTURE                          VAL R34
-      315 CAPTURE                          VAL R2
-      316 CAPTURE                          VAL R9
-      317 SETTABLEKS                       R38 R37 K85 ["render"]
-      319 MOVE                             R38 R7
-      320 DUPTABLE                         R39 K87 [{"Localization"}]
-      321 GETTABLEKS                       R40 R6 K86 ["Localization"]
-      323 SETTABLEKS                       R40 R39 K86 ["Localization"]
-      325 CALL                             R38 1 1
-      326 MOVE                             R39 R37
-      327 CALL                             R38 1 1
-      328 MOVE                             R37 R38
-      329 GETTABLEKS                       R38 R3 K88 ["connect"]
-      331 DUPCLOSURE                       R39 K89 [PROTO_35]
-      332 MOVE                             R40 R16
-      333 CALL                             R38 2 1
-      334 MOVE                             R39 R37
-      335 CALL                             R38 1 -1
-      336 CLOSEUPVALS                      R37
-      337 RETURN                           R38 -1
+      289 CAPTURE                          VAL R28
+      290 SETTABLEKS                       R38 R37 K76 ["rebuildTableState"]
+      292 NEWCLOSURE                       R38 P7
+      293 CAPTURE                          REF R37
+      294 SETTABLEKS                       R38 R37 K77 ["getDerivedStateFromProps"]
+      296 DUPCLOSURE                       R38 K78 [PROTO_31]
+      297 SETTABLEKS                       R38 R37 K79 ["didMount"]
+      299 DUPCLOSURE                       R38 K80 [PROTO_32]
+      300 SETTABLEKS                       R38 R37 K81 ["didUpdate"]
+      302 DUPCLOSURE                       R38 K82 [PROTO_33]
+      303 SETTABLEKS                       R38 R37 K83 ["willUnmount"]
+      305 DUPCLOSURE                       R38 K84 [PROTO_34]
+      306 CAPTURE                          VAL R28
+      307 CAPTURE                          VAL R11
+      308 CAPTURE                          VAL R34
+      309 CAPTURE                          VAL R2
+      310 CAPTURE                          VAL R9
+      311 SETTABLEKS                       R38 R37 K85 ["render"]
+      313 MOVE                             R38 R7
+      314 DUPTABLE                         R39 K87 [{"Localization"}]
+      315 GETTABLEKS                       R40 R6 K86 ["Localization"]
+      317 SETTABLEKS                       R40 R39 K86 ["Localization"]
+      319 CALL                             R38 1 1
+      320 MOVE                             R39 R37
+      321 CALL                             R38 1 1
+      322 MOVE                             R37 R38
+      323 GETTABLEKS                       R38 R3 K88 ["connect"]
+      325 DUPCLOSURE                       R39 K89 [PROTO_35]
+      326 MOVE                             R40 R16
+      327 CALL                             R38 2 1
+      328 MOVE                             R39 R37
+      329 CALL                             R38 1 -1
+      330 CLOSEUPVALS                      R37
+      331 RETURN                           R38 -1

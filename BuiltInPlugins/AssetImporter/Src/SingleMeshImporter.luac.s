@@ -45,47 +45,45 @@ PROTO_2:
        42 GETUPVAL                         R3 4
        43 GETTABLEKS                       R3 R3 K10 ["mock"]
        45 CALL                             R3 0 1
-       46 JUMP                             ; [+14]
+       46 JUMP                             ; [+11]
        47 GETUPVAL                         R3 4
        48 GETTABLEKS                       R3 R3 K3 ["new"]
-       50 DUPTABLE                         R4 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       50 DUPTABLE                         R4 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetImporter"}]
        51 GETUPVAL                         R5 5
        52 SETTABLEKS                       R5 R4 K11 ["stringResourceTable"]
        54 GETUPVAL                         R5 6
        55 SETTABLEKS                       R5 R4 K12 ["translationResourceTable"]
-       57 LOADK                            R5 K15 ["AssetImporter"]
-       58 SETTABLEKS                       R5 R4 K13 ["pluginName"]
-       60 CALL                             R3 1 1
-       61 SETTABLEKS                       R3 R2 K16 ["localization"]
-       63 LOADNIL                          R3
-       64 SETTABLEKS                       R3 R2 K17 ["_root"]
-       66 GETUPVAL                         R3 7
-       67 GETTABLEKS                       R3 R3 K18 ["StartSingleMeshImport"]
-       69 NEWCLOSURE                       R5 P0
-       70 CAPTURE                          VAL R2
-       71 NAMECALL                         R3 R3 K19 ["Connect"]
-       73 CALL                             R3 2 1
-       74 SETTABLEKS                       R3 R2 K20 ["_actionConnection"]
-       76 GETUPVAL                         R3 8
-       77 GETTABLEKS                       R3 R3 K3 ["new"]
-       79 MOVE                             R4 R0
-       80 MOVE                             R5 R1
-       81 CALL                             R3 2 1
-       82 SETTABLEKS                       R3 R2 K21 ["singleMeshController"]
-       84 GETUPVAL                         R3 9
-       85 CALL                             R3 0 1
-       86 JUMPIFNOT                        R3 ; [+15]
-       87 GETUPVAL                         R3 10
-       88 GETUPVAL                         R5 11
-       89 GETTABLEKS                       R5 R5 K22 ["ASSET_MANAGER"]
-       91 GETTABLEKS                       R5 R5 K23 ["CPC_EVENTS"]
-       93 GETTABLEKS                       R5 R5 K24 ["IMPORT_ASSET_VERSION"]
-       95 NEWCLOSURE                       R6 P1
-       96 CAPTURE                          VAL R2
-       97 NAMECALL                         R3 R3 K19 ["Connect"]
-       99 CALL                             R3 3 1
-      100 SETTABLEKS                       R3 R2 K25 ["_cpcConnection"]
-      102 RETURN                           R2 1
+       57 CALL                             R3 1 1
+       58 SETTABLEKS                       R3 R2 K16 ["localization"]
+       60 LOADNIL                          R3
+       61 SETTABLEKS                       R3 R2 K17 ["_root"]
+       63 GETUPVAL                         R3 7
+       64 GETTABLEKS                       R3 R3 K18 ["StartSingleMeshImport"]
+       66 NEWCLOSURE                       R5 P0
+       67 CAPTURE                          VAL R2
+       68 NAMECALL                         R3 R3 K19 ["Connect"]
+       70 CALL                             R3 2 1
+       71 SETTABLEKS                       R3 R2 K20 ["_actionConnection"]
+       73 GETUPVAL                         R3 8
+       74 GETTABLEKS                       R3 R3 K3 ["new"]
+       76 MOVE                             R4 R0
+       77 MOVE                             R5 R1
+       78 CALL                             R3 2 1
+       79 SETTABLEKS                       R3 R2 K21 ["singleMeshController"]
+       81 GETUPVAL                         R3 9
+       82 CALL                             R3 0 1
+       83 JUMPIFNOT                        R3 ; [+15]
+       84 GETUPVAL                         R3 10
+       85 GETUPVAL                         R5 11
+       86 GETTABLEKS                       R5 R5 K22 ["ASSET_MANAGER"]
+       88 GETTABLEKS                       R5 R5 K23 ["CPC_EVENTS"]
+       90 GETTABLEKS                       R5 R5 K24 ["IMPORT_ASSET_VERSION"]
+       92 NEWCLOSURE                       R6 P1
+       93 CAPTURE                          VAL R2
+       94 NAMECALL                         R3 R3 K19 ["Connect"]
+       96 CALL                             R3 3 1
+       97 SETTABLEKS                       R3 R2 K25 ["_cpcConnection"]
+       99 RETURN                           R2 1
 
 PROTO_3:
         0 GETTABLEKS                       R1 R0 K0 ["_root"]

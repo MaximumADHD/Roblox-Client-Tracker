@@ -138,17 +138,15 @@ PROTO_4:
        57 GETUPVAL                         R7 0
        58 GETTABLEKS                       R7 R7 K3 ["createElement"]
        60 GETUPVAL                         R8 3
-       61 DUPTABLE                         R9 K31 [{"Padding", "Layout", "HorizontalAlignment"}]
-       62 LOADN                            R10 5
-       63 SETTABLEKS                       R10 R9 K28 ["Padding"]
-       65 GETIMPORT                        R10 K35 [Enum.FillDirection.Horizontal]
-       67 SETTABLEKS                       R10 R9 K29 ["Layout"]
-       69 GETIMPORT                        R10 K37 [Enum.HorizontalAlignment.Left]
-       71 SETTABLEKS                       R10 R9 K30 ["HorizontalAlignment"]
-       73 CALL                             R7 2 1
-       74 SETTABLEKS                       R7 R6 K14 ["Footer"]
-       76 CALL                             R4 2 -1
-       77 RETURN                           R4 -1
+       61 DUPTABLE                         R9 K32 [{["Padding"] = 5, ["Layout"], ["HorizontalAlignment"]}]
+       62 GETIMPORT                        R10 K36 [Enum.FillDirection.Horizontal]
+       64 SETTABLEKS                       R10 R9 K30 ["Layout"]
+       66 GETIMPORT                        R10 K38 [Enum.HorizontalAlignment.Left]
+       68 SETTABLEKS                       R10 R9 K31 ["HorizontalAlignment"]
+       70 CALL                             R7 2 1
+       71 SETTABLEKS                       R7 R6 K14 ["Footer"]
+       73 CALL                             R4 2 -1
+       74 RETURN                           R4 -1
 
 PROTO_5:
         0 DUPTABLE                         R1 K2 [{"ProfileData", "TableData"}]
@@ -269,89 +267,65 @@ MAIN:
        95 NAMECALL                         R17 R17 K27 ["extend"]
        97 CALL                             R17 2 1
        98 NEWTABLE                         R18 0 5
-      100 DUPTABLE                         R19 K31 [{"Name", "Key", "Width"}]
-      101 LOADK                            R20 K32 ["At (s)"]
-      102 SETTABLEKS                       R20 R19 K28 ["Name"]
-      104 LOADK                            R20 K33 ["startTime"]
-      105 SETTABLEKS                       R20 R19 K29 ["Key"]
-      107 GETIMPORT                        R20 K36 [UDim.new]
-      109 LOADK                            R21 K37 [0.1]
-      110 LOADN                            R22 0
-      111 CALL                             R20 2 1
-      112 SETTABLEKS                       R20 R19 K30 ["Width"]
-      114 DUPTABLE                         R20 K31 [{"Name", "Key", "Width"}]
-      115 LOADK                            R21 K38 ["Render Time (ms)"]
-      116 SETTABLEKS                       R21 R20 K28 ["Name"]
-      118 LOADK                            R21 K39 ["renderTime"]
-      119 SETTABLEKS                       R21 R20 K29 ["Key"]
-      121 GETIMPORT                        R21 K36 [UDim.new]
-      123 LOADK                            R22 K40 [0.2]
-      124 LOADN                            R23 0
-      125 CALL                             R21 2 1
-      126 SETTABLEKS                       R21 R20 K30 ["Width"]
-      128 DUPTABLE                         R21 K31 [{"Name", "Key", "Width"}]
-      129 LOADK                            R22 K41 ["Deep Time (ms)"]
-      130 SETTABLEKS                       R22 R21 K28 ["Name"]
-      132 LOADK                            R22 K42 ["time"]
-      133 SETTABLEKS                       R22 R21 K29 ["Key"]
-      135 GETIMPORT                        R22 K36 [UDim.new]
-      137 LOADK                            R23 K40 [0.2]
-      138 LOADN                            R24 0
-      139 CALL                             R22 2 1
-      140 SETTABLEKS                       R22 R21 K30 ["Width"]
-      142 DUPTABLE                         R22 K44 [{"Name", "Key", "TooltipKey", "Width"}]
-      143 LOADK                            R23 K45 ["Cause"]
-      144 SETTABLEKS                       R23 R22 K28 ["Name"]
-      146 LOADK                            R23 K46 ["cause"]
-      147 SETTABLEKS                       R23 R22 K29 ["Key"]
-      149 LOADK                            R23 K47 ["log"]
-      150 SETTABLEKS                       R23 R22 K43 ["TooltipKey"]
-      152 GETIMPORT                        R23 K36 [UDim.new]
-      154 LOADK                            R24 K48 [0.15]
-      155 LOADN                            R25 0
-      156 CALL                             R23 2 1
-      157 SETTABLEKS                       R23 R22 K30 ["Width"]
-      159 DUPTABLE                         R23 K44 [{"Name", "Key", "TooltipKey", "Width"}]
-      160 LOADK                            R24 K49 ["Details"]
-      161 SETTABLEKS                       R24 R23 K28 ["Name"]
-      163 LOADK                            R24 K50 ["details"]
-      164 SETTABLEKS                       R24 R23 K29 ["Key"]
-      166 LOADK                            R24 K51 ["detailsTip"]
-      167 SETTABLEKS                       R24 R23 K43 ["TooltipKey"]
-      169 GETIMPORT                        R24 K36 [UDim.new]
-      171 LOADK                            R25 K52 [0.35]
-      172 LOADN                            R26 0
-      173 CALL                             R24 2 1
-      174 SETTABLEKS                       R24 R23 K30 ["Width"]
-      176 SETLIST                          R18 R19 5 [1]
-      178 DUPCLOSURE                       R19 K53 [PROTO_3]
-      179 CAPTURE                          VAL R7
-      180 CAPTURE                          VAL R5
-      181 SETTABLEKS                       R19 R17 K54 ["init"]
-      183 DUPCLOSURE                       R19 K55 [PROTO_4]
-      184 CAPTURE                          VAL R1
-      185 CAPTURE                          VAL R15
-      186 CAPTURE                          VAL R18
-      187 CAPTURE                          VAL R16
-      188 SETTABLEKS                       R19 R17 K56 ["render"]
-      190 MOVE                             R19 R13
-      191 DUPTABLE                         R20 K59 [{"Inspector", "Stylizer"}]
-      192 SETTABLEKS                       R4 R20 K57 ["Inspector"]
-      194 GETTABLEKS                       R21 R12 K58 ["Stylizer"]
-      196 SETTABLEKS                       R21 R20 K58 ["Stylizer"]
-      198 CALL                             R19 1 1
-      199 MOVE                             R20 R17
-      200 CALL                             R19 1 1
-      201 MOVE                             R17 R19
-      202 GETTABLEKS                       R19 R2 K60 ["connect"]
-      204 DUPCLOSURE                       R20 K61 [PROTO_5]
-      205 CAPTURE                          VAL R5
-      206 DUPCLOSURE                       R21 K62 [PROTO_9]
-      207 CAPTURE                          VAL R11
-      208 CAPTURE                          VAL R5
-      209 CAPTURE                          VAL R9
-      210 CAPTURE                          VAL R10
-      211 CALL                             R19 2 1
-      212 MOVE                             R20 R17
-      213 CALL                             R19 1 -1
-      214 RETURN                           R19 -1
+      100 DUPTABLE                         R19 K33 [{["Name"] = "At (s)", ["Key"] = "startTime", ["Width"]}]
+      101 GETIMPORT                        R20 K36 [UDim.new]
+      103 LOADK                            R21 K37 [0.1]
+      104 LOADN                            R22 0
+      105 CALL                             R20 2 1
+      106 SETTABLEKS                       R20 R19 K32 ["Width"]
+      108 DUPTABLE                         R20 K40 [{["Name"] = "Render Time (ms)", ["Key"] = "renderTime", ["Width"]}]
+      109 GETIMPORT                        R21 K36 [UDim.new]
+      111 LOADK                            R22 K41 [0.2]
+      112 LOADN                            R23 0
+      113 CALL                             R21 2 1
+      114 SETTABLEKS                       R21 R20 K32 ["Width"]
+      116 DUPTABLE                         R21 K44 [{["Name"] = "Deep Time (ms)", ["Key"] = "time", ["Width"]}]
+      117 GETIMPORT                        R22 K36 [UDim.new]
+      119 LOADK                            R23 K41 [0.2]
+      120 LOADN                            R24 0
+      121 CALL                             R22 2 1
+      122 SETTABLEKS                       R22 R21 K32 ["Width"]
+      124 DUPTABLE                         R22 K49 [{["Name"] = "Cause", ["Key"] = "cause", ["TooltipKey"] = "log", ["Width"]}]
+      125 GETIMPORT                        R23 K36 [UDim.new]
+      127 LOADK                            R24 K50 [0.15]
+      128 LOADN                            R25 0
+      129 CALL                             R23 2 1
+      130 SETTABLEKS                       R23 R22 K32 ["Width"]
+      132 DUPTABLE                         R23 K54 [{["Name"] = "Details", ["Key"] = "details", ["TooltipKey"] = "detailsTip", ["Width"]}]
+      133 GETIMPORT                        R24 K36 [UDim.new]
+      135 LOADK                            R25 K55 [0.35]
+      136 LOADN                            R26 0
+      137 CALL                             R24 2 1
+      138 SETTABLEKS                       R24 R23 K32 ["Width"]
+      140 SETLIST                          R18 R19 5 [1]
+      142 DUPCLOSURE                       R19 K56 [PROTO_3]
+      143 CAPTURE                          VAL R7
+      144 CAPTURE                          VAL R5
+      145 SETTABLEKS                       R19 R17 K57 ["init"]
+      147 DUPCLOSURE                       R19 K58 [PROTO_4]
+      148 CAPTURE                          VAL R1
+      149 CAPTURE                          VAL R15
+      150 CAPTURE                          VAL R18
+      151 CAPTURE                          VAL R16
+      152 SETTABLEKS                       R19 R17 K59 ["render"]
+      154 MOVE                             R19 R13
+      155 DUPTABLE                         R20 K62 [{"Inspector", "Stylizer"}]
+      156 SETTABLEKS                       R4 R20 K60 ["Inspector"]
+      158 GETTABLEKS                       R21 R12 K61 ["Stylizer"]
+      160 SETTABLEKS                       R21 R20 K61 ["Stylizer"]
+      162 CALL                             R19 1 1
+      163 MOVE                             R20 R17
+      164 CALL                             R19 1 1
+      165 MOVE                             R17 R19
+      166 GETTABLEKS                       R19 R2 K63 ["connect"]
+      168 DUPCLOSURE                       R20 K64 [PROTO_5]
+      169 CAPTURE                          VAL R5
+      170 DUPCLOSURE                       R21 K65 [PROTO_9]
+      171 CAPTURE                          VAL R11
+      172 CAPTURE                          VAL R5
+      173 CAPTURE                          VAL R9
+      174 CAPTURE                          VAL R10
+      175 CALL                             R19 2 1
+      176 MOVE                             R20 R17
+      177 CALL                             R19 1 -1
+      178 RETURN                           R19 -1

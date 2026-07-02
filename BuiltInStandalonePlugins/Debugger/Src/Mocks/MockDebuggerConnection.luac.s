@@ -141,22 +141,20 @@ PROTO_6:
         9 GETTABLEKS                       R2 R2 K0 ["watchMap"]
        11 GETUPVAL                         R3 1
        12 GETTABLE                         R1 R2 R3
-       13 JUMP                             ; [+5]
-       14 DUPTABLE                         R2 K2 [{"VariableId"}]
-       15 LOADN                            R3 1
-       16 SETTABLEKS                       R3 R2 K1 ["VariableId"]
-       18 MOVE                             R1 R2
-       19 GETUPVAL                         R2 2
-       20 GETTABLEKS                       R2 R2 K3 ["new"]
-       22 MOVE                             R3 R1
-       23 GETUPVAL                         R4 3
-       24 GETTABLEKS                       R4 R4 K4 ["DebuggerStatus"]
-       26 GETTABLEKS                       R4 R4 K5 ["Success"]
-       28 CALL                             R2 2 1
-       29 MOVE                             R3 R0
-       30 MOVE                             R4 R2
-       31 CALL                             R3 1 0
-       32 RETURN                           R0 0
+       13 JUMP                             ; [+2]
+       14 DUPTABLE                         R2 K3 [{["VariableId"] = 1}]
+       15 MOVE                             R1 R2
+       16 GETUPVAL                         R2 2
+       17 GETTABLEKS                       R2 R2 K4 ["new"]
+       19 MOVE                             R3 R1
+       20 GETUPVAL                         R4 3
+       21 GETTABLEKS                       R4 R4 K5 ["DebuggerStatus"]
+       23 GETTABLEKS                       R4 R4 K6 ["Success"]
+       25 CALL                             R2 2 1
+       26 MOVE                             R3 R0
+       27 MOVE                             R4 R2
+       28 CALL                             R3 1 0
+       29 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R4 0

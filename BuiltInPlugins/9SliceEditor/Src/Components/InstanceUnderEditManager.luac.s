@@ -860,123 +860,119 @@ PROTO_26:
        23 RETURN                           R0 0
 
 PROTO_27:
-        0 DUPTABLE                         R2 K2 [{"showingAlertTitleKey", "showingAlertMessageKey"}]
-        1 LOADNIL                          R3
-        2 SETTABLEKS                       R3 R2 K0 ["showingAlertTitleKey"]
-        4 LOADNIL                          R3
-        5 SETTABLEKS                       R3 R2 K1 ["showingAlertMessageKey"]
-        7 SETTABLEKS                       R2 R0 K3 ["state"]
+        0 DUPTABLE                         R2 K3 [{[1] = , ["showingAlertMessageKey"] = }]
+        1 SETTABLEKS                       R2 R0 K4 ["state"]
+        3 LOADNIL                          R2
+        4 SETTABLEKS                       R2 R0 K5 ["instanceUnderEdit"]
+        6 LOADNIL                          R2
+        7 SETTABLEKS                       R2 R0 K6 ["instanceWatchedForImageChange"]
         9 LOADNIL                          R2
-       10 SETTABLEKS                       R2 R0 K4 ["instanceUnderEdit"]
-       12 LOADNIL                          R2
-       13 SETTABLEKS                       R2 R0 K5 ["instanceWatchedForImageChange"]
-       15 LOADNIL                          R2
-       16 SETTABLEKS                       R2 R0 K6 ["lastSliceOffsets"]
-       18 GETIMPORT                        R2 K9 [Vector2.new]
-       20 CALL                             R2 0 1
-       21 SETTABLEKS                       R2 R0 K10 ["uncroppedImageSize"]
-       23 NEWCLOSURE                       R2 P0
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R2 R0 K11 ["showAlertDialog"]
-       27 NEWCLOSURE                       R2 P1
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U0
-       30 SETTABLEKS                       R2 R0 K12 ["closeAlertDialog"]
-       32 NEWTABLE                         R2 0 0
-       34 SETTABLEKS                       R2 R0 K13 ["imageUnderEditConnections"]
-       36 NEWCLOSURE                       R2 P2
-       37 CAPTURE                          VAL R0
-       38 SETTABLEKS                       R2 R0 K14 ["clearCurrentImageUnderEdit"]
-       40 DUPCLOSURE                       R2 K15 [PROTO_3]
-       41 CAPTURE                          UPVAL U1
-       42 CAPTURE                          UPVAL U2
-       43 CAPTURE                          UPVAL U3
-       44 CAPTURE                          UPVAL U4
-       45 SETTABLEKS                       R2 R0 K16 ["getOffsetsForResizedImage"]
-       47 NEWCLOSURE                       R2 P4
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R2 R0 K17 ["getImageDimensionsForInstance"]
-       51 NEWCLOSURE                       R2 P5
-       52 CAPTURE                          VAL R0
-       53 SETTABLEKS                       R2 R0 K18 ["getImageUnderEdit"]
-       55 NEWCLOSURE                       R2 P6
-       56 CAPTURE                          VAL R0
-       57 CAPTURE                          UPVAL U5
-       58 SETTABLEKS                       R2 R0 K19 ["onSliceCenterChanged"]
-       60 NEWCLOSURE                       R2 P7
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R2 R0 K20 ["getInstanceProperty"]
-       64 NEWCLOSURE                       R2 P8
-       65 CAPTURE                          VAL R0
-       66 SETTABLEKS                       R2 R0 K21 ["onImageRectOffsetChanged"]
-       68 DUPCLOSURE                       R2 K22 [PROTO_9]
-       69 SETTABLEKS                       R2 R0 K23 ["clampSliceCenterToDimensions"]
-       71 NEWCLOSURE                       R2 P10
-       72 CAPTURE                          VAL R0
-       73 SETTABLEKS                       R2 R0 K24 ["onImageRectSizeChanged"]
-       75 NEWCLOSURE                       R2 P11
-       76 CAPTURE                          VAL R0
-       77 SETTABLEKS                       R2 R0 K25 ["onImageColor3Changed"]
-       79 NEWCLOSURE                       R2 P12
-       80 CAPTURE                          VAL R0
-       81 SETTABLEKS                       R2 R0 K26 ["onResampleModeChanged"]
-       83 NEWCLOSURE                       R2 P13
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          UPVAL U5
-       86 SETTABLEKS                       R2 R0 K27 ["openInstanceInEditor"]
-       88 LOADN                            R2 0
-       89 SETTABLEKS                       R2 R0 K28 ["loadingToken"]
-       91 NEWCLOSURE                       R2 P14
-       92 CAPTURE                          VAL R0
-       93 SETTABLEKS                       R2 R0 K29 ["newLoadingToken"]
-       95 GETUPVAL                         R2 0
-       96 GETTABLEKS                       R2 R2 K30 ["createRef"]
-       98 CALL                             R2 0 1
-       99 SETTABLEKS                       R2 R0 K31 ["loadingImageRef"]
-      101 NEWCLOSURE                       R2 P15
+       10 SETTABLEKS                       R2 R0 K7 ["lastSliceOffsets"]
+       12 GETIMPORT                        R2 K10 [Vector2.new]
+       14 CALL                             R2 0 1
+       15 SETTABLEKS                       R2 R0 K11 ["uncroppedImageSize"]
+       17 NEWCLOSURE                       R2 P0
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R2 R0 K12 ["showAlertDialog"]
+       21 NEWCLOSURE                       R2 P1
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U0
+       24 SETTABLEKS                       R2 R0 K13 ["closeAlertDialog"]
+       26 NEWTABLE                         R2 0 0
+       28 SETTABLEKS                       R2 R0 K14 ["imageUnderEditConnections"]
+       30 NEWCLOSURE                       R2 P2
+       31 CAPTURE                          VAL R0
+       32 SETTABLEKS                       R2 R0 K15 ["clearCurrentImageUnderEdit"]
+       34 DUPCLOSURE                       R2 K16 [PROTO_3]
+       35 CAPTURE                          UPVAL U1
+       36 CAPTURE                          UPVAL U2
+       37 CAPTURE                          UPVAL U3
+       38 CAPTURE                          UPVAL U4
+       39 SETTABLEKS                       R2 R0 K17 ["getOffsetsForResizedImage"]
+       41 NEWCLOSURE                       R2 P4
+       42 CAPTURE                          VAL R0
+       43 SETTABLEKS                       R2 R0 K18 ["getImageDimensionsForInstance"]
+       45 NEWCLOSURE                       R2 P5
+       46 CAPTURE                          VAL R0
+       47 SETTABLEKS                       R2 R0 K19 ["getImageUnderEdit"]
+       49 NEWCLOSURE                       R2 P6
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U5
+       52 SETTABLEKS                       R2 R0 K20 ["onSliceCenterChanged"]
+       54 NEWCLOSURE                       R2 P7
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R2 R0 K21 ["getInstanceProperty"]
+       58 NEWCLOSURE                       R2 P8
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R2 R0 K22 ["onImageRectOffsetChanged"]
+       62 DUPCLOSURE                       R2 K23 [PROTO_9]
+       63 SETTABLEKS                       R2 R0 K24 ["clampSliceCenterToDimensions"]
+       65 NEWCLOSURE                       R2 P10
+       66 CAPTURE                          VAL R0
+       67 SETTABLEKS                       R2 R0 K25 ["onImageRectSizeChanged"]
+       69 NEWCLOSURE                       R2 P11
+       70 CAPTURE                          VAL R0
+       71 SETTABLEKS                       R2 R0 K26 ["onImageColor3Changed"]
+       73 NEWCLOSURE                       R2 P12
+       74 CAPTURE                          VAL R0
+       75 SETTABLEKS                       R2 R0 K27 ["onResampleModeChanged"]
+       77 NEWCLOSURE                       R2 P13
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          UPVAL U5
+       80 SETTABLEKS                       R2 R0 K28 ["openInstanceInEditor"]
+       82 LOADN                            R2 0
+       83 SETTABLEKS                       R2 R0 K29 ["loadingToken"]
+       85 NEWCLOSURE                       R2 P14
+       86 CAPTURE                          VAL R0
+       87 SETTABLEKS                       R2 R0 K30 ["newLoadingToken"]
+       89 GETUPVAL                         R2 0
+       90 GETTABLEKS                       R2 R2 K31 ["createRef"]
+       92 CALL                             R2 0 1
+       93 SETTABLEKS                       R2 R0 K32 ["loadingImageRef"]
+       95 NEWCLOSURE                       R2 P15
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          UPVAL U6
+       98 CAPTURE                          UPVAL U7
+       99 SETTABLEKS                       R2 R0 K33 ["createPromiseForImageLoaded"]
+      101 NEWCLOSURE                       R2 P16
       102 CAPTURE                          VAL R0
-      103 CAPTURE                          UPVAL U6
-      104 CAPTURE                          UPVAL U7
-      105 SETTABLEKS                       R2 R0 K32 ["createPromiseForImageLoaded"]
-      107 NEWCLOSURE                       R2 P16
+      103 CAPTURE                          UPVAL U5
+      104 SETTABLEKS                       R2 R0 K34 ["createAndRunPromiseForImageLoaded"]
+      106 NEWCLOSURE                       R2 P17
+      107 CAPTURE                          UPVAL U7
       108 CAPTURE                          VAL R0
-      109 CAPTURE                          UPVAL U5
-      110 SETTABLEKS                       R2 R0 K33 ["createAndRunPromiseForImageLoaded"]
-      112 NEWCLOSURE                       R2 P17
-      113 CAPTURE                          UPVAL U7
-      114 CAPTURE                          VAL R0
-      115 SETTABLEKS                       R2 R0 K34 ["onImageChanged"]
-      117 NEWCLOSURE                       R2 P18
-      118 CAPTURE                          UPVAL U8
-      119 CAPTURE                          VAL R0
-      120 SETTABLEKS                       R2 R0 K35 ["onSelectionChanged"]
-      122 NEWCLOSURE                       R2 P19
-      123 CAPTURE                          VAL R0
-      124 SETTABLEKS                       R2 R0 K36 ["connectImageChangedConnection"]
-      126 NEWCLOSURE                       R2 P20
-      127 CAPTURE                          VAL R0
-      128 SETTABLEKS                       R2 R0 K37 ["disconnectImageChangedConnection"]
-      130 NEWCLOSURE                       R2 P21
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          UPVAL U8
-      133 SETTABLEKS                       R2 R0 K38 ["startListeningToSelection"]
-      135 NEWCLOSURE                       R2 P22
-      136 CAPTURE                          VAL R0
-      137 SETTABLEKS                       R2 R0 K39 ["stopListeningToSelection"]
-      139 NEWCLOSURE                       R2 P23
-      140 CAPTURE                          VAL R0
-      141 SETTABLEKS                       R2 R0 K40 ["onSliceCenterEditButtonClicked"]
-      143 GETTABLEKS                       R2 R1 K41 ["WidgetEnabled"]
-      145 JUMPIFNOT                        R2 ; [+3]
-      146 GETTABLEKS                       R2 R0 K38 ["startListeningToSelection"]
-      148 CALL                             R2 0 0
-      149 GETUPVAL                         R2 9
-      150 GETTABLEKS                       R2 R2 K42 ["Open9SliceEditor"]
-      152 GETTABLEKS                       R4 R0 K40 ["onSliceCenterEditButtonClicked"]
-      154 NAMECALL                         R2 R2 K43 ["Connect"]
-      156 CALL                             R2 2 1
-      157 SETTABLEKS                       R2 R0 K44 ["onOpen9SliceEditorConnection"]
-      159 RETURN                           R0 0
+      109 SETTABLEKS                       R2 R0 K35 ["onImageChanged"]
+      111 NEWCLOSURE                       R2 P18
+      112 CAPTURE                          UPVAL U8
+      113 CAPTURE                          VAL R0
+      114 SETTABLEKS                       R2 R0 K36 ["onSelectionChanged"]
+      116 NEWCLOSURE                       R2 P19
+      117 CAPTURE                          VAL R0
+      118 SETTABLEKS                       R2 R0 K37 ["connectImageChangedConnection"]
+      120 NEWCLOSURE                       R2 P20
+      121 CAPTURE                          VAL R0
+      122 SETTABLEKS                       R2 R0 K38 ["disconnectImageChangedConnection"]
+      124 NEWCLOSURE                       R2 P21
+      125 CAPTURE                          VAL R0
+      126 CAPTURE                          UPVAL U8
+      127 SETTABLEKS                       R2 R0 K39 ["startListeningToSelection"]
+      129 NEWCLOSURE                       R2 P22
+      130 CAPTURE                          VAL R0
+      131 SETTABLEKS                       R2 R0 K40 ["stopListeningToSelection"]
+      133 NEWCLOSURE                       R2 P23
+      134 CAPTURE                          VAL R0
+      135 SETTABLEKS                       R2 R0 K41 ["onSliceCenterEditButtonClicked"]
+      137 GETTABLEKS                       R2 R1 K42 ["WidgetEnabled"]
+      139 JUMPIFNOT                        R2 ; [+3]
+      140 GETTABLEKS                       R2 R0 K39 ["startListeningToSelection"]
+      142 CALL                             R2 0 0
+      143 GETUPVAL                         R2 9
+      144 GETTABLEKS                       R2 R2 K43 ["Open9SliceEditor"]
+      146 GETTABLEKS                       R4 R0 K41 ["onSliceCenterEditButtonClicked"]
+      148 NAMECALL                         R2 R2 K44 ["Connect"]
+      150 CALL                             R2 2 1
+      151 SETTABLEKS                       R2 R0 K45 ["onOpen9SliceEditorConnection"]
+      153 RETURN                           R0 0
 
 PROTO_28:
         0 GETUPVAL                         R0 0
@@ -1045,25 +1041,23 @@ PROTO_31:
 PROTO_32:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R1 K1 ["showingAlertTitleKey"]
-        4 JUMPIFNOT                        R2 ; [+26]
+        4 JUMPIFNOT                        R2 ; [+23]
         5 GETUPVAL                         R2 0
         6 GETTABLEKS                       R2 R2 K2 ["createElement"]
         8 GETUPVAL                         R3 1
-        9 DUPTABLE                         R4 K8 [{"Enabled", "TitleKey", "MessageKey", "MessageKeyFormatTable", "OnClose"}]
-       10 LOADB                            R5 1
-       11 SETTABLEKS                       R5 R4 K3 ["Enabled"]
-       13 GETTABLEKS                       R5 R1 K1 ["showingAlertTitleKey"]
-       15 SETTABLEKS                       R5 R4 K4 ["TitleKey"]
-       17 GETTABLEKS                       R5 R1 K9 ["showingAlertMessageKey"]
-       19 SETTABLEKS                       R5 R4 K5 ["MessageKey"]
-       21 GETTABLEKS                       R5 R1 K10 ["showingAlertMessageReplacements"]
-       23 SETTABLEKS                       R5 R4 K6 ["MessageKeyFormatTable"]
-       25 GETTABLEKS                       R5 R0 K11 ["closeAlertDialog"]
-       27 SETTABLEKS                       R5 R4 K7 ["OnClose"]
-       29 CALL                             R2 2 -1
-       30 RETURN                           R2 -1
-       31 LOADNIL                          R2
-       32 RETURN                           R2 1
+        9 DUPTABLE                         R4 K9 [{["Enabled"] = True, ["TitleKey"], ["MessageKey"], ["MessageKeyFormatTable"], ["OnClose"]}]
+       10 GETTABLEKS                       R5 R1 K1 ["showingAlertTitleKey"]
+       12 SETTABLEKS                       R5 R4 K5 ["TitleKey"]
+       14 GETTABLEKS                       R5 R1 K10 ["showingAlertMessageKey"]
+       16 SETTABLEKS                       R5 R4 K6 ["MessageKey"]
+       18 GETTABLEKS                       R5 R1 K11 ["showingAlertMessageReplacements"]
+       20 SETTABLEKS                       R5 R4 K7 ["MessageKeyFormatTable"]
+       22 GETTABLEKS                       R5 R0 K12 ["closeAlertDialog"]
+       24 SETTABLEKS                       R5 R4 K8 ["OnClose"]
+       26 CALL                             R2 2 -1
+       27 RETURN                           R2 -1
+       28 LOADNIL                          R2
+       29 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

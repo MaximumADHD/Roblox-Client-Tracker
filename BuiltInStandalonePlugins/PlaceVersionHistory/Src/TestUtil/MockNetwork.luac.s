@@ -127,105 +127,85 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 NEWTABLE                         R2 0 5
-       16 DUPTABLE                         R3 K10 [{"title", "description"}]
-       17 LOADK                            R4 K11 ["feat: optimized enemy AI pathfinding logic"]
-       18 SETTABLEKS                       R4 R3 K8 ["title"]
-       20 LOADK                            R4 K12 [" • Designed a player inventory system that allows users to collect, store, and manage various items throughout gameplay, with support for item stacking and categorization.\n • Implemented a responsive health bar UI that visually updates in real-time based on incoming damage and player healing events.\n • Optimized enemy AI pathfinding logic to improve movement efficiency, reduce CPU usage, and enhance performance in larger game environments.\n • Identified and resolved complex lighting issues within the cave environment, ensuring consistent shadows and ambient effects for better visual fidelity."]
-       21 SETTABLEKS                       R4 R3 K9 ["description"]
-       23 SETTABLEN                        R3 R2 1
-       24 DUPTABLE                         R3 K10 [{"title", "description"}]
-       25 LOADNIL                          R4
-       26 SETTABLEKS                       R4 R3 K8 ["title"]
-       28 LOADNIL                          R4
-       29 SETTABLEKS                       R4 R3 K9 ["description"]
-       31 SETTABLEN                        R3 R2 2
-       32 DUPTABLE                         R3 K10 [{"title", "description"}]
-       33 LOADNIL                          R4
-       34 SETTABLEKS                       R4 R3 K8 ["title"]
-       36 LOADNIL                          R4
-       37 SETTABLEKS                       R4 R3 K9 ["description"]
-       39 SETTABLEN                        R3 R2 3
-       40 DUPTABLE                         R3 K10 [{"title", "description"}]
-       41 LOADNIL                          R4
-       42 SETTABLEKS                       R4 R3 K8 ["title"]
-       44 LOADNIL                          R4
-       45 SETTABLEKS                       R4 R3 K9 ["description"]
-       47 SETTABLEN                        R3 R2 4
-       48 DUPTABLE                         R3 K10 [{"title", "description"}]
-       49 LOADNIL                          R4
-       50 SETTABLEKS                       R4 R3 K8 ["title"]
-       52 LOADNIL                          R4
-       53 SETTABLEKS                       R4 R3 K9 ["description"]
-       55 SETTABLEN                        R3 R2 5
-       56 NEWTABLE                         R3 16 0
-       58 LOADK                            R4 K13 [2725162051]
-       59 LOADK                            R5 K14 ["code4xp"]
-       60 SETTABLE                         R5 R3 R4
-       61 LOADK                            R4 K15 [3706781386]
-       62 LOADK                            R5 K16 ["wingedbreadsticks"]
-       63 SETTABLE                         R5 R3 R4
-       64 LOADK                            R4 K17 [4687564904]
-       65 LOADK                            R5 K18 ["vreddym"]
-       66 SETTABLE                         R5 R3 R4
-       67 LOADK                            R4 K19 [7328747770]
-       68 LOADK                            R5 K20 ["PixelPlumber"]
-       69 SETTABLE                         R5 R3 R4
-       70 LOADK                            R4 K21 [9051275465]
-       71 LOADK                            R5 K22 ["VV_Wesco"]
-       72 SETTABLE                         R5 R3 R4
-       73 LOADK                            R4 K23 [5005422365]
-       74 LOADK                            R5 K24 ["s1lly_g00se8"]
-       75 SETTABLE                         R5 R3 R4
-       76 LOADK                            R4 K25 [4733584246]
-       77 LOADK                            R5 K26 ["shibaxixi"]
-       78 SETTABLE                         R5 R3 R4
-       79 LOADK                            R4 K27 [2720453386]
-       80 LOADK                            R5 K28 ["GeneralTso58"]
-       81 SETTABLE                         R5 R3 R4
-       82 LOADK                            R4 K29 [3570764360]
-       83 LOADK                            R5 K30 ["Kresselia1"]
-       84 SETTABLE                         R5 R3 R4
-       85 LOADK                            R4 K31 [9253989021]
-       86 LOADK                            R5 K32 ["LuckyRainGG"]
-       87 SETTABLE                         R5 R3 R4
-       88 NEWTABLE                         R4 0 0
-       90 MOVE                             R5 R3
-       91 LOADNIL                          R6
-       92 LOADNIL                          R7
-       93 FORGPREP                         R5
-       94 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
-       96 MOVE                             R11 R4
-       97 MOVE                             R12 R8
-       98 GETIMPORT                        R10 K35 [table.insert]
-      100 CALL                             R10 2 0
-      101 FORGLOOP                         R5 2 ; [-8]
-      103 NEWTABLE                         R5 0 10
-      105 LOADK                            R6 K36 ["Lobby (Live)"]
-      106 SETTABLEN                        R6 R5 1
-      107 LOADK                            R6 K37 ["Lobby (QA)"]
-      108 SETTABLEN                        R6 R5 2
-      109 LOADK                            R6 K38 ["Lobby (Staging)"]
-      110 SETTABLEN                        R6 R5 3
-      111 LOADK                            R6 K39 ["Lobby (Test)"]
-      112 SETTABLEN                        R6 R5 4
-      113 LOADK                            R6 K40 ["Lobby (Branch v12)"]
-      114 SETTABLEN                        R6 R5 5
-      115 LOADK                            R6 K41 ["Lobby (Branch v13)"]
-      116 SETTABLEN                        R6 R5 6
-      117 LOADK                            R6 K42 ["Lobby (Branch v14)"]
-      118 SETTABLEN                        R6 R5 7
-      119 LOADK                            R6 K43 ["Lobby (Branch v15)"]
-      120 SETTABLEN                        R6 R5 8
-      121 LOADK                            R6 K44 ["Lobby (Branch v16)"]
-      122 SETTABLEN                        R6 R5 9
-      123 LOADK                            R6 K45 ["Lobby (Branch v117)"]
-      124 SETTABLEN                        R6 R5 10
-      125 DUPCLOSURE                       R6 K46 [PROTO_0]
-      126 CAPTURE                          VAL R4
-      127 CAPTURE                          VAL R2
-      128 DUPCLOSURE                       R7 K47 [PROTO_3]
-      129 CAPTURE                          VAL R5
-      130 CAPTURE                          VAL R4
-      131 CAPTURE                          VAL R3
-      132 CAPTURE                          VAL R6
-      133 RETURN                           R7 1
+       16 DUPTABLE                         R3 K12 [{["title"] = "feat: optimized enemy AI pathfinding logic", ["description"] = " • Designed a player inventory system that allows users to collect, store, and manage various items throughout gameplay, with support for item stacking and categorization.\n • Implemented a responsive health bar UI that visually updates in real-time based on incoming damage and player healing events.\n • Optimized enemy AI pathfinding logic to improve movement efficiency, reduce CPU usage, and enhance performance in larger game environments.\n • Identified and resolved complex lighting issues within the cave environment, ensuring consistent shadows and ambient effects for better visual fidelity."}]
+       17 SETTABLEN                        R3 R2 1
+       18 DUPTABLE                         R3 K14 [{["title"] = , ["description"] = }]
+       19 SETTABLEN                        R3 R2 2
+       20 DUPTABLE                         R3 K14 [{["title"] = , ["description"] = }]
+       21 SETTABLEN                        R3 R2 3
+       22 DUPTABLE                         R3 K14 [{["title"] = , ["description"] = }]
+       23 SETTABLEN                        R3 R2 4
+       24 DUPTABLE                         R3 K14 [{["title"] = , ["description"] = }]
+       25 SETTABLEN                        R3 R2 5
+       26 NEWTABLE                         R3 16 0
+       28 LOADK                            R4 K15 [2725162051]
+       29 LOADK                            R5 K16 ["code4xp"]
+       30 SETTABLE                         R5 R3 R4
+       31 LOADK                            R4 K17 [3706781386]
+       32 LOADK                            R5 K18 ["wingedbreadsticks"]
+       33 SETTABLE                         R5 R3 R4
+       34 LOADK                            R4 K19 [4687564904]
+       35 LOADK                            R5 K20 ["vreddym"]
+       36 SETTABLE                         R5 R3 R4
+       37 LOADK                            R4 K21 [7328747770]
+       38 LOADK                            R5 K22 ["PixelPlumber"]
+       39 SETTABLE                         R5 R3 R4
+       40 LOADK                            R4 K23 [9051275465]
+       41 LOADK                            R5 K24 ["VV_Wesco"]
+       42 SETTABLE                         R5 R3 R4
+       43 LOADK                            R4 K25 [5005422365]
+       44 LOADK                            R5 K26 ["s1lly_g00se8"]
+       45 SETTABLE                         R5 R3 R4
+       46 LOADK                            R4 K27 [4733584246]
+       47 LOADK                            R5 K28 ["shibaxixi"]
+       48 SETTABLE                         R5 R3 R4
+       49 LOADK                            R4 K29 [2720453386]
+       50 LOADK                            R5 K30 ["GeneralTso58"]
+       51 SETTABLE                         R5 R3 R4
+       52 LOADK                            R4 K31 [3570764360]
+       53 LOADK                            R5 K32 ["Kresselia1"]
+       54 SETTABLE                         R5 R3 R4
+       55 LOADK                            R4 K33 [9253989021]
+       56 LOADK                            R5 K34 ["LuckyRainGG"]
+       57 SETTABLE                         R5 R3 R4
+       58 NEWTABLE                         R4 0 0
+       60 MOVE                             R5 R3
+       61 LOADNIL                          R6
+       62 LOADNIL                          R7
+       63 FORGPREP                         R5
+       64 FASTCALL2                        TABLE_INSERT R4 R8 ; [+5]
+       66 MOVE                             R11 R4
+       67 MOVE                             R12 R8
+       68 GETIMPORT                        R10 K37 [table.insert]
+       70 CALL                             R10 2 0
+       71 FORGLOOP                         R5 2 ; [-8]
+       73 NEWTABLE                         R5 0 10
+       75 LOADK                            R6 K38 ["Lobby (Live)"]
+       76 SETTABLEN                        R6 R5 1
+       77 LOADK                            R6 K39 ["Lobby (QA)"]
+       78 SETTABLEN                        R6 R5 2
+       79 LOADK                            R6 K40 ["Lobby (Staging)"]
+       80 SETTABLEN                        R6 R5 3
+       81 LOADK                            R6 K41 ["Lobby (Test)"]
+       82 SETTABLEN                        R6 R5 4
+       83 LOADK                            R6 K42 ["Lobby (Branch v12)"]
+       84 SETTABLEN                        R6 R5 5
+       85 LOADK                            R6 K43 ["Lobby (Branch v13)"]
+       86 SETTABLEN                        R6 R5 6
+       87 LOADK                            R6 K44 ["Lobby (Branch v14)"]
+       88 SETTABLEN                        R6 R5 7
+       89 LOADK                            R6 K45 ["Lobby (Branch v15)"]
+       90 SETTABLEN                        R6 R5 8
+       91 LOADK                            R6 K46 ["Lobby (Branch v16)"]
+       92 SETTABLEN                        R6 R5 9
+       93 LOADK                            R6 K47 ["Lobby (Branch v117)"]
+       94 SETTABLEN                        R6 R5 10
+       95 DUPCLOSURE                       R6 K48 [PROTO_0]
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          VAL R2
+       98 DUPCLOSURE                       R7 K49 [PROTO_3]
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R3
+      102 CAPTURE                          VAL R6
+      103 RETURN                           R7 1

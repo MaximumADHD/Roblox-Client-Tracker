@@ -22,64 +22,54 @@ PROTO_0:
        29 GETUPVAL                         R6 0
        30 GETTABLEKS                       R6 R6 K1 ["createElement"]
        32 LOADK                            R7 K8 ["TextLabel"]
-       33 DUPTABLE                         R8 K19 [{"LayoutOrder", "Size", "Text", "TextScaled", "TextSize", "Font", "TextColor3", "BackgroundTransparency", "TextXAlignment", "TextYAlignment", "TextStrokeTransparency"}]
+       33 DUPTABLE                         R8 K23 [{["LayoutOrder"], ["Size"], ["Text"], ["TextScaled"] = True, ["TextSize"] = 20, ["Font"], ["TextColor3"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"], ["TextStrokeTransparency"] = 0}]
        34 SETTABLEKS                       R4 R8 K6 ["LayoutOrder"]
-       36 GETIMPORT                        R9 K22 [UDim2.new]
+       36 GETIMPORT                        R9 K26 [UDim2.new]
        38 LOADN                            R10 1
        39 LOADN                            R11 0
        40 GETTABLEKS                       R14 R0 K0 ["TagName"]
        42 LENGTH                           R13 R14
-       43 DIVRK                            R12 R23 K13 ["Font"]
+       43 DIVRK                            R12 K18 [1] R13
        44 LOADN                            R13 0
        45 CALL                             R9 4 1
        46 SETTABLEKS                       R9 R8 K9 ["Size"]
        48 SETTABLEKS                       R5 R8 K10 ["Text"]
-       50 LOADB                            R9 1
-       51 SETTABLEKS                       R9 R8 K11 ["TextScaled"]
-       53 LOADN                            R9 20
-       54 SETTABLEKS                       R9 R8 K12 ["TextSize"]
-       56 GETIMPORT                        R9 K25 [Enum.Font.SourceSansBold]
-       58 SETTABLEKS                       R9 R8 K13 ["Font"]
-       60 GETUPVAL                         R9 1
-       61 GETTABLEKS                       R9 R9 K26 ["White"]
-       63 SETTABLEKS                       R9 R8 K14 ["TextColor3"]
-       65 LOADN                            R9 1
-       66 SETTABLEKS                       R9 R8 K15 ["BackgroundTransparency"]
-       68 GETIMPORT                        R9 K28 [Enum.TextXAlignment.Left]
-       70 SETTABLEKS                       R9 R8 K16 ["TextXAlignment"]
-       72 GETIMPORT                        R9 K30 [Enum.TextYAlignment.Bottom]
-       74 SETTABLEKS                       R9 R8 K17 ["TextYAlignment"]
-       76 LOADN                            R9 0
-       77 SETTABLEKS                       R9 R8 K18 ["TextStrokeTransparency"]
-       79 CALL                             R6 2 1
-       80 SETTABLE                         R6 R1 R5
-       81 FORNLOOP                         R2
-       82 GETUPVAL                         R2 0
-       83 GETTABLEKS                       R2 R2 K1 ["createElement"]
-       85 LOADK                            R3 K31 ["BillboardGui"]
-       86 DUPTABLE                         R4 K36 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
-       87 GETTABLEKS                       R5 R0 K32 ["Adornee"]
-       89 SETTABLEKS                       R5 R4 K32 ["Adornee"]
-       91 GETIMPORT                        R5 K22 [UDim2.new]
-       93 LOADN                            R6 10
-       94 LOADN                            R7 0
-       95 GETTABLEKS                       R9 R0 K0 ["TagName"]
-       97 LENGTH                           R8 R9
-       98 LOADN                            R9 0
-       99 CALL                             R5 4 1
-      100 SETTABLEKS                       R5 R4 K9 ["Size"]
-      102 GETIMPORT                        R5 K38 [Vector2.new]
-      104 LOADK                            R6 K39 [0.5]
-      105 LOADK                            R7 K39 [0.5]
-      106 CALL                             R5 2 1
-      107 SETTABLEKS                       R5 R4 K33 ["SizeOffset"]
-      109 LOADK                            R5 K40 [{1, 1, 1}]
-      110 SETTABLEKS                       R5 R4 K34 ["ExtentsOffsetWorldSpace"]
-      112 GETTABLEKS                       R5 R0 K35 ["AlwaysOnTop"]
-      114 SETTABLEKS                       R5 R4 K35 ["AlwaysOnTop"]
-      116 MOVE                             R5 R1
-      117 CALL                             R2 3 -1
-      118 RETURN                           R2 -1
+       50 GETIMPORT                        R9 K28 [Enum.Font.SourceSansBold]
+       52 SETTABLEKS                       R9 R8 K15 ["Font"]
+       54 GETUPVAL                         R9 1
+       55 GETTABLEKS                       R9 R9 K29 ["White"]
+       57 SETTABLEKS                       R9 R8 K16 ["TextColor3"]
+       59 GETIMPORT                        R9 K31 [Enum.TextXAlignment.Left]
+       61 SETTABLEKS                       R9 R8 K19 ["TextXAlignment"]
+       63 GETIMPORT                        R9 K33 [Enum.TextYAlignment.Bottom]
+       65 SETTABLEKS                       R9 R8 K20 ["TextYAlignment"]
+       67 CALL                             R6 2 1
+       68 SETTABLE                         R6 R1 R5
+       69 FORNLOOP                         R2
+       70 GETUPVAL                         R2 0
+       71 GETTABLEKS                       R2 R2 K1 ["createElement"]
+       73 LOADK                            R3 K34 ["BillboardGui"]
+       74 DUPTABLE                         R4 K40 [{["Adornee"], ["Size"], ["SizeOffset"], ["ExtentsOffsetWorldSpace"] = {1, 1, 1}, ["AlwaysOnTop"]}]
+       75 GETTABLEKS                       R5 R0 K35 ["Adornee"]
+       77 SETTABLEKS                       R5 R4 K35 ["Adornee"]
+       79 GETIMPORT                        R5 K26 [UDim2.new]
+       81 LOADN                            R6 10
+       82 LOADN                            R7 0
+       83 GETTABLEKS                       R9 R0 K0 ["TagName"]
+       85 LENGTH                           R8 R9
+       86 LOADN                            R9 0
+       87 CALL                             R5 4 1
+       88 SETTABLEKS                       R5 R4 K9 ["Size"]
+       90 GETIMPORT                        R5 K42 [Vector2.new]
+       92 LOADK                            R6 K43 [0.5]
+       93 LOADK                            R7 K43 [0.5]
+       94 CALL                             R5 2 1
+       95 SETTABLEKS                       R5 R4 K36 ["SizeOffset"]
+       97 GETTABLEKS                       R5 R0 K39 ["AlwaysOnTop"]
+       99 SETTABLEKS                       R5 R4 K39 ["AlwaysOnTop"]
+      101 MOVE                             R5 R1
+      102 CALL                             R2 3 -1
+      103 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

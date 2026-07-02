@@ -24,15 +24,13 @@ PROTO_0:
        32 GETUPVAL                         R8 0
        33 GETTABLEKS                       R8 R8 K11 ["createElement"]
        35 GETUPVAL                         R9 1
-       36 DUPTABLE                         R10 K13 [{"Text", "ShowDelay", "Enabled", "Priority"}]
+       36 DUPTABLE                         R10 K14 [{["Text"], ["ShowDelay"], ["Enabled"] = True, ["Priority"]}]
        37 SETTABLEKS                       R7 R10 K1 ["Text"]
        39 SETTABLEKS                       R4 R10 K3 ["ShowDelay"]
-       41 LOADB                            R11 1
-       42 SETTABLEKS                       R11 R10 K12 ["Enabled"]
-       44 ORK                              R11 R5 K14 [-100]
-       45 SETTABLEKS                       R11 R10 K4 ["Priority"]
-       47 CALL                             R8 2 -1
-       48 RETURN                           R8 -1
+       41 ORK                              R11 R5 K15 [-100]
+       42 SETTABLEKS                       R11 R10 K4 ["Priority"]
+       44 CALL                             R8 2 -1
+       45 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

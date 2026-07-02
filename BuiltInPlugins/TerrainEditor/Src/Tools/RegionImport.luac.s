@@ -222,20 +222,16 @@ PROTO_4:
        44 NEWTABLE                         R7 1 0
        46 GETUPVAL                         R8 5
        47 GETTABLEKS                       R8 R8 K7 ["Import"]
-       49 DUPTABLE                         R9 K11 [{"Hidden", "Label", "Schema"}]
-       50 LOADB                            R10 0
-       51 SETTABLEKS                       R10 R9 K8 ["Hidden"]
-       53 LOADK                            R10 K12 [""]
-       54 SETTABLEKS                       R10 R9 K9 ["Label"]
-       56 DUPTABLE                         R10 K14 [{"OnClick"}]
-       57 NEWCLOSURE                       R11 P1
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R11 R10 K13 ["OnClick"]
-       61 SETTABLEKS                       R10 R9 K10 ["Schema"]
-       63 SETTABLE                         R9 R7 R8
-       64 SETTABLE                         R7 R5 R6
-       65 SETTABLEKS                       R5 R0 K15 ["_overrides"]
-       67 RETURN                           R0 0
+       49 DUPTABLE                         R9 K13 [{["Hidden"] = False, ["Label"] = "", ["Schema"]}]
+       50 DUPTABLE                         R10 K15 [{"OnClick"}]
+       51 NEWCLOSURE                       R11 P1
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R11 R10 K14 ["OnClick"]
+       55 SETTABLEKS                       R10 R9 K12 ["Schema"]
+       57 SETTABLE                         R9 R7 R8
+       58 SETTABLE                         R7 R5 R6
+       59 SETTABLEKS                       R5 R0 K16 ["_overrides"]
+       61 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["_operation"]
@@ -404,77 +400,69 @@ MAIN:
       101 DUPTABLE                         R19 K29 [{"Defaults", "Id"}]
       102 NEWTABLE                         R20 4 0
       104 GETTABLEKS                       R21 R13 K30 ["Colormap"]
-      106 DUPTABLE                         R22 K32 [{"Error"}]
-      107 LOADK                            R23 K33 [""]
-      108 SETTABLEKS                       R23 R22 K31 ["Error"]
-      110 SETTABLE                         R22 R20 R21
-      111 GETTABLEKS                       R21 R13 K34 ["DefaultMaterial"]
-      113 GETIMPORT                        R22 K38 [Enum.Material.Grass]
-      115 SETTABLE                         R22 R20 R21
-      116 GETTABLEKS                       R21 R13 K39 ["Heightmap"]
-      118 DUPTABLE                         R22 K32 [{"Error"}]
-      119 LOADK                            R23 K33 [""]
-      120 SETTABLEKS                       R23 R22 K31 ["Error"]
-      122 SETTABLE                         R22 R20 R21
-      123 GETTABLEKS                       R21 R13 K40 ["Import"]
-      125 LOADB                            R22 1
-      126 SETTABLE                         R22 R20 R21
-      127 SETTABLEKS                       R20 R19 K27 ["Defaults"]
-      129 GETTABLEKS                       R20 R11 K23 ["HeightmapSettings"]
-      131 SETTABLEKS                       R20 R19 K28 ["Id"]
-      133 SETLIST                          R17 R18 2 [1]
-      135 NEWTABLE                         R18 0 1
-      137 DUPTABLE                         R19 K42 [{"Id", "Schema"}]
-      138 GETTABLEKS                       R20 R12 K43 ["Region"]
-      140 SETTABLEKS                       R20 R19 K28 ["Id"]
-      142 DUPTABLE                         R20 K47 [{"Type", "Wireframe", "Rotation"}]
-      143 GETTABLEKS                       R21 R12 K43 ["Region"]
-      145 SETTABLEKS                       R21 R20 K44 ["Type"]
-      147 LOADB                            R21 0
-      148 SETTABLEKS                       R21 R20 K45 ["Wireframe"]
-      150 LOADB                            R21 0
-      151 SETTABLEKS                       R21 R20 K46 ["Rotation"]
-      153 SETTABLEKS                       R20 R19 K41 ["Schema"]
-      155 SETLIST                          R18 R19 1 [1]
-      157 GETTABLEKS                       R21 R16 K40 ["Import"]
-      159 GETTABLEKS                       R22 R15 K48 ["Create"]
-      161 MOVE                             R23 R17
-      162 MOVE                             R24 R18
-      163 NAMECALL                         R19 R2 K49 ["new"]
-      165 CALL                             R19 5 1
-      166 DUPCLOSURE                       R20 K50 [PROTO_1]
-      167 CAPTURE                          VAL R2
-      168 CAPTURE                          VAL R4
-      169 CAPTURE                          VAL R11
-      170 CAPTURE                          VAL R14
-      171 CAPTURE                          VAL R7
-      172 CAPTURE                          VAL R1
-      173 SETTABLEKS                       R20 R19 K51 ["startOperation"]
-      175 DUPCLOSURE                       R20 K52 [PROTO_4]
-      176 CAPTURE                          VAL R2
-      177 CAPTURE                          VAL R11
-      178 CAPTURE                          VAL R14
-      179 CAPTURE                          VAL R8
-      180 CAPTURE                          VAL R9
-      181 CAPTURE                          VAL R13
-      182 CAPTURE                          VAL R5
-      183 CAPTURE                          VAL R6
-      184 SETTABLEKS                       R20 R19 K53 ["init"]
-      186 DUPCLOSURE                       R20 K54 [PROTO_5]
-      187 SETTABLEKS                       R20 R19 K55 ["operation"]
-      189 DUPCLOSURE                       R20 K56 [PROTO_6]
-      190 CAPTURE                          VAL R11
-      191 CAPTURE                          VAL R13
-      192 SETTABLEKS                       R20 R19 K57 ["setDisabledState"]
-      194 DUPCLOSURE                       R20 K58 [PROTO_7]
-      195 CAPTURE                          VAL R2
-      196 SETTABLEKS                       R20 R19 K59 ["saveForm"]
-      198 DUPCLOSURE                       R20 K60 [PROTO_8]
-      199 CAPTURE                          VAL R2
-      200 CAPTURE                          VAL R11
-      201 CAPTURE                          VAL R14
-      202 CAPTURE                          VAL R13
-      203 CAPTURE                          VAL R9
-      204 CAPTURE                          VAL R16
-      205 SETTABLEKS                       R20 R19 K61 ["activate"]
-      207 RETURN                           R19 1
+      106 DUPTABLE                         R22 K33 [{["Error"] = ""}]
+      107 SETTABLE                         R22 R20 R21
+      108 GETTABLEKS                       R21 R13 K34 ["DefaultMaterial"]
+      110 GETIMPORT                        R22 K38 [Enum.Material.Grass]
+      112 SETTABLE                         R22 R20 R21
+      113 GETTABLEKS                       R21 R13 K39 ["Heightmap"]
+      115 DUPTABLE                         R22 K33 [{["Error"] = ""}]
+      116 SETTABLE                         R22 R20 R21
+      117 GETTABLEKS                       R21 R13 K40 ["Import"]
+      119 LOADB                            R22 1
+      120 SETTABLE                         R22 R20 R21
+      121 SETTABLEKS                       R20 R19 K27 ["Defaults"]
+      123 GETTABLEKS                       R20 R11 K23 ["HeightmapSettings"]
+      125 SETTABLEKS                       R20 R19 K28 ["Id"]
+      127 SETLIST                          R17 R18 2 [1]
+      129 NEWTABLE                         R18 0 1
+      131 DUPTABLE                         R19 K42 [{"Id", "Schema"}]
+      132 GETTABLEKS                       R20 R12 K43 ["Region"]
+      134 SETTABLEKS                       R20 R19 K28 ["Id"]
+      136 DUPTABLE                         R20 K48 [{["Type"], ["Wireframe"] = False, ["Rotation"] = False}]
+      137 GETTABLEKS                       R21 R12 K43 ["Region"]
+      139 SETTABLEKS                       R21 R20 K44 ["Type"]
+      141 SETTABLEKS                       R20 R19 K41 ["Schema"]
+      143 SETLIST                          R18 R19 1 [1]
+      145 GETTABLEKS                       R21 R16 K40 ["Import"]
+      147 GETTABLEKS                       R22 R15 K49 ["Create"]
+      149 MOVE                             R23 R17
+      150 MOVE                             R24 R18
+      151 NAMECALL                         R19 R2 K50 ["new"]
+      153 CALL                             R19 5 1
+      154 DUPCLOSURE                       R20 K51 [PROTO_1]
+      155 CAPTURE                          VAL R2
+      156 CAPTURE                          VAL R4
+      157 CAPTURE                          VAL R11
+      158 CAPTURE                          VAL R14
+      159 CAPTURE                          VAL R7
+      160 CAPTURE                          VAL R1
+      161 SETTABLEKS                       R20 R19 K52 ["startOperation"]
+      163 DUPCLOSURE                       R20 K53 [PROTO_4]
+      164 CAPTURE                          VAL R2
+      165 CAPTURE                          VAL R11
+      166 CAPTURE                          VAL R14
+      167 CAPTURE                          VAL R8
+      168 CAPTURE                          VAL R9
+      169 CAPTURE                          VAL R13
+      170 CAPTURE                          VAL R5
+      171 CAPTURE                          VAL R6
+      172 SETTABLEKS                       R20 R19 K54 ["init"]
+      174 DUPCLOSURE                       R20 K55 [PROTO_5]
+      175 SETTABLEKS                       R20 R19 K56 ["operation"]
+      177 DUPCLOSURE                       R20 K57 [PROTO_6]
+      178 CAPTURE                          VAL R11
+      179 CAPTURE                          VAL R13
+      180 SETTABLEKS                       R20 R19 K58 ["setDisabledState"]
+      182 DUPCLOSURE                       R20 K59 [PROTO_7]
+      183 CAPTURE                          VAL R2
+      184 SETTABLEKS                       R20 R19 K60 ["saveForm"]
+      186 DUPCLOSURE                       R20 K61 [PROTO_8]
+      187 CAPTURE                          VAL R2
+      188 CAPTURE                          VAL R11
+      189 CAPTURE                          VAL R14
+      190 CAPTURE                          VAL R13
+      191 CAPTURE                          VAL R9
+      192 CAPTURE                          VAL R16
+      193 SETTABLEKS                       R20 R19 K62 ["activate"]
+      195 RETURN                           R19 1

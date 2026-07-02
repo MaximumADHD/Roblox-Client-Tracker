@@ -75,33 +75,27 @@ PROTO_4:
        31 GETUPVAL                         R6 0
        32 GETTABLEKS                       R6 R6 K6 ["createElement"]
        34 GETUPVAL                         R7 2
-       35 DUPTABLE                         R8 K8 [{"tag"}]
-       36 LOADK                            R9 K9 ["size-full-full col align-y-center align-x-center padding-medium bg-surface-200 gap-medium"]
-       37 SETTABLEKS                       R9 R8 K7 ["tag"]
-       39 DUPTABLE                         R9 K12 [{"NoiseDisplay", "TriggerButton"}]
-       40 GETUPVAL                         R10 0
-       41 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       43 GETUPVAL                         R11 3
-       44 DUPTABLE                         R12 K14 [{"Text", "tag"}]
-       45 SETTABLEKS                       R2 R12 K13 ["Text"]
-       47 LOADK                            R13 K15 ["padding-small auto-xy bg-surface-0 content-emphasis text-body-medium radius-small"]
-       48 SETTABLEKS                       R13 R12 K7 ["tag"]
-       50 CALL                             R10 2 1
-       51 SETTABLEKS                       R10 R9 K10 ["NoiseDisplay"]
-       53 GETUPVAL                         R10 0
-       54 GETTABLEKS                       R10 R10 K6 ["createElement"]
-       56 GETUPVAL                         R11 4
-       57 DUPTABLE                         R12 K19 [{"text", "onActivated", "variant"}]
-       58 LOADK                            R13 K20 ["Say Hello to Animals"]
-       59 SETTABLEKS                       R13 R12 K16 ["text"]
-       61 SETTABLEKS                       R5 R12 K17 ["onActivated"]
-       63 GETUPVAL                         R13 5
-       64 GETTABLEKS                       R13 R13 K21 ["Emphasis"]
-       66 SETTABLEKS                       R13 R12 K18 ["variant"]
-       68 CALL                             R10 2 1
-       69 SETTABLEKS                       R10 R9 K11 ["TriggerButton"]
-       71 CALL                             R6 3 -1
-       72 RETURN                           R6 -1
+       35 DUPTABLE                         R8 K9 [{["tag"] = "col align-x-center align-y-center gap-medium size-full-full padding-medium bg-surface-200"}]
+       36 DUPTABLE                         R9 K12 [{"NoiseDisplay", "TriggerButton"}]
+       37 GETUPVAL                         R10 0
+       38 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       40 GETUPVAL                         R11 3
+       41 DUPTABLE                         R12 K15 [{["Text"], ["tag"] = "auto-xy padding-small text-body-medium radius-small bg-surface-0 content-emphasis"}]
+       42 SETTABLEKS                       R2 R12 K13 ["Text"]
+       44 CALL                             R10 2 1
+       45 SETTABLEKS                       R10 R9 K10 ["NoiseDisplay"]
+       47 GETUPVAL                         R10 0
+       48 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       50 GETUPVAL                         R11 4
+       51 DUPTABLE                         R12 K20 [{["text"] = "Say Hello to Animals", ["onActivated"], ["variant"]}]
+       52 SETTABLEKS                       R5 R12 K18 ["onActivated"]
+       54 GETUPVAL                         R13 5
+       55 GETTABLEKS                       R13 R13 K21 ["Emphasis"]
+       57 SETTABLEKS                       R13 R12 K19 ["variant"]
+       59 CALL                             R10 2 1
+       60 SETTABLEKS                       R10 R9 K11 ["TriggerButton"]
+       62 CALL                             R6 3 -1
+       63 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

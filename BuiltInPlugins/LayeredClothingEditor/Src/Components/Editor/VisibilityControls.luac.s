@@ -91,25 +91,23 @@ PROTO_3:
        25 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R1 K1 [{"isCageSlider"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isCageSlider"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 SETTABLEKS                       R1 R0 K3 ["isCageEditingActive"]
-       11 NEWCLOSURE                       R1 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R1 R0 K4 ["getMenuIcons"]
-       15 NEWCLOSURE                       R1 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R1 R0 K5 ["onMenuOptionClicked"]
-       19 NEWCLOSURE                       R1 P3
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U1
-       22 SETTABLEKS                       R1 R0 K6 ["onFocusMannequinClicked"]
-       24 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K4 ["isCageEditingActive"]
+        8 NEWCLOSURE                       R1 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R1 R0 K5 ["getMenuIcons"]
+       12 NEWCLOSURE                       R1 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R1 R0 K6 ["onMenuOptionClicked"]
+       16 NEWCLOSURE                       R1 P3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U1
+       19 SETTABLEKS                       R1 R0 K7 ["onFocusMannequinClicked"]
+       21 RETURN                           R0 0
 
 PROTO_5:
         0 DUPTABLE                         R4 K1 [{"icons"}]
@@ -215,15 +213,15 @@ PROTO_7:
       112 CALL                             R23 2 1
       113 SETTABLEKS                       R23 R22 K36 ["OptionsDropdownButton"]
       115 MOVE                             R23 R17
-      116 JUMPIFNOT                        R23 ; [+85]
+      116 JUMPIFNOT                        R23 ; [+79]
       117 GETUPVAL                         R23 2
       118 GETTABLEKS                       R23 R23 K18 ["createElement"]
       120 GETUPVAL                         R24 3
-      121 DUPTABLE                         R25 K47 [{"Layout", "Spacing", "HorizontalAlignment", "Size", "AutomaticSize", "Style", "LayoutOrder"}]
+      121 DUPTABLE                         R25 K48 [{["Layout"], ["Spacing"], ["HorizontalAlignment"], ["Size"], ["AutomaticSize"], ["Style"] = "RoundBox", ["LayoutOrder"]}]
       122 GETIMPORT                        R26 K33 [Enum.FillDirection.Horizontal]
       124 SETTABLEKS                       R26 R25 K22 ["Layout"]
       126 SETTABLEKS                       R13 R25 K24 ["Spacing"]
-      128 GETIMPORT                        R26 K49 [Enum.HorizontalAlignment.Center]
+      128 GETIMPORT                        R26 K50 [Enum.HorizontalAlignment.Center]
       130 SETTABLEKS                       R26 R25 K23 ["HorizontalAlignment"]
       132 GETIMPORT                        R26 K27 [UDim2.new]
       134 LOADN                            R27 0
@@ -234,78 +232,72 @@ PROTO_7:
       139 SETTABLEKS                       R26 R25 K20 ["Size"]
       141 GETIMPORT                        R26 K30 [Enum.AutomaticSize.X]
       143 SETTABLEKS                       R26 R25 K21 ["AutomaticSize"]
-      145 LOADK                            R26 K50 ["RoundBox"]
-      146 SETTABLEKS                       R26 R25 K46 ["Style"]
-      148 NAMECALL                         R26 R18 K45 ["getNextOrder"]
-      150 CALL                             R26 1 1
-      151 SETTABLEKS                       R26 R25 K4 ["LayoutOrder"]
-      153 DUPTABLE                         R26 K53 [{"TransparencyDropdownButton", "EditTransparencyView"}]
-      154 GETUPVAL                         R27 2
-      155 GETTABLEKS                       R27 R27 K18 ["createElement"]
-      157 GETUPVAL                         R28 4
-      158 DUPTABLE                         R29 K55 [{"ButtonSize", "Items", "IsIconList", "OnItemActivated", "LayoutOrder"}]
-      159 SETTABLEKS                       R14 R29 K13 ["ButtonSize"]
-      161 SETTABLEKS                       R15 R29 K41 ["Items"]
-      163 LOADB                            R30 1
-      164 SETTABLEKS                       R30 R29 K54 ["IsIconList"]
-      166 GETTABLEKS                       R30 R0 K56 ["onMenuOptionClicked"]
-      168 SETTABLEKS                       R30 R29 K42 ["OnItemActivated"]
-      170 NAMECALL                         R30 R18 K45 ["getNextOrder"]
-      172 CALL                             R30 1 1
-      173 SETTABLEKS                       R30 R29 K4 ["LayoutOrder"]
-      175 CALL                             R27 2 1
-      176 SETTABLEKS                       R27 R26 K51 ["TransparencyDropdownButton"]
-      178 GETUPVAL                         R27 2
-      179 GETTABLEKS                       R27 R27 K18 ["createElement"]
-      181 GETUPVAL                         R28 5
-      182 DUPTABLE                         R29 K58 [{"IsCageSlider", "LayoutOrder"}]
-      183 GETTABLEKS                       R30 R0 K59 ["isCageEditingActive"]
-      185 CALL                             R30 0 1
-      186 JUMPIFNOT                        R30 ; [+4]
-      187 GETTABLEKS                       R30 R0 K1 ["state"]
-      189 GETTABLEKS                       R30 R30 K60 ["isCageSlider"]
-      191 SETTABLEKS                       R30 R29 K57 ["IsCageSlider"]
-      193 NAMECALL                         R30 R18 K45 ["getNextOrder"]
-      195 CALL                             R30 1 1
-      196 SETTABLEKS                       R30 R29 K4 ["LayoutOrder"]
-      198 CALL                             R27 2 1
-      199 SETTABLEKS                       R27 R26 K52 ["EditTransparencyView"]
-      201 CALL                             R23 3 1
-      202 SETTABLEKS                       R23 R22 K37 ["TransparencySettingsContainer"]
-      204 GETUPVAL                         R23 2
-      205 GETTABLEKS                       R23 R23 K18 ["createElement"]
-      207 GETUPVAL                         R24 6
-      208 DUPTABLE                         R25 K63 [{"Style", "Size", "LayoutOrder", "OnClick", "Tooltip"}]
-      209 LOADK                            R26 K64 ["Round"]
-      210 SETTABLEKS                       R26 R25 K46 ["Style"]
-      212 GETIMPORT                        R26 K66 [UDim2.fromOffset]
-      214 MOVE                             R27 R14
-      215 MOVE                             R28 R14
-      216 CALL                             R26 2 1
-      217 SETTABLEKS                       R26 R25 K20 ["Size"]
-      219 NAMECALL                         R26 R18 K45 ["getNextOrder"]
-      221 CALL                             R26 1 1
-      222 SETTABLEKS                       R26 R25 K4 ["LayoutOrder"]
-      224 GETTABLEKS                       R26 R0 K67 ["onFocusMannequinClicked"]
-      226 SETTABLEKS                       R26 R25 K61 ["OnClick"]
-      228 LOADK                            R28 K68 ["Preview"]
-      229 LOADK                            R29 K69 ["FocusCamera"]
-      230 NAMECALL                         R26 R6 K70 ["getText"]
-      232 CALL                             R26 3 1
-      233 SETTABLEKS                       R26 R25 K62 ["Tooltip"]
-      235 DUPTABLE                         R26 K72 [{"Settings"}]
-      236 GETUPVAL                         R27 2
-      237 GETTABLEKS                       R27 R27 K18 ["createElement"]
-      239 GETUPVAL                         R28 7
-      240 DUPTABLE                         R29 K74 [{"Image"}]
-      241 GETTABLEKS                       R30 R8 K75 ["FocusMannequinIcon"]
-      243 SETTABLEKS                       R30 R29 K73 ["Image"]
-      245 CALL                             R27 2 1
-      246 SETTABLEKS                       R27 R26 K71 ["Settings"]
-      248 CALL                             R23 3 1
-      249 SETTABLEKS                       R23 R22 K38 ["FocusMannequinButton"]
-      251 CALL                             R19 3 -1
-      252 RETURN                           R19 -1
+      145 NAMECALL                         R26 R18 K45 ["getNextOrder"]
+      147 CALL                             R26 1 1
+      148 SETTABLEKS                       R26 R25 K4 ["LayoutOrder"]
+      150 DUPTABLE                         R26 K53 [{"TransparencyDropdownButton", "EditTransparencyView"}]
+      151 GETUPVAL                         R27 2
+      152 GETTABLEKS                       R27 R27 K18 ["createElement"]
+      154 GETUPVAL                         R28 4
+      155 DUPTABLE                         R29 K56 [{["ButtonSize"], ["Items"], ["IsIconList"] = True, ["OnItemActivated"], ["LayoutOrder"]}]
+      156 SETTABLEKS                       R14 R29 K13 ["ButtonSize"]
+      158 SETTABLEKS                       R15 R29 K41 ["Items"]
+      160 GETTABLEKS                       R30 R0 K57 ["onMenuOptionClicked"]
+      162 SETTABLEKS                       R30 R29 K42 ["OnItemActivated"]
+      164 NAMECALL                         R30 R18 K45 ["getNextOrder"]
+      166 CALL                             R30 1 1
+      167 SETTABLEKS                       R30 R29 K4 ["LayoutOrder"]
+      169 CALL                             R27 2 1
+      170 SETTABLEKS                       R27 R26 K51 ["TransparencyDropdownButton"]
+      172 GETUPVAL                         R27 2
+      173 GETTABLEKS                       R27 R27 K18 ["createElement"]
+      175 GETUPVAL                         R28 5
+      176 DUPTABLE                         R29 K59 [{"IsCageSlider", "LayoutOrder"}]
+      177 GETTABLEKS                       R30 R0 K60 ["isCageEditingActive"]
+      179 CALL                             R30 0 1
+      180 JUMPIFNOT                        R30 ; [+4]
+      181 GETTABLEKS                       R30 R0 K1 ["state"]
+      183 GETTABLEKS                       R30 R30 K61 ["isCageSlider"]
+      185 SETTABLEKS                       R30 R29 K58 ["IsCageSlider"]
+      187 NAMECALL                         R30 R18 K45 ["getNextOrder"]
+      189 CALL                             R30 1 1
+      190 SETTABLEKS                       R30 R29 K4 ["LayoutOrder"]
+      192 CALL                             R27 2 1
+      193 SETTABLEKS                       R27 R26 K52 ["EditTransparencyView"]
+      195 CALL                             R23 3 1
+      196 SETTABLEKS                       R23 R22 K37 ["TransparencySettingsContainer"]
+      198 GETUPVAL                         R23 2
+      199 GETTABLEKS                       R23 R23 K18 ["createElement"]
+      201 GETUPVAL                         R24 6
+      202 DUPTABLE                         R25 K65 [{["Style"] = "Round", ["Size"], ["LayoutOrder"], ["OnClick"], ["Tooltip"]}]
+      203 GETIMPORT                        R26 K67 [UDim2.fromOffset]
+      205 MOVE                             R27 R14
+      206 MOVE                             R28 R14
+      207 CALL                             R26 2 1
+      208 SETTABLEKS                       R26 R25 K20 ["Size"]
+      210 NAMECALL                         R26 R18 K45 ["getNextOrder"]
+      212 CALL                             R26 1 1
+      213 SETTABLEKS                       R26 R25 K4 ["LayoutOrder"]
+      215 GETTABLEKS                       R26 R0 K68 ["onFocusMannequinClicked"]
+      217 SETTABLEKS                       R26 R25 K63 ["OnClick"]
+      219 LOADK                            R28 K69 ["Preview"]
+      220 LOADK                            R29 K70 ["FocusCamera"]
+      221 NAMECALL                         R26 R6 K71 ["getText"]
+      223 CALL                             R26 3 1
+      224 SETTABLEKS                       R26 R25 K64 ["Tooltip"]
+      226 DUPTABLE                         R26 K73 [{"Settings"}]
+      227 GETUPVAL                         R27 2
+      228 GETTABLEKS                       R27 R27 K18 ["createElement"]
+      230 GETUPVAL                         R28 7
+      231 DUPTABLE                         R29 K75 [{"Image"}]
+      232 GETTABLEKS                       R30 R8 K76 ["FocusMannequinIcon"]
+      234 SETTABLEKS                       R30 R29 K74 ["Image"]
+      236 CALL                             R27 2 1
+      237 SETTABLEKS                       R27 R26 K72 ["Settings"]
+      239 CALL                             R23 3 1
+      240 SETTABLEKS                       R23 R22 K38 ["FocusMannequinButton"]
+      242 CALL                             R19 3 -1
+      243 RETURN                           R19 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -359,39 +351,37 @@ MAIN:
        89 CALL                             R17 2 1
        90 GETTABLEKS                       R18 R7 K10 ["Util"]
        92 GETTABLEKS                       R19 R18 K31 ["LayoutOrderIterator"]
-       94 DUPTABLE                         R20 K33 [{"Offset"}]
-       95 LOADN                            R21 0
-       96 SETTABLEKS                       R21 R20 K32 ["Offset"]
-       98 SETTABLEKS                       R20 R17 K34 ["defaultProps"]
-      100 DUPCLOSURE                       R20 K35 [PROTO_4]
-      101 CAPTURE                          VAL R16
-      102 CAPTURE                          VAL R4
-      103 SETTABLEKS                       R20 R17 K36 ["init"]
-      105 DUPCLOSURE                       R20 K37 [PROTO_5]
-      106 SETTABLEKS                       R20 R17 K38 ["didMount"]
-      108 DUPCLOSURE                       R20 K39 [PROTO_6]
-      109 SETTABLEKS                       R20 R17 K40 ["didUpdate"]
-      111 DUPCLOSURE                       R20 K41 [PROTO_7]
-      112 CAPTURE                          VAL R16
-      113 CAPTURE                          VAL R19
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R5
-      117 CAPTURE                          VAL R6
-      118 CAPTURE                          VAL R13
-      119 CAPTURE                          VAL R15
-      120 SETTABLEKS                       R20 R17 K42 ["render"]
-      122 MOVE                             R20 R9
-      123 DUPTABLE                         R21 K46 [{"Analytics", "EditingItemContext", "Localization", "Stylizer"}]
-      124 GETTABLEKS                       R22 R8 K43 ["Analytics"]
-      126 SETTABLEKS                       R22 R21 K43 ["Analytics"]
-      128 SETTABLEKS                       R3 R21 K9 ["EditingItemContext"]
-      130 GETTABLEKS                       R22 R8 K44 ["Localization"]
-      132 SETTABLEKS                       R22 R21 K44 ["Localization"]
-      134 GETTABLEKS                       R22 R8 K45 ["Stylizer"]
-      136 SETTABLEKS                       R22 R21 K45 ["Stylizer"]
-      138 CALL                             R20 1 1
-      139 MOVE                             R21 R17
-      140 CALL                             R20 1 1
-      141 MOVE                             R17 R20
-      142 RETURN                           R17 1
+       94 DUPTABLE                         R20 K34 [{["Offset"] = 0}]
+       95 SETTABLEKS                       R20 R17 K35 ["defaultProps"]
+       97 DUPCLOSURE                       R20 K36 [PROTO_4]
+       98 CAPTURE                          VAL R16
+       99 CAPTURE                          VAL R4
+      100 SETTABLEKS                       R20 R17 K37 ["init"]
+      102 DUPCLOSURE                       R20 K38 [PROTO_5]
+      103 SETTABLEKS                       R20 R17 K39 ["didMount"]
+      105 DUPCLOSURE                       R20 K40 [PROTO_6]
+      106 SETTABLEKS                       R20 R17 K41 ["didUpdate"]
+      108 DUPCLOSURE                       R20 K42 [PROTO_7]
+      109 CAPTURE                          VAL R16
+      110 CAPTURE                          VAL R19
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R5
+      114 CAPTURE                          VAL R6
+      115 CAPTURE                          VAL R13
+      116 CAPTURE                          VAL R15
+      117 SETTABLEKS                       R20 R17 K43 ["render"]
+      119 MOVE                             R20 R9
+      120 DUPTABLE                         R21 K47 [{"Analytics", "EditingItemContext", "Localization", "Stylizer"}]
+      121 GETTABLEKS                       R22 R8 K44 ["Analytics"]
+      123 SETTABLEKS                       R22 R21 K44 ["Analytics"]
+      125 SETTABLEKS                       R3 R21 K9 ["EditingItemContext"]
+      127 GETTABLEKS                       R22 R8 K45 ["Localization"]
+      129 SETTABLEKS                       R22 R21 K45 ["Localization"]
+      131 GETTABLEKS                       R22 R8 K46 ["Stylizer"]
+      133 SETTABLEKS                       R22 R21 K46 ["Stylizer"]
+      135 CALL                             R20 1 1
+      136 MOVE                             R21 R17
+      137 CALL                             R20 1 1
+      138 MOVE                             R17 R20
+      139 RETURN                           R17 1

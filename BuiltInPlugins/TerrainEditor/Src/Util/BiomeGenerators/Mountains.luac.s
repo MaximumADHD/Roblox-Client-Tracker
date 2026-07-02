@@ -5,7 +5,7 @@ PROTO_0:
         4 GETUPVAL                         R4 2
         5 MOVE                             R5 R0
         6 ADDK                             R6 R1 K1 [100]
-        7 DIVRK                            R8 R3 K1 [100]
+        7 DIVRK                            R8 K3 [1] R1
         8 MULK                             R7 R8 K2 [160]
         9 CALL                             R4 3 -1
        10 CALL                             R3 -1 -1
@@ -58,46 +58,42 @@ PROTO_1:
        49 MOVE                             R15 R5
        50 GETIMPORT                        R12 K7 [Vector3.new]
        52 CALL                             R12 3 1
-       53 DUPTABLE                         R13 K12 [{"Samples", "Scale"}]
-       54 LOADN                            R14 8
-       55 SETTABLEKS                       R14 R13 K10 ["Samples"]
-       57 LOADK                            R14 K13 [0.65]
-       58 SETTABLEKS                       R14 R13 K11 ["Scale"]
-       60 CALL                             R10 3 1
-       61 MULK                             R9 R10 K9 [1.2]
-       62 LOADK                            R12 K14 [-0.4]
-       63 ADD                              R11 R12 R9
-       64 MULK                             R12 R8 K15 [0.2]
-       65 ADD                              R10 R11 R12
-       66 LOADK                            R12 K16 [0.275]
+       53 DUPTABLE                         R13 K14 [{["Samples"] = 8, ["Scale"] = 0.65}]
+       54 CALL                             R10 3 1
+       55 MULK                             R9 R10 K9 [1.2]
+       56 LOADK                            R12 K15 [-0.4]
+       57 ADD                              R11 R12 R9
+       58 MULK                             R12 R8 K16 [0.2]
+       59 ADD                              R10 R11 R12
+       60 LOADK                            R12 K17 [0.275]
+       61 JUMPIFNOTLT                      R1 R12 ; [+4]
+       63 GETIMPORT                        R11 K21 [Enum.Material.Snow]
+       65 JUMP                             ; [+34]
+       66 LOADK                            R12 K22 [0.35]
        67 JUMPIFNOTLT                      R1 R12 ; [+4]
-       69 GETIMPORT                        R11 K20 [Enum.Material.Snow]
-       71 JUMP                             ; [+34]
-       72 LOADK                            R12 K21 [0.35]
+       69 GETIMPORT                        R11 K24 [Enum.Material.Rock]
+       71 JUMP                             ; [+28]
+       72 LOADK                            R12 K25 [0.4]
        73 JUMPIFNOTLT                      R1 R12 ; [+4]
-       75 GETIMPORT                        R11 K23 [Enum.Material.Rock]
-       77 JUMP                             ; [+28]
-       78 LOADK                            R12 K24 [0.4]
-       79 JUMPIFNOTLT                      R1 R12 ; [+4]
-       81 GETIMPORT                        R11 K26 [Enum.Material.Ground]
-       83 JUMP                             ; [+22]
-       84 SUBRK                            R12 R27 K1 ["Y"]
-       85 JUMPIFNOTLT                      R12 R6 ; [+4]
-       87 GETIMPORT                        R11 K23 [Enum.Material.Rock]
-       89 JUMP                             ; [+16]
-       90 SUBRK                            R12 R27 K1 ["Y"]
-       91 ADDK                             R13 R6 K28 [0.01]
-       92 JUMPIFNOTLT                      R12 R13 ; [+4]
-       94 GETIMPORT                        R11 K30 [Enum.Material.Mud]
-       96 JUMP                             ; [+9]
-       97 SUBRK                            R12 R27 K1 ["Y"]
-       98 ADDK                             R13 R6 K31 [0.015]
-       99 JUMPIFNOTLT                      R12 R13 ; [+4]
-      101 GETIMPORT                        R11 K26 [Enum.Material.Ground]
-      103 JUMP                             ; [+2]
-      104 GETIMPORT                        R11 K33 [Enum.Material.Grass]
-      106 GETIMPORT                        R12 K23 [Enum.Material.Rock]
-      108 RETURN                           R10 3
+       75 GETIMPORT                        R11 K27 [Enum.Material.Ground]
+       77 JUMP                             ; [+22]
+       78 SUBRK                            R12 K28 [1] R1
+       79 JUMPIFNOTLT                      R12 R6 ; [+4]
+       81 GETIMPORT                        R11 K24 [Enum.Material.Rock]
+       83 JUMP                             ; [+16]
+       84 SUBRK                            R12 K28 [1] R1
+       85 ADDK                             R13 R6 K29 [0.01]
+       86 JUMPIFNOTLT                      R12 R13 ; [+4]
+       88 GETIMPORT                        R11 K31 [Enum.Material.Mud]
+       90 JUMP                             ; [+9]
+       91 SUBRK                            R12 K28 [1] R1
+       92 ADDK                             R13 R6 K32 [0.015]
+       93 JUMPIFNOTLT                      R12 R13 ; [+4]
+       95 GETIMPORT                        R11 K27 [Enum.Material.Ground]
+       97 JUMP                             ; [+2]
+       98 GETIMPORT                        R11 K34 [Enum.Material.Grass]
+      100 GETIMPORT                        R12 K24 [Enum.Material.Rock]
+      102 RETURN                           R10 3
 
 PROTO_2:
         0 NEWCLOSURE                       R2 P0

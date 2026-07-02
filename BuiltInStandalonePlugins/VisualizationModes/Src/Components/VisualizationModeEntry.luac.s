@@ -1,61 +1,59 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["CanExpand"]
-        2 JUMPIF                           R1 ; [+21]
+        2 JUMPIF                           R1 ; [+18]
         3 GETUPVAL                         R1 0
         4 GETTABLEKS                       R1 R1 K1 ["createElement"]
         6 LOADK                            R2 K2 ["Frame"]
-        7 DUPTABLE                         R3 K6 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
-        8 GETIMPORT                        R4 K9 [UDim2.fromOffset]
+        7 DUPTABLE                         R3 K7 [{["Size"], ["LayoutOrder"], ["BackgroundTransparency"] = 1}]
+        8 GETIMPORT                        R4 K10 [UDim2.fromOffset]
        10 LOADN                            R5 7
        11 LOADN                            R6 12
        12 CALL                             R4 2 1
        13 SETTABLEKS                       R4 R3 K3 ["Size"]
        15 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
        17 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
-       19 LOADN                            R4 1
-       20 SETTABLEKS                       R4 R3 K5 ["BackgroundTransparency"]
-       22 CALL                             R1 2 -1
-       23 RETURN                           R1 -1
-       24 GETUPVAL                         R1 0
-       25 GETTABLEKS                       R1 R1 K1 ["createElement"]
-       27 LOADK                            R2 K10 ["ImageButton"]
-       28 NEWTABLE                         R3 4 0
-       30 GETIMPORT                        R4 K9 [UDim2.fromOffset]
-       32 LOADN                            R5 12
-       33 LOADN                            R6 12
-       34 CALL                             R4 2 1
-       35 SETTABLEKS                       R4 R3 K3 ["Size"]
-       37 LOADN                            R4 1
-       38 SETTABLEKS                       R4 R3 K5 ["BackgroundTransparency"]
-       40 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
-       42 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
-       44 GETUPVAL                         R4 0
-       45 GETTABLEKS                       R4 R4 K11 ["Event"]
-       47 GETTABLEKS                       R4 R4 K12 ["Activated"]
-       49 GETTABLEKS                       R5 R0 K13 ["OnExpansionToggled"]
-       51 SETTABLE                         R5 R3 R4
-       52 DUPTABLE                         R4 K15 [{"ArrowImage"}]
-       53 GETUPVAL                         R5 0
-       54 GETTABLEKS                       R5 R5 K1 ["createElement"]
-       56 LOADK                            R6 K16 ["ImageLabel"]
-       57 NEWTABLE                         R7 1 0
-       59 GETUPVAL                         R8 0
-       60 GETTABLEKS                       R8 R8 K17 ["Tag"]
-       62 GETUPVAL                         R9 1
-       63 GETTABLEKS                       R9 R9 K18 ["Styling"]
-       65 GETTABLEKS                       R9 R9 K19 ["joinTags"]
-       67 LOADK                            R10 K20 ["VisualizationModes-ExpandIcon"]
-       68 GETTABLEKS                       R12 R0 K21 ["IsExpanded"]
-       70 JUMPIFNOT                        R12 ; [+2]
-       71 LOADK                            R11 K22 ["VisualizationModes-ExpandIcon-Expanded"]
-       72 JUMP                             ; [+1]
-       73 LOADK                            R11 K23 ["VisualizationModes-ExpandIcon-Collapsed"]
-       74 CALL                             R9 2 1
-       75 SETTABLE                         R9 R7 R8
-       76 CALL                             R5 2 1
-       77 SETTABLEKS                       R5 R4 K14 ["ArrowImage"]
-       79 CALL                             R1 3 -1
-       80 RETURN                           R1 -1
+       19 CALL                             R1 2 -1
+       20 RETURN                           R1 -1
+       21 GETUPVAL                         R1 0
+       22 GETTABLEKS                       R1 R1 K1 ["createElement"]
+       24 LOADK                            R2 K11 ["ImageButton"]
+       25 NEWTABLE                         R3 4 0
+       27 GETIMPORT                        R4 K10 [UDim2.fromOffset]
+       29 LOADN                            R5 12
+       30 LOADN                            R6 12
+       31 CALL                             R4 2 1
+       32 SETTABLEKS                       R4 R3 K3 ["Size"]
+       34 LOADN                            R4 1
+       35 SETTABLEKS                       R4 R3 K5 ["BackgroundTransparency"]
+       37 GETTABLEKS                       R4 R0 K4 ["LayoutOrder"]
+       39 SETTABLEKS                       R4 R3 K4 ["LayoutOrder"]
+       41 GETUPVAL                         R4 0
+       42 GETTABLEKS                       R4 R4 K12 ["Event"]
+       44 GETTABLEKS                       R4 R4 K13 ["Activated"]
+       46 GETTABLEKS                       R5 R0 K14 ["OnExpansionToggled"]
+       48 SETTABLE                         R5 R3 R4
+       49 DUPTABLE                         R4 K16 [{"ArrowImage"}]
+       50 GETUPVAL                         R5 0
+       51 GETTABLEKS                       R5 R5 K1 ["createElement"]
+       53 LOADK                            R6 K17 ["ImageLabel"]
+       54 NEWTABLE                         R7 1 0
+       56 GETUPVAL                         R8 0
+       57 GETTABLEKS                       R8 R8 K18 ["Tag"]
+       59 GETUPVAL                         R9 1
+       60 GETTABLEKS                       R9 R9 K19 ["Styling"]
+       62 GETTABLEKS                       R9 R9 K20 ["joinTags"]
+       64 LOADK                            R10 K21 ["VisualizationModes-ExpandIcon"]
+       65 GETTABLEKS                       R12 R0 K22 ["IsExpanded"]
+       67 JUMPIFNOT                        R12 ; [+2]
+       68 LOADK                            R11 K23 ["VisualizationModes-ExpandIcon-Expanded"]
+       69 JUMP                             ; [+1]
+       70 LOADK                            R11 K24 ["VisualizationModes-ExpandIcon-Collapsed"]
+       71 CALL                             R9 2 1
+       72 SETTABLE                         R9 R7 R8
+       73 CALL                             R5 2 1
+       74 SETTABLEKS                       R5 R4 K15 ["ArrowImage"]
+       76 CALL                             R1 3 -1
+       77 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

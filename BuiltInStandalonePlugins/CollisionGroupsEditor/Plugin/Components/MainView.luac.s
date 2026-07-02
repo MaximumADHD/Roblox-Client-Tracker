@@ -26,14 +26,12 @@ PROTO_2:
        14 GETUPVAL                         R3 0
        15 GETTABLEKS                       R3 R3 K3 ["rowHover"]
        17 GETTABLEKS                       R3 R3 K4 ["Gui"]
-       19 JUMPIFNOTEQ                      R3 R0 ; [+9]
+       19 JUMPIFNOTEQ                      R3 R0 ; [+6]
        21 GETUPVAL                         R3 0
-       22 DUPTABLE                         R5 K1 [{"RowHovered"}]
-       23 LOADK                            R6 K5 [""]
-       24 SETTABLEKS                       R6 R5 K0 ["RowHovered"]
-       26 NAMECALL                         R3 R3 K2 ["setState"]
-       28 CALL                             R3 2 0
-       29 RETURN                           R0 0
+       22 DUPTABLE                         R5 K6 [{[1] = ""}]
+       23 NAMECALL                         R3 R3 K2 ["setState"]
+       25 CALL                             R3 2 0
+       26 RETURN                           R0 0
 
 PROTO_3:
         0 JUMPIFNOT                        R2 ; [+13]
@@ -49,14 +47,12 @@ PROTO_3:
        14 GETUPVAL                         R3 0
        15 GETTABLEKS                       R3 R3 K3 ["colHover"]
        17 GETTABLEKS                       R3 R3 K4 ["Gui"]
-       19 JUMPIFNOTEQ                      R3 R0 ; [+9]
+       19 JUMPIFNOTEQ                      R3 R0 ; [+6]
        21 GETUPVAL                         R3 0
-       22 DUPTABLE                         R5 K1 [{"ColHovered"}]
-       23 LOADK                            R6 K5 [""]
-       24 SETTABLEKS                       R6 R5 K0 ["ColHovered"]
-       26 NAMECALL                         R3 R3 K2 ["setState"]
-       28 CALL                             R3 2 0
-       29 RETURN                           R0 0
+       22 DUPTABLE                         R5 K6 [{[1] = ""}]
+       23 NAMECALL                         R3 R3 K2 ["setState"]
+       25 CALL                             R3 2 0
+       26 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -109,19 +105,9 @@ PROTO_7:
        30 NEWCLOSURE                       R1 P4
        31 CAPTURE                          VAL R0
        32 SETTABLEKS                       R1 R0 K8 ["onViewModeToggled"]
-       34 DUPTABLE                         R1 K14 [{"ScrollPositionX", "ScrollPositionY", "RowHovered", "ColHovered", "ToggleListView"}]
-       35 LOADN                            R2 0
-       36 SETTABLEKS                       R2 R1 K9 ["ScrollPositionX"]
-       38 LOADN                            R2 0
-       39 SETTABLEKS                       R2 R1 K10 ["ScrollPositionY"]
-       41 LOADK                            R2 K1 [""]
-       42 SETTABLEKS                       R2 R1 K11 ["RowHovered"]
-       44 LOADK                            R2 K1 [""]
-       45 SETTABLEKS                       R2 R1 K12 ["ColHovered"]
-       47 LOADB                            R2 1
-       48 SETTABLEKS                       R2 R1 K13 ["ToggleListView"]
-       50 SETTABLEKS                       R1 R0 K15 ["state"]
-       52 RETURN                           R0 0
+       34 DUPTABLE                         R1 K16 [{["ScrollPositionX"] = 0, ["ScrollPositionY"] = 0, ["RowHovered"] = "", ["ColHovered"] = "", ["ToggleListView"] = True}]
+       35 SETTABLEKS                       R1 R0 K17 ["state"]
+       37 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -131,7 +117,7 @@ PROTO_8:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K7 ["createElement"]
        10 GETUPVAL                         R5 1
-       11 DUPTABLE                         R6 K17 [{"OnGroupAdded", "OnGroupDeleted", "OnGroupRenamed", "UISelectedId", "OnViewModeToggled", "ToggleListView", "LayoutOrder", "Groups", "Window"}]
+       11 DUPTABLE                         R6 K18 [{["OnGroupAdded"], ["OnGroupDeleted"], ["OnGroupRenamed"], ["UISelectedId"], ["OnViewModeToggled"], ["ToggleListView"], ["LayoutOrder"] = 1, ["Groups"], ["Window"]}]
        12 GETTABLEKS                       R7 R1 K8 ["OnGroupAdded"]
        14 SETTABLEKS                       R7 R6 K8 ["OnGroupAdded"]
        16 GETTABLEKS                       R7 R1 K9 ["OnGroupDeleted"]
@@ -140,242 +126,230 @@ PROTO_8:
        22 SETTABLEKS                       R7 R6 K10 ["OnGroupRenamed"]
        24 GETTABLEKS                       R7 R1 K11 ["UISelectedId"]
        26 SETTABLEKS                       R7 R6 K11 ["UISelectedId"]
-       28 GETTABLEKS                       R7 R0 K18 ["onViewModeToggled"]
+       28 GETTABLEKS                       R7 R0 K19 ["onViewModeToggled"]
        30 SETTABLEKS                       R7 R6 K12 ["OnViewModeToggled"]
-       32 GETTABLEKS                       R7 R0 K19 ["state"]
+       32 GETTABLEKS                       R7 R0 K20 ["state"]
        34 GETTABLEKS                       R7 R7 K13 ["ToggleListView"]
        36 SETTABLEKS                       R7 R6 K13 ["ToggleListView"]
-       38 LOADN                            R7 1
-       39 SETTABLEKS                       R7 R6 K14 ["LayoutOrder"]
-       41 GETTABLEKS                       R7 R1 K15 ["Groups"]
-       43 SETTABLEKS                       R7 R6 K15 ["Groups"]
-       45 GETTABLEKS                       R7 R1 K16 ["Window"]
-       47 SETTABLEKS                       R7 R6 K16 ["Window"]
-       49 CALL                             R4 2 1
-       50 SETTABLEKS                       R4 R3 K3 ["ControlsHeaderRow"]
-       52 GETUPVAL                         R4 0
-       53 GETTABLEKS                       R4 R4 K7 ["createElement"]
-       55 GETUPVAL                         R5 2
-       56 DUPTABLE                         R6 K23 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-       57 GETIMPORT                        R7 K26 [UDim2.new]
-       59 LOADN                            R8 1
-       60 LOADN                            R9 0
-       61 LOADN                            R10 0
-       62 GETUPVAL                         R11 3
-       63 GETTABLEKS                       R11 R11 K27 ["GroupRowHeight"]
-       65 CALL                             R7 4 1
-       66 SETTABLEKS                       R7 R6 K20 ["Size"]
-       68 LOADN                            R7 2
-       69 SETTABLEKS                       R7 R6 K14 ["LayoutOrder"]
-       71 GETIMPORT                        R7 K31 [Enum.FillDirection.Horizontal]
-       73 SETTABLEKS                       R7 R6 K21 ["Layout"]
-       75 GETIMPORT                        R7 K33 [Enum.HorizontalAlignment.Left]
-       77 SETTABLEKS                       R7 R6 K22 ["HorizontalAlignment"]
-       79 DUPTABLE                         R7 K36 [{"TableHeader", "ListHeader"}]
-       80 GETUPVAL                         R8 0
-       81 GETTABLEKS                       R8 R8 K7 ["createElement"]
-       83 GETUPVAL                         R9 4
-       84 DUPTABLE                         R10 K40 [{"LayoutOrder", "Groups", "ColHovered", "OnColHovered", "ScrollPositionX"}]
-       85 GETTABLEKS                       R12 R0 K19 ["state"]
-       87 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
-       89 JUMPIFNOT                        R12 ; [+2]
-       90 LOADN                            R11 2
-       91 JUMP                             ; [+1]
-       92 LOADN                            R11 1
-       93 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-       95 GETTABLEKS                       R11 R1 K15 ["Groups"]
-       97 SETTABLEKS                       R11 R10 K15 ["Groups"]
-       99 GETTABLEKS                       R11 R0 K19 ["state"]
-      101 GETTABLEKS                       R11 R11 K37 ["ColHovered"]
-      103 SETTABLEKS                       R11 R10 K37 ["ColHovered"]
-      105 GETTABLEKS                       R11 R0 K41 ["onColHovered"]
-      107 SETTABLEKS                       R11 R10 K38 ["OnColHovered"]
-      109 GETTABLEKS                       R11 R0 K19 ["state"]
-      111 GETTABLEKS                       R11 R11 K39 ["ScrollPositionX"]
-      113 SETTABLEKS                       R11 R10 K39 ["ScrollPositionX"]
-      115 CALL                             R8 2 1
-      116 SETTABLEKS                       R8 R7 K34 ["TableHeader"]
-      118 GETUPVAL                         R8 0
-      119 GETTABLEKS                       R8 R8 K7 ["createElement"]
-      121 GETUPVAL                         R9 5
-      122 DUPTABLE                         R10 K44 [{"LayoutOrder", "SelectedGroupName", "GroupCount"}]
-      123 GETTABLEKS                       R12 R0 K19 ["state"]
-      125 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
-      127 JUMPIFNOT                        R12 ; [+2]
-      128 LOADN                            R11 1
-      129 JUMP                             ; [+1]
-      130 LOADN                            R11 2
-      131 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      133 GETUPVAL                         R12 6
-      134 GETTABLEKS                       R12 R12 K45 ["getSelectedGroup"]
-      136 GETTABLEKS                       R13 R1 K15 ["Groups"]
-      138 CALL                             R12 1 1
-      139 JUMPIFEQKS                       R12 K46 [""] ; [+10]
-      141 GETUPVAL                         R11 6
-      142 GETTABLEKS                       R11 R11 K45 ["getSelectedGroup"]
-      144 GETTABLEKS                       R12 R1 K15 ["Groups"]
-      146 CALL                             R11 1 1
-      147 GETTABLEKS                       R11 R11 K47 ["Name"]
-      149 JUMP                             ; [+1]
-      150 LOADK                            R11 K46 [""]
-      151 SETTABLEKS                       R11 R10 K42 ["SelectedGroupName"]
-      153 GETTABLEKS                       R12 R1 K15 ["Groups"]
-      155 LENGTH                           R11 R12
-      156 SETTABLEKS                       R11 R10 K43 ["GroupCount"]
-      158 CALL                             R8 2 1
-      159 SETTABLEKS                       R8 R7 K35 ["ListHeader"]
-      161 CALL                             R4 3 1
-      162 SETTABLEKS                       R4 R3 K4 ["Header"]
-      164 GETUPVAL                         R4 0
-      165 GETTABLEKS                       R4 R4 K7 ["createElement"]
-      167 GETUPVAL                         R5 2
-      168 DUPTABLE                         R6 K49 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
-      169 GETTABLEKS                       R7 R2 K50 ["MiddlePaneSize"]
-      171 SETTABLEKS                       R7 R6 K20 ["Size"]
-      173 LOADN                            R7 3
-      174 SETTABLEKS                       R7 R6 K14 ["LayoutOrder"]
-      176 GETIMPORT                        R7 K31 [Enum.FillDirection.Horizontal]
-      178 SETTABLEKS                       R7 R6 K21 ["Layout"]
-      180 GETIMPORT                        R7 K33 [Enum.HorizontalAlignment.Left]
-      182 SETTABLEKS                       R7 R6 K22 ["HorizontalAlignment"]
-      184 GETIMPORT                        R7 K52 [Enum.VerticalAlignment.Top]
-      186 SETTABLEKS                       R7 R6 K48 ["VerticalAlignment"]
-      188 DUPTABLE                         R7 K56 [{"GroupLabelColumn", "GridFrame", "ListFrame"}]
-      189 GETUPVAL                         R8 0
-      190 GETTABLEKS                       R8 R8 K7 ["createElement"]
-      192 GETUPVAL                         R9 7
-      193 DUPTABLE                         R10 K60 [{"LayoutOrder", "Groups", "Window", "RowHovered", "OnRowHovered", "ScrollPositionY", "ToggleListView"}]
-      194 LOADN                            R11 1
-      195 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      197 GETTABLEKS                       R11 R1 K15 ["Groups"]
-      199 SETTABLEKS                       R11 R10 K15 ["Groups"]
-      201 GETTABLEKS                       R11 R1 K16 ["Window"]
-      203 SETTABLEKS                       R11 R10 K16 ["Window"]
-      205 GETTABLEKS                       R11 R0 K19 ["state"]
-      207 GETTABLEKS                       R11 R11 K57 ["RowHovered"]
-      209 SETTABLEKS                       R11 R10 K57 ["RowHovered"]
-      211 GETTABLEKS                       R11 R0 K61 ["onRowHovered"]
-      213 SETTABLEKS                       R11 R10 K58 ["OnRowHovered"]
-      215 GETTABLEKS                       R11 R0 K19 ["state"]
-      217 GETTABLEKS                       R11 R11 K59 ["ScrollPositionY"]
-      219 SETTABLEKS                       R11 R10 K59 ["ScrollPositionY"]
-      221 GETTABLEKS                       R11 R0 K19 ["state"]
-      223 GETTABLEKS                       R11 R11 K13 ["ToggleListView"]
-      225 SETTABLEKS                       R11 R10 K13 ["ToggleListView"]
-      227 CALL                             R8 2 1
-      228 SETTABLEKS                       R8 R7 K53 ["GroupLabelColumn"]
-      230 GETUPVAL                         R8 0
-      231 GETTABLEKS                       R8 R8 K7 ["createElement"]
-      233 GETUPVAL                         R9 8
-      234 DUPTABLE                         R10 K66 [{"Size", "AutomaticCanvasSize", "ScrollingDirection", "LayoutOrder", "OnScrollUpdate", "Layout", "Padding"}]
-      235 GETTABLEKS                       R11 R2 K67 ["GridFrameSize"]
-      237 SETTABLEKS                       R11 R10 K20 ["Size"]
-      239 GETIMPORT                        R11 K70 [Enum.AutomaticSize.XY]
-      241 SETTABLEKS                       R11 R10 K62 ["AutomaticCanvasSize"]
-      243 GETIMPORT                        R11 K71 [Enum.ScrollingDirection.XY]
-      245 SETTABLEKS                       R11 R10 K63 ["ScrollingDirection"]
-      247 GETTABLEKS                       R12 R0 K19 ["state"]
-      249 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
-      251 JUMPIFNOT                        R12 ; [+2]
-      252 LOADN                            R11 3
-      253 JUMP                             ; [+1]
-      254 LOADN                            R11 2
-      255 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      257 GETTABLEKS                       R11 R0 K72 ["onScrolled"]
-      259 SETTABLEKS                       R11 R10 K64 ["OnScrollUpdate"]
-      261 GETIMPORT                        R11 K31 [Enum.FillDirection.Horizontal]
-      263 SETTABLEKS                       R11 R10 K21 ["Layout"]
-      265 LOADN                            R11 0
-      266 SETTABLEKS                       R11 R10 K65 ["Padding"]
-      268 DUPTABLE                         R11 K74 [{"GroupCollisionMatrix"}]
-      269 GETTABLEKS                       R13 R0 K19 ["state"]
-      271 GETTABLEKS                       R13 R13 K13 ["ToggleListView"]
-      273 NOT                              R12 R13
-      274 JUMPIFNOT                        R12 ; [+24]
-      275 GETUPVAL                         R12 0
-      276 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      278 GETUPVAL                         R13 9
-      279 DUPTABLE                         R14 K75 [{"Groups", "RowHovered", "OnColHovered", "OnRowHovered"}]
-      280 GETTABLEKS                       R15 R1 K15 ["Groups"]
-      282 SETTABLEKS                       R15 R14 K15 ["Groups"]
-      284 GETTABLEKS                       R15 R0 K19 ["state"]
-      286 GETTABLEKS                       R15 R15 K57 ["RowHovered"]
-      288 SETTABLEKS                       R15 R14 K57 ["RowHovered"]
-      290 GETTABLEKS                       R15 R0 K41 ["onColHovered"]
-      292 SETTABLEKS                       R15 R14 K38 ["OnColHovered"]
-      294 GETTABLEKS                       R15 R0 K61 ["onRowHovered"]
-      296 SETTABLEKS                       R15 R14 K58 ["OnRowHovered"]
-      298 CALL                             R12 2 1
-      299 SETTABLEKS                       R12 R11 K73 ["GroupCollisionMatrix"]
-      301 CALL                             R8 3 1
-      302 SETTABLEKS                       R8 R7 K54 ["GridFrame"]
-      304 GETTABLEKS                       R8 R0 K19 ["state"]
-      306 GETTABLEKS                       R8 R8 K13 ["ToggleListView"]
-      308 JUMPIFNOT                        R8 ; [+63]
-      309 GETUPVAL                         R8 0
-      310 GETTABLEKS                       R8 R8 K7 ["createElement"]
-      312 GETUPVAL                         R9 8
-      313 DUPTABLE                         R10 K76 [{"Size", "AutomaticCanvasSize", "LayoutOrder", "Layout", "ScrollingDirection"}]
-      314 GETTABLEKS                       R11 R2 K77 ["ListFrameSize"]
-      316 SETTABLEKS                       R11 R10 K20 ["Size"]
-      318 GETIMPORT                        R11 K70 [Enum.AutomaticSize.XY]
-      320 SETTABLEKS                       R11 R10 K62 ["AutomaticCanvasSize"]
-      322 GETTABLEKS                       R12 R0 K19 ["state"]
-      324 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
-      326 JUMPIFNOT                        R12 ; [+2]
-      327 LOADN                            R11 2
-      328 JUMP                             ; [+1]
-      329 LOADN                            R11 3
-      330 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      332 GETIMPORT                        R11 K31 [Enum.FillDirection.Horizontal]
-      334 SETTABLEKS                       R11 R10 K21 ["Layout"]
-      336 GETIMPORT                        R11 K79 [Enum.ScrollingDirection.Y]
-      338 SETTABLEKS                       R11 R10 K63 ["ScrollingDirection"]
-      340 DUPTABLE                         R11 K81 [{"GroupListView"}]
-      341 GETUPVAL                         R12 0
-      342 GETTABLEKS                       R12 R12 K7 ["createElement"]
-      344 GETUPVAL                         R13 6
-      345 DUPTABLE                         R14 K82 [{"Groups", "UISelectedId", "RowHovered", "OnColHovered", "OnRowHovered"}]
-      346 GETTABLEKS                       R15 R1 K15 ["Groups"]
-      348 SETTABLEKS                       R15 R14 K15 ["Groups"]
-      350 GETTABLEKS                       R15 R1 K11 ["UISelectedId"]
-      352 SETTABLEKS                       R15 R14 K11 ["UISelectedId"]
-      354 GETTABLEKS                       R15 R0 K19 ["state"]
-      356 GETTABLEKS                       R15 R15 K57 ["RowHovered"]
-      358 SETTABLEKS                       R15 R14 K57 ["RowHovered"]
-      360 GETTABLEKS                       R15 R0 K41 ["onColHovered"]
-      362 SETTABLEKS                       R15 R14 K38 ["OnColHovered"]
-      364 GETTABLEKS                       R15 R0 K61 ["onRowHovered"]
-      366 SETTABLEKS                       R15 R14 K58 ["OnRowHovered"]
-      368 CALL                             R12 2 1
-      369 SETTABLEKS                       R12 R11 K80 ["GroupListView"]
-      371 CALL                             R8 3 1
-      372 SETTABLEKS                       R8 R7 K55 ["ListFrame"]
-      374 CALL                             R4 3 1
-      375 SETTABLEKS                       R4 R3 K5 ["Middle"]
-      377 GETUPVAL                         R4 0
-      378 GETTABLEKS                       R4 R4 K7 ["createElement"]
-      380 GETUPVAL                         R5 10
-      381 DUPTABLE                         R6 K85 [{"Enabled", "OnClose"}]
-      382 GETTABLEKS                       R7 R1 K86 ["GroupRenameDialogOpen"]
-      384 SETTABLEKS                       R7 R6 K83 ["Enabled"]
-      386 GETTABLEKS                       R7 R1 K87 ["OnGroupRenameDialogClosed"]
-      388 SETTABLEKS                       R7 R6 K84 ["OnClose"]
-      390 CALL                             R4 2 1
-      391 SETTABLEKS                       R4 R3 K88 ["GroupRenameDialog"]
-      393 GETUPVAL                         R4 0
-      394 GETTABLEKS                       R4 R4 K7 ["createElement"]
-      396 GETUPVAL                         R5 2
-      397 DUPTABLE                         R6 K90 [{"Style", "Layout", "VerticalAlignment"}]
-      398 LOADK                            R7 K91 ["Box"]
-      399 SETTABLEKS                       R7 R6 K89 ["Style"]
-      401 GETIMPORT                        R7 K93 [Enum.FillDirection.Vertical]
-      403 SETTABLEKS                       R7 R6 K21 ["Layout"]
-      405 GETIMPORT                        R7 K52 [Enum.VerticalAlignment.Top]
-      407 SETTABLEKS                       R7 R6 K48 ["VerticalAlignment"]
-      409 MOVE                             R7 R3
-      410 CALL                             R4 3 -1
-      411 RETURN                           R4 -1
+       38 GETTABLEKS                       R7 R1 K16 ["Groups"]
+       40 SETTABLEKS                       R7 R6 K16 ["Groups"]
+       42 GETTABLEKS                       R7 R1 K17 ["Window"]
+       44 SETTABLEKS                       R7 R6 K17 ["Window"]
+       46 CALL                             R4 2 1
+       47 SETTABLEKS                       R4 R3 K3 ["ControlsHeaderRow"]
+       49 GETUPVAL                         R4 0
+       50 GETTABLEKS                       R4 R4 K7 ["createElement"]
+       52 GETUPVAL                         R5 2
+       53 DUPTABLE                         R6 K25 [{["Size"], ["LayoutOrder"] = 2, ["Layout"], ["HorizontalAlignment"]}]
+       54 GETIMPORT                        R7 K28 [UDim2.new]
+       56 LOADN                            R8 1
+       57 LOADN                            R9 0
+       58 LOADN                            R10 0
+       59 GETUPVAL                         R11 3
+       60 GETTABLEKS                       R11 R11 K29 ["GroupRowHeight"]
+       62 CALL                             R7 4 1
+       63 SETTABLEKS                       R7 R6 K21 ["Size"]
+       65 GETIMPORT                        R7 K33 [Enum.FillDirection.Horizontal]
+       67 SETTABLEKS                       R7 R6 K23 ["Layout"]
+       69 GETIMPORT                        R7 K35 [Enum.HorizontalAlignment.Left]
+       71 SETTABLEKS                       R7 R6 K24 ["HorizontalAlignment"]
+       73 DUPTABLE                         R7 K38 [{"TableHeader", "ListHeader"}]
+       74 GETUPVAL                         R8 0
+       75 GETTABLEKS                       R8 R8 K7 ["createElement"]
+       77 GETUPVAL                         R9 4
+       78 DUPTABLE                         R10 K42 [{"LayoutOrder", "Groups", "ColHovered", "OnColHovered", "ScrollPositionX"}]
+       79 GETTABLEKS                       R12 R0 K20 ["state"]
+       81 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
+       83 JUMPIFNOT                        R12 ; [+2]
+       84 LOADN                            R11 2
+       85 JUMP                             ; [+1]
+       86 LOADN                            R11 1
+       87 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+       89 GETTABLEKS                       R11 R1 K16 ["Groups"]
+       91 SETTABLEKS                       R11 R10 K16 ["Groups"]
+       93 GETTABLEKS                       R11 R0 K20 ["state"]
+       95 GETTABLEKS                       R11 R11 K39 ["ColHovered"]
+       97 SETTABLEKS                       R11 R10 K39 ["ColHovered"]
+       99 GETTABLEKS                       R11 R0 K43 ["onColHovered"]
+      101 SETTABLEKS                       R11 R10 K40 ["OnColHovered"]
+      103 GETTABLEKS                       R11 R0 K20 ["state"]
+      105 GETTABLEKS                       R11 R11 K41 ["ScrollPositionX"]
+      107 SETTABLEKS                       R11 R10 K41 ["ScrollPositionX"]
+      109 CALL                             R8 2 1
+      110 SETTABLEKS                       R8 R7 K36 ["TableHeader"]
+      112 GETUPVAL                         R8 0
+      113 GETTABLEKS                       R8 R8 K7 ["createElement"]
+      115 GETUPVAL                         R9 5
+      116 DUPTABLE                         R10 K46 [{"LayoutOrder", "SelectedGroupName", "GroupCount"}]
+      117 GETTABLEKS                       R12 R0 K20 ["state"]
+      119 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
+      121 JUMPIFNOT                        R12 ; [+2]
+      122 LOADN                            R11 1
+      123 JUMP                             ; [+1]
+      124 LOADN                            R11 2
+      125 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      127 GETUPVAL                         R12 6
+      128 GETTABLEKS                       R12 R12 K47 ["getSelectedGroup"]
+      130 GETTABLEKS                       R13 R1 K16 ["Groups"]
+      132 CALL                             R12 1 1
+      133 JUMPIFEQKS                       R12 K48 [""] ; [+10]
+      135 GETUPVAL                         R11 6
+      136 GETTABLEKS                       R11 R11 K47 ["getSelectedGroup"]
+      138 GETTABLEKS                       R12 R1 K16 ["Groups"]
+      140 CALL                             R11 1 1
+      141 GETTABLEKS                       R11 R11 K49 ["Name"]
+      143 JUMP                             ; [+1]
+      144 LOADK                            R11 K48 [""]
+      145 SETTABLEKS                       R11 R10 K44 ["SelectedGroupName"]
+      147 GETTABLEKS                       R12 R1 K16 ["Groups"]
+      149 LENGTH                           R11 R12
+      150 SETTABLEKS                       R11 R10 K45 ["GroupCount"]
+      152 CALL                             R8 2 1
+      153 SETTABLEKS                       R8 R7 K37 ["ListHeader"]
+      155 CALL                             R4 3 1
+      156 SETTABLEKS                       R4 R3 K4 ["Header"]
+      158 GETUPVAL                         R4 0
+      159 GETTABLEKS                       R4 R4 K7 ["createElement"]
+      161 GETUPVAL                         R5 2
+      162 DUPTABLE                         R6 K52 [{["Size"], ["LayoutOrder"] = 3, ["Layout"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
+      163 GETTABLEKS                       R7 R2 K53 ["MiddlePaneSize"]
+      165 SETTABLEKS                       R7 R6 K21 ["Size"]
+      167 GETIMPORT                        R7 K33 [Enum.FillDirection.Horizontal]
+      169 SETTABLEKS                       R7 R6 K23 ["Layout"]
+      171 GETIMPORT                        R7 K35 [Enum.HorizontalAlignment.Left]
+      173 SETTABLEKS                       R7 R6 K24 ["HorizontalAlignment"]
+      175 GETIMPORT                        R7 K55 [Enum.VerticalAlignment.Top]
+      177 SETTABLEKS                       R7 R6 K51 ["VerticalAlignment"]
+      179 DUPTABLE                         R7 K59 [{"GroupLabelColumn", "GridFrame", "ListFrame"}]
+      180 GETUPVAL                         R8 0
+      181 GETTABLEKS                       R8 R8 K7 ["createElement"]
+      183 GETUPVAL                         R9 7
+      184 DUPTABLE                         R10 K63 [{["LayoutOrder"] = 1, ["Groups"], ["Window"], ["RowHovered"], ["OnRowHovered"], ["ScrollPositionY"], ["ToggleListView"]}]
+      185 GETTABLEKS                       R11 R1 K16 ["Groups"]
+      187 SETTABLEKS                       R11 R10 K16 ["Groups"]
+      189 GETTABLEKS                       R11 R1 K17 ["Window"]
+      191 SETTABLEKS                       R11 R10 K17 ["Window"]
+      193 GETTABLEKS                       R11 R0 K20 ["state"]
+      195 GETTABLEKS                       R11 R11 K60 ["RowHovered"]
+      197 SETTABLEKS                       R11 R10 K60 ["RowHovered"]
+      199 GETTABLEKS                       R11 R0 K64 ["onRowHovered"]
+      201 SETTABLEKS                       R11 R10 K61 ["OnRowHovered"]
+      203 GETTABLEKS                       R11 R0 K20 ["state"]
+      205 GETTABLEKS                       R11 R11 K62 ["ScrollPositionY"]
+      207 SETTABLEKS                       R11 R10 K62 ["ScrollPositionY"]
+      209 GETTABLEKS                       R11 R0 K20 ["state"]
+      211 GETTABLEKS                       R11 R11 K13 ["ToggleListView"]
+      213 SETTABLEKS                       R11 R10 K13 ["ToggleListView"]
+      215 CALL                             R8 2 1
+      216 SETTABLEKS                       R8 R7 K56 ["GroupLabelColumn"]
+      218 GETUPVAL                         R8 0
+      219 GETTABLEKS                       R8 R8 K7 ["createElement"]
+      221 GETUPVAL                         R9 8
+      222 DUPTABLE                         R10 K70 [{["Size"], ["AutomaticCanvasSize"], ["ScrollingDirection"], ["LayoutOrder"], ["OnScrollUpdate"], ["Layout"], ["Padding"] = 0}]
+      223 GETTABLEKS                       R11 R2 K71 ["GridFrameSize"]
+      225 SETTABLEKS                       R11 R10 K21 ["Size"]
+      227 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
+      229 SETTABLEKS                       R11 R10 K65 ["AutomaticCanvasSize"]
+      231 GETIMPORT                        R11 K75 [Enum.ScrollingDirection.XY]
+      233 SETTABLEKS                       R11 R10 K66 ["ScrollingDirection"]
+      235 GETTABLEKS                       R12 R0 K20 ["state"]
+      237 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
+      239 JUMPIFNOT                        R12 ; [+2]
+      240 LOADN                            R11 3
+      241 JUMP                             ; [+1]
+      242 LOADN                            R11 2
+      243 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      245 GETTABLEKS                       R11 R0 K76 ["onScrolled"]
+      247 SETTABLEKS                       R11 R10 K67 ["OnScrollUpdate"]
+      249 GETIMPORT                        R11 K33 [Enum.FillDirection.Horizontal]
+      251 SETTABLEKS                       R11 R10 K23 ["Layout"]
+      253 DUPTABLE                         R11 K78 [{"GroupCollisionMatrix"}]
+      254 GETTABLEKS                       R13 R0 K20 ["state"]
+      256 GETTABLEKS                       R13 R13 K13 ["ToggleListView"]
+      258 NOT                              R12 R13
+      259 JUMPIFNOT                        R12 ; [+24]
+      260 GETUPVAL                         R12 0
+      261 GETTABLEKS                       R12 R12 K7 ["createElement"]
+      263 GETUPVAL                         R13 9
+      264 DUPTABLE                         R14 K79 [{"Groups", "RowHovered", "OnColHovered", "OnRowHovered"}]
+      265 GETTABLEKS                       R15 R1 K16 ["Groups"]
+      267 SETTABLEKS                       R15 R14 K16 ["Groups"]
+      269 GETTABLEKS                       R15 R0 K20 ["state"]
+      271 GETTABLEKS                       R15 R15 K60 ["RowHovered"]
+      273 SETTABLEKS                       R15 R14 K60 ["RowHovered"]
+      275 GETTABLEKS                       R15 R0 K43 ["onColHovered"]
+      277 SETTABLEKS                       R15 R14 K40 ["OnColHovered"]
+      279 GETTABLEKS                       R15 R0 K64 ["onRowHovered"]
+      281 SETTABLEKS                       R15 R14 K61 ["OnRowHovered"]
+      283 CALL                             R12 2 1
+      284 SETTABLEKS                       R12 R11 K77 ["GroupCollisionMatrix"]
+      286 CALL                             R8 3 1
+      287 SETTABLEKS                       R8 R7 K57 ["GridFrame"]
+      289 GETTABLEKS                       R8 R0 K20 ["state"]
+      291 GETTABLEKS                       R8 R8 K13 ["ToggleListView"]
+      293 JUMPIFNOT                        R8 ; [+63]
+      294 GETUPVAL                         R8 0
+      295 GETTABLEKS                       R8 R8 K7 ["createElement"]
+      297 GETUPVAL                         R9 8
+      298 DUPTABLE                         R10 K80 [{"Size", "AutomaticCanvasSize", "LayoutOrder", "Layout", "ScrollingDirection"}]
+      299 GETTABLEKS                       R11 R2 K81 ["ListFrameSize"]
+      301 SETTABLEKS                       R11 R10 K21 ["Size"]
+      303 GETIMPORT                        R11 K74 [Enum.AutomaticSize.XY]
+      305 SETTABLEKS                       R11 R10 K65 ["AutomaticCanvasSize"]
+      307 GETTABLEKS                       R12 R0 K20 ["state"]
+      309 GETTABLEKS                       R12 R12 K13 ["ToggleListView"]
+      311 JUMPIFNOT                        R12 ; [+2]
+      312 LOADN                            R11 2
+      313 JUMP                             ; [+1]
+      314 LOADN                            R11 3
+      315 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
+      317 GETIMPORT                        R11 K33 [Enum.FillDirection.Horizontal]
+      319 SETTABLEKS                       R11 R10 K23 ["Layout"]
+      321 GETIMPORT                        R11 K83 [Enum.ScrollingDirection.Y]
+      323 SETTABLEKS                       R11 R10 K66 ["ScrollingDirection"]
+      325 DUPTABLE                         R11 K85 [{"GroupListView"}]
+      326 GETUPVAL                         R12 0
+      327 GETTABLEKS                       R12 R12 K7 ["createElement"]
+      329 GETUPVAL                         R13 6
+      330 DUPTABLE                         R14 K86 [{"Groups", "UISelectedId", "RowHovered", "OnColHovered", "OnRowHovered"}]
+      331 GETTABLEKS                       R15 R1 K16 ["Groups"]
+      333 SETTABLEKS                       R15 R14 K16 ["Groups"]
+      335 GETTABLEKS                       R15 R1 K11 ["UISelectedId"]
+      337 SETTABLEKS                       R15 R14 K11 ["UISelectedId"]
+      339 GETTABLEKS                       R15 R0 K20 ["state"]
+      341 GETTABLEKS                       R15 R15 K60 ["RowHovered"]
+      343 SETTABLEKS                       R15 R14 K60 ["RowHovered"]
+      345 GETTABLEKS                       R15 R0 K43 ["onColHovered"]
+      347 SETTABLEKS                       R15 R14 K40 ["OnColHovered"]
+      349 GETTABLEKS                       R15 R0 K64 ["onRowHovered"]
+      351 SETTABLEKS                       R15 R14 K61 ["OnRowHovered"]
+      353 CALL                             R12 2 1
+      354 SETTABLEKS                       R12 R11 K84 ["GroupListView"]
+      356 CALL                             R8 3 1
+      357 SETTABLEKS                       R8 R7 K58 ["ListFrame"]
+      359 CALL                             R4 3 1
+      360 SETTABLEKS                       R4 R3 K5 ["Middle"]
+      362 GETUPVAL                         R4 0
+      363 GETTABLEKS                       R4 R4 K7 ["createElement"]
+      365 GETUPVAL                         R5 10
+      366 DUPTABLE                         R6 K89 [{"Enabled", "OnClose"}]
+      367 GETTABLEKS                       R7 R1 K90 ["GroupRenameDialogOpen"]
+      369 SETTABLEKS                       R7 R6 K87 ["Enabled"]
+      371 GETTABLEKS                       R7 R1 K91 ["OnGroupRenameDialogClosed"]
+      373 SETTABLEKS                       R7 R6 K88 ["OnClose"]
+      375 CALL                             R4 2 1
+      376 SETTABLEKS                       R4 R3 K92 ["GroupRenameDialog"]
+      378 GETUPVAL                         R4 0
+      379 GETTABLEKS                       R4 R4 K7 ["createElement"]
+      381 GETUPVAL                         R5 2
+      382 DUPTABLE                         R6 K95 [{["Style"] = "Box", ["Layout"], ["VerticalAlignment"]}]
+      383 GETIMPORT                        R7 K97 [Enum.FillDirection.Vertical]
+      385 SETTABLEKS                       R7 R6 K23 ["Layout"]
+      387 GETIMPORT                        R7 K55 [Enum.VerticalAlignment.Top]
+      389 SETTABLEKS                       R7 R6 K51 ["VerticalAlignment"]
+      391 MOVE                             R7 R3
+      392 CALL                             R4 3 -1
+      393 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

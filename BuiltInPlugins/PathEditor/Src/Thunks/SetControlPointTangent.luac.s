@@ -25,7 +25,7 @@ PROTO_0:
        33 GETUPVAL                         R6 1
        34 GETIMPORT                        R7 K11 [Vector2.new]
        36 CALL                             R7 0 1
-       37 LOADN                            R9 255
+       37 LOADN                            R9 -1
        38 GETTABLEKS                       R10 R1 K12 ["ParentAbsRotation"]
        40 MUL                              R8 R9 R10
        41 CALL                             R5 3 1

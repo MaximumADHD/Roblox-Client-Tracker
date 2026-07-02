@@ -147,43 +147,25 @@ MAIN:
        32 NEWTABLE                         R4 8 0
        34 DUPCLOSURE                       R5 K11 [PROTO_0]
        35 DUPTABLE                         R6 K15 [{"Classic", "ProportionsSlender", "ProportionsNormal"}]
-       36 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       37 LOADN                            R9 0
-       38 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
-       40 LOADN                            R9 0
-       41 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
-       43 LOADK                            R9 K20 [5.25]
-       44 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
-       46 MOVE                             R7 R8
-       47 SETTABLEKS                       R7 R6 K12 ["Classic"]
-       49 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       50 LOADN                            R9 1
-       51 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
-       53 LOADN                            R9 1
-       54 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
-       56 LOADK                            R9 K21 [5.625]
-       57 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
-       59 MOVE                             R7 R8
-       60 SETTABLEKS                       R7 R6 K13 ["ProportionsSlender"]
-       62 DUPTABLE                         R8 K19 [{"BodyTypeScale", "BodyProportionScale", "GuessMaxHeight"}]
-       63 LOADN                            R9 1
-       64 SETTABLEKS                       R9 R8 K16 ["BodyTypeScale"]
-       66 LOADN                            R9 0
-       67 SETTABLEKS                       R9 R8 K17 ["BodyProportionScale"]
-       69 LOADK                            R9 K22 [∞]
-       70 SETTABLEKS                       R9 R8 K18 ["GuessMaxHeight"]
-       72 MOVE                             R7 R8
-       73 SETTABLEKS                       R7 R6 K14 ["ProportionsNormal"]
-       75 SETTABLEKS                       R6 R4 K23 ["types"]
-       77 DUPCLOSURE                       R6 K24 [PROTO_1]
-       78 CAPTURE                          VAL R1
-       79 SETTABLEKS                       R6 R4 K25 ["allAvatarPartScaleTypeValueObjects"]
-       81 DUPCLOSURE                       R6 K26 [PROTO_2]
-       82 SETTABLEKS                       R6 R4 K27 ["computeAvatarPartScaleType"]
-       84 DUPCLOSURE                       R6 K28 [PROTO_3]
-       85 SETTABLEKS                       R6 R4 K29 ["getAvatarPartScaleType"]
-       87 DUPCLOSURE                       R6 K30 [PROTO_4]
-       88 CAPTURE                          VAL R1
-       89 CAPTURE                          VAL R2
-       90 SETTABLEKS                       R6 R4 K31 ["setAvatarPartScaleTypeValueObjects"]
-       92 RETURN                           R4 1
+       36 DUPTABLE                         R8 K21 [{["BodyTypeScale"] = 0, ["BodyProportionScale"] = 0, ["GuessMaxHeight"] = 5.25}]
+       37 MOVE                             R7 R8
+       38 SETTABLEKS                       R7 R6 K12 ["Classic"]
+       40 DUPTABLE                         R8 K24 [{["BodyTypeScale"] = 1, ["BodyProportionScale"] = 1, ["GuessMaxHeight"] = 5.625}]
+       41 MOVE                             R7 R8
+       42 SETTABLEKS                       R7 R6 K13 ["ProportionsSlender"]
+       44 DUPTABLE                         R8 K26 [{["BodyTypeScale"] = 1, ["BodyProportionScale"] = 0, ["GuessMaxHeight"] = ∞}]
+       45 MOVE                             R7 R8
+       46 SETTABLEKS                       R7 R6 K14 ["ProportionsNormal"]
+       48 SETTABLEKS                       R6 R4 K27 ["types"]
+       50 DUPCLOSURE                       R6 K28 [PROTO_1]
+       51 CAPTURE                          VAL R1
+       52 SETTABLEKS                       R6 R4 K29 ["allAvatarPartScaleTypeValueObjects"]
+       54 DUPCLOSURE                       R6 K30 [PROTO_2]
+       55 SETTABLEKS                       R6 R4 K31 ["computeAvatarPartScaleType"]
+       57 DUPCLOSURE                       R6 K32 [PROTO_3]
+       58 SETTABLEKS                       R6 R4 K33 ["getAvatarPartScaleType"]
+       60 DUPCLOSURE                       R6 K34 [PROTO_4]
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R2
+       63 SETTABLEKS                       R6 R4 K35 ["setAvatarPartScaleTypeValueObjects"]
+       65 RETURN                           R4 1

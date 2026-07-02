@@ -569,7 +569,7 @@ MAIN:
         3 LOADN                            R1 64
         4 CALL                             R0 1 1
         5 GETIMPORT                        R1 K2 [buffer.create]
-        7 LOADN                            R2 0
+        7 LOADN                            R2 256
         8 CALL                             R1 1 1
         9 LOADN                            R4 1
        10 LOADN                            R2 64

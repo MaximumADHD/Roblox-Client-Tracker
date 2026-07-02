@@ -1,19 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"_store", "presetController", "mainViewAbsSize", "onMainViewAbsSizeChanged"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["presetController"], ["mainViewAbsSize"] = , ["onMainViewAbsSizeChanged"]}]
         1 SETTABLEKS                       R0 R2 K0 ["_store"]
         3 SETTABLEKS                       R1 R2 K1 ["presetController"]
-        5 LOADNIL                          R3
-        6 SETTABLEKS                       R3 R2 K2 ["mainViewAbsSize"]
-        8 GETUPVAL                         R3 0
-        9 GETTABLEKS                       R3 R3 K5 ["new"]
-       11 CALL                             R3 0 1
-       12 SETTABLEKS                       R3 R2 K3 ["onMainViewAbsSizeChanged"]
-       14 GETUPVAL                         R5 1
-       15 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       17 MOVE                             R4 R2
-       18 GETIMPORT                        R3 K7 [setmetatable]
-       20 CALL                             R3 2 1
-       21 RETURN                           R3 1
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R3 R3 K6 ["new"]
+        8 CALL                             R3 0 1
+        9 SETTABLEKS                       R3 R2 K4 ["onMainViewAbsSizeChanged"]
+       11 GETUPVAL                         R5 1
+       12 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       14 MOVE                             R4 R2
+       15 GETIMPORT                        R3 K8 [setmetatable]
+       17 CALL                             R3 2 1
+       18 RETURN                           R3 1
 
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["removeAllQueuedFiles"]

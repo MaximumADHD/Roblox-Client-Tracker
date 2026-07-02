@@ -137,34 +137,32 @@ PROTO_4:
        81 GETTABLEKS                       R7 R7 K0 ["new"]
        83 MOVE                             R8 R2
        84 GETUPVAL                         R9 7
-       85 DUPTABLE                         R10 K15 [{"AnalyticsName"}]
-       86 LOADK                            R11 K16 ["Test"]
-       87 SETTABLEKS                       R11 R10 K14 ["AnalyticsName"]
-       89 CALL                             R7 3 1
-       90 NAMECALL                         R8 R7 K17 ["select"]
-       92 CALL                             R8 1 0
-       93 NAMECALL                         R8 R7 K18 ["getModel"]
-       95 CALL                             R8 1 1
-       96 GETUPVAL                         R9 8
-       97 GETTABLEKS                       R9 R9 K0 ["new"]
-       99 MOVE                             R10 R2
-      100 NAMECALL                         R11 R2 K12 ["getSelection"]
-      102 CALL                             R11 1 1
-      103 NAMECALL                         R11 R11 K19 ["Get"]
-      105 CALL                             R11 1 -1
-      106 CALL                             R9 -1 1
-      107 MOVE                             R12 R8
-      108 MOVE                             R13 R9
-      109 NAMECALL                         R10 R6 K20 ["update"]
-      111 CALL                             R10 3 0
-      112 MOVE                             R10 R6
-      113 MOVE                             R11 R2
-      114 MOVE                             R12 R4
-      115 MOVE                             R13 R8
-      116 MOVE                             R14 R9
-      117 MOVE                             R15 R3
-      118 MOVE                             R16 R7
-      119 RETURN                           R10 7
+       85 DUPTABLE                         R10 K16 [{["AnalyticsName"] = "Test"}]
+       86 CALL                             R7 3 1
+       87 NAMECALL                         R8 R7 K17 ["select"]
+       89 CALL                             R8 1 0
+       90 NAMECALL                         R8 R7 K18 ["getModel"]
+       92 CALL                             R8 1 1
+       93 GETUPVAL                         R9 8
+       94 GETTABLEKS                       R9 R9 K0 ["new"]
+       96 MOVE                             R10 R2
+       97 NAMECALL                         R11 R2 K12 ["getSelection"]
+       99 CALL                             R11 1 1
+      100 NAMECALL                         R11 R11 K19 ["Get"]
+      102 CALL                             R11 1 -1
+      103 CALL                             R9 -1 1
+      104 MOVE                             R12 R8
+      105 MOVE                             R13 R9
+      106 NAMECALL                         R10 R6 K20 ["update"]
+      108 CALL                             R10 3 0
+      109 MOVE                             R10 R6
+      110 MOVE                             R11 R2
+      111 MOVE                             R12 R4
+      112 MOVE                             R13 R8
+      113 MOVE                             R14 R9
+      114 MOVE                             R15 R3
+      115 MOVE                             R16 R7
+      116 RETURN                           R10 7
 
 PROTO_5:
         0 GETTABLEKS                       R2 R0 K0 ["_handles"]

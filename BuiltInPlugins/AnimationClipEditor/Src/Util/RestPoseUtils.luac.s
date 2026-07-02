@@ -1,49 +1,39 @@
 PROTO_0:
         0 NEWTABLE                         R2 0 3
-        2 DUPTABLE                         R3 K3 [{"Key", "Text", "Default"}]
-        3 LOADK                            R4 K4 ["FromRigInFile"]
-        4 SETTABLEKS                       R4 R3 K0 ["Key"]
-        6 LOADK                            R6 K5 ["Dialog"]
-        7 LOADK                            R7 K6 ["ImportedRig"]
-        8 NAMECALL                         R4 R0 K7 ["getText"]
-       10 CALL                             R4 3 1
-       11 SETTABLEKS                       R4 R3 K1 ["Text"]
-       13 LOADB                            R4 1
-       14 SETTABLEKS                       R4 R3 K2 ["Default"]
-       16 DUPTABLE                         R4 K8 [{"Key", "Text"}]
-       17 LOADK                            R5 K9 ["FromRigInFileZeroedRotations"]
-       18 SETTABLEKS                       R5 R4 K0 ["Key"]
-       20 LOADK                            R7 K5 ["Dialog"]
-       21 LOADK                            R8 K10 ["ImportedRigZeroed"]
-       22 NAMECALL                         R5 R0 K7 ["getText"]
-       24 CALL                             R5 3 1
-       25 SETTABLEKS                       R5 R4 K1 ["Text"]
-       27 DUPTABLE                         R5 K8 [{"Key", "Text"}]
-       28 LOADK                            R6 K11 ["FromRigInACE"]
-       29 SETTABLEKS                       R6 R5 K0 ["Key"]
-       31 LOADK                            R8 K5 ["Dialog"]
-       32 LOADK                            R9 K12 ["AnimationEditorRig"]
-       33 NAMECALL                         R6 R0 K7 ["getText"]
-       35 CALL                             R6 3 1
-       36 SETTABLEKS                       R6 R5 K1 ["Text"]
-       38 SETLIST                          R2 R3 3 [1]
-       40 JUMPIFNOT                        R1 ; [+21]
-       41 LENGTH                           R3 R1
-       42 LOADN                            R4 1
-       43 JUMPIFNOTLT                      R4 R3 ; [+18]
-       45 DUPTABLE                         R5 K8 [{"Key", "Text"}]
-       46 LOADK                            R6 K13 ["FromCustomClip"]
-       47 SETTABLEKS                       R6 R5 K0 ["Key"]
-       49 LOADK                            R8 K5 ["Dialog"]
-       50 LOADK                            R9 K14 ["CustomClip"]
-       51 NAMECALL                         R6 R0 K7 ["getText"]
-       53 CALL                             R6 3 1
-       54 SETTABLEKS                       R6 R5 K1 ["Text"]
-       56 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
-       58 MOVE                             R4 R2
-       59 GETIMPORT                        R3 K17 [table.insert]
-       61 CALL                             R3 2 0
-       62 RETURN                           R2 1
+        2 DUPTABLE                         R3 K5 [{[1] = "FromRigInFile", ["Text"], ["Default"] = True}]
+        3 LOADK                            R6 K6 ["Dialog"]
+        4 LOADK                            R7 K7 ["ImportedRig"]
+        5 NAMECALL                         R4 R0 K8 ["getText"]
+        7 CALL                             R4 3 1
+        8 SETTABLEKS                       R4 R3 K2 ["Text"]
+       10 DUPTABLE                         R4 K10 [{[1] = "FromRigInFileZeroedRotations", ["Text"]}]
+       11 LOADK                            R7 K6 ["Dialog"]
+       12 LOADK                            R8 K11 ["ImportedRigZeroed"]
+       13 NAMECALL                         R5 R0 K8 ["getText"]
+       15 CALL                             R5 3 1
+       16 SETTABLEKS                       R5 R4 K2 ["Text"]
+       18 DUPTABLE                         R5 K13 [{[1] = "FromRigInACE", ["Text"]}]
+       19 LOADK                            R8 K6 ["Dialog"]
+       20 LOADK                            R9 K14 ["AnimationEditorRig"]
+       21 NAMECALL                         R6 R0 K8 ["getText"]
+       23 CALL                             R6 3 1
+       24 SETTABLEKS                       R6 R5 K2 ["Text"]
+       26 SETLIST                          R2 R3 3 [1]
+       28 JUMPIFNOT                        R1 ; [+18]
+       29 LENGTH                           R3 R1
+       30 LOADN                            R4 1
+       31 JUMPIFNOTLT                      R4 R3 ; [+15]
+       33 DUPTABLE                         R5 K16 [{[1] = "FromCustomClip", ["Text"]}]
+       34 LOADK                            R8 K6 ["Dialog"]
+       35 LOADK                            R9 K17 ["CustomClip"]
+       36 NAMECALL                         R6 R0 K8 ["getText"]
+       38 CALL                             R6 3 1
+       39 SETTABLEKS                       R6 R5 K2 ["Text"]
+       41 FASTCALL2                        TABLE_INSERT R2 R5 ; [+4]
+       43 MOVE                             R4 R2
+       44 GETIMPORT                        R3 K20 [table.insert]
+       46 CALL                             R3 2 0
+       47 RETURN                           R2 1
 
 PROTO_1:
         0 JUMPIFNOTEQKS                    R0 K0 ["FromRigInFile"] ; [+4]

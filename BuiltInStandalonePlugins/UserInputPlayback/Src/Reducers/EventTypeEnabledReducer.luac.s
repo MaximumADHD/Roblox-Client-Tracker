@@ -138,24 +138,14 @@ MAIN:
        77 GETTABLEKS                       R9 R9 K12 ["EventTypeEnabled"]
        79 GETTABLEKS                       R9 R9 K17 ["SetTouchEnabled"]
        81 CALL                             R8 1 1
-       82 DUPTABLE                         R9 K23 [{"mouseMove", "mouseClick", "keyboard", "gamepad", "touch"}]
-       83 LOADB                            R10 1
-       84 SETTABLEKS                       R10 R9 K18 ["mouseMove"]
-       86 LOADB                            R10 1
-       87 SETTABLEKS                       R10 R9 K19 ["mouseClick"]
-       89 LOADB                            R10 1
-       90 SETTABLEKS                       R10 R9 K20 ["keyboard"]
-       92 LOADB                            R10 1
-       93 SETTABLEKS                       R10 R9 K21 ["gamepad"]
-       95 LOADB                            R10 1
-       96 SETTABLEKS                       R10 R9 K22 ["touch"]
-       98 DUPCLOSURE                       R10 K24 [PROTO_5]
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R9
-      101 CAPTURE                          VAL R3
-      102 DUPCLOSURE                       R11 K25 [PROTO_7]
-      103 DUPCLOSURE                       R12 K26 [PROTO_8]
-      104 CAPTURE                          VAL R10
-      105 DUPTABLE                         R13 K28 [{"makeReducerForName"}]
-      106 SETTABLEKS                       R12 R13 K27 ["makeReducerForName"]
-      108 RETURN                           R13 1
+       82 DUPTABLE                         R9 K24 [{["mouseMove"] = True, ["mouseClick"] = True, ["keyboard"] = True, ["gamepad"] = True, ["touch"] = True}]
+       83 DUPCLOSURE                       R10 K25 [PROTO_5]
+       84 CAPTURE                          VAL R1
+       85 CAPTURE                          VAL R9
+       86 CAPTURE                          VAL R3
+       87 DUPCLOSURE                       R11 K26 [PROTO_7]
+       88 DUPCLOSURE                       R12 K27 [PROTO_8]
+       89 CAPTURE                          VAL R10
+       90 DUPTABLE                         R13 K29 [{"makeReducerForName"}]
+       91 SETTABLEKS                       R12 R13 K28 ["makeReducerForName"]
+       93 RETURN                           R13 1

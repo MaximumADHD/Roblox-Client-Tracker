@@ -2,38 +2,18 @@ PROTO_0:
         0 GETIMPORT                        R0 K1 [tick]
         2 CALL                             R0 0 1
         3 SETUPVAL                         R0 0
-        4 DUPTABLE                         R0 K10 [{"freeformDrags", "handleDrags", "clickSelects", "dragSelects", "dragTilts", "dragRotates", "toolName", "wasAutoSelected"}]
-        5 LOADN                            R1 0
-        6 SETTABLEKS                       R1 R0 K2 ["freeformDrags"]
-        8 LOADN                            R1 0
-        9 SETTABLEKS                       R1 R0 K3 ["handleDrags"]
-       11 LOADN                            R1 0
-       12 SETTABLEKS                       R1 R0 K4 ["clickSelects"]
-       14 LOADN                            R1 0
-       15 SETTABLEKS                       R1 R0 K5 ["dragSelects"]
-       17 LOADN                            R1 0
-       18 SETTABLEKS                       R1 R0 K6 ["dragTilts"]
-       20 LOADN                            R1 0
-       21 SETTABLEKS                       R1 R0 K7 ["dragRotates"]
-       23 LOADK                            R1 K11 ["Transform"]
-       24 SETTABLEKS                       R1 R0 K8 ["toolName"]
-       26 LOADB                            R1 0
-       27 SETTABLEKS                       R1 R0 K9 ["wasAutoSelected"]
-       29 SETUPVAL                         R0 1
-       30 GETUPVAL                         R0 2
-       31 LOADK                            R2 K12 ["toolSelected"]
-       32 DUPTABLE                         R3 K13 [{"toolName", "wasAutoSelected"}]
-       33 LOADK                            R4 K11 ["Transform"]
-       34 SETTABLEKS                       R4 R3 K8 ["toolName"]
-       36 LOADB                            R4 0
-       37 SETTABLEKS                       R4 R3 K9 ["wasAutoSelected"]
-       39 NAMECALL                         R0 R0 K14 ["sendEvent"]
-       41 CALL                             R0 3 0
-       42 GETUPVAL                         R0 2
-       43 LOADK                            R2 K15 ["studioLuaTransformDraggerSelected"]
-       44 NAMECALL                         R0 R0 K16 ["reportCounter"]
-       46 CALL                             R0 2 0
-       47 RETURN                           R0 0
+        4 DUPTABLE                         R0 K13 [{["freeformDrags"] = 0, ["handleDrags"] = 0, ["clickSelects"] = 0, ["dragSelects"] = 0, ["dragTilts"] = 0, ["dragRotates"] = 0, ["toolName"] = "Transform", ["wasAutoSelected"] = False}]
+        5 SETUPVAL                         R0 1
+        6 GETUPVAL                         R0 2
+        7 LOADK                            R2 K14 ["toolSelected"]
+        8 DUPTABLE                         R3 K15 [{["toolName"] = "Transform", ["wasAutoSelected"] = False}]
+        9 NAMECALL                         R0 R0 K16 ["sendEvent"]
+       11 CALL                             R0 3 0
+       12 GETUPVAL                         R0 2
+       13 LOADK                            R2 K17 ["studioLuaTransformDraggerSelected"]
+       14 NAMECALL                         R0 R0 K18 ["reportCounter"]
+       16 CALL                             R0 2 0
+       17 RETURN                           R0 0
 
 PROTO_1:
         0 GETIMPORT                        R1 K1 [tick]
@@ -125,20 +105,12 @@ PROTO_3:
        34 GETTABLEKS                       R3 R3 K7 ["freeformDrags"]
        36 ADDK                             R2 R3 K5 [1]
        37 SETTABLEKS                       R2 R1 K7 ["freeformDrags"]
-       39 DUPTABLE                         R1 K13 [{"dragTilts", "dragRotates", "partCount", "attachmentCount", "timeToStartDrag"}]
-       40 LOADN                            R2 0
-       41 SETTABLEKS                       R2 R1 K8 ["dragTilts"]
-       43 LOADN                            R2 0
-       44 SETTABLEKS                       R2 R1 K9 ["dragRotates"]
-       46 SETTABLEKS                       R0 R1 K10 ["partCount"]
-       48 LOADN                            R2 0
-       49 SETTABLEKS                       R2 R1 K11 ["attachmentCount"]
-       51 LOADN                            R2 0
-       52 SETTABLEKS                       R2 R1 K12 ["timeToStartDrag"]
-       54 SETUPVAL                         R1 2
-       55 LOADNIL                          R1
-       56 SETUPVAL                         R1 3
-       57 RETURN                           R0 0
+       39 DUPTABLE                         R1 K14 [{["dragTilts"] = 0, ["dragRotates"] = 0, ["partCount"], ["attachmentCount"] = 0, ["timeToStartDrag"] = 0}]
+       40 SETTABLEKS                       R0 R1 K11 ["partCount"]
+       42 SETUPVAL                         R1 2
+       43 LOADNIL                          R1
+       44 SETUPVAL                         R1 3
+       45 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -199,82 +171,64 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R1 0
         1 LOADK                            R3 K0 ["handleDragged"]
-        2 DUPTABLE                         R4 K9 [{"toolName", "gridSize", "rotateIncrement", "useLocalSpace", "joinSurfaces", "useConstraints", "haveCollisions", "wasAutoSelected"}]
-        3 LOADK                            R5 K10 ["Transform"]
-        4 SETTABLEKS                       R5 R4 K1 ["toolName"]
-        6 GETUPVAL                         R5 1
-        7 GETTABLEKS                       R5 R5 K11 ["GridSize"]
-        9 SETTABLEKS                       R5 R4 K2 ["gridSize"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R5 R5 K12 ["RotateIncrement"]
-       14 SETTABLEKS                       R5 R4 K3 ["rotateIncrement"]
-       16 LOADB                            R5 0
-       17 SETTABLEKS                       R5 R4 K4 ["useLocalSpace"]
-       19 LOADB                            R5 0
-       20 SETTABLEKS                       R5 R4 K5 ["joinSurfaces"]
-       22 LOADB                            R5 0
-       23 SETTABLEKS                       R5 R4 K6 ["useConstraints"]
-       25 LOADB                            R5 0
-       26 SETTABLEKS                       R5 R4 K7 ["haveCollisions"]
-       28 LOADB                            R5 0
-       29 SETTABLEKS                       R5 R4 K8 ["wasAutoSelected"]
-       31 NAMECALL                         R1 R1 K13 ["sendEvent"]
+        2 DUPTABLE                         R4 K11 [{["toolName"] = "Transform", ["gridSize"], ["rotateIncrement"], ["useLocalSpace"] = False, ["joinSurfaces"] = False, ["useConstraints"] = False, ["haveCollisions"] = False, ["wasAutoSelected"] = False}]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R5 R5 K12 ["GridSize"]
+        6 SETTABLEKS                       R5 R4 K3 ["gridSize"]
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R5 R5 K13 ["RotateIncrement"]
+       11 SETTABLEKS                       R5 R4 K4 ["rotateIncrement"]
+       13 NAMECALL                         R1 R1 K14 ["sendEvent"]
+       15 CALL                             R1 3 0
+       16 GETUPVAL                         R1 0
+       17 LOADK                            R3 K15 ["transformHandleDragged"]
+       18 DUPTABLE                         R4 K17 [{"gridSize", "rotateIncrement", "handleName"}]
+       19 GETUPVAL                         R5 1
+       20 GETTABLEKS                       R5 R5 K12 ["GridSize"]
+       22 SETTABLEKS                       R5 R4 K3 ["gridSize"]
+       24 GETUPVAL                         R5 1
+       25 GETTABLEKS                       R5 R5 K13 ["RotateIncrement"]
+       27 SETTABLEKS                       R5 R4 K4 ["rotateIncrement"]
+       29 SETTABLEKS                       R0 R4 K16 ["handleName"]
+       31 NAMECALL                         R1 R1 K14 ["sendEvent"]
        33 CALL                             R1 3 0
-       34 GETUPVAL                         R1 0
-       35 LOADK                            R3 K14 ["transformHandleDragged"]
-       36 DUPTABLE                         R4 K16 [{"gridSize", "rotateIncrement", "handleName"}]
-       37 GETUPVAL                         R5 1
-       38 GETTABLEKS                       R5 R5 K11 ["GridSize"]
-       40 SETTABLEKS                       R5 R4 K2 ["gridSize"]
-       42 GETUPVAL                         R5 1
-       43 GETTABLEKS                       R5 R5 K12 ["RotateIncrement"]
-       45 SETTABLEKS                       R5 R4 K3 ["rotateIncrement"]
-       47 SETTABLEKS                       R0 R4 K15 ["handleName"]
-       49 NAMECALL                         R1 R1 K13 ["sendEvent"]
-       51 CALL                             R1 3 0
-       52 RETURN                           R0 0
+       34 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["boxSelected"]
-        2 DUPTABLE                         R3 K7 [{"toolName", "objectCount", "altPressed", "ctrlPressed", "shiftPressed", "wasAutoSelected"}]
-        3 LOADK                            R4 K8 ["Transform"]
-        4 SETTABLEKS                       R4 R3 K1 ["toolName"]
-        6 GETUPVAL                         R5 1
-        7 NAMECALL                         R5 R5 K9 ["Get"]
-        9 CALL                             R5 1 1
-       10 LENGTH                           R4 R5
-       11 SETTABLEKS                       R4 R3 K2 ["objectCount"]
-       13 GETUPVAL                         R4 2
-       14 GETIMPORT                        R6 K13 [Enum.KeyCode.LeftAlt]
-       16 NAMECALL                         R4 R4 K14 ["IsKeyDown"]
-       18 CALL                             R4 2 1
-       19 SETTABLEKS                       R4 R3 K3 ["altPressed"]
-       21 GETUPVAL                         R4 2
-       22 GETIMPORT                        R6 K16 [Enum.KeyCode.LeftControl]
-       24 NAMECALL                         R4 R4 K14 ["IsKeyDown"]
-       26 CALL                             R4 2 1
-       27 SETTABLEKS                       R4 R3 K4 ["ctrlPressed"]
-       29 GETUPVAL                         R4 2
-       30 GETIMPORT                        R6 K18 [Enum.KeyCode.LeftShift]
-       32 NAMECALL                         R4 R4 K14 ["IsKeyDown"]
-       34 CALL                             R4 2 1
-       35 SETTABLEKS                       R4 R3 K5 ["shiftPressed"]
-       37 LOADB                            R4 0
-       38 SETTABLEKS                       R4 R3 K6 ["wasAutoSelected"]
-       40 NAMECALL                         R0 R0 K19 ["sendEvent"]
-       42 CALL                             R0 3 0
-       43 RETURN                           R0 0
+        2 DUPTABLE                         R3 K9 [{["toolName"] = "Transform", ["objectCount"], ["altPressed"], ["ctrlPressed"], ["shiftPressed"], ["wasAutoSelected"] = False}]
+        3 GETUPVAL                         R5 1
+        4 NAMECALL                         R5 R5 K10 ["Get"]
+        6 CALL                             R5 1 1
+        7 LENGTH                           R4 R5
+        8 SETTABLEKS                       R4 R3 K3 ["objectCount"]
+       10 GETUPVAL                         R4 2
+       11 GETIMPORT                        R6 K14 [Enum.KeyCode.LeftAlt]
+       13 NAMECALL                         R4 R4 K15 ["IsKeyDown"]
+       15 CALL                             R4 2 1
+       16 SETTABLEKS                       R4 R3 K4 ["altPressed"]
+       18 GETUPVAL                         R4 2
+       19 GETIMPORT                        R6 K17 [Enum.KeyCode.LeftControl]
+       21 NAMECALL                         R4 R4 K15 ["IsKeyDown"]
+       23 CALL                             R4 2 1
+       24 SETTABLEKS                       R4 R3 K5 ["ctrlPressed"]
+       26 GETUPVAL                         R4 2
+       27 GETIMPORT                        R6 K19 [Enum.KeyCode.LeftShift]
+       29 NAMECALL                         R4 R4 K15 ["IsKeyDown"]
+       31 CALL                             R4 2 1
+       32 SETTABLEKS                       R4 R3 K6 ["shiftPressed"]
+       34 NAMECALL                         R0 R0 K20 ["sendEvent"]
+       36 CALL                             R0 3 0
+       37 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["setPlane"]
-        2 DUPTABLE                         R3 K2 [{"toolName"}]
-        3 LOADK                            R4 K3 ["Transform"]
-        4 SETTABLEKS                       R4 R3 K1 ["toolName"]
-        6 NAMECALL                         R0 R0 K4 ["sendEvent"]
-        8 CALL                             R0 3 0
-        9 RETURN                           R0 0
+        2 DUPTABLE                         R3 K3 [{["toolName"] = "Transform"}]
+        3 NAMECALL                         R0 R0 K4 ["sendEvent"]
+        5 CALL                             R0 3 0
+        6 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
@@ -578,7 +532,7 @@ PROTO_25:
         5 MOVE                             R4 R1
         6 GETIMPORT                        R3 K4 [math.sqrt]
         8 CALL                             R3 1 1
-        9 DIVRK                            R2 R1 K3 ["sqrt"]
+        9 DIVRK                            R2 K1 [1] R3
        10 GETTABLEKS                       R5 R0 K5 ["X"]
        12 MUL                              R4 R5 R2
        13 GETTABLEKS                       R6 R0 K6 ["Y"]
@@ -2341,8 +2295,8 @@ PROTO_59:
       604 GETGLOBAL                        R17 K15 ["selectedPart"]
       606 GETTABLEKS                       R17 R17 K20 ["Size"]
       608 DIVK                             R16 R17 K31 [2]
-      609 LOADN                            R18 255
-      610 LOADN                            R19 255
+      609 LOADN                            R18 -1
+      610 LOADN                            R19 -1
       611 GETTABLEKS                       R20 R11 K56 ["z"]
       613 FASTCALL                         VECTOR ; [+2]
       614 GETIMPORT                        R17 K58 [Vector3.new]
@@ -2356,7 +2310,7 @@ PROTO_59:
       627 GETTABLEKS                       R18 R18 K20 ["Size"]
       629 DIVK                             R17 R18 K31 [2]
       630 LOADN                            R19 1
-      631 LOADN                            R20 255
+      631 LOADN                            R20 -1
       632 GETTABLEKS                       R21 R11 K56 ["z"]
       634 FASTCALL                         VECTOR ; [+2]
       635 GETIMPORT                        R18 K58 [Vector3.new]
@@ -2398,8 +2352,8 @@ PROTO_59:
       693 GETTABLEKS                       R17 R17 K20 ["Size"]
       695 DIVK                             R16 R17 K31 [2]
       696 GETTABLEKS                       R18 R11 K60 ["x"]
-      698 LOADN                            R19 255
-      699 LOADN                            R20 255
+      698 LOADN                            R19 -1
+      699 LOADN                            R20 -1
       700 FASTCALL                         VECTOR ; [+2]
       701 GETIMPORT                        R17 K58 [Vector3.new]
       703 CALL                             R17 3 1
@@ -2412,7 +2366,7 @@ PROTO_59:
       714 GETTABLEKS                       R18 R18 K20 ["Size"]
       716 DIVK                             R17 R18 K31 [2]
       717 GETTABLEKS                       R19 R11 K60 ["x"]
-      719 LOADN                            R20 255
+      719 LOADN                            R20 -1
       720 LOADN                            R21 1
       721 FASTCALL                         VECTOR ; [+2]
       722 GETIMPORT                        R18 K58 [Vector3.new]
@@ -2570,8 +2524,8 @@ PROTO_59:
       953 GETGLOBAL                        R17 K15 ["selectedPart"]
       955 GETTABLEKS                       R17 R17 K20 ["Size"]
       957 DIVK                             R16 R17 K31 [2]
-      958 LOADN                            R18 255
-      959 LOADN                            R19 255
+      958 LOADN                            R18 -1
+      959 LOADN                            R19 -1
       960 GETTABLEKS                       R20 R11 K56 ["z"]
       962 FASTCALL                         VECTOR ; [+2]
       963 GETIMPORT                        R17 K58 [Vector3.new]
@@ -2585,7 +2539,7 @@ PROTO_59:
       976 GETTABLEKS                       R18 R18 K20 ["Size"]
       978 DIVK                             R17 R18 K31 [2]
       979 LOADN                            R19 1
-      980 LOADN                            R20 255
+      980 LOADN                            R20 -1
       981 GETTABLEKS                       R21 R11 K56 ["z"]
       983 FASTCALL                         VECTOR ; [+2]
       984 GETIMPORT                        R18 K58 [Vector3.new]
@@ -2627,8 +2581,8 @@ PROTO_59:
      1042 GETTABLEKS                       R17 R17 K20 ["Size"]
      1044 DIVK                             R16 R17 K31 [2]
      1045 GETTABLEKS                       R18 R11 K60 ["x"]
-     1047 LOADN                            R19 255
-     1048 LOADN                            R20 255
+     1047 LOADN                            R19 -1
+     1048 LOADN                            R20 -1
      1049 FASTCALL                         VECTOR ; [+2]
      1050 GETIMPORT                        R17 K58 [Vector3.new]
      1052 CALL                             R17 3 1
@@ -2641,7 +2595,7 @@ PROTO_59:
      1063 GETTABLEKS                       R18 R18 K20 ["Size"]
      1065 DIVK                             R17 R18 K31 [2]
      1066 GETTABLEKS                       R19 R11 K60 ["x"]
-     1068 LOADN                            R20 255
+     1068 LOADN                            R20 -1
      1069 LOADN                            R21 1
      1070 FASTCALL                         VECTOR ; [+2]
      1071 GETIMPORT                        R18 K58 [Vector3.new]
@@ -2713,8 +2667,8 @@ PROTO_59:
      1171 GETGLOBAL                        R15 K15 ["selectedPart"]
      1173 GETTABLEKS                       R15 R15 K20 ["Size"]
      1175 DIVK                             R14 R15 K31 [2]
-     1176 LOADN                            R16 255
-     1177 LOADN                            R17 255
+     1176 LOADN                            R16 -1
+     1177 LOADN                            R17 -1
      1178 GETTABLEKS                       R18 R9 K56 ["z"]
      1180 FASTCALL                         VECTOR ; [+2]
      1181 GETIMPORT                        R15 K58 [Vector3.new]
@@ -2728,7 +2682,7 @@ PROTO_59:
      1194 GETTABLEKS                       R16 R16 K20 ["Size"]
      1196 DIVK                             R15 R16 K31 [2]
      1197 LOADN                            R17 1
-     1198 LOADN                            R18 255
+     1198 LOADN                            R18 -1
      1199 GETTABLEKS                       R19 R9 K56 ["z"]
      1201 FASTCALL                         VECTOR ; [+2]
      1202 GETIMPORT                        R16 K58 [Vector3.new]
@@ -2755,8 +2709,8 @@ PROTO_59:
      1235 GETTABLEKS                       R15 R15 K20 ["Size"]
      1237 DIVK                             R14 R15 K31 [2]
      1238 GETTABLEKS                       R16 R9 K60 ["x"]
-     1240 LOADN                            R17 255
-     1241 LOADN                            R18 255
+     1240 LOADN                            R17 -1
+     1241 LOADN                            R18 -1
      1242 FASTCALL                         VECTOR ; [+2]
      1243 GETIMPORT                        R15 K58 [Vector3.new]
      1245 CALL                             R15 3 1
@@ -2769,7 +2723,7 @@ PROTO_59:
      1256 GETTABLEKS                       R16 R16 K20 ["Size"]
      1258 DIVK                             R15 R16 K31 [2]
      1259 GETTABLEKS                       R17 R9 K60 ["x"]
-     1261 LOADN                            R18 255
+     1261 LOADN                            R18 -1
      1262 LOADN                            R19 1
      1263 FASTCALL                         VECTOR ; [+2]
      1264 GETIMPORT                        R16 K58 [Vector3.new]
@@ -2843,8 +2797,8 @@ PROTO_59:
      1366 GETGLOBAL                        R15 K15 ["selectedPart"]
      1368 GETTABLEKS                       R15 R15 K20 ["Size"]
      1370 DIVK                             R14 R15 K31 [2]
-     1371 LOADN                            R16 255
-     1372 LOADN                            R17 255
+     1371 LOADN                            R16 -1
+     1372 LOADN                            R17 -1
      1373 GETTABLEKS                       R18 R9 K56 ["z"]
      1375 FASTCALL                         VECTOR ; [+2]
      1376 GETIMPORT                        R15 K58 [Vector3.new]
@@ -2858,7 +2812,7 @@ PROTO_59:
      1389 GETTABLEKS                       R16 R16 K20 ["Size"]
      1391 DIVK                             R15 R16 K31 [2]
      1392 LOADN                            R17 1
-     1393 LOADN                            R18 255
+     1393 LOADN                            R18 -1
      1394 GETTABLEKS                       R19 R9 K56 ["z"]
      1396 FASTCALL                         VECTOR ; [+2]
      1397 GETIMPORT                        R16 K58 [Vector3.new]
@@ -2885,8 +2839,8 @@ PROTO_59:
      1430 GETTABLEKS                       R15 R15 K20 ["Size"]
      1432 DIVK                             R14 R15 K31 [2]
      1433 GETTABLEKS                       R16 R9 K60 ["x"]
-     1435 LOADN                            R17 255
-     1436 LOADN                            R18 255
+     1435 LOADN                            R17 -1
+     1436 LOADN                            R18 -1
      1437 FASTCALL                         VECTOR ; [+2]
      1438 GETIMPORT                        R15 K58 [Vector3.new]
      1440 CALL                             R15 3 1
@@ -2899,7 +2853,7 @@ PROTO_59:
      1451 GETTABLEKS                       R16 R16 K20 ["Size"]
      1453 DIVK                             R15 R16 K31 [2]
      1454 GETTABLEKS                       R17 R9 K60 ["x"]
-     1456 LOADN                            R18 255
+     1456 LOADN                            R18 -1
      1457 LOADN                            R19 1
      1458 FASTCALL                         VECTOR ; [+2]
      1459 GETIMPORT                        R16 K58 [Vector3.new]
@@ -2973,8 +2927,8 @@ PROTO_59:
      1561 GETGLOBAL                        R15 K15 ["selectedPart"]
      1563 GETTABLEKS                       R15 R15 K20 ["Size"]
      1565 DIVK                             R14 R15 K31 [2]
-     1566 LOADN                            R16 255
-     1567 LOADN                            R17 255
+     1566 LOADN                            R16 -1
+     1567 LOADN                            R17 -1
      1568 GETTABLEKS                       R18 R9 K56 ["z"]
      1570 FASTCALL                         VECTOR ; [+2]
      1571 GETIMPORT                        R15 K58 [Vector3.new]
@@ -2988,7 +2942,7 @@ PROTO_59:
      1584 GETTABLEKS                       R16 R16 K20 ["Size"]
      1586 DIVK                             R15 R16 K31 [2]
      1587 LOADN                            R17 1
-     1588 LOADN                            R18 255
+     1588 LOADN                            R18 -1
      1589 GETTABLEKS                       R19 R9 K56 ["z"]
      1591 FASTCALL                         VECTOR ; [+2]
      1592 GETIMPORT                        R16 K58 [Vector3.new]
@@ -3015,8 +2969,8 @@ PROTO_59:
      1625 GETTABLEKS                       R15 R15 K20 ["Size"]
      1627 DIVK                             R14 R15 K31 [2]
      1628 GETTABLEKS                       R16 R9 K60 ["x"]
-     1630 LOADN                            R17 255
-     1631 LOADN                            R18 255
+     1630 LOADN                            R17 -1
+     1631 LOADN                            R18 -1
      1632 FASTCALL                         VECTOR ; [+2]
      1633 GETIMPORT                        R15 K58 [Vector3.new]
      1635 CALL                             R15 3 1
@@ -3029,7 +2983,7 @@ PROTO_59:
      1646 GETTABLEKS                       R16 R16 K20 ["Size"]
      1648 DIVK                             R15 R16 K31 [2]
      1649 GETTABLEKS                       R17 R9 K60 ["x"]
-     1651 LOADN                            R18 255
+     1651 LOADN                            R18 -1
      1652 LOADN                            R19 1
      1653 FASTCALL                         VECTOR ; [+2]
      1654 GETIMPORT                        R16 K58 [Vector3.new]
@@ -3103,8 +3057,8 @@ PROTO_59:
      1756 GETGLOBAL                        R15 K15 ["selectedPart"]
      1758 GETTABLEKS                       R15 R15 K20 ["Size"]
      1760 DIVK                             R14 R15 K31 [2]
-     1761 LOADN                            R16 255
-     1762 LOADN                            R17 255
+     1761 LOADN                            R16 -1
+     1762 LOADN                            R17 -1
      1763 GETTABLEKS                       R18 R9 K56 ["z"]
      1765 FASTCALL                         VECTOR ; [+2]
      1766 GETIMPORT                        R15 K58 [Vector3.new]
@@ -3118,7 +3072,7 @@ PROTO_59:
      1779 GETTABLEKS                       R16 R16 K20 ["Size"]
      1781 DIVK                             R15 R16 K31 [2]
      1782 LOADN                            R17 1
-     1783 LOADN                            R18 255
+     1783 LOADN                            R18 -1
      1784 GETTABLEKS                       R19 R9 K56 ["z"]
      1786 FASTCALL                         VECTOR ; [+2]
      1787 GETIMPORT                        R16 K58 [Vector3.new]
@@ -3145,8 +3099,8 @@ PROTO_59:
      1820 GETTABLEKS                       R15 R15 K20 ["Size"]
      1822 DIVK                             R14 R15 K31 [2]
      1823 GETTABLEKS                       R16 R9 K60 ["x"]
-     1825 LOADN                            R17 255
-     1826 LOADN                            R18 255
+     1825 LOADN                            R17 -1
+     1826 LOADN                            R18 -1
      1827 FASTCALL                         VECTOR ; [+2]
      1828 GETIMPORT                        R15 K58 [Vector3.new]
      1830 CALL                             R15 3 1
@@ -3159,7 +3113,7 @@ PROTO_59:
      1841 GETTABLEKS                       R16 R16 K20 ["Size"]
      1843 DIVK                             R15 R16 K31 [2]
      1844 GETTABLEKS                       R17 R9 K60 ["x"]
-     1846 LOADN                            R18 255
+     1846 LOADN                            R18 -1
      1847 LOADN                            R19 1
      1848 FASTCALL                         VECTOR ; [+2]
      1849 GETIMPORT                        R16 K58 [Vector3.new]
@@ -3689,7 +3643,7 @@ PROTO_59:
      2561 JUMPIFNOTLT                      R23 R22 ; [+3]
      2563 LOADN                            R21 1
      2564 JUMP                             ; [+1]
-     2565 LOADN                            R21 255
+     2565 LOADN                            R21 -1
      2566 MUL                              R19 R20 R21
      2567 ADDK                             R20 R19 K107 [90]
      2568 GETUPVAL                         R21 1
@@ -3880,7 +3834,7 @@ PROTO_59:
      2814 JUMPIFNOTLT                      R23 R22 ; [+3]
      2816 LOADN                            R21 1
      2817 JUMP                             ; [+1]
-     2818 LOADN                            R21 255
+     2818 LOADN                            R21 -1
      2819 MUL                              R19 R20 R21
      2820 ADDK                             R20 R19 K109 [180]
      2821 GETUPVAL                         R21 1
@@ -4346,7 +4300,7 @@ PROTO_64:
        30 JUMPIFNOTEQKN                    R9 K0 [1] ; [+3]
        32 LOADN                            R12 1
        33 JUMP                             ; [+1]
-       34 LOADN                            R12 255
+       34 LOADN                            R12 -1
        35 MUL                              R10 R11 R12
        36 GETTABLEKS                       R12 R0 K6 ["CFrame"]
        38 MOVE                             R14 R10
@@ -6149,13 +6103,13 @@ PROTO_76:
       151 GETTABLEKS                       R10 R10 K15 ["Unit"]
       153 CALL                             R8 2 1
       154 JUMPIFNOT                        R8 ; [+1]
-      155 LOADN                            R7 32
+      155 LOADN                            R7 800
       156 LOADN                            R8 2
       157 JUMPIFNOTLT                      R7 R8 ; [+2]
-      159 LOADN                            R7 32
-      160 LOADN                            R8 244
+      159 LOADN                            R7 800
+      160 LOADN                            R8 500
       161 JUMPIFNOTLT                      R8 R7 ; [+10]
-      163 LOADN                            R8 244
+      163 LOADN                            R8 500
       164 JUMPIFNOTLT                      R8 R6 ; [+7]
       166 GETTABLEKS                       R9 R0 K13 ["Direction"]
       168 GETTABLEKS                       R9 R9 K15 ["Unit"]
@@ -8056,573 +8010,571 @@ MAIN:
       251 LOADNIL                          R27
       252 LOADB                            R28 0
       253 LOADNIL                          R29
-      254 DUPTABLE                         R30 K50 [{"n"}]
-      255 LOADN                            R31 0
-      256 SETTABLEKS                       R31 R30 K49 ["n"]
-      258 LOADNIL                          R31
-      259 LOADNIL                          R32
-      260 LOADNIL                          R33
-      261 LOADK                            R34 K51 [{0, 0, 0}]
-      262 LOADNIL                          R35
-      263 LOADNIL                          R36
-      264 LOADNIL                          R37
-      265 LOADNIL                          R38
-      266 LOADNIL                          R39
-      267 LOADNIL                          R40
-      268 LOADNIL                          R41
-      269 LOADNIL                          R42
-      270 LOADNIL                          R43
-      271 LOADN                            R44 0
-      272 LOADNIL                          R45
-      273 LOADNIL                          R46
-      274 LOADNIL                          R47
-      275 LOADNIL                          R48
-      276 LOADNIL                          R49
-      277 LOADNIL                          R50
-      278 LOADNIL                          R51
-      279 LOADNIL                          R52
-      280 LOADNIL                          R53
-      281 LOADNIL                          R54
-      282 GETIMPORT                        R55 K54 [CFrame.new]
-      284 CALL                             R55 0 1
-      285 LOADNIL                          R56
-      286 LOADNIL                          R57
-      287 LOADNIL                          R58
-      288 LOADNIL                          R59
-      289 LOADNIL                          R60
-      290 LOADNIL                          R61
-      291 LOADNIL                          R62
-      292 LOADNIL                          R63
-      293 LOADNIL                          R64
-      294 LOADNIL                          R65
-      295 LOADNIL                          R66
-      296 LOADNIL                          R67
-      297 LOADNIL                          R68
-      298 LOADB                            R69 0
-      299 LOADB                            R70 0
-      300 LOADB                            R71 0
-      301 LOADNIL                          R72
-      302 LOADNIL                          R73
-      303 NEWCLOSURE                       R74 P9
-      304 CAPTURE                          REF R55
-      305 CAPTURE                          REF R44
-      306 GETTABLEKS                       R75 R14 K55 ["setWorkplaneAccessor"]
-      308 MOVE                             R76 R74
-      309 CALL                             R75 1 0
-      310 NEWTABLE                         R75 0 0
-      312 LOADN                            R76 0
-      313 LOADK                            R77 K56 ["None"]
-      314 SETTABLE                         R77 R75 R76
-      315 LOADK                            R76 K57 ["Translate"]
-      316 SETTABLEN                        R76 R75 1
-      317 LOADK                            R76 K58 ["ScaleEdge"]
-      318 SETTABLEN                        R76 R75 2
-      319 LOADK                            R76 K58 ["ScaleEdge"]
-      320 SETTABLEN                        R76 R75 3
-      321 LOADK                            R76 K58 ["ScaleEdge"]
-      322 SETTABLEN                        R76 R75 4
-      323 LOADK                            R76 K58 ["ScaleEdge"]
-      324 SETTABLEN                        R76 R75 5
-      325 LOADK                            R76 K58 ["ScaleEdge"]
-      326 SETTABLEN                        R76 R75 6
-      327 LOADK                            R76 K59 ["ScaleCorner"]
-      328 SETTABLEN                        R76 R75 7
-      329 LOADK                            R76 K59 ["ScaleCorner"]
-      330 SETTABLEN                        R76 R75 8
-      331 LOADK                            R76 K59 ["ScaleCorner"]
-      332 SETTABLEN                        R76 R75 9
-      333 LOADK                            R76 K59 ["ScaleCorner"]
-      334 SETTABLEN                        R76 R75 10
-      335 LOADK                            R76 K60 ["Rotate"]
-      336 SETTABLEN                        R76 R75 11
-      337 LOADK                            R76 K60 ["Rotate"]
-      338 SETTABLEN                        R76 R75 12
-      339 LOADK                            R76 K60 ["Rotate"]
-      340 SETTABLEN                        R76 R75 13
-      341 LOADK                            R76 K61 ["Plane"]
-      342 SETTABLEN                        R76 R75 14
-      343 NEWTABLE                         R76 0 0
-      345 LOADB                            R77 0
-      346 NEWTABLE                         R78 0 0
-      348 DUPCLOSURE                       R79 K62 [PROTO_10]
-      349 DUPCLOSURE                       R80 K63 [PROTO_11]
+      254 DUPTABLE                         R30 K51 [{["n"] = 0}]
+      255 LOADNIL                          R31
+      256 LOADNIL                          R32
+      257 LOADNIL                          R33
+      258 LOADK                            R34 K52 [{0, 0, 0}]
+      259 LOADNIL                          R35
+      260 LOADNIL                          R36
+      261 LOADNIL                          R37
+      262 LOADNIL                          R38
+      263 LOADNIL                          R39
+      264 LOADNIL                          R40
+      265 LOADNIL                          R41
+      266 LOADNIL                          R42
+      267 LOADNIL                          R43
+      268 LOADN                            R44 0
+      269 LOADNIL                          R45
+      270 LOADNIL                          R46
+      271 LOADNIL                          R47
+      272 LOADNIL                          R48
+      273 LOADNIL                          R49
+      274 LOADNIL                          R50
+      275 LOADNIL                          R51
+      276 LOADNIL                          R52
+      277 LOADNIL                          R53
+      278 LOADNIL                          R54
+      279 GETIMPORT                        R55 K55 [CFrame.new]
+      281 CALL                             R55 0 1
+      282 LOADNIL                          R56
+      283 LOADNIL                          R57
+      284 LOADNIL                          R58
+      285 LOADNIL                          R59
+      286 LOADNIL                          R60
+      287 LOADNIL                          R61
+      288 LOADNIL                          R62
+      289 LOADNIL                          R63
+      290 LOADNIL                          R64
+      291 LOADNIL                          R65
+      292 LOADNIL                          R66
+      293 LOADNIL                          R67
+      294 LOADNIL                          R68
+      295 LOADB                            R69 0
+      296 LOADB                            R70 0
+      297 LOADB                            R71 0
+      298 LOADNIL                          R72
+      299 LOADNIL                          R73
+      300 NEWCLOSURE                       R74 P9
+      301 CAPTURE                          REF R55
+      302 CAPTURE                          REF R44
+      303 GETTABLEKS                       R75 R14 K56 ["setWorkplaneAccessor"]
+      305 MOVE                             R76 R74
+      306 CALL                             R75 1 0
+      307 NEWTABLE                         R75 0 0
+      309 LOADN                            R76 0
+      310 LOADK                            R77 K57 ["None"]
+      311 SETTABLE                         R77 R75 R76
+      312 LOADK                            R76 K58 ["Translate"]
+      313 SETTABLEN                        R76 R75 1
+      314 LOADK                            R76 K59 ["ScaleEdge"]
+      315 SETTABLEN                        R76 R75 2
+      316 LOADK                            R76 K59 ["ScaleEdge"]
+      317 SETTABLEN                        R76 R75 3
+      318 LOADK                            R76 K59 ["ScaleEdge"]
+      319 SETTABLEN                        R76 R75 4
+      320 LOADK                            R76 K59 ["ScaleEdge"]
+      321 SETTABLEN                        R76 R75 5
+      322 LOADK                            R76 K59 ["ScaleEdge"]
+      323 SETTABLEN                        R76 R75 6
+      324 LOADK                            R76 K60 ["ScaleCorner"]
+      325 SETTABLEN                        R76 R75 7
+      326 LOADK                            R76 K60 ["ScaleCorner"]
+      327 SETTABLEN                        R76 R75 8
+      328 LOADK                            R76 K60 ["ScaleCorner"]
+      329 SETTABLEN                        R76 R75 9
+      330 LOADK                            R76 K60 ["ScaleCorner"]
+      331 SETTABLEN                        R76 R75 10
+      332 LOADK                            R76 K61 ["Rotate"]
+      333 SETTABLEN                        R76 R75 11
+      334 LOADK                            R76 K61 ["Rotate"]
+      335 SETTABLEN                        R76 R75 12
+      336 LOADK                            R76 K61 ["Rotate"]
+      337 SETTABLEN                        R76 R75 13
+      338 LOADK                            R76 K62 ["Plane"]
+      339 SETTABLEN                        R76 R75 14
+      340 NEWTABLE                         R76 0 0
+      342 LOADB                            R77 0
+      343 NEWTABLE                         R78 0 0
+      345 DUPCLOSURE                       R79 K63 [PROTO_10]
+      346 DUPCLOSURE                       R80 K64 [PROTO_11]
+      347 CAPTURE                          VAL R9
+      348 CAPTURE                          VAL R0
+      349 DUPCLOSURE                       R81 K65 [PROTO_12]
       350 CAPTURE                          VAL R9
-      351 CAPTURE                          VAL R0
-      352 DUPCLOSURE                       R81 K64 [PROTO_12]
-      353 CAPTURE                          VAL R9
-      354 NEWTABLE                         R82 0 0
-      356 NEWCLOSURE                       R83 P13
-      357 CAPTURE                          REF R82
-      358 CAPTURE                          VAL R83
-      359 NEWCLOSURE                       R84 P14
-      360 CAPTURE                          VAL R9
+      351 NEWTABLE                         R82 0 0
+      353 NEWCLOSURE                       R83 P13
+      354 CAPTURE                          REF R82
+      355 CAPTURE                          VAL R83
+      356 NEWCLOSURE                       R84 P14
+      357 CAPTURE                          VAL R9
+      358 CAPTURE                          REF R82
+      359 CAPTURE                          VAL R83
+      360 NEWCLOSURE                       R85 P15
       361 CAPTURE                          REF R82
       362 CAPTURE                          VAL R83
-      363 NEWCLOSURE                       R85 P15
-      364 CAPTURE                          REF R82
-      365 CAPTURE                          VAL R83
-      366 DUPCLOSURE                       R86 K65 [PROTO_16]
-      367 CAPTURE                          VAL R84
-      368 NEWCLOSURE                       R87 P17
-      369 CAPTURE                          VAL R9
-      370 CAPTURE                          REF R29
-      371 CAPTURE                          VAL R14
-      372 DUPCLOSURE                       R88 K66 [PROTO_18]
-      373 CAPTURE                          VAL R9
-      374 CAPTURE                          VAL R87
-      375 NEWCLOSURE                       R89 P19
-      376 CAPTURE                          REF R21
-      377 CAPTURE                          VAL R14
+      363 DUPCLOSURE                       R86 K66 [PROTO_16]
+      364 CAPTURE                          VAL R84
+      365 NEWCLOSURE                       R87 P17
+      366 CAPTURE                          VAL R9
+      367 CAPTURE                          REF R29
+      368 CAPTURE                          VAL R14
+      369 DUPCLOSURE                       R88 K67 [PROTO_18]
+      370 CAPTURE                          VAL R9
+      371 CAPTURE                          VAL R87
+      372 NEWCLOSURE                       R89 P19
+      373 CAPTURE                          REF R21
+      374 CAPTURE                          VAL R14
+      375 CAPTURE                          REF R56
+      376 CAPTURE                          VAL R20
+      377 NEWCLOSURE                       R90 P20
       378 CAPTURE                          REF R56
-      379 CAPTURE                          VAL R20
-      380 NEWCLOSURE                       R90 P20
-      381 CAPTURE                          REF R56
-      382 CAPTURE                          REF R21
-      383 CAPTURE                          VAL R16
-      384 CAPTURE                          VAL R14
-      385 CAPTURE                          REF R28
-      386 LOADK                            R93 K67 ["buttonClicked"]
-      387 NEWCLOSURE                       R94 P21
-      388 CAPTURE                          REF R19
-      389 CAPTURE                          REF R18
-      390 NAMECALL                         R91 R0 K68 ["OnInvoke"]
-      392 CALL                             R91 3 0
-      393 LOADK                            R93 K69 ["Disable"]
-      394 DUPCLOSURE                       R94 K70 [PROTO_22]
-      395 CAPTURE                          VAL R0
-      396 NAMECALL                         R91 R0 K68 ["OnInvoke"]
-      398 CALL                             R91 3 0
-      399 GETTABLEKS                       R91 R0 K71 ["Deactivation"]
-      401 NEWCLOSURE                       R93 P23
-      402 CAPTURE                          REF R19
-      403 NAMECALL                         R91 R91 K72 ["connect"]
-      405 CALL                             R91 2 0
-      406 DUPCLOSURE                       R91 K73 [PROTO_24]
-      407 SETGLOBAL                        R91 K74 ["squaredMagnitude"]
-      409 DUPCLOSURE                       R91 K75 [PROTO_25]
-      410 SETGLOBAL                        R91 K76 ["vector3Direction"]
-      412 DUPCLOSURE                       R91 K77 [PROTO_26]
-      413 SETGLOBAL                        R91 K78 ["vector3LessThanOrEqualTo"]
-      415 DUPCLOSURE                       R91 K79 [PROTO_27]
-      416 SETGLOBAL                        R91 K80 ["vector3GreaterThanOrEqualTo"]
-      418 DUPCLOSURE                       R91 K81 [PROTO_28]
-      419 SETGLOBAL                        R91 K82 ["createPlane"]
-      421 DUPCLOSURE                       R91 K83 [PROTO_29]
-      422 SETGLOBAL                        R91 K84 ["rayPlaneIntersection"]
-      424 DUPCLOSURE                       R91 K85 [PROTO_30]
-      425 SETGLOBAL                        R91 K86 ["boxSideTest"]
-      427 DUPCLOSURE                       R91 K87 [PROTO_31]
-      428 SETGLOBAL                        R91 K88 ["rayBoxIntersection"]
-      430 DUPCLOSURE                       R91 K89 [PROTO_32]
-      431 SETGLOBAL                        R91 K90 ["projectVectorToPlane"]
-      433 DUPCLOSURE                       R91 K91 [PROTO_33]
-      434 CAPTURE                          VAL R6
-      435 DUPCLOSURE                       R92 K92 [PROTO_34]
-      436 CAPTURE                          VAL R6
-      437 DUPCLOSURE                       R93 K93 [PROTO_35]
-      438 CAPTURE                          VAL R6
-      439 CAPTURE                          VAL R8
-      440 DUPCLOSURE                       R94 K94 [PROTO_36]
-      441 DUPCLOSURE                       R95 K95 [PROTO_37]
-      442 CAPTURE                          VAL R0
-      443 CAPTURE                          VAL R11
-      444 SETGLOBAL                        R95 K96 ["getRotationalIntervalFromGrid"]
-      446 DUPCLOSURE                       R95 K97 [PROTO_38]
-      447 CAPTURE                          VAL R0
-      448 CAPTURE                          VAL R12
-      449 SETGLOBAL                        R95 K98 ["roundToNearestGrid"]
-      451 DUPCLOSURE                       R95 K99 [PROTO_39]
-      452 SETGLOBAL                        R95 K100 ["Vector3ToNearestGrid"]
-      454 DUPCLOSURE                       R95 K101 [PROTO_40]
-      455 SETGLOBAL                        R95 K102 ["getScaleHandleLocalVector"]
-      457 DUPCLOSURE                       R95 K103 [PROTO_41]
-      458 CAPTURE                          VAL R0
-      459 SETGLOBAL                        R95 K104 ["snapVector3ByHandle"]
-      461 DUPCLOSURE                       R95 K105 [PROTO_42]
-      462 CAPTURE                          VAL R9
-      463 SETGLOBAL                        R95 K106 ["getSelectedPart"]
-      465 DUPCLOSURE                       R95 K107 [PROTO_43]
-      466 CAPTURE                          VAL R9
-      467 SETGLOBAL                        R95 K108 ["getCurrentSelectionWithChildren"]
-      469 DUPCLOSURE                       R95 K109 [PROTO_44]
-      470 SETGLOBAL                        R95 K110 ["setPartPosition"]
-      472 DUPCLOSURE                       R95 K111 [PROTO_45]
-      473 SETGLOBAL                        R95 K112 ["setPartRotation"]
-      475 DUPCLOSURE                       R95 K113 [PROTO_46]
-      476 SETGLOBAL                        R95 K114 ["cosineSimilarity"]
-      478 NEWCLOSURE                       R95 P47
-      479 CAPTURE                          VAL R9
-      480 CAPTURE                          VAL R14
-      481 CAPTURE                          REF R35
-      482 CAPTURE                          REF R32
-      483 SETGLOBAL                        R95 K115 ["setWaypoint"]
-      485 DUPCLOSURE                       R95 K116 [PROTO_48]
-      486 DUPCLOSURE                       R96 K117 [PROTO_49]
-      487 SETGLOBAL                        R96 K118 ["rotateCFrame"]
-      489 NEWCLOSURE                       R96 P50
-      490 CAPTURE                          REF R45
-      491 CAPTURE                          VAL R9
-      492 CAPTURE                          REF R40
-      493 CAPTURE                          REF R55
-      494 CAPTURE                          VAL R5
-      495 CAPTURE                          REF R46
-      496 CAPTURE                          VAL R13
-      497 CAPTURE                          REF R43
-      498 CAPTURE                          REF R41
-      499 CAPTURE                          REF R44
-      500 SETGLOBAL                        R96 K119 ["updateInvisiblePart"]
-      502 DUPCLOSURE                       R96 K120 [PROTO_51]
-      503 CAPTURE                          VAL R14
-      504 DUPCLOSURE                       R97 K121 [PROTO_52]
-      505 LOADN                            R98 0
-      506 LOADB                            R99 0
-      507 LOADNIL                          R100
-      508 NEWCLOSURE                       R101 P53
-      509 CAPTURE                          VAL R14
-      510 CAPTURE                          REF R56
-      511 CAPTURE                          VAL R5
-      512 CAPTURE                          VAL R20
-      513 CAPTURE                          REF R31
-      514 CAPTURE                          REF R33
-      515 CAPTURE                          REF R100
-      516 CAPTURE                          REF R99
-      517 CAPTURE                          REF R57
-      518 SETGLOBAL                        R101 K122 ["preUpdatePart"]
-      520 LOADNIL                          R101
-      521 DUPCLOSURE                       R102 K123 [PROTO_54]
-      522 DUPCLOSURE                       R103 K124 [PROTO_55]
-      523 DUPCLOSURE                       R104 K125 [PROTO_56]
-      524 SETGLOBAL                        R104 K126 ["getShapeRenderSize"]
-      526 DUPCLOSURE                       R104 K127 [PROTO_57]
-      527 SETGLOBAL                        R104 K128 ["updatePivotAndChildAttachments"]
-      529 DUPCLOSURE                       R104 K129 [PROTO_58]
-      530 CAPTURE                          VAL R2
-      531 NEWCLOSURE                       R105 P59
-      532 CAPTURE                          VAL R9
-      533 CAPTURE                          VAL R14
-      534 CAPTURE                          VAL R2
-      535 CAPTURE                          REF R77
-      536 CAPTURE                          REF R78
-      537 CAPTURE                          REF R32
-      538 CAPTURE                          REF R33
-      539 CAPTURE                          REF R31
-      540 CAPTURE                          REF R101
-      541 CAPTURE                          REF R71
-      542 CAPTURE                          VAL R0
-      543 CAPTURE                          REF R45
-      544 CAPTURE                          VAL R8
-      545 CAPTURE                          VAL R97
-      546 CAPTURE                          VAL R79
-      547 CAPTURE                          VAL R7
-      548 CAPTURE                          VAL R6
-      549 CAPTURE                          REF R47
-      550 CAPTURE                          REF R41
-      551 CAPTURE                          REF R56
-      552 CAPTURE                          REF R100
-      553 CAPTURE                          REF R35
-      554 CAPTURE                          VAL R12
-      555 CAPTURE                          VAL R85
-      556 CAPTURE                          REF R28
-      557 CAPTURE                          REF R26
-      558 CAPTURE                          VAL R24
-      559 CAPTURE                          REF R27
-      560 CAPTURE                          VAL R87
-      561 CAPTURE                          REF R23
-      562 SETGLOBAL                        R105 K130 ["updatePart"]
-      564 NEWCLOSURE                       R105 P60
-      565 CAPTURE                          REF R72
-      566 CAPTURE                          VAL R79
-      567 CAPTURE                          REF R73
-      568 CAPTURE                          VAL R24
-      569 CAPTURE                          VAL R10
-      570 CAPTURE                          REF R45
-      571 SETGLOBAL                        R105 K131 ["updateDragPart"]
-      573 NEWCLOSURE                       R105 P61
-      574 CAPTURE                          VAL R9
-      575 CAPTURE                          REF R36
-      576 CAPTURE                          REF R32
-      577 CAPTURE                          REF R33
-      578 CAPTURE                          REF R47
-      579 CAPTURE                          REF R72
-      580 CAPTURE                          VAL R13
-      581 SETGLOBAL                        R105 K132 ["grabPart"]
-      583 DUPCLOSURE                       R105 K133 [PROTO_62]
-      584 SETGLOBAL                        R105 K134 ["getAllFaceNormals"]
-      586 NEWCLOSURE                       R105 P63
-      587 CAPTURE                          REF R45
-      588 CAPTURE                          VAL R11
-      589 SETGLOBAL                        R105 K135 ["getDirectedNormalsFromPart"]
-      591 DUPCLOSURE                       R105 K136 [PROTO_64]
-      592 SETGLOBAL                        R105 K137 ["getClosestNormalFromPart"]
-      594 DUPCLOSURE                       R105 K138 [PROTO_65]
-      595 SETGLOBAL                        R105 K139 ["getFirstPart"]
-      597 DUPCLOSURE                       R105 K140 [PROTO_66]
-      598 SETGLOBAL                        R105 K141 ["getBestExtentRotation"]
-      600 DUPCLOSURE                       R105 K142 [PROTO_67]
-      601 CAPTURE                          VAL R11
-      602 SETGLOBAL                        R105 K143 ["getNormalOfFace"]
-      604 DUPCLOSURE                       R105 K144 [PROTO_68]
-      605 CAPTURE                          VAL R7
-      606 SETGLOBAL                        R105 K145 ["getNormalFromClosestPoint"]
-      608 DUPCLOSURE                       R105 K146 [PROTO_69]
-      609 SETGLOBAL                        R105 K147 ["normalExistsInTable"]
-      611 DUPCLOSURE                       R105 K148 [PROTO_70]
-      612 SETGLOBAL                        R105 K149 ["getNormalOfCollidingFace"]
-      614 DUPCLOSURE                       R105 K150 [PROTO_71]
-      615 SETGLOBAL                        R105 K151 ["sanitizeFloat"]
-      617 DUPCLOSURE                       R105 K152 [PROTO_72]
-      618 SETGLOBAL                        R105 K153 ["sanitizeVector3"]
-      620 DUPCLOSURE                       R105 K154 [PROTO_73]
-      621 SETGLOBAL                        R105 K155 ["sanitizeCFrame"]
-      623 LOADB                            R105 1
-      624 LOADB                            R106 0
-      625 NEWCLOSURE                       R107 P74
-      626 CAPTURE                          VAL R14
-      627 CAPTURE                          REF R40
-      628 CAPTURE                          REF R72
-      629 CAPTURE                          REF R106
-      630 CAPTURE                          REF R23
-      631 CAPTURE                          VAL R2
-      632 CAPTURE                          REF R77
-      633 CAPTURE                          REF R78
-      634 CAPTURE                          REF R55
-      635 CAPTURE                          REF R105
-      636 CAPTURE                          VAL R13
-      637 CAPTURE                          REF R69
-      638 CAPTURE                          REF R45
-      639 CAPTURE                          VAL R9
-      640 CAPTURE                          REF R47
-      641 CAPTURE                          VAL R8
-      642 CAPTURE                          VAL R6
-      643 CAPTURE                          VAL R7
-      644 CAPTURE                          VAL R11
-      645 CAPTURE                          VAL R12
-      646 SETGLOBAL                        R107 K156 ["movePart"]
-      648 NEWCLOSURE                       R107 P75
-      649 CAPTURE                          VAL R14
-      650 CAPTURE                          VAL R20
-      651 CAPTURE                          REF R27
-      652 CAPTURE                          REF R26
-      653 CAPTURE                          VAL R11
-      654 CAPTURE                          REF R38
-      655 CAPTURE                          REF R39
-      656 CAPTURE                          VAL R7
-      657 SETGLOBAL                        R107 K157 ["planeDrag"]
-      659 NEWCLOSURE                       R107 P76
-      660 CAPTURE                          REF R70
-      661 CAPTURE                          REF R28
-      662 CAPTURE                          REF R36
-      663 CAPTURE                          REF R21
-      664 CAPTURE                          VAL R16
-      665 CAPTURE                          VAL R20
-      666 CAPTURE                          REF R59
-      667 CAPTURE                          REF R39
-      668 CAPTURE                          REF R69
-      669 CAPTURE                          REF R38
-      670 CAPTURE                          VAL R7
-      671 CAPTURE                          VAL R11
-      672 CAPTURE                          VAL R9
-      673 CAPTURE                          VAL R10
-      674 CAPTURE                          REF R37
-      675 CAPTURE                          VAL R0
-      676 CAPTURE                          REF R34
-      677 SETGLOBAL                        R107 K158 ["freeDrag"]
-      679 NEWCLOSURE                       R107 P77
-      680 CAPTURE                          VAL R14
-      681 CAPTURE                          VAL R20
-      682 CAPTURE                          VAL R24
-      683 CAPTURE                          REF R40
-      684 CAPTURE                          REF R41
-      685 CAPTURE                          REF R42
-      686 CAPTURE                          REF R43
-      687 CAPTURE                          REF R51
-      688 CAPTURE                          REF R52
-      689 CAPTURE                          REF R53
-      690 CAPTURE                          REF R54
-      691 CAPTURE                          VAL R11
-      692 CAPTURE                          REF R48
-      693 CAPTURE                          REF R49
-      694 CAPTURE                          REF R50
-      695 CAPTURE                          REF R38
-      696 CAPTURE                          REF R39
-      697 CAPTURE                          VAL R7
-      698 CAPTURE                          REF R55
-      699 CAPTURE                          VAL R9
-      700 SETGLOBAL                        R107 K159 ["selectDragPlane"]
-      702 DUPCLOSURE                       R107 K160 [PROTO_78]
-      703 CAPTURE                          VAL R24
-      704 SETGLOBAL                        R107 K161 ["removeDragPart"]
-      706 NEWCLOSURE                       R107 P79
-      707 CAPTURE                          REF R105
-      708 CAPTURE                          REF R98
-      709 CAPTURE                          REF R77
-      710 CAPTURE                          REF R78
-      711 CAPTURE                          VAL R16
-      712 CAPTURE                          REF R36
-      713 CAPTURE                          VAL R14
-      714 CAPTURE                          REF R34
-      715 CAPTURE                          REF R68
-      716 CAPTURE                          REF R106
-      717 CAPTURE                          VAL R9
-      718 CAPTURE                          VAL R0
-      719 CAPTURE                          REF R71
-      720 CAPTURE                          REF R69
-      721 CAPTURE                          REF R72
-      722 CAPTURE                          REF R73
-      723 CAPTURE                          REF R28
-      724 CAPTURE                          REF R27
-      725 CAPTURE                          REF R26
-      726 CAPTURE                          REF R37
-      727 SETGLOBAL                        R107 K162 ["releasePart"]
-      729 NEWCLOSURE                       R107 P80
-      730 CAPTURE                          REF R35
-      731 CAPTURE                          REF R31
-      732 CAPTURE                          VAL R9
-      733 CAPTURE                          VAL R5
-      734 CAPTURE                          REF R33
-      735 CAPTURE                          REF R32
-      736 CAPTURE                          REF R47
-      737 CAPTURE                          REF R45
-      738 CAPTURE                          REF R57
-      739 SETGLOBAL                        R107 K163 ["grabHandle"]
-      741 NEWCLOSURE                       R107 P81
-      742 CAPTURE                          REF R101
-      743 CAPTURE                          REF R98
-      744 CAPTURE                          VAL R14
-      745 CAPTURE                          VAL R75
-      746 CAPTURE                          VAL R9
-      747 CAPTURE                          VAL R0
-      748 CAPTURE                          REF R35
-      749 CAPTURE                          REF R31
-      750 CAPTURE                          REF R32
-      751 CAPTURE                          REF R33
-      752 CAPTURE                          REF R47
-      753 SETGLOBAL                        R107 K164 ["releaseHandle"]
-      755 NEWCLOSURE                       R107 P82
-      756 CAPTURE                          REF R23
-      757 CAPTURE                          REF R45
-      758 CAPTURE                          REF R58
-      759 CAPTURE                          VAL R14
-      760 CAPTURE                          VAL R9
-      761 CAPTURE                          VAL R5
-      762 CAPTURE                          REF R46
-      763 CAPTURE                          VAL R87
-      764 SETGLOBAL                        R107 K165 ["recreateAdornment"]
-      766 DUPCLOSURE                       R107 K166 [PROTO_83]
-      767 SETGLOBAL                        R107 K167 ["isInSelection"]
-      769 DUPCLOSURE                       R107 K168 [PROTO_84]
-      770 SETGLOBAL                        R107 K169 ["getHighestModelParent"]
-      772 DUPCLOSURE                       R107 K170 [PROTO_85]
-      773 SETGLOBAL                        R107 K171 ["getPVInstanceForPart"]
-      775 DUPCLOSURE                       R107 K172 [PROTO_86]
-      776 SETGLOBAL                        R107 K173 ["getTopPVInstance"]
-      778 DUPCLOSURE                       R107 K174 [PROTO_87]
-      779 SETGLOBAL                        R107 K175 ["findPartInstance"]
-      781 DUPCLOSURE                       R107 K176 [PROTO_88]
-      782 CAPTURE                          VAL R8
-      783 SETGLOBAL                        R107 K177 ["isAncestorSelected"]
-      785 NEWCLOSURE                       R107 P89
-      786 CAPTURE                          REF R59
-      787 CAPTURE                          VAL R20
-      788 CAPTURE                          VAL R8
-      789 CAPTURE                          REF R69
-      790 CAPTURE                          VAL R25
-      791 CAPTURE                          REF R37
-      792 CAPTURE                          REF R48
-      793 CAPTURE                          REF R49
-      794 CAPTURE                          REF R50
-      795 CAPTURE                          VAL R10
-      796 CAPTURE                          REF R40
-      797 CAPTURE                          REF R41
-      798 CAPTURE                          REF R39
-      799 CAPTURE                          REF R23
-      800 CAPTURE                          VAL R9
-      801 CAPTURE                          VAL R16
-      802 SETGLOBAL                        R107 K178 ["selectPart"]
-      804 NEWCLOSURE                       R107 P90
-      805 CAPTURE                          REF R19
-      806 CAPTURE                          VAL R14
-      807 CAPTURE                          VAL R87
-      808 CAPTURE                          VAL R9
-      809 SETGLOBAL                        R107 K179 ["waypointChanged"]
-      811 NEWCLOSURE                       R107 P91
-      812 CAPTURE                          REF R23
-      813 CAPTURE                          VAL R9
-      814 CAPTURE                          VAL R14
-      815 CAPTURE                          VAL R16
-      816 CAPTURE                          REF R69
-      817 CAPTURE                          REF R72
-      818 CAPTURE                          REF R32
-      819 CAPTURE                          REF R33
-      820 CAPTURE                          VAL R10
-      821 SETGLOBAL                        R107 K180 ["selectionChanged"]
-      823 NEWCLOSURE                       R107 P92
-      824 CAPTURE                          REF R69
-      825 CAPTURE                          VAL R15
-      826 SETGLOBAL                        R107 K181 ["onDragEnter"]
-      828 NEWCLOSURE                       R107 P93
-      829 CAPTURE                          VAL R14
-      830 CAPTURE                          REF R28
-      831 CAPTURE                          REF R27
-      832 CAPTURE                          REF R26
-      833 CAPTURE                          VAL R24
-      834 NEWCLOSURE                       R108 P94
-      835 CAPTURE                          REF R19
-      836 CAPTURE                          VAL R107
-      837 CAPTURE                          VAL R15
-      838 CAPTURE                          VAL R89
-      839 CAPTURE                          VAL R90
-      840 SETGLOBAL                        R108 K182 ["keyPress"]
-      842 NEWCLOSURE                       R108 P95
-      843 CAPTURE                          VAL R15
-      844 CAPTURE                          VAL R14
-      845 CAPTURE                          REF R33
-      846 CAPTURE                          VAL R9
-      847 CAPTURE                          REF R32
-      848 SETGLOBAL                        R108 K183 ["inputChanged"]
-      850 GETTABLEKS                       R108 R14 K184 ["updateAdornmentPositions"]
-      852 NEWCLOSURE                       R109 P96
-      853 CAPTURE                          REF R19
-      854 CAPTURE                          VAL R0
-      855 CAPTURE                          VAL R3
-      856 CAPTURE                          REF R60
-      857 CAPTURE                          REF R61
-      858 CAPTURE                          REF R63
-      859 CAPTURE                          REF R64
-      860 CAPTURE                          REF R65
-      861 CAPTURE                          REF R66
-      862 CAPTURE                          REF R67
-      863 CAPTURE                          VAL R14
-      864 SETGLOBAL                        R109 K185 ["Off"]
-      866 DUPCLOSURE                       R109 K186 [PROTO_97]
-      867 CAPTURE                          VAL R2
-      868 CAPTURE                          VAL R4
-      869 NEWCLOSURE                       R110 P98
-      870 CAPTURE                          REF R19
-      871 CAPTURE                          VAL R0
-      872 CAPTURE                          VAL R2
-      873 CAPTURE                          VAL R4
-      874 CAPTURE                          REF R29
-      875 CAPTURE                          VAL R14
-      876 CAPTURE                          REF R60
-      877 CAPTURE                          REF R61
-      878 CAPTURE                          REF R63
-      879 CAPTURE                          VAL R25
-      880 CAPTURE                          REF R64
-      881 CAPTURE                          REF R65
-      882 CAPTURE                          REF R66
-      883 CAPTURE                          VAL R9
-      884 CAPTURE                          VAL R87
-      885 CAPTURE                          VAL R108
-      886 CAPTURE                          REF R67
-      887 CAPTURE                          REF R23
-      888 CAPTURE                          REF R22
-      889 SETGLOBAL                        R110 K187 ["On"]
-      891 LOADB                            R18 1
-      892 GETTABLEKS                       R110 R25 K188 ["InputBegan"]
-      894 GETGLOBAL                        R112 K182 ["keyPress"]
-      896 NAMECALL                         R110 R110 K72 ["connect"]
-      898 CALL                             R110 2 1
-      899 MOVE                             R62 R110
-      900 CLOSEUPVALS                      R18
-      901 RETURN                           R0 0
+      379 CAPTURE                          REF R21
+      380 CAPTURE                          VAL R16
+      381 CAPTURE                          VAL R14
+      382 CAPTURE                          REF R28
+      383 LOADK                            R93 K68 ["buttonClicked"]
+      384 NEWCLOSURE                       R94 P21
+      385 CAPTURE                          REF R19
+      386 CAPTURE                          REF R18
+      387 NAMECALL                         R91 R0 K69 ["OnInvoke"]
+      389 CALL                             R91 3 0
+      390 LOADK                            R93 K70 ["Disable"]
+      391 DUPCLOSURE                       R94 K71 [PROTO_22]
+      392 CAPTURE                          VAL R0
+      393 NAMECALL                         R91 R0 K69 ["OnInvoke"]
+      395 CALL                             R91 3 0
+      396 GETTABLEKS                       R91 R0 K72 ["Deactivation"]
+      398 NEWCLOSURE                       R93 P23
+      399 CAPTURE                          REF R19
+      400 NAMECALL                         R91 R91 K73 ["connect"]
+      402 CALL                             R91 2 0
+      403 DUPCLOSURE                       R91 K74 [PROTO_24]
+      404 SETGLOBAL                        R91 K75 ["squaredMagnitude"]
+      406 DUPCLOSURE                       R91 K76 [PROTO_25]
+      407 SETGLOBAL                        R91 K77 ["vector3Direction"]
+      409 DUPCLOSURE                       R91 K78 [PROTO_26]
+      410 SETGLOBAL                        R91 K79 ["vector3LessThanOrEqualTo"]
+      412 DUPCLOSURE                       R91 K80 [PROTO_27]
+      413 SETGLOBAL                        R91 K81 ["vector3GreaterThanOrEqualTo"]
+      415 DUPCLOSURE                       R91 K82 [PROTO_28]
+      416 SETGLOBAL                        R91 K83 ["createPlane"]
+      418 DUPCLOSURE                       R91 K84 [PROTO_29]
+      419 SETGLOBAL                        R91 K85 ["rayPlaneIntersection"]
+      421 DUPCLOSURE                       R91 K86 [PROTO_30]
+      422 SETGLOBAL                        R91 K87 ["boxSideTest"]
+      424 DUPCLOSURE                       R91 K88 [PROTO_31]
+      425 SETGLOBAL                        R91 K89 ["rayBoxIntersection"]
+      427 DUPCLOSURE                       R91 K90 [PROTO_32]
+      428 SETGLOBAL                        R91 K91 ["projectVectorToPlane"]
+      430 DUPCLOSURE                       R91 K92 [PROTO_33]
+      431 CAPTURE                          VAL R6
+      432 DUPCLOSURE                       R92 K93 [PROTO_34]
+      433 CAPTURE                          VAL R6
+      434 DUPCLOSURE                       R93 K94 [PROTO_35]
+      435 CAPTURE                          VAL R6
+      436 CAPTURE                          VAL R8
+      437 DUPCLOSURE                       R94 K95 [PROTO_36]
+      438 DUPCLOSURE                       R95 K96 [PROTO_37]
+      439 CAPTURE                          VAL R0
+      440 CAPTURE                          VAL R11
+      441 SETGLOBAL                        R95 K97 ["getRotationalIntervalFromGrid"]
+      443 DUPCLOSURE                       R95 K98 [PROTO_38]
+      444 CAPTURE                          VAL R0
+      445 CAPTURE                          VAL R12
+      446 SETGLOBAL                        R95 K99 ["roundToNearestGrid"]
+      448 DUPCLOSURE                       R95 K100 [PROTO_39]
+      449 SETGLOBAL                        R95 K101 ["Vector3ToNearestGrid"]
+      451 DUPCLOSURE                       R95 K102 [PROTO_40]
+      452 SETGLOBAL                        R95 K103 ["getScaleHandleLocalVector"]
+      454 DUPCLOSURE                       R95 K104 [PROTO_41]
+      455 CAPTURE                          VAL R0
+      456 SETGLOBAL                        R95 K105 ["snapVector3ByHandle"]
+      458 DUPCLOSURE                       R95 K106 [PROTO_42]
+      459 CAPTURE                          VAL R9
+      460 SETGLOBAL                        R95 K107 ["getSelectedPart"]
+      462 DUPCLOSURE                       R95 K108 [PROTO_43]
+      463 CAPTURE                          VAL R9
+      464 SETGLOBAL                        R95 K109 ["getCurrentSelectionWithChildren"]
+      466 DUPCLOSURE                       R95 K110 [PROTO_44]
+      467 SETGLOBAL                        R95 K111 ["setPartPosition"]
+      469 DUPCLOSURE                       R95 K112 [PROTO_45]
+      470 SETGLOBAL                        R95 K113 ["setPartRotation"]
+      472 DUPCLOSURE                       R95 K114 [PROTO_46]
+      473 SETGLOBAL                        R95 K115 ["cosineSimilarity"]
+      475 NEWCLOSURE                       R95 P47
+      476 CAPTURE                          VAL R9
+      477 CAPTURE                          VAL R14
+      478 CAPTURE                          REF R35
+      479 CAPTURE                          REF R32
+      480 SETGLOBAL                        R95 K116 ["setWaypoint"]
+      482 DUPCLOSURE                       R95 K117 [PROTO_48]
+      483 DUPCLOSURE                       R96 K118 [PROTO_49]
+      484 SETGLOBAL                        R96 K119 ["rotateCFrame"]
+      486 NEWCLOSURE                       R96 P50
+      487 CAPTURE                          REF R45
+      488 CAPTURE                          VAL R9
+      489 CAPTURE                          REF R40
+      490 CAPTURE                          REF R55
+      491 CAPTURE                          VAL R5
+      492 CAPTURE                          REF R46
+      493 CAPTURE                          VAL R13
+      494 CAPTURE                          REF R43
+      495 CAPTURE                          REF R41
+      496 CAPTURE                          REF R44
+      497 SETGLOBAL                        R96 K120 ["updateInvisiblePart"]
+      499 DUPCLOSURE                       R96 K121 [PROTO_51]
+      500 CAPTURE                          VAL R14
+      501 DUPCLOSURE                       R97 K122 [PROTO_52]
+      502 LOADN                            R98 0
+      503 LOADB                            R99 0
+      504 LOADNIL                          R100
+      505 NEWCLOSURE                       R101 P53
+      506 CAPTURE                          VAL R14
+      507 CAPTURE                          REF R56
+      508 CAPTURE                          VAL R5
+      509 CAPTURE                          VAL R20
+      510 CAPTURE                          REF R31
+      511 CAPTURE                          REF R33
+      512 CAPTURE                          REF R100
+      513 CAPTURE                          REF R99
+      514 CAPTURE                          REF R57
+      515 SETGLOBAL                        R101 K123 ["preUpdatePart"]
+      517 LOADNIL                          R101
+      518 DUPCLOSURE                       R102 K124 [PROTO_54]
+      519 DUPCLOSURE                       R103 K125 [PROTO_55]
+      520 DUPCLOSURE                       R104 K126 [PROTO_56]
+      521 SETGLOBAL                        R104 K127 ["getShapeRenderSize"]
+      523 DUPCLOSURE                       R104 K128 [PROTO_57]
+      524 SETGLOBAL                        R104 K129 ["updatePivotAndChildAttachments"]
+      526 DUPCLOSURE                       R104 K130 [PROTO_58]
+      527 CAPTURE                          VAL R2
+      528 NEWCLOSURE                       R105 P59
+      529 CAPTURE                          VAL R9
+      530 CAPTURE                          VAL R14
+      531 CAPTURE                          VAL R2
+      532 CAPTURE                          REF R77
+      533 CAPTURE                          REF R78
+      534 CAPTURE                          REF R32
+      535 CAPTURE                          REF R33
+      536 CAPTURE                          REF R31
+      537 CAPTURE                          REF R101
+      538 CAPTURE                          REF R71
+      539 CAPTURE                          VAL R0
+      540 CAPTURE                          REF R45
+      541 CAPTURE                          VAL R8
+      542 CAPTURE                          VAL R97
+      543 CAPTURE                          VAL R79
+      544 CAPTURE                          VAL R7
+      545 CAPTURE                          VAL R6
+      546 CAPTURE                          REF R47
+      547 CAPTURE                          REF R41
+      548 CAPTURE                          REF R56
+      549 CAPTURE                          REF R100
+      550 CAPTURE                          REF R35
+      551 CAPTURE                          VAL R12
+      552 CAPTURE                          VAL R85
+      553 CAPTURE                          REF R28
+      554 CAPTURE                          REF R26
+      555 CAPTURE                          VAL R24
+      556 CAPTURE                          REF R27
+      557 CAPTURE                          VAL R87
+      558 CAPTURE                          REF R23
+      559 SETGLOBAL                        R105 K131 ["updatePart"]
+      561 NEWCLOSURE                       R105 P60
+      562 CAPTURE                          REF R72
+      563 CAPTURE                          VAL R79
+      564 CAPTURE                          REF R73
+      565 CAPTURE                          VAL R24
+      566 CAPTURE                          VAL R10
+      567 CAPTURE                          REF R45
+      568 SETGLOBAL                        R105 K132 ["updateDragPart"]
+      570 NEWCLOSURE                       R105 P61
+      571 CAPTURE                          VAL R9
+      572 CAPTURE                          REF R36
+      573 CAPTURE                          REF R32
+      574 CAPTURE                          REF R33
+      575 CAPTURE                          REF R47
+      576 CAPTURE                          REF R72
+      577 CAPTURE                          VAL R13
+      578 SETGLOBAL                        R105 K133 ["grabPart"]
+      580 DUPCLOSURE                       R105 K134 [PROTO_62]
+      581 SETGLOBAL                        R105 K135 ["getAllFaceNormals"]
+      583 NEWCLOSURE                       R105 P63
+      584 CAPTURE                          REF R45
+      585 CAPTURE                          VAL R11
+      586 SETGLOBAL                        R105 K136 ["getDirectedNormalsFromPart"]
+      588 DUPCLOSURE                       R105 K137 [PROTO_64]
+      589 SETGLOBAL                        R105 K138 ["getClosestNormalFromPart"]
+      591 DUPCLOSURE                       R105 K139 [PROTO_65]
+      592 SETGLOBAL                        R105 K140 ["getFirstPart"]
+      594 DUPCLOSURE                       R105 K141 [PROTO_66]
+      595 SETGLOBAL                        R105 K142 ["getBestExtentRotation"]
+      597 DUPCLOSURE                       R105 K143 [PROTO_67]
+      598 CAPTURE                          VAL R11
+      599 SETGLOBAL                        R105 K144 ["getNormalOfFace"]
+      601 DUPCLOSURE                       R105 K145 [PROTO_68]
+      602 CAPTURE                          VAL R7
+      603 SETGLOBAL                        R105 K146 ["getNormalFromClosestPoint"]
+      605 DUPCLOSURE                       R105 K147 [PROTO_69]
+      606 SETGLOBAL                        R105 K148 ["normalExistsInTable"]
+      608 DUPCLOSURE                       R105 K149 [PROTO_70]
+      609 SETGLOBAL                        R105 K150 ["getNormalOfCollidingFace"]
+      611 DUPCLOSURE                       R105 K151 [PROTO_71]
+      612 SETGLOBAL                        R105 K152 ["sanitizeFloat"]
+      614 DUPCLOSURE                       R105 K153 [PROTO_72]
+      615 SETGLOBAL                        R105 K154 ["sanitizeVector3"]
+      617 DUPCLOSURE                       R105 K155 [PROTO_73]
+      618 SETGLOBAL                        R105 K156 ["sanitizeCFrame"]
+      620 LOADB                            R105 1
+      621 LOADB                            R106 0
+      622 NEWCLOSURE                       R107 P74
+      623 CAPTURE                          VAL R14
+      624 CAPTURE                          REF R40
+      625 CAPTURE                          REF R72
+      626 CAPTURE                          REF R106
+      627 CAPTURE                          REF R23
+      628 CAPTURE                          VAL R2
+      629 CAPTURE                          REF R77
+      630 CAPTURE                          REF R78
+      631 CAPTURE                          REF R55
+      632 CAPTURE                          REF R105
+      633 CAPTURE                          VAL R13
+      634 CAPTURE                          REF R69
+      635 CAPTURE                          REF R45
+      636 CAPTURE                          VAL R9
+      637 CAPTURE                          REF R47
+      638 CAPTURE                          VAL R8
+      639 CAPTURE                          VAL R6
+      640 CAPTURE                          VAL R7
+      641 CAPTURE                          VAL R11
+      642 CAPTURE                          VAL R12
+      643 SETGLOBAL                        R107 K157 ["movePart"]
+      645 NEWCLOSURE                       R107 P75
+      646 CAPTURE                          VAL R14
+      647 CAPTURE                          VAL R20
+      648 CAPTURE                          REF R27
+      649 CAPTURE                          REF R26
+      650 CAPTURE                          VAL R11
+      651 CAPTURE                          REF R38
+      652 CAPTURE                          REF R39
+      653 CAPTURE                          VAL R7
+      654 SETGLOBAL                        R107 K158 ["planeDrag"]
+      656 NEWCLOSURE                       R107 P76
+      657 CAPTURE                          REF R70
+      658 CAPTURE                          REF R28
+      659 CAPTURE                          REF R36
+      660 CAPTURE                          REF R21
+      661 CAPTURE                          VAL R16
+      662 CAPTURE                          VAL R20
+      663 CAPTURE                          REF R59
+      664 CAPTURE                          REF R39
+      665 CAPTURE                          REF R69
+      666 CAPTURE                          REF R38
+      667 CAPTURE                          VAL R7
+      668 CAPTURE                          VAL R11
+      669 CAPTURE                          VAL R9
+      670 CAPTURE                          VAL R10
+      671 CAPTURE                          REF R37
+      672 CAPTURE                          VAL R0
+      673 CAPTURE                          REF R34
+      674 SETGLOBAL                        R107 K159 ["freeDrag"]
+      676 NEWCLOSURE                       R107 P77
+      677 CAPTURE                          VAL R14
+      678 CAPTURE                          VAL R20
+      679 CAPTURE                          VAL R24
+      680 CAPTURE                          REF R40
+      681 CAPTURE                          REF R41
+      682 CAPTURE                          REF R42
+      683 CAPTURE                          REF R43
+      684 CAPTURE                          REF R51
+      685 CAPTURE                          REF R52
+      686 CAPTURE                          REF R53
+      687 CAPTURE                          REF R54
+      688 CAPTURE                          VAL R11
+      689 CAPTURE                          REF R48
+      690 CAPTURE                          REF R49
+      691 CAPTURE                          REF R50
+      692 CAPTURE                          REF R38
+      693 CAPTURE                          REF R39
+      694 CAPTURE                          VAL R7
+      695 CAPTURE                          REF R55
+      696 CAPTURE                          VAL R9
+      697 SETGLOBAL                        R107 K160 ["selectDragPlane"]
+      699 DUPCLOSURE                       R107 K161 [PROTO_78]
+      700 CAPTURE                          VAL R24
+      701 SETGLOBAL                        R107 K162 ["removeDragPart"]
+      703 NEWCLOSURE                       R107 P79
+      704 CAPTURE                          REF R105
+      705 CAPTURE                          REF R98
+      706 CAPTURE                          REF R77
+      707 CAPTURE                          REF R78
+      708 CAPTURE                          VAL R16
+      709 CAPTURE                          REF R36
+      710 CAPTURE                          VAL R14
+      711 CAPTURE                          REF R34
+      712 CAPTURE                          REF R68
+      713 CAPTURE                          REF R106
+      714 CAPTURE                          VAL R9
+      715 CAPTURE                          VAL R0
+      716 CAPTURE                          REF R71
+      717 CAPTURE                          REF R69
+      718 CAPTURE                          REF R72
+      719 CAPTURE                          REF R73
+      720 CAPTURE                          REF R28
+      721 CAPTURE                          REF R27
+      722 CAPTURE                          REF R26
+      723 CAPTURE                          REF R37
+      724 SETGLOBAL                        R107 K163 ["releasePart"]
+      726 NEWCLOSURE                       R107 P80
+      727 CAPTURE                          REF R35
+      728 CAPTURE                          REF R31
+      729 CAPTURE                          VAL R9
+      730 CAPTURE                          VAL R5
+      731 CAPTURE                          REF R33
+      732 CAPTURE                          REF R32
+      733 CAPTURE                          REF R47
+      734 CAPTURE                          REF R45
+      735 CAPTURE                          REF R57
+      736 SETGLOBAL                        R107 K164 ["grabHandle"]
+      738 NEWCLOSURE                       R107 P81
+      739 CAPTURE                          REF R101
+      740 CAPTURE                          REF R98
+      741 CAPTURE                          VAL R14
+      742 CAPTURE                          VAL R75
+      743 CAPTURE                          VAL R9
+      744 CAPTURE                          VAL R0
+      745 CAPTURE                          REF R35
+      746 CAPTURE                          REF R31
+      747 CAPTURE                          REF R32
+      748 CAPTURE                          REF R33
+      749 CAPTURE                          REF R47
+      750 SETGLOBAL                        R107 K165 ["releaseHandle"]
+      752 NEWCLOSURE                       R107 P82
+      753 CAPTURE                          REF R23
+      754 CAPTURE                          REF R45
+      755 CAPTURE                          REF R58
+      756 CAPTURE                          VAL R14
+      757 CAPTURE                          VAL R9
+      758 CAPTURE                          VAL R5
+      759 CAPTURE                          REF R46
+      760 CAPTURE                          VAL R87
+      761 SETGLOBAL                        R107 K166 ["recreateAdornment"]
+      763 DUPCLOSURE                       R107 K167 [PROTO_83]
+      764 SETGLOBAL                        R107 K168 ["isInSelection"]
+      766 DUPCLOSURE                       R107 K169 [PROTO_84]
+      767 SETGLOBAL                        R107 K170 ["getHighestModelParent"]
+      769 DUPCLOSURE                       R107 K171 [PROTO_85]
+      770 SETGLOBAL                        R107 K172 ["getPVInstanceForPart"]
+      772 DUPCLOSURE                       R107 K173 [PROTO_86]
+      773 SETGLOBAL                        R107 K174 ["getTopPVInstance"]
+      775 DUPCLOSURE                       R107 K175 [PROTO_87]
+      776 SETGLOBAL                        R107 K176 ["findPartInstance"]
+      778 DUPCLOSURE                       R107 K177 [PROTO_88]
+      779 CAPTURE                          VAL R8
+      780 SETGLOBAL                        R107 K178 ["isAncestorSelected"]
+      782 NEWCLOSURE                       R107 P89
+      783 CAPTURE                          REF R59
+      784 CAPTURE                          VAL R20
+      785 CAPTURE                          VAL R8
+      786 CAPTURE                          REF R69
+      787 CAPTURE                          VAL R25
+      788 CAPTURE                          REF R37
+      789 CAPTURE                          REF R48
+      790 CAPTURE                          REF R49
+      791 CAPTURE                          REF R50
+      792 CAPTURE                          VAL R10
+      793 CAPTURE                          REF R40
+      794 CAPTURE                          REF R41
+      795 CAPTURE                          REF R39
+      796 CAPTURE                          REF R23
+      797 CAPTURE                          VAL R9
+      798 CAPTURE                          VAL R16
+      799 SETGLOBAL                        R107 K179 ["selectPart"]
+      801 NEWCLOSURE                       R107 P90
+      802 CAPTURE                          REF R19
+      803 CAPTURE                          VAL R14
+      804 CAPTURE                          VAL R87
+      805 CAPTURE                          VAL R9
+      806 SETGLOBAL                        R107 K180 ["waypointChanged"]
+      808 NEWCLOSURE                       R107 P91
+      809 CAPTURE                          REF R23
+      810 CAPTURE                          VAL R9
+      811 CAPTURE                          VAL R14
+      812 CAPTURE                          VAL R16
+      813 CAPTURE                          REF R69
+      814 CAPTURE                          REF R72
+      815 CAPTURE                          REF R32
+      816 CAPTURE                          REF R33
+      817 CAPTURE                          VAL R10
+      818 SETGLOBAL                        R107 K181 ["selectionChanged"]
+      820 NEWCLOSURE                       R107 P92
+      821 CAPTURE                          REF R69
+      822 CAPTURE                          VAL R15
+      823 SETGLOBAL                        R107 K182 ["onDragEnter"]
+      825 NEWCLOSURE                       R107 P93
+      826 CAPTURE                          VAL R14
+      827 CAPTURE                          REF R28
+      828 CAPTURE                          REF R27
+      829 CAPTURE                          REF R26
+      830 CAPTURE                          VAL R24
+      831 NEWCLOSURE                       R108 P94
+      832 CAPTURE                          REF R19
+      833 CAPTURE                          VAL R107
+      834 CAPTURE                          VAL R15
+      835 CAPTURE                          VAL R89
+      836 CAPTURE                          VAL R90
+      837 SETGLOBAL                        R108 K183 ["keyPress"]
+      839 NEWCLOSURE                       R108 P95
+      840 CAPTURE                          VAL R15
+      841 CAPTURE                          VAL R14
+      842 CAPTURE                          REF R33
+      843 CAPTURE                          VAL R9
+      844 CAPTURE                          REF R32
+      845 SETGLOBAL                        R108 K184 ["inputChanged"]
+      847 GETTABLEKS                       R108 R14 K185 ["updateAdornmentPositions"]
+      849 NEWCLOSURE                       R109 P96
+      850 CAPTURE                          REF R19
+      851 CAPTURE                          VAL R0
+      852 CAPTURE                          VAL R3
+      853 CAPTURE                          REF R60
+      854 CAPTURE                          REF R61
+      855 CAPTURE                          REF R63
+      856 CAPTURE                          REF R64
+      857 CAPTURE                          REF R65
+      858 CAPTURE                          REF R66
+      859 CAPTURE                          REF R67
+      860 CAPTURE                          VAL R14
+      861 SETGLOBAL                        R109 K186 ["Off"]
+      863 DUPCLOSURE                       R109 K187 [PROTO_97]
+      864 CAPTURE                          VAL R2
+      865 CAPTURE                          VAL R4
+      866 NEWCLOSURE                       R110 P98
+      867 CAPTURE                          REF R19
+      868 CAPTURE                          VAL R0
+      869 CAPTURE                          VAL R2
+      870 CAPTURE                          VAL R4
+      871 CAPTURE                          REF R29
+      872 CAPTURE                          VAL R14
+      873 CAPTURE                          REF R60
+      874 CAPTURE                          REF R61
+      875 CAPTURE                          REF R63
+      876 CAPTURE                          VAL R25
+      877 CAPTURE                          REF R64
+      878 CAPTURE                          REF R65
+      879 CAPTURE                          REF R66
+      880 CAPTURE                          VAL R9
+      881 CAPTURE                          VAL R87
+      882 CAPTURE                          VAL R108
+      883 CAPTURE                          REF R67
+      884 CAPTURE                          REF R23
+      885 CAPTURE                          REF R22
+      886 SETGLOBAL                        R110 K188 ["On"]
+      888 LOADB                            R18 1
+      889 GETTABLEKS                       R110 R25 K189 ["InputBegan"]
+      891 GETGLOBAL                        R112 K183 ["keyPress"]
+      893 NAMECALL                         R110 R110 K73 ["connect"]
+      895 CALL                             R110 2 1
+      896 MOVE                             R62 R110
+      897 CLOSEUPVALS                      R18
+      898 RETURN                           R0 0

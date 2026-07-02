@@ -431,68 +431,62 @@ MAIN:
       114 GETTABLEKS                       R15 R15 K27 ["ThemeSwitcher"]
       116 GETTABLEKS                       R16 R2 K28 ["Styling"]
       118 GETTABLEKS                       R16 R16 K29 ["joinTags"]
-      120 DUPTABLE                         R17 K34 [{"selectedGamepadId", "LayoutOrder", "activeInputs", "displayMappings"}]
-      121 LOADN                            R18 101
-      122 SETTABLEKS                       R18 R17 K30 ["selectedGamepadId"]
-      124 LOADNIL                          R18
-      125 SETTABLEKS                       R18 R17 K31 ["LayoutOrder"]
-      127 NEWTABLE                         R18 0 0
-      129 SETTABLEKS                       R18 R17 K32 ["activeInputs"]
-      131 LOADB                            R18 0
-      132 SETTABLEKS                       R18 R17 K33 ["displayMappings"]
-      134 NEWTABLE                         R18 8 0
+      120 DUPTABLE                         R17 K37 [{["selectedGamepadId"] = 101, ["LayoutOrder"] = , ["activeInputs"], ["displayMappings"] = False}]
+      121 NEWTABLE                         R18 0 0
+      123 SETTABLEKS                       R18 R17 K34 ["activeInputs"]
+      125 NEWTABLE                         R18 8 0
+      127 GETIMPORT                        R19 K5 [require]
+      129 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      131 GETTABLEKS                       R20 R20 K39 ["Generic"]
+      133 CALL                             R19 1 1
+      134 SETTABLEKS                       R19 R18 K39 ["Generic"]
       136 GETIMPORT                        R19 K5 [require]
-      138 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      140 GETTABLEKS                       R20 R20 K36 ["Generic"]
+      138 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      140 GETTABLEKS                       R20 R20 K40 ["Playstation4"]
       142 CALL                             R19 1 1
-      143 SETTABLEKS                       R19 R18 K36 ["Generic"]
+      143 SETTABLEKS                       R19 R18 K41 ["PS4"]
       145 GETIMPORT                        R19 K5 [require]
-      147 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      149 GETTABLEKS                       R20 R20 K37 ["Playstation4"]
+      147 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      149 GETTABLEKS                       R20 R20 K42 ["Playstation5"]
       151 CALL                             R19 1 1
-      152 SETTABLEKS                       R19 R18 K38 ["PS4"]
+      152 SETTABLEKS                       R19 R18 K43 ["PS5"]
       154 GETIMPORT                        R19 K5 [require]
-      156 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      158 GETTABLEKS                       R20 R20 K39 ["Playstation5"]
+      156 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      158 GETTABLEKS                       R20 R20 K44 ["XBox"]
       160 CALL                             R19 1 1
-      161 SETTABLEKS                       R19 R18 K40 ["PS5"]
+      161 SETTABLEKS                       R19 R18 K45 ["XboxOne"]
       163 GETIMPORT                        R19 K5 [require]
-      165 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      167 GETTABLEKS                       R20 R20 K41 ["XBox"]
+      165 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      167 GETTABLEKS                       R20 R20 K46 ["Quest2"]
       169 CALL                             R19 1 1
-      170 SETTABLEKS                       R19 R18 K42 ["XboxOne"]
+      170 SETTABLEKS                       R19 R18 K46 ["Quest2"]
       172 GETIMPORT                        R19 K5 [require]
-      174 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      176 GETTABLEKS                       R20 R20 K43 ["Quest2"]
+      174 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      176 GETTABLEKS                       R20 R20 K47 ["Quest3"]
       178 CALL                             R19 1 1
-      179 SETTABLEKS                       R19 R18 K43 ["Quest2"]
+      179 SETTABLEKS                       R19 R18 K47 ["Quest3"]
       181 GETIMPORT                        R19 K5 [require]
-      183 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      185 GETTABLEKS                       R20 R20 K44 ["Quest3"]
+      183 GETTABLEKS                       R20 R3 K38 ["DeviceControlData"]
+      185 GETTABLEKS                       R20 R20 K48 ["GenericHandheld"]
       187 CALL                             R19 1 1
-      188 SETTABLEKS                       R19 R18 K44 ["Quest3"]
-      190 GETIMPORT                        R19 K5 [require]
-      192 GETTABLEKS                       R20 R3 K35 ["DeviceControlData"]
-      194 GETTABLEKS                       R20 R20 K45 ["GenericHandheld"]
-      196 CALL                             R19 1 1
-      197 SETTABLEKS                       R19 R18 K45 ["GenericHandheld"]
-      199 DUPCLOSURE                       R19 K46 [PROTO_9]
-      200 CAPTURE                          VAL R14
-      201 CAPTURE                          VAL R17
-      202 CAPTURE                          VAL R1
-      203 CAPTURE                          VAL R15
-      204 CAPTURE                          VAL R11
-      205 CAPTURE                          VAL R18
-      206 CAPTURE                          VAL R16
-      207 CAPTURE                          VAL R5
-      208 CAPTURE                          VAL R13
-      209 CAPTURE                          VAL R7
-      210 CAPTURE                          VAL R12
-      211 CAPTURE                          VAL R6
-      212 CAPTURE                          VAL R8
-      213 CAPTURE                          VAL R9
-      214 CAPTURE                          VAL R10
-      215 GETTABLEKS                       R20 R1 K47 ["memo"]
-      217 MOVE                             R21 R19
-      218 CALL                             R20 1 -1
-      219 RETURN                           R20 -1
+      188 SETTABLEKS                       R19 R18 K48 ["GenericHandheld"]
+      190 DUPCLOSURE                       R19 K49 [PROTO_9]
+      191 CAPTURE                          VAL R14
+      192 CAPTURE                          VAL R17
+      193 CAPTURE                          VAL R1
+      194 CAPTURE                          VAL R15
+      195 CAPTURE                          VAL R11
+      196 CAPTURE                          VAL R18
+      197 CAPTURE                          VAL R16
+      198 CAPTURE                          VAL R5
+      199 CAPTURE                          VAL R13
+      200 CAPTURE                          VAL R7
+      201 CAPTURE                          VAL R12
+      202 CAPTURE                          VAL R6
+      203 CAPTURE                          VAL R8
+      204 CAPTURE                          VAL R9
+      205 CAPTURE                          VAL R10
+      206 GETTABLEKS                       R20 R1 K50 ["memo"]
+      208 MOVE                             R21 R19
+      209 CALL                             R20 1 -1
+      210 RETURN                           R20 -1

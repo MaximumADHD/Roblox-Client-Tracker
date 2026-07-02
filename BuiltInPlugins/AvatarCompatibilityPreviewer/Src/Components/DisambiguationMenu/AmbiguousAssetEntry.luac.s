@@ -58,57 +58,49 @@ PROTO_4:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K3 [{"tag", "Size"}]
-        5 LOADK                            R3 K4 ["col gap-small auto-y"]
-        6 SETTABLEKS                       R3 R2 K1 ["tag"]
-        8 GETIMPORT                        R3 K7 [UDim2.fromOffset]
-       10 LOADN                            R4 130
-       11 LOADN                            R5 0
-       12 CALL                             R3 2 1
-       13 SETTABLEKS                       R3 R2 K2 ["Size"]
-       15 DUPTABLE                         R3 K9 [{"Dropdown"}]
-       16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       19 GETUPVAL                         R5 2
-       20 DUPTABLE                         R6 K19 [{"testId", "label", "placeholder", "value", "items", "onItemChanged", "isDisabled", "width", "size"}]
-       21 LOADK                            R7 K20 ["ambiguous-asset-type"]
-       22 SETTABLEKS                       R7 R6 K10 ["testId"]
-       24 LOADK                            R7 K21 [""]
-       25 SETTABLEKS                       R7 R6 K11 ["label"]
-       27 GETUPVAL                         R7 3
-       28 LOADK                            R9 K22 ["DisambiguationMenu"]
-       29 LOADK                            R10 K23 ["Category"]
-       30 NAMECALL                         R7 R7 K24 ["getText"]
-       32 CALL                             R7 3 1
-       33 SETTABLEKS                       R7 R6 K12 ["placeholder"]
-       35 GETUPVAL                         R8 4
-       36 GETTABLEKS                       R8 R8 K25 ["AssignedPalette"]
-       38 JUMPIFNOT                        R8 ; [+6]
-       39 GETUPVAL                         R7 4
-       40 GETTABLEKS                       R7 R7 K25 ["AssignedPalette"]
-       42 GETTABLEKS                       R7 R7 K26 ["Key"]
-       44 JUMP                             ; [+1]
-       45 LOADNIL                          R7
-       46 SETTABLEKS                       R7 R6 K13 ["value"]
-       48 GETUPVAL                         R7 5
-       49 SETTABLEKS                       R7 R6 K14 ["items"]
-       51 NEWCLOSURE                       R7 P0
-       52 CAPTURE                          UPVAL U4
-       53 SETTABLEKS                       R7 R6 K15 ["onItemChanged"]
-       55 LOADB                            R7 0
-       56 SETTABLEKS                       R7 R6 K16 ["isDisabled"]
-       58 GETIMPORT                        R7 K29 [UDim.new]
-       60 LOADN                            R8 0
-       61 LOADN                            R9 130
-       62 CALL                             R7 2 1
-       63 SETTABLEKS                       R7 R6 K17 ["width"]
-       65 GETUPVAL                         R7 6
-       66 GETTABLEKS                       R7 R7 K30 ["Small"]
-       68 SETTABLEKS                       R7 R6 K18 ["size"]
-       70 CALL                             R4 2 1
-       71 SETTABLEKS                       R4 R3 K8 ["Dropdown"]
-       73 CALL                             R0 3 -1
-       74 RETURN                           R0 -1
+        4 DUPTABLE                         R2 K4 [{["tag"] = "col gap-small auto-y", ["Size"]}]
+        5 GETIMPORT                        R3 K7 [UDim2.fromOffset]
+        7 LOADN                            R4 130
+        8 LOADN                            R5 0
+        9 CALL                             R3 2 1
+       10 SETTABLEKS                       R3 R2 K3 ["Size"]
+       12 DUPTABLE                         R3 K9 [{"Dropdown"}]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       16 GETUPVAL                         R5 2
+       17 DUPTABLE                         R6 K22 [{["testId"] = "ambiguous-asset-type", ["label"] = "", ["placeholder"], ["value"], ["items"], ["onItemChanged"], ["isDisabled"] = False, ["width"], ["size"]}]
+       18 GETUPVAL                         R7 3
+       19 LOADK                            R9 K23 ["DisambiguationMenu"]
+       20 LOADK                            R10 K24 ["Category"]
+       21 NAMECALL                         R7 R7 K25 ["getText"]
+       23 CALL                             R7 3 1
+       24 SETTABLEKS                       R7 R6 K14 ["placeholder"]
+       26 GETUPVAL                         R8 4
+       27 GETTABLEKS                       R8 R8 K26 ["AssignedPalette"]
+       29 JUMPIFNOT                        R8 ; [+6]
+       30 GETUPVAL                         R7 4
+       31 GETTABLEKS                       R7 R7 K26 ["AssignedPalette"]
+       33 GETTABLEKS                       R7 R7 K27 ["Key"]
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R7
+       37 SETTABLEKS                       R7 R6 K15 ["value"]
+       39 GETUPVAL                         R7 5
+       40 SETTABLEKS                       R7 R6 K16 ["items"]
+       42 NEWCLOSURE                       R7 P0
+       43 CAPTURE                          UPVAL U4
+       44 SETTABLEKS                       R7 R6 K17 ["onItemChanged"]
+       46 GETIMPORT                        R7 K30 [UDim.new]
+       48 LOADN                            R8 0
+       49 LOADN                            R9 130
+       50 CALL                             R7 2 1
+       51 SETTABLEKS                       R7 R6 K20 ["width"]
+       53 GETUPVAL                         R7 6
+       54 GETTABLEKS                       R7 R7 K31 ["Small"]
+       56 SETTABLEKS                       R7 R6 K21 ["size"]
+       58 CALL                             R4 2 1
+       59 SETTABLEKS                       R4 R3 K8 ["Dropdown"]
+       61 CALL                             R0 3 -1
+       62 RETURN                           R0 -1
 
 PROTO_5:
         0 DUPTABLE                         R1 K2 [{"Id", "Label"}]

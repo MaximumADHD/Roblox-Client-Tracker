@@ -128,55 +128,47 @@ PROTO_2:
       118 GETUPVAL                         R12 3
       119 GETTABLEKS                       R12 R12 K19 ["createElement"]
       121 LOADK                            R13 K20 ["Frame"]
-      122 DUPTABLE                         R14 K26 [{"LayoutOrder"}]
-      123 LOADN                            R15 0
-      124 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
-      126 DUPTABLE                         R15 K29 [{"LeftAligned", "RightAligned"}]
-      127 GETUPVAL                         R16 3
-      128 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      130 LOADK                            R17 K20 ["Frame"]
-      131 NEWTABLE                         R18 0 0
-      133 DUPTABLE                         R19 K31 [{"ClassIcon", "Adornee"}]
-      134 JUMPIFNOT                        R6 ; [+18]
-      135 GETUPVAL                         R20 3
-      136 GETTABLEKS                       R20 R20 K19 ["createElement"]
-      138 LOADK                            R21 K32 ["ImageLabel"]
-      139 DUPTABLE                         R22 K34 [{"Image", "LayoutOrder"}]
-      140 GETTABLEKS                       R23 R3 K35 ["getClassIcon"]
-      142 MOVE                             R24 R6
-      143 CALL                             R23 1 1
-      144 GETTABLEKS                       R23 R23 K33 ["Image"]
-      146 SETTABLEKS                       R23 R22 K33 ["Image"]
-      148 LOADN                            R23 0
-      149 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
-      151 CALL                             R20 2 1
-      152 JUMP                             ; [+1]
-      153 LOADNIL                          R20
-      154 SETTABLEKS                       R20 R19 K30 ["ClassIcon"]
-      156 GETUPVAL                         R20 3
-      157 GETTABLEKS                       R20 R20 K19 ["createElement"]
-      159 LOADK                            R21 K36 ["TextLabel"]
-      160 DUPTABLE                         R22 K38 [{"Text", "LayoutOrder"}]
-      161 SETTABLEKS                       R7 R22 K37 ["Text"]
-      163 LOADN                            R23 1
-      164 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
-      166 CALL                             R20 2 1
-      167 SETTABLEKS                       R20 R19 K8 ["Adornee"]
-      169 CALL                             R16 3 1
-      170 SETTABLEKS                       R16 R15 K27 ["LeftAligned"]
-      172 GETUPVAL                         R16 3
-      173 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      175 LOADK                            R17 K20 ["Frame"]
-      176 DUPTABLE                         R18 K26 [{"LayoutOrder"}]
-      177 LOADN                            R19 2
-      178 SETTABLEKS                       R19 R18 K25 ["LayoutOrder"]
-      180 GETTABLEKS                       R19 R1 K39 ["children"]
-      182 CALL                             R16 3 1
-      183 SETTABLEKS                       R16 R15 K28 ["RightAligned"]
-      185 CALL                             R12 3 1
-      186 SETTABLEKS                       R12 R11 K23 ["Navigation"]
-      188 CALL                             R8 3 -1
-      189 RETURN                           R8 -1
+      122 DUPTABLE                         R14 K27 [{["LayoutOrder"] = 0}]
+      123 DUPTABLE                         R15 K30 [{"LeftAligned", "RightAligned"}]
+      124 GETUPVAL                         R16 3
+      125 GETTABLEKS                       R16 R16 K19 ["createElement"]
+      127 LOADK                            R17 K20 ["Frame"]
+      128 NEWTABLE                         R18 0 0
+      130 DUPTABLE                         R19 K32 [{"ClassIcon", "Adornee"}]
+      131 JUMPIFNOT                        R6 ; [+15]
+      132 GETUPVAL                         R20 3
+      133 GETTABLEKS                       R20 R20 K19 ["createElement"]
+      135 LOADK                            R21 K33 ["ImageLabel"]
+      136 DUPTABLE                         R22 K35 [{["Image"], ["LayoutOrder"] = 0}]
+      137 GETTABLEKS                       R23 R3 K36 ["getClassIcon"]
+      139 MOVE                             R24 R6
+      140 CALL                             R23 1 1
+      141 GETTABLEKS                       R23 R23 K34 ["Image"]
+      143 SETTABLEKS                       R23 R22 K34 ["Image"]
+      145 CALL                             R20 2 1
+      146 JUMP                             ; [+1]
+      147 LOADNIL                          R20
+      148 SETTABLEKS                       R20 R19 K31 ["ClassIcon"]
+      150 GETUPVAL                         R20 3
+      151 GETTABLEKS                       R20 R20 K19 ["createElement"]
+      153 LOADK                            R21 K37 ["TextLabel"]
+      154 DUPTABLE                         R22 K40 [{["Text"], ["LayoutOrder"] = 1}]
+      155 SETTABLEKS                       R7 R22 K38 ["Text"]
+      157 CALL                             R20 2 1
+      158 SETTABLEKS                       R20 R19 K8 ["Adornee"]
+      160 CALL                             R16 3 1
+      161 SETTABLEKS                       R16 R15 K28 ["LeftAligned"]
+      163 GETUPVAL                         R16 3
+      164 GETTABLEKS                       R16 R16 K19 ["createElement"]
+      166 LOADK                            R17 K20 ["Frame"]
+      167 DUPTABLE                         R18 K42 [{["LayoutOrder"] = 2}]
+      168 GETTABLEKS                       R19 R1 K43 ["children"]
+      170 CALL                             R16 3 1
+      171 SETTABLEKS                       R16 R15 K29 ["RightAligned"]
+      173 CALL                             R12 3 1
+      174 SETTABLEKS                       R12 R11 K23 ["Navigation"]
+      176 CALL                             R8 3 -1
+      177 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

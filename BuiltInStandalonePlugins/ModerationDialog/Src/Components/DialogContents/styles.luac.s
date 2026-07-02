@@ -12,49 +12,37 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Component-DialogContents"]
-       20 DUPTABLE                         R5 K13 [{"BackgroundColor3", "BorderSizePixel"}]
-       21 LOADK                            R6 K14 ["$ForegroundMain"]
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundColor3"]
-       24 LOADN                            R6 0
-       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       27 NEWTABLE                         R6 0 3
-       29 MOVE                             R7 R2
-       30 LOADK                            R8 K15 ["> UIListLayout"]
-       31 DUPTABLE                         R9 K17 [{"Padding"}]
-       32 GETIMPORT                        R10 K20 [UDim.new]
-       34 LOADN                            R11 0
-       35 LOADN                            R12 16
-       36 CALL                             R10 2 1
-       37 SETTABLEKS                       R10 R9 K16 ["Padding"]
-       39 CALL                             R7 2 1
-       40 MOVE                             R8 R2
-       41 LOADK                            R9 K21 [">> Frame"]
-       42 DUPTABLE                         R10 K23 [{"BackgroundTransparency"}]
-       43 LOADN                            R11 1
-       44 SETTABLEKS                       R11 R10 K22 ["BackgroundTransparency"]
-       46 CALL                             R8 2 1
-       47 MOVE                             R9 R2
-       48 LOADK                            R10 K24 [">> .Separator"]
-       49 DUPTABLE                         R11 K27 [{"Size", "BackgroundColor3", "AnchorPoint", "BorderSizePixel", "BackgroundTransparency"}]
-       50 GETIMPORT                        R12 K29 [UDim2.new]
-       52 LOADN                            R13 1
-       53 LOADN                            R14 0
-       54 LOADN                            R15 0
-       55 LOADN                            R16 1
-       56 CALL                             R12 4 1
-       57 SETTABLEKS                       R12 R11 K25 ["Size"]
-       59 LOADK                            R12 K30 ["$Divider"]
-       60 SETTABLEKS                       R12 R11 K11 ["BackgroundColor3"]
-       62 GETIMPORT                        R12 K32 [Vector2.new]
-       64 LOADK                            R13 K33 [0.5]
-       65 LOADK                            R14 K33 [0.5]
-       66 CALL                             R12 2 1
-       67 SETTABLEKS                       R12 R11 K26 ["AnchorPoint"]
-       69 LOADN                            R12 0
-       70 SETTABLEKS                       R12 R11 K12 ["BorderSizePixel"]
-       72 LOADN                            R12 0
-       73 SETTABLEKS                       R12 R11 K22 ["BackgroundTransparency"]
-       75 CALL                             R9 2 -1
-       76 SETLIST                          R6 R7 -1 [1]
-       78 CALL                             R3 3 -1
-       79 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K15 [{["BackgroundColor3"] = "$ForegroundMain", ["BorderSizePixel"] = 0}]
+       21 NEWTABLE                         R6 0 3
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K16 ["> UIListLayout"]
+       25 DUPTABLE                         R9 K18 [{"Padding"}]
+       26 GETIMPORT                        R10 K21 [UDim.new]
+       28 LOADN                            R11 0
+       29 LOADN                            R12 16
+       30 CALL                             R10 2 1
+       31 SETTABLEKS                       R10 R9 K17 ["Padding"]
+       33 CALL                             R7 2 1
+       34 MOVE                             R8 R2
+       35 LOADK                            R9 K22 [">> Frame"]
+       36 DUPTABLE                         R10 K25 [{["BackgroundTransparency"] = 1}]
+       37 CALL                             R8 2 1
+       38 MOVE                             R9 R2
+       39 LOADK                            R10 K26 [">> .Separator"]
+       40 DUPTABLE                         R11 K30 [{["Size"], ["BackgroundColor3"] = "$Divider", ["AnchorPoint"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 0}]
+       41 GETIMPORT                        R12 K32 [UDim2.new]
+       43 LOADN                            R13 1
+       44 LOADN                            R14 0
+       45 LOADN                            R15 0
+       46 LOADN                            R16 1
+       47 CALL                             R12 4 1
+       48 SETTABLEKS                       R12 R11 K27 ["Size"]
+       50 GETIMPORT                        R12 K34 [Vector2.new]
+       52 LOADK                            R13 K35 [0.5]
+       53 LOADK                            R14 K35 [0.5]
+       54 CALL                             R12 2 1
+       55 SETTABLEKS                       R12 R11 K29 ["AnchorPoint"]
+       57 CALL                             R9 2 -1
+       58 SETLIST                          R6 R7 -1 [1]
+       60 CALL                             R3 3 -1
+       61 RETURN                           R3 -1

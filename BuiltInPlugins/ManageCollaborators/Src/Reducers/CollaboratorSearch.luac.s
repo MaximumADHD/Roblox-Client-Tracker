@@ -92,37 +92,35 @@ MAIN:
        40 CALL                             R4 1 1
        41 MOVE                             R5 R4
        42 CALL                             R5 0 1
-       43 DUPTABLE                         R6 K16 [{"CachedSearchResults", "SearchText", "LikelyCollaborators"}]
+       43 DUPTABLE                         R6 K17 [{["CachedSearchResults"], ["SearchText"] = "", ["LikelyCollaborators"]}]
        44 NEWTABLE                         R7 0 0
        46 SETTABLEKS                       R7 R6 K13 ["CachedSearchResults"]
-       48 LOADK                            R7 K17 [""]
-       49 SETTABLEKS                       R7 R6 K14 ["SearchText"]
-       51 JUMPIFNOT                        R5 ; [+3]
-       52 NEWTABLE                         R7 0 0
-       54 JUMP                             ; [+1]
-       55 LOADNIL                          R7
-       56 SETTABLEKS                       R7 R6 K15 ["LikelyCollaborators"]
-       58 GETTABLEKS                       R7 R1 K18 ["createReducer"]
-       60 MOVE                             R8 R6
-       61 DUPTABLE                         R9 K24 [{"ResetStore", "LoadedWebResults", "LoadWebResults", "SearchTextChanged", "PrefetchLikelyCollaborators"}]
-       62 DUPCLOSURE                       R10 K25 [PROTO_0]
-       63 CAPTURE                          VAL R6
-       64 SETTABLEKS                       R10 R9 K19 ["ResetStore"]
-       66 DUPCLOSURE                       R10 K26 [PROTO_1]
-       67 CAPTURE                          VAL R2
-       68 SETTABLEKS                       R10 R9 K20 ["LoadedWebResults"]
-       70 DUPCLOSURE                       R10 K27 [PROTO_2]
-       71 CAPTURE                          VAL R2
-       72 CAPTURE                          VAL R3
-       73 SETTABLEKS                       R10 R9 K21 ["LoadWebResults"]
-       75 DUPCLOSURE                       R10 K28 [PROTO_3]
-       76 CAPTURE                          VAL R2
-       77 SETTABLEKS                       R10 R9 K22 ["SearchTextChanged"]
-       79 JUMPIFNOT                        R5 ; [+3]
-       80 DUPCLOSURE                       R10 K29 [PROTO_4]
-       81 CAPTURE                          VAL R2
-       82 JUMP                             ; [+1]
-       83 LOADNIL                          R10
-       84 SETTABLEKS                       R10 R9 K23 ["PrefetchLikelyCollaborators"]
-       86 CALL                             R7 2 -1
-       87 RETURN                           R7 -1
+       48 JUMPIFNOT                        R5 ; [+3]
+       49 NEWTABLE                         R7 0 0
+       51 JUMP                             ; [+1]
+       52 LOADNIL                          R7
+       53 SETTABLEKS                       R7 R6 K16 ["LikelyCollaborators"]
+       55 GETTABLEKS                       R7 R1 K18 ["createReducer"]
+       57 MOVE                             R8 R6
+       58 DUPTABLE                         R9 K24 [{"ResetStore", "LoadedWebResults", "LoadWebResults", "SearchTextChanged", "PrefetchLikelyCollaborators"}]
+       59 DUPCLOSURE                       R10 K25 [PROTO_0]
+       60 CAPTURE                          VAL R6
+       61 SETTABLEKS                       R10 R9 K19 ["ResetStore"]
+       63 DUPCLOSURE                       R10 K26 [PROTO_1]
+       64 CAPTURE                          VAL R2
+       65 SETTABLEKS                       R10 R9 K20 ["LoadedWebResults"]
+       67 DUPCLOSURE                       R10 K27 [PROTO_2]
+       68 CAPTURE                          VAL R2
+       69 CAPTURE                          VAL R3
+       70 SETTABLEKS                       R10 R9 K21 ["LoadWebResults"]
+       72 DUPCLOSURE                       R10 K28 [PROTO_3]
+       73 CAPTURE                          VAL R2
+       74 SETTABLEKS                       R10 R9 K22 ["SearchTextChanged"]
+       76 JUMPIFNOT                        R5 ; [+3]
+       77 DUPCLOSURE                       R10 K29 [PROTO_4]
+       78 CAPTURE                          VAL R2
+       79 JUMP                             ; [+1]
+       80 LOADNIL                          R10
+       81 SETTABLEKS                       R10 R9 K23 ["PrefetchLikelyCollaborators"]
+       83 CALL                             R7 2 -1
+       84 RETURN                           R7 -1

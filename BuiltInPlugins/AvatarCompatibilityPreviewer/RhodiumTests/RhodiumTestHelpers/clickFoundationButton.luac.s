@@ -143,8 +143,8 @@ MAIN:
        26 LOADN                            R5 24
        27 CALL                             R3 2 1
        28 GETIMPORT                        R4 K12 [UDim2.fromOffset]
-       30 LOADN                            R5 144
-       31 LOADN                            R6 44
+       30 LOADN                            R5 400
+       31 LOADN                            R6 300
        32 CALL                             R4 2 1
        33 DUPCLOSURE                       R5 K13 [PROTO_0]
        34 DUPCLOSURE                       R6 K14 [PROTO_2]

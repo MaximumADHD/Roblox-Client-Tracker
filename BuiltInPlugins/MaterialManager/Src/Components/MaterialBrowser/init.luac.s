@@ -3,22 +3,16 @@ PROTO_0:
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R2 R0 K1 ["MaterialBrowserLayout"]
-        6 DUPTABLE                         R3 K5 [{"BaseShowSideBar", "OverrideShowSideBar", "SideBarWidth"}]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R3 K2 ["BaseShowSideBar"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K3 ["OverrideShowSideBar"]
-       13 LOADN                            R4 200
-       14 SETTABLEKS                       R4 R3 K4 ["SideBarWidth"]
-       16 CALL                             R1 2 1
-       17 GETTABLEKS                       R2 R0 K6 ["dispatchSetMaterialBrowserLayout"]
-       19 MOVE                             R3 R1
-       20 CALL                             R2 1 0
-       21 GETTABLEKS                       R2 R0 K7 ["PluginController"]
-       23 MOVE                             R4 R1
-       24 NAMECALL                         R2 R2 K8 ["setMaterialBrowserLayout"]
-       26 CALL                             R2 2 0
-       27 RETURN                           R0 0
+        6 DUPTABLE                         R3 K7 [{["BaseShowSideBar"] = False, ["OverrideShowSideBar"] = False, ["SideBarWidth"] = 200}]
+        7 CALL                             R1 2 1
+        8 GETTABLEKS                       R2 R0 K8 ["dispatchSetMaterialBrowserLayout"]
+       10 MOVE                             R3 R1
+       11 CALL                             R2 1 0
+       12 GETTABLEKS                       R2 R0 K9 ["PluginController"]
+       14 MOVE                             R4 R1
+       15 NAMECALL                         R2 R2 K10 ["setMaterialBrowserLayout"]
+       17 CALL                             R2 2 0
+       18 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -40,23 +34,21 @@ PROTO_1:
        25 ADD                              R4 R5 R6
        26 GETUPVAL                         R5 1
        27 GETTABLEKS                       R6 R0 K10 ["MaterialBrowserLayout"]
-       29 DUPTABLE                         R7 K13 [{"BaseShowSideBar", "OverrideShowSideBar"}]
-       30 LOADB                            R8 1
-       31 SETTABLEKS                       R8 R7 K11 ["BaseShowSideBar"]
-       33 GETTABLEKS                       R9 R3 K14 ["X"]
-       35 JUMPIFLT                         R9 R4 ; [+2]
-       37 LOADB                            R8 0 +1
-       38 LOADB                            R8 1
-       39 SETTABLEKS                       R8 R7 K12 ["OverrideShowSideBar"]
-       41 CALL                             R5 2 1
-       42 GETTABLEKS                       R6 R0 K15 ["dispatchSetMaterialBrowserLayout"]
-       44 MOVE                             R7 R5
-       45 CALL                             R6 1 0
-       46 GETTABLEKS                       R6 R0 K16 ["PluginController"]
-       48 MOVE                             R8 R5
-       49 NAMECALL                         R6 R6 K17 ["setMaterialBrowserLayout"]
-       51 CALL                             R6 2 0
-       52 RETURN                           R0 0
+       29 DUPTABLE                         R7 K14 [{["BaseShowSideBar"] = True, ["OverrideShowSideBar"]}]
+       30 GETTABLEKS                       R9 R3 K15 ["X"]
+       32 JUMPIFLT                         R9 R4 ; [+2]
+       34 LOADB                            R8 0 +1
+       35 LOADB                            R8 1
+       36 SETTABLEKS                       R8 R7 K13 ["OverrideShowSideBar"]
+       38 CALL                             R5 2 1
+       39 GETTABLEKS                       R6 R0 K16 ["dispatchSetMaterialBrowserLayout"]
+       41 MOVE                             R7 R5
+       42 CALL                             R6 1 0
+       43 GETTABLEKS                       R6 R0 K17 ["PluginController"]
+       45 MOVE                             R8 R5
+       46 NAMECALL                         R6 R6 K18 ["setMaterialBrowserLayout"]
+       48 CALL                             R6 2 0
+       49 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -155,7 +147,7 @@ PROTO_5:
        82 LOADB                            R7 0
        83 JUMP                             ; [+1]
        84 LOADB                            R6 0
-       85 JUMPIFNOT                        R6 ; [+90]
+       85 JUMPIFNOT                        R6 ; [+84]
        86 GETUPVAL                         R12 2
        87 GETTABLEKS                       R12 R12 K18 ["createElement"]
        89 GETUPVAL                         R13 3
@@ -176,226 +168,218 @@ PROTO_5:
       109 GETUPVAL                         R16 2
       110 GETTABLEKS                       R16 R16 K18 ["createElement"]
       112 GETUPVAL                         R17 4
-      113 DUPTABLE                         R18 K31 [{"Size", "ZIndex"}]
+      113 DUPTABLE                         R18 K32 [{["Size"], ["ZIndex"] = 1}]
       114 GETIMPORT                        R19 K26 [UDim2.fromScale]
       116 LOADN                            R20 1
       117 LOADN                            R21 1
       118 CALL                             R19 2 1
       119 SETTABLEKS                       R19 R18 K20 ["Size"]
-      121 LOADN                            R19 1
-      122 SETTABLEKS                       R19 R18 K30 ["ZIndex"]
-      124 CALL                             R16 2 1
-      125 SETTABLEKS                       R16 R15 K27 ["SideBar"]
-      127 GETUPVAL                         R16 2
-      128 GETTABLEKS                       R16 R16 K18 ["createElement"]
-      130 GETUPVAL                         R17 5
-      131 DUPTABLE                         R18 K38 [{"Size", "LeftIcon", "IconColor", "BorderColor", "OnClick", "AnchorPoint", "Position", "ZIndex"}]
-      132 GETTABLEKS                       R19 R2 K39 ["IconSize"]
-      134 SETTABLEKS                       R19 R18 K20 ["Size"]
-      136 GETTABLEKS                       R19 R2 K40 ["HideIcon"]
-      138 SETTABLEKS                       R19 R18 K32 ["LeftIcon"]
-      140 GETTABLEKS                       R19 R2 K33 ["IconColor"]
-      142 SETTABLEKS                       R19 R18 K33 ["IconColor"]
-      144 GETTABLEKS                       R19 R2 K41 ["BackgroundColor"]
-      146 SETTABLEKS                       R19 R18 K34 ["BorderColor"]
-      148 GETTABLEKS                       R19 R0 K42 ["onHideButtonClicked"]
-      150 SETTABLEKS                       R19 R18 K35 ["OnClick"]
-      152 GETIMPORT                        R19 K44 [Vector2.new]
-      154 LOADN                            R20 1
-      155 LOADN                            R21 1
-      156 CALL                             R19 2 1
-      157 SETTABLEKS                       R19 R18 K36 ["AnchorPoint"]
-      159 GETIMPORT                        R19 K45 [UDim2.new]
-      161 LOADN                            R20 1
-      162 LOADN                            R21 251
-      163 LOADN                            R22 1
-      164 LOADN                            R23 251
-      165 CALL                             R19 4 1
-      166 SETTABLEKS                       R19 R18 K37 ["Position"]
-      168 LOADN                            R19 2
-      169 SETTABLEKS                       R19 R18 K30 ["ZIndex"]
-      171 CALL                             R16 2 1
-      172 SETTABLEKS                       R16 R15 K28 ["HideButton"]
-      174 CALL                             R12 3 1
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R12
-      177 JUMPIFNOT                        R7 ; [+31]
-      178 GETUPVAL                         R13 2
-      179 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      181 GETUPVAL                         R14 6
-      182 DUPTABLE                         R15 K48 [{"LayoutOrder", "Size", "OnShowButtonClicked", "SideBarVisible"}]
-      183 NAMECALL                         R16 R3 K22 ["getNextOrder"]
-      185 CALL                             R16 1 1
-      186 SETTABLEKS                       R16 R15 K19 ["LayoutOrder"]
-      188 JUMPIF                           R4 ; [+2]
-      189 JUMPIF                           R11 ; [+4]
-      190 JUMPIFNOT                        R6 ; [+3]
-      191 GETTABLEKS                       R16 R2 K23 ["MaterialGridSize"]
-      193 JUMP                             ; [+5]
-      194 GETIMPORT                        R16 K26 [UDim2.fromScale]
-      196 LOADN                            R17 1
-      197 LOADN                            R18 1
-      198 CALL                             R16 2 1
-      199 SETTABLEKS                       R16 R15 K20 ["Size"]
-      201 GETTABLEKS                       R16 R0 K49 ["onShowButtonClicked"]
-      203 SETTABLEKS                       R16 R15 K46 ["OnShowButtonClicked"]
-      205 SETTABLEKS                       R6 R15 K47 ["SideBarVisible"]
-      207 CALL                             R13 2 1
-      208 JUMP                             ; [+22]
-      209 JUMPIFNOT                        R6 ; [+2]
-      210 LOADNIL                          R13
-      211 JUMP                             ; [+19]
-      212 GETUPVAL                         R13 2
-      213 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      215 GETUPVAL                         R14 3
-      216 DUPTABLE                         R15 K50 [{"BackgroundColor", "LayoutOrder", "Size"}]
-      217 GETTABLEKS                       R16 R2 K51 ["GridBackgroundColor"]
-      219 SETTABLEKS                       R16 R15 K41 ["BackgroundColor"]
-      221 NAMECALL                         R16 R3 K22 ["getNextOrder"]
-      223 CALL                             R16 1 1
-      224 SETTABLEKS                       R16 R15 K19 ["LayoutOrder"]
-      226 GETTABLEKS                       R16 R2 K23 ["MaterialGridSize"]
-      228 SETTABLEKS                       R16 R15 K20 ["Size"]
-      230 CALL                             R13 2 1
-      231 JUMPIFNOT                        R4 ; [+16]
-      232 GETUPVAL                         R14 2
-      233 GETTABLEKS                       R14 R14 K18 ["createElement"]
-      235 GETUPVAL                         R15 7
-      236 DUPTABLE                         R16 K21 [{"LayoutOrder", "Size"}]
-      237 NAMECALL                         R17 R3 K22 ["getNextOrder"]
-      239 CALL                             R17 1 1
-      240 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
-      242 GETTABLEKS                       R17 R2 K52 ["MaterialEditorSize"]
-      244 SETTABLEKS                       R17 R16 K20 ["Size"]
-      246 CALL                             R14 2 1
-      247 JUMP                             ; [+1]
-      248 LOADNIL                          R14
-      249 GETTABLEKS                       R16 R1 K15 ["AbsoluteSize"]
-      251 GETTABLEKS                       R16 R16 K16 ["X"]
-      253 SUB                              R15 R16 R9
-      254 GETTABLEKS                       R17 R5 K53 ["SideBarWidth"]
-      256 JUMPIFNOTLT                      R17 R15 ; [+4]
-      258 GETTABLEKS                       R16 R5 K53 ["SideBarWidth"]
-      260 JUMP                             ; [+1]
-      261 MOVE                             R16 R15
-      262 GETUPVAL                         R17 2
-      263 GETTABLEKS                       R17 R17 K18 ["createElement"]
-      265 GETUPVAL                         R18 3
-      266 GETUPVAL                         R19 8
-      267 DUPTABLE                         R20 K57 [{"Style", "Layout", "VerticalAlignment", "Size"}]
-      268 LOADK                            R21 K58 ["Box"]
-      269 SETTABLEKS                       R21 R20 K54 ["Style"]
-      271 GETIMPORT                        R21 K62 [Enum.FillDirection.Vertical]
-      273 SETTABLEKS                       R21 R20 K55 ["Layout"]
-      275 GETIMPORT                        R21 K64 [Enum.VerticalAlignment.Top]
-      277 SETTABLEKS                       R21 R20 K56 ["VerticalAlignment"]
-      279 GETIMPORT                        R21 K26 [UDim2.fromScale]
-      281 LOADN                            R22 1
-      282 LOADN                            R23 1
-      283 CALL                             R21 2 1
-      284 SETTABLEKS                       R21 R20 K20 ["Size"]
-      286 GETTABLEKS                       R21 R1 K65 ["WrapperProps"]
-      288 CALL                             R19 2 1
-      289 DUPTABLE                         R20 K68 [{"TopBar", "MainView"}]
-      290 GETUPVAL                         R21 2
-      291 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      293 GETUPVAL                         R22 9
-      294 DUPTABLE                         R23 K69 [{"Size"}]
-      295 GETTABLEKS                       R24 R2 K70 ["TopBarSize"]
-      297 SETTABLEKS                       R24 R23 K20 ["Size"]
-      299 CALL                             R21 2 1
-      300 SETTABLEKS                       R21 R20 K66 ["TopBar"]
-      302 JUMPIFNOT                        R11 ; [+88]
-      303 JUMPIFNOT                        R6 ; [+87]
-      304 GETUPVAL                         R21 2
-      305 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      307 GETUPVAL                         R22 10
-      308 DUPTABLE                         R23 K75 [{"ClampSize", "Sizes", "Layout", "MinSizes", "OnSizesChange", "Size"}]
-      309 LOADB                            R24 1
-      310 SETTABLEKS                       R24 R23 K71 ["ClampSize"]
-      312 NEWTABLE                         R24 0 2
-      314 GETIMPORT                        R25 K77 [UDim.new]
-      316 LOADN                            R26 0
-      317 MOVE                             R27 R16
-      318 CALL                             R25 2 1
-      319 GETIMPORT                        R26 K77 [UDim.new]
-      321 LOADN                            R27 1
-      322 MINUS                            R28 R16
-      323 CALL                             R26 2 -1
-      324 SETLIST                          R24 R25 -1 [1]
-      326 SETTABLEKS                       R24 R23 K72 ["Sizes"]
-      328 GETIMPORT                        R24 K79 [Enum.FillDirection.Horizontal]
-      330 SETTABLEKS                       R24 R23 K55 ["Layout"]
-      332 NEWTABLE                         R24 0 2
-      334 GETIMPORT                        R25 K77 [UDim.new]
-      336 LOADN                            R26 0
-      337 GETTABLEKS                       R27 R2 K14 ["MinSideBarWidth"]
-      339 CALL                             R25 2 1
-      340 GETIMPORT                        R26 K77 [UDim.new]
-      342 LOADN                            R27 0
-      343 MOVE                             R28 R9
-      344 CALL                             R26 2 -1
-      345 SETLIST                          R24 R25 -1 [1]
-      347 SETTABLEKS                       R24 R23 K73 ["MinSizes"]
-      349 NEWCLOSURE                       R24 P0
-      350 CAPTURE                          VAL R0
-      351 SETTABLEKS                       R24 R23 K74 ["OnSizesChange"]
-      353 GETTABLEKS                       R24 R2 K80 ["MainViewSize"]
-      355 SETTABLEKS                       R24 R23 K20 ["Size"]
-      357 NEWTABLE                         R24 0 2
-      359 MOVE                             R25 R12
-      360 GETUPVAL                         R26 2
-      361 GETTABLEKS                       R26 R26 K18 ["createElement"]
-      363 GETUPVAL                         R27 3
-      364 DUPTABLE                         R28 K81 [{"Size", "Layout", "LayoutOrder"}]
-      365 GETIMPORT                        R29 K26 [UDim2.fromScale]
-      367 LOADN                            R30 1
-      368 LOADN                            R31 1
-      369 CALL                             R29 2 1
-      370 SETTABLEKS                       R29 R28 K20 ["Size"]
-      372 GETIMPORT                        R29 K79 [Enum.FillDirection.Horizontal]
-      374 SETTABLEKS                       R29 R28 K55 ["Layout"]
-      376 NAMECALL                         R29 R3 K22 ["getNextOrder"]
-      378 CALL                             R29 1 1
-      379 SETTABLEKS                       R29 R28 K19 ["LayoutOrder"]
-      381 DUPTABLE                         R29 K84 [{"MaterialGrid", "MaterialEditor"}]
-      382 SETTABLEKS                       R13 R29 K82 ["MaterialGrid"]
-      384 SETTABLEKS                       R14 R29 K83 ["MaterialEditor"]
-      386 CALL                             R26 3 -1
-      387 SETLIST                          R24 R25 -1 [1]
-      389 CALL                             R21 3 1
-      390 JUMP                             ; [+42]
-      391 GETUPVAL                         R21 2
-      392 GETTABLEKS                       R21 R21 K18 ["createElement"]
-      394 GETUPVAL                         R22 3
-      395 DUPTABLE                         R23 K69 [{"Size"}]
-      396 GETTABLEKS                       R24 R2 K80 ["MainViewSize"]
-      398 SETTABLEKS                       R24 R23 K20 ["Size"]
-      400 DUPTABLE                         R24 K85 [{"MainView"}]
-      401 GETUPVAL                         R25 2
-      402 GETTABLEKS                       R25 R25 K18 ["createElement"]
-      404 GETUPVAL                         R26 3
-      405 DUPTABLE                         R27 K81 [{"Size", "Layout", "LayoutOrder"}]
-      406 GETIMPORT                        R28 K26 [UDim2.fromScale]
-      408 LOADN                            R29 1
-      409 LOADN                            R30 1
-      410 CALL                             R28 2 1
-      411 SETTABLEKS                       R28 R27 K20 ["Size"]
-      413 GETIMPORT                        R28 K79 [Enum.FillDirection.Horizontal]
-      415 SETTABLEKS                       R28 R27 K55 ["Layout"]
-      417 NAMECALL                         R28 R3 K22 ["getNextOrder"]
-      419 CALL                             R28 1 1
-      420 SETTABLEKS                       R28 R27 K19 ["LayoutOrder"]
-      422 DUPTABLE                         R28 K86 [{"SideBar", "MaterialGrid", "MaterialEditor"}]
-      423 SETTABLEKS                       R12 R28 K27 ["SideBar"]
-      425 SETTABLEKS                       R13 R28 K82 ["MaterialGrid"]
-      427 SETTABLEKS                       R14 R28 K83 ["MaterialEditor"]
-      429 CALL                             R25 3 1
-      430 SETTABLEKS                       R25 R24 K67 ["MainView"]
-      432 CALL                             R21 3 1
-      433 SETTABLEKS                       R21 R20 K67 ["MainView"]
-      435 CALL                             R17 3 -1
-      436 RETURN                           R17 -1
+      121 CALL                             R16 2 1
+      122 SETTABLEKS                       R16 R15 K27 ["SideBar"]
+      124 GETUPVAL                         R16 2
+      125 GETTABLEKS                       R16 R16 K18 ["createElement"]
+      127 GETUPVAL                         R17 5
+      128 DUPTABLE                         R18 K39 [{["Size"], ["LeftIcon"], ["IconColor"], ["BorderColor"], ["OnClick"], ["AnchorPoint"], ["Position"], ["ZIndex"] = 2}]
+      129 GETTABLEKS                       R19 R2 K40 ["IconSize"]
+      131 SETTABLEKS                       R19 R18 K20 ["Size"]
+      133 GETTABLEKS                       R19 R2 K41 ["HideIcon"]
+      135 SETTABLEKS                       R19 R18 K33 ["LeftIcon"]
+      137 GETTABLEKS                       R19 R2 K34 ["IconColor"]
+      139 SETTABLEKS                       R19 R18 K34 ["IconColor"]
+      141 GETTABLEKS                       R19 R2 K42 ["BackgroundColor"]
+      143 SETTABLEKS                       R19 R18 K35 ["BorderColor"]
+      145 GETTABLEKS                       R19 R0 K43 ["onHideButtonClicked"]
+      147 SETTABLEKS                       R19 R18 K36 ["OnClick"]
+      149 GETIMPORT                        R19 K45 [Vector2.new]
+      151 LOADN                            R20 1
+      152 LOADN                            R21 1
+      153 CALL                             R19 2 1
+      154 SETTABLEKS                       R19 R18 K37 ["AnchorPoint"]
+      156 GETIMPORT                        R19 K46 [UDim2.new]
+      158 LOADN                            R20 1
+      159 LOADN                            R21 -5
+      160 LOADN                            R22 1
+      161 LOADN                            R23 -5
+      162 CALL                             R19 4 1
+      163 SETTABLEKS                       R19 R18 K38 ["Position"]
+      165 CALL                             R16 2 1
+      166 SETTABLEKS                       R16 R15 K28 ["HideButton"]
+      168 CALL                             R12 3 1
+      169 JUMP                             ; [+1]
+      170 LOADNIL                          R12
+      171 JUMPIFNOT                        R7 ; [+31]
+      172 GETUPVAL                         R13 2
+      173 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      175 GETUPVAL                         R14 6
+      176 DUPTABLE                         R15 K49 [{"LayoutOrder", "Size", "OnShowButtonClicked", "SideBarVisible"}]
+      177 NAMECALL                         R16 R3 K22 ["getNextOrder"]
+      179 CALL                             R16 1 1
+      180 SETTABLEKS                       R16 R15 K19 ["LayoutOrder"]
+      182 JUMPIF                           R4 ; [+2]
+      183 JUMPIF                           R11 ; [+4]
+      184 JUMPIFNOT                        R6 ; [+3]
+      185 GETTABLEKS                       R16 R2 K23 ["MaterialGridSize"]
+      187 JUMP                             ; [+5]
+      188 GETIMPORT                        R16 K26 [UDim2.fromScale]
+      190 LOADN                            R17 1
+      191 LOADN                            R18 1
+      192 CALL                             R16 2 1
+      193 SETTABLEKS                       R16 R15 K20 ["Size"]
+      195 GETTABLEKS                       R16 R0 K50 ["onShowButtonClicked"]
+      197 SETTABLEKS                       R16 R15 K47 ["OnShowButtonClicked"]
+      199 SETTABLEKS                       R6 R15 K48 ["SideBarVisible"]
+      201 CALL                             R13 2 1
+      202 JUMP                             ; [+22]
+      203 JUMPIFNOT                        R6 ; [+2]
+      204 LOADNIL                          R13
+      205 JUMP                             ; [+19]
+      206 GETUPVAL                         R13 2
+      207 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      209 GETUPVAL                         R14 3
+      210 DUPTABLE                         R15 K51 [{"BackgroundColor", "LayoutOrder", "Size"}]
+      211 GETTABLEKS                       R16 R2 K52 ["GridBackgroundColor"]
+      213 SETTABLEKS                       R16 R15 K42 ["BackgroundColor"]
+      215 NAMECALL                         R16 R3 K22 ["getNextOrder"]
+      217 CALL                             R16 1 1
+      218 SETTABLEKS                       R16 R15 K19 ["LayoutOrder"]
+      220 GETTABLEKS                       R16 R2 K23 ["MaterialGridSize"]
+      222 SETTABLEKS                       R16 R15 K20 ["Size"]
+      224 CALL                             R13 2 1
+      225 JUMPIFNOT                        R4 ; [+16]
+      226 GETUPVAL                         R14 2
+      227 GETTABLEKS                       R14 R14 K18 ["createElement"]
+      229 GETUPVAL                         R15 7
+      230 DUPTABLE                         R16 K21 [{"LayoutOrder", "Size"}]
+      231 NAMECALL                         R17 R3 K22 ["getNextOrder"]
+      233 CALL                             R17 1 1
+      234 SETTABLEKS                       R17 R16 K19 ["LayoutOrder"]
+      236 GETTABLEKS                       R17 R2 K53 ["MaterialEditorSize"]
+      238 SETTABLEKS                       R17 R16 K20 ["Size"]
+      240 CALL                             R14 2 1
+      241 JUMP                             ; [+1]
+      242 LOADNIL                          R14
+      243 GETTABLEKS                       R16 R1 K15 ["AbsoluteSize"]
+      245 GETTABLEKS                       R16 R16 K16 ["X"]
+      247 SUB                              R15 R16 R9
+      248 GETTABLEKS                       R17 R5 K54 ["SideBarWidth"]
+      250 JUMPIFNOTLT                      R17 R15 ; [+4]
+      252 GETTABLEKS                       R16 R5 K54 ["SideBarWidth"]
+      254 JUMP                             ; [+1]
+      255 MOVE                             R16 R15
+      256 GETUPVAL                         R17 2
+      257 GETTABLEKS                       R17 R17 K18 ["createElement"]
+      259 GETUPVAL                         R18 3
+      260 GETUPVAL                         R19 8
+      261 DUPTABLE                         R20 K59 [{["Style"] = "Box", ["Layout"], ["VerticalAlignment"], ["Size"]}]
+      262 GETIMPORT                        R21 K63 [Enum.FillDirection.Vertical]
+      264 SETTABLEKS                       R21 R20 K57 ["Layout"]
+      266 GETIMPORT                        R21 K65 [Enum.VerticalAlignment.Top]
+      268 SETTABLEKS                       R21 R20 K58 ["VerticalAlignment"]
+      270 GETIMPORT                        R21 K26 [UDim2.fromScale]
+      272 LOADN                            R22 1
+      273 LOADN                            R23 1
+      274 CALL                             R21 2 1
+      275 SETTABLEKS                       R21 R20 K20 ["Size"]
+      277 GETTABLEKS                       R21 R1 K66 ["WrapperProps"]
+      279 CALL                             R19 2 1
+      280 DUPTABLE                         R20 K69 [{"TopBar", "MainView"}]
+      281 GETUPVAL                         R21 2
+      282 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      284 GETUPVAL                         R22 9
+      285 DUPTABLE                         R23 K70 [{"Size"}]
+      286 GETTABLEKS                       R24 R2 K71 ["TopBarSize"]
+      288 SETTABLEKS                       R24 R23 K20 ["Size"]
+      290 CALL                             R21 2 1
+      291 SETTABLEKS                       R21 R20 K67 ["TopBar"]
+      293 JUMPIFNOT                        R11 ; [+85]
+      294 JUMPIFNOT                        R6 ; [+84]
+      295 GETUPVAL                         R21 2
+      296 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      298 GETUPVAL                         R22 10
+      299 DUPTABLE                         R23 K77 [{["ClampSize"] = True, ["Sizes"], ["Layout"], ["MinSizes"], ["OnSizesChange"], ["Size"]}]
+      300 NEWTABLE                         R24 0 2
+      302 GETIMPORT                        R25 K79 [UDim.new]
+      304 LOADN                            R26 0
+      305 MOVE                             R27 R16
+      306 CALL                             R25 2 1
+      307 GETIMPORT                        R26 K79 [UDim.new]
+      309 LOADN                            R27 1
+      310 MINUS                            R28 R16
+      311 CALL                             R26 2 -1
+      312 SETLIST                          R24 R25 -1 [1]
+      314 SETTABLEKS                       R24 R23 K74 ["Sizes"]
+      316 GETIMPORT                        R24 K81 [Enum.FillDirection.Horizontal]
+      318 SETTABLEKS                       R24 R23 K57 ["Layout"]
+      320 NEWTABLE                         R24 0 2
+      322 GETIMPORT                        R25 K79 [UDim.new]
+      324 LOADN                            R26 0
+      325 GETTABLEKS                       R27 R2 K14 ["MinSideBarWidth"]
+      327 CALL                             R25 2 1
+      328 GETIMPORT                        R26 K79 [UDim.new]
+      330 LOADN                            R27 0
+      331 MOVE                             R28 R9
+      332 CALL                             R26 2 -1
+      333 SETLIST                          R24 R25 -1 [1]
+      335 SETTABLEKS                       R24 R23 K75 ["MinSizes"]
+      337 NEWCLOSURE                       R24 P0
+      338 CAPTURE                          VAL R0
+      339 SETTABLEKS                       R24 R23 K76 ["OnSizesChange"]
+      341 GETTABLEKS                       R24 R2 K82 ["MainViewSize"]
+      343 SETTABLEKS                       R24 R23 K20 ["Size"]
+      345 NEWTABLE                         R24 0 2
+      347 MOVE                             R25 R12
+      348 GETUPVAL                         R26 2
+      349 GETTABLEKS                       R26 R26 K18 ["createElement"]
+      351 GETUPVAL                         R27 3
+      352 DUPTABLE                         R28 K83 [{"Size", "Layout", "LayoutOrder"}]
+      353 GETIMPORT                        R29 K26 [UDim2.fromScale]
+      355 LOADN                            R30 1
+      356 LOADN                            R31 1
+      357 CALL                             R29 2 1
+      358 SETTABLEKS                       R29 R28 K20 ["Size"]
+      360 GETIMPORT                        R29 K81 [Enum.FillDirection.Horizontal]
+      362 SETTABLEKS                       R29 R28 K57 ["Layout"]
+      364 NAMECALL                         R29 R3 K22 ["getNextOrder"]
+      366 CALL                             R29 1 1
+      367 SETTABLEKS                       R29 R28 K19 ["LayoutOrder"]
+      369 DUPTABLE                         R29 K86 [{"MaterialGrid", "MaterialEditor"}]
+      370 SETTABLEKS                       R13 R29 K84 ["MaterialGrid"]
+      372 SETTABLEKS                       R14 R29 K85 ["MaterialEditor"]
+      374 CALL                             R26 3 -1
+      375 SETLIST                          R24 R25 -1 [1]
+      377 CALL                             R21 3 1
+      378 JUMP                             ; [+42]
+      379 GETUPVAL                         R21 2
+      380 GETTABLEKS                       R21 R21 K18 ["createElement"]
+      382 GETUPVAL                         R22 3
+      383 DUPTABLE                         R23 K70 [{"Size"}]
+      384 GETTABLEKS                       R24 R2 K82 ["MainViewSize"]
+      386 SETTABLEKS                       R24 R23 K20 ["Size"]
+      388 DUPTABLE                         R24 K87 [{"MainView"}]
+      389 GETUPVAL                         R25 2
+      390 GETTABLEKS                       R25 R25 K18 ["createElement"]
+      392 GETUPVAL                         R26 3
+      393 DUPTABLE                         R27 K83 [{"Size", "Layout", "LayoutOrder"}]
+      394 GETIMPORT                        R28 K26 [UDim2.fromScale]
+      396 LOADN                            R29 1
+      397 LOADN                            R30 1
+      398 CALL                             R28 2 1
+      399 SETTABLEKS                       R28 R27 K20 ["Size"]
+      401 GETIMPORT                        R28 K81 [Enum.FillDirection.Horizontal]
+      403 SETTABLEKS                       R28 R27 K57 ["Layout"]
+      405 NAMECALL                         R28 R3 K22 ["getNextOrder"]
+      407 CALL                             R28 1 1
+      408 SETTABLEKS                       R28 R27 K19 ["LayoutOrder"]
+      410 DUPTABLE                         R28 K88 [{"SideBar", "MaterialGrid", "MaterialEditor"}]
+      411 SETTABLEKS                       R12 R28 K27 ["SideBar"]
+      413 SETTABLEKS                       R13 R28 K84 ["MaterialGrid"]
+      415 SETTABLEKS                       R14 R28 K85 ["MaterialEditor"]
+      417 CALL                             R25 3 1
+      418 SETTABLEKS                       R25 R24 K68 ["MainView"]
+      420 CALL                             R21 3 1
+      421 SETTABLEKS                       R21 R20 K68 ["MainView"]
+      423 CALL                             R17 3 -1
+      424 RETURN                           R17 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K4 [{"Material", "MaterialBrowserLayout", "MaterialTileSize", "ViewType"}]

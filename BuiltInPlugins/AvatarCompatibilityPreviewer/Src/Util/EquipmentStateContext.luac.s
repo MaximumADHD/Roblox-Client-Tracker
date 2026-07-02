@@ -24,7 +24,7 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Util"]
        27 GETTABLEKS                       R4 R4 K11 ["createUnimplemented"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K24 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "cleanAllEquippedItems", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "startIgnoringChildren", "isIgnoringChildren", "avatarAssets"}]
+       30 DUPTABLE                         R4 K25 [{["equippedItems"], ["addEquippedItem"], ["removeEquippedItem"], ["removeAllEquippedItems"], ["moveEquippedItemsToIndex"], ["cleanAllEquippedItems"], ["hideEquippedItem"], ["showEquippedItem"], ["setHideAllEquippedItems"], ["startIgnoringChildren"], ["isIgnoringChildren"] = False, ["avatarAssets"]}]
        31 NEWTABLE                         R5 0 0
        33 SETTABLEKS                       R5 R4 K12 ["equippedItems"]
        35 MOVE                             R5 R3
@@ -59,29 +59,23 @@ MAIN:
        71 LOADK                            R6 K20 ["setHideAllEquippedItems"]
        72 CALL                             R5 1 1
        73 SETTABLEKS                       R5 R4 K20 ["setHideAllEquippedItems"]
-       75 DUPCLOSURE                       R5 K25 [PROTO_1]
+       75 DUPCLOSURE                       R5 K26 [PROTO_1]
        76 SETTABLEKS                       R5 R4 K21 ["startIgnoringChildren"]
-       78 LOADB                            R5 0
-       79 SETTABLEKS                       R5 R4 K22 ["isIgnoringChildren"]
-       81 DUPTABLE                         R5 K34 [{"accessories", "animation", "classicClothing", "clothing", "emotion", "gear", "makeup", "patches"}]
-       82 NEWTABLE                         R6 0 0
-       84 SETTABLEKS                       R6 R5 K26 ["accessories"]
-       86 LOADNIL                          R6
-       87 SETTABLEKS                       R6 R5 K27 ["animation"]
-       89 NEWTABLE                         R6 0 0
-       91 SETTABLEKS                       R6 R5 K28 ["classicClothing"]
-       93 NEWTABLE                         R6 0 0
-       95 SETTABLEKS                       R6 R5 K29 ["clothing"]
-       97 LOADNIL                          R6
-       98 SETTABLEKS                       R6 R5 K30 ["emotion"]
-      100 NEWTABLE                         R6 0 0
-      102 SETTABLEKS                       R6 R5 K31 ["gear"]
-      104 NEWTABLE                         R6 0 0
-      106 SETTABLEKS                       R6 R5 K32 ["makeup"]
-      108 NEWTABLE                         R6 0 0
-      110 SETTABLEKS                       R6 R5 K33 ["patches"]
-      112 SETTABLEKS                       R5 R4 K23 ["avatarAssets"]
-      114 GETTABLEKS                       R5 R1 K35 ["createContext"]
-      116 MOVE                             R6 R4
-      117 CALL                             R5 1 -1
-      118 RETURN                           R5 -1
+       78 DUPTABLE                         R5 K36 [{["accessories"], ["animation"] = , ["classicClothing"], ["clothing"], ["emotion"] = , ["gear"], ["makeup"], ["patches"]}]
+       79 NEWTABLE                         R6 0 0
+       81 SETTABLEKS                       R6 R5 K27 ["accessories"]
+       83 NEWTABLE                         R6 0 0
+       85 SETTABLEKS                       R6 R5 K30 ["classicClothing"]
+       87 NEWTABLE                         R6 0 0
+       89 SETTABLEKS                       R6 R5 K31 ["clothing"]
+       91 NEWTABLE                         R6 0 0
+       93 SETTABLEKS                       R6 R5 K33 ["gear"]
+       95 NEWTABLE                         R6 0 0
+       97 SETTABLEKS                       R6 R5 K34 ["makeup"]
+       99 NEWTABLE                         R6 0 0
+      101 SETTABLEKS                       R6 R5 K35 ["patches"]
+      103 SETTABLEKS                       R5 R4 K24 ["avatarAssets"]
+      105 GETTABLEKS                       R5 R1 K37 ["createContext"]
+      107 MOVE                             R6 R4
+      108 CALL                             R5 1 -1
+      109 RETURN                           R5 -1

@@ -1,5 +1,5 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K12 [{"diagnostics", "completedScripts", "selection", "expansion", "initialIssueCounts", "revertedScripts", "filter", "replaceRules", "replaceProgress", "messageKey", "processResult", "analyticsSent"}]
+        0 DUPTABLE                         R0 K15 [{[1], ["completedScripts"], ["selection"], ["expansion"], ["initialIssueCounts"], ["revertedScripts"], ["filter"] = , ["replaceRules"], ["replaceProgress"] = , ["messageKey"] = "", ["processResult"], ["analyticsSent"] = False}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["diagnostics"]
         5 NEWTABLE                         R1 0 0
@@ -12,59 +12,21 @@ PROTO_0:
        19 SETTABLEKS                       R1 R0 K4 ["initialIssueCounts"]
        21 NEWTABLE                         R1 0 0
        23 SETTABLEKS                       R1 R0 K5 ["revertedScripts"]
-       25 LOADNIL                          R1
-       26 SETTABLEKS                       R1 R0 K6 ["filter"]
-       28 GETUPVAL                         R1 0
-       29 GETTABLEKS                       R1 R1 K13 ["getScriptConversionRules"]
-       31 CALL                             R1 0 1
-       32 JUMPIF                           R1 ; [+54]
-       33 NEWTABLE                         R1 0 5
-       35 DUPTABLE                         R2 K17 [{"FromText", "ToText", "Enabled"}]
-       36 LOADK                            R3 K18 ["Left Arm"]
-       37 SETTABLEKS                       R3 R2 K14 ["FromText"]
-       39 LOADK                            R3 K19 ["LeftUpperArm"]
-       40 SETTABLEKS                       R3 R2 K15 ["ToText"]
-       42 LOADB                            R3 1
-       43 SETTABLEKS                       R3 R2 K16 ["Enabled"]
-       45 DUPTABLE                         R3 K17 [{"FromText", "ToText", "Enabled"}]
-       46 LOADK                            R4 K20 ["Right Arm"]
-       47 SETTABLEKS                       R4 R3 K14 ["FromText"]
-       49 LOADK                            R4 K21 ["RightUpperArm"]
-       50 SETTABLEKS                       R4 R3 K15 ["ToText"]
-       52 LOADB                            R4 1
-       53 SETTABLEKS                       R4 R3 K16 ["Enabled"]
-       55 DUPTABLE                         R4 K17 [{"FromText", "ToText", "Enabled"}]
-       56 LOADK                            R5 K22 ["Left Leg"]
-       57 SETTABLEKS                       R5 R4 K14 ["FromText"]
-       59 LOADK                            R5 K23 ["LeftUpperLeg"]
-       60 SETTABLEKS                       R5 R4 K15 ["ToText"]
-       62 LOADB                            R5 1
-       63 SETTABLEKS                       R5 R4 K16 ["Enabled"]
-       65 DUPTABLE                         R5 K17 [{"FromText", "ToText", "Enabled"}]
-       66 LOADK                            R6 K24 ["Right Leg"]
-       67 SETTABLEKS                       R6 R5 K14 ["FromText"]
-       69 LOADK                            R6 K25 ["RightUpperLeg"]
-       70 SETTABLEKS                       R6 R5 K15 ["ToText"]
-       72 LOADB                            R6 1
-       73 SETTABLEKS                       R6 R5 K16 ["Enabled"]
-       75 DUPTABLE                         R6 K17 [{"FromText", "ToText", "Enabled"}]
-       76 LOADK                            R7 K26 ["Torso"]
-       77 SETTABLEKS                       R7 R6 K14 ["FromText"]
-       79 LOADK                            R7 K27 ["LowerTorso"]
-       80 SETTABLEKS                       R7 R6 K15 ["ToText"]
-       82 LOADB                            R7 1
-       83 SETTABLEKS                       R7 R6 K16 ["Enabled"]
-       85 SETLIST                          R1 R2 5 [1]
-       87 SETTABLEKS                       R1 R0 K7 ["replaceRules"]
-       89 LOADNIL                          R1
-       90 SETTABLEKS                       R1 R0 K8 ["replaceProgress"]
-       92 LOADK                            R1 K28 [""]
-       93 SETTABLEKS                       R1 R0 K9 ["messageKey"]
-       95 NEWTABLE                         R1 0 0
-       97 SETTABLEKS                       R1 R0 K10 ["processResult"]
-       99 LOADB                            R1 0
-      100 SETTABLEKS                       R1 R0 K11 ["analyticsSent"]
-      102 RETURN                           R0 1
+       25 GETUPVAL                         R1 0
+       26 GETTABLEKS                       R1 R1 K16 ["getScriptConversionRules"]
+       28 CALL                             R1 0 1
+       29 JUMPIF                           R1 ; [+9]
+       30 NEWTABLE                         R1 0 5
+       32 DUPTABLE                         R2 K23 [{["FromText"] = "Left Arm", ["ToText"] = "LeftUpperArm", ["Enabled"] = True}]
+       33 DUPTABLE                         R3 K26 [{["FromText"] = "Right Arm", ["ToText"] = "RightUpperArm", ["Enabled"] = True}]
+       34 DUPTABLE                         R4 K29 [{["FromText"] = "Left Leg", ["ToText"] = "LeftUpperLeg", ["Enabled"] = True}]
+       35 DUPTABLE                         R5 K32 [{["FromText"] = "Right Leg", ["ToText"] = "RightUpperLeg", ["Enabled"] = True}]
+       36 DUPTABLE                         R6 K35 [{["FromText"] = "Torso", ["ToText"] = "LowerTorso", ["Enabled"] = True}]
+       37 SETLIST                          R1 R2 5 [1]
+       39 SETTABLEKS                       R1 R0 K8 ["replaceRules"]
+       41 NEWTABLE                         R1 0 0
+       43 SETTABLEKS                       R1 R0 K12 ["processResult"]
+       45 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

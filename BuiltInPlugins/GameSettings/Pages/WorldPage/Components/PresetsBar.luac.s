@@ -13,103 +13,71 @@ PROTO_1:
        10 CALL                             R4 1 1
        11 GETTABLEKS                       R5 R1 K5 ["Localization"]
        13 NEWTABLE                         R6 0 3
-       15 DUPTABLE                         R7 K10 [{"Name", "Enabled", "ShowPressed", "Mouse", "Value"}]
-       16 LOADK                            R10 K11 ["General"]
-       17 LOADK                            R11 K12 ["WorldPresetsClassic"]
-       18 NAMECALL                         R8 R5 K13 ["getText"]
+       15 DUPTABLE                         R7 K11 [{["Name"], ["Enabled"] = True, ["ShowPressed"] = True, ["Mouse"], ["Value"]}]
+       16 LOADK                            R10 K12 ["General"]
+       17 LOADK                            R11 K13 ["WorldPresetsClassic"]
+       18 NAMECALL                         R8 R5 K14 ["getText"]
        20 CALL                             R8 3 1
        21 SETTABLEKS                       R8 R7 K6 ["Name"]
-       23 LOADB                            R8 1
-       24 SETTABLEKS                       R8 R7 K7 ["Enabled"]
-       26 LOADB                            R8 1
-       27 SETTABLEKS                       R8 R7 K8 ["ShowPressed"]
-       29 SETTABLEKS                       R4 R7 K3 ["Mouse"]
-       31 DUPTABLE                         R8 K16 [{"ToolTip", "Preset"}]
-       32 LOADK                            R11 K11 ["General"]
-       33 LOADK                            R12 K17 ["WorldPresetsClassicToolTip"]
-       34 NAMECALL                         R9 R5 K13 ["getText"]
-       36 CALL                             R9 3 1
-       37 SETTABLEKS                       R9 R8 K14 ["ToolTip"]
-       39 DUPTABLE                         R9 K22 [{"Gravity", "JumpPower", "Walkspeed", "MaxSlopeAngle"}]
-       40 LOADK                            R10 K23 [196.2]
-       41 SETTABLEKS                       R10 R9 K18 ["Gravity"]
-       43 LOADN                            R10 50
-       44 SETTABLEKS                       R10 R9 K19 ["JumpPower"]
-       46 LOADN                            R10 16
-       47 SETTABLEKS                       R10 R9 K20 ["Walkspeed"]
-       49 LOADN                            R10 89
-       50 SETTABLEKS                       R10 R9 K21 ["MaxSlopeAngle"]
-       52 SETTABLEKS                       R9 R8 K15 ["Preset"]
-       54 SETTABLEKS                       R8 R7 K9 ["Value"]
-       56 DUPTABLE                         R8 K10 [{"Name", "Enabled", "ShowPressed", "Mouse", "Value"}]
-       57 LOADK                            R11 K11 ["General"]
-       58 LOADK                            R12 K24 ["WorldPresetsRealistic"]
-       59 NAMECALL                         R9 R5 K13 ["getText"]
-       61 CALL                             R9 3 1
-       62 SETTABLEKS                       R9 R8 K6 ["Name"]
-       64 LOADB                            R9 1
-       65 SETTABLEKS                       R9 R8 K7 ["Enabled"]
-       67 LOADB                            R9 1
-       68 SETTABLEKS                       R9 R8 K8 ["ShowPressed"]
-       70 SETTABLEKS                       R4 R8 K3 ["Mouse"]
-       72 DUPTABLE                         R9 K16 [{"ToolTip", "Preset"}]
-       73 LOADK                            R12 K11 ["General"]
-       74 LOADK                            R13 K25 ["WorldPresetsRealisticToolTip"]
-       75 NAMECALL                         R10 R5 K13 ["getText"]
-       77 CALL                             R10 3 1
-       78 SETTABLEKS                       R10 R9 K14 ["ToolTip"]
-       80 DUPTABLE                         R10 K26 [{"Gravity", "JumpPower", "Walkspeed"}]
-       81 LOADN                            R11 35
-       82 SETTABLEKS                       R11 R10 K18 ["Gravity"]
-       84 LOADN                            R11 13
-       85 SETTABLEKS                       R11 R10 K19 ["JumpPower"]
-       87 LOADN                            R11 16
-       88 SETTABLEKS                       R11 R10 K20 ["Walkspeed"]
-       90 SETTABLEKS                       R10 R9 K15 ["Preset"]
-       92 SETTABLEKS                       R9 R8 K9 ["Value"]
-       94 DUPTABLE                         R9 K10 [{"Name", "Enabled", "ShowPressed", "Mouse", "Value"}]
-       95 LOADK                            R12 K11 ["General"]
-       96 LOADK                            R13 K27 ["WorldPresetsAction"]
-       97 NAMECALL                         R10 R5 K13 ["getText"]
-       99 CALL                             R10 3 1
-      100 SETTABLEKS                       R10 R9 K6 ["Name"]
-      102 LOADB                            R10 1
-      103 SETTABLEKS                       R10 R9 K7 ["Enabled"]
-      105 LOADB                            R10 1
-      106 SETTABLEKS                       R10 R9 K8 ["ShowPressed"]
-      108 SETTABLEKS                       R4 R9 K3 ["Mouse"]
-      110 DUPTABLE                         R10 K16 [{"ToolTip", "Preset"}]
-      111 LOADK                            R13 K11 ["General"]
-      112 LOADK                            R14 K28 ["WorldPresetsActionToolTip"]
-      113 NAMECALL                         R11 R5 K13 ["getText"]
-      115 CALL                             R11 3 1
-      116 SETTABLEKS                       R11 R10 K14 ["ToolTip"]
-      118 DUPTABLE                         R11 K26 [{"Gravity", "JumpPower", "Walkspeed"}]
-      119 LOADN                            R12 75
-      120 SETTABLEKS                       R12 R11 K18 ["Gravity"]
-      122 LOADN                            R12 31
-      123 SETTABLEKS                       R12 R11 K19 ["JumpPower"]
-      125 LOADN                            R12 18
-      126 SETTABLEKS                       R12 R11 K20 ["Walkspeed"]
-      128 SETTABLEKS                       R11 R10 K15 ["Preset"]
-      130 SETTABLEKS                       R10 R9 K9 ["Value"]
-      132 SETLIST                          R6 R7 3 [1]
-      134 GETUPVAL                         R7 0
-      135 GETTABLEKS                       R7 R7 K29 ["createElement"]
-      137 GETUPVAL                         R8 1
-      138 DUPTABLE                         R9 K33 [{"LayoutOrder", "Title", "ButtonClicked", "Buttons"}]
-      139 SETTABLEKS                       R2 R9 K1 ["LayoutOrder"]
-      141 LOADK                            R12 K11 ["General"]
-      142 LOADK                            R13 K34 ["TitlePresets"]
-      143 NAMECALL                         R10 R5 K13 ["getText"]
-      145 CALL                             R10 3 1
-      146 SETTABLEKS                       R10 R9 K30 ["Title"]
-      148 NEWCLOSURE                       R10 P0
-      149 CAPTURE                          VAL R3
-      150 SETTABLEKS                       R10 R9 K31 ["ButtonClicked"]
-      152 SETTABLEKS                       R6 R9 K32 ["Buttons"]
-      154 CALL                             R7 2 -1
-      155 RETURN                           R7 -1
+       23 SETTABLEKS                       R4 R7 K3 ["Mouse"]
+       25 DUPTABLE                         R8 K17 [{"ToolTip", "Preset"}]
+       26 LOADK                            R11 K12 ["General"]
+       27 LOADK                            R12 K18 ["WorldPresetsClassicToolTip"]
+       28 NAMECALL                         R9 R5 K14 ["getText"]
+       30 CALL                             R9 3 1
+       31 SETTABLEKS                       R9 R8 K15 ["ToolTip"]
+       33 DUPTABLE                         R9 K27 [{["Gravity"] = 196.2, ["JumpPower"] = 50, ["Walkspeed"] = 16, ["MaxSlopeAngle"] = 89}]
+       34 SETTABLEKS                       R9 R8 K16 ["Preset"]
+       36 SETTABLEKS                       R8 R7 K10 ["Value"]
+       38 DUPTABLE                         R8 K11 [{["Name"], ["Enabled"] = True, ["ShowPressed"] = True, ["Mouse"], ["Value"]}]
+       39 LOADK                            R11 K12 ["General"]
+       40 LOADK                            R12 K28 ["WorldPresetsRealistic"]
+       41 NAMECALL                         R9 R5 K14 ["getText"]
+       43 CALL                             R9 3 1
+       44 SETTABLEKS                       R9 R8 K6 ["Name"]
+       46 SETTABLEKS                       R4 R8 K3 ["Mouse"]
+       48 DUPTABLE                         R9 K17 [{"ToolTip", "Preset"}]
+       49 LOADK                            R12 K12 ["General"]
+       50 LOADK                            R13 K29 ["WorldPresetsRealisticToolTip"]
+       51 NAMECALL                         R10 R5 K14 ["getText"]
+       53 CALL                             R10 3 1
+       54 SETTABLEKS                       R10 R9 K15 ["ToolTip"]
+       56 DUPTABLE                         R10 K32 [{["Gravity"] = 35, ["JumpPower"] = 13, ["Walkspeed"] = 16}]
+       57 SETTABLEKS                       R10 R9 K16 ["Preset"]
+       59 SETTABLEKS                       R9 R8 K10 ["Value"]
+       61 DUPTABLE                         R9 K11 [{["Name"], ["Enabled"] = True, ["ShowPressed"] = True, ["Mouse"], ["Value"]}]
+       62 LOADK                            R12 K12 ["General"]
+       63 LOADK                            R13 K33 ["WorldPresetsAction"]
+       64 NAMECALL                         R10 R5 K14 ["getText"]
+       66 CALL                             R10 3 1
+       67 SETTABLEKS                       R10 R9 K6 ["Name"]
+       69 SETTABLEKS                       R4 R9 K3 ["Mouse"]
+       71 DUPTABLE                         R10 K17 [{"ToolTip", "Preset"}]
+       72 LOADK                            R13 K12 ["General"]
+       73 LOADK                            R14 K34 ["WorldPresetsActionToolTip"]
+       74 NAMECALL                         R11 R5 K14 ["getText"]
+       76 CALL                             R11 3 1
+       77 SETTABLEKS                       R11 R10 K15 ["ToolTip"]
+       79 DUPTABLE                         R11 K38 [{["Gravity"] = 75, ["JumpPower"] = 31, ["Walkspeed"] = 18}]
+       80 SETTABLEKS                       R11 R10 K16 ["Preset"]
+       82 SETTABLEKS                       R10 R9 K10 ["Value"]
+       84 SETLIST                          R6 R7 3 [1]
+       86 GETUPVAL                         R7 0
+       87 GETTABLEKS                       R7 R7 K39 ["createElement"]
+       89 GETUPVAL                         R8 1
+       90 DUPTABLE                         R9 K43 [{"LayoutOrder", "Title", "ButtonClicked", "Buttons"}]
+       91 SETTABLEKS                       R2 R9 K1 ["LayoutOrder"]
+       93 LOADK                            R12 K12 ["General"]
+       94 LOADK                            R13 K44 ["TitlePresets"]
+       95 NAMECALL                         R10 R5 K14 ["getText"]
+       97 CALL                             R10 3 1
+       98 SETTABLEKS                       R10 R9 K40 ["Title"]
+      100 NEWCLOSURE                       R10 P0
+      101 CAPTURE                          VAL R3
+      102 SETTABLEKS                       R10 R9 K41 ["ButtonClicked"]
+      104 SETTABLEKS                       R6 R9 K42 ["Buttons"]
+      106 CALL                             R7 2 -1
+      107 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

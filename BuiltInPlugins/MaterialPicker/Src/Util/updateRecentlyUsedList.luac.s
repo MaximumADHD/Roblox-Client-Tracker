@@ -24,7 +24,7 @@ PROTO_0:
        28 GETIMPORT                        R5 K9 [table.insert]
        30 CALL                             R5 2 0
        31 LENGTH                           R5 R2
-       32 LOADN                            R6 15
+       32 LOADN                            R6 9999
        33 JUMPIFNOTLT                      R6 R5 ; [+6]
        35 GETIMPORT                        R5 K7 [table.remove]
        37 MOVE                             R6 R2

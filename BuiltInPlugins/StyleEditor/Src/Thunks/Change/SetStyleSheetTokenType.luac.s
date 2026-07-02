@@ -12,18 +12,14 @@ PROTO_1:
         1 JUMPIFNOTEQKS                    R2 K0 [""] ; [+2]
         3 RETURN                           R0 0
         4 GETTABLEKS                       R2 R1 K1 ["recordChange"]
-        6 DUPTABLE                         R3 K5 [{"Name", "DisplayName", "DoChange"}]
-        7 LOADK                            R4 K6 ["StyleEditor/SetStyleSheetTokenType"]
-        8 SETTABLEKS                       R4 R3 K2 ["Name"]
-       10 LOADK                            R4 K7 ["StyleEditor - Set Token Type"]
-       11 SETTABLEKS                       R4 R3 K3 ["DisplayName"]
-       13 NEWCLOSURE                       R4 P0
-       14 CAPTURE                          UPVAL U1
-       15 CAPTURE                          UPVAL U0
-       16 CAPTURE                          UPVAL U2
-       17 SETTABLEKS                       R4 R3 K4 ["DoChange"]
-       19 CALL                             R2 1 0
-       20 RETURN                           R0 0
+        6 DUPTABLE                         R3 K7 [{["Name"] = "StyleEditor/SetStyleSheetTokenType", ["DisplayName"] = "StyleEditor - Set Token Type", ["DoChange"]}]
+        7 NEWCLOSURE                       R4 P0
+        8 CAPTURE                          UPVAL U1
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          UPVAL U2
+       11 SETTABLEKS                       R4 R3 K6 ["DoChange"]
+       13 CALL                             R2 1 0
+       14 RETURN                           R0 0
 
 PROTO_2:
         0 LOADNIL                          R3

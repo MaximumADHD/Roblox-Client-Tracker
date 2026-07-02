@@ -178,22 +178,18 @@ MAIN:
        13 GETTABLEKS                       R2 R2 K6 ["Promise"]
        15 CALL                             R1 1 1
        16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
-       22 CALL                             R2 1 1
-       23 GETIMPORT                        R3 K4 [require]
-       25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K9 ["Actions"]
-       29 GETTABLEKS                       R4 R4 K10 ["SetLoadedPluginData"]
-       31 CALL                             R3 1 1
-       32 NEWTABLE                         R4 0 0
-       34 DUPCLOSURE                       R5 K11 [PROTO_0]
-       35 DUPCLOSURE                       R6 K12 [PROTO_4]
-       36 CAPTURE                          VAL R1
-       37 CAPTURE                          VAL R5
-       38 DUPCLOSURE                       R7 K13 [PROTO_8]
-       39 CAPTURE                          VAL R3
-       40 CAPTURE                          VAL R4
-       41 CAPTURE                          VAL R1
-       42 CAPTURE                          VAL R5
-       43 RETURN                           R7 1
+       18 GETTABLEKS                       R3 R0 K7 ["Src"]
+       20 GETTABLEKS                       R3 R3 K8 ["Actions"]
+       22 GETTABLEKS                       R3 R3 K9 ["SetLoadedPluginData"]
+       24 CALL                             R2 1 1
+       25 NEWTABLE                         R3 0 0
+       27 DUPCLOSURE                       R4 K10 [PROTO_0]
+       28 DUPCLOSURE                       R5 K11 [PROTO_4]
+       29 CAPTURE                          VAL R1
+       30 CAPTURE                          VAL R4
+       31 DUPCLOSURE                       R6 K12 [PROTO_8]
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R4
+       36 RETURN                           R6 1

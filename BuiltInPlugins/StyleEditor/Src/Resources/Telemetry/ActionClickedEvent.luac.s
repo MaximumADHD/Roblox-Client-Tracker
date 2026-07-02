@@ -69,28 +69,22 @@ MAIN:
        77 CALL                             R12 1 1
        78 SETTABLEKS                       R12 R11 K23 ["data"]
        80 CALL                             R10 1 1
-       81 DUPTABLE                         R11 K33 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-       82 LOADK                            R12 K34 ["StyleEditor_ActionClicked"]
-       83 SETTABLEKS                       R12 R11 K27 ["eventName"]
-       85 NEWTABLE                         R12 0 2
-       87 GETTABLEKS                       R13 R5 K35 ["Points"]
-       89 GETTABLEKS                       R14 R5 K36 ["EventIngest"]
-       91 SETLIST                          R12 R13 2 [1]
-       93 SETTABLEKS                       R12 R11 K28 ["backends"]
-       95 SETTABLEKS                       R9 R11 K29 ["throttlingPercentage"]
-       97 NEWTABLE                         R12 0 3
-       99 LOADN                            R13 2
-      100 LOADN                            R14 25
-      101 LOADN                            R15 26
-      102 SETLIST                          R12 R13 3 [1]
-      104 SETTABLEKS                       R12 R11 K30 ["lastUpdated"]
-      106 LOADK                            R12 K37 ["ContextMenu, onboarding link, button pressed, token/property created, or property created in the StyleEditor."]
-      107 SETTABLEKS                       R12 R11 K31 ["description"]
-      109 LOADK                            R12 K38 [""]
-      110 SETTABLEKS                       R12 R11 K32 ["links"]
-      112 DUPCLOSURE                       R12 K39 [PROTO_0]
-      113 CAPTURE                          VAL R10
-      114 CAPTURE                          VAL R4
-      115 CAPTURE                          VAL R11
-      116 CAPTURE                          VAL R6
-      117 RETURN                           R12 1
+       81 DUPTABLE                         R11 K36 [{["eventName"] = "StyleEditor_ActionClicked", ["backends"], ["throttlingPercentage"], ["lastUpdated"], ["description"] = "ContextMenu, onboarding link, button pressed, token/property created, or property created in the StyleEditor.", ["links"] = ""}]
+       82 NEWTABLE                         R12 0 2
+       84 GETTABLEKS                       R13 R5 K37 ["Points"]
+       86 GETTABLEKS                       R14 R5 K38 ["EventIngest"]
+       88 SETLIST                          R12 R13 2 [1]
+       90 SETTABLEKS                       R12 R11 K29 ["backends"]
+       92 SETTABLEKS                       R9 R11 K30 ["throttlingPercentage"]
+       94 NEWTABLE                         R12 0 3
+       96 LOADN                            R13 2
+       97 LOADN                            R14 25
+       98 LOADN                            R15 26
+       99 SETLIST                          R12 R13 3 [1]
+      101 SETTABLEKS                       R12 R11 K31 ["lastUpdated"]
+      103 DUPCLOSURE                       R12 K39 [PROTO_0]
+      104 CAPTURE                          VAL R10
+      105 CAPTURE                          VAL R4
+      106 CAPTURE                          VAL R11
+      107 CAPTURE                          VAL R6
+      108 RETURN                           R12 1

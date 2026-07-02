@@ -7,37 +7,35 @@ PROTO_0:
         6 RETURN                           R1 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"Url", "Method", "Body"}]
+        0 DUPTABLE                         R1 K4 [{[1], ["Method"] = "POST", ["Body"]}]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K4 ["BuildRobloxUrl"]
-        4 LOADK                            R3 K5 ["apis"]
-        5 LOADK                            R4 K6 ["resource-settings/v1/universes"]
+        2 GETTABLEKS                       R2 R2 K5 ["BuildRobloxUrl"]
+        4 LOADK                            R3 K6 ["apis"]
+        5 LOADK                            R4 K7 ["resource-settings/v1/universes"]
         6 CALL                             R2 2 1
         7 SETTABLEKS                       R2 R1 K0 ["Url"]
-        9 LOADK                            R2 K7 ["POST"]
-       10 SETTABLEKS                       R2 R1 K1 ["Method"]
-       12 GETUPVAL                         R2 1
-       13 DUPTABLE                         R4 K9 [{"configurations"}]
-       14 NEWTABLE                         R5 0 1
-       16 DUPTABLE                         R6 K12 [{"universeId", "dataSharingLicenseTypes"}]
-       17 SETTABLEKS                       R0 R6 K10 ["universeId"]
-       19 NEWTABLE                         R7 0 1
-       21 LOADK                            R8 K13 ["RobloxGlobal"]
-       22 SETLIST                          R7 R8 1 [1]
-       24 SETTABLEKS                       R7 R6 K11 ["dataSharingLicenseTypes"]
-       26 SETLIST                          R5 R6 1 [1]
-       28 SETTABLEKS                       R5 R4 K8 ["configurations"]
-       30 NAMECALL                         R2 R2 K14 ["JSONEncode"]
-       32 CALL                             R2 2 1
-       33 SETTABLEKS                       R2 R1 K2 ["Body"]
-       35 GETUPVAL                         R2 0
-       36 GETTABLEKS                       R2 R2 K15 ["Request"]
-       38 MOVE                             R3 R1
-       39 CALL                             R2 1 1
-       40 DUPCLOSURE                       R4 K16 [PROTO_0]
-       41 NAMECALL                         R2 R2 K17 ["catch"]
-       43 CALL                             R2 2 -1
-       44 RETURN                           R2 -1
+        9 GETUPVAL                         R2 1
+       10 DUPTABLE                         R4 K9 [{"configurations"}]
+       11 NEWTABLE                         R5 0 1
+       13 DUPTABLE                         R6 K12 [{"universeId", "dataSharingLicenseTypes"}]
+       14 SETTABLEKS                       R0 R6 K10 ["universeId"]
+       16 NEWTABLE                         R7 0 1
+       18 LOADK                            R8 K13 ["RobloxGlobal"]
+       19 SETLIST                          R7 R8 1 [1]
+       21 SETTABLEKS                       R7 R6 K11 ["dataSharingLicenseTypes"]
+       23 SETLIST                          R5 R6 1 [1]
+       25 SETTABLEKS                       R5 R4 K8 ["configurations"]
+       27 NAMECALL                         R2 R2 K14 ["JSONEncode"]
+       29 CALL                             R2 2 1
+       30 SETTABLEKS                       R2 R1 K3 ["Body"]
+       32 GETUPVAL                         R2 0
+       33 GETTABLEKS                       R2 R2 K15 ["Request"]
+       35 MOVE                             R3 R1
+       36 CALL                             R2 1 1
+       37 DUPCLOSURE                       R4 K16 [PROTO_0]
+       38 NAMECALL                         R2 R2 K17 ["catch"]
+       40 CALL                             R2 2 -1
+       41 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

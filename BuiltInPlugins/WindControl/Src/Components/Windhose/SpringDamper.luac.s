@@ -37,7 +37,7 @@ PROTO_1:
        34 CALL                             R5 2 1
        35 GETTABLEKS                       R8 R0 K10 ["restingLength"]
        37 SUB                              R7 R8 R2
-       38 LOADN                            R8 255
+       38 LOADN                            R8 -1
        39 LOADN                            R9 1
        40 FASTCALL                         MATH_CLAMP ; [+2]
        41 GETIMPORT                        R6 K12 [math.clamp]

@@ -12,50 +12,34 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Widget-Thumbstick"]
-       20 DUPTABLE                         R5 K14 [{"BackgroundColor3", "AnchorPoint", "BackgroundTransparency"}]
-       21 LOADK                            R6 K15 ["$ControlActiveSecondaryColor"]
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundColor3"]
-       24 GETIMPORT                        R6 K18 [Vector2.new]
-       26 LOADK                            R7 K19 [0.5]
-       27 LOADK                            R8 K19 [0.5]
-       28 CALL                             R6 2 1
-       29 SETTABLEKS                       R6 R5 K12 ["AnchorPoint"]
-       31 LOADN                            R6 1
-       32 SETTABLEKS                       R6 R5 K13 ["BackgroundTransparency"]
-       34 NEWTABLE                         R6 0 4
-       36 MOVE                             R7 R2
-       37 LOADK                            R8 K20 [".Active"]
-       38 DUPTABLE                         R9 K21 [{"BackgroundTransparency"}]
-       39 LOADK                            R10 K22 [0.7]
-       40 SETTABLEKS                       R10 R9 K13 ["BackgroundTransparency"]
-       42 CALL                             R7 2 1
-       43 MOVE                             R8 R2
-       44 LOADK                            R9 K23 ["> #Stick"]
-       45 DUPTABLE                         R10 K24 [{"AnchorPoint", "BackgroundTransparency"}]
-       46 GETIMPORT                        R11 K18 [Vector2.new]
-       48 LOADK                            R12 K19 [0.5]
-       49 LOADK                            R13 K19 [0.5]
-       50 CALL                             R11 2 1
-       51 SETTABLEKS                       R11 R10 K12 ["AnchorPoint"]
-       53 LOADN                            R11 1
-       54 SETTABLEKS                       R11 R10 K13 ["BackgroundTransparency"]
-       56 CALL                             R8 2 1
-       57 MOVE                             R9 R2
-       58 LOADK                            R10 K25 ["> #Stick.Hovered"]
-       59 DUPTABLE                         R11 K26 [{"BackgroundColor3", "BackgroundTransparency"}]
-       60 LOADK                            R12 K27 ["$ControlActiveColor"]
-       61 SETTABLEKS                       R12 R11 K11 ["BackgroundColor3"]
-       63 LOADK                            R12 K28 [0.6]
-       64 SETTABLEKS                       R12 R11 K13 ["BackgroundTransparency"]
-       66 CALL                             R9 2 1
-       67 MOVE                             R10 R2
-       68 LOADK                            R11 K29 ["> #Stick.Active"]
-       69 DUPTABLE                         R12 K26 [{"BackgroundColor3", "BackgroundTransparency"}]
-       70 LOADK                            R13 K27 ["$ControlActiveColor"]
-       71 SETTABLEKS                       R13 R12 K11 ["BackgroundColor3"]
-       73 LOADK                            R13 K30 [0.3]
-       74 SETTABLEKS                       R13 R12 K13 ["BackgroundTransparency"]
-       76 CALL                             R10 2 -1
-       77 SETLIST                          R6 R7 -1 [1]
-       79 CALL                             R3 3 -1
-       80 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K16 [{["BackgroundColor3"] = "$ControlActiveSecondaryColor", ["AnchorPoint"], ["BackgroundTransparency"] = 1}]
+       21 GETIMPORT                        R6 K19 [Vector2.new]
+       23 LOADK                            R7 K20 [0.5]
+       24 LOADK                            R8 K20 [0.5]
+       25 CALL                             R6 2 1
+       26 SETTABLEKS                       R6 R5 K13 ["AnchorPoint"]
+       28 NEWTABLE                         R6 0 4
+       30 MOVE                             R7 R2
+       31 LOADK                            R8 K21 [".Active"]
+       32 DUPTABLE                         R9 K23 [{["BackgroundTransparency"] = 0.7}]
+       33 CALL                             R7 2 1
+       34 MOVE                             R8 R2
+       35 LOADK                            R9 K24 ["> #Stick"]
+       36 DUPTABLE                         R10 K25 [{["AnchorPoint"], ["BackgroundTransparency"] = 1}]
+       37 GETIMPORT                        R11 K19 [Vector2.new]
+       39 LOADK                            R12 K20 [0.5]
+       40 LOADK                            R13 K20 [0.5]
+       41 CALL                             R11 2 1
+       42 SETTABLEKS                       R11 R10 K13 ["AnchorPoint"]
+       44 CALL                             R8 2 1
+       45 MOVE                             R9 R2
+       46 LOADK                            R10 K26 ["> #Stick.Hovered"]
+       47 DUPTABLE                         R11 K29 [{["BackgroundColor3"] = "$ControlActiveColor", ["BackgroundTransparency"] = 0.6}]
+       48 CALL                             R9 2 1
+       49 MOVE                             R10 R2
+       50 LOADK                            R11 K30 ["> #Stick.Active"]
+       51 DUPTABLE                         R12 K32 [{["BackgroundColor3"] = "$ControlActiveColor", ["BackgroundTransparency"] = 0.3}]
+       52 CALL                             R10 2 -1
+       53 SETLIST                          R6 R7 -1 [1]
+       55 CALL                             R3 3 -1
+       56 RETURN                           R3 -1

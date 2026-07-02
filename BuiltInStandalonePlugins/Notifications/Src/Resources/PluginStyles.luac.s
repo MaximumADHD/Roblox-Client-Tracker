@@ -20,155 +20,129 @@ MAIN:
        33 NEWTABLE                         R5 0 4
        35 MOVE                             R6 R2
        36 LOADK                            R7 K13 [".Plugin-NotificationCard-Hover"]
-       37 DUPTABLE                         R8 K15 [{"BackgroundColor3"}]
-       38 LOADK                            R9 K16 ["$ForegroundMain"]
-       39 SETTABLEKS                       R9 R8 K14 ["BackgroundColor3"]
-       41 NEWTABLE                         R9 0 2
-       43 MOVE                             R10 R2
-       44 LOADK                            R11 K17 [":hover"]
-       45 DUPTABLE                         R12 K15 [{"BackgroundColor3"}]
-       46 LOADK                            R13 K18 ["$ActionHover"]
-       47 SETTABLEKS                       R13 R12 K14 ["BackgroundColor3"]
-       49 CALL                             R10 2 1
-       50 MOVE                             R11 R2
-       51 LOADK                            R12 K19 [":press"]
-       52 DUPTABLE                         R13 K15 [{"BackgroundColor3"}]
-       53 LOADK                            R14 K20 ["$ActionActivated"]
-       54 SETTABLEKS                       R14 R13 K14 ["BackgroundColor3"]
-       56 CALL                             R11 2 -1
-       57 SETLIST                          R9 R10 -1 [1]
-       59 CALL                             R6 3 1
-       60 MOVE                             R7 R2
-       61 LOADK                            R8 K21 [".Plugin-NotificationCard-HoverDisabled"]
-       62 DUPTABLE                         R9 K15 [{"BackgroundColor3"}]
-       63 LOADK                            R10 K16 ["$ForegroundMain"]
-       64 SETTABLEKS                       R10 R9 K14 ["BackgroundColor3"]
-       66 CALL                             R7 2 1
-       67 MOVE                             R8 R2
-       68 LOADK                            R9 K22 [".Plugin-Icon-StatusDisabled"]
-       69 DUPTABLE                         R10 K24 [{"Image"}]
-       70 LOADK                            R11 K25 ["$NotificationStatusDisabledIcon"]
-       71 SETTABLEKS                       R11 R10 K23 ["Image"]
-       73 CALL                             R8 2 1
-       74 MOVE                             R9 R2
-       75 LOADK                            R10 K26 [".Plugin-Icon-StatusUnread"]
-       76 DUPTABLE                         R11 K24 [{"Image"}]
-       77 LOADK                            R12 K27 ["$NotificationStatusUnreadIcon"]
-       78 SETTABLEKS                       R12 R11 K23 ["Image"]
-       80 CALL                             R9 2 -1
-       81 SETLIST                          R5 R6 -1 [1]
-       83 GETIMPORT                        R6 K29 [ipairs]
-       85 MOVE                             R7 R4
-       86 CALL                             R6 1 3
-       87 FORGPREP_INEXT                   R6
-       88 MOVE                             R12 R5
-       89 MOVE                             R13 R2
-       90 LOADK                            R15 K30 [".Plugin-Icon-%*"]
-       91 MOVE                             R17 R10
-       92 NAMECALL                         R15 R15 K31 ["format"]
-       94 CALL                             R15 2 1
-       95 MOVE                             R14 R15
-       96 DUPTABLE                         R15 K24 [{"Image"}]
-       97 LOADK                            R17 K32 ["$%*Icon"]
-       98 MOVE                             R19 R10
-       99 NAMECALL                         R17 R17 K31 ["format"]
-      101 CALL                             R17 2 1
-      102 MOVE                             R16 R17
-      103 SETTABLEKS                       R16 R15 K23 ["Image"]
-      105 CALL                             R13 2 -1
-      106 FASTCALL                         TABLE_INSERT ; [+2]
-      107 GETIMPORT                        R11 K35 [table.insert]
-      109 CALL                             R11 -1 0
-      110 FORGLOOP                         R6 2 [inext] ; [-23]
-      112 DUPTABLE                         R6 K57 [{"FontPrimary", "FontBold", "FontSemibold", "Margin", "MarginSmall", "HeaderSize", "HeaderTitleTextSize", "HeaderSubtitleTextSize", "HeaderIconSize", "HeaderLeftMargin", "ScrollBarWidth", "ScrollBarGutter", "ButtonBorderRadius", "CardBorderRadius", "CardIconSize", "CardIconTextMargin", "CardStatusIndicatorSize", "CardStatusMinWidth", "CardUnsubscribeButtonSize", "CardElapsedTimeTextSize", "CardSubjectTextSize"}]
-      113 GETIMPORT                        R7 K61 [Enum.Font.SourceSans]
-      115 SETTABLEKS                       R7 R6 K36 ["FontPrimary"]
-      117 GETIMPORT                        R7 K63 [Enum.Font.SourceSansBold]
-      119 SETTABLEKS                       R7 R6 K37 ["FontBold"]
-      121 GETIMPORT                        R7 K65 [Enum.Font.SourceSansSemibold]
-      123 SETTABLEKS                       R7 R6 K38 ["FontSemibold"]
-      125 GETIMPORT                        R7 K68 [UDim.new]
-      127 LOADN                            R8 0
-      128 LOADN                            R9 8
-      129 CALL                             R7 2 1
-      130 SETTABLEKS                       R7 R6 K39 ["Margin"]
-      132 GETIMPORT                        R7 K68 [UDim.new]
-      134 LOADN                            R8 0
-      135 LOADN                            R9 2
-      136 CALL                             R7 2 1
-      137 SETTABLEKS                       R7 R6 K40 ["MarginSmall"]
-      139 GETIMPORT                        R7 K70 [UDim2.new]
-      141 LOADN                            R8 1
-      142 LOADN                            R9 0
-      143 LOADN                            R10 0
-      144 LOADN                            R11 40
-      145 CALL                             R7 4 1
-      146 SETTABLEKS                       R7 R6 K41 ["HeaderSize"]
-      148 LOADN                            R7 20
-      149 SETTABLEKS                       R7 R6 K42 ["HeaderTitleTextSize"]
-      151 LOADN                            R7 14
-      152 SETTABLEKS                       R7 R6 K43 ["HeaderSubtitleTextSize"]
-      154 GETIMPORT                        R7 K70 [UDim2.new]
-      156 LOADN                            R8 0
-      157 LOADN                            R9 20
-      158 LOADN                            R10 0
-      159 LOADN                            R11 20
-      160 CALL                             R7 4 1
-      161 SETTABLEKS                       R7 R6 K44 ["HeaderIconSize"]
-      163 GETIMPORT                        R7 K68 [UDim.new]
-      165 LOADN                            R8 0
-      166 LOADN                            R9 14
-      167 CALL                             R7 2 1
-      168 SETTABLEKS                       R7 R6 K45 ["HeaderLeftMargin"]
-      170 LOADN                            R7 8
-      171 SETTABLEKS                       R7 R6 K46 ["ScrollBarWidth"]
-      173 LOADN                            R7 12
-      174 SETTABLEKS                       R7 R6 K47 ["ScrollBarGutter"]
-      176 GETIMPORT                        R7 K68 [UDim.new]
+       37 DUPTABLE                         R8 K16 [{["BackgroundColor3"] = "$ForegroundMain"}]
+       38 NEWTABLE                         R9 0 2
+       40 MOVE                             R10 R2
+       41 LOADK                            R11 K17 [":hover"]
+       42 DUPTABLE                         R12 K19 [{["BackgroundColor3"] = "$ActionHover"}]
+       43 CALL                             R10 2 1
+       44 MOVE                             R11 R2
+       45 LOADK                            R12 K20 [":press"]
+       46 DUPTABLE                         R13 K22 [{["BackgroundColor3"] = "$ActionActivated"}]
+       47 CALL                             R11 2 -1
+       48 SETLIST                          R9 R10 -1 [1]
+       50 CALL                             R6 3 1
+       51 MOVE                             R7 R2
+       52 LOADK                            R8 K23 [".Plugin-NotificationCard-HoverDisabled"]
+       53 DUPTABLE                         R9 K16 [{["BackgroundColor3"] = "$ForegroundMain"}]
+       54 CALL                             R7 2 1
+       55 MOVE                             R8 R2
+       56 LOADK                            R9 K24 [".Plugin-Icon-StatusDisabled"]
+       57 DUPTABLE                         R10 K27 [{["Image"] = "$NotificationStatusDisabledIcon"}]
+       58 CALL                             R8 2 1
+       59 MOVE                             R9 R2
+       60 LOADK                            R10 K28 [".Plugin-Icon-StatusUnread"]
+       61 DUPTABLE                         R11 K30 [{["Image"] = "$NotificationStatusUnreadIcon"}]
+       62 CALL                             R9 2 -1
+       63 SETLIST                          R5 R6 -1 [1]
+       65 GETIMPORT                        R6 K32 [ipairs]
+       67 MOVE                             R7 R4
+       68 CALL                             R6 1 3
+       69 FORGPREP_INEXT                   R6
+       70 MOVE                             R12 R5
+       71 MOVE                             R13 R2
+       72 LOADK                            R15 K33 [".Plugin-Icon-%*"]
+       73 MOVE                             R17 R10
+       74 NAMECALL                         R15 R15 K34 ["format"]
+       76 CALL                             R15 2 1
+       77 MOVE                             R14 R15
+       78 DUPTABLE                         R15 K35 [{"Image"}]
+       79 LOADK                            R17 K36 ["$%*Icon"]
+       80 MOVE                             R19 R10
+       81 NAMECALL                         R17 R17 K34 ["format"]
+       83 CALL                             R17 2 1
+       84 MOVE                             R16 R17
+       85 SETTABLEKS                       R16 R15 K25 ["Image"]
+       87 CALL                             R13 2 -1
+       88 FASTCALL                         TABLE_INSERT ; [+2]
+       89 GETIMPORT                        R11 K39 [table.insert]
+       91 CALL                             R11 -1 0
+       92 FORGLOOP                         R6 2 [inext] ; [-23]
+       94 DUPTABLE                         R6 K68 [{["FontPrimary"], ["FontBold"], ["FontSemibold"], ["Margin"], ["MarginSmall"], ["HeaderSize"], ["HeaderTitleTextSize"] = 20, ["HeaderSubtitleTextSize"] = 14, ["HeaderIconSize"], ["HeaderLeftMargin"], ["ScrollBarWidth"] = 8, ["ScrollBarGutter"] = 12, ["ButtonBorderRadius"], ["CardBorderRadius"], ["CardIconSize"], ["CardIconTextMargin"], ["CardStatusIndicatorSize"], ["CardStatusMinWidth"] = 40, ["CardUnsubscribeButtonSize"], ["CardElapsedTimeTextSize"] = 16, ["CardSubjectTextSize"] = 18}]
+       95 GETIMPORT                        R7 K72 [Enum.Font.SourceSans]
+       97 SETTABLEKS                       R7 R6 K40 ["FontPrimary"]
+       99 GETIMPORT                        R7 K74 [Enum.Font.SourceSansBold]
+      101 SETTABLEKS                       R7 R6 K41 ["FontBold"]
+      103 GETIMPORT                        R7 K76 [Enum.Font.SourceSansSemibold]
+      105 SETTABLEKS                       R7 R6 K42 ["FontSemibold"]
+      107 GETIMPORT                        R7 K79 [UDim.new]
+      109 LOADN                            R8 0
+      110 LOADN                            R9 8
+      111 CALL                             R7 2 1
+      112 SETTABLEKS                       R7 R6 K43 ["Margin"]
+      114 GETIMPORT                        R7 K79 [UDim.new]
+      116 LOADN                            R8 0
+      117 LOADN                            R9 2
+      118 CALL                             R7 2 1
+      119 SETTABLEKS                       R7 R6 K44 ["MarginSmall"]
+      121 GETIMPORT                        R7 K81 [UDim2.new]
+      123 LOADN                            R8 1
+      124 LOADN                            R9 0
+      125 LOADN                            R10 0
+      126 LOADN                            R11 40
+      127 CALL                             R7 4 1
+      128 SETTABLEKS                       R7 R6 K45 ["HeaderSize"]
+      130 GETIMPORT                        R7 K81 [UDim2.new]
+      132 LOADN                            R8 0
+      133 LOADN                            R9 20
+      134 LOADN                            R10 0
+      135 LOADN                            R11 20
+      136 CALL                             R7 4 1
+      137 SETTABLEKS                       R7 R6 K50 ["HeaderIconSize"]
+      139 GETIMPORT                        R7 K79 [UDim.new]
+      141 LOADN                            R8 0
+      142 LOADN                            R9 14
+      143 CALL                             R7 2 1
+      144 SETTABLEKS                       R7 R6 K51 ["HeaderLeftMargin"]
+      146 GETIMPORT                        R7 K79 [UDim.new]
+      148 LOADN                            R8 0
+      149 LOADN                            R9 4
+      150 CALL                             R7 2 1
+      151 SETTABLEKS                       R7 R6 K56 ["ButtonBorderRadius"]
+      153 GETIMPORT                        R7 K79 [UDim.new]
+      155 LOADN                            R8 0
+      156 LOADN                            R9 6
+      157 CALL                             R7 2 1
+      158 SETTABLEKS                       R7 R6 K57 ["CardBorderRadius"]
+      160 GETIMPORT                        R7 K81 [UDim2.new]
+      162 LOADN                            R8 0
+      163 LOADN                            R9 16
+      164 LOADN                            R10 0
+      165 LOADN                            R11 16
+      166 CALL                             R7 4 1
+      167 SETTABLEKS                       R7 R6 K58 ["CardIconSize"]
+      169 GETIMPORT                        R7 K79 [UDim.new]
+      171 LOADN                            R8 0
+      172 LOADN                            R9 4
+      173 CALL                             R7 2 1
+      174 SETTABLEKS                       R7 R6 K59 ["CardIconTextMargin"]
+      176 GETIMPORT                        R7 K81 [UDim2.new]
       178 LOADN                            R8 0
-      179 LOADN                            R9 4
-      180 CALL                             R7 2 1
-      181 SETTABLEKS                       R7 R6 K48 ["ButtonBorderRadius"]
-      183 GETIMPORT                        R7 K68 [UDim.new]
-      185 LOADN                            R8 0
-      186 LOADN                            R9 6
-      187 CALL                             R7 2 1
-      188 SETTABLEKS                       R7 R6 K49 ["CardBorderRadius"]
-      190 GETIMPORT                        R7 K70 [UDim2.new]
-      192 LOADN                            R8 0
-      193 LOADN                            R9 16
-      194 LOADN                            R10 0
-      195 LOADN                            R11 16
-      196 CALL                             R7 4 1
-      197 SETTABLEKS                       R7 R6 K50 ["CardIconSize"]
-      199 GETIMPORT                        R7 K68 [UDim.new]
-      201 LOADN                            R8 0
-      202 LOADN                            R9 4
-      203 CALL                             R7 2 1
-      204 SETTABLEKS                       R7 R6 K51 ["CardIconTextMargin"]
-      206 GETIMPORT                        R7 K70 [UDim2.new]
-      208 LOADN                            R8 0
-      209 LOADN                            R9 16
-      210 LOADN                            R10 0
-      211 LOADN                            R11 16
-      212 CALL                             R7 4 1
-      213 SETTABLEKS                       R7 R6 K52 ["CardStatusIndicatorSize"]
-      215 LOADN                            R7 40
-      216 SETTABLEKS                       R7 R6 K53 ["CardStatusMinWidth"]
-      218 GETIMPORT                        R7 K70 [UDim2.new]
-      220 LOADN                            R8 0
-      221 LOADN                            R9 16
-      222 LOADN                            R10 0
-      223 LOADN                            R11 16
-      224 CALL                             R7 4 1
-      225 SETTABLEKS                       R7 R6 K54 ["CardUnsubscribeButtonSize"]
-      227 LOADN                            R7 16
-      228 SETTABLEKS                       R7 R6 K55 ["CardElapsedTimeTextSize"]
-      230 LOADN                            R7 18
-      231 SETTABLEKS                       R7 R6 K56 ["CardSubjectTextSize"]
-      233 MOVE                             R7 R3
-      234 LOADK                            R8 K71 ["NotificationsPlugin"]
-      235 MOVE                             R9 R5
-      236 MOVE                             R10 R6
-      237 CALL                             R7 3 -1
-      238 RETURN                           R7 -1
+      179 LOADN                            R9 16
+      180 LOADN                            R10 0
+      181 LOADN                            R11 16
+      182 CALL                             R7 4 1
+      183 SETTABLEKS                       R7 R6 K60 ["CardStatusIndicatorSize"]
+      185 GETIMPORT                        R7 K81 [UDim2.new]
+      187 LOADN                            R8 0
+      188 LOADN                            R9 16
+      189 LOADN                            R10 0
+      190 LOADN                            R11 16
+      191 CALL                             R7 4 1
+      192 SETTABLEKS                       R7 R6 K63 ["CardUnsubscribeButtonSize"]
+      194 MOVE                             R7 R3
+      195 LOADK                            R8 K82 ["NotificationsPlugin"]
+      196 MOVE                             R9 R5
+      197 MOVE                             R10 R6
+      198 CALL                             R7 3 -1
+      199 RETURN                           R7 -1

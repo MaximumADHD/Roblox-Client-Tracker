@@ -30,7 +30,7 @@ PROTO_0:
        38 MUL                              R6 R7 R8
        39 ADD                              R3 R3 R6
        40 GETIMPORT                        R6 K8 [UDim.new]
-       42 SUBRK                            R7 R5 K4 [0]
+       42 SUBRK                            R7 K5 [1] R4
        43 MINUS                            R8 R3
        44 CALL                             R6 2 -1
        45 RETURN                           R6 -1

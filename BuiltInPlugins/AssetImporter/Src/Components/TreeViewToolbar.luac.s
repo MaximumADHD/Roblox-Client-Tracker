@@ -63,28 +63,24 @@ PROTO_3:
        55 GETUPVAL                         R11 2
        56 GETTABLEKS                       R11 R11 K8 ["createElement"]
        58 GETUPVAL                         R12 4
-       59 DUPTABLE                         R13 K30 [{"LayoutOrder", "OnClick", "Size", "Style", "Text"}]
-       60 LOADN                            R14 1
-       61 SETTABLEKS                       R14 R13 K12 ["LayoutOrder"]
-       63 SETTABLEKS                       R5 R13 K27 ["OnClick"]
-       65 GETIMPORT                        R14 K33 [UDim2.new]
-       67 LOADN                            R15 0
-       68 LOADN                            R16 70
-       69 LOADN                            R17 1
-       70 LOADN                            R18 0
-       71 CALL                             R14 4 1
-       72 SETTABLEKS                       R14 R13 K14 ["Size"]
-       74 LOADK                            R14 K34 ["Round"]
-       75 SETTABLEKS                       R14 R13 K28 ["Style"]
-       77 LOADK                            R16 K2 ["TreeViewToolbar"]
-       78 MOVE                             R17 R6
-       79 NAMECALL                         R14 R3 K35 ["getText"]
-       81 CALL                             R14 3 1
-       82 SETTABLEKS                       R14 R13 K29 ["Text"]
-       84 CALL                             R11 2 1
-       85 SETTABLEKS                       R11 R10 K25 ["ExpandCollapseAll"]
-       87 CALL                             R7 3 -1
-       88 RETURN                           R7 -1
+       59 DUPTABLE                         R13 K32 [{["LayoutOrder"] = 1, ["OnClick"], ["Size"], ["Style"] = "Round", ["Text"]}]
+       60 SETTABLEKS                       R5 R13 K28 ["OnClick"]
+       62 GETIMPORT                        R14 K35 [UDim2.new]
+       64 LOADN                            R15 0
+       65 LOADN                            R16 70
+       66 LOADN                            R17 1
+       67 LOADN                            R18 0
+       68 CALL                             R14 4 1
+       69 SETTABLEKS                       R14 R13 K14 ["Size"]
+       71 LOADK                            R16 K2 ["TreeViewToolbar"]
+       72 MOVE                             R17 R6
+       73 NAMECALL                         R14 R3 K36 ["getText"]
+       75 CALL                             R14 3 1
+       76 SETTABLEKS                       R14 R13 K31 ["Text"]
+       78 CALL                             R11 2 1
+       79 SETTABLEKS                       R11 R10 K25 ["ExpandCollapseAll"]
+       81 CALL                             R7 3 -1
+       82 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

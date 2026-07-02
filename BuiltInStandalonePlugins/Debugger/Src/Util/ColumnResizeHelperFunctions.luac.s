@@ -41,7 +41,7 @@ PROTO_1:
 
 PROTO_2:
         0 NEWTABLE                         R5 0 0
-        2 SUBRK                            R6 R0 K1 ["UDim"]
+        2 SUBRK                            R6 K0 [1] R1
         3 LOADN                            R9 1
         4 MOVE                             R7 R0
         5 LOADN                            R8 1
@@ -71,7 +71,7 @@ PROTO_3:
         0 NEWTABLE                         R5 0 0
         2 SUB                              R6 R0 R1
         3 GETIMPORT                        R7 K2 [UDim.new]
-        5 DIVRK                            R8 R3 K0 ["UDim"]
+        5 DIVRK                            R8 K3 [1] R0
         6 LOADN                            R9 0
         7 CALL                             R7 2 1
         8 LOADN                            R10 1
@@ -97,7 +97,7 @@ PROTO_3:
        32 MUL                              R12 R6 R13
        33 GETTABLE                         R14 R2 R11
        34 GETTABLEKS                       R14 R14 K7 ["Scale"]
-       36 SUBRK                            R15 R3 K12 [NULL]
+       36 SUBRK                            R15 K3 [1] R12
        37 MUL                              R13 R14 R15
        38 GETIMPORT                        R14 K2 [UDim.new]
        40 MOVE                             R15 R13

@@ -466,20 +466,16 @@ PROTO_17:
        25 RETURN                           R0 0
 
 PROTO_18:
-        0 DUPTABLE                         R0 K4 [{"filepath", "preset", "creatorId", "creatorType"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["filepath"]
-        4 LOADNIL                          R1
-        5 SETTABLEKS                       R1 R0 K1 ["preset"]
-        7 GETUPVAL                         R1 0
-        8 SETTABLEKS                       R1 R0 K2 ["creatorId"]
-       10 GETUPVAL                         R2 0
-       11 JUMPIFNOT                        R2 ; [+2]
-       12 LOADK                            R1 K5 ["group"]
-       13 JUMP                             ; [+1]
-       14 LOADNIL                          R1
-       15 SETTABLEKS                       R1 R0 K3 ["creatorType"]
-       17 RETURN                           R0 1
+        0 DUPTABLE                         R0 K5 [{[1] = , ["preset"] = , ["creatorId"], ["creatorType"]}]
+        1 GETUPVAL                         R1 0
+        2 SETTABLEKS                       R1 R0 K3 ["creatorId"]
+        4 GETUPVAL                         R2 0
+        5 JUMPIFNOT                        R2 ; [+2]
+        6 LOADK                            R1 K6 ["group"]
+        7 JUMP                             ; [+1]
+        8 LOADNIL                          R1
+        9 SETTABLEKS                       R1 R0 K4 ["creatorType"]
+       11 RETURN                           R0 1
 
 PROTO_19:
         0 GETUPVAL                         R0 0

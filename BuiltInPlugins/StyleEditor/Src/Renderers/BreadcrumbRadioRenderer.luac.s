@@ -52,24 +52,20 @@ PROTO_1:
        64 GETUPVAL                         R6 0
        65 GETTABLEKS                       R6 R6 K1 ["createElement"]
        67 GETUPVAL                         R7 4
-       68 DUPTABLE                         R8 K20 [{"LayoutOrder", "Key", "OnClick", "Selected", "Text"}]
-       69 LOADN                            R9 2
-       70 SETTABLEKS                       R9 R8 K8 ["LayoutOrder"]
-       72 GETTABLEKS                       R9 R0 K13 ["Value"]
-       74 NAMECALL                         R9 R9 K21 ["GetDebugId"]
-       76 CALL                             R9 1 1
-       77 SETTABLEKS                       R9 R8 K17 ["Key"]
-       79 NEWCLOSURE                       R9 P0
-       80 CAPTURE                          VAL R0
-       81 SETTABLEKS                       R9 R8 K18 ["OnClick"]
-       83 GETTABLEKS                       R9 R0 K19 ["Selected"]
-       85 SETTABLEKS                       R9 R8 K19 ["Selected"]
-       87 LOADK                            R9 K22 ["Active"]
-       88 SETTABLEKS                       R9 R8 K15 ["Text"]
-       90 CALL                             R6 2 1
-       91 SETTABLEKS                       R6 R5 K5 ["Radio"]
-       93 CALL                             R2 3 -1
-       94 RETURN                           R2 -1
+       68 DUPTABLE                         R8 K22 [{["LayoutOrder"] = 2, ["Key"], ["OnClick"], ["Selected"], ["Text"] = "Active"}]
+       69 GETTABLEKS                       R9 R0 K13 ["Value"]
+       71 NAMECALL                         R9 R9 K23 ["GetDebugId"]
+       73 CALL                             R9 1 1
+       74 SETTABLEKS                       R9 R8 K18 ["Key"]
+       76 NEWCLOSURE                       R9 P0
+       77 CAPTURE                          VAL R0
+       78 SETTABLEKS                       R9 R8 K19 ["OnClick"]
+       80 GETTABLEKS                       R9 R0 K20 ["Selected"]
+       82 SETTABLEKS                       R9 R8 K20 ["Selected"]
+       84 CALL                             R6 2 1
+       85 SETTABLEKS                       R6 R5 K5 ["Radio"]
+       87 CALL                             R2 3 -1
+       88 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

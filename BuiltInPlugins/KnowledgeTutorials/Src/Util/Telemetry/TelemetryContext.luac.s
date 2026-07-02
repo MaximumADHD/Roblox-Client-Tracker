@@ -4,16 +4,14 @@ PROTO_0:
         3 LOADK                            R3 K0 ["TelemetryContext.new expects a Telemetry instance."]
         4 GETIMPORT                        R1 K2 [assert]
         6 CALL                             R1 2 0
-        7 DUPTABLE                         R1 K5 [{"telemetry", "tutorialData"}]
+        7 DUPTABLE                         R1 K6 [{["telemetry"], ["tutorialData"] = }]
         8 SETTABLEKS                       R0 R1 K3 ["telemetry"]
-       10 LOADNIL                          R2
-       11 SETTABLEKS                       R2 R1 K4 ["tutorialData"]
-       13 GETUPVAL                         R4 0
-       14 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
-       16 MOVE                             R3 R1
-       17 GETIMPORT                        R2 K7 [setmetatable]
-       19 CALL                             R2 2 0
-       20 RETURN                           R1 1
+       10 GETUPVAL                         R4 0
+       11 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       13 MOVE                             R3 R1
+       14 GETIMPORT                        R2 K8 [setmetatable]
+       16 CALL                             R2 2 0
+       17 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["telemetry"]

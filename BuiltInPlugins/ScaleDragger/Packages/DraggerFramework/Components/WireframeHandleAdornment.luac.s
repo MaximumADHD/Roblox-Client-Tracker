@@ -71,37 +71,29 @@ MAIN:
        20 LOADK                            R5 K8 ["WireframeHandleAdornment"]
        21 NAMECALL                         R3 R3 K9 ["extend"]
        23 CALL                             R3 2 1
-       24 DUPTABLE                         R4 K17 [{"ZIndex", "Transparency", "AlwaysOnTop", "Adornee", "Scale", "CFrame", "Color3"}]
-       25 LOADN                            R5 0
-       26 SETTABLEKS                       R5 R4 K10 ["ZIndex"]
-       28 LOADN                            R5 0
-       29 SETTABLEKS                       R5 R4 K11 ["Transparency"]
-       31 LOADB                            R5 1
-       32 SETTABLEKS                       R5 R4 K12 ["AlwaysOnTop"]
-       34 GETIMPORT                        R5 K19 [workspace]
-       36 GETTABLEKS                       R5 R5 K20 ["Terrain"]
-       38 SETTABLEKS                       R5 R4 K13 ["Adornee"]
-       40 LOADK                            R5 K21 [{1, 1, 1}]
-       41 SETTABLEKS                       R5 R4 K14 ["Scale"]
-       43 GETIMPORT                        R5 K23 [CFrame.identity]
-       45 SETTABLEKS                       R5 R4 K15 ["CFrame"]
-       47 GETIMPORT                        R5 K25 [Color3.new]
-       49 LOADN                            R6 1
-       50 LOADN                            R7 1
-       51 LOADN                            R8 1
-       52 CALL                             R5 3 1
-       53 SETTABLEKS                       R5 R4 K16 ["Color3"]
-       55 SETTABLEKS                       R4 R3 K26 ["defaultProps"]
-       57 DUPCLOSURE                       R4 K27 [PROTO_0]
-       58 CAPTURE                          VAL R2
-       59 SETTABLEKS                       R4 R3 K28 ["init"]
-       61 DUPCLOSURE                       R4 K29 [PROTO_1]
-       62 SETTABLEKS                       R4 R3 K30 ["didMount"]
-       64 DUPCLOSURE                       R4 K31 [PROTO_2]
-       65 SETTABLEKS                       R4 R3 K32 ["didUpdate"]
-       67 DUPCLOSURE                       R4 K33 [PROTO_3]
-       68 SETTABLEKS                       R4 R3 K34 ["_renderGrid"]
-       70 DUPCLOSURE                       R4 K35 [PROTO_4]
-       71 CAPTURE                          VAL R2
-       72 SETTABLEKS                       R4 R3 K36 ["render"]
-       74 RETURN                           R3 1
+       24 DUPTABLE                         R4 K20 [{["ZIndex"] = 0, ["Transparency"] = 0, ["AlwaysOnTop"] = True, ["Adornee"], ["Scale"] = {1, 1, 1}, ["CFrame"], ["Color3"]}]
+       25 GETIMPORT                        R5 K22 [workspace]
+       27 GETTABLEKS                       R5 R5 K23 ["Terrain"]
+       29 SETTABLEKS                       R5 R4 K15 ["Adornee"]
+       31 GETIMPORT                        R5 K25 [CFrame.identity]
+       33 SETTABLEKS                       R5 R4 K18 ["CFrame"]
+       35 GETIMPORT                        R5 K27 [Color3.new]
+       37 LOADN                            R6 1
+       38 LOADN                            R7 1
+       39 LOADN                            R8 1
+       40 CALL                             R5 3 1
+       41 SETTABLEKS                       R5 R4 K19 ["Color3"]
+       43 SETTABLEKS                       R4 R3 K28 ["defaultProps"]
+       45 DUPCLOSURE                       R4 K29 [PROTO_0]
+       46 CAPTURE                          VAL R2
+       47 SETTABLEKS                       R4 R3 K30 ["init"]
+       49 DUPCLOSURE                       R4 K31 [PROTO_1]
+       50 SETTABLEKS                       R4 R3 K32 ["didMount"]
+       52 DUPCLOSURE                       R4 K33 [PROTO_2]
+       53 SETTABLEKS                       R4 R3 K34 ["didUpdate"]
+       55 DUPCLOSURE                       R4 K35 [PROTO_3]
+       56 SETTABLEKS                       R4 R3 K36 ["_renderGrid"]
+       58 DUPCLOSURE                       R4 K37 [PROTO_4]
+       59 CAPTURE                          VAL R2
+       60 SETTABLEKS                       R4 R3 K38 ["render"]
+       62 RETURN                           R3 1

@@ -12,361 +12,257 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".LayerTreeRow"]
-       20 DUPTABLE                         R5 K15 [{"BorderSizePixel", "Size", "Padding", "Spacing"}]
-       21 LOADN                            R6 0
-       22 SETTABLEKS                       R6 R5 K11 ["BorderSizePixel"]
-       24 GETIMPORT                        R6 K18 [UDim2.new]
-       26 LOADN                            R7 1
-       27 LOADN                            R8 0
-       28 LOADN                            R9 0
-       29 LOADN                            R10 24
-       30 CALL                             R6 4 1
-       31 SETTABLEKS                       R6 R5 K12 ["Size"]
-       33 DUPTABLE                         R6 K23 [{"Top", "Bottom", "Left", "Right"}]
-       34 LOADN                            R7 1
-       35 SETTABLEKS                       R7 R6 K19 ["Top"]
-       37 LOADN                            R7 1
-       38 SETTABLEKS                       R7 R6 K20 ["Bottom"]
-       40 LOADN                            R7 0
-       41 SETTABLEKS                       R7 R6 K21 ["Left"]
-       43 LOADN                            R7 0
-       44 SETTABLEKS                       R7 R6 K22 ["Right"]
-       46 SETTABLEKS                       R6 R5 K13 ["Padding"]
-       48 LOADN                            R6 5
-       49 SETTABLEKS                       R6 R5 K14 ["Spacing"]
-       51 NEWTABLE                         R6 0 15
-       53 MOVE                             R7 R2
-       54 LOADK                            R8 K24 ["> .Client"]
-       55 DUPTABLE                         R9 K27 [{"TextColor3", "ImageColor3"}]
-       56 LOADK                            R10 K28 ["$Client"]
-       57 SETTABLEKS                       R10 R9 K25 ["TextColor3"]
-       59 LOADK                            R10 K28 ["$Client"]
-       60 SETTABLEKS                       R10 R9 K26 ["ImageColor3"]
-       62 CALL                             R7 2 1
-       63 MOVE                             R8 R2
-       64 LOADK                            R9 K29 ["> .Server"]
-       65 DUPTABLE                         R10 K27 [{"TextColor3", "ImageColor3"}]
-       66 LOADK                            R11 K30 ["$Server"]
-       67 SETTABLEKS                       R11 R10 K25 ["TextColor3"]
-       69 LOADK                            R11 K30 ["$Server"]
-       70 SETTABLEKS                       R11 R10 K26 ["ImageColor3"]
-       72 CALL                             R8 2 1
-       73 MOVE                             R9 R2
-       74 LOADK                            R10 K31 ["> #Toggle"]
-       75 DUPTABLE                         R11 K32 [{"Size"}]
-       76 LOADK                            R12 K33 ["$IconSize"]
-       77 SETTABLEKS                       R12 R11 K12 ["Size"]
-       79 NEWTABLE                         R12 0 1
-       81 MOVE                             R13 R2
-       82 LOADK                            R14 K34 ["> #ToggleButton"]
-       83 DUPTABLE                         R15 K40 [{"Image", "Size", "ImageRectSize", "ImageColor3", "BackgroundTransparency", "Position", "AnchorPoint"}]
-       84 LOADK                            R16 K41 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-       85 SETTABLEKS                       R16 R15 K35 ["Image"]
-       87 LOADK                            R16 K33 ["$IconSize"]
-       88 SETTABLEKS                       R16 R15 K12 ["Size"]
-       90 GETIMPORT                        R16 K43 [Vector2.new]
-       92 LOADN                            R17 12
-       93 LOADN                            R18 12
-       94 CALL                             R16 2 1
-       95 SETTABLEKS                       R16 R15 K36 ["ImageRectSize"]
-       97 LOADK                            R16 K44 ["$TextPrimary"]
-       98 SETTABLEKS                       R16 R15 K26 ["ImageColor3"]
-      100 LOADN                            R16 1
-      101 SETTABLEKS                       R16 R15 K37 ["BackgroundTransparency"]
-      103 GETIMPORT                        R16 K46 [UDim2.fromScale]
-      105 LOADK                            R17 K47 [0.5]
-      106 LOADK                            R18 K47 [0.5]
-      107 CALL                             R16 2 1
-      108 SETTABLEKS                       R16 R15 K38 ["Position"]
-      110 GETIMPORT                        R16 K43 [Vector2.new]
-      112 LOADK                            R17 K47 [0.5]
-      113 LOADK                            R18 K47 [0.5]
-      114 CALL                             R16 2 1
-      115 SETTABLEKS                       R16 R15 K39 ["AnchorPoint"]
-      117 CALL                             R13 2 -1
-      118 SETLIST                          R12 R13 -1 [1]
-      120 CALL                             R9 3 1
-      121 MOVE                             R10 R2
-      122 LOADK                            R11 K48 ["> .LayerIcon"]
-      123 DUPTABLE                         R12 K49 [{"Image", "Size"}]
-      124 LOADK                            R13 K50 ["rbxasset://textures/CompositorDebugger/default.png"]
-      125 SETTABLEKS                       R13 R12 K35 ["Image"]
-      127 LOADK                            R13 K33 ["$IconSize"]
-      128 SETTABLEKS                       R13 R12 K12 ["Size"]
-      130 CALL                             R10 2 1
-      131 MOVE                             R11 R2
-      132 LOADK                            R12 K51 ["> .Blend1D"]
-      133 DUPTABLE                         R13 K52 [{"Image"}]
-      134 LOADK                            R14 K53 ["rbxasset://textures/CompositorDebugger/blend1d.png"]
-      135 SETTABLEKS                       R14 R13 K35 ["Image"]
-      137 CALL                             R11 2 1
-      138 MOVE                             R12 R2
-      139 LOADK                            R13 K54 ["> .Blend2D"]
-      140 DUPTABLE                         R14 K52 [{"Image"}]
-      141 LOADK                            R15 K55 ["rbxasset://textures/CompositorDebugger/blend2d.png"]
-      142 SETTABLEKS                       R15 R14 K35 ["Image"]
-      144 CALL                             R12 2 1
-      145 MOVE                             R13 R2
-      146 LOADK                            R14 K56 ["> .BlendSpace"]
-      147 DUPTABLE                         R15 K52 [{"Image"}]
-      148 LOADK                            R16 K55 ["rbxasset://textures/CompositorDebugger/blend2d.png"]
-      149 SETTABLEKS                       R16 R15 K35 ["Image"]
-      151 CALL                             R13 2 1
-      152 MOVE                             R14 R2
-      153 LOADK                            R15 K57 ["> .ClipLayer"]
-      154 DUPTABLE                         R16 K52 [{"Image"}]
-      155 LOADK                            R17 K58 ["rbxasset://textures/CompositorDebugger/clip.png"]
-      156 SETTABLEKS                       R17 R16 K35 ["Image"]
-      158 CALL                             R14 2 1
-      159 MOVE                             R15 R2
-      160 LOADK                            R16 K59 ["> .SelectLayer"]
-      161 DUPTABLE                         R17 K52 [{"Image"}]
-      162 LOADK                            R18 K60 ["rbxasset://textures/CompositorDebugger/select.png"]
-      163 SETTABLEKS                       R18 R17 K35 ["Image"]
-      165 CALL                             R15 2 1
-      166 MOVE                             R16 R2
-      167 LOADK                            R17 K61 ["> .SequenceLayer"]
-      168 DUPTABLE                         R18 K52 [{"Image"}]
-      169 LOADK                            R19 K62 ["rbxasset://textures/CompositorDebugger/sequence.png"]
-      170 SETTABLEKS                       R19 R18 K35 ["Image"]
-      172 CALL                             R16 2 1
-      173 MOVE                             R17 R2
-      174 LOADK                            R18 K63 ["> .Name"]
-      175 DUPTABLE                         R19 K66 [{"TextTruncate", "TextXAlignment"}]
-      176 GETIMPORT                        R20 K69 [Enum.TextTruncate.AtEnd]
-      178 SETTABLEKS                       R20 R19 K64 ["TextTruncate"]
-      180 GETIMPORT                        R20 K70 [Enum.TextXAlignment.Left]
-      182 SETTABLEKS                       R20 R19 K65 ["TextXAlignment"]
-      184 CALL                             R17 2 1
-      185 MOVE                             R18 R2
-      186 LOADK                            R19 K71 ["> .RigName"]
-      187 DUPTABLE                         R20 K73 [{"Font"}]
-      188 GETIMPORT                        R21 K75 [Enum.Font.SourceSansBold]
-      190 SETTABLEKS                       R21 R20 K72 ["Font"]
-      192 CALL                             R18 2 1
-      193 MOVE                             R19 R2
-      194 LOADK                            R20 K76 ["> #Timestamp"]
-      195 NEWTABLE                         R21 0 0
-      197 NEWTABLE                         R22 0 1
-      199 MOVE                             R23 R2
-      200 LOADK                            R24 K77 ["> #ProgressBar"]
-      201 DUPTABLE                         R25 K80 [{"BackgroundColor3", "BackgroundTransparency", "BorderColor3", "BorderSizePixel", "AnchorPoint", "Size", "Position"}]
-      202 LOADK                            R26 K81 ["$BackgroundPaper"]
-      203 SETTABLEKS                       R26 R25 K78 ["BackgroundColor3"]
-      205 LOADN                            R26 0
-      206 SETTABLEKS                       R26 R25 K37 ["BackgroundTransparency"]
-      208 LOADK                            R26 K82 ["$TextSecondary"]
-      209 SETTABLEKS                       R26 R25 K79 ["BorderColor3"]
-      211 LOADN                            R26 1
-      212 SETTABLEKS                       R26 R25 K11 ["BorderSizePixel"]
-      214 GETIMPORT                        R26 K43 [Vector2.new]
-      216 LOADK                            R27 K47 [0.5]
-      217 LOADN                            R28 1
-      218 CALL                             R26 2 1
-      219 SETTABLEKS                       R26 R25 K39 ["AnchorPoint"]
-      221 GETIMPORT                        R26 K18 [UDim2.new]
-      223 LOADN                            R27 1
-      224 LOADN                            R28 0
-      225 LOADN                            R29 0
-      226 LOADN                            R30 2
-      227 CALL                             R26 4 1
-      228 SETTABLEKS                       R26 R25 K12 ["Size"]
-      230 GETIMPORT                        R26 K18 [UDim2.new]
-      232 LOADK                            R27 K47 [0.5]
-      233 LOADN                            R28 0
-      234 LOADN                            R29 1
-      235 LOADN                            R30 255
-      236 CALL                             R26 4 1
-      237 SETTABLEKS                       R26 R25 K38 ["Position"]
-      239 CALL                             R23 2 -1
-      240 SETLIST                          R22 R23 -1 [1]
-      242 CALL                             R19 3 1
-      243 MOVE                             R20 R2
-      244 LOADK                            R21 K83 ["> #Adornment"]
-      245 DUPTABLE                         R22 K84 [{"Size", "BackgroundTransparency"}]
-      246 GETIMPORT                        R23 K18 [UDim2.new]
-      248 LOADN                            R24 0
-      249 LOADN                            R25 12
-      250 LOADN                            R26 1
-      251 LOADN                            R27 0
-      252 CALL                             R23 4 1
-      253 SETTABLEKS                       R23 R22 K12 ["Size"]
-      255 LOADN                            R23 1
-      256 SETTABLEKS                       R23 R22 K37 ["BackgroundTransparency"]
-      258 NEWTABLE                         R23 0 2
-      260 MOVE                             R24 R2
-      261 LOADK                            R25 K85 ["> #EyeIcon"]
-      262 DUPTABLE                         R26 K87 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "ImageTransparency", "Image"}]
-      263 LOADK                            R27 K33 ["$IconSize"]
-      264 SETTABLEKS                       R27 R26 K12 ["Size"]
-      266 GETIMPORT                        R27 K46 [UDim2.fromScale]
-      268 LOADK                            R28 K47 [0.5]
-      269 LOADK                            R29 K47 [0.5]
-      270 CALL                             R27 2 1
-      271 SETTABLEKS                       R27 R26 K38 ["Position"]
-      273 GETIMPORT                        R27 K43 [Vector2.new]
-      275 LOADK                            R28 K47 [0.5]
-      276 LOADK                            R29 K47 [0.5]
-      277 CALL                             R27 2 1
-      278 SETTABLEKS                       R27 R26 K39 ["AnchorPoint"]
-      280 LOADN                            R27 1
-      281 SETTABLEKS                       R27 R26 K37 ["BackgroundTransparency"]
-      283 LOADN                            R27 0
-      284 SETTABLEKS                       R27 R26 K86 ["ImageTransparency"]
-      286 LOADK                            R27 K88 ["rbxasset://textures/CompositorDebugger/eye.png"]
-      287 SETTABLEKS                       R27 R26 K35 ["Image"]
-      289 NEWTABLE                         R27 0 2
-      291 MOVE                             R28 R2
-      292 LOADK                            R29 K89 [".AdornmentOff"]
-      293 DUPTABLE                         R30 K90 [{"ImageColor3"}]
-      294 LOADK                            R31 K81 ["$BackgroundPaper"]
-      295 SETTABLEKS                       R31 R30 K26 ["ImageColor3"]
-      297 CALL                             R28 2 1
-      298 MOVE                             R29 R2
-      299 LOADK                            R30 K91 [".AdornmentOn"]
-      300 DUPTABLE                         R31 K90 [{"ImageColor3"}]
-      301 LOADK                            R32 K44 ["$TextPrimary"]
-      302 SETTABLEKS                       R32 R31 K26 ["ImageColor3"]
-      304 CALL                             R29 2 -1
-      305 SETLIST                          R27 R28 -1 [1]
-      307 CALL                             R24 3 1
-      308 MOVE                             R25 R2
-      309 LOADK                            R26 K92 ["> #Dot"]
-      310 DUPTABLE                         R27 K87 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "ImageTransparency", "Image"}]
-      311 GETIMPORT                        R28 K94 [UDim2.fromOffset]
-      313 LOADN                            R29 10
-      314 LOADN                            R30 10
-      315 CALL                             R28 2 1
-      316 SETTABLEKS                       R28 R27 K12 ["Size"]
-      318 GETIMPORT                        R28 K46 [UDim2.fromScale]
-      320 LOADK                            R29 K47 [0.5]
-      321 LOADK                            R30 K47 [0.5]
-      322 CALL                             R28 2 1
-      323 SETTABLEKS                       R28 R27 K38 ["Position"]
-      325 GETIMPORT                        R28 K43 [Vector2.new]
-      327 LOADK                            R29 K47 [0.5]
-      328 LOADK                            R30 K47 [0.5]
-      329 CALL                             R28 2 1
-      330 SETTABLEKS                       R28 R27 K39 ["AnchorPoint"]
-      332 LOADN                            R28 1
-      333 SETTABLEKS                       R28 R27 K37 ["BackgroundTransparency"]
-      335 LOADN                            R28 0
-      336 SETTABLEKS                       R28 R27 K86 ["ImageTransparency"]
-      338 LOADK                            R28 K95 ["rbxasset://textures/CompositorDebugger/adornmentDot.png"]
-      339 SETTABLEKS                       R28 R27 K35 ["Image"]
-      341 NEWTABLE                         R28 0 12
-      343 MOVE                             R29 R2
-      344 LOADK                            R30 K96 [".AdornmentDotOff"]
-      345 DUPTABLE                         R31 K97 [{"ImageTransparency"}]
-      346 LOADN                            R32 1
-      347 SETTABLEKS                       R32 R31 K86 ["ImageTransparency"]
-      349 CALL                             R29 2 1
-      350 MOVE                             R30 R2
-      351 LOADK                            R31 K98 [".AdornmentDot1"]
-      352 DUPTABLE                         R32 K90 [{"ImageColor3"}]
-      353 LOADK                            R33 K99 ["$AdornmentDot1"]
-      354 SETTABLEKS                       R33 R32 K26 ["ImageColor3"]
-      356 CALL                             R30 2 1
-      357 MOVE                             R31 R2
-      358 LOADK                            R32 K100 [".AdornmentDot2"]
-      359 DUPTABLE                         R33 K90 [{"ImageColor3"}]
-      360 LOADK                            R34 K101 ["$AdornmentDot2"]
-      361 SETTABLEKS                       R34 R33 K26 ["ImageColor3"]
-      363 CALL                             R31 2 1
-      364 MOVE                             R32 R2
-      365 LOADK                            R33 K102 [".AdornmentDot3"]
-      366 DUPTABLE                         R34 K90 [{"ImageColor3"}]
-      367 LOADK                            R35 K103 ["$AdornmentDot3"]
-      368 SETTABLEKS                       R35 R34 K26 ["ImageColor3"]
-      370 CALL                             R32 2 1
-      371 MOVE                             R33 R2
-      372 LOADK                            R34 K104 [".AdornmentDot4"]
-      373 DUPTABLE                         R35 K90 [{"ImageColor3"}]
-      374 LOADK                            R36 K105 ["$AdornmentDot4"]
-      375 SETTABLEKS                       R36 R35 K26 ["ImageColor3"]
-      377 CALL                             R33 2 1
-      378 MOVE                             R34 R2
-      379 LOADK                            R35 K106 [".AdornmentDot5"]
-      380 DUPTABLE                         R36 K90 [{"ImageColor3"}]
-      381 LOADK                            R37 K107 ["$AdornmentDot5"]
-      382 SETTABLEKS                       R37 R36 K26 ["ImageColor3"]
-      384 CALL                             R34 2 1
-      385 MOVE                             R35 R2
-      386 LOADK                            R36 K108 [".AdornmentDot6"]
-      387 DUPTABLE                         R37 K90 [{"ImageColor3"}]
-      388 LOADK                            R38 K109 ["$AdornmentDot6"]
-      389 SETTABLEKS                       R38 R37 K26 ["ImageColor3"]
-      391 CALL                             R35 2 1
-      392 MOVE                             R36 R2
-      393 LOADK                            R37 K110 [".AdornmentDot7"]
-      394 DUPTABLE                         R38 K90 [{"ImageColor3"}]
-      395 LOADK                            R39 K111 ["$AdornmentDot7"]
-      396 SETTABLEKS                       R39 R38 K26 ["ImageColor3"]
-      398 CALL                             R36 2 1
-      399 MOVE                             R37 R2
-      400 LOADK                            R38 K112 [".AdornmentDot8"]
-      401 DUPTABLE                         R39 K90 [{"ImageColor3"}]
-      402 LOADK                            R40 K113 ["$AdornmentDot8"]
-      403 SETTABLEKS                       R40 R39 K26 ["ImageColor3"]
-      405 CALL                             R37 2 1
-      406 MOVE                             R38 R2
-      407 LOADK                            R39 K114 [".AdornmentDot9"]
-      408 DUPTABLE                         R40 K90 [{"ImageColor3"}]
-      409 LOADK                            R41 K115 ["$AdornmentDot9"]
-      410 SETTABLEKS                       R41 R40 K26 ["ImageColor3"]
-      412 CALL                             R38 2 1
-      413 MOVE                             R39 R2
-      414 LOADK                            R40 K116 [".AdornmentDot10"]
-      415 DUPTABLE                         R41 K90 [{"ImageColor3"}]
-      416 LOADK                            R42 K117 ["$AdornmentDot10"]
-      417 SETTABLEKS                       R42 R41 K26 ["ImageColor3"]
-      419 CALL                             R39 2 1
-      420 MOVE                             R40 R2
-      421 LOADK                            R41 K118 [".AdornmentDot11"]
-      422 DUPTABLE                         R42 K90 [{"ImageColor3"}]
-      423 LOADK                            R43 K119 ["$AdornmentDot11"]
-      424 SETTABLEKS                       R43 R42 K26 ["ImageColor3"]
-      426 CALL                             R40 2 -1
-      427 SETLIST                          R28 R29 -1 [1]
-      429 CALL                             R25 3 -1
-      430 SETLIST                          R23 R24 -1 [1]
-      432 CALL                             R20 3 1
-      433 MOVE                             R21 R2
-      434 LOADK                            R22 K120 [":hover"]
-      435 DUPTABLE                         R23 K121 [{"BackgroundColor3", "BackgroundTransparency"}]
-      436 LOADK                            R24 K122 ["$LayerHover"]
-      437 SETTABLEKS                       R24 R23 K78 ["BackgroundColor3"]
-      439 LOADN                            R24 0
-      440 SETTABLEKS                       R24 R23 K37 ["BackgroundTransparency"]
-      442 CALL                             R21 2 -1
-      443 SETLIST                          R6 R7 -1 [1]
-      445 DUPTABLE                         R7 K129 [{"Indent", "Client", "Server", "IconSize", "ExpandedOffset", "CollapsedOffset"}]
-      446 LOADN                            R8 17
-      447 SETTABLEKS                       R8 R7 K123 ["Indent"]
-      449 GETIMPORT                        R8 K132 [Color3.fromHex]
-      451 LOADK                            R9 K133 ["349AD5"]
-      452 CALL                             R8 1 1
-      453 SETTABLEKS                       R8 R7 K124 ["Client"]
-      455 GETIMPORT                        R8 K132 [Color3.fromHex]
-      457 LOADK                            R9 K134 ["00CC67"]
-      458 CALL                             R8 1 1
-      459 SETTABLEKS                       R8 R7 K125 ["Server"]
-      461 GETIMPORT                        R8 K18 [UDim2.new]
-      463 LOADN                            R9 0
-      464 LOADN                            R10 12
-      465 LOADN                            R11 0
-      466 LOADN                            R12 12
-      467 CALL                             R8 4 1
-      468 SETTABLEKS                       R8 R7 K126 ["IconSize"]
-      470 GETIMPORT                        R8 K43 [Vector2.new]
-      472 LOADN                            R9 24
-      473 LOADN                            R10 0
-      474 CALL                             R8 2 1
-      475 SETTABLEKS                       R8 R7 K127 ["ExpandedOffset"]
-      477 GETIMPORT                        R8 K43 [Vector2.new]
-      479 LOADN                            R9 12
-      480 LOADN                            R10 0
-      481 CALL                             R8 2 1
-      482 SETTABLEKS                       R8 R7 K128 ["CollapsedOffset"]
-      484 CALL                             R3 4 -1
-      485 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K17 [{["BorderSizePixel"] = 0, ["Size"], ["Padding"], ["Spacing"] = 5}]
+       21 GETIMPORT                        R6 K20 [UDim2.new]
+       23 LOADN                            R7 1
+       24 LOADN                            R8 0
+       25 LOADN                            R9 0
+       26 LOADN                            R10 24
+       27 CALL                             R6 4 1
+       28 SETTABLEKS                       R6 R5 K13 ["Size"]
+       30 DUPTABLE                         R6 K26 [{["Top"] = 1, ["Bottom"] = 1, ["Left"] = 0, ["Right"] = 0}]
+       31 SETTABLEKS                       R6 R5 K14 ["Padding"]
+       33 NEWTABLE                         R6 0 15
+       35 MOVE                             R7 R2
+       36 LOADK                            R8 K27 ["> .Client"]
+       37 DUPTABLE                         R9 K31 [{["TextColor3"] = "$Client", ["ImageColor3"] = "$Client"}]
+       38 CALL                             R7 2 1
+       39 MOVE                             R8 R2
+       40 LOADK                            R9 K32 ["> .Server"]
+       41 DUPTABLE                         R10 K34 [{["TextColor3"] = "$Server", ["ImageColor3"] = "$Server"}]
+       42 CALL                             R8 2 1
+       43 MOVE                             R9 R2
+       44 LOADK                            R10 K35 ["> #Toggle"]
+       45 DUPTABLE                         R11 K37 [{["Size"] = "$IconSize"}]
+       46 NEWTABLE                         R12 0 1
+       48 MOVE                             R13 R2
+       49 LOADK                            R14 K38 ["> #ToggleButton"]
+       50 DUPTABLE                         R15 K46 [{["Image"] = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", ["Size"] = "$IconSize", ["ImageRectSize"], ["ImageColor3"] = "$TextPrimary", ["BackgroundTransparency"] = 1, ["Position"], ["AnchorPoint"]}]
+       51 GETIMPORT                        R16 K48 [Vector2.new]
+       53 LOADN                            R17 12
+       54 LOADN                            R18 12
+       55 CALL                             R16 2 1
+       56 SETTABLEKS                       R16 R15 K41 ["ImageRectSize"]
+       58 GETIMPORT                        R16 K50 [UDim2.fromScale]
+       60 LOADK                            R17 K51 [0.5]
+       61 LOADK                            R18 K51 [0.5]
+       62 CALL                             R16 2 1
+       63 SETTABLEKS                       R16 R15 K44 ["Position"]
+       65 GETIMPORT                        R16 K48 [Vector2.new]
+       67 LOADK                            R17 K51 [0.5]
+       68 LOADK                            R18 K51 [0.5]
+       69 CALL                             R16 2 1
+       70 SETTABLEKS                       R16 R15 K45 ["AnchorPoint"]
+       72 CALL                             R13 2 -1
+       73 SETLIST                          R12 R13 -1 [1]
+       75 CALL                             R9 3 1
+       76 MOVE                             R10 R2
+       77 LOADK                            R11 K52 ["> .LayerIcon"]
+       78 DUPTABLE                         R12 K54 [{["Image"] = "rbxasset://textures/CompositorDebugger/default.png", ["Size"] = "$IconSize"}]
+       79 CALL                             R10 2 1
+       80 MOVE                             R11 R2
+       81 LOADK                            R12 K55 ["> .Blend1D"]
+       82 DUPTABLE                         R13 K57 [{["Image"] = "rbxasset://textures/CompositorDebugger/blend1d.png"}]
+       83 CALL                             R11 2 1
+       84 MOVE                             R12 R2
+       85 LOADK                            R13 K58 ["> .Blend2D"]
+       86 DUPTABLE                         R14 K60 [{["Image"] = "rbxasset://textures/CompositorDebugger/blend2d.png"}]
+       87 CALL                             R12 2 1
+       88 MOVE                             R13 R2
+       89 LOADK                            R14 K61 ["> .BlendSpace"]
+       90 DUPTABLE                         R15 K60 [{["Image"] = "rbxasset://textures/CompositorDebugger/blend2d.png"}]
+       91 CALL                             R13 2 1
+       92 MOVE                             R14 R2
+       93 LOADK                            R15 K62 ["> .ClipLayer"]
+       94 DUPTABLE                         R16 K64 [{["Image"] = "rbxasset://textures/CompositorDebugger/clip.png"}]
+       95 CALL                             R14 2 1
+       96 MOVE                             R15 R2
+       97 LOADK                            R16 K65 ["> .SelectLayer"]
+       98 DUPTABLE                         R17 K67 [{["Image"] = "rbxasset://textures/CompositorDebugger/select.png"}]
+       99 CALL                             R15 2 1
+      100 MOVE                             R16 R2
+      101 LOADK                            R17 K68 ["> .SequenceLayer"]
+      102 DUPTABLE                         R18 K70 [{["Image"] = "rbxasset://textures/CompositorDebugger/sequence.png"}]
+      103 CALL                             R16 2 1
+      104 MOVE                             R17 R2
+      105 LOADK                            R18 K71 ["> .Name"]
+      106 DUPTABLE                         R19 K74 [{"TextTruncate", "TextXAlignment"}]
+      107 GETIMPORT                        R20 K77 [Enum.TextTruncate.AtEnd]
+      109 SETTABLEKS                       R20 R19 K72 ["TextTruncate"]
+      111 GETIMPORT                        R20 K78 [Enum.TextXAlignment.Left]
+      113 SETTABLEKS                       R20 R19 K73 ["TextXAlignment"]
+      115 CALL                             R17 2 1
+      116 MOVE                             R18 R2
+      117 LOADK                            R19 K79 ["> .RigName"]
+      118 DUPTABLE                         R20 K81 [{"Font"}]
+      119 GETIMPORT                        R21 K83 [Enum.Font.SourceSansBold]
+      121 SETTABLEKS                       R21 R20 K80 ["Font"]
+      123 CALL                             R18 2 1
+      124 MOVE                             R19 R2
+      125 LOADK                            R20 K84 ["> #Timestamp"]
+      126 NEWTABLE                         R21 0 0
+      128 NEWTABLE                         R22 0 1
+      130 MOVE                             R23 R2
+      131 LOADK                            R24 K85 ["> #ProgressBar"]
+      132 DUPTABLE                         R25 K90 [{["BackgroundColor3"] = "$BackgroundPaper", ["BackgroundTransparency"] = 0, ["BorderColor3"] = "$TextSecondary", ["BorderSizePixel"] = 1, ["AnchorPoint"], ["Size"], ["Position"]}]
+      133 GETIMPORT                        R26 K48 [Vector2.new]
+      135 LOADK                            R27 K51 [0.5]
+      136 LOADN                            R28 1
+      137 CALL                             R26 2 1
+      138 SETTABLEKS                       R26 R25 K45 ["AnchorPoint"]
+      140 GETIMPORT                        R26 K20 [UDim2.new]
+      142 LOADN                            R27 1
+      143 LOADN                            R28 0
+      144 LOADN                            R29 0
+      145 LOADN                            R30 2
+      146 CALL                             R26 4 1
+      147 SETTABLEKS                       R26 R25 K13 ["Size"]
+      149 GETIMPORT                        R26 K20 [UDim2.new]
+      151 LOADK                            R27 K51 [0.5]
+      152 LOADN                            R28 0
+      153 LOADN                            R29 1
+      154 LOADN                            R30 -1
+      155 CALL                             R26 4 1
+      156 SETTABLEKS                       R26 R25 K44 ["Position"]
+      158 CALL                             R23 2 -1
+      159 SETLIST                          R22 R23 -1 [1]
+      161 CALL                             R19 3 1
+      162 MOVE                             R20 R2
+      163 LOADK                            R21 K91 ["> #Adornment"]
+      164 DUPTABLE                         R22 K92 [{["Size"], ["BackgroundTransparency"] = 1}]
+      165 GETIMPORT                        R23 K20 [UDim2.new]
+      167 LOADN                            R24 0
+      168 LOADN                            R25 12
+      169 LOADN                            R26 1
+      170 LOADN                            R27 0
+      171 CALL                             R23 4 1
+      172 SETTABLEKS                       R23 R22 K13 ["Size"]
+      174 NEWTABLE                         R23 0 2
+      176 MOVE                             R24 R2
+      177 LOADK                            R25 K93 ["> #EyeIcon"]
+      178 DUPTABLE                         R26 K96 [{["Size"] = "$IconSize", ["Position"], ["AnchorPoint"], ["BackgroundTransparency"] = 1, ["ImageTransparency"] = 0, ["Image"] = "rbxasset://textures/CompositorDebugger/eye.png"}]
+      179 GETIMPORT                        R27 K50 [UDim2.fromScale]
+      181 LOADK                            R28 K51 [0.5]
+      182 LOADK                            R29 K51 [0.5]
+      183 CALL                             R27 2 1
+      184 SETTABLEKS                       R27 R26 K44 ["Position"]
+      186 GETIMPORT                        R27 K48 [Vector2.new]
+      188 LOADK                            R28 K51 [0.5]
+      189 LOADK                            R29 K51 [0.5]
+      190 CALL                             R27 2 1
+      191 SETTABLEKS                       R27 R26 K45 ["AnchorPoint"]
+      193 NEWTABLE                         R27 0 2
+      195 MOVE                             R28 R2
+      196 LOADK                            R29 K97 [".AdornmentOff"]
+      197 DUPTABLE                         R30 K98 [{["ImageColor3"] = "$BackgroundPaper"}]
+      198 CALL                             R28 2 1
+      199 MOVE                             R29 R2
+      200 LOADK                            R30 K99 [".AdornmentOn"]
+      201 DUPTABLE                         R31 K100 [{["ImageColor3"] = "$TextPrimary"}]
+      202 CALL                             R29 2 -1
+      203 SETLIST                          R27 R28 -1 [1]
+      205 CALL                             R24 3 1
+      206 MOVE                             R25 R2
+      207 LOADK                            R26 K101 ["> #Dot"]
+      208 DUPTABLE                         R27 K103 [{["Size"], ["Position"], ["AnchorPoint"], ["BackgroundTransparency"] = 1, ["ImageTransparency"] = 0, ["Image"] = "rbxasset://textures/CompositorDebugger/adornmentDot.png"}]
+      209 GETIMPORT                        R28 K105 [UDim2.fromOffset]
+      211 LOADN                            R29 10
+      212 LOADN                            R30 10
+      213 CALL                             R28 2 1
+      214 SETTABLEKS                       R28 R27 K13 ["Size"]
+      216 GETIMPORT                        R28 K50 [UDim2.fromScale]
+      218 LOADK                            R29 K51 [0.5]
+      219 LOADK                            R30 K51 [0.5]
+      220 CALL                             R28 2 1
+      221 SETTABLEKS                       R28 R27 K44 ["Position"]
+      223 GETIMPORT                        R28 K48 [Vector2.new]
+      225 LOADK                            R29 K51 [0.5]
+      226 LOADK                            R30 K51 [0.5]
+      227 CALL                             R28 2 1
+      228 SETTABLEKS                       R28 R27 K45 ["AnchorPoint"]
+      230 NEWTABLE                         R28 0 12
+      232 MOVE                             R29 R2
+      233 LOADK                            R30 K106 [".AdornmentDotOff"]
+      234 DUPTABLE                         R31 K107 [{["ImageTransparency"] = 1}]
+      235 CALL                             R29 2 1
+      236 MOVE                             R30 R2
+      237 LOADK                            R31 K108 [".AdornmentDot1"]
+      238 DUPTABLE                         R32 K110 [{["ImageColor3"] = "$AdornmentDot1"}]
+      239 CALL                             R30 2 1
+      240 MOVE                             R31 R2
+      241 LOADK                            R32 K111 [".AdornmentDot2"]
+      242 DUPTABLE                         R33 K113 [{["ImageColor3"] = "$AdornmentDot2"}]
+      243 CALL                             R31 2 1
+      244 MOVE                             R32 R2
+      245 LOADK                            R33 K114 [".AdornmentDot3"]
+      246 DUPTABLE                         R34 K116 [{["ImageColor3"] = "$AdornmentDot3"}]
+      247 CALL                             R32 2 1
+      248 MOVE                             R33 R2
+      249 LOADK                            R34 K117 [".AdornmentDot4"]
+      250 DUPTABLE                         R35 K119 [{["ImageColor3"] = "$AdornmentDot4"}]
+      251 CALL                             R33 2 1
+      252 MOVE                             R34 R2
+      253 LOADK                            R35 K120 [".AdornmentDot5"]
+      254 DUPTABLE                         R36 K122 [{["ImageColor3"] = "$AdornmentDot5"}]
+      255 CALL                             R34 2 1
+      256 MOVE                             R35 R2
+      257 LOADK                            R36 K123 [".AdornmentDot6"]
+      258 DUPTABLE                         R37 K125 [{["ImageColor3"] = "$AdornmentDot6"}]
+      259 CALL                             R35 2 1
+      260 MOVE                             R36 R2
+      261 LOADK                            R37 K126 [".AdornmentDot7"]
+      262 DUPTABLE                         R38 K128 [{["ImageColor3"] = "$AdornmentDot7"}]
+      263 CALL                             R36 2 1
+      264 MOVE                             R37 R2
+      265 LOADK                            R38 K129 [".AdornmentDot8"]
+      266 DUPTABLE                         R39 K131 [{["ImageColor3"] = "$AdornmentDot8"}]
+      267 CALL                             R37 2 1
+      268 MOVE                             R38 R2
+      269 LOADK                            R39 K132 [".AdornmentDot9"]
+      270 DUPTABLE                         R40 K134 [{["ImageColor3"] = "$AdornmentDot9"}]
+      271 CALL                             R38 2 1
+      272 MOVE                             R39 R2
+      273 LOADK                            R40 K135 [".AdornmentDot10"]
+      274 DUPTABLE                         R41 K137 [{["ImageColor3"] = "$AdornmentDot10"}]
+      275 CALL                             R39 2 1
+      276 MOVE                             R40 R2
+      277 LOADK                            R41 K138 [".AdornmentDot11"]
+      278 DUPTABLE                         R42 K140 [{["ImageColor3"] = "$AdornmentDot11"}]
+      279 CALL                             R40 2 -1
+      280 SETLIST                          R28 R29 -1 [1]
+      282 CALL                             R25 3 -1
+      283 SETLIST                          R23 R24 -1 [1]
+      285 CALL                             R20 3 1
+      286 MOVE                             R21 R2
+      287 LOADK                            R22 K141 [":hover"]
+      288 DUPTABLE                         R23 K143 [{["BackgroundColor3"] = "$LayerHover", ["BackgroundTransparency"] = 0}]
+      289 CALL                             R21 2 -1
+      290 SETLIST                          R6 R7 -1 [1]
+      292 DUPTABLE                         R7 K151 [{["Indent"] = 17, ["Client"], ["Server"], ["IconSize"], ["ExpandedOffset"], ["CollapsedOffset"]}]
+      293 GETIMPORT                        R8 K154 [Color3.fromHex]
+      295 LOADK                            R9 K155 ["349AD5"]
+      296 CALL                             R8 1 1
+      297 SETTABLEKS                       R8 R7 K146 ["Client"]
+      299 GETIMPORT                        R8 K154 [Color3.fromHex]
+      301 LOADK                            R9 K156 ["00CC67"]
+      302 CALL                             R8 1 1
+      303 SETTABLEKS                       R8 R7 K147 ["Server"]
+      305 GETIMPORT                        R8 K20 [UDim2.new]
+      307 LOADN                            R9 0
+      308 LOADN                            R10 12
+      309 LOADN                            R11 0
+      310 LOADN                            R12 12
+      311 CALL                             R8 4 1
+      312 SETTABLEKS                       R8 R7 K148 ["IconSize"]
+      314 GETIMPORT                        R8 K48 [Vector2.new]
+      316 LOADN                            R9 24
+      317 LOADN                            R10 0
+      318 CALL                             R8 2 1
+      319 SETTABLEKS                       R8 R7 K149 ["ExpandedOffset"]
+      321 GETIMPORT                        R8 K48 [Vector2.new]
+      323 LOADN                            R9 12
+      324 LOADN                            R10 0
+      325 CALL                             R8 2 1
+      326 SETTABLEKS                       R8 R7 K150 ["CollapsedOffset"]
+      328 CALL                             R3 4 -1
+      329 RETURN                           R3 -1

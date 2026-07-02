@@ -48,7 +48,7 @@ PROTO_1:
        56 JUMP                             ; [+7]
        57 LOADN                            R6 1
        58 JUMPIFNOTLT                      R6 R4 ; [+3]
-       60 LOADN                            R5 255
+       60 LOADN                            R5 -1
        61 JUMP                             ; [+1]
        62 LOADN                            R5 0
        63 ADD                              R4 R4 R5

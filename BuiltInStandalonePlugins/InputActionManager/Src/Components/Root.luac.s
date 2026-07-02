@@ -93,59 +93,51 @@ PROTO_5:
        50 GETUPVAL                         R7 0
        51 GETTABLEKS                       R7 R7 K7 ["createElement"]
        53 GETUPVAL                         R8 5
-       54 DUPTABLE                         R9 K12 [{"ref", "tag", "testId", "onAbsoluteSizeChanged"}]
+       54 DUPTABLE                         R9 K14 [{["ref"], ["tag"] = "search-root col align-y-top size-full-full bg-surface-200", ["testId"] = "root", ["onAbsoluteSizeChanged"]}]
        55 SETTABLEKS                       R6 R9 K8 ["ref"]
-       57 LOADK                            R10 K13 ["size-full-full col align-y-top bg-surface-200 search-root"]
-       58 SETTABLEKS                       R10 R9 K9 ["tag"]
-       60 LOADK                            R10 K14 ["root"]
-       61 SETTABLEKS                       R10 R9 K10 ["testId"]
-       63 SETTABLEKS                       R3 R9 K11 ["onAbsoluteSizeChanged"]
-       65 DUPTABLE                         R10 K17 [{"SearchContainer", "InputTree"}]
-       66 GETUPVAL                         R11 0
-       67 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       69 GETUPVAL                         R12 5
-       70 DUPTABLE                         R13 K19 [{"LayoutOrder", "tag"}]
-       71 MOVE                             R14 R4
-       72 CALL                             R14 0 1
-       73 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
-       75 LOADK                            R14 K20 ["size-full-0 auto-y padding-small"]
-       76 SETTABLEKS                       R14 R13 K9 ["tag"]
-       78 DUPTABLE                         R14 K22 [{"SearchBar"}]
-       79 GETUPVAL                         R15 0
-       80 GETTABLEKS                       R15 R15 K7 ["createElement"]
-       82 GETUPVAL                         R16 6
-       83 DUPTABLE                         R17 K27 [{"text", "onChanged", "placeholder", "width", "testId"}]
-       84 GETTABLEKS                       R18 R1 K28 ["searchString"]
-       86 SETTABLEKS                       R18 R17 K23 ["text"]
-       88 GETTABLEKS                       R18 R1 K29 ["setSearchString"]
-       90 SETTABLEKS                       R18 R17 K24 ["onChanged"]
-       92 LOADK                            R20 K30 ["Header"]
-       93 LOADK                            R21 K31 ["Search"]
-       94 NAMECALL                         R18 R0 K32 ["getText"]
-       96 CALL                             R18 3 1
-       97 SETTABLEKS                       R18 R17 K25 ["placeholder"]
-       99 GETIMPORT                        R18 K35 [UDim.new]
-      101 LOADN                            R19 1
-      102 LOADN                            R20 0
-      103 CALL                             R18 2 1
-      104 SETTABLEKS                       R18 R17 K26 ["width"]
-      106 LOADK                            R18 K36 ["search-bar"]
-      107 SETTABLEKS                       R18 R17 K10 ["testId"]
-      109 CALL                             R15 2 1
-      110 SETTABLEKS                       R15 R14 K21 ["SearchBar"]
-      112 CALL                             R11 3 1
-      113 SETTABLEKS                       R11 R10 K15 ["SearchContainer"]
-      115 GETUPVAL                         R11 0
-      116 GETTABLEKS                       R11 R11 K7 ["createElement"]
-      118 GETUPVAL                         R12 7
-      119 DUPTABLE                         R13 K37 [{"LayoutOrder"}]
-      120 MOVE                             R14 R4
-      121 CALL                             R14 0 1
-      122 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
-      124 CALL                             R11 2 1
-      125 SETTABLEKS                       R11 R10 K16 ["InputTree"]
-      127 CALL                             R7 3 -1
-      128 RETURN                           R7 -1
+       57 SETTABLEKS                       R3 R9 K13 ["onAbsoluteSizeChanged"]
+       59 DUPTABLE                         R10 K17 [{"SearchContainer", "InputTree"}]
+       60 GETUPVAL                         R11 0
+       61 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       63 GETUPVAL                         R12 5
+       64 DUPTABLE                         R13 K20 [{["LayoutOrder"], ["tag"] = "size-full-0 auto-y padding-small"}]
+       65 MOVE                             R14 R4
+       66 CALL                             R14 0 1
+       67 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
+       69 DUPTABLE                         R14 K22 [{"SearchBar"}]
+       70 GETUPVAL                         R15 0
+       71 GETTABLEKS                       R15 R15 K7 ["createElement"]
+       73 GETUPVAL                         R16 6
+       74 DUPTABLE                         R17 K28 [{["text"], ["onChanged"], ["placeholder"], ["width"], ["testId"] = "search-bar"}]
+       75 GETTABLEKS                       R18 R1 K29 ["searchString"]
+       77 SETTABLEKS                       R18 R17 K23 ["text"]
+       79 GETTABLEKS                       R18 R1 K30 ["setSearchString"]
+       81 SETTABLEKS                       R18 R17 K24 ["onChanged"]
+       83 LOADK                            R20 K31 ["Header"]
+       84 LOADK                            R21 K32 ["Search"]
+       85 NAMECALL                         R18 R0 K33 ["getText"]
+       87 CALL                             R18 3 1
+       88 SETTABLEKS                       R18 R17 K25 ["placeholder"]
+       90 GETIMPORT                        R18 K36 [UDim.new]
+       92 LOADN                            R19 1
+       93 LOADN                            R20 0
+       94 CALL                             R18 2 1
+       95 SETTABLEKS                       R18 R17 K26 ["width"]
+       97 CALL                             R15 2 1
+       98 SETTABLEKS                       R15 R14 K21 ["SearchBar"]
+      100 CALL                             R11 3 1
+      101 SETTABLEKS                       R11 R10 K15 ["SearchContainer"]
+      103 GETUPVAL                         R11 0
+      104 GETTABLEKS                       R11 R11 K7 ["createElement"]
+      106 GETUPVAL                         R12 7
+      107 DUPTABLE                         R13 K37 [{"LayoutOrder"}]
+      108 MOVE                             R14 R4
+      109 CALL                             R14 0 1
+      110 SETTABLEKS                       R14 R13 K18 ["LayoutOrder"]
+      112 CALL                             R11 2 1
+      113 SETTABLEKS                       R11 R10 K16 ["InputTree"]
+      115 CALL                             R7 3 -1
+      116 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

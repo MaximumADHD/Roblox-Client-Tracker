@@ -31,61 +31,51 @@ MAIN:
        43 NEWTABLE                         R6 0 3
        45 MOVE                             R7 R2
        46 LOADK                            R8 K17 ["> TextButton"]
-       47 DUPTABLE                         R9 K19 [{"BorderSizePixel"}]
-       48 LOADN                            R10 0
-       49 SETTABLEKS                       R10 R9 K18 ["BorderSizePixel"]
-       51 CALL                             R7 2 1
-       52 MOVE                             R8 R2
-       53 LOADK                            R9 K20 [">> .DestKey"]
-       54 DUPTABLE                         R10 K23 [{"TextColor3", "TextXAlignment", "Size"}]
-       55 LOADK                            R11 K24 ["$TextSecondary"]
-       56 SETTABLEKS                       R11 R10 K21 ["TextColor3"]
-       58 GETIMPORT                        R11 K27 [Enum.TextXAlignment.Right]
-       60 SETTABLEKS                       R11 R10 K22 ["TextXAlignment"]
-       62 GETIMPORT                        R11 K15 [UDim2.new]
-       64 LOADK                            R12 K28 [0.6]
-       65 LOADN                            R13 0
-       66 LOADN                            R14 1
-       67 LOADN                            R15 0
-       68 CALL                             R11 4 1
-       69 SETTABLEKS                       R11 R10 K10 ["Size"]
-       71 NEWTABLE                         R11 0 1
-       73 MOVE                             R12 R2
-       74 LOADK                            R13 K29 ["::UIPadding"]
-       75 DUPTABLE                         R14 K31 [{"PaddingRight"}]
-       76 GETIMPORT                        R15 K33 [UDim.new]
-       78 LOADN                            R16 0
-       79 LOADN                            R17 8
-       80 CALL                             R15 2 1
-       81 SETTABLEKS                       R15 R14 K30 ["PaddingRight"]
-       83 CALL                             R12 2 -1
-       84 SETLIST                          R11 R12 -1 [1]
-       86 CALL                             R8 3 1
-       87 MOVE                             R9 R2
-       88 LOADK                            R10 K34 [">> .SrcKey"]
-       89 DUPTABLE                         R11 K36 [{"TextColor3", "TextXAlignment", "BackgroundColor3", "Size"}]
-       90 LOADK                            R12 K37 ["$TextPrimary"]
-       91 SETTABLEKS                       R12 R11 K21 ["TextColor3"]
-       93 GETIMPORT                        R12 K39 [Enum.TextXAlignment.Center]
-       95 SETTABLEKS                       R12 R11 K22 ["TextXAlignment"]
-       97 LOADK                            R12 K40 ["$MappingLabel"]
-       98 SETTABLEKS                       R12 R11 K35 ["BackgroundColor3"]
-      100 GETIMPORT                        R12 K15 [UDim2.new]
-      102 LOADK                            R13 K41 [0.4]
-      103 LOADN                            R14 0
-      104 LOADN                            R15 1
-      105 LOADN                            R16 0
-      106 CALL                             R12 4 1
-      107 SETTABLEKS                       R12 R11 K10 ["Size"]
-      109 NEWTABLE                         R12 0 1
-      111 MOVE                             R13 R2
-      112 LOADK                            R14 K42 [":hover"]
-      113 DUPTABLE                         R15 K43 [{"BackgroundColor3"}]
-      114 LOADK                            R16 K44 ["$MappingLabelHover"]
-      115 SETTABLEKS                       R16 R15 K35 ["BackgroundColor3"]
-      117 CALL                             R13 2 -1
-      118 SETLIST                          R12 R13 -1 [1]
-      120 CALL                             R9 3 -1
-      121 SETLIST                          R6 R7 -1 [1]
-      123 CALL                             R3 3 -1
-      124 RETURN                           R3 -1
+       47 DUPTABLE                         R9 K20 [{["BorderSizePixel"] = 0}]
+       48 CALL                             R7 2 1
+       49 MOVE                             R8 R2
+       50 LOADK                            R9 K21 [">> .DestKey"]
+       51 DUPTABLE                         R10 K25 [{["TextColor3"] = "$TextSecondary", ["TextXAlignment"], ["Size"]}]
+       52 GETIMPORT                        R11 K28 [Enum.TextXAlignment.Right]
+       54 SETTABLEKS                       R11 R10 K24 ["TextXAlignment"]
+       56 GETIMPORT                        R11 K15 [UDim2.new]
+       58 LOADK                            R12 K29 [0.6]
+       59 LOADN                            R13 0
+       60 LOADN                            R14 1
+       61 LOADN                            R15 0
+       62 CALL                             R11 4 1
+       63 SETTABLEKS                       R11 R10 K10 ["Size"]
+       65 NEWTABLE                         R11 0 1
+       67 MOVE                             R12 R2
+       68 LOADK                            R13 K30 ["::UIPadding"]
+       69 DUPTABLE                         R14 K32 [{"PaddingRight"}]
+       70 GETIMPORT                        R15 K34 [UDim.new]
+       72 LOADN                            R16 0
+       73 LOADN                            R17 8
+       74 CALL                             R15 2 1
+       75 SETTABLEKS                       R15 R14 K31 ["PaddingRight"]
+       77 CALL                             R12 2 -1
+       78 SETLIST                          R11 R12 -1 [1]
+       80 CALL                             R8 3 1
+       81 MOVE                             R9 R2
+       82 LOADK                            R10 K35 [">> .SrcKey"]
+       83 DUPTABLE                         R11 K39 [{["TextColor3"] = "$TextPrimary", ["TextXAlignment"], ["BackgroundColor3"] = "$MappingLabel", ["Size"]}]
+       84 GETIMPORT                        R12 K41 [Enum.TextXAlignment.Center]
+       86 SETTABLEKS                       R12 R11 K24 ["TextXAlignment"]
+       88 GETIMPORT                        R12 K15 [UDim2.new]
+       90 LOADK                            R13 K42 [0.4]
+       91 LOADN                            R14 0
+       92 LOADN                            R15 1
+       93 LOADN                            R16 0
+       94 CALL                             R12 4 1
+       95 SETTABLEKS                       R12 R11 K10 ["Size"]
+       97 NEWTABLE                         R12 0 1
+       99 MOVE                             R13 R2
+      100 LOADK                            R14 K43 [":hover"]
+      101 DUPTABLE                         R15 K45 [{["BackgroundColor3"] = "$MappingLabelHover"}]
+      102 CALL                             R13 2 -1
+      103 SETLIST                          R12 R13 -1 [1]
+      105 CALL                             R9 3 -1
+      106 SETLIST                          R6 R7 -1 [1]
+      108 CALL                             R3 3 -1
+      109 RETURN                           R3 -1

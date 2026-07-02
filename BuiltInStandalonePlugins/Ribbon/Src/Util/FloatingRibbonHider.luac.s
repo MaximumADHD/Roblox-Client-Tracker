@@ -1,30 +1,22 @@
 PROTO_0:
         0 NAMECALL                         R2 R0 K0 ["GetUri"]
         2 CALL                             R2 1 1
-        3 DUPTABLE                         R4 K6 [{"floating", "floatingUri", "toggleTask", "watcherThread", "plugin"}]
+        3 DUPTABLE                         R4 K7 [{["floating"], ["floatingUri"], ["toggleTask"] = , ["watcherThread"] = , ["plugin"]}]
         4 SETTABLEKS                       R1 R4 K1 ["floating"]
         6 GETUPVAL                         R5 0
-        7 GETTABLEKS                       R5 R5 K7 ["join"]
+        7 GETTABLEKS                       R5 R5 K8 ["join"]
         9 MOVE                             R6 R2
-       10 DUPTABLE                         R7 K10 [{"Category", "ItemId"}]
-       11 LOADK                            R8 K11 ["Widgets"]
-       12 SETTABLEKS                       R8 R7 K8 ["Category"]
-       14 LOADK                            R8 K12 ["Floating"]
-       15 SETTABLEKS                       R8 R7 K9 ["ItemId"]
-       17 CALL                             R5 2 1
-       18 SETTABLEKS                       R5 R4 K2 ["floatingUri"]
-       20 LOADNIL                          R5
-       21 SETTABLEKS                       R5 R4 K3 ["toggleTask"]
-       23 LOADNIL                          R5
-       24 SETTABLEKS                       R5 R4 K4 ["watcherThread"]
-       26 SETTABLEKS                       R0 R4 K5 ["plugin"]
-       28 DUPTABLE                         R5 K14 [{"__index"}]
-       29 GETUPVAL                         R6 1
-       30 SETTABLEKS                       R6 R5 K13 ["__index"]
-       32 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       34 GETIMPORT                        R3 K16 [setmetatable]
-       36 CALL                             R3 2 1
-       37 RETURN                           R3 1
+       10 DUPTABLE                         R7 K13 [{["Category"] = "Widgets", ["ItemId"] = "Floating"}]
+       11 CALL                             R5 2 1
+       12 SETTABLEKS                       R5 R4 K2 ["floatingUri"]
+       14 SETTABLEKS                       R0 R4 K6 ["plugin"]
+       16 DUPTABLE                         R5 K15 [{"__index"}]
+       17 GETUPVAL                         R6 1
+       18 SETTABLEKS                       R6 R5 K14 ["__index"]
+       20 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       22 GETIMPORT                        R3 K17 [setmetatable]
+       24 CALL                             R3 2 1
+       25 RETURN                           R3 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -59,7 +51,7 @@ PROTO_2:
        28 GETTABLEKS                       R2 R2 K7 ["X"]
        30 JUMPIFLT                         R2 R1 ; [+17]
        32 GETTABLEKS                       R1 R0 K9 ["Y"]
-       34 LOADN                            R2 216
+       34 LOADN                            R2 -40
        35 JUMPIFLT                         R1 R2 ; [+12]
        37 GETTABLEKS                       R1 R0 K9 ["Y"]
        39 GETUPVAL                         R2 0
@@ -125,7 +117,7 @@ MAIN:
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K5 [game]
         9 LOADK                            R3 K6 ["RibbonFloatingHideDelayMillis"]
-       10 LOADN                            R4 44
+       10 LOADN                            R4 300
        11 NAMECALL                         R1 R1 K7 ["DefineFastInt"]
        13 CALL                             R1 3 1
        14 GETIMPORT                        R2 K9 [require]

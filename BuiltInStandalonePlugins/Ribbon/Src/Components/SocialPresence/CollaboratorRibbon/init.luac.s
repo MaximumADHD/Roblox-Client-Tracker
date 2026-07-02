@@ -321,25 +321,17 @@ MAIN:
        94 GETTABLEKS                       R16 R0 K14 ["Src"]
        96 GETTABLEKS                       R16 R16 K26 ["Types"]
        98 CALL                             R15 1 1
-       99 DUPTABLE                         R16 K31 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      100 LOADK                            R17 K32 ["Standalone"]
-      101 SETTABLEKS                       R17 R16 K27 ["DataModel"]
-      103 LOADK                            R17 K33 ["LiveCollaborators"]
-      104 SETTABLEKS                       R17 R16 K28 ["PluginId"]
-      106 LOADK                            R17 K34 ["Actions"]
-      107 SETTABLEKS                       R17 R16 K29 ["Category"]
-      109 LOADK                            R17 K35 ["Toggle"]
-      110 SETTABLEKS                       R17 R16 K30 ["ItemId"]
-      112 DUPCLOSURE                       R17 K36 [PROTO_5]
-      113 CAPTURE                          VAL R5
-      114 CAPTURE                          VAL R1
-      115 CAPTURE                          VAL R16
-      116 CAPTURE                          VAL R13
-      117 CAPTURE                          VAL R11
-      118 CAPTURE                          VAL R7
-      119 CAPTURE                          VAL R3
-      120 CAPTURE                          VAL R8
-      121 CAPTURE                          VAL R14
-      122 CAPTURE                          VAL R10
-      123 CAPTURE                          VAL R9
-      124 RETURN                           R17 1
+       99 DUPTABLE                         R16 K35 [{["DataModel"] = "Standalone", ["PluginId"] = "LiveCollaborators", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+      100 DUPCLOSURE                       R17 K36 [PROTO_5]
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R1
+      103 CAPTURE                          VAL R16
+      104 CAPTURE                          VAL R13
+      105 CAPTURE                          VAL R11
+      106 CAPTURE                          VAL R7
+      107 CAPTURE                          VAL R3
+      108 CAPTURE                          VAL R8
+      109 CAPTURE                          VAL R14
+      110 CAPTURE                          VAL R10
+      111 CAPTURE                          VAL R9
+      112 RETURN                           R17 1

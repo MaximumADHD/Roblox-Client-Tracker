@@ -27,48 +27,46 @@ PROTO_0:
        41 SETTABLE                         R6 R4 R5
        42 CALL                             R2 2 1
        43 MOVE                             R1 R2
-       44 JUMP                             ; [+17]
+       44 JUMP                             ; [+14]
        45 GETUPVAL                         R2 0
        46 GETTABLEKS                       R2 R2 K1 ["createElement"]
        48 GETUPVAL                         R3 2
-       49 DUPTABLE                         R4 K12 [{"LayoutOrder", "Size"}]
-       50 LOADN                            R5 2
-       51 SETTABLEKS                       R5 R4 K2 ["LayoutOrder"]
-       53 GETIMPORT                        R5 K5 [UDim2.fromOffset]
-       55 LOADN                            R6 100
-       56 LOADN                            R7 30
-       57 CALL                             R5 2 1
-       58 SETTABLEKS                       R5 R4 K6 ["Size"]
-       60 CALL                             R2 2 1
-       61 MOVE                             R1 R2
-       62 GETUPVAL                         R2 0
-       63 GETTABLEKS                       R2 R2 K1 ["createElement"]
-       65 GETUPVAL                         R3 2
-       66 NEWTABLE                         R4 2 0
-       68 GETTABLEKS                       R5 R0 K2 ["LayoutOrder"]
-       70 SETTABLEKS                       R5 R4 K2 ["LayoutOrder"]
-       72 GETUPVAL                         R5 0
-       73 GETTABLEKS                       R5 R5 K10 ["Tag"]
-       75 LOADK                            R6 K13 ["X-RowM X-FitX X-Middle LabelCell"]
-       76 SETTABLE                         R6 R4 R5
-       77 DUPTABLE                         R5 K16 [{"Label", "Cell"}]
-       78 GETUPVAL                         R6 0
-       79 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       81 GETUPVAL                         R7 3
-       82 NEWTABLE                         R8 4 0
-       84 LOADN                            R9 1
-       85 SETTABLEKS                       R9 R8 K2 ["LayoutOrder"]
-       87 GETTABLEKS                       R9 R0 K17 ["Text"]
-       89 SETTABLEKS                       R9 R8 K17 ["Text"]
-       91 GETUPVAL                         R9 0
-       92 GETTABLEKS                       R9 R9 K10 ["Tag"]
-       94 LOADK                            R10 K18 ["X-Fit"]
-       95 SETTABLE                         R10 R8 R9
-       96 CALL                             R6 2 1
-       97 SETTABLEKS                       R6 R5 K14 ["Label"]
-       99 SETTABLEKS                       R1 R5 K15 ["Cell"]
-      101 CALL                             R2 3 -1
-      102 RETURN                           R2 -1
+       49 DUPTABLE                         R4 K13 [{["LayoutOrder"] = 2, ["Size"]}]
+       50 GETIMPORT                        R5 K5 [UDim2.fromOffset]
+       52 LOADN                            R6 100
+       53 LOADN                            R7 30
+       54 CALL                             R5 2 1
+       55 SETTABLEKS                       R5 R4 K6 ["Size"]
+       57 CALL                             R2 2 1
+       58 MOVE                             R1 R2
+       59 GETUPVAL                         R2 0
+       60 GETTABLEKS                       R2 R2 K1 ["createElement"]
+       62 GETUPVAL                         R3 2
+       63 NEWTABLE                         R4 2 0
+       65 GETTABLEKS                       R5 R0 K2 ["LayoutOrder"]
+       67 SETTABLEKS                       R5 R4 K2 ["LayoutOrder"]
+       69 GETUPVAL                         R5 0
+       70 GETTABLEKS                       R5 R5 K10 ["Tag"]
+       72 LOADK                            R6 K14 ["X-RowM X-FitX X-Middle LabelCell"]
+       73 SETTABLE                         R6 R4 R5
+       74 DUPTABLE                         R5 K17 [{"Label", "Cell"}]
+       75 GETUPVAL                         R6 0
+       76 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       78 GETUPVAL                         R7 3
+       79 NEWTABLE                         R8 4 0
+       81 LOADN                            R9 1
+       82 SETTABLEKS                       R9 R8 K2 ["LayoutOrder"]
+       84 GETTABLEKS                       R9 R0 K18 ["Text"]
+       86 SETTABLEKS                       R9 R8 K18 ["Text"]
+       88 GETUPVAL                         R9 0
+       89 GETTABLEKS                       R9 R9 K10 ["Tag"]
+       91 LOADK                            R10 K19 ["X-Fit"]
+       92 SETTABLE                         R10 R8 R9
+       93 CALL                             R6 2 1
+       94 SETTABLEKS                       R6 R5 K15 ["Label"]
+       96 SETTABLEKS                       R1 R5 K16 ["Cell"]
+       98 CALL                             R2 3 -1
+       99 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -105,31 +103,29 @@ PROTO_7:
        57 GETUPVAL                         R3 1
        58 GETTABLEKS                       R3 R3 K17 ["Localization"]
        60 GETTABLEKS                       R3 R3 K11 ["new"]
-       62 DUPTABLE                         R4 K21 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       62 DUPTABLE                         R4 K22 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ExplorerPlugin"}]
        63 GETUPVAL                         R5 2
        64 SETTABLEKS                       R5 R4 K18 ["stringResourceTable"]
        66 GETUPVAL                         R5 3
        67 SETTABLEKS                       R5 R4 K19 ["translationResourceTable"]
-       69 LOADK                            R5 K22 ["ExplorerPlugin"]
-       70 SETTABLEKS                       R5 R4 K20 ["pluginName"]
-       72 CALL                             R3 1 1
-       73 SETTABLEKS                       R3 R0 K23 ["localization"]
-       75 GETUPVAL                         R3 1
-       76 GETTABLEKS                       R3 R3 K24 ["Analytics"]
-       78 GETTABLEKS                       R3 R3 K11 ["new"]
-       80 DUPCLOSURE                       R4 K25 [PROTO_6]
-       81 NEWTABLE                         R5 0 0
-       83 CALL                             R3 2 1
-       84 SETTABLEKS                       R3 R0 K26 ["analytics"]
-       86 GETUPVAL                         R3 4
-       87 GETTABLEKS                       R3 R3 K11 ["new"]
-       89 CALL                             R3 0 1
-       90 SETTABLEKS                       R3 R0 K27 ["DEPRECATED_stylizer"]
-       92 GETUPVAL                         R3 5
-       93 GETTABLEKS                       R4 R1 K12 ["Plugin"]
-       95 CALL                             R3 1 1
-       96 SETTABLEKS                       R3 R0 K28 ["design"]
-       98 RETURN                           R0 0
+       69 CALL                             R3 1 1
+       70 SETTABLEKS                       R3 R0 K23 ["localization"]
+       72 GETUPVAL                         R3 1
+       73 GETTABLEKS                       R3 R3 K24 ["Analytics"]
+       75 GETTABLEKS                       R3 R3 K11 ["new"]
+       77 DUPCLOSURE                       R4 K25 [PROTO_6]
+       78 NEWTABLE                         R5 0 0
+       80 CALL                             R3 2 1
+       81 SETTABLEKS                       R3 R0 K26 ["analytics"]
+       83 GETUPVAL                         R3 4
+       84 GETTABLEKS                       R3 R3 K11 ["new"]
+       86 CALL                             R3 0 1
+       87 SETTABLEKS                       R3 R0 K27 ["DEPRECATED_stylizer"]
+       89 GETUPVAL                         R3 5
+       90 GETTABLEKS                       R4 R1 K12 ["Plugin"]
+       92 CALL                             R3 1 1
+       93 SETTABLEKS                       R3 R0 K28 ["design"]
+       95 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -189,8 +185,8 @@ PROTO_9:
        71 GETIMPORT                        R11 K29 [Enum.InitialDockState.Right]
        73 SETTABLEKS                       R11 R10 K27 ["InitialDockState"]
        75 GETIMPORT                        R11 K31 [Vector2.new]
-       77 LOADN                            R12 128
-       78 LOADN                            R13 224
+       77 LOADN                            R12 640
+       78 LOADN                            R13 480
        79 CALL                             R11 2 1
        80 SETTABLEKS                       R11 R10 K32 ["Size"]
        82 GETIMPORT                        R11 K31 [Vector2.new]

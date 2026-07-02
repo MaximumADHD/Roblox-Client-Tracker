@@ -151,8 +151,8 @@ MAIN:
        27 LOADN                            R6 0
        28 GETTABLEKS                       R7 R1 K17 ["createBinding"]
        30 GETIMPORT                        R8 K20 [Vector2.new]
-       32 LOADN                            R9 255
-       33 LOADN                            R10 255
+       32 LOADN                            R9 -1
+       33 LOADN                            R10 -1
        34 CALL                             R8 2 -1
        35 CALL                             R7 -1 2
        36 GETTABLEKS                       R9 R4 K21 ["RenderStepped"]

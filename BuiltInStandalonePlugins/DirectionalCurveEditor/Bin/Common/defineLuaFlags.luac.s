@@ -35,12 +35,12 @@ MAIN:
         7 CALL                             R0 3 0
         8 GETIMPORT                        R0 K1 [game]
        10 LOADK                            R2 K4 ["AudioEmitterDistanceAttenuationMaxPoints"]
-       11 LOADN                            R3 144
+       11 LOADN                            R3 400
        12 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        14 CALL                             R0 3 0
        15 GETIMPORT                        R0 K1 [game]
        17 LOADK                            R2 K6 ["DirectionalAttenuationMaxPoints"]
-       18 LOADN                            R3 144
+       18 LOADN                            R3 400
        19 NAMECALL                         R0 R0 K5 ["DefineFastInt"]
        21 CALL                             R0 3 0
        22 GETIMPORT                        R0 K1 [game]

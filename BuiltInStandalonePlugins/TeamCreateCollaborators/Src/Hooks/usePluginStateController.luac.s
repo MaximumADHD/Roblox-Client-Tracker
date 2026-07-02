@@ -343,43 +343,19 @@ MAIN:
        64 GETTABLEKS                       R12 R12 K22 ["Telemetry"]
        66 GETTABLEKS                       R12 R12 K22 ["Telemetry"]
        68 CALL                             R11 1 1
-       69 DUPTABLE                         R12 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       70 LOADK                            R13 K28 ["Standalone"]
-       71 SETTABLEKS                       R13 R12 K23 ["DataModel"]
-       73 LOADK                            R13 K2 ["TeamCreateCollaborators"]
-       74 SETTABLEKS                       R13 R12 K24 ["PluginId"]
-       76 LOADK                            R13 K29 ["Actions"]
-       77 SETTABLEKS                       R13 R12 K25 ["Category"]
-       79 LOADK                            R13 K30 ["Toggle"]
-       80 SETTABLEKS                       R13 R12 K26 ["ItemId"]
-       82 DUPTABLE                         R13 K36 [{"Uri", "Enabled", "Visible", "Checked", "Checkable"}]
-       83 SETTABLEKS                       R12 R13 K31 ["Uri"]
-       85 LOADB                            R14 1
-       86 SETTABLEKS                       R14 R13 K32 ["Enabled"]
-       88 LOADB                            R14 1
-       89 SETTABLEKS                       R14 R13 K33 ["Visible"]
-       91 LOADB                            R14 0
-       92 SETTABLEKS                       R14 R13 K34 ["Checked"]
-       94 LOADB                            R14 0
-       95 SETTABLEKS                       R14 R13 K35 ["Checkable"]
-       97 DUPTABLE                         R14 K41 [{"None", "Main", "VPCTrustedConnection", "VPCRequestSent"}]
-       98 LOADK                            R15 K42 ["none"]
-       99 SETTABLEKS                       R15 R14 K37 ["None"]
-      101 LOADK                            R15 K43 ["main"]
-      102 SETTABLEKS                       R15 R14 K38 ["Main"]
-      104 LOADK                            R15 K44 ["vpcTrustedConnection"]
-      105 SETTABLEKS                       R15 R14 K39 ["VPCTrustedConnection"]
-      107 LOADK                            R15 K45 ["vpcRequestSent"]
-      108 SETTABLEKS                       R15 R14 K40 ["VPCRequestSent"]
-      110 DUPCLOSURE                       R15 K46 [PROTO_7]
-      111 CAPTURE                          VAL R1
-      112 CAPTURE                          VAL R14
-      113 CAPTURE                          VAL R4
-      114 CAPTURE                          VAL R13
-      115 CAPTURE                          VAL R11
-      116 CAPTURE                          VAL R10
-      117 CAPTURE                          VAL R8
-      118 DUPTABLE                         R16 K49 [{"ActiveDialog", "use"}]
-      119 SETTABLEKS                       R14 R16 K47 ["ActiveDialog"]
-      121 SETTABLEKS                       R15 R16 K48 ["use"]
-      123 RETURN                           R16 1
+       69 DUPTABLE                         R12 K30 [{["DataModel"] = "Standalone", ["PluginId"] = "TeamCreateCollaborators", ["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       70 DUPTABLE                         R13 K38 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Checked"] = False, ["Checkable"] = False}]
+       71 SETTABLEKS                       R12 R13 K31 ["Uri"]
+       73 DUPTABLE                         R14 K47 [{["None"] = "none", ["Main"] = "main", ["VPCTrustedConnection"] = "vpcTrustedConnection", ["VPCRequestSent"] = "vpcRequestSent"}]
+       74 DUPCLOSURE                       R15 K48 [PROTO_7]
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          VAL R14
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R13
+       79 CAPTURE                          VAL R11
+       80 CAPTURE                          VAL R10
+       81 CAPTURE                          VAL R8
+       82 DUPTABLE                         R16 K51 [{"ActiveDialog", "use"}]
+       83 SETTABLEKS                       R14 R16 K49 ["ActiveDialog"]
+       85 SETTABLEKS                       R15 R16 K50 ["use"]
+       87 RETURN                           R16 1

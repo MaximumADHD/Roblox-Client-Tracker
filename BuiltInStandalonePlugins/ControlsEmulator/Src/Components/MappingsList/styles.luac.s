@@ -18,7 +18,7 @@ MAIN:
        27 SETTABLEKS                       R6 R5 K10 ["AutomaticSize"]
        29 GETIMPORT                        R6 K20 [UDim2.new]
        31 LOADN                            R7 0
-       32 LOADN                            R8 24
+       32 LOADN                            R8 280
        33 LOADN                            R9 0
        34 LOADN                            R10 0
        35 CALL                             R6 4 1

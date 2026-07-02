@@ -45,64 +45,58 @@ PROTO_2:
        24 GETUPVAL                         R10 0
        25 GETTABLEKS                       R10 R10 K5 ["createElement"]
        27 LOADK                            R11 K11 ["Frame"]
-       28 DUPTABLE                         R12 K16 [{"BackgroundTransparency", "Position", "Size", "ClipsDescendants"}]
-       29 LOADN                            R13 1
-       30 SETTABLEKS                       R13 R12 K12 ["BackgroundTransparency"]
-       32 GETIMPORT                        R13 K19 [UDim2.new]
-       34 LOADN                            R14 0
-       35 GETTABLEKS                       R15 R5 K20 ["Min"]
-       37 GETTABLEKS                       R15 R15 K21 ["X"]
-       39 LOADN                            R16 0
-       40 GETTABLEKS                       R17 R5 K20 ["Min"]
-       42 GETTABLEKS                       R17 R17 K22 ["Y"]
-       44 CALL                             R13 4 1
-       45 SETTABLEKS                       R13 R12 K13 ["Position"]
-       47 GETIMPORT                        R13 K19 [UDim2.new]
-       49 LOADN                            R14 0
-       50 GETTABLEKS                       R15 R5 K23 ["Width"]
-       52 LOADN                            R16 0
-       53 GETTABLEKS                       R17 R5 K24 ["Height"]
-       55 CALL                             R13 4 1
-       56 SETTABLEKS                       R13 R12 K14 ["Size"]
-       58 LOADB                            R13 1
-       59 SETTABLEKS                       R13 R12 K15 ["ClipsDescendants"]
-       61 DUPTABLE                         R13 K26 [{"Box"}]
-       62 GETUPVAL                         R14 0
-       63 GETTABLEKS                       R14 R14 K5 ["createElement"]
-       65 LOADK                            R15 K11 ["Frame"]
-       66 DUPTABLE                         R16 K28 [{"BackgroundColor3", "BackgroundTransparency", "Position", "Size"}]
-       67 GETTABLEKS                       R17 R2 K29 ["selectionBox"]
-       69 SETTABLEKS                       R17 R16 K27 ["BackgroundColor3"]
-       71 LOADK                            R17 K30 [0.8]
-       72 SETTABLEKS                       R17 R16 K12 ["BackgroundTransparency"]
+       28 DUPTABLE                         R12 K18 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["ClipsDescendants"] = True}]
+       29 GETIMPORT                        R13 K21 [UDim2.new]
+       31 LOADN                            R14 0
+       32 GETTABLEKS                       R15 R5 K22 ["Min"]
+       34 GETTABLEKS                       R15 R15 K23 ["X"]
+       36 LOADN                            R16 0
+       37 GETTABLEKS                       R17 R5 K22 ["Min"]
+       39 GETTABLEKS                       R17 R17 K24 ["Y"]
+       41 CALL                             R13 4 1
+       42 SETTABLEKS                       R13 R12 K14 ["Position"]
+       44 GETIMPORT                        R13 K21 [UDim2.new]
+       46 LOADN                            R14 0
+       47 GETTABLEKS                       R15 R5 K25 ["Width"]
+       49 LOADN                            R16 0
+       50 GETTABLEKS                       R17 R5 K26 ["Height"]
+       52 CALL                             R13 4 1
+       53 SETTABLEKS                       R13 R12 K15 ["Size"]
+       55 DUPTABLE                         R13 K28 [{"Box"}]
+       56 GETUPVAL                         R14 0
+       57 GETTABLEKS                       R14 R14 K5 ["createElement"]
+       59 LOADK                            R15 K11 ["Frame"]
+       60 DUPTABLE                         R16 K31 [{["BackgroundColor3"], ["BackgroundTransparency"] = 0.8, ["Position"], ["Size"]}]
+       61 GETTABLEKS                       R17 R2 K32 ["selectionBox"]
+       63 SETTABLEKS                       R17 R16 K29 ["BackgroundColor3"]
+       65 MOVE                             R17 R3
+       66 JUMPIFNOT                        R17 ; [+5]
+       67 NEWCLOSURE                       R19 P0
+       68 CAPTURE                          VAL R5
+       69 NAMECALL                         R17 R3 K33 ["map"]
+       71 CALL                             R17 2 1
+       72 SETTABLEKS                       R17 R16 K14 ["Position"]
        74 MOVE                             R17 R3
-       75 JUMPIFNOT                        R17 ; [+5]
-       76 NEWCLOSURE                       R19 P0
-       77 CAPTURE                          VAL R5
-       78 NAMECALL                         R17 R3 K31 ["map"]
-       80 CALL                             R17 2 1
-       81 SETTABLEKS                       R17 R16 K13 ["Position"]
-       83 MOVE                             R17 R3
-       84 JUMPIFNOT                        R17 ; [+16]
-       85 MOVE                             R17 R4
-       86 JUMPIFNOT                        R17 ; [+14]
-       87 GETUPVAL                         R17 0
-       88 GETTABLEKS                       R17 R17 K32 ["joinBindings"]
-       90 NEWTABLE                         R18 0 2
-       92 MOVE                             R19 R3
-       93 MOVE                             R20 R4
-       94 SETLIST                          R18 R19 2 [1]
-       96 CALL                             R17 1 1
-       97 DUPCLOSURE                       R19 K33 [PROTO_1]
-       98 NAMECALL                         R17 R17 K31 ["map"]
-      100 CALL                             R17 2 1
-      101 SETTABLEKS                       R17 R16 K14 ["Size"]
-      103 CALL                             R14 2 1
-      104 SETTABLEKS                       R14 R13 K25 ["Box"]
-      106 CALL                             R10 3 1
-      107 SETTABLEKS                       R10 R9 K9 ["Extents"]
-      109 CALL                             R6 3 -1
-      110 RETURN                           R6 -1
+       75 JUMPIFNOT                        R17 ; [+16]
+       76 MOVE                             R17 R4
+       77 JUMPIFNOT                        R17 ; [+14]
+       78 GETUPVAL                         R17 0
+       79 GETTABLEKS                       R17 R17 K34 ["joinBindings"]
+       81 NEWTABLE                         R18 0 2
+       83 MOVE                             R19 R3
+       84 MOVE                             R20 R4
+       85 SETLIST                          R18 R19 2 [1]
+       87 CALL                             R17 1 1
+       88 DUPCLOSURE                       R19 K35 [PROTO_1]
+       89 NAMECALL                         R17 R17 K33 ["map"]
+       91 CALL                             R17 2 1
+       92 SETTABLEKS                       R17 R16 K15 ["Size"]
+       94 CALL                             R14 2 1
+       95 SETTABLEKS                       R14 R13 K27 ["Box"]
+       97 CALL                             R10 3 1
+       98 SETTABLEKS                       R10 R9 K9 ["Extents"]
+      100 CALL                             R6 3 -1
+      101 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -14,13 +14,11 @@ PROTO_0:
        18 GETTABLEKS                       R2 R2 K5 ["Dictionary"]
        20 GETTABLEKS                       R2 R2 K6 ["join"]
        22 MOVE                             R3 R0
-       23 DUPTABLE                         R4 K8 [{"currentSoundId", "isPlaying"}]
+       23 DUPTABLE                         R4 K9 [{[1], ["isPlaying"] = True}]
        24 GETTABLEKS                       R5 R1 K0 ["currentSoundId"]
        26 SETTABLEKS                       R5 R4 K0 ["currentSoundId"]
-       28 LOADB                            R5 1
-       29 SETTABLEKS                       R5 R4 K7 ["isPlaying"]
-       31 CALL                             R2 2 -1
-       32 RETURN                           R2 -1
+       28 CALL                             R2 2 -1
+       29 RETURN                           R2 -1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["isPlaying"]
@@ -39,11 +37,9 @@ PROTO_1:
        18 GETTABLEKS                       R2 R2 K7 ["Dictionary"]
        20 GETTABLEKS                       R2 R2 K8 ["join"]
        22 MOVE                             R3 R0
-       23 DUPTABLE                         R4 K9 [{"isPlaying"}]
-       24 LOADB                            R5 0
-       25 SETTABLEKS                       R5 R4 K0 ["isPlaying"]
-       27 CALL                             R2 2 -1
-       28 RETURN                           R2 -1
+       23 DUPTABLE                         R4 K10 [{[1] = False}]
+       24 CALL                             R2 2 -1
+       25 RETURN                           R2 -1
 
 PROTO_2:
         0 GETTABLEKS                       R2 R0 K0 ["isPlaying"]
@@ -62,15 +58,9 @@ PROTO_2:
        18 GETTABLEKS                       R2 R2 K7 ["Dictionary"]
        20 GETTABLEKS                       R2 R2 K8 ["join"]
        22 MOVE                             R3 R0
-       23 DUPTABLE                         R4 K10 [{"currentSoundId", "elapsedTime", "isPlaying"}]
-       24 LOADN                            R5 0
-       25 SETTABLEKS                       R5 R4 K5 ["currentSoundId"]
-       27 LOADN                            R5 0
-       28 SETTABLEKS                       R5 R4 K9 ["elapsedTime"]
-       30 LOADB                            R5 0
-       31 SETTABLEKS                       R5 R4 K0 ["isPlaying"]
-       33 CALL                             R2 2 -1
-       34 RETURN                           R2 -1
+       23 DUPTABLE                         R4 K12 [{["currentSoundId"] = 0, ["elapsedTime"] = 0, [3] = False}]
+       24 CALL                             R2 2 -1
+       25 RETURN                           R2 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["isPlaying"]
@@ -89,24 +79,18 @@ PROTO_3:
        18 GETTABLEKS                       R2 R2 K7 ["Dictionary"]
        20 GETTABLEKS                       R2 R2 K8 ["join"]
        22 MOVE                             R3 R0
-       23 DUPTABLE                         R4 K9 [{"isPlaying"}]
-       24 LOADB                            R5 1
-       25 SETTABLEKS                       R5 R4 K0 ["isPlaying"]
-       27 CALL                             R2 2 -1
-       28 RETURN                           R2 -1
+       23 DUPTABLE                         R4 K10 [{[1] = True}]
+       24 CALL                             R2 2 -1
+       25 RETURN                           R2 -1
 
 PROTO_4:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K4 [{"currentSoundId", "isPlaying"}]
-        7 LOADN                            R5 0
-        8 SETTABLEKS                       R5 R4 K2 ["currentSoundId"]
-       10 LOADB                            R5 0
-       11 SETTABLEKS                       R5 R4 K3 ["isPlaying"]
-       13 CALL                             R2 2 -1
-       14 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K6 [{["currentSoundId"] = 0, ["isPlaying"] = False}]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -135,13 +119,11 @@ PROTO_7:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K4 [{"elapsedTime", "totalTime"}]
-        7 LOADN                            R5 0
-        8 SETTABLEKS                       R5 R4 K2 ["elapsedTime"]
-       10 GETTABLEKS                       R5 R1 K3 ["totalTime"]
-       12 SETTABLEKS                       R5 R4 K3 ["totalTime"]
-       14 CALL                             R2 2 -1
-       15 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K5 [{["elapsedTime"] = 0, ["totalTime"]}]
+        7 GETTABLEKS                       R5 R1 K4 ["totalTime"]
+        9 SETTABLEKS                       R5 R4 K4 ["totalTime"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -202,53 +184,43 @@ MAIN:
        99 GETTABLEKS                       R13 R13 K19 ["SetSoundTotalTime"]
       101 CALL                             R12 1 1
       102 GETTABLEKS                       R13 R3 K20 ["createReducer"]
-      104 DUPTABLE                         R14 K26 [{"currentSoundId", "elapsedTime", "isPlaying", "isLoading", "totalTime"}]
-      105 LOADN                            R15 0
-      106 SETTABLEKS                       R15 R14 K21 ["currentSoundId"]
-      108 LOADN                            R15 0
-      109 SETTABLEKS                       R15 R14 K22 ["elapsedTime"]
-      111 LOADB                            R15 0
-      112 SETTABLEKS                       R15 R14 K23 ["isPlaying"]
-      114 LOADB                            R15 0
-      115 SETTABLEKS                       R15 R14 K24 ["isLoading"]
-      117 LOADN                            R15 0
-      118 SETTABLEKS                       R15 R14 K25 ["totalTime"]
-      120 NEWTABLE                         R15 8 0
-      122 GETTABLEKS                       R16 R5 K27 ["name"]
-      124 DUPCLOSURE                       R17 K28 [PROTO_0]
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          VAL R2
-      127 SETTABLE                         R17 R15 R16
-      128 GETTABLEKS                       R16 R6 K27 ["name"]
-      130 DUPCLOSURE                       R17 K29 [PROTO_1]
-      131 CAPTURE                          VAL R4
-      132 CAPTURE                          VAL R2
-      133 SETTABLE                         R17 R15 R16
-      134 GETTABLEKS                       R16 R7 K27 ["name"]
-      136 DUPCLOSURE                       R17 K30 [PROTO_2]
-      137 CAPTURE                          VAL R4
-      138 CAPTURE                          VAL R2
-      139 SETTABLE                         R17 R15 R16
-      140 GETTABLEKS                       R16 R8 K27 ["name"]
-      142 DUPCLOSURE                       R17 K31 [PROTO_3]
-      143 CAPTURE                          VAL R4
+      104 DUPTABLE                         R14 K28 [{["currentSoundId"] = 0, ["elapsedTime"] = 0, ["isPlaying"] = False, ["isLoading"] = False, ["totalTime"] = 0}]
+      105 NEWTABLE                         R15 8 0
+      107 GETTABLEKS                       R16 R5 K29 ["name"]
+      109 DUPCLOSURE                       R17 K30 [PROTO_0]
+      110 CAPTURE                          VAL R4
+      111 CAPTURE                          VAL R2
+      112 SETTABLE                         R17 R15 R16
+      113 GETTABLEKS                       R16 R6 K29 ["name"]
+      115 DUPCLOSURE                       R17 K31 [PROTO_1]
+      116 CAPTURE                          VAL R4
+      117 CAPTURE                          VAL R2
+      118 SETTABLE                         R17 R15 R16
+      119 GETTABLEKS                       R16 R7 K29 ["name"]
+      121 DUPCLOSURE                       R17 K32 [PROTO_2]
+      122 CAPTURE                          VAL R4
+      123 CAPTURE                          VAL R2
+      124 SETTABLE                         R17 R15 R16
+      125 GETTABLEKS                       R16 R8 K29 ["name"]
+      127 DUPCLOSURE                       R17 K33 [PROTO_3]
+      128 CAPTURE                          VAL R4
+      129 CAPTURE                          VAL R2
+      130 SETTABLE                         R17 R15 R16
+      131 GETTABLEKS                       R16 R9 K29 ["name"]
+      133 DUPCLOSURE                       R17 K34 [PROTO_4]
+      134 CAPTURE                          VAL R2
+      135 SETTABLE                         R17 R15 R16
+      136 GETTABLEKS                       R16 R10 K29 ["name"]
+      138 DUPCLOSURE                       R17 K35 [PROTO_5]
+      139 CAPTURE                          VAL R2
+      140 SETTABLE                         R17 R15 R16
+      141 GETTABLEKS                       R16 R11 K29 ["name"]
+      143 DUPCLOSURE                       R17 K36 [PROTO_6]
       144 CAPTURE                          VAL R2
       145 SETTABLE                         R17 R15 R16
-      146 GETTABLEKS                       R16 R9 K27 ["name"]
-      148 DUPCLOSURE                       R17 K32 [PROTO_4]
+      146 GETTABLEKS                       R16 R12 K29 ["name"]
+      148 DUPCLOSURE                       R17 K37 [PROTO_7]
       149 CAPTURE                          VAL R2
       150 SETTABLE                         R17 R15 R16
-      151 GETTABLEKS                       R16 R10 K27 ["name"]
-      153 DUPCLOSURE                       R17 K33 [PROTO_5]
-      154 CAPTURE                          VAL R2
-      155 SETTABLE                         R17 R15 R16
-      156 GETTABLEKS                       R16 R11 K27 ["name"]
-      158 DUPCLOSURE                       R17 K34 [PROTO_6]
-      159 CAPTURE                          VAL R2
-      160 SETTABLE                         R17 R15 R16
-      161 GETTABLEKS                       R16 R12 K27 ["name"]
-      163 DUPCLOSURE                       R17 K35 [PROTO_7]
-      164 CAPTURE                          VAL R2
-      165 SETTABLE                         R17 R15 R16
-      166 CALL                             R13 2 -1
-      167 RETURN                           R13 -1
+      151 CALL                             R13 2 -1
+      152 RETURN                           R13 -1

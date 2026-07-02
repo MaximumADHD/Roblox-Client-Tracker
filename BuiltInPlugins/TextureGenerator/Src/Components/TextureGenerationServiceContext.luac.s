@@ -43,16 +43,8 @@ PROTO_4:
         3 NAMECALL                         R0 R0 K0 ["GetQuotasAsync"]
         5 CALL                             R0 1 -1
         6 RETURN                           R0 -1
-        7 DUPTABLE                         R0 K5 [{"generationQuota", "generationTotal", "previewQuota", "previewTotal"}]
-        8 LOADN                            R1 50
-        9 SETTABLEKS                       R1 R0 K1 ["generationQuota"]
-       11 LOADN                            R1 0
-       12 SETTABLEKS                       R1 R0 K2 ["generationTotal"]
-       14 LOADN                            R1 50
-       15 SETTABLEKS                       R1 R0 K3 ["previewQuota"]
-       17 LOADN                            R1 0
-       18 SETTABLEKS                       R1 R0 K4 ["previewTotal"]
-       20 RETURN                           R0 1
+        7 DUPTABLE                         R0 K7 [{["generationQuota"] = 50, ["generationTotal"] = 0, ["previewQuota"] = 50, ["previewTotal"] = 0}]
+        8 RETURN                           R0 1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -62,10 +54,8 @@ PROTO_5:
         4 NAMECALL                         R1 R1 K0 ["GenerateTexture"]
         6 CALL                             R1 2 -1
         7 RETURN                           R1 -1
-        8 DUPTABLE                         R1 K2 [{"uuid"}]
-        9 LOADK                            R2 K3 ["1234"]
-       10 SETTABLEKS                       R2 R1 K1 ["uuid"]
-       12 RETURN                           R1 1
+        8 DUPTABLE                         R1 K3 [{["uuid"] = "1234"}]
+        9 RETURN                           R1 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -99,10 +89,8 @@ PROTO_8:
         6 NAMECALL                         R3 R3 K0 ["PreviewTexture"]
         8 CALL                             R3 4 -1
         9 RETURN                           R3 -1
-       10 DUPTABLE                         R3 K2 [{"uuid"}]
-       11 LOADK                            R4 K3 ["1234"]
-       12 SETTABLEKS                       R4 R3 K1 ["uuid"]
-       14 RETURN                           R3 1
+       10 DUPTABLE                         R3 K3 [{["uuid"] = "1234"}]
+       11 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0

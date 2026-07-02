@@ -3,13 +3,11 @@ PROTO_0:
         1 DUPTABLE                         R2 K2 [{"plugin", "dialogConfig"}]
         2 GETUPVAL                         R3 1
         3 SETTABLEKS                       R3 R2 K0 ["plugin"]
-        5 DUPTABLE                         R3 K5 [{"kind", "props"}]
-        6 LOADK                            R4 K6 ["error"]
-        7 SETTABLEKS                       R4 R3 K3 ["kind"]
-        9 SETTABLEKS                       R0 R3 K4 ["props"]
-       11 SETTABLEKS                       R3 R2 K1 ["dialogConfig"]
-       13 CALL                             R1 1 0
-       14 RETURN                           R0 0
+        5 DUPTABLE                         R3 K6 [{["kind"] = "error", ["props"]}]
+        6 SETTABLEKS                       R0 R3 K5 ["props"]
+        8 SETTABLEKS                       R3 R2 K1 ["dialogConfig"]
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

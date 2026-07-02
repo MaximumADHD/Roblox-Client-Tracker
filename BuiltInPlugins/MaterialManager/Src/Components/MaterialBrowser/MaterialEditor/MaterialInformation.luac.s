@@ -147,197 +147,181 @@ PROTO_4:
        81 GETUPVAL                         R13 0
        82 GETTABLEKS                       R13 R13 K5 ["createElement"]
        84 GETUPVAL                         R14 1
-       85 DUPTABLE                         R15 K28 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
-       86 GETIMPORT                        R16 K31 [Enum.AutomaticSize.XY]
+       85 DUPTABLE                         R15 K29 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Padding"] = 10}]
+       86 GETIMPORT                        R16 K32 [Enum.AutomaticSize.XY]
        88 SETTABLEKS                       R16 R15 K24 ["AutomaticSize"]
-       90 GETIMPORT                        R16 K34 [Enum.FillDirection.Vertical]
+       90 GETIMPORT                        R16 K35 [Enum.FillDirection.Vertical]
        92 SETTABLEKS                       R16 R15 K25 ["Layout"]
        94 GETTABLEKS                       R16 R1 K26 ["LayoutOrder"]
        96 SETTABLEKS                       R16 R15 K26 ["LayoutOrder"]
-       98 LOADN                            R16 10
-       99 SETTABLEKS                       R16 R15 K27 ["Padding"]
-      101 DUPTABLE                         R16 K38 [{"Title", "MaterialType", "Category"}]
-      102 GETUPVAL                         R17 0
-      103 GETTABLEKS                       R17 R17 K5 ["createElement"]
-      105 GETUPVAL                         R18 1
-      106 DUPTABLE                         R19 K40 [{"Layout", "LayoutOrder", "Size"}]
-      107 GETIMPORT                        R20 K42 [Enum.FillDirection.Horizontal]
-      109 SETTABLEKS                       R20 R19 K25 ["Layout"]
-      111 LOADN                            R20 1
-      112 SETTABLEKS                       R20 R19 K26 ["LayoutOrder"]
-      114 GETTABLEKS                       R20 R2 K43 ["LabelRowSize"]
-      116 SETTABLEKS                       R20 R19 K39 ["Size"]
-      118 DUPTABLE                         R20 K47 [{"Name", "ApplyToSelection", "CreateVariant", "Delete"}]
-      119 GETUPVAL                         R21 0
-      120 GETTABLEKS                       R21 R21 K5 ["createElement"]
-      122 GETUPVAL                         R22 5
-      123 DUPTABLE                         R23 K52 [{"LayoutOrder", "Font", "Size", "Text", "TextSize", "TextXAlignment"}]
-      124 LOADN                            R24 1
-      125 SETTABLEKS                       R24 R23 K26 ["LayoutOrder"]
-      127 GETTABLEKS                       R24 R2 K53 ["HeaderFont"]
-      129 SETTABLEKS                       R24 R23 K48 ["Font"]
-      131 SETTABLEKS                       R12 R23 K39 ["Size"]
-      133 SETTABLEKS                       R6 R23 K49 ["Text"]
-      135 GETTABLEKS                       R24 R2 K54 ["TitleTextSize"]
-      137 SETTABLEKS                       R24 R23 K50 ["TextSize"]
-      139 GETIMPORT                        R24 K56 [Enum.TextXAlignment.Left]
-      141 SETTABLEKS                       R24 R23 K51 ["TextXAlignment"]
-      143 CALL                             R21 2 1
-      144 SETTABLEKS                       R21 R20 K9 ["Name"]
-      146 GETUPVAL                         R21 0
-      147 GETTABLEKS                       R21 R21 K5 ["createElement"]
-      149 GETUPVAL                         R22 6
-      150 DUPTABLE                         R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
-      151 LOADN                            R24 2
-      152 SETTABLEKS                       R24 R23 K26 ["LayoutOrder"]
-      154 GETTABLEKS                       R24 R0 K60 ["applyToSelection"]
-      156 SETTABLEKS                       R24 R23 K57 ["OnClick"]
-      158 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
-      160 SETTABLEKS                       R24 R23 K39 ["Size"]
-      162 GETTABLEKS                       R24 R2 K61 ["ButtonStyle"]
-      164 SETTABLEKS                       R24 R23 K58 ["Style"]
-      166 DUPTABLE                         R24 K64 [{"Image", "Tooltip"}]
-      167 GETUPVAL                         R25 0
-      168 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      170 GETUPVAL                         R26 7
-      171 DUPTABLE                         R27 K66 [{"Style", "Size", "Position"}]
-      172 GETTABLEKS                       R28 R2 K44 ["ApplyToSelection"]
-      174 SETTABLEKS                       R28 R27 K58 ["Style"]
-      176 GETTABLEKS                       R28 R2 K67 ["ImageSize"]
-      178 SETTABLEKS                       R28 R27 K39 ["Size"]
-      180 GETTABLEKS                       R28 R2 K68 ["ImagePosition"]
-      182 SETTABLEKS                       R28 R27 K65 ["Position"]
-      184 CALL                             R25 2 1
-      185 SETTABLEKS                       R25 R24 K62 ["Image"]
-      187 GETUPVAL                         R25 0
-      188 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      190 GETUPVAL                         R26 8
-      191 DUPTABLE                         R27 K69 [{"Text"}]
-      192 LOADK                            R30 K70 ["TopBar"]
-      193 LOADK                            R31 K71 ["Apply"]
-      194 NAMECALL                         R28 R3 K8 ["getText"]
-      196 CALL                             R28 3 1
-      197 SETTABLEKS                       R28 R27 K49 ["Text"]
-      199 CALL                             R25 2 1
-      200 SETTABLEKS                       R25 R24 K63 ["Tooltip"]
-      202 CALL                             R21 3 1
-      203 SETTABLEKS                       R21 R20 K44 ["ApplyToSelection"]
-      205 JUMPIFNOT                        R5 ; [+63]
-      206 GETUPVAL                         R23 4
-      207 GETTABLEKS                       R24 R4 K4 ["Material"]
-      209 GETTABLE                         R22 R23 R24
-      210 JUMPIFNOT                        R22 ; [+58]
-      211 GETUPVAL                         R21 0
-      212 GETTABLEKS                       R21 R21 K5 ["createElement"]
-      214 GETUPVAL                         R22 6
-      215 DUPTABLE                         R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
-      216 LOADN                            R24 3
-      217 SETTABLEKS                       R24 R23 K26 ["LayoutOrder"]
-      219 GETTABLEKS                       R24 R0 K72 ["createVariant"]
-      221 SETTABLEKS                       R24 R23 K57 ["OnClick"]
-      223 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
-      225 SETTABLEKS                       R24 R23 K39 ["Size"]
-      227 GETTABLEKS                       R24 R2 K61 ["ButtonStyle"]
-      229 SETTABLEKS                       R24 R23 K58 ["Style"]
-      231 DUPTABLE                         R24 K64 [{"Image", "Tooltip"}]
-      232 GETUPVAL                         R25 0
-      233 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      235 GETUPVAL                         R26 7
-      236 DUPTABLE                         R27 K66 [{"Style", "Size", "Position"}]
-      237 GETTABLEKS                       R28 R2 K45 ["CreateVariant"]
-      239 SETTABLEKS                       R28 R27 K58 ["Style"]
-      241 GETTABLEKS                       R28 R2 K67 ["ImageSize"]
-      243 SETTABLEKS                       R28 R27 K39 ["Size"]
-      245 GETTABLEKS                       R28 R2 K68 ["ImagePosition"]
-      247 SETTABLEKS                       R28 R27 K65 ["Position"]
+       98 DUPTABLE                         R16 K39 [{"Title", "MaterialType", "Category"}]
+       99 GETUPVAL                         R17 0
+      100 GETTABLEKS                       R17 R17 K5 ["createElement"]
+      102 GETUPVAL                         R18 1
+      103 DUPTABLE                         R19 K42 [{["Layout"], ["LayoutOrder"] = 1, ["Size"]}]
+      104 GETIMPORT                        R20 K44 [Enum.FillDirection.Horizontal]
+      106 SETTABLEKS                       R20 R19 K25 ["Layout"]
+      108 GETTABLEKS                       R20 R2 K45 ["LabelRowSize"]
+      110 SETTABLEKS                       R20 R19 K41 ["Size"]
+      112 DUPTABLE                         R20 K49 [{"Name", "ApplyToSelection", "CreateVariant", "Delete"}]
+      113 GETUPVAL                         R21 0
+      114 GETTABLEKS                       R21 R21 K5 ["createElement"]
+      116 GETUPVAL                         R22 5
+      117 DUPTABLE                         R23 K54 [{["LayoutOrder"] = 1, ["Font"], ["Size"], ["Text"], ["TextSize"], ["TextXAlignment"]}]
+      118 GETTABLEKS                       R24 R2 K55 ["HeaderFont"]
+      120 SETTABLEKS                       R24 R23 K50 ["Font"]
+      122 SETTABLEKS                       R12 R23 K41 ["Size"]
+      124 SETTABLEKS                       R6 R23 K51 ["Text"]
+      126 GETTABLEKS                       R24 R2 K56 ["TitleTextSize"]
+      128 SETTABLEKS                       R24 R23 K52 ["TextSize"]
+      130 GETIMPORT                        R24 K58 [Enum.TextXAlignment.Left]
+      132 SETTABLEKS                       R24 R23 K53 ["TextXAlignment"]
+      134 CALL                             R21 2 1
+      135 SETTABLEKS                       R21 R20 K9 ["Name"]
+      137 GETUPVAL                         R21 0
+      138 GETTABLEKS                       R21 R21 K5 ["createElement"]
+      140 GETUPVAL                         R22 6
+      141 DUPTABLE                         R23 K62 [{["LayoutOrder"] = 2, ["OnClick"], ["Size"], ["Style"]}]
+      142 GETTABLEKS                       R24 R0 K63 ["applyToSelection"]
+      144 SETTABLEKS                       R24 R23 K60 ["OnClick"]
+      146 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
+      148 SETTABLEKS                       R24 R23 K41 ["Size"]
+      150 GETTABLEKS                       R24 R2 K64 ["ButtonStyle"]
+      152 SETTABLEKS                       R24 R23 K61 ["Style"]
+      154 DUPTABLE                         R24 K67 [{"Image", "Tooltip"}]
+      155 GETUPVAL                         R25 0
+      156 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      158 GETUPVAL                         R26 7
+      159 DUPTABLE                         R27 K69 [{"Style", "Size", "Position"}]
+      160 GETTABLEKS                       R28 R2 K46 ["ApplyToSelection"]
+      162 SETTABLEKS                       R28 R27 K61 ["Style"]
+      164 GETTABLEKS                       R28 R2 K70 ["ImageSize"]
+      166 SETTABLEKS                       R28 R27 K41 ["Size"]
+      168 GETTABLEKS                       R28 R2 K71 ["ImagePosition"]
+      170 SETTABLEKS                       R28 R27 K68 ["Position"]
+      172 CALL                             R25 2 1
+      173 SETTABLEKS                       R25 R24 K65 ["Image"]
+      175 GETUPVAL                         R25 0
+      176 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      178 GETUPVAL                         R26 8
+      179 DUPTABLE                         R27 K72 [{"Text"}]
+      180 LOADK                            R30 K73 ["TopBar"]
+      181 LOADK                            R31 K74 ["Apply"]
+      182 NAMECALL                         R28 R3 K8 ["getText"]
+      184 CALL                             R28 3 1
+      185 SETTABLEKS                       R28 R27 K51 ["Text"]
+      187 CALL                             R25 2 1
+      188 SETTABLEKS                       R25 R24 K66 ["Tooltip"]
+      190 CALL                             R21 3 1
+      191 SETTABLEKS                       R21 R20 K46 ["ApplyToSelection"]
+      193 JUMPIFNOT                        R5 ; [+60]
+      194 GETUPVAL                         R23 4
+      195 GETTABLEKS                       R24 R4 K4 ["Material"]
+      197 GETTABLE                         R22 R23 R24
+      198 JUMPIFNOT                        R22 ; [+55]
+      199 GETUPVAL                         R21 0
+      200 GETTABLEKS                       R21 R21 K5 ["createElement"]
+      202 GETUPVAL                         R22 6
+      203 DUPTABLE                         R23 K76 [{["LayoutOrder"] = 3, ["OnClick"], ["Size"], ["Style"]}]
+      204 GETTABLEKS                       R24 R0 K77 ["createVariant"]
+      206 SETTABLEKS                       R24 R23 K60 ["OnClick"]
+      208 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
+      210 SETTABLEKS                       R24 R23 K41 ["Size"]
+      212 GETTABLEKS                       R24 R2 K64 ["ButtonStyle"]
+      214 SETTABLEKS                       R24 R23 K61 ["Style"]
+      216 DUPTABLE                         R24 K67 [{"Image", "Tooltip"}]
+      217 GETUPVAL                         R25 0
+      218 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      220 GETUPVAL                         R26 7
+      221 DUPTABLE                         R27 K69 [{"Style", "Size", "Position"}]
+      222 GETTABLEKS                       R28 R2 K47 ["CreateVariant"]
+      224 SETTABLEKS                       R28 R27 K61 ["Style"]
+      226 GETTABLEKS                       R28 R2 K70 ["ImageSize"]
+      228 SETTABLEKS                       R28 R27 K41 ["Size"]
+      230 GETTABLEKS                       R28 R2 K71 ["ImagePosition"]
+      232 SETTABLEKS                       R28 R27 K68 ["Position"]
+      234 CALL                             R25 2 1
+      235 SETTABLEKS                       R25 R24 K65 ["Image"]
+      237 GETUPVAL                         R25 0
+      238 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      240 GETUPVAL                         R26 8
+      241 DUPTABLE                         R27 K72 [{"Text"}]
+      242 LOADK                            R30 K2 ["MaterialInformation"]
+      243 LOADK                            R31 K47 ["CreateVariant"]
+      244 NAMECALL                         R28 R3 K8 ["getText"]
+      246 CALL                             R28 3 1
+      247 SETTABLEKS                       R28 R27 K51 ["Text"]
       249 CALL                             R25 2 1
-      250 SETTABLEKS                       R25 R24 K62 ["Image"]
-      252 GETUPVAL                         R25 0
-      253 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      255 GETUPVAL                         R26 8
-      256 DUPTABLE                         R27 K69 [{"Text"}]
-      257 LOADK                            R30 K2 ["MaterialInformation"]
-      258 LOADK                            R31 K45 ["CreateVariant"]
-      259 NAMECALL                         R28 R3 K8 ["getText"]
-      261 CALL                             R28 3 1
-      262 SETTABLEKS                       R28 R27 K49 ["Text"]
-      264 CALL                             R25 2 1
-      265 SETTABLEKS                       R25 R24 K63 ["Tooltip"]
-      267 CALL                             R21 3 1
-      268 JUMP                             ; [+1]
-      269 LOADNIL                          R21
-      270 SETTABLEKS                       R21 R20 K45 ["CreateVariant"]
-      272 JUMPIF                           R5 ; [+58]
-      273 GETUPVAL                         R21 0
-      274 GETTABLEKS                       R21 R21 K5 ["createElement"]
-      276 GETUPVAL                         R22 6
-      277 DUPTABLE                         R23 K59 [{"LayoutOrder", "OnClick", "Size", "Style"}]
-      278 LOADN                            R24 3
-      279 SETTABLEKS                       R24 R23 K26 ["LayoutOrder"]
-      281 GETTABLEKS                       R24 R0 K73 ["delete"]
-      283 SETTABLEKS                       R24 R23 K57 ["OnClick"]
-      285 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
-      287 SETTABLEKS                       R24 R23 K39 ["Size"]
-      289 GETTABLEKS                       R24 R2 K61 ["ButtonStyle"]
-      291 SETTABLEKS                       R24 R23 K58 ["Style"]
-      293 DUPTABLE                         R24 K64 [{"Image", "Tooltip"}]
-      294 GETUPVAL                         R25 0
-      295 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      297 GETUPVAL                         R26 7
-      298 DUPTABLE                         R27 K66 [{"Style", "Size", "Position"}]
-      299 GETTABLEKS                       R28 R2 K46 ["Delete"]
-      301 SETTABLEKS                       R28 R27 K58 ["Style"]
-      303 GETTABLEKS                       R28 R2 K67 ["ImageSize"]
-      305 SETTABLEKS                       R28 R27 K39 ["Size"]
-      307 GETTABLEKS                       R28 R2 K68 ["ImagePosition"]
-      309 SETTABLEKS                       R28 R27 K65 ["Position"]
-      311 CALL                             R25 2 1
-      312 SETTABLEKS                       R25 R24 K62 ["Image"]
-      314 GETUPVAL                         R25 0
-      315 GETTABLEKS                       R25 R25 K5 ["createElement"]
-      317 GETUPVAL                         R26 8
-      318 DUPTABLE                         R27 K69 [{"Text"}]
-      319 LOADK                            R30 K2 ["MaterialInformation"]
-      320 LOADK                            R31 K46 ["Delete"]
-      321 NAMECALL                         R28 R3 K8 ["getText"]
-      323 CALL                             R28 3 1
-      324 SETTABLEKS                       R28 R27 K49 ["Text"]
-      326 CALL                             R25 2 1
-      327 SETTABLEKS                       R25 R24 K63 ["Tooltip"]
-      329 CALL                             R21 3 1
-      330 JUMP                             ; [+1]
-      331 LOADNIL                          R21
-      332 SETTABLEKS                       R21 R20 K46 ["Delete"]
-      334 CALL                             R17 3 1
-      335 SETTABLEKS                       R17 R16 K35 ["Title"]
+      250 SETTABLEKS                       R25 R24 K66 ["Tooltip"]
+      252 CALL                             R21 3 1
+      253 JUMP                             ; [+1]
+      254 LOADNIL                          R21
+      255 SETTABLEKS                       R21 R20 K47 ["CreateVariant"]
+      257 JUMPIF                           R5 ; [+55]
+      258 GETUPVAL                         R21 0
+      259 GETTABLEKS                       R21 R21 K5 ["createElement"]
+      261 GETUPVAL                         R22 6
+      262 DUPTABLE                         R23 K76 [{["LayoutOrder"] = 3, ["OnClick"], ["Size"], ["Style"]}]
+      263 GETTABLEKS                       R24 R0 K78 ["delete"]
+      265 SETTABLEKS                       R24 R23 K60 ["OnClick"]
+      267 GETTABLEKS                       R24 R2 K21 ["ButtonSize"]
+      269 SETTABLEKS                       R24 R23 K41 ["Size"]
+      271 GETTABLEKS                       R24 R2 K64 ["ButtonStyle"]
+      273 SETTABLEKS                       R24 R23 K61 ["Style"]
+      275 DUPTABLE                         R24 K67 [{"Image", "Tooltip"}]
+      276 GETUPVAL                         R25 0
+      277 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      279 GETUPVAL                         R26 7
+      280 DUPTABLE                         R27 K69 [{"Style", "Size", "Position"}]
+      281 GETTABLEKS                       R28 R2 K48 ["Delete"]
+      283 SETTABLEKS                       R28 R27 K61 ["Style"]
+      285 GETTABLEKS                       R28 R2 K70 ["ImageSize"]
+      287 SETTABLEKS                       R28 R27 K41 ["Size"]
+      289 GETTABLEKS                       R28 R2 K71 ["ImagePosition"]
+      291 SETTABLEKS                       R28 R27 K68 ["Position"]
+      293 CALL                             R25 2 1
+      294 SETTABLEKS                       R25 R24 K65 ["Image"]
+      296 GETUPVAL                         R25 0
+      297 GETTABLEKS                       R25 R25 K5 ["createElement"]
+      299 GETUPVAL                         R26 8
+      300 DUPTABLE                         R27 K72 [{"Text"}]
+      301 LOADK                            R30 K2 ["MaterialInformation"]
+      302 LOADK                            R31 K48 ["Delete"]
+      303 NAMECALL                         R28 R3 K8 ["getText"]
+      305 CALL                             R28 3 1
+      306 SETTABLEKS                       R28 R27 K51 ["Text"]
+      308 CALL                             R25 2 1
+      309 SETTABLEKS                       R25 R24 K66 ["Tooltip"]
+      311 CALL                             R21 3 1
+      312 JUMP                             ; [+1]
+      313 LOADNIL                          R21
+      314 SETTABLEKS                       R21 R20 K48 ["Delete"]
+      316 CALL                             R17 3 1
+      317 SETTABLEKS                       R17 R16 K36 ["Title"]
+      319 GETUPVAL                         R17 0
+      320 GETTABLEKS                       R17 R17 K5 ["createElement"]
+      322 GETUPVAL                         R18 5
+      323 DUPTABLE                         R19 K79 [{["LayoutOrder"] = 2, ["Size"], ["Text"], ["TextXAlignment"]}]
+      324 GETTABLEKS                       R20 R2 K45 ["LabelRowSize"]
+      326 SETTABLEKS                       R20 R19 K41 ["Size"]
+      328 SETTABLEKS                       R7 R19 K51 ["Text"]
+      330 GETIMPORT                        R20 K58 [Enum.TextXAlignment.Left]
+      332 SETTABLEKS                       R20 R19 K53 ["TextXAlignment"]
+      334 CALL                             R17 2 1
+      335 SETTABLEKS                       R17 R16 K37 ["MaterialType"]
       337 GETUPVAL                         R17 0
       338 GETTABLEKS                       R17 R17 K5 ["createElement"]
       340 GETUPVAL                         R18 5
-      341 DUPTABLE                         R19 K74 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
-      342 LOADN                            R20 2
-      343 SETTABLEKS                       R20 R19 K26 ["LayoutOrder"]
-      345 GETTABLEKS                       R20 R2 K43 ["LabelRowSize"]
-      347 SETTABLEKS                       R20 R19 K39 ["Size"]
-      349 SETTABLEKS                       R7 R19 K49 ["Text"]
-      351 GETIMPORT                        R20 K56 [Enum.TextXAlignment.Left]
-      353 SETTABLEKS                       R20 R19 K51 ["TextXAlignment"]
-      355 CALL                             R17 2 1
-      356 SETTABLEKS                       R17 R16 K36 ["MaterialType"]
-      358 GETUPVAL                         R17 0
-      359 GETTABLEKS                       R17 R17 K5 ["createElement"]
-      361 GETUPVAL                         R18 5
-      362 DUPTABLE                         R19 K74 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
-      363 LOADN                            R20 3
-      364 SETTABLEKS                       R20 R19 K26 ["LayoutOrder"]
-      366 GETTABLEKS                       R20 R2 K43 ["LabelRowSize"]
-      368 SETTABLEKS                       R20 R19 K39 ["Size"]
-      370 SETTABLEKS                       R10 R19 K49 ["Text"]
-      372 GETIMPORT                        R20 K56 [Enum.TextXAlignment.Left]
-      374 SETTABLEKS                       R20 R19 K51 ["TextXAlignment"]
-      376 CALL                             R17 2 1
-      377 SETTABLEKS                       R17 R16 K37 ["Category"]
-      379 CALL                             R13 3 -1
-      380 RETURN                           R13 -1
+      341 DUPTABLE                         R19 K80 [{["LayoutOrder"] = 3, ["Size"], ["Text"], ["TextXAlignment"]}]
+      342 GETTABLEKS                       R20 R2 K45 ["LabelRowSize"]
+      344 SETTABLEKS                       R20 R19 K41 ["Size"]
+      346 SETTABLEKS                       R10 R19 K51 ["Text"]
+      348 GETIMPORT                        R20 K58 [Enum.TextXAlignment.Left]
+      350 SETTABLEKS                       R20 R19 K53 ["TextXAlignment"]
+      352 CALL                             R17 2 1
+      353 SETTABLEKS                       R17 R16 K38 ["Category"]
+      355 CALL                             R13 3 -1
+      356 RETURN                           R13 -1
 
 PROTO_5:
         0 DUPTABLE                         R2 K1 [{"Material"}]

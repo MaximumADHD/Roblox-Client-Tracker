@@ -6,29 +6,23 @@ PROTO_0:
         5 GETUPVAL                         R3 1
         6 GETUPVAL                         R4 2
         7 LOADNIL                          R5
-        8 DUPTABLE                         R6 K7 [{"searchTerm", "sortIndex", "groupIndex", "targetPage", "currentPage", "requestReason"}]
-        9 LOADK                            R7 K8 [""]
-       10 SETTABLEKS                       R7 R6 K1 ["searchTerm"]
-       12 GETUPVAL                         R7 3
-       13 GETTABLEKS                       R7 R7 K9 ["getDefaultSortForGroups"]
-       15 NAMECALL                         R8 R0 K10 ["getState"]
-       17 CALL                             R8 1 1
-       18 GETTABLEKS                       R8 R8 K11 ["pageInfo"]
-       20 CALL                             R7 1 1
-       21 SETTABLEKS                       R7 R6 K2 ["sortIndex"]
-       23 GETUPVAL                         R7 4
-       24 SETTABLEKS                       R7 R6 K3 ["groupIndex"]
-       26 LOADN                            R7 1
-       27 SETTABLEKS                       R7 R6 K4 ["targetPage"]
-       29 LOADN                            R7 0
-       30 SETTABLEKS                       R7 R6 K5 ["currentPage"]
-       32 GETUPVAL                         R7 5
-       33 GETTABLEKS                       R7 R7 K12 ["ChangeGroup"]
-       35 SETTABLEKS                       R7 R6 K6 ["requestReason"]
-       37 CALL                             R3 3 -1
-       38 NAMECALL                         R1 R0 K0 ["dispatch"]
-       40 CALL                             R1 -1 0
-       41 RETURN                           R0 0
+        8 DUPTABLE                         R6 K10 [{["searchTerm"] = "", ["sortIndex"], ["groupIndex"], ["targetPage"] = 1, ["currentPage"] = 0, ["requestReason"]}]
+        9 GETUPVAL                         R7 3
+       10 GETTABLEKS                       R7 R7 K11 ["getDefaultSortForGroups"]
+       12 NAMECALL                         R8 R0 K12 ["getState"]
+       14 CALL                             R8 1 1
+       15 GETTABLEKS                       R8 R8 K13 ["pageInfo"]
+       17 CALL                             R7 1 1
+       18 SETTABLEKS                       R7 R6 K3 ["sortIndex"]
+       20 GETUPVAL                         R7 4
+       21 SETTABLEKS                       R7 R6 K4 ["groupIndex"]
+       23 GETUPVAL                         R7 5
+       24 GETTABLEKS                       R7 R7 K14 ["ChangeGroup"]
+       26 SETTABLEKS                       R7 R6 K9 ["requestReason"]
+       28 CALL                             R3 3 -1
+       29 NAMECALL                         R1 R0 K0 ["dispatch"]
+       31 CALL                             R1 -1 0
+       32 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R2 P0

@@ -133,7 +133,7 @@ PROTO_1:
       167 GETUPVAL                         R12 0
       168 GETTABLEKS                       R12 R12 K4 ["createElement"]
       170 GETUPVAL                         R13 5
-      171 DUPTABLE                         R14 K47 [{"Ambient", "BackgroundColor3", "DisablePan", "DisableZoom", "EnableSky", "InitialDistance", "LightColor", "LightDirection", "Model", "Size", "Static"}]
+      171 DUPTABLE                         R14 K48 [{["Ambient"], ["BackgroundColor3"], ["DisablePan"] = True, ["DisableZoom"], ["EnableSky"], ["InitialDistance"], ["LightColor"], ["LightDirection"], ["Model"], ["Size"], ["Static"]}]
       172 GETTABLEKS                       R15 R2 K37 ["Ambient"]
       174 SETTABLEKS                       R15 R14 K37 ["Ambient"]
       176 GETUPVAL                         R15 6
@@ -141,30 +141,28 @@ PROTO_1:
       179 MOVE                             R17 R6
       180 CALL                             R15 2 1
       181 SETTABLEKS                       R15 R14 K38 ["BackgroundColor3"]
-      183 LOADB                            R15 1
-      184 SETTABLEKS                       R15 R14 K39 ["DisablePan"]
-      186 GETTABLEKS                       R15 R1 K40 ["DisableZoom"]
-      188 SETTABLEKS                       R15 R14 K40 ["DisableZoom"]
-      190 SETTABLEKS                       R7 R14 K41 ["EnableSky"]
-      192 GETTABLEKS                       R15 R1 K42 ["InitialDistance"]
-      194 SETTABLEKS                       R15 R14 K42 ["InitialDistance"]
-      196 GETTABLEKS                       R15 R2 K43 ["LightColor"]
-      198 SETTABLEKS                       R15 R14 K43 ["LightColor"]
-      200 GETTABLEKS                       R15 R2 K44 ["LightDirection"]
-      202 SETTABLEKS                       R15 R14 K44 ["LightDirection"]
-      204 GETTABLEKS                       R15 R0 K18 ["model"]
-      206 SETTABLEKS                       R15 R14 K45 ["Model"]
-      208 GETIMPORT                        R15 K50 [UDim2.fromScale]
-      210 LOADN                            R16 1
-      211 LOADN                            R17 1
-      212 CALL                             R15 2 1
-      213 SETTABLEKS                       R15 R14 K7 ["Size"]
-      215 GETTABLEKS                       R15 R1 K46 ["Static"]
-      217 SETTABLEKS                       R15 R14 K46 ["Static"]
-      219 CALL                             R12 2 1
-      220 SETTABLEKS                       R12 R11 K35 ["AssetRenderModel"]
-      222 CALL                             R8 3 -1
-      223 RETURN                           R8 -1
+      183 GETTABLEKS                       R15 R1 K41 ["DisableZoom"]
+      185 SETTABLEKS                       R15 R14 K41 ["DisableZoom"]
+      187 SETTABLEKS                       R7 R14 K42 ["EnableSky"]
+      189 GETTABLEKS                       R15 R1 K43 ["InitialDistance"]
+      191 SETTABLEKS                       R15 R14 K43 ["InitialDistance"]
+      193 GETTABLEKS                       R15 R2 K44 ["LightColor"]
+      195 SETTABLEKS                       R15 R14 K44 ["LightColor"]
+      197 GETTABLEKS                       R15 R2 K45 ["LightDirection"]
+      199 SETTABLEKS                       R15 R14 K45 ["LightDirection"]
+      201 GETTABLEKS                       R15 R0 K18 ["model"]
+      203 SETTABLEKS                       R15 R14 K46 ["Model"]
+      205 GETIMPORT                        R15 K51 [UDim2.fromScale]
+      207 LOADN                            R16 1
+      208 LOADN                            R17 1
+      209 CALL                             R15 2 1
+      210 SETTABLEKS                       R15 R14 K7 ["Size"]
+      212 GETTABLEKS                       R15 R1 K47 ["Static"]
+      214 SETTABLEKS                       R15 R14 K47 ["Static"]
+      216 CALL                             R12 2 1
+      217 SETTABLEKS                       R12 R11 K35 ["AssetRenderModel"]
+      219 CALL                             R8 3 -1
+      220 RETURN                           R8 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K4 [{"MaterialWrapper", "MaterialOverride", "MaterialOverrides", "Use2022Materials"}]
@@ -269,36 +267,34 @@ MAIN:
       105 LOADK                            R23 K32 ["MaterialPreview"]
       106 NAMECALL                         R21 R21 K33 ["extend"]
       108 CALL                             R21 2 1
-      109 DUPTABLE                         R22 K36 [{"InitialDistance", "Material"}]
-      110 LOADK                            R23 K37 [6.3]
-      111 SETTABLEKS                       R23 R22 K34 ["InitialDistance"]
-      113 GETIMPORT                        R23 K40 [Enum.Material.Plastic]
-      115 SETTABLEKS                       R23 R22 K35 ["Material"]
-      117 SETTABLEKS                       R22 R21 K41 ["defaultProps"]
-      119 DUPCLOSURE                       R22 K42 [PROTO_0]
-      120 SETTABLEKS                       R22 R21 K43 ["shouldUpdate"]
-      122 DUPCLOSURE                       R22 K44 [PROTO_1]
-      123 CAPTURE                          VAL R1
-      124 CAPTURE                          VAL R10
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R19
-      127 CAPTURE                          VAL R20
-      128 CAPTURE                          VAL R11
-      129 CAPTURE                          VAL R8
-      130 SETTABLEKS                       R22 R21 K45 ["render"]
-      132 MOVE                             R22 R6
-      133 DUPTABLE                         R23 K46 [{"MaterialServiceController", "GeneralServiceController", "Stylizer"}]
-      134 SETTABLEKS                       R17 R23 K26 ["MaterialServiceController"]
-      136 SETTABLEKS                       R16 R23 K25 ["GeneralServiceController"]
-      138 SETTABLEKS                       R7 R23 K14 ["Stylizer"]
-      140 CALL                             R22 1 1
-      141 MOVE                             R23 R21
-      142 CALL                             R22 1 1
-      143 MOVE                             R21 R22
-      144 GETTABLEKS                       R22 R2 K47 ["connect"]
-      146 DUPCLOSURE                       R23 K48 [PROTO_2]
-      147 DUPCLOSURE                       R24 K49 [PROTO_3]
-      148 CALL                             R22 2 1
-      149 MOVE                             R23 R21
-      150 CALL                             R22 1 -1
-      151 RETURN                           R22 -1
+      109 DUPTABLE                         R22 K37 [{["InitialDistance"] = 6.3, ["Material"]}]
+      110 GETIMPORT                        R23 K40 [Enum.Material.Plastic]
+      112 SETTABLEKS                       R23 R22 K36 ["Material"]
+      114 SETTABLEKS                       R22 R21 K41 ["defaultProps"]
+      116 DUPCLOSURE                       R22 K42 [PROTO_0]
+      117 SETTABLEKS                       R22 R21 K43 ["shouldUpdate"]
+      119 DUPCLOSURE                       R22 K44 [PROTO_1]
+      120 CAPTURE                          VAL R1
+      121 CAPTURE                          VAL R10
+      122 CAPTURE                          VAL R13
+      123 CAPTURE                          VAL R19
+      124 CAPTURE                          VAL R20
+      125 CAPTURE                          VAL R11
+      126 CAPTURE                          VAL R8
+      127 SETTABLEKS                       R22 R21 K45 ["render"]
+      129 MOVE                             R22 R6
+      130 DUPTABLE                         R23 K46 [{"MaterialServiceController", "GeneralServiceController", "Stylizer"}]
+      131 SETTABLEKS                       R17 R23 K26 ["MaterialServiceController"]
+      133 SETTABLEKS                       R16 R23 K25 ["GeneralServiceController"]
+      135 SETTABLEKS                       R7 R23 K14 ["Stylizer"]
+      137 CALL                             R22 1 1
+      138 MOVE                             R23 R21
+      139 CALL                             R22 1 1
+      140 MOVE                             R21 R22
+      141 GETTABLEKS                       R22 R2 K47 ["connect"]
+      143 DUPCLOSURE                       R23 K48 [PROTO_2]
+      144 DUPCLOSURE                       R24 K49 [PROTO_3]
+      145 CALL                             R22 2 1
+      146 MOVE                             R23 R21
+      147 CALL                             R22 1 -1
+      148 RETURN                           R22 -1

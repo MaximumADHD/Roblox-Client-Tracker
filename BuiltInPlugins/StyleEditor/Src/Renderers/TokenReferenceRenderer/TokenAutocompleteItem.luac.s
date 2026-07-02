@@ -94,22 +94,20 @@ PROTO_1:
       113 SETTABLEKS                       R12 R11 K19 ["NameText"]
       115 GETTABLEKS                       R12 R0 K12 ["TokenInfo"]
       117 GETTABLEKS                       R12 R12 K31 ["Source"]
-      119 JUMPIFNOT                        R12 ; [+15]
+      119 JUMPIFNOT                        R12 ; [+12]
       120 GETUPVAL                         R12 3
       121 GETTABLEKS                       R12 R12 K2 ["createElement"]
       123 GETUPVAL                         R13 7
-      124 DUPTABLE                         R14 K32 [{"Source", "LayoutOrder"}]
+      124 DUPTABLE                         R14 K33 [{["Source"], ["LayoutOrder"] = 2}]
       125 GETTABLEKS                       R15 R0 K12 ["TokenInfo"]
       127 GETTABLEKS                       R15 R15 K31 ["Source"]
       129 SETTABLEKS                       R15 R14 K31 ["Source"]
-      131 LOADN                            R15 2
-      132 SETTABLEKS                       R15 R14 K3 ["LayoutOrder"]
-      134 CALL                             R12 2 1
-      135 SETTABLEKS                       R12 R11 K20 ["SourceLink"]
-      137 CALL                             R8 3 1
-      138 SETTABLEKS                       R8 R7 K10 ["Content"]
-      140 CALL                             R4 3 -1
-      141 RETURN                           R4 -1
+      131 CALL                             R12 2 1
+      132 SETTABLEKS                       R12 R11 K20 ["SourceLink"]
+      134 CALL                             R8 3 1
+      135 SETTABLEKS                       R8 R7 K10 ["Content"]
+      137 CALL                             R4 3 -1
+      138 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

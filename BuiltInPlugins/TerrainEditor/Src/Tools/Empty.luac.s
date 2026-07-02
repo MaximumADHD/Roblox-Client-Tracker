@@ -101,39 +101,35 @@ PROTO_3:
        15 GETTABLEKS                       R6 R6 K2 ["SmoothVoxels"]
        17 GETUPVAL                         R8 3
        18 CALL                             R8 0 1
-       19 JUMPIFNOT                        R8 ; [+35]
-       20 DUPTABLE                         R7 K8 [{"Hidden", "Label", "Layout", "Schema", "Value"}]
-       21 GETTABLEKS                       R9 R2 K9 ["Terrain"]
+       19 JUMPIFNOT                        R8 ; [+29]
+       20 DUPTABLE                         R7 K10 [{["Hidden"], ["Label"] = "", ["Layout"], ["Schema"], ["Value"] = True}]
+       21 GETTABLEKS                       R9 R2 K11 ["Terrain"]
        23 NOT                              R8 R9
        24 JUMPIF                           R8 ; [+6]
-       25 GETTABLEKS                       R9 R2 K9 ["Terrain"]
-       27 NAMECALL                         R9 R9 K10 ["CanSmoothVoxelsBeUpgraded"]
+       25 GETTABLEKS                       R9 R2 K11 ["Terrain"]
+       27 NAMECALL                         R9 R9 K12 ["CanSmoothVoxelsBeUpgraded"]
        29 CALL                             R9 1 1
        30 NOT                              R8 R9
        31 SETTABLEKS                       R8 R7 K3 ["Hidden"]
-       33 LOADK                            R8 K11 [""]
-       34 SETTABLEKS                       R8 R7 K4 ["Label"]
-       36 GETIMPORT                        R8 K15 [Enum.FillDirection.Vertical]
-       38 SETTABLEKS                       R8 R7 K5 ["Layout"]
-       40 DUPTABLE                         R8 K17 [{"OnClick"}]
-       41 NEWCLOSURE                       R9 P0
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          UPVAL U4
-       44 CAPTURE                          UPVAL U2
-       45 CAPTURE                          VAL R2
-       46 CAPTURE                          UPVAL U1
-       47 SETTABLEKS                       R9 R8 K16 ["OnClick"]
-       49 SETTABLEKS                       R8 R7 K6 ["Schema"]
-       51 LOADB                            R8 1
-       52 SETTABLEKS                       R8 R7 K7 ["Value"]
-       54 JUMP                             ; [+1]
-       55 LOADNIL                          R7
-       56 SETTABLE                         R7 R5 R6
-       57 SETTABLE                         R5 R3 R4
-       58 SETTABLEKS                       R3 R0 K18 ["_overrides"]
-       60 NAMECALL                         R3 R0 K19 ["createConnections"]
-       62 CALL                             R3 1 0
-       63 RETURN                           R0 0
+       33 GETIMPORT                        R8 K16 [Enum.FillDirection.Vertical]
+       35 SETTABLEKS                       R8 R7 K6 ["Layout"]
+       37 DUPTABLE                         R8 K18 [{"OnClick"}]
+       38 NEWCLOSURE                       R9 P0
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          UPVAL U4
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          VAL R2
+       43 CAPTURE                          UPVAL U1
+       44 SETTABLEKS                       R9 R8 K17 ["OnClick"]
+       46 SETTABLEKS                       R8 R7 K7 ["Schema"]
+       48 JUMP                             ; [+1]
+       49 LOADNIL                          R7
+       50 SETTABLE                         R7 R5 R6
+       51 SETTABLE                         R5 R3 R4
+       52 SETTABLEKS                       R3 R0 K19 ["_overrides"]
+       54 NAMECALL                         R3 R0 K20 ["createConnections"]
+       56 CALL                             R3 1 0
+       57 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_operation"]

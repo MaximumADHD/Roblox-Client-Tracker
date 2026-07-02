@@ -45,33 +45,27 @@ PROTO_1:
        12 NEWTABLE                         R5 1 0
        14 GETUPVAL                         R6 2
        15 GETTABLEKS                       R6 R6 K2 ["Clear"]
-       17 DUPTABLE                         R7 K8 [{"Disabled", "Hidden", "Label", "Schema", "Value"}]
-       18 GETTABLEKS                       R9 R2 K9 ["Terrain"]
-       20 NAMECALL                         R9 R9 K10 ["CountCells"]
+       17 DUPTABLE                         R7 K11 [{["Disabled"], ["Hidden"] = False, ["Label"] = "", ["Schema"], ["Value"] = True}]
+       18 GETTABLEKS                       R9 R2 K12 ["Terrain"]
+       20 NAMECALL                         R9 R9 K13 ["CountCells"]
        22 CALL                             R9 1 1
-       23 JUMPIFEQKN                       R9 K11 [0] ; [+2]
+       23 JUMPIFEQKN                       R9 K14 [0] ; [+2]
        25 LOADB                            R8 0 +1
        26 LOADB                            R8 1
        27 SETTABLEKS                       R8 R7 K3 ["Disabled"]
-       29 LOADB                            R8 0
-       30 SETTABLEKS                       R8 R7 K4 ["Hidden"]
-       32 LOADK                            R8 K12 [""]
-       33 SETTABLEKS                       R8 R7 K5 ["Label"]
-       35 DUPTABLE                         R8 K14 [{"OnClick"}]
-       36 NEWCLOSURE                       R9 P0
-       37 CAPTURE                          VAL R2
-       38 CAPTURE                          VAL R0
-       39 CAPTURE                          UPVAL U1
-       40 CAPTURE                          UPVAL U2
-       41 CAPTURE                          UPVAL U3
-       42 SETTABLEKS                       R9 R8 K13 ["OnClick"]
-       44 SETTABLEKS                       R8 R7 K6 ["Schema"]
-       46 LOADB                            R8 1
-       47 SETTABLEKS                       R8 R7 K7 ["Value"]
-       49 SETTABLE                         R7 R5 R6
-       50 SETTABLE                         R5 R3 R4
-       51 SETTABLEKS                       R3 R0 K15 ["_overrides"]
-       53 RETURN                           R0 0
+       29 DUPTABLE                         R8 K16 [{"OnClick"}]
+       30 NEWCLOSURE                       R9 P0
+       31 CAPTURE                          VAL R2
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U1
+       34 CAPTURE                          UPVAL U2
+       35 CAPTURE                          UPVAL U3
+       36 SETTABLEKS                       R9 R8 K15 ["OnClick"]
+       38 SETTABLEKS                       R8 R7 K8 ["Schema"]
+       40 SETTABLE                         R7 R5 R6
+       41 SETTABLE                         R5 R3 R4
+       42 SETTABLEKS                       R3 R0 K17 ["_overrides"]
+       44 RETURN                           R0 0
 
 PROTO_2:
         0 NAMECALL                         R1 R0 K0 ["getPayload"]

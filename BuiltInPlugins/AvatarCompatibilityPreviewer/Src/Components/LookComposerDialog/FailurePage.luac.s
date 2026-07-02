@@ -16,72 +16,64 @@ PROTO_0:
        18 GETUPVAL                         R4 4
        19 GETTABLEKS                       R4 R4 K5 ["createElement"]
        21 GETUPVAL                         R5 5
-       22 DUPTABLE                         R6 K7 [{"tag"}]
-       23 LOADK                            R7 K8 ["col align-x-center align-y-center size-full gap-medium padding-large"]
-       24 SETTABLEKS                       R7 R6 K6 ["tag"]
-       26 DUPTABLE                         R7 K12 [{"WarningIcon", "Title", "Subtitle"}]
-       27 GETUPVAL                         R8 4
-       28 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       30 GETUPVAL                         R9 5
-       31 DUPTABLE                         R10 K15 [{"tag", "Size", "LayoutOrder"}]
-       32 LOADK                            R11 K16 ["col align-x-center align-y-center"]
-       33 SETTABLEKS                       R11 R10 K6 ["tag"]
-       35 GETIMPORT                        R11 K19 [UDim2.fromOffset]
-       37 LOADN                            R12 150
-       38 LOADN                            R13 150
-       39 CALL                             R11 2 1
-       40 SETTABLEKS                       R11 R10 K13 ["Size"]
-       42 NAMECALL                         R11 R3 K20 ["getNextOrder"]
-       44 CALL                             R11 1 1
-       45 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-       47 DUPTABLE                         R11 K22 [{"Icon"}]
-       48 GETUPVAL                         R12 4
-       49 GETTABLEKS                       R12 R12 K5 ["createElement"]
-       51 GETUPVAL                         R13 6
-       52 DUPTABLE                         R14 K25 [{"name", "size"}]
-       53 GETUPVAL                         R15 7
-       54 GETTABLEKS                       R15 R15 K26 ["Enums"]
-       56 GETTABLEKS                       R15 R15 K27 ["IconName"]
-       58 GETTABLEKS                       R15 R15 K28 ["TriangleExclamation"]
-       60 SETTABLEKS                       R15 R14 K23 ["name"]
-       62 GETTABLEKS                       R15 R2 K13 ["Size"]
-       64 GETTABLEKS                       R15 R15 K29 ["Size_1500"]
-       66 SETTABLEKS                       R15 R14 K24 ["size"]
-       68 CALL                             R12 2 1
-       69 SETTABLEKS                       R12 R11 K21 ["Icon"]
-       71 CALL                             R8 3 1
-       72 SETTABLEKS                       R8 R7 K9 ["WarningIcon"]
-       74 GETUPVAL                         R8 4
-       75 GETTABLEKS                       R8 R8 K5 ["createElement"]
-       77 GETUPVAL                         R9 8
-       78 DUPTABLE                         R10 K31 [{"Text", "tag", "LayoutOrder"}]
-       79 LOADK                            R13 K32 ["LookComposerDialog"]
-       80 LOADK                            R14 K33 ["CreateLookFailedTitle"]
-       81 NAMECALL                         R11 R1 K34 ["getText"]
-       83 CALL                             R11 3 1
-       84 SETTABLEKS                       R11 R10 K30 ["Text"]
-       86 LOADK                            R11 K35 ["text-heading-small auto-xy content-default text-center"]
-       87 SETTABLEKS                       R11 R10 K6 ["tag"]
-       89 NAMECALL                         R11 R3 K20 ["getNextOrder"]
-       91 CALL                             R11 1 1
-       92 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-       94 CALL                             R8 2 1
-       95 SETTABLEKS                       R8 R7 K10 ["Title"]
-       97 GETUPVAL                         R8 4
-       98 GETTABLEKS                       R8 R8 K5 ["createElement"]
-      100 GETUPVAL                         R9 8
-      101 DUPTABLE                         R10 K31 [{"Text", "tag", "LayoutOrder"}]
-      102 GETTABLEKS                       R11 R0 K36 ["errorMessage"]
-      104 SETTABLEKS                       R11 R10 K30 ["Text"]
-      106 LOADK                            R11 K37 ["text-body-medium auto-xy content-muted text-center"]
-      107 SETTABLEKS                       R11 R10 K6 ["tag"]
-      109 NAMECALL                         R11 R3 K20 ["getNextOrder"]
-      111 CALL                             R11 1 1
-      112 SETTABLEKS                       R11 R10 K14 ["LayoutOrder"]
-      114 CALL                             R8 2 1
-      115 SETTABLEKS                       R8 R7 K11 ["Subtitle"]
-      117 CALL                             R4 3 -1
-      118 RETURN                           R4 -1
+       22 DUPTABLE                         R6 K8 [{["tag"] = "col align-x-center align-y-center gap-medium size-full padding-large"}]
+       23 DUPTABLE                         R7 K12 [{"WarningIcon", "Title", "Subtitle"}]
+       24 GETUPVAL                         R8 4
+       25 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       27 GETUPVAL                         R9 5
+       28 DUPTABLE                         R10 K16 [{["tag"] = "col align-x-center align-y-center", ["Size"], ["LayoutOrder"]}]
+       29 GETIMPORT                        R11 K19 [UDim2.fromOffset]
+       31 LOADN                            R12 150
+       32 LOADN                            R13 150
+       33 CALL                             R11 2 1
+       34 SETTABLEKS                       R11 R10 K14 ["Size"]
+       36 NAMECALL                         R11 R3 K20 ["getNextOrder"]
+       38 CALL                             R11 1 1
+       39 SETTABLEKS                       R11 R10 K15 ["LayoutOrder"]
+       41 DUPTABLE                         R11 K22 [{"Icon"}]
+       42 GETUPVAL                         R12 4
+       43 GETTABLEKS                       R12 R12 K5 ["createElement"]
+       45 GETUPVAL                         R13 6
+       46 DUPTABLE                         R14 K25 [{"name", "size"}]
+       47 GETUPVAL                         R15 7
+       48 GETTABLEKS                       R15 R15 K26 ["Enums"]
+       50 GETTABLEKS                       R15 R15 K27 ["IconName"]
+       52 GETTABLEKS                       R15 R15 K28 ["TriangleExclamation"]
+       54 SETTABLEKS                       R15 R14 K23 ["name"]
+       56 GETTABLEKS                       R15 R2 K14 ["Size"]
+       58 GETTABLEKS                       R15 R15 K29 ["Size_1500"]
+       60 SETTABLEKS                       R15 R14 K24 ["size"]
+       62 CALL                             R12 2 1
+       63 SETTABLEKS                       R12 R11 K21 ["Icon"]
+       65 CALL                             R8 3 1
+       66 SETTABLEKS                       R8 R7 K9 ["WarningIcon"]
+       68 GETUPVAL                         R8 4
+       69 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       71 GETUPVAL                         R9 8
+       72 DUPTABLE                         R10 K32 [{["Text"], ["tag"] = "text-center auto-xy text-heading-small content-default", ["LayoutOrder"]}]
+       73 LOADK                            R13 K33 ["LookComposerDialog"]
+       74 LOADK                            R14 K34 ["CreateLookFailedTitle"]
+       75 NAMECALL                         R11 R1 K35 ["getText"]
+       77 CALL                             R11 3 1
+       78 SETTABLEKS                       R11 R10 K30 ["Text"]
+       80 NAMECALL                         R11 R3 K20 ["getNextOrder"]
+       82 CALL                             R11 1 1
+       83 SETTABLEKS                       R11 R10 K15 ["LayoutOrder"]
+       85 CALL                             R8 2 1
+       86 SETTABLEKS                       R8 R7 K10 ["Title"]
+       88 GETUPVAL                         R8 4
+       89 GETTABLEKS                       R8 R8 K5 ["createElement"]
+       91 GETUPVAL                         R9 8
+       92 DUPTABLE                         R10 K37 [{["Text"], ["tag"] = "text-center auto-xy text-body-medium content-muted", ["LayoutOrder"]}]
+       93 GETTABLEKS                       R11 R0 K38 ["errorMessage"]
+       95 SETTABLEKS                       R11 R10 K30 ["Text"]
+       97 NAMECALL                         R11 R3 K20 ["getNextOrder"]
+       99 CALL                             R11 1 1
+      100 SETTABLEKS                       R11 R10 K15 ["LayoutOrder"]
+      102 CALL                             R8 2 1
+      103 SETTABLEKS                       R8 R7 K11 ["Subtitle"]
+      105 CALL                             R4 3 -1
+      106 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

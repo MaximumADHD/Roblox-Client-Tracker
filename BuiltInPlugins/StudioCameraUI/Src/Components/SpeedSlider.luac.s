@@ -13,31 +13,23 @@ PROTO_0:
        14 GETUPVAL                         R5 1
        15 GETTABLEKS                       R5 R5 K5 ["createElement"]
        17 GETUPVAL                         R6 2
-       18 DUPTABLE                         R7 K15 [{"Value", "SetValue", "Min", "Max", "Exponent", "Transparency", "Size", "LayoutOrder", "ZIndex"}]
+       18 DUPTABLE                         R7 K18 [{["Value"], ["SetValue"], ["Min"] = 0.1, ["Max"] = 20, ["Exponent"] = 2.2, ["Transparency"], ["Size"], ["LayoutOrder"], ["ZIndex"] = 20}]
        19 SETTABLEKS                       R2 R7 K6 ["Value"]
        21 SETTABLEKS                       R3 R7 K7 ["SetValue"]
-       23 LOADK                            R8 K16 [0.1]
-       24 SETTABLEKS                       R8 R7 K8 ["Min"]
-       26 LOADN                            R8 20
-       27 SETTABLEKS                       R8 R7 K9 ["Max"]
-       29 LOADK                            R8 K17 [2.2]
-       30 SETTABLEKS                       R8 R7 K10 ["Exponent"]
-       32 SETTABLEKS                       R4 R7 K11 ["Transparency"]
-       34 GETTABLEKS                       R8 R0 K12 ["Size"]
-       36 JUMPIF                           R8 ; [+7]
-       37 GETIMPORT                        R8 K20 [UDim2.new]
-       39 LOADN                            R9 0
-       40 LOADN                            R10 83
-       41 LOADN                            R11 0
-       42 LOADN                            R12 22
-       43 CALL                             R8 4 1
-       44 SETTABLEKS                       R8 R7 K12 ["Size"]
-       46 GETTABLEKS                       R8 R0 K13 ["LayoutOrder"]
-       48 SETTABLEKS                       R8 R7 K13 ["LayoutOrder"]
-       50 LOADN                            R8 20
-       51 SETTABLEKS                       R8 R7 K14 ["ZIndex"]
-       53 CALL                             R5 2 -1
-       54 RETURN                           R5 -1
+       23 SETTABLEKS                       R4 R7 K14 ["Transparency"]
+       25 GETTABLEKS                       R8 R0 K15 ["Size"]
+       27 JUMPIF                           R8 ; [+7]
+       28 GETIMPORT                        R8 K21 [UDim2.new]
+       30 LOADN                            R9 0
+       31 LOADN                            R10 83
+       32 LOADN                            R11 0
+       33 LOADN                            R12 22
+       34 CALL                             R8 4 1
+       35 SETTABLEKS                       R8 R7 K15 ["Size"]
+       37 GETTABLEKS                       R8 R0 K16 ["LayoutOrder"]
+       39 SETTABLEKS                       R8 R7 K16 ["LayoutOrder"]
+       41 CALL                             R5 2 -1
+       42 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

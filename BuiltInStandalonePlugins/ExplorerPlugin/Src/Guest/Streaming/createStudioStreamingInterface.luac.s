@@ -64,7 +64,7 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
-        2 LOADN                            R4 255
+        2 LOADN                            R4 -1
         3 NAMECALL                         R1 R1 K0 ["PinStreamingForInstanceByUniqueId"]
         5 CALL                             R1 3 0
         6 RETURN                           R0 0

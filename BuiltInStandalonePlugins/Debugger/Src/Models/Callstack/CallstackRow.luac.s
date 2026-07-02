@@ -1,14 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K4 [{"frameColumn", "functionColumn", "lineColumn", "sourceColumn"}]
-        1 LOADK                            R1 K5 [""]
-        2 SETTABLEKS                       R1 R0 K0 ["frameColumn"]
-        4 LOADK                            R1 K5 [""]
-        5 SETTABLEKS                       R1 R0 K1 ["functionColumn"]
-        7 LOADK                            R1 K5 [""]
-        8 SETTABLEKS                       R1 R0 K2 ["lineColumn"]
-       10 LOADK                            R1 K5 [""]
-       11 SETTABLEKS                       R1 R0 K3 ["sourceColumn"]
-       13 RETURN                           R0 1
+        0 DUPTABLE                         R0 K5 [{[1] = "", ["functionColumn"] = "", ["lineColumn"] = "", ["sourceColumn"] = ""}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 DUPTABLE                         R1 K4 [{"frameColumn", "functionColumn", "lineColumn", "sourceColumn"}]

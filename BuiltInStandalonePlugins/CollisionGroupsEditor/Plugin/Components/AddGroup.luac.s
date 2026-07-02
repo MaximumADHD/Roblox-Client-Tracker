@@ -5,11 +5,9 @@ PROTO_0:
         4 SETTABLEKS                       R1 R0 K1 ["textBoxRef"]
         6 LOADK                            R1 K2 [""]
         7 SETTABLEKS                       R1 R0 K3 ["text"]
-        9 DUPTABLE                         R1 K5 [{"editing"}]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K4 ["editing"]
-       13 SETTABLEKS                       R1 R0 K6 ["state"]
-       15 RETURN                           R0 0
+        9 DUPTABLE                         R1 K6 [{["editing"] = False}]
+       10 SETTABLEKS                       R1 R0 K7 ["state"]
+       12 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -36,7 +34,7 @@ PROTO_2:
        21 GETTABLEKS                       R2 R2 K8 ["textBoxRef"]
        23 NAMECALL                         R2 R2 K9 ["getValue"]
        25 CALL                             R2 1 1
-       26 JUMPIFEQKNIL                     R2 ; [+24]
+       26 JUMPIFEQKNIL                     R2 ; [+21]
        28 GETUPVAL                         R2 0
        29 GETTABLEKS                       R2 R2 K8 ["textBoxRef"]
        31 NAMECALL                         R2 R2 K9 ["getValue"]
@@ -45,30 +43,26 @@ PROTO_2:
        36 CALL                             R2 1 0
        37 RETURN                           R0 0
        38 GETUPVAL                         R2 0
-       39 DUPTABLE                         R4 K12 [{"editing"}]
-       40 LOADB                            R5 0
-       41 SETTABLEKS                       R5 R4 K11 ["editing"]
-       43 NAMECALL                         R2 R2 K13 ["setState"]
-       45 CALL                             R2 2 0
-       46 GETUPVAL                         R2 1
-       47 GETTABLEKS                       R2 R2 K14 ["OnEditingChanged"]
-       49 LOADB                            R3 0
-       50 CALL                             R2 1 0
-       51 RETURN                           R0 0
+       39 DUPTABLE                         R4 K13 [{["editing"] = False}]
+       40 NAMECALL                         R2 R2 K14 ["setState"]
+       42 CALL                             R2 2 0
+       43 GETUPVAL                         R2 1
+       44 GETTABLEKS                       R2 R2 K15 ["OnEditingChanged"]
+       46 LOADB                            R3 0
+       47 CALL                             R2 1 0
+       48 RETURN                           R0 0
 
 PROTO_3:
-        0 JUMPIF                           R1 ; [+13]
+        0 JUMPIF                           R1 ; [+10]
         1 GETUPVAL                         R2 0
-        2 DUPTABLE                         R4 K1 [{"editing"}]
-        3 LOADB                            R5 0
-        4 SETTABLEKS                       R5 R4 K0 ["editing"]
-        6 NAMECALL                         R2 R2 K2 ["setState"]
-        8 CALL                             R2 2 0
-        9 GETUPVAL                         R2 1
-       10 GETTABLEKS                       R2 R2 K3 ["OnEditingChanged"]
-       12 LOADB                            R3 0
-       13 CALL                             R2 1 0
-       14 RETURN                           R0 0
+        2 DUPTABLE                         R4 K2 [{[1] = False}]
+        3 NAMECALL                         R2 R2 K3 ["setState"]
+        5 CALL                             R2 2 0
+        6 GETUPVAL                         R2 1
+        7 GETTABLEKS                       R2 R2 K4 ["OnEditingChanged"]
+        9 LOADB                            R3 0
+       10 CALL                             R2 1 0
+       11 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -99,60 +93,56 @@ PROTO_5:
        25 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
        27 NAMECALL                         R3 R3 K9 ["getValue"]
        29 CALL                             R3 1 1
-       30 JUMPIFEQKNIL                     R3 ; [+24]
+       30 JUMPIFEQKNIL                     R3 ; [+21]
        32 GETUPVAL                         R3 0
        33 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
        35 NAMECALL                         R3 R3 K9 ["getValue"]
        37 CALL                             R3 1 1
        38 NAMECALL                         R3 R3 K10 ["CaptureFocus"]
        40 CALL                             R3 1 0
-       41 JUMP                             ; [+13]
+       41 JUMP                             ; [+10]
        42 GETUPVAL                         R3 0
-       43 DUPTABLE                         R5 K12 [{"editing"}]
-       44 LOADB                            R6 0
-       45 SETTABLEKS                       R6 R5 K11 ["editing"]
-       47 NAMECALL                         R3 R3 K13 ["setState"]
-       49 CALL                             R3 2 0
-       50 GETUPVAL                         R3 1
-       51 GETTABLEKS                       R3 R3 K14 ["OnEditingChanged"]
-       53 LOADB                            R4 0
-       54 CALL                             R3 1 0
-       55 GETUPVAL                         R3 0
-       56 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
-       58 NAMECALL                         R3 R3 K9 ["getValue"]
-       60 CALL                             R3 1 1
-       61 JUMPIFEQKNIL                     R3 ; [+10]
-       63 GETUPVAL                         R3 0
-       64 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
-       66 NAMECALL                         R3 R3 K9 ["getValue"]
-       68 CALL                             R3 1 1
-       69 LOADK                            R4 K5 [""]
-       70 SETTABLEKS                       R4 R3 K15 ["Text"]
-       72 RETURN                           R0 0
+       43 DUPTABLE                         R5 K13 [{["editing"] = False}]
+       44 NAMECALL                         R3 R3 K14 ["setState"]
+       46 CALL                             R3 2 0
+       47 GETUPVAL                         R3 1
+       48 GETTABLEKS                       R3 R3 K15 ["OnEditingChanged"]
+       50 LOADB                            R4 0
+       51 CALL                             R3 1 0
+       52 GETUPVAL                         R3 0
+       53 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
+       55 NAMECALL                         R3 R3 K9 ["getValue"]
+       57 CALL                             R3 1 1
+       58 JUMPIFEQKNIL                     R3 ; [+10]
+       60 GETUPVAL                         R3 0
+       61 GETTABLEKS                       R3 R3 K8 ["textBoxRef"]
+       63 NAMECALL                         R3 R3 K9 ["getValue"]
+       65 CALL                             R3 1 1
+       66 LOADK                            R4 K5 [""]
+       67 SETTABLEKS                       R4 R3 K16 ["Text"]
+       69 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"editing"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["editing"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["textBoxRef"]
-       11 NAMECALL                         R0 R0 K4 ["getValue"]
-       13 CALL                             R0 1 1
-       14 JUMPIFEQKNIL                     R0 ; [+10]
-       16 GETUPVAL                         R0 0
-       17 GETTABLEKS                       R0 R0 K3 ["textBoxRef"]
-       19 NAMECALL                         R0 R0 K4 ["getValue"]
-       21 CALL                             R0 1 1
-       22 NAMECALL                         R0 R0 K5 ["CaptureFocus"]
-       24 CALL                             R0 1 0
-       25 GETUPVAL                         R0 1
-       26 GETTABLEKS                       R0 R0 K6 ["OnEditingChanged"]
-       28 LOADB                            R1 1
-       29 CALL                             R0 1 0
-       30 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["textBoxRef"]
+        8 NAMECALL                         R0 R0 K5 ["getValue"]
+       10 CALL                             R0 1 1
+       11 JUMPIFEQKNIL                     R0 ; [+10]
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K4 ["textBoxRef"]
+       16 NAMECALL                         R0 R0 K5 ["getValue"]
+       18 CALL                             R0 1 1
+       19 NAMECALL                         R0 R0 K6 ["CaptureFocus"]
+       21 CALL                             R0 1 0
+       22 GETUPVAL                         R0 1
+       23 GETTABLEKS                       R0 R0 K7 ["OnEditingChanged"]
+       25 LOADB                            R1 1
+       26 CALL                             R0 1 0
+       27 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -165,182 +155,174 @@ PROTO_7:
        12 JUMPIFLE                         R6 R5 ; [+2]
        14 LOADB                            R4 0 +1
        15 LOADB                            R4 1
-       16 JUMPIFNOT                        R4 ; [+12]
+       16 JUMPIFNOT                        R4 ; [+9]
        17 GETTABLEKS                       R5 R0 K5 ["state"]
        19 GETTABLEKS                       R5 R5 K6 ["editing"]
-       21 JUMPIFNOT                        R5 ; [+7]
-       22 DUPTABLE                         R7 K7 [{"editing"}]
-       23 LOADB                            R8 0
-       24 SETTABLEKS                       R8 R7 K6 ["editing"]
-       26 NAMECALL                         R5 R0 K8 ["setState"]
-       28 CALL                             R5 2 0
-       29 LOADK                            R6 K9 ["+ "]
-       30 LOADK                            R9 K10 ["Actions"]
-       31 LOADK                            R10 K11 ["AddGroup"]
-       32 NAMECALL                         R7 R2 K12 ["getText"]
-       34 CALL                             R7 3 1
-       35 CONCAT                           R5 R6 R7
-       36 LOADK                            R7 K9 ["+ "]
-       37 LOADK                            R10 K13 ["Info"]
-       38 LOADK                            R11 K14 ["NewGroupName"]
-       39 NAMECALL                         R8 R2 K12 ["getText"]
-       41 CALL                             R8 3 1
-       42 CONCAT                           R6 R7 R8
-       43 LOADNIL                          R7
-       44 GETIMPORT                        R8 K16 [game]
-       46 LOADK                            R10 K17 ["CGELargeGroupNameEntryFix"]
-       47 NAMECALL                         R8 R8 K18 ["GetFastFlag"]
-       49 CALL                             R8 2 1
-       50 JUMPIFNOT                        R8 ; [+40]
-       51 GETTABLEKS                       R8 R0 K5 ["state"]
-       53 GETTABLEKS                       R8 R8 K6 ["editing"]
-       55 JUMPIFNOT                        R8 ; [+33]
-       56 GETUPVAL                         R8 1
-       57 GETTABLEKS                       R8 R8 K19 ["createElement"]
-       59 GETUPVAL                         R9 2
-       60 DUPTABLE                         R10 K27 [{"TextXAlignment", "PlaceholderText", "ForwardRef", "ClearTextOnFocus", "OnTextChanged", "OnEnter", "OnFocusLost"}]
-       61 GETIMPORT                        R11 K30 [Enum.TextXAlignment.Center]
-       63 SETTABLEKS                       R11 R10 K20 ["TextXAlignment"]
-       65 SETTABLEKS                       R6 R10 K21 ["PlaceholderText"]
-       67 GETTABLEKS                       R11 R0 K31 ["textBoxRef"]
-       69 SETTABLEKS                       R11 R10 K22 ["ForwardRef"]
-       71 LOADB                            R11 1
-       72 SETTABLEKS                       R11 R10 K23 ["ClearTextOnFocus"]
-       74 NEWCLOSURE                       R11 P0
-       75 CAPTURE                          VAL R0
-       76 SETTABLEKS                       R11 R10 K24 ["OnTextChanged"]
-       78 NEWCLOSURE                       R11 P1
-       79 CAPTURE                          VAL R0
-       80 CAPTURE                          VAL R1
-       81 SETTABLEKS                       R11 R10 K25 ["OnEnter"]
-       83 NEWCLOSURE                       R11 P2
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          VAL R1
-       86 SETTABLEKS                       R11 R10 K26 ["OnFocusLost"]
-       88 CALL                             R8 2 1
-       89 MOVE                             R7 R8
-       90 JUMP                             ; [+40]
-       91 GETTABLEKS                       R8 R0 K5 ["state"]
-       93 GETTABLEKS                       R8 R8 K6 ["editing"]
-       95 JUMPIFNOT                        R8 ; [+34]
-       96 GETUPVAL                         R8 1
-       97 GETTABLEKS                       R8 R8 K19 ["createElement"]
-       99 GETUPVAL                         R9 3
-      100 DUPTABLE                         R10 K33 [{"Size", "TextXAlignment", "PlaceholderText", "ForwardRef", "OnTextChanged", "OnFocusLost"}]
-      101 GETIMPORT                        R11 K36 [UDim2.new]
-      103 LOADN                            R12 1
-      104 LOADN                            R13 0
-      105 LOADN                            R14 1
-      106 LOADN                            R15 0
-      107 CALL                             R11 4 1
-      108 SETTABLEKS                       R11 R10 K32 ["Size"]
-      110 GETIMPORT                        R11 K30 [Enum.TextXAlignment.Center]
-      112 SETTABLEKS                       R11 R10 K20 ["TextXAlignment"]
-      114 SETTABLEKS                       R6 R10 K21 ["PlaceholderText"]
-      116 GETTABLEKS                       R11 R0 K31 ["textBoxRef"]
-      118 SETTABLEKS                       R11 R10 K22 ["ForwardRef"]
-      120 NEWCLOSURE                       R11 P3
-      121 CAPTURE                          VAL R0
-      122 SETTABLEKS                       R11 R10 K24 ["OnTextChanged"]
-      124 NEWCLOSURE                       R11 P4
-      125 CAPTURE                          VAL R0
-      126 CAPTURE                          VAL R1
-      127 SETTABLEKS                       R11 R10 K26 ["OnFocusLost"]
-      129 CALL                             R8 2 1
-      130 MOVE                             R7 R8
-      131 GETTABLEKS                       R8 R3 K37 ["Font"]
-      133 GETTABLEKS                       R9 R3 K38 ["TextSize"]
-      135 GETUPVAL                         R10 4
-      136 MOVE                             R12 R5
-      137 MOVE                             R13 R9
-      138 MOVE                             R14 R8
-      139 GETIMPORT                        R15 K40 [Vector2.new]
-      141 LOADN                            R16 0
-      142 LOADN                            R17 0
-      143 CALL                             R15 2 -1
-      144 NAMECALL                         R10 R10 K41 ["GetTextSize"]
-      146 CALL                             R10 -1 1
-      147 GETUPVAL                         R11 4
-      148 MOVE                             R13 R6
-      149 MOVE                             R14 R9
-      150 MOVE                             R15 R8
-      151 GETIMPORT                        R16 K40 [Vector2.new]
-      153 LOADN                            R17 0
-      154 LOADN                            R18 0
-      155 CALL                             R16 2 -1
-      156 NAMECALL                         R11 R11 K41 ["GetTextSize"]
-      158 CALL                             R11 -1 1
-      159 GETTABLEKS                       R14 R10 K43 ["X"]
-      161 ADDK                             R13 R14 K42 [2]
-      162 FASTCALL1                        MATH_CEIL R13 ; [+2]
-      163 GETIMPORT                        R12 K46 [math.ceil]
-      165 CALL                             R12 1 1
-      166 GETTABLEKS                       R15 R11 K43 ["X"]
-      168 ADDK                             R14 R15 K42 [2]
-      169 FASTCALL1                        MATH_CEIL R14 ; [+2]
-      170 GETIMPORT                        R13 K46 [math.ceil]
-      172 CALL                             R13 1 1
-      173 GETUPVAL                         R14 0
-      174 GETTABLEKS                       R14 R14 K47 ["ControlsHeaderButtonWidth"]
-      176 FASTCALL3                        MATH_MAX R14 R12 R13
-      178 MOVE                             R16 R14
-      179 MOVE                             R17 R12
-      180 MOVE                             R18 R13
-      181 GETIMPORT                        R15 K49 [math.max]
-      183 CALL                             R15 3 1
-      184 GETUPVAL                         R16 1
-      185 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      187 GETUPVAL                         R17 5
-      188 DUPTABLE                         R18 K53 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-      189 GETIMPORT                        R19 K36 [UDim2.new]
-      191 LOADN                            R20 0
-      192 MOVE                             R21 R15
-      193 LOADN                            R22 1
-      194 LOADN                            R23 0
-      195 CALL                             R19 4 1
-      196 SETTABLEKS                       R19 R18 K32 ["Size"]
-      198 GETTABLEKS                       R19 R1 K50 ["LayoutOrder"]
-      200 SETTABLEKS                       R19 R18 K50 ["LayoutOrder"]
-      202 GETIMPORT                        R19 K56 [Enum.FillDirection.Horizontal]
-      204 SETTABLEKS                       R19 R18 K51 ["Layout"]
-      206 GETIMPORT                        R19 K57 [Enum.HorizontalAlignment.Center]
-      208 SETTABLEKS                       R19 R18 K52 ["HorizontalAlignment"]
-      210 DUPTABLE                         R19 K60 [{"AddButton", "TextInput"}]
-      211 GETTABLEKS                       R21 R0 K5 ["state"]
-      213 GETTABLEKS                       R21 R21 K6 ["editing"]
-      215 NOT                              R20 R21
-      216 JUMPIFNOT                        R20 ; [+36]
-      217 GETUPVAL                         R20 1
-      218 GETTABLEKS                       R20 R20 K19 ["createElement"]
-      220 GETUPVAL                         R21 6
-      221 DUPTABLE                         R22 K66 [{"Style", "Text", "StyleModifier", "Size", "TextWrapped", "OnClick"}]
-      222 LOADK                            R23 K67 ["Round"]
-      223 SETTABLEKS                       R23 R22 K61 ["Style"]
-      225 SETTABLEKS                       R5 R22 K62 ["Text"]
-      227 JUMPIFNOT                        R4 ; [+4]
-      228 GETUPVAL                         R23 7
-      229 GETTABLEKS                       R23 R23 K68 ["Disabled"]
-      231 JUMP                             ; [+1]
-      232 LOADNIL                          R23
-      233 SETTABLEKS                       R23 R22 K63 ["StyleModifier"]
-      235 GETIMPORT                        R23 K36 [UDim2.new]
-      237 LOADN                            R24 1
-      238 LOADN                            R25 0
-      239 LOADN                            R26 1
-      240 LOADN                            R27 0
-      241 CALL                             R23 4 1
-      242 SETTABLEKS                       R23 R22 K32 ["Size"]
-      244 LOADB                            R23 1
-      245 SETTABLEKS                       R23 R22 K64 ["TextWrapped"]
-      247 NEWCLOSURE                       R23 P5
-      248 CAPTURE                          VAL R0
-      249 CAPTURE                          VAL R1
-      250 SETTABLEKS                       R23 R22 K65 ["OnClick"]
-      252 CALL                             R20 2 1
-      253 SETTABLEKS                       R20 R19 K58 ["AddButton"]
-      255 SETTABLEKS                       R7 R19 K59 ["TextInput"]
-      257 CALL                             R16 3 -1
-      258 RETURN                           R16 -1
+       21 JUMPIFNOT                        R5 ; [+4]
+       22 DUPTABLE                         R7 K8 [{["editing"] = False}]
+       23 NAMECALL                         R5 R0 K9 ["setState"]
+       25 CALL                             R5 2 0
+       26 LOADK                            R6 K10 ["+ "]
+       27 LOADK                            R9 K11 ["Actions"]
+       28 LOADK                            R10 K12 ["AddGroup"]
+       29 NAMECALL                         R7 R2 K13 ["getText"]
+       31 CALL                             R7 3 1
+       32 CONCAT                           R5 R6 R7
+       33 LOADK                            R7 K10 ["+ "]
+       34 LOADK                            R10 K14 ["Info"]
+       35 LOADK                            R11 K15 ["NewGroupName"]
+       36 NAMECALL                         R8 R2 K13 ["getText"]
+       38 CALL                             R8 3 1
+       39 CONCAT                           R6 R7 R8
+       40 LOADNIL                          R7
+       41 GETIMPORT                        R8 K17 [game]
+       43 LOADK                            R10 K18 ["CGELargeGroupNameEntryFix"]
+       44 NAMECALL                         R8 R8 K19 ["GetFastFlag"]
+       46 CALL                             R8 2 1
+       47 JUMPIFNOT                        R8 ; [+37]
+       48 GETTABLEKS                       R8 R0 K5 ["state"]
+       50 GETTABLEKS                       R8 R8 K6 ["editing"]
+       52 JUMPIFNOT                        R8 ; [+30]
+       53 GETUPVAL                         R8 1
+       54 GETTABLEKS                       R8 R8 K20 ["createElement"]
+       56 GETUPVAL                         R9 2
+       57 DUPTABLE                         R10 K29 [{["TextXAlignment"], ["PlaceholderText"], ["ForwardRef"], ["ClearTextOnFocus"] = True, ["OnTextChanged"], ["OnEnter"], ["OnFocusLost"]}]
+       58 GETIMPORT                        R11 K32 [Enum.TextXAlignment.Center]
+       60 SETTABLEKS                       R11 R10 K21 ["TextXAlignment"]
+       62 SETTABLEKS                       R6 R10 K22 ["PlaceholderText"]
+       64 GETTABLEKS                       R11 R0 K33 ["textBoxRef"]
+       66 SETTABLEKS                       R11 R10 K23 ["ForwardRef"]
+       68 NEWCLOSURE                       R11 P0
+       69 CAPTURE                          VAL R0
+       70 SETTABLEKS                       R11 R10 K26 ["OnTextChanged"]
+       72 NEWCLOSURE                       R11 P1
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          VAL R1
+       75 SETTABLEKS                       R11 R10 K27 ["OnEnter"]
+       77 NEWCLOSURE                       R11 P2
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          VAL R1
+       80 SETTABLEKS                       R11 R10 K28 ["OnFocusLost"]
+       82 CALL                             R8 2 1
+       83 MOVE                             R7 R8
+       84 JUMP                             ; [+40]
+       85 GETTABLEKS                       R8 R0 K5 ["state"]
+       87 GETTABLEKS                       R8 R8 K6 ["editing"]
+       89 JUMPIFNOT                        R8 ; [+34]
+       90 GETUPVAL                         R8 1
+       91 GETTABLEKS                       R8 R8 K20 ["createElement"]
+       93 GETUPVAL                         R9 3
+       94 DUPTABLE                         R10 K35 [{"Size", "TextXAlignment", "PlaceholderText", "ForwardRef", "OnTextChanged", "OnFocusLost"}]
+       95 GETIMPORT                        R11 K38 [UDim2.new]
+       97 LOADN                            R12 1
+       98 LOADN                            R13 0
+       99 LOADN                            R14 1
+      100 LOADN                            R15 0
+      101 CALL                             R11 4 1
+      102 SETTABLEKS                       R11 R10 K34 ["Size"]
+      104 GETIMPORT                        R11 K32 [Enum.TextXAlignment.Center]
+      106 SETTABLEKS                       R11 R10 K21 ["TextXAlignment"]
+      108 SETTABLEKS                       R6 R10 K22 ["PlaceholderText"]
+      110 GETTABLEKS                       R11 R0 K33 ["textBoxRef"]
+      112 SETTABLEKS                       R11 R10 K23 ["ForwardRef"]
+      114 NEWCLOSURE                       R11 P3
+      115 CAPTURE                          VAL R0
+      116 SETTABLEKS                       R11 R10 K26 ["OnTextChanged"]
+      118 NEWCLOSURE                       R11 P4
+      119 CAPTURE                          VAL R0
+      120 CAPTURE                          VAL R1
+      121 SETTABLEKS                       R11 R10 K28 ["OnFocusLost"]
+      123 CALL                             R8 2 1
+      124 MOVE                             R7 R8
+      125 GETTABLEKS                       R8 R3 K39 ["Font"]
+      127 GETTABLEKS                       R9 R3 K40 ["TextSize"]
+      129 GETUPVAL                         R10 4
+      130 MOVE                             R12 R5
+      131 MOVE                             R13 R9
+      132 MOVE                             R14 R8
+      133 GETIMPORT                        R15 K42 [Vector2.new]
+      135 LOADN                            R16 0
+      136 LOADN                            R17 0
+      137 CALL                             R15 2 -1
+      138 NAMECALL                         R10 R10 K43 ["GetTextSize"]
+      140 CALL                             R10 -1 1
+      141 GETUPVAL                         R11 4
+      142 MOVE                             R13 R6
+      143 MOVE                             R14 R9
+      144 MOVE                             R15 R8
+      145 GETIMPORT                        R16 K42 [Vector2.new]
+      147 LOADN                            R17 0
+      148 LOADN                            R18 0
+      149 CALL                             R16 2 -1
+      150 NAMECALL                         R11 R11 K43 ["GetTextSize"]
+      152 CALL                             R11 -1 1
+      153 GETTABLEKS                       R14 R10 K45 ["X"]
+      155 ADDK                             R13 R14 K44 [2]
+      156 FASTCALL1                        MATH_CEIL R13 ; [+2]
+      157 GETIMPORT                        R12 K48 [math.ceil]
+      159 CALL                             R12 1 1
+      160 GETTABLEKS                       R15 R11 K45 ["X"]
+      162 ADDK                             R14 R15 K44 [2]
+      163 FASTCALL1                        MATH_CEIL R14 ; [+2]
+      164 GETIMPORT                        R13 K48 [math.ceil]
+      166 CALL                             R13 1 1
+      167 GETUPVAL                         R14 0
+      168 GETTABLEKS                       R14 R14 K49 ["ControlsHeaderButtonWidth"]
+      170 FASTCALL3                        MATH_MAX R14 R12 R13
+      172 MOVE                             R16 R14
+      173 MOVE                             R17 R12
+      174 MOVE                             R18 R13
+      175 GETIMPORT                        R15 K51 [math.max]
+      177 CALL                             R15 3 1
+      178 GETUPVAL                         R16 1
+      179 GETTABLEKS                       R16 R16 K20 ["createElement"]
+      181 GETUPVAL                         R17 5
+      182 DUPTABLE                         R18 K55 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+      183 GETIMPORT                        R19 K38 [UDim2.new]
+      185 LOADN                            R20 0
+      186 MOVE                             R21 R15
+      187 LOADN                            R22 1
+      188 LOADN                            R23 0
+      189 CALL                             R19 4 1
+      190 SETTABLEKS                       R19 R18 K34 ["Size"]
+      192 GETTABLEKS                       R19 R1 K52 ["LayoutOrder"]
+      194 SETTABLEKS                       R19 R18 K52 ["LayoutOrder"]
+      196 GETIMPORT                        R19 K58 [Enum.FillDirection.Horizontal]
+      198 SETTABLEKS                       R19 R18 K53 ["Layout"]
+      200 GETIMPORT                        R19 K59 [Enum.HorizontalAlignment.Center]
+      202 SETTABLEKS                       R19 R18 K54 ["HorizontalAlignment"]
+      204 DUPTABLE                         R19 K62 [{"AddButton", "TextInput"}]
+      205 GETTABLEKS                       R21 R0 K5 ["state"]
+      207 GETTABLEKS                       R21 R21 K6 ["editing"]
+      209 NOT                              R20 R21
+      210 JUMPIFNOT                        R20 ; [+30]
+      211 GETUPVAL                         R20 1
+      212 GETTABLEKS                       R20 R20 K20 ["createElement"]
+      214 GETUPVAL                         R21 6
+      215 DUPTABLE                         R22 K69 [{["Style"] = "Round", ["Text"], ["StyleModifier"], ["Size"], ["TextWrapped"] = True, ["OnClick"]}]
+      216 SETTABLEKS                       R5 R22 K65 ["Text"]
+      218 JUMPIFNOT                        R4 ; [+4]
+      219 GETUPVAL                         R23 7
+      220 GETTABLEKS                       R23 R23 K70 ["Disabled"]
+      222 JUMP                             ; [+1]
+      223 LOADNIL                          R23
+      224 SETTABLEKS                       R23 R22 K66 ["StyleModifier"]
+      226 GETIMPORT                        R23 K38 [UDim2.new]
+      228 LOADN                            R24 1
+      229 LOADN                            R25 0
+      230 LOADN                            R26 1
+      231 LOADN                            R27 0
+      232 CALL                             R23 4 1
+      233 SETTABLEKS                       R23 R22 K34 ["Size"]
+      235 NEWCLOSURE                       R23 P5
+      236 CAPTURE                          VAL R0
+      237 CAPTURE                          VAL R1
+      238 SETTABLEKS                       R23 R22 K68 ["OnClick"]
+      240 CALL                             R20 2 1
+      241 SETTABLEKS                       R20 R19 K60 ["AddButton"]
+      243 SETTABLEKS                       R7 R19 K61 ["TextInput"]
+      245 CALL                             R16 3 -1
+      246 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

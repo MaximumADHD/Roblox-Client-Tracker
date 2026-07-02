@@ -8,10 +8,8 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Packages"]
        11 GETTABLEKS                       R2 R2 K7 ["React"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K9 [{"theme"}]
-       15 LOADK                            R3 K10 ["Dark"]
-       16 SETTABLEKS                       R3 R2 K8 ["theme"]
-       18 GETTABLEKS                       R3 R1 K11 ["createContext"]
-       20 MOVE                             R4 R2
-       21 CALL                             R3 1 1
-       22 RETURN                           R3 1
+       14 DUPTABLE                         R2 K10 [{["theme"] = "Dark"}]
+       15 GETTABLEKS                       R3 R1 K11 ["createContext"]
+       17 MOVE                             R4 R2
+       18 CALL                             R3 1 1
+       19 RETURN                           R3 1

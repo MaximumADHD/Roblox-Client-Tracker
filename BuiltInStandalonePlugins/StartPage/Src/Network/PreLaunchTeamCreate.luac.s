@@ -96,24 +96,22 @@ MAIN:
        62 CALL                             R7 1 1
        63 GETTABLEKS                       R7 R7 K19 ["Networking"]
        65 GETTABLEKS                       R8 R7 K20 ["new"]
-       67 DUPTABLE                         R9 K23 [{"isInternal", "loggingLevel"}]
-       68 LOADB                            R10 1
-       69 SETTABLEKS                       R10 R9 K21 ["isInternal"]
-       71 SETTABLEKS                       R1 R9 K22 ["loggingLevel"]
-       73 CALL                             R8 1 1
-       74 GETIMPORT                        R9 K25 [game]
-       76 LOADK                            R11 K26 ["HttpService"]
-       77 NAMECALL                         R9 R9 K27 ["GetService"]
-       79 CALL                             R9 2 1
-       80 NEWTABLE                         R10 1 0
-       82 LOADK                            R11 K28 ["application/json"]
-       83 SETTABLEKS                       R11 R10 K29 ["Content-Type"]
-       85 DUPCLOSURE                       R11 K30 [PROTO_1]
-       86 CAPTURE                          VAL R2
-       87 CAPTURE                          VAL R9
-       88 CAPTURE                          VAL R4
-       89 CAPTURE                          VAL R5
-       90 CAPTURE                          VAL R6
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R10
-       93 RETURN                           R11 1
+       67 DUPTABLE                         R9 K24 [{["isInternal"] = True, ["loggingLevel"]}]
+       68 SETTABLEKS                       R1 R9 K23 ["loggingLevel"]
+       70 CALL                             R8 1 1
+       71 GETIMPORT                        R9 K26 [game]
+       73 LOADK                            R11 K27 ["HttpService"]
+       74 NAMECALL                         R9 R9 K28 ["GetService"]
+       76 CALL                             R9 2 1
+       77 NEWTABLE                         R10 1 0
+       79 LOADK                            R11 K29 ["application/json"]
+       80 SETTABLEKS                       R11 R10 K30 ["Content-Type"]
+       82 DUPCLOSURE                       R11 K31 [PROTO_1]
+       83 CAPTURE                          VAL R2
+       84 CAPTURE                          VAL R9
+       85 CAPTURE                          VAL R4
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R6
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R10
+       90 RETURN                           R11 1

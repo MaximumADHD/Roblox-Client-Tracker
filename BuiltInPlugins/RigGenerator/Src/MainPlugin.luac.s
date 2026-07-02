@@ -39,12 +39,10 @@ PROTO_2:
         4 NAMECALL                         R0 R0 K2 ["report"]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 0
-        8 DUPTABLE                         R2 K4 [{"enabled"}]
-        9 LOADB                            R3 0
-       10 SETTABLEKS                       R3 R2 K3 ["enabled"]
-       12 NAMECALL                         R0 R0 K5 ["setState"]
-       14 CALL                             R0 2 0
-       15 RETURN                           R0 0
+        8 DUPTABLE                         R2 K5 [{["enabled"] = False}]
+        9 NAMECALL                         R0 R0 K6 ["setState"]
+       11 CALL                             R0 2 0
+       12 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -56,54 +54,50 @@ PROTO_3:
         9 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R4 K1 [{"enabled"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       11 NEWCLOSURE                       R2 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       15 NEWCLOSURE                       R2 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R2 R0 K5 ["onWidgetEnabledChanged"]
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R2 R2 K6 ["Store"]
-       22 GETTABLEKS                       R2 R2 K7 ["new"]
-       24 GETUPVAL                         R3 1
-       25 LOADNIL                          R4
-       26 NEWTABLE                         R5 0 1
-       28 GETUPVAL                         R6 0
-       29 GETTABLEKS                       R6 R6 K8 ["thunkMiddleware"]
-       31 SETLIST                          R5 R6 1 [1]
-       33 LOADNIL                          R6
-       34 CALL                             R2 4 1
-       35 SETTABLEKS                       R2 R0 K9 ["store"]
-       37 GETUPVAL                         R2 2
-       38 GETTABLEKS                       R2 R2 K10 ["Localization"]
-       40 GETTABLEKS                       R2 R2 K7 ["new"]
-       42 DUPTABLE                         R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       43 GETUPVAL                         R4 3
-       44 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
-       46 GETUPVAL                         R4 4
-       47 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
-       49 LOADK                            R4 K15 ["RigGenerator"]
-       50 SETTABLEKS                       R4 R3 K13 ["pluginName"]
-       52 CALL                             R2 1 1
-       53 SETTABLEKS                       R2 R0 K16 ["localization"]
-       55 GETUPVAL                         R2 2
-       56 GETTABLEKS                       R2 R2 K17 ["Analytics"]
-       58 GETTABLEKS                       R2 R2 K7 ["new"]
-       60 GETUPVAL                         R3 5
-       61 CALL                             R2 1 1
-       62 SETTABLEKS                       R2 R0 K18 ["analytics"]
-       64 MOVE                             R4 R1
-       65 NAMECALL                         R2 R0 K19 ["initToolbarAndButton"]
-       67 CALL                             R2 2 0
-       68 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        8 NEWCLOSURE                       R2 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K6 ["onWidgetEnabledChanged"]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K7 ["Store"]
+       19 GETTABLEKS                       R2 R2 K8 ["new"]
+       21 GETUPVAL                         R3 1
+       22 LOADNIL                          R4
+       23 NEWTABLE                         R5 0 1
+       25 GETUPVAL                         R6 0
+       26 GETTABLEKS                       R6 R6 K9 ["thunkMiddleware"]
+       28 SETLIST                          R5 R6 1 [1]
+       30 LOADNIL                          R6
+       31 CALL                             R2 4 1
+       32 SETTABLEKS                       R2 R0 K10 ["store"]
+       34 GETUPVAL                         R2 2
+       35 GETTABLEKS                       R2 R2 K11 ["Localization"]
+       37 GETTABLEKS                       R2 R2 K8 ["new"]
+       39 DUPTABLE                         R3 K16 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "RigGenerator"}]
+       40 GETUPVAL                         R4 3
+       41 SETTABLEKS                       R4 R3 K12 ["stringResourceTable"]
+       43 GETUPVAL                         R4 4
+       44 SETTABLEKS                       R4 R3 K13 ["translationResourceTable"]
+       46 CALL                             R2 1 1
+       47 SETTABLEKS                       R2 R0 K17 ["localization"]
+       49 GETUPVAL                         R2 2
+       50 GETTABLEKS                       R2 R2 K18 ["Analytics"]
+       52 GETTABLEKS                       R2 R2 K8 ["new"]
+       54 GETUPVAL                         R3 5
+       55 CALL                             R2 1 1
+       56 SETTABLEKS                       R2 R0 K19 ["analytics"]
+       58 MOVE                             R4 R1
+       59 NAMECALL                         R2 R0 K20 ["initToolbarAndButton"]
+       61 CALL                             R2 2 0
+       62 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R2 R1 K0 ["PluginLoaderContext"]

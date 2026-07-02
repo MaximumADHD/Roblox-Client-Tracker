@@ -1,40 +1,30 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"arrowHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["arrowHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"arrowHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["arrowHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hideConsole"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hideConsole"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"hideConsole", "arrowHovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hideConsole"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["arrowHovered"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = False, ["arrowHovered"] = False}]
+        2 NAMECALL                         R0 R0 K4 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -57,32 +47,28 @@ PROTO_4:
        26 RETURN                           R5 -1
 
 PROTO_5:
-        0 DUPTABLE                         R1 K3 [{"arrowHovered", "hideConsole", "rows"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["arrowHovered"]
-        4 LOADB                            R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["hideConsole"]
-        7 NEWTABLE                         R2 0 0
-        9 SETTABLEKS                       R2 R1 K2 ["rows"]
-       11 SETTABLEKS                       R1 R0 K4 ["state"]
-       13 NEWCLOSURE                       R1 P0
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R1 R0 K5 ["onMouseEnter"]
-       17 NEWCLOSURE                       R1 P1
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R1 R0 K6 ["onMouseLeave"]
-       21 NEWCLOSURE                       R1 P2
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R1 R0 K7 ["closeConsole"]
-       25 NEWCLOSURE                       R1 P3
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K8 ["openConsole"]
-       29 NEWCLOSURE                       R1 P4
-       30 CAPTURE                          VAL R0
-       31 CAPTURE                          UPVAL U0
-       32 CAPTURE                          UPVAL U1
-       33 SETTABLEKS                       R1 R0 K9 ["renderConsoleContent"]
-       35 RETURN                           R0 0
+        0 DUPTABLE                         R1 K5 [{[1] = False, ["hideConsole"] = True, ["rows"]}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K4 ["rows"]
+        5 SETTABLEKS                       R1 R0 K6 ["state"]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K7 ["onMouseEnter"]
+       11 NEWCLOSURE                       R1 P1
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K8 ["onMouseLeave"]
+       15 NEWCLOSURE                       R1 P2
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K9 ["closeConsole"]
+       19 NEWCLOSURE                       R1 P3
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R1 R0 K10 ["openConsole"]
+       23 NEWCLOSURE                       R1 P4
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          UPVAL U0
+       26 CAPTURE                          UPVAL U1
+       27 SETTABLEKS                       R1 R0 K11 ["renderConsoleContent"]
+       29 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -155,117 +141,111 @@ PROTO_9:
        26 GETUPVAL                         R10 0
        27 GETTABLEKS                       R10 R10 K11 ["createElement"]
        29 GETUPVAL                         R11 1
-       30 DUPTABLE                         R12 K15 [{"BackgroundColor3", "BorderSizePixel", "LayoutOrder", "Size", "Padding"}]
-       31 GETTABLEKS                       R13 R4 K16 ["BackgroundColor"]
+       30 DUPTABLE                         R12 K16 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"], ["Size"], ["Padding"]}]
+       31 GETTABLEKS                       R13 R4 K17 ["BackgroundColor"]
        33 SETTABLEKS                       R13 R12 K12 ["BackgroundColor3"]
-       35 LOADN                            R13 0
-       36 SETTABLEKS                       R13 R12 K13 ["BorderSizePixel"]
-       38 SETTABLEKS                       R3 R12 K2 ["LayoutOrder"]
-       40 GETIMPORT                        R13 K19 [UDim2.new]
-       42 LOADN                            R14 1
-       43 LOADN                            R15 0
-       44 LOADN                            R16 0
-       45 GETTABLEKS                       R17 R4 K20 ["RowHeight"]
-       47 CALL                             R13 4 1
-       48 SETTABLEKS                       R13 R12 K6 ["Size"]
-       50 GETTABLEKS                       R13 R4 K14 ["Padding"]
-       52 SETTABLEKS                       R13 R12 K14 ["Padding"]
-       54 DUPTABLE                         R13 K24 [{"StatusPane", "PopUpFrame", "ExpandButton"}]
-       55 GETUPVAL                         R14 0
-       56 GETTABLEKS                       R14 R14 K11 ["createElement"]
-       58 GETUPVAL                         R15 2
-       59 DUPTABLE                         R16 K28 [{"Size", "ShowCounts", "Statuses", "AllowTooltips"}]
-       60 GETIMPORT                        R17 K30 [UDim2.fromScale]
-       62 LOADN                            R18 1
-       63 LOADN                            R19 1
-       64 CALL                             R17 2 1
-       65 SETTABLEKS                       R17 R16 K6 ["Size"]
-       67 LOADB                            R17 1
-       68 SETTABLEKS                       R17 R16 K25 ["ShowCounts"]
-       70 GETUPVAL                         R17 3
-       71 MOVE                             R19 R5
-       72 NAMECALL                         R17 R17 K31 ["GetStatusCounts"]
-       74 CALL                             R17 2 1
-       75 SETTABLEKS                       R17 R16 K26 ["Statuses"]
-       77 LOADB                            R17 0
-       78 SETTABLEKS                       R17 R16 K27 ["AllowTooltips"]
-       80 CALL                             R14 2 1
-       81 SETTABLEKS                       R14 R13 K21 ["StatusPane"]
-       83 MOVE                             R14 R9
-       84 JUMPIFNOT                        R14 ; [+20]
-       85 GETUPVAL                         R14 0
-       86 GETTABLEKS                       R14 R14 K11 ["createElement"]
-       88 GETUPVAL                         R15 4
-       89 DUPTABLE                         R16 K36 [{"Hide", "OnFocusLost", "RenderContent", "ExpandedHeight"}]
-       90 SETTABLEKS                       R7 R16 K32 ["Hide"]
-       92 GETTABLEKS                       R17 R0 K37 ["closeConsole"]
-       94 SETTABLEKS                       R17 R16 K33 ["OnFocusLost"]
-       96 GETTABLEKS                       R17 R0 K38 ["renderConsoleContent"]
-       98 SETTABLEKS                       R17 R16 K34 ["RenderContent"]
-      100 GETTABLEKS                       R17 R4 K39 ["ConsoleHeight"]
-      102 SETTABLEKS                       R17 R16 K35 ["ExpandedHeight"]
-      104 CALL                             R14 2 1
-      105 SETTABLEKS                       R14 R13 K22 ["PopUpFrame"]
-      107 MOVE                             R14 R9
-      108 JUMPIFNOT                        R14 ; [+86]
-      109 GETUPVAL                         R14 0
-      110 GETTABLEKS                       R14 R14 K11 ["createElement"]
-      112 LOADK                            R15 K40 ["ImageButton"]
-      113 NEWTABLE                         R16 16 0
-      115 GETIMPORT                        R17 K30 [UDim2.fromScale]
-      117 LOADN                            R18 1
-      118 LOADK                            R19 K41 [0.5]
-      119 CALL                             R17 2 1
-      120 SETTABLEKS                       R17 R16 K42 ["Position"]
-      122 GETIMPORT                        R17 K44 [Vector2.new]
-      124 LOADN                            R18 1
-      125 LOADK                            R19 K41 [0.5]
-      126 CALL                             R17 2 1
-      127 SETTABLEKS                       R17 R16 K45 ["AnchorPoint"]
-      129 LOADN                            R17 1
-      130 SETTABLEKS                       R17 R16 K46 ["BackgroundTransparency"]
-      132 GETIMPORT                        R17 K48 [UDim2.fromOffset]
-      134 MOVE                             R18 R6
-      135 MOVE                             R19 R6
-      136 CALL                             R17 2 1
-      137 SETTABLEKS                       R17 R16 K6 ["Size"]
-      139 JUMPIFNOT                        R8 ; [+5]
-      140 GETTABLEKS                       R17 R4 K5 ["Arrow"]
-      142 GETTABLEKS                       R17 R17 K49 ["HoverColor"]
-      144 JUMP                             ; [+4]
-      145 GETTABLEKS                       R17 R4 K5 ["Arrow"]
-      147 GETTABLEKS                       R17 R17 K50 ["Color"]
-      149 SETTABLEKS                       R17 R16 K51 ["ImageColor3"]
-      151 GETTABLEKS                       R17 R4 K5 ["Arrow"]
-      153 GETTABLEKS                       R17 R17 K52 ["Image"]
-      155 SETTABLEKS                       R17 R16 K52 ["Image"]
-      157 GETTABLEKS                       R17 R4 K5 ["Arrow"]
-      159 GETTABLEKS                       R17 R17 K53 ["Offset"]
-      161 SETTABLEKS                       R17 R16 K54 ["ImageRectOffset"]
-      163 GETIMPORT                        R17 K44 [Vector2.new]
-      165 MOVE                             R18 R6
-      166 MOVE                             R19 R6
-      167 CALL                             R17 2 1
-      168 SETTABLEKS                       R17 R16 K55 ["ImageRectSize"]
-      170 GETUPVAL                         R17 0
-      171 GETTABLEKS                       R17 R17 K56 ["Event"]
-      173 GETTABLEKS                       R17 R17 K57 ["MouseButton1Click"]
-      175 GETTABLEKS                       R18 R0 K58 ["openConsole"]
-      177 SETTABLE                         R18 R16 R17
-      178 GETUPVAL                         R17 0
-      179 GETTABLEKS                       R17 R17 K56 ["Event"]
-      181 GETTABLEKS                       R17 R17 K59 ["MouseEnter"]
-      183 GETTABLEKS                       R18 R0 K60 ["onMouseEnter"]
-      185 SETTABLE                         R18 R16 R17
-      186 GETUPVAL                         R17 0
-      187 GETTABLEKS                       R17 R17 K56 ["Event"]
-      189 GETTABLEKS                       R17 R17 K61 ["MouseLeave"]
-      191 GETTABLEKS                       R18 R0 K62 ["onMouseLeave"]
-      193 SETTABLE                         R18 R16 R17
-      194 CALL                             R14 2 1
-      195 SETTABLEKS                       R14 R13 K23 ["ExpandButton"]
-      197 CALL                             R10 3 -1
-      198 RETURN                           R10 -1
+       35 SETTABLEKS                       R3 R12 K2 ["LayoutOrder"]
+       37 GETIMPORT                        R13 K20 [UDim2.new]
+       39 LOADN                            R14 1
+       40 LOADN                            R15 0
+       41 LOADN                            R16 0
+       42 GETTABLEKS                       R17 R4 K21 ["RowHeight"]
+       44 CALL                             R13 4 1
+       45 SETTABLEKS                       R13 R12 K6 ["Size"]
+       47 GETTABLEKS                       R13 R4 K15 ["Padding"]
+       49 SETTABLEKS                       R13 R12 K15 ["Padding"]
+       51 DUPTABLE                         R13 K25 [{"StatusPane", "PopUpFrame", "ExpandButton"}]
+       52 GETUPVAL                         R14 0
+       53 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       55 GETUPVAL                         R15 2
+       56 DUPTABLE                         R16 K31 [{["Size"], ["ShowCounts"] = True, ["Statuses"], ["AllowTooltips"] = False}]
+       57 GETIMPORT                        R17 K33 [UDim2.fromScale]
+       59 LOADN                            R18 1
+       60 LOADN                            R19 1
+       61 CALL                             R17 2 1
+       62 SETTABLEKS                       R17 R16 K6 ["Size"]
+       64 GETUPVAL                         R17 3
+       65 MOVE                             R19 R5
+       66 NAMECALL                         R17 R17 K34 ["GetStatusCounts"]
+       68 CALL                             R17 2 1
+       69 SETTABLEKS                       R17 R16 K28 ["Statuses"]
+       71 CALL                             R14 2 1
+       72 SETTABLEKS                       R14 R13 K22 ["StatusPane"]
+       74 MOVE                             R14 R9
+       75 JUMPIFNOT                        R14 ; [+20]
+       76 GETUPVAL                         R14 0
+       77 GETTABLEKS                       R14 R14 K11 ["createElement"]
+       79 GETUPVAL                         R15 4
+       80 DUPTABLE                         R16 K39 [{"Hide", "OnFocusLost", "RenderContent", "ExpandedHeight"}]
+       81 SETTABLEKS                       R7 R16 K35 ["Hide"]
+       83 GETTABLEKS                       R17 R0 K40 ["closeConsole"]
+       85 SETTABLEKS                       R17 R16 K36 ["OnFocusLost"]
+       87 GETTABLEKS                       R17 R0 K41 ["renderConsoleContent"]
+       89 SETTABLEKS                       R17 R16 K37 ["RenderContent"]
+       91 GETTABLEKS                       R17 R4 K42 ["ConsoleHeight"]
+       93 SETTABLEKS                       R17 R16 K38 ["ExpandedHeight"]
+       95 CALL                             R14 2 1
+       96 SETTABLEKS                       R14 R13 K23 ["PopUpFrame"]
+       98 MOVE                             R14 R9
+       99 JUMPIFNOT                        R14 ; [+86]
+      100 GETUPVAL                         R14 0
+      101 GETTABLEKS                       R14 R14 K11 ["createElement"]
+      103 LOADK                            R15 K43 ["ImageButton"]
+      104 NEWTABLE                         R16 16 0
+      106 GETIMPORT                        R17 K33 [UDim2.fromScale]
+      108 LOADN                            R18 1
+      109 LOADK                            R19 K44 [0.5]
+      110 CALL                             R17 2 1
+      111 SETTABLEKS                       R17 R16 K45 ["Position"]
+      113 GETIMPORT                        R17 K47 [Vector2.new]
+      115 LOADN                            R18 1
+      116 LOADK                            R19 K44 [0.5]
+      117 CALL                             R17 2 1
+      118 SETTABLEKS                       R17 R16 K48 ["AnchorPoint"]
+      120 LOADN                            R17 1
+      121 SETTABLEKS                       R17 R16 K49 ["BackgroundTransparency"]
+      123 GETIMPORT                        R17 K51 [UDim2.fromOffset]
+      125 MOVE                             R18 R6
+      126 MOVE                             R19 R6
+      127 CALL                             R17 2 1
+      128 SETTABLEKS                       R17 R16 K6 ["Size"]
+      130 JUMPIFNOT                        R8 ; [+5]
+      131 GETTABLEKS                       R17 R4 K5 ["Arrow"]
+      133 GETTABLEKS                       R17 R17 K52 ["HoverColor"]
+      135 JUMP                             ; [+4]
+      136 GETTABLEKS                       R17 R4 K5 ["Arrow"]
+      138 GETTABLEKS                       R17 R17 K53 ["Color"]
+      140 SETTABLEKS                       R17 R16 K54 ["ImageColor3"]
+      142 GETTABLEKS                       R17 R4 K5 ["Arrow"]
+      144 GETTABLEKS                       R17 R17 K55 ["Image"]
+      146 SETTABLEKS                       R17 R16 K55 ["Image"]
+      148 GETTABLEKS                       R17 R4 K5 ["Arrow"]
+      150 GETTABLEKS                       R17 R17 K56 ["Offset"]
+      152 SETTABLEKS                       R17 R16 K57 ["ImageRectOffset"]
+      154 GETIMPORT                        R17 K47 [Vector2.new]
+      156 MOVE                             R18 R6
+      157 MOVE                             R19 R6
+      158 CALL                             R17 2 1
+      159 SETTABLEKS                       R17 R16 K58 ["ImageRectSize"]
+      161 GETUPVAL                         R17 0
+      162 GETTABLEKS                       R17 R17 K59 ["Event"]
+      164 GETTABLEKS                       R17 R17 K60 ["MouseButton1Click"]
+      166 GETTABLEKS                       R18 R0 K61 ["openConsole"]
+      168 SETTABLE                         R18 R16 R17
+      169 GETUPVAL                         R17 0
+      170 GETTABLEKS                       R17 R17 K59 ["Event"]
+      172 GETTABLEKS                       R17 R17 K62 ["MouseEnter"]
+      174 GETTABLEKS                       R18 R0 K63 ["onMouseEnter"]
+      176 SETTABLE                         R18 R16 R17
+      177 GETUPVAL                         R17 0
+      178 GETTABLEKS                       R17 R17 K59 ["Event"]
+      180 GETTABLEKS                       R17 R17 K64 ["MouseLeave"]
+      182 GETTABLEKS                       R18 R0 K65 ["onMouseLeave"]
+      184 SETTABLE                         R18 R16 R17
+      185 CALL                             R14 2 1
+      186 SETTABLEKS                       R14 R13 K24 ["ExpandButton"]
+      188 CALL                             R10 3 -1
+      189 RETURN                           R10 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K1 [{"processResult"}]

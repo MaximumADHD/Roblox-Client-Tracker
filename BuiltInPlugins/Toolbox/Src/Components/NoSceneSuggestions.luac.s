@@ -26,50 +26,48 @@ PROTO_1:
        20 GETUPVAL                         R5 5
        21 GETTABLEKS                       R5 R5 K1 ["createElement"]
        23 GETUPVAL                         R6 6
-       24 DUPTABLE                         R7 K11 [{"Text", "LinkMap", "LayoutOrder", "AutomaticSize", "Size", "TextWrapped", "TextXAlignment", "HorizontalAlignment", "TextProps"}]
-       25 LOADK                            R10 K12 ["SceneSuggestions"]
-       26 LOADK                            R11 K13 ["NoResults"]
-       27 NAMECALL                         R8 R2 K14 ["getText"]
+       24 DUPTABLE                         R7 K12 [{["Text"], ["LinkMap"], ["LayoutOrder"], ["AutomaticSize"], ["Size"], ["TextWrapped"] = True, ["TextXAlignment"], ["HorizontalAlignment"], ["TextProps"]}]
+       25 LOADK                            R10 K13 ["SceneSuggestions"]
+       26 LOADK                            R11 K14 ["NoResults"]
+       27 NAMECALL                         R8 R2 K15 ["getText"]
        29 CALL                             R8 3 1
        30 SETTABLEKS                       R8 R7 K2 ["Text"]
        32 NEWTABLE                         R8 1 0
-       34 DUPTABLE                         R9 K17 [{"LinkText", "LinkCallback"}]
-       35 LOADK                            R12 K18 ["General"]
-       36 LOADK                            R13 K19 ["CategoryModels"]
-       37 NAMECALL                         R10 R2 K14 ["getText"]
+       34 DUPTABLE                         R9 K18 [{"LinkText", "LinkCallback"}]
+       35 LOADK                            R12 K19 ["General"]
+       36 LOADK                            R13 K20 ["CategoryModels"]
+       37 NAMECALL                         R10 R2 K15 ["getText"]
        39 CALL                             R10 3 1
-       40 SETTABLEKS                       R10 R9 K15 ["LinkText"]
-       42 SETTABLEKS                       R4 R9 K16 ["LinkCallback"]
-       44 SETTABLEKS                       R9 R8 K20 ["[link1]"]
+       40 SETTABLEKS                       R10 R9 K16 ["LinkText"]
+       42 SETTABLEKS                       R4 R9 K17 ["LinkCallback"]
+       44 SETTABLEKS                       R9 R8 K21 ["[link1]"]
        46 SETTABLEKS                       R8 R7 K3 ["LinkMap"]
        48 GETTABLEKS                       R8 R0 K4 ["LayoutOrder"]
        50 SETTABLEKS                       R8 R7 K4 ["LayoutOrder"]
-       52 GETIMPORT                        R8 K23 [Enum.AutomaticSize.Y]
+       52 GETIMPORT                        R8 K24 [Enum.AutomaticSize.Y]
        54 SETTABLEKS                       R8 R7 K5 ["AutomaticSize"]
-       56 GETIMPORT                        R8 K26 [UDim2.fromScale]
+       56 GETIMPORT                        R8 K27 [UDim2.fromScale]
        58 LOADN                            R9 1
        59 LOADN                            R10 0
        60 CALL                             R8 2 1
        61 SETTABLEKS                       R8 R7 K6 ["Size"]
-       63 LOADB                            R8 1
-       64 SETTABLEKS                       R8 R7 K7 ["TextWrapped"]
-       66 GETIMPORT                        R8 K28 [Enum.TextXAlignment.Left]
-       68 SETTABLEKS                       R8 R7 K8 ["TextXAlignment"]
-       70 GETIMPORT                        R8 K29 [Enum.HorizontalAlignment.Left]
-       72 SETTABLEKS                       R8 R7 K9 ["HorizontalAlignment"]
-       74 DUPTABLE                         R8 K33 [{"Font", "TextColor", "TextSize"}]
-       75 GETUPVAL                         R9 7
-       76 GETTABLEKS                       R9 R9 K34 ["FONT"]
-       78 SETTABLEKS                       R9 R8 K30 ["Font"]
-       80 GETTABLEKS                       R9 R1 K35 ["itemRow"]
-       82 GETTABLEKS                       R9 R9 K36 ["textColor"]
-       84 SETTABLEKS                       R9 R8 K31 ["TextColor"]
-       86 GETTABLEKS                       R9 R1 K35 ["itemRow"]
-       88 GETTABLEKS                       R9 R9 K37 ["textSize"]
-       90 SETTABLEKS                       R9 R8 K32 ["TextSize"]
-       92 SETTABLEKS                       R8 R7 K10 ["TextProps"]
-       94 CALL                             R5 2 -1
-       95 RETURN                           R5 -1
+       63 GETIMPORT                        R8 K29 [Enum.TextXAlignment.Left]
+       65 SETTABLEKS                       R8 R7 K9 ["TextXAlignment"]
+       67 GETIMPORT                        R8 K30 [Enum.HorizontalAlignment.Left]
+       69 SETTABLEKS                       R8 R7 K10 ["HorizontalAlignment"]
+       71 DUPTABLE                         R8 K34 [{"Font", "TextColor", "TextSize"}]
+       72 GETUPVAL                         R9 7
+       73 GETTABLEKS                       R9 R9 K35 ["FONT"]
+       75 SETTABLEKS                       R9 R8 K31 ["Font"]
+       77 GETTABLEKS                       R9 R1 K36 ["itemRow"]
+       79 GETTABLEKS                       R9 R9 K37 ["textColor"]
+       81 SETTABLEKS                       R9 R8 K32 ["TextColor"]
+       83 GETTABLEKS                       R9 R1 K36 ["itemRow"]
+       85 GETTABLEKS                       R9 R9 K38 ["textSize"]
+       87 SETTABLEKS                       R9 R8 K33 ["TextSize"]
+       89 SETTABLEKS                       R8 R7 K11 ["TextProps"]
+       91 CALL                             R5 2 -1
+       92 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

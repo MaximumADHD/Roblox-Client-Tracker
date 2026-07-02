@@ -10,16 +10,6 @@ MAIN:
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 LOADK                            R3 K7 ["Orientation"]
-       18 DUPTABLE                         R4 K13 [{"Undefined", "Left", "Right", "Top", "Bottom"}]
-       19 LOADN                            R5 0
-       20 SETTABLEKS                       R5 R4 K8 ["Undefined"]
-       22 LOADN                            R5 1
-       23 SETTABLEKS                       R5 R4 K9 ["Left"]
-       25 LOADN                            R5 2
-       26 SETTABLEKS                       R5 R4 K10 ["Right"]
-       28 LOADN                            R5 3
-       29 SETTABLEKS                       R5 R4 K11 ["Top"]
-       31 LOADN                            R5 4
-       32 SETTABLEKS                       R5 R4 K12 ["Bottom"]
-       34 CALL                             R2 2 1
-       35 RETURN                           R2 1
+       18 DUPTABLE                         R4 K18 [{["Undefined"] = 0, ["Left"] = 1, ["Right"] = 2, ["Top"] = 3, ["Bottom"] = 4}]
+       19 CALL                             R2 2 1
+       20 RETURN                           R2 1

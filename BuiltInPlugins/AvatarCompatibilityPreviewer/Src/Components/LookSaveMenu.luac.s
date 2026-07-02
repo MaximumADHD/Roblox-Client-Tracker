@@ -98,286 +98,276 @@ PROTO_3:
        93 GETUPVAL                         R13 8
        94 GETTABLEKS                       R13 R13 K7 ["Popover"]
        96 GETTABLEKS                       R13 R13 K13 ["Content"]
-       98 DUPTABLE                         R14 K22 [{"onPressedOutside", "align", "hasArrow"}]
-       99 GETTABLEKS                       R15 R0 K23 ["onClose"]
+       98 DUPTABLE                         R14 K23 [{["onPressedOutside"], ["align"], ["hasArrow"] = False}]
+       99 GETTABLEKS                       R15 R0 K24 ["onClose"]
       101 SETTABLEKS                       R15 R14 K19 ["onPressedOutside"]
-      103 DUPTABLE                         R15 K26 [{"position", "offset"}]
+      103 DUPTABLE                         R15 K28 [{["position"], ["offset"] = 50}]
       104 GETUPVAL                         R16 8
-      105 GETTABLEKS                       R16 R16 K27 ["Enums"]
-      107 GETTABLEKS                       R16 R16 K28 ["PopoverAlign"]
-      109 GETTABLEKS                       R16 R16 K29 ["Start"]
-      111 SETTABLEKS                       R16 R15 K24 ["position"]
-      113 LOADN                            R16 50
-      114 SETTABLEKS                       R16 R15 K25 ["offset"]
-      116 SETTABLEKS                       R15 R14 K20 ["align"]
-      118 LOADB                            R15 0
-      119 SETTABLEKS                       R15 R14 K21 ["hasArrow"]
-      121 DUPTABLE                         R15 K31 [{"Menu"}]
-      122 GETUPVAL                         R16 5
-      123 GETTABLEKS                       R16 R16 K6 ["createElement"]
-      125 GETUPVAL                         R17 8
-      126 GETTABLEKS                       R17 R17 K32 ["View"]
-      128 DUPTABLE                         R18 K35 [{"Size", "tag"}]
-      129 GETIMPORT                        R19 K38 [UDim2.fromOffset]
-      131 LOADN                            R20 4
-      132 LOADN                            R21 0
-      133 CALL                             R19 2 1
-      134 SETTABLEKS                       R19 R18 K33 ["Size"]
-      136 LOADK                            R19 K39 ["col padding-xsmall auto-y bg-surface-300 radius-medium stroke-default"]
-      137 SETTABLEKS                       R19 R18 K34 ["tag"]
-      139 DUPTABLE                         R19 K47 [{"Title", "Gap1", "SaveToRoblox", "Gap2", "CreateAvatarLook", "Gap3", "CreateMakeupLook"}]
-      140 GETUPVAL                         R20 5
-      141 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      143 GETUPVAL                         R21 8
-      144 GETTABLEKS                       R21 R21 K48 ["Text"]
-      146 DUPTABLE                         R22 K49 [{"LayoutOrder", "Text", "tag"}]
-      147 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      149 CALL                             R23 1 1
-      150 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      152 LOADK                            R25 K51 ["LookSaveMenu"]
-      153 LOADK                            R26 K52 ["Save"]
-      154 NAMECALL                         R23 R3 K53 ["getText"]
-      156 CALL                             R23 3 1
-      157 SETTABLEKS                       R23 R22 K48 ["Text"]
-      159 LOADK                            R23 K54 ["text-caption-small auto-xy content-muted padding-small"]
-      160 SETTABLEKS                       R23 R22 K34 ["tag"]
-      162 CALL                             R20 2 1
-      163 SETTABLEKS                       R20 R19 K40 ["Title"]
-      165 GETUPVAL                         R20 5
-      166 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      168 GETUPVAL                         R21 8
-      169 GETTABLEKS                       R21 R21 K32 ["View"]
-      171 DUPTABLE                         R22 K55 [{"LayoutOrder", "Size"}]
-      172 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      174 CALL                             R23 1 1
-      175 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      177 GETIMPORT                        R23 K38 [UDim2.fromOffset]
-      179 LOADN                            R24 0
-      180 GETTABLEKS                       R25 R2 K56 ["Gap"]
-      182 GETTABLEKS                       R25 R25 K57 ["XXSmall"]
-      184 CALL                             R23 2 1
-      185 SETTABLEKS                       R23 R22 K33 ["Size"]
-      187 CALL                             R20 2 1
-      188 SETTABLEKS                       R20 R19 K41 ["Gap1"]
-      190 GETUPVAL                         R20 5
-      191 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      193 GETUPVAL                         R21 8
-      194 GETTABLEKS                       R21 R21 K58 ["Tooltip"]
-      196 DUPTABLE                         R22 K62 [{"LayoutOrder", "title", "text", "side", "align"}]
-      197 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      199 CALL                             R23 1 1
-      200 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      202 LOADK                            R25 K51 ["LookSaveMenu"]
-      203 LOADK                            R26 K42 ["SaveToRoblox"]
-      204 NAMECALL                         R23 R3 K53 ["getText"]
-      206 CALL                             R23 3 1
-      207 SETTABLEKS                       R23 R22 K59 ["title"]
-      209 LOADK                            R25 K51 ["LookSaveMenu"]
-      210 LOADK                            R26 K63 ["TooltipSaveToRobloxDescription"]
-      211 NAMECALL                         R23 R3 K53 ["getText"]
-      213 CALL                             R23 3 1
-      214 SETTABLEKS                       R23 R22 K60 ["text"]
-      216 GETUPVAL                         R23 8
-      217 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      219 GETTABLEKS                       R23 R23 K64 ["PopoverSide"]
-      221 GETTABLEKS                       R23 R23 K65 ["Right"]
-      223 SETTABLEKS                       R23 R22 K61 ["side"]
-      225 GETUPVAL                         R23 8
-      226 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      228 GETTABLEKS                       R23 R23 K28 ["PopoverAlign"]
-      230 GETTABLEKS                       R23 R23 K29 ["Start"]
-      232 SETTABLEKS                       R23 R22 K20 ["align"]
-      234 GETUPVAL                         R23 5
-      235 GETTABLEKS                       R23 R23 K6 ["createElement"]
-      237 GETUPVAL                         R24 8
-      238 GETTABLEKS                       R24 R24 K48 ["Text"]
-      240 DUPTABLE                         R25 K67 [{"Text", "Size", "tag", "onActivated"}]
-      241 LOADK                            R28 K51 ["LookSaveMenu"]
-      242 LOADK                            R29 K42 ["SaveToRoblox"]
-      243 NAMECALL                         R26 R3 K53 ["getText"]
-      245 CALL                             R26 3 1
-      246 SETTABLEKS                       R26 R25 K48 ["Text"]
-      248 GETIMPORT                        R26 K38 [UDim2.fromOffset]
-      250 LOADN                            R27 250
-      251 LOADN                            R28 0
-      252 CALL                             R26 2 1
-      253 SETTABLEKS                       R26 R25 K33 ["Size"]
-      255 LOADK                            R26 K68 ["text-body-small content-system-contrast padding-small auto-y text-align-x-left"]
-      256 SETTABLEKS                       R26 R25 K34 ["tag"]
-      258 NEWCLOSURE                       R26 P0
-      259 CAPTURE                          VAL R0
-      260 SETTABLEKS                       R26 R25 K66 ["onActivated"]
-      262 CALL                             R23 2 -1
-      263 CALL                             R20 -1 1
-      264 SETTABLEKS                       R20 R19 K42 ["SaveToRoblox"]
-      266 GETUPVAL                         R20 4
-      267 CALL                             R20 0 1
-      268 JUMPIFNOT                        R20 ; [+26]
-      269 GETTABLEKS                       R20 R4 K69 ["showCreateAvatarLook"]
-      271 JUMPIFNOT                        R20 ; [+23]
-      272 GETUPVAL                         R20 5
-      273 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      275 GETUPVAL                         R21 8
-      276 GETTABLEKS                       R21 R21 K32 ["View"]
-      278 DUPTABLE                         R22 K55 [{"LayoutOrder", "Size"}]
-      279 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      281 CALL                             R23 1 1
-      282 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      284 GETIMPORT                        R23 K38 [UDim2.fromOffset]
-      286 LOADN                            R24 0
-      287 GETTABLEKS                       R25 R2 K56 ["Gap"]
-      289 GETTABLEKS                       R25 R25 K57 ["XXSmall"]
-      291 CALL                             R23 2 1
-      292 SETTABLEKS                       R23 R22 K33 ["Size"]
-      294 CALL                             R20 2 1
-      295 SETTABLEKS                       R20 R19 K43 ["Gap2"]
-      297 GETUPVAL                         R20 4
-      298 CALL                             R20 0 1
-      299 JUMPIFNOT                        R20 ; [+87]
-      300 GETTABLEKS                       R20 R4 K69 ["showCreateAvatarLook"]
-      302 JUMPIFNOT                        R20 ; [+84]
-      303 GETUPVAL                         R20 5
-      304 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      306 GETUPVAL                         R21 8
-      307 GETTABLEKS                       R21 R21 K58 ["Tooltip"]
-      309 DUPTABLE                         R22 K62 [{"LayoutOrder", "title", "text", "side", "align"}]
-      310 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      312 CALL                             R23 1 1
-      313 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      315 LOADK                            R25 K51 ["LookSaveMenu"]
-      316 LOADK                            R26 K44 ["CreateAvatarLook"]
-      317 NAMECALL                         R23 R3 K53 ["getText"]
-      319 CALL                             R23 3 1
-      320 SETTABLEKS                       R23 R22 K59 ["title"]
-      322 LOADK                            R25 K51 ["LookSaveMenu"]
-      323 LOADK                            R26 K70 ["TooltipCreateAvatarLookDescription"]
-      324 NAMECALL                         R23 R3 K53 ["getText"]
-      326 CALL                             R23 3 1
-      327 SETTABLEKS                       R23 R22 K60 ["text"]
-      329 GETUPVAL                         R23 8
-      330 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      332 GETTABLEKS                       R23 R23 K64 ["PopoverSide"]
-      334 GETTABLEKS                       R23 R23 K65 ["Right"]
-      336 SETTABLEKS                       R23 R22 K61 ["side"]
-      338 GETUPVAL                         R23 8
-      339 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      341 GETTABLEKS                       R23 R23 K28 ["PopoverAlign"]
-      343 GETTABLEKS                       R23 R23 K29 ["Start"]
-      345 SETTABLEKS                       R23 R22 K20 ["align"]
-      347 GETUPVAL                         R23 5
-      348 GETTABLEKS                       R23 R23 K6 ["createElement"]
-      350 GETUPVAL                         R24 8
-      351 GETTABLEKS                       R24 R24 K48 ["Text"]
-      353 DUPTABLE                         R25 K67 [{"Text", "Size", "tag", "onActivated"}]
-      354 LOADK                            R28 K51 ["LookSaveMenu"]
-      355 LOADK                            R29 K44 ["CreateAvatarLook"]
-      356 NAMECALL                         R26 R3 K53 ["getText"]
-      358 CALL                             R26 3 1
-      359 SETTABLEKS                       R26 R25 K48 ["Text"]
-      361 GETIMPORT                        R26 K38 [UDim2.fromOffset]
-      363 LOADN                            R27 250
-      364 LOADN                            R28 0
-      365 CALL                             R26 2 1
-      366 SETTABLEKS                       R26 R25 K33 ["Size"]
-      368 GETTABLEKS                       R27 R4 K71 ["canCreateAvatarLook"]
-      370 JUMPIFNOT                        R27 ; [+2]
-      371 LOADK                            R26 K68 ["text-body-small content-system-contrast padding-small auto-y text-align-x-left"]
-      372 JUMP                             ; [+1]
-      373 LOADK                            R26 K72 ["text-body-small content-muted padding-small auto-y text-align-x-left"]
-      374 SETTABLEKS                       R26 R25 K34 ["tag"]
-      376 GETTABLEKS                       R27 R4 K71 ["canCreateAvatarLook"]
-      378 JUMPIFNOT                        R27 ; [+3]
-      379 NEWCLOSURE                       R26 P1
-      380 CAPTURE                          VAL R0
-      381 JUMP                             ; [+1]
-      382 LOADNIL                          R26
-      383 SETTABLEKS                       R26 R25 K66 ["onActivated"]
-      385 CALL                             R23 2 -1
-      386 CALL                             R20 -1 1
-      387 SETTABLEKS                       R20 R19 K44 ["CreateAvatarLook"]
-      389 MOVE                             R20 R7
-      390 JUMPIFNOT                        R20 ; [+23]
-      391 GETUPVAL                         R20 5
-      392 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      394 GETUPVAL                         R21 8
-      395 GETTABLEKS                       R21 R21 K32 ["View"]
-      397 DUPTABLE                         R22 K55 [{"LayoutOrder", "Size"}]
-      398 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      400 CALL                             R23 1 1
-      401 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      403 GETIMPORT                        R23 K38 [UDim2.fromOffset]
-      405 LOADN                            R24 0
-      406 GETTABLEKS                       R25 R2 K56 ["Gap"]
-      408 GETTABLEKS                       R25 R25 K57 ["XXSmall"]
-      410 CALL                             R23 2 1
-      411 SETTABLEKS                       R23 R22 K33 ["Size"]
-      413 CALL                             R20 2 1
-      414 SETTABLEKS                       R20 R19 K45 ["Gap3"]
-      416 MOVE                             R20 R7
-      417 JUMPIFNOT                        R20 ; [+80]
-      418 GETUPVAL                         R20 5
-      419 GETTABLEKS                       R20 R20 K6 ["createElement"]
-      421 GETUPVAL                         R21 8
-      422 GETTABLEKS                       R21 R21 K58 ["Tooltip"]
-      424 DUPTABLE                         R22 K62 [{"LayoutOrder", "title", "text", "side", "align"}]
-      425 NAMECALL                         R23 R1 K50 ["getNextOrder"]
-      427 CALL                             R23 1 1
-      428 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
-      430 LOADK                            R25 K51 ["LookSaveMenu"]
-      431 LOADK                            R26 K46 ["CreateMakeupLook"]
-      432 NAMECALL                         R23 R3 K53 ["getText"]
-      434 CALL                             R23 3 1
-      435 SETTABLEKS                       R23 R22 K59 ["title"]
-      437 LOADK                            R25 K51 ["LookSaveMenu"]
-      438 LOADK                            R26 K73 ["TooltipCreateMakeupLookDescription"]
-      439 NAMECALL                         R23 R3 K53 ["getText"]
-      441 CALL                             R23 3 1
-      442 SETTABLEKS                       R23 R22 K60 ["text"]
-      444 GETUPVAL                         R23 8
-      445 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      447 GETTABLEKS                       R23 R23 K64 ["PopoverSide"]
-      449 GETTABLEKS                       R23 R23 K65 ["Right"]
-      451 SETTABLEKS                       R23 R22 K61 ["side"]
-      453 GETUPVAL                         R23 8
-      454 GETTABLEKS                       R23 R23 K27 ["Enums"]
-      456 GETTABLEKS                       R23 R23 K28 ["PopoverAlign"]
-      458 GETTABLEKS                       R23 R23 K29 ["Start"]
-      460 SETTABLEKS                       R23 R22 K20 ["align"]
-      462 GETUPVAL                         R23 5
-      463 GETTABLEKS                       R23 R23 K6 ["createElement"]
-      465 GETUPVAL                         R24 8
-      466 GETTABLEKS                       R24 R24 K48 ["Text"]
-      468 DUPTABLE                         R25 K67 [{"Text", "Size", "tag", "onActivated"}]
-      469 LOADK                            R28 K51 ["LookSaveMenu"]
-      470 LOADK                            R29 K46 ["CreateMakeupLook"]
-      471 NAMECALL                         R26 R3 K53 ["getText"]
-      473 CALL                             R26 3 1
-      474 SETTABLEKS                       R26 R25 K48 ["Text"]
-      476 GETIMPORT                        R26 K38 [UDim2.fromOffset]
-      478 LOADN                            R27 250
-      479 LOADN                            R28 0
-      480 CALL                             R26 2 1
-      481 SETTABLEKS                       R26 R25 K33 ["Size"]
-      483 JUMPIFNOT                        R6 ; [+2]
-      484 LOADK                            R26 K68 ["text-body-small content-system-contrast padding-small auto-y text-align-x-left"]
-      485 JUMP                             ; [+1]
-      486 LOADK                            R26 K72 ["text-body-small content-muted padding-small auto-y text-align-x-left"]
-      487 SETTABLEKS                       R26 R25 K34 ["tag"]
-      489 JUMPIFNOT                        R6 ; [+3]
-      490 NEWCLOSURE                       R26 P2
-      491 CAPTURE                          VAL R0
-      492 JUMP                             ; [+1]
-      493 LOADNIL                          R26
-      494 SETTABLEKS                       R26 R25 K66 ["onActivated"]
-      496 CALL                             R23 2 -1
-      497 CALL                             R20 -1 1
-      498 SETTABLEKS                       R20 R19 K46 ["CreateMakeupLook"]
-      500 CALL                             R16 3 1
-      501 SETTABLEKS                       R16 R15 K30 ["Menu"]
-      503 CALL                             R12 3 1
-      504 SETTABLEKS                       R12 R11 K13 ["Content"]
-      506 CALL                             R8 3 -1
-      507 RETURN                           R8 -1
+      105 GETTABLEKS                       R16 R16 K29 ["Enums"]
+      107 GETTABLEKS                       R16 R16 K30 ["PopoverAlign"]
+      109 GETTABLEKS                       R16 R16 K31 ["Start"]
+      111 SETTABLEKS                       R16 R15 K25 ["position"]
+      113 SETTABLEKS                       R15 R14 K20 ["align"]
+      115 DUPTABLE                         R15 K33 [{"Menu"}]
+      116 GETUPVAL                         R16 5
+      117 GETTABLEKS                       R16 R16 K6 ["createElement"]
+      119 GETUPVAL                         R17 8
+      120 GETTABLEKS                       R17 R17 K34 ["View"]
+      122 DUPTABLE                         R18 K38 [{["Size"], ["tag"] = "col auto-y padding-xsmall stroke-default radius-medium bg-surface-300"}]
+      123 GETIMPORT                        R19 K41 [UDim2.fromOffset]
+      125 LOADN                            R20 260
+      126 LOADN                            R21 0
+      127 CALL                             R19 2 1
+      128 SETTABLEKS                       R19 R18 K35 ["Size"]
+      130 DUPTABLE                         R19 K49 [{"Title", "Gap1", "SaveToRoblox", "Gap2", "CreateAvatarLook", "Gap3", "CreateMakeupLook"}]
+      131 GETUPVAL                         R20 5
+      132 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      134 GETUPVAL                         R21 8
+      135 GETTABLEKS                       R21 R21 K50 ["Text"]
+      137 DUPTABLE                         R22 K52 [{["LayoutOrder"], ["Text"], ["tag"] = "auto-xy padding-small text-caption-small content-muted"}]
+      138 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      140 CALL                             R23 1 1
+      141 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      143 LOADK                            R25 K54 ["LookSaveMenu"]
+      144 LOADK                            R26 K55 ["Save"]
+      145 NAMECALL                         R23 R3 K56 ["getText"]
+      147 CALL                             R23 3 1
+      148 SETTABLEKS                       R23 R22 K50 ["Text"]
+      150 CALL                             R20 2 1
+      151 SETTABLEKS                       R20 R19 K42 ["Title"]
+      153 GETUPVAL                         R20 5
+      154 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      156 GETUPVAL                         R21 8
+      157 GETTABLEKS                       R21 R21 K34 ["View"]
+      159 DUPTABLE                         R22 K57 [{"LayoutOrder", "Size"}]
+      160 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      162 CALL                             R23 1 1
+      163 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      165 GETIMPORT                        R23 K41 [UDim2.fromOffset]
+      167 LOADN                            R24 0
+      168 GETTABLEKS                       R25 R2 K58 ["Gap"]
+      170 GETTABLEKS                       R25 R25 K59 ["XXSmall"]
+      172 CALL                             R23 2 1
+      173 SETTABLEKS                       R23 R22 K35 ["Size"]
+      175 CALL                             R20 2 1
+      176 SETTABLEKS                       R20 R19 K43 ["Gap1"]
+      178 GETUPVAL                         R20 5
+      179 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      181 GETUPVAL                         R21 8
+      182 GETTABLEKS                       R21 R21 K60 ["Tooltip"]
+      184 DUPTABLE                         R22 K64 [{"LayoutOrder", "title", "text", "side", "align"}]
+      185 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      187 CALL                             R23 1 1
+      188 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      190 LOADK                            R25 K54 ["LookSaveMenu"]
+      191 LOADK                            R26 K44 ["SaveToRoblox"]
+      192 NAMECALL                         R23 R3 K56 ["getText"]
+      194 CALL                             R23 3 1
+      195 SETTABLEKS                       R23 R22 K61 ["title"]
+      197 LOADK                            R25 K54 ["LookSaveMenu"]
+      198 LOADK                            R26 K65 ["TooltipSaveToRobloxDescription"]
+      199 NAMECALL                         R23 R3 K56 ["getText"]
+      201 CALL                             R23 3 1
+      202 SETTABLEKS                       R23 R22 K62 ["text"]
+      204 GETUPVAL                         R23 8
+      205 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      207 GETTABLEKS                       R23 R23 K66 ["PopoverSide"]
+      209 GETTABLEKS                       R23 R23 K67 ["Right"]
+      211 SETTABLEKS                       R23 R22 K63 ["side"]
+      213 GETUPVAL                         R23 8
+      214 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      216 GETTABLEKS                       R23 R23 K30 ["PopoverAlign"]
+      218 GETTABLEKS                       R23 R23 K31 ["Start"]
+      220 SETTABLEKS                       R23 R22 K20 ["align"]
+      222 GETUPVAL                         R23 5
+      223 GETTABLEKS                       R23 R23 K6 ["createElement"]
+      225 GETUPVAL                         R24 8
+      226 GETTABLEKS                       R24 R24 K50 ["Text"]
+      228 DUPTABLE                         R25 K70 [{["Text"], ["Size"], ["tag"] = "auto-y padding-small text-body-small text-align-x-left content-system-contrast", ["onActivated"]}]
+      229 LOADK                            R28 K54 ["LookSaveMenu"]
+      230 LOADK                            R29 K44 ["SaveToRoblox"]
+      231 NAMECALL                         R26 R3 K56 ["getText"]
+      233 CALL                             R26 3 1
+      234 SETTABLEKS                       R26 R25 K50 ["Text"]
+      236 GETIMPORT                        R26 K41 [UDim2.fromOffset]
+      238 LOADN                            R27 250
+      239 LOADN                            R28 0
+      240 CALL                             R26 2 1
+      241 SETTABLEKS                       R26 R25 K35 ["Size"]
+      243 NEWCLOSURE                       R26 P0
+      244 CAPTURE                          VAL R0
+      245 SETTABLEKS                       R26 R25 K69 ["onActivated"]
+      247 CALL                             R23 2 -1
+      248 CALL                             R20 -1 1
+      249 SETTABLEKS                       R20 R19 K44 ["SaveToRoblox"]
+      251 GETUPVAL                         R20 4
+      252 CALL                             R20 0 1
+      253 JUMPIFNOT                        R20 ; [+26]
+      254 GETTABLEKS                       R20 R4 K71 ["showCreateAvatarLook"]
+      256 JUMPIFNOT                        R20 ; [+23]
+      257 GETUPVAL                         R20 5
+      258 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      260 GETUPVAL                         R21 8
+      261 GETTABLEKS                       R21 R21 K34 ["View"]
+      263 DUPTABLE                         R22 K57 [{"LayoutOrder", "Size"}]
+      264 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      266 CALL                             R23 1 1
+      267 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      269 GETIMPORT                        R23 K41 [UDim2.fromOffset]
+      271 LOADN                            R24 0
+      272 GETTABLEKS                       R25 R2 K58 ["Gap"]
+      274 GETTABLEKS                       R25 R25 K59 ["XXSmall"]
+      276 CALL                             R23 2 1
+      277 SETTABLEKS                       R23 R22 K35 ["Size"]
+      279 CALL                             R20 2 1
+      280 SETTABLEKS                       R20 R19 K45 ["Gap2"]
+      282 GETUPVAL                         R20 4
+      283 CALL                             R20 0 1
+      284 JUMPIFNOT                        R20 ; [+87]
+      285 GETTABLEKS                       R20 R4 K71 ["showCreateAvatarLook"]
+      287 JUMPIFNOT                        R20 ; [+84]
+      288 GETUPVAL                         R20 5
+      289 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      291 GETUPVAL                         R21 8
+      292 GETTABLEKS                       R21 R21 K60 ["Tooltip"]
+      294 DUPTABLE                         R22 K64 [{"LayoutOrder", "title", "text", "side", "align"}]
+      295 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      297 CALL                             R23 1 1
+      298 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      300 LOADK                            R25 K54 ["LookSaveMenu"]
+      301 LOADK                            R26 K46 ["CreateAvatarLook"]
+      302 NAMECALL                         R23 R3 K56 ["getText"]
+      304 CALL                             R23 3 1
+      305 SETTABLEKS                       R23 R22 K61 ["title"]
+      307 LOADK                            R25 K54 ["LookSaveMenu"]
+      308 LOADK                            R26 K72 ["TooltipCreateAvatarLookDescription"]
+      309 NAMECALL                         R23 R3 K56 ["getText"]
+      311 CALL                             R23 3 1
+      312 SETTABLEKS                       R23 R22 K62 ["text"]
+      314 GETUPVAL                         R23 8
+      315 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      317 GETTABLEKS                       R23 R23 K66 ["PopoverSide"]
+      319 GETTABLEKS                       R23 R23 K67 ["Right"]
+      321 SETTABLEKS                       R23 R22 K63 ["side"]
+      323 GETUPVAL                         R23 8
+      324 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      326 GETTABLEKS                       R23 R23 K30 ["PopoverAlign"]
+      328 GETTABLEKS                       R23 R23 K31 ["Start"]
+      330 SETTABLEKS                       R23 R22 K20 ["align"]
+      332 GETUPVAL                         R23 5
+      333 GETTABLEKS                       R23 R23 K6 ["createElement"]
+      335 GETUPVAL                         R24 8
+      336 GETTABLEKS                       R24 R24 K50 ["Text"]
+      338 DUPTABLE                         R25 K73 [{"Text", "Size", "tag", "onActivated"}]
+      339 LOADK                            R28 K54 ["LookSaveMenu"]
+      340 LOADK                            R29 K46 ["CreateAvatarLook"]
+      341 NAMECALL                         R26 R3 K56 ["getText"]
+      343 CALL                             R26 3 1
+      344 SETTABLEKS                       R26 R25 K50 ["Text"]
+      346 GETIMPORT                        R26 K41 [UDim2.fromOffset]
+      348 LOADN                            R27 250
+      349 LOADN                            R28 0
+      350 CALL                             R26 2 1
+      351 SETTABLEKS                       R26 R25 K35 ["Size"]
+      353 GETTABLEKS                       R27 R4 K74 ["canCreateAvatarLook"]
+      355 JUMPIFNOT                        R27 ; [+2]
+      356 LOADK                            R26 K68 ["auto-y padding-small text-body-small text-align-x-left content-system-contrast"]
+      357 JUMP                             ; [+1]
+      358 LOADK                            R26 K75 ["auto-y padding-small text-body-small text-align-x-left content-muted"]
+      359 SETTABLEKS                       R26 R25 K36 ["tag"]
+      361 GETTABLEKS                       R27 R4 K74 ["canCreateAvatarLook"]
+      363 JUMPIFNOT                        R27 ; [+3]
+      364 NEWCLOSURE                       R26 P1
+      365 CAPTURE                          VAL R0
+      366 JUMP                             ; [+1]
+      367 LOADNIL                          R26
+      368 SETTABLEKS                       R26 R25 K69 ["onActivated"]
+      370 CALL                             R23 2 -1
+      371 CALL                             R20 -1 1
+      372 SETTABLEKS                       R20 R19 K46 ["CreateAvatarLook"]
+      374 MOVE                             R20 R7
+      375 JUMPIFNOT                        R20 ; [+23]
+      376 GETUPVAL                         R20 5
+      377 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      379 GETUPVAL                         R21 8
+      380 GETTABLEKS                       R21 R21 K34 ["View"]
+      382 DUPTABLE                         R22 K57 [{"LayoutOrder", "Size"}]
+      383 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      385 CALL                             R23 1 1
+      386 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      388 GETIMPORT                        R23 K41 [UDim2.fromOffset]
+      390 LOADN                            R24 0
+      391 GETTABLEKS                       R25 R2 K58 ["Gap"]
+      393 GETTABLEKS                       R25 R25 K59 ["XXSmall"]
+      395 CALL                             R23 2 1
+      396 SETTABLEKS                       R23 R22 K35 ["Size"]
+      398 CALL                             R20 2 1
+      399 SETTABLEKS                       R20 R19 K47 ["Gap3"]
+      401 MOVE                             R20 R7
+      402 JUMPIFNOT                        R20 ; [+80]
+      403 GETUPVAL                         R20 5
+      404 GETTABLEKS                       R20 R20 K6 ["createElement"]
+      406 GETUPVAL                         R21 8
+      407 GETTABLEKS                       R21 R21 K60 ["Tooltip"]
+      409 DUPTABLE                         R22 K64 [{"LayoutOrder", "title", "text", "side", "align"}]
+      410 NAMECALL                         R23 R1 K53 ["getNextOrder"]
+      412 CALL                             R23 1 1
+      413 SETTABLEKS                       R23 R22 K9 ["LayoutOrder"]
+      415 LOADK                            R25 K54 ["LookSaveMenu"]
+      416 LOADK                            R26 K48 ["CreateMakeupLook"]
+      417 NAMECALL                         R23 R3 K56 ["getText"]
+      419 CALL                             R23 3 1
+      420 SETTABLEKS                       R23 R22 K61 ["title"]
+      422 LOADK                            R25 K54 ["LookSaveMenu"]
+      423 LOADK                            R26 K76 ["TooltipCreateMakeupLookDescription"]
+      424 NAMECALL                         R23 R3 K56 ["getText"]
+      426 CALL                             R23 3 1
+      427 SETTABLEKS                       R23 R22 K62 ["text"]
+      429 GETUPVAL                         R23 8
+      430 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      432 GETTABLEKS                       R23 R23 K66 ["PopoverSide"]
+      434 GETTABLEKS                       R23 R23 K67 ["Right"]
+      436 SETTABLEKS                       R23 R22 K63 ["side"]
+      438 GETUPVAL                         R23 8
+      439 GETTABLEKS                       R23 R23 K29 ["Enums"]
+      441 GETTABLEKS                       R23 R23 K30 ["PopoverAlign"]
+      443 GETTABLEKS                       R23 R23 K31 ["Start"]
+      445 SETTABLEKS                       R23 R22 K20 ["align"]
+      447 GETUPVAL                         R23 5
+      448 GETTABLEKS                       R23 R23 K6 ["createElement"]
+      450 GETUPVAL                         R24 8
+      451 GETTABLEKS                       R24 R24 K50 ["Text"]
+      453 DUPTABLE                         R25 K73 [{"Text", "Size", "tag", "onActivated"}]
+      454 LOADK                            R28 K54 ["LookSaveMenu"]
+      455 LOADK                            R29 K48 ["CreateMakeupLook"]
+      456 NAMECALL                         R26 R3 K56 ["getText"]
+      458 CALL                             R26 3 1
+      459 SETTABLEKS                       R26 R25 K50 ["Text"]
+      461 GETIMPORT                        R26 K41 [UDim2.fromOffset]
+      463 LOADN                            R27 250
+      464 LOADN                            R28 0
+      465 CALL                             R26 2 1
+      466 SETTABLEKS                       R26 R25 K35 ["Size"]
+      468 JUMPIFNOT                        R6 ; [+2]
+      469 LOADK                            R26 K68 ["auto-y padding-small text-body-small text-align-x-left content-system-contrast"]
+      470 JUMP                             ; [+1]
+      471 LOADK                            R26 K75 ["auto-y padding-small text-body-small text-align-x-left content-muted"]
+      472 SETTABLEKS                       R26 R25 K36 ["tag"]
+      474 JUMPIFNOT                        R6 ; [+3]
+      475 NEWCLOSURE                       R26 P2
+      476 CAPTURE                          VAL R0
+      477 JUMP                             ; [+1]
+      478 LOADNIL                          R26
+      479 SETTABLEKS                       R26 R25 K69 ["onActivated"]
+      481 CALL                             R23 2 -1
+      482 CALL                             R20 -1 1
+      483 SETTABLEKS                       R20 R19 K48 ["CreateMakeupLook"]
+      485 CALL                             R16 3 1
+      486 SETTABLEKS                       R16 R15 K32 ["Menu"]
+      488 CALL                             R12 3 1
+      489 SETTABLEKS                       R12 R11 K13 ["Content"]
+      491 CALL                             R8 3 -1
+      492 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

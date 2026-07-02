@@ -37,32 +37,30 @@ PROTO_0:
        58 GETUPVAL                         R11 0
        59 GETTABLEKS                       R11 R11 K6 ["createElement"]
        61 LOADK                            R12 K24 ["ImageLabel"]
-       62 DUPTABLE                         R13 K28 [{"Size", "Rotation", "Position", "AnchorPoint", "Image", "ImageColor3", "BackgroundTransparency"}]
+       62 DUPTABLE                         R13 K29 [{["Size"], ["Rotation"], ["Position"], ["AnchorPoint"], ["Image"], ["ImageColor3"], ["BackgroundTransparency"] = 1}]
        63 GETUPVAL                         R14 2
        64 SETTABLEKS                       R14 R13 K12 ["Size"]
        66 SETTABLEKS                       R4 R13 K3 ["Rotation"]
        68 GETIMPORT                        R14 K10 [UDim2.new]
-       70 LOADK                            R15 K29 [0.5]
+       70 LOADK                            R15 K30 [0.5]
        71 LOADN                            R16 0
-       72 LOADK                            R17 K29 [0.5]
+       72 LOADK                            R17 K30 [0.5]
        73 LOADN                            R18 0
        74 CALL                             R14 4 1
        75 SETTABLEKS                       R14 R13 K4 ["Position"]
-       77 GETIMPORT                        R14 K31 [Vector2.new]
-       79 LOADK                            R15 K29 [0.5]
-       80 LOADK                            R16 K29 [0.5]
+       77 GETIMPORT                        R14 K32 [Vector2.new]
+       79 LOADK                            R15 K30 [0.5]
+       80 LOADK                            R16 K30 [0.5]
        81 CALL                             R14 2 1
        82 SETTABLEKS                       R14 R13 K5 ["AnchorPoint"]
-       84 GETTABLEKS                       R14 R3 K32 ["arrowImage"]
+       84 GETTABLEKS                       R14 R3 K33 ["arrowImage"]
        86 SETTABLEKS                       R14 R13 K25 ["Image"]
-       88 GETTABLEKS                       R14 R3 K33 ["imageColor"]
+       88 GETTABLEKS                       R14 R3 K34 ["imageColor"]
        90 SETTABLEKS                       R14 R13 K26 ["ImageColor3"]
-       92 LOADN                            R14 1
-       93 SETTABLEKS                       R14 R13 K27 ["BackgroundTransparency"]
-       95 CALL                             R11 2 1
-       96 SETTABLEKS                       R11 R10 K22 ["Arrow"]
-       98 CALL                             R7 3 -1
-       99 RETURN                           R7 -1
+       92 CALL                             R11 2 1
+       93 SETTABLEKS                       R11 R10 K22 ["Arrow"]
+       95 CALL                             R7 3 -1
+       96 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

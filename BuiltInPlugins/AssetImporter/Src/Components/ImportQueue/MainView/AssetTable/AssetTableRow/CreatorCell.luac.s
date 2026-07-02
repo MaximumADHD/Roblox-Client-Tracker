@@ -3,31 +3,29 @@ PROTO_0:
         1 NEWTABLE                         R2 0 0
         3 RETURN                           R2 1
         4 NEWTABLE                         R2 0 1
-        6 DUPTABLE                         R3 K2 [{"text", "id"}]
-        7 LOADK                            R6 K3 ["UploadDestination"]
-        8 LOADK                            R7 K4 ["Me"]
-        9 NAMECALL                         R4 R1 K5 ["getText"]
+        6 DUPTABLE                         R3 K3 [{[1], ["id"] = -1}]
+        7 LOADK                            R6 K4 ["UploadDestination"]
+        8 LOADK                            R7 K5 ["Me"]
+        9 NAMECALL                         R4 R1 K6 ["getText"]
        11 CALL                             R4 3 1
        12 SETTABLEKS                       R4 R3 K0 ["text"]
-       14 LOADN                            R4 255
-       15 SETTABLEKS                       R4 R3 K1 ["id"]
-       17 SETLIST                          R2 R3 1 [1]
-       19 MOVE                             R3 R0
-       20 LOADNIL                          R4
-       21 LOADNIL                          R5
-       22 FORGPREP                         R3
-       23 DUPTABLE                         R8 K2 [{"text", "id"}]
-       24 GETTABLEKS                       R9 R7 K6 ["name"]
-       26 SETTABLEKS                       R9 R8 K0 ["text"]
-       28 GETTABLEKS                       R9 R7 K1 ["id"]
-       30 SETTABLEKS                       R9 R8 K1 ["id"]
-       32 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
-       34 MOVE                             R10 R2
-       35 MOVE                             R11 R8
-       36 GETIMPORT                        R9 K9 [table.insert]
-       38 CALL                             R9 2 0
-       39 FORGLOOP                         R3 2 ; [-17]
-       41 RETURN                           R2 1
+       14 SETLIST                          R2 R3 1 [1]
+       16 MOVE                             R3 R0
+       17 LOADNIL                          R4
+       18 LOADNIL                          R5
+       19 FORGPREP                         R3
+       20 DUPTABLE                         R8 K7 [{"text", "id"}]
+       21 GETTABLEKS                       R9 R7 K8 ["name"]
+       23 SETTABLEKS                       R9 R8 K0 ["text"]
+       25 GETTABLEKS                       R9 R7 K1 ["id"]
+       27 SETTABLEKS                       R9 R8 K1 ["id"]
+       29 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
+       31 MOVE                             R10 R2
+       32 MOVE                             R11 R8
+       33 GETIMPORT                        R9 K11 [table.insert]
+       35 CALL                             R9 2 0
+       36 FORGLOOP                         R3 2 ; [-17]
+       38 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -58,40 +56,38 @@ PROTO_2:
        22 GETUPVAL                         R8 6
        23 GETTABLEKS                       R8 R8 K3 ["Dropdown"]
        25 GETTABLEKS                       R8 R8 K4 ["Root"]
-       27 DUPTABLE                         R9 K13 [{"size", "label", "items", "width", "maxHeight", "value", "onItemChanged", "isDisabled"}]
+       27 DUPTABLE                         R9 K14 [{["size"], ["label"] = "", ["items"], ["width"], ["maxHeight"], ["value"], ["onItemChanged"], ["isDisabled"]}]
        28 GETUPVAL                         R10 6
-       29 GETTABLEKS                       R10 R10 K14 ["Enums"]
-       31 GETTABLEKS                       R10 R10 K15 ["InputSize"]
-       33 GETTABLEKS                       R10 R10 K16 ["XSmall"]
+       29 GETTABLEKS                       R10 R10 K15 ["Enums"]
+       31 GETTABLEKS                       R10 R10 K16 ["InputSize"]
+       33 GETTABLEKS                       R10 R10 K17 ["XSmall"]
        35 SETTABLEKS                       R10 R9 K5 ["size"]
-       37 LOADK                            R10 K17 [""]
-       38 SETTABLEKS                       R10 R9 K6 ["label"]
-       40 SETTABLEKS                       R5 R9 K7 ["items"]
-       42 GETIMPORT                        R10 K20 [UDim.new]
-       44 LOADN                            R11 1
-       45 LOADN                            R12 0
-       46 CALL                             R10 2 1
-       47 SETTABLEKS                       R10 R9 K8 ["width"]
-       49 MOVE                             R10 R4
-       50 JUMPIFNOT                        R10 ; [+2]
-       51 GETTABLEKS                       R10 R4 K21 ["Y"]
-       53 SETTABLEKS                       R10 R9 K9 ["maxHeight"]
-       55 GETTABLEKS                       R10 R6 K22 ["creatorId"]
-       57 SETTABLEKS                       R10 R9 K10 ["value"]
-       59 NEWCLOSURE                       R10 P0
-       60 CAPTURE                          VAL R2
-       61 CAPTURE                          VAL R6
-       62 SETTABLEKS                       R10 R9 K11 ["onItemChanged"]
-       64 GETTABLEKS                       R11 R6 K23 ["state"]
-       66 GETUPVAL                         R12 7
-       67 GETTABLEKS                       R12 R12 K24 ["SessionState"]
-       69 GETTABLEKS                       R12 R12 K25 ["Parsed"]
-       71 JUMPIFNOTEQ                      R11 R12 ; [+2]
-       73 LOADB                            R10 0 +1
-       74 LOADB                            R10 1
-       75 SETTABLEKS                       R10 R9 K12 ["isDisabled"]
-       77 CALL                             R7 2 -1
-       78 RETURN                           R7 -1
+       37 SETTABLEKS                       R5 R9 K8 ["items"]
+       39 GETIMPORT                        R10 K20 [UDim.new]
+       41 LOADN                            R11 1
+       42 LOADN                            R12 0
+       43 CALL                             R10 2 1
+       44 SETTABLEKS                       R10 R9 K9 ["width"]
+       46 MOVE                             R10 R4
+       47 JUMPIFNOT                        R10 ; [+2]
+       48 GETTABLEKS                       R10 R4 K21 ["Y"]
+       50 SETTABLEKS                       R10 R9 K10 ["maxHeight"]
+       52 GETTABLEKS                       R10 R6 K22 ["creatorId"]
+       54 SETTABLEKS                       R10 R9 K11 ["value"]
+       56 NEWCLOSURE                       R10 P0
+       57 CAPTURE                          VAL R2
+       58 CAPTURE                          VAL R6
+       59 SETTABLEKS                       R10 R9 K12 ["onItemChanged"]
+       61 GETTABLEKS                       R11 R6 K23 ["state"]
+       63 GETUPVAL                         R12 7
+       64 GETTABLEKS                       R12 R12 K24 ["SessionState"]
+       66 GETTABLEKS                       R12 R12 K25 ["Parsed"]
+       68 JUMPIFNOTEQ                      R11 R12 ; [+2]
+       70 LOADB                            R10 0 +1
+       71 LOADB                            R10 1
+       72 SETTABLEKS                       R10 R9 K13 ["isDisabled"]
+       74 CALL                             R7 2 -1
+       75 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

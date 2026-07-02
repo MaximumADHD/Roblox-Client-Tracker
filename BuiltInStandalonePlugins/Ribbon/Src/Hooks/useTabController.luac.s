@@ -14,101 +14,53 @@ PROTO_1:
         3 CALL                             R0 1 1
         4 GETUPVAL                         R1 1
         5 NEWTABLE                         R2 0 8
-        7 DUPTABLE                         R3 K4 [{"Id", "Text", "ReserveCheckmarkSpace"}]
-        8 LOADK                            R4 K5 ["Hide"]
-        9 SETTABLEKS                       R4 R3 K1 ["Id"]
-       11 GETUPVAL                         R4 2
-       12 LOADK                            R6 K6 ["Plugin"]
-       13 LOADK                            R7 K7 ["Tab_Hide"]
-       14 NAMECALL                         R4 R4 K8 ["getText"]
-       16 CALL                             R4 3 1
-       17 SETTABLEKS                       R4 R3 K2 ["Text"]
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K3 ["ReserveCheckmarkSpace"]
-       22 DUPTABLE                         R4 K4 [{"Id", "Text", "ReserveCheckmarkSpace"}]
-       23 LOADK                            R5 K9 ["Duplicate"]
-       24 SETTABLEKS                       R5 R4 K1 ["Id"]
-       26 GETUPVAL                         R5 2
-       27 LOADK                            R7 K6 ["Plugin"]
-       28 LOADK                            R8 K10 ["Tab_Duplicate"]
-       29 NAMECALL                         R5 R5 K8 ["getText"]
-       31 CALL                             R5 3 1
-       32 SETTABLEKS                       R5 R4 K2 ["Text"]
-       34 LOADB                            R5 1
-       35 SETTABLEKS                       R5 R4 K3 ["ReserveCheckmarkSpace"]
-       37 DUPTABLE                         R5 K12 [{"Id", "Type"}]
-       38 LOADK                            R6 K13 ["Separator"]
-       39 SETTABLEKS                       R6 R5 K1 ["Id"]
-       41 LOADK                            R6 K13 ["Separator"]
-       42 SETTABLEKS                       R6 R5 K11 ["Type"]
-       44 DUPTABLE                         R6 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       45 LOADK                            R7 K16 ["ManageTabs"]
-       46 SETTABLEKS                       R7 R6 K1 ["Id"]
-       48 GETUPVAL                         R7 3
-       49 GETTABLEKS                       R7 R7 K17 ["join"]
-       51 MOVE                             R8 R0
-       52 DUPTABLE                         R9 K20 [{"Category", "ItemId"}]
-       53 LOADK                            R10 K21 ["Actions"]
-       54 SETTABLEKS                       R10 R9 K18 ["Category"]
-       56 LOADK                            R10 K16 ["ManageTabs"]
-       57 SETTABLEKS                       R10 R9 K19 ["ItemId"]
-       59 CALL                             R7 2 1
-       60 SETTABLEKS                       R7 R6 K14 ["Action"]
-       62 LOADB                            R7 1
-       63 SETTABLEKS                       R7 R6 K3 ["ReserveCheckmarkSpace"]
-       65 DUPTABLE                         R7 K12 [{"Id", "Type"}]
-       66 LOADK                            R8 K13 ["Separator"]
-       67 SETTABLEKS                       R8 R7 K1 ["Id"]
-       69 LOADK                            R8 K13 ["Separator"]
-       70 SETTABLEKS                       R8 R7 K11 ["Type"]
-       72 DUPTABLE                         R8 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       73 LOADK                            R9 K22 ["DockUndockRibbon"]
-       74 SETTABLEKS                       R9 R8 K1 ["Id"]
-       76 GETUPVAL                         R9 3
-       77 GETTABLEKS                       R9 R9 K17 ["join"]
-       79 MOVE                             R10 R0
-       80 DUPTABLE                         R11 K20 [{"Category", "ItemId"}]
-       81 LOADK                            R12 K21 ["Actions"]
-       82 SETTABLEKS                       R12 R11 K18 ["Category"]
-       84 LOADK                            R12 K22 ["DockUndockRibbon"]
-       85 SETTABLEKS                       R12 R11 K19 ["ItemId"]
-       87 CALL                             R9 2 1
-       88 SETTABLEKS                       R9 R8 K14 ["Action"]
-       90 LOADB                            R9 1
-       91 SETTABLEKS                       R9 R8 K3 ["ReserveCheckmarkSpace"]
-       93 DUPTABLE                         R9 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       94 LOADK                            R10 K23 ["CompactDensity"]
-       95 SETTABLEKS                       R10 R9 K1 ["Id"]
-       97 GETUPVAL                         R10 3
-       98 GETTABLEKS                       R10 R10 K17 ["join"]
-      100 MOVE                             R11 R0
-      101 DUPTABLE                         R12 K20 [{"Category", "ItemId"}]
-      102 LOADK                            R13 K21 ["Actions"]
-      103 SETTABLEKS                       R13 R12 K18 ["Category"]
-      105 LOADK                            R13 K23 ["CompactDensity"]
-      106 SETTABLEKS                       R13 R12 K19 ["ItemId"]
-      108 CALL                             R10 2 1
-      109 SETTABLEKS                       R10 R9 K14 ["Action"]
-      111 LOADB                            R10 1
-      112 SETTABLEKS                       R10 R9 K3 ["ReserveCheckmarkSpace"]
-      114 DUPTABLE                         R10 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-      115 LOADK                            R11 K24 ["ShowHideLabels"]
-      116 SETTABLEKS                       R11 R10 K1 ["Id"]
-      118 GETUPVAL                         R11 3
-      119 GETTABLEKS                       R11 R11 K17 ["join"]
-      121 MOVE                             R12 R0
-      122 DUPTABLE                         R13 K20 [{"Category", "ItemId"}]
-      123 LOADK                            R14 K21 ["Actions"]
-      124 SETTABLEKS                       R14 R13 K18 ["Category"]
-      126 LOADK                            R14 K24 ["ShowHideLabels"]
-      127 SETTABLEKS                       R14 R13 K19 ["ItemId"]
-      129 CALL                             R11 2 1
-      130 SETTABLEKS                       R11 R10 K14 ["Action"]
-      132 LOADB                            R11 1
-      133 SETTABLEKS                       R11 R10 K3 ["ReserveCheckmarkSpace"]
-      135 SETLIST                          R2 R3 8 [1]
-      137 CALL                             R1 1 -1
-      138 RETURN                           R1 -1
+        7 DUPTABLE                         R3 K6 [{["Id"] = "Hide", ["Text"], ["ReserveCheckmarkSpace"] = True}]
+        8 GETUPVAL                         R4 2
+        9 LOADK                            R6 K7 ["Plugin"]
+       10 LOADK                            R7 K8 ["Tab_Hide"]
+       11 NAMECALL                         R4 R4 K9 ["getText"]
+       13 CALL                             R4 3 1
+       14 SETTABLEKS                       R4 R3 K3 ["Text"]
+       16 DUPTABLE                         R4 K11 [{["Id"] = "Duplicate", ["Text"], ["ReserveCheckmarkSpace"] = True}]
+       17 GETUPVAL                         R5 2
+       18 LOADK                            R7 K7 ["Plugin"]
+       19 LOADK                            R8 K12 ["Tab_Duplicate"]
+       20 NAMECALL                         R5 R5 K9 ["getText"]
+       22 CALL                             R5 3 1
+       23 SETTABLEKS                       R5 R4 K3 ["Text"]
+       25 DUPTABLE                         R5 K15 [{["Id"] = "Separator", ["Type"] = "Separator"}]
+       26 DUPTABLE                         R6 K18 [{["Id"] = "ManageTabs", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       27 GETUPVAL                         R7 3
+       28 GETTABLEKS                       R7 R7 K19 ["join"]
+       30 MOVE                             R8 R0
+       31 DUPTABLE                         R9 K23 [{["Category"] = "Actions", ["ItemId"] = "ManageTabs"}]
+       32 CALL                             R7 2 1
+       33 SETTABLEKS                       R7 R6 K17 ["Action"]
+       35 DUPTABLE                         R7 K15 [{["Id"] = "Separator", ["Type"] = "Separator"}]
+       36 DUPTABLE                         R8 K25 [{["Id"] = "DockUndockRibbon", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       37 GETUPVAL                         R9 3
+       38 GETTABLEKS                       R9 R9 K19 ["join"]
+       40 MOVE                             R10 R0
+       41 DUPTABLE                         R11 K26 [{["Category"] = "Actions", ["ItemId"] = "DockUndockRibbon"}]
+       42 CALL                             R9 2 1
+       43 SETTABLEKS                       R9 R8 K17 ["Action"]
+       45 DUPTABLE                         R9 K28 [{["Id"] = "CompactDensity", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       46 GETUPVAL                         R10 3
+       47 GETTABLEKS                       R10 R10 K19 ["join"]
+       49 MOVE                             R11 R0
+       50 DUPTABLE                         R12 K29 [{["Category"] = "Actions", ["ItemId"] = "CompactDensity"}]
+       51 CALL                             R10 2 1
+       52 SETTABLEKS                       R10 R9 K17 ["Action"]
+       54 DUPTABLE                         R10 K31 [{["Id"] = "ShowHideLabels", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       55 GETUPVAL                         R11 3
+       56 GETTABLEKS                       R11 R11 K19 ["join"]
+       58 MOVE                             R12 R0
+       59 DUPTABLE                         R13 K32 [{["Category"] = "Actions", ["ItemId"] = "ShowHideLabels"}]
+       60 CALL                             R11 2 1
+       61 SETTABLEKS                       R11 R10 K17 ["Action"]
+       63 SETLIST                          R2 R3 8 [1]
+       65 CALL                             R1 1 -1
+       66 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -116,105 +68,57 @@ PROTO_2:
         3 CALL                             R0 1 1
         4 GETUPVAL                         R1 1
         5 NEWTABLE                         R2 0 10
-        7 DUPTABLE                         R3 K4 [{"Id", "Text", "ReserveCheckmarkSpace"}]
-        8 LOADK                            R4 K5 ["Rename"]
-        9 SETTABLEKS                       R4 R3 K1 ["Id"]
-       11 GETUPVAL                         R4 2
-       12 LOADK                            R6 K6 ["Plugin"]
-       13 LOADK                            R7 K7 ["Tab_Rename"]
-       14 NAMECALL                         R4 R4 K8 ["getText"]
-       16 CALL                             R4 3 1
-       17 SETTABLEKS                       R4 R3 K2 ["Text"]
-       19 LOADB                            R4 1
-       20 SETTABLEKS                       R4 R3 K3 ["ReserveCheckmarkSpace"]
-       22 GETUPVAL                         R5 3
-       23 GETTABLEN                        R4 R5 1
-       24 GETUPVAL                         R6 3
-       25 GETTABLEN                        R5 R6 2
-       26 DUPTABLE                         R6 K4 [{"Id", "Text", "ReserveCheckmarkSpace"}]
-       27 LOADK                            R7 K9 ["Delete"]
-       28 SETTABLEKS                       R7 R6 K1 ["Id"]
-       30 GETUPVAL                         R7 2
-       31 LOADK                            R9 K6 ["Plugin"]
-       32 LOADK                            R10 K10 ["Tab_Delete"]
-       33 NAMECALL                         R7 R7 K8 ["getText"]
-       35 CALL                             R7 3 1
-       36 SETTABLEKS                       R7 R6 K2 ["Text"]
-       38 LOADB                            R7 1
-       39 SETTABLEKS                       R7 R6 K3 ["ReserveCheckmarkSpace"]
-       41 DUPTABLE                         R7 K12 [{"Id", "Type"}]
-       42 LOADK                            R8 K13 ["Separator"]
-       43 SETTABLEKS                       R8 R7 K1 ["Id"]
-       45 LOADK                            R8 K13 ["Separator"]
-       46 SETTABLEKS                       R8 R7 K11 ["Type"]
-       48 DUPTABLE                         R8 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       49 LOADK                            R9 K16 ["ManageTabs"]
-       50 SETTABLEKS                       R9 R8 K1 ["Id"]
-       52 GETUPVAL                         R9 4
-       53 GETTABLEKS                       R9 R9 K17 ["join"]
-       55 MOVE                             R10 R0
-       56 DUPTABLE                         R11 K20 [{"Category", "ItemId"}]
-       57 LOADK                            R12 K21 ["Actions"]
-       58 SETTABLEKS                       R12 R11 K18 ["Category"]
-       60 LOADK                            R12 K16 ["ManageTabs"]
-       61 SETTABLEKS                       R12 R11 K19 ["ItemId"]
-       63 CALL                             R9 2 1
-       64 SETTABLEKS                       R9 R8 K14 ["Action"]
-       66 LOADB                            R9 1
-       67 SETTABLEKS                       R9 R8 K3 ["ReserveCheckmarkSpace"]
-       69 DUPTABLE                         R9 K12 [{"Id", "Type"}]
-       70 LOADK                            R10 K13 ["Separator"]
-       71 SETTABLEKS                       R10 R9 K1 ["Id"]
-       73 LOADK                            R10 K13 ["Separator"]
-       74 SETTABLEKS                       R10 R9 K11 ["Type"]
-       76 DUPTABLE                         R10 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       77 LOADK                            R11 K22 ["DockUndockRibbon"]
-       78 SETTABLEKS                       R11 R10 K1 ["Id"]
-       80 GETUPVAL                         R11 4
-       81 GETTABLEKS                       R11 R11 K17 ["join"]
-       83 MOVE                             R12 R0
-       84 DUPTABLE                         R13 K20 [{"Category", "ItemId"}]
-       85 LOADK                            R14 K21 ["Actions"]
-       86 SETTABLEKS                       R14 R13 K18 ["Category"]
-       88 LOADK                            R14 K22 ["DockUndockRibbon"]
-       89 SETTABLEKS                       R14 R13 K19 ["ItemId"]
-       91 CALL                             R11 2 1
-       92 SETTABLEKS                       R11 R10 K14 ["Action"]
-       94 LOADB                            R11 1
-       95 SETTABLEKS                       R11 R10 K3 ["ReserveCheckmarkSpace"]
-       97 DUPTABLE                         R11 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-       98 LOADK                            R12 K23 ["CompactDensity"]
-       99 SETTABLEKS                       R12 R11 K1 ["Id"]
-      101 GETUPVAL                         R12 4
-      102 GETTABLEKS                       R12 R12 K17 ["join"]
-      104 MOVE                             R13 R0
-      105 DUPTABLE                         R14 K20 [{"Category", "ItemId"}]
-      106 LOADK                            R15 K21 ["Actions"]
-      107 SETTABLEKS                       R15 R14 K18 ["Category"]
-      109 LOADK                            R15 K23 ["CompactDensity"]
-      110 SETTABLEKS                       R15 R14 K19 ["ItemId"]
-      112 CALL                             R12 2 1
-      113 SETTABLEKS                       R12 R11 K14 ["Action"]
-      115 LOADB                            R12 1
-      116 SETTABLEKS                       R12 R11 K3 ["ReserveCheckmarkSpace"]
-      118 DUPTABLE                         R12 K15 [{"Id", "Action", "ReserveCheckmarkSpace"}]
-      119 LOADK                            R13 K24 ["ShowHideLabels"]
-      120 SETTABLEKS                       R13 R12 K1 ["Id"]
-      122 GETUPVAL                         R13 4
-      123 GETTABLEKS                       R13 R13 K17 ["join"]
-      125 MOVE                             R14 R0
-      126 DUPTABLE                         R15 K20 [{"Category", "ItemId"}]
-      127 LOADK                            R16 K21 ["Actions"]
-      128 SETTABLEKS                       R16 R15 K18 ["Category"]
-      130 LOADK                            R16 K24 ["ShowHideLabels"]
-      131 SETTABLEKS                       R16 R15 K19 ["ItemId"]
-      133 CALL                             R13 2 1
-      134 SETTABLEKS                       R13 R12 K14 ["Action"]
-      136 LOADB                            R13 1
-      137 SETTABLEKS                       R13 R12 K3 ["ReserveCheckmarkSpace"]
-      139 SETLIST                          R2 R3 10 [1]
-      141 CALL                             R1 1 -1
-      142 RETURN                           R1 -1
+        7 DUPTABLE                         R3 K6 [{["Id"] = "Rename", ["Text"], ["ReserveCheckmarkSpace"] = True}]
+        8 GETUPVAL                         R4 2
+        9 LOADK                            R6 K7 ["Plugin"]
+       10 LOADK                            R7 K8 ["Tab_Rename"]
+       11 NAMECALL                         R4 R4 K9 ["getText"]
+       13 CALL                             R4 3 1
+       14 SETTABLEKS                       R4 R3 K3 ["Text"]
+       16 GETUPVAL                         R5 3
+       17 GETTABLEN                        R4 R5 1
+       18 GETUPVAL                         R6 3
+       19 GETTABLEN                        R5 R6 2
+       20 DUPTABLE                         R6 K11 [{["Id"] = "Delete", ["Text"], ["ReserveCheckmarkSpace"] = True}]
+       21 GETUPVAL                         R7 2
+       22 LOADK                            R9 K7 ["Plugin"]
+       23 LOADK                            R10 K12 ["Tab_Delete"]
+       24 NAMECALL                         R7 R7 K9 ["getText"]
+       26 CALL                             R7 3 1
+       27 SETTABLEKS                       R7 R6 K3 ["Text"]
+       29 DUPTABLE                         R7 K15 [{["Id"] = "Separator", ["Type"] = "Separator"}]
+       30 DUPTABLE                         R8 K18 [{["Id"] = "ManageTabs", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       31 GETUPVAL                         R9 4
+       32 GETTABLEKS                       R9 R9 K19 ["join"]
+       34 MOVE                             R10 R0
+       35 DUPTABLE                         R11 K23 [{["Category"] = "Actions", ["ItemId"] = "ManageTabs"}]
+       36 CALL                             R9 2 1
+       37 SETTABLEKS                       R9 R8 K17 ["Action"]
+       39 DUPTABLE                         R9 K15 [{["Id"] = "Separator", ["Type"] = "Separator"}]
+       40 DUPTABLE                         R10 K25 [{["Id"] = "DockUndockRibbon", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       41 GETUPVAL                         R11 4
+       42 GETTABLEKS                       R11 R11 K19 ["join"]
+       44 MOVE                             R12 R0
+       45 DUPTABLE                         R13 K26 [{["Category"] = "Actions", ["ItemId"] = "DockUndockRibbon"}]
+       46 CALL                             R11 2 1
+       47 SETTABLEKS                       R11 R10 K17 ["Action"]
+       49 DUPTABLE                         R11 K28 [{["Id"] = "CompactDensity", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       50 GETUPVAL                         R12 4
+       51 GETTABLEKS                       R12 R12 K19 ["join"]
+       53 MOVE                             R13 R0
+       54 DUPTABLE                         R14 K29 [{["Category"] = "Actions", ["ItemId"] = "CompactDensity"}]
+       55 CALL                             R12 2 1
+       56 SETTABLEKS                       R12 R11 K17 ["Action"]
+       58 DUPTABLE                         R12 K31 [{["Id"] = "ShowHideLabels", ["Action"], ["ReserveCheckmarkSpace"] = True}]
+       59 GETUPVAL                         R13 4
+       60 GETTABLEKS                       R13 R13 K19 ["join"]
+       62 MOVE                             R14 R0
+       63 DUPTABLE                         R15 K32 [{["Category"] = "Actions", ["ItemId"] = "ShowHideLabels"}]
+       64 CALL                             R13 2 1
+       65 SETTABLEKS                       R13 R12 K17 ["Action"]
+       67 SETLIST                          R2 R3 10 [1]
+       69 CALL                             R1 1 -1
+       70 RETURN                           R1 -1
 
 PROTO_3:
         0 GETTABLEKS                       R3 R2 K0 ["Id"]
@@ -232,7 +136,7 @@ PROTO_3:
        15 CALL                             R3 1 0
        16 RETURN                           R0 0
        17 GETTABLEKS                       R3 R2 K0 ["Id"]
-       19 JUMPIFNOTEQKS                    R3 K5 ["Rename"] ; [+39]
+       19 JUMPIFNOTEQKS                    R3 K5 ["Rename"] ; [+33]
        21 GETUPVAL                         R3 2
        22 MOVE                             R4 R0
        23 CALL                             R3 1 1
@@ -250,53 +154,49 @@ PROTO_3:
        37 GETUPVAL                         R4 5
        38 GETTABLEKS                       R4 R4 K8 ["join"]
        40 MOVE                             R5 R3
-       41 DUPTABLE                         R6 K11 [{"Category", "ItemId"}]
-       42 LOADK                            R7 K12 ["Panels"]
-       43 SETTABLEKS                       R7 R6 K9 ["Category"]
-       45 LOADK                            R7 K13 ["Floating"]
-       46 SETTABLEKS                       R7 R6 K10 ["ItemId"]
-       48 CALL                             R4 2 1
-       49 GETUPVAL                         R5 4
-       50 LOADK                            R7 K12 ["Panels"]
-       51 NAMECALL                         R5 R5 K14 ["GetPluginComponent"]
-       53 CALL                             R5 2 1
-       54 MOVE                             R8 R4
-       55 NAMECALL                         R6 R5 K15 ["HideAsync"]
-       57 CALL                             R6 2 0
-       58 RETURN                           R0 0
-       59 GETTABLEKS                       R3 R2 K0 ["Id"]
-       61 JUMPIFNOTEQKS                    R3 K16 ["Duplicate"] ; [+18]
-       63 GETUPVAL                         R3 6
-       64 MOVE                             R4 R0
-       65 CALL                             R3 1 1
-       66 JUMPIF                           R3 ; [+5]
-       67 GETIMPORT                        R3 K3 [warn]
-       69 LOADK                            R4 K17 ["Cannot duplicate this tab"]
-       70 CALL                             R3 1 0
-       71 RETURN                           R0 0
-       72 GETUPVAL                         R3 7
-       73 MOVE                             R4 R0
-       74 MOVE                             R5 R1
-       75 GETUPVAL                         R6 8
-       76 MOVE                             R7 R0
-       77 CALL                             R6 1 -1
-       78 CALL                             R3 -1 0
-       79 RETURN                           R0 0
-       80 GETTABLEKS                       R3 R2 K0 ["Id"]
-       82 JUMPIFNOTEQKS                    R3 K18 ["Delete"] ; [+15]
-       84 GETUPVAL                         R3 9
-       85 MOVE                             R4 R0
-       86 CALL                             R3 1 1
-       87 JUMPIF                           R3 ; [+5]
-       88 GETIMPORT                        R3 K3 [warn]
-       90 LOADK                            R4 K19 ["Cannot delete this tab"]
-       91 CALL                             R3 1 0
+       41 DUPTABLE                         R6 K13 [{["Category"] = "Panels", ["ItemId"] = "Floating"}]
+       42 CALL                             R4 2 1
+       43 GETUPVAL                         R5 4
+       44 LOADK                            R7 K10 ["Panels"]
+       45 NAMECALL                         R5 R5 K14 ["GetPluginComponent"]
+       47 CALL                             R5 2 1
+       48 MOVE                             R8 R4
+       49 NAMECALL                         R6 R5 K15 ["HideAsync"]
+       51 CALL                             R6 2 0
+       52 RETURN                           R0 0
+       53 GETTABLEKS                       R3 R2 K0 ["Id"]
+       55 JUMPIFNOTEQKS                    R3 K16 ["Duplicate"] ; [+18]
+       57 GETUPVAL                         R3 6
+       58 MOVE                             R4 R0
+       59 CALL                             R3 1 1
+       60 JUMPIF                           R3 ; [+5]
+       61 GETIMPORT                        R3 K3 [warn]
+       63 LOADK                            R4 K17 ["Cannot duplicate this tab"]
+       64 CALL                             R3 1 0
+       65 RETURN                           R0 0
+       66 GETUPVAL                         R3 7
+       67 MOVE                             R4 R0
+       68 MOVE                             R5 R1
+       69 GETUPVAL                         R6 8
+       70 MOVE                             R7 R0
+       71 CALL                             R6 1 -1
+       72 CALL                             R3 -1 0
+       73 RETURN                           R0 0
+       74 GETTABLEKS                       R3 R2 K0 ["Id"]
+       76 JUMPIFNOTEQKS                    R3 K18 ["Delete"] ; [+15]
+       78 GETUPVAL                         R3 9
+       79 MOVE                             R4 R0
+       80 CALL                             R3 1 1
+       81 JUMPIF                           R3 ; [+5]
+       82 GETIMPORT                        R3 K3 [warn]
+       84 LOADK                            R4 K19 ["Cannot delete this tab"]
+       85 CALL                             R3 1 0
+       86 RETURN                           R0 0
+       87 GETUPVAL                         R3 10
+       88 SETTABLEKS                       R0 R3 K20 ["current"]
+       90 GETUPVAL                         R3 11
+       91 CALL                             R3 0 0
        92 RETURN                           R0 0
-       93 GETUPVAL                         R3 10
-       94 SETTABLEKS                       R0 R3 K20 ["current"]
-       96 GETUPVAL                         R3 11
-       97 CALL                             R3 0 0
-       98 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -531,169 +431,163 @@ PROTO_13:
        35 LOADNIL                          R15
        36 CALL                             R14 1 1
        37 GETUPVAL                         R15 6
-       38 DUPTABLE                         R16 K18 [{"Intent", "Title", "ToolDialog", "Modal", "Heading", "ActionPrimary", "ActionSecondary"}]
-       39 LOADK                            R17 K19 ["Destructive"]
-       40 SETTABLEKS                       R17 R16 K11 ["Intent"]
-       42 LOADK                            R19 K20 ["Plugin"]
-       43 LOADK                            R20 K21 ["DeleteTab_Title"]
-       44 NAMECALL                         R17 R2 K22 ["getText"]
-       46 CALL                             R17 3 1
-       47 SETTABLEKS                       R17 R16 K12 ["Title"]
-       49 LOADB                            R17 1
-       50 SETTABLEKS                       R17 R16 K13 ["ToolDialog"]
-       52 LOADB                            R17 1
-       53 SETTABLEKS                       R17 R16 K14 ["Modal"]
-       55 LOADK                            R19 K20 ["Plugin"]
-       56 LOADK                            R20 K23 ["DeleteTab_Text"]
-       57 NAMECALL                         R17 R2 K22 ["getText"]
-       59 CALL                             R17 3 1
-       60 SETTABLEKS                       R17 R16 K15 ["Heading"]
-       62 GETUPVAL                         R17 7
-       63 GETTABLEKS                       R17 R17 K24 ["join"]
-       65 GETUPVAL                         R18 8
-       66 GETTABLEKS                       R18 R18 K25 ["OK"]
-       68 DUPTABLE                         R19 K27 [{"OnActivated"}]
-       69 NEWCLOSURE                       R20 P0
-       70 CAPTURE                          VAL R14
-       71 CAPTURE                          VAL R9
-       72 SETTABLEKS                       R20 R19 K26 ["OnActivated"]
-       74 CALL                             R17 2 1
-       75 SETTABLEKS                       R17 R16 K16 ["ActionPrimary"]
-       77 GETUPVAL                         R17 8
-       78 GETTABLEKS                       R17 R17 K28 ["CANCEL"]
-       80 SETTABLEKS                       R17 R16 K17 ["ActionSecondary"]
-       82 CALL                             R15 1 1
-       83 GETUPVAL                         R16 9
-       84 CALL                             R16 0 1
-       85 GETUPVAL                         R17 10
-       86 NEWCLOSURE                       R18 P1
-       87 CAPTURE                          VAL R3
-       88 CAPTURE                          UPVAL U11
-       89 CAPTURE                          VAL R2
-       90 CAPTURE                          UPVAL U12
-       91 NEWTABLE                         R19 0 1
-       93 GETTABLEKS                       R20 R2 K29 ["locale"]
-       95 SETLIST                          R19 R20 1 [1]
-       97 CALL                             R17 2 1
-       98 GETUPVAL                         R18 10
-       99 NEWCLOSURE                       R19 P2
-      100 CAPTURE                          VAL R3
-      101 CAPTURE                          UPVAL U11
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R17
-      104 CAPTURE                          UPVAL U12
-      105 NEWTABLE                         R20 0 2
-      107 GETTABLEKS                       R21 R2 K29 ["locale"]
-      109 MOVE                             R22 R17
-      110 SETLIST                          R20 R21 2 [1]
-      112 CALL                             R18 2 1
-      113 GETUPVAL                         R19 13
-      114 LOADNIL                          R20
-      115 CALL                             R19 1 2
-      116 GETUPVAL                         R21 14
-      117 NEWCLOSURE                       R22 P3
-      118 CAPTURE                          UPVAL U15
-      119 CAPTURE                          VAL R13
-      120 CAPTURE                          UPVAL U16
-      121 CAPTURE                          VAL R20
-      122 CAPTURE                          VAL R3
-      123 CAPTURE                          UPVAL U12
-      124 CAPTURE                          UPVAL U17
-      125 CAPTURE                          VAL R10
-      126 CAPTURE                          UPVAL U18
-      127 CAPTURE                          UPVAL U19
-      128 CAPTURE                          VAL R14
-      129 CAPTURE                          VAL R15
-      130 NEWTABLE                         R23 0 5
-      132 MOVE                             R24 R13
-      133 MOVE                             R25 R20
-      134 MOVE                             R26 R10
-      135 MOVE                             R27 R9
-      136 MOVE                             R28 R15
-      137 SETLIST                          R23 R24 5 [1]
-      139 CALL                             R21 2 1
-      140 GETUPVAL                         R22 14
-      141 NEWCLOSURE                       R23 P4
-      142 CAPTURE                          UPVAL U16
-      143 CAPTURE                          VAL R11
-      144 CAPTURE                          VAL R20
-      145 NEWTABLE                         R24 0 3
-      147 MOVE                             R25 R8
-      148 MOVE                             R26 R11
-      149 MOVE                             R27 R20
-      150 SETLIST                          R24 R25 3 [1]
-      152 CALL                             R22 2 1
-      153 GETUPVAL                         R23 10
-      154 NEWCLOSURE                       R24 P5
-      155 CAPTURE                          VAL R7
-      156 CAPTURE                          UPVAL U20
-      157 NEWTABLE                         R25 0 1
-      159 MOVE                             R26 R7
-      160 SETLIST                          R25 R26 1 [1]
-      162 CALL                             R23 2 1
-      163 GETUPVAL                         R24 14
-      164 NEWCLOSURE                       R25 P6
-      165 CAPTURE                          VAL R8
-      166 CAPTURE                          VAL R2
-      167 CAPTURE                          VAL R20
-      168 NEWTABLE                         R26 0 3
-      170 MOVE                             R27 R8
-      171 GETTABLEKS                       R28 R2 K29 ["locale"]
-      173 MOVE                             R29 R20
-      174 SETLIST                          R26 R27 3 [1]
-      176 CALL                             R24 2 1
-      177 GETUPVAL                         R25 14
-      178 NEWCLOSURE                       R26 P7
-      179 CAPTURE                          UPVAL U21
-      180 CAPTURE                          VAL R24
-      181 CAPTURE                          VAL R1
-      182 CAPTURE                          VAL R12
-      183 CAPTURE                          VAL R23
-      184 CAPTURE                          UPVAL U20
-      185 NEWTABLE                         R27 0 4
-      187 MOVE                             R28 R24
-      188 MOVE                             R29 R1
-      189 MOVE                             R30 R12
-      190 MOVE                             R31 R23
-      191 SETLIST                          R27 R28 4 [1]
-      193 CALL                             R25 2 1
-      194 GETUPVAL                         R26 14
-      195 NEWCLOSURE                       R27 P8
-      196 CAPTURE                          UPVAL U20
-      197 CAPTURE                          UPVAL U12
-      198 CAPTURE                          VAL R0
-      199 CAPTURE                          VAL R19
-      200 CAPTURE                          UPVAL U21
-      201 CAPTURE                          VAL R2
-      202 CAPTURE                          VAL R16
-      203 CAPTURE                          VAL R4
-      204 CAPTURE                          VAL R17
-      205 CAPTURE                          VAL R18
-      206 CAPTURE                          VAL R25
-      207 CAPTURE                          VAL R21
-      208 CAPTURE                          VAL R22
-      209 NEWTABLE                         R28 0 9
-      211 MOVE                             R29 R0
-      212 MOVE                             R30 R19
-      213 MOVE                             R31 R16
-      214 MOVE                             R32 R4
-      215 MOVE                             R33 R17
-      216 MOVE                             R34 R18
-      217 MOVE                             R35 R25
-      218 MOVE                             R36 R21
-      219 MOVE                             R37 R22
-      220 SETLIST                          R28 R29 9 [1]
-      222 CALL                             R26 2 1
-      223 GETUPVAL                         R27 10
-      224 NEWCLOSURE                       R28 P9
-      225 CAPTURE                          UPVAL U11
-      226 CAPTURE                          VAL R26
-      227 CAPTURE                          VAL R24
-      228 NEWTABLE                         R29 0 1
-      230 MOVE                             R30 R26
-      231 SETLIST                          R29 R30 1 [1]
-      233 CALL                             R27 2 1
-      234 RETURN                           R27 1
+       38 DUPTABLE                         R16 K20 [{["Intent"] = "Destructive", ["Title"], ["ToolDialog"] = True, ["Modal"] = True, ["Heading"], ["ActionPrimary"], ["ActionSecondary"]}]
+       39 LOADK                            R19 K21 ["Plugin"]
+       40 LOADK                            R20 K22 ["DeleteTab_Title"]
+       41 NAMECALL                         R17 R2 K23 ["getText"]
+       43 CALL                             R17 3 1
+       44 SETTABLEKS                       R17 R16 K13 ["Title"]
+       46 LOADK                            R19 K21 ["Plugin"]
+       47 LOADK                            R20 K24 ["DeleteTab_Text"]
+       48 NAMECALL                         R17 R2 K23 ["getText"]
+       50 CALL                             R17 3 1
+       51 SETTABLEKS                       R17 R16 K17 ["Heading"]
+       53 GETUPVAL                         R17 7
+       54 GETTABLEKS                       R17 R17 K25 ["join"]
+       56 GETUPVAL                         R18 8
+       57 GETTABLEKS                       R18 R18 K26 ["OK"]
+       59 DUPTABLE                         R19 K28 [{"OnActivated"}]
+       60 NEWCLOSURE                       R20 P0
+       61 CAPTURE                          VAL R14
+       62 CAPTURE                          VAL R9
+       63 SETTABLEKS                       R20 R19 K27 ["OnActivated"]
+       65 CALL                             R17 2 1
+       66 SETTABLEKS                       R17 R16 K18 ["ActionPrimary"]
+       68 GETUPVAL                         R17 8
+       69 GETTABLEKS                       R17 R17 K29 ["CANCEL"]
+       71 SETTABLEKS                       R17 R16 K19 ["ActionSecondary"]
+       73 CALL                             R15 1 1
+       74 GETUPVAL                         R16 9
+       75 CALL                             R16 0 1
+       76 GETUPVAL                         R17 10
+       77 NEWCLOSURE                       R18 P1
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          UPVAL U11
+       80 CAPTURE                          VAL R2
+       81 CAPTURE                          UPVAL U12
+       82 NEWTABLE                         R19 0 1
+       84 GETTABLEKS                       R20 R2 K30 ["locale"]
+       86 SETLIST                          R19 R20 1 [1]
+       88 CALL                             R17 2 1
+       89 GETUPVAL                         R18 10
+       90 NEWCLOSURE                       R19 P2
+       91 CAPTURE                          VAL R3
+       92 CAPTURE                          UPVAL U11
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          VAL R17
+       95 CAPTURE                          UPVAL U12
+       96 NEWTABLE                         R20 0 2
+       98 GETTABLEKS                       R21 R2 K30 ["locale"]
+      100 MOVE                             R22 R17
+      101 SETLIST                          R20 R21 2 [1]
+      103 CALL                             R18 2 1
+      104 GETUPVAL                         R19 13
+      105 LOADNIL                          R20
+      106 CALL                             R19 1 2
+      107 GETUPVAL                         R21 14
+      108 NEWCLOSURE                       R22 P3
+      109 CAPTURE                          UPVAL U15
+      110 CAPTURE                          VAL R13
+      111 CAPTURE                          UPVAL U16
+      112 CAPTURE                          VAL R20
+      113 CAPTURE                          VAL R3
+      114 CAPTURE                          UPVAL U12
+      115 CAPTURE                          UPVAL U17
+      116 CAPTURE                          VAL R10
+      117 CAPTURE                          UPVAL U18
+      118 CAPTURE                          UPVAL U19
+      119 CAPTURE                          VAL R14
+      120 CAPTURE                          VAL R15
+      121 NEWTABLE                         R23 0 5
+      123 MOVE                             R24 R13
+      124 MOVE                             R25 R20
+      125 MOVE                             R26 R10
+      126 MOVE                             R27 R9
+      127 MOVE                             R28 R15
+      128 SETLIST                          R23 R24 5 [1]
+      130 CALL                             R21 2 1
+      131 GETUPVAL                         R22 14
+      132 NEWCLOSURE                       R23 P4
+      133 CAPTURE                          UPVAL U16
+      134 CAPTURE                          VAL R11
+      135 CAPTURE                          VAL R20
+      136 NEWTABLE                         R24 0 3
+      138 MOVE                             R25 R8
+      139 MOVE                             R26 R11
+      140 MOVE                             R27 R20
+      141 SETLIST                          R24 R25 3 [1]
+      143 CALL                             R22 2 1
+      144 GETUPVAL                         R23 10
+      145 NEWCLOSURE                       R24 P5
+      146 CAPTURE                          VAL R7
+      147 CAPTURE                          UPVAL U20
+      148 NEWTABLE                         R25 0 1
+      150 MOVE                             R26 R7
+      151 SETLIST                          R25 R26 1 [1]
+      153 CALL                             R23 2 1
+      154 GETUPVAL                         R24 14
+      155 NEWCLOSURE                       R25 P6
+      156 CAPTURE                          VAL R8
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R20
+      159 NEWTABLE                         R26 0 3
+      161 MOVE                             R27 R8
+      162 GETTABLEKS                       R28 R2 K30 ["locale"]
+      164 MOVE                             R29 R20
+      165 SETLIST                          R26 R27 3 [1]
+      167 CALL                             R24 2 1
+      168 GETUPVAL                         R25 14
+      169 NEWCLOSURE                       R26 P7
+      170 CAPTURE                          UPVAL U21
+      171 CAPTURE                          VAL R24
+      172 CAPTURE                          VAL R1
+      173 CAPTURE                          VAL R12
+      174 CAPTURE                          VAL R23
+      175 CAPTURE                          UPVAL U20
+      176 NEWTABLE                         R27 0 4
+      178 MOVE                             R28 R24
+      179 MOVE                             R29 R1
+      180 MOVE                             R30 R12
+      181 MOVE                             R31 R23
+      182 SETLIST                          R27 R28 4 [1]
+      184 CALL                             R25 2 1
+      185 GETUPVAL                         R26 14
+      186 NEWCLOSURE                       R27 P8
+      187 CAPTURE                          UPVAL U20
+      188 CAPTURE                          UPVAL U12
+      189 CAPTURE                          VAL R0
+      190 CAPTURE                          VAL R19
+      191 CAPTURE                          UPVAL U21
+      192 CAPTURE                          VAL R2
+      193 CAPTURE                          VAL R16
+      194 CAPTURE                          VAL R4
+      195 CAPTURE                          VAL R17
+      196 CAPTURE                          VAL R18
+      197 CAPTURE                          VAL R25
+      198 CAPTURE                          VAL R21
+      199 CAPTURE                          VAL R22
+      200 NEWTABLE                         R28 0 9
+      202 MOVE                             R29 R0
+      203 MOVE                             R30 R19
+      204 MOVE                             R31 R16
+      205 MOVE                             R32 R4
+      206 MOVE                             R33 R17
+      207 MOVE                             R34 R18
+      208 MOVE                             R35 R25
+      209 MOVE                             R36 R21
+      210 MOVE                             R37 R22
+      211 SETLIST                          R28 R29 9 [1]
+      213 CALL                             R26 2 1
+      214 GETUPVAL                         R27 10
+      215 NEWCLOSURE                       R28 P9
+      216 CAPTURE                          UPVAL U11
+      217 CAPTURE                          VAL R26
+      218 CAPTURE                          VAL R24
+      219 NEWTABLE                         R29 0 1
+      221 MOVE                             R30 R26
+      222 SETLIST                          R29 R30 1 [1]
+      224 CALL                             R27 2 1
+      225 RETURN                           R27 1
 
 MAIN:
         0 PREPVARARGS                      0

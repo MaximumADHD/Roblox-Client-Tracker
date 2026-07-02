@@ -273,7 +273,7 @@ PROTO_5:
       316 SETTABLEKS                       R14 R31 K39 ["OnItemActivated"]
       318 GETIMPORT                        R32 K31 [UDim2.new]
       320 LOADN                            R33 1
-      321 LOADN                            R34 176
+      321 LOADN                            R34 -80
       322 LOADN                            R35 1
       323 LOADN                            R36 0
       324 CALL                             R32 4 1
@@ -307,7 +307,7 @@ PROTO_5:
       364 SETTABLEKS                       R28 R27 K16 ["LayoutOrder"]
       366 GETIMPORT                        R28 K31 [UDim2.new]
       368 LOADN                            R29 1
-      369 LOADN                            R30 250
+      369 LOADN                            R30 -6
       370 LOADN                            R31 0
       371 LOADN                            R32 32
       372 CALL                             R28 4 1
@@ -320,7 +320,7 @@ PROTO_5:
       382 DUPTABLE                         R31 K71 [{"Size", "LayoutOrder"}]
       383 GETIMPORT                        R32 K31 [UDim2.new]
       385 LOADN                            R33 1
-      386 LOADN                            R34 101
+      386 LOADN                            R34 -155
       387 LOADN                            R35 1
       388 LOADN                            R36 0
       389 CALL                             R32 4 1
@@ -489,90 +489,80 @@ PROTO_5:
       615 GETUPVAL                         R33 4
       616 GETTABLEKS                       R33 R33 K13 ["createElement"]
       618 GETUPVAL                         R34 21
-      619 DUPTABLE                         R35 K103 [{"LayoutOrder", "Range", "ClearTextOnFocus", "Size", "Value", "OnValueChanged", "InputPrecision"}]
+      619 DUPTABLE                         R35 K105 [{["LayoutOrder"], ["Range"], ["ClearTextOnFocus"] = True, ["Size"], ["Value"], ["OnValueChanged"], ["InputPrecision"] = 2}]
       620 NAMECALL                         R36 R6 K29 ["getNextOrder"]
       622 CALL                             R36 1 1
       623 SETTABLEKS                       R36 R35 K16 ["LayoutOrder"]
-      625 GETIMPORT                        R36 K105 [NumberRange.new]
+      625 GETIMPORT                        R36 K107 [NumberRange.new]
       627 GETUPVAL                         R37 22
-      628 GETTABLEKS                       R37 R37 K106 ["CAMERA_SPEED_MIN"]
+      628 GETTABLEKS                       R37 R37 K108 ["CAMERA_SPEED_MIN"]
       630 GETUPVAL                         R38 22
-      631 GETTABLEKS                       R38 R38 K107 ["CAMERA_SPEED_MAX"]
+      631 GETTABLEKS                       R38 R38 K109 ["CAMERA_SPEED_MAX"]
       633 CALL                             R36 2 1
       634 SETTABLEKS                       R36 R35 K98 ["Range"]
-      636 LOADB                            R36 1
-      637 SETTABLEKS                       R36 R35 K99 ["ClearTextOnFocus"]
-      639 GETIMPORT                        R36 K109 [UDim2.fromOffset]
-      641 LOADN                            R37 40
-      642 LOADN                            R38 24
-      643 CALL                             R36 2 1
-      644 SETTABLEKS                       R36 R35 K32 ["Size"]
-      646 SETTABLEKS                       R17 R35 K100 ["Value"]
-      648 SETTABLEKS                       R18 R35 K101 ["OnValueChanged"]
-      650 LOADN                            R36 2
-      651 SETTABLEKS                       R36 R35 K102 ["InputPrecision"]
-      653 CALL                             R33 2 1
-      654 SETTABLEKS                       R33 R32 K92 ["TextBox"]
-      656 GETUPVAL                         R33 4
-      657 GETTABLEKS                       R33 R33 K13 ["createElement"]
-      659 GETUPVAL                         R34 23
-      660 DUPTABLE                         R35 K113 [{"LayoutOrder", "Min", "Max", "Value", "ShowInput", "OnValueChanged", "Size"}]
-      661 NAMECALL                         R36 R6 K29 ["getNextOrder"]
-      663 CALL                             R36 1 1
-      664 SETTABLEKS                       R36 R35 K16 ["LayoutOrder"]
-      666 LOADN                            R36 0
-      667 SETTABLEKS                       R36 R35 K110 ["Min"]
-      669 LOADN                            R36 1
-      670 SETTABLEKS                       R36 R35 K111 ["Max"]
-      672 GETUPVAL                         R36 24
-      673 MOVE                             R37 R17
-      674 CALL                             R36 1 1
-      675 SETTABLEKS                       R36 R35 K100 ["Value"]
-      677 LOADB                            R36 0
-      678 SETTABLEKS                       R36 R35 K112 ["ShowInput"]
-      680 NEWCLOSURE                       R36 P3
-      681 CAPTURE                          VAL R18
-      682 CAPTURE                          UPVAL U25
-      683 SETTABLEKS                       R36 R35 K101 ["OnValueChanged"]
-      685 GETIMPORT                        R36 K109 [UDim2.fromOffset]
-      687 GETUPVAL                         R38 12
-      688 JUMPIF                           R38 ; [+2]
-      689 LOADN                            R37 130
-      690 JUMP                             ; [+1]
-      691 LOADN                            R37 160
-      692 LOADN                            R38 24
-      693 CALL                             R36 2 1
-      694 SETTABLEKS                       R36 R35 K32 ["Size"]
-      696 CALL                             R33 2 1
-      697 SETTABLEKS                       R33 R32 K93 ["Slider"]
-      699 GETUPVAL                         R34 12
-      700 NOT                              R33 R34
-      701 JUMPIFNOT                        R33 ; [+24]
-      702 GETUPVAL                         R33 4
-      703 GETTABLEKS                       R33 R33 K13 ["createElement"]
-      705 GETUPVAL                         R34 26
-      706 NEWTABLE                         R35 4 0
-      708 NAMECALL                         R36 R6 K29 ["getNextOrder"]
-      710 CALL                             R36 1 1
-      711 SETTABLEKS                       R36 R35 K16 ["LayoutOrder"]
-      713 SETTABLEKS                       R19 R35 K114 ["Checked"]
-      715 NEWCLOSURE                       R36 P4
-      716 CAPTURE                          REF R20
-      717 CAPTURE                          REF R19
-      718 SETTABLEKS                       R36 R35 K115 ["OnClick"]
-      720 GETUPVAL                         R36 4
-      721 GETTABLEKS                       R36 R36 K14 ["Tag"]
-      723 LOADK                            R37 K116 ["VisualizationModes-CameraSpeedLockUnlock X-Fit X-Left X-Middle X-RowS IconOnly Compact"]
-      724 SETTABLE                         R37 R35 R36
-      725 CALL                             R33 2 1
-      726 SETTABLEKS                       R33 R32 K94 ["Locked"]
-      728 CALL                             R29 3 1
-      729 SETTABLEKS                       R29 R28 K90 ["Contents"]
-      731 CALL                             R25 3 1
-      732 SETTABLEKS                       R25 R24 K21 ["CameraSpeed"]
-      734 CALL                             R21 3 -1
-      735 CLOSEUPVALS                      R16
-      736 RETURN                           R21 -1
+      636 GETIMPORT                        R36 K111 [UDim2.fromOffset]
+      638 LOADN                            R37 40
+      639 LOADN                            R38 24
+      640 CALL                             R36 2 1
+      641 SETTABLEKS                       R36 R35 K32 ["Size"]
+      643 SETTABLEKS                       R17 R35 K101 ["Value"]
+      645 SETTABLEKS                       R18 R35 K102 ["OnValueChanged"]
+      647 CALL                             R33 2 1
+      648 SETTABLEKS                       R33 R32 K92 ["TextBox"]
+      650 GETUPVAL                         R33 4
+      651 GETTABLEKS                       R33 R33 K13 ["createElement"]
+      653 GETUPVAL                         R34 23
+      654 DUPTABLE                         R35 K118 [{["LayoutOrder"], ["Min"] = 0, ["Max"] = 1, ["Value"], ["ShowInput"] = False, ["OnValueChanged"], ["Size"]}]
+      655 NAMECALL                         R36 R6 K29 ["getNextOrder"]
+      657 CALL                             R36 1 1
+      658 SETTABLEKS                       R36 R35 K16 ["LayoutOrder"]
+      660 GETUPVAL                         R36 24
+      661 MOVE                             R37 R17
+      662 CALL                             R36 1 1
+      663 SETTABLEKS                       R36 R35 K101 ["Value"]
+      665 NEWCLOSURE                       R36 P3
+      666 CAPTURE                          VAL R18
+      667 CAPTURE                          UPVAL U25
+      668 SETTABLEKS                       R36 R35 K102 ["OnValueChanged"]
+      670 GETIMPORT                        R36 K111 [UDim2.fromOffset]
+      672 GETUPVAL                         R38 12
+      673 JUMPIF                           R38 ; [+2]
+      674 LOADN                            R37 130
+      675 JUMP                             ; [+1]
+      676 LOADN                            R37 160
+      677 LOADN                            R38 24
+      678 CALL                             R36 2 1
+      679 SETTABLEKS                       R36 R35 K32 ["Size"]
+      681 CALL                             R33 2 1
+      682 SETTABLEKS                       R33 R32 K93 ["Slider"]
+      684 GETUPVAL                         R34 12
+      685 NOT                              R33 R34
+      686 JUMPIFNOT                        R33 ; [+24]
+      687 GETUPVAL                         R33 4
+      688 GETTABLEKS                       R33 R33 K13 ["createElement"]
+      690 GETUPVAL                         R34 26
+      691 NEWTABLE                         R35 4 0
+      693 NAMECALL                         R36 R6 K29 ["getNextOrder"]
+      695 CALL                             R36 1 1
+      696 SETTABLEKS                       R36 R35 K16 ["LayoutOrder"]
+      698 SETTABLEKS                       R19 R35 K119 ["Checked"]
+      700 NEWCLOSURE                       R36 P4
+      701 CAPTURE                          REF R20
+      702 CAPTURE                          REF R19
+      703 SETTABLEKS                       R36 R35 K120 ["OnClick"]
+      705 GETUPVAL                         R36 4
+      706 GETTABLEKS                       R36 R36 K14 ["Tag"]
+      708 LOADK                            R37 K121 ["VisualizationModes-CameraSpeedLockUnlock X-Fit X-Left X-Middle X-RowS IconOnly Compact"]
+      709 SETTABLE                         R37 R35 R36
+      710 CALL                             R33 2 1
+      711 SETTABLEKS                       R33 R32 K94 ["Locked"]
+      713 CALL                             R29 3 1
+      714 SETTABLEKS                       R29 R28 K90 ["Contents"]
+      716 CALL                             R25 3 1
+      717 SETTABLEKS                       R25 R24 K21 ["CameraSpeed"]
+      719 CALL                             R21 3 -1
+      720 CLOSEUPVALS                      R16
+      721 RETURN                           R21 -1
 
 MAIN:
         0 PREPVARARGS                      0

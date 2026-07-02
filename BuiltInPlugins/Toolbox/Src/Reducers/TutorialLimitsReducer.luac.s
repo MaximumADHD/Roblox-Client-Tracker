@@ -27,16 +27,10 @@ MAIN:
        25 GETTABLEKS                       R6 R4 K11 ["SetTutorialLimits"]
        27 CALL                             R5 1 1
        28 GETTABLEKS                       R6 R3 K12 ["createReducer"]
-       30 DUPTABLE                         R7 K16 [{"assetIds", "positionOverride", "scriptWarningOverride"}]
-       31 LOADNIL                          R8
-       32 SETTABLEKS                       R8 R7 K13 ["assetIds"]
-       34 LOADNIL                          R8
-       35 SETTABLEKS                       R8 R7 K14 ["positionOverride"]
-       37 LOADB                            R8 0
-       38 SETTABLEKS                       R8 R7 K15 ["scriptWarningOverride"]
-       40 NEWTABLE                         R8 1 0
-       42 GETTABLEKS                       R9 R5 K17 ["name"]
-       44 DUPCLOSURE                       R10 K18 [PROTO_0]
-       45 SETTABLE                         R10 R8 R9
-       46 CALL                             R6 2 -1
-       47 RETURN                           R6 -1
+       30 DUPTABLE                         R7 K18 [{["assetIds"] = , ["positionOverride"] = , ["scriptWarningOverride"] = False}]
+       31 NEWTABLE                         R8 1 0
+       33 GETTABLEKS                       R9 R5 K19 ["name"]
+       35 DUPCLOSURE                       R10 K20 [PROTO_0]
+       36 SETTABLE                         R10 R8 R9
+       37 CALL                             R6 2 -1
+       38 RETURN                           R6 -1

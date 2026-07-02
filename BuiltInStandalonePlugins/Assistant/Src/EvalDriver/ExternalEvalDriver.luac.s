@@ -150,28 +150,22 @@ PROTO_7:
         3 LOADNIL                          R2
         4 LOADNIL                          R3
         5 FORGPREP                         R1
-        6 DUPTABLE                         R8 K3 [{"name", "description", "inputSchema"}]
+        6 DUPTABLE                         R8 K4 [{[1], ["description"] = "", ["inputSchema"]}]
         7 SETTABLEKS                       R4 R8 K0 ["name"]
-        9 LOADK                            R9 K4 [""]
-       10 SETTABLEKS                       R9 R8 K1 ["description"]
-       12 DUPTABLE                         R9 K9 [{"type", "properties", "required", "additionalProperties"}]
-       13 LOADK                            R10 K10 ["object"]
-       14 SETTABLEKS                       R10 R9 K5 ["type"]
-       16 NEWTABLE                         R10 0 0
-       18 SETTABLEKS                       R10 R9 K6 ["properties"]
-       20 NEWTABLE                         R10 0 0
-       22 SETTABLEKS                       R10 R9 K7 ["required"]
-       24 LOADB                            R10 1
-       25 SETTABLEKS                       R10 R9 K8 ["additionalProperties"]
-       27 SETTABLEKS                       R9 R8 K2 ["inputSchema"]
-       29 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       31 MOVE                             R7 R0
-       32 GETIMPORT                        R6 K13 [table.insert]
-       34 CALL                             R6 2 0
-       35 FORGLOOP                         R1 2 ; [-30]
-       37 DUPTABLE                         R1 K15 [{"tools"}]
-       38 SETTABLEKS                       R0 R1 K14 ["tools"]
-       40 RETURN                           R1 1
+        9 DUPTABLE                         R9 K11 [{["type"] = "object", ["properties"], ["required"], ["additionalProperties"] = True}]
+       10 NEWTABLE                         R10 0 0
+       12 SETTABLEKS                       R10 R9 K7 ["properties"]
+       14 NEWTABLE                         R10 0 0
+       16 SETTABLEKS                       R10 R9 K8 ["required"]
+       18 SETTABLEKS                       R9 R8 K3 ["inputSchema"]
+       20 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
+       22 MOVE                             R7 R0
+       23 GETIMPORT                        R6 K14 [table.insert]
+       25 CALL                             R6 2 0
+       26 FORGLOOP                         R1 2 ; [-21]
+       28 DUPTABLE                         R1 K16 [{"tools"}]
+       29 SETTABLEKS                       R0 R1 K15 ["tools"]
+       31 RETURN                           R1 1
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -229,85 +223,69 @@ PROTO_10:
         9 GETTABLEKS                       R2 R2 K6 ["emptyObject"]
        11 CALL                             R2 0 1
        12 SETTABLEKS                       R2 R1 K3 ["resources"]
-       14 DUPTABLE                         R2 K8 [{"listChanged"}]
-       15 LOADB                            R3 1
-       16 SETTABLEKS                       R3 R2 K7 ["listChanged"]
-       18 SETTABLEKS                       R2 R1 K4 ["tools"]
-       20 SETTABLEKS                       R1 R0 K0 ["capabilities"]
-       22 GETUPVAL                         R1 1
-       23 JUMPIFNOT                        R1 ; [+6]
-       24 GETUPVAL                         R1 1
-       25 NAMECALL                         R1 R1 K9 ["close"]
-       27 CALL                             R1 1 0
-       28 LOADNIL                          R1
-       29 SETUPVAL                         R1 1
-       30 GETUPVAL                         R1 2
-       31 JUMPIFNOT                        R1 ; [+6]
-       32 GETUPVAL                         R1 2
-       33 NAMECALL                         R1 R1 K10 ["Disconnect"]
-       35 CALL                             R1 1 0
-       36 LOADNIL                          R1
-       37 SETUPVAL                         R1 2
-       38 GETUPVAL                         R1 3
-       39 JUMPIFNOT                        R1 ; [+6]
-       40 GETUPVAL                         R1 3
-       41 NAMECALL                         R1 R1 K10 ["Disconnect"]
-       43 CALL                             R1 1 0
-       44 LOADNIL                          R1
-       45 SETUPVAL                         R1 3
-       46 GETUPVAL                         R1 4
-       47 GETTABLEKS                       R1 R1 K11 ["new"]
-       49 DUPTABLE                         R2 K14 [{"url", "retryDelay"}]
-       50 LOADK                            R3 K15 ["ws://localhost:13468/eval"]
-       51 SETTABLEKS                       R3 R2 K12 ["url"]
-       53 LOADN                            R3 10
-       54 SETTABLEKS                       R3 R2 K13 ["retryDelay"]
-       56 CALL                             R1 1 1
-       57 SETUPVAL                         R1 1
-       58 GETUPVAL                         R1 1
-       59 GETTABLEKS                       R1 R1 K16 ["transport"]
-       61 GETUPVAL                         R2 6
-       62 GETTABLEKS                       R2 R2 K11 ["new"]
-       64 DUPTABLE                         R3 K19 [{"name", "version"}]
-       65 LOADK                            R4 K20 ["RobloxStudio"]
-       66 SETTABLEKS                       R4 R3 K17 ["name"]
-       68 LOADK                            R4 K21 ["0.1.0"]
-       69 SETTABLEKS                       R4 R3 K18 ["version"]
-       71 MOVE                             R4 R0
-       72 CALL                             R2 2 1
-       73 SETUPVAL                         R2 5
-       74 GETUPVAL                         R2 5
-       75 DUPTABLE                         R4 K23 [{"method"}]
-       76 LOADK                            R5 K24 ["ping"]
-       77 SETTABLEKS                       R5 R4 K22 ["method"]
-       79 NEWCLOSURE                       R5 P0
-       80 CAPTURE                          UPVAL U5
-       81 NAMECALL                         R2 R2 K25 ["setRequestHandler"]
-       83 CALL                             R2 3 0
-       84 GETUPVAL                         R2 5
-       85 DUPTABLE                         R4 K23 [{"method"}]
-       86 LOADK                            R5 K26 ["tools/list"]
-       87 SETTABLEKS                       R5 R4 K22 ["method"]
-       89 DUPCLOSURE                       R5 K27 [PROTO_7]
-       90 CAPTURE                          UPVAL U7
-       91 NAMECALL                         R2 R2 K25 ["setRequestHandler"]
-       93 CALL                             R2 3 0
-       94 GETUPVAL                         R2 5
-       95 DUPTABLE                         R4 K23 [{"method"}]
-       96 LOADK                            R5 K28 ["tools/call"]
-       97 SETTABLEKS                       R5 R4 K22 ["method"]
-       99 DUPCLOSURE                       R5 K29 [PROTO_9]
-      100 CAPTURE                          UPVAL U8
-      101 CAPTURE                          UPVAL U9
-      102 NAMECALL                         R2 R2 K25 ["setRequestHandler"]
-      104 CALL                             R2 3 0
-      105 GETUPVAL                         R2 5
-      106 MOVE                             R4 R1
-      107 NAMECALL                         R2 R2 K30 ["connect"]
-      109 CALL                             R2 2 1
-      110 NAMECALL                         R2 R2 K31 ["await"]
-      112 CALL                             R2 1 0
-      113 RETURN                           R0 0
+       14 DUPTABLE                         R2 K9 [{["listChanged"] = True}]
+       15 SETTABLEKS                       R2 R1 K4 ["tools"]
+       17 SETTABLEKS                       R1 R0 K0 ["capabilities"]
+       19 GETUPVAL                         R1 1
+       20 JUMPIFNOT                        R1 ; [+6]
+       21 GETUPVAL                         R1 1
+       22 NAMECALL                         R1 R1 K10 ["close"]
+       24 CALL                             R1 1 0
+       25 LOADNIL                          R1
+       26 SETUPVAL                         R1 1
+       27 GETUPVAL                         R1 2
+       28 JUMPIFNOT                        R1 ; [+6]
+       29 GETUPVAL                         R1 2
+       30 NAMECALL                         R1 R1 K11 ["Disconnect"]
+       32 CALL                             R1 1 0
+       33 LOADNIL                          R1
+       34 SETUPVAL                         R1 2
+       35 GETUPVAL                         R1 3
+       36 JUMPIFNOT                        R1 ; [+6]
+       37 GETUPVAL                         R1 3
+       38 NAMECALL                         R1 R1 K11 ["Disconnect"]
+       40 CALL                             R1 1 0
+       41 LOADNIL                          R1
+       42 SETUPVAL                         R1 3
+       43 GETUPVAL                         R1 4
+       44 GETTABLEKS                       R1 R1 K12 ["new"]
+       46 DUPTABLE                         R2 K17 [{["url"] = "ws://localhost:13468/eval", ["retryDelay"] = 10}]
+       47 CALL                             R1 1 1
+       48 SETUPVAL                         R1 1
+       49 GETUPVAL                         R1 1
+       50 GETTABLEKS                       R1 R1 K18 ["transport"]
+       52 GETUPVAL                         R2 6
+       53 GETTABLEKS                       R2 R2 K12 ["new"]
+       55 DUPTABLE                         R3 K23 [{["name"] = "RobloxStudio", ["version"] = "0.1.0"}]
+       56 MOVE                             R4 R0
+       57 CALL                             R2 2 1
+       58 SETUPVAL                         R2 5
+       59 GETUPVAL                         R2 5
+       60 DUPTABLE                         R4 K26 [{["method"] = "ping"}]
+       61 NEWCLOSURE                       R5 P0
+       62 CAPTURE                          UPVAL U5
+       63 NAMECALL                         R2 R2 K27 ["setRequestHandler"]
+       65 CALL                             R2 3 0
+       66 GETUPVAL                         R2 5
+       67 DUPTABLE                         R4 K29 [{["method"] = "tools/list"}]
+       68 DUPCLOSURE                       R5 K30 [PROTO_7]
+       69 CAPTURE                          UPVAL U7
+       70 NAMECALL                         R2 R2 K27 ["setRequestHandler"]
+       72 CALL                             R2 3 0
+       73 GETUPVAL                         R2 5
+       74 DUPTABLE                         R4 K32 [{["method"] = "tools/call"}]
+       75 DUPCLOSURE                       R5 K33 [PROTO_9]
+       76 CAPTURE                          UPVAL U8
+       77 CAPTURE                          UPVAL U9
+       78 NAMECALL                         R2 R2 K27 ["setRequestHandler"]
+       80 CALL                             R2 3 0
+       81 GETUPVAL                         R2 5
+       82 MOVE                             R4 R1
+       83 NAMECALL                         R2 R2 K34 ["connect"]
+       85 CALL                             R2 2 1
+       86 NAMECALL                         R2 R2 K35 ["await"]
+       88 CALL                             R2 1 0
+       89 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R0 0

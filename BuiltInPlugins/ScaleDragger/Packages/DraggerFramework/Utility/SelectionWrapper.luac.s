@@ -5,39 +5,35 @@ PROTO_0:
         4 RETURN                           R0 0
 
 PROTO_1:
-        0 DUPTABLE                         R2 K4 [{"_selectionObject", "_selection", "_isSettingSelection", "_destroyed"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["_selection"], ["_isSettingSelection"] = False, ["_destroyed"] = False}]
         1 SETTABLEKS                       R0 R2 K0 ["_selectionObject"]
-        3 NAMECALL                         R3 R0 K5 ["Get"]
+        3 NAMECALL                         R3 R0 K6 ["Get"]
         5 CALL                             R3 1 1
         6 SETTABLEKS                       R3 R2 K1 ["_selection"]
-        8 LOADB                            R3 0
-        9 SETTABLEKS                       R3 R2 K2 ["_isSettingSelection"]
-       11 LOADB                            R3 0
-       12 SETTABLEKS                       R3 R2 K3 ["_destroyed"]
-       14 GETUPVAL                         R3 0
-       15 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-       17 GETIMPORT                        R1 K7 [setmetatable]
-       19 CALL                             R1 2 1
-       20 GETUPVAL                         R2 1
-       21 GETTABLEKS                       R2 R2 K8 ["new"]
-       23 CALL                             R2 0 1
-       24 SETTABLEKS                       R2 R1 K9 ["onSelectionExternallyChanged"]
-       26 GETTABLEKS                       R2 R0 K10 ["SelectionChanged"]
-       28 NEWCLOSURE                       R4 P0
-       29 CAPTURE                          VAL R1
-       30 NAMECALL                         R2 R2 K11 ["Connect"]
-       32 CALL                             R2 2 1
-       33 SETTABLEKS                       R2 R1 K12 ["_selectionChangedConnection"]
-       35 GETUPVAL                         R3 2
-       36 ADDK                             R2 R3 K13 [1]
-       37 SETUPVAL                         R2 2
-       38 GETUPVAL                         R2 2
-       39 LOADN                            R3 1
-       40 JUMPIFNOTLT                      R3 R2 ; [+5]
-       42 GETIMPORT                        R2 K15 [warn]
-       44 LOADK                            R3 K16 ["More than one SelectionWrapper created at once, this is probably a mistake!"]
-       45 CALL                             R2 1 0
-       46 RETURN                           R1 1
+        8 GETUPVAL                         R3 0
+        9 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+       11 GETIMPORT                        R1 K8 [setmetatable]
+       13 CALL                             R1 2 1
+       14 GETUPVAL                         R2 1
+       15 GETTABLEKS                       R2 R2 K9 ["new"]
+       17 CALL                             R2 0 1
+       18 SETTABLEKS                       R2 R1 K10 ["onSelectionExternallyChanged"]
+       20 GETTABLEKS                       R2 R0 K11 ["SelectionChanged"]
+       22 NEWCLOSURE                       R4 P0
+       23 CAPTURE                          VAL R1
+       24 NAMECALL                         R2 R2 K12 ["Connect"]
+       26 CALL                             R2 2 1
+       27 SETTABLEKS                       R2 R1 K13 ["_selectionChangedConnection"]
+       29 GETUPVAL                         R3 2
+       30 ADDK                             R2 R3 K14 [1]
+       31 SETUPVAL                         R2 2
+       32 GETUPVAL                         R2 2
+       33 LOADN                            R3 1
+       34 JUMPIFNOTLT                      R3 R2 ; [+5]
+       36 GETIMPORT                        R2 K16 [warn]
+       38 LOADK                            R3 K17 ["More than one SelectionWrapper created at once, this is probably a mistake!"]
+       39 CALL                             R2 1 0
+       40 RETURN                           R1 1
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["_selection"]

@@ -577,130 +577,128 @@ PROTO_15:
       193 CALL                             R29 1 1
       194 GETTABLEKS                       R30 R9 K41 ["Localization"]
       196 GETTABLEKS                       R30 R30 K38 ["new"]
-      198 DUPTABLE                         R31 K46 [{"pluginName", "stringResourceTable", "translationResourceTable", "libraries"}]
-      199 LOADK                            R32 K47 ["AssetManager"]
-      200 SETTABLEKS                       R32 R31 K42 ["pluginName"]
-      202 SETTABLEKS                       R15 R31 K43 ["stringResourceTable"]
-      204 SETTABLEKS                       R16 R31 K44 ["translationResourceTable"]
-      206 NEWTABLE                         R32 1 0
-      208 GETTABLEKS                       R33 R7 K22 ["Resources"]
-      210 GETTABLEKS                       R33 R33 K48 ["LOCALIZATION_PROJECT_NAME"]
-      212 DUPTABLE                         R34 K49 [{"stringResourceTable", "translationResourceTable"}]
-      213 GETTABLEKS                       R35 R7 K22 ["Resources"]
-      215 GETTABLEKS                       R35 R35 K24 ["SourceStrings"]
-      217 SETTABLEKS                       R35 R34 K43 ["stringResourceTable"]
-      219 GETTABLEKS                       R35 R7 K22 ["Resources"]
-      221 GETTABLEKS                       R35 R35 K25 ["LocalizedStrings"]
-      223 SETTABLEKS                       R35 R34 K44 ["translationResourceTable"]
-      225 SETTABLE                         R34 R32 R33
-      226 SETTABLEKS                       R32 R31 K45 ["libraries"]
-      228 CALL                             R30 1 1
-      229 LOADNIL                          R31
-      230 MOVE                             R32 R21
-      231 CALL                             R32 0 1
-      232 JUMPIFNOT                        R32 ; [+25]
-      233 GETIMPORT                        R32 K1 [require]
-      235 GETTABLEKS                       R33 R3 K13 ["Src"]
-      237 GETTABLEKS                       R33 R33 K27 ["Util"]
-      239 GETTABLEKS                       R33 R33 K50 ["CalloutController"]
-      241 CALL                             R32 1 1
-      242 GETTABLEKS                       R33 R32 K38 ["new"]
-      244 CALL                             R33 0 1
-      245 MOVE                             R31 R33
-      246 LOADK                            R35 K51 ["Callout"]
-      247 LOADK                            R36 K52 ["BadgesDevProductsDescription"]
-      248 NAMECALL                         R33 R30 K53 ["getText"]
-      250 CALL                             R33 3 1
-      251 LOADK                            R36 K54 ["AssetManagerBadgesDevProductCallout"]
-      252 LOADK                            R37 K55 [""]
-      253 MOVE                             R38 R33
-      254 LOADK                            R39 K55 [""]
-      255 NAMECALL                         R34 R31 K56 ["defineCallout"]
-      257 CALL                             R34 5 0
-      258 LOADNIL                          R32
-      259 LOADNIL                          R33
-      260 LOADN                            R34 1
-      261 NEWCLOSURE                       R35 P0
-      262 CAPTURE                          REF R32
-      263 CAPTURE                          VAL R4
-      264 CAPTURE                          VAL R10
-      265 CAPTURE                          VAL R0
-      266 CAPTURE                          VAL R29
-      267 CAPTURE                          REF R33
-      268 CAPTURE                          VAL R30
-      269 CAPTURE                          VAL R28
-      270 CAPTURE                          VAL R26
-      271 CAPTURE                          REF R31
-      272 CAPTURE                          VAL R11
-      273 CAPTURE                          VAL R17
-      274 NEWCLOSURE                       R36 P1
-      275 CAPTURE                          REF R32
-      276 CAPTURE                          VAL R4
-      277 NEWCLOSURE                       R37 P2
-      278 CAPTURE                          REF R33
-      279 NEWCLOSURE                       R38 P3
-      280 CAPTURE                          REF R32
-      281 CAPTURE                          VAL R4
-      282 NEWCLOSURE                       R39 P4
-      283 CAPTURE                          VAL R26
-      284 CAPTURE                          VAL R23
-      285 CAPTURE                          REF R34
-      286 NEWCLOSURE                       R40 P5
-      287 CAPTURE                          VAL R26
-      288 CAPTURE                          VAL R24
-      289 NEWTABLE                         R41 8 0
-      291 GETIMPORT                        R42 K60 [Enum.AssetType.Image]
-      293 LOADK                            R43 K61 ["Images/"]
-      294 SETTABLE                         R43 R41 R42
-      295 GETIMPORT                        R42 K63 [Enum.AssetType.MeshPart]
-      297 LOADK                            R43 K64 ["Meshes/"]
-      298 SETTABLE                         R43 R41 R42
-      299 GETIMPORT                        R42 K66 [Enum.AssetType.Audio]
-      301 LOADK                            R43 K67 ["Audio/"]
-      302 SETTABLE                         R43 R41 R42
-      303 GETIMPORT                        R42 K69 [Enum.AssetType.Video]
-      305 LOADK                            R43 K70 ["Video/"]
-      306 SETTABLE                         R43 R41 R42
-      307 GETIMPORT                        R42 K72 [Enum.AssetType.Model]
-      309 LOADK                            R43 K73 ["Models/"]
-      310 SETTABLE                         R43 R41 R42
-      311 NEWCLOSURE                       R42 P6
+      198 DUPTABLE                         R31 K47 [{["pluginName"] = "AssetManager", ["stringResourceTable"], ["translationResourceTable"], ["libraries"]}]
+      199 SETTABLEKS                       R15 R31 K44 ["stringResourceTable"]
+      201 SETTABLEKS                       R16 R31 K45 ["translationResourceTable"]
+      203 NEWTABLE                         R32 1 0
+      205 GETTABLEKS                       R33 R7 K22 ["Resources"]
+      207 GETTABLEKS                       R33 R33 K48 ["LOCALIZATION_PROJECT_NAME"]
+      209 DUPTABLE                         R34 K49 [{"stringResourceTable", "translationResourceTable"}]
+      210 GETTABLEKS                       R35 R7 K22 ["Resources"]
+      212 GETTABLEKS                       R35 R35 K24 ["SourceStrings"]
+      214 SETTABLEKS                       R35 R34 K44 ["stringResourceTable"]
+      216 GETTABLEKS                       R35 R7 K22 ["Resources"]
+      218 GETTABLEKS                       R35 R35 K25 ["LocalizedStrings"]
+      220 SETTABLEKS                       R35 R34 K45 ["translationResourceTable"]
+      222 SETTABLE                         R34 R32 R33
+      223 SETTABLEKS                       R32 R31 K46 ["libraries"]
+      225 CALL                             R30 1 1
+      226 LOADNIL                          R31
+      227 MOVE                             R32 R21
+      228 CALL                             R32 0 1
+      229 JUMPIFNOT                        R32 ; [+25]
+      230 GETIMPORT                        R32 K1 [require]
+      232 GETTABLEKS                       R33 R3 K13 ["Src"]
+      234 GETTABLEKS                       R33 R33 K27 ["Util"]
+      236 GETTABLEKS                       R33 R33 K50 ["CalloutController"]
+      238 CALL                             R32 1 1
+      239 GETTABLEKS                       R33 R32 K38 ["new"]
+      241 CALL                             R33 0 1
+      242 MOVE                             R31 R33
+      243 LOADK                            R35 K51 ["Callout"]
+      244 LOADK                            R36 K52 ["BadgesDevProductsDescription"]
+      245 NAMECALL                         R33 R30 K53 ["getText"]
+      247 CALL                             R33 3 1
+      248 LOADK                            R36 K54 ["AssetManagerBadgesDevProductCallout"]
+      249 LOADK                            R37 K55 [""]
+      250 MOVE                             R38 R33
+      251 LOADK                            R39 K55 [""]
+      252 NAMECALL                         R34 R31 K56 ["defineCallout"]
+      254 CALL                             R34 5 0
+      255 LOADNIL                          R32
+      256 LOADNIL                          R33
+      257 LOADN                            R34 1
+      258 NEWCLOSURE                       R35 P0
+      259 CAPTURE                          REF R32
+      260 CAPTURE                          VAL R4
+      261 CAPTURE                          VAL R10
+      262 CAPTURE                          VAL R0
+      263 CAPTURE                          VAL R29
+      264 CAPTURE                          REF R33
+      265 CAPTURE                          VAL R30
+      266 CAPTURE                          VAL R28
+      267 CAPTURE                          VAL R26
+      268 CAPTURE                          REF R31
+      269 CAPTURE                          VAL R11
+      270 CAPTURE                          VAL R17
+      271 NEWCLOSURE                       R36 P1
+      272 CAPTURE                          REF R32
+      273 CAPTURE                          VAL R4
+      274 NEWCLOSURE                       R37 P2
+      275 CAPTURE                          REF R33
+      276 NEWCLOSURE                       R38 P3
+      277 CAPTURE                          REF R32
+      278 CAPTURE                          VAL R4
+      279 NEWCLOSURE                       R39 P4
+      280 CAPTURE                          VAL R26
+      281 CAPTURE                          VAL R23
+      282 CAPTURE                          REF R34
+      283 NEWCLOSURE                       R40 P5
+      284 CAPTURE                          VAL R26
+      285 CAPTURE                          VAL R24
+      286 NEWTABLE                         R41 8 0
+      288 GETIMPORT                        R42 K60 [Enum.AssetType.Image]
+      290 LOADK                            R43 K61 ["Images/"]
+      291 SETTABLE                         R43 R41 R42
+      292 GETIMPORT                        R42 K63 [Enum.AssetType.MeshPart]
+      294 LOADK                            R43 K64 ["Meshes/"]
+      295 SETTABLE                         R43 R41 R42
+      296 GETIMPORT                        R42 K66 [Enum.AssetType.Audio]
+      298 LOADK                            R43 K67 ["Audio/"]
+      299 SETTABLE                         R43 R41 R42
+      300 GETIMPORT                        R42 K69 [Enum.AssetType.Video]
+      302 LOADK                            R43 K70 ["Video/"]
+      303 SETTABLE                         R43 R41 R42
+      304 GETIMPORT                        R42 K72 [Enum.AssetType.Model]
+      306 LOADK                            R43 K73 ["Models/"]
+      307 SETTABLE                         R43 R41 R42
+      308 NEWCLOSURE                       R42 P6
+      309 CAPTURE                          VAL R41
+      310 NEWCLOSURE                       R43 P7
+      311 CAPTURE                          VAL R26
       312 CAPTURE                          VAL R41
-      313 NEWCLOSURE                       R43 P7
-      314 CAPTURE                          VAL R26
-      315 CAPTURE                          VAL R41
-      316 CAPTURE                          VAL R6
-      317 CAPTURE                          REF R34
-      318 CAPTURE                          VAL R23
-      319 NEWCLOSURE                       R44 P8
-      320 CAPTURE                          VAL R26
-      321 CAPTURE                          VAL R22
-      322 CAPTURE                          VAL R23
-      323 CAPTURE                          REF R34
-      324 CAPTURE                          VAL R1
-      325 CAPTURE                          VAL R24
-      326 CAPTURE                          VAL R19
-      327 CAPTURE                          VAL R20
-      328 CAPTURE                          VAL R6
-      329 NEWCLOSURE                       R45 P9
-      330 CAPTURE                          VAL R0
-      331 CAPTURE                          VAL R1
-      332 CAPTURE                          REF R33
-      333 CAPTURE                          VAL R35
-      334 CAPTURE                          REF R32
-      335 CAPTURE                          VAL R4
-      336 CAPTURE                          VAL R37
-      337 CAPTURE                          VAL R38
-      338 CAPTURE                          VAL R44
-      339 CAPTURE                          VAL R26
-      340 CAPTURE                          VAL R25
-      341 CAPTURE                          VAL R43
-      342 CAPTURE                          VAL R39
-      343 CAPTURE                          VAL R40
-      344 MOVE                             R46 R45
-      345 CALL                             R46 0 0
-      346 CLOSEUPVALS                      R31
-      347 RETURN                           R0 0
+      313 CAPTURE                          VAL R6
+      314 CAPTURE                          REF R34
+      315 CAPTURE                          VAL R23
+      316 NEWCLOSURE                       R44 P8
+      317 CAPTURE                          VAL R26
+      318 CAPTURE                          VAL R22
+      319 CAPTURE                          VAL R23
+      320 CAPTURE                          REF R34
+      321 CAPTURE                          VAL R1
+      322 CAPTURE                          VAL R24
+      323 CAPTURE                          VAL R19
+      324 CAPTURE                          VAL R20
+      325 CAPTURE                          VAL R6
+      326 NEWCLOSURE                       R45 P9
+      327 CAPTURE                          VAL R0
+      328 CAPTURE                          VAL R1
+      329 CAPTURE                          REF R33
+      330 CAPTURE                          VAL R35
+      331 CAPTURE                          REF R32
+      332 CAPTURE                          VAL R4
+      333 CAPTURE                          VAL R37
+      334 CAPTURE                          VAL R38
+      335 CAPTURE                          VAL R44
+      336 CAPTURE                          VAL R26
+      337 CAPTURE                          VAL R25
+      338 CAPTURE                          VAL R43
+      339 CAPTURE                          VAL R39
+      340 CAPTURE                          VAL R40
+      341 MOVE                             R46 R45
+      342 CALL                             R46 0 0
+      343 CLOSEUPVALS                      R31
+      344 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

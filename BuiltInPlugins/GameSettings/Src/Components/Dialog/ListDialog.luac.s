@@ -13,52 +13,48 @@ PROTO_0:
        18 GETTABLEKS                       R9 R9 K9 ["join"]
        20 GETTABLEKS                       R10 R5 K10 ["fontStyle"]
        22 GETTABLEKS                       R10 R10 K11 ["SemiBold"]
-       24 DUPTABLE                         R11 K18 [{"AutomaticSize", "Size", "BackgroundTransparency", "Text", "TextXAlignment", "TextWrapped"}]
-       25 GETIMPORT                        R12 K21 [Enum.AutomaticSize.Y]
+       24 DUPTABLE                         R11 K20 [{["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"], ["TextWrapped"] = True}]
+       25 GETIMPORT                        R12 K23 [Enum.AutomaticSize.Y]
        27 SETTABLEKS                       R12 R11 K12 ["AutomaticSize"]
-       29 GETIMPORT                        R12 K24 [UDim2.new]
+       29 GETIMPORT                        R12 K26 [UDim2.new]
        31 LOADN                            R13 1
-       32 LOADN                            R14 196
+       32 LOADN                            R14 -60
        33 LOADN                            R15 0
        34 LOADN                            R16 0
        35 CALL                             R12 4 1
        36 SETTABLEKS                       R12 R11 K13 ["Size"]
-       38 LOADN                            R12 1
-       39 SETTABLEKS                       R12 R11 K14 ["BackgroundTransparency"]
-       41 SETTABLEKS                       R2 R11 K15 ["Text"]
-       43 GETIMPORT                        R12 K26 [Enum.TextXAlignment.Left]
-       45 SETTABLEKS                       R12 R11 K16 ["TextXAlignment"]
-       47 LOADB                            R12 1
-       48 SETTABLEKS                       R12 R11 K17 ["TextWrapped"]
-       50 CALL                             R9 2 -1
-       51 CALL                             R7 -1 1
-       52 SETTABLEKS                       R7 R6 K1 ["Header"]
-       54 GETUPVAL                         R7 0
-       55 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       57 GETUPVAL                         R8 2
-       58 DUPTABLE                         R9 K29 [{"TextTruncate", "Items", "Size"}]
-       59 GETIMPORT                        R10 K31 [Enum.TextTruncate.AtEnd]
-       61 SETTABLEKS                       R10 R9 K27 ["TextTruncate"]
-       63 SETTABLEKS                       R3 R9 K28 ["Items"]
-       65 GETIMPORT                        R10 K24 [UDim2.new]
-       67 LOADN                            R11 1
-       68 LOADN                            R12 196
-       69 LOADN                            R13 0
-       70 LOADN                            R14 0
-       71 CALL                             R10 4 1
-       72 SETTABLEKS                       R10 R9 K13 ["Size"]
-       74 CALL                             R7 2 1
-       75 SETTABLEKS                       R7 R6 K32 ["List"]
-       77 GETUPVAL                         R7 0
-       78 GETTABLEKS                       R7 R7 K6 ["createElement"]
-       80 GETUPVAL                         R8 3
-       81 DUPTABLE                         R9 K34 [{"Buttons", "OnResult"}]
-       82 SETTABLEKS                       R4 R9 K3 ["Buttons"]
-       84 GETTABLEKS                       R10 R1 K33 ["OnResult"]
-       86 SETTABLEKS                       R10 R9 K33 ["OnResult"]
-       88 MOVE                             R10 R6
-       89 CALL                             R7 3 -1
-       90 RETURN                           R7 -1
+       38 SETTABLEKS                       R2 R11 K16 ["Text"]
+       40 GETIMPORT                        R12 K28 [Enum.TextXAlignment.Left]
+       42 SETTABLEKS                       R12 R11 K17 ["TextXAlignment"]
+       44 CALL                             R9 2 -1
+       45 CALL                             R7 -1 1
+       46 SETTABLEKS                       R7 R6 K1 ["Header"]
+       48 GETUPVAL                         R7 0
+       49 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       51 GETUPVAL                         R8 2
+       52 DUPTABLE                         R9 K31 [{"TextTruncate", "Items", "Size"}]
+       53 GETIMPORT                        R10 K33 [Enum.TextTruncate.AtEnd]
+       55 SETTABLEKS                       R10 R9 K29 ["TextTruncate"]
+       57 SETTABLEKS                       R3 R9 K30 ["Items"]
+       59 GETIMPORT                        R10 K26 [UDim2.new]
+       61 LOADN                            R11 1
+       62 LOADN                            R12 -60
+       63 LOADN                            R13 0
+       64 LOADN                            R14 0
+       65 CALL                             R10 4 1
+       66 SETTABLEKS                       R10 R9 K13 ["Size"]
+       68 CALL                             R7 2 1
+       69 SETTABLEKS                       R7 R6 K34 ["List"]
+       71 GETUPVAL                         R7 0
+       72 GETTABLEKS                       R7 R7 K6 ["createElement"]
+       74 GETUPVAL                         R8 3
+       75 DUPTABLE                         R9 K36 [{"Buttons", "OnResult"}]
+       76 SETTABLEKS                       R4 R9 K3 ["Buttons"]
+       78 GETTABLEKS                       R10 R1 K35 ["OnResult"]
+       80 SETTABLEKS                       R10 R9 K35 ["OnResult"]
+       82 MOVE                             R10 R6
+       83 CALL                             R7 3 -1
+       84 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

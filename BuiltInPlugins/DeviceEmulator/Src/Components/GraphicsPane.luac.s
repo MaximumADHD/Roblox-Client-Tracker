@@ -117,97 +117,79 @@ PROTO_5:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K9 [{"AutomaticSize", "HorizontalAlignment", "Layout", "Padding", "Spacing"}]
-       11 GETIMPORT                        R7 K12 [Enum.AutomaticSize.Y]
+       10 DUPTABLE                         R6 K10 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["Padding"] = 10, ["Spacing"] = 10}]
+       11 GETIMPORT                        R7 K13 [Enum.AutomaticSize.Y]
        13 SETTABLEKS                       R7 R6 K4 ["AutomaticSize"]
-       15 GETIMPORT                        R7 K14 [Enum.HorizontalAlignment.Left]
+       15 GETIMPORT                        R7 K15 [Enum.HorizontalAlignment.Left]
        17 SETTABLEKS                       R7 R6 K5 ["HorizontalAlignment"]
-       19 GETIMPORT                        R7 K17 [Enum.FillDirection.Vertical]
+       19 GETIMPORT                        R7 K18 [Enum.FillDirection.Vertical]
        21 SETTABLEKS                       R7 R6 K6 ["Layout"]
-       23 LOADN                            R7 10
-       24 SETTABLEKS                       R7 R6 K7 ["Padding"]
-       26 LOADN                            R7 10
-       27 SETTABLEKS                       R7 R6 K8 ["Spacing"]
-       29 DUPTABLE                         R7 K19 [{"GraphicsQualityPane"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K24 [{"AutomaticSize", "HorizontalAlignment", "Layout", "AlwaysExpanded", "LayoutOrder", "Style", "Text"}]
-       35 GETIMPORT                        R11 K12 [Enum.AutomaticSize.Y]
-       37 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
-       39 GETIMPORT                        R11 K14 [Enum.HorizontalAlignment.Left]
-       41 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
-       43 GETIMPORT                        R11 K17 [Enum.FillDirection.Vertical]
-       45 SETTABLEKS                       R11 R10 K6 ["Layout"]
-       47 LOADB                            R11 1
-       48 SETTABLEKS                       R11 R10 K20 ["AlwaysExpanded"]
-       50 LOADN                            R11 1
-       51 SETTABLEKS                       R11 R10 K21 ["LayoutOrder"]
-       53 LOADK                            R11 K25 ["Box"]
-       54 SETTABLEKS                       R11 R10 K22 ["Style"]
-       56 LOADK                            R13 K26 ["GraphicsQuality"]
-       57 LOADK                            R14 K27 ["GraphicsQualityLabel"]
-       58 NAMECALL                         R11 R3 K28 ["getText"]
-       60 CALL                             R11 3 1
-       61 SETTABLEKS                       R11 R10 K23 ["Text"]
-       63 NEWTABLE                         R11 0 2
-       65 GETUPVAL                         R12 0
-       66 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       68 GETUPVAL                         R13 3
-       69 DUPTABLE                         R14 K38 [{"AnchorPoint", "Disabled", "Value", "Min", "Max", "OnValueChanged", "Size", "Padding", "SnapIncrement", "VerticalDragTolerance"}]
-       70 GETIMPORT                        R15 K41 [Vector2.new]
-       72 LOADN                            R16 0
-       73 LOADK                            R17 K42 [0.5]
-       74 CALL                             R15 2 1
-       75 SETTABLEKS                       R15 R14 K29 ["AnchorPoint"]
-       77 GETTABLEKS                       R15 R2 K43 ["graphicsQualityAutoMode"]
-       79 SETTABLEKS                       R15 R14 K30 ["Disabled"]
-       81 GETTABLEKS                       R15 R2 K44 ["graphicsQuality"]
-       83 SETTABLEKS                       R15 R14 K31 ["Value"]
-       85 LOADN                            R15 0
-       86 SETTABLEKS                       R15 R14 K32 ["Min"]
-       88 GETUPVAL                         R15 4
-       89 SETTABLEKS                       R15 R14 K33 ["Max"]
-       91 GETTABLEKS                       R15 R0 K45 ["setGraphicsQuality"]
-       93 SETTABLEKS                       R15 R14 K34 ["OnValueChanged"]
-       95 GETIMPORT                        R15 K47 [UDim2.new]
-       97 LOADN                            R16 0
-       98 LOADN                            R17 200
-       99 LOADN                            R18 0
-      100 LOADN                            R19 20
-      101 CALL                             R15 4 1
-      102 SETTABLEKS                       R15 R14 K35 ["Size"]
-      104 GETIMPORT                        R15 K49 [UDim.new]
-      106 LOADN                            R16 10
-      107 LOADN                            R17 10
-      108 CALL                             R15 2 1
-      109 SETTABLEKS                       R15 R14 K7 ["Padding"]
-      111 LOADN                            R15 1
-      112 SETTABLEKS                       R15 R14 K36 ["SnapIncrement"]
-      114 LOADN                            R15 0
-      115 SETTABLEKS                       R15 R14 K37 ["VerticalDragTolerance"]
-      117 CALL                             R12 2 1
-      118 GETUPVAL                         R13 0
-      119 GETTABLEKS                       R13 R13 K3 ["createElement"]
-      121 GETUPVAL                         R14 5
-      122 DUPTABLE                         R15 K53 [{"Checked", "Key", "OnClick", "Text"}]
-      123 GETTABLEKS                       R16 R2 K43 ["graphicsQualityAutoMode"]
-      125 SETTABLEKS                       R16 R15 K50 ["Checked"]
-      127 LOADK                            R16 K43 ["graphicsQualityAutoMode"]
-      128 SETTABLEKS                       R16 R15 K51 ["Key"]
-      130 GETTABLEKS                       R16 R0 K54 ["toggleGraphicsQualityAutomatic"]
-      132 SETTABLEKS                       R16 R15 K52 ["OnClick"]
-      134 LOADK                            R18 K26 ["GraphicsQuality"]
-      135 LOADK                            R19 K55 ["AutoGraphicsQualityLabel"]
-      136 NAMECALL                         R16 R3 K28 ["getText"]
-      138 CALL                             R16 3 1
-      139 SETTABLEKS                       R16 R15 K23 ["Text"]
-      141 CALL                             R13 2 -1
-      142 SETLIST                          R11 R12 -1 [1]
-      144 CALL                             R8 3 1
-      145 SETTABLEKS                       R8 R7 K18 ["GraphicsQualityPane"]
-      147 CALL                             R4 3 -1
-      148 RETURN                           R4 -1
+       23 DUPTABLE                         R7 K20 [{"GraphicsQualityPane"}]
+       24 GETUPVAL                         R8 0
+       25 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       27 GETUPVAL                         R9 2
+       28 DUPTABLE                         R10 K28 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["AlwaysExpanded"] = True, ["LayoutOrder"] = 1, ["Style"] = "Box", ["Text"]}]
+       29 GETIMPORT                        R11 K13 [Enum.AutomaticSize.Y]
+       31 SETTABLEKS                       R11 R10 K4 ["AutomaticSize"]
+       33 GETIMPORT                        R11 K15 [Enum.HorizontalAlignment.Left]
+       35 SETTABLEKS                       R11 R10 K5 ["HorizontalAlignment"]
+       37 GETIMPORT                        R11 K18 [Enum.FillDirection.Vertical]
+       39 SETTABLEKS                       R11 R10 K6 ["Layout"]
+       41 LOADK                            R13 K29 ["GraphicsQuality"]
+       42 LOADK                            R14 K30 ["GraphicsQualityLabel"]
+       43 NAMECALL                         R11 R3 K31 ["getText"]
+       45 CALL                             R11 3 1
+       46 SETTABLEKS                       R11 R10 K27 ["Text"]
+       48 NEWTABLE                         R11 0 2
+       50 GETUPVAL                         R12 0
+       51 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       53 GETUPVAL                         R13 3
+       54 DUPTABLE                         R14 K42 [{["AnchorPoint"], ["Disabled"], ["Value"], ["Min"] = 0, ["Max"], ["OnValueChanged"], ["Size"], ["Padding"], ["SnapIncrement"] = 1, ["VerticalDragTolerance"] = 0}]
+       55 GETIMPORT                        R15 K45 [Vector2.new]
+       57 LOADN                            R16 0
+       58 LOADK                            R17 K46 [0.5]
+       59 CALL                             R15 2 1
+       60 SETTABLEKS                       R15 R14 K32 ["AnchorPoint"]
+       62 GETTABLEKS                       R15 R2 K47 ["graphicsQualityAutoMode"]
+       64 SETTABLEKS                       R15 R14 K33 ["Disabled"]
+       66 GETTABLEKS                       R15 R2 K48 ["graphicsQuality"]
+       68 SETTABLEKS                       R15 R14 K34 ["Value"]
+       70 GETUPVAL                         R15 4
+       71 SETTABLEKS                       R15 R14 K37 ["Max"]
+       73 GETTABLEKS                       R15 R0 K49 ["setGraphicsQuality"]
+       75 SETTABLEKS                       R15 R14 K38 ["OnValueChanged"]
+       77 GETIMPORT                        R15 K51 [UDim2.new]
+       79 LOADN                            R16 0
+       80 LOADN                            R17 200
+       81 LOADN                            R18 0
+       82 LOADN                            R19 20
+       83 CALL                             R15 4 1
+       84 SETTABLEKS                       R15 R14 K39 ["Size"]
+       86 GETIMPORT                        R15 K53 [UDim.new]
+       88 LOADN                            R16 10
+       89 LOADN                            R17 10
+       90 CALL                             R15 2 1
+       91 SETTABLEKS                       R15 R14 K7 ["Padding"]
+       93 CALL                             R12 2 1
+       94 GETUPVAL                         R13 0
+       95 GETTABLEKS                       R13 R13 K3 ["createElement"]
+       97 GETUPVAL                         R14 5
+       98 DUPTABLE                         R15 K57 [{["Checked"], ["Key"] = "graphicsQualityAutoMode", ["OnClick"], ["Text"]}]
+       99 GETTABLEKS                       R16 R2 K47 ["graphicsQualityAutoMode"]
+      101 SETTABLEKS                       R16 R15 K54 ["Checked"]
+      103 GETTABLEKS                       R16 R0 K58 ["toggleGraphicsQualityAutomatic"]
+      105 SETTABLEKS                       R16 R15 K56 ["OnClick"]
+      107 LOADK                            R18 K29 ["GraphicsQuality"]
+      108 LOADK                            R19 K59 ["AutoGraphicsQualityLabel"]
+      109 NAMECALL                         R16 R3 K31 ["getText"]
+      111 CALL                             R16 3 1
+      112 SETTABLEKS                       R16 R15 K27 ["Text"]
+      114 CALL                             R13 2 -1
+      115 SETLIST                          R11 R12 -1 [1]
+      117 CALL                             R8 3 1
+      118 SETTABLEKS                       R8 R7 K19 ["GraphicsQualityPane"]
+      120 CALL                             R4 3 -1
+      121 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -70,33 +70,29 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R4 0
         1 LOADK                            R5 K0 ["toolOpened"]
-        2 DUPTABLE                         R6 K5 [{"method", "timelineUnit", "keyframeSnap", "snapMode"}]
-        3 LOADN                            R7 1
-        4 SETTABLEKS                       R7 R6 K1 ["method"]
-        6 SETTABLEKS                       R1 R6 K2 ["timelineUnit"]
-        8 SETTABLEKS                       R2 R6 K3 ["keyframeSnap"]
-       10 SETTABLEKS                       R3 R6 K4 ["snapMode"]
-       12 CALL                             R4 2 0
-       13 LOADK                            R4 K6 ["studio.animationEditor.EditorOpened"]
-       14 GETUPVAL                         R5 1
-       15 MOVE                             R7 R4
-       16 LOADN                            R8 1
-       17 NAMECALL                         R5 R5 K7 ["ReportCounter"]
-       19 CALL                             R5 3 0
-       20 GETUPVAL                         R4 0
-       21 LOADK                            R5 K8 ["EditorOpened"]
-       22 CALL                             R4 1 0
-       23 RETURN                           R0 0
+        2 DUPTABLE                         R6 K6 [{["method"] = 1, ["timelineUnit"], ["keyframeSnap"], ["snapMode"]}]
+        3 SETTABLEKS                       R1 R6 K3 ["timelineUnit"]
+        5 SETTABLEKS                       R2 R6 K4 ["keyframeSnap"]
+        7 SETTABLEKS                       R3 R6 K5 ["snapMode"]
+        9 CALL                             R4 2 0
+       10 LOADK                            R4 K7 ["studio.animationEditor.EditorOpened"]
+       11 GETUPVAL                         R5 1
+       12 MOVE                             R7 R4
+       13 LOADN                            R8 1
+       14 NAMECALL                         R5 R5 K8 ["ReportCounter"]
+       16 CALL                             R5 3 0
+       17 GETUPVAL                         R4 0
+       18 LOADK                            R5 K9 ["EditorOpened"]
+       19 CALL                             R4 1 0
+       20 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
         1 LOADK                            R3 K0 ["toolClosed"]
-        2 DUPTABLE                         R4 K3 [{"timeOpen", "method"}]
+        2 DUPTABLE                         R4 K4 [{["timeOpen"], ["method"] = 1}]
         3 SETTABLEKS                       R1 R4 K1 ["timeOpen"]
-        5 LOADN                            R5 1
-        6 SETTABLEKS                       R5 R4 K2 ["method"]
-        8 CALL                             R2 2 0
-        9 RETURN                           R0 0
+        5 CALL                             R2 2 0
+        6 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0

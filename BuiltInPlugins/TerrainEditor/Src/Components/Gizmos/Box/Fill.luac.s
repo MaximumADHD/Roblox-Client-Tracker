@@ -78,40 +78,38 @@ PROTO_1:
        85 GETUPVAL                         R17 3
        86 GETTABLEKS                       R17 R17 K9 ["createElement"]
        88 LOADK                            R18 K15 ["BoxHandleAdornment"]
-       89 DUPTABLE                         R19 K19 [{"AlwaysOnTop", "Adornee", "CFrame", "Color3", "Transparency", "Size", "ZIndex"}]
+       89 DUPTABLE                         R19 K20 [{["AlwaysOnTop"], ["Adornee"], ["CFrame"], ["Color3"], ["Transparency"], ["Size"], ["ZIndex"] = 0}]
        90 SETTABLEKS                       R3 R19 K2 ["AlwaysOnTop"]
        92 SETTABLEKS                       R2 R19 K1 ["Adornee"]
        94 SETTABLEKS                       R9 R19 K16 ["CFrame"]
        96 SETTABLEKS                       R4 R19 K17 ["Color3"]
        98 SETTABLEKS                       R10 R19 K8 ["Transparency"]
       100 SETTABLEKS                       R8 R19 K6 ["Size"]
-      102 LOADN                            R20 0
-      103 SETTABLEKS                       R20 R19 K18 ["ZIndex"]
-      105 CALL                             R17 2 1
-      106 SETTABLEKS                       R17 R16 K13 ["Main"]
-      108 JUMPIFNOT                        R6 ; [+28]
-      109 GETUPVAL                         R17 3
-      110 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      112 LOADK                            R18 K20 ["WireframeHandleAdornment"]
-      113 NEWTABLE                         R19 8 0
-      115 SETTABLEKS                       R3 R19 K2 ["AlwaysOnTop"]
-      117 SETTABLEKS                       R2 R19 K1 ["Adornee"]
-      119 SETTABLEKS                       R9 R19 K16 ["CFrame"]
-      121 SETTABLEKS                       R4 R19 K17 ["Color3"]
-      123 MULK                             R20 R10 K21 [0.8]
-      124 SETTABLEKS                       R20 R19 K8 ["Transparency"]
-      126 SETTABLEKS                       R7 R19 K5 ["Scale"]
-      128 LOADN                            R20 0
-      129 SETTABLEKS                       R20 R19 K18 ["ZIndex"]
-      131 GETUPVAL                         R20 5
-      132 GETTABLEKS                       R20 R20 K22 ["Ref"]
-      134 SETTABLE                         R1 R19 R20
-      135 CALL                             R17 2 1
-      136 JUMP                             ; [+1]
-      137 LOADNIL                          R17
-      138 SETTABLEKS                       R17 R16 K0 ["Lines"]
-      140 CALL                             R13 3 -1
-      141 RETURN                           R13 -1
+      102 CALL                             R17 2 1
+      103 SETTABLEKS                       R17 R16 K13 ["Main"]
+      105 JUMPIFNOT                        R6 ; [+28]
+      106 GETUPVAL                         R17 3
+      107 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      109 LOADK                            R18 K21 ["WireframeHandleAdornment"]
+      110 NEWTABLE                         R19 8 0
+      112 SETTABLEKS                       R3 R19 K2 ["AlwaysOnTop"]
+      114 SETTABLEKS                       R2 R19 K1 ["Adornee"]
+      116 SETTABLEKS                       R9 R19 K16 ["CFrame"]
+      118 SETTABLEKS                       R4 R19 K17 ["Color3"]
+      120 MULK                             R20 R10 K22 [0.8]
+      121 SETTABLEKS                       R20 R19 K8 ["Transparency"]
+      123 SETTABLEKS                       R7 R19 K5 ["Scale"]
+      125 LOADN                            R20 0
+      126 SETTABLEKS                       R20 R19 K18 ["ZIndex"]
+      128 GETUPVAL                         R20 5
+      129 GETTABLEKS                       R20 R20 K23 ["Ref"]
+      131 SETTABLE                         R1 R19 R20
+      132 CALL                             R17 2 1
+      133 JUMP                             ; [+1]
+      134 LOADNIL                          R17
+      135 SETTABLEKS                       R17 R16 K0 ["Lines"]
+      137 CALL                             R13 3 -1
+      138 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

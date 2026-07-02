@@ -26,26 +26,20 @@ MAIN:
        44 GETTABLEKS                       R9 R5 K15 ["LinkText"]
        46 GETTABLEKS                       R9 R9 K13 ["style"]
        48 CALL                             R8 1 1
-       49 DUPTABLE                         R9 K26 [{"Background", "BackgroundStyle", "ScrollingFrame", "BackgroundColor", "Padding", "RowHeight", "IconPadding", "HoverColor", "SelectedColor", "SelectedTextColor", "Link"}]
+       49 DUPTABLE                         R9 K29 [{["Background"], ["BackgroundStyle"], ["ScrollingFrame"], ["BackgroundColor"], ["Padding"] = 1, ["RowHeight"] = 24, ["IconPadding"] = 5, ["HoverColor"], ["SelectedColor"], ["SelectedTextColor"], ["Link"]}]
        50 SETTABLEKS                       R7 R9 K16 ["Background"]
        52 SETTABLEKS                       R7 R9 K17 ["BackgroundStyle"]
        54 SETTABLEKS                       R6 R9 K12 ["ScrollingFrame"]
-       56 GETTABLEKS                       R10 R2 K27 ["MainBackground"]
+       56 GETTABLEKS                       R10 R2 K30 ["MainBackground"]
        58 SETTABLEKS                       R10 R9 K18 ["BackgroundColor"]
-       60 LOADN                            R10 1
-       61 SETTABLEKS                       R10 R9 K19 ["Padding"]
-       63 LOADN                            R10 24
-       64 SETTABLEKS                       R10 R9 K20 ["RowHeight"]
-       66 LOADN                            R10 5
-       67 SETTABLEKS                       R10 R9 K21 ["IconPadding"]
-       69 GETTABLEKS                       R10 R2 K28 ["ButtonHover"]
-       71 SETTABLEKS                       R10 R9 K22 ["HoverColor"]
-       73 GETTABLEKS                       R10 R2 K29 ["DialogMainButton"]
-       75 SETTABLEKS                       R10 R9 K23 ["SelectedColor"]
-       77 GETTABLEKS                       R10 R2 K30 ["DialogMainButtonText"]
-       79 SETTABLEKS                       R10 R9 K24 ["SelectedTextColor"]
-       81 MOVE                             R10 R4
-       82 MOVE                             R11 R8
-       83 CALL                             R10 1 1
-       84 SETTABLEKS                       R10 R9 K25 ["Link"]
-       86 RETURN                           R9 1
+       60 GETTABLEKS                       R10 R2 K31 ["ButtonHover"]
+       62 SETTABLEKS                       R10 R9 K25 ["HoverColor"]
+       64 GETTABLEKS                       R10 R2 K32 ["DialogMainButton"]
+       66 SETTABLEKS                       R10 R9 K26 ["SelectedColor"]
+       68 GETTABLEKS                       R10 R2 K33 ["DialogMainButtonText"]
+       70 SETTABLEKS                       R10 R9 K27 ["SelectedTextColor"]
+       72 MOVE                             R10 R4
+       73 MOVE                             R11 R8
+       74 CALL                             R10 1 1
+       75 SETTABLEKS                       R10 R9 K28 ["Link"]
+       77 RETURN                           R9 1

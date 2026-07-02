@@ -17,7 +17,7 @@ MAIN:
        25 GETTABLEKS                       R4 R4 K10 ["Util"]
        27 GETTABLEKS                       R4 R4 K11 ["createUnimplemented"]
        29 CALL                             R3 1 1
-       30 DUPTABLE                         R4 K26 [{"previews", "addOrUpdatePreview", "updatePreview", "removePreview", "addError", "popError", "removeErrorById", "getTopError", "modelToPreview", "addOrUpdateModelToPreview", "quota", "setQuota", "total", "setTotal"}]
+       30 DUPTABLE                         R4 K27 [{["previews"], ["addOrUpdatePreview"], ["updatePreview"], ["removePreview"], ["addError"], ["popError"], ["removeErrorById"], ["getTopError"], ["modelToPreview"], ["addOrUpdateModelToPreview"], ["quota"] = 0, ["setQuota"], ["total"] = 0, ["setTotal"]}]
        31 NEWTABLE                         R5 0 0
        33 SETTABLEKS                       R5 R4 K12 ["previews"]
        35 MOVE                             R5 R3
@@ -54,19 +54,15 @@ MAIN:
        75 LOADK                            R6 K21 ["addOrUpdateModelToPreview"]
        76 CALL                             R5 1 1
        77 SETTABLEKS                       R5 R4 K21 ["addOrUpdateModelToPreview"]
-       79 LOADN                            R5 0
-       80 SETTABLEKS                       R5 R4 K22 ["quota"]
-       82 MOVE                             R5 R3
-       83 LOADK                            R6 K23 ["setQuota"]
-       84 CALL                             R5 1 1
-       85 SETTABLEKS                       R5 R4 K23 ["setQuota"]
-       87 LOADN                            R5 0
-       88 SETTABLEKS                       R5 R4 K24 ["total"]
-       90 MOVE                             R5 R3
-       91 LOADK                            R6 K25 ["setTotal"]
+       79 MOVE                             R5 R3
+       80 LOADK                            R6 K24 ["setQuota"]
+       81 CALL                             R5 1 1
+       82 SETTABLEKS                       R5 R4 K24 ["setQuota"]
+       84 MOVE                             R5 R3
+       85 LOADK                            R6 K26 ["setTotal"]
+       86 CALL                             R5 1 1
+       87 SETTABLEKS                       R5 R4 K26 ["setTotal"]
+       89 GETTABLEKS                       R5 R1 K28 ["createContext"]
+       91 MOVE                             R6 R4
        92 CALL                             R5 1 1
-       93 SETTABLEKS                       R5 R4 K25 ["setTotal"]
-       95 GETTABLEKS                       R5 R1 K27 ["createContext"]
-       97 MOVE                             R6 R4
-       98 CALL                             R5 1 1
-       99 RETURN                           R5 1
+       93 RETURN                           R5 1

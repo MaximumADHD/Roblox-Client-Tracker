@@ -84,36 +84,32 @@ PROTO_3:
        51 GETUPVAL                         R14 1
        52 GETTABLEKS                       R14 R14 K5 ["createElement"]
        54 GETUPVAL                         R15 4
-       55 DUPTABLE                         R16 K32 [{"AutomaticSize", "BackgroundTransparency", "TextSize", "Text", "TextWrapped", "LayoutOrder"}]
-       56 GETIMPORT                        R17 K34 [Enum.AutomaticSize.XY]
+       55 DUPTABLE                         R16 K34 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["TextSize"], ["Text"], ["TextWrapped"] = True, ["LayoutOrder"]}]
+       56 GETIMPORT                        R17 K36 [Enum.AutomaticSize.XY]
        58 SETTABLEKS                       R17 R16 K28 ["AutomaticSize"]
-       60 LOADN                            R17 1
-       61 SETTABLEKS                       R17 R16 K12 ["BackgroundTransparency"]
-       63 GETTABLEKS                       R17 R4 K29 ["TextSize"]
-       65 SETTABLEKS                       R17 R16 K29 ["TextSize"]
-       67 SETTABLEKS                       R2 R16 K1 ["Text"]
-       69 LOADB                            R17 1
-       70 SETTABLEKS                       R17 R16 K30 ["TextWrapped"]
-       72 NAMECALL                         R17 R5 K35 ["getNextOrder"]
-       74 CALL                             R17 1 1
-       75 SETTABLEKS                       R17 R16 K31 ["LayoutOrder"]
-       77 CALL                             R14 2 1
-       78 SETTABLEKS                       R14 R13 K1 ["Text"]
-       80 JUMPIFNOT                        R3 ; [+7]
-       81 NAMECALL                         R16 R5 K35 ["getNextOrder"]
-       83 CALL                             R16 1 -1
-       84 NAMECALL                         R14 R0 K36 ["renderFakeLoadingBar"]
-       86 CALL                             R14 -1 1
-       87 JUMP                             ; [+6]
-       88 NAMECALL                         R16 R5 K35 ["getNextOrder"]
-       90 CALL                             R16 1 -1
-       91 NAMECALL                         R14 R0 K37 ["renderLoadingBar"]
-       93 CALL                             R14 -1 1
-       94 SETTABLEKS                       R14 R13 K26 ["ProgressBar"]
-       96 CALL                             R10 3 1
-       97 SETTABLEKS                       R10 R9 K9 ["Pane"]
-       99 CALL                             R6 3 -1
-      100 RETURN                           R6 -1
+       60 GETTABLEKS                       R17 R4 K30 ["TextSize"]
+       62 SETTABLEKS                       R17 R16 K30 ["TextSize"]
+       64 SETTABLEKS                       R2 R16 K1 ["Text"]
+       66 NAMECALL                         R17 R5 K37 ["getNextOrder"]
+       68 CALL                             R17 1 1
+       69 SETTABLEKS                       R17 R16 K33 ["LayoutOrder"]
+       71 CALL                             R14 2 1
+       72 SETTABLEKS                       R14 R13 K1 ["Text"]
+       74 JUMPIFNOT                        R3 ; [+7]
+       75 NAMECALL                         R16 R5 K37 ["getNextOrder"]
+       77 CALL                             R16 1 -1
+       78 NAMECALL                         R14 R0 K38 ["renderFakeLoadingBar"]
+       80 CALL                             R14 -1 1
+       81 JUMP                             ; [+6]
+       82 NAMECALL                         R16 R5 K37 ["getNextOrder"]
+       84 CALL                             R16 1 -1
+       85 NAMECALL                         R14 R0 K39 ["renderLoadingBar"]
+       87 CALL                             R14 -1 1
+       88 SETTABLEKS                       R14 R13 K26 ["ProgressBar"]
+       90 CALL                             R10 3 1
+       91 SETTABLEKS                       R10 R9 K9 ["Pane"]
+       93 CALL                             R6 3 -1
+       94 RETURN                           R6 -1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R1 K0 ["FakeLoadProps"]

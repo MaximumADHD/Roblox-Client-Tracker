@@ -109,149 +109,123 @@ PROTO_3:
        97 GETUPVAL                         R19 4
        98 GETTABLEKS                       R19 R19 K11 ["createElement"]
       100 GETUPVAL                         R20 6
-      101 DUPTABLE                         R21 K31 [{"AutomaticSize", "Size", "Disabled", "OnChanged", "Schema", "Tooltip", "Value"}]
-      102 GETIMPORT                        R22 K34 [Enum.AutomaticSize.Y]
+      101 DUPTABLE                         R21 K32 [{["AutomaticSize"], ["Size"], ["Disabled"] = False, ["OnChanged"], ["Schema"], ["Tooltip"] = "FilterType", ["Value"]}]
+      102 GETIMPORT                        R22 K35 [Enum.AutomaticSize.Y]
       104 SETTABLEKS                       R22 R21 K25 ["AutomaticSize"]
-      106 GETIMPORT                        R22 K37 [UDim2.fromOffset]
+      106 GETIMPORT                        R22 K38 [UDim2.fromOffset]
       108 LOADN                            R23 150
       109 LOADN                            R24 25
       110 CALL                             R22 2 1
       111 SETTABLEKS                       R22 R21 K13 ["Size"]
-      113 LOADB                            R22 0
-      114 SETTABLEKS                       R22 R21 K26 ["Disabled"]
-      116 SETTABLEKS                       R4 R21 K27 ["OnChanged"]
-      118 DUPTABLE                         R22 K40 [{"Type", "Items"}]
-      119 LOADK                            R23 K41 ["Select"]
-      120 SETTABLEKS                       R23 R22 K38 ["Type"]
-      122 GETUPVAL                         R23 2
-      123 GETTABLEKS                       R23 R23 K42 ["getDropdownItems"]
-      125 MOVE                             R24 R2
-      126 CALL                             R23 1 1
-      127 SETTABLEKS                       R23 R22 K39 ["Items"]
-      129 SETTABLEKS                       R22 R21 K28 ["Schema"]
-      131 LOADK                            R22 K17 ["FilterType"]
-      132 SETTABLEKS                       R22 R21 K29 ["Tooltip"]
-      134 SETTABLEKS                       R3 R21 K30 ["Value"]
-      136 CALL                             R19 2 1
-      137 SETTABLEKS                       R19 R18 K22 ["FilterTypeDropdown"]
-      139 GETUPVAL                         R19 4
-      140 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      142 GETUPVAL                         R20 7
-      143 NEWTABLE                         R21 4 0
-      145 LOADK                            R24 K43 ["Label"]
-      146 LOADK                            R25 K17 ["FilterType"]
-      147 NAMECALL                         R22 R2 K44 ["getText"]
-      149 CALL                             R22 3 1
-      150 SETTABLEKS                       R22 R21 K45 ["Text"]
-      152 LOADN                            R22 1
-      153 SETTABLEKS                       R22 R21 K14 ["LayoutOrder"]
-      155 GETUPVAL                         R22 4
-      156 GETTABLEKS                       R22 R22 K15 ["Tag"]
-      158 LOADK                            R23 K46 ["X-Fit"]
-      159 SETTABLE                         R23 R21 R22
-      160 CALL                             R19 2 1
-      161 SETTABLEKS                       R19 R18 K23 ["FilterTypeLabel"]
-      163 CALL                             R15 3 1
-      164 SETTABLEKS                       R15 R14 K17 ["FilterType"]
-      166 GETUPVAL                         R15 4
-      167 GETTABLEKS                       R15 R15 K11 ["createElement"]
-      169 GETUPVAL                         R16 5
-      170 DUPTABLE                         R17 K47 [{"LayoutOrder", "Size"}]
-      171 LOADN                            R18 2
-      172 SETTABLEKS                       R18 R17 K14 ["LayoutOrder"]
-      174 GETIMPORT                        R18 K49 [UDim2.new]
-      176 LOADN                            R19 0
-      177 LOADN                            R20 25
-      178 LOADN                            R21 1
-      179 LOADN                            R22 0
-      180 CALL                             R18 4 1
-      181 SETTABLEKS                       R18 R17 K13 ["Size"]
-      183 CALL                             R15 2 1
-      184 SETTABLEKS                       R15 R14 K18 ["Spacer"]
-      186 MOVE                             R15 R5
-      187 JUMPIFNOT                        R15 ; [+116]
-      188 GETUPVAL                         R15 4
-      189 GETTABLEKS                       R15 R15 K11 ["createElement"]
-      191 GETUPVAL                         R16 5
-      192 NEWTABLE                         R17 2 0
-      194 LOADN                            R18 3
-      195 SETTABLEKS                       R18 R17 K14 ["LayoutOrder"]
-      197 GETUPVAL                         R18 4
-      198 GETTABLEKS                       R18 R18 K15 ["Tag"]
-      200 LOADK                            R19 K21 ["X-Fit X-RowM X-Middle"]
-      201 SETTABLE                         R19 R17 R18
-      202 DUPTABLE                         R18 K53 [{"QSlider", "QTextInput", "QLabel"}]
-      203 GETUPVAL                         R19 4
-      204 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      206 GETUPVAL                         R20 8
-      207 DUPTABLE                         R21 K60 [{"Disabled", "Max", "Min", "OnValueChanged", "Size", "ShowInput", "SnapIncrement", "VerticalDragTolerance", "Value"}]
-      208 LOADB                            R22 0
-      209 SETTABLEKS                       R22 R21 K26 ["Disabled"]
-      211 LOADN                            R22 1
-      212 SETTABLEKS                       R22 R21 K54 ["Max"]
-      214 LOADN                            R22 0
-      215 SETTABLEKS                       R22 R21 K55 ["Min"]
-      217 SETTABLEKS                       R9 R21 K56 ["OnValueChanged"]
-      219 GETIMPORT                        R22 K37 [UDim2.fromOffset]
-      221 LOADN                            R23 100
+      113 SETTABLEKS                       R4 R21 K28 ["OnChanged"]
+      115 DUPTABLE                         R22 K42 [{["Type"] = "Select", ["Items"]}]
+      116 GETUPVAL                         R23 2
+      117 GETTABLEKS                       R23 R23 K43 ["getDropdownItems"]
+      119 MOVE                             R24 R2
+      120 CALL                             R23 1 1
+      121 SETTABLEKS                       R23 R22 K41 ["Items"]
+      123 SETTABLEKS                       R22 R21 K29 ["Schema"]
+      125 SETTABLEKS                       R3 R21 K31 ["Value"]
+      127 CALL                             R19 2 1
+      128 SETTABLEKS                       R19 R18 K22 ["FilterTypeDropdown"]
+      130 GETUPVAL                         R19 4
+      131 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      133 GETUPVAL                         R20 7
+      134 NEWTABLE                         R21 4 0
+      136 LOADK                            R24 K44 ["Label"]
+      137 LOADK                            R25 K17 ["FilterType"]
+      138 NAMECALL                         R22 R2 K45 ["getText"]
+      140 CALL                             R22 3 1
+      141 SETTABLEKS                       R22 R21 K46 ["Text"]
+      143 LOADN                            R22 1
+      144 SETTABLEKS                       R22 R21 K14 ["LayoutOrder"]
+      146 GETUPVAL                         R22 4
+      147 GETTABLEKS                       R22 R22 K15 ["Tag"]
+      149 LOADK                            R23 K47 ["X-Fit"]
+      150 SETTABLE                         R23 R21 R22
+      151 CALL                             R19 2 1
+      152 SETTABLEKS                       R19 R18 K23 ["FilterTypeLabel"]
+      154 CALL                             R15 3 1
+      155 SETTABLEKS                       R15 R14 K17 ["FilterType"]
+      157 GETUPVAL                         R15 4
+      158 GETTABLEKS                       R15 R15 K11 ["createElement"]
+      160 GETUPVAL                         R16 5
+      161 DUPTABLE                         R17 K49 [{["LayoutOrder"] = 2, ["Size"]}]
+      162 GETIMPORT                        R18 K51 [UDim2.new]
+      164 LOADN                            R19 0
+      165 LOADN                            R20 25
+      166 LOADN                            R21 1
+      167 LOADN                            R22 0
+      168 CALL                             R18 4 1
+      169 SETTABLEKS                       R18 R17 K13 ["Size"]
+      171 CALL                             R15 2 1
+      172 SETTABLEKS                       R15 R14 K18 ["Spacer"]
+      174 MOVE                             R15 R5
+      175 JUMPIFNOT                        R15 ; [+89]
+      176 GETUPVAL                         R15 4
+      177 GETTABLEKS                       R15 R15 K11 ["createElement"]
+      179 GETUPVAL                         R16 5
+      180 NEWTABLE                         R17 2 0
+      182 LOADN                            R18 3
+      183 SETTABLEKS                       R18 R17 K14 ["LayoutOrder"]
+      185 GETUPVAL                         R18 4
+      186 GETTABLEKS                       R18 R18 K15 ["Tag"]
+      188 LOADK                            R19 K21 ["X-Fit X-RowM X-Middle"]
+      189 SETTABLE                         R19 R17 R18
+      190 DUPTABLE                         R18 K55 [{"QSlider", "QTextInput", "QLabel"}]
+      191 GETUPVAL                         R19 4
+      192 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      194 GETUPVAL                         R20 8
+      195 DUPTABLE                         R21 K66 [{["Disabled"] = False, ["Max"] = 1, ["Min"] = 0, ["OnValueChanged"], ["Size"], ["ShowInput"] = False, ["SnapIncrement"] = 0.01, ["VerticalDragTolerance"] = 1000, ["Value"]}]
+      196 SETTABLEKS                       R9 R21 K60 ["OnValueChanged"]
+      198 GETIMPORT                        R22 K38 [UDim2.fromOffset]
+      200 LOADN                            R23 100
+      201 LOADN                            R24 25
+      202 CALL                             R22 2 1
+      203 SETTABLEKS                       R22 R21 K13 ["Size"]
+      205 SETTABLEKS                       R8 R21 K31 ["Value"]
+      207 CALL                             R19 2 1
+      208 SETTABLEKS                       R19 R18 K52 ["QSlider"]
+      210 GETUPVAL                         R19 4
+      211 GETTABLEKS                       R19 R19 K11 ["createElement"]
+      213 GETUPVAL                         R20 6
+      214 DUPTABLE                         R21 K67 [{["AutomaticSize"], ["Size"], ["Disabled"] = False, ["OnChanged"], ["Schema"], ["Tooltip"] = "Q", ["Value"]}]
+      215 GETIMPORT                        R22 K35 [Enum.AutomaticSize.Y]
+      217 SETTABLEKS                       R22 R21 K25 ["AutomaticSize"]
+      219 GETIMPORT                        R22 K38 [UDim2.fromOffset]
+      221 LOADN                            R23 50
       222 LOADN                            R24 25
       223 CALL                             R22 2 1
       224 SETTABLEKS                       R22 R21 K13 ["Size"]
-      226 LOADB                            R22 0
-      227 SETTABLEKS                       R22 R21 K57 ["ShowInput"]
-      229 LOADK                            R22 K61 [0.01]
-      230 SETTABLEKS                       R22 R21 K58 ["SnapIncrement"]
-      232 LOADN                            R22 232
-      233 SETTABLEKS                       R22 R21 K59 ["VerticalDragTolerance"]
-      235 SETTABLEKS                       R8 R21 K30 ["Value"]
+      226 SETTABLEKS                       R10 R21 K28 ["OnChanged"]
+      228 DUPTABLE                         R22 K69 [{["Type"] = "Number"}]
+      229 SETTABLEKS                       R22 R21 K29 ["Schema"]
+      231 GETTABLEKS                       R22 R0 K5 ["FilterHook"]
+      233 GETTABLEKS                       R22 R22 K10 ["q"]
+      235 SETTABLEKS                       R22 R21 K31 ["Value"]
       237 CALL                             R19 2 1
-      238 SETTABLEKS                       R19 R18 K50 ["QSlider"]
+      238 SETTABLEKS                       R19 R18 K53 ["QTextInput"]
       240 GETUPVAL                         R19 4
       241 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      243 GETUPVAL                         R20 6
-      244 DUPTABLE                         R21 K31 [{"AutomaticSize", "Size", "Disabled", "OnChanged", "Schema", "Tooltip", "Value"}]
-      245 GETIMPORT                        R22 K34 [Enum.AutomaticSize.Y]
-      247 SETTABLEKS                       R22 R21 K25 ["AutomaticSize"]
-      249 GETIMPORT                        R22 K37 [UDim2.fromOffset]
-      251 LOADN                            R23 50
-      252 LOADN                            R24 25
-      253 CALL                             R22 2 1
-      254 SETTABLEKS                       R22 R21 K13 ["Size"]
-      256 LOADB                            R22 0
-      257 SETTABLEKS                       R22 R21 K26 ["Disabled"]
-      259 SETTABLEKS                       R10 R21 K27 ["OnChanged"]
-      261 DUPTABLE                         R22 K62 [{"Type"}]
-      262 LOADK                            R23 K63 ["Number"]
-      263 SETTABLEKS                       R23 R22 K38 ["Type"]
-      265 SETTABLEKS                       R22 R21 K28 ["Schema"]
-      267 LOADK                            R22 K19 ["Q"]
-      268 SETTABLEKS                       R22 R21 K29 ["Tooltip"]
-      270 GETTABLEKS                       R22 R0 K5 ["FilterHook"]
-      272 GETTABLEKS                       R22 R22 K10 ["q"]
-      274 SETTABLEKS                       R22 R21 K30 ["Value"]
-      276 CALL                             R19 2 1
-      277 SETTABLEKS                       R19 R18 K51 ["QTextInput"]
-      279 GETUPVAL                         R19 4
-      280 GETTABLEKS                       R19 R19 K11 ["createElement"]
-      282 GETUPVAL                         R20 7
-      283 NEWTABLE                         R21 4 0
-      285 LOADK                            R24 K43 ["Label"]
-      286 LOADK                            R25 K19 ["Q"]
-      287 NAMECALL                         R22 R2 K44 ["getText"]
-      289 CALL                             R22 3 1
-      290 SETTABLEKS                       R22 R21 K45 ["Text"]
-      292 LOADN                            R22 1
-      293 SETTABLEKS                       R22 R21 K14 ["LayoutOrder"]
-      295 GETUPVAL                         R22 4
-      296 GETTABLEKS                       R22 R22 K15 ["Tag"]
-      298 LOADK                            R23 K46 ["X-Fit"]
-      299 SETTABLE                         R23 R21 R22
-      300 CALL                             R19 2 1
-      301 SETTABLEKS                       R19 R18 K52 ["QLabel"]
-      303 CALL                             R15 3 1
-      304 SETTABLEKS                       R15 R14 K19 ["Q"]
-      306 CALL                             R11 3 -1
-      307 RETURN                           R11 -1
+      243 GETUPVAL                         R20 7
+      244 NEWTABLE                         R21 4 0
+      246 LOADK                            R24 K44 ["Label"]
+      247 LOADK                            R25 K19 ["Q"]
+      248 NAMECALL                         R22 R2 K45 ["getText"]
+      250 CALL                             R22 3 1
+      251 SETTABLEKS                       R22 R21 K46 ["Text"]
+      253 LOADN                            R22 1
+      254 SETTABLEKS                       R22 R21 K14 ["LayoutOrder"]
+      256 GETUPVAL                         R22 4
+      257 GETTABLEKS                       R22 R22 K15 ["Tag"]
+      259 LOADK                            R23 K47 ["X-Fit"]
+      260 SETTABLE                         R23 R21 R22
+      261 CALL                             R19 2 1
+      262 SETTABLEKS                       R19 R18 K54 ["QLabel"]
+      264 CALL                             R15 3 1
+      265 SETTABLEKS                       R15 R14 K19 ["Q"]
+      267 CALL                             R11 3 -1
+      268 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

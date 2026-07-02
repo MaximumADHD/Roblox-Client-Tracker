@@ -115,7 +115,7 @@ PROTO_5:
        20 GETTABLEKS                       R7 R7 K5 ["getTabInfo"]
        22 MOVE                             R8 R1
        23 CALL                             R7 1 1
-       24 JUMPIFNOT                        R7 ; [+153]
+       24 JUMPIFNOT                        R7 ; [+150]
        25 GETUPVAL                         R8 2
        26 MOVE                             R9 R0
        27 MOVE                             R10 R1
@@ -180,7 +180,7 @@ PROTO_5:
       116 GETUPVAL                         R12 3
       117 GETTABLEKS                       R12 R12 K7 ["CategoryPrefixes"]
       119 GETTABLEKS                       R12 R12 K24 ["Custom"]
-      121 JUMPIFNOTEQ                      R4 R12 ; [+36]
+      121 JUMPIFNOTEQ                      R4 R12 ; [+33]
       123 GETIMPORT                        R12 K26 [ipairs]
       125 MOVE                             R13 R6
       126 CALL                             R12 1 3
@@ -191,35 +191,33 @@ PROTO_5:
       134 GETTABLEKS                       R18 R18 K17 ["Name"]
       136 MOVE                             R19 R3
       137 CALL                             R17 2 1
-      138 JUMPIFNOT                        R17 ; [+17]
+      138 JUMPIFNOT                        R17 ; [+14]
       139 GETTABLEKS                       R17 R16 K28 ["uniqueId"]
-      141 DUPTABLE                         R18 K30 [{"Name", "ThumbnailType", "Instance"}]
+      141 DUPTABLE                         R18 K30 [{["Name"], ["ThumbnailType"] = "", ["Instance"]}]
       142 GETTABLEKS                       R19 R16 K27 ["instance"]
       144 GETTABLEKS                       R19 R19 K17 ["Name"]
       146 SETTABLEKS                       R19 R18 K17 ["Name"]
-      148 LOADK                            R19 K6 [""]
-      149 SETTABLEKS                       R19 R18 K13 ["ThumbnailType"]
-      151 GETTABLEKS                       R19 R16 K27 ["instance"]
-      153 SETTABLEKS                       R19 R18 K29 ["Instance"]
-      155 SETTABLE                         R18 R11 R17
-      156 FORGLOOP                         R12 2 [inext] ; [-29]
-      158 GETUPVAL                         R12 4
-      159 GETTABLEKS                       R12 R12 K31 ["Dictionary"]
-      161 GETTABLEKS                       R12 R12 K32 ["join"]
-      163 MOVE                             R13 R5
-      164 MOVE                             R14 R11
-      165 CALL                             R12 2 1
-      166 GETUPVAL                         R13 4
-      167 GETTABLEKS                       R13 R13 K33 ["List"]
-      169 GETTABLEKS                       R13 R13 K32 ["join"]
-      171 MOVE                             R14 R8
-      172 MOVE                             R15 R9
-      173 MOVE                             R16 R10
-      174 CALL                             R13 3 1
-      175 MOVE                             R14 R13
-      176 MOVE                             R15 R12
-      177 RETURN                           R14 2
-      178 RETURN                           R0 0
+      148 GETTABLEKS                       R19 R16 K27 ["instance"]
+      150 SETTABLEKS                       R19 R18 K29 ["Instance"]
+      152 SETTABLE                         R18 R11 R17
+      153 FORGLOOP                         R12 2 [inext] ; [-26]
+      155 GETUPVAL                         R12 4
+      156 GETTABLEKS                       R12 R12 K31 ["Dictionary"]
+      158 GETTABLEKS                       R12 R12 K32 ["join"]
+      160 MOVE                             R13 R5
+      161 MOVE                             R14 R11
+      162 CALL                             R12 2 1
+      163 GETUPVAL                         R13 4
+      164 GETTABLEKS                       R13 R13 K33 ["List"]
+      166 GETTABLEKS                       R13 R13 K32 ["join"]
+      168 MOVE                             R14 R8
+      169 MOVE                             R15 R9
+      170 MOVE                             R16 R10
+      171 CALL                             R13 3 1
+      172 MOVE                             R14 R13
+      173 MOVE                             R15 R12
+      174 RETURN                           R14 2
+      175 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

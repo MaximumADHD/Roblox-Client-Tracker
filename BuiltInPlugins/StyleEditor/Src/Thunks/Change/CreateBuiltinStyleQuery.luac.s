@@ -83,35 +83,33 @@ PROTO_1:
        30 GETIMPORT                        R5 K5 [assert]
        32 CALL                             R5 2 0
        33 GETTABLEKS                       R5 R1 K6 ["recordChange"]
-       35 DUPTABLE                         R6 K9 [{"Name", "DisplayName", "DoChange"}]
-       36 LOADK                            R7 K10 ["StyleEditor/CreateBuiltinStyleQuery"]
-       37 SETTABLEKS                       R7 R6 K1 ["Name"]
-       39 LOADK                            R8 K11 ["StyleEditor - Create Builtin StyleQuery (%*)"]
-       40 GETUPVAL                         R10 2
-       41 NAMECALL                         R8 R8 K3 ["format"]
-       43 CALL                             R8 2 1
-       44 MOVE                             R7 R8
-       45 SETTABLEKS                       R7 R6 K7 ["DisplayName"]
-       47 NEWCLOSURE                       R7 P0
-       48 CAPTURE                          UPVAL U3
-       49 CAPTURE                          VAL R2
-       50 CAPTURE                          REF R4
-       51 CAPTURE                          REF R3
-       52 SETTABLEKS                       R7 R6 K8 ["DoChange"]
-       54 CALL                             R5 1 0
-       55 GETUPVAL                         R5 4
-       56 JUMPIFNOT                        R5 ; [+11]
-       57 GETUPVAL                         R5 5
-       58 GETTABLEKS                       R5 R5 K12 ["createItemId"]
-       60 MOVE                             R6 R3
-       61 CALL                             R5 1 1
-       62 GETUPVAL                         R8 6
-       63 MOVE                             R9 R5
-       64 CALL                             R8 1 -1
-       65 NAMECALL                         R6 R0 K13 ["dispatch"]
-       67 CALL                             R6 -1 0
-       68 CLOSEUPVALS                      R3
-       69 RETURN                           R3 1
+       35 DUPTABLE                         R6 K10 [{["Name"] = "StyleEditor/CreateBuiltinStyleQuery", ["DisplayName"], ["DoChange"]}]
+       36 LOADK                            R8 K11 ["StyleEditor - Create Builtin StyleQuery (%*)"]
+       37 GETUPVAL                         R10 2
+       38 NAMECALL                         R8 R8 K3 ["format"]
+       40 CALL                             R8 2 1
+       41 MOVE                             R7 R8
+       42 SETTABLEKS                       R7 R6 K8 ["DisplayName"]
+       44 NEWCLOSURE                       R7 P0
+       45 CAPTURE                          UPVAL U3
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          REF R4
+       48 CAPTURE                          REF R3
+       49 SETTABLEKS                       R7 R6 K9 ["DoChange"]
+       51 CALL                             R5 1 0
+       52 GETUPVAL                         R5 4
+       53 JUMPIFNOT                        R5 ; [+11]
+       54 GETUPVAL                         R5 5
+       55 GETTABLEKS                       R5 R5 K12 ["createItemId"]
+       57 MOVE                             R6 R3
+       58 CALL                             R5 1 1
+       59 GETUPVAL                         R8 6
+       60 MOVE                             R9 R5
+       61 CALL                             R8 1 -1
+       62 NAMECALL                         R6 R0 K13 ["dispatch"]
+       64 CALL                             R6 -1 0
+       65 CLOSEUPVALS                      R3
+       66 RETURN                           R3 1
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

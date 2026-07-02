@@ -89,48 +89,46 @@ PROTO_1:
       114 GETUPVAL                         R11 1
       115 GETTABLEKS                       R11 R11 K16 ["createElement"]
       117 GETUPVAL                         R12 2
-      118 DUPTABLE                         R13 K37 [{"Style", "Text", "Size", "Position", "AnchorPoint", "OnClick"}]
-      119 LOADK                            R14 K38 ["Active"]
-      120 SETTABLEKS                       R14 R13 K35 ["Style"]
-      122 SETTABLEKS                       R5 R13 K8 ["Text"]
-      124 GETIMPORT                        R14 K22 [UDim2.new]
-      126 LOADN                            R15 0
-      127 GETTABLEKS                       R17 R6 K39 ["X"]
-      129 GETTABLEKS                       R18 R4 K7 ["saveToRobloxView"]
-      131 GETTABLEKS                       R18 R18 K40 ["publishButton"]
-      133 GETTABLEKS                       R18 R18 K41 ["paddingX"]
-      135 ADD                              R16 R17 R18
-      136 LOADN                            R17 0
-      137 GETTABLEKS                       R19 R6 K42 ["Y"]
-      139 GETTABLEKS                       R20 R4 K7 ["saveToRobloxView"]
-      141 GETTABLEKS                       R20 R20 K40 ["publishButton"]
-      143 GETTABLEKS                       R20 R20 K43 ["paddingY"]
-      145 ADD                              R18 R19 R20
-      146 CALL                             R14 4 1
-      147 SETTABLEKS                       R14 R13 K18 ["Size"]
-      149 GETIMPORT                        R14 K22 [UDim2.new]
-      151 LOADK                            R15 K33 [0.5]
-      152 LOADN                            R16 0
-      153 LOADN                            R17 0
-      154 GETTABLEKS                       R18 R4 K7 ["saveToRobloxView"]
-      156 GETTABLEKS                       R18 R18 K40 ["publishButton"]
-      158 GETTABLEKS                       R18 R18 K44 ["offset"]
-      160 CALL                             R14 4 1
-      161 SETTABLEKS                       R14 R13 K29 ["Position"]
-      163 GETIMPORT                        R14 K13 [Vector2.new]
-      165 LOADK                            R15 K33 [0.5]
-      166 LOADK                            R16 K33 [0.5]
-      167 CALL                             R14 2 1
-      168 SETTABLEKS                       R14 R13 K30 ["AnchorPoint"]
-      170 NEWCLOSURE                       R14 P0
-      171 CAPTURE                          UPVAL U3
-      172 CAPTURE                          UPVAL U4
-      173 CAPTURE                          VAL R2
-      174 SETTABLEKS                       R14 R13 K36 ["OnClick"]
-      176 CALL                             R11 2 1
-      177 SETTABLEKS                       R11 R10 K25 ["SaveButton"]
-      179 CALL                             R7 3 -1
-      180 RETURN                           R7 -1
+      118 DUPTABLE                         R13 K38 [{["Style"] = "Active", ["Text"], ["Size"], ["Position"], ["AnchorPoint"], ["OnClick"]}]
+      119 SETTABLEKS                       R5 R13 K8 ["Text"]
+      121 GETIMPORT                        R14 K22 [UDim2.new]
+      123 LOADN                            R15 0
+      124 GETTABLEKS                       R17 R6 K39 ["X"]
+      126 GETTABLEKS                       R18 R4 K7 ["saveToRobloxView"]
+      128 GETTABLEKS                       R18 R18 K40 ["publishButton"]
+      130 GETTABLEKS                       R18 R18 K41 ["paddingX"]
+      132 ADD                              R16 R17 R18
+      133 LOADN                            R17 0
+      134 GETTABLEKS                       R19 R6 K42 ["Y"]
+      136 GETTABLEKS                       R20 R4 K7 ["saveToRobloxView"]
+      138 GETTABLEKS                       R20 R20 K40 ["publishButton"]
+      140 GETTABLEKS                       R20 R20 K43 ["paddingY"]
+      142 ADD                              R18 R19 R20
+      143 CALL                             R14 4 1
+      144 SETTABLEKS                       R14 R13 K18 ["Size"]
+      146 GETIMPORT                        R14 K22 [UDim2.new]
+      148 LOADK                            R15 K33 [0.5]
+      149 LOADN                            R16 0
+      150 LOADN                            R17 0
+      151 GETTABLEKS                       R18 R4 K7 ["saveToRobloxView"]
+      153 GETTABLEKS                       R18 R18 K40 ["publishButton"]
+      155 GETTABLEKS                       R18 R18 K44 ["offset"]
+      157 CALL                             R14 4 1
+      158 SETTABLEKS                       R14 R13 K29 ["Position"]
+      160 GETIMPORT                        R14 K13 [Vector2.new]
+      162 LOADK                            R15 K33 [0.5]
+      163 LOADK                            R16 K33 [0.5]
+      164 CALL                             R14 2 1
+      165 SETTABLEKS                       R14 R13 K30 ["AnchorPoint"]
+      167 NEWCLOSURE                       R14 P0
+      168 CAPTURE                          UPVAL U3
+      169 CAPTURE                          UPVAL U4
+      170 CAPTURE                          VAL R2
+      171 SETTABLEKS                       R14 R13 K37 ["OnClick"]
+      173 CALL                             R11 2 1
+      174 SETTABLEKS                       R11 R10 K25 ["SaveButton"]
+      176 CALL                             R7 3 -1
+      177 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

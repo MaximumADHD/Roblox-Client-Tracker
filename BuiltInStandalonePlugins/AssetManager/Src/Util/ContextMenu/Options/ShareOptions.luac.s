@@ -168,47 +168,35 @@ MAIN:
        65 DUPCLOSURE                       R7 K19 [PROTO_1]
        66 CAPTURE                          VAL R2
        67 CAPTURE                          VAL R1
-       68 DUPTABLE                         R8 K24 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       69 LOADK                            R9 K25 ["ContextMenu"]
-       70 SETTABLEKS                       R9 R8 K20 ["TextKey"]
-       72 LOADK                            R9 K26 ["WithCollaborators"]
-       73 SETTABLEKS                       R9 R8 K21 ["TextSubKey"]
-       75 DUPCLOSURE                       R9 K27 [PROTO_2]
-       76 CAPTURE                          VAL R1
-       77 CAPTURE                          VAL R4
-       78 SETTABLEKS                       R9 R8 K22 ["OnItemClicked"]
-       80 DUPCLOSURE                       R9 K28 [PROTO_3]
-       81 SETTABLEKS                       R9 R8 K23 ["ShouldRender"]
-       83 DUPTABLE                         R9 K30 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender", "ShouldDisable"}]
-       84 LOADK                            R10 K25 ["ContextMenu"]
-       85 SETTABLEKS                       R10 R9 K20 ["TextKey"]
-       87 LOADK                            R10 K31 ["OpenUse"]
-       88 SETTABLEKS                       R10 R9 K21 ["TextSubKey"]
-       90 DUPCLOSURE                       R10 K32 [PROTO_4]
-       91 CAPTURE                          VAL R1
-       92 CAPTURE                          VAL R3
-       93 SETTABLEKS                       R10 R9 K22 ["OnItemClicked"]
-       95 DUPCLOSURE                       R10 K33 [PROTO_5]
-       96 SETTABLEKS                       R10 R9 K23 ["ShouldRender"]
-       98 DUPCLOSURE                       R10 K34 [PROTO_6]
-       99 CAPTURE                          VAL R1
-      100 CAPTURE                          VAL R5
-      101 SETTABLEKS                       R10 R9 K29 ["ShouldDisable"]
-      103 DUPTABLE                         R10 K36 [{"TextKey", "TextSubKey", "Children", "ShouldRender"}]
-      104 LOADK                            R11 K25 ["ContextMenu"]
-      105 SETTABLEKS                       R11 R10 K20 ["TextKey"]
-      107 LOADK                            R11 K37 ["QuickShare"]
-      108 SETTABLEKS                       R11 R10 K21 ["TextSubKey"]
-      110 NEWTABLE                         R11 0 2
-      112 MOVE                             R12 R8
-      113 MOVE                             R13 R9
-      114 SETLIST                          R11 R12 2 [1]
-      116 SETTABLEKS                       R11 R10 K35 ["Children"]
-      118 DUPCLOSURE                       R11 K38 [PROTO_7]
-      119 CAPTURE                          VAL R2
-      120 CAPTURE                          VAL R1
-      121 SETTABLEKS                       R11 R10 K23 ["ShouldRender"]
-      123 NEWTABLE                         R11 0 1
-      125 MOVE                             R12 R10
-      126 SETLIST                          R11 R12 1 [1]
-      128 RETURN                           R11 1
+       68 DUPTABLE                         R8 K26 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "WithCollaborators", ["OnItemClicked"], ["ShouldRender"]}]
+       69 DUPCLOSURE                       R9 K27 [PROTO_2]
+       70 CAPTURE                          VAL R1
+       71 CAPTURE                          VAL R4
+       72 SETTABLEKS                       R9 R8 K24 ["OnItemClicked"]
+       74 DUPCLOSURE                       R9 K28 [PROTO_3]
+       75 SETTABLEKS                       R9 R8 K25 ["ShouldRender"]
+       77 DUPTABLE                         R9 K31 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "OpenUse", ["OnItemClicked"], ["ShouldRender"], ["ShouldDisable"]}]
+       78 DUPCLOSURE                       R10 K32 [PROTO_4]
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R3
+       81 SETTABLEKS                       R10 R9 K24 ["OnItemClicked"]
+       83 DUPCLOSURE                       R10 K33 [PROTO_5]
+       84 SETTABLEKS                       R10 R9 K25 ["ShouldRender"]
+       86 DUPCLOSURE                       R10 K34 [PROTO_6]
+       87 CAPTURE                          VAL R1
+       88 CAPTURE                          VAL R5
+       89 SETTABLEKS                       R10 R9 K30 ["ShouldDisable"]
+       91 DUPTABLE                         R10 K37 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "QuickShare", ["Children"], ["ShouldRender"]}]
+       92 NEWTABLE                         R11 0 2
+       94 MOVE                             R12 R8
+       95 MOVE                             R13 R9
+       96 SETLIST                          R11 R12 2 [1]
+       98 SETTABLEKS                       R11 R10 K36 ["Children"]
+      100 DUPCLOSURE                       R11 K38 [PROTO_7]
+      101 CAPTURE                          VAL R2
+      102 CAPTURE                          VAL R1
+      103 SETTABLEKS                       R11 R10 K25 ["ShouldRender"]
+      105 NEWTABLE                         R11 0 1
+      107 MOVE                             R12 R10
+      108 SETLIST                          R11 R12 1 [1]
+      110 RETURN                           R11 1

@@ -51,8 +51,8 @@ PROTO_2:
        41 LOADK                            R6 K9 ["Frame"]
        42 DUPTABLE                         R7 K11 [{"Size"}]
        43 GETIMPORT                        R8 K14 [UDim2.fromOffset]
-       45 LOADN                            R9 188
-       46 LOADN                            R10 188
+       45 LOADN                            R9 700
+       46 LOADN                            R10 700
        47 CALL                             R8 2 1
        48 SETTABLEKS                       R8 R7 K10 ["Size"]
        50 DUPTABLE                         R8 K16 [{"Element"}]

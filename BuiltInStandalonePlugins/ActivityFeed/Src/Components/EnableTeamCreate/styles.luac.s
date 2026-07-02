@@ -63,7 +63,7 @@ MAIN:
        92 CALL                             R17 2 1
        93 MOVE                             R18 R2
        94 LOADK                            R19 K40 ["> #UnsavedExperienceIcon"]
-       95 DUPTABLE                         R20 K43 [{"Size", "Image", "BackgroundTransparency"}]
+       95 DUPTABLE                         R20 K45 [{["Size"], ["Image"] = "$unsavedexperience", ["BackgroundTransparency"] = 1}]
        96 GETIMPORT                        R21 K29 [UDim2.new]
        98 LOADN                            R22 0
        99 MOVE                             R23 R7
@@ -71,65 +71,55 @@ MAIN:
       101 MOVE                             R25 R7
       102 CALL                             R21 4 1
       103 SETTABLEKS                       R21 R20 K24 ["Size"]
-      105 LOADK                            R21 K44 ["$unsavedexperience"]
-      106 SETTABLEKS                       R21 R20 K41 ["Image"]
-      108 LOADN                            R21 1
-      109 SETTABLEKS                       R21 R20 K42 ["BackgroundTransparency"]
-      111 CALL                             R18 2 1
-      112 MOVE                             R19 R2
-      113 LOADK                            R20 K45 ["> #Text"]
-      114 DUPTABLE                         R21 K50 [{"TextXAlignment", "TextColor3", "TextSize", "Font"}]
-      115 GETIMPORT                        R22 K53 [Enum.TextXAlignment.Center]
-      117 SETTABLEKS                       R22 R21 K46 ["TextXAlignment"]
-      119 JUMPIFNOT                        R11 ; [+2]
-      120 LOADK                            R22 K54 ["$FoundationColorsContentEmphasis"]
-      121 JUMP                             ; [+1]
-      122 LOADK                            R22 K55 ["$TextPrimary"]
-      123 SETTABLEKS                       R22 R21 K47 ["TextColor3"]
-      125 SETTABLEKS                       R8 R21 K48 ["TextSize"]
-      127 SETTABLEKS                       R9 R21 K49 ["Font"]
-      129 CALL                             R19 2 1
-      130 MOVE                             R20 R2
-      131 LOADK                            R21 K56 ["> #Button"]
-      132 DUPTABLE                         R22 K57 [{"BackgroundColor3", "TextColor3", "TextSize"}]
-      133 LOADK                            R23 K58 ["$PrimaryMain"]
-      134 SETTABLEKS                       R23 R22 K25 ["BackgroundColor3"]
-      136 LOADK                            R23 K59 ["$TextContrast"]
-      137 SETTABLEKS                       R23 R22 K47 ["TextColor3"]
-      139 SETTABLEKS                       R8 R22 K48 ["TextSize"]
-      141 NEWTABLE                         R23 0 2
-      143 MOVE                             R24 R2
-      144 LOADK                            R25 K32 ["::UIPadding"]
-      145 DUPTABLE                         R26 K63 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      146 GETIMPORT                        R27 K36 [UDim.new]
-      148 LOADN                            R28 0
-      149 MOVE                             R29 R5
-      150 CALL                             R27 2 1
-      151 SETTABLEKS                       R27 R26 K33 ["PaddingTop"]
-      153 GETIMPORT                        R27 K36 [UDim.new]
-      155 LOADN                            R28 0
-      156 MOVE                             R29 R5
-      157 CALL                             R27 2 1
-      158 SETTABLEKS                       R27 R26 K60 ["PaddingBottom"]
-      160 GETIMPORT                        R27 K36 [UDim.new]
-      162 LOADN                            R28 0
-      163 MOVE                             R29 R6
-      164 CALL                             R27 2 1
-      165 SETTABLEKS                       R27 R26 K61 ["PaddingLeft"]
-      167 GETIMPORT                        R27 K36 [UDim.new]
-      169 LOADN                            R28 0
-      170 MOVE                             R29 R6
-      171 CALL                             R27 2 1
-      172 SETTABLEKS                       R27 R26 K62 ["PaddingRight"]
-      174 CALL                             R24 2 1
-      175 MOVE                             R25 R2
-      176 LOADK                            R26 K64 [":hover"]
-      177 DUPTABLE                         R27 K65 [{"BackgroundColor3"}]
-      178 LOADK                            R28 K66 ["$PrimaryHoverBackground"]
-      179 SETTABLEKS                       R28 R27 K25 ["BackgroundColor3"]
-      181 CALL                             R25 2 -1
-      182 SETLIST                          R23 R24 -1 [1]
-      184 CALL                             R20 3 -1
-      185 SETLIST                          R15 R16 -1 [1]
-      187 CALL                             R12 3 -1
-      188 RETURN                           R12 -1
+      105 CALL                             R18 2 1
+      106 MOVE                             R19 R2
+      107 LOADK                            R20 K46 ["> #Text"]
+      108 DUPTABLE                         R21 K51 [{"TextXAlignment", "TextColor3", "TextSize", "Font"}]
+      109 GETIMPORT                        R22 K54 [Enum.TextXAlignment.Center]
+      111 SETTABLEKS                       R22 R21 K47 ["TextXAlignment"]
+      113 JUMPIFNOT                        R11 ; [+2]
+      114 LOADK                            R22 K55 ["$FoundationColorsContentEmphasis"]
+      115 JUMP                             ; [+1]
+      116 LOADK                            R22 K56 ["$TextPrimary"]
+      117 SETTABLEKS                       R22 R21 K48 ["TextColor3"]
+      119 SETTABLEKS                       R8 R21 K49 ["TextSize"]
+      121 SETTABLEKS                       R9 R21 K50 ["Font"]
+      123 CALL                             R19 2 1
+      124 MOVE                             R20 R2
+      125 LOADK                            R21 K57 ["> #Button"]
+      126 DUPTABLE                         R22 K60 [{["BackgroundColor3"] = "$PrimaryMain", ["TextColor3"] = "$TextContrast", ["TextSize"]}]
+      127 SETTABLEKS                       R8 R22 K49 ["TextSize"]
+      129 NEWTABLE                         R23 0 2
+      131 MOVE                             R24 R2
+      132 LOADK                            R25 K32 ["::UIPadding"]
+      133 DUPTABLE                         R26 K64 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      134 GETIMPORT                        R27 K36 [UDim.new]
+      136 LOADN                            R28 0
+      137 MOVE                             R29 R5
+      138 CALL                             R27 2 1
+      139 SETTABLEKS                       R27 R26 K33 ["PaddingTop"]
+      141 GETIMPORT                        R27 K36 [UDim.new]
+      143 LOADN                            R28 0
+      144 MOVE                             R29 R5
+      145 CALL                             R27 2 1
+      146 SETTABLEKS                       R27 R26 K61 ["PaddingBottom"]
+      148 GETIMPORT                        R27 K36 [UDim.new]
+      150 LOADN                            R28 0
+      151 MOVE                             R29 R6
+      152 CALL                             R27 2 1
+      153 SETTABLEKS                       R27 R26 K62 ["PaddingLeft"]
+      155 GETIMPORT                        R27 K36 [UDim.new]
+      157 LOADN                            R28 0
+      158 MOVE                             R29 R6
+      159 CALL                             R27 2 1
+      160 SETTABLEKS                       R27 R26 K63 ["PaddingRight"]
+      162 CALL                             R24 2 1
+      163 MOVE                             R25 R2
+      164 LOADK                            R26 K65 [":hover"]
+      165 DUPTABLE                         R27 K67 [{["BackgroundColor3"] = "$PrimaryHoverBackground"}]
+      166 CALL                             R25 2 -1
+      167 SETLIST                          R23 R24 -1 [1]
+      169 CALL                             R20 3 -1
+      170 SETLIST                          R15 R16 -1 [1]
+      172 CALL                             R12 3 -1
+      173 RETURN                           R12 -1

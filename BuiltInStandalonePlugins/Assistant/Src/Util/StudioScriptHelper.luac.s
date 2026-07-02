@@ -26,67 +26,57 @@ PROTO_1:
        14 SETTABLEKS                       R4 R1 K4 ["StudioService"]
        16 GETTABLEKS                       R2 R1 K4 ["StudioService"]
        18 GETTABLEKS                       R2 R2 K6 ["ActiveScript"]
-       20 JUMPIF                           R2 ; [+8]
-       21 DUPTABLE                         R3 K9 [{"success", "errorMessage"}]
-       22 LOADB                            R4 0
-       23 SETTABLEKS                       R4 R3 K7 ["success"]
-       25 LOADK                            R4 K10 ["No script is currently active"]
-       26 SETTABLEKS                       R4 R3 K8 ["errorMessage"]
-       28 RETURN                           R3 1
-       29 GETTABLEKS                       R3 R1 K3 ["ScriptEditorService"]
-       31 MOVE                             R5 R2
-       32 NAMECALL                         R3 R3 K11 ["FindScriptDocument"]
-       34 CALL                             R3 2 1
-       35 JUMPIF                           R3 ; [+20]
-       36 DUPTABLE                         R4 K13 [{"success", "errorMessage", "script"}]
-       37 LOADB                            R5 0
-       38 SETTABLEKS                       R5 R4 K7 ["success"]
-       40 LOADK                            R5 K14 ["No document found for active script"]
-       41 SETTABLEKS                       R5 R4 K8 ["errorMessage"]
-       43 DUPTABLE                         R5 K17 [{"Name", "FullName"}]
-       44 GETTABLEKS                       R6 R2 K15 ["Name"]
-       46 SETTABLEKS                       R6 R5 K15 ["Name"]
-       48 NAMECALL                         R6 R2 K18 ["GetFullName"]
-       50 CALL                             R6 1 1
-       51 SETTABLEKS                       R6 R5 K16 ["FullName"]
-       53 SETTABLEKS                       R5 R4 K12 ["script"]
-       55 RETURN                           R4 1
-       56 NAMECALL                         R4 R3 K19 ["GetSelectedText"]
-       58 CALL                             R4 1 1
-       59 MOVE                             R5 R4
-       60 JUMPIFNOT                        R5 ; [+4]
-       61 JUMPIFNOTEQKS                    R4 K20 [""] ; [+2]
-       63 LOADB                            R5 0 +1
-       64 LOADB                            R5 1
-       65 NAMECALL                         R6 R3 K21 ["GetSelectionStart"]
-       67 CALL                             R6 1 2
-       68 NAMECALL                         R8 R3 K22 ["GetSelectionEnd"]
-       70 CALL                             R8 1 2
-       71 DUPTABLE                         R10 K27 [{"success", "script", "selectedText", "hasSelection", "selectionStart", "selectionEnd"}]
-       72 LOADB                            R11 1
-       73 SETTABLEKS                       R11 R10 K7 ["success"]
-       75 DUPTABLE                         R11 K17 [{"Name", "FullName"}]
-       76 GETTABLEKS                       R12 R2 K15 ["Name"]
-       78 SETTABLEKS                       R12 R11 K15 ["Name"]
-       80 NAMECALL                         R12 R2 K18 ["GetFullName"]
-       82 CALL                             R12 1 1
-       83 SETTABLEKS                       R12 R11 K16 ["FullName"]
-       85 SETTABLEKS                       R11 R10 K12 ["script"]
-       87 JUMPIFNOT                        R5 ; [+2]
-       88 MOVE                             R11 R4
-       89 JUMPIF                           R11 ; [+1]
-       90 LOADNIL                          R11
-       91 SETTABLEKS                       R11 R10 K23 ["selectedText"]
-       93 SETTABLEKS                       R5 R10 K24 ["hasSelection"]
-       95 DUPTABLE                         R11 K30 [{"line", "char"}]
-       96 SETTABLEKS                       R6 R11 K28 ["line"]
-       98 SETTABLEKS                       R7 R11 K29 ["char"]
-      100 SETTABLEKS                       R11 R10 K25 ["selectionStart"]
-      102 DUPTABLE                         R11 K30 [{"line", "char"}]
-      103 SETTABLEKS                       R8 R11 K28 ["line"]
-      105 SETTABLEKS                       R9 R11 K29 ["char"]
-      107 SETTABLEKS                       R11 R10 K26 ["selectionEnd"]
-      109 RETURN                           R10 1
+       20 JUMPIF                           R2 ; [+2]
+       21 DUPTABLE                         R3 K11 [{["success"] = False, ["errorMessage"] = "No script is currently active"}]
+       22 RETURN                           R3 1
+       23 GETTABLEKS                       R3 R1 K3 ["ScriptEditorService"]
+       25 MOVE                             R5 R2
+       26 NAMECALL                         R3 R3 K12 ["FindScriptDocument"]
+       28 CALL                             R3 2 1
+       29 JUMPIF                           R3 ; [+14]
+       30 DUPTABLE                         R4 K15 [{["success"] = False, ["errorMessage"] = "No document found for active script", ["script"]}]
+       31 DUPTABLE                         R5 K18 [{"Name", "FullName"}]
+       32 GETTABLEKS                       R6 R2 K16 ["Name"]
+       34 SETTABLEKS                       R6 R5 K16 ["Name"]
+       36 NAMECALL                         R6 R2 K19 ["GetFullName"]
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K17 ["FullName"]
+       41 SETTABLEKS                       R5 R4 K14 ["script"]
+       43 RETURN                           R4 1
+       44 NAMECALL                         R4 R3 K20 ["GetSelectedText"]
+       46 CALL                             R4 1 1
+       47 MOVE                             R5 R4
+       48 JUMPIFNOT                        R5 ; [+4]
+       49 JUMPIFNOTEQKS                    R4 K21 [""] ; [+2]
+       51 LOADB                            R5 0 +1
+       52 LOADB                            R5 1
+       53 NAMECALL                         R6 R3 K22 ["GetSelectionStart"]
+       55 CALL                             R6 1 2
+       56 NAMECALL                         R8 R3 K23 ["GetSelectionEnd"]
+       58 CALL                             R8 1 2
+       59 DUPTABLE                         R10 K29 [{["success"] = True, ["script"], ["selectedText"], ["hasSelection"], ["selectionStart"], ["selectionEnd"]}]
+       60 DUPTABLE                         R11 K18 [{"Name", "FullName"}]
+       61 GETTABLEKS                       R12 R2 K16 ["Name"]
+       63 SETTABLEKS                       R12 R11 K16 ["Name"]
+       65 NAMECALL                         R12 R2 K19 ["GetFullName"]
+       67 CALL                             R12 1 1
+       68 SETTABLEKS                       R12 R11 K17 ["FullName"]
+       70 SETTABLEKS                       R11 R10 K14 ["script"]
+       72 JUMPIFNOT                        R5 ; [+2]
+       73 MOVE                             R11 R4
+       74 JUMPIF                           R11 ; [+1]
+       75 LOADNIL                          R11
+       76 SETTABLEKS                       R11 R10 K25 ["selectedText"]
+       78 SETTABLEKS                       R5 R10 K26 ["hasSelection"]
+       80 DUPTABLE                         R11 K32 [{"line", "char"}]
+       81 SETTABLEKS                       R6 R11 K30 ["line"]
+       83 SETTABLEKS                       R7 R11 K31 ["char"]
+       85 SETTABLEKS                       R11 R10 K27 ["selectionStart"]
+       87 DUPTABLE                         R11 K32 [{"line", "char"}]
+       88 SETTABLEKS                       R8 R11 K30 ["line"]
+       90 SETTABLEKS                       R9 R11 K31 ["char"]
+       92 SETTABLEKS                       R11 R10 K28 ["selectionEnd"]
+       94 RETURN                           R10 1
 
 PROTO_2:
         0 GETIMPORT                        R2 K1 [pcall]

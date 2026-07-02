@@ -50,7 +50,7 @@ MAIN:
        24 GETIMPORT                        R3 K14 [pcall]
        26 DUPCLOSURE                       R4 K15 [PROTO_0]
        27 CALL                             R3 1 2
-       28 JUMPIFNOT                        R3 ; [+102]
+       28 JUMPIFNOT                        R3 ; [+96]
        29 GETIMPORT                        R5 K8 [require]
        31 GETTABLEKS                       R6 R0 K9 ["Packages"]
        33 GETTABLEKS                       R6 R6 K16 ["Dev"]
@@ -75,125 +75,109 @@ MAIN:
        63 CALL                             R7 3 1
        64 MOVE                             R8 R5
        65 GETTABLEKS                       R9 R0 K28 ["Src"]
-       67 DUPTABLE                         R10 K33 [{"verbose", "ci", "updateSnapshot", "testPathPattern"}]
-       68 LOADB                            R11 1
-       69 SETTABLEKS                       R11 R10 K29 ["verbose"]
-       71 LOADB                            R11 1
-       72 SETTABLEKS                       R11 R10 K30 ["ci"]
-       74 SETTABLEKS                       R6 R10 K31 ["updateSnapshot"]
-       76 JUMPIFNOTEQKS                    R7 K26 [""] ; [+3]
-       78 LOADNIL                          R11
-       79 JUMP                             ; [+1]
-       80 MOVE                             R11 R7
-       81 SETTABLEKS                       R11 R10 K32 ["testPathPattern"]
-       83 NEWTABLE                         R11 0 2
-       85 GETTABLEKS                       R12 R0 K28 ["Src"]
-       87 GETTABLEKS                       R13 R0 K34 ["RhodiumTests"]
-       89 SETLIST                          R11 R12 2 [1]
-       91 CALL                             R8 3 1
-       92 NAMECALL                         R8 R8 K35 ["awaitStatus"]
-       94 CALL                             R8 1 2
-       95 JUMPIFNOTEQKS                    R8 K36 ["Resolved"] ; [+15]
-       97 GETTABLEKS                       R10 R9 K37 ["results"]
-       99 GETTABLEKS                       R10 R10 K38 ["numFailedTestSuites"]
-      101 LOADN                            R11 0
-      102 JUMPIFLT                         R11 R10 ; [+8]
-      104 GETTABLEKS                       R10 R9 K37 ["results"]
-      106 GETTABLEKS                       R10 R10 K39 ["numFailedTests"]
-      108 LOADN                            R11 0
-      109 JUMPIFNOTLT                      R11 R10 ; [+16]
-      111 JUMPIFNOTEQKS                    R8 K40 ["Rejected"] ; [+5]
-      113 GETIMPORT                        R10 K42 [print]
-      115 MOVE                             R11 R9
-      116 CALL                             R10 1 0
-      117 LOADK                            R12 K43 ["Jest 3 test run failed"]
-      118 NAMECALL                         R10 R1 K44 ["Error"]
-      120 CALL                             R10 2 0
-      121 LOADN                            R12 1
-      122 NAMECALL                         R10 R4 K45 ["ExitAsync"]
-      124 CALL                             R10 2 0
-      125 RETURN                           R0 0
-      126 LOADN                            R12 0
-      127 NAMECALL                         R10 R4 K45 ["ExitAsync"]
-      129 CALL                             R10 2 0
-      130 RETURN                           R0 0
-      131 GETTABLEKS                       R5 R2 K46 ["launch"]
-      133 LOADK                            R6 K47 ["AvatarCompatibilityPreviewer"]
-      134 GETTABLEKS                       R7 R0 K28 ["Src"]
-      136 CALL                             R5 2 0
-      137 GETTABLEKS                       R5 R2 K48 ["isCli"]
-      139 CALL                             R5 0 1
-      140 JUMPIFNOT                        R5 ; [+1]
-      141 RETURN                           R0 0
-      142 GETIMPORT                        R5 K8 [require]
-      144 GETTABLEKS                       R6 R0 K9 ["Packages"]
-      146 GETTABLEKS                       R6 R6 K49 ["PluginLoader"]
-      148 CALL                             R5 1 1
-      149 GETTABLEKS                       R6 R5 K50 ["PluginLoaderBuilder"]
-      151 GETTABLEKS                       R7 R0 K28 ["Src"]
-      153 GETTABLEKS                       R7 R7 K51 ["Resources"]
-      155 GETTABLEKS                       R7 R7 K52 ["Localization"]
-      157 GETTABLEKS                       R7 R7 K53 ["SourceStrings"]
-      159 GETTABLEKS                       R8 R0 K28 ["Src"]
-      161 GETTABLEKS                       R8 R8 K51 ["Resources"]
-      163 GETTABLEKS                       R8 R8 K52 ["Localization"]
-      165 GETTABLEKS                       R8 R8 K54 ["LocalizedStrings"]
-      167 DUPTABLE                         R9 K63 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-      168 GETIMPORT                        R10 K12 [plugin]
-      170 SETTABLEKS                       R10 R9 K11 ["plugin"]
-      172 LOADK                            R10 K47 ["AvatarCompatibilityPreviewer"]
-      173 SETTABLEKS                       R10 R9 K55 ["pluginName"]
-      175 SETTABLEKS                       R8 R9 K56 ["translationResourceTable"]
-      177 SETTABLEKS                       R7 R9 K57 ["fallbackResourceTable"]
-      179 LOADNIL                          R10
-      180 SETTABLEKS                       R10 R9 K58 ["overrideLocaleId"]
-      182 LOADNIL                          R10
-      183 SETTABLEKS                       R10 R9 K59 ["localizationNamespace"]
-      185 DUPCLOSURE                       R10 K64 [PROTO_1]
-      186 SETTABLEKS                       R10 R9 K60 ["getToolbarName"]
-      188 DUPTABLE                         R10 K69 [{"getName", "getDescription", "icon", "text"}]
-      189 DUPCLOSURE                       R11 K70 [PROTO_2]
-      190 SETTABLEKS                       R11 R10 K65 ["getName"]
-      192 DUPCLOSURE                       R11 K71 [PROTO_3]
-      193 SETTABLEKS                       R11 R10 K66 ["getDescription"]
-      195 LOADK                            R11 K26 [""]
-      196 SETTABLEKS                       R11 R10 K67 ["icon"]
-      198 LOADNIL                          R11
-      199 SETTABLEKS                       R11 R10 K68 ["text"]
-      201 SETTABLEKS                       R10 R9 K61 ["buttonInfo"]
-      203 DUPTABLE                         R10 K76 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-      204 LOADK                            R11 K47 ["AvatarCompatibilityPreviewer"]
-      205 SETTABLEKS                       R11 R10 K72 ["id"]
-      207 GETIMPORT                        R11 K79 [DockWidgetPluginGuiInfo.new]
-      209 GETIMPORT                        R12 K83 [Enum.InitialDockState.Left]
-      211 LOADB                            R13 0
-      212 LOADB                            R14 0
-      213 LOADN                            R15 194
-      214 LOADN                            R16 88
-      215 LOADN                            R17 240
-      216 LOADN                            R18 250
-      217 CALL                             R11 7 1
-      218 SETTABLEKS                       R11 R10 K73 ["dockWidgetPluginGuiInfo"]
-      220 DUPCLOSURE                       R11 K84 [PROTO_4]
-      221 SETTABLEKS                       R11 R10 K74 ["getDockTitle"]
-      223 GETIMPORT                        R11 K87 [Enum.ZIndexBehavior.Sibling]
-      225 SETTABLEKS                       R11 R10 K75 ["zIndexBehavior"]
-      227 SETTABLEKS                       R10 R9 K62 ["dockWidgetInfo"]
-      229 GETTABLEKS                       R10 R6 K88 ["build"]
-      231 MOVE                             R11 R9
-      232 CALL                             R10 1 1
-      233 GETTABLEKS                       R11 R10 K89 ["pluginLoader"]
-      235 NAMECALL                         R11 R11 K90 ["waitForUserInteraction"]
-      237 CALL                             R11 1 1
-      238 JUMPIF                           R11 ; [+1]
-      239 RETURN                           R0 0
-      240 GETIMPORT                        R12 K8 [require]
-      242 GETIMPORT                        R13 K1 [script]
-      244 GETTABLEKS                       R13 R13 K2 ["Parent"]
-      246 GETTABLEKS                       R13 R13 K91 ["main"]
-      248 CALL                             R12 1 1
-      249 MOVE                             R13 R12
-      250 GETIMPORT                        R14 K12 [plugin]
-      252 MOVE                             R15 R10
-      253 CALL                             R13 2 0
-      254 RETURN                           R0 0
+       67 DUPTABLE                         R10 K34 [{["verbose"] = True, ["ci"] = True, ["updateSnapshot"], ["testPathPattern"]}]
+       68 SETTABLEKS                       R6 R10 K32 ["updateSnapshot"]
+       70 JUMPIFNOTEQKS                    R7 K26 [""] ; [+3]
+       72 LOADNIL                          R11
+       73 JUMP                             ; [+1]
+       74 MOVE                             R11 R7
+       75 SETTABLEKS                       R11 R10 K33 ["testPathPattern"]
+       77 NEWTABLE                         R11 0 2
+       79 GETTABLEKS                       R12 R0 K28 ["Src"]
+       81 GETTABLEKS                       R13 R0 K35 ["RhodiumTests"]
+       83 SETLIST                          R11 R12 2 [1]
+       85 CALL                             R8 3 1
+       86 NAMECALL                         R8 R8 K36 ["awaitStatus"]
+       88 CALL                             R8 1 2
+       89 JUMPIFNOTEQKS                    R8 K37 ["Resolved"] ; [+15]
+       91 GETTABLEKS                       R10 R9 K38 ["results"]
+       93 GETTABLEKS                       R10 R10 K39 ["numFailedTestSuites"]
+       95 LOADN                            R11 0
+       96 JUMPIFLT                         R11 R10 ; [+8]
+       98 GETTABLEKS                       R10 R9 K38 ["results"]
+      100 GETTABLEKS                       R10 R10 K40 ["numFailedTests"]
+      102 LOADN                            R11 0
+      103 JUMPIFNOTLT                      R11 R10 ; [+16]
+      105 JUMPIFNOTEQKS                    R8 K41 ["Rejected"] ; [+5]
+      107 GETIMPORT                        R10 K43 [print]
+      109 MOVE                             R11 R9
+      110 CALL                             R10 1 0
+      111 LOADK                            R12 K44 ["Jest 3 test run failed"]
+      112 NAMECALL                         R10 R1 K45 ["Error"]
+      114 CALL                             R10 2 0
+      115 LOADN                            R12 1
+      116 NAMECALL                         R10 R4 K46 ["ExitAsync"]
+      118 CALL                             R10 2 0
+      119 RETURN                           R0 0
+      120 LOADN                            R12 0
+      121 NAMECALL                         R10 R4 K46 ["ExitAsync"]
+      123 CALL                             R10 2 0
+      124 RETURN                           R0 0
+      125 GETTABLEKS                       R5 R2 K47 ["launch"]
+      127 LOADK                            R6 K48 ["AvatarCompatibilityPreviewer"]
+      128 GETTABLEKS                       R7 R0 K28 ["Src"]
+      130 CALL                             R5 2 0
+      131 GETTABLEKS                       R5 R2 K49 ["isCli"]
+      133 CALL                             R5 0 1
+      134 JUMPIFNOT                        R5 ; [+1]
+      135 RETURN                           R0 0
+      136 GETIMPORT                        R5 K8 [require]
+      138 GETTABLEKS                       R6 R0 K9 ["Packages"]
+      140 GETTABLEKS                       R6 R6 K50 ["PluginLoader"]
+      142 CALL                             R5 1 1
+      143 GETTABLEKS                       R6 R5 K51 ["PluginLoaderBuilder"]
+      145 GETTABLEKS                       R7 R0 K28 ["Src"]
+      147 GETTABLEKS                       R7 R7 K52 ["Resources"]
+      149 GETTABLEKS                       R7 R7 K53 ["Localization"]
+      151 GETTABLEKS                       R7 R7 K54 ["SourceStrings"]
+      153 GETTABLEKS                       R8 R0 K28 ["Src"]
+      155 GETTABLEKS                       R8 R8 K52 ["Resources"]
+      157 GETTABLEKS                       R8 R8 K53 ["Localization"]
+      159 GETTABLEKS                       R8 R8 K55 ["LocalizedStrings"]
+      161 DUPTABLE                         R9 K65 [{["plugin"], ["pluginName"] = "AvatarCompatibilityPreviewer", ["translationResourceTable"], ["fallbackResourceTable"], ["overrideLocaleId"] = , ["localizationNamespace"] = , ["getToolbarName"], ["buttonInfo"], ["dockWidgetInfo"]}]
+      162 GETIMPORT                        R10 K12 [plugin]
+      164 SETTABLEKS                       R10 R9 K11 ["plugin"]
+      166 SETTABLEKS                       R8 R9 K57 ["translationResourceTable"]
+      168 SETTABLEKS                       R7 R9 K58 ["fallbackResourceTable"]
+      170 DUPCLOSURE                       R10 K66 [PROTO_1]
+      171 SETTABLEKS                       R10 R9 K62 ["getToolbarName"]
+      173 DUPTABLE                         R10 K71 [{["getName"], ["getDescription"], ["icon"] = "", ["text"] = }]
+      174 DUPCLOSURE                       R11 K72 [PROTO_2]
+      175 SETTABLEKS                       R11 R10 K67 ["getName"]
+      177 DUPCLOSURE                       R11 K73 [PROTO_3]
+      178 SETTABLEKS                       R11 R10 K68 ["getDescription"]
+      180 SETTABLEKS                       R10 R9 K63 ["buttonInfo"]
+      182 DUPTABLE                         R10 K78 [{["id"] = "AvatarCompatibilityPreviewer", ["dockWidgetPluginGuiInfo"], ["getDockTitle"], ["zIndexBehavior"]}]
+      183 GETIMPORT                        R11 K81 [DockWidgetPluginGuiInfo.new]
+      185 GETIMPORT                        R12 K85 [Enum.InitialDockState.Left]
+      187 LOADB                            R13 0
+      188 LOADB                            R14 0
+      189 LOADN                            R15 450
+      190 LOADN                            R16 600
+      191 LOADN                            R17 240
+      192 LOADN                            R18 250
+      193 CALL                             R11 7 1
+      194 SETTABLEKS                       R11 R10 K75 ["dockWidgetPluginGuiInfo"]
+      196 DUPCLOSURE                       R11 K86 [PROTO_4]
+      197 SETTABLEKS                       R11 R10 K76 ["getDockTitle"]
+      199 GETIMPORT                        R11 K89 [Enum.ZIndexBehavior.Sibling]
+      201 SETTABLEKS                       R11 R10 K77 ["zIndexBehavior"]
+      203 SETTABLEKS                       R10 R9 K64 ["dockWidgetInfo"]
+      205 GETTABLEKS                       R10 R6 K90 ["build"]
+      207 MOVE                             R11 R9
+      208 CALL                             R10 1 1
+      209 GETTABLEKS                       R11 R10 K91 ["pluginLoader"]
+      211 NAMECALL                         R11 R11 K92 ["waitForUserInteraction"]
+      213 CALL                             R11 1 1
+      214 JUMPIF                           R11 ; [+1]
+      215 RETURN                           R0 0
+      216 GETIMPORT                        R12 K8 [require]
+      218 GETIMPORT                        R13 K1 [script]
+      220 GETTABLEKS                       R13 R13 K2 ["Parent"]
+      222 GETTABLEKS                       R13 R13 K93 ["main"]
+      224 CALL                             R12 1 1
+      225 MOVE                             R13 R12
+      226 GETIMPORT                        R14 K12 [plugin]
+      228 MOVE                             R15 R10
+      229 CALL                             R13 2 0
+      230 RETURN                           R0 0

@@ -146,7 +146,7 @@ PROTO_9:
        28 GETUPVAL                         R11 1
        29 GETTABLEKS                       R11 R11 K11 ["Exponent"]
        31 ORK                              R10 R11 K10 [1]
-       32 DIVRK                            R9 R10 K10 [1]
+       32 DIVRK                            R9 K10 [1] R10
        33 FASTCALL2                        MATH_POW R3 R9 ; [+4]
        35 MOVE                             R8 R3
        36 GETIMPORT                        R7 K13 [math.pow]

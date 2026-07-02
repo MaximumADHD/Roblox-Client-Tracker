@@ -53,16 +53,10 @@ PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K4 [{"ShowBoundingBox", "Summonable", "Outset"}]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["ShowBoundingBox"]
-        8 LOADB                            R3 0
-        9 SETTABLEKS                       R3 R2 K2 ["Summonable"]
-       11 LOADN                            R3 1
-       12 SETTABLEKS                       R3 R2 K3 ["Outset"]
-       14 GETUPVAL                         R3 2
-       15 CALL                             R0 3 -1
-       16 RETURN                           R0 -1
+        4 DUPTABLE                         R2 K6 [{["ShowBoundingBox"] = False, ["Summonable"] = False, ["Outset"] = 1}]
+        5 GETUPVAL                         R3 2
+        6 CALL                             R0 3 -1
+        7 RETURN                           R0 -1
 
 PROTO_6:
         0 GETUPVAL                         R2 0

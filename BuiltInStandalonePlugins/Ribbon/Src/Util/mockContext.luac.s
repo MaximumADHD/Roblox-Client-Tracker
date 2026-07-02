@@ -47,17 +47,11 @@ MAIN:
        26 LOADK                            R7 K10 ["Plugin"]
        27 NAMECALL                         R5 R0 K13 ["FindFirstAncestorWhichIsA"]
        29 CALL                             R5 2 1
-       30 DUPTABLE                         R6 K17 [{"DataModel", "PluginType", "PluginId"}]
-       31 LOADK                            R7 K18 ["Standalone"]
-       32 SETTABLEKS                       R7 R6 K14 ["DataModel"]
-       34 LOADK                            R7 K18 ["Standalone"]
-       35 SETTABLEKS                       R7 R6 K15 ["PluginType"]
-       37 LOADK                            R7 K2 ["Ribbon"]
-       38 SETTABLEKS                       R7 R6 K16 ["PluginId"]
-       40 DUPCLOSURE                       R7 K19 [PROTO_0]
-       41 CAPTURE                          VAL R2
-       42 CAPTURE                          VAL R3
-       43 CAPTURE                          VAL R4
-       44 CAPTURE                          VAL R5
-       45 CAPTURE                          VAL R6
-       46 RETURN                           R7 1
+       30 DUPTABLE                         R6 K18 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon"}]
+       31 DUPCLOSURE                       R7 K19 [PROTO_0]
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          VAL R3
+       34 CAPTURE                          VAL R4
+       35 CAPTURE                          VAL R5
+       36 CAPTURE                          VAL R6
+       37 RETURN                           R7 1

@@ -88,16 +88,16 @@ PROTO_4:
        13 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"studsPerTile"}]
+        0 DUPTABLE                         R1 K2 [{"studsPerTile", "materialPatterns"}]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R3 R0 K2 ["props"]
-        4 GETTABLEKS                       R3 R3 K3 ["PBRMaterial"]
-        6 GETTABLEKS                       R3 R3 K4 ["StudsPerTile"]
+        2 GETTABLEKS                       R3 R0 K3 ["props"]
+        4 GETTABLEKS                       R3 R3 K4 ["PBRMaterial"]
+        6 GETTABLEKS                       R3 R3 K5 ["StudsPerTile"]
         8 CALL                             R2 1 1
         9 SETTABLEKS                       R2 R1 K0 ["studsPerTile"]
-       11 SETTABLEKS                       R1 R0 K5 ["state"]
-       13 NEWTABLE                         R1 0 0
-       15 SETTABLEKS                       R1 R0 K6 ["materialPatterns"]
+       11 NEWTABLE                         R2 0 0
+       13 SETTABLEKS                       R2 R1 K1 ["materialPatterns"]
+       15 SETTABLEKS                       R1 R0 K6 ["state"]
        17 NEWCLOSURE                       R1 P0
        18 CAPTURE                          VAL R0
        19 SETTABLEKS                       R1 R0 K7 ["onStudsPerTileChanged"]
@@ -123,25 +123,27 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R1 K1 ["Localization"]
-        4 GETIMPORT                        R3 K3 [ipairs]
-        6 GETUPVAL                         R4 0
-        7 CALL                             R3 1 3
-        8 FORGPREP_INEXT                   R3
-        9 GETTABLEKS                       R9 R0 K4 ["materialPatterns"]
-       11 LOADK                            R12 K5 ["MaterialPatterns"]
-       12 GETUPVAL                         R13 1
-       13 MOVE                             R14 R7
-       14 CALL                             R13 1 -1
-       15 NAMECALL                         R10 R2 K6 ["getText"]
-       17 CALL                             R10 -1 -1
-       18 FASTCALL                         TABLE_INSERT ; [+2]
-       19 GETIMPORT                        R8 K9 [table.insert]
-       21 CALL                             R8 -1 0
-       22 FORGLOOP                         R3 2 [inext] ; [-14]
-       24 NEWTABLE                         R5 0 0
-       26 NAMECALL                         R3 R0 K10 ["setState"]
-       28 CALL                             R3 2 0
-       29 RETURN                           R0 0
+        4 NEWTABLE                         R3 0 0
+        6 GETIMPORT                        R4 K3 [ipairs]
+        8 GETUPVAL                         R5 0
+        9 CALL                             R4 1 3
+       10 FORGPREP_INEXT                   R4
+       11 MOVE                             R10 R3
+       12 LOADK                            R13 K4 ["MaterialPatterns"]
+       13 GETUPVAL                         R14 1
+       14 MOVE                             R15 R8
+       15 CALL                             R14 1 -1
+       16 NAMECALL                         R11 R2 K5 ["getText"]
+       18 CALL                             R11 -1 -1
+       19 FASTCALL                         TABLE_INSERT ; [+2]
+       20 GETIMPORT                        R9 K8 [table.insert]
+       22 CALL                             R9 -1 0
+       23 FORGLOOP                         R4 2 [inext] ; [-13]
+       25 DUPTABLE                         R6 K10 [{"materialPatterns"}]
+       26 SETTABLEKS                       R3 R6 K9 ["materialPatterns"]
+       28 NAMECALL                         R4 R0 K11 ["setState"]
+       30 CALL                             R4 2 0
+       31 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["state"]
@@ -217,99 +219,98 @@ PROTO_8:
        66 GETUPVAL                         R11 2
        67 GETTABLEKS                       R11 R11 K11 ["createElement"]
        69 GETUPVAL                         R12 4
-       70 DUPTABLE                         R13 K29 [{"Style", "Size", "Text", "OnTextChanged", "OnFocusLost"}]
-       71 LOADK                            R14 K30 ["FilledRoundedBorder"]
-       72 SETTABLEKS                       R14 R13 K25 ["Style"]
-       74 GETTABLEKS                       R14 R2 K31 ["DialogColumnSize"]
-       76 SETTABLEKS                       R14 R13 K26 ["Size"]
-       78 GETTABLEKS                       R14 R0 K22 ["state"]
-       80 GETTABLEKS                       R14 R14 K32 ["studsPerTile"]
-       82 SETTABLEKS                       R14 R13 K14 ["Text"]
-       84 GETTABLEKS                       R14 R0 K33 ["onStudsPerTileChanged"]
-       86 SETTABLEKS                       R14 R13 K27 ["OnTextChanged"]
-       88 GETTABLEKS                       R14 R0 K34 ["onFocusLost"]
-       90 SETTABLEKS                       R14 R13 K28 ["OnFocusLost"]
-       92 CALL                             R11 2 -1
-       93 SETLIST                          R10 R11 -1 [1]
-       95 CALL                             R7 3 1
-       96 SETTABLEKS                       R7 R6 K9 ["StudsPerTile"]
-       98 GETUPVAL                         R7 2
-       99 GETTABLEKS                       R7 R7 K11 ["createElement"]
-      101 GETUPVAL                         R8 3
-      102 DUPTABLE                         R9 K35 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
-      103 GETTABLEKS                       R10 R1 K18 ["LabelWidth"]
-      105 JUMPIF                           R10 ; [+2]
-      106 GETTABLEKS                       R10 R2 K12 ["LabelColumnWidth"]
-      108 SETTABLEKS                       R10 R9 K12 ["LabelColumnWidth"]
-      110 NAMECALL                         R10 R4 K19 ["getNextOrder"]
-      112 CALL                             R10 1 1
-      113 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
-      115 LOADK                            R12 K20 ["MaterialTiling"]
-      116 LOADK                            R13 K36 ["Pattern"]
-      117 NAMECALL                         R10 R3 K21 ["getText"]
-      119 CALL                             R10 3 1
-      120 SETTABLEKS                       R10 R9 K14 ["Text"]
-      122 NEWTABLE                         R10 0 1
-      124 GETUPVAL                         R11 2
-      125 GETTABLEKS                       R11 R11 K11 ["createElement"]
-      127 GETUPVAL                         R12 5
-      128 DUPTABLE                         R13 K40 [{"Style", "Items", "Size", "OnItemActivated", "SelectedIndex"}]
-      129 GETTABLEKS                       R14 R2 K41 ["CustomSelectInput"]
-      131 SETTABLEKS                       R14 R13 K25 ["Style"]
-      133 GETTABLEKS                       R14 R0 K42 ["materialPatterns"]
-      135 SETTABLEKS                       R14 R13 K37 ["Items"]
-      137 GETTABLEKS                       R14 R2 K31 ["DialogColumnSize"]
-      139 SETTABLEKS                       R14 R13 K26 ["Size"]
-      141 GETTABLEKS                       R14 R0 K43 ["onMaterialPatternSelected"]
-      143 SETTABLEKS                       R14 R13 K38 ["OnItemActivated"]
-      145 SETTABLEKS                       R5 R13 K39 ["SelectedIndex"]
-      147 CALL                             R11 2 -1
-      148 SETLIST                          R10 R11 -1 [1]
-      150 CALL                             R7 3 1
-      151 SETTABLEKS                       R7 R6 K8 ["MaterialPattern"]
-      153 GETTABLEKS                       R7 R1 K44 ["Expandable"]
-      155 JUMPIFNOT                        R7 ; [+39]
-      156 GETUPVAL                         R7 2
-      157 GETTABLEKS                       R7 R7 K11 ["createElement"]
-      159 GETUPVAL                         R8 6
-      160 DUPTABLE                         R9 K49 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
-      161 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
-      163 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
-      165 GETTABLEKS                       R10 R2 K45 ["ContentPadding"]
-      167 SETTABLEKS                       R10 R9 K45 ["ContentPadding"]
-      169 GETTABLEKS                       R10 R2 K50 ["ItemSpacing"]
-      171 SETTABLEKS                       R10 R9 K46 ["ContentSpacing"]
-      173 LOADK                            R12 K20 ["MaterialTiling"]
-      174 LOADK                            R13 K51 ["Tiling"]
-      175 NAMECALL                         R10 R3 K21 ["getText"]
-      177 CALL                             R10 3 1
-      178 SETTABLEKS                       R10 R9 K14 ["Text"]
-      180 GETTABLEKS                       R10 R2 K52 ["CustomExpandablePane"]
-      182 SETTABLEKS                       R10 R9 K25 ["Style"]
-      184 GETTABLEKS                       R10 R1 K53 ["ExpandedPane"]
-      186 SETTABLEKS                       R10 R9 K47 ["Expanded"]
-      188 GETTABLEKS                       R10 R0 K54 ["onExpandedChanged"]
-      190 SETTABLEKS                       R10 R9 K48 ["OnExpandedChanged"]
-      192 MOVE                             R10 R6
-      193 CALL                             R7 3 -1
-      194 RETURN                           R7 -1
-      195 GETUPVAL                         R7 2
-      196 GETTABLEKS                       R7 R7 K11 ["createElement"]
-      198 GETUPVAL                         R8 7
-      199 DUPTABLE                         R9 K59 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
-      200 GETIMPORT                        R10 K62 [Enum.AutomaticSize.Y]
-      202 SETTABLEKS                       R10 R9 K55 ["AutomaticSize"]
-      204 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
-      206 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
-      208 GETIMPORT                        R10 K65 [Enum.FillDirection.Vertical]
-      210 SETTABLEKS                       R10 R9 K56 ["Layout"]
-      212 GETTABLEKS                       R10 R2 K50 ["ItemSpacing"]
-      214 SETTABLEKS                       R10 R9 K57 ["Spacing"]
-      216 GETIMPORT                        R10 K67 [Enum.HorizontalAlignment.Left]
-      218 SETTABLEKS                       R10 R9 K58 ["HorizontalAlignment"]
-      220 MOVE                             R10 R6
-      221 CALL                             R7 3 -1
-      222 RETURN                           R7 -1
+       70 DUPTABLE                         R13 K30 [{["Style"] = "FilledRoundedBorder", ["Size"], ["Text"], ["OnTextChanged"], ["OnFocusLost"]}]
+       71 GETTABLEKS                       R14 R2 K31 ["DialogColumnSize"]
+       73 SETTABLEKS                       R14 R13 K27 ["Size"]
+       75 GETTABLEKS                       R14 R0 K22 ["state"]
+       77 GETTABLEKS                       R14 R14 K32 ["studsPerTile"]
+       79 SETTABLEKS                       R14 R13 K14 ["Text"]
+       81 GETTABLEKS                       R14 R0 K33 ["onStudsPerTileChanged"]
+       83 SETTABLEKS                       R14 R13 K28 ["OnTextChanged"]
+       85 GETTABLEKS                       R14 R0 K34 ["onFocusLost"]
+       87 SETTABLEKS                       R14 R13 K29 ["OnFocusLost"]
+       89 CALL                             R11 2 -1
+       90 SETLIST                          R10 R11 -1 [1]
+       92 CALL                             R7 3 1
+       93 SETTABLEKS                       R7 R6 K9 ["StudsPerTile"]
+       95 GETUPVAL                         R7 2
+       96 GETTABLEKS                       R7 R7 K11 ["createElement"]
+       98 GETUPVAL                         R8 3
+       99 DUPTABLE                         R9 K35 [{"LabelColumnWidth", "LayoutOrder", "Text"}]
+      100 GETTABLEKS                       R10 R1 K18 ["LabelWidth"]
+      102 JUMPIF                           R10 ; [+2]
+      103 GETTABLEKS                       R10 R2 K12 ["LabelColumnWidth"]
+      105 SETTABLEKS                       R10 R9 K12 ["LabelColumnWidth"]
+      107 NAMECALL                         R10 R4 K19 ["getNextOrder"]
+      109 CALL                             R10 1 1
+      110 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
+      112 LOADK                            R12 K20 ["MaterialTiling"]
+      113 LOADK                            R13 K36 ["Pattern"]
+      114 NAMECALL                         R10 R3 K21 ["getText"]
+      116 CALL                             R10 3 1
+      117 SETTABLEKS                       R10 R9 K14 ["Text"]
+      119 NEWTABLE                         R10 0 1
+      121 GETUPVAL                         R11 2
+      122 GETTABLEKS                       R11 R11 K11 ["createElement"]
+      124 GETUPVAL                         R12 5
+      125 DUPTABLE                         R13 K40 [{"Style", "Items", "Size", "OnItemActivated", "SelectedIndex"}]
+      126 GETTABLEKS                       R14 R2 K41 ["CustomSelectInput"]
+      128 SETTABLEKS                       R14 R13 K25 ["Style"]
+      130 GETTABLEKS                       R14 R0 K22 ["state"]
+      132 GETTABLEKS                       R14 R14 K42 ["materialPatterns"]
+      134 SETTABLEKS                       R14 R13 K37 ["Items"]
+      136 GETTABLEKS                       R14 R2 K31 ["DialogColumnSize"]
+      138 SETTABLEKS                       R14 R13 K27 ["Size"]
+      140 GETTABLEKS                       R14 R0 K43 ["onMaterialPatternSelected"]
+      142 SETTABLEKS                       R14 R13 K38 ["OnItemActivated"]
+      144 SETTABLEKS                       R5 R13 K39 ["SelectedIndex"]
+      146 CALL                             R11 2 -1
+      147 SETLIST                          R10 R11 -1 [1]
+      149 CALL                             R7 3 1
+      150 SETTABLEKS                       R7 R6 K8 ["MaterialPattern"]
+      152 GETTABLEKS                       R7 R1 K44 ["Expandable"]
+      154 JUMPIFNOT                        R7 ; [+39]
+      155 GETUPVAL                         R7 2
+      156 GETTABLEKS                       R7 R7 K11 ["createElement"]
+      158 GETUPVAL                         R8 6
+      159 DUPTABLE                         R9 K49 [{"LayoutOrder", "ContentPadding", "ContentSpacing", "Text", "Style", "Expanded", "OnExpandedChanged"}]
+      160 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
+      162 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
+      164 GETTABLEKS                       R10 R2 K45 ["ContentPadding"]
+      166 SETTABLEKS                       R10 R9 K45 ["ContentPadding"]
+      168 GETTABLEKS                       R10 R2 K50 ["ItemSpacing"]
+      170 SETTABLEKS                       R10 R9 K46 ["ContentSpacing"]
+      172 LOADK                            R12 K20 ["MaterialTiling"]
+      173 LOADK                            R13 K51 ["Tiling"]
+      174 NAMECALL                         R10 R3 K21 ["getText"]
+      176 CALL                             R10 3 1
+      177 SETTABLEKS                       R10 R9 K14 ["Text"]
+      179 GETTABLEKS                       R10 R2 K52 ["CustomExpandablePane"]
+      181 SETTABLEKS                       R10 R9 K25 ["Style"]
+      183 GETTABLEKS                       R10 R1 K53 ["ExpandedPane"]
+      185 SETTABLEKS                       R10 R9 K47 ["Expanded"]
+      187 GETTABLEKS                       R10 R0 K54 ["onExpandedChanged"]
+      189 SETTABLEKS                       R10 R9 K48 ["OnExpandedChanged"]
+      191 MOVE                             R10 R6
+      192 CALL                             R7 3 -1
+      193 RETURN                           R7 -1
+      194 GETUPVAL                         R7 2
+      195 GETTABLEKS                       R7 R7 K11 ["createElement"]
+      197 GETUPVAL                         R8 7
+      198 DUPTABLE                         R9 K59 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "HorizontalAlignment"}]
+      199 GETIMPORT                        R10 K62 [Enum.AutomaticSize.Y]
+      201 SETTABLEKS                       R10 R9 K55 ["AutomaticSize"]
+      203 GETTABLEKS                       R10 R1 K13 ["LayoutOrder"]
+      205 SETTABLEKS                       R10 R9 K13 ["LayoutOrder"]
+      207 GETIMPORT                        R10 K65 [Enum.FillDirection.Vertical]
+      209 SETTABLEKS                       R10 R9 K56 ["Layout"]
+      211 GETTABLEKS                       R10 R2 K50 ["ItemSpacing"]
+      213 SETTABLEKS                       R10 R9 K57 ["Spacing"]
+      215 GETIMPORT                        R10 K67 [Enum.HorizontalAlignment.Left]
+      217 SETTABLEKS                       R10 R9 K58 ["HorizontalAlignment"]
+      219 MOVE                             R10 R6
+      220 CALL                             R7 3 -1
+      221 RETURN                           R7 -1
 
 PROTO_9:
         0 DUPTABLE                         R1 K2 [{"ExpandedPane", "Material"}]

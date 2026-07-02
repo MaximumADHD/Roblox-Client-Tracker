@@ -31,42 +31,38 @@ PROTO_1:
        36 GETTABLEKS                       R4 R3 K16 ["runCLI"]
        38 MOVE                             R5 R4
        39 GETTABLEKS                       R6 R0 K17 ["Src"]
-       41 DUPTABLE                         R7 K21 [{"verbose", "ci", "testNamePattern"}]
-       42 LOADB                            R8 0
-       43 SETTABLEKS                       R8 R7 K18 ["verbose"]
-       45 LOADB                            R8 0
-       46 SETTABLEKS                       R8 R7 K19 ["ci"]
-       48 GETIMPORT                        R8 K7 [_G]
-       50 GETTABLEKS                       R8 R8 K22 ["JEST_TEST_NAME_PATTERN"]
-       52 SETTABLEKS                       R8 R7 K20 ["testNamePattern"]
-       54 NEWTABLE                         R8 0 1
-       56 GETTABLEKS                       R9 R0 K17 ["Src"]
-       58 SETLIST                          R8 R9 1 [1]
-       60 CALL                             R5 3 1
-       61 NAMECALL                         R5 R5 K23 ["awaitStatus"]
-       63 CALL                             R5 1 2
-       64 JUMPIFNOTEQKS                    R5 K24 ["Rejected"] ; [+5]
-       66 GETIMPORT                        R7 K26 [print]
-       68 MOVE                             R8 R6
-       69 CALL                             R7 1 0
-       70 JUMPIFNOTEQKS                    R5 K27 ["Resolved"] ; [+17]
-       72 GETTABLEKS                       R7 R6 K28 ["results"]
-       74 GETTABLEKS                       R7 R7 K29 ["numFailedTestSuites"]
-       76 JUMPIFNOTEQKN                    R7 K30 [0] ; [+11]
-       78 GETTABLEKS                       R7 R6 K28 ["results"]
-       80 GETTABLEKS                       R7 R7 K31 ["numFailedTests"]
-       82 JUMPIFNOTEQKN                    R7 K30 [0] ; [+5]
-       84 LOADN                            R9 0
-       85 NAMECALL                         R7 R2 K32 ["ExitAsync"]
-       87 CALL                             R7 2 0
-       88 GETUPVAL                         R7 0
-       89 LOADK                            R9 K33 ["Jest 3 test run failed"]
-       90 NAMECALL                         R7 R7 K34 ["Error"]
-       92 CALL                             R7 2 0
-       93 LOADN                            R9 1
-       94 NAMECALL                         R7 R2 K32 ["ExitAsync"]
-       96 CALL                             R7 2 0
-       97 RETURN                           R0 0
+       41 DUPTABLE                         R7 K22 [{["verbose"] = False, ["ci"] = False, ["testNamePattern"]}]
+       42 GETIMPORT                        R8 K7 [_G]
+       44 GETTABLEKS                       R8 R8 K23 ["JEST_TEST_NAME_PATTERN"]
+       46 SETTABLEKS                       R8 R7 K21 ["testNamePattern"]
+       48 NEWTABLE                         R8 0 1
+       50 GETTABLEKS                       R9 R0 K17 ["Src"]
+       52 SETLIST                          R8 R9 1 [1]
+       54 CALL                             R5 3 1
+       55 NAMECALL                         R5 R5 K24 ["awaitStatus"]
+       57 CALL                             R5 1 2
+       58 JUMPIFNOTEQKS                    R5 K25 ["Rejected"] ; [+5]
+       60 GETIMPORT                        R7 K27 [print]
+       62 MOVE                             R8 R6
+       63 CALL                             R7 1 0
+       64 JUMPIFNOTEQKS                    R5 K28 ["Resolved"] ; [+17]
+       66 GETTABLEKS                       R7 R6 K29 ["results"]
+       68 GETTABLEKS                       R7 R7 K30 ["numFailedTestSuites"]
+       70 JUMPIFNOTEQKN                    R7 K31 [0] ; [+11]
+       72 GETTABLEKS                       R7 R6 K29 ["results"]
+       74 GETTABLEKS                       R7 R7 K32 ["numFailedTests"]
+       76 JUMPIFNOTEQKN                    R7 K31 [0] ; [+5]
+       78 LOADN                            R9 0
+       79 NAMECALL                         R7 R2 K33 ["ExitAsync"]
+       81 CALL                             R7 2 0
+       82 GETUPVAL                         R7 0
+       83 LOADK                            R9 K34 ["Jest 3 test run failed"]
+       84 NAMECALL                         R7 R7 K35 ["Error"]
+       86 CALL                             R7 2 0
+       87 LOADN                            R9 1
+       88 NAMECALL                         R7 R2 K33 ["ExitAsync"]
+       90 CALL                             R7 2 0
+       91 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

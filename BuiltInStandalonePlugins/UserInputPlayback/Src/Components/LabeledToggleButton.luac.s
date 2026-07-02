@@ -97,25 +97,21 @@ MAIN:
        37 LOADK                            R11 K15 ["LabeledToggleButton"]
        38 NAMECALL                         R9 R9 K16 ["extend"]
        40 CALL                             R9 2 1
-       41 DUPTABLE                         R10 K19 [{"Disabled", "Selected"}]
-       42 LOADB                            R11 0
-       43 SETTABLEKS                       R11 R10 K17 ["Disabled"]
-       45 LOADB                            R11 0
-       46 SETTABLEKS                       R11 R10 K18 ["Selected"]
-       48 SETTABLEKS                       R10 R9 K20 ["defaultProps"]
-       50 DUPCLOSURE                       R10 K21 [PROTO_0]
-       51 CAPTURE                          VAL R1
-       52 CAPTURE                          VAL R4
-       53 CAPTURE                          VAL R6
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R8
-       56 SETTABLEKS                       R10 R9 K22 ["render"]
-       58 GETTABLEKS                       R10 R3 K23 ["withContext"]
-       60 DUPTABLE                         R11 K25 [{"Stylizer"}]
-       61 GETTABLEKS                       R12 R3 K24 ["Stylizer"]
-       63 SETTABLEKS                       R12 R11 K24 ["Stylizer"]
-       65 CALL                             R10 1 1
-       66 MOVE                             R11 R9
-       67 CALL                             R10 1 1
-       68 MOVE                             R9 R10
-       69 RETURN                           R9 1
+       41 DUPTABLE                         R10 K20 [{["Disabled"] = False, ["Selected"] = False}]
+       42 SETTABLEKS                       R10 R9 K21 ["defaultProps"]
+       44 DUPCLOSURE                       R10 K22 [PROTO_0]
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R8
+       50 SETTABLEKS                       R10 R9 K23 ["render"]
+       52 GETTABLEKS                       R10 R3 K24 ["withContext"]
+       54 DUPTABLE                         R11 K26 [{"Stylizer"}]
+       55 GETTABLEKS                       R12 R3 K25 ["Stylizer"]
+       57 SETTABLEKS                       R12 R11 K25 ["Stylizer"]
+       59 CALL                             R10 1 1
+       60 MOVE                             R11 R9
+       61 CALL                             R10 1 1
+       62 MOVE                             R9 R10
+       63 RETURN                           R9 1

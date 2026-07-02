@@ -30,7 +30,7 @@ PROTO_2:
         1 GETTABLEKS                       R0 R0 K0 ["props"]
         3 GETTABLEKS                       R1 R0 K1 ["SetScrubberOffset"]
         5 LOADNIL                          R2
-        6 LOADN                            R3 255
+        6 LOADN                            R3 -1
         7 CALL                             R1 2 0
         8 RETURN                           R0 0
 
@@ -93,14 +93,14 @@ PROTO_4:
        62 LOADK                            R13 K16 ["Toolbar X-Fill X-RowS X-Middle"]
        63 SETTABLE                         R13 R11 R12
        64 DUPTABLE                         R12 K22 [{"Timeline", "Previous", "PlayPauseButton", "Next", "SettingsButton"}]
-       65 JUMPIFNOT                        R3 ; [+78]
+       65 JUMPIFNOT                        R3 ; [+72]
        66 GETUPVAL                         R13 2
        67 GETTABLEKS                       R13 R13 K14 ["createElement"]
        69 GETUPVAL                         R14 4
        70 NEWTABLE                         R15 8 0
        72 GETIMPORT                        R16 K25 [UDim2.new]
        74 LOADN                            R17 1
-       75 LOADN                            R18 156
+       75 LOADN                            R18 -100
        76 LOADN                            R19 1
        77 LOADN                            R20 0
        78 CALL                             R16 4 1
@@ -117,239 +117,221 @@ PROTO_4:
        94 GETUPVAL                         R17 2
        95 GETTABLEKS                       R17 R17 K14 ["createElement"]
        97 GETUPVAL                         R18 5
-       98 DUPTABLE                         R19 K35 [{"Position", "ZIndex"}]
-       99 GETIMPORT                        R20 K37 [UDim2.fromScale]
+       98 DUPTABLE                         R19 K36 [{["Position"], ["ZIndex"] = 2}]
+       99 GETIMPORT                        R20 K38 [UDim2.fromScale]
       101 MOVE                             R21 R5
       102 LOADN                            R22 0
       103 CALL                             R20 2 1
       104 SETTABLEKS                       R20 R19 K33 ["Position"]
-      106 LOADN                            R20 2
-      107 SETTABLEKS                       R20 R19 K34 ["ZIndex"]
-      109 CALL                             R17 2 1
-      110 SETTABLEKS                       R17 R16 K30 ["Scrubber"]
-      112 GETUPVAL                         R17 2
-      113 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      115 GETUPVAL                         R18 3
-      116 DUPTABLE                         R19 K38 [{"ZIndex", "Size"}]
-      117 LOADN                            R20 1
-      118 SETTABLEKS                       R20 R19 K34 ["ZIndex"]
-      120 GETIMPORT                        R20 K25 [UDim2.new]
-      122 DIV                              R22 R6 R4
-      123 LOADN                            R23 0
-      124 LOADN                            R24 1
-      125 FASTCALL                         MATH_CLAMP ; [+2]
-      126 GETIMPORT                        R21 K41 [math.clamp]
-      128 CALL                             R21 3 1
-      129 LOADN                            R22 0
-      130 LOADN                            R23 0
-      131 GETUPVAL                         R24 1
-      132 LOADK                            R26 K42 ["BufferBarHeight"]
-      133 NAMECALL                         R24 R24 K11 ["GetAttribute"]
-      135 CALL                             R24 2 -1
-      136 CALL                             R20 -1 1
-      137 SETTABLEKS                       R20 R19 K26 ["Size"]
-      139 CALL                             R17 2 1
-      140 SETTABLEKS                       R17 R16 K31 ["BufferBar"]
-      142 CALL                             R13 3 1
-      143 JUMP                             ; [+15]
-      144 GETUPVAL                         R13 2
-      145 GETTABLEKS                       R13 R13 K14 ["createElement"]
-      147 GETUPVAL                         R14 3
-      148 DUPTABLE                         R15 K43 [{"Size"}]
-      149 GETIMPORT                        R16 K25 [UDim2.new]
-      151 LOADN                            R17 1
-      152 LOADN                            R18 156
-      153 LOADN                            R19 1
-      154 LOADN                            R20 0
-      155 CALL                             R16 4 1
-      156 SETTABLEKS                       R16 R15 K26 ["Size"]
-      158 CALL                             R13 2 1
-      159 SETTABLEKS                       R13 R12 K17 ["Timeline"]
-      161 GETUPVAL                         R13 2
-      162 GETTABLEKS                       R13 R13 K14 ["createElement"]
-      164 GETUPVAL                         R14 6
-      165 NEWTABLE                         R15 8 0
-      167 LOADK                            R16 K44 ["Round"]
-      168 SETTABLEKS                       R16 R15 K45 ["Style"]
-      170 GETIMPORT                        R16 K47 [UDim2.fromOffset]
-      172 LOADN                            R17 20
-      173 LOADN                            R18 20
-      174 CALL                             R16 2 1
-      175 SETTABLEKS                       R16 R15 K26 ["Size"]
-      177 LOADN                            R16 2
-      178 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      180 GETTABLEKS                       R16 R0 K48 ["onPreviousClicked"]
-      182 SETTABLEKS                       R16 R15 K49 ["OnClick"]
-      184 GETUPVAL                         R16 2
-      185 GETTABLEKS                       R16 R16 K15 ["Tag"]
-      187 LOADK                            R17 K50 ["MediaButton"]
-      188 SETTABLE                         R17 R15 R16
-      189 DUPTABLE                         R16 K53 [{"Icon", "Tooltip"}]
-      190 GETUPVAL                         R17 2
-      191 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      193 GETUPVAL                         R18 7
-      194 DUPTABLE                         R19 K55 [{"Image"}]
-      195 LOADK                            R20 K56 ["rbxasset://textures/CompositorDebugger/previous.png"]
-      196 SETTABLEKS                       R20 R19 K54 ["Image"]
-      198 CALL                             R17 2 1
-      199 SETTABLEKS                       R17 R16 K51 ["Icon"]
-      201 GETUPVAL                         R17 2
-      202 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      204 GETUPVAL                         R18 8
-      205 DUPTABLE                         R19 K58 [{"Text"}]
-      206 LOADK                            R22 K59 ["Tooltips"]
-      207 LOADK                            R23 K60 ["PrevFrame"]
-      208 NAMECALL                         R20 R2 K61 ["getText"]
-      210 CALL                             R20 3 1
-      211 SETTABLEKS                       R20 R19 K57 ["Text"]
-      213 CALL                             R17 2 1
-      214 SETTABLEKS                       R17 R16 K52 ["Tooltip"]
-      216 CALL                             R13 3 1
-      217 SETTABLEKS                       R13 R12 K18 ["Previous"]
-      219 GETUPVAL                         R13 2
-      220 GETTABLEKS                       R13 R13 K14 ["createElement"]
-      222 GETUPVAL                         R14 6
-      223 DUPTABLE                         R15 K62 [{"Style", "Size", "LayoutOrder", "OnClick"}]
-      224 LOADK                            R16 K44 ["Round"]
-      225 SETTABLEKS                       R16 R15 K45 ["Style"]
-      227 GETIMPORT                        R16 K47 [UDim2.fromOffset]
-      229 LOADN                            R17 20
-      230 LOADN                            R18 20
-      231 CALL                             R16 2 1
-      232 SETTABLEKS                       R16 R15 K26 ["Size"]
-      234 LOADN                            R16 3
-      235 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      237 GETTABLEKS                       R16 R0 K63 ["onPlayPauseClicked"]
-      239 SETTABLEKS                       R16 R15 K49 ["OnClick"]
-      241 DUPTABLE                         R16 K53 [{"Icon", "Tooltip"}]
-      242 GETUPVAL                         R17 2
-      243 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      245 GETUPVAL                         R18 7
-      246 DUPTABLE                         R19 K65 [{"Size", "Position", "AnchorPoint", "Image"}]
-      247 GETIMPORT                        R20 K47 [UDim2.fromOffset]
-      249 LOADN                            R21 20
-      250 LOADN                            R22 20
-      251 CALL                             R20 2 1
-      252 SETTABLEKS                       R20 R19 K26 ["Size"]
-      254 GETIMPORT                        R20 K37 [UDim2.fromScale]
-      256 LOADK                            R21 K66 [0.5]
-      257 LOADK                            R22 K66 [0.5]
-      258 CALL                             R20 2 1
-      259 SETTABLEKS                       R20 R19 K33 ["Position"]
-      261 GETIMPORT                        R20 K68 [Vector2.new]
-      263 LOADK                            R21 K66 [0.5]
-      264 LOADK                            R22 K66 [0.5]
-      265 CALL                             R20 2 1
-      266 SETTABLEKS                       R20 R19 K64 ["AnchorPoint"]
+      106 CALL                             R17 2 1
+      107 SETTABLEKS                       R17 R16 K30 ["Scrubber"]
+      109 GETUPVAL                         R17 2
+      110 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      112 GETUPVAL                         R18 3
+      113 DUPTABLE                         R19 K40 [{["ZIndex"] = 1, ["Size"]}]
+      114 GETIMPORT                        R20 K25 [UDim2.new]
+      116 DIV                              R22 R6 R4
+      117 LOADN                            R23 0
+      118 LOADN                            R24 1
+      119 FASTCALL                         MATH_CLAMP ; [+2]
+      120 GETIMPORT                        R21 K43 [math.clamp]
+      122 CALL                             R21 3 1
+      123 LOADN                            R22 0
+      124 LOADN                            R23 0
+      125 GETUPVAL                         R24 1
+      126 LOADK                            R26 K44 ["BufferBarHeight"]
+      127 NAMECALL                         R24 R24 K11 ["GetAttribute"]
+      129 CALL                             R24 2 -1
+      130 CALL                             R20 -1 1
+      131 SETTABLEKS                       R20 R19 K26 ["Size"]
+      133 CALL                             R17 2 1
+      134 SETTABLEKS                       R17 R16 K31 ["BufferBar"]
+      136 CALL                             R13 3 1
+      137 JUMP                             ; [+15]
+      138 GETUPVAL                         R13 2
+      139 GETTABLEKS                       R13 R13 K14 ["createElement"]
+      141 GETUPVAL                         R14 3
+      142 DUPTABLE                         R15 K45 [{"Size"}]
+      143 GETIMPORT                        R16 K25 [UDim2.new]
+      145 LOADN                            R17 1
+      146 LOADN                            R18 -100
+      147 LOADN                            R19 1
+      148 LOADN                            R20 0
+      149 CALL                             R16 4 1
+      150 SETTABLEKS                       R16 R15 K26 ["Size"]
+      152 CALL                             R13 2 1
+      153 SETTABLEKS                       R13 R12 K17 ["Timeline"]
+      155 GETUPVAL                         R13 2
+      156 GETTABLEKS                       R13 R13 K14 ["createElement"]
+      158 GETUPVAL                         R14 6
+      159 NEWTABLE                         R15 8 0
+      161 LOADK                            R16 K46 ["Round"]
+      162 SETTABLEKS                       R16 R15 K47 ["Style"]
+      164 GETIMPORT                        R16 K49 [UDim2.fromOffset]
+      166 LOADN                            R17 20
+      167 LOADN                            R18 20
+      168 CALL                             R16 2 1
+      169 SETTABLEKS                       R16 R15 K26 ["Size"]
+      171 LOADN                            R16 2
+      172 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
+      174 GETTABLEKS                       R16 R0 K50 ["onPreviousClicked"]
+      176 SETTABLEKS                       R16 R15 K51 ["OnClick"]
+      178 GETUPVAL                         R16 2
+      179 GETTABLEKS                       R16 R16 K15 ["Tag"]
+      181 LOADK                            R17 K52 ["MediaButton"]
+      182 SETTABLE                         R17 R15 R16
+      183 DUPTABLE                         R16 K55 [{"Icon", "Tooltip"}]
+      184 GETUPVAL                         R17 2
+      185 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      187 GETUPVAL                         R18 7
+      188 DUPTABLE                         R19 K58 [{["Image"] = "rbxasset://textures/CompositorDebugger/previous.png"}]
+      189 CALL                             R17 2 1
+      190 SETTABLEKS                       R17 R16 K53 ["Icon"]
+      192 GETUPVAL                         R17 2
+      193 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      195 GETUPVAL                         R18 8
+      196 DUPTABLE                         R19 K60 [{"Text"}]
+      197 LOADK                            R22 K61 ["Tooltips"]
+      198 LOADK                            R23 K62 ["PrevFrame"]
+      199 NAMECALL                         R20 R2 K63 ["getText"]
+      201 CALL                             R20 3 1
+      202 SETTABLEKS                       R20 R19 K59 ["Text"]
+      204 CALL                             R17 2 1
+      205 SETTABLEKS                       R17 R16 K54 ["Tooltip"]
+      207 CALL                             R13 3 1
+      208 SETTABLEKS                       R13 R12 K18 ["Previous"]
+      210 GETUPVAL                         R13 2
+      211 GETTABLEKS                       R13 R13 K14 ["createElement"]
+      213 GETUPVAL                         R14 6
+      214 DUPTABLE                         R15 K65 [{["Style"] = "Round", ["Size"], ["LayoutOrder"] = 3, ["OnClick"]}]
+      215 GETIMPORT                        R16 K49 [UDim2.fromOffset]
+      217 LOADN                            R17 20
+      218 LOADN                            R18 20
+      219 CALL                             R16 2 1
+      220 SETTABLEKS                       R16 R15 K26 ["Size"]
+      222 GETTABLEKS                       R16 R0 K66 ["onPlayPauseClicked"]
+      224 SETTABLEKS                       R16 R15 K51 ["OnClick"]
+      226 DUPTABLE                         R16 K55 [{"Icon", "Tooltip"}]
+      227 GETUPVAL                         R17 2
+      228 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      230 GETUPVAL                         R18 7
+      231 DUPTABLE                         R19 K68 [{"Size", "Position", "AnchorPoint", "Image"}]
+      232 GETIMPORT                        R20 K49 [UDim2.fromOffset]
+      234 LOADN                            R21 20
+      235 LOADN                            R22 20
+      236 CALL                             R20 2 1
+      237 SETTABLEKS                       R20 R19 K26 ["Size"]
+      239 GETIMPORT                        R20 K38 [UDim2.fromScale]
+      241 LOADK                            R21 K69 [0.5]
+      242 LOADK                            R22 K69 [0.5]
+      243 CALL                             R20 2 1
+      244 SETTABLEKS                       R20 R19 K33 ["Position"]
+      246 GETIMPORT                        R20 K71 [Vector2.new]
+      248 LOADK                            R21 K69 [0.5]
+      249 LOADK                            R22 K69 [0.5]
+      250 CALL                             R20 2 1
+      251 SETTABLEKS                       R20 R19 K67 ["AnchorPoint"]
+      253 JUMPIFNOT                        R8 ; [+2]
+      254 LOADK                            R20 K72 ["rbxasset://textures/CompositorDebugger/pause.png"]
+      255 JUMP                             ; [+1]
+      256 LOADK                            R20 K73 ["rbxasset://textures/CompositorDebugger/play.png"]
+      257 SETTABLEKS                       R20 R19 K56 ["Image"]
+      259 CALL                             R17 2 1
+      260 SETTABLEKS                       R17 R16 K53 ["Icon"]
+      262 GETUPVAL                         R17 2
+      263 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      265 GETUPVAL                         R18 8
+      266 DUPTABLE                         R19 K60 [{"Text"}]
+      267 LOADK                            R22 K61 ["Tooltips"]
       268 JUMPIFNOT                        R8 ; [+2]
-      269 LOADK                            R20 K69 ["rbxasset://textures/CompositorDebugger/pause.png"]
+      269 LOADK                            R23 K74 ["Pause"]
       270 JUMP                             ; [+1]
-      271 LOADK                            R20 K70 ["rbxasset://textures/CompositorDebugger/play.png"]
-      272 SETTABLEKS                       R20 R19 K54 ["Image"]
-      274 CALL                             R17 2 1
-      275 SETTABLEKS                       R17 R16 K51 ["Icon"]
-      277 GETUPVAL                         R17 2
-      278 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      280 GETUPVAL                         R18 8
-      281 DUPTABLE                         R19 K58 [{"Text"}]
-      282 LOADK                            R22 K59 ["Tooltips"]
-      283 JUMPIFNOT                        R8 ; [+2]
-      284 LOADK                            R23 K71 ["Pause"]
-      285 JUMP                             ; [+1]
-      286 LOADK                            R23 K72 ["Resume"]
-      287 NAMECALL                         R20 R2 K61 ["getText"]
-      289 CALL                             R20 3 1
-      290 SETTABLEKS                       R20 R19 K57 ["Text"]
-      292 CALL                             R17 2 1
-      293 SETTABLEKS                       R17 R16 K52 ["Tooltip"]
-      295 CALL                             R13 3 1
-      296 SETTABLEKS                       R13 R12 K19 ["PlayPauseButton"]
-      298 GETUPVAL                         R13 2
-      299 GETTABLEKS                       R13 R13 K14 ["createElement"]
-      301 GETUPVAL                         R14 6
-      302 DUPTABLE                         R15 K62 [{"Style", "Size", "LayoutOrder", "OnClick"}]
-      303 LOADK                            R16 K44 ["Round"]
-      304 SETTABLEKS                       R16 R15 K45 ["Style"]
-      306 GETIMPORT                        R16 K47 [UDim2.fromOffset]
-      308 LOADN                            R17 20
-      309 LOADN                            R18 20
-      310 CALL                             R16 2 1
-      311 SETTABLEKS                       R16 R15 K26 ["Size"]
-      313 LOADN                            R16 4
-      314 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      316 GETTABLEKS                       R16 R0 K73 ["onNextClicked"]
-      318 SETTABLEKS                       R16 R15 K49 ["OnClick"]
-      320 DUPTABLE                         R16 K53 [{"Icon", "Tooltip"}]
-      321 GETUPVAL                         R17 2
-      322 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      324 GETUPVAL                         R18 7
-      325 DUPTABLE                         R19 K65 [{"Size", "Position", "AnchorPoint", "Image"}]
-      326 GETIMPORT                        R20 K47 [UDim2.fromOffset]
-      328 LOADN                            R21 20
-      329 LOADN                            R22 20
-      330 CALL                             R20 2 1
-      331 SETTABLEKS                       R20 R19 K26 ["Size"]
-      333 GETIMPORT                        R20 K37 [UDim2.fromScale]
-      335 LOADK                            R21 K66 [0.5]
-      336 LOADK                            R22 K66 [0.5]
-      337 CALL                             R20 2 1
-      338 SETTABLEKS                       R20 R19 K33 ["Position"]
-      340 GETIMPORT                        R20 K68 [Vector2.new]
-      342 LOADK                            R21 K66 [0.5]
-      343 LOADK                            R22 K66 [0.5]
-      344 CALL                             R20 2 1
-      345 SETTABLEKS                       R20 R19 K64 ["AnchorPoint"]
-      347 LOADK                            R20 K74 ["rbxasset://textures/CompositorDebugger/next.png"]
-      348 SETTABLEKS                       R20 R19 K54 ["Image"]
-      350 CALL                             R17 2 1
-      351 SETTABLEKS                       R17 R16 K51 ["Icon"]
-      353 GETUPVAL                         R17 2
-      354 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      356 GETUPVAL                         R18 8
-      357 DUPTABLE                         R19 K58 [{"Text"}]
-      358 LOADK                            R22 K59 ["Tooltips"]
-      359 LOADK                            R23 K75 ["NextFrame"]
-      360 NAMECALL                         R20 R2 K61 ["getText"]
-      362 CALL                             R20 3 1
-      363 SETTABLEKS                       R20 R19 K57 ["Text"]
-      365 CALL                             R17 2 1
-      366 SETTABLEKS                       R17 R16 K52 ["Tooltip"]
-      368 CALL                             R13 3 1
-      369 SETTABLEKS                       R13 R12 K20 ["Next"]
-      371 GETUPVAL                         R13 2
-      372 GETTABLEKS                       R13 R13 K14 ["createElement"]
-      374 GETUPVAL                         R14 9
-      375 DUPTABLE                         R15 K76 [{"Size", "FrameBuffer", "LayoutOrder", "AnchorPoint"}]
-      376 GETIMPORT                        R16 K47 [UDim2.fromOffset]
-      378 LOADN                            R17 20
-      379 LOADN                            R18 20
-      380 CALL                             R16 2 1
-      381 SETTABLEKS                       R16 R15 K26 ["Size"]
-      383 GETTABLEKS                       R16 R1 K2 ["FrameBuffer"]
-      385 SETTABLEKS                       R16 R15 K2 ["FrameBuffer"]
-      387 LOADN                            R16 5
-      388 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      390 GETIMPORT                        R16 K68 [Vector2.new]
-      392 LOADN                            R17 1
-      393 LOADK                            R18 K66 [0.5]
-      394 CALL                             R16 2 1
-      395 SETTABLEKS                       R16 R15 K64 ["AnchorPoint"]
-      397 DUPTABLE                         R16 K77 [{"Tooltip"}]
-      398 GETUPVAL                         R17 2
-      399 GETTABLEKS                       R17 R17 K14 ["createElement"]
-      401 GETUPVAL                         R18 8
-      402 DUPTABLE                         R19 K58 [{"Text"}]
-      403 LOADK                            R22 K59 ["Tooltips"]
-      404 LOADK                            R23 K78 ["Settings"]
-      405 NAMECALL                         R20 R2 K61 ["getText"]
-      407 CALL                             R20 3 1
-      408 SETTABLEKS                       R20 R19 K57 ["Text"]
-      410 CALL                             R17 2 1
-      411 SETTABLEKS                       R17 R16 K52 ["Tooltip"]
-      413 CALL                             R13 3 1
-      414 SETTABLEKS                       R13 R12 K21 ["SettingsButton"]
-      416 CALL                             R9 3 -1
-      417 RETURN                           R9 -1
+      271 LOADK                            R23 K75 ["Resume"]
+      272 NAMECALL                         R20 R2 K63 ["getText"]
+      274 CALL                             R20 3 1
+      275 SETTABLEKS                       R20 R19 K59 ["Text"]
+      277 CALL                             R17 2 1
+      278 SETTABLEKS                       R17 R16 K54 ["Tooltip"]
+      280 CALL                             R13 3 1
+      281 SETTABLEKS                       R13 R12 K19 ["PlayPauseButton"]
+      283 GETUPVAL                         R13 2
+      284 GETTABLEKS                       R13 R13 K14 ["createElement"]
+      286 GETUPVAL                         R14 6
+      287 DUPTABLE                         R15 K77 [{["Style"] = "Round", ["Size"], ["LayoutOrder"] = 4, ["OnClick"]}]
+      288 GETIMPORT                        R16 K49 [UDim2.fromOffset]
+      290 LOADN                            R17 20
+      291 LOADN                            R18 20
+      292 CALL                             R16 2 1
+      293 SETTABLEKS                       R16 R15 K26 ["Size"]
+      295 GETTABLEKS                       R16 R0 K78 ["onNextClicked"]
+      297 SETTABLEKS                       R16 R15 K51 ["OnClick"]
+      299 DUPTABLE                         R16 K55 [{"Icon", "Tooltip"}]
+      300 GETUPVAL                         R17 2
+      301 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      303 GETUPVAL                         R18 7
+      304 DUPTABLE                         R19 K80 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"] = "rbxasset://textures/CompositorDebugger/next.png"}]
+      305 GETIMPORT                        R20 K49 [UDim2.fromOffset]
+      307 LOADN                            R21 20
+      308 LOADN                            R22 20
+      309 CALL                             R20 2 1
+      310 SETTABLEKS                       R20 R19 K26 ["Size"]
+      312 GETIMPORT                        R20 K38 [UDim2.fromScale]
+      314 LOADK                            R21 K69 [0.5]
+      315 LOADK                            R22 K69 [0.5]
+      316 CALL                             R20 2 1
+      317 SETTABLEKS                       R20 R19 K33 ["Position"]
+      319 GETIMPORT                        R20 K71 [Vector2.new]
+      321 LOADK                            R21 K69 [0.5]
+      322 LOADK                            R22 K69 [0.5]
+      323 CALL                             R20 2 1
+      324 SETTABLEKS                       R20 R19 K67 ["AnchorPoint"]
+      326 CALL                             R17 2 1
+      327 SETTABLEKS                       R17 R16 K53 ["Icon"]
+      329 GETUPVAL                         R17 2
+      330 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      332 GETUPVAL                         R18 8
+      333 DUPTABLE                         R19 K60 [{"Text"}]
+      334 LOADK                            R22 K61 ["Tooltips"]
+      335 LOADK                            R23 K81 ["NextFrame"]
+      336 NAMECALL                         R20 R2 K63 ["getText"]
+      338 CALL                             R20 3 1
+      339 SETTABLEKS                       R20 R19 K59 ["Text"]
+      341 CALL                             R17 2 1
+      342 SETTABLEKS                       R17 R16 K54 ["Tooltip"]
+      344 CALL                             R13 3 1
+      345 SETTABLEKS                       R13 R12 K20 ["Next"]
+      347 GETUPVAL                         R13 2
+      348 GETTABLEKS                       R13 R13 K14 ["createElement"]
+      350 GETUPVAL                         R14 9
+      351 DUPTABLE                         R15 K83 [{["Size"], ["FrameBuffer"], ["LayoutOrder"] = 5, ["AnchorPoint"]}]
+      352 GETIMPORT                        R16 K49 [UDim2.fromOffset]
+      354 LOADN                            R17 20
+      355 LOADN                            R18 20
+      356 CALL                             R16 2 1
+      357 SETTABLEKS                       R16 R15 K26 ["Size"]
+      359 GETTABLEKS                       R16 R1 K2 ["FrameBuffer"]
+      361 SETTABLEKS                       R16 R15 K2 ["FrameBuffer"]
+      363 GETIMPORT                        R16 K71 [Vector2.new]
+      365 LOADN                            R17 1
+      366 LOADK                            R18 K69 [0.5]
+      367 CALL                             R16 2 1
+      368 SETTABLEKS                       R16 R15 K67 ["AnchorPoint"]
+      370 DUPTABLE                         R16 K84 [{"Tooltip"}]
+      371 GETUPVAL                         R17 2
+      372 GETTABLEKS                       R17 R17 K14 ["createElement"]
+      374 GETUPVAL                         R18 8
+      375 DUPTABLE                         R19 K60 [{"Text"}]
+      376 LOADK                            R22 K61 ["Tooltips"]
+      377 LOADK                            R23 K85 ["Settings"]
+      378 NAMECALL                         R20 R2 K63 ["getText"]
+      380 CALL                             R20 3 1
+      381 SETTABLEKS                       R20 R19 K59 ["Text"]
+      383 CALL                             R17 2 1
+      384 SETTABLEKS                       R17 R16 K54 ["Tooltip"]
+      386 CALL                             R13 3 1
+      387 SETTABLEKS                       R13 R12 K21 ["SettingsButton"]
+      389 CALL                             R9 3 -1
+      390 RETURN                           R9 -1
 
 PROTO_5:
         0 DUPTABLE                         R2 K2 [{"HistoryFrame", "HistoryOffset"}]

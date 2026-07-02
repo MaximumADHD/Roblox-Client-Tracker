@@ -504,7 +504,7 @@ PROTO_14:
 
 PROTO_15:
         0 MOVE                             R3 R2
-        1 LOADN                            R4 255
+        1 LOADN                            R4 -1
         2 JUMPIFEQKNIL                     R3 ; [+33]
         4 MOVE                             R5 R3
         5 JUMPIF                           R5 ; [+2]
@@ -865,7 +865,7 @@ PROTO_19:
         1 GETUPVAL                         R3 1
         2 MOVE                             R4 R0
         3 MOVE                             R5 R4
-        4 LOADN                            R6 255
+        4 LOADN                            R6 -1
         5 JUMPIFEQKNIL                     R5 ; [+33]
         7 MOVE                             R7 R5
         8 JUMPIF                           R7 ; [+2]

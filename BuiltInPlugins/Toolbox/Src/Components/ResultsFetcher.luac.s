@@ -12,30 +12,20 @@ PROTO_1:
         3 NEWCLOSURE                       R2 P0
         4 CAPTURE                          VAL R0
         5 SETTABLEKS                       R2 R0 K1 ["fetchNextPage"]
-        7 DUPTABLE                         R2 K9 [{"loading", "error", "total", "fetchNextPage", "assets", "assetMap", "assetIds", "nextPageCursor"}]
-        8 LOADB                            R3 0
-        9 SETTABLEKS                       R3 R2 K2 ["loading"]
-       11 LOADNIL                          R3
-       12 SETTABLEKS                       R3 R2 K3 ["error"]
-       14 LOADNIL                          R3
-       15 SETTABLEKS                       R3 R2 K4 ["total"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K1 ["fetchNextPage"]
-       20 NEWTABLE                         R3 0 0
-       22 SETTABLEKS                       R3 R2 K5 ["assets"]
-       24 NEWTABLE                         R3 0 0
-       26 SETTABLEKS                       R3 R2 K6 ["assetMap"]
-       28 NEWTABLE                         R3 0 0
-       30 SETTABLEKS                       R3 R2 K7 ["assetIds"]
-       32 LOADNIL                          R3
-       33 SETTABLEKS                       R3 R2 K8 ["nextPageCursor"]
-       35 GETIMPORT                        R3 K12 [table.freeze]
-       37 MOVE                             R4 R2
-       38 CALL                             R3 1 1
-       39 SETTABLEKS                       R3 R0 K13 ["INITIAL_RESULTS_STATE"]
-       41 GETTABLEKS                       R3 R0 K13 ["INITIAL_RESULTS_STATE"]
-       43 SETTABLEKS                       R3 R0 K14 ["state"]
-       45 RETURN                           R0 0
+        7 DUPTABLE                         R2 K11 [{["loading"] = False, ["error"] = , ["total"] = , ["fetchNextPage"] = , ["assets"], ["assetMap"], ["assetIds"], ["nextPageCursor"] = }]
+        8 NEWTABLE                         R3 0 0
+       10 SETTABLEKS                       R3 R2 K7 ["assets"]
+       12 NEWTABLE                         R3 0 0
+       14 SETTABLEKS                       R3 R2 K8 ["assetMap"]
+       16 NEWTABLE                         R3 0 0
+       18 SETTABLEKS                       R3 R2 K9 ["assetIds"]
+       20 GETIMPORT                        R3 K14 [table.freeze]
+       22 MOVE                             R4 R2
+       23 CALL                             R3 1 1
+       24 SETTABLEKS                       R3 R0 K15 ["INITIAL_RESULTS_STATE"]
+       26 GETTABLEKS                       R3 R0 K15 ["INITIAL_RESULTS_STATE"]
+       28 SETTABLEKS                       R3 R0 K16 ["state"]
+       30 RETURN                           R0 0
 
 PROTO_2:
         0 JUMPIFNOTEQKS                    R1 K0 ["render"] ; [+2]
@@ -59,17 +49,15 @@ PROTO_3:
        15 MOVE                             R6 R3
        16 MOVE                             R7 R4
        17 CALL                             R5 2 1
-       18 JUMPIF                           R5 ; [+14]
+       18 JUMPIF                           R5 ; [+11]
        19 GETTABLEKS                       R5 R0 K3 ["loadingMutex"]
        21 SETTABLEKS                       R5 R0 K4 ["canceled"]
        23 LOADB                            R5 0
        24 SETTABLEKS                       R5 R0 K3 ["loadingMutex"]
-       26 DUPTABLE                         R7 K6 [{"initialPage"}]
-       27 LOADB                            R8 1
-       28 SETTABLEKS                       R8 R7 K5 ["initialPage"]
-       30 NAMECALL                         R5 R0 K7 ["fetchResults"]
-       32 CALL                             R5 2 0
-       33 RETURN                           R0 0
+       26 DUPTABLE                         R7 K7 [{["initialPage"] = True}]
+       27 NAMECALL                         R5 R0 K8 ["fetchResults"]
+       29 CALL                             R5 2 0
+       30 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -479,12 +467,10 @@ PROTO_14:
         7 RETURN                           R1 -1
 
 PROTO_15:
-        0 DUPTABLE                         R3 K1 [{"initialPage"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["initialPage"]
-        4 NAMECALL                         R1 R0 K2 ["fetchResults"]
-        6 CALL                             R1 2 0
-        7 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = True}]
+        1 NAMECALL                         R1 R0 K3 ["fetchResults"]
+        3 CALL                             R1 2 0
+        4 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R1 0

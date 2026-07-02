@@ -3,43 +3,37 @@ PROTO_0:
         1 GETTABLEKS                       R2 R2 K0 ["Key"]
         3 GETTABLEKS                       R3 R1 K1 ["devSubsController"]
         5 NEWTABLE                         R4 1 0
-        7 DUPTABLE                         R5 K4 [{"isAcceptable", "filteredName"}]
-        8 LOADB                            R6 1
-        9 SETTABLEKS                       R6 R5 K2 ["isAcceptable"]
-       11 LOADNIL                          R6
-       12 SETTABLEKS                       R6 R5 K3 ["filteredName"]
-       14 SETTABLE                         R5 R4 R2
-       15 GETUPVAL                         R7 1
-       16 LOADK                            R8 K5 ["DevSubModeration"]
-       17 MOVE                             R9 R4
-       18 CALL                             R7 2 -1
-       19 NAMECALL                         R5 R0 K6 ["dispatch"]
-       21 CALL                             R5 -1 0
-       22 GETUPVAL                         R7 0
-       23 NAMECALL                         R5 R3 K7 ["getFilteredDevSub"]
-       25 CALL                             R5 2 2
-       26 NEWTABLE                         R7 1 0
-       28 DUPTABLE                         R8 K4 [{"isAcceptable", "filteredName"}]
-       29 SETTABLEKS                       R5 R8 K2 ["isAcceptable"]
-       31 SETTABLEKS                       R6 R8 K3 ["filteredName"]
-       33 SETTABLE                         R8 R7 R2
-       34 GETUPVAL                         R10 1
-       35 LOADK                            R11 K5 ["DevSubModeration"]
-       36 MOVE                             R12 R7
-       37 CALL                             R10 2 -1
-       38 NAMECALL                         R8 R0 K6 ["dispatch"]
-       40 CALL                             R8 -1 0
-       41 JUMPIF                           R5 ; [+11]
-       42 GETUPVAL                         R10 2
-       43 MOVE                             R11 R2
-       44 LOADK                            R12 K8 ["Name"]
-       45 DUPTABLE                         R13 K10 [{"Moderated"}]
-       46 LOADK                            R14 K11 ["Name has been moderated"]
-       47 SETTABLEKS                       R14 R13 K9 ["Moderated"]
-       49 CALL                             R10 3 -1
-       50 NAMECALL                         R8 R0 K6 ["dispatch"]
-       52 CALL                             R8 -1 0
-       53 RETURN                           R0 0
+        7 DUPTABLE                         R5 K6 [{["isAcceptable"] = True, ["filteredName"] = }]
+        8 SETTABLE                         R5 R4 R2
+        9 GETUPVAL                         R7 1
+       10 LOADK                            R8 K7 ["DevSubModeration"]
+       11 MOVE                             R9 R4
+       12 CALL                             R7 2 -1
+       13 NAMECALL                         R5 R0 K8 ["dispatch"]
+       15 CALL                             R5 -1 0
+       16 GETUPVAL                         R7 0
+       17 NAMECALL                         R5 R3 K9 ["getFilteredDevSub"]
+       19 CALL                             R5 2 2
+       20 NEWTABLE                         R7 1 0
+       22 DUPTABLE                         R8 K10 [{"isAcceptable", "filteredName"}]
+       23 SETTABLEKS                       R5 R8 K2 ["isAcceptable"]
+       25 SETTABLEKS                       R6 R8 K4 ["filteredName"]
+       27 SETTABLE                         R8 R7 R2
+       28 GETUPVAL                         R10 1
+       29 LOADK                            R11 K7 ["DevSubModeration"]
+       30 MOVE                             R12 R7
+       31 CALL                             R10 2 -1
+       32 NAMECALL                         R8 R0 K8 ["dispatch"]
+       34 CALL                             R8 -1 0
+       35 JUMPIF                           R5 ; [+8]
+       36 GETUPVAL                         R10 2
+       37 MOVE                             R11 R2
+       38 LOADK                            R12 K11 ["Name"]
+       39 DUPTABLE                         R13 K14 [{["Moderated"] = "Name has been moderated"}]
+       40 CALL                             R10 3 -1
+       41 NAMECALL                         R8 R0 K8 ["dispatch"]
+       43 CALL                             R8 -1 0
+       44 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R1 P0

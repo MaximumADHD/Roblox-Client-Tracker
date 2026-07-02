@@ -39,19 +39,15 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K11 [{"game", "gameId"}]
-       26 LOADNIL                          R5
-       27 SETTABLEKS                       R5 R4 K9 ["game"]
-       29 LOADNIL                          R5
-       30 SETTABLEKS                       R5 R4 K10 ["gameId"]
-       32 DUPTABLE                         R5 K15 [{"ResetStore", "SetGameId", "SetGame"}]
-       33 DUPCLOSURE                       R6 K16 [PROTO_0]
-       34 SETTABLEKS                       R6 R5 K12 ["ResetStore"]
-       36 DUPCLOSURE                       R6 K17 [PROTO_1]
-       37 CAPTURE                          VAL R1
-       38 SETTABLEKS                       R6 R5 K13 ["SetGameId"]
-       40 DUPCLOSURE                       R6 K18 [PROTO_2]
-       41 CAPTURE                          VAL R1
-       42 SETTABLEKS                       R6 R5 K14 ["SetGame"]
-       44 CALL                             R3 2 -1
-       45 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K12 [{["game"] = , ["gameId"] = }]
+       26 DUPTABLE                         R5 K16 [{"ResetStore", "SetGameId", "SetGame"}]
+       27 DUPCLOSURE                       R6 K17 [PROTO_0]
+       28 SETTABLEKS                       R6 R5 K13 ["ResetStore"]
+       30 DUPCLOSURE                       R6 K18 [PROTO_1]
+       31 CAPTURE                          VAL R1
+       32 SETTABLEKS                       R6 R5 K14 ["SetGameId"]
+       34 DUPCLOSURE                       R6 K19 [PROTO_2]
+       35 CAPTURE                          VAL R1
+       36 SETTABLEKS                       R6 R5 K15 ["SetGame"]
+       38 CALL                             R3 2 -1
+       39 RETURN                           R3 -1

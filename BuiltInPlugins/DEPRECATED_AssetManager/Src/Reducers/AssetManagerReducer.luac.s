@@ -333,95 +333,81 @@ MAIN:
        39 GETTABLEKS                       R5 R4 K9 ["Util"]
        41 GETTABLEKS                       R6 R5 K12 ["deepJoin"]
        43 GETTABLEKS                       R7 R2 K13 ["createReducer"]
-       45 DUPTABLE                         R8 K25 [{"assetsTable", "bulkImporterRunning", "editingAssets", "isFetchingAssets", "recentAssets", "recentViewToggled", "searchTerm", "selectedAssets", "selectionIndex", "universeName", "view"}]
-       46 DUPTABLE                         R9 K30 [{"assets", "assetPreviewData", "assetsModerationData", "index"}]
+       45 DUPTABLE                         R8 K28 [{["assetsTable"], ["bulkImporterRunning"] = False, ["editingAssets"], ["isFetchingAssets"] = False, ["recentAssets"], ["recentViewToggled"] = False, ["searchTerm"] = "", ["selectedAssets"], ["selectionIndex"] = 0, ["universeName"] = "", ["view"]}]
+       46 DUPTABLE                         R9 K33 [{["assets"], ["assetPreviewData"], ["assetsModerationData"], ["index"] = 0}]
        47 NEWTABLE                         R10 0 0
-       49 SETTABLEKS                       R10 R9 K26 ["assets"]
+       49 SETTABLEKS                       R10 R9 K29 ["assets"]
        51 NEWTABLE                         R10 0 0
-       53 SETTABLEKS                       R10 R9 K27 ["assetPreviewData"]
+       53 SETTABLEKS                       R10 R9 K30 ["assetPreviewData"]
        55 NEWTABLE                         R10 0 0
-       57 SETTABLEKS                       R10 R9 K28 ["assetsModerationData"]
-       59 LOADN                            R10 0
-       60 SETTABLEKS                       R10 R9 K29 ["index"]
-       62 SETTABLEKS                       R9 R8 K14 ["assetsTable"]
-       64 LOADB                            R9 0
-       65 SETTABLEKS                       R9 R8 K15 ["bulkImporterRunning"]
-       67 NEWTABLE                         R9 0 0
-       69 SETTABLEKS                       R9 R8 K16 ["editingAssets"]
-       71 LOADB                            R9 0
-       72 SETTABLEKS                       R9 R8 K17 ["isFetchingAssets"]
-       74 NEWTABLE                         R9 0 0
-       76 SETTABLEKS                       R9 R8 K18 ["recentAssets"]
-       78 LOADB                            R9 0
-       79 SETTABLEKS                       R9 R8 K19 ["recentViewToggled"]
-       81 LOADK                            R9 K31 [""]
-       82 SETTABLEKS                       R9 R8 K20 ["searchTerm"]
-       84 NEWTABLE                         R9 0 0
-       86 SETTABLEKS                       R9 R8 K21 ["selectedAssets"]
-       88 LOADN                            R9 0
-       89 SETTABLEKS                       R9 R8 K22 ["selectionIndex"]
-       91 LOADK                            R9 K31 [""]
-       92 SETTABLEKS                       R9 R8 K23 ["universeName"]
-       94 GETTABLEKS                       R9 R3 K32 ["LIST"]
-       96 SETTABLEKS                       R9 R8 K24 ["view"]
-       98 DUPTABLE                         R9 K52 [{"SetAssets", "SetBulkImporterRunning", "SetEditingAssets", "SetIsFetchingAssets", "SetRecentAssets", "SetRecentViewToggled", "SetSearchTerm", "SetSelectedAssets", "SetSelectionIndex", "SetUniverseName", "SetView", "SetAssetPreviewData", "SetAssetOwnerName", "SetRootTreeViewInstance", "SetAssetFavorited", "SetAssetFavoriteCount", "IncrementAssetFavoriteCount", "SetAssetsModerationData", "ChangeAssetAlias"}]
-       99 DUPCLOSURE                       R10 K53 [PROTO_0]
-      100 CAPTURE                          VAL R1
-      101 SETTABLEKS                       R10 R9 K33 ["SetAssets"]
-      103 DUPCLOSURE                       R10 K54 [PROTO_1]
-      104 CAPTURE                          VAL R1
-      105 SETTABLEKS                       R10 R9 K34 ["SetBulkImporterRunning"]
-      107 DUPCLOSURE                       R10 K55 [PROTO_2]
-      108 CAPTURE                          VAL R1
-      109 SETTABLEKS                       R10 R9 K35 ["SetEditingAssets"]
-      111 DUPCLOSURE                       R10 K56 [PROTO_3]
-      112 CAPTURE                          VAL R1
-      113 SETTABLEKS                       R10 R9 K36 ["SetIsFetchingAssets"]
-      115 DUPCLOSURE                       R10 K57 [PROTO_4]
-      116 CAPTURE                          VAL R1
-      117 SETTABLEKS                       R10 R9 K37 ["SetRecentAssets"]
-      119 DUPCLOSURE                       R10 K58 [PROTO_5]
-      120 CAPTURE                          VAL R1
-      121 SETTABLEKS                       R10 R9 K38 ["SetRecentViewToggled"]
-      123 DUPCLOSURE                       R10 K59 [PROTO_6]
-      124 CAPTURE                          VAL R1
-      125 SETTABLEKS                       R10 R9 K39 ["SetSearchTerm"]
-      127 DUPCLOSURE                       R10 K60 [PROTO_7]
-      128 CAPTURE                          VAL R1
-      129 SETTABLEKS                       R10 R9 K40 ["SetSelectedAssets"]
-      131 DUPCLOSURE                       R10 K61 [PROTO_8]
-      132 CAPTURE                          VAL R1
-      133 SETTABLEKS                       R10 R9 K41 ["SetSelectionIndex"]
-      135 DUPCLOSURE                       R10 K62 [PROTO_9]
-      136 CAPTURE                          VAL R1
-      137 SETTABLEKS                       R10 R9 K42 ["SetUniverseName"]
-      139 DUPCLOSURE                       R10 K63 [PROTO_10]
-      140 CAPTURE                          VAL R1
-      141 SETTABLEKS                       R10 R9 K43 ["SetView"]
-      143 DUPCLOSURE                       R10 K64 [PROTO_11]
-      144 CAPTURE                          VAL R1
-      145 SETTABLEKS                       R10 R9 K44 ["SetAssetPreviewData"]
-      147 DUPCLOSURE                       R10 K65 [PROTO_12]
-      148 CAPTURE                          VAL R6
-      149 SETTABLEKS                       R10 R9 K45 ["SetAssetOwnerName"]
-      151 DUPCLOSURE                       R10 K66 [PROTO_13]
+       57 SETTABLEKS                       R10 R9 K31 ["assetsModerationData"]
+       59 SETTABLEKS                       R9 R8 K14 ["assetsTable"]
+       61 NEWTABLE                         R9 0 0
+       63 SETTABLEKS                       R9 R8 K17 ["editingAssets"]
+       65 NEWTABLE                         R9 0 0
+       67 SETTABLEKS                       R9 R8 K19 ["recentAssets"]
+       69 NEWTABLE                         R9 0 0
+       71 SETTABLEKS                       R9 R8 K23 ["selectedAssets"]
+       73 GETTABLEKS                       R9 R3 K34 ["LIST"]
+       75 SETTABLEKS                       R9 R8 K27 ["view"]
+       77 DUPTABLE                         R9 K54 [{"SetAssets", "SetBulkImporterRunning", "SetEditingAssets", "SetIsFetchingAssets", "SetRecentAssets", "SetRecentViewToggled", "SetSearchTerm", "SetSelectedAssets", "SetSelectionIndex", "SetUniverseName", "SetView", "SetAssetPreviewData", "SetAssetOwnerName", "SetRootTreeViewInstance", "SetAssetFavorited", "SetAssetFavoriteCount", "IncrementAssetFavoriteCount", "SetAssetsModerationData", "ChangeAssetAlias"}]
+       78 DUPCLOSURE                       R10 K55 [PROTO_0]
+       79 CAPTURE                          VAL R1
+       80 SETTABLEKS                       R10 R9 K35 ["SetAssets"]
+       82 DUPCLOSURE                       R10 K56 [PROTO_1]
+       83 CAPTURE                          VAL R1
+       84 SETTABLEKS                       R10 R9 K36 ["SetBulkImporterRunning"]
+       86 DUPCLOSURE                       R10 K57 [PROTO_2]
+       87 CAPTURE                          VAL R1
+       88 SETTABLEKS                       R10 R9 K37 ["SetEditingAssets"]
+       90 DUPCLOSURE                       R10 K58 [PROTO_3]
+       91 CAPTURE                          VAL R1
+       92 SETTABLEKS                       R10 R9 K38 ["SetIsFetchingAssets"]
+       94 DUPCLOSURE                       R10 K59 [PROTO_4]
+       95 CAPTURE                          VAL R1
+       96 SETTABLEKS                       R10 R9 K39 ["SetRecentAssets"]
+       98 DUPCLOSURE                       R10 K60 [PROTO_5]
+       99 CAPTURE                          VAL R1
+      100 SETTABLEKS                       R10 R9 K40 ["SetRecentViewToggled"]
+      102 DUPCLOSURE                       R10 K61 [PROTO_6]
+      103 CAPTURE                          VAL R1
+      104 SETTABLEKS                       R10 R9 K41 ["SetSearchTerm"]
+      106 DUPCLOSURE                       R10 K62 [PROTO_7]
+      107 CAPTURE                          VAL R1
+      108 SETTABLEKS                       R10 R9 K42 ["SetSelectedAssets"]
+      110 DUPCLOSURE                       R10 K63 [PROTO_8]
+      111 CAPTURE                          VAL R1
+      112 SETTABLEKS                       R10 R9 K43 ["SetSelectionIndex"]
+      114 DUPCLOSURE                       R10 K64 [PROTO_9]
+      115 CAPTURE                          VAL R1
+      116 SETTABLEKS                       R10 R9 K44 ["SetUniverseName"]
+      118 DUPCLOSURE                       R10 K65 [PROTO_10]
+      119 CAPTURE                          VAL R1
+      120 SETTABLEKS                       R10 R9 K45 ["SetView"]
+      122 DUPCLOSURE                       R10 K66 [PROTO_11]
+      123 CAPTURE                          VAL R1
+      124 SETTABLEKS                       R10 R9 K46 ["SetAssetPreviewData"]
+      126 DUPCLOSURE                       R10 K67 [PROTO_12]
+      127 CAPTURE                          VAL R6
+      128 SETTABLEKS                       R10 R9 K47 ["SetAssetOwnerName"]
+      130 DUPCLOSURE                       R10 K68 [PROTO_13]
+      131 CAPTURE                          VAL R6
+      132 SETTABLEKS                       R10 R9 K48 ["SetRootTreeViewInstance"]
+      134 DUPCLOSURE                       R10 K69 [PROTO_14]
+      135 CAPTURE                          VAL R6
+      136 SETTABLEKS                       R10 R9 K49 ["SetAssetFavorited"]
+      138 DUPCLOSURE                       R10 K70 [PROTO_15]
+      139 CAPTURE                          VAL R6
+      140 SETTABLEKS                       R10 R9 K50 ["SetAssetFavoriteCount"]
+      142 DUPCLOSURE                       R10 K71 [PROTO_16]
+      143 CAPTURE                          VAL R1
+      144 CAPTURE                          VAL R6
+      145 SETTABLEKS                       R10 R9 K51 ["IncrementAssetFavoriteCount"]
+      147 DUPCLOSURE                       R10 K72 [PROTO_17]
+      148 CAPTURE                          VAL R1
+      149 SETTABLEKS                       R10 R9 K52 ["SetAssetsModerationData"]
+      151 DUPCLOSURE                       R10 K73 [PROTO_18]
       152 CAPTURE                          VAL R6
-      153 SETTABLEKS                       R10 R9 K46 ["SetRootTreeViewInstance"]
-      155 DUPCLOSURE                       R10 K67 [PROTO_14]
-      156 CAPTURE                          VAL R6
-      157 SETTABLEKS                       R10 R9 K47 ["SetAssetFavorited"]
-      159 DUPCLOSURE                       R10 K68 [PROTO_15]
-      160 CAPTURE                          VAL R6
-      161 SETTABLEKS                       R10 R9 K48 ["SetAssetFavoriteCount"]
-      163 DUPCLOSURE                       R10 K69 [PROTO_16]
-      164 CAPTURE                          VAL R1
-      165 CAPTURE                          VAL R6
-      166 SETTABLEKS                       R10 R9 K49 ["IncrementAssetFavoriteCount"]
-      168 DUPCLOSURE                       R10 K70 [PROTO_17]
-      169 CAPTURE                          VAL R1
-      170 SETTABLEKS                       R10 R9 K50 ["SetAssetsModerationData"]
-      172 DUPCLOSURE                       R10 K71 [PROTO_18]
-      173 CAPTURE                          VAL R6
-      174 SETTABLEKS                       R10 R9 K51 ["ChangeAssetAlias"]
-      176 CALL                             R7 2 -1
-      177 RETURN                           R7 -1
+      153 SETTABLEKS                       R10 R9 K53 ["ChangeAssetAlias"]
+      155 CALL                             R7 2 -1
+      156 RETURN                           R7 -1

@@ -83,119 +83,107 @@ PROTO_5:
        33 JUMPIFNOTEQKNIL                  R7 ; [+2]
        35 LOADB                            R6 0 +1
        36 LOADB                            R6 1
-       37 DUPTABLE                         R7 K13 [{"Id", "Text", "Icon", "OnItemClicked"}]
-       38 LOADK                            R8 K14 ["UnlinkToken"]
-       39 SETTABLEKS                       R8 R7 K9 ["Id"]
-       41 LOADK                            R10 K15 ["ContextMenu"]
-       42 LOADK                            R11 K14 ["UnlinkToken"]
-       43 NAMECALL                         R8 R3 K16 ["getText"]
-       45 CALL                             R8 3 1
-       46 SETTABLEKS                       R8 R7 K10 ["Text"]
-       48 GETUPVAL                         R8 2
-       49 GETTABLEKS                       R8 R8 K17 ["Standard"]
-       51 GETTABLEKS                       R8 R8 K18 ["TokenSheet"]
-       53 CALL                             R8 0 1
-       54 SETTABLEKS                       R8 R7 K11 ["Icon"]
-       56 NEWCLOSURE                       R8 P0
-       57 CAPTURE                          VAL R0
-       58 CAPTURE                          UPVAL U3
-       59 CAPTURE                          UPVAL U0
-       60 CAPTURE                          UPVAL U1
-       61 CAPTURE                          UPVAL U4
-       62 SETTABLEKS                       R8 R7 K12 ["OnItemClicked"]
-       64 DUPTABLE                         R8 K13 [{"Id", "Text", "Icon", "OnItemClicked"}]
-       65 LOADK                            R9 K19 ["LinkToken"]
-       66 SETTABLEKS                       R9 R8 K9 ["Id"]
-       68 LOADK                            R11 K15 ["ContextMenu"]
-       69 LOADK                            R12 K19 ["LinkToken"]
-       70 NAMECALL                         R9 R3 K16 ["getText"]
-       72 CALL                             R9 3 1
-       73 SETTABLEKS                       R9 R8 K10 ["Text"]
-       75 GETUPVAL                         R9 2
-       76 GETTABLEKS                       R9 R9 K17 ["Standard"]
-       78 GETTABLEKS                       R9 R9 K18 ["TokenSheet"]
-       80 CALL                             R9 0 1
-       81 SETTABLEKS                       R9 R8 K11 ["Icon"]
-       83 NEWCLOSURE                       R9 P1
-       84 CAPTURE                          UPVAL U5
-       85 SETTABLEKS                       R9 R8 K12 ["OnItemClicked"]
-       87 NEWTABLE                         R9 0 4
-       89 JUMPIFNOT                        R5 ; [+2]
-       90 MOVE                             R10 R7
-       91 JUMP                             ; [+1]
-       92 MOVE                             R10 R8
-       93 DUPTABLE                         R11 K13 [{"Id", "Text", "Icon", "OnItemClicked"}]
-       94 LOADK                            R12 K20 ["CopyTransition"]
-       95 SETTABLEKS                       R12 R11 K9 ["Id"]
-       97 LOADK                            R14 K15 ["ContextMenu"]
-       98 LOADK                            R15 K21 ["Copy"]
-       99 NAMECALL                         R12 R3 K16 ["getText"]
-      101 CALL                             R12 3 1
-      102 SETTABLEKS                       R12 R11 K10 ["Text"]
-      104 GETUPVAL                         R12 2
-      105 GETTABLEKS                       R12 R12 K22 ["copy"]
-      107 CALL                             R12 0 1
-      108 SETTABLEKS                       R12 R11 K11 ["Icon"]
-      110 NEWCLOSURE                       R12 P2
-      111 CAPTURE                          VAL R0
-      112 CAPTURE                          UPVAL U6
-      113 CAPTURE                          UPVAL U1
-      114 CAPTURE                          VAL R4
-      115 SETTABLEKS                       R12 R11 K12 ["OnItemClicked"]
-      117 DUPTABLE                         R12 K24 [{"Id", "Text", "Icon", "Enabled", "OnItemClicked"}]
-      118 LOADK                            R13 K25 ["PasteTransition"]
-      119 SETTABLEKS                       R13 R12 K9 ["Id"]
-      121 LOADK                            R15 K15 ["ContextMenu"]
-      122 LOADK                            R16 K26 ["Paste"]
-      123 NAMECALL                         R13 R3 K16 ["getText"]
-      125 CALL                             R13 3 1
-      126 SETTABLEKS                       R13 R12 K10 ["Text"]
-      128 GETUPVAL                         R13 2
-      129 GETTABLEKS                       R13 R13 K27 ["paste"]
-      131 CALL                             R13 0 1
-      132 SETTABLEKS                       R13 R12 K11 ["Icon"]
-      134 SETTABLEKS                       R6 R12 K23 ["Enabled"]
-      136 NEWCLOSURE                       R13 P3
-      137 CAPTURE                          VAL R2
-      138 CAPTURE                          VAL R0
-      139 CAPTURE                          UPVAL U3
-      140 CAPTURE                          UPVAL U0
-      141 CAPTURE                          UPVAL U1
-      142 SETTABLEKS                       R13 R12 K12 ["OnItemClicked"]
-      144 DUPTABLE                         R13 K13 [{"Id", "Text", "Icon", "OnItemClicked"}]
-      145 LOADK                            R14 K28 ["Delete"]
-      146 SETTABLEKS                       R14 R13 K9 ["Id"]
-      148 LOADK                            R16 K15 ["ContextMenu"]
-      149 LOADK                            R17 K28 ["Delete"]
-      150 NAMECALL                         R14 R3 K16 ["getText"]
-      152 CALL                             R14 3 1
-      153 SETTABLEKS                       R14 R13 K10 ["Text"]
-      155 GETUPVAL                         R14 2
-      156 GETTABLEKS                       R14 R14 K29 ["delete"]
-      158 CALL                             R14 0 1
-      159 SETTABLEKS                       R14 R13 K11 ["Icon"]
-      161 NEWCLOSURE                       R14 P4
-      162 CAPTURE                          VAL R0
-      163 CAPTURE                          UPVAL U3
-      164 CAPTURE                          UPVAL U0
-      165 CAPTURE                          UPVAL U1
-      166 SETTABLEKS                       R14 R13 K12 ["OnItemClicked"]
-      168 SETLIST                          R9 R10 4 [1]
-      170 DUPTABLE                         R10 K31 [{"Id", "Children"}]
-      171 LOADK                            R11 K32 ["TransitionRowMenu"]
-      172 SETTABLEKS                       R11 R10 K9 ["Id"]
-      174 SETTABLEKS                       R9 R10 K30 ["Children"]
-      176 GETUPVAL                         R11 7
-      177 GETTABLEKS                       R11 R11 K33 ["trackClicks"]
-      179 MOVE                             R12 R10
-      180 GETTABLEKS                       R13 R1 K34 ["Telemetry"]
-      182 CALL                             R11 2 0
-      183 GETUPVAL                         R11 7
-      184 GETTABLEKS                       R11 R11 K35 ["showContextMenu"]
-      186 GETTABLEKS                       R12 R1 K36 ["Plugin"]
-      188 MOVE                             R13 R10
-      189 CALL                             R11 2 0
-      190 RETURN                           R0 0
+       37 DUPTABLE                         R7 K14 [{["Id"] = "UnlinkToken", ["Text"], ["Icon"], ["OnItemClicked"]}]
+       38 LOADK                            R10 K15 ["ContextMenu"]
+       39 LOADK                            R11 K10 ["UnlinkToken"]
+       40 NAMECALL                         R8 R3 K16 ["getText"]
+       42 CALL                             R8 3 1
+       43 SETTABLEKS                       R8 R7 K11 ["Text"]
+       45 GETUPVAL                         R8 2
+       46 GETTABLEKS                       R8 R8 K17 ["Standard"]
+       48 GETTABLEKS                       R8 R8 K18 ["TokenSheet"]
+       50 CALL                             R8 0 1
+       51 SETTABLEKS                       R8 R7 K12 ["Icon"]
+       53 NEWCLOSURE                       R8 P0
+       54 CAPTURE                          VAL R0
+       55 CAPTURE                          UPVAL U3
+       56 CAPTURE                          UPVAL U0
+       57 CAPTURE                          UPVAL U1
+       58 CAPTURE                          UPVAL U4
+       59 SETTABLEKS                       R8 R7 K13 ["OnItemClicked"]
+       61 DUPTABLE                         R8 K20 [{["Id"] = "LinkToken", ["Text"], ["Icon"], ["OnItemClicked"]}]
+       62 LOADK                            R11 K15 ["ContextMenu"]
+       63 LOADK                            R12 K19 ["LinkToken"]
+       64 NAMECALL                         R9 R3 K16 ["getText"]
+       66 CALL                             R9 3 1
+       67 SETTABLEKS                       R9 R8 K11 ["Text"]
+       69 GETUPVAL                         R9 2
+       70 GETTABLEKS                       R9 R9 K17 ["Standard"]
+       72 GETTABLEKS                       R9 R9 K18 ["TokenSheet"]
+       74 CALL                             R9 0 1
+       75 SETTABLEKS                       R9 R8 K12 ["Icon"]
+       77 NEWCLOSURE                       R9 P1
+       78 CAPTURE                          UPVAL U5
+       79 SETTABLEKS                       R9 R8 K13 ["OnItemClicked"]
+       81 NEWTABLE                         R9 0 4
+       83 JUMPIFNOT                        R5 ; [+2]
+       84 MOVE                             R10 R7
+       85 JUMP                             ; [+1]
+       86 MOVE                             R10 R8
+       87 DUPTABLE                         R11 K22 [{["Id"] = "CopyTransition", ["Text"], ["Icon"], ["OnItemClicked"]}]
+       88 LOADK                            R14 K15 ["ContextMenu"]
+       89 LOADK                            R15 K23 ["Copy"]
+       90 NAMECALL                         R12 R3 K16 ["getText"]
+       92 CALL                             R12 3 1
+       93 SETTABLEKS                       R12 R11 K11 ["Text"]
+       95 GETUPVAL                         R12 2
+       96 GETTABLEKS                       R12 R12 K24 ["copy"]
+       98 CALL                             R12 0 1
+       99 SETTABLEKS                       R12 R11 K12 ["Icon"]
+      101 NEWCLOSURE                       R12 P2
+      102 CAPTURE                          VAL R0
+      103 CAPTURE                          UPVAL U6
+      104 CAPTURE                          UPVAL U1
+      105 CAPTURE                          VAL R4
+      106 SETTABLEKS                       R12 R11 K13 ["OnItemClicked"]
+      108 DUPTABLE                         R12 K27 [{["Id"] = "PasteTransition", ["Text"], ["Icon"], ["Enabled"], ["OnItemClicked"]}]
+      109 LOADK                            R15 K15 ["ContextMenu"]
+      110 LOADK                            R16 K28 ["Paste"]
+      111 NAMECALL                         R13 R3 K16 ["getText"]
+      113 CALL                             R13 3 1
+      114 SETTABLEKS                       R13 R12 K11 ["Text"]
+      116 GETUPVAL                         R13 2
+      117 GETTABLEKS                       R13 R13 K29 ["paste"]
+      119 CALL                             R13 0 1
+      120 SETTABLEKS                       R13 R12 K12 ["Icon"]
+      122 SETTABLEKS                       R6 R12 K26 ["Enabled"]
+      124 NEWCLOSURE                       R13 P3
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          UPVAL U3
+      128 CAPTURE                          UPVAL U0
+      129 CAPTURE                          UPVAL U1
+      130 SETTABLEKS                       R13 R12 K13 ["OnItemClicked"]
+      132 DUPTABLE                         R13 K31 [{["Id"] = "Delete", ["Text"], ["Icon"], ["OnItemClicked"]}]
+      133 LOADK                            R16 K15 ["ContextMenu"]
+      134 LOADK                            R17 K30 ["Delete"]
+      135 NAMECALL                         R14 R3 K16 ["getText"]
+      137 CALL                             R14 3 1
+      138 SETTABLEKS                       R14 R13 K11 ["Text"]
+      140 GETUPVAL                         R14 2
+      141 GETTABLEKS                       R14 R14 K32 ["delete"]
+      143 CALL                             R14 0 1
+      144 SETTABLEKS                       R14 R13 K12 ["Icon"]
+      146 NEWCLOSURE                       R14 P4
+      147 CAPTURE                          VAL R0
+      148 CAPTURE                          UPVAL U3
+      149 CAPTURE                          UPVAL U0
+      150 CAPTURE                          UPVAL U1
+      151 SETTABLEKS                       R14 R13 K13 ["OnItemClicked"]
+      153 SETLIST                          R9 R10 4 [1]
+      155 DUPTABLE                         R10 K35 [{["Id"] = "TransitionRowMenu", ["Children"]}]
+      156 SETTABLEKS                       R9 R10 K34 ["Children"]
+      158 GETUPVAL                         R11 7
+      159 GETTABLEKS                       R11 R11 K36 ["trackClicks"]
+      161 MOVE                             R12 R10
+      162 GETTABLEKS                       R13 R1 K37 ["Telemetry"]
+      164 CALL                             R11 2 0
+      165 GETUPVAL                         R11 7
+      166 GETTABLEKS                       R11 R11 K38 ["showContextMenu"]
+      168 GETTABLEKS                       R12 R1 K39 ["Plugin"]
+      170 MOVE                             R13 R10
+      171 CALL                             R11 2 0
+      172 RETURN                           R0 0
 
 PROTO_6:
         0 NEWCLOSURE                       R3 P0

@@ -71,126 +71,108 @@ MAIN:
        75 CALL                             R10 3 1
        76 SETTABLE                         R10 R8 R9
        77 NEWTABLE                         R9 8 0
-       79 DUPTABLE                         R10 K26 [{"Size", "Style"}]
-       80 GETIMPORT                        R11 K29 [UDim2.fromOffset]
+       79 DUPTABLE                         R10 K27 [{["Size"], ["Style"] = "Round"}]
+       80 GETIMPORT                        R11 K30 [UDim2.fromOffset]
        82 LOADN                            R12 75
        83 LOADN                            R13 28
        84 CALL                             R11 2 1
        85 SETTABLEKS                       R11 R10 K25 ["Size"]
-       87 LOADK                            R11 K30 ["Round"]
-       88 SETTABLEKS                       R11 R10 K7 ["Style"]
-       90 SETTABLEKS                       R10 R9 K31 ["Button"]
-       92 GETTABLEKS                       R10 R4 K19 ["TextEditor"]
-       94 DUPTABLE                         R11 K34 [{"OffsetItemSpacing", "PixelDimensionsHeightPx"}]
-       95 GETIMPORT                        R12 K37 [UDim.new]
-       97 LOADN                            R13 0
-       98 LOADN                            R14 7
-       99 CALL                             R12 2 1
-      100 SETTABLEKS                       R12 R11 K32 ["OffsetItemSpacing"]
-      102 LOADN                            R12 40
-      103 SETTABLEKS                       R12 R11 K33 ["PixelDimensionsHeightPx"]
-      105 SETTABLE                         R11 R9 R10
-      106 DUPTABLE                         R10 K42 [{"PaneSize", "LabelXWidth", "TextBoxSize", "LabelTextBoxSpacing", "Style"}]
-      107 GETIMPORT                        R11 K29 [UDim2.fromOffset]
-      109 LOADN                            R12 110
-      110 LOADN                            R13 20
-      111 CALL                             R11 2 1
-      112 SETTABLEKS                       R11 R10 K38 ["PaneSize"]
-      114 LOADN                            R11 50
-      115 SETTABLEKS                       R11 R10 K39 ["LabelXWidth"]
-      117 GETIMPORT                        R11 K29 [UDim2.fromOffset]
-      119 LOADN                            R12 50
-      120 LOADN                            R13 20
-      121 CALL                             R11 2 1
-      122 SETTABLEKS                       R11 R10 K40 ["TextBoxSize"]
-      124 LOADN                            R11 10
-      125 SETTABLEKS                       R11 R10 K41 ["LabelTextBoxSpacing"]
-      127 LOADK                            R11 K43 ["RoundedBorder"]
-      128 SETTABLEKS                       R11 R10 K7 ["Style"]
-      130 SETTABLEKS                       R10 R9 K44 ["TextOffsetItem"]
-      132 GETTABLEKS                       R10 R4 K15 ["AlertDialog"]
-      134 DUPTABLE                         R11 K47 [{"PopupMessageSize", "TextSize"}]
-      135 GETIMPORT                        R12 K49 [Vector2.new]
-      137 LOADN                            R13 144
-      138 LOADN                            R14 60
-      139 CALL                             R12 2 1
-      140 SETTABLEKS                       R12 R11 K45 ["PopupMessageSize"]
-      142 LOADN                            R12 18
-      143 SETTABLEKS                       R12 R11 K46 ["TextSize"]
-      145 SETTABLE                         R11 R9 R10
-      146 GETTABLEKS                       R10 R4 K17 ["ImageDragger"]
-      148 DUPTABLE                         R11 K52 [{"EdgeHandleSize", "EdgeHandleInsetPx"}]
-      149 GETIMPORT                        R12 K29 [UDim2.fromOffset]
-      151 LOADN                            R13 30
-      152 LOADN                            R14 28
-      153 CALL                             R12 2 1
-      154 SETTABLEKS                       R12 R11 K50 ["EdgeHandleSize"]
-      156 LOADN                            R12 2
-      157 SETTABLEKS                       R12 R11 K51 ["EdgeHandleInsetPx"]
-      159 SETTABLE                         R11 R9 R10
-      160 GETTABLEKS                       R10 R4 K20 ["ImageEditor"]
-      162 DUPTABLE                         R11 K55 [{"PaneBackgroundColor", "PaneBorderColor"}]
-      163 GETTABLEKS                       R12 R5 K21 ["SubtleBackgroundColor"]
-      165 SETTABLEKS                       R12 R11 K53 ["PaneBackgroundColor"]
-      167 GETTABLEKS                       R12 R5 K56 ["Border"]
-      169 SETTABLEKS                       R12 R11 K54 ["PaneBorderColor"]
-      171 SETTABLE                         R11 R9 R10
-      172 GETTABLEKS                       R10 R4 K18 ["SliceEditor"]
-      174 DUPTABLE                         R11 K66 [{"TextAreaSize", "ImageAreaSize", "ButtonsAreaSize", "ButtonsSpacing", "VerticalSpacing", "HorizontalSpacing", "InfoBoxSize", "PaddingPx", "TextAreaXWindowScaleFactor"}]
-      175 GETIMPORT                        R12 K29 [UDim2.fromOffset]
-      177 GETTABLEKS                       R13 R6 K67 ["TEXTEDITOR_XSIZE"]
-      179 GETTABLEKS                       R15 R6 K69 ["TEXTEDITOR_YSIZE"]
-      181 ADDK                             R14 R15 K68 [60]
-      182 CALL                             R12 2 1
-      183 SETTABLEKS                       R12 R11 K57 ["TextAreaSize"]
-      185 GETIMPORT                        R12 K29 [UDim2.fromOffset]
-      187 GETTABLEKS                       R15 R6 K71 ["BACKGROUND_SIZE"]
-      189 ADDK                             R14 R15 K70 [10]
-      190 GETTABLEKS                       R15 R6 K67 ["TEXTEDITOR_XSIZE"]
-      192 ADD                              R13 R14 R15
-      193 GETTABLEKS                       R16 R6 K71 ["BACKGROUND_SIZE"]
-      195 GETTABLEKS                       R17 R6 K72 ["TEXTSIZE"]
-      197 ADD                              R15 R16 R17
-      198 ADDK                             R14 R15 K70 [10]
-      199 CALL                             R12 2 1
-      200 SETTABLEKS                       R12 R11 K58 ["ImageAreaSize"]
-      202 GETIMPORT                        R12 K29 [UDim2.fromOffset]
-      204 GETTABLEKS                       R16 R6 K71 ["BACKGROUND_SIZE"]
-      206 ADDK                             R15 R16 K70 [10]
-      207 GETTABLEKS                       R16 R6 K67 ["TEXTEDITOR_XSIZE"]
-      209 ADD                              R14 R15 R16
-      210 ADDK                             R13 R14 K70 [10]
-      211 LOADN                            R14 42
+       87 SETTABLEKS                       R10 R9 K31 ["Button"]
+       89 GETTABLEKS                       R10 R4 K19 ["TextEditor"]
+       91 DUPTABLE                         R11 K35 [{["OffsetItemSpacing"], ["PixelDimensionsHeightPx"] = 40}]
+       92 GETIMPORT                        R12 K38 [UDim.new]
+       94 LOADN                            R13 0
+       95 LOADN                            R14 7
+       96 CALL                             R12 2 1
+       97 SETTABLEKS                       R12 R11 K32 ["OffsetItemSpacing"]
+       99 SETTABLE                         R11 R9 R10
+      100 DUPTABLE                         R10 K46 [{["PaneSize"], ["LabelXWidth"] = 50, ["TextBoxSize"], ["LabelTextBoxSpacing"] = 10, ["Style"] = "RoundedBorder"}]
+      101 GETIMPORT                        R11 K30 [UDim2.fromOffset]
+      103 LOADN                            R12 110
+      104 LOADN                            R13 20
+      105 CALL                             R11 2 1
+      106 SETTABLEKS                       R11 R10 K39 ["PaneSize"]
+      108 GETIMPORT                        R11 K30 [UDim2.fromOffset]
+      110 LOADN                            R12 50
+      111 LOADN                            R13 20
+      112 CALL                             R11 2 1
+      113 SETTABLEKS                       R11 R10 K42 ["TextBoxSize"]
+      115 SETTABLEKS                       R10 R9 K47 ["TextOffsetItem"]
+      117 GETTABLEKS                       R10 R4 K15 ["AlertDialog"]
+      119 DUPTABLE                         R11 K51 [{["PopupMessageSize"], ["TextSize"] = 18}]
+      120 GETIMPORT                        R12 K53 [Vector2.new]
+      122 LOADN                            R13 400
+      123 LOADN                            R14 60
+      124 CALL                             R12 2 1
+      125 SETTABLEKS                       R12 R11 K48 ["PopupMessageSize"]
+      127 SETTABLE                         R11 R9 R10
+      128 GETTABLEKS                       R10 R4 K17 ["ImageDragger"]
+      130 DUPTABLE                         R11 K57 [{["EdgeHandleSize"], ["EdgeHandleInsetPx"] = 2}]
+      131 GETIMPORT                        R12 K30 [UDim2.fromOffset]
+      133 LOADN                            R13 30
+      134 LOADN                            R14 28
+      135 CALL                             R12 2 1
+      136 SETTABLEKS                       R12 R11 K54 ["EdgeHandleSize"]
+      138 SETTABLE                         R11 R9 R10
+      139 GETTABLEKS                       R10 R4 K20 ["ImageEditor"]
+      141 DUPTABLE                         R11 K60 [{"PaneBackgroundColor", "PaneBorderColor"}]
+      142 GETTABLEKS                       R12 R5 K21 ["SubtleBackgroundColor"]
+      144 SETTABLEKS                       R12 R11 K58 ["PaneBackgroundColor"]
+      146 GETTABLEKS                       R12 R5 K61 ["Border"]
+      148 SETTABLEKS                       R12 R11 K59 ["PaneBorderColor"]
+      150 SETTABLE                         R11 R9 R10
+      151 GETTABLEKS                       R10 R4 K18 ["SliceEditor"]
+      153 DUPTABLE                         R11 K72 [{["TextAreaSize"], ["ImageAreaSize"], ["ButtonsAreaSize"], ["ButtonsSpacing"], ["VerticalSpacing"], ["HorizontalSpacing"], ["InfoBoxSize"], ["PaddingPx"] = 2, ["TextAreaXWindowScaleFactor"] = 0.05}]
+      154 GETIMPORT                        R12 K30 [UDim2.fromOffset]
+      156 GETTABLEKS                       R13 R6 K73 ["TEXTEDITOR_XSIZE"]
+      158 GETTABLEKS                       R15 R6 K75 ["TEXTEDITOR_YSIZE"]
+      160 ADDK                             R14 R15 K74 [60]
+      161 CALL                             R12 2 1
+      162 SETTABLEKS                       R12 R11 K62 ["TextAreaSize"]
+      164 GETIMPORT                        R12 K30 [UDim2.fromOffset]
+      166 GETTABLEKS                       R15 R6 K76 ["BACKGROUND_SIZE"]
+      168 ADDK                             R14 R15 K44 [10]
+      169 GETTABLEKS                       R15 R6 K73 ["TEXTEDITOR_XSIZE"]
+      171 ADD                              R13 R14 R15
+      172 GETTABLEKS                       R16 R6 K76 ["BACKGROUND_SIZE"]
+      174 GETTABLEKS                       R17 R6 K77 ["TEXTSIZE"]
+      176 ADD                              R15 R16 R17
+      177 ADDK                             R14 R15 K44 [10]
+      178 CALL                             R12 2 1
+      179 SETTABLEKS                       R12 R11 K63 ["ImageAreaSize"]
+      181 GETIMPORT                        R12 K30 [UDim2.fromOffset]
+      183 GETTABLEKS                       R16 R6 K76 ["BACKGROUND_SIZE"]
+      185 ADDK                             R15 R16 K44 [10]
+      186 GETTABLEKS                       R16 R6 K73 ["TEXTEDITOR_XSIZE"]
+      188 ADD                              R14 R15 R16
+      189 ADDK                             R13 R14 K44 [10]
+      190 LOADN                            R14 42
+      191 CALL                             R12 2 1
+      192 SETTABLEKS                       R12 R11 K64 ["ButtonsAreaSize"]
+      194 GETIMPORT                        R12 K38 [UDim.new]
+      196 LOADN                            R13 0
+      197 LOADN                            R14 10
+      198 CALL                             R12 2 1
+      199 SETTABLEKS                       R12 R11 K65 ["ButtonsSpacing"]
+      201 GETIMPORT                        R12 K38 [UDim.new]
+      203 LOADN                            R13 0
+      204 LOADN                            R14 5
+      205 CALL                             R12 2 1
+      206 SETTABLEKS                       R12 R11 K66 ["VerticalSpacing"]
+      208 GETIMPORT                        R12 K38 [UDim.new]
+      210 LOADN                            R13 0
+      211 LOADN                            R14 5
       212 CALL                             R12 2 1
-      213 SETTABLEKS                       R12 R11 K59 ["ButtonsAreaSize"]
-      215 GETIMPORT                        R12 K37 [UDim.new]
-      217 LOADN                            R13 0
-      218 LOADN                            R14 10
+      213 SETTABLEKS                       R12 R11 K67 ["HorizontalSpacing"]
+      215 GETIMPORT                        R12 K30 [UDim2.fromOffset]
+      217 LOADN                            R13 300
+      218 LOADN                            R14 200
       219 CALL                             R12 2 1
-      220 SETTABLEKS                       R12 R11 K60 ["ButtonsSpacing"]
-      222 GETIMPORT                        R12 K37 [UDim.new]
-      224 LOADN                            R13 0
-      225 LOADN                            R14 5
-      226 CALL                             R12 2 1
-      227 SETTABLEKS                       R12 R11 K61 ["VerticalSpacing"]
-      229 GETIMPORT                        R12 K37 [UDim.new]
-      231 LOADN                            R13 0
-      232 LOADN                            R14 5
-      233 CALL                             R12 2 1
-      234 SETTABLEKS                       R12 R11 K62 ["HorizontalSpacing"]
-      236 GETIMPORT                        R12 K29 [UDim2.fromOffset]
-      238 LOADN                            R13 44
-      239 LOADN                            R14 200
-      240 CALL                             R12 2 1
-      241 SETTABLEKS                       R12 R11 K63 ["InfoBoxSize"]
-      243 LOADN                            R12 2
-      244 SETTABLEKS                       R12 R11 K64 ["PaddingPx"]
-      246 LOADK                            R12 K73 [0.05]
-      247 SETTABLEKS                       R12 R11 K65 ["TextAreaXWindowScaleFactor"]
-      249 SETTABLE                         R11 R9 R10
-      250 DUPCLOSURE                       R10 K74 [PROTO_0]
-      251 CAPTURE                          VAL R3
-      252 CAPTURE                          VAL R7
-      253 CAPTURE                          VAL R8
-      254 CAPTURE                          VAL R9
-      255 RETURN                           R10 1
+      220 SETTABLEKS                       R12 R11 K68 ["InfoBoxSize"]
+      222 SETTABLE                         R11 R9 R10
+      223 DUPCLOSURE                       R10 K78 [PROTO_0]
+      224 CAPTURE                          VAL R3
+      225 CAPTURE                          VAL R7
+      226 CAPTURE                          VAL R8
+      227 CAPTURE                          VAL R9
+      228 RETURN                           R10 1

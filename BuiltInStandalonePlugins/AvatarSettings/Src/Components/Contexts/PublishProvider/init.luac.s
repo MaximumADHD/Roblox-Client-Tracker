@@ -40,7 +40,23 @@ PROTO_3:
         2 GETTABLEKS                       R2 R2 K0 ["discardSettings"]
         4 NAMECALL                         R0 R0 K1 ["Invoke"]
         6 CALL                             R0 2 0
-        7 RETURN                           R0 0
+        7 GETUPVAL                         R0 2
+        8 CALL                             R0 0 1
+        9 JUMPIFNOT                        R0 ; [+18]
+       10 GETUPVAL                         R1 3
+       11 GETTABLEKS                       R1 R1 K2 ["current"]
+       13 FASTCALL1                        ASSERT R1 ; [+2]
+       14 GETIMPORT                        R0 K4 [assert]
+       16 CALL                             R0 1 0
+       17 GETUPVAL                         R0 4
+       18 GETTABLEKS                       R0 R0 K5 ["discardUnpublishedSettings"]
+       20 GETUPVAL                         R1 3
+       21 GETTABLEKS                       R1 R1 K2 ["current"]
+       23 CALL                             R0 1 0
+       24 GETUPVAL                         R0 5
+       25 NEWTABLE                         R1 0 0
+       27 CALL                             R0 1 0
+       28 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -223,78 +239,80 @@ PROTO_10:
        49 GETIMPORT                        R7 K4 [assert]
        51 CALL                             R7 2 0
        52 DUPTABLE                         R7 K12 [{"content"}]
-       53 DUPTABLE                         R8 K19 [{"databaseLoaded", "canPublish", "isAvatarTypeOutOfSync", "isSettingOutOfSync", "saveUnpublishedSettings", "discardUnpublishedSettings"}]
+       53 DUPTABLE                         R8 K20 [{["databaseLoaded"], ["canPublish"] = False, ["isAvatarTypeOutOfSync"], ["isSettingOutOfSync"], ["saveUnpublishedSettings"], ["discardUnpublishedSettings"]}]
        54 SETTABLEKS                       R3 R8 K13 ["databaseLoaded"]
-       56 LOADB                            R9 0
-       57 SETTABLEKS                       R9 R8 K14 ["canPublish"]
-       59 NEWCLOSURE                       R9 P0
-       60 CAPTURE                          VAL R6
-       61 CAPTURE                          UPVAL U4
-       62 SETTABLEKS                       R9 R8 K15 ["isAvatarTypeOutOfSync"]
-       64 NEWCLOSURE                       R9 P1
-       65 CAPTURE                          VAL R6
-       66 CAPTURE                          UPVAL U4
-       67 SETTABLEKS                       R9 R8 K16 ["isSettingOutOfSync"]
-       69 NEWCLOSURE                       R9 P2
-       70 CAPTURE                          VAL R2
-       71 CAPTURE                          UPVAL U5
-       72 SETTABLEKS                       R9 R8 K17 ["saveUnpublishedSettings"]
-       74 NEWCLOSURE                       R9 P3
-       75 CAPTURE                          VAL R2
-       76 CAPTURE                          UPVAL U5
-       77 SETTABLEKS                       R9 R8 K18 ["discardUnpublishedSettings"]
-       79 SETTABLEKS                       R8 R7 K11 ["content"]
-       81 GETTABLEKS                       R10 R7 K11 ["content"]
-       83 JUMPIFNOTEQKNIL                  R10 ; [+2]
-       85 LOADB                            R9 0 +1
-       86 LOADB                            R9 1
-       87 FASTCALL2K                       ASSERT R9 K20 ; [+4]
-       89 LOADK                            R10 K20 ["Content must not be nil in PublishContext"]
-       90 GETIMPORT                        R8 K4 [assert]
-       92 CALL                             R8 2 0
-       93 GETUPVAL                         R9 4
-       94 GETTABLEKS                       R9 R9 K21 ["isEqualToCurrentSettings"]
-       96 MOVE                             R10 R1
-       97 CALL                             R9 1 1
-       98 NOT                              R8 R9
-       99 GETUPVAL                         R10 4
-      100 GETTABLEKS                       R10 R10 K22 ["isAvatarTypeEqual"]
-      102 MOVE                             R11 R1
-      103 CALL                             R10 1 1
-      104 NOT                              R9 R10
-      105 GETUPVAL                         R12 5
-      106 GETTABLEKS                       R12 R12 K23 ["hasUnpublishedChanges"]
-      108 MOVE                             R13 R8
-      109 NAMECALL                         R10 R2 K24 ["Invoke"]
-      111 CALL                             R10 3 0
-      112 GETUPVAL                         R12 5
-      113 GETTABLEKS                       R12 R12 K25 ["hasUnpublishedAvatarTypeChanges"]
-      115 MOVE                             R13 R9
-      116 NAMECALL                         R10 R2 K24 ["Invoke"]
-      118 CALL                             R10 3 0
-      119 GETUPVAL                         R10 0
-      120 GETTABLEKS                       R10 R10 K26 ["useEffect"]
-      122 NEWCLOSURE                       R11 P4
-      123 CAPTURE                          VAL R2
-      124 CAPTURE                          UPVAL U5
-      125 CAPTURE                          UPVAL U4
-      126 CAPTURE                          VAL R6
-      127 CAPTURE                          VAL R3
-      128 CAPTURE                          VAL R5
-      129 NEWTABLE                         R12 0 0
-      131 CALL                             R10 2 0
-      132 GETTABLEKS                       R10 R7 K11 ["content"]
-      134 GETTABLEKS                       R12 R3 K27 ["value"]
-      136 AND                              R11 R12 R8
-      137 SETTABLEKS                       R11 R10 K14 ["canPublish"]
-      139 GETUPVAL                         R10 6
-      140 GETUPVAL                         R11 7
-      141 GETTABLEKS                       R11 R11 K28 ["Provider"]
-      143 DUPTABLE                         R12 K29 [{"value"}]
-      144 SETTABLEKS                       R7 R12 K27 ["value"]
-      146 GETTABLEKS                       R13 R0 K30 ["children"]
-      148 CALL                             R10 3 -1
-      149 RETURN                           R10 -1
+       56 NEWCLOSURE                       R9 P0
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          UPVAL U4
+       59 SETTABLEKS                       R9 R8 K16 ["isAvatarTypeOutOfSync"]
+       61 NEWCLOSURE                       R9 P1
+       62 CAPTURE                          VAL R6
+       63 CAPTURE                          UPVAL U4
+       64 SETTABLEKS                       R9 R8 K17 ["isSettingOutOfSync"]
+       66 NEWCLOSURE                       R9 P2
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          UPVAL U5
+       69 SETTABLEKS                       R9 R8 K18 ["saveUnpublishedSettings"]
+       71 NEWCLOSURE                       R9 P3
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          UPVAL U5
+       74 CAPTURE                          UPVAL U6
+       75 CAPTURE                          VAL R6
+       76 CAPTURE                          UPVAL U4
+       77 CAPTURE                          VAL R5
+       78 SETTABLEKS                       R9 R8 K19 ["discardUnpublishedSettings"]
+       80 SETTABLEKS                       R8 R7 K11 ["content"]
+       82 GETTABLEKS                       R10 R7 K11 ["content"]
+       84 JUMPIFNOTEQKNIL                  R10 ; [+2]
+       86 LOADB                            R9 0 +1
+       87 LOADB                            R9 1
+       88 FASTCALL2K                       ASSERT R9 K21 ; [+4]
+       90 LOADK                            R10 K21 ["Content must not be nil in PublishContext"]
+       91 GETIMPORT                        R8 K4 [assert]
+       93 CALL                             R8 2 0
+       94 GETUPVAL                         R9 4
+       95 GETTABLEKS                       R9 R9 K22 ["isEqualToCurrentSettings"]
+       97 MOVE                             R10 R1
+       98 CALL                             R9 1 1
+       99 NOT                              R8 R9
+      100 GETUPVAL                         R10 4
+      101 GETTABLEKS                       R10 R10 K23 ["isAvatarTypeEqual"]
+      103 MOVE                             R11 R1
+      104 CALL                             R10 1 1
+      105 NOT                              R9 R10
+      106 GETUPVAL                         R12 5
+      107 GETTABLEKS                       R12 R12 K24 ["hasUnpublishedChanges"]
+      109 MOVE                             R13 R8
+      110 NAMECALL                         R10 R2 K25 ["Invoke"]
+      112 CALL                             R10 3 0
+      113 GETUPVAL                         R12 5
+      114 GETTABLEKS                       R12 R12 K26 ["hasUnpublishedAvatarTypeChanges"]
+      116 MOVE                             R13 R9
+      117 NAMECALL                         R10 R2 K25 ["Invoke"]
+      119 CALL                             R10 3 0
+      120 GETUPVAL                         R10 0
+      121 GETTABLEKS                       R10 R10 K27 ["useEffect"]
+      123 NEWCLOSURE                       R11 P4
+      124 CAPTURE                          VAL R2
+      125 CAPTURE                          UPVAL U5
+      126 CAPTURE                          UPVAL U4
+      127 CAPTURE                          VAL R6
+      128 CAPTURE                          VAL R3
+      129 CAPTURE                          VAL R5
+      130 NEWTABLE                         R12 0 0
+      132 CALL                             R10 2 0
+      133 GETTABLEKS                       R10 R7 K11 ["content"]
+      135 GETTABLEKS                       R12 R3 K28 ["value"]
+      137 AND                              R11 R12 R8
+      138 SETTABLEKS                       R11 R10 K14 ["canPublish"]
+      140 GETUPVAL                         R10 7
+      141 GETUPVAL                         R11 8
+      142 GETTABLEKS                       R11 R11 K29 ["Provider"]
+      144 DUPTABLE                         R12 K30 [{"value"}]
+      145 SETTABLEKS                       R7 R12 K28 ["value"]
+      147 GETTABLEKS                       R13 R0 K31 ["children"]
+      149 CALL                             R10 3 -1
+      150 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -340,17 +358,23 @@ MAIN:
        71 GETTABLEKS                       R8 R8 K15 ["Util"]
        73 GETTABLEKS                       R8 R8 K18 ["settingUtil"]
        75 CALL                             R7 1 1
-       76 GETTABLEKS                       R8 R2 K19 ["ContextServices"]
-       78 GETTABLEKS                       R9 R8 K20 ["Plugin"]
-       80 GETTABLEKS                       R10 R7 K21 ["useSetting"]
-       82 GETTABLEKS                       R11 R4 K22 ["createElement"]
-       84 DUPCLOSURE                       R12 K23 [PROTO_10]
-       85 CAPTURE                          VAL R4
-       86 CAPTURE                          VAL R1
-       87 CAPTURE                          VAL R9
-       88 CAPTURE                          VAL R10
-       89 CAPTURE                          VAL R6
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R11
-       92 CAPTURE                          VAL R3
-       93 RETURN                           R12 1
+       76 GETIMPORT                        R8 K5 [require]
+       78 GETTABLEKS                       R9 R0 K6 ["Src"]
+       80 GETTABLEKS                       R9 R9 K19 ["Flags"]
+       82 GETTABLEKS                       R9 R9 K20 ["getFFlagAvatarSettingsFixRevertButtonStuck"]
+       84 CALL                             R8 1 1
+       85 GETTABLEKS                       R9 R2 K21 ["ContextServices"]
+       87 GETTABLEKS                       R10 R9 K22 ["Plugin"]
+       89 GETTABLEKS                       R11 R7 K23 ["useSetting"]
+       91 GETTABLEKS                       R12 R4 K24 ["createElement"]
+       93 DUPCLOSURE                       R13 K25 [PROTO_10]
+       94 CAPTURE                          VAL R4
+       95 CAPTURE                          VAL R1
+       96 CAPTURE                          VAL R10
+       97 CAPTURE                          VAL R11
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R8
+      101 CAPTURE                          VAL R12
+      102 CAPTURE                          VAL R3
+      103 RETURN                           R13 1

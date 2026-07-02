@@ -15,33 +15,29 @@ PROTO_1:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
-       12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
+       12 DUPTABLE                         R6 K6 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       13 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
        15 SETTABLEKS                       R7 R6 K2 ["AutomaticSize"]
-       17 LOADN                            R7 1
-       18 SETTABLEKS                       R7 R6 K3 ["BackgroundTransparency"]
-       20 GETIMPORT                        R7 K11 [UDim2.new]
-       22 LOADN                            R8 1
-       23 LOADN                            R9 0
-       24 LOADN                            R10 0
-       25 LOADN                            R11 0
-       26 CALL                             R7 4 1
-       27 SETTABLEKS                       R7 R6 K4 ["Size"]
-       29 DUPTABLE                         R7 K13 [{"SearchList"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K16 [{"Items", "ItemMinWidth"}]
-       35 GETUPVAL                         R11 3
-       36 SETTABLEKS                       R11 R10 K14 ["Items"]
-       38 LOADN                            R11 28
-       39 SETTABLEKS                       R11 R10 K15 ["ItemMinWidth"]
-       41 CALL                             R8 2 1
-       42 SETTABLEKS                       R8 R7 K12 ["SearchList"]
-       44 CALL                             R4 3 -1
-       45 SETLIST                          R3 R4 -1 [1]
-       47 CALL                             R0 3 -1
-       48 RETURN                           R0 -1
+       17 GETIMPORT                        R7 K12 [UDim2.new]
+       19 LOADN                            R8 1
+       20 LOADN                            R9 0
+       21 LOADN                            R10 0
+       22 LOADN                            R11 0
+       23 CALL                             R7 4 1
+       24 SETTABLEKS                       R7 R6 K5 ["Size"]
+       26 DUPTABLE                         R7 K14 [{"SearchList"}]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       30 GETUPVAL                         R9 2
+       31 DUPTABLE                         R10 K18 [{["Items"], ["ItemMinWidth"] = 28}]
+       32 GETUPVAL                         R11 3
+       33 SETTABLEKS                       R11 R10 K15 ["Items"]
+       35 CALL                             R8 2 1
+       36 SETTABLEKS                       R8 R7 K13 ["SearchList"]
+       38 CALL                             R4 3 -1
+       39 SETLIST                          R3 R4 -1 [1]
+       41 CALL                             R0 3 -1
+       42 RETURN                           R0 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -52,35 +48,29 @@ PROTO_2:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K0 ["createElement"]
        11 LOADK                            R5 K1 ["Frame"]
-       12 DUPTABLE                         R6 K5 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       13 GETIMPORT                        R7 K8 [Enum.AutomaticSize.Y]
+       12 DUPTABLE                         R6 K6 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       13 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
        15 SETTABLEKS                       R7 R6 K2 ["AutomaticSize"]
-       17 LOADN                            R7 1
-       18 SETTABLEKS                       R7 R6 K3 ["BackgroundTransparency"]
-       20 GETIMPORT                        R7 K11 [UDim2.new]
-       22 LOADN                            R8 1
-       23 LOADN                            R9 0
-       24 LOADN                            R10 0
-       25 LOADN                            R11 0
-       26 CALL                             R7 4 1
-       27 SETTABLEKS                       R7 R6 K4 ["Size"]
-       29 DUPTABLE                         R7 K13 [{"SearchList"}]
-       30 GETUPVAL                         R8 0
-       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       33 GETUPVAL                         R9 2
-       34 DUPTABLE                         R10 K17 [{"Items", "ItemMinWidth", "MaxRowCount"}]
-       35 GETUPVAL                         R11 3
-       36 SETTABLEKS                       R11 R10 K14 ["Items"]
-       38 LOADN                            R11 28
-       39 SETTABLEKS                       R11 R10 K15 ["ItemMinWidth"]
-       41 LOADN                            R11 2
-       42 SETTABLEKS                       R11 R10 K16 ["MaxRowCount"]
-       44 CALL                             R8 2 1
-       45 SETTABLEKS                       R8 R7 K12 ["SearchList"]
-       47 CALL                             R4 3 -1
-       48 SETLIST                          R3 R4 -1 [1]
-       50 CALL                             R0 3 -1
-       51 RETURN                           R0 -1
+       17 GETIMPORT                        R7 K12 [UDim2.new]
+       19 LOADN                            R8 1
+       20 LOADN                            R9 0
+       21 LOADN                            R10 0
+       22 LOADN                            R11 0
+       23 CALL                             R7 4 1
+       24 SETTABLEKS                       R7 R6 K5 ["Size"]
+       26 DUPTABLE                         R7 K14 [{"SearchList"}]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       30 GETUPVAL                         R9 2
+       31 DUPTABLE                         R10 K20 [{["Items"], ["ItemMinWidth"] = 28, ["MaxRowCount"] = 2}]
+       32 GETUPVAL                         R11 3
+       33 SETTABLEKS                       R11 R10 K15 ["Items"]
+       35 CALL                             R8 2 1
+       36 SETTABLEKS                       R8 R7 K13 ["SearchList"]
+       38 CALL                             R4 3 -1
+       39 SETLIST                          R3 R4 -1 [1]
+       41 CALL                             R0 3 -1
+       42 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -128,28 +118,22 @@ MAIN:
        58 LOADK                            R10 K33 ["popplio"]
        59 LOADK                            R11 K34 ["rowlet"]
        60 SETLIST                          R6 R7 5 [17]
-       62 DUPTABLE                         R7 K37 [{"summary", "stories"}]
-       63 LOADK                            R8 K38 ["A generic search list."]
-       64 SETTABLEKS                       R8 R7 K35 ["summary"]
-       66 NEWTABLE                         R8 0 2
-       68 DUPTABLE                         R9 K41 [{"name", "story"}]
-       69 LOADK                            R10 K42 ["Full, no max count"]
-       70 SETTABLEKS                       R10 R9 K39 ["name"]
-       72 DUPCLOSURE                       R10 K43 [PROTO_1]
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R5
-       75 CAPTURE                          VAL R4
-       76 CAPTURE                          VAL R6
-       77 SETTABLEKS                       R10 R9 K40 ["story"]
-       79 DUPTABLE                         R10 K41 [{"name", "story"}]
-       80 LOADK                            R11 K44 ["Max row count of 2"]
-       81 SETTABLEKS                       R11 R10 K39 ["name"]
-       83 DUPCLOSURE                       R11 K45 [PROTO_2]
-       84 CAPTURE                          VAL R2
-       85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R6
-       88 SETTABLEKS                       R11 R10 K40 ["story"]
-       90 SETLIST                          R8 R9 2 [1]
-       92 SETTABLEKS                       R8 R7 K36 ["stories"]
-       94 RETURN                           R7 1
+       62 DUPTABLE                         R7 K38 [{["summary"] = "A generic search list.", ["stories"]}]
+       63 NEWTABLE                         R8 0 2
+       65 DUPTABLE                         R9 K42 [{["name"] = "Full, no max count", ["story"]}]
+       66 DUPCLOSURE                       R10 K43 [PROTO_1]
+       67 CAPTURE                          VAL R2
+       68 CAPTURE                          VAL R5
+       69 CAPTURE                          VAL R4
+       70 CAPTURE                          VAL R6
+       71 SETTABLEKS                       R10 R9 K41 ["story"]
+       73 DUPTABLE                         R10 K45 [{["name"] = "Max row count of 2", ["story"]}]
+       74 DUPCLOSURE                       R11 K46 [PROTO_2]
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R4
+       78 CAPTURE                          VAL R6
+       79 SETTABLEKS                       R11 R10 K41 ["story"]
+       81 SETLIST                          R8 R9 2 [1]
+       83 SETTABLEKS                       R8 R7 K37 ["stories"]
+       85 RETURN                           R7 1

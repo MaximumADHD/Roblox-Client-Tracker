@@ -190,21 +190,17 @@ PROTO_7:
 
 PROTO_8:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["hovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"hovered"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["hovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -321,242 +317,240 @@ PROTO_10:
       162 GETUPVAL                         R27 1
       163 GETTABLEKS                       R27 R27 K29 ["createElement"]
       165 GETUPVAL                         R28 3
-      166 DUPTABLE                         R29 K39 [{"Cursor", "MouseEnter", "MouseLeave"}]
-      167 LOADK                            R30 K40 ["PointingHand"]
-      168 SETTABLEKS                       R30 R29 K36 ["Cursor"]
-      170 NEWCLOSURE                       R30 P0
-      171 CAPTURE                          VAL R0
-      172 SETTABLEKS                       R30 R29 K37 ["MouseEnter"]
-      174 NEWCLOSURE                       R30 P1
-      175 CAPTURE                          VAL R0
-      176 SETTABLEKS                       R30 R29 K38 ["MouseLeave"]
-      178 CALL                             R27 2 1
-      179 SETTABLEKS                       R27 R26 K33 ["HoverArea"]
-      181 GETUPVAL                         R27 1
-      182 GETTABLEKS                       R27 R27 K29 ["createElement"]
-      184 GETUPVAL                         R28 2
-      185 DUPTABLE                         R29 K48 [{"Layout", "HorizontalAlignment", "Spacing", "Padding", "Style", "OnPress", "OnClick"}]
-      186 GETIMPORT                        R30 K52 [Enum.FillDirection.Horizontal]
-      188 SETTABLEKS                       R30 R29 K41 ["Layout"]
-      190 GETIMPORT                        R30 K54 [Enum.HorizontalAlignment.Left]
-      192 SETTABLEKS                       R30 R29 K42 ["HorizontalAlignment"]
-      194 GETTABLEKS                       R30 R3 K43 ["Spacing"]
-      196 SETTABLEKS                       R30 R29 K43 ["Spacing"]
-      198 JUMPIF                           R7 ; [+4]
-      199 GETTABLEKS                       R31 R1 K11 ["TagGroup"]
-      201 JUMPIFNOTEQKS                    R31 K8 [""] ; [+4]
-      203 GETTABLEKS                       R30 R3 K55 ["PaddingUnindented"]
-      205 JUMP                             ; [+2]
-      206 GETTABLEKS                       R30 R3 K56 ["PaddingIndented"]
-      208 SETTABLEKS                       R30 R29 K44 ["Padding"]
-      210 SETTABLEKS                       R20 R29 K45 ["Style"]
-      212 GETTABLEKS                       R30 R0 K57 ["onPress"]
-      214 SETTABLEKS                       R30 R29 K46 ["OnPress"]
-      216 GETTABLEKS                       R30 R0 K58 ["onClick"]
-      218 SETTABLEKS                       R30 R29 K47 ["OnClick"]
-      220 DUPTABLE                         R30 K66 [{"ArrowImage", "CheckboxPane", "TagImage", "NameText", "RenameTextInput", "EditGroupMembership", "VisibleToggleButton"}]
-      221 MOVE                             R31 R7
-      222 JUMPIFNOT                        R31 ; [+27]
-      223 GETUPVAL                         R31 1
-      224 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      226 GETUPVAL                         R32 4
-      227 DUPTABLE                         R33 K69 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder"}]
-      228 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
-      230 GETTABLEKS                       R35 R1 K70 ["IsGroupCollapsed"]
-      232 JUMPIFNOT                        R35 ; [+3]
-      233 GETTABLEKS                       R34 R3 K71 ["ClosedArrowImage"]
-      235 JUMP                             ; [+2]
-      236 GETTABLEKS                       R34 R3 K72 ["OpenArrowImage"]
-      238 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
-      240 GETTABLEKS                       R34 R0 K73 ["toggleGroup"]
-      242 SETTABLEKS                       R34 R33 K47 ["OnClick"]
-      244 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      246 CALL                             R34 1 1
-      247 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      249 CALL                             R31 2 1
-      250 SETTABLEKS                       R31 R30 K59 ["ArrowImage"]
-      252 MOVE                             R31 R13
-      253 JUMPIFNOT                        R31 ; [+90]
-      254 GETUPVAL                         R31 1
-      255 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      257 GETUPVAL                         R32 2
-      258 DUPTABLE                         R33 K75 [{"LayoutOrder", "Size", "Layout"}]
-      259 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      261 CALL                             R34 1 1
-      262 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      264 GETTABLEKS                       R34 R3 K76 ["CheckboxSize"]
-      266 SETTABLEKS                       R34 R33 K31 ["Size"]
-      268 GETIMPORT                        R34 K52 [Enum.FillDirection.Horizontal]
-      270 SETTABLEKS                       R34 R33 K41 ["Layout"]
-      272 DUPTABLE                         R34 K79 [{"ToggleGroupMembershipButton", "Checkbox"}]
-      273 MOVE                             R35 R9
-      274 JUMPIFNOT                        R35 ; [+30]
-      275 GETUPVAL                         R35 1
-      276 GETTABLEKS                       R35 R35 K29 ["createElement"]
-      278 GETUPVAL                         R36 4
-      279 DUPTABLE                         R37 K82 [{"BackgroundStyle", "LeftIcon", "OnClick", "IconColor", "TooltipText"}]
-      280 SETTABLEKS                       R22 R37 K67 ["BackgroundStyle"]
-      282 JUMPIFNOT                        R10 ; [+3]
-      283 GETTABLEKS                       R38 R3 K83 ["UnassignIcon"]
-      285 JUMP                             ; [+2]
-      286 GETTABLEKS                       R38 R3 K84 ["AssignIcon"]
-      288 SETTABLEKS                       R38 R37 K68 ["LeftIcon"]
-      290 GETTABLEKS                       R38 R0 K85 ["toggleGroupMembership"]
-      292 SETTABLEKS                       R38 R37 K47 ["OnClick"]
-      294 JUMPIFNOT                        R10 ; [+3]
-      295 GETTABLEKS                       R38 R3 K86 ["UnassignIconColor"]
-      297 JUMP                             ; [+2]
-      298 GETTABLEKS                       R38 R3 K87 ["AssignIconColor"]
-      300 SETTABLEKS                       R38 R37 K80 ["IconColor"]
-      302 SETTABLEKS                       R18 R37 K81 ["TooltipText"]
-      304 CALL                             R35 2 1
-      305 SETTABLEKS                       R35 R34 K77 ["ToggleGroupMembershipButton"]
-      307 NOT                              R35 R9
-      308 JUMPIFNOT                        R35 ; [+32]
-      309 GETUPVAL                         R35 1
-      310 GETTABLEKS                       R35 R35 K29 ["createElement"]
-      312 GETUPVAL                         R36 5
-      313 DUPTABLE                         R37 K89 [{"Checked", "OnClick"}]
-      314 GETTABLEKS                       R39 R1 K90 ["IsTagAssignedToSome"]
-      316 JUMPIFNOT                        R39 ; [+4]
-      317 GETUPVAL                         R38 5
-      318 GETTABLEKS                       R38 R38 K91 ["Indeterminate"]
-      320 JUMP                             ; [+2]
-      321 GETTABLEKS                       R38 R1 K19 ["IsTagAssignedToAll"]
-      323 SETTABLEKS                       R38 R37 K88 ["Checked"]
-      325 GETTABLEKS                       R38 R0 K92 ["toggleAssignment"]
-      327 SETTABLEKS                       R38 R37 K47 ["OnClick"]
-      329 DUPTABLE                         R38 K93 [{"Tooltip"}]
-      330 GETUPVAL                         R39 1
-      331 GETTABLEKS                       R39 R39 K29 ["createElement"]
-      333 GETUPVAL                         R40 6
-      334 DUPTABLE                         R41 K95 [{"Text"}]
-      335 SETTABLEKS                       R19 R41 K94 ["Text"]
-      337 CALL                             R39 2 1
-      338 SETTABLEKS                       R39 R38 K15 ["Tooltip"]
-      340 CALL                             R35 3 1
-      341 SETTABLEKS                       R35 R34 K78 ["Checkbox"]
-      343 CALL                             R31 3 1
-      344 SETTABLEKS                       R31 R30 K60 ["CheckboxPane"]
-      346 MOVE                             R31 R14
-      347 JUMPIFNOT                        R31 ; [+19]
-      348 GETUPVAL                         R31 1
-      349 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      351 GETUPVAL                         R32 7
-      352 DUPTABLE                         R33 K97 [{"Name", "OnClick", "LayoutOrder"}]
-      353 GETTABLEKS                       R34 R1 K98 ["TagIcon"]
-      355 SETTABLEKS                       R34 R33 K96 ["Name"]
-      357 GETTABLEKS                       R34 R0 K99 ["OnButtonClicked"]
-      359 SETTABLEKS                       R34 R33 K47 ["OnClick"]
-      361 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      363 CALL                             R34 1 1
-      364 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      366 CALL                             R31 2 1
-      367 SETTABLEKS                       R31 R30 K61 ["TagImage"]
-      369 NOT                              R31 R17
-      370 JUMPIFNOT                        R31 ; [+35]
-      371 GETUPVAL                         R31 1
-      372 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      374 GETUPVAL                         R32 8
-      375 DUPTABLE                         R33 K102 [{"LayoutOrder", "Text", "Size", "TextXAlignment", "TextTruncate"}]
-      376 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      378 CALL                             R34 1 1
-      379 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      381 JUMPIFNOT                        R7 ; [+3]
-      382 GETTABLEKS                       R34 R1 K7 ["GroupName"]
-      384 JUMP                             ; [+2]
-      385 GETTABLEKS                       R34 R1 K14 ["TagName"]
-      387 SETTABLEKS                       R34 R33 K94 ["Text"]
-      389 JUMPIFNOT                        R7 ; [+3]
-      390 GETTABLEKS                       R34 R3 K103 ["GroupTextSize"]
-      392 JUMP                             ; [+2]
-      393 GETTABLEKS                       R34 R3 K104 ["TextSize"]
-      395 SETTABLEKS                       R34 R33 K31 ["Size"]
-      397 GETIMPORT                        R34 K105 [Enum.TextXAlignment.Left]
-      399 SETTABLEKS                       R34 R33 K100 ["TextXAlignment"]
-      401 GETIMPORT                        R34 K107 [Enum.TextTruncate.AtEnd]
-      403 SETTABLEKS                       R34 R33 K101 ["TextTruncate"]
-      405 CALL                             R31 2 1
-      406 SETTABLEKS                       R31 R30 K62 ["NameText"]
-      408 MOVE                             R31 R17
-      409 JUMPIFNOT                        R31 ; [+19]
-      410 GETUPVAL                         R31 1
-      411 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      413 GETUPVAL                         R32 9
-      414 DUPTABLE                         R33 K32 [{"LayoutOrder", "Size"}]
-      415 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      417 CALL                             R34 1 1
-      418 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      420 JUMPIFNOT                        R7 ; [+3]
-      421 GETTABLEKS                       R34 R3 K103 ["GroupTextSize"]
-      423 JUMP                             ; [+2]
-      424 GETTABLEKS                       R34 R3 K104 ["TextSize"]
-      426 SETTABLEKS                       R34 R33 K31 ["Size"]
-      428 CALL                             R31 2 1
-      429 SETTABLEKS                       R31 R30 K63 ["RenameTextInput"]
-      431 MOVE                             R31 R15
-      432 JUMPIFNOT                        R31 ; [+43]
-      433 GETUPVAL                         R31 1
-      434 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      436 GETUPVAL                         R32 4
-      437 DUPTABLE                         R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
-      438 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
-      440 JUMPIFNOT                        R8 ; [+8]
-      441 JUMPIF                           R12 ; [+7]
-      442 JUMPIFNOT                        R11 ; [+3]
-      443 GETTABLEKS                       R34 R3 K109 ["StopAssigningIcon"]
-      445 JUMP                             ; [+4]
-      446 GETTABLEKS                       R34 R3 K110 ["EditAssignmentsIcon"]
-      448 JUMP                             ; [+1]
-      449 LOADNIL                          R34
-      450 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
-      452 GETTABLEKS                       R34 R0 K111 ["editGroupMembership"]
-      454 SETTABLEKS                       R34 R33 K47 ["OnClick"]
-      456 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      458 CALL                             R34 1 1
-      459 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      461 JUMPIFNOT                        R11 ; [+6]
-      462 LOADK                            R36 K15 ["Tooltip"]
-      463 LOADK                            R37 K112 ["EndGroupAssignment"]
-      464 NAMECALL                         R34 R2 K17 ["getText"]
-      466 CALL                             R34 3 1
-      467 JUMP                             ; [+5]
-      468 LOADK                            R36 K15 ["Tooltip"]
-      469 LOADK                            R37 K113 ["StartGroupAssignment"]
-      470 NAMECALL                         R34 R2 K17 ["getText"]
-      472 CALL                             R34 3 1
-      473 SETTABLEKS                       R34 R33 K81 ["TooltipText"]
-      475 CALL                             R31 2 1
-      476 SETTABLEKS                       R31 R30 K64 ["EditGroupMembership"]
-      478 MOVE                             R31 R16
-      479 JUMPIFNOT                        R31 ; [+32]
-      480 GETUPVAL                         R31 1
-      481 GETTABLEKS                       R31 R31 K29 ["createElement"]
-      483 GETUPVAL                         R32 4
-      484 DUPTABLE                         R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
-      485 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
-      487 GETTABLEKS                       R35 R1 K114 ["IsVisibleToggled"]
-      489 JUMPIFNOT                        R35 ; [+2]
-      490 MOVE                             R34 R5
-      491 JUMP                             ; [+1]
-      492 MOVE                             R34 R6
-      493 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
-      495 GETTABLEKS                       R34 R0 K115 ["toggleVisible"]
-      497 SETTABLEKS                       R34 R33 K47 ["OnClick"]
-      499 NAMECALL                         R34 R4 K74 ["getNextOrder"]
-      501 CALL                             R34 1 1
-      502 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
-      504 LOADK                            R36 K15 ["Tooltip"]
-      505 LOADK                            R37 K116 ["ToggleVisibility"]
-      506 NAMECALL                         R34 R2 K17 ["getText"]
-      508 CALL                             R34 3 1
-      509 SETTABLEKS                       R34 R33 K81 ["TooltipText"]
-      511 CALL                             R31 2 1
-      512 SETTABLEKS                       R31 R30 K65 ["VisibleToggleButton"]
-      514 CALL                             R27 3 1
-      515 SETTABLEKS                       R27 R26 K34 ["RootPane"]
-      517 CALL                             R23 3 -1
-      518 RETURN                           R23 -1
+      166 DUPTABLE                         R29 K40 [{["Cursor"] = "PointingHand", ["MouseEnter"], ["MouseLeave"]}]
+      167 NEWCLOSURE                       R30 P0
+      168 CAPTURE                          VAL R0
+      169 SETTABLEKS                       R30 R29 K38 ["MouseEnter"]
+      171 NEWCLOSURE                       R30 P1
+      172 CAPTURE                          VAL R0
+      173 SETTABLEKS                       R30 R29 K39 ["MouseLeave"]
+      175 CALL                             R27 2 1
+      176 SETTABLEKS                       R27 R26 K33 ["HoverArea"]
+      178 GETUPVAL                         R27 1
+      179 GETTABLEKS                       R27 R27 K29 ["createElement"]
+      181 GETUPVAL                         R28 2
+      182 DUPTABLE                         R29 K48 [{"Layout", "HorizontalAlignment", "Spacing", "Padding", "Style", "OnPress", "OnClick"}]
+      183 GETIMPORT                        R30 K52 [Enum.FillDirection.Horizontal]
+      185 SETTABLEKS                       R30 R29 K41 ["Layout"]
+      187 GETIMPORT                        R30 K54 [Enum.HorizontalAlignment.Left]
+      189 SETTABLEKS                       R30 R29 K42 ["HorizontalAlignment"]
+      191 GETTABLEKS                       R30 R3 K43 ["Spacing"]
+      193 SETTABLEKS                       R30 R29 K43 ["Spacing"]
+      195 JUMPIF                           R7 ; [+4]
+      196 GETTABLEKS                       R31 R1 K11 ["TagGroup"]
+      198 JUMPIFNOTEQKS                    R31 K8 [""] ; [+4]
+      200 GETTABLEKS                       R30 R3 K55 ["PaddingUnindented"]
+      202 JUMP                             ; [+2]
+      203 GETTABLEKS                       R30 R3 K56 ["PaddingIndented"]
+      205 SETTABLEKS                       R30 R29 K44 ["Padding"]
+      207 SETTABLEKS                       R20 R29 K45 ["Style"]
+      209 GETTABLEKS                       R30 R0 K57 ["onPress"]
+      211 SETTABLEKS                       R30 R29 K46 ["OnPress"]
+      213 GETTABLEKS                       R30 R0 K58 ["onClick"]
+      215 SETTABLEKS                       R30 R29 K47 ["OnClick"]
+      217 DUPTABLE                         R30 K66 [{"ArrowImage", "CheckboxPane", "TagImage", "NameText", "RenameTextInput", "EditGroupMembership", "VisibleToggleButton"}]
+      218 MOVE                             R31 R7
+      219 JUMPIFNOT                        R31 ; [+27]
+      220 GETUPVAL                         R31 1
+      221 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      223 GETUPVAL                         R32 4
+      224 DUPTABLE                         R33 K69 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder"}]
+      225 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
+      227 GETTABLEKS                       R35 R1 K70 ["IsGroupCollapsed"]
+      229 JUMPIFNOT                        R35 ; [+3]
+      230 GETTABLEKS                       R34 R3 K71 ["ClosedArrowImage"]
+      232 JUMP                             ; [+2]
+      233 GETTABLEKS                       R34 R3 K72 ["OpenArrowImage"]
+      235 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
+      237 GETTABLEKS                       R34 R0 K73 ["toggleGroup"]
+      239 SETTABLEKS                       R34 R33 K47 ["OnClick"]
+      241 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      243 CALL                             R34 1 1
+      244 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      246 CALL                             R31 2 1
+      247 SETTABLEKS                       R31 R30 K59 ["ArrowImage"]
+      249 MOVE                             R31 R13
+      250 JUMPIFNOT                        R31 ; [+90]
+      251 GETUPVAL                         R31 1
+      252 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      254 GETUPVAL                         R32 2
+      255 DUPTABLE                         R33 K75 [{"LayoutOrder", "Size", "Layout"}]
+      256 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      258 CALL                             R34 1 1
+      259 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      261 GETTABLEKS                       R34 R3 K76 ["CheckboxSize"]
+      263 SETTABLEKS                       R34 R33 K31 ["Size"]
+      265 GETIMPORT                        R34 K52 [Enum.FillDirection.Horizontal]
+      267 SETTABLEKS                       R34 R33 K41 ["Layout"]
+      269 DUPTABLE                         R34 K79 [{"ToggleGroupMembershipButton", "Checkbox"}]
+      270 MOVE                             R35 R9
+      271 JUMPIFNOT                        R35 ; [+30]
+      272 GETUPVAL                         R35 1
+      273 GETTABLEKS                       R35 R35 K29 ["createElement"]
+      275 GETUPVAL                         R36 4
+      276 DUPTABLE                         R37 K82 [{"BackgroundStyle", "LeftIcon", "OnClick", "IconColor", "TooltipText"}]
+      277 SETTABLEKS                       R22 R37 K67 ["BackgroundStyle"]
+      279 JUMPIFNOT                        R10 ; [+3]
+      280 GETTABLEKS                       R38 R3 K83 ["UnassignIcon"]
+      282 JUMP                             ; [+2]
+      283 GETTABLEKS                       R38 R3 K84 ["AssignIcon"]
+      285 SETTABLEKS                       R38 R37 K68 ["LeftIcon"]
+      287 GETTABLEKS                       R38 R0 K85 ["toggleGroupMembership"]
+      289 SETTABLEKS                       R38 R37 K47 ["OnClick"]
+      291 JUMPIFNOT                        R10 ; [+3]
+      292 GETTABLEKS                       R38 R3 K86 ["UnassignIconColor"]
+      294 JUMP                             ; [+2]
+      295 GETTABLEKS                       R38 R3 K87 ["AssignIconColor"]
+      297 SETTABLEKS                       R38 R37 K80 ["IconColor"]
+      299 SETTABLEKS                       R18 R37 K81 ["TooltipText"]
+      301 CALL                             R35 2 1
+      302 SETTABLEKS                       R35 R34 K77 ["ToggleGroupMembershipButton"]
+      304 NOT                              R35 R9
+      305 JUMPIFNOT                        R35 ; [+32]
+      306 GETUPVAL                         R35 1
+      307 GETTABLEKS                       R35 R35 K29 ["createElement"]
+      309 GETUPVAL                         R36 5
+      310 DUPTABLE                         R37 K89 [{"Checked", "OnClick"}]
+      311 GETTABLEKS                       R39 R1 K90 ["IsTagAssignedToSome"]
+      313 JUMPIFNOT                        R39 ; [+4]
+      314 GETUPVAL                         R38 5
+      315 GETTABLEKS                       R38 R38 K91 ["Indeterminate"]
+      317 JUMP                             ; [+2]
+      318 GETTABLEKS                       R38 R1 K19 ["IsTagAssignedToAll"]
+      320 SETTABLEKS                       R38 R37 K88 ["Checked"]
+      322 GETTABLEKS                       R38 R0 K92 ["toggleAssignment"]
+      324 SETTABLEKS                       R38 R37 K47 ["OnClick"]
+      326 DUPTABLE                         R38 K93 [{"Tooltip"}]
+      327 GETUPVAL                         R39 1
+      328 GETTABLEKS                       R39 R39 K29 ["createElement"]
+      330 GETUPVAL                         R40 6
+      331 DUPTABLE                         R41 K95 [{"Text"}]
+      332 SETTABLEKS                       R19 R41 K94 ["Text"]
+      334 CALL                             R39 2 1
+      335 SETTABLEKS                       R39 R38 K15 ["Tooltip"]
+      337 CALL                             R35 3 1
+      338 SETTABLEKS                       R35 R34 K78 ["Checkbox"]
+      340 CALL                             R31 3 1
+      341 SETTABLEKS                       R31 R30 K60 ["CheckboxPane"]
+      343 MOVE                             R31 R14
+      344 JUMPIFNOT                        R31 ; [+19]
+      345 GETUPVAL                         R31 1
+      346 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      348 GETUPVAL                         R32 7
+      349 DUPTABLE                         R33 K97 [{"Name", "OnClick", "LayoutOrder"}]
+      350 GETTABLEKS                       R34 R1 K98 ["TagIcon"]
+      352 SETTABLEKS                       R34 R33 K96 ["Name"]
+      354 GETTABLEKS                       R34 R0 K99 ["OnButtonClicked"]
+      356 SETTABLEKS                       R34 R33 K47 ["OnClick"]
+      358 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      360 CALL                             R34 1 1
+      361 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      363 CALL                             R31 2 1
+      364 SETTABLEKS                       R31 R30 K61 ["TagImage"]
+      366 NOT                              R31 R17
+      367 JUMPIFNOT                        R31 ; [+35]
+      368 GETUPVAL                         R31 1
+      369 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      371 GETUPVAL                         R32 8
+      372 DUPTABLE                         R33 K102 [{"LayoutOrder", "Text", "Size", "TextXAlignment", "TextTruncate"}]
+      373 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      375 CALL                             R34 1 1
+      376 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      378 JUMPIFNOT                        R7 ; [+3]
+      379 GETTABLEKS                       R34 R1 K7 ["GroupName"]
+      381 JUMP                             ; [+2]
+      382 GETTABLEKS                       R34 R1 K14 ["TagName"]
+      384 SETTABLEKS                       R34 R33 K94 ["Text"]
+      386 JUMPIFNOT                        R7 ; [+3]
+      387 GETTABLEKS                       R34 R3 K103 ["GroupTextSize"]
+      389 JUMP                             ; [+2]
+      390 GETTABLEKS                       R34 R3 K104 ["TextSize"]
+      392 SETTABLEKS                       R34 R33 K31 ["Size"]
+      394 GETIMPORT                        R34 K105 [Enum.TextXAlignment.Left]
+      396 SETTABLEKS                       R34 R33 K100 ["TextXAlignment"]
+      398 GETIMPORT                        R34 K107 [Enum.TextTruncate.AtEnd]
+      400 SETTABLEKS                       R34 R33 K101 ["TextTruncate"]
+      402 CALL                             R31 2 1
+      403 SETTABLEKS                       R31 R30 K62 ["NameText"]
+      405 MOVE                             R31 R17
+      406 JUMPIFNOT                        R31 ; [+19]
+      407 GETUPVAL                         R31 1
+      408 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      410 GETUPVAL                         R32 9
+      411 DUPTABLE                         R33 K32 [{"LayoutOrder", "Size"}]
+      412 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      414 CALL                             R34 1 1
+      415 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      417 JUMPIFNOT                        R7 ; [+3]
+      418 GETTABLEKS                       R34 R3 K103 ["GroupTextSize"]
+      420 JUMP                             ; [+2]
+      421 GETTABLEKS                       R34 R3 K104 ["TextSize"]
+      423 SETTABLEKS                       R34 R33 K31 ["Size"]
+      425 CALL                             R31 2 1
+      426 SETTABLEKS                       R31 R30 K63 ["RenameTextInput"]
+      428 MOVE                             R31 R15
+      429 JUMPIFNOT                        R31 ; [+43]
+      430 GETUPVAL                         R31 1
+      431 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      433 GETUPVAL                         R32 4
+      434 DUPTABLE                         R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
+      435 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
+      437 JUMPIFNOT                        R8 ; [+8]
+      438 JUMPIF                           R12 ; [+7]
+      439 JUMPIFNOT                        R11 ; [+3]
+      440 GETTABLEKS                       R34 R3 K109 ["StopAssigningIcon"]
+      442 JUMP                             ; [+4]
+      443 GETTABLEKS                       R34 R3 K110 ["EditAssignmentsIcon"]
+      445 JUMP                             ; [+1]
+      446 LOADNIL                          R34
+      447 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
+      449 GETTABLEKS                       R34 R0 K111 ["editGroupMembership"]
+      451 SETTABLEKS                       R34 R33 K47 ["OnClick"]
+      453 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      455 CALL                             R34 1 1
+      456 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      458 JUMPIFNOT                        R11 ; [+6]
+      459 LOADK                            R36 K15 ["Tooltip"]
+      460 LOADK                            R37 K112 ["EndGroupAssignment"]
+      461 NAMECALL                         R34 R2 K17 ["getText"]
+      463 CALL                             R34 3 1
+      464 JUMP                             ; [+5]
+      465 LOADK                            R36 K15 ["Tooltip"]
+      466 LOADK                            R37 K113 ["StartGroupAssignment"]
+      467 NAMECALL                         R34 R2 K17 ["getText"]
+      469 CALL                             R34 3 1
+      470 SETTABLEKS                       R34 R33 K81 ["TooltipText"]
+      472 CALL                             R31 2 1
+      473 SETTABLEKS                       R31 R30 K64 ["EditGroupMembership"]
+      475 MOVE                             R31 R16
+      476 JUMPIFNOT                        R31 ; [+32]
+      477 GETUPVAL                         R31 1
+      478 GETTABLEKS                       R31 R31 K29 ["createElement"]
+      480 GETUPVAL                         R32 4
+      481 DUPTABLE                         R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
+      482 SETTABLEKS                       R22 R33 K67 ["BackgroundStyle"]
+      484 GETTABLEKS                       R35 R1 K114 ["IsVisibleToggled"]
+      486 JUMPIFNOT                        R35 ; [+2]
+      487 MOVE                             R34 R5
+      488 JUMP                             ; [+1]
+      489 MOVE                             R34 R6
+      490 SETTABLEKS                       R34 R33 K68 ["LeftIcon"]
+      492 GETTABLEKS                       R34 R0 K115 ["toggleVisible"]
+      494 SETTABLEKS                       R34 R33 K47 ["OnClick"]
+      496 NAMECALL                         R34 R4 K74 ["getNextOrder"]
+      498 CALL                             R34 1 1
+      499 SETTABLEKS                       R34 R33 K30 ["LayoutOrder"]
+      501 LOADK                            R36 K15 ["Tooltip"]
+      502 LOADK                            R37 K116 ["ToggleVisibility"]
+      503 NAMECALL                         R34 R2 K17 ["getText"]
+      505 CALL                             R34 3 1
+      506 SETTABLEKS                       R34 R33 K81 ["TooltipText"]
+      508 CALL                             R31 2 1
+      509 SETTABLEKS                       R31 R30 K65 ["VisibleToggleButton"]
+      511 CALL                             R27 3 1
+      512 SETTABLEKS                       R27 R26 K34 ["RootPane"]
+      514 CALL                             R23 3 -1
+      515 RETURN                           R23 -1
 
 PROTO_11:
         0 DUPTABLE                         R2 K5 [{"assigningGroup", "groupMenu", "renamingGroup", "tagMenu", "renamingTag"}]

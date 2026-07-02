@@ -1,77 +1,61 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isHovered"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isHovered", "isSelected"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["isSelected"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = False, ["isSelected"] = False}]
+        2 NAMECALL                         R0 R0 K4 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isHovered", "isSelected"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["isSelected"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K3 [{[1] = True, ["isSelected"] = True}]
+        2 NAMECALL                         R0 R0 K4 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isSelected"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isSelected"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R0 R0 K4 ["onButtonClicked"]
-       13 JUMPIFNOT                        R0 ; [+16]
-       14 GETUPVAL                         R0 0
-       15 GETTABLEKS                       R0 R0 K3 ["props"]
-       17 GETTABLEKS                       R0 R0 K4 ["onButtonClicked"]
-       19 GETUPVAL                         R1 0
-       20 GETTABLEKS                       R1 R1 K3 ["props"]
-       22 GETTABLEKS                       R1 R1 K5 ["index"]
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R2 R2 K3 ["props"]
-       27 GETTABLEKS                       R2 R2 K6 ["action"]
-       29 CALL                             R0 2 0
-       30 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R0 R0 K5 ["onButtonClicked"]
+       10 JUMPIFNOT                        R0 ; [+16]
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K4 ["props"]
+       14 GETTABLEKS                       R0 R0 K5 ["onButtonClicked"]
+       16 GETUPVAL                         R1 0
+       17 GETTABLEKS                       R1 R1 K4 ["props"]
+       19 GETTABLEKS                       R1 R1 K6 ["index"]
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K4 ["props"]
+       24 GETTABLEKS                       R2 R2 K7 ["action"]
+       26 CALL                             R0 2 0
+       27 RETURN                           R0 0
 
 PROTO_4:
-        0 DUPTABLE                         R2 K2 [{"isHovered", "isSelected"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["isHovered"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["isSelected"]
-        7 SETTABLEKS                       R2 R0 K3 ["state"]
-        9 NEWCLOSURE                       R2 P0
-       10 CAPTURE                          VAL R0
-       11 SETTABLEKS                       R2 R0 K4 ["onMouseEnter"]
-       13 NEWCLOSURE                       R2 P1
-       14 CAPTURE                          VAL R0
-       15 SETTABLEKS                       R2 R0 K5 ["onMouseLeave"]
-       17 NEWCLOSURE                       R2 P2
-       18 CAPTURE                          VAL R0
-       19 SETTABLEKS                       R2 R0 K6 ["onMouseDown"]
-       21 NEWCLOSURE                       R2 P3
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R2 R0 K7 ["onMouseUp"]
-       25 RETURN                           R0 0
+        0 DUPTABLE                         R2 K3 [{[1] = False, ["isSelected"] = False}]
+        1 SETTABLEKS                       R2 R0 K4 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K5 ["onMouseEnter"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K6 ["onMouseLeave"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K7 ["onMouseDown"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K8 ["onMouseUp"]
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -132,41 +116,39 @@ PROTO_5:
        88 GETUPVAL                         R15 1
        89 GETTABLEKS                       R15 R15 K10 ["createElement"]
        91 LOADK                            R16 K31 ["TextLabel"]
-       92 DUPTABLE                         R17 K39 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "Text", "Font", "TextSize", "TextXAlignment"}]
-       93 LOADN                            R18 1
-       94 SETTABLEKS                       R18 R17 K33 ["BackgroundTransparency"]
-       96 GETIMPORT                        R18 K13 [UDim2.new]
-       98 LOADN                            R19 0
-       99 LOADN                            R20 0
-      100 LOADN                            R21 0
-      101 LOADN                            R22 255
-      102 CALL                             R18 4 1
-      103 SETTABLEKS                       R18 R17 K34 ["Position"]
-      105 GETIMPORT                        R18 K13 [UDim2.new]
-      107 LOADN                            R19 1
-      108 LOADN                            R20 0
-      109 LOADN                            R21 1
-      110 LOADN                            R22 0
-      111 CALL                             R18 4 1
-      112 SETTABLEKS                       R18 R17 K14 ["Size"]
-      114 JUMPIFNOT                        R7 ; [+3]
-      115 GETTABLEKS                       R18 R9 K40 ["textSelectedColor"]
-      117 JUMPIF                           R18 ; [+2]
-      118 GETTABLEKS                       R18 R9 K41 ["textColor"]
-      120 SETTABLEKS                       R18 R17 K35 ["TextColor3"]
-      122 SETTABLEKS                       R5 R17 K4 ["Text"]
-      124 GETUPVAL                         R18 0
-      125 GETTABLEKS                       R18 R18 K42 ["FONT"]
-      127 SETTABLEKS                       R18 R17 K36 ["Font"]
-      129 GETUPVAL                         R18 0
-      130 GETTABLEKS                       R18 R18 K43 ["FONT_SIZE_SMALL"]
-      132 SETTABLEKS                       R18 R17 K37 ["TextSize"]
-      134 GETIMPORT                        R18 K46 [Enum.TextXAlignment.Center]
-      136 SETTABLEKS                       R18 R17 K38 ["TextXAlignment"]
-      138 CALL                             R15 2 1
-      139 SETTABLEKS                       R15 R14 K31 ["TextLabel"]
-      141 CALL                             R11 3 -1
-      142 RETURN                           R11 -1
+       92 DUPTABLE                         R17 K40 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["TextColor3"], ["Text"], ["Font"], ["TextSize"], ["TextXAlignment"]}]
+       93 GETIMPORT                        R18 K13 [UDim2.new]
+       95 LOADN                            R19 0
+       96 LOADN                            R20 0
+       97 LOADN                            R21 0
+       98 LOADN                            R22 -1
+       99 CALL                             R18 4 1
+      100 SETTABLEKS                       R18 R17 K35 ["Position"]
+      102 GETIMPORT                        R18 K13 [UDim2.new]
+      104 LOADN                            R19 1
+      105 LOADN                            R20 0
+      106 LOADN                            R21 1
+      107 LOADN                            R22 0
+      108 CALL                             R18 4 1
+      109 SETTABLEKS                       R18 R17 K14 ["Size"]
+      111 JUMPIFNOT                        R7 ; [+3]
+      112 GETTABLEKS                       R18 R9 K41 ["textSelectedColor"]
+      114 JUMPIF                           R18 ; [+2]
+      115 GETTABLEKS                       R18 R9 K42 ["textColor"]
+      117 SETTABLEKS                       R18 R17 K36 ["TextColor3"]
+      119 SETTABLEKS                       R5 R17 K4 ["Text"]
+      121 GETUPVAL                         R18 0
+      122 GETTABLEKS                       R18 R18 K43 ["FONT"]
+      124 SETTABLEKS                       R18 R17 K37 ["Font"]
+      126 GETUPVAL                         R18 0
+      127 GETTABLEKS                       R18 R18 K44 ["FONT_SIZE_SMALL"]
+      129 SETTABLEKS                       R18 R17 K38 ["TextSize"]
+      131 GETIMPORT                        R18 K47 [Enum.TextXAlignment.Center]
+      133 SETTABLEKS                       R18 R17 K39 ["TextXAlignment"]
+      135 CALL                             R15 2 1
+      136 SETTABLEKS                       R15 R14 K31 ["TextLabel"]
+      138 CALL                             R11 3 -1
+      139 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

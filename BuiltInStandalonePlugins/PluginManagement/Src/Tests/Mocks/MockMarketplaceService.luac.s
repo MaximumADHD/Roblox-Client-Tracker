@@ -46,53 +46,21 @@ PROTO_5:
         2 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R2 K18 [{"AssetId", "AssetTypeId", "ContentRatingTypeId", "Created", "Creator", "Description", "IconImageAssetId", "IsForSale", "IsLimited", "IsLimitedUnique", "IsNew", "IsPublicDomain", "MinimumMembershipLevel", "Name", "ProductId", "Sales", "TargetId", "Updated"}]
+        0 DUPTABLE                         R2 K24 [{[1], ["AssetTypeId"], ["ContentRatingTypeId"] = 0, ["Created"] = "2026-04-10T00:00:00Z", ["Creator"], ["Description"] = "", ["IconImageAssetId"] = 0, ["IsForSale"] = False, ["IsLimited"] = False, ["IsLimitedUnique"] = False, ["IsNew"] = False, ["IsPublicDomain"] = True, ["MinimumMembershipLevel"] = 0, ["Name"] = "foo", ["ProductId"] = 0, ["Sales"] = 0, ["TargetId"], ["Updated"] = "2026-04-10T00:00:00Z"}]
         1 SETTABLEKS                       R0 R2 K0 ["AssetId"]
-        3 GETIMPORT                        R3 K22 [Enum.AssetType.Plugin]
-        5 GETTABLEKS                       R3 R3 K23 ["Value"]
+        3 GETIMPORT                        R3 K28 [Enum.AssetType.Plugin]
+        5 GETTABLEKS                       R3 R3 K29 ["Value"]
         7 SETTABLEKS                       R3 R2 K1 ["AssetTypeId"]
-        9 LOADN                            R3 0
-       10 SETTABLEKS                       R3 R2 K2 ["ContentRatingTypeId"]
-       12 LOADK                            R3 K24 ["2026-04-10T00:00:00Z"]
-       13 SETTABLEKS                       R3 R2 K3 ["Created"]
-       15 DUPTABLE                         R3 K29 [{"CreatorTargetId", "CreatorType", "HasVerifiedBadge", "Id", "Name"}]
-       16 GETTABLEKS                       R4 R1 K28 ["Id"]
-       18 SETTABLEKS                       R4 R3 K25 ["CreatorTargetId"]
-       20 LOADK                            R4 K30 ["User"]
-       21 SETTABLEKS                       R4 R3 K26 ["CreatorType"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K27 ["HasVerifiedBadge"]
-       26 GETTABLEKS                       R4 R1 K28 ["Id"]
-       28 SETTABLEKS                       R4 R3 K28 ["Id"]
-       30 GETTABLEKS                       R4 R1 K13 ["Name"]
-       32 SETTABLEKS                       R4 R3 K13 ["Name"]
-       34 SETTABLEKS                       R3 R2 K4 ["Creator"]
-       36 LOADK                            R3 K31 [""]
-       37 SETTABLEKS                       R3 R2 K5 ["Description"]
-       39 LOADN                            R3 0
-       40 SETTABLEKS                       R3 R2 K6 ["IconImageAssetId"]
-       42 LOADB                            R3 0
-       43 SETTABLEKS                       R3 R2 K7 ["IsForSale"]
-       45 LOADB                            R3 0
-       46 SETTABLEKS                       R3 R2 K8 ["IsLimited"]
-       48 LOADB                            R3 0
-       49 SETTABLEKS                       R3 R2 K9 ["IsLimitedUnique"]
-       51 LOADB                            R3 0
-       52 SETTABLEKS                       R3 R2 K10 ["IsNew"]
-       54 LOADB                            R3 1
-       55 SETTABLEKS                       R3 R2 K11 ["IsPublicDomain"]
-       57 LOADN                            R3 0
-       58 SETTABLEKS                       R3 R2 K12 ["MinimumMembershipLevel"]
-       60 LOADK                            R3 K32 ["foo"]
-       61 SETTABLEKS                       R3 R2 K13 ["Name"]
-       63 LOADN                            R3 0
-       64 SETTABLEKS                       R3 R2 K14 ["ProductId"]
-       66 LOADN                            R3 0
-       67 SETTABLEKS                       R3 R2 K15 ["Sales"]
-       69 SETTABLEKS                       R0 R2 K16 ["TargetId"]
-       71 LOADK                            R3 K24 ["2026-04-10T00:00:00Z"]
-       72 SETTABLEKS                       R3 R2 K17 ["Updated"]
-       74 RETURN                           R2 1
+        9 DUPTABLE                         R3 K35 [{["CreatorTargetId"], ["CreatorType"] = "User", ["HasVerifiedBadge"] = False, ["Id"], ["Name"]}]
+       10 GETTABLEKS                       R4 R1 K34 ["Id"]
+       12 SETTABLEKS                       R4 R3 K30 ["CreatorTargetId"]
+       14 GETTABLEKS                       R4 R1 K34 ["Id"]
+       16 SETTABLEKS                       R4 R3 K34 ["Id"]
+       18 GETTABLEKS                       R4 R1 K18 ["Name"]
+       20 SETTABLEKS                       R4 R3 K18 ["Name"]
+       22 SETTABLEKS                       R3 R2 K6 ["Creator"]
+       24 SETTABLEKS                       R0 R2 K22 ["TargetId"]
+       26 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

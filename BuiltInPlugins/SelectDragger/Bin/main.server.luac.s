@@ -29,19 +29,13 @@ PROTO_0:
        36 SETTABLEKS                       R5 R4 K10 ["DraggerContext"]
        38 GETUPVAL                         R5 6
        39 SETTABLEKS                       R5 R4 K11 ["DraggerSchema"]
-       41 DUPTABLE                         R5 K19 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag"}]
-       42 LOADK                            R6 K20 ["Select"]
-       43 SETTABLEKS                       R6 R5 K16 ["AnalyticsName"]
-       45 LOADB                            R6 1
-       46 SETTABLEKS                       R6 R5 K17 ["AllowDragSelect"]
-       48 LOADB                            R6 1
-       49 SETTABLEKS                       R6 R5 K18 ["AllowFreeformDrag"]
-       51 SETTABLEKS                       R5 R4 K12 ["DraggerSettings"]
-       53 SETTABLEKS                       R0 R4 K13 ["WasAutoSelected"]
-       55 CALL                             R2 2 -1
-       56 CALL                             R1 -1 1
-       57 SETUPVAL                         R1 0
-       58 RETURN                           R0 0
+       41 DUPTABLE                         R5 K21 [{["AnalyticsName"] = "Select", ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True}]
+       42 SETTABLEKS                       R5 R4 K12 ["DraggerSettings"]
+       44 SETTABLEKS                       R0 R4 K13 ["WasAutoSelected"]
+       46 CALL                             R2 2 -1
+       47 CALL                             R1 -1 1
+       48 SETUPVAL                         R1 0
+       49 RETURN                           R0 0
 
 PROTO_1:
         0 LOADB                            R0 0

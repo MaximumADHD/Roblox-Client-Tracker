@@ -17,39 +17,29 @@ PROTO_2:
         7 GETTABLEKS                       R4 R4 K0 ["USERS_SEARCH_URL"]
         9 GETTABLEKS                       R4 R4 K2 ["Url"]
        11 CALL                             R4 0 1
-       12 JUMPIFNOT                        R1 ; [+12]
-       13 DUPTABLE                         R5 K7 [{"keyword", "limit", "sortOrder", "cursor"}]
+       12 JUMPIFNOT                        R1 ; [+6]
+       13 DUPTABLE                         R5 K9 [{["keyword"], ["limit"] = "10", ["sortOrder"] = "Asc", ["cursor"]}]
        14 SETTABLEKS                       R0 R5 K3 ["keyword"]
-       16 LOADK                            R6 K8 ["10"]
-       17 SETTABLEKS                       R6 R5 K4 ["limit"]
-       19 LOADK                            R6 K9 ["Asc"]
-       20 SETTABLEKS                       R6 R5 K5 ["sortOrder"]
-       22 SETTABLEKS                       R1 R5 K6 ["cursor"]
-       24 JUMP                             ; [+9]
-       25 DUPTABLE                         R5 K10 [{"keyword", "limit", "sortOrder"}]
-       26 SETTABLEKS                       R0 R5 K3 ["keyword"]
-       28 LOADK                            R6 K8 ["10"]
-       29 SETTABLEKS                       R6 R5 K4 ["limit"]
-       31 LOADK                            R6 K9 ["Asc"]
-       32 SETTABLEKS                       R6 R5 K5 ["sortOrder"]
-       34 CALL                             R2 3 1
-       35 GETUPVAL                         R3 2
-       36 DUPTABLE                         R5 K13 [{"Method", "Url", "Headers"}]
-       37 LOADK                            R6 K14 ["GET"]
-       38 SETTABLEKS                       R6 R5 K11 ["Method"]
-       40 SETTABLEKS                       R2 R5 K2 ["Url"]
-       42 GETUPVAL                         R6 3
-       43 SETTABLEKS                       R6 R5 K12 ["Headers"]
-       45 NAMECALL                         R3 R3 K15 ["request"]
-       47 CALL                             R3 2 1
-       48 DUPCLOSURE                       R5 K16 [PROTO_0]
-       49 CAPTURE                          UPVAL U4
-       50 NAMECALL                         R3 R3 K17 ["andThen"]
-       52 CALL                             R3 2 1
-       53 DUPCLOSURE                       R5 K18 [PROTO_1]
-       54 NAMECALL                         R3 R3 K19 ["catch"]
-       56 CALL                             R3 2 -1
-       57 RETURN                           R3 -1
+       16 SETTABLEKS                       R1 R5 K8 ["cursor"]
+       18 JUMP                             ; [+3]
+       19 DUPTABLE                         R5 K10 [{["keyword"], ["limit"] = "10", ["sortOrder"] = "Asc"}]
+       20 SETTABLEKS                       R0 R5 K3 ["keyword"]
+       22 CALL                             R2 3 1
+       23 GETUPVAL                         R3 2
+       24 DUPTABLE                         R5 K14 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+       25 SETTABLEKS                       R2 R5 K2 ["Url"]
+       27 GETUPVAL                         R6 3
+       28 SETTABLEKS                       R6 R5 K13 ["Headers"]
+       30 NAMECALL                         R3 R3 K15 ["request"]
+       32 CALL                             R3 2 1
+       33 DUPCLOSURE                       R5 K16 [PROTO_0]
+       34 CAPTURE                          UPVAL U4
+       35 NAMECALL                         R3 R3 K17 ["andThen"]
+       37 CALL                             R3 2 1
+       38 DUPCLOSURE                       R5 K18 [PROTO_1]
+       39 NAMECALL                         R3 R3 K19 ["catch"]
+       41 CALL                             R3 2 -1
+       42 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -76,21 +66,19 @@ MAIN:
        37 CALL                             R3 1 1
        38 GETTABLEKS                       R3 R3 K7 ["Networking"]
        40 GETTABLEKS                       R4 R3 K11 ["new"]
-       42 DUPTABLE                         R5 K13 [{"isInternal"}]
-       43 LOADB                            R6 1
-       44 SETTABLEKS                       R6 R5 K12 ["isInternal"]
-       46 CALL                             R4 1 1
-       47 GETIMPORT                        R5 K15 [game]
-       49 LOADK                            R7 K16 ["HttpService"]
-       50 NAMECALL                         R5 R5 K17 ["GetService"]
-       52 CALL                             R5 2 1
-       53 NEWTABLE                         R6 1 0
-       55 LOADK                            R7 K18 ["application/json"]
-       56 SETTABLEKS                       R7 R6 K19 ["Content-Type"]
-       58 DUPCLOSURE                       R7 K20 [PROTO_2]
-       59 CAPTURE                          VAL R2
-       60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R6
-       63 CAPTURE                          VAL R5
-       64 RETURN                           R7 1
+       42 DUPTABLE                         R5 K14 [{["isInternal"] = True}]
+       43 CALL                             R4 1 1
+       44 GETIMPORT                        R5 K16 [game]
+       46 LOADK                            R7 K17 ["HttpService"]
+       47 NAMECALL                         R5 R5 K18 ["GetService"]
+       49 CALL                             R5 2 1
+       50 NEWTABLE                         R6 1 0
+       52 LOADK                            R7 K19 ["application/json"]
+       53 SETTABLEKS                       R7 R6 K20 ["Content-Type"]
+       55 DUPCLOSURE                       R7 K21 [PROTO_2]
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R5
+       61 RETURN                           R7 1

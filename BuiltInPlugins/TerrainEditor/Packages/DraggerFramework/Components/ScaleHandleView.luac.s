@@ -85,60 +85,54 @@ PROTO_2:
        78 MULK                             R5 R5 K18 [0.34]
        79 GETTABLEKS                       R6 R0 K10 ["props"]
        81 GETTABLEKS                       R6 R6 K19 ["Hovered"]
-       83 JUMPIF                           R6 ; [+31]
+       83 JUMPIF                           R6 ; [+25]
        84 GETUPVAL                         R6 5
        85 GETTABLEKS                       R6 R6 K20 ["createElement"]
        87 LOADK                            R7 K21 ["SphereHandleAdornment"]
-       88 DUPTABLE                         R8 K29 [{"Adornee", "AlwaysOnTop", "CFrame", "Color3", "Radius", "Transparency", "ZIndex", "AdornCullingMode"}]
+       88 DUPTABLE                         R8 K31 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Color3"], ["Radius"], ["Transparency"], ["ZIndex"] = 1, ["AdornCullingMode"]}]
        89 GETUPVAL                         R9 1
-       90 GETTABLEKS                       R9 R9 K30 ["Terrain"]
+       90 GETTABLEKS                       R9 R9 K32 ["Terrain"]
        92 SETTABLEKS                       R9 R8 K22 ["Adornee"]
-       94 LOADB                            R9 1
-       95 SETTABLEKS                       R9 R8 K23 ["AlwaysOnTop"]
-       97 SETTABLEKS                       R4 R8 K14 ["CFrame"]
-       99 SETTABLEKS                       R3 R8 K24 ["Color3"]
-      101 SETTABLEKS                       R5 R8 K25 ["Radius"]
-      103 GETUPVAL                         R9 3
-      104 SETTABLEKS                       R9 R8 K26 ["Transparency"]
-      106 LOADN                            R9 1
-      107 SETTABLEKS                       R9 R8 K27 ["ZIndex"]
-      109 GETUPVAL                         R9 6
-      110 SETTABLEKS                       R9 R8 K28 ["AdornCullingMode"]
-      112 CALL                             R6 2 1
-      113 SETTABLEKS                       R6 R1 K31 ["HiddenHandle"]
-      115 GETUPVAL                         R6 4
-      116 GETTABLEKS                       R7 R0 K10 ["props"]
-      118 GETTABLEKS                       R7 R7 K19 ["Hovered"]
-      120 JUMPIFNOT                        R7 ; [+2]
-      121 MULK                             R5 R5 K32 [1.15]
-      122 LOADN                            R6 0
-      123 GETUPVAL                         R7 5
-      124 GETTABLEKS                       R7 R7 K20 ["createElement"]
-      126 LOADK                            R8 K21 ["SphereHandleAdornment"]
-      127 DUPTABLE                         R9 K29 [{"Adornee", "AlwaysOnTop", "CFrame", "Color3", "Radius", "Transparency", "ZIndex", "AdornCullingMode"}]
-      128 GETUPVAL                         R10 1
-      129 GETTABLEKS                       R10 R10 K30 ["Terrain"]
-      131 SETTABLEKS                       R10 R9 K22 ["Adornee"]
-      133 GETTABLEKS                       R10 R0 K10 ["props"]
-      135 GETTABLEKS                       R10 R10 K19 ["Hovered"]
-      137 SETTABLEKS                       R10 R9 K23 ["AlwaysOnTop"]
-      139 SETTABLEKS                       R4 R9 K14 ["CFrame"]
-      141 SETTABLEKS                       R3 R9 K24 ["Color3"]
-      143 SETTABLEKS                       R5 R9 K25 ["Radius"]
-      145 SETTABLEKS                       R6 R9 K26 ["Transparency"]
-      147 LOADN                            R10 0
-      148 SETTABLEKS                       R10 R9 K27 ["ZIndex"]
-      150 GETUPVAL                         R10 6
-      151 SETTABLEKS                       R10 R9 K28 ["AdornCullingMode"]
-      153 CALL                             R7 2 1
-      154 SETTABLEKS                       R7 R1 K33 ["Handle"]
-      156 GETUPVAL                         R7 5
-      157 GETTABLEKS                       R7 R7 K20 ["createElement"]
-      159 LOADK                            R8 K34 ["Folder"]
-      160 NEWTABLE                         R9 0 0
-      162 MOVE                             R10 R1
-      163 CALL                             R7 3 -1
-      164 RETURN                           R7 -1
+       94 SETTABLEKS                       R4 R8 K14 ["CFrame"]
+       96 SETTABLEKS                       R3 R8 K25 ["Color3"]
+       98 SETTABLEKS                       R5 R8 K26 ["Radius"]
+      100 GETUPVAL                         R9 3
+      101 SETTABLEKS                       R9 R8 K27 ["Transparency"]
+      103 GETUPVAL                         R9 6
+      104 SETTABLEKS                       R9 R8 K30 ["AdornCullingMode"]
+      106 CALL                             R6 2 1
+      107 SETTABLEKS                       R6 R1 K33 ["HiddenHandle"]
+      109 GETUPVAL                         R6 4
+      110 GETTABLEKS                       R7 R0 K10 ["props"]
+      112 GETTABLEKS                       R7 R7 K19 ["Hovered"]
+      114 JUMPIFNOT                        R7 ; [+2]
+      115 MULK                             R5 R5 K34 [1.15]
+      116 LOADN                            R6 0
+      117 GETUPVAL                         R7 5
+      118 GETTABLEKS                       R7 R7 K20 ["createElement"]
+      120 LOADK                            R8 K21 ["SphereHandleAdornment"]
+      121 DUPTABLE                         R9 K36 [{["Adornee"], ["AlwaysOnTop"], ["CFrame"], ["Color3"], ["Radius"], ["Transparency"], ["ZIndex"] = 0, ["AdornCullingMode"]}]
+      122 GETUPVAL                         R10 1
+      123 GETTABLEKS                       R10 R10 K32 ["Terrain"]
+      125 SETTABLEKS                       R10 R9 K22 ["Adornee"]
+      127 GETTABLEKS                       R10 R0 K10 ["props"]
+      129 GETTABLEKS                       R10 R10 K19 ["Hovered"]
+      131 SETTABLEKS                       R10 R9 K23 ["AlwaysOnTop"]
+      133 SETTABLEKS                       R4 R9 K14 ["CFrame"]
+      135 SETTABLEKS                       R3 R9 K25 ["Color3"]
+      137 SETTABLEKS                       R5 R9 K26 ["Radius"]
+      139 SETTABLEKS                       R6 R9 K27 ["Transparency"]
+      141 GETUPVAL                         R10 6
+      142 SETTABLEKS                       R10 R9 K30 ["AdornCullingMode"]
+      144 CALL                             R7 2 1
+      145 SETTABLEKS                       R7 R1 K37 ["Handle"]
+      147 GETUPVAL                         R7 5
+      148 GETTABLEKS                       R7 R7 K20 ["createElement"]
+      150 LOADK                            R8 K38 ["Folder"]
+      151 NEWTABLE                         R9 0 0
+      153 MOVE                             R10 R1
+      154 CALL                             R7 3 -1
+      155 RETURN                           R7 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["Scale"]

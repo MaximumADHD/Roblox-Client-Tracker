@@ -28,14 +28,12 @@ PROTO_2:
         6 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K1 [{"maxTileHeight"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["maxTileHeight"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["setMaxTileHeight"]
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = 0}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["setMaxTileHeight"]
+        7 RETURN                           R0 0
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0
@@ -89,41 +87,33 @@ PROTO_4:
        64 GETIMPORT                        R5 K25 [Enum.AutomaticSize.Y]
        66 SETTABLEKS                       R5 R4 K18 ["AutomaticSize"]
        68 NEWTABLE                         R5 0 3
-       70 DUPTABLE                         R6 K28 [{"ColumnCount", "MinWidth"}]
-       71 LOADN                            R7 1
-       72 SETTABLEKS                       R7 R6 K26 ["ColumnCount"]
-       74 LOADN                            R7 0
-       75 SETTABLEKS                       R7 R6 K27 ["MinWidth"]
-       77 DUPTABLE                         R7 K28 [{"ColumnCount", "MinWidth"}]
-       78 LOADN                            R8 2
-       79 SETTABLEKS                       R8 R7 K26 ["ColumnCount"]
-       81 GETTABLEKS                       R9 R0 K0 ["props"]
-       83 GETTABLEKS                       R9 R9 K30 ["tileWidth"]
-       85 MULK                             R8 R9 K29 [3]
-       86 SETTABLEKS                       R8 R7 K27 ["MinWidth"]
-       88 DUPTABLE                         R8 K28 [{"ColumnCount", "MinWidth"}]
-       89 LOADN                            R9 3
-       90 SETTABLEKS                       R9 R8 K26 ["ColumnCount"]
-       92 GETTABLEKS                       R10 R0 K0 ["props"]
-       94 GETTABLEKS                       R10 R10 K30 ["tileWidth"]
-       96 MULK                             R9 R10 K31 [8]
-       97 SETTABLEKS                       R9 R8 K27 ["MinWidth"]
-       99 SETLIST                          R5 R6 3 [1]
-      101 SETTABLEKS                       R5 R4 K19 ["CutOffs"]
-      103 GETIMPORT                        R5 K33 [UDim.new]
-      105 LOADN                            R6 0
-      106 GETTABLEKS                       R7 R0 K34 ["state"]
-      108 GETTABLEKS                       R7 R7 K35 ["maxTileHeight"]
-      110 CALL                             R5 2 1
-      111 SETTABLEKS                       R5 R4 K20 ["ItemHeight"]
-      113 GETIMPORT                        R5 K38 [UDim2.fromScale]
-      115 LOADN                            R6 1
-      116 LOADN                            R7 0
-      117 CALL                             R5 2 1
-      118 SETTABLEKS                       R5 R4 K21 ["Size"]
-      120 MOVE                             R5 R1
-      121 CALL                             R2 3 -1
-      122 RETURN                           R2 -1
+       70 DUPTABLE                         R6 K30 [{["ColumnCount"] = 1, ["MinWidth"] = 0}]
+       71 DUPTABLE                         R7 K32 [{["ColumnCount"] = 2, ["MinWidth"]}]
+       72 GETTABLEKS                       R9 R0 K0 ["props"]
+       74 GETTABLEKS                       R9 R9 K34 ["tileWidth"]
+       76 MULK                             R8 R9 K33 [3]
+       77 SETTABLEKS                       R8 R7 K28 ["MinWidth"]
+       79 DUPTABLE                         R8 K35 [{["ColumnCount"] = 3, ["MinWidth"]}]
+       80 GETTABLEKS                       R10 R0 K0 ["props"]
+       82 GETTABLEKS                       R10 R10 K34 ["tileWidth"]
+       84 MULK                             R9 R10 K36 [8]
+       85 SETTABLEKS                       R9 R8 K28 ["MinWidth"]
+       87 SETLIST                          R5 R6 3 [1]
+       89 SETTABLEKS                       R5 R4 K19 ["CutOffs"]
+       91 GETIMPORT                        R5 K38 [UDim.new]
+       93 LOADN                            R6 0
+       94 GETTABLEKS                       R7 R0 K39 ["state"]
+       96 GETTABLEKS                       R7 R7 K40 ["maxTileHeight"]
+       98 CALL                             R5 2 1
+       99 SETTABLEKS                       R5 R4 K20 ["ItemHeight"]
+      101 GETIMPORT                        R5 K43 [UDim2.fromScale]
+      103 LOADN                            R6 1
+      104 LOADN                            R7 0
+      105 CALL                             R5 2 1
+      106 SETTABLEKS                       R5 R4 K21 ["Size"]
+      108 MOVE                             R5 R1
+      109 CALL                             R2 3 -1
+      110 RETURN                           R2 -1
 
 PROTO_5:
         0 GETIMPORT                        R1 K1 [print]
@@ -140,38 +130,34 @@ PROTO_6:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K9 [{"BackgroundColor", "Image", "Key", "OnClick", "Size", "Title"}]
-       12 GETIMPORT                        R7 K12 [Color3.fromRGB]
+       11 DUPTABLE                         R6 K11 [{["BackgroundColor"], ["Image"], ["Key"] = "Click", ["OnClick"], ["Size"], ["Title"] = "Category"}]
+       12 GETIMPORT                        R7 K14 [Color3.fromRGB]
        14 LOADN                            R8 50
        15 LOADN                            R9 168
        16 LOADN                            R10 82
        17 CALL                             R7 3 1
        18 SETTABLEKS                       R7 R6 K3 ["BackgroundColor"]
        20 GETUPVAL                         R7 3
-       21 GETTABLEKS                       R7 R7 K13 ["constructAssetThumbnailUrl"]
+       21 GETTABLEKS                       R7 R7 K15 ["constructAssetThumbnailUrl"]
        23 GETUPVAL                         R9 4
        24 GETTABLEN                        R8 R9 1
        25 GETUPVAL                         R9 5
        26 GETUPVAL                         R10 5
        27 CALL                             R7 3 1
        28 SETTABLEKS                       R7 R6 K4 ["Image"]
-       30 LOADK                            R7 K14 ["Click"]
-       31 SETTABLEKS                       R7 R6 K5 ["Key"]
-       33 DUPCLOSURE                       R7 K15 [PROTO_5]
-       34 SETTABLEKS                       R7 R6 K6 ["OnClick"]
-       36 GETIMPORT                        R7 K18 [UDim2.new]
-       38 LOADN                            R8 0
-       39 LOADN                            R9 75
-       40 LOADN                            R10 0
-       41 LOADN                            R11 90
-       42 CALL                             R7 4 1
-       43 SETTABLEKS                       R7 R6 K7 ["Size"]
-       45 LOADK                            R7 K19 ["Category"]
-       46 SETTABLEKS                       R7 R6 K8 ["Title"]
-       48 CALL                             R4 2 1
-       49 SETTABLEKS                       R4 R3 K1 ["IconTile"]
-       51 CALL                             R0 3 -1
-       52 RETURN                           R0 -1
+       30 DUPCLOSURE                       R7 K16 [PROTO_5]
+       31 SETTABLEKS                       R7 R6 K7 ["OnClick"]
+       33 GETIMPORT                        R7 K19 [UDim2.new]
+       35 LOADN                            R8 0
+       36 LOADN                            R9 75
+       37 LOADN                            R10 0
+       38 LOADN                            R11 90
+       39 CALL                             R7 4 1
+       40 SETTABLEKS                       R7 R6 K8 ["Size"]
+       42 CALL                             R4 2 1
+       43 SETTABLEKS                       R4 R3 K1 ["IconTile"]
+       45 CALL                             R0 3 -1
+       46 RETURN                           R0 -1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -202,38 +188,34 @@ PROTO_9:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K10 [{"BackgroundColor", "Image", "Key", "OnClick", "Size", "AutomaticSize", "Title"}]
-       12 GETIMPORT                        R7 K13 [Color3.fromRGB]
+       11 DUPTABLE                         R6 K12 [{["BackgroundColor"], ["Image"], ["Key"] = "Click", ["OnClick"], ["Size"], ["AutomaticSize"], ["Title"] = "OnlyTwentyCharacters"}]
+       12 GETIMPORT                        R7 K15 [Color3.fromRGB]
        14 LOADN                            R8 50
        15 LOADN                            R9 168
        16 LOADN                            R10 82
        17 CALL                             R7 3 1
        18 SETTABLEKS                       R7 R6 K3 ["BackgroundColor"]
        20 GETUPVAL                         R7 3
-       21 GETTABLEKS                       R7 R7 K14 ["constructAssetThumbnailUrl"]
+       21 GETTABLEKS                       R7 R7 K16 ["constructAssetThumbnailUrl"]
        23 GETUPVAL                         R9 4
        24 GETTABLEN                        R8 R9 1
        25 GETUPVAL                         R9 5
        26 GETUPVAL                         R10 5
        27 CALL                             R7 3 1
        28 SETTABLEKS                       R7 R6 K4 ["Image"]
-       30 LOADK                            R7 K15 ["Click"]
-       31 SETTABLEKS                       R7 R6 K5 ["Key"]
-       33 DUPCLOSURE                       R7 K16 [PROTO_8]
-       34 SETTABLEKS                       R7 R6 K6 ["OnClick"]
-       36 GETIMPORT                        R7 K19 [UDim2.fromOffset]
-       38 LOADN                            R8 120
-       39 LOADN                            R9 0
-       40 CALL                             R7 2 1
-       41 SETTABLEKS                       R7 R6 K7 ["Size"]
-       43 GETIMPORT                        R7 K22 [Enum.AutomaticSize.Y]
-       45 SETTABLEKS                       R7 R6 K8 ["AutomaticSize"]
-       47 LOADK                            R7 K23 ["OnlyTwentyCharacters"]
-       48 SETTABLEKS                       R7 R6 K9 ["Title"]
-       50 CALL                             R4 2 1
-       51 SETTABLEKS                       R4 R3 K1 ["IconTile"]
-       53 CALL                             R0 3 -1
-       54 RETURN                           R0 -1
+       30 DUPCLOSURE                       R7 K17 [PROTO_8]
+       31 SETTABLEKS                       R7 R6 K7 ["OnClick"]
+       33 GETIMPORT                        R7 K20 [UDim2.fromOffset]
+       35 LOADN                            R8 120
+       36 LOADN                            R9 0
+       37 CALL                             R7 2 1
+       38 SETTABLEKS                       R7 R6 K8 ["Size"]
+       40 GETIMPORT                        R7 K23 [Enum.AutomaticSize.Y]
+       42 SETTABLEKS                       R7 R6 K9 ["AutomaticSize"]
+       44 CALL                             R4 2 1
+       45 SETTABLEKS                       R4 R3 K1 ["IconTile"]
+       47 CALL                             R0 3 -1
+       48 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -326,63 +308,45 @@ MAIN:
       132 LOADK                            R14 K44 ["GridStory"]
       133 NAMECALL                         R12 R12 K45 ["extend"]
       135 CALL                             R12 2 1
-      136 DUPTABLE                         R13 K48 [{"numTiles", "tileWidth"}]
-      137 LOADN                            R14 10
-      138 SETTABLEKS                       R14 R13 K46 ["numTiles"]
-      140 LOADN                            R14 120
-      141 SETTABLEKS                       R14 R13 K47 ["tileWidth"]
-      143 SETTABLEKS                       R13 R12 K49 ["defaultProps"]
-      145 DUPCLOSURE                       R13 K50 [PROTO_3]
-      146 SETTABLEKS                       R13 R12 K51 ["init"]
-      148 DUPCLOSURE                       R13 K52 [PROTO_4]
-      149 CAPTURE                          VAL R2
-      150 CAPTURE                          VAL R6
-      151 CAPTURE                          VAL R10
-      152 CAPTURE                          VAL R4
-      153 CAPTURE                          VAL R9
-      154 CAPTURE                          VAL R7
-      155 CAPTURE                          VAL R8
-      156 SETTABLEKS                       R13 R12 K53 ["render"]
-      158 DUPTABLE                         R13 K56 [{"summary", "stories"}]
-      159 LOADK                            R14 K57 ["A generic tile with an icon and flat color background."]
-      160 SETTABLEKS                       R14 R13 K54 ["summary"]
-      162 NEWTABLE                         R14 0 3
-      164 DUPTABLE                         R15 K60 [{"name", "summary", "story"}]
-      165 LOADK                            R16 K61 ["Single"]
-      166 SETTABLEKS                       R16 R15 K58 ["name"]
-      168 LOADK                            R16 K62 ["Sends a key on click and has a pointer cursor."]
-      169 SETTABLEKS                       R16 R15 K54 ["summary"]
-      171 DUPCLOSURE                       R16 K63 [PROTO_6]
-      172 CAPTURE                          VAL R2
-      173 CAPTURE                          VAL R3
-      174 CAPTURE                          VAL R6
-      175 CAPTURE                          VAL R4
-      176 CAPTURE                          VAL R9
-      177 CAPTURE                          VAL R7
-      178 SETTABLEKS                       R16 R15 K59 ["story"]
-      180 DUPTABLE                         R16 K60 [{"name", "summary", "story"}]
-      181 LOADK                            R17 K64 ["Grid"]
-      182 SETTABLEKS                       R17 R16 K58 ["name"]
-      184 LOADK                            R17 K65 ["A grid of tiles to show off use in responsive layouts"]
-      185 SETTABLEKS                       R17 R16 K54 ["summary"]
-      187 DUPCLOSURE                       R17 K66 [PROTO_7]
-      188 CAPTURE                          VAL R2
-      189 CAPTURE                          VAL R3
-      190 CAPTURE                          VAL R12
-      191 SETTABLEKS                       R17 R16 K59 ["story"]
-      193 DUPTABLE                         R17 K60 [{"name", "summary", "story"}]
-      194 LOADK                            R18 K67 ["Text truncation"]
-      195 SETTABLEKS                       R18 R17 K58 ["name"]
-      197 LOADK                            R18 K68 ["The title text of an IconTile will truncate on smaller sized tiles"]
-      198 SETTABLEKS                       R18 R17 K54 ["summary"]
-      200 DUPCLOSURE                       R18 K69 [PROTO_9]
-      201 CAPTURE                          VAL R2
-      202 CAPTURE                          VAL R3
-      203 CAPTURE                          VAL R6
-      204 CAPTURE                          VAL R4
-      205 CAPTURE                          VAL R9
-      206 CAPTURE                          VAL R7
-      207 SETTABLEKS                       R18 R17 K59 ["story"]
-      209 SETLIST                          R14 R15 3 [1]
-      211 SETTABLEKS                       R14 R13 K55 ["stories"]
-      213 RETURN                           R13 1
+      136 DUPTABLE                         R13 K50 [{["numTiles"] = 10, ["tileWidth"] = 120}]
+      137 SETTABLEKS                       R13 R12 K51 ["defaultProps"]
+      139 DUPCLOSURE                       R13 K52 [PROTO_3]
+      140 SETTABLEKS                       R13 R12 K53 ["init"]
+      142 DUPCLOSURE                       R13 K54 [PROTO_4]
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          VAL R6
+      145 CAPTURE                          VAL R10
+      146 CAPTURE                          VAL R4
+      147 CAPTURE                          VAL R9
+      148 CAPTURE                          VAL R7
+      149 CAPTURE                          VAL R8
+      150 SETTABLEKS                       R13 R12 K55 ["render"]
+      152 DUPTABLE                         R13 K59 [{["summary"] = "A generic tile with an icon and flat color background.", ["stories"]}]
+      153 NEWTABLE                         R14 0 3
+      155 DUPTABLE                         R15 K64 [{["name"] = "Single", ["summary"] = "Sends a key on click and has a pointer cursor.", ["story"]}]
+      156 DUPCLOSURE                       R16 K65 [PROTO_6]
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          VAL R3
+      159 CAPTURE                          VAL R6
+      160 CAPTURE                          VAL R4
+      161 CAPTURE                          VAL R9
+      162 CAPTURE                          VAL R7
+      163 SETTABLEKS                       R16 R15 K63 ["story"]
+      165 DUPTABLE                         R16 K68 [{["name"] = "Grid", ["summary"] = "A grid of tiles to show off use in responsive layouts", ["story"]}]
+      166 DUPCLOSURE                       R17 K69 [PROTO_7]
+      167 CAPTURE                          VAL R2
+      168 CAPTURE                          VAL R3
+      169 CAPTURE                          VAL R12
+      170 SETTABLEKS                       R17 R16 K63 ["story"]
+      172 DUPTABLE                         R17 K72 [{["name"] = "Text truncation", ["summary"] = "The title text of an IconTile will truncate on smaller sized tiles", ["story"]}]
+      173 DUPCLOSURE                       R18 K73 [PROTO_9]
+      174 CAPTURE                          VAL R2
+      175 CAPTURE                          VAL R3
+      176 CAPTURE                          VAL R6
+      177 CAPTURE                          VAL R4
+      178 CAPTURE                          VAL R9
+      179 CAPTURE                          VAL R7
+      180 SETTABLEKS                       R18 R17 K63 ["story"]
+      182 SETLIST                          R14 R15 3 [1]
+      184 SETTABLEKS                       R14 R13 K58 ["stories"]
+      186 RETURN                           R13 1

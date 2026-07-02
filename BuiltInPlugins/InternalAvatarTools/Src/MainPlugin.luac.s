@@ -2,58 +2,48 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["Localization"]
         3 GETTABLEKS                       R2 R2 K1 ["new"]
-        5 DUPTABLE                         R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R3 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "InternalAvatarTools"}]
         6 GETUPVAL                         R4 1
         7 SETTABLEKS                       R4 R3 K2 ["stringResourceTable"]
         9 GETUPVAL                         R4 2
        10 SETTABLEKS                       R4 R3 K3 ["translationResourceTable"]
-       12 LOADK                            R4 K6 ["InternalAvatarTools"]
-       13 SETTABLEKS                       R4 R3 K4 ["pluginName"]
-       15 CALL                             R2 1 1
-       16 SETTABLEKS                       R2 R0 K7 ["localization"]
-       18 DUPTABLE                         R4 K9 [{"promptExportNonAccessoryOpen"}]
-       19 LOADB                            R5 0
-       20 SETTABLEKS                       R5 R4 K8 ["promptExportNonAccessoryOpen"]
-       22 NAMECALL                         R2 R0 K10 ["setState"]
-       24 CALL                             R2 2 0
-       25 RETURN                           R0 0
+       12 CALL                             R2 1 1
+       13 SETTABLEKS                       R2 R0 K7 ["localization"]
+       15 DUPTABLE                         R4 K10 [{["promptExportNonAccessoryOpen"] = False}]
+       16 NAMECALL                         R2 R0 K11 ["setState"]
+       18 CALL                             R2 2 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+9]
+        2 JUMPIFNOT                        R0 ; [+6]
         3 GETUPVAL                         R0 1
-        4 DUPTABLE                         R2 K1 [{"promptExportNonAccessoryOpen"}]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K0 ["promptExportNonAccessoryOpen"]
-        8 NAMECALL                         R0 R0 K2 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
-       12 GETUPVAL                         R0 2
-       13 GETUPVAL                         R1 3
-       14 CALL                             R0 1 0
-       15 RETURN                           R0 0
+        4 DUPTABLE                         R2 K2 [{[1] = True}]
+        5 NAMECALL                         R0 R0 K3 ["setState"]
+        7 CALL                             R0 2 0
+        8 RETURN                           R0 0
+        9 GETUPVAL                         R0 2
+       10 GETUPVAL                         R1 3
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 CALL                             R0 1 0
         3 GETUPVAL                         R0 2
-        4 DUPTABLE                         R2 K1 [{"promptExportNonAccessoryOpen"}]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K0 ["promptExportNonAccessoryOpen"]
-        8 NAMECALL                         R0 R0 K2 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        4 DUPTABLE                         R2 K2 [{[1] = False}]
+        5 NAMECALL                         R0 R0 K3 ["setState"]
+        7 CALL                             R0 2 0
+        8 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"promptExportNonAccessoryOpen"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["promptExportNonAccessoryOpen"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

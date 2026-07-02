@@ -1,32 +1,30 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K5 [{"Origin", "UnitRay", "Target", "WheelForward", "WheelBackward"}]
-        1 GETIMPORT                        R2 K8 [CFrame.new]
+        0 DUPTABLE                         R1 K6 [{[1], ["UnitRay"], ["Target"] = , ["WheelForward"], ["WheelBackward"]}]
+        1 GETIMPORT                        R2 K9 [CFrame.new]
         3 CALL                             R2 0 1
         4 SETTABLEKS                       R2 R1 K0 ["Origin"]
-        6 GETIMPORT                        R2 K10 [Ray.new]
+        6 GETIMPORT                        R2 K11 [Ray.new]
         8 FASTCALL                         VECTOR ; [+2]
-        9 GETIMPORT                        R3 K12 [Vector3.new]
+        9 GETIMPORT                        R3 K13 [Vector3.new]
        11 CALL                             R3 0 1
        12 FASTCALL                         VECTOR ; [+2]
-       13 GETIMPORT                        R4 K12 [Vector3.new]
+       13 GETIMPORT                        R4 K13 [Vector3.new]
        15 CALL                             R4 0 1
        16 CALL                             R2 2 1
        17 SETTABLEKS                       R2 R1 K1 ["UnitRay"]
-       19 LOADNIL                          R2
-       20 SETTABLEKS                       R2 R1 K2 ["Target"]
-       22 GETUPVAL                         R2 0
-       23 GETTABLEKS                       R2 R2 K7 ["new"]
-       25 CALL                             R2 0 1
-       26 SETTABLEKS                       R2 R1 K3 ["WheelForward"]
-       28 GETUPVAL                         R2 0
-       29 GETTABLEKS                       R2 R2 K7 ["new"]
-       31 CALL                             R2 0 1
-       32 SETTABLEKS                       R2 R1 K4 ["WheelBackward"]
-       34 GETUPVAL                         R2 1
-       35 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-       37 GETIMPORT                        R0 K14 [setmetatable]
-       39 CALL                             R0 2 1
-       40 RETURN                           R0 1
+       19 GETUPVAL                         R2 0
+       20 GETTABLEKS                       R2 R2 K8 ["new"]
+       22 CALL                             R2 0 1
+       23 SETTABLEKS                       R2 R1 K4 ["WheelForward"]
+       25 GETUPVAL                         R2 0
+       26 GETTABLEKS                       R2 R2 K8 ["new"]
+       28 CALL                             R2 0 1
+       29 SETTABLEKS                       R2 R1 K5 ["WheelBackward"]
+       31 GETUPVAL                         R2 1
+       32 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+       34 GETIMPORT                        R0 K15 [setmetatable]
+       36 CALL                             R0 2 1
+       37 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

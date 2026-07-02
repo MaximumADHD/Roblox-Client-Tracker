@@ -23,13 +23,9 @@ PROTO_1:
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K1 ["Image"]
-        6 DUPTABLE                         R2 K4 [{"tag", "testId"}]
-        7 LOADK                            R3 K5 ["icon-notification size-300"]
-        8 SETTABLEKS                       R3 R2 K2 ["tag"]
-       10 LOADK                            R3 K6 ["scope-overlay-notification-icon"]
-       11 SETTABLEKS                       R3 R2 K3 ["testId"]
-       13 CALL                             R0 2 -1
-       14 RETURN                           R0 -1
+        6 DUPTABLE                         R2 K6 [{["tag"] = "icon-notification size-300", ["testId"] = "scope-overlay-notification-icon"}]
+        7 CALL                             R0 2 -1
+        8 RETURN                           R0 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -72,38 +68,36 @@ PROTO_3:
        39 GETTABLEKS                       R6 R6 K1 ["createElement"]
        41 GETUPVAL                         R7 3
        42 GETTABLEKS                       R7 R7 K13 ["IconButton"]
-       44 DUPTABLE                         R8 K20 [{"icon", "size", "variant", "onActivated", "stateLayer", "testId"}]
+       44 DUPTABLE                         R8 K21 [{["icon"], ["size"], ["variant"], ["onActivated"], ["stateLayer"], ["testId"] = "scope-overlay-folder-not-ready-icon"}]
        45 GETUPVAL                         R9 3
        46 GETTABLEKS                       R9 R9 K10 ["Enums"]
-       48 GETTABLEKS                       R9 R9 K21 ["IconName"]
-       50 GETTABLEKS                       R9 R9 K22 ["TriangleExclamation"]
+       48 GETTABLEKS                       R9 R9 K22 ["IconName"]
+       50 GETTABLEKS                       R9 R9 K23 ["TriangleExclamation"]
        52 SETTABLEKS                       R9 R8 K14 ["icon"]
        54 GETUPVAL                         R9 3
        55 GETTABLEKS                       R9 R9 K10 ["Enums"]
-       57 GETTABLEKS                       R9 R9 K23 ["InputSize"]
-       59 GETTABLEKS                       R9 R9 K24 ["XSmall"]
+       57 GETTABLEKS                       R9 R9 K24 ["InputSize"]
+       59 GETTABLEKS                       R9 R9 K25 ["XSmall"]
        61 SETTABLEKS                       R9 R8 K15 ["size"]
        63 GETUPVAL                         R9 3
        64 GETTABLEKS                       R9 R9 K10 ["Enums"]
-       66 GETTABLEKS                       R9 R9 K25 ["ButtonVariant"]
-       68 GETTABLEKS                       R9 R9 K26 ["Utility"]
+       66 GETTABLEKS                       R9 R9 K26 ["ButtonVariant"]
+       68 GETTABLEKS                       R9 R9 K27 ["Utility"]
        70 SETTABLEKS                       R9 R8 K16 ["variant"]
        72 NEWCLOSURE                       R9 P0
        73 CAPTURE                          VAL R1
        74 CAPTURE                          VAL R0
        75 SETTABLEKS                       R9 R8 K17 ["onActivated"]
-       77 DUPTABLE                         R9 K28 [{"affordance"}]
+       77 DUPTABLE                         R9 K29 [{"affordance"}]
        78 GETUPVAL                         R10 3
        79 GETTABLEKS                       R10 R10 K10 ["Enums"]
-       81 GETTABLEKS                       R10 R10 K29 ["StateLayerAffordance"]
-       83 GETTABLEKS                       R10 R10 K30 ["None"]
-       85 SETTABLEKS                       R10 R9 K27 ["affordance"]
+       81 GETTABLEKS                       R10 R10 K30 ["StateLayerAffordance"]
+       83 GETTABLEKS                       R10 R10 K31 ["None"]
+       85 SETTABLEKS                       R10 R9 K28 ["affordance"]
        87 SETTABLEKS                       R9 R8 K18 ["stateLayer"]
-       89 LOADK                            R9 K31 ["scope-overlay-folder-not-ready-icon"]
-       90 SETTABLEKS                       R9 R8 K19 ["testId"]
-       92 CALL                             R6 2 -1
-       93 CALL                             R3 -1 -1
-       94 RETURN                           R3 -1
+       89 CALL                             R6 2 -1
+       90 CALL                             R3 -1 -1
+       91 RETURN                           R3 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["IsSelected"]
@@ -145,7 +139,7 @@ PROTO_4:
        50 SETTABLEKS                       R6 R5 K12 ["LayoutOrder"]
        52 GETTABLEKS                       R6 R0 K13 ["Position"]
        54 SETTABLEKS                       R6 R5 K13 ["Position"]
-       56 LOADK                            R7 K17 ["radius-small size-600 align-x-center align-y-center %*"]
+       56 LOADK                            R7 K17 ["align-x-center align-y-center size-600 radius-small %*"]
        57 MOVE                             R9 R1
        58 NAMECALL                         R7 R7 K18 ["format"]
        60 CALL                             R7 2 1

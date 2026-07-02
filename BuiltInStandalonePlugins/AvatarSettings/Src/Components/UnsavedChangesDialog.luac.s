@@ -287,129 +287,115 @@ PROTO_14:
        96 CAPTURE                          VAL R7
        97 NEWTABLE                         R16 0 0
        99 CALL                             R14 2 0
-      100 DUPTABLE                         R14 K12 [{"Label", "HidesDialog", "OnActivated"}]
-      101 LOADK                            R17 K13 ["UnsavedChangesDialog"]
-      102 LOADK                            R18 K14 ["SaveAction"]
-      103 NAMECALL                         R15 R9 K15 ["getText"]
+      100 DUPTABLE                         R14 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      101 LOADK                            R17 K14 ["UnsavedChangesDialog"]
+      102 LOADK                            R18 K15 ["SaveAction"]
+      103 NAMECALL                         R15 R9 K16 ["getText"]
       105 CALL                             R15 3 1
       106 SETTABLEKS                       R15 R14 K9 ["Label"]
-      108 LOADB                            R15 1
-      109 SETTABLEKS                       R15 R14 K10 ["HidesDialog"]
-      111 NEWCLOSURE                       R15 P5
-      112 CAPTURE                          UPVAL U7
-      113 CAPTURE                          VAL R12
-      114 CAPTURE                          VAL R11
-      115 CAPTURE                          VAL R8
-      116 CAPTURE                          UPVAL U11
-      117 CAPTURE                          VAL R7
-      118 SETTABLEKS                       R15 R14 K11 ["OnActivated"]
-      120 DUPTABLE                         R15 K12 [{"Label", "HidesDialog", "OnActivated"}]
-      121 LOADK                            R18 K13 ["UnsavedChangesDialog"]
-      122 LOADK                            R19 K16 ["SaveAndRestartAction"]
-      123 NAMECALL                         R16 R9 K15 ["getText"]
-      125 CALL                             R16 3 1
-      126 SETTABLEKS                       R16 R15 K9 ["Label"]
-      128 LOADB                            R16 1
-      129 SETTABLEKS                       R16 R15 K10 ["HidesDialog"]
-      131 NEWCLOSURE                       R16 P6
-      132 CAPTURE                          UPVAL U7
-      133 CAPTURE                          VAL R12
-      134 CAPTURE                          VAL R11
-      135 CAPTURE                          VAL R8
-      136 CAPTURE                          UPVAL U11
-      137 CAPTURE                          VAL R7
-      138 SETTABLEKS                       R16 R15 K11 ["OnActivated"]
-      140 DUPTABLE                         R16 K12 [{"Label", "HidesDialog", "OnActivated"}]
-      141 LOADK                            R19 K13 ["UnsavedChangesDialog"]
-      142 LOADK                            R20 K17 ["DiscardAction"]
-      143 NAMECALL                         R17 R9 K15 ["getText"]
-      145 CALL                             R17 3 1
-      146 SETTABLEKS                       R17 R16 K9 ["Label"]
-      148 LOADB                            R17 1
-      149 SETTABLEKS                       R17 R16 K10 ["HidesDialog"]
-      151 NEWCLOSURE                       R17 P7
-      152 CAPTURE                          VAL R2
-      153 CAPTURE                          VAL R8
-      154 CAPTURE                          UPVAL U11
-      155 CAPTURE                          VAL R7
-      156 SETTABLEKS                       R17 R16 K11 ["OnActivated"]
-      158 DUPTABLE                         R17 K12 [{"Label", "HidesDialog", "OnActivated"}]
-      159 LOADK                            R20 K13 ["UnsavedChangesDialog"]
-      160 LOADK                            R21 K18 ["CancelAction"]
-      161 NAMECALL                         R18 R9 K15 ["getText"]
-      163 CALL                             R18 3 1
-      164 SETTABLEKS                       R18 R17 K9 ["Label"]
-      166 LOADB                            R18 1
-      167 SETTABLEKS                       R18 R17 K10 ["HidesDialog"]
-      169 NEWCLOSURE                       R18 P8
-      170 CAPTURE                          VAL R8
-      171 CAPTURE                          UPVAL U11
-      172 CAPTURE                          VAL R7
-      173 SETTABLEKS                       R18 R17 K11 ["OnActivated"]
-      175 GETUPVAL                         R18 12
-      176 DUPTABLE                         R19 K29 [{"Intent", "Heading", "Body", "ActionPrimary", "ActionSecondary", "ActionTertiary", "DisableTitleBar", "OnClosed", "Width", "Modal"}]
-      177 GETTABLEKS                       R21 R5 K30 ["current"]
-      179 JUMPIFNOT                        R21 ; [+2]
-      180 LOADK                            R20 K31 ["Destructive"]
-      181 JUMP                             ; [+1]
-      182 LOADK                            R20 K32 ["Warning"]
-      183 SETTABLEKS                       R20 R19 K19 ["Intent"]
-      185 LOADK                            R22 K13 ["UnsavedChangesDialog"]
-      186 LOADK                            R23 K33 ["Title"]
-      187 NAMECALL                         R20 R9 K15 ["getText"]
-      189 CALL                             R20 3 1
-      190 SETTABLEKS                       R20 R19 K20 ["Heading"]
-      192 GETTABLEKS                       R21 R5 K30 ["current"]
-      194 JUMPIFNOT                        R21 ; [+6]
-      195 LOADK                            R22 K13 ["UnsavedChangesDialog"]
-      196 LOADK                            R23 K34 ["ServerRestartDescription"]
-      197 NAMECALL                         R20 R9 K15 ["getText"]
-      199 CALL                             R20 3 1
-      200 JUMP                             ; [+5]
-      201 LOADK                            R22 K13 ["UnsavedChangesDialog"]
-      202 LOADK                            R23 K35 ["Description"]
-      203 NAMECALL                         R20 R9 K15 ["getText"]
-      205 CALL                             R20 3 1
-      206 SETTABLEKS                       R20 R19 K21 ["Body"]
-      208 GETTABLEKS                       R21 R5 K30 ["current"]
-      210 JUMPIFNOT                        R21 ; [+2]
-      211 MOVE                             R20 R15
+      108 NEWCLOSURE                       R15 P5
+      109 CAPTURE                          UPVAL U7
+      110 CAPTURE                          VAL R12
+      111 CAPTURE                          VAL R11
+      112 CAPTURE                          VAL R8
+      113 CAPTURE                          UPVAL U11
+      114 CAPTURE                          VAL R7
+      115 SETTABLEKS                       R15 R14 K12 ["OnActivated"]
+      117 DUPTABLE                         R15 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      118 LOADK                            R18 K14 ["UnsavedChangesDialog"]
+      119 LOADK                            R19 K17 ["SaveAndRestartAction"]
+      120 NAMECALL                         R16 R9 K16 ["getText"]
+      122 CALL                             R16 3 1
+      123 SETTABLEKS                       R16 R15 K9 ["Label"]
+      125 NEWCLOSURE                       R16 P6
+      126 CAPTURE                          UPVAL U7
+      127 CAPTURE                          VAL R12
+      128 CAPTURE                          VAL R11
+      129 CAPTURE                          VAL R8
+      130 CAPTURE                          UPVAL U11
+      131 CAPTURE                          VAL R7
+      132 SETTABLEKS                       R16 R15 K12 ["OnActivated"]
+      134 DUPTABLE                         R16 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      135 LOADK                            R19 K14 ["UnsavedChangesDialog"]
+      136 LOADK                            R20 K18 ["DiscardAction"]
+      137 NAMECALL                         R17 R9 K16 ["getText"]
+      139 CALL                             R17 3 1
+      140 SETTABLEKS                       R17 R16 K9 ["Label"]
+      142 NEWCLOSURE                       R17 P7
+      143 CAPTURE                          VAL R2
+      144 CAPTURE                          VAL R8
+      145 CAPTURE                          UPVAL U11
+      146 CAPTURE                          VAL R7
+      147 SETTABLEKS                       R17 R16 K12 ["OnActivated"]
+      149 DUPTABLE                         R17 K13 [{["Label"], ["HidesDialog"] = True, ["OnActivated"]}]
+      150 LOADK                            R20 K14 ["UnsavedChangesDialog"]
+      151 LOADK                            R21 K19 ["CancelAction"]
+      152 NAMECALL                         R18 R9 K16 ["getText"]
+      154 CALL                             R18 3 1
+      155 SETTABLEKS                       R18 R17 K9 ["Label"]
+      157 NEWCLOSURE                       R18 P8
+      158 CAPTURE                          VAL R8
+      159 CAPTURE                          UPVAL U11
+      160 CAPTURE                          VAL R7
+      161 SETTABLEKS                       R18 R17 K12 ["OnActivated"]
+      163 GETUPVAL                         R18 12
+      164 DUPTABLE                         R19 K31 [{["Intent"], ["Heading"], ["Body"], ["ActionPrimary"], ["ActionSecondary"], ["ActionTertiary"], ["DisableTitleBar"] = True, ["OnClosed"], ["Width"] = 410, ["Modal"] = True}]
+      165 GETTABLEKS                       R21 R5 K32 ["current"]
+      167 JUMPIFNOT                        R21 ; [+2]
+      168 LOADK                            R20 K33 ["Destructive"]
+      169 JUMP                             ; [+1]
+      170 LOADK                            R20 K34 ["Warning"]
+      171 SETTABLEKS                       R20 R19 K20 ["Intent"]
+      173 LOADK                            R22 K14 ["UnsavedChangesDialog"]
+      174 LOADK                            R23 K35 ["Title"]
+      175 NAMECALL                         R20 R9 K16 ["getText"]
+      177 CALL                             R20 3 1
+      178 SETTABLEKS                       R20 R19 K21 ["Heading"]
+      180 GETTABLEKS                       R21 R5 K32 ["current"]
+      182 JUMPIFNOT                        R21 ; [+6]
+      183 LOADK                            R22 K14 ["UnsavedChangesDialog"]
+      184 LOADK                            R23 K36 ["ServerRestartDescription"]
+      185 NAMECALL                         R20 R9 K16 ["getText"]
+      187 CALL                             R20 3 1
+      188 JUMP                             ; [+5]
+      189 LOADK                            R22 K14 ["UnsavedChangesDialog"]
+      190 LOADK                            R23 K37 ["Description"]
+      191 NAMECALL                         R20 R9 K16 ["getText"]
+      193 CALL                             R20 3 1
+      194 SETTABLEKS                       R20 R19 K22 ["Body"]
+      196 GETTABLEKS                       R21 R5 K32 ["current"]
+      198 JUMPIFNOT                        R21 ; [+2]
+      199 MOVE                             R20 R15
+      200 JUMP                             ; [+1]
+      201 MOVE                             R20 R14
+      202 SETTABLEKS                       R20 R19 K23 ["ActionPrimary"]
+      204 JUMPIFNOT                        R3 ; [+2]
+      205 MOVE                             R20 R16
+      206 JUMP                             ; [+1]
+      207 MOVE                             R20 R17
+      208 SETTABLEKS                       R20 R19 K24 ["ActionSecondary"]
+      210 JUMPIFNOT                        R3 ; [+2]
+      211 LOADNIL                          R20
       212 JUMP                             ; [+1]
-      213 MOVE                             R20 R14
-      214 SETTABLEKS                       R20 R19 K22 ["ActionPrimary"]
-      216 JUMPIFNOT                        R3 ; [+2]
-      217 MOVE                             R20 R16
-      218 JUMP                             ; [+1]
-      219 MOVE                             R20 R17
-      220 SETTABLEKS                       R20 R19 K23 ["ActionSecondary"]
-      222 JUMPIFNOT                        R3 ; [+2]
-      223 LOADNIL                          R20
-      224 JUMP                             ; [+1]
-      225 MOVE                             R20 R16
-      226 SETTABLEKS                       R20 R19 K24 ["ActionTertiary"]
-      228 LOADB                            R20 1
-      229 SETTABLEKS                       R20 R19 K25 ["DisableTitleBar"]
-      231 GETTABLEKS                       R20 R17 K11 ["OnActivated"]
-      233 SETTABLEKS                       R20 R19 K26 ["OnClosed"]
-      235 LOADN                            R20 154
-      236 SETTABLEKS                       R20 R19 K27 ["Width"]
-      238 LOADB                            R20 1
-      239 SETTABLEKS                       R20 R19 K28 ["Modal"]
-      241 CALL                             R18 1 2
-      242 GETUPVAL                         R20 10
-      243 NEWCLOSURE                       R21 P9
-      244 CAPTURE                          VAL R6
-      245 CAPTURE                          VAL R18
-      246 CAPTURE                          VAL R19
-      247 NEWTABLE                         R22 0 1
-      249 MOVE                             R23 R6
-      250 SETLIST                          R22 R23 1 [1]
-      252 CALL                             R20 2 0
-      253 GETUPVAL                         R20 13
-      254 GETUPVAL                         R21 3
-      255 GETTABLEKS                       R21 R21 K36 ["Fragment"]
-      257 CALL                             R20 1 -1
-      258 RETURN                           R20 -1
+      213 MOVE                             R20 R16
+      214 SETTABLEKS                       R20 R19 K25 ["ActionTertiary"]
+      216 GETTABLEKS                       R20 R17 K12 ["OnActivated"]
+      218 SETTABLEKS                       R20 R19 K27 ["OnClosed"]
+      220 CALL                             R18 1 2
+      221 GETUPVAL                         R20 10
+      222 NEWCLOSURE                       R21 P9
+      223 CAPTURE                          VAL R6
+      224 CAPTURE                          VAL R18
+      225 CAPTURE                          VAL R19
+      226 NEWTABLE                         R22 0 1
+      228 MOVE                             R23 R6
+      229 SETLIST                          R22 R23 1 [1]
+      231 CALL                             R20 2 0
+      232 GETUPVAL                         R20 13
+      233 GETUPVAL                         R21 3
+      234 GETTABLEKS                       R21 R21 K38 ["Fragment"]
+      236 CALL                             R20 1 -1
+      237 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0

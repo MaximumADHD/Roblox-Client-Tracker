@@ -18,41 +18,17 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R4 R0 K0 ["_mock"]
-        2 JUMPIFNOT                        R4 ; [+40]
+        2 JUMPIFNOT                        R4 ; [+4]
         3 MOVE                             R4 R2
-        4 DUPTABLE                         R5 K13 [{"id", "name", "description", "isArchived", "rootPlaceId", "isActive", "privacyType", "creatorType", "creatorTargetId", "creatorName", "created", "updated"}]
-        5 LOADN                            R6 0
-        6 SETTABLEKS                       R6 R5 K1 ["id"]
-        8 LOADK                            R6 K14 ["string"]
-        9 SETTABLEKS                       R6 R5 K2 ["name"]
-       11 LOADK                            R6 K14 ["string"]
-       12 SETTABLEKS                       R6 R5 K3 ["description"]
-       14 LOADB                            R6 1
-       15 SETTABLEKS                       R6 R5 K4 ["isArchived"]
-       17 LOADN                            R6 0
-       18 SETTABLEKS                       R6 R5 K5 ["rootPlaceId"]
-       20 LOADB                            R6 1
-       21 SETTABLEKS                       R6 R5 K6 ["isActive"]
-       23 LOADK                            R6 K14 ["string"]
-       24 SETTABLEKS                       R6 R5 K7 ["privacyType"]
-       26 LOADK                            R6 K15 ["group"]
-       27 SETTABLEKS                       R6 R5 K8 ["creatorType"]
-       29 LOADN                            R6 2
-       30 SETTABLEKS                       R6 R5 K9 ["creatorTargetId"]
-       32 LOADK                            R6 K16 ["BadgeBuds"]
-       33 SETTABLEKS                       R6 R5 K10 ["creatorName"]
-       35 LOADK                            R6 K17 ["2021-06-23T01:07:02.659Z"]
-       36 SETTABLEKS                       R6 R5 K11 ["created"]
-       38 LOADK                            R6 K17 ["2021-06-23T01:07:02.659Z"]
-       39 SETTABLEKS                       R6 R5 K12 ["updated"]
-       41 CALL                             R4 1 0
-       42 RETURN                           R0 0
-       43 MOVE                             R6 R1
-       44 MOVE                             R7 R2
-       45 MOVE                             R8 R3
-       46 NAMECALL                         R4 R0 K18 ["getUniverseInfoImpl"]
-       48 CALL                             R4 4 0
-       49 RETURN                           R0 0
+        4 DUPTABLE                         R5 K20 [{["id"] = 0, ["name"] = "string", ["description"] = "string", ["isArchived"] = True, ["rootPlaceId"] = 0, ["isActive"] = True, ["privacyType"] = "string", ["creatorType"] = "group", ["creatorTargetId"] = 2, ["creatorName"] = "BadgeBuds", ["created"] = "2021-06-23T01:07:02.659Z", ["updated"] = "2021-06-23T01:07:02.659Z"}]
+        5 CALL                             R4 1 0
+        6 RETURN                           R0 0
+        7 MOVE                             R6 R1
+        8 MOVE                             R7 R2
+        9 MOVE                             R8 R3
+       10 NAMECALL                         R4 R0 K21 ["getUniverseInfoImpl"]
+       12 CALL                             R4 4 0
+       13 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -99,33 +75,21 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["_mock"]
-        2 JUMPIFNOT                        R3 ; [+28]
+        2 JUMPIFNOT                        R3 ; [+10]
         3 MOVE                             R3 R1
         4 NEWTABLE                         R4 0 3
-        6 DUPTABLE                         R5 K3 [{"name", "id"}]
-        7 LOADK                            R6 K4 ["Test"]
-        8 SETTABLEKS                       R6 R5 K1 ["name"]
-       10 LOADN                            R6 1
-       11 SETTABLEKS                       R6 R5 K2 ["id"]
-       13 DUPTABLE                         R6 K3 [{"name", "id"}]
-       14 LOADK                            R7 K5 ["BadgeBuds"]
-       15 SETTABLEKS                       R7 R6 K1 ["name"]
-       17 LOADN                            R7 2
-       18 SETTABLEKS                       R7 R6 K2 ["id"]
-       20 DUPTABLE                         R7 K3 [{"name", "id"}]
-       21 LOADK                            R8 K6 ["MyGroup"]
-       22 SETTABLEKS                       R8 R7 K1 ["name"]
-       24 LOADN                            R8 3
-       25 SETTABLEKS                       R8 R7 K2 ["id"]
-       27 SETLIST                          R4 R5 3 [1]
-       29 CALL                             R3 1 0
-       30 RETURN                           R0 0
-       31 MOVE                             R5 R1
-       32 MOVE                             R6 R2
-       33 NAMECALL                         R3 R0 K7 ["getManagedGroupsImpl"]
-       35 CALL                             R3 3 -1
-       36 RETURN                           R3 -1
-       37 RETURN                           R0 0
+        6 DUPTABLE                         R5 K5 [{["name"] = "Test", ["id"] = 1}]
+        7 DUPTABLE                         R6 K8 [{["name"] = "BadgeBuds", ["id"] = 2}]
+        8 DUPTABLE                         R7 K11 [{["name"] = "MyGroup", ["id"] = 3}]
+        9 SETLIST                          R4 R5 3 [1]
+       11 CALL                             R3 1 0
+       12 RETURN                           R0 0
+       13 MOVE                             R5 R1
+       14 MOVE                             R6 R2
+       15 NAMECALL                         R3 R0 K12 ["getManagedGroupsImpl"]
+       17 CALL                             R3 3 -1
+       18 RETURN                           R3 -1
+       19 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -168,26 +132,18 @@ PROTO_9:
 
 PROTO_10:
         0 GETTABLEKS                       R5 R0 K0 ["_mock"]
-        2 JUMPIFNOT                        R5 ; [+16]
+        2 JUMPIFNOT                        R5 ; [+4]
         3 MOVE                             R5 R3
-        4 DUPTABLE                         R6 K5 [{"duration", "usage", "capacity", "expirationTime"}]
-        5 LOADK                            R7 K6 ["month"]
-        6 SETTABLEKS                       R7 R6 K1 ["duration"]
-        8 LOADN                            R7 1
-        9 SETTABLEKS                       R7 R6 K2 ["usage"]
-       11 LOADN                            R7 10
-       12 SETTABLEKS                       R7 R6 K3 ["capacity"]
-       14 LOADK                            R7 K7 ["0"]
-       15 SETTABLEKS                       R7 R6 K4 ["expirationTime"]
-       17 CALL                             R5 1 0
-       18 RETURN                           R0 0
-       19 MOVE                             R7 R1
-       20 MOVE                             R8 R2
-       21 MOVE                             R9 R3
-       22 MOVE                             R10 R4
-       23 NAMECALL                         R5 R0 K8 ["fetchUploadQuotasImpl"]
-       25 CALL                             R5 5 0
-       26 RETURN                           R0 0
+        4 DUPTABLE                         R6 K9 [{["duration"] = "month", ["usage"] = 1, ["capacity"] = 10, ["expirationTime"] = "0"}]
+        5 CALL                             R5 1 0
+        6 RETURN                           R0 0
+        7 MOVE                             R7 R1
+        8 MOVE                             R8 R2
+        9 MOVE                             R9 R3
+       10 MOVE                             R10 R4
+       11 NAMECALL                         R5 R0 K10 ["fetchUploadQuotasImpl"]
+       13 CALL                             R5 5 0
+       14 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R1 0

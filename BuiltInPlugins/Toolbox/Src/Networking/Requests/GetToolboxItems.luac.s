@@ -5,10 +5,8 @@ PROTO_0:
 
 PROTO_1:
         0 MOVE                             R2 R1
-        1 DUPTABLE                         R3 K1 [{"searchResultSource"}]
-        2 LOADK                            R4 K2 ["Tutorial"]
-        3 SETTABLEKS                       R4 R3 K0 ["searchResultSource"]
-        5 RETURN                           R2 2
+        1 DUPTABLE                         R3 K2 [{[1] = "Tutorial"}]
+        2 RETURN                           R2 2
 
 PROTO_2:
         0 GETUPVAL                         R1 0

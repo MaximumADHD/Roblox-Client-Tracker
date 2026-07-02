@@ -80,10 +80,10 @@ PROTO_2:
        94 GETUPVAL                         R10 2
        95 GETTABLEKS                       R10 R10 K4 ["createElement"]
        97 GETUPVAL                         R11 7
-       98 DUPTABLE                         R12 K41 [{"AutomaticSize", "Font", "LayoutOrder", "Size", "Text", "TextColor", "TextWrapped", "TextXAlignment"}]
-       99 GETIMPORT                        R13 K43 [Enum.AutomaticSize.Y]
+       98 DUPTABLE                         R12 K42 [{["AutomaticSize"], ["Font"], ["LayoutOrder"], ["Size"], ["Text"], ["TextColor"], ["TextWrapped"] = True, ["TextXAlignment"]}]
+       99 GETIMPORT                        R13 K44 [Enum.AutomaticSize.Y]
       101 SETTABLEKS                       R13 R12 K36 ["AutomaticSize"]
-      103 GETIMPORT                        R13 K45 [Enum.Font.SourceSansSemibold]
+      103 GETIMPORT                        R13 K46 [Enum.Font.SourceSansSemibold]
       105 SETTABLEKS                       R13 R12 K37 ["Font"]
       107 NAMECALL                         R13 R1 K35 ["getNextOrder"]
       109 CALL                             R13 1 1
@@ -95,54 +95,48 @@ PROTO_2:
       117 LOADN                            R17 0
       118 CALL                             R13 4 1
       119 SETTABLEKS                       R13 R12 K10 ["Size"]
-      121 LOADK                            R15 K46 ["General"]
-      122 LOADK                            R16 K47 ["GenericError"]
-      123 NAMECALL                         R13 R3 K48 ["getText"]
+      121 LOADK                            R15 K47 ["General"]
+      122 LOADK                            R16 K48 ["GenericError"]
+      123 NAMECALL                         R13 R3 K49 ["getText"]
       125 CALL                             R13 3 1
       126 SETTABLEKS                       R13 R12 K25 ["Text"]
-      128 GETTABLEKS                       R13 R2 K49 ["textColor"]
+      128 GETTABLEKS                       R13 R2 K50 ["textColor"]
       130 SETTABLEKS                       R13 R12 K38 ["TextColor"]
-      132 LOADB                            R13 1
-      133 SETTABLEKS                       R13 R12 K39 ["TextWrapped"]
-      135 GETIMPORT                        R13 K50 [Enum.TextXAlignment.Center]
-      137 SETTABLEKS                       R13 R12 K40 ["TextXAlignment"]
-      139 CALL                             R10 2 1
-      140 SETTABLEKS                       R10 R9 K25 ["Text"]
-      142 GETUPVAL                         R10 2
-      143 GETTABLEKS                       R10 R10 K4 ["createElement"]
-      145 GETUPVAL                         R11 8
-      146 DUPTABLE                         R12 K53 [{"LayoutOrder", "Size", "Style", "Text", "OnClick"}]
-      147 NAMECALL                         R13 R1 K35 ["getNextOrder"]
-      149 CALL                             R13 1 1
-      150 SETTABLEKS                       R13 R12 K29 ["LayoutOrder"]
-      152 GETIMPORT                        R13 K34 [UDim2.fromOffset]
-      154 LOADN                            R14 120
-      155 LOADN                            R15 32
-      156 CALL                             R13 2 1
-      157 SETTABLEKS                       R13 R12 K10 ["Size"]
-      159 LOADK                            R13 K54 ["RoundPrimary"]
-      160 SETTABLEKS                       R13 R12 K51 ["Style"]
-      162 LOADK                            R15 K55 ["Common"]
-      163 LOADK                            R16 K56 ["Retry"]
-      164 NAMECALL                         R13 R3 K48 ["getText"]
-      166 CALL                             R13 3 1
-      167 SETTABLEKS                       R13 R12 K25 ["Text"]
-      169 NEWCLOSURE                       R13 P1
-      170 CAPTURE                          VAL R4
-      171 SETTABLEKS                       R13 R12 K52 ["OnClick"]
-      173 DUPTABLE                         R13 K58 [{"Hover"}]
-      174 GETUPVAL                         R14 2
-      175 GETTABLEKS                       R14 R14 K4 ["createElement"]
-      177 GETUPVAL                         R15 9
-      178 DUPTABLE                         R16 K60 [{"Cursor"}]
-      179 LOADK                            R17 K61 ["PointingHand"]
-      180 SETTABLEKS                       R17 R16 K59 ["Cursor"]
-      182 CALL                             R14 2 1
-      183 SETTABLEKS                       R14 R13 K57 ["Hover"]
-      185 CALL                             R10 3 1
-      186 SETTABLEKS                       R10 R9 K26 ["Button"]
-      188 CALL                             R6 3 -1
-      189 RETURN                           R6 -1
+      132 GETIMPORT                        R13 K51 [Enum.TextXAlignment.Center]
+      134 SETTABLEKS                       R13 R12 K41 ["TextXAlignment"]
+      136 CALL                             R10 2 1
+      137 SETTABLEKS                       R10 R9 K25 ["Text"]
+      139 GETUPVAL                         R10 2
+      140 GETTABLEKS                       R10 R10 K4 ["createElement"]
+      142 GETUPVAL                         R11 8
+      143 DUPTABLE                         R12 K55 [{["LayoutOrder"], ["Size"], ["Style"] = "RoundPrimary", ["Text"], ["OnClick"]}]
+      144 NAMECALL                         R13 R1 K35 ["getNextOrder"]
+      146 CALL                             R13 1 1
+      147 SETTABLEKS                       R13 R12 K29 ["LayoutOrder"]
+      149 GETIMPORT                        R13 K34 [UDim2.fromOffset]
+      151 LOADN                            R14 120
+      152 LOADN                            R15 32
+      153 CALL                             R13 2 1
+      154 SETTABLEKS                       R13 R12 K10 ["Size"]
+      156 LOADK                            R15 K56 ["Common"]
+      157 LOADK                            R16 K57 ["Retry"]
+      158 NAMECALL                         R13 R3 K49 ["getText"]
+      160 CALL                             R13 3 1
+      161 SETTABLEKS                       R13 R12 K25 ["Text"]
+      163 NEWCLOSURE                       R13 P1
+      164 CAPTURE                          VAL R4
+      165 SETTABLEKS                       R13 R12 K54 ["OnClick"]
+      167 DUPTABLE                         R13 K59 [{"Hover"}]
+      168 GETUPVAL                         R14 2
+      169 GETTABLEKS                       R14 R14 K4 ["createElement"]
+      171 GETUPVAL                         R15 9
+      172 DUPTABLE                         R16 K62 [{["Cursor"] = "PointingHand"}]
+      173 CALL                             R14 2 1
+      174 SETTABLEKS                       R14 R13 K58 ["Hover"]
+      176 CALL                             R10 3 1
+      177 SETTABLEKS                       R10 R9 K26 ["Button"]
+      179 CALL                             R6 3 -1
+      180 RETURN                           R6 -1
 
 PROTO_3:
         0 GETUPVAL                         R2 0

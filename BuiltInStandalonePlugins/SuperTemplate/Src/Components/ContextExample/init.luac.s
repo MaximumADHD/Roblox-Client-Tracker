@@ -7,24 +7,18 @@ PROTO_0:
         7 GETUPVAL                         R2 0
         8 GETTABLEKS                       R2 R2 K2 ["createElement"]
        10 GETUPVAL                         R3 2
-       11 DUPTABLE                         R4 K4 [{"tag"}]
-       12 LOADK                            R5 K5 ["auto-xy col gap-medium bg-surface-0 radius-medium"]
-       13 SETTABLEKS                       R5 R4 K3 ["tag"]
-       15 DUPTABLE                         R5 K7 [{"Label"}]
-       16 GETUPVAL                         R6 0
-       17 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       19 GETUPVAL                         R7 3
-       20 DUPTABLE                         R8 K10 [{"Text", "tag", "testId"}]
-       21 ORK                              R9 R1 K11 ["No context value"]
-       22 SETTABLEKS                       R9 R8 K8 ["Text"]
-       24 LOADK                            R9 K12 ["auto-xy content-emphasis"]
-       25 SETTABLEKS                       R9 R8 K3 ["tag"]
-       27 LOADK                            R9 K13 ["--context-example-text"]
-       28 SETTABLEKS                       R9 R8 K9 ["testId"]
-       30 CALL                             R6 2 1
-       31 SETTABLEKS                       R6 R5 K6 ["Label"]
-       33 CALL                             R2 3 -1
-       34 RETURN                           R2 -1
+       11 DUPTABLE                         R4 K5 [{["tag"] = "col gap-medium auto-xy radius-medium bg-surface-0"}]
+       12 DUPTABLE                         R5 K7 [{"Label"}]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       16 GETUPVAL                         R7 3
+       17 DUPTABLE                         R8 K12 [{["Text"], ["tag"] = "auto-xy content-emphasis", ["testId"] = "--context-example-text"}]
+       18 ORK                              R9 R1 K13 ["No context value"]
+       19 SETTABLEKS                       R9 R8 K8 ["Text"]
+       21 CALL                             R6 2 1
+       22 SETTABLEKS                       R6 R5 K6 ["Label"]
+       24 CALL                             R2 3 -1
+       25 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

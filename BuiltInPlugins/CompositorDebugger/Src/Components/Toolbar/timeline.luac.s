@@ -18,7 +18,7 @@ PROTO_1:
        11 GETTABLEKS                       R4 R4 K5 ["X"]
        13 DIV                              R2 R3 R4
        14 SUBK                             R1 R2 K0 [1]
-       15 LOADN                            R5 255
+       15 LOADN                            R5 -1
        16 LOADN                            R6 0
        17 FASTCALL3                        MATH_CLAMP R1 R5 R6
        19 MOVE                             R4 R1
@@ -38,19 +38,17 @@ PROTO_1:
 PROTO_2:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]
         2 GETIMPORT                        R3 K3 [Enum.UserInputType.MouseButton1]
-        4 JUMPIFNOTEQ                      R2 R3 ; [+17]
+        4 JUMPIFNOTEQ                      R2 R3 ; [+14]
         6 GETUPVAL                         R2 0
         7 GETTABLEKS                       R2 R2 K4 ["setScrubberPosition"]
         9 GETTABLEKS                       R3 R1 K5 ["Position"]
        11 GETTABLEKS                       R3 R3 K6 ["X"]
        13 CALL                             R2 1 0
        14 GETUPVAL                         R2 0
-       15 DUPTABLE                         R4 K8 [{"dragging"}]
-       16 LOADB                            R5 1
-       17 SETTABLEKS                       R5 R4 K7 ["dragging"]
-       19 NAMECALL                         R2 R2 K9 ["setState"]
-       21 CALL                             R2 2 0
-       22 RETURN                           R0 0
+       15 DUPTABLE                         R4 K9 [{["dragging"] = True}]
+       16 NAMECALL                         R2 R2 K10 ["setState"]
+       18 CALL                             R2 2 0
+       19 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -66,40 +64,36 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"dragging"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["dragging"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R0 R0 K4 ["Analytics"]
-       13 LOADK                            R2 K5 ["onScrubbing"]
-       14 NAMECALL                         R0 R0 K6 ["report"]
-       16 CALL                             R0 2 0
-       17 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R0 R0 K5 ["Analytics"]
+       10 LOADK                            R2 K6 ["onScrubbing"]
+       11 NAMECALL                         R0 R0 K7 ["report"]
+       13 CALL                             R0 2 0
+       14 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"dragging"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["dragging"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onAbsoluteSizeChanged"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["setScrubberPosition"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K5 ["onDragStarted"]
-       18 NEWCLOSURE                       R1 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R1 R0 K6 ["onDragMoved"]
-       22 NEWCLOSURE                       R1 P4
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R1 R0 K7 ["onDragEnded"]
-       26 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onAbsoluteSizeChanged"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["setScrubberPosition"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["onDragStarted"]
+       15 NEWCLOSURE                       R1 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R1 R0 K7 ["onDragMoved"]
+       19 NEWCLOSURE                       R1 P4
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R1 R0 K8 ["onDragEnded"]
+       23 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -138,7 +132,7 @@ PROTO_6:
        45 JUMP                             ; [+1]
        46 LOADK                            R8 K4 ["Minor"]
        47 DIV                              R13 R11 R3
-       48 SUBRK                            R12 R10 K13 [tostring]
+       48 SUBRK                            R12 K10 [1] R13
        49 LOADK                            R14 K11 ["Tick_"]
        50 FASTCALL1                        TOSTRING R11 ; [+3]
        51 MOVE                             R16 R11

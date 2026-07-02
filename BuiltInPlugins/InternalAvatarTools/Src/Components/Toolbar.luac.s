@@ -3,32 +3,28 @@ PROTO_0:
         1 GETUPVAL                         R3 0
         2 GETTABLEKS                       R3 R3 K2 ["createElement"]
         4 GETUPVAL                         R4 1
-        5 DUPTABLE                         R5 K9 [{"Active", "Toolbar", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-        6 LOADB                            R6 0
-        7 SETTABLEKS                       R6 R5 K3 ["Active"]
-        9 SETTABLEKS                       R1 R5 K4 ["Toolbar"]
-       11 GETTABLEKS                       R6 R0 K10 ["props"]
-       13 GETTABLEKS                       R6 R6 K11 ["Localization"]
-       15 LOADK                            R8 K12 ["Plugin"]
-       16 LOADK                            R9 K0 ["Export"]
-       17 NAMECALL                         R6 R6 K13 ["getText"]
-       19 CALL                             R6 3 1
-       20 SETTABLEKS                       R6 R5 K5 ["Title"]
-       22 GETTABLEKS                       R6 R0 K10 ["props"]
-       24 GETTABLEKS                       R6 R6 K11 ["Localization"]
-       26 LOADK                            R8 K12 ["Plugin"]
-       27 LOADK                            R9 K14 ["ExportTip"]
-       28 NAMECALL                         R6 R6 K13 ["getText"]
-       30 CALL                             R6 3 1
-       31 SETTABLEKS                       R6 R5 K6 ["Tooltip"]
-       33 GETTABLEKS                       R6 R0 K10 ["props"]
-       35 GETTABLEKS                       R6 R6 K15 ["onExportClicked"]
-       37 SETTABLEKS                       R6 R5 K7 ["OnClick"]
-       39 LOADB                            R6 1
-       40 SETTABLEKS                       R6 R5 K8 ["ClickableWhenViewportHidden"]
-       42 CALL                             R3 2 1
-       43 SETTABLEKS                       R3 R2 K0 ["Export"]
-       45 RETURN                           R2 1
+        5 DUPTABLE                         R5 K11 [{["Active"] = False, ["Toolbar"], ["Title"], ["Tooltip"], ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+        6 SETTABLEKS                       R1 R5 K5 ["Toolbar"]
+        8 GETTABLEKS                       R6 R0 K12 ["props"]
+       10 GETTABLEKS                       R6 R6 K13 ["Localization"]
+       12 LOADK                            R8 K14 ["Plugin"]
+       13 LOADK                            R9 K0 ["Export"]
+       14 NAMECALL                         R6 R6 K15 ["getText"]
+       16 CALL                             R6 3 1
+       17 SETTABLEKS                       R6 R5 K6 ["Title"]
+       19 GETTABLEKS                       R6 R0 K12 ["props"]
+       21 GETTABLEKS                       R6 R6 K13 ["Localization"]
+       23 LOADK                            R8 K14 ["Plugin"]
+       24 LOADK                            R9 K16 ["ExportTip"]
+       25 NAMECALL                         R6 R6 K15 ["getText"]
+       27 CALL                             R6 3 1
+       28 SETTABLEKS                       R6 R5 K7 ["Tooltip"]
+       30 GETTABLEKS                       R6 R0 K12 ["props"]
+       32 GETTABLEKS                       R6 R6 K17 ["onExportClicked"]
+       34 SETTABLEKS                       R6 R5 K8 ["OnClick"]
+       36 CALL                             R3 2 1
+       37 SETTABLEKS                       R3 R2 K0 ["Export"]
+       39 RETURN                           R2 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

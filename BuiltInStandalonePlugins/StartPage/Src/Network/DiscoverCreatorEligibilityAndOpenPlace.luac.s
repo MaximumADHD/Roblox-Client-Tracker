@@ -62,37 +62,35 @@ PROTO_2:
        18 GETUPVAL                         R8 2
        19 MOVE                             R10 R7
        20 GETUPVAL                         R11 3
-       21 DUPTABLE                         R13 K8 [{"action", "userIds", "universeId"}]
-       22 LOADN                            R14 1
-       23 SETTABLEKS                       R14 R13 K5 ["action"]
-       25 NEWTABLE                         R14 0 1
-       27 MOVE                             R15 R0
-       28 SETLIST                          R14 R15 1 [1]
-       30 SETTABLEKS                       R14 R13 K6 ["userIds"]
-       32 SETTABLEKS                       R1 R13 K7 ["universeId"]
-       34 NAMECALL                         R11 R11 K9 ["JSONEncode"]
-       36 CALL                             R11 2 1
-       37 GETUPVAL                         R12 4
-       38 NAMECALL                         R8 R8 K10 ["post"]
-       40 CALL                             R8 4 1
-       41 GETUPVAL                         R9 2
-       42 MOVE                             R11 R8
-       43 NAMECALL                         R9 R9 K11 ["parseJson"]
-       45 CALL                             R9 2 1
-       46 NEWCLOSURE                       R11 P0
-       47 CAPTURE                          UPVAL U5
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          UPVAL U6
-       51 CAPTURE                          VAL R2
-       52 CAPTURE                          VAL R1
-       53 CAPTURE                          VAL R5
-       54 NAMECALL                         R9 R9 K12 ["andThen"]
-       56 CALL                             R9 2 1
-       57 DUPCLOSURE                       R11 K13 [PROTO_1]
-       58 NAMECALL                         R9 R9 K14 ["catch"]
-       60 CALL                             R9 2 0
-       61 RETURN                           R0 0
+       21 DUPTABLE                         R13 K9 [{["action"] = 1, ["userIds"], ["universeId"]}]
+       22 NEWTABLE                         R14 0 1
+       24 MOVE                             R15 R0
+       25 SETLIST                          R14 R15 1 [1]
+       27 SETTABLEKS                       R14 R13 K7 ["userIds"]
+       29 SETTABLEKS                       R1 R13 K8 ["universeId"]
+       31 NAMECALL                         R11 R11 K10 ["JSONEncode"]
+       33 CALL                             R11 2 1
+       34 GETUPVAL                         R12 4
+       35 NAMECALL                         R8 R8 K11 ["post"]
+       37 CALL                             R8 4 1
+       38 GETUPVAL                         R9 2
+       39 MOVE                             R11 R8
+       40 NAMECALL                         R9 R9 K12 ["parseJson"]
+       42 CALL                             R9 2 1
+       43 NEWCLOSURE                       R11 P0
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          UPVAL U6
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R5
+       51 NAMECALL                         R9 R9 K13 ["andThen"]
+       53 CALL                             R9 2 1
+       54 DUPCLOSURE                       R11 K14 [PROTO_1]
+       55 NAMECALL                         R9 R9 K15 ["catch"]
+       57 CALL                             R9 2 0
+       58 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -134,35 +132,31 @@ MAIN:
        62 GETTABLEKS                       R7 R2 K19 ["RobloxAPI"]
        64 GETTABLEKS                       R7 R7 K20 ["Url"]
        66 GETTABLEKS                       R8 R5 K21 ["new"]
-       68 DUPTABLE                         R9 K25 [{"isInternal", "loggingLevel", "retryAmount"}]
-       69 LOADB                            R10 1
-       70 SETTABLEKS                       R10 R9 K22 ["isInternal"]
-       72 SETTABLEKS                       R1 R9 K23 ["loggingLevel"]
-       74 LOADN                            R10 3
-       75 SETTABLEKS                       R10 R9 K24 ["retryAmount"]
-       77 CALL                             R8 1 1
-       78 NEWTABLE                         R9 1 0
-       80 LOADK                            R10 K26 ["application/json"]
-       81 SETTABLEKS                       R10 R9 K27 ["Content-Type"]
-       83 GETIMPORT                        R10 K29 [game]
-       85 LOADK                            R12 K30 ["HttpService"]
-       86 NAMECALL                         R10 R10 K31 ["GetService"]
-       88 CALL                             R10 2 1
-       89 GETIMPORT                        R11 K5 [require]
-       91 GETTABLEKS                       R12 R0 K6 ["Src"]
-       93 GETTABLEKS                       R12 R12 K15 ["Util"]
-       95 GETTABLEKS                       R12 R12 K16 ["Services"]
-       97 CALL                             R11 1 1
-       98 GETTABLEKS                       R12 R11 K32 ["StartPageManager"]
-      100 MOVE                             R13 R6
-      101 GETTABLEKS                       R14 R3 K33 ["validate"]
-      103 CALL                             R13 1 1
-      104 DUPCLOSURE                       R14 K34 [PROTO_2]
-      105 CAPTURE                          VAL R7
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R8
-      108 CAPTURE                          VAL R10
-      109 CAPTURE                          VAL R9
-      110 CAPTURE                          VAL R13
-      111 CAPTURE                          VAL R12
-      112 RETURN                           R14 1
+       68 DUPTABLE                         R9 K27 [{["isInternal"] = True, ["loggingLevel"], ["retryAmount"] = 3}]
+       69 SETTABLEKS                       R1 R9 K24 ["loggingLevel"]
+       71 CALL                             R8 1 1
+       72 NEWTABLE                         R9 1 0
+       74 LOADK                            R10 K28 ["application/json"]
+       75 SETTABLEKS                       R10 R9 K29 ["Content-Type"]
+       77 GETIMPORT                        R10 K31 [game]
+       79 LOADK                            R12 K32 ["HttpService"]
+       80 NAMECALL                         R10 R10 K33 ["GetService"]
+       82 CALL                             R10 2 1
+       83 GETIMPORT                        R11 K5 [require]
+       85 GETTABLEKS                       R12 R0 K6 ["Src"]
+       87 GETTABLEKS                       R12 R12 K15 ["Util"]
+       89 GETTABLEKS                       R12 R12 K16 ["Services"]
+       91 CALL                             R11 1 1
+       92 GETTABLEKS                       R12 R11 K34 ["StartPageManager"]
+       94 MOVE                             R13 R6
+       95 GETTABLEKS                       R14 R3 K35 ["validate"]
+       97 CALL                             R13 1 1
+       98 DUPCLOSURE                       R14 K36 [PROTO_2]
+       99 CAPTURE                          VAL R7
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R8
+      102 CAPTURE                          VAL R10
+      103 CAPTURE                          VAL R9
+      104 CAPTURE                          VAL R13
+      105 CAPTURE                          VAL R12
+      106 RETURN                           R14 1

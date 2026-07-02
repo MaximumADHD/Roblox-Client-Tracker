@@ -3,67 +3,51 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["View"]
-        6 DUPTABLE                         R3 K4 [{"LayoutOrder", "tag"}]
+        6 DUPTABLE                         R3 K5 [{["LayoutOrder"], ["tag"] = "row align-x-left align-y-center gap-small size-full-700 padding-left-xsmall"}]
         7 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         9 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       11 LOADK                            R4 K5 ["row size-full-700 align-x-left align-y-center padding-left-xsmall gap-small"]
-       12 SETTABLEKS                       R4 R3 K3 ["tag"]
-       14 DUPTABLE                         R4 K8 [{"Thumbnail", "Name"}]
-       15 GETTABLEKS                       R6 R0 K9 ["Uri"]
-       17 JUMPIFEQKNIL                     R6 ; [+23]
-       19 GETUPVAL                         R5 0
-       20 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       22 GETUPVAL                         R6 1
-       23 GETTABLEKS                       R6 R6 K10 ["Image"]
-       25 DUPTABLE                         R7 K12 [{"LayoutOrder", "Image", "tag", "testId"}]
-       26 LOADN                            R8 1
-       27 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       29 GETTABLEKS                       R8 R0 K9 ["Uri"]
-       31 SETTABLEKS                       R8 R7 K10 ["Image"]
-       33 LOADK                            R8 K13 ["size-600 radius-small"]
-       34 SETTABLEKS                       R8 R7 K3 ["tag"]
-       36 LOADK                            R8 K14 ["entryrow-image"]
-       37 SETTABLEKS                       R8 R7 K11 ["testId"]
-       39 CALL                             R5 2 1
-       40 JUMP                             ; [+36]
-       41 GETUPVAL                         R5 0
-       42 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       44 GETUPVAL                         R6 1
-       45 GETTABLEKS                       R6 R6 K15 ["Avatar"]
-       47 DUPTABLE                         R7 K19 [{"LayoutOrder", "userId", "userPresence", "size", "testId"}]
-       48 LOADN                            R8 1
-       49 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       51 GETTABLEKS                       R8 R0 K20 ["Id"]
-       53 SETTABLEKS                       R8 R7 K16 ["userId"]
-       55 GETUPVAL                         R8 1
-       56 GETTABLEKS                       R8 R8 K21 ["Enums"]
-       58 GETTABLEKS                       R8 R8 K22 ["UserPresence"]
-       60 GETTABLEKS                       R8 R8 K23 ["None"]
-       62 SETTABLEKS                       R8 R7 K17 ["userPresence"]
-       64 GETUPVAL                         R8 1
-       65 GETTABLEKS                       R8 R8 K21 ["Enums"]
-       67 GETTABLEKS                       R8 R8 K24 ["InputSize"]
-       69 GETTABLEKS                       R8 R8 K25 ["XSmall"]
-       71 SETTABLEKS                       R8 R7 K18 ["size"]
-       73 LOADK                            R8 K26 ["entryrow-avatar"]
-       74 SETTABLEKS                       R8 R7 K11 ["testId"]
-       76 CALL                             R5 2 1
-       77 SETTABLEKS                       R5 R4 K6 ["Thumbnail"]
-       79 GETUPVAL                         R5 0
-       80 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       82 GETUPVAL                         R6 1
-       83 GETTABLEKS                       R6 R6 K27 ["Text"]
-       85 DUPTABLE                         R7 K28 [{"LayoutOrder", "tag", "Text"}]
-       86 LOADN                            R8 2
-       87 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       89 LOADK                            R8 K29 ["text-body-medium text-wrap auto-xy"]
-       90 SETTABLEKS                       R8 R7 K3 ["tag"]
-       92 GETTABLEKS                       R8 R0 K27 ["Text"]
-       94 SETTABLEKS                       R8 R7 K27 ["Text"]
-       96 CALL                             R5 2 1
-       97 SETTABLEKS                       R5 R4 K7 ["Name"]
-       99 CALL                             R1 3 -1
-      100 RETURN                           R1 -1
+       11 DUPTABLE                         R4 K8 [{"Thumbnail", "Name"}]
+       12 GETTABLEKS                       R6 R0 K9 ["Uri"]
+       14 JUMPIFEQKNIL                     R6 ; [+14]
+       16 GETUPVAL                         R5 0
+       17 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       19 GETUPVAL                         R6 1
+       20 GETTABLEKS                       R6 R6 K10 ["Image"]
+       22 DUPTABLE                         R7 K15 [{["LayoutOrder"] = 1, ["Image"], ["tag"] = "size-600 radius-small", ["testId"] = "entryrow-image"}]
+       23 GETTABLEKS                       R8 R0 K9 ["Uri"]
+       25 SETTABLEKS                       R8 R7 K10 ["Image"]
+       27 CALL                             R5 2 1
+       28 JUMP                             ; [+30]
+       29 GETUPVAL                         R5 0
+       30 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       32 GETUPVAL                         R6 1
+       33 GETTABLEKS                       R6 R6 K16 ["Avatar"]
+       35 DUPTABLE                         R7 K21 [{["LayoutOrder"] = 1, ["userId"], ["userPresence"], ["size"], ["testId"] = "entryrow-avatar"}]
+       36 GETTABLEKS                       R8 R0 K22 ["Id"]
+       38 SETTABLEKS                       R8 R7 K17 ["userId"]
+       40 GETUPVAL                         R8 1
+       41 GETTABLEKS                       R8 R8 K23 ["Enums"]
+       43 GETTABLEKS                       R8 R8 K24 ["UserPresence"]
+       45 GETTABLEKS                       R8 R8 K25 ["None"]
+       47 SETTABLEKS                       R8 R7 K18 ["userPresence"]
+       49 GETUPVAL                         R8 1
+       50 GETTABLEKS                       R8 R8 K23 ["Enums"]
+       52 GETTABLEKS                       R8 R8 K26 ["InputSize"]
+       54 GETTABLEKS                       R8 R8 K27 ["XSmall"]
+       56 SETTABLEKS                       R8 R7 K19 ["size"]
+       58 CALL                             R5 2 1
+       59 SETTABLEKS                       R5 R4 K6 ["Thumbnail"]
+       61 GETUPVAL                         R5 0
+       62 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       64 GETUPVAL                         R6 1
+       65 GETTABLEKS                       R6 R6 K28 ["Text"]
+       67 DUPTABLE                         R7 K31 [{["LayoutOrder"] = 2, ["tag"] = "auto-xy text-body-medium text-wrap", ["Text"]}]
+       68 GETTABLEKS                       R8 R0 K28 ["Text"]
+       70 SETTABLEKS                       R8 R7 K28 ["Text"]
+       72 CALL                             R5 2 1
+       73 SETTABLEKS                       R5 R4 K7 ["Name"]
+       75 CALL                             R1 3 -1
+       76 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

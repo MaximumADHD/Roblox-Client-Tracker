@@ -47,15 +47,13 @@ MAIN:
        69 CALL                             R9 2 1
        70 MOVE                             R10 R3
        71 LOADK                            R11 K32 ["::UIStroke"]
-       72 DUPTABLE                         R12 K35 [{"Color", "Thickness"}]
+       72 DUPTABLE                         R12 K36 [{["Color"], ["Thickness"] = 1}]
        73 JUMPIFNOT                        R4 ; [+2]
-       74 LOADK                            R13 K36 ["$FoundationColorsShift300"]
+       74 LOADK                            R13 K37 ["$FoundationColorsShift300"]
        75 JUMP                             ; [+1]
-       76 LOADK                            R13 K37 ["$Divider"]
+       76 LOADK                            R13 K38 ["$Divider"]
        77 SETTABLEKS                       R13 R12 K33 ["Color"]
-       79 LOADN                            R13 1
-       80 SETTABLEKS                       R13 R12 K34 ["Thickness"]
-       82 CALL                             R10 2 -1
-       83 SETLIST                          R8 R9 -1 [1]
-       85 CALL                             R5 3 -1
-       86 RETURN                           R5 -1
+       79 CALL                             R10 2 -1
+       80 SETLIST                          R8 R9 -1 [1]
+       82 CALL                             R5 3 -1
+       83 RETURN                           R5 -1

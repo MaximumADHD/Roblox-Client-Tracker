@@ -51,84 +51,90 @@ PROTO_1:
        72 GETTABLEKS                       R4 R4 K21 ["mockPlugin"]
        74 CALL                             R3 1 1
        75 SETTABLEKS                       R3 R0 K22 ["pluginContext"]
-       77 GETUPVAL                         R3 3
-       78 GETTABLEKS                       R3 R3 K0 ["new"]
-       80 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
-       82 GETTABLEKS                       R4 R4 K23 ["api"]
-       84 CALL                             R3 1 1
-       85 SETTABLEKS                       R3 R0 K24 ["apiContext"]
-       87 GETUPVAL                         R3 2
-       88 GETTABLEKS                       R3 R3 K25 ["Store"]
-       90 GETTABLEKS                       R3 R3 K0 ["new"]
-       92 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
-       94 GETTABLEKS                       R4 R4 K26 ["store"]
-       96 CALL                             R3 1 1
-       97 SETTABLEKS                       R3 R0 K27 ["storeContext"]
-       99 GETUPVAL                         R3 2
-      100 GETTABLEKS                       R3 R3 K28 ["Mouse"]
-      102 GETTABLEKS                       R3 R3 K0 ["new"]
-      104 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
-      106 GETTABLEKS                       R4 R4 K21 ["mockPlugin"]
-      108 NAMECALL                         R4 R4 K29 ["GetMouse"]
-      110 CALL                             R4 1 -1
-      111 CALL                             R3 -1 1
-      112 SETTABLEKS                       R3 R0 K30 ["mouseContext"]
-      114 GETUPVAL                         R3 2
-      115 GETTABLEKS                       R3 R3 K31 ["Focus"]
-      117 GETTABLEKS                       R3 R3 K0 ["new"]
-      119 GETTABLEKS                       R4 R0 K15 ["focusTarget"]
-      121 CALL                             R3 1 1
-      122 SETTABLEKS                       R3 R0 K32 ["focusContext"]
-      124 GETUPVAL                         R3 4
+       77 GETUPVAL                         R4 3
+       78 CALL                             R4 0 1
+       79 JUMPIFNOT                        R4 ; [+5]
+       80 GETTABLEKS                       R3 R0 K9 ["mockGlobalConfig"]
+       82 GETTABLEKS                       R3 R3 K23 ["api"]
+       84 JUMP                             ; [+8]
+       85 GETUPVAL                         R3 4
+       86 GETTABLEKS                       R3 R3 K0 ["new"]
+       88 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
+       90 GETTABLEKS                       R4 R4 K23 ["api"]
+       92 CALL                             R3 1 1
+       93 SETTABLEKS                       R3 R0 K24 ["apiContext"]
+       95 GETUPVAL                         R3 2
+       96 GETTABLEKS                       R3 R3 K25 ["Store"]
+       98 GETTABLEKS                       R3 R3 K0 ["new"]
+      100 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
+      102 GETTABLEKS                       R4 R4 K26 ["store"]
+      104 CALL                             R3 1 1
+      105 SETTABLEKS                       R3 R0 K27 ["storeContext"]
+      107 GETUPVAL                         R3 2
+      108 GETTABLEKS                       R3 R3 K28 ["Mouse"]
+      110 GETTABLEKS                       R3 R3 K0 ["new"]
+      112 GETTABLEKS                       R4 R0 K9 ["mockGlobalConfig"]
+      114 GETTABLEKS                       R4 R4 K21 ["mockPlugin"]
+      116 NAMECALL                         R4 R4 K29 ["GetMouse"]
+      118 CALL                             R4 1 -1
+      119 CALL                             R3 -1 1
+      120 SETTABLEKS                       R3 R0 K30 ["mouseContext"]
+      122 GETUPVAL                         R3 2
+      123 GETTABLEKS                       R3 R3 K31 ["Focus"]
       125 GETTABLEKS                       R3 R3 K0 ["new"]
-      127 CALL                             R3 0 1
-      128 SETTABLEKS                       R3 R0 K33 ["navigation"]
-      130 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      132 GETTABLEKS                       R5 R0 K9 ["mockGlobalConfig"]
-      134 NAMECALL                         R3 R3 K34 ["add"]
-      136 CALL                             R3 2 0
-      137 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      139 GETTABLEKS                       R5 R0 K15 ["focusTarget"]
-      141 NAMECALL                         R3 R3 K34 ["add"]
-      143 CALL                             R3 2 0
-      144 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      146 GETTABLEKS                       R5 R0 K22 ["pluginContext"]
-      148 NAMECALL                         R3 R3 K34 ["add"]
-      150 CALL                             R3 2 0
-      151 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      153 GETTABLEKS                       R5 R0 K24 ["apiContext"]
-      155 NAMECALL                         R3 R3 K34 ["add"]
-      157 CALL                             R3 2 0
-      158 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      160 GETTABLEKS                       R5 R0 K27 ["storeContext"]
-      162 NAMECALL                         R3 R3 K34 ["add"]
-      164 CALL                             R3 2 0
-      165 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      167 GETTABLEKS                       R5 R0 K30 ["mouseContext"]
-      169 NAMECALL                         R3 R3 K34 ["add"]
-      171 CALL                             R3 2 0
-      172 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      174 GETTABLEKS                       R5 R0 K32 ["focusContext"]
-      176 NAMECALL                         R3 R3 K34 ["add"]
-      178 CALL                             R3 2 0
-      179 GETTABLEKS                       R3 R0 K1 ["cleanup"]
-      181 GETTABLEKS                       R5 R0 K33 ["navigation"]
-      183 NAMECALL                         R3 R3 K34 ["add"]
-      185 CALL                             R3 2 0
-      186 NEWTABLE                         R3 0 10
-      188 GETTABLEKS                       R4 R0 K22 ["pluginContext"]
-      190 GETTABLEKS                       R5 R0 K24 ["apiContext"]
-      192 GETTABLEKS                       R6 R0 K19 ["mockPluginManagementApi"]
-      194 GETTABLEKS                       R7 R0 K16 ["localization"]
-      196 GETTABLEKS                       R8 R0 K17 ["theme"]
-      198 GETTABLEKS                       R9 R0 K27 ["storeContext"]
-      200 GETTABLEKS                       R10 R0 K30 ["mouseContext"]
-      202 GETTABLEKS                       R11 R0 K18 ["analytics"]
-      204 GETTABLEKS                       R12 R0 K32 ["focusContext"]
-      206 GETTABLEKS                       R13 R0 K33 ["navigation"]
-      208 SETLIST                          R3 R4 10 [1]
-      210 SETTABLEKS                       R3 R0 K35 ["services"]
-      212 RETURN                           R0 0
+      127 GETTABLEKS                       R4 R0 K15 ["focusTarget"]
+      129 CALL                             R3 1 1
+      130 SETTABLEKS                       R3 R0 K32 ["focusContext"]
+      132 GETUPVAL                         R3 5
+      133 GETTABLEKS                       R3 R3 K0 ["new"]
+      135 CALL                             R3 0 1
+      136 SETTABLEKS                       R3 R0 K33 ["navigation"]
+      138 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      140 GETTABLEKS                       R5 R0 K9 ["mockGlobalConfig"]
+      142 NAMECALL                         R3 R3 K34 ["add"]
+      144 CALL                             R3 2 0
+      145 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      147 GETTABLEKS                       R5 R0 K15 ["focusTarget"]
+      149 NAMECALL                         R3 R3 K34 ["add"]
+      151 CALL                             R3 2 0
+      152 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      154 GETTABLEKS                       R5 R0 K22 ["pluginContext"]
+      156 NAMECALL                         R3 R3 K34 ["add"]
+      158 CALL                             R3 2 0
+      159 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      161 GETTABLEKS                       R5 R0 K24 ["apiContext"]
+      163 NAMECALL                         R3 R3 K34 ["add"]
+      165 CALL                             R3 2 0
+      166 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      168 GETTABLEKS                       R5 R0 K27 ["storeContext"]
+      170 NAMECALL                         R3 R3 K34 ["add"]
+      172 CALL                             R3 2 0
+      173 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      175 GETTABLEKS                       R5 R0 K30 ["mouseContext"]
+      177 NAMECALL                         R3 R3 K34 ["add"]
+      179 CALL                             R3 2 0
+      180 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      182 GETTABLEKS                       R5 R0 K32 ["focusContext"]
+      184 NAMECALL                         R3 R3 K34 ["add"]
+      186 CALL                             R3 2 0
+      187 GETTABLEKS                       R3 R0 K1 ["cleanup"]
+      189 GETTABLEKS                       R5 R0 K33 ["navigation"]
+      191 NAMECALL                         R3 R3 K34 ["add"]
+      193 CALL                             R3 2 0
+      194 NEWTABLE                         R3 0 10
+      196 GETTABLEKS                       R4 R0 K22 ["pluginContext"]
+      198 GETTABLEKS                       R5 R0 K24 ["apiContext"]
+      200 GETTABLEKS                       R6 R0 K19 ["mockPluginManagementApi"]
+      202 GETTABLEKS                       R7 R0 K16 ["localization"]
+      204 GETTABLEKS                       R8 R0 K17 ["theme"]
+      206 GETTABLEKS                       R9 R0 K27 ["storeContext"]
+      208 GETTABLEKS                       R10 R0 K30 ["mouseContext"]
+      210 GETTABLEKS                       R11 R0 K18 ["analytics"]
+      212 GETTABLEKS                       R12 R0 K32 ["focusContext"]
+      214 GETTABLEKS                       R13 R0 K33 ["navigation"]
+      216 SETLIST                          R3 R4 10 [1]
+      218 SETTABLEKS                       R3 R0 K35 ["services"]
+      220 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -154,51 +160,57 @@ MAIN:
         5 GETTABLEKS                       R0 R0 K2 ["Parent"]
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
-       11 GETTABLEKS                       R2 R0 K5 ["Packages"]
-       13 GETTABLEKS                       R2 R2 K6 ["Roact"]
-       15 CALL                             R1 1 1
-       16 GETIMPORT                        R2 K4 [require]
-       18 GETTABLEKS                       R3 R0 K5 ["Packages"]
-       20 GETTABLEKS                       R3 R3 K7 ["Framework"]
-       22 CALL                             R2 1 1
-       23 GETTABLEKS                       R2 R2 K8 ["ContextServices"]
+       11 GETTABLEKS                       R2 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioPluginManagementUpgradeHttp"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       22 GETTABLEKS                       R3 R3 K9 ["Roact"]
+       24 CALL                             R2 1 1
        25 GETIMPORT                        R3 K4 [require]
-       27 GETTABLEKS                       R4 R0 K9 ["Src"]
-       29 GETTABLEKS                       R4 R4 K8 ["ContextServices"]
-       31 GETTABLEKS                       R4 R4 K10 ["PluginAPI2"]
-       33 CALL                             R3 1 1
+       27 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       29 GETTABLEKS                       R4 R4 K10 ["Framework"]
+       31 CALL                             R3 1 1
+       32 GETTABLEKS                       R3 R3 K11 ["ContextServices"]
        34 GETIMPORT                        R4 K4 [require]
-       36 GETTABLEKS                       R5 R0 K9 ["Src"]
-       38 GETTABLEKS                       R5 R5 K8 ["ContextServices"]
-       40 GETTABLEKS                       R5 R5 K11 ["Navigation"]
+       36 GETTABLEKS                       R5 R0 K5 ["Src"]
+       38 GETTABLEKS                       R5 R5 K11 ["ContextServices"]
+       40 GETTABLEKS                       R5 R5 K12 ["PluginAPI2"]
        42 CALL                             R4 1 1
        43 GETIMPORT                        R5 K4 [require]
-       45 GETTABLEKS                       R6 R0 K9 ["Src"]
-       47 GETTABLEKS                       R6 R6 K12 ["Tests"]
-       49 GETTABLEKS                       R6 R6 K13 ["Mocks"]
-       51 GETTABLEKS                       R6 R6 K14 ["createMockGlobalConfig"]
-       53 CALL                             R5 1 1
-       54 GETIMPORT                        R6 K4 [require]
-       56 GETTABLEKS                       R7 R0 K9 ["Src"]
-       58 GETTABLEKS                       R7 R7 K15 ["Util"]
-       60 GETTABLEKS                       R7 R7 K16 ["CleanupHelper"]
+       45 GETTABLEKS                       R6 R0 K5 ["Src"]
+       47 GETTABLEKS                       R6 R6 K11 ["ContextServices"]
+       49 GETTABLEKS                       R6 R6 K13 ["Navigation"]
+       51 CALL                             R5 1 1
+       52 GETIMPORT                        R6 K4 [require]
+       54 GETTABLEKS                       R7 R0 K5 ["Src"]
+       56 GETTABLEKS                       R7 R7 K14 ["Tests"]
+       58 GETTABLEKS                       R7 R7 K15 ["Mocks"]
+       60 GETTABLEKS                       R7 R7 K16 ["createMockGlobalConfig"]
        62 CALL                             R6 1 1
-       63 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
-       65 LOADK                            R9 K18 ["MockManagement"]
-       66 NAMECALL                         R7 R7 K19 ["extend"]
-       68 CALL                             R7 2 1
-       69 DUPCLOSURE                       R8 K20 [PROTO_0]
-       70 DUPCLOSURE                       R9 K21 [PROTO_1]
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R5
-       73 CAPTURE                          VAL R2
-       74 CAPTURE                          VAL R3
-       75 CAPTURE                          VAL R4
-       76 SETTABLEKS                       R9 R7 K22 ["init"]
-       78 DUPCLOSURE                       R9 K23 [PROTO_2]
-       79 CAPTURE                          VAL R2
-       80 CAPTURE                          VAL R1
-       81 SETTABLEKS                       R9 R7 K24 ["render"]
-       83 DUPCLOSURE                       R9 K25 [PROTO_3]
-       84 SETTABLEKS                       R9 R7 K26 ["willUnmount"]
-       86 RETURN                           R7 1
+       63 GETIMPORT                        R7 K4 [require]
+       65 GETTABLEKS                       R8 R0 K5 ["Src"]
+       67 GETTABLEKS                       R8 R8 K17 ["Util"]
+       69 GETTABLEKS                       R8 R8 K18 ["CleanupHelper"]
+       71 CALL                             R7 1 1
+       72 GETTABLEKS                       R8 R2 K19 ["PureComponent"]
+       74 LOADK                            R10 K20 ["MockManagement"]
+       75 NAMECALL                         R8 R8 K21 ["extend"]
+       77 CALL                             R8 2 1
+       78 DUPCLOSURE                       R9 K22 [PROTO_0]
+       79 DUPCLOSURE                       R10 K23 [PROTO_1]
+       80 CAPTURE                          VAL R7
+       81 CAPTURE                          VAL R6
+       82 CAPTURE                          VAL R3
+       83 CAPTURE                          VAL R1
+       84 CAPTURE                          VAL R4
+       85 CAPTURE                          VAL R5
+       86 SETTABLEKS                       R10 R8 K24 ["init"]
+       88 DUPCLOSURE                       R10 K25 [PROTO_2]
+       89 CAPTURE                          VAL R3
+       90 CAPTURE                          VAL R2
+       91 SETTABLEKS                       R10 R8 K26 ["render"]
+       93 DUPCLOSURE                       R10 K27 [PROTO_3]
+       94 SETTABLEKS                       R10 R8 K28 ["willUnmount"]
+       96 RETURN                           R8 1

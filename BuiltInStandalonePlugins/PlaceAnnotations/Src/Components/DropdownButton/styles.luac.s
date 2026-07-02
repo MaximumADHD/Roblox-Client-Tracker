@@ -12,73 +12,59 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Component-DropdownButton"]
-       20 DUPTABLE                         R5 K13 [{"BackgroundTransparency", "BorderSizePixel"}]
-       21 LOADN                            R6 1
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundTransparency"]
-       24 LOADN                            R6 0
-       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       27 NEWTABLE                         R6 0 5
-       29 MOVE                             R7 R2
-       30 LOADK                            R8 K14 [".AddPadding"]
-       31 NEWTABLE                         R9 0 0
-       33 NEWTABLE                         R10 0 1
-       35 MOVE                             R11 R2
-       36 LOADK                            R12 K15 ["::UIPadding"]
-       37 DUPTABLE                         R13 K20 [{"PaddingTop", "PaddingLeft", "PaddingRight", "PaddingBottom"}]
-       38 GETIMPORT                        R14 K23 [UDim.new]
-       40 LOADN                            R15 0
-       41 LOADN                            R16 2
-       42 CALL                             R14 2 1
-       43 SETTABLEKS                       R14 R13 K16 ["PaddingTop"]
-       45 GETIMPORT                        R14 K23 [UDim.new]
-       47 LOADN                            R15 0
-       48 LOADN                            R16 2
-       49 CALL                             R14 2 1
-       50 SETTABLEKS                       R14 R13 K17 ["PaddingLeft"]
-       52 GETIMPORT                        R14 K23 [UDim.new]
-       54 LOADN                            R15 0
-       55 LOADN                            R16 2
-       56 CALL                             R14 2 1
-       57 SETTABLEKS                       R14 R13 K18 ["PaddingRight"]
-       59 GETIMPORT                        R14 K23 [UDim.new]
-       61 LOADN                            R15 0
-       62 LOADN                            R16 2
-       63 CALL                             R14 2 1
-       64 SETTABLEKS                       R14 R13 K19 ["PaddingBottom"]
-       66 CALL                             R11 2 -1
-       67 SETLIST                          R10 R11 -1 [1]
-       69 CALL                             R7 3 1
-       70 MOVE                             R8 R2
-       71 LOADK                            R9 K24 ["::UICorner"]
-       72 DUPTABLE                         R10 K26 [{"CornerRadius"}]
-       73 GETIMPORT                        R11 K23 [UDim.new]
-       75 LOADN                            R12 0
-       76 LOADN                            R13 4
-       77 CALL                             R11 2 1
-       78 SETTABLEKS                       R11 R10 K25 ["CornerRadius"]
-       80 CALL                             R8 2 1
-       81 MOVE                             R9 R2
-       82 LOADK                            R10 K27 [":hover"]
-       83 DUPTABLE                         R11 K29 [{"BackgroundTransparency", "BackgroundColor3"}]
-       84 LOADK                            R12 K30 ["$Shift200Transparency"]
-       85 SETTABLEKS                       R12 R11 K11 ["BackgroundTransparency"]
-       87 LOADK                            R12 K31 ["$Shift200Color"]
-       88 SETTABLEKS                       R12 R11 K28 ["BackgroundColor3"]
-       90 CALL                             R9 2 1
-       91 MOVE                             R10 R2
-       92 LOADK                            R11 K32 [":press"]
-       93 DUPTABLE                         R12 K29 [{"BackgroundTransparency", "BackgroundColor3"}]
-       94 LOADK                            R13 K33 ["$Shift100Transparency"]
-       95 SETTABLEKS                       R13 R12 K11 ["BackgroundTransparency"]
-       97 LOADK                            R13 K31 ["$Shift200Color"]
-       98 SETTABLEKS                       R13 R12 K28 ["BackgroundColor3"]
-      100 CALL                             R10 2 1
-      101 MOVE                             R11 R2
-      102 LOADK                            R12 K34 [".Disabled"]
-      103 DUPTABLE                         R13 K36 [{"ImageTransparency"}]
-      104 LOADK                            R14 K37 [0.4]
-      105 SETTABLEKS                       R14 R13 K35 ["ImageTransparency"]
-      107 CALL                             R11 2 -1
-      108 SETLIST                          R6 R7 -1 [1]
-      110 CALL                             R3 3 -1
-      111 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K15 [{["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
+       21 NEWTABLE                         R6 0 5
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K16 [".AddPadding"]
+       25 NEWTABLE                         R9 0 0
+       27 NEWTABLE                         R10 0 1
+       29 MOVE                             R11 R2
+       30 LOADK                            R12 K17 ["::UIPadding"]
+       31 DUPTABLE                         R13 K22 [{"PaddingTop", "PaddingLeft", "PaddingRight", "PaddingBottom"}]
+       32 GETIMPORT                        R14 K25 [UDim.new]
+       34 LOADN                            R15 0
+       35 LOADN                            R16 2
+       36 CALL                             R14 2 1
+       37 SETTABLEKS                       R14 R13 K18 ["PaddingTop"]
+       39 GETIMPORT                        R14 K25 [UDim.new]
+       41 LOADN                            R15 0
+       42 LOADN                            R16 2
+       43 CALL                             R14 2 1
+       44 SETTABLEKS                       R14 R13 K19 ["PaddingLeft"]
+       46 GETIMPORT                        R14 K25 [UDim.new]
+       48 LOADN                            R15 0
+       49 LOADN                            R16 2
+       50 CALL                             R14 2 1
+       51 SETTABLEKS                       R14 R13 K20 ["PaddingRight"]
+       53 GETIMPORT                        R14 K25 [UDim.new]
+       55 LOADN                            R15 0
+       56 LOADN                            R16 2
+       57 CALL                             R14 2 1
+       58 SETTABLEKS                       R14 R13 K21 ["PaddingBottom"]
+       60 CALL                             R11 2 -1
+       61 SETLIST                          R10 R11 -1 [1]
+       63 CALL                             R7 3 1
+       64 MOVE                             R8 R2
+       65 LOADK                            R9 K26 ["::UICorner"]
+       66 DUPTABLE                         R10 K28 [{"CornerRadius"}]
+       67 GETIMPORT                        R11 K25 [UDim.new]
+       69 LOADN                            R12 0
+       70 LOADN                            R13 4
+       71 CALL                             R11 2 1
+       72 SETTABLEKS                       R11 R10 K27 ["CornerRadius"]
+       74 CALL                             R8 2 1
+       75 MOVE                             R9 R2
+       76 LOADK                            R10 K29 [":hover"]
+       77 DUPTABLE                         R11 K33 [{["BackgroundTransparency"] = "$Shift200Transparency", ["BackgroundColor3"] = "$Shift200Color"}]
+       78 CALL                             R9 2 1
+       79 MOVE                             R10 R2
+       80 LOADK                            R11 K34 [":press"]
+       81 DUPTABLE                         R12 K36 [{["BackgroundTransparency"] = "$Shift100Transparency", ["BackgroundColor3"] = "$Shift200Color"}]
+       82 CALL                             R10 2 1
+       83 MOVE                             R11 R2
+       84 LOADK                            R12 K37 [".Disabled"]
+       85 DUPTABLE                         R13 K40 [{["ImageTransparency"] = 0.4}]
+       86 CALL                             R11 2 -1
+       87 SETLIST                          R6 R7 -1 [1]
+       89 CALL                             R3 3 -1
+       90 RETURN                           R3 -1

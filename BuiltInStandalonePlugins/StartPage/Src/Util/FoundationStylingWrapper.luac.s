@@ -26,22 +26,20 @@ PROTO_1:
        22 GETUPVAL                         R5 6
        23 GETTABLEKS                       R5 R5 K6 ["createElement"]
        25 GETUPVAL                         R6 7
-       26 DUPTABLE                         R7 K9 [{"theme", "onStyleSheetChange"}]
-       27 LOADK                            R8 K10 ["Dark"]
-       28 SETTABLEKS                       R8 R7 K7 ["theme"]
-       30 GETUPVAL                         R8 8
-       31 SETTABLEKS                       R8 R7 K8 ["onStyleSheetChange"]
-       33 DUPTABLE                         R8 K12 [{"Component"}]
-       34 GETUPVAL                         R9 6
-       35 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       37 GETUPVAL                         R10 9
-       38 MOVE                             R11 R0
-       39 CALL                             R9 2 1
-       40 SETTABLEKS                       R9 R8 K11 ["Component"]
-       42 CALL                             R5 3 1
-       43 SETTABLEKS                       R5 R4 K4 ["Provider"]
-       45 CALL                             R2 2 -1
-       46 RETURN                           R2 -1
+       26 DUPTABLE                         R7 K10 [{["theme"] = "Dark", ["onStyleSheetChange"]}]
+       27 GETUPVAL                         R8 8
+       28 SETTABLEKS                       R8 R7 K9 ["onStyleSheetChange"]
+       30 DUPTABLE                         R8 K12 [{"Component"}]
+       31 GETUPVAL                         R9 6
+       32 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       34 GETUPVAL                         R10 9
+       35 MOVE                             R11 R0
+       36 CALL                             R9 2 1
+       37 SETTABLEKS                       R9 R8 K11 ["Component"]
+       39 CALL                             R5 3 1
+       40 SETTABLEKS                       R5 R4 K4 ["Provider"]
+       42 CALL                             R2 2 -1
+       43 RETURN                           R2 -1
 
 PROTO_2:
         0 NEWCLOSURE                       R3 P0

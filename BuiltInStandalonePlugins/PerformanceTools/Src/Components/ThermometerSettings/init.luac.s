@@ -308,186 +308,174 @@ PROTO_11:
       149 GETUPVAL                         R12 0
       150 GETTABLEKS                       R12 R12 K3 ["createElement"]
       152 GETUPVAL                         R13 1
-      153 DUPTABLE                         R14 K52 [{"Text", "Cursor", "OnClick", "LayoutOrder"}]
-      154 LOADK                            R17 K53 ["SceneBudgetThermometer"]
-      155 LOADK                            R18 K54 ["ResetToDefault"]
-      156 NAMECALL                         R15 R3 K55 ["getText"]
+      153 DUPTABLE                         R14 K54 [{["Text"], ["Cursor"] = "PointingHand", ["OnClick"], ["LayoutOrder"] = 2}]
+      154 LOADK                            R17 K55 ["SceneBudgetThermometer"]
+      155 LOADK                            R18 K56 ["ResetToDefault"]
+      156 NAMECALL                         R15 R3 K57 ["getText"]
       158 CALL                             R15 3 1
       159 SETTABLEKS                       R15 R14 K49 ["Text"]
-      161 LOADK                            R15 K56 ["PointingHand"]
-      162 SETTABLEKS                       R15 R14 K50 ["Cursor"]
-      164 NEWCLOSURE                       R15 P0
-      165 CAPTURE                          VAL R0
-      166 CAPTURE                          VAL R1
-      167 SETTABLEKS                       R15 R14 K51 ["OnClick"]
-      169 LOADN                            R15 2
-      170 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
-      172 CALL                             R12 2 1
-      173 SETTABLEKS                       R12 R11 K41 ["ResetToDefaultButton"]
-      175 CALL                             R8 3 1
-      176 SETTABLEKS                       R8 R7 K14 ["ButtonFrame"]
-      178 GETUPVAL                         R8 0
-      179 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      181 LOADK                            R9 K57 ["TextLabel"]
-      182 DUPTABLE                         R10 K58 [{"Text", "LayoutOrder"}]
-      183 LOADK                            R13 K53 ["SceneBudgetThermometer"]
-      184 LOADK                            R14 K59 ["MaxTotalRenderCpuMs"]
-      185 NAMECALL                         R11 R3 K55 ["getText"]
-      187 CALL                             R11 3 1
-      188 SETTABLEKS                       R11 R10 K49 ["Text"]
-      190 LOADN                            R11 6
-      191 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
-      193 CALL                             R8 2 1
-      194 SETTABLEKS                       R8 R7 K15 ["RenderMsLabel"]
-      196 GETUPVAL                         R8 0
-      197 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      199 GETUPVAL                         R9 2
-      200 DUPTABLE                         R10 K62 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
-      201 GETTABLEKS                       R11 R2 K63 ["totalRenderMsText"]
-      203 SETTABLEKS                       R11 R10 K49 ["Text"]
-      205 LOADN                            R11 7
-      206 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
-      208 NEWCLOSURE                       R11 P1
-      209 CAPTURE                          VAL R1
-      210 CAPTURE                          VAL R0
-      211 SETTABLEKS                       R11 R10 K60 ["OnFocusLost"]
-      213 NEWCLOSURE                       R11 P2
-      214 CAPTURE                          VAL R0
-      215 SETTABLEKS                       R11 R10 K61 ["OnTextChanged"]
-      217 CALL                             R8 2 1
-      218 SETTABLEKS                       R8 R7 K16 ["RenderMsInput"]
-      220 GETUPVAL                         R8 0
-      221 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      223 LOADK                            R9 K57 ["TextLabel"]
-      224 DUPTABLE                         R10 K58 [{"Text", "LayoutOrder"}]
-      225 LOADK                            R13 K53 ["SceneBudgetThermometer"]
-      226 LOADK                            R14 K64 ["MaxTotalTaskCpuMs"]
-      227 NAMECALL                         R11 R3 K55 ["getText"]
-      229 CALL                             R11 3 1
+      161 NEWCLOSURE                       R15 P0
+      162 CAPTURE                          VAL R0
+      163 CAPTURE                          VAL R1
+      164 SETTABLEKS                       R15 R14 K52 ["OnClick"]
+      166 CALL                             R12 2 1
+      167 SETTABLEKS                       R12 R11 K41 ["ResetToDefaultButton"]
+      169 CALL                             R8 3 1
+      170 SETTABLEKS                       R8 R7 K14 ["ButtonFrame"]
+      172 GETUPVAL                         R8 0
+      173 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      175 LOADK                            R9 K58 ["TextLabel"]
+      176 DUPTABLE                         R10 K60 [{["Text"], ["LayoutOrder"] = 6}]
+      177 LOADK                            R13 K55 ["SceneBudgetThermometer"]
+      178 LOADK                            R14 K61 ["MaxTotalRenderCpuMs"]
+      179 NAMECALL                         R11 R3 K57 ["getText"]
+      181 CALL                             R11 3 1
+      182 SETTABLEKS                       R11 R10 K49 ["Text"]
+      184 CALL                             R8 2 1
+      185 SETTABLEKS                       R8 R7 K15 ["RenderMsLabel"]
+      187 GETUPVAL                         R8 0
+      188 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      190 GETUPVAL                         R9 2
+      191 DUPTABLE                         R10 K65 [{["Text"], ["LayoutOrder"] = 7, ["OnFocusLost"], ["OnTextChanged"]}]
+      192 GETTABLEKS                       R11 R2 K66 ["totalRenderMsText"]
+      194 SETTABLEKS                       R11 R10 K49 ["Text"]
+      196 NEWCLOSURE                       R11 P1
+      197 CAPTURE                          VAL R1
+      198 CAPTURE                          VAL R0
+      199 SETTABLEKS                       R11 R10 K63 ["OnFocusLost"]
+      201 NEWCLOSURE                       R11 P2
+      202 CAPTURE                          VAL R0
+      203 SETTABLEKS                       R11 R10 K64 ["OnTextChanged"]
+      205 CALL                             R8 2 1
+      206 SETTABLEKS                       R8 R7 K16 ["RenderMsInput"]
+      208 GETUPVAL                         R8 0
+      209 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      211 LOADK                            R9 K58 ["TextLabel"]
+      212 DUPTABLE                         R10 K68 [{["Text"], ["LayoutOrder"] = 8}]
+      213 LOADK                            R13 K55 ["SceneBudgetThermometer"]
+      214 LOADK                            R14 K69 ["MaxTotalTaskCpuMs"]
+      215 NAMECALL                         R11 R3 K57 ["getText"]
+      217 CALL                             R11 3 1
+      218 SETTABLEKS                       R11 R10 K49 ["Text"]
+      220 CALL                             R8 2 1
+      221 SETTABLEKS                       R8 R7 K17 ["TaskMsLabel"]
+      223 GETUPVAL                         R8 0
+      224 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      226 GETUPVAL                         R9 2
+      227 DUPTABLE                         R10 K71 [{["Text"], ["LayoutOrder"] = 9, ["OnFocusLost"], ["OnTextChanged"]}]
+      228 GETTABLEKS                       R11 R2 K72 ["totalTaskMsText"]
       230 SETTABLEKS                       R11 R10 K49 ["Text"]
-      232 LOADN                            R11 8
-      233 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
-      235 CALL                             R8 2 1
-      236 SETTABLEKS                       R8 R7 K17 ["TaskMsLabel"]
-      238 GETUPVAL                         R8 0
-      239 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      241 GETUPVAL                         R9 2
-      242 DUPTABLE                         R10 K62 [{"Text", "LayoutOrder", "OnFocusLost", "OnTextChanged"}]
-      243 GETTABLEKS                       R11 R2 K65 ["totalTaskMsText"]
-      245 SETTABLEKS                       R11 R10 K49 ["Text"]
-      247 LOADN                            R11 9
-      248 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
-      250 NEWCLOSURE                       R11 P3
-      251 CAPTURE                          VAL R1
-      252 CAPTURE                          VAL R0
-      253 SETTABLEKS                       R11 R10 K60 ["OnFocusLost"]
-      255 NEWCLOSURE                       R11 P4
-      256 CAPTURE                          VAL R0
-      257 SETTABLEKS                       R11 R10 K61 ["OnTextChanged"]
-      259 CALL                             R8 2 1
-      260 SETTABLEKS                       R8 R7 K18 ["TaskMsInput"]
-      262 GETUPVAL                         R8 0
-      263 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      265 LOADK                            R9 K4 ["Frame"]
-      266 NEWTABLE                         R10 4 0
-      268 GETUPVAL                         R11 0
-      269 GETTABLEKS                       R11 R11 K5 ["Tag"]
-      271 LOADK                            R12 K66 ["X-Fit X-Row X-Corner"]
-      272 SETTABLE                         R12 R10 R11
-      273 LOADN                            R11 1
-      274 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-      276 LOADN                            R11 10
-      277 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
-      279 DUPTABLE                         R11 K69 [{"Layout", "Padding", "InformationImageLabel", "BudgetInformationLabel"}]
-      280 GETUPVAL                         R12 0
-      281 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      283 LOADK                            R13 K21 ["UIListLayout"]
-      284 DUPTABLE                         R14 K26 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
-      285 GETIMPORT                        R15 K28 [UDim.new]
-      287 LOADN                            R16 0
-      288 LOADN                            R17 5
-      289 CALL                             R15 2 1
-      290 SETTABLEKS                       R15 R14 K13 ["Padding"]
-      292 GETIMPORT                        R15 K31 [Enum.FillDirection.Vertical]
-      294 SETTABLEKS                       R15 R14 K22 ["FillDirection"]
-      296 GETIMPORT                        R15 K33 [Enum.HorizontalAlignment.Left]
-      298 SETTABLEKS                       R15 R14 K23 ["HorizontalAlignment"]
-      300 GETIMPORT                        R15 K44 [Enum.VerticalAlignment.Center]
-      302 SETTABLEKS                       R15 R14 K24 ["VerticalAlignment"]
-      304 GETIMPORT                        R15 K37 [Enum.SortOrder.LayoutOrder]
-      306 SETTABLEKS                       R15 R14 K25 ["SortOrder"]
-      308 CALL                             R12 2 1
-      309 SETTABLEKS                       R12 R11 K12 ["Layout"]
-      311 GETUPVAL                         R12 0
-      312 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      314 LOADK                            R13 K38 ["UIPadding"]
-      315 DUPTABLE                         R14 K74 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-      316 GETIMPORT                        R15 K28 [UDim.new]
-      318 LOADN                            R16 0
-      319 LOADN                            R17 0
-      320 CALL                             R15 2 1
-      321 SETTABLEKS                       R15 R14 K70 ["PaddingTop"]
-      323 GETIMPORT                        R15 K28 [UDim.new]
-      325 LOADN                            R16 0
-      326 LOADN                            R17 0
-      327 CALL                             R15 2 1
-      328 SETTABLEKS                       R15 R14 K71 ["PaddingBottom"]
-      330 GETIMPORT                        R15 K28 [UDim.new]
-      332 LOADN                            R16 0
-      333 LOADN                            R17 0
-      334 CALL                             R15 2 1
-      335 SETTABLEKS                       R15 R14 K72 ["PaddingLeft"]
-      337 GETIMPORT                        R15 K28 [UDim.new]
-      339 LOADN                            R16 0
-      340 LOADN                            R17 0
-      341 CALL                             R15 2 1
-      342 SETTABLEKS                       R15 R14 K73 ["PaddingRight"]
-      344 CALL                             R12 2 1
-      345 SETTABLEKS                       R12 R11 K13 ["Padding"]
-      347 GETUPVAL                         R12 0
-      348 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      350 LOADK                            R13 K75 ["ImageLabel"]
-      351 NEWTABLE                         R14 4 0
-      353 GETUPVAL                         R15 0
-      354 GETTABLEKS                       R15 R15 K5 ["Tag"]
-      356 LOADK                            R16 K76 ["InformationLabel"]
-      357 SETTABLE                         R16 R14 R15
-      358 GETIMPORT                        R15 K9 [UDim2.new]
-      360 LOADN                            R16 0
-      361 LOADN                            R17 16
-      362 LOADN                            R18 0
-      363 LOADN                            R19 16
-      364 CALL                             R15 4 1
-      365 SETTABLEKS                       R15 R14 K10 ["Size"]
-      367 LOADN                            R15 1
-      368 SETTABLEKS                       R15 R14 K11 ["BackgroundTransparency"]
-      370 LOADN                            R15 1
-      371 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
-      373 CALL                             R12 2 1
-      374 SETTABLEKS                       R12 R11 K67 ["InformationImageLabel"]
-      376 GETUPVAL                         R12 0
-      377 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      379 LOADK                            R13 K57 ["TextLabel"]
-      380 NEWTABLE                         R14 4 0
-      382 GETUPVAL                         R15 0
-      383 GETTABLEKS                       R15 R15 K5 ["Tag"]
-      385 LOADK                            R16 K77 ["X-Fit BudgetLabel"]
-      386 SETTABLE                         R16 R14 R15
-      387 LOADK                            R17 K78 ["SceneMonitor"]
-      388 LOADK                            R18 K79 ["DefaultSettingsInformation"]
-      389 NAMECALL                         R15 R3 K55 ["getText"]
-      391 CALL                             R15 3 1
-      392 SETTABLEKS                       R15 R14 K49 ["Text"]
-      394 LOADB                            R15 1
-      395 SETTABLEKS                       R15 R14 K80 ["TextWrapped"]
-      397 LOADN                            R15 2
-      398 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
-      400 CALL                             R12 2 1
-      401 SETTABLEKS                       R12 R11 K68 ["BudgetInformationLabel"]
-      403 CALL                             R8 3 1
-      404 SETTABLEKS                       R8 R7 K19 ["DefaultBudgetInformation"]
-      406 CALL                             R4 3 -1
-      407 RETURN                           R4 -1
+      232 NEWCLOSURE                       R11 P3
+      233 CAPTURE                          VAL R1
+      234 CAPTURE                          VAL R0
+      235 SETTABLEKS                       R11 R10 K63 ["OnFocusLost"]
+      237 NEWCLOSURE                       R11 P4
+      238 CAPTURE                          VAL R0
+      239 SETTABLEKS                       R11 R10 K64 ["OnTextChanged"]
+      241 CALL                             R8 2 1
+      242 SETTABLEKS                       R8 R7 K18 ["TaskMsInput"]
+      244 GETUPVAL                         R8 0
+      245 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      247 LOADK                            R9 K4 ["Frame"]
+      248 NEWTABLE                         R10 4 0
+      250 GETUPVAL                         R11 0
+      251 GETTABLEKS                       R11 R11 K5 ["Tag"]
+      253 LOADK                            R12 K73 ["X-Fit X-Row X-Corner"]
+      254 SETTABLE                         R12 R10 R11
+      255 LOADN                            R11 1
+      256 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
+      258 LOADN                            R11 10
+      259 SETTABLEKS                       R11 R10 K36 ["LayoutOrder"]
+      261 DUPTABLE                         R11 K76 [{"Layout", "Padding", "InformationImageLabel", "BudgetInformationLabel"}]
+      262 GETUPVAL                         R12 0
+      263 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      265 LOADK                            R13 K21 ["UIListLayout"]
+      266 DUPTABLE                         R14 K26 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+      267 GETIMPORT                        R15 K28 [UDim.new]
+      269 LOADN                            R16 0
+      270 LOADN                            R17 5
+      271 CALL                             R15 2 1
+      272 SETTABLEKS                       R15 R14 K13 ["Padding"]
+      274 GETIMPORT                        R15 K31 [Enum.FillDirection.Vertical]
+      276 SETTABLEKS                       R15 R14 K22 ["FillDirection"]
+      278 GETIMPORT                        R15 K33 [Enum.HorizontalAlignment.Left]
+      280 SETTABLEKS                       R15 R14 K23 ["HorizontalAlignment"]
+      282 GETIMPORT                        R15 K44 [Enum.VerticalAlignment.Center]
+      284 SETTABLEKS                       R15 R14 K24 ["VerticalAlignment"]
+      286 GETIMPORT                        R15 K37 [Enum.SortOrder.LayoutOrder]
+      288 SETTABLEKS                       R15 R14 K25 ["SortOrder"]
+      290 CALL                             R12 2 1
+      291 SETTABLEKS                       R12 R11 K12 ["Layout"]
+      293 GETUPVAL                         R12 0
+      294 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      296 LOADK                            R13 K38 ["UIPadding"]
+      297 DUPTABLE                         R14 K81 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+      298 GETIMPORT                        R15 K28 [UDim.new]
+      300 LOADN                            R16 0
+      301 LOADN                            R17 0
+      302 CALL                             R15 2 1
+      303 SETTABLEKS                       R15 R14 K77 ["PaddingTop"]
+      305 GETIMPORT                        R15 K28 [UDim.new]
+      307 LOADN                            R16 0
+      308 LOADN                            R17 0
+      309 CALL                             R15 2 1
+      310 SETTABLEKS                       R15 R14 K78 ["PaddingBottom"]
+      312 GETIMPORT                        R15 K28 [UDim.new]
+      314 LOADN                            R16 0
+      315 LOADN                            R17 0
+      316 CALL                             R15 2 1
+      317 SETTABLEKS                       R15 R14 K79 ["PaddingLeft"]
+      319 GETIMPORT                        R15 K28 [UDim.new]
+      321 LOADN                            R16 0
+      322 LOADN                            R17 0
+      323 CALL                             R15 2 1
+      324 SETTABLEKS                       R15 R14 K80 ["PaddingRight"]
+      326 CALL                             R12 2 1
+      327 SETTABLEKS                       R12 R11 K13 ["Padding"]
+      329 GETUPVAL                         R12 0
+      330 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      332 LOADK                            R13 K82 ["ImageLabel"]
+      333 NEWTABLE                         R14 4 0
+      335 GETUPVAL                         R15 0
+      336 GETTABLEKS                       R15 R15 K5 ["Tag"]
+      338 LOADK                            R16 K83 ["InformationLabel"]
+      339 SETTABLE                         R16 R14 R15
+      340 GETIMPORT                        R15 K9 [UDim2.new]
+      342 LOADN                            R16 0
+      343 LOADN                            R17 16
+      344 LOADN                            R18 0
+      345 LOADN                            R19 16
+      346 CALL                             R15 4 1
+      347 SETTABLEKS                       R15 R14 K10 ["Size"]
+      349 LOADN                            R15 1
+      350 SETTABLEKS                       R15 R14 K11 ["BackgroundTransparency"]
+      352 LOADN                            R15 1
+      353 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
+      355 CALL                             R12 2 1
+      356 SETTABLEKS                       R12 R11 K74 ["InformationImageLabel"]
+      358 GETUPVAL                         R12 0
+      359 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      361 LOADK                            R13 K58 ["TextLabel"]
+      362 NEWTABLE                         R14 4 0
+      364 GETUPVAL                         R15 0
+      365 GETTABLEKS                       R15 R15 K5 ["Tag"]
+      367 LOADK                            R16 K84 ["X-Fit BudgetLabel"]
+      368 SETTABLE                         R16 R14 R15
+      369 LOADK                            R17 K85 ["SceneMonitor"]
+      370 LOADK                            R18 K86 ["DefaultSettingsInformation"]
+      371 NAMECALL                         R15 R3 K57 ["getText"]
+      373 CALL                             R15 3 1
+      374 SETTABLEKS                       R15 R14 K49 ["Text"]
+      376 LOADB                            R15 1
+      377 SETTABLEKS                       R15 R14 K87 ["TextWrapped"]
+      379 LOADN                            R15 2
+      380 SETTABLEKS                       R15 R14 K36 ["LayoutOrder"]
+      382 CALL                             R12 2 1
+      383 SETTABLEKS                       R12 R11 K75 ["BudgetInformationLabel"]
+      385 CALL                             R8 3 1
+      386 SETTABLEKS                       R8 R7 K19 ["DefaultBudgetInformation"]
+      388 CALL                             R4 3 -1
+      389 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -20,63 +20,59 @@ PROTO_0:
        24 GETUPVAL                         R5 4
        25 GETUPVAL                         R6 5
        26 GETUPVAL                         R7 6
-       27 DUPTABLE                         R8 K18 [{"searchTerm", "sortIndex", "sortDirection", "uiSortIntent", "categoryName", "targetPage", "currentPage", "requestReason", "isTopKeyword", "searchSource", "querySource", "originalUserQuery", "originalCorrection", "queryParams"}]
+       27 DUPTABLE                         R8 K20 [{["searchTerm"], ["sortIndex"], ["sortDirection"], ["uiSortIntent"], ["categoryName"], ["targetPage"] = 1, ["currentPage"] = 0, ["requestReason"], ["isTopKeyword"], ["searchSource"], ["querySource"], ["originalUserQuery"], ["originalCorrection"], ["queryParams"]}]
        28 GETUPVAL                         R9 2
        29 SETTABLEKS                       R9 R8 K6 ["searchTerm"]
        31 SETTABLEKS                       R2 R8 K5 ["sortIndex"]
        33 GETUPVAL                         R9 7
-       34 GETTABLEKS                       R9 R9 K19 ["None"]
+       34 GETTABLEKS                       R9 R9 K21 ["None"]
        36 SETTABLEKS                       R9 R8 K7 ["sortDirection"]
        38 GETUPVAL                         R9 7
-       39 GETTABLEKS                       R9 R9 K19 ["None"]
+       39 GETTABLEKS                       R9 R9 K21 ["None"]
        41 SETTABLEKS                       R9 R8 K8 ["uiSortIntent"]
        43 GETUPVAL                         R9 3
        44 SETTABLEKS                       R9 R8 K4 ["categoryName"]
-       46 LOADN                            R9 1
-       47 SETTABLEKS                       R9 R8 K9 ["targetPage"]
-       49 LOADN                            R9 0
-       50 SETTABLEKS                       R9 R8 K10 ["currentPage"]
-       52 GETUPVAL                         R9 8
-       53 GETTABLEKS                       R9 R9 K20 ["StartSearch"]
-       55 SETTABLEKS                       R9 R8 K11 ["requestReason"]
-       57 GETUPVAL                         R10 9
-       58 ORK                              R9 R10 K21 [False]
-       59 SETTABLEKS                       R9 R8 K12 ["isTopKeyword"]
-       61 GETUPVAL                         R10 2
-       62 JUMPIFNOT                        R10 ; [+6]
-       63 GETUPVAL                         R9 10
-       64 GETTABLEKS                       R9 R9 K22 ["SEARCH_SOURCE"]
-       66 GETTABLEKS                       R9 R9 K23 ["KEYWORD"]
-       68 JUMP                             ; [+1]
-       69 LOADNIL                          R9
-       70 SETTABLEKS                       R9 R8 K13 ["searchSource"]
-       72 GETUPVAL                         R10 11
-       73 JUMPIFNOT                        R10 ; [+2]
-       74 GETUPVAL                         R9 11
-       75 JUMP                             ; [+5]
-       76 GETUPVAL                         R9 12
-       77 GETTABLEKS                       R9 R9 K24 ["QuerySource"]
-       79 GETTABLEKS                       R9 R9 K25 ["OriginalUserQuery"]
-       81 SETTABLEKS                       R9 R8 K14 ["querySource"]
-       83 GETUPVAL                         R10 13
-       84 JUMPIFNOT                        R10 ; [+2]
-       85 GETUPVAL                         R9 13
-       86 JUMP                             ; [+1]
-       87 LOADNIL                          R9
-       88 SETTABLEKS                       R9 R8 K15 ["originalUserQuery"]
-       90 GETUPVAL                         R10 14
-       91 JUMPIFNOT                        R10 ; [+2]
-       92 GETUPVAL                         R9 14
-       93 JUMP                             ; [+1]
-       94 LOADNIL                          R9
-       95 SETTABLEKS                       R9 R8 K16 ["originalCorrection"]
-       97 GETUPVAL                         R9 7
-       98 GETTABLEKS                       R9 R9 K19 ["None"]
-      100 SETTABLEKS                       R9 R8 K17 ["queryParams"]
-      102 CALL                             R5 3 -1
-      103 NAMECALL                         R3 R0 K0 ["dispatch"]
-      105 CALL                             R3 -1 0
-      106 RETURN                           R0 0
+       46 GETUPVAL                         R9 8
+       47 GETTABLEKS                       R9 R9 K22 ["StartSearch"]
+       49 SETTABLEKS                       R9 R8 K13 ["requestReason"]
+       51 GETUPVAL                         R10 9
+       52 ORK                              R9 R10 K23 [False]
+       53 SETTABLEKS                       R9 R8 K14 ["isTopKeyword"]
+       55 GETUPVAL                         R10 2
+       56 JUMPIFNOT                        R10 ; [+6]
+       57 GETUPVAL                         R9 10
+       58 GETTABLEKS                       R9 R9 K24 ["SEARCH_SOURCE"]
+       60 GETTABLEKS                       R9 R9 K25 ["KEYWORD"]
+       62 JUMP                             ; [+1]
+       63 LOADNIL                          R9
+       64 SETTABLEKS                       R9 R8 K15 ["searchSource"]
+       66 GETUPVAL                         R10 11
+       67 JUMPIFNOT                        R10 ; [+2]
+       68 GETUPVAL                         R9 11
+       69 JUMP                             ; [+5]
+       70 GETUPVAL                         R9 12
+       71 GETTABLEKS                       R9 R9 K26 ["QuerySource"]
+       73 GETTABLEKS                       R9 R9 K27 ["OriginalUserQuery"]
+       75 SETTABLEKS                       R9 R8 K16 ["querySource"]
+       77 GETUPVAL                         R10 13
+       78 JUMPIFNOT                        R10 ; [+2]
+       79 GETUPVAL                         R9 13
+       80 JUMP                             ; [+1]
+       81 LOADNIL                          R9
+       82 SETTABLEKS                       R9 R8 K17 ["originalUserQuery"]
+       84 GETUPVAL                         R10 14
+       85 JUMPIFNOT                        R10 ; [+2]
+       86 GETUPVAL                         R9 14
+       87 JUMP                             ; [+1]
+       88 LOADNIL                          R9
+       89 SETTABLEKS                       R9 R8 K18 ["originalCorrection"]
+       91 GETUPVAL                         R9 7
+       92 GETTABLEKS                       R9 R9 K21 ["None"]
+       94 SETTABLEKS                       R9 R8 K19 ["queryParams"]
+       96 CALL                             R5 3 -1
+       97 NAMECALL                         R3 R0 K0 ["dispatch"]
+       99 CALL                             R3 -1 0
+      100 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R8 P0

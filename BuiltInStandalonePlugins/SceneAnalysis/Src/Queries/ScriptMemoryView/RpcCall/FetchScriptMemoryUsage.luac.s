@@ -17,28 +17,16 @@ PROTO_2:
         9 CAPTURE                          VAL R0
        10 CALL                             R1 1 2
        11 JUMPIFNOT                        R1 ; [+1]
-       12 JUMPIF                           R2 ; [+31]
-       13 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
-       14 LOADN                            R4 0
-       15 SETTABLEKS                       R4 R3 K6 ["Id"]
-       17 LOADK                            R4 K11 ["Root"]
-       18 SETTABLEKS                       R4 R3 K7 ["Name"]
-       20 LOADN                            R4 0
-       21 SETTABLEKS                       R4 R3 K8 ["Size"]
-       23 NEWTABLE                         R4 0 1
-       25 DUPTABLE                         R5 K12 [{"Name", "Size", "Id", "Children"}]
-       26 LOADK                            R6 K13 ["Mock ScriptMemory"]
-       27 SETTABLEKS                       R6 R5 K7 ["Name"]
-       29 LOADN                            R6 5
-       30 SETTABLEKS                       R6 R5 K8 ["Size"]
-       32 LOADN                            R6 1
-       33 SETTABLEKS                       R6 R5 K6 ["Id"]
-       35 NEWTABLE                         R6 0 0
-       37 SETTABLEKS                       R6 R5 K9 ["Children"]
-       39 SETLIST                          R4 R5 1 [1]
-       41 SETTABLEKS                       R4 R3 K9 ["Children"]
-       43 RETURN                           R3 1
-       44 RETURN                           R2 1
+       12 JUMPIF                           R2 ; [+13]
+       13 DUPTABLE                         R3 K12 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       14 NEWTABLE                         R4 0 1
+       16 DUPTABLE                         R5 K16 [{["Name"] = "Mock ScriptMemory", ["Size"] = 5, ["Id"] = 1, ["Children"]}]
+       17 NEWTABLE                         R6 0 0
+       19 SETTABLEKS                       R6 R5 K11 ["Children"]
+       21 SETLIST                          R4 R5 1 [1]
+       23 SETTABLEKS                       R4 R3 K11 ["Children"]
+       25 RETURN                           R3 1
+       26 RETURN                           R2 1
 
 PROTO_3:
         0 LOADK                            R4 K0 ["SelectScriptInstancesById"]

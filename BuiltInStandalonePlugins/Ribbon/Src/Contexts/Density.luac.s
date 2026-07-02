@@ -10,8 +10,6 @@ MAIN:
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["createContext"]
        16 MOVE                             R3 R2
-       17 DUPTABLE                         R4 K10 [{"mode"}]
-       18 LOADK                            R5 K11 ["DensityDefault"]
-       19 SETTABLEKS                       R5 R4 K9 ["mode"]
-       21 CALL                             R3 1 -1
-       22 RETURN                           R3 -1
+       17 DUPTABLE                         R4 K11 [{["mode"] = "DensityDefault"}]
+       18 CALL                             R3 1 -1
+       19 RETURN                           R3 -1

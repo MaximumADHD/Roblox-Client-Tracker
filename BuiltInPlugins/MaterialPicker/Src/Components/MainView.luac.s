@@ -1290,575 +1290,531 @@ PROTO_40:
        66 CALL                             R14 1 2
        67 GETUPVAL                         R16 4
        68 GETTABLEKS                       R17 R0 K16 ["savedFilterChips"]
-       70 JUMPIF                           R17 ; [+13]
-       71 DUPTABLE                         R17 K21 [{"recents", "appliedInPlace", "customMaterials", "defaultMaterials"}]
-       72 LOADB                            R18 0
-       73 SETTABLEKS                       R18 R17 K17 ["recents"]
-       75 LOADB                            R18 0
-       76 SETTABLEKS                       R18 R17 K18 ["appliedInPlace"]
-       78 LOADB                            R18 0
-       79 SETTABLEKS                       R18 R17 K19 ["customMaterials"]
-       81 LOADB                            R18 0
-       82 SETTABLEKS                       R18 R17 K20 ["defaultMaterials"]
-       84 CALL                             R16 1 2
-       85 NEWCLOSURE                       R18 P0
-       86 CAPTURE                          VAL R7
-       87 CAPTURE                          UPVAL U5
-       88 NEWCLOSURE                       R19 P1
-       89 CAPTURE                          VAL R7
-       90 CAPTURE                          UPVAL U5
-       91 NEWCLOSURE                       R20 P2
-       92 CAPTURE                          UPVAL U6
-       93 CAPTURE                          VAL R8
-       94 CAPTURE                          UPVAL U7
-       95 NEWCLOSURE                       R21 P3
-       96 CAPTURE                          VAL R9
-       97 CAPTURE                          UPVAL U8
-       98 CAPTURE                          UPVAL U9
-       99 NEWCLOSURE                       R22 P4
-      100 CAPTURE                          VAL R0
-      101 CAPTURE                          UPVAL U8
-      102 NEWCLOSURE                       R23 P5
-      103 CAPTURE                          UPVAL U6
-      104 CAPTURE                          VAL R8
-      105 CAPTURE                          UPVAL U7
-      106 CAPTURE                          VAL R16
-      107 CAPTURE                          UPVAL U10
-      108 CAPTURE                          UPVAL U11
-      109 CAPTURE                          UPVAL U12
-      110 CAPTURE                          VAL R22
-      111 CAPTURE                          VAL R21
-      112 CAPTURE                          REF R14
-      113 CAPTURE                          UPVAL U13
-      114 GETUPVAL                         R24 14
-      115 LOADN                            R25 0
-      116 CALL                             R24 1 1
-      117 GETUPVAL                         R25 14
-      118 LOADB                            R26 0
-      119 CALL                             R25 1 1
-      120 GETUPVAL                         R26 14
-      121 NEWTABLE                         R27 0 0
-      123 CALL                             R26 1 1
-      124 NEWCLOSURE                       R27 P6
-      125 CAPTURE                          VAL R26
-      126 NEWCLOSURE                       R28 P7
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R26
-      129 NEWCLOSURE                       R29 P8
-      130 CAPTURE                          VAL R26
-      131 NEWCLOSURE                       R30 P9
-      132 CAPTURE                          VAL R5
-      133 CAPTURE                          UPVAL U8
-      134 NEWCLOSURE                       R31 P10
-      135 CAPTURE                          UPVAL U15
-      136 CAPTURE                          VAL R16
-      137 CAPTURE                          UPVAL U11
-      138 CAPTURE                          UPVAL U12
-      139 CAPTURE                          UPVAL U6
-      140 CAPTURE                          VAL R8
-      141 CAPTURE                          UPVAL U7
-      142 CAPTURE                          UPVAL U10
-      143 CAPTURE                          VAL R22
-      144 CAPTURE                          VAL R21
-      145 CAPTURE                          REF R14
-      146 CAPTURE                          UPVAL U13
-      147 CAPTURE                          UPVAL U16
-      148 CAPTURE                          VAL R28
+       70 JUMPIF                           R17 ; [+1]
+       71 DUPTABLE                         R17 K22 [{["recents"] = False, ["appliedInPlace"] = False, ["customMaterials"] = False, ["defaultMaterials"] = False}]
+       72 CALL                             R16 1 2
+       73 NEWCLOSURE                       R18 P0
+       74 CAPTURE                          VAL R7
+       75 CAPTURE                          UPVAL U5
+       76 NEWCLOSURE                       R19 P1
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          UPVAL U5
+       79 NEWCLOSURE                       R20 P2
+       80 CAPTURE                          UPVAL U6
+       81 CAPTURE                          VAL R8
+       82 CAPTURE                          UPVAL U7
+       83 NEWCLOSURE                       R21 P3
+       84 CAPTURE                          VAL R9
+       85 CAPTURE                          UPVAL U8
+       86 CAPTURE                          UPVAL U9
+       87 NEWCLOSURE                       R22 P4
+       88 CAPTURE                          VAL R0
+       89 CAPTURE                          UPVAL U8
+       90 NEWCLOSURE                       R23 P5
+       91 CAPTURE                          UPVAL U6
+       92 CAPTURE                          VAL R8
+       93 CAPTURE                          UPVAL U7
+       94 CAPTURE                          VAL R16
+       95 CAPTURE                          UPVAL U10
+       96 CAPTURE                          UPVAL U11
+       97 CAPTURE                          UPVAL U12
+       98 CAPTURE                          VAL R22
+       99 CAPTURE                          VAL R21
+      100 CAPTURE                          REF R14
+      101 CAPTURE                          UPVAL U13
+      102 GETUPVAL                         R24 14
+      103 LOADN                            R25 0
+      104 CALL                             R24 1 1
+      105 GETUPVAL                         R25 14
+      106 LOADB                            R26 0
+      107 CALL                             R25 1 1
+      108 GETUPVAL                         R26 14
+      109 NEWTABLE                         R27 0 0
+      111 CALL                             R26 1 1
+      112 NEWCLOSURE                       R27 P6
+      113 CAPTURE                          VAL R26
+      114 NEWCLOSURE                       R28 P7
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          VAL R26
+      117 NEWCLOSURE                       R29 P8
+      118 CAPTURE                          VAL R26
+      119 NEWCLOSURE                       R30 P9
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          UPVAL U8
+      122 NEWCLOSURE                       R31 P10
+      123 CAPTURE                          UPVAL U15
+      124 CAPTURE                          VAL R16
+      125 CAPTURE                          UPVAL U11
+      126 CAPTURE                          UPVAL U12
+      127 CAPTURE                          UPVAL U6
+      128 CAPTURE                          VAL R8
+      129 CAPTURE                          UPVAL U7
+      130 CAPTURE                          UPVAL U10
+      131 CAPTURE                          VAL R22
+      132 CAPTURE                          VAL R21
+      133 CAPTURE                          REF R14
+      134 CAPTURE                          UPVAL U13
+      135 CAPTURE                          UPVAL U16
+      136 CAPTURE                          VAL R28
+      137 CAPTURE                          UPVAL U17
+      138 CAPTURE                          VAL R5
+      139 CAPTURE                          VAL R25
+      140 NEWCLOSURE                       R32 P11
+      141 CAPTURE                          REF R14
+      142 CAPTURE                          VAL R26
+      143 CAPTURE                          VAL R25
+      144 CAPTURE                          VAL R24
+      145 CAPTURE                          VAL R15
+      146 NEWCLOSURE                       R33 P12
+      147 CAPTURE                          UPVAL U8
+      148 CAPTURE                          VAL R26
       149 CAPTURE                          UPVAL U17
       150 CAPTURE                          VAL R5
-      151 CAPTURE                          VAL R25
-      152 NEWCLOSURE                       R32 P11
-      153 CAPTURE                          REF R14
-      154 CAPTURE                          VAL R26
-      155 CAPTURE                          VAL R25
-      156 CAPTURE                          VAL R24
-      157 CAPTURE                          VAL R15
-      158 NEWCLOSURE                       R33 P12
-      159 CAPTURE                          UPVAL U8
-      160 CAPTURE                          VAL R26
-      161 CAPTURE                          UPVAL U17
-      162 CAPTURE                          VAL R5
-      163 CAPTURE                          VAL R6
-      164 CAPTURE                          UPVAL U18
-      165 CAPTURE                          VAL R0
-      166 CAPTURE                          UPVAL U19
-      167 CAPTURE                          VAL R8
-      168 CAPTURE                          UPVAL U20
-      169 CAPTURE                          VAL R16
-      170 CAPTURE                          REF R14
-      171 CAPTURE                          VAL R4
-      172 GETUPVAL                         R34 21
-      173 NEWCLOSURE                       R35 P13
-      174 CAPTURE                          VAL R26
-      175 NEWTABLE                         R36 0 0
-      177 CALL                             R34 2 0
-      178 GETTABLEKS                       R35 R0 K22 ["viewType"]
-      180 GETUPVAL                         R36 22
-      181 GETTABLEKS                       R36 R36 K23 ["Grid"]
-      183 JUMPIFEQ                         R35 R36 ; [+2]
-      185 LOADB                            R34 0 +1
-      186 LOADB                            R34 1
-      187 GETUPVAL                         R35 23
-      188 GETUPVAL                         R36 24
-      189 DUPTABLE                         R37 K26 [{"Layout", "VerticalAlignment"}]
-      190 GETIMPORT                        R38 K30 [Enum.FillDirection.Vertical]
-      192 SETTABLEKS                       R38 R37 K24 ["Layout"]
-      194 GETIMPORT                        R38 K32 [Enum.VerticalAlignment.Top]
-      196 SETTABLEKS                       R38 R37 K25 ["VerticalAlignment"]
-      198 NEWTABLE                         R38 0 4
-      200 GETUPVAL                         R39 23
-      201 GETUPVAL                         R40 24
-      202 DUPTABLE                         R41 K37 [{"key", "Size", "Spacing", "Padding", "Layout"}]
-      203 LOADK                            R42 K38 ["PrimaryTools"]
-      204 SETTABLEKS                       R42 R41 K33 ["key"]
-      206 GETTABLEKS                       R42 R1 K38 ["PrimaryTools"]
-      208 GETTABLEKS                       R42 R42 K34 ["Size"]
-      210 SETTABLEKS                       R42 R41 K34 ["Size"]
-      212 GETTABLEKS                       R42 R1 K38 ["PrimaryTools"]
-      214 GETTABLEKS                       R42 R42 K35 ["Spacing"]
-      216 SETTABLEKS                       R42 R41 K35 ["Spacing"]
-      218 GETTABLEKS                       R42 R1 K38 ["PrimaryTools"]
-      220 GETTABLEKS                       R42 R42 K36 ["Padding"]
-      222 SETTABLEKS                       R42 R41 K36 ["Padding"]
-      224 GETIMPORT                        R42 K40 [Enum.FillDirection.Horizontal]
-      226 SETTABLEKS                       R42 R41 K24 ["Layout"]
-      228 NEWTABLE                         R42 0 2
-      230 GETUPVAL                         R43 23
-      231 GETUPVAL                         R44 25
-      232 DUPTABLE                         R45 K49 [{"key", "PlaceholderText", "ShowSearchIcon", "ShowSearchButton", "OnSearchRequested", "OnTextChanged", "OnTextBoxFocusLost", "Style", "Size", "ShouldFocusOnMount"}]
-      233 LOADK                            R46 K50 ["SearchBar"]
-      234 SETTABLEKS                       R46 R45 K33 ["key"]
-      236 LOADK                            R48 K50 ["SearchBar"]
-      237 LOADK                            R49 K51 ["SearchMaterials"]
-      238 NAMECALL                         R46 R2 K52 ["getText"]
-      240 CALL                             R46 3 1
-      241 SETTABLEKS                       R46 R45 K41 ["PlaceholderText"]
-      243 LOADB                            R46 1
-      244 SETTABLEKS                       R46 R45 K42 ["ShowSearchIcon"]
-      246 LOADB                            R46 0
-      247 SETTABLEKS                       R46 R45 K43 ["ShowSearchButton"]
-      249 GETUPVAL                         R47 26
-      250 CALL                             R47 0 1
-      251 JUMPIFNOT                        R47 ; [+2]
-      252 MOVE                             R46 R32
-      253 JUMP                             ; [+1]
-      254 MOVE                             R46 R15
-      255 SETTABLEKS                       R46 R45 K44 ["OnSearchRequested"]
-      257 GETUPVAL                         R47 26
-      258 CALL                             R47 0 1
-      259 JUMPIFNOT                        R47 ; [+2]
-      260 MOVE                             R46 R32
-      261 JUMP                             ; [+1]
-      262 MOVE                             R46 R15
-      263 SETTABLEKS                       R46 R45 K45 ["OnTextChanged"]
-      265 GETUPVAL                         R47 26
-      266 CALL                             R47 0 1
-      267 JUMPIFNOT                        R47 ; [+6]
-      268 NEWCLOSURE                       R46 P14
-      269 CAPTURE                          VAL R25
-      270 CAPTURE                          VAL R31
-      271 CAPTURE                          VAL R33
-      272 CAPTURE                          VAL R0
-      273 JUMP                             ; [+1]
-      274 LOADNIL                          R46
-      275 SETTABLEKS                       R46 R45 K46 ["OnTextBoxFocusLost"]
-      277 LOADK                            R46 K53 ["Compact"]
-      278 SETTABLEKS                       R46 R45 K47 ["Style"]
-      280 GETTABLEKS                       R46 R1 K38 ["PrimaryTools"]
-      282 GETTABLEKS                       R46 R46 K50 ["SearchBar"]
-      284 GETTABLEKS                       R46 R46 K34 ["Size"]
-      286 SETTABLEKS                       R46 R45 K34 ["Size"]
-      288 LOADB                            R46 1
-      289 SETTABLEKS                       R46 R45 K48 ["ShouldFocusOnMount"]
-      291 NEWTABLE                         R46 0 0
-      293 CALL                             R43 3 1
-      294 GETUPVAL                         R44 23
-      295 GETUPVAL                         R45 27
-      296 DUPTABLE                         R46 K58 [{"key", "BackgroundStyle", "LeftIcon", "Size", "TooltipText", "OnClick"}]
-      297 LOADK                            R47 K59 ["ViewToggle"]
-      298 SETTABLEKS                       R47 R46 K33 ["key"]
-      300 LOADK                            R47 K60 ["Box"]
-      301 SETTABLEKS                       R47 R46 K54 ["BackgroundStyle"]
-      303 JUMPIFNOT                        R34 ; [+7]
-      304 GETTABLEKS                       R47 R1 K38 ["PrimaryTools"]
-      306 GETTABLEKS                       R47 R47 K59 ["ViewToggle"]
-      308 GETTABLEKS                       R47 R47 K61 ["LeftIconList"]
-      310 JUMP                             ; [+6]
-      311 GETTABLEKS                       R47 R1 K38 ["PrimaryTools"]
-      313 GETTABLEKS                       R47 R47 K59 ["ViewToggle"]
-      315 GETTABLEKS                       R47 R47 K62 ["LeftIconGrid"]
-      317 SETTABLEKS                       R47 R46 K55 ["LeftIcon"]
-      319 GETTABLEKS                       R47 R1 K38 ["PrimaryTools"]
-      321 GETTABLEKS                       R47 R47 K59 ["ViewToggle"]
-      323 GETTABLEKS                       R47 R47 K34 ["Size"]
-      325 SETTABLEKS                       R47 R46 K34 ["Size"]
-      327 JUMPIFNOT                        R34 ; [+6]
-      328 LOADK                            R49 K59 ["ViewToggle"]
-      329 LOADK                            R50 K63 ["ListView"]
-      330 NAMECALL                         R47 R2 K52 ["getText"]
-      332 CALL                             R47 3 1
-      333 JUMP                             ; [+5]
-      334 LOADK                            R49 K59 ["ViewToggle"]
-      335 LOADK                            R50 K64 ["GridView"]
-      336 NAMECALL                         R47 R2 K52 ["getText"]
-      338 CALL                             R47 3 1
-      339 SETTABLEKS                       R47 R46 K56 ["TooltipText"]
-      341 NEWCLOSURE                       R47 P15
-      342 CAPTURE                          VAL R34
-      343 CAPTURE                          UPVAL U22
-      344 CAPTURE                          VAL R0
-      345 CAPTURE                          VAL R4
-      346 SETTABLEKS                       R47 R46 K57 ["OnClick"]
-      348 NEWTABLE                         R47 0 0
-      350 CALL                             R44 3 -1
-      351 SETLIST                          R42 R43 -1 [1]
-      353 CALL                             R39 3 1
-      354 GETUPVAL                         R40 23
-      355 GETUPVAL                         R41 28
-      356 DUPTABLE                         R42 K68 [{"Size", "ScrollingDirection", "HorizontalScrollBarInset", "ScrollBarThickness"}]
-      357 GETTABLEKS                       R43 R1 K69 ["Filters"]
-      359 GETTABLEKS                       R43 R43 K34 ["Size"]
-      361 SETTABLEKS                       R43 R42 K34 ["Size"]
-      363 GETIMPORT                        R43 K71 [Enum.ScrollingDirection.X]
-      365 SETTABLEKS                       R43 R42 K65 ["ScrollingDirection"]
-      367 GETIMPORT                        R43 K74 [Enum.ScrollBarInset.ScrollBar]
-      369 SETTABLEKS                       R43 R42 K66 ["HorizontalScrollBarInset"]
-      371 GETTABLEKS                       R43 R1 K75 ["MainView"]
-      373 GETTABLEKS                       R43 R43 K67 ["ScrollBarThickness"]
-      375 SETTABLEKS                       R43 R42 K67 ["ScrollBarThickness"]
-      377 NEWTABLE                         R43 0 1
-      379 GETUPVAL                         R44 23
-      380 GETUPVAL                         R45 24
-      381 DUPTABLE                         R46 K78 [{"key", "Layout", "HorizontalAlignment", "AutomaticSize", "Spacing", "Padding"}]
-      382 LOADK                            R47 K69 ["Filters"]
-      383 SETTABLEKS                       R47 R46 K33 ["key"]
-      385 GETIMPORT                        R47 K40 [Enum.FillDirection.Horizontal]
-      387 SETTABLEKS                       R47 R46 K24 ["Layout"]
-      389 GETIMPORT                        R47 K80 [Enum.HorizontalAlignment.Left]
-      391 SETTABLEKS                       R47 R46 K76 ["HorizontalAlignment"]
-      393 GETIMPORT                        R47 K82 [Enum.AutomaticSize.XY]
-      395 SETTABLEKS                       R47 R46 K77 ["AutomaticSize"]
-      397 LOADN                            R47 4
-      398 SETTABLEKS                       R47 R46 K35 ["Spacing"]
-      400 DUPTABLE                         R47 K83 [{"Left", "Top"}]
-      401 LOADN                            R48 8
-      402 SETTABLEKS                       R48 R47 K79 ["Left"]
-      404 LOADN                            R48 1
-      405 SETTABLEKS                       R48 R47 K31 ["Top"]
-      407 SETTABLEKS                       R47 R46 K36 ["Padding"]
-      409 NEWTABLE                         R47 0 3
-      411 GETUPVAL                         R48 23
-      412 GETUPVAL                         R49 29
-      413 DUPTABLE                         R50 K86 [{"Text", "OnClick", "selected"}]
-      414 LOADK                            R53 K69 ["Filters"]
-      415 LOADK                            R54 K87 ["Recents"]
-      416 NAMECALL                         R51 R2 K52 ["getText"]
-      418 CALL                             R51 3 1
-      419 SETTABLEKS                       R51 R50 K84 ["Text"]
-      421 NEWCLOSURE                       R51 P16
-      422 CAPTURE                          UPVAL U11
-      423 CAPTURE                          VAL R16
-      424 CAPTURE                          VAL R17
-      425 CAPTURE                          VAL R0
-      426 CAPTURE                          VAL R4
-      427 SETTABLEKS                       R51 R50 K57 ["OnClick"]
-      429 GETTABLEKS                       R51 R16 K17 ["recents"]
-      431 SETTABLEKS                       R51 R50 K85 ["selected"]
-      433 CALL                             R48 2 1
-      434 GETUPVAL                         R49 23
-      435 GETUPVAL                         R50 29
-      436 DUPTABLE                         R51 K86 [{"Text", "OnClick", "selected"}]
-      437 LOADK                            R54 K69 ["Filters"]
-      438 LOADK                            R55 K88 ["AppliedInPlace"]
-      439 NAMECALL                         R52 R2 K52 ["getText"]
-      441 CALL                             R52 3 1
-      442 SETTABLEKS                       R52 R51 K84 ["Text"]
-      444 NEWCLOSURE                       R52 P17
-      445 CAPTURE                          UPVAL U11
-      446 CAPTURE                          VAL R16
-      447 CAPTURE                          VAL R17
-      448 CAPTURE                          VAL R0
-      449 CAPTURE                          VAL R4
-      450 SETTABLEKS                       R52 R51 K57 ["OnClick"]
-      452 GETTABLEKS                       R52 R16 K18 ["appliedInPlace"]
-      454 SETTABLEKS                       R52 R51 K85 ["selected"]
-      456 CALL                             R49 2 1
-      457 GETUPVAL                         R51 15
-      458 CALL                             R51 0 1
-      459 JUMPIFNOT                        R51 ; [+43]
-      460 GETUPVAL                         R50 23
-      461 GETUPVAL                         R51 30
-      462 DUPTABLE                         R52 K95 [{"LeftText", "RightText", "LeftSelected", "RightSelected", "OnClickLeft", "OnClickRight"}]
-      463 LOADK                            R55 K69 ["Filters"]
-      464 LOADK                            R56 K96 ["CustomMaterials"]
-      465 NAMECALL                         R53 R2 K52 ["getText"]
-      467 CALL                             R53 3 1
-      468 SETTABLEKS                       R53 R52 K89 ["LeftText"]
-      470 LOADK                            R55 K69 ["Filters"]
-      471 LOADK                            R56 K97 ["DefaultMaterials"]
-      472 NAMECALL                         R53 R2 K52 ["getText"]
-      474 CALL                             R53 3 1
-      475 SETTABLEKS                       R53 R52 K90 ["RightText"]
-      477 GETTABLEKS                       R53 R16 K19 ["customMaterials"]
-      479 SETTABLEKS                       R53 R52 K91 ["LeftSelected"]
-      481 GETTABLEKS                       R53 R16 K20 ["defaultMaterials"]
-      483 SETTABLEKS                       R53 R52 K92 ["RightSelected"]
-      485 NEWCLOSURE                       R53 P18
-      486 CAPTURE                          UPVAL U11
-      487 CAPTURE                          VAL R16
-      488 CAPTURE                          VAL R17
-      489 CAPTURE                          VAL R0
-      490 CAPTURE                          VAL R4
-      491 SETTABLEKS                       R53 R52 K93 ["OnClickLeft"]
-      493 NEWCLOSURE                       R53 P19
-      494 CAPTURE                          UPVAL U11
-      495 CAPTURE                          VAL R16
-      496 CAPTURE                          VAL R17
-      497 CAPTURE                          VAL R0
-      498 CAPTURE                          VAL R4
-      499 SETTABLEKS                       R53 R52 K94 ["OnClickRight"]
-      501 CALL                             R50 2 1
-      502 JUMP                             ; [+23]
-      503 GETUPVAL                         R50 23
-      504 GETUPVAL                         R51 29
-      505 DUPTABLE                         R52 K86 [{"Text", "OnClick", "selected"}]
-      506 LOADK                            R55 K69 ["Filters"]
-      507 LOADK                            R56 K96 ["CustomMaterials"]
-      508 NAMECALL                         R53 R2 K52 ["getText"]
-      510 CALL                             R53 3 1
-      511 SETTABLEKS                       R53 R52 K84 ["Text"]
-      513 NEWCLOSURE                       R53 P20
-      514 CAPTURE                          UPVAL U11
-      515 CAPTURE                          VAL R16
-      516 CAPTURE                          VAL R17
-      517 CAPTURE                          VAL R0
-      518 CAPTURE                          VAL R4
-      519 SETTABLEKS                       R53 R52 K57 ["OnClick"]
-      521 GETTABLEKS                       R53 R16 K19 ["customMaterials"]
-      523 SETTABLEKS                       R53 R52 K85 ["selected"]
-      525 CALL                             R50 2 1
-      526 SETLIST                          R47 R48 3 [1]
-      528 CALL                             R44 3 -1
-      529 SETLIST                          R43 R44 -1 [1]
-      531 CALL                             R40 3 1
-      532 GETUPVAL                         R41 23
-      533 GETUPVAL                         R42 31
-      534 DUPTABLE                         R43 K120 [{"key", "AppliedItemId", "ShouldCenterTooltip", "ContainerXBounds", "ContainerYBounds", "Size", "GridItemsPerRow", "GridItemSize", "Items", "ShowGridLabels", "OnClick", "OnMouseEnter", "OnMouseLeave", "ListPadding", "OnScrollUpdate", "OnSnapshotTaken", "ViewType", "InitialGridCanvasPosition", "InitialListCanvasPosition", "ScrollingDirection", "SelectedItemId", "ShouldSyncScroll", "SnapshotSize", "SnapshotBorderThickness", "TooltipDelay", "UseInstantTooltip"}]
-      535 LOADK                            R44 K121 ["MaterialGrid"]
-      536 SETTABLEKS                       R44 R43 K33 ["key"]
-      538 MOVE                             R44 R30
-      539 CALL                             R44 0 1
-      540 SETTABLEKS                       R44 R43 K98 ["AppliedItemId"]
-      542 LOADB                            R44 1
-      543 SETTABLEKS                       R44 R43 K99 ["ShouldCenterTooltip"]
-      545 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      547 GETTABLEKS                       R44 R44 K100 ["ContainerXBounds"]
-      549 SETTABLEKS                       R44 R43 K100 ["ContainerXBounds"]
-      551 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      553 GETTABLEKS                       R44 R44 K101 ["ContainerYBounds"]
-      555 SETTABLEKS                       R44 R43 K101 ["ContainerYBounds"]
-      557 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      559 GETTABLEKS                       R44 R44 K34 ["Size"]
-      561 SETTABLEKS                       R44 R43 K34 ["Size"]
-      563 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      565 GETTABLEKS                       R44 R44 K102 ["GridItemsPerRow"]
-      567 SETTABLEKS                       R44 R43 K102 ["GridItemsPerRow"]
-      569 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      571 GETTABLEKS                       R44 R44 K103 ["GridItemSize"]
-      573 SETTABLEKS                       R44 R43 K103 ["GridItemSize"]
-      575 GETUPVAL                         R45 26
-      576 CALL                             R45 0 1
-      577 JUMPIFNOT                        R45 ; [+3]
-      578 MOVE                             R44 R31
-      579 CALL                             R44 0 1
-      580 JUMP                             ; [+2]
-      581 MOVE                             R44 R23
-      582 CALL                             R44 0 1
-      583 SETTABLEKS                       R44 R43 K104 ["Items"]
-      585 LOADB                            R44 0
-      586 SETTABLEKS                       R44 R43 K105 ["ShowGridLabels"]
-      588 GETUPVAL                         R45 26
-      589 CALL                             R45 0 1
-      590 JUMPIFNOT                        R45 ; [+3]
-      591 NEWCLOSURE                       R44 P21
-      592 CAPTURE                          VAL R33
-      593 JUMP                             ; [+14]
-      594 NEWCLOSURE                       R44 P22
-      595 CAPTURE                          UPVAL U8
-      596 CAPTURE                          VAL R26
-      597 CAPTURE                          UPVAL U17
-      598 CAPTURE                          VAL R5
-      599 CAPTURE                          VAL R6
-      600 CAPTURE                          UPVAL U18
-      601 CAPTURE                          VAL R0
-      602 CAPTURE                          UPVAL U19
-      603 CAPTURE                          VAL R8
-      604 CAPTURE                          UPVAL U20
-      605 CAPTURE                          VAL R16
-      606 CAPTURE                          REF R14
-      607 CAPTURE                          VAL R4
-      608 SETTABLEKS                       R44 R43 K57 ["OnClick"]
-      610 NEWCLOSURE                       R44 P23
-      611 CAPTURE                          VAL R24
-      612 CAPTURE                          UPVAL U26
-      613 CAPTURE                          VAL R25
-      614 CAPTURE                          VAL R28
-      615 CAPTURE                          UPVAL U17
-      616 CAPTURE                          VAL R5
-      617 SETTABLEKS                       R44 R43 K106 ["OnMouseEnter"]
-      619 NEWCLOSURE                       R44 P24
-      620 CAPTURE                          VAL R24
-      621 CAPTURE                          VAL R26
-      622 SETTABLEKS                       R44 R43 K107 ["OnMouseLeave"]
-      624 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      626 GETTABLEKS                       R44 R44 K108 ["ListPadding"]
-      628 SETTABLEKS                       R44 R43 K108 ["ListPadding"]
-      630 GETTABLEKS                       R44 R0 K122 ["onScrollUpdate"]
-      632 SETTABLEKS                       R44 R43 K109 ["OnScrollUpdate"]
-      634 GETTABLEKS                       R44 R0 K123 ["onSnapshotTaken"]
-      636 SETTABLEKS                       R44 R43 K110 ["OnSnapshotTaken"]
-      638 GETTABLEKS                       R44 R0 K22 ["viewType"]
-      640 SETTABLEKS                       R44 R43 K111 ["ViewType"]
-      642 GETTABLEKS                       R44 R0 K124 ["savedGridCanvasPosition"]
-      644 SETTABLEKS                       R44 R43 K112 ["InitialGridCanvasPosition"]
-      646 GETTABLEKS                       R44 R0 K125 ["savedListCanvasPosition"]
-      648 SETTABLEKS                       R44 R43 K113 ["InitialListCanvasPosition"]
-      650 GETIMPORT                        R44 K127 [Enum.ScrollingDirection.Y]
-      652 SETTABLEKS                       R44 R43 K65 ["ScrollingDirection"]
-      654 GETTABLEKS                       R44 R0 K128 ["selectedMaterialIdentifier"]
-      656 SETTABLEKS                       R44 R43 K114 ["SelectedItemId"]
-      658 LOADB                            R44 1
-      659 SETTABLEKS                       R44 R43 K115 ["ShouldSyncScroll"]
-      661 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      663 GETTABLEKS                       R44 R44 K116 ["SnapshotSize"]
-      665 SETTABLEKS                       R44 R43 K116 ["SnapshotSize"]
-      667 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      669 GETTABLEKS                       R44 R44 K117 ["SnapshotBorderThickness"]
-      671 SETTABLEKS                       R44 R43 K117 ["SnapshotBorderThickness"]
-      673 GETTABLEKS                       R44 R1 K121 ["MaterialGrid"]
-      675 GETTABLEKS                       R44 R44 K118 ["TooltipDelay"]
-      677 SETTABLEKS                       R44 R43 K118 ["TooltipDelay"]
-      679 LOADB                            R44 1
-      680 SETTABLEKS                       R44 R43 K119 ["UseInstantTooltip"]
-      682 CALL                             R41 2 1
-      683 GETUPVAL                         R42 23
-      684 GETUPVAL                         R43 24
-      685 DUPTABLE                         R44 K129 [{"key", "Size", "Layout", "Padding", "Spacing"}]
-      686 LOADK                            R45 K130 ["Footer"]
-      687 SETTABLEKS                       R45 R44 K33 ["key"]
-      689 GETTABLEKS                       R45 R1 K130 ["Footer"]
-      691 GETTABLEKS                       R45 R45 K34 ["Size"]
-      693 SETTABLEKS                       R45 R44 K34 ["Size"]
-      695 GETIMPORT                        R45 K40 [Enum.FillDirection.Horizontal]
-      697 SETTABLEKS                       R45 R44 K24 ["Layout"]
-      699 GETTABLEKS                       R45 R1 K130 ["Footer"]
-      701 GETTABLEKS                       R45 R45 K36 ["Padding"]
-      703 SETTABLEKS                       R45 R44 K36 ["Padding"]
-      705 GETTABLEKS                       R45 R1 K130 ["Footer"]
-      707 GETTABLEKS                       R45 R45 K35 ["Spacing"]
-      709 SETTABLEKS                       R45 R44 K35 ["Spacing"]
-      711 NEWTABLE                         R45 0 2
-      713 GETUPVAL                         R46 32
-      714 CALL                             R46 0 1
-      715 JUMPIFNOT                        R46 ; [+77]
-      716 GETUPVAL                         R46 23
-      717 GETUPVAL                         R47 27
-      718 DUPTABLE                         R48 K134 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
-      719 LOADK                            R51 K75 ["MainView"]
-      720 LOADK                            R52 K135 ["MaterialGeneratorButton"]
-      721 NAMECALL                         R49 R2 K52 ["getText"]
-      723 CALL                             R49 3 1
-      724 SETTABLEKS                       R49 R48 K84 ["Text"]
-      726 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      728 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      730 GETTABLEKS                       R49 R49 K135 ["MaterialGeneratorButton"]
-      732 GETTABLEKS                       R49 R49 K34 ["Size"]
-      734 SETTABLEKS                       R49 R48 K34 ["Size"]
-      736 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      738 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      740 GETTABLEKS                       R49 R49 K135 ["MaterialGeneratorButton"]
-      742 GETTABLEKS                       R49 R49 K137 ["Icon"]
-      744 SETTABLEKS                       R49 R48 K55 ["LeftIcon"]
-      746 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      748 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      750 GETTABLEKS                       R49 R49 K131 ["IconSize"]
-      752 SETTABLEKS                       R49 R48 K131 ["IconSize"]
-      754 GETIMPORT                        R49 K139 [Enum.TextXAlignment.Center]
-      756 SETTABLEKS                       R49 R48 K132 ["TextXAlignment"]
-      758 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      760 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      762 GETTABLEKS                       R49 R49 K35 ["Spacing"]
-      764 SETTABLEKS                       R49 R48 K35 ["Spacing"]
-      766 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      768 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      770 GETTABLEKS                       R49 R49 K36 ["Padding"]
-      772 SETTABLEKS                       R49 R48 K36 ["Padding"]
-      774 GETTABLEKS                       R49 R1 K130 ["Footer"]
-      776 GETTABLEKS                       R49 R49 K136 ["IconButton"]
-      778 GETTABLEKS                       R49 R49 K133 ["BackgroundColor"]
-      780 SETTABLEKS                       R49 R48 K133 ["BackgroundColor"]
-      782 NEWCLOSURE                       R49 P25
-      783 CAPTURE                          UPVAL U33
-      784 CAPTURE                          VAL R7
-      785 CAPTURE                          UPVAL U5
-      786 CAPTURE                          VAL R4
-      787 CAPTURE                          VAL R0
-      788 CAPTURE                          VAL R10
-      789 CAPTURE                          VAL R11
-      790 SETTABLEKS                       R49 R48 K57 ["OnClick"]
-      792 CALL                             R46 2 1
-      793 GETUPVAL                         R47 23
-      794 GETUPVAL                         R48 27
-      795 DUPTABLE                         R49 K134 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
-      796 LOADK                            R52 K75 ["MainView"]
-      797 LOADK                            R53 K140 ["MaterialManagerButton"]
-      798 NAMECALL                         R50 R2 K52 ["getText"]
-      800 CALL                             R50 3 1
-      801 SETTABLEKS                       R50 R49 K84 ["Text"]
-      803 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      805 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      807 GETTABLEKS                       R50 R50 K140 ["MaterialManagerButton"]
-      809 GETTABLEKS                       R50 R50 K34 ["Size"]
-      811 SETTABLEKS                       R50 R49 K34 ["Size"]
-      813 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      815 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      817 GETTABLEKS                       R50 R50 K140 ["MaterialManagerButton"]
-      819 GETTABLEKS                       R50 R50 K137 ["Icon"]
-      821 SETTABLEKS                       R50 R49 K55 ["LeftIcon"]
-      823 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      825 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      827 GETTABLEKS                       R50 R50 K131 ["IconSize"]
-      829 SETTABLEKS                       R50 R49 K131 ["IconSize"]
-      831 GETIMPORT                        R50 K139 [Enum.TextXAlignment.Center]
-      833 SETTABLEKS                       R50 R49 K132 ["TextXAlignment"]
-      835 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      837 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      839 GETTABLEKS                       R50 R50 K35 ["Spacing"]
-      841 SETTABLEKS                       R50 R49 K35 ["Spacing"]
-      843 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      845 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      847 GETTABLEKS                       R50 R50 K36 ["Padding"]
-      849 SETTABLEKS                       R50 R49 K36 ["Padding"]
-      851 GETTABLEKS                       R50 R1 K130 ["Footer"]
-      853 GETTABLEKS                       R50 R50 K136 ["IconButton"]
-      855 GETTABLEKS                       R50 R50 K133 ["BackgroundColor"]
-      857 SETTABLEKS                       R50 R49 K133 ["BackgroundColor"]
-      859 NEWCLOSURE                       R50 P26
-      860 CAPTURE                          UPVAL U33
-      861 CAPTURE                          VAL R7
-      862 CAPTURE                          UPVAL U5
-      863 CAPTURE                          VAL R4
-      864 CAPTURE                          VAL R0
-      865 CAPTURE                          VAL R12
-      866 CAPTURE                          VAL R13
-      867 SETTABLEKS                       R50 R49 K57 ["OnClick"]
-      869 CALL                             R47 2 -1
-      870 SETLIST                          R45 R46 -1 [1]
-      872 CALL                             R42 3 -1
-      873 SETLIST                          R38 R39 -1 [1]
-      875 CALL                             R35 3 -1
-      876 CLOSEUPVALS                      R14
-      877 RETURN                           R35 -1
+      151 CAPTURE                          VAL R6
+      152 CAPTURE                          UPVAL U18
+      153 CAPTURE                          VAL R0
+      154 CAPTURE                          UPVAL U19
+      155 CAPTURE                          VAL R8
+      156 CAPTURE                          UPVAL U20
+      157 CAPTURE                          VAL R16
+      158 CAPTURE                          REF R14
+      159 CAPTURE                          VAL R4
+      160 GETUPVAL                         R34 21
+      161 NEWCLOSURE                       R35 P13
+      162 CAPTURE                          VAL R26
+      163 NEWTABLE                         R36 0 0
+      165 CALL                             R34 2 0
+      166 GETTABLEKS                       R35 R0 K23 ["viewType"]
+      168 GETUPVAL                         R36 22
+      169 GETTABLEKS                       R36 R36 K24 ["Grid"]
+      171 JUMPIFEQ                         R35 R36 ; [+2]
+      173 LOADB                            R34 0 +1
+      174 LOADB                            R34 1
+      175 GETUPVAL                         R35 23
+      176 GETUPVAL                         R36 24
+      177 DUPTABLE                         R37 K27 [{"Layout", "VerticalAlignment"}]
+      178 GETIMPORT                        R38 K31 [Enum.FillDirection.Vertical]
+      180 SETTABLEKS                       R38 R37 K25 ["Layout"]
+      182 GETIMPORT                        R38 K33 [Enum.VerticalAlignment.Top]
+      184 SETTABLEKS                       R38 R37 K26 ["VerticalAlignment"]
+      186 NEWTABLE                         R38 0 4
+      188 GETUPVAL                         R39 23
+      189 GETUPVAL                         R40 24
+      190 DUPTABLE                         R41 K39 [{["key"] = "PrimaryTools", ["Size"], ["Spacing"], ["Padding"], ["Layout"]}]
+      191 GETTABLEKS                       R42 R1 K35 ["PrimaryTools"]
+      193 GETTABLEKS                       R42 R42 K36 ["Size"]
+      195 SETTABLEKS                       R42 R41 K36 ["Size"]
+      197 GETTABLEKS                       R42 R1 K35 ["PrimaryTools"]
+      199 GETTABLEKS                       R42 R42 K37 ["Spacing"]
+      201 SETTABLEKS                       R42 R41 K37 ["Spacing"]
+      203 GETTABLEKS                       R42 R1 K35 ["PrimaryTools"]
+      205 GETTABLEKS                       R42 R42 K38 ["Padding"]
+      207 SETTABLEKS                       R42 R41 K38 ["Padding"]
+      209 GETIMPORT                        R42 K41 [Enum.FillDirection.Horizontal]
+      211 SETTABLEKS                       R42 R41 K25 ["Layout"]
+      213 NEWTABLE                         R42 0 2
+      215 GETUPVAL                         R43 23
+      216 GETUPVAL                         R44 25
+      217 DUPTABLE                         R45 K53 [{["key"] = "SearchBar", ["PlaceholderText"], ["ShowSearchIcon"] = True, ["ShowSearchButton"] = False, ["OnSearchRequested"], ["OnTextChanged"], ["OnTextBoxFocusLost"], ["Style"] = "Compact", ["Size"], ["ShouldFocusOnMount"] = True}]
+      218 LOADK                            R48 K42 ["SearchBar"]
+      219 LOADK                            R49 K54 ["SearchMaterials"]
+      220 NAMECALL                         R46 R2 K55 ["getText"]
+      222 CALL                             R46 3 1
+      223 SETTABLEKS                       R46 R45 K43 ["PlaceholderText"]
+      225 GETUPVAL                         R47 26
+      226 CALL                             R47 0 1
+      227 JUMPIFNOT                        R47 ; [+2]
+      228 MOVE                             R46 R32
+      229 JUMP                             ; [+1]
+      230 MOVE                             R46 R15
+      231 SETTABLEKS                       R46 R45 K47 ["OnSearchRequested"]
+      233 GETUPVAL                         R47 26
+      234 CALL                             R47 0 1
+      235 JUMPIFNOT                        R47 ; [+2]
+      236 MOVE                             R46 R32
+      237 JUMP                             ; [+1]
+      238 MOVE                             R46 R15
+      239 SETTABLEKS                       R46 R45 K48 ["OnTextChanged"]
+      241 GETUPVAL                         R47 26
+      242 CALL                             R47 0 1
+      243 JUMPIFNOT                        R47 ; [+6]
+      244 NEWCLOSURE                       R46 P14
+      245 CAPTURE                          VAL R25
+      246 CAPTURE                          VAL R31
+      247 CAPTURE                          VAL R33
+      248 CAPTURE                          VAL R0
+      249 JUMP                             ; [+1]
+      250 LOADNIL                          R46
+      251 SETTABLEKS                       R46 R45 K49 ["OnTextBoxFocusLost"]
+      253 GETTABLEKS                       R46 R1 K35 ["PrimaryTools"]
+      255 GETTABLEKS                       R46 R46 K42 ["SearchBar"]
+      257 GETTABLEKS                       R46 R46 K36 ["Size"]
+      259 SETTABLEKS                       R46 R45 K36 ["Size"]
+      261 NEWTABLE                         R46 0 0
+      263 CALL                             R43 3 1
+      264 GETUPVAL                         R44 23
+      265 GETUPVAL                         R45 27
+      266 DUPTABLE                         R46 K62 [{["key"] = "ViewToggle", ["BackgroundStyle"] = "Box", ["LeftIcon"], ["Size"], ["TooltipText"], ["OnClick"]}]
+      267 JUMPIFNOT                        R34 ; [+7]
+      268 GETTABLEKS                       R47 R1 K35 ["PrimaryTools"]
+      270 GETTABLEKS                       R47 R47 K56 ["ViewToggle"]
+      272 GETTABLEKS                       R47 R47 K63 ["LeftIconList"]
+      274 JUMP                             ; [+6]
+      275 GETTABLEKS                       R47 R1 K35 ["PrimaryTools"]
+      277 GETTABLEKS                       R47 R47 K56 ["ViewToggle"]
+      279 GETTABLEKS                       R47 R47 K64 ["LeftIconGrid"]
+      281 SETTABLEKS                       R47 R46 K59 ["LeftIcon"]
+      283 GETTABLEKS                       R47 R1 K35 ["PrimaryTools"]
+      285 GETTABLEKS                       R47 R47 K56 ["ViewToggle"]
+      287 GETTABLEKS                       R47 R47 K36 ["Size"]
+      289 SETTABLEKS                       R47 R46 K36 ["Size"]
+      291 JUMPIFNOT                        R34 ; [+6]
+      292 LOADK                            R49 K56 ["ViewToggle"]
+      293 LOADK                            R50 K65 ["ListView"]
+      294 NAMECALL                         R47 R2 K55 ["getText"]
+      296 CALL                             R47 3 1
+      297 JUMP                             ; [+5]
+      298 LOADK                            R49 K56 ["ViewToggle"]
+      299 LOADK                            R50 K66 ["GridView"]
+      300 NAMECALL                         R47 R2 K55 ["getText"]
+      302 CALL                             R47 3 1
+      303 SETTABLEKS                       R47 R46 K60 ["TooltipText"]
+      305 NEWCLOSURE                       R47 P15
+      306 CAPTURE                          VAL R34
+      307 CAPTURE                          UPVAL U22
+      308 CAPTURE                          VAL R0
+      309 CAPTURE                          VAL R4
+      310 SETTABLEKS                       R47 R46 K61 ["OnClick"]
+      312 NEWTABLE                         R47 0 0
+      314 CALL                             R44 3 -1
+      315 SETLIST                          R42 R43 -1 [1]
+      317 CALL                             R39 3 1
+      318 GETUPVAL                         R40 23
+      319 GETUPVAL                         R41 28
+      320 DUPTABLE                         R42 K70 [{"Size", "ScrollingDirection", "HorizontalScrollBarInset", "ScrollBarThickness"}]
+      321 GETTABLEKS                       R43 R1 K71 ["Filters"]
+      323 GETTABLEKS                       R43 R43 K36 ["Size"]
+      325 SETTABLEKS                       R43 R42 K36 ["Size"]
+      327 GETIMPORT                        R43 K73 [Enum.ScrollingDirection.X]
+      329 SETTABLEKS                       R43 R42 K67 ["ScrollingDirection"]
+      331 GETIMPORT                        R43 K76 [Enum.ScrollBarInset.ScrollBar]
+      333 SETTABLEKS                       R43 R42 K68 ["HorizontalScrollBarInset"]
+      335 GETTABLEKS                       R43 R1 K77 ["MainView"]
+      337 GETTABLEKS                       R43 R43 K69 ["ScrollBarThickness"]
+      339 SETTABLEKS                       R43 R42 K69 ["ScrollBarThickness"]
+      341 NEWTABLE                         R43 0 1
+      343 GETUPVAL                         R44 23
+      344 GETUPVAL                         R45 24
+      345 DUPTABLE                         R46 K81 [{["key"] = "Filters", ["Layout"], ["HorizontalAlignment"], ["AutomaticSize"], ["Spacing"] = 4, ["Padding"]}]
+      346 GETIMPORT                        R47 K41 [Enum.FillDirection.Horizontal]
+      348 SETTABLEKS                       R47 R46 K25 ["Layout"]
+      350 GETIMPORT                        R47 K83 [Enum.HorizontalAlignment.Left]
+      352 SETTABLEKS                       R47 R46 K78 ["HorizontalAlignment"]
+      354 GETIMPORT                        R47 K85 [Enum.AutomaticSize.XY]
+      356 SETTABLEKS                       R47 R46 K79 ["AutomaticSize"]
+      358 DUPTABLE                         R47 K88 [{["Left"] = 8, ["Top"] = 1}]
+      359 SETTABLEKS                       R47 R46 K38 ["Padding"]
+      361 NEWTABLE                         R47 0 3
+      363 GETUPVAL                         R48 23
+      364 GETUPVAL                         R49 29
+      365 DUPTABLE                         R50 K91 [{"Text", "OnClick", "selected"}]
+      366 LOADK                            R53 K71 ["Filters"]
+      367 LOADK                            R54 K92 ["Recents"]
+      368 NAMECALL                         R51 R2 K55 ["getText"]
+      370 CALL                             R51 3 1
+      371 SETTABLEKS                       R51 R50 K89 ["Text"]
+      373 NEWCLOSURE                       R51 P16
+      374 CAPTURE                          UPVAL U11
+      375 CAPTURE                          VAL R16
+      376 CAPTURE                          VAL R17
+      377 CAPTURE                          VAL R0
+      378 CAPTURE                          VAL R4
+      379 SETTABLEKS                       R51 R50 K61 ["OnClick"]
+      381 GETTABLEKS                       R51 R16 K17 ["recents"]
+      383 SETTABLEKS                       R51 R50 K90 ["selected"]
+      385 CALL                             R48 2 1
+      386 GETUPVAL                         R49 23
+      387 GETUPVAL                         R50 29
+      388 DUPTABLE                         R51 K91 [{"Text", "OnClick", "selected"}]
+      389 LOADK                            R54 K71 ["Filters"]
+      390 LOADK                            R55 K93 ["AppliedInPlace"]
+      391 NAMECALL                         R52 R2 K55 ["getText"]
+      393 CALL                             R52 3 1
+      394 SETTABLEKS                       R52 R51 K89 ["Text"]
+      396 NEWCLOSURE                       R52 P17
+      397 CAPTURE                          UPVAL U11
+      398 CAPTURE                          VAL R16
+      399 CAPTURE                          VAL R17
+      400 CAPTURE                          VAL R0
+      401 CAPTURE                          VAL R4
+      402 SETTABLEKS                       R52 R51 K61 ["OnClick"]
+      404 GETTABLEKS                       R52 R16 K19 ["appliedInPlace"]
+      406 SETTABLEKS                       R52 R51 K90 ["selected"]
+      408 CALL                             R49 2 1
+      409 GETUPVAL                         R51 15
+      410 CALL                             R51 0 1
+      411 JUMPIFNOT                        R51 ; [+43]
+      412 GETUPVAL                         R50 23
+      413 GETUPVAL                         R51 30
+      414 DUPTABLE                         R52 K100 [{"LeftText", "RightText", "LeftSelected", "RightSelected", "OnClickLeft", "OnClickRight"}]
+      415 LOADK                            R55 K71 ["Filters"]
+      416 LOADK                            R56 K101 ["CustomMaterials"]
+      417 NAMECALL                         R53 R2 K55 ["getText"]
+      419 CALL                             R53 3 1
+      420 SETTABLEKS                       R53 R52 K94 ["LeftText"]
+      422 LOADK                            R55 K71 ["Filters"]
+      423 LOADK                            R56 K102 ["DefaultMaterials"]
+      424 NAMECALL                         R53 R2 K55 ["getText"]
+      426 CALL                             R53 3 1
+      427 SETTABLEKS                       R53 R52 K95 ["RightText"]
+      429 GETTABLEKS                       R53 R16 K20 ["customMaterials"]
+      431 SETTABLEKS                       R53 R52 K96 ["LeftSelected"]
+      433 GETTABLEKS                       R53 R16 K21 ["defaultMaterials"]
+      435 SETTABLEKS                       R53 R52 K97 ["RightSelected"]
+      437 NEWCLOSURE                       R53 P18
+      438 CAPTURE                          UPVAL U11
+      439 CAPTURE                          VAL R16
+      440 CAPTURE                          VAL R17
+      441 CAPTURE                          VAL R0
+      442 CAPTURE                          VAL R4
+      443 SETTABLEKS                       R53 R52 K98 ["OnClickLeft"]
+      445 NEWCLOSURE                       R53 P19
+      446 CAPTURE                          UPVAL U11
+      447 CAPTURE                          VAL R16
+      448 CAPTURE                          VAL R17
+      449 CAPTURE                          VAL R0
+      450 CAPTURE                          VAL R4
+      451 SETTABLEKS                       R53 R52 K99 ["OnClickRight"]
+      453 CALL                             R50 2 1
+      454 JUMP                             ; [+23]
+      455 GETUPVAL                         R50 23
+      456 GETUPVAL                         R51 29
+      457 DUPTABLE                         R52 K91 [{"Text", "OnClick", "selected"}]
+      458 LOADK                            R55 K71 ["Filters"]
+      459 LOADK                            R56 K101 ["CustomMaterials"]
+      460 NAMECALL                         R53 R2 K55 ["getText"]
+      462 CALL                             R53 3 1
+      463 SETTABLEKS                       R53 R52 K89 ["Text"]
+      465 NEWCLOSURE                       R53 P20
+      466 CAPTURE                          UPVAL U11
+      467 CAPTURE                          VAL R16
+      468 CAPTURE                          VAL R17
+      469 CAPTURE                          VAL R0
+      470 CAPTURE                          VAL R4
+      471 SETTABLEKS                       R53 R52 K61 ["OnClick"]
+      473 GETTABLEKS                       R53 R16 K20 ["customMaterials"]
+      475 SETTABLEKS                       R53 R52 K90 ["selected"]
+      477 CALL                             R50 2 1
+      478 SETLIST                          R47 R48 3 [1]
+      480 CALL                             R44 3 -1
+      481 SETLIST                          R43 R44 -1 [1]
+      483 CALL                             R40 3 1
+      484 GETUPVAL                         R41 23
+      485 GETUPVAL                         R42 31
+      486 DUPTABLE                         R43 K126 [{["key"] = "MaterialGrid", ["AppliedItemId"], ["ShouldCenterTooltip"] = True, ["ContainerXBounds"], ["ContainerYBounds"], ["Size"], ["GridItemsPerRow"], ["GridItemSize"], ["Items"], ["ShowGridLabels"] = False, ["OnClick"], ["OnMouseEnter"], ["OnMouseLeave"], ["ListPadding"], ["OnScrollUpdate"], ["OnSnapshotTaken"], ["ViewType"], ["InitialGridCanvasPosition"], ["InitialListCanvasPosition"], ["ScrollingDirection"], ["SelectedItemId"], ["ShouldSyncScroll"] = True, ["SnapshotSize"], ["SnapshotBorderThickness"], ["TooltipDelay"], ["UseInstantTooltip"] = True}]
+      487 MOVE                             R44 R30
+      488 CALL                             R44 0 1
+      489 SETTABLEKS                       R44 R43 K104 ["AppliedItemId"]
+      491 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      493 GETTABLEKS                       R44 R44 K106 ["ContainerXBounds"]
+      495 SETTABLEKS                       R44 R43 K106 ["ContainerXBounds"]
+      497 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      499 GETTABLEKS                       R44 R44 K107 ["ContainerYBounds"]
+      501 SETTABLEKS                       R44 R43 K107 ["ContainerYBounds"]
+      503 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      505 GETTABLEKS                       R44 R44 K36 ["Size"]
+      507 SETTABLEKS                       R44 R43 K36 ["Size"]
+      509 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      511 GETTABLEKS                       R44 R44 K108 ["GridItemsPerRow"]
+      513 SETTABLEKS                       R44 R43 K108 ["GridItemsPerRow"]
+      515 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      517 GETTABLEKS                       R44 R44 K109 ["GridItemSize"]
+      519 SETTABLEKS                       R44 R43 K109 ["GridItemSize"]
+      521 GETUPVAL                         R45 26
+      522 CALL                             R45 0 1
+      523 JUMPIFNOT                        R45 ; [+3]
+      524 MOVE                             R44 R31
+      525 CALL                             R44 0 1
+      526 JUMP                             ; [+2]
+      527 MOVE                             R44 R23
+      528 CALL                             R44 0 1
+      529 SETTABLEKS                       R44 R43 K110 ["Items"]
+      531 GETUPVAL                         R45 26
+      532 CALL                             R45 0 1
+      533 JUMPIFNOT                        R45 ; [+3]
+      534 NEWCLOSURE                       R44 P21
+      535 CAPTURE                          VAL R33
+      536 JUMP                             ; [+14]
+      537 NEWCLOSURE                       R44 P22
+      538 CAPTURE                          UPVAL U8
+      539 CAPTURE                          VAL R26
+      540 CAPTURE                          UPVAL U17
+      541 CAPTURE                          VAL R5
+      542 CAPTURE                          VAL R6
+      543 CAPTURE                          UPVAL U18
+      544 CAPTURE                          VAL R0
+      545 CAPTURE                          UPVAL U19
+      546 CAPTURE                          VAL R8
+      547 CAPTURE                          UPVAL U20
+      548 CAPTURE                          VAL R16
+      549 CAPTURE                          REF R14
+      550 CAPTURE                          VAL R4
+      551 SETTABLEKS                       R44 R43 K61 ["OnClick"]
+      553 NEWCLOSURE                       R44 P23
+      554 CAPTURE                          VAL R24
+      555 CAPTURE                          UPVAL U26
+      556 CAPTURE                          VAL R25
+      557 CAPTURE                          VAL R28
+      558 CAPTURE                          UPVAL U17
+      559 CAPTURE                          VAL R5
+      560 SETTABLEKS                       R44 R43 K112 ["OnMouseEnter"]
+      562 NEWCLOSURE                       R44 P24
+      563 CAPTURE                          VAL R24
+      564 CAPTURE                          VAL R26
+      565 SETTABLEKS                       R44 R43 K113 ["OnMouseLeave"]
+      567 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      569 GETTABLEKS                       R44 R44 K114 ["ListPadding"]
+      571 SETTABLEKS                       R44 R43 K114 ["ListPadding"]
+      573 GETTABLEKS                       R44 R0 K127 ["onScrollUpdate"]
+      575 SETTABLEKS                       R44 R43 K115 ["OnScrollUpdate"]
+      577 GETTABLEKS                       R44 R0 K128 ["onSnapshotTaken"]
+      579 SETTABLEKS                       R44 R43 K116 ["OnSnapshotTaken"]
+      581 GETTABLEKS                       R44 R0 K23 ["viewType"]
+      583 SETTABLEKS                       R44 R43 K117 ["ViewType"]
+      585 GETTABLEKS                       R44 R0 K129 ["savedGridCanvasPosition"]
+      587 SETTABLEKS                       R44 R43 K118 ["InitialGridCanvasPosition"]
+      589 GETTABLEKS                       R44 R0 K130 ["savedListCanvasPosition"]
+      591 SETTABLEKS                       R44 R43 K119 ["InitialListCanvasPosition"]
+      593 GETIMPORT                        R44 K132 [Enum.ScrollingDirection.Y]
+      595 SETTABLEKS                       R44 R43 K67 ["ScrollingDirection"]
+      597 GETTABLEKS                       R44 R0 K133 ["selectedMaterialIdentifier"]
+      599 SETTABLEKS                       R44 R43 K120 ["SelectedItemId"]
+      601 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      603 GETTABLEKS                       R44 R44 K122 ["SnapshotSize"]
+      605 SETTABLEKS                       R44 R43 K122 ["SnapshotSize"]
+      607 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      609 GETTABLEKS                       R44 R44 K123 ["SnapshotBorderThickness"]
+      611 SETTABLEKS                       R44 R43 K123 ["SnapshotBorderThickness"]
+      613 GETTABLEKS                       R44 R1 K103 ["MaterialGrid"]
+      615 GETTABLEKS                       R44 R44 K124 ["TooltipDelay"]
+      617 SETTABLEKS                       R44 R43 K124 ["TooltipDelay"]
+      619 CALL                             R41 2 1
+      620 GETUPVAL                         R42 23
+      621 GETUPVAL                         R43 24
+      622 DUPTABLE                         R44 K135 [{["key"] = "Footer", ["Size"], ["Layout"], ["Padding"], ["Spacing"]}]
+      623 GETTABLEKS                       R45 R1 K134 ["Footer"]
+      625 GETTABLEKS                       R45 R45 K36 ["Size"]
+      627 SETTABLEKS                       R45 R44 K36 ["Size"]
+      629 GETIMPORT                        R45 K41 [Enum.FillDirection.Horizontal]
+      631 SETTABLEKS                       R45 R44 K25 ["Layout"]
+      633 GETTABLEKS                       R45 R1 K134 ["Footer"]
+      635 GETTABLEKS                       R45 R45 K38 ["Padding"]
+      637 SETTABLEKS                       R45 R44 K38 ["Padding"]
+      639 GETTABLEKS                       R45 R1 K134 ["Footer"]
+      641 GETTABLEKS                       R45 R45 K37 ["Spacing"]
+      643 SETTABLEKS                       R45 R44 K37 ["Spacing"]
+      645 NEWTABLE                         R45 0 2
+      647 GETUPVAL                         R46 32
+      648 CALL                             R46 0 1
+      649 JUMPIFNOT                        R46 ; [+77]
+      650 GETUPVAL                         R46 23
+      651 GETUPVAL                         R47 27
+      652 DUPTABLE                         R48 K139 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
+      653 LOADK                            R51 K77 ["MainView"]
+      654 LOADK                            R52 K140 ["MaterialGeneratorButton"]
+      655 NAMECALL                         R49 R2 K55 ["getText"]
+      657 CALL                             R49 3 1
+      658 SETTABLEKS                       R49 R48 K89 ["Text"]
+      660 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      662 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      664 GETTABLEKS                       R49 R49 K140 ["MaterialGeneratorButton"]
+      666 GETTABLEKS                       R49 R49 K36 ["Size"]
+      668 SETTABLEKS                       R49 R48 K36 ["Size"]
+      670 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      672 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      674 GETTABLEKS                       R49 R49 K140 ["MaterialGeneratorButton"]
+      676 GETTABLEKS                       R49 R49 K142 ["Icon"]
+      678 SETTABLEKS                       R49 R48 K59 ["LeftIcon"]
+      680 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      682 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      684 GETTABLEKS                       R49 R49 K136 ["IconSize"]
+      686 SETTABLEKS                       R49 R48 K136 ["IconSize"]
+      688 GETIMPORT                        R49 K144 [Enum.TextXAlignment.Center]
+      690 SETTABLEKS                       R49 R48 K137 ["TextXAlignment"]
+      692 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      694 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      696 GETTABLEKS                       R49 R49 K37 ["Spacing"]
+      698 SETTABLEKS                       R49 R48 K37 ["Spacing"]
+      700 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      702 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      704 GETTABLEKS                       R49 R49 K38 ["Padding"]
+      706 SETTABLEKS                       R49 R48 K38 ["Padding"]
+      708 GETTABLEKS                       R49 R1 K134 ["Footer"]
+      710 GETTABLEKS                       R49 R49 K141 ["IconButton"]
+      712 GETTABLEKS                       R49 R49 K138 ["BackgroundColor"]
+      714 SETTABLEKS                       R49 R48 K138 ["BackgroundColor"]
+      716 NEWCLOSURE                       R49 P25
+      717 CAPTURE                          UPVAL U33
+      718 CAPTURE                          VAL R7
+      719 CAPTURE                          UPVAL U5
+      720 CAPTURE                          VAL R4
+      721 CAPTURE                          VAL R0
+      722 CAPTURE                          VAL R10
+      723 CAPTURE                          VAL R11
+      724 SETTABLEKS                       R49 R48 K61 ["OnClick"]
+      726 CALL                             R46 2 1
+      727 GETUPVAL                         R47 23
+      728 GETUPVAL                         R48 27
+      729 DUPTABLE                         R49 K139 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
+      730 LOADK                            R52 K77 ["MainView"]
+      731 LOADK                            R53 K145 ["MaterialManagerButton"]
+      732 NAMECALL                         R50 R2 K55 ["getText"]
+      734 CALL                             R50 3 1
+      735 SETTABLEKS                       R50 R49 K89 ["Text"]
+      737 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      739 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      741 GETTABLEKS                       R50 R50 K145 ["MaterialManagerButton"]
+      743 GETTABLEKS                       R50 R50 K36 ["Size"]
+      745 SETTABLEKS                       R50 R49 K36 ["Size"]
+      747 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      749 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      751 GETTABLEKS                       R50 R50 K145 ["MaterialManagerButton"]
+      753 GETTABLEKS                       R50 R50 K142 ["Icon"]
+      755 SETTABLEKS                       R50 R49 K59 ["LeftIcon"]
+      757 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      759 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      761 GETTABLEKS                       R50 R50 K136 ["IconSize"]
+      763 SETTABLEKS                       R50 R49 K136 ["IconSize"]
+      765 GETIMPORT                        R50 K144 [Enum.TextXAlignment.Center]
+      767 SETTABLEKS                       R50 R49 K137 ["TextXAlignment"]
+      769 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      771 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      773 GETTABLEKS                       R50 R50 K37 ["Spacing"]
+      775 SETTABLEKS                       R50 R49 K37 ["Spacing"]
+      777 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      779 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      781 GETTABLEKS                       R50 R50 K38 ["Padding"]
+      783 SETTABLEKS                       R50 R49 K38 ["Padding"]
+      785 GETTABLEKS                       R50 R1 K134 ["Footer"]
+      787 GETTABLEKS                       R50 R50 K141 ["IconButton"]
+      789 GETTABLEKS                       R50 R50 K138 ["BackgroundColor"]
+      791 SETTABLEKS                       R50 R49 K138 ["BackgroundColor"]
+      793 NEWCLOSURE                       R50 P26
+      794 CAPTURE                          UPVAL U33
+      795 CAPTURE                          VAL R7
+      796 CAPTURE                          UPVAL U5
+      797 CAPTURE                          VAL R4
+      798 CAPTURE                          VAL R0
+      799 CAPTURE                          VAL R12
+      800 CAPTURE                          VAL R13
+      801 SETTABLEKS                       R50 R49 K61 ["OnClick"]
+      803 CALL                             R47 2 -1
+      804 SETLIST                          R45 R46 -1 [1]
+      806 CALL                             R42 3 -1
+      807 SETLIST                          R38 R39 -1 [1]
+      809 CALL                             R35 3 -1
+      810 CLOSEUPVALS                      R14
+      811 RETURN                           R35 -1
 
 MAIN:
         0 PREPVARARGS                      0

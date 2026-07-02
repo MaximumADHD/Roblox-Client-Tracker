@@ -48,34 +48,30 @@ PROTO_1:
        42 GETUPVAL                         R7 2
        43 DUPTABLE                         R8 K8 [{"Tabs"}]
        44 NEWTABLE                         R9 0 2
-       46 DUPTABLE                         R10 K12 [{"Label", "ContentComponent", "Disabled", "Key"}]
-       47 LOADK                            R13 K13 ["Plugin"]
-       48 LOADK                            R14 K14 ["RecordingTabTitle"]
-       49 NAMECALL                         R11 R2 K15 ["getText"]
+       46 DUPTABLE                         R10 K13 [{["Label"], ["ContentComponent"], ["Disabled"], ["Key"] = "Recording Tab"}]
+       47 LOADK                            R13 K14 ["Plugin"]
+       48 LOADK                            R14 K15 ["RecordingTabTitle"]
+       49 NAMECALL                         R11 R2 K16 ["getText"]
        51 CALL                             R11 3 1
        52 SETTABLEKS                       R11 R10 K9 ["Label"]
        54 GETUPVAL                         R11 3
        55 SETTABLEKS                       R11 R10 K10 ["ContentComponent"]
        57 OR                               R11 R3 R5
        58 SETTABLEKS                       R11 R10 K3 ["Disabled"]
-       60 LOADK                            R11 K16 ["Recording Tab"]
-       61 SETTABLEKS                       R11 R10 K11 ["Key"]
-       63 DUPTABLE                         R11 K12 [{"Label", "ContentComponent", "Disabled", "Key"}]
-       64 LOADK                            R14 K13 ["Plugin"]
-       65 LOADK                            R15 K17 ["PlaybackTabTitle"]
-       66 NAMECALL                         R12 R2 K15 ["getText"]
-       68 CALL                             R12 3 1
-       69 SETTABLEKS                       R12 R11 K9 ["Label"]
-       71 GETUPVAL                         R12 4
-       72 SETTABLEKS                       R12 R11 K10 ["ContentComponent"]
-       74 OR                               R12 R3 R4
-       75 SETTABLEKS                       R12 R11 K3 ["Disabled"]
-       77 LOADK                            R12 K18 ["Playback Tab"]
-       78 SETTABLEKS                       R12 R11 K11 ["Key"]
-       80 SETLIST                          R9 R10 2 [1]
-       82 SETTABLEKS                       R9 R8 K7 ["Tabs"]
-       84 CALL                             R6 2 -1
-       85 RETURN                           R6 -1
+       60 DUPTABLE                         R11 K18 [{["Label"], ["ContentComponent"], ["Disabled"], ["Key"] = "Playback Tab"}]
+       61 LOADK                            R14 K14 ["Plugin"]
+       62 LOADK                            R15 K19 ["PlaybackTabTitle"]
+       63 NAMECALL                         R12 R2 K16 ["getText"]
+       65 CALL                             R12 3 1
+       66 SETTABLEKS                       R12 R11 K9 ["Label"]
+       68 GETUPVAL                         R12 4
+       69 SETTABLEKS                       R12 R11 K10 ["ContentComponent"]
+       71 OR                               R12 R3 R4
+       72 SETTABLEKS                       R12 R11 K3 ["Disabled"]
+       74 SETLIST                          R9 R10 2 [1]
+       76 SETTABLEKS                       R9 R8 K7 ["Tabs"]
+       78 CALL                             R6 2 -1
+       79 RETURN                           R6 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K1 [{"PluginState"}]

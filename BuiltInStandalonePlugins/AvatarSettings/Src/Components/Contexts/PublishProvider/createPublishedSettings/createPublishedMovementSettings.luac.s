@@ -1,69 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
-        2 JUMPIFNOT                        R0 ; [+57]
-        3 DUPTABLE                         R0 K17 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableCrouchingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableHoldingSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableReachingSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableSprintingSetting", "defaultAbilitiesEnableStrafingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
-        4 GETIMPORT                        R1 K21 [Enum.AvatarSettingsCollisionMode.Default]
+        2 JUMPIFNOT                        R0 ; [+18]
+        3 DUPTABLE                         R0 K19 [{[1], ["collisionHitAndTouchDetectionSetting"], ["collisionMethodSetting"], ["collisionSizeSetting"] = {0, 0, 0}, ["characterControllerModeSetting"], ["defaultAbilitiesEnableClimbingSetting"] = True, ["defaultAbilitiesEnableCrouchingSetting"] = True, ["defaultAbilitiesEnableFallingDownSetting"] = True, ["defaultAbilitiesEnableGettingUpSetting"] = True, ["defaultAbilitiesEnableHoldingSetting"] = True, ["defaultAbilitiesEnableJumpingSetting"] = True, ["defaultAbilitiesEnableReachingSetting"] = True, ["defaultAbilitiesEnableRunningSetting"] = True, ["defaultAbilitiesEnableSittingSetting"] = True, ["defaultAbilitiesEnableSprintingSetting"] = True, ["defaultAbilitiesEnableStrafingSetting"] = True, ["defaultAbilitiesEnableSwimmingSetting"] = True}]
+        4 GETIMPORT                        R1 K23 [Enum.AvatarSettingsCollisionMode.Default]
         6 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
-        8 GETIMPORT                        R1 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+        8 GETIMPORT                        R1 K26 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
        10 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
-       12 GETIMPORT                        R1 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+       12 GETIMPORT                        R1 K29 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
        14 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
-       16 LOADK                            R1 K28 [{0, 0, 0}]
-       17 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
-       19 GETIMPORT                        R1 K31 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
-       21 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
-       23 LOADB                            R1 1
-       24 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
-       26 LOADB                            R1 1
-       27 SETTABLEKS                       R1 R0 K6 ["defaultAbilitiesEnableCrouchingSetting"]
-       29 LOADB                            R1 1
-       30 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
-       32 LOADB                            R1 1
-       33 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
-       35 LOADB                            R1 1
-       36 SETTABLEKS                       R1 R0 K9 ["defaultAbilitiesEnableHoldingSetting"]
-       38 LOADB                            R1 1
-       39 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
-       41 LOADB                            R1 1
-       42 SETTABLEKS                       R1 R0 K11 ["defaultAbilitiesEnableReachingSetting"]
-       44 LOADB                            R1 1
-       45 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
-       47 LOADB                            R1 1
-       48 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
-       50 LOADB                            R1 1
-       51 SETTABLEKS                       R1 R0 K14 ["defaultAbilitiesEnableSprintingSetting"]
-       53 LOADB                            R1 1
-       54 SETTABLEKS                       R1 R0 K15 ["defaultAbilitiesEnableStrafingSetting"]
-       56 LOADB                            R1 1
-       57 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-       59 RETURN                           R0 1
-       60 DUPTABLE                         R0 K32 [{"collisionSetting", "collisionHitAndTouchDetectionSetting", "collisionMethodSetting", "collisionSizeSetting", "characterControllerModeSetting", "defaultAbilitiesEnableRunningSetting", "defaultAbilitiesEnableJumpingSetting", "defaultAbilitiesEnableSittingSetting", "defaultAbilitiesEnableFallingDownSetting", "defaultAbilitiesEnableGettingUpSetting", "defaultAbilitiesEnableClimbingSetting", "defaultAbilitiesEnableSwimmingSetting"}]
-       61 GETIMPORT                        R1 K21 [Enum.AvatarSettingsCollisionMode.Default]
-       63 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
-       65 GETIMPORT                        R1 K24 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
-       67 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
-       69 GETIMPORT                        R1 K27 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
-       71 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
-       73 LOADK                            R1 K28 [{0, 0, 0}]
-       74 SETTABLEKS                       R1 R0 K3 ["collisionSizeSetting"]
-       76 GETIMPORT                        R1 K31 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
-       78 SETTABLEKS                       R1 R0 K4 ["characterControllerModeSetting"]
-       80 LOADB                            R1 1
-       81 SETTABLEKS                       R1 R0 K12 ["defaultAbilitiesEnableRunningSetting"]
-       83 LOADB                            R1 1
-       84 SETTABLEKS                       R1 R0 K10 ["defaultAbilitiesEnableJumpingSetting"]
-       86 LOADB                            R1 1
-       87 SETTABLEKS                       R1 R0 K13 ["defaultAbilitiesEnableSittingSetting"]
-       89 LOADB                            R1 1
-       90 SETTABLEKS                       R1 R0 K7 ["defaultAbilitiesEnableFallingDownSetting"]
-       92 LOADB                            R1 1
-       93 SETTABLEKS                       R1 R0 K8 ["defaultAbilitiesEnableGettingUpSetting"]
-       95 LOADB                            R1 1
-       96 SETTABLEKS                       R1 R0 K5 ["defaultAbilitiesEnableClimbingSetting"]
-       98 LOADB                            R1 1
-       99 SETTABLEKS                       R1 R0 K16 ["defaultAbilitiesEnableSwimmingSetting"]
-      101 RETURN                           R0 1
+       16 GETIMPORT                        R1 K32 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+       18 SETTABLEKS                       R1 R0 K5 ["characterControllerModeSetting"]
+       20 RETURN                           R0 1
+       21 DUPTABLE                         R0 K33 [{[1], ["collisionHitAndTouchDetectionSetting"], ["collisionMethodSetting"], ["collisionSizeSetting"] = {0, 0, 0}, ["characterControllerModeSetting"], ["defaultAbilitiesEnableRunningSetting"] = True, ["defaultAbilitiesEnableJumpingSetting"] = True, ["defaultAbilitiesEnableSittingSetting"] = True, ["defaultAbilitiesEnableFallingDownSetting"] = True, ["defaultAbilitiesEnableGettingUpSetting"] = True, ["defaultAbilitiesEnableClimbingSetting"] = True, ["defaultAbilitiesEnableSwimmingSetting"] = True}]
+       22 GETIMPORT                        R1 K23 [Enum.AvatarSettingsCollisionMode.Default]
+       24 SETTABLEKS                       R1 R0 K0 ["collisionSetting"]
+       26 GETIMPORT                        R1 K26 [Enum.AvatarSettingsHitAndTouchDetectionMode.UseCollider]
+       28 SETTABLEKS                       R1 R0 K1 ["collisionHitAndTouchDetectionSetting"]
+       30 GETIMPORT                        R1 K29 [Enum.AvatarSettingsLegacyCollisionMode.InnerBoxColliders]
+       32 SETTABLEKS                       R1 R0 K2 ["collisionMethodSetting"]
+       34 GETIMPORT                        R1 K32 [Enum.AvatarSettingsCharacterControllerMode.LegacyHumanoid]
+       36 SETTABLEKS                       R1 R0 K5 ["characterControllerModeSetting"]
+       38 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

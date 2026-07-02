@@ -158,13 +158,11 @@ MAIN:
        36 GETTABLEKS                       R5 R1 K14 ["Http"]
        38 GETTABLEKS                       R5 R5 K15 ["Networking"]
        40 GETTABLEKS                       R5 R5 K16 ["new"]
-       42 DUPTABLE                         R6 K18 [{"isInternal"}]
-       43 LOADB                            R7 1
-       44 SETTABLEKS                       R7 R6 K17 ["isInternal"]
-       46 CALL                             R5 1 1
-       47 DUPCLOSURE                       R6 K19 [PROTO_4]
-       48 CAPTURE                          VAL R2
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R4
-       52 RETURN                           R6 1
+       42 DUPTABLE                         R6 K19 [{["isInternal"] = True}]
+       43 CALL                             R5 1 1
+       44 DUPCLOSURE                       R6 K20 [PROTO_4]
+       45 CAPTURE                          VAL R2
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R5
+       48 CAPTURE                          VAL R4
+       49 RETURN                           R6 1

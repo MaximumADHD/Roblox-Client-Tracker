@@ -12,50 +12,38 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".Component-BasicExample"]
-       20 DUPTABLE                         R5 K13 [{"BackgroundColor3", "BorderSizePixel"}]
-       21 LOADK                            R6 K14 ["$BackgroundPaper"]
-       22 SETTABLEKS                       R6 R5 K11 ["BackgroundColor3"]
-       24 LOADN                            R6 0
-       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
-       27 NEWTABLE                         R6 0 3
-       29 MOVE                             R7 R2
-       30 LOADK                            R8 K15 ["::UICorner"]
-       31 DUPTABLE                         R9 K17 [{"CornerRadius"}]
-       32 GETIMPORT                        R10 K20 [UDim.new]
-       34 LOADN                            R11 0
-       35 LOADN                            R12 10
-       36 CALL                             R10 2 1
-       37 SETTABLEKS                       R10 R9 K16 ["CornerRadius"]
-       39 CALL                             R7 2 1
-       40 MOVE                             R8 R2
-       41 LOADK                            R9 K21 [":hover"]
-       42 DUPTABLE                         R10 K22 [{"BackgroundColor3"}]
-       43 LOADK                            R11 K23 ["$BackgroundHover"]
-       44 SETTABLEKS                       R11 R10 K11 ["BackgroundColor3"]
-       46 CALL                             R8 2 1
-       47 MOVE                             R9 R2
-       48 LOADK                            R10 K24 ["> #OptionalContent"]
-       49 DUPTABLE                         R11 K32 [{"TextSize", "Font", "TextColor3", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment"}]
-       50 LOADN                            R12 24
-       51 SETTABLEKS                       R12 R11 K25 ["TextSize"]
-       53 GETIMPORT                        R12 K35 [Enum.Font.SourceSans]
-       55 SETTABLEKS                       R12 R11 K26 ["Font"]
-       57 LOADK                            R12 K36 ["$TextPrimary"]
-       58 SETTABLEKS                       R12 R11 K27 ["TextColor3"]
-       60 GETIMPORT                        R12 K38 [UDim2.new]
-       62 LOADN                            R13 1
-       63 LOADN                            R14 0
-       64 LOADN                            R15 0
-       65 LOADN                            R16 50
-       66 CALL                             R12 4 1
-       67 SETTABLEKS                       R12 R11 K28 ["Size"]
-       69 LOADN                            R12 1
-       70 SETTABLEKS                       R12 R11 K29 ["BackgroundTransparency"]
-       72 GETIMPORT                        R12 K40 [Enum.TextXAlignment.Center]
-       74 SETTABLEKS                       R12 R11 K30 ["TextXAlignment"]
-       76 GETIMPORT                        R12 K41 [Enum.TextYAlignment.Center]
-       78 SETTABLEKS                       R12 R11 K31 ["TextYAlignment"]
-       80 CALL                             R9 2 -1
-       81 SETLIST                          R6 R7 -1 [1]
-       83 CALL                             R3 3 -1
-       84 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K15 [{["BackgroundColor3"] = "$BackgroundPaper", ["BorderSizePixel"] = 0}]
+       21 NEWTABLE                         R6 0 3
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K16 ["::UICorner"]
+       25 DUPTABLE                         R9 K18 [{"CornerRadius"}]
+       26 GETIMPORT                        R10 K21 [UDim.new]
+       28 LOADN                            R11 0
+       29 LOADN                            R12 10
+       30 CALL                             R10 2 1
+       31 SETTABLEKS                       R10 R9 K17 ["CornerRadius"]
+       33 CALL                             R7 2 1
+       34 MOVE                             R8 R2
+       35 LOADK                            R9 K22 [":hover"]
+       36 DUPTABLE                         R10 K24 [{["BackgroundColor3"] = "$BackgroundHover"}]
+       37 CALL                             R8 2 1
+       38 MOVE                             R9 R2
+       39 LOADK                            R10 K25 ["> #OptionalContent"]
+       40 DUPTABLE                         R11 K36 [{["TextSize"] = 24, ["Font"], ["TextColor3"] = "$TextPrimary", ["Size"], ["BackgroundTransparency"] = 1, ["TextXAlignment"], ["TextYAlignment"]}]
+       41 GETIMPORT                        R12 K39 [Enum.Font.SourceSans]
+       43 SETTABLEKS                       R12 R11 K28 ["Font"]
+       45 GETIMPORT                        R12 K41 [UDim2.new]
+       47 LOADN                            R13 1
+       48 LOADN                            R14 0
+       49 LOADN                            R15 0
+       50 LOADN                            R16 50
+       51 CALL                             R12 4 1
+       52 SETTABLEKS                       R12 R11 K31 ["Size"]
+       54 GETIMPORT                        R12 K43 [Enum.TextXAlignment.Center]
+       56 SETTABLEKS                       R12 R11 K34 ["TextXAlignment"]
+       58 GETIMPORT                        R12 K44 [Enum.TextYAlignment.Center]
+       60 SETTABLEKS                       R12 R11 K35 ["TextYAlignment"]
+       62 CALL                             R9 2 -1
+       63 SETLIST                          R6 R7 -1 [1]
+       65 CALL                             R3 3 -1
+       66 RETURN                           R3 -1

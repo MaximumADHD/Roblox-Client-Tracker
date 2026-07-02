@@ -144,54 +144,42 @@ MAIN:
        44 GETTABLEKS                       R6 R1 K11 ["Flags"]
        46 GETTABLEKS                       R6 R6 K12 ["Shared"]
        48 GETTABLEKS                       R6 R6 K16 ["FFlagAssistantAssetSearchInsertTool"]
-       50 DUPTABLE                         R7 K23 [{"TestAutomation", "NewAssetToolSet", "UnitTestSubagent", "ScreenCaptureSubagent", "BackgroundDataModelToolCall", "StudioStateSystemReminder"}]
-       51 LOADK                            R8 K17 ["TestAutomation"]
-       52 SETTABLEKS                       R8 R7 K17 ["TestAutomation"]
-       54 LOADK                            R8 K18 ["NewAssetToolSet"]
-       55 SETTABLEKS                       R8 R7 K18 ["NewAssetToolSet"]
-       57 LOADK                            R8 K19 ["UnitTestSubagent"]
-       58 SETTABLEKS                       R8 R7 K19 ["UnitTestSubagent"]
-       60 LOADK                            R8 K20 ["ScreenCaptureSubagent"]
-       61 SETTABLEKS                       R8 R7 K20 ["ScreenCaptureSubagent"]
-       63 LOADK                            R8 K21 ["BackgroundDataModelToolCall"]
-       64 SETTABLEKS                       R8 R7 K21 ["BackgroundDataModelToolCall"]
-       66 LOADK                            R8 K22 ["StudioStateSystemReminder"]
-       67 SETTABLEKS                       R8 R7 K22 ["StudioStateSystemReminder"]
-       69 NEWTABLE                         R8 4 0
-       71 GETTABLEKS                       R9 R7 K18 ["NewAssetToolSet"]
-       73 MOVE                             R10 R6
-       74 CALL                             R10 0 1
-       75 SETTABLE                         R10 R8 R9
-       76 GETTABLEKS                       R9 R7 K21 ["BackgroundDataModelToolCall"]
-       78 MOVE                             R10 R3
-       79 CALL                             R10 0 1
-       80 SETTABLE                         R10 R8 R9
-       81 GETTABLEKS                       R9 R7 K22 ["StudioStateSystemReminder"]
-       83 MOVE                             R10 R4
-       84 CALL                             R10 0 1
-       85 SETTABLE                         R10 R8 R9
-       86 LOADNIL                          R9
-       87 LOADNIL                          R10
-       88 NEWCLOSURE                       R11 P0
-       89 CAPTURE                          REF R10
-       90 CAPTURE                          REF R9
-       91 NEWCLOSURE                       R12 P1
-       92 CAPTURE                          VAL R8
-       93 CAPTURE                          REF R10
-       94 CAPTURE                          REF R9
-       95 CAPTURE                          VAL R2
-       96 CAPTURE                          VAL R5
-       97 NEWCLOSURE                       R13 P2
-       98 CAPTURE                          REF R10
-       99 NEWCLOSURE                       R14 P3
-      100 CAPTURE                          VAL R12
-      101 CAPTURE                          REF R10
-      102 DUPTABLE                         R15 K30 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
-      103 SETTABLEKS                       R7 R15 K24 ["FeatureNames"]
-      105 SETTABLEKS                       R8 R15 K25 ["ForceEnabledFeatureNames"]
-      107 SETTABLEKS                       R11 R15 K26 ["setIxpService"]
-      109 SETTABLEKS                       R12 R15 K27 ["getExperimentFeatureEnabled"]
-      111 SETTABLEKS                       R13 R15 K28 ["getOnExperimentChanged"]
-      113 SETTABLEKS                       R14 R15 K29 ["onceExperimentFeatureEnabled"]
-      115 CLOSEUPVALS                      R9
-      116 RETURN                           R15 1
+       50 DUPTABLE                         R7 K23 [{["TestAutomation"] = "TestAutomation", ["NewAssetToolSet"] = "NewAssetToolSet", ["UnitTestSubagent"] = "UnitTestSubagent", ["ScreenCaptureSubagent"] = "ScreenCaptureSubagent", ["BackgroundDataModelToolCall"] = "BackgroundDataModelToolCall", ["StudioStateSystemReminder"] = "StudioStateSystemReminder"}]
+       51 NEWTABLE                         R8 4 0
+       53 GETTABLEKS                       R9 R7 K18 ["NewAssetToolSet"]
+       55 MOVE                             R10 R6
+       56 CALL                             R10 0 1
+       57 SETTABLE                         R10 R8 R9
+       58 GETTABLEKS                       R9 R7 K21 ["BackgroundDataModelToolCall"]
+       60 MOVE                             R10 R3
+       61 CALL                             R10 0 1
+       62 SETTABLE                         R10 R8 R9
+       63 GETTABLEKS                       R9 R7 K22 ["StudioStateSystemReminder"]
+       65 MOVE                             R10 R4
+       66 CALL                             R10 0 1
+       67 SETTABLE                         R10 R8 R9
+       68 LOADNIL                          R9
+       69 LOADNIL                          R10
+       70 NEWCLOSURE                       R11 P0
+       71 CAPTURE                          REF R10
+       72 CAPTURE                          REF R9
+       73 NEWCLOSURE                       R12 P1
+       74 CAPTURE                          VAL R8
+       75 CAPTURE                          REF R10
+       76 CAPTURE                          REF R9
+       77 CAPTURE                          VAL R2
+       78 CAPTURE                          VAL R5
+       79 NEWCLOSURE                       R13 P2
+       80 CAPTURE                          REF R10
+       81 NEWCLOSURE                       R14 P3
+       82 CAPTURE                          VAL R12
+       83 CAPTURE                          REF R10
+       84 DUPTABLE                         R15 K30 [{"FeatureNames", "ForceEnabledFeatureNames", "setIxpService", "getExperimentFeatureEnabled", "getOnExperimentChanged", "onceExperimentFeatureEnabled"}]
+       85 SETTABLEKS                       R7 R15 K24 ["FeatureNames"]
+       87 SETTABLEKS                       R8 R15 K25 ["ForceEnabledFeatureNames"]
+       89 SETTABLEKS                       R11 R15 K26 ["setIxpService"]
+       91 SETTABLEKS                       R12 R15 K27 ["getExperimentFeatureEnabled"]
+       93 SETTABLEKS                       R13 R15 K28 ["getOnExperimentChanged"]
+       95 SETTABLEKS                       R14 R15 K29 ["onceExperimentFeatureEnabled"]
+       97 CLOSEUPVALS                      R9
+       98 RETURN                           R15 1

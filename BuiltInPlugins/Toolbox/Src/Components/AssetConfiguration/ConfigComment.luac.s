@@ -27,94 +27,82 @@ PROTO_2:
        20 GETUPVAL                         R10 0
        21 GETTABLEKS                       R10 R10 K9 ["createElement"]
        23 LOADK                            R11 K10 ["Frame"]
-       24 DUPTABLE                         R12 K14 [{"Size", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
-       25 GETIMPORT                        R13 K17 [UDim2.new]
+       24 DUPTABLE                         R12 K16 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
+       25 GETIMPORT                        R13 K19 [UDim2.new]
        27 LOADN                            R14 1
        28 LOADN                            R15 0
        29 LOADN                            R16 0
        30 MOVE                             R17 R4
        31 CALL                             R13 4 1
        32 SETTABLEKS                       R13 R12 K11 ["Size"]
-       34 LOADN                            R13 1
-       35 SETTABLEKS                       R13 R12 K12 ["BackgroundTransparency"]
-       37 LOADN                            R13 0
-       38 SETTABLEKS                       R13 R12 K13 ["BorderSizePixel"]
-       40 SETTABLEKS                       R3 R12 K2 ["LayoutOrder"]
-       42 DUPTABLE                         R13 K20 [{"UIListLayout", "Title", "ToggleButton"}]
-       43 GETUPVAL                         R14 0
-       44 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       46 LOADK                            R15 K18 ["UIListLayout"]
-       47 DUPTABLE                         R16 K26 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
-       48 GETIMPORT                        R17 K29 [Enum.FillDirection.Horizontal]
-       50 SETTABLEKS                       R17 R16 K21 ["FillDirection"]
-       52 GETIMPORT                        R17 K31 [Enum.HorizontalAlignment.Left]
-       54 SETTABLEKS                       R17 R16 K22 ["HorizontalAlignment"]
-       56 GETIMPORT                        R17 K33 [Enum.VerticalAlignment.Top]
-       58 SETTABLEKS                       R17 R16 K23 ["VerticalAlignment"]
-       60 GETIMPORT                        R17 K34 [Enum.SortOrder.LayoutOrder]
-       62 SETTABLEKS                       R17 R16 K24 ["SortOrder"]
-       64 GETIMPORT                        R17 K36 [UDim.new]
-       66 LOADN                            R18 0
-       67 LOADN                            R19 0
-       68 CALL                             R17 2 1
-       69 SETTABLEKS                       R17 R16 K25 ["Padding"]
-       71 CALL                             R14 2 1
-       72 SETTABLEKS                       R14 R13 K18 ["UIListLayout"]
-       74 GETUPVAL                         R14 0
-       75 GETTABLEKS                       R14 R14 K9 ["createElement"]
-       77 LOADK                            R15 K37 ["TextLabel"]
-       78 DUPTABLE                         R16 K44 [{"Size", "BackgroundTransparency", "BorderSizePixel", "Text", "TextXAlignment", "TextYAlignment", "TextSize", "TextColor3", "Font", "LayoutOrder"}]
-       79 GETIMPORT                        R17 K17 [UDim2.new]
-       81 LOADN                            R18 0
-       82 GETUPVAL                         R19 1
-       83 GETTABLEKS                       R19 R19 K45 ["TITLE_GUTTER_WIDTH"]
-       85 LOADN                            R20 1
-       86 LOADN                            R21 0
-       87 CALL                             R17 4 1
-       88 SETTABLEKS                       R17 R16 K11 ["Size"]
-       90 LOADN                            R17 1
-       91 SETTABLEKS                       R17 R16 K12 ["BackgroundTransparency"]
-       93 LOADN                            R17 0
-       94 SETTABLEKS                       R17 R16 K13 ["BorderSizePixel"]
-       96 SETTABLEKS                       R2 R16 K38 ["Text"]
-       98 GETIMPORT                        R17 K46 [Enum.TextXAlignment.Left]
-      100 SETTABLEKS                       R17 R16 K39 ["TextXAlignment"]
-      102 GETIMPORT                        R17 K47 [Enum.TextYAlignment.Top]
-      104 SETTABLEKS                       R17 R16 K40 ["TextYAlignment"]
-      106 GETUPVAL                         R17 2
-      107 GETTABLEKS                       R17 R17 K48 ["FONT_SIZE_TITLE"]
-      109 SETTABLEKS                       R17 R16 K41 ["TextSize"]
-      111 GETTABLEKS                       R17 R9 K49 ["titleTextColor"]
-      113 SETTABLEKS                       R17 R16 K42 ["TextColor3"]
-      115 GETUPVAL                         R17 2
-      116 GETTABLEKS                       R17 R17 K50 ["FONT"]
-      118 SETTABLEKS                       R17 R16 K43 ["Font"]
-      120 LOADN                            R17 1
-      121 SETTABLEKS                       R17 R16 K2 ["LayoutOrder"]
-      123 CALL                             R14 2 1
-      124 SETTABLEKS                       R14 R13 K1 ["Title"]
-      126 GETUPVAL                         R14 0
-      127 GETTABLEKS                       R14 R14 K9 ["createElement"]
-      129 GETUPVAL                         R15 3
-      130 DUPTABLE                         R16 K54 [{"Disabled", "LayoutOrder", "OnClick", "Selected", "Size"}]
-      131 NOT                              R17 R6
-      132 SETTABLEKS                       R17 R16 K51 ["Disabled"]
-      134 LOADN                            R17 2
-      135 SETTABLEKS                       R17 R16 K2 ["LayoutOrder"]
-      137 GETTABLEKS                       R17 R0 K55 ["toggleCallback"]
-      139 SETTABLEKS                       R17 R16 K52 ["OnClick"]
-      141 SETTABLEKS                       R5 R16 K53 ["Selected"]
-      143 GETIMPORT                        R17 K17 [UDim2.new]
-      145 LOADN                            R18 0
-      146 LOADN                            R19 40
-      147 LOADN                            R20 0
-      148 LOADN                            R21 24
-      149 CALL                             R17 4 1
-      150 SETTABLEKS                       R17 R16 K11 ["Size"]
-      152 CALL                             R14 2 1
-      153 SETTABLEKS                       R14 R13 K19 ["ToggleButton"]
-      155 CALL                             R10 3 -1
-      156 RETURN                           R10 -1
+       34 SETTABLEKS                       R3 R12 K2 ["LayoutOrder"]
+       36 DUPTABLE                         R13 K22 [{"UIListLayout", "Title", "ToggleButton"}]
+       37 GETUPVAL                         R14 0
+       38 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       40 LOADK                            R15 K20 ["UIListLayout"]
+       41 DUPTABLE                         R16 K28 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
+       42 GETIMPORT                        R17 K31 [Enum.FillDirection.Horizontal]
+       44 SETTABLEKS                       R17 R16 K23 ["FillDirection"]
+       46 GETIMPORT                        R17 K33 [Enum.HorizontalAlignment.Left]
+       48 SETTABLEKS                       R17 R16 K24 ["HorizontalAlignment"]
+       50 GETIMPORT                        R17 K35 [Enum.VerticalAlignment.Top]
+       52 SETTABLEKS                       R17 R16 K25 ["VerticalAlignment"]
+       54 GETIMPORT                        R17 K36 [Enum.SortOrder.LayoutOrder]
+       56 SETTABLEKS                       R17 R16 K26 ["SortOrder"]
+       58 GETIMPORT                        R17 K38 [UDim.new]
+       60 LOADN                            R18 0
+       61 LOADN                            R19 0
+       62 CALL                             R17 2 1
+       63 SETTABLEKS                       R17 R16 K27 ["Padding"]
+       65 CALL                             R14 2 1
+       66 SETTABLEKS                       R14 R13 K20 ["UIListLayout"]
+       68 GETUPVAL                         R14 0
+       69 GETTABLEKS                       R14 R14 K9 ["createElement"]
+       71 LOADK                            R15 K39 ["TextLabel"]
+       72 DUPTABLE                         R16 K46 [{["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["Text"], ["TextXAlignment"], ["TextYAlignment"], ["TextSize"], ["TextColor3"], ["Font"], ["LayoutOrder"] = 1}]
+       73 GETIMPORT                        R17 K19 [UDim2.new]
+       75 LOADN                            R18 0
+       76 GETUPVAL                         R19 1
+       77 GETTABLEKS                       R19 R19 K47 ["TITLE_GUTTER_WIDTH"]
+       79 LOADN                            R20 1
+       80 LOADN                            R21 0
+       81 CALL                             R17 4 1
+       82 SETTABLEKS                       R17 R16 K11 ["Size"]
+       84 SETTABLEKS                       R2 R16 K40 ["Text"]
+       86 GETIMPORT                        R17 K48 [Enum.TextXAlignment.Left]
+       88 SETTABLEKS                       R17 R16 K41 ["TextXAlignment"]
+       90 GETIMPORT                        R17 K49 [Enum.TextYAlignment.Top]
+       92 SETTABLEKS                       R17 R16 K42 ["TextYAlignment"]
+       94 GETUPVAL                         R17 2
+       95 GETTABLEKS                       R17 R17 K50 ["FONT_SIZE_TITLE"]
+       97 SETTABLEKS                       R17 R16 K43 ["TextSize"]
+       99 GETTABLEKS                       R17 R9 K51 ["titleTextColor"]
+      101 SETTABLEKS                       R17 R16 K44 ["TextColor3"]
+      103 GETUPVAL                         R17 2
+      104 GETTABLEKS                       R17 R17 K52 ["FONT"]
+      106 SETTABLEKS                       R17 R16 K45 ["Font"]
+      108 CALL                             R14 2 1
+      109 SETTABLEKS                       R14 R13 K1 ["Title"]
+      111 GETUPVAL                         R14 0
+      112 GETTABLEKS                       R14 R14 K9 ["createElement"]
+      114 GETUPVAL                         R15 3
+      115 DUPTABLE                         R16 K57 [{["Disabled"], ["LayoutOrder"] = 2, ["OnClick"], ["Selected"], ["Size"]}]
+      116 NOT                              R17 R6
+      117 SETTABLEKS                       R17 R16 K53 ["Disabled"]
+      119 GETTABLEKS                       R17 R0 K58 ["toggleCallback"]
+      121 SETTABLEKS                       R17 R16 K55 ["OnClick"]
+      123 SETTABLEKS                       R5 R16 K56 ["Selected"]
+      125 GETIMPORT                        R17 K19 [UDim2.new]
+      127 LOADN                            R18 0
+      128 LOADN                            R19 40
+      129 LOADN                            R20 0
+      130 LOADN                            R21 24
+      131 CALL                             R17 4 1
+      132 SETTABLEKS                       R17 R16 K11 ["Size"]
+      134 CALL                             R14 2 1
+      135 SETTABLEKS                       R14 R13 K21 ["ToggleButton"]
+      137 CALL                             R10 3 -1
+      138 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

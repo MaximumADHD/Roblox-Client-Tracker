@@ -37,30 +37,28 @@ PROTO_0:
        54 RETURN                           R2 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K3 [{"Url", "Method", "Body"}]
+        0 DUPTABLE                         R1 K4 [{[1], ["Method"] = "POST", ["Body"]}]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K4 ["BuildRobloxUrl"]
-        4 LOADK                            R3 K5 ["apis"]
-        5 LOADK                            R4 K6 ["experience-guidelines-service/v1beta1/multi-age-recommendation"]
+        2 GETTABLEKS                       R2 R2 K5 ["BuildRobloxUrl"]
+        4 LOADK                            R3 K6 ["apis"]
+        5 LOADK                            R4 K7 ["experience-guidelines-service/v1beta1/multi-age-recommendation"]
         6 CALL                             R2 2 1
         7 SETTABLEKS                       R2 R1 K0 ["Url"]
-        9 LOADK                            R2 K7 ["POST"]
-       10 SETTABLEKS                       R2 R1 K1 ["Method"]
-       12 GETUPVAL                         R2 1
-       13 DUPTABLE                         R4 K9 [{"universeIds"}]
-       14 SETTABLEKS                       R0 R4 K8 ["universeIds"]
-       16 NAMECALL                         R2 R2 K10 ["JSONEncode"]
-       18 CALL                             R2 2 1
-       19 SETTABLEKS                       R2 R1 K2 ["Body"]
-       21 GETUPVAL                         R2 0
-       22 GETTABLEKS                       R2 R2 K11 ["Request"]
-       24 MOVE                             R3 R1
-       25 CALL                             R2 1 1
-       26 DUPCLOSURE                       R4 K12 [PROTO_0]
-       27 CAPTURE                          UPVAL U1
-       28 NAMECALL                         R2 R2 K13 ["andThen"]
-       30 CALL                             R2 2 -1
-       31 RETURN                           R2 -1
+        9 GETUPVAL                         R2 1
+       10 DUPTABLE                         R4 K9 [{"universeIds"}]
+       11 SETTABLEKS                       R0 R4 K8 ["universeIds"]
+       13 NAMECALL                         R2 R2 K10 ["JSONEncode"]
+       15 CALL                             R2 2 1
+       16 SETTABLEKS                       R2 R1 K3 ["Body"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K11 ["Request"]
+       21 MOVE                             R3 R1
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R4 K12 [PROTO_0]
+       24 CAPTURE                          UPVAL U1
+       25 NAMECALL                         R2 R2 K13 ["andThen"]
+       27 CALL                             R2 2 -1
+       28 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

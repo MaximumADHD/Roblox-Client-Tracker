@@ -2,17 +2,15 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K4 [{"tag", "Size", "LayoutOrder"}]
-        5 LOADK                            R4 K5 ["bg-surface-200 radius-medium stroke-default"]
-        6 SETTABLEKS                       R4 R3 K1 ["tag"]
-        8 GETIMPORT                        R4 K8 [UDim2.fromOffset]
-       10 LOADN                            R5 150
-       11 LOADN                            R6 150
-       12 CALL                             R4 2 1
-       13 SETTABLEKS                       R4 R3 K2 ["Size"]
-       15 SETTABLEKS                       R0 R3 K3 ["LayoutOrder"]
-       17 CALL                             R1 2 -1
-       18 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K5 [{["tag"] = "stroke-default radius-medium bg-surface-200", ["Size"], ["LayoutOrder"]}]
+        5 GETIMPORT                        R4 K8 [UDim2.fromOffset]
+        7 LOADN                            R5 150
+        8 LOADN                            R6 150
+        9 CALL                             R4 2 1
+       10 SETTABLEKS                       R4 R3 K3 ["Size"]
+       12 SETTABLEKS                       R0 R3 K4 ["LayoutOrder"]
+       14 CALL                             R1 2 -1
+       15 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0

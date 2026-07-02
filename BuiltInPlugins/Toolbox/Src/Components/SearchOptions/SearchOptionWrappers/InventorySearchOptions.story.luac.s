@@ -21,17 +21,15 @@ PROTO_2:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 GETUPVAL                         R5 2
-       11 DUPTABLE                         R6 K5 [{"IsShownByDefault", "OnRender"}]
-       12 LOADB                            R7 1
-       13 SETTABLEKS                       R7 R6 K3 ["IsShownByDefault"]
-       15 DUPCLOSURE                       R7 K6 [PROTO_1]
-       16 CAPTURE                          UPVAL U0
-       17 CAPTURE                          UPVAL U3
-       18 SETTABLEKS                       R7 R6 K4 ["OnRender"]
-       20 CALL                             R4 2 1
-       21 SETTABLEKS                       R4 R3 K1 ["ClickToShowInteractiveStoryWrapper"]
-       23 CALL                             R0 3 -1
-       24 RETURN                           R0 -1
+       11 DUPTABLE                         R6 K6 [{["IsShownByDefault"] = True, ["OnRender"]}]
+       12 DUPCLOSURE                       R7 K7 [PROTO_1]
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          UPVAL U3
+       15 SETTABLEKS                       R7 R6 K5 ["OnRender"]
+       17 CALL                             R4 2 1
+       18 SETTABLEKS                       R4 R3 K1 ["ClickToShowInteractiveStoryWrapper"]
+       20 CALL                             R0 3 -1
+       21 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -56,19 +54,15 @@ MAIN:
        32 GETTABLEKS                       R5 R0 K12 ["Stories"]
        34 GETTABLEKS                       R5 R5 K13 ["ToolboxStoryWrapper"]
        36 CALL                             R4 1 1
-       37 DUPTABLE                         R5 K17 [{"name", "summary", "stories"}]
-       38 LOADK                            R6 K9 ["InventorySearchOptions"]
-       39 SETTABLEKS                       R6 R5 K14 ["name"]
-       41 LOADK                            R6 K18 ["The Search Option component for Inventory"]
-       42 SETTABLEKS                       R6 R5 K15 ["summary"]
-       44 NEWTABLE                         R6 0 1
-       46 DUPTABLE                         R7 K20 [{"story"}]
-       47 DUPCLOSURE                       R8 K21 [PROTO_2]
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R4
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R2
-       52 SETTABLEKS                       R8 R7 K19 ["story"]
-       54 SETLIST                          R6 R7 1 [1]
-       56 SETTABLEKS                       R6 R5 K16 ["stories"]
-       58 RETURN                           R5 1
+       37 DUPTABLE                         R5 K18 [{["name"] = "InventorySearchOptions", ["summary"] = "The Search Option component for Inventory", ["stories"]}]
+       38 NEWTABLE                         R6 0 1
+       40 DUPTABLE                         R7 K20 [{"story"}]
+       41 DUPCLOSURE                       R8 K21 [PROTO_2]
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R4
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R2
+       46 SETTABLEKS                       R8 R7 K19 ["story"]
+       48 SETLIST                          R6 R7 1 [1]
+       50 SETTABLEKS                       R6 R5 K17 ["stories"]
+       52 RETURN                           R5 1

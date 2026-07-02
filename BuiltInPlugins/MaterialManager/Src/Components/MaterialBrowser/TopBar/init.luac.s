@@ -48,17 +48,15 @@ PROTO_0:
        66 GETUPVAL                         R5 6
        67 GETTABLEKS                       R5 R5 K18 ["createElement"]
        69 GETUPVAL                         R6 5
-       70 DUPTABLE                         R7 K21 [{"LayoutOrder", "Size"}]
-       71 LOADN                            R8 1
-       72 SETTABLEKS                       R8 R7 K19 ["LayoutOrder"]
-       74 GETIMPORT                        R8 K24 [UDim2.fromScale]
-       76 LOADN                            R9 1
-       77 LOADN                            R10 1
-       78 CALL                             R8 2 1
-       79 SETTABLEKS                       R8 R7 K20 ["Size"]
-       81 CALL                             R5 2 1
-       82 SETUPVAL                         R5 5
-       83 RETURN                           R0 0
+       70 DUPTABLE                         R7 K22 [{["LayoutOrder"] = 1, ["Size"]}]
+       71 GETIMPORT                        R8 K25 [UDim2.fromScale]
+       73 LOADN                            R9 1
+       74 LOADN                            R10 1
+       75 CALL                             R8 2 1
+       76 SETTABLEKS                       R8 R7 K21 ["Size"]
+       78 CALL                             R5 2 1
+       79 SETUPVAL                         R5 5
+       80 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -178,109 +176,103 @@ PROTO_4:
       100 GETUPVAL                         R23 1
       101 GETTABLEKS                       R23 R23 K25 ["createElement"]
       103 GETUPVAL                         R24 4
-      104 DUPTABLE                         R25 K45 [{"ImageStyle", "IsDisabled", "LayoutOrder", "OnClick", "TooltipText"}]
+      104 DUPTABLE                         R25 K46 [{["ImageStyle"], ["IsDisabled"] = False, ["LayoutOrder"], ["OnClick"], ["TooltipText"]}]
       105 SETTABLEKS                       R7 R25 K41 ["ImageStyle"]
-      107 LOADB                            R26 0
-      108 SETTABLEKS                       R26 R25 K42 ["IsDisabled"]
-      110 NAMECALL                         R26 R6 K46 ["getNextOrder"]
-      112 CALL                             R26 1 1
-      113 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
-      115 GETTABLEKS                       R26 R0 K47 ["createMaterialVariant"]
-      117 SETTABLEKS                       R26 R25 K43 ["OnClick"]
-      119 LOADK                            R28 K2 ["TopBar"]
-      120 LOADK                            R29 K48 ["Create"]
-      121 NAMECALL                         R26 R5 K49 ["getText"]
-      123 CALL                             R26 3 1
-      124 SETTABLEKS                       R26 R25 K44 ["TooltipText"]
-      126 CALL                             R23 2 1
-      127 SETTABLEKS                       R23 R22 K37 ["CreateMaterialVariant"]
-      129 GETUPVAL                         R23 1
-      130 GETTABLEKS                       R23 R23 K25 ["createElement"]
-      132 GETUPVAL                         R24 4
-      133 DUPTABLE                         R25 K45 [{"ImageStyle", "IsDisabled", "LayoutOrder", "OnClick", "TooltipText"}]
-      134 SETTABLEKS                       R8 R25 K41 ["ImageStyle"]
-      136 SETTABLEKS                       R18 R25 K42 ["IsDisabled"]
-      138 NAMECALL                         R26 R6 K46 ["getNextOrder"]
-      140 CALL                             R26 1 1
-      141 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
-      143 GETTABLEKS                       R26 R0 K50 ["showInExplorer"]
-      145 SETTABLEKS                       R26 R25 K43 ["OnClick"]
-      147 LOADK                            R28 K2 ["TopBar"]
-      148 LOADK                            R29 K51 ["Show"]
-      149 NAMECALL                         R26 R5 K49 ["getText"]
-      151 CALL                             R26 3 1
-      152 SETTABLEKS                       R26 R25 K44 ["TooltipText"]
-      154 CALL                             R23 2 1
-      155 SETTABLEKS                       R23 R22 K8 ["ShowInExplorer"]
-      157 GETUPVAL                         R23 1
-      158 GETTABLEKS                       R23 R23 K25 ["createElement"]
-      160 GETUPVAL                         R24 2
-      161 DUPTABLE                         R25 K52 [{"Size", "LayoutOrder"}]
-      162 GETIMPORT                        R26 K54 [UDim2.new]
-      164 LOADN                            R27 1
-      165 LOADN                            R31 2
-      166 ADD                              R32 R10 R11
-      167 MUL                              R30 R31 R32
-      168 ADD                              R31 R15 R11
-      169 ADD                              R29 R30 R31
-      170 MINUS                            R28 R29
-      171 LOADN                            R29 1
-      172 LOADN                            R30 0
-      173 CALL                             R26 4 1
-      174 SETTABLEKS                       R26 R25 K4 ["Size"]
-      176 NAMECALL                         R26 R6 K46 ["getNextOrder"]
-      178 CALL                             R26 1 1
-      179 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
-      181 DUPTABLE                         R26 K56 [{"SearchBar"}]
-      182 GETUPVAL                         R27 1
-      183 GETTABLEKS                       R27 R27 K25 ["createElement"]
-      185 GETUPVAL                         R28 5
-      186 DUPTABLE                         R29 K63 [{"Position", "AnchorPoint", "OnSearchRequested", "PlaceholderText", "ShowSearchButton", "ShowSearchIcon", "Size"}]
-      187 GETIMPORT                        R30 K54 [UDim2.new]
-      189 LOADK                            R31 K64 [0.5]
-      190 LOADN                            R32 0
-      191 LOADN                            R33 0
-      192 LOADN                            R34 0
-      193 CALL                             R30 4 1
-      194 SETTABLEKS                       R30 R29 K57 ["Position"]
-      196 GETIMPORT                        R30 K66 [Vector2.new]
-      198 LOADK                            R31 K64 [0.5]
-      199 LOADN                            R32 0
-      200 CALL                             R30 2 1
-      201 SETTABLEKS                       R30 R29 K58 ["AnchorPoint"]
-      203 GETTABLEKS                       R30 R0 K67 ["setSearch"]
-      205 SETTABLEKS                       R30 R29 K59 ["OnSearchRequested"]
-      207 LOADK                            R32 K2 ["TopBar"]
-      208 LOADK                            R33 K68 ["Search"]
-      209 NAMECALL                         R30 R5 K49 ["getText"]
-      211 CALL                             R30 3 1
-      212 SETTABLEKS                       R30 R29 K60 ["PlaceholderText"]
-      214 LOADB                            R30 0
-      215 SETTABLEKS                       R30 R29 K61 ["ShowSearchButton"]
-      217 LOADB                            R30 1
-      218 SETTABLEKS                       R30 R29 K62 ["ShowSearchIcon"]
-      220 GETIMPORT                        R30 K54 [UDim2.new]
-      222 LOADN                            R31 0
-      223 MUL                              R32 R13 R17
-      224 LOADN                            R33 0
-      225 MOVE                             R34 R14
-      226 CALL                             R30 4 1
-      227 SETTABLEKS                       R30 R29 K4 ["Size"]
-      229 CALL                             R27 2 1
-      230 SETTABLEKS                       R27 R26 K55 ["SearchBar"]
-      232 CALL                             R23 3 1
-      233 SETTABLEKS                       R23 R22 K38 ["RestPane"]
-      235 GETUPVAL                         R23 1
-      236 GETTABLEKS                       R23 R23 K25 ["createElement"]
-      238 GETUPVAL                         R24 6
-      239 DUPTABLE                         R25 K69 [{"LayoutOrder"}]
-      240 NAMECALL                         R26 R6 K46 ["getNextOrder"]
-      242 CALL                             R26 1 1
-      243 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
-      245 CALL                             R23 2 1
-      246 SETTABLEKS                       R23 R22 K39 ["ViewType"]
-      248 CALL                             R19 3 -1
-      249 RETURN                           R19 -1
+      107 NAMECALL                         R26 R6 K47 ["getNextOrder"]
+      109 CALL                             R26 1 1
+      110 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
+      112 GETTABLEKS                       R26 R0 K48 ["createMaterialVariant"]
+      114 SETTABLEKS                       R26 R25 K44 ["OnClick"]
+      116 LOADK                            R28 K2 ["TopBar"]
+      117 LOADK                            R29 K49 ["Create"]
+      118 NAMECALL                         R26 R5 K50 ["getText"]
+      120 CALL                             R26 3 1
+      121 SETTABLEKS                       R26 R25 K45 ["TooltipText"]
+      123 CALL                             R23 2 1
+      124 SETTABLEKS                       R23 R22 K37 ["CreateMaterialVariant"]
+      126 GETUPVAL                         R23 1
+      127 GETTABLEKS                       R23 R23 K25 ["createElement"]
+      129 GETUPVAL                         R24 4
+      130 DUPTABLE                         R25 K51 [{"ImageStyle", "IsDisabled", "LayoutOrder", "OnClick", "TooltipText"}]
+      131 SETTABLEKS                       R8 R25 K41 ["ImageStyle"]
+      133 SETTABLEKS                       R18 R25 K42 ["IsDisabled"]
+      135 NAMECALL                         R26 R6 K47 ["getNextOrder"]
+      137 CALL                             R26 1 1
+      138 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
+      140 GETTABLEKS                       R26 R0 K52 ["showInExplorer"]
+      142 SETTABLEKS                       R26 R25 K44 ["OnClick"]
+      144 LOADK                            R28 K2 ["TopBar"]
+      145 LOADK                            R29 K53 ["Show"]
+      146 NAMECALL                         R26 R5 K50 ["getText"]
+      148 CALL                             R26 3 1
+      149 SETTABLEKS                       R26 R25 K45 ["TooltipText"]
+      151 CALL                             R23 2 1
+      152 SETTABLEKS                       R23 R22 K8 ["ShowInExplorer"]
+      154 GETUPVAL                         R23 1
+      155 GETTABLEKS                       R23 R23 K25 ["createElement"]
+      157 GETUPVAL                         R24 2
+      158 DUPTABLE                         R25 K54 [{"Size", "LayoutOrder"}]
+      159 GETIMPORT                        R26 K56 [UDim2.new]
+      161 LOADN                            R27 1
+      162 LOADN                            R31 2
+      163 ADD                              R32 R10 R11
+      164 MUL                              R30 R31 R32
+      165 ADD                              R31 R15 R11
+      166 ADD                              R29 R30 R31
+      167 MINUS                            R28 R29
+      168 LOADN                            R29 1
+      169 LOADN                            R30 0
+      170 CALL                             R26 4 1
+      171 SETTABLEKS                       R26 R25 K4 ["Size"]
+      173 NAMECALL                         R26 R6 K47 ["getNextOrder"]
+      175 CALL                             R26 1 1
+      176 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
+      178 DUPTABLE                         R26 K58 [{"SearchBar"}]
+      179 GETUPVAL                         R27 1
+      180 GETTABLEKS                       R27 R27 K25 ["createElement"]
+      182 GETUPVAL                         R28 5
+      183 DUPTABLE                         R29 K66 [{["Position"], ["AnchorPoint"], ["OnSearchRequested"], ["PlaceholderText"], ["ShowSearchButton"] = False, ["ShowSearchIcon"] = True, ["Size"]}]
+      184 GETIMPORT                        R30 K56 [UDim2.new]
+      186 LOADK                            R31 K67 [0.5]
+      187 LOADN                            R32 0
+      188 LOADN                            R33 0
+      189 LOADN                            R34 0
+      190 CALL                             R30 4 1
+      191 SETTABLEKS                       R30 R29 K59 ["Position"]
+      193 GETIMPORT                        R30 K69 [Vector2.new]
+      195 LOADK                            R31 K67 [0.5]
+      196 LOADN                            R32 0
+      197 CALL                             R30 2 1
+      198 SETTABLEKS                       R30 R29 K60 ["AnchorPoint"]
+      200 GETTABLEKS                       R30 R0 K70 ["setSearch"]
+      202 SETTABLEKS                       R30 R29 K61 ["OnSearchRequested"]
+      204 LOADK                            R32 K2 ["TopBar"]
+      205 LOADK                            R33 K71 ["Search"]
+      206 NAMECALL                         R30 R5 K50 ["getText"]
+      208 CALL                             R30 3 1
+      209 SETTABLEKS                       R30 R29 K62 ["PlaceholderText"]
+      211 GETIMPORT                        R30 K56 [UDim2.new]
+      213 LOADN                            R31 0
+      214 MUL                              R32 R13 R17
+      215 LOADN                            R33 0
+      216 MOVE                             R34 R14
+      217 CALL                             R30 4 1
+      218 SETTABLEKS                       R30 R29 K4 ["Size"]
+      220 CALL                             R27 2 1
+      221 SETTABLEKS                       R27 R26 K57 ["SearchBar"]
+      223 CALL                             R23 3 1
+      224 SETTABLEKS                       R23 R22 K38 ["RestPane"]
+      226 GETUPVAL                         R23 1
+      227 GETTABLEKS                       R23 R23 K25 ["createElement"]
+      229 GETUPVAL                         R24 6
+      230 DUPTABLE                         R25 K72 [{"LayoutOrder"}]
+      231 NAMECALL                         R26 R6 K47 ["getNextOrder"]
+      233 CALL                             R26 1 1
+      234 SETTABLEKS                       R26 R25 K3 ["LayoutOrder"]
+      236 CALL                             R23 2 1
+      237 SETTABLEKS                       R23 R22 K39 ["ViewType"]
+      239 CALL                             R19 3 -1
+      240 RETURN                           R19 -1
 
 PROTO_5:
         0 DUPTABLE                         R1 K3 [{"Material", "Path", "Search"}]

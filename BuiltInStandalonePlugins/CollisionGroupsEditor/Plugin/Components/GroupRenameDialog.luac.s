@@ -13,17 +13,13 @@ PROTO_1:
         5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K2 [{"neverShowCheckboxToggled", "userRequestedDialogNeverShow"}]
-        1 LOADB                            R4 0
-        2 SETTABLEKS                       R4 R3 K0 ["neverShowCheckboxToggled"]
-        4 LOADB                            R4 0
-        5 SETTABLEKS                       R4 R3 K1 ["userRequestedDialogNeverShow"]
-        7 NAMECALL                         R1 R0 K3 ["setState"]
-        9 CALL                             R1 2 0
-       10 NEWCLOSURE                       R1 P0
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["toggleDialogNeverShow"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R3 K3 [{[1] = False, ["userRequestedDialogNeverShow"] = False}]
+        1 NAMECALL                         R1 R0 K4 ["setState"]
+        3 CALL                             R1 2 0
+        4 NEWCLOSURE                       R1 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R1 R0 K5 ["toggleDialogNeverShow"]
+        8 RETURN                           R0 0
 
 PROTO_3:
         0 DUPTABLE                         R1 K1 [{"userRequestedDialogNeverShow"}]
@@ -65,94 +61,82 @@ PROTO_6:
        13 GETUPVAL                         R5 0
        14 GETTABLEKS                       R5 R5 K6 ["createElement"]
        16 GETUPVAL                         R6 1
-       17 DUPTABLE                         R7 K14 [{"Style", "Enabled", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
-       18 LOADK                            R8 K15 ["Alert"]
-       19 SETTABLEKS                       R8 R7 K7 ["Style"]
-       21 GETTABLEKS                       R9 R0 K16 ["state"]
-       23 GETTABLEKS                       R9 R9 K17 ["userRequestedDialogNeverShow"]
-       25 NOT                              R8 R9
-       26 JUMPIFNOT                        R8 ; [+2]
-       27 GETTABLEKS                       R8 R1 K8 ["Enabled"]
-       29 SETTABLEKS                       R8 R7 K8 ["Enabled"]
-       31 LOADK                            R10 K18 ["RenameWarningDialog"]
-       32 LOADK                            R11 K19 ["DialogWindowTitle"]
-       33 NAMECALL                         R8 R3 K20 ["getText"]
-       35 CALL                             R8 3 1
-       36 SETTABLEKS                       R8 R7 K9 ["Title"]
-       38 GETTABLEKS                       R8 R2 K21 ["DialogMinimumSize"]
-       40 SETTABLEKS                       R8 R7 K10 ["MinContentSize"]
-       42 NEWTABLE                         R8 0 1
-       44 DUPTABLE                         R9 K24 [{"Key", "Text"}]
-       45 LOADK                            R10 K25 ["ok"]
-       46 SETTABLEKS                       R10 R9 K22 ["Key"]
-       48 LOADK                            R12 K18 ["RenameWarningDialog"]
-       49 LOADK                            R13 K26 ["Ok"]
-       50 NAMECALL                         R10 R3 K20 ["getText"]
-       52 CALL                             R10 3 1
-       53 SETTABLEKS                       R10 R9 K23 ["Text"]
-       55 SETLIST                          R8 R9 1 [1]
-       57 SETTABLEKS                       R8 R7 K11 ["Buttons"]
-       59 NEWCLOSURE                       R8 P0
+       17 DUPTABLE                         R7 K15 [{["Style"] = "Alert", ["Enabled"], ["Title"], ["MinContentSize"], ["Buttons"], ["OnButtonPressed"], ["OnClose"]}]
+       18 GETTABLEKS                       R9 R0 K16 ["state"]
+       20 GETTABLEKS                       R9 R9 K17 ["userRequestedDialogNeverShow"]
+       22 NOT                              R8 R9
+       23 JUMPIFNOT                        R8 ; [+2]
+       24 GETTABLEKS                       R8 R1 K9 ["Enabled"]
+       26 SETTABLEKS                       R8 R7 K9 ["Enabled"]
+       28 LOADK                            R10 K18 ["RenameWarningDialog"]
+       29 LOADK                            R11 K19 ["DialogWindowTitle"]
+       30 NAMECALL                         R8 R3 K20 ["getText"]
+       32 CALL                             R8 3 1
+       33 SETTABLEKS                       R8 R7 K10 ["Title"]
+       35 GETTABLEKS                       R8 R2 K21 ["DialogMinimumSize"]
+       37 SETTABLEKS                       R8 R7 K11 ["MinContentSize"]
+       39 NEWTABLE                         R8 0 1
+       41 DUPTABLE                         R9 K25 [{["Key"] = "ok", ["Text"]}]
+       42 LOADK                            R12 K18 ["RenameWarningDialog"]
+       43 LOADK                            R13 K26 ["Ok"]
+       44 NAMECALL                         R10 R3 K20 ["getText"]
+       46 CALL                             R10 3 1
+       47 SETTABLEKS                       R10 R9 K24 ["Text"]
+       49 SETLIST                          R8 R9 1 [1]
+       51 SETTABLEKS                       R8 R7 K12 ["Buttons"]
+       53 NEWCLOSURE                       R8 P0
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R0
+       57 SETTABLEKS                       R8 R7 K13 ["OnButtonPressed"]
+       59 NEWCLOSURE                       R8 P1
        60 CAPTURE                          VAL R1
-       61 CAPTURE                          VAL R4
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R8 R7 K12 ["OnButtonPressed"]
-       65 NEWCLOSURE                       R8 P1
-       66 CAPTURE                          VAL R1
-       67 SETTABLEKS                       R8 R7 K13 ["OnClose"]
-       69 DUPTABLE                         R8 K28 [{"Contents"}]
-       70 GETUPVAL                         R9 0
-       71 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       73 GETUPVAL                         R10 2
-       74 DUPTABLE                         R11 K32 [{"Style", "Layout", "Padding", "Spacing"}]
-       75 LOADK                            R12 K33 ["Box"]
-       76 SETTABLEKS                       R12 R11 K7 ["Style"]
-       78 GETIMPORT                        R12 K37 [Enum.FillDirection.Vertical]
-       80 SETTABLEKS                       R12 R11 K29 ["Layout"]
-       82 GETTABLEKS                       R12 R2 K30 ["Padding"]
-       84 SETTABLEKS                       R12 R11 K30 ["Padding"]
-       86 GETTABLEKS                       R12 R2 K31 ["Spacing"]
-       88 SETTABLEKS                       R12 R11 K31 ["Spacing"]
-       90 DUPTABLE                         R12 K40 [{"TextLabel", "Checkbox"}]
-       91 GETUPVAL                         R13 0
-       92 GETTABLEKS                       R13 R13 K6 ["createElement"]
-       94 GETUPVAL                         R14 3
-       95 DUPTABLE                         R15 K44 [{"LayoutOrder", "TextWrapped", "Size", "Text"}]
-       96 LOADN                            R16 1
-       97 SETTABLEKS                       R16 R15 K41 ["LayoutOrder"]
-       99 LOADB                            R16 1
-      100 SETTABLEKS                       R16 R15 K42 ["TextWrapped"]
-      102 GETTABLEKS                       R16 R2 K45 ["WarningTextSize"]
-      104 SETTABLEKS                       R16 R15 K43 ["Size"]
+       61 SETTABLEKS                       R8 R7 K14 ["OnClose"]
+       63 DUPTABLE                         R8 K28 [{"Contents"}]
+       64 GETUPVAL                         R9 0
+       65 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       67 GETUPVAL                         R10 2
+       68 DUPTABLE                         R11 K33 [{["Style"] = "Box", ["Layout"], ["Padding"], ["Spacing"]}]
+       69 GETIMPORT                        R12 K37 [Enum.FillDirection.Vertical]
+       71 SETTABLEKS                       R12 R11 K30 ["Layout"]
+       73 GETTABLEKS                       R12 R2 K31 ["Padding"]
+       75 SETTABLEKS                       R12 R11 K31 ["Padding"]
+       77 GETTABLEKS                       R12 R2 K32 ["Spacing"]
+       79 SETTABLEKS                       R12 R11 K32 ["Spacing"]
+       81 DUPTABLE                         R12 K40 [{"TextLabel", "Checkbox"}]
+       82 GETUPVAL                         R13 0
+       83 GETTABLEKS                       R13 R13 K6 ["createElement"]
+       85 GETUPVAL                         R14 3
+       86 DUPTABLE                         R15 K46 [{["LayoutOrder"] = 1, ["TextWrapped"] = True, ["Size"], ["Text"]}]
+       87 GETTABLEKS                       R16 R2 K47 ["WarningTextSize"]
+       89 SETTABLEKS                       R16 R15 K45 ["Size"]
+       91 LOADK                            R18 K18 ["RenameWarningDialog"]
+       92 LOADK                            R19 K48 ["WarningMessage"]
+       93 NAMECALL                         R16 R3 K20 ["getText"]
+       95 CALL                             R16 3 1
+       96 SETTABLEKS                       R16 R15 K24 ["Text"]
+       98 CALL                             R13 2 1
+       99 SETTABLEKS                       R13 R12 K38 ["TextLabel"]
+      101 GETUPVAL                         R13 0
+      102 GETTABLEKS                       R13 R13 K6 ["createElement"]
+      104 GETUPVAL                         R14 4
+      105 DUPTABLE                         R15 K52 [{["LayoutOrder"] = 2, ["Text"], ["Checked"], ["OnClick"]}]
       106 LOADK                            R18 K18 ["RenameWarningDialog"]
-      107 LOADK                            R19 K46 ["WarningMessage"]
+      107 LOADK                            R19 K53 ["DontShowThisWarningAgain"]
       108 NAMECALL                         R16 R3 K20 ["getText"]
       110 CALL                             R16 3 1
-      111 SETTABLEKS                       R16 R15 K23 ["Text"]
-      113 CALL                             R13 2 1
-      114 SETTABLEKS                       R13 R12 K38 ["TextLabel"]
-      116 GETUPVAL                         R13 0
-      117 GETTABLEKS                       R13 R13 K6 ["createElement"]
-      119 GETUPVAL                         R14 4
-      120 DUPTABLE                         R15 K49 [{"LayoutOrder", "Text", "Checked", "OnClick"}]
-      121 LOADN                            R16 2
-      122 SETTABLEKS                       R16 R15 K41 ["LayoutOrder"]
-      124 LOADK                            R18 K18 ["RenameWarningDialog"]
-      125 LOADK                            R19 K50 ["DontShowThisWarningAgain"]
-      126 NAMECALL                         R16 R3 K20 ["getText"]
-      128 CALL                             R16 3 1
-      129 SETTABLEKS                       R16 R15 K23 ["Text"]
-      131 GETTABLEKS                       R16 R0 K16 ["state"]
-      133 GETTABLEKS                       R16 R16 K51 ["neverShowCheckboxToggled"]
-      135 SETTABLEKS                       R16 R15 K47 ["Checked"]
-      137 GETTABLEKS                       R16 R0 K52 ["toggleDialogNeverShow"]
-      139 SETTABLEKS                       R16 R15 K48 ["OnClick"]
-      141 CALL                             R13 2 1
-      142 SETTABLEKS                       R13 R12 K39 ["Checkbox"]
-      144 CALL                             R9 3 1
-      145 SETTABLEKS                       R9 R8 K27 ["Contents"]
-      147 CALL                             R5 3 -1
-      148 RETURN                           R5 -1
+      111 SETTABLEKS                       R16 R15 K24 ["Text"]
+      113 GETTABLEKS                       R16 R0 K16 ["state"]
+      115 GETTABLEKS                       R16 R16 K54 ["neverShowCheckboxToggled"]
+      117 SETTABLEKS                       R16 R15 K50 ["Checked"]
+      119 GETTABLEKS                       R16 R0 K55 ["toggleDialogNeverShow"]
+      121 SETTABLEKS                       R16 R15 K51 ["OnClick"]
+      123 CALL                             R13 2 1
+      124 SETTABLEKS                       R13 R12 K39 ["Checkbox"]
+      126 CALL                             R9 3 1
+      127 SETTABLEKS                       R9 R8 K27 ["Contents"]
+      129 CALL                             R5 3 -1
+      130 RETURN                           R5 -1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

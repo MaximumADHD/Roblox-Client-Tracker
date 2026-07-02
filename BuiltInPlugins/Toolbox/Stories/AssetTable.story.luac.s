@@ -23,48 +23,44 @@ PROTO_3:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
-       11 DUPTABLE                         R6 K6 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
+       11 DUPTABLE                         R6 K7 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       12 GETIMPORT                        R7 K10 [Enum.AutomaticSize.Y]
        14 SETTABLEKS                       R7 R6 K3 ["AutomaticSize"]
-       16 LOADN                            R7 1
-       17 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
-       19 GETIMPORT                        R7 K12 [UDim2.new]
-       21 LOADN                            R8 1
-       22 LOADN                            R9 0
-       23 LOADN                            R10 0
-       24 LOADN                            R11 0
-       25 CALL                             R7 4 1
-       26 SETTABLEKS                       R7 R6 K5 ["Size"]
-       28 DUPTABLE                         R7 K14 [{"List"}]
-       29 GETUPVAL                         R8 0
-       30 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       32 GETUPVAL                         R9 2
-       33 DUPTABLE                         R10 K21 [{"Assets", "CanInsertAsset", "LayoutOrder", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
-       34 NEWTABLE                         R11 0 3
-       36 GETUPVAL                         R12 3
-       37 GETUPVAL                         R13 4
-       38 GETUPVAL                         R14 5
-       39 SETLIST                          R11 R12 3 [1]
-       41 SETTABLEKS                       R11 R10 K15 ["Assets"]
-       43 DUPCLOSURE                       R11 K22 [PROTO_0]
-       44 SETTABLEKS                       R11 R10 K16 ["CanInsertAsset"]
-       46 LOADN                            R11 1
-       47 SETTABLEKS                       R11 R10 K17 ["LayoutOrder"]
-       49 DUPCLOSURE                       R11 K23 [PROTO_1]
-       50 SETTABLEKS                       R11 R10 K18 ["OnAssetPreviewButtonClicked"]
-       52 GETIMPORT                        R11 K25 [UDim2.fromOffset]
-       54 LOADN                            R12 244
-       55 LOADN                            R13 244
-       56 CALL                             R11 2 1
-       57 SETTABLEKS                       R11 R10 K19 ["ParentAbsoluteSize"]
-       59 DUPCLOSURE                       R11 K26 [PROTO_2]
-       60 SETTABLEKS                       R11 R10 K20 ["TryOpenAssetConfig"]
-       62 CALL                             R8 2 1
-       63 SETTABLEKS                       R8 R7 K13 ["List"]
-       65 CALL                             R4 3 1
-       66 SETTABLEKS                       R4 R3 K1 ["Frame"]
-       68 CALL                             R0 3 -1
-       69 RETURN                           R0 -1
+       16 GETIMPORT                        R7 K13 [UDim2.new]
+       18 LOADN                            R8 1
+       19 LOADN                            R9 0
+       20 LOADN                            R10 0
+       21 LOADN                            R11 0
+       22 CALL                             R7 4 1
+       23 SETTABLEKS                       R7 R6 K6 ["Size"]
+       25 DUPTABLE                         R7 K15 [{"List"}]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       29 GETUPVAL                         R9 2
+       30 DUPTABLE                         R10 K22 [{["Assets"], ["CanInsertAsset"], ["LayoutOrder"] = 1, ["OnAssetPreviewButtonClicked"], ["ParentAbsoluteSize"], ["TryOpenAssetConfig"]}]
+       31 NEWTABLE                         R11 0 3
+       33 GETUPVAL                         R12 3
+       34 GETUPVAL                         R13 4
+       35 GETUPVAL                         R14 5
+       36 SETLIST                          R11 R12 3 [1]
+       38 SETTABLEKS                       R11 R10 K16 ["Assets"]
+       40 DUPCLOSURE                       R11 K23 [PROTO_0]
+       41 SETTABLEKS                       R11 R10 K17 ["CanInsertAsset"]
+       43 DUPCLOSURE                       R11 K24 [PROTO_1]
+       44 SETTABLEKS                       R11 R10 K19 ["OnAssetPreviewButtonClicked"]
+       46 GETIMPORT                        R11 K26 [UDim2.fromOffset]
+       48 LOADN                            R12 500
+       49 LOADN                            R13 500
+       50 CALL                             R11 2 1
+       51 SETTABLEKS                       R11 R10 K20 ["ParentAbsoluteSize"]
+       53 DUPCLOSURE                       R11 K27 [PROTO_2]
+       54 SETTABLEKS                       R11 R10 K21 ["TryOpenAssetConfig"]
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K14 ["List"]
+       59 CALL                             R4 3 1
+       60 SETTABLEKS                       R4 R3 K1 ["Frame"]
+       62 CALL                             R0 3 -1
+       63 RETURN                           R0 -1
 
 PROTO_4:
         0 LOADB                            R0 1
@@ -91,44 +87,40 @@ PROTO_7:
         7 GETUPVAL                         R4 0
         8 GETTABLEKS                       R4 R4 K0 ["createElement"]
        10 LOADK                            R5 K1 ["Frame"]
-       11 DUPTABLE                         R6 K6 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
-       12 GETIMPORT                        R7 K9 [Enum.AutomaticSize.Y]
+       11 DUPTABLE                         R6 K7 [{["AutomaticSize"], ["BackgroundTransparency"] = 1, ["Size"]}]
+       12 GETIMPORT                        R7 K10 [Enum.AutomaticSize.Y]
        14 SETTABLEKS                       R7 R6 K3 ["AutomaticSize"]
-       16 LOADN                            R7 1
-       17 SETTABLEKS                       R7 R6 K4 ["BackgroundTransparency"]
-       19 GETIMPORT                        R7 K12 [UDim2.new]
-       21 LOADN                            R8 1
-       22 LOADN                            R9 0
-       23 LOADN                            R10 0
-       24 LOADN                            R11 0
-       25 CALL                             R7 4 1
-       26 SETTABLEKS                       R7 R6 K5 ["Size"]
-       28 DUPTABLE                         R7 K14 [{"List"}]
-       29 GETUPVAL                         R8 0
-       30 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       32 GETUPVAL                         R9 2
-       33 DUPTABLE                         R10 K21 [{"Assets", "CanInsertAsset", "LayoutOrder", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
-       34 NEWTABLE                         R11 0 0
-       36 SETTABLEKS                       R11 R10 K15 ["Assets"]
-       38 DUPCLOSURE                       R11 K22 [PROTO_4]
-       39 SETTABLEKS                       R11 R10 K16 ["CanInsertAsset"]
-       41 LOADN                            R11 1
-       42 SETTABLEKS                       R11 R10 K17 ["LayoutOrder"]
-       44 DUPCLOSURE                       R11 K23 [PROTO_5]
-       45 SETTABLEKS                       R11 R10 K18 ["OnAssetPreviewButtonClicked"]
-       47 GETIMPORT                        R11 K25 [UDim2.fromOffset]
-       49 LOADN                            R12 244
-       50 LOADN                            R13 244
-       51 CALL                             R11 2 1
-       52 SETTABLEKS                       R11 R10 K19 ["ParentAbsoluteSize"]
-       54 DUPCLOSURE                       R11 K26 [PROTO_6]
-       55 SETTABLEKS                       R11 R10 K20 ["TryOpenAssetConfig"]
-       57 CALL                             R8 2 1
-       58 SETTABLEKS                       R8 R7 K13 ["List"]
-       60 CALL                             R4 3 1
-       61 SETTABLEKS                       R4 R3 K1 ["Frame"]
-       63 CALL                             R0 3 -1
-       64 RETURN                           R0 -1
+       16 GETIMPORT                        R7 K13 [UDim2.new]
+       18 LOADN                            R8 1
+       19 LOADN                            R9 0
+       20 LOADN                            R10 0
+       21 LOADN                            R11 0
+       22 CALL                             R7 4 1
+       23 SETTABLEKS                       R7 R6 K6 ["Size"]
+       25 DUPTABLE                         R7 K15 [{"List"}]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       29 GETUPVAL                         R9 2
+       30 DUPTABLE                         R10 K22 [{["Assets"], ["CanInsertAsset"], ["LayoutOrder"] = 1, ["OnAssetPreviewButtonClicked"], ["ParentAbsoluteSize"], ["TryOpenAssetConfig"]}]
+       31 NEWTABLE                         R11 0 0
+       33 SETTABLEKS                       R11 R10 K16 ["Assets"]
+       35 DUPCLOSURE                       R11 K23 [PROTO_4]
+       36 SETTABLEKS                       R11 R10 K17 ["CanInsertAsset"]
+       38 DUPCLOSURE                       R11 K24 [PROTO_5]
+       39 SETTABLEKS                       R11 R10 K19 ["OnAssetPreviewButtonClicked"]
+       41 GETIMPORT                        R11 K26 [UDim2.fromOffset]
+       43 LOADN                            R12 500
+       44 LOADN                            R13 500
+       45 CALL                             R11 2 1
+       46 SETTABLEKS                       R11 R10 K20 ["ParentAbsoluteSize"]
+       48 DUPCLOSURE                       R11 K27 [PROTO_6]
+       49 SETTABLEKS                       R11 R10 K21 ["TryOpenAssetConfig"]
+       51 CALL                             R8 2 1
+       52 SETTABLEKS                       R8 R7 K14 ["List"]
+       54 CALL                             R4 3 1
+       55 SETTABLEKS                       R4 R3 K1 ["Frame"]
+       57 CALL                             R0 3 -1
+       58 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -166,29 +158,23 @@ MAIN:
        51 LOADN                            R8 3
        52 LOADK                            R9 K18 ["Asset Row 3"]
        53 CALL                             R7 2 1
-       54 DUPTABLE                         R8 K21 [{"summary", "stories"}]
-       55 LOADK                            R9 K8 ["AssetTable"]
-       56 SETTABLEKS                       R9 R8 K19 ["summary"]
-       58 NEWTABLE                         R9 0 2
-       60 DUPTABLE                         R10 K24 [{"name", "story"}]
-       61 LOADK                            R11 K8 ["AssetTable"]
-       62 SETTABLEKS                       R11 R10 K22 ["name"]
-       64 DUPCLOSURE                       R11 K25 [PROTO_3]
-       65 CAPTURE                          VAL R3
-       66 CAPTURE                          VAL R4
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R5
-       69 CAPTURE                          VAL R6
-       70 CAPTURE                          VAL R7
-       71 SETTABLEKS                       R11 R10 K23 ["story"]
-       73 DUPTABLE                         R11 K24 [{"name", "story"}]
-       74 LOADK                            R12 K26 ["Empty table"]
-       75 SETTABLEKS                       R12 R11 K22 ["name"]
-       77 DUPCLOSURE                       R12 K27 [PROTO_7]
-       78 CAPTURE                          VAL R3
-       79 CAPTURE                          VAL R4
-       80 CAPTURE                          VAL R1
-       81 SETTABLEKS                       R12 R11 K23 ["story"]
-       83 SETLIST                          R9 R10 2 [1]
-       85 SETTABLEKS                       R9 R8 K20 ["stories"]
-       87 RETURN                           R8 1
+       54 DUPTABLE                         R8 K21 [{["summary"] = "AssetTable", ["stories"]}]
+       55 NEWTABLE                         R9 0 2
+       57 DUPTABLE                         R10 K24 [{["name"] = "AssetTable", ["story"]}]
+       58 DUPCLOSURE                       R11 K25 [PROTO_3]
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R6
+       64 CAPTURE                          VAL R7
+       65 SETTABLEKS                       R11 R10 K23 ["story"]
+       67 DUPTABLE                         R11 K27 [{["name"] = "Empty table", ["story"]}]
+       68 DUPCLOSURE                       R12 K28 [PROTO_7]
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R1
+       72 SETTABLEKS                       R12 R11 K23 ["story"]
+       74 SETLIST                          R9 R10 2 [1]
+       76 SETTABLEKS                       R9 R8 K20 ["stories"]
+       78 RETURN                           R8 1

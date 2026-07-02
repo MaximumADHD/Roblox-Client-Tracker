@@ -21,9 +21,9 @@ PROTO_1:
         4 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K8 [{"ImageLoaded", "_loadedImagesCache", "_imageLabelPool", "_loadingImageLabels", "_loadingImageIds", "_alive", "_createImageLabel", "_contentProvider"}]
+        0 DUPTABLE                         R3 K9 [{[1], ["_loadedImagesCache"], ["_imageLabelPool"], ["_loadingImageLabels"], ["_loadingImageIds"], ["_alive"] = True, ["_createImageLabel"], ["_contentProvider"]}]
         1 GETUPVAL                         R4 0
-        2 GETTABLEKS                       R4 R4 K9 ["new"]
+        2 GETTABLEKS                       R4 R4 K10 ["new"]
         4 CALL                             R4 0 1
         5 SETTABLEKS                       R4 R3 K0 ["ImageLoaded"]
         7 NEWTABLE                         R4 0 0
@@ -34,63 +34,59 @@ PROTO_2:
        17 SETTABLEKS                       R4 R3 K3 ["_loadingImageLabels"]
        19 NEWTABLE                         R4 0 0
        21 SETTABLEKS                       R4 R3 K4 ["_loadingImageIds"]
-       23 LOADB                            R4 1
-       24 SETTABLEKS                       R4 R3 K5 ["_alive"]
-       26 JUMPIFNOT                        R0 ; [+3]
-       27 GETTABLEKS                       R4 R0 K10 ["createImageLabel"]
-       29 JUMPIF                           R4 ; [+1]
-       30 GETUPVAL                         R4 1
-       31 SETTABLEKS                       R4 R3 K6 ["_createImageLabel"]
-       33 JUMPIFNOT                        R0 ; [+3]
-       34 GETTABLEKS                       R4 R0 K11 ["contentProvider"]
-       36 JUMPIF                           R4 ; [+1]
-       37 GETUPVAL                         R4 2
-       38 SETTABLEKS                       R4 R3 K7 ["_contentProvider"]
-       40 GETUPVAL                         R4 3
-       41 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       43 GETIMPORT                        R2 K13 [setmetatable]
-       45 CALL                             R2 2 1
-       46 GETUPVAL                         R3 4
-       47 GETTABLEKS                       R3 R3 K9 ["new"]
-       49 LOADK                            R4 K14 ["CoreGui"]
-       50 MOVE                             R5 R1
-       51 CALL                             R3 2 1
-       52 GETIMPORT                        R4 K16 [Instance.new]
-       54 LOADK                            R5 K17 ["ScreenGui"]
-       55 CALL                             R4 1 1
-       56 SETTABLEKS                       R4 R2 K18 ["_hostGui"]
-       58 GETTABLEKS                       R4 R2 K18 ["_hostGui"]
-       60 LOADK                            R5 K19 ["ImageLoader"]
-       61 SETTABLEKS                       R5 R4 K20 ["Name"]
-       63 GETTABLEKS                       R4 R2 K18 ["_hostGui"]
-       65 LOADB                            R5 1
-       66 SETTABLEKS                       R5 R4 K21 ["Enabled"]
-       68 GETTABLEKS                       R4 R2 K18 ["_hostGui"]
-       70 NAMECALL                         R5 R3 K22 ["asInstance"]
-       72 CALL                             R5 1 1
-       73 SETTABLEKS                       R5 R4 K23 ["Parent"]
-       75 GETUPVAL                         R4 5
-       76 CALL                             R4 0 1
-       77 JUMPIF                           R4 ; [+9]
-       78 JUMPIFNOT                        R0 ; [+3]
-       79 GETTABLEKS                       R4 R0 K24 ["_dontPoll"]
-       81 JUMPIF                           R4 ; [+5]
-       82 GETIMPORT                        R4 K26 [spawn]
-       84 NEWCLOSURE                       R5 P0
-       85 CAPTURE                          VAL R2
-       86 CALL                             R4 1 0
-       87 RETURN                           R2 1
+       23 JUMPIFNOT                        R0 ; [+3]
+       24 GETTABLEKS                       R4 R0 K11 ["createImageLabel"]
+       26 JUMPIF                           R4 ; [+1]
+       27 GETUPVAL                         R4 1
+       28 SETTABLEKS                       R4 R3 K7 ["_createImageLabel"]
+       30 JUMPIFNOT                        R0 ; [+3]
+       31 GETTABLEKS                       R4 R0 K12 ["contentProvider"]
+       33 JUMPIF                           R4 ; [+1]
+       34 GETUPVAL                         R4 2
+       35 SETTABLEKS                       R4 R3 K8 ["_contentProvider"]
+       37 GETUPVAL                         R4 3
+       38 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       40 GETIMPORT                        R2 K14 [setmetatable]
+       42 CALL                             R2 2 1
+       43 GETUPVAL                         R3 4
+       44 GETTABLEKS                       R3 R3 K10 ["new"]
+       46 LOADK                            R4 K15 ["CoreGui"]
+       47 MOVE                             R5 R1
+       48 CALL                             R3 2 1
+       49 GETIMPORT                        R4 K17 [Instance.new]
+       51 LOADK                            R5 K18 ["ScreenGui"]
+       52 CALL                             R4 1 1
+       53 SETTABLEKS                       R4 R2 K19 ["_hostGui"]
+       55 GETTABLEKS                       R4 R2 K19 ["_hostGui"]
+       57 LOADK                            R5 K20 ["ImageLoader"]
+       58 SETTABLEKS                       R5 R4 K21 ["Name"]
+       60 GETTABLEKS                       R4 R2 K19 ["_hostGui"]
+       62 LOADB                            R5 1
+       63 SETTABLEKS                       R5 R4 K22 ["Enabled"]
+       65 GETTABLEKS                       R4 R2 K19 ["_hostGui"]
+       67 NAMECALL                         R5 R3 K23 ["asInstance"]
+       69 CALL                             R5 1 1
+       70 SETTABLEKS                       R5 R4 K24 ["Parent"]
+       72 GETUPVAL                         R4 5
+       73 CALL                             R4 0 1
+       74 JUMPIF                           R4 ; [+9]
+       75 JUMPIFNOT                        R0 ; [+3]
+       76 GETTABLEKS                       R4 R0 K25 ["_dontPoll"]
+       78 JUMPIF                           R4 ; [+5]
+       79 GETIMPORT                        R4 K27 [spawn]
+       81 NEWCLOSURE                       R5 P0
+       82 CAPTURE                          VAL R2
+       83 CALL                             R4 1 0
+       84 RETURN                           R2 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
-        3 DUPTABLE                         R2 K3 [{"dontPoll", "createImageLabel"}]
-        4 LOADB                            R3 1
-        5 SETTABLEKS                       R3 R2 K1 ["dontPoll"]
-        7 SETTABLEKS                       R0 R2 K2 ["createImageLabel"]
-        9 LOADB                            R3 1
-       10 CALL                             R1 2 -1
-       11 RETURN                           R1 -1
+        3 DUPTABLE                         R2 K4 [{["dontPoll"] = True, ["createImageLabel"]}]
+        4 SETTABLEKS                       R0 R2 K3 ["createImageLabel"]
+        6 LOADB                            R3 1
+        7 CALL                             R1 2 -1
+        8 RETURN                           R1 -1
 
 PROTO_4:
         0 JUMPIFEQKNIL                     R1 ; [+3]

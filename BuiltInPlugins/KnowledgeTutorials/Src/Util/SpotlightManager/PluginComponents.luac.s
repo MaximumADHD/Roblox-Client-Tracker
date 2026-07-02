@@ -16,7 +16,7 @@ MAIN:
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K12 ["isCli"]
        25 CALL                             R3 0 1
-       26 JUMPIFNOT                        R3 ; [+115]
+       26 JUMPIFNOT                        R3 ; [+103]
        27 GETIMPORT                        R3 K9 [require]
        29 GETTABLEKS                       R4 R0 K10 ["Packages"]
        31 GETTABLEKS                       R4 R4 K13 ["Dev"]
@@ -44,66 +44,58 @@ MAIN:
        66 GETTABLEKS                       R7 R4 K25 ["fn"]
        68 CALL                             R7 0 1
        69 GETTABLEKS                       R7 R7 K30 ["mockReturnValue"]
-       71 DUPTABLE                         R8 K32 [{"Exists"}]
-       72 LOADB                            R9 1
-       73 SETTABLEKS                       R9 R8 K31 ["Exists"]
-       75 CALL                             R7 1 1
-       76 SETTABLEKS                       R7 R6 K28 ["GetWidgetAsync"]
-       78 SETTABLEKS                       R6 R5 K18 ["Widgets"]
-       80 DUPTABLE                         R6 K34 [{"GetRibbonDefinitionAsync"}]
-       81 GETTABLEKS                       R7 R4 K25 ["fn"]
-       83 CALL                             R7 0 1
-       84 GETTABLEKS                       R7 R7 K30 ["mockReturnValue"]
-       86 DUPTABLE                         R8 K37 [{"MezzanineControls", "TabControls"}]
-       87 DUPTABLE                         R9 K40 [{"Left", "Right"}]
-       88 DUPTABLE                         R10 K42 [{"Controls"}]
-       89 NEWTABLE                         R11 0 2
-       91 NEWTABLE                         R12 0 0
-       93 DUPTABLE                         R13 K44 [{"Id"}]
-       94 LOADK                            R14 K45 ["ControlId"]
-       95 SETTABLEKS                       R14 R13 K43 ["Id"]
-       97 SETLIST                          R11 R12 2 [1]
-       99 SETTABLEKS                       R11 R10 K41 ["Controls"]
-      101 SETTABLEKS                       R10 R9 K38 ["Left"]
-      103 DUPTABLE                         R10 K42 [{"Controls"}]
-      104 NEWTABLE                         R11 0 1
-      106 DUPTABLE                         R12 K44 [{"Id"}]
-      107 LOADK                            R13 K45 ["ControlId"]
-      108 SETTABLEKS                       R13 R12 K43 ["Id"]
-      110 SETLIST                          R11 R12 1 [1]
-      112 SETTABLEKS                       R11 R10 K41 ["Controls"]
-      114 SETTABLEKS                       R10 R9 K39 ["Right"]
-      116 SETTABLEKS                       R9 R8 K35 ["MezzanineControls"]
-      118 DUPTABLE                         R9 K47 [{"tabIdentifier"}]
-      119 DUPTABLE                         R10 K42 [{"Controls"}]
-      120 NEWTABLE                         R11 0 2
-      122 NEWTABLE                         R12 0 0
-      124 DUPTABLE                         R13 K44 [{"Id"}]
-      125 LOADK                            R14 K45 ["ControlId"]
-      126 SETTABLEKS                       R14 R13 K43 ["Id"]
-      128 SETLIST                          R11 R12 2 [1]
-      130 SETTABLEKS                       R11 R10 K41 ["Controls"]
-      132 SETTABLEKS                       R10 R9 K46 ["tabIdentifier"]
-      134 SETTABLEKS                       R9 R8 K36 ["TabControls"]
-      136 CALL                             R7 1 1
-      137 SETTABLEKS                       R7 R6 K33 ["GetRibbonDefinitionAsync"]
-      139 SETTABLEKS                       R6 R5 K19 ["RibbonConfiguration"]
-      141 RETURN                           R5 1
-      142 DUPTABLE                         R3 K20 [{"Spotlight", "Panels", "Widgets", "RibbonConfiguration"}]
-      143 LOADK                            R6 K16 ["Spotlight"]
-      144 NAMECALL                         R4 R1 K48 ["GetPluginComponent"]
+       71 DUPTABLE                         R8 K33 [{["Exists"] = True}]
+       72 CALL                             R7 1 1
+       73 SETTABLEKS                       R7 R6 K28 ["GetWidgetAsync"]
+       75 SETTABLEKS                       R6 R5 K18 ["Widgets"]
+       77 DUPTABLE                         R6 K35 [{"GetRibbonDefinitionAsync"}]
+       78 GETTABLEKS                       R7 R4 K25 ["fn"]
+       80 CALL                             R7 0 1
+       81 GETTABLEKS                       R7 R7 K30 ["mockReturnValue"]
+       83 DUPTABLE                         R8 K38 [{"MezzanineControls", "TabControls"}]
+       84 DUPTABLE                         R9 K41 [{"Left", "Right"}]
+       85 DUPTABLE                         R10 K43 [{"Controls"}]
+       86 NEWTABLE                         R11 0 2
+       88 NEWTABLE                         R12 0 0
+       90 DUPTABLE                         R13 K46 [{["Id"] = "ControlId"}]
+       91 SETLIST                          R11 R12 2 [1]
+       93 SETTABLEKS                       R11 R10 K42 ["Controls"]
+       95 SETTABLEKS                       R10 R9 K39 ["Left"]
+       97 DUPTABLE                         R10 K43 [{"Controls"}]
+       98 NEWTABLE                         R11 0 1
+      100 DUPTABLE                         R12 K46 [{["Id"] = "ControlId"}]
+      101 SETLIST                          R11 R12 1 [1]
+      103 SETTABLEKS                       R11 R10 K42 ["Controls"]
+      105 SETTABLEKS                       R10 R9 K40 ["Right"]
+      107 SETTABLEKS                       R9 R8 K36 ["MezzanineControls"]
+      109 DUPTABLE                         R9 K48 [{"tabIdentifier"}]
+      110 DUPTABLE                         R10 K43 [{"Controls"}]
+      111 NEWTABLE                         R11 0 2
+      113 NEWTABLE                         R12 0 0
+      115 DUPTABLE                         R13 K46 [{["Id"] = "ControlId"}]
+      116 SETLIST                          R11 R12 2 [1]
+      118 SETTABLEKS                       R11 R10 K42 ["Controls"]
+      120 SETTABLEKS                       R10 R9 K47 ["tabIdentifier"]
+      122 SETTABLEKS                       R9 R8 K37 ["TabControls"]
+      124 CALL                             R7 1 1
+      125 SETTABLEKS                       R7 R6 K34 ["GetRibbonDefinitionAsync"]
+      127 SETTABLEKS                       R6 R5 K19 ["RibbonConfiguration"]
+      129 RETURN                           R5 1
+      130 DUPTABLE                         R3 K20 [{"Spotlight", "Panels", "Widgets", "RibbonConfiguration"}]
+      131 LOADK                            R6 K16 ["Spotlight"]
+      132 NAMECALL                         R4 R1 K49 ["GetPluginComponent"]
+      134 CALL                             R4 2 1
+      135 SETTABLEKS                       R4 R3 K16 ["Spotlight"]
+      137 LOADK                            R6 K17 ["Panels"]
+      138 NAMECALL                         R4 R1 K49 ["GetPluginComponent"]
+      140 CALL                             R4 2 1
+      141 SETTABLEKS                       R4 R3 K17 ["Panels"]
+      143 LOADK                            R6 K18 ["Widgets"]
+      144 NAMECALL                         R4 R1 K49 ["GetPluginComponent"]
       146 CALL                             R4 2 1
-      147 SETTABLEKS                       R4 R3 K16 ["Spotlight"]
-      149 LOADK                            R6 K17 ["Panels"]
-      150 NAMECALL                         R4 R1 K48 ["GetPluginComponent"]
+      147 SETTABLEKS                       R4 R3 K18 ["Widgets"]
+      149 LOADK                            R6 K19 ["RibbonConfiguration"]
+      150 NAMECALL                         R4 R1 K49 ["GetPluginComponent"]
       152 CALL                             R4 2 1
-      153 SETTABLEKS                       R4 R3 K17 ["Panels"]
-      155 LOADK                            R6 K18 ["Widgets"]
-      156 NAMECALL                         R4 R1 K48 ["GetPluginComponent"]
-      158 CALL                             R4 2 1
-      159 SETTABLEKS                       R4 R3 K18 ["Widgets"]
-      161 LOADK                            R6 K19 ["RibbonConfiguration"]
-      162 NAMECALL                         R4 R1 K48 ["GetPluginComponent"]
-      164 CALL                             R4 2 1
-      165 SETTABLEKS                       R4 R3 K19 ["RibbonConfiguration"]
-      167 RETURN                           R3 1
+      153 SETTABLEKS                       R4 R3 K19 ["RibbonConfiguration"]
+      155 RETURN                           R3 1

@@ -38,36 +38,32 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
-        5 MOVE                             R2 R0
-        6 CALL                             R1 1 0
-        7 GETUPVAL                         R1 2
-        8 GETTABLEKS                       R2 R0 K1 ["responseBody"]
-       10 CALL                             R1 1 1
-       11 GETUPVAL                         R2 3
-       12 GETUPVAL                         R4 4
-       13 MOVE                             R5 R1
-       14 CALL                             R4 1 -1
-       15 NAMECALL                         R2 R2 K2 ["dispatch"]
-       17 CALL                             R2 -1 0
-       18 RETURN                           R0 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R2 R0 K1 ["responseBody"]
+        8 CALL                             R1 1 1
+        9 GETUPVAL                         R2 2
+       10 GETUPVAL                         R4 3
+       11 MOVE                             R5 R1
+       12 CALL                             R4 1 -1
+       13 NAMECALL                         R2 R2 K2 ["dispatch"]
+       15 CALL                             R2 -1 0
+       16 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+5]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
-        5 MOVE                             R2 R0
-        6 CALL                             R1 1 0
-        7 GETUPVAL                         R1 2
-        8 GETUPVAL                         R3 3
-        9 MOVE                             R4 R0
-       10 CALL                             R3 1 -1
-       11 NAMECALL                         R1 R1 K1 ["dispatch"]
-       13 CALL                             R1 -1 0
-       14 RETURN                           R0 0
+        1 GETTABLEKS                       R1 R1 K0 ["sendResultToKibana"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETUPVAL                         R1 1
+        6 GETUPVAL                         R3 2
+        7 MOVE                             R4 R0
+        8 CALL                             R3 1 -1
+        9 NAMECALL                         R1 R1 K1 ["dispatch"]
+       11 CALL                             R1 -1 0
+       12 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -77,17 +73,15 @@ PROTO_3:
         5 NEWCLOSURE                       R3 P0
         6 CAPTURE                          UPVAL U2
         7 CAPTURE                          UPVAL U3
-        8 CAPTURE                          UPVAL U4
-        9 CAPTURE                          VAL R0
-       10 CAPTURE                          UPVAL U5
-       11 NEWCLOSURE                       R4 P1
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          UPVAL U3
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          UPVAL U6
-       16 NAMECALL                         R1 R1 K1 ["andThen"]
-       18 CALL                             R1 3 -1
-       19 RETURN                           R1 -1
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U4
+       10 NEWCLOSURE                       R4 P1
+       11 CAPTURE                          UPVAL U2
+       12 CAPTURE                          VAL R0
+       13 CAPTURE                          UPVAL U5
+       14 NAMECALL                         R1 R1 K1 ["andThen"]
+       16 CALL                             R1 3 -1
+       17 RETURN                           R1 -1
 
 PROTO_4:
         0 NEWCLOSURE                       R2 P0
@@ -97,8 +91,7 @@ PROTO_4:
         4 CAPTURE                          UPVAL U1
         5 CAPTURE                          UPVAL U2
         6 CAPTURE                          UPVAL U3
-        7 CAPTURE                          UPVAL U4
-        8 RETURN                           R2 1
+        7 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -128,36 +121,25 @@ MAIN:
        44 GETTABLEKS                       R6 R6 K13 ["Permissions"]
        46 GETTABLEKS                       R6 R6 K14 ["PermissionsConstants"]
        48 CALL                             R5 1 1
-       49 GETTABLEKS                       R6 R0 K15 ["Packages"]
-       51 GETIMPORT                        R7 K6 [require]
-       53 GETTABLEKS                       R8 R6 K16 ["Framework"]
-       55 CALL                             R7 1 1
-       56 GETTABLEKS                       R7 R7 K7 ["Util"]
-       58 GETTABLEKS                       R7 R7 K17 ["Promise"]
-       60 GETIMPORT                        R8 K19 [game]
-       62 LOADK                            R10 K20 ["NewPackageAnalyticsWithRefactor2"]
-       63 NAMECALL                         R8 R8 K21 ["GetFastFlag"]
-       65 CALL                             R8 2 1
-       66 DUPTABLE                         R9 K28 [{"User", "Group", "Use", "UseView", "Edit", "GrantAssetPermissions"}]
-       67 GETTABLEKS                       R10 R5 K29 ["UserSubjectKey"]
-       69 SETTABLEKS                       R10 R9 K22 ["User"]
-       71 GETTABLEKS                       R10 R5 K30 ["GroupSubjectKey"]
-       73 SETTABLEKS                       R10 R9 K23 ["Group"]
-       75 GETTABLEKS                       R10 R5 K31 ["UseViewKey"]
-       77 SETTABLEKS                       R10 R9 K24 ["Use"]
-       79 GETTABLEKS                       R10 R5 K31 ["UseViewKey"]
-       81 SETTABLEKS                       R10 R9 K25 ["UseView"]
-       83 GETTABLEKS                       R10 R5 K32 ["EditKey"]
-       85 SETTABLEKS                       R10 R9 K26 ["Edit"]
-       87 GETTABLEKS                       R10 R5 K33 ["OwnKey"]
-       89 SETTABLEKS                       R10 R9 K27 ["GrantAssetPermissions"]
-       91 DUPCLOSURE                       R10 K34 [PROTO_0]
-       92 CAPTURE                          VAL R5
-       93 CAPTURE                          VAL R9
-       94 DUPCLOSURE                       R11 K35 [PROTO_4]
-       95 CAPTURE                          VAL R8
-       96 CAPTURE                          VAL R2
-       97 CAPTURE                          VAL R10
-       98 CAPTURE                          VAL R3
-       99 CAPTURE                          VAL R4
-      100 RETURN                           R11 1
+       49 DUPTABLE                         R6 K21 [{"User", "Group", "Use", "UseView", "Edit", "GrantAssetPermissions"}]
+       50 GETTABLEKS                       R7 R5 K22 ["UserSubjectKey"]
+       52 SETTABLEKS                       R7 R6 K15 ["User"]
+       54 GETTABLEKS                       R7 R5 K23 ["GroupSubjectKey"]
+       56 SETTABLEKS                       R7 R6 K16 ["Group"]
+       58 GETTABLEKS                       R7 R5 K24 ["UseViewKey"]
+       60 SETTABLEKS                       R7 R6 K17 ["Use"]
+       62 GETTABLEKS                       R7 R5 K24 ["UseViewKey"]
+       64 SETTABLEKS                       R7 R6 K18 ["UseView"]
+       66 GETTABLEKS                       R7 R5 K25 ["EditKey"]
+       68 SETTABLEKS                       R7 R6 K19 ["Edit"]
+       70 GETTABLEKS                       R7 R5 K26 ["OwnKey"]
+       72 SETTABLEKS                       R7 R6 K20 ["GrantAssetPermissions"]
+       74 DUPCLOSURE                       R7 K27 [PROTO_0]
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R6
+       77 DUPCLOSURE                       R8 K28 [PROTO_4]
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R7
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R4
+       82 RETURN                           R8 1

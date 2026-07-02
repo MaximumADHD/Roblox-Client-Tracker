@@ -24,63 +24,59 @@ MAIN:
        39 NEWTABLE                         R6 0 5
        41 MOVE                             R7 R3
        42 LOADK                            R8 K17 [".CX-Invisible"]
-       43 DUPTABLE                         R9 K19 [{"BackgroundTransparency"}]
-       44 LOADN                            R10 1
-       45 SETTABLEKS                       R10 R9 K18 ["BackgroundTransparency"]
-       47 CALL                             R7 2 1
-       48 MOVE                             R8 R3
-       49 LOADK                            R9 K20 [".CX-Divider"]
-       50 DUPTABLE                         R10 K23 [{"Size", "BackgroundColor3"}]
-       51 GETIMPORT                        R11 K26 [UDim2.new]
-       53 LOADN                            R12 1
-       54 LOADN                            R13 0
-       55 LOADN                            R14 0
-       56 LOADN                            R15 1
-       57 CALL                             R11 4 1
-       58 SETTABLEKS                       R11 R10 K21 ["Size"]
-       60 JUMPIFNOT                        R5 ; [+2]
-       61 LOADK                            R11 K27 ["$FoundationColorsShift300"]
-       62 JUMP                             ; [+1]
-       63 LOADK                            R11 K28 ["$Divider"]
-       64 SETTABLEKS                       R11 R10 K22 ["BackgroundColor3"]
-       66 CALL                             R8 2 1
-       67 MOVE                             R9 R3
-       68 LOADK                            R10 K29 ["Frame"]
-       69 DUPTABLE                         R11 K31 [{"BorderSizePixel"}]
-       70 LOADN                            R12 0
-       71 SETTABLEKS                       R12 R11 K30 ["BorderSizePixel"]
-       73 CALL                             R9 2 1
-       74 MOVE                             R10 R3
-       75 LOADK                            R11 K32 ["TextLabel"]
-       76 DUPTABLE                         R12 K36 [{"Font", "TextSize", "TextColor"}]
-       77 GETTABLEKS                       R13 R2 K37 ["defaultFont"]
-       79 SETTABLEKS                       R13 R12 K33 ["Font"]
-       81 GETTABLEKS                       R13 R2 K38 ["normalFontSize"]
-       83 SETTABLEKS                       R13 R12 K34 ["TextSize"]
-       85 JUMPIFNOT                        R5 ; [+2]
-       86 LOADK                            R13 K39 ["$FoundationColorsContentEmphasis"]
-       87 JUMP                             ; [+1]
-       88 LOADK                            R13 K40 ["$TextPrimary"]
-       89 SETTABLEKS                       R13 R12 K35 ["TextColor"]
-       91 CALL                             R10 2 1
-       92 MOVE                             R11 R3
-       93 LOADK                            R12 K41 ["TextButton"]
-       94 DUPTABLE                         R13 K36 [{"Font", "TextSize", "TextColor"}]
-       95 GETTABLEKS                       R14 R2 K37 ["defaultFont"]
-       97 SETTABLEKS                       R14 R13 K33 ["Font"]
-       99 GETTABLEKS                       R14 R2 K42 ["buttonFontSize"]
-      101 SETTABLEKS                       R14 R13 K34 ["TextSize"]
-      103 JUMPIFNOT                        R5 ; [+2]
-      104 LOADK                            R14 K39 ["$FoundationColorsContentEmphasis"]
-      105 JUMP                             ; [+1]
-      106 LOADK                            R14 K40 ["$TextPrimary"]
-      107 SETTABLEKS                       R14 R13 K35 ["TextColor"]
-      109 CALL                             R11 2 -1
-      110 SETLIST                          R6 R7 -1 [1]
-      112 NEWTABLE                         R7 0 0
-      114 MOVE                             R8 R4
-      115 LOADK                            R9 K43 ["ActivityHistoryPlugin"]
-      116 MOVE                             R10 R6
-      117 MOVE                             R11 R7
-      118 CALL                             R8 3 -1
-      119 RETURN                           R8 -1
+       43 DUPTABLE                         R9 K20 [{["BackgroundTransparency"] = 1}]
+       44 CALL                             R7 2 1
+       45 MOVE                             R8 R3
+       46 LOADK                            R9 K21 [".CX-Divider"]
+       47 DUPTABLE                         R10 K24 [{"Size", "BackgroundColor3"}]
+       48 GETIMPORT                        R11 K27 [UDim2.new]
+       50 LOADN                            R12 1
+       51 LOADN                            R13 0
+       52 LOADN                            R14 0
+       53 LOADN                            R15 1
+       54 CALL                             R11 4 1
+       55 SETTABLEKS                       R11 R10 K22 ["Size"]
+       57 JUMPIFNOT                        R5 ; [+2]
+       58 LOADK                            R11 K28 ["$FoundationColorsShift300"]
+       59 JUMP                             ; [+1]
+       60 LOADK                            R11 K29 ["$Divider"]
+       61 SETTABLEKS                       R11 R10 K23 ["BackgroundColor3"]
+       63 CALL                             R8 2 1
+       64 MOVE                             R9 R3
+       65 LOADK                            R10 K30 ["Frame"]
+       66 DUPTABLE                         R11 K33 [{["BorderSizePixel"] = 0}]
+       67 CALL                             R9 2 1
+       68 MOVE                             R10 R3
+       69 LOADK                            R11 K34 ["TextLabel"]
+       70 DUPTABLE                         R12 K38 [{"Font", "TextSize", "TextColor"}]
+       71 GETTABLEKS                       R13 R2 K39 ["defaultFont"]
+       73 SETTABLEKS                       R13 R12 K35 ["Font"]
+       75 GETTABLEKS                       R13 R2 K40 ["normalFontSize"]
+       77 SETTABLEKS                       R13 R12 K36 ["TextSize"]
+       79 JUMPIFNOT                        R5 ; [+2]
+       80 LOADK                            R13 K41 ["$FoundationColorsContentEmphasis"]
+       81 JUMP                             ; [+1]
+       82 LOADK                            R13 K42 ["$TextPrimary"]
+       83 SETTABLEKS                       R13 R12 K37 ["TextColor"]
+       85 CALL                             R10 2 1
+       86 MOVE                             R11 R3
+       87 LOADK                            R12 K43 ["TextButton"]
+       88 DUPTABLE                         R13 K38 [{"Font", "TextSize", "TextColor"}]
+       89 GETTABLEKS                       R14 R2 K39 ["defaultFont"]
+       91 SETTABLEKS                       R14 R13 K35 ["Font"]
+       93 GETTABLEKS                       R14 R2 K44 ["buttonFontSize"]
+       95 SETTABLEKS                       R14 R13 K36 ["TextSize"]
+       97 JUMPIFNOT                        R5 ; [+2]
+       98 LOADK                            R14 K41 ["$FoundationColorsContentEmphasis"]
+       99 JUMP                             ; [+1]
+      100 LOADK                            R14 K42 ["$TextPrimary"]
+      101 SETTABLEKS                       R14 R13 K37 ["TextColor"]
+      103 CALL                             R11 2 -1
+      104 SETLIST                          R6 R7 -1 [1]
+      106 NEWTABLE                         R7 0 0
+      108 MOVE                             R8 R4
+      109 LOADK                            R9 K45 ["ActivityHistoryPlugin"]
+      110 MOVE                             R10 R6
+      111 MOVE                             R11 R7
+      112 CALL                             R8 3 -1
+      113 RETURN                           R8 -1

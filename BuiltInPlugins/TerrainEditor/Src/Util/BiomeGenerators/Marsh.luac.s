@@ -81,12 +81,12 @@ PROTO_0:
        87 JUMPIFNOTLE                      R15 R10 ; [+4]
        89 GETIMPORT                        R14 K17 [Enum.Material.Grass]
        91 JUMP                             ; [+16]
-       92 SUBRK                            R15 R18 K1 ["Y"]
+       92 SUBRK                            R15 K18 [1] R1
        93 SUBK                             R16 R7 K19 [0.01]
        94 JUMPIFNOTLT                      R15 R16 ; [+4]
        96 GETIMPORT                        R14 K21 [Enum.Material.Mud]
        98 JUMP                             ; [+9]
-       99 SUBRK                            R15 R18 K1 ["Y"]
+       99 SUBRK                            R15 K18 [1] R1
       100 ADDK                             R16 R7 K19 [0.01]
       101 JUMPIFNOTLT                      R15 R16 ; [+4]
       103 GETIMPORT                        R14 K23 [Enum.Material.Ground]

@@ -330,27 +330,23 @@ PROTO_9:
       286 GETUPVAL                         R31 1
       287 GETTABLEKS                       R31 R31 K17 ["createElement"]
       289 GETUPVAL                         R32 14
-      290 DUPTABLE                         R33 K45 [{"Subject", "Subline", "LayoutOrder"}]
+      290 DUPTABLE                         R33 K46 [{["Subject"], ["Subline"], ["LayoutOrder"] = 2}]
       291 SETTABLEKS                       R19 R33 K43 ["Subject"]
       293 SETTABLEKS                       R4 R33 K44 ["Subline"]
-      295 LOADN                            R34 2
-      296 SETTABLEKS                       R34 R33 K19 ["LayoutOrder"]
-      298 CALL                             R31 2 1
-      299 SETTABLEKS                       R31 R30 K34 ["Content"]
-      301 GETUPVAL                         R31 1
-      302 GETTABLEKS                       R31 R31 K17 ["createElement"]
-      304 GETUPVAL                         R32 15
-      305 DUPTABLE                         R33 K48 [{"LayoutOrder", "ReadStatusIconTag", "ElapsedTime"}]
-      306 LOADN                            R34 3
-      307 SETTABLEKS                       R34 R33 K19 ["LayoutOrder"]
-      309 SETTABLEKS                       R20 R33 K46 ["ReadStatusIconTag"]
-      311 SETTABLEKS                       R15 R33 K47 ["ElapsedTime"]
-      313 CALL                             R31 2 1
-      314 SETTABLEKS                       R31 R30 K35 ["Status"]
-      316 CALL                             R27 3 1
-      317 SETTABLEKS                       R27 R26 K22 ["InnerCard"]
-      319 CALL                             R23 3 -1
-      320 RETURN                           R23 -1
+      295 CALL                             R31 2 1
+      296 SETTABLEKS                       R31 R30 K34 ["Content"]
+      298 GETUPVAL                         R31 1
+      299 GETTABLEKS                       R31 R31 K17 ["createElement"]
+      301 GETUPVAL                         R32 15
+      302 DUPTABLE                         R33 K50 [{["LayoutOrder"] = 3, ["ReadStatusIconTag"], ["ElapsedTime"]}]
+      303 SETTABLEKS                       R20 R33 K48 ["ReadStatusIconTag"]
+      305 SETTABLEKS                       R15 R33 K49 ["ElapsedTime"]
+      307 CALL                             R31 2 1
+      308 SETTABLEKS                       R31 R30 K35 ["Status"]
+      310 CALL                             R27 3 1
+      311 SETTABLEKS                       R27 R26 K22 ["InnerCard"]
+      313 CALL                             R23 3 -1
+      314 RETURN                           R23 -1
 
 MAIN:
         0 PREPVARARGS                      0

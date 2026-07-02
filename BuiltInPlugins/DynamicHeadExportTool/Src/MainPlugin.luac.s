@@ -122,120 +122,80 @@ PROTO_7:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K2 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K10 [{"Toolbar", "Active", "Id", "Title", "Icon", "ClickableWhenViewportHidden", "OnClick"}]
+       10 DUPTABLE                         R6 K14 [{["Toolbar"], ["Active"] = False, ["Id"] = "head_button", ["Title"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["ClickableWhenViewportHidden"] = True, ["OnClick"]}]
        11 SETTABLEKS                       R1 R6 K3 ["Toolbar"]
-       13 LOADB                            R7 0
-       14 SETTABLEKS                       R7 R6 K4 ["Active"]
-       16 LOADK                            R7 K11 ["head_button"]
-       17 SETTABLEKS                       R7 R6 K5 ["Id"]
-       19 LOADK                            R9 K12 ["Plugin"]
-       20 LOADK                            R10 K13 ["HeadButton"]
-       21 NAMECALL                         R7 R2 K14 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K6 ["Title"]
-       26 LOADK                            R7 K15 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-       27 SETTABLEKS                       R7 R6 K7 ["Icon"]
-       29 LOADB                            R7 1
-       30 SETTABLEKS                       R7 R6 K8 ["ClickableWhenViewportHidden"]
-       32 NEWCLOSURE                       R7 P0
-       33 CAPTURE                          VAL R0
-       34 CAPTURE                          UPVAL U2
-       35 SETTABLEKS                       R7 R6 K9 ["OnClick"]
-       37 CALL                             R4 2 1
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R5 R5 K2 ["createElement"]
-       41 GETUPVAL                         R6 1
-       42 DUPTABLE                         R7 K10 [{"Toolbar", "Active", "Id", "Title", "Icon", "ClickableWhenViewportHidden", "OnClick"}]
-       43 SETTABLEKS                       R1 R7 K3 ["Toolbar"]
-       45 LOADB                            R8 0
-       46 SETTABLEKS                       R8 R7 K4 ["Active"]
-       48 LOADK                            R8 K16 ["accessory_button"]
-       49 SETTABLEKS                       R8 R7 K5 ["Id"]
-       51 LOADK                            R10 K12 ["Plugin"]
-       52 LOADK                            R11 K17 ["AccessoryButton"]
-       53 NAMECALL                         R8 R2 K14 ["getText"]
-       55 CALL                             R8 3 1
-       56 SETTABLEKS                       R8 R7 K6 ["Title"]
-       58 LOADK                            R8 K15 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-       59 SETTABLEKS                       R8 R7 K7 ["Icon"]
-       61 LOADB                            R8 1
-       62 SETTABLEKS                       R8 R7 K8 ["ClickableWhenViewportHidden"]
-       64 NEWCLOSURE                       R8 P1
-       65 CAPTURE                          VAL R0
-       66 CAPTURE                          UPVAL U2
-       67 SETTABLEKS                       R8 R7 K9 ["OnClick"]
-       69 CALL                             R5 2 1
-       70 GETUPVAL                         R6 0
-       71 GETTABLEKS                       R6 R6 K2 ["createElement"]
-       73 GETUPVAL                         R7 1
-       74 DUPTABLE                         R8 K10 [{"Toolbar", "Active", "Id", "Title", "Icon", "ClickableWhenViewportHidden", "OnClick"}]
-       75 SETTABLEKS                       R1 R8 K3 ["Toolbar"]
-       77 LOADB                            R9 0
-       78 SETTABLEKS                       R9 R8 K4 ["Active"]
-       80 LOADK                            R9 K18 ["mood_button"]
-       81 SETTABLEKS                       R9 R8 K5 ["Id"]
-       83 LOADK                            R11 K12 ["Plugin"]
-       84 LOADK                            R12 K19 ["MoodButton"]
-       85 NAMECALL                         R9 R2 K14 ["getText"]
-       87 CALL                             R9 3 1
-       88 SETTABLEKS                       R9 R8 K6 ["Title"]
-       90 LOADK                            R9 K15 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-       91 SETTABLEKS                       R9 R8 K7 ["Icon"]
-       93 LOADB                            R9 1
-       94 SETTABLEKS                       R9 R8 K8 ["ClickableWhenViewportHidden"]
-       96 NEWCLOSURE                       R9 P2
-       97 CAPTURE                          VAL R0
-       98 CAPTURE                          UPVAL U2
-       99 SETTABLEKS                       R9 R8 K9 ["OnClick"]
-      101 CALL                             R6 2 1
-      102 GETUPVAL                         R7 0
-      103 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      105 GETUPVAL                         R8 1
-      106 DUPTABLE                         R9 K10 [{"Toolbar", "Active", "Id", "Title", "Icon", "ClickableWhenViewportHidden", "OnClick"}]
-      107 SETTABLEKS                       R1 R9 K3 ["Toolbar"]
-      109 LOADB                            R10 0
-      110 SETTABLEKS                       R10 R9 K4 ["Active"]
-      112 LOADK                            R10 K20 ["export_button"]
-      113 SETTABLEKS                       R10 R9 K5 ["Id"]
-      115 LOADK                            R12 K12 ["Plugin"]
-      116 LOADK                            R13 K21 ["ExportButton"]
-      117 NAMECALL                         R10 R2 K14 ["getText"]
-      119 CALL                             R10 3 1
-      120 SETTABLEKS                       R10 R9 K6 ["Title"]
-      122 LOADK                            R10 K15 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-      123 SETTABLEKS                       R10 R9 K7 ["Icon"]
-      125 LOADB                            R10 1
-      126 SETTABLEKS                       R10 R9 K8 ["ClickableWhenViewportHidden"]
-      128 NEWCLOSURE                       R10 P3
-      129 CAPTURE                          VAL R0
-      130 SETTABLEKS                       R10 R9 K9 ["OnClick"]
-      132 CALL                             R7 2 1
-      133 GETUPVAL                         R8 0
-      134 GETTABLEKS                       R8 R8 K2 ["createElement"]
-      136 GETUPVAL                         R9 1
-      137 DUPTABLE                         R10 K10 [{"Toolbar", "Active", "Id", "Title", "Icon", "ClickableWhenViewportHidden", "OnClick"}]
-      138 SETTABLEKS                       R1 R10 K3 ["Toolbar"]
-      140 LOADB                            R11 0
-      141 SETTABLEKS                       R11 R10 K4 ["Active"]
-      143 LOADK                            R11 K22 ["ownership_button"]
-      144 SETTABLEKS                       R11 R10 K5 ["Id"]
-      146 LOADK                            R13 K12 ["Plugin"]
-      147 LOADK                            R14 K23 ["OwnershipButton"]
-      148 NAMECALL                         R11 R2 K14 ["getText"]
-      150 CALL                             R11 3 1
-      151 SETTABLEKS                       R11 R10 K6 ["Title"]
-      153 LOADK                            R11 K15 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-      154 SETTABLEKS                       R11 R10 K7 ["Icon"]
-      156 LOADB                            R11 1
-      157 SETTABLEKS                       R11 R10 K8 ["ClickableWhenViewportHidden"]
-      159 NEWCLOSURE                       R11 P4
-      160 CAPTURE                          VAL R0
-      161 CAPTURE                          UPVAL U3
-      162 CAPTURE                          UPVAL U2
-      163 SETTABLEKS                       R11 R10 K9 ["OnClick"]
-      165 CALL                             R8 2 -1
-      166 SETLIST                          R3 R4 -1 [1]
-      168 RETURN                           R3 1
+       13 LOADK                            R9 K15 ["Plugin"]
+       14 LOADK                            R10 K16 ["HeadButton"]
+       15 NAMECALL                         R7 R2 K17 ["getText"]
+       17 CALL                             R7 3 1
+       18 SETTABLEKS                       R7 R6 K8 ["Title"]
+       20 NEWCLOSURE                       R7 P0
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U2
+       23 SETTABLEKS                       R7 R6 K13 ["OnClick"]
+       25 CALL                             R4 2 1
+       26 GETUPVAL                         R5 0
+       27 GETTABLEKS                       R5 R5 K2 ["createElement"]
+       29 GETUPVAL                         R6 1
+       30 DUPTABLE                         R7 K19 [{["Toolbar"], ["Active"] = False, ["Id"] = "accessory_button", ["Title"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["ClickableWhenViewportHidden"] = True, ["OnClick"]}]
+       31 SETTABLEKS                       R1 R7 K3 ["Toolbar"]
+       33 LOADK                            R10 K15 ["Plugin"]
+       34 LOADK                            R11 K20 ["AccessoryButton"]
+       35 NAMECALL                         R8 R2 K17 ["getText"]
+       37 CALL                             R8 3 1
+       38 SETTABLEKS                       R8 R7 K8 ["Title"]
+       40 NEWCLOSURE                       R8 P1
+       41 CAPTURE                          VAL R0
+       42 CAPTURE                          UPVAL U2
+       43 SETTABLEKS                       R8 R7 K13 ["OnClick"]
+       45 CALL                             R5 2 1
+       46 GETUPVAL                         R6 0
+       47 GETTABLEKS                       R6 R6 K2 ["createElement"]
+       49 GETUPVAL                         R7 1
+       50 DUPTABLE                         R8 K22 [{["Toolbar"], ["Active"] = False, ["Id"] = "mood_button", ["Title"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["ClickableWhenViewportHidden"] = True, ["OnClick"]}]
+       51 SETTABLEKS                       R1 R8 K3 ["Toolbar"]
+       53 LOADK                            R11 K15 ["Plugin"]
+       54 LOADK                            R12 K23 ["MoodButton"]
+       55 NAMECALL                         R9 R2 K17 ["getText"]
+       57 CALL                             R9 3 1
+       58 SETTABLEKS                       R9 R8 K8 ["Title"]
+       60 NEWCLOSURE                       R9 P2
+       61 CAPTURE                          VAL R0
+       62 CAPTURE                          UPVAL U2
+       63 SETTABLEKS                       R9 R8 K13 ["OnClick"]
+       65 CALL                             R6 2 1
+       66 GETUPVAL                         R7 0
+       67 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       69 GETUPVAL                         R8 1
+       70 DUPTABLE                         R9 K25 [{["Toolbar"], ["Active"] = False, ["Id"] = "export_button", ["Title"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["ClickableWhenViewportHidden"] = True, ["OnClick"]}]
+       71 SETTABLEKS                       R1 R9 K3 ["Toolbar"]
+       73 LOADK                            R12 K15 ["Plugin"]
+       74 LOADK                            R13 K26 ["ExportButton"]
+       75 NAMECALL                         R10 R2 K17 ["getText"]
+       77 CALL                             R10 3 1
+       78 SETTABLEKS                       R10 R9 K8 ["Title"]
+       80 NEWCLOSURE                       R10 P3
+       81 CAPTURE                          VAL R0
+       82 SETTABLEKS                       R10 R9 K13 ["OnClick"]
+       84 CALL                             R7 2 1
+       85 GETUPVAL                         R8 0
+       86 GETTABLEKS                       R8 R8 K2 ["createElement"]
+       88 GETUPVAL                         R9 1
+       89 DUPTABLE                         R10 K28 [{["Toolbar"], ["Active"] = False, ["Id"] = "ownership_button", ["Title"], ["Icon"] = "rbxasset://textures/GameSettings/ToolbarIcon.png", ["ClickableWhenViewportHidden"] = True, ["OnClick"]}]
+       90 SETTABLEKS                       R1 R10 K3 ["Toolbar"]
+       92 LOADK                            R13 K15 ["Plugin"]
+       93 LOADK                            R14 K29 ["OwnershipButton"]
+       94 NAMECALL                         R11 R2 K17 ["getText"]
+       96 CALL                             R11 3 1
+       97 SETTABLEKS                       R11 R10 K8 ["Title"]
+       99 NEWCLOSURE                       R11 P4
+      100 CAPTURE                          VAL R0
+      101 CAPTURE                          UPVAL U3
+      102 CAPTURE                          UPVAL U2
+      103 SETTABLEKS                       R11 R10 K13 ["OnClick"]
+      105 CALL                             R8 2 -1
+      106 SETLIST                          R3 R4 -1 [1]
+      108 RETURN                           R3 1
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -250,139 +210,137 @@ PROTO_9:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K6 [{"Size", "BackgroundTransparency"}]
-        9 GETIMPORT                        R6 K9 [UDim2.new]
+        8 DUPTABLE                         R5 K7 [{["Size"], ["BackgroundTransparency"] = 1}]
+        9 GETIMPORT                        R6 K10 [UDim2.new]
        11 LOADN                            R7 1
        12 LOADN                            R8 0
        13 LOADN                            R9 1
        14 LOADN                            R10 0
        15 CALL                             R6 4 1
        16 SETTABLEKS                       R6 R5 K4 ["Size"]
-       18 LOADN                            R6 1
-       19 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       21 DUPTABLE                         R6 K12 [{"Toolbar", "MainWidget"}]
-       22 GETUPVAL                         R7 0
-       23 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       25 GETUPVAL                         R8 1
-       26 DUPTABLE                         R9 K15 [{"Title", "RenderButtons"}]
-       27 LOADK                            R12 K16 ["Plugin"]
-       28 LOADK                            R13 K10 ["Toolbar"]
-       29 NAMECALL                         R10 R2 K17 ["getText"]
-       31 CALL                             R10 3 1
-       32 SETTABLEKS                       R10 R9 K13 ["Title"]
-       34 NEWCLOSURE                       R10 P0
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R10 R9 K14 ["RenderButtons"]
-       38 CALL                             R7 2 1
-       39 SETTABLEKS                       R7 R6 K10 ["Toolbar"]
-       41 GETTABLEKS                       R8 R1 K18 ["enabled"]
-       43 JUMPIFNOT                        R8 ; [+155]
-       44 GETUPVAL                         R7 0
-       45 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       47 GETUPVAL                         R8 2
-       48 NEWTABLE                         R9 8 0
-       50 GETTABLEKS                       R10 R1 K18 ["enabled"]
-       52 SETTABLEKS                       R10 R9 K19 ["Enabled"]
-       54 LOADB                            R10 1
-       55 SETTABLEKS                       R10 R9 K20 ["Modal"]
-       57 LOADK                            R12 K16 ["Plugin"]
-       58 LOADK                            R13 K21 ["Name"]
-       59 NAMECALL                         R10 R2 K17 ["getText"]
-       61 CALL                             R10 3 1
-       62 SETTABLEKS                       R10 R9 K13 ["Title"]
-       64 LOADB                            R10 0
-       65 SETTABLEKS                       R10 R9 K22 ["Resizable"]
-       67 GETIMPORT                        R10 K26 [Enum.ZIndexBehavior.Sibling]
-       69 SETTABLEKS                       R10 R9 K24 ["ZIndexBehavior"]
-       71 GETUPVAL                         R10 3
-       72 GETTABLEKS                       R10 R10 K27 ["WindowSize"]
-       74 SETTABLEKS                       R10 R9 K4 ["Size"]
-       76 GETTABLEKS                       R10 R0 K28 ["onClose"]
-       78 SETTABLEKS                       R10 R9 K29 ["OnClose"]
-       80 GETUPVAL                         R10 0
-       81 GETTABLEKS                       R10 R10 K30 ["Change"]
-       83 GETTABLEKS                       R10 R10 K19 ["Enabled"]
-       85 GETTABLEKS                       R11 R0 K28 ["onClose"]
-       87 SETTABLE                         R11 R9 R10
-       88 DUPTABLE                         R10 K37 [{"SelectRigScreen", "InputSurfaceAppearanceIdsScreen", "InputAccessoryTypeScreen", "InputAnimationIdScreen", "ErrorScreen", "OwnershipTransferScreen"}]
-       89 GETTABLEKS                       R12 R1 K38 ["screen"]
-       91 GETUPVAL                         R13 3
-       92 GETTABLEKS                       R13 R13 K39 ["Screens"]
-       94 GETTABLEKS                       R13 R13 K40 ["SelectRig"]
-       96 JUMPIFNOTEQ                      R12 R13 ; [+7]
-       98 GETUPVAL                         R11 0
-       99 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      101 GETUPVAL                         R12 4
-      102 CALL                             R11 1 1
-      103 JUMP                             ; [+1]
-      104 LOADNIL                          R11
-      105 SETTABLEKS                       R11 R10 K31 ["SelectRigScreen"]
-      107 GETTABLEKS                       R12 R1 K38 ["screen"]
-      109 GETUPVAL                         R13 3
-      110 GETTABLEKS                       R13 R13 K39 ["Screens"]
-      112 GETTABLEKS                       R13 R13 K41 ["InputSurfaceAppearanceIds"]
-      114 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      116 GETUPVAL                         R11 0
-      117 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      119 GETUPVAL                         R12 5
-      120 CALL                             R11 1 1
-      121 JUMP                             ; [+1]
-      122 LOADNIL                          R11
-      123 SETTABLEKS                       R11 R10 K32 ["InputSurfaceAppearanceIdsScreen"]
-      125 GETTABLEKS                       R12 R1 K38 ["screen"]
-      127 GETUPVAL                         R13 3
-      128 GETTABLEKS                       R13 R13 K39 ["Screens"]
-      130 GETTABLEKS                       R13 R13 K42 ["InputAccessoryType"]
-      132 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      134 GETUPVAL                         R11 0
-      135 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      137 GETUPVAL                         R12 6
-      138 CALL                             R11 1 1
-      139 JUMP                             ; [+1]
-      140 LOADNIL                          R11
-      141 SETTABLEKS                       R11 R10 K33 ["InputAccessoryTypeScreen"]
-      143 GETTABLEKS                       R12 R1 K38 ["screen"]
-      145 GETUPVAL                         R13 3
-      146 GETTABLEKS                       R13 R13 K39 ["Screens"]
-      148 GETTABLEKS                       R13 R13 K43 ["InputAnimationId"]
-      150 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      152 GETUPVAL                         R11 0
-      153 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      155 GETUPVAL                         R12 7
-      156 CALL                             R11 1 1
-      157 JUMP                             ; [+1]
-      158 LOADNIL                          R11
-      159 SETTABLEKS                       R11 R10 K34 ["InputAnimationIdScreen"]
-      161 GETTABLEKS                       R12 R1 K38 ["screen"]
-      163 GETUPVAL                         R13 3
-      164 GETTABLEKS                       R13 R13 K39 ["Screens"]
-      166 GETTABLEKS                       R13 R13 K44 ["Error"]
-      168 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      170 GETUPVAL                         R11 0
-      171 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      173 GETUPVAL                         R12 8
-      174 CALL                             R11 1 1
-      175 JUMP                             ; [+1]
-      176 LOADNIL                          R11
-      177 SETTABLEKS                       R11 R10 K35 ["ErrorScreen"]
-      179 GETTABLEKS                       R12 R1 K38 ["screen"]
-      181 GETUPVAL                         R13 3
-      182 GETTABLEKS                       R13 R13 K39 ["Screens"]
-      184 GETTABLEKS                       R13 R13 K45 ["OwnershipTransfer"]
-      186 JUMPIFNOTEQ                      R12 R13 ; [+7]
-      188 GETUPVAL                         R11 0
-      189 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      191 GETUPVAL                         R12 9
-      192 CALL                             R11 1 1
-      193 JUMP                             ; [+1]
-      194 LOADNIL                          R11
-      195 SETTABLEKS                       R11 R10 K36 ["OwnershipTransferScreen"]
-      197 CALL                             R7 3 1
-      198 JUMPIF                           R7 ; [+1]
-      199 LOADNIL                          R7
-      200 SETTABLEKS                       R7 R6 K11 ["MainWidget"]
-      202 CALL                             R3 3 -1
-      203 RETURN                           R3 -1
+       18 DUPTABLE                         R6 K13 [{"Toolbar", "MainWidget"}]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       22 GETUPVAL                         R8 1
+       23 DUPTABLE                         R9 K16 [{"Title", "RenderButtons"}]
+       24 LOADK                            R12 K17 ["Plugin"]
+       25 LOADK                            R13 K11 ["Toolbar"]
+       26 NAMECALL                         R10 R2 K18 ["getText"]
+       28 CALL                             R10 3 1
+       29 SETTABLEKS                       R10 R9 K14 ["Title"]
+       31 NEWCLOSURE                       R10 P0
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R10 R9 K15 ["RenderButtons"]
+       35 CALL                             R7 2 1
+       36 SETTABLEKS                       R7 R6 K11 ["Toolbar"]
+       38 GETTABLEKS                       R8 R1 K19 ["enabled"]
+       40 JUMPIFNOT                        R8 ; [+155]
+       41 GETUPVAL                         R7 0
+       42 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       44 GETUPVAL                         R8 2
+       45 NEWTABLE                         R9 8 0
+       47 GETTABLEKS                       R10 R1 K19 ["enabled"]
+       49 SETTABLEKS                       R10 R9 K20 ["Enabled"]
+       51 LOADB                            R10 1
+       52 SETTABLEKS                       R10 R9 K21 ["Modal"]
+       54 LOADK                            R12 K17 ["Plugin"]
+       55 LOADK                            R13 K22 ["Name"]
+       56 NAMECALL                         R10 R2 K18 ["getText"]
+       58 CALL                             R10 3 1
+       59 SETTABLEKS                       R10 R9 K14 ["Title"]
+       61 LOADB                            R10 0
+       62 SETTABLEKS                       R10 R9 K23 ["Resizable"]
+       64 GETIMPORT                        R10 K27 [Enum.ZIndexBehavior.Sibling]
+       66 SETTABLEKS                       R10 R9 K25 ["ZIndexBehavior"]
+       68 GETUPVAL                         R10 3
+       69 GETTABLEKS                       R10 R10 K28 ["WindowSize"]
+       71 SETTABLEKS                       R10 R9 K4 ["Size"]
+       73 GETTABLEKS                       R10 R0 K29 ["onClose"]
+       75 SETTABLEKS                       R10 R9 K30 ["OnClose"]
+       77 GETUPVAL                         R10 0
+       78 GETTABLEKS                       R10 R10 K31 ["Change"]
+       80 GETTABLEKS                       R10 R10 K20 ["Enabled"]
+       82 GETTABLEKS                       R11 R0 K29 ["onClose"]
+       84 SETTABLE                         R11 R9 R10
+       85 DUPTABLE                         R10 K38 [{"SelectRigScreen", "InputSurfaceAppearanceIdsScreen", "InputAccessoryTypeScreen", "InputAnimationIdScreen", "ErrorScreen", "OwnershipTransferScreen"}]
+       86 GETTABLEKS                       R12 R1 K39 ["screen"]
+       88 GETUPVAL                         R13 3
+       89 GETTABLEKS                       R13 R13 K40 ["Screens"]
+       91 GETTABLEKS                       R13 R13 K41 ["SelectRig"]
+       93 JUMPIFNOTEQ                      R12 R13 ; [+7]
+       95 GETUPVAL                         R11 0
+       96 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       98 GETUPVAL                         R12 4
+       99 CALL                             R11 1 1
+      100 JUMP                             ; [+1]
+      101 LOADNIL                          R11
+      102 SETTABLEKS                       R11 R10 K32 ["SelectRigScreen"]
+      104 GETTABLEKS                       R12 R1 K39 ["screen"]
+      106 GETUPVAL                         R13 3
+      107 GETTABLEKS                       R13 R13 K40 ["Screens"]
+      109 GETTABLEKS                       R13 R13 K42 ["InputSurfaceAppearanceIds"]
+      111 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      113 GETUPVAL                         R11 0
+      114 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      116 GETUPVAL                         R12 5
+      117 CALL                             R11 1 1
+      118 JUMP                             ; [+1]
+      119 LOADNIL                          R11
+      120 SETTABLEKS                       R11 R10 K33 ["InputSurfaceAppearanceIdsScreen"]
+      122 GETTABLEKS                       R12 R1 K39 ["screen"]
+      124 GETUPVAL                         R13 3
+      125 GETTABLEKS                       R13 R13 K40 ["Screens"]
+      127 GETTABLEKS                       R13 R13 K43 ["InputAccessoryType"]
+      129 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      131 GETUPVAL                         R11 0
+      132 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      134 GETUPVAL                         R12 6
+      135 CALL                             R11 1 1
+      136 JUMP                             ; [+1]
+      137 LOADNIL                          R11
+      138 SETTABLEKS                       R11 R10 K34 ["InputAccessoryTypeScreen"]
+      140 GETTABLEKS                       R12 R1 K39 ["screen"]
+      142 GETUPVAL                         R13 3
+      143 GETTABLEKS                       R13 R13 K40 ["Screens"]
+      145 GETTABLEKS                       R13 R13 K44 ["InputAnimationId"]
+      147 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      149 GETUPVAL                         R11 0
+      150 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      152 GETUPVAL                         R12 7
+      153 CALL                             R11 1 1
+      154 JUMP                             ; [+1]
+      155 LOADNIL                          R11
+      156 SETTABLEKS                       R11 R10 K35 ["InputAnimationIdScreen"]
+      158 GETTABLEKS                       R12 R1 K39 ["screen"]
+      160 GETUPVAL                         R13 3
+      161 GETTABLEKS                       R13 R13 K40 ["Screens"]
+      163 GETTABLEKS                       R13 R13 K45 ["Error"]
+      165 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      167 GETUPVAL                         R11 0
+      168 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      170 GETUPVAL                         R12 8
+      171 CALL                             R11 1 1
+      172 JUMP                             ; [+1]
+      173 LOADNIL                          R11
+      174 SETTABLEKS                       R11 R10 K36 ["ErrorScreen"]
+      176 GETTABLEKS                       R12 R1 K39 ["screen"]
+      178 GETUPVAL                         R13 3
+      179 GETTABLEKS                       R13 R13 K40 ["Screens"]
+      181 GETTABLEKS                       R13 R13 K46 ["OwnershipTransfer"]
+      183 JUMPIFNOTEQ                      R12 R13 ; [+7]
+      185 GETUPVAL                         R11 0
+      186 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      188 GETUPVAL                         R12 9
+      189 CALL                             R11 1 1
+      190 JUMP                             ; [+1]
+      191 LOADNIL                          R11
+      192 SETTABLEKS                       R11 R10 K37 ["OwnershipTransferScreen"]
+      194 CALL                             R7 3 1
+      195 JUMPIF                           R7 ; [+1]
+      196 LOADNIL                          R7
+      197 SETTABLEKS                       R7 R6 K12 ["MainWidget"]
+      199 CALL                             R3 3 -1
+      200 RETURN                           R3 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K2 [{"enabled", "screen"}]

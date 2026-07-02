@@ -301,7 +301,7 @@ PROTO_10:
       160 GETIMPORT                        R24 K40 [UDim2.new]
       162 LOADN                            R25 1
       163 JUMPIFNOT                        R16 ; [+2]
-      164 LOADN                            R26 224
+      164 LOADN                            R26 -32
       165 JUMP                             ; [+1]
       166 LOADN                            R26 0
       167 LOADN                            R27 1

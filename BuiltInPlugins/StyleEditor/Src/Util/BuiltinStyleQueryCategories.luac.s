@@ -78,74 +78,66 @@ MAIN:
        45 MOVE                             R7 R9
        46 JUMP                             ; [+1]
        47 LOADNIL                          R7
-       48 JUMPIFNOT                        R7 ; [+16]
-       49 DUPTABLE                         R10 K17 [{"Name", "Selectors"}]
-       50 LOADK                            R11 K14 ["PreferredInput"]
-       51 SETTABLEKS                       R11 R10 K15 ["Name"]
-       53 MOVE                             R11 R3
-       54 LOADK                            R12 K14 ["PreferredInput"]
-       55 MOVE                             R13 R7
-       56 CALL                             R11 2 1
-       57 SETTABLEKS                       R11 R10 K16 ["Selectors"]
-       59 FASTCALL2                        TABLE_INSERT R6 R10 ; [+4]
-       61 MOVE                             R9 R6
-       62 GETIMPORT                        R8 K20 [table.insert]
-       64 CALL                             R8 2 0
-       65 GETIMPORT                        R9 K13 [pcall]
-       67 LOADK                            R11 K21 ["DisplaySize"]
-       68 NEWCLOSURE                       R10 P3
-       69 CAPTURE                          VAL R11
-       70 CALL                             R9 1 2
-       71 JUMPIFNOT                        R9 ; [+2]
-       72 MOVE                             R8 R10
-       73 JUMP                             ; [+1]
-       74 LOADNIL                          R8
-       75 JUMPIFNOT                        R8 ; [+16]
-       76 DUPTABLE                         R11 K17 [{"Name", "Selectors"}]
-       77 LOADK                            R12 K22 ["ViewportDisplaySize"]
-       78 SETTABLEKS                       R12 R11 K15 ["Name"]
-       80 MOVE                             R12 R3
-       81 LOADK                            R13 K22 ["ViewportDisplaySize"]
-       82 MOVE                             R14 R8
-       83 CALL                             R12 2 1
-       84 SETTABLEKS                       R12 R11 K16 ["Selectors"]
-       86 FASTCALL2                        TABLE_INSERT R6 R11 ; [+4]
-       88 MOVE                             R10 R6
-       89 GETIMPORT                        R9 K20 [table.insert]
-       91 CALL                             R9 2 0
-       92 DUPTABLE                         R11 K17 [{"Name", "Selectors"}]
-       93 LOADK                            R12 K23 ["ReducedMotionEnabled"]
-       94 SETTABLEKS                       R12 R11 K15 ["Name"]
-       96 NEWTABLE                         R12 0 2
-       98 LOADK                            R13 K24 ["@ReducedMotionEnabledTrue"]
-       99 LOADK                            R14 K25 ["@ReducedMotionEnabledFalse"]
-      100 SETLIST                          R12 R13 2 [1]
-      102 SETTABLEKS                       R12 R11 K16 ["Selectors"]
-      104 FASTCALL2                        TABLE_INSERT R6 R11 ; [+4]
-      106 MOVE                             R10 R6
-      107 GETIMPORT                        R9 K20 [table.insert]
-      109 CALL                             R9 2 0
-      110 JUMPIFNOT                        R2 ; [+27]
-      111 GETIMPORT                        R10 K13 [pcall]
-      113 LOADK                            R12 K26 ["PreferredTextSize"]
-      114 NEWCLOSURE                       R11 P3
-      115 CAPTURE                          VAL R12
-      116 CALL                             R10 1 2
-      117 JUMPIFNOT                        R10 ; [+2]
-      118 MOVE                             R9 R11
-      119 JUMP                             ; [+1]
-      120 LOADNIL                          R9
-      121 JUMPIFNOT                        R9 ; [+16]
-      122 DUPTABLE                         R12 K17 [{"Name", "Selectors"}]
-      123 LOADK                            R13 K26 ["PreferredTextSize"]
-      124 SETTABLEKS                       R13 R12 K15 ["Name"]
-      126 MOVE                             R13 R3
-      127 LOADK                            R14 K26 ["PreferredTextSize"]
-      128 MOVE                             R15 R9
-      129 CALL                             R13 2 1
-      130 SETTABLEKS                       R13 R12 K16 ["Selectors"]
-      132 FASTCALL2                        TABLE_INSERT R6 R12 ; [+4]
-      134 MOVE                             R11 R6
-      135 GETIMPORT                        R10 K20 [table.insert]
-      137 CALL                             R10 2 0
-      138 RETURN                           R6 1
+       48 JUMPIFNOT                        R7 ; [+13]
+       49 DUPTABLE                         R10 K17 [{["Name"] = "PreferredInput", ["Selectors"]}]
+       50 MOVE                             R11 R3
+       51 LOADK                            R12 K14 ["PreferredInput"]
+       52 MOVE                             R13 R7
+       53 CALL                             R11 2 1
+       54 SETTABLEKS                       R11 R10 K16 ["Selectors"]
+       56 FASTCALL2                        TABLE_INSERT R6 R10 ; [+4]
+       58 MOVE                             R9 R6
+       59 GETIMPORT                        R8 K20 [table.insert]
+       61 CALL                             R8 2 0
+       62 GETIMPORT                        R9 K13 [pcall]
+       64 LOADK                            R11 K21 ["DisplaySize"]
+       65 NEWCLOSURE                       R10 P3
+       66 CAPTURE                          VAL R11
+       67 CALL                             R9 1 2
+       68 JUMPIFNOT                        R9 ; [+2]
+       69 MOVE                             R8 R10
+       70 JUMP                             ; [+1]
+       71 LOADNIL                          R8
+       72 JUMPIFNOT                        R8 ; [+13]
+       73 DUPTABLE                         R11 K23 [{["Name"] = "ViewportDisplaySize", ["Selectors"]}]
+       74 MOVE                             R12 R3
+       75 LOADK                            R13 K22 ["ViewportDisplaySize"]
+       76 MOVE                             R14 R8
+       77 CALL                             R12 2 1
+       78 SETTABLEKS                       R12 R11 K16 ["Selectors"]
+       80 FASTCALL2                        TABLE_INSERT R6 R11 ; [+4]
+       82 MOVE                             R10 R6
+       83 GETIMPORT                        R9 K20 [table.insert]
+       85 CALL                             R9 2 0
+       86 DUPTABLE                         R11 K25 [{["Name"] = "ReducedMotionEnabled", ["Selectors"]}]
+       87 NEWTABLE                         R12 0 2
+       89 LOADK                            R13 K26 ["@ReducedMotionEnabledTrue"]
+       90 LOADK                            R14 K27 ["@ReducedMotionEnabledFalse"]
+       91 SETLIST                          R12 R13 2 [1]
+       93 SETTABLEKS                       R12 R11 K16 ["Selectors"]
+       95 FASTCALL2                        TABLE_INSERT R6 R11 ; [+4]
+       97 MOVE                             R10 R6
+       98 GETIMPORT                        R9 K20 [table.insert]
+      100 CALL                             R9 2 0
+      101 JUMPIFNOT                        R2 ; [+24]
+      102 GETIMPORT                        R10 K13 [pcall]
+      104 LOADK                            R12 K28 ["PreferredTextSize"]
+      105 NEWCLOSURE                       R11 P3
+      106 CAPTURE                          VAL R12
+      107 CALL                             R10 1 2
+      108 JUMPIFNOT                        R10 ; [+2]
+      109 MOVE                             R9 R11
+      110 JUMP                             ; [+1]
+      111 LOADNIL                          R9
+      112 JUMPIFNOT                        R9 ; [+13]
+      113 DUPTABLE                         R12 K29 [{["Name"] = "PreferredTextSize", ["Selectors"]}]
+      114 MOVE                             R13 R3
+      115 LOADK                            R14 K28 ["PreferredTextSize"]
+      116 MOVE                             R15 R9
+      117 CALL                             R13 2 1
+      118 SETTABLEKS                       R13 R12 K16 ["Selectors"]
+      120 FASTCALL2                        TABLE_INSERT R6 R12 ; [+4]
+      122 MOVE                             R11 R6
+      123 GETIMPORT                        R10 K20 [table.insert]
+      125 CALL                             R10 2 0
+      126 RETURN                           R6 1

@@ -183,8 +183,8 @@ PROTO_7:
       140 CALL                             R9 2 1
       141 SETTABLEKS                       R9 R8 K13 ["XButton"]
       143 GETUPVAL                         R10 3
-      144 JUMPIFNOT                        R10 ; [+74]
-      145 JUMPIFNOT                        R1 ; [+73]
+      144 JUMPIFNOT                        R10 ; [+65]
+      145 JUMPIFNOT                        R1 ; [+64]
       146 GETUPVAL                         R9 0
       147 GETTABLEKS                       R9 R9 K4 ["createElement"]
       149 GETUPVAL                         R10 2
@@ -197,50 +197,44 @@ PROTO_7:
       158 GETUPVAL                         R13 0
       159 GETTABLEKS                       R13 R13 K4 ["createElement"]
       161 GETUPVAL                         R14 9
-      162 DUPTABLE                         R15 K46 [{"LayoutOrder", "Icon", "OnClick"}]
-      163 LOADN                            R16 0
-      164 SETTABLEKS                       R16 R15 K44 ["LayoutOrder"]
-      166 GETUPVAL                         R16 7
-      167 GETTABLEKS                       R16 R16 K47 ["arrowUp"]
-      169 CALL                             R16 0 1
-      170 SETTABLEKS                       R16 R15 K45 ["Icon"]
-      172 SETTABLEKS                       R3 R15 K33 ["OnClick"]
-      174 CALL                             R13 2 1
-      175 SETTABLEKS                       R13 R12 K41 ["ArrowUp"]
-      177 GETUPVAL                         R13 0
-      178 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      180 GETUPVAL                         R14 9
-      181 DUPTABLE                         R15 K46 [{"LayoutOrder", "Icon", "OnClick"}]
-      182 LOADN                            R16 1
-      183 SETTABLEKS                       R16 R15 K44 ["LayoutOrder"]
-      185 GETUPVAL                         R16 7
-      186 GETTABLEKS                       R16 R16 K48 ["arrowDown"]
-      188 CALL                             R16 0 1
-      189 SETTABLEKS                       R16 R15 K45 ["Icon"]
-      191 SETTABLEKS                       R4 R15 K33 ["OnClick"]
-      193 CALL                             R13 2 1
-      194 SETTABLEKS                       R13 R12 K42 ["ArrowDown"]
-      196 GETUPVAL                         R13 0
-      197 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      199 GETUPVAL                         R14 9
-      200 DUPTABLE                         R15 K46 [{"LayoutOrder", "Icon", "OnClick"}]
-      201 LOADN                            R16 2
-      202 SETTABLEKS                       R16 R15 K44 ["LayoutOrder"]
-      204 GETUPVAL                         R16 7
-      205 GETTABLEKS                       R16 R16 K29 ["close"]
-      207 CALL                             R16 0 1
-      208 SETTABLEKS                       R16 R15 K45 ["Icon"]
-      210 NEWCLOSURE                       R16 P5
-      211 CAPTURE                          VAL R0
-      212 SETTABLEKS                       R16 R15 K33 ["OnClick"]
-      214 CALL                             R13 2 1
-      215 SETTABLEKS                       R13 R12 K13 ["XButton"]
-      217 CALL                             R9 3 1
-      218 JUMP                             ; [+1]
-      219 LOADNIL                          R9
-      220 SETTABLEKS                       R9 R8 K14 ["Buttons"]
-      222 CALL                             R5 3 -1
-      223 RETURN                           R5 -1
+      162 DUPTABLE                         R15 K47 [{["LayoutOrder"] = 0, ["Icon"], ["OnClick"]}]
+      163 GETUPVAL                         R16 7
+      164 GETTABLEKS                       R16 R16 K48 ["arrowUp"]
+      166 CALL                             R16 0 1
+      167 SETTABLEKS                       R16 R15 K46 ["Icon"]
+      169 SETTABLEKS                       R3 R15 K33 ["OnClick"]
+      171 CALL                             R13 2 1
+      172 SETTABLEKS                       R13 R12 K41 ["ArrowUp"]
+      174 GETUPVAL                         R13 0
+      175 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      177 GETUPVAL                         R14 9
+      178 DUPTABLE                         R15 K50 [{["LayoutOrder"] = 1, ["Icon"], ["OnClick"]}]
+      179 GETUPVAL                         R16 7
+      180 GETTABLEKS                       R16 R16 K51 ["arrowDown"]
+      182 CALL                             R16 0 1
+      183 SETTABLEKS                       R16 R15 K46 ["Icon"]
+      185 SETTABLEKS                       R4 R15 K33 ["OnClick"]
+      187 CALL                             R13 2 1
+      188 SETTABLEKS                       R13 R12 K42 ["ArrowDown"]
+      190 GETUPVAL                         R13 0
+      191 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      193 GETUPVAL                         R14 9
+      194 DUPTABLE                         R15 K53 [{["LayoutOrder"] = 2, ["Icon"], ["OnClick"]}]
+      195 GETUPVAL                         R16 7
+      196 GETTABLEKS                       R16 R16 K29 ["close"]
+      198 CALL                             R16 0 1
+      199 SETTABLEKS                       R16 R15 K46 ["Icon"]
+      201 NEWCLOSURE                       R16 P5
+      202 CAPTURE                          VAL R0
+      203 SETTABLEKS                       R16 R15 K33 ["OnClick"]
+      205 CALL                             R13 2 1
+      206 SETTABLEKS                       R13 R12 K13 ["XButton"]
+      208 CALL                             R9 3 1
+      209 JUMP                             ; [+1]
+      210 LOADNIL                          R9
+      211 SETTABLEKS                       R9 R8 K14 ["Buttons"]
+      213 CALL                             R5 3 -1
+      214 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

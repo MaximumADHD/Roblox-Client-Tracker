@@ -1,11 +1,9 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["isHovered"]
-        2 JUMPIF                           R1 ; [+5]
-        3 DUPTABLE                         R1 K1 [{"isHovered"}]
-        4 LOADB                            R2 1
-        5 SETTABLEKS                       R2 R1 K0 ["isHovered"]
-        7 RETURN                           R1 1
-        8 RETURN                           R0 1
+        2 JUMPIF                           R1 ; [+2]
+        3 DUPTABLE                         R1 K2 [{[1] = True}]
+        4 RETURN                           R1 1
+        5 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -16,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["isHovered"]
-        2 JUMPIFNOT                        R1 ; [+5]
-        3 DUPTABLE                         R1 K1 [{"isHovered"}]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K0 ["isHovered"]
-        7 RETURN                           R1 1
-        8 RETURN                           R0 1
+        2 JUMPIFNOT                        R1 ; [+2]
+        3 DUPTABLE                         R1 K2 [{[1] = False}]
+        4 RETURN                           R1 1
+        5 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -41,20 +37,18 @@ PROTO_4:
        12 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K1 [{"isHovered"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isHovered"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K3 ["onMouseEnter"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K4 ["onMouseLeave"]
-       14 NEWCLOSURE                       R1 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R1 R0 K5 ["onClick"]
-       18 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K4 ["onMouseEnter"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K5 ["onMouseLeave"]
+       11 NEWCLOSURE                       R1 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R1 R0 K6 ["onClick"]
+       15 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -155,24 +149,22 @@ PROTO_6:
       152 CALL                             R16 2 1
       153 SETTABLEKS                       R16 R15 K34 ["UIPadding"]
       155 MOVE                             R16 R5
-      156 JUMPIFNOT                        R16 ; [+18]
+      156 JUMPIFNOT                        R16 ; [+15]
       157 GETUPVAL                         R16 0
       158 GETTABLEKS                       R16 R16 K15 ["createElement"]
       160 GETUPVAL                         R17 1
-      161 DUPTABLE                         R18 K50 [{"Cursor", "Size"}]
-      162 LOADK                            R19 K51 ["PointingHand"]
-      163 SETTABLEKS                       R19 R18 K49 ["Cursor"]
-      165 GETIMPORT                        R19 K53 [UDim2.new]
-      167 LOADN                            R20 1
-      168 LOADN                            R21 0
-      169 LOADN                            R22 1
-      170 LOADN                            R23 0
-      171 CALL                             R19 4 1
-      172 SETTABLEKS                       R19 R18 K5 ["Size"]
-      174 CALL                             R16 2 1
-      175 SETTABLEKS                       R16 R15 K35 ["HoverArea"]
-      177 CALL                             R12 3 -1
-      178 RETURN                           R12 -1
+      161 DUPTABLE                         R18 K51 [{["Cursor"] = "PointingHand", ["Size"]}]
+      162 GETIMPORT                        R19 K53 [UDim2.new]
+      164 LOADN                            R20 1
+      165 LOADN                            R21 0
+      166 LOADN                            R22 1
+      167 LOADN                            R23 0
+      168 CALL                             R19 4 1
+      169 SETTABLEKS                       R19 R18 K5 ["Size"]
+      171 CALL                             R16 2 1
+      172 SETTABLEKS                       R16 R15 K35 ["HoverArea"]
+      174 CALL                             R12 3 -1
+      175 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -33,7 +33,7 @@ MAIN:
        44 DUPTABLE                         R10 K20 [{"Size"}]
        45 GETIMPORT                        R11 K22 [UDim2.new]
        47 LOADN                            R12 1
-       48 LOADN                            R13 206
+       48 LOADN                            R13 -50
        49 LOADN                            R14 0
        50 LOADN                            R15 32
        51 CALL                             R11 4 1
@@ -63,204 +63,164 @@ MAIN:
        88 CALL                             R8 3 1
        89 MOVE                             R9 R2
        90 LOADK                            R10 K41 ["> #Graph"]
-       91 DUPTABLE                         R11 K44 [{"Size", "Position", "BackgroundColor3", "BackgroundTransparency"}]
+       91 DUPTABLE                         R11 K46 [{["Size"], ["Position"], ["BackgroundColor3"] = "$BackgroundPaper", ["BackgroundTransparency"] = 0}]
        92 GETIMPORT                        R12 K22 [UDim2.new]
        94 LOADN                            R13 1
        95 LOADN                            R14 0
        96 LOADN                            R15 1
-       97 LOADN                            R16 192
+       97 LOADN                            R16 -64
        98 CALL                             R12 4 1
        99 SETTABLEKS                       R12 R11 K19 ["Size"]
-      101 GETIMPORT                        R12 K46 [UDim2.fromOffset]
+      101 GETIMPORT                        R12 K48 [UDim2.fromOffset]
       103 LOADN                            R13 0
       104 LOADN                            R14 32
       105 CALL                             R12 2 1
       106 SETTABLEKS                       R12 R11 K25 ["Position"]
-      108 LOADK                            R12 K47 ["$BackgroundPaper"]
-      109 SETTABLEKS                       R12 R11 K42 ["BackgroundColor3"]
-      111 LOADN                            R12 0
-      112 SETTABLEKS                       R12 R11 K43 ["BackgroundTransparency"]
-      114 NEWTABLE                         R12 0 4
-      116 MOVE                             R13 R2
-      117 LOADK                            R14 K48 ["> #Border"]
-      118 DUPTABLE                         R15 K51 [{"Size", "BorderSizePixel", "BorderColor3", "BackgroundColor3", "BackgroundTransparency"}]
-      119 GETIMPORT                        R16 K22 [UDim2.new]
-      121 LOADN                            R17 1
-      122 LOADN                            R18 206
-      123 LOADN                            R19 1
-      124 LOADN                            R20 0
-      125 CALL                             R16 4 1
-      126 SETTABLEKS                       R16 R15 K19 ["Size"]
-      128 LOADN                            R16 1
-      129 SETTABLEKS                       R16 R15 K49 ["BorderSizePixel"]
-      131 LOADK                            R16 K52 ["$TextPrimary"]
-      132 SETTABLEKS                       R16 R15 K50 ["BorderColor3"]
-      134 LOADK                            R16 K47 ["$BackgroundPaper"]
-      135 SETTABLEKS                       R16 R15 K42 ["BackgroundColor3"]
-      137 LOADN                            R16 0
-      138 SETTABLEKS                       R16 R15 K43 ["BackgroundTransparency"]
-      140 CALL                             R13 2 1
-      141 MOVE                             R14 R2
-      142 LOADK                            R15 K53 ["> #Rulers"]
-      143 DUPTABLE                         R16 K55 [{"Size", "Position", "ClipsDescendants"}]
-      144 GETIMPORT                        R17 K22 [UDim2.new]
-      146 LOADN                            R18 1
-      147 LOADN                            R19 205
-      148 LOADN                            R20 1
-      149 LOADN                            R21 254
-      150 CALL                             R17 4 1
-      151 SETTABLEKS                       R17 R16 K19 ["Size"]
-      153 GETIMPORT                        R17 K46 [UDim2.fromOffset]
-      155 LOADN                            R18 1
-      156 LOADN                            R19 1
-      157 CALL                             R17 2 1
-      158 SETTABLEKS                       R17 R16 K25 ["Position"]
-      160 LOADB                            R17 1
-      161 SETTABLEKS                       R17 R16 K54 ["ClipsDescendants"]
-      163 NEWTABLE                         R17 0 2
-      165 MOVE                             R18 R2
-      166 LOADK                            R19 K56 ["> .Ruler"]
-      167 DUPTABLE                         R20 K57 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
-      168 LOADK                            R21 K58 ["$TextDisabled"]
-      169 SETTABLEKS                       R21 R20 K42 ["BackgroundColor3"]
+      108 NEWTABLE                         R12 0 4
+      110 MOVE                             R13 R2
+      111 LOADK                            R14 K49 ["> #Border"]
+      112 DUPTABLE                         R15 K54 [{["Size"], ["BorderSizePixel"] = 1, ["BorderColor3"] = "$TextPrimary", ["BackgroundColor3"] = "$BackgroundPaper", ["BackgroundTransparency"] = 0}]
+      113 GETIMPORT                        R16 K22 [UDim2.new]
+      115 LOADN                            R17 1
+      116 LOADN                            R18 -50
+      117 LOADN                            R19 1
+      118 LOADN                            R20 0
+      119 CALL                             R16 4 1
+      120 SETTABLEKS                       R16 R15 K19 ["Size"]
+      122 CALL                             R13 2 1
+      123 MOVE                             R14 R2
+      124 LOADK                            R15 K55 ["> #Rulers"]
+      125 DUPTABLE                         R16 K58 [{["Size"], ["Position"], ["ClipsDescendants"] = True}]
+      126 GETIMPORT                        R17 K22 [UDim2.new]
+      128 LOADN                            R18 1
+      129 LOADN                            R19 -51
+      130 LOADN                            R20 1
+      131 LOADN                            R21 -2
+      132 CALL                             R17 4 1
+      133 SETTABLEKS                       R17 R16 K19 ["Size"]
+      135 GETIMPORT                        R17 K48 [UDim2.fromOffset]
+      137 LOADN                            R18 1
+      138 LOADN                            R19 1
+      139 CALL                             R17 2 1
+      140 SETTABLEKS                       R17 R16 K25 ["Position"]
+      142 NEWTABLE                         R17 0 2
+      144 MOVE                             R18 R2
+      145 LOADK                            R19 K59 ["> .Ruler"]
+      146 DUPTABLE                         R20 K61 [{["BackgroundColor3"] = "$TextDisabled", ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0}]
+      147 CALL                             R18 2 1
+      148 MOVE                             R19 R2
+      149 LOADK                            R20 K62 ["> .Axis"]
+      150 DUPTABLE                         R21 K63 [{["BackgroundColor3"] = "$TextPrimary"}]
+      151 CALL                             R19 2 -1
+      152 SETLIST                          R17 R18 -1 [1]
+      154 CALL                             R14 3 1
+      155 MOVE                             R15 R2
+      156 LOADK                            R16 K64 ["> #Scale"]
+      157 DUPTABLE                         R17 K65 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1}]
+      158 GETIMPORT                        R18 K22 [UDim2.new]
+      160 LOADN                            R19 0
+      161 LOADN                            R20 50
+      162 LOADN                            R21 1
+      163 LOADN                            R22 -2
+      164 CALL                             R18 4 1
+      165 SETTABLEKS                       R18 R17 K19 ["Size"]
+      167 GETIMPORT                        R18 K22 [UDim2.new]
+      169 LOADN                            R19 1
+      170 LOADN                            R20 -48
       171 LOADN                            R21 0
-      172 SETTABLEKS                       R21 R20 K43 ["BackgroundTransparency"]
-      174 LOADN                            R21 0
-      175 SETTABLEKS                       R21 R20 K49 ["BorderSizePixel"]
-      177 CALL                             R18 2 1
-      178 MOVE                             R19 R2
-      179 LOADK                            R20 K59 ["> .Axis"]
-      180 DUPTABLE                         R21 K60 [{"BackgroundColor3"}]
-      181 LOADK                            R22 K52 ["$TextPrimary"]
-      182 SETTABLEKS                       R22 R21 K42 ["BackgroundColor3"]
-      184 CALL                             R19 2 -1
-      185 SETLIST                          R17 R18 -1 [1]
-      187 CALL                             R14 3 1
-      188 MOVE                             R15 R2
-      189 LOADK                            R16 K61 ["> #Scale"]
-      190 DUPTABLE                         R17 K62 [{"Size", "Position", "BackgroundTransparency"}]
-      191 GETIMPORT                        R18 K22 [UDim2.new]
-      193 LOADN                            R19 0
-      194 LOADN                            R20 50
-      195 LOADN                            R21 1
-      196 LOADN                            R22 254
-      197 CALL                             R18 4 1
-      198 SETTABLEKS                       R18 R17 K19 ["Size"]
-      200 GETIMPORT                        R18 K22 [UDim2.new]
-      202 LOADN                            R19 1
-      203 LOADN                            R20 208
-      204 LOADN                            R21 0
-      205 LOADN                            R22 1
-      206 CALL                             R18 4 1
-      207 SETTABLEKS                       R18 R17 K25 ["Position"]
-      209 LOADN                            R18 1
-      210 SETTABLEKS                       R18 R17 K43 ["BackgroundTransparency"]
-      212 NEWTABLE                         R18 0 0
-      214 CALL                             R15 3 1
-      215 MOVE                             R16 R2
-      216 LOADK                            R17 K63 ["> #Canvas"]
-      217 DUPTABLE                         R18 K62 [{"Size", "Position", "BackgroundTransparency"}]
-      218 GETIMPORT                        R19 K22 [UDim2.new]
-      220 LOADN                            R20 1
-      221 LOADN                            R21 205
-      222 LOADN                            R22 1
-      223 LOADN                            R23 254
-      224 CALL                             R19 4 1
-      225 SETTABLEKS                       R19 R18 K19 ["Size"]
-      227 GETIMPORT                        R19 K46 [UDim2.fromOffset]
-      229 LOADN                            R20 1
-      230 LOADN                            R21 1
-      231 CALL                             R19 2 1
-      232 SETTABLEKS                       R19 R18 K25 ["Position"]
-      234 LOADN                            R19 1
-      235 SETTABLEKS                       R19 R18 K43 ["BackgroundTransparency"]
-      237 NEWTABLE                         R19 0 1
-      239 MOVE                             R20 R2
-      240 LOADK                            R21 K64 ["> #NoHistoryData"]
-      241 DUPTABLE                         R22 K65 [{"AnchorPoint", "Position", "TextXAlignment", "TextYAlignment"}]
-      242 GETIMPORT                        R23 K31 [Vector2.new]
-      244 LOADK                            R24 K32 [0.5]
-      245 LOADK                            R25 K32 [0.5]
-      246 CALL                             R23 2 1
-      247 SETTABLEKS                       R23 R22 K24 ["AnchorPoint"]
-      249 GETIMPORT                        R23 K34 [UDim2.fromScale]
-      251 LOADK                            R24 K32 [0.5]
-      252 LOADK                            R25 K32 [0.5]
-      253 CALL                             R23 2 1
-      254 SETTABLEKS                       R23 R22 K25 ["Position"]
-      256 GETIMPORT                        R23 K37 [Enum.TextXAlignment.Center]
-      258 SETTABLEKS                       R23 R22 K26 ["TextXAlignment"]
-      260 GETIMPORT                        R23 K38 [Enum.TextYAlignment.Center]
-      262 SETTABLEKS                       R23 R22 K27 ["TextYAlignment"]
-      264 CALL                             R20 2 -1
-      265 SETLIST                          R19 R20 -1 [1]
-      267 CALL                             R16 3 -1
-      268 SETLIST                          R12 R13 -1 [1]
-      270 CALL                             R9 3 1
-      271 MOVE                             R10 R2
-      272 LOADK                            R11 K66 ["> #LegendBar"]
-      273 DUPTABLE                         R12 K67 [{"AnchorPoint", "Size", "Position"}]
-      274 GETIMPORT                        R13 K31 [Vector2.new]
-      276 LOADN                            R14 0
-      277 LOADN                            R15 1
-      278 CALL                             R13 2 1
-      279 SETTABLEKS                       R13 R12 K24 ["AnchorPoint"]
-      281 GETIMPORT                        R13 K22 [UDim2.new]
-      283 LOADN                            R14 1
-      284 LOADN                            R15 206
-      285 LOADN                            R16 0
-      286 LOADN                            R17 32
-      287 CALL                             R13 4 1
-      288 SETTABLEKS                       R13 R12 K19 ["Size"]
-      290 GETIMPORT                        R13 K34 [UDim2.fromScale]
-      292 LOADN                            R14 0
-      293 LOADN                            R15 1
-      294 CALL                             R13 2 1
-      295 SETTABLEKS                       R13 R12 K25 ["Position"]
-      297 NEWTABLE                         R13 0 0
-      299 CALL                             R10 3 1
-      300 MOVE                             R11 R2
-      301 LOADK                            R12 K68 [">> .GraphColor"]
-      302 DUPTABLE                         R13 K60 [{"BackgroundColor3"}]
-      303 LOADK                            R14 K69 ["$PrimaryMain"]
-      304 SETTABLEKS                       R14 R13 K42 ["BackgroundColor3"]
-      306 CALL                             R11 2 1
-      307 MOVE                             R12 R2
-      308 LOADK                            R13 K70 [">> .GraphColor1"]
-      309 DUPTABLE                         R14 K60 [{"BackgroundColor3"}]
-      310 LOADK                            R15 K71 ["$HistoryLegend1"]
-      311 SETTABLEKS                       R15 R14 K42 ["BackgroundColor3"]
-      313 CALL                             R12 2 1
-      314 MOVE                             R13 R2
-      315 LOADK                            R14 K72 [">> .GraphColor2"]
-      316 DUPTABLE                         R15 K60 [{"BackgroundColor3"}]
-      317 LOADK                            R16 K73 ["$HistoryLegend2"]
-      318 SETTABLEKS                       R16 R15 K42 ["BackgroundColor3"]
-      320 CALL                             R13 2 1
-      321 MOVE                             R14 R2
-      322 LOADK                            R15 K74 [">> .GraphColor3"]
-      323 DUPTABLE                         R16 K60 [{"BackgroundColor3"}]
-      324 LOADK                            R17 K75 ["$HistoryLegend3"]
-      325 SETTABLEKS                       R17 R16 K42 ["BackgroundColor3"]
-      327 CALL                             R14 2 1
-      328 MOVE                             R15 R2
-      329 LOADK                            R16 K76 [">> .LegendColor1"]
-      330 DUPTABLE                         R17 K78 [{"TextColor3"}]
-      331 LOADK                            R18 K71 ["$HistoryLegend1"]
-      332 SETTABLEKS                       R18 R17 K77 ["TextColor3"]
-      334 CALL                             R15 2 1
-      335 MOVE                             R16 R2
-      336 LOADK                            R17 K79 [">> .LegendColor2"]
-      337 DUPTABLE                         R18 K78 [{"TextColor3"}]
-      338 LOADK                            R19 K73 ["$HistoryLegend2"]
-      339 SETTABLEKS                       R19 R18 K77 ["TextColor3"]
-      341 CALL                             R16 2 1
-      342 MOVE                             R17 R2
-      343 LOADK                            R18 K80 [">> .LegendColor3"]
-      344 DUPTABLE                         R19 K78 [{"TextColor3"}]
-      345 LOADK                            R20 K75 ["$HistoryLegend3"]
-      346 SETTABLEKS                       R20 R19 K77 ["TextColor3"]
-      348 CALL                             R17 2 -1
-      349 SETLIST                          R6 R7 -1 [1]
-      351 CALL                             R3 3 -1
-      352 RETURN                           R3 -1
+      172 LOADN                            R22 1
+      173 CALL                             R18 4 1
+      174 SETTABLEKS                       R18 R17 K25 ["Position"]
+      176 NEWTABLE                         R18 0 0
+      178 CALL                             R15 3 1
+      179 MOVE                             R16 R2
+      180 LOADK                            R17 K66 ["> #Canvas"]
+      181 DUPTABLE                         R18 K65 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1}]
+      182 GETIMPORT                        R19 K22 [UDim2.new]
+      184 LOADN                            R20 1
+      185 LOADN                            R21 -51
+      186 LOADN                            R22 1
+      187 LOADN                            R23 -2
+      188 CALL                             R19 4 1
+      189 SETTABLEKS                       R19 R18 K19 ["Size"]
+      191 GETIMPORT                        R19 K48 [UDim2.fromOffset]
+      193 LOADN                            R20 1
+      194 LOADN                            R21 1
+      195 CALL                             R19 2 1
+      196 SETTABLEKS                       R19 R18 K25 ["Position"]
+      198 NEWTABLE                         R19 0 1
+      200 MOVE                             R20 R2
+      201 LOADK                            R21 K67 ["> #NoHistoryData"]
+      202 DUPTABLE                         R22 K68 [{"AnchorPoint", "Position", "TextXAlignment", "TextYAlignment"}]
+      203 GETIMPORT                        R23 K31 [Vector2.new]
+      205 LOADK                            R24 K32 [0.5]
+      206 LOADK                            R25 K32 [0.5]
+      207 CALL                             R23 2 1
+      208 SETTABLEKS                       R23 R22 K24 ["AnchorPoint"]
+      210 GETIMPORT                        R23 K34 [UDim2.fromScale]
+      212 LOADK                            R24 K32 [0.5]
+      213 LOADK                            R25 K32 [0.5]
+      214 CALL                             R23 2 1
+      215 SETTABLEKS                       R23 R22 K25 ["Position"]
+      217 GETIMPORT                        R23 K37 [Enum.TextXAlignment.Center]
+      219 SETTABLEKS                       R23 R22 K26 ["TextXAlignment"]
+      221 GETIMPORT                        R23 K38 [Enum.TextYAlignment.Center]
+      223 SETTABLEKS                       R23 R22 K27 ["TextYAlignment"]
+      225 CALL                             R20 2 -1
+      226 SETLIST                          R19 R20 -1 [1]
+      228 CALL                             R16 3 -1
+      229 SETLIST                          R12 R13 -1 [1]
+      231 CALL                             R9 3 1
+      232 MOVE                             R10 R2
+      233 LOADK                            R11 K69 ["> #LegendBar"]
+      234 DUPTABLE                         R12 K70 [{"AnchorPoint", "Size", "Position"}]
+      235 GETIMPORT                        R13 K31 [Vector2.new]
+      237 LOADN                            R14 0
+      238 LOADN                            R15 1
+      239 CALL                             R13 2 1
+      240 SETTABLEKS                       R13 R12 K24 ["AnchorPoint"]
+      242 GETIMPORT                        R13 K22 [UDim2.new]
+      244 LOADN                            R14 1
+      245 LOADN                            R15 -50
+      246 LOADN                            R16 0
+      247 LOADN                            R17 32
+      248 CALL                             R13 4 1
+      249 SETTABLEKS                       R13 R12 K19 ["Size"]
+      251 GETIMPORT                        R13 K34 [UDim2.fromScale]
+      253 LOADN                            R14 0
+      254 LOADN                            R15 1
+      255 CALL                             R13 2 1
+      256 SETTABLEKS                       R13 R12 K25 ["Position"]
+      258 NEWTABLE                         R13 0 0
+      260 CALL                             R10 3 1
+      261 MOVE                             R11 R2
+      262 LOADK                            R12 K71 [">> .GraphColor"]
+      263 DUPTABLE                         R13 K73 [{["BackgroundColor3"] = "$PrimaryMain"}]
+      264 CALL                             R11 2 1
+      265 MOVE                             R12 R2
+      266 LOADK                            R13 K74 [">> .GraphColor1"]
+      267 DUPTABLE                         R14 K76 [{["BackgroundColor3"] = "$HistoryLegend1"}]
+      268 CALL                             R12 2 1
+      269 MOVE                             R13 R2
+      270 LOADK                            R14 K77 [">> .GraphColor2"]
+      271 DUPTABLE                         R15 K79 [{["BackgroundColor3"] = "$HistoryLegend2"}]
+      272 CALL                             R13 2 1
+      273 MOVE                             R14 R2
+      274 LOADK                            R15 K80 [">> .GraphColor3"]
+      275 DUPTABLE                         R16 K82 [{["BackgroundColor3"] = "$HistoryLegend3"}]
+      276 CALL                             R14 2 1
+      277 MOVE                             R15 R2
+      278 LOADK                            R16 K83 [">> .LegendColor1"]
+      279 DUPTABLE                         R17 K85 [{["TextColor3"] = "$HistoryLegend1"}]
+      280 CALL                             R15 2 1
+      281 MOVE                             R16 R2
+      282 LOADK                            R17 K86 [">> .LegendColor2"]
+      283 DUPTABLE                         R18 K87 [{["TextColor3"] = "$HistoryLegend2"}]
+      284 CALL                             R16 2 1
+      285 MOVE                             R17 R2
+      286 LOADK                            R18 K88 [">> .LegendColor3"]
+      287 DUPTABLE                         R19 K89 [{["TextColor3"] = "$HistoryLegend3"}]
+      288 CALL                             R17 2 -1
+      289 SETLIST                          R6 R7 -1 [1]
+      291 CALL                             R3 3 -1
+      292 RETURN                           R3 -1

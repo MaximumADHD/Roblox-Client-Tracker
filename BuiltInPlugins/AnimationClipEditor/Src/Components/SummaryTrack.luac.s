@@ -55,91 +55,85 @@ PROTO_4:
         2 GETUPVAL                         R6 0
         3 GETTABLEKS                       R6 R6 K1 ["createElement"]
         5 GETUPVAL                         R7 1
-        6 DUPTABLE                         R8 K14 [{"Selected", "KeyframeStyle", "Position", "ZIndex", "Width", "BorderSizePixel", "Filled", "Named", "OnActivated", "OnRightClick", "OnInputBegan", "OnInputEnded"}]
+        6 DUPTABLE                         R8 K15 [{["Selected"], ["KeyframeStyle"], ["Position"], ["ZIndex"], ["Width"], ["BorderSizePixel"], ["Filled"] = True, ["Named"], ["OnActivated"], ["OnRightClick"], ["OnInputBegan"], ["OnInputEnded"]}]
         7 SETTABLEKS                       R1 R8 K2 ["Selected"]
         9 GETUPVAL                         R9 2
-       10 GETTABLEKS                       R9 R9 K15 ["KEYFRAME_STYLE"]
-       12 GETTABLEKS                       R9 R9 K16 ["Primary"]
+       10 GETTABLEKS                       R9 R9 K16 ["KEYFRAME_STYLE"]
+       12 GETTABLEKS                       R9 R9 K17 ["Primary"]
        14 SETTABLEKS                       R9 R8 K3 ["KeyframeStyle"]
-       16 GETIMPORT                        R9 K19 [UDim2.new]
+       16 GETIMPORT                        R9 K20 [UDim2.new]
        18 LOADN                            R10 0
        19 MOVE                             R11 R2
-       20 LOADK                            R12 K20 [0.5]
+       20 LOADK                            R12 K21 [0.5]
        21 LOADN                            R13 0
        22 CALL                             R9 4 1
        23 SETTABLEKS                       R9 R8 K4 ["Position"]
        25 GETTABLEKS                       R9 R5 K5 ["ZIndex"]
        27 SETTABLEKS                       R9 R8 K5 ["ZIndex"]
        29 GETUPVAL                         R9 2
-       30 GETTABLEKS                       R9 R9 K21 ["SUMMARY_KEYFRAME_WIDTH"]
+       30 GETTABLEKS                       R9 R9 K22 ["SUMMARY_KEYFRAME_WIDTH"]
        32 SETTABLEKS                       R9 R8 K6 ["Width"]
        34 JUMPIFNOT                        R1 ; [+2]
        35 LOADN                            R9 2
        36 JUMP                             ; [+1]
        37 LOADN                            R9 1
        38 SETTABLEKS                       R9 R8 K7 ["BorderSizePixel"]
-       40 LOADB                            R9 1
-       41 SETTABLEKS                       R9 R8 K8 ["Filled"]
-       43 JUMPIFNOTEQKNIL                  R4 ; [+2]
-       45 LOADB                            R9 0 +1
-       46 LOADB                            R9 1
-       47 SETTABLEKS                       R9 R8 K9 ["Named"]
-       49 GETTABLEKS                       R9 R5 K22 ["OnKeyActivated"]
-       51 SETTABLEKS                       R9 R8 K10 ["OnActivated"]
-       53 NEWCLOSURE                       R9 P0
-       54 CAPTURE                          VAL R5
-       55 CAPTURE                          VAL R3
-       56 CAPTURE                          VAL R1
-       57 SETTABLEKS                       R9 R8 K11 ["OnRightClick"]
-       59 NEWCLOSURE                       R9 P1
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R3
-       62 CAPTURE                          VAL R1
-       63 SETTABLEKS                       R9 R8 K12 ["OnInputBegan"]
-       65 NEWCLOSURE                       R9 P2
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R3
-       68 CAPTURE                          VAL R1
-       69 SETTABLEKS                       R9 R8 K13 ["OnInputEnded"]
-       71 DUPTABLE                         R9 K24 [{"Tooltip"}]
-       72 MOVE                             R10 R4
-       73 JUMPIFNOT                        R10 ; [+11]
-       74 GETUPVAL                         R10 0
-       75 GETTABLEKS                       R10 R10 K1 ["createElement"]
-       77 GETUPVAL                         R11 3
-       78 DUPTABLE                         R12 K27 [{"Text", "ShowDelay"}]
-       79 SETTABLEKS                       R4 R12 K25 ["Text"]
-       81 LOADN                            R13 0
-       82 SETTABLEKS                       R13 R12 K26 ["ShowDelay"]
-       84 CALL                             R10 2 1
-       85 SETTABLEKS                       R10 R9 K23 ["Tooltip"]
-       87 CALL                             R6 3 -1
-       88 RETURN                           R6 -1
+       40 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       42 LOADB                            R9 0 +1
+       43 LOADB                            R9 1
+       44 SETTABLEKS                       R9 R8 K10 ["Named"]
+       46 GETTABLEKS                       R9 R5 K23 ["OnKeyActivated"]
+       48 SETTABLEKS                       R9 R8 K11 ["OnActivated"]
+       50 NEWCLOSURE                       R9 P0
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R1
+       54 SETTABLEKS                       R9 R8 K12 ["OnRightClick"]
+       56 NEWCLOSURE                       R9 P1
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R1
+       60 SETTABLEKS                       R9 R8 K13 ["OnInputBegan"]
+       62 NEWCLOSURE                       R9 P2
+       63 CAPTURE                          VAL R5
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R1
+       66 SETTABLEKS                       R9 R8 K14 ["OnInputEnded"]
+       68 DUPTABLE                         R9 K25 [{"Tooltip"}]
+       69 MOVE                             R10 R4
+       70 JUMPIFNOT                        R10 ; [+8]
+       71 GETUPVAL                         R10 0
+       72 GETTABLEKS                       R10 R10 K1 ["createElement"]
+       74 GETUPVAL                         R11 3
+       75 DUPTABLE                         R12 K29 [{["Text"], ["ShowDelay"] = 0}]
+       76 SETTABLEKS                       R4 R12 K26 ["Text"]
+       78 CALL                             R10 2 1
+       79 SETTABLEKS                       R10 R9 K24 ["Tooltip"]
+       81 CALL                             R6 3 -1
+       82 RETURN                           R6 -1
 
 PROTO_5:
         0 GETUPVAL                         R5 0
         1 GETTABLEKS                       R5 R5 K0 ["createElement"]
         3 GETUPVAL                         R6 1
-        4 DUPTABLE                         R7 K5 [{"Primary", "Position", "Size", "ZIndex"}]
-        5 LOADB                            R8 1
-        6 SETTABLEKS                       R8 R7 K1 ["Primary"]
-        8 GETIMPORT                        R8 K8 [UDim2.new]
-       10 LOADN                            R9 0
-       11 MOVE                             R10 R1
-       12 LOADK                            R11 K9 [0.5]
-       13 LOADN                            R12 0
-       14 CALL                             R8 4 1
-       15 SETTABLEKS                       R8 R7 K2 ["Position"]
-       17 GETIMPORT                        R8 K8 [UDim2.new]
-       19 LOADN                            R9 0
-       20 SUB                              R10 R2 R1
-       21 LOADN                            R11 0
-       22 MOVE                             R12 R3
-       23 CALL                             R8 4 1
-       24 SETTABLEKS                       R8 R7 K3 ["Size"]
-       26 SETTABLEKS                       R4 R7 K4 ["ZIndex"]
-       28 CALL                             R5 2 -1
-       29 RETURN                           R5 -1
+        4 DUPTABLE                         R7 K6 [{["Primary"] = True, ["Position"], ["Size"], ["ZIndex"]}]
+        5 GETIMPORT                        R8 K9 [UDim2.new]
+        7 LOADN                            R9 0
+        8 MOVE                             R10 R1
+        9 LOADK                            R11 K10 [0.5]
+       10 LOADN                            R12 0
+       11 CALL                             R8 4 1
+       12 SETTABLEKS                       R8 R7 K3 ["Position"]
+       14 GETIMPORT                        R8 K9 [UDim2.new]
+       16 LOADN                            R9 0
+       17 SUB                              R10 R2 R1
+       18 LOADN                            R11 0
+       19 MOVE                             R12 R3
+       20 CALL                             R8 4 1
+       21 SETTABLEKS                       R8 R7 K4 ["Size"]
+       23 SETTABLEKS                       R4 R7 K5 ["ZIndex"]
+       25 CALL                             R5 2 -1
+       26 RETURN                           R5 -1
 
 PROTO_6:
         0 NAMECALL                         R2 R0 K0 ["getSummaryKeyframes"]

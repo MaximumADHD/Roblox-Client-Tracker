@@ -128,165 +128,161 @@ PROTO_7:
        48 LOADNIL                          R14
        49 JUMPIFNOT                        R3 ; [+3]
        50 LOADN                            R15 0
-       51 JUMPIFLT                         R15 R3 ; [+25]
-       53 JUMPIF                           R4 ; [+23]
+       51 JUMPIFLT                         R15 R3 ; [+22]
+       53 JUMPIF                           R4 ; [+20]
        54 GETUPVAL                         R15 2
        55 GETTABLEKS                       R15 R15 K16 ["createElement"]
        57 GETUPVAL                         R16 3
-       58 DUPTABLE                         R17 K19 [{"Position", "Text", "ZIndex"}]
-       59 GETTABLEKS                       R18 R1 K20 ["NoResultsPosition"]
+       58 DUPTABLE                         R17 K20 [{["Position"], ["Text"], ["ZIndex"] = 2}]
+       59 GETTABLEKS                       R18 R1 K21 ["NoResultsPosition"]
        61 SETTABLEKS                       R18 R17 K6 ["Position"]
-       63 GETTABLEKS                       R18 R1 K21 ["Localization"]
-       65 LOADK                            R20 K22 ["General"]
-       66 LOADK                            R21 K23 ["InfoBannerText"]
-       67 NAMECALL                         R18 R18 K24 ["getText"]
+       63 GETTABLEKS                       R18 R1 K22 ["Localization"]
+       65 LOADK                            R20 K23 ["General"]
+       66 LOADK                            R21 K24 ["InfoBannerText"]
+       67 NAMECALL                         R18 R18 K25 ["getText"]
        69 CALL                             R18 3 1
        70 SETTABLEKS                       R18 R17 K17 ["Text"]
-       72 LOADN                            R18 2
-       73 SETTABLEKS                       R18 R17 K18 ["ZIndex"]
-       75 CALL                             R15 2 -1
-       76 RETURN                           R15 -1
-       77 GETUPVAL                         R15 1
-       78 GETTABLEKS                       R15 R15 K25 ["categoryIsPackage"]
-       80 GETTABLEKS                       R16 R1 K14 ["categoryName"]
-       82 CALL                             R15 1 1
-       83 JUMPIFNOT                        R15 ; [+45]
-       84 LENGTH                           R16 R5
-       85 JUMPIFEQKN                       R16 K26 [0] ; [+43]
-       87 NEWTABLE                         R16 0 0
-       89 LOADN                            R17 1
-       90 GETUPVAL                         R18 4
-       91 GETTABLEKS                       R18 R18 K27 ["MaxPackageAssetIdsForHighestPermissionsRequest"]
-       93 JUMPIFNOTLT                      R17 R18 ; [+20]
+       72 CALL                             R15 2 -1
+       73 RETURN                           R15 -1
+       74 GETUPVAL                         R15 1
+       75 GETTABLEKS                       R15 R15 K26 ["categoryIsPackage"]
+       77 GETTABLEKS                       R16 R1 K14 ["categoryName"]
+       79 CALL                             R15 1 1
+       80 JUMPIFNOT                        R15 ; [+45]
+       81 LENGTH                           R16 R5
+       82 JUMPIFEQKN                       R16 K27 [0] ; [+43]
+       84 NEWTABLE                         R16 0 0
+       86 LOADN                            R17 1
+       87 GETUPVAL                         R18 4
+       88 GETTABLEKS                       R18 R18 K28 ["MaxPackageAssetIdsForHighestPermissionsRequest"]
+       90 JUMPIFNOTLT                      R17 R18 ; [+20]
+       92 GETTABLE                         R18 R5 R17
+       93 JUMPIFEQKNIL                     R18 ; [+17]
        95 GETTABLE                         R18 R5 R17
-       96 JUMPIFEQKNIL                     R18 ; [+17]
-       98 GETTABLE                         R18 R5 R17
-       99 GETTABLEKS                       R20 R0 K0 ["props"]
-      101 GETTABLEKS                       R20 R20 K28 ["currentUserPackagePermissions"]
-      103 GETTABLE                         R19 R20 R18
-      104 JUMPIF                           R19 ; [+7]
-      105 FASTCALL2                        TABLE_INSERT R16 R18 ; [+5]
-      107 MOVE                             R20 R16
-      108 MOVE                             R21 R18
-      109 GETIMPORT                        R19 K31 [table.insert]
-      111 CALL                             R19 2 0
-      112 ADDK                             R17 R17 K32 [1]
-      113 JUMPBACK                         ; [-24]
-      114 LENGTH                           R18 R16
-      115 JUMPIFEQKN                       R18 K26 [0] ; [+13]
-      117 GETTABLEKS                       R18 R0 K0 ["props"]
-      119 GETTABLEKS                       R18 R18 K33 ["dispatchPostAssetCheckPermissions"]
-      121 GETTABLEKS                       R19 R0 K0 ["props"]
-      123 GETTABLEKS                       R19 R19 K34 ["Network"]
-      125 GETTABLEKS                       R19 R19 K35 ["networkInterface"]
-      127 MOVE                             R20 R16
-      128 CALL                             R18 2 0
-      129 GETUPVAL                         R16 1
-      130 GETTABLEKS                       R16 R16 K36 ["categoryIsAudio"]
-      132 GETTABLEKS                       R17 R1 K14 ["categoryName"]
-      134 CALL                             R16 1 1
-      135 JUMPIFNOT                        R16 ; [+45]
-      136 GETUPVAL                         R16 5
-      137 GETTABLEKS                       R17 R1 K4 ["assetIds"]
-      139 NEWCLOSURE                       R18 P0
-      140 CAPTURE                          VAL R1
-      141 CALL                             R16 2 1
-      142 GETUPVAL                         R17 6
-      143 GETTABLEKS                       R17 R17 K37 ["Generator"]
-      145 DUPTABLE                         R18 K43 [{"Assets", "CanInsertAsset", "FetchNextPage", "Loading", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "Position", "Size", "TryInsert", "TryOpenAssetConfig"}]
-      146 SETTABLEKS                       R16 R18 K38 ["Assets"]
-      148 SETTABLEKS                       R10 R18 K9 ["CanInsertAsset"]
-      150 GETTABLEKS                       R19 R0 K44 ["requestNextPage"]
-      152 SETTABLEKS                       R19 R18 K39 ["FetchNextPage"]
-      154 LOADB                            R19 0
-      155 SETTABLEKS                       R19 R18 K40 ["Loading"]
-      157 GETTABLEKS                       R19 R0 K45 ["logImpression"]
-      159 SETTABLEKS                       R19 R18 K41 ["LogImpression"]
-      161 GETTABLEKS                       R19 R1 K10 ["OnAssetPreviewButtonClicked"]
-      163 SETTABLEKS                       R19 R18 K10 ["OnAssetPreviewButtonClicked"]
-      165 GETTABLEKS                       R19 R1 K42 ["ParentAbsoluteSize"]
-      167 SETTABLEKS                       R19 R18 K42 ["ParentAbsoluteSize"]
-      169 SETTABLEKS                       R7 R18 K6 ["Position"]
-      171 SETTABLEKS                       R9 R18 K8 ["Size"]
-      173 SETTABLEKS                       R12 R18 K11 ["TryInsert"]
-      175 GETTABLEKS                       R19 R1 K12 ["TryOpenAssetConfig"]
-      177 SETTABLEKS                       R19 R18 K12 ["TryOpenAssetConfig"]
-      179 CALL                             R17 1 -1
-      180 RETURN                           R17 -1
-      181 GETUPVAL                         R16 7
-      182 MOVE                             R17 R2
-      183 CALL                             R16 1 1
-      184 JUMPIFNOT                        R16 ; [+60]
-      185 GETTABLEKS                       R16 R1 K46 ["layoutMode"]
-      187 GETUPVAL                         R17 8
-      188 GETTABLEKS                       R17 R17 K47 ["ListView"]
-      190 JUMPIFNOTEQ                      R16 R17 ; [+54]
-      192 JUMPIFNOT                        R14 ; [+52]
-      193 GETUPVAL                         R16 5
-      194 GETTABLEKS                       R17 R1 K4 ["assetIds"]
-      196 NEWCLOSURE                       R18 P1
-      197 CAPTURE                          VAL R1
-      198 CALL                             R16 2 1
-      199 GETUPVAL                         R17 2
-      200 GETTABLEKS                       R17 R17 K16 ["createElement"]
-      202 GETUPVAL                         R18 9
-      203 DUPTABLE                         R19 K49 [{"Assets", "CanInsertAsset", "FetchNextPage", "LogImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsoluteSize", "Position", "Size", "TryInsert", "TryOpenAssetConfig"}]
-      204 SETTABLEKS                       R16 R19 K38 ["Assets"]
-      206 SETTABLEKS                       R10 R19 K9 ["CanInsertAsset"]
-      208 GETTABLEKS                       R20 R0 K44 ["requestNextPage"]
-      210 SETTABLEKS                       R20 R19 K39 ["FetchNextPage"]
-      212 GETTABLEKS                       R20 R0 K45 ["logImpression"]
-      214 SETTABLEKS                       R20 R19 K41 ["LogImpression"]
-      216 GETTABLEKS                       R20 R1 K10 ["OnAssetPreviewButtonClicked"]
-      218 SETTABLEKS                       R20 R19 K10 ["OnAssetPreviewButtonClicked"]
-      220 GETUPVAL                         R21 10
-      221 CALL                             R21 0 1
-      222 JUMPIFNOT                        R21 ; [+3]
-      223 GETTABLEKS                       R20 R1 K48 ["OnSearchByCreator"]
-      225 JUMP                             ; [+1]
-      226 LOADNIL                          R20
-      227 SETTABLEKS                       R20 R19 K48 ["OnSearchByCreator"]
-      229 GETTABLEKS                       R20 R1 K42 ["ParentAbsoluteSize"]
-      231 SETTABLEKS                       R20 R19 K42 ["ParentAbsoluteSize"]
-      233 SETTABLEKS                       R7 R19 K6 ["Position"]
-      235 SETTABLEKS                       R9 R19 K8 ["Size"]
-      237 SETTABLEKS                       R12 R19 K11 ["TryInsert"]
-      239 GETTABLEKS                       R20 R1 K12 ["TryOpenAssetConfig"]
-      241 SETTABLEKS                       R20 R19 K12 ["TryOpenAssetConfig"]
-      243 CALL                             R17 2 -1
-      244 RETURN                           R17 -1
-      245 GETUPVAL                         R16 2
-      246 GETTABLEKS                       R16 R16 K16 ["createElement"]
-      248 GETUPVAL                         R17 11
-      249 DUPTABLE                         R18 K56 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsolutePosition", "ParentSize", "TryInsert", "TryOpenAssetConfig"}]
-      250 SETTABLEKS                       R5 R18 K50 ["AssetIds"]
-      252 GETTABLEKS                       R19 R1 K57 ["idToAssetMap"]
-      254 SETTABLEKS                       R19 R18 K51 ["AssetMap"]
-      256 SETTABLEKS                       R6 R18 K5 ["LayoutOrder"]
-      258 SETTABLEKS                       R7 R18 K6 ["Position"]
-      260 SETTABLEKS                       R8 R18 K7 ["RenderTopContent"]
-      262 GETTABLEKS                       R19 R0 K44 ["requestNextPage"]
-      264 SETTABLEKS                       R19 R18 K52 ["RequestNextPage"]
-      266 SETTABLEKS                       R9 R18 K8 ["Size"]
-      268 SETTABLEKS                       R10 R18 K9 ["CanInsertAsset"]
-      270 GETTABLEKS                       R19 R1 K53 ["LogAssetImpression"]
-      272 SETTABLEKS                       R19 R18 K53 ["LogAssetImpression"]
-      274 SETTABLEKS                       R11 R18 K10 ["OnAssetPreviewButtonClicked"]
-      276 GETUPVAL                         R20 12
-      277 CALL                             R20 0 1
-      278 JUMPIFNOT                        R20 ; [+3]
-      279 GETTABLEKS                       R19 R1 K48 ["OnSearchByCreator"]
-      281 JUMP                             ; [+1]
-      282 LOADNIL                          R19
-      283 SETTABLEKS                       R19 R18 K48 ["OnSearchByCreator"]
-      285 GETTABLEKS                       R19 R1 K54 ["ParentAbsolutePosition"]
-      287 SETTABLEKS                       R19 R18 K54 ["ParentAbsolutePosition"]
-      289 GETTABLEKS                       R19 R1 K42 ["ParentAbsoluteSize"]
-      291 SETTABLEKS                       R19 R18 K55 ["ParentSize"]
-      293 SETTABLEKS                       R12 R18 K11 ["TryInsert"]
-      295 SETTABLEKS                       R13 R18 K12 ["TryOpenAssetConfig"]
-      297 CALL                             R16 2 -1
-      298 RETURN                           R16 -1
+       96 GETTABLEKS                       R20 R0 K0 ["props"]
+       98 GETTABLEKS                       R20 R20 K29 ["currentUserPackagePermissions"]
+      100 GETTABLE                         R19 R20 R18
+      101 JUMPIF                           R19 ; [+7]
+      102 FASTCALL2                        TABLE_INSERT R16 R18 ; [+5]
+      104 MOVE                             R20 R16
+      105 MOVE                             R21 R18
+      106 GETIMPORT                        R19 K32 [table.insert]
+      108 CALL                             R19 2 0
+      109 ADDK                             R17 R17 K33 [1]
+      110 JUMPBACK                         ; [-24]
+      111 LENGTH                           R18 R16
+      112 JUMPIFEQKN                       R18 K27 [0] ; [+13]
+      114 GETTABLEKS                       R18 R0 K0 ["props"]
+      116 GETTABLEKS                       R18 R18 K34 ["dispatchPostAssetCheckPermissions"]
+      118 GETTABLEKS                       R19 R0 K0 ["props"]
+      120 GETTABLEKS                       R19 R19 K35 ["Network"]
+      122 GETTABLEKS                       R19 R19 K36 ["networkInterface"]
+      124 MOVE                             R20 R16
+      125 CALL                             R18 2 0
+      126 GETUPVAL                         R16 1
+      127 GETTABLEKS                       R16 R16 K37 ["categoryIsAudio"]
+      129 GETTABLEKS                       R17 R1 K14 ["categoryName"]
+      131 CALL                             R16 1 1
+      132 JUMPIFNOT                        R16 ; [+42]
+      133 GETUPVAL                         R16 5
+      134 GETTABLEKS                       R17 R1 K4 ["assetIds"]
+      136 NEWCLOSURE                       R18 P0
+      137 CAPTURE                          VAL R1
+      138 CALL                             R16 2 1
+      139 GETUPVAL                         R17 6
+      140 GETTABLEKS                       R17 R17 K38 ["Generator"]
+      142 DUPTABLE                         R18 K45 [{["Assets"], ["CanInsertAsset"], ["FetchNextPage"], ["Loading"] = False, ["LogImpression"], ["OnAssetPreviewButtonClicked"], ["ParentAbsoluteSize"], ["Position"], ["Size"], ["TryInsert"], ["TryOpenAssetConfig"]}]
+      143 SETTABLEKS                       R16 R18 K39 ["Assets"]
+      145 SETTABLEKS                       R10 R18 K9 ["CanInsertAsset"]
+      147 GETTABLEKS                       R19 R0 K46 ["requestNextPage"]
+      149 SETTABLEKS                       R19 R18 K40 ["FetchNextPage"]
+      151 GETTABLEKS                       R19 R0 K47 ["logImpression"]
+      153 SETTABLEKS                       R19 R18 K43 ["LogImpression"]
+      155 GETTABLEKS                       R19 R1 K10 ["OnAssetPreviewButtonClicked"]
+      157 SETTABLEKS                       R19 R18 K10 ["OnAssetPreviewButtonClicked"]
+      159 GETTABLEKS                       R19 R1 K44 ["ParentAbsoluteSize"]
+      161 SETTABLEKS                       R19 R18 K44 ["ParentAbsoluteSize"]
+      163 SETTABLEKS                       R7 R18 K6 ["Position"]
+      165 SETTABLEKS                       R9 R18 K8 ["Size"]
+      167 SETTABLEKS                       R12 R18 K11 ["TryInsert"]
+      169 GETTABLEKS                       R19 R1 K12 ["TryOpenAssetConfig"]
+      171 SETTABLEKS                       R19 R18 K12 ["TryOpenAssetConfig"]
+      173 CALL                             R17 1 -1
+      174 RETURN                           R17 -1
+      175 GETUPVAL                         R16 7
+      176 MOVE                             R17 R2
+      177 CALL                             R16 1 1
+      178 JUMPIFNOT                        R16 ; [+60]
+      179 GETTABLEKS                       R16 R1 K48 ["layoutMode"]
+      181 GETUPVAL                         R17 8
+      182 GETTABLEKS                       R17 R17 K49 ["ListView"]
+      184 JUMPIFNOTEQ                      R16 R17 ; [+54]
+      186 JUMPIFNOT                        R14 ; [+52]
+      187 GETUPVAL                         R16 5
+      188 GETTABLEKS                       R17 R1 K4 ["assetIds"]
+      190 NEWCLOSURE                       R18 P1
+      191 CAPTURE                          VAL R1
+      192 CALL                             R16 2 1
+      193 GETUPVAL                         R17 2
+      194 GETTABLEKS                       R17 R17 K16 ["createElement"]
+      196 GETUPVAL                         R18 9
+      197 DUPTABLE                         R19 K51 [{"Assets", "CanInsertAsset", "FetchNextPage", "LogImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsoluteSize", "Position", "Size", "TryInsert", "TryOpenAssetConfig"}]
+      198 SETTABLEKS                       R16 R19 K39 ["Assets"]
+      200 SETTABLEKS                       R10 R19 K9 ["CanInsertAsset"]
+      202 GETTABLEKS                       R20 R0 K46 ["requestNextPage"]
+      204 SETTABLEKS                       R20 R19 K40 ["FetchNextPage"]
+      206 GETTABLEKS                       R20 R0 K47 ["logImpression"]
+      208 SETTABLEKS                       R20 R19 K43 ["LogImpression"]
+      210 GETTABLEKS                       R20 R1 K10 ["OnAssetPreviewButtonClicked"]
+      212 SETTABLEKS                       R20 R19 K10 ["OnAssetPreviewButtonClicked"]
+      214 GETUPVAL                         R21 10
+      215 CALL                             R21 0 1
+      216 JUMPIFNOT                        R21 ; [+3]
+      217 GETTABLEKS                       R20 R1 K50 ["OnSearchByCreator"]
+      219 JUMP                             ; [+1]
+      220 LOADNIL                          R20
+      221 SETTABLEKS                       R20 R19 K50 ["OnSearchByCreator"]
+      223 GETTABLEKS                       R20 R1 K44 ["ParentAbsoluteSize"]
+      225 SETTABLEKS                       R20 R19 K44 ["ParentAbsoluteSize"]
+      227 SETTABLEKS                       R7 R19 K6 ["Position"]
+      229 SETTABLEKS                       R9 R19 K8 ["Size"]
+      231 SETTABLEKS                       R12 R19 K11 ["TryInsert"]
+      233 GETTABLEKS                       R20 R1 K12 ["TryOpenAssetConfig"]
+      235 SETTABLEKS                       R20 R19 K12 ["TryOpenAssetConfig"]
+      237 CALL                             R17 2 -1
+      238 RETURN                           R17 -1
+      239 GETUPVAL                         R16 2
+      240 GETTABLEKS                       R16 R16 K16 ["createElement"]
+      242 GETUPVAL                         R17 11
+      243 DUPTABLE                         R18 K58 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsolutePosition", "ParentSize", "TryInsert", "TryOpenAssetConfig"}]
+      244 SETTABLEKS                       R5 R18 K52 ["AssetIds"]
+      246 GETTABLEKS                       R19 R1 K59 ["idToAssetMap"]
+      248 SETTABLEKS                       R19 R18 K53 ["AssetMap"]
+      250 SETTABLEKS                       R6 R18 K5 ["LayoutOrder"]
+      252 SETTABLEKS                       R7 R18 K6 ["Position"]
+      254 SETTABLEKS                       R8 R18 K7 ["RenderTopContent"]
+      256 GETTABLEKS                       R19 R0 K46 ["requestNextPage"]
+      258 SETTABLEKS                       R19 R18 K54 ["RequestNextPage"]
+      260 SETTABLEKS                       R9 R18 K8 ["Size"]
+      262 SETTABLEKS                       R10 R18 K9 ["CanInsertAsset"]
+      264 GETTABLEKS                       R19 R1 K55 ["LogAssetImpression"]
+      266 SETTABLEKS                       R19 R18 K55 ["LogAssetImpression"]
+      268 SETTABLEKS                       R11 R18 K10 ["OnAssetPreviewButtonClicked"]
+      270 GETUPVAL                         R20 12
+      271 CALL                             R20 0 1
+      272 JUMPIFNOT                        R20 ; [+3]
+      273 GETTABLEKS                       R19 R1 K50 ["OnSearchByCreator"]
+      275 JUMP                             ; [+1]
+      276 LOADNIL                          R19
+      277 SETTABLEKS                       R19 R18 K50 ["OnSearchByCreator"]
+      279 GETTABLEKS                       R19 R1 K56 ["ParentAbsolutePosition"]
+      281 SETTABLEKS                       R19 R18 K56 ["ParentAbsolutePosition"]
+      283 GETTABLEKS                       R19 R1 K44 ["ParentAbsoluteSize"]
+      285 SETTABLEKS                       R19 R18 K57 ["ParentSize"]
+      287 SETTABLEKS                       R12 R18 K11 ["TryInsert"]
+      289 SETTABLEKS                       R13 R18 K12 ["TryOpenAssetConfig"]
+      291 CALL                             R16 2 -1
+      292 RETURN                           R16 -1
 
 PROTO_8:
         0 MOVE                             R2 R0

@@ -61,93 +61,85 @@ PROTO_5:
        30 GETUPVAL                         R12 0
        31 GETTABLEKS                       R12 R12 K8 ["createElement"]
        33 GETUPVAL                         R13 2
-       34 DUPTABLE                         R14 K23 [{"AbsoluteMax", "CellPadding", "CellSize", "BufferedRows", "Items", "Loading", "Padding", "RenderItem", "Size", "ZIndex"}]
-       35 GETTABLEKS                       R16 R1 K24 ["MaterialList"]
+       34 DUPTABLE                         R14 K26 [{["AbsoluteMax"], ["CellPadding"], ["CellSize"], ["BufferedRows"] = 2, ["Items"], ["Loading"] = False, ["Padding"], ["RenderItem"], ["Size"], ["ZIndex"] = 1}]
+       35 GETTABLEKS                       R16 R1 K27 ["MaterialList"]
        37 LENGTH                           R15 R16
        38 SETTABLEKS                       R15 R14 K14 ["AbsoluteMax"]
        40 JUMPIFNOTEQKS                    R6 K11 ["Grid"] ; [+9]
-       42 GETIMPORT                        R15 K27 [UDim2.fromOffset]
-       44 GETTABLEKS                       R16 R2 K28 ["GridPadding"]
-       46 GETTABLEKS                       R17 R2 K28 ["GridPadding"]
+       42 GETIMPORT                        R15 K30 [UDim2.fromOffset]
+       44 GETTABLEKS                       R16 R2 K31 ["GridPadding"]
+       46 GETTABLEKS                       R17 R2 K31 ["GridPadding"]
        48 CALL                             R15 2 1
        49 JUMP                             ; [+7]
-       50 GETIMPORT                        R15 K27 [UDim2.fromOffset]
-       52 GETTABLEKS                       R16 R2 K29 ["ListPadding"]
-       54 GETTABLEKS                       R17 R2 K29 ["ListPadding"]
+       50 GETIMPORT                        R15 K30 [UDim2.fromOffset]
+       52 GETTABLEKS                       R16 R2 K32 ["ListPadding"]
+       54 GETTABLEKS                       R17 R2 K32 ["ListPadding"]
        56 CALL                             R15 2 1
        57 SETTABLEKS                       R15 R14 K15 ["CellPadding"]
        59 JUMPIFNOTEQKS                    R6 K11 ["Grid"] ; [+7]
-       61 GETIMPORT                        R15 K27 [UDim2.fromOffset]
+       61 GETIMPORT                        R15 K30 [UDim2.fromOffset]
        63 MOVE                             R16 R4
        64 MOVE                             R17 R4
        65 CALL                             R15 2 1
        66 JUMP                             ; [+8]
-       67 GETIMPORT                        R15 K31 [UDim2.new]
+       67 GETIMPORT                        R15 K34 [UDim2.new]
        69 LOADN                            R16 1
-       70 LOADN                            R17 236
+       70 LOADN                            R17 -20
        71 LOADN                            R18 0
-       72 GETTABLEKS                       R19 R2 K32 ["ListHeight"]
+       72 GETTABLEKS                       R19 R2 K35 ["ListHeight"]
        74 CALL                             R15 4 1
        75 SETTABLEKS                       R15 R14 K16 ["CellSize"]
-       77 LOADN                            R15 2
-       78 SETTABLEKS                       R15 R14 K17 ["BufferedRows"]
-       80 GETTABLEKS                       R15 R1 K24 ["MaterialList"]
-       82 SETTABLEKS                       R15 R14 K18 ["Items"]
-       84 LOADB                            R15 0
-       85 SETTABLEKS                       R15 R14 K19 ["Loading"]
-       87 GETTABLEKS                       R15 R2 K20 ["Padding"]
-       89 SETTABLEKS                       R15 R14 K20 ["Padding"]
-       91 GETTABLEKS                       R15 R0 K33 ["renderItem"]
-       93 SETTABLEKS                       R15 R14 K21 ["RenderItem"]
-       95 GETIMPORT                        R15 K35 [UDim2.fromScale]
-       97 LOADN                            R16 1
-       98 LOADN                            R17 1
-       99 CALL                             R15 2 1
-      100 SETTABLEKS                       R15 R14 K5 ["Size"]
-      102 LOADN                            R15 1
-      103 SETTABLEKS                       R15 R14 K22 ["ZIndex"]
-      105 CALL                             R12 2 1
-      106 SETTABLEKS                       R12 R11 K11 ["Grid"]
-      108 GETTABLEKS                       R13 R1 K36 ["SideBarVisible"]
-      110 JUMPIF                           R13 ; [+51]
-      111 GETUPVAL                         R12 0
-      112 GETTABLEKS                       R12 R12 K8 ["createElement"]
-      114 GETUPVAL                         R13 3
-      115 DUPTABLE                         R14 K44 [{"Size", "LeftIcon", "IconColor", "OnClick", "OnMouseEnter", "OnMouseLeave", "AnchorPoint", "Position", "ZIndex"}]
-      116 GETTABLEKS                       R15 R2 K45 ["IconSize"]
-      118 SETTABLEKS                       R15 R14 K5 ["Size"]
-      120 GETTABLEKS                       R15 R2 K46 ["ChevronRight"]
-      122 SETTABLEKS                       R15 R14 K37 ["LeftIcon"]
-      124 GETTABLEKS                       R15 R2 K38 ["IconColor"]
-      126 SETTABLEKS                       R15 R14 K38 ["IconColor"]
-      128 MOVE                             R15 R7
-      129 JUMPIF                           R15 ; [+1]
-      130 DUPCLOSURE                       R15 K47 [PROTO_4]
-      131 SETTABLEKS                       R15 R14 K39 ["OnClick"]
-      133 GETTABLEKS                       R15 R0 K48 ["onMouseEnter"]
-      135 SETTABLEKS                       R15 R14 K40 ["OnMouseEnter"]
-      137 GETTABLEKS                       R15 R0 K49 ["onMouseLeave"]
-      139 SETTABLEKS                       R15 R14 K41 ["OnMouseLeave"]
-      141 GETIMPORT                        R15 K51 [Vector2.new]
-      143 LOADN                            R16 0
-      144 LOADN                            R17 1
-      145 CALL                             R15 2 1
-      146 SETTABLEKS                       R15 R14 K42 ["AnchorPoint"]
-      148 GETIMPORT                        R15 K31 [UDim2.new]
-      150 LOADN                            R16 0
-      151 LOADN                            R17 5
-      152 LOADN                            R18 1
-      153 LOADN                            R19 251
-      154 CALL                             R15 4 1
-      155 SETTABLEKS                       R15 R14 K43 ["Position"]
-      157 LOADN                            R15 2
-      158 SETTABLEKS                       R15 R14 K22 ["ZIndex"]
-      160 CALL                             R12 2 1
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R12
-      163 SETTABLEKS                       R12 R11 K12 ["SidebarButton"]
-      165 CALL                             R8 3 -1
-      166 RETURN                           R8 -1
+       77 GETTABLEKS                       R15 R1 K27 ["MaterialList"]
+       79 SETTABLEKS                       R15 R14 K19 ["Items"]
+       81 GETTABLEKS                       R15 R2 K22 ["Padding"]
+       83 SETTABLEKS                       R15 R14 K22 ["Padding"]
+       85 GETTABLEKS                       R15 R0 K36 ["renderItem"]
+       87 SETTABLEKS                       R15 R14 K23 ["RenderItem"]
+       89 GETIMPORT                        R15 K38 [UDim2.fromScale]
+       91 LOADN                            R16 1
+       92 LOADN                            R17 1
+       93 CALL                             R15 2 1
+       94 SETTABLEKS                       R15 R14 K5 ["Size"]
+       96 CALL                             R12 2 1
+       97 SETTABLEKS                       R12 R11 K11 ["Grid"]
+       99 GETTABLEKS                       R13 R1 K39 ["SideBarVisible"]
+      101 JUMPIF                           R13 ; [+48]
+      102 GETUPVAL                         R12 0
+      103 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      105 GETUPVAL                         R13 3
+      106 DUPTABLE                         R14 K47 [{["Size"], ["LeftIcon"], ["IconColor"], ["OnClick"], ["OnMouseEnter"], ["OnMouseLeave"], ["AnchorPoint"], ["Position"], ["ZIndex"] = 2}]
+      107 GETTABLEKS                       R15 R2 K48 ["IconSize"]
+      109 SETTABLEKS                       R15 R14 K5 ["Size"]
+      111 GETTABLEKS                       R15 R2 K49 ["ChevronRight"]
+      113 SETTABLEKS                       R15 R14 K40 ["LeftIcon"]
+      115 GETTABLEKS                       R15 R2 K41 ["IconColor"]
+      117 SETTABLEKS                       R15 R14 K41 ["IconColor"]
+      119 MOVE                             R15 R7
+      120 JUMPIF                           R15 ; [+1]
+      121 DUPCLOSURE                       R15 K50 [PROTO_4]
+      122 SETTABLEKS                       R15 R14 K42 ["OnClick"]
+      124 GETTABLEKS                       R15 R0 K51 ["onMouseEnter"]
+      126 SETTABLEKS                       R15 R14 K43 ["OnMouseEnter"]
+      128 GETTABLEKS                       R15 R0 K52 ["onMouseLeave"]
+      130 SETTABLEKS                       R15 R14 K44 ["OnMouseLeave"]
+      132 GETIMPORT                        R15 K54 [Vector2.new]
+      134 LOADN                            R16 0
+      135 LOADN                            R17 1
+      136 CALL                             R15 2 1
+      137 SETTABLEKS                       R15 R14 K45 ["AnchorPoint"]
+      139 GETIMPORT                        R15 K34 [UDim2.new]
+      141 LOADN                            R16 0
+      142 LOADN                            R17 5
+      143 LOADN                            R18 1
+      144 LOADN                            R19 -5
+      145 CALL                             R15 4 1
+      146 SETTABLEKS                       R15 R14 K46 ["Position"]
+      148 CALL                             R12 2 1
+      149 JUMP                             ; [+1]
+      150 LOADNIL                          R12
+      151 SETTABLEKS                       R12 R11 K12 ["SidebarButton"]
+      153 CALL                             R8 3 -1
+      154 RETURN                           R8 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K3 [{"MaterialList", "MaterialTileSize", "ViewType"}]

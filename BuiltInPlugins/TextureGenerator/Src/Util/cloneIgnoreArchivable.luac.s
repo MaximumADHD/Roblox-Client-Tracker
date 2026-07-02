@@ -32,13 +32,11 @@ MAIN:
        10 LOADB                            R4 0
        11 NAMECALL                         R1 R1 K7 ["DefineFastFlag"]
        13 CALL                             R1 3 1
-       14 DUPTABLE                         R2 K9 [{"TouchTransmitter"}]
-       15 LOADB                            R3 1
-       16 SETTABLEKS                       R3 R2 K8 ["TouchTransmitter"]
-       18 JUMPIFNOT                        R1 ; [+3]
-       19 LOADB                            R3 1
-       20 SETTABLEKS                       R3 R2 K10 ["PackageLink"]
-       22 DUPCLOSURE                       R3 K11 [PROTO_0]
-       23 CAPTURE                          VAL R2
-       24 CAPTURE                          VAL R3
-       25 RETURN                           R3 1
+       14 DUPTABLE                         R2 K10 [{["TouchTransmitter"] = True}]
+       15 JUMPIFNOT                        R1 ; [+3]
+       16 LOADB                            R3 1
+       17 SETTABLEKS                       R3 R2 K11 ["PackageLink"]
+       19 DUPCLOSURE                       R3 K12 [PROTO_0]
+       20 CAPTURE                          VAL R2
+       21 CAPTURE                          VAL R3
+       22 RETURN                           R3 1

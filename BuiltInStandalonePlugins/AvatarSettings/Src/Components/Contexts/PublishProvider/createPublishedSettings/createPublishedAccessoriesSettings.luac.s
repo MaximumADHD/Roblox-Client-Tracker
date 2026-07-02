@@ -1,58 +1,52 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K14 [{"accessoryScaleSetting", "accessoryScaleLimitMethodSetting", "accessoryScaleLimitBoundsSetting", "customAccessoriesSetting", "customAccessoriesHairSetting", "customAccessoriesHeadSetting", "customAccessoriesFaceSetting", "customAccessoriesNeckSetting", "customAccessoriesShoulderSetting", "customAccessoriesFrontSetting", "customAccessoriesBackSetting", "customAccessoriesWaistSetting", "accessoryBehaviorEnableSoundSetting", "accessoryBehaviorEnableVFXSetting"}]
-        1 GETIMPORT                        R1 K18 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
+        0 DUPTABLE                         R0 K16 [{[1], ["accessoryScaleLimitMethodSetting"], ["accessoryScaleLimitBoundsSetting"] = {0, 0, 0}, ["customAccessoriesSetting"], ["customAccessoriesHairSetting"], ["customAccessoriesHeadSetting"], ["customAccessoriesFaceSetting"], ["customAccessoriesNeckSetting"], ["customAccessoriesShoulderSetting"], ["customAccessoriesFrontSetting"], ["customAccessoriesBackSetting"], ["customAccessoriesWaistSetting"], ["accessoryBehaviorEnableSoundSetting"] = False, ["accessoryBehaviorEnableVFXSetting"] = False}]
+        1 GETIMPORT                        R1 K20 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
         3 SETTABLEKS                       R1 R0 K0 ["accessoryScaleSetting"]
-        5 GETIMPORT                        R1 K21 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
+        5 GETIMPORT                        R1 K23 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
         7 SETTABLEKS                       R1 R0 K1 ["accessoryScaleLimitMethodSetting"]
-        9 LOADK                            R1 K22 [{0, 0, 0}]
-       10 SETTABLEKS                       R1 R0 K2 ["accessoryScaleLimitBoundsSetting"]
-       12 GETIMPORT                        R1 K24 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
-       14 SETTABLEKS                       R1 R0 K3 ["customAccessoriesSetting"]
-       16 GETUPVAL                         R1 0
-       17 LOADB                            R2 0
-       18 LOADN                            R3 0
-       19 CALL                             R1 2 1
-       20 SETTABLEKS                       R1 R0 K4 ["customAccessoriesHairSetting"]
-       22 GETUPVAL                         R1 0
-       23 LOADB                            R2 0
-       24 LOADN                            R3 0
-       25 CALL                             R1 2 1
-       26 SETTABLEKS                       R1 R0 K5 ["customAccessoriesHeadSetting"]
-       28 GETUPVAL                         R1 0
-       29 LOADB                            R2 0
-       30 LOADN                            R3 0
-       31 CALL                             R1 2 1
-       32 SETTABLEKS                       R1 R0 K6 ["customAccessoriesFaceSetting"]
-       34 GETUPVAL                         R1 0
-       35 LOADB                            R2 0
-       36 LOADN                            R3 0
-       37 CALL                             R1 2 1
-       38 SETTABLEKS                       R1 R0 K7 ["customAccessoriesNeckSetting"]
-       40 GETUPVAL                         R1 0
-       41 LOADB                            R2 0
-       42 LOADN                            R3 0
-       43 CALL                             R1 2 1
-       44 SETTABLEKS                       R1 R0 K8 ["customAccessoriesShoulderSetting"]
-       46 GETUPVAL                         R1 0
-       47 LOADB                            R2 0
-       48 LOADN                            R3 0
-       49 CALL                             R1 2 1
-       50 SETTABLEKS                       R1 R0 K9 ["customAccessoriesFrontSetting"]
-       52 GETUPVAL                         R1 0
-       53 LOADB                            R2 0
-       54 LOADN                            R3 0
-       55 CALL                             R1 2 1
-       56 SETTABLEKS                       R1 R0 K10 ["customAccessoriesBackSetting"]
-       58 GETUPVAL                         R1 0
-       59 LOADB                            R2 0
-       60 LOADN                            R3 0
-       61 CALL                             R1 2 1
-       62 SETTABLEKS                       R1 R0 K11 ["customAccessoriesWaistSetting"]
-       64 LOADB                            R1 0
-       65 SETTABLEKS                       R1 R0 K12 ["accessoryBehaviorEnableSoundSetting"]
-       67 LOADB                            R1 0
-       68 SETTABLEKS                       R1 R0 K13 ["accessoryBehaviorEnableVFXSetting"]
-       70 RETURN                           R0 1
+        9 GETIMPORT                        R1 K25 [Enum.AvatarSettingsCustomAccessoryMode.PlayerChoice]
+       11 SETTABLEKS                       R1 R0 K4 ["customAccessoriesSetting"]
+       13 GETUPVAL                         R1 0
+       14 LOADB                            R2 0
+       15 LOADN                            R3 0
+       16 CALL                             R1 2 1
+       17 SETTABLEKS                       R1 R0 K5 ["customAccessoriesHairSetting"]
+       19 GETUPVAL                         R1 0
+       20 LOADB                            R2 0
+       21 LOADN                            R3 0
+       22 CALL                             R1 2 1
+       23 SETTABLEKS                       R1 R0 K6 ["customAccessoriesHeadSetting"]
+       25 GETUPVAL                         R1 0
+       26 LOADB                            R2 0
+       27 LOADN                            R3 0
+       28 CALL                             R1 2 1
+       29 SETTABLEKS                       R1 R0 K7 ["customAccessoriesFaceSetting"]
+       31 GETUPVAL                         R1 0
+       32 LOADB                            R2 0
+       33 LOADN                            R3 0
+       34 CALL                             R1 2 1
+       35 SETTABLEKS                       R1 R0 K8 ["customAccessoriesNeckSetting"]
+       37 GETUPVAL                         R1 0
+       38 LOADB                            R2 0
+       39 LOADN                            R3 0
+       40 CALL                             R1 2 1
+       41 SETTABLEKS                       R1 R0 K9 ["customAccessoriesShoulderSetting"]
+       43 GETUPVAL                         R1 0
+       44 LOADB                            R2 0
+       45 LOADN                            R3 0
+       46 CALL                             R1 2 1
+       47 SETTABLEKS                       R1 R0 K10 ["customAccessoriesFrontSetting"]
+       49 GETUPVAL                         R1 0
+       50 LOADB                            R2 0
+       51 LOADN                            R3 0
+       52 CALL                             R1 2 1
+       53 SETTABLEKS                       R1 R0 K11 ["customAccessoriesBackSetting"]
+       55 GETUPVAL                         R1 0
+       56 LOADB                            R2 0
+       57 LOADN                            R3 0
+       58 CALL                             R1 2 1
+       59 SETTABLEKS                       R1 R0 K12 ["customAccessoriesWaistSetting"]
+       61 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

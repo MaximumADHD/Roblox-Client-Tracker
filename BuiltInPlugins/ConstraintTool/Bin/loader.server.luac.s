@@ -329,65 +329,57 @@ MAIN:
       118 LOADNIL                          R16
       119 LOADNIL                          R17
       120 FORGPREP                         R15
-      121 DUPTABLE                         R20 K35 [{"getName", "getDescription", "icon", "enabled"}]
-      122 DUPCLOSURE                       R21 K36 [PROTO_4]
+      121 DUPTABLE                         R20 K37 [{["getName"], ["getDescription"], ["icon"] = "", ["enabled"] = False}]
+      122 DUPCLOSURE                       R21 K38 [PROTO_4]
       123 SETTABLEKS                       R21 R20 K31 ["getName"]
-      125 DUPCLOSURE                       R21 K37 [PROTO_5]
+      125 DUPCLOSURE                       R21 K39 [PROTO_5]
       126 SETTABLEKS                       R21 R20 K32 ["getDescription"]
-      128 LOADK                            R21 K38 [""]
-      129 SETTABLEKS                       R21 R20 K33 ["icon"]
-      131 LOADB                            R21 0
-      132 SETTABLEKS                       R21 R20 K34 ["enabled"]
-      134 DUPTABLE                         R21 K44 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-      135 GETIMPORT                        R22 K22 [plugin]
-      137 SETTABLEKS                       R22 R21 K21 ["plugin"]
-      139 LOADK                            R22 K6 ["ConstraintTool"]
-      140 SETTABLEKS                       R22 R21 K39 ["pluginName"]
-      142 SETTABLEKS                       R5 R21 K40 ["translationResourceTable"]
-      144 SETTABLEKS                       R4 R21 K41 ["fallbackResourceTable"]
-      146 NEWCLOSURE                       R22 P6
-      147 CAPTURE                          VAL R18
-      148 SETTABLEKS                       R22 R21 K42 ["getToolbarName"]
-      150 SETTABLEKS                       R20 R21 K43 ["buttonInfo"]
-      152 LOADB                            R22 1
-      153 SETTABLEKS                       R22 R20 K34 ["enabled"]
-      155 GETTABLEKS                       R22 R7 K45 ["build"]
-      157 MOVE                             R23 R21
-      158 CALL                             R22 1 1
-      159 NEWCLOSURE                       R23 P7
-      160 CAPTURE                          VAL R18
-      161 CAPTURE                          VAL R9
-      162 CAPTURE                          REF R8
-      163 CAPTURE                          REF R11
-      164 DUPTABLE                         R24 K48 [{"pluginLoaderContext", "enabled", "closeCallback"}]
-      165 SETTABLEKS                       R22 R24 K46 ["pluginLoaderContext"]
-      167 LOADB                            R25 0
-      168 SETTABLEKS                       R25 R24 K34 ["enabled"]
-      170 SETTABLEKS                       R23 R24 K47 ["closeCallback"]
-      172 SETTABLE                         R24 R9 R18
-      173 GETIMPORT                        R24 K1 [require]
-      175 GETIMPORT                        R25 K3 [script]
-      177 GETTABLEKS                       R25 R25 K4 ["Parent"]
-      179 GETTABLEKS                       R25 R25 K49 ["main"]
-      181 CALL                             R24 1 1
-      182 GETTABLE                         R25 R9 R18
-      183 GETTABLEKS                       R26 R22 K50 ["mainButtonClickedSignal"]
-      185 NEWCLOSURE                       R28 P8
-      186 CAPTURE                          VAL R25
-      187 CAPTURE                          VAL R18
-      188 CAPTURE                          VAL R9
-      189 CAPTURE                          REF R8
-      190 CAPTURE                          REF R11
-      191 CAPTURE                          REF R10
-      192 NAMECALL                         R26 R26 K30 ["Connect"]
-      194 CALL                             R26 2 0
-      195 GETIMPORT                        R26 K53 [task.spawn]
-      197 NEWCLOSURE                       R27 P9
-      198 CAPTURE                          VAL R22
-      199 CAPTURE                          VAL R24
-      200 CAPTURE                          VAL R25
-      201 CAPTURE                          VAL R18
-      202 CALL                             R26 1 0
-      203 FORGLOOP                         R15 2 ; [-83]
-      205 CLOSEUPVALS                      R8
-      206 RETURN                           R0 0
+      128 DUPTABLE                         R21 K45 [{["plugin"], ["pluginName"] = "ConstraintTool", ["translationResourceTable"], ["fallbackResourceTable"], ["getToolbarName"], ["buttonInfo"]}]
+      129 GETIMPORT                        R22 K22 [plugin]
+      131 SETTABLEKS                       R22 R21 K21 ["plugin"]
+      133 SETTABLEKS                       R5 R21 K41 ["translationResourceTable"]
+      135 SETTABLEKS                       R4 R21 K42 ["fallbackResourceTable"]
+      137 NEWCLOSURE                       R22 P6
+      138 CAPTURE                          VAL R18
+      139 SETTABLEKS                       R22 R21 K43 ["getToolbarName"]
+      141 SETTABLEKS                       R20 R21 K44 ["buttonInfo"]
+      143 LOADB                            R22 1
+      144 SETTABLEKS                       R22 R20 K35 ["enabled"]
+      146 GETTABLEKS                       R22 R7 K46 ["build"]
+      148 MOVE                             R23 R21
+      149 CALL                             R22 1 1
+      150 NEWCLOSURE                       R23 P7
+      151 CAPTURE                          VAL R18
+      152 CAPTURE                          VAL R9
+      153 CAPTURE                          REF R8
+      154 CAPTURE                          REF R11
+      155 DUPTABLE                         R24 K49 [{["pluginLoaderContext"], ["enabled"] = False, ["closeCallback"]}]
+      156 SETTABLEKS                       R22 R24 K47 ["pluginLoaderContext"]
+      158 SETTABLEKS                       R23 R24 K48 ["closeCallback"]
+      160 SETTABLE                         R24 R9 R18
+      161 GETIMPORT                        R24 K1 [require]
+      163 GETIMPORT                        R25 K3 [script]
+      165 GETTABLEKS                       R25 R25 K4 ["Parent"]
+      167 GETTABLEKS                       R25 R25 K50 ["main"]
+      169 CALL                             R24 1 1
+      170 GETTABLE                         R25 R9 R18
+      171 GETTABLEKS                       R26 R22 K51 ["mainButtonClickedSignal"]
+      173 NEWCLOSURE                       R28 P8
+      174 CAPTURE                          VAL R25
+      175 CAPTURE                          VAL R18
+      176 CAPTURE                          VAL R9
+      177 CAPTURE                          REF R8
+      178 CAPTURE                          REF R11
+      179 CAPTURE                          REF R10
+      180 NAMECALL                         R26 R26 K30 ["Connect"]
+      182 CALL                             R26 2 0
+      183 GETIMPORT                        R26 K54 [task.spawn]
+      185 NEWCLOSURE                       R27 P9
+      186 CAPTURE                          VAL R22
+      187 CAPTURE                          VAL R24
+      188 CAPTURE                          VAL R25
+      189 CAPTURE                          VAL R18
+      190 CALL                             R26 1 0
+      191 FORGLOOP                         R15 2 ; [-71]
+      193 CLOSEUPVALS                      R8
+      194 RETURN                           R0 0

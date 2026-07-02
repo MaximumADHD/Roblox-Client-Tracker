@@ -1,15 +1,13 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K3 [{"tutorial", "data", "completed"}]
+        0 DUPTABLE                         R2 K4 [{[1], ["data"], ["completed"] = False}]
         1 SETTABLEKS                       R0 R2 K0 ["tutorial"]
         3 SETTABLEKS                       R1 R2 K1 ["data"]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K2 ["completed"]
-        8 GETUPVAL                         R5 0
-        9 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
-       11 MOVE                             R4 R2
-       12 GETIMPORT                        R3 K5 [setmetatable]
-       14 CALL                             R3 2 1
-       15 RETURN                           R3 1
+        5 GETUPVAL                         R5 0
+        6 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+        8 MOVE                             R4 R2
+        9 GETIMPORT                        R3 K6 [setmetatable]
+       11 CALL                             R3 2 1
+       12 RETURN                           R3 1
 
 PROTO_1:
         0 RETURN                           R0 0

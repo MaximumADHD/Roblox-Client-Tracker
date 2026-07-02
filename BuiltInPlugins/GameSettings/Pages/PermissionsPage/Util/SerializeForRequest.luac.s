@@ -260,7 +260,7 @@ PROTO_4:
       147 JUMPIFNOTLT                      R15 R14 ; [+111]
       149 MOVE                             R18 R14
       150 ADDK                             R16 R15 K5 [1]
-      151 LOADN                            R17 255
+      151 LOADN                            R17 -1
       152 FORNPREP                         R16
       153 NEWTABLE                         R21 4 0
       155 GETUPVAL                         R22 2

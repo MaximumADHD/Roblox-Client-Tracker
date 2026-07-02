@@ -15,45 +15,41 @@ PROTO_1:
         5 GETTABLEKS                       R1 R1 K1 ["status"]
         7 JUMP                             ; [+1]
         8 LOADNIL                          R1
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R2 R2 K2 ["Success"]
-       12 JUMPIFNOTEQ                      R1 R2 ; [+10]
-       14 GETUPVAL                         R2 1
-       15 GETTABLEKS                       R3 R0 K0 ["responseBody"]
-       17 GETTABLEKS                       R3 R3 K3 ["bundleId"]
-       19 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-       21 CALL                             R2 2 0
-       22 RETURN                           R0 0
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K4 ["InProgress"]
-       26 JUMPIFNOTEQ                      R1 R2 ; [+26]
-       28 GETUPVAL                         R2 2
-       29 GETUPVAL                         R3 3
-       30 JUMPIFNOTLT                      R2 R3 ; [+16]
-       32 LOADN                            R3 2
-       33 GETUPVAL                         R5 2
-       34 ADDK                             R4 R5 K5 [1]
-       35 POW                              R2 R3 R4
-       36 GETIMPORT                        R3 K8 [task.delay]
-       38 MOVE                             R4 R2
-       39 NEWCLOSURE                       R5 P0
-       40 CAPTURE                          UPVAL U4
-       41 CAPTURE                          UPVAL U5
-       42 CAPTURE                          UPVAL U6
-       43 CAPTURE                          UPVAL U1
-       44 CAPTURE                          UPVAL U2
-       45 CALL                             R3 2 0
+        9 JUMPIFNOTEQKN                    R1 K2 [2] ; [+10]
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+       14 GETTABLEKS                       R3 R3 K3 ["bundleId"]
+       16 GETTABLEKS                       R4 R0 K0 ["responseBody"]
+       18 CALL                             R2 2 0
+       19 RETURN                           R0 0
+       20 JUMPIFNOTEQKN                    R1 K4 [1] ; [+26]
+       22 GETUPVAL                         R2 1
+       23 GETUPVAL                         R3 2
+       24 JUMPIFNOTLT                      R2 R3 ; [+16]
+       26 LOADN                            R3 2
+       27 GETUPVAL                         R5 1
+       28 ADDK                             R4 R5 K4 [1]
+       29 POW                              R2 R3 R4
+       30 GETIMPORT                        R3 K7 [task.delay]
+       32 MOVE                             R4 R2
+       33 NEWCLOSURE                       R5 P0
+       34 CAPTURE                          UPVAL U3
+       35 CAPTURE                          UPVAL U4
+       36 CAPTURE                          UPVAL U5
+       37 CAPTURE                          UPVAL U0
+       38 CAPTURE                          UPVAL U1
+       39 CALL                             R3 2 0
+       40 RETURN                           R0 0
+       41 GETUPVAL                         R2 0
+       42 LOADNIL                          R3
+       43 GETTABLEKS                       R4 R0 K0 ["responseBody"]
+       45 CALL                             R2 2 0
        46 RETURN                           R0 0
-       47 GETUPVAL                         R2 1
+       47 GETUPVAL                         R2 0
        48 LOADNIL                          R3
        49 GETTABLEKS                       R4 R0 K0 ["responseBody"]
        51 CALL                             R2 2 0
        52 RETURN                           R0 0
-       53 GETUPVAL                         R2 1
-       54 LOADNIL                          R3
-       55 GETTABLEKS                       R4 R0 K0 ["responseBody"]
-       57 CALL                             R2 2 0
-       58 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -71,24 +67,23 @@ PROTO_2:
 
 PROTO_3:
         0 NEWCLOSURE                       R4 P0
-        1 CAPTURE                          UPVAL U0
-        2 CAPTURE                          VAL R2
-        3 CAPTURE                          VAL R3
+        1 CAPTURE                          VAL R2
+        2 CAPTURE                          VAL R3
+        3 CAPTURE                          UPVAL U0
         4 CAPTURE                          UPVAL U1
-        5 CAPTURE                          UPVAL U2
-        6 CAPTURE                          VAL R0
-        7 CAPTURE                          VAL R1
-        8 NEWCLOSURE                       R5 P1
-        9 CAPTURE                          UPVAL U3
-       10 CAPTURE                          VAL R2
-       11 MOVE                             R8 R1
-       12 NAMECALL                         R6 R0 K0 ["getBundleCreationStatus"]
-       14 CALL                             R6 2 1
-       15 MOVE                             R8 R4
-       16 MOVE                             R9 R5
-       17 NAMECALL                         R6 R6 K1 ["andThen"]
-       19 CALL                             R6 3 0
-       20 RETURN                           R0 0
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          VAL R1
+        7 NEWCLOSURE                       R5 P1
+        8 CAPTURE                          UPVAL U2
+        9 CAPTURE                          VAL R2
+       10 MOVE                             R8 R1
+       11 NAMECALL                         R6 R0 K0 ["getBundleCreationStatus"]
+       13 CALL                             R6 2 1
+       14 MOVE                             R8 R4
+       15 MOVE                             R9 R5
+       16 NAMECALL                         R6 R6 K1 ["andThen"]
+       18 CALL                             R6 3 0
+       19 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -123,26 +118,11 @@ MAIN:
        19 LOADN                            R6 5
        20 NAMECALL                         R3 R3 K12 ["DefineFastInt"]
        22 CALL                             R3 3 1
-       23 DUPTABLE                         R4 K20 [{"Unknown", "InProgress", "Success", "ValidationFailed", "InsufficientFunds", "Failed", "CreationFeeMismatch"}]
-       24 LOADN                            R5 0
-       25 SETTABLEKS                       R5 R4 K13 ["Unknown"]
-       27 LOADN                            R5 1
-       28 SETTABLEKS                       R5 R4 K14 ["InProgress"]
-       30 LOADN                            R5 2
-       31 SETTABLEKS                       R5 R4 K15 ["Success"]
-       33 LOADN                            R5 3
-       34 SETTABLEKS                       R5 R4 K16 ["ValidationFailed"]
-       36 LOADN                            R5 4
-       37 SETTABLEKS                       R5 R4 K17 ["InsufficientFunds"]
-       39 LOADN                            R5 5
-       40 SETTABLEKS                       R5 R4 K18 ["Failed"]
-       42 LOADN                            R5 6
-       43 SETTABLEKS                       R5 R4 K19 ["CreationFeeMismatch"]
-       45 DUPCLOSURE                       R5 K21 [PROTO_3]
-       46 CAPTURE                          VAL R4
-       47 CAPTURE                          VAL R3
-       48 CAPTURE                          VAL R5
-       49 CAPTURE                          VAL R2
-       50 DUPCLOSURE                       R6 K22 [PROTO_5]
-       51 CAPTURE                          VAL R5
-       52 RETURN                           R6 1
+       23 DUPTABLE                         R4 K27 [{["Unknown"] = 0, ["InProgress"] = 1, ["Success"] = 2, ["ValidationFailed"] = 3, ["InsufficientFunds"] = 4, ["Failed"] = 5, ["CreationFeeMismatch"] = 6}]
+       24 DUPCLOSURE                       R5 K28 [PROTO_3]
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R5
+       27 CAPTURE                          VAL R2
+       28 DUPCLOSURE                       R6 K29 [PROTO_5]
+       29 CAPTURE                          VAL R5
+       30 RETURN                           R6 1

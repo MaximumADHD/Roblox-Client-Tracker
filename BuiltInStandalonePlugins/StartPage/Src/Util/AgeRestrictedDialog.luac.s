@@ -2,25 +2,21 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["use"]
         3 CALL                             R0 1 1
-        4 DUPTABLE                         R1 K6 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal"}]
-        5 LOADK                            R2 K7 ["Warning"]
-        6 SETTABLEKS                       R2 R1 K1 ["Intent"]
-        8 LOADK                            R4 K8 ["Plugin"]
-        9 LOADK                            R5 K9 ["AgeRestrictionDialog.Heading"]
-       10 NAMECALL                         R2 R0 K10 ["getText"]
-       12 CALL                             R2 3 1
-       13 SETTABLEKS                       R2 R1 K2 ["Heading"]
-       15 LOADK                            R4 K8 ["Plugin"]
-       16 LOADK                            R5 K11 ["AgeRestrictionDialog.Body"]
-       17 NAMECALL                         R2 R0 K10 ["getText"]
-       19 CALL                             R2 3 1
-       20 SETTABLEKS                       R2 R1 K3 ["Body"]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R2 R2 K12 ["CANCEL"]
-       25 SETTABLEKS                       R2 R1 K4 ["ActionPrimary"]
-       27 LOADB                            R2 1
-       28 SETTABLEKS                       R2 R1 K5 ["Modal"]
-       30 RETURN                           R1 1
+        4 DUPTABLE                         R1 K8 [{["Intent"] = "Warning", ["Heading"], ["Body"], ["ActionPrimary"], ["Modal"] = True}]
+        5 LOADK                            R4 K9 ["Plugin"]
+        6 LOADK                            R5 K10 ["AgeRestrictionDialog.Heading"]
+        7 NAMECALL                         R2 R0 K11 ["getText"]
+        9 CALL                             R2 3 1
+       10 SETTABLEKS                       R2 R1 K3 ["Heading"]
+       12 LOADK                            R4 K9 ["Plugin"]
+       13 LOADK                            R5 K12 ["AgeRestrictionDialog.Body"]
+       14 NAMECALL                         R2 R0 K11 ["getText"]
+       16 CALL                             R2 3 1
+       17 SETTABLEKS                       R2 R1 K4 ["Body"]
+       19 GETUPVAL                         R2 1
+       20 GETTABLEKS                       R2 R2 K13 ["CANCEL"]
+       22 SETTABLEKS                       R2 R1 K5 ["ActionPrimary"]
+       24 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0

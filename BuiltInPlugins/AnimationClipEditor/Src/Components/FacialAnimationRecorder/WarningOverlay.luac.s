@@ -11,81 +11,57 @@ PROTO_1:
        12 GETUPVAL                         R7 0
        13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
-       16 DUPTABLE                         R9 K15 [{"AutomaticSize", "Position", "AnchorPoint", "Padding", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "ImageTransparency", "LayoutOrder"}]
-       17 GETIMPORT                        R10 K18 [Enum.AutomaticSize.XY]
+       16 DUPTABLE                         R9 K19 [{["AutomaticSize"], ["Position"], ["AnchorPoint"], ["Padding"], ["Layout"], ["Spacing"] = 8, ["VerticalAlignment"], ["ZIndex"] = 1, ["Style"] = "RoundBox", ["ImageTransparency"] = 0.1, ["LayoutOrder"]}]
+       17 GETIMPORT                        R10 K22 [Enum.AutomaticSize.XY]
        19 SETTABLEKS                       R10 R9 K7 ["AutomaticSize"]
        21 SETTABLEKS                       R5 R9 K4 ["Position"]
        23 SETTABLEKS                       R3 R9 K2 ["AnchorPoint"]
-       25 DUPTABLE                         R10 K23 [{"Left", "Right", "Top", "Bottom"}]
-       26 LOADN                            R11 10
-       27 SETTABLEKS                       R11 R10 K19 ["Left"]
-       29 LOADN                            R11 10
-       30 SETTABLEKS                       R11 R10 K20 ["Right"]
-       32 LOADN                            R11 5
-       33 SETTABLEKS                       R11 R10 K21 ["Top"]
-       35 LOADN                            R11 5
-       36 SETTABLEKS                       R11 R10 K22 ["Bottom"]
-       38 SETTABLEKS                       R10 R9 K8 ["Padding"]
-       40 GETIMPORT                        R10 K26 [Enum.FillDirection.Horizontal]
-       42 SETTABLEKS                       R10 R9 K9 ["Layout"]
-       44 LOADN                            R10 8
-       45 SETTABLEKS                       R10 R9 K10 ["Spacing"]
-       47 GETIMPORT                        R10 K28 [Enum.VerticalAlignment.Center]
-       49 SETTABLEKS                       R10 R9 K11 ["VerticalAlignment"]
-       51 LOADN                            R10 1
-       52 SETTABLEKS                       R10 R9 K12 ["ZIndex"]
-       54 LOADK                            R10 K29 ["RoundBox"]
-       55 SETTABLEKS                       R10 R9 K13 ["Style"]
-       57 LOADK                            R10 K30 [0.1]
-       58 SETTABLEKS                       R10 R9 K14 ["ImageTransparency"]
-       60 SETTABLEKS                       R6 R9 K5 ["LayoutOrder"]
-       62 DUPTABLE                         R10 K32 [{"Image", "Message"}]
-       63 LOADB                            R11 0
-       64 JUMPIFEQKNIL                     R4 ; [+33]
-       66 LOADB                            R11 0
-       67 JUMPIFEQKS                       R4 K33 [""] ; [+30]
-       69 GETUPVAL                         R11 0
-       70 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       72 LOADK                            R12 K34 ["ImageLabel"]
-       73 DUPTABLE                         R13 K37 [{"BackgroundTransparency", "Size", "Position", "Image"}]
-       74 LOADN                            R14 1
-       75 SETTABLEKS                       R14 R13 K35 ["BackgroundTransparency"]
-       77 GETIMPORT                        R14 K40 [UDim2.new]
-       79 LOADN                            R15 0
-       80 LOADN                            R16 15
-       81 LOADN                            R17 0
-       82 LOADN                            R18 15
-       83 CALL                             R14 4 1
-       84 SETTABLEKS                       R14 R13 K36 ["Size"]
-       86 GETIMPORT                        R14 K40 [UDim2.new]
-       88 LOADN                            R15 0
-       89 LOADN                            R16 19
-       90 LOADN                            R17 0
-       91 LOADN                            R18 5
-       92 CALL                             R14 4 1
-       93 SETTABLEKS                       R14 R13 K4 ["Position"]
-       95 SETTABLEKS                       R4 R13 K3 ["Image"]
-       97 CALL                             R11 2 1
-       98 SETTABLEKS                       R11 R10 K3 ["Image"]
-      100 GETUPVAL                         R11 0
-      101 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      103 GETUPVAL                         R12 2
-      104 DUPTABLE                         R13 K44 [{"AutomaticSize", "TextXAlignment", "Text", "BackgroundTransparency", "TextWrapped", "LayoutOrder"}]
-      105 GETIMPORT                        R14 K18 [Enum.AutomaticSize.XY]
-      107 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
-      109 GETIMPORT                        R14 K45 [Enum.TextXAlignment.Left]
-      111 SETTABLEKS                       R14 R13 K41 ["TextXAlignment"]
-      113 SETTABLEKS                       R2 R13 K42 ["Text"]
-      115 LOADN                            R14 1
-      116 SETTABLEKS                       R14 R13 K35 ["BackgroundTransparency"]
-      118 LOADB                            R14 1
-      119 SETTABLEKS                       R14 R13 K43 ["TextWrapped"]
-      121 LOADN                            R14 1
-      122 SETTABLEKS                       R14 R13 K5 ["LayoutOrder"]
-      124 CALL                             R11 2 1
-      125 SETTABLEKS                       R11 R10 K31 ["Message"]
-      127 CALL                             R7 3 -1
-      128 RETURN                           R7 -1
+       25 DUPTABLE                         R10 K29 [{["Left"] = 10, ["Right"] = 10, ["Top"] = 5, ["Bottom"] = 5}]
+       26 SETTABLEKS                       R10 R9 K8 ["Padding"]
+       28 GETIMPORT                        R10 K32 [Enum.FillDirection.Horizontal]
+       30 SETTABLEKS                       R10 R9 K9 ["Layout"]
+       32 GETIMPORT                        R10 K34 [Enum.VerticalAlignment.Center]
+       34 SETTABLEKS                       R10 R9 K12 ["VerticalAlignment"]
+       36 SETTABLEKS                       R6 R9 K5 ["LayoutOrder"]
+       38 DUPTABLE                         R10 K36 [{"Image", "Message"}]
+       39 LOADB                            R11 0
+       40 JUMPIFEQKNIL                     R4 ; [+30]
+       42 LOADB                            R11 0
+       43 JUMPIFEQKS                       R4 K37 [""] ; [+27]
+       45 GETUPVAL                         R11 0
+       46 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       48 LOADK                            R12 K38 ["ImageLabel"]
+       49 DUPTABLE                         R13 K41 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Image"]}]
+       50 GETIMPORT                        R14 K44 [UDim2.new]
+       52 LOADN                            R15 0
+       53 LOADN                            R16 15
+       54 LOADN                            R17 0
+       55 LOADN                            R18 15
+       56 CALL                             R14 4 1
+       57 SETTABLEKS                       R14 R13 K40 ["Size"]
+       59 GETIMPORT                        R14 K44 [UDim2.new]
+       61 LOADN                            R15 0
+       62 LOADN                            R16 19
+       63 LOADN                            R17 0
+       64 LOADN                            R18 5
+       65 CALL                             R14 4 1
+       66 SETTABLEKS                       R14 R13 K4 ["Position"]
+       68 SETTABLEKS                       R4 R13 K3 ["Image"]
+       70 CALL                             R11 2 1
+       71 SETTABLEKS                       R11 R10 K3 ["Image"]
+       73 GETUPVAL                         R11 0
+       74 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       76 GETUPVAL                         R12 2
+       77 DUPTABLE                         R13 K49 [{["AutomaticSize"], ["TextXAlignment"], ["Text"], ["BackgroundTransparency"] = 1, ["TextWrapped"] = True, ["LayoutOrder"] = 1}]
+       78 GETIMPORT                        R14 K22 [Enum.AutomaticSize.XY]
+       80 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
+       82 GETIMPORT                        R14 K50 [Enum.TextXAlignment.Left]
+       84 SETTABLEKS                       R14 R13 K45 ["TextXAlignment"]
+       86 SETTABLEKS                       R2 R13 K46 ["Text"]
+       88 CALL                             R11 2 1
+       89 SETTABLEKS                       R11 R10 K35 ["Message"]
+       91 CALL                             R7 3 -1
+       92 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

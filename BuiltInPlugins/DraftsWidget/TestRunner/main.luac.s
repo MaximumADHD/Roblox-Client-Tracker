@@ -542,8 +542,8 @@ PROTO_21:
        46 GETIMPORT                        R4 K20 [Enum.InitialDockState.Right]
        48 LOADB                            R5 0
        49 LOADB                            R6 1
-       50 LOADN                            R7 44
-       51 LOADN                            R8 88
+       50 LOADN                            R7 300
+       51 LOADN                            R8 600
        52 LOADN                            R9 150
        53 LOADN                            R10 150
        54 CALL                             R3 7 1
@@ -707,106 +707,104 @@ PROTO_22:
       195 CALL                             R26 0 1
       196 GETTABLEKS                       R27 R10 K44 ["Localization"]
       198 GETTABLEKS                       R28 R27 K43 ["new"]
-      200 DUPTABLE                         R29 K50 [{"stringResourceTable", "translationResourceTable", "overrideLocaleChangedSignal", "overrideGetLocale", "pluginName"}]
+      200 DUPTABLE                         R29 K51 [{["stringResourceTable"], ["translationResourceTable"], ["overrideLocaleChangedSignal"], ["overrideGetLocale"], ["pluginName"] = "Drafts"}]
       201 SETTABLEKS                       R22 R29 K45 ["stringResourceTable"]
       203 SETTABLEKS                       R23 R29 K46 ["translationResourceTable"]
-      205 LOADK                            R32 K51 ["StudioLocaleId"]
-      206 NAMECALL                         R30 R6 K52 ["GetPropertyChangedSignal"]
+      205 LOADK                            R32 K52 ["StudioLocaleId"]
+      206 NAMECALL                         R30 R6 K53 ["GetPropertyChangedSignal"]
       208 CALL                             R30 2 1
       209 SETTABLEKS                       R30 R29 K47 ["overrideLocaleChangedSignal"]
       211 SETTABLEKS                       R24 R29 K48 ["overrideGetLocale"]
-      213 LOADK                            R30 K53 ["Drafts"]
-      214 SETTABLEKS                       R30 R29 K49 ["pluginName"]
-      216 CALL                             R28 1 1
-      217 GETIMPORT                        R29 K14 [game]
-      219 LOADK                            R31 K54 ["DebugStudioDraftsWidgetTestCase"]
-      220 NAMECALL                         R29 R29 K55 ["GetFastInt"]
-      222 CALL                             R29 2 1
-      223 JUMPIFNOTEQKN                    R29 K56 [0] ; [+3]
-      225 MOVE                             R30 R4
-      226 JUMPIF                           R30 ; [+4]
-      227 GETTABLEKS                       R30 R3 K43 ["new"]
-      229 MOVE                             R31 R29
-      230 CALL                             R30 1 1
-      231 LOADNIL                          R31
-      232 LOADNIL                          R32
-      233 NEWCLOSURE                       R33 P1
-      234 CAPTURE                          REF R31
-      235 CAPTURE                          VAL R7
-      236 CAPTURE                          VAL R11
-      237 CAPTURE                          VAL R30
-      238 CAPTURE                          REF R32
-      239 CAPTURE                          VAL R28
-      240 CAPTURE                          VAL R0
-      241 CAPTURE                          VAL R25
-      242 CAPTURE                          VAL R26
-      243 CAPTURE                          VAL R12
-      244 NEWCLOSURE                       R34 P2
-      245 CAPTURE                          REF R31
-      246 CAPTURE                          VAL R7
-      247 GETTABLEKS                       R35 R0 K57 ["Unloading"]
-      249 NEWCLOSURE                       R37 P3
-      250 CAPTURE                          REF R31
-      251 CAPTURE                          VAL R7
-      252 NAMECALL                         R35 R35 K58 ["Connect"]
-      254 CALL                             R35 2 0
-      255 NEWCLOSURE                       R35 P4
-      256 CAPTURE                          REF R32
-      257 NEWCLOSURE                       R36 P5
-      258 CAPTURE                          VAL R0
-      259 CAPTURE                          VAL R28
-      260 CAPTURE                          VAL R35
-      261 GETIMPORT                        R37 K14 [game]
-      263 LOADK                            R39 K17 ["RunService"]
-      264 NAMECALL                         R37 R37 K16 ["GetService"]
-      266 CALL                             R37 2 1
-      267 NAMECALL                         R37 R37 K59 ["IsEdit"]
-      269 CALL                             R37 1 1
-      270 JUMPIF                           R37 ; [+19]
-      271 LOADK                            R39 K60 ["draftsToolbar"]
-      272 NAMECALL                         R37 R0 K61 ["CreateToolbar"]
-      274 CALL                             R37 2 1
-      275 LOADK                            R40 K62 ["draftsButton"]
-      276 LOADK                            R43 K63 ["Meta"]
-      277 LOADK                            R44 K64 ["PluginButtonTooltip"]
-      278 NAMECALL                         R41 R28 K65 ["getText"]
-      280 CALL                             R41 3 1
-      281 LOADK                            R42 K66 [""]
-      282 NAMECALL                         R38 R37 K67 ["CreateButton"]
-      284 CALL                             R38 4 1
-      285 LOADB                            R39 0
-      286 SETTABLEKS                       R39 R38 K68 ["Enabled"]
-      288 CLOSEUPVALS                      R31
-      289 RETURN                           R0 0
-      290 NEWCLOSURE                       R37 P6
-      291 CAPTURE                          VAL R5
-      292 CAPTURE                          REF R32
-      293 CAPTURE                          VAL R30
-      294 NEWCLOSURE                       R38 P7
-      295 CAPTURE                          VAL R25
-      296 CAPTURE                          VAL R18
-      297 CAPTURE                          VAL R20
-      298 CAPTURE                          VAL R30
-      299 CAPTURE                          VAL R14
-      300 CAPTURE                          VAL R15
-      301 CAPTURE                          VAL R16
-      302 CAPTURE                          VAL R17
-      303 CAPTURE                          VAL R19
-      304 CAPTURE                          VAL R5
-      305 CAPTURE                          REF R32
-      306 NEWCLOSURE                       R39 P8
-      307 CAPTURE                          VAL R28
-      308 CAPTURE                          VAL R0
-      309 CAPTURE                          VAL R35
-      310 CAPTURE                          REF R32
-      311 CAPTURE                          VAL R33
-      312 CAPTURE                          REF R31
-      313 CAPTURE                          VAL R7
-      314 CAPTURE                          VAL R38
-      315 MOVE                             R40 R39
-      316 CALL                             R40 0 0
-      317 CLOSEUPVALS                      R31
-      318 RETURN                           R0 0
+      213 CALL                             R28 1 1
+      214 GETIMPORT                        R29 K14 [game]
+      216 LOADK                            R31 K54 ["DebugStudioDraftsWidgetTestCase"]
+      217 NAMECALL                         R29 R29 K55 ["GetFastInt"]
+      219 CALL                             R29 2 1
+      220 JUMPIFNOTEQKN                    R29 K56 [0] ; [+3]
+      222 MOVE                             R30 R4
+      223 JUMPIF                           R30 ; [+4]
+      224 GETTABLEKS                       R30 R3 K43 ["new"]
+      226 MOVE                             R31 R29
+      227 CALL                             R30 1 1
+      228 LOADNIL                          R31
+      229 LOADNIL                          R32
+      230 NEWCLOSURE                       R33 P1
+      231 CAPTURE                          REF R31
+      232 CAPTURE                          VAL R7
+      233 CAPTURE                          VAL R11
+      234 CAPTURE                          VAL R30
+      235 CAPTURE                          REF R32
+      236 CAPTURE                          VAL R28
+      237 CAPTURE                          VAL R0
+      238 CAPTURE                          VAL R25
+      239 CAPTURE                          VAL R26
+      240 CAPTURE                          VAL R12
+      241 NEWCLOSURE                       R34 P2
+      242 CAPTURE                          REF R31
+      243 CAPTURE                          VAL R7
+      244 GETTABLEKS                       R35 R0 K57 ["Unloading"]
+      246 NEWCLOSURE                       R37 P3
+      247 CAPTURE                          REF R31
+      248 CAPTURE                          VAL R7
+      249 NAMECALL                         R35 R35 K58 ["Connect"]
+      251 CALL                             R35 2 0
+      252 NEWCLOSURE                       R35 P4
+      253 CAPTURE                          REF R32
+      254 NEWCLOSURE                       R36 P5
+      255 CAPTURE                          VAL R0
+      256 CAPTURE                          VAL R28
+      257 CAPTURE                          VAL R35
+      258 GETIMPORT                        R37 K14 [game]
+      260 LOADK                            R39 K17 ["RunService"]
+      261 NAMECALL                         R37 R37 K16 ["GetService"]
+      263 CALL                             R37 2 1
+      264 NAMECALL                         R37 R37 K59 ["IsEdit"]
+      266 CALL                             R37 1 1
+      267 JUMPIF                           R37 ; [+19]
+      268 LOADK                            R39 K60 ["draftsToolbar"]
+      269 NAMECALL                         R37 R0 K61 ["CreateToolbar"]
+      271 CALL                             R37 2 1
+      272 LOADK                            R40 K62 ["draftsButton"]
+      273 LOADK                            R43 K63 ["Meta"]
+      274 LOADK                            R44 K64 ["PluginButtonTooltip"]
+      275 NAMECALL                         R41 R28 K65 ["getText"]
+      277 CALL                             R41 3 1
+      278 LOADK                            R42 K66 [""]
+      279 NAMECALL                         R38 R37 K67 ["CreateButton"]
+      281 CALL                             R38 4 1
+      282 LOADB                            R39 0
+      283 SETTABLEKS                       R39 R38 K68 ["Enabled"]
+      285 CLOSEUPVALS                      R31
+      286 RETURN                           R0 0
+      287 NEWCLOSURE                       R37 P6
+      288 CAPTURE                          VAL R5
+      289 CAPTURE                          REF R32
+      290 CAPTURE                          VAL R30
+      291 NEWCLOSURE                       R38 P7
+      292 CAPTURE                          VAL R25
+      293 CAPTURE                          VAL R18
+      294 CAPTURE                          VAL R20
+      295 CAPTURE                          VAL R30
+      296 CAPTURE                          VAL R14
+      297 CAPTURE                          VAL R15
+      298 CAPTURE                          VAL R16
+      299 CAPTURE                          VAL R17
+      300 CAPTURE                          VAL R19
+      301 CAPTURE                          VAL R5
+      302 CAPTURE                          REF R32
+      303 NEWCLOSURE                       R39 P8
+      304 CAPTURE                          VAL R28
+      305 CAPTURE                          VAL R0
+      306 CAPTURE                          VAL R35
+      307 CAPTURE                          REF R32
+      308 CAPTURE                          VAL R33
+      309 CAPTURE                          REF R31
+      310 CAPTURE                          VAL R7
+      311 CAPTURE                          VAL R38
+      312 MOVE                             R40 R39
+      313 CALL                             R40 0 0
+      314 CLOSEUPVALS                      R31
+      315 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

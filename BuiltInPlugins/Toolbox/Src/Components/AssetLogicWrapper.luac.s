@@ -17,85 +17,75 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isShowingToolMessageBox"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isShowingToolMessageBox"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["insertToolPromise"]
-       11 NAMECALL                         R0 R0 K4 ["insertToWorkspace"]
-       13 CALL                             R0 1 0
-       14 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["insertToolPromise"]
+        8 NAMECALL                         R0 R0 K5 ["insertToWorkspace"]
+       10 CALL                             R0 1 0
+       11 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
-        1 DUPTABLE                         R4 K1 [{"isShowingToolMessageBox"}]
-        2 LOADB                            R5 0
-        3 SETTABLEKS                       R5 R4 K0 ["isShowingToolMessageBox"]
-        5 NAMECALL                         R2 R2 K2 ["setState"]
-        7 CALL                             R2 2 0
-        8 JUMPIFNOTEQKS                    R1 K3 ["yes"] ; [+8]
-       10 GETUPVAL                         R2 0
-       11 GETTABLEKS                       R2 R2 K4 ["insertToolPromise"]
-       13 NAMECALL                         R2 R2 K5 ["insertToStarterPack"]
-       15 CALL                             R2 1 0
-       16 RETURN                           R0 0
-       17 JUMPIFNOTEQKS                    R1 K6 ["no"] ; [+7]
-       19 GETUPVAL                         R2 0
-       20 GETTABLEKS                       R2 R2 K4 ["insertToolPromise"]
-       22 NAMECALL                         R2 R2 K7 ["insertToWorkspace"]
-       24 CALL                             R2 1 0
-       25 RETURN                           R0 0
+        1 DUPTABLE                         R4 K2 [{[1] = False}]
+        2 NAMECALL                         R2 R2 K3 ["setState"]
+        4 CALL                             R2 2 0
+        5 JUMPIFNOTEQKS                    R1 K4 ["yes"] ; [+8]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K5 ["insertToolPromise"]
+       10 NAMECALL                         R2 R2 K6 ["insertToStarterPack"]
+       12 CALL                             R2 1 0
+       13 RETURN                           R0 0
+       14 JUMPIFNOTEQKS                    R1 K7 ["no"] ; [+7]
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R2 R2 K5 ["insertToolPromise"]
+       19 NAMECALL                         R2 R2 K8 ["insertToWorkspace"]
+       21 CALL                             R2 1 0
+       22 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isShowingToolMessageBox"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isShowingToolMessageBox"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isShowingScriptWarningMessageBox"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isShowingScriptWarningMessageBox"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["insertToolPromise"]
-       11 NAMECALL                         R0 R0 K4 ["dismissWarningPrompt"]
-       13 CALL                             R0 1 0
-       14 GETUPVAL                         R0 0
-       15 GETTABLEKS                       R0 R0 K5 ["state"]
-       17 GETTABLEKS                       R0 R0 K6 ["scriptWarningInfo"]
-       19 GETTABLEKS                       R0 R0 K7 ["insert"]
-       21 CALL                             R0 0 0
-       22 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["insertToolPromise"]
+        8 NAMECALL                         R0 R0 K5 ["dismissWarningPrompt"]
+       10 CALL                             R0 1 0
+       11 GETUPVAL                         R0 0
+       12 GETTABLEKS                       R0 R0 K6 ["state"]
+       14 GETTABLEKS                       R0 R0 K7 ["scriptWarningInfo"]
+       16 GETTABLEKS                       R0 R0 K8 ["insert"]
+       18 CALL                             R0 0 0
+       19 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isShowingScriptWarningMessageBox"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isShowingScriptWarningMessageBox"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["state"]
-       11 GETTABLEKS                       R0 R0 K4 ["scriptWarningInfo"]
-       13 GETTABLEKS                       R0 R0 K5 ["cancel"]
-       15 CALL                             R0 0 0
-       16 GETUPVAL                         R0 0
-       17 GETTABLEKS                       R0 R0 K6 ["insertToolPromise"]
-       19 NAMECALL                         R0 R0 K5 ["cancel"]
-       21 CALL                             R0 1 0
-       22 GETUPVAL                         R0 0
-       23 GETTABLEKS                       R0 R0 K6 ["insertToolPromise"]
-       25 NAMECALL                         R0 R0 K7 ["dismissWarningPrompt"]
-       27 CALL                             R0 1 0
-       28 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["state"]
+        8 GETTABLEKS                       R0 R0 K5 ["scriptWarningInfo"]
+       10 GETTABLEKS                       R0 R0 K6 ["cancel"]
+       12 CALL                             R0 0 0
+       13 GETUPVAL                         R0 0
+       14 GETTABLEKS                       R0 R0 K7 ["insertToolPromise"]
+       16 NAMECALL                         R0 R0 K6 ["cancel"]
+       18 CALL                             R0 1 0
+       19 GETUPVAL                         R0 0
+       20 GETTABLEKS                       R0 R0 K7 ["insertToolPromise"]
+       22 NAMECALL                         R0 R0 K8 ["dismissWarningPrompt"]
+       24 CALL                             R0 1 0
+       25 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -117,18 +107,16 @@ PROTO_6:
        24 CALL                             R1 2 1
        25 NAMECALL                         R2 R1 K6 ["getShowScriptWarning"]
        27 CALL                             R2 1 1
-       28 JUMPIFNOT                        R2 ; [+12]
+       28 JUMPIFNOT                        R2 ; [+9]
        29 GETUPVAL                         R2 0
-       30 DUPTABLE                         R4 K9 [{"isShowingScriptWarningMessageBox", "scriptWarningInfo"}]
-       31 LOADB                            R5 1
-       32 SETTABLEKS                       R5 R4 K7 ["isShowingScriptWarningMessageBox"]
-       34 SETTABLEKS                       R0 R4 K8 ["scriptWarningInfo"]
-       36 NAMECALL                         R2 R2 K10 ["setState"]
-       38 CALL                             R2 2 0
-       39 LOADB                            R2 1
-       40 RETURN                           R2 1
-       41 LOADB                            R2 0
-       42 RETURN                           R2 1
+       30 DUPTABLE                         R4 K10 [{["isShowingScriptWarningMessageBox"] = True, ["scriptWarningInfo"]}]
+       31 SETTABLEKS                       R0 R4 K9 ["scriptWarningInfo"]
+       33 NAMECALL                         R2 R2 K11 ["setState"]
+       35 CALL                             R2 2 0
+       36 LOADB                            R2 1
+       37 RETURN                           R2 1
+       38 LOADB                            R2 0
+       39 RETURN                           R2 1
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -147,51 +135,45 @@ PROTO_8:
         1 JUMPIF                           R0 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R0 1
-        4 DUPTABLE                         R2 K1 [{"isShowingGrantPermissionsMessageBox"}]
-        5 LOADB                            R3 0
-        6 SETTABLEKS                       R3 R2 K0 ["isShowingGrantPermissionsMessageBox"]
-        8 NAMECALL                         R0 R0 K2 ["setState"]
-       10 CALL                             R0 2 0
-       11 GETUPVAL                         R0 1
-       12 GETTABLEKS                       R0 R0 K3 ["insertToolPromise"]
-       14 LOADB                            R2 0
-       15 NAMECALL                         R0 R0 K4 ["returnResult"]
-       17 CALL                             R0 2 0
-       18 RETURN                           R0 0
+        4 DUPTABLE                         R2 K2 [{[1] = False}]
+        5 NAMECALL                         R0 R0 K3 ["setState"]
+        7 CALL                             R0 2 0
+        8 GETUPVAL                         R0 1
+        9 GETTABLEKS                       R0 R0 K4 ["insertToolPromise"]
+       11 LOADB                            R2 0
+       12 NAMECALL                         R0 R0 K5 ["returnResult"]
+       14 CALL                             R0 2 0
+       15 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R2 0
         1 JUMPIF                           R2 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R4 K1 [{"isShowingGrantPermissionsMessageBox"}]
-        5 LOADB                            R5 0
-        6 SETTABLEKS                       R5 R4 K0 ["isShowingGrantPermissionsMessageBox"]
-        8 NAMECALL                         R2 R2 K2 ["setState"]
-       10 CALL                             R2 2 0
-       11 JUMPIFNOTEQKS                    R1 K3 ["yes"] ; [+3]
-       13 LOADB                            R2 1
-       14 JUMP                             ; [+1]
-       15 LOADB                            R2 0
-       16 GETUPVAL                         R3 1
-       17 GETTABLEKS                       R3 R3 K4 ["insertToolPromise"]
-       19 MOVE                             R5 R2
-       20 NAMECALL                         R3 R3 K5 ["returnResult"]
-       22 CALL                             R3 2 0
-       23 RETURN                           R0 0
+        4 DUPTABLE                         R4 K2 [{[1] = False}]
+        5 NAMECALL                         R2 R2 K3 ["setState"]
+        7 CALL                             R2 2 0
+        8 JUMPIFNOTEQKS                    R1 K4 ["yes"] ; [+3]
+       10 LOADB                            R2 1
+       11 JUMP                             ; [+1]
+       12 LOADB                            R2 0
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R3 R3 K5 ["insertToolPromise"]
+       16 MOVE                             R5 R2
+       17 NAMECALL                         R3 R3 K6 ["returnResult"]
+       19 CALL                             R3 2 0
+       20 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
         1 JUMPIF                           R1 ; [+1]
         2 RETURN                           R0 0
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R3 K2 [{"isShowingGrantPermissionsMessageBox", "grantPermissionsInfo"}]
-        5 LOADB                            R4 1
-        6 SETTABLEKS                       R4 R3 K0 ["isShowingGrantPermissionsMessageBox"]
-        8 SETTABLEKS                       R0 R3 K1 ["grantPermissionsInfo"]
-       10 NAMECALL                         R1 R1 K3 ["setState"]
-       12 CALL                             R1 2 0
-       13 RETURN                           R0 0
+        4 DUPTABLE                         R3 K3 [{[1] = True, ["grantPermissionsInfo"]}]
+        5 SETTABLEKS                       R0 R3 K2 ["grantPermissionsInfo"]
+        7 NAMECALL                         R1 R1 K4 ["setState"]
+        9 CALL                             R1 2 0
+       10 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R2 0
@@ -590,106 +572,94 @@ PROTO_20:
         1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["ref"]
-        6 DUPTABLE                         R1 K9 [{"hoveredAssetId", "isShowingToolMessageBox", "isShowingScriptWarningMessageBox", "previewAssetData", "isShowingGrantPermissionsMessageBox", "scriptWarningInfo", "grantPermissionsInfo"}]
-        7 LOADN                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["hoveredAssetId"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["isShowingToolMessageBox"]
-       13 LOADB                            R2 0
-       14 SETTABLEKS                       R2 R1 K4 ["isShowingScriptWarningMessageBox"]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R2 R2 K10 ["None"]
-       19 SETTABLEKS                       R2 R1 K5 ["previewAssetData"]
-       21 LOADB                            R2 0
-       22 SETTABLEKS                       R2 R1 K6 ["isShowingGrantPermissionsMessageBox"]
-       24 LOADNIL                          R2
-       25 SETTABLEKS                       R2 R1 K7 ["scriptWarningInfo"]
-       27 LOADNIL                          R2
-       28 SETTABLEKS                       R2 R1 K8 ["grantPermissionsInfo"]
-       30 SETTABLEKS                       R1 R0 K11 ["state"]
-       32 LOADN                            R1 0
-       33 SETTABLEKS                       R1 R0 K12 ["lastInsertAttemptTime"]
-       35 NEWCLOSURE                       R1 P0
-       36 CAPTURE                          VAL R0
-       37 CAPTURE                          UPVAL U1
-       38 SETTABLEKS                       R1 R0 K13 ["canInsertAsset"]
-       40 NEWCLOSURE                       R1 P1
-       41 CAPTURE                          VAL R0
-       42 SETTABLEKS                       R1 R0 K14 ["onMessageBoxClosed"]
-       44 NEWCLOSURE                       R1 P2
-       45 CAPTURE                          VAL R0
-       46 SETTABLEKS                       R1 R0 K15 ["onMessageBoxButtonClicked"]
-       48 NEWCLOSURE                       R1 P3
-       49 CAPTURE                          VAL R0
-       50 SETTABLEKS                       R1 R0 K16 ["onInsertToolPrompt"]
-       52 NEWCLOSURE                       R1 P4
-       53 CAPTURE                          VAL R0
-       54 SETTABLEKS                       R1 R0 K17 ["onScriptWarningBoxConfirmed"]
-       56 NEWCLOSURE                       R1 P5
+        6 DUPTABLE                         R1 K12 [{["hoveredAssetId"] = 0, ["isShowingToolMessageBox"] = False, ["isShowingScriptWarningMessageBox"] = False, ["previewAssetData"], ["isShowingGrantPermissionsMessageBox"] = False, ["scriptWarningInfo"] = , ["grantPermissionsInfo"] = }]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R2 R2 K13 ["None"]
+       10 SETTABLEKS                       R2 R1 K7 ["previewAssetData"]
+       12 SETTABLEKS                       R1 R0 K14 ["state"]
+       14 LOADN                            R1 0
+       15 SETTABLEKS                       R1 R0 K15 ["lastInsertAttemptTime"]
+       17 NEWCLOSURE                       R1 P0
+       18 CAPTURE                          VAL R0
+       19 CAPTURE                          UPVAL U1
+       20 SETTABLEKS                       R1 R0 K16 ["canInsertAsset"]
+       22 NEWCLOSURE                       R1 P1
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R1 R0 K17 ["onMessageBoxClosed"]
+       26 NEWCLOSURE                       R1 P2
+       27 CAPTURE                          VAL R0
+       28 SETTABLEKS                       R1 R0 K18 ["onMessageBoxButtonClicked"]
+       30 NEWCLOSURE                       R1 P3
+       31 CAPTURE                          VAL R0
+       32 SETTABLEKS                       R1 R0 K19 ["onInsertToolPrompt"]
+       34 NEWCLOSURE                       R1 P4
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R1 R0 K20 ["onScriptWarningBoxConfirmed"]
+       38 NEWCLOSURE                       R1 P5
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R1 R0 K21 ["onScriptWarningBoxCanceled"]
+       42 NEWCLOSURE                       R1 P6
+       43 CAPTURE                          VAL R0
+       44 SETTABLEKS                       R1 R0 K22 ["onInsertScriptWarningPrompt"]
+       46 NEWCLOSURE                       R1 P7
+       47 CAPTURE                          VAL R0
+       48 SETTABLEKS                       R1 R0 K23 ["onScriptWarningBoxToggleShow"]
+       50 NEWCLOSURE                       R1 P8
+       51 CAPTURE                          UPVAL U2
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R1 R0 K24 ["onPermissionsGrantClosed"]
+       55 NEWCLOSURE                       R1 P9
+       56 CAPTURE                          UPVAL U2
        57 CAPTURE                          VAL R0
-       58 SETTABLEKS                       R1 R0 K18 ["onScriptWarningBoxCanceled"]
-       60 NEWCLOSURE                       R1 P6
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R1 R0 K19 ["onInsertScriptWarningPrompt"]
-       64 NEWCLOSURE                       R1 P7
-       65 CAPTURE                          VAL R0
-       66 SETTABLEKS                       R1 R0 K20 ["onScriptWarningBoxToggleShow"]
-       68 NEWCLOSURE                       R1 P8
-       69 CAPTURE                          UPVAL U2
-       70 CAPTURE                          VAL R0
-       71 SETTABLEKS                       R1 R0 K21 ["onPermissionsGrantClosed"]
-       73 NEWCLOSURE                       R1 P9
-       74 CAPTURE                          UPVAL U2
-       75 CAPTURE                          VAL R0
-       76 SETTABLEKS                       R1 R0 K22 ["onPermissionsGranted"]
-       78 NEWCLOSURE                       R1 P10
-       79 CAPTURE                          UPVAL U2
+       58 SETTABLEKS                       R1 R0 K25 ["onPermissionsGranted"]
+       60 NEWCLOSURE                       R1 P10
+       61 CAPTURE                          UPVAL U2
+       62 CAPTURE                          VAL R0
+       63 SETTABLEKS                       R1 R0 K26 ["onPermissionsGrantCallback"]
+       65 GETUPVAL                         R1 3
+       66 GETTABLEKS                       R1 R1 K27 ["new"]
+       68 GETTABLEKS                       R2 R0 K19 ["onInsertToolPrompt"]
+       70 GETTABLEKS                       R3 R0 K22 ["onInsertScriptWarningPrompt"]
+       72 GETTABLEKS                       R4 R0 K26 ["onPermissionsGrantCallback"]
+       74 CALL                             R1 3 1
+       75 SETTABLEKS                       R1 R0 K28 ["insertToolPromise"]
+       77 GETUPVAL                         R1 4
+       78 JUMPIFNOT                        R1 ; [+5]
+       79 NEWCLOSURE                       R1 P11
        80 CAPTURE                          VAL R0
-       81 SETTABLEKS                       R1 R0 K23 ["onPermissionsGrantCallback"]
-       83 GETUPVAL                         R1 3
-       84 GETTABLEKS                       R1 R1 K24 ["new"]
-       86 GETTABLEKS                       R2 R0 K16 ["onInsertToolPrompt"]
-       88 GETTABLEKS                       R3 R0 K19 ["onInsertScriptWarningPrompt"]
-       90 GETTABLEKS                       R4 R0 K23 ["onPermissionsGrantCallback"]
-       92 CALL                             R1 3 1
-       93 SETTABLEKS                       R1 R0 K25 ["insertToolPromise"]
-       95 GETUPVAL                         R1 4
-       96 JUMPIFNOT                        R1 ; [+5]
-       97 NEWCLOSURE                       R1 P11
-       98 CAPTURE                          VAL R0
-       99 CAPTURE                          UPVAL U5
-      100 SETTABLEKS                       R1 R0 K26 ["getIsIXPVariableEnabled"]
-      102 NEWCLOSURE                       R1 P12
-      103 CAPTURE                          VAL R0
-      104 CAPTURE                          UPVAL U6
-      105 CAPTURE                          UPVAL U7
-      106 CAPTURE                          UPVAL U8
-      107 CAPTURE                          UPVAL U9
-      108 CAPTURE                          UPVAL U10
-      109 CAPTURE                          UPVAL U4
-      110 SETTABLEKS                       R1 R0 K27 ["tryInsert"]
-      112 NEWCLOSURE                       R1 P13
+       81 CAPTURE                          UPVAL U5
+       82 SETTABLEKS                       R1 R0 K29 ["getIsIXPVariableEnabled"]
+       84 NEWCLOSURE                       R1 P12
+       85 CAPTURE                          VAL R0
+       86 CAPTURE                          UPVAL U6
+       87 CAPTURE                          UPVAL U7
+       88 CAPTURE                          UPVAL U8
+       89 CAPTURE                          UPVAL U9
+       90 CAPTURE                          UPVAL U10
+       91 CAPTURE                          UPVAL U4
+       92 SETTABLEKS                       R1 R0 K30 ["tryInsert"]
+       94 NEWCLOSURE                       R1 P13
+       95 CAPTURE                          VAL R0
+       96 SETTABLEKS                       R1 R0 K31 ["openAssetPreview"]
+       98 NEWCLOSURE                       R1 P14
+       99 CAPTURE                          VAL R0
+      100 CAPTURE                          UPVAL U0
+      101 SETTABLEKS                       R1 R0 K32 ["closeAssetPreview"]
+      103 NEWCLOSURE                       R1 P15
+      104 CAPTURE                          VAL R0
+      105 CAPTURE                          UPVAL U11
+      106 CAPTURE                          UPVAL U12
+      107 SETTABLEKS                       R1 R0 K33 ["logAssetImpression"]
+      109 GETUPVAL                         R1 13
+      110 CALL                             R1 0 1
+      111 JUMPIFNOT                        R1 ; [+7]
+      112 NEWCLOSURE                       R1 P16
       113 CAPTURE                          VAL R0
-      114 SETTABLEKS                       R1 R0 K28 ["openAssetPreview"]
-      116 NEWCLOSURE                       R1 P14
-      117 CAPTURE                          VAL R0
-      118 CAPTURE                          UPVAL U0
-      119 SETTABLEKS                       R1 R0 K29 ["closeAssetPreview"]
-      121 NEWCLOSURE                       R1 P15
-      122 CAPTURE                          VAL R0
-      123 CAPTURE                          UPVAL U11
-      124 CAPTURE                          UPVAL U12
-      125 SETTABLEKS                       R1 R0 K30 ["logAssetImpression"]
-      127 GETUPVAL                         R1 13
-      128 CALL                             R1 0 1
-      129 JUMPIFNOT                        R1 ; [+7]
-      130 NEWCLOSURE                       R1 P16
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          UPVAL U8
-      133 CAPTURE                          UPVAL U14
-      134 CAPTURE                          UPVAL U15
-      135 SETTABLEKS                       R1 R0 K31 ["onSearchByCreator"]
-      137 RETURN                           R0 0
+      114 CAPTURE                          UPVAL U8
+      115 CAPTURE                          UPVAL U14
+      116 CAPTURE                          UPVAL U15
+      117 SETTABLEKS                       R1 R0 K34 ["onSearchByCreator"]
+      119 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R1 R0 K0 ["insertToolPromise"]
@@ -822,7 +792,7 @@ PROTO_23:
       144 CALL                             R16 2 1
       145 SETTABLEKS                       R16 R15 K41 ["ToolScriptWarningMessageBox"]
       147 MOVE                             R16 R7
-      148 JUMPIFNOT                        R16 ; [+97]
+      148 JUMPIFNOT                        R16 ; [+91]
       149 GETUPVAL                         R16 2
       150 GETTABLEKS                       R16 R16 K49 ["createElement"]
       152 GETUPVAL                         R17 7
@@ -868,126 +838,118 @@ PROTO_23:
       213 GETTABLEKS                       R19 R0 K91 ["onPermissionsGranted"]
       215 SETTABLEKS                       R19 R18 K71 ["onButtonClicked"]
       217 NEWTABLE                         R19 0 2
-      219 DUPTABLE                         R20 K93 [{"Text", "action"}]
+      219 DUPTABLE                         R20 K94 [{["Text"], ["action"] = "no"}]
       220 LOADK                            R23 K78 ["GrantAssetPermission"]
-      221 LOADK                            R24 K94 ["CancelButton"]
+      221 LOADK                            R24 K95 ["CancelButton"]
       222 NAMECALL                         R21 R11 K77 ["getText"]
       224 CALL                             R21 3 1
       225 SETTABLEKS                       R21 R20 K68 ["Text"]
-      227 LOADK                            R21 K95 ["no"]
-      228 SETTABLEKS                       R21 R20 K92 ["action"]
-      230 DUPTABLE                         R21 K93 [{"Text", "action"}]
-      231 LOADK                            R24 K78 ["GrantAssetPermission"]
-      232 LOADK                            R25 K96 ["GrantButton"]
-      233 NAMECALL                         R22 R11 K77 ["getText"]
-      235 CALL                             R22 3 1
-      236 SETTABLEKS                       R22 R21 K68 ["Text"]
-      238 LOADK                            R22 K97 ["yes"]
-      239 SETTABLEKS                       R22 R21 K92 ["action"]
-      241 SETLIST                          R19 R20 2 [1]
-      243 SETTABLEKS                       R19 R18 K72 ["buttons"]
-      245 CALL                             R16 2 1
-      246 SETTABLEKS                       R16 R15 K42 ["GrantPermissionsMessageBox"]
-      248 MOVE                             R16 R5
-      249 JUMPIFNOT                        R16 ; [+71]
-      250 GETUPVAL                         R16 2
-      251 GETTABLEKS                       R16 R16 K49 ["createElement"]
-      253 GETUPVAL                         R17 7
-      254 DUPTABLE                         R18 K98 [{"Name", "Title", "Text", "Icon", "onClose", "onButtonClicked", "buttons"}]
-      255 GETIMPORT                        R19 K60 [string.format]
-      257 LOADK                            R20 K99 ["ToolboxToolMessageBox-%s"]
-      258 GETUPVAL                         R21 5
-      259 NAMECALL                         R21 R21 K62 ["GenerateGUID"]
-      261 CALL                             R21 1 -1
-      262 CALL                             R19 -1 1
-      263 SETTABLEKS                       R19 R18 K50 ["Name"]
-      265 LOADK                            R21 K100 ["InsertTool"]
-      266 LOADK                            R22 K101 ["DialogTitle"]
-      267 NAMECALL                         R19 R11 K77 ["getText"]
-      269 CALL                             R19 3 1
-      270 SETTABLEKS                       R19 R18 K67 ["Title"]
-      272 LOADK                            R21 K100 ["InsertTool"]
-      273 LOADK                            R22 K79 ["DialogText"]
-      274 NAMECALL                         R19 R11 K77 ["getText"]
-      276 CALL                             R19 3 1
-      277 SETTABLEKS                       R19 R18 K68 ["Text"]
-      279 GETUPVAL                         R19 6
-      280 GETTABLEKS                       R19 R19 K63 ["INFO_ICON"]
-      282 SETTABLEKS                       R19 R18 K52 ["Icon"]
-      284 GETTABLEKS                       R19 R0 K102 ["onMessageBoxClosed"]
-      286 SETTABLEKS                       R19 R18 K53 ["onClose"]
-      288 GETTABLEKS                       R19 R0 K103 ["onMessageBoxButtonClicked"]
-      290 SETTABLEKS                       R19 R18 K71 ["onButtonClicked"]
-      292 NEWTABLE                         R19 0 2
-      294 DUPTABLE                         R20 K93 [{"Text", "action"}]
-      295 LOADK                            R23 K104 ["Common"]
-      296 LOADK                            R24 K105 ["Yes"]
-      297 NAMECALL                         R21 R11 K77 ["getText"]
-      299 CALL                             R21 3 1
-      300 SETTABLEKS                       R21 R20 K68 ["Text"]
-      302 LOADK                            R21 K97 ["yes"]
-      303 SETTABLEKS                       R21 R20 K92 ["action"]
-      305 DUPTABLE                         R21 K93 [{"Text", "action"}]
-      306 LOADK                            R24 K104 ["Common"]
-      307 LOADK                            R25 K106 ["No"]
-      308 NAMECALL                         R22 R11 K77 ["getText"]
-      310 CALL                             R22 3 1
-      311 SETTABLEKS                       R22 R21 K68 ["Text"]
-      313 LOADK                            R22 K95 ["no"]
-      314 SETTABLEKS                       R22 R21 K92 ["action"]
-      316 SETLIST                          R19 R20 2 [1]
-      318 SETTABLEKS                       R19 R18 K72 ["buttons"]
-      320 CALL                             R16 2 1
-      321 SETTABLEKS                       R16 R15 K43 ["ToolMessageBox"]
-      323 MOVE                             R16 R13
-      324 JUMPIFNOT                        R16 ; [+39]
-      325 GETUPVAL                         R16 2
-      326 GETTABLEKS                       R16 R16 K49 ["createElement"]
-      328 GETUPVAL                         R17 8
-      329 DUPTABLE                         R18 K110 [{"assetData", "canInsertAsset", "logAssetImpression", "onAssetPreviewButtonClicked", "onClose", "onSearchByCreator", "tryInsert", "tryOpenAssetConfig"}]
-      330 SETTABLEKS                       R10 R18 K107 ["assetData"]
-      332 GETTABLEKS                       R19 R0 K21 ["canInsertAsset"]
-      334 SETTABLEKS                       R19 R18 K21 ["canInsertAsset"]
-      336 GETTABLEKS                       R19 R0 K23 ["logAssetImpression"]
-      338 SETTABLEKS                       R19 R18 K23 ["logAssetImpression"]
-      340 GETTABLEKS                       R19 R0 K25 ["openAssetPreview"]
-      342 SETTABLEKS                       R19 R18 K108 ["onAssetPreviewButtonClicked"]
-      344 GETTABLEKS                       R19 R0 K111 ["closeAssetPreview"]
-      346 SETTABLEKS                       R19 R18 K53 ["onClose"]
-      348 GETUPVAL                         R20 1
-      349 CALL                             R20 0 1
-      350 JUMPIFNOT                        R20 ; [+3]
-      351 GETTABLEKS                       R19 R0 K26 ["onSearchByCreator"]
-      353 JUMP                             ; [+1]
-      354 LOADNIL                          R19
-      355 SETTABLEKS                       R19 R18 K26 ["onSearchByCreator"]
-      357 GETTABLEKS                       R19 R0 K24 ["tryInsert"]
-      359 SETTABLEKS                       R19 R18 K24 ["tryInsert"]
-      361 SETTABLEKS                       R4 R18 K109 ["tryOpenAssetConfig"]
-      363 CALL                             R16 2 1
-      364 SETTABLEKS                       R16 R15 K44 ["AssetPreview"]
-      366 GETUPVAL                         R16 2
-      367 GETTABLEKS                       R16 R16 K49 ["createElement"]
-      369 GETUPVAL                         R17 9
-      370 CALL                             R16 1 1
-      371 SETTABLEKS                       R16 R15 K45 ["SubsequentDialogController"]
-      373 GETUPVAL                         R16 2
-      374 GETTABLEKS                       R16 R16 K49 ["createElement"]
-      376 GETUPVAL                         R17 10
-      377 DUPTABLE                         R18 K113 [{"AssetData", "TryInsert"}]
-      378 SETTABLEKS                       R10 R18 K112 ["AssetData"]
-      380 GETTABLEKS                       R19 R0 K24 ["tryInsert"]
-      382 SETTABLEKS                       R19 R18 K17 ["TryInsert"]
-      384 CALL                             R16 2 1
-      385 SETTABLEKS                       R16 R15 K46 ["PurchaseFlowWrapper"]
-      387 GETUPVAL                         R16 2
-      388 GETTABLEKS                       R16 R16 K49 ["createElement"]
-      390 GETUPVAL                         R17 11
-      391 MOVE                             R18 R12
-      392 CALL                             R16 2 1
-      393 SETTABLEKS                       R16 R15 K47 ["Contents"]
-      395 CALL                             R14 1 -1
-      396 RETURN                           R14 -1
+      227 DUPTABLE                         R21 K97 [{["Text"], ["action"] = "yes"}]
+      228 LOADK                            R24 K78 ["GrantAssetPermission"]
+      229 LOADK                            R25 K98 ["GrantButton"]
+      230 NAMECALL                         R22 R11 K77 ["getText"]
+      232 CALL                             R22 3 1
+      233 SETTABLEKS                       R22 R21 K68 ["Text"]
+      235 SETLIST                          R19 R20 2 [1]
+      237 SETTABLEKS                       R19 R18 K72 ["buttons"]
+      239 CALL                             R16 2 1
+      240 SETTABLEKS                       R16 R15 K42 ["GrantPermissionsMessageBox"]
+      242 MOVE                             R16 R5
+      243 JUMPIFNOT                        R16 ; [+65]
+      244 GETUPVAL                         R16 2
+      245 GETTABLEKS                       R16 R16 K49 ["createElement"]
+      247 GETUPVAL                         R17 7
+      248 DUPTABLE                         R18 K99 [{"Name", "Title", "Text", "Icon", "onClose", "onButtonClicked", "buttons"}]
+      249 GETIMPORT                        R19 K60 [string.format]
+      251 LOADK                            R20 K100 ["ToolboxToolMessageBox-%s"]
+      252 GETUPVAL                         R21 5
+      253 NAMECALL                         R21 R21 K62 ["GenerateGUID"]
+      255 CALL                             R21 1 -1
+      256 CALL                             R19 -1 1
+      257 SETTABLEKS                       R19 R18 K50 ["Name"]
+      259 LOADK                            R21 K101 ["InsertTool"]
+      260 LOADK                            R22 K102 ["DialogTitle"]
+      261 NAMECALL                         R19 R11 K77 ["getText"]
+      263 CALL                             R19 3 1
+      264 SETTABLEKS                       R19 R18 K67 ["Title"]
+      266 LOADK                            R21 K101 ["InsertTool"]
+      267 LOADK                            R22 K79 ["DialogText"]
+      268 NAMECALL                         R19 R11 K77 ["getText"]
+      270 CALL                             R19 3 1
+      271 SETTABLEKS                       R19 R18 K68 ["Text"]
+      273 GETUPVAL                         R19 6
+      274 GETTABLEKS                       R19 R19 K63 ["INFO_ICON"]
+      276 SETTABLEKS                       R19 R18 K52 ["Icon"]
+      278 GETTABLEKS                       R19 R0 K103 ["onMessageBoxClosed"]
+      280 SETTABLEKS                       R19 R18 K53 ["onClose"]
+      282 GETTABLEKS                       R19 R0 K104 ["onMessageBoxButtonClicked"]
+      284 SETTABLEKS                       R19 R18 K71 ["onButtonClicked"]
+      286 NEWTABLE                         R19 0 2
+      288 DUPTABLE                         R20 K97 [{["Text"], ["action"] = "yes"}]
+      289 LOADK                            R23 K105 ["Common"]
+      290 LOADK                            R24 K106 ["Yes"]
+      291 NAMECALL                         R21 R11 K77 ["getText"]
+      293 CALL                             R21 3 1
+      294 SETTABLEKS                       R21 R20 K68 ["Text"]
+      296 DUPTABLE                         R21 K94 [{["Text"], ["action"] = "no"}]
+      297 LOADK                            R24 K105 ["Common"]
+      298 LOADK                            R25 K107 ["No"]
+      299 NAMECALL                         R22 R11 K77 ["getText"]
+      301 CALL                             R22 3 1
+      302 SETTABLEKS                       R22 R21 K68 ["Text"]
+      304 SETLIST                          R19 R20 2 [1]
+      306 SETTABLEKS                       R19 R18 K72 ["buttons"]
+      308 CALL                             R16 2 1
+      309 SETTABLEKS                       R16 R15 K43 ["ToolMessageBox"]
+      311 MOVE                             R16 R13
+      312 JUMPIFNOT                        R16 ; [+39]
+      313 GETUPVAL                         R16 2
+      314 GETTABLEKS                       R16 R16 K49 ["createElement"]
+      316 GETUPVAL                         R17 8
+      317 DUPTABLE                         R18 K111 [{"assetData", "canInsertAsset", "logAssetImpression", "onAssetPreviewButtonClicked", "onClose", "onSearchByCreator", "tryInsert", "tryOpenAssetConfig"}]
+      318 SETTABLEKS                       R10 R18 K108 ["assetData"]
+      320 GETTABLEKS                       R19 R0 K21 ["canInsertAsset"]
+      322 SETTABLEKS                       R19 R18 K21 ["canInsertAsset"]
+      324 GETTABLEKS                       R19 R0 K23 ["logAssetImpression"]
+      326 SETTABLEKS                       R19 R18 K23 ["logAssetImpression"]
+      328 GETTABLEKS                       R19 R0 K25 ["openAssetPreview"]
+      330 SETTABLEKS                       R19 R18 K109 ["onAssetPreviewButtonClicked"]
+      332 GETTABLEKS                       R19 R0 K112 ["closeAssetPreview"]
+      334 SETTABLEKS                       R19 R18 K53 ["onClose"]
+      336 GETUPVAL                         R20 1
+      337 CALL                             R20 0 1
+      338 JUMPIFNOT                        R20 ; [+3]
+      339 GETTABLEKS                       R19 R0 K26 ["onSearchByCreator"]
+      341 JUMP                             ; [+1]
+      342 LOADNIL                          R19
+      343 SETTABLEKS                       R19 R18 K26 ["onSearchByCreator"]
+      345 GETTABLEKS                       R19 R0 K24 ["tryInsert"]
+      347 SETTABLEKS                       R19 R18 K24 ["tryInsert"]
+      349 SETTABLEKS                       R4 R18 K110 ["tryOpenAssetConfig"]
+      351 CALL                             R16 2 1
+      352 SETTABLEKS                       R16 R15 K44 ["AssetPreview"]
+      354 GETUPVAL                         R16 2
+      355 GETTABLEKS                       R16 R16 K49 ["createElement"]
+      357 GETUPVAL                         R17 9
+      358 CALL                             R16 1 1
+      359 SETTABLEKS                       R16 R15 K45 ["SubsequentDialogController"]
+      361 GETUPVAL                         R16 2
+      362 GETTABLEKS                       R16 R16 K49 ["createElement"]
+      364 GETUPVAL                         R17 10
+      365 DUPTABLE                         R18 K114 [{"AssetData", "TryInsert"}]
+      366 SETTABLEKS                       R10 R18 K113 ["AssetData"]
+      368 GETTABLEKS                       R19 R0 K24 ["tryInsert"]
+      370 SETTABLEKS                       R19 R18 K17 ["TryInsert"]
+      372 CALL                             R16 2 1
+      373 SETTABLEKS                       R16 R15 K46 ["PurchaseFlowWrapper"]
+      375 GETUPVAL                         R16 2
+      376 GETTABLEKS                       R16 R16 K49 ["createElement"]
+      378 GETUPVAL                         R17 11
+      379 MOVE                             R18 R12
+      380 CALL                             R16 2 1
+      381 SETTABLEKS                       R16 R15 K47 ["Contents"]
+      383 CALL                             R14 1 -1
+      384 RETURN                           R14 -1
 
 PROTO_24:
         0 MOVE                             R2 R0

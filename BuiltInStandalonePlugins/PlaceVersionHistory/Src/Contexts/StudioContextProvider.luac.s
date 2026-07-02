@@ -26,22 +26,20 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R3 0
         1 GETUPVAL                         R5 1
-        2 DUPTABLE                         R6 K3 [{"isNewFeature", "targetPlaceId", "targetPlaceVersion"}]
-        3 LOADB                            R7 1
-        4 SETTABLEKS                       R7 R6 K0 ["isNewFeature"]
-        6 GETTABLEKS                       R7 R1 K4 ["placeId"]
-        8 SETTABLEKS                       R7 R6 K1 ["targetPlaceId"]
-       10 SETTABLEKS                       R0 R6 K2 ["targetPlaceVersion"]
-       12 NAMECALL                         R3 R3 K5 ["logRobloxTelemetryEvent"]
-       14 CALL                             R3 3 0
-       15 GETUPVAL                         R3 2
-       16 GETTABLEKS                       R3 R3 K6 ["new"]
-       18 NEWCLOSURE                       R4 P0
-       19 CAPTURE                          VAL R2
-       20 CAPTURE                          VAL R1
-       21 CAPTURE                          VAL R0
-       22 CALL                             R3 1 -1
-       23 RETURN                           R3 -1
+        2 DUPTABLE                         R6 K4 [{[1] = True, ["targetPlaceId"], ["targetPlaceVersion"]}]
+        3 GETTABLEKS                       R7 R1 K5 ["placeId"]
+        5 SETTABLEKS                       R7 R6 K2 ["targetPlaceId"]
+        7 SETTABLEKS                       R0 R6 K3 ["targetPlaceVersion"]
+        9 NAMECALL                         R3 R3 K6 ["logRobloxTelemetryEvent"]
+       11 CALL                             R3 3 0
+       12 GETUPVAL                         R3 2
+       13 GETTABLEKS                       R3 R3 K7 ["new"]
+       15 NEWCLOSURE                       R4 P0
+       16 CAPTURE                          VAL R2
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          VAL R0
+       19 CALL                             R3 1 -1
+       20 RETURN                           R3 -1
 
 PROTO_2:
         0 GETUPVAL                         R1 0

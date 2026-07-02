@@ -59,112 +59,96 @@ PROTO_0:
        81 GETUPVAL                         R10 1
        82 GETTABLEKS                       R10 R10 K22 ["createElement"]
        84 LOADK                            R11 K23 ["Part"]
-       85 DUPTABLE                         R12 K33 [{"Anchored", "CanQuery", "CanCollide", "CanTouch", "Archivable", "ref", "CFrame", "TopSurface", "BottomSurface", "Size", "Transparency"}]
-       86 LOADB                            R13 1
-       87 SETTABLEKS                       R13 R12 K24 ["Anchored"]
-       89 LOADB                            R13 0
-       90 SETTABLEKS                       R13 R12 K25 ["CanQuery"]
-       92 LOADB                            R13 0
-       93 SETTABLEKS                       R13 R12 K26 ["CanCollide"]
-       95 LOADB                            R13 0
-       96 SETTABLEKS                       R13 R12 K27 ["CanTouch"]
-       98 LOADB                            R13 0
-       99 SETTABLEKS                       R13 R12 K28 ["Archivable"]
-      101 SETTABLEKS                       R3 R12 K29 ["ref"]
-      103 GETTABLEKS                       R14 R0 K8 ["CFrame"]
-      105 LOADK                            R18 K34 [{-1.5, 0, 0}]
-      106 MUL                              R17 R8 R18
-      107 NAMECALL                         R15 R7 K18 ["VectorToWorldSpace"]
-      109 CALL                             R15 2 1
-      110 ADD                              R13 R14 R15
-      111 SETTABLEKS                       R13 R12 K8 ["CFrame"]
-      113 GETIMPORT                        R13 K38 [Enum.SurfaceType.Smooth]
-      115 SETTABLEKS                       R13 R12 K30 ["TopSurface"]
-      117 GETIMPORT                        R13 K38 [Enum.SurfaceType.Smooth]
-      119 SETTABLEKS                       R13 R12 K31 ["BottomSurface"]
-      121 GETTABLEKS                       R13 R0 K12 ["Size"]
-      123 SETTABLEKS                       R13 R12 K12 ["Size"]
-      125 LOADN                            R13 1
-      126 SETTABLEKS                       R13 R12 K32 ["Transparency"]
-      128 DUPTABLE                         R13 K41 [{"Ruler", "SurfaceGui"}]
-      129 GETUPVAL                         R14 1
-      130 GETTABLEKS                       R14 R14 K22 ["createElement"]
-      132 GETUPVAL                         R15 3
-      133 DUPTABLE                         R16 K48 [{"Color3", "MainTransparency", "DimTransparency", "GridSize", "MajorStep", "CFrame", "Size", "ExtraSize"}]
-      134 GETTABLEKS                       R17 R1 K49 ["RulerColor"]
-      136 SETTABLEKS                       R17 R16 K42 ["Color3"]
-      138 GETTABLEKS                       R17 R1 K43 ["MainTransparency"]
-      140 SETTABLEKS                       R17 R16 K43 ["MainTransparency"]
-      142 GETTABLEKS                       R17 R1 K44 ["DimTransparency"]
-      144 SETTABLEKS                       R17 R16 K44 ["DimTransparency"]
-      146 GETTABLEKS                       R17 R1 K45 ["GridSize"]
-      148 SETTABLEKS                       R17 R16 K45 ["GridSize"]
-      150 GETTABLEKS                       R17 R1 K46 ["MajorStep"]
-      152 SETTABLEKS                       R17 R16 K46 ["MajorStep"]
-      154 SETTABLEKS                       R7 R16 K8 ["CFrame"]
-      156 LOADN                            R18 0
-      157 LOADN                            R19 0
-      158 GETTABLEKS                       R20 R8 K50 ["Z"]
-      160 FASTCALL                         VECTOR ; [+2]
-      161 GETIMPORT                        R17 K16 [Vector3.new]
-      163 CALL                             R17 3 1
-      164 SETTABLEKS                       R17 R16 K12 ["Size"]
-      166 LOADNIL                          R17
-      167 SETTABLEKS                       R17 R16 K47 ["ExtraSize"]
-      169 CALL                             R14 2 1
-      170 SETTABLEKS                       R14 R13 K39 ["Ruler"]
-      172 GETUPVAL                         R14 1
-      173 GETTABLEKS                       R14 R14 K22 ["createElement"]
-      175 LOADK                            R15 K40 ["SurfaceGui"]
-      176 DUPTABLE                         R16 K56 [{"Adornee", "AlwaysOnTop", "Face", "SizingMode", "PixelsPerStud"}]
-      177 SETTABLEKS                       R2 R16 K51 ["Adornee"]
-      179 LOADB                            R17 1
-      180 SETTABLEKS                       R17 R16 K52 ["AlwaysOnTop"]
-      182 GETTABLEKS                       R17 R0 K57 ["TextFace"]
-      184 SETTABLEKS                       R17 R16 K53 ["Face"]
-      186 GETIMPORT                        R17 K59 [Enum.SurfaceGuiSizingMode.PixelsPerStud]
-      188 SETTABLEKS                       R17 R16 K54 ["SizingMode"]
-      190 GETTABLEKS                       R17 R1 K55 ["PixelsPerStud"]
-      192 SETTABLEKS                       R17 R16 K55 ["PixelsPerStud"]
-      194 DUPTABLE                         R17 K61 [{"Container"}]
-      195 GETUPVAL                         R18 1
-      196 GETTABLEKS                       R18 R18 K22 ["createElement"]
-      198 GETUPVAL                         R19 0
-      199 GETTABLEKS                       R19 R19 K62 ["UI"]
-      201 GETTABLEKS                       R19 R19 K60 ["Container"]
-      203 DUPTABLE                         R20 K65 [{"AutomaticSize", "Padding"}]
-      204 GETIMPORT                        R21 K67 [Enum.AutomaticSize.XY]
-      206 SETTABLEKS                       R21 R20 K63 ["AutomaticSize"]
-      208 DUPTABLE                         R21 K69 [{"Left"}]
-      209 GETTABLEKS                       R22 R1 K64 ["Padding"]
-      211 SETTABLEKS                       R22 R21 K68 ["Left"]
-      213 SETTABLEKS                       R21 R20 K64 ["Padding"]
-      215 DUPTABLE                         R21 K71 [{"SizeLabel"}]
-      216 GETUPVAL                         R22 1
-      217 GETTABLEKS                       R22 R22 K22 ["createElement"]
-      219 GETUPVAL                         R23 0
-      220 GETTABLEKS                       R23 R23 K62 ["UI"]
-      222 GETTABLEKS                       R23 R23 K72 ["TextLabel"]
-      224 DUPTABLE                         R24 K75 [{"AutomaticSize", "Text", "TextSize"}]
-      225 GETIMPORT                        R25 K67 [Enum.AutomaticSize.XY]
-      227 SETTABLEKS                       R25 R24 K63 ["AutomaticSize"]
-      229 GETTABLEKS                       R25 R0 K73 ["Text"]
-      231 SETTABLEKS                       R25 R24 K73 ["Text"]
-      233 GETTABLEKS                       R25 R1 K74 ["TextSize"]
-      235 SETTABLEKS                       R25 R24 K74 ["TextSize"]
-      237 CALL                             R22 2 1
-      238 SETTABLEKS                       R22 R21 K70 ["SizeLabel"]
-      240 CALL                             R18 3 1
-      241 SETTABLEKS                       R18 R17 K60 ["Container"]
-      243 CALL                             R14 3 1
-      244 SETTABLEKS                       R14 R13 K40 ["SurfaceGui"]
-      246 CALL                             R10 3 1
-      247 GETTABLEKS                       R11 R0 K60 ["Container"]
-      249 JUMPIF                           R11 ; [+1]
-      250 GETUPVAL                         R11 4
-      251 LOADK                            R12 K2 ["AvatarSizeRuler"]
-      252 CALL                             R9 3 -1
-      253 RETURN                           R9 -1
+       85 DUPTABLE                         R12 K36 [{["Anchored"] = True, ["CanQuery"] = False, ["CanCollide"] = False, ["CanTouch"] = False, ["Archivable"] = False, ["ref"], ["CFrame"], ["TopSurface"], ["BottomSurface"], ["Size"], ["Transparency"] = 1}]
+       86 SETTABLEKS                       R3 R12 K31 ["ref"]
+       88 GETTABLEKS                       R14 R0 K8 ["CFrame"]
+       90 LOADK                            R18 K37 [{-1.5, 0, 0}]
+       91 MUL                              R17 R8 R18
+       92 NAMECALL                         R15 R7 K18 ["VectorToWorldSpace"]
+       94 CALL                             R15 2 1
+       95 ADD                              R13 R14 R15
+       96 SETTABLEKS                       R13 R12 K8 ["CFrame"]
+       98 GETIMPORT                        R13 K41 [Enum.SurfaceType.Smooth]
+      100 SETTABLEKS                       R13 R12 K32 ["TopSurface"]
+      102 GETIMPORT                        R13 K41 [Enum.SurfaceType.Smooth]
+      104 SETTABLEKS                       R13 R12 K33 ["BottomSurface"]
+      106 GETTABLEKS                       R13 R0 K12 ["Size"]
+      108 SETTABLEKS                       R13 R12 K12 ["Size"]
+      110 DUPTABLE                         R13 K44 [{"Ruler", "SurfaceGui"}]
+      111 GETUPVAL                         R14 1
+      112 GETTABLEKS                       R14 R14 K22 ["createElement"]
+      114 GETUPVAL                         R15 3
+      115 DUPTABLE                         R16 K52 [{["Color3"], ["MainTransparency"], ["DimTransparency"], ["GridSize"], ["MajorStep"], ["CFrame"], ["Size"], ["ExtraSize"] = }]
+      116 GETTABLEKS                       R17 R1 K53 ["RulerColor"]
+      118 SETTABLEKS                       R17 R16 K45 ["Color3"]
+      120 GETTABLEKS                       R17 R1 K46 ["MainTransparency"]
+      122 SETTABLEKS                       R17 R16 K46 ["MainTransparency"]
+      124 GETTABLEKS                       R17 R1 K47 ["DimTransparency"]
+      126 SETTABLEKS                       R17 R16 K47 ["DimTransparency"]
+      128 GETTABLEKS                       R17 R1 K48 ["GridSize"]
+      130 SETTABLEKS                       R17 R16 K48 ["GridSize"]
+      132 GETTABLEKS                       R17 R1 K49 ["MajorStep"]
+      134 SETTABLEKS                       R17 R16 K49 ["MajorStep"]
+      136 SETTABLEKS                       R7 R16 K8 ["CFrame"]
+      138 LOADN                            R18 0
+      139 LOADN                            R19 0
+      140 GETTABLEKS                       R20 R8 K54 ["Z"]
+      142 FASTCALL                         VECTOR ; [+2]
+      143 GETIMPORT                        R17 K16 [Vector3.new]
+      145 CALL                             R17 3 1
+      146 SETTABLEKS                       R17 R16 K12 ["Size"]
+      148 CALL                             R14 2 1
+      149 SETTABLEKS                       R14 R13 K42 ["Ruler"]
+      151 GETUPVAL                         R14 1
+      152 GETTABLEKS                       R14 R14 K22 ["createElement"]
+      154 LOADK                            R15 K43 ["SurfaceGui"]
+      155 DUPTABLE                         R16 K60 [{["Adornee"], ["AlwaysOnTop"] = True, ["Face"], ["SizingMode"], ["PixelsPerStud"]}]
+      156 SETTABLEKS                       R2 R16 K55 ["Adornee"]
+      158 GETTABLEKS                       R17 R0 K61 ["TextFace"]
+      160 SETTABLEKS                       R17 R16 K57 ["Face"]
+      162 GETIMPORT                        R17 K63 [Enum.SurfaceGuiSizingMode.PixelsPerStud]
+      164 SETTABLEKS                       R17 R16 K58 ["SizingMode"]
+      166 GETTABLEKS                       R17 R1 K59 ["PixelsPerStud"]
+      168 SETTABLEKS                       R17 R16 K59 ["PixelsPerStud"]
+      170 DUPTABLE                         R17 K65 [{"Container"}]
+      171 GETUPVAL                         R18 1
+      172 GETTABLEKS                       R18 R18 K22 ["createElement"]
+      174 GETUPVAL                         R19 0
+      175 GETTABLEKS                       R19 R19 K66 ["UI"]
+      177 GETTABLEKS                       R19 R19 K64 ["Container"]
+      179 DUPTABLE                         R20 K69 [{"AutomaticSize", "Padding"}]
+      180 GETIMPORT                        R21 K71 [Enum.AutomaticSize.XY]
+      182 SETTABLEKS                       R21 R20 K67 ["AutomaticSize"]
+      184 DUPTABLE                         R21 K73 [{"Left"}]
+      185 GETTABLEKS                       R22 R1 K68 ["Padding"]
+      187 SETTABLEKS                       R22 R21 K72 ["Left"]
+      189 SETTABLEKS                       R21 R20 K68 ["Padding"]
+      191 DUPTABLE                         R21 K75 [{"SizeLabel"}]
+      192 GETUPVAL                         R22 1
+      193 GETTABLEKS                       R22 R22 K22 ["createElement"]
+      195 GETUPVAL                         R23 0
+      196 GETTABLEKS                       R23 R23 K66 ["UI"]
+      198 GETTABLEKS                       R23 R23 K76 ["TextLabel"]
+      200 DUPTABLE                         R24 K79 [{"AutomaticSize", "Text", "TextSize"}]
+      201 GETIMPORT                        R25 K71 [Enum.AutomaticSize.XY]
+      203 SETTABLEKS                       R25 R24 K67 ["AutomaticSize"]
+      205 GETTABLEKS                       R25 R0 K77 ["Text"]
+      207 SETTABLEKS                       R25 R24 K77 ["Text"]
+      209 GETTABLEKS                       R25 R1 K78 ["TextSize"]
+      211 SETTABLEKS                       R25 R24 K78 ["TextSize"]
+      213 CALL                             R22 2 1
+      214 SETTABLEKS                       R22 R21 K74 ["SizeLabel"]
+      216 CALL                             R18 3 1
+      217 SETTABLEKS                       R18 R17 K64 ["Container"]
+      219 CALL                             R14 3 1
+      220 SETTABLEKS                       R14 R13 K43 ["SurfaceGui"]
+      222 CALL                             R10 3 1
+      223 GETTABLEKS                       R11 R0 K64 ["Container"]
+      225 JUMPIF                           R11 ; [+1]
+      226 GETUPVAL                         R11 4
+      227 LOADK                            R12 K2 ["AvatarSizeRuler"]
+      228 CALL                             R9 3 -1
+      229 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

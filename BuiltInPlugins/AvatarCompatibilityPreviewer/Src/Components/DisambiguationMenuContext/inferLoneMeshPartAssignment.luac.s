@@ -153,37 +153,21 @@ MAIN:
        49 GETTABLEKS                       R6 R6 K15 ["getFFlagAvatarPreviewerProcessRigidOnly"]
        51 CALL                             R5 1 1
        52 NEWTABLE                         R6 0 2
-       54 DUPTABLE                         R7 K18 [{"Id", "Label"}]
-       55 LOADK                            R8 K19 ["LeftGripAccessory"]
-       56 SETTABLEKS                       R8 R7 K16 ["Id"]
-       58 LOADK                            R8 K19 ["LeftGripAccessory"]
-       59 SETTABLEKS                       R8 R7 K17 ["Label"]
-       61 DUPTABLE                         R8 K18 [{"Id", "Label"}]
-       62 LOADK                            R9 K20 ["RightGripAccessory"]
-       63 SETTABLEKS                       R9 R8 K16 ["Id"]
-       65 LOADK                            R9 K20 ["RightGripAccessory"]
-       66 SETTABLEKS                       R9 R8 K17 ["Label"]
-       68 SETLIST                          R6 R7 2 [1]
-       70 NEWTABLE                         R7 0 2
-       72 NEWTABLE                         R8 0 1
-       74 DUPTABLE                         R9 K23 [{"attachmentName", "label"}]
-       75 LOADK                            R10 K24 ["LeftGripAttachment"]
-       76 SETTABLEKS                       R10 R9 K21 ["attachmentName"]
-       78 LOADK                            R10 K25 ["Left"]
-       79 SETTABLEKS                       R10 R9 K22 ["label"]
-       81 SETLIST                          R8 R9 1 [1]
-       83 NEWTABLE                         R9 0 1
-       85 DUPTABLE                         R10 K23 [{"attachmentName", "label"}]
-       86 LOADK                            R11 K26 ["RightGripAttachment"]
-       87 SETTABLEKS                       R11 R10 K21 ["attachmentName"]
-       89 LOADK                            R11 K27 ["Right"]
-       90 SETTABLEKS                       R11 R10 K22 ["label"]
-       92 SETLIST                          R9 R10 1 [1]
-       94 SETLIST                          R7 R8 2 [1]
-       96 DUPCLOSURE                       R8 K28 [PROTO_0]
-       97 CAPTURE                          VAL R5
-       98 CAPTURE                          VAL R1
-       99 CAPTURE                          VAL R4
-      100 CAPTURE                          VAL R6
-      101 CAPTURE                          VAL R7
-      102 RETURN                           R8 1
+       54 DUPTABLE                         R7 K19 [{["Id"] = "LeftGripAccessory", ["Label"] = "LeftGripAccessory"}]
+       55 DUPTABLE                         R8 K21 [{["Id"] = "RightGripAccessory", ["Label"] = "RightGripAccessory"}]
+       56 SETLIST                          R6 R7 2 [1]
+       58 NEWTABLE                         R7 0 2
+       60 NEWTABLE                         R8 0 1
+       62 DUPTABLE                         R9 K26 [{["attachmentName"] = "LeftGripAttachment", ["label"] = "Left"}]
+       63 SETLIST                          R8 R9 1 [1]
+       65 NEWTABLE                         R9 0 1
+       67 DUPTABLE                         R10 K29 [{["attachmentName"] = "RightGripAttachment", ["label"] = "Right"}]
+       68 SETLIST                          R9 R10 1 [1]
+       70 SETLIST                          R7 R8 2 [1]
+       72 DUPCLOSURE                       R8 K30 [PROTO_0]
+       73 CAPTURE                          VAL R5
+       74 CAPTURE                          VAL R1
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R7
+       78 RETURN                           R8 1

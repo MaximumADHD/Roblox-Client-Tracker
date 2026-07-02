@@ -20,7 +20,7 @@ PROTO_0:
        28 LENGTH                           R9 R3
        29 LOADN                            R10 1
        30 FORNPREP                         R9
-       31 JUMPIFLT                         R5 R7 ; [+70]
+       31 JUMPIFLT                         R5 R7 ; [+67]
        33 MODK                             R13 R11 K16 [2]
        34 JUMPIFEQKN                       R13 K17 [0] ; [+2]
        36 LOADB                            R12 0 +1
@@ -39,12 +39,12 @@ PROTO_0:
        51 MOVE                             R15 R14
        52 LOADN                            R16 1
        53 FORNPREP                         R15
-       54 JUMPIFLT                         R5 R7 ; [+46]
+       54 JUMPIFLT                         R5 R7 ; [+43]
        56 MOVE                             R19 R8
        57 GETUPVAL                         R20 0
        58 GETTABLEKS                       R20 R20 K6 ["createElement"]
        60 LOADK                            R21 K20 ["Frame"]
-       61 DUPTABLE                         R22 K24 [{"Size", "BackgroundColor3", "BorderSizePixel", "LayoutOrder"}]
+       61 DUPTABLE                         R22 K24 [{["Size"], ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
        62 GETIMPORT                        R23 K27 [UDim2.new]
        64 LOADN                            R24 1
        65 LOADN                            R25 0
@@ -60,20 +60,18 @@ PROTO_0:
        79 GETTABLEKS                       R23 R1 K29 ["trackTheme"]
        81 GETTABLEKS                       R23 R23 K31 ["backgroundColor"]
        83 SETTABLEKS                       R23 R22 K22 ["BackgroundColor3"]
-       85 LOADN                            R23 0
-       86 SETTABLEKS                       R23 R22 K23 ["BorderSizePixel"]
-       88 SETTABLEKS                       R6 R22 K12 ["LayoutOrder"]
-       90 CALL                             R20 2 -1
-       91 FASTCALL                         TABLE_INSERT ; [+2]
-       92 GETIMPORT                        R18 K34 [table.insert]
-       94 CALL                             R18 -1 0
-       95 ADDK                             R6 R6 K35 [1]
-       96 GETUPVAL                         R18 2
-       97 GETTABLEKS                       R18 R18 K28 ["TRACK_HEIGHT"]
-       99 ADD                              R7 R7 R18
-      100 FORNLOOP                         R15
-      101 FORNLOOP                         R9
-      102 RETURN                           R8 1
+       85 SETTABLEKS                       R6 R22 K12 ["LayoutOrder"]
+       87 CALL                             R20 2 -1
+       88 FASTCALL                         TABLE_INSERT ; [+2]
+       89 GETIMPORT                        R18 K34 [table.insert]
+       91 CALL                             R18 -1 0
+       92 ADDK                             R6 R6 K35 [1]
+       93 GETUPVAL                         R18 2
+       94 GETTABLEKS                       R18 R18 K28 ["TRACK_HEIGHT"]
+       96 ADD                              R7 R7 R18
+       97 FORNLOOP                         R15
+       98 FORNLOOP                         R9
+       99 RETURN                           R8 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -85,8 +83,8 @@ PROTO_1:
        10 GETUPVAL                         R5 0
        11 GETTABLEKS                       R5 R5 K4 ["createElement"]
        13 LOADK                            R6 K5 ["Frame"]
-       14 DUPTABLE                         R7 K9 [{"Size", "Position", "BackgroundTransparency", "ZIndex"}]
-       15 GETIMPORT                        R8 K12 [UDim2.new]
+       14 DUPTABLE                         R7 K11 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["ZIndex"] = 0}]
+       15 GETIMPORT                        R8 K14 [UDim2.new]
        17 LOADN                            R9 1
        18 LOADN                            R10 0
        19 LOADN                            R11 1
@@ -94,13 +92,9 @@ PROTO_1:
        21 CALL                             R8 4 1
        22 SETTABLEKS                       R8 R7 K6 ["Size"]
        24 SETTABLEKS                       R4 R7 K3 ["Position"]
-       26 LOADN                            R8 1
-       27 SETTABLEKS                       R8 R7 K7 ["BackgroundTransparency"]
-       29 LOADN                            R8 0
-       30 SETTABLEKS                       R8 R7 K8 ["ZIndex"]
-       32 MOVE                             R8 R3
-       33 CALL                             R5 3 -1
-       34 RETURN                           R5 -1
+       26 MOVE                             R8 R3
+       27 CALL                             R5 3 -1
+       28 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

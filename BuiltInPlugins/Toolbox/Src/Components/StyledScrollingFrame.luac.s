@@ -51,110 +51,104 @@ PROTO_0:
        72 GETUPVAL                         R16 0
        73 GETTABLEKS                       R16 R16 K20 ["createElement"]
        75 LOADK                            R17 K21 ["ImageButton"]
-       76 DUPTABLE                         R18 K24 [{"Position", "Size", "BackgroundTransparency", "LayoutOrder", "ZIndex", "Visible", "AutoButtonColor"}]
+       76 DUPTABLE                         R18 K25 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"], ["ZIndex"], ["Visible"], ["AutoButtonColor"] = False}]
        77 SETTABLEKS                       R4 R18 K3 ["Position"]
        79 SETTABLEKS                       R5 R18 K7 ["Size"]
-       81 LOADN                            R19 1
-       82 SETTABLEKS                       R19 R18 K22 ["BackgroundTransparency"]
-       84 SETTABLEKS                       R7 R18 K10 ["LayoutOrder"]
-       86 SETTABLEKS                       R8 R18 K11 ["ZIndex"]
-       88 SETTABLEKS                       R9 R18 K12 ["Visible"]
-       90 LOADB                            R19 0
-       91 SETTABLEKS                       R19 R18 K23 ["AutoButtonColor"]
-       93 DUPTABLE                         R19 K27 [{"ScrollBarBackground", "ScrollingFrame"}]
-       94 GETUPVAL                         R20 0
-       95 GETTABLEKS                       R20 R20 K20 ["createElement"]
-       97 LOADK                            R21 K28 ["Frame"]
-       98 DUPTABLE                         R22 K32 [{"AnchorPoint", "Position", "Size", "BorderSizePixel", "BackgroundColor3"}]
-       99 GETIMPORT                        R23 K34 [Vector2.new]
-      101 LOADN                            R24 1
-      102 LOADN                            R25 0
-      103 CALL                             R23 2 1
-      104 SETTABLEKS                       R23 R22 K29 ["AnchorPoint"]
-      106 GETIMPORT                        R23 K6 [UDim2.new]
-      108 LOADN                            R24 1
-      109 LOADN                            R25 0
-      110 LOADN                            R26 0
-      111 LOADN                            R27 0
-      112 CALL                             R23 4 1
-      113 SETTABLEKS                       R23 R22 K3 ["Position"]
-      115 GETIMPORT                        R23 K6 [UDim2.new]
-      117 LOADN                            R24 0
-      118 GETUPVAL                         R25 1
-      119 GETTABLEKS                       R25 R25 K35 ["SCROLLBAR_BACKGROUND_THICKNESS"]
-      121 LOADN                            R26 1
-      122 LOADN                            R27 0
-      123 CALL                             R23 4 1
-      124 SETTABLEKS                       R23 R22 K7 ["Size"]
-      126 LOADN                            R23 0
-      127 SETTABLEKS                       R23 R22 K30 ["BorderSizePixel"]
-      129 SETTABLEKS                       R15 R22 K31 ["BackgroundColor3"]
-      131 CALL                             R20 2 1
-      132 SETTABLEKS                       R20 R19 K25 ["ScrollBarBackground"]
-      134 GETUPVAL                         R20 0
-      135 GETTABLEKS                       R20 R20 K20 ["createElement"]
-      137 LOADK                            R21 K26 ["ScrollingFrame"]
-      138 NEWTABLE                         R22 32 0
+       81 SETTABLEKS                       R7 R18 K10 ["LayoutOrder"]
+       83 SETTABLEKS                       R8 R18 K11 ["ZIndex"]
+       85 SETTABLEKS                       R9 R18 K12 ["Visible"]
+       87 DUPTABLE                         R19 K28 [{"ScrollBarBackground", "ScrollingFrame"}]
+       88 GETUPVAL                         R20 0
+       89 GETTABLEKS                       R20 R20 K20 ["createElement"]
+       91 LOADK                            R21 K29 ["Frame"]
+       92 DUPTABLE                         R22 K34 [{["AnchorPoint"], ["Position"], ["Size"], ["BorderSizePixel"] = 0, ["BackgroundColor3"]}]
+       93 GETIMPORT                        R23 K36 [Vector2.new]
+       95 LOADN                            R24 1
+       96 LOADN                            R25 0
+       97 CALL                             R23 2 1
+       98 SETTABLEKS                       R23 R22 K30 ["AnchorPoint"]
+      100 GETIMPORT                        R23 K6 [UDim2.new]
+      102 LOADN                            R24 1
+      103 LOADN                            R25 0
+      104 LOADN                            R26 0
+      105 LOADN                            R27 0
+      106 CALL                             R23 4 1
+      107 SETTABLEKS                       R23 R22 K3 ["Position"]
+      109 GETIMPORT                        R23 K6 [UDim2.new]
+      111 LOADN                            R24 0
+      112 GETUPVAL                         R25 1
+      113 GETTABLEKS                       R25 R25 K37 ["SCROLLBAR_BACKGROUND_THICKNESS"]
+      115 LOADN                            R26 1
+      116 LOADN                            R27 0
+      117 CALL                             R23 4 1
+      118 SETTABLEKS                       R23 R22 K7 ["Size"]
+      120 SETTABLEKS                       R15 R22 K33 ["BackgroundColor3"]
+      122 CALL                             R20 2 1
+      123 SETTABLEKS                       R20 R19 K26 ["ScrollBarBackground"]
+      125 GETUPVAL                         R20 0
+      126 GETTABLEKS                       R20 R20 K20 ["createElement"]
+      128 LOADK                            R21 K27 ["ScrollingFrame"]
+      129 NEWTABLE                         R22 32 0
+      131 GETIMPORT                        R23 K6 [UDim2.new]
+      133 LOADN                            R24 0
+      134 LOADN                            R25 0
+      135 LOADN                            R26 0
+      136 LOADN                            R27 0
+      137 CALL                             R23 4 1
+      138 SETTABLEKS                       R23 R22 K3 ["Position"]
       140 GETIMPORT                        R23 K6 [UDim2.new]
-      142 LOADN                            R24 0
-      143 LOADN                            R25 0
-      144 LOADN                            R26 0
-      145 LOADN                            R27 0
-      146 CALL                             R23 4 1
-      147 SETTABLEKS                       R23 R22 K3 ["Position"]
-      149 GETIMPORT                        R23 K6 [UDim2.new]
-      151 LOADN                            R24 1
-      152 GETUPVAL                         R26 1
-      153 GETTABLEKS                       R26 R26 K36 ["SCROLLBAR_PADDING"]
-      155 MINUS                            R25 R26
-      156 LOADN                            R26 1
-      157 LOADN                            R27 0
-      158 CALL                             R23 4 1
-      159 SETTABLEKS                       R23 R22 K7 ["Size"]
-      161 SETTABLEKS                       R6 R22 K8 ["CanvasSize"]
-      163 LOADN                            R23 0
-      164 SETTABLEKS                       R23 R22 K30 ["BorderSizePixel"]
-      166 LOADN                            R23 1
-      167 SETTABLEKS                       R23 R22 K22 ["BackgroundTransparency"]
-      169 GETUPVAL                         R23 1
-      170 GETTABLEKS                       R23 R23 K37 ["SCROLLBAR_THICKNESS"]
-      172 SETTABLEKS                       R23 R22 K38 ["ScrollBarThickness"]
-      174 LOADN                            R23 2
-      175 SETTABLEKS                       R23 R22 K11 ["ZIndex"]
-      177 GETUPVAL                         R23 2
-      178 GETTABLEKS                       R23 R23 K39 ["SCROLLBAR_TOP_IMAGE"]
-      180 SETTABLEKS                       R23 R22 K40 ["TopImage"]
-      182 GETUPVAL                         R23 2
-      183 GETTABLEKS                       R23 R23 K41 ["SCROLLBAR_MIDDLE_IMAGE"]
-      185 SETTABLEKS                       R23 R22 K42 ["MidImage"]
-      187 GETUPVAL                         R23 2
-      188 GETTABLEKS                       R23 R23 K43 ["SCROLLBAR_BOTTOM_IMAGE"]
-      190 SETTABLEKS                       R23 R22 K44 ["BottomImage"]
-      192 GETTABLEKS                       R23 R14 K45 ["scrollbarImageColor"]
-      194 SETTABLEKS                       R23 R22 K46 ["ScrollBarImageColor3"]
-      196 SETTABLEKS                       R13 R22 K47 ["ScrollingEnabled"]
-      198 GETIMPORT                        R23 K51 [Enum.ElasticBehavior.Always]
-      200 SETTABLEKS                       R23 R22 K49 ["ElasticBehavior"]
-      202 GETIMPORT                        R23 K54 [Enum.ScrollingDirection.Y]
-      204 SETTABLEKS                       R23 R22 K52 ["ScrollingDirection"]
-      206 GETUPVAL                         R23 0
-      207 GETTABLEKS                       R23 R23 K55 ["Change"]
-      209 GETTABLEKS                       R23 R23 K56 ["AbsoluteSize"]
-      211 GETTABLEKS                       R24 R1 K57 ["OnAbsoluteSizeChanged"]
-      213 SETTABLE                         R24 R22 R23
-      214 GETUPVAL                         R23 0
-      215 GETTABLEKS                       R23 R23 K55 ["Change"]
-      217 GETTABLEKS                       R23 R23 K58 ["CanvasPosition"]
-      219 SETTABLE                         R10 R22 R23
-      220 GETUPVAL                         R23 0
-      221 GETTABLEKS                       R23 R23 K59 ["Ref"]
-      223 SETTABLE                         R11 R22 R23
-      224 SETTABLEKS                       R3 R22 K2 ["AutomaticCanvasSize"]
-      226 MOVE                             R23 R12
-      227 CALL                             R20 3 1
-      228 SETTABLEKS                       R20 R19 K26 ["ScrollingFrame"]
-      230 CALL                             R16 3 -1
-      231 RETURN                           R16 -1
+      142 LOADN                            R24 1
+      143 GETUPVAL                         R26 1
+      144 GETTABLEKS                       R26 R26 K38 ["SCROLLBAR_PADDING"]
+      146 MINUS                            R25 R26
+      147 LOADN                            R26 1
+      148 LOADN                            R27 0
+      149 CALL                             R23 4 1
+      150 SETTABLEKS                       R23 R22 K7 ["Size"]
+      152 SETTABLEKS                       R6 R22 K8 ["CanvasSize"]
+      154 LOADN                            R23 0
+      155 SETTABLEKS                       R23 R22 K31 ["BorderSizePixel"]
+      157 LOADN                            R23 1
+      158 SETTABLEKS                       R23 R22 K22 ["BackgroundTransparency"]
+      160 GETUPVAL                         R23 1
+      161 GETTABLEKS                       R23 R23 K39 ["SCROLLBAR_THICKNESS"]
+      163 SETTABLEKS                       R23 R22 K40 ["ScrollBarThickness"]
+      165 LOADN                            R23 2
+      166 SETTABLEKS                       R23 R22 K11 ["ZIndex"]
+      168 GETUPVAL                         R23 2
+      169 GETTABLEKS                       R23 R23 K41 ["SCROLLBAR_TOP_IMAGE"]
+      171 SETTABLEKS                       R23 R22 K42 ["TopImage"]
+      173 GETUPVAL                         R23 2
+      174 GETTABLEKS                       R23 R23 K43 ["SCROLLBAR_MIDDLE_IMAGE"]
+      176 SETTABLEKS                       R23 R22 K44 ["MidImage"]
+      178 GETUPVAL                         R23 2
+      179 GETTABLEKS                       R23 R23 K45 ["SCROLLBAR_BOTTOM_IMAGE"]
+      181 SETTABLEKS                       R23 R22 K46 ["BottomImage"]
+      183 GETTABLEKS                       R23 R14 K47 ["scrollbarImageColor"]
+      185 SETTABLEKS                       R23 R22 K48 ["ScrollBarImageColor3"]
+      187 SETTABLEKS                       R13 R22 K49 ["ScrollingEnabled"]
+      189 GETIMPORT                        R23 K53 [Enum.ElasticBehavior.Always]
+      191 SETTABLEKS                       R23 R22 K51 ["ElasticBehavior"]
+      193 GETIMPORT                        R23 K56 [Enum.ScrollingDirection.Y]
+      195 SETTABLEKS                       R23 R22 K54 ["ScrollingDirection"]
+      197 GETUPVAL                         R23 0
+      198 GETTABLEKS                       R23 R23 K57 ["Change"]
+      200 GETTABLEKS                       R23 R23 K58 ["AbsoluteSize"]
+      202 GETTABLEKS                       R24 R1 K59 ["OnAbsoluteSizeChanged"]
+      204 SETTABLE                         R24 R22 R23
+      205 GETUPVAL                         R23 0
+      206 GETTABLEKS                       R23 R23 K57 ["Change"]
+      208 GETTABLEKS                       R23 R23 K60 ["CanvasPosition"]
+      210 SETTABLE                         R10 R22 R23
+      211 GETUPVAL                         R23 0
+      212 GETTABLEKS                       R23 R23 K61 ["Ref"]
+      214 SETTABLE                         R11 R22 R23
+      215 SETTABLEKS                       R3 R22 K2 ["AutomaticCanvasSize"]
+      217 MOVE                             R23 R12
+      218 CALL                             R20 3 1
+      219 SETTABLEKS                       R20 R19 K27 ["ScrollingFrame"]
+      221 CALL                             R16 3 -1
+      222 RETURN                           R16 -1
 
 MAIN:
         0 PREPVARARGS                      0

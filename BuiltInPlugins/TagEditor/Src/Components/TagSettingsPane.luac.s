@@ -11,21 +11,17 @@ PROTO_0:
        14 GETUPVAL                         R5 0
        15 GETTABLEKS                       R5 R5 K0 ["createElement"]
        17 GETUPVAL                         R6 2
-       18 DUPTABLE                         R7 K14 [{"LayoutOrder"}]
-       19 LOADN                            R8 1
-       20 SETTABLEKS                       R8 R7 K13 ["LayoutOrder"]
-       22 CALL                             R5 2 1
-       23 SETTABLEKS                       R5 R4 K10 ["TagSettingsToggleButton"]
-       25 GETUPVAL                         R5 0
-       26 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       28 GETUPVAL                         R6 3
-       29 DUPTABLE                         R7 K14 [{"LayoutOrder"}]
-       30 LOADN                            R8 2
-       31 SETTABLEKS                       R8 R7 K13 ["LayoutOrder"]
-       33 CALL                             R5 2 1
-       34 SETTABLEKS                       R5 R4 K11 ["TagSettingsList"]
-       36 CALL                             R1 3 -1
-       37 RETURN                           R1 -1
+       18 DUPTABLE                         R7 K15 [{["LayoutOrder"] = 1}]
+       19 CALL                             R5 2 1
+       20 SETTABLEKS                       R5 R4 K10 ["TagSettingsToggleButton"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       25 GETUPVAL                         R6 3
+       26 DUPTABLE                         R7 K17 [{["LayoutOrder"] = 2}]
+       27 CALL                             R5 2 1
+       28 SETTABLEKS                       R5 R4 K11 ["TagSettingsList"]
+       30 CALL                             R1 3 -1
+       31 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

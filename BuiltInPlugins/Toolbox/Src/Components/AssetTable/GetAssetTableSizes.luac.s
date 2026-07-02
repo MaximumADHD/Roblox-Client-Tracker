@@ -43,7 +43,7 @@ PROTO_0:
        53 LOADN                            R8 0
        54 CALL                             R4 4 1
        55 SETTABLE                         R4 R2 R3
-       56 LOADN                            R3 104
+       56 LOADN                            R3 360
        57 JUMPIFNOTLT                      R0 R3 ; [+36]
        59 GETTABLEKS                       R3 R1 K5 ["NAME"]
        61 GETIMPORT                        R4 K4 [UDim2.new]
@@ -74,7 +74,7 @@ PROTO_0:
        92 LOADNIL                          R4
        93 SETTABLE                         R4 R2 R3
        94 MOVE                             R3 R2
-       95 LOADN                            R4 104
+       95 LOADN                            R4 360
        96 RETURN                           R3 2
 
 MAIN:

@@ -1,17 +1,11 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+14]
+        1 JUMPIFNOT                        R1 ; [+5]
         2 GETUPVAL                         R1 0
-        3 DUPTABLE                         R2 K4 [{"success", "statusCode", "errorMessage", "responseBody"}]
-        4 LOADB                            R3 1
-        5 SETTABLEKS                       R3 R2 K0 ["success"]
-        7 LOADN                            R3 200
-        8 SETTABLEKS                       R3 R2 K1 ["statusCode"]
-       10 LOADNIL                          R3
-       11 SETTABLEKS                       R3 R2 K2 ["errorMessage"]
-       13 SETTABLEKS                       R0 R2 K3 ["responseBody"]
-       15 CALL                             R1 1 0
-       16 RETURN                           R0 0
+        3 DUPTABLE                         R2 K7 [{[1] = True, ["statusCode"] = 200, ["errorMessage"] = , ["responseBody"]}]
+        4 SETTABLEKS                       R0 R2 K6 ["responseBody"]
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -26,34 +20,26 @@ PROTO_1:
        10 MOVE                             R2 R0
        11 GETIMPORT                        R1 K3 [type]
        13 CALL                             R1 1 1
-       14 JUMPIFNOTEQKS                    R1 K4 ["table"] ; [+20]
+       14 JUMPIFNOTEQKS                    R1 K4 ["table"] ; [+17]
        16 GETUPVAL                         R1 1
-       17 DUPTABLE                         R2 K9 [{"success", "statusCode", "errorMessage", "responseBody"}]
-       18 LOADB                            R3 0
-       19 SETTABLEKS                       R3 R2 K5 ["success"]
-       21 GETTABLEKS                       R3 R0 K6 ["statusCode"]
-       23 SETTABLEKS                       R3 R2 K6 ["statusCode"]
-       25 GETTABLEKS                       R3 R0 K10 ["statusMessage"]
-       27 SETTABLEKS                       R3 R2 K7 ["errorMessage"]
-       29 GETTABLEKS                       R3 R0 K11 ["body"]
-       31 SETTABLEKS                       R3 R2 K8 ["responseBody"]
-       33 CALL                             R1 1 0
-       34 RETURN                           R0 0
-       35 GETUPVAL                         R1 1
-       36 DUPTABLE                         R2 K9 [{"success", "statusCode", "errorMessage", "responseBody"}]
-       37 LOADB                            R3 0
-       38 SETTABLEKS                       R3 R2 K5 ["success"]
-       40 LOADNIL                          R3
-       41 SETTABLEKS                       R3 R2 K6 ["statusCode"]
-       43 FASTCALL1                        TOSTRING R0 ; [+3]
-       44 MOVE                             R4 R0
-       45 GETIMPORT                        R3 K13 [tostring]
-       47 CALL                             R3 1 1
-       48 SETTABLEKS                       R3 R2 K7 ["errorMessage"]
-       50 LOADNIL                          R3
-       51 SETTABLEKS                       R3 R2 K8 ["responseBody"]
-       53 CALL                             R1 1 0
-       54 RETURN                           R0 0
+       17 DUPTABLE                         R2 K10 [{["success"] = False, ["statusCode"], ["errorMessage"], ["responseBody"]}]
+       18 GETTABLEKS                       R3 R0 K7 ["statusCode"]
+       20 SETTABLEKS                       R3 R2 K7 ["statusCode"]
+       22 GETTABLEKS                       R3 R0 K11 ["statusMessage"]
+       24 SETTABLEKS                       R3 R2 K8 ["errorMessage"]
+       26 GETTABLEKS                       R3 R0 K12 ["body"]
+       28 SETTABLEKS                       R3 R2 K9 ["responseBody"]
+       30 CALL                             R1 1 0
+       31 RETURN                           R0 0
+       32 GETUPVAL                         R1 1
+       33 DUPTABLE                         R2 K14 [{["success"] = False, ["statusCode"] = , ["errorMessage"], ["responseBody"] = }]
+       34 FASTCALL1                        TOSTRING R0 ; [+3]
+       35 MOVE                             R4 R0
+       36 GETIMPORT                        R3 K16 [tostring]
+       38 CALL                             R3 1 1
+       39 SETTABLEKS                       R3 R2 K8 ["errorMessage"]
+       41 CALL                             R1 1 0
+       42 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R3 0
@@ -78,32 +64,30 @@ PROTO_2:
        25 FORGLOOP                         R4 2 [inext] ; [-12]
        27 GETUPVAL                         R4 0
        28 GETTABLEKS                       R4 R4 K7 ["postSendRequestToAllParents"]
-       30 DUPTABLE                         R5 K10 [{"requestType", "requestDetails"}]
-       31 LOADK                            R6 K11 ["BulkAddTrustedConnections"]
-       32 SETTABLEKS                       R6 R5 K8 ["requestType"]
-       34 DUPTABLE                         R6 K14 [{"targetUserIds", "gameId"}]
-       35 GETIMPORT                        R7 K16 [table.concat]
-       37 MOVE                             R8 R3
-       38 LOADK                            R9 K17 [","]
-       39 CALL                             R7 2 1
-       40 SETTABLEKS                       R7 R6 K12 ["targetUserIds"]
-       42 FASTCALL1                        TOSTRING R1 ; [+3]
-       43 MOVE                             R8 R1
-       44 GETIMPORT                        R7 K3 [tostring]
-       46 CALL                             R7 1 1
-       47 SETTABLEKS                       R7 R6 K13 ["gameId"]
-       49 SETTABLEKS                       R6 R5 K9 ["requestDetails"]
-       51 CALL                             R4 1 1
-       52 NEWCLOSURE                       R6 P0
-       53 CAPTURE                          VAL R2
-       54 NAMECALL                         R4 R4 K18 ["andThen"]
-       56 CALL                             R4 2 1
-       57 NEWCLOSURE                       R6 P1
-       58 CAPTURE                          UPVAL U1
-       59 CAPTURE                          VAL R2
-       60 NAMECALL                         R4 R4 K19 ["catch"]
-       62 CALL                             R4 2 -1
-       63 RETURN                           R4 -1
+       30 DUPTABLE                         R5 K11 [{["requestType"] = "BulkAddTrustedConnections", ["requestDetails"]}]
+       31 DUPTABLE                         R6 K14 [{"targetUserIds", "gameId"}]
+       32 GETIMPORT                        R7 K16 [table.concat]
+       34 MOVE                             R8 R3
+       35 LOADK                            R9 K17 [","]
+       36 CALL                             R7 2 1
+       37 SETTABLEKS                       R7 R6 K12 ["targetUserIds"]
+       39 FASTCALL1                        TOSTRING R1 ; [+3]
+       40 MOVE                             R8 R1
+       41 GETIMPORT                        R7 K3 [tostring]
+       43 CALL                             R7 1 1
+       44 SETTABLEKS                       R7 R6 K13 ["gameId"]
+       46 SETTABLEKS                       R6 R5 K10 ["requestDetails"]
+       48 CALL                             R4 1 1
+       49 NEWCLOSURE                       R6 P0
+       50 CAPTURE                          VAL R2
+       51 NAMECALL                         R4 R4 K18 ["andThen"]
+       53 CALL                             R4 2 1
+       54 NEWCLOSURE                       R6 P1
+       55 CAPTURE                          UPVAL U1
+       56 CAPTURE                          VAL R2
+       57 NAMECALL                         R4 R4 K19 ["catch"]
+       59 CALL                             R4 2 -1
+       60 RETURN                           R4 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

@@ -58,7 +58,7 @@ PROTO_4:
         0 GETTABLEKS                       R4 R0 K0 ["_cleanupList"]
         2 LENGTH                           R3 R4
         3 LOADN                            R1 1
-        4 LOADN                            R2 255
+        4 LOADN                            R2 -1
         5 FORNPREP                         R1
         6 GETTABLEKS                       R5 R0 K0 ["_cleanupList"]
         8 GETTABLE                         R4 R5 R3

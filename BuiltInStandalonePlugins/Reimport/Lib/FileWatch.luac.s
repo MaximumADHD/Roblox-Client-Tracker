@@ -30,48 +30,34 @@ PROTO_1:
        26 RETURN                           R0 0
 
 PROTO_2:
-        0 JUMPIF                           R0 ; [+8]
-        1 DUPTABLE                         R1 K2 [{"Watchable", "IsWatched"}]
-        2 LOADB                            R2 0
-        3 SETTABLEKS                       R2 R1 K0 ["Watchable"]
-        5 LOADB                            R2 0
-        6 SETTABLEKS                       R2 R1 K1 ["IsWatched"]
-        8 RETURN                           R1 1
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R1 R1 K3 ["getConfigFromInstance"]
-       12 MOVE                             R2 R0
-       13 CALL                             R1 1 2
-       14 JUMPIFNOT                        R2 ; [+3]
-       15 GETTABLEKS                       R3 R2 K4 ["filepath"]
-       17 JUMPIF                           R3 ; [+8]
-       18 DUPTABLE                         R3 K2 [{"Watchable", "IsWatched"}]
-       19 LOADB                            R4 0
-       20 SETTABLEKS                       R4 R3 K0 ["Watchable"]
-       22 LOADB                            R4 0
-       23 SETTABLEKS                       R4 R3 K1 ["IsWatched"]
-       25 RETURN                           R3 1
-       26 GETUPVAL                         R3 1
-       27 GETTABLEKS                       R3 R3 K5 ["normalize"]
-       29 GETTABLEKS                       R4 R2 K4 ["filepath"]
-       31 CALL                             R3 1 1
-       32 GETUPVAL                         R5 2
-       33 GETTABLE                         R4 R5 R3
-       34 JUMPIF                           R4 ; [+10]
-       35 DUPTABLE                         R5 K6 [{"Watchable", "IsWatched", "filepath"}]
-       36 LOADB                            R6 1
-       37 SETTABLEKS                       R6 R5 K0 ["Watchable"]
-       39 LOADB                            R6 0
-       40 SETTABLEKS                       R6 R5 K1 ["IsWatched"]
-       42 SETTABLEKS                       R3 R5 K4 ["filepath"]
-       44 RETURN                           R5 1
-       45 DUPTABLE                         R5 K6 [{"Watchable", "IsWatched", "filepath"}]
-       46 LOADB                            R6 1
-       47 SETTABLEKS                       R6 R5 K0 ["Watchable"]
-       49 GETTABLE                         R7 R4 R0
-       50 ORK                              R6 R7 K7 [False]
-       51 SETTABLEKS                       R6 R5 K1 ["IsWatched"]
-       53 SETTABLEKS                       R3 R5 K4 ["filepath"]
-       55 RETURN                           R5 1
+        0 JUMPIF                           R0 ; [+2]
+        1 DUPTABLE                         R1 K3 [{[1] = False, ["IsWatched"] = False}]
+        2 RETURN                           R1 1
+        3 GETUPVAL                         R1 0
+        4 GETTABLEKS                       R1 R1 K4 ["getConfigFromInstance"]
+        6 MOVE                             R2 R0
+        7 CALL                             R1 1 2
+        8 JUMPIFNOT                        R2 ; [+3]
+        9 GETTABLEKS                       R3 R2 K5 ["filepath"]
+       11 JUMPIF                           R3 ; [+2]
+       12 DUPTABLE                         R3 K3 [{[1] = False, ["IsWatched"] = False}]
+       13 RETURN                           R3 1
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R3 R3 K6 ["normalize"]
+       17 GETTABLEKS                       R4 R2 K5 ["filepath"]
+       19 CALL                             R3 1 1
+       20 GETUPVAL                         R5 2
+       21 GETTABLE                         R4 R5 R3
+       22 JUMPIF                           R4 ; [+4]
+       23 DUPTABLE                         R5 K8 [{[1] = True, ["IsWatched"] = False, ["filepath"]}]
+       24 SETTABLEKS                       R3 R5 K5 ["filepath"]
+       26 RETURN                           R5 1
+       27 DUPTABLE                         R5 K9 [{[1] = True, ["IsWatched"], ["filepath"]}]
+       28 GETTABLE                         R7 R4 R0
+       29 ORK                              R6 R7 K1 [False]
+       30 SETTABLEKS                       R6 R5 K2 ["IsWatched"]
+       32 SETTABLEKS                       R3 R5 K5 ["filepath"]
+       34 RETURN                           R5 1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -196,24 +182,22 @@ PROTO_6:
        70 CALL                             R4 0 0
        71 GETUPVAL                         R4 6
        72 CALL                             R4 0 1
-       73 JUMPIFNOT                        R4 ; [+17]
-       74 DUPTABLE                         R4 K13 [{"isWatched"}]
-       75 LOADB                            R5 1
-       76 SETTABLEKS                       R5 R4 K12 ["isWatched"]
-       78 GETUPVAL                         R5 7
-       79 GETUPVAL                         R7 8
-       80 GETTABLEKS                       R7 R7 K14 ["REIMPORT"]
-       82 GETTABLEKS                       R7 R7 K15 ["CPC_EVENTS"]
-       84 GETTABLEKS                       R7 R7 K16 ["WATCH_STATUS_CHANGED"]
-       86 MOVE                             R8 R0
-       87 MOVE                             R9 R4
-       88 NAMECALL                         R5 R5 K17 ["Fire"]
-       90 CALL                             R5 4 0
-       91 GETUPVAL                         R4 9
-       92 GETTABLEKS                       R4 R4 K18 ["reimportInstanceDebounced"]
-       94 MOVE                             R5 R0
-       95 CALL                             R4 1 0
-       96 RETURN                           R0 0
+       73 JUMPIFNOT                        R4 ; [+14]
+       74 DUPTABLE                         R4 K14 [{["isWatched"] = True}]
+       75 GETUPVAL                         R5 7
+       76 GETUPVAL                         R7 8
+       77 GETTABLEKS                       R7 R7 K15 ["REIMPORT"]
+       79 GETTABLEKS                       R7 R7 K16 ["CPC_EVENTS"]
+       81 GETTABLEKS                       R7 R7 K17 ["WATCH_STATUS_CHANGED"]
+       83 MOVE                             R8 R0
+       84 MOVE                             R9 R4
+       85 NAMECALL                         R5 R5 K18 ["Fire"]
+       87 CALL                             R5 4 0
+       88 GETUPVAL                         R4 9
+       89 GETTABLEKS                       R4 R4 K19 ["reimportInstanceDebounced"]
+       91 MOVE                             R5 R0
+       92 CALL                             R4 1 0
+       93 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R3 0
@@ -307,22 +291,20 @@ PROTO_8:
        81 FORGLOOP                         R4 2 ; [-26]
        83 GETUPVAL                         R2 4
        84 CALL                             R2 0 1
-       85 JUMPIFNOT                        R2 ; [+17]
-       86 DUPTABLE                         R2 K14 [{"isWatched"}]
-       87 LOADB                            R3 0
-       88 SETTABLEKS                       R3 R2 K13 ["isWatched"]
-       90 GETUPVAL                         R3 5
-       91 GETUPVAL                         R5 6
-       92 GETTABLEKS                       R5 R5 K15 ["REIMPORT"]
-       94 GETTABLEKS                       R5 R5 K16 ["CPC_EVENTS"]
-       96 GETTABLEKS                       R5 R5 K17 ["WATCH_STATUS_CHANGED"]
-       98 MOVE                             R6 R0
-       99 MOVE                             R7 R2
-      100 NAMECALL                         R3 R3 K18 ["Fire"]
-      102 CALL                             R3 4 0
-      103 GETUPVAL                         R2 7
-      104 CALL                             R2 0 0
-      105 RETURN                           R0 0
+       85 JUMPIFNOT                        R2 ; [+14]
+       86 DUPTABLE                         R2 K15 [{["isWatched"] = False}]
+       87 GETUPVAL                         R3 5
+       88 GETUPVAL                         R5 6
+       89 GETTABLEKS                       R5 R5 K16 ["REIMPORT"]
+       91 GETTABLEKS                       R5 R5 K17 ["CPC_EVENTS"]
+       93 GETTABLEKS                       R5 R5 K18 ["WATCH_STATUS_CHANGED"]
+       95 MOVE                             R6 R0
+       96 MOVE                             R7 R2
+       97 NAMECALL                         R3 R3 K19 ["Fire"]
+       99 CALL                             R3 4 0
+      100 GETUPVAL                         R2 7
+      101 CALL                             R2 0 0
+      102 RETURN                           R0 0
 
 PROTO_9:
         0 JUMPIFNOT                        R1 ; [+10]
@@ -400,23 +382,19 @@ PROTO_11:
         3 GETIMPORT                        R1 K4 [Enum.StudioDataModelType.PlayClient]
         5 JUMPIFEQ                         R0 R1 ; [+5]
         7 GETIMPORT                        R1 K6 [Enum.StudioDataModelType.PlayServer]
-        9 JUMPIFNOTEQ                      R0 R1 ; [+20]
+        9 JUMPIFNOTEQ                      R0 R1 ; [+14]
        11 GETUPVAL                         R1 1
        12 GETTABLEKS                       R1 R1 K7 ["updateAction"]
        14 GETUPVAL                         R2 2
        15 GETTABLEKS                       R2 R2 K8 ["REIMPORT"]
        17 GETTABLEKS                       R2 R2 K9 ["ACTION_EVENTS"]
        19 GETTABLEKS                       R2 R2 K10 ["WATCH_INSTANCE_FILE"]
-       21 DUPTABLE                         R3 K13 [{"Checked", "Enabled"}]
-       22 LOADB                            R4 0
-       23 SETTABLEKS                       R4 R3 K11 ["Checked"]
-       25 LOADB                            R4 0
-       26 SETTABLEKS                       R4 R3 K12 ["Enabled"]
-       28 CALL                             R1 2 0
-       29 RETURN                           R0 0
-       30 GETUPVAL                         R1 3
-       31 CALL                             R1 0 0
-       32 RETURN                           R0 0
+       21 DUPTABLE                         R3 K14 [{["Checked"] = False, ["Enabled"] = False}]
+       22 CALL                             R1 2 0
+       23 RETURN                           R0 0
+       24 GETUPVAL                         R1 3
+       25 CALL                             R1 0 0
+       26 RETURN                           R0 0
 
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["MultipleDocumentInterfaceInstance"]

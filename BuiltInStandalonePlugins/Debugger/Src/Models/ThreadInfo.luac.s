@@ -1,10 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"threadId", "displayString"}]
-        1 LOADN                            R1 255
-        2 SETTABLEKS                       R1 R0 K0 ["threadId"]
-        4 LOADK                            R1 K3 [""]
-        5 SETTABLEKS                       R1 R0 K1 ["displayString"]
-        7 RETURN                           R0 1
+        0 DUPTABLE                         R0 K4 [{[1] = -1, ["displayString"] = ""}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 DUPTABLE                         R1 K2 [{"threadId", "displayString"}]

@@ -29,36 +29,28 @@ PROTO_4:
 MAIN:
         0 PREPVARARGS                      0
         1 DUPTABLE                         R0 K2 [{"Key", "State"}]
-        2 DUPTABLE                         R1 K5 [{"MOUSE_BUTTON1", "MOUSE_BUTTON2"}]
-        3 LOADN                            R2 0
-        4 SETTABLEKS                       R2 R1 K3 ["MOUSE_BUTTON1"]
-        6 LOADN                            R2 1
-        7 SETTABLEKS                       R2 R1 K4 ["MOUSE_BUTTON2"]
-        9 SETTABLEKS                       R1 R0 K0 ["Key"]
-       11 DUPTABLE                         R1 K8 [{"UP", "DOWN"}]
-       12 LOADNIL                          R2
-       13 SETTABLEKS                       R2 R1 K6 ["UP"]
-       15 LOADB                            R2 1
-       16 SETTABLEKS                       R2 R1 K7 ["DOWN"]
-       18 SETTABLEKS                       R1 R0 K1 ["State"]
-       20 NEWTABLE                         R1 0 0
-       22 LOADNIL                          R2
-       23 NEWCLOSURE                       R3 P0
-       24 CAPTURE                          REF R2
-       25 NEWCLOSURE                       R4 P1
-       26 CAPTURE                          REF R2
-       27 DUPCLOSURE                       R5 K9 [PROTO_2]
-       28 CAPTURE                          VAL R1
-       29 DUPCLOSURE                       R6 K10 [PROTO_3]
-       30 CAPTURE                          VAL R1
-       31 NEWCLOSURE                       R7 P4
-       32 CAPTURE                          REF R2
-       33 NEWTABLE                         R8 8 0
-       35 SETTABLEKS                       R4 R8 K11 ["setMouse"]
-       37 SETTABLEKS                       R3 R8 K12 ["getMouse"]
-       39 SETTABLEKS                       R0 R8 K13 ["Enum"]
-       41 SETTABLEKS                       R5 R8 K14 ["getButtonState"]
-       43 SETTABLEKS                       R6 R8 K15 ["setButtonState"]
-       45 SETTABLEKS                       R7 R8 K16 ["getMouseLocation"]
-       47 CLOSEUPVALS                      R2
-       48 RETURN                           R8 1
+        2 DUPTABLE                         R1 K7 [{["MOUSE_BUTTON1"] = 0, ["MOUSE_BUTTON2"] = 1}]
+        3 SETTABLEKS                       R1 R0 K0 ["Key"]
+        5 DUPTABLE                         R1 K12 [{["UP"] = , ["DOWN"] = True}]
+        6 SETTABLEKS                       R1 R0 K1 ["State"]
+        8 NEWTABLE                         R1 0 0
+       10 LOADNIL                          R2
+       11 NEWCLOSURE                       R3 P0
+       12 CAPTURE                          REF R2
+       13 NEWCLOSURE                       R4 P1
+       14 CAPTURE                          REF R2
+       15 DUPCLOSURE                       R5 K13 [PROTO_2]
+       16 CAPTURE                          VAL R1
+       17 DUPCLOSURE                       R6 K14 [PROTO_3]
+       18 CAPTURE                          VAL R1
+       19 NEWCLOSURE                       R7 P4
+       20 CAPTURE                          REF R2
+       21 NEWTABLE                         R8 8 0
+       23 SETTABLEKS                       R4 R8 K15 ["setMouse"]
+       25 SETTABLEKS                       R3 R8 K16 ["getMouse"]
+       27 SETTABLEKS                       R0 R8 K17 ["Enum"]
+       29 SETTABLEKS                       R5 R8 K18 ["getButtonState"]
+       31 SETTABLEKS                       R6 R8 K19 ["setButtonState"]
+       33 SETTABLEKS                       R7 R8 K20 ["getMouseLocation"]
+       35 CLOSEUPVALS                      R2
+       36 RETURN                           R8 1

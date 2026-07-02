@@ -24,68 +24,44 @@ MAIN:
        34 NEWTABLE                         R14 0 1
        36 MOVE                             R15 R2
        37 LOADK                            R16 K13 ["::UIPadding"]
-       38 DUPTABLE                         R17 K18 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-       39 LOADK                            R18 K19 ["$GlobalSpace50"]
-       40 SETTABLEKS                       R18 R17 K14 ["PaddingLeft"]
-       42 LOADK                            R18 K19 ["$GlobalSpace50"]
-       43 SETTABLEKS                       R18 R17 K15 ["PaddingRight"]
-       45 LOADK                            R18 K19 ["$GlobalSpace50"]
-       46 SETTABLEKS                       R18 R17 K16 ["PaddingTop"]
-       48 LOADK                            R18 K19 ["$GlobalSpace50"]
-       49 SETTABLEKS                       R18 R17 K17 ["PaddingBottom"]
-       51 CALL                             R15 2 -1
-       52 SETLIST                          R14 R15 -1 [1]
-       54 CALL                             R11 3 -1
-       55 SETLIST                          R10 R11 -1 [1]
-       57 CALL                             R7 3 1
-       58 MOVE                             R8 R2
-       59 LOADK                            R9 K20 [".CollaborateAlternateColor"]
-       60 DUPTABLE                         R10 K23 [{"BackgroundColor3", "BackgroundTransparency"}]
-       61 LOADK                            R11 K24 ["$SemanticColorSurface300"]
-       62 SETTABLEKS                       R11 R10 K21 ["BackgroundColor3"]
-       64 LOADK                            R11 K25 ["$Transparency0"]
-       65 SETTABLEKS                       R11 R10 K22 ["BackgroundTransparency"]
-       67 NEWTABLE                         R11 0 2
-       69 MOVE                             R12 R2
-       70 LOADK                            R13 K26 [">> #ButtonIcon"]
-       71 DUPTABLE                         R14 K28 [{"ImageColor3"}]
-       72 LOADK                            R15 K29 ["$SemanticColorContentStandard"]
-       73 SETTABLEKS                       R15 R14 K27 ["ImageColor3"]
-       75 CALL                             R12 2 1
-       76 MOVE                             R13 R2
-       77 LOADK                            R14 K30 [">> #ButtonText"]
-       78 DUPTABLE                         R15 K33 [{"TextColor3", "TextTransparency"}]
-       79 LOADK                            R16 K29 ["$SemanticColorContentStandard"]
-       80 SETTABLEKS                       R16 R15 K31 ["TextColor3"]
-       82 LOADK                            R16 K25 ["$Transparency0"]
-       83 SETTABLEKS                       R16 R15 K32 ["TextTransparency"]
-       85 CALL                             R13 2 -1
-       86 SETLIST                          R11 R12 -1 [1]
-       88 CALL                             R8 3 1
-       89 MOVE                             R9 R2
-       90 LOADK                            R10 K12 ["> #StateLayer"]
-       91 NEWTABLE                         R11 0 0
-       93 NEWTABLE                         R12 0 3
-       95 MOVE                             R13 R2
-       96 LOADK                            R14 K34 ["::UICorner"]
-       97 DUPTABLE                         R15 K36 [{"CornerRadius"}]
-       98 LOADK                            R16 K37 ["$GlobalRadiusXSmall"]
-       99 SETTABLEKS                       R16 R15 K35 ["CornerRadius"]
-      101 CALL                             R13 2 1
-      102 MOVE                             R14 R2
-      103 LOADK                            R15 K38 ["> #ButtonIcon"]
-      104 DUPTABLE                         R16 K40 [{"LayoutOrder"}]
-      105 LOADN                            R17 1
-      106 SETTABLEKS                       R17 R16 K39 ["LayoutOrder"]
-      108 CALL                             R14 2 1
-      109 MOVE                             R15 R2
-      110 LOADK                            R16 K41 ["> #ButtonText"]
-      111 DUPTABLE                         R17 K40 [{"LayoutOrder"}]
-      112 LOADN                            R18 2
-      113 SETTABLEKS                       R18 R17 K39 ["LayoutOrder"]
-      115 CALL                             R15 2 -1
-      116 SETLIST                          R12 R13 -1 [1]
-      118 CALL                             R9 3 -1
-      119 SETLIST                          R6 R7 -1 [1]
-      121 CALL                             R3 3 -1
-      122 RETURN                           R3 -1
+       38 DUPTABLE                         R17 K19 [{["PaddingLeft"] = "$GlobalSpace50", ["PaddingRight"] = "$GlobalSpace50", ["PaddingTop"] = "$GlobalSpace50", ["PaddingBottom"] = "$GlobalSpace50"}]
+       39 CALL                             R15 2 -1
+       40 SETLIST                          R14 R15 -1 [1]
+       42 CALL                             R11 3 -1
+       43 SETLIST                          R10 R11 -1 [1]
+       45 CALL                             R7 3 1
+       46 MOVE                             R8 R2
+       47 LOADK                            R9 K20 [".CollaborateAlternateColor"]
+       48 DUPTABLE                         R10 K25 [{["BackgroundColor3"] = "$SemanticColorSurface300", ["BackgroundTransparency"] = "$Transparency0"}]
+       49 NEWTABLE                         R11 0 2
+       51 MOVE                             R12 R2
+       52 LOADK                            R13 K26 [">> #ButtonIcon"]
+       53 DUPTABLE                         R14 K29 [{["ImageColor3"] = "$SemanticColorContentStandard"}]
+       54 CALL                             R12 2 1
+       55 MOVE                             R13 R2
+       56 LOADK                            R14 K30 [">> #ButtonText"]
+       57 DUPTABLE                         R15 K33 [{["TextColor3"] = "$SemanticColorContentStandard", ["TextTransparency"] = "$Transparency0"}]
+       58 CALL                             R13 2 -1
+       59 SETLIST                          R11 R12 -1 [1]
+       61 CALL                             R8 3 1
+       62 MOVE                             R9 R2
+       63 LOADK                            R10 K12 ["> #StateLayer"]
+       64 NEWTABLE                         R11 0 0
+       66 NEWTABLE                         R12 0 3
+       68 MOVE                             R13 R2
+       69 LOADK                            R14 K34 ["::UICorner"]
+       70 DUPTABLE                         R15 K37 [{["CornerRadius"] = "$GlobalRadiusXSmall"}]
+       71 CALL                             R13 2 1
+       72 MOVE                             R14 R2
+       73 LOADK                            R15 K38 ["> #ButtonIcon"]
+       74 DUPTABLE                         R16 K41 [{["LayoutOrder"] = 1}]
+       75 CALL                             R14 2 1
+       76 MOVE                             R15 R2
+       77 LOADK                            R16 K42 ["> #ButtonText"]
+       78 DUPTABLE                         R17 K44 [{["LayoutOrder"] = 2}]
+       79 CALL                             R15 2 -1
+       80 SETLIST                          R12 R13 -1 [1]
+       82 CALL                             R9 3 -1
+       83 SETLIST                          R6 R7 -1 [1]
+       85 CALL                             R3 3 -1
+       86 RETURN                           R3 -1

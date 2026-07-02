@@ -282,50 +282,42 @@ PROTO_4:
        44 GETUPVAL                         R6 1
        45 GETTABLEKS                       R6 R6 K14 ["assetTypeEnum"]
        47 GETIMPORT                        R7 K17 [Enum.AssetType.Model]
-       49 JUMPIFNOTEQ                      R6 R7 ; [+43]
-       51 DUPTABLE                         R6 K26 [{"AdditionalParameters", "AssetType", "AssetName", "AssetId", "ContentType", "CreatorId", "CreatorType", "Description", "Token"}]
-       52 DUPTABLE                         R7 K28 [{"PublishAsPackage"}]
-       53 LOADB                            R8 0
-       54 SETTABLEKS                       R8 R7 K27 ["PublishAsPackage"]
-       56 SETTABLEKS                       R7 R6 K18 ["AdditionalParameters"]
-       58 GETUPVAL                         R7 2
-       59 SETTABLEKS                       R7 R6 K15 ["AssetType"]
-       61 SETTABLEKS                       R4 R6 K19 ["AssetName"]
-       63 LOADN                            R7 0
-       64 SETTABLEKS                       R7 R6 K20 ["AssetId"]
-       66 LOADK                            R7 K29 ["model/x-rbxm"]
-       67 SETTABLEKS                       R7 R6 K21 ["ContentType"]
-       69 SETTABLEKS                       R0 R6 K22 ["CreatorId"]
-       71 SETTABLEKS                       R1 R6 K23 ["CreatorType"]
-       73 SETTABLEKS                       R3 R6 K24 ["Description"]
-       75 LOADK                            R7 K9 [""]
-       76 SETTABLEKS                       R7 R6 K25 ["Token"]
-       78 GETUPVAL                         R7 3
-       79 CALL                             R7 0 1
-       80 JUMPIFNOT                        R7 ; [+6]
-       81 GETUPVAL                         R9 4
-       82 MOVE                             R10 R6
-       83 NAMECALL                         R7 R5 K30 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson"]
-       85 CALL                             R7 3 -1
-       86 RETURN                           R7 -1
-       87 GETUPVAL                         R9 4
-       88 MOVE                             R10 R6
-       89 NAMECALL                         R7 R5 K31 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
-       91 CALL                             R7 3 -1
-       92 RETURN                           R7 -1
-       93 GETUPVAL                         R8 4
-       94 MOVE                             R9 R1
-       95 MOVE                             R10 R0
-       96 GETUPVAL                         R11 2
-       97 LOADN                            R12 0
-       98 MOVE                             R13 R4
-       99 MOVE                             R14 R3
-      100 LOADK                            R15 K9 [""]
-      101 LOADK                            R16 K29 ["model/x-rbxm"]
-      102 LOADN                            R17 0
-      103 NAMECALL                         R6 R5 K32 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync"]
-      105 CALL                             R6 11 -1
-      106 RETURN                           R6 -1
+       49 JUMPIFNOTEQ                      R6 R7 ; [+31]
+       51 DUPTABLE                         R6 K28 [{["AdditionalParameters"], ["AssetType"], ["AssetName"], ["AssetId"] = 0, ["ContentType"] = "model/x-rbxm", ["CreatorId"], ["CreatorType"], ["Description"], ["Token"] = ""}]
+       52 DUPTABLE                         R7 K31 [{["PublishAsPackage"] = False}]
+       53 SETTABLEKS                       R7 R6 K18 ["AdditionalParameters"]
+       55 GETUPVAL                         R7 2
+       56 SETTABLEKS                       R7 R6 K15 ["AssetType"]
+       58 SETTABLEKS                       R4 R6 K19 ["AssetName"]
+       60 SETTABLEKS                       R0 R6 K24 ["CreatorId"]
+       62 SETTABLEKS                       R1 R6 K25 ["CreatorType"]
+       64 SETTABLEKS                       R3 R6 K26 ["Description"]
+       66 GETUPVAL                         R7 3
+       67 CALL                             R7 0 1
+       68 JUMPIFNOT                        R7 ; [+6]
+       69 GETUPVAL                         R9 4
+       70 MOVE                             R10 R6
+       71 NAMECALL                         R7 R5 K32 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParamErrorJson"]
+       73 CALL                             R7 3 -1
+       74 RETURN                           R7 -1
+       75 GETUPVAL                         R9 4
+       76 MOVE                             R10 R6
+       77 NAMECALL                         R7 R5 K33 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsyncWithAddParam"]
+       79 CALL                             R7 3 -1
+       80 RETURN                           R7 -1
+       81 GETUPVAL                         R8 4
+       82 MOVE                             R9 R1
+       83 MOVE                             R10 R0
+       84 GETUPVAL                         R11 2
+       85 LOADN                            R12 0
+       86 MOVE                             R13 R4
+       87 MOVE                             R14 R3
+       88 LOADK                            R15 K9 [""]
+       89 LOADK                            R16 K23 ["model/x-rbxm"]
+       90 LOADN                            R17 0
+       91 NAMECALL                         R6 R5 K34 ["CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync"]
+       93 CALL                             R6 11 -1
+       94 RETURN                           R6 -1
 
 PROTO_5:
         0 GETIMPORT                        R1 K1 [pcall]

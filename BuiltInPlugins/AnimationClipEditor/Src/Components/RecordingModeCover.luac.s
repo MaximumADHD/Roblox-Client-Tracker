@@ -6,45 +6,39 @@ PROTO_0:
         8 GETUPVAL                         R4 0
         9 GETTABLEKS                       R4 R4 K3 ["createElement"]
        11 GETUPVAL                         R5 1
-       12 DUPTABLE                         R6 K5 [{"Priority"}]
-       13 LOADN                            R7 100
-       14 SETTABLEKS                       R7 R6 K4 ["Priority"]
-       16 DUPTABLE                         R7 K7 [{"Text"}]
-       17 GETUPVAL                         R8 0
-       18 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       20 LOADK                            R9 K8 ["TextButton"]
-       21 DUPTABLE                         R10 K16 [{"Size", "BackgroundColor3", "BackgroundTransparency", "AutoButtonColor", "Font", "TextSize", "TextColor3", "Text"}]
-       22 GETIMPORT                        R11 K19 [UDim2.new]
-       24 LOADN                            R12 1
-       25 LOADN                            R13 0
-       26 LOADN                            R14 1
-       27 LOADN                            R15 0
-       28 CALL                             R11 4 1
-       29 SETTABLEKS                       R11 R10 K9 ["Size"]
-       31 GETIMPORT                        R11 K21 [Color3.new]
-       33 CALL                             R11 0 1
-       34 SETTABLEKS                       R11 R10 K10 ["BackgroundColor3"]
-       36 LOADK                            R11 K22 [0.35]
-       37 SETTABLEKS                       R11 R10 K11 ["BackgroundTransparency"]
-       39 LOADB                            R11 0
-       40 SETTABLEKS                       R11 R10 K12 ["AutoButtonColor"]
-       42 GETTABLEKS                       R11 R2 K23 ["font"]
-       44 SETTABLEKS                       R11 R10 K13 ["Font"]
-       46 GETTABLEKS                       R11 R2 K24 ["startScreenTheme"]
-       48 GETTABLEKS                       R11 R11 K25 ["textSize"]
-       50 SETTABLEKS                       R11 R10 K14 ["TextSize"]
-       52 GETTABLEKS                       R11 R2 K24 ["startScreenTheme"]
-       54 GETTABLEKS                       R11 R11 K26 ["darkTextColor"]
-       56 SETTABLEKS                       R11 R10 K15 ["TextColor3"]
-       58 LOADK                            R13 K27 ["FaceCapture"]
-       59 LOADK                            R14 K28 ["IsRecordingCoverText"]
-       60 NAMECALL                         R11 R3 K29 ["getText"]
-       62 CALL                             R11 3 1
-       63 SETTABLEKS                       R11 R10 K6 ["Text"]
-       65 CALL                             R8 2 1
-       66 SETTABLEKS                       R8 R7 K6 ["Text"]
-       68 CALL                             R4 3 -1
-       69 RETURN                           R4 -1
+       12 DUPTABLE                         R6 K6 [{["Priority"] = 100}]
+       13 DUPTABLE                         R7 K8 [{"Text"}]
+       14 GETUPVAL                         R8 0
+       15 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       17 LOADK                            R9 K9 ["TextButton"]
+       18 DUPTABLE                         R10 K19 [{["Size"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0.35, ["AutoButtonColor"] = False, ["Font"], ["TextSize"], ["TextColor3"], ["Text"]}]
+       19 GETIMPORT                        R11 K22 [UDim2.new]
+       21 LOADN                            R12 1
+       22 LOADN                            R13 0
+       23 LOADN                            R14 1
+       24 LOADN                            R15 0
+       25 CALL                             R11 4 1
+       26 SETTABLEKS                       R11 R10 K10 ["Size"]
+       28 GETIMPORT                        R11 K24 [Color3.new]
+       30 CALL                             R11 0 1
+       31 SETTABLEKS                       R11 R10 K11 ["BackgroundColor3"]
+       33 GETTABLEKS                       R11 R2 K25 ["font"]
+       35 SETTABLEKS                       R11 R10 K16 ["Font"]
+       37 GETTABLEKS                       R11 R2 K26 ["startScreenTheme"]
+       39 GETTABLEKS                       R11 R11 K27 ["textSize"]
+       41 SETTABLEKS                       R11 R10 K17 ["TextSize"]
+       43 GETTABLEKS                       R11 R2 K26 ["startScreenTheme"]
+       45 GETTABLEKS                       R11 R11 K28 ["darkTextColor"]
+       47 SETTABLEKS                       R11 R10 K18 ["TextColor3"]
+       49 LOADK                            R13 K29 ["FaceCapture"]
+       50 LOADK                            R14 K30 ["IsRecordingCoverText"]
+       51 NAMECALL                         R11 R3 K31 ["getText"]
+       53 CALL                             R11 3 1
+       54 SETTABLEKS                       R11 R10 K7 ["Text"]
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K7 ["Text"]
+       59 CALL                             R4 3 -1
+       60 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

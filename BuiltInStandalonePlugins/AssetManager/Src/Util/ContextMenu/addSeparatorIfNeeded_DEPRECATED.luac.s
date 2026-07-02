@@ -12,9 +12,7 @@ PROTO_0:
 
 MAIN:
         0 PREPVARARGS                      0
-        1 DUPTABLE                         R0 K1 [{"ShowSeparator"}]
-        2 LOADB                            R1 1
-        3 SETTABLEKS                       R1 R0 K0 ["ShowSeparator"]
-        5 DUPCLOSURE                       R1 K2 [PROTO_0]
-        6 CAPTURE                          VAL R0
-        7 RETURN                           R1 1
+        1 DUPTABLE                         R0 K2 [{[1] = True}]
+        2 DUPCLOSURE                       R1 K3 [PROTO_0]
+        3 CAPTURE                          VAL R0
+        4 RETURN                           R1 1

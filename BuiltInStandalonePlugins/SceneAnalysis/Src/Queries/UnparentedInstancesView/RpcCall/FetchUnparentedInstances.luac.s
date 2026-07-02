@@ -33,7 +33,7 @@ PROTO_2:
         3 CAPTURE                          VAL R0
         4 CALL                             R1 1 2
         5 JUMPIFNOT                        R1 ; [+1]
-        6 JUMPIF                           R2 ; [+25]
+        6 JUMPIF                           R2 ; [+16]
         7 GETUPVAL                         R3 0
         8 GETTABLEKS                       R3 R3 K2 ["getFFlagSceneAnalysisBugfixesMay2026"]
        10 CALL                             R3 0 1
@@ -42,20 +42,14 @@ PROTO_2:
        14 LOADK                            R4 K5 ["SceneAnalysisService returned error:"]
        15 MOVE                             R5 R2
        16 CALL                             R3 2 0
-       17 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
-       18 LOADN                            R4 0
-       19 SETTABLEKS                       R4 R3 K6 ["Id"]
-       21 LOADK                            R4 K11 ["Root"]
-       22 SETTABLEKS                       R4 R3 K7 ["Name"]
-       24 LOADN                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["Size"]
-       27 NEWTABLE                         R4 0 0
-       29 SETTABLEKS                       R4 R3 K9 ["Children"]
-       31 RETURN                           R3 1
-       32 GETUPVAL                         R3 1
-       33 MOVE                             R4 R2
-       34 CALL                             R3 1 0
-       35 RETURN                           R2 1
+       17 DUPTABLE                         R3 K12 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       18 NEWTABLE                         R4 0 0
+       20 SETTABLEKS                       R4 R3 K11 ["Children"]
+       22 RETURN                           R3 1
+       23 GETUPVAL                         R3 1
+       24 MOVE                             R4 R2
+       25 CALL                             R3 1 0
+       26 RETURN                           R2 1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [game]

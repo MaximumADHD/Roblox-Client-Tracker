@@ -3,7 +3,7 @@ PROTO_0:
         2 GETTABLEKS                       R5 R0 K1 ["providers"]
         4 LENGTH                           R4 R5
         5 LOADN                            R2 1
-        6 LOADN                            R3 255
+        6 LOADN                            R3 -1
         7 FORNPREP                         R2
         8 GETTABLEKS                       R6 R0 K1 ["providers"]
        10 GETTABLE                         R5 R6 R4

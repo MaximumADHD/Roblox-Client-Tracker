@@ -7,24 +7,20 @@ PROTO_0:
         6 MOVE                             R6 R0
         7 CALL                             R5 1 1
         8 SETTABLEKS                       R5 R4 K0 ["key"]
-       10 DUPTABLE                         R5 K8 [{"type", "uri", "expectation", "shouldShow"}]
-       11 LOADK                            R6 K9 ["studioAction"]
-       12 SETTABLEKS                       R6 R5 K4 ["type"]
-       14 SETTABLEKS                       R0 R5 K5 ["uri"]
-       16 SETTABLEKS                       R1 R5 K6 ["expectation"]
-       18 SETTABLEKS                       R2 R5 K7 ["shouldShow"]
-       20 SETTABLEKS                       R5 R4 K1 ["source"]
-       22 RETURN                           R4 1
+       10 DUPTABLE                         R5 K9 [{["type"] = "studioAction", ["uri"], ["expectation"], ["shouldShow"]}]
+       11 SETTABLEKS                       R0 R5 K6 ["uri"]
+       13 SETTABLEKS                       R1 R5 K7 ["expectation"]
+       15 SETTABLEKS                       R2 R5 K8 ["shouldShow"]
+       17 SETTABLEKS                       R5 R4 K1 ["source"]
+       19 RETURN                           R4 1
 
 PROTO_1:
         0 DUPTABLE                         R2 K2 [{"key", "source"}]
         1 SETTABLEKS                       R0 R2 K0 ["key"]
-        3 DUPTABLE                         R3 K5 [{"type", "submenuCategories"}]
-        4 LOADK                            R4 K6 ["submenu"]
-        5 SETTABLEKS                       R4 R3 K3 ["type"]
-        7 SETTABLEKS                       R1 R3 K4 ["submenuCategories"]
-        9 SETTABLEKS                       R3 R2 K1 ["source"]
-       11 RETURN                           R2 1
+        3 DUPTABLE                         R3 K6 [{["type"] = "submenu", ["submenuCategories"]}]
+        4 SETTABLEKS                       R1 R3 K5 ["submenuCategories"]
+        6 SETTABLEKS                       R3 R2 K1 ["source"]
+        8 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -120,934 +116,961 @@ MAIN:
        77 GETIMPORT                        R9 K5 [require]
        79 GETTABLEKS                       R10 R0 K6 ["Src"]
        81 GETTABLEKS                       R10 R10 K15 ["Flags"]
-       83 GETTABLEKS                       R10 R10 K20 ["getFFlagReimportClearAction"]
+       83 GETTABLEKS                       R10 R10 K20 ["getFFlagPackageCondensedContextMenu"]
        85 CALL                             R9 1 1
        86 GETIMPORT                        R10 K5 [require]
        88 GETTABLEKS                       R11 R0 K6 ["Src"]
        90 GETTABLEKS                       R11 R11 K15 ["Flags"]
-       92 GETTABLEKS                       R11 R11 K21 ["getFFlagReimportFileWatcher"]
+       92 GETTABLEKS                       R11 R11 K21 ["getFFlagReimportClearAction"]
        94 CALL                             R10 1 1
-       95 GETIMPORT                        R11 K23 [game]
-       97 LOADK                            R13 K24 ["CopyPathAction"]
-       98 NAMECALL                         R11 R11 K25 ["GetEngineFeature"]
-      100 CALL                             R11 2 1
-      101 GETIMPORT                        R12 K23 [game]
-      103 LOADK                            R14 K26 ["CopyUniqueIdAction"]
-      104 NAMECALL                         R12 R12 K25 ["GetEngineFeature"]
-      106 CALL                             R12 2 1
-      107 GETIMPORT                        R13 K23 [game]
-      109 LOADK                            R15 K27 ["UnifiedSyncActions"]
-      110 NAMECALL                         R13 R13 K25 ["GetEngineFeature"]
-      112 CALL                             R13 2 1
-      113 GETTABLEKS                       R14 R3 K13 ["Util"]
-      115 GETTABLEKS                       R14 R14 K28 ["StudioUri"]
-      117 DUPCLOSURE                       R15 K29 [PROTO_0]
-      118 CAPTURE                          VAL R14
-      119 DUPCLOSURE                       R16 K30 [PROTO_1]
-      120 DUPCLOSURE                       R17 K31 [PROTO_2]
-      121 CAPTURE                          VAL R14
-      122 NEWTABLE                         R18 0 0
-      124 DUPCLOSURE                       R19 K32 [PROTO_3]
-      125 DUPCLOSURE                       R20 K33 [PROTO_4]
-      126 MOVE                             R21 R7
-      127 CALL                             R21 0 1
-      128 JUMPIFNOT                        R21 ; [+35]
-      129 NEWTABLE                         R23 0 3
-      131 MOVE                             R24 R15
-      132 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      134 LOADK                            R26 K35 ["ScriptTools"]
-      135 LOADK                            R27 K36 ["Open"]
-      136 CALL                             R25 2 1
-      137 LOADK                            R26 K37 ["NonServices"]
-      138 CALL                             R24 2 1
-      139 MOVE                             R25 R15
-      140 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      142 LOADK                            R27 K38 ["FileSync"]
-      143 LOADK                            R28 K39 ["OpenInExternalEditor"]
-      144 CALL                             R26 2 1
-      145 LOADK                            R27 K37 ["NonServices"]
-      146 CALL                             R25 2 1
-      147 MOVE                             R26 R15
-      148 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-      150 LOADK                            R28 K35 ["ScriptTools"]
-      151 LOADK                            R29 K40 ["OpenScriptHistory"]
-      152 CALL                             R27 2 1
-      153 LOADK                            R28 K37 ["NonServices"]
-      154 CALL                             R26 2 1
-      155 SETLIST                          R23 R24 3 [1]
-      157 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      159 MOVE                             R22 R18
-      160 GETIMPORT                        R21 K43 [table.insert]
-      162 CALL                             R21 2 0
-      163 JUMP                             ; [+26]
-      164 NEWTABLE                         R23 0 2
-      166 MOVE                             R24 R15
-      167 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      169 LOADK                            R26 K35 ["ScriptTools"]
-      170 LOADK                            R27 K36 ["Open"]
-      171 CALL                             R25 2 1
-      172 LOADK                            R26 K37 ["NonServices"]
-      173 CALL                             R24 2 1
-      174 MOVE                             R25 R15
-      175 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      177 LOADK                            R27 K35 ["ScriptTools"]
-      178 LOADK                            R28 K40 ["OpenScriptHistory"]
-      179 CALL                             R26 2 1
-      180 LOADK                            R27 K37 ["NonServices"]
-      181 CALL                             R25 2 1
-      182 SETLIST                          R23 R24 2 [1]
-      184 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      186 MOVE                             R22 R18
-      187 GETIMPORT                        R21 K43 [table.insert]
-      189 CALL                             R21 2 0
-      190 MOVE                             R22 R18
-      191 MOVE                             R23 R4
-      192 NEWTABLE                         R24 0 8
-      194 MOVE                             R25 R15
-      195 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      197 LOADK                            R27 K44 ["Common"]
-      198 LOADK                            R28 K45 ["Cut"]
-      199 CALL                             R26 2 1
-      200 LOADK                            R27 K37 ["NonServices"]
-      201 CALL                             R25 2 1
-      202 MOVE                             R26 R15
-      203 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-      205 LOADK                            R28 K44 ["Common"]
-      206 LOADK                            R29 K46 ["Copy"]
-      207 CALL                             R27 2 1
-      208 LOADK                            R28 K37 ["NonServices"]
-      209 CALL                             R26 2 1
-      210 JUMPIF                           R11 ; [+1]
-      211 JUMPIFNOT                        R12 ; [+45]
-      212 NEWTABLE                         R28 0 1
-      214 MOVE                             R29 R4
-      215 NEWTABLE                         R30 0 2
-      217 JUMPIFNOT                        R11 ; [+9]
-      218 MOVE                             R31 R15
-      219 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      221 LOADK                            R33 K47 ["BuilderTools"]
-      222 LOADK                            R34 K48 ["CopyPath"]
-      223 CALL                             R32 2 1
-      224 LOADK                            R33 K49 ["All"]
-      225 CALL                             R31 2 1
-      226 JUMP                             ; [+1]
-      227 LOADNIL                          R31
-      228 JUMPIFNOT                        R12 ; [+9]
-      229 MOVE                             R32 R15
-      230 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      232 LOADK                            R34 K47 ["BuilderTools"]
-      233 LOADK                            R35 K50 ["CopyUniqueId"]
-      234 CALL                             R33 2 1
-      235 LOADK                            R34 K49 ["All"]
-      236 CALL                             R32 2 1
-      237 JUMP                             ; [+1]
-      238 LOADNIL                          R32
-      239 SETLIST                          R30 R31 2 [1]
-      241 CALL                             R29 1 -1
-      242 SETLIST                          R28 R29 -1 [1]
-      244 DUPTABLE                         R27 K53 [{"key", "source"}]
-      245 LOADK                            R29 K54 ["CopyAs"]
-      246 SETTABLEKS                       R29 R27 K51 ["key"]
-      248 DUPTABLE                         R29 K57 [{"type", "submenuCategories"}]
-      249 LOADK                            R30 K58 ["submenu"]
-      250 SETTABLEKS                       R30 R29 K55 ["type"]
-      252 SETTABLEKS                       R28 R29 K56 ["submenuCategories"]
-      254 SETTABLEKS                       R29 R27 K52 ["source"]
-      256 JUMP                             ; [+1]
-      257 LOADNIL                          R27
-      258 MOVE                             R28 R15
-      259 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      261 LOADK                            R30 K44 ["Common"]
-      262 LOADK                            R31 K59 ["PasteInto"]
-      263 CALL                             R29 2 1
-      264 LOADK                            R30 K49 ["All"]
-      265 CALL                             R28 2 1
-      266 MOVE                             R29 R15
-      267 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      269 LOADK                            R31 K47 ["BuilderTools"]
-      270 LOADK                            R32 K60 ["PasteIntoAtOriginalLocation"]
-      271 CALL                             R30 2 1
-      272 LOADK                            R31 K49 ["All"]
-      273 CALL                             R29 2 1
-      274 MOVE                             R30 R15
-      275 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      277 LOADK                            R32 K44 ["Common"]
-      278 LOADK                            R33 K61 ["Duplicate"]
-      279 CALL                             R31 2 1
-      280 LOADK                            R32 K37 ["NonServices"]
-      281 CALL                             R30 2 1
-      282 MOVE                             R31 R15
-      283 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      285 LOADK                            R33 K44 ["Common"]
-      286 LOADK                            R34 K62 ["Delete"]
-      287 CALL                             R32 2 1
-      288 LOADK                            R33 K37 ["NonServices"]
-      289 CALL                             R31 2 1
-      290 MOVE                             R32 R15
-      291 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      293 LOADK                            R34 K11 ["Explorer"]
-      294 LOADK                            R35 K63 ["Rename"]
-      295 CALL                             R33 2 1
-      296 LOADK                            R34 K49 ["All"]
-      297 LOADNIL                          R35
-      298 GETTABLEKS                       R36 R2 K64 ["Data"]
-      300 GETTABLEKS                       R36 R36 K8 ["ContextMenu"]
-      302 GETTABLEKS                       R36 R36 K65 ["coreItems"]
-      304 GETTABLEKS                       R36 R36 K66 ["rename"]
-      306 CALL                             R32 4 1
-      307 SETLIST                          R24 R25 8 [1]
-      309 CALL                             R23 1 -1
-      310 FASTCALL                         TABLE_INSERT ; [+2]
-      311 GETIMPORT                        R21 K43 [table.insert]
-      313 CALL                             R21 -1 0
-      314 NEWTABLE                         R23 0 4
-      316 MOVE                             R24 R15
-      317 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      319 LOADK                            R26 K47 ["BuilderTools"]
-      320 LOADK                            R27 K67 ["GroupAsModel"]
-      321 CALL                             R25 2 1
-      322 LOADK                            R26 K37 ["NonServices"]
-      323 CALL                             R24 2 1
-      324 MOVE                             R25 R15
-      325 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      327 LOADK                            R27 K47 ["BuilderTools"]
-      328 LOADK                            R28 K68 ["GroupAsFolder"]
-      329 CALL                             R26 2 1
-      330 LOADK                            R27 K37 ["NonServices"]
-      331 CALL                             R25 2 1
-      332 MOVE                             R26 R15
-      333 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-      335 LOADK                            R28 K47 ["BuilderTools"]
-      336 LOADK                            R29 K69 ["Ungroup"]
-      337 CALL                             R27 2 1
-      338 LOADK                            R28 K37 ["NonServices"]
-      339 CALL                             R26 2 1
-      340 NEWTABLE                         R28 0 1
-      342 NEWTABLE                         R29 0 4
-      344 MOVE                             R30 R15
-      345 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      347 LOADK                            R32 K47 ["BuilderTools"]
-      348 LOADK                            R33 K70 ["UnionSelection"]
-      349 CALL                             R31 2 1
-      350 LOADK                            R32 K37 ["NonServices"]
-      351 CALL                             R30 2 1
-      352 MOVE                             R31 R15
-      353 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      355 LOADK                            R33 K47 ["BuilderTools"]
-      356 LOADK                            R34 K71 ["IntersectSelection"]
-      357 CALL                             R32 2 1
-      358 LOADK                            R33 K37 ["NonServices"]
-      359 CALL                             R31 2 1
-      360 MOVE                             R32 R15
-      361 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      363 LOADK                            R34 K47 ["BuilderTools"]
-      364 LOADK                            R35 K72 ["NegateSelection"]
-      365 CALL                             R33 2 1
-      366 LOADK                            R34 K37 ["NonServices"]
-      367 CALL                             R32 2 1
-      368 MOVE                             R33 R15
-      369 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-      371 LOADK                            R35 K47 ["BuilderTools"]
-      372 LOADK                            R36 K73 ["SeparateSelection"]
-      373 CALL                             R34 2 1
-      374 LOADK                            R35 K37 ["NonServices"]
-      375 CALL                             R33 2 1
-      376 SETLIST                          R29 R30 4 [1]
-      378 SETLIST                          R28 R29 1 [1]
-      380 DUPTABLE                         R27 K53 [{"key", "source"}]
-      381 LOADK                            R29 K74 ["solidModeling"]
-      382 SETTABLEKS                       R29 R27 K51 ["key"]
-      384 DUPTABLE                         R29 K57 [{"type", "submenuCategories"}]
-      385 LOADK                            R30 K58 ["submenu"]
-      386 SETTABLEKS                       R30 R29 K55 ["type"]
-      388 SETTABLEKS                       R28 R29 K56 ["submenuCategories"]
-      390 SETTABLEKS                       R29 R27 K52 ["source"]
-      392 SETLIST                          R23 R24 4 [1]
-      394 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      396 MOVE                             R22 R18
-      397 GETIMPORT                        R21 K43 [table.insert]
-      399 CALL                             R21 2 0
-      400 MOVE                             R22 R18
-      401 MOVE                             R23 R4
-      402 NEWTABLE                         R24 0 5
-      404 NEWTABLE                         R26 0 1
-      406 NEWTABLE                         R27 0 3
-      408 MOVE                             R28 R15
-      409 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      411 LOADK                            R30 K47 ["BuilderTools"]
-      412 LOADK                            R31 K75 ["InsertPartIntoSelection"]
-      413 CALL                             R29 2 1
-      414 LOADK                            R30 K49 ["All"]
-      415 CALL                             R28 2 1
-      416 MOVE                             R29 R15
-      417 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      419 LOADK                            R31 K47 ["BuilderTools"]
-      420 LOADK                            R32 K76 ["InsertObject"]
-      421 CALL                             R30 2 1
-      422 LOADK                            R31 K49 ["All"]
-      423 CALL                             R29 2 1
-      424 MOVE                             R30 R15
-      425 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      427 LOADK                            R32 K47 ["BuilderTools"]
-      428 LOADK                            R33 K77 ["InsertFromFile"]
-      429 CALL                             R31 2 1
-      430 LOADK                            R32 K49 ["All"]
-      431 CALL                             R30 2 1
-      432 SETLIST                          R27 R28 3 [1]
-      434 SETLIST                          R26 R27 1 [1]
-      436 DUPTABLE                         R25 K53 [{"key", "source"}]
-      437 LOADK                            R27 K42 ["insert"]
-      438 SETTABLEKS                       R27 R25 K51 ["key"]
-      440 DUPTABLE                         R27 K57 [{"type", "submenuCategories"}]
-      441 LOADK                            R28 K58 ["submenu"]
-      442 SETTABLEKS                       R28 R27 K55 ["type"]
-      444 SETTABLEKS                       R26 R27 K56 ["submenuCategories"]
-      446 SETTABLEKS                       R27 R25 K52 ["source"]
-      448 MOVE                             R27 R4
-      449 NEWTABLE                         R28 0 1
-      451 NEWTABLE                         R29 0 4
-      453 MOVE                             R30 R15
-      454 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      456 LOADK                            R32 K44 ["Common"]
-      457 LOADK                            R33 K78 ["SelectParents"]
-      458 CALL                             R31 2 1
-      459 LOADK                            R32 K37 ["NonServices"]
-      460 LOADNIL                          R33
-      461 CALL                             R30 3 1
-      462 MOVE                             R31 R15
-      463 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      465 LOADK                            R33 K44 ["Common"]
-      466 LOADK                            R34 K79 ["SelectChildren"]
-      467 CALL                             R32 2 1
-      468 LOADK                            R33 K49 ["All"]
-      469 LOADNIL                          R34
-      470 CALL                             R31 3 1
-      471 MOVE                             R32 R15
-      472 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      474 LOADK                            R34 K11 ["Explorer"]
-      475 LOADK                            R35 K80 ["ExpandAll"]
-      476 CALL                             R33 2 1
-      477 LOADK                            R34 K49 ["All"]
-      478 LOADNIL                          R35
-      479 GETTABLEKS                       R36 R2 K64 ["Data"]
-      481 GETTABLEKS                       R36 R36 K8 ["ContextMenu"]
-      483 GETTABLEKS                       R36 R36 K65 ["coreItems"]
-      485 GETTABLEKS                       R36 R36 K81 ["expandAll"]
-      487 CALL                             R32 4 1
-      488 MOVE                             R33 R15
-      489 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-      491 LOADK                            R35 K11 ["Explorer"]
-      492 LOADK                            R36 K82 ["CollapseAll"]
-      493 CALL                             R34 2 1
-      494 LOADK                            R35 K49 ["All"]
-      495 LOADNIL                          R36
-      496 GETTABLEKS                       R37 R2 K64 ["Data"]
-      498 GETTABLEKS                       R37 R37 K8 ["ContextMenu"]
-      500 GETTABLEKS                       R37 R37 K65 ["coreItems"]
-      502 GETTABLEKS                       R37 R37 K83 ["collapseAll"]
-      504 CALL                             R33 4 1
-      505 SETLIST                          R29 R30 4 [1]
-      507 SETLIST                          R28 R29 1 [1]
-      509 CALL                             R27 1 1
-      510 DUPTABLE                         R26 K53 [{"key", "source"}]
-      511 LOADK                            R28 K84 ["hierarchy"]
-      512 SETTABLEKS                       R28 R26 K51 ["key"]
-      514 DUPTABLE                         R28 K57 [{"type", "submenuCategories"}]
-      515 LOADK                            R29 K58 ["submenu"]
-      516 SETTABLEKS                       R29 R28 K55 ["type"]
-      518 SETTABLEKS                       R27 R28 K56 ["submenuCategories"]
-      520 SETTABLEKS                       R28 R26 K52 ["source"]
-      522 MOVE                             R27 R15
-      523 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-      525 LOADK                            R29 K47 ["BuilderTools"]
-      526 LOADK                            R30 K85 ["ZoomExtents"]
-      527 CALL                             R28 2 1
-      528 LOADK                            R29 K37 ["NonServices"]
-      529 MOVE                             R30 R19
-      530 CALL                             R27 3 1
-      531 MOVE                             R28 R15
-      532 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      534 LOADK                            R30 K47 ["BuilderTools"]
-      535 LOADK                            R31 K86 ["ShowOrientationIndicator"]
-      536 CALL                             R29 2 1
-      537 LOADK                            R30 K37 ["NonServices"]
-      538 CALL                             R28 2 1
-      539 MOVE                             R29 R15
-      540 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      542 LOADK                            R31 K35 ["ScriptTools"]
-      543 LOADK                            R32 K87 ["ToggleScripts"]
-      544 CALL                             R30 2 1
-      545 LOADK                            R31 K37 ["NonServices"]
-      546 CALL                             R29 2 1
-      547 SETLIST                          R24 R25 5 [1]
-      549 CALL                             R23 1 -1
-      550 FASTCALL                         TABLE_INSERT ; [+2]
-      551 GETIMPORT                        R21 K43 [table.insert]
-      553 CALL                             R21 -1 0
-      554 NEWTABLE                         R23 0 4
-      556 MOVE                             R24 R15
-      557 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      559 LOADK                            R26 K88 ["PluginDebugging"]
-      560 LOADK                            R27 K89 ["SaveAndReloadDebuggablePlugin"]
-      561 CALL                             R25 2 1
-      562 LOADK                            R26 K49 ["All"]
-      563 CALL                             R24 2 1
-      564 MOVE                             R25 R15
-      565 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      567 LOADK                            R27 K88 ["PluginDebugging"]
-      568 LOADK                            R28 K90 ["ReloadDebuggablePlugin"]
-      569 CALL                             R26 2 1
-      570 LOADK                            R27 K49 ["All"]
-      571 CALL                             R25 2 1
-      572 MOVE                             R26 R15
-      573 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-      575 LOADK                            R28 K88 ["PluginDebugging"]
-      576 LOADK                            R29 K91 ["SaveAndReloadAllDebuggablePlugins"]
-      577 CALL                             R27 2 1
-      578 LOADK                            R28 K49 ["All"]
-      579 MOVE                             R29 R20
-      580 CALL                             R26 3 1
-      581 MOVE                             R27 R15
-      582 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-      584 LOADK                            R29 K88 ["PluginDebugging"]
-      585 LOADK                            R30 K92 ["SaveBuildAndReloadDebuggablePlugin"]
-      586 CALL                             R28 2 1
-      587 LOADK                            R29 K49 ["All"]
-      588 CALL                             R27 2 1
-      589 SETLIST                          R23 R24 4 [1]
-      591 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      593 MOVE                             R22 R18
-      594 GETIMPORT                        R21 K43 [table.insert]
-      596 CALL                             R21 2 0
-      597 MOVE                             R21 R7
-      598 CALL                             R21 0 1
-      599 JUMPIFNOT                        R21 ; [+166]
-      600 JUMPIFNOT                        R13 ; [+71]
-      601 NEWTABLE                         R23 0 1
-      603 NEWTABLE                         R25 0 1
-      605 NEWTABLE                         R26 0 5
-      607 MOVE                             R27 R15
-      608 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-      610 LOADK                            R29 K38 ["FileSync"]
-      611 LOADK                            R30 K93 ["StopScriptSync"]
-      612 CALL                             R28 2 1
-      613 LOADK                            R29 K49 ["All"]
-      614 CALL                             R27 2 1
-      615 MOVE                             R28 R15
-      616 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      618 LOADK                            R30 K38 ["FileSync"]
-      619 LOADK                            R31 K94 ["StartSync"]
-      620 CALL                             R29 2 1
-      621 LOADK                            R30 K49 ["All"]
-      622 CALL                             R28 2 1
-      623 MOVE                             R29 R15
-      624 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      626 LOADK                            R31 K38 ["FileSync"]
-      627 LOADK                            R32 K95 ["ResumeScriptSync"]
-      628 CALL                             R30 2 1
-      629 LOADK                            R31 K49 ["All"]
-      630 CALL                             R29 2 1
-      631 MOVE                             R30 R15
-      632 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      634 LOADK                            R32 K38 ["FileSync"]
-      635 LOADK                            R33 K96 ["ShowInFolder"]
-      636 CALL                             R31 2 1
-      637 LOADK                            R32 K49 ["All"]
-      638 CALL                             R30 2 1
-      639 MOVE                             R31 R15
-      640 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      642 LOADK                            R33 K38 ["FileSync"]
-      643 LOADK                            R34 K97 ["SelectSyncingRoot"]
-      644 CALL                             R32 2 1
-      645 LOADK                            R33 K49 ["All"]
-      646 CALL                             R31 2 1
-      647 SETLIST                          R26 R27 5 [1]
-      649 SETLIST                          R25 R26 1 [1]
-      651 DUPTABLE                         R24 K53 [{"key", "source"}]
-      652 LOADK                            R26 K98 ["scriptSync"]
-      653 SETTABLEKS                       R26 R24 K51 ["key"]
-      655 DUPTABLE                         R26 K57 [{"type", "submenuCategories"}]
-      656 LOADK                            R27 K58 ["submenu"]
-      657 SETTABLEKS                       R27 R26 K55 ["type"]
-      659 SETTABLEKS                       R25 R26 K56 ["submenuCategories"]
-      661 SETTABLEKS                       R26 R24 K52 ["source"]
-      663 SETLIST                          R23 R24 1 [1]
-      665 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      667 MOVE                             R22 R18
-      668 GETIMPORT                        R21 K43 [table.insert]
-      670 CALL                             R21 2 0
-      671 JUMP                             ; [+94]
-      672 NEWTABLE                         R23 0 1
-      674 NEWTABLE                         R25 0 1
-      676 NEWTABLE                         R26 0 8
-      678 MOVE                             R27 R15
-      679 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-      681 LOADK                            R29 K38 ["FileSync"]
-      682 LOADK                            R30 K93 ["StopScriptSync"]
-      683 CALL                             R28 2 1
-      684 LOADK                            R29 K49 ["All"]
-      685 CALL                             R27 2 1
-      686 MOVE                             R28 R15
-      687 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      689 LOADK                            R30 K38 ["FileSync"]
-      690 LOADK                            R31 K99 ["StartSyncToNewFile"]
-      691 CALL                             R29 2 1
-      692 LOADK                            R30 K37 ["NonServices"]
-      693 CALL                             R28 2 1
-      694 MOVE                             R29 R15
-      695 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      697 LOADK                            R31 K38 ["FileSync"]
-      698 LOADK                            R32 K100 ["StartSyncToExistingFile"]
-      699 CALL                             R30 2 1
-      700 LOADK                            R31 K37 ["NonServices"]
-      701 CALL                             R29 2 1
-      702 MOVE                             R30 R15
-      703 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      705 LOADK                            R32 K38 ["FileSync"]
-      706 LOADK                            R33 K101 ["StartSyncSelectedInstancesTo"]
-      707 CALL                             R31 2 1
-      708 LOADK                            R32 K49 ["All"]
-      709 CALL                             R30 2 1
-      710 MOVE                             R31 R15
-      711 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      713 LOADK                            R33 K38 ["FileSync"]
-      714 LOADK                            R34 K102 ["StartSyncToDirectory"]
-      715 CALL                             R32 2 1
-      716 LOADK                            R33 K49 ["All"]
-      717 CALL                             R31 2 1
-      718 MOVE                             R32 R15
-      719 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      721 LOADK                            R34 K38 ["FileSync"]
-      722 LOADK                            R35 K95 ["ResumeScriptSync"]
-      723 CALL                             R33 2 1
-      724 LOADK                            R34 K49 ["All"]
-      725 CALL                             R32 2 1
-      726 MOVE                             R33 R15
-      727 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-      729 LOADK                            R35 K38 ["FileSync"]
-      730 LOADK                            R36 K96 ["ShowInFolder"]
-      731 CALL                             R34 2 1
-      732 LOADK                            R35 K49 ["All"]
-      733 CALL                             R33 2 1
-      734 MOVE                             R34 R15
-      735 GETTABLEKS                       R35 R14 K34 ["fromAction"]
-      737 LOADK                            R36 K38 ["FileSync"]
-      738 LOADK                            R37 K97 ["SelectSyncingRoot"]
-      739 CALL                             R35 2 1
-      740 LOADK                            R36 K49 ["All"]
-      741 CALL                             R34 2 1
-      742 SETLIST                          R26 R27 8 [1]
-      744 SETLIST                          R25 R26 1 [1]
-      746 DUPTABLE                         R24 K53 [{"key", "source"}]
-      747 LOADK                            R26 K98 ["scriptSync"]
-      748 SETTABLEKS                       R26 R24 K51 ["key"]
-      750 DUPTABLE                         R26 K57 [{"type", "submenuCategories"}]
-      751 LOADK                            R27 K58 ["submenu"]
-      752 SETTABLEKS                       R27 R26 K55 ["type"]
-      754 SETTABLEKS                       R25 R26 K56 ["submenuCategories"]
-      756 SETTABLEKS                       R26 R24 K52 ["source"]
-      758 SETLIST                          R23 R24 1 [1]
-      760 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      762 MOVE                             R22 R18
-      763 GETIMPORT                        R21 K43 [table.insert]
-      765 CALL                             R21 2 0
-      766 MOVE                             R21 R8
-      767 CALL                             R21 0 1
-      768 JUMPIFNOT                        R21 ; [+87]
-      769 NEWTABLE                         R23 0 4
-      771 MOVE                             R24 R15
-      772 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      774 LOADK                            R26 K103 ["PackageTools"]
-      775 LOADK                            R27 K104 ["PublishPackage"]
-      776 CALL                             R25 2 1
-      777 LOADK                            R26 K37 ["NonServices"]
-      778 CALL                             R24 2 1
-      779 MOVE                             R25 R15
-      780 GETTABLEKS                       R26 R14 K34 ["fromAction"]
-      782 LOADK                            R27 K103 ["PackageTools"]
-      783 LOADK                            R28 K105 ["UndoPackageChanges"]
-      784 CALL                             R26 2 1
-      785 LOADK                            R27 K37 ["NonServices"]
-      786 CALL                             R25 2 1
-      787 MOVE                             R26 R15
-      788 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-      790 LOADK                            R28 K103 ["PackageTools"]
-      791 LOADK                            R29 K106 ["GetLatestPackage"]
-      792 CALL                             R27 2 1
-      793 LOADK                            R28 K37 ["NonServices"]
-      794 CALL                             R26 2 1
-      795 NEWTABLE                         R28 0 1
-      797 NEWTABLE                         R29 0 4
-      799 MOVE                             R30 R15
-      800 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      802 LOADK                            R32 K103 ["PackageTools"]
-      803 LOADK                            R33 K107 ["DiffPackageAgainstLatest"]
-      804 CALL                             R31 2 1
-      805 LOADK                            R32 K37 ["NonServices"]
-      806 CALL                             R30 2 1
-      807 MOVE                             R31 R15
-      808 GETTABLEKS                       R32 R14 K34 ["fromAction"]
-      810 LOADK                            R33 K103 ["PackageTools"]
-      811 LOADK                            R34 K108 ["MassUpdate"]
-      812 CALL                             R32 2 1
-      813 LOADK                            R33 K37 ["NonServices"]
-      814 CALL                             R31 2 1
-      815 MOVE                             R32 R15
-      816 GETTABLEKS                       R33 R14 K34 ["fromAction"]
-      818 LOADK                            R34 K103 ["PackageTools"]
-      819 LOADK                            R35 K109 ["ShowPackagesDiff"]
-      820 CALL                             R33 2 1
-      821 LOADK                            R34 K37 ["NonServices"]
-      822 CALL                             R32 2 1
-      823 MOVE                             R33 R15
-      824 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-      826 LOADK                            R35 K103 ["PackageTools"]
-      827 LOADK                            R36 K110 ["PackageDetails"]
-      828 CALL                             R34 2 1
-      829 LOADK                            R35 K37 ["NonServices"]
-      830 CALL                             R33 2 1
-      831 SETLIST                          R29 R30 4 [1]
-      833 SETLIST                          R28 R29 1 [1]
-      835 DUPTABLE                         R27 K53 [{"key", "source"}]
-      836 LOADK                            R29 K111 ["morePackageOptions"]
-      837 SETTABLEKS                       R29 R27 K51 ["key"]
-      839 DUPTABLE                         R29 K57 [{"type", "submenuCategories"}]
-      840 LOADK                            R30 K58 ["submenu"]
-      841 SETTABLEKS                       R30 R29 K55 ["type"]
-      843 SETTABLEKS                       R28 R29 K56 ["submenuCategories"]
-      845 SETTABLEKS                       R29 R27 K52 ["source"]
-      847 SETLIST                          R23 R24 4 [1]
-      849 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      851 MOVE                             R22 R18
-      852 GETIMPORT                        R21 K43 [table.insert]
-      854 CALL                             R21 2 0
-      855 JUMP                             ; [+62]
-      856 NEWTABLE                         R23 0 2
-      858 MOVE                             R24 R15
-      859 GETTABLEKS                       R25 R14 K34 ["fromAction"]
-      861 LOADK                            R26 K103 ["PackageTools"]
-      862 LOADK                            R27 K104 ["PublishPackage"]
-      863 CALL                             R25 2 1
-      864 LOADK                            R26 K37 ["NonServices"]
-      865 CALL                             R24 2 1
-      866 NEWTABLE                         R26 0 1
-      868 NEWTABLE                         R27 0 3
-      870 MOVE                             R28 R15
-      871 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-      873 LOADK                            R30 K103 ["PackageTools"]
-      874 LOADK                            R31 K108 ["MassUpdate"]
-      875 CALL                             R29 2 1
-      876 LOADK                            R30 K37 ["NonServices"]
-      877 CALL                             R28 2 1
-      878 MOVE                             R29 R15
-      879 GETTABLEKS                       R30 R14 K34 ["fromAction"]
-      881 LOADK                            R31 K103 ["PackageTools"]
-      882 LOADK                            R32 K109 ["ShowPackagesDiff"]
-      883 CALL                             R30 2 1
-      884 LOADK                            R31 K37 ["NonServices"]
-      885 CALL                             R29 2 1
-      886 MOVE                             R30 R15
-      887 GETTABLEKS                       R31 R14 K34 ["fromAction"]
-      889 LOADK                            R32 K103 ["PackageTools"]
-      890 LOADK                            R33 K110 ["PackageDetails"]
-      891 CALL                             R31 2 1
-      892 LOADK                            R32 K37 ["NonServices"]
-      893 CALL                             R30 2 1
-      894 SETLIST                          R27 R28 3 [1]
-      896 SETLIST                          R26 R27 1 [1]
-      898 DUPTABLE                         R25 K53 [{"key", "source"}]
-      899 LOADK                            R27 K111 ["morePackageOptions"]
-      900 SETTABLEKS                       R27 R25 K51 ["key"]
-      902 DUPTABLE                         R27 K57 [{"type", "submenuCategories"}]
-      903 LOADK                            R28 K58 ["submenu"]
-      904 SETTABLEKS                       R28 R27 K55 ["type"]
-      906 SETTABLEKS                       R26 R27 K56 ["submenuCategories"]
-      908 SETTABLEKS                       R27 R25 K52 ["source"]
-      910 SETLIST                          R23 R24 2 [1]
-      912 FASTCALL2                        TABLE_INSERT R18 R23 ; [+4]
-      914 MOVE                             R22 R18
-      915 GETIMPORT                        R21 K43 [table.insert]
-      917 CALL                             R21 2 0
-      918 GETIMPORT                        R21 K113 [xpcall]
-      920 DUPCLOSURE                       R22 K114 [PROTO_5]
-      921 CAPTURE                          VAL R17
-      922 DUPCLOSURE                       R23 K115 [PROTO_6]
-      923 CAPTURE                          VAL R17
-      924 CALL                             R21 2 2
-      925 MOVE                             R23 R6
-      926 CALL                             R23 0 1
-      927 JUMPIFNOT                        R23 ; [+112]
-      928 GETIMPORT                        R23 K5 [require]
-      930 GETTABLEKS                       R24 R0 K10 ["Packages"]
-      932 GETTABLEKS                       R24 R24 K116 ["SharedPluginConstants"]
-      934 CALL                             R23 1 1
-      935 GETTABLEKS                       R24 R23 K117 ["REIMPORT"]
-      937 GETTABLEKS                       R24 R24 K118 ["ACTION_ID"]
-      939 GETTABLEKS                       R25 R23 K117 ["REIMPORT"]
-      941 GETTABLEKS                       R25 R25 K119 ["ACTION_EVENTS"]
-      943 NEWTABLE                         R28 0 1
-      945 NEWTABLE                         R30 0 1
-      947 MOVE                             R31 R4
-      948 NEWTABLE                         R32 0 5
-      950 MOVE                             R33 R15
-      951 GETTABLEKS                       R35 R25 K117 ["REIMPORT"]
-      953 GETTABLEKS                       R36 R14 K34 ["fromAction"]
-      955 MOVE                             R37 R24
-      956 MOVE                             R38 R35
-      957 CALL                             R36 2 1
-      958 MOVE                             R34 R36
-      959 LOADK                            R35 K37 ["NonServices"]
-      960 CALL                             R33 2 1
-      961 MOVE                             R34 R15
-      962 GETTABLEKS                       R36 R25 K120 ["REIMPORT_RELATIVE_TO_THIS"]
-      964 GETTABLEKS                       R37 R14 K34 ["fromAction"]
-      966 MOVE                             R38 R24
-      967 MOVE                             R39 R36
-      968 CALL                             R37 2 1
-      969 MOVE                             R35 R37
-      970 LOADK                            R36 K37 ["NonServices"]
-      971 CALL                             R34 2 1
-      972 MOVE                             R35 R15
-      973 GETTABLEKS                       R37 R25 K121 ["CONFIGURE"]
-      975 GETTABLEKS                       R38 R14 K34 ["fromAction"]
-      977 MOVE                             R39 R24
-      978 MOVE                             R40 R37
-      979 CALL                             R38 2 1
-      980 MOVE                             R36 R38
-      981 LOADK                            R37 K37 ["NonServices"]
-      982 CALL                             R35 2 1
-      983 MOVE                             R37 R9
-      984 CALL                             R37 0 1
-      985 JUMPIFNOT                        R37 ; [+12]
-      986 MOVE                             R36 R15
-      987 GETTABLEKS                       R38 R25 K122 ["CLEAR_REIMPORT_CONFIG"]
-      989 GETTABLEKS                       R39 R14 K34 ["fromAction"]
-      991 MOVE                             R40 R24
-      992 MOVE                             R41 R38
-      993 CALL                             R39 2 1
-      994 MOVE                             R37 R39
-      995 LOADK                            R38 K37 ["NonServices"]
-      996 CALL                             R36 2 1
-      997 JUMP                             ; [+1]
-      998 LOADNIL                          R36
-      999 MOVE                             R38 R10
-     1000 CALL                             R38 0 1
-     1001 JUMPIFNOT                        R38 ; [+12]
-     1002 MOVE                             R37 R15
-     1003 GETTABLEKS                       R39 R25 K123 ["WATCH_INSTANCE_FILE"]
-     1005 GETTABLEKS                       R40 R14 K34 ["fromAction"]
-     1007 MOVE                             R41 R24
-     1008 MOVE                             R42 R39
-     1009 CALL                             R40 2 1
-     1010 MOVE                             R38 R40
-     1011 LOADK                            R39 K37 ["NonServices"]
-     1012 CALL                             R37 2 1
-     1013 JUMP                             ; [+1]
-     1014 LOADNIL                          R37
-     1015 SETLIST                          R32 R33 5 [1]
-     1017 CALL                             R31 1 -1
-     1018 SETLIST                          R30 R31 -1 [1]
-     1020 DUPTABLE                         R29 K53 [{"key", "source"}]
-     1021 LOADK                            R31 K124 ["Reimport"]
-     1022 SETTABLEKS                       R31 R29 K51 ["key"]
-     1024 DUPTABLE                         R31 K57 [{"type", "submenuCategories"}]
-     1025 LOADK                            R32 K58 ["submenu"]
-     1026 SETTABLEKS                       R32 R31 K55 ["type"]
-     1028 SETTABLEKS                       R30 R31 K56 ["submenuCategories"]
-     1030 SETTABLEKS                       R31 R29 K52 ["source"]
-     1032 SETLIST                          R28 R29 1 [1]
-     1034 FASTCALL2                        TABLE_INSERT R18 R28 ; [+4]
-     1036 MOVE                             R27 R18
-     1037 GETIMPORT                        R26 K43 [table.insert]
-     1039 CALL                             R26 2 0
-     1040 MOVE                             R23 R5
-     1041 CALL                             R23 0 1
-     1042 JUMPIF                           R23 ; [+92]
-     1043 MOVE                             R24 R18
-     1044 MOVE                             R25 R4
-     1045 NEWTABLE                         R26 0 4
-     1047 MOVE                             R27 R15
-     1048 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-     1050 LOADK                            R29 K125 ["LocalizationTools"]
-     1051 LOADK                            R30 K126 ["SaveCsv"]
-     1052 CALL                             R28 2 1
-     1053 LOADK                            R29 K37 ["NonServices"]
-     1054 CALL                             R27 2 1
-     1055 MOVE                             R28 R15
-     1056 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-     1058 LOADK                            R30 K125 ["LocalizationTools"]
-     1059 LOADK                            R31 K127 ["LoadCsv"]
-     1060 CALL                             R29 2 1
-     1061 LOADK                            R30 K37 ["NonServices"]
-     1062 CALL                             R28 2 1
-     1063 MOVE                             R29 R15
-     1064 MOVE                             R30 R22
-     1065 LOADK                            R31 K37 ["NonServices"]
-     1066 CALL                             R29 2 1
-     1067 NEWTABLE                         R31 0 1
-     1069 NEWTABLE                         R32 0 5
-     1071 MOVE                             R33 R15
-     1072 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-     1074 LOADK                            R35 K128 ["Export"]
-     1075 LOADK                            R36 K129 ["PublishSelectionToRoblox"]
-     1076 CALL                             R34 2 1
-     1077 LOADK                            R35 K37 ["NonServices"]
-     1078 CALL                             R33 2 1
-     1079 MOVE                             R34 R15
-     1080 GETTABLEKS                       R35 R14 K34 ["fromAction"]
-     1082 LOADK                            R36 K128 ["Export"]
-     1083 LOADK                            R37 K130 ["SaveSelectionToFile"]
-     1084 CALL                             R35 2 1
-     1085 LOADK                            R36 K49 ["All"]
-     1086 CALL                             R34 2 1
-     1087 MOVE                             R35 R15
-     1088 GETTABLEKS                       R36 R14 K34 ["fromAction"]
-     1090 LOADK                            R37 K131 ["PluginManagement"]
-     1091 LOADK                            R38 K132 ["SaveAsLocalPlugin"]
-     1092 CALL                             R36 2 1
-     1093 LOADK                            R37 K49 ["All"]
-     1094 CALL                             R35 2 1
-     1095 MOVE                             R36 R15
-     1096 GETTABLEKS                       R37 R14 K34 ["fromAction"]
-     1098 LOADK                            R38 K131 ["PluginManagement"]
-     1099 LOADK                            R39 K133 ["PublishToRoblox"]
-     1100 CALL                             R37 2 1
-     1101 LOADK                            R38 K49 ["All"]
-     1102 CALL                             R36 2 1
-     1103 MOVE                             R37 R15
-     1104 GETTABLEKS                       R38 R14 K34 ["fromAction"]
-     1106 LOADK                            R39 K128 ["Export"]
-     1107 LOADK                            R40 K134 ["ExportSelection"]
-     1108 CALL                             R38 2 1
-     1109 LOADK                            R39 K49 ["All"]
-     1110 CALL                             R37 2 1
-     1111 SETLIST                          R32 R33 5 [1]
-     1113 SETLIST                          R31 R32 1 [1]
-     1115 DUPTABLE                         R30 K53 [{"key", "source"}]
-     1116 LOADK                            R32 K135 ["saveAndExport"]
-     1117 SETTABLEKS                       R32 R30 K51 ["key"]
-     1119 DUPTABLE                         R32 K57 [{"type", "submenuCategories"}]
-     1120 LOADK                            R33 K58 ["submenu"]
-     1121 SETTABLEKS                       R33 R32 K55 ["type"]
-     1123 SETTABLEKS                       R31 R32 K56 ["submenuCategories"]
-     1125 SETTABLEKS                       R32 R30 K52 ["source"]
-     1127 SETLIST                          R26 R27 4 [1]
-     1129 CALL                             R25 1 -1
-     1130 FASTCALL                         TABLE_INSERT ; [+2]
-     1131 GETIMPORT                        R23 K43 [table.insert]
-     1133 CALL                             R23 -1 0
-     1134 JUMP                             ; [+99]
-     1135 MOVE                             R24 R18
-     1136 MOVE                             R25 R4
-     1137 NEWTABLE                         R26 0 4
-     1139 MOVE                             R27 R15
-     1140 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-     1142 LOADK                            R29 K125 ["LocalizationTools"]
-     1143 LOADK                            R30 K126 ["SaveCsv"]
-     1144 CALL                             R28 2 1
-     1145 LOADK                            R29 K37 ["NonServices"]
-     1146 CALL                             R27 2 1
-     1147 MOVE                             R28 R15
-     1148 GETTABLEKS                       R29 R14 K34 ["fromAction"]
-     1150 LOADK                            R30 K125 ["LocalizationTools"]
-     1151 LOADK                            R31 K127 ["LoadCsv"]
-     1152 CALL                             R29 2 1
-     1153 LOADK                            R30 K37 ["NonServices"]
-     1154 CALL                             R28 2 1
-     1155 MOVE                             R29 R15
-     1156 MOVE                             R30 R22
-     1157 LOADK                            R31 K37 ["NonServices"]
-     1158 CALL                             R29 2 1
-     1159 NEWTABLE                         R31 0 1
-     1161 NEWTABLE                         R32 0 6
-     1163 MOVE                             R33 R15
-     1164 GETTABLEKS                       R34 R14 K34 ["fromAction"]
-     1166 LOADK                            R35 K128 ["Export"]
-     1167 LOADK                            R36 K129 ["PublishSelectionToRoblox"]
-     1168 CALL                             R34 2 1
-     1169 LOADK                            R35 K37 ["NonServices"]
-     1170 CALL                             R33 2 1
-     1171 MOVE                             R34 R15
-     1172 GETTABLEKS                       R35 R14 K34 ["fromAction"]
-     1174 LOADK                            R36 K128 ["Export"]
-     1175 LOADK                            R37 K130 ["SaveSelectionToFile"]
-     1176 CALL                             R35 2 1
-     1177 LOADK                            R36 K49 ["All"]
-     1178 CALL                             R34 2 1
-     1179 MOVE                             R35 R15
-     1180 GETTABLEKS                       R36 R14 K34 ["fromAction"]
-     1182 LOADK                            R37 K131 ["PluginManagement"]
-     1183 LOADK                            R38 K132 ["SaveAsLocalPlugin"]
-     1184 CALL                             R36 2 1
-     1185 LOADK                            R37 K49 ["All"]
-     1186 CALL                             R35 2 1
-     1187 MOVE                             R36 R15
-     1188 GETTABLEKS                       R37 R14 K34 ["fromAction"]
-     1190 LOADK                            R38 K131 ["PluginManagement"]
-     1191 LOADK                            R39 K133 ["PublishToRoblox"]
-     1192 CALL                             R37 2 1
-     1193 LOADK                            R38 K49 ["All"]
-     1194 CALL                             R36 2 1
-     1195 MOVE                             R37 R15
-     1196 GETTABLEKS                       R38 R14 K34 ["fromAction"]
-     1198 LOADK                            R39 K128 ["Export"]
-     1199 LOADK                            R40 K134 ["ExportSelection"]
-     1200 CALL                             R38 2 1
-     1201 LOADK                            R39 K49 ["All"]
-     1202 CALL                             R37 2 1
-     1203 MOVE                             R38 R15
-     1204 GETTABLEKS                       R39 R14 K34 ["fromAction"]
-     1206 LOADK                            R40 K128 ["Export"]
-     1207 LOADK                            R41 K136 ["ExportAsGltf"]
-     1208 CALL                             R39 2 1
-     1209 LOADK                            R40 K49 ["All"]
-     1210 CALL                             R38 2 1
-     1211 SETLIST                          R32 R33 6 [1]
-     1213 SETLIST                          R31 R32 1 [1]
-     1215 DUPTABLE                         R30 K53 [{"key", "source"}]
-     1216 LOADK                            R32 K135 ["saveAndExport"]
-     1217 SETTABLEKS                       R32 R30 K51 ["key"]
-     1219 DUPTABLE                         R32 K57 [{"type", "submenuCategories"}]
-     1220 LOADK                            R33 K58 ["submenu"]
-     1221 SETTABLEKS                       R33 R32 K55 ["type"]
-     1223 SETTABLEKS                       R31 R32 K56 ["submenuCategories"]
-     1225 SETTABLEKS                       R32 R30 K52 ["source"]
-     1227 SETLIST                          R26 R27 4 [1]
-     1229 CALL                             R25 1 -1
-     1230 FASTCALL                         TABLE_INSERT ; [+2]
-     1231 GETIMPORT                        R23 K43 [table.insert]
-     1233 CALL                             R23 -1 0
-     1234 NEWTABLE                         R25 0 2
-     1236 MOVE                             R26 R15
-     1237 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-     1239 LOADK                            R28 K137 ["InsertService"]
-     1240 LOADK                            R29 K138 ["ShowServices"]
-     1241 CALL                             R27 2 1
-     1242 LOADK                            R28 K139 ["ServicesAndBlank"]
-     1243 CALL                             R26 2 1
-     1244 MOVE                             R27 R15
-     1245 GETTABLEKS                       R28 R14 K34 ["fromAction"]
-     1247 LOADK                            R29 K137 ["InsertService"]
-     1248 LOADK                            R30 K140 ["HideService"]
-     1249 CALL                             R28 2 1
-     1250 LOADK                            R29 K141 ["Services"]
-     1251 CALL                             R27 2 1
-     1252 SETLIST                          R25 R26 2 [1]
-     1254 FASTCALL2                        TABLE_INSERT R18 R25 ; [+4]
-     1256 MOVE                             R24 R18
-     1257 GETIMPORT                        R23 K43 [table.insert]
-     1259 CALL                             R23 2 0
-     1260 NEWTABLE                         R25 0 1
-     1262 MOVE                             R26 R15
-     1263 GETTABLEKS                       R27 R14 K34 ["fromAction"]
-     1265 LOADK                            R28 K44 ["Common"]
-     1266 LOADK                            R29 K142 ["Help"]
-     1267 CALL                             R27 2 1
-     1268 LOADK                            R28 K49 ["All"]
-     1269 CALL                             R26 2 1
-     1270 SETLIST                          R25 R26 1 [1]
-     1272 FASTCALL2                        TABLE_INSERT R18 R25 ; [+4]
-     1274 MOVE                             R24 R18
-     1275 GETIMPORT                        R23 K43 [table.insert]
-     1277 CALL                             R23 2 0
-     1278 RETURN                           R18 1
+       95 GETIMPORT                        R11 K5 [require]
+       97 GETTABLEKS                       R12 R0 K6 ["Src"]
+       99 GETTABLEKS                       R12 R12 K15 ["Flags"]
+      101 GETTABLEKS                       R12 R12 K22 ["getFFlagReimportFileWatcher"]
+      103 CALL                             R11 1 1
+      104 GETIMPORT                        R12 K24 [game]
+      106 LOADK                            R14 K25 ["CopyPathAction"]
+      107 NAMECALL                         R12 R12 K26 ["GetEngineFeature"]
+      109 CALL                             R12 2 1
+      110 GETIMPORT                        R13 K24 [game]
+      112 LOADK                            R15 K27 ["CopyUniqueIdAction"]
+      113 NAMECALL                         R13 R13 K26 ["GetEngineFeature"]
+      115 CALL                             R13 2 1
+      116 GETIMPORT                        R14 K24 [game]
+      118 LOADK                            R16 K28 ["UnifiedSyncActions"]
+      119 NAMECALL                         R14 R14 K26 ["GetEngineFeature"]
+      121 CALL                             R14 2 1
+      122 GETTABLEKS                       R15 R3 K13 ["Util"]
+      124 GETTABLEKS                       R15 R15 K29 ["StudioUri"]
+      126 DUPCLOSURE                       R16 K30 [PROTO_0]
+      127 CAPTURE                          VAL R15
+      128 DUPCLOSURE                       R17 K31 [PROTO_1]
+      129 DUPCLOSURE                       R18 K32 [PROTO_2]
+      130 CAPTURE                          VAL R15
+      131 NEWTABLE                         R19 0 0
+      133 DUPCLOSURE                       R20 K33 [PROTO_3]
+      134 DUPCLOSURE                       R21 K34 [PROTO_4]
+      135 MOVE                             R22 R7
+      136 CALL                             R22 0 1
+      137 JUMPIFNOT                        R22 ; [+35]
+      138 NEWTABLE                         R24 0 3
+      140 MOVE                             R25 R16
+      141 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      143 LOADK                            R27 K36 ["ScriptTools"]
+      144 LOADK                            R28 K37 ["Open"]
+      145 CALL                             R26 2 1
+      146 LOADK                            R27 K38 ["NonServices"]
+      147 CALL                             R25 2 1
+      148 MOVE                             R26 R16
+      149 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      151 LOADK                            R28 K39 ["FileSync"]
+      152 LOADK                            R29 K40 ["OpenInExternalEditor"]
+      153 CALL                             R27 2 1
+      154 LOADK                            R28 K38 ["NonServices"]
+      155 CALL                             R26 2 1
+      156 MOVE                             R27 R16
+      157 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+      159 LOADK                            R29 K36 ["ScriptTools"]
+      160 LOADK                            R30 K41 ["OpenScriptHistory"]
+      161 CALL                             R28 2 1
+      162 LOADK                            R29 K38 ["NonServices"]
+      163 CALL                             R27 2 1
+      164 SETLIST                          R24 R25 3 [1]
+      166 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      168 MOVE                             R23 R19
+      169 GETIMPORT                        R22 K44 [table.insert]
+      171 CALL                             R22 2 0
+      172 JUMP                             ; [+26]
+      173 NEWTABLE                         R24 0 2
+      175 MOVE                             R25 R16
+      176 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      178 LOADK                            R27 K36 ["ScriptTools"]
+      179 LOADK                            R28 K37 ["Open"]
+      180 CALL                             R26 2 1
+      181 LOADK                            R27 K38 ["NonServices"]
+      182 CALL                             R25 2 1
+      183 MOVE                             R26 R16
+      184 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      186 LOADK                            R28 K36 ["ScriptTools"]
+      187 LOADK                            R29 K41 ["OpenScriptHistory"]
+      188 CALL                             R27 2 1
+      189 LOADK                            R28 K38 ["NonServices"]
+      190 CALL                             R26 2 1
+      191 SETLIST                          R24 R25 2 [1]
+      193 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      195 MOVE                             R23 R19
+      196 GETIMPORT                        R22 K44 [table.insert]
+      198 CALL                             R22 2 0
+      199 MOVE                             R23 R19
+      200 MOVE                             R24 R4
+      201 NEWTABLE                         R25 0 8
+      203 MOVE                             R26 R16
+      204 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      206 LOADK                            R28 K45 ["Common"]
+      207 LOADK                            R29 K46 ["Cut"]
+      208 CALL                             R27 2 1
+      209 LOADK                            R28 K38 ["NonServices"]
+      210 CALL                             R26 2 1
+      211 MOVE                             R27 R16
+      212 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+      214 LOADK                            R29 K45 ["Common"]
+      215 LOADK                            R30 K47 ["Copy"]
+      216 CALL                             R28 2 1
+      217 LOADK                            R29 K38 ["NonServices"]
+      218 CALL                             R27 2 1
+      219 JUMPIF                           R12 ; [+1]
+      220 JUMPIFNOT                        R13 ; [+39]
+      221 NEWTABLE                         R29 0 1
+      223 MOVE                             R30 R4
+      224 NEWTABLE                         R31 0 2
+      226 JUMPIFNOT                        R12 ; [+9]
+      227 MOVE                             R32 R16
+      228 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      230 LOADK                            R34 K48 ["BuilderTools"]
+      231 LOADK                            R35 K49 ["CopyPath"]
+      232 CALL                             R33 2 1
+      233 LOADK                            R34 K50 ["All"]
+      234 CALL                             R32 2 1
+      235 JUMP                             ; [+1]
+      236 LOADNIL                          R32
+      237 JUMPIFNOT                        R13 ; [+9]
+      238 MOVE                             R33 R16
+      239 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      241 LOADK                            R35 K48 ["BuilderTools"]
+      242 LOADK                            R36 K51 ["CopyUniqueId"]
+      243 CALL                             R34 2 1
+      244 LOADK                            R35 K50 ["All"]
+      245 CALL                             R33 2 1
+      246 JUMP                             ; [+1]
+      247 LOADNIL                          R33
+      248 SETLIST                          R31 R32 2 [1]
+      250 CALL                             R30 1 -1
+      251 SETLIST                          R29 R30 -1 [1]
+      253 DUPTABLE                         R28 K55 [{["key"] = "CopyAs", ["source"]}]
+      254 DUPTABLE                         R30 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      255 SETTABLEKS                       R29 R30 K58 ["submenuCategories"]
+      257 SETTABLEKS                       R30 R28 K54 ["source"]
+      259 JUMP                             ; [+1]
+      260 LOADNIL                          R28
+      261 MOVE                             R29 R16
+      262 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      264 LOADK                            R31 K45 ["Common"]
+      265 LOADK                            R32 K60 ["PasteInto"]
+      266 CALL                             R30 2 1
+      267 LOADK                            R31 K50 ["All"]
+      268 CALL                             R29 2 1
+      269 MOVE                             R30 R16
+      270 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      272 LOADK                            R32 K48 ["BuilderTools"]
+      273 LOADK                            R33 K61 ["PasteIntoAtOriginalLocation"]
+      274 CALL                             R31 2 1
+      275 LOADK                            R32 K50 ["All"]
+      276 CALL                             R30 2 1
+      277 MOVE                             R31 R16
+      278 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      280 LOADK                            R33 K45 ["Common"]
+      281 LOADK                            R34 K62 ["Duplicate"]
+      282 CALL                             R32 2 1
+      283 LOADK                            R33 K38 ["NonServices"]
+      284 CALL                             R31 2 1
+      285 MOVE                             R32 R16
+      286 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      288 LOADK                            R34 K45 ["Common"]
+      289 LOADK                            R35 K63 ["Delete"]
+      290 CALL                             R33 2 1
+      291 LOADK                            R34 K38 ["NonServices"]
+      292 CALL                             R32 2 1
+      293 MOVE                             R33 R16
+      294 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      296 LOADK                            R35 K11 ["Explorer"]
+      297 LOADK                            R36 K64 ["Rename"]
+      298 CALL                             R34 2 1
+      299 LOADK                            R35 K50 ["All"]
+      300 LOADNIL                          R36
+      301 GETTABLEKS                       R37 R2 K65 ["Data"]
+      303 GETTABLEKS                       R37 R37 K8 ["ContextMenu"]
+      305 GETTABLEKS                       R37 R37 K66 ["coreItems"]
+      307 GETTABLEKS                       R37 R37 K67 ["rename"]
+      309 CALL                             R33 4 1
+      310 SETLIST                          R25 R26 8 [1]
+      312 CALL                             R24 1 -1
+      313 FASTCALL                         TABLE_INSERT ; [+2]
+      314 GETIMPORT                        R22 K44 [table.insert]
+      316 CALL                             R22 -1 0
+      317 NEWTABLE                         R24 0 4
+      319 MOVE                             R25 R16
+      320 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      322 LOADK                            R27 K48 ["BuilderTools"]
+      323 LOADK                            R28 K68 ["GroupAsModel"]
+      324 CALL                             R26 2 1
+      325 LOADK                            R27 K38 ["NonServices"]
+      326 CALL                             R25 2 1
+      327 MOVE                             R26 R16
+      328 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      330 LOADK                            R28 K48 ["BuilderTools"]
+      331 LOADK                            R29 K69 ["GroupAsFolder"]
+      332 CALL                             R27 2 1
+      333 LOADK                            R28 K38 ["NonServices"]
+      334 CALL                             R26 2 1
+      335 MOVE                             R27 R16
+      336 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+      338 LOADK                            R29 K48 ["BuilderTools"]
+      339 LOADK                            R30 K70 ["Ungroup"]
+      340 CALL                             R28 2 1
+      341 LOADK                            R29 K38 ["NonServices"]
+      342 CALL                             R27 2 1
+      343 NEWTABLE                         R29 0 1
+      345 NEWTABLE                         R30 0 4
+      347 MOVE                             R31 R16
+      348 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      350 LOADK                            R33 K48 ["BuilderTools"]
+      351 LOADK                            R34 K71 ["UnionSelection"]
+      352 CALL                             R32 2 1
+      353 LOADK                            R33 K38 ["NonServices"]
+      354 CALL                             R31 2 1
+      355 MOVE                             R32 R16
+      356 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      358 LOADK                            R34 K48 ["BuilderTools"]
+      359 LOADK                            R35 K72 ["IntersectSelection"]
+      360 CALL                             R33 2 1
+      361 LOADK                            R34 K38 ["NonServices"]
+      362 CALL                             R32 2 1
+      363 MOVE                             R33 R16
+      364 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      366 LOADK                            R35 K48 ["BuilderTools"]
+      367 LOADK                            R36 K73 ["NegateSelection"]
+      368 CALL                             R34 2 1
+      369 LOADK                            R35 K38 ["NonServices"]
+      370 CALL                             R33 2 1
+      371 MOVE                             R34 R16
+      372 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+      374 LOADK                            R36 K48 ["BuilderTools"]
+      375 LOADK                            R37 K74 ["SeparateSelection"]
+      376 CALL                             R35 2 1
+      377 LOADK                            R36 K38 ["NonServices"]
+      378 CALL                             R34 2 1
+      379 SETLIST                          R30 R31 4 [1]
+      381 SETLIST                          R29 R30 1 [1]
+      383 DUPTABLE                         R28 K76 [{["key"] = "solidModeling", ["source"]}]
+      384 DUPTABLE                         R30 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      385 SETTABLEKS                       R29 R30 K58 ["submenuCategories"]
+      387 SETTABLEKS                       R30 R28 K54 ["source"]
+      389 SETLIST                          R24 R25 4 [1]
+      391 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      393 MOVE                             R23 R19
+      394 GETIMPORT                        R22 K44 [table.insert]
+      396 CALL                             R22 2 0
+      397 MOVE                             R23 R19
+      398 MOVE                             R24 R4
+      399 NEWTABLE                         R25 0 5
+      401 NEWTABLE                         R27 0 1
+      403 NEWTABLE                         R28 0 3
+      405 MOVE                             R29 R16
+      406 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      408 LOADK                            R31 K48 ["BuilderTools"]
+      409 LOADK                            R32 K77 ["InsertPartIntoSelection"]
+      410 CALL                             R30 2 1
+      411 LOADK                            R31 K50 ["All"]
+      412 CALL                             R29 2 1
+      413 MOVE                             R30 R16
+      414 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      416 LOADK                            R32 K48 ["BuilderTools"]
+      417 LOADK                            R33 K78 ["InsertObject"]
+      418 CALL                             R31 2 1
+      419 LOADK                            R32 K50 ["All"]
+      420 CALL                             R30 2 1
+      421 MOVE                             R31 R16
+      422 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      424 LOADK                            R33 K48 ["BuilderTools"]
+      425 LOADK                            R34 K79 ["InsertFromFile"]
+      426 CALL                             R32 2 1
+      427 LOADK                            R33 K50 ["All"]
+      428 CALL                             R31 2 1
+      429 SETLIST                          R28 R29 3 [1]
+      431 SETLIST                          R27 R28 1 [1]
+      433 DUPTABLE                         R26 K80 [{["key"] = "insert", ["source"]}]
+      434 DUPTABLE                         R28 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      435 SETTABLEKS                       R27 R28 K58 ["submenuCategories"]
+      437 SETTABLEKS                       R28 R26 K54 ["source"]
+      439 MOVE                             R28 R4
+      440 NEWTABLE                         R29 0 1
+      442 NEWTABLE                         R30 0 4
+      444 MOVE                             R31 R16
+      445 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      447 LOADK                            R33 K45 ["Common"]
+      448 LOADK                            R34 K81 ["SelectParents"]
+      449 CALL                             R32 2 1
+      450 LOADK                            R33 K38 ["NonServices"]
+      451 LOADNIL                          R34
+      452 CALL                             R31 3 1
+      453 MOVE                             R32 R16
+      454 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      456 LOADK                            R34 K45 ["Common"]
+      457 LOADK                            R35 K82 ["SelectChildren"]
+      458 CALL                             R33 2 1
+      459 LOADK                            R34 K50 ["All"]
+      460 LOADNIL                          R35
+      461 CALL                             R32 3 1
+      462 MOVE                             R33 R16
+      463 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      465 LOADK                            R35 K11 ["Explorer"]
+      466 LOADK                            R36 K83 ["ExpandAll"]
+      467 CALL                             R34 2 1
+      468 LOADK                            R35 K50 ["All"]
+      469 LOADNIL                          R36
+      470 GETTABLEKS                       R37 R2 K65 ["Data"]
+      472 GETTABLEKS                       R37 R37 K8 ["ContextMenu"]
+      474 GETTABLEKS                       R37 R37 K66 ["coreItems"]
+      476 GETTABLEKS                       R37 R37 K84 ["expandAll"]
+      478 CALL                             R33 4 1
+      479 MOVE                             R34 R16
+      480 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+      482 LOADK                            R36 K11 ["Explorer"]
+      483 LOADK                            R37 K85 ["CollapseAll"]
+      484 CALL                             R35 2 1
+      485 LOADK                            R36 K50 ["All"]
+      486 LOADNIL                          R37
+      487 GETTABLEKS                       R38 R2 K65 ["Data"]
+      489 GETTABLEKS                       R38 R38 K8 ["ContextMenu"]
+      491 GETTABLEKS                       R38 R38 K66 ["coreItems"]
+      493 GETTABLEKS                       R38 R38 K86 ["collapseAll"]
+      495 CALL                             R34 4 1
+      496 SETLIST                          R30 R31 4 [1]
+      498 SETLIST                          R29 R30 1 [1]
+      500 CALL                             R28 1 1
+      501 DUPTABLE                         R27 K88 [{["key"] = "hierarchy", ["source"]}]
+      502 DUPTABLE                         R29 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      503 SETTABLEKS                       R28 R29 K58 ["submenuCategories"]
+      505 SETTABLEKS                       R29 R27 K54 ["source"]
+      507 MOVE                             R28 R16
+      508 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+      510 LOADK                            R30 K48 ["BuilderTools"]
+      511 LOADK                            R31 K89 ["ZoomExtents"]
+      512 CALL                             R29 2 1
+      513 LOADK                            R30 K38 ["NonServices"]
+      514 MOVE                             R31 R20
+      515 CALL                             R28 3 1
+      516 MOVE                             R29 R16
+      517 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      519 LOADK                            R31 K48 ["BuilderTools"]
+      520 LOADK                            R32 K90 ["ShowOrientationIndicator"]
+      521 CALL                             R30 2 1
+      522 LOADK                            R31 K38 ["NonServices"]
+      523 CALL                             R29 2 1
+      524 MOVE                             R30 R16
+      525 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      527 LOADK                            R32 K36 ["ScriptTools"]
+      528 LOADK                            R33 K91 ["ToggleScripts"]
+      529 CALL                             R31 2 1
+      530 LOADK                            R32 K38 ["NonServices"]
+      531 CALL                             R30 2 1
+      532 SETLIST                          R25 R26 5 [1]
+      534 CALL                             R24 1 -1
+      535 FASTCALL                         TABLE_INSERT ; [+2]
+      536 GETIMPORT                        R22 K44 [table.insert]
+      538 CALL                             R22 -1 0
+      539 NEWTABLE                         R24 0 4
+      541 MOVE                             R25 R16
+      542 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      544 LOADK                            R27 K92 ["PluginDebugging"]
+      545 LOADK                            R28 K93 ["SaveAndReloadDebuggablePlugin"]
+      546 CALL                             R26 2 1
+      547 LOADK                            R27 K50 ["All"]
+      548 CALL                             R25 2 1
+      549 MOVE                             R26 R16
+      550 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      552 LOADK                            R28 K92 ["PluginDebugging"]
+      553 LOADK                            R29 K94 ["ReloadDebuggablePlugin"]
+      554 CALL                             R27 2 1
+      555 LOADK                            R28 K50 ["All"]
+      556 CALL                             R26 2 1
+      557 MOVE                             R27 R16
+      558 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+      560 LOADK                            R29 K92 ["PluginDebugging"]
+      561 LOADK                            R30 K95 ["SaveAndReloadAllDebuggablePlugins"]
+      562 CALL                             R28 2 1
+      563 LOADK                            R29 K50 ["All"]
+      564 MOVE                             R30 R21
+      565 CALL                             R27 3 1
+      566 MOVE                             R28 R16
+      567 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+      569 LOADK                            R30 K92 ["PluginDebugging"]
+      570 LOADK                            R31 K96 ["SaveBuildAndReloadDebuggablePlugin"]
+      571 CALL                             R29 2 1
+      572 LOADK                            R30 K50 ["All"]
+      573 CALL                             R28 2 1
+      574 SETLIST                          R24 R25 4 [1]
+      576 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      578 MOVE                             R23 R19
+      579 GETIMPORT                        R22 K44 [table.insert]
+      581 CALL                             R22 2 0
+      582 MOVE                             R22 R7
+      583 CALL                             R22 0 1
+      584 JUMPIFNOT                        R22 ; [+154]
+      585 JUMPIFNOT                        R14 ; [+65]
+      586 NEWTABLE                         R24 0 1
+      588 NEWTABLE                         R26 0 1
+      590 NEWTABLE                         R27 0 5
+      592 MOVE                             R28 R16
+      593 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+      595 LOADK                            R30 K39 ["FileSync"]
+      596 LOADK                            R31 K97 ["StopScriptSync"]
+      597 CALL                             R29 2 1
+      598 LOADK                            R30 K50 ["All"]
+      599 CALL                             R28 2 1
+      600 MOVE                             R29 R16
+      601 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      603 LOADK                            R31 K39 ["FileSync"]
+      604 LOADK                            R32 K98 ["StartSync"]
+      605 CALL                             R30 2 1
+      606 LOADK                            R31 K50 ["All"]
+      607 CALL                             R29 2 1
+      608 MOVE                             R30 R16
+      609 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      611 LOADK                            R32 K39 ["FileSync"]
+      612 LOADK                            R33 K99 ["ResumeScriptSync"]
+      613 CALL                             R31 2 1
+      614 LOADK                            R32 K50 ["All"]
+      615 CALL                             R30 2 1
+      616 MOVE                             R31 R16
+      617 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      619 LOADK                            R33 K39 ["FileSync"]
+      620 LOADK                            R34 K100 ["ShowInFolder"]
+      621 CALL                             R32 2 1
+      622 LOADK                            R33 K50 ["All"]
+      623 CALL                             R31 2 1
+      624 MOVE                             R32 R16
+      625 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      627 LOADK                            R34 K39 ["FileSync"]
+      628 LOADK                            R35 K101 ["SelectSyncingRoot"]
+      629 CALL                             R33 2 1
+      630 LOADK                            R34 K50 ["All"]
+      631 CALL                             R32 2 1
+      632 SETLIST                          R27 R28 5 [1]
+      634 SETLIST                          R26 R27 1 [1]
+      636 DUPTABLE                         R25 K103 [{["key"] = "scriptSync", ["source"]}]
+      637 DUPTABLE                         R27 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      638 SETTABLEKS                       R26 R27 K58 ["submenuCategories"]
+      640 SETTABLEKS                       R27 R25 K54 ["source"]
+      642 SETLIST                          R24 R25 1 [1]
+      644 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      646 MOVE                             R23 R19
+      647 GETIMPORT                        R22 K44 [table.insert]
+      649 CALL                             R22 2 0
+      650 JUMP                             ; [+88]
+      651 NEWTABLE                         R24 0 1
+      653 NEWTABLE                         R26 0 1
+      655 NEWTABLE                         R27 0 8
+      657 MOVE                             R28 R16
+      658 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+      660 LOADK                            R30 K39 ["FileSync"]
+      661 LOADK                            R31 K97 ["StopScriptSync"]
+      662 CALL                             R29 2 1
+      663 LOADK                            R30 K50 ["All"]
+      664 CALL                             R28 2 1
+      665 MOVE                             R29 R16
+      666 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      668 LOADK                            R31 K39 ["FileSync"]
+      669 LOADK                            R32 K104 ["StartSyncToNewFile"]
+      670 CALL                             R30 2 1
+      671 LOADK                            R31 K38 ["NonServices"]
+      672 CALL                             R29 2 1
+      673 MOVE                             R30 R16
+      674 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      676 LOADK                            R32 K39 ["FileSync"]
+      677 LOADK                            R33 K105 ["StartSyncToExistingFile"]
+      678 CALL                             R31 2 1
+      679 LOADK                            R32 K38 ["NonServices"]
+      680 CALL                             R30 2 1
+      681 MOVE                             R31 R16
+      682 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      684 LOADK                            R33 K39 ["FileSync"]
+      685 LOADK                            R34 K106 ["StartSyncSelectedInstancesTo"]
+      686 CALL                             R32 2 1
+      687 LOADK                            R33 K50 ["All"]
+      688 CALL                             R31 2 1
+      689 MOVE                             R32 R16
+      690 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      692 LOADK                            R34 K39 ["FileSync"]
+      693 LOADK                            R35 K107 ["StartSyncToDirectory"]
+      694 CALL                             R33 2 1
+      695 LOADK                            R34 K50 ["All"]
+      696 CALL                             R32 2 1
+      697 MOVE                             R33 R16
+      698 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      700 LOADK                            R35 K39 ["FileSync"]
+      701 LOADK                            R36 K99 ["ResumeScriptSync"]
+      702 CALL                             R34 2 1
+      703 LOADK                            R35 K50 ["All"]
+      704 CALL                             R33 2 1
+      705 MOVE                             R34 R16
+      706 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+      708 LOADK                            R36 K39 ["FileSync"]
+      709 LOADK                            R37 K100 ["ShowInFolder"]
+      710 CALL                             R35 2 1
+      711 LOADK                            R36 K50 ["All"]
+      712 CALL                             R34 2 1
+      713 MOVE                             R35 R16
+      714 GETTABLEKS                       R36 R15 K35 ["fromAction"]
+      716 LOADK                            R37 K39 ["FileSync"]
+      717 LOADK                            R38 K101 ["SelectSyncingRoot"]
+      718 CALL                             R36 2 1
+      719 LOADK                            R37 K50 ["All"]
+      720 CALL                             R35 2 1
+      721 SETLIST                          R27 R28 8 [1]
+      723 SETLIST                          R26 R27 1 [1]
+      725 DUPTABLE                         R25 K103 [{["key"] = "scriptSync", ["source"]}]
+      726 DUPTABLE                         R27 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      727 SETTABLEKS                       R26 R27 K58 ["submenuCategories"]
+      729 SETTABLEKS                       R27 R25 K54 ["source"]
+      731 SETLIST                          R24 R25 1 [1]
+      733 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      735 MOVE                             R23 R19
+      736 GETIMPORT                        R22 K44 [table.insert]
+      738 CALL                             R22 2 0
+      739 MOVE                             R22 R8
+      740 CALL                             R22 0 1
+      741 JUMPIFNOT                        R22 ; [+169]
+      742 MOVE                             R22 R9
+      743 CALL                             R22 0 1
+      744 JUMPIFNOT                        R22 ; [+85]
+      745 NEWTABLE                         R24 0 1
+      747 NEWTABLE                         R26 0 4
+      749 NEWTABLE                         R27 0 2
+      751 MOVE                             R28 R16
+      752 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+      754 LOADK                            R30 K108 ["PackageTools"]
+      755 LOADK                            R31 K109 ["PublishPackage"]
+      756 CALL                             R29 2 1
+      757 LOADK                            R30 K38 ["NonServices"]
+      758 CALL                             R28 2 1
+      759 MOVE                             R29 R16
+      760 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      762 LOADK                            R31 K108 ["PackageTools"]
+      763 LOADK                            R32 K110 ["GetLatestPackage"]
+      764 CALL                             R30 2 1
+      765 LOADK                            R31 K38 ["NonServices"]
+      766 CALL                             R29 2 1
+      767 SETLIST                          R27 R28 2 [1]
+      769 NEWTABLE                         R28 0 2
+      771 MOVE                             R29 R16
+      772 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      774 LOADK                            R31 K108 ["PackageTools"]
+      775 LOADK                            R32 K111 ["ShowPackagesDiff"]
+      776 CALL                             R30 2 1
+      777 LOADK                            R31 K38 ["NonServices"]
+      778 CALL                             R29 2 1
+      779 MOVE                             R30 R16
+      780 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      782 LOADK                            R32 K108 ["PackageTools"]
+      783 LOADK                            R33 K112 ["PackageDetails"]
+      784 CALL                             R31 2 1
+      785 LOADK                            R32 K38 ["NonServices"]
+      786 CALL                             R30 2 1
+      787 SETLIST                          R28 R29 2 [1]
+      789 NEWTABLE                         R29 0 1
+      791 MOVE                             R30 R16
+      792 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      794 LOADK                            R32 K108 ["PackageTools"]
+      795 LOADK                            R33 K113 ["MassUpdate"]
+      796 CALL                             R31 2 1
+      797 LOADK                            R32 K38 ["NonServices"]
+      798 CALL                             R30 2 1
+      799 SETLIST                          R29 R30 1 [1]
+      801 NEWTABLE                         R30 0 1
+      803 MOVE                             R31 R16
+      804 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      806 LOADK                            R33 K108 ["PackageTools"]
+      807 LOADK                            R34 K114 ["UndoPackageChanges"]
+      808 CALL                             R32 2 1
+      809 LOADK                            R33 K38 ["NonServices"]
+      810 CALL                             R31 2 1
+      811 SETLIST                          R30 R31 1 [1]
+      813 SETLIST                          R26 R27 4 [1]
+      815 DUPTABLE                         R25 K116 [{["key"] = "package", ["source"]}]
+      816 DUPTABLE                         R27 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      817 SETTABLEKS                       R26 R27 K58 ["submenuCategories"]
+      819 SETTABLEKS                       R27 R25 K54 ["source"]
+      821 SETLIST                          R24 R25 1 [1]
+      823 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      825 MOVE                             R23 R19
+      826 GETIMPORT                        R22 K44 [table.insert]
+      828 CALL                             R22 2 0
+      829 JUMP                             ; [+137]
+      830 NEWTABLE                         R24 0 4
+      832 MOVE                             R25 R16
+      833 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      835 LOADK                            R27 K108 ["PackageTools"]
+      836 LOADK                            R28 K109 ["PublishPackage"]
+      837 CALL                             R26 2 1
+      838 LOADK                            R27 K38 ["NonServices"]
+      839 CALL                             R25 2 1
+      840 MOVE                             R26 R16
+      841 GETTABLEKS                       R27 R15 K35 ["fromAction"]
+      843 LOADK                            R28 K108 ["PackageTools"]
+      844 LOADK                            R29 K114 ["UndoPackageChanges"]
+      845 CALL                             R27 2 1
+      846 LOADK                            R28 K38 ["NonServices"]
+      847 CALL                             R26 2 1
+      848 MOVE                             R27 R16
+      849 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+      851 LOADK                            R29 K108 ["PackageTools"]
+      852 LOADK                            R30 K110 ["GetLatestPackage"]
+      853 CALL                             R28 2 1
+      854 LOADK                            R29 K38 ["NonServices"]
+      855 CALL                             R27 2 1
+      856 NEWTABLE                         R29 0 1
+      858 NEWTABLE                         R30 0 4
+      860 MOVE                             R31 R16
+      861 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      863 LOADK                            R33 K108 ["PackageTools"]
+      864 LOADK                            R34 K117 ["DiffPackageAgainstLatest"]
+      865 CALL                             R32 2 1
+      866 LOADK                            R33 K38 ["NonServices"]
+      867 CALL                             R31 2 1
+      868 MOVE                             R32 R16
+      869 GETTABLEKS                       R33 R15 K35 ["fromAction"]
+      871 LOADK                            R34 K108 ["PackageTools"]
+      872 LOADK                            R35 K113 ["MassUpdate"]
+      873 CALL                             R33 2 1
+      874 LOADK                            R34 K38 ["NonServices"]
+      875 CALL                             R32 2 1
+      876 MOVE                             R33 R16
+      877 GETTABLEKS                       R34 R15 K35 ["fromAction"]
+      879 LOADK                            R35 K108 ["PackageTools"]
+      880 LOADK                            R36 K111 ["ShowPackagesDiff"]
+      881 CALL                             R34 2 1
+      882 LOADK                            R35 K38 ["NonServices"]
+      883 CALL                             R33 2 1
+      884 MOVE                             R34 R16
+      885 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+      887 LOADK                            R36 K108 ["PackageTools"]
+      888 LOADK                            R37 K112 ["PackageDetails"]
+      889 CALL                             R35 2 1
+      890 LOADK                            R36 K38 ["NonServices"]
+      891 CALL                             R34 2 1
+      892 SETLIST                          R30 R31 4 [1]
+      894 SETLIST                          R29 R30 1 [1]
+      896 DUPTABLE                         R28 K119 [{["key"] = "morePackageOptions", ["source"]}]
+      897 DUPTABLE                         R30 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      898 SETTABLEKS                       R29 R30 K58 ["submenuCategories"]
+      900 SETTABLEKS                       R30 R28 K54 ["source"]
+      902 SETLIST                          R24 R25 4 [1]
+      904 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      906 MOVE                             R23 R19
+      907 GETIMPORT                        R22 K44 [table.insert]
+      909 CALL                             R22 2 0
+      910 JUMP                             ; [+56]
+      911 NEWTABLE                         R24 0 2
+      913 MOVE                             R25 R16
+      914 GETTABLEKS                       R26 R15 K35 ["fromAction"]
+      916 LOADK                            R27 K108 ["PackageTools"]
+      917 LOADK                            R28 K109 ["PublishPackage"]
+      918 CALL                             R26 2 1
+      919 LOADK                            R27 K38 ["NonServices"]
+      920 CALL                             R25 2 1
+      921 NEWTABLE                         R27 0 1
+      923 NEWTABLE                         R28 0 3
+      925 MOVE                             R29 R16
+      926 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+      928 LOADK                            R31 K108 ["PackageTools"]
+      929 LOADK                            R32 K113 ["MassUpdate"]
+      930 CALL                             R30 2 1
+      931 LOADK                            R31 K38 ["NonServices"]
+      932 CALL                             R29 2 1
+      933 MOVE                             R30 R16
+      934 GETTABLEKS                       R31 R15 K35 ["fromAction"]
+      936 LOADK                            R32 K108 ["PackageTools"]
+      937 LOADK                            R33 K111 ["ShowPackagesDiff"]
+      938 CALL                             R31 2 1
+      939 LOADK                            R32 K38 ["NonServices"]
+      940 CALL                             R30 2 1
+      941 MOVE                             R31 R16
+      942 GETTABLEKS                       R32 R15 K35 ["fromAction"]
+      944 LOADK                            R33 K108 ["PackageTools"]
+      945 LOADK                            R34 K112 ["PackageDetails"]
+      946 CALL                             R32 2 1
+      947 LOADK                            R33 K38 ["NonServices"]
+      948 CALL                             R31 2 1
+      949 SETLIST                          R28 R29 3 [1]
+      951 SETLIST                          R27 R28 1 [1]
+      953 DUPTABLE                         R26 K119 [{["key"] = "morePackageOptions", ["source"]}]
+      954 DUPTABLE                         R28 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+      955 SETTABLEKS                       R27 R28 K58 ["submenuCategories"]
+      957 SETTABLEKS                       R28 R26 K54 ["source"]
+      959 SETLIST                          R24 R25 2 [1]
+      961 FASTCALL2                        TABLE_INSERT R19 R24 ; [+4]
+      963 MOVE                             R23 R19
+      964 GETIMPORT                        R22 K44 [table.insert]
+      966 CALL                             R22 2 0
+      967 GETIMPORT                        R22 K121 [xpcall]
+      969 DUPCLOSURE                       R23 K122 [PROTO_5]
+      970 CAPTURE                          VAL R18
+      971 DUPCLOSURE                       R24 K123 [PROTO_6]
+      972 CAPTURE                          VAL R18
+      973 CALL                             R22 2 2
+      974 MOVE                             R24 R6
+      975 CALL                             R24 0 1
+      976 JUMPIFNOT                        R24 ; [+106]
+      977 GETIMPORT                        R24 K5 [require]
+      979 GETTABLEKS                       R25 R0 K10 ["Packages"]
+      981 GETTABLEKS                       R25 R25 K124 ["SharedPluginConstants"]
+      983 CALL                             R24 1 1
+      984 GETTABLEKS                       R25 R24 K125 ["REIMPORT"]
+      986 GETTABLEKS                       R25 R25 K126 ["ACTION_ID"]
+      988 GETTABLEKS                       R26 R24 K125 ["REIMPORT"]
+      990 GETTABLEKS                       R26 R26 K127 ["ACTION_EVENTS"]
+      992 NEWTABLE                         R29 0 1
+      994 NEWTABLE                         R31 0 1
+      996 MOVE                             R32 R4
+      997 NEWTABLE                         R33 0 5
+      999 MOVE                             R34 R16
+     1000 GETTABLEKS                       R36 R26 K125 ["REIMPORT"]
+     1002 GETTABLEKS                       R37 R15 K35 ["fromAction"]
+     1004 MOVE                             R38 R25
+     1005 MOVE                             R39 R36
+     1006 CALL                             R37 2 1
+     1007 MOVE                             R35 R37
+     1008 LOADK                            R36 K38 ["NonServices"]
+     1009 CALL                             R34 2 1
+     1010 MOVE                             R35 R16
+     1011 GETTABLEKS                       R37 R26 K128 ["REIMPORT_RELATIVE_TO_THIS"]
+     1013 GETTABLEKS                       R38 R15 K35 ["fromAction"]
+     1015 MOVE                             R39 R25
+     1016 MOVE                             R40 R37
+     1017 CALL                             R38 2 1
+     1018 MOVE                             R36 R38
+     1019 LOADK                            R37 K38 ["NonServices"]
+     1020 CALL                             R35 2 1
+     1021 MOVE                             R36 R16
+     1022 GETTABLEKS                       R38 R26 K129 ["CONFIGURE"]
+     1024 GETTABLEKS                       R39 R15 K35 ["fromAction"]
+     1026 MOVE                             R40 R25
+     1027 MOVE                             R41 R38
+     1028 CALL                             R39 2 1
+     1029 MOVE                             R37 R39
+     1030 LOADK                            R38 K38 ["NonServices"]
+     1031 CALL                             R36 2 1
+     1032 MOVE                             R38 R10
+     1033 CALL                             R38 0 1
+     1034 JUMPIFNOT                        R38 ; [+12]
+     1035 MOVE                             R37 R16
+     1036 GETTABLEKS                       R39 R26 K130 ["CLEAR_REIMPORT_CONFIG"]
+     1038 GETTABLEKS                       R40 R15 K35 ["fromAction"]
+     1040 MOVE                             R41 R25
+     1041 MOVE                             R42 R39
+     1042 CALL                             R40 2 1
+     1043 MOVE                             R38 R40
+     1044 LOADK                            R39 K38 ["NonServices"]
+     1045 CALL                             R37 2 1
+     1046 JUMP                             ; [+1]
+     1047 LOADNIL                          R37
+     1048 MOVE                             R39 R11
+     1049 CALL                             R39 0 1
+     1050 JUMPIFNOT                        R39 ; [+12]
+     1051 MOVE                             R38 R16
+     1052 GETTABLEKS                       R40 R26 K131 ["WATCH_INSTANCE_FILE"]
+     1054 GETTABLEKS                       R41 R15 K35 ["fromAction"]
+     1056 MOVE                             R42 R25
+     1057 MOVE                             R43 R40
+     1058 CALL                             R41 2 1
+     1059 MOVE                             R39 R41
+     1060 LOADK                            R40 K38 ["NonServices"]
+     1061 CALL                             R38 2 1
+     1062 JUMP                             ; [+1]
+     1063 LOADNIL                          R38
+     1064 SETLIST                          R33 R34 5 [1]
+     1066 CALL                             R32 1 -1
+     1067 SETLIST                          R31 R32 -1 [1]
+     1069 DUPTABLE                         R30 K133 [{["key"] = "Reimport", ["source"]}]
+     1070 DUPTABLE                         R32 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+     1071 SETTABLEKS                       R31 R32 K58 ["submenuCategories"]
+     1073 SETTABLEKS                       R32 R30 K54 ["source"]
+     1075 SETLIST                          R29 R30 1 [1]
+     1077 FASTCALL2                        TABLE_INSERT R19 R29 ; [+4]
+     1079 MOVE                             R28 R19
+     1080 GETIMPORT                        R27 K44 [table.insert]
+     1082 CALL                             R27 2 0
+     1083 MOVE                             R24 R5
+     1084 CALL                             R24 0 1
+     1085 JUMPIF                           R24 ; [+86]
+     1086 MOVE                             R25 R19
+     1087 MOVE                             R26 R4
+     1088 NEWTABLE                         R27 0 4
+     1090 MOVE                             R28 R16
+     1091 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+     1093 LOADK                            R30 K134 ["LocalizationTools"]
+     1094 LOADK                            R31 K135 ["SaveCsv"]
+     1095 CALL                             R29 2 1
+     1096 LOADK                            R30 K38 ["NonServices"]
+     1097 CALL                             R28 2 1
+     1098 MOVE                             R29 R16
+     1099 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+     1101 LOADK                            R31 K134 ["LocalizationTools"]
+     1102 LOADK                            R32 K136 ["LoadCsv"]
+     1103 CALL                             R30 2 1
+     1104 LOADK                            R31 K38 ["NonServices"]
+     1105 CALL                             R29 2 1
+     1106 MOVE                             R30 R16
+     1107 MOVE                             R31 R23
+     1108 LOADK                            R32 K38 ["NonServices"]
+     1109 CALL                             R30 2 1
+     1110 NEWTABLE                         R32 0 1
+     1112 NEWTABLE                         R33 0 5
+     1114 MOVE                             R34 R16
+     1115 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+     1117 LOADK                            R36 K137 ["Export"]
+     1118 LOADK                            R37 K138 ["PublishSelectionToRoblox"]
+     1119 CALL                             R35 2 1
+     1120 LOADK                            R36 K38 ["NonServices"]
+     1121 CALL                             R34 2 1
+     1122 MOVE                             R35 R16
+     1123 GETTABLEKS                       R36 R15 K35 ["fromAction"]
+     1125 LOADK                            R37 K137 ["Export"]
+     1126 LOADK                            R38 K139 ["SaveSelectionToFile"]
+     1127 CALL                             R36 2 1
+     1128 LOADK                            R37 K50 ["All"]
+     1129 CALL                             R35 2 1
+     1130 MOVE                             R36 R16
+     1131 GETTABLEKS                       R37 R15 K35 ["fromAction"]
+     1133 LOADK                            R38 K140 ["PluginManagement"]
+     1134 LOADK                            R39 K141 ["SaveAsLocalPlugin"]
+     1135 CALL                             R37 2 1
+     1136 LOADK                            R38 K50 ["All"]
+     1137 CALL                             R36 2 1
+     1138 MOVE                             R37 R16
+     1139 GETTABLEKS                       R38 R15 K35 ["fromAction"]
+     1141 LOADK                            R39 K140 ["PluginManagement"]
+     1142 LOADK                            R40 K142 ["PublishToRoblox"]
+     1143 CALL                             R38 2 1
+     1144 LOADK                            R39 K50 ["All"]
+     1145 CALL                             R37 2 1
+     1146 MOVE                             R38 R16
+     1147 GETTABLEKS                       R39 R15 K35 ["fromAction"]
+     1149 LOADK                            R40 K137 ["Export"]
+     1150 LOADK                            R41 K143 ["ExportSelection"]
+     1151 CALL                             R39 2 1
+     1152 LOADK                            R40 K50 ["All"]
+     1153 CALL                             R38 2 1
+     1154 SETLIST                          R33 R34 5 [1]
+     1156 SETLIST                          R32 R33 1 [1]
+     1158 DUPTABLE                         R31 K145 [{["key"] = "saveAndExport", ["source"]}]
+     1159 DUPTABLE                         R33 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+     1160 SETTABLEKS                       R32 R33 K58 ["submenuCategories"]
+     1162 SETTABLEKS                       R33 R31 K54 ["source"]
+     1164 SETLIST                          R27 R28 4 [1]
+     1166 CALL                             R26 1 -1
+     1167 FASTCALL                         TABLE_INSERT ; [+2]
+     1168 GETIMPORT                        R24 K44 [table.insert]
+     1170 CALL                             R24 -1 0
+     1171 JUMP                             ; [+93]
+     1172 MOVE                             R25 R19
+     1173 MOVE                             R26 R4
+     1174 NEWTABLE                         R27 0 4
+     1176 MOVE                             R28 R16
+     1177 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+     1179 LOADK                            R30 K134 ["LocalizationTools"]
+     1180 LOADK                            R31 K135 ["SaveCsv"]
+     1181 CALL                             R29 2 1
+     1182 LOADK                            R30 K38 ["NonServices"]
+     1183 CALL                             R28 2 1
+     1184 MOVE                             R29 R16
+     1185 GETTABLEKS                       R30 R15 K35 ["fromAction"]
+     1187 LOADK                            R31 K134 ["LocalizationTools"]
+     1188 LOADK                            R32 K136 ["LoadCsv"]
+     1189 CALL                             R30 2 1
+     1190 LOADK                            R31 K38 ["NonServices"]
+     1191 CALL                             R29 2 1
+     1192 MOVE                             R30 R16
+     1193 MOVE                             R31 R23
+     1194 LOADK                            R32 K38 ["NonServices"]
+     1195 CALL                             R30 2 1
+     1196 NEWTABLE                         R32 0 1
+     1198 NEWTABLE                         R33 0 6
+     1200 MOVE                             R34 R16
+     1201 GETTABLEKS                       R35 R15 K35 ["fromAction"]
+     1203 LOADK                            R36 K137 ["Export"]
+     1204 LOADK                            R37 K138 ["PublishSelectionToRoblox"]
+     1205 CALL                             R35 2 1
+     1206 LOADK                            R36 K38 ["NonServices"]
+     1207 CALL                             R34 2 1
+     1208 MOVE                             R35 R16
+     1209 GETTABLEKS                       R36 R15 K35 ["fromAction"]
+     1211 LOADK                            R37 K137 ["Export"]
+     1212 LOADK                            R38 K139 ["SaveSelectionToFile"]
+     1213 CALL                             R36 2 1
+     1214 LOADK                            R37 K50 ["All"]
+     1215 CALL                             R35 2 1
+     1216 MOVE                             R36 R16
+     1217 GETTABLEKS                       R37 R15 K35 ["fromAction"]
+     1219 LOADK                            R38 K140 ["PluginManagement"]
+     1220 LOADK                            R39 K141 ["SaveAsLocalPlugin"]
+     1221 CALL                             R37 2 1
+     1222 LOADK                            R38 K50 ["All"]
+     1223 CALL                             R36 2 1
+     1224 MOVE                             R37 R16
+     1225 GETTABLEKS                       R38 R15 K35 ["fromAction"]
+     1227 LOADK                            R39 K140 ["PluginManagement"]
+     1228 LOADK                            R40 K142 ["PublishToRoblox"]
+     1229 CALL                             R38 2 1
+     1230 LOADK                            R39 K50 ["All"]
+     1231 CALL                             R37 2 1
+     1232 MOVE                             R38 R16
+     1233 GETTABLEKS                       R39 R15 K35 ["fromAction"]
+     1235 LOADK                            R40 K137 ["Export"]
+     1236 LOADK                            R41 K143 ["ExportSelection"]
+     1237 CALL                             R39 2 1
+     1238 LOADK                            R40 K50 ["All"]
+     1239 CALL                             R38 2 1
+     1240 MOVE                             R39 R16
+     1241 GETTABLEKS                       R40 R15 K35 ["fromAction"]
+     1243 LOADK                            R41 K137 ["Export"]
+     1244 LOADK                            R42 K146 ["ExportAsGltf"]
+     1245 CALL                             R40 2 1
+     1246 LOADK                            R41 K50 ["All"]
+     1247 CALL                             R39 2 1
+     1248 SETLIST                          R33 R34 6 [1]
+     1250 SETLIST                          R32 R33 1 [1]
+     1252 DUPTABLE                         R31 K145 [{["key"] = "saveAndExport", ["source"]}]
+     1253 DUPTABLE                         R33 K59 [{["type"] = "submenu", ["submenuCategories"]}]
+     1254 SETTABLEKS                       R32 R33 K58 ["submenuCategories"]
+     1256 SETTABLEKS                       R33 R31 K54 ["source"]
+     1258 SETLIST                          R27 R28 4 [1]
+     1260 CALL                             R26 1 -1
+     1261 FASTCALL                         TABLE_INSERT ; [+2]
+     1262 GETIMPORT                        R24 K44 [table.insert]
+     1264 CALL                             R24 -1 0
+     1265 NEWTABLE                         R26 0 2
+     1267 MOVE                             R27 R16
+     1268 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+     1270 LOADK                            R29 K147 ["InsertService"]
+     1271 LOADK                            R30 K148 ["ShowServices"]
+     1272 CALL                             R28 2 1
+     1273 LOADK                            R29 K149 ["ServicesAndBlank"]
+     1274 CALL                             R27 2 1
+     1275 MOVE                             R28 R16
+     1276 GETTABLEKS                       R29 R15 K35 ["fromAction"]
+     1278 LOADK                            R30 K147 ["InsertService"]
+     1279 LOADK                            R31 K150 ["HideService"]
+     1280 CALL                             R29 2 1
+     1281 LOADK                            R30 K151 ["Services"]
+     1282 CALL                             R28 2 1
+     1283 SETLIST                          R26 R27 2 [1]
+     1285 FASTCALL2                        TABLE_INSERT R19 R26 ; [+4]
+     1287 MOVE                             R25 R19
+     1288 GETIMPORT                        R24 K44 [table.insert]
+     1290 CALL                             R24 2 0
+     1291 NEWTABLE                         R26 0 1
+     1293 MOVE                             R27 R16
+     1294 GETTABLEKS                       R28 R15 K35 ["fromAction"]
+     1296 LOADK                            R29 K45 ["Common"]
+     1297 LOADK                            R30 K152 ["Help"]
+     1298 CALL                             R28 2 1
+     1299 LOADK                            R29 K50 ["All"]
+     1300 CALL                             R27 2 1
+     1301 SETLIST                          R26 R27 1 [1]
+     1303 FASTCALL2                        TABLE_INSERT R19 R26 ; [+4]
+     1305 MOVE                             R25 R19
+     1306 GETIMPORT                        R24 K44 [table.insert]
+     1308 CALL                             R24 2 0
+     1309 RETURN                           R19 1

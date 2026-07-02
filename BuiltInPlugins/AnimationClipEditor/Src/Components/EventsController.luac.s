@@ -2,18 +2,16 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["state"]
         3 GETTABLEKS                       R0 R0 K1 ["hasDragWaypoint"]
-        5 JUMPIF                           R0 ; [+14]
+        5 JUMPIF                           R0 ; [+11]
         6 GETUPVAL                         R0 0
         7 GETTABLEKS                       R0 R0 K2 ["props"]
         9 GETTABLEKS                       R0 R0 K3 ["AddWaypoint"]
        11 CALL                             R0 0 0
        12 GETUPVAL                         R0 0
-       13 DUPTABLE                         R2 K4 [{"hasDragWaypoint"}]
-       14 LOADB                            R3 1
-       15 SETTABLEKS                       R3 R2 K1 ["hasDragWaypoint"]
-       17 NAMECALL                         R0 R0 K5 ["setState"]
-       19 CALL                             R0 2 0
-       20 RETURN                           R0 0
+       13 DUPTABLE                         R2 K5 [{["hasDragWaypoint"] = True}]
+       14 NAMECALL                         R0 R0 K6 ["setState"]
+       16 CALL                             R0 2 0
+       17 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -81,15 +79,11 @@ PROTO_2:
        23 CALL                             R5 4 1
        24 SETTABLEKS                       R5 R4 K6 ["DragContext"]
        26 GETUPVAL                         R4 0
-       27 DUPTABLE                         R6 K10 [{"dragging", "dragTick", "hasDragWaypoint"}]
-       28 LOADB                            R7 1
-       29 SETTABLEKS                       R7 R6 K7 ["dragging"]
-       31 SETTABLEKS                       R0 R6 K8 ["dragTick"]
-       33 LOADB                            R7 0
-       34 SETTABLEKS                       R7 R6 K9 ["hasDragWaypoint"]
-       36 NAMECALL                         R4 R4 K11 ["setState"]
-       38 CALL                             R4 2 0
-       39 RETURN                           R0 0
+       27 DUPTABLE                         R6 K12 [{["dragging"] = True, ["dragTick"], ["hasDragWaypoint"] = False}]
+       28 SETTABLEKS                       R0 R6 K9 ["dragTick"]
+       30 NAMECALL                         R4 R4 K13 ["setState"]
+       32 CALL                             R4 2 0
+       33 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -127,26 +121,22 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K3 [{"dragging", "dragTick", "hasDragWaypoint"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["dragging"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R3 R3 K4 ["None"]
-        8 SETTABLEKS                       R3 R2 K1 ["dragTick"]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K2 ["hasDragWaypoint"]
-       13 NAMECALL                         R0 R0 K5 ["setState"]
-       15 CALL                             R0 2 0
-       16 GETUPVAL                         R0 0
-       17 LOADNIL                          R1
-       18 SETTABLEKS                       R1 R0 K6 ["DragContext"]
-       20 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["dragTick"], ["hasDragWaypoint"] = False}]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K5 ["None"]
+        5 SETTABLEKS                       R3 R2 K2 ["dragTick"]
+        7 NAMECALL                         R0 R0 K6 ["setState"]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R0 0
+       11 LOADNIL                          R1
+       12 SETTABLEKS                       R1 R0 K7 ["DragContext"]
+       14 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["state"]
         3 GETTABLEKS                       R1 R1 K1 ["showContextMenu"]
-        5 JUMPIF                           R1 ; [+36]
+        5 JUMPIF                           R1 ; [+33]
         6 GETUPVAL                         R1 0
         7 GETTABLEKS                       R1 R1 K2 ["updateSelectDragStart"]
         9 GETIMPORT                        R2 K5 [Vector2.new]
@@ -166,12 +156,10 @@ PROTO_5:
        32 CALL                             R2 2 -1
        33 CALL                             R1 -1 0
        34 GETUPVAL                         R1 0
-       35 DUPTABLE                         R3 K11 [{"draggingSelection"}]
-       36 LOADB                            R4 1
-       37 SETTABLEKS                       R4 R3 K10 ["draggingSelection"]
-       39 NAMECALL                         R1 R1 K12 ["setState"]
-       41 CALL                             R1 2 0
-       42 RETURN                           R0 0
+       35 DUPTABLE                         R3 K12 [{["draggingSelection"] = True}]
+       36 NAMECALL                         R1 R1 K13 ["setState"]
+       38 CALL                             R1 2 0
+       39 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R1 0
@@ -284,21 +272,17 @@ PROTO_8:
         8 GETTABLEKS                       R1 R1 K3 ["Pause"]
        10 CALL                             R0 1 0
        11 GETUPVAL                         R0 0
-       12 DUPTABLE                         R2 K5 [{"showContextMenu"}]
-       13 LOADB                            R3 1
-       14 SETTABLEKS                       R3 R2 K4 ["showContextMenu"]
-       16 NAMECALL                         R0 R0 K6 ["setState"]
-       18 CALL                             R0 2 0
-       19 RETURN                           R0 0
+       12 DUPTABLE                         R2 K6 [{["showContextMenu"] = True}]
+       13 NAMECALL                         R0 R0 K7 ["setState"]
+       15 CALL                             R0 2 0
+       16 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showContextMenu"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showContextMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R1 0
@@ -376,105 +360,93 @@ PROTO_14:
        21 RETURN                           R0 0
 
 PROTO_15:
-        0 DUPTABLE                         R1 K8 [{"dragging", "draggingSelection", "dragTick", "showContextMenu", "eventEditingTick", "hasDragWaypoint", "availableEvents", "eventFilters"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["dragging"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["draggingSelection"]
-        7 LOADNIL                          R2
-        8 SETTABLEKS                       R2 R1 K2 ["dragTick"]
-       10 LOADB                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["showContextMenu"]
-       13 LOADNIL                          R2
-       14 SETTABLEKS                       R2 R1 K4 ["eventEditingTick"]
-       16 LOADB                            R2 0
-       17 SETTABLEKS                       R2 R1 K5 ["hasDragWaypoint"]
-       19 NEWTABLE                         R2 0 0
-       21 SETTABLEKS                       R2 R1 K6 ["availableEvents"]
-       23 NEWTABLE                         R2 0 0
-       25 SETTABLEKS                       R2 R1 K7 ["eventFilters"]
-       27 SETTABLEKS                       R1 R0 K9 ["state"]
-       29 GETUPVAL                         R1 0
-       30 GETTABLEKS                       R1 R1 K10 ["createBinding"]
-       32 LOADNIL                          R2
-       33 CALL                             R1 1 2
-       34 SETTABLEKS                       R1 R0 K11 ["selectDragStart"]
-       36 SETTABLEKS                       R2 R0 K12 ["updateSelectDragStart"]
-       38 GETUPVAL                         R1 0
-       39 GETTABLEKS                       R1 R1 K10 ["createBinding"]
-       41 LOADNIL                          R2
-       42 CALL                             R1 1 2
-       43 SETTABLEKS                       R1 R0 K13 ["selectDragEnd"]
-       45 SETTABLEKS                       R2 R0 K14 ["updateSelectDragEnd"]
-       47 LOADNIL                          R1
-       48 SETTABLEKS                       R1 R0 K15 ["DragContext"]
-       50 LOADB                            R1 0
-       51 SETTABLEKS                       R1 R0 K16 ["isMultiSelecting"]
-       53 LOADB                            R1 0
-       54 SETTABLEKS                       R1 R0 K17 ["mouseDownOnEvent"]
-       56 LOADB                            R1 0
-       57 SETTABLEKS                       R1 R0 K18 ["mouseDownInTimeline"]
-       59 GETUPVAL                         R1 1
-       60 GETTABLEKS                       R1 R1 K19 ["new"]
-       62 CALL                             R1 0 1
-       63 SETTABLEKS                       R1 R0 K20 ["doubleClickDetector"]
-       65 NEWCLOSURE                       R1 P0
-       66 CAPTURE                          VAL R0
-       67 SETTABLEKS                       R1 R0 K21 ["addDragWaypoint"]
-       69 NEWCLOSURE                       R1 P1
-       70 CAPTURE                          UPVAL U2
-       71 CAPTURE                          VAL R0
-       72 CAPTURE                          UPVAL U3
-       73 CAPTURE                          UPVAL U4
-       74 SETTABLEKS                       R1 R0 K22 ["getTickFromPosition"]
-       76 NEWCLOSURE                       R1 P2
-       77 CAPTURE                          VAL R0
-       78 CAPTURE                          UPVAL U5
-       79 SETTABLEKS                       R1 R0 K23 ["onEventDragStarted"]
-       81 NEWCLOSURE                       R1 P3
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R1 R0 K24 ["onEventDragMoved"]
-       85 NEWCLOSURE                       R1 P4
-       86 CAPTURE                          VAL R0
-       87 CAPTURE                          UPVAL U0
-       88 SETTABLEKS                       R1 R0 K25 ["onEventDragEnded"]
-       90 NEWCLOSURE                       R1 P5
-       91 CAPTURE                          VAL R0
-       92 CAPTURE                          UPVAL U3
-       93 SETTABLEKS                       R1 R0 K26 ["onSelectDragStarted"]
-       95 NEWCLOSURE                       R1 P6
-       96 CAPTURE                          VAL R0
-       97 CAPTURE                          UPVAL U3
-       98 SETTABLEKS                       R1 R0 K27 ["onSelectDragMoved"]
-      100 NEWCLOSURE                       R1 P7
-      101 CAPTURE                          VAL R0
-      102 CAPTURE                          UPVAL U0
-      103 SETTABLEKS                       R1 R0 K28 ["onSelectDragEnded"]
-      105 NEWCLOSURE                       R1 P8
-      106 CAPTURE                          VAL R0
-      107 CAPTURE                          UPVAL U3
-      108 SETTABLEKS                       R1 R0 K29 ["showMenu"]
-      110 NEWCLOSURE                       R1 P9
+        0 DUPTABLE                         R1 K10 [{[1] = False, ["draggingSelection"] = , ["dragTick"] = , ["showContextMenu"] = False, ["eventEditingTick"] = , ["hasDragWaypoint"] = False, ["availableEvents"], ["eventFilters"]}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K8 ["availableEvents"]
+        5 NEWTABLE                         R2 0 0
+        7 SETTABLEKS                       R2 R1 K9 ["eventFilters"]
+        9 SETTABLEKS                       R1 R0 K11 ["state"]
+       11 GETUPVAL                         R1 0
+       12 GETTABLEKS                       R1 R1 K12 ["createBinding"]
+       14 LOADNIL                          R2
+       15 CALL                             R1 1 2
+       16 SETTABLEKS                       R1 R0 K13 ["selectDragStart"]
+       18 SETTABLEKS                       R2 R0 K14 ["updateSelectDragStart"]
+       20 GETUPVAL                         R1 0
+       21 GETTABLEKS                       R1 R1 K12 ["createBinding"]
+       23 LOADNIL                          R2
+       24 CALL                             R1 1 2
+       25 SETTABLEKS                       R1 R0 K15 ["selectDragEnd"]
+       27 SETTABLEKS                       R2 R0 K16 ["updateSelectDragEnd"]
+       29 LOADNIL                          R1
+       30 SETTABLEKS                       R1 R0 K17 ["DragContext"]
+       32 LOADB                            R1 0
+       33 SETTABLEKS                       R1 R0 K18 ["isMultiSelecting"]
+       35 LOADB                            R1 0
+       36 SETTABLEKS                       R1 R0 K19 ["mouseDownOnEvent"]
+       38 LOADB                            R1 0
+       39 SETTABLEKS                       R1 R0 K20 ["mouseDownInTimeline"]
+       41 GETUPVAL                         R1 1
+       42 GETTABLEKS                       R1 R1 K21 ["new"]
+       44 CALL                             R1 0 1
+       45 SETTABLEKS                       R1 R0 K22 ["doubleClickDetector"]
+       47 NEWCLOSURE                       R1 P0
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R1 R0 K23 ["addDragWaypoint"]
+       51 NEWCLOSURE                       R1 P1
+       52 CAPTURE                          UPVAL U2
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          UPVAL U3
+       55 CAPTURE                          UPVAL U4
+       56 SETTABLEKS                       R1 R0 K24 ["getTickFromPosition"]
+       58 NEWCLOSURE                       R1 P2
+       59 CAPTURE                          VAL R0
+       60 CAPTURE                          UPVAL U5
+       61 SETTABLEKS                       R1 R0 K25 ["onEventDragStarted"]
+       63 NEWCLOSURE                       R1 P3
+       64 CAPTURE                          VAL R0
+       65 SETTABLEKS                       R1 R0 K26 ["onEventDragMoved"]
+       67 NEWCLOSURE                       R1 P4
+       68 CAPTURE                          VAL R0
+       69 CAPTURE                          UPVAL U0
+       70 SETTABLEKS                       R1 R0 K27 ["onEventDragEnded"]
+       72 NEWCLOSURE                       R1 P5
+       73 CAPTURE                          VAL R0
+       74 CAPTURE                          UPVAL U3
+       75 SETTABLEKS                       R1 R0 K28 ["onSelectDragStarted"]
+       77 NEWCLOSURE                       R1 P6
+       78 CAPTURE                          VAL R0
+       79 CAPTURE                          UPVAL U3
+       80 SETTABLEKS                       R1 R0 K29 ["onSelectDragMoved"]
+       82 NEWCLOSURE                       R1 P7
+       83 CAPTURE                          VAL R0
+       84 CAPTURE                          UPVAL U0
+       85 SETTABLEKS                       R1 R0 K30 ["onSelectDragEnded"]
+       87 NEWCLOSURE                       R1 P8
+       88 CAPTURE                          VAL R0
+       89 CAPTURE                          UPVAL U3
+       90 SETTABLEKS                       R1 R0 K31 ["showMenu"]
+       92 NEWCLOSURE                       R1 P9
+       93 CAPTURE                          VAL R0
+       94 SETTABLEKS                       R1 R0 K32 ["hideMenu"]
+       96 NEWCLOSURE                       R1 P10
+       97 CAPTURE                          VAL R0
+       98 CAPTURE                          UPVAL U0
+       99 SETTABLEKS                       R1 R0 K33 ["setEventEditingTick"]
+      101 NEWCLOSURE                       R1 P11
+      102 CAPTURE                          VAL R0
+      103 SETTABLEKS                       R1 R0 K34 ["setEventsHandler"]
+      105 NEWCLOSURE                       R1 P12
+      106 CAPTURE                          UPVAL U6
+      107 CAPTURE                          VAL R0
+      108 SETTABLEKS                       R1 R0 K35 ["toggleEventFilter"]
+      110 NEWCLOSURE                       R1 P13
       111 CAPTURE                          VAL R0
-      112 SETTABLEKS                       R1 R0 K30 ["hideMenu"]
-      114 NEWCLOSURE                       R1 P10
+      112 SETTABLEKS                       R1 R0 K36 ["clearEventFilters"]
+      114 NEWCLOSURE                       R1 P14
       115 CAPTURE                          VAL R0
-      116 CAPTURE                          UPVAL U0
-      117 SETTABLEKS                       R1 R0 K31 ["setEventEditingTick"]
-      119 NEWCLOSURE                       R1 P11
-      120 CAPTURE                          VAL R0
-      121 SETTABLEKS                       R1 R0 K32 ["setEventsHandler"]
-      123 NEWCLOSURE                       R1 P12
-      124 CAPTURE                          UPVAL U6
-      125 CAPTURE                          VAL R0
-      126 SETTABLEKS                       R1 R0 K33 ["toggleEventFilter"]
-      128 NEWCLOSURE                       R1 P13
-      129 CAPTURE                          VAL R0
-      130 SETTABLEKS                       R1 R0 K34 ["clearEventFilters"]
-      132 NEWCLOSURE                       R1 P14
-      133 CAPTURE                          VAL R0
-      134 SETTABLEKS                       R1 R0 K35 ["setAllEventFilters"]
-      136 RETURN                           R0 0
+      116 SETTABLEKS                       R1 R0 K37 ["setAllEventFilters"]
+      118 RETURN                           R0 0
 
 PROTO_16:
         0 GETTABLEKS                       R3 R1 K0 ["UserInputType"]
@@ -566,14 +538,12 @@ PROTO_18:
         6 CALL                             R2 2 0
         7 GETTABLEKS                       R2 R0 K0 ["props"]
         9 GETTABLEKS                       R2 R2 K2 ["SetRightClickContextInfo"]
-       11 DUPTABLE                         R3 K5 [{"OnEvent", "Tick"}]
-       12 LOADB                            R4 1
-       13 SETTABLEKS                       R4 R3 K3 ["OnEvent"]
-       15 SETTABLEKS                       R1 R3 K4 ["Tick"]
-       17 CALL                             R2 1 0
-       18 GETTABLEKS                       R2 R0 K6 ["showMenu"]
-       20 CALL                             R2 0 0
-       21 RETURN                           R0 0
+       11 DUPTABLE                         R3 K6 [{["OnEvent"] = True, ["Tick"]}]
+       12 SETTABLEKS                       R1 R3 K5 ["Tick"]
+       14 CALL                             R2 1 0
+       15 GETTABLEKS                       R2 R0 K7 ["showMenu"]
+       17 CALL                             R2 0 0
+       18 RETURN                           R0 0
 
 PROTO_19:
         0 GETTABLEKS                       R4 R3 K0 ["UserInputType"]
@@ -842,7 +812,7 @@ PROTO_32:
        64 GETUPVAL                         R17 0
        65 GETTABLEKS                       R17 R17 K12 ["createElement"]
        67 GETUPVAL                         R18 2
-       68 DUPTABLE                         R19 K46 [{"Events", "SelectedEvents", "EditingTick", "Size", "Width", "TrackPadding", "StartTick", "EndTick", "ShowBackground", "ZIndex", "AvailableEvents", "EventFilters", "ToggleEventFilter", "ClearEventFilters", "SetAllEventFilters", "OnEventRightClick", "OnEventInputBegan", "OnEventInputEnded"}]
+       68 DUPTABLE                         R19 K48 [{["Events"], ["SelectedEvents"], ["EditingTick"], ["Size"], ["Width"], ["TrackPadding"], ["StartTick"], ["EndTick"], ["ShowBackground"] = True, ["ZIndex"] = 1, ["AvailableEvents"], ["EventFilters"], ["ToggleEventFilter"], ["ClearEventFilters"], ["SetAllEventFilters"], ["OnEventRightClick"], ["OnEventInputBegan"], ["OnEventInputEnded"]}]
        69 JUMPIFNOT                        R6 ; [+3]
        70 GETTABLEKS                       R20 R6 K31 ["Events"]
        72 JUMPIF                           R20 ; [+1]
@@ -859,7 +829,7 @@ PROTO_32:
        88 GETTABLEKS                       R24 R24 K18 ["TRACK_HEIGHT"]
        90 CALL                             R20 4 1
        91 SETTABLEKS                       R20 R19 K19 ["Size"]
-       93 GETTABLEKS                       R21 R5 K47 ["X"]
+       93 GETTABLEKS                       R21 R5 K49 ["X"]
        95 GETTABLEKS                       R22 R0 K0 ["props"]
        97 GETTABLEKS                       R22 R22 K35 ["TrackPadding"]
        99 SUB                              R20 R21 R22
@@ -869,115 +839,111 @@ PROTO_32:
       106 SETTABLEKS                       R20 R19 K35 ["TrackPadding"]
       108 SETTABLEKS                       R7 R19 K6 ["StartTick"]
       110 SETTABLEKS                       R8 R19 K7 ["EndTick"]
-      112 LOADB                            R20 1
-      113 SETTABLEKS                       R20 R19 K36 ["ShowBackground"]
-      115 LOADN                            R20 1
-      116 SETTABLEKS                       R20 R19 K37 ["ZIndex"]
+      112 GETTABLEKS                       R20 R0 K1 ["state"]
+      114 GETTABLEKS                       R20 R20 K50 ["availableEvents"]
+      116 SETTABLEKS                       R20 R19 K40 ["AvailableEvents"]
       118 GETTABLEKS                       R20 R0 K1 ["state"]
-      120 GETTABLEKS                       R20 R20 K48 ["availableEvents"]
-      122 SETTABLEKS                       R20 R19 K38 ["AvailableEvents"]
-      124 GETTABLEKS                       R20 R0 K1 ["state"]
-      126 GETTABLEKS                       R20 R20 K49 ["eventFilters"]
-      128 SETTABLEKS                       R20 R19 K39 ["EventFilters"]
-      130 GETTABLEKS                       R20 R0 K50 ["toggleEventFilter"]
-      132 SETTABLEKS                       R20 R19 K40 ["ToggleEventFilter"]
-      134 GETTABLEKS                       R20 R0 K51 ["clearEventFilters"]
-      136 SETTABLEKS                       R20 R19 K41 ["ClearEventFilters"]
-      138 GETTABLEKS                       R20 R0 K52 ["setAllEventFilters"]
-      140 SETTABLEKS                       R20 R19 K42 ["SetAllEventFilters"]
-      142 NEWCLOSURE                       R20 P2
-      143 CAPTURE                          VAL R0
-      144 SETTABLEKS                       R20 R19 K43 ["OnEventRightClick"]
-      146 NEWCLOSURE                       R20 P3
-      147 CAPTURE                          VAL R0
-      148 SETTABLEKS                       R20 R19 K44 ["OnEventInputBegan"]
-      150 NEWCLOSURE                       R20 P4
-      151 CAPTURE                          VAL R0
-      152 SETTABLEKS                       R20 R19 K45 ["OnEventInputEnded"]
-      154 CALL                             R17 2 1
-      155 SETTABLEKS                       R17 R16 K24 ["Track"]
-      157 GETUPVAL                         R17 0
-      158 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      160 GETUPVAL                         R18 3
-      161 DUPTABLE                         R19 K55 [{"OnKeyPressed", "OnKeyReleased"}]
-      162 NEWCLOSURE                       R20 P5
-      163 CAPTURE                          VAL R0
-      164 SETTABLEKS                       R20 R19 K53 ["OnKeyPressed"]
-      166 NEWCLOSURE                       R20 P6
-      167 CAPTURE                          VAL R0
-      168 SETTABLEKS                       R20 R19 K54 ["OnKeyReleased"]
-      170 CALL                             R17 2 1
-      171 SETTABLEKS                       R17 R16 K25 ["KeyboardListener"]
-      173 MOVE                             R17 R9
-      174 JUMPIFNOT                        R17 ; [+14]
-      175 GETUPVAL                         R17 0
-      176 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      178 GETUPVAL                         R18 4
-      179 DUPTABLE                         R19 K58 [{"OnDragMoved", "OnDragEnded"}]
-      180 GETTABLEKS                       R20 R0 K59 ["onEventDragMoved"]
-      182 SETTABLEKS                       R20 R19 K56 ["OnDragMoved"]
-      184 GETTABLEKS                       R20 R0 K60 ["onEventDragEnded"]
-      186 SETTABLEKS                       R20 R19 K57 ["OnDragEnded"]
-      188 CALL                             R17 2 1
-      189 SETTABLEKS                       R17 R16 K26 ["DragTarget"]
-      191 MOVE                             R17 R10
-      192 JUMPIFNOT                        R17 ; [+29]
-      193 GETUPVAL                         R17 0
-      194 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      196 GETUPVAL                         R18 5
-      197 DUPTABLE                         R19 K64 [{"OnDragMoved", "OnDragEnded", "SelectionStart", "SelectionEnd", "SourceExtents"}]
-      198 GETTABLEKS                       R20 R0 K65 ["onSelectDragMoved"]
-      200 SETTABLEKS                       R20 R19 K56 ["OnDragMoved"]
-      202 GETTABLEKS                       R20 R0 K66 ["onSelectDragEnded"]
-      204 SETTABLEKS                       R20 R19 K57 ["OnDragEnded"]
-      206 GETTABLEKS                       R20 R0 K67 ["selectDragStart"]
-      208 SETTABLEKS                       R20 R19 K61 ["SelectionStart"]
-      210 GETTABLEKS                       R20 R0 K68 ["selectDragEnd"]
-      212 SETTABLEKS                       R20 R19 K62 ["SelectionEnd"]
-      214 GETIMPORT                        R20 K70 [Rect.new]
-      216 MOVE                             R21 R4
-      217 ADD                              R22 R4 R5
-      218 CALL                             R20 2 1
-      219 SETTABLEKS                       R20 R19 K63 ["SourceExtents"]
-      221 CALL                             R17 2 1
-      222 SETTABLEKS                       R17 R16 K27 ["MultiSelectBox"]
-      224 MOVE                             R17 R3
-      225 JUMPIFNOT                        R17 ; [+24]
-      226 MOVE                             R17 R6
-      227 JUMPIFNOT                        R17 ; [+22]
-      228 GETUPVAL                         R17 0
-      229 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      231 GETUPVAL                         R18 6
-      232 DUPTABLE                         R19 K74 [{"ShowMenu", "EventFilters", "OnMenuOpened", "OnEditEvents"}]
-      233 SETTABLEKS                       R11 R19 K71 ["ShowMenu"]
-      235 GETTABLEKS                       R20 R0 K1 ["state"]
-      237 GETTABLEKS                       R20 R20 K49 ["eventFilters"]
-      239 SETTABLEKS                       R20 R19 K39 ["EventFilters"]
-      241 GETTABLEKS                       R20 R0 K75 ["hideMenu"]
-      243 SETTABLEKS                       R20 R19 K72 ["OnMenuOpened"]
-      245 GETTABLEKS                       R20 R1 K76 ["SetEventEditingTick"]
-      247 SETTABLEKS                       R20 R19 K73 ["OnEditEvents"]
-      249 CALL                             R17 2 1
-      250 SETTABLEKS                       R17 R16 K28 ["EventActions"]
-      252 MOVE                             R17 R6
-      253 JUMPIFNOT                        R17 ; [+22]
-      254 MOVE                             R17 R12
-      255 JUMPIFNOT                        R17 ; [+20]
-      256 GETUPVAL                         R17 0
-      257 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      259 GETUPVAL                         R18 7
-      260 DUPTABLE                         R19 K80 [{"Events", "Tick", "OnSaved", "OnClose"}]
-      261 GETTABLEKS                       R20 R6 K31 ["Events"]
-      263 SETTABLEKS                       R20 R19 K31 ["Events"]
-      265 SETTABLEKS                       R12 R19 K77 ["Tick"]
-      267 GETTABLEKS                       R20 R0 K81 ["setEventsHandler"]
-      269 SETTABLEKS                       R20 R19 K78 ["OnSaved"]
-      271 GETTABLEKS                       R20 R1 K76 ["SetEventEditingTick"]
-      273 SETTABLEKS                       R20 R19 K79 ["OnClose"]
-      275 CALL                             R17 2 1
-      276 SETTABLEKS                       R17 R16 K29 ["EditEventsDialog"]
-      278 CALL                             R13 3 -1
-      279 RETURN                           R13 -1
+      120 GETTABLEKS                       R20 R20 K51 ["eventFilters"]
+      122 SETTABLEKS                       R20 R19 K41 ["EventFilters"]
+      124 GETTABLEKS                       R20 R0 K52 ["toggleEventFilter"]
+      126 SETTABLEKS                       R20 R19 K42 ["ToggleEventFilter"]
+      128 GETTABLEKS                       R20 R0 K53 ["clearEventFilters"]
+      130 SETTABLEKS                       R20 R19 K43 ["ClearEventFilters"]
+      132 GETTABLEKS                       R20 R0 K54 ["setAllEventFilters"]
+      134 SETTABLEKS                       R20 R19 K44 ["SetAllEventFilters"]
+      136 NEWCLOSURE                       R20 P2
+      137 CAPTURE                          VAL R0
+      138 SETTABLEKS                       R20 R19 K45 ["OnEventRightClick"]
+      140 NEWCLOSURE                       R20 P3
+      141 CAPTURE                          VAL R0
+      142 SETTABLEKS                       R20 R19 K46 ["OnEventInputBegan"]
+      144 NEWCLOSURE                       R20 P4
+      145 CAPTURE                          VAL R0
+      146 SETTABLEKS                       R20 R19 K47 ["OnEventInputEnded"]
+      148 CALL                             R17 2 1
+      149 SETTABLEKS                       R17 R16 K24 ["Track"]
+      151 GETUPVAL                         R17 0
+      152 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      154 GETUPVAL                         R18 3
+      155 DUPTABLE                         R19 K57 [{"OnKeyPressed", "OnKeyReleased"}]
+      156 NEWCLOSURE                       R20 P5
+      157 CAPTURE                          VAL R0
+      158 SETTABLEKS                       R20 R19 K55 ["OnKeyPressed"]
+      160 NEWCLOSURE                       R20 P6
+      161 CAPTURE                          VAL R0
+      162 SETTABLEKS                       R20 R19 K56 ["OnKeyReleased"]
+      164 CALL                             R17 2 1
+      165 SETTABLEKS                       R17 R16 K25 ["KeyboardListener"]
+      167 MOVE                             R17 R9
+      168 JUMPIFNOT                        R17 ; [+14]
+      169 GETUPVAL                         R17 0
+      170 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      172 GETUPVAL                         R18 4
+      173 DUPTABLE                         R19 K60 [{"OnDragMoved", "OnDragEnded"}]
+      174 GETTABLEKS                       R20 R0 K61 ["onEventDragMoved"]
+      176 SETTABLEKS                       R20 R19 K58 ["OnDragMoved"]
+      178 GETTABLEKS                       R20 R0 K62 ["onEventDragEnded"]
+      180 SETTABLEKS                       R20 R19 K59 ["OnDragEnded"]
+      182 CALL                             R17 2 1
+      183 SETTABLEKS                       R17 R16 K26 ["DragTarget"]
+      185 MOVE                             R17 R10
+      186 JUMPIFNOT                        R17 ; [+29]
+      187 GETUPVAL                         R17 0
+      188 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      190 GETUPVAL                         R18 5
+      191 DUPTABLE                         R19 K66 [{"OnDragMoved", "OnDragEnded", "SelectionStart", "SelectionEnd", "SourceExtents"}]
+      192 GETTABLEKS                       R20 R0 K67 ["onSelectDragMoved"]
+      194 SETTABLEKS                       R20 R19 K58 ["OnDragMoved"]
+      196 GETTABLEKS                       R20 R0 K68 ["onSelectDragEnded"]
+      198 SETTABLEKS                       R20 R19 K59 ["OnDragEnded"]
+      200 GETTABLEKS                       R20 R0 K69 ["selectDragStart"]
+      202 SETTABLEKS                       R20 R19 K63 ["SelectionStart"]
+      204 GETTABLEKS                       R20 R0 K70 ["selectDragEnd"]
+      206 SETTABLEKS                       R20 R19 K64 ["SelectionEnd"]
+      208 GETIMPORT                        R20 K72 [Rect.new]
+      210 MOVE                             R21 R4
+      211 ADD                              R22 R4 R5
+      212 CALL                             R20 2 1
+      213 SETTABLEKS                       R20 R19 K65 ["SourceExtents"]
+      215 CALL                             R17 2 1
+      216 SETTABLEKS                       R17 R16 K27 ["MultiSelectBox"]
+      218 MOVE                             R17 R3
+      219 JUMPIFNOT                        R17 ; [+24]
+      220 MOVE                             R17 R6
+      221 JUMPIFNOT                        R17 ; [+22]
+      222 GETUPVAL                         R17 0
+      223 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      225 GETUPVAL                         R18 6
+      226 DUPTABLE                         R19 K76 [{"ShowMenu", "EventFilters", "OnMenuOpened", "OnEditEvents"}]
+      227 SETTABLEKS                       R11 R19 K73 ["ShowMenu"]
+      229 GETTABLEKS                       R20 R0 K1 ["state"]
+      231 GETTABLEKS                       R20 R20 K51 ["eventFilters"]
+      233 SETTABLEKS                       R20 R19 K41 ["EventFilters"]
+      235 GETTABLEKS                       R20 R0 K77 ["hideMenu"]
+      237 SETTABLEKS                       R20 R19 K74 ["OnMenuOpened"]
+      239 GETTABLEKS                       R20 R1 K78 ["SetEventEditingTick"]
+      241 SETTABLEKS                       R20 R19 K75 ["OnEditEvents"]
+      243 CALL                             R17 2 1
+      244 SETTABLEKS                       R17 R16 K28 ["EventActions"]
+      246 MOVE                             R17 R6
+      247 JUMPIFNOT                        R17 ; [+22]
+      248 MOVE                             R17 R12
+      249 JUMPIFNOT                        R17 ; [+20]
+      250 GETUPVAL                         R17 0
+      251 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      253 GETUPVAL                         R18 7
+      254 DUPTABLE                         R19 K82 [{"Events", "Tick", "OnSaved", "OnClose"}]
+      255 GETTABLEKS                       R20 R6 K31 ["Events"]
+      257 SETTABLEKS                       R20 R19 K31 ["Events"]
+      259 SETTABLEKS                       R12 R19 K79 ["Tick"]
+      261 GETTABLEKS                       R20 R0 K83 ["setEventsHandler"]
+      263 SETTABLEKS                       R20 R19 K80 ["OnSaved"]
+      265 GETTABLEKS                       R20 R1 K78 ["SetEventEditingTick"]
+      267 SETTABLEKS                       R20 R19 K81 ["OnClose"]
+      269 CALL                             R17 2 1
+      270 SETTABLEKS                       R17 R16 K29 ["EditEventsDialog"]
+      272 CALL                             R13 3 -1
+      273 RETURN                           R13 -1
 
 PROTO_33:
         0 DUPTABLE                         R2 K6 [{"AnimationData", "Active", "SelectedEvents", "EventEditingTick", "FrameRate", "SnapMode"}]

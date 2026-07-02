@@ -127,7 +127,7 @@ PROTO_0:
       144 LOADK                            R23 K15 [0.975]
       145 LOADN                            R24 0
       146 CALL                             R21 3 1
-      147 SUBRK                            R20 R14 K21 ["CFrame"]
+      147 SUBRK                            R20 K14 [1] R21
       148 GETUPVAL                         R21 2
       149 GETTABLEKS                       R21 R21 K12 ["Threshold"]
       151 MOVE                             R22 R13
@@ -181,7 +181,7 @@ PROTO_0:
       206 ADD                              R21 R22 R23
       207 MULK                             R22 R18 K30 [0.3]
       208 ADD                              R20 R21 R22
-      209 SUBRK                            R22 R14 K1 ["Y"]
+      209 SUBRK                            R22 K14 [1] R1
       210 ADDK                             R23 R6 K31 [0.01]
       211 JUMPIFLT                         R23 R22 ; [+4]
       213 LOADN                            R22 0
@@ -201,7 +201,7 @@ PROTO_0:
       232 GETIMPORT                        R20 K40 [Enum.Material.Basalt]
       234 GETIMPORT                        R22 K38 [Enum.Material.CrackedLava]
       236 JUMPIFNOTEQ                      R20 R22 ; [+7]
-      238 SUBRK                            R22 R14 K1 ["Y"]
+      238 SUBRK                            R22 K14 [1] R1
       239 JUMPIFNOTLT                      R22 R6 ; [+4]
       241 GETIMPORT                        R21 K40 [Enum.Material.Basalt]
       243 JUMP                             ; [+1]

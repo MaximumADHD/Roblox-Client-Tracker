@@ -248,134 +248,132 @@ PROTO_7:
         4 GETTABLEKS                       R3 R1 K2 ["AnimationData"]
         6 JUMPIFNOT                        R3 ; [+3]
         7 GETTABLEKS                       R4 R3 K3 ["Metadata"]
-        9 JUMPIF                           R4 ; [+12]
-       10 DUPTABLE                         R4 K6 [{"Text", "Enabled"}]
-       11 LOADK                            R7 K7 ["Settings"]
-       12 LOADK                            R8 K8 ["FrameRate"]
-       13 NAMECALL                         R5 R2 K9 ["getText"]
+        9 JUMPIF                           R4 ; [+9]
+       10 DUPTABLE                         R4 K7 [{["Text"], ["Enabled"] = False}]
+       11 LOADK                            R7 K8 ["Settings"]
+       12 LOADK                            R8 K9 ["FrameRate"]
+       13 NAMECALL                         R5 R2 K10 ["getText"]
        15 CALL                             R5 3 1
        16 SETTABLEKS                       R5 R4 K4 ["Text"]
-       18 LOADB                            R5 0
-       19 SETTABLEKS                       R5 R4 K5 ["Enabled"]
-       21 RETURN                           R4 1
-       22 GETTABLEKS                       R4 R1 K8 ["FrameRate"]
-       24 LOADB                            R5 0
-       25 GETIMPORT                        R6 K11 [pairs]
-       27 GETUPVAL                         R7 0
-       28 GETTABLEKS                       R7 R7 K12 ["FRAMERATES"]
-       30 CALL                             R6 1 3
-       31 FORGPREP_NEXT                    R6
-       32 GETUPVAL                         R11 0
-       33 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
-       35 GETTABLEKS                       R11 R11 K13 ["CUSTOM"]
-       37 JUMPIFEQ                         R10 R11 ; [+5]
-       39 JUMPIFNOTEQ                      R10 R4 ; [+3]
-       41 LOADB                            R5 1
-       42 JUMP                             ; [+2]
-       43 FORGLOOP                         R6 2 ; [-12]
-       45 NEWCLOSURE                       R6 P0
-       46 CAPTURE                          VAL R1
-       47 NEWCLOSURE                       R7 P1
-       48 CAPTURE                          VAL R1
-       49 NEWTABLE                         R8 2 5
-       51 LOADK                            R21 K7 ["Settings"]
-       52 LOADK                            R22 K8 ["FrameRate"]
-       53 NAMECALL                         R19 R2 K9 ["getText"]
-       55 CALL                             R19 3 1
-       56 MOVE                             R15 R19
-       57 LOADK                            R16 K14 [": "]
-       58 MOVE                             R17 R4
-       59 LOADK                            R18 K15 [" fps"]
-       60 CONCAT                           R14 R15 R18
-       61 SETTABLEKS                       R14 R8 K4 ["Text"]
-       63 LOADB                            R14 0
-       64 SETTABLEKS                       R14 R8 K5 ["Enabled"]
-       66 DUPTABLE                         R9 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       67 GETUPVAL                         R10 0
-       68 GETTABLEKS                       R10 R10 K12 ["FRAMERATES"]
-       70 GETTABLEKS                       R10 R10 K20 ["FPS_24"]
-       72 SETTABLEKS                       R10 R9 K16 ["Data"]
-       74 LOADK                            R12 K7 ["Settings"]
-       75 LOADK                            R13 K21 ["24FPS"]
-       76 NAMECALL                         R10 R2 K9 ["getText"]
-       78 CALL                             R10 3 1
-       79 SETTABLEKS                       R10 R9 K4 ["Text"]
-       81 GETUPVAL                         R11 0
-       82 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
-       84 GETTABLEKS                       R11 R11 K20 ["FPS_24"]
-       86 JUMPIFEQ                         R4 R11 ; [+2]
-       88 LOADB                            R10 0 +1
-       89 LOADB                            R10 1
-       90 SETTABLEKS                       R10 R9 K17 ["Checked"]
-       92 SETTABLEKS                       R6 R9 K18 ["OnItemClicked"]
-       94 DUPTABLE                         R10 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-       95 GETUPVAL                         R11 0
-       96 GETTABLEKS                       R11 R11 K12 ["FRAMERATES"]
-       98 GETTABLEKS                       R11 R11 K22 ["FPS_30"]
-      100 SETTABLEKS                       R11 R10 K16 ["Data"]
-      102 LOADK                            R13 K7 ["Settings"]
-      103 LOADK                            R14 K23 ["30FPS"]
-      104 NAMECALL                         R11 R2 K9 ["getText"]
-      106 CALL                             R11 3 1
-      107 SETTABLEKS                       R11 R10 K4 ["Text"]
-      109 GETUPVAL                         R12 0
-      110 GETTABLEKS                       R12 R12 K12 ["FRAMERATES"]
-      112 GETTABLEKS                       R12 R12 K22 ["FPS_30"]
-      114 JUMPIFEQ                         R4 R12 ; [+2]
-      116 LOADB                            R11 0 +1
-      117 LOADB                            R11 1
-      118 SETTABLEKS                       R11 R10 K17 ["Checked"]
-      120 SETTABLEKS                       R6 R10 K18 ["OnItemClicked"]
-      122 DUPTABLE                         R11 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      123 GETUPVAL                         R12 0
-      124 GETTABLEKS                       R12 R12 K12 ["FRAMERATES"]
-      126 GETTABLEKS                       R12 R12 K24 ["FPS_60"]
-      128 SETTABLEKS                       R12 R11 K16 ["Data"]
-      130 LOADK                            R14 K7 ["Settings"]
-      131 LOADK                            R15 K25 ["60FPS"]
-      132 NAMECALL                         R12 R2 K9 ["getText"]
-      134 CALL                             R12 3 1
-      135 SETTABLEKS                       R12 R11 K4 ["Text"]
-      137 GETUPVAL                         R13 0
-      138 GETTABLEKS                       R13 R13 K12 ["FRAMERATES"]
-      140 GETTABLEKS                       R13 R13 K24 ["FPS_60"]
-      142 JUMPIFEQ                         R4 R13 ; [+2]
-      144 LOADB                            R12 0 +1
-      145 LOADB                            R12 1
-      146 SETTABLEKS                       R12 R11 K17 ["Checked"]
-      148 SETTABLEKS                       R6 R11 K18 ["OnItemClicked"]
-      150 DUPTABLE                         R12 K19 [{"Data", "Text", "Checked", "OnItemClicked"}]
-      151 GETUPVAL                         R13 0
-      152 GETTABLEKS                       R13 R13 K12 ["FRAMERATES"]
-      154 GETTABLEKS                       R13 R13 K26 ["FPS_120"]
-      156 SETTABLEKS                       R13 R12 K16 ["Data"]
-      158 LOADK                            R15 K7 ["Settings"]
-      159 LOADK                            R16 K27 ["120FPS"]
-      160 NAMECALL                         R13 R2 K9 ["getText"]
-      162 CALL                             R13 3 1
-      163 SETTABLEKS                       R13 R12 K4 ["Text"]
-      165 GETUPVAL                         R14 0
-      166 GETTABLEKS                       R14 R14 K12 ["FRAMERATES"]
-      168 GETTABLEKS                       R14 R14 K26 ["FPS_120"]
-      170 JUMPIFEQ                         R4 R14 ; [+2]
-      172 LOADB                            R13 0 +1
-      173 LOADB                            R13 1
-      174 SETTABLEKS                       R13 R12 K17 ["Checked"]
-      176 SETTABLEKS                       R6 R12 K18 ["OnItemClicked"]
-      178 DUPTABLE                         R13 K28 [{"Text", "Checked", "OnItemClicked"}]
-      179 LOADK                            R19 K7 ["Settings"]
-      180 LOADK                            R20 K29 ["CustomFPS"]
-      181 NAMECALL                         R17 R2 K9 ["getText"]
-      183 CALL                             R17 3 1
-      184 MOVE                             R15 R17
-      185 LOADK                            R16 K30 ["..."]
-      186 CONCAT                           R14 R15 R16
-      187 SETTABLEKS                       R14 R13 K4 ["Text"]
-      189 NOT                              R14 R5
-      190 SETTABLEKS                       R14 R13 K17 ["Checked"]
-      192 SETTABLEKS                       R7 R13 K18 ["OnItemClicked"]
-      194 SETLIST                          R8 R9 5 [1]
-      196 RETURN                           R8 1
+       18 RETURN                           R4 1
+       19 GETTABLEKS                       R4 R1 K9 ["FrameRate"]
+       21 LOADB                            R5 0
+       22 GETIMPORT                        R6 K12 [pairs]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K13 ["FRAMERATES"]
+       27 CALL                             R6 1 3
+       28 FORGPREP_NEXT                    R6
+       29 GETUPVAL                         R11 0
+       30 GETTABLEKS                       R11 R11 K13 ["FRAMERATES"]
+       32 GETTABLEKS                       R11 R11 K14 ["CUSTOM"]
+       34 JUMPIFEQ                         R10 R11 ; [+5]
+       36 JUMPIFNOTEQ                      R10 R4 ; [+3]
+       38 LOADB                            R5 1
+       39 JUMP                             ; [+2]
+       40 FORGLOOP                         R6 2 ; [-12]
+       42 NEWCLOSURE                       R6 P0
+       43 CAPTURE                          VAL R1
+       44 NEWCLOSURE                       R7 P1
+       45 CAPTURE                          VAL R1
+       46 NEWTABLE                         R8 2 5
+       48 LOADK                            R21 K8 ["Settings"]
+       49 LOADK                            R22 K9 ["FrameRate"]
+       50 NAMECALL                         R19 R2 K10 ["getText"]
+       52 CALL                             R19 3 1
+       53 MOVE                             R15 R19
+       54 LOADK                            R16 K15 [": "]
+       55 MOVE                             R17 R4
+       56 LOADK                            R18 K16 [" fps"]
+       57 CONCAT                           R14 R15 R18
+       58 SETTABLEKS                       R14 R8 K4 ["Text"]
+       60 LOADB                            R14 0
+       61 SETTABLEKS                       R14 R8 K5 ["Enabled"]
+       63 DUPTABLE                         R9 K20 [{"Data", "Text", "Checked", "OnItemClicked"}]
+       64 GETUPVAL                         R10 0
+       65 GETTABLEKS                       R10 R10 K13 ["FRAMERATES"]
+       67 GETTABLEKS                       R10 R10 K21 ["FPS_24"]
+       69 SETTABLEKS                       R10 R9 K17 ["Data"]
+       71 LOADK                            R12 K8 ["Settings"]
+       72 LOADK                            R13 K22 ["24FPS"]
+       73 NAMECALL                         R10 R2 K10 ["getText"]
+       75 CALL                             R10 3 1
+       76 SETTABLEKS                       R10 R9 K4 ["Text"]
+       78 GETUPVAL                         R11 0
+       79 GETTABLEKS                       R11 R11 K13 ["FRAMERATES"]
+       81 GETTABLEKS                       R11 R11 K21 ["FPS_24"]
+       83 JUMPIFEQ                         R4 R11 ; [+2]
+       85 LOADB                            R10 0 +1
+       86 LOADB                            R10 1
+       87 SETTABLEKS                       R10 R9 K18 ["Checked"]
+       89 SETTABLEKS                       R6 R9 K19 ["OnItemClicked"]
+       91 DUPTABLE                         R10 K20 [{"Data", "Text", "Checked", "OnItemClicked"}]
+       92 GETUPVAL                         R11 0
+       93 GETTABLEKS                       R11 R11 K13 ["FRAMERATES"]
+       95 GETTABLEKS                       R11 R11 K23 ["FPS_30"]
+       97 SETTABLEKS                       R11 R10 K17 ["Data"]
+       99 LOADK                            R13 K8 ["Settings"]
+      100 LOADK                            R14 K24 ["30FPS"]
+      101 NAMECALL                         R11 R2 K10 ["getText"]
+      103 CALL                             R11 3 1
+      104 SETTABLEKS                       R11 R10 K4 ["Text"]
+      106 GETUPVAL                         R12 0
+      107 GETTABLEKS                       R12 R12 K13 ["FRAMERATES"]
+      109 GETTABLEKS                       R12 R12 K23 ["FPS_30"]
+      111 JUMPIFEQ                         R4 R12 ; [+2]
+      113 LOADB                            R11 0 +1
+      114 LOADB                            R11 1
+      115 SETTABLEKS                       R11 R10 K18 ["Checked"]
+      117 SETTABLEKS                       R6 R10 K19 ["OnItemClicked"]
+      119 DUPTABLE                         R11 K20 [{"Data", "Text", "Checked", "OnItemClicked"}]
+      120 GETUPVAL                         R12 0
+      121 GETTABLEKS                       R12 R12 K13 ["FRAMERATES"]
+      123 GETTABLEKS                       R12 R12 K25 ["FPS_60"]
+      125 SETTABLEKS                       R12 R11 K17 ["Data"]
+      127 LOADK                            R14 K8 ["Settings"]
+      128 LOADK                            R15 K26 ["60FPS"]
+      129 NAMECALL                         R12 R2 K10 ["getText"]
+      131 CALL                             R12 3 1
+      132 SETTABLEKS                       R12 R11 K4 ["Text"]
+      134 GETUPVAL                         R13 0
+      135 GETTABLEKS                       R13 R13 K13 ["FRAMERATES"]
+      137 GETTABLEKS                       R13 R13 K25 ["FPS_60"]
+      139 JUMPIFEQ                         R4 R13 ; [+2]
+      141 LOADB                            R12 0 +1
+      142 LOADB                            R12 1
+      143 SETTABLEKS                       R12 R11 K18 ["Checked"]
+      145 SETTABLEKS                       R6 R11 K19 ["OnItemClicked"]
+      147 DUPTABLE                         R12 K20 [{"Data", "Text", "Checked", "OnItemClicked"}]
+      148 GETUPVAL                         R13 0
+      149 GETTABLEKS                       R13 R13 K13 ["FRAMERATES"]
+      151 GETTABLEKS                       R13 R13 K27 ["FPS_120"]
+      153 SETTABLEKS                       R13 R12 K17 ["Data"]
+      155 LOADK                            R15 K8 ["Settings"]
+      156 LOADK                            R16 K28 ["120FPS"]
+      157 NAMECALL                         R13 R2 K10 ["getText"]
+      159 CALL                             R13 3 1
+      160 SETTABLEKS                       R13 R12 K4 ["Text"]
+      162 GETUPVAL                         R14 0
+      163 GETTABLEKS                       R14 R14 K13 ["FRAMERATES"]
+      165 GETTABLEKS                       R14 R14 K27 ["FPS_120"]
+      167 JUMPIFEQ                         R4 R14 ; [+2]
+      169 LOADB                            R13 0 +1
+      170 LOADB                            R13 1
+      171 SETTABLEKS                       R13 R12 K18 ["Checked"]
+      173 SETTABLEKS                       R6 R12 K19 ["OnItemClicked"]
+      175 DUPTABLE                         R13 K29 [{"Text", "Checked", "OnItemClicked"}]
+      176 LOADK                            R19 K8 ["Settings"]
+      177 LOADK                            R20 K30 ["CustomFPS"]
+      178 NAMECALL                         R17 R2 K10 ["getText"]
+      180 CALL                             R17 3 1
+      181 MOVE                             R15 R17
+      182 LOADK                            R16 K31 ["..."]
+      183 CONCAT                           R14 R15 R16
+      184 SETTABLEKS                       R14 R13 K4 ["Text"]
+      186 NOT                              R14 R5
+      187 SETTABLEKS                       R14 R13 K18 ["Checked"]
+      189 SETTABLEKS                       R7 R13 K19 ["OnItemClicked"]
+      191 SETLIST                          R8 R9 5 [1]
+      193 RETURN                           R8 1
 
 PROTO_8:
         0 GETUPVAL                         R1 0

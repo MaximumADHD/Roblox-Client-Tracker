@@ -1,15 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K4 [{"DataModel", "PluginId", "Category", "ItemId"}]
-        1 LOADK                            R2 K5 ["Standalone"]
-        2 SETTABLEKS                       R2 R1 K0 ["DataModel"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K6 ["REIMPORT"]
-        7 GETTABLEKS                       R2 R2 K7 ["ACTION_ID"]
-        9 SETTABLEKS                       R2 R1 K1 ["PluginId"]
-       11 LOADK                            R2 K8 ["Actions"]
-       12 SETTABLEKS                       R2 R1 K2 ["Category"]
-       14 SETTABLEKS                       R0 R1 K3 ["ItemId"]
-       16 RETURN                           R1 1
+        0 DUPTABLE                         R1 K6 [{[1] = "Standalone", ["PluginId"], ["Category"] = "Actions", ["ItemId"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K7 ["REIMPORT"]
+        4 GETTABLEKS                       R2 R2 K8 ["ACTION_ID"]
+        6 SETTABLEKS                       R2 R1 K2 ["PluginId"]
+        8 SETTABLEKS                       R0 R1 K5 ["ItemId"]
+       10 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

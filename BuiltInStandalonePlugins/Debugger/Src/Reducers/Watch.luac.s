@@ -1302,28 +1302,28 @@ MAIN:
       268 DUPCLOSURE                       R42 K50 [PROTO_2]
       269 DUPCLOSURE                       R43 K51 [PROTO_3]
       270 DUPCLOSURE                       R44 K52 [PROTO_4]
-      271 DUPTABLE                         R45 K67 [{"stateTokenToRoots", "stateTokenToFlattenedTree", "currentTab", "listOfEnabledScopes", "listOfVariablesColumns", "listOfMyWatchesColumns", "listOfExpressions", "pathToExpansionState", "expressionToExpansionState", "filterText", "variablesSortDirection", "variablesColumnIndex", "watchesSortDirection", "watchesColumnIndex"}]
+      271 DUPTABLE                         R45 K69 [{["stateTokenToRoots"], ["stateTokenToFlattenedTree"], ["currentTab"], ["listOfEnabledScopes"], ["listOfVariablesColumns"], ["listOfMyWatchesColumns"], ["listOfExpressions"], ["pathToExpansionState"], ["expressionToExpansionState"], ["filterText"] = "", ["variablesSortDirection"] = , ["variablesColumnIndex"] = , ["watchesSortDirection"] = , ["watchesColumnIndex"] = }]
       272 NEWTABLE                         R46 0 0
       274 SETTABLEKS                       R46 R45 K53 ["stateTokenToRoots"]
       276 NEWTABLE                         R46 0 0
       278 SETTABLEKS                       R46 R45 K54 ["stateTokenToFlattenedTree"]
-      280 GETTABLEKS                       R46 R36 K68 ["Variables"]
+      280 GETTABLEKS                       R46 R36 K70 ["Variables"]
       282 SETTABLEKS                       R46 R45 K55 ["currentTab"]
       284 NEWTABLE                         R46 0 3
-      286 GETTABLEKS                       R47 R35 K69 ["Local"]
-      288 GETTABLEKS                       R48 R35 K70 ["Upvalue"]
-      290 GETTABLEKS                       R49 R35 K71 ["Global"]
+      286 GETTABLEKS                       R47 R35 K71 ["Local"]
+      288 GETTABLEKS                       R48 R35 K72 ["Upvalue"]
+      290 GETTABLEKS                       R49 R35 K73 ["Global"]
       292 SETLIST                          R46 R47 3 [1]
       294 SETTABLEKS                       R46 R45 K56 ["listOfEnabledScopes"]
       296 NEWTABLE                         R46 0 3
-      298 GETTABLEKS                       R47 R37 K72 ["Scope"]
-      300 GETTABLEKS                       R48 R37 K73 ["Value"]
-      302 GETTABLEKS                       R49 R37 K74 ["DataType"]
+      298 GETTABLEKS                       R47 R37 K74 ["Scope"]
+      300 GETTABLEKS                       R48 R37 K75 ["Value"]
+      302 GETTABLEKS                       R49 R37 K76 ["DataType"]
       304 SETLIST                          R46 R47 3 [1]
       306 SETTABLEKS                       R46 R45 K57 ["listOfVariablesColumns"]
       308 NEWTABLE                         R46 0 2
-      310 GETTABLEKS                       R47 R38 K73 ["Value"]
-      312 GETTABLEKS                       R48 R38 K74 ["DataType"]
+      310 GETTABLEKS                       R47 R38 K75 ["Value"]
+      312 GETTABLEKS                       R48 R38 K76 ["DataType"]
       314 SETLIST                          R46 R47 2 [1]
       316 SETTABLEKS                       R46 R45 K58 ["listOfMyWatchesColumns"]
       318 NEWTABLE                         R46 0 0
@@ -1332,135 +1332,125 @@ MAIN:
       324 SETTABLEKS                       R46 R45 K60 ["pathToExpansionState"]
       326 NEWTABLE                         R46 0 0
       328 SETTABLEKS                       R46 R45 K61 ["expressionToExpansionState"]
-      330 LOADK                            R46 K75 [""]
-      331 SETTABLEKS                       R46 R45 K62 ["filterText"]
-      333 LOADNIL                          R46
-      334 SETTABLEKS                       R46 R45 K63 ["variablesSortDirection"]
-      336 LOADNIL                          R46
-      337 SETTABLEKS                       R46 R45 K64 ["variablesColumnIndex"]
-      339 LOADNIL                          R46
-      340 SETTABLEKS                       R46 R45 K65 ["watchesSortDirection"]
-      342 LOADNIL                          R46
-      343 SETTABLEKS                       R46 R45 K66 ["watchesColumnIndex"]
-      345 GETTABLEKS                       R46 R1 K76 ["createReducer"]
-      347 MOVE                             R47 R45
-      348 NEWTABLE                         R48 32 0
-      350 GETTABLEKS                       R49 R24 K77 ["name"]
-      352 DUPCLOSURE                       R50 K78 [PROTO_5]
-      353 CAPTURE                          VAL R2
-      354 SETTABLE                         R50 R48 R49
-      355 GETTABLEKS                       R49 R25 K77 ["name"]
-      357 DUPCLOSURE                       R50 K79 [PROTO_6]
-      358 CAPTURE                          VAL R7
-      359 CAPTURE                          VAL R2
-      360 SETTABLE                         R50 R48 R49
-      361 GETTABLEKS                       R49 R26 K77 ["name"]
-      363 DUPCLOSURE                       R50 K80 [PROTO_7]
-      364 CAPTURE                          VAL R2
-      365 SETTABLE                         R50 R48 R49
-      366 GETTABLEKS                       R49 R11 K77 ["name"]
-      368 DUPCLOSURE                       R50 K81 [PROTO_8]
-      369 CAPTURE                          VAL R7
-      370 CAPTURE                          VAL R40
-      371 CAPTURE                          VAL R2
-      372 SETTABLE                         R50 R48 R49
-      373 GETTABLEKS                       R49 R12 K77 ["name"]
-      375 DUPCLOSURE                       R50 K82 [PROTO_9]
-      376 CAPTURE                          VAL R7
-      377 CAPTURE                          VAL R42
-      378 CAPTURE                          VAL R2
-      379 SETTABLE                         R50 R48 R49
-      380 GETTABLEKS                       R49 R13 K77 ["name"]
-      382 DUPCLOSURE                       R50 K83 [PROTO_10]
-      383 CAPTURE                          VAL R7
-      384 CAPTURE                          VAL R42
-      385 CAPTURE                          VAL R43
-      386 CAPTURE                          VAL R39
-      387 CAPTURE                          VAL R2
-      388 SETTABLE                         R50 R48 R49
-      389 GETTABLEKS                       R49 R10 K77 ["name"]
-      391 DUPCLOSURE                       R50 K84 [PROTO_11]
-      392 CAPTURE                          VAL R2
-      393 SETTABLE                         R50 R48 R49
-      394 GETTABLEKS                       R49 R22 K77 ["name"]
-      396 DUPCLOSURE                       R50 K85 [PROTO_12]
-      397 CAPTURE                          VAL R2
-      398 SETTABLE                         R50 R48 R49
-      399 GETTABLEKS                       R49 R8 K77 ["name"]
-      401 DUPCLOSURE                       R50 K86 [PROTO_13]
-      402 CAPTURE                          VAL R7
-      403 CAPTURE                          VAL R42
-      404 CAPTURE                          VAL R2
-      405 SETTABLE                         R50 R48 R49
-      406 GETTABLEKS                       R49 R9 K77 ["name"]
-      408 DUPCLOSURE                       R50 K87 [PROTO_14]
-      409 CAPTURE                          VAL R7
-      410 CAPTURE                          VAL R42
+      330 GETTABLEKS                       R46 R1 K77 ["createReducer"]
+      332 MOVE                             R47 R45
+      333 NEWTABLE                         R48 32 0
+      335 GETTABLEKS                       R49 R24 K78 ["name"]
+      337 DUPCLOSURE                       R50 K79 [PROTO_5]
+      338 CAPTURE                          VAL R2
+      339 SETTABLE                         R50 R48 R49
+      340 GETTABLEKS                       R49 R25 K78 ["name"]
+      342 DUPCLOSURE                       R50 K80 [PROTO_6]
+      343 CAPTURE                          VAL R7
+      344 CAPTURE                          VAL R2
+      345 SETTABLE                         R50 R48 R49
+      346 GETTABLEKS                       R49 R26 K78 ["name"]
+      348 DUPCLOSURE                       R50 K81 [PROTO_7]
+      349 CAPTURE                          VAL R2
+      350 SETTABLE                         R50 R48 R49
+      351 GETTABLEKS                       R49 R11 K78 ["name"]
+      353 DUPCLOSURE                       R50 K82 [PROTO_8]
+      354 CAPTURE                          VAL R7
+      355 CAPTURE                          VAL R40
+      356 CAPTURE                          VAL R2
+      357 SETTABLE                         R50 R48 R49
+      358 GETTABLEKS                       R49 R12 K78 ["name"]
+      360 DUPCLOSURE                       R50 K83 [PROTO_9]
+      361 CAPTURE                          VAL R7
+      362 CAPTURE                          VAL R42
+      363 CAPTURE                          VAL R2
+      364 SETTABLE                         R50 R48 R49
+      365 GETTABLEKS                       R49 R13 K78 ["name"]
+      367 DUPCLOSURE                       R50 K84 [PROTO_10]
+      368 CAPTURE                          VAL R7
+      369 CAPTURE                          VAL R42
+      370 CAPTURE                          VAL R43
+      371 CAPTURE                          VAL R39
+      372 CAPTURE                          VAL R2
+      373 SETTABLE                         R50 R48 R49
+      374 GETTABLEKS                       R49 R10 K78 ["name"]
+      376 DUPCLOSURE                       R50 K85 [PROTO_11]
+      377 CAPTURE                          VAL R2
+      378 SETTABLE                         R50 R48 R49
+      379 GETTABLEKS                       R49 R22 K78 ["name"]
+      381 DUPCLOSURE                       R50 K86 [PROTO_12]
+      382 CAPTURE                          VAL R2
+      383 SETTABLE                         R50 R48 R49
+      384 GETTABLEKS                       R49 R8 K78 ["name"]
+      386 DUPCLOSURE                       R50 K87 [PROTO_13]
+      387 CAPTURE                          VAL R7
+      388 CAPTURE                          VAL R42
+      389 CAPTURE                          VAL R2
+      390 SETTABLE                         R50 R48 R49
+      391 GETTABLEKS                       R49 R9 K78 ["name"]
+      393 DUPCLOSURE                       R50 K88 [PROTO_14]
+      394 CAPTURE                          VAL R7
+      395 CAPTURE                          VAL R42
+      396 CAPTURE                          VAL R2
+      397 SETTABLE                         R50 R48 R49
+      398 GETTABLEKS                       R49 R30 K78 ["name"]
+      400 DUPCLOSURE                       R50 K89 [PROTO_15]
+      401 CAPTURE                          VAL R2
+      402 SETTABLE                         R50 R48 R49
+      403 GETTABLEKS                       R49 R27 K78 ["name"]
+      405 DUPCLOSURE                       R50 K90 [PROTO_16]
+      406 CAPTURE                          VAL R2
+      407 SETTABLE                         R50 R48 R49
+      408 GETTABLEKS                       R49 R28 K78 ["name"]
+      410 DUPCLOSURE                       R50 K91 [PROTO_17]
       411 CAPTURE                          VAL R2
       412 SETTABLE                         R50 R48 R49
-      413 GETTABLEKS                       R49 R30 K77 ["name"]
-      415 DUPCLOSURE                       R50 K88 [PROTO_15]
+      413 GETTABLEKS                       R49 R29 K78 ["name"]
+      415 DUPCLOSURE                       R50 K92 [PROTO_18]
       416 CAPTURE                          VAL R2
       417 SETTABLE                         R50 R48 R49
-      418 GETTABLEKS                       R49 R27 K77 ["name"]
-      420 DUPCLOSURE                       R50 K89 [PROTO_16]
-      421 CAPTURE                          VAL R2
-      422 SETTABLE                         R50 R48 R49
-      423 GETTABLEKS                       R49 R28 K77 ["name"]
-      425 DUPCLOSURE                       R50 K90 [PROTO_17]
-      426 CAPTURE                          VAL R2
-      427 SETTABLE                         R50 R48 R49
-      428 GETTABLEKS                       R49 R29 K77 ["name"]
-      430 DUPCLOSURE                       R50 K91 [PROTO_18]
-      431 CAPTURE                          VAL R2
-      432 SETTABLE                         R50 R48 R49
-      433 GETTABLEKS                       R49 R14 K77 ["name"]
-      435 DUPCLOSURE                       R50 K92 [PROTO_19]
-      436 CAPTURE                          VAL R7
-      437 CAPTURE                          VAL R43
-      438 CAPTURE                          VAL R2
-      439 SETTABLE                         R50 R48 R49
-      440 GETTABLEKS                       R49 R15 K77 ["name"]
-      442 DUPCLOSURE                       R50 K93 [PROTO_20]
-      443 CAPTURE                          VAL R2
-      444 SETTABLE                         R50 R48 R49
-      445 GETTABLEKS                       R49 R16 K77 ["name"]
-      447 DUPCLOSURE                       R50 K94 [PROTO_21]
-      448 CAPTURE                          VAL R7
-      449 CAPTURE                          VAL R2
-      450 SETTABLE                         R50 R48 R49
-      451 GETTABLEKS                       R49 R17 K77 ["name"]
-      453 DUPCLOSURE                       R50 K95 [PROTO_22]
-      454 CAPTURE                          VAL R7
-      455 CAPTURE                          VAL R40
-      456 CAPTURE                          VAL R2
-      457 SETTABLE                         R50 R48 R49
-      458 GETTABLEKS                       R49 R18 K77 ["name"]
-      460 DUPCLOSURE                       R50 K96 [PROTO_23]
-      461 CAPTURE                          VAL R7
-      462 CAPTURE                          VAL R40
+      418 GETTABLEKS                       R49 R14 K78 ["name"]
+      420 DUPCLOSURE                       R50 K93 [PROTO_19]
+      421 CAPTURE                          VAL R7
+      422 CAPTURE                          VAL R43
+      423 CAPTURE                          VAL R2
+      424 SETTABLE                         R50 R48 R49
+      425 GETTABLEKS                       R49 R15 K78 ["name"]
+      427 DUPCLOSURE                       R50 K94 [PROTO_20]
+      428 CAPTURE                          VAL R2
+      429 SETTABLE                         R50 R48 R49
+      430 GETTABLEKS                       R49 R16 K78 ["name"]
+      432 DUPCLOSURE                       R50 K95 [PROTO_21]
+      433 CAPTURE                          VAL R7
+      434 CAPTURE                          VAL R2
+      435 SETTABLE                         R50 R48 R49
+      436 GETTABLEKS                       R49 R17 K78 ["name"]
+      438 DUPCLOSURE                       R50 K96 [PROTO_22]
+      439 CAPTURE                          VAL R7
+      440 CAPTURE                          VAL R40
+      441 CAPTURE                          VAL R2
+      442 SETTABLE                         R50 R48 R49
+      443 GETTABLEKS                       R49 R18 K78 ["name"]
+      445 DUPCLOSURE                       R50 K97 [PROTO_23]
+      446 CAPTURE                          VAL R7
+      447 CAPTURE                          VAL R40
+      448 CAPTURE                          VAL R2
+      449 SETTABLE                         R50 R48 R49
+      450 GETTABLEKS                       R49 R19 K78 ["name"]
+      452 DUPCLOSURE                       R50 K98 [PROTO_24]
+      453 CAPTURE                          VAL R2
+      454 SETTABLE                         R50 R48 R49
+      455 GETTABLEKS                       R49 R23 K78 ["name"]
+      457 DUPCLOSURE                       R50 K99 [PROTO_25]
+      458 CAPTURE                          VAL R2
+      459 SETTABLE                         R50 R48 R49
+      460 GETTABLEKS                       R49 R20 K78 ["name"]
+      462 DUPCLOSURE                       R50 K100 [PROTO_26]
       463 CAPTURE                          VAL R2
       464 SETTABLE                         R50 R48 R49
-      465 GETTABLEKS                       R49 R19 K77 ["name"]
-      467 DUPCLOSURE                       R50 K97 [PROTO_24]
+      465 GETTABLEKS                       R49 R31 K78 ["name"]
+      467 DUPCLOSURE                       R50 K101 [PROTO_27]
       468 CAPTURE                          VAL R2
       469 SETTABLE                         R50 R48 R49
-      470 GETTABLEKS                       R49 R23 K77 ["name"]
-      472 DUPCLOSURE                       R50 K98 [PROTO_25]
-      473 CAPTURE                          VAL R2
-      474 SETTABLE                         R50 R48 R49
-      475 GETTABLEKS                       R49 R20 K77 ["name"]
-      477 DUPCLOSURE                       R50 K99 [PROTO_26]
-      478 CAPTURE                          VAL R2
-      479 SETTABLE                         R50 R48 R49
-      480 GETTABLEKS                       R49 R31 K77 ["name"]
-      482 DUPCLOSURE                       R50 K100 [PROTO_27]
-      483 CAPTURE                          VAL R2
-      484 SETTABLE                         R50 R48 R49
-      485 GETTABLEKS                       R49 R21 K77 ["name"]
-      487 DUPCLOSURE                       R50 K101 [PROTO_28]
-      488 CAPTURE                          VAL R36
-      489 CAPTURE                          VAL R2
-      490 SETTABLE                         R50 R48 R49
-      491 CALL                             R46 2 -1
-      492 RETURN                           R46 -1
+      470 GETTABLEKS                       R49 R21 K78 ["name"]
+      472 DUPCLOSURE                       R50 K102 [PROTO_28]
+      473 CAPTURE                          VAL R36
+      474 CAPTURE                          VAL R2
+      475 SETTABLE                         R50 R48 R49
+      476 CALL                             R46 2 -1
+      477 RETURN                           R46 -1

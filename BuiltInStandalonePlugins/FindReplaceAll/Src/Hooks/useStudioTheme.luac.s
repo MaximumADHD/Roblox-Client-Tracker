@@ -1,23 +1,19 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["Theme"]
-        3 JUMPIF                           R0 ; [+4]
-        4 DUPTABLE                         R0 K2 [{"Name"}]
-        5 LOADK                            R1 K3 ["Dark"]
-        6 SETTABLEKS                       R1 R0 K1 ["Name"]
-        8 RETURN                           R0 1
+        3 JUMPIF                           R0 ; [+1]
+        4 DUPTABLE                         R0 K3 [{["Name"] = "Dark"}]
+        5 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["Theme"]
-        4 JUMPIF                           R1 ; [+4]
-        5 DUPTABLE                         R1 K2 [{"Name"}]
-        6 LOADK                            R2 K3 ["Dark"]
-        7 SETTABLEKS                       R2 R1 K1 ["Name"]
-        9 GETTABLEKS                       R1 R1 K1 ["Name"]
-       11 CALL                             R0 1 0
-       12 RETURN                           R0 0
+        4 JUMPIF                           R1 ; [+1]
+        5 DUPTABLE                         R1 K3 [{["Name"] = "Dark"}]
+        6 GETTABLEKS                       R1 R1 K1 ["Name"]
+        8 CALL                             R0 1 0
+        9 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 1
@@ -61,20 +57,18 @@ PROTO_5:
         1 GETTABLEKS                       R0 R0 K0 ["useState"]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K1 ["Theme"]
-        6 JUMPIF                           R1 ; [+4]
-        7 DUPTABLE                         R1 K3 [{"Name"}]
-        8 LOADK                            R2 K4 ["Dark"]
-        9 SETTABLEKS                       R2 R1 K2 ["Name"]
-       11 GETTABLEKS                       R1 R1 K2 ["Name"]
-       13 CALL                             R0 1 2
-       14 GETUPVAL                         R2 0
-       15 GETTABLEKS                       R2 R2 K5 ["useEffect"]
-       17 NEWCLOSURE                       R3 P0
-       18 CAPTURE                          UPVAL U1
-       19 CAPTURE                          VAL R1
-       20 NEWTABLE                         R4 0 0
-       22 CALL                             R2 2 0
-       23 RETURN                           R0 1
+        6 JUMPIF                           R1 ; [+1]
+        7 DUPTABLE                         R1 K4 [{["Name"] = "Dark"}]
+        8 GETTABLEKS                       R1 R1 K2 ["Name"]
+       10 CALL                             R0 1 2
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R2 R2 K5 ["useEffect"]
+       14 NEWCLOSURE                       R3 P0
+       15 CAPTURE                          UPVAL U1
+       16 CAPTURE                          VAL R1
+       17 NEWTABLE                         R4 0 0
+       19 CALL                             R2 2 0
+       20 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

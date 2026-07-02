@@ -72,123 +72,71 @@ MAIN:
       120 SETTABLEKS                       R20 R19 K13 ["TabControls"]
       122 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
       124 MOVE                             R21 R1
-      125 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      126 LOADK                            R23 K21 ["LeftMezzanineDebugPlugin"]
-      127 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      129 LOADK                            R23 K32 ["BuiltIn"]
-      130 SETTABLEKS                       R23 R22 K30 ["Type"]
+      125 DUPTABLE                         R22 K32 [{["Filename"] = "LeftMezzanineDebugPlugin", ["Type"] = "BuiltIn"}]
+      126 CALL                             R21 1 1
+      127 SETTABLE                         R12 R20 R21
+      128 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      130 MOVE                             R21 R1
+      131 DUPTABLE                         R22 K33 [{["Filename"] = "LeftMezzanineRun", ["Type"] = "BuiltIn"}]
       132 CALL                             R21 1 1
-      133 SETTABLE                         R12 R20 R21
+      133 SETTABLE                         R13 R20 R21
       134 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
       136 MOVE                             R21 R1
-      137 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      138 LOADK                            R23 K22 ["LeftMezzanineRun"]
-      139 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      141 LOADK                            R23 K32 ["BuiltIn"]
-      142 SETTABLEKS                       R23 R22 K30 ["Type"]
+      137 DUPTABLE                         R22 K34 [{["Filename"] = "LeftMezzanineServerAndClients", ["Type"] = "BuiltIn"}]
+      138 CALL                             R21 1 1
+      139 SETTABLE                         R14 R20 R21
+      140 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      142 MOVE                             R21 R1
+      143 DUPTABLE                         R22 K35 [{["Filename"] = "LeftMezzanineTeamTest", ["Type"] = "BuiltIn"}]
       144 CALL                             R21 1 1
-      145 SETTABLE                         R13 R20 R21
+      145 SETTABLE                         R15 R20 R21
       146 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
       148 MOVE                             R21 R1
-      149 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      150 LOADK                            R23 K23 ["LeftMezzanineServerAndClients"]
-      151 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      153 LOADK                            R23 K32 ["BuiltIn"]
-      154 SETTABLEKS                       R23 R22 K30 ["Type"]
+      149 DUPTABLE                         R22 K36 [{["Filename"] = "LeftMezzanineTestAndTestHere", ["Type"] = "BuiltIn"}]
+      150 CALL                             R21 1 1
+      151 SETTABLE                         R16 R20 R21
+      152 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      154 MOVE                             R21 R1
+      155 DUPTABLE                         R22 K37 [{["Filename"] = "RightMezzanine", ["Type"] = "BuiltIn"}]
       156 CALL                             R21 1 1
-      157 SETTABLE                         R14 R20 R21
+      157 SETTABLE                         R17 R20 R21
       158 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
       160 MOVE                             R21 R1
-      161 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      162 LOADK                            R23 K24 ["LeftMezzanineTeamTest"]
-      163 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      165 LOADK                            R23 K32 ["BuiltIn"]
-      166 SETTABLEKS                       R23 R22 K30 ["Type"]
+      161 DUPTABLE                         R22 K38 [{["Filename"] = "RightMezzanineStartPage", ["Type"] = "BuiltIn"}]
+      162 CALL                             R21 1 1
+      163 SETTABLE                         R18 R20 R21
+      164 GETTABLEKS                       R20 R19 K13 ["TabControls"]
+      166 MOVE                             R21 R1
+      167 DUPTABLE                         R22 K39 [{["Filename"] = "HomeTab", ["Type"] = "BuiltIn"}]
       168 CALL                             R21 1 1
-      169 SETTABLE                         R15 R20 R21
-      170 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      169 SETTABLE                         R6 R20 R21
+      170 GETTABLEKS                       R20 R19 K13 ["TabControls"]
       172 MOVE                             R21 R1
-      173 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      174 LOADK                            R23 K25 ["LeftMezzanineTestAndTestHere"]
-      175 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      177 LOADK                            R23 K32 ["BuiltIn"]
-      178 SETTABLEKS                       R23 R22 K30 ["Type"]
+      173 DUPTABLE                         R22 K40 [{["Filename"] = "AvatarTab", ["Type"] = "BuiltIn"}]
+      174 CALL                             R21 1 1
+      175 SETTABLE                         R5 R20 R21
+      176 GETTABLEKS                       R20 R19 K13 ["TabControls"]
+      178 MOVE                             R21 R1
+      179 DUPTABLE                         R22 K41 [{["Filename"] = "UITab", ["Type"] = "BuiltIn"}]
       180 CALL                             R21 1 1
-      181 SETTABLE                         R16 R20 R21
-      182 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      181 SETTABLE                         R10 R20 R21
+      182 GETTABLEKS                       R20 R19 K13 ["TabControls"]
       184 MOVE                             R21 R1
-      185 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      186 LOADK                            R23 K26 ["RightMezzanine"]
-      187 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      189 LOADK                            R23 K32 ["BuiltIn"]
-      190 SETTABLEKS                       R23 R22 K30 ["Type"]
+      185 DUPTABLE                         R22 K42 [{["Filename"] = "ScriptTab", ["Type"] = "BuiltIn"}]
+      186 CALL                             R21 1 1
+      187 SETTABLE                         R9 R20 R21
+      188 GETTABLEKS                       R20 R19 K13 ["TabControls"]
+      190 MOVE                             R21 R1
+      191 DUPTABLE                         R22 K43 [{["Filename"] = "ModelTab", ["Type"] = "BuiltIn"}]
       192 CALL                             R21 1 1
-      193 SETTABLE                         R17 R20 R21
-      194 GETTABLEKS                       R20 R19 K20 ["MezzanineControls"]
+      193 SETTABLE                         R7 R20 R21
+      194 GETTABLEKS                       R20 R19 K13 ["TabControls"]
       196 MOVE                             R21 R1
-      197 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      198 LOADK                            R23 K27 ["RightMezzanineStartPage"]
-      199 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      201 LOADK                            R23 K32 ["BuiltIn"]
-      202 SETTABLEKS                       R23 R22 K30 ["Type"]
-      204 CALL                             R21 1 1
-      205 SETTABLE                         R18 R20 R21
-      206 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      208 MOVE                             R21 R1
-      209 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      210 LOADK                            R23 K15 ["HomeTab"]
-      211 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      213 LOADK                            R23 K32 ["BuiltIn"]
-      214 SETTABLEKS                       R23 R22 K30 ["Type"]
-      216 CALL                             R21 1 1
-      217 SETTABLE                         R6 R20 R21
-      218 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      220 MOVE                             R21 R1
-      221 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      222 LOADK                            R23 K14 ["AvatarTab"]
-      223 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      225 LOADK                            R23 K32 ["BuiltIn"]
-      226 SETTABLEKS                       R23 R22 K30 ["Type"]
-      228 CALL                             R21 1 1
-      229 SETTABLE                         R5 R20 R21
-      230 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      232 MOVE                             R21 R1
-      233 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      234 LOADK                            R23 K19 ["UITab"]
-      235 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      237 LOADK                            R23 K32 ["BuiltIn"]
-      238 SETTABLEKS                       R23 R22 K30 ["Type"]
-      240 CALL                             R21 1 1
-      241 SETTABLE                         R10 R20 R21
-      242 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      244 MOVE                             R21 R1
-      245 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      246 LOADK                            R23 K18 ["ScriptTab"]
-      247 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      249 LOADK                            R23 K32 ["BuiltIn"]
-      250 SETTABLEKS                       R23 R22 K30 ["Type"]
-      252 CALL                             R21 1 1
-      253 SETTABLE                         R9 R20 R21
-      254 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      256 MOVE                             R21 R1
-      257 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      258 LOADK                            R23 K16 ["ModelTab"]
-      259 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      261 LOADK                            R23 K32 ["BuiltIn"]
-      262 SETTABLEKS                       R23 R22 K30 ["Type"]
-      264 CALL                             R21 1 1
-      265 SETTABLE                         R7 R20 R21
-      266 GETTABLEKS                       R20 R19 K13 ["TabControls"]
-      268 MOVE                             R21 R1
-      269 DUPTABLE                         R22 K31 [{"Filename", "Type"}]
-      270 LOADK                            R23 K17 ["PluginsTab"]
-      271 SETTABLEKS                       R23 R22 K29 ["Filename"]
-      273 LOADK                            R23 K32 ["BuiltIn"]
-      274 SETTABLEKS                       R23 R22 K30 ["Type"]
-      276 CALL                             R21 1 1
-      277 SETTABLE                         R8 R20 R21
-      278 MOVE                             R20 R2
-      279 MOVE                             R21 R19
-      280 CALL                             R20 1 1
-      281 MOVE                             R19 R20
-      282 RETURN                           R19 1
+      197 DUPTABLE                         R22 K44 [{["Filename"] = "PluginsTab", ["Type"] = "BuiltIn"}]
+      198 CALL                             R21 1 1
+      199 SETTABLE                         R8 R20 R21
+      200 MOVE                             R20 R2
+      201 MOVE                             R21 R19
+      202 CALL                             R20 1 1
+      203 MOVE                             R19 R20
+      204 RETURN                           R19 1

@@ -62,125 +62,117 @@ PROTO_2:
        19 GETUPVAL                         R8 1
        20 GETTABLEKS                       R8 R8 K5 ["createElement"]
        22 GETUPVAL                         R9 2
-       23 DUPTABLE                         R10 K12 [{"Axis", "Color", "Outset", "Scale", "AlwaysOnTop", "Thin"}]
+       23 DUPTABLE                         R10 K14 [{["Axis"], ["Color"], ["Outset"] = 0.5, ["Scale"], ["AlwaysOnTop"] = True, ["Thin"] = True}]
        24 SETTABLEKS                       R7 R10 K6 ["Axis"]
        26 GETTABLEKS                       R11 R6 K7 ["Color"]
        28 SETTABLEKS                       R11 R10 K7 ["Color"]
-       30 LOADK                            R11 K13 [0.5]
-       31 SETTABLEKS                       R11 R10 K8 ["Outset"]
-       33 GETTABLEKS                       R11 R0 K14 ["_draggerContext"]
-       35 GETTABLEKS                       R13 R7 K15 ["Position"]
-       37 NAMECALL                         R11 R11 K16 ["getHandleScale"]
-       39 CALL                             R11 2 1
-       40 SETTABLEKS                       R11 R10 K9 ["Scale"]
-       42 LOADB                            R11 1
-       43 SETTABLEKS                       R11 R10 K10 ["AlwaysOnTop"]
-       45 LOADB                            R11 1
-       46 SETTABLEKS                       R11 R10 K11 ["Thin"]
-       48 CALL                             R8 2 1
-       49 SETTABLE                         R8 R1 R5
-       50 FORGLOOP                         R2 2 ; [-39]
-       52 GETUPVAL                         R2 1
-       53 GETTABLEKS                       R2 R2 K5 ["createElement"]
-       55 GETUPVAL                         R3 3
-       56 DUPTABLE                         R4 K20 [{"DraggerContext", "CFrame", "IsActive"}]
-       57 GETTABLEKS                       R5 R0 K14 ["_draggerContext"]
-       59 SETTABLEKS                       R5 R4 K17 ["DraggerContext"]
-       61 GETTABLEKS                       R5 R0 K0 ["_lastDragTarget"]
-       63 GETTABLEKS                       R5 R5 K3 ["mainCFrame"]
-       65 SETTABLEKS                       R5 R4 K18 ["CFrame"]
-       67 NAMECALL                         R5 R0 K21 ["_selectedIsActive"]
-       69 CALL                             R5 1 1
-       70 SETTABLEKS                       R5 R4 K19 ["IsActive"]
-       72 CALL                             R2 2 1
-       73 SETTABLEKS                       R2 R1 K22 ["DraggedPivot"]
-       75 GETTABLEKS                       R2 R0 K14 ["_draggerContext"]
-       77 NAMECALL                         R2 R2 K23 ["shouldSnapPivotToGeometry"]
-       79 CALL                             R2 1 1
-       80 JUMPIFNOT                        R2 ; [+27]
-       81 GETTABLEKS                       R2 R0 K24 ["_snapPoints"]
-       83 JUMPIFNOT                        R2 ; [+24]
-       84 GETUPVAL                         R2 1
-       85 GETTABLEKS                       R2 R2 K5 ["createElement"]
-       87 GETUPVAL                         R3 4
-       88 DUPTABLE                         R4 K27 [{"Focus", "SnapPoints", "DraggerContext"}]
-       89 GETTABLEKS                       R5 R0 K0 ["_lastDragTarget"]
-       91 GETTABLEKS                       R5 R5 K3 ["mainCFrame"]
-       93 GETTABLEKS                       R5 R5 K15 ["Position"]
-       95 SETTABLEKS                       R5 R4 K25 ["Focus"]
-       97 GETTABLEKS                       R5 R0 K24 ["_snapPoints"]
-       99 SETTABLEKS                       R5 R4 K26 ["SnapPoints"]
-      101 GETTABLEKS                       R5 R0 K14 ["_draggerContext"]
-      103 SETTABLEKS                       R5 R4 K17 ["DraggerContext"]
-      105 CALL                             R2 2 1
-      106 SETTABLEKS                       R2 R1 K26 ["SnapPoints"]
-      108 GETUPVAL                         R2 5
-      109 CALL                             R2 0 1
-      110 JUMPIFNOT                        R2 ; [+95]
-      111 GETTABLEKS                       R2 R0 K14 ["_draggerContext"]
-      113 NAMECALL                         R2 R2 K23 ["shouldSnapPivotToGeometry"]
-      115 CALL                             R2 1 1
-      116 JUMPIF                           R2 ; [+89]
-      117 GETTABLEKS                       R2 R0 K0 ["_lastDragTarget"]
-      119 GETTABLEKS                       R2 R2 K28 ["targetMatrix"]
-      121 GETTABLEKS                       R3 R2 K15 ["Position"]
-      123 GETTABLEKS                       R4 R0 K14 ["_draggerContext"]
-      125 MOVE                             R6 R3
-      126 NAMECALL                         R4 R4 K16 ["getHandleScale"]
-      128 CALL                             R4 2 1
-      129 GETTABLEKS                       R6 R0 K0 ["_lastDragTarget"]
-      131 GETTABLEKS                       R6 R6 K29 ["softSnaps"]
-      133 LENGTH                           R5 R6
-      134 JUMPIFNOTEQKN                    R5 K30 [0] ; [+55]
-      136 GETUPVAL                         R5 1
-      137 GETTABLEKS                       R5 R5 K5 ["createElement"]
-      139 GETUPVAL                         R6 6
-      140 DUPTABLE                         R7 K36 [{"DragTarget", "SourceSize", "Scale", "GridSize", "MajorStep", "Color", "PrimaryColor"}]
-      141 GETTABLEKS                       R8 R0 K0 ["_lastDragTarget"]
-      143 SETTABLEKS                       R8 R7 K31 ["DragTarget"]
-      145 LOADK                            R8 K37 [{4, 4, 4}]
-      146 SETTABLEKS                       R8 R7 K32 ["SourceSize"]
-      148 SETTABLEKS                       R4 R7 K9 ["Scale"]
-      150 GETTABLEKS                       R9 R0 K14 ["_draggerContext"]
-      152 NAMECALL                         R9 R9 K38 ["getGridSnapEnabled"]
-      154 CALL                             R9 1 1
-      155 JUMPIFNOT                        R9 ; [+6]
-      156 GETTABLEKS                       R8 R0 K14 ["_draggerContext"]
-      158 NAMECALL                         R8 R8 K39 ["getGridSize"]
-      160 CALL                             R8 1 1
-      161 JUMP                             ; [+1]
-      162 LOADNIL                          R8
-      163 SETTABLEKS                       R8 R7 K33 ["GridSize"]
-      165 GETTABLEKS                       R8 R0 K14 ["_draggerContext"]
-      167 NAMECALL                         R8 R8 K40 ["getMajorGridIncrement"]
-      169 CALL                             R8 1 1
-      170 SETTABLEKS                       R8 R7 K34 ["MajorStep"]
-      172 GETTABLEKS                       R8 R0 K14 ["_draggerContext"]
-      174 NAMECALL                         R8 R8 K41 ["getGridColor"]
-      176 CALL                             R8 1 1
-      177 SETTABLEKS                       R8 R7 K7 ["Color"]
-      179 GETTABLEKS                       R8 R0 K14 ["_draggerContext"]
-      181 NAMECALL                         R8 R8 K42 ["getChosenColor"]
-      183 CALL                             R8 1 1
-      184 SETTABLEKS                       R8 R7 K35 ["PrimaryColor"]
-      186 CALL                             R5 2 1
-      187 SETTABLEKS                       R5 R1 K43 ["TargetGrid"]
-      189 JUMP                             ; [+16]
-      190 GETUPVAL                         R5 1
-      191 GETTABLEKS                       R5 R5 K5 ["createElement"]
-      193 GETUPVAL                         R6 7
-      194 DUPTABLE                         R7 K44 [{"DragTarget", "DraggerContext"}]
-      195 GETTABLEKS                       R8 R0 K0 ["_lastDragTarget"]
-      197 SETTABLEKS                       R8 R7 K31 ["DragTarget"]
-      199 GETTABLEKS                       R8 R0 K14 ["_draggerContext"]
-      201 SETTABLEKS                       R8 R7 K17 ["DraggerContext"]
-      203 CALL                             R5 2 1
-      204 SETTABLEKS                       R5 R1 K45 ["TargetSoftSnapView"]
-      206 GETUPVAL                         R2 1
-      207 GETTABLEKS                       R2 R2 K46 ["createFragment"]
-      209 MOVE                             R3 R1
-      210 CALL                             R2 1 -1
-      211 RETURN                           R2 -1
+       30 GETTABLEKS                       R11 R0 K15 ["_draggerContext"]
+       32 GETTABLEKS                       R13 R7 K16 ["Position"]
+       34 NAMECALL                         R11 R11 K17 ["getHandleScale"]
+       36 CALL                             R11 2 1
+       37 SETTABLEKS                       R11 R10 K10 ["Scale"]
+       39 CALL                             R8 2 1
+       40 SETTABLE                         R8 R1 R5
+       41 FORGLOOP                         R2 2 ; [-30]
+       43 GETUPVAL                         R2 1
+       44 GETTABLEKS                       R2 R2 K5 ["createElement"]
+       46 GETUPVAL                         R3 3
+       47 DUPTABLE                         R4 K21 [{"DraggerContext", "CFrame", "IsActive"}]
+       48 GETTABLEKS                       R5 R0 K15 ["_draggerContext"]
+       50 SETTABLEKS                       R5 R4 K18 ["DraggerContext"]
+       52 GETTABLEKS                       R5 R0 K0 ["_lastDragTarget"]
+       54 GETTABLEKS                       R5 R5 K3 ["mainCFrame"]
+       56 SETTABLEKS                       R5 R4 K19 ["CFrame"]
+       58 NAMECALL                         R5 R0 K22 ["_selectedIsActive"]
+       60 CALL                             R5 1 1
+       61 SETTABLEKS                       R5 R4 K20 ["IsActive"]
+       63 CALL                             R2 2 1
+       64 SETTABLEKS                       R2 R1 K23 ["DraggedPivot"]
+       66 GETTABLEKS                       R2 R0 K15 ["_draggerContext"]
+       68 NAMECALL                         R2 R2 K24 ["shouldSnapPivotToGeometry"]
+       70 CALL                             R2 1 1
+       71 JUMPIFNOT                        R2 ; [+27]
+       72 GETTABLEKS                       R2 R0 K25 ["_snapPoints"]
+       74 JUMPIFNOT                        R2 ; [+24]
+       75 GETUPVAL                         R2 1
+       76 GETTABLEKS                       R2 R2 K5 ["createElement"]
+       78 GETUPVAL                         R3 4
+       79 DUPTABLE                         R4 K28 [{"Focus", "SnapPoints", "DraggerContext"}]
+       80 GETTABLEKS                       R5 R0 K0 ["_lastDragTarget"]
+       82 GETTABLEKS                       R5 R5 K3 ["mainCFrame"]
+       84 GETTABLEKS                       R5 R5 K16 ["Position"]
+       86 SETTABLEKS                       R5 R4 K26 ["Focus"]
+       88 GETTABLEKS                       R5 R0 K25 ["_snapPoints"]
+       90 SETTABLEKS                       R5 R4 K27 ["SnapPoints"]
+       92 GETTABLEKS                       R5 R0 K15 ["_draggerContext"]
+       94 SETTABLEKS                       R5 R4 K18 ["DraggerContext"]
+       96 CALL                             R2 2 1
+       97 SETTABLEKS                       R2 R1 K27 ["SnapPoints"]
+       99 GETUPVAL                         R2 5
+      100 CALL                             R2 0 1
+      101 JUMPIFNOT                        R2 ; [+92]
+      102 GETTABLEKS                       R2 R0 K15 ["_draggerContext"]
+      104 NAMECALL                         R2 R2 K24 ["shouldSnapPivotToGeometry"]
+      106 CALL                             R2 1 1
+      107 JUMPIF                           R2 ; [+86]
+      108 GETTABLEKS                       R2 R0 K0 ["_lastDragTarget"]
+      110 GETTABLEKS                       R2 R2 K29 ["targetMatrix"]
+      112 GETTABLEKS                       R3 R2 K16 ["Position"]
+      114 GETTABLEKS                       R4 R0 K15 ["_draggerContext"]
+      116 MOVE                             R6 R3
+      117 NAMECALL                         R4 R4 K17 ["getHandleScale"]
+      119 CALL                             R4 2 1
+      120 GETTABLEKS                       R6 R0 K0 ["_lastDragTarget"]
+      122 GETTABLEKS                       R6 R6 K30 ["softSnaps"]
+      124 LENGTH                           R5 R6
+      125 JUMPIFNOTEQKN                    R5 K31 [0] ; [+52]
+      127 GETUPVAL                         R5 1
+      128 GETTABLEKS                       R5 R5 K5 ["createElement"]
+      130 GETUPVAL                         R6 6
+      131 DUPTABLE                         R7 K38 [{["DragTarget"], ["SourceSize"] = {4, 4, 4}, ["Scale"], ["GridSize"], ["MajorStep"], ["Color"], ["PrimaryColor"]}]
+      132 GETTABLEKS                       R8 R0 K0 ["_lastDragTarget"]
+      134 SETTABLEKS                       R8 R7 K32 ["DragTarget"]
+      136 SETTABLEKS                       R4 R7 K10 ["Scale"]
+      138 GETTABLEKS                       R9 R0 K15 ["_draggerContext"]
+      140 NAMECALL                         R9 R9 K39 ["getGridSnapEnabled"]
+      142 CALL                             R9 1 1
+      143 JUMPIFNOT                        R9 ; [+6]
+      144 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
+      146 NAMECALL                         R8 R8 K40 ["getGridSize"]
+      148 CALL                             R8 1 1
+      149 JUMP                             ; [+1]
+      150 LOADNIL                          R8
+      151 SETTABLEKS                       R8 R7 K35 ["GridSize"]
+      153 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
+      155 NAMECALL                         R8 R8 K41 ["getMajorGridIncrement"]
+      157 CALL                             R8 1 1
+      158 SETTABLEKS                       R8 R7 K36 ["MajorStep"]
+      160 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
+      162 NAMECALL                         R8 R8 K42 ["getGridColor"]
+      164 CALL                             R8 1 1
+      165 SETTABLEKS                       R8 R7 K7 ["Color"]
+      167 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
+      169 NAMECALL                         R8 R8 K43 ["getChosenColor"]
+      171 CALL                             R8 1 1
+      172 SETTABLEKS                       R8 R7 K37 ["PrimaryColor"]
+      174 CALL                             R5 2 1
+      175 SETTABLEKS                       R5 R1 K44 ["TargetGrid"]
+      177 JUMP                             ; [+16]
+      178 GETUPVAL                         R5 1
+      179 GETTABLEKS                       R5 R5 K5 ["createElement"]
+      181 GETUPVAL                         R6 7
+      182 DUPTABLE                         R7 K45 [{"DragTarget", "DraggerContext"}]
+      183 GETTABLEKS                       R8 R0 K0 ["_lastDragTarget"]
+      185 SETTABLEKS                       R8 R7 K32 ["DragTarget"]
+      187 GETTABLEKS                       R8 R0 K15 ["_draggerContext"]
+      189 SETTABLEKS                       R8 R7 K18 ["DraggerContext"]
+      191 CALL                             R5 2 1
+      192 SETTABLEKS                       R5 R1 K46 ["TargetSoftSnapView"]
+      194 GETUPVAL                         R2 1
+      195 GETTABLEKS                       R2 R2 K47 ["createFragment"]
+      197 MOVE                             R3 R1
+      198 CALL                             R2 1 -1
+      199 RETURN                           R2 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R0 K0 ["_originalPivot"]

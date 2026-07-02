@@ -1,14 +1,12 @@
 PROTO_0:
         0 NEWTABLE                         R0 0 1
-        2 DUPTABLE                         R1 K2 [{"creatorType", "id"}]
-        3 LOADK                            R2 K3 ["User"]
-        4 SETTABLEKS                       R2 R1 K0 ["creatorType"]
-        6 GETUPVAL                         R2 0
-        7 NAMECALL                         R2 R2 K4 ["GetUserId"]
-        9 CALL                             R2 1 1
-       10 SETTABLEKS                       R2 R1 K1 ["id"]
-       12 SETLIST                          R0 R1 1 [1]
-       14 RETURN                           R0 1
+        2 DUPTABLE                         R1 K3 [{[1] = "User", ["id"]}]
+        3 GETUPVAL                         R2 0
+        4 NAMECALL                         R2 R2 K4 ["GetUserId"]
+        6 CALL                             R2 1 1
+        7 SETTABLEKS                       R2 R1 K2 ["id"]
+        9 SETLIST                          R0 R1 1 [1]
+       11 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

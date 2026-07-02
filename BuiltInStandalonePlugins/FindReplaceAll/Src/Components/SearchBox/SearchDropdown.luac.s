@@ -58,30 +58,28 @@ PROTO_2:
        69 CALL                             R6 2 1
        70 SETTABLEKS                       R6 R5 K16 ["HistoryDropdown"]
        72 GETTABLEKS                       R6 R0 K27 ["settingsDropdownItemData"]
-       74 JUMPIFNOT                        R6 ; [+26]
+       74 JUMPIFNOT                        R6 ; [+23]
        75 LOADB                            R6 0
        76 GETTABLEKS                       R7 R0 K2 ["currentDropdown"]
-       78 JUMPIFNOTEQKS                    R7 K28 ["Settings"] ; [+22]
+       78 JUMPIFNOTEQKS                    R7 K28 ["Settings"] ; [+19]
        80 GETUPVAL                         R6 1
        81 GETUPVAL                         R7 3
-       82 DUPTABLE                         R8 K30 [{"dropdownRef", "itemData", "onItemClicked", "shouldIgnoreMaxHeight"}]
+       82 DUPTABLE                         R8 K31 [{["dropdownRef"], ["itemData"], ["onItemClicked"], ["shouldIgnoreMaxHeight"] = True}]
        83 GETTABLEKS                       R9 R0 K20 ["dropdownRef"]
        85 SETTABLEKS                       R9 R8 K20 ["dropdownRef"]
        87 GETTABLEKS                       R9 R0 K27 ["settingsDropdownItemData"]
        89 SETTABLEKS                       R9 R8 K21 ["itemData"]
-       91 GETTABLEKS                       R9 R0 K31 ["onSettingsDropdownItemClicked"]
+       91 GETTABLEKS                       R9 R0 K32 ["onSettingsDropdownItemClicked"]
        93 JUMPIF                           R9 ; [+1]
-       94 DUPCLOSURE                       R9 K32 [PROTO_1]
+       94 DUPCLOSURE                       R9 K33 [PROTO_1]
        95 SETTABLEKS                       R9 R8 K22 ["onItemClicked"]
-       97 LOADB                            R9 1
-       98 SETTABLEKS                       R9 R8 K29 ["shouldIgnoreMaxHeight"]
-      100 CALL                             R6 2 1
-      101 SETTABLEKS                       R6 R5 K17 ["SettingsDropdown"]
-      103 CALL                             R2 3 1
-      104 GETTABLEKS                       R3 R0 K0 ["dropdownOverlay"]
-      106 GETTABLEKS                       R3 R3 K1 ["current"]
-      108 CALL                             R1 2 -1
-      109 RETURN                           R1 -1
+       97 CALL                             R6 2 1
+       98 SETTABLEKS                       R6 R5 K17 ["SettingsDropdown"]
+      100 CALL                             R2 3 1
+      101 GETTABLEKS                       R3 R0 K0 ["dropdownOverlay"]
+      103 GETTABLEKS                       R3 R3 K1 ["current"]
+      105 CALL                             R1 2 -1
+      106 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

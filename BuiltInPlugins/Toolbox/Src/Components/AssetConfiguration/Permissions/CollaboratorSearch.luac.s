@@ -148,81 +148,77 @@ PROTO_11:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 LOADK                            R4 K1 ["Frame"]
-        4 DUPTABLE                         R5 K4 [{"Size", "BackgroundTransparency"}]
-        5 GETIMPORT                        R6 K7 [UDim2.fromOffset]
+        4 DUPTABLE                         R5 K5 [{["Size"], ["BackgroundTransparency"] = 1}]
+        5 GETIMPORT                        R6 K8 [UDim2.fromOffset]
         7 GETUPVAL                         R7 1
-        8 GETTABLEKS                       R7 R7 K8 ["ListItemSize"]
-       10 GETTABLEKS                       R7 R7 K9 ["X"]
+        8 GETTABLEKS                       R7 R7 K9 ["ListItemSize"]
+       10 GETTABLEKS                       R7 R7 K10 ["X"]
        12 GETUPVAL                         R8 1
-       13 GETTABLEKS                       R8 R8 K8 ["ListItemSize"]
-       15 GETTABLEKS                       R8 R8 K10 ["Y"]
+       13 GETTABLEKS                       R8 R8 K9 ["ListItemSize"]
+       15 GETTABLEKS                       R8 R8 K11 ["Y"]
        17 CALL                             R6 2 1
        18 SETTABLEKS                       R6 R5 K2 ["Size"]
-       20 LOADN                            R6 1
-       21 SETTABLEKS                       R6 R5 K3 ["BackgroundTransparency"]
-       23 DUPTABLE                         R6 K13 [{"Button", "LabelPaddingFrame"}]
-       24 GETUPVAL                         R7 0
-       25 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       27 GETUPVAL                         R8 2
-       28 DUPTABLE                         R9 K15 [{"Size", "OnClick"}]
-       29 GETIMPORT                        R10 K17 [UDim2.fromScale]
-       31 LOADN                            R11 1
-       32 LOADN                            R12 1
-       33 CALL                             R10 2 1
-       34 SETTABLEKS                       R10 R9 K2 ["Size"]
-       36 NEWCLOSURE                       R10 P0
-       37 CAPTURE                          VAL R2
-       38 CAPTURE                          UPVAL U3
-       39 SETTABLEKS                       R10 R9 K14 ["OnClick"]
-       41 NEWTABLE                         R10 0 0
-       43 CALL                             R7 3 1
-       44 SETTABLEKS                       R7 R6 K11 ["Button"]
-       46 GETUPVAL                         R7 0
-       47 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       49 LOADK                            R8 K1 ["Frame"]
-       50 DUPTABLE                         R9 K4 [{"Size", "BackgroundTransparency"}]
-       51 GETIMPORT                        R10 K17 [UDim2.fromScale]
-       53 LOADN                            R11 1
-       54 LOADN                            R12 1
-       55 CALL                             R10 2 1
-       56 SETTABLEKS                       R10 R9 K2 ["Size"]
-       58 LOADN                            R10 1
-       59 SETTABLEKS                       R10 R9 K3 ["BackgroundTransparency"]
-       61 DUPTABLE                         R10 K20 [{"Padding", "Collaborator"}]
-       62 GETUPVAL                         R11 0
-       63 GETTABLEKS                       R11 R11 K0 ["createElement"]
-       65 LOADK                            R12 K21 ["UIPadding"]
-       66 DUPTABLE                         R13 K26 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       20 DUPTABLE                         R6 K14 [{"Button", "LabelPaddingFrame"}]
+       21 GETUPVAL                         R7 0
+       22 GETTABLEKS                       R7 R7 K0 ["createElement"]
+       24 GETUPVAL                         R8 2
+       25 DUPTABLE                         R9 K16 [{"Size", "OnClick"}]
+       26 GETIMPORT                        R10 K18 [UDim2.fromScale]
+       28 LOADN                            R11 1
+       29 LOADN                            R12 1
+       30 CALL                             R10 2 1
+       31 SETTABLEKS                       R10 R9 K2 ["Size"]
+       33 NEWCLOSURE                       R10 P0
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          UPVAL U3
+       36 SETTABLEKS                       R10 R9 K15 ["OnClick"]
+       38 NEWTABLE                         R10 0 0
+       40 CALL                             R7 3 1
+       41 SETTABLEKS                       R7 R6 K12 ["Button"]
+       43 GETUPVAL                         R7 0
+       44 GETTABLEKS                       R7 R7 K0 ["createElement"]
+       46 LOADK                            R8 K1 ["Frame"]
+       47 DUPTABLE                         R9 K5 [{["Size"], ["BackgroundTransparency"] = 1}]
+       48 GETIMPORT                        R10 K18 [UDim2.fromScale]
+       50 LOADN                            R11 1
+       51 LOADN                            R12 1
+       52 CALL                             R10 2 1
+       53 SETTABLEKS                       R10 R9 K2 ["Size"]
+       55 DUPTABLE                         R10 K21 [{"Padding", "Collaborator"}]
+       56 GETUPVAL                         R11 0
+       57 GETTABLEKS                       R11 R11 K0 ["createElement"]
+       59 LOADK                            R12 K22 ["UIPadding"]
+       60 DUPTABLE                         R13 K27 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       61 GETUPVAL                         R14 4
+       62 SETTABLEKS                       R14 R13 K23 ["PaddingTop"]
+       64 GETUPVAL                         R14 4
+       65 SETTABLEKS                       R14 R13 K24 ["PaddingBottom"]
        67 GETUPVAL                         R14 4
-       68 SETTABLEKS                       R14 R13 K22 ["PaddingTop"]
+       68 SETTABLEKS                       R14 R13 K25 ["PaddingLeft"]
        70 GETUPVAL                         R14 4
-       71 SETTABLEKS                       R14 R13 K23 ["PaddingBottom"]
-       73 GETUPVAL                         R14 4
-       74 SETTABLEKS                       R14 R13 K24 ["PaddingLeft"]
-       76 GETUPVAL                         R14 4
-       77 SETTABLEKS                       R14 R13 K25 ["PaddingRight"]
-       79 CALL                             R11 2 1
-       80 SETTABLEKS                       R11 R10 K18 ["Padding"]
-       82 GETUPVAL                         R11 0
-       83 GETTABLEKS                       R11 R11 K0 ["createElement"]
-       85 GETUPVAL                         R12 5
-       86 DUPTABLE                         R13 K29 [{"Size", "SubjectType", "Id"}]
-       87 GETIMPORT                        R14 K17 [UDim2.fromScale]
-       89 LOADN                            R15 1
-       90 LOADN                            R16 1
-       91 CALL                             R14 2 1
-       92 SETTABLEKS                       R14 R13 K2 ["Size"]
-       94 GETTABLEKS                       R14 R0 K30 ["Type"]
-       96 SETTABLEKS                       R14 R13 K27 ["SubjectType"]
-       98 GETTABLEKS                       R14 R0 K28 ["Id"]
-      100 SETTABLEKS                       R14 R13 K28 ["Id"]
-      102 NEWTABLE                         R14 0 0
-      104 CALL                             R11 3 1
-      105 SETTABLEKS                       R11 R10 K19 ["Collaborator"]
-      107 CALL                             R7 3 1
-      108 SETTABLEKS                       R7 R6 K12 ["LabelPaddingFrame"]
-      110 CALL                             R3 3 -1
-      111 RETURN                           R3 -1
+       71 SETTABLEKS                       R14 R13 K26 ["PaddingRight"]
+       73 CALL                             R11 2 1
+       74 SETTABLEKS                       R11 R10 K19 ["Padding"]
+       76 GETUPVAL                         R11 0
+       77 GETTABLEKS                       R11 R11 K0 ["createElement"]
+       79 GETUPVAL                         R12 5
+       80 DUPTABLE                         R13 K30 [{"Size", "SubjectType", "Id"}]
+       81 GETIMPORT                        R14 K18 [UDim2.fromScale]
+       83 LOADN                            R15 1
+       84 LOADN                            R16 1
+       85 CALL                             R14 2 1
+       86 SETTABLEKS                       R14 R13 K2 ["Size"]
+       88 GETTABLEKS                       R14 R0 K31 ["Type"]
+       90 SETTABLEKS                       R14 R13 K28 ["SubjectType"]
+       92 GETTABLEKS                       R14 R0 K29 ["Id"]
+       94 SETTABLEKS                       R14 R13 K29 ["Id"]
+       96 NEWTABLE                         R14 0 0
+       98 CALL                             R11 3 1
+       99 SETTABLEKS                       R11 R10 K20 ["Collaborator"]
+      101 CALL                             R7 3 1
+      102 SETTABLEKS                       R7 R6 K13 ["LabelPaddingFrame"]
+      104 CALL                             R3 3 -1
+      105 RETURN                           R3 -1
 
 PROTO_12:
         0 GETTABLEKS                       R1 R0 K0 ["Size"]
@@ -278,75 +274,67 @@ PROTO_12:
        66 GETUPVAL                         R13 0
        67 GETTABLEKS                       R13 R13 K12 ["createElement"]
        69 LOADK                            R14 K13 ["Frame"]
-       70 DUPTABLE                         R15 K16 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+       70 DUPTABLE                         R15 K17 [{[1], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
        71 SETTABLEKS                       R1 R15 K0 ["Size"]
-       73 LOADN                            R16 1
-       74 SETTABLEKS                       R16 R15 K14 ["BackgroundTransparency"]
-       76 GETTABLEKS                       R16 R0 K15 ["LayoutOrder"]
-       78 SETTABLEKS                       R16 R15 K15 ["LayoutOrder"]
-       80 DUPTABLE                         R16 K19 [{"CollaboratorSearchBar", "Dropdown"}]
-       81 GETUPVAL                         R17 0
-       82 GETTABLEKS                       R17 R17 K12 ["createElement"]
-       84 GETUPVAL                         R18 4
-       85 DUPTABLE                         R19 K29 [{"Disabled", "SearchTerm", "PlaceholderText", "ShowSearchButton", "ShowSearchIcon", "OnSearchRequested", "IncrementalTextSearch", "OnTextBoxFocusGained", "OnTextBoxFocusLost"}]
-       86 GETTABLEKS                       R21 R0 K30 ["Enabled"]
-       88 NOT                              R20 R21
-       89 SETTABLEKS                       R20 R19 K20 ["Disabled"]
-       91 SETTABLEKS                       R2 R19 K21 ["SearchTerm"]
-       93 LOADK                            R22 K31 ["AssetConfigPackagePermissions"]
-       94 LOADK                            R23 K32 ["CollaboratorSearchPlaceholderText"]
-       95 NAMECALL                         R20 R7 K33 ["getText"]
-       97 CALL                             R20 3 1
-       98 SETTABLEKS                       R20 R19 K22 ["PlaceholderText"]
-      100 LOADB                            R20 0
-      101 SETTABLEKS                       R20 R19 K23 ["ShowSearchButton"]
-      103 LOADB                            R20 1
-      104 SETTABLEKS                       R20 R19 K24 ["ShowSearchIcon"]
-      106 NEWCLOSURE                       R20 P1
-      107 CAPTURE                          VAL R3
-      108 CAPTURE                          VAL R0
-      109 SETTABLEKS                       R20 R19 K25 ["OnSearchRequested"]
-      111 LOADB                            R20 1
-      112 SETTABLEKS                       R20 R19 K26 ["IncrementalTextSearch"]
-      114 NEWCLOSURE                       R20 P2
-      115 CAPTURE                          VAL R9
-      116 SETTABLEKS                       R20 R19 K27 ["OnTextBoxFocusGained"]
-      118 NEWCLOSURE                       R20 P3
-      119 CAPTURE                          VAL R9
-      120 SETTABLEKS                       R20 R19 K28 ["OnTextBoxFocusLost"]
-      122 NEWTABLE                         R20 0 0
-      124 CALL                             R17 3 1
-      125 SETTABLEKS                       R17 R16 K17 ["CollaboratorSearchBar"]
-      127 GETUPVAL                         R17 0
-      128 GETTABLEKS                       R17 R17 K12 ["createElement"]
-      130 GETUPVAL                         R18 5
-      131 DUPTABLE                         R19 K41 [{"Width", "Hide", "OnMouseEnter", "OnMouseLeave", "Items", "OnRenderItem", "OnItemActivated"}]
-      132 GETTABLEKS                       R20 R0 K42 ["ListItemSize"]
-      134 GETTABLEKS                       R20 R20 K43 ["X"]
-      136 SETTABLEKS                       R20 R19 K34 ["Width"]
-      138 NOT                              R20 R12
-      139 SETTABLEKS                       R20 R19 K35 ["Hide"]
-      141 NEWCLOSURE                       R20 P4
-      142 CAPTURE                          VAL R11
-      143 SETTABLEKS                       R20 R19 K36 ["OnMouseEnter"]
-      145 NEWCLOSURE                       R20 P5
-      146 CAPTURE                          VAL R11
-      147 SETTABLEKS                       R20 R19 K37 ["OnMouseLeave"]
-      149 SETTABLEKS                       R4 R19 K38 ["Items"]
-      151 NEWCLOSURE                       R20 P6
-      152 CAPTURE                          UPVAL U0
-      153 CAPTURE                          VAL R0
-      154 CAPTURE                          UPVAL U6
-      155 CAPTURE                          VAL R11
-      156 CAPTURE                          UPVAL U7
-      157 CAPTURE                          UPVAL U8
-      158 SETTABLEKS                       R20 R19 K39 ["OnRenderItem"]
-      160 GETTABLEKS                       R20 R0 K44 ["CollaboratorSelected"]
-      162 SETTABLEKS                       R20 R19 K40 ["OnItemActivated"]
-      164 CALL                             R17 2 1
-      165 SETTABLEKS                       R17 R16 K18 ["Dropdown"]
-      167 CALL                             R13 3 -1
-      168 RETURN                           R13 -1
+       73 GETTABLEKS                       R16 R0 K16 ["LayoutOrder"]
+       75 SETTABLEKS                       R16 R15 K16 ["LayoutOrder"]
+       77 DUPTABLE                         R16 K20 [{"CollaboratorSearchBar", "Dropdown"}]
+       78 GETUPVAL                         R17 0
+       79 GETTABLEKS                       R17 R17 K12 ["createElement"]
+       81 GETUPVAL                         R18 4
+       82 DUPTABLE                         R19 K32 [{["Disabled"], ["SearchTerm"], ["PlaceholderText"], ["ShowSearchButton"] = False, ["ShowSearchIcon"] = True, ["OnSearchRequested"], ["IncrementalTextSearch"] = True, ["OnTextBoxFocusGained"], ["OnTextBoxFocusLost"]}]
+       83 GETTABLEKS                       R21 R0 K33 ["Enabled"]
+       85 NOT                              R20 R21
+       86 SETTABLEKS                       R20 R19 K21 ["Disabled"]
+       88 SETTABLEKS                       R2 R19 K22 ["SearchTerm"]
+       90 LOADK                            R22 K34 ["AssetConfigPackagePermissions"]
+       91 LOADK                            R23 K35 ["CollaboratorSearchPlaceholderText"]
+       92 NAMECALL                         R20 R7 K36 ["getText"]
+       94 CALL                             R20 3 1
+       95 SETTABLEKS                       R20 R19 K23 ["PlaceholderText"]
+       97 NEWCLOSURE                       R20 P1
+       98 CAPTURE                          VAL R3
+       99 CAPTURE                          VAL R0
+      100 SETTABLEKS                       R20 R19 K28 ["OnSearchRequested"]
+      102 NEWCLOSURE                       R20 P2
+      103 CAPTURE                          VAL R9
+      104 SETTABLEKS                       R20 R19 K30 ["OnTextBoxFocusGained"]
+      106 NEWCLOSURE                       R20 P3
+      107 CAPTURE                          VAL R9
+      108 SETTABLEKS                       R20 R19 K31 ["OnTextBoxFocusLost"]
+      110 NEWTABLE                         R20 0 0
+      112 CALL                             R17 3 1
+      113 SETTABLEKS                       R17 R16 K18 ["CollaboratorSearchBar"]
+      115 GETUPVAL                         R17 0
+      116 GETTABLEKS                       R17 R17 K12 ["createElement"]
+      118 GETUPVAL                         R18 5
+      119 DUPTABLE                         R19 K44 [{"Width", "Hide", "OnMouseEnter", "OnMouseLeave", "Items", "OnRenderItem", "OnItemActivated"}]
+      120 GETTABLEKS                       R20 R0 K45 ["ListItemSize"]
+      122 GETTABLEKS                       R20 R20 K46 ["X"]
+      124 SETTABLEKS                       R20 R19 K37 ["Width"]
+      126 NOT                              R20 R12
+      127 SETTABLEKS                       R20 R19 K38 ["Hide"]
+      129 NEWCLOSURE                       R20 P4
+      130 CAPTURE                          VAL R11
+      131 SETTABLEKS                       R20 R19 K39 ["OnMouseEnter"]
+      133 NEWCLOSURE                       R20 P5
+      134 CAPTURE                          VAL R11
+      135 SETTABLEKS                       R20 R19 K40 ["OnMouseLeave"]
+      137 SETTABLEKS                       R4 R19 K41 ["Items"]
+      139 NEWCLOSURE                       R20 P6
+      140 CAPTURE                          UPVAL U0
+      141 CAPTURE                          VAL R0
+      142 CAPTURE                          UPVAL U6
+      143 CAPTURE                          VAL R11
+      144 CAPTURE                          UPVAL U7
+      145 CAPTURE                          UPVAL U8
+      146 SETTABLEKS                       R20 R19 K42 ["OnRenderItem"]
+      148 GETTABLEKS                       R20 R0 K47 ["CollaboratorSelected"]
+      150 SETTABLEKS                       R20 R19 K43 ["OnItemActivated"]
+      152 CALL                             R17 2 1
+      153 SETTABLEKS                       R17 R16 K19 ["Dropdown"]
+      155 CALL                             R13 3 -1
+      156 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

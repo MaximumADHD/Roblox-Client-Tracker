@@ -23,14 +23,12 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K9 [{"selectedGroup"}]
-       24 LOADN                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["selectedGroup"]
-       27 GETTABLEKS                       R4 R1 K10 ["createReducer"]
-       29 MOVE                             R5 R3
-       30 DUPTABLE                         R6 K12 [{"SetSelectedGroup"}]
-       31 DUPCLOSURE                       R7 K13 [PROTO_0]
-       32 CAPTURE                          VAL R2
-       33 SETTABLEKS                       R7 R6 K11 ["SetSelectedGroup"]
-       35 CALL                             R4 2 -1
-       36 RETURN                           R4 -1
+       23 DUPTABLE                         R3 K10 [{["selectedGroup"] = 0}]
+       24 GETTABLEKS                       R4 R1 K11 ["createReducer"]
+       26 MOVE                             R5 R3
+       27 DUPTABLE                         R6 K13 [{"SetSelectedGroup"}]
+       28 DUPCLOSURE                       R7 K14 [PROTO_0]
+       29 CAPTURE                          VAL R2
+       30 SETTABLEKS                       R7 R6 K12 ["SetSelectedGroup"]
+       32 CALL                             R4 2 -1
+       33 RETURN                           R4 -1

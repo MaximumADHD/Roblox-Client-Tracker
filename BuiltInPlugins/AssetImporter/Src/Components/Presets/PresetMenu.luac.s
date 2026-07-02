@@ -12,47 +12,39 @@ PROTO_0:
        17 CALL                             R5 3 0
        18 RETURN                           R0 0
        19 GETUPVAL                         R5 2
-       20 JUMPIFNOTEQ                      R0 R5 ; [+13]
+       20 JUMPIFNOTEQ                      R0 R5 ; [+7]
        22 GETUPVAL                         R5 0
-       23 DUPTABLE                         R7 K7 [{"showNameDialog", "promptIntent"}]
-       24 LOADB                            R8 1
-       25 SETTABLEKS                       R8 R7 K5 ["showNameDialog"]
-       27 LOADK                            R8 K8 ["Rename"]
-       28 SETTABLEKS                       R8 R7 K6 ["promptIntent"]
-       30 NAMECALL                         R5 R5 K9 ["setState"]
-       32 CALL                             R5 2 0
-       33 RETURN                           R0 0
-       34 GETUPVAL                         R5 3
-       35 JUMPIFNOTEQ                      R0 R5 ; [+8]
-       37 GETTABLEKS                       R5 R2 K3 ["PresetController"]
-       39 MOVE                             R7 R3
-       40 NAMECALL                         R5 R5 K10 ["delete"]
-       42 CALL                             R5 2 0
-       43 RETURN                           R0 0
-       44 GETUPVAL                         R5 4
-       45 JUMPIFNOTEQ                      R0 R5 ; [+6]
-       47 MOVE                             R7 R3
-       48 NAMECALL                         R5 R4 K11 ["save"]
-       50 CALL                             R5 2 0
-       51 RETURN                           R0 0
-       52 GETUPVAL                         R5 5
-       53 JUMPIFNOTEQ                      R0 R5 ; [+13]
-       55 GETUPVAL                         R5 0
-       56 DUPTABLE                         R7 K7 [{"showNameDialog", "promptIntent"}]
-       57 LOADB                            R8 1
-       58 SETTABLEKS                       R8 R7 K5 ["showNameDialog"]
-       60 LOADK                            R8 K12 ["Create"]
-       61 SETTABLEKS                       R8 R7 K6 ["promptIntent"]
-       63 NAMECALL                         R5 R5 K9 ["setState"]
-       65 CALL                             R5 2 0
-       66 RETURN                           R0 0
-       67 GETUPVAL                         R5 6
-       68 JUMPIFNOTEQ                      R0 R5 ; [+7]
-       70 GETTABLEKS                       R5 R2 K3 ["PresetController"]
-       72 MOVE                             R7 R3
-       73 NAMECALL                         R5 R5 K13 ["setDefault"]
-       75 CALL                             R5 2 0
-       76 RETURN                           R0 0
+       23 DUPTABLE                         R7 K9 [{["showNameDialog"] = True, ["promptIntent"] = "Rename"}]
+       24 NAMECALL                         R5 R5 K10 ["setState"]
+       26 CALL                             R5 2 0
+       27 RETURN                           R0 0
+       28 GETUPVAL                         R5 3
+       29 JUMPIFNOTEQ                      R0 R5 ; [+8]
+       31 GETTABLEKS                       R5 R2 K3 ["PresetController"]
+       33 MOVE                             R7 R3
+       34 NAMECALL                         R5 R5 K11 ["delete"]
+       36 CALL                             R5 2 0
+       37 RETURN                           R0 0
+       38 GETUPVAL                         R5 4
+       39 JUMPIFNOTEQ                      R0 R5 ; [+6]
+       41 MOVE                             R7 R3
+       42 NAMECALL                         R5 R4 K12 ["save"]
+       44 CALL                             R5 2 0
+       45 RETURN                           R0 0
+       46 GETUPVAL                         R5 5
+       47 JUMPIFNOTEQ                      R0 R5 ; [+7]
+       49 GETUPVAL                         R5 0
+       50 DUPTABLE                         R7 K14 [{["showNameDialog"] = True, ["promptIntent"] = "Create"}]
+       51 NAMECALL                         R5 R5 K10 ["setState"]
+       53 CALL                             R5 2 0
+       54 RETURN                           R0 0
+       55 GETUPVAL                         R5 6
+       56 JUMPIFNOTEQ                      R0 R5 ; [+7]
+       58 GETTABLEKS                       R5 R2 K3 ["PresetController"]
+       60 MOVE                             R7 R3
+       61 NAMECALL                         R5 R5 K15 ["setDefault"]
+       63 CALL                             R5 2 0
+       64 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -172,12 +164,10 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showNameDialog"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showNameDialog"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R2 0
@@ -205,12 +195,10 @@ PROTO_4:
        35 NAMECALL                         R4 R2 K10 ["rename"]
        37 CALL                             R4 3 0
        38 GETUPVAL                         R3 0
-       39 DUPTABLE                         R5 K12 [{"showNameDialog"}]
-       40 LOADB                            R6 0
-       41 SETTABLEKS                       R6 R5 K11 ["showNameDialog"]
-       43 NAMECALL                         R3 R3 K13 ["setState"]
-       45 CALL                             R3 2 0
-       46 RETURN                           R0 0
+       39 DUPTABLE                         R5 K13 [{["showNameDialog"] = False}]
+       40 NAMECALL                         R3 R3 K14 ["setState"]
+       42 CALL                             R3 2 0
+       43 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -248,44 +236,40 @@ PROTO_5:
        41 MOVE                             R14 R4
        42 SETLIST                          R8 R9 6 [1]
        44 SETTABLEKS                       R8 R0 K10 ["dropdownItems"]
-       46 DUPTABLE                         R8 K13 [{"showNameDialog", "promptIntent"}]
-       47 LOADB                            R9 0
-       48 SETTABLEKS                       R9 R8 K11 ["showNameDialog"]
-       50 LOADN                            R9 0
-       51 SETTABLEKS                       R9 R8 K12 ["promptIntent"]
-       53 SETTABLEKS                       R8 R0 K14 ["state"]
-       55 NEWCLOSURE                       R8 P0
-       56 CAPTURE                          VAL R0
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R4
-       60 CAPTURE                          VAL R5
-       61 CAPTURE                          VAL R6
-       62 CAPTURE                          VAL R7
-       63 SETTABLEKS                       R8 R0 K15 ["onItemActivated"]
-       65 NEWCLOSURE                       R8 P1
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R2
-       68 CAPTURE                          VAL R3
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R5
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R7
-       73 SETTABLEKS                       R8 R0 K16 ["isItemEnabled"]
-       75 NEWCLOSURE                       R8 P2
-       76 CAPTURE                          VAL R0
-       77 CAPTURE                          UPVAL U0
-       78 CAPTURE                          UPVAL U1
-       79 CAPTURE                          UPVAL U2
-       80 CAPTURE                          UPVAL U3
-       81 SETTABLEKS                       R8 R0 K17 ["onRenderItem"]
-       83 NEWCLOSURE                       R8 P3
-       84 CAPTURE                          VAL R0
-       85 SETTABLEKS                       R8 R0 K18 ["onNameDialogClose"]
-       87 NEWCLOSURE                       R8 P4
-       88 CAPTURE                          VAL R0
-       89 SETTABLEKS                       R8 R0 K19 ["onNameDialogButtonPressed"]
-       91 RETURN                           R0 0
+       46 DUPTABLE                         R8 K15 [{["showNameDialog"] = False, ["promptIntent"] = 0}]
+       47 SETTABLEKS                       R8 R0 K16 ["state"]
+       49 NEWCLOSURE                       R8 P0
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R5
+       55 CAPTURE                          VAL R6
+       56 CAPTURE                          VAL R7
+       57 SETTABLEKS                       R8 R0 K17 ["onItemActivated"]
+       59 NEWCLOSURE                       R8 P1
+       60 CAPTURE                          VAL R0
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R4
+       64 CAPTURE                          VAL R5
+       65 CAPTURE                          VAL R6
+       66 CAPTURE                          VAL R7
+       67 SETTABLEKS                       R8 R0 K18 ["isItemEnabled"]
+       69 NEWCLOSURE                       R8 P2
+       70 CAPTURE                          VAL R0
+       71 CAPTURE                          UPVAL U0
+       72 CAPTURE                          UPVAL U1
+       73 CAPTURE                          UPVAL U2
+       74 CAPTURE                          UPVAL U3
+       75 SETTABLEKS                       R8 R0 K19 ["onRenderItem"]
+       77 NEWCLOSURE                       R8 P3
+       78 CAPTURE                          VAL R0
+       79 SETTABLEKS                       R8 R0 K20 ["onNameDialogClose"]
+       81 NEWCLOSURE                       R8 P4
+       82 CAPTURE                          VAL R0
+       83 SETTABLEKS                       R8 R0 K21 ["onNameDialogButtonPressed"]
+       85 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -304,57 +288,49 @@ PROTO_6:
        22 GETUPVAL                         R8 0
        23 GETTABLEKS                       R8 R8 K4 ["createElement"]
        25 GETUPVAL                         R9 2
-       26 DUPTABLE                         R10 K21 [{"Items", "HideText", "OnItemActivated", "OnRenderItem", "OnMouseEnter", "OnMouseLeave", "Size", "ExpandIcon", "ShowSelection", "UseAutoWidth"}]
-       27 GETTABLEKS                       R11 R0 K22 ["dropdownItems"]
+       26 DUPTABLE                         R10 K23 [{["Items"], ["HideText"] = True, ["OnItemActivated"], ["OnRenderItem"], ["OnMouseEnter"], ["OnMouseLeave"], ["Size"], ["ExpandIcon"], ["ShowSelection"] = False, ["UseAutoWidth"] = True}]
+       27 GETTABLEKS                       R11 R0 K24 ["dropdownItems"]
        29 SETTABLEKS                       R11 R10 K12 ["Items"]
-       31 LOADB                            R11 1
-       32 SETTABLEKS                       R11 R10 K13 ["HideText"]
-       34 GETTABLEKS                       R11 R0 K23 ["onItemActivated"]
-       36 SETTABLEKS                       R11 R10 K14 ["OnItemActivated"]
-       38 GETTABLEKS                       R11 R0 K24 ["onRenderItem"]
-       40 SETTABLEKS                       R11 R10 K15 ["OnRenderItem"]
-       42 GETTABLEKS                       R11 R0 K25 ["focused"]
-       44 SETTABLEKS                       R11 R10 K16 ["OnMouseEnter"]
-       46 GETTABLEKS                       R11 R0 K26 ["unfocused"]
-       48 SETTABLEKS                       R11 R10 K17 ["OnMouseLeave"]
-       50 GETIMPORT                        R11 K29 [UDim2.new]
-       52 LOADN                            R12 1
-       53 LOADN                            R13 0
-       54 LOADN                            R14 1
-       55 LOADN                            R15 0
-       56 CALL                             R11 4 1
-       57 SETTABLEKS                       R11 R10 K5 ["Size"]
-       59 GETTABLEKS                       R11 R3 K30 ["MenuImage"]
-       61 SETTABLEKS                       R11 R10 K18 ["ExpandIcon"]
-       63 LOADB                            R11 0
-       64 SETTABLEKS                       R11 R10 K19 ["ShowSelection"]
-       66 LOADB                            R11 1
-       67 SETTABLEKS                       R11 R10 K20 ["UseAutoWidth"]
-       69 CALL                             R8 2 1
-       70 SETTABLEKS                       R8 R7 K9 ["PresetMenu"]
-       72 GETTABLEKS                       R9 R2 K31 ["showNameDialog"]
-       74 JUMPIFNOT                        R9 ; [+28]
-       75 GETUPVAL                         R8 0
-       76 GETTABLEKS                       R8 R8 K4 ["createElement"]
-       78 GETUPVAL                         R9 3
-       79 DUPTABLE                         R10 K37 [{"CurrentPreset", "Intent", "IsHintError", "OnClose", "OnButtonPressed"}]
-       80 GETTABLEKS                       R11 R1 K38 ["ActiveQueueItem"]
-       82 GETTABLEKS                       R11 R11 K39 ["currentPreset"]
-       84 SETTABLEKS                       R11 R10 K32 ["CurrentPreset"]
-       86 GETTABLEKS                       R11 R2 K40 ["promptIntent"]
-       88 SETTABLEKS                       R11 R10 K33 ["Intent"]
-       90 LOADB                            R11 0
-       91 SETTABLEKS                       R11 R10 K34 ["IsHintError"]
-       93 GETTABLEKS                       R11 R0 K41 ["onNameDialogClose"]
-       95 SETTABLEKS                       R11 R10 K35 ["OnClose"]
-       97 GETTABLEKS                       R11 R0 K42 ["onNameDialogButtonPressed"]
-       99 SETTABLEKS                       R11 R10 K36 ["OnButtonPressed"]
-      101 CALL                             R8 2 1
-      102 JUMP                             ; [+1]
-      103 LOADNIL                          R8
-      104 SETTABLEKS                       R8 R7 K10 ["PresetNamePrompt"]
-      106 CALL                             R4 3 -1
-      107 RETURN                           R4 -1
+       31 GETTABLEKS                       R11 R0 K25 ["onItemActivated"]
+       33 SETTABLEKS                       R11 R10 K15 ["OnItemActivated"]
+       35 GETTABLEKS                       R11 R0 K26 ["onRenderItem"]
+       37 SETTABLEKS                       R11 R10 K16 ["OnRenderItem"]
+       39 GETTABLEKS                       R11 R0 K27 ["focused"]
+       41 SETTABLEKS                       R11 R10 K17 ["OnMouseEnter"]
+       43 GETTABLEKS                       R11 R0 K28 ["unfocused"]
+       45 SETTABLEKS                       R11 R10 K18 ["OnMouseLeave"]
+       47 GETIMPORT                        R11 K31 [UDim2.new]
+       49 LOADN                            R12 1
+       50 LOADN                            R13 0
+       51 LOADN                            R14 1
+       52 LOADN                            R15 0
+       53 CALL                             R11 4 1
+       54 SETTABLEKS                       R11 R10 K5 ["Size"]
+       56 GETTABLEKS                       R11 R3 K32 ["MenuImage"]
+       58 SETTABLEKS                       R11 R10 K19 ["ExpandIcon"]
+       60 CALL                             R8 2 1
+       61 SETTABLEKS                       R8 R7 K9 ["PresetMenu"]
+       63 GETTABLEKS                       R9 R2 K33 ["showNameDialog"]
+       65 JUMPIFNOT                        R9 ; [+25]
+       66 GETUPVAL                         R8 0
+       67 GETTABLEKS                       R8 R8 K4 ["createElement"]
+       69 GETUPVAL                         R9 3
+       70 DUPTABLE                         R10 K39 [{["CurrentPreset"], ["Intent"], ["IsHintError"] = False, ["OnClose"], ["OnButtonPressed"]}]
+       71 GETTABLEKS                       R11 R1 K40 ["ActiveQueueItem"]
+       73 GETTABLEKS                       R11 R11 K41 ["currentPreset"]
+       75 SETTABLEKS                       R11 R10 K34 ["CurrentPreset"]
+       77 GETTABLEKS                       R11 R2 K42 ["promptIntent"]
+       79 SETTABLEKS                       R11 R10 K35 ["Intent"]
+       81 GETTABLEKS                       R11 R0 K43 ["onNameDialogClose"]
+       83 SETTABLEKS                       R11 R10 K37 ["OnClose"]
+       85 GETTABLEKS                       R11 R0 K44 ["onNameDialogButtonPressed"]
+       87 SETTABLEKS                       R11 R10 K38 ["OnButtonPressed"]
+       89 CALL                             R8 2 1
+       90 JUMP                             ; [+1]
+       91 LOADNIL                          R8
+       92 SETTABLEKS                       R8 R7 K10 ["PresetNamePrompt"]
+       94 CALL                             R4 3 -1
+       95 RETURN                           R4 -1
 
 PROTO_7:
         0 DUPTABLE                         R1 K1 [{"ActiveQueueItem"}]

@@ -168,31 +168,25 @@ MAIN:
       123 SETTABLEKS                       R19 R18 K29 ["bridge"]
       125 SETTABLEKS                       R18 R17 K26 ["dialogContextProps"]
       127 DUPTABLE                         R18 K45 [{"mockNetworkConfig"}]
-      128 DUPTABLE                         R19 K49 [{"numVersions", "latencySec", "failureRate"}]
-      129 LOADN                            R20 231
-      130 SETTABLEKS                       R20 R19 K46 ["numVersions"]
-      132 LOADN                            R20 1
-      133 SETTABLEKS                       R20 R19 K47 ["latencySec"]
-      135 LOADN                            R20 0
-      136 SETTABLEKS                       R20 R19 K48 ["failureRate"]
-      138 SETTABLEKS                       R19 R18 K44 ["mockNetworkConfig"]
-      140 SETTABLEKS                       R18 R17 K27 ["networkContextProps"]
-      142 DUPCLOSURE                       R18 K50 [PROTO_2]
-      143 CAPTURE                          VAL R5
-      144 CAPTURE                          VAL R15
-      145 CAPTURE                          VAL R16
-      146 CAPTURE                          VAL R0
-      147 CAPTURE                          VAL R1
-      148 CAPTURE                          VAL R2
-      149 CAPTURE                          VAL R3
-      150 CAPTURE                          VAL R8
-      151 CAPTURE                          VAL R9
-      152 CAPTURE                          VAL R10
-      153 CAPTURE                          VAL R17
-      154 CAPTURE                          VAL R11
-      155 CAPTURE                          VAL R13
-      156 CAPTURE                          VAL R12
-      157 CAPTURE                          VAL R14
-      158 SETGLOBAL                        R18 K51 ["MockWrapper"]
-      160 GETGLOBAL                        R18 K51 ["MockWrapper"]
-      162 RETURN                           R18 1
+      128 DUPTABLE                         R19 K52 [{["numVersions"] = 999, ["latencySec"] = 1, ["failureRate"] = 0}]
+      129 SETTABLEKS                       R19 R18 K44 ["mockNetworkConfig"]
+      131 SETTABLEKS                       R18 R17 K27 ["networkContextProps"]
+      133 DUPCLOSURE                       R18 K53 [PROTO_2]
+      134 CAPTURE                          VAL R5
+      135 CAPTURE                          VAL R15
+      136 CAPTURE                          VAL R16
+      137 CAPTURE                          VAL R0
+      138 CAPTURE                          VAL R1
+      139 CAPTURE                          VAL R2
+      140 CAPTURE                          VAL R3
+      141 CAPTURE                          VAL R8
+      142 CAPTURE                          VAL R9
+      143 CAPTURE                          VAL R10
+      144 CAPTURE                          VAL R17
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R13
+      147 CAPTURE                          VAL R12
+      148 CAPTURE                          VAL R14
+      149 SETGLOBAL                        R18 K54 ["MockWrapper"]
+      151 GETGLOBAL                        R18 K54 ["MockWrapper"]
+      153 RETURN                           R18 1

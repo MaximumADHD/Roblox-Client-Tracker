@@ -26,72 +26,75 @@ PROTO_0:
        36 GETUPVAL                         R4 0
        37 GETTABLEKS                       R4 R4 K8 ["createElement"]
        39 GETUPVAL                         R5 4
-       40 DUPTABLE                         R6 K13 [{"LayoutOrder", "orientation", "tag"}]
+       40 DUPTABLE                         R6 K14 [{["LayoutOrder"], ["orientation"], ["tag"] = "auto-y"}]
        41 MOVE                             R7 R2
        42 CALL                             R7 0 1
        43 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
        45 GETUPVAL                         R7 5
-       46 GETTABLEKS                       R7 R7 K14 ["Vertical"]
+       46 GETTABLEKS                       R7 R7 K15 ["Vertical"]
        48 SETTABLEKS                       R7 R6 K11 ["orientation"]
-       50 LOADK                            R7 K15 ["auto-y"]
-       51 SETTABLEKS                       R7 R6 K12 ["tag"]
-       53 CALL                             R4 2 1
-       54 SETTABLEKS                       R4 R3 K16 ["Divider"]
-       56 GETUPVAL                         R4 6
-       57 CALL                             R4 0 3
-       58 FORGPREP                         R4
-       59 GETTABLEKS                       R10 R1 K17 ["schemas"]
-       61 GETTABLE                         R9 R10 R8
-       62 JUMPIFEQKB                       R9 FALSE ; [+56]
-       64 GETTABLEKS                       R9 R0 K18 ["previousBindings"]
-       66 JUMPIFNOT                        R9 ; [+16]
-       67 GETTABLEKS                       R10 R0 K18 ["previousBindings"]
-       69 GETTABLE                         R9 R10 R8
-       70 JUMPIF                           R9 ; [+12]
-       71 GETUPVAL                         R9 0
-       72 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       74 GETUPVAL                         R10 7
-       75 DUPTABLE                         R11 K19 [{"LayoutOrder"}]
-       76 MOVE                             R12 R2
-       77 CALL                             R12 0 1
-       78 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-       80 CALL                             R9 2 1
-       81 SETTABLE                         R9 R3 R8
-       82 JUMP                             ; [+36]
-       83 GETUPVAL                         R9 0
-       84 GETTABLEKS                       R9 R9 K8 ["createElement"]
-       86 GETUPVAL                         R10 8
-       87 DUPTABLE                         R11 K25 [{"action", "binding", "index", "LayoutOrder", "onCreated", "property", "schema"}]
-       88 GETTABLEKS                       R12 R0 K3 ["nodeProps"]
-       90 GETTABLEKS                       R12 R12 K4 ["action"]
-       92 SETTABLEKS                       R12 R11 K4 ["action"]
-       94 GETTABLEKS                       R13 R0 K26 ["bindings"]
-       96 GETTABLE                         R12 R13 R8
-       97 SETTABLEKS                       R12 R11 K20 ["binding"]
-       99 GETTABLEKS                       R12 R0 K21 ["index"]
-      101 SETTABLEKS                       R12 R11 K21 ["index"]
-      103 MOVE                             R12 R2
-      104 CALL                             R12 0 1
-      105 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
-      107 GETTABLEKS                       R12 R0 K22 ["onCreated"]
-      109 SETTABLEKS                       R12 R11 K22 ["onCreated"]
-      111 GETTABLEKS                       R12 R0 K23 ["property"]
-      113 SETTABLEKS                       R12 R11 K23 ["property"]
-      115 SETTABLEKS                       R8 R11 K24 ["schema"]
-      117 CALL                             R9 2 1
-      118 SETTABLE                         R9 R3 R8
-      119 FORGLOOP                         R4 2 ; [-61]
-      121 GETUPVAL                         R4 0
-      122 GETTABLEKS                       R4 R4 K8 ["createElement"]
-      124 GETUPVAL                         R5 9
-      125 DUPTABLE                         R6 K27 [{"tag", "LayoutOrder"}]
-      126 LOADK                            R7 K28 ["tree-row row align-y-center auto-x"]
-      127 SETTABLEKS                       R7 R6 K12 ["tag"]
-      129 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
-      131 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
-      133 MOVE                             R7 R3
-      134 CALL                             R4 3 -1
-      135 RETURN                           R4 -1
+       50 CALL                             R4 2 1
+       51 SETTABLEKS                       R4 R3 K16 ["Divider"]
+       53 GETUPVAL                         R4 6
+       54 CALL                             R4 0 3
+       55 FORGPREP                         R4
+       56 GETTABLEKS                       R10 R1 K17 ["schemas"]
+       58 GETTABLE                         R9 R10 R8
+       59 JUMPIFEQKB                       R9 FALSE ; [+66]
+       61 GETTABLEKS                       R9 R0 K18 ["previousBindings"]
+       63 JUMPIFNOT                        R9 ; [+16]
+       64 GETTABLEKS                       R10 R0 K18 ["previousBindings"]
+       66 GETTABLE                         R9 R10 R8
+       67 JUMPIF                           R9 ; [+12]
+       68 GETUPVAL                         R9 0
+       69 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       71 GETUPVAL                         R10 7
+       72 DUPTABLE                         R11 K19 [{"LayoutOrder"}]
+       73 MOVE                             R12 R2
+       74 CALL                             R12 0 1
+       75 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
+       77 CALL                             R9 2 1
+       78 SETTABLE                         R9 R3 R8
+       79 JUMP                             ; [+46]
+       80 GETUPVAL                         R9 0
+       81 GETTABLEKS                       R9 R9 K8 ["createElement"]
+       83 GETUPVAL                         R10 8
+       84 DUPTABLE                         R11 K26 [{"action", "binding", "index", "LayoutOrder", "onCreated", "property", "schema", "validBinding"}]
+       85 GETTABLEKS                       R12 R0 K3 ["nodeProps"]
+       87 GETTABLEKS                       R12 R12 K4 ["action"]
+       89 SETTABLEKS                       R12 R11 K4 ["action"]
+       91 GETTABLEKS                       R13 R0 K27 ["bindings"]
+       93 GETTABLE                         R12 R13 R8
+       94 SETTABLEKS                       R12 R11 K20 ["binding"]
+       96 GETTABLEKS                       R12 R0 K21 ["index"]
+       98 SETTABLEKS                       R12 R11 K21 ["index"]
+      100 MOVE                             R12 R2
+      101 CALL                             R12 0 1
+      102 SETTABLEKS                       R12 R11 K10 ["LayoutOrder"]
+      104 GETTABLEKS                       R12 R0 K22 ["onCreated"]
+      106 SETTABLEKS                       R12 R11 K22 ["onCreated"]
+      108 GETTABLEKS                       R12 R0 K23 ["property"]
+      110 SETTABLEKS                       R12 R11 K23 ["property"]
+      112 SETTABLEKS                       R8 R11 K24 ["schema"]
+      114 GETTABLEKS                       R13 R0 K28 ["validBindingsBySchema"]
+      116 JUMPIFNOT                        R13 ; [+4]
+      117 GETTABLEKS                       R13 R0 K28 ["validBindingsBySchema"]
+      119 GETTABLE                         R12 R13 R8
+      120 JUMP                             ; [+1]
+      121 LOADNIL                          R12
+      122 SETTABLEKS                       R12 R11 K25 ["validBinding"]
+      124 CALL                             R9 2 1
+      125 SETTABLE                         R9 R3 R8
+      126 FORGLOOP                         R4 2 ; [-71]
+      128 GETUPVAL                         R4 0
+      129 GETTABLEKS                       R4 R4 K8 ["createElement"]
+      131 GETUPVAL                         R5 9
+      132 DUPTABLE                         R6 K30 [{["tag"] = "tree-row row align-y-center auto-x", ["LayoutOrder"]}]
+      133 GETTABLEKS                       R7 R0 K10 ["LayoutOrder"]
+      135 SETTABLEKS                       R7 R6 K10 ["LayoutOrder"]
+      137 MOVE                             R7 R3
+      138 CALL                             R4 3 -1
+      139 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

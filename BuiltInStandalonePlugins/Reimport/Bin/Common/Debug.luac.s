@@ -17,22 +17,20 @@ PROTO_2:
 
 PROTO_3:
         0 DUPTABLE                         R0 K4 [{"configData", "presets", "doSaveConfig", "doReimport"}]
-        1 DUPTABLE                         R1 K6 [{"filepath"}]
-        2 LOADK                            R2 K7 [""]
-        3 SETTABLEKS                       R2 R1 K5 ["filepath"]
-        5 SETTABLEKS                       R1 R0 K0 ["configData"]
-        7 NEWTABLE                         R1 0 3
-        9 GETUPVAL                         R2 0
-       10 GETTABLEKS                       R2 R2 K8 ["StudioDefaultPreset"]
-       12 LOADK                            R3 K9 ["Preset 1"]
-       13 LOADK                            R4 K10 ["Preset 2"]
-       14 SETLIST                          R1 R2 3 [1]
-       16 SETTABLEKS                       R1 R0 K1 ["presets"]
-       18 DUPCLOSURE                       R1 K11 [PROTO_1]
-       19 SETTABLEKS                       R1 R0 K2 ["doSaveConfig"]
-       21 DUPCLOSURE                       R1 K12 [PROTO_2]
-       22 SETTABLEKS                       R1 R0 K3 ["doReimport"]
-       24 RETURN                           R0 1
+        1 DUPTABLE                         R1 K7 [{["filepath"] = ""}]
+        2 SETTABLEKS                       R1 R0 K0 ["configData"]
+        4 NEWTABLE                         R1 0 3
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R2 R2 K8 ["StudioDefaultPreset"]
+        9 LOADK                            R3 K9 ["Preset 1"]
+       10 LOADK                            R4 K10 ["Preset 2"]
+       11 SETLIST                          R1 R2 3 [1]
+       13 SETTABLEKS                       R1 R0 K1 ["presets"]
+       15 DUPCLOSURE                       R1 K11 [PROTO_1]
+       16 SETTABLEKS                       R1 R0 K2 ["doSaveConfig"]
+       18 DUPCLOSURE                       R1 K12 [PROTO_2]
+       19 SETTABLEKS                       R1 R0 K3 ["doReimport"]
+       21 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -44,61 +42,21 @@ PROTO_4:
         7 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R0 K2 [{"errors", "target"}]
+        0 DUPTABLE                         R0 K3 [{[1], ["target"] = }]
         1 NEWTABLE                         R1 0 10
-        3 DUPTABLE                         R2 K5 [{"label", "message"}]
-        4 LOADK                            R3 K6 ["Error 1"]
-        5 SETTABLEKS                       R3 R2 K3 ["label"]
-        7 LOADK                            R3 K7 ["Something went wrong"]
-        8 SETTABLEKS                       R3 R2 K4 ["message"]
-       10 DUPTABLE                         R3 K5 [{"label", "message"}]
-       11 LOADK                            R4 K8 ["Error 2"]
-       12 SETTABLEKS                       R4 R3 K3 ["label"]
-       14 LOADK                            R4 K9 ["Another issue occurred"]
-       15 SETTABLEKS                       R4 R3 K4 ["message"]
-       17 DUPTABLE                         R4 K10 [{"message"}]
-       18 LOADK                            R5 K11 ["This one has no Label"]
-       19 SETTABLEKS                       R5 R4 K4 ["message"]
-       21 DUPTABLE                         R5 K5 [{"label", "message"}]
-       22 LOADK                            R6 K12 ["Error 3"]
-       23 SETTABLEKS                       R6 R5 K3 ["label"]
-       25 LOADK                            R6 K13 ["Yet another problem"]
-       26 SETTABLEKS                       R6 R5 K4 ["message"]
-       28 DUPTABLE                         R6 K5 [{"label", "message"}]
-       29 LOADK                            R7 K14 ["Error 4"]
-       30 SETTABLEKS                       R7 R6 K3 ["label"]
-       32 LOADK                            R7 K15 ["This is a test error"]
-       33 SETTABLEKS                       R7 R6 K4 ["message"]
-       35 DUPTABLE                         R7 K5 [{"label", "message"}]
-       36 LOADK                            R8 K16 ["Error 5"]
-       37 SETTABLEKS                       R8 R7 K3 ["label"]
-       39 LOADK                            R8 K17 ["Just for debugging purposes"]
-       40 SETTABLEKS                       R8 R7 K4 ["message"]
-       42 DUPTABLE                         R8 K5 [{"label", "message"}]
-       43 LOADK                            R9 K18 ["Error 6"]
-       44 SETTABLEKS                       R9 R8 K3 ["label"]
-       46 LOADK                            R9 K19 ["More errors to test the dialog"]
-       47 SETTABLEKS                       R9 R8 K4 ["message"]
-       49 DUPTABLE                         R9 K5 [{"label", "message"}]
-       50 LOADK                            R10 K20 ["Error 7"]
-       51 SETTABLEKS                       R10 R9 K3 ["label"]
-       53 LOADK                            R10 K21 ["Keep adding errors"]
-       54 SETTABLEKS                       R10 R9 K4 ["message"]
-       56 DUPTABLE                         R10 K5 [{"label", "message"}]
-       57 LOADK                            R11 K22 ["Error 8"]
-       58 SETTABLEKS                       R11 R10 K3 ["label"]
-       60 LOADK                            R11 K23 ["Testing error handling"]
-       61 SETTABLEKS                       R11 R10 K4 ["message"]
-       63 DUPTABLE                         R11 K5 [{"label", "message"}]
-       64 LOADK                            R12 K24 ["Error 9"]
-       65 SETTABLEKS                       R12 R11 K3 ["label"]
-       67 LOADK                            R12 K25 ["Still going strong"]
-       68 SETTABLEKS                       R12 R11 K4 ["message"]
-       70 SETLIST                          R1 R2 10 [1]
-       72 SETTABLEKS                       R1 R0 K0 ["errors"]
-       74 LOADNIL                          R1
-       75 SETTABLEKS                       R1 R0 K1 ["target"]
-       77 RETURN                           R0 1
+        3 DUPTABLE                         R2 K8 [{["label"] = "Error 1", ["message"] = "Something went wrong"}]
+        4 DUPTABLE                         R3 K11 [{["label"] = "Error 2", ["message"] = "Another issue occurred"}]
+        5 DUPTABLE                         R4 K13 [{["message"] = "This one has no Label"}]
+        6 DUPTABLE                         R5 K16 [{["label"] = "Error 3", ["message"] = "Yet another problem"}]
+        7 DUPTABLE                         R6 K19 [{["label"] = "Error 4", ["message"] = "This is a test error"}]
+        8 DUPTABLE                         R7 K22 [{["label"] = "Error 5", ["message"] = "Just for debugging purposes"}]
+        9 DUPTABLE                         R8 K25 [{["label"] = "Error 6", ["message"] = "More errors to test the dialog"}]
+       10 DUPTABLE                         R9 K28 [{["label"] = "Error 7", ["message"] = "Keep adding errors"}]
+       11 DUPTABLE                         R10 K31 [{["label"] = "Error 8", ["message"] = "Testing error handling"}]
+       12 DUPTABLE                         R11 K34 [{["label"] = "Error 9", ["message"] = "Still going strong"}]
+       13 SETLIST                          R1 R2 10 [1]
+       15 SETTABLEKS                       R1 R0 K0 ["errors"]
+       17 RETURN                           R0 1
 
 PROTO_6:
         0 GETUPVAL                         R1 0

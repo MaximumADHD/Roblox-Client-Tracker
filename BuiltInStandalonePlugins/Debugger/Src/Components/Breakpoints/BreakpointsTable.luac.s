@@ -222,10 +222,8 @@ PROTO_9:
        57 RETURN                           R0 0
 
 PROTO_10:
-        0 DUPTABLE                         R1 K1 [{"deleteAllPopup"}]
-        1 LOADB                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["deleteAllPopup"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = True}]
+        1 RETURN                           R1 1
 
 PROTO_11:
         0 GETUPVAL                         R0 0
@@ -235,10 +233,8 @@ PROTO_11:
         5 RETURN                           R0 0
 
 PROTO_12:
-        0 DUPTABLE                         R1 K1 [{"deleteAllPopup"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["deleteAllPopup"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 RETURN                           R1 1
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -439,7 +435,7 @@ PROTO_21:
        16 MOVE                             R7 R1
        17 GETIMPORT                        R8 K5 [UDim.new]
        19 ADDK                             R10 R2 K6 [0.5]
-       20 DIVRK                            R9 R2 K10 [3]
+       20 DIVRK                            R9 K2 [2] R10
        21 LOADN                            R10 0
        22 CALL                             R8 2 -1
        23 FASTCALL                         TABLE_INSERT ; [+2]
@@ -450,7 +446,7 @@ PROTO_21:
        30 MOVE                             R7 R1
        31 GETIMPORT                        R8 K5 [UDim.new]
        33 ADDK                             R10 R2 K6 [0.5]
-       34 DIVRK                            R9 R6 K10 [3]
+       34 DIVRK                            R9 K6 [0.5] R10
        35 LOADN                            R10 0
        36 CALL                             R8 2 -1
        37 FASTCALL                         TABLE_INSERT ; [+2]
@@ -460,74 +456,72 @@ PROTO_21:
        42 MOVE                             R7 R1
        43 GETIMPORT                        R8 K5 [UDim.new]
        45 ADDK                             R10 R2 K6 [0.5]
-       46 DIVRK                            R9 R11 K10 [3]
+       46 DIVRK                            R9 K11 [1] R10
        47 LOADN                            R10 0
        48 CALL                             R8 2 -1
        49 FASTCALL                         TABLE_INSERT ; [+2]
        50 GETIMPORT                        R6 K9 [table.insert]
        52 CALL                             R6 -1 0
        53 FORNLOOP                         R3
-       54 DUPTABLE                         R3 K16 [{"selectedBreakpoints", "breakpointIdToExpansionState", "sizes", "deleteAllPopup"}]
+       54 DUPTABLE                         R3 K17 [{["selectedBreakpoints"], ["breakpointIdToExpansionState"], ["sizes"], ["deleteAllPopup"] = False}]
        55 NEWTABLE                         R4 0 0
        57 SETTABLEKS                       R4 R3 K12 ["selectedBreakpoints"]
        59 NEWTABLE                         R4 0 0
        61 SETTABLEKS                       R4 R3 K13 ["breakpointIdToExpansionState"]
        63 SETTABLEKS                       R1 R3 K14 ["sizes"]
-       65 LOADB                            R4 0
-       66 SETTABLEKS                       R4 R3 K15 ["deleteAllPopup"]
-       68 SETTABLEKS                       R3 R0 K17 ["state"]
-       70 NEWCLOSURE                       R3 P0
-       71 CAPTURE                          VAL R0
-       72 SETTABLEKS                       R3 R0 K18 ["OnDoubleClick"]
-       74 NEWCLOSURE                       R3 P1
-       75 CAPTURE                          VAL R0
-       76 SETTABLEKS                       R3 R0 K19 ["OnColumnSizesChange"]
-       78 NEWCLOSURE                       R3 P2
-       79 CAPTURE                          VAL R0
-       80 SETTABLEKS                       R3 R0 K20 ["onSelectionChange"]
-       82 NEWCLOSURE                       R3 P3
-       83 CAPTURE                          UPVAL U1
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          UPVAL U2
-       86 CAPTURE                          UPVAL U3
-       87 SETTABLEKS                       R3 R0 K21 ["onMenuActionSelected"]
-       89 NEWCLOSURE                       R3 P4
-       90 CAPTURE                          VAL R0
-       91 SETTABLEKS                       R3 R0 K22 ["OnSortChange"]
-       93 NEWCLOSURE                       R3 P5
-       94 CAPTURE                          VAL R0
-       95 CAPTURE                          UPVAL U1
-       96 CAPTURE                          UPVAL U4
-       97 CAPTURE                          UPVAL U5
-       98 SETTABLEKS                       R3 R0 K23 ["onRightClick"]
-      100 NEWCLOSURE                       R3 P6
-      101 CAPTURE                          VAL R0
-      102 SETTABLEKS                       R3 R0 K24 ["displayDeleteAllBreakpointsPopup"]
-      104 NEWCLOSURE                       R3 P7
-      105 CAPTURE                          VAL R0
-      106 SETTABLEKS                       R3 R0 K25 ["closeDeleteAllBreakpointsPopup"]
-      108 NEWCLOSURE                       R3 P8
-      109 CAPTURE                          VAL R0
-      110 CAPTURE                          UPVAL U2
-      111 SETTABLEKS                       R3 R0 K26 ["deleteAllBreakpoints"]
-      113 NEWCLOSURE                       R3 P9
-      114 CAPTURE                          VAL R0
-      115 CAPTURE                          UPVAL U2
-      116 SETTABLEKS                       R3 R0 K27 ["toggleEnabledAll"]
-      118 NEWCLOSURE                       R3 P10
-      119 CAPTURE                          VAL R0
-      120 SETTABLEKS                       R3 R0 K28 ["goToScript"]
-      122 NEWCLOSURE                       R3 P11
-      123 CAPTURE                          VAL R0
-      124 CAPTURE                          UPVAL U6
-      125 SETTABLEKS                       R3 R0 K29 ["onExpansionChange"]
-      127 DUPCLOSURE                       R3 K30 [PROTO_19]
-      128 SETTABLEKS                       R3 R0 K31 ["getTreeChildren"]
-      130 NEWCLOSURE                       R3 P13
-      131 CAPTURE                          VAL R0
-      132 CAPTURE                          UPVAL U2
-      133 SETTABLEKS                       R3 R0 K32 ["OnFocusLost"]
-      135 RETURN                           R0 0
+       65 SETTABLEKS                       R3 R0 K18 ["state"]
+       67 NEWCLOSURE                       R3 P0
+       68 CAPTURE                          VAL R0
+       69 SETTABLEKS                       R3 R0 K19 ["OnDoubleClick"]
+       71 NEWCLOSURE                       R3 P1
+       72 CAPTURE                          VAL R0
+       73 SETTABLEKS                       R3 R0 K20 ["OnColumnSizesChange"]
+       75 NEWCLOSURE                       R3 P2
+       76 CAPTURE                          VAL R0
+       77 SETTABLEKS                       R3 R0 K21 ["onSelectionChange"]
+       79 NEWCLOSURE                       R3 P3
+       80 CAPTURE                          UPVAL U1
+       81 CAPTURE                          VAL R0
+       82 CAPTURE                          UPVAL U2
+       83 CAPTURE                          UPVAL U3
+       84 SETTABLEKS                       R3 R0 K22 ["onMenuActionSelected"]
+       86 NEWCLOSURE                       R3 P4
+       87 CAPTURE                          VAL R0
+       88 SETTABLEKS                       R3 R0 K23 ["OnSortChange"]
+       90 NEWCLOSURE                       R3 P5
+       91 CAPTURE                          VAL R0
+       92 CAPTURE                          UPVAL U1
+       93 CAPTURE                          UPVAL U4
+       94 CAPTURE                          UPVAL U5
+       95 SETTABLEKS                       R3 R0 K24 ["onRightClick"]
+       97 NEWCLOSURE                       R3 P6
+       98 CAPTURE                          VAL R0
+       99 SETTABLEKS                       R3 R0 K25 ["displayDeleteAllBreakpointsPopup"]
+      101 NEWCLOSURE                       R3 P7
+      102 CAPTURE                          VAL R0
+      103 SETTABLEKS                       R3 R0 K26 ["closeDeleteAllBreakpointsPopup"]
+      105 NEWCLOSURE                       R3 P8
+      106 CAPTURE                          VAL R0
+      107 CAPTURE                          UPVAL U2
+      108 SETTABLEKS                       R3 R0 K27 ["deleteAllBreakpoints"]
+      110 NEWCLOSURE                       R3 P9
+      111 CAPTURE                          VAL R0
+      112 CAPTURE                          UPVAL U2
+      113 SETTABLEKS                       R3 R0 K28 ["toggleEnabledAll"]
+      115 NEWCLOSURE                       R3 P10
+      116 CAPTURE                          VAL R0
+      117 SETTABLEKS                       R3 R0 K29 ["goToScript"]
+      119 NEWCLOSURE                       R3 P11
+      120 CAPTURE                          VAL R0
+      121 CAPTURE                          UPVAL U6
+      122 SETTABLEKS                       R3 R0 K30 ["onExpansionChange"]
+      124 DUPCLOSURE                       R3 K31 [PROTO_19]
+      125 SETTABLEKS                       R3 R0 K32 ["getTreeChildren"]
+      127 NEWCLOSURE                       R3 P13
+      128 CAPTURE                          VAL R0
+      129 CAPTURE                          UPVAL U2
+      130 SETTABLEKS                       R3 R0 K33 ["OnFocusLost"]
+      132 RETURN                           R0 0
 
 PROTO_22:
         0 DUPTABLE                         R1 K1 [{"sizes"}]
@@ -822,387 +816,345 @@ PROTO_31:
        31 LOADB                            R4 0 +1
        32 LOADB                            R4 1
        33 NEWTABLE                         R5 0 3
-       35 DUPTABLE                         R6 K10 [{"Name", "Key"}]
-       36 LOADK                            R7 K11 [""]
-       37 SETTABLEKS                       R7 R6 K8 ["Name"]
-       39 GETUPVAL                         R8 0
-       40 GETTABLEN                        R7 R8 1
-       41 SETTABLEKS                       R7 R6 K9 ["Key"]
-       43 DUPTABLE                         R7 K13 [{"Name", "Key", "Tooltip"}]
-       44 LOADK                            R10 K14 ["BreakpointsWindow"]
-       45 LOADK                            R11 K15 ["ScriptColumn"]
-       46 NAMECALL                         R8 R2 K16 ["getText"]
-       48 CALL                             R8 3 1
-       49 SETTABLEKS                       R8 R7 K8 ["Name"]
-       51 GETUPVAL                         R9 0
-       52 GETTABLEN                        R8 R9 2
-       53 SETTABLEKS                       R8 R7 K9 ["Key"]
-       55 LOADK                            R11 K14 ["BreakpointsWindow"]
-       56 LOADK                            R12 K18 ["ScriptColumnTooltip"]
-       57 NAMECALL                         R9 R2 K16 ["getText"]
-       59 CALL                             R9 3 1
-       60 ORK                              R8 R9 K17 []
-       61 SETTABLEKS                       R8 R7 K12 ["Tooltip"]
-       63 DUPTABLE                         R8 K13 [{"Name", "Key", "Tooltip"}]
-       64 LOADK                            R11 K14 ["BreakpointsWindow"]
-       65 LOADK                            R12 K19 ["LineColumn"]
-       66 NAMECALL                         R9 R2 K16 ["getText"]
-       68 CALL                             R9 3 1
-       69 SETTABLEKS                       R9 R8 K8 ["Name"]
-       71 GETUPVAL                         R10 0
-       72 GETTABLEN                        R9 R10 3
-       73 SETTABLEKS                       R9 R8 K9 ["Key"]
-       75 LOADK                            R12 K14 ["BreakpointsWindow"]
-       76 LOADK                            R13 K20 ["LineColumnTooltip"]
-       77 NAMECALL                         R10 R2 K16 ["getText"]
-       79 CALL                             R10 3 1
-       80 ORK                              R9 R10 K17 []
-       81 SETTABLEKS                       R9 R8 K12 ["Tooltip"]
-       83 SETLIST                          R5 R6 3 [1]
-       85 GETIMPORT                        R6 K22 [ipairs]
-       87 GETTABLEKS                       R7 R1 K23 ["ColumnFilter"]
-       89 CALL                             R6 1 3
-       90 FORGPREP_INEXT                   R6
-       91 DUPTABLE                         R11 K13 [{"Name", "Key", "Tooltip"}]
-       92 LOADK                            R14 K14 ["BreakpointsWindow"]
-       93 MOVE                             R15 R10
-       94 NAMECALL                         R12 R2 K16 ["getText"]
-       96 CALL                             R12 3 1
-       97 SETTABLEKS                       R12 R11 K8 ["Name"]
-       99 GETUPVAL                         R13 1
-      100 GETTABLE                         R12 R13 R10
-      101 SETTABLEKS                       R12 R11 K9 ["Key"]
-      103 LOADK                            R15 K14 ["BreakpointsWindow"]
-      104 MOVE                             R17 R10
-      105 LOADK                            R18 K12 ["Tooltip"]
-      106 CONCAT                           R16 R17 R18
-      107 NAMECALL                         R13 R2 K16 ["getText"]
-      109 CALL                             R13 3 1
-      110 ORK                              R12 R13 K17 []
-      111 SETTABLEKS                       R12 R11 K12 ["Tooltip"]
-      113 FASTCALL2                        TABLE_INSERT R5 R11 ; [+5]
-      115 MOVE                             R13 R5
-      116 MOVE                             R14 R11
-      117 GETIMPORT                        R12 K26 [table.insert]
-      119 CALL                             R12 2 0
-      120 FORGLOOP                         R6 2 [inext] ; [-30]
-      122 GETUPVAL                         R6 2
-      123 MOVE                             R7 R5
-      124 NEWCLOSURE                       R8 P0
-      125 CAPTURE                          UPVAL U3
-      126 CAPTURE                          VAL R0
-      127 CALL                             R6 2 1
-      128 NEWTABLE                         R7 0 0
-      130 GETIMPORT                        R8 K28 [pairs]
-      132 GETTABLEKS                       R9 R1 K29 ["Breakpoints"]
-      134 CALL                             R8 1 3
-      135 FORGPREP_NEXT                    R8
-      136 GETTABLEKS                       R14 R0 K5 ["state"]
-      138 GETTABLEKS                       R14 R14 K30 ["breakpointIdToExpansionState"]
-      140 GETTABLEKS                       R15 R12 K7 ["id"]
-      142 GETTABLE                         R13 R14 R15
-      143 JUMPIFNOTEQKNIL                  R13 ; [+9]
-      145 GETTABLEKS                       R13 R0 K5 ["state"]
-      147 GETTABLEKS                       R13 R13 K30 ["breakpointIdToExpansionState"]
-      149 GETTABLEKS                       R14 R12 K7 ["id"]
-      151 LOADB                            R15 0
-      152 SETTABLE                         R15 R13 R14
-      153 GETTABLEKS                       R14 R0 K5 ["state"]
-      155 GETTABLEKS                       R14 R14 K30 ["breakpointIdToExpansionState"]
-      157 GETTABLEKS                       R15 R12 K7 ["id"]
-      159 GETTABLE                         R13 R14 R15
-      160 SETTABLE                         R13 R7 R12
-      161 FORGLOOP                         R8 2 ; [-26]
-      163 LOADNIL                          R8
-      164 GETTABLEKS                       R9 R1 K31 ["hasDisabledBreakpoints"]
-      166 JUMPIFNOT                        R9 ; [+7]
-      167 LOADK                            R11 K14 ["BreakpointsWindow"]
-      168 LOADK                            R12 K32 ["EnableAll"]
-      169 NAMECALL                         R9 R2 K16 ["getText"]
-      171 CALL                             R9 3 1
-      172 MOVE                             R8 R9
-      173 JUMP                             ; [+6]
-      174 LOADK                            R11 K14 ["BreakpointsWindow"]
-      175 LOADK                            R12 K33 ["DisableAll"]
-      176 NAMECALL                         R9 R2 K16 ["getText"]
-      178 CALL                             R9 3 1
-      179 MOVE                             R8 R9
-      180 GETUPVAL                         R10 4
-      181 GETTABLEKS                       R10 R10 K34 ["HEADER_HEIGHT"]
-      183 GETUPVAL                         R12 4
-      184 GETTABLEKS                       R12 R12 K36 ["BUTTON_PADDING"]
-      186 MULK                             R11 R12 K35 [2]
-      187 ADD                              R9 R10 R11
-      188 GETUPVAL                         R10 5
-      189 GETTABLEKS                       R10 R10 K37 ["createElement"]
-      191 GETUPVAL                         R11 6
-      192 DUPTABLE                         R12 K43 [{"Size", "Style", "Layout", "VerticalAlignment", "BackgroundColor3"}]
-      193 GETIMPORT                        R13 K46 [UDim2.fromScale]
-      195 LOADN                            R14 1
-      196 LOADN                            R15 1
-      197 CALL                             R13 2 1
-      198 SETTABLEKS                       R13 R12 K38 ["Size"]
-      200 LOADK                            R13 K47 ["Box"]
-      201 SETTABLEKS                       R13 R12 K39 ["Style"]
-      203 GETIMPORT                        R13 K51 [Enum.FillDirection.Vertical]
-      205 SETTABLEKS                       R13 R12 K40 ["Layout"]
-      207 GETIMPORT                        R13 K53 [Enum.VerticalAlignment.Top]
-      209 SETTABLEKS                       R13 R12 K41 ["VerticalAlignment"]
-      211 GETTABLEKS                       R13 R3 K54 ["MainBackground"]
-      213 SETTABLEKS                       R13 R12 K42 ["BackgroundColor3"]
-      215 DUPTABLE                         R13 K58 [{"HeaderPane", "TablePane", "DeleteAllDialog"}]
-      216 GETUPVAL                         R14 5
-      217 GETTABLEKS                       R14 R14 K37 ["createElement"]
-      219 GETUPVAL                         R15 6
-      220 DUPTABLE                         R16 K63 [{"Size", "Spacing", "Padding", "Style", "Layout", "LayoutOrder", "VerticalAlignment", "HorizontalAlignment"}]
-      221 GETIMPORT                        R17 K65 [UDim2.new]
-      223 LOADN                            R18 1
-      224 LOADN                            R19 0
-      225 LOADN                            R20 0
-      226 MOVE                             R21 R9
-      227 CALL                             R17 4 1
-      228 SETTABLEKS                       R17 R16 K38 ["Size"]
-      230 GETUPVAL                         R17 4
-      231 GETTABLEKS                       R17 R17 K36 ["BUTTON_PADDING"]
-      233 SETTABLEKS                       R17 R16 K59 ["Spacing"]
-      235 GETUPVAL                         R17 4
-      236 GETTABLEKS                       R17 R17 K36 ["BUTTON_PADDING"]
-      238 SETTABLEKS                       R17 R16 K60 ["Padding"]
-      240 LOADK                            R17 K47 ["Box"]
-      241 SETTABLEKS                       R17 R16 K39 ["Style"]
-      243 GETIMPORT                        R17 K67 [Enum.FillDirection.Horizontal]
-      245 SETTABLEKS                       R17 R16 K40 ["Layout"]
-      247 LOADN                            R17 1
-      248 SETTABLEKS                       R17 R16 K61 ["LayoutOrder"]
-      250 GETIMPORT                        R17 K69 [Enum.VerticalAlignment.Center]
-      252 SETTABLEKS                       R17 R16 K41 ["VerticalAlignment"]
-      254 GETIMPORT                        R17 K71 [Enum.HorizontalAlignment.Left]
-      256 SETTABLEKS                       R17 R16 K62 ["HorizontalAlignment"]
-      258 DUPTABLE                         R17 K74 [{"ButtonsContainer", "DropdownContainer"}]
-      259 GETUPVAL                         R18 5
-      260 GETTABLEKS                       R18 R18 K37 ["createElement"]
-      262 GETUPVAL                         R19 6
-      263 DUPTABLE                         R20 K75 [{"Size", "LayoutOrder", "Style", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
-      264 GETIMPORT                        R21 K65 [UDim2.new]
-      266 LOADK                            R22 K76 [0.5]
-      267 LOADN                            R23 0
-      268 LOADN                            R24 0
-      269 GETUPVAL                         R25 4
-      270 GETTABLEKS                       R25 R25 K34 ["HEADER_HEIGHT"]
-      272 CALL                             R21 4 1
-      273 SETTABLEKS                       R21 R20 K38 ["Size"]
-      275 LOADN                            R21 1
-      276 SETTABLEKS                       R21 R20 K61 ["LayoutOrder"]
-      278 LOADK                            R21 K47 ["Box"]
-      279 SETTABLEKS                       R21 R20 K39 ["Style"]
-      281 GETIMPORT                        R21 K67 [Enum.FillDirection.Horizontal]
-      283 SETTABLEKS                       R21 R20 K40 ["Layout"]
-      285 GETIMPORT                        R21 K69 [Enum.VerticalAlignment.Center]
-      287 SETTABLEKS                       R21 R20 K41 ["VerticalAlignment"]
-      289 GETIMPORT                        R21 K71 [Enum.HorizontalAlignment.Left]
-      291 SETTABLEKS                       R21 R20 K62 ["HorizontalAlignment"]
-      293 DUPTABLE                         R21 K79 [{"DisableAllBreakpointButton", "DeleteAllBreakpointButton"}]
-      294 GETUPVAL                         R22 5
-      295 GETTABLEKS                       R22 R22 K37 ["createElement"]
-      297 GETUPVAL                         R23 7
-      298 DUPTABLE                         R24 K84 [{"Size", "LayoutOrder", "LeftIcon", "TooltipText", "OnClick", "Disabled"}]
-      299 GETIMPORT                        R25 K65 [UDim2.new]
-      301 LOADN                            R26 0
-      302 GETUPVAL                         R27 4
-      303 GETTABLEKS                       R27 R27 K85 ["BUTTON_SIZE"]
-      305 LOADN                            R28 0
-      306 GETUPVAL                         R29 4
-      307 GETTABLEKS                       R29 R29 K85 ["BUTTON_SIZE"]
-      309 CALL                             R25 4 1
-      310 SETTABLEKS                       R25 R24 K38 ["Size"]
-      312 LOADN                            R25 1
-      313 SETTABLEKS                       R25 R24 K61 ["LayoutOrder"]
-      315 LOADK                            R25 K86 ["rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png"]
-      316 SETTABLEKS                       R25 R24 K80 ["LeftIcon"]
-      318 SETTABLEKS                       R8 R24 K81 ["TooltipText"]
-      320 GETTABLEKS                       R25 R0 K87 ["toggleEnabledAll"]
-      322 SETTABLEKS                       R25 R24 K82 ["OnClick"]
-      324 GETTABLEKS                       R27 R1 K29 ["Breakpoints"]
-      326 LENGTH                           R26 R27
-      327 JUMPIFEQKN                       R26 K88 [0] ; [+2]
-      329 LOADB                            R25 0 +1
-      330 LOADB                            R25 1
-      331 SETTABLEKS                       R25 R24 K83 ["Disabled"]
-      333 CALL                             R22 2 1
-      334 SETTABLEKS                       R22 R21 K77 ["DisableAllBreakpointButton"]
-      336 GETUPVAL                         R22 5
-      337 GETTABLEKS                       R22 R22 K37 ["createElement"]
-      339 GETUPVAL                         R23 7
-      340 DUPTABLE                         R24 K84 [{"Size", "LayoutOrder", "LeftIcon", "TooltipText", "OnClick", "Disabled"}]
-      341 GETIMPORT                        R25 K65 [UDim2.new]
-      343 LOADN                            R26 0
-      344 GETUPVAL                         R27 4
-      345 GETTABLEKS                       R27 R27 K85 ["BUTTON_SIZE"]
-      347 LOADN                            R28 0
-      348 GETUPVAL                         R29 4
-      349 GETTABLEKS                       R29 R29 K85 ["BUTTON_SIZE"]
-      351 CALL                             R25 4 1
-      352 SETTABLEKS                       R25 R24 K38 ["Size"]
-      354 LOADN                            R25 2
-      355 SETTABLEKS                       R25 R24 K61 ["LayoutOrder"]
-      357 LOADK                            R25 K89 ["rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png"]
-      358 SETTABLEKS                       R25 R24 K80 ["LeftIcon"]
-      360 LOADK                            R27 K14 ["BreakpointsWindow"]
-      361 LOADK                            R28 K90 ["DeleteAll"]
-      362 NAMECALL                         R25 R2 K16 ["getText"]
-      364 CALL                             R25 3 1
-      365 SETTABLEKS                       R25 R24 K81 ["TooltipText"]
-      367 GETTABLEKS                       R25 R0 K91 ["displayDeleteAllBreakpointsPopup"]
-      369 SETTABLEKS                       R25 R24 K82 ["OnClick"]
-      371 GETTABLEKS                       R27 R1 K29 ["Breakpoints"]
-      373 LENGTH                           R26 R27
-      374 JUMPIFEQKN                       R26 K88 [0] ; [+2]
-      376 LOADB                            R25 0 +1
-      377 LOADB                            R25 1
-      378 SETTABLEKS                       R25 R24 K83 ["Disabled"]
-      380 CALL                             R22 2 1
-      381 SETTABLEKS                       R22 R21 K78 ["DeleteAllBreakpointButton"]
-      383 CALL                             R18 3 1
-      384 SETTABLEKS                       R18 R17 K72 ["ButtonsContainer"]
-      386 GETUPVAL                         R18 5
-      387 GETTABLEKS                       R18 R18 K37 ["createElement"]
-      389 GETUPVAL                         R19 6
-      390 DUPTABLE                         R20 K75 [{"Size", "LayoutOrder", "Style", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
-      391 GETIMPORT                        R21 K65 [UDim2.new]
-      393 LOADK                            R22 K76 [0.5]
-      394 LOADN                            R23 0
-      395 LOADN                            R24 0
-      396 GETUPVAL                         R25 4
-      397 GETTABLEKS                       R25 R25 K34 ["HEADER_HEIGHT"]
-      399 CALL                             R21 4 1
-      400 SETTABLEKS                       R21 R20 K38 ["Size"]
-      402 LOADN                            R21 2
-      403 SETTABLEKS                       R21 R20 K61 ["LayoutOrder"]
-      405 LOADK                            R21 K47 ["Box"]
-      406 SETTABLEKS                       R21 R20 K39 ["Style"]
-      408 GETIMPORT                        R21 K67 [Enum.FillDirection.Horizontal]
-      410 SETTABLEKS                       R21 R20 K40 ["Layout"]
-      412 GETIMPORT                        R21 K69 [Enum.VerticalAlignment.Center]
-      414 SETTABLEKS                       R21 R20 K41 ["VerticalAlignment"]
-      416 GETIMPORT                        R21 K93 [Enum.HorizontalAlignment.Right]
-      418 SETTABLEKS                       R21 R20 K62 ["HorizontalAlignment"]
-      420 DUPTABLE                         R21 K95 [{"ColumnDropdown"}]
-      421 GETUPVAL                         R22 5
-      422 GETTABLEKS                       R22 R22 K37 ["createElement"]
-      424 GETUPVAL                         R23 8
-      425 DUPTABLE                         R24 K97 [{"LayoutOrder", "AutomaticSize"}]
-      426 LOADN                            R25 1
-      427 SETTABLEKS                       R25 R24 K61 ["LayoutOrder"]
-      429 GETIMPORT                        R25 K99 [Enum.AutomaticSize.X]
-      431 SETTABLEKS                       R25 R24 K96 ["AutomaticSize"]
-      433 CALL                             R22 2 1
-      434 SETTABLEKS                       R22 R21 K94 ["ColumnDropdown"]
-      436 CALL                             R18 3 1
-      437 SETTABLEKS                       R18 R17 K73 ["DropdownContainer"]
-      439 CALL                             R14 3 1
-      440 SETTABLEKS                       R14 R13 K55 ["HeaderPane"]
-      442 GETUPVAL                         R14 5
-      443 GETTABLEKS                       R14 R14 K37 ["createElement"]
-      445 GETUPVAL                         R15 6
-      446 DUPTABLE                         R16 K100 [{"Size", "Style", "LayoutOrder"}]
-      447 GETIMPORT                        R17 K65 [UDim2.new]
-      449 LOADN                            R18 1
-      450 LOADN                            R19 0
-      451 LOADN                            R20 1
-      452 MINUS                            R21 R9
-      453 CALL                             R17 4 1
-      454 SETTABLEKS                       R17 R16 K38 ["Size"]
-      456 LOADK                            R17 K47 ["Box"]
-      457 SETTABLEKS                       R17 R16 K39 ["Style"]
-      459 LOADN                            R17 2
-      460 SETTABLEKS                       R17 R16 K61 ["LayoutOrder"]
-      462 DUPTABLE                         R17 K102 [{"BreakpointsTable"}]
-      463 GETUPVAL                         R18 5
-      464 GETTABLEKS                       R18 R18 K37 ["createElement"]
-      466 GETUPVAL                         R19 9
-      467 DUPTABLE                         R20 K127 [{"Size", "Columns", "RootItems", "OnExpansionChange", "RightClick", "CellComponent", "LayoutOrder", "OnSelectionChange", "HighlightedRows", "Scroll", "ScrollFocusIndex", "Expansion", "GetChildren", "TextInputCols", "OnFocusLost", "OnDoubleClick", "SortIndex", "SortOrder", "OnSortChange", "OnColumnSizesChange", "UseDeficit", "UseScale", "ClampSize", "ColumnHeaderHeight", "RowHeight", "ExpandOnDoubleClick"}]
-      468 GETIMPORT                        R21 K65 [UDim2.new]
-      470 LOADN                            R22 1
-      471 LOADN                            R23 0
-      472 LOADN                            R24 1
-      473 LOADN                            R25 0
-      474 CALL                             R21 4 1
-      475 SETTABLEKS                       R21 R20 K38 ["Size"]
-      477 SETTABLEKS                       R6 R20 K103 ["Columns"]
-      479 GETTABLEKS                       R21 R1 K29 ["Breakpoints"]
-      481 JUMPIF                           R21 ; [+2]
-      482 NEWTABLE                         R21 0 0
-      484 SETTABLEKS                       R21 R20 K104 ["RootItems"]
-      486 GETTABLEKS                       R21 R0 K128 ["onExpansionChange"]
-      488 SETTABLEKS                       R21 R20 K105 ["OnExpansionChange"]
-      490 GETTABLEKS                       R21 R0 K129 ["onRightClick"]
-      492 SETTABLEKS                       R21 R20 K106 ["RightClick"]
-      494 GETUPVAL                         R21 10
-      495 SETTABLEKS                       R21 R20 K107 ["CellComponent"]
-      497 LOADN                            R21 2
-      498 SETTABLEKS                       R21 R20 K61 ["LayoutOrder"]
-      500 GETTABLEKS                       R21 R0 K130 ["onSelectionChange"]
-      502 SETTABLEKS                       R21 R20 K108 ["OnSelectionChange"]
-      504 GETTABLEKS                       R21 R0 K5 ["state"]
-      506 GETTABLEKS                       R21 R21 K6 ["selectedBreakpoints"]
-      508 SETTABLEKS                       R21 R20 K109 ["HighlightedRows"]
-      510 LOADB                            R21 1
-      511 SETTABLEKS                       R21 R20 K110 ["Scroll"]
-      513 MOVE                             R21 R4
-      514 JUMPIFNOT                        R21 ; [+4]
-      515 GETTABLEKS                       R21 R0 K0 ["props"]
-      517 GETTABLEKS                       R21 R21 K131 ["CurrentBreakpointIndex"]
-      519 SETTABLEKS                       R21 R20 K111 ["ScrollFocusIndex"]
-      521 SETTABLEKS                       R7 R20 K112 ["Expansion"]
-      523 GETTABLEKS                       R21 R0 K132 ["getTreeChildren"]
-      525 SETTABLEKS                       R21 R20 K113 ["GetChildren"]
-      527 GETTABLEKS                       R21 R1 K114 ["TextInputCols"]
-      529 SETTABLEKS                       R21 R20 K114 ["TextInputCols"]
-      531 GETTABLEKS                       R21 R0 K115 ["OnFocusLost"]
-      533 SETTABLEKS                       R21 R20 K115 ["OnFocusLost"]
-      535 GETTABLEKS                       R21 R0 K116 ["OnDoubleClick"]
-      537 SETTABLEKS                       R21 R20 K116 ["OnDoubleClick"]
-      539 GETTABLEKS                       R21 R1 K117 ["SortIndex"]
-      541 SETTABLEKS                       R21 R20 K117 ["SortIndex"]
-      543 GETTABLEKS                       R21 R1 K118 ["SortOrder"]
-      545 SETTABLEKS                       R21 R20 K118 ["SortOrder"]
-      547 GETTABLEKS                       R21 R0 K119 ["OnSortChange"]
-      549 SETTABLEKS                       R21 R20 K119 ["OnSortChange"]
-      551 GETTABLEKS                       R21 R0 K120 ["OnColumnSizesChange"]
-      553 SETTABLEKS                       R21 R20 K120 ["OnColumnSizesChange"]
-      555 LOADB                            R21 0
-      556 SETTABLEKS                       R21 R20 K121 ["UseDeficit"]
-      558 LOADB                            R21 1
-      559 SETTABLEKS                       R21 R20 K122 ["UseScale"]
-      561 LOADB                            R21 1
-      562 SETTABLEKS                       R21 R20 K123 ["ClampSize"]
-      564 GETUPVAL                         R21 4
-      565 GETTABLEKS                       R21 R21 K133 ["COLUMN_HEADER_HEIGHT"]
-      567 SETTABLEKS                       R21 R20 K124 ["ColumnHeaderHeight"]
-      569 GETUPVAL                         R21 4
-      570 GETTABLEKS                       R21 R21 K134 ["ROW_HEIGHT"]
-      572 SETTABLEKS                       R21 R20 K125 ["RowHeight"]
-      574 LOADB                            R21 1
-      575 SETTABLEKS                       R21 R20 K126 ["ExpandOnDoubleClick"]
-      577 CALL                             R18 2 1
-      578 SETTABLEKS                       R18 R17 K101 ["BreakpointsTable"]
-      580 CALL                             R14 3 1
-      581 SETTABLEKS                       R14 R13 K56 ["TablePane"]
-      583 GETUPVAL                         R14 5
-      584 GETTABLEKS                       R14 R14 K37 ["createElement"]
-      586 GETUPVAL                         R15 11
-      587 DUPTABLE                         R16 K138 [{"Enabled", "CloseDialog", "DeleteAllBreakpoints"}]
-      588 GETTABLEKS                       R17 R0 K5 ["state"]
-      590 GETTABLEKS                       R17 R17 K139 ["deleteAllPopup"]
-      592 SETTABLEKS                       R17 R16 K135 ["Enabled"]
-      594 GETTABLEKS                       R17 R0 K140 ["closeDeleteAllBreakpointsPopup"]
-      596 SETTABLEKS                       R17 R16 K136 ["CloseDialog"]
-      598 GETTABLEKS                       R17 R0 K141 ["deleteAllBreakpoints"]
-      600 SETTABLEKS                       R17 R16 K137 ["DeleteAllBreakpoints"]
-      602 CALL                             R14 2 1
-      603 SETTABLEKS                       R14 R13 K57 ["DeleteAllDialog"]
-      605 CALL                             R10 3 -1
-      606 RETURN                           R10 -1
+       35 DUPTABLE                         R6 K11 [{["Name"] = "", ["Key"]}]
+       36 GETUPVAL                         R8 0
+       37 GETTABLEN                        R7 R8 1
+       38 SETTABLEKS                       R7 R6 K10 ["Key"]
+       40 DUPTABLE                         R7 K13 [{"Name", "Key", "Tooltip"}]
+       41 LOADK                            R10 K14 ["BreakpointsWindow"]
+       42 LOADK                            R11 K15 ["ScriptColumn"]
+       43 NAMECALL                         R8 R2 K16 ["getText"]
+       45 CALL                             R8 3 1
+       46 SETTABLEKS                       R8 R7 K8 ["Name"]
+       48 GETUPVAL                         R9 0
+       49 GETTABLEN                        R8 R9 2
+       50 SETTABLEKS                       R8 R7 K10 ["Key"]
+       52 LOADK                            R11 K14 ["BreakpointsWindow"]
+       53 LOADK                            R12 K18 ["ScriptColumnTooltip"]
+       54 NAMECALL                         R9 R2 K16 ["getText"]
+       56 CALL                             R9 3 1
+       57 ORK                              R8 R9 K17 []
+       58 SETTABLEKS                       R8 R7 K12 ["Tooltip"]
+       60 DUPTABLE                         R8 K13 [{"Name", "Key", "Tooltip"}]
+       61 LOADK                            R11 K14 ["BreakpointsWindow"]
+       62 LOADK                            R12 K19 ["LineColumn"]
+       63 NAMECALL                         R9 R2 K16 ["getText"]
+       65 CALL                             R9 3 1
+       66 SETTABLEKS                       R9 R8 K8 ["Name"]
+       68 GETUPVAL                         R10 0
+       69 GETTABLEN                        R9 R10 3
+       70 SETTABLEKS                       R9 R8 K10 ["Key"]
+       72 LOADK                            R12 K14 ["BreakpointsWindow"]
+       73 LOADK                            R13 K20 ["LineColumnTooltip"]
+       74 NAMECALL                         R10 R2 K16 ["getText"]
+       76 CALL                             R10 3 1
+       77 ORK                              R9 R10 K17 []
+       78 SETTABLEKS                       R9 R8 K12 ["Tooltip"]
+       80 SETLIST                          R5 R6 3 [1]
+       82 GETIMPORT                        R6 K22 [ipairs]
+       84 GETTABLEKS                       R7 R1 K23 ["ColumnFilter"]
+       86 CALL                             R6 1 3
+       87 FORGPREP_INEXT                   R6
+       88 DUPTABLE                         R11 K13 [{"Name", "Key", "Tooltip"}]
+       89 LOADK                            R14 K14 ["BreakpointsWindow"]
+       90 MOVE                             R15 R10
+       91 NAMECALL                         R12 R2 K16 ["getText"]
+       93 CALL                             R12 3 1
+       94 SETTABLEKS                       R12 R11 K8 ["Name"]
+       96 GETUPVAL                         R13 1
+       97 GETTABLE                         R12 R13 R10
+       98 SETTABLEKS                       R12 R11 K10 ["Key"]
+      100 LOADK                            R15 K14 ["BreakpointsWindow"]
+      101 MOVE                             R17 R10
+      102 LOADK                            R18 K12 ["Tooltip"]
+      103 CONCAT                           R16 R17 R18
+      104 NAMECALL                         R13 R2 K16 ["getText"]
+      106 CALL                             R13 3 1
+      107 ORK                              R12 R13 K17 []
+      108 SETTABLEKS                       R12 R11 K12 ["Tooltip"]
+      110 FASTCALL2                        TABLE_INSERT R5 R11 ; [+5]
+      112 MOVE                             R13 R5
+      113 MOVE                             R14 R11
+      114 GETIMPORT                        R12 K26 [table.insert]
+      116 CALL                             R12 2 0
+      117 FORGLOOP                         R6 2 [inext] ; [-30]
+      119 GETUPVAL                         R6 2
+      120 MOVE                             R7 R5
+      121 NEWCLOSURE                       R8 P0
+      122 CAPTURE                          UPVAL U3
+      123 CAPTURE                          VAL R0
+      124 CALL                             R6 2 1
+      125 NEWTABLE                         R7 0 0
+      127 GETIMPORT                        R8 K28 [pairs]
+      129 GETTABLEKS                       R9 R1 K29 ["Breakpoints"]
+      131 CALL                             R8 1 3
+      132 FORGPREP_NEXT                    R8
+      133 GETTABLEKS                       R14 R0 K5 ["state"]
+      135 GETTABLEKS                       R14 R14 K30 ["breakpointIdToExpansionState"]
+      137 GETTABLEKS                       R15 R12 K7 ["id"]
+      139 GETTABLE                         R13 R14 R15
+      140 JUMPIFNOTEQKNIL                  R13 ; [+9]
+      142 GETTABLEKS                       R13 R0 K5 ["state"]
+      144 GETTABLEKS                       R13 R13 K30 ["breakpointIdToExpansionState"]
+      146 GETTABLEKS                       R14 R12 K7 ["id"]
+      148 LOADB                            R15 0
+      149 SETTABLE                         R15 R13 R14
+      150 GETTABLEKS                       R14 R0 K5 ["state"]
+      152 GETTABLEKS                       R14 R14 K30 ["breakpointIdToExpansionState"]
+      154 GETTABLEKS                       R15 R12 K7 ["id"]
+      156 GETTABLE                         R13 R14 R15
+      157 SETTABLE                         R13 R7 R12
+      158 FORGLOOP                         R8 2 ; [-26]
+      160 LOADNIL                          R8
+      161 GETTABLEKS                       R9 R1 K31 ["hasDisabledBreakpoints"]
+      163 JUMPIFNOT                        R9 ; [+7]
+      164 LOADK                            R11 K14 ["BreakpointsWindow"]
+      165 LOADK                            R12 K32 ["EnableAll"]
+      166 NAMECALL                         R9 R2 K16 ["getText"]
+      168 CALL                             R9 3 1
+      169 MOVE                             R8 R9
+      170 JUMP                             ; [+6]
+      171 LOADK                            R11 K14 ["BreakpointsWindow"]
+      172 LOADK                            R12 K33 ["DisableAll"]
+      173 NAMECALL                         R9 R2 K16 ["getText"]
+      175 CALL                             R9 3 1
+      176 MOVE                             R8 R9
+      177 GETUPVAL                         R10 4
+      178 GETTABLEKS                       R10 R10 K34 ["HEADER_HEIGHT"]
+      180 GETUPVAL                         R12 4
+      181 GETTABLEKS                       R12 R12 K36 ["BUTTON_PADDING"]
+      183 MULK                             R11 R12 K35 [2]
+      184 ADD                              R9 R10 R11
+      185 GETUPVAL                         R10 5
+      186 GETTABLEKS                       R10 R10 K37 ["createElement"]
+      188 GETUPVAL                         R11 6
+      189 DUPTABLE                         R12 K44 [{["Size"], ["Style"] = "Box", ["Layout"], ["VerticalAlignment"], ["BackgroundColor3"]}]
+      190 GETIMPORT                        R13 K47 [UDim2.fromScale]
+      192 LOADN                            R14 1
+      193 LOADN                            R15 1
+      194 CALL                             R13 2 1
+      195 SETTABLEKS                       R13 R12 K38 ["Size"]
+      197 GETIMPORT                        R13 K51 [Enum.FillDirection.Vertical]
+      199 SETTABLEKS                       R13 R12 K41 ["Layout"]
+      201 GETIMPORT                        R13 K53 [Enum.VerticalAlignment.Top]
+      203 SETTABLEKS                       R13 R12 K42 ["VerticalAlignment"]
+      205 GETTABLEKS                       R13 R3 K54 ["MainBackground"]
+      207 SETTABLEKS                       R13 R12 K43 ["BackgroundColor3"]
+      209 DUPTABLE                         R13 K58 [{"HeaderPane", "TablePane", "DeleteAllDialog"}]
+      210 GETUPVAL                         R14 5
+      211 GETTABLEKS                       R14 R14 K37 ["createElement"]
+      213 GETUPVAL                         R15 6
+      214 DUPTABLE                         R16 K64 [{["Size"], ["Spacing"], ["Padding"], ["Style"] = "Box", ["Layout"], ["LayoutOrder"] = 1, ["VerticalAlignment"], ["HorizontalAlignment"]}]
+      215 GETIMPORT                        R17 K66 [UDim2.new]
+      217 LOADN                            R18 1
+      218 LOADN                            R19 0
+      219 LOADN                            R20 0
+      220 MOVE                             R21 R9
+      221 CALL                             R17 4 1
+      222 SETTABLEKS                       R17 R16 K38 ["Size"]
+      224 GETUPVAL                         R17 4
+      225 GETTABLEKS                       R17 R17 K36 ["BUTTON_PADDING"]
+      227 SETTABLEKS                       R17 R16 K59 ["Spacing"]
+      229 GETUPVAL                         R17 4
+      230 GETTABLEKS                       R17 R17 K36 ["BUTTON_PADDING"]
+      232 SETTABLEKS                       R17 R16 K60 ["Padding"]
+      234 GETIMPORT                        R17 K68 [Enum.FillDirection.Horizontal]
+      236 SETTABLEKS                       R17 R16 K41 ["Layout"]
+      238 GETIMPORT                        R17 K70 [Enum.VerticalAlignment.Center]
+      240 SETTABLEKS                       R17 R16 K42 ["VerticalAlignment"]
+      242 GETIMPORT                        R17 K72 [Enum.HorizontalAlignment.Left]
+      244 SETTABLEKS                       R17 R16 K63 ["HorizontalAlignment"]
+      246 DUPTABLE                         R17 K75 [{"ButtonsContainer", "DropdownContainer"}]
+      247 GETUPVAL                         R18 5
+      248 GETTABLEKS                       R18 R18 K37 ["createElement"]
+      250 GETUPVAL                         R19 6
+      251 DUPTABLE                         R20 K76 [{["Size"], ["LayoutOrder"] = 1, ["Style"] = "Box", ["Layout"], ["VerticalAlignment"], ["HorizontalAlignment"]}]
+      252 GETIMPORT                        R21 K66 [UDim2.new]
+      254 LOADK                            R22 K77 [0.5]
+      255 LOADN                            R23 0
+      256 LOADN                            R24 0
+      257 GETUPVAL                         R25 4
+      258 GETTABLEKS                       R25 R25 K34 ["HEADER_HEIGHT"]
+      260 CALL                             R21 4 1
+      261 SETTABLEKS                       R21 R20 K38 ["Size"]
+      263 GETIMPORT                        R21 K68 [Enum.FillDirection.Horizontal]
+      265 SETTABLEKS                       R21 R20 K41 ["Layout"]
+      267 GETIMPORT                        R21 K70 [Enum.VerticalAlignment.Center]
+      269 SETTABLEKS                       R21 R20 K42 ["VerticalAlignment"]
+      271 GETIMPORT                        R21 K72 [Enum.HorizontalAlignment.Left]
+      273 SETTABLEKS                       R21 R20 K63 ["HorizontalAlignment"]
+      275 DUPTABLE                         R21 K80 [{"DisableAllBreakpointButton", "DeleteAllBreakpointButton"}]
+      276 GETUPVAL                         R22 5
+      277 GETTABLEKS                       R22 R22 K37 ["createElement"]
+      279 GETUPVAL                         R23 7
+      280 DUPTABLE                         R24 K86 [{["Size"], ["LayoutOrder"] = 1, ["LeftIcon"] = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png", ["TooltipText"], ["OnClick"], ["Disabled"]}]
+      281 GETIMPORT                        R25 K66 [UDim2.new]
+      283 LOADN                            R26 0
+      284 GETUPVAL                         R27 4
+      285 GETTABLEKS                       R27 R27 K87 ["BUTTON_SIZE"]
+      287 LOADN                            R28 0
+      288 GETUPVAL                         R29 4
+      289 GETTABLEKS                       R29 R29 K87 ["BUTTON_SIZE"]
+      291 CALL                             R25 4 1
+      292 SETTABLEKS                       R25 R24 K38 ["Size"]
+      294 SETTABLEKS                       R8 R24 K83 ["TooltipText"]
+      296 GETTABLEKS                       R25 R0 K88 ["toggleEnabledAll"]
+      298 SETTABLEKS                       R25 R24 K84 ["OnClick"]
+      300 GETTABLEKS                       R27 R1 K29 ["Breakpoints"]
+      302 LENGTH                           R26 R27
+      303 JUMPIFEQKN                       R26 K89 [0] ; [+2]
+      305 LOADB                            R25 0 +1
+      306 LOADB                            R25 1
+      307 SETTABLEKS                       R25 R24 K85 ["Disabled"]
+      309 CALL                             R22 2 1
+      310 SETTABLEKS                       R22 R21 K78 ["DisableAllBreakpointButton"]
+      312 GETUPVAL                         R22 5
+      313 GETTABLEKS                       R22 R22 K37 ["createElement"]
+      315 GETUPVAL                         R23 7
+      316 DUPTABLE                         R24 K91 [{["Size"], ["LayoutOrder"] = 2, ["LeftIcon"] = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png", ["TooltipText"], ["OnClick"], ["Disabled"]}]
+      317 GETIMPORT                        R25 K66 [UDim2.new]
+      319 LOADN                            R26 0
+      320 GETUPVAL                         R27 4
+      321 GETTABLEKS                       R27 R27 K87 ["BUTTON_SIZE"]
+      323 LOADN                            R28 0
+      324 GETUPVAL                         R29 4
+      325 GETTABLEKS                       R29 R29 K87 ["BUTTON_SIZE"]
+      327 CALL                             R25 4 1
+      328 SETTABLEKS                       R25 R24 K38 ["Size"]
+      330 LOADK                            R27 K14 ["BreakpointsWindow"]
+      331 LOADK                            R28 K92 ["DeleteAll"]
+      332 NAMECALL                         R25 R2 K16 ["getText"]
+      334 CALL                             R25 3 1
+      335 SETTABLEKS                       R25 R24 K83 ["TooltipText"]
+      337 GETTABLEKS                       R25 R0 K93 ["displayDeleteAllBreakpointsPopup"]
+      339 SETTABLEKS                       R25 R24 K84 ["OnClick"]
+      341 GETTABLEKS                       R27 R1 K29 ["Breakpoints"]
+      343 LENGTH                           R26 R27
+      344 JUMPIFEQKN                       R26 K89 [0] ; [+2]
+      346 LOADB                            R25 0 +1
+      347 LOADB                            R25 1
+      348 SETTABLEKS                       R25 R24 K85 ["Disabled"]
+      350 CALL                             R22 2 1
+      351 SETTABLEKS                       R22 R21 K79 ["DeleteAllBreakpointButton"]
+      353 CALL                             R18 3 1
+      354 SETTABLEKS                       R18 R17 K73 ["ButtonsContainer"]
+      356 GETUPVAL                         R18 5
+      357 GETTABLEKS                       R18 R18 K37 ["createElement"]
+      359 GETUPVAL                         R19 6
+      360 DUPTABLE                         R20 K94 [{["Size"], ["LayoutOrder"] = 2, ["Style"] = "Box", ["Layout"], ["VerticalAlignment"], ["HorizontalAlignment"]}]
+      361 GETIMPORT                        R21 K66 [UDim2.new]
+      363 LOADK                            R22 K77 [0.5]
+      364 LOADN                            R23 0
+      365 LOADN                            R24 0
+      366 GETUPVAL                         R25 4
+      367 GETTABLEKS                       R25 R25 K34 ["HEADER_HEIGHT"]
+      369 CALL                             R21 4 1
+      370 SETTABLEKS                       R21 R20 K38 ["Size"]
+      372 GETIMPORT                        R21 K68 [Enum.FillDirection.Horizontal]
+      374 SETTABLEKS                       R21 R20 K41 ["Layout"]
+      376 GETIMPORT                        R21 K70 [Enum.VerticalAlignment.Center]
+      378 SETTABLEKS                       R21 R20 K42 ["VerticalAlignment"]
+      380 GETIMPORT                        R21 K96 [Enum.HorizontalAlignment.Right]
+      382 SETTABLEKS                       R21 R20 K63 ["HorizontalAlignment"]
+      384 DUPTABLE                         R21 K98 [{"ColumnDropdown"}]
+      385 GETUPVAL                         R22 5
+      386 GETTABLEKS                       R22 R22 K37 ["createElement"]
+      388 GETUPVAL                         R23 8
+      389 DUPTABLE                         R24 K100 [{["LayoutOrder"] = 1, ["AutomaticSize"]}]
+      390 GETIMPORT                        R25 K102 [Enum.AutomaticSize.X]
+      392 SETTABLEKS                       R25 R24 K99 ["AutomaticSize"]
+      394 CALL                             R22 2 1
+      395 SETTABLEKS                       R22 R21 K97 ["ColumnDropdown"]
+      397 CALL                             R18 3 1
+      398 SETTABLEKS                       R18 R17 K74 ["DropdownContainer"]
+      400 CALL                             R14 3 1
+      401 SETTABLEKS                       R14 R13 K55 ["HeaderPane"]
+      403 GETUPVAL                         R14 5
+      404 GETTABLEKS                       R14 R14 K37 ["createElement"]
+      406 GETUPVAL                         R15 6
+      407 DUPTABLE                         R16 K103 [{["Size"], ["Style"] = "Box", ["LayoutOrder"] = 2}]
+      408 GETIMPORT                        R17 K66 [UDim2.new]
+      410 LOADN                            R18 1
+      411 LOADN                            R19 0
+      412 LOADN                            R20 1
+      413 MINUS                            R21 R9
+      414 CALL                             R17 4 1
+      415 SETTABLEKS                       R17 R16 K38 ["Size"]
+      417 DUPTABLE                         R17 K105 [{"BreakpointsTable"}]
+      418 GETUPVAL                         R18 5
+      419 GETTABLEKS                       R18 R18 K37 ["createElement"]
+      421 GETUPVAL                         R19 9
+      422 DUPTABLE                         R20 K132 [{["Size"], ["Columns"], ["RootItems"], ["OnExpansionChange"], ["RightClick"], ["CellComponent"], ["LayoutOrder"] = 2, ["OnSelectionChange"], ["HighlightedRows"], ["Scroll"] = True, ["ScrollFocusIndex"], ["Expansion"], ["GetChildren"], ["TextInputCols"], ["OnFocusLost"], ["OnDoubleClick"], ["SortIndex"], ["SortOrder"], ["OnSortChange"], ["OnColumnSizesChange"], ["UseDeficit"] = False, ["UseScale"] = True, ["ClampSize"] = True, ["ColumnHeaderHeight"], ["RowHeight"], ["ExpandOnDoubleClick"] = True}]
+      423 GETIMPORT                        R21 K66 [UDim2.new]
+      425 LOADN                            R22 1
+      426 LOADN                            R23 0
+      427 LOADN                            R24 1
+      428 LOADN                            R25 0
+      429 CALL                             R21 4 1
+      430 SETTABLEKS                       R21 R20 K38 ["Size"]
+      432 SETTABLEKS                       R6 R20 K106 ["Columns"]
+      434 GETTABLEKS                       R21 R1 K29 ["Breakpoints"]
+      436 JUMPIF                           R21 ; [+2]
+      437 NEWTABLE                         R21 0 0
+      439 SETTABLEKS                       R21 R20 K107 ["RootItems"]
+      441 GETTABLEKS                       R21 R0 K133 ["onExpansionChange"]
+      443 SETTABLEKS                       R21 R20 K108 ["OnExpansionChange"]
+      445 GETTABLEKS                       R21 R0 K134 ["onRightClick"]
+      447 SETTABLEKS                       R21 R20 K109 ["RightClick"]
+      449 GETUPVAL                         R21 10
+      450 SETTABLEKS                       R21 R20 K110 ["CellComponent"]
+      452 GETTABLEKS                       R21 R0 K135 ["onSelectionChange"]
+      454 SETTABLEKS                       R21 R20 K111 ["OnSelectionChange"]
+      456 GETTABLEKS                       R21 R0 K5 ["state"]
+      458 GETTABLEKS                       R21 R21 K6 ["selectedBreakpoints"]
+      460 SETTABLEKS                       R21 R20 K112 ["HighlightedRows"]
+      462 MOVE                             R21 R4
+      463 JUMPIFNOT                        R21 ; [+4]
+      464 GETTABLEKS                       R21 R0 K0 ["props"]
+      466 GETTABLEKS                       R21 R21 K136 ["CurrentBreakpointIndex"]
+      468 SETTABLEKS                       R21 R20 K115 ["ScrollFocusIndex"]
+      470 SETTABLEKS                       R7 R20 K116 ["Expansion"]
+      472 GETTABLEKS                       R21 R0 K137 ["getTreeChildren"]
+      474 SETTABLEKS                       R21 R20 K117 ["GetChildren"]
+      476 GETTABLEKS                       R21 R1 K118 ["TextInputCols"]
+      478 SETTABLEKS                       R21 R20 K118 ["TextInputCols"]
+      480 GETTABLEKS                       R21 R0 K119 ["OnFocusLost"]
+      482 SETTABLEKS                       R21 R20 K119 ["OnFocusLost"]
+      484 GETTABLEKS                       R21 R0 K120 ["OnDoubleClick"]
+      486 SETTABLEKS                       R21 R20 K120 ["OnDoubleClick"]
+      488 GETTABLEKS                       R21 R1 K121 ["SortIndex"]
+      490 SETTABLEKS                       R21 R20 K121 ["SortIndex"]
+      492 GETTABLEKS                       R21 R1 K122 ["SortOrder"]
+      494 SETTABLEKS                       R21 R20 K122 ["SortOrder"]
+      496 GETTABLEKS                       R21 R0 K123 ["OnSortChange"]
+      498 SETTABLEKS                       R21 R20 K123 ["OnSortChange"]
+      500 GETTABLEKS                       R21 R0 K124 ["OnColumnSizesChange"]
+      502 SETTABLEKS                       R21 R20 K124 ["OnColumnSizesChange"]
+      504 GETUPVAL                         R21 4
+      505 GETTABLEKS                       R21 R21 K138 ["COLUMN_HEADER_HEIGHT"]
+      507 SETTABLEKS                       R21 R20 K129 ["ColumnHeaderHeight"]
+      509 GETUPVAL                         R21 4
+      510 GETTABLEKS                       R21 R21 K139 ["ROW_HEIGHT"]
+      512 SETTABLEKS                       R21 R20 K130 ["RowHeight"]
+      514 CALL                             R18 2 1
+      515 SETTABLEKS                       R18 R17 K104 ["BreakpointsTable"]
+      517 CALL                             R14 3 1
+      518 SETTABLEKS                       R14 R13 K56 ["TablePane"]
+      520 GETUPVAL                         R14 5
+      521 GETTABLEKS                       R14 R14 K37 ["createElement"]
+      523 GETUPVAL                         R15 11
+      524 DUPTABLE                         R16 K143 [{"Enabled", "CloseDialog", "DeleteAllBreakpoints"}]
+      525 GETTABLEKS                       R17 R0 K5 ["state"]
+      527 GETTABLEKS                       R17 R17 K144 ["deleteAllPopup"]
+      529 SETTABLEKS                       R17 R16 K140 ["Enabled"]
+      531 GETTABLEKS                       R17 R0 K145 ["closeDeleteAllBreakpointsPopup"]
+      533 SETTABLEKS                       R17 R16 K141 ["CloseDialog"]
+      535 GETTABLEKS                       R17 R0 K146 ["deleteAllBreakpoints"]
+      537 SETTABLEKS                       R17 R16 K142 ["DeleteAllBreakpoints"]
+      539 CALL                             R14 2 1
+      540 SETTABLEKS                       R14 R13 K57 ["DeleteAllDialog"]
+      542 CALL                             R10 3 -1
+      543 RETURN                           R10 -1
 
 PROTO_32:
         0 NEWTABLE                         R2 0 0
@@ -1549,79 +1501,69 @@ MAIN:
       191 SETTABLEN                        R38 R37 2
       192 LOADK                            R38 K52 ["lineNumber"]
       193 SETTABLEN                        R38 R37 3
-      194 DUPTABLE                         R38 K58 [{"SourceLineColumn", "ConditionColumn", "LogMessageColumn", "ContinueExecutionColumn", "RemoveOnHitColumn"}]
-      195 LOADK                            R39 K59 ["scriptLine"]
-      196 SETTABLEKS                       R39 R38 K53 ["SourceLineColumn"]
-      198 LOADK                            R39 K60 ["condition"]
-      199 SETTABLEKS                       R39 R38 K54 ["ConditionColumn"]
-      201 LOADK                            R39 K61 ["logMessage"]
-      202 SETTABLEKS                       R39 R38 K55 ["LogMessageColumn"]
-      204 LOADK                            R39 K62 ["continueExecution"]
-      205 SETTABLEKS                       R39 R38 K56 ["ContinueExecutionColumn"]
-      207 LOADK                            R39 K63 ["removeOnHit"]
-      208 SETTABLEKS                       R39 R38 K57 ["RemoveOnHitColumn"]
-      210 DUPCLOSURE                       R39 K64 [PROTO_0]
-      211 CAPTURE                          VAL R21
-      212 DUPCLOSURE                       R40 K65 [PROTO_21]
-      213 CAPTURE                          VAL R37
-      214 CAPTURE                          VAL R21
-      215 CAPTURE                          VAL R28
-      216 CAPTURE                          VAL R25
-      217 CAPTURE                          VAL R36
-      218 CAPTURE                          VAL R19
+      194 DUPTABLE                         R38 K63 [{["SourceLineColumn"] = "scriptLine", ["ConditionColumn"] = "condition", ["LogMessageColumn"] = "logMessage", ["ContinueExecutionColumn"] = "continueExecution", ["RemoveOnHitColumn"] = "removeOnHit"}]
+      195 DUPCLOSURE                       R39 K64 [PROTO_0]
+      196 CAPTURE                          VAL R21
+      197 DUPCLOSURE                       R40 K65 [PROTO_21]
+      198 CAPTURE                          VAL R37
+      199 CAPTURE                          VAL R21
+      200 CAPTURE                          VAL R28
+      201 CAPTURE                          VAL R25
+      202 CAPTURE                          VAL R36
+      203 CAPTURE                          VAL R19
+      204 CAPTURE                          VAL R4
+      205 SETTABLEKS                       R40 R23 K66 ["init"]
+      207 DUPCLOSURE                       R40 K67 [PROTO_24]
+      208 CAPTURE                          VAL R21
+      209 CAPTURE                          VAL R27
+      210 SETTABLEKS                       R40 R23 K68 ["didMount"]
+      212 DUPCLOSURE                       R40 K69 [PROTO_25]
+      213 CAPTURE                          VAL R21
+      214 CAPTURE                          VAL R27
+      215 SETTABLEKS                       R40 R23 K70 ["willUnmount"]
+      217 DUPCLOSURE                       R40 K71 [PROTO_29]
+      218 CAPTURE                          VAL R37
       219 CAPTURE                          VAL R4
-      220 SETTABLEKS                       R40 R23 K66 ["init"]
-      222 DUPCLOSURE                       R40 K67 [PROTO_24]
-      223 CAPTURE                          VAL R21
-      224 CAPTURE                          VAL R27
-      225 SETTABLEKS                       R40 R23 K68 ["didMount"]
-      227 DUPCLOSURE                       R40 K69 [PROTO_25]
+      220 CAPTURE                          VAL R27
+      221 SETTABLEKS                       R40 R23 K72 ["didUpdate"]
+      223 DUPCLOSURE                       R40 K73 [PROTO_31]
+      224 CAPTURE                          VAL R37
+      225 CAPTURE                          VAL R38
+      226 CAPTURE                          VAL R11
+      227 CAPTURE                          VAL R12
       228 CAPTURE                          VAL R21
-      229 CAPTURE                          VAL R27
-      230 SETTABLEKS                       R40 R23 K70 ["willUnmount"]
-      232 DUPCLOSURE                       R40 K71 [PROTO_29]
-      233 CAPTURE                          VAL R37
-      234 CAPTURE                          VAL R4
-      235 CAPTURE                          VAL R27
-      236 SETTABLEKS                       R40 R23 K72 ["didUpdate"]
-      238 DUPCLOSURE                       R40 K73 [PROTO_31]
-      239 CAPTURE                          VAL R37
-      240 CAPTURE                          VAL R38
-      241 CAPTURE                          VAL R11
-      242 CAPTURE                          VAL R12
-      243 CAPTURE                          VAL R21
-      244 CAPTURE                          VAL R1
-      245 CAPTURE                          VAL R17
-      246 CAPTURE                          VAL R16
-      247 CAPTURE                          VAL R34
-      248 CAPTURE                          VAL R18
-      249 CAPTURE                          VAL R22
-      250 CAPTURE                          VAL R35
-      251 SETTABLEKS                       R40 R23 K74 ["render"]
-      253 GETTABLEKS                       R40 R5 K75 ["withContext"]
-      255 DUPTABLE                         R41 K76 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
-      256 SETTABLEKS                       R6 R41 K11 ["Analytics"]
-      258 SETTABLEKS                       R8 R41 K13 ["Localization"]
-      260 SETTABLEKS                       R9 R41 K15 ["Stylizer"]
-      262 SETTABLEKS                       R7 R41 K12 ["Plugin"]
-      264 CALL                             R40 1 1
-      265 MOVE                             R41 R23
-      266 CALL                             R40 1 1
-      267 MOVE                             R23 R40
-      268 GETTABLEKS                       R40 R2 K77 ["connect"]
-      270 DUPCLOSURE                       R41 K78 [PROTO_32]
-      271 CAPTURE                          VAL R14
-      272 CAPTURE                          VAL R20
-      273 CAPTURE                          VAL R21
-      274 CAPTURE                          VAL R37
-      275 CAPTURE                          VAL R38
-      276 CAPTURE                          VAL R26
-      277 DUPCLOSURE                       R42 K79 [PROTO_36]
-      278 CAPTURE                          VAL R30
-      279 CAPTURE                          VAL R32
-      280 CAPTURE                          VAL R33
-      281 CALL                             R40 2 1
-      282 MOVE                             R41 R23
-      283 CALL                             R40 1 1
-      284 MOVE                             R23 R40
-      285 RETURN                           R23 1
+      229 CAPTURE                          VAL R1
+      230 CAPTURE                          VAL R17
+      231 CAPTURE                          VAL R16
+      232 CAPTURE                          VAL R34
+      233 CAPTURE                          VAL R18
+      234 CAPTURE                          VAL R22
+      235 CAPTURE                          VAL R35
+      236 SETTABLEKS                       R40 R23 K74 ["render"]
+      238 GETTABLEKS                       R40 R5 K75 ["withContext"]
+      240 DUPTABLE                         R41 K76 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+      241 SETTABLEKS                       R6 R41 K11 ["Analytics"]
+      243 SETTABLEKS                       R8 R41 K13 ["Localization"]
+      245 SETTABLEKS                       R9 R41 K15 ["Stylizer"]
+      247 SETTABLEKS                       R7 R41 K12 ["Plugin"]
+      249 CALL                             R40 1 1
+      250 MOVE                             R41 R23
+      251 CALL                             R40 1 1
+      252 MOVE                             R23 R40
+      253 GETTABLEKS                       R40 R2 K77 ["connect"]
+      255 DUPCLOSURE                       R41 K78 [PROTO_32]
+      256 CAPTURE                          VAL R14
+      257 CAPTURE                          VAL R20
+      258 CAPTURE                          VAL R21
+      259 CAPTURE                          VAL R37
+      260 CAPTURE                          VAL R38
+      261 CAPTURE                          VAL R26
+      262 DUPCLOSURE                       R42 K79 [PROTO_36]
+      263 CAPTURE                          VAL R30
+      264 CAPTURE                          VAL R32
+      265 CAPTURE                          VAL R33
+      266 CALL                             R40 2 1
+      267 MOVE                             R41 R23
+      268 CALL                             R40 1 1
+      269 MOVE                             R23 R40
+      270 RETURN                           R23 1

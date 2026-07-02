@@ -63,7 +63,7 @@ PROTO_2:
         7 GETUPVAL                         R5 0
         8 LENGTH                           R4 R5
         9 LOADN                            R2 50
-       10 LOADN                            R3 255
+       10 LOADN                            R3 -1
        11 FORNPREP                         R2
        12 GETUPVAL                         R8 0
        13 GETTABLE                         R7 R8 R4
@@ -98,23 +98,35 @@ PROTO_2:
        49 CALL                             R4 4 -1
        50 NAMECALL                         R2 R0 K6 ["dispatch"]
        52 CALL                             R2 -1 0
-       53 GETUPVAL                         R1 3
-       54 GETTABLEKS                       R1 R1 K7 ["Develop"]
-       56 GETTABLEKS                       R1 R1 K8 ["v1"]
-       58 GETTABLEKS                       R1 R1 K9 ["Plugins"]
-       60 GETUPVAL                         R2 0
-       61 CALL                             R1 1 1
-       62 NEWCLOSURE                       R3 P0
-       63 CAPTURE                          UPVAL U5
-       64 CAPTURE                          UPVAL U4
-       65 CAPTURE                          UPVAL U0
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          UPVAL U6
-       68 CAPTURE                          UPVAL U2
-       69 DUPCLOSURE                       R4 K10 [PROTO_1]
-       70 NAMECALL                         R1 R1 K11 ["andThen"]
-       72 CALL                             R1 3 -1
-       73 RETURN                           R1 -1
+       53 GETUPVAL                         R2 5
+       54 CALL                             R2 0 1
+       55 JUMPIFNOT                        R2 ; [+13]
+       56 GETUPVAL                         R1 3
+       57 GETTABLEKS                       R1 R1 K7 ["Develop"]
+       59 GETTABLEKS                       R1 R1 K8 ["V1"]
+       61 GETTABLEKS                       R1 R1 K9 ["plugin"]
+       63 GETUPVAL                         R2 0
+       64 CALL                             R1 1 1
+       65 NAMECALL                         R1 R1 K10 ["makeRequest"]
+       67 CALL                             R1 1 1
+       68 JUMP                             ; [+9]
+       69 GETUPVAL                         R1 3
+       70 GETTABLEKS                       R1 R1 K7 ["Develop"]
+       72 GETTABLEKS                       R1 R1 K11 ["v1"]
+       74 GETTABLEKS                       R1 R1 K12 ["Plugins"]
+       76 GETUPVAL                         R2 0
+       77 CALL                             R1 1 1
+       78 NEWCLOSURE                       R4 P0
+       79 CAPTURE                          UPVAL U6
+       80 CAPTURE                          UPVAL U4
+       81 CAPTURE                          UPVAL U0
+       82 CAPTURE                          VAL R0
+       83 CAPTURE                          UPVAL U7
+       84 CAPTURE                          UPVAL U2
+       85 DUPCLOSURE                       R5 K13 [PROTO_1]
+       86 NAMECALL                         R2 R1 K14 ["andThen"]
+       88 CALL                             R2 3 -1
+       89 RETURN                           R2 -1
 
 PROTO_3:
         0 NEWCLOSURE                       R4 P0
@@ -125,7 +137,8 @@ PROTO_3:
         5 CAPTURE                          VAL R3
         6 CAPTURE                          UPVAL U1
         7 CAPTURE                          UPVAL U2
-        8 RETURN                           R4 1
+        8 CAPTURE                          UPVAL U3
+        9 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -135,16 +148,22 @@ MAIN:
         7 GETTABLEKS                       R0 R0 K2 ["Parent"]
         9 GETIMPORT                        R1 K4 [require]
        11 GETTABLEKS                       R2 R0 K5 ["Src"]
-       13 GETTABLEKS                       R2 R2 K6 ["Thunks"]
-       15 GETTABLEKS                       R2 R2 K7 ["FetchMarketplaceAssetInfo"]
+       13 GETTABLEKS                       R2 R2 K6 ["Flags"]
+       15 GETTABLEKS                       R2 R2 K7 ["getFFlagStudioPluginManagementUpgradeHttp"]
        17 CALL                             R1 1 1
        18 GETIMPORT                        R2 K4 [require]
        20 GETTABLEKS                       R3 R0 K5 ["Src"]
-       22 GETTABLEKS                       R3 R3 K8 ["Util"]
-       24 GETTABLEKS                       R3 R3 K9 ["cleanTimestamp"]
+       22 GETTABLEKS                       R3 R3 K8 ["Thunks"]
+       24 GETTABLEKS                       R3 R3 K9 ["FetchMarketplaceAssetInfo"]
        26 CALL                             R2 1 1
-       27 DUPCLOSURE                       R3 K10 [PROTO_3]
-       28 CAPTURE                          VAL R3
-       29 CAPTURE                          VAL R2
-       30 CAPTURE                          VAL R1
-       31 RETURN                           R3 1
+       27 GETIMPORT                        R3 K4 [require]
+       29 GETTABLEKS                       R4 R0 K5 ["Src"]
+       31 GETTABLEKS                       R4 R4 K10 ["Util"]
+       33 GETTABLEKS                       R4 R4 K11 ["cleanTimestamp"]
+       35 CALL                             R3 1 1
+       36 DUPCLOSURE                       R4 K12 [PROTO_3]
+       37 CAPTURE                          VAL R4
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R2
+       41 RETURN                           R4 1

@@ -8,14 +8,12 @@ PROTO_0:
         9 LOADK                            R2 K3 [0.5]
        10 JUMP                             ; [+1]
        11 LOADN                            R2 0
-       12 DUPTABLE                         R3 K6 [{"duration", "easingStyle"}]
-       13 LOADK                            R4 K7 [0.15]
-       14 SETTABLEKS                       R4 R3 K4 ["duration"]
-       16 GETIMPORT                        R4 K11 [Enum.EasingStyle.Quad]
-       18 SETTABLEKS                       R4 R3 K5 ["easingStyle"]
-       20 CALL                             R1 2 -1
-       21 CALL                             R0 -1 0
-       22 RETURN                           R0 0
+       12 DUPTABLE                         R3 K7 [{["duration"] = 0.15, ["easingStyle"]}]
+       13 GETIMPORT                        R4 K11 [Enum.EasingStyle.Quad]
+       15 SETTABLEKS                       R4 R3 K6 ["easingStyle"]
+       17 CALL                             R1 2 -1
+       18 CALL                             R0 -1 0
+       19 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -72,92 +70,74 @@ PROTO_4:
        43 GETUPVAL                         R5 2
        44 GETUPVAL                         R6 3
        45 GETTABLEKS                       R6 R6 K5 ["View"]
-       47 DUPTABLE                         R7 K7 [{"tag"}]
-       48 LOADK                            R8 K8 ["size-full-700 bg-shift-200 radius-small"]
-       49 SETTABLEKS                       R8 R7 K6 ["tag"]
-       51 DUPTABLE                         R8 K11 [{"Highlight", "Options"}]
-       52 GETUPVAL                         R9 2
-       53 GETUPVAL                         R10 3
-       54 GETTABLEKS                       R10 R10 K5 ["View"]
-       56 DUPTABLE                         R11 K14 [{"tag", "Size", "Position"}]
-       57 LOADK                            R12 K15 ["bg-shift-300 radius-small"]
-       58 SETTABLEKS                       R12 R11 K6 ["tag"]
-       60 GETIMPORT                        R12 K18 [UDim2.fromScale]
-       62 LOADK                            R13 K19 [0.5]
-       63 LOADN                            R14 1
+       47 DUPTABLE                         R7 K8 [{["tag"] = "size-full-700 radius-small bg-shift-200"}]
+       48 DUPTABLE                         R8 K11 [{"Highlight", "Options"}]
+       49 GETUPVAL                         R9 2
+       50 GETUPVAL                         R10 3
+       51 GETTABLEKS                       R10 R10 K5 ["View"]
+       53 DUPTABLE                         R11 K15 [{["tag"] = "radius-small bg-shift-300", ["Size"], ["Position"]}]
+       54 GETIMPORT                        R12 K18 [UDim2.fromScale]
+       56 LOADK                            R13 K19 [0.5]
+       57 LOADN                            R14 1
+       58 CALL                             R12 2 1
+       59 SETTABLEKS                       R12 R11 K13 ["Size"]
+       61 DUPCLOSURE                       R14 K20 [PROTO_3]
+       62 NAMECALL                         R12 R1 K21 ["map"]
        64 CALL                             R12 2 1
-       65 SETTABLEKS                       R12 R11 K12 ["Size"]
-       67 DUPCLOSURE                       R14 K20 [PROTO_3]
-       68 NAMECALL                         R12 R1 K21 ["map"]
-       70 CALL                             R12 2 1
-       71 SETTABLEKS                       R12 R11 K13 ["Position"]
-       73 CALL                             R9 2 1
-       74 SETTABLEKS                       R9 R8 K9 ["Highlight"]
-       76 GETUPVAL                         R9 2
-       77 GETUPVAL                         R10 3
-       78 GETTABLEKS                       R10 R10 K5 ["View"]
-       80 DUPTABLE                         R11 K7 [{"tag"}]
-       81 LOADK                            R12 K22 ["row size-full-700 flex-x-fill gap-none padding-none items-stretch"]
-       82 SETTABLEKS                       R12 R11 K6 ["tag"]
-       84 DUPTABLE                         R12 K25 [{"Studio", "Disk"}]
-       85 GETUPVAL                         R13 2
-       86 GETUPVAL                         R14 3
-       87 GETTABLEKS                       R14 R14 K26 ["Text"]
-       89 DUPTABLE                         R15 K31 [{"tag", "stateLayer", "LayoutOrder", "Size", "Text", "AutoButtonColor", "onActivated"}]
-       90 LOADK                            R16 K32 ["text-title-medium radius-small"]
-       91 SETTABLEKS                       R16 R15 K6 ["tag"]
-       93 DUPTABLE                         R16 K34 [{"affordance"}]
-       94 GETUPVAL                         R17 3
-       95 GETTABLEKS                       R17 R17 K35 ["Enums"]
-       97 GETTABLEKS                       R17 R17 K36 ["StateLayerAffordance"]
-       99 GETTABLEKS                       R17 R17 K37 ["None"]
-      101 SETTABLEKS                       R17 R16 K33 ["affordance"]
-      103 SETTABLEKS                       R16 R15 K27 ["stateLayer"]
-      105 LOADN                            R16 1
-      106 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      108 GETIMPORT                        R16 K18 [UDim2.fromScale]
-      110 LOADK                            R17 K19 [0.5]
-      111 LOADN                            R18 1
-      112 CALL                             R16 2 1
-      113 SETTABLEKS                       R16 R15 K12 ["Size"]
-      115 GETTABLEKS                       R16 R0 K38 ["studioVersionLabel"]
-      117 SETTABLEKS                       R16 R15 K26 ["Text"]
-      119 LOADB                            R16 0
-      120 SETTABLEKS                       R16 R15 K29 ["AutoButtonColor"]
-      122 SETTABLEKS                       R4 R15 K30 ["onActivated"]
-      124 CALL                             R13 2 1
-      125 SETTABLEKS                       R13 R12 K23 ["Studio"]
-      127 GETUPVAL                         R13 2
-      128 GETUPVAL                         R14 3
-      129 GETTABLEKS                       R14 R14 K26 ["Text"]
-      131 DUPTABLE                         R15 K39 [{"tag", "stateLayer", "LayoutOrder", "Size", "AutoButtonColor", "Text", "onActivated"}]
-      132 LOADK                            R16 K32 ["text-title-medium radius-small"]
-      133 SETTABLEKS                       R16 R15 K6 ["tag"]
-      135 DUPTABLE                         R16 K34 [{"affordance"}]
-      136 GETUPVAL                         R17 3
-      137 GETTABLEKS                       R17 R17 K35 ["Enums"]
-      139 GETTABLEKS                       R17 R17 K36 ["StateLayerAffordance"]
-      141 GETTABLEKS                       R17 R17 K37 ["None"]
-      143 SETTABLEKS                       R17 R16 K33 ["affordance"]
-      145 SETTABLEKS                       R16 R15 K27 ["stateLayer"]
-      147 LOADN                            R16 2
-      148 SETTABLEKS                       R16 R15 K28 ["LayoutOrder"]
-      150 GETIMPORT                        R16 K18 [UDim2.fromScale]
-      152 LOADK                            R17 K19 [0.5]
-      153 LOADN                            R18 1
-      154 CALL                             R16 2 1
-      155 SETTABLEKS                       R16 R15 K12 ["Size"]
-      157 LOADB                            R16 0
-      158 SETTABLEKS                       R16 R15 K29 ["AutoButtonColor"]
-      160 GETTABLEKS                       R16 R0 K40 ["diskVersionLabel"]
-      162 SETTABLEKS                       R16 R15 K26 ["Text"]
-      164 SETTABLEKS                       R3 R15 K30 ["onActivated"]
-      166 CALL                             R13 2 1
-      167 SETTABLEKS                       R13 R12 K24 ["Disk"]
-      169 CALL                             R9 3 1
-      170 SETTABLEKS                       R9 R8 K10 ["Options"]
-      172 CALL                             R5 3 -1
-      173 RETURN                           R5 -1
+       65 SETTABLEKS                       R12 R11 K14 ["Position"]
+       67 CALL                             R9 2 1
+       68 SETTABLEKS                       R9 R8 K9 ["Highlight"]
+       70 GETUPVAL                         R9 2
+       71 GETUPVAL                         R10 3
+       72 GETTABLEKS                       R10 R10 K5 ["View"]
+       74 DUPTABLE                         R11 K23 [{["tag"] = "row flex-x-fill items-stretch gap-none size-full-700 padding-none"}]
+       75 DUPTABLE                         R12 K26 [{"Studio", "Disk"}]
+       76 GETUPVAL                         R13 2
+       77 GETUPVAL                         R14 3
+       78 GETTABLEKS                       R14 R14 K27 ["Text"]
+       80 DUPTABLE                         R15 K35 [{["tag"] = "text-title-medium radius-small", ["stateLayer"], ["LayoutOrder"] = 1, ["Size"], ["Text"], ["AutoButtonColor"] = False, ["onActivated"]}]
+       81 DUPTABLE                         R16 K37 [{"affordance"}]
+       82 GETUPVAL                         R17 3
+       83 GETTABLEKS                       R17 R17 K38 ["Enums"]
+       85 GETTABLEKS                       R17 R17 K39 ["StateLayerAffordance"]
+       87 GETTABLEKS                       R17 R17 K40 ["None"]
+       89 SETTABLEKS                       R17 R16 K36 ["affordance"]
+       91 SETTABLEKS                       R16 R15 K29 ["stateLayer"]
+       93 GETIMPORT                        R16 K18 [UDim2.fromScale]
+       95 LOADK                            R17 K19 [0.5]
+       96 LOADN                            R18 1
+       97 CALL                             R16 2 1
+       98 SETTABLEKS                       R16 R15 K13 ["Size"]
+      100 GETTABLEKS                       R16 R0 K41 ["studioVersionLabel"]
+      102 SETTABLEKS                       R16 R15 K27 ["Text"]
+      104 SETTABLEKS                       R4 R15 K34 ["onActivated"]
+      106 CALL                             R13 2 1
+      107 SETTABLEKS                       R13 R12 K24 ["Studio"]
+      109 GETUPVAL                         R13 2
+      110 GETUPVAL                         R14 3
+      111 GETTABLEKS                       R14 R14 K27 ["Text"]
+      113 DUPTABLE                         R15 K43 [{["tag"] = "text-title-medium radius-small", ["stateLayer"], ["LayoutOrder"] = 2, ["Size"], ["AutoButtonColor"] = False, ["Text"], ["onActivated"]}]
+      114 DUPTABLE                         R16 K37 [{"affordance"}]
+      115 GETUPVAL                         R17 3
+      116 GETTABLEKS                       R17 R17 K38 ["Enums"]
+      118 GETTABLEKS                       R17 R17 K39 ["StateLayerAffordance"]
+      120 GETTABLEKS                       R17 R17 K40 ["None"]
+      122 SETTABLEKS                       R17 R16 K36 ["affordance"]
+      124 SETTABLEKS                       R16 R15 K29 ["stateLayer"]
+      126 GETIMPORT                        R16 K18 [UDim2.fromScale]
+      128 LOADK                            R17 K19 [0.5]
+      129 LOADN                            R18 1
+      130 CALL                             R16 2 1
+      131 SETTABLEKS                       R16 R15 K13 ["Size"]
+      133 GETTABLEKS                       R16 R0 K44 ["diskVersionLabel"]
+      135 SETTABLEKS                       R16 R15 K27 ["Text"]
+      137 SETTABLEKS                       R3 R15 K34 ["onActivated"]
+      139 CALL                             R13 2 1
+      140 SETTABLEKS                       R13 R12 K25 ["Disk"]
+      142 CALL                             R9 3 1
+      143 SETTABLEKS                       R9 R8 K10 ["Options"]
+      145 CALL                             R5 3 -1
+      146 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

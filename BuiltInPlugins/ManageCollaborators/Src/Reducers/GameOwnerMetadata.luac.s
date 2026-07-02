@@ -90,36 +90,24 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K15 [{"creatorType", "creatorId", "creatorName", "creatorFriends", "groupOwnerId", "groupOwnerName"}]
-       26 LOADNIL                          R5
-       27 SETTABLEKS                       R5 R4 K9 ["creatorType"]
-       29 LOADNIL                          R5
-       30 SETTABLEKS                       R5 R4 K10 ["creatorId"]
-       32 LOADNIL                          R5
-       33 SETTABLEKS                       R5 R4 K11 ["creatorName"]
-       35 LOADNIL                          R5
-       36 SETTABLEKS                       R5 R4 K12 ["creatorFriends"]
-       38 LOADNIL                          R5
-       39 SETTABLEKS                       R5 R4 K13 ["groupOwnerId"]
-       41 LOADNIL                          R5
-       42 SETTABLEKS                       R5 R4 K14 ["groupOwnerName"]
-       44 DUPTABLE                         R5 K22 [{"ResetStore", "SetCreatorType", "SetCreatorId", "SetCreatorName", "SetCreatorFriends", "SetGroupOwnerId"}]
-       45 DUPCLOSURE                       R6 K23 [PROTO_0]
-       46 SETTABLEKS                       R6 R5 K16 ["ResetStore"]
-       48 DUPCLOSURE                       R6 K24 [PROTO_1]
-       49 CAPTURE                          VAL R2
-       50 SETTABLEKS                       R6 R5 K17 ["SetCreatorType"]
-       52 DUPCLOSURE                       R6 K25 [PROTO_2]
-       53 CAPTURE                          VAL R2
-       54 SETTABLEKS                       R6 R5 K18 ["SetCreatorId"]
-       56 DUPCLOSURE                       R6 K26 [PROTO_3]
-       57 CAPTURE                          VAL R2
-       58 SETTABLEKS                       R6 R5 K19 ["SetCreatorName"]
-       60 DUPCLOSURE                       R6 K27 [PROTO_4]
-       61 CAPTURE                          VAL R2
-       62 SETTABLEKS                       R6 R5 K20 ["SetCreatorFriends"]
-       64 DUPCLOSURE                       R6 K28 [PROTO_5]
-       65 CAPTURE                          VAL R2
-       66 SETTABLEKS                       R6 R5 K21 ["SetGroupOwnerId"]
-       68 CALL                             R3 2 -1
-       69 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K16 [{["creatorType"] = , ["creatorId"] = , ["creatorName"] = , ["creatorFriends"] = , ["groupOwnerId"] = , ["groupOwnerName"] = }]
+       26 DUPTABLE                         R5 K23 [{"ResetStore", "SetCreatorType", "SetCreatorId", "SetCreatorName", "SetCreatorFriends", "SetGroupOwnerId"}]
+       27 DUPCLOSURE                       R6 K24 [PROTO_0]
+       28 SETTABLEKS                       R6 R5 K17 ["ResetStore"]
+       30 DUPCLOSURE                       R6 K25 [PROTO_1]
+       31 CAPTURE                          VAL R2
+       32 SETTABLEKS                       R6 R5 K18 ["SetCreatorType"]
+       34 DUPCLOSURE                       R6 K26 [PROTO_2]
+       35 CAPTURE                          VAL R2
+       36 SETTABLEKS                       R6 R5 K19 ["SetCreatorId"]
+       38 DUPCLOSURE                       R6 K27 [PROTO_3]
+       39 CAPTURE                          VAL R2
+       40 SETTABLEKS                       R6 R5 K20 ["SetCreatorName"]
+       42 DUPCLOSURE                       R6 K28 [PROTO_4]
+       43 CAPTURE                          VAL R2
+       44 SETTABLEKS                       R6 R5 K21 ["SetCreatorFriends"]
+       46 DUPCLOSURE                       R6 K29 [PROTO_5]
+       47 CAPTURE                          VAL R2
+       48 SETTABLEKS                       R6 R5 K22 ["SetGroupOwnerId"]
+       50 CALL                             R3 2 -1
+       51 RETURN                           R3 -1

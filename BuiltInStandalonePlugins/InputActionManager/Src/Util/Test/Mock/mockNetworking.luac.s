@@ -1,24 +1,20 @@
 PROTO_0:
         0 GETUPVAL                         R0 1
         1 GETTABLEKS                       R0 R0 K0 ["create"]
-        3 DUPTABLE                         R1 K4 [{"isHost", "isGuest", "plugin"}]
-        4 LOADB                            R2 1
-        5 SETTABLEKS                       R2 R1 K1 ["isHost"]
-        7 LOADB                            R2 1
-        8 SETTABLEKS                       R2 R1 K2 ["isGuest"]
-       10 GETIMPORT                        R2 K5 [plugin]
-       12 SETTABLEKS                       R2 R1 K3 ["plugin"]
+        3 DUPTABLE                         R1 K5 [{["isHost"] = True, ["isGuest"] = True, ["plugin"]}]
+        4 GETIMPORT                        R2 K6 [plugin]
+        6 SETTABLEKS                       R2 R1 K4 ["plugin"]
+        8 CALL                             R0 1 1
+        9 SETUPVAL                         R0 0
+       10 GETUPVAL                         R0 0
+       11 JUMPIFNOT                        R0 ; [+4]
+       12 GETUPVAL                         R0 3
+       13 GETUPVAL                         R1 0
        14 CALL                             R0 1 1
-       15 SETUPVAL                         R0 0
+       15 SETUPVAL                         R0 2
        16 GETUPVAL                         R0 0
-       17 JUMPIFNOT                        R0 ; [+4]
-       18 GETUPVAL                         R0 3
-       19 GETUPVAL                         R1 0
-       20 CALL                             R0 1 1
-       21 SETUPVAL                         R0 2
-       22 GETUPVAL                         R0 0
-       23 GETUPVAL                         R1 2
-       24 RETURN                           R0 2
+       17 GETUPVAL                         R1 2
+       18 RETURN                           R0 2
 
 PROTO_1:
         0 GETUPVAL                         R0 0

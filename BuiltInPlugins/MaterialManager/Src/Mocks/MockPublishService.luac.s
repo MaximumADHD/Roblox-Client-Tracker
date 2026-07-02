@@ -9,10 +9,8 @@ PROTO_0:
 
 PROTO_1:
         0 PREPVARARGS                      1
-        1 DUPTABLE                         R1 K1 [{"AssetId"}]
-        2 LOADK                            R2 K2 ["123"]
-        3 SETTABLEKS                       R2 R1 K0 ["AssetId"]
-        5 RETURN                           R1 1
+        1 DUPTABLE                         R1 K2 [{[1] = "123"}]
+        2 RETURN                           R1 1
 
 PROTO_2:
         0 MOVE                             R2 R0

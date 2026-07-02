@@ -16,49 +16,45 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["ShowSearchOptions"]
-        3 JUMPIFNOT                        R0 ; [+57]
+        3 JUMPIFNOT                        R0 ; [+51]
         4 NEWTABLE                         R0 0 0
         6 GETUPVAL                         R1 1
         7 LOADN                            R2 0
-        8 JUMPIFNOTLT                      R2 R1 ; [+21]
-       10 DUPTABLE                         R3 K4 [{"Text", "CellCount", "IsCollapsed"}]
+        8 JUMPIFNOTLT                      R2 R1 ; [+18]
+       10 DUPTABLE                         R3 K5 [{["Text"], ["CellCount"], ["IsCollapsed"] = False}]
        11 GETUPVAL                         R4 2
-       12 GETTABLEKS                       R4 R4 K5 ["AssetType"]
-       14 GETTABLEKS                       R4 R4 K6 ["Folder"]
+       12 GETTABLEKS                       R4 R4 K6 ["AssetType"]
+       14 GETTABLEKS                       R4 R4 K7 ["Folder"]
        16 SETTABLEKS                       R4 R3 K1 ["Text"]
        18 GETUPVAL                         R4 1
        19 SETTABLEKS                       R4 R3 K2 ["CellCount"]
-       21 LOADB                            R4 0
-       22 SETTABLEKS                       R4 R3 K3 ["IsCollapsed"]
-       24 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
-       26 MOVE                             R2 R0
-       27 GETIMPORT                        R1 K9 [table.insert]
-       29 CALL                             R1 2 0
-       30 GETUPVAL                         R3 3
-       31 LENGTH                           R2 R3
-       32 GETUPVAL                         R3 1
-       33 SUB                              R1 R2 R3
-       34 LOADN                            R2 0
-       35 JUMPIFNOTLT                      R2 R1 ; [+24]
-       37 DUPTABLE                         R3 K4 [{"Text", "CellCount", "IsCollapsed"}]
-       38 GETUPVAL                         R4 0
-       39 GETTABLEKS                       R4 R4 K10 ["SearchOptions"]
-       41 GETTABLEKS                       R4 R4 K5 ["AssetType"]
-       43 SETTABLEKS                       R4 R3 K1 ["Text"]
-       45 GETUPVAL                         R6 3
-       46 LENGTH                           R5 R6
-       47 GETUPVAL                         R6 1
-       48 SUB                              R4 R5 R6
-       49 SETTABLEKS                       R4 R3 K2 ["CellCount"]
-       51 LOADB                            R4 0
-       52 SETTABLEKS                       R4 R3 K3 ["IsCollapsed"]
-       54 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
-       56 MOVE                             R2 R0
-       57 GETIMPORT                        R1 K9 [table.insert]
-       59 CALL                             R1 2 0
-       60 RETURN                           R0 1
-       61 LOADNIL                          R0
-       62 RETURN                           R0 1
+       21 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
+       23 MOVE                             R2 R0
+       24 GETIMPORT                        R1 K10 [table.insert]
+       26 CALL                             R1 2 0
+       27 GETUPVAL                         R3 3
+       28 LENGTH                           R2 R3
+       29 GETUPVAL                         R3 1
+       30 SUB                              R1 R2 R3
+       31 LOADN                            R2 0
+       32 JUMPIFNOTLT                      R2 R1 ; [+21]
+       34 DUPTABLE                         R3 K5 [{["Text"], ["CellCount"], ["IsCollapsed"] = False}]
+       35 GETUPVAL                         R4 0
+       36 GETTABLEKS                       R4 R4 K11 ["SearchOptions"]
+       38 GETTABLEKS                       R4 R4 K6 ["AssetType"]
+       40 SETTABLEKS                       R4 R3 K1 ["Text"]
+       42 GETUPVAL                         R6 3
+       43 LENGTH                           R5 R6
+       44 GETUPVAL                         R6 1
+       45 SUB                              R4 R5 R6
+       46 SETTABLEKS                       R4 R3 K2 ["CellCount"]
+       48 FASTCALL2                        TABLE_INSERT R0 R3 ; [+4]
+       50 MOVE                             R2 R0
+       51 GETIMPORT                        R1 K10 [table.insert]
+       53 CALL                             R1 2 0
+       54 RETURN                           R0 1
+       55 LOADNIL                          R0
+       56 RETURN                           R0 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

@@ -101,7 +101,7 @@ PROTO_1:
       118 LOADK                            R18 K36 ["Component-TextLabel SourceSans Bold"]
       119 SETTABLE                         R18 R16 R17
       120 GETIMPORT                        R17 K39 [UDim2.fromOffset]
-      122 LOADN                            R18 240
+      122 LOADN                            R18 -16
       123 LOADN                            R19 20
       124 CALL                             R17 2 1
       125 SETTABLEKS                       R17 R16 K40 ["Size"]

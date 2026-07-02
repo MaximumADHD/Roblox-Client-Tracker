@@ -76,148 +76,90 @@ PROTO_3:
        13 GETTABLEKS                       R4 R4 K3 ["getAudioInstanceDefs"]
        15 CALL                             R4 0 3
        16 FORGPREP                         R4
-       17 DUPTABLE                         R9 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Icon", "Shortcuts"}]
-       18 DUPTABLE                         R10 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       19 LOADK                            R11 K17 ["Standalone"]
-       20 SETTABLEKS                       R11 R10 K12 ["DataModel"]
-       22 LOADK                            R11 K18 ["Audio"]
-       23 SETTABLEKS                       R11 R10 K13 ["PluginId"]
-       25 LOADK                            R11 K0 ["Actions"]
-       26 SETTABLEKS                       R11 R10 K14 ["Category"]
-       28 LOADK                            R12 K19 ["Insert/%*"]
-       29 MOVE                             R14 R7
-       30 NAMECALL                         R12 R12 K20 ["format"]
-       32 CALL                             R12 2 1
-       33 MOVE                             R11 R12
-       34 SETTABLEKS                       R11 R10 K15 ["ItemId"]
-       36 SETTABLEKS                       R10 R9 K4 ["Uri"]
-       38 LOADB                            R10 1
-       39 SETTABLEKS                       R10 R9 K5 ["Enabled"]
-       41 LOADB                            R10 1
-       42 SETTABLEKS                       R10 R9 K6 ["Visible"]
-       44 GETIMPORT                        R10 K23 [string.gsub]
-       46 GETUPVAL                         R11 2
-       47 GETTABLEKS                       R11 R11 K24 ["action"]
-       49 LOADK                            R12 K25 ["Insert"]
-       50 CALL                             R11 1 1
-       51 LOADK                            R12 K26 ["%%s"]
-       52 MOVE                             R13 R7
-       53 CALL                             R10 3 1
-       54 SETTABLEKS                       R10 R9 K7 ["Text"]
-       56 GETIMPORT                        R10 K23 [string.gsub]
-       58 GETUPVAL                         R11 2
-       59 GETTABLEKS                       R11 R11 K27 ["tooltip"]
-       61 LOADK                            R12 K25 ["Insert"]
-       62 CALL                             R11 1 1
-       63 LOADK                            R12 K26 ["%%s"]
-       64 MOVE                             R13 R7
-       65 CALL                             R10 3 1
-       66 SETTABLEKS                       R10 R9 K8 ["Tooltip"]
-       68 SETTABLEKS                       R7 R9 K9 ["Icon"]
-       70 NEWTABLE                         R10 0 0
-       72 SETTABLEKS                       R10 R9 K10 ["Shortcuts"]
-       74 SETTABLE                         R9 R3 R7
-       75 GETUPVAL                         R11 3
-       76 MOVE                             R15 R9
-       77 LOADB                            R16 1
-       78 NAMECALL                         R13 R1 K28 ["CreateAsync"]
-       80 CALL                             R13 3 1
-       81 GETTABLEN                        R12 R13 1
-       82 NEWCLOSURE                       R14 P0
-       83 CAPTURE                          UPVAL U4
-       84 CAPTURE                          VAL R7
-       85 NAMECALL                         R12 R12 K29 ["Connect"]
-       87 CALL                             R12 2 -1
-       88 FASTCALL                         TABLE_INSERT ; [+2]
-       89 GETIMPORT                        R10 K32 [table.insert]
-       91 CALL                             R10 -1 0
-       92 FORGLOOP                         R4 2 ; [-76]
-       94 NEWTABLE                         R4 0 3
-       96 DUPTABLE                         R5 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
-       97 DUPTABLE                         R6 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       98 LOADK                            R7 K17 ["Standalone"]
-       99 SETTABLEKS                       R7 R6 K12 ["DataModel"]
-      101 LOADK                            R7 K18 ["Audio"]
-      102 SETTABLEKS                       R7 R6 K13 ["PluginId"]
-      104 LOADK                            R7 K2 ["Settings"]
-      105 SETTABLEKS                       R7 R6 K14 ["Category"]
-      107 LOADK                            R7 K35 ["InsertInOut"]
-      108 SETTABLEKS                       R7 R6 K15 ["ItemId"]
-      110 SETTABLEKS                       R6 R5 K4 ["Uri"]
-      112 LOADK                            R6 K36 ["In/Out"]
-      113 SETTABLEKS                       R6 R5 K7 ["Text"]
-      115 LOADK                            R6 K36 ["In/Out"]
-      116 SETTABLEKS                       R6 R5 K8 ["Tooltip"]
-      118 LOADB                            R6 1
-      119 SETTABLEKS                       R6 R5 K5 ["Enabled"]
-      121 LOADN                            R6 0
-      122 SETTABLEKS                       R6 R5 K33 ["Value"]
-      124 DUPTABLE                         R6 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
-      125 DUPTABLE                         R7 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      126 LOADK                            R8 K17 ["Standalone"]
-      127 SETTABLEKS                       R8 R7 K12 ["DataModel"]
-      129 LOADK                            R8 K18 ["Audio"]
-      130 SETTABLEKS                       R8 R7 K13 ["PluginId"]
-      132 LOADK                            R8 K2 ["Settings"]
-      133 SETTABLEKS                       R8 R7 K14 ["Category"]
-      135 LOADK                            R8 K37 ["InsertSpatial"]
-      136 SETTABLEKS                       R8 R7 K15 ["ItemId"]
-      138 SETTABLEKS                       R7 R6 K4 ["Uri"]
-      140 LOADK                            R7 K38 ["3D"]
-      141 SETTABLEKS                       R7 R6 K7 ["Text"]
-      143 LOADK                            R7 K38 ["3D"]
-      144 SETTABLEKS                       R7 R6 K8 ["Tooltip"]
-      146 LOADB                            R7 1
-      147 SETTABLEKS                       R7 R6 K5 ["Enabled"]
-      149 LOADN                            R7 0
-      150 SETTABLEKS                       R7 R6 K33 ["Value"]
-      152 DUPTABLE                         R7 K34 [{"Uri", "Text", "Tooltip", "Enabled", "Value"}]
-      153 DUPTABLE                         R8 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      154 LOADK                            R9 K17 ["Standalone"]
-      155 SETTABLEKS                       R9 R8 K12 ["DataModel"]
-      157 LOADK                            R9 K18 ["Audio"]
-      158 SETTABLEKS                       R9 R8 K13 ["PluginId"]
-      160 LOADK                            R9 K2 ["Settings"]
-      161 SETTABLEKS                       R9 R8 K14 ["Category"]
-      163 LOADK                            R9 K39 ["InsertEffect"]
-      164 SETTABLEKS                       R9 R8 K15 ["ItemId"]
-      166 SETTABLEKS                       R8 R7 K4 ["Uri"]
-      168 LOADK                            R8 K40 ["Effects"]
-      169 SETTABLEKS                       R8 R7 K7 ["Text"]
-      171 LOADK                            R8 K40 ["Effects"]
-      172 SETTABLEKS                       R8 R7 K8 ["Tooltip"]
-      174 LOADB                            R8 1
-      175 SETTABLEKS                       R8 R7 K5 ["Enabled"]
-      177 LOADN                            R8 5
-      178 SETTABLEKS                       R8 R7 K33 ["Value"]
-      180 SETLIST                          R4 R5 3 [1]
-      182 MOVE                             R5 R4
-      183 LOADNIL                          R6
-      184 LOADNIL                          R7
-      185 FORGPREP                         R5
-      186 NEWTABLE                         R14 0 1
-      188 GETTABLEKS                       R15 R9 K4 ["Uri"]
-      190 SETLIST                          R14 R15 1 [1]
-      192 NAMECALL                         R12 R2 K41 ["GetAsync"]
-      194 CALL                             R12 2 1
-      195 GETTABLEN                        R11 R12 1
-      196 JUMPIFNOTEQKNIL                  R11 ; [+2]
-      198 LOADB                            R10 0 +1
-      199 LOADB                            R10 1
-      200 JUMPIFNOT                        R10 ; [+9]
-      201 NEWTABLE                         R13 0 1
-      203 MOVE                             R14 R9
-      204 SETLIST                          R13 R14 1 [1]
-      206 NAMECALL                         R11 R2 K42 ["UpdateAsync"]
-      208 CALL                             R11 2 0
-      209 JUMP                             ; [+8]
-      210 NEWTABLE                         R13 0 1
-      212 MOVE                             R14 R9
-      213 SETLIST                          R13 R14 1 [1]
-      215 NAMECALL                         R11 R2 K28 ["CreateAsync"]
-      217 CALL                             R11 2 0
-      218 FORGLOOP                         R5 2 ; [-33]
-      220 RETURN                           R0 0
+       17 DUPTABLE                         R9 K12 [{["Uri"], ["Enabled"] = True, ["Visible"] = True, ["Text"], ["Tooltip"], ["Icon"], ["Shortcuts"]}]
+       18 DUPTABLE                         R10 K19 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"]}]
+       19 LOADK                            R12 K20 ["Insert/%*"]
+       20 MOVE                             R14 R7
+       21 NAMECALL                         R12 R12 K21 ["format"]
+       23 CALL                             R12 2 1
+       24 MOVE                             R11 R12
+       25 SETTABLEKS                       R11 R10 K18 ["ItemId"]
+       27 SETTABLEKS                       R10 R9 K4 ["Uri"]
+       29 GETIMPORT                        R10 K24 [string.gsub]
+       31 GETUPVAL                         R11 2
+       32 GETTABLEKS                       R11 R11 K25 ["action"]
+       34 LOADK                            R12 K26 ["Insert"]
+       35 CALL                             R11 1 1
+       36 LOADK                            R12 K27 ["%%s"]
+       37 MOVE                             R13 R7
+       38 CALL                             R10 3 1
+       39 SETTABLEKS                       R10 R9 K8 ["Text"]
+       41 GETIMPORT                        R10 K24 [string.gsub]
+       43 GETUPVAL                         R11 2
+       44 GETTABLEKS                       R11 R11 K28 ["tooltip"]
+       46 LOADK                            R12 K26 ["Insert"]
+       47 CALL                             R11 1 1
+       48 LOADK                            R12 K27 ["%%s"]
+       49 MOVE                             R13 R7
+       50 CALL                             R10 3 1
+       51 SETTABLEKS                       R10 R9 K9 ["Tooltip"]
+       53 SETTABLEKS                       R7 R9 K10 ["Icon"]
+       55 NEWTABLE                         R10 0 0
+       57 SETTABLEKS                       R10 R9 K11 ["Shortcuts"]
+       59 SETTABLE                         R9 R3 R7
+       60 GETUPVAL                         R11 3
+       61 MOVE                             R15 R9
+       62 LOADB                            R16 1
+       63 NAMECALL                         R13 R1 K29 ["CreateAsync"]
+       65 CALL                             R13 3 1
+       66 GETTABLEN                        R12 R13 1
+       67 NEWCLOSURE                       R14 P0
+       68 CAPTURE                          UPVAL U4
+       69 CAPTURE                          VAL R7
+       70 NAMECALL                         R12 R12 K30 ["Connect"]
+       72 CALL                             R12 2 -1
+       73 FASTCALL                         TABLE_INSERT ; [+2]
+       74 GETIMPORT                        R10 K33 [table.insert]
+       76 CALL                             R10 -1 0
+       77 FORGLOOP                         R4 2 ; [-61]
+       79 NEWTABLE                         R4 0 3
+       81 DUPTABLE                         R5 K37 [{["Uri"], ["Text"] = "In/Out", ["Tooltip"] = "In/Out", ["Enabled"] = True, ["Value"] = 0}]
+       82 DUPTABLE                         R6 K39 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertInOut"}]
+       83 SETTABLEKS                       R6 R5 K4 ["Uri"]
+       85 DUPTABLE                         R6 K41 [{["Uri"], ["Text"] = "3D", ["Tooltip"] = "3D", ["Enabled"] = True, ["Value"] = 0}]
+       86 DUPTABLE                         R7 K43 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertSpatial"}]
+       87 SETTABLEKS                       R7 R6 K4 ["Uri"]
+       89 DUPTABLE                         R7 K46 [{["Uri"], ["Text"] = "Effects", ["Tooltip"] = "Effects", ["Enabled"] = True, ["Value"] = 5}]
+       90 DUPTABLE                         R8 K48 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Settings", ["ItemId"] = "InsertEffect"}]
+       91 SETTABLEKS                       R8 R7 K4 ["Uri"]
+       93 SETLIST                          R4 R5 3 [1]
+       95 MOVE                             R5 R4
+       96 LOADNIL                          R6
+       97 LOADNIL                          R7
+       98 FORGPREP                         R5
+       99 NEWTABLE                         R14 0 1
+      101 GETTABLEKS                       R15 R9 K4 ["Uri"]
+      103 SETLIST                          R14 R15 1 [1]
+      105 NAMECALL                         R12 R2 K49 ["GetAsync"]
+      107 CALL                             R12 2 1
+      108 GETTABLEN                        R11 R12 1
+      109 JUMPIFNOTEQKNIL                  R11 ; [+2]
+      111 LOADB                            R10 0 +1
+      112 LOADB                            R10 1
+      113 JUMPIFNOT                        R10 ; [+9]
+      114 NEWTABLE                         R13 0 1
+      116 MOVE                             R14 R9
+      117 SETLIST                          R13 R14 1 [1]
+      119 NAMECALL                         R11 R2 K50 ["UpdateAsync"]
+      121 CALL                             R11 2 0
+      122 JUMP                             ; [+8]
+      123 NEWTABLE                         R13 0 1
+      125 MOVE                             R14 R9
+      126 SETLIST                          R13 R14 1 [1]
+      128 NAMECALL                         R11 R2 K29 ["CreateAsync"]
+      130 CALL                             R11 2 0
+      131 FORGLOOP                         R5 2 ; [-33]
+      133 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

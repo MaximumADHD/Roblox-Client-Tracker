@@ -24,17 +24,13 @@ PROTO_1:
        16 GETIMPORT                        R4 K5 [assert]
        18 CALL                             R4 2 0
        19 GETTABLEKS                       R4 R1 K6 ["recordChange"]
-       21 DUPTABLE                         R5 K10 [{"Name", "DisplayName", "DoChange"}]
-       22 LOADK                            R6 K11 ["StyleEditor/PasteStyleInstanceAttribute"]
-       23 SETTABLEKS                       R6 R5 K7 ["Name"]
-       25 LOADK                            R6 K12 ["StyleEditor - Paste StyleInstance Token"]
-       26 SETTABLEKS                       R6 R5 K8 ["DisplayName"]
-       28 NEWCLOSURE                       R6 P0
-       29 CAPTURE                          UPVAL U0
-       30 CAPTURE                          VAL R3
-       31 SETTABLEKS                       R6 R5 K9 ["DoChange"]
-       33 CALL                             R4 1 0
-       34 RETURN                           R0 0
+       21 DUPTABLE                         R5 K12 [{["Name"] = "StyleEditor/PasteStyleInstanceAttribute", ["DisplayName"] = "StyleEditor - Paste StyleInstance Token", ["DoChange"]}]
+       22 NEWCLOSURE                       R6 P0
+       23 CAPTURE                          UPVAL U0
+       24 CAPTURE                          VAL R3
+       25 SETTABLEKS                       R6 R5 K11 ["DoChange"]
+       27 CALL                             R4 1 0
+       28 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0

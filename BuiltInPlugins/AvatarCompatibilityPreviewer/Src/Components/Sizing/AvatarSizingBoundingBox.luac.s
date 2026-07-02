@@ -89,108 +89,84 @@ PROTO_3:
        73 GETUPVAL                         R9 1
        74 GETTABLEKS                       R9 R9 K22 ["createElement"]
        76 LOADK                            R10 K23 ["Part"]
-       77 DUPTABLE                         R11 K34 [{"Size", "CFrame", "Color", "ref", "Archivable", "CanCollide", "CanQuery", "Anchored", "Locked", "TopSurface", "BottomSurface", "Transparency"}]
+       77 DUPTABLE                         R11 K37 [{["Size"], ["CFrame"], ["Color"], ["ref"], ["Archivable"] = False, ["CanCollide"] = False, ["CanQuery"] = False, ["Anchored"] = True, ["Locked"] = True, ["TopSurface"], ["BottomSurface"], ["Transparency"] = 1}]
        78 GETTABLEKS                       R12 R0 K12 ["Size"]
        80 SETTABLEKS                       R12 R11 K12 ["Size"]
        82 SETTABLEKS                       R6 R11 K7 ["CFrame"]
        84 SETTABLEKS                       R7 R11 K24 ["Color"]
        86 SETTABLEKS                       R4 R11 K25 ["ref"]
-       88 LOADB                            R12 0
-       89 SETTABLEKS                       R12 R11 K26 ["Archivable"]
-       91 LOADB                            R12 0
-       92 SETTABLEKS                       R12 R11 K27 ["CanCollide"]
-       94 LOADB                            R12 0
-       95 SETTABLEKS                       R12 R11 K28 ["CanQuery"]
-       97 LOADB                            R12 1
-       98 SETTABLEKS                       R12 R11 K29 ["Anchored"]
-      100 LOADB                            R12 1
-      101 SETTABLEKS                       R12 R11 K30 ["Locked"]
-      103 GETIMPORT                        R12 K38 [Enum.SurfaceType.Smooth]
-      105 SETTABLEKS                       R12 R11 K31 ["TopSurface"]
-      107 GETIMPORT                        R12 K38 [Enum.SurfaceType.Smooth]
-      109 SETTABLEKS                       R12 R11 K32 ["BottomSurface"]
-      111 LOADN                            R12 1
-      112 SETTABLEKS                       R12 R11 K33 ["Transparency"]
-      114 DUPTABLE                         R12 K42 [{"TopAdornment", "BottomAdornment", "SelectionBox"}]
-      115 GETUPVAL                         R13 1
-      116 GETTABLEKS                       R13 R13 K22 ["createElement"]
-      118 LOADK                            R14 K43 ["BoxHandleAdornment"]
-      119 DUPTABLE                         R15 K47 [{"Size", "Archivable", "AlwaysOnTop", "CFrame", "Transparency", "Color3", "Adornee"}]
-      120 GETTABLEKS                       R16 R0 K12 ["Size"]
-      122 SETTABLEKS                       R16 R15 K12 ["Size"]
-      124 LOADB                            R16 0
-      125 SETTABLEKS                       R16 R15 K26 ["Archivable"]
-      127 LOADB                            R16 1
-      128 SETTABLEKS                       R16 R15 K44 ["AlwaysOnTop"]
-      130 GETIMPORT                        R16 K9 [CFrame.new]
-      132 LOADN                            R17 0
-      133 LOADN                            R18 0
-      134 LOADN                            R19 0
-      135 CALL                             R16 3 1
-      136 SETTABLEKS                       R16 R15 K7 ["CFrame"]
-      138 GETGLOBAL                        R16 K48 ["mapNumberRange"]
-      140 MOVE                             R17 R8
-      141 LOADN                            R18 0
-      142 LOADN                            R19 1
-      143 LOADK                            R20 K49 [0.9]
-      144 LOADN                            R21 1
-      145 CALL                             R16 5 1
-      146 SETTABLEKS                       R16 R15 K33 ["Transparency"]
-      148 SETTABLEKS                       R7 R15 K45 ["Color3"]
-      150 SETTABLEKS                       R2 R15 K46 ["Adornee"]
-      152 CALL                             R13 2 1
-      153 SETTABLEKS                       R13 R12 K39 ["TopAdornment"]
-      155 GETUPVAL                         R13 1
-      156 GETTABLEKS                       R13 R13 K22 ["createElement"]
-      158 LOADK                            R14 K43 ["BoxHandleAdornment"]
-      159 DUPTABLE                         R15 K47 [{"Size", "Archivable", "AlwaysOnTop", "CFrame", "Transparency", "Color3", "Adornee"}]
-      160 GETTABLEKS                       R16 R0 K12 ["Size"]
-      162 SETTABLEKS                       R16 R15 K12 ["Size"]
-      164 LOADB                            R16 0
-      165 SETTABLEKS                       R16 R15 K26 ["Archivable"]
-      167 LOADB                            R16 0
-      168 SETTABLEKS                       R16 R15 K44 ["AlwaysOnTop"]
-      170 GETIMPORT                        R16 K9 [CFrame.new]
-      172 LOADN                            R17 0
-      173 LOADN                            R18 0
-      174 LOADN                            R19 0
-      175 CALL                             R16 3 1
-      176 SETTABLEKS                       R16 R15 K7 ["CFrame"]
-      178 GETGLOBAL                        R16 K48 ["mapNumberRange"]
-      180 MOVE                             R17 R8
-      181 LOADN                            R18 0
-      182 LOADN                            R19 1
-      183 LOADK                            R20 K49 [0.9]
-      184 LOADN                            R21 1
-      185 CALL                             R16 5 1
-      186 SETTABLEKS                       R16 R15 K33 ["Transparency"]
-      188 SETTABLEKS                       R7 R15 K45 ["Color3"]
-      190 SETTABLEKS                       R2 R15 K46 ["Adornee"]
-      192 CALL                             R13 2 1
-      193 SETTABLEKS                       R13 R12 K40 ["BottomAdornment"]
-      195 GETUPVAL                         R13 1
-      196 GETTABLEKS                       R13 R13 K22 ["createElement"]
-      198 LOADK                            R14 K41 ["SelectionBox"]
-      199 DUPTABLE                         R15 K52 [{"Archivable", "Color3", "SurfaceColor3", "Adornee", "LineThickness", "Transparency"}]
-      200 LOADB                            R16 0
-      201 SETTABLEKS                       R16 R15 K26 ["Archivable"]
-      203 SETTABLEKS                       R7 R15 K45 ["Color3"]
-      205 SETTABLEKS                       R7 R15 K50 ["SurfaceColor3"]
-      207 SETTABLEKS                       R2 R15 K46 ["Adornee"]
-      209 LOADK                            R16 K53 [0.01]
-      210 SETTABLEKS                       R16 R15 K51 ["LineThickness"]
-      212 GETGLOBAL                        R16 K48 ["mapNumberRange"]
-      214 MOVE                             R17 R8
-      215 LOADN                            R18 0
-      216 LOADN                            R19 1
-      217 LOADK                            R20 K21 [0.5]
-      218 LOADN                            R21 1
-      219 CALL                             R16 5 1
-      220 SETTABLEKS                       R16 R15 K33 ["Transparency"]
-      222 CALL                             R13 2 1
-      223 SETTABLEKS                       R13 R12 K41 ["SelectionBox"]
-      225 CALL                             R9 3 -1
-      226 RETURN                           R9 -1
+       88 GETIMPORT                        R12 K41 [Enum.SurfaceType.Smooth]
+       90 SETTABLEKS                       R12 R11 K33 ["TopSurface"]
+       92 GETIMPORT                        R12 K41 [Enum.SurfaceType.Smooth]
+       94 SETTABLEKS                       R12 R11 K34 ["BottomSurface"]
+       96 DUPTABLE                         R12 K45 [{"TopAdornment", "BottomAdornment", "SelectionBox"}]
+       97 GETUPVAL                         R13 1
+       98 GETTABLEKS                       R13 R13 K22 ["createElement"]
+      100 LOADK                            R14 K46 ["BoxHandleAdornment"]
+      101 DUPTABLE                         R15 K50 [{["Size"], ["Archivable"] = False, ["AlwaysOnTop"] = True, ["CFrame"], ["Transparency"], ["Color3"], ["Adornee"]}]
+      102 GETTABLEKS                       R16 R0 K12 ["Size"]
+      104 SETTABLEKS                       R16 R15 K12 ["Size"]
+      106 GETIMPORT                        R16 K9 [CFrame.new]
+      108 LOADN                            R17 0
+      109 LOADN                            R18 0
+      110 LOADN                            R19 0
+      111 CALL                             R16 3 1
+      112 SETTABLEKS                       R16 R15 K7 ["CFrame"]
+      114 GETGLOBAL                        R16 K51 ["mapNumberRange"]
+      116 MOVE                             R17 R8
+      117 LOADN                            R18 0
+      118 LOADN                            R19 1
+      119 LOADK                            R20 K52 [0.9]
+      120 LOADN                            R21 1
+      121 CALL                             R16 5 1
+      122 SETTABLEKS                       R16 R15 K35 ["Transparency"]
+      124 SETTABLEKS                       R7 R15 K48 ["Color3"]
+      126 SETTABLEKS                       R2 R15 K49 ["Adornee"]
+      128 CALL                             R13 2 1
+      129 SETTABLEKS                       R13 R12 K42 ["TopAdornment"]
+      131 GETUPVAL                         R13 1
+      132 GETTABLEKS                       R13 R13 K22 ["createElement"]
+      134 LOADK                            R14 K46 ["BoxHandleAdornment"]
+      135 DUPTABLE                         R15 K53 [{["Size"], ["Archivable"] = False, ["AlwaysOnTop"] = False, ["CFrame"], ["Transparency"], ["Color3"], ["Adornee"]}]
+      136 GETTABLEKS                       R16 R0 K12 ["Size"]
+      138 SETTABLEKS                       R16 R15 K12 ["Size"]
+      140 GETIMPORT                        R16 K9 [CFrame.new]
+      142 LOADN                            R17 0
+      143 LOADN                            R18 0
+      144 LOADN                            R19 0
+      145 CALL                             R16 3 1
+      146 SETTABLEKS                       R16 R15 K7 ["CFrame"]
+      148 GETGLOBAL                        R16 K51 ["mapNumberRange"]
+      150 MOVE                             R17 R8
+      151 LOADN                            R18 0
+      152 LOADN                            R19 1
+      153 LOADK                            R20 K52 [0.9]
+      154 LOADN                            R21 1
+      155 CALL                             R16 5 1
+      156 SETTABLEKS                       R16 R15 K35 ["Transparency"]
+      158 SETTABLEKS                       R7 R15 K48 ["Color3"]
+      160 SETTABLEKS                       R2 R15 K49 ["Adornee"]
+      162 CALL                             R13 2 1
+      163 SETTABLEKS                       R13 R12 K43 ["BottomAdornment"]
+      165 GETUPVAL                         R13 1
+      166 GETTABLEKS                       R13 R13 K22 ["createElement"]
+      168 LOADK                            R14 K44 ["SelectionBox"]
+      169 DUPTABLE                         R15 K57 [{["Archivable"] = False, ["Color3"], ["SurfaceColor3"], ["Adornee"], ["LineThickness"] = 0.01, ["Transparency"]}]
+      170 SETTABLEKS                       R7 R15 K48 ["Color3"]
+      172 SETTABLEKS                       R7 R15 K54 ["SurfaceColor3"]
+      174 SETTABLEKS                       R2 R15 K49 ["Adornee"]
+      176 GETGLOBAL                        R16 K51 ["mapNumberRange"]
+      178 MOVE                             R17 R8
+      179 LOADN                            R18 0
+      180 LOADN                            R19 1
+      181 LOADK                            R20 K21 [0.5]
+      182 LOADN                            R21 1
+      183 CALL                             R16 5 1
+      184 SETTABLEKS                       R16 R15 K35 ["Transparency"]
+      186 CALL                             R13 2 1
+      187 SETTABLEKS                       R13 R12 K44 ["SelectionBox"]
+      189 CALL                             R9 3 -1
+      190 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

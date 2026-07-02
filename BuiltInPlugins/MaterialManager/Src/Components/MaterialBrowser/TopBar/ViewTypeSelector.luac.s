@@ -76,43 +76,41 @@ PROTO_5:
        20 GETUPVAL                         R7 0
        21 GETTABLEKS                       R7 R7 K3 ["createElement"]
        23 GETUPVAL                         R8 2
-       24 DUPTABLE                         R9 K18 [{"Icons", "Items", "HideText", "OnItemActivated", "OnRenderItem", "OnMouseEnter", "OnMouseLeave", "SelectedIndex", "Size"}]
+       24 DUPTABLE                         R9 K19 [{["Icons"], ["Items"], ["HideText"] = True, ["OnItemActivated"], ["OnRenderItem"], ["OnMouseEnter"], ["OnMouseLeave"], ["SelectedIndex"], ["Size"]}]
        25 NEWTABLE                         R10 0 2
-       27 GETTABLEKS                       R11 R2 K19 ["Grid"]
-       29 GETTABLEKS                       R12 R2 K20 ["List"]
+       27 GETTABLEKS                       R11 R2 K20 ["Grid"]
+       29 GETTABLEKS                       R12 R2 K21 ["List"]
        31 SETLIST                          R10 R11 2 [1]
        33 SETTABLEKS                       R10 R9 K10 ["Icons"]
        35 NEWTABLE                         R10 0 2
        37 GETUPVAL                         R11 3
-       38 GETTABLEKS                       R11 R11 K19 ["Grid"]
+       38 GETTABLEKS                       R11 R11 K20 ["Grid"]
        40 GETUPVAL                         R12 3
-       41 GETTABLEKS                       R12 R12 K20 ["List"]
+       41 GETTABLEKS                       R12 R12 K21 ["List"]
        43 SETLIST                          R10 R11 2 [1]
        45 SETTABLEKS                       R10 R9 K11 ["Items"]
-       47 LOADB                            R10 1
-       48 SETTABLEKS                       R10 R9 K12 ["HideText"]
-       50 GETTABLEKS                       R10 R0 K21 ["selectViewType"]
-       52 SETTABLEKS                       R10 R9 K13 ["OnItemActivated"]
-       54 GETTABLEKS                       R10 R0 K22 ["onRenderViewType"]
-       56 SETTABLEKS                       R10 R9 K14 ["OnRenderItem"]
-       58 GETTABLEKS                       R10 R0 K23 ["onMouseEnter"]
-       60 SETTABLEKS                       R10 R9 K15 ["OnMouseEnter"]
-       62 GETTABLEKS                       R10 R0 K24 ["onMouseLeave"]
-       64 SETTABLEKS                       R10 R9 K16 ["OnMouseLeave"]
-       66 GETTABLEKS                       R11 R1 K25 ["ViewType"]
-       68 GETUPVAL                         R12 3
-       69 GETTABLEKS                       R12 R12 K19 ["Grid"]
-       71 JUMPIFNOTEQ                      R11 R12 ; [+3]
-       73 LOADN                            R10 1
-       74 JUMP                             ; [+1]
-       75 LOADN                            R10 2
-       76 SETTABLEKS                       R10 R9 K17 ["SelectedIndex"]
-       78 GETTABLEKS                       R10 R2 K7 ["ViewTypeSize"]
-       80 SETTABLEKS                       R10 R9 K5 ["Size"]
-       82 CALL                             R7 2 1
-       83 SETTABLEKS                       R7 R6 K8 ["SelectInput"]
-       85 CALL                             R3 3 -1
-       86 RETURN                           R3 -1
+       47 GETTABLEKS                       R10 R0 K22 ["selectViewType"]
+       49 SETTABLEKS                       R10 R9 K14 ["OnItemActivated"]
+       51 GETTABLEKS                       R10 R0 K23 ["onRenderViewType"]
+       53 SETTABLEKS                       R10 R9 K15 ["OnRenderItem"]
+       55 GETTABLEKS                       R10 R0 K24 ["onMouseEnter"]
+       57 SETTABLEKS                       R10 R9 K16 ["OnMouseEnter"]
+       59 GETTABLEKS                       R10 R0 K25 ["onMouseLeave"]
+       61 SETTABLEKS                       R10 R9 K17 ["OnMouseLeave"]
+       63 GETTABLEKS                       R11 R1 K26 ["ViewType"]
+       65 GETUPVAL                         R12 3
+       66 GETTABLEKS                       R12 R12 K20 ["Grid"]
+       68 JUMPIFNOTEQ                      R11 R12 ; [+3]
+       70 LOADN                            R10 1
+       71 JUMP                             ; [+1]
+       72 LOADN                            R10 2
+       73 SETTABLEKS                       R10 R9 K18 ["SelectedIndex"]
+       75 GETTABLEKS                       R10 R2 K7 ["ViewTypeSize"]
+       77 SETTABLEKS                       R10 R9 K5 ["Size"]
+       79 CALL                             R7 2 1
+       80 SETTABLEKS                       R7 R6 K8 ["SelectInput"]
+       82 CALL                             R3 3 -1
+       83 RETURN                           R3 -1
 
 PROTO_6:
         0 DUPTABLE                         R1 K1 [{"ViewType"}]

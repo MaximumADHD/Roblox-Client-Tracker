@@ -15,43 +15,29 @@ MAIN:
        22 NEWTABLE                         R4 0 4
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 ["#BackToMainButton"]
-       26 DUPTABLE                         R7 K13 [{"Image"}]
-       27 LOADK                            R8 K14 ["$BackButtonIcon"]
-       28 SETTABLEKS                       R8 R7 K12 ["Image"]
-       30 CALL                             R5 2 1
-       31 MOVE                             R6 R2
-       32 LOADK                            R7 K15 ["#WarningImageLabel"]
-       33 DUPTABLE                         R8 K13 [{"Image"}]
-       34 LOADK                            R9 K16 ["$WarningImage"]
-       35 SETTABLEKS                       R9 R8 K12 ["Image"]
-       37 CALL                             R6 2 1
-       38 MOVE                             R7 R2
-       39 LOADK                            R8 K17 ["#InformationImageLabel"]
-       40 DUPTABLE                         R9 K13 [{"Image"}]
-       41 LOADK                            R10 K18 ["$InformationImage"]
-       42 SETTABLEKS                       R10 R9 K12 ["Image"]
-       44 CALL                             R7 2 1
-       45 MOVE                             R8 R2
-       46 LOADK                            R9 K19 [">> .SimpleDivider"]
-       47 DUPTABLE                         R10 K22 [{"BackgroundColor3", "BackgroundTransparency"}]
-       48 LOADK                            R11 K23 ["$HeavyDivider"]
-       49 SETTABLEKS                       R11 R10 K20 ["BackgroundColor3"]
-       51 LOADK                            R11 K24 [0.75]
-       52 SETTABLEKS                       R11 R10 K21 ["BackgroundTransparency"]
-       54 CALL                             R8 2 -1
-       55 SETLIST                          R4 R5 -1 [1]
-       57 DUPTABLE                         R5 K28 [{"FontSize_300", "FontSize_350", "HeavyDivider"}]
-       58 LOADN                            R6 15
-       59 SETTABLEKS                       R6 R5 K25 ["FontSize_300"]
-       61 LOADN                            R6 17
-       62 SETTABLEKS                       R6 R5 K26 ["FontSize_350"]
-       64 GETIMPORT                        R6 K31 [Color3.fromHex]
-       66 LOADK                            R7 K32 ["#000000"]
-       67 CALL                             R6 1 1
-       68 SETTABLEKS                       R6 R5 K27 ["HeavyDivider"]
-       70 MOVE                             R6 R3
-       71 LOADK                            R7 K2 ["PerformanceTools"]
-       72 MOVE                             R8 R4
-       73 MOVE                             R9 R5
-       74 CALL                             R6 3 -1
-       75 RETURN                           R6 -1
+       26 DUPTABLE                         R7 K14 [{["Image"] = "$BackButtonIcon"}]
+       27 CALL                             R5 2 1
+       28 MOVE                             R6 R2
+       29 LOADK                            R7 K15 ["#WarningImageLabel"]
+       30 DUPTABLE                         R8 K17 [{["Image"] = "$WarningImage"}]
+       31 CALL                             R6 2 1
+       32 MOVE                             R7 R2
+       33 LOADK                            R8 K18 ["#InformationImageLabel"]
+       34 DUPTABLE                         R9 K20 [{["Image"] = "$InformationImage"}]
+       35 CALL                             R7 2 1
+       36 MOVE                             R8 R2
+       37 LOADK                            R9 K21 [">> .SimpleDivider"]
+       38 DUPTABLE                         R10 K26 [{["BackgroundColor3"] = "$HeavyDivider", ["BackgroundTransparency"] = 0.75}]
+       39 CALL                             R8 2 -1
+       40 SETLIST                          R4 R5 -1 [1]
+       42 DUPTABLE                         R5 K32 [{["FontSize_300"] = 15, ["FontSize_350"] = 17, ["HeavyDivider"]}]
+       43 GETIMPORT                        R6 K35 [Color3.fromHex]
+       45 LOADK                            R7 K36 ["#000000"]
+       46 CALL                             R6 1 1
+       47 SETTABLEKS                       R6 R5 K31 ["HeavyDivider"]
+       49 MOVE                             R6 R3
+       50 LOADK                            R7 K2 ["PerformanceTools"]
+       51 MOVE                             R8 R4
+       52 MOVE                             R9 R5
+       53 CALL                             R6 3 -1
+       54 RETURN                           R6 -1

@@ -58,7 +58,7 @@ PROTO_2:
        42 GETUPVAL                         R8 1
        43 GETTABLEKS                       R8 R8 K8 ["createElement"]
        45 GETUPVAL                         R9 3
-       46 DUPTABLE                         R10 K19 [{"OnItemActivated", "Items", "SelectedIndex", "Focus", "TextWrapped", "Size"}]
+       46 DUPTABLE                         R10 K20 [{["OnItemActivated"], ["Items"], ["SelectedIndex"], ["Focus"], ["TextWrapped"] = True, ["Size"]}]
        47 NEWCLOSURE                       R11 P0
        48 CAPTURE                          VAL R0
        49 CAPTURE                          VAL R2
@@ -66,24 +66,22 @@ PROTO_2:
        51 SETTABLEKS                       R11 R10 K14 ["OnItemActivated"]
        53 SETTABLEKS                       R3 R10 K15 ["Items"]
        55 GETUPVAL                         R11 4
-       56 GETTABLEKS                       R12 R0 K20 ["Value"]
+       56 GETTABLEKS                       R12 R0 K21 ["Value"]
        58 MOVE                             R13 R3
        59 MOVE                             R14 R2
        60 CALL                             R11 3 1
        61 SETTABLEKS                       R11 R10 K16 ["SelectedIndex"]
-       63 GETTABLEKS                       R11 R0 K20 ["Value"]
+       63 GETTABLEKS                       R11 R0 K21 ["Value"]
        65 SETTABLEKS                       R11 R10 K17 ["Focus"]
-       67 LOADB                            R11 1
-       68 SETTABLEKS                       R11 R10 K18 ["TextWrapped"]
-       70 GETIMPORT                        R11 K23 [UDim2.fromScale]
-       72 LOADN                            R12 1
-       73 LOADN                            R13 1
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K10 ["Size"]
-       77 CALL                             R8 2 1
-       78 SETTABLEKS                       R8 R7 K12 ["WrapperContents"]
-       80 CALL                             R4 3 -1
-       81 RETURN                           R4 -1
+       67 GETIMPORT                        R11 K24 [UDim2.fromScale]
+       69 LOADN                            R12 1
+       70 LOADN                            R13 1
+       71 CALL                             R11 2 1
+       72 SETTABLEKS                       R11 R10 K10 ["Size"]
+       74 CALL                             R8 2 1
+       75 SETTABLEKS                       R8 R7 K12 ["WrapperContents"]
+       77 CALL                             R4 3 -1
+       78 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

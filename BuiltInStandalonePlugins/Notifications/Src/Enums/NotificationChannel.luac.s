@@ -10,8 +10,6 @@ MAIN:
        15 CALL                             R1 1 1
        16 MOVE                             R2 R1
        17 LOADK                            R3 K7 ["NotificationChannel"]
-       18 DUPTABLE                         R4 K9 [{"Studio"}]
-       19 LOADN                            R5 7
-       20 SETTABLEKS                       R5 R4 K8 ["Studio"]
-       22 CALL                             R2 2 -1
-       23 RETURN                           R2 -1
+       18 DUPTABLE                         R4 K10 [{["Studio"] = 7}]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1

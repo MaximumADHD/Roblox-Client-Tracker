@@ -26,96 +26,72 @@ PROTO_0:
        32 LOADB                            R5 0 +1
        33 LOADB                            R5 1
        34 DUPTABLE                         R6 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Shortcuts"}]
-       35 DUPTABLE                         R7 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       36 LOADK                            R8 K17 ["Standalone"]
-       37 SETTABLEKS                       R8 R7 K12 ["DataModel"]
-       39 LOADK                            R8 K18 ["Audio"]
-       40 SETTABLEKS                       R8 R7 K13 ["PluginId"]
-       42 LOADK                            R8 K19 ["Actions"]
-       43 SETTABLEKS                       R8 R7 K14 ["Category"]
-       45 LOADK                            R8 K20 ["Insert Before"]
-       46 SETTABLEKS                       R8 R7 K15 ["ItemId"]
-       48 SETTABLEKS                       R7 R6 K5 ["Uri"]
-       50 SETTABLEKS                       R1 R6 K6 ["Enabled"]
-       52 SETTABLEKS                       R1 R6 K7 ["Visible"]
-       54 GETUPVAL                         R7 2
-       55 GETTABLEKS                       R7 R7 K21 ["action"]
-       57 LOADK                            R8 K22 ["InsertBefore"]
-       58 CALL                             R7 1 1
-       59 SETTABLEKS                       R7 R6 K8 ["Text"]
-       61 GETUPVAL                         R7 2
-       62 GETTABLEKS                       R7 R7 K23 ["tooltip"]
-       64 LOADK                            R8 K22 ["InsertBefore"]
-       65 CALL                             R7 1 1
-       66 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
-       68 NEWTABLE                         R7 0 0
-       70 SETTABLEKS                       R7 R6 K10 ["Shortcuts"]
-       72 DUPTABLE                         R7 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Shortcuts"}]
-       73 DUPTABLE                         R8 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-       74 LOADK                            R9 K17 ["Standalone"]
-       75 SETTABLEKS                       R9 R8 K12 ["DataModel"]
-       77 LOADK                            R9 K18 ["Audio"]
-       78 SETTABLEKS                       R9 R8 K13 ["PluginId"]
-       80 LOADK                            R9 K19 ["Actions"]
-       81 SETTABLEKS                       R9 R8 K14 ["Category"]
-       83 LOADK                            R9 K24 ["Insert After"]
-       84 SETTABLEKS                       R9 R8 K15 ["ItemId"]
-       86 SETTABLEKS                       R8 R7 K5 ["Uri"]
-       88 SETTABLEKS                       R2 R7 K6 ["Enabled"]
-       90 SETTABLEKS                       R2 R7 K7 ["Visible"]
-       92 GETUPVAL                         R8 2
-       93 GETTABLEKS                       R8 R8 K21 ["action"]
-       95 LOADK                            R9 K25 ["InsertAfter"]
-       96 CALL                             R8 1 1
-       97 SETTABLEKS                       R8 R7 K8 ["Text"]
-       99 GETUPVAL                         R8 2
-      100 GETTABLEKS                       R8 R8 K23 ["tooltip"]
-      102 LOADK                            R9 K25 ["InsertAfter"]
-      103 CALL                             R8 1 1
-      104 SETTABLEKS                       R8 R7 K9 ["Tooltip"]
-      106 NEWTABLE                         R8 0 0
-      108 SETTABLEKS                       R8 R7 K10 ["Shortcuts"]
-      110 DUPTABLE                         R8 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Shortcuts"}]
-      111 DUPTABLE                         R9 K16 [{"DataModel", "PluginId", "Category", "ItemId"}]
-      112 LOADK                            R10 K17 ["Standalone"]
-      113 SETTABLEKS                       R10 R9 K12 ["DataModel"]
-      115 LOADK                            R10 K18 ["Audio"]
-      116 SETTABLEKS                       R10 R9 K13 ["PluginId"]
-      118 LOADK                            R10 K19 ["Actions"]
-      119 SETTABLEKS                       R10 R9 K14 ["Category"]
-      121 LOADK                            R10 K26 ["Insert Between"]
-      122 SETTABLEKS                       R10 R9 K15 ["ItemId"]
-      124 SETTABLEKS                       R9 R8 K5 ["Uri"]
-      126 SETTABLEKS                       R5 R8 K6 ["Enabled"]
-      128 SETTABLEKS                       R5 R8 K7 ["Visible"]
-      130 GETUPVAL                         R9 2
-      131 GETTABLEKS                       R9 R9 K21 ["action"]
-      133 LOADK                            R10 K27 ["InsertBetween"]
-      134 CALL                             R9 1 1
-      135 SETTABLEKS                       R9 R8 K8 ["Text"]
-      137 GETUPVAL                         R9 2
-      138 GETTABLEKS                       R9 R9 K23 ["tooltip"]
-      140 LOADK                            R10 K27 ["InsertBetween"]
-      141 CALL                             R9 1 1
-      142 SETTABLEKS                       R9 R8 K9 ["Tooltip"]
-      144 NEWTABLE                         R9 0 0
-      146 SETTABLEKS                       R9 R8 K10 ["Shortcuts"]
-      148 GETUPVAL                         R9 3
-      149 MOVE                             R11 R6
-      150 LOADB                            R12 1
-      151 NAMECALL                         R9 R9 K28 ["CreateAsync"]
-      153 CALL                             R9 3 0
-      154 GETUPVAL                         R9 3
-      155 MOVE                             R11 R7
-      156 LOADB                            R12 1
-      157 NAMECALL                         R9 R9 K28 ["CreateAsync"]
-      159 CALL                             R9 3 0
-      160 GETUPVAL                         R9 3
-      161 MOVE                             R11 R8
-      162 LOADB                            R12 1
-      163 NAMECALL                         R9 R9 K28 ["CreateAsync"]
-      165 CALL                             R9 3 0
-      166 RETURN                           R0 0
+       35 DUPTABLE                         R7 K20 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Insert Before"}]
+       36 SETTABLEKS                       R7 R6 K5 ["Uri"]
+       38 SETTABLEKS                       R1 R6 K6 ["Enabled"]
+       40 SETTABLEKS                       R1 R6 K7 ["Visible"]
+       42 GETUPVAL                         R7 2
+       43 GETTABLEKS                       R7 R7 K21 ["action"]
+       45 LOADK                            R8 K22 ["InsertBefore"]
+       46 CALL                             R7 1 1
+       47 SETTABLEKS                       R7 R6 K8 ["Text"]
+       49 GETUPVAL                         R7 2
+       50 GETTABLEKS                       R7 R7 K23 ["tooltip"]
+       52 LOADK                            R8 K22 ["InsertBefore"]
+       53 CALL                             R7 1 1
+       54 SETTABLEKS                       R7 R6 K9 ["Tooltip"]
+       56 NEWTABLE                         R7 0 0
+       58 SETTABLEKS                       R7 R6 K10 ["Shortcuts"]
+       60 DUPTABLE                         R7 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Shortcuts"}]
+       61 DUPTABLE                         R8 K25 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Insert After"}]
+       62 SETTABLEKS                       R8 R7 K5 ["Uri"]
+       64 SETTABLEKS                       R2 R7 K6 ["Enabled"]
+       66 SETTABLEKS                       R2 R7 K7 ["Visible"]
+       68 GETUPVAL                         R8 2
+       69 GETTABLEKS                       R8 R8 K21 ["action"]
+       71 LOADK                            R9 K26 ["InsertAfter"]
+       72 CALL                             R8 1 1
+       73 SETTABLEKS                       R8 R7 K8 ["Text"]
+       75 GETUPVAL                         R8 2
+       76 GETTABLEKS                       R8 R8 K23 ["tooltip"]
+       78 LOADK                            R9 K26 ["InsertAfter"]
+       79 CALL                             R8 1 1
+       80 SETTABLEKS                       R8 R7 K9 ["Tooltip"]
+       82 NEWTABLE                         R8 0 0
+       84 SETTABLEKS                       R8 R7 K10 ["Shortcuts"]
+       86 DUPTABLE                         R8 K11 [{"Uri", "Enabled", "Visible", "Text", "Tooltip", "Shortcuts"}]
+       87 DUPTABLE                         R9 K28 [{["DataModel"] = "Standalone", ["PluginId"] = "Audio", ["Category"] = "Actions", ["ItemId"] = "Insert Between"}]
+       88 SETTABLEKS                       R9 R8 K5 ["Uri"]
+       90 SETTABLEKS                       R5 R8 K6 ["Enabled"]
+       92 SETTABLEKS                       R5 R8 K7 ["Visible"]
+       94 GETUPVAL                         R9 2
+       95 GETTABLEKS                       R9 R9 K21 ["action"]
+       97 LOADK                            R10 K29 ["InsertBetween"]
+       98 CALL                             R9 1 1
+       99 SETTABLEKS                       R9 R8 K8 ["Text"]
+      101 GETUPVAL                         R9 2
+      102 GETTABLEKS                       R9 R9 K23 ["tooltip"]
+      104 LOADK                            R10 K29 ["InsertBetween"]
+      105 CALL                             R9 1 1
+      106 SETTABLEKS                       R9 R8 K9 ["Tooltip"]
+      108 NEWTABLE                         R9 0 0
+      110 SETTABLEKS                       R9 R8 K10 ["Shortcuts"]
+      112 GETUPVAL                         R9 3
+      113 MOVE                             R11 R6
+      114 LOADB                            R12 1
+      115 NAMECALL                         R9 R9 K30 ["CreateAsync"]
+      117 CALL                             R9 3 0
+      118 GETUPVAL                         R9 3
+      119 MOVE                             R11 R7
+      120 LOADB                            R12 1
+      121 NAMECALL                         R9 R9 K30 ["CreateAsync"]
+      123 CALL                             R9 3 0
+      124 GETUPVAL                         R9 3
+      125 MOVE                             R11 R8
+      126 LOADB                            R12 1
+      127 NAMECALL                         R9 R9 K30 ["CreateAsync"]
+      129 CALL                             R9 3 0
+      130 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

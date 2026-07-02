@@ -63,27 +63,23 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["screen"]
-        3 JUMPIFNOTEQKS                    R1 K1 ["CustomParts"] ; [+13]
+        3 JUMPIFNOTEQKS                    R1 K1 ["CustomParts"] ; [+10]
         5 GETTABLEKS                       R3 R0 K2 ["mouseClickOverInstance"]
         7 GETTABLEKS                       R4 R2 K3 ["getByText"]
         9 LOADK                            R5 K4 ["AppearanceSectionCustomPartsButtonText"]
-       10 DUPTABLE                         R6 K6 [{"exact"}]
-       11 LOADB                            R7 0
-       12 SETTABLEKS                       R7 R6 K5 ["exact"]
-       14 CALL                             R4 2 -1
-       15 CALL                             R3 -1 0
-       16 JUMP                             ; [+11]
-       17 GETTABLEKS                       R3 R0 K2 ["mouseClickOverInstance"]
-       19 GETTABLEKS                       R4 R2 K3 ["getByText"]
-       21 LOADK                            R5 K7 ["AppearanceSectionCustomBodyButtonText"]
-       22 DUPTABLE                         R6 K6 [{"exact"}]
-       23 LOADB                            R7 0
-       24 SETTABLEKS                       R7 R6 K5 ["exact"]
-       26 CALL                             R4 2 -1
-       27 CALL                             R3 -1 0
-       28 GETTABLEKS                       R3 R0 K8 ["updateStylingServiceUnitTestOnly"]
-       30 CALL                             R3 0 0
-       31 RETURN                           R0 0
+       10 DUPTABLE                         R6 K7 [{["exact"] = False}]
+       11 CALL                             R4 2 -1
+       12 CALL                             R3 -1 0
+       13 JUMP                             ; [+8]
+       14 GETTABLEKS                       R3 R0 K2 ["mouseClickOverInstance"]
+       16 GETTABLEKS                       R4 R2 K3 ["getByText"]
+       18 LOADK                            R5 K8 ["AppearanceSectionCustomBodyButtonText"]
+       19 DUPTABLE                         R6 K7 [{["exact"] = False}]
+       20 CALL                             R4 2 -1
+       21 CALL                             R3 -1 0
+       22 GETTABLEKS                       R3 R0 K9 ["updateStylingServiceUnitTestOnly"]
+       24 CALL                             R3 0 0
+       25 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R4 R0 K0 ["querySliderComponentFrom"]

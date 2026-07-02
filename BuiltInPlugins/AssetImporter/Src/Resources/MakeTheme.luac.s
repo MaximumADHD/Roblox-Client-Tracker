@@ -56,590 +56,446 @@ MAIN:
        59 GETTABLEKS                       R14 R11 K23 ["Content"]
        61 GETTABLEKS                       R15 R2 K24 ["join"]
        63 NEWTABLE                         R16 32 0
-       65 DUPTABLE                         R17 K29 [{"SmallLength", "LargeLength", "ErrorIconSolid", "SuccessIconSolid"}]
-       66 LOADN                            R18 16
-       67 SETTABLEKS                       R18 R17 K25 ["SmallLength"]
-       69 LOADN                            R18 32
-       70 SETTABLEKS                       R18 R17 K26 ["LargeLength"]
-       72 GETTABLEKS                       R18 R4 K27 ["ErrorIconSolid"]
-       74 SETTABLEKS                       R18 R17 K27 ["ErrorIconSolid"]
-       76 GETTABLEKS                       R18 R4 K28 ["SuccessIconSolid"]
-       78 SETTABLEKS                       R18 R17 K28 ["SuccessIconSolid"]
-       80 SETTABLEKS                       R17 R16 K30 ["Icons"]
-       82 DUPTABLE                         R17 K39 [{"Arrow", "Background", "HorizontalAlignment", "Padding", "Size", "Spacing", "Text", "VerticalAlignment"}]
-       83 NEWTABLE                         R18 8 0
-       85 GETTABLEKS                       R19 R4 K40 ["MainText"]
-       87 SETTABLEKS                       R19 R18 K41 ["Color"]
-       89 LOADK                            R19 K42 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-       90 SETTABLEKS                       R19 R18 K43 ["Image"]
-       92 GETIMPORT                        R19 K46 [Vector2.new]
-       94 LOADN                            R20 12
-       95 LOADN                            R21 0
-       96 CALL                             R19 2 1
-       97 SETTABLEKS                       R19 R18 K47 ["ImageRectOffset"]
-       99 GETIMPORT                        R19 K46 [Vector2.new]
-      101 LOADN                            R20 12
-      102 LOADN                            R21 12
-      103 CALL                             R19 2 1
-      104 SETTABLEKS                       R19 R18 K48 ["ImageRectSize"]
-      106 GETIMPORT                        R19 K51 [UDim2.fromOffset]
-      108 LOADN                            R20 12
-      109 LOADN                            R21 12
-      110 CALL                             R19 2 1
-      111 SETTABLEKS                       R19 R18 K35 ["Size"]
-      113 GETTABLEKS                       R19 R5 K52 ["Selected"]
-      115 DUPTABLE                         R20 K53 [{"ImageRectOffset"}]
-      116 GETIMPORT                        R21 K46 [Vector2.new]
-      118 LOADN                            R22 24
-      119 LOADN                            R23 0
-      120 CALL                             R21 2 1
-      121 SETTABLEKS                       R21 R20 K47 ["ImageRectOffset"]
-      123 SETTABLE                         R20 R18 R19
-      124 SETTABLEKS                       R18 R17 K31 ["Arrow"]
-      126 GETTABLEKS                       R18 R4 K54 ["Titlebar"]
-      128 SETTABLEKS                       R18 R17 K32 ["Background"]
-      130 GETIMPORT                        R18 K57 [Enum.HorizontalAlignment.Left]
-      132 SETTABLEKS                       R18 R17 K33 ["HorizontalAlignment"]
-      134 DUPTABLE                         R18 K59 [{"Left", "Right"}]
-      135 LOADN                            R19 10
-      136 SETTABLEKS                       R19 R18 K56 ["Left"]
-      138 LOADN                            R19 10
-      139 SETTABLEKS                       R19 R18 K58 ["Right"]
-      141 SETTABLEKS                       R18 R17 K34 ["Padding"]
-      143 GETIMPORT                        R18 K60 [UDim2.new]
-      145 LOADN                            R19 1
-      146 LOADN                            R20 0
-      147 LOADN                            R21 0
-      148 LOADN                            R22 32
-      149 CALL                             R18 4 1
-      150 SETTABLEKS                       R18 R17 K35 ["Size"]
-      152 LOADN                            R18 6
-      153 SETTABLEKS                       R18 R17 K36 ["Spacing"]
-      155 DUPTABLE                         R18 K64 [{"Font", "TextColor", "TextSize"}]
-      156 GETIMPORT                        R19 K66 [Enum.Font.SourceSansBold]
-      158 SETTABLEKS                       R19 R18 K61 ["Font"]
-      160 GETTABLEKS                       R19 R4 K67 ["TitlebarText"]
-      162 SETTABLEKS                       R19 R18 K62 ["TextColor"]
-      164 LOADN                            R19 18
-      165 SETTABLEKS                       R19 R18 K63 ["TextSize"]
-      167 SETTABLEKS                       R18 R17 K37 ["Text"]
-      169 GETIMPORT                        R18 K69 [Enum.VerticalAlignment.Center]
-      171 SETTABLEKS                       R18 R17 K38 ["VerticalAlignment"]
-      173 SETTABLEKS                       R17 R16 K70 ["PropertySectionHeader"]
-      175 DUPTABLE                         R17 K77 [{"IconSize", "Spacing", "ScrollBarOffset", "Height", "EditorHeight", "IconSpacing", "FilePickerSize"}]
-      176 LOADN                            R18 20
-      177 SETTABLEKS                       R18 R17 K71 ["IconSize"]
-      179 LOADN                            R18 4
-      180 SETTABLEKS                       R18 R17 K36 ["Spacing"]
-      182 LOADN                            R18 10
-      183 SETTABLEKS                       R18 R17 K72 ["ScrollBarOffset"]
-      185 LOADN                            R18 28
-      186 SETTABLEKS                       R18 R17 K73 ["Height"]
-      188 LOADN                            R18 24
-      189 SETTABLEKS                       R18 R17 K74 ["EditorHeight"]
-      191 LOADN                            R18 10
-      192 SETTABLEKS                       R18 R17 K75 ["IconSpacing"]
-      194 LOADN                            R18 28
-      195 SETTABLEKS                       R18 R17 K76 ["FilePickerSize"]
-      197 SETTABLEKS                       R17 R16 K78 ["PropertyView"]
-      199 DUPTABLE                         R17 K84 [{"DropdownHeight", "SubtextSize", "SubtextColor", "SubtextOffset", "DropdownScrollbarSize"}]
-      200 LOADN                            R18 50
-      201 SETTABLEKS                       R18 R17 K79 ["DropdownHeight"]
-      203 LOADN                            R18 14
-      204 SETTABLEKS                       R18 R17 K80 ["SubtextSize"]
-      206 GETTABLEKS                       R18 R4 K85 ["DimmedText"]
-      208 SETTABLEKS                       R18 R17 K81 ["SubtextColor"]
-      210 LOADN                            R18 3
-      211 SETTABLEKS                       R18 R17 K82 ["SubtextOffset"]
-      213 LOADN                            R18 8
-      214 SETTABLEKS                       R18 R17 K83 ["DropdownScrollbarSize"]
-      216 SETTABLEKS                       R17 R16 K86 ["SuggestionDropdown"]
-      218 DUPTABLE                         R17 K92 [{"ButtonSize", "Padding", "Spacing", "TemplateDropDown", "MenuImage", "MenuButtonSize", "MenuItemSize"}]
-      219 GETIMPORT                        R18 K60 [UDim2.new]
-      221 LOADN                            R19 0
-      222 LOADN                            R20 80
-      223 LOADN                            R21 1
-      224 LOADN                            R22 0
-      225 CALL                             R18 4 1
-      226 SETTABLEKS                       R18 R17 K87 ["ButtonSize"]
-      228 DUPTABLE                         R18 K95 [{"Left", "Top", "Right", "Bottom"}]
-      229 LOADN                            R19 10
-      230 SETTABLEKS                       R19 R18 K56 ["Left"]
-      232 LOADN                            R19 6
-      233 SETTABLEKS                       R19 R18 K93 ["Top"]
-      235 LOADN                            R19 10
-      236 SETTABLEKS                       R19 R18 K58 ["Right"]
-      238 LOADN                            R19 5
-      239 SETTABLEKS                       R19 R18 K94 ["Bottom"]
-      241 SETTABLEKS                       R18 R17 K34 ["Padding"]
-      243 LOADN                            R18 6
-      244 SETTABLEKS                       R18 R17 K36 ["Spacing"]
-      246 GETIMPORT                        R18 K51 [UDim2.fromOffset]
-      248 LOADN                            R19 175
-      249 LOADN                            R20 32
-      250 CALL                             R18 2 1
-      251 SETTABLEKS                       R18 R17 K88 ["TemplateDropDown"]
-      253 GETTABLEKS                       R18 R4 K89 ["MenuImage"]
-      255 SETTABLEKS                       R18 R17 K89 ["MenuImage"]
-      257 GETIMPORT                        R18 K51 [UDim2.fromOffset]
-      259 LOADN                            R19 16
-      260 LOADN                            R20 16
-      261 CALL                             R18 2 1
-      262 SETTABLEKS                       R18 R17 K90 ["MenuButtonSize"]
-      264 GETIMPORT                        R18 K60 [UDim2.new]
-      266 LOADN                            R19 1
+       65 DUPTABLE                         R17 K31 [{["SmallLength"] = 16, ["LargeLength"] = 32, ["ErrorIconSolid"], ["SuccessIconSolid"]}]
+       66 GETTABLEKS                       R18 R4 K29 ["ErrorIconSolid"]
+       68 SETTABLEKS                       R18 R17 K29 ["ErrorIconSolid"]
+       70 GETTABLEKS                       R18 R4 K30 ["SuccessIconSolid"]
+       72 SETTABLEKS                       R18 R17 K30 ["SuccessIconSolid"]
+       74 SETTABLEKS                       R17 R16 K32 ["Icons"]
+       76 DUPTABLE                         R17 K42 [{["Arrow"], ["Background"], ["HorizontalAlignment"], ["Padding"], ["Size"], ["Spacing"] = 6, ["Text"], ["VerticalAlignment"]}]
+       77 NEWTABLE                         R18 8 0
+       79 GETTABLEKS                       R19 R4 K43 ["MainText"]
+       81 SETTABLEKS                       R19 R18 K44 ["Color"]
+       83 LOADK                            R19 K45 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
+       84 SETTABLEKS                       R19 R18 K46 ["Image"]
+       86 GETIMPORT                        R19 K49 [Vector2.new]
+       88 LOADN                            R20 12
+       89 LOADN                            R21 0
+       90 CALL                             R19 2 1
+       91 SETTABLEKS                       R19 R18 K50 ["ImageRectOffset"]
+       93 GETIMPORT                        R19 K49 [Vector2.new]
+       95 LOADN                            R20 12
+       96 LOADN                            R21 12
+       97 CALL                             R19 2 1
+       98 SETTABLEKS                       R19 R18 K51 ["ImageRectSize"]
+      100 GETIMPORT                        R19 K54 [UDim2.fromOffset]
+      102 LOADN                            R20 12
+      103 LOADN                            R21 12
+      104 CALL                             R19 2 1
+      105 SETTABLEKS                       R19 R18 K37 ["Size"]
+      107 GETTABLEKS                       R19 R5 K55 ["Selected"]
+      109 DUPTABLE                         R20 K56 [{"ImageRectOffset"}]
+      110 GETIMPORT                        R21 K49 [Vector2.new]
+      112 LOADN                            R22 24
+      113 LOADN                            R23 0
+      114 CALL                             R21 2 1
+      115 SETTABLEKS                       R21 R20 K50 ["ImageRectOffset"]
+      117 SETTABLE                         R20 R18 R19
+      118 SETTABLEKS                       R18 R17 K33 ["Arrow"]
+      120 GETTABLEKS                       R18 R4 K57 ["Titlebar"]
+      122 SETTABLEKS                       R18 R17 K34 ["Background"]
+      124 GETIMPORT                        R18 K60 [Enum.HorizontalAlignment.Left]
+      126 SETTABLEKS                       R18 R17 K35 ["HorizontalAlignment"]
+      128 DUPTABLE                         R18 K63 [{["Left"] = 10, ["Right"] = 10}]
+      129 SETTABLEKS                       R18 R17 K36 ["Padding"]
+      131 GETIMPORT                        R18 K64 [UDim2.new]
+      133 LOADN                            R19 1
+      134 LOADN                            R20 0
+      135 LOADN                            R21 0
+      136 LOADN                            R22 32
+      137 CALL                             R18 4 1
+      138 SETTABLEKS                       R18 R17 K37 ["Size"]
+      140 DUPTABLE                         R18 K69 [{["Font"], ["TextColor"], ["TextSize"] = 18}]
+      141 GETIMPORT                        R19 K71 [Enum.Font.SourceSansBold]
+      143 SETTABLEKS                       R19 R18 K65 ["Font"]
+      145 GETTABLEKS                       R19 R4 K72 ["TitlebarText"]
+      147 SETTABLEKS                       R19 R18 K66 ["TextColor"]
+      149 SETTABLEKS                       R18 R17 K40 ["Text"]
+      151 GETIMPORT                        R18 K74 [Enum.VerticalAlignment.Center]
+      153 SETTABLEKS                       R18 R17 K41 ["VerticalAlignment"]
+      155 SETTABLEKS                       R17 R16 K75 ["PropertySectionHeader"]
+      157 DUPTABLE                         R17 K86 [{["IconSize"] = 20, ["Spacing"] = 4, ["ScrollBarOffset"] = 10, ["Height"] = 28, ["EditorHeight"] = 24, ["IconSpacing"] = 10, ["FilePickerSize"] = 28}]
+      158 SETTABLEKS                       R17 R16 K87 ["PropertyView"]
+      160 DUPTABLE                         R17 K97 [{["DropdownHeight"] = 50, ["SubtextSize"] = 14, ["SubtextColor"], ["SubtextOffset"] = 3, ["DropdownScrollbarSize"] = 8}]
+      161 GETTABLEKS                       R18 R4 K98 ["DimmedText"]
+      163 SETTABLEKS                       R18 R17 K92 ["SubtextColor"]
+      165 SETTABLEKS                       R17 R16 K99 ["SuggestionDropdown"]
+      167 DUPTABLE                         R17 K105 [{["ButtonSize"], ["Padding"], ["Spacing"] = 6, ["TemplateDropDown"], ["MenuImage"], ["MenuButtonSize"], ["MenuItemSize"]}]
+      168 GETIMPORT                        R18 K64 [UDim2.new]
+      170 LOADN                            R19 0
+      171 LOADN                            R20 80
+      172 LOADN                            R21 1
+      173 LOADN                            R22 0
+      174 CALL                             R18 4 1
+      175 SETTABLEKS                       R18 R17 K100 ["ButtonSize"]
+      177 DUPTABLE                         R18 K109 [{["Left"] = 10, ["Top"] = 6, ["Right"] = 10, ["Bottom"] = 5}]
+      178 SETTABLEKS                       R18 R17 K36 ["Padding"]
+      180 GETIMPORT                        R18 K54 [UDim2.fromOffset]
+      182 LOADN                            R19 175
+      183 LOADN                            R20 32
+      184 CALL                             R18 2 1
+      185 SETTABLEKS                       R18 R17 K101 ["TemplateDropDown"]
+      187 GETTABLEKS                       R18 R4 K102 ["MenuImage"]
+      189 SETTABLEKS                       R18 R17 K102 ["MenuImage"]
+      191 GETIMPORT                        R18 K54 [UDim2.fromOffset]
+      193 LOADN                            R19 16
+      194 LOADN                            R20 16
+      195 CALL                             R18 2 1
+      196 SETTABLEKS                       R18 R17 K103 ["MenuButtonSize"]
+      198 GETIMPORT                        R18 K64 [UDim2.new]
+      200 LOADN                            R19 1
+      201 LOADN                            R20 0
+      202 LOADN                            R21 0
+      203 LOADN                            R22 40
+      204 CALL                             R18 4 1
+      205 SETTABLEKS                       R18 R17 K104 ["MenuItemSize"]
+      207 SETTABLEKS                       R17 R16 K110 ["TopBar"]
+      209 DUPTABLE                         R17 K115 [{["CreateMinContentSize"], ["RenameMinContentSize"], ["LabelSize"], ["Padding"] = 10, ["TextboxSize"]}]
+      210 GETIMPORT                        R18 K49 [Vector2.new]
+      212 LOADN                            R19 300
+      213 LOADN                            R20 125
+      214 CALL                             R18 2 1
+      215 SETTABLEKS                       R18 R17 K111 ["CreateMinContentSize"]
+      217 GETIMPORT                        R18 K49 [Vector2.new]
+      219 LOADN                            R19 300
+      220 LOADN                            R20 100
+      221 CALL                             R18 2 1
+      222 SETTABLEKS                       R18 R17 K112 ["RenameMinContentSize"]
+      224 GETIMPORT                        R18 K64 [UDim2.new]
+      226 LOADN                            R19 0
+      227 LOADN                            R20 75
+      228 LOADN                            R21 0
+      229 LOADN                            R22 32
+      230 CALL                             R18 4 1
+      231 SETTABLEKS                       R18 R17 K113 ["LabelSize"]
+      233 GETIMPORT                        R18 K54 [UDim2.fromOffset]
+      235 LOADN                            R19 200
+      236 LOADN                            R20 32
+      237 CALL                             R18 2 1
+      238 SETTABLEKS                       R18 R17 K114 ["TextboxSize"]
+      240 SETTABLEKS                       R17 R16 K116 ["PresetNamePrompt"]
+      242 DUPTABLE                         R17 K123 [{"ResetCameraImage", "ShowWorkspaceImage", "ShowRigVisualizationImage", "OptionIconSize", "PreviewButtonBar", "Lighting"}]
+      243 GETTABLEKS                       R18 R4 K117 ["ResetCameraImage"]
+      245 SETTABLEKS                       R18 R17 K117 ["ResetCameraImage"]
+      247 GETTABLEKS                       R18 R4 K118 ["ShowWorkspaceImage"]
+      249 SETTABLEKS                       R18 R17 K118 ["ShowWorkspaceImage"]
+      251 GETTABLEKS                       R18 R4 K119 ["ShowRigVisualizationImage"]
+      253 SETTABLEKS                       R18 R17 K119 ["ShowRigVisualizationImage"]
+      255 GETIMPORT                        R18 K64 [UDim2.new]
+      257 LOADN                            R19 0
+      258 LOADN                            R20 28
+      259 LOADN                            R21 0
+      260 LOADN                            R22 28
+      261 CALL                             R18 4 1
+      262 SETTABLEKS                       R18 R17 K120 ["OptionIconSize"]
+      264 DUPTABLE                         R18 K126 [{["Size"], ["Position"], ["Spacing"] = 2}]
+      265 GETIMPORT                        R19 K64 [UDim2.new]
       267 LOADN                            R20 0
-      268 LOADN                            R21 0
-      269 LOADN                            R22 40
-      270 CALL                             R18 4 1
-      271 SETTABLEKS                       R18 R17 K91 ["MenuItemSize"]
-      273 SETTABLEKS                       R17 R16 K96 ["TopBar"]
-      275 DUPTABLE                         R17 K101 [{"CreateMinContentSize", "RenameMinContentSize", "LabelSize", "Padding", "TextboxSize"}]
-      276 GETIMPORT                        R18 K46 [Vector2.new]
-      278 LOADN                            R19 44
-      279 LOADN                            R20 125
-      280 CALL                             R18 2 1
-      281 SETTABLEKS                       R18 R17 K97 ["CreateMinContentSize"]
-      283 GETIMPORT                        R18 K46 [Vector2.new]
-      285 LOADN                            R19 44
-      286 LOADN                            R20 100
-      287 CALL                             R18 2 1
-      288 SETTABLEKS                       R18 R17 K98 ["RenameMinContentSize"]
-      290 GETIMPORT                        R18 K60 [UDim2.new]
-      292 LOADN                            R19 0
-      293 LOADN                            R20 75
-      294 LOADN                            R21 0
-      295 LOADN                            R22 32
-      296 CALL                             R18 4 1
-      297 SETTABLEKS                       R18 R17 K99 ["LabelSize"]
-      299 LOADN                            R18 10
-      300 SETTABLEKS                       R18 R17 K34 ["Padding"]
-      302 GETIMPORT                        R18 K51 [UDim2.fromOffset]
-      304 LOADN                            R19 200
-      305 LOADN                            R20 32
-      306 CALL                             R18 2 1
-      307 SETTABLEKS                       R18 R17 K100 ["TextboxSize"]
-      309 SETTABLEKS                       R17 R16 K102 ["PresetNamePrompt"]
-      311 DUPTABLE                         R17 K109 [{"ResetCameraImage", "ShowWorkspaceImage", "ShowRigVisualizationImage", "OptionIconSize", "PreviewButtonBar", "Lighting"}]
-      312 GETTABLEKS                       R18 R4 K103 ["ResetCameraImage"]
-      314 SETTABLEKS                       R18 R17 K103 ["ResetCameraImage"]
-      316 GETTABLEKS                       R18 R4 K104 ["ShowWorkspaceImage"]
-      318 SETTABLEKS                       R18 R17 K104 ["ShowWorkspaceImage"]
-      320 GETTABLEKS                       R18 R4 K105 ["ShowRigVisualizationImage"]
-      322 SETTABLEKS                       R18 R17 K105 ["ShowRigVisualizationImage"]
-      324 GETIMPORT                        R18 K60 [UDim2.new]
-      326 LOADN                            R19 0
-      327 LOADN                            R20 28
-      328 LOADN                            R21 0
-      329 LOADN                            R22 28
-      330 CALL                             R18 4 1
-      331 SETTABLEKS                       R18 R17 K106 ["OptionIconSize"]
-      333 DUPTABLE                         R18 K111 [{"Size", "Position", "Spacing"}]
-      334 GETIMPORT                        R19 K60 [UDim2.new]
+      268 LOADN                            R21 28
+      269 LOADN                            R22 1
+      270 LOADN                            R23 0
+      271 CALL                             R19 4 1
+      272 SETTABLEKS                       R19 R18 K37 ["Size"]
+      274 GETIMPORT                        R19 K64 [UDim2.new]
+      276 LOADN                            R20 1
+      277 LOADN                            R21 -38
+      278 LOADN                            R22 0
+      279 LOADN                            R23 10
+      280 CALL                             R19 4 1
+      281 SETTABLEKS                       R19 R18 K124 ["Position"]
+      283 SETTABLEKS                       R18 R17 K121 ["PreviewButtonBar"]
+      285 DUPTABLE                         R18 K130 [{["Ambient"], ["Color"], ["Direction"] = {0.5, -1, 0.1}}]
+      286 GETIMPORT                        R19 K133 [Color3.fromRGB]
+      288 LOADN                            R20 170
+      289 LOADN                            R21 185
+      290 LOADN                            R22 200
+      291 CALL                             R19 3 1
+      292 SETTABLEKS                       R19 R18 K127 ["Ambient"]
+      294 GETIMPORT                        R19 K133 [Color3.fromRGB]
+      296 LOADN                            R20 242
+      297 LOADN                            R21 236
+      298 LOADN                            R22 227
+      299 CALL                             R19 3 1
+      300 SETTABLEKS                       R19 R18 K44 ["Color"]
+      302 SETTABLEKS                       R18 R17 K122 ["Lighting"]
+      304 SETTABLEKS                       R17 R16 K134 ["PreviewWindow"]
+      306 DUPTABLE                         R17 K135 [{["Padding"], ["Spacing"] = 6}]
+      307 DUPTABLE                         R18 K136 [{["Left"] = 6, ["Top"] = 4, ["Right"] = 6, ["Bottom"] = 3}]
+      308 SETTABLEKS                       R18 R17 K36 ["Padding"]
+      310 SETTABLEKS                       R17 R16 K137 ["TreeViewToolbar"]
+      312 DUPTABLE                         R17 K148 [{["IndicatorOffset"] = 20, ["IndicatorSize"] = 100, ["PreviewRatio"] = 0.5, ["StatusMessagePadding"] = 24, ["ToolbarHeight"] = 30, ["TopBarHeight"] = 40}]
+      313 SETTABLEKS                       R17 R16 K149 ["Sizes"]
+      315 DUPTABLE                         R17 K166 [{["Width"] = 500, ["Height"] = 100, ["ExpandedWidth"] = 500, ["ExpandedHeight"] = 180, ["TextLabelSize"], ["BoldFont"], ["TextSize"] = 24, ["SubtextSize"] = 16, ["TextAlignment"], ["LoadingBarHeight"] = 12, ["LoadingBarContainerSize"], ["SuccessColor"], ["FailureColor"], ["TopPadding"], ["SuccessWidget"], ["FailureWidget"]}]
+      316 GETIMPORT                        R18 K64 [UDim2.new]
+      318 LOADN                            R19 1
+      319 LOADN                            R20 -10
+      320 LOADN                            R21 0
+      321 LOADN                            R22 22
+      322 CALL                             R18 4 1
+      323 SETTABLEKS                       R18 R17 K155 ["TextLabelSize"]
+      325 GETIMPORT                        R18 K71 [Enum.Font.SourceSansBold]
+      327 SETTABLEKS                       R18 R17 K156 ["BoldFont"]
+      329 GETIMPORT                        R18 K168 [Enum.TextXAlignment.Center]
+      331 SETTABLEKS                       R18 R17 K157 ["TextAlignment"]
+      333 GETIMPORT                        R18 K64 [UDim2.new]
+      335 LOADK                            R19 K169 [0.8]
       336 LOADN                            R20 0
-      337 LOADN                            R21 28
-      338 LOADN                            R22 1
-      339 LOADN                            R23 0
-      340 CALL                             R19 4 1
-      341 SETTABLEKS                       R19 R18 K35 ["Size"]
-      343 GETIMPORT                        R19 K60 [UDim2.new]
-      345 LOADN                            R20 1
-      346 LOADN                            R21 218
-      347 LOADN                            R22 0
-      348 LOADN                            R23 10
-      349 CALL                             R19 4 1
-      350 SETTABLEKS                       R19 R18 K110 ["Position"]
-      352 LOADN                            R19 2
-      353 SETTABLEKS                       R19 R18 K36 ["Spacing"]
-      355 SETTABLEKS                       R18 R17 K107 ["PreviewButtonBar"]
-      357 DUPTABLE                         R18 K114 [{"Ambient", "Color", "Direction"}]
-      358 GETIMPORT                        R19 K117 [Color3.fromRGB]
-      360 LOADN                            R20 170
-      361 LOADN                            R21 185
-      362 LOADN                            R22 200
-      363 CALL                             R19 3 1
-      364 SETTABLEKS                       R19 R18 K112 ["Ambient"]
-      366 GETIMPORT                        R19 K117 [Color3.fromRGB]
-      368 LOADN                            R20 242
-      369 LOADN                            R21 236
-      370 LOADN                            R22 227
-      371 CALL                             R19 3 1
-      372 SETTABLEKS                       R19 R18 K41 ["Color"]
-      374 LOADK                            R19 K118 [{0.5, -1, 0.1}]
-      375 SETTABLEKS                       R19 R18 K113 ["Direction"]
-      377 SETTABLEKS                       R18 R17 K108 ["Lighting"]
-      379 SETTABLEKS                       R17 R16 K119 ["PreviewWindow"]
-      381 DUPTABLE                         R17 K120 [{"Padding", "Spacing"}]
-      382 DUPTABLE                         R18 K95 [{"Left", "Top", "Right", "Bottom"}]
-      383 LOADN                            R19 6
-      384 SETTABLEKS                       R19 R18 K56 ["Left"]
-      386 LOADN                            R19 4
-      387 SETTABLEKS                       R19 R18 K93 ["Top"]
-      389 LOADN                            R19 6
-      390 SETTABLEKS                       R19 R18 K58 ["Right"]
-      392 LOADN                            R19 3
-      393 SETTABLEKS                       R19 R18 K94 ["Bottom"]
-      395 SETTABLEKS                       R18 R17 K34 ["Padding"]
-      397 LOADN                            R18 6
-      398 SETTABLEKS                       R18 R17 K36 ["Spacing"]
-      400 SETTABLEKS                       R17 R16 K121 ["TreeViewToolbar"]
-      402 DUPTABLE                         R17 K128 [{"IndicatorOffset", "IndicatorSize", "PreviewRatio", "StatusMessagePadding", "ToolbarHeight", "TopBarHeight"}]
-      403 LOADN                            R18 20
-      404 SETTABLEKS                       R18 R17 K122 ["IndicatorOffset"]
-      406 LOADN                            R18 100
-      407 SETTABLEKS                       R18 R17 K123 ["IndicatorSize"]
-      409 LOADK                            R18 K129 [0.5]
-      410 SETTABLEKS                       R18 R17 K124 ["PreviewRatio"]
-      412 LOADN                            R18 24
-      413 SETTABLEKS                       R18 R17 K125 ["StatusMessagePadding"]
-      415 LOADN                            R18 30
-      416 SETTABLEKS                       R18 R17 K126 ["ToolbarHeight"]
-      418 LOADN                            R18 40
-      419 SETTABLEKS                       R18 R17 K127 ["TopBarHeight"]
-      421 SETTABLEKS                       R17 R16 K130 ["Sizes"]
-      423 DUPTABLE                         R17 K144 [{"Width", "Height", "ExpandedWidth", "ExpandedHeight", "TextLabelSize", "BoldFont", "TextSize", "SubtextSize", "TextAlignment", "LoadingBarHeight", "LoadingBarContainerSize", "SuccessColor", "FailureColor", "TopPadding", "SuccessWidget", "FailureWidget"}]
-      424 LOADN                            R18 244
-      425 SETTABLEKS                       R18 R17 K131 ["Width"]
-      427 LOADN                            R18 100
-      428 SETTABLEKS                       R18 R17 K73 ["Height"]
-      430 LOADN                            R18 244
-      431 SETTABLEKS                       R18 R17 K132 ["ExpandedWidth"]
-      433 LOADN                            R18 180
-      434 SETTABLEKS                       R18 R17 K133 ["ExpandedHeight"]
-      436 GETIMPORT                        R18 K60 [UDim2.new]
-      438 LOADN                            R19 1
-      439 LOADN                            R20 246
-      440 LOADN                            R21 0
-      441 LOADN                            R22 22
-      442 CALL                             R18 4 1
-      443 SETTABLEKS                       R18 R17 K134 ["TextLabelSize"]
-      445 GETIMPORT                        R18 K66 [Enum.Font.SourceSansBold]
-      447 SETTABLEKS                       R18 R17 K135 ["BoldFont"]
-      449 LOADN                            R18 24
-      450 SETTABLEKS                       R18 R17 K63 ["TextSize"]
-      452 LOADN                            R18 16
-      453 SETTABLEKS                       R18 R17 K80 ["SubtextSize"]
-      455 GETIMPORT                        R18 K146 [Enum.TextXAlignment.Center]
-      457 SETTABLEKS                       R18 R17 K136 ["TextAlignment"]
-      459 LOADN                            R18 12
-      460 SETTABLEKS                       R18 R17 K137 ["LoadingBarHeight"]
-      462 GETIMPORT                        R18 K60 [UDim2.new]
-      464 LOADK                            R19 K147 [0.8]
-      465 LOADN                            R20 0
-      466 LOADN                            R21 0
-      467 LOADN                            R22 10
-      468 CALL                             R18 4 1
-      469 SETTABLEKS                       R18 R17 K138 ["LoadingBarContainerSize"]
-      471 GETIMPORT                        R18 K117 [Color3.fromRGB]
-      473 LOADN                            R19 2
-      474 LOADN                            R20 183
-      475 LOADN                            R21 87
-      476 CALL                             R18 3 1
-      477 SETTABLEKS                       R18 R17 K139 ["SuccessColor"]
-      479 GETIMPORT                        R18 K117 [Color3.fromRGB]
-      481 LOADN                            R19 255
-      482 LOADN                            R20 85
-      483 LOADN                            R21 85
-      484 CALL                             R18 3 1
-      485 SETTABLEKS                       R18 R17 K140 ["FailureColor"]
-      487 DUPTABLE                         R18 K95 [{"Left", "Top", "Right", "Bottom"}]
-      488 LOADN                            R19 10
-      489 SETTABLEKS                       R19 R18 K56 ["Left"]
-      491 LOADN                            R19 20
-      492 SETTABLEKS                       R19 R18 K93 ["Top"]
-      494 LOADN                            R19 10
-      495 SETTABLEKS                       R19 R18 K58 ["Right"]
-      497 LOADN                            R19 10
-      498 SETTABLEKS                       R19 R18 K94 ["Bottom"]
-      500 SETTABLEKS                       R18 R17 K141 ["TopPadding"]
-      502 DUPTABLE                         R18 K149 [{"TextProps"}]
-      503 DUPTABLE                         R19 K150 [{"Font", "TextSize", "TextXAlignment"}]
-      504 GETIMPORT                        R20 K152 [Enum.Font.SourceSans]
-      506 SETTABLEKS                       R20 R19 K61 ["Font"]
-      508 LOADN                            R20 16
-      509 SETTABLEKS                       R20 R19 K63 ["TextSize"]
-      511 GETIMPORT                        R20 K146 [Enum.TextXAlignment.Center]
-      513 SETTABLEKS                       R20 R19 K145 ["TextXAlignment"]
-      515 SETTABLEKS                       R19 R18 K148 ["TextProps"]
-      517 SETTABLEKS                       R18 R17 K142 ["SuccessWidget"]
-      519 DUPTABLE                         R18 K153 [{"Padding"}]
-      520 DUPTABLE                         R19 K95 [{"Left", "Top", "Right", "Bottom"}]
-      521 LOADN                            R20 24
-      522 SETTABLEKS                       R20 R19 K56 ["Left"]
-      524 LOADN                            R20 12
-      525 SETTABLEKS                       R20 R19 K93 ["Top"]
-      527 LOADN                            R20 24
-      528 SETTABLEKS                       R20 R19 K58 ["Right"]
-      530 LOADN                            R20 6
-      531 SETTABLEKS                       R20 R19 K94 ["Bottom"]
-      533 SETTABLEKS                       R19 R18 K34 ["Padding"]
-      535 SETTABLEKS                       R18 R17 K143 ["FailureWidget"]
-      537 SETTABLEKS                       R17 R16 K154 ["UploadWidget"]
-      539 DUPTABLE                         R17 K156 [{"Height", "IconSize", "IconSpacing", "SubtextSize", "TextSize", "Width", "Dropdown"}]
-      540 LOADN                            R18 100
-      541 SETTABLEKS                       R18 R17 K73 ["Height"]
-      543 LOADN                            R18 48
-      544 SETTABLEKS                       R18 R17 K71 ["IconSize"]
-      546 LOADN                            R18 16
-      547 SETTABLEKS                       R18 R17 K75 ["IconSpacing"]
-      549 LOADN                            R18 18
-      550 SETTABLEKS                       R18 R17 K80 ["SubtextSize"]
-      552 LOADN                            R18 24
-      553 SETTABLEKS                       R18 R17 K63 ["TextSize"]
-      555 LOADN                            R18 244
-      556 SETTABLEKS                       R18 R17 K131 ["Width"]
-      558 DUPTABLE                         R18 K158 [{"Header", "Content"}]
-      559 DUPTABLE                         R19 K159 [{"Arrow", "Text", "Spacing", "Size"}]
-      560 NEWTABLE                         R20 8 0
-      562 GETTABLEKS                       R21 R4 K40 ["MainText"]
-      564 SETTABLEKS                       R21 R20 K41 ["Color"]
-      566 LOADK                            R21 K42 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-      567 SETTABLEKS                       R21 R20 K43 ["Image"]
-      569 GETIMPORT                        R21 K46 [Vector2.new]
-      571 LOADN                            R22 12
-      572 LOADN                            R23 0
-      573 CALL                             R21 2 1
-      574 SETTABLEKS                       R21 R20 K47 ["ImageRectOffset"]
-      576 GETIMPORT                        R21 K46 [Vector2.new]
-      578 LOADN                            R22 12
-      579 LOADN                            R23 12
-      580 CALL                             R21 2 1
-      581 SETTABLEKS                       R21 R20 K48 ["ImageRectSize"]
-      583 GETIMPORT                        R21 K51 [UDim2.fromOffset]
-      585 LOADN                            R22 12
-      586 LOADN                            R23 12
-      587 CALL                             R21 2 1
-      588 SETTABLEKS                       R21 R20 K35 ["Size"]
-      590 GETTABLEKS                       R21 R5 K52 ["Selected"]
-      592 DUPTABLE                         R22 K53 [{"ImageRectOffset"}]
-      593 GETIMPORT                        R23 K46 [Vector2.new]
-      595 LOADN                            R24 24
-      596 LOADN                            R25 0
-      597 CALL                             R23 2 1
-      598 SETTABLEKS                       R23 R22 K47 ["ImageRectOffset"]
-      600 SETTABLE                         R22 R20 R21
-      601 SETTABLEKS                       R20 R19 K31 ["Arrow"]
-      603 DUPTABLE                         R20 K160 [{"Font", "TextColor", "TextSize", "TextXAlignment"}]
-      604 GETIMPORT                        R21 K152 [Enum.Font.SourceSans]
-      606 SETTABLEKS                       R21 R20 K61 ["Font"]
-      608 GETTABLEKS                       R21 R4 K67 ["TitlebarText"]
-      610 SETTABLEKS                       R21 R20 K62 ["TextColor"]
-      612 LOADN                            R21 16
-      613 SETTABLEKS                       R21 R20 K63 ["TextSize"]
-      615 GETIMPORT                        R21 K146 [Enum.TextXAlignment.Center]
-      617 SETTABLEKS                       R21 R20 K145 ["TextXAlignment"]
-      619 SETTABLEKS                       R20 R19 K37 ["Text"]
-      621 LOADN                            R20 6
-      622 SETTABLEKS                       R20 R19 K36 ["Spacing"]
-      624 GETIMPORT                        R20 K60 [UDim2.new]
-      626 LOADN                            R21 1
-      627 LOADN                            R22 0
-      628 LOADN                            R23 0
-      629 LOADN                            R24 16
-      630 CALL                             R20 4 1
-      631 SETTABLEKS                       R20 R19 K35 ["Size"]
-      633 SETTABLEKS                       R19 R18 K157 ["Header"]
-      635 DUPTABLE                         R19 K153 [{"Padding"}]
-      636 DUPTABLE                         R20 K161 [{"Top", "Bottom"}]
-      637 LOADN                            R21 6
-      638 SETTABLEKS                       R21 R20 K93 ["Top"]
-      640 LOADN                            R21 6
-      641 SETTABLEKS                       R21 R20 K94 ["Bottom"]
-      643 SETTABLEKS                       R20 R19 K34 ["Padding"]
-      645 SETTABLEKS                       R19 R18 K23 ["Content"]
-      647 SETTABLEKS                       R18 R17 K155 ["Dropdown"]
-      649 SETTABLEKS                       R17 R16 K162 ["ErrorWidget"]
-      651 DUPTABLE                         R17 K163 [{"Image", "Size"}]
-      652 LOADK                            R18 K164 ["rbxasset://textures/StudioSharedUI/alert_error@2x.png"]
-      653 SETTABLEKS                       R18 R17 K43 ["Image"]
-      655 GETIMPORT                        R18 K51 [UDim2.fromOffset]
-      657 LOADN                            R19 20
-      658 LOADN                            R20 20
-      659 CALL                             R18 2 1
-      660 SETTABLEKS                       R18 R17 K35 ["Size"]
-      662 SETTABLEKS                       R17 R16 K165 ["ErrorIcon"]
-      664 DUPTABLE                         R17 K163 [{"Image", "Size"}]
-      665 LOADK                            R18 K166 ["rbxasset://textures/StudioSharedUI/alert_warning@2x.png"]
-      666 SETTABLEKS                       R18 R17 K43 ["Image"]
-      668 GETIMPORT                        R18 K51 [UDim2.fromOffset]
-      670 LOADN                            R19 20
-      671 LOADN                            R20 20
-      672 CALL                             R18 2 1
-      673 SETTABLEKS                       R18 R17 K35 ["Size"]
-      675 SETTABLEKS                       R17 R16 K167 ["WarningIcon"]
-      677 DUPTABLE                         R17 K168 [{"TextColor", "TextXAlignment", "TextSize"}]
-      678 GETIMPORT                        R18 K117 [Color3.fromRGB]
-      680 LOADN                            R19 255
-      681 LOADN                            R20 85
-      682 LOADN                            R21 85
-      683 CALL                             R18 3 1
-      684 SETTABLEKS                       R18 R17 K62 ["TextColor"]
-      686 GETIMPORT                        R18 K169 [Enum.TextXAlignment.Left]
-      688 SETTABLEKS                       R18 R17 K145 ["TextXAlignment"]
-      690 LOADN                            R18 10
-      691 SETTABLEKS                       R18 R17 K63 ["TextSize"]
-      693 SETTABLEKS                       R17 R16 K170 ["ErrorStatus"]
-      695 DUPTABLE                         R17 K168 [{"TextColor", "TextXAlignment", "TextSize"}]
-      696 GETIMPORT                        R18 K117 [Color3.fromRGB]
-      698 LOADN                            R19 255
-      699 LOADN                            R20 170
-      700 LOADN                            R21 33
-      701 CALL                             R18 3 1
-      702 SETTABLEKS                       R18 R17 K62 ["TextColor"]
-      704 GETIMPORT                        R18 K169 [Enum.TextXAlignment.Left]
-      706 SETTABLEKS                       R18 R17 K145 ["TextXAlignment"]
-      708 LOADN                            R18 10
-      709 SETTABLEKS                       R18 R17 K63 ["TextSize"]
-      711 SETTABLEKS                       R17 R16 K171 ["WarningStatus"]
-      713 GETTABLEKS                       R17 R8 K20 ["ExpandablePane"]
-      715 MOVE                             R18 R15
-      716 GETTABLEKS                       R20 R8 K20 ["ExpandablePane"]
-      718 GETTABLE                         R19 R6 R20
-      719 NEWTABLE                         R20 1 0
-      721 MOVE                             R21 R15
-      722 MOVE                             R22 R13
-      723 DUPTABLE                         R23 K172 [{"Content"}]
-      724 MOVE                             R24 R15
-      725 MOVE                             R25 R14
-      726 DUPTABLE                         R26 K153 [{"Padding"}]
-      727 DUPTABLE                         R27 K95 [{"Left", "Top", "Right", "Bottom"}]
-      728 LOADN                            R28 4
-      729 SETTABLEKS                       R28 R27 K56 ["Left"]
-      731 LOADN                            R28 10
-      732 SETTABLEKS                       R28 R27 K93 ["Top"]
-      734 LOADN                            R28 4
-      735 SETTABLEKS                       R28 R27 K58 ["Right"]
-      737 LOADN                            R28 10
-      738 SETTABLEKS                       R28 R27 K94 ["Bottom"]
-      740 SETTABLEKS                       R27 R26 K34 ["Padding"]
-      742 CALL                             R24 2 1
-      743 SETTABLEKS                       R24 R23 K23 ["Content"]
-      745 CALL                             R21 2 1
-      746 SETTABLEKS                       R21 R20 K173 ["&ImportTree"]
-      748 CALL                             R18 2 1
-      749 SETTABLE                         R18 R16 R17
-      750 GETTABLEKS                       R17 R8 K174 ["LinkText"]
-      752 MOVE                             R18 R15
-      753 GETTABLEKS                       R20 R8 K174 ["LinkText"]
-      755 GETTABLE                         R19 R6 R20
-      756 NEWTABLE                         R20 1 0
-      758 DUPTABLE                         R21 K175 [{"TextColor"}]
-      759 GETTABLEKS                       R22 R4 K176 ["ButtonTextDisabled"]
-      761 SETTABLEKS                       R22 R21 K62 ["TextColor"]
-      763 SETTABLEKS                       R21 R20 K177 ["&Disabled"]
-      765 CALL                             R18 2 1
-      766 SETTABLE                         R18 R16 R17
-      767 GETTABLEKS                       R17 R8 K18 ["Button"]
-      769 MOVE                             R18 R15
-      770 GETTABLEKS                       R20 R8 K18 ["Button"]
-      772 GETTABLE                         R19 R6 R20
-      773 NEWTABLE                         R20 1 0
-      775 MOVE                             R21 R15
-      776 MOVE                             R22 R12
-      777 DUPTABLE                         R23 K178 [{"Size"}]
-      778 GETIMPORT                        R24 K60 [UDim2.new]
-      780 LOADN                            R25 0
-      781 LOADN                            R26 180
-      782 LOADN                            R27 0
-      783 LOADN                            R28 32
-      784 CALL                             R24 4 1
-      785 SETTABLEKS                       R24 R23 K35 ["Size"]
-      787 CALL                             R21 2 1
-      788 SETTABLEKS                       R21 R20 K179 ["&CopyMeshID"]
-      790 CALL                             R18 2 1
-      791 SETTABLE                         R18 R16 R17
-      792 GETTABLEKS                       R17 R8 K180 ["StyledDialog"]
-      794 MOVE                             R18 R15
-      795 GETTABLEKS                       R20 R8 K180 ["StyledDialog"]
-      797 GETTABLE                         R19 R6 R20
-      798 NEWTABLE                         R20 1 0
-      800 DUPTABLE                         R21 K183 [{"ButtonPadding", "ContentPadding"}]
-      801 LOADN                            R22 12
-      802 SETTABLEKS                       R22 R21 K181 ["ButtonPadding"]
-      804 LOADN                            R22 0
-      805 SETTABLEKS                       R22 R21 K182 ["ContentPadding"]
-      807 SETTABLEKS                       R21 R20 K184 ["&ImportDialog"]
-      809 CALL                             R18 2 1
-      810 SETTABLE                         R18 R16 R17
-      811 NEWTABLE                         R17 16 0
-      813 GETTABLEKS                       R18 R4 K185 ["RefreshImage"]
-      815 LOADK                            R19 K186 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
-      816 SETTABLE                         R19 R17 R18
-      817 GETTABLEKS                       R18 R4 K103 ["ResetCameraImage"]
-      819 LOADK                            R19 K187 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/CameraReset.png"]
-      820 SETTABLE                         R19 R17 R18
-      821 GETTABLEKS                       R18 R4 K105 ["ShowRigVisualizationImage"]
-      823 LOADK                            R19 K188 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/RigVisualization.png"]
-      824 SETTABLE                         R19 R17 R18
-      825 GETTABLEKS                       R18 R4 K104 ["ShowWorkspaceImage"]
-      827 LOADK                            R19 K189 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/WorkspacePreview.png"]
-      828 SETTABLE                         R19 R17 R18
-      829 GETTABLEKS                       R18 R4 K89 ["MenuImage"]
-      831 LOADK                            R19 K190 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/OptionsDots.png"]
-      832 SETTABLE                         R19 R17 R18
-      833 GETTABLEKS                       R18 R4 K191 ["OpenImage"]
-      835 LOADK                            R19 K192 ["rbxasset://studio_svg_textures/Lua/FileSync/Dark/Standard/Open.png"]
-      836 SETTABLE                         R19 R17 R18
-      837 GETTABLEKS                       R18 R4 K193 ["CleanupImage"]
-      839 LOADK                            R19 K194 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Dark/Standard/Cleanup.png"]
-      840 SETTABLE                         R19 R17 R18
-      841 GETTABLEKS                       R18 R4 K27 ["ErrorIconSolid"]
-      843 LOADK                            R19 K195 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png"]
-      844 SETTABLE                         R19 R17 R18
-      845 GETTABLEKS                       R18 R4 K28 ["SuccessIconSolid"]
-      847 LOADK                            R19 K196 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Success.png"]
-      848 SETTABLE                         R19 R17 R18
-      849 GETTABLEKS                       R18 R4 K197 ["DefaultBackgroundOverride"]
-      851 GETIMPORT                        R19 K199 [Color3.fromHex]
-      853 LOADK                            R20 K200 ["#2C2C2C"]
-      854 CALL                             R19 1 1
-      855 SETTABLE                         R19 R17 R18
-      856 GETTABLEKS                       R18 R4 K201 ["OnHoverBackgroundOverride"]
-      858 GETIMPORT                        R19 K199 [Color3.fromHex]
-      860 LOADK                            R20 K202 ["#565656"]
-      861 CALL                             R19 1 1
-      862 SETTABLE                         R19 R17 R18
-      863 NEWTABLE                         R18 16 0
-      865 GETTABLEKS                       R19 R4 K185 ["RefreshImage"]
-      867 LOADK                            R20 K203 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
-      868 SETTABLE                         R20 R18 R19
-      869 GETTABLEKS                       R19 R4 K103 ["ResetCameraImage"]
-      871 LOADK                            R20 K204 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/CameraReset.png"]
-      872 SETTABLE                         R20 R18 R19
-      873 GETTABLEKS                       R19 R4 K105 ["ShowRigVisualizationImage"]
-      875 LOADK                            R20 K205 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/RigVisualization.png"]
-      876 SETTABLE                         R20 R18 R19
-      877 GETTABLEKS                       R19 R4 K104 ["ShowWorkspaceImage"]
-      879 LOADK                            R20 K206 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/WorkspacePreview.png"]
-      880 SETTABLE                         R20 R18 R19
-      881 GETTABLEKS                       R19 R4 K89 ["MenuImage"]
-      883 LOADK                            R20 K207 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/OptionsDots.png"]
-      884 SETTABLE                         R20 R18 R19
-      885 GETTABLEKS                       R19 R4 K191 ["OpenImage"]
-      887 LOADK                            R20 K208 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Open.png"]
-      888 SETTABLE                         R20 R18 R19
-      889 GETTABLEKS                       R19 R4 K193 ["CleanupImage"]
-      891 LOADK                            R20 K209 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Cleanup.png"]
-      892 SETTABLE                         R20 R18 R19
-      893 GETTABLEKS                       R19 R4 K27 ["ErrorIconSolid"]
-      895 LOADK                            R20 K210 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Error.png"]
-      896 SETTABLE                         R20 R18 R19
-      897 GETTABLEKS                       R19 R4 K28 ["SuccessIconSolid"]
-      899 LOADK                            R20 K211 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Success.png"]
-      900 SETTABLE                         R20 R18 R19
-      901 GETTABLEKS                       R19 R4 K197 ["DefaultBackgroundOverride"]
-      903 GETIMPORT                        R20 K199 [Color3.fromHex]
-      905 LOADK                            R21 K212 ["#F6F6F6"]
-      906 CALL                             R20 1 1
-      907 SETTABLE                         R20 R18 R19
-      908 GETTABLEKS                       R19 R4 K201 ["OnHoverBackgroundOverride"]
-      910 GETIMPORT                        R20 K199 [Color3.fromHex]
-      912 LOADK                            R21 K213 ["#E1E1E1"]
-      913 CALL                             R20 1 1
-      914 SETTABLE                         R20 R18 R19
-      915 DUPCLOSURE                       R19 K214 [PROTO_0]
-      916 CAPTURE                          VAL R7
-      917 CAPTURE                          VAL R17
-      918 CAPTURE                          VAL R18
-      919 CAPTURE                          VAL R16
-      920 RETURN                           R19 1
+      337 LOADN                            R21 0
+      338 LOADN                            R22 10
+      339 CALL                             R18 4 1
+      340 SETTABLEKS                       R18 R17 K160 ["LoadingBarContainerSize"]
+      342 GETIMPORT                        R18 K133 [Color3.fromRGB]
+      344 LOADN                            R19 2
+      345 LOADN                            R20 183
+      346 LOADN                            R21 87
+      347 CALL                             R18 3 1
+      348 SETTABLEKS                       R18 R17 K161 ["SuccessColor"]
+      350 GETIMPORT                        R18 K133 [Color3.fromRGB]
+      352 LOADN                            R19 255
+      353 LOADN                            R20 85
+      354 LOADN                            R21 85
+      355 CALL                             R18 3 1
+      356 SETTABLEKS                       R18 R17 K162 ["FailureColor"]
+      358 DUPTABLE                         R18 K170 [{["Left"] = 10, ["Top"] = 20, ["Right"] = 10, ["Bottom"] = 10}]
+      359 SETTABLEKS                       R18 R17 K163 ["TopPadding"]
+      361 DUPTABLE                         R18 K172 [{"TextProps"}]
+      362 DUPTABLE                         R19 K173 [{["Font"], ["TextSize"] = 16, ["TextXAlignment"]}]
+      363 GETIMPORT                        R20 K175 [Enum.Font.SourceSans]
+      365 SETTABLEKS                       R20 R19 K65 ["Font"]
+      367 GETIMPORT                        R20 K168 [Enum.TextXAlignment.Center]
+      369 SETTABLEKS                       R20 R19 K167 ["TextXAlignment"]
+      371 SETTABLEKS                       R19 R18 K171 ["TextProps"]
+      373 SETTABLEKS                       R18 R17 K164 ["SuccessWidget"]
+      375 DUPTABLE                         R18 K176 [{"Padding"}]
+      376 DUPTABLE                         R19 K177 [{["Left"] = 24, ["Top"] = 12, ["Right"] = 24, ["Bottom"] = 6}]
+      377 SETTABLEKS                       R19 R18 K36 ["Padding"]
+      379 SETTABLEKS                       R18 R17 K165 ["FailureWidget"]
+      381 SETTABLEKS                       R17 R16 K178 ["UploadWidget"]
+      383 DUPTABLE                         R17 K181 [{["Height"] = 100, ["IconSize"] = 48, ["IconSpacing"] = 16, ["SubtextSize"] = 18, ["TextSize"] = 24, ["Width"] = 500, ["Dropdown"]}]
+      384 DUPTABLE                         R18 K183 [{"Header", "Content"}]
+      385 DUPTABLE                         R19 K184 [{["Arrow"], ["Text"], ["Spacing"] = 6, ["Size"]}]
+      386 NEWTABLE                         R20 8 0
+      388 GETTABLEKS                       R21 R4 K43 ["MainText"]
+      390 SETTABLEKS                       R21 R20 K44 ["Color"]
+      392 LOADK                            R21 K45 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
+      393 SETTABLEKS                       R21 R20 K46 ["Image"]
+      395 GETIMPORT                        R21 K49 [Vector2.new]
+      397 LOADN                            R22 12
+      398 LOADN                            R23 0
+      399 CALL                             R21 2 1
+      400 SETTABLEKS                       R21 R20 K50 ["ImageRectOffset"]
+      402 GETIMPORT                        R21 K49 [Vector2.new]
+      404 LOADN                            R22 12
+      405 LOADN                            R23 12
+      406 CALL                             R21 2 1
+      407 SETTABLEKS                       R21 R20 K51 ["ImageRectSize"]
+      409 GETIMPORT                        R21 K54 [UDim2.fromOffset]
+      411 LOADN                            R22 12
+      412 LOADN                            R23 12
+      413 CALL                             R21 2 1
+      414 SETTABLEKS                       R21 R20 K37 ["Size"]
+      416 GETTABLEKS                       R21 R5 K55 ["Selected"]
+      418 DUPTABLE                         R22 K56 [{"ImageRectOffset"}]
+      419 GETIMPORT                        R23 K49 [Vector2.new]
+      421 LOADN                            R24 24
+      422 LOADN                            R25 0
+      423 CALL                             R23 2 1
+      424 SETTABLEKS                       R23 R22 K50 ["ImageRectOffset"]
+      426 SETTABLE                         R22 R20 R21
+      427 SETTABLEKS                       R20 R19 K33 ["Arrow"]
+      429 DUPTABLE                         R20 K185 [{["Font"], ["TextColor"], ["TextSize"] = 16, ["TextXAlignment"]}]
+      430 GETIMPORT                        R21 K175 [Enum.Font.SourceSans]
+      432 SETTABLEKS                       R21 R20 K65 ["Font"]
+      434 GETTABLEKS                       R21 R4 K72 ["TitlebarText"]
+      436 SETTABLEKS                       R21 R20 K66 ["TextColor"]
+      438 GETIMPORT                        R21 K168 [Enum.TextXAlignment.Center]
+      440 SETTABLEKS                       R21 R20 K167 ["TextXAlignment"]
+      442 SETTABLEKS                       R20 R19 K40 ["Text"]
+      444 GETIMPORT                        R20 K64 [UDim2.new]
+      446 LOADN                            R21 1
+      447 LOADN                            R22 0
+      448 LOADN                            R23 0
+      449 LOADN                            R24 16
+      450 CALL                             R20 4 1
+      451 SETTABLEKS                       R20 R19 K37 ["Size"]
+      453 SETTABLEKS                       R19 R18 K182 ["Header"]
+      455 DUPTABLE                         R19 K176 [{"Padding"}]
+      456 DUPTABLE                         R20 K186 [{["Top"] = 6, ["Bottom"] = 6}]
+      457 SETTABLEKS                       R20 R19 K36 ["Padding"]
+      459 SETTABLEKS                       R19 R18 K23 ["Content"]
+      461 SETTABLEKS                       R18 R17 K180 ["Dropdown"]
+      463 SETTABLEKS                       R17 R16 K187 ["ErrorWidget"]
+      465 DUPTABLE                         R17 K189 [{["Image"] = "rbxasset://textures/StudioSharedUI/alert_error@2x.png", ["Size"]}]
+      466 GETIMPORT                        R18 K54 [UDim2.fromOffset]
+      468 LOADN                            R19 20
+      469 LOADN                            R20 20
+      470 CALL                             R18 2 1
+      471 SETTABLEKS                       R18 R17 K37 ["Size"]
+      473 SETTABLEKS                       R17 R16 K190 ["ErrorIcon"]
+      475 DUPTABLE                         R17 K192 [{["Image"] = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png", ["Size"]}]
+      476 GETIMPORT                        R18 K54 [UDim2.fromOffset]
+      478 LOADN                            R19 20
+      479 LOADN                            R20 20
+      480 CALL                             R18 2 1
+      481 SETTABLEKS                       R18 R17 K37 ["Size"]
+      483 SETTABLEKS                       R17 R16 K193 ["WarningIcon"]
+      485 DUPTABLE                         R17 K194 [{["TextColor"], ["TextXAlignment"], ["TextSize"] = 10}]
+      486 GETIMPORT                        R18 K133 [Color3.fromRGB]
+      488 LOADN                            R19 255
+      489 LOADN                            R20 85
+      490 LOADN                            R21 85
+      491 CALL                             R18 3 1
+      492 SETTABLEKS                       R18 R17 K66 ["TextColor"]
+      494 GETIMPORT                        R18 K195 [Enum.TextXAlignment.Left]
+      496 SETTABLEKS                       R18 R17 K167 ["TextXAlignment"]
+      498 SETTABLEKS                       R17 R16 K196 ["ErrorStatus"]
+      500 DUPTABLE                         R17 K194 [{["TextColor"], ["TextXAlignment"], ["TextSize"] = 10}]
+      501 GETIMPORT                        R18 K133 [Color3.fromRGB]
+      503 LOADN                            R19 255
+      504 LOADN                            R20 170
+      505 LOADN                            R21 33
+      506 CALL                             R18 3 1
+      507 SETTABLEKS                       R18 R17 K66 ["TextColor"]
+      509 GETIMPORT                        R18 K195 [Enum.TextXAlignment.Left]
+      511 SETTABLEKS                       R18 R17 K167 ["TextXAlignment"]
+      513 SETTABLEKS                       R17 R16 K197 ["WarningStatus"]
+      515 GETTABLEKS                       R17 R8 K20 ["ExpandablePane"]
+      517 MOVE                             R18 R15
+      518 GETTABLEKS                       R20 R8 K20 ["ExpandablePane"]
+      520 GETTABLE                         R19 R6 R20
+      521 NEWTABLE                         R20 1 0
+      523 MOVE                             R21 R15
+      524 MOVE                             R22 R13
+      525 DUPTABLE                         R23 K198 [{"Content"}]
+      526 MOVE                             R24 R15
+      527 MOVE                             R25 R14
+      528 DUPTABLE                         R26 K176 [{"Padding"}]
+      529 DUPTABLE                         R27 K199 [{["Left"] = 4, ["Top"] = 10, ["Right"] = 4, ["Bottom"] = 10}]
+      530 SETTABLEKS                       R27 R26 K36 ["Padding"]
+      532 CALL                             R24 2 1
+      533 SETTABLEKS                       R24 R23 K23 ["Content"]
+      535 CALL                             R21 2 1
+      536 SETTABLEKS                       R21 R20 K200 ["&ImportTree"]
+      538 CALL                             R18 2 1
+      539 SETTABLE                         R18 R16 R17
+      540 GETTABLEKS                       R17 R8 K201 ["LinkText"]
+      542 MOVE                             R18 R15
+      543 GETTABLEKS                       R20 R8 K201 ["LinkText"]
+      545 GETTABLE                         R19 R6 R20
+      546 NEWTABLE                         R20 1 0
+      548 DUPTABLE                         R21 K202 [{"TextColor"}]
+      549 GETTABLEKS                       R22 R4 K203 ["ButtonTextDisabled"]
+      551 SETTABLEKS                       R22 R21 K66 ["TextColor"]
+      553 SETTABLEKS                       R21 R20 K204 ["&Disabled"]
+      555 CALL                             R18 2 1
+      556 SETTABLE                         R18 R16 R17
+      557 GETTABLEKS                       R17 R8 K18 ["Button"]
+      559 MOVE                             R18 R15
+      560 GETTABLEKS                       R20 R8 K18 ["Button"]
+      562 GETTABLE                         R19 R6 R20
+      563 NEWTABLE                         R20 1 0
+      565 MOVE                             R21 R15
+      566 MOVE                             R22 R12
+      567 DUPTABLE                         R23 K205 [{"Size"}]
+      568 GETIMPORT                        R24 K64 [UDim2.new]
+      570 LOADN                            R25 0
+      571 LOADN                            R26 180
+      572 LOADN                            R27 0
+      573 LOADN                            R28 32
+      574 CALL                             R24 4 1
+      575 SETTABLEKS                       R24 R23 K37 ["Size"]
+      577 CALL                             R21 2 1
+      578 SETTABLEKS                       R21 R20 K206 ["&CopyMeshID"]
+      580 CALL                             R18 2 1
+      581 SETTABLE                         R18 R16 R17
+      582 GETTABLEKS                       R17 R8 K207 ["StyledDialog"]
+      584 MOVE                             R18 R15
+      585 GETTABLEKS                       R20 R8 K207 ["StyledDialog"]
+      587 GETTABLE                         R19 R6 R20
+      588 NEWTABLE                         R20 1 0
+      590 DUPTABLE                         R21 K211 [{["ButtonPadding"] = 12, ["ContentPadding"] = 0}]
+      591 SETTABLEKS                       R21 R20 K212 ["&ImportDialog"]
+      593 CALL                             R18 2 1
+      594 SETTABLE                         R18 R16 R17
+      595 NEWTABLE                         R17 16 0
+      597 GETTABLEKS                       R18 R4 K213 ["RefreshImage"]
+      599 LOADK                            R19 K214 ["rbxasset://textures/GameSettings/refresh_dark_theme.png"]
+      600 SETTABLE                         R19 R17 R18
+      601 GETTABLEKS                       R18 R4 K117 ["ResetCameraImage"]
+      603 LOADK                            R19 K215 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/CameraReset.png"]
+      604 SETTABLE                         R19 R17 R18
+      605 GETTABLEKS                       R18 R4 K119 ["ShowRigVisualizationImage"]
+      607 LOADK                            R19 K216 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/RigVisualization.png"]
+      608 SETTABLE                         R19 R17 R18
+      609 GETTABLEKS                       R18 R4 K118 ["ShowWorkspaceImage"]
+      611 LOADK                            R19 K217 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/WorkspacePreview.png"]
+      612 SETTABLE                         R19 R17 R18
+      613 GETTABLEKS                       R18 R4 K102 ["MenuImage"]
+      615 LOADK                            R19 K218 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/OptionsDots.png"]
+      616 SETTABLE                         R19 R17 R18
+      617 GETTABLEKS                       R18 R4 K219 ["OpenImage"]
+      619 LOADK                            R19 K220 ["rbxasset://studio_svg_textures/Lua/FileSync/Dark/Standard/Open.png"]
+      620 SETTABLE                         R19 R17 R18
+      621 GETTABLEKS                       R18 R4 K221 ["CleanupImage"]
+      623 LOADK                            R19 K222 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Dark/Standard/Cleanup.png"]
+      624 SETTABLE                         R19 R17 R18
+      625 GETTABLEKS                       R18 R4 K29 ["ErrorIconSolid"]
+      627 LOADK                            R19 K223 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Error.png"]
+      628 SETTABLE                         R19 R17 R18
+      629 GETTABLEKS                       R18 R4 K30 ["SuccessIconSolid"]
+      631 LOADK                            R19 K224 ["rbxasset://studio_svg_textures/Shared/Alerts/Dark/Standard/Success.png"]
+      632 SETTABLE                         R19 R17 R18
+      633 GETTABLEKS                       R18 R4 K225 ["DefaultBackgroundOverride"]
+      635 GETIMPORT                        R19 K227 [Color3.fromHex]
+      637 LOADK                            R20 K228 ["#2C2C2C"]
+      638 CALL                             R19 1 1
+      639 SETTABLE                         R19 R17 R18
+      640 GETTABLEKS                       R18 R4 K229 ["OnHoverBackgroundOverride"]
+      642 GETIMPORT                        R19 K227 [Color3.fromHex]
+      644 LOADK                            R20 K230 ["#565656"]
+      645 CALL                             R19 1 1
+      646 SETTABLE                         R19 R17 R18
+      647 NEWTABLE                         R18 16 0
+      649 GETTABLEKS                       R19 R4 K213 ["RefreshImage"]
+      651 LOADK                            R20 K231 ["rbxasset://textures/GameSettings/refresh_light_theme.png"]
+      652 SETTABLE                         R20 R18 R19
+      653 GETTABLEKS                       R19 R4 K117 ["ResetCameraImage"]
+      655 LOADK                            R20 K232 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/CameraReset.png"]
+      656 SETTABLE                         R20 R18 R19
+      657 GETTABLEKS                       R19 R4 K119 ["ShowRigVisualizationImage"]
+      659 LOADK                            R20 K233 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/RigVisualization.png"]
+      660 SETTABLE                         R20 R18 R19
+      661 GETTABLEKS                       R19 R4 K118 ["ShowWorkspaceImage"]
+      663 LOADK                            R20 K234 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/WorkspacePreview.png"]
+      664 SETTABLE                         R20 R18 R19
+      665 GETTABLEKS                       R19 R4 K102 ["MenuImage"]
+      667 LOADK                            R20 K235 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/OptionsDots.png"]
+      668 SETTABLE                         R20 R18 R19
+      669 GETTABLEKS                       R19 R4 K219 ["OpenImage"]
+      671 LOADK                            R20 K236 ["rbxasset://studio_svg_textures/Lua/FileSync/Light/Standard/Open.png"]
+      672 SETTABLE                         R20 R18 R19
+      673 GETTABLEKS                       R19 R4 K221 ["CleanupImage"]
+      675 LOADK                            R20 K237 ["rbxasset://studio_svg_textures/Shared/InsertableObjects/Light/Standard/Cleanup.png"]
+      676 SETTABLE                         R20 R18 R19
+      677 GETTABLEKS                       R19 R4 K29 ["ErrorIconSolid"]
+      679 LOADK                            R20 K238 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Error.png"]
+      680 SETTABLE                         R20 R18 R19
+      681 GETTABLEKS                       R19 R4 K30 ["SuccessIconSolid"]
+      683 LOADK                            R20 K239 ["rbxasset://studio_svg_textures/Shared/Alerts/Light/Standard/Success.png"]
+      684 SETTABLE                         R20 R18 R19
+      685 GETTABLEKS                       R19 R4 K225 ["DefaultBackgroundOverride"]
+      687 GETIMPORT                        R20 K227 [Color3.fromHex]
+      689 LOADK                            R21 K240 ["#F6F6F6"]
+      690 CALL                             R20 1 1
+      691 SETTABLE                         R20 R18 R19
+      692 GETTABLEKS                       R19 R4 K229 ["OnHoverBackgroundOverride"]
+      694 GETIMPORT                        R20 K227 [Color3.fromHex]
+      696 LOADK                            R21 K241 ["#E1E1E1"]
+      697 CALL                             R20 1 1
+      698 SETTABLE                         R20 R18 R19
+      699 DUPCLOSURE                       R19 K242 [PROTO_0]
+      700 CAPTURE                          VAL R7
+      701 CAPTURE                          VAL R17
+      702 CAPTURE                          VAL R18
+      703 CAPTURE                          VAL R16
+      704 RETURN                           R19 1

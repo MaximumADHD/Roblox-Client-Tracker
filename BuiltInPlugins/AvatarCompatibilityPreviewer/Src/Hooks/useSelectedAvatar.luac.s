@@ -86,32 +86,28 @@ PROTO_5:
        34 NEWTABLE                         R2 0 1
        36 GETUPVAL                         R3 0
        37 SETLIST                          R2 R3 1 [1]
-       39 DUPTABLE                         R3 K6 [{"ignoreUniformScaleChanges", "ignoreAccessories"}]
-       40 LOADB                            R4 1
-       41 SETTABLEKS                       R4 R3 K4 ["ignoreUniformScaleChanges"]
-       43 LOADB                            R4 1
-       44 SETTABLEKS                       R4 R3 K5 ["ignoreAccessories"]
-       46 CALL                             R1 2 1
-       47 DUPTABLE                         R2 K9 [{"originalDummy", "relativeScale", "hash"}]
-       48 GETUPVAL                         R3 0
-       49 SETTABLEKS                       R3 R2 K1 ["originalDummy"]
-       51 GETTABLEKS                       R3 R1 K7 ["relativeScale"]
-       53 SETTABLEKS                       R3 R2 K7 ["relativeScale"]
-       55 GETUPVAL                         R3 6
-       56 GETTABLEKS                       R3 R3 K10 ["hashCharacter"]
-       58 GETUPVAL                         R4 0
-       59 MOVE                             R5 R1
-       60 CALL                             R3 2 1
-       61 SETTABLEKS                       R3 R2 K8 ["hash"]
-       63 MOVE                             R3 R2
-       64 LOADNIL                          R4
-       65 LOADNIL                          R5
-       66 FORGPREP                         R3
-       67 GETTABLE                         R8 R0 R6
-       68 JUMPIFEQ                         R8 R7 ; [+2]
-       70 RETURN                           R2 1
-       71 FORGLOOP                         R3 2 ; [-5]
-       73 RETURN                           R0 1
+       39 DUPTABLE                         R3 K7 [{["ignoreUniformScaleChanges"] = True, ["ignoreAccessories"] = True}]
+       40 CALL                             R1 2 1
+       41 DUPTABLE                         R2 K10 [{"originalDummy", "relativeScale", "hash"}]
+       42 GETUPVAL                         R3 0
+       43 SETTABLEKS                       R3 R2 K1 ["originalDummy"]
+       45 GETTABLEKS                       R3 R1 K8 ["relativeScale"]
+       47 SETTABLEKS                       R3 R2 K8 ["relativeScale"]
+       49 GETUPVAL                         R3 6
+       50 GETTABLEKS                       R3 R3 K11 ["hashCharacter"]
+       52 GETUPVAL                         R4 0
+       53 MOVE                             R5 R1
+       54 CALL                             R3 2 1
+       55 SETTABLEKS                       R3 R2 K9 ["hash"]
+       57 MOVE                             R3 R2
+       58 LOADNIL                          R4
+       59 LOADNIL                          R5
+       60 FORGPREP                         R3
+       61 GETTABLE                         R8 R0 R6
+       62 JUMPIFEQ                         R8 R7 ; [+2]
+       64 RETURN                           R2 1
+       65 FORGLOOP                         R3 2 ; [-5]
+       67 RETURN                           R0 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

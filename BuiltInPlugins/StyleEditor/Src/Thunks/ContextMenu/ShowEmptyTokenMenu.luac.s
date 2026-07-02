@@ -17,40 +17,36 @@ PROTO_1:
        11 LOADB                            R4 0 +1
        12 LOADB                            R4 1
        13 NEWTABLE                         R5 0 1
-       15 DUPTABLE                         R6 K9 [{"Id", "Text", "Enabled", "Icon", "OnItemClicked"}]
-       16 LOADK                            R7 K10 ["Paste"]
-       17 SETTABLEKS                       R7 R6 K4 ["Id"]
-       19 LOADK                            R9 K11 ["ContextMenu"]
-       20 LOADK                            R10 K10 ["Paste"]
-       21 NAMECALL                         R7 R3 K12 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K5 ["Text"]
-       26 SETTABLEKS                       R4 R6 K6 ["Enabled"]
-       28 GETUPVAL                         R7 0
-       29 GETTABLEKS                       R7 R7 K13 ["paste"]
-       31 CALL                             R7 0 1
-       32 SETTABLEKS                       R7 R6 K7 ["Icon"]
-       34 NEWCLOSURE                       R7 P0
-       35 CAPTURE                          VAL R0
-       36 CAPTURE                          UPVAL U1
-       37 CAPTURE                          UPVAL U2
-       38 SETTABLEKS                       R7 R6 K8 ["OnItemClicked"]
-       40 SETLIST                          R5 R6 1 [1]
-       42 DUPTABLE                         R6 K15 [{"Id", "Children"}]
-       43 LOADK                            R7 K16 ["Token_Empty"]
-       44 SETTABLEKS                       R7 R6 K4 ["Id"]
-       46 SETTABLEKS                       R5 R6 K14 ["Children"]
-       48 GETUPVAL                         R7 3
-       49 GETTABLEKS                       R7 R7 K17 ["trackClicks"]
-       51 MOVE                             R8 R6
-       52 GETTABLEKS                       R9 R1 K18 ["Telemetry"]
-       54 CALL                             R7 2 0
-       55 GETUPVAL                         R7 3
-       56 GETTABLEKS                       R7 R7 K19 ["showContextMenu"]
-       58 GETTABLEKS                       R8 R1 K20 ["Plugin"]
-       60 MOVE                             R9 R6
-       61 CALL                             R7 2 0
-       62 RETURN                           R0 0
+       15 DUPTABLE                         R6 K10 [{["Id"] = "Paste", ["Text"], ["Enabled"], ["Icon"], ["OnItemClicked"]}]
+       16 LOADK                            R9 K11 ["ContextMenu"]
+       17 LOADK                            R10 K5 ["Paste"]
+       18 NAMECALL                         R7 R3 K12 ["getText"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K6 ["Text"]
+       23 SETTABLEKS                       R4 R6 K7 ["Enabled"]
+       25 GETUPVAL                         R7 0
+       26 GETTABLEKS                       R7 R7 K13 ["paste"]
+       28 CALL                             R7 0 1
+       29 SETTABLEKS                       R7 R6 K8 ["Icon"]
+       31 NEWCLOSURE                       R7 P0
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U1
+       34 CAPTURE                          UPVAL U2
+       35 SETTABLEKS                       R7 R6 K9 ["OnItemClicked"]
+       37 SETLIST                          R5 R6 1 [1]
+       39 DUPTABLE                         R6 K16 [{["Id"] = "Token_Empty", ["Children"]}]
+       40 SETTABLEKS                       R5 R6 K15 ["Children"]
+       42 GETUPVAL                         R7 3
+       43 GETTABLEKS                       R7 R7 K17 ["trackClicks"]
+       45 MOVE                             R8 R6
+       46 GETTABLEKS                       R9 R1 K18 ["Telemetry"]
+       48 CALL                             R7 2 0
+       49 GETUPVAL                         R7 3
+       50 GETTABLEKS                       R7 R7 K19 ["showContextMenu"]
+       52 GETTABLEKS                       R8 R1 K20 ["Plugin"]
+       54 MOVE                             R9 R6
+       55 CALL                             R7 2 0
+       56 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0

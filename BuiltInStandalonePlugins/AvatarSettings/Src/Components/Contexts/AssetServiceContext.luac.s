@@ -13,14 +13,12 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETTABLEKS                       R3 R3 K10 ["createUnimplemented"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K13 [{"default", "getBundleDetailsAsync"}]
-       24 LOADB                            R4 1
-       25 SETTABLEKS                       R4 R3 K11 ["default"]
-       27 MOVE                             R4 R2
-       28 LOADK                            R5 K12 ["getBundleDetailsAsync"]
-       29 CALL                             R4 1 1
-       30 SETTABLEKS                       R4 R3 K12 ["getBundleDetailsAsync"]
-       32 GETTABLEKS                       R4 R1 K14 ["createContext"]
-       34 MOVE                             R5 R3
-       35 CALL                             R4 1 1
-       36 RETURN                           R4 1
+       23 DUPTABLE                         R3 K14 [{["default"] = True, ["getBundleDetailsAsync"]}]
+       24 MOVE                             R4 R2
+       25 LOADK                            R5 K13 ["getBundleDetailsAsync"]
+       26 CALL                             R4 1 1
+       27 SETTABLEKS                       R4 R3 K13 ["getBundleDetailsAsync"]
+       29 GETTABLEKS                       R4 R1 K15 ["createContext"]
+       31 MOVE                             R5 R3
+       32 CALL                             R4 1 1
+       33 RETURN                           R4 1

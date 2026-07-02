@@ -1,8 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K1 [{"sortSelection"}]
-        1 LOADNIL                          R1
-        2 SETTABLEKS                       R1 R0 K0 ["sortSelection"]
-        4 RETURN                           R0 1
+        0 DUPTABLE                         R0 K2 [{[1] = }]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0
@@ -36,13 +34,11 @@ MAIN:
        29 CALL                             R4 1 1
        30 DUPCLOSURE                       R5 K12 [PROTO_0]
        31 GETTABLEKS                       R6 R1 K13 ["createReducer"]
-       33 DUPTABLE                         R7 K15 [{"sortSelection"}]
-       34 LOADNIL                          R8
-       35 SETTABLEKS                       R8 R7 K14 ["sortSelection"]
-       37 NEWTABLE                         R8 1 0
-       39 GETTABLEKS                       R9 R4 K16 ["name"]
-       41 DUPCLOSURE                       R10 K17 [PROTO_1]
-       42 CAPTURE                          VAL R2
-       43 SETTABLE                         R10 R8 R9
-       44 CALL                             R6 2 1
-       45 RETURN                           R6 1
+       33 DUPTABLE                         R7 K16 [{["sortSelection"] = }]
+       34 NEWTABLE                         R8 1 0
+       36 GETTABLEKS                       R9 R4 K17 ["name"]
+       38 DUPCLOSURE                       R10 K18 [PROTO_1]
+       39 CAPTURE                          VAL R2
+       40 SETTABLE                         R10 R8 R9
+       41 CALL                             R6 2 1
+       42 RETURN                           R6 1

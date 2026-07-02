@@ -12,7 +12,7 @@ PROTO_0:
        13 ADDK                             R9 R3 K3 [7]
        14 MUL                              R7 R8 R9
        15 ADD                              R5 R6 R7
-       16 SUBRK                            R7 R3 K2 ["Z"]
+       16 SUBRK                            R7 K3 [7] R2
        17 GETUPVAL                         R9 0
        18 ADD                              R8 R9 R3
        19 MUL                              R6 R7 R8
@@ -52,7 +52,7 @@ PROTO_1:
         4 CALL                             R2 1 0
         5 NEWTABLE                         R1 0 0
         7 LOADN                            R4 1
-        8 LOADN                            R2 231
+        8 LOADN                            R2 999
         9 LOADN                            R3 1
        10 FORNPREP                         R2
        11 MOVE                             R6 R1

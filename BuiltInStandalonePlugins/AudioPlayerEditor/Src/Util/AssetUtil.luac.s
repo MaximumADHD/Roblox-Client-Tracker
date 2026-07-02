@@ -60,67 +60,63 @@ PROTO_2:
         0 LOADK                            R3 K0 ["Sound"]
         1 NAMECALL                         R1 R0 K1 ["IsA"]
         3 CALL                             R1 2 1
-        4 JUMPIFNOT                        R1 ; [+54]
-        5 DUPTABLE                         R1 K10 [{"Type", "AssetId", "Volume", "PlaybackSpeed", "Looping", "PlaybackRegion", "LoopRegion", "TimePosition"}]
-        6 LOADK                            R2 K0 ["Sound"]
-        7 SETTABLEKS                       R2 R1 K2 ["Type"]
-        9 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
-       11 GETTABLEKS                       R3 R3 K13 ["Uri"]
-       13 ORK                              R2 R3 K11 [""]
-       14 SETTABLEKS                       R2 R1 K3 ["AssetId"]
-       16 GETTABLEKS                       R2 R0 K4 ["Volume"]
-       18 SETTABLEKS                       R2 R1 K4 ["Volume"]
-       20 GETTABLEKS                       R2 R0 K5 ["PlaybackSpeed"]
-       22 SETTABLEKS                       R2 R1 K5 ["PlaybackSpeed"]
-       24 GETTABLEKS                       R2 R0 K14 ["Looped"]
-       26 SETTABLEKS                       R2 R1 K6 ["Looping"]
-       28 GETTABLEKS                       R3 R0 K15 ["PlaybackRegionsEnabled"]
-       30 JUMPIFNOT                        R3 ; [+3]
-       31 GETTABLEKS                       R2 R0 K7 ["PlaybackRegion"]
-       33 JUMP                             ; [+5]
-       34 GETIMPORT                        R2 K18 [NumberRange.new]
-       36 LOADN                            R3 0
-       37 LOADK                            R4 K19 [60000]
-       38 CALL                             R2 2 1
-       39 SETTABLEKS                       R2 R1 K7 ["PlaybackRegion"]
-       41 GETTABLEKS                       R3 R0 K15 ["PlaybackRegionsEnabled"]
-       43 JUMPIFNOT                        R3 ; [+3]
-       44 GETTABLEKS                       R2 R0 K8 ["LoopRegion"]
-       46 JUMP                             ; [+5]
-       47 GETIMPORT                        R2 K18 [NumberRange.new]
-       49 LOADN                            R3 0
-       50 LOADK                            R4 K19 [60000]
-       51 CALL                             R2 2 1
-       52 SETTABLEKS                       R2 R1 K8 ["LoopRegion"]
-       54 GETTABLEKS                       R2 R0 K9 ["TimePosition"]
-       56 SETTABLEKS                       R2 R1 K9 ["TimePosition"]
-       58 RETURN                           R1 1
-       59 LOADK                            R3 K20 ["AudioPlayer"]
-       60 NAMECALL                         R1 R0 K1 ["IsA"]
-       62 CALL                             R1 2 1
-       63 JUMPIFNOT                        R1 ; [+36]
-       64 DUPTABLE                         R1 K10 [{"Type", "AssetId", "Volume", "PlaybackSpeed", "Looping", "PlaybackRegion", "LoopRegion", "TimePosition"}]
-       65 LOADK                            R2 K20 ["AudioPlayer"]
-       66 SETTABLEKS                       R2 R1 K2 ["Type"]
-       68 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
-       70 GETTABLEKS                       R3 R3 K13 ["Uri"]
-       72 ORK                              R2 R3 K11 [""]
-       73 SETTABLEKS                       R2 R1 K3 ["AssetId"]
-       75 GETTABLEKS                       R2 R0 K4 ["Volume"]
-       77 SETTABLEKS                       R2 R1 K4 ["Volume"]
-       79 GETTABLEKS                       R2 R0 K5 ["PlaybackSpeed"]
-       81 SETTABLEKS                       R2 R1 K5 ["PlaybackSpeed"]
-       83 GETTABLEKS                       R2 R0 K6 ["Looping"]
-       85 SETTABLEKS                       R2 R1 K6 ["Looping"]
-       87 GETTABLEKS                       R2 R0 K7 ["PlaybackRegion"]
-       89 SETTABLEKS                       R2 R1 K7 ["PlaybackRegion"]
-       91 GETTABLEKS                       R2 R0 K8 ["LoopRegion"]
-       93 SETTABLEKS                       R2 R1 K8 ["LoopRegion"]
-       95 GETTABLEKS                       R2 R0 K9 ["TimePosition"]
-       97 SETTABLEKS                       R2 R1 K9 ["TimePosition"]
-       99 RETURN                           R1 1
-      100 LOADNIL                          R1
-      101 RETURN                           R1 1
+        4 JUMPIFNOT                        R1 ; [+51]
+        5 DUPTABLE                         R1 K10 [{["Type"] = "Sound", ["AssetId"], ["Volume"], ["PlaybackSpeed"], ["Looping"], ["PlaybackRegion"], ["LoopRegion"], ["TimePosition"]}]
+        6 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
+        8 GETTABLEKS                       R3 R3 K13 ["Uri"]
+       10 ORK                              R2 R3 K11 [""]
+       11 SETTABLEKS                       R2 R1 K3 ["AssetId"]
+       13 GETTABLEKS                       R2 R0 K4 ["Volume"]
+       15 SETTABLEKS                       R2 R1 K4 ["Volume"]
+       17 GETTABLEKS                       R2 R0 K5 ["PlaybackSpeed"]
+       19 SETTABLEKS                       R2 R1 K5 ["PlaybackSpeed"]
+       21 GETTABLEKS                       R2 R0 K14 ["Looped"]
+       23 SETTABLEKS                       R2 R1 K6 ["Looping"]
+       25 GETTABLEKS                       R3 R0 K15 ["PlaybackRegionsEnabled"]
+       27 JUMPIFNOT                        R3 ; [+3]
+       28 GETTABLEKS                       R2 R0 K7 ["PlaybackRegion"]
+       30 JUMP                             ; [+5]
+       31 GETIMPORT                        R2 K18 [NumberRange.new]
+       33 LOADN                            R3 0
+       34 LOADK                            R4 K19 [60000]
+       35 CALL                             R2 2 1
+       36 SETTABLEKS                       R2 R1 K7 ["PlaybackRegion"]
+       38 GETTABLEKS                       R3 R0 K15 ["PlaybackRegionsEnabled"]
+       40 JUMPIFNOT                        R3 ; [+3]
+       41 GETTABLEKS                       R2 R0 K8 ["LoopRegion"]
+       43 JUMP                             ; [+5]
+       44 GETIMPORT                        R2 K18 [NumberRange.new]
+       46 LOADN                            R3 0
+       47 LOADK                            R4 K19 [60000]
+       48 CALL                             R2 2 1
+       49 SETTABLEKS                       R2 R1 K8 ["LoopRegion"]
+       51 GETTABLEKS                       R2 R0 K9 ["TimePosition"]
+       53 SETTABLEKS                       R2 R1 K9 ["TimePosition"]
+       55 RETURN                           R1 1
+       56 LOADK                            R3 K20 ["AudioPlayer"]
+       57 NAMECALL                         R1 R0 K1 ["IsA"]
+       59 CALL                             R1 2 1
+       60 JUMPIFNOT                        R1 ; [+33]
+       61 DUPTABLE                         R1 K21 [{["Type"] = "AudioPlayer", ["AssetId"], ["Volume"], ["PlaybackSpeed"], ["Looping"], ["PlaybackRegion"], ["LoopRegion"], ["TimePosition"]}]
+       62 GETTABLEKS                       R3 R0 K12 ["AudioContent"]
+       64 GETTABLEKS                       R3 R3 K13 ["Uri"]
+       66 ORK                              R2 R3 K11 [""]
+       67 SETTABLEKS                       R2 R1 K3 ["AssetId"]
+       69 GETTABLEKS                       R2 R0 K4 ["Volume"]
+       71 SETTABLEKS                       R2 R1 K4 ["Volume"]
+       73 GETTABLEKS                       R2 R0 K5 ["PlaybackSpeed"]
+       75 SETTABLEKS                       R2 R1 K5 ["PlaybackSpeed"]
+       77 GETTABLEKS                       R2 R0 K6 ["Looping"]
+       79 SETTABLEKS                       R2 R1 K6 ["Looping"]
+       81 GETTABLEKS                       R2 R0 K7 ["PlaybackRegion"]
+       83 SETTABLEKS                       R2 R1 K7 ["PlaybackRegion"]
+       85 GETTABLEKS                       R2 R0 K8 ["LoopRegion"]
+       87 SETTABLEKS                       R2 R1 K8 ["LoopRegion"]
+       89 GETTABLEKS                       R2 R0 K9 ["TimePosition"]
+       91 SETTABLEKS                       R2 R1 K9 ["TimePosition"]
+       93 RETURN                           R1 1
+       94 LOADNIL                          R1
+       95 RETURN                           R1 1
 
 PROTO_3:
         0 LOADK                            R4 K0 ["Sound"]
@@ -668,7 +664,7 @@ PROTO_6:
         6 CALL                             R1 2 0
         7 LENGTH                           R3 R0
         8 LOADN                            R1 1
-        9 LOADN                            R2 255
+        9 LOADN                            R2 -1
        10 FORNPREP                         R1
        11 GETTABLE                         R4 R0 R3
        12 JUMPIFNOT                        R4 ; [+10]
@@ -777,6 +773,109 @@ PROTO_9:
         8 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onOpen"]
+        3 GETUPVAL                         R1 1
+        4 NAMECALL                         R1 R1 K1 ["Get"]
+        6 CALL                             R1 1 -1
+        7 CALL                             R0 -1 0
+        8 RETURN                           R0 0
+
+PROTO_11:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["onOpen"]
+        3 GETUPVAL                         R1 1
+        4 NAMECALL                         R1 R1 K1 ["Get"]
+        6 CALL                             R1 1 -1
+        7 CALL                             R0 -1 0
+        8 RETURN                           R0 0
+
+PROTO_12:
+        0 SETUPVAL                         R0 0
+        1 GETUPVAL                         R2 0
+        2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        4 LOADK                            R3 K0 ["plugin was nil"]
+        5 GETIMPORT                        R1 K2 [assert]
+        7 CALL                             R1 2 0
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R1 R1 K3 ["HostDataModelType"]
+       11 JUMPIF                           R1 ; [+2]
+       12 GETIMPORT                        R1 K7 [Enum.StudioDataModelType.Edit]
+       14 GETIMPORT                        R2 K7 [Enum.StudioDataModelType.Edit]
+       16 JUMPIFNOTEQ                      R1 R2 ; [+10]
+       18 GETUPVAL                         R2 0
+       19 LOADK                            R4 K8 ["OnOpenEdit"]
+       20 DUPCLOSURE                       R5 K9 [PROTO_9]
+       21 CAPTURE                          UPVAL U1
+       22 CAPTURE                          UPVAL U2
+       23 NAMECALL                         R2 R2 K10 ["OnInvoke"]
+       25 CALL                             R2 3 0
+       26 JUMP                             ; [+25]
+       27 GETIMPORT                        R2 K12 [Enum.StudioDataModelType.PlayClient]
+       29 JUMPIFNOTEQ                      R1 R2 ; [+10]
+       31 GETUPVAL                         R2 0
+       32 LOADK                            R4 K13 ["OnOpenPlayClient"]
+       33 DUPCLOSURE                       R5 K14 [PROTO_10]
+       34 CAPTURE                          UPVAL U1
+       35 CAPTURE                          UPVAL U2
+       36 NAMECALL                         R2 R2 K10 ["OnInvoke"]
+       38 CALL                             R2 3 0
+       39 JUMP                             ; [+12]
+       40 GETIMPORT                        R2 K16 [Enum.StudioDataModelType.PlayServer]
+       42 JUMPIFNOTEQ                      R1 R2 ; [+9]
+       44 GETUPVAL                         R2 0
+       45 LOADK                            R4 K17 ["OnOpenPlayServer"]
+       46 DUPCLOSURE                       R5 K18 [PROTO_11]
+       47 CAPTURE                          UPVAL U1
+       48 CAPTURE                          UPVAL U2
+       49 NAMECALL                         R2 R2 K10 ["OnInvoke"]
+       51 CALL                             R2 3 0
+       52 GETUPVAL                         R2 0
+       53 LOADK                            R4 K19 ["OnEdit"]
+       54 GETUPVAL                         R5 1
+       55 GETTABLEKS                       R5 R5 K20 ["onEdit"]
+       57 NAMECALL                         R2 R2 K10 ["OnInvoke"]
+       59 CALL                             R2 3 0
+       60 GETUPVAL                         R2 0
+       61 LOADK                            R4 K21 ["OnStopEditing"]
+       62 GETUPVAL                         R5 1
+       63 GETTABLEKS                       R5 R5 K22 ["onStopEditing"]
+       65 NAMECALL                         R2 R2 K10 ["OnInvoke"]
+       67 CALL                             R2 3 0
+       68 RETURN                           R0 0
+
+PROTO_13:
+        0 GETUPVAL                         R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["MultipleDocumentInterfaceInstance"]
+        3 MOVE                             R1 R0
+        4 JUMPIFNOT                        R1 ; [+2]
+        5 GETTABLEKS                       R1 R0 K1 ["FocusedDataModelSession"]
+        7 GETIMPORT                        R2 K5 [Enum.StudioDataModelType.Edit]
+        9 JUMPIFNOT                        R1 ; [+2]
+       10 GETTABLEKS                       R2 R1 K6 ["CurrentDataModelType"]
+       12 GETIMPORT                        R3 K5 [Enum.StudioDataModelType.Edit]
+       14 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       16 GETUPVAL                         R3 0
+       17 LOADK                            R5 K7 ["OnOpenEdit"]
+       18 NAMECALL                         R3 R3 K8 ["Invoke"]
+       20 CALL                             R3 2 0
+       21 RETURN                           R0 0
+       22 GETIMPORT                        R3 K10 [Enum.StudioDataModelType.PlayClient]
+       24 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       26 GETUPVAL                         R3 0
+       27 LOADK                            R5 K11 ["OnOpenPlayClient"]
+       28 NAMECALL                         R3 R3 K8 ["Invoke"]
+       30 CALL                             R3 2 0
+       31 RETURN                           R0 0
+       32 GETIMPORT                        R3 K13 [Enum.StudioDataModelType.PlayServer]
+       34 JUMPIFNOTEQ                      R2 R3 ; [+6]
+       36 GETUPVAL                         R3 0
+       37 LOADK                            R5 K14 ["OnOpenPlayServer"]
+       38 NAMECALL                         R3 R3 K8 ["Invoke"]
+       40 CALL                             R3 2 0
+       41 RETURN                           R0 0
+
+PROTO_14:
         0 SETUPVAL                         R0 0
         1 GETUPVAL                         R2 0
         2 FASTCALL2K                       ASSERT R2 K0 ; [+4]
@@ -790,47 +889,22 @@ PROTO_10:
        13 LOADK                            R4 K4 ["Actions"]
        14 NAMECALL                         R2 R2 K5 ["GetPluginComponent"]
        16 CALL                             R2 2 1
-       17 DUPTABLE                         R5 K11 [{"Uri", "Enabled", "Visible", "IsCheckable", "Checked"}]
+       17 DUPTABLE                         R5 K13 [{["Uri"], ["Enabled"] = True, ["Visible"] = False, ["IsCheckable"] = True, ["Checked"] = False}]
        18 GETUPVAL                         R6 1
-       19 GETTABLEKS                       R6 R6 K12 ["join"]
+       19 GETTABLEKS                       R6 R6 K14 ["join"]
        21 MOVE                             R7 R1
-       22 DUPTABLE                         R8 K15 [{"Category", "ItemId"}]
-       23 LOADK                            R9 K4 ["Actions"]
-       24 SETTABLEKS                       R9 R8 K13 ["Category"]
-       26 LOADK                            R9 K16 ["Toggle"]
-       27 SETTABLEKS                       R9 R8 K14 ["ItemId"]
-       29 CALL                             R6 2 1
-       30 SETTABLEKS                       R6 R5 K6 ["Uri"]
-       32 LOADB                            R6 1
-       33 SETTABLEKS                       R6 R5 K7 ["Enabled"]
-       35 LOADB                            R6 0
-       36 SETTABLEKS                       R6 R5 K8 ["Visible"]
-       38 LOADB                            R6 1
-       39 SETTABLEKS                       R6 R5 K9 ["IsCheckable"]
-       41 LOADB                            R6 0
-       42 SETTABLEKS                       R6 R5 K10 ["Checked"]
-       44 LOADB                            R6 1
-       45 NAMECALL                         R3 R2 K17 ["CreateAsync"]
-       47 CALL                             R3 3 1
-       48 GETTABLEN                        R4 R3 1
-       49 DUPCLOSURE                       R6 K18 [PROTO_9]
-       50 CAPTURE                          UPVAL U2
-       51 CAPTURE                          UPVAL U3
-       52 NAMECALL                         R4 R4 K19 ["Connect"]
-       54 CALL                             R4 2 0
-       55 GETUPVAL                         R4 0
-       56 LOADK                            R6 K20 ["OnEdit"]
-       57 GETUPVAL                         R7 2
-       58 GETTABLEKS                       R7 R7 K21 ["onEdit"]
-       60 NAMECALL                         R4 R4 K22 ["OnInvoke"]
-       62 CALL                             R4 3 0
-       63 GETUPVAL                         R4 0
-       64 LOADK                            R6 K23 ["OnStopEditing"]
-       65 GETUPVAL                         R7 2
-       66 GETTABLEKS                       R7 R7 K24 ["onStopEditing"]
-       68 NAMECALL                         R4 R4 K22 ["OnInvoke"]
-       70 CALL                             R4 3 0
-       71 RETURN                           R0 0
+       22 DUPTABLE                         R8 K18 [{["Category"] = "Actions", ["ItemId"] = "Toggle"}]
+       23 CALL                             R6 2 1
+       24 SETTABLEKS                       R6 R5 K6 ["Uri"]
+       26 LOADB                            R6 1
+       27 NAMECALL                         R3 R2 K19 ["CreateAsync"]
+       29 CALL                             R3 3 1
+       30 GETTABLEN                        R4 R3 1
+       31 NEWCLOSURE                       R6 P0
+       32 CAPTURE                          UPVAL U0
+       33 NAMECALL                         R4 R4 K20 ["Connect"]
+       35 CALL                             R4 2 0
+       36 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0
@@ -892,9 +966,12 @@ MAIN:
        79 SETTABLEKS                       R13 R6 K26 ["onStopEditing"]
        81 NEWCLOSURE                       R13 P8
        82 CAPTURE                          REF R7
-       83 CAPTURE                          VAL R2
-       84 CAPTURE                          VAL R6
-       85 CAPTURE                          VAL R5
-       86 SETTABLEKS                       R13 R6 K27 ["setup"]
-       88 CLOSEUPVALS                      R7
-       89 RETURN                           R6 1
+       83 CAPTURE                          VAL R6
+       84 CAPTURE                          VAL R5
+       85 SETTABLEKS                       R13 R6 K27 ["setup"]
+       87 NEWCLOSURE                       R13 P9
+       88 CAPTURE                          REF R7
+       89 CAPTURE                          VAL R2
+       90 SETTABLEKS                       R13 R6 K28 ["setupStandalone"]
+       92 CLOSEUPVALS                      R7
+       93 RETURN                           R6 1

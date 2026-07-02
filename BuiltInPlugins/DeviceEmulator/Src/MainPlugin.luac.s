@@ -26,12 +26,10 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -66,59 +64,55 @@ PROTO_7:
         2 RETURN                           R0 1
 
 PROTO_8:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       14 NEWCLOSURE                       R2 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       18 NEWCLOSURE                       R2 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K6 ["onDockWidgetCreated"]
-       22 NEWCLOSURE                       R2 P4
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
-       26 GETUPVAL                         R2 0
-       27 GETTABLEKS                       R2 R2 K8 ["Localization"]
-       29 GETTABLEKS                       R2 R2 K9 ["new"]
-       31 DUPTABLE                         R3 K13 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       32 GETUPVAL                         R4 1
-       33 SETTABLEKS                       R4 R3 K10 ["stringResourceTable"]
-       35 GETUPVAL                         R4 2
-       36 SETTABLEKS                       R4 R3 K11 ["translationResourceTable"]
-       38 LOADK                            R4 K14 ["DeviceEmulator"]
-       39 SETTABLEKS                       R4 R3 K12 ["pluginName"]
-       41 CALL                             R2 1 1
-       42 SETTABLEKS                       R2 R0 K15 ["localization"]
-       44 GETUPVAL                         R2 0
-       45 GETTABLEKS                       R2 R2 K16 ["Analytics"]
-       47 GETTABLEKS                       R2 R2 K9 ["new"]
-       49 DUPCLOSURE                       R3 K17 [PROTO_7]
-       50 NEWTABLE                         R4 0 0
-       52 CALL                             R2 2 1
-       53 SETTABLEKS                       R2 R0 K18 ["analytics"]
-       55 GETIMPORT                        R2 K20 [game]
-       57 LOADK                            R4 K21 ["StudioEnableMultiTouchGestureEmulation"]
-       58 NAMECALL                         R2 R2 K22 ["GetFastFlag"]
-       60 CALL                             R2 2 1
-       61 JUMPIFNOT                        R2 ; [+6]
-       62 GETIMPORT                        R2 K20 [game]
-       64 LOADK                            R4 K23 ["StudioUnlockMouseWhenEmulating"]
-       65 NAMECALL                         R2 R2 K22 ["GetFastFlag"]
-       67 CALL                             R2 2 1
-       68 JUMPIFNOT                        R2 ; [+6]
-       69 GETUPVAL                         R2 3
-       70 GETTABLEKS                       R2 R2 K9 ["new"]
-       72 CALL                             R2 0 1
-       73 SETTABLEKS                       R2 R0 K24 ["multiTouchController"]
-       75 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K7 ["onDockWidgetCreated"]
+       19 NEWCLOSURE                       R2 P4
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R2 R0 K8 ["onWidgetEnabledChanged"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K9 ["Localization"]
+       26 GETTABLEKS                       R2 R2 K10 ["new"]
+       28 DUPTABLE                         R3 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "DeviceEmulator"}]
+       29 GETUPVAL                         R4 1
+       30 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
+       32 GETUPVAL                         R4 2
+       33 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
+       35 CALL                             R2 1 1
+       36 SETTABLEKS                       R2 R0 K16 ["localization"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K17 ["Analytics"]
+       41 GETTABLEKS                       R2 R2 K10 ["new"]
+       43 DUPCLOSURE                       R3 K18 [PROTO_7]
+       44 NEWTABLE                         R4 0 0
+       46 CALL                             R2 2 1
+       47 SETTABLEKS                       R2 R0 K19 ["analytics"]
+       49 GETIMPORT                        R2 K21 [game]
+       51 LOADK                            R4 K22 ["StudioEnableMultiTouchGestureEmulation"]
+       52 NAMECALL                         R2 R2 K23 ["GetFastFlag"]
+       54 CALL                             R2 2 1
+       55 JUMPIFNOT                        R2 ; [+6]
+       56 GETIMPORT                        R2 K21 [game]
+       58 LOADK                            R4 K24 ["StudioUnlockMouseWhenEmulating"]
+       59 NAMECALL                         R2 R2 K23 ["GetFastFlag"]
+       61 CALL                             R2 2 1
+       62 JUMPIFNOT                        R2 ; [+6]
+       63 GETUPVAL                         R2 3
+       64 GETTABLEKS                       R2 R2 K10 ["new"]
+       66 CALL                             R2 0 1
+       67 SETTABLEKS                       R2 R0 K25 ["multiTouchController"]
+       69 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["multiTouchController"]
@@ -209,12 +203,12 @@ PROTO_11:
       101 GETIMPORT                        R14 K32 [Enum.InitialDockState.Bottom]
       103 SETTABLEKS                       R14 R13 K30 ["InitialDockState"]
       105 GETIMPORT                        R14 K34 [Vector2.new]
-      107 LOADN                            R15 104
-      108 LOADN                            R16 164
+      107 LOADN                            R15 360
+      108 LOADN                            R16 420
       109 CALL                             R14 2 1
       110 SETTABLEKS                       R14 R13 K35 ["Size"]
       112 GETIMPORT                        R14 K34 [Vector2.new]
-      114 LOADN                            R15 44
+      114 LOADN                            R15 300
       115 LOADN                            R16 200
       116 CALL                             R14 2 1
       117 SETTABLEKS                       R14 R13 K36 ["MinSize"]
@@ -235,82 +229,76 @@ PROTO_11:
       143 GETUPVAL                         R15 0
       144 GETTABLEKS                       R15 R15 K4 ["createElement"]
       146 GETUPVAL                         R16 9
-      147 DUPTABLE                         R17 K50 [{"Style", "Size", "Position"}]
-      148 LOADK                            R18 K51 ["Box"]
-      149 SETTABLEKS                       R18 R17 K48 ["Style"]
-      151 GETIMPORT                        R18 K54 [UDim2.fromScale]
-      153 LOADN                            R19 1
-      154 LOADN                            R20 1
-      155 CALL                             R18 2 1
-      156 SETTABLEKS                       R18 R17 K35 ["Size"]
-      158 GETIMPORT                        R18 K56 [UDim2.fromOffset]
-      160 LOADN                            R19 0
-      161 LOADN                            R20 0
-      162 CALL                             R18 2 1
-      163 SETTABLEKS                       R18 R17 K49 ["Position"]
-      165 DUPTABLE                         R18 K58 [{"ScrollingFrame"}]
-      166 GETUPVAL                         R19 0
-      167 GETTABLEKS                       R19 R19 K4 ["createElement"]
-      169 GETUPVAL                         R20 10
-      170 DUPTABLE                         R21 K63 [{"AutomaticCanvasSize", "CanvasSize", "Layout", "Position", "ScrollingDirection"}]
-      171 GETIMPORT                        R22 K66 [Enum.AutomaticSize.Y]
-      173 SETTABLEKS                       R22 R21 K59 ["AutomaticCanvasSize"]
-      175 GETIMPORT                        R22 K54 [UDim2.fromScale]
-      177 LOADN                            R23 0
-      178 LOADN                            R24 0
-      179 CALL                             R22 2 1
-      180 SETTABLEKS                       R22 R21 K60 ["CanvasSize"]
-      182 GETIMPORT                        R22 K69 [Enum.FillDirection.Vertical]
-      184 SETTABLEKS                       R22 R21 K61 ["Layout"]
-      186 GETIMPORT                        R22 K54 [UDim2.fromScale]
-      188 LOADN                            R23 0
-      189 LOADN                            R24 0
-      190 CALL                             R22 2 1
-      191 SETTABLEKS                       R22 R21 K49 ["Position"]
-      193 GETIMPORT                        R22 K70 [Enum.ScrollingDirection.Y]
-      195 SETTABLEKS                       R22 R21 K62 ["ScrollingDirection"]
-      197 DUPTABLE                         R22 K72 [{"ContainerPane"}]
-      198 GETUPVAL                         R23 0
-      199 GETTABLEKS                       R23 R23 K4 ["createElement"]
-      201 GETUPVAL                         R24 9
-      202 DUPTABLE                         R25 K76 [{"AutomaticSize", "Size", "AnchorPoint", "Position", "Layout", "Padding", "Spacing"}]
-      203 GETIMPORT                        R26 K66 [Enum.AutomaticSize.Y]
-      205 SETTABLEKS                       R26 R25 K64 ["AutomaticSize"]
-      207 GETIMPORT                        R26 K54 [UDim2.fromScale]
-      209 LOADN                            R27 1
-      210 LOADN                            R28 0
-      211 CALL                             R26 2 1
-      212 SETTABLEKS                       R26 R25 K35 ["Size"]
-      214 GETIMPORT                        R26 K34 [Vector2.new]
-      216 LOADN                            R27 0
-      217 LOADN                            R28 0
-      218 CALL                             R26 2 1
-      219 SETTABLEKS                       R26 R25 K73 ["AnchorPoint"]
-      221 GETIMPORT                        R26 K54 [UDim2.fromScale]
-      223 LOADN                            R27 0
-      224 LOADN                            R28 0
-      225 CALL                             R26 2 1
-      226 SETTABLEKS                       R26 R25 K49 ["Position"]
-      228 GETIMPORT                        R26 K69 [Enum.FillDirection.Vertical]
-      230 SETTABLEKS                       R26 R25 K61 ["Layout"]
-      232 LOADN                            R26 5
-      233 SETTABLEKS                       R26 R25 K74 ["Padding"]
-      235 LOADN                            R26 5
-      236 SETTABLEKS                       R26 R25 K75 ["Spacing"]
-      238 DUPTABLE                         R26 K80 [{"GraphicsPane", "NetworkPane", "MultiTouchPane"}]
-      239 SETTABLEKS                       R5 R26 K77 ["GraphicsPane"]
-      241 SETTABLEKS                       R6 R26 K78 ["NetworkPane"]
-      243 SETTABLEKS                       R7 R26 K79 ["MultiTouchPane"]
-      245 CALL                             R23 3 1
-      246 SETTABLEKS                       R23 R22 K71 ["ContainerPane"]
-      248 CALL                             R19 3 1
-      249 SETTABLEKS                       R19 R18 K57 ["ScrollingFrame"]
-      251 CALL                             R15 3 1
-      252 SETTABLEKS                       R15 R14 K46 ["MainPane"]
-      254 CALL                             R11 3 1
-      255 SETTABLEKS                       R11 R10 K15 ["MainWidget"]
-      257 CALL                             R8 2 -1
-      258 RETURN                           R8 -1
+      147 DUPTABLE                         R17 K51 [{["Style"] = "Box", ["Size"], ["Position"]}]
+      148 GETIMPORT                        R18 K54 [UDim2.fromScale]
+      150 LOADN                            R19 1
+      151 LOADN                            R20 1
+      152 CALL                             R18 2 1
+      153 SETTABLEKS                       R18 R17 K35 ["Size"]
+      155 GETIMPORT                        R18 K56 [UDim2.fromOffset]
+      157 LOADN                            R19 0
+      158 LOADN                            R20 0
+      159 CALL                             R18 2 1
+      160 SETTABLEKS                       R18 R17 K50 ["Position"]
+      162 DUPTABLE                         R18 K58 [{"ScrollingFrame"}]
+      163 GETUPVAL                         R19 0
+      164 GETTABLEKS                       R19 R19 K4 ["createElement"]
+      166 GETUPVAL                         R20 10
+      167 DUPTABLE                         R21 K63 [{"AutomaticCanvasSize", "CanvasSize", "Layout", "Position", "ScrollingDirection"}]
+      168 GETIMPORT                        R22 K66 [Enum.AutomaticSize.Y]
+      170 SETTABLEKS                       R22 R21 K59 ["AutomaticCanvasSize"]
+      172 GETIMPORT                        R22 K54 [UDim2.fromScale]
+      174 LOADN                            R23 0
+      175 LOADN                            R24 0
+      176 CALL                             R22 2 1
+      177 SETTABLEKS                       R22 R21 K60 ["CanvasSize"]
+      179 GETIMPORT                        R22 K69 [Enum.FillDirection.Vertical]
+      181 SETTABLEKS                       R22 R21 K61 ["Layout"]
+      183 GETIMPORT                        R22 K54 [UDim2.fromScale]
+      185 LOADN                            R23 0
+      186 LOADN                            R24 0
+      187 CALL                             R22 2 1
+      188 SETTABLEKS                       R22 R21 K50 ["Position"]
+      190 GETIMPORT                        R22 K70 [Enum.ScrollingDirection.Y]
+      192 SETTABLEKS                       R22 R21 K62 ["ScrollingDirection"]
+      194 DUPTABLE                         R22 K72 [{"ContainerPane"}]
+      195 GETUPVAL                         R23 0
+      196 GETTABLEKS                       R23 R23 K4 ["createElement"]
+      198 GETUPVAL                         R24 9
+      199 DUPTABLE                         R25 K77 [{["AutomaticSize"], ["Size"], ["AnchorPoint"], ["Position"], ["Layout"], ["Padding"] = 5, ["Spacing"] = 5}]
+      200 GETIMPORT                        R26 K66 [Enum.AutomaticSize.Y]
+      202 SETTABLEKS                       R26 R25 K64 ["AutomaticSize"]
+      204 GETIMPORT                        R26 K54 [UDim2.fromScale]
+      206 LOADN                            R27 1
+      207 LOADN                            R28 0
+      208 CALL                             R26 2 1
+      209 SETTABLEKS                       R26 R25 K35 ["Size"]
+      211 GETIMPORT                        R26 K34 [Vector2.new]
+      213 LOADN                            R27 0
+      214 LOADN                            R28 0
+      215 CALL                             R26 2 1
+      216 SETTABLEKS                       R26 R25 K73 ["AnchorPoint"]
+      218 GETIMPORT                        R26 K54 [UDim2.fromScale]
+      220 LOADN                            R27 0
+      221 LOADN                            R28 0
+      222 CALL                             R26 2 1
+      223 SETTABLEKS                       R26 R25 K50 ["Position"]
+      225 GETIMPORT                        R26 K69 [Enum.FillDirection.Vertical]
+      227 SETTABLEKS                       R26 R25 K61 ["Layout"]
+      229 DUPTABLE                         R26 K81 [{"GraphicsPane", "NetworkPane", "MultiTouchPane"}]
+      230 SETTABLEKS                       R5 R26 K78 ["GraphicsPane"]
+      232 SETTABLEKS                       R6 R26 K79 ["NetworkPane"]
+      234 SETTABLEKS                       R7 R26 K80 ["MultiTouchPane"]
+      236 CALL                             R23 3 1
+      237 SETTABLEKS                       R23 R22 K71 ["ContainerPane"]
+      239 CALL                             R19 3 1
+      240 SETTABLEKS                       R19 R18 K57 ["ScrollingFrame"]
+      242 CALL                             R15 3 1
+      243 SETTABLEKS                       R15 R14 K46 ["MainPane"]
+      245 CALL                             R11 3 1
+      246 SETTABLEKS                       R11 R10 K15 ["MainWidget"]
+      248 CALL                             R8 2 -1
+      249 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

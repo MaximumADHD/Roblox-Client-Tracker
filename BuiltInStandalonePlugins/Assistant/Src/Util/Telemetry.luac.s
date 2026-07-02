@@ -24,7 +24,7 @@ PROTO_1:
         6 MOVE                             R4 R0
         7 CALL                             R3 1 1
         8 MOVE                             R2 R3
-        9 LOADN                            R3 16
+        9 LOADN                            R3 10000
        10 SETTABLEKS                       R3 R2 K0 ["throttlingPercentage"]
        12 GETUPVAL                         R3 0
        13 CALL                             R3 0 1
@@ -76,27 +76,19 @@ MAIN:
        20 GETTABLEKS                       R3 R2 K12 ["Flags"]
        22 GETTABLEKS                       R3 R3 K13 ["Shared"]
        24 GETTABLEKS                       R3 R3 K14 ["FFlagDebugLogAssistantUI"]
-       26 DUPTABLE                         R4 K19 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
-       27 LOADK                            R5 K15 ["EventIngest"]
-       28 SETTABLEKS                       R5 R4 K15 ["EventIngest"]
-       30 LOADK                            R5 K16 ["Points"]
-       31 SETTABLEKS                       R5 R4 K16 ["Points"]
-       33 LOADK                            R5 K17 ["RobloxTelemetryCounter"]
-       34 SETTABLEKS                       R5 R4 K17 ["RobloxTelemetryCounter"]
-       36 LOADK                            R5 K18 ["RobloxTelemetryStat"]
-       37 SETTABLEKS                       R5 R4 K18 ["RobloxTelemetryStat"]
-       39 DUPTABLE                         R5 K21 [{"Backends"}]
-       40 SETTABLEKS                       R4 R5 K20 ["Backends"]
-       42 DUPCLOSURE                       R6 K22 [PROTO_0]
-       43 CAPTURE                          VAL R3
-       44 CAPTURE                          VAL R1
-       45 SETTABLEKS                       R6 R5 K23 ["logStat"]
-       47 DUPCLOSURE                       R6 K24 [PROTO_1]
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R1
-       50 SETTABLEKS                       R6 R5 K25 ["logEvent"]
-       52 DUPCLOSURE                       R6 K26 [PROTO_2]
-       53 CAPTURE                          VAL R3
-       54 CAPTURE                          VAL R1
-       55 SETTABLEKS                       R6 R5 K27 ["logCounter"]
-       57 RETURN                           R5 1
+       26 DUPTABLE                         R4 K19 [{["EventIngest"] = "EventIngest", ["Points"] = "Points", ["RobloxTelemetryCounter"] = "RobloxTelemetryCounter", ["RobloxTelemetryStat"] = "RobloxTelemetryStat"}]
+       27 DUPTABLE                         R5 K21 [{"Backends"}]
+       28 SETTABLEKS                       R4 R5 K20 ["Backends"]
+       30 DUPCLOSURE                       R6 K22 [PROTO_0]
+       31 CAPTURE                          VAL R3
+       32 CAPTURE                          VAL R1
+       33 SETTABLEKS                       R6 R5 K23 ["logStat"]
+       35 DUPCLOSURE                       R6 K24 [PROTO_1]
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R1
+       38 SETTABLEKS                       R6 R5 K25 ["logEvent"]
+       40 DUPCLOSURE                       R6 K26 [PROTO_2]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R1
+       43 SETTABLEKS                       R6 R5 K27 ["logCounter"]
+       45 RETURN                           R5 1

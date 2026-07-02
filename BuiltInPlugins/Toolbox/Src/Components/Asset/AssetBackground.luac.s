@@ -19,36 +19,34 @@ PROTO_0:
        28 GETTABLEKS                       R6 R6 K10 ["Dictionary"]
        30 GETTABLEKS                       R6 R6 K11 ["join"]
        32 MOVE                             R7 R1
-       33 DUPTABLE                         R8 K19 [{"BackgroundColor3", "Image", "BorderColor3", "BorderSizePixel", "ScaleType", "TileSize", "backgroundIndex", "Stylizer"}]
+       33 DUPTABLE                         R8 K20 [{["BackgroundColor3"], ["Image"] = "", ["BorderColor3"], ["BorderSizePixel"], ["ScaleType"], ["TileSize"], ["backgroundIndex"], ["Stylizer"]}]
        34 SETTABLEKS                       R4 R8 K12 ["BackgroundColor3"]
-       36 LOADK                            R9 K20 [""]
-       37 SETTABLEKS                       R9 R8 K13 ["Image"]
-       39 GETTABLEKS                       R9 R3 K21 ["borderColor"]
-       41 SETTABLEKS                       R9 R8 K14 ["BorderColor3"]
-       43 SETTABLEKS                       R5 R8 K15 ["BorderSizePixel"]
-       45 GETIMPORT                        R9 K24 [Enum.ScaleType.Tile]
-       47 SETTABLEKS                       R9 R8 K16 ["ScaleType"]
-       49 GETIMPORT                        R9 K27 [UDim2.new]
-       51 LOADK                            R10 K28 [0.125]
-       52 LOADN                            R11 0
-       53 LOADK                            R12 K28 [0.125]
-       54 LOADN                            R13 0
-       55 CALL                             R9 4 1
-       56 SETTABLEKS                       R9 R8 K17 ["TileSize"]
-       58 GETUPVAL                         R9 0
-       59 GETTABLEKS                       R9 R9 K29 ["None"]
-       61 SETTABLEKS                       R9 R8 K18 ["backgroundIndex"]
-       63 GETUPVAL                         R9 0
-       64 GETTABLEKS                       R9 R9 K29 ["None"]
-       66 SETTABLEKS                       R9 R8 K1 ["Stylizer"]
-       68 CALL                             R6 2 1
-       69 MOVE                             R1 R6
-       70 GETUPVAL                         R6 1
-       71 GETTABLEKS                       R6 R6 K30 ["createElement"]
-       73 LOADK                            R7 K31 ["ImageLabel"]
-       74 MOVE                             R8 R1
-       75 CALL                             R6 2 -1
-       76 RETURN                           R6 -1
+       36 GETTABLEKS                       R9 R3 K21 ["borderColor"]
+       38 SETTABLEKS                       R9 R8 K15 ["BorderColor3"]
+       40 SETTABLEKS                       R5 R8 K16 ["BorderSizePixel"]
+       42 GETIMPORT                        R9 K24 [Enum.ScaleType.Tile]
+       44 SETTABLEKS                       R9 R8 K17 ["ScaleType"]
+       46 GETIMPORT                        R9 K27 [UDim2.new]
+       48 LOADK                            R10 K28 [0.125]
+       49 LOADN                            R11 0
+       50 LOADK                            R12 K28 [0.125]
+       51 LOADN                            R13 0
+       52 CALL                             R9 4 1
+       53 SETTABLEKS                       R9 R8 K18 ["TileSize"]
+       55 GETUPVAL                         R9 0
+       56 GETTABLEKS                       R9 R9 K29 ["None"]
+       58 SETTABLEKS                       R9 R8 K19 ["backgroundIndex"]
+       60 GETUPVAL                         R9 0
+       61 GETTABLEKS                       R9 R9 K29 ["None"]
+       63 SETTABLEKS                       R9 R8 K1 ["Stylizer"]
+       65 CALL                             R6 2 1
+       66 MOVE                             R1 R6
+       67 GETUPVAL                         R6 1
+       68 GETTABLEKS                       R6 R6 K30 ["createElement"]
+       70 LOADK                            R7 K31 ["ImageLabel"]
+       71 MOVE                             R8 R1
+       72 CALL                             R6 2 -1
+       73 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

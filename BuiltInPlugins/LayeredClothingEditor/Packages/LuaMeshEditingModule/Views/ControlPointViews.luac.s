@@ -173,7 +173,7 @@ PROTO_6:
       117 CALL                             R8 1 3
       118 FORGPREP_NEXT                    R8
       119 JUMPIFNOT                        R7 ; [+2]
-      120 JUMPIFNOTEQ                      R11 R7 ; [+215]
+      120 JUMPIFNOTEQ                      R11 R7 ; [+212]
       122 GETUPVAL                         R13 10
       123 MOVE                             R15 R11
       124 NAMECALL                         R13 R13 K26 ["getMeshOrigin"]
@@ -272,7 +272,7 @@ PROTO_6:
       237 GETUPVAL                         R22 13
       238 GETTABLE                         R21 R22 R11
       239 GETTABLE                         R20 R21 R17
-      240 DUPTABLE                         R22 K43 [{"Name", "Transparency", "Position", "PartParent", "Adornee", "AdornmentParent", "Selected", "Hovered", "Shape", "Size", "Weight", "MeshOrigin", "Color"}]
+      240 DUPTABLE                         R22 K44 [{["Name"], ["Transparency"], ["Position"], ["PartParent"], ["Adornee"], ["AdornmentParent"], ["Selected"], ["Hovered"], ["Shape"] = "Sphere", ["Size"], ["Weight"], ["MeshOrigin"], ["Color"]}]
       241 SETTABLEKS                       R17 R22 K13 ["Name"]
       243 SETTABLEKS                       R4 R22 K2 ["Transparency"]
       245 GETTABLE                         R24 R2 R11
@@ -302,82 +302,80 @@ PROTO_6:
       275 MOVE                             R25 R17
       276 CALL                             R23 2 1
       277 SETTABLEKS                       R23 R22 K37 ["Hovered"]
-      279 LOADK                            R23 K44 ["Sphere"]
-      280 SETTABLEKS                       R23 R22 K38 ["Shape"]
-      282 GETUPVAL                         R23 4
-      283 GETTABLEKS                       R23 R23 K45 ["ControlPoint"]
-      285 GETTABLEKS                       R23 R23 K39 ["Size"]
-      287 SETTABLEKS                       R23 R22 K39 ["Size"]
-      289 MOVE                             R23 R5
-      290 MOVE                             R24 R11
-      291 MOVE                             R25 R17
-      292 CALL                             R23 2 1
-      293 SETTABLEKS                       R23 R22 K40 ["Weight"]
-      295 SETTABLEKS                       R13 R22 K41 ["MeshOrigin"]
-      297 GETUPVAL                         R24 15
-      298 CALL                             R24 0 1
-      299 JUMPIFNOT                        R24 ; [+28]
-      300 GETTABLEKS                       R24 R1 K46 ["CenterHoveredPoint"]
-      302 JUMPIFEQKNIL                     R24 ; [+25]
-      304 GETTABLEKS                       R24 R1 K46 ["CenterHoveredPoint"]
-      306 GETTABLEKS                       R24 R24 K11 ["Parent"]
-      308 GETUPVAL                         R26 12
-      309 GETTABLE                         R25 R26 R11
-      310 JUMPIFNOTEQ                      R24 R25 ; [+17]
-      312 GETTABLEKS                       R25 R1 K46 ["CenterHoveredPoint"]
-      314 GETTABLEKS                       R25 R25 K13 ["Name"]
-      316 FASTCALL1                        TONUMBER R25 ; [+2]
-      317 GETIMPORT                        R24 K48 [tonumber]
-      319 CALL                             R24 1 1
-      320 JUMPIFNOTEQ                      R24 R17 ; [+7]
-      322 GETUPVAL                         R23 4
-      323 GETTABLEKS                       R23 R23 K45 ["ControlPoint"]
-      325 GETTABLEKS                       R23 R23 K49 ["HoveredCenterColor"]
-      327 JUMP                             ; [+1]
-      328 LOADNIL                          R23
-      329 SETTABLEKS                       R23 R22 K42 ["Color"]
-      331 NAMECALL                         R20 R20 K50 ["render"]
-      333 CALL                             R20 2 0
-      334 FORGLOOP                         R14 1 ; [-203]
-      336 FORGLOOP                         R8 2 ; [-218]
-      338 GETUPVAL                         R8 16
-      339 GETUPVAL                         R9 13
-      340 MOVE                             R10 R2
-      341 CALL                             R8 2 1
-      342 LENGTH                           R9 R8
-      343 LOADN                            R10 0
-      344 JUMPIFNOTLT                      R10 R9 ; [+40]
-      346 NAMECALL                         R9 R0 K51 ["disconnect"]
-      348 CALL                             R9 1 0
-      349 GETUPVAL                         R9 17
-      350 GETUPVAL                         R10 13
-      351 MOVE                             R11 R8
-      352 CALL                             R9 2 0
-      353 GETUPVAL                         R9 1
-      354 GETTABLEKS                       R9 R9 K21 ["AncestryChanged"]
-      356 GETUPVAL                         R11 6
-      357 NAMECALL                         R9 R9 K16 ["Connect"]
-      359 CALL                             R9 2 1
-      360 SETUPVAL                         R9 5
-      361 GETUPVAL                         R9 1
-      362 GETTABLEKS                       R9 R9 K22 ["DescendantRemoving"]
-      364 GETUPVAL                         R11 6
-      365 NAMECALL                         R9 R9 K16 ["Connect"]
-      367 CALL                             R9 2 1
-      368 SETUPVAL                         R9 7
-      369 GETUPVAL                         R9 2
-      370 GETTABLEKS                       R9 R9 K21 ["AncestryChanged"]
-      372 GETUPVAL                         R11 6
-      373 NAMECALL                         R9 R9 K16 ["Connect"]
-      375 CALL                             R9 2 1
-      376 SETUPVAL                         R9 8
-      377 GETUPVAL                         R9 2
-      378 GETTABLEKS                       R9 R9 K23 ["ChildRemoved"]
-      380 GETUPVAL                         R11 6
-      381 NAMECALL                         R9 R9 K16 ["Connect"]
-      383 CALL                             R9 2 1
-      384 SETUPVAL                         R9 9
-      385 RETURN                           R0 0
+      279 GETUPVAL                         R23 4
+      280 GETTABLEKS                       R23 R23 K45 ["ControlPoint"]
+      282 GETTABLEKS                       R23 R23 K40 ["Size"]
+      284 SETTABLEKS                       R23 R22 K40 ["Size"]
+      286 MOVE                             R23 R5
+      287 MOVE                             R24 R11
+      288 MOVE                             R25 R17
+      289 CALL                             R23 2 1
+      290 SETTABLEKS                       R23 R22 K41 ["Weight"]
+      292 SETTABLEKS                       R13 R22 K42 ["MeshOrigin"]
+      294 GETUPVAL                         R24 15
+      295 CALL                             R24 0 1
+      296 JUMPIFNOT                        R24 ; [+28]
+      297 GETTABLEKS                       R24 R1 K46 ["CenterHoveredPoint"]
+      299 JUMPIFEQKNIL                     R24 ; [+25]
+      301 GETTABLEKS                       R24 R1 K46 ["CenterHoveredPoint"]
+      303 GETTABLEKS                       R24 R24 K11 ["Parent"]
+      305 GETUPVAL                         R26 12
+      306 GETTABLE                         R25 R26 R11
+      307 JUMPIFNOTEQ                      R24 R25 ; [+17]
+      309 GETTABLEKS                       R25 R1 K46 ["CenterHoveredPoint"]
+      311 GETTABLEKS                       R25 R25 K13 ["Name"]
+      313 FASTCALL1                        TONUMBER R25 ; [+2]
+      314 GETIMPORT                        R24 K48 [tonumber]
+      316 CALL                             R24 1 1
+      317 JUMPIFNOTEQ                      R24 R17 ; [+7]
+      319 GETUPVAL                         R23 4
+      320 GETTABLEKS                       R23 R23 K45 ["ControlPoint"]
+      322 GETTABLEKS                       R23 R23 K49 ["HoveredCenterColor"]
+      324 JUMP                             ; [+1]
+      325 LOADNIL                          R23
+      326 SETTABLEKS                       R23 R22 K43 ["Color"]
+      328 NAMECALL                         R20 R20 K50 ["render"]
+      330 CALL                             R20 2 0
+      331 FORGLOOP                         R14 1 ; [-200]
+      333 FORGLOOP                         R8 2 ; [-215]
+      335 GETUPVAL                         R8 16
+      336 GETUPVAL                         R9 13
+      337 MOVE                             R10 R2
+      338 CALL                             R8 2 1
+      339 LENGTH                           R9 R8
+      340 LOADN                            R10 0
+      341 JUMPIFNOTLT                      R10 R9 ; [+40]
+      343 NAMECALL                         R9 R0 K51 ["disconnect"]
+      345 CALL                             R9 1 0
+      346 GETUPVAL                         R9 17
+      347 GETUPVAL                         R10 13
+      348 MOVE                             R11 R8
+      349 CALL                             R9 2 0
+      350 GETUPVAL                         R9 1
+      351 GETTABLEKS                       R9 R9 K21 ["AncestryChanged"]
+      353 GETUPVAL                         R11 6
+      354 NAMECALL                         R9 R9 K16 ["Connect"]
+      356 CALL                             R9 2 1
+      357 SETUPVAL                         R9 5
+      358 GETUPVAL                         R9 1
+      359 GETTABLEKS                       R9 R9 K22 ["DescendantRemoving"]
+      361 GETUPVAL                         R11 6
+      362 NAMECALL                         R9 R9 K16 ["Connect"]
+      364 CALL                             R9 2 1
+      365 SETUPVAL                         R9 7
+      366 GETUPVAL                         R9 2
+      367 GETTABLEKS                       R9 R9 K21 ["AncestryChanged"]
+      369 GETUPVAL                         R11 6
+      370 NAMECALL                         R9 R9 K16 ["Connect"]
+      372 CALL                             R9 2 1
+      373 SETUPVAL                         R9 8
+      374 GETUPVAL                         R9 2
+      375 GETTABLEKS                       R9 R9 K23 ["ChildRemoved"]
+      377 GETUPVAL                         R11 6
+      378 NAMECALL                         R9 R9 K16 ["Connect"]
+      380 CALL                             R9 2 1
+      381 SETUPVAL                         R9 9
+      382 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0

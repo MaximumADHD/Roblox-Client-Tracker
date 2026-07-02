@@ -47,84 +47,60 @@ PROTO_4:
         0 GETUPVAL                         R0 0
         1 NAMECALL                         R0 R0 K0 ["isMocking"]
         3 CALL                             R0 1 1
-        4 JUMPIFNOT                        R0 ; [+9]
-        5 DUPTABLE                         R0 K3 [{"DraggerContext", "Mock"}]
+        4 JUMPIFNOT                        R0 ; [+6]
+        5 DUPTABLE                         R0 K4 [{["DraggerContext"], ["Mock"] = True}]
         6 NEWTABLE                         R1 0 0
         8 SETTABLEKS                       R1 R0 K1 ["DraggerContext"]
-       10 LOADB                            R1 1
-       11 SETTABLEKS                       R1 R0 K2 ["Mock"]
-       13 RETURN                           R0 1
-       14 GETUPVAL                         R0 1
-       15 GETTABLEKS                       R0 R0 K4 ["new"]
-       17 GETUPVAL                         R1 2
-       18 GETTABLEKS                       R1 R1 K5 ["Parent"]
-       20 GETIMPORT                        R2 K7 [game]
-       22 GETIMPORT                        R3 K9 [settings]
-       24 CALL                             R3 0 1
-       25 GETUPVAL                         R4 3
-       26 CALL                             R0 4 1
-       27 GETUPVAL                         R1 4
-       28 SETTABLEKS                       R1 R0 K10 ["updatePlane"]
-       30 LOADB                            R1 0
-       31 SETTABLEKS                       R1 R0 K2 ["Mock"]
-       33 DUPCLOSURE                       R1 K11 [PROTO_3]
-       34 SETTABLEKS                       R1 R0 K12 ["shouldExtendSelection"]
-       36 DUPTABLE                         R1 K16 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
-       37 GETUPVAL                         R2 5
-       38 NAMECALL                         R2 R2 K17 ["getMouse"]
-       40 CALL                             R2 1 1
-       41 SETTABLEKS                       R2 R1 K13 ["Mouse"]
-       43 SETTABLEKS                       R0 R1 K1 ["DraggerContext"]
-       45 GETUPVAL                         R2 6
-       46 SETTABLEKS                       R2 R1 K14 ["DraggerSchema"]
-       48 DUPTABLE                         R2 K24 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
-       49 LOADK                            R3 K25 ["AdjustablePlaneLock"]
-       50 SETTABLEKS                       R3 R2 K18 ["AnalyticsName"]
-       52 LOADB                            R3 1
-       53 SETTABLEKS                       R3 R2 K19 ["AllowDragSelect"]
-       55 LOADB                            R3 1
-       56 SETTABLEKS                       R3 R2 K20 ["AllowFreeformDrag"]
-       58 LOADB                            R3 1
-       59 SETTABLEKS                       R3 R2 K21 ["ShowLocalSpaceIndicator"]
-       61 LOADB                            R3 1
-       62 SETTABLEKS                       R3 R2 K22 ["ShowPivotIndicator"]
-       64 NEWTABLE                         R3 0 2
-       66 GETUPVAL                         R4 7
-       67 GETTABLEKS                       R4 R4 K4 ["new"]
-       69 MOVE                             R5 R0
-       70 DUPTABLE                         R6 K29 [{"ShowBoundingBox", "Summonable", "Outset"}]
-       71 LOADB                            R7 0
-       72 SETTABLEKS                       R7 R6 K26 ["ShowBoundingBox"]
-       74 LOADB                            R7 0
-       75 SETTABLEKS                       R7 R6 K27 ["Summonable"]
-       77 LOADN                            R7 1
-       78 SETTABLEKS                       R7 R6 K28 ["Outset"]
-       80 GETUPVAL                         R7 6
-       81 GETTABLEKS                       R7 R7 K30 ["TransformHandlesImplementation"]
-       83 GETTABLEKS                       R7 R7 K4 ["new"]
-       85 MOVE                             R8 R0
-       86 CALL                             R7 1 -1
-       87 CALL                             R4 -1 1
-       88 GETUPVAL                         R5 8
-       89 GETTABLEKS                       R5 R5 K4 ["new"]
-       91 MOVE                             R6 R0
-       92 DUPTABLE                         R7 K29 [{"ShowBoundingBox", "Summonable", "Outset"}]
-       93 LOADB                            R8 0
-       94 SETTABLEKS                       R8 R7 K26 ["ShowBoundingBox"]
-       96 LOADB                            R8 0
-       97 SETTABLEKS                       R8 R7 K27 ["Summonable"]
-       99 LOADN                            R8 1
-      100 SETTABLEKS                       R8 R7 K28 ["Outset"]
-      102 GETUPVAL                         R8 6
-      103 GETTABLEKS                       R8 R8 K30 ["TransformHandlesImplementation"]
-      105 GETTABLEKS                       R8 R8 K4 ["new"]
-      107 MOVE                             R9 R0
-      108 CALL                             R8 1 -1
-      109 CALL                             R5 -1 -1
-      110 SETLIST                          R3 R4 -1 [1]
-      112 SETTABLEKS                       R3 R2 K23 ["HandlesList"]
-      114 SETTABLEKS                       R2 R1 K15 ["DraggerSettings"]
-      116 RETURN                           R1 1
+       10 RETURN                           R0 1
+       11 GETUPVAL                         R0 1
+       12 GETTABLEKS                       R0 R0 K5 ["new"]
+       14 GETUPVAL                         R1 2
+       15 GETTABLEKS                       R1 R1 K6 ["Parent"]
+       17 GETIMPORT                        R2 K8 [game]
+       19 GETIMPORT                        R3 K10 [settings]
+       21 CALL                             R3 0 1
+       22 GETUPVAL                         R4 3
+       23 CALL                             R0 4 1
+       24 GETUPVAL                         R1 4
+       25 SETTABLEKS                       R1 R0 K11 ["updatePlane"]
+       27 LOADB                            R1 0
+       28 SETTABLEKS                       R1 R0 K2 ["Mock"]
+       30 DUPCLOSURE                       R1 K12 [PROTO_3]
+       31 SETTABLEKS                       R1 R0 K13 ["shouldExtendSelection"]
+       33 DUPTABLE                         R1 K17 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+       34 GETUPVAL                         R2 5
+       35 NAMECALL                         R2 R2 K18 ["getMouse"]
+       37 CALL                             R2 1 1
+       38 SETTABLEKS                       R2 R1 K14 ["Mouse"]
+       40 SETTABLEKS                       R0 R1 K1 ["DraggerContext"]
+       42 GETUPVAL                         R2 6
+       43 SETTABLEKS                       R2 R1 K15 ["DraggerSchema"]
+       45 DUPTABLE                         R2 K26 [{["AnalyticsName"] = "AdjustablePlaneLock", ["AllowDragSelect"] = True, ["AllowFreeformDrag"] = True, ["ShowLocalSpaceIndicator"] = True, ["ShowPivotIndicator"] = True, ["HandlesList"]}]
+       46 NEWTABLE                         R3 0 2
+       48 GETUPVAL                         R4 7
+       49 GETTABLEKS                       R4 R4 K5 ["new"]
+       51 MOVE                             R5 R0
+       52 DUPTABLE                         R6 K32 [{["ShowBoundingBox"] = False, ["Summonable"] = False, ["Outset"] = 1}]
+       53 GETUPVAL                         R7 6
+       54 GETTABLEKS                       R7 R7 K33 ["TransformHandlesImplementation"]
+       56 GETTABLEKS                       R7 R7 K5 ["new"]
+       58 MOVE                             R8 R0
+       59 CALL                             R7 1 -1
+       60 CALL                             R4 -1 1
+       61 GETUPVAL                         R5 8
+       62 GETTABLEKS                       R5 R5 K5 ["new"]
+       64 MOVE                             R6 R0
+       65 DUPTABLE                         R7 K32 [{["ShowBoundingBox"] = False, ["Summonable"] = False, ["Outset"] = 1}]
+       66 GETUPVAL                         R8 6
+       67 GETTABLEKS                       R8 R8 K33 ["TransformHandlesImplementation"]
+       69 GETTABLEKS                       R8 R8 K5 ["new"]
+       71 MOVE                             R9 R0
+       72 CALL                             R8 1 -1
+       73 CALL                             R5 -1 -1
+       74 SETLIST                          R3 R4 -1 [1]
+       76 SETTABLEKS                       R3 R2 K25 ["HandlesList"]
+       78 SETTABLEKS                       R2 R1 K16 ["DraggerSettings"]
+       80 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0

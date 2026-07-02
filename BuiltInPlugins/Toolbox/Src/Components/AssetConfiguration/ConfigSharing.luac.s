@@ -178,174 +178,152 @@ PROTO_3:
       190 GETIMPORT                        R27 K56 [Enum.FillDirection.Horizontal]
       192 SETTABLEKS                       R27 R26 K45 ["Layout"]
       194 SETTABLEKS                       R8 R26 K7 ["LayoutOrder"]
-      196 DUPTABLE                         R27 K58 [{"Bottom"}]
-      197 LOADN                            R28 25
-      198 SETTABLEKS                       R28 R27 K57 ["Bottom"]
-      200 SETTABLEKS                       R27 R26 K46 ["Padding"]
-      202 GETIMPORT                        R27 K60 [UDim2.new]
-      204 LOADN                            R28 1
-      205 LOADN                            R29 0
-      206 LOADN                            R30 0
-      207 LOADN                            R31 0
-      208 CALL                             R27 4 1
-      209 SETTABLEKS                       R27 R26 K47 ["Size"]
-      211 GETIMPORT                        R27 K62 [Enum.VerticalAlignment.Top]
-      213 SETTABLEKS                       R27 R26 K48 ["VerticalAlignment"]
-      215 DUPTABLE                         R27 K65 [{"Title", "RightFrame"}]
-      216 GETUPVAL                         R28 7
-      217 GETTABLEKS                       R28 R28 K42 ["createElement"]
-      219 GETUPVAL                         R29 9
-      220 DUPTABLE                         R30 K70 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment"}]
-      221 GETIMPORT                        R31 K51 [Enum.AutomaticSize.Y]
-      223 SETTABLEKS                       R31 R30 K43 ["AutomaticSize"]
-      225 LOADN                            R31 1
-      226 SETTABLEKS                       R31 R30 K7 ["LayoutOrder"]
-      228 GETIMPORT                        R31 K60 [UDim2.new]
-      230 LOADN                            R32 0
-      231 GETUPVAL                         R33 6
-      232 GETTABLEKS                       R33 R33 K71 ["TITLE_GUTTER_WIDTH"]
-      234 LOADN                            R34 0
-      235 LOADN                            R35 0
-      236 CALL                             R31 4 1
-      237 SETTABLEKS                       R31 R30 K47 ["Size"]
-      239 SETTABLEKS                       R16 R30 K29 ["Text"]
-      241 GETTABLEKS                       R31 R4 K72 ["titleTextColor"]
-      243 SETTABLEKS                       R31 R30 K66 ["TextColor"]
-      245 GETUPVAL                         R31 10
-      246 GETTABLEKS                       R31 R31 K73 ["FONT_SIZE_TITLE"]
-      248 SETTABLEKS                       R31 R30 K67 ["TextSize"]
-      250 LOADB                            R31 1
-      251 SETTABLEKS                       R31 R30 K68 ["TextWrapped"]
-      253 GETIMPORT                        R31 K74 [Enum.TextXAlignment.Left]
-      255 SETTABLEKS                       R31 R30 K69 ["TextXAlignment"]
-      257 CALL                             R28 2 1
-      258 SETTABLEKS                       R28 R27 K63 ["Title"]
-      260 GETUPVAL                         R28 7
-      261 GETTABLEKS                       R28 R28 K42 ["createElement"]
-      263 GETUPVAL                         R29 8
-      264 DUPTABLE                         R30 K76 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing"}]
-      265 GETIMPORT                        R31 K51 [Enum.AutomaticSize.Y]
-      267 SETTABLEKS                       R31 R30 K43 ["AutomaticSize"]
-      269 GETIMPORT                        R31 K53 [Enum.HorizontalAlignment.Left]
-      271 SETTABLEKS                       R31 R30 K44 ["HorizontalAlignment"]
-      273 GETIMPORT                        R31 K78 [Enum.FillDirection.Vertical]
-      275 SETTABLEKS                       R31 R30 K45 ["Layout"]
-      277 LOADN                            R31 2
-      278 SETTABLEKS                       R31 R30 K7 ["LayoutOrder"]
-      280 GETIMPORT                        R31 K60 [UDim2.new]
-      282 LOADN                            R32 1
-      283 GETUPVAL                         R34 6
-      284 GETTABLEKS                       R34 R34 K71 ["TITLE_GUTTER_WIDTH"]
-      286 MINUS                            R33 R34
-      287 LOADN                            R34 0
-      288 LOADN                            R35 0
-      289 CALL                             R31 4 1
-      290 SETTABLEKS                       R31 R30 K47 ["Size"]
-      292 LOADN                            R31 2
-      293 SETTABLEKS                       R31 R30 K75 ["Spacing"]
-      295 DUPTABLE                         R31 K80 [{"ContentContainer"}]
-      296 GETUPVAL                         R32 7
-      297 GETTABLEKS                       R32 R32 K42 ["createElement"]
-      299 GETUPVAL                         R33 8
-      300 DUPTABLE                         R34 K76 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing"}]
-      301 GETIMPORT                        R35 K51 [Enum.AutomaticSize.Y]
-      303 SETTABLEKS                       R35 R34 K43 ["AutomaticSize"]
-      305 GETIMPORT                        R35 K53 [Enum.HorizontalAlignment.Left]
-      307 SETTABLEKS                       R35 R34 K44 ["HorizontalAlignment"]
-      309 GETIMPORT                        R35 K78 [Enum.FillDirection.Vertical]
-      311 SETTABLEKS                       R35 R34 K45 ["Layout"]
-      313 NAMECALL                         R35 R22 K81 ["getNextOrder"]
-      315 CALL                             R35 1 1
-      316 SETTABLEKS                       R35 R34 K7 ["LayoutOrder"]
-      318 GETIMPORT                        R35 K60 [UDim2.new]
-      320 LOADN                            R36 1
-      321 LOADN                            R37 0
-      322 LOADN                            R38 0
-      323 LOADN                            R39 0
-      324 CALL                             R35 4 1
-      325 SETTABLEKS                       R35 R34 K47 ["Size"]
-      327 LOADN                            R35 10
-      328 SETTABLEKS                       R35 R34 K75 ["Spacing"]
-      330 DUPTABLE                         R35 K84 [{"SubtitleLabel", "RadioButtonList"}]
-      331 GETUPVAL                         R36 7
-      332 GETTABLEKS                       R36 R36 K42 ["createElement"]
-      334 GETUPVAL                         R37 9
-      335 DUPTABLE                         R38 K70 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment"}]
-      336 GETIMPORT                        R39 K51 [Enum.AutomaticSize.Y]
-      338 SETTABLEKS                       R39 R38 K43 ["AutomaticSize"]
-      340 LOADN                            R39 1
-      341 SETTABLEKS                       R39 R38 K7 ["LayoutOrder"]
-      343 GETIMPORT                        R39 K60 [UDim2.new]
-      345 LOADN                            R40 1
-      346 LOADN                            R41 0
-      347 LOADN                            R42 0
-      348 LOADN                            R43 0
-      349 CALL                             R39 4 1
-      350 SETTABLEKS                       R39 R38 K47 ["Size"]
-      352 SETTABLEKS                       R12 R38 K29 ["Text"]
-      354 GETTABLEKS                       R39 R3 K85 ["brightText"]
-      356 SETTABLEKS                       R39 R38 K66 ["TextColor"]
-      358 GETUPVAL                         R39 10
-      359 GETTABLEKS                       R39 R39 K86 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
-      361 SETTABLEKS                       R39 R38 K67 ["TextSize"]
-      363 LOADB                            R39 1
-      364 SETTABLEKS                       R39 R38 K68 ["TextWrapped"]
-      366 GETIMPORT                        R39 K74 [Enum.TextXAlignment.Left]
-      368 SETTABLEKS                       R39 R38 K69 ["TextXAlignment"]
-      370 CALL                             R36 2 1
-      371 SETTABLEKS                       R36 R35 K82 ["SubtitleLabel"]
-      373 GETUPVAL                         R36 7
-      374 GETTABLEKS                       R36 R36 K42 ["createElement"]
-      376 GETUPVAL                         R37 11
-      377 DUPTABLE                         R38 K91 [{"AutomaticSize", "Buttons", "FillDirection", "LayoutOrder", "OnClick", "CurrentSelectedKey", "SelectedKey", "Style", "TextWrapped", "TextXAlignment", "VerticalAlignment"}]
-      378 GETIMPORT                        R39 K51 [Enum.AutomaticSize.Y]
-      380 SETTABLEKS                       R39 R38 K43 ["AutomaticSize"]
-      382 NEWTABLE                         R39 0 2
-      384 DUPTABLE                         R40 K96 [{"Key", "Text", "Description", "LinkProps", "Disabled"}]
-      385 GETUPVAL                         R41 6
-      386 GETTABLEKS                       R41 R41 K39 ["SHARING_KEYS"]
-      388 GETTABLEKS                       R41 R41 K41 ["Private"]
-      390 SETTABLEKS                       R41 R40 K92 ["Key"]
-      392 SETTABLEKS                       R14 R40 K29 ["Text"]
-      394 SETTABLEKS                       R17 R40 K93 ["Description"]
-      396 SETTABLEKS                       R20 R40 K94 ["LinkProps"]
-      398 NOT                              R41 R7
-      399 SETTABLEKS                       R41 R40 K95 ["Disabled"]
-      401 DUPTABLE                         R41 K96 [{"Key", "Text", "Description", "LinkProps", "Disabled"}]
-      402 GETUPVAL                         R42 6
-      403 GETTABLEKS                       R42 R42 K39 ["SHARING_KEYS"]
-      405 GETTABLEKS                       R42 R42 K40 ["Public"]
-      407 SETTABLEKS                       R42 R41 K92 ["Key"]
-      409 SETTABLEKS                       R15 R41 K29 ["Text"]
-      411 SETTABLEKS                       R18 R41 K93 ["Description"]
-      413 SETTABLEKS                       R19 R41 K94 ["LinkProps"]
-      415 NOT                              R42 R21
-      416 SETTABLEKS                       R42 R41 K95 ["Disabled"]
-      418 SETLIST                          R39 R40 2 [1]
-      420 SETTABLEKS                       R39 R38 K87 ["Buttons"]
-      422 GETIMPORT                        R39 K78 [Enum.FillDirection.Vertical]
-      424 SETTABLEKS                       R39 R38 K54 ["FillDirection"]
-      426 LOADN                            R39 2
-      427 SETTABLEKS                       R39 R38 K7 ["LayoutOrder"]
-      429 SETTABLEKS                       R10 R38 K30 ["OnClick"]
-      431 SETTABLEKS                       R23 R38 K88 ["CurrentSelectedKey"]
-      433 SETTABLEKS                       R23 R38 K89 ["SelectedKey"]
-      435 LOADK                            R39 K97 ["AssetConfigRadioButtonList"]
-      436 SETTABLEKS                       R39 R38 K90 ["Style"]
-      438 LOADB                            R39 1
-      439 SETTABLEKS                       R39 R38 K68 ["TextWrapped"]
-      441 GETIMPORT                        R39 K74 [Enum.TextXAlignment.Left]
-      443 SETTABLEKS                       R39 R38 K69 ["TextXAlignment"]
-      445 GETIMPORT                        R39 K62 [Enum.VerticalAlignment.Top]
-      447 SETTABLEKS                       R39 R38 K48 ["VerticalAlignment"]
-      449 CALL                             R36 2 1
-      450 SETTABLEKS                       R36 R35 K83 ["RadioButtonList"]
-      452 CALL                             R32 3 1
-      453 SETTABLEKS                       R32 R31 K79 ["ContentContainer"]
-      455 CALL                             R28 3 1
-      456 SETTABLEKS                       R28 R27 K64 ["RightFrame"]
-      458 CALL                             R24 3 -1
-      459 RETURN                           R24 -1
+      196 DUPTABLE                         R27 K59 [{["Bottom"] = 25}]
+      197 SETTABLEKS                       R27 R26 K46 ["Padding"]
+      199 GETIMPORT                        R27 K61 [UDim2.new]
+      201 LOADN                            R28 1
+      202 LOADN                            R29 0
+      203 LOADN                            R30 0
+      204 LOADN                            R31 0
+      205 CALL                             R27 4 1
+      206 SETTABLEKS                       R27 R26 K47 ["Size"]
+      208 GETIMPORT                        R27 K63 [Enum.VerticalAlignment.Top]
+      210 SETTABLEKS                       R27 R26 K48 ["VerticalAlignment"]
+      212 DUPTABLE                         R27 K66 [{"Title", "RightFrame"}]
+      213 GETUPVAL                         R28 7
+      214 GETTABLEKS                       R28 R28 K42 ["createElement"]
+      216 GETUPVAL                         R29 9
+      217 DUPTABLE                         R30 K73 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Size"], ["Text"], ["TextColor"], ["TextSize"], ["TextWrapped"] = True, ["TextXAlignment"]}]
+      218 GETIMPORT                        R31 K51 [Enum.AutomaticSize.Y]
+      220 SETTABLEKS                       R31 R30 K43 ["AutomaticSize"]
+      222 GETIMPORT                        R31 K61 [UDim2.new]
+      224 LOADN                            R32 0
+      225 GETUPVAL                         R33 6
+      226 GETTABLEKS                       R33 R33 K74 ["TITLE_GUTTER_WIDTH"]
+      228 LOADN                            R34 0
+      229 LOADN                            R35 0
+      230 CALL                             R31 4 1
+      231 SETTABLEKS                       R31 R30 K47 ["Size"]
+      233 SETTABLEKS                       R16 R30 K29 ["Text"]
+      235 GETTABLEKS                       R31 R4 K75 ["titleTextColor"]
+      237 SETTABLEKS                       R31 R30 K68 ["TextColor"]
+      239 GETUPVAL                         R31 10
+      240 GETTABLEKS                       R31 R31 K76 ["FONT_SIZE_TITLE"]
+      242 SETTABLEKS                       R31 R30 K69 ["TextSize"]
+      244 GETIMPORT                        R31 K77 [Enum.TextXAlignment.Left]
+      246 SETTABLEKS                       R31 R30 K72 ["TextXAlignment"]
+      248 CALL                             R28 2 1
+      249 SETTABLEKS                       R28 R27 K64 ["Title"]
+      251 GETUPVAL                         R28 7
+      252 GETTABLEKS                       R28 R28 K42 ["createElement"]
+      254 GETUPVAL                         R29 8
+      255 DUPTABLE                         R30 K80 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 2, ["Size"], ["Spacing"] = 2}]
+      256 GETIMPORT                        R31 K51 [Enum.AutomaticSize.Y]
+      258 SETTABLEKS                       R31 R30 K43 ["AutomaticSize"]
+      260 GETIMPORT                        R31 K53 [Enum.HorizontalAlignment.Left]
+      262 SETTABLEKS                       R31 R30 K44 ["HorizontalAlignment"]
+      264 GETIMPORT                        R31 K82 [Enum.FillDirection.Vertical]
+      266 SETTABLEKS                       R31 R30 K45 ["Layout"]
+      268 GETIMPORT                        R31 K61 [UDim2.new]
+      270 LOADN                            R32 1
+      271 GETUPVAL                         R34 6
+      272 GETTABLEKS                       R34 R34 K74 ["TITLE_GUTTER_WIDTH"]
+      274 MINUS                            R33 R34
+      275 LOADN                            R34 0
+      276 LOADN                            R35 0
+      277 CALL                             R31 4 1
+      278 SETTABLEKS                       R31 R30 K47 ["Size"]
+      280 DUPTABLE                         R31 K84 [{"ContentContainer"}]
+      281 GETUPVAL                         R32 7
+      282 GETTABLEKS                       R32 R32 K42 ["createElement"]
+      284 GETUPVAL                         R33 8
+      285 DUPTABLE                         R34 K86 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Size"], ["Spacing"] = 10}]
+      286 GETIMPORT                        R35 K51 [Enum.AutomaticSize.Y]
+      288 SETTABLEKS                       R35 R34 K43 ["AutomaticSize"]
+      290 GETIMPORT                        R35 K53 [Enum.HorizontalAlignment.Left]
+      292 SETTABLEKS                       R35 R34 K44 ["HorizontalAlignment"]
+      294 GETIMPORT                        R35 K82 [Enum.FillDirection.Vertical]
+      296 SETTABLEKS                       R35 R34 K45 ["Layout"]
+      298 NAMECALL                         R35 R22 K87 ["getNextOrder"]
+      300 CALL                             R35 1 1
+      301 SETTABLEKS                       R35 R34 K7 ["LayoutOrder"]
+      303 GETIMPORT                        R35 K61 [UDim2.new]
+      305 LOADN                            R36 1
+      306 LOADN                            R37 0
+      307 LOADN                            R38 0
+      308 LOADN                            R39 0
+      309 CALL                             R35 4 1
+      310 SETTABLEKS                       R35 R34 K47 ["Size"]
+      312 DUPTABLE                         R35 K90 [{"SubtitleLabel", "RadioButtonList"}]
+      313 GETUPVAL                         R36 7
+      314 GETTABLEKS                       R36 R36 K42 ["createElement"]
+      316 GETUPVAL                         R37 9
+      317 DUPTABLE                         R38 K73 [{["AutomaticSize"], ["LayoutOrder"] = 1, ["Size"], ["Text"], ["TextColor"], ["TextSize"], ["TextWrapped"] = True, ["TextXAlignment"]}]
+      318 GETIMPORT                        R39 K51 [Enum.AutomaticSize.Y]
+      320 SETTABLEKS                       R39 R38 K43 ["AutomaticSize"]
+      322 GETIMPORT                        R39 K61 [UDim2.new]
+      324 LOADN                            R40 1
+      325 LOADN                            R41 0
+      326 LOADN                            R42 0
+      327 LOADN                            R43 0
+      328 CALL                             R39 4 1
+      329 SETTABLEKS                       R39 R38 K47 ["Size"]
+      331 SETTABLEKS                       R12 R38 K29 ["Text"]
+      333 GETTABLEKS                       R39 R3 K91 ["brightText"]
+      335 SETTABLEKS                       R39 R38 K68 ["TextColor"]
+      337 GETUPVAL                         R39 10
+      338 GETTABLEKS                       R39 R39 K92 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
+      340 SETTABLEKS                       R39 R38 K69 ["TextSize"]
+      342 GETIMPORT                        R39 K77 [Enum.TextXAlignment.Left]
+      344 SETTABLEKS                       R39 R38 K72 ["TextXAlignment"]
+      346 CALL                             R36 2 1
+      347 SETTABLEKS                       R36 R35 K88 ["SubtitleLabel"]
+      349 GETUPVAL                         R36 7
+      350 GETTABLEKS                       R36 R36 K42 ["createElement"]
+      352 GETUPVAL                         R37 11
+      353 DUPTABLE                         R38 K98 [{["AutomaticSize"], ["Buttons"], ["FillDirection"], ["LayoutOrder"] = 2, ["OnClick"], ["CurrentSelectedKey"], ["SelectedKey"], ["Style"] = "AssetConfigRadioButtonList", ["TextWrapped"] = True, ["TextXAlignment"], ["VerticalAlignment"]}]
+      354 GETIMPORT                        R39 K51 [Enum.AutomaticSize.Y]
+      356 SETTABLEKS                       R39 R38 K43 ["AutomaticSize"]
+      358 NEWTABLE                         R39 0 2
+      360 DUPTABLE                         R40 K103 [{"Key", "Text", "Description", "LinkProps", "Disabled"}]
+      361 GETUPVAL                         R41 6
+      362 GETTABLEKS                       R41 R41 K39 ["SHARING_KEYS"]
+      364 GETTABLEKS                       R41 R41 K41 ["Private"]
+      366 SETTABLEKS                       R41 R40 K99 ["Key"]
+      368 SETTABLEKS                       R14 R40 K29 ["Text"]
+      370 SETTABLEKS                       R17 R40 K100 ["Description"]
+      372 SETTABLEKS                       R20 R40 K101 ["LinkProps"]
+      374 NOT                              R41 R7
+      375 SETTABLEKS                       R41 R40 K102 ["Disabled"]
+      377 DUPTABLE                         R41 K103 [{"Key", "Text", "Description", "LinkProps", "Disabled"}]
+      378 GETUPVAL                         R42 6
+      379 GETTABLEKS                       R42 R42 K39 ["SHARING_KEYS"]
+      381 GETTABLEKS                       R42 R42 K40 ["Public"]
+      383 SETTABLEKS                       R42 R41 K99 ["Key"]
+      385 SETTABLEKS                       R15 R41 K29 ["Text"]
+      387 SETTABLEKS                       R18 R41 K100 ["Description"]
+      389 SETTABLEKS                       R19 R41 K101 ["LinkProps"]
+      391 NOT                              R42 R21
+      392 SETTABLEKS                       R42 R41 K102 ["Disabled"]
+      394 SETLIST                          R39 R40 2 [1]
+      396 SETTABLEKS                       R39 R38 K93 ["Buttons"]
+      398 GETIMPORT                        R39 K82 [Enum.FillDirection.Vertical]
+      400 SETTABLEKS                       R39 R38 K54 ["FillDirection"]
+      402 SETTABLEKS                       R10 R38 K30 ["OnClick"]
+      404 SETTABLEKS                       R23 R38 K94 ["CurrentSelectedKey"]
+      406 SETTABLEKS                       R23 R38 K95 ["SelectedKey"]
+      408 GETIMPORT                        R39 K77 [Enum.TextXAlignment.Left]
+      410 SETTABLEKS                       R39 R38 K72 ["TextXAlignment"]
+      412 GETIMPORT                        R39 K63 [Enum.VerticalAlignment.Top]
+      414 SETTABLEKS                       R39 R38 K48 ["VerticalAlignment"]
+      416 CALL                             R36 2 1
+      417 SETTABLEKS                       R36 R35 K89 ["RadioButtonList"]
+      419 CALL                             R32 3 1
+      420 SETTABLEKS                       R32 R31 K83 ["ContentContainer"]
+      422 CALL                             R28 3 1
+      423 SETTABLEKS                       R28 R27 K65 ["RightFrame"]
+      425 CALL                             R24 3 -1
+      426 RETURN                           R24 -1
 
 MAIN:
         0 PREPVARARGS                      0

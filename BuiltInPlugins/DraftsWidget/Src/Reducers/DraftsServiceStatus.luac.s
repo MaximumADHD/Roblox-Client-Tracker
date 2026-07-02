@@ -26,14 +26,10 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K11 [{"Enabled", "Error"}]
-       26 LOADNIL                          R5
-       27 SETTABLEKS                       R5 R4 K9 ["Enabled"]
-       29 LOADNIL                          R5
-       30 SETTABLEKS                       R5 R4 K10 ["Error"]
-       32 DUPTABLE                         R5 K13 [{"DraftsServiceLoaded"}]
-       33 DUPCLOSURE                       R6 K14 [PROTO_0]
-       34 CAPTURE                          VAL R2
-       35 SETTABLEKS                       R6 R5 K12 ["DraftsServiceLoaded"]
-       37 CALL                             R3 2 1
-       38 RETURN                           R3 1
+       25 DUPTABLE                         R4 K12 [{["Enabled"] = , ["Error"] = }]
+       26 DUPTABLE                         R5 K14 [{"DraftsServiceLoaded"}]
+       27 DUPCLOSURE                       R6 K15 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 SETTABLEKS                       R6 R5 K13 ["DraftsServiceLoaded"]
+       31 CALL                             R3 2 1
+       32 RETURN                           R3 1

@@ -88,77 +88,67 @@ PROTO_2:
         7 GETUPVAL                         R9 1
         8 GETTABLEKS                       R9 R9 K5 ["Heightmap"]
        10 SETTABLEKS                       R9 R8 K1 ["Id"]
-       12 DUPTABLE                         R9 K8 [{"ImageType", "Type"}]
+       12 DUPTABLE                         R9 K9 [{["ImageType"], ["Type"] = "Image"}]
        13 GETUPVAL                         R10 2
        14 GETTABLEKS                       R10 R10 K5 ["Heightmap"]
        16 SETTABLEKS                       R10 R9 K6 ["ImageType"]
-       18 LOADK                            R10 K9 ["Image"]
-       19 SETTABLEKS                       R10 R9 K7 ["Type"]
-       21 SETTABLEKS                       R9 R8 K2 ["Schema"]
-       23 NEWCLOSURE                       R9 P0
-       24 CAPTURE                          VAL R4
-       25 SETTABLEKS                       R9 R8 K3 ["Validate"]
-       27 DUPTABLE                         R9 K4 [{"Id", "Schema", "Validate"}]
-       28 GETUPVAL                         R10 1
-       29 GETTABLEKS                       R10 R10 K10 ["Colormap"]
-       31 SETTABLEKS                       R10 R9 K1 ["Id"]
-       33 DUPTABLE                         R10 K8 [{"ImageType", "Type"}]
-       34 GETUPVAL                         R11 2
-       35 GETTABLEKS                       R11 R11 K10 ["Colormap"]
-       37 SETTABLEKS                       R11 R10 K6 ["ImageType"]
-       39 LOADK                            R11 K9 ["Image"]
-       40 SETTABLEKS                       R11 R10 K7 ["Type"]
-       42 SETTABLEKS                       R10 R9 K2 ["Schema"]
-       44 NEWCLOSURE                       R10 P1
-       45 CAPTURE                          VAL R4
-       46 SETTABLEKS                       R10 R9 K3 ["Validate"]
-       48 DUPTABLE                         R10 K12 [{"Id", "Layout", "Schema"}]
-       49 GETUPVAL                         R11 1
-       50 GETTABLEKS                       R11 R11 K13 ["DefaultMaterial"]
-       52 SETTABLEKS                       R11 R10 K1 ["Id"]
-       54 GETIMPORT                        R11 K17 [Enum.FillDirection.Vertical]
-       56 SETTABLEKS                       R11 R10 K11 ["Layout"]
-       58 DUPTABLE                         R11 K19 [{"AllowAir", "Type"}]
-       59 LOADB                            R12 0
-       60 SETTABLEKS                       R12 R11 K18 ["AllowAir"]
-       62 LOADK                            R12 K20 ["Material"]
-       63 SETTABLEKS                       R12 R11 K7 ["Type"]
-       65 SETTABLEKS                       R11 R10 K2 ["Schema"]
-       67 DUPTABLE                         R11 K22 [{"Disabled", "Id", "Layout", "Schema"}]
-       68 GETUPVAL                         R14 1
-       69 GETTABLEKS                       R14 R14 K5 ["Heightmap"]
-       71 GETTABLE                         R13 R1 R14
-       72 NOT                              R12 R13
-       73 JUMPIF                           R12 ; [+7]
-       74 GETUPVAL                         R14 1
-       75 GETTABLEKS                       R14 R14 K5 ["Heightmap"]
-       77 GETTABLE                         R13 R1 R14
-       78 GETTABLEKS                       R13 R13 K9 ["Image"]
-       80 NOT                              R12 R13
-       81 SETTABLEKS                       R12 R11 K21 ["Disabled"]
-       83 GETUPVAL                         R12 1
-       84 GETTABLEKS                       R12 R12 K23 ["Import"]
-       86 SETTABLEKS                       R12 R11 K1 ["Id"]
-       88 GETIMPORT                        R12 K17 [Enum.FillDirection.Vertical]
-       90 SETTABLEKS                       R12 R11 K11 ["Layout"]
-       92 DUPTABLE                         R12 K25 [{"Label", "Type"}]
-       93 GETUPVAL                         R15 3
-       94 GETUPVAL                         R16 1
-       95 GETTABLEKS                       R16 R16 K23 ["Import"]
-       97 NAMECALL                         R13 R4 K26 ["getText"]
-       99 CALL                             R13 3 1
-      100 SETTABLEKS                       R13 R12 K24 ["Label"]
-      102 LOADK                            R13 K27 ["Button"]
-      103 SETTABLEKS                       R13 R12 K7 ["Type"]
-      105 SETTABLEKS                       R12 R11 K2 ["Schema"]
-      107 SETLIST                          R7 R8 4 [1]
-      109 DUPTABLE                         R8 K31 [{"Category", "Data", "Overrides"}]
-      110 GETUPVAL                         R9 3
-      111 SETTABLEKS                       R9 R8 K28 ["Category"]
-      113 SETTABLEKS                       R1 R8 K29 ["Data"]
-      115 SETTABLEKS                       R3 R8 K30 ["Overrides"]
-      117 CALL                             R5 3 -1
-      118 RETURN                           R5 -1
+       18 SETTABLEKS                       R9 R8 K2 ["Schema"]
+       20 NEWCLOSURE                       R9 P0
+       21 CAPTURE                          VAL R4
+       22 SETTABLEKS                       R9 R8 K3 ["Validate"]
+       24 DUPTABLE                         R9 K4 [{"Id", "Schema", "Validate"}]
+       25 GETUPVAL                         R10 1
+       26 GETTABLEKS                       R10 R10 K10 ["Colormap"]
+       28 SETTABLEKS                       R10 R9 K1 ["Id"]
+       30 DUPTABLE                         R10 K9 [{["ImageType"], ["Type"] = "Image"}]
+       31 GETUPVAL                         R11 2
+       32 GETTABLEKS                       R11 R11 K10 ["Colormap"]
+       34 SETTABLEKS                       R11 R10 K6 ["ImageType"]
+       36 SETTABLEKS                       R10 R9 K2 ["Schema"]
+       38 NEWCLOSURE                       R10 P1
+       39 CAPTURE                          VAL R4
+       40 SETTABLEKS                       R10 R9 K3 ["Validate"]
+       42 DUPTABLE                         R10 K12 [{"Id", "Layout", "Schema"}]
+       43 GETUPVAL                         R11 1
+       44 GETTABLEKS                       R11 R11 K13 ["DefaultMaterial"]
+       46 SETTABLEKS                       R11 R10 K1 ["Id"]
+       48 GETIMPORT                        R11 K17 [Enum.FillDirection.Vertical]
+       50 SETTABLEKS                       R11 R10 K11 ["Layout"]
+       52 DUPTABLE                         R11 K21 [{["AllowAir"] = False, ["Type"] = "Material"}]
+       53 SETTABLEKS                       R11 R10 K2 ["Schema"]
+       55 DUPTABLE                         R11 K23 [{"Disabled", "Id", "Layout", "Schema"}]
+       56 GETUPVAL                         R14 1
+       57 GETTABLEKS                       R14 R14 K5 ["Heightmap"]
+       59 GETTABLE                         R13 R1 R14
+       60 NOT                              R12 R13
+       61 JUMPIF                           R12 ; [+7]
+       62 GETUPVAL                         R14 1
+       63 GETTABLEKS                       R14 R14 K5 ["Heightmap"]
+       65 GETTABLE                         R13 R1 R14
+       66 GETTABLEKS                       R13 R13 K8 ["Image"]
+       68 NOT                              R12 R13
+       69 SETTABLEKS                       R12 R11 K22 ["Disabled"]
+       71 GETUPVAL                         R12 1
+       72 GETTABLEKS                       R12 R12 K24 ["Import"]
+       74 SETTABLEKS                       R12 R11 K1 ["Id"]
+       76 GETIMPORT                        R12 K17 [Enum.FillDirection.Vertical]
+       78 SETTABLEKS                       R12 R11 K11 ["Layout"]
+       80 DUPTABLE                         R12 K27 [{["Label"], ["Type"] = "Button"}]
+       81 GETUPVAL                         R15 3
+       82 GETUPVAL                         R16 1
+       83 GETTABLEKS                       R16 R16 K24 ["Import"]
+       85 NAMECALL                         R13 R4 K28 ["getText"]
+       87 CALL                             R13 3 1
+       88 SETTABLEKS                       R13 R12 K25 ["Label"]
+       90 SETTABLEKS                       R12 R11 K2 ["Schema"]
+       92 SETLIST                          R7 R8 4 [1]
+       94 DUPTABLE                         R8 K32 [{"Category", "Data", "Overrides"}]
+       95 GETUPVAL                         R9 3
+       96 SETTABLEKS                       R9 R8 K29 ["Category"]
+       98 SETTABLEKS                       R1 R8 K30 ["Data"]
+      100 SETTABLEKS                       R3 R8 K31 ["Overrides"]
+      102 CALL                             R5 3 -1
+      103 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

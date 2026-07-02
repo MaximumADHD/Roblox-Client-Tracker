@@ -78,15 +78,15 @@ PROTO_1:
        56 DIV                              R26 R13 R12
        57 ADD                              R25 R22 R26
        58 MUL                              R27 R13 R13
-       59 SUBRK                            R26 R9 K27 [NULL]
+       59 SUBRK                            R26 K9 [1] R27
        60 GETIMPORT                        R27 K13 [Enum.PoseEasingDirection.In]
        62 JUMPIFNOTEQ                      R0 R27 ; [+7]
-       64 SUBRK                            R22 R9 K22 ["Out"]
+       64 SUBRK                            R22 K9 [1] R22
        65 MOVE                             R27 R23
        66 MOVE                             R23 R24
        67 MOVE                             R24 R27
-       68 SUBRK                            R25 R9 K25 [NULL]
-       69 SUBRK                            R26 R9 K26 [NULL]
+       68 SUBRK                            R25 K9 [1] R25
+       69 SUBRK                            R26 K9 [1] R26
        70 GETUPVAL                         R27 0
        71 GETTABLEKS                       R27 R27 K14 ["getNearestTick"]
        73 MUL                              R29 R22 R9
@@ -213,11 +213,11 @@ PROTO_2:
        42 GETIMPORT                        R20 K12 [math.cos]
        44 CALL                             R20 1 1
        45 MUL                              R18 R19 R20
-       46 SUBRK                            R17 R8 K18 ["keyframe"]
+       46 SUBRK                            R17 K8 [1] R18
        47 GETIMPORT                        R18 K16 [Enum.PoseEasingDirection.In]
        49 JUMPIFNOTEQ                      R0 R18 ; [+3]
-       51 SUBRK                            R16 R8 K16 [Enum.PoseEasingDirection.In]
-       52 SUBRK                            R17 R8 K17 ["getNearestTick"]
+       51 SUBRK                            R16 K8 [1] R16
+       52 SUBRK                            R17 K8 [1] R17
        53 GETUPVAL                         R18 0
        54 GETTABLEKS                       R18 R18 K17 ["getNearestTick"]
        56 MUL                              R20 R16 R9
@@ -371,7 +371,7 @@ PROTO_3:
 
 PROTO_4:
         0 MULK                             R7 R0 K1 [2]
-        1 SUBRK                            R6 R0 K7 [NULL]
+        1 SUBRK                            R6 K0 [3] R7
         2 SUBK                             R8 R0 K1 [2]
         3 GETUPVAL                         R9 0
         4 MUL                              R7 R8 R9
@@ -402,7 +402,7 @@ PROTO_5:
        12 SUB                              R15 R9 R7
        13 DIV                              R13 R14 R15
        14 MULK                             R16 R12 K1 [4]
-       15 SUBRK                            R15 R0 K16 [NULL]
+       15 SUBRK                            R15 K0 [6] R16
        16 MULK                             R16 R13 K2 [2]
        17 SUB                              R14 R15 R16
        18 MUL                              R16 R14 R14
@@ -437,7 +437,7 @@ PROTO_5:
        50 LOADN                            R19 1
        51 JUMPIFNOTLT                      R18 R19 ; [+15]
        53 MULK                             R26 R18 K2 [2]
-       54 SUBRK                            R25 R3 K26 [NULL]
+       54 SUBRK                            R25 K3 [3] R26
        55 SUBK                             R27 R18 K2 [2]
        56 MUL                              R26 R27 R12
        57 ADD                              R24 R25 R26
@@ -465,7 +465,7 @@ PROTO_5:
        80 LOADN                            R20 1
        81 JUMPIFNOTLT                      R19 R20 ; [+15]
        83 MULK                             R27 R19 K2 [2]
-       84 SUBRK                            R26 R3 K27 [NULL]
+       84 SUBRK                            R26 K3 [3] R27
        85 SUBK                             R28 R19 K2 [2]
        86 MUL                              R27 R28 R12
        87 ADD                              R25 R26 R27

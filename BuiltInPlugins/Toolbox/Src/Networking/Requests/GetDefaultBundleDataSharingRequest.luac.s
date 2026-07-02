@@ -46,9 +46,7 @@ MAIN:
        24 CALL                             R3 1 1
        25 GETTABLEKS                       R4 R0 K6 ["Src"]
        27 GETTABLEKS                       R4 R4 K7 ["Actions"]
-       29 DUPTABLE                         R5 K12 [{"isEligible"}]
-       30 LOADB                            R6 0
-       31 SETTABLEKS                       R6 R5 K11 ["isEligible"]
-       33 DUPCLOSURE                       R6 K13 [PROTO_2]
-       34 CAPTURE                          VAL R5
-       35 RETURN                           R6 1
+       29 DUPTABLE                         R5 K13 [{["isEligible"] = False}]
+       30 DUPCLOSURE                       R6 K14 [PROTO_2]
+       31 CAPTURE                          VAL R5
+       32 RETURN                           R6 1

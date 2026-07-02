@@ -39,22 +39,20 @@ PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["createElement"]
         3 GETUPVAL                         R1 1
-        4 DUPTABLE                         R2 K6 [{"key", "makeupWorldModel", "makeupSkinColor", "dialogLookType", "dialogItems"}]
-        5 LOADK                            R3 K7 ["SharedLookPreview"]
-        6 SETTABLEKS                       R3 R2 K1 ["key"]
-        8 GETUPVAL                         R3 2
-        9 SETTABLEKS                       R3 R2 K2 ["makeupWorldModel"]
-       11 GETUPVAL                         R3 3
-       12 GETTABLEKS                       R3 R3 K8 ["skinColor"]
-       14 SETTABLEKS                       R3 R2 K3 ["makeupSkinColor"]
-       16 GETUPVAL                         R3 3
-       17 GETTABLEKS                       R3 R3 K4 ["dialogLookType"]
-       19 SETTABLEKS                       R3 R2 K4 ["dialogLookType"]
-       21 GETUPVAL                         R3 3
-       22 GETTABLEKS                       R3 R3 K5 ["dialogItems"]
-       24 SETTABLEKS                       R3 R2 K5 ["dialogItems"]
-       26 CALL                             R0 2 -1
-       27 RETURN                           R0 -1
+        4 DUPTABLE                         R2 K7 [{["key"] = "SharedLookPreview", ["makeupWorldModel"], ["makeupSkinColor"], ["dialogLookType"], ["dialogItems"]}]
+        5 GETUPVAL                         R3 2
+        6 SETTABLEKS                       R3 R2 K3 ["makeupWorldModel"]
+        8 GETUPVAL                         R3 3
+        9 GETTABLEKS                       R3 R3 K8 ["skinColor"]
+       11 SETTABLEKS                       R3 R2 K4 ["makeupSkinColor"]
+       13 GETUPVAL                         R3 3
+       14 GETTABLEKS                       R3 R3 K5 ["dialogLookType"]
+       16 SETTABLEKS                       R3 R2 K5 ["dialogLookType"]
+       18 GETUPVAL                         R3 3
+       19 GETTABLEKS                       R3 R3 K6 ["dialogItems"]
+       21 SETTABLEKS                       R3 R2 K6 ["dialogItems"]
+       23 CALL                             R0 2 -1
+       24 RETURN                           R0 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

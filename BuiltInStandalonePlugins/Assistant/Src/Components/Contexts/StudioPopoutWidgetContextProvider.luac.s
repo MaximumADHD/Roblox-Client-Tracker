@@ -21,15 +21,10 @@ PROTO_1:
        12 SETTABLEKS                       R3 R2 K2 ["Title"]
        14 GETTABLEKS                       R3 R0 K3 ["Modal"]
        16 SETTABLEKS                       R3 R2 K3 ["Modal"]
-       18 GETUPVAL                         R4 1
-       19 CALL                             R4 0 1
-       20 JUMPIFNOT                        R4 ; [+3]
-       21 GETTABLEKS                       R3 R0 K4 ["onHide"]
-       23 JUMP                             ; [+1]
-       24 LOADNIL                          R3
-       25 SETTABLEKS                       R3 R2 K4 ["onHide"]
-       27 CALL                             R1 1 -1
-       28 RETURN                           R1 -1
+       18 GETTABLEKS                       R3 R0 K4 ["onHide"]
+       20 SETTABLEKS                       R3 R2 K4 ["onHide"]
+       22 CALL                             R1 1 -1
+       23 RETURN                           R1 -1
 
 PROTO_2:
         0 DUPTABLE                         R0 K2 [{"getDialogWidget", "getPopoutMenu"}]
@@ -82,19 +77,15 @@ MAIN:
        34 GETTABLEKS                       R5 R5 K10 ["Hooks"]
        36 GETTABLEKS                       R5 R5 K12 ["usePopoutMenu"]
        38 CALL                             R4 1 1
-       39 GETTABLEKS                       R5 R1 K13 ["Flags"]
-       41 GETTABLEKS                       R5 R5 K14 ["Shared"]
-       43 GETTABLEKS                       R5 R5 K15 ["FFlagAssistantMultipleChatPersistence"]
-       45 GETTABLEKS                       R6 R2 K16 ["createElement"]
-       47 DUPCLOSURE                       R7 K17 [PROTO_0]
-       48 CAPTURE                          VAL R4
-       49 DUPCLOSURE                       R8 K18 [PROTO_1]
-       50 CAPTURE                          VAL R3
-       51 CAPTURE                          VAL R5
-       52 DUPCLOSURE                       R9 K19 [PROTO_3]
-       53 CAPTURE                          VAL R2
-       54 CAPTURE                          VAL R8
-       55 CAPTURE                          VAL R7
-       56 CAPTURE                          VAL R6
-       57 CAPTURE                          VAL R1
-       58 RETURN                           R9 1
+       39 GETTABLEKS                       R5 R2 K13 ["createElement"]
+       41 DUPCLOSURE                       R6 K14 [PROTO_0]
+       42 CAPTURE                          VAL R4
+       43 DUPCLOSURE                       R7 K15 [PROTO_1]
+       44 CAPTURE                          VAL R3
+       45 DUPCLOSURE                       R8 K16 [PROTO_3]
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R7
+       48 CAPTURE                          VAL R6
+       49 CAPTURE                          VAL R5
+       50 CAPTURE                          VAL R1
+       51 RETURN                           R8 1

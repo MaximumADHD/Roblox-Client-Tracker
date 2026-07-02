@@ -17,7 +17,7 @@ PROTO_0:
        21 GETTABLEKS                       R7 R1 K8 ["Position"]
        23 NAMECALL                         R5 R2 K9 ["worldToViewportPoint"]
        25 CALL                             R5 2 2
-       26 JUMPIFNOT                        R6 ; [+69]
+       26 JUMPIFNOT                        R6 ; [+66]
        27 GETUPVAL                         R7 1
        28 GETTABLEKS                       R7 R7 K10 ["createElement"]
        30 GETUPVAL                         R8 1
@@ -35,40 +35,38 @@ PROTO_0:
        47 GETUPVAL                         R15 1
        48 GETTABLEKS                       R15 R15 K10 ["createElement"]
        50 LOADK                            R16 K20 ["ImageLabel"]
-       51 DUPTABLE                         R17 K26 [{"Image", "ImageColor3", "Size", "AnchorPoint", "Position", "BackgroundTransparency"}]
+       51 DUPTABLE                         R17 K27 [{["Image"], ["ImageColor3"], ["Size"], ["AnchorPoint"], ["Position"], ["BackgroundTransparency"] = 1}]
        52 SETTABLEKS                       R3 R17 K21 ["Image"]
        54 SETTABLEKS                       R4 R17 K22 ["ImageColor3"]
-       56 GETIMPORT                        R18 K29 [UDim2.new]
+       56 GETIMPORT                        R18 K30 [UDim2.new]
        58 LOADN                            R19 0
        59 LOADN                            R20 32
        60 LOADN                            R21 0
        61 LOADN                            R22 32
        62 CALL                             R18 4 1
        63 SETTABLEKS                       R18 R17 K23 ["Size"]
-       65 GETIMPORT                        R18 K31 [Vector2.new]
-       67 LOADK                            R19 K32 [0.5]
-       68 LOADK                            R20 K32 [0.5]
+       65 GETIMPORT                        R18 K32 [Vector2.new]
+       67 LOADK                            R19 K33 [0.5]
+       68 LOADK                            R20 K33 [0.5]
        69 CALL                             R18 2 1
        70 SETTABLEKS                       R18 R17 K24 ["AnchorPoint"]
-       72 GETIMPORT                        R18 K29 [UDim2.new]
+       72 GETIMPORT                        R18 K30 [UDim2.new]
        74 LOADN                            R19 0
-       75 GETTABLEKS                       R21 R5 K33 ["X"]
-       77 ADDK                             R20 R21 K32 [0.5]
+       75 GETTABLEKS                       R21 R5 K34 ["X"]
+       77 ADDK                             R20 R21 K33 [0.5]
        78 LOADN                            R21 0
-       79 GETTABLEKS                       R23 R5 K34 ["Y"]
-       81 ADDK                             R22 R23 K32 [0.5]
+       79 GETTABLEKS                       R23 R5 K35 ["Y"]
+       81 ADDK                             R22 R23 K33 [0.5]
        82 CALL                             R18 4 1
        83 SETTABLEKS                       R18 R17 K8 ["Position"]
-       85 LOADN                            R18 1
-       86 SETTABLEKS                       R18 R17 K25 ["BackgroundTransparency"]
-       88 CALL                             R15 2 1
-       89 SETTABLEKS                       R15 R14 K18 ["PivotHoverImage"]
-       91 CALL                             R11 3 1
-       92 SETTABLEKS                       R11 R10 K15 ["PivotHoverHighlight"]
-       94 CALL                             R7 3 -1
-       95 RETURN                           R7 -1
-       96 LOADNIL                          R7
-       97 RETURN                           R7 1
+       85 CALL                             R15 2 1
+       86 SETTABLEKS                       R15 R14 K18 ["PivotHoverImage"]
+       88 CALL                             R11 3 1
+       89 SETTABLEKS                       R11 R10 K15 ["PivotHoverHighlight"]
+       91 CALL                             R7 3 -1
+       92 RETURN                           R7 -1
+       93 LOADNIL                          R7
+       94 RETURN                           R7 1
 
 MAIN:
         0 PREPVARARGS                      0

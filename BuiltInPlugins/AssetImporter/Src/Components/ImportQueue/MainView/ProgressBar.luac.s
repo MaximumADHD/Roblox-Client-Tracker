@@ -96,49 +96,43 @@ PROTO_4:
        90 GETUPVAL                         R10 3
        91 GETUPVAL                         R11 4
        92 GETTABLEKS                       R11 R11 K26 ["View"]
-       94 DUPTABLE                         R12 K28 [{"tag"}]
-       95 LOADK                            R13 K29 ["col size-full-0 auto-y padding-x-small padding-bottom-small"]
-       96 SETTABLEKS                       R13 R12 K27 ["tag"]
-       98 DUPTABLE                         R13 K32 [{"Progress", "Text"}]
-       99 GETUPVAL                         R14 3
-      100 GETUPVAL                         R15 4
-      101 GETTABLEKS                       R15 R15 K26 ["View"]
-      103 DUPTABLE                         R16 K28 [{"tag"}]
-      104 LOADK                            R17 K33 ["size-full-0 auto-y padding-y-small"]
-      105 SETTABLEKS                       R17 R16 K27 ["tag"]
-      107 GETUPVAL                         R17 3
-      108 GETUPVAL                         R18 4
-      109 GETTABLEKS                       R18 R18 K30 ["Progress"]
-      111 DUPTABLE                         R19 K38 [{"value", "size", "shape", "LayoutOrder"}]
-      112 SETTABLEKS                       R7 R19 K34 ["value"]
-      114 GETUPVAL                         R20 5
-      115 GETTABLEKS                       R20 R20 K39 ["ProgressSize"]
-      117 GETTABLEKS                       R20 R20 K40 ["Medium"]
-      119 SETTABLEKS                       R20 R19 K35 ["size"]
-      121 GETUPVAL                         R20 5
-      122 GETTABLEKS                       R20 R20 K41 ["ProgressShape"]
-      124 GETTABLEKS                       R20 R20 K42 ["Bar"]
-      126 SETTABLEKS                       R20 R19 K36 ["shape"]
-      128 NAMECALL                         R20 R9 K43 ["getNextOrder"]
-      130 CALL                             R20 1 1
-      131 SETTABLEKS                       R20 R19 K37 ["LayoutOrder"]
-      133 CALL                             R17 2 -1
-      134 CALL                             R14 -1 1
-      135 SETTABLEKS                       R14 R13 K30 ["Progress"]
-      137 GETUPVAL                         R14 3
-      138 GETUPVAL                         R15 4
-      139 GETTABLEKS                       R15 R15 K31 ["Text"]
-      141 DUPTABLE                         R16 K44 [{"tag", "Text", "LayoutOrder"}]
-      142 LOADK                            R17 K45 ["size-full-0 auto-y content-emphasis text-body-small text-align-x-left text-align-y-center"]
-      143 SETTABLEKS                       R17 R16 K27 ["tag"]
-      145 SETTABLEKS                       R8 R16 K31 ["Text"]
-      147 NAMECALL                         R17 R9 K43 ["getNextOrder"]
-      149 CALL                             R17 1 1
-      150 SETTABLEKS                       R17 R16 K37 ["LayoutOrder"]
-      152 CALL                             R14 2 1
-      153 SETTABLEKS                       R14 R13 K31 ["Text"]
-      155 CALL                             R10 3 -1
-      156 RETURN                           R10 -1
+       94 DUPTABLE                         R12 K29 [{["tag"] = "col size-full-0 auto-y padding-x-small padding-bottom-small"}]
+       95 DUPTABLE                         R13 K32 [{"Progress", "Text"}]
+       96 GETUPVAL                         R14 3
+       97 GETUPVAL                         R15 4
+       98 GETTABLEKS                       R15 R15 K26 ["View"]
+      100 DUPTABLE                         R16 K34 [{["tag"] = "size-full-0 auto-y padding-y-small"}]
+      101 GETUPVAL                         R17 3
+      102 GETUPVAL                         R18 4
+      103 GETTABLEKS                       R18 R18 K30 ["Progress"]
+      105 DUPTABLE                         R19 K39 [{"value", "size", "shape", "LayoutOrder"}]
+      106 SETTABLEKS                       R7 R19 K35 ["value"]
+      108 GETUPVAL                         R20 5
+      109 GETTABLEKS                       R20 R20 K40 ["ProgressSize"]
+      111 GETTABLEKS                       R20 R20 K41 ["Medium"]
+      113 SETTABLEKS                       R20 R19 K36 ["size"]
+      115 GETUPVAL                         R20 5
+      116 GETTABLEKS                       R20 R20 K42 ["ProgressShape"]
+      118 GETTABLEKS                       R20 R20 K43 ["Bar"]
+      120 SETTABLEKS                       R20 R19 K37 ["shape"]
+      122 NAMECALL                         R20 R9 K44 ["getNextOrder"]
+      124 CALL                             R20 1 1
+      125 SETTABLEKS                       R20 R19 K38 ["LayoutOrder"]
+      127 CALL                             R17 2 -1
+      128 CALL                             R14 -1 1
+      129 SETTABLEKS                       R14 R13 K30 ["Progress"]
+      131 GETUPVAL                         R14 3
+      132 GETUPVAL                         R15 4
+      133 GETTABLEKS                       R15 R15 K31 ["Text"]
+      135 DUPTABLE                         R16 K46 [{["tag"] = "size-full-0 auto-y text-body-small text-align-x-left text-align-y-center content-emphasis", ["Text"], ["LayoutOrder"]}]
+      136 SETTABLEKS                       R8 R16 K31 ["Text"]
+      138 NAMECALL                         R17 R9 K44 ["getNextOrder"]
+      140 CALL                             R17 1 1
+      141 SETTABLEKS                       R17 R16 K38 ["LayoutOrder"]
+      143 CALL                             R14 2 1
+      144 SETTABLEKS                       R14 R13 K31 ["Text"]
+      146 CALL                             R10 3 -1
+      147 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

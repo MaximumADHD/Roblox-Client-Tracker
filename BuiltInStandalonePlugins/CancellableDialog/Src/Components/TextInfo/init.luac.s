@@ -44,22 +44,20 @@ PROTO_2:
        14 GETUPVAL                         R2 0
        15 GETTABLEKS                       R2 R2 K0 ["current"]
        17 GETUPVAL                         R3 2
-       18 DUPTABLE                         R4 K5 [{"Rotation"}]
-       19 LOADN                            R5 104
-       20 SETTABLEKS                       R5 R4 K4 ["Rotation"]
-       22 NAMECALL                         R0 R0 K6 ["Create"]
-       24 CALL                             R0 4 1
-       25 NAMECALL                         R1 R0 K7 ["Play"]
-       27 CALL                             R1 1 0
-       28 GETIMPORT                        R1 K10 [task.spawn]
-       30 NEWCLOSURE                       R2 P0
-       31 CAPTURE                          UPVAL U0
-       32 CAPTURE                          UPVAL U3
-       33 CALL                             R1 1 1
-       34 NEWCLOSURE                       R2 P1
-       35 CAPTURE                          VAL R1
-       36 CAPTURE                          VAL R0
-       37 RETURN                           R2 1
+       18 DUPTABLE                         R4 K6 [{["Rotation"] = 360}]
+       19 NAMECALL                         R0 R0 K7 ["Create"]
+       21 CALL                             R0 4 1
+       22 NAMECALL                         R1 R0 K8 ["Play"]
+       24 CALL                             R1 1 0
+       25 GETIMPORT                        R1 K11 [task.spawn]
+       27 NEWCLOSURE                       R2 P0
+       28 CAPTURE                          UPVAL U0
+       29 CAPTURE                          UPVAL U3
+       30 CALL                             R1 1 1
+       31 NEWCLOSURE                       R2 P1
+       32 CAPTURE                          VAL R1
+       33 CAPTURE                          VAL R0
+       34 RETURN                           R2 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -269,7 +267,7 @@ MAIN:
        64 LOADN                            R9 2
        65 GETIMPORT                        R10 K30 [Enum.EasingStyle.Linear]
        67 GETIMPORT                        R11 K33 [Enum.EasingDirection.In]
-       69 LOADN                            R12 255
+       69 LOADN                            R12 -1
        70 CALL                             R8 4 1
        71 DUPCLOSURE                       R9 K34 [PROTO_3]
        72 CAPTURE                          VAL R3

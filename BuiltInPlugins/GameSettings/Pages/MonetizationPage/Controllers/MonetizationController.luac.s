@@ -69,14 +69,12 @@ PROTO_6:
         5 LOADK                            R10 K3 ["/developerproducts"]
         6 CONCAT                           R7 R8 R10
         7 DUPTABLE                         R8 K5 [{"Params"}]
-        8 DUPTABLE                         R9 K8 [{"cursor", "limit"}]
+        8 DUPTABLE                         R9 K9 [{["cursor"], ["limit"] = 50}]
         9 SETTABLEKS                       R2 R9 K6 ["cursor"]
-       11 LOADN                            R10 50
-       12 SETTABLEKS                       R10 R9 K7 ["limit"]
-       14 SETTABLEKS                       R9 R8 K4 ["Params"]
-       16 NAMECALL                         R4 R3 K9 ["get"]
-       18 CALL                             R4 4 -1
-       19 RETURN                           R4 -1
+       11 SETTABLEKS                       R9 R8 K4 ["Params"]
+       13 NAMECALL                         R4 R3 K10 ["get"]
+       15 CALL                             R4 4 -1
+       16 RETURN                           R4 -1
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
@@ -86,19 +84,17 @@ PROTO_7:
         5 LOADK                            R10 K3 ["/developerproducts"]
         6 CONCAT                           R7 R8 R10
         7 DUPTABLE                         R8 K6 [{"Params", "Body"}]
-        8 DUPTABLE                         R9 K10 [{"name", "description", "priceInRobux"}]
+        8 DUPTABLE                         R9 K11 [{["name"], ["description"] = " ", ["priceInRobux"]}]
         9 GETTABLEKS                       R10 R2 K7 ["name"]
        11 SETTABLEKS                       R10 R9 K7 ["name"]
-       13 LOADK                            R10 K11 [" "]
-       14 SETTABLEKS                       R10 R9 K8 ["description"]
-       16 GETTABLEKS                       R10 R2 K12 ["price"]
-       18 SETTABLEKS                       R10 R9 K9 ["priceInRobux"]
-       20 SETTABLEKS                       R9 R8 K4 ["Params"]
-       22 NEWTABLE                         R9 0 0
-       24 SETTABLEKS                       R9 R8 K5 ["Body"]
-       26 NAMECALL                         R4 R3 K13 ["post"]
-       28 CALL                             R4 4 -1
-       29 RETURN                           R4 -1
+       13 GETTABLEKS                       R10 R2 K12 ["price"]
+       15 SETTABLEKS                       R10 R9 K10 ["priceInRobux"]
+       17 SETTABLEKS                       R9 R8 K4 ["Params"]
+       19 NEWTABLE                         R9 0 0
+       21 SETTABLEKS                       R9 R8 K5 ["Body"]
+       23 NAMECALL                         R4 R3 K13 ["post"]
+       25 CALL                             R4 4 -1
+       26 RETURN                           R4 -1
 
 PROTO_8:
         0 GETTABLEKS                       R3 R0 K0 ["__networking"]
@@ -128,14 +124,12 @@ PROTO_9:
         5 LOADK                            R10 K3 ["/badges"]
         6 CONCAT                           R7 R8 R10
         7 DUPTABLE                         R8 K5 [{"Params"}]
-        8 DUPTABLE                         R9 K8 [{"sortOrder", "cursor"}]
-        9 LOADK                            R10 K9 ["Asc"]
-       10 SETTABLEKS                       R10 R9 K6 ["sortOrder"]
-       12 SETTABLEKS                       R2 R9 K7 ["cursor"]
-       14 SETTABLEKS                       R9 R8 K4 ["Params"]
-       16 NAMECALL                         R4 R3 K10 ["get"]
-       18 CALL                             R4 4 -1
-       19 RETURN                           R4 -1
+        8 DUPTABLE                         R9 K9 [{["sortOrder"] = "Asc", ["cursor"]}]
+        9 SETTABLEKS                       R2 R9 K8 ["cursor"]
+       11 SETTABLEKS                       R9 R8 K4 ["Params"]
+       13 NAMECALL                         R4 R3 K10 ["get"]
+       15 CALL                             R4 4 -1
+       16 RETURN                           R4 -1
 
 PROTO_10:
         0 NAMECALL                         R1 R0 K0 ["economyV1GET"]
@@ -184,7 +178,7 @@ PROTO_13:
        23 JUMPIFNOT                        R3 ; [+3]
        24 GETTABLEKS                       R6 R3 K2 ["responseCode"]
        26 JUMP                             ; [+1]
-       27 LOADN                            R6 255
+       27 LOADN                            R6 -1
        28 LOADK                            R7 K7 ["Error fetching rewarded on demand ads eligibility"]
        29 CALL                             R4 3 0
        30 LOADNIL                          R4
@@ -340,35 +334,33 @@ PROTO_25:
         1 MOVE                             R2 R0
         2 GETIMPORT                        R1 K1 [type]
         4 CALL                             R1 1 1
-        5 JUMPIFNOTEQKS                    R1 K2 ["table"] ; [+38]
+        5 JUMPIFNOTEQKS                    R1 K2 ["table"] ; [+35]
         7 GETTABLEKS                       R1 R0 K3 ["responseBody"]
-        9 JUMPIFNOT                        R1 ; [+34]
+        9 JUMPIFNOT                        R1 ; [+31]
        10 GETTABLEKS                       R1 R0 K3 ["responseBody"]
        12 GETTABLEKS                       R1 R1 K4 ["errors"]
-       14 JUMPIFNOT                        R1 ; [+29]
+       14 JUMPIFNOT                        R1 ; [+26]
        15 GETIMPORT                        R1 K6 [ipairs]
        17 GETTABLEKS                       R2 R0 K3 ["responseBody"]
        19 GETTABLEKS                       R2 R2 K4 ["errors"]
        21 CALL                             R1 1 3
        22 FORGPREP_INEXT                   R1
        23 GETTABLEKS                       R6 R5 K7 ["code"]
-       25 JUMPIFNOTEQKN                    R6 K8 [41] ; [+16]
+       25 JUMPIFNOTEQKN                    R6 K8 [41] ; [+13]
        27 GETIMPORT                        R6 K11 [string.match]
        29 GETTABLEKS                       R8 R5 K13 ["userFacingMessage"]
        31 ORK                              R7 R8 K12 [""]
        32 LOADK                            R8 K14 ["until (.+) UTC"]
        33 CALL                             R6 2 1
-       34 DUPTABLE                         R7 K17 [{"key", "date"}]
-       35 LOADK                            R8 K18 ["PriceChangeTooSoon"]
-       36 SETTABLEKS                       R8 R7 K15 ["key"]
-       38 SETTABLEKS                       R6 R7 K16 ["date"]
-       40 SETUPVAL                         R7 0
-       41 RETURN                           R0 0
-       42 FORGLOOP                         R1 2 [inext] ; [-20]
-       44 GETIMPORT                        R1 K20 [error]
-       46 MOVE                             R2 R0
-       47 CALL                             R1 1 0
-       48 RETURN                           R0 0
+       34 DUPTABLE                         R7 K18 [{["key"] = "PriceChangeTooSoon", ["date"]}]
+       35 SETTABLEKS                       R6 R7 K17 ["date"]
+       37 SETUPVAL                         R7 0
+       38 RETURN                           R0 0
+       39 FORGLOOP                         R1 2 [inext] ; [-17]
+       41 GETIMPORT                        R1 K20 [error]
+       43 MOVE                             R2 R0
+       44 CALL                             R1 1 0
+       45 RETURN                           R0 0
 
 PROTO_26:
         0 GETUPVAL                         R3 0

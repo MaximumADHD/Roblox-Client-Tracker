@@ -9,7 +9,7 @@ PROTO_0:
         7 CALL                             R6 -1 1
         8 MULK                             R5 R6 K1 [0.08]
         9 ADD                              R3 R4 R5
-       10 SUBRK                            R5 R2 K1 [0.08]
+       10 SUBRK                            R5 K2 [1] R1
        11 LOADK                            R6 K3 [0.44]
        12 JUMPIFNOTLT                      R5 R6 ; [+4]
        14 GETIMPORT                        R4 K7 [Enum.Material.Slate]

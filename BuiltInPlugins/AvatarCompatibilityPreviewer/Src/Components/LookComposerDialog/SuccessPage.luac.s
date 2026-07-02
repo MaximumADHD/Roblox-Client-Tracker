@@ -13,58 +13,52 @@ PROTO_0:
        13 GETUPVAL                         R3 3
        14 GETTABLEKS                       R3 R3 K2 ["createElement"]
        16 GETUPVAL                         R4 4
-       17 DUPTABLE                         R5 K4 [{"tag"}]
-       18 LOADK                            R6 K5 ["col align-x-center align-y-center size-full gap-medium padding-large"]
-       19 SETTABLEKS                       R6 R5 K3 ["tag"]
-       21 DUPTABLE                         R6 K9 [{"Thumbnail", "Title", "Subtitle"}]
-       22 GETUPVAL                         R7 3
-       23 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       25 GETUPVAL                         R8 4
-       26 DUPTABLE                         R9 K12 [{"LayoutOrder", "AutomaticSize"}]
-       27 NAMECALL                         R10 R2 K13 ["getNextOrder"]
-       29 CALL                             R10 1 1
-       30 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
-       32 GETIMPORT                        R10 K16 [Enum.AutomaticSize.XY]
-       34 SETTABLEKS                       R10 R9 K11 ["AutomaticSize"]
-       36 DUPTABLE                         R10 K18 [{"ThumbnailContent"}]
-       37 GETTABLEKS                       R11 R0 K19 ["lookPreview"]
-       39 SETTABLEKS                       R11 R10 K17 ["ThumbnailContent"]
-       41 CALL                             R7 3 1
-       42 SETTABLEKS                       R7 R6 K6 ["Thumbnail"]
-       44 GETUPVAL                         R7 3
-       45 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       47 GETUPVAL                         R8 5
-       48 DUPTABLE                         R9 K21 [{"Text", "tag", "LayoutOrder"}]
-       49 LOADK                            R12 K22 ["LookComposerDialog"]
-       50 LOADK                            R13 K23 ["CreateLookSuccessTitle"]
-       51 NAMECALL                         R10 R1 K24 ["getText"]
-       53 CALL                             R10 3 1
-       54 SETTABLEKS                       R10 R9 K20 ["Text"]
-       56 LOADK                            R10 K25 ["text-heading-small auto-xy content-default text-center"]
-       57 SETTABLEKS                       R10 R9 K3 ["tag"]
-       59 NAMECALL                         R10 R2 K13 ["getNextOrder"]
-       61 CALL                             R10 1 1
-       62 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
-       64 CALL                             R7 2 1
-       65 SETTABLEKS                       R7 R6 K7 ["Title"]
-       67 GETUPVAL                         R7 3
-       68 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       70 GETUPVAL                         R8 5
-       71 DUPTABLE                         R9 K21 [{"Text", "tag", "LayoutOrder"}]
-       72 LOADK                            R12 K22 ["LookComposerDialog"]
-       73 LOADK                            R13 K26 ["CreateLookSuccessSubtitle"]
-       74 NAMECALL                         R10 R1 K24 ["getText"]
-       76 CALL                             R10 3 1
-       77 SETTABLEKS                       R10 R9 K20 ["Text"]
-       79 LOADK                            R10 K27 ["text-body-medium auto-xy content-muted text-center"]
-       80 SETTABLEKS                       R10 R9 K3 ["tag"]
-       82 NAMECALL                         R10 R2 K13 ["getNextOrder"]
-       84 CALL                             R10 1 1
-       85 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
-       87 CALL                             R7 2 1
-       88 SETTABLEKS                       R7 R6 K8 ["Subtitle"]
-       90 CALL                             R3 3 -1
-       91 RETURN                           R3 -1
+       17 DUPTABLE                         R5 K5 [{["tag"] = "col align-x-center align-y-center gap-medium size-full padding-large"}]
+       18 DUPTABLE                         R6 K9 [{"Thumbnail", "Title", "Subtitle"}]
+       19 GETUPVAL                         R7 3
+       20 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       22 GETUPVAL                         R8 4
+       23 DUPTABLE                         R9 K12 [{"LayoutOrder", "AutomaticSize"}]
+       24 NAMECALL                         R10 R2 K13 ["getNextOrder"]
+       26 CALL                             R10 1 1
+       27 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
+       29 GETIMPORT                        R10 K16 [Enum.AutomaticSize.XY]
+       31 SETTABLEKS                       R10 R9 K11 ["AutomaticSize"]
+       33 DUPTABLE                         R10 K18 [{"ThumbnailContent"}]
+       34 GETTABLEKS                       R11 R0 K19 ["lookPreview"]
+       36 SETTABLEKS                       R11 R10 K17 ["ThumbnailContent"]
+       38 CALL                             R7 3 1
+       39 SETTABLEKS                       R7 R6 K6 ["Thumbnail"]
+       41 GETUPVAL                         R7 3
+       42 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       44 GETUPVAL                         R8 5
+       45 DUPTABLE                         R9 K22 [{["Text"], ["tag"] = "text-center auto-xy text-heading-small content-default", ["LayoutOrder"]}]
+       46 LOADK                            R12 K23 ["LookComposerDialog"]
+       47 LOADK                            R13 K24 ["CreateLookSuccessTitle"]
+       48 NAMECALL                         R10 R1 K25 ["getText"]
+       50 CALL                             R10 3 1
+       51 SETTABLEKS                       R10 R9 K20 ["Text"]
+       53 NAMECALL                         R10 R2 K13 ["getNextOrder"]
+       55 CALL                             R10 1 1
+       56 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
+       58 CALL                             R7 2 1
+       59 SETTABLEKS                       R7 R6 K7 ["Title"]
+       61 GETUPVAL                         R7 3
+       62 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       64 GETUPVAL                         R8 5
+       65 DUPTABLE                         R9 K27 [{["Text"], ["tag"] = "text-center auto-xy text-body-medium content-muted", ["LayoutOrder"]}]
+       66 LOADK                            R12 K23 ["LookComposerDialog"]
+       67 LOADK                            R13 K28 ["CreateLookSuccessSubtitle"]
+       68 NAMECALL                         R10 R1 K25 ["getText"]
+       70 CALL                             R10 3 1
+       71 SETTABLEKS                       R10 R9 K20 ["Text"]
+       73 NAMECALL                         R10 R2 K13 ["getNextOrder"]
+       75 CALL                             R10 1 1
+       76 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
+       78 CALL                             R7 2 1
+       79 SETTABLEKS                       R7 R6 K8 ["Subtitle"]
+       81 CALL                             R3 3 -1
+       82 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

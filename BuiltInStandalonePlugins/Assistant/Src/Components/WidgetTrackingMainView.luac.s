@@ -7,13 +7,9 @@ PROTO_0:
         7 GETUPVAL                         R2 1
         8 GETTABLEKS                       R2 R2 K2 ["join"]
        10 MOVE                             R3 R1
-       11 DUPTABLE                         R4 K5 [{"Category", "ItemId"}]
-       12 LOADK                            R5 K6 ["Widgets"]
-       13 SETTABLEKS                       R5 R4 K3 ["Category"]
-       15 LOADK                            R5 K7 ["MainViewWidget"]
-       16 SETTABLEKS                       R5 R4 K4 ["ItemId"]
-       18 CALL                             R2 2 -1
-       19 RETURN                           R2 -1
+       11 DUPTABLE                         R4 K7 [{["Category"] = "Widgets", ["ItemId"] = "MainViewWidget"}]
+       12 CALL                             R2 2 -1
+       13 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -38,32 +34,30 @@ PROTO_2:
         4 CALL                             R2 1 1
         5 GETUPVAL                         R3 2
         6 LOADK                            R4 K0 ["Frame"]
-        7 DUPTABLE                         R5 K4 [{"BackgroundTransparency", "Size", "ref"}]
-        8 LOADN                            R6 1
-        9 SETTABLEKS                       R6 R5 K1 ["BackgroundTransparency"]
-       11 GETIMPORT                        R6 K7 [UDim2.fromScale]
-       13 LOADN                            R7 1
-       14 LOADN                            R8 1
-       15 CALL                             R6 2 1
-       16 SETTABLEKS                       R6 R5 K2 ["Size"]
-       18 SETTABLEKS                       R2 R5 K3 ["ref"]
-       20 DUPTABLE                         R6 K10 [{"UIListLayout", "MainView"}]
-       21 GETUPVAL                         R7 2
-       22 LOADK                            R8 K8 ["UIListLayout"]
-       23 DUPTABLE                         R9 K12 [{"FillDirection"}]
-       24 GETIMPORT                        R10 K15 [Enum.FillDirection.Vertical]
-       26 SETTABLEKS                       R10 R9 K11 ["FillDirection"]
-       28 CALL                             R7 2 1
-       29 SETTABLEKS                       R7 R6 K8 ["UIListLayout"]
-       31 GETUPVAL                         R7 2
-       32 GETUPVAL                         R8 3
-       33 DUPTABLE                         R9 K17 [{"textBoxRef"}]
-       34 GETTABLEKS                       R10 R0 K16 ["textBoxRef"]
-       36 SETTABLEKS                       R10 R9 K16 ["textBoxRef"]
-       38 CALL                             R7 2 1
-       39 SETTABLEKS                       R7 R6 K9 ["MainView"]
-       41 CALL                             R3 3 -1
-       42 RETURN                           R3 -1
+        7 DUPTABLE                         R5 K5 [{["BackgroundTransparency"] = 1, ["Size"], ["ref"]}]
+        8 GETIMPORT                        R6 K8 [UDim2.fromScale]
+       10 LOADN                            R7 1
+       11 LOADN                            R8 1
+       12 CALL                             R6 2 1
+       13 SETTABLEKS                       R6 R5 K3 ["Size"]
+       15 SETTABLEKS                       R2 R5 K4 ["ref"]
+       17 DUPTABLE                         R6 K11 [{"UIListLayout", "MainView"}]
+       18 GETUPVAL                         R7 2
+       19 LOADK                            R8 K9 ["UIListLayout"]
+       20 DUPTABLE                         R9 K13 [{"FillDirection"}]
+       21 GETIMPORT                        R10 K16 [Enum.FillDirection.Vertical]
+       23 SETTABLEKS                       R10 R9 K12 ["FillDirection"]
+       25 CALL                             R7 2 1
+       26 SETTABLEKS                       R7 R6 K9 ["UIListLayout"]
+       28 GETUPVAL                         R7 2
+       29 GETUPVAL                         R8 3
+       30 DUPTABLE                         R9 K18 [{"textBoxRef"}]
+       31 GETTABLEKS                       R10 R0 K17 ["textBoxRef"]
+       33 SETTABLEKS                       R10 R9 K17 ["textBoxRef"]
+       35 CALL                             R7 2 1
+       36 SETTABLEKS                       R7 R6 K10 ["MainView"]
+       38 CALL                             R3 3 -1
+       39 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -123,70 +123,66 @@ PROTO_3:
        70 GETUPVAL                         R6 2
        71 GETTABLEKS                       R6 R6 K10 ["createElement"]
        73 GETUPVAL                         R7 3
-       74 DUPTABLE                         R8 K27 [{"LayoutOrder", "Size"}]
-       75 LOADN                            R9 1
-       76 SETTABLEKS                       R9 R8 K26 ["LayoutOrder"]
-       78 GETIMPORT                        R9 K21 [UDim2.new]
-       80 LOADN                            R10 1
-       81 GETTABLEKS                       R13 R1 K22 ["Height"]
-       83 MINUS                            R12 R13
-       84 GETTABLEKS                       R13 R1 K13 ["Spacing"]
-       86 SUB                              R11 R12 R13
-       87 LOADN                            R12 0
-       88 GETTABLEKS                       R13 R1 K22 ["Height"]
-       90 CALL                             R9 4 1
-       91 SETTABLEKS                       R9 R8 K12 ["Size"]
-       93 DUPTABLE                         R9 K29 [{"Button"}]
-       94 GETUPVAL                         R10 2
-       95 GETTABLEKS                       R10 R10 K10 ["createElement"]
-       97 GETUPVAL                         R11 4
-       98 DUPTABLE                         R12 K33 [{"OnFocusLost", "Size", "StyleModifier", "Text"}]
-       99 NEWCLOSURE                       R13 P0
-      100 CAPTURE                          UPVAL U1
-      101 CAPTURE                          VAL R0
-      102 SETTABLEKS                       R13 R12 K30 ["OnFocusLost"]
-      104 GETIMPORT                        R13 K35 [UDim2.fromScale]
-      106 LOADN                            R14 1
-      107 LOADN                            R15 1
-      108 CALL                             R13 2 1
-      109 SETTABLEKS                       R13 R12 K12 ["Size"]
-      111 GETTABLEKS                       R14 R0 K36 ["HasError"]
-      113 JUMPIFNOT                        R14 ; [+4]
-      114 GETUPVAL                         R13 5
-      115 GETTABLEKS                       R13 R13 K37 ["Error"]
-      117 JUMP                             ; [+1]
-      118 LOADNIL                          R13
-      119 SETTABLEKS                       R13 R12 K31 ["StyleModifier"]
-      121 GETTABLEKS                       R13 R0 K2 ["Value"]
-      123 SETTABLEKS                       R13 R12 K32 ["Text"]
-      125 CALL                             R10 2 1
-      126 SETTABLEKS                       R10 R9 K28 ["Button"]
-      128 CALL                             R6 3 1
-      129 SETTABLEKS                       R6 R5 K23 ["Edit"]
-      131 GETUPVAL                         R6 2
-      132 GETTABLEKS                       R6 R6 K10 ["createElement"]
-      134 GETUPVAL                         R7 6
-      135 DUPTABLE                         R8 K41 [{"LayoutOrder", "OnClick", "LeftIcon", "IconSize", "Size"}]
-      136 LOADN                            R9 2
-      137 SETTABLEKS                       R9 R8 K26 ["LayoutOrder"]
-      139 NEWCLOSURE                       R9 P1
-      140 CAPTURE                          VAL R0
-      141 CAPTURE                          UPVAL U1
-      142 SETTABLEKS                       R9 R8 K38 ["OnClick"]
-      144 GETTABLEKS                       R9 R1 K42 ["Icon"]
-      146 SETTABLEKS                       R9 R8 K39 ["LeftIcon"]
-      148 GETTABLEKS                       R10 R1 K22 ["Height"]
-      150 SUBK                             R9 R10 K43 [8]
-      151 SETTABLEKS                       R9 R8 K40 ["IconSize"]
-      153 GETIMPORT                        R9 K45 [UDim2.fromOffset]
-      155 GETTABLEKS                       R10 R1 K22 ["Height"]
-      157 GETTABLEKS                       R11 R1 K22 ["Height"]
-      159 CALL                             R9 2 1
-      160 SETTABLEKS                       R9 R8 K12 ["Size"]
-      162 CALL                             R6 2 1
-      163 SETTABLEKS                       R6 R5 K24 ["Shuffle"]
-      165 CALL                             R2 3 -1
-      166 RETURN                           R2 -1
+       74 DUPTABLE                         R8 K28 [{["LayoutOrder"] = 1, ["Size"]}]
+       75 GETIMPORT                        R9 K21 [UDim2.new]
+       77 LOADN                            R10 1
+       78 GETTABLEKS                       R13 R1 K22 ["Height"]
+       80 MINUS                            R12 R13
+       81 GETTABLEKS                       R13 R1 K13 ["Spacing"]
+       83 SUB                              R11 R12 R13
+       84 LOADN                            R12 0
+       85 GETTABLEKS                       R13 R1 K22 ["Height"]
+       87 CALL                             R9 4 1
+       88 SETTABLEKS                       R9 R8 K12 ["Size"]
+       90 DUPTABLE                         R9 K30 [{"Button"}]
+       91 GETUPVAL                         R10 2
+       92 GETTABLEKS                       R10 R10 K10 ["createElement"]
+       94 GETUPVAL                         R11 4
+       95 DUPTABLE                         R12 K34 [{"OnFocusLost", "Size", "StyleModifier", "Text"}]
+       96 NEWCLOSURE                       R13 P0
+       97 CAPTURE                          UPVAL U1
+       98 CAPTURE                          VAL R0
+       99 SETTABLEKS                       R13 R12 K31 ["OnFocusLost"]
+      101 GETIMPORT                        R13 K36 [UDim2.fromScale]
+      103 LOADN                            R14 1
+      104 LOADN                            R15 1
+      105 CALL                             R13 2 1
+      106 SETTABLEKS                       R13 R12 K12 ["Size"]
+      108 GETTABLEKS                       R14 R0 K37 ["HasError"]
+      110 JUMPIFNOT                        R14 ; [+4]
+      111 GETUPVAL                         R13 5
+      112 GETTABLEKS                       R13 R13 K38 ["Error"]
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R13
+      116 SETTABLEKS                       R13 R12 K32 ["StyleModifier"]
+      118 GETTABLEKS                       R13 R0 K2 ["Value"]
+      120 SETTABLEKS                       R13 R12 K33 ["Text"]
+      122 CALL                             R10 2 1
+      123 SETTABLEKS                       R10 R9 K29 ["Button"]
+      125 CALL                             R6 3 1
+      126 SETTABLEKS                       R6 R5 K23 ["Edit"]
+      128 GETUPVAL                         R6 2
+      129 GETTABLEKS                       R6 R6 K10 ["createElement"]
+      131 GETUPVAL                         R7 6
+      132 DUPTABLE                         R8 K43 [{["LayoutOrder"] = 2, ["OnClick"], ["LeftIcon"], ["IconSize"], ["Size"]}]
+      133 NEWCLOSURE                       R9 P1
+      134 CAPTURE                          VAL R0
+      135 CAPTURE                          UPVAL U1
+      136 SETTABLEKS                       R9 R8 K40 ["OnClick"]
+      138 GETTABLEKS                       R9 R1 K44 ["Icon"]
+      140 SETTABLEKS                       R9 R8 K41 ["LeftIcon"]
+      142 GETTABLEKS                       R10 R1 K22 ["Height"]
+      144 SUBK                             R9 R10 K45 [8]
+      145 SETTABLEKS                       R9 R8 K42 ["IconSize"]
+      147 GETIMPORT                        R9 K47 [UDim2.fromOffset]
+      149 GETTABLEKS                       R10 R1 K22 ["Height"]
+      151 GETTABLEKS                       R11 R1 K22 ["Height"]
+      153 CALL                             R9 2 1
+      154 SETTABLEKS                       R9 R8 K12 ["Size"]
+      156 CALL                             R6 2 1
+      157 SETTABLEKS                       R6 R5 K24 ["Shuffle"]
+      159 CALL                             R2 3 -1
+      160 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

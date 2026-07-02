@@ -54,12 +54,10 @@ PROTO_5:
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["join"]
         4 GETUPVAL                         R2 2
-        5 DUPTABLE                         R3 K2 [{"Paused"}]
-        6 LOADB                            R4 1
-        7 SETTABLEKS                       R4 R3 K1 ["Paused"]
-        9 CALL                             R1 2 -1
-       10 CALL                             R0 -1 0
-       11 RETURN                           R0 0
+        5 DUPTABLE                         R3 K3 [{["Paused"] = True}]
+        6 CALL                             R1 2 -1
+        7 CALL                             R0 -1 0
+        8 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -78,12 +76,10 @@ PROTO_7:
         1 GETUPVAL                         R1 1
         2 GETTABLEKS                       R1 R1 K0 ["join"]
         4 GETUPVAL                         R2 2
-        5 DUPTABLE                         R3 K2 [{"Paused"}]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K1 ["Paused"]
-        9 CALL                             R1 2 -1
-       10 CALL                             R0 -1 0
-       11 RETURN                           R0 0
+        5 DUPTABLE                         R3 K3 [{["Paused"] = False}]
+        6 CALL                             R1 2 -1
+        7 CALL                             R0 -1 0
+        8 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0

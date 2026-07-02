@@ -4,83 +4,77 @@ PROTO_0:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 LOADK                            R4 K3 ["Frame"]
-        8 DUPTABLE                         R5 K7 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
-        9 GETIMPORT                        R6 K10 [UDim2.new]
+        8 DUPTABLE                         R5 K8 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+        9 GETIMPORT                        R6 K11 [UDim2.new]
        11 LOADN                            R7 1
        12 LOADN                            R8 0
        13 LOADN                            R9 0
-       14 GETTABLEKS                       R10 R2 K11 ["HeightPx"]
+       14 GETTABLEKS                       R10 R2 K12 ["HeightPx"]
        16 CALL                             R6 4 1
        17 SETTABLEKS                       R6 R5 K4 ["Size"]
-       19 LOADN                            R6 1
-       20 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       22 GETTABLEKS                       R6 R1 K6 ["LayoutOrder"]
-       24 SETTABLEKS                       R6 R5 K6 ["LayoutOrder"]
-       26 DUPTABLE                         R6 K15 [{"Layout", "KeyTextLabel", "ValueTextLabel"}]
-       27 GETUPVAL                         R7 0
-       28 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       30 LOADK                            R8 K16 ["UIListLayout"]
-       31 DUPTABLE                         R9 K21 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
-       32 GETIMPORT                        R10 K24 [Enum.FillDirection.Horizontal]
-       34 SETTABLEKS                       R10 R9 K17 ["FillDirection"]
-       36 GETIMPORT                        R10 K26 [UDim.new]
-       38 LOADN                            R11 0
-       39 GETTABLEKS                       R12 R2 K27 ["PaddingPx"]
-       41 CALL                             R10 2 1
-       42 SETTABLEKS                       R10 R9 K18 ["Padding"]
-       44 GETIMPORT                        R10 K28 [Enum.SortOrder.LayoutOrder]
-       46 SETTABLEKS                       R10 R9 K19 ["SortOrder"]
-       48 GETIMPORT                        R10 K30 [Enum.VerticalAlignment.Center]
-       50 SETTABLEKS                       R10 R9 K20 ["VerticalAlignment"]
-       52 CALL                             R7 2 1
-       53 SETTABLEKS                       R7 R6 K12 ["Layout"]
-       55 GETUPVAL                         R7 0
-       56 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       58 GETUPVAL                         R8 1
-       59 DUPTABLE                         R9 K34 [{"Text", "Size", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-       60 GETTABLEKS                       R11 R1 K35 ["Label"]
-       62 LOADK                            R12 K36 [":"]
-       63 CONCAT                           R10 R11 R12
-       64 SETTABLEKS                       R10 R9 K31 ["Text"]
-       66 GETIMPORT                        R10 K10 [UDim2.new]
-       68 LOADN                            R11 0
-       69 GETTABLEKS                       R12 R2 K37 ["KeyWidthPx"]
-       71 LOADN                            R13 1
-       72 LOADN                            R14 0
-       73 CALL                             R10 4 1
-       74 SETTABLEKS                       R10 R9 K4 ["Size"]
-       76 GETIMPORT                        R10 K39 [Enum.TextXAlignment.Right]
-       78 SETTABLEKS                       R10 R9 K32 ["TextXAlignment"]
-       80 GETIMPORT                        R10 K40 [Enum.TextYAlignment.Center]
-       82 SETTABLEKS                       R10 R9 K33 ["TextYAlignment"]
-       84 LOADN                            R10 1
-       85 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-       87 CALL                             R7 2 1
-       88 SETTABLEKS                       R7 R6 K13 ["KeyTextLabel"]
-       90 GETUPVAL                         R7 0
-       91 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       93 GETUPVAL                         R8 1
-       94 DUPTABLE                         R9 K34 [{"Text", "Size", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-       95 GETTABLEKS                       R10 R1 K41 ["Value"]
-       97 SETTABLEKS                       R10 R9 K31 ["Text"]
-       99 GETIMPORT                        R10 K10 [UDim2.new]
-      101 LOADN                            R11 1
-      102 GETTABLEKS                       R13 R2 K37 ["KeyWidthPx"]
-      104 MINUS                            R12 R13
-      105 LOADN                            R13 1
-      106 LOADN                            R14 0
-      107 CALL                             R10 4 1
-      108 SETTABLEKS                       R10 R9 K4 ["Size"]
-      110 GETIMPORT                        R10 K43 [Enum.TextXAlignment.Left]
-      112 SETTABLEKS                       R10 R9 K32 ["TextXAlignment"]
-      114 GETIMPORT                        R10 K40 [Enum.TextYAlignment.Center]
-      116 SETTABLEKS                       R10 R9 K33 ["TextYAlignment"]
-      118 LOADN                            R10 2
-      119 SETTABLEKS                       R10 R9 K6 ["LayoutOrder"]
-      121 CALL                             R7 2 1
-      122 SETTABLEKS                       R7 R6 K14 ["ValueTextLabel"]
-      124 CALL                             R3 3 -1
-      125 RETURN                           R3 -1
+       19 GETTABLEKS                       R6 R1 K7 ["LayoutOrder"]
+       21 SETTABLEKS                       R6 R5 K7 ["LayoutOrder"]
+       23 DUPTABLE                         R6 K16 [{"Layout", "KeyTextLabel", "ValueTextLabel"}]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       27 LOADK                            R8 K17 ["UIListLayout"]
+       28 DUPTABLE                         R9 K22 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
+       29 GETIMPORT                        R10 K25 [Enum.FillDirection.Horizontal]
+       31 SETTABLEKS                       R10 R9 K18 ["FillDirection"]
+       33 GETIMPORT                        R10 K27 [UDim.new]
+       35 LOADN                            R11 0
+       36 GETTABLEKS                       R12 R2 K28 ["PaddingPx"]
+       38 CALL                             R10 2 1
+       39 SETTABLEKS                       R10 R9 K19 ["Padding"]
+       41 GETIMPORT                        R10 K29 [Enum.SortOrder.LayoutOrder]
+       43 SETTABLEKS                       R10 R9 K20 ["SortOrder"]
+       45 GETIMPORT                        R10 K31 [Enum.VerticalAlignment.Center]
+       47 SETTABLEKS                       R10 R9 K21 ["VerticalAlignment"]
+       49 CALL                             R7 2 1
+       50 SETTABLEKS                       R7 R6 K13 ["Layout"]
+       52 GETUPVAL                         R7 0
+       53 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       55 GETUPVAL                         R8 1
+       56 DUPTABLE                         R9 K35 [{["Text"], ["Size"], ["TextXAlignment"], ["TextYAlignment"], ["LayoutOrder"] = 1}]
+       57 GETTABLEKS                       R11 R1 K36 ["Label"]
+       59 LOADK                            R12 K37 [":"]
+       60 CONCAT                           R10 R11 R12
+       61 SETTABLEKS                       R10 R9 K32 ["Text"]
+       63 GETIMPORT                        R10 K11 [UDim2.new]
+       65 LOADN                            R11 0
+       66 GETTABLEKS                       R12 R2 K38 ["KeyWidthPx"]
+       68 LOADN                            R13 1
+       69 LOADN                            R14 0
+       70 CALL                             R10 4 1
+       71 SETTABLEKS                       R10 R9 K4 ["Size"]
+       73 GETIMPORT                        R10 K40 [Enum.TextXAlignment.Right]
+       75 SETTABLEKS                       R10 R9 K33 ["TextXAlignment"]
+       77 GETIMPORT                        R10 K41 [Enum.TextYAlignment.Center]
+       79 SETTABLEKS                       R10 R9 K34 ["TextYAlignment"]
+       81 CALL                             R7 2 1
+       82 SETTABLEKS                       R7 R6 K14 ["KeyTextLabel"]
+       84 GETUPVAL                         R7 0
+       85 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       87 GETUPVAL                         R8 1
+       88 DUPTABLE                         R9 K43 [{["Text"], ["Size"], ["TextXAlignment"], ["TextYAlignment"], ["LayoutOrder"] = 2}]
+       89 GETTABLEKS                       R10 R1 K44 ["Value"]
+       91 SETTABLEKS                       R10 R9 K32 ["Text"]
+       93 GETIMPORT                        R10 K11 [UDim2.new]
+       95 LOADN                            R11 1
+       96 GETTABLEKS                       R13 R2 K38 ["KeyWidthPx"]
+       98 MINUS                            R12 R13
+       99 LOADN                            R13 1
+      100 LOADN                            R14 0
+      101 CALL                             R10 4 1
+      102 SETTABLEKS                       R10 R9 K4 ["Size"]
+      104 GETIMPORT                        R10 K46 [Enum.TextXAlignment.Left]
+      106 SETTABLEKS                       R10 R9 K33 ["TextXAlignment"]
+      108 GETIMPORT                        R10 K41 [Enum.TextYAlignment.Center]
+      110 SETTABLEKS                       R10 R9 K34 ["TextYAlignment"]
+      112 CALL                             R7 2 1
+      113 SETTABLEKS                       R7 R6 K15 ["ValueTextLabel"]
+      115 CALL                             R3 3 -1
+      116 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

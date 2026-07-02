@@ -15,95 +15,87 @@ PROTO_0:
        22 GETUPVAL                         R7 0
        23 GETTABLEKS                       R7 R7 K2 ["createElement"]
        25 GETUPVAL                         R8 1
-       26 DUPTABLE                         R9 K16 [{"LayoutOrder", "Layout", "Size", "Spacing"}]
-       27 LOADN                            R10 1
-       28 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-       30 GETIMPORT                        R10 K18 [Enum.FillDirection.Vertical]
-       32 SETTABLEKS                       R10 R9 K3 ["Layout"]
-       34 GETIMPORT                        R10 K21 [UDim2.new]
-       36 LOADK                            R11 K22 [0.5]
-       37 GETTABLEKS                       R13 R2 K4 ["Padding"]
-       39 MINUS                            R12 R13
-       40 LOADN                            R13 1
-       41 LOADN                            R14 0
-       42 CALL                             R10 4 1
-       43 SETTABLEKS                       R10 R9 K15 ["Size"]
-       45 GETTABLEKS                       R10 R2 K4 ["Padding"]
-       47 SETTABLEKS                       R10 R9 K5 ["Spacing"]
-       49 DUPTABLE                         R10 K25 [{"TreeContainer", "ListContainer"}]
-       50 GETUPVAL                         R11 0
-       51 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       53 GETUPVAL                         R12 1
-       54 DUPTABLE                         R13 K26 [{"LayoutOrder", "Size"}]
-       55 LOADN                            R14 1
-       56 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-       58 GETIMPORT                        R14 K21 [UDim2.new]
-       60 LOADN                            R15 1
-       61 LOADN                            R16 0
-       62 LOADN                            R17 1
-       63 GETTABLEKS                       R19 R2 K27 ["NodeListHeight"]
-       65 MINUS                            R18 R19
-       66 CALL                             R14 4 1
-       67 SETTABLEKS                       R14 R13 K15 ["Size"]
-       69 DUPTABLE                         R14 K29 [{"RoactElementTree"}]
-       70 GETUPVAL                         R15 0
-       71 GETTABLEKS                       R15 R15 K2 ["createElement"]
-       73 GETUPVAL                         R16 2
-       74 NEWTABLE                         R17 0 0
-       76 CALL                             R15 2 1
-       77 SETTABLEKS                       R15 R14 K28 ["RoactElementTree"]
-       79 CALL                             R11 3 1
-       80 SETTABLEKS                       R11 R10 K23 ["TreeContainer"]
-       82 GETUPVAL                         R11 0
-       83 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       85 GETUPVAL                         R12 1
-       86 DUPTABLE                         R13 K26 [{"LayoutOrder", "Size"}]
-       87 LOADN                            R14 2
-       88 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-       90 GETIMPORT                        R14 K21 [UDim2.new]
-       92 LOADN                            R15 1
-       93 LOADN                            R16 0
-       94 LOADN                            R17 0
-       95 GETTABLEKS                       R19 R2 K27 ["NodeListHeight"]
-       97 GETTABLEKS                       R20 R2 K4 ["Padding"]
-       99 SUB                              R18 R19 R20
-      100 CALL                             R14 4 1
-      101 SETTABLEKS                       R14 R13 K15 ["Size"]
-      103 DUPTABLE                         R14 K31 [{"NodeList"}]
-      104 GETUPVAL                         R15 0
-      105 GETTABLEKS                       R15 R15 K2 ["createElement"]
-      107 GETUPVAL                         R16 3
-      108 DUPTABLE                         R17 K33 [{"selectTarget"}]
-      109 GETTABLEKS                       R18 R0 K32 ["selectTarget"]
-      111 SETTABLEKS                       R18 R17 K32 ["selectTarget"]
-      113 CALL                             R15 2 1
-      114 SETTABLEKS                       R15 R14 K30 ["NodeList"]
-      116 CALL                             R11 3 1
-      117 SETTABLEKS                       R11 R10 K24 ["ListContainer"]
-      119 CALL                             R7 3 1
-      120 SETTABLEKS                       R7 R6 K11 ["Left"]
-      122 GETUPVAL                         R7 0
-      123 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      125 GETUPVAL                         R8 1
-      126 DUPTABLE                         R9 K26 [{"LayoutOrder", "Size"}]
-      127 LOADN                            R10 2
-      128 SETTABLEKS                       R10 R9 K14 ["LayoutOrder"]
-      130 GETIMPORT                        R10 K35 [UDim2.fromScale]
-      132 LOADK                            R11 K22 [0.5]
-      133 LOADN                            R12 1
-      134 CALL                             R10 2 1
-      135 SETTABLEKS                       R10 R9 K15 ["Size"]
-      137 DUPTABLE                         R10 K37 [{"Child"}]
-      138 GETUPVAL                         R11 0
-      139 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      141 GETUPVAL                         R12 4
-      142 NEWTABLE                         R13 0 0
-      144 CALL                             R11 2 1
-      145 SETTABLEKS                       R11 R10 K36 ["Child"]
-      147 CALL                             R7 3 1
-      148 SETTABLEKS                       R7 R6 K12 ["Right"]
-      150 CALL                             R3 3 -1
-      151 RETURN                           R3 -1
+       26 DUPTABLE                         R9 K17 [{["LayoutOrder"] = 1, ["Layout"], ["Size"], ["Spacing"]}]
+       27 GETIMPORT                        R10 K19 [Enum.FillDirection.Vertical]
+       29 SETTABLEKS                       R10 R9 K3 ["Layout"]
+       31 GETIMPORT                        R10 K22 [UDim2.new]
+       33 LOADK                            R11 K23 [0.5]
+       34 GETTABLEKS                       R13 R2 K4 ["Padding"]
+       36 MINUS                            R12 R13
+       37 LOADN                            R13 1
+       38 LOADN                            R14 0
+       39 CALL                             R10 4 1
+       40 SETTABLEKS                       R10 R9 K16 ["Size"]
+       42 GETTABLEKS                       R10 R2 K4 ["Padding"]
+       44 SETTABLEKS                       R10 R9 K5 ["Spacing"]
+       46 DUPTABLE                         R10 K26 [{"TreeContainer", "ListContainer"}]
+       47 GETUPVAL                         R11 0
+       48 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       50 GETUPVAL                         R12 1
+       51 DUPTABLE                         R13 K27 [{["LayoutOrder"] = 1, ["Size"]}]
+       52 GETIMPORT                        R14 K22 [UDim2.new]
+       54 LOADN                            R15 1
+       55 LOADN                            R16 0
+       56 LOADN                            R17 1
+       57 GETTABLEKS                       R19 R2 K28 ["NodeListHeight"]
+       59 MINUS                            R18 R19
+       60 CALL                             R14 4 1
+       61 SETTABLEKS                       R14 R13 K16 ["Size"]
+       63 DUPTABLE                         R14 K30 [{"RoactElementTree"}]
+       64 GETUPVAL                         R15 0
+       65 GETTABLEKS                       R15 R15 K2 ["createElement"]
+       67 GETUPVAL                         R16 2
+       68 NEWTABLE                         R17 0 0
+       70 CALL                             R15 2 1
+       71 SETTABLEKS                       R15 R14 K29 ["RoactElementTree"]
+       73 CALL                             R11 3 1
+       74 SETTABLEKS                       R11 R10 K24 ["TreeContainer"]
+       76 GETUPVAL                         R11 0
+       77 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       79 GETUPVAL                         R12 1
+       80 DUPTABLE                         R13 K32 [{["LayoutOrder"] = 2, ["Size"]}]
+       81 GETIMPORT                        R14 K22 [UDim2.new]
+       83 LOADN                            R15 1
+       84 LOADN                            R16 0
+       85 LOADN                            R17 0
+       86 GETTABLEKS                       R19 R2 K28 ["NodeListHeight"]
+       88 GETTABLEKS                       R20 R2 K4 ["Padding"]
+       90 SUB                              R18 R19 R20
+       91 CALL                             R14 4 1
+       92 SETTABLEKS                       R14 R13 K16 ["Size"]
+       94 DUPTABLE                         R14 K34 [{"NodeList"}]
+       95 GETUPVAL                         R15 0
+       96 GETTABLEKS                       R15 R15 K2 ["createElement"]
+       98 GETUPVAL                         R16 3
+       99 DUPTABLE                         R17 K36 [{"selectTarget"}]
+      100 GETTABLEKS                       R18 R0 K35 ["selectTarget"]
+      102 SETTABLEKS                       R18 R17 K35 ["selectTarget"]
+      104 CALL                             R15 2 1
+      105 SETTABLEKS                       R15 R14 K33 ["NodeList"]
+      107 CALL                             R11 3 1
+      108 SETTABLEKS                       R11 R10 K25 ["ListContainer"]
+      110 CALL                             R7 3 1
+      111 SETTABLEKS                       R7 R6 K11 ["Left"]
+      113 GETUPVAL                         R7 0
+      114 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      116 GETUPVAL                         R8 1
+      117 DUPTABLE                         R9 K32 [{["LayoutOrder"] = 2, ["Size"]}]
+      118 GETIMPORT                        R10 K38 [UDim2.fromScale]
+      120 LOADK                            R11 K23 [0.5]
+      121 LOADN                            R12 1
+      122 CALL                             R10 2 1
+      123 SETTABLEKS                       R10 R9 K16 ["Size"]
+      125 DUPTABLE                         R10 K40 [{"Child"}]
+      126 GETUPVAL                         R11 0
+      127 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      129 GETUPVAL                         R12 4
+      130 NEWTABLE                         R13 0 0
+      132 CALL                             R11 2 1
+      133 SETTABLEKS                       R11 R10 K39 ["Child"]
+      135 CALL                             R7 3 1
+      136 SETTABLEKS                       R7 R6 K12 ["Right"]
+      138 CALL                             R3 3 -1
+      139 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

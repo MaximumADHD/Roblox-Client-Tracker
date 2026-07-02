@@ -46,13 +46,11 @@ PROTO_0:
        61 MOVE                             R13 R7
        62 GETIMPORT                        R11 K16 [Vector3.new]
        64 CALL                             R11 3 1
-       65 DUPTABLE                         R12 K19 [{"Plane", "PlanePosition", "Position"}]
-       66 LOADK                            R13 K20 [{0, 1, 0}]
-       67 SETTABLEKS                       R13 R12 K17 ["Plane"]
-       69 SETTABLEKS                       R11 R12 K18 ["PlanePosition"]
-       71 SETTABLEKS                       R11 R12 K13 ["Position"]
-       73 SETTABLEKS                       R12 R0 K8 ["State"]
-       75 RETURN                           R0 0
+       65 DUPTABLE                         R12 K20 [{["Plane"] = {0, 1, 0}, ["PlanePosition"], ["Position"]}]
+       66 SETTABLEKS                       R11 R12 K19 ["PlanePosition"]
+       68 SETTABLEKS                       R11 R12 K13 ["Position"]
+       70 SETTABLEKS                       R12 R0 K8 ["State"]
+       72 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["State"]
@@ -381,7 +379,7 @@ PROTO_1:
       417 JUMPIFNOT                        R13 ; [+69]
       418 MOVE                             R64 R34
       419 MOVE                             R62 R36
-      420 LOADN                            R63 255
+      420 LOADN                            R63 -1
       421 FORNPREP                         R62
       422 GETTABLE                         R66 R50 R64
       423 GETTABLE                         R65 R66 R56
@@ -500,15 +498,13 @@ PROTO_3:
        23 CAPTURE                          VAL R1
        24 GETUPVAL                         R5 14
        25 GETTABLEKS                       R5 R5 K1 ["new"]
-       27 DUPTABLE                         R6 K7 [{"Budget", "Name", "OnFinish", "OnStart", "OnStep"}]
-       28 LOADK                            R7 K8 [0.0005]
-       29 SETTABLEKS                       R7 R6 K2 ["Budget"]
-       31 SETTABLEKS                       R0 R6 K3 ["Name"]
-       33 SETTABLEKS                       R4 R6 K4 ["OnFinish"]
-       35 SETTABLEKS                       R2 R6 K5 ["OnStart"]
-       37 SETTABLEKS                       R3 R6 K6 ["OnStep"]
-       39 CALL                             R5 1 -1
-       40 RETURN                           R5 -1
+       27 DUPTABLE                         R6 K8 [{["Budget"] = 0.0005, ["Name"], ["OnFinish"], ["OnStart"], ["OnStep"]}]
+       28 SETTABLEKS                       R0 R6 K4 ["Name"]
+       30 SETTABLEKS                       R4 R6 K5 ["OnFinish"]
+       32 SETTABLEKS                       R2 R6 K6 ["OnStart"]
+       34 SETTABLEKS                       R3 R6 K7 ["OnStep"]
+       36 CALL                             R5 1 -1
+       37 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

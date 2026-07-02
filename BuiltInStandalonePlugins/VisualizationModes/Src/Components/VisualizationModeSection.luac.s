@@ -90,66 +90,64 @@ PROTO_2:
       105 GETUPVAL                         R18 3
       106 GETTABLEKS                       R18 R18 K11 ["createElement"]
       108 GETUPVAL                         R19 5
-      109 DUPTABLE                         R20 K43 [{"LayoutOrder", "Enabled", "BadgeText", "MatchIndexes", "CanExpand", "IsExpanded", "OnToggle", "CanToggle", "IsEditingEnabled", "OnExpansionToggled", "Text"}]
-      110 NAMECALL                         R21 R1 K44 ["getNextOrder"]
+      109 DUPTABLE                         R20 K44 [{["LayoutOrder"], ["Enabled"], ["BadgeText"], ["MatchIndexes"], ["CanExpand"] = True, ["IsExpanded"], ["OnToggle"], ["CanToggle"], ["IsEditingEnabled"], ["OnExpansionToggled"], ["Text"]}]
+      110 NAMECALL                         R21 R1 K45 ["getNextOrder"]
       112 CALL                             R21 1 1
       113 SETTABLEKS                       R21 R20 K14 ["LayoutOrder"]
       115 GETTABLEKS                       R21 R0 K33 ["Enabled"]
       117 SETTABLEKS                       R21 R20 K33 ["Enabled"]
       119 JUMPIF                           R5 ; [+12]
-      120 GETTABLEKS                       R22 R0 K45 ["EnabledEntryCount"]
+      120 GETTABLEKS                       R22 R0 K46 ["EnabledEntryCount"]
       122 LOADN                            R23 0
       123 JUMPIFNOTLT                      R23 R22 ; [+8]
-      125 GETTABLEKS                       R22 R0 K45 ["EnabledEntryCount"]
+      125 GETTABLEKS                       R22 R0 K46 ["EnabledEntryCount"]
       127 FASTCALL1                        TOSTRING R22 ; [+2]
-      128 GETIMPORT                        R21 K47 [tostring]
+      128 GETIMPORT                        R21 K48 [tostring]
       130 CALL                             R21 1 1
       131 JUMP                             ; [+1]
       132 LOADNIL                          R21
       133 SETTABLEKS                       R21 R20 K34 ["BadgeText"]
       135 GETTABLEKS                       R21 R0 K35 ["MatchIndexes"]
       137 SETTABLEKS                       R21 R20 K35 ["MatchIndexes"]
-      139 LOADB                            R21 1
-      140 SETTABLEKS                       R21 R20 K36 ["CanExpand"]
-      142 SETTABLEKS                       R5 R20 K37 ["IsExpanded"]
-      144 GETTABLEKS                       R21 R0 K38 ["OnToggle"]
-      146 SETTABLEKS                       R21 R20 K38 ["OnToggle"]
-      148 GETTABLEKS                       R21 R0 K39 ["CanToggle"]
-      150 SETTABLEKS                       R21 R20 K39 ["CanToggle"]
-      152 GETTABLEKS                       R21 R0 K40 ["IsEditingEnabled"]
-      154 SETTABLEKS                       R21 R20 K40 ["IsEditingEnabled"]
-      156 GETTABLEKS                       R21 R4 K19 ["toggle"]
-      158 SETTABLEKS                       R21 R20 K41 ["OnExpansionToggled"]
-      160 GETTABLEKS                       R21 R0 K42 ["Text"]
-      162 SETTABLEKS                       R21 R20 K42 ["Text"]
-      164 CALL                             R18 2 1
-      165 SETTABLEKS                       R18 R17 K30 ["Title"]
-      167 GETUPVAL                         R18 3
-      168 GETTABLEKS                       R18 R18 K11 ["createElement"]
-      170 GETUPVAL                         R19 4
-      171 NEWTABLE                         R20 4 0
-      173 GETUPVAL                         R21 3
-      174 GETTABLEKS                       R21 R21 K15 ["Tag"]
-      176 LOADK                            R22 K48 ["X-Column X-Top X-FitY"]
-      177 SETTABLE                         R22 R20 R21
-      178 GETIMPORT                        R21 K25 [UDim2.fromScale]
-      180 LOADN                            R22 1
-      181 LOADN                            R23 0
-      182 CALL                             R21 2 1
-      183 SETTABLEKS                       R21 R20 K26 ["Size"]
-      185 NAMECALL                         R21 R1 K44 ["getNextOrder"]
-      187 CALL                             R21 1 1
-      188 SETTABLEKS                       R21 R20 K14 ["LayoutOrder"]
-      190 SETTABLEKS                       R5 R20 K13 ["Visible"]
-      192 GETTABLEKS                       R21 R0 K49 ["SectionEntries"]
-      194 CALL                             R18 3 1
-      195 SETTABLEKS                       R18 R17 K31 ["Content"]
-      197 CALL                             R14 3 1
-      198 SETTABLEKS                       R14 R13 K27 ["Main"]
-      200 CALL                             R10 3 1
-      201 SETTABLEKS                       R10 R9 K20 ["Contents"]
-      203 CALL                             R6 3 -1
-      204 RETURN                           R6 -1
+      139 SETTABLEKS                       R5 R20 K38 ["IsExpanded"]
+      141 GETTABLEKS                       R21 R0 K39 ["OnToggle"]
+      143 SETTABLEKS                       R21 R20 K39 ["OnToggle"]
+      145 GETTABLEKS                       R21 R0 K40 ["CanToggle"]
+      147 SETTABLEKS                       R21 R20 K40 ["CanToggle"]
+      149 GETTABLEKS                       R21 R0 K41 ["IsEditingEnabled"]
+      151 SETTABLEKS                       R21 R20 K41 ["IsEditingEnabled"]
+      153 GETTABLEKS                       R21 R4 K19 ["toggle"]
+      155 SETTABLEKS                       R21 R20 K42 ["OnExpansionToggled"]
+      157 GETTABLEKS                       R21 R0 K43 ["Text"]
+      159 SETTABLEKS                       R21 R20 K43 ["Text"]
+      161 CALL                             R18 2 1
+      162 SETTABLEKS                       R18 R17 K30 ["Title"]
+      164 GETUPVAL                         R18 3
+      165 GETTABLEKS                       R18 R18 K11 ["createElement"]
+      167 GETUPVAL                         R19 4
+      168 NEWTABLE                         R20 4 0
+      170 GETUPVAL                         R21 3
+      171 GETTABLEKS                       R21 R21 K15 ["Tag"]
+      173 LOADK                            R22 K49 ["X-Column X-Top X-FitY"]
+      174 SETTABLE                         R22 R20 R21
+      175 GETIMPORT                        R21 K25 [UDim2.fromScale]
+      177 LOADN                            R22 1
+      178 LOADN                            R23 0
+      179 CALL                             R21 2 1
+      180 SETTABLEKS                       R21 R20 K26 ["Size"]
+      182 NAMECALL                         R21 R1 K45 ["getNextOrder"]
+      184 CALL                             R21 1 1
+      185 SETTABLEKS                       R21 R20 K14 ["LayoutOrder"]
+      187 SETTABLEKS                       R5 R20 K13 ["Visible"]
+      189 GETTABLEKS                       R21 R0 K50 ["SectionEntries"]
+      191 CALL                             R18 3 1
+      192 SETTABLEKS                       R18 R17 K31 ["Content"]
+      194 CALL                             R14 3 1
+      195 SETTABLEKS                       R14 R13 K27 ["Main"]
+      197 CALL                             R10 3 1
+      198 SETTABLEKS                       R10 R9 K20 ["Contents"]
+      200 CALL                             R6 3 -1
+      201 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,61 +1,49 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isFocused"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["isFocused"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"isFocused"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isFocused"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["state"]
         3 GETTABLEKS                       R2 R2 K1 ["selectedId"]
         5 GETTABLEKS                       R3 R0 K2 ["AssetId"]
-        7 JUMPIFNOTEQ                      R2 R3 ; [+9]
+        7 JUMPIFNOTEQ                      R2 R3 ; [+6]
         9 GETUPVAL                         R2 0
-       10 DUPTABLE                         R4 K3 [{"selectedId"}]
-       11 LOADK                            R5 K4 [""]
-       12 SETTABLEKS                       R5 R4 K1 ["selectedId"]
-       14 NAMECALL                         R2 R2 K5 ["setState"]
-       16 CALL                             R2 2 0
-       17 GETUPVAL                         R2 0
-       18 DUPTABLE                         R4 K3 [{"selectedId"}]
-       19 GETTABLEKS                       R5 R0 K2 ["AssetId"]
-       21 SETTABLEKS                       R5 R4 K1 ["selectedId"]
-       23 NAMECALL                         R2 R2 K5 ["setState"]
-       25 CALL                             R2 2 0
-       26 RETURN                           R0 0
+       10 DUPTABLE                         R4 K4 [{["selectedId"] = ""}]
+       11 NAMECALL                         R2 R2 K5 ["setState"]
+       13 CALL                             R2 2 0
+       14 GETUPVAL                         R2 0
+       15 DUPTABLE                         R4 K6 [{"selectedId"}]
+       16 GETTABLEKS                       R5 R0 K2 ["AssetId"]
+       18 SETTABLEKS                       R5 R4 K1 ["selectedId"]
+       20 NAMECALL                         R2 R2 K5 ["setState"]
+       22 CALL                             R2 2 0
+       23 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K2 [{"isOnDropdown", "dropdownHoveredIndex"}]
-        2 LOADB                            R4 1
-        3 SETTABLEKS                       R4 R3 K0 ["isOnDropdown"]
-        5 SETTABLEKS                       R0 R3 K1 ["dropdownHoveredIndex"]
-        7 NAMECALL                         R1 R1 K3 ["setState"]
-        9 CALL                             R1 2 0
-       10 RETURN                           R0 0
+        1 DUPTABLE                         R3 K3 [{[1] = True, ["dropdownHoveredIndex"]}]
+        2 SETTABLEKS                       R0 R3 K2 ["dropdownHoveredIndex"]
+        4 NAMECALL                         R1 R1 K4 ["setState"]
+        6 CALL                             R1 2 0
+        7 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"isOnDropdown", "dropdownHoveredIndex"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["isOnDropdown"]
-        5 LOADN                            R3 0
-        6 SETTABLEKS                       R3 R2 K1 ["dropdownHoveredIndex"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["dropdownHoveredIndex"] = 0}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -143,129 +131,115 @@ PROTO_7:
        91 GETUPVAL                         R17 2
        92 GETTABLEKS                       R17 R17 K10 ["createElement"]
        94 GETUPVAL                         R18 5
-       95 DUPTABLE                         R19 K35 [{"LayoutOrder", "Size"}]
-       96 LOADN                            R20 1
-       97 SETTABLEKS                       R20 R19 K11 ["LayoutOrder"]
-       99 GETIMPORT                        R20 K37 [UDim2.fromOffset]
-      101 MOVE                             R21 R7
-      102 MOVE                             R22 R7
-      103 CALL                             R20 2 1
-      104 SETTABLEKS                       R20 R19 K14 ["Size"]
-      106 DUPTABLE                         R20 K39 [{"Image"}]
-      107 GETUPVAL                         R21 2
-      108 GETTABLEKS                       R21 R21 K10 ["createElement"]
-      110 GETUPVAL                         R22 6
-      111 DUPTABLE                         R23 K41 [{"Style"}]
-      112 DUPTABLE                         R24 K39 [{"Image"}]
-      113 GETTABLEKS                       R25 R0 K38 ["Image"]
-      115 SETTABLEKS                       R25 R24 K38 ["Image"]
-      117 SETTABLEKS                       R24 R23 K40 ["Style"]
-      119 CALL                             R21 2 1
-      120 SETTABLEKS                       R21 R20 K38 ["Image"]
-      122 CALL                             R17 3 1
-      123 SETTABLEKS                       R17 R16 K32 ["ImageContainer"]
-      125 GETUPVAL                         R17 2
-      126 GETTABLEKS                       R17 R17 K10 ["createElement"]
-      128 GETUPVAL                         R18 7
-      129 DUPTABLE                         R19 K45 [{"LayoutOrder", "Size", "Text", "TextXAlignment", "SuffixLength"}]
-      130 LOADN                            R20 2
-      131 SETTABLEKS                       R20 R19 K11 ["LayoutOrder"]
-      133 GETIMPORT                        R20 K19 [UDim2.new]
-      135 LOADN                            R21 1
-      136 MINUS                            R22 R7
-      137 LOADN                            R23 1
-      138 LOADN                            R24 0
-      139 CALL                             R20 4 1
-      140 SETTABLEKS                       R20 R19 K14 ["Size"]
-      142 GETTABLEKS                       R20 R0 K46 ["Name"]
-      144 SETTABLEKS                       R20 R19 K42 ["Text"]
-      146 GETIMPORT                        R20 K48 [Enum.TextXAlignment.Left]
-      148 SETTABLEKS                       R20 R19 K43 ["TextXAlignment"]
-      150 LOADN                            R20 6
-      151 SETTABLEKS                       R20 R19 K44 ["SuffixLength"]
-      153 DUPTABLE                         R20 K50 [{"AssetIdText"}]
-      154 GETUPVAL                         R21 2
-      155 GETTABLEKS                       R21 R21 K10 ["createElement"]
-      157 GETUPVAL                         R22 7
-      158 DUPTABLE                         R23 K54 [{"Size", "TextXAlignment", "TextYAlignment", "Text", "TextColor", "TextSize"}]
-      159 GETIMPORT                        R24 K19 [UDim2.new]
-      161 LOADN                            R25 1
-      162 LOADN                            R26 0
-      163 LOADN                            R27 1
-      164 GETTABLEKS                       R29 R6 K55 ["SubtextOffset"]
-      166 MINUS                            R28 R29
-      167 CALL                             R24 4 1
-      168 SETTABLEKS                       R24 R23 K14 ["Size"]
-      170 GETIMPORT                        R24 K48 [Enum.TextXAlignment.Left]
-      172 SETTABLEKS                       R24 R23 K43 ["TextXAlignment"]
-      174 GETIMPORT                        R24 K57 [Enum.TextYAlignment.Bottom]
-      176 SETTABLEKS                       R24 R23 K51 ["TextYAlignment"]
-      178 GETTABLEKS                       R24 R0 K58 ["AssetId"]
-      180 SETTABLEKS                       R24 R23 K42 ["Text"]
-      182 JUMPIF                           R3 ; [+3]
-      183 GETTABLEKS                       R24 R6 K59 ["SubtextColor"]
-      185 JUMP                             ; [+1]
-      186 LOADNIL                          R24
-      187 SETTABLEKS                       R24 R23 K52 ["TextColor"]
-      189 GETTABLEKS                       R24 R6 K60 ["SubtextSize"]
-      191 SETTABLEKS                       R24 R23 K53 ["TextSize"]
-      193 CALL                             R21 2 1
-      194 SETTABLEKS                       R21 R20 K49 ["AssetIdText"]
-      196 CALL                             R17 3 1
-      197 SETTABLEKS                       R17 R16 K33 ["NameText"]
-      199 CALL                             R13 3 1
-      200 SETTABLEKS                       R13 R12 K22 ["ButtonComponents"]
-      202 CALL                             R9 3 -1
-      203 RETURN                           R9 -1
+       95 DUPTABLE                         R19 K36 [{["LayoutOrder"] = 1, ["Size"]}]
+       96 GETIMPORT                        R20 K38 [UDim2.fromOffset]
+       98 MOVE                             R21 R7
+       99 MOVE                             R22 R7
+      100 CALL                             R20 2 1
+      101 SETTABLEKS                       R20 R19 K14 ["Size"]
+      103 DUPTABLE                         R20 K40 [{"Image"}]
+      104 GETUPVAL                         R21 2
+      105 GETTABLEKS                       R21 R21 K10 ["createElement"]
+      107 GETUPVAL                         R22 6
+      108 DUPTABLE                         R23 K42 [{"Style"}]
+      109 DUPTABLE                         R24 K40 [{"Image"}]
+      110 GETTABLEKS                       R25 R0 K39 ["Image"]
+      112 SETTABLEKS                       R25 R24 K39 ["Image"]
+      114 SETTABLEKS                       R24 R23 K41 ["Style"]
+      116 CALL                             R21 2 1
+      117 SETTABLEKS                       R21 R20 K39 ["Image"]
+      119 CALL                             R17 3 1
+      120 SETTABLEKS                       R17 R16 K32 ["ImageContainer"]
+      122 GETUPVAL                         R17 2
+      123 GETTABLEKS                       R17 R17 K10 ["createElement"]
+      125 GETUPVAL                         R18 7
+      126 DUPTABLE                         R19 K48 [{["LayoutOrder"] = 2, ["Size"], ["Text"], ["TextXAlignment"], ["SuffixLength"] = 6}]
+      127 GETIMPORT                        R20 K19 [UDim2.new]
+      129 LOADN                            R21 1
+      130 MINUS                            R22 R7
+      131 LOADN                            R23 1
+      132 LOADN                            R24 0
+      133 CALL                             R20 4 1
+      134 SETTABLEKS                       R20 R19 K14 ["Size"]
+      136 GETTABLEKS                       R20 R0 K49 ["Name"]
+      138 SETTABLEKS                       R20 R19 K44 ["Text"]
+      140 GETIMPORT                        R20 K51 [Enum.TextXAlignment.Left]
+      142 SETTABLEKS                       R20 R19 K45 ["TextXAlignment"]
+      144 DUPTABLE                         R20 K53 [{"AssetIdText"}]
+      145 GETUPVAL                         R21 2
+      146 GETTABLEKS                       R21 R21 K10 ["createElement"]
+      148 GETUPVAL                         R22 7
+      149 DUPTABLE                         R23 K57 [{"Size", "TextXAlignment", "TextYAlignment", "Text", "TextColor", "TextSize"}]
+      150 GETIMPORT                        R24 K19 [UDim2.new]
+      152 LOADN                            R25 1
+      153 LOADN                            R26 0
+      154 LOADN                            R27 1
+      155 GETTABLEKS                       R29 R6 K58 ["SubtextOffset"]
+      157 MINUS                            R28 R29
+      158 CALL                             R24 4 1
+      159 SETTABLEKS                       R24 R23 K14 ["Size"]
+      161 GETIMPORT                        R24 K51 [Enum.TextXAlignment.Left]
+      163 SETTABLEKS                       R24 R23 K45 ["TextXAlignment"]
+      165 GETIMPORT                        R24 K60 [Enum.TextYAlignment.Bottom]
+      167 SETTABLEKS                       R24 R23 K54 ["TextYAlignment"]
+      169 GETTABLEKS                       R24 R0 K61 ["AssetId"]
+      171 SETTABLEKS                       R24 R23 K44 ["Text"]
+      173 JUMPIF                           R3 ; [+3]
+      174 GETTABLEKS                       R24 R6 K62 ["SubtextColor"]
+      176 JUMP                             ; [+1]
+      177 LOADNIL                          R24
+      178 SETTABLEKS                       R24 R23 K55 ["TextColor"]
+      180 GETTABLEKS                       R24 R6 K63 ["SubtextSize"]
+      182 SETTABLEKS                       R24 R23 K56 ["TextSize"]
+      184 CALL                             R21 2 1
+      185 SETTABLEKS                       R21 R20 K52 ["AssetIdText"]
+      187 CALL                             R17 3 1
+      188 SETTABLEKS                       R17 R16 K33 ["NameText"]
+      190 CALL                             R13 3 1
+      191 SETTABLEKS                       R13 R12 K22 ["ButtonComponents"]
+      193 CALL                             R9 3 -1
+      194 RETURN                           R9 -1
 
 PROTO_8:
-        0 DUPTABLE                         R1 K5 [{"isFocused", "isOnDropdown", "suggestionList", "selectedId", "dropdownHoveredIndex"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["isFocused"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["isOnDropdown"]
-        7 GETUPVAL                         R2 0
-        8 CALL                             R2 0 1
-        9 SETTABLEKS                       R2 R1 K2 ["suggestionList"]
-       11 LOADK                            R2 K6 [""]
-       12 SETTABLEKS                       R2 R1 K3 ["selectedId"]
-       14 LOADN                            R2 0
-       15 SETTABLEKS                       R2 R1 K4 ["dropdownHoveredIndex"]
-       17 SETTABLEKS                       R1 R0 K7 ["state"]
-       19 GETUPVAL                         R1 1
-       20 GETTABLEKS                       R1 R1 K8 ["createRef"]
-       22 CALL                             R1 0 1
-       23 SETTABLEKS                       R1 R0 K9 ["ref"]
-       25 NEWCLOSURE                       R1 P0
+        0 DUPTABLE                         R1 K8 [{[1] = False, ["isOnDropdown"] = False, ["suggestionList"], ["selectedId"] = "", ["dropdownHoveredIndex"] = 0}]
+        1 GETUPVAL                         R2 0
+        2 CALL                             R2 0 1
+        3 SETTABLEKS                       R2 R1 K3 ["suggestionList"]
+        5 SETTABLEKS                       R1 R0 K9 ["state"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R1 R1 K10 ["createRef"]
+       10 CALL                             R1 0 1
+       11 SETTABLEKS                       R1 R0 K11 ["ref"]
+       13 NEWCLOSURE                       R1 P0
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K12 ["focused"]
+       17 NEWCLOSURE                       R1 P1
+       18 CAPTURE                          VAL R0
+       19 SETTABLEKS                       R1 R0 K13 ["unfocused"]
+       21 NEWCLOSURE                       R1 P2
+       22 CAPTURE                          VAL R0
+       23 SETTABLEKS                       R1 R0 K14 ["onItemActivated"]
+       25 NEWCLOSURE                       R1 P3
        26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R1 R0 K10 ["focused"]
-       29 NEWCLOSURE                       R1 P1
+       27 SETTABLEKS                       R1 R0 K15 ["onHoveredItemChanged"]
+       29 NEWCLOSURE                       R1 P4
        30 CAPTURE                          VAL R0
-       31 SETTABLEKS                       R1 R0 K11 ["unfocused"]
-       33 NEWCLOSURE                       R1 P2
-       34 CAPTURE                          VAL R0
-       35 SETTABLEKS                       R1 R0 K12 ["onItemActivated"]
-       37 NEWCLOSURE                       R1 P3
-       38 CAPTURE                          VAL R0
-       39 SETTABLEKS                       R1 R0 K13 ["onHoveredItemChanged"]
-       41 NEWCLOSURE                       R1 P4
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R1 R0 K14 ["onMouseLeave"]
-       45 NEWCLOSURE                       R1 P5
-       46 CAPTURE                          UPVAL U2
-       47 CAPTURE                          VAL R0
-       48 SETTABLEKS                       R1 R0 K15 ["onValidateText"]
-       50 NEWCLOSURE                       R1 P6
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          UPVAL U3
-       53 CAPTURE                          UPVAL U1
-       54 CAPTURE                          UPVAL U4
-       55 CAPTURE                          UPVAL U5
-       56 CAPTURE                          UPVAL U6
-       57 CAPTURE                          UPVAL U7
-       58 CAPTURE                          UPVAL U8
-       59 SETTABLEKS                       R1 R0 K16 ["onRenderItem"]
-       61 RETURN                           R0 0
+       31 SETTABLEKS                       R1 R0 K16 ["onMouseLeave"]
+       33 NEWCLOSURE                       R1 P5
+       34 CAPTURE                          UPVAL U2
+       35 CAPTURE                          VAL R0
+       36 SETTABLEKS                       R1 R0 K17 ["onValidateText"]
+       38 NEWCLOSURE                       R1 P6
+       39 CAPTURE                          VAL R0
+       40 CAPTURE                          UPVAL U3
+       41 CAPTURE                          UPVAL U1
+       42 CAPTURE                          UPVAL U4
+       43 CAPTURE                          UPVAL U5
+       44 CAPTURE                          UPVAL U6
+       45 CAPTURE                          UPVAL U7
+       46 CAPTURE                          UPVAL U8
+       47 SETTABLEKS                       R1 R0 K18 ["onRenderItem"]
+       49 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

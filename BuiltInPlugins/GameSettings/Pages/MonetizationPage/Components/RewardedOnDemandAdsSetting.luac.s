@@ -262,81 +262,69 @@ PROTO_6:
       117 GETUPVAL                         R18 2
       118 GETTABLEKS                       R18 R18 K16 ["createElement"]
       120 LOADK                            R19 K40 ["Frame"]
-      121 DUPTABLE                         R20 K42 [{"BackgroundTransparency", "AutomaticSize", "LayoutOrder"}]
-      122 LOADN                            R21 1
-      123 SETTABLEKS                       R21 R20 K41 ["BackgroundTransparency"]
-      125 GETIMPORT                        R21 K23 [Enum.AutomaticSize.XY]
-      127 SETTABLEKS                       R21 R20 K17 ["AutomaticSize"]
-      129 NAMECALL                         R21 R8 K30 ["getNextOrder"]
-      131 CALL                             R21 1 1
-      132 SETTABLEKS                       R21 R20 K19 ["LayoutOrder"]
-      134 DUPTABLE                         R21 K44 [{"UIListLayout", "SubText", "LinkText"}]
-      135 GETUPVAL                         R22 2
-      136 GETTABLEKS                       R22 R22 K16 ["createElement"]
-      138 LOADK                            R23 K43 ["UIListLayout"]
-      139 DUPTABLE                         R24 K49 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Wraps"}]
-      140 GETIMPORT                        R25 K51 [Enum.FillDirection.Horizontal]
-      142 SETTABLEKS                       R25 R24 K24 ["FillDirection"]
-      144 GETIMPORT                        R25 K53 [Enum.HorizontalAlignment.Left]
-      146 SETTABLEKS                       R25 R24 K45 ["HorizontalAlignment"]
-      148 GETIMPORT                        R25 K55 [Enum.VerticalAlignment.Top]
-      150 SETTABLEKS                       R25 R24 K46 ["VerticalAlignment"]
-      152 GETIMPORT                        R25 K56 [Enum.SortOrder.LayoutOrder]
-      154 SETTABLEKS                       R25 R24 K47 ["SortOrder"]
-      156 LOADB                            R25 1
-      157 SETTABLEKS                       R25 R24 K48 ["Wraps"]
-      159 CALL                             R22 2 1
-      160 SETTABLEKS                       R22 R21 K43 ["UIListLayout"]
-      162 GETUPVAL                         R22 2
-      163 GETTABLEKS                       R22 R22 K16 ["createElement"]
-      165 GETUPVAL                         R23 6
-      166 DUPTABLE                         R24 K61 [{"AutomaticSize", "TextXAlignment", "Style", "Text", "TextWrapped", "LayoutOrder"}]
-      167 GETIMPORT                        R25 K23 [Enum.AutomaticSize.XY]
-      169 SETTABLEKS                       R25 R24 K17 ["AutomaticSize"]
-      171 GETIMPORT                        R25 K62 [Enum.TextXAlignment.Left]
-      173 SETTABLEKS                       R25 R24 K57 ["TextXAlignment"]
-      175 LOADK                            R25 K63 ["Body"]
-      176 SETTABLEKS                       R25 R24 K58 ["Style"]
-      178 MOVE                             R26 R4
-      179 LOADK                            R27 K64 [" "]
-      180 CONCAT                           R25 R26 R27
-      181 SETTABLEKS                       R25 R24 K59 ["Text"]
-      183 LOADB                            R25 1
-      184 SETTABLEKS                       R25 R24 K60 ["TextWrapped"]
-      186 NAMECALL                         R25 R8 K30 ["getNextOrder"]
-      188 CALL                             R25 1 1
-      189 SETTABLEKS                       R25 R24 K19 ["LayoutOrder"]
-      191 CALL                             R22 2 1
-      192 SETTABLEKS                       R22 R21 K10 ["SubText"]
-      194 GETUPVAL                         R22 2
-      195 GETTABLEKS                       R22 R22 K16 ["createElement"]
-      197 GETUPVAL                         R23 7
-      198 DUPTABLE                         R24 K65 [{"AutomaticSize", "TextXAlignment", "Style", "TextWrapped", "Text", "OnClick", "LayoutOrder"}]
-      199 GETIMPORT                        R25 K23 [Enum.AutomaticSize.XY]
-      201 SETTABLEKS                       R25 R24 K17 ["AutomaticSize"]
-      203 GETIMPORT                        R25 K62 [Enum.TextXAlignment.Left]
-      205 SETTABLEKS                       R25 R24 K57 ["TextXAlignment"]
-      207 LOADK                            R25 K63 ["Body"]
-      208 SETTABLEKS                       R25 R24 K58 ["Style"]
-      210 LOADB                            R25 1
-      211 SETTABLEKS                       R25 R24 K60 ["TextWrapped"]
-      213 SETTABLEKS                       R5 R24 K59 ["Text"]
-      215 NEWCLOSURE                       R25 P1
-      216 CAPTURE                          UPVAL U8
-      217 CAPTURE                          REF R6
-      218 SETTABLEKS                       R25 R24 K36 ["OnClick"]
-      220 NAMECALL                         R25 R8 K30 ["getNextOrder"]
-      222 CALL                             R25 1 1
-      223 SETTABLEKS                       R25 R24 K19 ["LayoutOrder"]
-      225 CALL                             R22 2 1
-      226 SETTABLEKS                       R22 R21 K11 ["LinkText"]
-      228 CALL                             R18 3 1
-      229 SETTABLEKS                       R18 R17 K32 ["TextContents"]
-      231 CALL                             R14 3 1
-      232 SETTABLEKS                       R14 R13 K27 ["ToggleRewardedVideoAds"]
-      234 CALL                             R10 3 -1
-      235 CLOSEUPVALS                      R6
-      236 RETURN                           R10 -1
+      121 DUPTABLE                         R20 K43 [{["BackgroundTransparency"] = 1, ["AutomaticSize"], ["LayoutOrder"]}]
+      122 GETIMPORT                        R21 K23 [Enum.AutomaticSize.XY]
+      124 SETTABLEKS                       R21 R20 K17 ["AutomaticSize"]
+      126 NAMECALL                         R21 R8 K30 ["getNextOrder"]
+      128 CALL                             R21 1 1
+      129 SETTABLEKS                       R21 R20 K19 ["LayoutOrder"]
+      131 DUPTABLE                         R21 K45 [{"UIListLayout", "SubText", "LinkText"}]
+      132 GETUPVAL                         R22 2
+      133 GETTABLEKS                       R22 R22 K16 ["createElement"]
+      135 LOADK                            R23 K44 ["UIListLayout"]
+      136 DUPTABLE                         R24 K51 [{["FillDirection"], ["HorizontalAlignment"], ["VerticalAlignment"], ["SortOrder"], ["Wraps"] = True}]
+      137 GETIMPORT                        R25 K53 [Enum.FillDirection.Horizontal]
+      139 SETTABLEKS                       R25 R24 K24 ["FillDirection"]
+      141 GETIMPORT                        R25 K55 [Enum.HorizontalAlignment.Left]
+      143 SETTABLEKS                       R25 R24 K46 ["HorizontalAlignment"]
+      145 GETIMPORT                        R25 K57 [Enum.VerticalAlignment.Top]
+      147 SETTABLEKS                       R25 R24 K47 ["VerticalAlignment"]
+      149 GETIMPORT                        R25 K58 [Enum.SortOrder.LayoutOrder]
+      151 SETTABLEKS                       R25 R24 K48 ["SortOrder"]
+      153 CALL                             R22 2 1
+      154 SETTABLEKS                       R22 R21 K44 ["UIListLayout"]
+      156 GETUPVAL                         R22 2
+      157 GETTABLEKS                       R22 R22 K16 ["createElement"]
+      159 GETUPVAL                         R23 6
+      160 DUPTABLE                         R24 K64 [{["AutomaticSize"], ["TextXAlignment"], ["Style"] = "Body", ["Text"], ["TextWrapped"] = True, ["LayoutOrder"]}]
+      161 GETIMPORT                        R25 K23 [Enum.AutomaticSize.XY]
+      163 SETTABLEKS                       R25 R24 K17 ["AutomaticSize"]
+      165 GETIMPORT                        R25 K65 [Enum.TextXAlignment.Left]
+      167 SETTABLEKS                       R25 R24 K59 ["TextXAlignment"]
+      169 MOVE                             R26 R4
+      170 LOADK                            R27 K66 [" "]
+      171 CONCAT                           R25 R26 R27
+      172 SETTABLEKS                       R25 R24 K62 ["Text"]
+      174 NAMECALL                         R25 R8 K30 ["getNextOrder"]
+      176 CALL                             R25 1 1
+      177 SETTABLEKS                       R25 R24 K19 ["LayoutOrder"]
+      179 CALL                             R22 2 1
+      180 SETTABLEKS                       R22 R21 K10 ["SubText"]
+      182 GETUPVAL                         R22 2
+      183 GETTABLEKS                       R22 R22 K16 ["createElement"]
+      185 GETUPVAL                         R23 7
+      186 DUPTABLE                         R24 K67 [{["AutomaticSize"], ["TextXAlignment"], ["Style"] = "Body", ["TextWrapped"] = True, ["Text"], ["OnClick"], ["LayoutOrder"]}]
+      187 GETIMPORT                        R25 K23 [Enum.AutomaticSize.XY]
+      189 SETTABLEKS                       R25 R24 K17 ["AutomaticSize"]
+      191 GETIMPORT                        R25 K65 [Enum.TextXAlignment.Left]
+      193 SETTABLEKS                       R25 R24 K59 ["TextXAlignment"]
+      195 SETTABLEKS                       R5 R24 K62 ["Text"]
+      197 NEWCLOSURE                       R25 P1
+      198 CAPTURE                          UPVAL U8
+      199 CAPTURE                          REF R6
+      200 SETTABLEKS                       R25 R24 K36 ["OnClick"]
+      202 NAMECALL                         R25 R8 K30 ["getNextOrder"]
+      204 CALL                             R25 1 1
+      205 SETTABLEKS                       R25 R24 K19 ["LayoutOrder"]
+      207 CALL                             R22 2 1
+      208 SETTABLEKS                       R22 R21 K11 ["LinkText"]
+      210 CALL                             R18 3 1
+      211 SETTABLEKS                       R18 R17 K32 ["TextContents"]
+      213 CALL                             R14 3 1
+      214 SETTABLEKS                       R14 R13 K27 ["ToggleRewardedVideoAds"]
+      216 CALL                             R10 3 -1
+      217 CLOSEUPVALS                      R6
+      218 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

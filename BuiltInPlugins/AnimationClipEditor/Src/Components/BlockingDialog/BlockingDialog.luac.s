@@ -35,76 +35,68 @@ PROTO_1:
        12 GETTABLEKS                       R6 R6 K6 ["Dictionary"]
        14 GETTABLEKS                       R6 R6 K7 ["join"]
        16 MOVE                             R7 R1
-       17 DUPTABLE                         R8 K17 [{"Resizable", "BorderPadding", "ButtonPadding", "ButtonHeight", "ButtonWidth", "TextSize", "Title", "OnClose", "OnButtonPressed"}]
-       18 LOADB                            R9 0
-       19 SETTABLEKS                       R9 R8 K8 ["Resizable"]
-       21 LOADN                            R9 20
-       22 SETTABLEKS                       R9 R8 K9 ["BorderPadding"]
-       24 GETUPVAL                         R9 1
-       25 GETTABLEKS                       R9 R9 K18 ["PROMPT_BUTTON_PADDING"]
-       27 SETTABLEKS                       R9 R8 K10 ["ButtonPadding"]
-       29 GETUPVAL                         R9 1
-       30 GETTABLEKS                       R9 R9 K19 ["PROMPT_BUTTON_SIZE"]
-       32 GETTABLEKS                       R9 R9 K20 ["Y"]
-       34 SETTABLEKS                       R9 R8 K11 ["ButtonHeight"]
-       36 GETUPVAL                         R9 1
-       37 GETTABLEKS                       R9 R9 K19 ["PROMPT_BUTTON_SIZE"]
-       39 GETTABLEKS                       R9 R9 K21 ["X"]
-       41 SETTABLEKS                       R9 R8 K12 ["ButtonWidth"]
-       43 GETTABLEKS                       R9 R2 K22 ["__calculatedStyle"]
-       45 GETTABLEKS                       R9 R9 K23 ["dialogTheme"]
-       47 GETTABLEKS                       R9 R9 K24 ["textSize"]
-       49 SETTABLEKS                       R9 R8 K13 ["TextSize"]
-       51 LOADK                            R11 K14 ["Title"]
-       52 MOVE                             R12 R5
-       53 NAMECALL                         R9 R3 K25 ["getText"]
-       55 CALL                             R9 3 1
-       56 SETTABLEKS                       R9 R8 K14 ["Title"]
-       58 GETTABLEKS                       R9 R1 K15 ["OnClose"]
-       60 SETTABLEKS                       R9 R8 K15 ["OnClose"]
-       62 GETTABLEKS                       R9 R1 K26 ["OnButtonClicked"]
-       64 SETTABLEKS                       R9 R8 K16 ["OnButtonPressed"]
-       66 CALL                             R6 2 1
-       67 GETTABLEKS                       R7 R6 K27 ["Size"]
-       69 JUMPIF                           R7 ; [+1]
-       70 GETUPVAL                         R7 2
-       71 SETTABLEKS                       R7 R6 K28 ["MinContentSize"]
-       73 GETTABLEKS                       R7 R6 K29 ["Buttons"]
-       75 JUMPIF                           R7 ; [+18]
-       76 NEWTABLE                         R7 0 1
-       78 DUPTABLE                         R8 K33 [{"Key", "Text", "Style"}]
-       79 LOADB                            R9 1
-       80 SETTABLEKS                       R9 R8 K30 ["Key"]
-       82 LOADK                            R11 K34 ["Dialog"]
-       83 LOADK                            R12 K35 ["Ok"]
-       84 NAMECALL                         R9 R3 K25 ["getText"]
-       86 CALL                             R9 3 1
-       87 SETTABLEKS                       R9 R8 K31 ["Text"]
-       89 LOADK                            R9 K36 ["Round"]
-       90 SETTABLEKS                       R9 R8 K32 ["Style"]
-       92 SETLIST                          R7 R8 1 [1]
-       94 SETTABLEKS                       R7 R6 K29 ["Buttons"]
-       96 GETUPVAL                         R7 3
-       97 GETTABLEKS                       R7 R7 K37 ["createElement"]
-       99 GETUPVAL                         R8 4
-      100 DUPTABLE                         R9 K38 [{"theme", "plugin", "localization"}]
-      101 SETTABLEKS                       R2 R9 K1 ["theme"]
-      103 SETTABLEKS                       R4 R9 K3 ["plugin"]
-      105 SETTABLEKS                       R3 R9 K2 ["localization"]
-      107 DUPTABLE                         R10 K39 [{"Dialog"}]
-      108 GETUPVAL                         R11 3
-      109 GETTABLEKS                       R11 R11 K37 ["createElement"]
-      111 GETUPVAL                         R12 5
-      112 MOVE                             R13 R6
-      113 CALL                             R11 2 1
-      114 SETTABLEKS                       R11 R10 K34 ["Dialog"]
-      116 CALL                             R7 3 -1
-      117 RETURN                           R7 -1
+       17 DUPTABLE                         R8 K19 [{["Resizable"] = False, ["BorderPadding"] = 20, ["ButtonPadding"], ["ButtonHeight"], ["ButtonWidth"], ["TextSize"], ["Title"], ["OnClose"], ["OnButtonPressed"]}]
+       18 GETUPVAL                         R9 1
+       19 GETTABLEKS                       R9 R9 K20 ["PROMPT_BUTTON_PADDING"]
+       21 SETTABLEKS                       R9 R8 K12 ["ButtonPadding"]
+       23 GETUPVAL                         R9 1
+       24 GETTABLEKS                       R9 R9 K21 ["PROMPT_BUTTON_SIZE"]
+       26 GETTABLEKS                       R9 R9 K22 ["Y"]
+       28 SETTABLEKS                       R9 R8 K13 ["ButtonHeight"]
+       30 GETUPVAL                         R9 1
+       31 GETTABLEKS                       R9 R9 K21 ["PROMPT_BUTTON_SIZE"]
+       33 GETTABLEKS                       R9 R9 K23 ["X"]
+       35 SETTABLEKS                       R9 R8 K14 ["ButtonWidth"]
+       37 GETTABLEKS                       R9 R2 K24 ["__calculatedStyle"]
+       39 GETTABLEKS                       R9 R9 K25 ["dialogTheme"]
+       41 GETTABLEKS                       R9 R9 K26 ["textSize"]
+       43 SETTABLEKS                       R9 R8 K15 ["TextSize"]
+       45 LOADK                            R11 K16 ["Title"]
+       46 MOVE                             R12 R5
+       47 NAMECALL                         R9 R3 K27 ["getText"]
+       49 CALL                             R9 3 1
+       50 SETTABLEKS                       R9 R8 K16 ["Title"]
+       52 GETTABLEKS                       R9 R1 K17 ["OnClose"]
+       54 SETTABLEKS                       R9 R8 K17 ["OnClose"]
+       56 GETTABLEKS                       R9 R1 K28 ["OnButtonClicked"]
+       58 SETTABLEKS                       R9 R8 K18 ["OnButtonPressed"]
+       60 CALL                             R6 2 1
+       61 GETTABLEKS                       R7 R6 K29 ["Size"]
+       63 JUMPIF                           R7 ; [+1]
+       64 GETUPVAL                         R7 2
+       65 SETTABLEKS                       R7 R6 K30 ["MinContentSize"]
+       67 GETTABLEKS                       R7 R6 K31 ["Buttons"]
+       69 JUMPIF                           R7 ; [+12]
+       70 NEWTABLE                         R7 0 1
+       72 DUPTABLE                         R8 K37 [{["Key"] = True, ["Text"], ["Style"] = "Round"}]
+       73 LOADK                            R11 K38 ["Dialog"]
+       74 LOADK                            R12 K39 ["Ok"]
+       75 NAMECALL                         R9 R3 K27 ["getText"]
+       77 CALL                             R9 3 1
+       78 SETTABLEKS                       R9 R8 K34 ["Text"]
+       80 SETLIST                          R7 R8 1 [1]
+       82 SETTABLEKS                       R7 R6 K31 ["Buttons"]
+       84 GETUPVAL                         R7 3
+       85 GETTABLEKS                       R7 R7 K40 ["createElement"]
+       87 GETUPVAL                         R8 4
+       88 DUPTABLE                         R9 K41 [{"theme", "plugin", "localization"}]
+       89 SETTABLEKS                       R2 R9 K1 ["theme"]
+       91 SETTABLEKS                       R4 R9 K3 ["plugin"]
+       93 SETTABLEKS                       R3 R9 K2 ["localization"]
+       95 DUPTABLE                         R10 K42 [{"Dialog"}]
+       96 GETUPVAL                         R11 3
+       97 GETTABLEKS                       R11 R11 K40 ["createElement"]
+       99 GETUPVAL                         R12 5
+      100 MOVE                             R13 R6
+      101 CALL                             R11 2 1
+      102 SETTABLEKS                       R11 R10 K38 ["Dialog"]
+      104 CALL                             R7 3 -1
+      105 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K2 [Vector2.new]
-        3 LOADN                            R1 144
+        3 LOADN                            R1 400
         4 LOADN                            R2 200
         5 CALL                             R0 2 1
         6 GETIMPORT                        R1 K4 [script]

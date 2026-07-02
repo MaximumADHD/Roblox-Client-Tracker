@@ -5,7 +5,7 @@ PROTO_0:
         6 GETTABLEKS                       R4 R4 K5 ["Time"]
         8 GETTABLEKS                       R6 R0 K4 ["StartKeypoint"]
        10 GETTABLEKS                       R6 R6 K7 ["Value"]
-       12 SUBRK                            R5 R6 K6 [1]
+       12 SUBRK                            R5 K6 [1] R6
        13 CALL                             R3 2 1
        14 MUL                              R2 R1 R3
        15 GETIMPORT                        R4 K3 [Vector2.new]
@@ -13,7 +13,7 @@ PROTO_0:
        19 GETTABLEKS                       R5 R5 K5 ["Time"]
        21 GETTABLEKS                       R7 R0 K8 ["EndKeypoint"]
        23 GETTABLEKS                       R7 R7 K7 ["Value"]
-       25 SUBRK                            R6 R6 K7 ["Value"]
+       25 SUBRK                            R6 K6 [1] R7
        26 CALL                             R4 2 1
        27 MUL                              R3 R1 R4
        28 ADD                              R5 R2 R3

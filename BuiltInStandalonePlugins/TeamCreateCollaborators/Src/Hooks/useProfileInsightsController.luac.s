@@ -31,161 +31,149 @@ PROTO_1:
        13 MOVE                             R9 R7
        14 CALL                             R8 1 1
        15 MOVE                             R7 R8
-       16 DUPTABLE                         R8 K11 [{"userId", "username", "displayName", "mutualFriendCount", "friendshipAgeTranslation", "isFriend", "userAgeVerified", "accountCreationTranslation"}]
-       17 GETTABLEKS                       R9 R7 K12 ["targetUser"]
+       16 DUPTABLE                         R8 K15 [{["userId"], ["username"] = "", ["displayName"] = "", ["mutualFriendCount"] = 0, ["friendshipAgeTranslation"], ["isFriend"] = False, ["userAgeVerified"] = True, ["accountCreationTranslation"] = ""}]
+       17 GETTABLEKS                       R9 R7 K16 ["targetUser"]
        19 SETTABLEKS                       R9 R8 K3 ["userId"]
-       21 LOADK                            R9 K13 [""]
-       22 SETTABLEKS                       R9 R8 K4 ["username"]
-       24 LOADK                            R9 K13 [""]
-       25 SETTABLEKS                       R9 R8 K5 ["displayName"]
-       27 LOADN                            R9 0
-       28 SETTABLEKS                       R9 R8 K6 ["mutualFriendCount"]
-       30 GETUPVAL                         R9 1
-       31 LOADK                            R11 K14 ["ProfileInsights"]
-       32 LOADK                            R12 K15 ["NotConnected"]
-       33 NAMECALL                         R9 R9 K16 ["getText"]
-       35 CALL                             R9 3 1
-       36 SETTABLEKS                       R9 R8 K7 ["friendshipAgeTranslation"]
-       38 LOADB                            R9 0
-       39 SETTABLEKS                       R9 R8 K8 ["isFriend"]
-       41 LOADB                            R9 1
-       42 SETTABLEKS                       R9 R8 K9 ["userAgeVerified"]
-       44 LOADK                            R9 K13 [""]
-       45 SETTABLEKS                       R9 R8 K10 ["accountCreationTranslation"]
-       47 GETTABLEKS                       R9 R7 K17 ["profileInsights"]
-       49 GETTABLEKS                       R10 R9 K18 ["mutualFriendInsight"]
-       51 JUMPIFNOT                        R10 ; [+14]
-       52 GETTABLEKS                       R10 R9 K18 ["mutualFriendInsight"]
-       54 GETTABLEKS                       R10 R10 K19 ["mutualFriends"]
-       56 LOADNIL                          R11
-       57 LOADNIL                          R12
-       58 FORGPREP                         R10
-       59 GETTABLEKS                       R16 R8 K6 ["mutualFriendCount"]
-       61 ADDK                             R15 R16 K20 [1]
-       62 SETTABLEKS                       R15 R8 K6 ["mutualFriendCount"]
-       64 FORGLOOP                         R10 1 ; [-6]
-       66 GETTABLEKS                       R10 R9 K21 ["friendshipAgeInsight"]
-       68 JUMPIFNOT                        R10 ; [+113]
-       69 LOADB                            R10 1
-       70 SETTABLEKS                       R10 R8 K8 ["isFriend"]
-       72 GETIMPORT                        R11 K24 [DateTime.now]
-       74 CALL                             R11 0 1
-       75 GETTABLEKS                       R11 R11 K25 ["UnixTimestamp"]
-       77 GETTABLEKS                       R13 R9 K21 ["friendshipAgeInsight"]
-       79 GETTABLEKS                       R13 R13 K27 ["friendsSinceDateTime"]
-       81 GETTABLEKS                       R13 R13 K28 ["seconds"]
-       83 ORK                              R12 R13 K26 [0]
-       84 SUB                              R10 R11 R12
-       85 DIVK                             R12 R10 K29 [31536000]
-       86 FASTCALL1                        MATH_FLOOR R12 ; [+2]
-       87 GETIMPORT                        R11 K32 [math.floor]
-       89 CALL                             R11 1 1
-       90 DIVK                             R13 R10 K33 [2592000]
-       91 FASTCALL1                        MATH_FLOOR R13 ; [+2]
-       92 GETIMPORT                        R12 K32 [math.floor]
-       94 CALL                             R12 1 1
-       95 DIVK                             R14 R10 K34 [86400]
-       96 FASTCALL1                        MATH_FLOOR R14 ; [+2]
-       97 GETIMPORT                        R13 K32 [math.floor]
-       99 CALL                             R13 1 1
-      100 LOADNIL                          R14
-      101 LOADN                            R15 1
-      102 JUMPIFNOTLT                      R15 R11 ; [+12]
-      104 GETUPVAL                         R15 1
-      105 LOADK                            R17 K14 ["ProfileInsights"]
-      106 LOADK                            R18 K35 ["ConnectedForYears"]
-      107 DUPTABLE                         R19 K37 [{"age"}]
-      108 SETTABLEKS                       R11 R19 K36 ["age"]
-      110 NAMECALL                         R15 R15 K16 ["getText"]
-      112 CALL                             R15 4 1
-      113 MOVE                             R14 R15
-      114 JUMP                             ; [+65]
-      115 JUMPIFNOTEQKN                    R11 K20 [1] ; [+9]
-      117 GETUPVAL                         R15 1
-      118 LOADK                            R17 K14 ["ProfileInsights"]
-      119 LOADK                            R18 K38 ["ConnectedForOneYear"]
-      120 NAMECALL                         R15 R15 K16 ["getText"]
-      122 CALL                             R15 3 1
-      123 MOVE                             R14 R15
-      124 JUMP                             ; [+55]
-      125 LOADN                            R15 1
-      126 JUMPIFNOTLT                      R15 R12 ; [+12]
-      128 GETUPVAL                         R15 1
-      129 LOADK                            R17 K14 ["ProfileInsights"]
-      130 LOADK                            R18 K39 ["ConnectedForMonths"]
-      131 DUPTABLE                         R19 K37 [{"age"}]
-      132 SETTABLEKS                       R12 R19 K36 ["age"]
-      134 NAMECALL                         R15 R15 K16 ["getText"]
-      136 CALL                             R15 4 1
-      137 MOVE                             R14 R15
-      138 JUMP                             ; [+41]
-      139 JUMPIFNOTEQKN                    R12 K20 [1] ; [+9]
-      141 GETUPVAL                         R15 1
-      142 LOADK                            R17 K14 ["ProfileInsights"]
-      143 LOADK                            R18 K40 ["ConnectedForOneMonth"]
-      144 NAMECALL                         R15 R15 K16 ["getText"]
-      146 CALL                             R15 3 1
-      147 MOVE                             R14 R15
-      148 JUMP                             ; [+31]
-      149 LOADN                            R15 1
-      150 JUMPIFNOTLT                      R15 R13 ; [+12]
-      152 GETUPVAL                         R15 1
-      153 LOADK                            R17 K14 ["ProfileInsights"]
-      154 LOADK                            R18 K41 ["ConnectedForDays"]
-      155 DUPTABLE                         R19 K37 [{"age"}]
-      156 SETTABLEKS                       R13 R19 K36 ["age"]
-      158 NAMECALL                         R15 R15 K16 ["getText"]
-      160 CALL                             R15 4 1
+       21 GETUPVAL                         R9 1
+       22 LOADK                            R11 K17 ["ProfileInsights"]
+       23 LOADK                            R12 K18 ["NotConnected"]
+       24 NAMECALL                         R9 R9 K19 ["getText"]
+       26 CALL                             R9 3 1
+       27 SETTABLEKS                       R9 R8 K9 ["friendshipAgeTranslation"]
+       29 GETTABLEKS                       R9 R7 K20 ["profileInsights"]
+       31 GETTABLEKS                       R10 R9 K21 ["mutualFriendInsight"]
+       33 JUMPIFNOT                        R10 ; [+14]
+       34 GETTABLEKS                       R10 R9 K21 ["mutualFriendInsight"]
+       36 GETTABLEKS                       R10 R10 K22 ["mutualFriends"]
+       38 LOADNIL                          R11
+       39 LOADNIL                          R12
+       40 FORGPREP                         R10
+       41 GETTABLEKS                       R16 R8 K7 ["mutualFriendCount"]
+       43 ADDK                             R15 R16 K23 [1]
+       44 SETTABLEKS                       R15 R8 K7 ["mutualFriendCount"]
+       46 FORGLOOP                         R10 1 ; [-6]
+       48 GETTABLEKS                       R10 R9 K24 ["friendshipAgeInsight"]
+       50 JUMPIFNOT                        R10 ; [+113]
+       51 LOADB                            R10 1
+       52 SETTABLEKS                       R10 R8 K10 ["isFriend"]
+       54 GETIMPORT                        R11 K27 [DateTime.now]
+       56 CALL                             R11 0 1
+       57 GETTABLEKS                       R11 R11 K28 ["UnixTimestamp"]
+       59 GETTABLEKS                       R13 R9 K24 ["friendshipAgeInsight"]
+       61 GETTABLEKS                       R13 R13 K29 ["friendsSinceDateTime"]
+       63 GETTABLEKS                       R13 R13 K30 ["seconds"]
+       65 ORK                              R12 R13 K8 [0]
+       66 SUB                              R10 R11 R12
+       67 DIVK                             R12 R10 K31 [31536000]
+       68 FASTCALL1                        MATH_FLOOR R12 ; [+2]
+       69 GETIMPORT                        R11 K34 [math.floor]
+       71 CALL                             R11 1 1
+       72 DIVK                             R13 R10 K35 [2592000]
+       73 FASTCALL1                        MATH_FLOOR R13 ; [+2]
+       74 GETIMPORT                        R12 K34 [math.floor]
+       76 CALL                             R12 1 1
+       77 DIVK                             R14 R10 K36 [86400]
+       78 FASTCALL1                        MATH_FLOOR R14 ; [+2]
+       79 GETIMPORT                        R13 K34 [math.floor]
+       81 CALL                             R13 1 1
+       82 LOADNIL                          R14
+       83 LOADN                            R15 1
+       84 JUMPIFNOTLT                      R15 R11 ; [+12]
+       86 GETUPVAL                         R15 1
+       87 LOADK                            R17 K17 ["ProfileInsights"]
+       88 LOADK                            R18 K37 ["ConnectedForYears"]
+       89 DUPTABLE                         R19 K39 [{"age"}]
+       90 SETTABLEKS                       R11 R19 K38 ["age"]
+       92 NAMECALL                         R15 R15 K19 ["getText"]
+       94 CALL                             R15 4 1
+       95 MOVE                             R14 R15
+       96 JUMP                             ; [+65]
+       97 JUMPIFNOTEQKN                    R11 K23 [1] ; [+9]
+       99 GETUPVAL                         R15 1
+      100 LOADK                            R17 K17 ["ProfileInsights"]
+      101 LOADK                            R18 K40 ["ConnectedForOneYear"]
+      102 NAMECALL                         R15 R15 K19 ["getText"]
+      104 CALL                             R15 3 1
+      105 MOVE                             R14 R15
+      106 JUMP                             ; [+55]
+      107 LOADN                            R15 1
+      108 JUMPIFNOTLT                      R15 R12 ; [+12]
+      110 GETUPVAL                         R15 1
+      111 LOADK                            R17 K17 ["ProfileInsights"]
+      112 LOADK                            R18 K41 ["ConnectedForMonths"]
+      113 DUPTABLE                         R19 K39 [{"age"}]
+      114 SETTABLEKS                       R12 R19 K38 ["age"]
+      116 NAMECALL                         R15 R15 K19 ["getText"]
+      118 CALL                             R15 4 1
+      119 MOVE                             R14 R15
+      120 JUMP                             ; [+41]
+      121 JUMPIFNOTEQKN                    R12 K23 [1] ; [+9]
+      123 GETUPVAL                         R15 1
+      124 LOADK                            R17 K17 ["ProfileInsights"]
+      125 LOADK                            R18 K42 ["ConnectedForOneMonth"]
+      126 NAMECALL                         R15 R15 K19 ["getText"]
+      128 CALL                             R15 3 1
+      129 MOVE                             R14 R15
+      130 JUMP                             ; [+31]
+      131 LOADN                            R15 1
+      132 JUMPIFNOTLT                      R15 R13 ; [+12]
+      134 GETUPVAL                         R15 1
+      135 LOADK                            R17 K17 ["ProfileInsights"]
+      136 LOADK                            R18 K43 ["ConnectedForDays"]
+      137 DUPTABLE                         R19 K39 [{"age"}]
+      138 SETTABLEKS                       R13 R19 K38 ["age"]
+      140 NAMECALL                         R15 R15 K19 ["getText"]
+      142 CALL                             R15 4 1
+      143 MOVE                             R14 R15
+      144 JUMP                             ; [+17]
+      145 JUMPIFNOTEQKN                    R13 K23 [1] ; [+9]
+      147 GETUPVAL                         R15 1
+      148 LOADK                            R17 K17 ["ProfileInsights"]
+      149 LOADK                            R18 K44 ["ConnectedForOneDay"]
+      150 NAMECALL                         R15 R15 K19 ["getText"]
+      152 CALL                             R15 3 1
+      153 MOVE                             R14 R15
+      154 JUMP                             ; [+7]
+      155 GETUPVAL                         R15 1
+      156 LOADK                            R17 K17 ["ProfileInsights"]
+      157 LOADK                            R18 K18 ["NotConnected"]
+      158 NAMECALL                         R15 R15 K19 ["getText"]
+      160 CALL                             R15 3 1
       161 MOVE                             R14 R15
-      162 JUMP                             ; [+17]
-      163 JUMPIFNOTEQKN                    R13 K20 [1] ; [+9]
-      165 GETUPVAL                         R15 1
-      166 LOADK                            R17 K14 ["ProfileInsights"]
-      167 LOADK                            R18 K42 ["ConnectedForOneDay"]
-      168 NAMECALL                         R15 R15 K16 ["getText"]
-      170 CALL                             R15 3 1
-      171 MOVE                             R14 R15
-      172 JUMP                             ; [+7]
-      173 GETUPVAL                         R15 1
-      174 LOADK                            R17 K14 ["ProfileInsights"]
-      175 LOADK                            R18 K15 ["NotConnected"]
-      176 NAMECALL                         R15 R15 K16 ["getText"]
-      178 CALL                             R15 3 1
-      179 MOVE                             R14 R15
-      180 SETTABLEKS                       R14 R8 K7 ["friendshipAgeTranslation"]
-      182 GETTABLEKS                       R10 R9 K43 ["accountCreationDateInsight"]
-      184 JUMPIFNOT                        R10 ; [+30]
-      185 GETUPVAL                         R10 1
-      186 NAMECALL                         R10 R10 K44 ["getLocale"]
-      188 CALL                             R10 1 1
-      189 GETIMPORT                        R11 K46 [DateTime.fromUnixTimestamp]
-      191 GETTABLEKS                       R13 R9 K43 ["accountCreationDateInsight"]
-      193 GETTABLEKS                       R13 R13 K47 ["accountCreatedDateTime"]
-      195 GETTABLEKS                       R13 R13 K28 ["seconds"]
-      197 ORK                              R12 R13 K26 [0]
-      198 CALL                             R11 1 1
-      199 LOADK                            R13 K48 ["YYYY"]
-      200 MOVE                             R14 R10
-      201 NAMECALL                         R11 R11 K49 ["FormatLocalTime"]
-      203 CALL                             R11 3 1
-      204 GETUPVAL                         R12 1
-      205 LOADK                            R14 K14 ["ProfileInsights"]
-      206 LOADK                            R15 K50 ["JoinedInYear"]
-      207 DUPTABLE                         R16 K52 [{"year"}]
-      208 SETTABLEKS                       R11 R16 K51 ["year"]
-      210 NAMECALL                         R12 R12 K16 ["getText"]
-      212 CALL                             R12 4 1
-      213 SETTABLEKS                       R12 R8 K10 ["accountCreationTranslation"]
-      215 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
-      217 MOVE                             R11 R2
-      218 MOVE                             R12 R8
-      219 GETIMPORT                        R10 K55 [table.insert]
-      221 CALL                             R10 2 0
-      222 FORGLOOP                         R3 2 [inext] ; [-211]
-      224 GETUPVAL                         R3 2
-      225 MOVE                             R4 R2
-      226 CALL                             R3 1 0
-      227 RETURN                           R0 0
+      162 SETTABLEKS                       R14 R8 K9 ["friendshipAgeTranslation"]
+      164 GETTABLEKS                       R10 R9 K45 ["accountCreationDateInsight"]
+      166 JUMPIFNOT                        R10 ; [+30]
+      167 GETUPVAL                         R10 1
+      168 NAMECALL                         R10 R10 K46 ["getLocale"]
+      170 CALL                             R10 1 1
+      171 GETIMPORT                        R11 K48 [DateTime.fromUnixTimestamp]
+      173 GETTABLEKS                       R13 R9 K45 ["accountCreationDateInsight"]
+      175 GETTABLEKS                       R13 R13 K49 ["accountCreatedDateTime"]
+      177 GETTABLEKS                       R13 R13 K30 ["seconds"]
+      179 ORK                              R12 R13 K8 [0]
+      180 CALL                             R11 1 1
+      181 LOADK                            R13 K50 ["YYYY"]
+      182 MOVE                             R14 R10
+      183 NAMECALL                         R11 R11 K51 ["FormatLocalTime"]
+      185 CALL                             R11 3 1
+      186 GETUPVAL                         R12 1
+      187 LOADK                            R14 K17 ["ProfileInsights"]
+      188 LOADK                            R15 K52 ["JoinedInYear"]
+      189 DUPTABLE                         R16 K54 [{"year"}]
+      190 SETTABLEKS                       R11 R16 K53 ["year"]
+      192 NAMECALL                         R12 R12 K19 ["getText"]
+      194 CALL                             R12 4 1
+      195 SETTABLEKS                       R12 R8 K14 ["accountCreationTranslation"]
+      197 FASTCALL2                        TABLE_INSERT R2 R8 ; [+5]
+      199 MOVE                             R11 R2
+      200 MOVE                             R12 R8
+      201 GETIMPORT                        R10 K57 [table.insert]
+      203 CALL                             R10 2 0
+      204 FORGLOOP                         R3 2 [inext] ; [-193]
+      206 GETUPVAL                         R3 2
+      207 MOVE                             R4 R2
+      208 CALL                             R3 1 0
+      209 RETURN                           R0 0
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]

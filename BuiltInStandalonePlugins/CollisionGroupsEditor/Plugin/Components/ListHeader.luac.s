@@ -41,58 +41,52 @@ PROTO_0:
        60 GETUPVAL                         R10 1
        61 GETTABLEKS                       R10 R10 K10 ["createElement"]
        63 GETUPVAL                         R11 3
-       64 DUPTABLE                         R12 K28 [{"GroupCount", "LayoutOrder"}]
+       64 DUPTABLE                         R12 K29 [{["GroupCount"], ["LayoutOrder"] = 1}]
        65 GETTABLEKS                       R13 R1 K27 ["GroupCount"]
        67 SETTABLEKS                       R13 R12 K27 ["GroupCount"]
-       69 LOADN                            R13 1
-       70 SETTABLEKS                       R13 R12 K12 ["LayoutOrder"]
-       72 CALL                             R10 2 1
-       73 SETTABLEKS                       R10 R9 K24 ["GroupCountDisplay"]
-       75 GETUPVAL                         R10 1
-       76 GETTABLEKS                       R10 R10 K10 ["createElement"]
-       78 GETUPVAL                         R11 2
-       79 DUPTABLE                         R12 K30 [{"Style", "Size", "LayoutOrder", "Layout", "Padding"}]
-       80 LOADK                            R13 K31 ["GroupLabel"]
-       81 SETTABLEKS                       R13 R12 K29 ["Style"]
-       83 GETIMPORT                        R13 K18 [UDim2.new]
-       85 LOADN                            R14 1
-       86 GETUPVAL                         R16 0
-       87 GETTABLEKS                       R16 R16 K32 ["GroupRowWidth"]
-       89 MINUS                            R15 R16
-       90 LOADN                            R16 0
-       91 GETUPVAL                         R17 0
-       92 GETTABLEKS                       R17 R17 K19 ["GroupRowHeight"]
-       94 CALL                             R13 4 1
-       95 SETTABLEKS                       R13 R12 K11 ["Size"]
-       97 LOADN                            R13 2
-       98 SETTABLEKS                       R13 R12 K12 ["LayoutOrder"]
-      100 GETIMPORT                        R13 K23 [Enum.FillDirection.Horizontal]
-      102 SETTABLEKS                       R13 R12 K13 ["Layout"]
-      104 GETTABLEKS                       R13 R3 K33 ["LabelPanePadding"]
-      106 SETTABLEKS                       R13 R12 K14 ["Padding"]
-      108 DUPTABLE                         R13 K35 [{"TextLabel"}]
-      109 GETUPVAL                         R14 1
-      110 GETTABLEKS                       R14 R14 K10 ["createElement"]
-      112 GETUPVAL                         R15 4
-      113 DUPTABLE                         R16 K39 [{"Size", "Text", "TextXAlignment", "TextYAlignment"}]
-      114 GETIMPORT                        R17 K18 [UDim2.new]
-      116 LOADN                            R18 1
-      117 LOADN                            R19 0
-      118 LOADN                            R20 1
-      119 LOADN                            R21 0
-      120 CALL                             R17 4 1
-      121 SETTABLEKS                       R17 R16 K11 ["Size"]
-      123 SETTABLEKS                       R4 R16 K36 ["Text"]
-      125 GETIMPORT                        R17 K41 [Enum.TextXAlignment.Left]
-      127 SETTABLEKS                       R17 R16 K37 ["TextXAlignment"]
-      129 GETIMPORT                        R17 K43 [Enum.TextYAlignment.Center]
-      131 SETTABLEKS                       R17 R16 K38 ["TextYAlignment"]
-      133 CALL                             R14 2 1
-      134 SETTABLEKS                       R14 R13 K34 ["TextLabel"]
-      136 CALL                             R10 3 1
-      137 SETTABLEKS                       R10 R9 K25 ["LabelPane"]
-      139 CALL                             R6 3 -1
-      140 RETURN                           R6 -1
+       69 CALL                             R10 2 1
+       70 SETTABLEKS                       R10 R9 K24 ["GroupCountDisplay"]
+       72 GETUPVAL                         R10 1
+       73 GETTABLEKS                       R10 R10 K10 ["createElement"]
+       75 GETUPVAL                         R11 2
+       76 DUPTABLE                         R12 K33 [{["Style"] = "GroupLabel", ["Size"], ["LayoutOrder"] = 2, ["Layout"], ["Padding"]}]
+       77 GETIMPORT                        R13 K18 [UDim2.new]
+       79 LOADN                            R14 1
+       80 GETUPVAL                         R16 0
+       81 GETTABLEKS                       R16 R16 K34 ["GroupRowWidth"]
+       83 MINUS                            R15 R16
+       84 LOADN                            R16 0
+       85 GETUPVAL                         R17 0
+       86 GETTABLEKS                       R17 R17 K19 ["GroupRowHeight"]
+       88 CALL                             R13 4 1
+       89 SETTABLEKS                       R13 R12 K11 ["Size"]
+       91 GETIMPORT                        R13 K23 [Enum.FillDirection.Horizontal]
+       93 SETTABLEKS                       R13 R12 K13 ["Layout"]
+       95 GETTABLEKS                       R13 R3 K35 ["LabelPanePadding"]
+       97 SETTABLEKS                       R13 R12 K14 ["Padding"]
+       99 DUPTABLE                         R13 K37 [{"TextLabel"}]
+      100 GETUPVAL                         R14 1
+      101 GETTABLEKS                       R14 R14 K10 ["createElement"]
+      103 GETUPVAL                         R15 4
+      104 DUPTABLE                         R16 K41 [{"Size", "Text", "TextXAlignment", "TextYAlignment"}]
+      105 GETIMPORT                        R17 K18 [UDim2.new]
+      107 LOADN                            R18 1
+      108 LOADN                            R19 0
+      109 LOADN                            R20 1
+      110 LOADN                            R21 0
+      111 CALL                             R17 4 1
+      112 SETTABLEKS                       R17 R16 K11 ["Size"]
+      114 SETTABLEKS                       R4 R16 K38 ["Text"]
+      116 GETIMPORT                        R17 K43 [Enum.TextXAlignment.Left]
+      118 SETTABLEKS                       R17 R16 K39 ["TextXAlignment"]
+      120 GETIMPORT                        R17 K45 [Enum.TextYAlignment.Center]
+      122 SETTABLEKS                       R17 R16 K40 ["TextYAlignment"]
+      124 CALL                             R14 2 1
+      125 SETTABLEKS                       R14 R13 K36 ["TextLabel"]
+      127 CALL                             R10 3 1
+      128 SETTABLEKS                       R10 R9 K25 ["LabelPane"]
+      130 CALL                             R6 3 -1
+      131 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

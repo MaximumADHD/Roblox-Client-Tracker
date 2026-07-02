@@ -10,87 +10,81 @@ PROTO_0:
        14 GETUPVAL                         R7 1
        15 GETTABLEKS                       R7 R7 K6 ["createElement"]
        17 LOADK                            R8 K7 ["Frame"]
-       18 DUPTABLE                         R9 K12 [{"Size", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "LayoutOrder"}]
-       19 GETIMPORT                        R10 K14 [UDim2.new]
+       18 DUPTABLE                         R9 K13 [{["Size"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"], ["BorderSizePixel"] = 0, ["LayoutOrder"]}]
+       19 GETIMPORT                        R10 K15 [UDim2.new]
        21 LOADN                            R11 0
        22 MOVE                             R12 R3
        23 LOADN                            R13 1
        24 LOADN                            R14 0
        25 CALL                             R10 4 1
        26 SETTABLEKS                       R10 R9 K8 ["Size"]
-       28 LOADN                            R10 0
-       29 SETTABLEKS                       R10 R9 K9 ["BackgroundTransparency"]
-       31 GETTABLEKS                       R10 R5 K15 ["backgroundColor"]
-       33 SETTABLEKS                       R10 R9 K10 ["BackgroundColor3"]
-       35 LOADN                            R10 0
-       36 SETTABLEKS                       R10 R9 K11 ["BorderSizePixel"]
-       38 SETTABLEKS                       R4 R9 K3 ["LayoutOrder"]
-       40 DUPTABLE                         R10 K19 [{"Padding", "UIListLayout", "AssetThumbnailPreview"}]
-       41 GETUPVAL                         R11 1
-       42 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       44 LOADK                            R12 K20 ["UIPadding"]
-       45 DUPTABLE                         R13 K25 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-       46 GETIMPORT                        R14 K27 [UDim.new]
-       48 LOADN                            R15 0
-       49 LOADN                            R16 24
-       50 CALL                             R14 2 1
-       51 SETTABLEKS                       R14 R13 K21 ["PaddingTop"]
-       53 GETIMPORT                        R14 K27 [UDim.new]
-       55 LOADN                            R15 0
-       56 LOADN                            R16 5
-       57 CALL                             R14 2 1
-       58 SETTABLEKS                       R14 R13 K22 ["PaddingBottom"]
-       60 GETIMPORT                        R14 K27 [UDim.new]
-       62 LOADN                            R15 0
-       63 LOADN                            R16 5
-       64 CALL                             R14 2 1
-       65 SETTABLEKS                       R14 R13 K23 ["PaddingLeft"]
-       67 GETIMPORT                        R14 K27 [UDim.new]
-       69 LOADN                            R15 0
-       70 LOADN                            R16 5
-       71 CALL                             R14 2 1
-       72 SETTABLEKS                       R14 R13 K24 ["PaddingRight"]
-       74 CALL                             R11 2 1
-       75 SETTABLEKS                       R11 R10 K16 ["Padding"]
-       77 GETUPVAL                         R11 1
-       78 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       80 LOADK                            R12 K17 ["UIListLayout"]
-       81 DUPTABLE                         R13 K32 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
-       82 GETIMPORT                        R14 K35 [Enum.FillDirection.Vertical]
-       84 SETTABLEKS                       R14 R13 K28 ["FillDirection"]
-       86 GETIMPORT                        R14 K37 [Enum.HorizontalAlignment.Center]
-       88 SETTABLEKS                       R14 R13 K29 ["HorizontalAlignment"]
-       90 GETIMPORT                        R14 K39 [Enum.VerticalAlignment.Top]
-       92 SETTABLEKS                       R14 R13 K30 ["VerticalAlignment"]
-       94 GETIMPORT                        R14 K40 [Enum.SortOrder.LayoutOrder]
-       96 SETTABLEKS                       R14 R13 K31 ["SortOrder"]
-       98 GETIMPORT                        R14 K27 [UDim.new]
-      100 LOADN                            R15 0
-      101 LOADN                            R16 20
-      102 CALL                             R14 2 1
-      103 SETTABLEKS                       R14 R13 K16 ["Padding"]
-      105 CALL                             R11 2 1
-      106 SETTABLEKS                       R11 R10 K17 ["UIListLayout"]
-      108 GETUPVAL                         R11 1
-      109 GETTABLEKS                       R11 R11 K6 ["createElement"]
-      111 GETUPVAL                         R12 2
-      112 DUPTABLE                         R13 K42 [{"Size", "ShowTitle", "LayoutOrder"}]
-      113 GETIMPORT                        R14 K14 [UDim2.new]
-      115 LOADN                            R15 0
-      116 LOADN                            R16 150
-      117 LOADN                            R17 0
-      118 LOADN                            R18 150
-      119 CALL                             R14 4 1
-      120 SETTABLEKS                       R14 R13 K8 ["Size"]
-      122 LOADB                            R14 0
-      123 SETTABLEKS                       R14 R13 K41 ["ShowTitle"]
-      125 NAMECALL                         R14 R6 K43 ["getNextOrder"]
-      127 CALL                             R14 1 1
-      128 SETTABLEKS                       R14 R13 K3 ["LayoutOrder"]
-      130 CALL                             R11 2 1
-      131 SETTABLEKS                       R11 R10 K18 ["AssetThumbnailPreview"]
-      133 CALL                             R7 3 -1
-      134 RETURN                           R7 -1
+       28 GETTABLEKS                       R10 R5 K16 ["backgroundColor"]
+       30 SETTABLEKS                       R10 R9 K11 ["BackgroundColor3"]
+       32 SETTABLEKS                       R4 R9 K3 ["LayoutOrder"]
+       34 DUPTABLE                         R10 K20 [{"Padding", "UIListLayout", "AssetThumbnailPreview"}]
+       35 GETUPVAL                         R11 1
+       36 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       38 LOADK                            R12 K21 ["UIPadding"]
+       39 DUPTABLE                         R13 K26 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       40 GETIMPORT                        R14 K28 [UDim.new]
+       42 LOADN                            R15 0
+       43 LOADN                            R16 24
+       44 CALL                             R14 2 1
+       45 SETTABLEKS                       R14 R13 K22 ["PaddingTop"]
+       47 GETIMPORT                        R14 K28 [UDim.new]
+       49 LOADN                            R15 0
+       50 LOADN                            R16 5
+       51 CALL                             R14 2 1
+       52 SETTABLEKS                       R14 R13 K23 ["PaddingBottom"]
+       54 GETIMPORT                        R14 K28 [UDim.new]
+       56 LOADN                            R15 0
+       57 LOADN                            R16 5
+       58 CALL                             R14 2 1
+       59 SETTABLEKS                       R14 R13 K24 ["PaddingLeft"]
+       61 GETIMPORT                        R14 K28 [UDim.new]
+       63 LOADN                            R15 0
+       64 LOADN                            R16 5
+       65 CALL                             R14 2 1
+       66 SETTABLEKS                       R14 R13 K25 ["PaddingRight"]
+       68 CALL                             R11 2 1
+       69 SETTABLEKS                       R11 R10 K17 ["Padding"]
+       71 GETUPVAL                         R11 1
+       72 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       74 LOADK                            R12 K18 ["UIListLayout"]
+       75 DUPTABLE                         R13 K33 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
+       76 GETIMPORT                        R14 K36 [Enum.FillDirection.Vertical]
+       78 SETTABLEKS                       R14 R13 K29 ["FillDirection"]
+       80 GETIMPORT                        R14 K38 [Enum.HorizontalAlignment.Center]
+       82 SETTABLEKS                       R14 R13 K30 ["HorizontalAlignment"]
+       84 GETIMPORT                        R14 K40 [Enum.VerticalAlignment.Top]
+       86 SETTABLEKS                       R14 R13 K31 ["VerticalAlignment"]
+       88 GETIMPORT                        R14 K41 [Enum.SortOrder.LayoutOrder]
+       90 SETTABLEKS                       R14 R13 K32 ["SortOrder"]
+       92 GETIMPORT                        R14 K28 [UDim.new]
+       94 LOADN                            R15 0
+       95 LOADN                            R16 20
+       96 CALL                             R14 2 1
+       97 SETTABLEKS                       R14 R13 K17 ["Padding"]
+       99 CALL                             R11 2 1
+      100 SETTABLEKS                       R11 R10 K18 ["UIListLayout"]
+      102 GETUPVAL                         R11 1
+      103 GETTABLEKS                       R11 R11 K6 ["createElement"]
+      105 GETUPVAL                         R12 2
+      106 DUPTABLE                         R13 K44 [{["Size"], ["ShowTitle"] = False, ["LayoutOrder"]}]
+      107 GETIMPORT                        R14 K15 [UDim2.new]
+      109 LOADN                            R15 0
+      110 LOADN                            R16 150
+      111 LOADN                            R17 0
+      112 LOADN                            R18 150
+      113 CALL                             R14 4 1
+      114 SETTABLEKS                       R14 R13 K8 ["Size"]
+      116 NAMECALL                         R14 R6 K45 ["getNextOrder"]
+      118 CALL                             R14 1 1
+      119 SETTABLEKS                       R14 R13 K3 ["LayoutOrder"]
+      121 CALL                             R11 2 1
+      122 SETTABLEKS                       R11 R10 K19 ["AssetThumbnailPreview"]
+      124 CALL                             R7 3 -1
+      125 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

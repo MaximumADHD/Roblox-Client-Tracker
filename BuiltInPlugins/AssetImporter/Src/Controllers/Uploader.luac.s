@@ -32,7 +32,7 @@ PROTO_1:
        27 GETTABLEKS                       R8 R8 K11 ["FileType"]
        29 GETTABLEKS                       R8 R8 K12 ["Video"]
        31 JUMPIFNOTEQ                      R2 R8 ; [+6]
-       33 LOADN                            R5 208
+       33 LOADN                            R5 2000
        34 LOADK                            R6 K13 ["application/json"]
        35 GETIMPORT                        R7 K15 [Enum.AssetType.Video]
        37 JUMP                             ; [+19]
@@ -52,20 +52,14 @@ PROTO_1:
        60 LOADK                            R10 K20 ["Must be given an asset targettype"]
        61 GETIMPORT                        R8 K22 [assert]
        63 CALL                             R8 2 0
-       64 DUPTABLE                         R8 K32 [{"creatorId", "creatorType", "targetType", "assetDescription", "assetId", "assetName", "contentType", "expectedPrice", "token"}]
+       64 DUPTABLE                         R8 K33 [{["creatorId"], ["creatorType"], ["targetType"], ["assetDescription"] = "", ["assetId"] = 0, ["assetName"], ["contentType"], ["expectedPrice"], ["token"] = ""}]
        65 SETTABLEKS                       R3 R8 K23 ["creatorId"]
        67 SETTABLEKS                       R4 R8 K24 ["creatorType"]
        69 SETTABLEKS                       R7 R8 K25 ["targetType"]
-       71 LOADK                            R9 K10 [""]
-       72 SETTABLEKS                       R9 R8 K26 ["assetDescription"]
-       74 LOADN                            R9 0
-       75 SETTABLEKS                       R9 R8 K27 ["assetId"]
-       77 SETTABLEKS                       R1 R8 K28 ["assetName"]
-       79 SETTABLEKS                       R6 R8 K29 ["contentType"]
-       81 SETTABLEKS                       R5 R8 K30 ["expectedPrice"]
-       83 LOADK                            R9 K10 [""]
-       84 SETTABLEKS                       R9 R8 K31 ["token"]
-       86 RETURN                           R8 1
+       71 SETTABLEKS                       R1 R8 K29 ["assetName"]
+       73 SETTABLEKS                       R6 R8 K30 ["contentType"]
+       75 SETTABLEKS                       R5 R8 K31 ["expectedPrice"]
+       77 RETURN                           R8 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0

@@ -6,41 +6,37 @@ PROTO_0:
         6 SUBK                             R2 R0 K1 [1]
         7 GETUPVAL                         R3 0
         8 MOVE                             R4 R1
-        9 DUPTABLE                         R5 K6 [{"Type", "Selected", "Setting", "SettingValue"}]
-       10 LOADK                            R6 K7 ["SelectOption"]
-       11 SETTABLEKS                       R6 R5 K2 ["Type"]
-       13 GETUPVAL                         R7 1
-       14 GETTABLEKS                       R7 R7 K8 ["Value"]
-       16 JUMPIFEQ                         R2 R7 ; [+2]
-       18 LOADB                            R6 0 +1
-       19 LOADB                            R6 1
-       20 SETTABLEKS                       R6 R5 K3 ["Selected"]
-       22 GETUPVAL                         R6 2
-       23 GETTABLEKS                       R6 R6 K4 ["Setting"]
-       25 SETTABLEKS                       R6 R5 K4 ["Setting"]
-       27 SETTABLEKS                       R2 R5 K5 ["SettingValue"]
-       29 CALL                             R3 2 -1
-       30 RETURN                           R3 -1
+        9 DUPTABLE                         R5 K7 [{["Type"] = "SelectOption", ["Selected"], ["Setting"], ["SettingValue"]}]
+       10 GETUPVAL                         R7 1
+       11 GETTABLEKS                       R7 R7 K8 ["Value"]
+       13 JUMPIFEQ                         R2 R7 ; [+2]
+       15 LOADB                            R6 0 +1
+       16 LOADB                            R6 1
+       17 SETTABLEKS                       R6 R5 K4 ["Selected"]
+       19 GETUPVAL                         R6 2
+       20 GETTABLEKS                       R6 R6 K5 ["Setting"]
+       22 SETTABLEKS                       R6 R5 K5 ["Setting"]
+       24 SETTABLEKS                       R2 R5 K6 ["SettingValue"]
+       26 CALL                             R3 2 -1
+       27 RETURN                           R3 -1
 
 PROTO_1:
         0 SUBK                             R2 R1 K0 [1]
         1 GETUPVAL                         R3 0
         2 MOVE                             R4 R0
-        3 DUPTABLE                         R5 K5 [{"Type", "Selected", "Setting", "SettingValue"}]
-        4 LOADK                            R6 K6 ["SelectOption"]
-        5 SETTABLEKS                       R6 R5 K1 ["Type"]
-        7 GETUPVAL                         R7 1
-        8 GETTABLEKS                       R7 R7 K7 ["Value"]
-       10 JUMPIFEQ                         R2 R7 ; [+2]
-       12 LOADB                            R6 0 +1
-       13 LOADB                            R6 1
-       14 SETTABLEKS                       R6 R5 K2 ["Selected"]
-       16 GETUPVAL                         R6 2
-       17 GETTABLEKS                       R6 R6 K3 ["Setting"]
-       19 SETTABLEKS                       R6 R5 K3 ["Setting"]
-       21 SETTABLEKS                       R2 R5 K4 ["SettingValue"]
-       23 CALL                             R3 2 -1
-       24 RETURN                           R3 -1
+        3 DUPTABLE                         R5 K6 [{["Type"] = "SelectOption", ["Selected"], ["Setting"], ["SettingValue"]}]
+        4 GETUPVAL                         R7 1
+        5 GETTABLEKS                       R7 R7 K7 ["Value"]
+        7 JUMPIFEQ                         R2 R7 ; [+2]
+        9 LOADB                            R6 0 +1
+       10 LOADB                            R6 1
+       11 SETTABLEKS                       R6 R5 K3 ["Selected"]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R6 R6 K4 ["Setting"]
+       16 SETTABLEKS                       R6 R5 K4 ["Setting"]
+       18 SETTABLEKS                       R2 R5 K5 ["SettingValue"]
+       20 CALL                             R3 2 -1
+       21 RETURN                           R3 -1
 
 PROTO_2:
         0 LOADNIL                          R1
@@ -63,18 +59,16 @@ PROTO_2:
        17 CAPTURE                          UPVAL U5
        18 CALL                             R2 2 1
        19 MOVE                             R1 R2
-       20 DUPTABLE                         R2 K2 [{"Type", "Children"}]
-       21 LOADK                            R3 K3 ["Column"]
-       22 SETTABLEKS                       R3 R2 K0 ["Type"]
-       24 SETTABLEKS                       R1 R2 K1 ["Children"]
-       26 GETUPVAL                         R3 7
-       27 GETTABLEKS                       R3 R3 K4 ["OpenMenu"]
-       29 NEWTABLE                         R4 0 1
-       31 MOVE                             R5 R2
-       32 SETLIST                          R4 R5 1 [1]
-       34 MOVE                             R5 R0
-       35 CALL                             R3 2 0
-       36 RETURN                           R0 0
+       20 DUPTABLE                         R2 K3 [{[1] = "Column", ["Children"]}]
+       21 SETTABLEKS                       R1 R2 K2 ["Children"]
+       23 GETUPVAL                         R3 7
+       24 GETTABLEKS                       R3 R3 K4 ["OpenMenu"]
+       26 NEWTABLE                         R4 0 1
+       28 MOVE                             R5 R2
+       29 SETLIST                          R4 R5 1 [1]
+       31 MOVE                             R5 R0
+       32 CALL                             R3 2 0
+       33 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0

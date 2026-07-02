@@ -25,52 +25,44 @@ MAIN:
        34 CALL                             R7 2 1
        35 MOVE                             R8 R2
        36 LOADK                            R9 K17 [">> .Thumbnail"]
-       37 DUPTABLE                         R10 K20 [{"Size", "BackgroundTransparency"}]
-       38 LOADK                            R11 K21 ["$ThumbnailSize"]
-       39 SETTABLEKS                       R11 R10 K18 ["Size"]
-       41 LOADK                            R11 K22 ["$Transparent"]
-       42 SETTABLEKS                       R11 R10 K19 ["BackgroundTransparency"]
-       44 NEWTABLE                         R11 0 1
-       46 MOVE                             R12 R2
-       47 LOADK                            R13 K23 ["::UICorner"]
-       48 DUPTABLE                         R14 K25 [{"CornerRadius"}]
-       49 GETIMPORT                        R15 K16 [UDim.new]
-       51 LOADN                            R16 0
-       52 LOADN                            R17 4
-       53 CALL                             R15 2 1
-       54 SETTABLEKS                       R15 R14 K24 ["CornerRadius"]
-       56 CALL                             R12 2 -1
-       57 SETLIST                          R11 R12 -1 [1]
-       59 CALL                             R8 3 -1
-       60 SETLIST                          R6 R7 -1 [1]
-       62 DUPTABLE                         R7 K32 [{"ThumbnailSize", "ThumbnailToContentPadding", "ShimmerSize", "ShimmerInitialPosition", "Transparent", "ShimmerAngle"}]
-       63 GETIMPORT                        R8 K35 [UDim2.fromOffset]
-       65 LOADN                            R9 50
-       66 LOADN                            R10 50
-       67 CALL                             R8 2 1
-       68 SETTABLEKS                       R8 R7 K26 ["ThumbnailSize"]
-       70 GETIMPORT                        R8 K16 [UDim.new]
-       72 LOADN                            R9 0
-       73 LOADN                            R10 16
-       74 CALL                             R8 2 1
-       75 SETTABLEKS                       R8 R7 K27 ["ThumbnailToContentPadding"]
-       77 GETIMPORT                        R8 K36 [UDim2.new]
-       79 LOADN                            R9 2
-       80 LOADN                            R10 0
-       81 LOADN                            R11 1
-       82 LOADN                            R12 0
-       83 CALL                             R8 4 1
-       84 SETTABLEKS                       R8 R7 K28 ["ShimmerSize"]
-       86 GETIMPORT                        R8 K36 [UDim2.new]
-       88 LOADN                            R9 0
-       89 LOADN                            R10 0
-       90 LOADN                            R11 0
-       91 LOADN                            R12 0
-       92 CALL                             R8 4 1
-       93 SETTABLEKS                       R8 R7 K29 ["ShimmerInitialPosition"]
-       95 LOADN                            R8 1
-       96 SETTABLEKS                       R8 R7 K30 ["Transparent"]
-       98 LOADN                            R8 45
-       99 SETTABLEKS                       R8 R7 K31 ["ShimmerAngle"]
-      101 CALL                             R3 4 -1
-      102 RETURN                           R3 -1
+       37 DUPTABLE                         R10 K22 [{["Size"] = "$ThumbnailSize", ["BackgroundTransparency"] = "$Transparent"}]
+       38 NEWTABLE                         R11 0 1
+       40 MOVE                             R12 R2
+       41 LOADK                            R13 K23 ["::UICorner"]
+       42 DUPTABLE                         R14 K25 [{"CornerRadius"}]
+       43 GETIMPORT                        R15 K16 [UDim.new]
+       45 LOADN                            R16 0
+       46 LOADN                            R17 4
+       47 CALL                             R15 2 1
+       48 SETTABLEKS                       R15 R14 K24 ["CornerRadius"]
+       50 CALL                             R12 2 -1
+       51 SETLIST                          R11 R12 -1 [1]
+       53 CALL                             R8 3 -1
+       54 SETLIST                          R6 R7 -1 [1]
+       56 DUPTABLE                         R7 K34 [{["ThumbnailSize"], ["ThumbnailToContentPadding"], ["ShimmerSize"], ["ShimmerInitialPosition"], ["Transparent"] = 1, ["ShimmerAngle"] = 45}]
+       57 GETIMPORT                        R8 K37 [UDim2.fromOffset]
+       59 LOADN                            R9 50
+       60 LOADN                            R10 50
+       61 CALL                             R8 2 1
+       62 SETTABLEKS                       R8 R7 K26 ["ThumbnailSize"]
+       64 GETIMPORT                        R8 K16 [UDim.new]
+       66 LOADN                            R9 0
+       67 LOADN                            R10 16
+       68 CALL                             R8 2 1
+       69 SETTABLEKS                       R8 R7 K27 ["ThumbnailToContentPadding"]
+       71 GETIMPORT                        R8 K38 [UDim2.new]
+       73 LOADN                            R9 2
+       74 LOADN                            R10 0
+       75 LOADN                            R11 1
+       76 LOADN                            R12 0
+       77 CALL                             R8 4 1
+       78 SETTABLEKS                       R8 R7 K28 ["ShimmerSize"]
+       80 GETIMPORT                        R8 K38 [UDim2.new]
+       82 LOADN                            R9 0
+       83 LOADN                            R10 0
+       84 LOADN                            R11 0
+       85 LOADN                            R12 0
+       86 CALL                             R8 4 1
+       87 SETTABLEKS                       R8 R7 K29 ["ShimmerInitialPosition"]
+       89 CALL                             R3 4 -1
+       90 RETURN                           R3 -1

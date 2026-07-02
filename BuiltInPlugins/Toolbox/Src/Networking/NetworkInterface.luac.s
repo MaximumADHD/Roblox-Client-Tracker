@@ -60,9 +60,9 @@ PROTO_2:
        20 RETURN                           R2 -1
        21 JUMP                             ; [+50]
        22 LOADB                            R2 0
-       23 LOADN                            R3 144
+       23 LOADN                            R3 400
        24 JUMPIFNOTLE                      R3 R1 ; [+6]
-       26 LOADN                            R3 243
+       26 LOADN                            R3 499
        27 JUMPIFLE                         R1 R3 ; [+2]
        29 LOADB                            R2 0 +1
        30 LOADB                            R2 1
@@ -111,31 +111,25 @@ PROTO_2:
 
 PROTO_3:
         0 MOVE                             R3 R1
-        1 JUMPIF                           R3 ; [+10]
-        2 DUPTABLE                         R3 K3 [{"attempts", "time", "maxRetries"}]
-        3 LOADN                            R4 0
-        4 SETTABLEKS                       R4 R3 K0 ["attempts"]
-        6 LOADN                            R4 0
-        7 SETTABLEKS                       R4 R3 K1 ["time"]
-        9 LOADN                            R4 5
-       10 SETTABLEKS                       R4 R3 K2 ["maxRetries"]
-       12 MOVE                             R1 R3
-       13 ORK                              R2 R2 K4 [False]
-       14 GETTABLEKS                       R4 R1 K0 ["attempts"]
-       16 ADDK                             R3 R4 K5 [1]
-       17 SETTABLEKS                       R3 R1 K0 ["attempts"]
-       19 MOVE                             R3 R0
-       20 CALL                             R3 0 1
-       21 NEWCLOSURE                       R5 P0
-       22 CAPTURE                          REF R2
-       23 CAPTURE                          UPVAL U0
-       24 CAPTURE                          REF R1
-       25 CAPTURE                          UPVAL U1
-       26 CAPTURE                          VAL R0
-       27 NAMECALL                         R3 R3 K6 ["catch"]
-       29 CALL                             R3 2 -1
-       30 CLOSEUPVALS                      R1
-       31 RETURN                           R3 -1
+        1 JUMPIF                           R3 ; [+1]
+        2 DUPTABLE                         R3 K5 [{[1] = 0, ["time"] = 0, ["maxRetries"] = 5}]
+        3 MOVE                             R1 R3
+        4 ORK                              R2 R2 K6 [False]
+        5 GETTABLEKS                       R4 R1 K0 ["attempts"]
+        7 ADDK                             R3 R4 K7 [1]
+        8 SETTABLEKS                       R3 R1 K0 ["attempts"]
+       10 MOVE                             R3 R0
+       11 CALL                             R3 0 1
+       12 NEWCLOSURE                       R5 P0
+       13 CAPTURE                          REF R2
+       14 CAPTURE                          UPVAL U0
+       15 CAPTURE                          REF R1
+       16 CAPTURE                          UPVAL U1
+       17 CAPTURE                          VAL R0
+       18 NAMECALL                         R3 R3 K8 ["catch"]
+       20 CALL                             R3 2 -1
+       21 CLOSEUPVALS                      R1
+       22 RETURN                           R3 -1
 
 PROTO_4:
         0 NAMECALL                         R2 R1 K0 ["GetBinaryContents"]
@@ -166,20 +160,18 @@ PROTO_4:
        33 MOVE                             R12 R2
        34 MOVE                             R13 R6
        35 CALL                             R7 6 1
-       36 DUPTABLE                         R8 K20 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+       36 DUPTABLE                         R8 K21 [{["Url"], ["Method"] = "POST", ["Body"], ["CachePolicy"], ["Headers"]}]
        37 SETTABLEKS                       R0 R8 K15 ["Url"]
-       39 LOADK                            R9 K21 ["POST"]
-       40 SETTABLEKS                       R9 R8 K16 ["Method"]
-       42 SETTABLEKS                       R7 R8 K17 ["Body"]
-       44 GETIMPORT                        R9 K25 [Enum.HttpCachePolicy.None]
-       46 SETTABLEKS                       R9 R8 K18 ["CachePolicy"]
-       48 NEWTABLE                         R9 1 0
-       50 LOADK                            R11 K26 ["multipart/form-data; boundary="]
-       51 MOVE                             R12 R6
-       52 CONCAT                           R10 R11 R12
-       53 SETTABLEKS                       R10 R9 K27 ["Content-Type"]
-       55 SETTABLEKS                       R9 R8 K19 ["Headers"]
-       57 RETURN                           R7 2
+       39 SETTABLEKS                       R7 R8 K18 ["Body"]
+       41 GETIMPORT                        R9 K25 [Enum.HttpCachePolicy.None]
+       43 SETTABLEKS                       R9 R8 K19 ["CachePolicy"]
+       45 NEWTABLE                         R9 1 0
+       47 LOADK                            R11 K26 ["multipart/form-data; boundary="]
+       48 MOVE                             R12 R6
+       49 CONCAT                           R10 R11 R12
+       50 SETTABLEKS                       R10 R9 K27 ["Content-Type"]
+       52 SETTABLEKS                       R9 R8 K20 ["Headers"]
+       54 RETURN                           R7 2
 
 PROTO_5:
         0 GETTABLEKS                       R2 R0 K0 ["_networkImp"]
@@ -294,24 +286,18 @@ PROTO_9:
        28 GETTABLEKS                       R7 R1 K8 ["sectionName"]
        30 GETUPVAL                         R8 4
        31 GETTABLEKS                       R8 R8 K9 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
-       33 JUMPIFNOTEQ                      R7 R8 ; [+12]
-       35 DUPTABLE                         R6 K13 [{"attempts", "time", "maxRetries"}]
-       36 LOADN                            R7 0
-       37 SETTABLEKS                       R7 R6 K10 ["attempts"]
-       39 LOADN                            R7 0
-       40 SETTABLEKS                       R7 R6 K11 ["time"]
-       42 LOADN                            R7 0
-       43 SETTABLEKS                       R7 R6 K12 ["maxRetries"]
-       45 JUMP                             ; [+1]
-       46 LOADNIL                          R6
-       47 GETUPVAL                         R7 5
-       48 NEWCLOSURE                       R8 P0
-       49 CAPTURE                          VAL R5
-       50 CAPTURE                          UPVAL U6
-       51 CAPTURE                          VAL R0
-       52 MOVE                             R9 R6
-       53 CALL                             R7 2 -1
-       54 RETURN                           R7 -1
+       33 JUMPIFNOTEQ                      R7 R8 ; [+3]
+       35 DUPTABLE                         R6 K14 [{["attempts"] = 0, ["time"] = 0, ["maxRetries"] = 0}]
+       36 JUMP                             ; [+1]
+       37 LOADNIL                          R6
+       38 GETUPVAL                         R7 5
+       39 NEWCLOSURE                       R8 P0
+       40 CAPTURE                          VAL R5
+       41 CAPTURE                          UPVAL U6
+       42 CAPTURE                          VAL R0
+       43 MOVE                             R9 R6
+       44 CALL                             R7 2 -1
+       45 RETURN                           R7 -1
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -1069,35 +1055,33 @@ PROTO_37:
        34 SETTABLEKS                       R7 R11 K8 ["groupId"]
        36 NAMECALL                         R9 R9 K11 ["jsonEncode"]
        38 CALL                             R9 2 1
-       39 DUPTABLE                         R10 K16 [{"Url", "Method", "Body", "Headers"}]
+       39 DUPTABLE                         R10 K17 [{["Url"], ["Method"] = "POST", ["Body"], ["Headers"]}]
        40 SETTABLEKS                       R8 R10 K12 ["Url"]
-       42 LOADK                            R11 K17 ["POST"]
-       43 SETTABLEKS                       R11 R10 K13 ["Method"]
-       45 SETTABLEKS                       R9 R10 K14 ["Body"]
-       47 NEWTABLE                         R11 1 0
-       49 LOADK                            R12 K18 ["application/json"]
-       50 SETTABLEKS                       R12 R11 K19 ["Content-Type"]
-       52 SETTABLEKS                       R11 R10 K15 ["Headers"]
-       54 GETUPVAL                         R11 3
-       55 LOADK                            R12 K20 ["postBundleCreationContext"]
-       56 LOADK                            R13 K17 ["POST"]
-       57 MOVE                             R14 R8
-       58 MOVE                             R15 R9
-       59 CALL                             R11 4 0
-       60 GETTABLEKS                       R11 R0 K1 ["_networkImp"]
-       62 MOVE                             R13 R10
-       63 NAMECALL                         R11 R11 K21 ["requestInternalRaw"]
-       65 CALL                             R11 2 1
-       66 NEWCLOSURE                       R13 P0
-       67 CAPTURE                          VAL R0
-       68 NAMECALL                         R11 R11 K22 ["andThen"]
-       70 CALL                             R11 2 1
-       71 NEWCLOSURE                       R13 P1
-       72 CAPTURE                          VAL R0
-       73 CAPTURE                          UPVAL U4
-       74 NAMECALL                         R11 R11 K23 ["catch"]
-       76 CALL                             R11 2 -1
-       77 RETURN                           R11 -1
+       42 SETTABLEKS                       R9 R10 K15 ["Body"]
+       44 NEWTABLE                         R11 1 0
+       46 LOADK                            R12 K18 ["application/json"]
+       47 SETTABLEKS                       R12 R11 K19 ["Content-Type"]
+       49 SETTABLEKS                       R11 R10 K16 ["Headers"]
+       51 GETUPVAL                         R11 3
+       52 LOADK                            R12 K20 ["postBundleCreationContext"]
+       53 LOADK                            R13 K14 ["POST"]
+       54 MOVE                             R14 R8
+       55 MOVE                             R15 R9
+       56 CALL                             R11 4 0
+       57 GETTABLEKS                       R11 R0 K1 ["_networkImp"]
+       59 MOVE                             R13 R10
+       60 NAMECALL                         R11 R11 K21 ["requestInternalRaw"]
+       62 CALL                             R11 2 1
+       63 NEWCLOSURE                       R13 P0
+       64 CAPTURE                          VAL R0
+       65 NAMECALL                         R11 R11 K22 ["andThen"]
+       67 CALL                             R11 2 1
+       68 NEWCLOSURE                       R13 P1
+       69 CAPTURE                          VAL R0
+       70 CAPTURE                          UPVAL U4
+       71 NAMECALL                         R11 R11 K23 ["catch"]
+       73 CALL                             R11 2 -1
+       74 RETURN                           R11 -1
 
 PROTO_38:
         0 GETUPVAL                         R1 0
@@ -1140,35 +1124,33 @@ PROTO_40:
        20 SETTABLEKS                       R6 R10 K7 ["agreedCreationFee"]
        22 NAMECALL                         R8 R8 K10 ["jsonEncode"]
        24 CALL                             R8 2 1
-       25 DUPTABLE                         R9 K15 [{"Url", "Method", "Body", "Headers"}]
+       25 DUPTABLE                         R9 K16 [{["Url"], ["Method"] = "POST", ["Body"], ["Headers"]}]
        26 SETTABLEKS                       R7 R9 K11 ["Url"]
-       28 LOADK                            R10 K16 ["POST"]
-       29 SETTABLEKS                       R10 R9 K12 ["Method"]
-       31 SETTABLEKS                       R8 R9 K13 ["Body"]
-       33 NEWTABLE                         R10 1 0
-       35 LOADK                            R11 K17 ["application/json"]
-       36 SETTABLEKS                       R11 R10 K18 ["Content-Type"]
-       38 SETTABLEKS                       R10 R9 K14 ["Headers"]
-       40 GETUPVAL                         R10 1
-       41 LOADK                            R11 K19 ["postCreateBundle"]
-       42 LOADK                            R12 K16 ["POST"]
-       43 MOVE                             R13 R7
-       44 MOVE                             R14 R8
-       45 CALL                             R10 4 0
-       46 GETTABLEKS                       R10 R0 K1 ["_networkImp"]
-       48 MOVE                             R12 R9
-       49 NAMECALL                         R10 R10 K20 ["requestInternalRaw"]
-       51 CALL                             R10 2 1
-       52 NEWCLOSURE                       R12 P0
-       53 CAPTURE                          VAL R0
-       54 NAMECALL                         R10 R10 K21 ["andThen"]
-       56 CALL                             R10 2 1
-       57 NEWCLOSURE                       R12 P1
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          UPVAL U2
-       60 NAMECALL                         R10 R10 K22 ["catch"]
-       62 CALL                             R10 2 -1
-       63 RETURN                           R10 -1
+       28 SETTABLEKS                       R8 R9 K14 ["Body"]
+       30 NEWTABLE                         R10 1 0
+       32 LOADK                            R11 K17 ["application/json"]
+       33 SETTABLEKS                       R11 R10 K18 ["Content-Type"]
+       35 SETTABLEKS                       R10 R9 K15 ["Headers"]
+       37 GETUPVAL                         R10 1
+       38 LOADK                            R11 K19 ["postCreateBundle"]
+       39 LOADK                            R12 K13 ["POST"]
+       40 MOVE                             R13 R7
+       41 MOVE                             R14 R8
+       42 CALL                             R10 4 0
+       43 GETTABLEKS                       R10 R0 K1 ["_networkImp"]
+       45 MOVE                             R12 R9
+       46 NAMECALL                         R10 R10 K20 ["requestInternalRaw"]
+       48 CALL                             R10 2 1
+       49 NEWCLOSURE                       R12 P0
+       50 CAPTURE                          VAL R0
+       51 NAMECALL                         R10 R10 K21 ["andThen"]
+       53 CALL                             R10 2 1
+       54 NEWCLOSURE                       R12 P1
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          UPVAL U2
+       57 NAMECALL                         R10 R10 K22 ["catch"]
+       59 CALL                             R10 2 -1
+       60 RETURN                           R10 -1
 
 PROTO_41:
         0 GETUPVAL                         R0 0
@@ -2095,34 +2077,32 @@ PROTO_82:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["constructUploadCatalogItemUrl"]
         3 CALL                             R3 0 1
-        4 DUPTABLE                         R4 K6 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+        4 DUPTABLE                         R4 K7 [{["Url"], ["Method"] = "POST", ["Body"], ["CachePolicy"], ["Headers"]}]
         5 SETTABLEKS                       R3 R4 K1 ["Url"]
-        7 LOADK                            R5 K7 ["POST"]
-        8 SETTABLEKS                       R5 R4 K2 ["Method"]
-       10 SETTABLEKS                       R1 R4 K3 ["Body"]
-       12 GETIMPORT                        R5 K11 [Enum.HttpCachePolicy.None]
-       14 SETTABLEKS                       R5 R4 K4 ["CachePolicy"]
-       16 NEWTABLE                         R5 1 0
-       18 LOADK                            R7 K12 ["multipart/form-data; boundary="]
-       19 MOVE                             R8 R2
-       20 CONCAT                           R6 R7 R8
-       21 SETTABLEKS                       R6 R5 K13 ["Content-Type"]
-       23 SETTABLEKS                       R5 R4 K5 ["Headers"]
-       25 GETUPVAL                         R5 1
-       26 LOADK                            R6 K14 ["uploadCatalogItem"]
-       27 LOADK                            R7 K15 ["POST FORM-DATA"]
-       28 MOVE                             R8 R3
-       29 MOVE                             R9 R1
-       30 CALL                             R5 4 0
-       31 GETTABLEKS                       R5 R0 K16 ["_networkImp"]
-       33 MOVE                             R7 R4
-       34 NAMECALL                         R5 R5 K17 ["requestInternal"]
-       36 CALL                             R5 2 1
-       37 DUPCLOSURE                       R7 K18 [PROTO_81]
-       38 CAPTURE                          UPVAL U2
-       39 NAMECALL                         R5 R5 K19 ["catch"]
-       41 CALL                             R5 2 -1
-       42 RETURN                           R5 -1
+        7 SETTABLEKS                       R1 R4 K4 ["Body"]
+        9 GETIMPORT                        R5 K11 [Enum.HttpCachePolicy.None]
+       11 SETTABLEKS                       R5 R4 K5 ["CachePolicy"]
+       13 NEWTABLE                         R5 1 0
+       15 LOADK                            R7 K12 ["multipart/form-data; boundary="]
+       16 MOVE                             R8 R2
+       17 CONCAT                           R6 R7 R8
+       18 SETTABLEKS                       R6 R5 K13 ["Content-Type"]
+       20 SETTABLEKS                       R5 R4 K6 ["Headers"]
+       22 GETUPVAL                         R5 1
+       23 LOADK                            R6 K14 ["uploadCatalogItem"]
+       24 LOADK                            R7 K15 ["POST FORM-DATA"]
+       25 MOVE                             R8 R3
+       26 MOVE                             R9 R1
+       27 CALL                             R5 4 0
+       28 GETTABLEKS                       R5 R0 K16 ["_networkImp"]
+       30 MOVE                             R7 R4
+       31 NAMECALL                         R5 R5 K17 ["requestInternal"]
+       33 CALL                             R5 2 1
+       34 DUPCLOSURE                       R7 K18 [PROTO_81]
+       35 CAPTURE                          UPVAL U2
+       36 NAMECALL                         R5 R5 K19 ["catch"]
+       38 CALL                             R5 2 -1
+       39 RETURN                           R5 -1
 
 PROTO_83:
         0 GETUPVAL                         R0 0
@@ -2239,32 +2219,30 @@ PROTO_89:
         7 MOVE                             R6 R2
         8 NAMECALL                         R4 R4 K2 ["jsonEncode"]
        10 CALL                             R4 2 1
-       11 DUPTABLE                         R5 K8 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
+       11 DUPTABLE                         R5 K9 [{["Url"], ["Method"] = "PATCH", ["Body"], ["CachePolicy"], ["Headers"]}]
        12 SETTABLEKS                       R3 R5 K3 ["Url"]
-       14 LOADK                            R6 K9 ["PATCH"]
-       15 SETTABLEKS                       R6 R5 K4 ["Method"]
-       17 SETTABLEKS                       R4 R5 K5 ["Body"]
-       19 GETIMPORT                        R6 K13 [Enum.HttpCachePolicy.None]
-       21 SETTABLEKS                       R6 R5 K6 ["CachePolicy"]
-       23 NEWTABLE                         R6 1 0
-       25 LOADK                            R7 K14 ["application/json"]
-       26 SETTABLEKS                       R7 R6 K15 ["Content-Type"]
-       28 SETTABLEKS                       R6 R5 K7 ["Headers"]
-       30 GETUPVAL                         R6 1
-       31 LOADK                            R7 K16 ["configureCatalogItem"]
-       32 LOADK                            R8 K9 ["PATCH"]
-       33 MOVE                             R9 R3
-       34 MOVE                             R10 R4
-       35 CALL                             R6 4 0
-       36 GETTABLEKS                       R6 R0 K1 ["_networkImp"]
-       38 MOVE                             R8 R5
-       39 NAMECALL                         R6 R6 K17 ["requestInternal"]
-       41 CALL                             R6 2 1
-       42 DUPCLOSURE                       R8 K18 [PROTO_88]
-       43 CAPTURE                          UPVAL U2
-       44 NAMECALL                         R6 R6 K19 ["catch"]
-       46 CALL                             R6 2 -1
-       47 RETURN                           R6 -1
+       14 SETTABLEKS                       R4 R5 K6 ["Body"]
+       16 GETIMPORT                        R6 K13 [Enum.HttpCachePolicy.None]
+       18 SETTABLEKS                       R6 R5 K7 ["CachePolicy"]
+       20 NEWTABLE                         R6 1 0
+       22 LOADK                            R7 K14 ["application/json"]
+       23 SETTABLEKS                       R7 R6 K15 ["Content-Type"]
+       25 SETTABLEKS                       R6 R5 K8 ["Headers"]
+       27 GETUPVAL                         R6 1
+       28 LOADK                            R7 K16 ["configureCatalogItem"]
+       29 LOADK                            R8 K5 ["PATCH"]
+       30 MOVE                             R9 R3
+       31 MOVE                             R10 R4
+       32 CALL                             R6 4 0
+       33 GETTABLEKS                       R6 R0 K1 ["_networkImp"]
+       35 MOVE                             R8 R5
+       36 NAMECALL                         R6 R6 K17 ["requestInternal"]
+       38 CALL                             R6 2 1
+       39 DUPCLOSURE                       R8 K18 [PROTO_88]
+       40 CAPTURE                          UPVAL U2
+       41 NAMECALL                         R6 R6 K19 ["catch"]
+       43 CALL                             R6 2 -1
+       44 RETURN                           R6 -1
 
 PROTO_90:
         0 GETUPVAL                         R10 0
@@ -2272,38 +2250,36 @@ PROTO_90:
         3 MOVE                             R11 R1
         4 CALL                             R10 1 1
         5 GETTABLEKS                       R11 R0 K1 ["_networkImp"]
-        7 DUPTABLE                         R13 K11 [{"name", "description", "genres", "enableComments", "isCopyingAllowed", "locale", "localName", "localDescription", "isConvertMarketplaceModelsToPackageEnabled"}]
+        7 DUPTABLE                         R13 K12 [{["name"], ["description"], ["genres"] = , ["enableComments"], ["isCopyingAllowed"], ["locale"], ["localName"], ["localDescription"], ["isConvertMarketplaceModelsToPackageEnabled"]}]
         8 SETTABLEKS                       R2 R13 K2 ["name"]
        10 SETTABLEKS                       R3 R13 K3 ["description"]
-       12 LOADNIL                          R14
-       13 SETTABLEKS                       R14 R13 K4 ["genres"]
-       15 SETTABLEKS                       R4 R13 K5 ["enableComments"]
-       17 SETTABLEKS                       R5 R13 K6 ["isCopyingAllowed"]
-       19 SETTABLEKS                       R6 R13 K7 ["locale"]
-       21 SETTABLEKS                       R7 R13 K8 ["localName"]
-       23 SETTABLEKS                       R8 R13 K9 ["localDescription"]
-       25 GETUPVAL                         R15 1
-       26 JUMPIF                           R15 ; [+2]
-       27 GETUPVAL                         R15 2
-       28 JUMPIFNOT                        R15 ; [+2]
-       29 MOVE                             R14 R9
-       30 JUMP                             ; [+1]
-       31 LOADNIL                          R14
-       32 SETTABLEKS                       R14 R13 K10 ["isConvertMarketplaceModelsToPackageEnabled"]
-       34 NAMECALL                         R11 R11 K12 ["jsonEncode"]
-       36 CALL                             R11 2 1
-       37 GETUPVAL                         R12 3
-       38 LOADK                            R13 K13 ["patchAsset"]
-       39 LOADK                            R14 K14 ["PATCH"]
-       40 MOVE                             R15 R10
-       41 MOVE                             R16 R11
-       42 CALL                             R12 4 0
-       43 GETTABLEKS                       R12 R0 K1 ["_networkImp"]
-       45 MOVE                             R14 R10
-       46 MOVE                             R15 R11
-       47 NAMECALL                         R12 R12 K15 ["httpPatch"]
-       49 CALL                             R12 3 -1
-       50 RETURN                           R12 -1
+       12 SETTABLEKS                       R4 R13 K6 ["enableComments"]
+       14 SETTABLEKS                       R5 R13 K7 ["isCopyingAllowed"]
+       16 SETTABLEKS                       R6 R13 K8 ["locale"]
+       18 SETTABLEKS                       R7 R13 K9 ["localName"]
+       20 SETTABLEKS                       R8 R13 K10 ["localDescription"]
+       22 GETUPVAL                         R15 1
+       23 JUMPIF                           R15 ; [+2]
+       24 GETUPVAL                         R15 2
+       25 JUMPIFNOT                        R15 ; [+2]
+       26 MOVE                             R14 R9
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R14
+       29 SETTABLEKS                       R14 R13 K11 ["isConvertMarketplaceModelsToPackageEnabled"]
+       31 NAMECALL                         R11 R11 K13 ["jsonEncode"]
+       33 CALL                             R11 2 1
+       34 GETUPVAL                         R12 3
+       35 LOADK                            R13 K14 ["patchAsset"]
+       36 LOADK                            R14 K15 ["PATCH"]
+       37 MOVE                             R15 R10
+       38 MOVE                             R16 R11
+       39 CALL                             R12 4 0
+       40 GETTABLEKS                       R12 R0 K1 ["_networkImp"]
+       42 MOVE                             R14 R10
+       43 MOVE                             R15 R11
+       44 NAMECALL                         R12 R12 K16 ["httpPatch"]
+       46 CALL                             R12 3 -1
+       47 RETURN                           R12 -1
 
 PROTO_91:
         0 GETUPVAL                         R2 0
@@ -2508,69 +2484,61 @@ PROTO_98:
         4 GETTABLEKS                       R10 R6 K1 ["Name"]
         6 GETUPVAL                         R11 1
         7 DUPTABLE                         R12 K4 [{"request", "fileContent"}]
-        8 DUPTABLE                         R13 K7 [{"contentType", "body"}]
-        9 LOADK                            R14 K8 ["application/json"]
-       10 SETTABLEKS                       R14 R13 K5 ["contentType"]
-       12 GETTABLEKS                       R14 R0 K9 ["_networkImp"]
-       14 DUPTABLE                         R16 K14 [{"assetType", "displayName", "description", "creationContext"}]
-       15 SETTABLEKS                       R10 R16 K10 ["assetType"]
-       17 SETTABLEKS                       R2 R16 K11 ["displayName"]
-       19 SETTABLEKS                       R3 R16 K12 ["description"]
-       21 DUPTABLE                         R17 K17 [{"creator", "expectedPrice"}]
-       22 DUPTABLE                         R18 K20 [{"userId", "groupId"}]
-       23 JUMPIF                           R5 ; [+2]
-       24 MOVE                             R19 R4
-       25 JUMP                             ; [+1]
-       26 LOADNIL                          R19
-       27 SETTABLEKS                       R19 R18 K18 ["userId"]
-       29 SETTABLEKS                       R5 R18 K19 ["groupId"]
-       31 SETTABLEKS                       R18 R17 K15 ["creator"]
-       33 SETTABLEKS                       R7 R17 K16 ["expectedPrice"]
-       35 SETTABLEKS                       R17 R16 K13 ["creationContext"]
-       37 NAMECALL                         R14 R14 K21 ["jsonEncode"]
-       39 CALL                             R14 2 1
-       40 SETTABLEKS                       R14 R13 K6 ["body"]
-       42 SETTABLEKS                       R13 R12 K2 ["request"]
-       44 DUPTABLE                         R13 K23 [{"contentType", "filename", "body"}]
-       45 LOADK                            R14 K24 ["model/x-rbxm"]
-       46 SETTABLEKS                       R14 R13 K5 ["contentType"]
-       48 LOADK                            R14 K25 ["asset.rbxm"]
-       49 SETTABLEKS                       R14 R13 K22 ["filename"]
-       51 SETTABLEKS                       R8 R13 K6 ["body"]
-       53 SETTABLEKS                       R13 R12 K3 ["fileContent"]
-       55 CALL                             R11 1 2
-       56 DUPTABLE                         R13 K31 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
-       57 SETTABLEKS                       R9 R13 K26 ["Url"]
-       59 LOADK                            R14 K32 ["POST"]
-       60 SETTABLEKS                       R14 R13 K27 ["Method"]
-       62 SETTABLEKS                       R11 R13 K28 ["Body"]
-       64 GETIMPORT                        R14 K36 [Enum.HttpCachePolicy.None]
-       66 SETTABLEKS                       R14 R13 K29 ["CachePolicy"]
-       68 NEWTABLE                         R14 1 0
-       70 LOADK                            R16 K37 ["multipart/form-data; boundary="]
-       71 MOVE                             R17 R12
-       72 CONCAT                           R15 R16 R17
-       73 SETTABLEKS                       R15 R14 K38 ["Content-Type"]
-       75 SETTABLEKS                       R14 R13 K30 ["Headers"]
-       77 GETUPVAL                         R14 2
-       78 LOADK                            R15 K39 ["uploadAnimation"]
-       79 LOADK                            R16 K32 ["POST"]
-       80 MOVE                             R17 R9
-       81 MOVE                             R18 R13
-       82 CALL                             R14 4 0
-       83 GETTABLEKS                       R14 R0 K9 ["_networkImp"]
-       85 MOVE                             R16 R13
-       86 NAMECALL                         R14 R14 K40 ["requestInternal"]
-       88 CALL                             R14 2 1
-       89 NEWCLOSURE                       R16 P0
-       90 CAPTURE                          VAL R0
-       91 NAMECALL                         R14 R14 K41 ["andThen"]
-       93 CALL                             R14 2 1
-       94 DUPCLOSURE                       R16 K42 [PROTO_97]
-       95 CAPTURE                          UPVAL U3
-       96 NAMECALL                         R14 R14 K43 ["catch"]
-       98 CALL                             R14 2 -1
-       99 RETURN                           R14 -1
+        8 DUPTABLE                         R13 K8 [{["contentType"] = "application/json", ["body"]}]
+        9 GETTABLEKS                       R14 R0 K9 ["_networkImp"]
+       11 DUPTABLE                         R16 K14 [{"assetType", "displayName", "description", "creationContext"}]
+       12 SETTABLEKS                       R10 R16 K10 ["assetType"]
+       14 SETTABLEKS                       R2 R16 K11 ["displayName"]
+       16 SETTABLEKS                       R3 R16 K12 ["description"]
+       18 DUPTABLE                         R17 K17 [{"creator", "expectedPrice"}]
+       19 DUPTABLE                         R18 K20 [{"userId", "groupId"}]
+       20 JUMPIF                           R5 ; [+2]
+       21 MOVE                             R19 R4
+       22 JUMP                             ; [+1]
+       23 LOADNIL                          R19
+       24 SETTABLEKS                       R19 R18 K18 ["userId"]
+       26 SETTABLEKS                       R5 R18 K19 ["groupId"]
+       28 SETTABLEKS                       R18 R17 K15 ["creator"]
+       30 SETTABLEKS                       R7 R17 K16 ["expectedPrice"]
+       32 SETTABLEKS                       R17 R16 K13 ["creationContext"]
+       34 NAMECALL                         R14 R14 K21 ["jsonEncode"]
+       36 CALL                             R14 2 1
+       37 SETTABLEKS                       R14 R13 K7 ["body"]
+       39 SETTABLEKS                       R13 R12 K2 ["request"]
+       41 DUPTABLE                         R13 K25 [{["contentType"] = "model/x-rbxm", ["filename"] = "asset.rbxm", ["body"]}]
+       42 SETTABLEKS                       R8 R13 K7 ["body"]
+       44 SETTABLEKS                       R13 R12 K3 ["fileContent"]
+       46 CALL                             R11 1 2
+       47 DUPTABLE                         R13 K32 [{["Url"], ["Method"] = "POST", ["Body"], ["CachePolicy"], ["Headers"]}]
+       48 SETTABLEKS                       R9 R13 K26 ["Url"]
+       50 SETTABLEKS                       R11 R13 K29 ["Body"]
+       52 GETIMPORT                        R14 K36 [Enum.HttpCachePolicy.None]
+       54 SETTABLEKS                       R14 R13 K30 ["CachePolicy"]
+       56 NEWTABLE                         R14 1 0
+       58 LOADK                            R16 K37 ["multipart/form-data; boundary="]
+       59 MOVE                             R17 R12
+       60 CONCAT                           R15 R16 R17
+       61 SETTABLEKS                       R15 R14 K38 ["Content-Type"]
+       63 SETTABLEKS                       R14 R13 K31 ["Headers"]
+       65 GETUPVAL                         R14 2
+       66 LOADK                            R15 K39 ["uploadAnimation"]
+       67 LOADK                            R16 K28 ["POST"]
+       68 MOVE                             R17 R9
+       69 MOVE                             R18 R13
+       70 CALL                             R14 4 0
+       71 GETTABLEKS                       R14 R0 K9 ["_networkImp"]
+       73 MOVE                             R16 R13
+       74 NAMECALL                         R14 R14 K40 ["requestInternal"]
+       76 CALL                             R14 2 1
+       77 NEWCLOSURE                       R16 P0
+       78 CAPTURE                          VAL R0
+       79 NAMECALL                         R14 R14 K41 ["andThen"]
+       81 CALL                             R14 2 1
+       82 DUPCLOSURE                       R16 K42 [PROTO_97]
+       83 CAPTURE                          UPVAL U3
+       84 NAMECALL                         R14 R14 K43 ["catch"]
+       86 CALL                             R14 2 -1
+       87 RETURN                           R14 -1
 
 PROTO_99:
         0 GETUPVAL                         R1 0
@@ -2600,60 +2568,52 @@ PROTO_101:
         4 CALL                             R3 1 1
         5 GETUPVAL                         R4 1
         6 DUPTABLE                         R5 K3 [{"request", "fileContent"}]
-        7 DUPTABLE                         R6 K6 [{"contentType", "body"}]
-        8 LOADK                            R7 K7 ["application/json"]
-        9 SETTABLEKS                       R7 R6 K4 ["contentType"]
-       11 GETTABLEKS                       R7 R0 K8 ["_networkImp"]
-       13 DUPTABLE                         R9 K10 [{"assetId"}]
-       14 FASTCALL1                        TOSTRING R1 ; [+3]
-       15 MOVE                             R11 R1
-       16 GETIMPORT                        R10 K12 [tostring]
-       18 CALL                             R10 1 1
-       19 SETTABLEKS                       R10 R9 K9 ["assetId"]
-       21 NAMECALL                         R7 R7 K13 ["jsonEncode"]
-       23 CALL                             R7 2 1
-       24 SETTABLEKS                       R7 R6 K5 ["body"]
-       26 SETTABLEKS                       R6 R5 K1 ["request"]
-       28 DUPTABLE                         R6 K15 [{"contentType", "filename", "body"}]
-       29 LOADK                            R7 K16 ["model/x-rbxm"]
-       30 SETTABLEKS                       R7 R6 K4 ["contentType"]
-       32 LOADK                            R7 K17 ["asset.rbxm"]
-       33 SETTABLEKS                       R7 R6 K14 ["filename"]
-       35 SETTABLEKS                       R2 R6 K5 ["body"]
-       37 SETTABLEKS                       R6 R5 K2 ["fileContent"]
-       39 CALL                             R4 1 2
-       40 DUPTABLE                         R6 K23 [{"Url", "Method", "Body", "CachePolicy", "Headers"}]
-       41 SETTABLEKS                       R3 R6 K18 ["Url"]
-       43 LOADK                            R7 K24 ["PATCH"]
-       44 SETTABLEKS                       R7 R6 K19 ["Method"]
-       46 SETTABLEKS                       R4 R6 K20 ["Body"]
-       48 GETIMPORT                        R7 K28 [Enum.HttpCachePolicy.None]
-       50 SETTABLEKS                       R7 R6 K21 ["CachePolicy"]
-       52 NEWTABLE                         R7 1 0
-       54 LOADK                            R9 K29 ["multipart/form-data; boundary="]
-       55 MOVE                             R10 R5
-       56 CONCAT                           R8 R9 R10
-       57 SETTABLEKS                       R8 R7 K30 ["Content-Type"]
-       59 SETTABLEKS                       R7 R6 K22 ["Headers"]
-       61 GETUPVAL                         R7 2
-       62 LOADK                            R8 K31 ["overrideAnimation"]
-       63 LOADK                            R9 K24 ["PATCH"]
-       64 MOVE                             R10 R3
-       65 MOVE                             R11 R6
-       66 CALL                             R7 4 0
-       67 GETTABLEKS                       R7 R0 K8 ["_networkImp"]
-       69 MOVE                             R9 R6
-       70 NAMECALL                         R7 R7 K32 ["requestInternal"]
-       72 CALL                             R7 2 1
-       73 NEWCLOSURE                       R9 P0
-       74 CAPTURE                          VAL R0
-       75 NAMECALL                         R7 R7 K33 ["andThen"]
-       77 CALL                             R7 2 1
-       78 DUPCLOSURE                       R9 K34 [PROTO_100]
-       79 CAPTURE                          UPVAL U3
-       80 NAMECALL                         R7 R7 K35 ["catch"]
-       82 CALL                             R7 2 -1
-       83 RETURN                           R7 -1
+        7 DUPTABLE                         R6 K7 [{["contentType"] = "application/json", ["body"]}]
+        8 GETTABLEKS                       R7 R0 K8 ["_networkImp"]
+       10 DUPTABLE                         R9 K10 [{"assetId"}]
+       11 FASTCALL1                        TOSTRING R1 ; [+3]
+       12 MOVE                             R11 R1
+       13 GETIMPORT                        R10 K12 [tostring]
+       15 CALL                             R10 1 1
+       16 SETTABLEKS                       R10 R9 K9 ["assetId"]
+       18 NAMECALL                         R7 R7 K13 ["jsonEncode"]
+       20 CALL                             R7 2 1
+       21 SETTABLEKS                       R7 R6 K6 ["body"]
+       23 SETTABLEKS                       R6 R5 K1 ["request"]
+       25 DUPTABLE                         R6 K17 [{["contentType"] = "model/x-rbxm", ["filename"] = "asset.rbxm", ["body"]}]
+       26 SETTABLEKS                       R2 R6 K6 ["body"]
+       28 SETTABLEKS                       R6 R5 K2 ["fileContent"]
+       30 CALL                             R4 1 2
+       31 DUPTABLE                         R6 K24 [{["Url"], ["Method"] = "PATCH", ["Body"], ["CachePolicy"], ["Headers"]}]
+       32 SETTABLEKS                       R3 R6 K18 ["Url"]
+       34 SETTABLEKS                       R4 R6 K21 ["Body"]
+       36 GETIMPORT                        R7 K28 [Enum.HttpCachePolicy.None]
+       38 SETTABLEKS                       R7 R6 K22 ["CachePolicy"]
+       40 NEWTABLE                         R7 1 0
+       42 LOADK                            R9 K29 ["multipart/form-data; boundary="]
+       43 MOVE                             R10 R5
+       44 CONCAT                           R8 R9 R10
+       45 SETTABLEKS                       R8 R7 K30 ["Content-Type"]
+       47 SETTABLEKS                       R7 R6 K23 ["Headers"]
+       49 GETUPVAL                         R7 2
+       50 LOADK                            R8 K31 ["overrideAnimation"]
+       51 LOADK                            R9 K20 ["PATCH"]
+       52 MOVE                             R10 R3
+       53 MOVE                             R11 R6
+       54 CALL                             R7 4 0
+       55 GETTABLEKS                       R7 R0 K8 ["_networkImp"]
+       57 MOVE                             R9 R6
+       58 NAMECALL                         R7 R7 K32 ["requestInternal"]
+       60 CALL                             R7 2 1
+       61 NEWCLOSURE                       R9 P0
+       62 CAPTURE                          VAL R0
+       63 NAMECALL                         R7 R7 K33 ["andThen"]
+       65 CALL                             R7 2 1
+       66 DUPCLOSURE                       R9 K34 [PROTO_100]
+       67 CAPTURE                          UPVAL U3
+       68 NAMECALL                         R7 R7 K35 ["catch"]
+       70 CALL                             R7 2 -1
+       71 RETURN                           R7 -1
 
 PROTO_102:
         0 GETUPVAL                         R1 0
@@ -2830,35 +2790,31 @@ PROTO_108:
         4 GETTABLEKS                       R4 R0 K1 ["_networkImp"]
         6 DUPTABLE                         R6 K3 [{"requests"}]
         7 NEWTABLE                         R7 0 1
-        9 DUPTABLE                         R8 K7 [{"subject", "action", "assetId"}]
-       10 DUPTABLE                         R9 K10 [{"subjectType", "subjectId"}]
-       11 LOADK                            R10 K11 ["User"]
-       12 SETTABLEKS                       R10 R9 K8 ["subjectType"]
-       14 SETTABLEKS                       R2 R9 K9 ["subjectId"]
-       16 SETTABLEKS                       R9 R8 K4 ["subject"]
-       18 LOADK                            R9 K12 ["Edit"]
-       19 SETTABLEKS                       R9 R8 K5 ["action"]
-       21 SETTABLEKS                       R1 R8 K6 ["assetId"]
-       23 SETLIST                          R7 R8 1 [1]
-       25 SETTABLEKS                       R7 R6 K2 ["requests"]
-       27 NAMECALL                         R4 R4 K13 ["jsonEncode"]
-       29 CALL                             R4 2 1
-       30 GETUPVAL                         R5 1
-       31 LOADK                            R6 K14 ["getHasEditPermissionForAsset"]
-       32 LOADK                            R7 K15 ["POST"]
-       33 MOVE                             R8 R3
-       34 MOVE                             R9 R4
-       35 CALL                             R5 4 0
-       36 GETTABLEKS                       R5 R0 K1 ["_networkImp"]
-       38 MOVE                             R7 R3
-       39 MOVE                             R8 R4
-       40 NAMECALL                         R5 R5 K16 ["httpPostJson"]
-       42 CALL                             R5 3 1
-       43 NEWCLOSURE                       R7 P0
-       44 CAPTURE                          VAL R1
-       45 NAMECALL                         R5 R5 K17 ["andThen"]
-       47 CALL                             R5 2 -1
-       48 RETURN                           R5 -1
+        9 DUPTABLE                         R8 K8 [{["subject"], ["action"] = "Edit", ["assetId"]}]
+       10 DUPTABLE                         R9 K12 [{["subjectType"] = "User", ["subjectId"]}]
+       11 SETTABLEKS                       R2 R9 K11 ["subjectId"]
+       13 SETTABLEKS                       R9 R8 K4 ["subject"]
+       15 SETTABLEKS                       R1 R8 K7 ["assetId"]
+       17 SETLIST                          R7 R8 1 [1]
+       19 SETTABLEKS                       R7 R6 K2 ["requests"]
+       21 NAMECALL                         R4 R4 K13 ["jsonEncode"]
+       23 CALL                             R4 2 1
+       24 GETUPVAL                         R5 1
+       25 LOADK                            R6 K14 ["getHasEditPermissionForAsset"]
+       26 LOADK                            R7 K15 ["POST"]
+       27 MOVE                             R8 R3
+       28 MOVE                             R9 R4
+       29 CALL                             R5 4 0
+       30 GETTABLEKS                       R5 R0 K1 ["_networkImp"]
+       32 MOVE                             R7 R3
+       33 MOVE                             R8 R4
+       34 NAMECALL                         R5 R5 K16 ["httpPostJson"]
+       36 CALL                             R5 3 1
+       37 NEWCLOSURE                       R7 P0
+       38 CAPTURE                          VAL R1
+       39 NAMECALL                         R5 R5 K17 ["andThen"]
+       41 CALL                             R5 2 -1
+       42 RETURN                           R5 -1
 
 PROTO_109:
         0 MOVE                             R6 R2
@@ -3028,22 +2984,20 @@ PROTO_114:
         7 MOVE                             R6 R2
         8 NAMECALL                         R4 R4 K2 ["jsonEncode"]
        10 CALL                             R4 2 1
-       11 DUPTABLE                         R5 K8 [{"Url", "Method", "Body", "Headers", "Timeout"}]
+       11 DUPTABLE                         R5 K9 [{["Url"], ["Method"] = "PATCH", ["Body"], ["Headers"], ["Timeout"]}]
        12 SETTABLEKS                       R3 R5 K3 ["Url"]
-       14 LOADK                            R6 K9 ["PATCH"]
-       15 SETTABLEKS                       R6 R5 K4 ["Method"]
-       17 SETTABLEKS                       R4 R5 K5 ["Body"]
-       19 NEWTABLE                         R6 1 0
-       21 LOADK                            R7 K10 ["application/json"]
-       22 SETTABLEKS                       R7 R6 K11 ["Content-Type"]
-       24 SETTABLEKS                       R6 R5 K6 ["Headers"]
-       26 GETUPVAL                         R6 1
-       27 SETTABLEKS                       R6 R5 K7 ["Timeout"]
-       29 GETTABLEKS                       R6 R0 K1 ["_networkImp"]
-       31 MOVE                             R8 R5
-       32 NAMECALL                         R6 R6 K12 ["requestInternalRaw"]
-       34 CALL                             R6 2 -1
-       35 RETURN                           R6 -1
+       14 SETTABLEKS                       R4 R5 K6 ["Body"]
+       16 NEWTABLE                         R6 1 0
+       18 LOADK                            R7 K10 ["application/json"]
+       19 SETTABLEKS                       R7 R6 K11 ["Content-Type"]
+       21 SETTABLEKS                       R6 R5 K7 ["Headers"]
+       23 GETUPVAL                         R6 1
+       24 SETTABLEKS                       R6 R5 K8 ["Timeout"]
+       26 GETTABLEKS                       R6 R0 K1 ["_networkImp"]
+       28 MOVE                             R8 R5
+       29 NAMECALL                         R6 R6 K12 ["requestInternalRaw"]
+       31 CALL                             R6 2 -1
+       32 RETURN                           R6 -1
 
 PROTO_115:
         0 GETUPVAL                         R1 0
@@ -3069,49 +3023,43 @@ PROTO_117:
         8 MOVE                             R6 R1
         9 CALL                             R5 1 3
        10 FORGPREP_INEXT                   R5
-       11 DUPTABLE                         R12 K5 [{"assetId", "grantToDependencies"}]
+       11 DUPTABLE                         R12 K6 [{["assetId"], ["grantToDependencies"] = True}]
        12 SETTABLEKS                       R9 R12 K3 ["assetId"]
-       14 LOADB                            R13 1
-       15 SETTABLEKS                       R13 R12 K4 ["grantToDependencies"]
-       17 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
-       19 MOVE                             R11 R4
-       20 GETIMPORT                        R10 K8 [table.insert]
-       22 CALL                             R10 2 0
-       23 FORGLOOP                         R5 2 [inext] ; [-13]
-       25 GETTABLEKS                       R5 R0 K9 ["_networkImp"]
-       27 DUPTABLE                         R7 K14 [{"subjectType", "subjectId", "action", "requests"}]
-       28 LOADK                            R8 K15 ["Universe"]
-       29 SETTABLEKS                       R8 R7 K10 ["subjectType"]
-       31 FASTCALL1                        TOSTRING R2 ; [+3]
-       32 MOVE                             R9 R2
-       33 GETIMPORT                        R8 K17 [tostring]
-       35 CALL                             R8 1 1
-       36 SETTABLEKS                       R8 R7 K11 ["subjectId"]
-       38 LOADK                            R8 K18 ["Use"]
-       39 SETTABLEKS                       R8 R7 K12 ["action"]
-       41 SETTABLEKS                       R4 R7 K13 ["requests"]
-       43 NAMECALL                         R5 R5 K19 ["jsonEncode"]
-       45 CALL                             R5 2 1
-       46 GETUPVAL                         R6 1
-       47 LOADK                            R7 K20 ["batchGrantAssetPermissions"]
-       48 LOADK                            R8 K21 ["PATCH"]
-       49 MOVE                             R9 R3
-       50 MOVE                             R10 R5
-       51 CALL                             R6 4 0
-       52 GETTABLEKS                       R6 R0 K9 ["_networkImp"]
-       54 MOVE                             R8 R3
-       55 MOVE                             R9 R5
-       56 NAMECALL                         R6 R6 K22 ["httpPatch"]
-       58 CALL                             R6 3 1
-       59 NEWCLOSURE                       R8 P0
-       60 CAPTURE                          VAL R0
-       61 NAMECALL                         R6 R6 K23 ["andThen"]
-       63 CALL                             R6 2 1
-       64 DUPCLOSURE                       R8 K24 [PROTO_116]
-       65 CAPTURE                          UPVAL U2
-       66 NAMECALL                         R6 R6 K25 ["catch"]
-       68 CALL                             R6 2 -1
-       69 RETURN                           R6 -1
+       14 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+       16 MOVE                             R11 R4
+       17 GETIMPORT                        R10 K9 [table.insert]
+       19 CALL                             R10 2 0
+       20 FORGLOOP                         R5 2 [inext] ; [-10]
+       22 GETTABLEKS                       R5 R0 K10 ["_networkImp"]
+       24 DUPTABLE                         R7 K17 [{["subjectType"] = "Universe", ["subjectId"], ["action"] = "Use", ["requests"]}]
+       25 FASTCALL1                        TOSTRING R2 ; [+3]
+       26 MOVE                             R9 R2
+       27 GETIMPORT                        R8 K19 [tostring]
+       29 CALL                             R8 1 1
+       30 SETTABLEKS                       R8 R7 K13 ["subjectId"]
+       32 SETTABLEKS                       R4 R7 K16 ["requests"]
+       34 NAMECALL                         R5 R5 K20 ["jsonEncode"]
+       36 CALL                             R5 2 1
+       37 GETUPVAL                         R6 1
+       38 LOADK                            R7 K21 ["batchGrantAssetPermissions"]
+       39 LOADK                            R8 K22 ["PATCH"]
+       40 MOVE                             R9 R3
+       41 MOVE                             R10 R5
+       42 CALL                             R6 4 0
+       43 GETTABLEKS                       R6 R0 K10 ["_networkImp"]
+       45 MOVE                             R8 R3
+       46 MOVE                             R9 R5
+       47 NAMECALL                         R6 R6 K23 ["httpPatch"]
+       49 CALL                             R6 3 1
+       50 NEWCLOSURE                       R8 P0
+       51 CAPTURE                          VAL R0
+       52 NAMECALL                         R6 R6 K24 ["andThen"]
+       54 CALL                             R6 2 1
+       55 DUPCLOSURE                       R8 K25 [PROTO_116]
+       56 CAPTURE                          UPVAL U2
+       57 NAMECALL                         R6 R6 K26 ["catch"]
+       59 CALL                             R6 2 -1
+       60 RETURN                           R6 -1
 
 PROTO_118:
         0 GETUPVAL                         R3 0
@@ -3809,22 +3757,18 @@ PROTO_146:
        18 CALL                             R9 2 0
        19 FORGLOOP                         R4 2 ; [-10]
        21 GETTABLEKS                       R4 R0 K6 ["_networkImp"]
-       23 DUPTABLE                         R6 K10 [{"subjectType", "action", "requests"}]
-       24 LOADK                            R7 K11 ["All"]
-       25 SETTABLEKS                       R7 R6 K7 ["subjectType"]
-       27 LOADK                            R7 K12 ["Use"]
-       28 SETTABLEKS                       R7 R6 K8 ["action"]
-       30 SETTABLEKS                       R3 R6 K9 ["requests"]
-       32 NAMECALL                         R4 R4 K13 ["jsonEncode"]
-       34 CALL                             R4 2 1
-       35 GETUPVAL                         R5 1
-       36 NEWCLOSURE                       R6 P0
-       37 CAPTURE                          UPVAL U2
-       38 CAPTURE                          VAL R2
-       39 CAPTURE                          VAL R4
-       40 CAPTURE                          VAL R0
-       41 CALL                             R5 1 -1
-       42 RETURN                           R5 -1
+       23 DUPTABLE                         R6 K12 [{["subjectType"] = "All", ["action"] = "Use", ["requests"]}]
+       24 SETTABLEKS                       R3 R6 K11 ["requests"]
+       26 NAMECALL                         R4 R4 K13 ["jsonEncode"]
+       28 CALL                             R4 2 1
+       29 GETUPVAL                         R5 1
+       30 NEWCLOSURE                       R6 P0
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          VAL R4
+       34 CAPTURE                          VAL R0
+       35 CALL                             R5 1 -1
+       36 RETURN                           R5 -1
 
 PROTO_147:
         0 GETUPVAL                         R1 0
@@ -3838,31 +3782,29 @@ PROTO_148:
         1 GETTABLEKS                       R2 R2 K0 ["constructGetAssetByIdUrl"]
         3 MOVE                             R3 R1
         4 CALL                             R2 1 1
-        5 DUPTABLE                         R3 K5 [{"Url", "Method", "CachePolicy", "Headers"}]
+        5 DUPTABLE                         R3 K6 [{["Url"], ["Method"] = "GET", ["CachePolicy"], ["Headers"]}]
         6 SETTABLEKS                       R2 R3 K1 ["Url"]
-        8 LOADK                            R4 K6 ["GET"]
-        9 SETTABLEKS                       R4 R3 K2 ["Method"]
-       11 GETIMPORT                        R4 K10 [Enum.HttpCachePolicy.None]
-       13 SETTABLEKS                       R4 R3 K3 ["CachePolicy"]
-       15 NEWTABLE                         R4 1 0
-       17 LOADK                            R5 K11 ["application/json"]
-       18 SETTABLEKS                       R5 R4 K12 ["Content-Type"]
-       20 SETTABLEKS                       R4 R3 K4 ["Headers"]
-       22 GETUPVAL                         R4 1
-       23 LOADK                            R5 K13 ["getAsset"]
-       24 LOADK                            R6 K6 ["GET"]
-       25 MOVE                             R7 R2
-       26 MOVE                             R8 R3
-       27 CALL                             R4 4 0
-       28 GETTABLEKS                       R4 R0 K14 ["_networkImp"]
-       30 MOVE                             R6 R3
-       31 NAMECALL                         R4 R4 K15 ["requestInternal"]
-       33 CALL                             R4 2 1
-       34 DUPCLOSURE                       R6 K16 [PROTO_147]
-       35 CAPTURE                          UPVAL U2
-       36 NAMECALL                         R4 R4 K17 ["catch"]
-       38 CALL                             R4 2 -1
-       39 RETURN                           R4 -1
+        8 GETIMPORT                        R4 K10 [Enum.HttpCachePolicy.None]
+       10 SETTABLEKS                       R4 R3 K4 ["CachePolicy"]
+       12 NEWTABLE                         R4 1 0
+       14 LOADK                            R5 K11 ["application/json"]
+       15 SETTABLEKS                       R5 R4 K12 ["Content-Type"]
+       17 SETTABLEKS                       R4 R3 K5 ["Headers"]
+       19 GETUPVAL                         R4 1
+       20 LOADK                            R5 K13 ["getAsset"]
+       21 LOADK                            R6 K3 ["GET"]
+       22 MOVE                             R7 R2
+       23 MOVE                             R8 R3
+       24 CALL                             R4 4 0
+       25 GETTABLEKS                       R4 R0 K14 ["_networkImp"]
+       27 MOVE                             R6 R3
+       28 NAMECALL                         R4 R4 K15 ["requestInternal"]
+       30 CALL                             R4 2 1
+       31 DUPCLOSURE                       R6 K16 [PROTO_147]
+       32 CAPTURE                          UPVAL U2
+       33 NAMECALL                         R4 R4 K17 ["catch"]
+       35 CALL                             R4 2 -1
+       36 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

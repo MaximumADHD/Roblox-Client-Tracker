@@ -364,103 +364,95 @@ MAIN:
       102 GETTABLEKS                       R23 R7 K33 ["Sphere"]
       104 SETTABLE                         R23 R21 R22
       105 GETTABLEKS                       R22 R6 K34 ["BrushSize"]
-      107 DUPTABLE                         R23 K38 [{"Height", "Locked", "Size"}]
-      108 LOADN                            R24 6
-      109 SETTABLEKS                       R24 R23 K35 ["Height"]
-      111 LOADB                            R24 1
-      112 SETTABLEKS                       R24 R23 K36 ["Locked"]
-      114 LOADN                            R24 6
-      115 SETTABLEKS                       R24 R23 K37 ["Size"]
-      117 SETTABLE                         R23 R21 R22
-      118 GETTABLEKS                       R22 R6 K21 ["PivotPosition"]
-      120 GETTABLEKS                       R23 R11 K39 ["Center"]
+      107 DUPTABLE                         R23 K40 [{["Height"] = 6, ["Locked"] = True, ["Size"] = 6}]
+      108 SETTABLE                         R23 R21 R22
+      109 GETTABLEKS                       R22 R6 K21 ["PivotPosition"]
+      111 GETTABLEKS                       R23 R11 K41 ["Center"]
+      113 SETTABLE                         R23 R21 R22
+      114 GETTABLEKS                       R22 R6 K23 ["Snapping"]
+      116 GETTABLEKS                       R23 R13 K42 ["Off"]
+      118 SETTABLE                         R23 R21 R22
+      119 GETTABLEKS                       R22 R6 K43 ["State"]
+      121 DUPTABLE                         R23 K46 [{["Position"] = {0, 0, 0}}]
       122 SETTABLE                         R23 R21 R22
-      123 GETTABLEKS                       R22 R6 K23 ["Snapping"]
-      125 GETTABLEKS                       R23 R13 K40 ["Off"]
-      127 SETTABLE                         R23 R21 R22
-      128 GETTABLEKS                       R22 R6 K41 ["State"]
-      130 DUPTABLE                         R23 K43 [{"Position"}]
-      131 LOADK                            R24 K44 [{0, 0, 0}]
-      132 SETTABLEKS                       R24 R23 K42 ["Position"]
+      123 GETTABLEKS                       R22 R6 K47 ["IgnoreWater"]
+      125 LOADB                            R23 0
+      126 SETTABLE                         R23 R21 R22
+      127 GETTABLEKS                       R22 R6 K48 ["IgnoreParts"]
+      129 LOADB                            R23 1
+      130 SETTABLE                         R23 R21 R22
+      131 GETTABLEKS                       R22 R6 K49 ["TemporarySmooth"]
+      133 LOADB                            R23 0
       134 SETTABLE                         R23 R21 R22
-      135 GETTABLEKS                       R22 R6 K45 ["IgnoreWater"]
+      135 GETTABLEKS                       R22 R6 K50 ["WaterAutofill"]
       137 LOADB                            R23 0
       138 SETTABLE                         R23 R21 R22
-      139 GETTABLEKS                       R22 R6 K46 ["IgnoreParts"]
-      141 LOADB                            R23 1
-      142 SETTABLE                         R23 R21 R22
-      143 GETTABLEKS                       R22 R6 K47 ["TemporarySmooth"]
-      145 LOADB                            R23 0
-      146 SETTABLE                         R23 R21 R22
-      147 GETTABLEKS                       R22 R6 K48 ["WaterAutofill"]
-      149 LOADB                            R23 0
-      150 SETTABLE                         R23 R21 R22
-      151 SETTABLEKS                       R21 R20 K29 ["Defaults"]
-      153 GETTABLEKS                       R21 R8 K16 ["BrushSettings"]
-      155 SETTABLEKS                       R21 R20 K30 ["Id"]
-      157 DUPTABLE                         R21 K31 [{"Defaults", "Id"}]
-      158 NEWTABLE                         R22 2 0
-      160 GETTABLEKS                       R23 R10 K49 ["AutoMaterial"]
-      162 LOADB                            R24 0
-      163 SETTABLE                         R24 R22 R23
-      164 GETTABLEKS                       R23 R10 K50 ["SourceMaterial"]
-      166 GETIMPORT                        R24 K54 [Enum.Material.Grass]
-      168 SETTABLE                         R24 R22 R23
-      169 SETTABLEKS                       R22 R21 K29 ["Defaults"]
-      171 GETTABLEKS                       R22 R8 K20 ["MaterialSettings"]
-      173 SETTABLEKS                       R22 R21 K30 ["Id"]
-      175 SETLIST                          R19 R20 2 [1]
-      177 NEWTABLE                         R20 0 2
-      179 DUPTABLE                         R21 K56 [{"Id", "Schema"}]
-      180 GETTABLEKS                       R22 R9 K57 ["Plane"]
-      182 SETTABLEKS                       R22 R21 K30 ["Id"]
-      184 DUPTABLE                         R22 K59 [{"Type"}]
-      185 GETTABLEKS                       R23 R9 K57 ["Plane"]
-      187 SETTABLEKS                       R23 R22 K58 ["Type"]
-      189 SETTABLEKS                       R22 R21 K55 ["Schema"]
-      191 DUPTABLE                         R22 K56 [{"Id", "Schema"}]
-      192 GETTABLEKS                       R23 R9 K60 ["Brush"]
-      194 SETTABLEKS                       R23 R22 K30 ["Id"]
-      196 DUPTABLE                         R23 K59 [{"Type"}]
-      197 GETTABLEKS                       R24 R9 K60 ["Brush"]
-      199 SETTABLEKS                       R24 R23 K58 ["Type"]
-      201 SETTABLEKS                       R23 R22 K55 ["Schema"]
-      203 SETLIST                          R20 R21 2 [1]
-      205 GETTABLEKS                       R23 R15 K61 ["Draw"]
-      207 GETTABLEKS                       R24 R14 K62 ["Edit"]
-      209 MOVE                             R25 R19
-      210 MOVE                             R26 R20
-      211 NAMECALL                         R21 R2 K63 ["new"]
-      213 CALL                             R21 5 1
-      214 DUPCLOSURE                       R22 K64 [PROTO_2]
+      139 SETTABLEKS                       R21 R20 K29 ["Defaults"]
+      141 GETTABLEKS                       R21 R8 K16 ["BrushSettings"]
+      143 SETTABLEKS                       R21 R20 K30 ["Id"]
+      145 DUPTABLE                         R21 K31 [{"Defaults", "Id"}]
+      146 NEWTABLE                         R22 2 0
+      148 GETTABLEKS                       R23 R10 K51 ["AutoMaterial"]
+      150 LOADB                            R24 0
+      151 SETTABLE                         R24 R22 R23
+      152 GETTABLEKS                       R23 R10 K52 ["SourceMaterial"]
+      154 GETIMPORT                        R24 K56 [Enum.Material.Grass]
+      156 SETTABLE                         R24 R22 R23
+      157 SETTABLEKS                       R22 R21 K29 ["Defaults"]
+      159 GETTABLEKS                       R22 R8 K20 ["MaterialSettings"]
+      161 SETTABLEKS                       R22 R21 K30 ["Id"]
+      163 SETLIST                          R19 R20 2 [1]
+      165 NEWTABLE                         R20 0 2
+      167 DUPTABLE                         R21 K58 [{"Id", "Schema"}]
+      168 GETTABLEKS                       R22 R9 K59 ["Plane"]
+      170 SETTABLEKS                       R22 R21 K30 ["Id"]
+      172 DUPTABLE                         R22 K61 [{"Type"}]
+      173 GETTABLEKS                       R23 R9 K59 ["Plane"]
+      175 SETTABLEKS                       R23 R22 K60 ["Type"]
+      177 SETTABLEKS                       R22 R21 K57 ["Schema"]
+      179 DUPTABLE                         R22 K58 [{"Id", "Schema"}]
+      180 GETTABLEKS                       R23 R9 K62 ["Brush"]
+      182 SETTABLEKS                       R23 R22 K30 ["Id"]
+      184 DUPTABLE                         R23 K61 [{"Type"}]
+      185 GETTABLEKS                       R24 R9 K62 ["Brush"]
+      187 SETTABLEKS                       R24 R23 K60 ["Type"]
+      189 SETTABLEKS                       R23 R22 K57 ["Schema"]
+      191 SETLIST                          R20 R21 2 [1]
+      193 GETTABLEKS                       R23 R15 K63 ["Draw"]
+      195 GETTABLEKS                       R24 R14 K64 ["Edit"]
+      197 MOVE                             R25 R19
+      198 MOVE                             R26 R20
+      199 NAMECALL                         R21 R2 K65 ["new"]
+      201 CALL                             R21 5 1
+      202 DUPCLOSURE                       R22 K66 [PROTO_2]
+      203 CAPTURE                          VAL R2
+      204 CAPTURE                          VAL R8
+      205 CAPTURE                          VAL R6
+      206 CAPTURE                          VAL R18
+      207 CAPTURE                          VAL R17
+      208 SETTABLEKS                       R22 R21 K67 ["init"]
+      210 DUPCLOSURE                       R22 K68 [PROTO_3]
+      211 CAPTURE                          VAL R2
+      212 SETTABLEKS                       R22 R21 K69 ["saveForm"]
+      214 DUPCLOSURE                       R22 K70 [PROTO_4]
       215 CAPTURE                          VAL R2
-      216 CAPTURE                          VAL R8
-      217 CAPTURE                          VAL R6
-      218 CAPTURE                          VAL R18
-      219 CAPTURE                          VAL R17
-      220 SETTABLEKS                       R22 R21 K65 ["init"]
-      222 DUPCLOSURE                       R22 K66 [PROTO_3]
-      223 CAPTURE                          VAL R2
-      224 SETTABLEKS                       R22 R21 K67 ["saveForm"]
-      226 DUPCLOSURE                       R22 K68 [PROTO_4]
-      227 CAPTURE                          VAL R2
-      228 SETTABLEKS                       R22 R21 K69 ["saveGizmos"]
-      230 DUPCLOSURE                       R22 K70 [PROTO_5]
-      231 CAPTURE                          VAL R3
-      232 CAPTURE                          VAL R1
-      233 SETTABLEKS                       R22 R21 K71 ["startOperation"]
-      235 DUPCLOSURE                       R22 K72 [PROTO_8]
-      236 CAPTURE                          VAL R2
-      237 CAPTURE                          VAL R8
-      238 CAPTURE                          VAL R6
-      239 CAPTURE                          VAL R12
-      240 CAPTURE                          VAL R15
-      241 SETTABLEKS                       R22 R21 K73 ["activate"]
-      243 DUPCLOSURE                       R22 K74 [PROTO_9]
-      244 CAPTURE                          VAL R2
-      245 SETTABLEKS                       R22 R21 K75 ["deactivate"]
-      247 DUPCLOSURE                       R22 K76 [PROTO_10]
-      248 CAPTURE                          VAL R16
-      249 CAPTURE                          VAL R15
-      250 SETTABLEKS                       R22 R21 K77 ["reportAnalytics"]
-      252 RETURN                           R21 1
+      216 SETTABLEKS                       R22 R21 K71 ["saveGizmos"]
+      218 DUPCLOSURE                       R22 K72 [PROTO_5]
+      219 CAPTURE                          VAL R3
+      220 CAPTURE                          VAL R1
+      221 SETTABLEKS                       R22 R21 K73 ["startOperation"]
+      223 DUPCLOSURE                       R22 K74 [PROTO_8]
+      224 CAPTURE                          VAL R2
+      225 CAPTURE                          VAL R8
+      226 CAPTURE                          VAL R6
+      227 CAPTURE                          VAL R12
+      228 CAPTURE                          VAL R15
+      229 SETTABLEKS                       R22 R21 K75 ["activate"]
+      231 DUPCLOSURE                       R22 K76 [PROTO_9]
+      232 CAPTURE                          VAL R2
+      233 SETTABLEKS                       R22 R21 K77 ["deactivate"]
+      235 DUPCLOSURE                       R22 K78 [PROTO_10]
+      236 CAPTURE                          VAL R16
+      237 CAPTURE                          VAL R15
+      238 SETTABLEKS                       R22 R21 K79 ["reportAnalytics"]
+      240 RETURN                           R21 1

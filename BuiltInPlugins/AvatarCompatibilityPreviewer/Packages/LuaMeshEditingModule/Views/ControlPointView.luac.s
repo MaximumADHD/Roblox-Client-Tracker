@@ -78,61 +78,53 @@ PROTO_4:
        47 SETLIST                          R6 R7 1 [1]
        49 CALL                             R4 2 0
        50 GETTABLEKS                       R4 R0 K9 ["Shape"]
-       52 JUMPIFNOTEQKS                    R4 K10 ["Box"] ; [+47]
+       52 JUMPIFNOTEQKS                    R4 K10 ["Box"] ; [+41]
        54 GETUPVAL                         R4 0
        55 GETTABLEKS                       R4 R4 K11 ["createElement"]
        57 LOADK                            R5 K12 ["BoxHandleAdornment"]
-       58 DUPTABLE                         R6 K21 [{"ref", "ZIndex", "AlwaysOnTop", "Archivable", "Adornee", "CFrame", "Size", "Transparency", "Color3"}]
+       58 DUPTABLE                         R6 K23 [{["ref"], ["ZIndex"] = 2, ["AlwaysOnTop"], ["Archivable"] = False, ["Adornee"], ["CFrame"], ["Size"], ["Transparency"], ["Color3"]}]
        59 SETTABLEKS                       R1 R6 K13 ["ref"]
-       61 LOADN                            R7 2
-       62 SETTABLEKS                       R7 R6 K14 ["ZIndex"]
-       64 GETTABLEKS                       R7 R0 K22 ["IsFacingCamera"]
-       66 SETTABLEKS                       R7 R6 K15 ["AlwaysOnTop"]
-       68 LOADB                            R7 0
-       69 SETTABLEKS                       R7 R6 K16 ["Archivable"]
-       71 GETTABLEKS                       R7 R0 K6 ["Adornee"]
-       73 SETTABLEKS                       R7 R6 K6 ["Adornee"]
-       75 SETTABLEKS                       R3 R6 K17 ["CFrame"]
-       77 GETTABLEKS                       R9 R0 K24 ["PointRadius"]
-       79 MULK                             R8 R9 K23 [2]
-       80 GETTABLEKS                       R10 R0 K24 ["PointRadius"]
-       82 MULK                             R9 R10 K23 [2]
-       83 GETTABLEKS                       R11 R0 K24 ["PointRadius"]
-       85 MULK                             R10 R11 K23 [2]
-       86 FASTCALL                         VECTOR ; [+2]
-       87 GETIMPORT                        R7 K27 [Vector3.new]
-       89 CALL                             R7 3 1
-       90 SETTABLEKS                       R7 R6 K18 ["Size"]
-       92 GETTABLEKS                       R7 R0 K19 ["Transparency"]
-       94 SETTABLEKS                       R7 R6 K19 ["Transparency"]
-       96 SETTABLEKS                       R2 R6 K20 ["Color3"]
-       98 CALL                             R4 2 -1
-       99 RETURN                           R4 -1
-      100 GETTABLEKS                       R4 R0 K9 ["Shape"]
-      102 JUMPIFNOTEQKS                    R4 K28 ["Sphere"] ; [+36]
-      104 GETUPVAL                         R4 0
-      105 GETTABLEKS                       R4 R4 K11 ["createElement"]
-      107 LOADK                            R5 K29 ["SphereHandleAdornment"]
-      108 DUPTABLE                         R6 K31 [{"ref", "AlwaysOnTop", "ZIndex", "Archivable", "Adornee", "CFrame", "Radius", "Transparency", "Color3"}]
-      109 SETTABLEKS                       R1 R6 K13 ["ref"]
-      111 GETTABLEKS                       R7 R0 K22 ["IsFacingCamera"]
-      113 SETTABLEKS                       R7 R6 K15 ["AlwaysOnTop"]
-      115 LOADN                            R7 2
-      116 SETTABLEKS                       R7 R6 K14 ["ZIndex"]
-      118 LOADB                            R7 0
-      119 SETTABLEKS                       R7 R6 K16 ["Archivable"]
-      121 GETTABLEKS                       R7 R0 K6 ["Adornee"]
-      123 SETTABLEKS                       R7 R6 K6 ["Adornee"]
-      125 SETTABLEKS                       R3 R6 K17 ["CFrame"]
-      127 GETTABLEKS                       R7 R0 K24 ["PointRadius"]
-      129 SETTABLEKS                       R7 R6 K30 ["Radius"]
-      131 GETTABLEKS                       R7 R0 K19 ["Transparency"]
-      133 SETTABLEKS                       R7 R6 K19 ["Transparency"]
-      135 SETTABLEKS                       R2 R6 K20 ["Color3"]
-      137 CALL                             R4 2 -1
-      138 RETURN                           R4 -1
-      139 LOADNIL                          R4
-      140 RETURN                           R4 1
+       61 GETTABLEKS                       R7 R0 K24 ["IsFacingCamera"]
+       63 SETTABLEKS                       R7 R6 K16 ["AlwaysOnTop"]
+       65 GETTABLEKS                       R7 R0 K6 ["Adornee"]
+       67 SETTABLEKS                       R7 R6 K6 ["Adornee"]
+       69 SETTABLEKS                       R3 R6 K19 ["CFrame"]
+       71 GETTABLEKS                       R9 R0 K25 ["PointRadius"]
+       73 MULK                             R8 R9 K15 [2]
+       74 GETTABLEKS                       R10 R0 K25 ["PointRadius"]
+       76 MULK                             R9 R10 K15 [2]
+       77 GETTABLEKS                       R11 R0 K25 ["PointRadius"]
+       79 MULK                             R10 R11 K15 [2]
+       80 FASTCALL                         VECTOR ; [+2]
+       81 GETIMPORT                        R7 K28 [Vector3.new]
+       83 CALL                             R7 3 1
+       84 SETTABLEKS                       R7 R6 K20 ["Size"]
+       86 GETTABLEKS                       R7 R0 K21 ["Transparency"]
+       88 SETTABLEKS                       R7 R6 K21 ["Transparency"]
+       90 SETTABLEKS                       R2 R6 K22 ["Color3"]
+       92 CALL                             R4 2 -1
+       93 RETURN                           R4 -1
+       94 GETTABLEKS                       R4 R0 K9 ["Shape"]
+       96 JUMPIFNOTEQKS                    R4 K29 ["Sphere"] ; [+30]
+       98 GETUPVAL                         R4 0
+       99 GETTABLEKS                       R4 R4 K11 ["createElement"]
+      101 LOADK                            R5 K30 ["SphereHandleAdornment"]
+      102 DUPTABLE                         R6 K32 [{["ref"], ["AlwaysOnTop"], ["ZIndex"] = 2, ["Archivable"] = False, ["Adornee"], ["CFrame"], ["Radius"], ["Transparency"], ["Color3"]}]
+      103 SETTABLEKS                       R1 R6 K13 ["ref"]
+      105 GETTABLEKS                       R7 R0 K24 ["IsFacingCamera"]
+      107 SETTABLEKS                       R7 R6 K16 ["AlwaysOnTop"]
+      109 GETTABLEKS                       R7 R0 K6 ["Adornee"]
+      111 SETTABLEKS                       R7 R6 K6 ["Adornee"]
+      113 SETTABLEKS                       R3 R6 K19 ["CFrame"]
+      115 GETTABLEKS                       R7 R0 K25 ["PointRadius"]
+      117 SETTABLEKS                       R7 R6 K31 ["Radius"]
+      119 GETTABLEKS                       R7 R0 K21 ["Transparency"]
+      121 SETTABLEKS                       R7 R6 K21 ["Transparency"]
+      123 SETTABLEKS                       R2 R6 K22 ["Color3"]
+      125 CALL                             R4 2 -1
+      126 RETURN                           R4 -1
+      127 LOADNIL                          R4
+      128 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

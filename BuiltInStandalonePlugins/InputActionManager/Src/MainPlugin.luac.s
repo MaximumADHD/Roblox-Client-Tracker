@@ -43,24 +43,15 @@ PROTO_4:
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+13]
-        2 GETUPVAL                         R0 1
-        3 GETTABLEKS                       R0 R0 K0 ["state"]
-        5 GETTABLEKS                       R0 R0 K1 ["enabled"]
-        7 JUMPIFNOT                        R0 ; [+15]
-        8 GETIMPORT                        R0 K4 [task.spawn]
-       10 NEWCLOSURE                       R1 P0
-       11 CAPTURE                          UPVAL U2
-       12 CAPTURE                          UPVAL U3
-       13 CALL                             R0 1 0
-       14 RETURN                           R0 0
-       15 GETUPVAL                         R0 1
-       16 DUPTABLE                         R2 K5 [{"enabled"}]
-       17 LOADB                            R3 0
-       18 SETTABLEKS                       R3 R2 K1 ["enabled"]
-       20 NAMECALL                         R0 R0 K6 ["setState"]
-       22 CALL                             R0 2 0
-       23 RETURN                           R0 0
+        1 GETTABLEKS                       R0 R0 K0 ["state"]
+        3 GETTABLEKS                       R0 R0 K1 ["enabled"]
+        5 JUMPIFNOT                        R0 ; [+6]
+        6 GETIMPORT                        R0 K4 [task.spawn]
+        8 NEWCLOSURE                       R1 P0
+        9 CAPTURE                          UPVAL U1
+       10 CAPTURE                          UPVAL U2
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -71,23 +62,15 @@ PROTO_6:
 
 PROTO_7:
         0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+14]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["state"]
-        5 GETTABLEKS                       R1 R1 K1 ["enabled"]
-        7 JUMPIFEQ                         R0 R1 ; [+15]
-        9 GETIMPORT                        R1 K4 [task.spawn]
-       11 NEWCLOSURE                       R2 P0
-       12 CAPTURE                          UPVAL U2
-       13 CAPTURE                          UPVAL U3
-       14 CALL                             R1 1 0
-       15 RETURN                           R0 0
-       16 GETUPVAL                         R1 1
-       17 DUPTABLE                         R3 K5 [{"enabled"}]
-       18 SETTABLEKS                       R0 R3 K1 ["enabled"]
-       20 NAMECALL                         R1 R1 K6 ["setState"]
-       22 CALL                             R1 2 0
-       23 RETURN                           R0 0
+        1 GETTABLEKS                       R1 R1 K0 ["state"]
+        3 GETTABLEKS                       R1 R1 K1 ["enabled"]
+        5 JUMPIFEQ                         R0 R1 ; [+7]
+        7 GETIMPORT                        R1 K4 [task.spawn]
+        9 NEWCLOSURE                       R2 P0
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U2
+       12 CALL                             R1 1 0
+       13 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R0 0
@@ -97,168 +80,124 @@ PROTO_8:
         5 RETURN                           R0 0
 
 PROTO_9:
-        0 GETUPVAL                         R1 0
-        1 JUMPIFNOT                        R1 ; [+16]
-        2 GETTABLEKS                       R1 R0 K0 ["Enabled"]
-        4 GETUPVAL                         R2 1
-        5 GETTABLEKS                       R2 R2 K1 ["state"]
-        7 GETTABLEKS                       R2 R2 K2 ["enabled"]
-        9 JUMPIFEQ                         R1 R2 ; [+17]
-       11 GETIMPORT                        R1 K5 [task.spawn]
-       13 NEWCLOSURE                       R2 P0
-       14 CAPTURE                          UPVAL U2
-       15 CAPTURE                          UPVAL U3
-       16 CALL                             R1 1 0
-       17 RETURN                           R0 0
-       18 GETUPVAL                         R1 1
-       19 DUPTABLE                         R3 K6 [{"enabled"}]
-       20 GETTABLEKS                       R4 R0 K0 ["Enabled"]
-       22 SETTABLEKS                       R4 R3 K2 ["enabled"]
-       24 NAMECALL                         R1 R1 K7 ["setState"]
-       26 CALL                             R1 2 0
-       27 RETURN                           R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["Enabled"]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R2 R2 K1 ["state"]
+        5 GETTABLEKS                       R2 R2 K2 ["enabled"]
+        7 JUMPIFEQ                         R1 R2 ; [+7]
+        9 GETIMPORT                        R1 K5 [task.spawn]
+       11 NEWCLOSURE                       R2 P0
+       12 CAPTURE                          UPVAL U1
+       13 CAPTURE                          UPVAL U2
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R0 0
-        1 JUMPIFNOT                        R0 ; [+18]
-        2 GETUPVAL                         R1 1
-        3 GETTABLEKS                       R1 R1 K0 ["props"]
-        5 GETTABLEKS                       R1 R1 K1 ["PluginLoaderContext"]
-        7 GETTABLEKS                       R1 R1 K2 ["actionTriggeredSignals"]
-        9 GETTABLEN                        R0 R1 1
-       10 GETUPVAL                         R1 1
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R4 R4 K3 ["toggleEnabled"]
-       14 NAMECALL                         R2 R0 K4 ["Connect"]
-       16 CALL                             R2 2 1
-       17 SETTABLEKS                       R2 R1 K5 ["actionActivatedConnection"]
-       19 RETURN                           R0 0
-       20 GETUPVAL                         R0 1
-       21 GETTABLEKS                       R0 R0 K0 ["props"]
-       23 GETTABLEKS                       R0 R0 K1 ["PluginLoaderContext"]
-       25 GETTABLEKS                       R0 R0 K6 ["mainButtonClickedSignal"]
-       27 GETUPVAL                         R2 1
-       28 GETTABLEKS                       R2 R2 K3 ["toggleEnabled"]
-       30 NAMECALL                         R0 R0 K4 ["Connect"]
-       32 CALL                             R0 2 0
-       33 RETURN                           R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R1 R1 K0 ["props"]
+        3 GETTABLEKS                       R1 R1 K1 ["PluginLoaderContext"]
+        5 GETTABLEKS                       R1 R1 K2 ["actionTriggeredSignals"]
+        7 GETTABLEN                        R0 R1 1
+        8 GETUPVAL                         R1 0
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R4 R4 K3 ["toggleEnabled"]
+       12 NAMECALL                         R2 R0 K4 ["Connect"]
+       14 CALL                             R2 2 1
+       15 SETTABLEKS                       R2 R1 K5 ["actionActivatedConnection"]
+       17 RETURN                           R0 0
 
 PROTO_11:
         0 NEWTABLE                         R0 0 0
         2 RETURN                           R0 1
 
 PROTO_12:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       10 GETTABLEKS                       R2 R1 K4 ["Plugin"]
-       12 LOADK                            R4 K5 ["Actions"]
-       13 NAMECALL                         R2 R2 K6 ["GetPluginComponent"]
-       15 CALL                             R2 2 1
-       16 GETUPVAL                         R3 0
-       17 JUMPIFNOT                        R3 ; [+7]
-       18 GETIMPORT                        R3 K9 [task.spawn]
-       20 NEWCLOSURE                       R4 P1
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        7 GETTABLEKS                       R2 R1 K5 ["Plugin"]
+        9 LOADK                            R4 K6 ["Actions"]
+       10 NAMECALL                         R2 R2 K7 ["GetPluginComponent"]
+       12 CALL                             R2 2 1
+       13 GETIMPORT                        R3 K10 [task.spawn]
+       15 NEWCLOSURE                       R4 P1
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          VAL R2
+       18 CAPTURE                          UPVAL U0
+       19 CALL                             R3 1 0
+       20 NEWCLOSURE                       R3 P2
        21 CAPTURE                          VAL R0
        22 CAPTURE                          VAL R2
-       23 CAPTURE                          UPVAL U1
-       24 CALL                             R3 1 0
-       25 NEWCLOSURE                       R3 P2
-       26 CAPTURE                          UPVAL U0
+       23 CAPTURE                          UPVAL U0
+       24 SETTABLEKS                       R3 R0 K11 ["onClose"]
+       26 NEWCLOSURE                       R3 P3
        27 CAPTURE                          VAL R0
        28 CAPTURE                          VAL R2
-       29 CAPTURE                          UPVAL U1
-       30 SETTABLEKS                       R3 R0 K10 ["onClose"]
-       32 NEWCLOSURE                       R3 P3
-       33 CAPTURE                          UPVAL U0
-       34 CAPTURE                          VAL R0
-       35 CAPTURE                          VAL R2
-       36 CAPTURE                          UPVAL U1
-       37 SETTABLEKS                       R3 R0 K11 ["onRestore"]
-       39 NEWCLOSURE                       R3 P4
-       40 CAPTURE                          UPVAL U0
-       41 CAPTURE                          VAL R0
-       42 CAPTURE                          VAL R2
-       43 CAPTURE                          UPVAL U1
-       44 SETTABLEKS                       R3 R0 K12 ["onWidgetEnabledChanged"]
-       46 NEWCLOSURE                       R3 P5
-       47 CAPTURE                          UPVAL U0
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R3 R0 K13 ["onDockWidgetCreated"]
-       51 GETUPVAL                         R3 2
-       52 GETTABLEKS                       R3 R3 K14 ["Localization"]
-       54 GETTABLEKS                       R3 R3 K15 ["new"]
-       56 DUPTABLE                         R4 K19 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       57 GETUPVAL                         R5 3
-       58 SETTABLEKS                       R5 R4 K16 ["stringResourceTable"]
-       60 GETUPVAL                         R5 4
-       61 SETTABLEKS                       R5 R4 K17 ["translationResourceTable"]
-       63 LOADK                            R5 K20 ["InputActionManager"]
-       64 SETTABLEKS                       R5 R4 K18 ["pluginName"]
-       66 CALL                             R3 1 1
-       67 SETTABLEKS                       R3 R0 K21 ["localizationLEGACY"]
-       69 GETUPVAL                         R3 5
-       70 GETTABLEKS                       R3 R3 K14 ["Localization"]
-       72 GETTABLEKS                       R3 R3 K15 ["new"]
-       74 DUPTABLE                         R4 K19 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       75 GETUPVAL                         R5 3
-       76 SETTABLEKS                       R5 R4 K16 ["stringResourceTable"]
-       78 GETUPVAL                         R5 4
-       79 SETTABLEKS                       R5 R4 K17 ["translationResourceTable"]
-       81 LOADK                            R5 K20 ["InputActionManager"]
-       82 SETTABLEKS                       R5 R4 K18 ["pluginName"]
-       84 CALL                             R3 1 1
-       85 SETTABLEKS                       R3 R0 K22 ["localization"]
-       87 GETUPVAL                         R3 2
-       88 GETTABLEKS                       R3 R3 K23 ["Analytics"]
-       90 GETTABLEKS                       R3 R3 K15 ["new"]
-       92 DUPCLOSURE                       R4 K24 [PROTO_11]
-       93 NEWTABLE                         R5 0 0
-       95 CALL                             R3 2 1
-       96 SETTABLEKS                       R3 R0 K25 ["analytics"]
-       98 GETUPVAL                         R3 6
-       99 GETUPVAL                         R4 7
-      100 GETTABLEKS                       R4 R4 K26 ["get"]
-      102 CALL                             R4 0 -1
-      103 CALL                             R3 -1 1
-      104 SETTABLEKS                       R3 R0 K27 ["guestInterface"]
-      106 GETUPVAL                         R3 8
-      107 GETTABLEKS                       R3 R3 K15 ["new"]
-      109 CALL                             R3 0 1
-      110 SETTABLEKS                       R3 R0 K28 ["DEPRECATED_stylizer"]
-      112 GETUPVAL                         R3 9
-      113 GETTABLEKS                       R3 R3 K29 ["Util"]
-      115 GETTABLEKS                       R3 R3 K30 ["createFoundationDesignBinding"]
-      117 CALL                             R3 0 2
-      118 SETTABLEKS                       R4 R0 K31 ["onFoundationStyleSheetChange"]
-      120 GETUPVAL                         R5 10
-      121 GETTABLEKS                       R6 R1 K4 ["Plugin"]
-      123 LOADNIL                          R7
-      124 LOADNIL                          R8
-      125 NEWTABLE                         R9 0 1
-      127 MOVE                             R10 R3
-      128 SETLIST                          R9 R10 1 [1]
-      130 CALL                             R5 4 1
-      131 SETTABLEKS                       R5 R0 K32 ["design"]
-      133 RETURN                           R0 0
+       29 CAPTURE                          UPVAL U0
+       30 SETTABLEKS                       R3 R0 K12 ["onRestore"]
+       32 NEWCLOSURE                       R3 P4
+       33 CAPTURE                          VAL R0
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          UPVAL U0
+       36 SETTABLEKS                       R3 R0 K13 ["onWidgetEnabledChanged"]
+       38 NEWCLOSURE                       R3 P5
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R3 R0 K14 ["onDockWidgetCreated"]
+       42 GETUPVAL                         R3 1
+       43 GETTABLEKS                       R3 R3 K15 ["Localization"]
+       45 GETTABLEKS                       R3 R3 K16 ["new"]
+       47 DUPTABLE                         R4 K21 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "InputActionManager"}]
+       48 GETUPVAL                         R5 2
+       49 SETTABLEKS                       R5 R4 K17 ["stringResourceTable"]
+       51 GETUPVAL                         R5 3
+       52 SETTABLEKS                       R5 R4 K18 ["translationResourceTable"]
+       54 CALL                             R3 1 1
+       55 SETTABLEKS                       R3 R0 K22 ["localizationLEGACY"]
+       57 GETUPVAL                         R3 4
+       58 GETTABLEKS                       R3 R3 K15 ["Localization"]
+       60 GETTABLEKS                       R3 R3 K16 ["new"]
+       62 DUPTABLE                         R4 K21 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "InputActionManager"}]
+       63 GETUPVAL                         R5 2
+       64 SETTABLEKS                       R5 R4 K17 ["stringResourceTable"]
+       66 GETUPVAL                         R5 3
+       67 SETTABLEKS                       R5 R4 K18 ["translationResourceTable"]
+       69 CALL                             R3 1 1
+       70 SETTABLEKS                       R3 R0 K23 ["localization"]
+       72 GETUPVAL                         R3 1
+       73 GETTABLEKS                       R3 R3 K24 ["Analytics"]
+       75 GETTABLEKS                       R3 R3 K16 ["new"]
+       77 DUPCLOSURE                       R4 K25 [PROTO_11]
+       78 NEWTABLE                         R5 0 0
+       80 CALL                             R3 2 1
+       81 SETTABLEKS                       R3 R0 K26 ["analytics"]
+       83 GETUPVAL                         R3 5
+       84 GETUPVAL                         R4 6
+       85 GETTABLEKS                       R4 R4 K27 ["get"]
+       87 CALL                             R4 0 -1
+       88 CALL                             R3 -1 1
+       89 SETTABLEKS                       R3 R0 K28 ["guestInterface"]
+       91 GETUPVAL                         R3 7
+       92 GETTABLEKS                       R3 R3 K16 ["new"]
+       94 CALL                             R3 0 1
+       95 SETTABLEKS                       R3 R0 K29 ["DEPRECATED_stylizer"]
+       97 GETUPVAL                         R3 8
+       98 GETTABLEKS                       R3 R3 K30 ["Util"]
+      100 GETTABLEKS                       R3 R3 K31 ["createFoundationDesignBinding"]
+      102 CALL                             R3 0 2
+      103 SETTABLEKS                       R4 R0 K32 ["onFoundationStyleSheetChange"]
+      105 GETUPVAL                         R5 9
+      106 GETTABLEKS                       R6 R1 K5 ["Plugin"]
+      108 LOADNIL                          R7
+      109 LOADNIL                          R8
+      110 NEWTABLE                         R9 0 1
+      112 MOVE                             R10 R3
+      113 SETLIST                          R9 R10 1 [1]
+      115 CALL                             R5 4 1
+      116 SETTABLEKS                       R5 R0 K33 ["design"]
+      118 RETURN                           R0 0
 
 PROTO_13:
-        0 GETUPVAL                         R1 0
-        1 JUMPIF                           R1 ; [+13]
-        2 GETTABLEKS                       R1 R0 K0 ["props"]
-        4 GETTABLEKS                       R1 R1 K1 ["PluginLoaderContext"]
-        6 GETTABLEKS                       R1 R1 K2 ["mainButton"]
-        8 GETTABLEKS                       R3 R0 K3 ["state"]
-       10 GETTABLEKS                       R3 R3 K4 ["enabled"]
-       12 NAMECALL                         R1 R1 K5 ["SetActive"]
-       14 CALL                             R1 2 0
-       15 RETURN                           R0 0
-
-PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -300,8 +239,8 @@ PROTO_14:
        60 GETIMPORT                        R11 K25 [Enum.InitialDockState.Bottom]
        62 SETTABLEKS                       R11 R10 K23 ["InitialDockState"]
        64 GETIMPORT                        R11 K27 [Vector2.new]
-       66 LOADN                            R12 128
-       67 LOADN                            R13 224
+       66 LOADN                            R12 640
+       67 LOADN                            R13 480
        68 CALL                             R11 2 1
        69 SETTABLEKS                       R11 R10 K28 ["Size"]
        71 GETIMPORT                        R11 K27 [Vector2.new]
@@ -381,7 +320,7 @@ PROTO_14:
       186 CALL                             R5 2 -1
       187 RETURN                           R5 -1
 
-PROTO_15:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["actionActivatedConnection"]
@@ -456,70 +395,59 @@ MAIN:
        96 GETIMPORT                        R19 K5 [require]
        98 GETTABLEKS                       R20 R0 K35 ["Bin"]
       100 GETTABLEKS                       R20 R20 K36 ["Common"]
-      102 GETTABLEKS                       R20 R20 K37 ["defineLuaFlags"]
+      102 GETTABLEKS                       R20 R20 K37 ["StudioNetworking"]
       104 CALL                             R19 1 1
       105 GETIMPORT                        R20 K5 [require]
-      107 GETTABLEKS                       R21 R0 K35 ["Bin"]
-      109 GETTABLEKS                       R21 R21 K36 ["Common"]
-      111 GETTABLEKS                       R21 R21 K38 ["StudioNetworking"]
+      107 GETTABLEKS                       R21 R0 K29 ["Src"]
+      109 GETTABLEKS                       R21 R21 K38 ["Guest"]
+      111 GETTABLEKS                       R21 R21 K39 ["createGuestInterface"]
       113 CALL                             R20 1 1
-      114 GETTABLEKS                       R21 R19 K39 ["getFFlagRegisterActionsPluginLoader"]
-      116 CALL                             R21 0 1
-      117 GETIMPORT                        R22 K5 [require]
-      119 GETTABLEKS                       R23 R0 K29 ["Src"]
-      121 GETTABLEKS                       R23 R23 K40 ["Guest"]
-      123 GETTABLEKS                       R23 R23 K41 ["createGuestInterface"]
-      125 CALL                             R22 1 1
-      126 GETIMPORT                        R23 K5 [require]
-      128 GETTABLEKS                       R24 R0 K29 ["Src"]
-      130 GETTABLEKS                       R24 R24 K14 ["Contexts"]
-      132 GETTABLEKS                       R24 R24 K42 ["Networking"]
-      134 CALL                             R23 1 1
-      135 GETIMPORT                        R24 K5 [require]
-      137 GETTABLEKS                       R25 R0 K29 ["Src"]
-      139 GETTABLEKS                       R25 R25 K14 ["Contexts"]
-      141 GETTABLEKS                       R25 R25 K40 ["Guest"]
-      143 CALL                             R24 1 1
-      144 GETTABLEKS                       R25 R1 K43 ["PureComponent"]
-      146 LOADK                            R27 K44 ["MainPlugin"]
-      147 NAMECALL                         R25 R25 K45 ["extend"]
-      149 CALL                             R25 2 1
-      150 GETTABLEKS                       R26 R14 K46 ["fromAction"]
-      152 LOADK                            R27 K2 ["InputActionManager"]
-      153 LOADK                            R28 K47 ["Toggle"]
-      154 CALL                             R26 2 1
-      155 DUPCLOSURE                       R27 K48 [PROTO_12]
-      156 CAPTURE                          VAL R21
-      157 CAPTURE                          VAL R26
-      158 CAPTURE                          VAL R9
-      159 CAPTURE                          VAL R16
-      160 CAPTURE                          VAL R17
-      161 CAPTURE                          VAL R7
-      162 CAPTURE                          VAL R22
-      163 CAPTURE                          VAL R20
-      164 CAPTURE                          VAL R13
-      165 CAPTURE                          VAL R4
-      166 CAPTURE                          VAL R15
-      167 SETTABLEKS                       R27 R25 K49 ["init"]
-      169 DUPCLOSURE                       R27 K50 [PROTO_13]
-      170 CAPTURE                          VAL R21
-      171 SETTABLEKS                       R27 R25 K51 ["didUpdate"]
-      173 DUPCLOSURE                       R27 K52 [PROTO_14]
-      174 CAPTURE                          VAL R9
-      175 CAPTURE                          VAL R10
-      176 CAPTURE                          VAL R11
-      177 CAPTURE                          VAL R12
-      178 CAPTURE                          VAL R1
-      179 CAPTURE                          VAL R8
-      180 CAPTURE                          VAL R6
-      181 CAPTURE                          VAL R5
-      182 CAPTURE                          VAL R23
-      183 CAPTURE                          VAL R20
-      184 CAPTURE                          VAL R24
-      185 CAPTURE                          VAL R7
-      186 CAPTURE                          VAL R18
-      187 SETTABLEKS                       R27 R25 K53 ["render"]
-      189 DUPCLOSURE                       R27 K54 [PROTO_15]
-      190 CAPTURE                          VAL R20
-      191 SETTABLEKS                       R27 R25 K55 ["willUnmount"]
-      193 RETURN                           R25 1
+      114 GETIMPORT                        R21 K5 [require]
+      116 GETTABLEKS                       R22 R0 K29 ["Src"]
+      118 GETTABLEKS                       R22 R22 K14 ["Contexts"]
+      120 GETTABLEKS                       R22 R22 K40 ["Networking"]
+      122 CALL                             R21 1 1
+      123 GETIMPORT                        R22 K5 [require]
+      125 GETTABLEKS                       R23 R0 K29 ["Src"]
+      127 GETTABLEKS                       R23 R23 K14 ["Contexts"]
+      129 GETTABLEKS                       R23 R23 K38 ["Guest"]
+      131 CALL                             R22 1 1
+      132 GETTABLEKS                       R23 R1 K41 ["PureComponent"]
+      134 LOADK                            R25 K42 ["MainPlugin"]
+      135 NAMECALL                         R23 R23 K43 ["extend"]
+      137 CALL                             R23 2 1
+      138 GETTABLEKS                       R24 R14 K44 ["fromAction"]
+      140 LOADK                            R25 K2 ["InputActionManager"]
+      141 LOADK                            R26 K45 ["Toggle"]
+      142 CALL                             R24 2 1
+      143 DUPCLOSURE                       R25 K46 [PROTO_12]
+      144 CAPTURE                          VAL R24
+      145 CAPTURE                          VAL R9
+      146 CAPTURE                          VAL R16
+      147 CAPTURE                          VAL R17
+      148 CAPTURE                          VAL R7
+      149 CAPTURE                          VAL R20
+      150 CAPTURE                          VAL R19
+      151 CAPTURE                          VAL R13
+      152 CAPTURE                          VAL R4
+      153 CAPTURE                          VAL R15
+      154 SETTABLEKS                       R25 R23 K47 ["init"]
+      156 DUPCLOSURE                       R25 K48 [PROTO_13]
+      157 CAPTURE                          VAL R9
+      158 CAPTURE                          VAL R10
+      159 CAPTURE                          VAL R11
+      160 CAPTURE                          VAL R12
+      161 CAPTURE                          VAL R1
+      162 CAPTURE                          VAL R8
+      163 CAPTURE                          VAL R6
+      164 CAPTURE                          VAL R5
+      165 CAPTURE                          VAL R21
+      166 CAPTURE                          VAL R19
+      167 CAPTURE                          VAL R22
+      168 CAPTURE                          VAL R7
+      169 CAPTURE                          VAL R18
+      170 SETTABLEKS                       R25 R23 K49 ["render"]
+      172 DUPCLOSURE                       R25 K50 [PROTO_14]
+      173 CAPTURE                          VAL R19
+      174 SETTABLEKS                       R25 R23 K51 ["willUnmount"]
+      176 RETURN                           R23 1

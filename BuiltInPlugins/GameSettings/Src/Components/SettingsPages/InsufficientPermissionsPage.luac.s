@@ -15,47 +15,43 @@ PROTO_0:
        20 GETTABLEKS                       R10 R10 K8 ["join"]
        22 GETTABLEKS                       R11 R2 K9 ["fontStyle"]
        24 GETTABLEKS                       R11 R11 K10 ["Normal"]
-       26 DUPTABLE                         R12 K15 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency"}]
-       27 LOADN                            R13 1
-       28 SETTABLEKS                       R13 R12 K11 ["LayoutOrder"]
-       30 LOADK                            R15 K16 ["General"]
-       31 LOADK                            R16 K17 ["SettingsInsufficientPermission"]
-       32 NAMECALL                         R13 R3 K18 ["getText"]
-       34 CALL                             R13 3 1
-       35 SETTABLEKS                       R13 R12 K12 ["Text"]
-       37 GETIMPORT                        R13 K21 [UDim2.fromScale]
-       39 LOADN                            R14 1
-       40 LOADN                            R15 1
-       41 CALL                             R13 2 1
-       42 SETTABLEKS                       R13 R12 K13 ["Size"]
-       44 LOADN                            R13 1
-       45 SETTABLEKS                       R13 R12 K14 ["BackgroundTransparency"]
-       47 CALL                             R10 2 1
-       48 DUPTABLE                         R11 K23 [{"Padding"}]
-       49 GETUPVAL                         R12 0
-       50 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       52 LOADK                            R13 K24 ["UIPadding"]
-       53 DUPTABLE                         R14 K27 [{"PaddingLeft", "PaddingRight"}]
-       54 GETIMPORT                        R15 K30 [UDim.new]
-       56 LOADN                            R16 0
-       57 GETTABLEKS                       R18 R2 K32 ["settingsPage"]
-       59 GETTABLEKS                       R18 R18 K33 ["failLabelPaddingX"]
-       61 DIVK                             R17 R18 K31 [2]
-       62 CALL                             R15 2 1
-       63 SETTABLEKS                       R15 R14 K25 ["PaddingLeft"]
-       65 GETIMPORT                        R15 K30 [UDim.new]
-       67 LOADN                            R16 0
-       68 GETTABLEKS                       R18 R2 K32 ["settingsPage"]
-       70 GETTABLEKS                       R18 R18 K33 ["failLabelPaddingX"]
-       72 DIVK                             R17 R18 K31 [2]
-       73 CALL                             R15 2 1
-       74 SETTABLEKS                       R15 R14 K26 ["PaddingRight"]
-       76 CALL                             R12 2 1
-       77 SETTABLEKS                       R12 R11 K22 ["Padding"]
-       79 CALL                             R8 3 1
-       80 SETTABLEKS                       R8 R7 K4 ["Label"]
-       82 CALL                             R4 3 -1
-       83 RETURN                           R4 -1
+       26 DUPTABLE                         R12 K16 [{["LayoutOrder"] = 1, ["Text"], ["Size"], ["BackgroundTransparency"] = 1}]
+       27 LOADK                            R15 K17 ["General"]
+       28 LOADK                            R16 K18 ["SettingsInsufficientPermission"]
+       29 NAMECALL                         R13 R3 K19 ["getText"]
+       31 CALL                             R13 3 1
+       32 SETTABLEKS                       R13 R12 K13 ["Text"]
+       34 GETIMPORT                        R13 K22 [UDim2.fromScale]
+       36 LOADN                            R14 1
+       37 LOADN                            R15 1
+       38 CALL                             R13 2 1
+       39 SETTABLEKS                       R13 R12 K14 ["Size"]
+       41 CALL                             R10 2 1
+       42 DUPTABLE                         R11 K24 [{"Padding"}]
+       43 GETUPVAL                         R12 0
+       44 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       46 LOADK                            R13 K25 ["UIPadding"]
+       47 DUPTABLE                         R14 K28 [{"PaddingLeft", "PaddingRight"}]
+       48 GETIMPORT                        R15 K31 [UDim.new]
+       50 LOADN                            R16 0
+       51 GETTABLEKS                       R18 R2 K33 ["settingsPage"]
+       53 GETTABLEKS                       R18 R18 K34 ["failLabelPaddingX"]
+       55 DIVK                             R17 R18 K32 [2]
+       56 CALL                             R15 2 1
+       57 SETTABLEKS                       R15 R14 K26 ["PaddingLeft"]
+       59 GETIMPORT                        R15 K31 [UDim.new]
+       61 LOADN                            R16 0
+       62 GETTABLEKS                       R18 R2 K33 ["settingsPage"]
+       64 GETTABLEKS                       R18 R18 K34 ["failLabelPaddingX"]
+       66 DIVK                             R17 R18 K32 [2]
+       67 CALL                             R15 2 1
+       68 SETTABLEKS                       R15 R14 K27 ["PaddingRight"]
+       70 CALL                             R12 2 1
+       71 SETTABLEKS                       R12 R11 K23 ["Padding"]
+       73 CALL                             R8 3 1
+       74 SETTABLEKS                       R8 R7 K4 ["Label"]
+       76 CALL                             R4 3 -1
+       77 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

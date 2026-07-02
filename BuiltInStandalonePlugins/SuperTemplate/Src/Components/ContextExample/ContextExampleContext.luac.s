@@ -3,24 +3,20 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["Provider"]
-        6 DUPTABLE                         R3 K3 [{"value"}]
-        7 LOADK                            R4 K4 ["woof I'm a dog"]
-        8 SETTABLEKS                       R4 R3 K2 ["value"]
-       10 GETTABLEKS                       R4 R0 K5 ["children"]
-       12 CALL                             R1 3 -1
-       13 RETURN                           R1 -1
+        6 DUPTABLE                         R3 K4 [{["value"] = "woof I'm a dog"}]
+        7 GETTABLEKS                       R4 R0 K5 ["children"]
+        9 CALL                             R1 3 -1
+       10 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["Provider"]
-        6 DUPTABLE                         R3 K3 [{"value"}]
-        7 LOADK                            R4 K4 ["meow meow I'm a cat"]
-        8 SETTABLEKS                       R4 R3 K2 ["value"]
-       10 GETTABLEKS                       R4 R0 K5 ["children"]
-       12 CALL                             R1 3 -1
-       13 RETURN                           R1 -1
+        6 DUPTABLE                         R3 K4 [{["value"] = "meow meow I'm a cat"}]
+        7 GETTABLEKS                       R4 R0 K5 ["children"]
+        9 CALL                             R1 3 -1
+       10 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

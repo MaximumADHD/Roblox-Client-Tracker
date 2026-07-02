@@ -62,23 +62,17 @@ PROTO_2:
         9 CAPTURE                          VAL R0
        10 CALL                             R1 1 2
        11 JUMPIFNOT                        R1 ; [+1]
-       12 JUMPIF                           R2 ; [+15]
-       13 DUPTABLE                         R3 K10 [{"Id", "Name", "Size", "Children"}]
-       14 LOADN                            R4 0
-       15 SETTABLEKS                       R4 R3 K6 ["Id"]
-       17 LOADK                            R4 K11 ["Root"]
-       18 SETTABLEKS                       R4 R3 K7 ["Name"]
-       20 LOADN                            R4 0
-       21 SETTABLEKS                       R4 R3 K8 ["Size"]
-       23 NEWTABLE                         R4 0 0
-       25 SETTABLEKS                       R4 R3 K9 ["Children"]
-       27 RETURN                           R3 1
-       28 DUPCLOSURE                       R3 K12 [PROTO_1]
-       29 CAPTURE                          VAL R3
-       30 MOVE                             R4 R3
-       31 MOVE                             R5 R2
-       32 CALL                             R4 1 0
-       33 RETURN                           R2 1
+       12 JUMPIF                           R2 ; [+6]
+       13 DUPTABLE                         R3 K12 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       14 NEWTABLE                         R4 0 0
+       16 SETTABLEKS                       R4 R3 K11 ["Children"]
+       18 RETURN                           R3 1
+       19 DUPCLOSURE                       R3 K13 [PROTO_1]
+       20 CAPTURE                          VAL R3
+       21 MOVE                             R4 R3
+       22 MOVE                             R5 R2
+       23 CALL                             R4 1 0
+       24 RETURN                           R2 1
 
 PROTO_3:
         0 LOADK                            R4 K0 ["FetchSceneTriangles"]

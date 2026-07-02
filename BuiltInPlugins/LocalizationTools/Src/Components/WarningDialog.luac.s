@@ -8,147 +8,119 @@ PROTO_0:
        12 GETUPVAL                         R7 0
        13 GETTABLEKS                       R7 R7 K6 ["createElement"]
        15 GETUPVAL                         R8 1
-       16 DUPTABLE                         R9 K14 [{"AutomaticSize", "Layout", "HorizontalAlignment", "BackgroundTransparency", "BackgroundColor3", "Size", "Spacing"}]
-       17 GETIMPORT                        R10 K17 [Enum.AutomaticSize.Y]
+       16 DUPTABLE                         R9 K16 [{["AutomaticSize"], ["Layout"], ["HorizontalAlignment"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"], ["Size"], ["Spacing"] = 15}]
+       17 GETIMPORT                        R10 K19 [Enum.AutomaticSize.Y]
        19 SETTABLEKS                       R10 R9 K7 ["AutomaticSize"]
-       21 GETIMPORT                        R10 K20 [Enum.FillDirection.Vertical]
+       21 GETIMPORT                        R10 K22 [Enum.FillDirection.Vertical]
        23 SETTABLEKS                       R10 R9 K8 ["Layout"]
-       25 GETIMPORT                        R10 K22 [Enum.HorizontalAlignment.Center]
+       25 GETIMPORT                        R10 K24 [Enum.HorizontalAlignment.Center]
        27 SETTABLEKS                       R10 R9 K9 ["HorizontalAlignment"]
-       29 LOADN                            R10 0
-       30 SETTABLEKS                       R10 R9 K10 ["BackgroundTransparency"]
-       32 GETTABLEKS                       R10 R2 K23 ["MainBackground"]
-       34 SETTABLEKS                       R10 R9 K11 ["BackgroundColor3"]
-       36 GETIMPORT                        R10 K26 [UDim2.new]
-       38 LOADN                            R11 1
-       39 LOADN                            R12 0
-       40 LOADN                            R13 1
-       41 LOADN                            R14 0
-       42 CALL                             R10 4 1
-       43 SETTABLEKS                       R10 R9 K12 ["Size"]
-       45 LOADN                            R10 15
-       46 SETTABLEKS                       R10 R9 K13 ["Spacing"]
-       48 DUPTABLE                         R10 K29 [{"Message", "Buttons"}]
-       49 GETUPVAL                         R11 0
-       50 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       52 GETUPVAL                         R12 2
-       53 DUPTABLE                         R13 K34 [{"TextXAlignment", "BackgroundTransparency", "Text", "Size", "AutomaticSize", "TextWrapped", "TextColor3", "LayoutOrder"}]
-       54 GETIMPORT                        R14 K36 [Enum.TextXAlignment.Left]
-       56 SETTABLEKS                       R14 R13 K30 ["TextXAlignment"]
-       58 LOADN                            R14 1
-       59 SETTABLEKS                       R14 R13 K10 ["BackgroundTransparency"]
-       61 SETTABLEKS                       R6 R13 K5 ["Text"]
-       63 GETIMPORT                        R14 K26 [UDim2.new]
-       65 LOADN                            R15 0
-       66 LOADN                            R16 144
-       67 LOADN                            R17 0
-       68 LOADN                            R18 0
-       69 CALL                             R14 4 1
-       70 SETTABLEKS                       R14 R13 K12 ["Size"]
-       72 GETIMPORT                        R14 K17 [Enum.AutomaticSize.Y]
-       74 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
-       76 LOADB                            R14 1
-       77 SETTABLEKS                       R14 R13 K31 ["TextWrapped"]
-       79 GETTABLEKS                       R14 R2 K37 ["WarningText"]
-       81 SETTABLEKS                       R14 R13 K32 ["TextColor3"]
-       83 LOADN                            R14 1
-       84 SETTABLEKS                       R14 R13 K33 ["LayoutOrder"]
-       86 CALL                             R11 2 1
-       87 SETTABLEKS                       R11 R10 K27 ["Message"]
-       89 GETUPVAL                         R11 0
-       90 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       92 GETUPVAL                         R12 1
-       93 DUPTABLE                         R13 K38 [{"AutomaticSize", "Layout", "HorizontalAlignment", "BackgroundTransparency", "BackgroundColor3", "Size", "Spacing", "LayoutOrder"}]
-       94 GETIMPORT                        R14 K17 [Enum.AutomaticSize.Y]
-       96 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
-       98 GETIMPORT                        R14 K40 [Enum.FillDirection.Horizontal]
-      100 SETTABLEKS                       R14 R13 K8 ["Layout"]
-      102 GETIMPORT                        R14 K22 [Enum.HorizontalAlignment.Center]
-      104 SETTABLEKS                       R14 R13 K9 ["HorizontalAlignment"]
-      106 LOADN                            R14 0
-      107 SETTABLEKS                       R14 R13 K10 ["BackgroundTransparency"]
-      109 GETTABLEKS                       R14 R2 K23 ["MainBackground"]
-      111 SETTABLEKS                       R14 R13 K11 ["BackgroundColor3"]
-      113 GETIMPORT                        R14 K26 [UDim2.new]
-      115 LOADN                            R15 1
-      116 LOADN                            R16 0
-      117 LOADN                            R17 0
-      118 LOADN                            R18 0
-      119 CALL                             R14 4 1
-      120 SETTABLEKS                       R14 R13 K12 ["Size"]
-      122 LOADN                            R14 40
-      123 SETTABLEKS                       R14 R13 K13 ["Spacing"]
-      125 LOADN                            R14 2
-      126 SETTABLEKS                       R14 R13 K33 ["LayoutOrder"]
-      128 DUPTABLE                         R14 K43 [{"Confirm", "Cancel"}]
-      129 GETUPVAL                         R15 0
-      130 GETTABLEKS                       R15 R15 K6 ["createElement"]
-      132 GETUPVAL                         R16 3
-      133 DUPTABLE                         R17 K46 [{"LayoutOrder", "OnClick", "Size", "Style", "Text"}]
-      134 LOADN                            R18 1
-      135 SETTABLEKS                       R18 R17 K33 ["LayoutOrder"]
-      137 SETTABLEKS                       R5 R17 K44 ["OnClick"]
-      139 GETIMPORT                        R18 K26 [UDim2.new]
-      141 LOADN                            R19 0
-      142 GETTABLEKS                       R20 R2 K47 ["ButtonWidth"]
-      144 LOADN                            R21 0
-      145 GETTABLEKS                       R22 R2 K48 ["ButtonHeight"]
-      147 CALL                             R18 4 1
-      148 SETTABLEKS                       R18 R17 K12 ["Size"]
-      150 LOADK                            R18 K49 ["PrimeTextButton"]
-      151 SETTABLEKS                       R18 R17 K45 ["Style"]
-      153 LOADK                            R20 K50 ["UploadDialogContent"]
-      154 LOADK                            R21 K51 ["ConfirmButton"]
-      155 NAMECALL                         R18 R3 K52 ["getText"]
-      157 CALL                             R18 3 1
-      158 SETTABLEKS                       R18 R17 K5 ["Text"]
-      160 NEWTABLE                         R18 0 1
-      162 GETUPVAL                         R19 0
-      163 GETTABLEKS                       R19 R19 K6 ["createElement"]
-      165 GETUPVAL                         R20 4
-      166 DUPTABLE                         R21 K54 [{"Cursor"}]
-      167 LOADK                            R22 K55 ["PointingHand"]
-      168 SETTABLEKS                       R22 R21 K53 ["Cursor"]
-      170 CALL                             R19 2 -1
-      171 SETLIST                          R18 R19 -1 [1]
-      173 CALL                             R15 3 1
-      174 SETTABLEKS                       R15 R14 K41 ["Confirm"]
-      176 GETUPVAL                         R15 0
-      177 GETTABLEKS                       R15 R15 K6 ["createElement"]
-      179 GETUPVAL                         R16 3
-      180 DUPTABLE                         R17 K46 [{"LayoutOrder", "OnClick", "Size", "Style", "Text"}]
-      181 LOADN                            R18 2
-      182 SETTABLEKS                       R18 R17 K33 ["LayoutOrder"]
-      184 SETTABLEKS                       R4 R17 K44 ["OnClick"]
-      186 GETIMPORT                        R18 K26 [UDim2.new]
-      188 LOADN                            R19 0
-      189 GETTABLEKS                       R20 R2 K47 ["ButtonWidth"]
-      191 LOADN                            R21 0
-      192 GETTABLEKS                       R22 R2 K48 ["ButtonHeight"]
-      194 CALL                             R18 4 1
-      195 SETTABLEKS                       R18 R17 K12 ["Size"]
-      197 LOADK                            R18 K56 ["TextButton"]
-      198 SETTABLEKS                       R18 R17 K45 ["Style"]
-      200 LOADK                            R20 K50 ["UploadDialogContent"]
-      201 LOADK                            R21 K57 ["CancelButton"]
-      202 NAMECALL                         R18 R3 K52 ["getText"]
-      204 CALL                             R18 3 1
-      205 SETTABLEKS                       R18 R17 K5 ["Text"]
-      207 NEWTABLE                         R18 0 1
-      209 GETUPVAL                         R19 0
-      210 GETTABLEKS                       R19 R19 K6 ["createElement"]
-      212 GETUPVAL                         R20 4
-      213 DUPTABLE                         R21 K54 [{"Cursor"}]
-      214 LOADK                            R22 K55 ["PointingHand"]
-      215 SETTABLEKS                       R22 R21 K53 ["Cursor"]
-      217 CALL                             R19 2 -1
-      218 SETLIST                          R18 R19 -1 [1]
-      220 CALL                             R15 3 1
-      221 SETTABLEKS                       R15 R14 K42 ["Cancel"]
-      223 CALL                             R11 3 1
-      224 SETTABLEKS                       R11 R10 K28 ["Buttons"]
-      226 CALL                             R7 3 -1
-      227 RETURN                           R7 -1
+       29 GETTABLEKS                       R10 R2 K25 ["MainBackground"]
+       31 SETTABLEKS                       R10 R9 K12 ["BackgroundColor3"]
+       33 GETIMPORT                        R10 K28 [UDim2.new]
+       35 LOADN                            R11 1
+       36 LOADN                            R12 0
+       37 LOADN                            R13 1
+       38 LOADN                            R14 0
+       39 CALL                             R10 4 1
+       40 SETTABLEKS                       R10 R9 K13 ["Size"]
+       42 DUPTABLE                         R10 K31 [{"Message", "Buttons"}]
+       43 GETUPVAL                         R11 0
+       44 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       46 GETUPVAL                         R12 2
+       47 DUPTABLE                         R13 K38 [{["TextXAlignment"], ["BackgroundTransparency"] = 1, ["Text"], ["Size"], ["AutomaticSize"], ["TextWrapped"] = True, ["TextColor3"], ["LayoutOrder"] = 1}]
+       48 GETIMPORT                        R14 K40 [Enum.TextXAlignment.Left]
+       50 SETTABLEKS                       R14 R13 K32 ["TextXAlignment"]
+       52 SETTABLEKS                       R6 R13 K5 ["Text"]
+       54 GETIMPORT                        R14 K28 [UDim2.new]
+       56 LOADN                            R15 0
+       57 LOADN                            R16 400
+       58 LOADN                            R17 0
+       59 LOADN                            R18 0
+       60 CALL                             R14 4 1
+       61 SETTABLEKS                       R14 R13 K13 ["Size"]
+       63 GETIMPORT                        R14 K19 [Enum.AutomaticSize.Y]
+       65 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
+       67 GETTABLEKS                       R14 R2 K41 ["WarningText"]
+       69 SETTABLEKS                       R14 R13 K36 ["TextColor3"]
+       71 CALL                             R11 2 1
+       72 SETTABLEKS                       R11 R10 K29 ["Message"]
+       74 GETUPVAL                         R11 0
+       75 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       77 GETUPVAL                         R12 1
+       78 DUPTABLE                         R13 K44 [{["AutomaticSize"], ["Layout"], ["HorizontalAlignment"], ["BackgroundTransparency"] = 0, ["BackgroundColor3"], ["Size"], ["Spacing"] = 40, ["LayoutOrder"] = 2}]
+       79 GETIMPORT                        R14 K19 [Enum.AutomaticSize.Y]
+       81 SETTABLEKS                       R14 R13 K7 ["AutomaticSize"]
+       83 GETIMPORT                        R14 K46 [Enum.FillDirection.Horizontal]
+       85 SETTABLEKS                       R14 R13 K8 ["Layout"]
+       87 GETIMPORT                        R14 K24 [Enum.HorizontalAlignment.Center]
+       89 SETTABLEKS                       R14 R13 K9 ["HorizontalAlignment"]
+       91 GETTABLEKS                       R14 R2 K25 ["MainBackground"]
+       93 SETTABLEKS                       R14 R13 K12 ["BackgroundColor3"]
+       95 GETIMPORT                        R14 K28 [UDim2.new]
+       97 LOADN                            R15 1
+       98 LOADN                            R16 0
+       99 LOADN                            R17 0
+      100 LOADN                            R18 0
+      101 CALL                             R14 4 1
+      102 SETTABLEKS                       R14 R13 K13 ["Size"]
+      104 DUPTABLE                         R14 K49 [{"Confirm", "Cancel"}]
+      105 GETUPVAL                         R15 0
+      106 GETTABLEKS                       R15 R15 K6 ["createElement"]
+      108 GETUPVAL                         R16 3
+      109 DUPTABLE                         R17 K53 [{["LayoutOrder"] = 1, ["OnClick"], ["Size"], ["Style"] = "PrimeTextButton", ["Text"]}]
+      110 SETTABLEKS                       R5 R17 K50 ["OnClick"]
+      112 GETIMPORT                        R18 K28 [UDim2.new]
+      114 LOADN                            R19 0
+      115 GETTABLEKS                       R20 R2 K54 ["ButtonWidth"]
+      117 LOADN                            R21 0
+      118 GETTABLEKS                       R22 R2 K55 ["ButtonHeight"]
+      120 CALL                             R18 4 1
+      121 SETTABLEKS                       R18 R17 K13 ["Size"]
+      123 LOADK                            R20 K56 ["UploadDialogContent"]
+      124 LOADK                            R21 K57 ["ConfirmButton"]
+      125 NAMECALL                         R18 R3 K58 ["getText"]
+      127 CALL                             R18 3 1
+      128 SETTABLEKS                       R18 R17 K5 ["Text"]
+      130 NEWTABLE                         R18 0 1
+      132 GETUPVAL                         R19 0
+      133 GETTABLEKS                       R19 R19 K6 ["createElement"]
+      135 GETUPVAL                         R20 4
+      136 DUPTABLE                         R21 K61 [{["Cursor"] = "PointingHand"}]
+      137 CALL                             R19 2 -1
+      138 SETLIST                          R18 R19 -1 [1]
+      140 CALL                             R15 3 1
+      141 SETTABLEKS                       R15 R14 K47 ["Confirm"]
+      143 GETUPVAL                         R15 0
+      144 GETTABLEKS                       R15 R15 K6 ["createElement"]
+      146 GETUPVAL                         R16 3
+      147 DUPTABLE                         R17 K63 [{["LayoutOrder"] = 2, ["OnClick"], ["Size"], ["Style"] = "TextButton", ["Text"]}]
+      148 SETTABLEKS                       R4 R17 K50 ["OnClick"]
+      150 GETIMPORT                        R18 K28 [UDim2.new]
+      152 LOADN                            R19 0
+      153 GETTABLEKS                       R20 R2 K54 ["ButtonWidth"]
+      155 LOADN                            R21 0
+      156 GETTABLEKS                       R22 R2 K55 ["ButtonHeight"]
+      158 CALL                             R18 4 1
+      159 SETTABLEKS                       R18 R17 K13 ["Size"]
+      161 LOADK                            R20 K56 ["UploadDialogContent"]
+      162 LOADK                            R21 K64 ["CancelButton"]
+      163 NAMECALL                         R18 R3 K58 ["getText"]
+      165 CALL                             R18 3 1
+      166 SETTABLEKS                       R18 R17 K5 ["Text"]
+      168 NEWTABLE                         R18 0 1
+      170 GETUPVAL                         R19 0
+      171 GETTABLEKS                       R19 R19 K6 ["createElement"]
+      173 GETUPVAL                         R20 4
+      174 DUPTABLE                         R21 K61 [{["Cursor"] = "PointingHand"}]
+      175 CALL                             R19 2 -1
+      176 SETLIST                          R18 R19 -1 [1]
+      178 CALL                             R15 3 1
+      179 SETTABLEKS                       R15 R14 K48 ["Cancel"]
+      181 CALL                             R11 3 1
+      182 SETTABLEKS                       R11 R10 K30 ["Buttons"]
+      184 CALL                             R7 3 -1
+      185 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

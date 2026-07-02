@@ -27,7 +27,7 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 JUMPIFNOTEQKS                    R1 K0 ["AudioCompressor"] ; [+11]
-        3 LOADN                            R3 196
+        3 LOADN                            R3 -60
         4 LOADN                            R4 0
         5 FASTCALL3                        MATH_CLAMP R0 R3 R4
         7 MOVE                             R2 R0
@@ -37,7 +37,7 @@ PROTO_1:
        12 JUMP                             ; [+12]
        13 GETUPVAL                         R1 0
        14 JUMPIFNOTEQKS                    R1 K4 ["AudioLimiter"] ; [+10]
-       16 LOADN                            R3 244
+       16 LOADN                            R3 -12
        17 LOADN                            R4 0
        18 FASTCALL3                        MATH_CLAMP R0 R3 R4
        20 MOVE                             R2 R0
@@ -101,7 +101,7 @@ PROTO_4:
        28 RETURN                           R0 0
 
 PROTO_5:
-        0 LOADN                            R3 226
+        0 LOADN                            R3 -30
         1 LOADN                            R4 30
         2 FASTCALL3                        MATH_CLAMP R0 R3 R4
         4 MOVE                             R2 R0

@@ -17,34 +17,24 @@ MAIN:
        25 GETTABLEKS                       R5 R0 K10 ["Src"]
        27 GETTABLEKS                       R5 R5 K11 ["Types"]
        29 CALL                             R4 1 1
-       30 DUPTABLE                         R5 K21 [{"session", "isGenerating", "lastGeneratedPromptText", "promptText", "setPromptText", "errorMessage", "popError", "generateMaterialVariants", "uploadMaterialVariant"}]
-       31 LOADNIL                          R6
-       32 SETTABLEKS                       R6 R5 K12 ["session"]
-       34 LOADB                            R6 0
-       35 SETTABLEKS                       R6 R5 K13 ["isGenerating"]
-       37 LOADK                            R6 K22 [""]
-       38 SETTABLEKS                       R6 R5 K14 ["lastGeneratedPromptText"]
-       40 LOADK                            R6 K22 [""]
-       41 SETTABLEKS                       R6 R5 K15 ["promptText"]
-       43 MOVE                             R6 R3
-       44 LOADK                            R7 K16 ["setPromptText"]
-       45 CALL                             R6 1 1
-       46 SETTABLEKS                       R6 R5 K16 ["setPromptText"]
-       48 LOADNIL                          R6
-       49 SETTABLEKS                       R6 R5 K17 ["errorMessage"]
-       51 MOVE                             R6 R3
-       52 LOADK                            R7 K18 ["popError"]
-       53 CALL                             R6 1 1
-       54 SETTABLEKS                       R6 R5 K18 ["popError"]
-       56 MOVE                             R6 R3
-       57 LOADK                            R7 K19 ["generateMaterialVariants"]
-       58 CALL                             R6 1 1
-       59 SETTABLEKS                       R6 R5 K19 ["generateMaterialVariants"]
-       61 MOVE                             R6 R3
-       62 LOADK                            R7 K20 ["uploadMaterialVariant"]
-       63 CALL                             R6 1 1
-       64 SETTABLEKS                       R6 R5 K20 ["uploadMaterialVariant"]
-       66 GETTABLEKS                       R6 R1 K23 ["createContext"]
-       68 MOVE                             R7 R5
-       69 CALL                             R6 1 1
-       70 RETURN                           R6 1
+       30 DUPTABLE                         R5 K24 [{["session"] = , ["isGenerating"] = False, ["lastGeneratedPromptText"] = "", ["promptText"] = "", ["setPromptText"], ["errorMessage"] = , ["popError"], ["generateMaterialVariants"], ["uploadMaterialVariant"]}]
+       31 MOVE                             R6 R3
+       32 LOADK                            R7 K19 ["setPromptText"]
+       33 CALL                             R6 1 1
+       34 SETTABLEKS                       R6 R5 K19 ["setPromptText"]
+       36 MOVE                             R6 R3
+       37 LOADK                            R7 K21 ["popError"]
+       38 CALL                             R6 1 1
+       39 SETTABLEKS                       R6 R5 K21 ["popError"]
+       41 MOVE                             R6 R3
+       42 LOADK                            R7 K22 ["generateMaterialVariants"]
+       43 CALL                             R6 1 1
+       44 SETTABLEKS                       R6 R5 K22 ["generateMaterialVariants"]
+       46 MOVE                             R6 R3
+       47 LOADK                            R7 K23 ["uploadMaterialVariant"]
+       48 CALL                             R6 1 1
+       49 SETTABLEKS                       R6 R5 K23 ["uploadMaterialVariant"]
+       51 GETTABLEKS                       R6 R1 K25 ["createContext"]
+       53 MOVE                             R7 R5
+       54 CALL                             R6 1 1
+       55 RETURN                           R6 1

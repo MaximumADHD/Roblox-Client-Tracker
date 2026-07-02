@@ -86,7 +86,7 @@ PROTO_3:
        31 CALL                             R9 1 0
        32 LOADNIL                          R2
        33 JUMPIFEQKNIL                     R2 ; [+23]
-       35 LOADN                            R7 136
+       35 LOADN                            R7 5000
        36 JUMPIFNOTLT                      R4 R7 ; [+20]
        38 GETIMPORT                        R7 K2 [pcall]
        40 NEWCLOSURE                       R8 P2

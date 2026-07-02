@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -54,53 +52,49 @@ PROTO_6:
         2 RETURN                           R0 1
 
 PROTO_7:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       14 NEWCLOSURE                       R2 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       18 NEWCLOSURE                       R2 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K6 ["onWidgetEnabledChanged"]
-       22 NEWCLOSURE                       R2 P4
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R2 R0 K7 ["onDockWidgetCreated"]
-       26 GETUPVAL                         R2 0
-       27 GETTABLEKS                       R2 R2 K8 ["Localization"]
-       29 GETTABLEKS                       R2 R2 K9 ["new"]
-       31 DUPTABLE                         R3 K13 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       32 GETUPVAL                         R4 1
-       33 SETTABLEKS                       R4 R3 K10 ["stringResourceTable"]
-       35 GETUPVAL                         R4 2
-       36 SETTABLEKS                       R4 R3 K11 ["translationResourceTable"]
-       38 LOADK                            R4 K14 ["ConnectionIndicator"]
-       39 SETTABLEKS                       R4 R3 K12 ["pluginName"]
-       41 CALL                             R2 1 1
-       42 SETTABLEKS                       R2 R0 K15 ["localization"]
-       44 GETUPVAL                         R2 0
-       45 GETTABLEKS                       R2 R2 K16 ["Analytics"]
-       47 GETTABLEKS                       R2 R2 K9 ["new"]
-       49 DUPCLOSURE                       R3 K17 [PROTO_6]
-       50 NEWTABLE                         R4 0 0
-       52 CALL                             R2 2 1
-       53 SETTABLEKS                       R2 R0 K18 ["analytics"]
-       55 GETUPVAL                         R2 3
-       56 GETTABLEKS                       R2 R2 K9 ["new"]
-       58 CALL                             R2 0 1
-       59 SETTABLEKS                       R2 R0 K19 ["DEPRECATED_stylizer"]
-       61 GETUPVAL                         R2 4
-       62 GETTABLEKS                       R3 R1 K20 ["Plugin"]
-       64 CALL                             R2 1 1
-       65 SETTABLEKS                       R2 R0 K21 ["design"]
-       67 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
+       19 NEWCLOSURE                       R2 P4
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R2 R0 K8 ["onDockWidgetCreated"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K9 ["Localization"]
+       26 GETTABLEKS                       R2 R2 K10 ["new"]
+       28 DUPTABLE                         R3 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ConnectionIndicator"}]
+       29 GETUPVAL                         R4 1
+       30 SETTABLEKS                       R4 R3 K11 ["stringResourceTable"]
+       32 GETUPVAL                         R4 2
+       33 SETTABLEKS                       R4 R3 K12 ["translationResourceTable"]
+       35 CALL                             R2 1 1
+       36 SETTABLEKS                       R2 R0 K16 ["localization"]
+       38 GETUPVAL                         R2 0
+       39 GETTABLEKS                       R2 R2 K17 ["Analytics"]
+       41 GETTABLEKS                       R2 R2 K10 ["new"]
+       43 DUPCLOSURE                       R3 K18 [PROTO_6]
+       44 NEWTABLE                         R4 0 0
+       46 CALL                             R2 2 1
+       47 SETTABLEKS                       R2 R0 K19 ["analytics"]
+       49 GETUPVAL                         R2 3
+       50 GETTABLEKS                       R2 R2 K10 ["new"]
+       52 CALL                             R2 0 1
+       53 SETTABLEKS                       R2 R0 K20 ["DEPRECATED_stylizer"]
+       55 GETUPVAL                         R2 4
+       56 GETTABLEKS                       R3 R1 K21 ["Plugin"]
+       58 CALL                             R2 1 1
+       59 SETTABLEKS                       R2 R0 K22 ["design"]
+       61 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -151,8 +145,8 @@ PROTO_9:
        56 GETIMPORT                        R11 K24 [Enum.InitialDockState.Bottom]
        58 SETTABLEKS                       R11 R10 K22 ["InitialDockState"]
        60 GETIMPORT                        R11 K26 [Vector2.new]
-       62 LOADN                            R12 128
-       63 LOADN                            R13 224
+       62 LOADN                            R12 640
+       63 LOADN                            R13 480
        64 CALL                             R11 2 1
        65 SETTABLEKS                       R11 R10 K27 ["Size"]
        67 GETIMPORT                        R11 K26 [Vector2.new]
@@ -185,25 +179,23 @@ PROTO_9:
       109 GETUPVAL                         R16 3
       110 GETTABLEKS                       R16 R16 K11 ["createElement"]
       112 GETUPVAL                         R17 5
-      113 DUPTABLE                         R18 K47 [{"showContent"}]
-      114 LOADB                            R19 1
-      115 SETTABLEKS                       R19 R18 K46 ["showContent"]
-      117 CALL                             R16 2 1
-      118 SETTABLEKS                       R16 R15 K44 ["BasicExample"]
-      120 CALL                             R12 3 1
-      121 SETTABLEKS                       R12 R11 K38 ["Wrapper"]
-      123 GETUPVAL                         R12 3
-      124 GETTABLEKS                       R12 R12 K11 ["createElement"]
-      126 LOADK                            R13 K39 ["StyleLink"]
-      127 DUPTABLE                         R14 K49 [{"StyleSheet"}]
-      128 GETTABLEKS                       R15 R0 K50 ["design"]
-      130 SETTABLEKS                       R15 R14 K48 ["StyleSheet"]
-      132 CALL                             R12 2 1
-      133 SETTABLEKS                       R12 R11 K39 ["StyleLink"]
-      135 CALL                             R8 3 1
-      136 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
-      138 CALL                             R5 2 -1
-      139 RETURN                           R5 -1
+      113 DUPTABLE                         R18 K48 [{["showContent"] = True}]
+      114 CALL                             R16 2 1
+      115 SETTABLEKS                       R16 R15 K44 ["BasicExample"]
+      117 CALL                             R12 3 1
+      118 SETTABLEKS                       R12 R11 K38 ["Wrapper"]
+      120 GETUPVAL                         R12 3
+      121 GETTABLEKS                       R12 R12 K11 ["createElement"]
+      123 LOADK                            R13 K39 ["StyleLink"]
+      124 DUPTABLE                         R14 K50 [{"StyleSheet"}]
+      125 GETTABLEKS                       R15 R0 K51 ["design"]
+      127 SETTABLEKS                       R15 R14 K49 ["StyleSheet"]
+      129 CALL                             R12 2 1
+      130 SETTABLEKS                       R12 R11 K39 ["StyleLink"]
+      132 CALL                             R8 3 1
+      133 SETTABLEKS                       R8 R7 K9 ["MainWidget"]
+      135 CALL                             R5 2 -1
+      136 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

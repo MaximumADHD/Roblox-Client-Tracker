@@ -8,26 +8,20 @@ PROTO_0:
         9 GETUPVAL                         R8 0
        10 GETTABLEKS                       R8 R8 K2 ["createElement"]
        12 LOADK                            R9 K3 ["Highlight"]
-       13 DUPTABLE                         R10 K8 [{"Adornee", "FillTransparency", "OutlineTransparency", "DepthMode"}]
+       13 DUPTABLE                         R10 K10 [{["Adornee"], ["FillTransparency"] = 0.5, ["OutlineTransparency"] = 0, ["DepthMode"]}]
        14 SETTABLEKS                       R6 R10 K4 ["Adornee"]
-       16 LOADK                            R11 K9 [0.5]
-       17 SETTABLEKS                       R11 R10 K5 ["FillTransparency"]
-       19 LOADN                            R11 0
-       20 SETTABLEKS                       R11 R10 K6 ["OutlineTransparency"]
-       22 GETIMPORT                        R11 K13 [Enum.HighlightDepthMode.AlwaysOnTop]
-       24 SETTABLEKS                       R11 R10 K7 ["DepthMode"]
-       26 CALL                             R8 2 1
-       27 SETTABLE                         R8 R1 R7
-       28 FORGLOOP                         R2 2 ; [-22]
-       30 GETUPVAL                         R2 0
-       31 GETTABLEKS                       R2 R2 K2 ["createElement"]
-       33 LOADK                            R3 K14 ["Folder"]
-       34 DUPTABLE                         R4 K16 [{"Archivable"}]
-       35 LOADB                            R5 0
-       36 SETTABLEKS                       R5 R4 K15 ["Archivable"]
-       38 MOVE                             R5 R1
-       39 CALL                             R2 3 -1
-       40 RETURN                           R2 -1
+       16 GETIMPORT                        R11 K14 [Enum.HighlightDepthMode.AlwaysOnTop]
+       18 SETTABLEKS                       R11 R10 K9 ["DepthMode"]
+       20 CALL                             R8 2 1
+       21 SETTABLE                         R8 R1 R7
+       22 FORGLOOP                         R2 2 ; [-16]
+       24 GETUPVAL                         R2 0
+       25 GETTABLEKS                       R2 R2 K2 ["createElement"]
+       27 LOADK                            R3 K15 ["Folder"]
+       28 DUPTABLE                         R4 K18 [{["Archivable"] = False}]
+       29 MOVE                             R5 R1
+       30 CALL                             R2 3 -1
+       31 RETURN                           R2 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -80,12 +74,10 @@ PROTO_1:
        69 GETUPVAL                         R4 1
        70 GETTABLEKS                       R4 R4 K5 ["createElement"]
        72 LOADK                            R5 K6 ["Folder"]
-       73 DUPTABLE                         R6 K22 [{"Archivable"}]
-       74 LOADB                            R7 0
-       75 SETTABLEKS                       R7 R6 K21 ["Archivable"]
-       77 MOVE                             R7 R2
-       78 CALL                             R4 3 -1
-       79 RETURN                           R4 -1
+       73 DUPTABLE                         R6 K23 [{["Archivable"] = False}]
+       74 MOVE                             R7 R2
+       75 CALL                             R4 3 -1
+       76 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

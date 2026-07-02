@@ -76,23 +76,19 @@ MAIN:
        39 GETTABLEKS                       R6 R4 K13 ["Http"]
        41 GETTABLEKS                       R6 R6 K12 ["Networking"]
        43 GETTABLEKS                       R7 R6 K18 ["new"]
-       45 DUPTABLE                         R8 K21 [{"isInternal", "retryAmount"}]
-       46 LOADB                            R9 1
-       47 SETTABLEKS                       R9 R8 K19 ["isInternal"]
-       49 LOADN                            R9 3
-       50 SETTABLEKS                       R9 R8 K20 ["retryAmount"]
-       52 CALL                             R7 1 1
-       53 GETIMPORT                        R8 K1 [game]
-       55 LOADK                            R10 K22 ["ContentProvider"]
-       56 NAMECALL                         R8 R8 K3 ["GetService"]
-       58 CALL                             R8 2 1
-       59 GETTABLEKS                       R9 R8 K23 ["BaseUrl"]
-       61 GETTABLEKS                       R10 R3 K24 ["parseBaseUrlInformation"]
-       63 MOVE                             R11 R9
-       64 CALL                             R10 1 3
-       65 DUPCLOSURE                       R13 K25 [PROTO_2]
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          VAL R7
-       69 CAPTURE                          VAL R0
-       70 RETURN                           R13 1
+       45 DUPTABLE                         R8 K23 [{["isInternal"] = True, ["retryAmount"] = 3}]
+       46 CALL                             R7 1 1
+       47 GETIMPORT                        R8 K1 [game]
+       49 LOADK                            R10 K24 ["ContentProvider"]
+       50 NAMECALL                         R8 R8 K3 ["GetService"]
+       52 CALL                             R8 2 1
+       53 GETTABLEKS                       R9 R8 K25 ["BaseUrl"]
+       55 GETTABLEKS                       R10 R3 K26 ["parseBaseUrlInformation"]
+       57 MOVE                             R11 R9
+       58 CALL                             R10 1 3
+       59 DUPCLOSURE                       R13 K27 [PROTO_2]
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R0
+       64 RETURN                           R13 1

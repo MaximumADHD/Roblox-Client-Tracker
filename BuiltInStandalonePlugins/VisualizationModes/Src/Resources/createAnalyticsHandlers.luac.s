@@ -123,27 +123,21 @@ MAIN:
        37 GETTABLEKS                       R6 R6 K15 ["Flags"]
        39 GETTABLEKS                       R6 R6 K16 ["getFFlagStudioSendVisualizationModeCounter"]
        41 CALL                             R5 1 1
-       42 DUPTABLE                         R6 K22 [{"eventName", "lastUpdated", "description", "links", "backends"}]
-       43 LOADK                            R7 K23 ["SBT_VisModeEnabled"]
-       44 SETTABLEKS                       R7 R6 K17 ["eventName"]
-       46 NEWTABLE                         R7 0 3
-       48 LOADN                            R8 232
-       49 LOADN                            R9 11
-       50 LOADN                            R10 13
-       51 SETLIST                          R7 R8 3 [1]
-       53 SETTABLEKS                       R7 R6 K18 ["lastUpdated"]
-       55 LOADK                            R7 K24 ["Visualization mode enabled from the plugin."]
-       56 SETTABLEKS                       R7 R6 K19 ["description"]
-       58 LOADK                            R7 K25 ["https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d"]
-       59 SETTABLEKS                       R7 R6 K20 ["links"]
-       61 NEWTABLE                         R7 0 1
-       63 LOADK                            R8 K26 ["RobloxTelemetryCounter"]
-       64 SETLIST                          R7 R8 1 [1]
-       66 SETTABLEKS                       R7 R6 K21 ["backends"]
-       68 DUPCLOSURE                       R7 K27 [PROTO_4]
-       69 CAPTURE                          VAL R3
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R2
-       73 CAPTURE                          VAL R6
-       74 RETURN                           R7 1
+       42 DUPTABLE                         R6 K25 [{["eventName"] = "SBT_VisModeEnabled", ["lastUpdated"], ["description"] = "Visualization mode enabled from the plugin.", ["links"] = "https://grafana.rbx.com/d/ae0dljzicfs3kb?from=now-10d", ["backends"]}]
+       43 NEWTABLE                         R7 0 3
+       45 LOADN                            R8 2024
+       46 LOADN                            R9 11
+       47 LOADN                            R10 13
+       48 SETLIST                          R7 R8 3 [1]
+       50 SETTABLEKS                       R7 R6 K19 ["lastUpdated"]
+       52 NEWTABLE                         R7 0 1
+       54 LOADK                            R8 K26 ["RobloxTelemetryCounter"]
+       55 SETLIST                          R7 R8 1 [1]
+       57 SETTABLEKS                       R7 R6 K24 ["backends"]
+       59 DUPCLOSURE                       R7 K27 [PROTO_4]
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R1
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R2
+       64 CAPTURE                          VAL R6
+       65 RETURN                           R7 1

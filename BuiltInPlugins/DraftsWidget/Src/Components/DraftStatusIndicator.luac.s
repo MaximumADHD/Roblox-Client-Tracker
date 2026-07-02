@@ -6,41 +6,37 @@ PROTO_0:
         8 GETUPVAL                         R3 0
         9 GETTABLEKS                       R3 R3 K3 ["createElement"]
        11 LOADK                            R4 K4 ["ImageLabel"]
-       12 DUPTABLE                         R5 K10 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Image"}]
-       13 LOADN                            R6 1
-       14 SETTABLEKS                       R6 R5 K5 ["BackgroundTransparency"]
-       16 GETIMPORT                        R6 K13 [UDim2.fromOffset]
-       18 LOADN                            R7 16
-       19 LOADN                            R8 16
-       20 CALL                             R6 2 1
-       21 SETTABLEKS                       R6 R5 K6 ["Size"]
-       23 GETIMPORT                        R6 K15 [UDim2.new]
-       25 LOADK                            R7 K16 [0.5]
-       26 LOADN                            R8 0
-       27 LOADK                            R9 K16 [0.5]
-       28 LOADN                            R10 0
-       29 CALL                             R6 4 1
-       30 SETTABLEKS                       R6 R5 K7 ["Position"]
-       32 GETIMPORT                        R6 K18 [Vector2.new]
-       34 LOADK                            R7 K16 [0.5]
-       35 LOADK                            R8 K16 [0.5]
-       36 CALL                             R6 2 1
-       37 SETTABLEKS                       R6 R5 K8 ["AnchorPoint"]
-       39 SETTABLEKS                       R2 R5 K9 ["Image"]
-       41 DUPTABLE                         R6 K19 [{"Tooltip"}]
-       42 MOVE                             R7 R1
-       43 JUMPIFNOT                        R7 ; [+11]
-       44 GETUPVAL                         R7 0
-       45 GETTABLEKS                       R7 R7 K3 ["createElement"]
-       47 GETUPVAL                         R8 1
-       48 DUPTABLE                         R9 K22 [{"Text", "Enabled"}]
-       49 SETTABLEKS                       R1 R9 K20 ["Text"]
-       51 LOADB                            R10 1
-       52 SETTABLEKS                       R10 R9 K21 ["Enabled"]
-       54 CALL                             R7 2 1
-       55 SETTABLEKS                       R7 R6 K1 ["Tooltip"]
-       57 CALL                             R3 3 -1
-       58 RETURN                           R3 -1
+       12 DUPTABLE                         R5 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["Image"]}]
+       13 GETIMPORT                        R6 K14 [UDim2.fromOffset]
+       15 LOADN                            R7 16
+       16 LOADN                            R8 16
+       17 CALL                             R6 2 1
+       18 SETTABLEKS                       R6 R5 K7 ["Size"]
+       20 GETIMPORT                        R6 K16 [UDim2.new]
+       22 LOADK                            R7 K17 [0.5]
+       23 LOADN                            R8 0
+       24 LOADK                            R9 K17 [0.5]
+       25 LOADN                            R10 0
+       26 CALL                             R6 4 1
+       27 SETTABLEKS                       R6 R5 K8 ["Position"]
+       29 GETIMPORT                        R6 K19 [Vector2.new]
+       31 LOADK                            R7 K17 [0.5]
+       32 LOADK                            R8 K17 [0.5]
+       33 CALL                             R6 2 1
+       34 SETTABLEKS                       R6 R5 K9 ["AnchorPoint"]
+       36 SETTABLEKS                       R2 R5 K10 ["Image"]
+       38 DUPTABLE                         R6 K20 [{"Tooltip"}]
+       39 MOVE                             R7 R1
+       40 JUMPIFNOT                        R7 ; [+8]
+       41 GETUPVAL                         R7 0
+       42 GETTABLEKS                       R7 R7 K3 ["createElement"]
+       44 GETUPVAL                         R8 1
+       45 DUPTABLE                         R9 K24 [{["Text"], ["Enabled"] = True}]
+       46 SETTABLEKS                       R1 R9 K21 ["Text"]
+       48 CALL                             R7 2 1
+       49 SETTABLEKS                       R7 R6 K1 ["Tooltip"]
+       51 CALL                             R3 3 -1
+       52 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

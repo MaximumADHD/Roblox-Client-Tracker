@@ -38,7 +38,7 @@ PROTO_0:
        50 GETUPVAL                         R5 0
        51 GETTABLEKS                       R5 R5 K0 ["createElement"]
        53 GETUPVAL                         R6 3
-       54 DUPTABLE                         R7 K19 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
+       54 DUPTABLE                         R7 K20 [{["Uri"], ["AnchorPoint"], ["Enabled"], ["OnClick"], ["LayoutOrder"] = 1, ["Position"], ["Selected"]}]
        55 GETTABLEKS                       R8 R0 K5 ["Uri"]
        57 SETTABLEKS                       R8 R7 K5 ["Uri"]
        59 GETTABLEKS                       R8 R0 K15 ["AnchorPoint"]
@@ -47,16 +47,14 @@ PROTO_0:
        65 SETTABLEKS                       R8 R7 K7 ["Enabled"]
        67 GETTABLEKS                       R8 R0 K16 ["OnClick"]
        69 SETTABLEKS                       R8 R7 K16 ["OnClick"]
-       71 LOADN                            R8 1
-       72 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       74 GETTABLEKS                       R8 R0 K17 ["Position"]
-       76 SETTABLEKS                       R8 R7 K17 ["Position"]
-       78 GETTABLEKS                       R8 R0 K18 ["Selected"]
-       80 SETTABLEKS                       R8 R7 K18 ["Selected"]
-       82 CALL                             R5 2 1
-       83 SETTABLEKS                       R5 R4 K10 ["Toggle"]
-       85 CALL                             R1 3 -1
-       86 RETURN                           R1 -1
+       71 GETTABLEKS                       R8 R0 K18 ["Position"]
+       73 SETTABLEKS                       R8 R7 K18 ["Position"]
+       75 GETTABLEKS                       R8 R0 K19 ["Selected"]
+       77 SETTABLEKS                       R8 R7 K19 ["Selected"]
+       79 CALL                             R5 2 1
+       80 SETTABLEKS                       R5 R4 K10 ["Toggle"]
+       82 CALL                             R1 3 -1
+       83 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

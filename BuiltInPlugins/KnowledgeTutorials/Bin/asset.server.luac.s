@@ -59,50 +59,46 @@ MAIN:
        77 GETTABLEKS                       R7 R7 K25 ["Resources"]
        79 GETTABLEKS                       R7 R7 K26 ["Localization"]
        81 GETTABLEKS                       R7 R7 K28 ["LocalizedStrings"]
-       83 DUPTABLE                         R8 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar"}]
+       83 DUPTABLE                         R8 K34 [{["plugin"], ["pluginName"] = "KnowledgeTutorials", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True}]
        84 GETIMPORT                        R9 K5 [plugin]
        86 SETTABLEKS                       R9 R8 K4 ["plugin"]
-       88 LOADK                            R9 K2 ["KnowledgeTutorials"]
-       89 SETTABLEKS                       R9 R8 K29 ["pluginName"]
-       91 SETTABLEKS                       R7 R8 K30 ["translationResourceTable"]
-       93 SETTABLEKS                       R6 R8 K31 ["fallbackResourceTable"]
-       95 LOADB                            R9 1
-       96 SETTABLEKS                       R9 R8 K32 ["noToolbar"]
-       98 GETTABLEKS                       R9 R5 K34 ["build"]
-      100 MOVE                             R10 R8
-      101 CALL                             R9 1 1
-      102 GETIMPORT                        R10 K8 [require]
-      104 GETTABLEKS                       R11 R0 K9 ["Packages"]
-      106 GETTABLEKS                       R11 R11 K35 ["React"]
-      108 CALL                             R10 1 1
-      109 GETIMPORT                        R11 K8 [require]
-      111 GETTABLEKS                       R12 R0 K9 ["Packages"]
-      113 GETTABLEKS                       R12 R12 K36 ["ReactRoblox"]
-      115 CALL                             R11 1 1
-      116 GETIMPORT                        R12 K8 [require]
-      118 GETTABLEKS                       R13 R0 K12 ["Src"]
-      120 GETTABLEKS                       R13 R13 K37 ["MainPlugin"]
-      122 CALL                             R12 1 1
-      123 GETTABLEKS                       R13 R10 K38 ["createElement"]
-      125 MOVE                             R14 R12
-      126 DUPTABLE                         R15 K41 [{"Plugin", "PluginLoaderContext"}]
-      127 GETIMPORT                        R16 K5 [plugin]
-      129 SETTABLEKS                       R16 R15 K39 ["Plugin"]
-      131 SETTABLEKS                       R9 R15 K40 ["PluginLoaderContext"]
-      133 CALL                             R13 2 1
-      134 GETIMPORT                        R14 K44 [Instance.new]
-      136 LOADK                            R15 K45 ["Frame"]
-      137 CALL                             R14 1 1
-      138 GETTABLEKS                       R15 R11 K46 ["createRoot"]
-      140 MOVE                             R16 R14
-      141 CALL                             R15 1 1
-      142 MOVE                             R18 R13
-      143 NAMECALL                         R16 R15 K47 ["render"]
-      145 CALL                             R16 2 0
-      146 GETIMPORT                        R16 K5 [plugin]
-      148 GETTABLEKS                       R16 R16 K48 ["Unloading"]
-      150 DUPCLOSURE                       R18 K49 [PROTO_0]
-      151 CAPTURE                          VAL R15
-      152 NAMECALL                         R16 R16 K50 ["Connect"]
-      154 CALL                             R16 2 0
-      155 RETURN                           R0 0
+       88 SETTABLEKS                       R7 R8 K30 ["translationResourceTable"]
+       90 SETTABLEKS                       R6 R8 K31 ["fallbackResourceTable"]
+       92 GETTABLEKS                       R9 R5 K35 ["build"]
+       94 MOVE                             R10 R8
+       95 CALL                             R9 1 1
+       96 GETIMPORT                        R10 K8 [require]
+       98 GETTABLEKS                       R11 R0 K9 ["Packages"]
+      100 GETTABLEKS                       R11 R11 K36 ["React"]
+      102 CALL                             R10 1 1
+      103 GETIMPORT                        R11 K8 [require]
+      105 GETTABLEKS                       R12 R0 K9 ["Packages"]
+      107 GETTABLEKS                       R12 R12 K37 ["ReactRoblox"]
+      109 CALL                             R11 1 1
+      110 GETIMPORT                        R12 K8 [require]
+      112 GETTABLEKS                       R13 R0 K12 ["Src"]
+      114 GETTABLEKS                       R13 R13 K38 ["MainPlugin"]
+      116 CALL                             R12 1 1
+      117 GETTABLEKS                       R13 R10 K39 ["createElement"]
+      119 MOVE                             R14 R12
+      120 DUPTABLE                         R15 K42 [{"Plugin", "PluginLoaderContext"}]
+      121 GETIMPORT                        R16 K5 [plugin]
+      123 SETTABLEKS                       R16 R15 K40 ["Plugin"]
+      125 SETTABLEKS                       R9 R15 K41 ["PluginLoaderContext"]
+      127 CALL                             R13 2 1
+      128 GETIMPORT                        R14 K45 [Instance.new]
+      130 LOADK                            R15 K46 ["Frame"]
+      131 CALL                             R14 1 1
+      132 GETTABLEKS                       R15 R11 K47 ["createRoot"]
+      134 MOVE                             R16 R14
+      135 CALL                             R15 1 1
+      136 MOVE                             R18 R13
+      137 NAMECALL                         R16 R15 K48 ["render"]
+      139 CALL                             R16 2 0
+      140 GETIMPORT                        R16 K5 [plugin]
+      142 GETTABLEKS                       R16 R16 K49 ["Unloading"]
+      144 DUPCLOSURE                       R18 K50 [PROTO_0]
+      145 CAPTURE                          VAL R15
+      146 NAMECALL                         R16 R16 K51 ["Connect"]
+      148 CALL                             R16 2 0
+      149 RETURN                           R0 0

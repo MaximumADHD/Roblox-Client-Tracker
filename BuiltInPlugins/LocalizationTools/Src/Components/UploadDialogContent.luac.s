@@ -149,487 +149,431 @@ PROTO_4:
        74 GETUPVAL                         R18 0
        75 GETTABLEKS                       R18 R18 K22 ["createElement"]
        77 LOADK                            R19 K23 ["Frame"]
-       78 DUPTABLE                         R20 K27 [{"BackgroundTransparency", "BackgroundColor3", "Size"}]
-       79 LOADN                            R21 0
-       80 SETTABLEKS                       R21 R20 K24 ["BackgroundTransparency"]
-       82 GETTABLEKS                       R21 R2 K28 ["MainBackground"]
-       84 SETTABLEKS                       R21 R20 K25 ["BackgroundColor3"]
-       86 GETIMPORT                        R21 K31 [UDim2.new]
-       88 LOADN                            R22 1
-       89 LOADN                            R23 0
-       90 LOADN                            R24 1
-       91 LOADN                            R25 0
-       92 CALL                             R21 4 1
-       93 SETTABLEKS                       R21 R20 K26 ["Size"]
-       95 DUPTABLE                         R21 K36 [{"Padding", "Layout", "InfoFrame", "ButtonFrame"}]
-       96 GETUPVAL                         R22 0
-       97 GETTABLEKS                       R22 R22 K22 ["createElement"]
-       99 LOADK                            R23 K37 ["UIPadding"]
-      100 DUPTABLE                         R24 K41 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
-      101 GETIMPORT                        R25 K43 [UDim.new]
-      103 LOADN                            R26 0
-      104 GETTABLEKS                       R27 R2 K32 ["Padding"]
-      106 CALL                             R25 2 1
-      107 SETTABLEKS                       R25 R24 K38 ["PaddingLeft"]
-      109 GETIMPORT                        R25 K43 [UDim.new]
-      111 LOADN                            R26 0
-      112 GETTABLEKS                       R27 R2 K32 ["Padding"]
-      114 CALL                             R25 2 1
-      115 SETTABLEKS                       R25 R24 K39 ["PaddingRight"]
-      117 GETIMPORT                        R25 K43 [UDim.new]
-      119 LOADN                            R26 0
-      120 GETTABLEKS                       R27 R2 K32 ["Padding"]
-      122 CALL                             R25 2 1
-      123 SETTABLEKS                       R25 R24 K40 ["PaddingTop"]
-      125 CALL                             R22 2 1
-      126 SETTABLEKS                       R22 R21 K32 ["Padding"]
-      128 GETUPVAL                         R22 0
-      129 GETTABLEKS                       R22 R22 K22 ["createElement"]
-      131 LOADK                            R23 K44 ["UIListLayout"]
-      132 DUPTABLE                         R24 K46 [{"SortOrder"}]
-      133 GETIMPORT                        R25 K49 [Enum.SortOrder.LayoutOrder]
-      135 SETTABLEKS                       R25 R24 K45 ["SortOrder"]
-      137 CALL                             R22 2 1
-      138 SETTABLEKS                       R22 R21 K33 ["Layout"]
-      140 GETUPVAL                         R22 0
-      141 GETTABLEKS                       R22 R22 K22 ["createElement"]
-      143 LOADK                            R23 K23 ["Frame"]
-      144 DUPTABLE                         R24 K50 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      145 LOADN                            R25 1
-      146 SETTABLEKS                       R25 R24 K24 ["BackgroundTransparency"]
-      148 LOADN                            R25 1
-      149 SETTABLEKS                       R25 R24 K48 ["LayoutOrder"]
-      151 GETIMPORT                        R25 K31 [UDim2.new]
-      153 LOADN                            R26 1
-      154 LOADN                            R27 0
-      155 LOADN                            R28 0
-      156 GETTABLEKS                       R29 R2 K51 ["PatchInfoFrameHeight"]
-      158 CALL                             R25 4 1
-      159 SETTABLEKS                       R25 R24 K26 ["Size"]
-      161 DUPTABLE                         R25 K57 [{"Layout", "TableContentTitle", "TableContentFrame", "ThisPatchWillTitle", "ThisPatchWillFrame", "Message"}]
-      162 GETUPVAL                         R26 0
-      163 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      165 LOADK                            R27 K44 ["UIListLayout"]
-      166 DUPTABLE                         R28 K46 [{"SortOrder"}]
-      167 GETIMPORT                        R29 K49 [Enum.SortOrder.LayoutOrder]
-      169 SETTABLEKS                       R29 R28 K45 ["SortOrder"]
-      171 CALL                             R26 2 1
-      172 SETTABLEKS                       R26 R25 K33 ["Layout"]
-      174 GETUPVAL                         R26 0
-      175 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      177 GETUPVAL                         R27 1
-      178 DUPTABLE                         R28 K60 [{"Color", "LayoutOrder", "Text"}]
-      179 GETTABLEKS                       R29 R2 K61 ["BrightText"]
-      181 SETTABLEKS                       R29 R28 K58 ["Color"]
-      183 LOADN                            R29 1
-      184 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      186 LOADK                            R31 K18 ["UploadDialogContent"]
-      187 LOADK                            R32 K62 ["PatchContainsLabel"]
-      188 NAMECALL                         R29 R3 K20 ["getText"]
-      190 CALL                             R29 3 1
-      191 SETTABLEKS                       R29 R28 K59 ["Text"]
-      193 CALL                             R26 2 1
-      194 SETTABLEKS                       R26 R25 K52 ["TableContentTitle"]
-      196 GETUPVAL                         R26 0
-      197 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      199 LOADK                            R27 K23 ["Frame"]
-      200 DUPTABLE                         R28 K50 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      201 LOADN                            R29 1
-      202 SETTABLEKS                       R29 R28 K24 ["BackgroundTransparency"]
-      204 LOADN                            R29 2
-      205 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      207 GETIMPORT                        R29 K31 [UDim2.new]
-      209 LOADN                            R30 1
-      210 LOADN                            R31 0
-      211 LOADN                            R32 0
-      212 GETTABLEKS                       R33 R2 K63 ["TableContentsFrameHeight"]
-      214 CALL                             R29 4 1
-      215 SETTABLEKS                       R29 R28 K26 ["Size"]
-      217 DUPTABLE                         R29 K68 [{"Layout", "Padding", "TotalRowsLine", "TranslationsLine", "SupportedLocales", "UnsupportedLocales"}]
-      218 GETUPVAL                         R30 0
-      219 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      221 LOADK                            R31 K44 ["UIListLayout"]
-      222 DUPTABLE                         R32 K46 [{"SortOrder"}]
-      223 GETIMPORT                        R33 K49 [Enum.SortOrder.LayoutOrder]
-      225 SETTABLEKS                       R33 R32 K45 ["SortOrder"]
-      227 CALL                             R30 2 1
-      228 SETTABLEKS                       R30 R29 K33 ["Layout"]
-      230 GETUPVAL                         R30 0
-      231 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      233 LOADK                            R31 K37 ["UIPadding"]
-      234 DUPTABLE                         R32 K69 [{"PaddingLeft", "PaddingTop"}]
-      235 GETIMPORT                        R33 K43 [UDim.new]
-      237 LOADN                            R34 0
-      238 GETTABLEKS                       R35 R2 K70 ["TableContentPaddingLeft"]
-      240 CALL                             R33 2 1
-      241 SETTABLEKS                       R33 R32 K38 ["PaddingLeft"]
-      243 GETIMPORT                        R33 K43 [UDim.new]
-      245 LOADN                            R34 0
-      246 GETTABLEKS                       R35 R2 K71 ["TableContentPaddingTop"]
-      248 CALL                             R33 2 1
-      249 SETTABLEKS                       R33 R32 K40 ["PaddingTop"]
-      251 CALL                             R30 2 1
-      252 SETTABLEKS                       R30 R29 K32 ["Padding"]
-      254 GETUPVAL                         R30 0
-      255 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      257 GETUPVAL                         R31 2
-      258 DUPTABLE                         R32 K76 [{"PreText", "Content", "ColorA", "ColorB", "LayoutOrder"}]
-      259 LOADK                            R35 K18 ["UploadDialogContent"]
-      260 LOADK                            R36 K77 ["PatchTotalRowsLabel"]
-      261 NAMECALL                         R33 R3 K20 ["getText"]
-      263 CALL                             R33 3 1
-      264 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      266 SETTABLEKS                       R6 R32 K73 ["Content"]
-      268 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      270 SETTABLEKS                       R33 R32 K74 ["ColorA"]
-      272 GETTABLEKS                       R33 R2 K78 ["ErrorText"]
-      274 SETTABLEKS                       R33 R32 K75 ["ColorB"]
-      276 LOADN                            R33 1
-      277 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      279 CALL                             R30 2 1
-      280 SETTABLEKS                       R30 R29 K64 ["TotalRowsLine"]
-      282 GETUPVAL                         R30 0
-      283 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      285 GETUPVAL                         R31 2
-      286 DUPTABLE                         R32 K76 [{"PreText", "Content", "ColorA", "ColorB", "LayoutOrder"}]
-      287 LOADK                            R35 K18 ["UploadDialogContent"]
-      288 LOADK                            R36 K79 ["PatchTotalTranslationsLabel"]
-      289 NAMECALL                         R33 R3 K20 ["getText"]
-      291 CALL                             R33 3 1
-      292 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      294 SETTABLEKS                       R7 R32 K73 ["Content"]
-      296 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      298 SETTABLEKS                       R33 R32 K74 ["ColorA"]
-      300 GETTABLEKS                       R33 R2 K78 ["ErrorText"]
-      302 SETTABLEKS                       R33 R32 K75 ["ColorB"]
-      304 LOADN                            R33 2
-      305 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      307 CALL                             R30 2 1
-      308 SETTABLEKS                       R30 R29 K65 ["TranslationsLine"]
-      310 GETUPVAL                         R30 0
-      311 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      313 GETUPVAL                         R31 2
-      314 DUPTABLE                         R32 K76 [{"PreText", "Content", "ColorA", "ColorB", "LayoutOrder"}]
-      315 LOADK                            R35 K18 ["UploadDialogContent"]
-      316 LOADK                            R36 K80 ["PatchLanguagesLabel"]
-      317 NAMECALL                         R33 R3 K20 ["getText"]
-      319 CALL                             R33 3 1
-      320 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      322 SETTABLEKS                       R8 R32 K73 ["Content"]
-      324 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      326 SETTABLEKS                       R33 R32 K74 ["ColorA"]
-      328 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      330 SETTABLEKS                       R33 R32 K75 ["ColorB"]
-      332 LOADN                            R33 3
-      333 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      335 CALL                             R30 2 1
-      336 SETTABLEKS                       R30 R29 K66 ["SupportedLocales"]
-      338 GETUPVAL                         R30 0
-      339 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      341 GETUPVAL                         R31 3
-      342 DUPTABLE                         R32 K82 [{"PreText", "Content", "Color", "LayoutOrder"}]
-      343 LOADK                            R35 K18 ["UploadDialogContent"]
-      344 LOADK                            R36 K83 ["PatchInvalidLanguagesLabel"]
-      345 NAMECALL                         R33 R3 K20 ["getText"]
-      347 CALL                             R33 3 1
-      348 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      350 SETTABLEKS                       R9 R32 K73 ["Content"]
-      352 GETTABLEKS                       R33 R2 K84 ["WarningText"]
-      354 SETTABLEKS                       R33 R32 K58 ["Color"]
-      356 LOADN                            R33 4
-      357 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      359 CALL                             R30 2 1
-      360 SETTABLEKS                       R30 R29 K67 ["UnsupportedLocales"]
-      362 CALL                             R26 3 1
-      363 SETTABLEKS                       R26 R25 K53 ["TableContentFrame"]
-      365 GETUPVAL                         R26 0
-      366 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      368 GETUPVAL                         R27 1
-      369 DUPTABLE                         R28 K85 [{"Text", "Color", "LayoutOrder"}]
-      370 LOADK                            R31 K18 ["UploadDialogContent"]
-      371 LOADK                            R32 K86 ["PatchWillLabel"]
-      372 NAMECALL                         R29 R3 K20 ["getText"]
-      374 CALL                             R29 3 1
-      375 SETTABLEKS                       R29 R28 K59 ["Text"]
-      377 GETTABLEKS                       R29 R2 K61 ["BrightText"]
-      379 SETTABLEKS                       R29 R28 K58 ["Color"]
-      381 LOADN                            R29 3
-      382 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      384 CALL                             R26 2 1
-      385 SETTABLEKS                       R26 R25 K54 ["ThisPatchWillTitle"]
-      387 GETUPVAL                         R26 0
-      388 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      390 LOADK                            R27 K23 ["Frame"]
-      391 DUPTABLE                         R28 K50 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      392 LOADN                            R29 1
-      393 SETTABLEKS                       R29 R28 K24 ["BackgroundTransparency"]
-      395 LOADN                            R29 4
-      396 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      398 GETIMPORT                        R29 K31 [UDim2.new]
-      400 LOADN                            R30 1
-      401 LOADN                            R31 0
-      402 LOADN                            R32 0
-      403 GETTABLEKS                       R33 R2 K87 ["ThisPatchWIllFrameHeight"]
-      405 CALL                             R29 4 1
-      406 SETTABLEKS                       R29 R28 K26 ["Size"]
-      408 DUPTABLE                         R29 K94 [{"Layout", "Padding", "AddEntriesLine", "AddTranslationsLine", "ChangeLine", "DeleteEntriesLine", "DeleteTranslationsLine", "AddLanguagesLine"}]
-      409 GETUPVAL                         R30 0
-      410 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      412 LOADK                            R31 K44 ["UIListLayout"]
-      413 DUPTABLE                         R32 K46 [{"SortOrder"}]
-      414 GETIMPORT                        R33 K49 [Enum.SortOrder.LayoutOrder]
-      416 SETTABLEKS                       R33 R32 K45 ["SortOrder"]
-      418 CALL                             R30 2 1
-      419 SETTABLEKS                       R30 R29 K33 ["Layout"]
-      421 GETUPVAL                         R30 0
-      422 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      424 LOADK                            R31 K37 ["UIPadding"]
-      425 DUPTABLE                         R32 K69 [{"PaddingLeft", "PaddingTop"}]
-      426 GETIMPORT                        R33 K43 [UDim.new]
-      428 LOADN                            R34 0
-      429 GETTABLEKS                       R35 R2 K70 ["TableContentPaddingLeft"]
-      431 CALL                             R33 2 1
-      432 SETTABLEKS                       R33 R32 K38 ["PaddingLeft"]
-      434 GETIMPORT                        R33 K43 [UDim.new]
-      436 LOADN                            R34 0
-      437 GETTABLEKS                       R35 R2 K71 ["TableContentPaddingTop"]
-      439 CALL                             R33 2 1
-      440 SETTABLEKS                       R33 R32 K40 ["PaddingTop"]
-      442 CALL                             R30 2 1
-      443 SETTABLEKS                       R30 R29 K32 ["Padding"]
-      445 GETUPVAL                         R30 0
-      446 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      448 GETUPVAL                         R31 4
-      449 DUPTABLE                         R32 K98 [{"PreText", "Count", "EnabledColor", "DisabledColor", "LayoutOrder"}]
-      450 LOADK                            R35 K18 ["UploadDialogContent"]
-      451 LOADK                            R36 K99 ["AddEntriesPreText"]
-      452 NAMECALL                         R33 R3 K20 ["getText"]
-      454 CALL                             R33 3 1
-      455 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      457 SETTABLEKS                       R10 R32 K95 ["Count"]
-      459 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      461 SETTABLEKS                       R33 R32 K96 ["EnabledColor"]
-      463 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      465 SETTABLEKS                       R33 R32 K97 ["DisabledColor"]
-      467 LOADN                            R33 1
-      468 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      470 CALL                             R30 2 1
-      471 SETTABLEKS                       R30 R29 K88 ["AddEntriesLine"]
-      473 GETUPVAL                         R30 0
-      474 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      476 GETUPVAL                         R31 4
-      477 DUPTABLE                         R32 K98 [{"PreText", "Count", "EnabledColor", "DisabledColor", "LayoutOrder"}]
-      478 LOADK                            R35 K18 ["UploadDialogContent"]
-      479 LOADK                            R36 K100 ["AddTranslationsPretext"]
-      480 NAMECALL                         R33 R3 K20 ["getText"]
-      482 CALL                             R33 3 1
-      483 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      485 SETTABLEKS                       R11 R32 K95 ["Count"]
-      487 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      489 SETTABLEKS                       R33 R32 K96 ["EnabledColor"]
-      491 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      493 SETTABLEKS                       R33 R32 K97 ["DisabledColor"]
-      495 LOADN                            R33 2
-      496 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      498 CALL                             R30 2 1
-      499 SETTABLEKS                       R30 R29 K89 ["AddTranslationsLine"]
-      501 GETUPVAL                         R30 0
-      502 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      504 GETUPVAL                         R31 4
-      505 DUPTABLE                         R32 K98 [{"PreText", "Count", "EnabledColor", "DisabledColor", "LayoutOrder"}]
-      506 LOADK                            R35 K18 ["UploadDialogContent"]
-      507 LOADK                            R36 K101 ["ChangeTranslationsPretext"]
-      508 NAMECALL                         R33 R3 K20 ["getText"]
-      510 CALL                             R33 3 1
-      511 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      513 SETTABLEKS                       R12 R32 K95 ["Count"]
-      515 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      517 SETTABLEKS                       R33 R32 K96 ["EnabledColor"]
-      519 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      521 SETTABLEKS                       R33 R32 K97 ["DisabledColor"]
-      523 LOADN                            R33 3
-      524 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      526 CALL                             R30 2 1
-      527 SETTABLEKS                       R30 R29 K90 ["ChangeLine"]
-      529 MOVE                             R30 R13
-      530 JUMPIFNOT                        R30 ; [+26]
-      531 GETUPVAL                         R30 0
-      532 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      534 GETUPVAL                         R31 4
-      535 DUPTABLE                         R32 K98 [{"PreText", "Count", "EnabledColor", "DisabledColor", "LayoutOrder"}]
-      536 LOADK                            R35 K18 ["UploadDialogContent"]
-      537 LOADK                            R36 K102 ["DeleteEntriesPretext"]
-      538 NAMECALL                         R33 R3 K20 ["getText"]
-      540 CALL                             R33 3 1
-      541 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      543 SETTABLEKS                       R14 R32 K95 ["Count"]
-      545 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      547 SETTABLEKS                       R33 R32 K96 ["EnabledColor"]
-      549 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      551 SETTABLEKS                       R33 R32 K97 ["DisabledColor"]
-      553 LOADN                            R33 4
-      554 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      556 CALL                             R30 2 1
-      557 SETTABLEKS                       R30 R29 K91 ["DeleteEntriesLine"]
-      559 MOVE                             R30 R13
-      560 JUMPIFNOT                        R30 ; [+26]
-      561 GETUPVAL                         R30 0
-      562 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      564 GETUPVAL                         R31 4
-      565 DUPTABLE                         R32 K98 [{"PreText", "Count", "EnabledColor", "DisabledColor", "LayoutOrder"}]
-      566 LOADK                            R35 K18 ["UploadDialogContent"]
-      567 LOADK                            R36 K103 ["DeleteTranslationsPretext"]
-      568 NAMECALL                         R33 R3 K20 ["getText"]
-      570 CALL                             R33 3 1
-      571 SETTABLEKS                       R33 R32 K72 ["PreText"]
-      573 SETTABLEKS                       R15 R32 K95 ["Count"]
-      575 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      577 SETTABLEKS                       R33 R32 K96 ["EnabledColor"]
-      579 GETTABLEKS                       R33 R2 K81 ["DimmedText"]
-      581 SETTABLEKS                       R33 R32 K97 ["DisabledColor"]
-      583 LOADN                            R33 5
-      584 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      586 CALL                             R30 2 1
-      587 SETTABLEKS                       R30 R29 K92 ["DeleteTranslationsLine"]
-      589 LOADB                            R30 0
-      590 JUMPIFEQKNIL                     R16 ; [+29]
-      592 LOADB                            R30 0
-      593 JUMPIFEQKS                       R16 K104 [""] ; [+26]
-      595 GETUPVAL                         R30 0
-      596 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      598 GETUPVAL                         R31 1
-      599 DUPTABLE                         R32 K85 [{"Text", "Color", "LayoutOrder"}]
-      600 GETIMPORT                        R33 K107 [string.format]
-      602 LOADK                            R34 K108 ["%s %s"]
-      603 LOADK                            R37 K18 ["UploadDialogContent"]
-      604 LOADK                            R38 K109 ["AddLanguagesPretext"]
-      605 NAMECALL                         R35 R3 K20 ["getText"]
-      607 CALL                             R35 3 1
-      608 MOVE                             R36 R16
-      609 CALL                             R33 3 1
-      610 SETTABLEKS                       R33 R32 K59 ["Text"]
-      612 GETTABLEKS                       R33 R2 K61 ["BrightText"]
-      614 SETTABLEKS                       R33 R32 K58 ["Color"]
-      616 LOADN                            R33 6
-      617 SETTABLEKS                       R33 R32 K48 ["LayoutOrder"]
-      619 CALL                             R30 2 1
-      620 SETTABLEKS                       R30 R29 K93 ["AddLanguagesLine"]
-      622 CALL                             R26 3 1
-      623 SETTABLEKS                       R26 R25 K55 ["ThisPatchWillFrame"]
-      625 GETUPVAL                         R26 0
-      626 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      628 GETUPVAL                         R27 1
-      629 DUPTABLE                         R28 K60 [{"Color", "LayoutOrder", "Text"}]
-      630 GETTABLEKS                       R29 R2 K61 ["BrightText"]
-      632 SETTABLEKS                       R29 R28 K58 ["Color"]
-      634 LOADN                            R29 5
-      635 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      637 SETTABLEKS                       R17 R28 K59 ["Text"]
-      639 CALL                             R26 2 1
-      640 SETTABLEKS                       R26 R25 K56 ["Message"]
-      642 CALL                             R22 3 1
-      643 SETTABLEKS                       R22 R21 K34 ["InfoFrame"]
-      645 GETUPVAL                         R22 0
-      646 GETTABLEKS                       R22 R22 K22 ["createElement"]
-      648 LOADK                            R23 K23 ["Frame"]
-      649 DUPTABLE                         R24 K50 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-      650 LOADN                            R25 1
-      651 SETTABLEKS                       R25 R24 K24 ["BackgroundTransparency"]
-      653 LOADN                            R25 2
-      654 SETTABLEKS                       R25 R24 K48 ["LayoutOrder"]
-      656 GETIMPORT                        R25 K31 [UDim2.new]
-      658 LOADN                            R26 1
-      659 LOADN                            R27 0
-      660 LOADN                            R28 0
-      661 GETTABLEKS                       R29 R2 K110 ["ButtonFrameHeight"]
-      663 CALL                             R25 4 1
-      664 SETTABLEKS                       R25 R24 K26 ["Size"]
-      666 DUPTABLE                         R25 K113 [{"Cancel", "Confirm"}]
-      667 GETUPVAL                         R26 0
-      668 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      670 GETUPVAL                         R27 5
-      671 DUPTABLE                         R28 K117 [{"LayoutOrder", "OnClick", "Position", "Size", "Style", "Text"}]
-      672 LOADN                            R29 1
-      673 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      675 SETTABLEKS                       R4 R28 K114 ["OnClick"]
-      677 GETIMPORT                        R29 K31 [UDim2.new]
-      679 LOADK                            R30 K118 [0.5]
-      680 GETTABLEKS                       R33 R2 K119 ["ButtonWidth"]
-      682 MINUS                            R32 R33
-      683 GETTABLEKS                       R33 R2 K32 ["Padding"]
-      685 SUB                              R31 R32 R33
-      686 LOADN                            R32 0
-      687 LOADN                            R33 0
-      688 CALL                             R29 4 1
-      689 SETTABLEKS                       R29 R28 K115 ["Position"]
-      691 GETIMPORT                        R29 K31 [UDim2.new]
-      693 LOADN                            R30 0
-      694 GETTABLEKS                       R31 R2 K119 ["ButtonWidth"]
-      696 LOADN                            R32 0
-      697 GETTABLEKS                       R33 R2 K120 ["ButtonHeight"]
-      699 CALL                             R29 4 1
-      700 SETTABLEKS                       R29 R28 K26 ["Size"]
-      702 LOADK                            R29 K121 ["TextButton"]
-      703 SETTABLEKS                       R29 R28 K116 ["Style"]
-      705 LOADK                            R31 K18 ["UploadDialogContent"]
-      706 LOADK                            R32 K122 ["CancelButton"]
-      707 NAMECALL                         R29 R3 K20 ["getText"]
-      709 CALL                             R29 3 1
-      710 SETTABLEKS                       R29 R28 K59 ["Text"]
-      712 NEWTABLE                         R29 0 1
-      714 GETUPVAL                         R30 0
-      715 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      717 GETUPVAL                         R31 6
-      718 DUPTABLE                         R32 K124 [{"Cursor"}]
-      719 LOADK                            R33 K125 ["PointingHand"]
-      720 SETTABLEKS                       R33 R32 K123 ["Cursor"]
-      722 CALL                             R30 2 -1
-      723 SETLIST                          R29 R30 -1 [1]
-      725 CALL                             R26 3 1
-      726 SETTABLEKS                       R26 R25 K111 ["Cancel"]
-      728 GETUPVAL                         R26 0
-      729 GETTABLEKS                       R26 R26 K22 ["createElement"]
-      731 GETUPVAL                         R27 5
-      732 DUPTABLE                         R28 K117 [{"LayoutOrder", "OnClick", "Position", "Size", "Style", "Text"}]
-      733 LOADN                            R29 2
-      734 SETTABLEKS                       R29 R28 K48 ["LayoutOrder"]
-      736 SETTABLEKS                       R5 R28 K114 ["OnClick"]
-      738 GETIMPORT                        R29 K31 [UDim2.new]
-      740 LOADK                            R30 K118 [0.5]
-      741 GETTABLEKS                       R31 R2 K32 ["Padding"]
-      743 LOADN                            R32 0
-      744 LOADN                            R33 0
-      745 CALL                             R29 4 1
-      746 SETTABLEKS                       R29 R28 K115 ["Position"]
-      748 GETIMPORT                        R29 K31 [UDim2.new]
-      750 LOADN                            R30 0
-      751 GETTABLEKS                       R31 R2 K119 ["ButtonWidth"]
-      753 LOADN                            R32 0
-      754 GETTABLEKS                       R33 R2 K120 ["ButtonHeight"]
-      756 CALL                             R29 4 1
-      757 SETTABLEKS                       R29 R28 K26 ["Size"]
-      759 LOADK                            R29 K126 ["PrimeTextButton"]
-      760 SETTABLEKS                       R29 R28 K116 ["Style"]
-      762 LOADK                            R31 K18 ["UploadDialogContent"]
-      763 LOADK                            R32 K127 ["ConfirmButton"]
-      764 NAMECALL                         R29 R3 K20 ["getText"]
-      766 CALL                             R29 3 1
-      767 SETTABLEKS                       R29 R28 K59 ["Text"]
-      769 NEWTABLE                         R29 0 1
-      771 GETUPVAL                         R30 0
-      772 GETTABLEKS                       R30 R30 K22 ["createElement"]
-      774 GETUPVAL                         R31 6
-      775 DUPTABLE                         R32 K124 [{"Cursor"}]
-      776 LOADK                            R33 K125 ["PointingHand"]
-      777 SETTABLEKS                       R33 R32 K123 ["Cursor"]
-      779 CALL                             R30 2 -1
-      780 SETLIST                          R29 R30 -1 [1]
-      782 CALL                             R26 3 1
-      783 SETTABLEKS                       R26 R25 K112 ["Confirm"]
-      785 CALL                             R22 3 1
-      786 SETTABLEKS                       R22 R21 K35 ["ButtonFrame"]
-      788 CALL                             R18 3 -1
-      789 RETURN                           R18 -1
+       78 DUPTABLE                         R20 K27 [{["BackgroundTransparency"] = 0, ["BackgroundColor3"], ["Size"]}]
+       79 GETTABLEKS                       R21 R2 K28 ["MainBackground"]
+       81 SETTABLEKS                       R21 R20 K25 ["BackgroundColor3"]
+       83 GETIMPORT                        R21 K31 [UDim2.new]
+       85 LOADN                            R22 1
+       86 LOADN                            R23 0
+       87 LOADN                            R24 1
+       88 LOADN                            R25 0
+       89 CALL                             R21 4 1
+       90 SETTABLEKS                       R21 R20 K26 ["Size"]
+       92 DUPTABLE                         R21 K36 [{"Padding", "Layout", "InfoFrame", "ButtonFrame"}]
+       93 GETUPVAL                         R22 0
+       94 GETTABLEKS                       R22 R22 K22 ["createElement"]
+       96 LOADK                            R23 K37 ["UIPadding"]
+       97 DUPTABLE                         R24 K41 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
+       98 GETIMPORT                        R25 K43 [UDim.new]
+      100 LOADN                            R26 0
+      101 GETTABLEKS                       R27 R2 K32 ["Padding"]
+      103 CALL                             R25 2 1
+      104 SETTABLEKS                       R25 R24 K38 ["PaddingLeft"]
+      106 GETIMPORT                        R25 K43 [UDim.new]
+      108 LOADN                            R26 0
+      109 GETTABLEKS                       R27 R2 K32 ["Padding"]
+      111 CALL                             R25 2 1
+      112 SETTABLEKS                       R25 R24 K39 ["PaddingRight"]
+      114 GETIMPORT                        R25 K43 [UDim.new]
+      116 LOADN                            R26 0
+      117 GETTABLEKS                       R27 R2 K32 ["Padding"]
+      119 CALL                             R25 2 1
+      120 SETTABLEKS                       R25 R24 K40 ["PaddingTop"]
+      122 CALL                             R22 2 1
+      123 SETTABLEKS                       R22 R21 K32 ["Padding"]
+      125 GETUPVAL                         R22 0
+      126 GETTABLEKS                       R22 R22 K22 ["createElement"]
+      128 LOADK                            R23 K44 ["UIListLayout"]
+      129 DUPTABLE                         R24 K46 [{"SortOrder"}]
+      130 GETIMPORT                        R25 K49 [Enum.SortOrder.LayoutOrder]
+      132 SETTABLEKS                       R25 R24 K45 ["SortOrder"]
+      134 CALL                             R22 2 1
+      135 SETTABLEKS                       R22 R21 K33 ["Layout"]
+      137 GETUPVAL                         R22 0
+      138 GETTABLEKS                       R22 R22 K22 ["createElement"]
+      140 LOADK                            R23 K23 ["Frame"]
+      141 DUPTABLE                         R24 K51 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"]}]
+      142 GETIMPORT                        R25 K31 [UDim2.new]
+      144 LOADN                            R26 1
+      145 LOADN                            R27 0
+      146 LOADN                            R28 0
+      147 GETTABLEKS                       R29 R2 K52 ["PatchInfoFrameHeight"]
+      149 CALL                             R25 4 1
+      150 SETTABLEKS                       R25 R24 K26 ["Size"]
+      152 DUPTABLE                         R25 K58 [{"Layout", "TableContentTitle", "TableContentFrame", "ThisPatchWillTitle", "ThisPatchWillFrame", "Message"}]
+      153 GETUPVAL                         R26 0
+      154 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      156 LOADK                            R27 K44 ["UIListLayout"]
+      157 DUPTABLE                         R28 K46 [{"SortOrder"}]
+      158 GETIMPORT                        R29 K49 [Enum.SortOrder.LayoutOrder]
+      160 SETTABLEKS                       R29 R28 K45 ["SortOrder"]
+      162 CALL                             R26 2 1
+      163 SETTABLEKS                       R26 R25 K33 ["Layout"]
+      165 GETUPVAL                         R26 0
+      166 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      168 GETUPVAL                         R27 1
+      169 DUPTABLE                         R28 K61 [{["Color"], ["LayoutOrder"] = 1, ["Text"]}]
+      170 GETTABLEKS                       R29 R2 K62 ["BrightText"]
+      172 SETTABLEKS                       R29 R28 K59 ["Color"]
+      174 LOADK                            R31 K18 ["UploadDialogContent"]
+      175 LOADK                            R32 K63 ["PatchContainsLabel"]
+      176 NAMECALL                         R29 R3 K20 ["getText"]
+      178 CALL                             R29 3 1
+      179 SETTABLEKS                       R29 R28 K60 ["Text"]
+      181 CALL                             R26 2 1
+      182 SETTABLEKS                       R26 R25 K53 ["TableContentTitle"]
+      184 GETUPVAL                         R26 0
+      185 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      187 LOADK                            R27 K23 ["Frame"]
+      188 DUPTABLE                         R28 K65 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2, ["Size"]}]
+      189 GETIMPORT                        R29 K31 [UDim2.new]
+      191 LOADN                            R30 1
+      192 LOADN                            R31 0
+      193 LOADN                            R32 0
+      194 GETTABLEKS                       R33 R2 K66 ["TableContentsFrameHeight"]
+      196 CALL                             R29 4 1
+      197 SETTABLEKS                       R29 R28 K26 ["Size"]
+      199 DUPTABLE                         R29 K71 [{"Layout", "Padding", "TotalRowsLine", "TranslationsLine", "SupportedLocales", "UnsupportedLocales"}]
+      200 GETUPVAL                         R30 0
+      201 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      203 LOADK                            R31 K44 ["UIListLayout"]
+      204 DUPTABLE                         R32 K46 [{"SortOrder"}]
+      205 GETIMPORT                        R33 K49 [Enum.SortOrder.LayoutOrder]
+      207 SETTABLEKS                       R33 R32 K45 ["SortOrder"]
+      209 CALL                             R30 2 1
+      210 SETTABLEKS                       R30 R29 K33 ["Layout"]
+      212 GETUPVAL                         R30 0
+      213 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      215 LOADK                            R31 K37 ["UIPadding"]
+      216 DUPTABLE                         R32 K72 [{"PaddingLeft", "PaddingTop"}]
+      217 GETIMPORT                        R33 K43 [UDim.new]
+      219 LOADN                            R34 0
+      220 GETTABLEKS                       R35 R2 K73 ["TableContentPaddingLeft"]
+      222 CALL                             R33 2 1
+      223 SETTABLEKS                       R33 R32 K38 ["PaddingLeft"]
+      225 GETIMPORT                        R33 K43 [UDim.new]
+      227 LOADN                            R34 0
+      228 GETTABLEKS                       R35 R2 K74 ["TableContentPaddingTop"]
+      230 CALL                             R33 2 1
+      231 SETTABLEKS                       R33 R32 K40 ["PaddingTop"]
+      233 CALL                             R30 2 1
+      234 SETTABLEKS                       R30 R29 K32 ["Padding"]
+      236 GETUPVAL                         R30 0
+      237 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      239 GETUPVAL                         R31 2
+      240 DUPTABLE                         R32 K79 [{["PreText"], ["Content"], ["ColorA"], ["ColorB"], ["LayoutOrder"] = 1}]
+      241 LOADK                            R35 K18 ["UploadDialogContent"]
+      242 LOADK                            R36 K80 ["PatchTotalRowsLabel"]
+      243 NAMECALL                         R33 R3 K20 ["getText"]
+      245 CALL                             R33 3 1
+      246 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      248 SETTABLEKS                       R6 R32 K76 ["Content"]
+      250 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      252 SETTABLEKS                       R33 R32 K77 ["ColorA"]
+      254 GETTABLEKS                       R33 R2 K81 ["ErrorText"]
+      256 SETTABLEKS                       R33 R32 K78 ["ColorB"]
+      258 CALL                             R30 2 1
+      259 SETTABLEKS                       R30 R29 K67 ["TotalRowsLine"]
+      261 GETUPVAL                         R30 0
+      262 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      264 GETUPVAL                         R31 2
+      265 DUPTABLE                         R32 K82 [{["PreText"], ["Content"], ["ColorA"], ["ColorB"], ["LayoutOrder"] = 2}]
+      266 LOADK                            R35 K18 ["UploadDialogContent"]
+      267 LOADK                            R36 K83 ["PatchTotalTranslationsLabel"]
+      268 NAMECALL                         R33 R3 K20 ["getText"]
+      270 CALL                             R33 3 1
+      271 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      273 SETTABLEKS                       R7 R32 K76 ["Content"]
+      275 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      277 SETTABLEKS                       R33 R32 K77 ["ColorA"]
+      279 GETTABLEKS                       R33 R2 K81 ["ErrorText"]
+      281 SETTABLEKS                       R33 R32 K78 ["ColorB"]
+      283 CALL                             R30 2 1
+      284 SETTABLEKS                       R30 R29 K68 ["TranslationsLine"]
+      286 GETUPVAL                         R30 0
+      287 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      289 GETUPVAL                         R31 2
+      290 DUPTABLE                         R32 K85 [{["PreText"], ["Content"], ["ColorA"], ["ColorB"], ["LayoutOrder"] = 3}]
+      291 LOADK                            R35 K18 ["UploadDialogContent"]
+      292 LOADK                            R36 K86 ["PatchLanguagesLabel"]
+      293 NAMECALL                         R33 R3 K20 ["getText"]
+      295 CALL                             R33 3 1
+      296 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      298 SETTABLEKS                       R8 R32 K76 ["Content"]
+      300 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      302 SETTABLEKS                       R33 R32 K77 ["ColorA"]
+      304 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      306 SETTABLEKS                       R33 R32 K78 ["ColorB"]
+      308 CALL                             R30 2 1
+      309 SETTABLEKS                       R30 R29 K69 ["SupportedLocales"]
+      311 GETUPVAL                         R30 0
+      312 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      314 GETUPVAL                         R31 3
+      315 DUPTABLE                         R32 K89 [{["PreText"], ["Content"], ["Color"], ["LayoutOrder"] = 4}]
+      316 LOADK                            R35 K18 ["UploadDialogContent"]
+      317 LOADK                            R36 K90 ["PatchInvalidLanguagesLabel"]
+      318 NAMECALL                         R33 R3 K20 ["getText"]
+      320 CALL                             R33 3 1
+      321 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      323 SETTABLEKS                       R9 R32 K76 ["Content"]
+      325 GETTABLEKS                       R33 R2 K91 ["WarningText"]
+      327 SETTABLEKS                       R33 R32 K59 ["Color"]
+      329 CALL                             R30 2 1
+      330 SETTABLEKS                       R30 R29 K70 ["UnsupportedLocales"]
+      332 CALL                             R26 3 1
+      333 SETTABLEKS                       R26 R25 K54 ["TableContentFrame"]
+      335 GETUPVAL                         R26 0
+      336 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      338 GETUPVAL                         R27 1
+      339 DUPTABLE                         R28 K92 [{["Text"], ["Color"], ["LayoutOrder"] = 3}]
+      340 LOADK                            R31 K18 ["UploadDialogContent"]
+      341 LOADK                            R32 K93 ["PatchWillLabel"]
+      342 NAMECALL                         R29 R3 K20 ["getText"]
+      344 CALL                             R29 3 1
+      345 SETTABLEKS                       R29 R28 K60 ["Text"]
+      347 GETTABLEKS                       R29 R2 K62 ["BrightText"]
+      349 SETTABLEKS                       R29 R28 K59 ["Color"]
+      351 CALL                             R26 2 1
+      352 SETTABLEKS                       R26 R25 K55 ["ThisPatchWillTitle"]
+      354 GETUPVAL                         R26 0
+      355 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      357 LOADK                            R27 K23 ["Frame"]
+      358 DUPTABLE                         R28 K94 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 4, ["Size"]}]
+      359 GETIMPORT                        R29 K31 [UDim2.new]
+      361 LOADN                            R30 1
+      362 LOADN                            R31 0
+      363 LOADN                            R32 0
+      364 GETTABLEKS                       R33 R2 K95 ["ThisPatchWIllFrameHeight"]
+      366 CALL                             R29 4 1
+      367 SETTABLEKS                       R29 R28 K26 ["Size"]
+      369 DUPTABLE                         R29 K102 [{"Layout", "Padding", "AddEntriesLine", "AddTranslationsLine", "ChangeLine", "DeleteEntriesLine", "DeleteTranslationsLine", "AddLanguagesLine"}]
+      370 GETUPVAL                         R30 0
+      371 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      373 LOADK                            R31 K44 ["UIListLayout"]
+      374 DUPTABLE                         R32 K46 [{"SortOrder"}]
+      375 GETIMPORT                        R33 K49 [Enum.SortOrder.LayoutOrder]
+      377 SETTABLEKS                       R33 R32 K45 ["SortOrder"]
+      379 CALL                             R30 2 1
+      380 SETTABLEKS                       R30 R29 K33 ["Layout"]
+      382 GETUPVAL                         R30 0
+      383 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      385 LOADK                            R31 K37 ["UIPadding"]
+      386 DUPTABLE                         R32 K72 [{"PaddingLeft", "PaddingTop"}]
+      387 GETIMPORT                        R33 K43 [UDim.new]
+      389 LOADN                            R34 0
+      390 GETTABLEKS                       R35 R2 K73 ["TableContentPaddingLeft"]
+      392 CALL                             R33 2 1
+      393 SETTABLEKS                       R33 R32 K38 ["PaddingLeft"]
+      395 GETIMPORT                        R33 K43 [UDim.new]
+      397 LOADN                            R34 0
+      398 GETTABLEKS                       R35 R2 K74 ["TableContentPaddingTop"]
+      400 CALL                             R33 2 1
+      401 SETTABLEKS                       R33 R32 K40 ["PaddingTop"]
+      403 CALL                             R30 2 1
+      404 SETTABLEKS                       R30 R29 K32 ["Padding"]
+      406 GETUPVAL                         R30 0
+      407 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      409 GETUPVAL                         R31 4
+      410 DUPTABLE                         R32 K106 [{["PreText"], ["Count"], ["EnabledColor"], ["DisabledColor"], ["LayoutOrder"] = 1}]
+      411 LOADK                            R35 K18 ["UploadDialogContent"]
+      412 LOADK                            R36 K107 ["AddEntriesPreText"]
+      413 NAMECALL                         R33 R3 K20 ["getText"]
+      415 CALL                             R33 3 1
+      416 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      418 SETTABLEKS                       R10 R32 K103 ["Count"]
+      420 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      422 SETTABLEKS                       R33 R32 K104 ["EnabledColor"]
+      424 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      426 SETTABLEKS                       R33 R32 K105 ["DisabledColor"]
+      428 CALL                             R30 2 1
+      429 SETTABLEKS                       R30 R29 K96 ["AddEntriesLine"]
+      431 GETUPVAL                         R30 0
+      432 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      434 GETUPVAL                         R31 4
+      435 DUPTABLE                         R32 K108 [{["PreText"], ["Count"], ["EnabledColor"], ["DisabledColor"], ["LayoutOrder"] = 2}]
+      436 LOADK                            R35 K18 ["UploadDialogContent"]
+      437 LOADK                            R36 K109 ["AddTranslationsPretext"]
+      438 NAMECALL                         R33 R3 K20 ["getText"]
+      440 CALL                             R33 3 1
+      441 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      443 SETTABLEKS                       R11 R32 K103 ["Count"]
+      445 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      447 SETTABLEKS                       R33 R32 K104 ["EnabledColor"]
+      449 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      451 SETTABLEKS                       R33 R32 K105 ["DisabledColor"]
+      453 CALL                             R30 2 1
+      454 SETTABLEKS                       R30 R29 K97 ["AddTranslationsLine"]
+      456 GETUPVAL                         R30 0
+      457 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      459 GETUPVAL                         R31 4
+      460 DUPTABLE                         R32 K110 [{["PreText"], ["Count"], ["EnabledColor"], ["DisabledColor"], ["LayoutOrder"] = 3}]
+      461 LOADK                            R35 K18 ["UploadDialogContent"]
+      462 LOADK                            R36 K111 ["ChangeTranslationsPretext"]
+      463 NAMECALL                         R33 R3 K20 ["getText"]
+      465 CALL                             R33 3 1
+      466 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      468 SETTABLEKS                       R12 R32 K103 ["Count"]
+      470 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      472 SETTABLEKS                       R33 R32 K104 ["EnabledColor"]
+      474 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      476 SETTABLEKS                       R33 R32 K105 ["DisabledColor"]
+      478 CALL                             R30 2 1
+      479 SETTABLEKS                       R30 R29 K98 ["ChangeLine"]
+      481 MOVE                             R30 R13
+      482 JUMPIFNOT                        R30 ; [+23]
+      483 GETUPVAL                         R30 0
+      484 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      486 GETUPVAL                         R31 4
+      487 DUPTABLE                         R32 K112 [{["PreText"], ["Count"], ["EnabledColor"], ["DisabledColor"], ["LayoutOrder"] = 4}]
+      488 LOADK                            R35 K18 ["UploadDialogContent"]
+      489 LOADK                            R36 K113 ["DeleteEntriesPretext"]
+      490 NAMECALL                         R33 R3 K20 ["getText"]
+      492 CALL                             R33 3 1
+      493 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      495 SETTABLEKS                       R14 R32 K103 ["Count"]
+      497 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      499 SETTABLEKS                       R33 R32 K104 ["EnabledColor"]
+      501 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      503 SETTABLEKS                       R33 R32 K105 ["DisabledColor"]
+      505 CALL                             R30 2 1
+      506 SETTABLEKS                       R30 R29 K99 ["DeleteEntriesLine"]
+      508 MOVE                             R30 R13
+      509 JUMPIFNOT                        R30 ; [+23]
+      510 GETUPVAL                         R30 0
+      511 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      513 GETUPVAL                         R31 4
+      514 DUPTABLE                         R32 K115 [{["PreText"], ["Count"], ["EnabledColor"], ["DisabledColor"], ["LayoutOrder"] = 5}]
+      515 LOADK                            R35 K18 ["UploadDialogContent"]
+      516 LOADK                            R36 K116 ["DeleteTranslationsPretext"]
+      517 NAMECALL                         R33 R3 K20 ["getText"]
+      519 CALL                             R33 3 1
+      520 SETTABLEKS                       R33 R32 K75 ["PreText"]
+      522 SETTABLEKS                       R15 R32 K103 ["Count"]
+      524 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      526 SETTABLEKS                       R33 R32 K104 ["EnabledColor"]
+      528 GETTABLEKS                       R33 R2 K87 ["DimmedText"]
+      530 SETTABLEKS                       R33 R32 K105 ["DisabledColor"]
+      532 CALL                             R30 2 1
+      533 SETTABLEKS                       R30 R29 K100 ["DeleteTranslationsLine"]
+      535 LOADB                            R30 0
+      536 JUMPIFEQKNIL                     R16 ; [+26]
+      538 LOADB                            R30 0
+      539 JUMPIFEQKS                       R16 K117 [""] ; [+23]
+      541 GETUPVAL                         R30 0
+      542 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      544 GETUPVAL                         R31 1
+      545 DUPTABLE                         R32 K119 [{["Text"], ["Color"], ["LayoutOrder"] = 6}]
+      546 GETIMPORT                        R33 K122 [string.format]
+      548 LOADK                            R34 K123 ["%s %s"]
+      549 LOADK                            R37 K18 ["UploadDialogContent"]
+      550 LOADK                            R38 K124 ["AddLanguagesPretext"]
+      551 NAMECALL                         R35 R3 K20 ["getText"]
+      553 CALL                             R35 3 1
+      554 MOVE                             R36 R16
+      555 CALL                             R33 3 1
+      556 SETTABLEKS                       R33 R32 K60 ["Text"]
+      558 GETTABLEKS                       R33 R2 K62 ["BrightText"]
+      560 SETTABLEKS                       R33 R32 K59 ["Color"]
+      562 CALL                             R30 2 1
+      563 SETTABLEKS                       R30 R29 K101 ["AddLanguagesLine"]
+      565 CALL                             R26 3 1
+      566 SETTABLEKS                       R26 R25 K56 ["ThisPatchWillFrame"]
+      568 GETUPVAL                         R26 0
+      569 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      571 GETUPVAL                         R27 1
+      572 DUPTABLE                         R28 K125 [{["Color"], ["LayoutOrder"] = 5, ["Text"]}]
+      573 GETTABLEKS                       R29 R2 K62 ["BrightText"]
+      575 SETTABLEKS                       R29 R28 K59 ["Color"]
+      577 SETTABLEKS                       R17 R28 K60 ["Text"]
+      579 CALL                             R26 2 1
+      580 SETTABLEKS                       R26 R25 K57 ["Message"]
+      582 CALL                             R22 3 1
+      583 SETTABLEKS                       R22 R21 K34 ["InfoFrame"]
+      585 GETUPVAL                         R22 0
+      586 GETTABLEKS                       R22 R22 K22 ["createElement"]
+      588 LOADK                            R23 K23 ["Frame"]
+      589 DUPTABLE                         R24 K65 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 2, ["Size"]}]
+      590 GETIMPORT                        R25 K31 [UDim2.new]
+      592 LOADN                            R26 1
+      593 LOADN                            R27 0
+      594 LOADN                            R28 0
+      595 GETTABLEKS                       R29 R2 K126 ["ButtonFrameHeight"]
+      597 CALL                             R25 4 1
+      598 SETTABLEKS                       R25 R24 K26 ["Size"]
+      600 DUPTABLE                         R25 K129 [{"Cancel", "Confirm"}]
+      601 GETUPVAL                         R26 0
+      602 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      604 GETUPVAL                         R27 5
+      605 DUPTABLE                         R28 K134 [{["LayoutOrder"] = 1, ["OnClick"], ["Position"], ["Size"], ["Style"] = "TextButton", ["Text"]}]
+      606 SETTABLEKS                       R4 R28 K130 ["OnClick"]
+      608 GETIMPORT                        R29 K31 [UDim2.new]
+      610 LOADK                            R30 K135 [0.5]
+      611 GETTABLEKS                       R33 R2 K136 ["ButtonWidth"]
+      613 MINUS                            R32 R33
+      614 GETTABLEKS                       R33 R2 K32 ["Padding"]
+      616 SUB                              R31 R32 R33
+      617 LOADN                            R32 0
+      618 LOADN                            R33 0
+      619 CALL                             R29 4 1
+      620 SETTABLEKS                       R29 R28 K131 ["Position"]
+      622 GETIMPORT                        R29 K31 [UDim2.new]
+      624 LOADN                            R30 0
+      625 GETTABLEKS                       R31 R2 K136 ["ButtonWidth"]
+      627 LOADN                            R32 0
+      628 GETTABLEKS                       R33 R2 K137 ["ButtonHeight"]
+      630 CALL                             R29 4 1
+      631 SETTABLEKS                       R29 R28 K26 ["Size"]
+      633 LOADK                            R31 K18 ["UploadDialogContent"]
+      634 LOADK                            R32 K138 ["CancelButton"]
+      635 NAMECALL                         R29 R3 K20 ["getText"]
+      637 CALL                             R29 3 1
+      638 SETTABLEKS                       R29 R28 K60 ["Text"]
+      640 NEWTABLE                         R29 0 1
+      642 GETUPVAL                         R30 0
+      643 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      645 GETUPVAL                         R31 6
+      646 DUPTABLE                         R32 K141 [{["Cursor"] = "PointingHand"}]
+      647 CALL                             R30 2 -1
+      648 SETLIST                          R29 R30 -1 [1]
+      650 CALL                             R26 3 1
+      651 SETTABLEKS                       R26 R25 K127 ["Cancel"]
+      653 GETUPVAL                         R26 0
+      654 GETTABLEKS                       R26 R26 K22 ["createElement"]
+      656 GETUPVAL                         R27 5
+      657 DUPTABLE                         R28 K143 [{["LayoutOrder"] = 2, ["OnClick"], ["Position"], ["Size"], ["Style"] = "PrimeTextButton", ["Text"]}]
+      658 SETTABLEKS                       R5 R28 K130 ["OnClick"]
+      660 GETIMPORT                        R29 K31 [UDim2.new]
+      662 LOADK                            R30 K135 [0.5]
+      663 GETTABLEKS                       R31 R2 K32 ["Padding"]
+      665 LOADN                            R32 0
+      666 LOADN                            R33 0
+      667 CALL                             R29 4 1
+      668 SETTABLEKS                       R29 R28 K131 ["Position"]
+      670 GETIMPORT                        R29 K31 [UDim2.new]
+      672 LOADN                            R30 0
+      673 GETTABLEKS                       R31 R2 K136 ["ButtonWidth"]
+      675 LOADN                            R32 0
+      676 GETTABLEKS                       R33 R2 K137 ["ButtonHeight"]
+      678 CALL                             R29 4 1
+      679 SETTABLEKS                       R29 R28 K26 ["Size"]
+      681 LOADK                            R31 K18 ["UploadDialogContent"]
+      682 LOADK                            R32 K144 ["ConfirmButton"]
+      683 NAMECALL                         R29 R3 K20 ["getText"]
+      685 CALL                             R29 3 1
+      686 SETTABLEKS                       R29 R28 K60 ["Text"]
+      688 NEWTABLE                         R29 0 1
+      690 GETUPVAL                         R30 0
+      691 GETTABLEKS                       R30 R30 K22 ["createElement"]
+      693 GETUPVAL                         R31 6
+      694 DUPTABLE                         R32 K141 [{["Cursor"] = "PointingHand"}]
+      695 CALL                             R30 2 -1
+      696 SETLIST                          R29 R30 -1 [1]
+      698 CALL                             R26 3 1
+      699 SETTABLEKS                       R26 R25 K128 ["Confirm"]
+      701 CALL                             R22 3 1
+      702 SETTABLEKS                       R22 R21 K35 ["ButtonFrame"]
+      704 CALL                             R18 3 -1
+      705 RETURN                           R18 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -203,40 +203,36 @@ MAIN:
        77 CALL                             R11 1 1
        78 GETTABLEKS                       R12 R11 K19 ["Util"]
        80 GETTABLEKS                       R13 R12 K20 ["deepCopy"]
-       82 DUPTABLE                         R14 K26 [{"BreakpointIdsInDebuggerConnection", "MetaBreakpoints", "SortDirection", "ColumnIndex", "listOfEnabledColumns"}]
+       82 DUPTABLE                         R14 K27 [{["BreakpointIdsInDebuggerConnection"], ["MetaBreakpoints"], ["SortDirection"] = , ["ColumnIndex"] = , ["listOfEnabledColumns"]}]
        83 NEWTABLE                         R15 0 0
        85 SETTABLEKS                       R15 R14 K21 ["BreakpointIdsInDebuggerConnection"]
        87 NEWTABLE                         R15 0 0
        89 SETTABLEKS                       R15 R14 K22 ["MetaBreakpoints"]
-       91 LOADNIL                          R15
-       92 SETTABLEKS                       R15 R14 K23 ["SortDirection"]
-       94 LOADNIL                          R15
-       95 SETTABLEKS                       R15 R14 K24 ["ColumnIndex"]
-       97 NEWTABLE                         R15 0 0
-       99 SETTABLEKS                       R15 R14 K25 ["listOfEnabledColumns"]
-      101 GETTABLEKS                       R15 R1 K27 ["createReducer"]
-      103 MOVE                             R16 R14
-      104 NEWTABLE                         R17 8 0
-      106 GETTABLEKS                       R18 R5 K28 ["name"]
-      108 DUPCLOSURE                       R19 K29 [PROTO_0]
-      109 CAPTURE                          VAL R2
-      110 SETTABLE                         R19 R17 R18
-      111 GETTABLEKS                       R18 R7 K28 ["name"]
-      113 DUPCLOSURE                       R19 K30 [PROTO_1]
-      114 CAPTURE                          VAL R2
-      115 SETTABLE                         R19 R17 R18
-      116 GETTABLEKS                       R18 R8 K28 ["name"]
-      118 DUPCLOSURE                       R19 K31 [PROTO_2]
+       91 NEWTABLE                         R15 0 0
+       93 SETTABLEKS                       R15 R14 K26 ["listOfEnabledColumns"]
+       95 GETTABLEKS                       R15 R1 K28 ["createReducer"]
+       97 MOVE                             R16 R14
+       98 NEWTABLE                         R17 8 0
+      100 GETTABLEKS                       R18 R5 K29 ["name"]
+      102 DUPCLOSURE                       R19 K30 [PROTO_0]
+      103 CAPTURE                          VAL R2
+      104 SETTABLE                         R19 R17 R18
+      105 GETTABLEKS                       R18 R7 K29 ["name"]
+      107 DUPCLOSURE                       R19 K31 [PROTO_1]
+      108 CAPTURE                          VAL R2
+      109 SETTABLE                         R19 R17 R18
+      110 GETTABLEKS                       R18 R8 K29 ["name"]
+      112 DUPCLOSURE                       R19 K32 [PROTO_2]
+      113 CAPTURE                          VAL R2
+      114 SETTABLE                         R19 R17 R18
+      115 GETTABLEKS                       R18 R6 K29 ["name"]
+      117 DUPCLOSURE                       R19 K33 [PROTO_3]
+      118 CAPTURE                          VAL R13
       119 CAPTURE                          VAL R2
       120 SETTABLE                         R19 R17 R18
-      121 GETTABLEKS                       R18 R6 K28 ["name"]
-      123 DUPCLOSURE                       R19 K32 [PROTO_3]
-      124 CAPTURE                          VAL R13
-      125 CAPTURE                          VAL R2
-      126 SETTABLE                         R19 R17 R18
-      127 GETTABLEKS                       R18 R9 K28 ["name"]
-      129 DUPCLOSURE                       R19 K33 [PROTO_4]
-      130 CAPTURE                          VAL R2
-      131 SETTABLE                         R19 R17 R18
-      132 CALL                             R15 2 -1
-      133 RETURN                           R15 -1
+      121 GETTABLEKS                       R18 R9 K29 ["name"]
+      123 DUPCLOSURE                       R19 K34 [PROTO_4]
+      124 CAPTURE                          VAL R2
+      125 SETTABLE                         R19 R17 R18
+      126 CALL                             R15 2 -1
+      127 RETURN                           R15 -1

@@ -8,8 +8,6 @@ MAIN:
         9 GETTABLEKS                       R2 R0 K6 ["Tests"]
        11 GETTABLEKS                       R2 R2 K7 ["TestMatch"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K10 [{"displayName", "testMatch"}]
-       15 LOADK                            R3 K11 ["Reimport:lib"]
-       16 SETTABLEKS                       R3 R2 K8 ["displayName"]
-       18 SETTABLEKS                       R1 R2 K9 ["testMatch"]
-       20 RETURN                           R2 1
+       14 DUPTABLE                         R2 K11 [{["displayName"] = "Reimport:lib", ["testMatch"]}]
+       15 SETTABLEKS                       R1 R2 K10 ["testMatch"]
+       17 RETURN                           R2 1

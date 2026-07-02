@@ -37,46 +37,26 @@ MAIN:
         5 LOADK                            R3 K2 ["DraggerFramework"]
         6 NAMECALL                         R1 R1 K3 ["FindFirstAncestor"]
         8 CALL                             R1 2 1
-        9 DUPTABLE                         R2 K6 [{"Hotkey", "LabelLocEntry"}]
-       10 LOADK                            R3 K7 ["H"]
-       11 SETTABLEKS                       R3 R2 K4 ["Hotkey"]
-       13 LOADK                            R3 K8 ["ToggleHelp"]
-       14 SETTABLEKS                       R3 R2 K5 ["LabelLocEntry"]
-       16 DUPCLOSURE                       R3 K9 [PROTO_0]
-       17 CAPTURE                          VAL R2
-       18 SETTABLEKS                       R3 R0 K10 ["addHelp"]
-       20 GETIMPORT                        R3 K13 [table.freeze]
-       22 NEWTABLE                         R4 2 0
-       24 LOADB                            R5 0
-       25 DUPTABLE                         R6 K6 [{"Hotkey", "LabelLocEntry"}]
-       26 LOADK                            R7 K14 ["⬇Shift"]
-       27 SETTABLEKS                       R7 R6 K4 ["Hotkey"]
-       29 LOADK                            R7 K15 ["DisableSnap"]
-       30 SETTABLEKS                       R7 R6 K5 ["LabelLocEntry"]
-       32 SETTABLE                         R6 R4 R5
-       33 LOADB                            R5 1
-       34 DUPTABLE                         R6 K6 [{"Hotkey", "LabelLocEntry"}]
-       35 LOADK                            R7 K16 ["⬆Shift"]
-       36 SETTABLEKS                       R7 R6 K4 ["Hotkey"]
-       38 LOADK                            R7 K17 ["EnableSnap"]
-       39 SETTABLEKS                       R7 R6 K5 ["LabelLocEntry"]
-       41 SETTABLE                         R6 R4 R5
-       42 CALL                             R3 1 1
-       43 DUPTABLE                         R4 K6 [{"Hotkey", "LabelLocEntry"}]
-       44 LOADK                            R5 K18 ["Shift+X/C"]
-       45 SETTABLEKS                       R5 R4 K4 ["Hotkey"]
-       47 LOADK                            R5 K19 ["ToggleSnap"]
-       48 SETTABLEKS                       R5 R4 K5 ["LabelLocEntry"]
-       50 DUPTABLE                         R5 K6 [{"Hotkey", "LabelLocEntry"}]
-       51 LOADK                            R6 K20 ["⬇Tab"]
-       52 SETTABLEKS                       R6 R5 K4 ["Hotkey"]
-       54 LOADK                            R6 K21 ["SummonHandles"]
-       55 SETTABLEKS                       R6 R5 K5 ["LabelLocEntry"]
-       57 DUPCLOSURE                       R6 K22 [PROTO_1]
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R4
-       60 SETTABLEKS                       R6 R0 K23 ["addGridSnap"]
-       62 DUPCLOSURE                       R6 K24 [PROTO_2]
-       63 CAPTURE                          VAL R5
-       64 SETTABLEKS                       R6 R0 K25 ["addSummonHandles"]
-       66 RETURN                           R0 1
+        9 DUPTABLE                         R2 K8 [{["Hotkey"] = "H", ["LabelLocEntry"] = "ToggleHelp"}]
+       10 DUPCLOSURE                       R3 K9 [PROTO_0]
+       11 CAPTURE                          VAL R2
+       12 SETTABLEKS                       R3 R0 K10 ["addHelp"]
+       14 GETIMPORT                        R3 K13 [table.freeze]
+       16 NEWTABLE                         R4 2 0
+       18 LOADB                            R5 0
+       19 DUPTABLE                         R6 K16 [{["Hotkey"] = "⬇Shift", ["LabelLocEntry"] = "DisableSnap"}]
+       20 SETTABLE                         R6 R4 R5
+       21 LOADB                            R5 1
+       22 DUPTABLE                         R6 K19 [{["Hotkey"] = "⬆Shift", ["LabelLocEntry"] = "EnableSnap"}]
+       23 SETTABLE                         R6 R4 R5
+       24 CALL                             R3 1 1
+       25 DUPTABLE                         R4 K22 [{["Hotkey"] = "Shift+X/C", ["LabelLocEntry"] = "ToggleSnap"}]
+       26 DUPTABLE                         R5 K25 [{["Hotkey"] = "⬇Tab", ["LabelLocEntry"] = "SummonHandles"}]
+       27 DUPCLOSURE                       R6 K26 [PROTO_1]
+       28 CAPTURE                          VAL R3
+       29 CAPTURE                          VAL R4
+       30 SETTABLEKS                       R6 R0 K27 ["addGridSnap"]
+       32 DUPCLOSURE                       R6 K28 [PROTO_2]
+       33 CAPTURE                          VAL R5
+       34 SETTABLEKS                       R6 R0 K29 ["addSummonHandles"]
+       36 RETURN                           R0 1

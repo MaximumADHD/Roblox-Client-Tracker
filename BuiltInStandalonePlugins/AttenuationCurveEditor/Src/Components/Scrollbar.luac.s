@@ -431,12 +431,12 @@ PROTO_8:
       156 LOADN                            R21 0
       157 LOADN                            R22 35
       158 LOADN                            R23 1
-      159 LOADN                            R24 236
+      159 LOADN                            R24 -20
       160 CALL                             R20 4 1
       161 SETTABLEKS                       R20 R19 K18 ["Position"]
       163 GETIMPORT                        R20 K17 [UDim2.new]
       165 LOADN                            R21 1
-      166 LOADN                            R22 186
+      166 LOADN                            R22 -70
       167 LOADN                            R23 0
       168 LOADN                            R24 20
       169 CALL                             R20 4 1
@@ -449,8 +449,8 @@ PROTO_8:
       178 GETUPVAL                         R21 7
       179 GETTABLEKS                       R21 R21 K14 ["createElement"]
       181 GETUPVAL                         R22 9
-      182 DUPTABLE                         R23 K32 [{"AnchorPoint", "Size", "Text", "ControlId", "DragTarget", "OnDragBegan", "OnDragEnded"}]
-      183 GETIMPORT                        R24 K34 [Vector2.new]
+      182 DUPTABLE                         R23 K34 [{["AnchorPoint"], ["Size"], ["Text"] = "<<", ["ControlId"] = "SL", ["DragTarget"], ["OnDragBegan"], ["OnDragEnded"]}]
+      183 GETIMPORT                        R24 K36 [Vector2.new]
       185 LOADN                            R25 1
       186 LOADN                            R26 0
       187 CALL                             R24 2 1
@@ -462,146 +462,128 @@ PROTO_8:
       195 LOADN                            R28 0
       196 CALL                             R24 4 1
       197 SETTABLEKS                       R24 R23 K19 ["Size"]
-      199 LOADK                            R24 K35 ["<<"]
-      200 SETTABLEKS                       R24 R23 K27 ["Text"]
-      202 LOADK                            R24 K36 ["SL"]
-      203 SETTABLEKS                       R24 R23 K28 ["ControlId"]
-      205 SETTABLEKS                       R5 R23 K29 ["DragTarget"]
-      207 SETTABLEKS                       R9 R23 K30 ["OnDragBegan"]
-      209 SETTABLEKS                       R10 R23 K31 ["OnDragEnded"]
-      211 CALL                             R21 2 1
-      212 SETTABLEKS                       R21 R20 K22 ["LeftButton"]
-      214 GETUPVAL                         R21 7
-      215 GETTABLEKS                       R21 R21 K14 ["createElement"]
-      217 GETUPVAL                         R22 9
-      218 DUPTABLE                         R23 K37 [{"Position", "Size", "Text", "ControlId", "DragTarget", "OnDragBegan", "OnDragEnded"}]
-      219 GETIMPORT                        R24 K17 [UDim2.new]
-      221 LOADN                            R25 1
-      222 LOADN                            R26 0
-      223 LOADN                            R27 0
-      224 LOADN                            R28 0
-      225 CALL                             R24 4 1
-      226 SETTABLEKS                       R24 R23 K18 ["Position"]
-      228 GETIMPORT                        R24 K17 [UDim2.new]
-      230 LOADN                            R25 0
-      231 LOADN                            R26 20
-      232 LOADN                            R27 1
-      233 LOADN                            R28 0
-      234 CALL                             R24 4 1
-      235 SETTABLEKS                       R24 R23 K19 ["Size"]
-      237 LOADK                            R24 K38 [">>"]
-      238 SETTABLEKS                       R24 R23 K27 ["Text"]
-      240 LOADK                            R24 K39 ["SR"]
-      241 SETTABLEKS                       R24 R23 K28 ["ControlId"]
-      243 SETTABLEKS                       R5 R23 K29 ["DragTarget"]
-      245 SETTABLEKS                       R9 R23 K30 ["OnDragBegan"]
-      247 SETTABLEKS                       R10 R23 K31 ["OnDragEnded"]
-      249 CALL                             R21 2 1
-      250 SETTABLEKS                       R21 R20 K23 ["RightButton"]
-      252 GETUPVAL                         R21 7
-      253 GETTABLEKS                       R21 R21 K14 ["createElement"]
-      255 GETUPVAL                         R22 8
-      256 DUPTABLE                         R23 K41 [{"Position", "Size", "ForwardRef"}]
-      257 GETIMPORT                        R24 K17 [UDim2.new]
-      259 LOADN                            R25 0
-      260 LOADN                            R26 15
-      261 LOADN                            R27 0
-      262 LOADN                            R28 0
-      263 CALL                             R24 4 1
-      264 SETTABLEKS                       R24 R23 K18 ["Position"]
-      266 GETIMPORT                        R24 K17 [UDim2.new]
-      268 LOADN                            R25 1
-      269 LOADN                            R26 226
-      270 LOADN                            R27 1
-      271 LOADN                            R28 0
-      272 CALL                             R24 4 1
-      273 SETTABLEKS                       R24 R23 K19 ["Size"]
-      275 SETTABLEKS                       R4 R23 K40 ["ForwardRef"]
-      277 DUPTABLE                         R24 K43 [{"Body"}]
-      278 GETUPVAL                         R25 7
-      279 GETTABLEKS                       R25 R25 K14 ["createElement"]
-      281 GETUPVAL                         R26 8
-      282 DUPTABLE                         R27 K44 [{"Position", "Size"}]
-      283 SETTABLEKS                       R2 R27 K18 ["Position"]
-      285 SETTABLEKS                       R3 R27 K19 ["Size"]
-      287 DUPTABLE                         R28 K46 [{"MainButton", "LeftButton", "RightButton"}]
-      288 GETUPVAL                         R29 7
-      289 GETTABLEKS                       R29 R29 K14 ["createElement"]
-      291 GETUPVAL                         R30 9
-      292 DUPTABLE                         R31 K48 [{"Size", "ControlId", "DragTarget", "OnDragBegan", "OnDragMoved", "OnDragEnded"}]
-      293 GETIMPORT                        R32 K10 [UDim2.fromScale]
-      295 LOADN                            R33 1
-      296 LOADN                            R34 1
-      297 CALL                             R32 2 1
-      298 SETTABLEKS                       R32 R31 K19 ["Size"]
-      300 LOADK                            R32 K49 ["M"]
-      301 SETTABLEKS                       R32 R31 K28 ["ControlId"]
-      303 SETTABLEKS                       R5 R31 K29 ["DragTarget"]
-      305 SETTABLEKS                       R9 R31 K30 ["OnDragBegan"]
-      307 SETTABLEKS                       R12 R31 K47 ["OnDragMoved"]
-      309 SETTABLEKS                       R10 R31 K31 ["OnDragEnded"]
-      311 CALL                             R29 2 1
-      312 SETTABLEKS                       R29 R28 K45 ["MainButton"]
-      314 GETUPVAL                         R29 7
-      315 GETTABLEKS                       R29 R29 K14 ["createElement"]
-      317 GETUPVAL                         R30 9
-      318 DUPTABLE                         R31 K50 [{"AnchorPoint", "Size", "Text", "ControlId", "DragTarget", "OnDragBegan", "OnDragMoved", "OnDragEnded"}]
-      319 GETIMPORT                        R32 K34 [Vector2.new]
-      321 LOADN                            R33 1
-      322 LOADN                            R34 0
-      323 CALL                             R32 2 1
-      324 SETTABLEKS                       R32 R31 K26 ["AnchorPoint"]
-      326 GETIMPORT                        R32 K17 [UDim2.new]
-      328 LOADN                            R33 0
-      329 LOADN                            R34 15
-      330 LOADN                            R35 1
-      331 LOADN                            R36 0
-      332 CALL                             R32 4 1
-      333 SETTABLEKS                       R32 R31 K19 ["Size"]
-      335 LOADK                            R32 K51 ["::"]
-      336 SETTABLEKS                       R32 R31 K27 ["Text"]
-      338 LOADK                            R32 K52 ["L"]
-      339 SETTABLEKS                       R32 R31 K28 ["ControlId"]
-      341 SETTABLEKS                       R5 R31 K29 ["DragTarget"]
-      343 SETTABLEKS                       R9 R31 K30 ["OnDragBegan"]
-      345 SETTABLEKS                       R13 R31 K47 ["OnDragMoved"]
-      347 SETTABLEKS                       R10 R31 K31 ["OnDragEnded"]
-      349 CALL                             R29 2 1
-      350 SETTABLEKS                       R29 R28 K22 ["LeftButton"]
-      352 GETUPVAL                         R29 7
-      353 GETTABLEKS                       R29 R29 K14 ["createElement"]
-      355 GETUPVAL                         R30 9
-      356 DUPTABLE                         R31 K53 [{"Position", "Size", "Text", "ControlId", "DragTarget", "OnDragBegan", "OnDragMoved", "OnDragEnded"}]
-      357 GETIMPORT                        R32 K17 [UDim2.new]
-      359 LOADN                            R33 1
-      360 LOADN                            R34 0
-      361 LOADN                            R35 0
-      362 LOADN                            R36 0
-      363 CALL                             R32 4 1
-      364 SETTABLEKS                       R32 R31 K18 ["Position"]
-      366 GETIMPORT                        R32 K17 [UDim2.new]
-      368 LOADN                            R33 0
-      369 LOADN                            R34 15
-      370 LOADN                            R35 1
-      371 LOADN                            R36 0
-      372 CALL                             R32 4 1
-      373 SETTABLEKS                       R32 R31 K19 ["Size"]
-      375 LOADK                            R32 K51 ["::"]
-      376 SETTABLEKS                       R32 R31 K27 ["Text"]
-      378 LOADK                            R32 K54 ["R'"]
-      379 SETTABLEKS                       R32 R31 K28 ["ControlId"]
-      381 SETTABLEKS                       R5 R31 K29 ["DragTarget"]
-      383 SETTABLEKS                       R9 R31 K30 ["OnDragBegan"]
-      385 SETTABLEKS                       R14 R31 K47 ["OnDragMoved"]
-      387 SETTABLEKS                       R10 R31 K31 ["OnDragEnded"]
-      389 CALL                             R29 2 1
-      390 SETTABLEKS                       R29 R28 K23 ["RightButton"]
-      392 CALL                             R25 3 1
-      393 SETTABLEKS                       R25 R24 K42 ["Body"]
-      395 CALL                             R21 3 1
-      396 SETTABLEKS                       R21 R20 K24 ["Inner"]
-      398 CALL                             R17 3 -1
-      399 RETURN                           R17 -1
+      199 SETTABLEKS                       R5 R23 K31 ["DragTarget"]
+      201 SETTABLEKS                       R9 R23 K32 ["OnDragBegan"]
+      203 SETTABLEKS                       R10 R23 K33 ["OnDragEnded"]
+      205 CALL                             R21 2 1
+      206 SETTABLEKS                       R21 R20 K22 ["LeftButton"]
+      208 GETUPVAL                         R21 7
+      209 GETTABLEKS                       R21 R21 K14 ["createElement"]
+      211 GETUPVAL                         R22 9
+      212 DUPTABLE                         R23 K39 [{["Position"], ["Size"], ["Text"] = ">>", ["ControlId"] = "SR", ["DragTarget"], ["OnDragBegan"], ["OnDragEnded"]}]
+      213 GETIMPORT                        R24 K17 [UDim2.new]
+      215 LOADN                            R25 1
+      216 LOADN                            R26 0
+      217 LOADN                            R27 0
+      218 LOADN                            R28 0
+      219 CALL                             R24 4 1
+      220 SETTABLEKS                       R24 R23 K18 ["Position"]
+      222 GETIMPORT                        R24 K17 [UDim2.new]
+      224 LOADN                            R25 0
+      225 LOADN                            R26 20
+      226 LOADN                            R27 1
+      227 LOADN                            R28 0
+      228 CALL                             R24 4 1
+      229 SETTABLEKS                       R24 R23 K19 ["Size"]
+      231 SETTABLEKS                       R5 R23 K31 ["DragTarget"]
+      233 SETTABLEKS                       R9 R23 K32 ["OnDragBegan"]
+      235 SETTABLEKS                       R10 R23 K33 ["OnDragEnded"]
+      237 CALL                             R21 2 1
+      238 SETTABLEKS                       R21 R20 K23 ["RightButton"]
+      240 GETUPVAL                         R21 7
+      241 GETTABLEKS                       R21 R21 K14 ["createElement"]
+      243 GETUPVAL                         R22 8
+      244 DUPTABLE                         R23 K41 [{"Position", "Size", "ForwardRef"}]
+      245 GETIMPORT                        R24 K17 [UDim2.new]
+      247 LOADN                            R25 0
+      248 LOADN                            R26 15
+      249 LOADN                            R27 0
+      250 LOADN                            R28 0
+      251 CALL                             R24 4 1
+      252 SETTABLEKS                       R24 R23 K18 ["Position"]
+      254 GETIMPORT                        R24 K17 [UDim2.new]
+      256 LOADN                            R25 1
+      257 LOADN                            R26 -30
+      258 LOADN                            R27 1
+      259 LOADN                            R28 0
+      260 CALL                             R24 4 1
+      261 SETTABLEKS                       R24 R23 K19 ["Size"]
+      263 SETTABLEKS                       R4 R23 K40 ["ForwardRef"]
+      265 DUPTABLE                         R24 K43 [{"Body"}]
+      266 GETUPVAL                         R25 7
+      267 GETTABLEKS                       R25 R25 K14 ["createElement"]
+      269 GETUPVAL                         R26 8
+      270 DUPTABLE                         R27 K44 [{"Position", "Size"}]
+      271 SETTABLEKS                       R2 R27 K18 ["Position"]
+      273 SETTABLEKS                       R3 R27 K19 ["Size"]
+      275 DUPTABLE                         R28 K46 [{"MainButton", "LeftButton", "RightButton"}]
+      276 GETUPVAL                         R29 7
+      277 GETTABLEKS                       R29 R29 K14 ["createElement"]
+      279 GETUPVAL                         R30 9
+      280 DUPTABLE                         R31 K49 [{["Size"], ["ControlId"] = "M", ["DragTarget"], ["OnDragBegan"], ["OnDragMoved"], ["OnDragEnded"]}]
+      281 GETIMPORT                        R32 K10 [UDim2.fromScale]
+      283 LOADN                            R33 1
+      284 LOADN                            R34 1
+      285 CALL                             R32 2 1
+      286 SETTABLEKS                       R32 R31 K19 ["Size"]
+      288 SETTABLEKS                       R5 R31 K31 ["DragTarget"]
+      290 SETTABLEKS                       R9 R31 K32 ["OnDragBegan"]
+      292 SETTABLEKS                       R12 R31 K48 ["OnDragMoved"]
+      294 SETTABLEKS                       R10 R31 K33 ["OnDragEnded"]
+      296 CALL                             R29 2 1
+      297 SETTABLEKS                       R29 R28 K45 ["MainButton"]
+      299 GETUPVAL                         R29 7
+      300 GETTABLEKS                       R29 R29 K14 ["createElement"]
+      302 GETUPVAL                         R30 9
+      303 DUPTABLE                         R31 K52 [{["AnchorPoint"], ["Size"], ["Text"] = "::", ["ControlId"] = "L", ["DragTarget"], ["OnDragBegan"], ["OnDragMoved"], ["OnDragEnded"]}]
+      304 GETIMPORT                        R32 K36 [Vector2.new]
+      306 LOADN                            R33 1
+      307 LOADN                            R34 0
+      308 CALL                             R32 2 1
+      309 SETTABLEKS                       R32 R31 K26 ["AnchorPoint"]
+      311 GETIMPORT                        R32 K17 [UDim2.new]
+      313 LOADN                            R33 0
+      314 LOADN                            R34 15
+      315 LOADN                            R35 1
+      316 LOADN                            R36 0
+      317 CALL                             R32 4 1
+      318 SETTABLEKS                       R32 R31 K19 ["Size"]
+      320 SETTABLEKS                       R5 R31 K31 ["DragTarget"]
+      322 SETTABLEKS                       R9 R31 K32 ["OnDragBegan"]
+      324 SETTABLEKS                       R13 R31 K48 ["OnDragMoved"]
+      326 SETTABLEKS                       R10 R31 K33 ["OnDragEnded"]
+      328 CALL                             R29 2 1
+      329 SETTABLEKS                       R29 R28 K22 ["LeftButton"]
+      331 GETUPVAL                         R29 7
+      332 GETTABLEKS                       R29 R29 K14 ["createElement"]
+      334 GETUPVAL                         R30 9
+      335 DUPTABLE                         R31 K54 [{["Position"], ["Size"], ["Text"] = "::", ["ControlId"] = "R'", ["DragTarget"], ["OnDragBegan"], ["OnDragMoved"], ["OnDragEnded"]}]
+      336 GETIMPORT                        R32 K17 [UDim2.new]
+      338 LOADN                            R33 1
+      339 LOADN                            R34 0
+      340 LOADN                            R35 0
+      341 LOADN                            R36 0
+      342 CALL                             R32 4 1
+      343 SETTABLEKS                       R32 R31 K18 ["Position"]
+      345 GETIMPORT                        R32 K17 [UDim2.new]
+      347 LOADN                            R33 0
+      348 LOADN                            R34 15
+      349 LOADN                            R35 1
+      350 LOADN                            R36 0
+      351 CALL                             R32 4 1
+      352 SETTABLEKS                       R32 R31 K19 ["Size"]
+      354 SETTABLEKS                       R5 R31 K31 ["DragTarget"]
+      356 SETTABLEKS                       R9 R31 K32 ["OnDragBegan"]
+      358 SETTABLEKS                       R14 R31 K48 ["OnDragMoved"]
+      360 SETTABLEKS                       R10 R31 K33 ["OnDragEnded"]
+      362 CALL                             R29 2 1
+      363 SETTABLEKS                       R29 R28 K23 ["RightButton"]
+      365 CALL                             R25 3 1
+      366 SETTABLEKS                       R25 R24 K42 ["Body"]
+      368 CALL                             R21 3 1
+      369 SETTABLEKS                       R21 R20 K24 ["Inner"]
+      371 CALL                             R17 3 -1
+      372 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

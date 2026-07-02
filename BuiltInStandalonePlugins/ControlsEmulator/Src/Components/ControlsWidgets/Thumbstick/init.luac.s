@@ -219,7 +219,7 @@ PROTO_4:
        82 CALL                             R4 3 1
        83 GETUPVAL                         R7 1
        84 DIV                              R6 R3 R7
-       85 LOADN                            R7 255
+       85 LOADN                            R7 -1
        86 LOADN                            R8 1
        87 FASTCALL                         MATH_CLAMP ; [+2]
        88 GETIMPORT                        R5 K10 [math.clamp]
@@ -227,7 +227,7 @@ PROTO_4:
        91 MINUS                            R8 R4
        92 GETUPVAL                         R9 1
        93 DIV                              R7 R8 R9
-       94 LOADN                            R8 255
+       94 LOADN                            R8 -1
        95 LOADN                            R9 1
        96 FASTCALL                         MATH_CLAMP ; [+2]
        97 GETIMPORT                        R6 K10 [math.clamp]

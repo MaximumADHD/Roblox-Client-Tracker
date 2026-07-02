@@ -21,34 +21,30 @@ PROTO_1:
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
         6 GETTABLEKS                       R3 R3 K1 ["View"]
-        8 DUPTABLE                         R4 K4 [{"tag", "onAbsoluteSizeChanged"}]
-        9 LOADK                            R5 K5 ["size-full col align-y-top"]
-       10 SETTABLEKS                       R5 R4 K2 ["tag"]
-       12 NEWCLOSURE                       R5 P0
-       13 CAPTURE                          VAL R1
-       14 SETTABLEKS                       R5 R4 K3 ["onAbsoluteSizeChanged"]
-       16 DUPTABLE                         R5 K9 [{"Controls", "AssetList", "Progress"}]
-       17 GETUPVAL                         R6 1
-       18 GETUPVAL                         R7 3
-       19 CALL                             R6 1 1
-       20 SETTABLEKS                       R6 R5 K6 ["Controls"]
-       22 GETUPVAL                         R6 1
-       23 GETUPVAL                         R7 2
-       24 GETTABLEKS                       R7 R7 K1 ["View"]
-       26 DUPTABLE                         R8 K10 [{"tag"}]
-       27 LOADK                            R9 K11 ["size-full-0 fill padding-bottom-xsmall"]
-       28 SETTABLEKS                       R9 R8 K2 ["tag"]
-       30 GETUPVAL                         R9 1
-       31 GETUPVAL                         R10 4
-       32 CALL                             R9 1 -1
-       33 CALL                             R6 -1 1
-       34 SETTABLEKS                       R6 R5 K7 ["AssetList"]
-       36 GETUPVAL                         R6 1
-       37 GETUPVAL                         R7 5
-       38 CALL                             R6 1 1
-       39 SETTABLEKS                       R6 R5 K8 ["Progress"]
-       41 CALL                             R2 3 -1
-       42 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K5 [{["tag"] = "col align-y-top size-full", ["onAbsoluteSizeChanged"]}]
+        9 NEWCLOSURE                       R5 P0
+       10 CAPTURE                          VAL R1
+       11 SETTABLEKS                       R5 R4 K4 ["onAbsoluteSizeChanged"]
+       13 DUPTABLE                         R5 K9 [{"Controls", "AssetList", "Progress"}]
+       14 GETUPVAL                         R6 1
+       15 GETUPVAL                         R7 3
+       16 CALL                             R6 1 1
+       17 SETTABLEKS                       R6 R5 K6 ["Controls"]
+       19 GETUPVAL                         R6 1
+       20 GETUPVAL                         R7 2
+       21 GETTABLEKS                       R7 R7 K1 ["View"]
+       23 DUPTABLE                         R8 K11 [{["tag"] = "fill size-full-0 padding-bottom-xsmall"}]
+       24 GETUPVAL                         R9 1
+       25 GETUPVAL                         R10 4
+       26 CALL                             R9 1 -1
+       27 CALL                             R6 -1 1
+       28 SETTABLEKS                       R6 R5 K7 ["AssetList"]
+       30 GETUPVAL                         R6 1
+       31 GETUPVAL                         R7 5
+       32 CALL                             R6 1 1
+       33 SETTABLEKS                       R6 R5 K8 ["Progress"]
+       35 CALL                             R2 3 -1
+       36 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

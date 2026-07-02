@@ -354,59 +354,37 @@ MAIN:
       100 GETTABLEKS                       R12 R1 K25 ["Packages"]
       102 GETTABLEKS                       R12 R12 K26 ["Cryo"]
       104 CALL                             R11 1 1
-      105 DUPTABLE                         R12 K28 [{"isActive"}]
-      106 LOADB                            R13 1
-      107 SETTABLEKS                       R13 R12 K27 ["isActive"]
-      109 MOVE                             R14 R9
-      110 CALL                             R14 0 1
-      111 JUMPIFNOT                        R14 ; [+17]
-      112 DUPTABLE                         R13 K34 [{"description", "genre", "name", "playableDevices", "audiences"}]
-      113 LOADB                            R14 1
-      114 SETTABLEKS                       R14 R13 K29 ["description"]
-      116 LOADB                            R14 1
-      117 SETTABLEKS                       R14 R13 K30 ["genre"]
-      119 LOADB                            R14 1
-      120 SETTABLEKS                       R14 R13 K31 ["name"]
-      122 LOADB                            R14 1
-      123 SETTABLEKS                       R14 R13 K32 ["playableDevices"]
-      125 LOADB                            R14 1
-      126 SETTABLEKS                       R14 R13 K33 ["audiences"]
-      128 JUMP                             ; [+16]
-      129 DUPTABLE                         R13 K36 [{"description", "genre", "name", "playableDevices", "isFriendsOnly"}]
-      130 LOADB                            R14 1
-      131 SETTABLEKS                       R14 R13 K29 ["description"]
-      133 LOADB                            R14 1
-      134 SETTABLEKS                       R14 R13 K30 ["genre"]
-      136 LOADB                            R14 1
-      137 SETTABLEKS                       R14 R13 K31 ["name"]
-      139 LOADB                            R14 1
-      140 SETTABLEKS                       R14 R13 K32 ["playableDevices"]
-      142 LOADB                            R14 1
-      143 SETTABLEKS                       R14 R13 K35 ["isFriendsOnly"]
-      145 MOVE                             R14 R6
-      146 CALL                             R14 0 1
-      147 JUMPIFNOT                        R14 ; [+3]
-      148 LOADB                            R14 1
-      149 SETTABLEKS                       R14 R13 K37 ["OptInLocations"]
-      151 DUPCLOSURE                       R14 K38 [PROTO_0]
-      152 CAPTURE                          VAL R12
-      153 DUPCLOSURE                       R15 K39 [PROTO_1]
-      154 CAPTURE                          VAL R13
-      155 DUPCLOSURE                       R16 K40 [PROTO_2]
-      156 DUPCLOSURE                       R17 K41 [PROTO_7]
-      157 CAPTURE                          VAL R13
-      158 CAPTURE                          VAL R12
-      159 CAPTURE                          VAL R0
-      160 CAPTURE                          VAL R6
-      161 CAPTURE                          VAL R2
-      162 CAPTURE                          VAL R5
-      163 CAPTURE                          VAL R16
-      164 CAPTURE                          VAL R9
-      165 CAPTURE                          VAL R11
-      166 CAPTURE                          VAL R7
-      167 CAPTURE                          VAL R10
-      168 CAPTURE                          VAL R8
-      169 CAPTURE                          VAL R3
-      170 DUPTABLE                         R18 K43 [{"saveAll"}]
-      171 SETTABLEKS                       R17 R18 K42 ["saveAll"]
-      173 RETURN                           R18 1
+      105 DUPTABLE                         R12 K29 [{["isActive"] = True}]
+      106 MOVE                             R14 R9
+      107 CALL                             R14 0 1
+      108 JUMPIFNOT                        R14 ; [+2]
+      109 DUPTABLE                         R13 K35 [{["description"] = True, ["genre"] = True, ["name"] = True, ["playableDevices"] = True, ["audiences"] = True}]
+      110 JUMP                             ; [+1]
+      111 DUPTABLE                         R13 K37 [{["description"] = True, ["genre"] = True, ["name"] = True, ["playableDevices"] = True, ["isFriendsOnly"] = True}]
+      112 MOVE                             R14 R6
+      113 CALL                             R14 0 1
+      114 JUMPIFNOT                        R14 ; [+3]
+      115 LOADB                            R14 1
+      116 SETTABLEKS                       R14 R13 K38 ["OptInLocations"]
+      118 DUPCLOSURE                       R14 K39 [PROTO_0]
+      119 CAPTURE                          VAL R12
+      120 DUPCLOSURE                       R15 K40 [PROTO_1]
+      121 CAPTURE                          VAL R13
+      122 DUPCLOSURE                       R16 K41 [PROTO_2]
+      123 DUPCLOSURE                       R17 K42 [PROTO_7]
+      124 CAPTURE                          VAL R13
+      125 CAPTURE                          VAL R12
+      126 CAPTURE                          VAL R0
+      127 CAPTURE                          VAL R6
+      128 CAPTURE                          VAL R2
+      129 CAPTURE                          VAL R5
+      130 CAPTURE                          VAL R16
+      131 CAPTURE                          VAL R9
+      132 CAPTURE                          VAL R11
+      133 CAPTURE                          VAL R7
+      134 CAPTURE                          VAL R10
+      135 CAPTURE                          VAL R8
+      136 CAPTURE                          VAL R3
+      137 DUPTABLE                         R18 K44 [{"saveAll"}]
+      138 SETTABLEKS                       R17 R18 K43 ["saveAll"]
+      140 RETURN                           R18 1

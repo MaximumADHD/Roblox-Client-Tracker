@@ -50,181 +50,173 @@ PROTO_1:
        61 CALL                             R8 0 1
        62 GETUPVAL                         R9 8
        63 GETTABLEKS                       R9 R9 K3 ["new"]
-       65 DUPTABLE                         R10 K15 [{"Icon"}]
-       66 LOADK                            R11 K16 ["rbxasset://SystemCursors/Arrow"]
-       67 SETTABLEKS                       R11 R10 K14 ["Icon"]
-       69 CALL                             R9 1 1
-       70 GETUPVAL                         R10 9
-       71 GETTABLEKS                       R10 R10 K17 ["Focus"]
-       73 GETTABLEKS                       R10 R10 K3 ["new"]
-       75 GETTABLEKS                       R11 R0 K18 ["focus"]
-       77 JUMPIF                           R11 ; [+4]
-       78 GETIMPORT                        R11 K20 [Instance.new]
-       80 LOADK                            R12 K21 ["ScreenGui"]
-       81 CALL                             R11 1 1
-       82 CALL                             R10 1 1
-       83 GETUPVAL                         R11 9
-       84 GETTABLEKS                       R11 R11 K22 ["Plugin"]
-       86 GETTABLEKS                       R11 R11 K3 ["new"]
-       88 MOVE                             R12 R3
-       89 CALL                             R11 1 1
-       90 GETUPVAL                         R12 10
-       91 GETTABLEKS                       R12 R12 K3 ["new"]
-       93 MOVE                             R13 R5
-       94 CALL                             R12 1 1
-       95 GETUPVAL                         R13 11
-       96 GETUPVAL                         R14 12
-       97 CALL                             R14 0 -1
-       98 CALL                             R13 -1 1
-       99 GETUPVAL                         R14 9
-      100 GETTABLEKS                       R14 R14 K2 ["Store"]
-      102 GETTABLEKS                       R14 R14 K3 ["new"]
-      104 MOVE                             R15 R2
-      105 CALL                             R14 1 1
-      106 GETTABLEKS                       R16 R0 K23 ["WebViewManagerContext"]
-      108 JUMPIFNOT                        R16 ; [+3]
-      109 GETTABLEKS                       R15 R0 K23 ["WebViewManagerContext"]
-      111 JUMP                             ; [+17]
-      112 GETUPVAL                         R15 13
-      113 GETTABLEKS                       R15 R15 K3 ["new"]
-      115 DUPTABLE                         R16 K25 [{"namespace", "plugin"}]
-      116 LOADK                            R17 K26 ["toolbox"]
-      117 SETTABLEKS                       R17 R16 K24 ["namespace"]
-      119 GETTABLEKS                       R17 R0 K5 ["plugin"]
-      121 JUMPIF                           R17 ; [+4]
-      122 GETUPVAL                         R17 3
-      123 GETTABLEKS                       R17 R17 K3 ["new"]
-      125 CALL                             R17 0 1
-      126 SETTABLEKS                       R17 R16 K5 ["plugin"]
-      128 CALL                             R15 1 1
-      129 GETUPVAL                         R16 9
-      130 GETTABLEKS                       R16 R16 K27 ["API"]
-      132 GETTABLEKS                       R16 R16 K3 ["new"]
-      134 DUPTABLE                         R17 K29 [{"networking"}]
-      135 GETUPVAL                         R18 14
-      136 GETTABLEKS                       R18 R18 K30 ["mock"]
-      138 CALL                             R18 0 1
-      139 SETTABLEKS                       R18 R17 K28 ["networking"]
-      141 CALL                             R16 1 1
-      142 GETUPVAL                         R17 9
-      143 GETTABLEKS                       R17 R17 K31 ["Analytics"]
-      145 GETTABLEKS                       R17 R17 K30 ["mock"]
-      147 CALL                             R17 0 1
-      148 GETUPVAL                         R18 15
-      149 GETTABLEKS                       R18 R18 K3 ["new"]
-      151 MOVE                             R19 R7
-      152 CALL                             R18 1 1
-      153 GETTABLEKS                       R20 R0 K32 ["publishServiceContext"]
-      155 ORK                              R19 R20 K6 []
-      156 GETTABLEKS                       R21 R0 K33 ["pluginGuiServiceContext"]
-      158 ORK                              R20 R21 K6 []
-      159 GETTABLEKS                       R22 R0 K34 ["contentProviderContext"]
-      161 ORK                              R21 R22 K6 []
-      162 GETUPVAL                         R22 16
-      163 GETTABLEKS                       R22 R22 K3 ["new"]
-      165 GETTABLEKS                       R23 R0 K35 ["assetAnalytics"]
-      167 JUMPIF                           R23 ; [+4]
-      168 GETUPVAL                         R23 17
-      169 GETTABLEKS                       R23 R23 K30 ["mock"]
-      171 CALL                             R23 0 1
-      172 CALL                             R22 1 1
-      173 GETUPVAL                         R23 18
-      174 GETTABLEKS                       R23 R23 K36 ["Resources"]
-      176 GETTABLEKS                       R23 R23 K37 ["Localization"]
-      178 GETTABLEKS                       R23 R23 K38 ["SourceStrings"]
-      180 GETUPVAL                         R24 18
-      181 GETTABLEKS                       R24 R24 K36 ["Resources"]
-      183 GETTABLEKS                       R24 R24 K37 ["Localization"]
-      185 GETTABLEKS                       R24 R24 K39 ["LocalizedStrings"]
-      187 GETUPVAL                         R25 9
-      188 GETTABLEKS                       R25 R25 K37 ["Localization"]
-      190 GETTABLEKS                       R25 R25 K3 ["new"]
-      192 DUPTABLE                         R26 K47 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
-      193 SETTABLEKS                       R23 R26 K40 ["stringResourceTable"]
-      195 SETTABLEKS                       R24 R26 K41 ["translationResourceTable"]
-      197 LOADK                            R27 K48 ["Toolbox"]
-      198 SETTABLEKS                       R27 R26 K42 ["pluginName"]
-      200 NEWTABLE                         R27 1 0
-      202 GETUPVAL                         R28 19
-      203 GETTABLEKS                       R28 R28 K36 ["Resources"]
-      205 GETTABLEKS                       R28 R28 K49 ["LOCALIZATION_PROJECT_NAME"]
-      207 DUPTABLE                         R29 K50 [{"stringResourceTable", "translationResourceTable"}]
-      208 GETUPVAL                         R30 19
-      209 GETTABLEKS                       R30 R30 K36 ["Resources"]
-      211 GETTABLEKS                       R30 R30 K38 ["SourceStrings"]
-      213 SETTABLEKS                       R30 R29 K40 ["stringResourceTable"]
-      215 GETUPVAL                         R30 19
-      216 GETTABLEKS                       R30 R30 K36 ["Resources"]
-      218 GETTABLEKS                       R30 R30 K39 ["LocalizedStrings"]
-      220 SETTABLEKS                       R30 R29 K41 ["translationResourceTable"]
-      222 SETTABLE                         R29 R27 R28
-      223 SETTABLEKS                       R27 R26 K43 ["libraries"]
-      225 DUPCLOSURE                       R27 K51 [PROTO_0]
-      226 SETTABLEKS                       R27 R26 K44 ["overrideGetLocale"]
-      228 LOADK                            R27 K52 ["en-us"]
-      229 SETTABLEKS                       R27 R26 K45 ["overrideLocaleId"]
-      231 GETUPVAL                         R27 20
-      232 GETTABLEKS                       R27 R27 K3 ["new"]
-      234 CALL                             R27 0 1
-      235 SETTABLEKS                       R27 R26 K46 ["overrideLocaleChangedSignal"]
-      237 CALL                             R25 1 1
-      238 GETUPVAL                         R26 21
-      239 GETTABLEKS                       R26 R26 K3 ["new"]
-      241 CALL                             R26 0 1
-      242 NEWTABLE                         R27 0 17
-      244 MOVE                             R28 R14
-      245 MOVE                             R29 R10
-      246 MOVE                             R30 R9
-      247 MOVE                             R31 R11
-      248 MOVE                             R32 R12
-      249 MOVE                             R33 R13
-      250 MOVE                             R34 R16
-      251 MOVE                             R35 R22
-      252 MOVE                             R36 R17
-      253 MOVE                             R37 R25
-      254 MOVE                             R38 R8
-      255 MOVE                             R39 R26
-      256 MOVE                             R40 R18
-      257 MOVE                             R41 R15
-      258 MOVE                             R42 R19
-      259 MOVE                             R43 R20
-      260 SETLIST                          R27 R28 16 [1]
-      262 MOVE                             R28 R21
-      263 SETLIST                          R27 R28 1 [17]
-      265 GETUPVAL                         R29 22
-      266 GETTABLEKS                       R29 R29 K53 ["Children"]
-      268 GETTABLE                         R28 R0 R29
-      269 GETUPVAL                         R29 23
-      270 CALL                             R29 0 1
-      271 JUMPIFNOT                        R29 ; [+13]
-      272 DUPTABLE                         R29 K55 [{"FoundationProvider"}]
-      273 GETUPVAL                         R30 22
-      274 GETTABLEKS                       R30 R30 K56 ["createElement"]
-      276 GETUPVAL                         R31 24
-      277 GETTABLEKS                       R31 R31 K54 ["FoundationProvider"]
-      279 LOADNIL                          R32
-      280 MOVE                             R33 R28
-      281 CALL                             R30 3 1
-      282 SETTABLEKS                       R30 R29 K54 ["FoundationProvider"]
-      284 MOVE                             R28 R29
-      285 GETUPVAL                         R29 22
-      286 GETTABLEKS                       R29 R29 K56 ["createElement"]
-      288 GETUPVAL                         R30 25
-      289 DUPTABLE                         R31 K57 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
-      290 SETTABLEKS                       R2 R31 K1 ["store"]
-      292 SETTABLEKS                       R3 R31 K5 ["plugin"]
-      294 SETTABLEKS                       R4 R31 K7 ["pluginGui"]
-      296 SETTABLEKS                       R5 R31 K8 ["settings"]
-      298 SETTABLEKS                       R6 R31 K9 ["theme"]
-      300 SETTABLEKS                       R7 R31 K11 ["networkInterface"]
-      302 DUPTABLE                         R32 K59 [{"MockContextProvider"}]
-      303 GETUPVAL                         R33 26
-      304 MOVE                             R34 R27
-      305 MOVE                             R35 R28
-      306 CALL                             R33 2 1
-      307 SETTABLEKS                       R33 R32 K58 ["MockContextProvider"]
-      309 CALL                             R29 3 -1
-      310 RETURN                           R29 -1
+       65 DUPTABLE                         R10 K16 [{["Icon"] = "rbxasset://SystemCursors/Arrow"}]
+       66 CALL                             R9 1 1
+       67 GETUPVAL                         R10 9
+       68 GETTABLEKS                       R10 R10 K17 ["Focus"]
+       70 GETTABLEKS                       R10 R10 K3 ["new"]
+       72 GETTABLEKS                       R11 R0 K18 ["focus"]
+       74 JUMPIF                           R11 ; [+4]
+       75 GETIMPORT                        R11 K20 [Instance.new]
+       77 LOADK                            R12 K21 ["ScreenGui"]
+       78 CALL                             R11 1 1
+       79 CALL                             R10 1 1
+       80 GETUPVAL                         R11 9
+       81 GETTABLEKS                       R11 R11 K22 ["Plugin"]
+       83 GETTABLEKS                       R11 R11 K3 ["new"]
+       85 MOVE                             R12 R3
+       86 CALL                             R11 1 1
+       87 GETUPVAL                         R12 10
+       88 GETTABLEKS                       R12 R12 K3 ["new"]
+       90 MOVE                             R13 R5
+       91 CALL                             R12 1 1
+       92 GETUPVAL                         R13 11
+       93 GETUPVAL                         R14 12
+       94 CALL                             R14 0 -1
+       95 CALL                             R13 -1 1
+       96 GETUPVAL                         R14 9
+       97 GETTABLEKS                       R14 R14 K2 ["Store"]
+       99 GETTABLEKS                       R14 R14 K3 ["new"]
+      101 MOVE                             R15 R2
+      102 CALL                             R14 1 1
+      103 GETTABLEKS                       R16 R0 K23 ["WebViewManagerContext"]
+      105 JUMPIFNOT                        R16 ; [+3]
+      106 GETTABLEKS                       R15 R0 K23 ["WebViewManagerContext"]
+      108 JUMP                             ; [+14]
+      109 GETUPVAL                         R15 13
+      110 GETTABLEKS                       R15 R15 K3 ["new"]
+      112 DUPTABLE                         R16 K26 [{["namespace"] = "toolbox", ["plugin"]}]
+      113 GETTABLEKS                       R17 R0 K5 ["plugin"]
+      115 JUMPIF                           R17 ; [+4]
+      116 GETUPVAL                         R17 3
+      117 GETTABLEKS                       R17 R17 K3 ["new"]
+      119 CALL                             R17 0 1
+      120 SETTABLEKS                       R17 R16 K5 ["plugin"]
+      122 CALL                             R15 1 1
+      123 GETUPVAL                         R16 9
+      124 GETTABLEKS                       R16 R16 K27 ["API"]
+      126 GETTABLEKS                       R16 R16 K3 ["new"]
+      128 DUPTABLE                         R17 K29 [{"networking"}]
+      129 GETUPVAL                         R18 14
+      130 GETTABLEKS                       R18 R18 K30 ["mock"]
+      132 CALL                             R18 0 1
+      133 SETTABLEKS                       R18 R17 K28 ["networking"]
+      135 CALL                             R16 1 1
+      136 GETUPVAL                         R17 9
+      137 GETTABLEKS                       R17 R17 K31 ["Analytics"]
+      139 GETTABLEKS                       R17 R17 K30 ["mock"]
+      141 CALL                             R17 0 1
+      142 GETUPVAL                         R18 15
+      143 GETTABLEKS                       R18 R18 K3 ["new"]
+      145 MOVE                             R19 R7
+      146 CALL                             R18 1 1
+      147 GETTABLEKS                       R20 R0 K32 ["publishServiceContext"]
+      149 ORK                              R19 R20 K6 []
+      150 GETTABLEKS                       R21 R0 K33 ["pluginGuiServiceContext"]
+      152 ORK                              R20 R21 K6 []
+      153 GETTABLEKS                       R22 R0 K34 ["contentProviderContext"]
+      155 ORK                              R21 R22 K6 []
+      156 GETUPVAL                         R22 16
+      157 GETTABLEKS                       R22 R22 K3 ["new"]
+      159 GETTABLEKS                       R23 R0 K35 ["assetAnalytics"]
+      161 JUMPIF                           R23 ; [+4]
+      162 GETUPVAL                         R23 17
+      163 GETTABLEKS                       R23 R23 K30 ["mock"]
+      165 CALL                             R23 0 1
+      166 CALL                             R22 1 1
+      167 GETUPVAL                         R23 18
+      168 GETTABLEKS                       R23 R23 K36 ["Resources"]
+      170 GETTABLEKS                       R23 R23 K37 ["Localization"]
+      172 GETTABLEKS                       R23 R23 K38 ["SourceStrings"]
+      174 GETUPVAL                         R24 18
+      175 GETTABLEKS                       R24 R24 K36 ["Resources"]
+      177 GETTABLEKS                       R24 R24 K37 ["Localization"]
+      179 GETTABLEKS                       R24 R24 K39 ["LocalizedStrings"]
+      181 GETUPVAL                         R25 9
+      182 GETTABLEKS                       R25 R25 K37 ["Localization"]
+      184 GETTABLEKS                       R25 R25 K3 ["new"]
+      186 DUPTABLE                         R26 K49 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Toolbox", ["libraries"], ["overrideGetLocale"], ["overrideLocaleId"] = "en-us", ["overrideLocaleChangedSignal"]}]
+      187 SETTABLEKS                       R23 R26 K40 ["stringResourceTable"]
+      189 SETTABLEKS                       R24 R26 K41 ["translationResourceTable"]
+      191 NEWTABLE                         R27 1 0
+      193 GETUPVAL                         R28 19
+      194 GETTABLEKS                       R28 R28 K36 ["Resources"]
+      196 GETTABLEKS                       R28 R28 K50 ["LOCALIZATION_PROJECT_NAME"]
+      198 DUPTABLE                         R29 K51 [{"stringResourceTable", "translationResourceTable"}]
+      199 GETUPVAL                         R30 19
+      200 GETTABLEKS                       R30 R30 K36 ["Resources"]
+      202 GETTABLEKS                       R30 R30 K38 ["SourceStrings"]
+      204 SETTABLEKS                       R30 R29 K40 ["stringResourceTable"]
+      206 GETUPVAL                         R30 19
+      207 GETTABLEKS                       R30 R30 K36 ["Resources"]
+      209 GETTABLEKS                       R30 R30 K39 ["LocalizedStrings"]
+      211 SETTABLEKS                       R30 R29 K41 ["translationResourceTable"]
+      213 SETTABLE                         R29 R27 R28
+      214 SETTABLEKS                       R27 R26 K44 ["libraries"]
+      216 DUPCLOSURE                       R27 K52 [PROTO_0]
+      217 SETTABLEKS                       R27 R26 K45 ["overrideGetLocale"]
+      219 GETUPVAL                         R27 20
+      220 GETTABLEKS                       R27 R27 K3 ["new"]
+      222 CALL                             R27 0 1
+      223 SETTABLEKS                       R27 R26 K48 ["overrideLocaleChangedSignal"]
+      225 CALL                             R25 1 1
+      226 GETUPVAL                         R26 21
+      227 GETTABLEKS                       R26 R26 K3 ["new"]
+      229 CALL                             R26 0 1
+      230 NEWTABLE                         R27 0 17
+      232 MOVE                             R28 R14
+      233 MOVE                             R29 R10
+      234 MOVE                             R30 R9
+      235 MOVE                             R31 R11
+      236 MOVE                             R32 R12
+      237 MOVE                             R33 R13
+      238 MOVE                             R34 R16
+      239 MOVE                             R35 R22
+      240 MOVE                             R36 R17
+      241 MOVE                             R37 R25
+      242 MOVE                             R38 R8
+      243 MOVE                             R39 R26
+      244 MOVE                             R40 R18
+      245 MOVE                             R41 R15
+      246 MOVE                             R42 R19
+      247 MOVE                             R43 R20
+      248 SETLIST                          R27 R28 16 [1]
+      250 MOVE                             R28 R21
+      251 SETLIST                          R27 R28 1 [17]
+      253 GETUPVAL                         R29 22
+      254 GETTABLEKS                       R29 R29 K53 ["Children"]
+      256 GETTABLE                         R28 R0 R29
+      257 GETUPVAL                         R29 23
+      258 CALL                             R29 0 1
+      259 JUMPIFNOT                        R29 ; [+13]
+      260 DUPTABLE                         R29 K55 [{"FoundationProvider"}]
+      261 GETUPVAL                         R30 22
+      262 GETTABLEKS                       R30 R30 K56 ["createElement"]
+      264 GETUPVAL                         R31 24
+      265 GETTABLEKS                       R31 R31 K54 ["FoundationProvider"]
+      267 LOADNIL                          R32
+      268 MOVE                             R33 R28
+      269 CALL                             R30 3 1
+      270 SETTABLEKS                       R30 R29 K54 ["FoundationProvider"]
+      272 MOVE                             R28 R29
+      273 GETUPVAL                         R29 22
+      274 GETTABLEKS                       R29 R29 K56 ["createElement"]
+      276 GETUPVAL                         R30 25
+      277 DUPTABLE                         R31 K57 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+      278 SETTABLEKS                       R2 R31 K1 ["store"]
+      280 SETTABLEKS                       R3 R31 K5 ["plugin"]
+      282 SETTABLEKS                       R4 R31 K7 ["pluginGui"]
+      284 SETTABLEKS                       R5 R31 K8 ["settings"]
+      286 SETTABLEKS                       R6 R31 K9 ["theme"]
+      288 SETTABLEKS                       R7 R31 K11 ["networkInterface"]
+      290 DUPTABLE                         R32 K59 [{"MockContextProvider"}]
+      291 GETUPVAL                         R33 26
+      292 MOVE                             R34 R27
+      293 MOVE                             R35 R28
+      294 CALL                             R33 2 1
+      295 SETTABLEKS                       R33 R32 K58 ["MockContextProvider"]
+      297 CALL                             R29 3 -1
+      298 RETURN                           R29 -1
 
 MAIN:
         0 PREPVARARGS                      0

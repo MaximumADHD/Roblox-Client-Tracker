@@ -54,24 +54,22 @@ PROTO_2:
        13 CALL                             R1 -1 1
        14 NEWTABLE                         R2 0 0
        16 GETUPVAL                         R3 2
-       17 DUPTABLE                         R5 K5 [{"Method", "Url", "Headers"}]
-       18 LOADK                            R6 K6 ["GET"]
-       19 SETTABLEKS                       R6 R5 K3 ["Method"]
-       21 SETTABLEKS                       R1 R5 K2 ["Url"]
-       23 GETUPVAL                         R6 3
-       24 SETTABLEKS                       R6 R5 K4 ["Headers"]
-       26 NAMECALL                         R3 R3 K7 ["request"]
-       28 CALL                             R3 2 1
-       29 NEWCLOSURE                       R5 P0
-       30 CAPTURE                          UPVAL U4
-       31 CAPTURE                          VAL R2
-       32 CAPTURE                          UPVAL U5
-       33 NAMECALL                         R3 R3 K8 ["andThen"]
-       35 CALL                             R3 2 1
-       36 DUPCLOSURE                       R5 K9 [PROTO_1]
-       37 NAMECALL                         R3 R3 K10 ["catch"]
-       39 CALL                             R3 2 -1
-       40 RETURN                           R3 -1
+       17 DUPTABLE                         R5 K6 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+       18 SETTABLEKS                       R1 R5 K2 ["Url"]
+       20 GETUPVAL                         R6 3
+       21 SETTABLEKS                       R6 R5 K5 ["Headers"]
+       23 NAMECALL                         R3 R3 K7 ["request"]
+       25 CALL                             R3 2 1
+       26 NEWCLOSURE                       R5 P0
+       27 CAPTURE                          UPVAL U4
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          UPVAL U5
+       30 NAMECALL                         R3 R3 K8 ["andThen"]
+       32 CALL                             R3 2 1
+       33 DUPCLOSURE                       R5 K9 [PROTO_1]
+       34 NAMECALL                         R3 R3 K10 ["catch"]
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -103,24 +101,22 @@ MAIN:
        46 CALL                             R4 1 1
        47 GETTABLEKS                       R4 R4 K7 ["Networking"]
        49 GETTABLEKS                       R5 R4 K12 ["new"]
-       51 DUPTABLE                         R6 K14 [{"isInternal"}]
-       52 LOADB                            R7 1
-       53 SETTABLEKS                       R7 R6 K13 ["isInternal"]
-       55 CALL                             R5 1 1
-       56 GETIMPORT                        R6 K16 [game]
-       58 LOADK                            R8 K17 ["HttpService"]
-       59 NAMECALL                         R6 R6 K18 ["GetService"]
-       61 CALL                             R6 2 1
-       62 NEWTABLE                         R7 1 0
-       64 LOADK                            R8 K19 ["application/json"]
-       65 SETTABLEKS                       R8 R7 K20 ["Content-Type"]
-       67 DUPCLOSURE                       R8 K21 [PROTO_2]
-       68 CAPTURE                          VAL R3
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R5
-       71 CAPTURE                          VAL R7
-       72 CAPTURE                          VAL R6
-       73 CAPTURE                          VAL R1
-       74 SETGLOBAL                        R8 K22 ["GetGroupRoles"]
-       76 GETGLOBAL                        R8 K22 ["GetGroupRoles"]
-       78 RETURN                           R8 1
+       51 DUPTABLE                         R6 K15 [{["isInternal"] = True}]
+       52 CALL                             R5 1 1
+       53 GETIMPORT                        R6 K17 [game]
+       55 LOADK                            R8 K18 ["HttpService"]
+       56 NAMECALL                         R6 R6 K19 ["GetService"]
+       58 CALL                             R6 2 1
+       59 NEWTABLE                         R7 1 0
+       61 LOADK                            R8 K20 ["application/json"]
+       62 SETTABLEKS                       R8 R7 K21 ["Content-Type"]
+       64 DUPCLOSURE                       R8 K22 [PROTO_2]
+       65 CAPTURE                          VAL R3
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R1
+       71 SETGLOBAL                        R8 K23 ["GetGroupRoles"]
+       73 GETGLOBAL                        R8 K23 ["GetGroupRoles"]
+       75 RETURN                           R8 1

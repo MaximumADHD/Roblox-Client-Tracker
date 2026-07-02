@@ -37,42 +37,36 @@ PROTO_2:
         2 GETUPVAL                         R2 0
         3 GETTABLEKS                       R2 R2 K1 ["createElement"]
         5 GETUPVAL                         R3 1
-        6 DUPTABLE                         R4 K8 [{"Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
-        7 LOADK                            R5 K9 ["Box"]
-        8 SETTABLEKS                       R5 R4 K2 ["Style"]
-       10 GETTABLEKS                       R5 R1 K10 ["BackgroundColor"]
-       12 SETTABLEKS                       R5 R4 K3 ["BackgroundColor3"]
-       14 LOADN                            R5 1
-       15 SETTABLEKS                       R5 R4 K4 ["BorderSizePixel"]
-       17 GETTABLEKS                       R5 R1 K2 ["Style"]
-       19 GETTABLEKS                       R5 R5 K11 ["Border"]
-       21 SETTABLEKS                       R5 R4 K5 ["BorderColor3"]
-       23 GETIMPORT                        R5 K14 [UDim2.new]
-       25 GETTABLEKS                       R6 R1 K15 ["Width"]
-       27 GETTABLEKS                       R6 R6 K16 ["Scale"]
-       29 GETTABLEKS                       R7 R1 K15 ["Width"]
-       31 GETTABLEKS                       R7 R7 K17 ["Offset"]
-       33 LOADN                            R8 1
-       34 LOADN                            R9 0
-       35 CALL                             R5 4 1
-       36 SETTABLEKS                       R5 R4 K6 ["Size"]
-       38 LOADB                            R5 1
-       39 SETTABLEKS                       R5 R4 K7 ["ClipsDescendants"]
-       41 DUPTABLE                         R5 K19 [{"EnabledCheckbox"}]
-       42 GETTABLEKS                       R6 R1 K20 ["HasChildren"]
-       44 JUMPIFNOT                        R6 ; [+14]
-       45 GETUPVAL                         R6 0
-       46 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       48 GETUPVAL                         R7 2
-       49 DUPTABLE                         R8 K23 [{"Checked", "OnClick"}]
-       50 GETTABLEKS                       R9 R1 K24 ["Value"]
-       52 SETTABLEKS                       R9 R8 K21 ["Checked"]
-       54 GETTABLEKS                       R9 R0 K25 ["onCheckboxClicked"]
-       56 SETTABLEKS                       R9 R8 K22 ["OnClick"]
-       58 CALL                             R6 2 1
-       59 SETTABLEKS                       R6 R5 K18 ["EnabledCheckbox"]
-       61 CALL                             R2 3 -1
-       62 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K11 [{["Style"] = "Box", ["BackgroundColor3"], ["BorderSizePixel"] = 1, ["BorderColor3"], ["Size"], ["ClipsDescendants"] = True}]
+        7 GETTABLEKS                       R5 R1 K12 ["BackgroundColor"]
+        9 SETTABLEKS                       R5 R4 K4 ["BackgroundColor3"]
+       11 GETTABLEKS                       R5 R1 K2 ["Style"]
+       13 GETTABLEKS                       R5 R5 K13 ["Border"]
+       15 SETTABLEKS                       R5 R4 K7 ["BorderColor3"]
+       17 GETIMPORT                        R5 K16 [UDim2.new]
+       19 GETTABLEKS                       R6 R1 K17 ["Width"]
+       21 GETTABLEKS                       R6 R6 K18 ["Scale"]
+       23 GETTABLEKS                       R7 R1 K17 ["Width"]
+       25 GETTABLEKS                       R7 R7 K19 ["Offset"]
+       27 LOADN                            R8 1
+       28 LOADN                            R9 0
+       29 CALL                             R5 4 1
+       30 SETTABLEKS                       R5 R4 K8 ["Size"]
+       32 DUPTABLE                         R5 K21 [{"EnabledCheckbox"}]
+       33 GETTABLEKS                       R6 R1 K22 ["HasChildren"]
+       35 JUMPIFNOT                        R6 ; [+14]
+       36 GETUPVAL                         R6 0
+       37 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       39 GETUPVAL                         R7 2
+       40 DUPTABLE                         R8 K25 [{"Checked", "OnClick"}]
+       41 GETTABLEKS                       R9 R1 K26 ["Value"]
+       43 SETTABLEKS                       R9 R8 K23 ["Checked"]
+       45 GETTABLEKS                       R9 R0 K27 ["onCheckboxClicked"]
+       47 SETTABLEKS                       R9 R8 K24 ["OnClick"]
+       49 CALL                             R6 2 1
+       50 SETTABLEKS                       R6 R5 K20 ["EnabledCheckbox"]
+       52 CALL                             R2 3 -1
+       53 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

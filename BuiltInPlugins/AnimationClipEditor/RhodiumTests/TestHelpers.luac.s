@@ -70,19 +70,17 @@ PROTO_4:
        11 GETTABLEKS                       R8 R4 K3 ["Y"]
        13 LOADN                            R9 0
        14 MOVE                             R10 R1
-       15 DUPTABLE                         R11 K6 [{"StartOfScroll", "IsPartOfGesture"}]
+       15 DUPTABLE                         R11 K7 [{["StartOfScroll"], ["IsPartOfGesture"] = True}]
        16 SETTABLEKS                       R2 R11 K4 ["StartOfScroll"]
-       18 LOADB                            R12 1
-       19 SETTABLEKS                       R12 R11 K5 ["IsPartOfGesture"]
-       21 LOADK                            R14 K7 ["LayerCollector"]
-       22 NAMECALL                         R12 R0 K8 ["FindFirstAncestorWhichIsA"]
-       24 CALL                             R12 2 -1
-       25 NAMECALL                         R5 R5 K9 ["SendScroll"]
-       27 CALL                             R5 -1 0
-       28 GETUPVAL                         R5 2
-       29 GETTABLEKS                       R5 R5 K10 ["delay"]
-       31 CALL                             R5 0 0
-       32 RETURN                           R0 0
+       18 LOADK                            R14 K8 ["LayerCollector"]
+       19 NAMECALL                         R12 R0 K9 ["FindFirstAncestorWhichIsA"]
+       21 CALL                             R12 2 -1
+       22 NAMECALL                         R5 R5 K10 ["SendScroll"]
+       24 CALL                             R5 -1 0
+       25 GETUPVAL                         R5 2
+       26 GETTABLEKS                       R5 R5 K11 ["delay"]
+       28 CALL                             R5 0 0
+       29 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -184,38 +182,36 @@ MAIN:
        74 GETTABLEKS                       R11 R11 K24 ["Thunks"]
        76 GETTABLEKS                       R11 R11 K26 ["UpdateRootInstance"]
        78 CALL                             R10 1 1
-       79 DUPTABLE                         R11 K28 [{"plugin"}]
-       80 LOADNIL                          R12
-       81 SETTABLEKS                       R12 R11 K27 ["plugin"]
-       83 DUPCLOSURE                       R12 K29 [PROTO_0]
-       84 CAPTURE                          VAL R0
-       85 CAPTURE                          VAL R11
-       86 SETTABLEKS                       R12 R11 K30 ["init"]
-       88 DUPCLOSURE                       R12 K31 [PROTO_1]
-       89 CAPTURE                          VAL R4
-       90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R8
-       92 CAPTURE                          VAL R10
-       93 CAPTURE                          VAL R0
-       94 CAPTURE                          VAL R9
-       95 SETTABLEKS                       R12 R11 K32 ["loadAnimation"]
-       97 DUPCLOSURE                       R12 K33 [PROTO_2]
-       98 SETTABLEKS                       R12 R11 K34 ["delay"]
-      100 DUPCLOSURE                       R12 K35 [PROTO_3]
-      101 CAPTURE                          VAL R6
-      102 CAPTURE                          VAL R11
-      103 SETTABLEKS                       R12 R11 K36 ["clickInstance"]
-      105 DUPCLOSURE                       R12 K37 [PROTO_4]
-      106 CAPTURE                          VAL R6
-      107 CAPTURE                          VAL R1
-      108 CAPTURE                          VAL R11
-      109 SETTABLEKS                       R12 R11 K38 ["scrollInstance"]
-      111 DUPCLOSURE                       R12 K39 [PROTO_6]
-      112 CAPTURE                          VAL R1
-      113 CAPTURE                          VAL R11
-      114 SETTABLEKS                       R12 R11 K40 ["pressKey"]
-      116 DUPCLOSURE                       R12 K41 [PROTO_7]
-      117 CAPTURE                          VAL R7
-      118 CAPTURE                          VAL R11
-      119 SETTABLEKS                       R12 R11 K42 ["runTest"]
-      121 RETURN                           R11 1
+       79 DUPTABLE                         R11 K29 [{["plugin"] = }]
+       80 DUPCLOSURE                       R12 K30 [PROTO_0]
+       81 CAPTURE                          VAL R0
+       82 CAPTURE                          VAL R11
+       83 SETTABLEKS                       R12 R11 K31 ["init"]
+       85 DUPCLOSURE                       R12 K32 [PROTO_1]
+       86 CAPTURE                          VAL R4
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R8
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R0
+       91 CAPTURE                          VAL R9
+       92 SETTABLEKS                       R12 R11 K33 ["loadAnimation"]
+       94 DUPCLOSURE                       R12 K34 [PROTO_2]
+       95 SETTABLEKS                       R12 R11 K35 ["delay"]
+       97 DUPCLOSURE                       R12 K36 [PROTO_3]
+       98 CAPTURE                          VAL R6
+       99 CAPTURE                          VAL R11
+      100 SETTABLEKS                       R12 R11 K37 ["clickInstance"]
+      102 DUPCLOSURE                       R12 K38 [PROTO_4]
+      103 CAPTURE                          VAL R6
+      104 CAPTURE                          VAL R1
+      105 CAPTURE                          VAL R11
+      106 SETTABLEKS                       R12 R11 K39 ["scrollInstance"]
+      108 DUPCLOSURE                       R12 K40 [PROTO_6]
+      109 CAPTURE                          VAL R1
+      110 CAPTURE                          VAL R11
+      111 SETTABLEKS                       R12 R11 K41 ["pressKey"]
+      113 DUPCLOSURE                       R12 K42 [PROTO_7]
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R11
+      116 SETTABLEKS                       R12 R11 K43 ["runTest"]
+      118 RETURN                           R11 1

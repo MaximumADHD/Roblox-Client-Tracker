@@ -13,7 +13,7 @@ PROTO_0:
        17 SETTABLEKS                       R1 R0 K4 ["openScripts"]
        19 LOADB                            R1 0
        20 SETTABLEKS                       R1 R0 K5 ["showingArrow"]
-       22 LOADN                            R1 255
+       22 LOADN                            R1 -1
        23 SETTABLEKS                       R1 R0 K6 ["currentThreadId"]
        25 RETURN                           R0 1
 

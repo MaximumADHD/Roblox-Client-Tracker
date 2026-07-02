@@ -105,22 +105,12 @@ PROTO_5:
        17 RETURN                           R1 1
 
 PROTO_6:
-        0 DUPTABLE                         R0 K3 [{"basePrice", "published", "purchasable"}]
-        1 DUPTABLE                         R1 K6 [{"currencyCode", "quantity"}]
-        2 LOADK                            R2 K7 ["USD"]
-        3 SETTABLEKS                       R2 R1 K4 ["currencyCode"]
-        5 DUPTABLE                         R2 K10 [{"significand", "exponent"}]
-        6 LOADN                            R3 0
-        7 SETTABLEKS                       R3 R2 K8 ["significand"]
-        9 LOADN                            R3 0
-       10 SETTABLEKS                       R3 R2 K9 ["exponent"]
-       12 SETTABLEKS                       R2 R1 K5 ["quantity"]
-       14 SETTABLEKS                       R1 R0 K0 ["basePrice"]
-       16 LOADB                            R1 0
-       17 SETTABLEKS                       R1 R0 K1 ["published"]
-       19 LOADB                            R1 0
-       20 SETTABLEKS                       R1 R0 K2 ["purchasable"]
-       22 RETURN                           R0 1
+        0 DUPTABLE                         R0 K4 [{[1], ["published"] = False, ["purchasable"] = False}]
+        1 DUPTABLE                         R1 K8 [{["currencyCode"] = "USD", ["quantity"]}]
+        2 DUPTABLE                         R2 K12 [{["significand"] = 0, ["exponent"] = 0}]
+        3 SETTABLEKS                       R2 R1 K7 ["quantity"]
+        5 SETTABLEKS                       R1 R0 K0 ["basePrice"]
+        7 RETURN                           R0 1
 
 PROTO_7:
         0 DUPTABLE                         R2 K6 [{"audioAssetId", "decalAssetId", "meshPartAssetId", "modelAssetId", "pluginAssetId", "videoAssetId"}]

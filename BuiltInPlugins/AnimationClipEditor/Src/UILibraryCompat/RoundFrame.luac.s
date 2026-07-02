@@ -88,7 +88,7 @@ PROTO_1:
       121 GETUPVAL                         R21 2
       122 GETTABLEKS                       R21 R21 K17 ["createElement"]
       124 LOADK                            R22 K37 ["ImageLabel"]
-      125 DUPTABLE                         R23 K39 [{"Size", "BackgroundTransparency", "ImageColor3", "ImageTransparency", "Image", "ScaleType", "SliceCenter", "SliceScale"}]
+      125 DUPTABLE                         R23 K39 [{["Size"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["ImageTransparency"], ["Image"], ["ScaleType"], ["SliceCenter"], ["SliceScale"]}]
       126 GETIMPORT                        R24 K42 [UDim2.new]
       128 LOADN                            R25 1
       129 LOADN                            R26 0
@@ -96,24 +96,22 @@ PROTO_1:
       131 LOADN                            R28 0
       132 CALL                             R24 4 1
       133 SETTABLEKS                       R24 R23 K8 ["Size"]
-      135 LOADN                            R24 1
-      136 SETTABLEKS                       R24 R23 K4 ["BackgroundTransparency"]
-      138 SETTABLEKS                       R6 R23 K19 ["ImageColor3"]
-      140 SETTABLEKS                       R16 R23 K20 ["ImageTransparency"]
-      142 GETTABLEKS                       R24 R3 K43 ["borderImage"]
-      144 SETTABLEKS                       R24 R23 K22 ["Image"]
-      146 GETIMPORT                        R24 K26 [Enum.ScaleType.Slice]
-      148 SETTABLEKS                       R24 R23 K24 ["ScaleType"]
-      150 GETUPVAL                         R24 3
-      151 SETTABLEKS                       R24 R23 K27 ["SliceCenter"]
-      153 SETTABLEKS                       R7 R23 K38 ["SliceScale"]
-      155 GETUPVAL                         R25 2
-      156 GETTABLEKS                       R25 R25 K44 ["Children"]
-      158 GETTABLE                         R24 R2 R25
-      159 CALL                             R21 3 1
-      160 SETTABLEKS                       R21 R20 K35 ["Border"]
-      162 CALL                             R17 3 -1
-      163 RETURN                           R17 -1
+      135 SETTABLEKS                       R6 R23 K19 ["ImageColor3"]
+      137 SETTABLEKS                       R16 R23 K20 ["ImageTransparency"]
+      139 GETTABLEKS                       R24 R3 K43 ["borderImage"]
+      141 SETTABLEKS                       R24 R23 K22 ["Image"]
+      143 GETIMPORT                        R24 K26 [Enum.ScaleType.Slice]
+      145 SETTABLEKS                       R24 R23 K24 ["ScaleType"]
+      147 GETUPVAL                         R24 3
+      148 SETTABLEKS                       R24 R23 K27 ["SliceCenter"]
+      150 SETTABLEKS                       R7 R23 K38 ["SliceScale"]
+      152 GETUPVAL                         R25 2
+      153 GETTABLEKS                       R25 R25 K44 ["Children"]
+      155 GETTABLE                         R24 R2 R25
+      156 CALL                             R21 3 1
+      157 SETTABLEKS                       R21 R20 K35 ["Border"]
+      159 CALL                             R17 3 -1
+      160 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

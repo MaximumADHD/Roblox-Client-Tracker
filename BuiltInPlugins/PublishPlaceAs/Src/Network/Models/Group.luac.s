@@ -1,10 +1,6 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"groupId", "name"}]
-        1 LOADK                            R1 K3 [12341234]
-        2 SETTABLEKS                       R1 R0 K0 ["groupId"]
-        4 LOADK                            R1 K4 ["yeet"]
-        5 SETTABLEKS                       R1 R0 K1 ["name"]
-        7 RETURN                           R0 1
+        0 DUPTABLE                         R0 K4 [{[1] = 12341234, ["name"] = "yeet"}]
+        1 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["id"]

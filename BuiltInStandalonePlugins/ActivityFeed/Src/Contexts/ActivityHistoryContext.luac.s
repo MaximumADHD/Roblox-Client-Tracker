@@ -44,26 +44,24 @@ MAIN:
        31 GETTABLEKS                       R4 R4 K11 ["SharedTypes"]
        33 CALL                             R3 1 1
        34 NEWTABLE                         R4 0 0
-       36 DUPTABLE                         R5 K21 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "getActivityHistoryManager", "useCollaborators", "usePlaceAndUniverseId", "useConnectToDataModelSessionEffect", "DEPRECATED_openBrowserLink", "openLink", "contextType"}]
+       36 DUPTABLE                         R5 K22 [{["activityHistoryClient"], ["showSaveOrPublishPlaceToRobloxFn"], ["getActivityHistoryManager"], ["useCollaborators"], ["usePlaceAndUniverseId"], ["useConnectToDataModelSessionEffect"], ["DEPRECATED_openBrowserLink"], ["openLink"], ["contextType"] = "mock context (default)"}]
        37 SETTABLEKS                       R2 R5 K12 ["activityHistoryClient"]
-       39 DUPCLOSURE                       R6 K22 [PROTO_0]
+       39 DUPCLOSURE                       R6 K23 [PROTO_0]
        40 SETTABLEKS                       R6 R5 K13 ["showSaveOrPublishPlaceToRobloxFn"]
-       42 DUPCLOSURE                       R6 K23 [PROTO_1]
+       42 DUPCLOSURE                       R6 K24 [PROTO_1]
        43 SETTABLEKS                       R6 R5 K14 ["getActivityHistoryManager"]
-       45 DUPCLOSURE                       R6 K24 [PROTO_2]
+       45 DUPCLOSURE                       R6 K25 [PROTO_2]
        46 CAPTURE                          VAL R4
        47 SETTABLEKS                       R6 R5 K15 ["useCollaborators"]
-       49 DUPCLOSURE                       R6 K25 [PROTO_3]
+       49 DUPCLOSURE                       R6 K26 [PROTO_3]
        50 SETTABLEKS                       R6 R5 K16 ["usePlaceAndUniverseId"]
-       52 DUPCLOSURE                       R6 K26 [PROTO_4]
+       52 DUPCLOSURE                       R6 K27 [PROTO_4]
        53 SETTABLEKS                       R6 R5 K17 ["useConnectToDataModelSessionEffect"]
-       55 DUPCLOSURE                       R6 K27 [PROTO_5]
+       55 DUPCLOSURE                       R6 K28 [PROTO_5]
        56 SETTABLEKS                       R6 R5 K18 ["DEPRECATED_openBrowserLink"]
-       58 DUPCLOSURE                       R6 K28 [PROTO_6]
+       58 DUPCLOSURE                       R6 K29 [PROTO_6]
        59 SETTABLEKS                       R6 R5 K19 ["openLink"]
-       61 LOADK                            R6 K29 ["mock context (default)"]
-       62 SETTABLEKS                       R6 R5 K20 ["contextType"]
-       64 GETTABLEKS                       R6 R1 K30 ["createContext"]
-       66 MOVE                             R7 R5
-       67 CALL                             R6 1 1
-       68 RETURN                           R6 1
+       61 GETTABLEKS                       R6 R1 K30 ["createContext"]
+       63 MOVE                             R7 R5
+       64 CALL                             R6 1 1
+       65 RETURN                           R6 1

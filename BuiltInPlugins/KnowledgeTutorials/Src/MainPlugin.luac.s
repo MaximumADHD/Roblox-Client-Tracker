@@ -25,102 +25,86 @@ PROTO_1:
         2 RETURN                           R0 1
 
 PROTO_2:
-        0 DUPTABLE                         R2 K6 [{"enabled", "showCompletionDialog", "showAvailableDialog", "isTableOfContentsOpen", "tutorialData", "sectionIndex"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 LOADB                            R3 0
-        5 SETTABLEKS                       R3 R2 K1 ["showCompletionDialog"]
-        7 LOADB                            R3 0
-        8 SETTABLEKS                       R3 R2 K2 ["showAvailableDialog"]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K3 ["isTableOfContentsOpen"]
-       13 LOADNIL                          R3
-       14 SETTABLEKS                       R3 R2 K4 ["tutorialData"]
-       16 LOADN                            R3 0
-       17 SETTABLEKS                       R3 R2 K5 ["sectionIndex"]
-       19 SETTABLEKS                       R2 R0 K7 ["state"]
-       21 GETUPVAL                         R3 0
-       22 JUMPIFNOT                        R3 ; [+4]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R2 R2 K8 ["ChildAdded"]
-       26 JUMP                             ; [+3]
-       27 GETUPVAL                         R2 1
-       28 GETTABLEKS                       R2 R2 K9 ["DescendantAdded"]
-       30 NEWCLOSURE                       R5 P0
-       31 CAPTURE                          UPVAL U0
-       32 CAPTURE                          VAL R0
-       33 NAMECALL                         R3 R2 K10 ["Connect"]
-       35 CALL                             R3 2 1
-       36 SETTABLEKS                       R3 R0 K11 ["tutorialAddedConnection"]
-       38 GETUPVAL                         R3 2
-       39 GETTABLEKS                       R3 R3 K12 ["Localization"]
-       41 GETTABLEKS                       R3 R3 K13 ["new"]
-       43 DUPTABLE                         R4 K17 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       44 GETUPVAL                         R5 3
-       45 SETTABLEKS                       R5 R4 K14 ["stringResourceTable"]
-       47 GETUPVAL                         R5 4
-       48 SETTABLEKS                       R5 R4 K15 ["translationResourceTable"]
-       50 LOADK                            R5 K18 ["KnowledgeTutorials"]
-       51 SETTABLEKS                       R5 R4 K16 ["pluginName"]
-       53 CALL                             R3 1 1
-       54 SETTABLEKS                       R3 R0 K19 ["localization"]
-       56 GETUPVAL                         R3 2
-       57 GETTABLEKS                       R3 R3 K20 ["Analytics"]
-       59 GETTABLEKS                       R3 R3 K13 ["new"]
-       61 DUPCLOSURE                       R4 K21 [PROTO_1]
-       62 NEWTABLE                         R5 0 0
-       64 CALL                             R3 2 1
-       65 SETTABLEKS                       R3 R0 K22 ["analytics"]
-       67 GETUPVAL                         R3 5
-       68 GETTABLEKS                       R3 R3 K13 ["new"]
-       70 CALL                             R3 0 1
-       71 SETTABLEKS                       R3 R0 K23 ["telemetry"]
-       73 GETUPVAL                         R3 6
-       74 GETTABLEKS                       R3 R3 K13 ["new"]
-       76 GETTABLEKS                       R4 R0 K23 ["telemetry"]
-       78 CALL                             R3 1 1
-       79 SETTABLEKS                       R3 R0 K24 ["telemetryContext"]
-       81 GETUPVAL                         R3 7
-       82 GETTABLEKS                       R3 R3 K13 ["new"]
-       84 CALL                             R3 0 1
-       85 SETTABLEKS                       R3 R0 K25 ["DEPRECATED_stylizer"]
-       87 GETUPVAL                         R3 8
-       88 GETTABLEKS                       R3 R3 K26 ["Util"]
-       90 GETTABLEKS                       R3 R3 K27 ["createFoundationDesignBinding"]
-       92 CALL                             R3 0 2
-       93 SETTABLEKS                       R4 R0 K28 ["onFoundationStyleSheetChange"]
-       95 GETUPVAL                         R5 9
-       96 GETTABLEKS                       R6 R1 K29 ["Plugin"]
-       98 LOADNIL                          R7
-       99 LOADNIL                          R8
-      100 NEWTABLE                         R9 0 1
-      102 MOVE                             R10 R3
-      103 SETLIST                          R9 R10 1 [1]
-      105 CALL                             R5 4 1
-      106 SETTABLEKS                       R5 R0 K30 ["design"]
-      108 GETUPVAL                         R5 2
-      109 GETTABLEKS                       R5 R5 K31 ["Design"]
-      111 GETTABLEKS                       R5 R5 K13 ["new"]
-      113 GETTABLEKS                       R6 R0 K30 ["design"]
-      115 CALL                             R5 1 1
-      116 SETTABLEKS                       R5 R0 K32 ["designContext"]
-      118 RETURN                           R0 0
+        0 DUPTABLE                         R2 K9 [{[1] = False, ["showCompletionDialog"] = False, ["showAvailableDialog"] = False, ["isTableOfContentsOpen"] = False, ["tutorialData"] = , ["sectionIndex"] = 0}]
+        1 SETTABLEKS                       R2 R0 K10 ["state"]
+        3 GETUPVAL                         R3 0
+        4 JUMPIFNOT                        R3 ; [+4]
+        5 GETUPVAL                         R2 1
+        6 GETTABLEKS                       R2 R2 K11 ["ChildAdded"]
+        8 JUMP                             ; [+3]
+        9 GETUPVAL                         R2 1
+       10 GETTABLEKS                       R2 R2 K12 ["DescendantAdded"]
+       12 NEWCLOSURE                       R5 P0
+       13 CAPTURE                          UPVAL U0
+       14 CAPTURE                          VAL R0
+       15 NAMECALL                         R3 R2 K13 ["Connect"]
+       17 CALL                             R3 2 1
+       18 SETTABLEKS                       R3 R0 K14 ["tutorialAddedConnection"]
+       20 GETUPVAL                         R3 2
+       21 GETTABLEKS                       R3 R3 K15 ["Localization"]
+       23 GETTABLEKS                       R3 R3 K16 ["new"]
+       25 DUPTABLE                         R4 K21 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "KnowledgeTutorials"}]
+       26 GETUPVAL                         R5 3
+       27 SETTABLEKS                       R5 R4 K17 ["stringResourceTable"]
+       29 GETUPVAL                         R5 4
+       30 SETTABLEKS                       R5 R4 K18 ["translationResourceTable"]
+       32 CALL                             R3 1 1
+       33 SETTABLEKS                       R3 R0 K22 ["localization"]
+       35 GETUPVAL                         R3 2
+       36 GETTABLEKS                       R3 R3 K23 ["Analytics"]
+       38 GETTABLEKS                       R3 R3 K16 ["new"]
+       40 DUPCLOSURE                       R4 K24 [PROTO_1]
+       41 NEWTABLE                         R5 0 0
+       43 CALL                             R3 2 1
+       44 SETTABLEKS                       R3 R0 K25 ["analytics"]
+       46 GETUPVAL                         R3 5
+       47 GETTABLEKS                       R3 R3 K16 ["new"]
+       49 CALL                             R3 0 1
+       50 SETTABLEKS                       R3 R0 K26 ["telemetry"]
+       52 GETUPVAL                         R3 6
+       53 GETTABLEKS                       R3 R3 K16 ["new"]
+       55 GETTABLEKS                       R4 R0 K26 ["telemetry"]
+       57 CALL                             R3 1 1
+       58 SETTABLEKS                       R3 R0 K27 ["telemetryContext"]
+       60 GETUPVAL                         R3 7
+       61 GETTABLEKS                       R3 R3 K16 ["new"]
+       63 CALL                             R3 0 1
+       64 SETTABLEKS                       R3 R0 K28 ["DEPRECATED_stylizer"]
+       66 GETUPVAL                         R3 8
+       67 GETTABLEKS                       R3 R3 K29 ["Util"]
+       69 GETTABLEKS                       R3 R3 K30 ["createFoundationDesignBinding"]
+       71 CALL                             R3 0 2
+       72 SETTABLEKS                       R4 R0 K31 ["onFoundationStyleSheetChange"]
+       74 GETUPVAL                         R5 9
+       75 GETTABLEKS                       R6 R1 K32 ["Plugin"]
+       77 LOADNIL                          R7
+       78 LOADNIL                          R8
+       79 NEWTABLE                         R9 0 1
+       81 MOVE                             R10 R3
+       82 SETLIST                          R9 R10 1 [1]
+       84 CALL                             R5 4 1
+       85 SETTABLEKS                       R5 R0 K33 ["design"]
+       87 GETUPVAL                         R5 2
+       88 GETTABLEKS                       R5 R5 K34 ["Design"]
+       90 GETTABLEKS                       R5 R5 K16 ["new"]
+       92 GETTABLEKS                       R6 R0 K33 ["design"]
+       94 CALL                             R5 1 1
+       95 SETTABLEKS                       R5 R0 K35 ["designContext"]
+       97 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
         1 CALL                             R1 0 1
-        2 JUMPIFNOT                        R1 ; [+15]
+        2 JUMPIFNOT                        R1 ; [+12]
         3 GETTABLEKS                       R2 R0 K0 ["telemetryContext"]
         5 MOVE                             R4 R1
         6 NAMECALL                         R2 R2 K1 ["setTutorialData"]
         8 CALL                             R2 2 0
-        9 DUPTABLE                         R4 K4 [{"tutorialData", "showAvailableDialog"}]
+        9 DUPTABLE                         R4 K5 [{["tutorialData"], ["showAvailableDialog"] = True}]
        10 SETTABLEKS                       R1 R4 K2 ["tutorialData"]
-       12 LOADB                            R5 1
-       13 SETTABLEKS                       R5 R4 K3 ["showAvailableDialog"]
-       15 NAMECALL                         R2 R0 K5 ["setState"]
-       17 CALL                             R2 2 0
-       18 RETURN                           R0 0
+       12 NAMECALL                         R2 R0 K6 ["setState"]
+       14 CALL                             R2 2 0
+       15 RETURN                           R0 0
 
 PROTO_4:
         0 NAMECALL                         R1 R0 K0 ["loadTutorialData"]
@@ -136,161 +120,93 @@ PROTO_5:
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["telemetryContext"]
         2 GETUPVAL                         R3 0
-        3 DUPTABLE                         R4 K5 [{"telemetryType", "telemetrySubtype", "context", "action"}]
-        4 LOADK                            R5 K6 ["interaction"]
-        5 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-        7 LOADK                            R5 K7 ["click"]
-        8 SETTABLEKS                       R5 R4 K2 ["telemetrySubtype"]
-       10 LOADK                            R5 K8 ["tutorial_popup"]
-       11 SETTABLEKS                       R5 R4 K3 ["context"]
-       13 LOADK                            R5 K9 ["close"]
-       14 SETTABLEKS                       R5 R4 K4 ["action"]
-       16 NAMECALL                         R1 R1 K10 ["log"]
-       18 CALL                             R1 3 0
-       19 DUPTABLE                         R3 K13 [{"enabled", "showAvailableDialog"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K11 ["enabled"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K12 ["showAvailableDialog"]
-       26 NAMECALL                         R1 R0 K14 ["setState"]
-       28 CALL                             R1 2 0
-       29 RETURN                           R0 0
+        3 DUPTABLE                         R4 K9 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "click", ["context"] = "tutorial_popup", ["action"] = "close"}]
+        4 NAMECALL                         R1 R1 K10 ["log"]
+        6 CALL                             R1 3 0
+        7 DUPTABLE                         R3 K14 [{["enabled"] = False, ["showAvailableDialog"] = False}]
+        8 NAMECALL                         R1 R0 K15 ["setState"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["telemetryContext"]
         2 GETUPVAL                         R3 0
-        3 DUPTABLE                         R4 K5 [{"telemetryType", "telemetrySubtype", "context", "action"}]
-        4 LOADK                            R5 K6 ["interaction"]
-        5 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-        7 LOADK                            R5 K7 ["click"]
-        8 SETTABLEKS                       R5 R4 K2 ["telemetrySubtype"]
-       10 LOADK                            R5 K8 ["tutorial_completion_popup"]
-       11 SETTABLEKS                       R5 R4 K3 ["context"]
-       13 LOADK                            R5 K9 ["close"]
-       14 SETTABLEKS                       R5 R4 K4 ["action"]
-       16 NAMECALL                         R1 R1 K10 ["log"]
-       18 CALL                             R1 3 0
-       19 DUPTABLE                         R3 K13 [{"enabled", "showCompletionDialog"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K11 ["enabled"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K12 ["showCompletionDialog"]
-       26 NAMECALL                         R1 R0 K14 ["setState"]
-       28 CALL                             R1 2 0
-       29 RETURN                           R0 0
+        3 DUPTABLE                         R4 K9 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "click", ["context"] = "tutorial_completion_popup", ["action"] = "close"}]
+        4 NAMECALL                         R1 R1 K10 ["log"]
+        6 CALL                             R1 3 0
+        7 DUPTABLE                         R3 K14 [{["enabled"] = False, ["showCompletionDialog"] = False}]
+        8 NAMECALL                         R1 R0 K15 ["setState"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["telemetryContext"]
         2 GETUPVAL                         R3 0
-        3 DUPTABLE                         R4 K5 [{"telemetryType", "telemetrySubtype", "context", "action"}]
-        4 LOADK                            R5 K6 ["interaction"]
-        5 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-        7 LOADK                            R5 K7 ["click"]
-        8 SETTABLEKS                       R5 R4 K2 ["telemetrySubtype"]
-       10 LOADK                            R5 K8 ["tutorial_popup"]
-       11 SETTABLEKS                       R5 R4 K3 ["context"]
-       13 LOADK                            R5 K9 ["start"]
-       14 SETTABLEKS                       R5 R4 K4 ["action"]
-       16 NAMECALL                         R1 R1 K10 ["log"]
-       18 CALL                             R1 3 0
-       19 DUPTABLE                         R3 K14 [{"enabled", "showAvailableDialog", "sectionIndex"}]
-       20 LOADB                            R4 1
-       21 SETTABLEKS                       R4 R3 K11 ["enabled"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K12 ["showAvailableDialog"]
-       26 LOADN                            R4 0
-       27 SETTABLEKS                       R4 R3 K13 ["sectionIndex"]
-       29 NAMECALL                         R1 R0 K15 ["setState"]
-       31 CALL                             R1 2 0
-       32 RETURN                           R0 0
+        3 DUPTABLE                         R4 K9 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "click", ["context"] = "tutorial_popup", ["action"] = "start"}]
+        4 NAMECALL                         R1 R1 K10 ["log"]
+        6 CALL                             R1 3 0
+        7 DUPTABLE                         R3 K17 [{["enabled"] = True, ["showAvailableDialog"] = False, ["sectionIndex"] = 0}]
+        8 NAMECALL                         R1 R0 K18 ["setState"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_9:
         0 GETTABLEKS                       R1 R0 K0 ["telemetryContext"]
         2 GETUPVAL                         R3 0
-        3 DUPTABLE                         R4 K5 [{"telemetryType", "telemetrySubtype", "context", "action"}]
-        4 LOADK                            R5 K6 ["interaction"]
-        5 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-        7 LOADK                            R5 K7 ["click"]
-        8 SETTABLEKS                       R5 R4 K2 ["telemetrySubtype"]
-       10 LOADK                            R5 K8 ["tutorial_completion_popup"]
-       11 SETTABLEKS                       R5 R4 K3 ["context"]
-       13 LOADK                            R5 K9 ["restart"]
-       14 SETTABLEKS                       R5 R4 K4 ["action"]
-       16 NAMECALL                         R1 R1 K10 ["log"]
-       18 CALL                             R1 3 0
-       19 DUPTABLE                         R3 K14 [{"enabled", "showCompletionDialog", "sectionIndex"}]
-       20 LOADB                            R4 1
-       21 SETTABLEKS                       R4 R3 K11 ["enabled"]
-       23 LOADB                            R4 0
-       24 SETTABLEKS                       R4 R3 K12 ["showCompletionDialog"]
-       26 LOADN                            R4 0
-       27 SETTABLEKS                       R4 R3 K13 ["sectionIndex"]
-       29 NAMECALL                         R1 R0 K15 ["setState"]
-       31 CALL                             R1 2 0
-       32 RETURN                           R0 0
+        3 DUPTABLE                         R4 K9 [{["telemetryType"] = "interaction", ["telemetrySubtype"] = "click", ["context"] = "tutorial_completion_popup", ["action"] = "restart"}]
+        4 NAMECALL                         R1 R1 K10 ["log"]
+        6 CALL                             R1 3 0
+        7 DUPTABLE                         R3 K17 [{["enabled"] = True, ["showCompletionDialog"] = False, ["sectionIndex"] = 0}]
+        8 NAMECALL                         R1 R0 K18 ["setState"]
+       10 CALL                             R1 2 0
+       11 RETURN                           R0 0
 
 PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["telemetryContext"]
         2 GETUPVAL                         R4 0
-        3 DUPTABLE                         R5 K5 [{"telemetryType", "telemetrySubtype", "context", "rating"}]
-        4 LOADK                            R6 K4 ["rating"]
-        5 SETTABLEKS                       R6 R5 K1 ["telemetryType"]
-        7 LOADK                            R6 K6 ["tutorial"]
-        8 SETTABLEKS                       R6 R5 K2 ["telemetrySubtype"]
-       10 LOADK                            R6 K7 ["tutorial_completion"]
-       11 SETTABLEKS                       R6 R5 K3 ["context"]
-       13 SETTABLEKS                       R1 R5 K4 ["rating"]
-       15 NAMECALL                         R2 R2 K8 ["log"]
-       17 CALL                             R2 3 0
-       18 RETURN                           R0 0
+        3 DUPTABLE                         R5 K7 [{["telemetryType"] = "rating", ["telemetrySubtype"] = "tutorial", ["context"] = "tutorial_completion", ["rating"]}]
+        4 SETTABLEKS                       R1 R5 K2 ["rating"]
+        6 NAMECALL                         R2 R2 K8 ["log"]
+        8 CALL                             R2 3 0
+        9 RETURN                           R0 0
 
 PROTO_11:
         0 GETUPVAL                         R3 0
         1 GETTABLEKS                       R3 R3 K0 ["createElement"]
         3 GETUPVAL                         R4 1
-        4 DUPTABLE                         R5 K10 [{"Enabled", "Modal", "Title", "Size", "MinSize", "Resizable", "ZIndexBehavior", "CreateWidgetImmediately", "OnClose"}]
-        5 LOADB                            R6 1
-        6 SETTABLEKS                       R6 R5 K1 ["Enabled"]
-        8 LOADB                            R6 1
-        9 SETTABLEKS                       R6 R5 K2 ["Modal"]
-       11 GETTABLEKS                       R6 R1 K11 ["title"]
-       13 SETTABLEKS                       R6 R5 K3 ["Title"]
-       15 GETTABLEKS                       R6 R1 K12 ["size"]
-       17 JUMPIF                           R6 ; [+5]
-       18 GETIMPORT                        R6 K15 [Vector2.new]
-       20 LOADN                            R7 244
-       21 LOADN                            R8 250
-       22 CALL                             R6 2 1
-       23 SETTABLEKS                       R6 R5 K4 ["Size"]
-       25 GETTABLEKS                       R6 R1 K16 ["minSize"]
-       27 JUMPIF                           R6 ; [+5]
-       28 GETIMPORT                        R6 K15 [Vector2.new]
-       30 LOADN                            R7 244
-       31 LOADN                            R8 250
-       32 CALL                             R6 2 1
-       33 SETTABLEKS                       R6 R5 K5 ["MinSize"]
-       35 LOADB                            R6 0
-       36 SETTABLEKS                       R6 R5 K6 ["Resizable"]
-       38 GETIMPORT                        R6 K19 [Enum.ZIndexBehavior.Sibling]
-       40 SETTABLEKS                       R6 R5 K7 ["ZIndexBehavior"]
-       42 LOADB                            R6 1
-       43 SETTABLEKS                       R6 R5 K8 ["CreateWidgetImmediately"]
-       45 GETTABLEKS                       R6 R1 K20 ["onClose"]
-       47 SETTABLEKS                       R6 R5 K9 ["OnClose"]
-       49 DUPTABLE                         R6 K22 [{"FoundationProvider"}]
-       50 GETUPVAL                         R7 0
-       51 GETTABLEKS                       R7 R7 K0 ["createElement"]
-       53 GETUPVAL                         R8 2
-       54 DUPTABLE                         R9 K25 [{"device", "onStyleSheetChange"}]
-       55 LOADK                            R10 K26 ["Desktop"]
-       56 SETTABLEKS                       R10 R9 K23 ["device"]
-       58 GETTABLEKS                       R10 R0 K27 ["onFoundationStyleSheetChange"]
-       60 SETTABLEKS                       R10 R9 K24 ["onStyleSheetChange"]
-       62 MOVE                             R10 R2
-       63 CALL                             R7 3 1
-       64 SETTABLEKS                       R7 R6 K21 ["FoundationProvider"]
-       66 CALL                             R3 3 -1
-       67 RETURN                           R3 -1
+        4 DUPTABLE                         R5 K12 [{["Enabled"] = True, ["Modal"] = True, ["Title"], ["Size"], ["MinSize"], ["Resizable"] = False, ["ZIndexBehavior"], ["CreateWidgetImmediately"] = True, ["OnClose"]}]
+        5 GETTABLEKS                       R6 R1 K13 ["title"]
+        7 SETTABLEKS                       R6 R5 K4 ["Title"]
+        9 GETTABLEKS                       R6 R1 K14 ["size"]
+       11 JUMPIF                           R6 ; [+5]
+       12 GETIMPORT                        R6 K17 [Vector2.new]
+       14 LOADN                            R7 500
+       15 LOADN                            R8 250
+       16 CALL                             R6 2 1
+       17 SETTABLEKS                       R6 R5 K5 ["Size"]
+       19 GETTABLEKS                       R6 R1 K18 ["minSize"]
+       21 JUMPIF                           R6 ; [+5]
+       22 GETIMPORT                        R6 K17 [Vector2.new]
+       24 LOADN                            R7 500
+       25 LOADN                            R8 250
+       26 CALL                             R6 2 1
+       27 SETTABLEKS                       R6 R5 K6 ["MinSize"]
+       29 GETIMPORT                        R6 K21 [Enum.ZIndexBehavior.Sibling]
+       31 SETTABLEKS                       R6 R5 K9 ["ZIndexBehavior"]
+       33 GETTABLEKS                       R6 R1 K22 ["onClose"]
+       35 SETTABLEKS                       R6 R5 K11 ["OnClose"]
+       37 DUPTABLE                         R6 K24 [{"FoundationProvider"}]
+       38 GETUPVAL                         R7 0
+       39 GETTABLEKS                       R7 R7 K0 ["createElement"]
+       41 GETUPVAL                         R8 2
+       42 DUPTABLE                         R9 K28 [{["device"] = "Desktop", ["onStyleSheetChange"]}]
+       43 GETTABLEKS                       R10 R0 K29 ["onFoundationStyleSheetChange"]
+       45 SETTABLEKS                       R10 R9 K27 ["onStyleSheetChange"]
+       47 MOVE                             R10 R2
+       48 CALL                             R7 3 1
+       49 SETTABLEKS                       R7 R6 K23 ["FoundationProvider"]
+       51 CALL                             R3 3 -1
+       52 RETURN                           R3 -1
 
 PROTO_12:
         0 GETUPVAL                         R0 0
@@ -337,12 +253,10 @@ PROTO_18:
 
 PROTO_19:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_20:
         0 DUPTABLE                         R1 K1 [{"isTableOfContentsOpen"}]
@@ -362,52 +276,32 @@ PROTO_22:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["telemetryContext"]
         3 GETUPVAL                         R3 1
-        4 DUPTABLE                         R4 K6 [{"telemetryType", "telemetrySubtype", "context", "from", "to"}]
-        5 LOADK                            R5 K7 ["navigation"]
-        6 SETTABLEKS                       R5 R4 K1 ["telemetryType"]
-        8 LOADK                            R5 K8 ["section"]
-        9 SETTABLEKS                       R5 R4 K2 ["telemetrySubtype"]
-       11 LOADK                            R5 K9 ["table_of_contents"]
-       12 SETTABLEKS                       R5 R4 K3 ["context"]
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R5 R5 K10 ["sectionIndex"]
-       17 SETTABLEKS                       R5 R4 K4 ["from"]
-       19 SETTABLEKS                       R0 R4 K5 ["to"]
-       21 NAMECALL                         R1 R1 K11 ["log"]
-       23 CALL                             R1 3 0
-       24 GETUPVAL                         R1 0
-       25 DUPTABLE                         R3 K13 [{"sectionIndex", "isTableOfContentsOpen"}]
-       26 SETTABLEKS                       R0 R3 K10 ["sectionIndex"]
-       28 LOADB                            R4 0
-       29 SETTABLEKS                       R4 R3 K12 ["isTableOfContentsOpen"]
-       31 NAMECALL                         R1 R1 K14 ["setState"]
-       33 CALL                             R1 2 0
-       34 RETURN                           R0 0
+        4 DUPTABLE                         R4 K9 [{["telemetryType"] = "navigation", ["telemetrySubtype"] = "section", ["context"] = "table_of_contents", ["from"], ["to"]}]
+        5 GETUPVAL                         R5 2
+        6 GETTABLEKS                       R5 R5 K10 ["sectionIndex"]
+        8 SETTABLEKS                       R5 R4 K7 ["from"]
+       10 SETTABLEKS                       R0 R4 K8 ["to"]
+       12 NAMECALL                         R1 R1 K11 ["log"]
+       14 CALL                             R1 3 0
+       15 GETUPVAL                         R1 0
+       16 DUPTABLE                         R3 K14 [{["sectionIndex"], ["isTableOfContentsOpen"] = False}]
+       17 SETTABLEKS                       R0 R3 K10 ["sectionIndex"]
+       19 NAMECALL                         R1 R1 K15 ["setState"]
+       21 CALL                             R1 2 0
+       22 RETURN                           R0 0
 
 PROTO_23:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["telemetryContext"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K6 [{"telemetryType", "telemetrySubtype", "context", "from", "to"}]
-        5 LOADK                            R4 K7 ["navigation"]
-        6 SETTABLEKS                       R4 R3 K1 ["telemetryType"]
-        8 LOADK                            R4 K8 ["section"]
-        9 SETTABLEKS                       R4 R3 K2 ["telemetrySubtype"]
-       11 LOADK                            R4 K9 ["tutorial_home"]
-       12 SETTABLEKS                       R4 R3 K3 ["context"]
-       14 LOADN                            R4 0
-       15 SETTABLEKS                       R4 R3 K4 ["from"]
-       17 LOADN                            R4 1
-       18 SETTABLEKS                       R4 R3 K5 ["to"]
-       20 NAMECALL                         R0 R0 K10 ["log"]
-       22 CALL                             R0 3 0
-       23 GETUPVAL                         R0 0
-       24 DUPTABLE                         R2 K12 [{"sectionIndex"}]
-       25 LOADN                            R3 1
-       26 SETTABLEKS                       R3 R2 K11 ["sectionIndex"]
-       28 NAMECALL                         R0 R0 K13 ["setState"]
-       30 CALL                             R0 2 0
-       31 RETURN                           R0 0
+        4 DUPTABLE                         R3 K11 [{["telemetryType"] = "navigation", ["telemetrySubtype"] = "section", ["context"] = "tutorial_home", ["from"] = 0, ["to"] = 1}]
+        5 NAMECALL                         R0 R0 K12 ["log"]
+        7 CALL                             R0 3 0
+        8 GETUPVAL                         R0 0
+        9 DUPTABLE                         R2 K14 [{["sectionIndex"] = 1}]
+       10 NAMECALL                         R0 R0 K15 ["setState"]
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
 
 PROTO_24:
         0 GETTABLEKS                       R1 R0 K0 ["tutorialData"]
@@ -423,10 +317,8 @@ PROTO_24:
        16 CALL                             R2 2 1
        17 SETTABLEKS                       R2 R1 K1 ["sectionIndex"]
        19 RETURN                           R1 1
-       20 DUPTABLE                         R1 K2 [{"sectionIndex"}]
-       21 LOADN                            R2 0
-       22 SETTABLEKS                       R2 R1 K1 ["sectionIndex"]
-       24 RETURN                           R1 1
+       20 DUPTABLE                         R1 K9 [{["sectionIndex"] = 0}]
+       21 RETURN                           R1 1
 
 PROTO_25:
         0 GETUPVAL                         R0 0
@@ -434,46 +326,36 @@ PROTO_25:
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["sections"]
         6 LENGTH                           R1 R2
-        7 JUMPIFNOTEQ                      R0 R1 ; [+13]
+        7 JUMPIFNOTEQ                      R0 R1 ; [+7]
         9 GETUPVAL                         R0 2
-       10 DUPTABLE                         R2 K4 [{"enabled", "showCompletionDialog"}]
-       11 LOADB                            R3 0
-       12 SETTABLEKS                       R3 R2 K2 ["enabled"]
-       14 LOADB                            R3 1
-       15 SETTABLEKS                       R3 R2 K3 ["showCompletionDialog"]
-       17 NAMECALL                         R0 R0 K5 ["setState"]
-       19 CALL                             R0 2 0
-       20 RETURN                           R0 0
-       21 GETUPVAL                         R0 0
-       22 GETTABLEKS                       R0 R0 K0 ["sectionIndex"]
-       24 GETUPVAL                         R2 1
-       25 GETTABLEKS                       R2 R2 K1 ["sections"]
-       27 LENGTH                           R1 R2
-       28 JUMPIFNOTLE                      R0 R1 ; [+34]
-       30 GETUPVAL                         R0 2
-       31 GETTABLEKS                       R0 R0 K6 ["telemetryContext"]
-       33 GETUPVAL                         R2 3
-       34 DUPTABLE                         R3 K12 [{"telemetryType", "telemetrySubtype", "context", "from", "to"}]
-       35 LOADK                            R4 K13 ["navigation"]
-       36 SETTABLEKS                       R4 R3 K7 ["telemetryType"]
-       38 LOADK                            R4 K14 ["section"]
-       39 SETTABLEKS                       R4 R3 K8 ["telemetrySubtype"]
-       41 LOADK                            R4 K15 ["tutorial_section"]
-       42 SETTABLEKS                       R4 R3 K9 ["context"]
-       44 GETUPVAL                         R4 0
-       45 GETTABLEKS                       R4 R4 K0 ["sectionIndex"]
-       47 SETTABLEKS                       R4 R3 K10 ["from"]
-       49 GETUPVAL                         R5 0
-       50 GETTABLEKS                       R5 R5 K0 ["sectionIndex"]
-       52 ADDK                             R4 R5 K16 [1]
-       53 SETTABLEKS                       R4 R3 K11 ["to"]
-       55 NAMECALL                         R0 R0 K17 ["log"]
-       57 CALL                             R0 3 0
-       58 GETUPVAL                         R0 2
-       59 DUPCLOSURE                       R2 K18 [PROTO_24]
-       60 NAMECALL                         R0 R0 K5 ["setState"]
-       62 CALL                             R0 2 0
-       63 RETURN                           R0 0
+       10 DUPTABLE                         R2 K6 [{["enabled"] = False, ["showCompletionDialog"] = True}]
+       11 NAMECALL                         R0 R0 K7 ["setState"]
+       13 CALL                             R0 2 0
+       14 RETURN                           R0 0
+       15 GETUPVAL                         R0 0
+       16 GETTABLEKS                       R0 R0 K0 ["sectionIndex"]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R2 R2 K1 ["sections"]
+       21 LENGTH                           R1 R2
+       22 JUMPIFNOTLE                      R0 R1 ; [+25]
+       24 GETUPVAL                         R0 2
+       25 GETTABLEKS                       R0 R0 K8 ["telemetryContext"]
+       27 GETUPVAL                         R2 3
+       28 DUPTABLE                         R3 K17 [{["telemetryType"] = "navigation", ["telemetrySubtype"] = "section", ["context"] = "tutorial_section", ["from"], ["to"]}]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K0 ["sectionIndex"]
+       32 SETTABLEKS                       R4 R3 K15 ["from"]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K0 ["sectionIndex"]
+       37 ADDK                             R4 R5 K18 [1]
+       38 SETTABLEKS                       R4 R3 K16 ["to"]
+       40 NAMECALL                         R0 R0 K19 ["log"]
+       42 CALL                             R0 3 0
+       43 GETUPVAL                         R0 2
+       44 DUPCLOSURE                       R2 K20 [PROTO_24]
+       45 NAMECALL                         R0 R0 K7 ["setState"]
+       47 CALL                             R0 2 0
+       48 RETURN                           R0 0
 
 PROTO_26:
         0 DUPTABLE                         R1 K1 [{"sectionIndex"}]
@@ -490,27 +372,21 @@ PROTO_27:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["telemetryContext"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K6 [{"telemetryType", "telemetrySubtype", "context", "from", "to"}]
-        5 LOADK                            R4 K7 ["navigation"]
-        6 SETTABLEKS                       R4 R3 K1 ["telemetryType"]
-        8 LOADK                            R4 K8 ["section"]
-        9 SETTABLEKS                       R4 R3 K2 ["telemetrySubtype"]
-       11 LOADK                            R4 K9 ["tutorial_section"]
-       12 SETTABLEKS                       R4 R3 K3 ["context"]
-       14 GETUPVAL                         R4 2
-       15 GETTABLEKS                       R4 R4 K10 ["sectionIndex"]
-       17 SETTABLEKS                       R4 R3 K4 ["from"]
-       19 GETUPVAL                         R5 2
-       20 GETTABLEKS                       R5 R5 K10 ["sectionIndex"]
-       22 SUBK                             R4 R5 K11 [1]
-       23 SETTABLEKS                       R4 R3 K5 ["to"]
-       25 NAMECALL                         R0 R0 K12 ["log"]
-       27 CALL                             R0 3 0
-       28 GETUPVAL                         R0 0
-       29 DUPCLOSURE                       R2 K13 [PROTO_26]
-       30 NAMECALL                         R0 R0 K14 ["setState"]
-       32 CALL                             R0 2 0
-       33 RETURN                           R0 0
+        4 DUPTABLE                         R3 K9 [{["telemetryType"] = "navigation", ["telemetrySubtype"] = "section", ["context"] = "tutorial_section", ["from"], ["to"]}]
+        5 GETUPVAL                         R4 2
+        6 GETTABLEKS                       R4 R4 K10 ["sectionIndex"]
+        8 SETTABLEKS                       R4 R3 K7 ["from"]
+       10 GETUPVAL                         R5 2
+       11 GETTABLEKS                       R5 R5 K10 ["sectionIndex"]
+       13 SUBK                             R4 R5 K11 [1]
+       14 SETTABLEKS                       R4 R3 K8 ["to"]
+       16 NAMECALL                         R0 R0 K12 ["log"]
+       18 CALL                             R0 3 0
+       19 GETUPVAL                         R0 0
+       20 DUPCLOSURE                       R2 K13 [PROTO_26]
+       21 NAMECALL                         R0 R0 K14 ["setState"]
+       23 CALL                             R0 2 0
+       24 RETURN                           R0 0
 
 PROTO_28:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -606,162 +482,154 @@ PROTO_28:
       132 JUMP                             ; [+1]
       133 LOADNIL                          R9
       134 SETTABLEKS                       R9 R8 K14 ["CompletionDialog"]
-      136 JUMPIFNOT                        R4 ; [+220]
-      137 JUMPIFNOT                        R5 ; [+219]
+      136 JUMPIFNOT                        R4 ; [+208]
+      137 JUMPIFNOT                        R5 ; [+207]
       138 GETUPVAL                         R9 3
       139 GETTABLEKS                       R9 R9 K25 ["createElement"]
       141 GETUPVAL                         R10 6
-      142 DUPTABLE                         R11 K46 [{"Id", "Title", "Enabled", "ShouldRestore", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose", "Widget"}]
-      143 LOADK                            R12 K47 ["KnowledgeTutorials"]
-      144 SETTABLEKS                       R12 R11 K36 ["Id"]
-      146 GETTABLEKS                       R12 R0 K10 ["localization"]
-      148 LOADK                            R14 K2 ["Plugin"]
-      149 LOADK                            R15 K48 ["Tutorial"]
-      150 NAMECALL                         R12 R12 K22 ["getText"]
-      152 CALL                             R12 3 1
-      153 SETTABLEKS                       R12 R11 K37 ["Title"]
-      155 LOADB                            R12 0
-      156 GETTABLEKS                       R13 R2 K4 ["tutorialData"]
-      158 JUMPIFEQKNIL                     R13 ; [+2]
-      160 MOVE                             R12 R4
-      161 SETTABLEKS                       R12 R11 K38 ["Enabled"]
-      163 LOADB                            R12 0
-      164 SETTABLEKS                       R12 R11 K39 ["ShouldRestore"]
-      166 GETIMPORT                        R12 K51 [Enum.ZIndexBehavior.Sibling]
-      168 SETTABLEKS                       R12 R11 K40 ["ZIndexBehavior"]
-      170 GETIMPORT                        R12 K53 [Enum.InitialDockState.Float]
-      172 SETTABLEKS                       R12 R11 K41 ["InitialDockState"]
-      174 GETIMPORT                        R12 K55 [Vector2.new]
-      176 LOADN                            R13 128
-      177 LOADN                            R14 32
-      178 CALL                             R12 2 1
-      179 SETTABLEKS                       R12 R11 K42 ["Size"]
-      181 GETIMPORT                        R12 K55 [Vector2.new]
-      183 LOADN                            R13 250
-      184 LOADN                            R14 144
-      185 CALL                             R12 2 1
-      186 SETTABLEKS                       R12 R11 K43 ["MinSize"]
-      188 NEWCLOSURE                       R12 P7
-      189 CAPTURE                          VAL R0
-      190 SETTABLEKS                       R12 R11 K44 ["OnClose"]
-      192 GETTABLEKS                       R12 R1 K56 ["PluginLoaderContext"]
-      194 GETTABLEKS                       R12 R12 K57 ["mainDockWidget"]
-      196 SETTABLEKS                       R12 R11 K45 ["Widget"]
-      198 DUPTABLE                         R12 K59 [{"FoundationProvider"}]
-      199 GETUPVAL                         R13 3
-      200 GETTABLEKS                       R13 R13 K25 ["createElement"]
-      202 GETUPVAL                         R14 7
-      203 DUPTABLE                         R15 K62 [{"device", "onStyleSheetChange"}]
-      204 LOADK                            R16 K63 ["Desktop"]
-      205 SETTABLEKS                       R16 R15 K60 ["device"]
-      207 GETTABLEKS                       R16 R0 K64 ["onFoundationStyleSheetChange"]
-      209 SETTABLEKS                       R16 R15 K61 ["onStyleSheetChange"]
-      211 DUPTABLE                         R16 K66 [{"Topbar", "Content"}]
-      212 GETUPVAL                         R17 3
-      213 GETTABLEKS                       R17 R17 K25 ["createElement"]
-      215 GETUPVAL                         R18 8
-      216 DUPTABLE                         R19 K69 [{"tutorialData", "isTableOfContentsOpen", "onTableOfContentsClicked"}]
-      217 SETTABLEKS                       R5 R19 K4 ["tutorialData"]
-      219 GETTABLEKS                       R20 R2 K67 ["isTableOfContentsOpen"]
-      221 SETTABLEKS                       R20 R19 K67 ["isTableOfContentsOpen"]
-      223 NEWCLOSURE                       R20 P8
-      224 CAPTURE                          VAL R0
-      225 SETTABLEKS                       R20 R19 K68 ["onTableOfContentsClicked"]
-      227 CALL                             R17 2 1
-      228 SETTABLEKS                       R17 R16 K65 ["Topbar"]
-      230 GETUPVAL                         R17 3
-      231 GETTABLEKS                       R17 R17 K25 ["createElement"]
-      233 GETUPVAL                         R18 9
-      234 DUPTABLE                         R19 K71 [{"tag", "Size"}]
-      235 LOADK                            R20 K72 ["padding-medium bg-surface-100 anchor-bottom-left position-bottom-left"]
-      236 SETTABLEKS                       R20 R19 K70 ["tag"]
-      238 GETIMPORT                        R20 K74 [UDim2.new]
-      240 LOADN                            R21 1
-      241 LOADN                            R22 0
-      242 LOADN                            R23 1
-      243 LOADN                            R24 224
-      244 CALL                             R20 4 1
-      245 SETTABLEKS                       R20 R19 K42 ["Size"]
-      247 DUPTABLE                         R20 K78 [{"TableOfContents", "TutorialHome", "TutorialSection"}]
-      248 GETUPVAL                         R21 3
-      249 GETTABLEKS                       R21 R21 K25 ["createElement"]
-      251 GETUPVAL                         R22 10
-      252 DUPTABLE                         R23 K82 [{"visible", "currentSectionIndex", "tutorialData", "onSectionClicked"}]
-      253 GETTABLEKS                       R24 R2 K67 ["isTableOfContentsOpen"]
-      255 SETTABLEKS                       R24 R23 K79 ["visible"]
-      257 GETTABLEKS                       R24 R2 K83 ["sectionIndex"]
-      259 SETTABLEKS                       R24 R23 K80 ["currentSectionIndex"]
-      261 SETTABLEKS                       R5 R23 K4 ["tutorialData"]
-      263 NEWCLOSURE                       R24 P9
-      264 CAPTURE                          VAL R0
-      265 CAPTURE                          UPVAL U11
-      266 CAPTURE                          VAL R2
-      267 SETTABLEKS                       R24 R23 K81 ["onSectionClicked"]
-      269 CALL                             R21 2 1
-      270 SETTABLEKS                       R21 R20 K75 ["TableOfContents"]
-      272 GETUPVAL                         R21 3
-      273 GETTABLEKS                       R21 R21 K25 ["createElement"]
-      275 GETUPVAL                         R22 12
-      276 DUPTABLE                         R23 K86 [{"visible", "tutorialHome", "onStartTutorial"}]
-      277 LOADB                            R24 0
-      278 GETTABLEKS                       R25 R2 K83 ["sectionIndex"]
-      280 JUMPIFNOTEQKN                    R25 K87 [0] ; [+4]
-      282 GETTABLEKS                       R25 R2 K67 ["isTableOfContentsOpen"]
-      284 NOT                              R24 R25
-      285 SETTABLEKS                       R24 R23 K79 ["visible"]
-      287 GETTABLEKS                       R24 R5 K88 ["home"]
-      289 SETTABLEKS                       R24 R23 K84 ["tutorialHome"]
-      291 NEWCLOSURE                       R24 P10
-      292 CAPTURE                          VAL R0
-      293 CAPTURE                          UPVAL U11
-      294 SETTABLEKS                       R24 R23 K85 ["onStartTutorial"]
-      296 CALL                             R21 2 1
-      297 SETTABLEKS                       R21 R20 K76 ["TutorialHome"]
-      299 GETUPVAL                         R21 3
-      300 GETTABLEKS                       R21 R21 K25 ["createElement"]
-      302 GETUPVAL                         R22 13
-      303 DUPTABLE                         R23 K93 [{"visible", "showFinish", "tutorialSection", "onNext", "onPrevious"}]
-      304 LOADB                            R24 0
-      305 GETTABLEKS                       R25 R2 K83 ["sectionIndex"]
-      307 LOADN                            R26 0
-      308 JUMPIFNOTLT                      R26 R25 ; [+4]
-      310 GETTABLEKS                       R25 R2 K67 ["isTableOfContentsOpen"]
-      312 NOT                              R24 R25
-      313 SETTABLEKS                       R24 R23 K79 ["visible"]
-      315 GETTABLEKS                       R25 R2 K83 ["sectionIndex"]
-      317 GETTABLEKS                       R27 R5 K94 ["sections"]
-      319 LENGTH                           R26 R27
-      320 JUMPIFEQ                         R25 R26 ; [+2]
-      322 LOADB                            R24 0 +1
-      323 LOADB                            R24 1
-      324 SETTABLEKS                       R24 R23 K89 ["showFinish"]
-      326 GETTABLEKS                       R25 R5 K94 ["sections"]
-      328 GETTABLEKS                       R26 R2 K83 ["sectionIndex"]
-      330 GETTABLE                         R24 R25 R26
-      331 SETTABLEKS                       R24 R23 K90 ["tutorialSection"]
-      333 NEWCLOSURE                       R24 P11
-      334 CAPTURE                          VAL R2
-      335 CAPTURE                          VAL R5
-      336 CAPTURE                          VAL R0
-      337 CAPTURE                          UPVAL U11
-      338 SETTABLEKS                       R24 R23 K91 ["onNext"]
-      340 NEWCLOSURE                       R24 P12
-      341 CAPTURE                          VAL R0
-      342 CAPTURE                          UPVAL U11
-      343 CAPTURE                          VAL R2
-      344 SETTABLEKS                       R24 R23 K92 ["onPrevious"]
-      346 CALL                             R21 2 1
-      347 SETTABLEKS                       R21 R20 K77 ["TutorialSection"]
-      349 CALL                             R17 3 1
-      350 SETTABLEKS                       R17 R16 K23 ["Content"]
-      352 CALL                             R13 3 1
-      353 SETTABLEKS                       R13 R12 K58 ["FoundationProvider"]
-      355 CALL                             R9 3 1
-      356 JUMP                             ; [+1]
-      357 LOADNIL                          R9
-      358 SETTABLEKS                       R9 R8 K15 ["MainWidget"]
-      360 CALL                             R6 2 -1
-      361 RETURN                           R6 -1
+      142 DUPTABLE                         R11 K48 [{["Id"] = "KnowledgeTutorials", ["Title"], ["Enabled"], ["ShouldRestore"] = False, ["ZIndexBehavior"], ["InitialDockState"], ["Size"], ["MinSize"], ["OnClose"], ["Widget"]}]
+      143 GETTABLEKS                       R12 R0 K10 ["localization"]
+      145 LOADK                            R14 K2 ["Plugin"]
+      146 LOADK                            R15 K49 ["Tutorial"]
+      147 NAMECALL                         R12 R12 K22 ["getText"]
+      149 CALL                             R12 3 1
+      150 SETTABLEKS                       R12 R11 K38 ["Title"]
+      152 LOADB                            R12 0
+      153 GETTABLEKS                       R13 R2 K4 ["tutorialData"]
+      155 JUMPIFEQKNIL                     R13 ; [+2]
+      157 MOVE                             R12 R4
+      158 SETTABLEKS                       R12 R11 K39 ["Enabled"]
+      160 GETIMPORT                        R12 K52 [Enum.ZIndexBehavior.Sibling]
+      162 SETTABLEKS                       R12 R11 K42 ["ZIndexBehavior"]
+      164 GETIMPORT                        R12 K54 [Enum.InitialDockState.Float]
+      166 SETTABLEKS                       R12 R11 K43 ["InitialDockState"]
+      168 GETIMPORT                        R12 K56 [Vector2.new]
+      170 LOADN                            R13 640
+      171 LOADN                            R14 800
+      172 CALL                             R12 2 1
+      173 SETTABLEKS                       R12 R11 K44 ["Size"]
+      175 GETIMPORT                        R12 K56 [Vector2.new]
+      177 LOADN                            R13 250
+      178 LOADN                            R14 400
+      179 CALL                             R12 2 1
+      180 SETTABLEKS                       R12 R11 K45 ["MinSize"]
+      182 NEWCLOSURE                       R12 P7
+      183 CAPTURE                          VAL R0
+      184 SETTABLEKS                       R12 R11 K46 ["OnClose"]
+      186 GETTABLEKS                       R12 R1 K57 ["PluginLoaderContext"]
+      188 GETTABLEKS                       R12 R12 K58 ["mainDockWidget"]
+      190 SETTABLEKS                       R12 R11 K47 ["Widget"]
+      192 DUPTABLE                         R12 K60 [{"FoundationProvider"}]
+      193 GETUPVAL                         R13 3
+      194 GETTABLEKS                       R13 R13 K25 ["createElement"]
+      196 GETUPVAL                         R14 7
+      197 DUPTABLE                         R15 K64 [{["device"] = "Desktop", ["onStyleSheetChange"]}]
+      198 GETTABLEKS                       R16 R0 K65 ["onFoundationStyleSheetChange"]
+      200 SETTABLEKS                       R16 R15 K63 ["onStyleSheetChange"]
+      202 DUPTABLE                         R16 K67 [{"Topbar", "Content"}]
+      203 GETUPVAL                         R17 3
+      204 GETTABLEKS                       R17 R17 K25 ["createElement"]
+      206 GETUPVAL                         R18 8
+      207 DUPTABLE                         R19 K70 [{"tutorialData", "isTableOfContentsOpen", "onTableOfContentsClicked"}]
+      208 SETTABLEKS                       R5 R19 K4 ["tutorialData"]
+      210 GETTABLEKS                       R20 R2 K68 ["isTableOfContentsOpen"]
+      212 SETTABLEKS                       R20 R19 K68 ["isTableOfContentsOpen"]
+      214 NEWCLOSURE                       R20 P8
+      215 CAPTURE                          VAL R0
+      216 SETTABLEKS                       R20 R19 K69 ["onTableOfContentsClicked"]
+      218 CALL                             R17 2 1
+      219 SETTABLEKS                       R17 R16 K66 ["Topbar"]
+      221 GETUPVAL                         R17 3
+      222 GETTABLEKS                       R17 R17 K25 ["createElement"]
+      224 GETUPVAL                         R18 9
+      225 DUPTABLE                         R19 K73 [{["tag"] = "position-bottom-left anchor-bottom-left padding-medium bg-surface-100", ["Size"]}]
+      226 GETIMPORT                        R20 K75 [UDim2.new]
+      228 LOADN                            R21 1
+      229 LOADN                            R22 0
+      230 LOADN                            R23 1
+      231 LOADN                            R24 -32
+      232 CALL                             R20 4 1
+      233 SETTABLEKS                       R20 R19 K44 ["Size"]
+      235 DUPTABLE                         R20 K79 [{"TableOfContents", "TutorialHome", "TutorialSection"}]
+      236 GETUPVAL                         R21 3
+      237 GETTABLEKS                       R21 R21 K25 ["createElement"]
+      239 GETUPVAL                         R22 10
+      240 DUPTABLE                         R23 K83 [{"visible", "currentSectionIndex", "tutorialData", "onSectionClicked"}]
+      241 GETTABLEKS                       R24 R2 K68 ["isTableOfContentsOpen"]
+      243 SETTABLEKS                       R24 R23 K80 ["visible"]
+      245 GETTABLEKS                       R24 R2 K84 ["sectionIndex"]
+      247 SETTABLEKS                       R24 R23 K81 ["currentSectionIndex"]
+      249 SETTABLEKS                       R5 R23 K4 ["tutorialData"]
+      251 NEWCLOSURE                       R24 P9
+      252 CAPTURE                          VAL R0
+      253 CAPTURE                          UPVAL U11
+      254 CAPTURE                          VAL R2
+      255 SETTABLEKS                       R24 R23 K82 ["onSectionClicked"]
+      257 CALL                             R21 2 1
+      258 SETTABLEKS                       R21 R20 K76 ["TableOfContents"]
+      260 GETUPVAL                         R21 3
+      261 GETTABLEKS                       R21 R21 K25 ["createElement"]
+      263 GETUPVAL                         R22 12
+      264 DUPTABLE                         R23 K87 [{"visible", "tutorialHome", "onStartTutorial"}]
+      265 LOADB                            R24 0
+      266 GETTABLEKS                       R25 R2 K84 ["sectionIndex"]
+      268 JUMPIFNOTEQKN                    R25 K88 [0] ; [+4]
+      270 GETTABLEKS                       R25 R2 K68 ["isTableOfContentsOpen"]
+      272 NOT                              R24 R25
+      273 SETTABLEKS                       R24 R23 K80 ["visible"]
+      275 GETTABLEKS                       R24 R5 K89 ["home"]
+      277 SETTABLEKS                       R24 R23 K85 ["tutorialHome"]
+      279 NEWCLOSURE                       R24 P10
+      280 CAPTURE                          VAL R0
+      281 CAPTURE                          UPVAL U11
+      282 SETTABLEKS                       R24 R23 K86 ["onStartTutorial"]
+      284 CALL                             R21 2 1
+      285 SETTABLEKS                       R21 R20 K77 ["TutorialHome"]
+      287 GETUPVAL                         R21 3
+      288 GETTABLEKS                       R21 R21 K25 ["createElement"]
+      290 GETUPVAL                         R22 13
+      291 DUPTABLE                         R23 K94 [{"visible", "showFinish", "tutorialSection", "onNext", "onPrevious"}]
+      292 LOADB                            R24 0
+      293 GETTABLEKS                       R25 R2 K84 ["sectionIndex"]
+      295 LOADN                            R26 0
+      296 JUMPIFNOTLT                      R26 R25 ; [+4]
+      298 GETTABLEKS                       R25 R2 K68 ["isTableOfContentsOpen"]
+      300 NOT                              R24 R25
+      301 SETTABLEKS                       R24 R23 K80 ["visible"]
+      303 GETTABLEKS                       R25 R2 K84 ["sectionIndex"]
+      305 GETTABLEKS                       R27 R5 K95 ["sections"]
+      307 LENGTH                           R26 R27
+      308 JUMPIFEQ                         R25 R26 ; [+2]
+      310 LOADB                            R24 0 +1
+      311 LOADB                            R24 1
+      312 SETTABLEKS                       R24 R23 K90 ["showFinish"]
+      314 GETTABLEKS                       R25 R5 K95 ["sections"]
+      316 GETTABLEKS                       R26 R2 K84 ["sectionIndex"]
+      318 GETTABLE                         R24 R25 R26
+      319 SETTABLEKS                       R24 R23 K91 ["tutorialSection"]
+      321 NEWCLOSURE                       R24 P11
+      322 CAPTURE                          VAL R2
+      323 CAPTURE                          VAL R5
+      324 CAPTURE                          VAL R0
+      325 CAPTURE                          UPVAL U11
+      326 SETTABLEKS                       R24 R23 K92 ["onNext"]
+      328 NEWCLOSURE                       R24 P12
+      329 CAPTURE                          VAL R0
+      330 CAPTURE                          UPVAL U11
+      331 CAPTURE                          VAL R2
+      332 SETTABLEKS                       R24 R23 K93 ["onPrevious"]
+      334 CALL                             R21 2 1
+      335 SETTABLEKS                       R21 R20 K78 ["TutorialSection"]
+      337 CALL                             R17 3 1
+      338 SETTABLEKS                       R17 R16 K23 ["Content"]
+      340 CALL                             R13 3 1
+      341 SETTABLEKS                       R13 R12 K59 ["FoundationProvider"]
+      343 CALL                             R9 3 1
+      344 JUMP                             ; [+1]
+      345 LOADNIL                          R9
+      346 SETTABLEKS                       R9 R8 K15 ["MainWidget"]
+      348 CALL                             R6 2 -1
+      349 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -106,7 +106,7 @@ PROTO_2:
        35 NAMECALL                         R8 R8 K8 ["getMaxSoftSnaps"]
        37 CALL                             R8 1 1
        38 NEWTABLE                         R9 0 2
-       40 LOADN                            R10 255
+       40 LOADN                            R10 -1
        41 LOADN                            R11 1
        42 SETLIST                          R9 R10 2 [1]
        44 GETUPVAL                         R10 1
@@ -200,7 +200,7 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
-        2 JUMPIFNOT                        R2 ; [+82]
+        2 JUMPIFNOT                        R2 ; [+76]
         3 NEWTABLE                         R2 4 0
         5 GETTABLEKS                       R4 R0 K0 ["_centerPoint"]
         7 MUL                              R3 R1 R4
@@ -221,62 +221,58 @@ PROTO_7:
        29 CALL                             R5 2 1
        30 SETTABLEKS                       R5 R2 K6 ["JoinedSurfaces"]
        32 GETTABLEKS                       R4 R0 K7 ["_pivotSnapTarget"]
-       34 JUMPIFNOT                        R4 ; [+44]
+       34 JUMPIFNOT                        R4 ; [+38]
        35 GETUPVAL                         R4 2
        36 GETTABLEKS                       R4 R4 K8 ["createElement"]
        38 GETUPVAL                         R5 3
-       39 DUPTABLE                         R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
+       39 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
        40 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
-       42 NAMECALL                         R7 R7 K13 ["getChosenColor"]
+       42 NAMECALL                         R7 R7 K14 ["getChosenColor"]
        44 CALL                             R7 1 1
        45 SETTABLEKS                       R7 R6 K9 ["Color3"]
-       47 LOADB                            R7 1
-       48 SETTABLEKS                       R7 R6 K10 ["AlwaysOnTop"]
-       50 NEWCLOSURE                       R7 P0
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R7 R6 K11 ["Render"]
-       54 CALL                             R4 2 1
-       55 SETTABLEKS                       R4 R2 K14 ["SnapToLine"]
-       57 GETUPVAL                         R4 2
-       58 GETTABLEKS                       R4 R4 K8 ["createElement"]
-       60 GETUPVAL                         R5 3
-       61 DUPTABLE                         R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
-       62 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
-       64 NAMECALL                         R7 R7 K13 ["getChosenColor"]
-       66 CALL                             R7 1 1
-       67 SETTABLEKS                       R7 R6 K9 ["Color3"]
-       69 LOADB                            R7 1
-       70 SETTABLEKS                       R7 R6 K10 ["AlwaysOnTop"]
-       72 NEWCLOSURE                       R7 P1
-       73 CAPTURE                          VAL R0
-       74 SETTABLEKS                       R7 R6 K11 ["Render"]
-       76 CALL                             R4 2 1
-       77 SETTABLEKS                       R4 R2 K15 ["SnapBecauseLine"]
-       79 GETUPVAL                         R4 2
-       80 GETTABLEKS                       R4 R4 K16 ["createFragment"]
-       82 MOVE                             R5 R2
-       83 CALL                             R4 1 -1
-       84 RETURN                           R4 -1
-       85 GETTABLEKS                       R3 R0 K0 ["_centerPoint"]
-       87 MUL                              R2 R1 R3
-       88 GETTABLEKS                       R3 R0 K1 ["_draggerContext"]
-       90 NAMECALL                         R3 R3 K2 ["shouldJoinSurfaces"]
-       92 CALL                             R3 1 1
-       93 JUMPIFNOT                        R3 ; [+17]
-       94 GETTABLEKS                       R3 R0 K3 ["_jointPairs"]
-       96 JUMPIFNOT                        R3 ; [+14]
-       97 GETUPVAL                         R3 1
-       98 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
-      100 MOVE                             R5 R2
-      101 GETTABLEKS                       R6 R0 K4 ["_boundingBoxSize"]
-      103 CALL                             R3 3 1
-      104 GETTABLEKS                       R4 R0 K3 ["_jointPairs"]
-      106 MOVE                             R6 R3
-      107 NAMECALL                         R4 R4 K5 ["renderJoints"]
-      109 CALL                             R4 2 -1
-      110 RETURN                           R4 -1
-      111 LOADNIL                          R3
-      112 RETURN                           R3 1
+       47 NEWCLOSURE                       R7 P0
+       48 CAPTURE                          VAL R0
+       49 SETTABLEKS                       R7 R6 K12 ["Render"]
+       51 CALL                             R4 2 1
+       52 SETTABLEKS                       R4 R2 K15 ["SnapToLine"]
+       54 GETUPVAL                         R4 2
+       55 GETTABLEKS                       R4 R4 K8 ["createElement"]
+       57 GETUPVAL                         R5 3
+       58 DUPTABLE                         R6 K13 [{["Color3"], ["AlwaysOnTop"] = True, ["Render"]}]
+       59 GETTABLEKS                       R7 R0 K1 ["_draggerContext"]
+       61 NAMECALL                         R7 R7 K14 ["getChosenColor"]
+       63 CALL                             R7 1 1
+       64 SETTABLEKS                       R7 R6 K9 ["Color3"]
+       66 NEWCLOSURE                       R7 P1
+       67 CAPTURE                          VAL R0
+       68 SETTABLEKS                       R7 R6 K12 ["Render"]
+       70 CALL                             R4 2 1
+       71 SETTABLEKS                       R4 R2 K16 ["SnapBecauseLine"]
+       73 GETUPVAL                         R4 2
+       74 GETTABLEKS                       R4 R4 K17 ["createFragment"]
+       76 MOVE                             R5 R2
+       77 CALL                             R4 1 -1
+       78 RETURN                           R4 -1
+       79 GETTABLEKS                       R3 R0 K0 ["_centerPoint"]
+       81 MUL                              R2 R1 R3
+       82 GETTABLEKS                       R3 R0 K1 ["_draggerContext"]
+       84 NAMECALL                         R3 R3 K2 ["shouldJoinSurfaces"]
+       86 CALL                             R3 1 1
+       87 JUMPIFNOT                        R3 ; [+17]
+       88 GETTABLEKS                       R3 R0 K3 ["_jointPairs"]
+       90 JUMPIFNOT                        R3 ; [+14]
+       91 GETUPVAL                         R3 1
+       92 GETTABLEKS                       R4 R0 K1 ["_draggerContext"]
+       94 MOVE                             R5 R2
+       95 GETTABLEKS                       R6 R0 K4 ["_boundingBoxSize"]
+       97 CALL                             R3 3 1
+       98 GETTABLEKS                       R4 R0 K3 ["_jointPairs"]
+      100 MOVE                             R6 R3
+      101 NAMECALL                         R4 R4 K5 ["renderJoints"]
+      103 CALL                             R4 2 -1
+      104 RETURN                           R4 -1
+      105 LOADNIL                          R3
+      106 RETURN                           R3 1
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["_lastGoodGeometricTransform"]

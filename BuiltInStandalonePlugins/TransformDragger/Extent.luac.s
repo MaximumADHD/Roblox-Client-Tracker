@@ -91,35 +91,31 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R4 R0 K0 ["Lower"]
-        2 JUMPIF                           R4 ; [+11]
+        2 JUMPIF                           R4 ; [+5]
         3 GETTABLEKS                       R4 R0 K1 ["Upper"]
-        5 JUMPIF                           R4 ; [+8]
-        6 DUPTABLE                         R4 K2 [{"Lower", "Upper"}]
-        7 LOADNIL                          R5
-        8 SETTABLEKS                       R5 R4 K0 ["Lower"]
-       10 LOADNIL                          R5
-       11 SETTABLEKS                       R5 R4 K1 ["Upper"]
-       13 RETURN                           R4 1
-       14 JUMPIF                           R1 ; [+2]
-       15 GETTABLEKS                       R1 R0 K0 ["Lower"]
-       17 JUMPIF                           R2 ; [+2]
-       18 GETTABLEKS                       R2 R0 K1 ["Upper"]
-       20 GETUPVAL                         R4 0
-       21 GETTABLEKS                       R4 R4 K3 ["minVector3"]
-       23 GETTABLEKS                       R5 R0 K0 ["Lower"]
-       25 MOVE                             R6 R1
-       26 CALL                             R4 2 1
-       27 MOVE                             R1 R4
-       28 GETUPVAL                         R4 0
-       29 GETTABLEKS                       R4 R4 K4 ["maxVector3"]
-       31 GETTABLEKS                       R5 R0 K1 ["Upper"]
-       33 MOVE                             R6 R2
-       34 CALL                             R4 2 1
-       35 MOVE                             R2 R4
-       36 DUPTABLE                         R4 K2 [{"Lower", "Upper"}]
-       37 SETTABLEKS                       R1 R4 K0 ["Lower"]
-       39 SETTABLEKS                       R2 R4 K1 ["Upper"]
-       41 RETURN                           R4 1
+        5 JUMPIF                           R4 ; [+2]
+        6 DUPTABLE                         R4 K3 [{[1] = , ["Upper"] = }]
+        7 RETURN                           R4 1
+        8 JUMPIF                           R1 ; [+2]
+        9 GETTABLEKS                       R1 R0 K0 ["Lower"]
+       11 JUMPIF                           R2 ; [+2]
+       12 GETTABLEKS                       R2 R0 K1 ["Upper"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K4 ["minVector3"]
+       17 GETTABLEKS                       R5 R0 K0 ["Lower"]
+       19 MOVE                             R6 R1
+       20 CALL                             R4 2 1
+       21 MOVE                             R1 R4
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R4 R4 K5 ["maxVector3"]
+       25 GETTABLEKS                       R5 R0 K1 ["Upper"]
+       27 MOVE                             R6 R2
+       28 CALL                             R4 2 1
+       29 MOVE                             R2 R4
+       30 DUPTABLE                         R4 K6 [{"Lower", "Upper"}]
+       31 SETTABLEKS                       R1 R4 K0 ["Lower"]
+       33 SETTABLEKS                       R2 R4 K1 ["Upper"]
+       35 RETURN                           R4 1
 
 PROTO_2:
         0 JUMPIF                           R0 ; [+1]

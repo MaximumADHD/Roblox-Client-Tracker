@@ -112,36 +112,34 @@ PROTO_9:
        22 GETUPVAL                         R7 1
        23 GETTABLEKS                       R7 R7 K7 ["createElement"]
        25 LOADK                            R8 K8 ["Frame"]
-       26 DUPTABLE                         R9 K12 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
-       27 GETIMPORT                        R10 K15 [Enum.AutomaticSize.Y]
+       26 DUPTABLE                         R9 K13 [{["AutomaticSize"], ["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+       27 GETIMPORT                        R10 K16 [Enum.AutomaticSize.Y]
        29 SETTABLEKS                       R10 R9 K9 ["AutomaticSize"]
-       31 GETIMPORT                        R10 K18 [UDim2.fromScale]
+       31 GETIMPORT                        R10 K19 [UDim2.fromScale]
        33 LOADN                            R11 1
        34 LOADN                            R12 0
        35 CALL                             R10 2 1
        36 SETTABLEKS                       R10 R9 K10 ["Size"]
-       38 LOADN                            R10 1
-       39 SETTABLEKS                       R10 R9 K11 ["BackgroundTransparency"]
-       41 SETTABLEKS                       R3 R9 K2 ["LayoutOrder"]
-       43 DUPTABLE                         R10 K20 [{"Toggle"}]
-       44 GETUPVAL                         R11 1
-       45 GETTABLEKS                       R11 R11 K7 ["createElement"]
-       47 GETUPVAL                         R12 2
-       48 DUPTABLE                         R13 K25 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
-       49 LOADK                            R16 K26 ["CustomPolicySwitchSection"]
-       50 LOADK                            R17 K27 ["LabelText"]
-       51 NAMECALL                         R14 R2 K28 ["getText"]
-       53 CALL                             R14 3 1
-       54 SETTABLEKS                       R14 R13 K21 ["Key"]
-       56 SETTABLEKS                       R4 R13 K22 ["IsOn"]
-       58 SETTABLEKS                       R5 R13 K23 ["Enabled"]
-       60 NEWCLOSURE                       R14 P0
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R14 R13 K24 ["ToggleCallback"]
-       64 CALL                             R11 2 1
-       65 SETTABLEKS                       R11 R10 K19 ["Toggle"]
-       67 CALL                             R7 3 -1
-       68 RETURN                           R7 -1
+       38 SETTABLEKS                       R3 R9 K2 ["LayoutOrder"]
+       40 DUPTABLE                         R10 K21 [{"Toggle"}]
+       41 GETUPVAL                         R11 1
+       42 GETTABLEKS                       R11 R11 K7 ["createElement"]
+       44 GETUPVAL                         R12 2
+       45 DUPTABLE                         R13 K26 [{"Key", "IsOn", "Enabled", "ToggleCallback"}]
+       46 LOADK                            R16 K27 ["CustomPolicySwitchSection"]
+       47 LOADK                            R17 K28 ["LabelText"]
+       48 NAMECALL                         R14 R2 K29 ["getText"]
+       50 CALL                             R14 3 1
+       51 SETTABLEKS                       R14 R13 K22 ["Key"]
+       53 SETTABLEKS                       R4 R13 K23 ["IsOn"]
+       55 SETTABLEKS                       R5 R13 K24 ["Enabled"]
+       57 NEWCLOSURE                       R14 P0
+       58 CAPTURE                          VAL R0
+       59 SETTABLEKS                       R14 R13 K25 ["ToggleCallback"]
+       61 CALL                             R11 2 1
+       62 SETTABLEKS                       R11 R10 K20 ["Toggle"]
+       64 CALL                             R7 3 -1
+       65 RETURN                           R7 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K3 [{"mainSwitchEnabled", "customPolicySwitchEnabled", "customPolicySwitchActive"}]

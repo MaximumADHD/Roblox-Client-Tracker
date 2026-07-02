@@ -54,22 +54,20 @@ PROTO_2:
        17 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R3 K1 [{"UseAnimationInstance"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["UseAnimationInstance"]
-        4 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
-        6 LOADK                            R6 K3 ["right_click_position"]
-        7 NAMECALL                         R4 R4 K4 ["setAnalyticsInsertAction"]
-        9 CALL                             R4 2 0
-       10 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
-       12 GETUPVAL                         R5 0
-       13 MOVE                             R6 R4
-       14 NAMECALL                         R7 R4 K5 ["getCurrentShownScope"]
-       16 CALL                             R7 1 1
-       17 GETTABLEKS                       R8 R1 K6 ["Networking"]
-       19 MOVE                             R9 R3
-       20 CALL                             R5 4 0
-       21 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = True}]
+        1 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        3 LOADK                            R6 K4 ["right_click_position"]
+        4 NAMECALL                         R4 R4 K5 ["setAnalyticsInsertAction"]
+        6 CALL                             R4 2 0
+        7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        9 GETUPVAL                         R5 0
+       10 MOVE                             R6 R4
+       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
+       13 CALL                             R7 1 1
+       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
+       16 MOVE                             R9 R3
+       17 CALL                             R5 4 0
+       18 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
@@ -98,22 +96,20 @@ PROTO_4:
        32 RETURN                           R3 1
 
 PROTO_5:
-        0 DUPTABLE                         R3 K1 [{"UseAnimationInstance"}]
-        1 LOADB                            R4 0
-        2 SETTABLEKS                       R4 R3 K0 ["UseAnimationInstance"]
-        4 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
-        6 LOADK                            R6 K3 ["right_click_position"]
-        7 NAMECALL                         R4 R4 K4 ["setAnalyticsInsertAction"]
-        9 CALL                             R4 2 0
-       10 GETTABLEKS                       R4 R1 K2 ["ItemsController"]
-       12 GETUPVAL                         R5 0
-       13 MOVE                             R6 R4
-       14 NAMECALL                         R7 R4 K5 ["getCurrentShownScope"]
-       16 CALL                             R7 1 1
-       17 GETTABLEKS                       R8 R1 K6 ["Networking"]
-       19 MOVE                             R9 R3
-       20 CALL                             R5 4 0
-       21 RETURN                           R0 0
+        0 DUPTABLE                         R3 K2 [{[1] = False}]
+        1 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        3 LOADK                            R6 K4 ["right_click_position"]
+        4 NAMECALL                         R4 R4 K5 ["setAnalyticsInsertAction"]
+        6 CALL                             R4 2 0
+        7 GETTABLEKS                       R4 R1 K3 ["ItemsController"]
+        9 GETUPVAL                         R5 0
+       10 MOVE                             R6 R4
+       11 NAMECALL                         R7 R4 K6 ["getCurrentShownScope"]
+       13 CALL                             R7 1 1
+       14 GETTABLEKS                       R8 R1 K7 ["Networking"]
+       16 MOVE                             R9 R3
+       17 CALL                             R5 4 0
+       18 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R5 R1 K0 ["ItemsController"]
@@ -338,84 +334,60 @@ MAIN:
        43 CAPTURE                          VAL R1
        44 DUPCLOSURE                       R7 K15 [PROTO_2]
        45 CAPTURE                          VAL R3
-       46 DUPTABLE                         R8 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       47 LOADK                            R9 K21 ["ContextMenu"]
-       48 SETTABLEKS                       R9 R8 K16 ["TextKey"]
-       50 LOADK                            R9 K22 ["InsertAsAnimation"]
-       51 SETTABLEKS                       R9 R8 K17 ["TextSubKey"]
-       53 DUPCLOSURE                       R9 K23 [PROTO_3]
-       54 CAPTURE                          VAL R3
-       55 SETTABLEKS                       R9 R8 K18 ["OnItemClicked"]
-       57 DUPCLOSURE                       R9 K24 [PROTO_4]
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R1
-       60 SETTABLEKS                       R9 R8 K19 ["ShouldRender"]
-       62 DUPTABLE                         R9 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       63 LOADK                            R10 K21 ["ContextMenu"]
-       64 SETTABLEKS                       R10 R9 K16 ["TextKey"]
-       66 LOADK                            R10 K25 ["InsertAsKeyframes"]
-       67 SETTABLEKS                       R10 R9 K17 ["TextSubKey"]
-       69 DUPCLOSURE                       R10 K26 [PROTO_5]
-       70 CAPTURE                          VAL R3
-       71 SETTABLEKS                       R10 R9 K18 ["OnItemClicked"]
-       73 DUPCLOSURE                       R10 K27 [PROTO_6]
-       74 CAPTURE                          VAL R2
-       75 CAPTURE                          VAL R1
-       76 SETTABLEKS                       R10 R9 K19 ["ShouldRender"]
-       78 DUPTABLE                         R10 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       79 LOADK                            R11 K21 ["ContextMenu"]
-       80 SETTABLEKS                       R11 R10 K16 ["TextKey"]
-       82 LOADK                            R11 K28 ["InsertAtCamera"]
-       83 SETTABLEKS                       R11 R10 K17 ["TextSubKey"]
-       85 DUPCLOSURE                       R11 K29 [PROTO_7]
-       86 CAPTURE                          VAL R3
-       87 SETTABLEKS                       R11 R10 K18 ["OnItemClicked"]
-       89 DUPCLOSURE                       R11 K30 [PROTO_8]
-       90 CAPTURE                          VAL R2
-       91 CAPTURE                          VAL R1
-       92 SETTABLEKS                       R11 R10 K19 ["ShouldRender"]
-       94 DUPTABLE                         R11 K20 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       95 LOADK                            R12 K21 ["ContextMenu"]
-       96 SETTABLEKS                       R12 R11 K16 ["TextKey"]
-       98 LOADK                            R12 K31 ["InsertAtAssetPosition"]
-       99 SETTABLEKS                       R12 R11 K17 ["TextSubKey"]
-      101 DUPCLOSURE                       R12 K32 [PROTO_9]
-      102 CAPTURE                          VAL R3
-      103 SETTABLEKS                       R12 R11 K18 ["OnItemClicked"]
-      105 DUPCLOSURE                       R12 K33 [PROTO_10]
-      106 CAPTURE                          VAL R2
-      107 CAPTURE                          VAL R1
-      108 SETTABLEKS                       R12 R11 K19 ["ShouldRender"]
-      110 NEWTABLE                         R12 0 4
-      112 MOVE                             R13 R10
-      113 MOVE                             R14 R11
-      114 MOVE                             R15 R8
-      115 MOVE                             R16 R9
-      116 SETLIST                          R12 R13 4 [1]
-      118 DUPTABLE                         R13 K35 [{"TextKey", "TextSubKey", "Children", "ShouldRender"}]
-      119 LOADK                            R14 K21 ["ContextMenu"]
-      120 SETTABLEKS                       R14 R13 K16 ["TextKey"]
-      122 LOADK                            R14 K36 ["Insert"]
-      123 SETTABLEKS                       R14 R13 K17 ["TextSubKey"]
-      125 SETTABLEKS                       R12 R13 K34 ["Children"]
-      127 DUPCLOSURE                       R14 K37 [PROTO_11]
-      128 CAPTURE                          VAL R2
-      129 CAPTURE                          VAL R1
-      130 CAPTURE                          VAL R4
-      131 SETTABLEKS                       R14 R13 K19 ["ShouldRender"]
-      133 DUPTABLE                         R14 K35 [{"TextKey", "TextSubKey", "Children", "ShouldRender"}]
-      134 LOADK                            R15 K21 ["ContextMenu"]
-      135 SETTABLEKS                       R15 R14 K16 ["TextKey"]
-      137 LOADK                            R15 K38 ["InsertSelection"]
-      138 SETTABLEKS                       R15 R14 K17 ["TextSubKey"]
-      140 SETTABLEKS                       R12 R14 K34 ["Children"]
-      142 DUPCLOSURE                       R15 K39 [PROTO_12]
-      143 CAPTURE                          VAL R2
-      144 CAPTURE                          VAL R1
-      145 CAPTURE                          VAL R4
-      146 SETTABLEKS                       R15 R14 K19 ["ShouldRender"]
-      148 NEWTABLE                         R15 0 2
-      150 MOVE                             R16 R13
-      151 MOVE                             R17 R14
-      152 SETLIST                          R15 R16 2 [1]
-      154 RETURN                           R15 1
+       46 DUPTABLE                         R8 K22 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "InsertAsAnimation", ["OnItemClicked"], ["ShouldRender"]}]
+       47 DUPCLOSURE                       R9 K23 [PROTO_3]
+       48 CAPTURE                          VAL R3
+       49 SETTABLEKS                       R9 R8 K20 ["OnItemClicked"]
+       51 DUPCLOSURE                       R9 K24 [PROTO_4]
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R1
+       54 SETTABLEKS                       R9 R8 K21 ["ShouldRender"]
+       56 DUPTABLE                         R9 K26 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "InsertAsKeyframes", ["OnItemClicked"], ["ShouldRender"]}]
+       57 DUPCLOSURE                       R10 K27 [PROTO_5]
+       58 CAPTURE                          VAL R3
+       59 SETTABLEKS                       R10 R9 K20 ["OnItemClicked"]
+       61 DUPCLOSURE                       R10 K28 [PROTO_6]
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R1
+       64 SETTABLEKS                       R10 R9 K21 ["ShouldRender"]
+       66 DUPTABLE                         R10 K30 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "InsertAtCamera", ["OnItemClicked"], ["ShouldRender"]}]
+       67 DUPCLOSURE                       R11 K31 [PROTO_7]
+       68 CAPTURE                          VAL R3
+       69 SETTABLEKS                       R11 R10 K20 ["OnItemClicked"]
+       71 DUPCLOSURE                       R11 K32 [PROTO_8]
+       72 CAPTURE                          VAL R2
+       73 CAPTURE                          VAL R1
+       74 SETTABLEKS                       R11 R10 K21 ["ShouldRender"]
+       76 DUPTABLE                         R11 K34 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "InsertAtAssetPosition", ["OnItemClicked"], ["ShouldRender"]}]
+       77 DUPCLOSURE                       R12 K35 [PROTO_9]
+       78 CAPTURE                          VAL R3
+       79 SETTABLEKS                       R12 R11 K20 ["OnItemClicked"]
+       81 DUPCLOSURE                       R12 K36 [PROTO_10]
+       82 CAPTURE                          VAL R2
+       83 CAPTURE                          VAL R1
+       84 SETTABLEKS                       R12 R11 K21 ["ShouldRender"]
+       86 NEWTABLE                         R12 0 4
+       88 MOVE                             R13 R10
+       89 MOVE                             R14 R11
+       90 MOVE                             R15 R8
+       91 MOVE                             R16 R9
+       92 SETLIST                          R12 R13 4 [1]
+       94 DUPTABLE                         R13 K39 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "Insert", ["Children"], ["ShouldRender"]}]
+       95 SETTABLEKS                       R12 R13 K38 ["Children"]
+       97 DUPCLOSURE                       R14 K40 [PROTO_11]
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R4
+      101 SETTABLEKS                       R14 R13 K21 ["ShouldRender"]
+      103 DUPTABLE                         R14 K42 [{["TextKey"] = "ContextMenu", ["TextSubKey"] = "InsertSelection", ["Children"], ["ShouldRender"]}]
+      104 SETTABLEKS                       R12 R14 K38 ["Children"]
+      106 DUPCLOSURE                       R15 K43 [PROTO_12]
+      107 CAPTURE                          VAL R2
+      108 CAPTURE                          VAL R1
+      109 CAPTURE                          VAL R4
+      110 SETTABLEKS                       R15 R14 K21 ["ShouldRender"]
+      112 NEWTABLE                         R15 0 2
+      114 MOVE                             R16 R13
+      115 MOVE                             R17 R14
+      116 SETLIST                          R15 R16 2 [1]
+      118 RETURN                           R15 1

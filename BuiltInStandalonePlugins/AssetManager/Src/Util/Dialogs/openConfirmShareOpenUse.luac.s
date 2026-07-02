@@ -1,31 +1,25 @@
 PROTO_0:
-        0 JUMPIFNOT                        R2 ; [+25]
-        1 DUPTABLE                         R6 K3 [{"Key", "SubKey", "Args"}]
-        2 LOADK                            R7 K4 ["OpenUse"]
-        3 SETTABLEKS                       R7 R6 K0 ["Key"]
-        5 JUMPIFNOTEQKN                    R3 K5 [1] ; [+3]
-        7 LOADK                            R7 K6 ["OneAsset"]
-        8 JUMP                             ; [+1]
-        9 LOADK                            R7 K7 ["MultipleAssets"]
-       10 SETTABLEKS                       R7 R6 K1 ["SubKey"]
-       12 DUPTABLE                         R7 K9 [{"count"}]
-       13 FASTCALL1                        TOSTRING R3 ; [+3]
-       14 MOVE                             R9 R3
-       15 GETIMPORT                        R8 K11 [tostring]
-       17 CALL                             R8 1 1
-       18 SETTABLEKS                       R8 R7 K8 ["count"]
-       20 SETTABLEKS                       R7 R6 K2 ["Args"]
-       22 NAMECALL                         R4 R0 K12 ["showToast"]
-       24 CALL                             R4 2 0
-       25 RETURN                           R0 0
-       26 DUPTABLE                         R6 K13 [{"Key", "SubKey"}]
-       27 LOADK                            R7 K14 ["QuickShare"]
-       28 SETTABLEKS                       R7 R6 K0 ["Key"]
-       30 LOADK                            R7 K15 ["FailedToGrant"]
-       31 SETTABLEKS                       R7 R6 K1 ["SubKey"]
-       33 NAMECALL                         R4 R0 K12 ["showToast"]
-       35 CALL                             R4 2 0
-       36 RETURN                           R0 0
+        0 JUMPIFNOT                        R2 ; [+22]
+        1 DUPTABLE                         R6 K4 [{[1] = "OpenUse", ["SubKey"], ["Args"]}]
+        2 JUMPIFNOTEQKN                    R3 K5 [1] ; [+3]
+        4 LOADK                            R7 K6 ["OneAsset"]
+        5 JUMP                             ; [+1]
+        6 LOADK                            R7 K7 ["MultipleAssets"]
+        7 SETTABLEKS                       R7 R6 K2 ["SubKey"]
+        9 DUPTABLE                         R7 K9 [{"count"}]
+       10 FASTCALL1                        TOSTRING R3 ; [+3]
+       11 MOVE                             R9 R3
+       12 GETIMPORT                        R8 K11 [tostring]
+       14 CALL                             R8 1 1
+       15 SETTABLEKS                       R8 R7 K8 ["count"]
+       17 SETTABLEKS                       R7 R6 K3 ["Args"]
+       19 NAMECALL                         R4 R0 K12 ["showToast"]
+       21 CALL                             R4 2 0
+       22 RETURN                           R0 0
+       23 DUPTABLE                         R6 K15 [{[1] = "QuickShare", ["SubKey"] = "FailedToGrant"}]
+       24 NAMECALL                         R4 R0 K12 ["showToast"]
+       26 CALL                             R4 2 0
+       27 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -59,14 +53,14 @@ PROTO_2:
        31 GETTABLEKS                       R6 R6 K12 ["DialogType"]
        33 GETTABLEKS                       R6 R6 K13 ["AssetError"]
        35 SETTABLEKS                       R6 R5 K6 ["Type"]
-       37 DUPTABLE                         R6 K19 [{"Title", "LinkText", "LinkUrl", "AssetPaths", "CanClose", "OnClose"}]
+       37 DUPTABLE                         R6 K20 [{["Title"], ["LinkText"], ["LinkUrl"], ["AssetPaths"], ["CanClose"] = True, ["OnClose"]}]
        38 LOADK                            R9 K9 ["OpenUse"]
-       39 LOADK                            R10 K20 ["ErrorTitle"]
+       39 LOADK                            R10 K21 ["ErrorTitle"]
        40 NAMECALL                         R7 R1 K10 ["getText"]
        42 CALL                             R7 3 1
        43 SETTABLEKS                       R7 R6 K4 ["Title"]
        45 LOADK                            R9 K9 ["OpenUse"]
-       46 LOADK                            R10 K21 ["LearnMore"]
+       46 LOADK                            R10 K22 ["LearnMore"]
        47 NAMECALL                         R7 R1 K10 ["getText"]
        49 CALL                             R7 3 1
        50 SETTABLEKS                       R7 R6 K14 ["LinkText"]
@@ -74,16 +68,14 @@ PROTO_2:
        53 CALL                             R7 0 1
        54 SETTABLEKS                       R7 R6 K15 ["LinkUrl"]
        56 SETTABLEKS                       R4 R6 K16 ["AssetPaths"]
-       58 LOADB                            R7 1
-       59 SETTABLEKS                       R7 R6 K17 ["CanClose"]
-       61 NEWCLOSURE                       R7 P0
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R7 R6 K18 ["OnClose"]
-       65 MOVE                             R9 R5
-       66 MOVE                             R10 R6
-       67 NAMECALL                         R7 R0 K22 ["setDialog"]
-       69 CALL                             R7 3 0
-       70 RETURN                           R0 0
+       58 NEWCLOSURE                       R7 P0
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R7 R6 K19 ["OnClose"]
+       62 MOVE                             R9 R5
+       63 MOVE                             R10 R6
+       64 NAMECALL                         R7 R0 K23 ["setDialog"]
+       66 CALL                             R7 3 0
+       67 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0

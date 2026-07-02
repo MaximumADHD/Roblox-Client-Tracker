@@ -1,41 +1,35 @@
 PROTO_0:
         0 DUPTABLE                         R0 K1 [{"Children"}]
         1 DUPTABLE                         R1 K5 [{"props", "state", "_context"}]
-        2 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
-        3 LOADK                            R3 K2 ["props"]
-        4 SETTABLEKS                       R3 R2 K6 ["Name"]
-        6 NEWTABLE                         R3 0 1
-        8 LOADK                            R4 K2 ["props"]
-        9 SETLIST                          R3 R4 1 [1]
-       11 SETTABLEKS                       R3 R2 K7 ["Path"]
-       13 NEWTABLE                         R3 0 0
-       15 SETTABLEKS                       R3 R2 K0 ["Children"]
-       17 SETTABLEKS                       R2 R1 K2 ["props"]
-       19 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
-       20 LOADK                            R3 K3 ["state"]
-       21 SETTABLEKS                       R3 R2 K6 ["Name"]
-       23 NEWTABLE                         R3 0 1
-       25 LOADK                            R4 K3 ["state"]
-       26 SETLIST                          R3 R4 1 [1]
-       28 SETTABLEKS                       R3 R2 K7 ["Path"]
-       30 NEWTABLE                         R3 0 0
-       32 SETTABLEKS                       R3 R2 K0 ["Children"]
-       34 SETTABLEKS                       R2 R1 K3 ["state"]
-       36 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
-       37 LOADK                            R3 K4 ["_context"]
-       38 SETTABLEKS                       R3 R2 K6 ["Name"]
-       40 NEWTABLE                         R3 0 1
-       42 LOADK                            R4 K4 ["_context"]
-       43 SETLIST                          R3 R4 1 [1]
-       45 SETTABLEKS                       R3 R2 K7 ["Path"]
-       47 NEWTABLE                         R3 0 0
-       49 SETTABLEKS                       R3 R2 K0 ["Children"]
-       51 SETTABLEKS                       R2 R1 K4 ["_context"]
-       53 SETTABLEKS                       R1 R0 K0 ["Children"]
-       55 RETURN                           R0 1
+        2 DUPTABLE                         R2 K8 [{["Name"] = "props", ["Path"], [3]}]
+        3 NEWTABLE                         R3 0 1
+        5 LOADK                            R4 K2 ["props"]
+        6 SETLIST                          R3 R4 1 [1]
+        8 SETTABLEKS                       R3 R2 K7 ["Path"]
+       10 NEWTABLE                         R3 0 0
+       12 SETTABLEKS                       R3 R2 K0 ["Children"]
+       14 SETTABLEKS                       R2 R1 K2 ["props"]
+       16 DUPTABLE                         R2 K9 [{["Name"] = "state", ["Path"], [3]}]
+       17 NEWTABLE                         R3 0 1
+       19 LOADK                            R4 K3 ["state"]
+       20 SETLIST                          R3 R4 1 [1]
+       22 SETTABLEKS                       R3 R2 K7 ["Path"]
+       24 NEWTABLE                         R3 0 0
+       26 SETTABLEKS                       R3 R2 K0 ["Children"]
+       28 SETTABLEKS                       R2 R1 K3 ["state"]
+       30 DUPTABLE                         R2 K10 [{["Name"] = "_context", ["Path"], [3]}]
+       31 NEWTABLE                         R3 0 1
+       33 LOADK                            R4 K4 ["_context"]
+       34 SETLIST                          R3 R4 1 [1]
+       36 SETTABLEKS                       R3 R2 K7 ["Path"]
+       38 NEWTABLE                         R3 0 0
+       40 SETTABLEKS                       R3 R2 K0 ["Children"]
+       42 SETTABLEKS                       R2 R1 K4 ["_context"]
+       44 SETTABLEKS                       R1 R0 K0 ["Children"]
+       46 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R0 K16 [{"rootInstance", "flashInstances", "selectedInstances", "expandedInstances", "nodes", "selectedPath", "selectedNodeIndex", "fields", "selectedFields", "expandedFields", "isPicking", "profileData", "profileSearchTerm", "profileFilter", "profileComponents", "profileEvents"}]
+        0 DUPTABLE                         R0 K19 [{[1], ["flashInstances"], ["selectedInstances"], ["expandedInstances"], ["nodes"], ["selectedPath"], ["selectedNodeIndex"] = 0, ["fields"], ["selectedFields"], ["expandedFields"], ["isPicking"] = False, ["profileData"], ["profileSearchTerm"] = "", ["profileFilter"], ["profileComponents"], ["profileEvents"]}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["rootInstance"]
         5 NEWTABLE                         R1 0 0
@@ -48,58 +42,26 @@ PROTO_1:
        19 SETTABLEKS                       R1 R0 K4 ["nodes"]
        21 NEWTABLE                         R1 0 0
        23 SETTABLEKS                       R1 R0 K5 ["selectedPath"]
-       25 LOADN                            R1 0
-       26 SETTABLEKS                       R1 R0 K6 ["selectedNodeIndex"]
-       28 GETUPVAL                         R1 0
-       29 CALL                             R1 0 1
-       30 SETTABLEKS                       R1 R0 K7 ["fields"]
-       32 NEWTABLE                         R1 0 0
-       34 SETTABLEKS                       R1 R0 K8 ["selectedFields"]
-       36 NEWTABLE                         R1 0 0
-       38 SETTABLEKS                       R1 R0 K9 ["expandedFields"]
-       40 LOADB                            R1 0
-       41 SETTABLEKS                       R1 R0 K10 ["isPicking"]
-       43 DUPTABLE                         R1 K21 [{"eventCount", "instanceEventCount", "rowCount", "cached"}]
-       44 LOADN                            R2 0
-       45 SETTABLEKS                       R2 R1 K17 ["eventCount"]
-       47 LOADN                            R2 0
-       48 SETTABLEKS                       R2 R1 K18 ["instanceEventCount"]
-       50 LOADN                            R2 0
-       51 SETTABLEKS                       R2 R1 K19 ["rowCount"]
-       53 LOADB                            R2 0
-       54 SETTABLEKS                       R2 R1 K20 ["cached"]
-       56 SETTABLEKS                       R1 R0 K11 ["profileData"]
-       58 LOADK                            R1 K22 [""]
-       59 SETTABLEKS                       R1 R0 K12 ["profileSearchTerm"]
-       61 NEWTABLE                         R1 0 0
-       63 SETTABLEKS                       R1 R0 K13 ["profileFilter"]
-       65 DUPTABLE                         R1 K29 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex", "selectedRow"}]
-       66 NEWTABLE                         R2 0 0
-       68 SETTABLEKS                       R2 R1 K23 ["pageRows"]
-       70 LOADNIL                          R2
-       71 SETTABLEKS                       R2 R1 K24 ["sortIndex"]
-       73 LOADNIL                          R2
-       74 SETTABLEKS                       R2 R1 K25 ["sortOrder"]
-       76 LOADN                            R2 1
-       77 SETTABLEKS                       R2 R1 K26 ["pageSize"]
-       79 LOADN                            R2 1
-       80 SETTABLEKS                       R2 R1 K27 ["pageIndex"]
-       82 LOADNIL                          R2
-       83 SETTABLEKS                       R2 R1 K28 ["selectedRow"]
-       85 SETTABLEKS                       R1 R0 K14 ["profileComponents"]
-       87 DUPTABLE                         R1 K30 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex"}]
-       88 NEWTABLE                         R2 0 0
-       90 SETTABLEKS                       R2 R1 K23 ["pageRows"]
-       92 LOADNIL                          R2
-       93 SETTABLEKS                       R2 R1 K24 ["sortIndex"]
-       95 LOADNIL                          R2
-       96 SETTABLEKS                       R2 R1 K25 ["sortOrder"]
-       98 LOADN                            R2 1
-       99 SETTABLEKS                       R2 R1 K26 ["pageSize"]
-      101 LOADN                            R2 1
-      102 SETTABLEKS                       R2 R1 K27 ["pageIndex"]
-      104 SETTABLEKS                       R1 R0 K15 ["profileEvents"]
-      106 RETURN                           R0 1
+       25 GETUPVAL                         R1 0
+       26 CALL                             R1 0 1
+       27 SETTABLEKS                       R1 R0 K8 ["fields"]
+       29 NEWTABLE                         R1 0 0
+       31 SETTABLEKS                       R1 R0 K9 ["selectedFields"]
+       33 NEWTABLE                         R1 0 0
+       35 SETTABLEKS                       R1 R0 K10 ["expandedFields"]
+       37 DUPTABLE                         R1 K24 [{["eventCount"] = 0, ["instanceEventCount"] = 0, ["rowCount"] = 0, ["cached"] = False}]
+       38 SETTABLEKS                       R1 R0 K13 ["profileData"]
+       40 NEWTABLE                         R1 0 0
+       42 SETTABLEKS                       R1 R0 K16 ["profileFilter"]
+       44 DUPTABLE                         R1 K33 [{["pageRows"], ["sortIndex"] = , ["sortOrder"] = , ["pageSize"] = 1, ["pageIndex"] = 1, ["selectedRow"] = }]
+       45 NEWTABLE                         R2 0 0
+       47 SETTABLEKS                       R2 R1 K25 ["pageRows"]
+       49 SETTABLEKS                       R1 R0 K17 ["profileComponents"]
+       51 DUPTABLE                         R1 K34 [{["pageRows"], ["sortIndex"] = , ["sortOrder"] = , ["pageSize"] = 1, ["pageIndex"] = 1}]
+       52 NEWTABLE                         R2 0 0
+       54 SETTABLEKS                       R2 R1 K25 ["pageRows"]
+       56 SETTABLEKS                       R1 R0 K18 ["profileEvents"]
+       58 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -108,13 +70,11 @@ PROTO_2:
         3 DUPTABLE                         R5 K1 [{"profileData"}]
         4 GETUPVAL                         R6 0
         5 GETTABLEKS                       R7 R0 K0 ["profileData"]
-        7 DUPTABLE                         R8 K3 [{"cached"}]
-        8 LOADB                            R9 0
-        9 SETTABLEKS                       R9 R8 K2 ["cached"]
-       11 CALL                             R6 2 1
-       12 SETTABLEKS                       R6 R5 K0 ["profileData"]
-       14 CALL                             R2 3 -1
-       15 RETURN                           R2 -1
+        7 DUPTABLE                         R8 K4 [{["cached"] = False}]
+        8 CALL                             R6 2 1
+        9 SETTABLEKS                       R6 R5 K0 ["profileData"]
+       11 CALL                             R2 3 -1
+       12 RETURN                           R2 -1
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -176,11 +136,11 @@ PROTO_8:
         3 DUPCLOSURE                       R4 K1 [PROTO_6]
         4 CALL                             R2 2 1
         5 GETTABLEKS                       R3 R1 K2 ["updatedIndexes"]
-        7 JUMPIFNOT                        R3 ; [+44]
+        7 JUMPIFNOT                        R3 ; [+41]
         8 GETTABLEKS                       R4 R1 K2 ["updatedIndexes"]
        10 LENGTH                           R3 R4
        11 LOADN                            R4 0
-       12 JUMPIFNOTLT                      R4 R3 ; [+39]
+       12 JUMPIFNOTLT                      R4 R3 ; [+36]
        14 GETUPVAL                         R3 1
        15 MOVE                             R4 R2
        16 NEWCLOSURE                       R5 P1
@@ -198,41 +158,39 @@ PROTO_8:
        32 CALL                             R5 0 1
        33 SETTABLEKS                       R5 R3 K8 ["time"]
        35 SETTABLEKS                       R4 R3 K9 ["indexSet"]
-       37 JUMP                             ; [+14]
+       37 JUMP                             ; [+11]
        38 GETTABLEKS                       R5 R1 K10 ["path"]
-       40 DUPTABLE                         R6 K11 [{"time", "heat", "indexSet"}]
+       40 DUPTABLE                         R6 K12 [{["time"], ["heat"] = 0, ["indexSet"]}]
        41 GETIMPORT                        R7 K7 [os.clock]
        43 CALL                             R7 0 1
        44 SETTABLEKS                       R7 R6 K8 ["time"]
-       46 LOADN                            R7 0
-       47 SETTABLEKS                       R7 R6 K3 ["heat"]
-       49 SETTABLEKS                       R4 R6 K9 ["indexSet"]
-       51 SETTABLE                         R6 R2 R5
-       52 GETUPVAL                         R3 4
-       53 DUPTABLE                         R4 K16 [{"root", "selected", "expanded", "children", "path"}]
-       54 GETTABLEKS                       R5 R0 K17 ["rootInstance"]
-       56 SETTABLEKS                       R5 R4 K12 ["root"]
-       58 GETTABLEKS                       R5 R0 K18 ["selectedInstances"]
-       60 SETTABLEKS                       R5 R4 K13 ["selected"]
-       62 GETTABLEKS                       R5 R0 K19 ["expandedInstances"]
-       64 SETTABLEKS                       R5 R4 K14 ["expanded"]
-       66 GETTABLEKS                       R5 R1 K15 ["children"]
-       68 SETTABLEKS                       R5 R4 K15 ["children"]
-       70 GETTABLEKS                       R5 R1 K10 ["path"]
-       72 SETTABLEKS                       R5 R4 K10 ["path"]
-       74 CALL                             R3 1 1
-       75 GETUPVAL                         R4 5
-       76 MOVE                             R5 R0
-       77 DUPTABLE                         R6 K20 [{"rootInstance", "selectedInstances", "expandedInstances", "flashInstances"}]
-       78 GETTABLEKS                       R7 R3 K12 ["root"]
-       80 SETTABLEKS                       R7 R6 K17 ["rootInstance"]
-       82 GETTABLEKS                       R7 R3 K13 ["selected"]
-       84 SETTABLEKS                       R7 R6 K18 ["selectedInstances"]
-       86 GETTABLEKS                       R7 R3 K14 ["expanded"]
-       88 SETTABLEKS                       R7 R6 K19 ["expandedInstances"]
-       90 SETTABLEKS                       R2 R6 K0 ["flashInstances"]
-       92 CALL                             R4 2 -1
-       93 RETURN                           R4 -1
+       46 SETTABLEKS                       R4 R6 K9 ["indexSet"]
+       48 SETTABLE                         R6 R2 R5
+       49 GETUPVAL                         R3 4
+       50 DUPTABLE                         R4 K17 [{"root", "selected", "expanded", "children", "path"}]
+       51 GETTABLEKS                       R5 R0 K18 ["rootInstance"]
+       53 SETTABLEKS                       R5 R4 K13 ["root"]
+       55 GETTABLEKS                       R5 R0 K19 ["selectedInstances"]
+       57 SETTABLEKS                       R5 R4 K14 ["selected"]
+       59 GETTABLEKS                       R5 R0 K20 ["expandedInstances"]
+       61 SETTABLEKS                       R5 R4 K15 ["expanded"]
+       63 GETTABLEKS                       R5 R1 K16 ["children"]
+       65 SETTABLEKS                       R5 R4 K16 ["children"]
+       67 GETTABLEKS                       R5 R1 K10 ["path"]
+       69 SETTABLEKS                       R5 R4 K10 ["path"]
+       71 CALL                             R3 1 1
+       72 GETUPVAL                         R4 5
+       73 MOVE                             R5 R0
+       74 DUPTABLE                         R6 K21 [{"rootInstance", "selectedInstances", "expandedInstances", "flashInstances"}]
+       75 GETTABLEKS                       R7 R3 K13 ["root"]
+       77 SETTABLEKS                       R7 R6 K18 ["rootInstance"]
+       79 GETTABLEKS                       R7 R3 K14 ["selected"]
+       81 SETTABLEKS                       R7 R6 K19 ["selectedInstances"]
+       83 GETTABLEKS                       R7 R3 K15 ["expanded"]
+       85 SETTABLEKS                       R7 R6 K20 ["expandedInstances"]
+       87 SETTABLEKS                       R2 R6 K0 ["flashInstances"]
+       89 CALL                             R4 2 -1
+       90 RETURN                           R4 -1
 
 PROTO_9:
         0 GETUPVAL                         R3 0
@@ -241,7 +199,7 @@ PROTO_9:
         4 GETTABLEN                        R2 R3 1
         5 GETUPVAL                         R3 1
         6 MOVE                             R4 R0
-        7 DUPTABLE                         R5 K8 [{"fields", "expandedFields", "selectedFields", "selectedInstances", "selectedPath", "nodes", "selectedNodeIndex"}]
+        7 DUPTABLE                         R5 K9 [{["fields"], ["expandedFields"], ["selectedFields"], ["selectedInstances"], ["selectedPath"], ["nodes"], ["selectedNodeIndex"] = 0}]
         8 GETUPVAL                         R6 2
         9 CALL                             R6 0 1
        10 SETTABLEKS                       R6 R5 K1 ["fields"]
@@ -253,14 +211,12 @@ PROTO_9:
        22 SETTABLEKS                       R6 R5 K4 ["selectedInstances"]
        24 MOVE                             R6 R2
        25 JUMPIFNOT                        R6 ; [+2]
-       26 GETTABLEKS                       R6 R2 K9 ["Path"]
+       26 GETTABLEKS                       R6 R2 K10 ["Path"]
        28 SETTABLEKS                       R6 R5 K5 ["selectedPath"]
        30 NEWTABLE                         R6 0 0
        32 SETTABLEKS                       R6 R5 K6 ["nodes"]
-       34 LOADN                            R6 0
-       35 SETTABLEKS                       R6 R5 K7 ["selectedNodeIndex"]
-       37 CALL                             R3 2 -1
-       38 RETURN                           R3 -1
+       34 CALL                             R3 2 -1
+       35 RETURN                           R3 -1
 
 PROTO_10:
         0 GETUPVAL                         R2 0
@@ -304,7 +260,7 @@ PROTO_12:
        15 SETTABLE                         R5 R4 R3
        16 GETUPVAL                         R5 1
        17 MOVE                             R6 R0
-       18 DUPTABLE                         R7 K6 [{"selectedPath", "selectedInstances", "expandedInstances", "isPicking"}]
+       18 DUPTABLE                         R7 K7 [{["selectedPath"], ["selectedInstances"], ["expandedInstances"], ["isPicking"] = False}]
        19 GETTABLEKS                       R8 R1 K1 ["path"]
        21 SETTABLEKS                       R8 R7 K2 ["selectedPath"]
        23 SETTABLEKS                       R4 R7 K3 ["selectedInstances"]
@@ -313,11 +269,9 @@ PROTO_12:
        28 MOVE                             R10 R2
        29 CALL                             R8 2 1
        30 SETTABLEKS                       R8 R7 K4 ["expandedInstances"]
-       32 LOADB                            R8 0
-       33 SETTABLEKS                       R8 R7 K5 ["isPicking"]
-       35 CALL                             R5 2 -1
-       36 CLOSEUPVALS                      R3
-       37 RETURN                           R5 -1
+       32 CALL                             R5 2 -1
+       33 CLOSEUPVALS                      R3
+       34 RETURN                           R5 -1
 
 PROTO_13:
         0 GETUPVAL                         R2 0
@@ -420,7 +374,7 @@ PROTO_19:
        15 RETURN                           R0 1
        16 GETUPVAL                         R2 0
        17 GETTABLEKS                       R3 R0 K0 ["profileData"]
-       19 DUPTABLE                         R4 K6 [{"eventCount", "rowCount", "instanceEventCount", "cached"}]
+       19 DUPTABLE                         R4 K7 [{["eventCount"], ["rowCount"], ["instanceEventCount"], ["cached"] = True}]
        20 GETTABLEKS                       R5 R1 K2 ["data"]
        22 GETTABLEKS                       R5 R5 K3 ["eventCount"]
        24 SETTABLEKS                       R5 R4 K3 ["eventCount"]
@@ -430,34 +384,32 @@ PROTO_19:
        32 GETTABLEKS                       R5 R1 K2 ["data"]
        34 GETTABLEKS                       R5 R5 K5 ["instanceEventCount"]
        36 SETTABLEKS                       R5 R4 K5 ["instanceEventCount"]
-       38 LOADB                            R5 1
-       39 SETTABLEKS                       R5 R4 K1 ["cached"]
-       41 CALL                             R2 2 1
-       42 GETUPVAL                         R3 0
-       43 MOVE                             R4 R0
-       44 DUPTABLE                         R5 K9 [{"profileData", "profileComponents", "profileEvents"}]
-       45 SETTABLEKS                       R2 R5 K0 ["profileData"]
-       47 GETUPVAL                         R6 0
-       48 GETTABLEKS                       R7 R0 K7 ["profileComponents"]
-       50 DUPTABLE                         R8 K11 [{"rowCount", "pageRows"}]
-       51 GETTABLEKS                       R9 R1 K2 ["data"]
-       53 GETTABLEKS                       R9 R9 K4 ["rowCount"]
-       55 SETTABLEKS                       R9 R8 K4 ["rowCount"]
-       57 GETTABLEKS                       R9 R1 K2 ["data"]
-       59 GETTABLEKS                       R9 R9 K12 ["componentRows"]
-       61 SETTABLEKS                       R9 R8 K10 ["pageRows"]
-       63 CALL                             R6 2 1
-       64 SETTABLEKS                       R6 R5 K7 ["profileComponents"]
-       66 GETUPVAL                         R6 0
-       67 GETTABLEKS                       R7 R0 K8 ["profileEvents"]
-       69 DUPTABLE                         R8 K13 [{"pageRows"}]
-       70 GETTABLEKS                       R9 R1 K2 ["data"]
-       72 GETTABLEKS                       R9 R9 K14 ["eventRows"]
-       74 SETTABLEKS                       R9 R8 K10 ["pageRows"]
-       76 CALL                             R6 2 1
-       77 SETTABLEKS                       R6 R5 K8 ["profileEvents"]
-       79 CALL                             R3 2 -1
-       80 RETURN                           R3 -1
+       38 CALL                             R2 2 1
+       39 GETUPVAL                         R3 0
+       40 MOVE                             R4 R0
+       41 DUPTABLE                         R5 K10 [{"profileData", "profileComponents", "profileEvents"}]
+       42 SETTABLEKS                       R2 R5 K0 ["profileData"]
+       44 GETUPVAL                         R6 0
+       45 GETTABLEKS                       R7 R0 K8 ["profileComponents"]
+       47 DUPTABLE                         R8 K12 [{"rowCount", "pageRows"}]
+       48 GETTABLEKS                       R9 R1 K2 ["data"]
+       50 GETTABLEKS                       R9 R9 K4 ["rowCount"]
+       52 SETTABLEKS                       R9 R8 K4 ["rowCount"]
+       54 GETTABLEKS                       R9 R1 K2 ["data"]
+       56 GETTABLEKS                       R9 R9 K13 ["componentRows"]
+       58 SETTABLEKS                       R9 R8 K11 ["pageRows"]
+       60 CALL                             R6 2 1
+       61 SETTABLEKS                       R6 R5 K8 ["profileComponents"]
+       63 GETUPVAL                         R6 0
+       64 GETTABLEKS                       R7 R0 K9 ["profileEvents"]
+       66 DUPTABLE                         R8 K14 [{"pageRows"}]
+       67 GETTABLEKS                       R9 R1 K2 ["data"]
+       69 GETTABLEKS                       R9 R9 K15 ["eventRows"]
+       71 SETTABLEKS                       R9 R8 K11 ["pageRows"]
+       73 CALL                             R6 2 1
+       74 SETTABLEKS                       R6 R5 K9 ["profileEvents"]
+       76 CALL                             R3 2 -1
+       77 RETURN                           R3 -1
 
 PROTO_20:
         0 GETUPVAL                         R2 0
@@ -515,20 +467,18 @@ PROTO_23:
         2 DUPTABLE                         R4 K2 [{"profileEvents", "profileComponents"}]
         3 GETUPVAL                         R5 1
         4 GETTABLEKS                       R6 R0 K0 ["profileEvents"]
-        6 DUPTABLE                         R7 K4 [{"pageIndex"}]
-        7 LOADN                            R8 1
-        8 SETTABLEKS                       R8 R7 K3 ["pageIndex"]
-       10 CALL                             R5 2 1
-       11 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
-       16 DUPTABLE                         R7 K6 [{"selectedRow"}]
-       17 GETTABLEKS                       R8 R1 K5 ["selectedRow"]
-       19 SETTABLEKS                       R8 R7 K5 ["selectedRow"]
-       21 CALL                             R5 2 1
-       22 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
-       24 CALL                             R2 2 -1
-       25 RETURN                           R2 -1
+        6 DUPTABLE                         R7 K5 [{["pageIndex"] = 1}]
+        7 CALL                             R5 2 1
+        8 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
+       13 DUPTABLE                         R7 K7 [{"selectedRow"}]
+       14 GETTABLEKS                       R8 R1 K6 ["selectedRow"]
+       16 SETTABLEKS                       R8 R7 K6 ["selectedRow"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
+       21 CALL                             R2 2 -1
+       22 RETURN                           R2 -1
 
 PROTO_24:
         0 GETUPVAL                         R2 0
@@ -554,20 +504,18 @@ PROTO_26:
         2 DUPTABLE                         R4 K2 [{"profileEvents", "profileComponents"}]
         3 GETUPVAL                         R5 1
         4 GETTABLEKS                       R6 R0 K0 ["profileEvents"]
-        6 DUPTABLE                         R7 K4 [{"pageIndex"}]
-        7 LOADN                            R8 1
-        8 SETTABLEKS                       R8 R7 K3 ["pageIndex"]
-       10 CALL                             R5 2 1
-       11 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
-       13 GETUPVAL                         R5 1
-       14 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
-       16 DUPTABLE                         R7 K6 [{"selectedRow"}]
-       17 GETTABLEKS                       R8 R1 K5 ["selectedRow"]
-       19 SETTABLEKS                       R8 R7 K5 ["selectedRow"]
-       21 CALL                             R5 2 1
-       22 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
-       24 CALL                             R2 2 -1
-       25 RETURN                           R2 -1
+        6 DUPTABLE                         R7 K5 [{["pageIndex"] = 1}]
+        7 CALL                             R5 2 1
+        8 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
+       10 GETUPVAL                         R5 1
+       11 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
+       13 DUPTABLE                         R7 K7 [{"selectedRow"}]
+       14 GETTABLEKS                       R8 R1 K6 ["selectedRow"]
+       16 SETTABLEKS                       R8 R7 K6 ["selectedRow"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
+       21 CALL                             R2 2 -1
+       22 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

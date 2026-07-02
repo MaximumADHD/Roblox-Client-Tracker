@@ -43,33 +43,31 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["visualizationModeToggled"]
-        2 DUPTABLE                         R3 K5 [{"actionSource", "visualizationModeCategory", "visualizationMode", "isEnabled"}]
-        3 LOADK                            R4 K6 ["button"]
-        4 SETTABLEKS                       R4 R3 K1 ["actionSource"]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R4 R4 K7 ["name"]
-        9 SETTABLEKS                       R4 R3 K2 ["visualizationModeCategory"]
-       11 GETUPVAL                         R4 2
-       12 GETTABLEKS                       R4 R4 K7 ["name"]
-       14 SETTABLEKS                       R4 R3 K3 ["visualizationMode"]
-       16 GETUPVAL                         R5 2
-       17 GETTABLEKS                       R5 R5 K8 ["enabled"]
-       19 NOT                              R4 R5
-       20 SETTABLEKS                       R4 R3 K4 ["isEnabled"]
-       22 NAMECALL                         R0 R0 K9 ["report"]
-       24 CALL                             R0 3 0
-       25 GETUPVAL                         R0 3
-       26 GETTABLEKS                       R0 R0 K10 ["OnVisualizationModeToggle"]
-       28 GETUPVAL                         R1 1
-       29 GETTABLEKS                       R1 R1 K7 ["name"]
-       31 GETUPVAL                         R2 2
-       32 GETTABLEKS                       R2 R2 K7 ["name"]
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R4 R4 K8 ["enabled"]
-       37 NOT                              R3 R4
-       38 LOADB                            R4 1
-       39 CALL                             R0 4 0
-       40 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["actionSource"] = "button", ["visualizationModeCategory"], ["visualizationMode"], ["isEnabled"]}]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K7 ["name"]
+        6 SETTABLEKS                       R4 R3 K3 ["visualizationModeCategory"]
+        8 GETUPVAL                         R4 2
+        9 GETTABLEKS                       R4 R4 K7 ["name"]
+       11 SETTABLEKS                       R4 R3 K4 ["visualizationMode"]
+       13 GETUPVAL                         R5 2
+       14 GETTABLEKS                       R5 R5 K8 ["enabled"]
+       16 NOT                              R4 R5
+       17 SETTABLEKS                       R4 R3 K5 ["isEnabled"]
+       19 NAMECALL                         R0 R0 K9 ["report"]
+       21 CALL                             R0 3 0
+       22 GETUPVAL                         R0 3
+       23 GETTABLEKS                       R0 R0 K10 ["OnVisualizationModeToggle"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K7 ["name"]
+       28 GETUPVAL                         R2 2
+       29 GETTABLEKS                       R2 R2 K7 ["name"]
+       31 GETUPVAL                         R4 2
+       32 GETTABLEKS                       R4 R4 K8 ["enabled"]
+       34 NOT                              R3 R4
+       35 LOADB                            R4 1
+       36 CALL                             R0 4 0
+       37 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -98,51 +96,49 @@ PROTO_3:
        31 GETUPVAL                         R4 3
        32 ADDK                             R4 R4 K0 [1]
        33 SETUPVAL                         R4 3
-       34 DUPTABLE                         R4 K16 [{"key", "Text", "Visible", "ToolTip", "Enabled", "LayoutOrder", "MatchIndexes", "IsEditingEnabled", "OnToggle"}]
-       35 GETTABLEKS                       R5 R1 K17 ["name"]
+       34 DUPTABLE                         R4 K17 [{["key"], ["Text"], ["Visible"], ["ToolTip"], ["Enabled"], ["LayoutOrder"], ["MatchIndexes"], ["IsEditingEnabled"] = True, ["OnToggle"]}]
+       35 GETTABLEKS                       R5 R1 K18 ["name"]
        37 SETTABLEKS                       R5 R4 K7 ["key"]
        39 GETTABLEKS                       R5 R1 K3 ["title"]
        41 SETTABLEKS                       R5 R4 K8 ["Text"]
        43 SETTABLEKS                       R2 R4 K9 ["Visible"]
-       45 GETTABLEKS                       R5 R1 K18 ["toolTip"]
+       45 GETTABLEKS                       R5 R1 K19 ["toolTip"]
        47 SETTABLEKS                       R5 R4 K10 ["ToolTip"]
        49 GETTABLEKS                       R5 R1 K6 ["enabled"]
        51 SETTABLEKS                       R5 R4 K11 ["Enabled"]
        53 GETUPVAL                         R5 4
-       54 NAMECALL                         R5 R5 K19 ["getNextOrder"]
+       54 NAMECALL                         R5 R5 K20 ["getNextOrder"]
        56 CALL                             R5 1 1
        57 SETTABLEKS                       R5 R4 K12 ["LayoutOrder"]
        59 SETTABLEKS                       R3 R4 K13 ["MatchIndexes"]
-       61 LOADB                            R5 1
-       62 SETTABLEKS                       R5 R4 K14 ["IsEditingEnabled"]
-       64 NEWCLOSURE                       R5 P0
-       65 CAPTURE                          UPVAL U5
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          VAL R1
-       68 CAPTURE                          UPVAL U1
-       69 SETTABLEKS                       R5 R4 K15 ["OnToggle"]
-       71 GETUPVAL                         R5 6
-       72 ADDK                             R5 R5 K0 [1]
-       73 SETUPVAL                         R5 6
-       74 GETUPVAL                         R5 1
-       75 GETTABLEKS                       R5 R5 K1 ["FuzzySearch"]
-       77 GETTABLEKS                       R5 R5 K20 ["incrementEntryCount"]
-       79 CALL                             R5 0 0
-       80 GETTABLEKS                       R5 R4 K9 ["Visible"]
-       82 JUMPIFEQKB                       R5 FALSE ; [+4]
-       84 GETUPVAL                         R5 7
-       85 ADDK                             R5 R5 K0 [1]
-       86 SETUPVAL                         R5 7
-       87 GETUPVAL                         R6 8
-       88 GETUPVAL                         R7 9
-       89 GETTABLEKS                       R7 R7 K21 ["createElement"]
-       91 GETUPVAL                         R8 10
-       92 MOVE                             R9 R4
-       93 CALL                             R7 2 -1
-       94 FASTCALL                         TABLE_INSERT ; [+2]
-       95 GETIMPORT                        R5 K24 [table.insert]
-       97 CALL                             R5 -1 0
-       98 RETURN                           R0 0
+       61 NEWCLOSURE                       R5 P0
+       62 CAPTURE                          UPVAL U5
+       63 CAPTURE                          VAL R0
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          UPVAL U1
+       66 SETTABLEKS                       R5 R4 K16 ["OnToggle"]
+       68 GETUPVAL                         R5 6
+       69 ADDK                             R5 R5 K0 [1]
+       70 SETUPVAL                         R5 6
+       71 GETUPVAL                         R5 1
+       72 GETTABLEKS                       R5 R5 K1 ["FuzzySearch"]
+       74 GETTABLEKS                       R5 R5 K21 ["incrementEntryCount"]
+       76 CALL                             R5 0 0
+       77 GETTABLEKS                       R5 R4 K9 ["Visible"]
+       79 JUMPIFEQKB                       R5 FALSE ; [+4]
+       81 GETUPVAL                         R5 7
+       82 ADDK                             R5 R5 K0 [1]
+       83 SETUPVAL                         R5 7
+       84 GETUPVAL                         R6 8
+       85 GETUPVAL                         R7 9
+       86 GETTABLEKS                       R7 R7 K22 ["createElement"]
+       88 GETUPVAL                         R8 10
+       89 MOVE                             R9 R4
+       90 CALL                             R7 2 -1
+       91 FASTCALL                         TABLE_INSERT ; [+2]
+       92 GETIMPORT                        R5 K25 [table.insert]
+       94 CALL                             R5 -1 0
+       95 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0

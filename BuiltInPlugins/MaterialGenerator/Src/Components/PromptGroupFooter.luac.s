@@ -144,94 +144,82 @@ PROTO_5:
       103 GETUPVAL                         R15 0
       104 GETTABLEKS                       R15 R15 K16 ["createElement"]
       106 GETUPVAL                         R16 5
-      107 DUPTABLE                         R17 K41 [{"LayoutOrder", "Size", "Text", "TextXAlignment", "TextYAlignment", "TextTruncate", "TextSelectable", "TextWrapped", "TextColor"}]
-      108 LOADN                            R18 1
-      109 SETTABLEKS                       R18 R17 K34 ["LayoutOrder"]
-      111 GETIMPORT                        R18 K44 [UDim2.new]
-      113 LOADN                            R19 1
-      114 MINUS                            R20 R9
-      115 LOADN                            R21 1
-      116 LOADN                            R22 0
-      117 CALL                             R18 4 1
-      118 SETTABLEKS                       R18 R17 K22 ["Size"]
-      120 GETTABLEKS                       R19 R0 K15 ["Text"]
-      122 ORK                              R18 R19 K45 [""]
-      123 SETTABLEKS                       R18 R17 K15 ["Text"]
-      125 GETIMPORT                        R18 K46 [Enum.TextXAlignment.Left]
-      127 SETTABLEKS                       R18 R17 K35 ["TextXAlignment"]
-      129 GETIMPORT                        R18 K48 [Enum.TextYAlignment.Center]
-      131 SETTABLEKS                       R18 R17 K36 ["TextYAlignment"]
-      133 GETIMPORT                        R18 K50 [Enum.TextTruncate.AtEnd]
-      135 SETTABLEKS                       R18 R17 K37 ["TextTruncate"]
-      137 LOADB                            R18 0
-      138 SETTABLEKS                       R18 R17 K38 ["TextSelectable"]
-      140 LOADB                            R18 0
-      141 SETTABLEKS                       R18 R17 K39 ["TextWrapped"]
-      143 GETTABLEKS                       R18 R2 K40 ["TextColor"]
-      145 SETTABLEKS                       R18 R17 K40 ["TextColor"]
-      147 CALL                             R15 2 1
-      148 SETTABLEKS                       R15 R14 K31 ["PromptLabel"]
-      150 GETUPVAL                         R15 0
-      151 GETTABLEKS                       R15 R15 K16 ["createElement"]
-      153 GETUPVAL                         R16 4
-      154 DUPTABLE                         R17 K52 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing"}]
-      155 GETIMPORT                        R18 K27 [Enum.HorizontalAlignment.Left]
-      157 SETTABLEKS                       R18 R17 K18 ["HorizontalAlignment"]
-      159 GETIMPORT                        R18 K30 [Enum.FillDirection.Horizontal]
-      161 SETTABLEKS                       R18 R17 K19 ["Layout"]
-      163 LOADN                            R18 2
-      164 SETTABLEKS                       R18 R17 K34 ["LayoutOrder"]
-      166 GETIMPORT                        R18 K44 [UDim2.new]
-      168 LOADN                            R19 0
-      169 MOVE                             R20 R9
-      170 LOADN                            R21 1
-      171 LOADN                            R22 0
-      172 CALL                             R18 4 1
-      173 SETTABLEKS                       R18 R17 K22 ["Size"]
-      175 GETTABLEKS                       R18 R2 K13 ["ButtonSpacing"]
-      177 SETTABLEKS                       R18 R17 K51 ["Spacing"]
-      179 DUPTABLE                         R18 K54 [{"CopyPromptButton"}]
-      180 GETUPVAL                         R19 0
-      181 GETTABLEKS                       R19 R19 K16 ["createElement"]
-      183 GETUPVAL                         R20 6
-      184 DUPTABLE                         R21 K57 [{"Size", "Style", "Tooltip", "OnClick"}]
-      185 GETTABLEKS                       R22 R2 K8 ["ButtonSize"]
-      187 SETTABLEKS                       R22 R21 K22 ["Size"]
-      189 LOADK                            R22 K58 ["RoundSubtle"]
-      190 SETTABLEKS                       R22 R21 K23 ["Style"]
-      192 SETTABLEKS                       R7 R21 K55 ["Tooltip"]
-      194 SETTABLEKS                       R10 R21 K56 ["OnClick"]
-      196 DUPTABLE                         R22 K60 [{"Icon"}]
-      197 GETUPVAL                         R23 0
-      198 GETTABLEKS                       R23 R23 K16 ["createElement"]
-      200 GETUPVAL                         R24 7
-      201 DUPTABLE                         R25 K65 [{"AnchorPoint", "BackgroundTransparency", "ImageColor3", "Image", "Position", "Size"}]
-      202 GETIMPORT                        R26 K67 [Vector2.new]
-      204 LOADK                            R27 K68 [0.5]
-      205 LOADK                            R28 K68 [0.5]
+      107 DUPTABLE                         R17 K42 [{["LayoutOrder"] = 1, ["Size"], ["Text"], ["TextXAlignment"], ["TextYAlignment"], ["TextTruncate"], ["TextSelectable"] = False, ["TextWrapped"] = False, ["TextColor"]}]
+      108 GETIMPORT                        R18 K45 [UDim2.new]
+      110 LOADN                            R19 1
+      111 MINUS                            R20 R9
+      112 LOADN                            R21 1
+      113 LOADN                            R22 0
+      114 CALL                             R18 4 1
+      115 SETTABLEKS                       R18 R17 K22 ["Size"]
+      117 GETTABLEKS                       R19 R0 K15 ["Text"]
+      119 ORK                              R18 R19 K46 [""]
+      120 SETTABLEKS                       R18 R17 K15 ["Text"]
+      122 GETIMPORT                        R18 K47 [Enum.TextXAlignment.Left]
+      124 SETTABLEKS                       R18 R17 K35 ["TextXAlignment"]
+      126 GETIMPORT                        R18 K49 [Enum.TextYAlignment.Center]
+      128 SETTABLEKS                       R18 R17 K36 ["TextYAlignment"]
+      130 GETIMPORT                        R18 K51 [Enum.TextTruncate.AtEnd]
+      132 SETTABLEKS                       R18 R17 K37 ["TextTruncate"]
+      134 GETTABLEKS                       R18 R2 K41 ["TextColor"]
+      136 SETTABLEKS                       R18 R17 K41 ["TextColor"]
+      138 CALL                             R15 2 1
+      139 SETTABLEKS                       R15 R14 K31 ["PromptLabel"]
+      141 GETUPVAL                         R15 0
+      142 GETTABLEKS                       R15 R15 K16 ["createElement"]
+      144 GETUPVAL                         R16 4
+      145 DUPTABLE                         R17 K54 [{["HorizontalAlignment"], ["Layout"], ["LayoutOrder"] = 2, ["Size"], ["Spacing"]}]
+      146 GETIMPORT                        R18 K27 [Enum.HorizontalAlignment.Left]
+      148 SETTABLEKS                       R18 R17 K18 ["HorizontalAlignment"]
+      150 GETIMPORT                        R18 K30 [Enum.FillDirection.Horizontal]
+      152 SETTABLEKS                       R18 R17 K19 ["Layout"]
+      154 GETIMPORT                        R18 K45 [UDim2.new]
+      156 LOADN                            R19 0
+      157 MOVE                             R20 R9
+      158 LOADN                            R21 1
+      159 LOADN                            R22 0
+      160 CALL                             R18 4 1
+      161 SETTABLEKS                       R18 R17 K22 ["Size"]
+      163 GETTABLEKS                       R18 R2 K13 ["ButtonSpacing"]
+      165 SETTABLEKS                       R18 R17 K53 ["Spacing"]
+      167 DUPTABLE                         R18 K56 [{"CopyPromptButton"}]
+      168 GETUPVAL                         R19 0
+      169 GETTABLEKS                       R19 R19 K16 ["createElement"]
+      171 GETUPVAL                         R20 6
+      172 DUPTABLE                         R21 K60 [{["Size"], ["Style"] = "RoundSubtle", ["Tooltip"], ["OnClick"]}]
+      173 GETTABLEKS                       R22 R2 K8 ["ButtonSize"]
+      175 SETTABLEKS                       R22 R21 K22 ["Size"]
+      177 SETTABLEKS                       R7 R21 K58 ["Tooltip"]
+      179 SETTABLEKS                       R10 R21 K59 ["OnClick"]
+      181 DUPTABLE                         R22 K62 [{"Icon"}]
+      182 GETUPVAL                         R23 0
+      183 GETTABLEKS                       R23 R23 K16 ["createElement"]
+      185 GETUPVAL                         R24 7
+      186 DUPTABLE                         R25 K67 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["ImageColor3"], ["Image"], ["Position"], ["Size"]}]
+      187 GETIMPORT                        R26 K69 [Vector2.new]
+      189 LOADK                            R27 K70 [0.5]
+      190 LOADK                            R28 K70 [0.5]
+      191 CALL                             R26 2 1
+      192 SETTABLEKS                       R26 R25 K63 ["AnchorPoint"]
+      194 GETTABLEKS                       R26 R2 K71 ["ButtonColor"]
+      196 SETTABLEKS                       R26 R25 K65 ["ImageColor3"]
+      198 GETTABLEKS                       R26 R2 K72 ["CopyPromptButtonImage"]
+      200 SETTABLEKS                       R26 R25 K66 ["Image"]
+      202 GETIMPORT                        R26 K74 [UDim2.fromScale]
+      204 LOADK                            R27 K70 [0.5]
+      205 LOADK                            R28 K70 [0.5]
       206 CALL                             R26 2 1
-      207 SETTABLEKS                       R26 R25 K61 ["AnchorPoint"]
-      209 LOADN                            R26 1
-      210 SETTABLEKS                       R26 R25 K62 ["BackgroundTransparency"]
-      212 GETTABLEKS                       R26 R2 K69 ["ButtonColor"]
-      214 SETTABLEKS                       R26 R25 K63 ["ImageColor3"]
-      216 GETTABLEKS                       R26 R2 K70 ["CopyPromptButtonImage"]
-      218 SETTABLEKS                       R26 R25 K64 ["Image"]
-      220 GETIMPORT                        R26 K72 [UDim2.fromScale]
-      222 LOADK                            R27 K68 [0.5]
-      223 LOADK                            R28 K68 [0.5]
-      224 CALL                             R26 2 1
-      225 SETTABLEKS                       R26 R25 K21 ["Position"]
-      227 GETTABLEKS                       R26 R2 K73 ["ButtonImageSize"]
-      229 SETTABLEKS                       R26 R25 K22 ["Size"]
-      231 CALL                             R23 2 1
-      232 SETTABLEKS                       R23 R22 K59 ["Icon"]
-      234 CALL                             R19 3 1
-      235 SETTABLEKS                       R19 R18 K53 ["CopyPromptButton"]
-      237 CALL                             R15 3 1
-      238 SETTABLEKS                       R15 R14 K32 ["PromptGroupButtons"]
-      240 CALL                             R11 3 -1
-      241 RETURN                           R11 -1
+      207 SETTABLEKS                       R26 R25 K21 ["Position"]
+      209 GETTABLEKS                       R26 R2 K75 ["ButtonImageSize"]
+      211 SETTABLEKS                       R26 R25 K22 ["Size"]
+      213 CALL                             R23 2 1
+      214 SETTABLEKS                       R23 R22 K61 ["Icon"]
+      216 CALL                             R19 3 1
+      217 SETTABLEKS                       R19 R18 K55 ["CopyPromptButton"]
+      219 CALL                             R15 3 1
+      220 SETTABLEKS                       R15 R14 K32 ["PromptGroupButtons"]
+      222 CALL                             R11 3 -1
+      223 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

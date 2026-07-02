@@ -29,12 +29,12 @@ PROTO_0:
        42 GETUPVAL                         R12 3
        43 GETTABLEKS                       R12 R12 K17 ["createElement"]
        45 GETUPVAL                         R13 4
-       46 DUPTABLE                         R14 K23 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Padding", "Size", "Spacing", "VerticalAlignment"}]
-       47 GETIMPORT                        R15 K25 [Enum.AutomaticSize.Y]
+       46 DUPTABLE                         R14 K24 [{["AutomaticSize"], ["HorizontalAlignment"], ["Layout"], ["LayoutOrder"], ["Padding"], ["Size"], ["Spacing"] = 2, ["VerticalAlignment"]}]
+       47 GETIMPORT                        R15 K26 [Enum.AutomaticSize.Y]
        49 SETTABLEKS                       R15 R14 K18 ["AutomaticSize"]
-       51 GETIMPORT                        R15 K27 [Enum.HorizontalAlignment.Left]
+       51 GETIMPORT                        R15 K28 [Enum.HorizontalAlignment.Left]
        53 SETTABLEKS                       R15 R14 K19 ["HorizontalAlignment"]
-       55 GETIMPORT                        R15 K30 [Enum.FillDirection.Vertical]
+       55 GETIMPORT                        R15 K31 [Enum.FillDirection.Vertical]
        57 SETTABLEKS                       R15 R14 K20 ["Layout"]
        59 SETTABLEKS                       R4 R14 K4 ["LayoutOrder"]
        61 GETUPVAL                         R16 5
@@ -45,105 +45,91 @@ PROTO_0:
        66 LOADNIL                          R15
        67 SETTABLEKS                       R15 R14 K6 ["Padding"]
        69 SETTABLEKS                       R7 R14 K7 ["Size"]
-       71 LOADN                            R15 2
-       72 SETTABLEKS                       R15 R14 K21 ["Spacing"]
-       74 GETIMPORT                        R15 K32 [Enum.VerticalAlignment.Top]
-       76 SETTABLEKS                       R15 R14 K22 ["VerticalAlignment"]
-       78 DUPTABLE                         R15 K34 [{"Header", "Text"}]
-       79 GETUPVAL                         R16 3
-       80 GETTABLEKS                       R16 R16 K17 ["createElement"]
-       82 GETUPVAL                         R17 6
-       83 DUPTABLE                         R18 K38 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextColor", "TextXAlignment", "Size"}]
-       84 GETIMPORT                        R19 K25 [Enum.AutomaticSize.Y]
-       86 SETTABLEKS                       R19 R18 K18 ["AutomaticSize"]
-       88 NAMECALL                         R19 R10 K39 ["getNextOrder"]
-       90 CALL                             R19 1 1
-       91 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
-       93 LOADK                            R19 K40 ["ToolboxItemRowHeader"]
-       94 SETTABLEKS                       R19 R18 K35 ["Style"]
-       96 SETTABLEKS                       R3 R18 K8 ["Text"]
-       98 GETTABLEKS                       R19 R2 K41 ["headerTextColor"]
-      100 SETTABLEKS                       R19 R18 K36 ["TextColor"]
-      102 GETIMPORT                        R19 K42 [Enum.TextXAlignment.Left]
-      104 SETTABLEKS                       R19 R18 K37 ["TextXAlignment"]
-      106 GETIMPORT                        R19 K44 [UDim2.new]
-      108 LOADN                            R20 1
-      109 LOADN                            R21 0
-      110 LOADN                            R22 0
-      111 LOADN                            R23 0
-      112 CALL                             R19 4 1
-      113 SETTABLEKS                       R19 R18 K7 ["Size"]
-      115 CALL                             R16 2 1
-      116 SETTABLEKS                       R16 R15 K33 ["Header"]
-      118 JUMPIFNOT                        R9 ; [+44]
-      119 GETUPVAL                         R16 3
-      120 GETTABLEKS                       R16 R16 K17 ["createElement"]
-      122 GETUPVAL                         R17 7
-      123 DUPTABLE                         R18 K48 [{"LayoutOrder", "OnClick", "Size", "Style", "Text", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
-      124 NAMECALL                         R19 R10 K39 ["getNextOrder"]
-      126 CALL                             R19 1 1
-      127 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
-      129 SETTABLEKS                       R9 R18 K9 ["OnClick"]
-      131 GETIMPORT                        R19 K44 [UDim2.new]
-      133 LOADN                            R20 1
-      134 LOADN                            R21 0
-      135 LOADN                            R22 0
-      136 MOVE                             R23 R11
-      137 CALL                             R19 4 1
-      138 SETTABLEKS                       R19 R18 K7 ["Size"]
-      140 LOADK                            R19 K49 ["ToolboxItemRowInnerLink"]
-      141 SETTABLEKS                       R19 R18 K35 ["Style"]
-      143 ORK                              R19 R8 K50 [""]
-      144 SETTABLEKS                       R19 R18 K8 ["Text"]
-      146 GETTABLEKS                       R19 R2 K12 ["textSize"]
-      148 SETTABLEKS                       R19 R18 K45 ["TextSize"]
-      150 LOADB                            R19 1
-      151 SETTABLEKS                       R19 R18 K46 ["TextWrapped"]
-      153 GETIMPORT                        R19 K42 [Enum.TextXAlignment.Left]
-      155 SETTABLEKS                       R19 R18 K37 ["TextXAlignment"]
-      157 GETIMPORT                        R19 K51 [Enum.TextYAlignment.Top]
-      159 SETTABLEKS                       R19 R18 K47 ["TextYAlignment"]
-      161 CALL                             R16 2 1
-      162 JUMP                             ; [+56]
-      163 GETUPVAL                         R16 3
-      164 GETTABLEKS                       R16 R16 K17 ["createElement"]
-      166 GETUPVAL                         R17 8
-      167 DUPTABLE                         R18 K53 [{"LayoutOrder", "AutomaticSize", "ClipsDescendants", "Size", "Style", "Text", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment", "VerticalAlignment"}]
-      168 NAMECALL                         R19 R10 K39 ["getNextOrder"]
-      170 CALL                             R19 1 1
-      171 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
-      173 JUMPIFNOT                        R5 ; [+3]
-      174 GETIMPORT                        R19 K55 [Enum.AutomaticSize.None]
-      176 JUMP                             ; [+2]
-      177 GETIMPORT                        R19 K25 [Enum.AutomaticSize.Y]
-      179 SETTABLEKS                       R19 R18 K18 ["AutomaticSize"]
-      181 LOADB                            R19 1
-      182 SETTABLEKS                       R19 R18 K52 ["ClipsDescendants"]
-      184 GETIMPORT                        R19 K44 [UDim2.new]
-      186 LOADN                            R20 1
-      187 LOADN                            R21 0
-      188 LOADN                            R22 0
-      189 MOVE                             R23 R11
-      190 CALL                             R19 4 1
-      191 SETTABLEKS                       R19 R18 K7 ["Size"]
-      193 LOADK                            R19 K56 ["ToolboxItemRowInnerText"]
-      194 SETTABLEKS                       R19 R18 K35 ["Style"]
-      196 ORK                              R19 R8 K50 [""]
-      197 SETTABLEKS                       R19 R18 K8 ["Text"]
-      199 GETTABLEKS                       R19 R2 K12 ["textSize"]
-      201 SETTABLEKS                       R19 R18 K45 ["TextSize"]
-      203 LOADB                            R19 1
-      204 SETTABLEKS                       R19 R18 K46 ["TextWrapped"]
-      206 GETIMPORT                        R19 K42 [Enum.TextXAlignment.Left]
-      208 SETTABLEKS                       R19 R18 K37 ["TextXAlignment"]
-      210 GETIMPORT                        R19 K51 [Enum.TextYAlignment.Top]
-      212 SETTABLEKS                       R19 R18 K47 ["TextYAlignment"]
-      214 GETIMPORT                        R19 K32 [Enum.VerticalAlignment.Top]
-      216 SETTABLEKS                       R19 R18 K22 ["VerticalAlignment"]
-      218 CALL                             R16 2 1
-      219 SETTABLEKS                       R16 R15 K8 ["Text"]
-      221 CALL                             R12 3 -1
-      222 RETURN                           R12 -1
+       71 GETIMPORT                        R15 K33 [Enum.VerticalAlignment.Top]
+       73 SETTABLEKS                       R15 R14 K23 ["VerticalAlignment"]
+       75 DUPTABLE                         R15 K35 [{"Header", "Text"}]
+       76 GETUPVAL                         R16 3
+       77 GETTABLEKS                       R16 R16 K17 ["createElement"]
+       79 GETUPVAL                         R17 6
+       80 DUPTABLE                         R18 K40 [{["AutomaticSize"], ["LayoutOrder"], ["Style"] = "ToolboxItemRowHeader", ["Text"], ["TextColor"], ["TextXAlignment"], ["Size"]}]
+       81 GETIMPORT                        R19 K26 [Enum.AutomaticSize.Y]
+       83 SETTABLEKS                       R19 R18 K18 ["AutomaticSize"]
+       85 NAMECALL                         R19 R10 K41 ["getNextOrder"]
+       87 CALL                             R19 1 1
+       88 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
+       90 SETTABLEKS                       R3 R18 K8 ["Text"]
+       92 GETTABLEKS                       R19 R2 K42 ["headerTextColor"]
+       94 SETTABLEKS                       R19 R18 K38 ["TextColor"]
+       96 GETIMPORT                        R19 K43 [Enum.TextXAlignment.Left]
+       98 SETTABLEKS                       R19 R18 K39 ["TextXAlignment"]
+      100 GETIMPORT                        R19 K45 [UDim2.new]
+      102 LOADN                            R20 1
+      103 LOADN                            R21 0
+      104 LOADN                            R22 0
+      105 LOADN                            R23 0
+      106 CALL                             R19 4 1
+      107 SETTABLEKS                       R19 R18 K7 ["Size"]
+      109 CALL                             R16 2 1
+      110 SETTABLEKS                       R16 R15 K34 ["Header"]
+      112 JUMPIFNOT                        R9 ; [+38]
+      113 GETUPVAL                         R16 3
+      114 GETTABLEKS                       R16 R16 K17 ["createElement"]
+      116 GETUPVAL                         R17 7
+      117 DUPTABLE                         R18 K51 [{["LayoutOrder"], ["OnClick"], ["Size"], ["Style"] = "ToolboxItemRowInnerLink", ["Text"], ["TextSize"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"]}]
+      118 NAMECALL                         R19 R10 K41 ["getNextOrder"]
+      120 CALL                             R19 1 1
+      121 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
+      123 SETTABLEKS                       R9 R18 K9 ["OnClick"]
+      125 GETIMPORT                        R19 K45 [UDim2.new]
+      127 LOADN                            R20 1
+      128 LOADN                            R21 0
+      129 LOADN                            R22 0
+      130 MOVE                             R23 R11
+      131 CALL                             R19 4 1
+      132 SETTABLEKS                       R19 R18 K7 ["Size"]
+      134 ORK                              R19 R8 K52 [""]
+      135 SETTABLEKS                       R19 R18 K8 ["Text"]
+      137 GETTABLEKS                       R19 R2 K12 ["textSize"]
+      139 SETTABLEKS                       R19 R18 K47 ["TextSize"]
+      141 GETIMPORT                        R19 K43 [Enum.TextXAlignment.Left]
+      143 SETTABLEKS                       R19 R18 K39 ["TextXAlignment"]
+      145 GETIMPORT                        R19 K53 [Enum.TextYAlignment.Top]
+      147 SETTABLEKS                       R19 R18 K50 ["TextYAlignment"]
+      149 CALL                             R16 2 1
+      150 JUMP                             ; [+47]
+      151 GETUPVAL                         R16 3
+      152 GETTABLEKS                       R16 R16 K17 ["createElement"]
+      154 GETUPVAL                         R17 8
+      155 DUPTABLE                         R18 K56 [{["LayoutOrder"], ["AutomaticSize"], ["ClipsDescendants"] = True, ["Size"], ["Style"] = "ToolboxItemRowInnerText", ["Text"], ["TextSize"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"], ["VerticalAlignment"]}]
+      156 NAMECALL                         R19 R10 K41 ["getNextOrder"]
+      158 CALL                             R19 1 1
+      159 SETTABLEKS                       R19 R18 K4 ["LayoutOrder"]
+      161 JUMPIFNOT                        R5 ; [+3]
+      162 GETIMPORT                        R19 K58 [Enum.AutomaticSize.None]
+      164 JUMP                             ; [+2]
+      165 GETIMPORT                        R19 K26 [Enum.AutomaticSize.Y]
+      167 SETTABLEKS                       R19 R18 K18 ["AutomaticSize"]
+      169 GETIMPORT                        R19 K45 [UDim2.new]
+      171 LOADN                            R20 1
+      172 LOADN                            R21 0
+      173 LOADN                            R22 0
+      174 MOVE                             R23 R11
+      175 CALL                             R19 4 1
+      176 SETTABLEKS                       R19 R18 K7 ["Size"]
+      178 ORK                              R19 R8 K52 [""]
+      179 SETTABLEKS                       R19 R18 K8 ["Text"]
+      181 GETTABLEKS                       R19 R2 K12 ["textSize"]
+      183 SETTABLEKS                       R19 R18 K47 ["TextSize"]
+      185 GETIMPORT                        R19 K43 [Enum.TextXAlignment.Left]
+      187 SETTABLEKS                       R19 R18 K39 ["TextXAlignment"]
+      189 GETIMPORT                        R19 K53 [Enum.TextYAlignment.Top]
+      191 SETTABLEKS                       R19 R18 K50 ["TextYAlignment"]
+      193 GETIMPORT                        R19 K33 [Enum.VerticalAlignment.Top]
+      195 SETTABLEKS                       R19 R18 K23 ["VerticalAlignment"]
+      197 CALL                             R16 2 1
+      198 SETTABLEKS                       R16 R15 K8 ["Text"]
+      200 CALL                             R12 3 -1
+      201 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

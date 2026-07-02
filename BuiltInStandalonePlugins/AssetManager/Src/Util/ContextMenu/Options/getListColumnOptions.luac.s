@@ -47,28 +47,26 @@ PROTO_4:
        10 GETUPVAL                         R8 1
        11 GETTABLE                         R7 R8 R5
        12 NOT                              R6 R7
-       13 JUMPIFNOT                        R6 ; [+26]
-       14 DUPTABLE                         R6 K7 [{"TextKey", "TextSubKey", "OnItemClicked", "GetIcon", "ShouldRender"}]
-       15 LOADK                            R7 K8 ["AssetProperty"]
-       16 SETTABLEKS                       R7 R6 K2 ["TextKey"]
-       18 SETTABLEKS                       R5 R6 K3 ["TextSubKey"]
-       20 NEWCLOSURE                       R7 P0
-       21 CAPTURE                          VAL R5
-       22 SETTABLEKS                       R7 R6 K4 ["OnItemClicked"]
-       24 NEWCLOSURE                       R7 P1
-       25 CAPTURE                          VAL R5
-       26 CAPTURE                          UPVAL U2
-       27 SETTABLEKS                       R7 R6 K5 ["GetIcon"]
-       29 DUPCLOSURE                       R7 K9 [PROTO_3]
-       30 CAPTURE                          UPVAL U0
-       31 SETTABLEKS                       R7 R6 K6 ["ShouldRender"]
-       33 FASTCALL2                        TABLE_INSERT R0 R6 ; [+5]
-       35 MOVE                             R8 R0
-       36 MOVE                             R9 R6
-       37 GETIMPORT                        R7 K12 [table.insert]
-       39 CALL                             R7 2 0
-       40 FORGLOOP                         R1 2 ; [-31]
-       42 RETURN                           R0 1
+       13 JUMPIFNOT                        R6 ; [+23]
+       14 DUPTABLE                         R6 K8 [{["TextKey"] = "AssetProperty", ["TextSubKey"], ["OnItemClicked"], ["GetIcon"], ["ShouldRender"]}]
+       15 SETTABLEKS                       R5 R6 K4 ["TextSubKey"]
+       17 NEWCLOSURE                       R7 P0
+       18 CAPTURE                          VAL R5
+       19 SETTABLEKS                       R7 R6 K5 ["OnItemClicked"]
+       21 NEWCLOSURE                       R7 P1
+       22 CAPTURE                          VAL R5
+       23 CAPTURE                          UPVAL U2
+       24 SETTABLEKS                       R7 R6 K6 ["GetIcon"]
+       26 DUPCLOSURE                       R7 K9 [PROTO_3]
+       27 CAPTURE                          UPVAL U0
+       28 SETTABLEKS                       R7 R6 K7 ["ShouldRender"]
+       30 FASTCALL2                        TABLE_INSERT R0 R6 ; [+5]
+       32 MOVE                             R8 R0
+       33 MOVE                             R9 R6
+       34 GETIMPORT                        R7 K12 [table.insert]
+       36 CALL                             R7 2 0
+       37 FORGLOOP                         R1 2 ; [-28]
+       39 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

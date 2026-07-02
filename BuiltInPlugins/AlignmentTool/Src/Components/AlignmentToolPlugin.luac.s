@@ -248,7 +248,7 @@ MAIN:
        71 GETTABLEKS                       R12 R12 K20 ["HoverPreviewEnabler"]
        73 CALL                             R11 1 1
        74 GETIMPORT                        R12 K23 [Vector2.new]
-       76 LOADN                            R13 44
+       76 LOADN                            R13 300
        77 LOADN                            R14 250
        78 CALL                             R12 2 1
        79 GETIMPORT                        R13 K23 [Vector2.new]

@@ -1,17 +1,15 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
         2 GETUPVAL                         R2 0
-        3 JUMPIFNOT                        R2 ; [+3]
-        4 GETUPVAL                         R2 1
-        5 MOVE                             R3 R0
-        6 CALL                             R2 1 0
-        7 GETUPVAL                         R2 2
-        8 GETUPVAL                         R4 3
-        9 GETTABLEKS                       R5 R1 K1 ["groups"]
-       11 CALL                             R4 1 -1
-       12 NAMECALL                         R2 R2 K2 ["dispatch"]
-       14 CALL                             R2 -1 0
-       15 RETURN                           R0 0
+        3 MOVE                             R3 R0
+        4 CALL                             R2 1 0
+        5 GETUPVAL                         R2 1
+        6 GETUPVAL                         R4 2
+        7 GETTABLEKS                       R5 R1 K1 ["groups"]
+        9 CALL                             R4 1 -1
+       10 NAMECALL                         R2 R2 K2 ["dispatch"]
+       12 CALL                             R2 -1 0
+       13 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -28,15 +26,14 @@ PROTO_2:
         3 CALL                             R1 1 1
         4 NEWCLOSURE                       R3 P0
         5 CAPTURE                          UPVAL U1
-        6 CAPTURE                          UPVAL U2
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U3
-        9 NEWCLOSURE                       R4 P1
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U4
-       12 NAMECALL                         R1 R1 K1 ["andThen"]
-       14 CALL                             R1 3 -1
-       15 RETURN                           R1 -1
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          UPVAL U2
+        8 NEWCLOSURE                       R4 P1
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U3
+       11 NAMECALL                         R1 R1 K1 ["andThen"]
+       13 CALL                             R1 3 -1
+       14 RETURN                           R1 -1
 
 PROTO_3:
         0 NEWCLOSURE                       R1 P0
@@ -44,8 +41,7 @@ PROTO_3:
         2 CAPTURE                          UPVAL U0
         3 CAPTURE                          UPVAL U1
         4 CAPTURE                          UPVAL U2
-        5 CAPTURE                          UPVAL U3
-        6 RETURN                           R1 1
+        5 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -69,13 +65,8 @@ MAIN:
        33 CALL                             R3 1 1
        34 GETTABLEKS                       R3 R3 K11 ["Util"]
        36 GETTABLEKS                       R3 R3 K12 ["sendResultToKibana"]
-       38 GETIMPORT                        R4 K14 [game]
-       40 LOADK                            R6 K15 ["NewPackageAnalyticsWithRefactor2"]
-       41 NAMECALL                         R4 R4 K16 ["GetFastFlag"]
-       43 CALL                             R4 2 1
-       44 DUPCLOSURE                       R5 K17 [PROTO_3]
-       45 CAPTURE                          VAL R4
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R1
-       48 CAPTURE                          VAL R2
-       49 RETURN                           R5 1
+       38 DUPCLOSURE                       R4 K13 [PROTO_3]
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R2
+       42 RETURN                           R4 1

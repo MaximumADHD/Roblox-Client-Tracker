@@ -18,95 +18,83 @@ PROTO_1:
        16 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K3 [{"_pages", "_idx", "IsFinished"}]
+        0 DUPTABLE                         R1 K5 [{[1], ["_idx"] = 1, ["IsFinished"] = False}]
         1 SETTABLEKS                       R0 R1 K0 ["_pages"]
-        3 LOADN                            R2 1
-        4 SETTABLEKS                       R2 R1 K1 ["_idx"]
-        6 LOADB                            R2 0
-        7 SETTABLEKS                       R2 R1 K2 ["IsFinished"]
-        9 DUPCLOSURE                       R2 K4 [PROTO_0]
-       10 SETTABLEKS                       R2 R1 K5 ["GetCurrentPage"]
-       12 DUPCLOSURE                       R2 K6 [PROTO_1]
-       13 SETTABLEKS                       R2 R1 K7 ["AdvanceToNextPageAsync"]
-       15 RETURN                           R1 1
+        3 DUPCLOSURE                       R2 K6 [PROTO_0]
+        4 SETTABLEKS                       R2 R1 K7 ["GetCurrentPage"]
+        6 DUPCLOSURE                       R2 K8 [PROTO_1]
+        7 SETTABLEKS                       R2 R1 K9 ["AdvanceToNextPageAsync"]
+        9 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
         1 NEWTABLE                         R1 0 2
         3 NEWTABLE                         R2 0 2
-        5 DUPTABLE                         R3 K1 [{"foo"}]
-        6 LOADN                            R4 1
-        7 SETTABLEKS                       R4 R3 K0 ["foo"]
-        9 DUPTABLE                         R4 K1 [{"foo"}]
-       10 LOADN                            R5 2
-       11 SETTABLEKS                       R5 R4 K0 ["foo"]
-       13 SETLIST                          R2 R3 2 [1]
-       15 NEWTABLE                         R3 0 1
-       17 DUPTABLE                         R4 K1 [{"foo"}]
-       18 LOADN                            R5 3
-       19 SETTABLEKS                       R5 R4 K0 ["foo"]
-       21 SETLIST                          R3 R4 1 [1]
-       23 SETLIST                          R1 R2 2 [1]
-       25 CALL                             R0 1 1
-       26 LOADNIL                          R1
-       27 MOVE                             R2 R0
-       28 CALL                             R1 1 1
-       29 GETUPVAL                         R2 1
-       30 LENGTH                           R3 R1
+        5 DUPTABLE                         R3 K2 [{[1] = 1}]
+        6 DUPTABLE                         R4 K4 [{[1] = 2}]
+        7 SETLIST                          R2 R3 2 [1]
+        9 NEWTABLE                         R3 0 1
+       11 DUPTABLE                         R4 K6 [{[1] = 3}]
+       12 SETLIST                          R3 R4 1 [1]
+       14 SETLIST                          R1 R2 2 [1]
+       16 CALL                             R0 1 1
+       17 LOADNIL                          R1
+       18 MOVE                             R2 R0
+       19 CALL                             R1 1 1
+       20 GETUPVAL                         R2 1
+       21 LENGTH                           R3 R1
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R2 R2 K7 ["toEqual"]
+       25 LOADN                            R3 3
+       26 CALL                             R2 1 0
+       27 GETUPVAL                         R2 1
+       28 GETTABLEN                        R3 R1 1
+       29 GETTABLEKS                       R3 R3 K0 ["foo"]
        31 CALL                             R2 1 1
-       32 GETTABLEKS                       R2 R2 K2 ["toEqual"]
-       34 LOADN                            R3 3
+       32 GETTABLEKS                       R2 R2 K7 ["toEqual"]
+       34 LOADN                            R3 1
        35 CALL                             R2 1 0
        36 GETUPVAL                         R2 1
-       37 GETTABLEN                        R3 R1 1
+       37 GETTABLEN                        R3 R1 2
        38 GETTABLEKS                       R3 R3 K0 ["foo"]
        40 CALL                             R2 1 1
-       41 GETTABLEKS                       R2 R2 K2 ["toEqual"]
-       43 LOADN                            R3 1
+       41 GETTABLEKS                       R2 R2 K7 ["toEqual"]
+       43 LOADN                            R3 2
        44 CALL                             R2 1 0
        45 GETUPVAL                         R2 1
-       46 GETTABLEN                        R3 R1 2
+       46 GETTABLEN                        R3 R1 3
        47 GETTABLEKS                       R3 R3 K0 ["foo"]
        49 CALL                             R2 1 1
-       50 GETTABLEKS                       R2 R2 K2 ["toEqual"]
-       52 LOADN                            R3 2
+       50 GETTABLEKS                       R2 R2 K7 ["toEqual"]
+       52 LOADN                            R3 3
        53 CALL                             R2 1 0
-       54 GETUPVAL                         R2 1
-       55 GETTABLEN                        R3 R1 3
-       56 GETTABLEKS                       R3 R3 K0 ["foo"]
-       58 CALL                             R2 1 1
-       59 GETTABLEKS                       R2 R2 K2 ["toEqual"]
-       61 LOADN                            R3 3
-       62 CALL                             R2 1 0
-       63 RETURN                           R0 0
+       54 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R0 0
         1 NEWTABLE                         R1 0 1
         3 NEWTABLE                         R2 0 1
-        5 DUPTABLE                         R3 K1 [{"foo"}]
-        6 LOADK                            R4 K2 ["only"]
-        7 SETTABLEKS                       R4 R3 K0 ["foo"]
-        9 SETLIST                          R2 R3 1 [1]
-       11 SETLIST                          R1 R2 1 [1]
-       13 CALL                             R0 1 1
-       14 LOADNIL                          R1
-       15 MOVE                             R2 R0
-       16 CALL                             R1 1 1
-       17 GETUPVAL                         R2 1
-       18 LENGTH                           R3 R1
-       19 CALL                             R2 1 1
-       20 GETTABLEKS                       R2 R2 K3 ["toEqual"]
-       22 LOADN                            R3 1
-       23 CALL                             R2 1 0
-       24 GETUPVAL                         R2 1
-       25 GETTABLEN                        R3 R1 1
-       26 GETTABLEKS                       R3 R3 K0 ["foo"]
-       28 CALL                             R2 1 1
-       29 GETTABLEKS                       R2 R2 K3 ["toEqual"]
-       31 LOADK                            R3 K2 ["only"]
-       32 CALL                             R2 1 0
-       33 RETURN                           R0 0
+        5 DUPTABLE                         R3 K2 [{[1] = "only"}]
+        6 SETLIST                          R2 R3 1 [1]
+        8 SETLIST                          R1 R2 1 [1]
+       10 CALL                             R0 1 1
+       11 LOADNIL                          R1
+       12 MOVE                             R2 R0
+       13 CALL                             R1 1 1
+       14 GETUPVAL                         R2 1
+       15 LENGTH                           R3 R1
+       16 CALL                             R2 1 1
+       17 GETTABLEKS                       R2 R2 K3 ["toEqual"]
+       19 LOADN                            R3 1
+       20 CALL                             R2 1 0
+       21 GETUPVAL                         R2 1
+       22 GETTABLEN                        R3 R1 1
+       23 GETTABLEKS                       R3 R3 K0 ["foo"]
+       25 CALL                             R2 1 1
+       26 GETTABLEKS                       R2 R2 K3 ["toEqual"]
+       28 LOADK                            R3 K1 ["only"]
+       29 CALL                             R2 1 0
+       30 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -165,38 +153,32 @@ PROTO_8:
         0 GETUPVAL                         R0 0
         1 NEWTABLE                         R1 0 2
         3 NEWTABLE                         R2 0 2
-        5 DUPTABLE                         R3 K1 [{"Id"}]
-        6 LOADK                            R4 K2 ["A"]
-        7 SETTABLEKS                       R4 R3 K0 ["Id"]
-        9 DUPTABLE                         R4 K1 [{"Id"}]
-       10 LOADK                            R5 K3 ["B"]
-       11 SETTABLEKS                       R5 R4 K0 ["Id"]
-       13 SETLIST                          R2 R3 2 [1]
-       15 NEWTABLE                         R3 0 1
-       17 DUPTABLE                         R4 K1 [{"Id"}]
-       18 LOADK                            R5 K4 ["C"]
-       19 SETTABLEKS                       R5 R4 K0 ["Id"]
-       21 SETLIST                          R3 R4 1 [1]
-       23 SETLIST                          R1 R2 2 [1]
-       25 CALL                             R0 1 1
-       26 GETUPVAL                         R1 1
-       27 GETTABLEKS                       R1 R1 K5 ["new"]
-       29 LOADNIL                          R2
-       30 CALL                             R1 1 1
-       31 MOVE                             R4 R0
-       32 NAMECALL                         R2 R1 K6 ["getUserFriendsNew"]
-       34 CALL                             R2 2 1
-       35 GETUPVAL                         R3 2
-       36 MOVE                             R4 R2
-       37 CALL                             R3 1 1
-       38 GETTABLEKS                       R3 R3 K7 ["toEqual"]
-       40 NEWTABLE                         R4 0 3
-       42 LOADK                            R5 K2 ["A"]
-       43 LOADK                            R6 K3 ["B"]
-       44 LOADK                            R7 K4 ["C"]
-       45 SETLIST                          R4 R5 3 [1]
-       47 CALL                             R3 1 0
-       48 RETURN                           R0 0
+        5 DUPTABLE                         R3 K2 [{[1] = "A"}]
+        6 DUPTABLE                         R4 K4 [{[1] = "B"}]
+        7 SETLIST                          R2 R3 2 [1]
+        9 NEWTABLE                         R3 0 1
+       11 DUPTABLE                         R4 K6 [{[1] = "C"}]
+       12 SETLIST                          R3 R4 1 [1]
+       14 SETLIST                          R1 R2 2 [1]
+       16 CALL                             R0 1 1
+       17 GETUPVAL                         R1 1
+       18 GETTABLEKS                       R1 R1 K7 ["new"]
+       20 LOADNIL                          R2
+       21 CALL                             R1 1 1
+       22 MOVE                             R4 R0
+       23 NAMECALL                         R2 R1 K8 ["getUserFriendsNew"]
+       25 CALL                             R2 2 1
+       26 GETUPVAL                         R3 2
+       27 MOVE                             R4 R2
+       28 CALL                             R3 1 1
+       29 GETTABLEKS                       R3 R3 K9 ["toEqual"]
+       31 NEWTABLE                         R4 0 3
+       33 LOADK                            R5 K1 ["A"]
+       34 LOADK                            R6 K3 ["B"]
+       35 LOADK                            R7 K5 ["C"]
+       36 SETLIST                          R4 R5 3 [1]
+       38 CALL                             R3 1 0
+       39 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0

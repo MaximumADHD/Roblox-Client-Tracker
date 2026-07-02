@@ -233,7 +233,7 @@ PROTO_12:
        97 NAMECALL                         R13 R0 K10 ["getText"]
        99 CALL                             R13 3 1
       100 LENGTH                           R14 R5
-      101 JUMPIFEQKN                       R14 K14 [0] ; [+292]
+      101 JUMPIFEQKN                       R14 K14 [0] ; [+289]
       103 DUPTABLE                         R14 K16 [{"Layout"}]
       104 GETUPVAL                         R15 5
       105 GETTABLEKS                       R15 R15 K17 ["createElement"]
@@ -250,7 +250,7 @@ PROTO_12:
       120 GETTABLEKS                       R21 R19 K24 ["UserId"]
       122 GETUPVAL                         R22 7
       123 JUMPIFNOTEQ                      R21 R22 ; [+3]
-      125 LOADN                            R20 255
+      125 LOADN                            R20 -1
       126 JUMP                             ; [+1]
       127 MOVE                             R20 R18
       128 GETUPVAL                         R21 5
@@ -299,230 +299,218 @@ PROTO_12:
       193 GETUPVAL                         R19 5
       194 GETTABLEKS                       R19 R19 K17 ["createElement"]
       196 GETUPVAL                         R20 10
-      197 DUPTABLE                         R21 K47 [{"Padding", "Size"}]
-      198 LOADN                            R22 8
-      199 SETTABLEKS                       R22 R21 K46 ["Padding"]
-      201 GETIMPORT                        R22 K49 [UDim2.new]
-      203 LOADN                            R23 1
-      204 LOADN                            R24 0
-      205 LOADN                            R25 1
-      206 GETTABLEKS                       R28 R1 K50 ["footer"]
-      208 GETTABLEKS                       R28 R28 K51 ["height"]
-      210 GETTABLEKS                       R29 R1 K52 ["highlightToggle"]
-      212 GETTABLEKS                       R29 R29 K51 ["height"]
-      214 ADD                              R27 R28 R29
-      215 MINUS                            R26 R27
-      216 CALL                             R22 4 1
-      217 SETTABLEKS                       R22 R21 K37 ["Size"]
-      219 MOVE                             R22 R14
-      220 CALL                             R19 3 1
-      221 SETTABLEKS                       R19 R18 K42 ["Body"]
-      223 GETUPVAL                         R19 5
-      224 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      226 LOADK                            R20 K53 ["TextButton"]
-      227 NEWTABLE                         R21 16 0
-      229 LOADK                            R24 K8 ["Settings"]
-      230 LOADK                            R25 K54 ["ShowSelections"]
-      231 NAMECALL                         R22 R0 K10 ["getText"]
-      233 CALL                             R22 3 1
-      234 SETTABLEKS                       R22 R21 K55 ["Text"]
-      236 GETIMPORT                        R22 K58 [Enum.TextXAlignment.Left]
-      238 SETTABLEKS                       R22 R21 K56 ["TextXAlignment"]
-      240 GETTABLEKS                       R22 R1 K50 ["footer"]
-      242 GETTABLEKS                       R22 R22 K59 ["iconColor"]
-      244 SETTABLEKS                       R22 R21 K60 ["TextColor3"]
-      246 LOADN                            R22 16
-      247 SETTABLEKS                       R22 R21 K61 ["TextSize"]
-      249 GETIMPORT                        R22 K64 [Font.fromEnum]
-      251 GETIMPORT                        R23 K66 [Enum.Font.SourceSans]
-      253 CALL                             R22 1 1
-      254 SETTABLEKS                       R22 R21 K67 ["FontFace"]
-      256 LOADB                            R22 0
-      257 SETTABLEKS                       R22 R21 K68 ["AutoButtonColor"]
-      259 GETTABLEKS                       R22 R1 K52 ["highlightToggle"]
-      261 GETTABLEKS                       R22 R22 K69 ["background"]
-      263 SETTABLEKS                       R22 R21 K70 ["BackgroundColor3"]
-      265 GETTABLEKS                       R22 R1 K52 ["highlightToggle"]
-      267 GETTABLEKS                       R22 R22 K71 ["border"]
-      269 SETTABLEKS                       R22 R21 K72 ["BorderColor3"]
-      271 GETIMPORT                        R22 K49 [UDim2.new]
-      273 LOADN                            R23 1
-      274 LOADN                            R24 0
-      275 LOADN                            R25 0
-      276 GETTABLEKS                       R26 R1 K52 ["highlightToggle"]
-      278 GETTABLEKS                       R26 R26 K51 ["height"]
-      280 CALL                             R22 4 1
-      281 SETTABLEKS                       R22 R21 K37 ["Size"]
-      283 GETIMPORT                        R22 K74 [Vector2.new]
-      285 LOADN                            R23 0
-      286 LOADN                            R24 1
-      287 CALL                             R22 2 1
-      288 SETTABLEKS                       R22 R21 K75 ["AnchorPoint"]
-      290 GETIMPORT                        R22 K49 [UDim2.new]
-      292 LOADN                            R23 0
-      293 LOADN                            R24 0
-      294 LOADN                            R25 1
-      295 GETTABLEKS                       R28 R1 K50 ["footer"]
-      297 GETTABLEKS                       R28 R28 K51 ["height"]
-      299 MINUS                            R27 R28
-      300 SUBK                             R26 R27 K76 [1]
-      301 CALL                             R22 4 1
-      302 SETTABLEKS                       R22 R21 K77 ["Position"]
-      304 LOADN                            R22 2
-      305 SETTABLEKS                       R22 R21 K78 ["ZIndex"]
-      307 GETUPVAL                         R22 5
-      308 GETTABLEKS                       R22 R22 K79 ["Tag"]
-      310 LOADK                            R23 K80 ["data-testid=highlightsToggleCheckboxParent"]
-      311 SETTABLE                         R23 R21 R22
-      312 GETUPVAL                         R22 5
-      313 GETTABLEKS                       R22 R22 K81 ["Event"]
-      315 GETTABLEKS                       R22 R22 K82 ["Activated"]
-      317 NEWCLOSURE                       R23 P3
-      318 CAPTURE                          VAL R4
-      319 CAPTURE                          VAL R7
-      320 CAPTURE                          VAL R2
-      321 CAPTURE                          VAL R8
-      322 SETTABLE                         R23 R21 R22
-      323 DUPTABLE                         R22 K84 [{"Padding", "Checkbox"}]
-      324 GETUPVAL                         R23 5
-      325 GETTABLEKS                       R23 R23 K17 ["createElement"]
-      327 LOADK                            R24 K85 ["UIPadding"]
-      328 DUPTABLE                         R25 K87 [{"PaddingLeft"}]
-      329 GETIMPORT                        R26 K89 [UDim.new]
-      331 LOADN                            R27 0
-      332 LOADN                            R28 26
-      333 CALL                             R26 2 1
-      334 SETTABLEKS                       R26 R25 K86 ["PaddingLeft"]
-      336 CALL                             R23 2 1
-      337 SETTABLEKS                       R23 R22 K46 ["Padding"]
-      339 GETUPVAL                         R23 5
-      340 GETTABLEKS                       R23 R23 K17 ["createElement"]
-      342 GETUPVAL                         R24 11
-      343 DUPTABLE                         R25 K91 [{"Image", "Size", "Position", "AnchorPoint"}]
-      344 JUMPIFNOT                        R7 ; [+5]
-      345 GETTABLEKS                       R26 R1 K50 ["footer"]
-      347 GETTABLEKS                       R26 R26 K92 ["checkedIcon"]
-      349 JUMPIF                           R26 ; [+4]
-      350 GETTABLEKS                       R26 R1 K50 ["footer"]
-      352 GETTABLEKS                       R26 R26 K93 ["uncheckedIcon"]
-      354 SETTABLEKS                       R26 R25 K90 ["Image"]
-      356 GETIMPORT                        R26 K95 [UDim2.fromOffset]
-      358 LOADN                            R27 16
-      359 LOADN                            R28 16
-      360 CALL                             R26 2 1
-      361 SETTABLEKS                       R26 R25 K37 ["Size"]
-      363 GETIMPORT                        R26 K49 [UDim2.new]
-      365 LOADN                            R27 0
-      366 LOADN                            R28 250
-      367 LOADK                            R29 K96 [0.5]
-      368 LOADN                            R30 0
-      369 CALL                             R26 4 1
-      370 SETTABLEKS                       R26 R25 K77 ["Position"]
-      372 GETIMPORT                        R26 K74 [Vector2.new]
-      374 LOADN                            R27 1
-      375 LOADK                            R28 K96 [0.5]
-      376 CALL                             R26 2 1
-      377 SETTABLEKS                       R26 R25 K75 ["AnchorPoint"]
-      379 CALL                             R23 2 1
-      380 SETTABLEKS                       R23 R22 K83 ["Checkbox"]
-      382 CALL                             R19 3 1
-      383 SETTABLEKS                       R19 R18 K43 ["HighlightToggle"]
-      385 GETUPVAL                         R19 5
-      386 GETTABLEKS                       R19 R19 K17 ["createElement"]
-      388 GETUPVAL                         R20 12
-      389 CALL                             R19 1 1
-      390 SETTABLEKS                       R19 R18 K44 ["Footer"]
-      392 CALL                             R15 3 -1
-      393 RETURN                           R15 -1
-      394 GETUPVAL                         R14 5
-      395 GETTABLEKS                       R14 R14 K17 ["createElement"]
-      397 GETUPVAL                         R15 9
-      398 DUPTABLE                         R16 K98 [{"Size", "Style"}]
-      399 GETIMPORT                        R17 K41 [UDim2.fromScale]
-      401 LOADN                            R18 1
-      402 LOADN                            R19 1
-      403 CALL                             R17 2 1
-      404 SETTABLEKS                       R17 R16 K37 ["Size"]
-      406 LOADK                            R17 K99 ["Box"]
-      407 SETTABLEKS                       R17 R16 K97 ["Style"]
-      409 DUPTABLE                         R17 K102 [{"TeamCreateText", "Button"}]
-      410 GETUPVAL                         R18 5
-      411 GETTABLEKS                       R18 R18 K17 ["createElement"]
-      413 GETUPVAL                         R19 13
-      414 DUPTABLE                         R20 K104 [{"Text", "Size", "Position", "AnchorPoint", "TextWrapped", "Style", "TextSize"}]
-      415 JUMPIFNOT                        R11 ; [+2]
-      416 MOVE                             R21 R12
-      417 JUMPIF                           R21 ; [+1]
-      418 MOVE                             R21 R13
-      419 SETTABLEKS                       R21 R20 K55 ["Text"]
-      421 GETIMPORT                        R21 K49 [UDim2.new]
-      423 LOADN                            R22 1
-      424 LOADN                            R23 0
-      425 LOADN                            R24 0
-      426 LOADN                            R25 48
-      427 CALL                             R21 4 1
-      428 SETTABLEKS                       R21 R20 K37 ["Size"]
-      430 GETIMPORT                        R21 K49 [UDim2.new]
-      432 LOADK                            R22 K96 [0.5]
-      433 LOADN                            R23 0
-      434 LOADK                            R24 K96 [0.5]
-      435 LOADN                            R25 248
-      436 CALL                             R21 4 1
-      437 SETTABLEKS                       R21 R20 K77 ["Position"]
-      439 GETIMPORT                        R21 K74 [Vector2.new]
-      441 LOADK                            R22 K96 [0.5]
-      442 LOADN                            R23 1
-      443 CALL                             R21 2 1
-      444 SETTABLEKS                       R21 R20 K75 ["AnchorPoint"]
-      446 LOADB                            R21 1
-      447 SETTABLEKS                       R21 R20 K103 ["TextWrapped"]
-      449 LOADK                            R21 K42 ["Body"]
-      450 SETTABLEKS                       R21 R20 K97 ["Style"]
-      452 LOADN                            R21 16
-      453 SETTABLEKS                       R21 R20 K61 ["TextSize"]
-      455 CALL                             R18 2 1
-      456 SETTABLEKS                       R18 R17 K100 ["TeamCreateText"]
-      458 GETUPVAL                         R18 5
-      459 GETTABLEKS                       R18 R18 K17 ["createElement"]
-      461 GETUPVAL                         R19 14
-      462 DUPTABLE                         R20 K106 [{"Style", "Text", "OnClick", "Position", "AnchorPoint", "Size"}]
-      463 LOADK                            R21 K107 ["RoundPrimary"]
-      464 SETTABLEKS                       R21 R20 K97 ["Style"]
-      466 JUMPIFNOT                        R11 ; [+6]
-      467 LOADK                            R23 K8 ["Settings"]
-      468 LOADK                            R24 K108 ["EnableTeamCreate"]
-      469 NAMECALL                         R21 R0 K10 ["getText"]
-      471 CALL                             R21 3 1
-      472 JUMPIF                           R21 ; [+5]
-      473 LOADK                            R23 K8 ["Settings"]
-      474 LOADK                            R24 K109 ["SaveToRoblox"]
-      475 NAMECALL                         R21 R0 K10 ["getText"]
-      477 CALL                             R21 3 1
-      478 SETTABLEKS                       R21 R20 K55 ["Text"]
-      480 NEWCLOSURE                       R21 P4
-      481 CAPTURE                          VAL R11
-      482 CAPTURE                          VAL R4
-      483 CAPTURE                          VAL R3
-      484 SETTABLEKS                       R21 R20 K105 ["OnClick"]
-      486 GETIMPORT                        R21 K41 [UDim2.fromScale]
-      488 LOADK                            R22 K96 [0.5]
-      489 LOADK                            R23 K96 [0.5]
-      490 CALL                             R21 2 1
-      491 SETTABLEKS                       R21 R20 K77 ["Position"]
-      493 GETIMPORT                        R21 K74 [Vector2.new]
-      495 LOADK                            R22 K96 [0.5]
-      496 LOADN                            R23 0
-      497 CALL                             R21 2 1
-      498 SETTABLEKS                       R21 R20 K75 ["AnchorPoint"]
-      500 GETIMPORT                        R21 K95 [UDim2.fromOffset]
-      502 LOADN                            R22 142
-      503 LOADN                            R23 40
-      504 CALL                             R21 2 1
-      505 SETTABLEKS                       R21 R20 K37 ["Size"]
-      507 CALL                             R18 2 1
-      508 SETTABLEKS                       R18 R17 K101 ["Button"]
-      510 CALL                             R14 3 -1
-      511 RETURN                           R14 -1
+      197 DUPTABLE                         R21 K48 [{["Padding"] = 8, ["Size"]}]
+      198 GETIMPORT                        R22 K50 [UDim2.new]
+      200 LOADN                            R23 1
+      201 LOADN                            R24 0
+      202 LOADN                            R25 1
+      203 GETTABLEKS                       R28 R1 K51 ["footer"]
+      205 GETTABLEKS                       R28 R28 K52 ["height"]
+      207 GETTABLEKS                       R29 R1 K53 ["highlightToggle"]
+      209 GETTABLEKS                       R29 R29 K52 ["height"]
+      211 ADD                              R27 R28 R29
+      212 MINUS                            R26 R27
+      213 CALL                             R22 4 1
+      214 SETTABLEKS                       R22 R21 K37 ["Size"]
+      216 MOVE                             R22 R14
+      217 CALL                             R19 3 1
+      218 SETTABLEKS                       R19 R18 K42 ["Body"]
+      220 GETUPVAL                         R19 5
+      221 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      223 LOADK                            R20 K54 ["TextButton"]
+      224 NEWTABLE                         R21 16 0
+      226 LOADK                            R24 K8 ["Settings"]
+      227 LOADK                            R25 K55 ["ShowSelections"]
+      228 NAMECALL                         R22 R0 K10 ["getText"]
+      230 CALL                             R22 3 1
+      231 SETTABLEKS                       R22 R21 K56 ["Text"]
+      233 GETIMPORT                        R22 K59 [Enum.TextXAlignment.Left]
+      235 SETTABLEKS                       R22 R21 K57 ["TextXAlignment"]
+      237 GETTABLEKS                       R22 R1 K51 ["footer"]
+      239 GETTABLEKS                       R22 R22 K60 ["iconColor"]
+      241 SETTABLEKS                       R22 R21 K61 ["TextColor3"]
+      243 LOADN                            R22 16
+      244 SETTABLEKS                       R22 R21 K62 ["TextSize"]
+      246 GETIMPORT                        R22 K65 [Font.fromEnum]
+      248 GETIMPORT                        R23 K67 [Enum.Font.SourceSans]
+      250 CALL                             R22 1 1
+      251 SETTABLEKS                       R22 R21 K68 ["FontFace"]
+      253 LOADB                            R22 0
+      254 SETTABLEKS                       R22 R21 K69 ["AutoButtonColor"]
+      256 GETTABLEKS                       R22 R1 K53 ["highlightToggle"]
+      258 GETTABLEKS                       R22 R22 K70 ["background"]
+      260 SETTABLEKS                       R22 R21 K71 ["BackgroundColor3"]
+      262 GETTABLEKS                       R22 R1 K53 ["highlightToggle"]
+      264 GETTABLEKS                       R22 R22 K72 ["border"]
+      266 SETTABLEKS                       R22 R21 K73 ["BorderColor3"]
+      268 GETIMPORT                        R22 K50 [UDim2.new]
+      270 LOADN                            R23 1
+      271 LOADN                            R24 0
+      272 LOADN                            R25 0
+      273 GETTABLEKS                       R26 R1 K53 ["highlightToggle"]
+      275 GETTABLEKS                       R26 R26 K52 ["height"]
+      277 CALL                             R22 4 1
+      278 SETTABLEKS                       R22 R21 K37 ["Size"]
+      280 GETIMPORT                        R22 K75 [Vector2.new]
+      282 LOADN                            R23 0
+      283 LOADN                            R24 1
+      284 CALL                             R22 2 1
+      285 SETTABLEKS                       R22 R21 K76 ["AnchorPoint"]
+      287 GETIMPORT                        R22 K50 [UDim2.new]
+      289 LOADN                            R23 0
+      290 LOADN                            R24 0
+      291 LOADN                            R25 1
+      292 GETTABLEKS                       R28 R1 K51 ["footer"]
+      294 GETTABLEKS                       R28 R28 K52 ["height"]
+      296 MINUS                            R27 R28
+      297 SUBK                             R26 R27 K77 [1]
+      298 CALL                             R22 4 1
+      299 SETTABLEKS                       R22 R21 K78 ["Position"]
+      301 LOADN                            R22 2
+      302 SETTABLEKS                       R22 R21 K79 ["ZIndex"]
+      304 GETUPVAL                         R22 5
+      305 GETTABLEKS                       R22 R22 K80 ["Tag"]
+      307 LOADK                            R23 K81 ["data-testid=highlightsToggleCheckboxParent"]
+      308 SETTABLE                         R23 R21 R22
+      309 GETUPVAL                         R22 5
+      310 GETTABLEKS                       R22 R22 K82 ["Event"]
+      312 GETTABLEKS                       R22 R22 K83 ["Activated"]
+      314 NEWCLOSURE                       R23 P3
+      315 CAPTURE                          VAL R4
+      316 CAPTURE                          VAL R7
+      317 CAPTURE                          VAL R2
+      318 CAPTURE                          VAL R8
+      319 SETTABLE                         R23 R21 R22
+      320 DUPTABLE                         R22 K85 [{"Padding", "Checkbox"}]
+      321 GETUPVAL                         R23 5
+      322 GETTABLEKS                       R23 R23 K17 ["createElement"]
+      324 LOADK                            R24 K86 ["UIPadding"]
+      325 DUPTABLE                         R25 K88 [{"PaddingLeft"}]
+      326 GETIMPORT                        R26 K90 [UDim.new]
+      328 LOADN                            R27 0
+      329 LOADN                            R28 26
+      330 CALL                             R26 2 1
+      331 SETTABLEKS                       R26 R25 K87 ["PaddingLeft"]
+      333 CALL                             R23 2 1
+      334 SETTABLEKS                       R23 R22 K46 ["Padding"]
+      336 GETUPVAL                         R23 5
+      337 GETTABLEKS                       R23 R23 K17 ["createElement"]
+      339 GETUPVAL                         R24 11
+      340 DUPTABLE                         R25 K92 [{"Image", "Size", "Position", "AnchorPoint"}]
+      341 JUMPIFNOT                        R7 ; [+5]
+      342 GETTABLEKS                       R26 R1 K51 ["footer"]
+      344 GETTABLEKS                       R26 R26 K93 ["checkedIcon"]
+      346 JUMPIF                           R26 ; [+4]
+      347 GETTABLEKS                       R26 R1 K51 ["footer"]
+      349 GETTABLEKS                       R26 R26 K94 ["uncheckedIcon"]
+      351 SETTABLEKS                       R26 R25 K91 ["Image"]
+      353 GETIMPORT                        R26 K96 [UDim2.fromOffset]
+      355 LOADN                            R27 16
+      356 LOADN                            R28 16
+      357 CALL                             R26 2 1
+      358 SETTABLEKS                       R26 R25 K37 ["Size"]
+      360 GETIMPORT                        R26 K50 [UDim2.new]
+      362 LOADN                            R27 0
+      363 LOADN                            R28 -6
+      364 LOADK                            R29 K97 [0.5]
+      365 LOADN                            R30 0
+      366 CALL                             R26 4 1
+      367 SETTABLEKS                       R26 R25 K78 ["Position"]
+      369 GETIMPORT                        R26 K75 [Vector2.new]
+      371 LOADN                            R27 1
+      372 LOADK                            R28 K97 [0.5]
+      373 CALL                             R26 2 1
+      374 SETTABLEKS                       R26 R25 K76 ["AnchorPoint"]
+      376 CALL                             R23 2 1
+      377 SETTABLEKS                       R23 R22 K84 ["Checkbox"]
+      379 CALL                             R19 3 1
+      380 SETTABLEKS                       R19 R18 K43 ["HighlightToggle"]
+      382 GETUPVAL                         R19 5
+      383 GETTABLEKS                       R19 R19 K17 ["createElement"]
+      385 GETUPVAL                         R20 12
+      386 CALL                             R19 1 1
+      387 SETTABLEKS                       R19 R18 K44 ["Footer"]
+      389 CALL                             R15 3 -1
+      390 RETURN                           R15 -1
+      391 GETUPVAL                         R14 5
+      392 GETTABLEKS                       R14 R14 K17 ["createElement"]
+      394 GETUPVAL                         R15 9
+      395 DUPTABLE                         R16 K100 [{["Size"], ["Style"] = "Box"}]
+      396 GETIMPORT                        R17 K41 [UDim2.fromScale]
+      398 LOADN                            R18 1
+      399 LOADN                            R19 1
+      400 CALL                             R17 2 1
+      401 SETTABLEKS                       R17 R16 K37 ["Size"]
+      403 DUPTABLE                         R17 K103 [{"TeamCreateText", "Button"}]
+      404 GETUPVAL                         R18 5
+      405 GETTABLEKS                       R18 R18 K17 ["createElement"]
+      407 GETUPVAL                         R19 13
+      408 DUPTABLE                         R20 K107 [{["Text"], ["Size"], ["Position"], ["AnchorPoint"], ["TextWrapped"] = True, ["Style"] = "Body", ["TextSize"] = 16}]
+      409 JUMPIFNOT                        R11 ; [+2]
+      410 MOVE                             R21 R12
+      411 JUMPIF                           R21 ; [+1]
+      412 MOVE                             R21 R13
+      413 SETTABLEKS                       R21 R20 K56 ["Text"]
+      415 GETIMPORT                        R21 K50 [UDim2.new]
+      417 LOADN                            R22 1
+      418 LOADN                            R23 0
+      419 LOADN                            R24 0
+      420 LOADN                            R25 48
+      421 CALL                             R21 4 1
+      422 SETTABLEKS                       R21 R20 K37 ["Size"]
+      424 GETIMPORT                        R21 K50 [UDim2.new]
+      426 LOADK                            R22 K97 [0.5]
+      427 LOADN                            R23 0
+      428 LOADK                            R24 K97 [0.5]
+      429 LOADN                            R25 -8
+      430 CALL                             R21 4 1
+      431 SETTABLEKS                       R21 R20 K78 ["Position"]
+      433 GETIMPORT                        R21 K75 [Vector2.new]
+      435 LOADK                            R22 K97 [0.5]
+      436 LOADN                            R23 1
+      437 CALL                             R21 2 1
+      438 SETTABLEKS                       R21 R20 K76 ["AnchorPoint"]
+      440 CALL                             R18 2 1
+      441 SETTABLEKS                       R18 R17 K101 ["TeamCreateText"]
+      443 GETUPVAL                         R18 5
+      444 GETTABLEKS                       R18 R18 K17 ["createElement"]
+      446 GETUPVAL                         R19 14
+      447 DUPTABLE                         R20 K110 [{["Style"] = "RoundPrimary", ["Text"], ["OnClick"], ["Position"], ["AnchorPoint"], ["Size"]}]
+      448 JUMPIFNOT                        R11 ; [+6]
+      449 LOADK                            R23 K8 ["Settings"]
+      450 LOADK                            R24 K111 ["EnableTeamCreate"]
+      451 NAMECALL                         R21 R0 K10 ["getText"]
+      453 CALL                             R21 3 1
+      454 JUMPIF                           R21 ; [+5]
+      455 LOADK                            R23 K8 ["Settings"]
+      456 LOADK                            R24 K112 ["SaveToRoblox"]
+      457 NAMECALL                         R21 R0 K10 ["getText"]
+      459 CALL                             R21 3 1
+      460 SETTABLEKS                       R21 R20 K56 ["Text"]
+      462 NEWCLOSURE                       R21 P4
+      463 CAPTURE                          VAL R11
+      464 CAPTURE                          VAL R4
+      465 CAPTURE                          VAL R3
+      466 SETTABLEKS                       R21 R20 K109 ["OnClick"]
+      468 GETIMPORT                        R21 K41 [UDim2.fromScale]
+      470 LOADK                            R22 K97 [0.5]
+      471 LOADK                            R23 K97 [0.5]
+      472 CALL                             R21 2 1
+      473 SETTABLEKS                       R21 R20 K78 ["Position"]
+      475 GETIMPORT                        R21 K75 [Vector2.new]
+      477 LOADK                            R22 K97 [0.5]
+      478 LOADN                            R23 0
+      479 CALL                             R21 2 1
+      480 SETTABLEKS                       R21 R20 K76 ["AnchorPoint"]
+      482 GETIMPORT                        R21 K96 [UDim2.fromOffset]
+      484 LOADN                            R22 142
+      485 LOADN                            R23 40
+      486 CALL                             R21 2 1
+      487 SETTABLEKS                       R21 R20 K37 ["Size"]
+      489 CALL                             R18 2 1
+      490 SETTABLEKS                       R18 R17 K102 ["Button"]
+      492 CALL                             R14 3 -1
+      493 RETURN                           R14 -1
 
 MAIN:
         0 PREPVARARGS                      0

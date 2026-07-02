@@ -15,23 +15,21 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["store"]
-       11 GETUPVAL                         R2 1
-       12 GETUPVAL                         R3 2
-       13 GETUPVAL                         R4 0
-       14 GETTABLEKS                       R4 R4 K4 ["analytics"]
-       16 GETUPVAL                         R5 0
-       17 GETTABLEKS                       R5 R5 K5 ["meshEditingContext"]
-       19 CALL                             R2 3 -1
-       20 NAMECALL                         R0 R0 K6 ["dispatch"]
-       22 CALL                             R0 -1 0
-       23 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["store"]
+        8 GETUPVAL                         R2 1
+        9 GETUPVAL                         R3 2
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R4 R4 K5 ["analytics"]
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R5 R5 K6 ["meshEditingContext"]
+       16 CALL                             R2 3 -1
+       17 NAMECALL                         R0 R0 K7 ["dispatch"]
+       19 CALL                             R0 -1 0
+       20 RETURN                           R0 0
 
 PROTO_2:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
@@ -127,28 +125,26 @@ PROTO_5:
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["Enabled"]
-        2 JUMPIFNOT                        R1 ; [+18]
+        2 JUMPIFNOT                        R1 ; [+15]
         3 GETUPVAL                         R1 0
         4 NAMECALL                         R1 R1 K1 ["IsEdit"]
         6 CALL                             R1 1 1
-        7 JUMPIF                           R1 ; [+13]
+        7 JUMPIF                           R1 ; [+10]
         8 GETUPVAL                         R1 1
-        9 DUPTABLE                         R3 K3 [{"enabled"}]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K2 ["enabled"]
-       13 NAMECALL                         R1 R1 K4 ["setState"]
-       15 CALL                             R1 2 0
-       16 GETUPVAL                         R1 1
-       17 NAMECALL                         R1 R1 K5 ["showEditorInPlayModeError"]
-       19 CALL                             R1 1 0
-       20 RETURN                           R0 0
-       21 GETUPVAL                         R1 1
-       22 DUPTABLE                         R3 K3 [{"enabled"}]
-       23 GETTABLEKS                       R4 R0 K0 ["Enabled"]
-       25 SETTABLEKS                       R4 R3 K2 ["enabled"]
-       27 NAMECALL                         R1 R1 K4 ["setState"]
-       29 CALL                             R1 2 0
-       30 RETURN                           R0 0
+        9 DUPTABLE                         R3 K4 [{["enabled"] = False}]
+       10 NAMECALL                         R1 R1 K5 ["setState"]
+       12 CALL                             R1 2 0
+       13 GETUPVAL                         R1 1
+       14 NAMECALL                         R1 R1 K6 ["showEditorInPlayModeError"]
+       16 CALL                             R1 1 0
+       17 RETURN                           R0 0
+       18 GETUPVAL                         R1 1
+       19 DUPTABLE                         R3 K7 [{"enabled"}]
+       20 GETTABLEKS                       R4 R0 K0 ["Enabled"]
+       22 SETTABLEKS                       R4 R3 K2 ["enabled"]
+       24 NAMECALL                         R1 R1 K5 ["setState"]
+       26 CALL                             R1 2 0
+       27 RETURN                           R0 0
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -161,142 +157,138 @@ PROTO_7:
        12 MOVE                             R3 R1
        13 CALL                             R2 1 1
        14 SETTABLEKS                       R2 R0 K1 ["plugin"]
-       16 DUPTABLE                         R2 K7 [{"enabled"}]
-       17 LOADB                            R3 0
-       18 SETTABLEKS                       R3 R2 K6 ["enabled"]
-       20 SETTABLEKS                       R2 R0 K8 ["state"]
-       22 GETUPVAL                         R2 1
-       23 GETTABLEKS                       R2 R2 K9 ["Store"]
-       25 GETTABLEKS                       R2 R2 K5 ["new"]
-       27 GETUPVAL                         R3 2
-       28 NEWTABLE                         R4 0 0
-       30 GETUPVAL                         R5 3
-       31 CALL                             R2 3 1
-       32 SETTABLEKS                       R2 R0 K10 ["store"]
-       34 GETUPVAL                         R2 4
-       35 GETTABLEKS                       R2 R2 K11 ["makePluginTheme"]
-       37 CALL                             R2 0 1
-       38 SETTABLEKS                       R2 R0 K12 ["theme"]
-       40 GETUPVAL                         R2 0
-       41 GETTABLEKS                       R2 R2 K13 ["Analytics"]
-       43 GETTABLEKS                       R2 R2 K5 ["new"]
-       45 GETUPVAL                         R3 5
-       46 CALL                             R2 1 1
-       47 SETTABLEKS                       R2 R0 K14 ["analytics"]
-       49 GETUPVAL                         R2 0
-       50 GETTABLEKS                       R2 R2 K15 ["Localization"]
-       52 GETTABLEKS                       R2 R2 K5 ["new"]
-       54 DUPTABLE                         R3 K20 [{"pluginName", "stringResourceTable", "translationResourceTable", "libraries"}]
-       55 LOADK                            R4 K2 ["LayeredClothingEditor"]
-       56 SETTABLEKS                       R4 R3 K16 ["pluginName"]
-       58 GETUPVAL                         R4 6
-       59 SETTABLEKS                       R4 R3 K17 ["stringResourceTable"]
-       61 GETUPVAL                         R4 7
-       62 SETTABLEKS                       R4 R3 K18 ["translationResourceTable"]
-       64 NEWTABLE                         R4 1 0
-       66 GETUPVAL                         R5 8
-       67 GETTABLEKS                       R5 R5 K21 ["Resources"]
-       69 GETTABLEKS                       R5 R5 K22 ["LOCALIZATION_PROJECT_NAME"]
-       71 DUPTABLE                         R6 K23 [{"stringResourceTable", "translationResourceTable"}]
-       72 GETUPVAL                         R7 8
-       73 GETTABLEKS                       R7 R7 K21 ["Resources"]
-       75 GETTABLEKS                       R7 R7 K24 ["SourceStrings"]
-       77 SETTABLEKS                       R7 R6 K17 ["stringResourceTable"]
-       79 GETUPVAL                         R7 8
-       80 GETTABLEKS                       R7 R7 K21 ["Resources"]
-       82 GETTABLEKS                       R7 R7 K25 ["LocalizedStrings"]
-       84 SETTABLEKS                       R7 R6 K18 ["translationResourceTable"]
-       86 SETTABLE                         R6 R4 R5
-       87 SETTABLEKS                       R4 R3 K19 ["libraries"]
-       89 CALL                             R2 1 1
-       90 SETTABLEKS                       R2 R0 K26 ["localization"]
-       92 LOADK                            R4 K27 ["Avatar"]
-       93 NAMECALL                         R2 R1 K28 ["CreateToolbar"]
-       95 CALL                             R2 2 1
-       96 LOADK                            R5 K29 ["LayeredClothingEditorButton"]
-       97 GETTABLEKS                       R6 R0 K26 ["localization"]
-       99 LOADK                            R8 K30 ["Main"]
-      100 LOADK                            R9 K31 ["Tooltip"]
-      101 NAMECALL                         R6 R6 K32 ["getText"]
-      103 CALL                             R6 3 1
-      104 LOADK                            R7 K33 [""]
-      105 GETTABLEKS                       R8 R0 K26 ["localization"]
-      107 LOADK                            R10 K30 ["Main"]
-      108 LOADK                            R11 K34 ["ToolbarButton"]
-      109 NAMECALL                         R8 R8 K32 ["getText"]
-      111 CALL                             R8 3 -1
-      112 NAMECALL                         R3 R2 K35 ["CreateButton"]
-      114 CALL                             R3 -1 1
-      115 SETTABLEKS                       R3 R0 K36 ["toolbarButton"]
-      117 GETUPVAL                         R3 9
-      118 GETTABLEKS                       R5 R0 K1 ["plugin"]
-      120 MOVE                             R6 R2
-      121 GETTABLEKS                       R7 R0 K26 ["localization"]
-      123 GETTABLEKS                       R8 R0 K14 ["analytics"]
-      125 NAMECALL                         R3 R3 K37 ["init"]
-      127 CALL                             R3 5 0
-      128 NEWCLOSURE                       R3 P0
-      129 CAPTURE                          VAL R0
-      130 CAPTURE                          UPVAL U10
+       16 DUPTABLE                         R2 K8 [{["enabled"] = False}]
+       17 SETTABLEKS                       R2 R0 K9 ["state"]
+       19 GETUPVAL                         R2 1
+       20 GETTABLEKS                       R2 R2 K10 ["Store"]
+       22 GETTABLEKS                       R2 R2 K5 ["new"]
+       24 GETUPVAL                         R3 2
+       25 NEWTABLE                         R4 0 0
+       27 GETUPVAL                         R5 3
+       28 CALL                             R2 3 1
+       29 SETTABLEKS                       R2 R0 K11 ["store"]
+       31 GETUPVAL                         R2 4
+       32 GETTABLEKS                       R2 R2 K12 ["makePluginTheme"]
+       34 CALL                             R2 0 1
+       35 SETTABLEKS                       R2 R0 K13 ["theme"]
+       37 GETUPVAL                         R2 0
+       38 GETTABLEKS                       R2 R2 K14 ["Analytics"]
+       40 GETTABLEKS                       R2 R2 K5 ["new"]
+       42 GETUPVAL                         R3 5
+       43 CALL                             R2 1 1
+       44 SETTABLEKS                       R2 R0 K15 ["analytics"]
+       46 GETUPVAL                         R2 0
+       47 GETTABLEKS                       R2 R2 K16 ["Localization"]
+       49 GETTABLEKS                       R2 R2 K5 ["new"]
+       51 DUPTABLE                         R3 K21 [{["pluginName"] = "LayeredClothingEditor", ["stringResourceTable"], ["translationResourceTable"], ["libraries"]}]
+       52 GETUPVAL                         R4 6
+       53 SETTABLEKS                       R4 R3 K18 ["stringResourceTable"]
+       55 GETUPVAL                         R4 7
+       56 SETTABLEKS                       R4 R3 K19 ["translationResourceTable"]
+       58 NEWTABLE                         R4 1 0
+       60 GETUPVAL                         R5 8
+       61 GETTABLEKS                       R5 R5 K22 ["Resources"]
+       63 GETTABLEKS                       R5 R5 K23 ["LOCALIZATION_PROJECT_NAME"]
+       65 DUPTABLE                         R6 K24 [{"stringResourceTable", "translationResourceTable"}]
+       66 GETUPVAL                         R7 8
+       67 GETTABLEKS                       R7 R7 K22 ["Resources"]
+       69 GETTABLEKS                       R7 R7 K25 ["SourceStrings"]
+       71 SETTABLEKS                       R7 R6 K18 ["stringResourceTable"]
+       73 GETUPVAL                         R7 8
+       74 GETTABLEKS                       R7 R7 K22 ["Resources"]
+       76 GETTABLEKS                       R7 R7 K26 ["LocalizedStrings"]
+       78 SETTABLEKS                       R7 R6 K19 ["translationResourceTable"]
+       80 SETTABLE                         R6 R4 R5
+       81 SETTABLEKS                       R4 R3 K20 ["libraries"]
+       83 CALL                             R2 1 1
+       84 SETTABLEKS                       R2 R0 K27 ["localization"]
+       86 LOADK                            R4 K28 ["Avatar"]
+       87 NAMECALL                         R2 R1 K29 ["CreateToolbar"]
+       89 CALL                             R2 2 1
+       90 LOADK                            R5 K30 ["LayeredClothingEditorButton"]
+       91 GETTABLEKS                       R6 R0 K27 ["localization"]
+       93 LOADK                            R8 K31 ["Main"]
+       94 LOADK                            R9 K32 ["Tooltip"]
+       95 NAMECALL                         R6 R6 K33 ["getText"]
+       97 CALL                             R6 3 1
+       98 LOADK                            R7 K34 [""]
+       99 GETTABLEKS                       R8 R0 K27 ["localization"]
+      101 LOADK                            R10 K31 ["Main"]
+      102 LOADK                            R11 K35 ["ToolbarButton"]
+      103 NAMECALL                         R8 R8 K33 ["getText"]
+      105 CALL                             R8 3 -1
+      106 NAMECALL                         R3 R2 K36 ["CreateButton"]
+      108 CALL                             R3 -1 1
+      109 SETTABLEKS                       R3 R0 K37 ["toolbarButton"]
+      111 GETUPVAL                         R3 9
+      112 GETTABLEKS                       R5 R0 K1 ["plugin"]
+      114 MOVE                             R6 R2
+      115 GETTABLEKS                       R7 R0 K27 ["localization"]
+      117 GETTABLEKS                       R8 R0 K15 ["analytics"]
+      119 NAMECALL                         R3 R3 K38 ["init"]
+      121 CALL                             R3 5 0
+      122 NEWCLOSURE                       R3 P0
+      123 CAPTURE                          VAL R0
+      124 CAPTURE                          UPVAL U10
+      125 CAPTURE                          VAL R1
+      126 SETTABLEKS                       R3 R0 K39 ["onClose"]
+      128 NEWCLOSURE                       R3 P1
+      129 CAPTURE                          UPVAL U11
+      130 CAPTURE                          VAL R0
       131 CAPTURE                          VAL R1
-      132 SETTABLEKS                       R3 R0 K38 ["onClose"]
-      134 NEWCLOSURE                       R3 P1
-      135 CAPTURE                          UPVAL U11
-      136 CAPTURE                          VAL R0
-      137 CAPTURE                          VAL R1
-      138 CAPTURE                          UPVAL U10
-      139 SETTABLEKS                       R3 R0 K39 ["onToggleWidget"]
-      141 GETUPVAL                         R3 0
-      142 GETTABLEKS                       R3 R3 K40 ["PluginActions"]
-      144 GETTABLEKS                       R3 R3 K5 ["new"]
-      146 MOVE                             R4 R1
-      147 GETUPVAL                         R5 12
-      148 MOVE                             R6 R1
-      149 GETTABLEKS                       R7 R0 K26 ["localization"]
-      151 CALL                             R5 2 -1
-      152 CALL                             R3 -1 1
-      153 SETTABLEKS                       R3 R0 K41 ["pluginActions"]
-      155 GETUPVAL                         R3 13
-      156 GETTABLEKS                       R3 R3 K5 ["new"]
-      158 GETUPVAL                         R4 14
-      159 GETTABLEKS                       R4 R4 K42 ["SIGNAL_KEYS"]
-      161 CALL                             R3 1 1
-      162 SETTABLEKS                       R3 R0 K43 ["signals"]
-      164 GETUPVAL                         R3 15
+      132 CAPTURE                          UPVAL U10
+      133 SETTABLEKS                       R3 R0 K40 ["onToggleWidget"]
+      135 GETUPVAL                         R3 0
+      136 GETTABLEKS                       R3 R3 K41 ["PluginActions"]
+      138 GETTABLEKS                       R3 R3 K5 ["new"]
+      140 MOVE                             R4 R1
+      141 GETUPVAL                         R5 12
+      142 MOVE                             R6 R1
+      143 GETTABLEKS                       R7 R0 K27 ["localization"]
+      145 CALL                             R5 2 -1
+      146 CALL                             R3 -1 1
+      147 SETTABLEKS                       R3 R0 K42 ["pluginActions"]
+      149 GETUPVAL                         R3 13
+      150 GETTABLEKS                       R3 R3 K5 ["new"]
+      152 GETUPVAL                         R4 14
+      153 GETTABLEKS                       R4 R4 K43 ["SIGNAL_KEYS"]
+      155 CALL                             R3 1 1
+      156 SETTABLEKS                       R3 R0 K44 ["signals"]
+      158 GETUPVAL                         R3 15
+      159 GETTABLEKS                       R3 R3 K5 ["new"]
+      161 CALL                             R3 0 1
+      162 SETTABLEKS                       R3 R0 K45 ["editingItemContext"]
+      164 GETUPVAL                         R3 16
       165 GETTABLEKS                       R3 R3 K5 ["new"]
       167 CALL                             R3 0 1
-      168 SETTABLEKS                       R3 R0 K44 ["editingItemContext"]
-      170 GETUPVAL                         R3 16
-      171 GETTABLEKS                       R3 R3 K5 ["new"]
-      173 CALL                             R3 0 1
-      174 GETUPVAL                         R6 14
-      175 GETTABLEKS                       R6 R6 K45 ["DEFAULT_FALLOFF"]
-      177 NAMECALL                         R4 R3 K46 ["setFalloff"]
-      179 CALL                             R4 2 0
-      180 GETUPVAL                         R4 17
-      181 GETTABLEKS                       R4 R4 K5 ["new"]
-      183 NEWTABLE                         R5 1 0
-      185 GETUPVAL                         R6 14
-      186 GETTABLEKS                       R6 R6 K47 ["TOOL_MODE"]
-      188 GETTABLEKS                       R6 R6 K48 ["Point"]
-      190 SETTABLE                         R3 R5 R6
-      191 CALL                             R4 1 1
-      192 SETTABLEKS                       R4 R0 K49 ["meshEditingContext"]
-      194 GETTABLEKS                       R4 R0 K36 ["toolbarButton"]
-      196 GETTABLEKS                       R4 R4 K50 ["Click"]
-      198 GETTABLEKS                       R6 R0 K39 ["onToggleWidget"]
-      200 NAMECALL                         R4 R4 K51 ["connect"]
-      202 CALL                             R4 2 0
-      203 NEWCLOSURE                       R4 P2
-      204 CAPTURE                          VAL R1
+      168 GETUPVAL                         R6 14
+      169 GETTABLEKS                       R6 R6 K46 ["DEFAULT_FALLOFF"]
+      171 NAMECALL                         R4 R3 K47 ["setFalloff"]
+      173 CALL                             R4 2 0
+      174 GETUPVAL                         R4 17
+      175 GETTABLEKS                       R4 R4 K5 ["new"]
+      177 NEWTABLE                         R5 1 0
+      179 GETUPVAL                         R6 14
+      180 GETTABLEKS                       R6 R6 K48 ["TOOL_MODE"]
+      182 GETTABLEKS                       R6 R6 K49 ["Point"]
+      184 SETTABLE                         R3 R5 R6
+      185 CALL                             R4 1 1
+      186 SETTABLEKS                       R4 R0 K50 ["meshEditingContext"]
+      188 GETTABLEKS                       R4 R0 K37 ["toolbarButton"]
+      190 GETTABLEKS                       R4 R4 K51 ["Click"]
+      192 GETTABLEKS                       R6 R0 K40 ["onToggleWidget"]
+      194 NAMECALL                         R4 R4 K52 ["connect"]
+      196 CALL                             R4 2 0
+      197 NEWCLOSURE                       R4 P2
+      198 CAPTURE                          VAL R1
+      199 CAPTURE                          VAL R0
+      200 CAPTURE                          UPVAL U14
+      201 SETTABLEKS                       R4 R0 K53 ["onFocus"]
+      203 NEWCLOSURE                       R4 P3
+      204 CAPTURE                          UPVAL U11
       205 CAPTURE                          VAL R0
-      206 CAPTURE                          UPVAL U14
-      207 SETTABLEKS                       R4 R0 K52 ["onFocus"]
-      209 NEWCLOSURE                       R4 P3
-      210 CAPTURE                          UPVAL U11
-      211 CAPTURE                          VAL R0
-      212 SETTABLEKS                       R4 R0 K53 ["onWidgetEnabledChanged"]
-      214 RETURN                           R0 0
+      206 SETTABLEKS                       R4 R0 K54 ["onWidgetEnabledChanged"]
+      208 RETURN                           R0 0
 
 PROTO_8:
         0 RETURN                           R0 0
@@ -508,8 +500,8 @@ MAIN:
       197 NAMECALL                         R30 R30 K49 ["extend"]
       199 CALL                             R30 2 1
       200 GETIMPORT                        R31 K52 [Vector2.new]
-      202 LOADN                            R32 124
-      203 LOADN                            R33 38
+      202 LOADN                            R32 380
+      203 LOADN                            R33 550
       204 CALL                             R31 2 1
       205 DUPCLOSURE                       R32 K53 [PROTO_0]
       206 CAPTURE                          VAL R27

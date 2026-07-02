@@ -11,39 +11,27 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"telemetryType", "telemetrySubtype", "action"}]
-        3 LOADK                            R4 K4 ["interaction"]
-        4 SETTABLEKS                       R4 R3 K0 ["telemetryType"]
-        6 LOADK                            R4 K5 ["tutorial_tile"]
-        7 SETTABLEKS                       R4 R3 K1 ["telemetrySubtype"]
-        9 LOADK                            R4 K6 ["close"]
-       10 SETTABLEKS                       R4 R3 K2 ["action"]
-       12 NAMECALL                         R0 R0 K7 ["log"]
-       14 CALL                             R0 3 0
-       15 GETUPVAL                         R0 2
-       16 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       18 JUMPIFNOT                        R0 ; [+4]
-       19 GETUPVAL                         R0 2
-       20 GETTABLEKS                       R0 R0 K8 ["onClose"]
-       22 CALL                             R0 0 0
-       23 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{[1] = "interaction", ["telemetrySubtype"] = "tutorial_tile", ["action"] = "close"}]
+        3 NAMECALL                         R0 R0 K7 ["log"]
+        5 CALL                             R0 3 0
+        6 GETUPVAL                         R0 2
+        7 GETTABLEKS                       R0 R0 K8 ["onClose"]
+        9 JUMPIFNOT                        R0 ; [+4]
+       10 GETUPVAL                         R0 2
+       11 GETTABLEKS                       R0 R0 K8 ["onClose"]
+       13 CALL                             R0 0 0
+       14 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 1
-        2 DUPTABLE                         R3 K3 [{"telemetryType", "telemetrySubtype", "action"}]
-        3 LOADK                            R4 K4 ["interaction"]
-        4 SETTABLEKS                       R4 R3 K0 ["telemetryType"]
-        6 LOADK                            R4 K5 ["tutorial_tile"]
-        7 SETTABLEKS                       R4 R3 K1 ["telemetrySubtype"]
-        9 LOADK                            R4 K6 ["start_tour"]
-       10 SETTABLEKS                       R4 R3 K2 ["action"]
-       12 NAMECALL                         R0 R0 K7 ["log"]
-       14 CALL                             R0 3 0
-       15 GETUPVAL                         R0 2
-       16 NAMECALL                         R0 R0 K8 ["startTutorial"]
-       18 CALL                             R0 1 0
-       19 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{[1] = "interaction", ["telemetrySubtype"] = "tutorial_tile", ["action"] = "start_tour"}]
+        3 NAMECALL                         R0 R0 K7 ["log"]
+        5 CALL                             R0 3 0
+        6 GETUPVAL                         R0 2
+        7 NAMECALL                         R0 R0 K8 ["startTutorial"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -72,170 +60,144 @@ PROTO_3:
        29 GETUPVAL                         R8 0
        30 GETTABLEKS                       R8 R8 K3 ["createElement"]
        32 GETUPVAL                         R9 6
-       33 DUPTABLE                         R10 K9 [{"ClipsDescendants", "tag", "stateLayer", "onStateChanged", "testId"}]
-       34 LOADB                            R11 1
-       35 SETTABLEKS                       R11 R10 K4 ["ClipsDescendants"]
-       37 LOADK                            R11 K10 ["size-full-0 auto-y radius-medium stroke-default"]
-       38 SETTABLEKS                       R11 R10 K5 ["tag"]
-       40 DUPTABLE                         R11 K12 [{"affordance"}]
-       41 GETUPVAL                         R12 7
-       42 GETTABLEKS                       R12 R12 K13 ["None"]
-       44 SETTABLEKS                       R12 R11 K11 ["affordance"]
-       46 SETTABLEKS                       R11 R10 K6 ["stateLayer"]
-       48 SETTABLEKS                       R7 R10 K7 ["onStateChanged"]
-       50 LOADK                            R11 K14 ["--start-page-TutorialTile"]
-       51 SETTABLEKS                       R11 R10 K8 ["testId"]
-       53 DUPTABLE                         R11 K16 [{"CityImage"}]
-       54 GETUPVAL                         R12 0
-       55 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       57 GETUPVAL                         R13 8
-       58 DUPTABLE                         R14 K18 [{"ZIndex", "tag"}]
-       59 LOADN                            R15 1
-       60 SETTABLEKS                       R15 R14 K17 ["ZIndex"]
-       62 LOADK                            R15 K19 ["size-full-0 auto-y"]
-       63 SETTABLEKS                       R15 R14 K5 ["tag"]
-       65 DUPTABLE                         R15 K22 [{"BackgroundImage", "Container"}]
-       66 GETUPVAL                         R16 0
-       67 GETTABLEKS                       R16 R16 K3 ["createElement"]
-       69 GETUPVAL                         R17 9
-       70 DUPTABLE                         R18 K25 [{"Image", "ScaleType", "tag"}]
-       71 LOADK                            R19 K26 ["rbxasset://textures/StartPage/Tour3Screenshot.png"]
-       72 SETTABLEKS                       R19 R18 K23 ["Image"]
-       74 GETIMPORT                        R19 K29 [Enum.ScaleType.Crop]
-       76 SETTABLEKS                       R19 R18 K24 ["ScaleType"]
-       78 LOADK                            R19 K30 ["radius-medium size-full align-x-right padding-medium bg-over-media-0"]
-       79 SETTABLEKS                       R19 R18 K5 ["tag"]
-       81 DUPTABLE                         R19 K33 [{"Gradient", "CancelButton"}]
-       82 GETUPVAL                         R20 0
-       83 GETTABLEKS                       R20 R20 K3 ["createElement"]
-       85 LOADK                            R21 K34 ["UIGradient"]
-       86 DUPTABLE                         R22 K36 [{"Transparency"}]
-       87 GETUPVAL                         R23 10
-       88 SETTABLEKS                       R23 R22 K35 ["Transparency"]
-       90 CALL                             R20 2 1
-       91 SETTABLEKS                       R20 R19 K31 ["Gradient"]
-       93 GETUPVAL                         R20 0
-       94 GETTABLEKS                       R20 R20 K3 ["createElement"]
-       96 GETUPVAL                         R21 11
-       97 DUPTABLE                         R22 K39 [{"onActivated", "Visible"}]
-       98 NEWCLOSURE                       R23 P1
-       99 CAPTURE                          VAL R3
-      100 CAPTURE                          UPVAL U12
-      101 CAPTURE                          VAL R0
-      102 SETTABLEKS                       R23 R22 K37 ["onActivated"]
-      104 SETTABLEKS                       R1 R22 K38 ["Visible"]
-      106 CALL                             R20 2 1
-      107 SETTABLEKS                       R20 R19 K32 ["CancelButton"]
-      109 CALL                             R16 3 1
-      110 SETTABLEKS                       R16 R15 K20 ["BackgroundImage"]
-      112 GETUPVAL                         R16 0
-      113 GETTABLEKS                       R16 R16 K3 ["createElement"]
-      115 GETUPVAL                         R17 6
-      116 DUPTABLE                         R18 K42 [{"ZIndex", "padding", "Size", "tag"}]
-      117 LOADN                            R19 2
-      118 SETTABLEKS                       R19 R18 K17 ["ZIndex"]
-      120 DUPTABLE                         R19 K46 [{"left", "top", "bottom"}]
-      121 GETIMPORT                        R20 K49 [UDim.new]
-      123 LOADN                            R21 0
-      124 GETTABLEKS                       R22 R6 K41 ["Size"]
-      126 GETTABLEKS                       R22 R22 K50 ["Size_800"]
-      128 CALL                             R20 2 1
-      129 SETTABLEKS                       R20 R19 K43 ["left"]
-      131 GETIMPORT                        R20 K49 [UDim.new]
-      133 LOADN                            R21 0
-      134 GETTABLEKS                       R22 R6 K41 ["Size"]
-      136 GETTABLEKS                       R22 R22 K50 ["Size_800"]
-      138 CALL                             R20 2 1
-      139 SETTABLEKS                       R20 R19 K44 ["top"]
-      141 GETIMPORT                        R20 K49 [UDim.new]
-      143 LOADN                            R21 0
-      144 GETTABLEKS                       R22 R6 K41 ["Size"]
-      146 GETTABLEKS                       R22 R22 K50 ["Size_800"]
-      148 CALL                             R20 2 1
-      149 SETTABLEKS                       R20 R19 K45 ["bottom"]
-      151 SETTABLEKS                       R19 R18 K40 ["padding"]
-      153 GETIMPORT                        R19 K53 [UDim2.fromOffset]
-      155 LOADN                            R20 89
-      156 LOADN                            R21 0
-      157 CALL                             R19 2 1
-      158 SETTABLEKS                       R19 R18 K41 ["Size"]
-      160 LOADK                            R19 K54 ["col auto-y gap-xlarge"]
-      161 SETTABLEKS                       R19 R18 K5 ["tag"]
-      163 DUPTABLE                         R19 K57 [{"Text", "Button"}]
-      164 GETUPVAL                         R20 0
-      165 GETTABLEKS                       R20 R20 K3 ["createElement"]
-      167 GETUPVAL                         R21 8
-      168 DUPTABLE                         R22 K58 [{"tag"}]
-      169 LOADK                            R23 K59 ["col gap-small auto-xy"]
-      170 SETTABLEKS                       R23 R22 K5 ["tag"]
-      172 DUPTABLE                         R23 K62 [{"Title", "Description"}]
-      173 GETUPVAL                         R24 0
-      174 GETTABLEKS                       R24 R24 K3 ["createElement"]
-      176 GETUPVAL                         R25 13
-      177 DUPTABLE                         R26 K64 [{"Text", "LayoutOrder", "tag"}]
-      178 LOADK                            R29 K65 ["Plugin"]
-      179 LOADK                            R30 K66 ["TutorialTile.TourTitle"]
-      180 NAMECALL                         R27 R4 K67 ["getText"]
-      182 CALL                             R27 3 1
-      183 SETTABLEKS                       R27 R26 K55 ["Text"]
-      185 MOVE                             R27 R5
-      186 CALL                             R27 0 1
-      187 SETTABLEKS                       R27 R26 K63 ["LayoutOrder"]
-      189 LOADK                            R27 K68 ["auto-xy text-align-x-left content-emphasis text-heading-medium"]
-      190 SETTABLEKS                       R27 R26 K5 ["tag"]
-      192 CALL                             R24 2 1
-      193 SETTABLEKS                       R24 R23 K60 ["Title"]
-      195 GETUPVAL                         R24 0
-      196 GETTABLEKS                       R24 R24 K3 ["createElement"]
-      198 GETUPVAL                         R25 13
-      199 DUPTABLE                         R26 K70 [{"Text", "TextWrapped", "LayoutOrder", "tag"}]
-      200 LOADK                            R29 K65 ["Plugin"]
-      201 LOADK                            R30 K71 ["TutorialTile.TourDesc"]
-      202 NAMECALL                         R27 R4 K67 ["getText"]
-      204 CALL                             R27 3 1
-      205 SETTABLEKS                       R27 R26 K55 ["Text"]
-      207 LOADB                            R27 1
-      208 SETTABLEKS                       R27 R26 K69 ["TextWrapped"]
-      210 MOVE                             R27 R5
-      211 CALL                             R27 0 1
-      212 SETTABLEKS                       R27 R26 K63 ["LayoutOrder"]
-      214 LOADK                            R27 K72 ["auto-xy text-align-x-left content-emphasis text-body-medium"]
-      215 SETTABLEKS                       R27 R26 K5 ["tag"]
-      217 CALL                             R24 2 1
-      218 SETTABLEKS                       R24 R23 K61 ["Description"]
-      220 CALL                             R20 3 1
-      221 SETTABLEKS                       R20 R19 K55 ["Text"]
-      223 GETUPVAL                         R20 0
-      224 GETTABLEKS                       R20 R20 K3 ["createElement"]
-      226 GETUPVAL                         R21 14
-      227 DUPTABLE                         R22 K76 [{"size", "variant", "LayoutOrder", "onActivated", "text"}]
-      228 GETUPVAL                         R23 15
-      229 GETTABLEKS                       R23 R23 K77 ["Medium"]
-      231 SETTABLEKS                       R23 R22 K73 ["size"]
-      233 GETUPVAL                         R23 16
-      234 GETTABLEKS                       R23 R23 K78 ["Emphasis"]
-      236 SETTABLEKS                       R23 R22 K74 ["variant"]
-      238 MOVE                             R23 R5
-      239 CALL                             R23 0 1
-      240 SETTABLEKS                       R23 R22 K63 ["LayoutOrder"]
-      242 NEWCLOSURE                       R23 P2
-      243 CAPTURE                          VAL R3
-      244 CAPTURE                          UPVAL U12
-      245 CAPTURE                          UPVAL U17
-      246 SETTABLEKS                       R23 R22 K37 ["onActivated"]
-      248 LOADK                            R25 K65 ["Plugin"]
-      249 LOADK                            R26 K79 ["TutorialTile.StartButton"]
-      250 NAMECALL                         R23 R4 K67 ["getText"]
-      252 CALL                             R23 3 1
-      253 SETTABLEKS                       R23 R22 K75 ["text"]
-      255 CALL                             R20 2 1
-      256 SETTABLEKS                       R20 R19 K56 ["Button"]
-      258 CALL                             R16 3 1
-      259 SETTABLEKS                       R16 R15 K21 ["Container"]
-      261 CALL                             R12 3 1
-      262 SETTABLEKS                       R12 R11 K15 ["CityImage"]
-      264 CALL                             R8 3 -1
-      265 RETURN                           R8 -1
+       33 DUPTABLE                         R10 K12 [{["ClipsDescendants"] = True, ["tag"] = "size-full-0 auto-y stroke-default radius-medium", ["stateLayer"], ["onStateChanged"], ["testId"] = "--start-page-TutorialTile"}]
+       34 DUPTABLE                         R11 K14 [{"affordance"}]
+       35 GETUPVAL                         R12 7
+       36 GETTABLEKS                       R12 R12 K15 ["None"]
+       38 SETTABLEKS                       R12 R11 K13 ["affordance"]
+       40 SETTABLEKS                       R11 R10 K8 ["stateLayer"]
+       42 SETTABLEKS                       R7 R10 K9 ["onStateChanged"]
+       44 DUPTABLE                         R11 K17 [{"CityImage"}]
+       45 GETUPVAL                         R12 0
+       46 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       48 GETUPVAL                         R13 8
+       49 DUPTABLE                         R14 K21 [{["ZIndex"] = 1, ["tag"] = "size-full-0 auto-y"}]
+       50 DUPTABLE                         R15 K24 [{"BackgroundImage", "Container"}]
+       51 GETUPVAL                         R16 0
+       52 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       54 GETUPVAL                         R17 9
+       55 DUPTABLE                         R18 K29 [{["Image"] = "rbxasset://textures/StartPage/Tour3Screenshot.png", ["ScaleType"], ["tag"] = "align-x-right size-full padding-medium radius-medium bg-over-media-0"}]
+       56 GETIMPORT                        R19 K32 [Enum.ScaleType.Crop]
+       58 SETTABLEKS                       R19 R18 K27 ["ScaleType"]
+       60 DUPTABLE                         R19 K35 [{"Gradient", "CancelButton"}]
+       61 GETUPVAL                         R20 0
+       62 GETTABLEKS                       R20 R20 K3 ["createElement"]
+       64 LOADK                            R21 K36 ["UIGradient"]
+       65 DUPTABLE                         R22 K38 [{"Transparency"}]
+       66 GETUPVAL                         R23 10
+       67 SETTABLEKS                       R23 R22 K37 ["Transparency"]
+       69 CALL                             R20 2 1
+       70 SETTABLEKS                       R20 R19 K33 ["Gradient"]
+       72 GETUPVAL                         R20 0
+       73 GETTABLEKS                       R20 R20 K3 ["createElement"]
+       75 GETUPVAL                         R21 11
+       76 DUPTABLE                         R22 K41 [{"onActivated", "Visible"}]
+       77 NEWCLOSURE                       R23 P1
+       78 CAPTURE                          VAL R3
+       79 CAPTURE                          UPVAL U12
+       80 CAPTURE                          VAL R0
+       81 SETTABLEKS                       R23 R22 K39 ["onActivated"]
+       83 SETTABLEKS                       R1 R22 K40 ["Visible"]
+       85 CALL                             R20 2 1
+       86 SETTABLEKS                       R20 R19 K34 ["CancelButton"]
+       88 CALL                             R16 3 1
+       89 SETTABLEKS                       R16 R15 K22 ["BackgroundImage"]
+       91 GETUPVAL                         R16 0
+       92 GETTABLEKS                       R16 R16 K3 ["createElement"]
+       94 GETUPVAL                         R17 6
+       95 DUPTABLE                         R18 K46 [{["ZIndex"] = 2, ["padding"], ["Size"], ["tag"] = "col gap-xlarge auto-y"}]
+       96 DUPTABLE                         R19 K50 [{"left", "top", "bottom"}]
+       97 GETIMPORT                        R20 K53 [UDim.new]
+       99 LOADN                            R21 0
+      100 GETTABLEKS                       R22 R6 K44 ["Size"]
+      102 GETTABLEKS                       R22 R22 K54 ["Size_800"]
+      104 CALL                             R20 2 1
+      105 SETTABLEKS                       R20 R19 K47 ["left"]
+      107 GETIMPORT                        R20 K53 [UDim.new]
+      109 LOADN                            R21 0
+      110 GETTABLEKS                       R22 R6 K44 ["Size"]
+      112 GETTABLEKS                       R22 R22 K54 ["Size_800"]
+      114 CALL                             R20 2 1
+      115 SETTABLEKS                       R20 R19 K48 ["top"]
+      117 GETIMPORT                        R20 K53 [UDim.new]
+      119 LOADN                            R21 0
+      120 GETTABLEKS                       R22 R6 K44 ["Size"]
+      122 GETTABLEKS                       R22 R22 K54 ["Size_800"]
+      124 CALL                             R20 2 1
+      125 SETTABLEKS                       R20 R19 K49 ["bottom"]
+      127 SETTABLEKS                       R19 R18 K43 ["padding"]
+      129 GETIMPORT                        R19 K57 [UDim2.fromOffset]
+      131 LOADN                            R20 345
+      132 LOADN                            R21 0
+      133 CALL                             R19 2 1
+      134 SETTABLEKS                       R19 R18 K44 ["Size"]
+      136 DUPTABLE                         R19 K60 [{"Text", "Button"}]
+      137 GETUPVAL                         R20 0
+      138 GETTABLEKS                       R20 R20 K3 ["createElement"]
+      140 GETUPVAL                         R21 8
+      141 DUPTABLE                         R22 K62 [{["tag"] = "col gap-small auto-xy"}]
+      142 DUPTABLE                         R23 K65 [{"Title", "Description"}]
+      143 GETUPVAL                         R24 0
+      144 GETTABLEKS                       R24 R24 K3 ["createElement"]
+      146 GETUPVAL                         R25 13
+      147 DUPTABLE                         R26 K68 [{["Text"], ["LayoutOrder"], ["tag"] = "auto-xy text-heading-medium text-align-x-left content-emphasis"}]
+      148 LOADK                            R29 K69 ["Plugin"]
+      149 LOADK                            R30 K70 ["TutorialTile.TourTitle"]
+      150 NAMECALL                         R27 R4 K71 ["getText"]
+      152 CALL                             R27 3 1
+      153 SETTABLEKS                       R27 R26 K58 ["Text"]
+      155 MOVE                             R27 R5
+      156 CALL                             R27 0 1
+      157 SETTABLEKS                       R27 R26 K66 ["LayoutOrder"]
+      159 CALL                             R24 2 1
+      160 SETTABLEKS                       R24 R23 K63 ["Title"]
+      162 GETUPVAL                         R24 0
+      163 GETTABLEKS                       R24 R24 K3 ["createElement"]
+      165 GETUPVAL                         R25 13
+      166 DUPTABLE                         R26 K74 [{["Text"], ["TextWrapped"] = True, ["LayoutOrder"], ["tag"] = "auto-xy text-body-medium text-align-x-left content-emphasis"}]
+      167 LOADK                            R29 K69 ["Plugin"]
+      168 LOADK                            R30 K75 ["TutorialTile.TourDesc"]
+      169 NAMECALL                         R27 R4 K71 ["getText"]
+      171 CALL                             R27 3 1
+      172 SETTABLEKS                       R27 R26 K58 ["Text"]
+      174 MOVE                             R27 R5
+      175 CALL                             R27 0 1
+      176 SETTABLEKS                       R27 R26 K66 ["LayoutOrder"]
+      178 CALL                             R24 2 1
+      179 SETTABLEKS                       R24 R23 K64 ["Description"]
+      181 CALL                             R20 3 1
+      182 SETTABLEKS                       R20 R19 K58 ["Text"]
+      184 GETUPVAL                         R20 0
+      185 GETTABLEKS                       R20 R20 K3 ["createElement"]
+      187 GETUPVAL                         R21 14
+      188 DUPTABLE                         R22 K79 [{"size", "variant", "LayoutOrder", "onActivated", "text"}]
+      189 GETUPVAL                         R23 15
+      190 GETTABLEKS                       R23 R23 K80 ["Medium"]
+      192 SETTABLEKS                       R23 R22 K76 ["size"]
+      194 GETUPVAL                         R23 16
+      195 GETTABLEKS                       R23 R23 K81 ["Emphasis"]
+      197 SETTABLEKS                       R23 R22 K77 ["variant"]
+      199 MOVE                             R23 R5
+      200 CALL                             R23 0 1
+      201 SETTABLEKS                       R23 R22 K66 ["LayoutOrder"]
+      203 NEWCLOSURE                       R23 P2
+      204 CAPTURE                          VAL R3
+      205 CAPTURE                          UPVAL U12
+      206 CAPTURE                          UPVAL U17
+      207 SETTABLEKS                       R23 R22 K39 ["onActivated"]
+      209 LOADK                            R25 K69 ["Plugin"]
+      210 LOADK                            R26 K82 ["TutorialTile.StartButton"]
+      211 NAMECALL                         R23 R4 K71 ["getText"]
+      213 CALL                             R23 3 1
+      214 SETTABLEKS                       R23 R22 K78 ["text"]
+      216 CALL                             R20 2 1
+      217 SETTABLEKS                       R20 R19 K59 ["Button"]
+      219 CALL                             R16 3 1
+      220 SETTABLEKS                       R16 R15 K23 ["Container"]
+      222 CALL                             R12 3 1
+      223 SETTABLEKS                       R12 R11 K16 ["CityImage"]
+      225 CALL                             R8 3 -1
+      226 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

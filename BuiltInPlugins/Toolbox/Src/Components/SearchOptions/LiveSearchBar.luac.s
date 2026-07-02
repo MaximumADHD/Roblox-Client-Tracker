@@ -2,28 +2,26 @@ PROTO_0:
         0 GETUPVAL                         R2 0
         1 GETTABLEKS                       R2 R2 K0 ["state"]
         3 GETTABLEKS                       R2 R2 K1 ["currentText"]
-        5 JUMPIFEQ                         R0 R2 ; [+30]
+        5 JUMPIFEQ                         R0 R2 ; [+27]
         7 GETUPVAL                         R2 0
-        8 DUPTABLE                         R4 K4 [{"currentText", "showDropdown", "extraDetails"}]
+        8 DUPTABLE                         R4 K5 [{["currentText"], ["showDropdown"] = True, ["extraDetails"]}]
         9 SETTABLEKS                       R0 R4 K1 ["currentText"]
-       11 LOADB                            R5 1
-       12 SETTABLEKS                       R5 R4 K2 ["showDropdown"]
-       14 MOVE                             R5 R1
-       15 JUMPIF                           R5 ; [+3]
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R5 R5 K5 ["None"]
-       19 SETTABLEKS                       R5 R4 K3 ["extraDetails"]
-       21 NAMECALL                         R2 R2 K6 ["setState"]
-       23 CALL                             R2 2 0
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R2 R2 K7 ["props"]
-       27 GETTABLEKS                       R2 R2 K8 ["updateSearch"]
-       29 MOVE                             R3 R0
-       30 GETUPVAL                         R4 0
-       31 GETTABLEKS                       R4 R4 K0 ["state"]
-       33 GETTABLEKS                       R4 R4 K3 ["extraDetails"]
-       35 CALL                             R2 2 0
-       36 RETURN                           R0 0
+       11 MOVE                             R5 R1
+       12 JUMPIF                           R5 ; [+3]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K6 ["None"]
+       16 SETTABLEKS                       R5 R4 K4 ["extraDetails"]
+       18 NAMECALL                         R2 R2 K7 ["setState"]
+       20 CALL                             R2 2 0
+       21 GETUPVAL                         R2 0
+       22 GETTABLEKS                       R2 R2 K8 ["props"]
+       24 GETTABLEKS                       R2 R2 K9 ["updateSearch"]
+       26 MOVE                             R3 R0
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R4 R4 K0 ["state"]
+       30 GETTABLEKS                       R4 R4 K4 ["extraDetails"]
+       32 CALL                             R2 2 0
+       33 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["Name"]
@@ -50,21 +48,17 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"currentText"}]
-        2 LOADK                            R3 K2 [""]
-        3 SETTABLEKS                       R3 R2 K0 ["currentText"]
-        5 NAMECALL                         R0 R0 K3 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = ""}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showDropdown"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showDropdown"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["currentText"]
@@ -74,17 +68,13 @@ PROTO_4:
         7 GETIMPORT                        R1 K4 [next]
         9 GETTABLEKS                       R2 R0 K5 ["extraDetails"]
        11 CALL                             R1 1 1
-       12 JUMPIFEQKNIL                     R1 ; [+13]
-       14 DUPTABLE                         R1 K6 [{"currentText", "extraDetails", "showDropdown"}]
-       15 LOADK                            R2 K1 [""]
-       16 SETTABLEKS                       R2 R1 K0 ["currentText"]
-       18 NEWTABLE                         R2 0 0
-       20 SETTABLEKS                       R2 R1 K5 ["extraDetails"]
-       22 LOADB                            R2 0
-       23 SETTABLEKS                       R2 R1 K2 ["showDropdown"]
-       25 RETURN                           R1 1
-       26 LOADNIL                          R1
-       27 RETURN                           R1 1
+       12 JUMPIFEQKNIL                     R1 ; [+7]
+       14 DUPTABLE                         R1 K7 [{[1] = "", ["extraDetails"], ["showDropdown"] = False}]
+       15 NEWTABLE                         R2 0 0
+       17 SETTABLEKS                       R2 R1 K5 ["extraDetails"]
+       19 RETURN                           R1 1
+       20 LOADNIL                          R1
+       21 RETURN                           R1 1
 
 PROTO_5:
         0 GETUPVAL                         R0 0
@@ -97,41 +87,39 @@ PROTO_6:
         0 RETURN                           R0 0
 
 PROTO_7:
-        0 DUPTABLE                         R2 K3 [{"currentText", "showDropdown", "extraDetails"}]
-        1 GETTABLEKS                       R4 R1 K5 ["searchTerm"]
-        3 ORK                              R3 R4 K4 [""]
+        0 DUPTABLE                         R2 K4 [{[1], ["showDropdown"] = False, ["extraDetails"]}]
+        1 GETTABLEKS                       R4 R1 K6 ["searchTerm"]
+        3 ORK                              R3 R4 K5 [""]
         4 SETTABLEKS                       R3 R2 K0 ["currentText"]
-        6 LOADB                            R3 0
-        7 SETTABLEKS                       R3 R2 K1 ["showDropdown"]
-        9 NEWTABLE                         R3 0 0
-       11 SETTABLEKS                       R3 R2 K2 ["extraDetails"]
-       13 SETTABLEKS                       R2 R0 K6 ["state"]
-       15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K7 ["createRef"]
-       18 CALL                             R2 0 1
-       19 SETTABLEKS                       R2 R0 K8 ["frameRef"]
-       21 NEWCLOSURE                       R2 P0
-       22 CAPTURE                          VAL R0
-       23 CAPTURE                          UPVAL U0
-       24 SETTABLEKS                       R2 R0 K9 ["onTextChanged"]
-       26 NEWCLOSURE                       R2 P1
-       27 CAPTURE                          VAL R0
-       28 SETTABLEKS                       R2 R0 K10 ["onDropdownClicked"]
-       30 NEWCLOSURE                       R2 P2
-       31 CAPTURE                          VAL R0
-       32 SETTABLEKS                       R2 R0 K11 ["onDeleteTag"]
-       34 NEWCLOSURE                       R2 P3
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R2 R0 K12 ["closeDropdown"]
-       38 GETUPVAL                         R3 1
-       39 CALL                             R3 0 1
-       40 JUMPIFNOT                        R3 ; [+3]
-       41 NEWCLOSURE                       R2 P4
-       42 CAPTURE                          VAL R0
-       43 JUMP                             ; [+1]
-       44 DUPCLOSURE                       R2 K13 [PROTO_6]
-       45 SETTABLEKS                       R2 R0 K14 ["resetSearchBar"]
-       47 RETURN                           R0 0
+        6 NEWTABLE                         R3 0 0
+        8 SETTABLEKS                       R3 R2 K3 ["extraDetails"]
+       10 SETTABLEKS                       R2 R0 K7 ["state"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R2 R2 K8 ["createRef"]
+       15 CALL                             R2 0 1
+       16 SETTABLEKS                       R2 R0 K9 ["frameRef"]
+       18 NEWCLOSURE                       R2 P0
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U0
+       21 SETTABLEKS                       R2 R0 K10 ["onTextChanged"]
+       23 NEWCLOSURE                       R2 P1
+       24 CAPTURE                          VAL R0
+       25 SETTABLEKS                       R2 R0 K11 ["onDropdownClicked"]
+       27 NEWCLOSURE                       R2 P2
+       28 CAPTURE                          VAL R0
+       29 SETTABLEKS                       R2 R0 K12 ["onDeleteTag"]
+       31 NEWCLOSURE                       R2 P3
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R2 R0 K13 ["closeDropdown"]
+       35 GETUPVAL                         R3 1
+       36 CALL                             R3 0 1
+       37 JUMPIFNOT                        R3 ; [+3]
+       38 NEWCLOSURE                       R2 P4
+       39 CAPTURE                          VAL R0
+       40 JUMP                             ; [+1]
+       41 DUPCLOSURE                       R2 K14 [PROTO_6]
+       42 SETTABLEKS                       R2 R0 K15 ["resetSearchBar"]
+       44 RETURN                           R0 0
 
 PROTO_8:
         0 GETUPVAL                         R1 0
@@ -223,7 +211,7 @@ PROTO_9:
        99 GETUPVAL                         R16 0
       100 GETTABLEKS                       R16 R16 K19 ["createElement"]
       102 GETUPVAL                         R17 1
-      103 DUPTABLE                         R18 K31 [{"width", "onTextChanged", "onSearchRequested", "defaultTextKey", "searchTerm", "onDeleteTag", "IsLive"}]
+      103 DUPTABLE                         R18 K32 [{["width"], ["onTextChanged"], ["onSearchRequested"], ["defaultTextKey"], ["searchTerm"], ["onDeleteTag"], ["IsLive"] = True}]
       104 SETTABLEKS                       R1 R18 K1 ["width"]
       106 GETTABLEKS                       R19 R0 K27 ["onTextChanged"]
       108 SETTABLEKS                       R19 R18 K27 ["onTextChanged"]
@@ -233,35 +221,33 @@ PROTO_9:
       116 SETTABLEKS                       R4 R18 K2 ["searchTerm"]
       118 GETTABLEKS                       R19 R0 K29 ["onDeleteTag"]
       120 SETTABLEKS                       R19 R18 K29 ["onDeleteTag"]
-      122 LOADB                            R19 1
-      123 SETTABLEKS                       R19 R18 K30 ["IsLive"]
-      125 CALL                             R16 2 1
-      126 SETTABLEKS                       R16 R15 K24 ["SearchBar"]
-      128 MOVE                             R16 R11
-      129 JUMPIFNOT                        R16 ; [+31]
-      130 GETUPVAL                         R16 0
-      131 GETTABLEKS                       R16 R16 K19 ["createElement"]
-      133 GETUPVAL                         R17 2
-      134 DUPTABLE                         R18 K37 [{"Size", "Position", "Items", "GetKey", "SearchTerm", "onItemClicked", "closeDropdown"}]
-      135 GETIMPORT                        R19 K14 [UDim2.new]
-      137 LOADN                            R20 0
-      138 MOVE                             R21 R1
-      139 LOADN                            R22 0
-      140 LOADN                            R23 0
-      141 CALL                             R19 4 1
-      142 SETTABLEKS                       R19 R18 K22 ["Size"]
-      144 SETTABLEKS                       R10 R18 K32 ["Position"]
-      146 SETTABLEKS                       R6 R18 K33 ["Items"]
-      148 SETTABLEKS                       R8 R18 K9 ["GetKey"]
-      150 SETTABLEKS                       R4 R18 K34 ["SearchTerm"]
-      152 GETTABLEKS                       R19 R0 K38 ["onDropdownClicked"]
-      154 SETTABLEKS                       R19 R18 K35 ["onItemClicked"]
-      156 GETTABLEKS                       R19 R0 K36 ["closeDropdown"]
-      158 SETTABLEKS                       R19 R18 K36 ["closeDropdown"]
-      160 CALL                             R16 2 1
-      161 SETTABLEKS                       R16 R15 K25 ["Dropdown"]
-      163 CALL                             R12 3 -1
-      164 RETURN                           R12 -1
+      122 CALL                             R16 2 1
+      123 SETTABLEKS                       R16 R15 K24 ["SearchBar"]
+      125 MOVE                             R16 R11
+      126 JUMPIFNOT                        R16 ; [+31]
+      127 GETUPVAL                         R16 0
+      128 GETTABLEKS                       R16 R16 K19 ["createElement"]
+      130 GETUPVAL                         R17 2
+      131 DUPTABLE                         R18 K38 [{"Size", "Position", "Items", "GetKey", "SearchTerm", "onItemClicked", "closeDropdown"}]
+      132 GETIMPORT                        R19 K14 [UDim2.new]
+      134 LOADN                            R20 0
+      135 MOVE                             R21 R1
+      136 LOADN                            R22 0
+      137 LOADN                            R23 0
+      138 CALL                             R19 4 1
+      139 SETTABLEKS                       R19 R18 K22 ["Size"]
+      141 SETTABLEKS                       R10 R18 K33 ["Position"]
+      143 SETTABLEKS                       R6 R18 K34 ["Items"]
+      145 SETTABLEKS                       R8 R18 K9 ["GetKey"]
+      147 SETTABLEKS                       R4 R18 K35 ["SearchTerm"]
+      149 GETTABLEKS                       R19 R0 K39 ["onDropdownClicked"]
+      151 SETTABLEKS                       R19 R18 K36 ["onItemClicked"]
+      153 GETTABLEKS                       R19 R0 K37 ["closeDropdown"]
+      155 SETTABLEKS                       R19 R18 K37 ["closeDropdown"]
+      157 CALL                             R16 2 1
+      158 SETTABLEKS                       R16 R15 K25 ["Dropdown"]
+      160 CALL                             R12 3 -1
+      161 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

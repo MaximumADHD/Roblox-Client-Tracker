@@ -58,20 +58,18 @@ PROTO_0:
        80 GETUPVAL                         R7 0
        81 GETTABLEKS                       R7 R7 K7 ["createElement"]
        83 LOADK                            R8 K26 ["Frame"]
-       84 DUPTABLE                         R9 K28 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-       85 LOADN                            R10 1
-       86 SETTABLEKS                       R10 R9 K27 ["BackgroundTransparency"]
-       88 SETTABLEKS                       R1 R9 K1 ["LayoutOrder"]
-       90 GETIMPORT                        R10 K12 [UDim2.new]
-       92 LOADN                            R11 1
-       93 LOADN                            R12 0
-       94 LOADN                            R13 0
-       95 MOVE                             R14 R6
-       96 CALL                             R10 4 1
-       97 SETTABLEKS                       R10 R9 K8 ["Size"]
-       99 MOVE                             R10 R5
-      100 CALL                             R7 3 -1
-      101 RETURN                           R7 -1
+       84 DUPTABLE                         R9 K29 [{["BackgroundTransparency"] = 1, ["LayoutOrder"], ["Size"]}]
+       85 SETTABLEKS                       R1 R9 K1 ["LayoutOrder"]
+       87 GETIMPORT                        R10 K12 [UDim2.new]
+       89 LOADN                            R11 1
+       90 LOADN                            R12 0
+       91 LOADN                            R13 0
+       92 MOVE                             R14 R6
+       93 CALL                             R10 4 1
+       94 SETTABLEKS                       R10 R9 K8 ["Size"]
+       96 MOVE                             R10 R5
+       97 CALL                             R7 3 -1
+       98 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

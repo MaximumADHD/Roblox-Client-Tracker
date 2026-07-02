@@ -13,81 +13,61 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Util"]
        20 GETTABLEKS                       R3 R3 K10 ["createUnimplemented"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K35 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "artStyle", "strength", "artStyleExpanded", "optionsExapnded", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed", "setArtStyle", "setStrength", "setArtStyleExpanded", "setOptionsExpanded"}]
-       24 LOADK                            R4 K36 [""]
-       25 SETTABLEKS                       R4 R3 K11 ["promptText"]
-       27 LOADB                            R4 1
-       28 SETTABLEKS                       R4 R3 K12 ["randomizeSeed"]
-       30 LOADN                            R4 0
-       31 SETTABLEKS                       R4 R3 K13 ["seed"]
-       33 GETIMPORT                        R4 K39 [CFrame.new]
-       35 CALL                             R4 0 1
-       36 SETTABLEKS                       R4 R3 K14 ["rotation"]
-       38 LOADB                            R4 0
-       39 SETTABLEKS                       R4 R3 K15 ["smartUVUnwrap"]
-       41 LOADB                            R4 0
-       42 SETTABLEKS                       R4 R3 K16 ["promptMasking"]
-       44 LOADB                            R4 1
-       45 SETTABLEKS                       R4 R3 K17 ["validRotation"]
-       47 LOADB                            R4 1
-       48 SETTABLEKS                       R4 R3 K18 ["validSeed"]
-       50 LOADK                            R4 K36 [""]
-       51 SETTABLEKS                       R4 R3 K19 ["artStyle"]
-       53 LOADK                            R4 K40 [0.5]
-       54 SETTABLEKS                       R4 R3 K20 ["strength"]
-       56 LOADB                            R4 0
-       57 SETTABLEKS                       R4 R3 K21 ["artStyleExpanded"]
-       59 NEWTABLE                         R4 0 0
-       61 SETTABLEKS                       R4 R3 K22 ["optionsExapnded"]
+       23 DUPTABLE                         R3 K40 [{["promptText"] = "", ["randomizeSeed"] = True, ["seed"] = 0, ["rotation"], ["smartUVUnwrap"] = False, ["promptMasking"] = False, ["validRotation"] = True, ["validSeed"] = True, ["artStyle"] = "", ["strength"] = 0.5, ["artStyleExpanded"] = False, ["optionsExapnded"], ["setPromptText"], ["setRandomizeSeed"], ["setSeed"], ["setRotation"], ["setSmartUVUnwrap"], ["setPromptMasking"], ["setValidRotation"], ["setValidSeed"], ["setArtStyle"], ["setStrength"], ["setArtStyleExpanded"], ["setOptionsExpanded"]}]
+       24 GETIMPORT                        R4 K43 [CFrame.new]
+       26 CALL                             R4 0 1
+       27 SETTABLEKS                       R4 R3 K17 ["rotation"]
+       29 NEWTABLE                         R4 0 0
+       31 SETTABLEKS                       R4 R3 K27 ["optionsExapnded"]
+       33 MOVE                             R4 R2
+       34 LOADK                            R5 K28 ["setPromptText"]
+       35 CALL                             R4 1 1
+       36 SETTABLEKS                       R4 R3 K28 ["setPromptText"]
+       38 MOVE                             R4 R2
+       39 LOADK                            R5 K29 ["setRandomizeSeed"]
+       40 CALL                             R4 1 1
+       41 SETTABLEKS                       R4 R3 K29 ["setRandomizeSeed"]
+       43 MOVE                             R4 R2
+       44 LOADK                            R5 K30 ["setSeed"]
+       45 CALL                             R4 1 1
+       46 SETTABLEKS                       R4 R3 K30 ["setSeed"]
+       48 MOVE                             R4 R2
+       49 LOADK                            R5 K31 ["setRotation"]
+       50 CALL                             R4 1 1
+       51 SETTABLEKS                       R4 R3 K31 ["setRotation"]
+       53 MOVE                             R4 R2
+       54 LOADK                            R5 K32 ["setSmartUVUnwrap"]
+       55 CALL                             R4 1 1
+       56 SETTABLEKS                       R4 R3 K32 ["setSmartUVUnwrap"]
+       58 MOVE                             R4 R2
+       59 LOADK                            R5 K33 ["setPromptMasking"]
+       60 CALL                             R4 1 1
+       61 SETTABLEKS                       R4 R3 K33 ["setPromptMasking"]
        63 MOVE                             R4 R2
-       64 LOADK                            R5 K23 ["setPromptText"]
+       64 LOADK                            R5 K34 ["setValidRotation"]
        65 CALL                             R4 1 1
-       66 SETTABLEKS                       R4 R3 K23 ["setPromptText"]
+       66 SETTABLEKS                       R4 R3 K34 ["setValidRotation"]
        68 MOVE                             R4 R2
-       69 LOADK                            R5 K24 ["setRandomizeSeed"]
+       69 LOADK                            R5 K35 ["setValidSeed"]
        70 CALL                             R4 1 1
-       71 SETTABLEKS                       R4 R3 K24 ["setRandomizeSeed"]
+       71 SETTABLEKS                       R4 R3 K35 ["setValidSeed"]
        73 MOVE                             R4 R2
-       74 LOADK                            R5 K25 ["setSeed"]
+       74 LOADK                            R5 K36 ["setArtStyle"]
        75 CALL                             R4 1 1
-       76 SETTABLEKS                       R4 R3 K25 ["setSeed"]
+       76 SETTABLEKS                       R4 R3 K36 ["setArtStyle"]
        78 MOVE                             R4 R2
-       79 LOADK                            R5 K26 ["setRotation"]
+       79 LOADK                            R5 K37 ["setStrength"]
        80 CALL                             R4 1 1
-       81 SETTABLEKS                       R4 R3 K26 ["setRotation"]
+       81 SETTABLEKS                       R4 R3 K37 ["setStrength"]
        83 MOVE                             R4 R2
-       84 LOADK                            R5 K27 ["setSmartUVUnwrap"]
+       84 LOADK                            R5 K38 ["setArtStyleExpanded"]
        85 CALL                             R4 1 1
-       86 SETTABLEKS                       R4 R3 K27 ["setSmartUVUnwrap"]
+       86 SETTABLEKS                       R4 R3 K38 ["setArtStyleExpanded"]
        88 MOVE                             R4 R2
-       89 LOADK                            R5 K28 ["setPromptMasking"]
+       89 LOADK                            R5 K39 ["setOptionsExpanded"]
        90 CALL                             R4 1 1
-       91 SETTABLEKS                       R4 R3 K28 ["setPromptMasking"]
-       93 MOVE                             R4 R2
-       94 LOADK                            R5 K29 ["setValidRotation"]
-       95 CALL                             R4 1 1
-       96 SETTABLEKS                       R4 R3 K29 ["setValidRotation"]
-       98 MOVE                             R4 R2
-       99 LOADK                            R5 K30 ["setValidSeed"]
-      100 CALL                             R4 1 1
-      101 SETTABLEKS                       R4 R3 K30 ["setValidSeed"]
-      103 MOVE                             R4 R2
-      104 LOADK                            R5 K31 ["setArtStyle"]
-      105 CALL                             R4 1 1
-      106 SETTABLEKS                       R4 R3 K31 ["setArtStyle"]
-      108 MOVE                             R4 R2
-      109 LOADK                            R5 K32 ["setStrength"]
-      110 CALL                             R4 1 1
-      111 SETTABLEKS                       R4 R3 K32 ["setStrength"]
-      113 MOVE                             R4 R2
-      114 LOADK                            R5 K33 ["setArtStyleExpanded"]
-      115 CALL                             R4 1 1
-      116 SETTABLEKS                       R4 R3 K33 ["setArtStyleExpanded"]
-      118 MOVE                             R4 R2
-      119 LOADK                            R5 K34 ["setOptionsExpanded"]
-      120 CALL                             R4 1 1
-      121 SETTABLEKS                       R4 R3 K34 ["setOptionsExpanded"]
-      123 GETTABLEKS                       R4 R1 K41 ["createContext"]
-      125 MOVE                             R5 R3
-      126 CALL                             R4 1 1
-      127 RETURN                           R4 1
+       91 SETTABLEKS                       R4 R3 K39 ["setOptionsExpanded"]
+       93 GETTABLEKS                       R4 R1 K44 ["createContext"]
+       95 MOVE                             R5 R3
+       96 CALL                             R4 1 1
+       97 RETURN                           R4 1

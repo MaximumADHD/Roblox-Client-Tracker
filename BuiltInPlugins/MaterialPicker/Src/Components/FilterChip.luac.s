@@ -118,64 +118,56 @@ PROTO_3:
       114 GETIMPORT                        R12 K14 [Enum.AutomaticSize.XY]
       116 SETTABLEKS                       R12 R11 K12 ["AutomaticSize"]
       118 SETTABLEKS                       R4 R11 K26 ["BackgroundColor"]
-      120 DUPTABLE                         R12 K31 [{"Left", "Right"}]
-      121 LOADN                            R13 6
-      122 SETTABLEKS                       R13 R12 K29 ["Left"]
-      124 GETTABLEKS                       R14 R0 K33 ["PaddingRight"]
-      126 ORK                              R13 R14 K32 [6]
-      127 SETTABLEKS                       R13 R12 K30 ["Right"]
-      129 SETTABLEKS                       R12 R11 K27 ["Padding"]
-      131 NEWTABLE                         R12 0 3
-      133 GETUPVAL                         R13 2
-      134 LOADK                            R14 K34 ["UICorner"]
-      135 DUPTABLE                         R15 K36 [{"CornerRadius"}]
-      136 GETIMPORT                        R16 K39 [UDim.new]
-      138 LOADN                            R17 0
-      139 LOADN                            R18 4
-      140 CALL                             R16 2 1
-      141 SETTABLEKS                       R16 R15 K35 ["CornerRadius"]
-      143 CALL                             R13 2 1
-      144 GETUPVAL                         R14 2
-      145 LOADK                            R15 K40 ["UIStroke"]
-      146 DUPTABLE                         R16 K43 [{"Thickness", "Color"}]
-      147 LOADN                            R17 1
-      148 SETTABLEKS                       R17 R16 K41 ["Thickness"]
-      150 GETTABLEKS                       R17 R1 K0 ["Filters"]
-      152 GETTABLEKS                       R17 R17 K44 ["BorderColor"]
-      154 SETTABLEKS                       R17 R16 K42 ["Color"]
-      156 CALL                             R14 2 1
-      157 GETUPVAL                         R15 2
-      158 GETUPVAL                         R16 5
-      159 DUPTABLE                         R17 K50 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
-      160 GETIMPORT                        R18 K52 [Enum.AutomaticSize.X]
-      162 SETTABLEKS                       R18 R17 K12 ["AutomaticSize"]
-      164 GETTABLEKS                       R18 R1 K0 ["Filters"]
-      166 GETTABLEKS                       R18 R18 K53 ["ChipSize"]
-      168 SETTABLEKS                       R18 R17 K45 ["Size"]
-      170 DUPTABLE                         R18 K31 [{"Left", "Right"}]
-      171 LOADN                            R19 4
-      172 SETTABLEKS                       R19 R18 K29 ["Left"]
-      174 LOADN                            R19 4
-      175 SETTABLEKS                       R19 R18 K30 ["Right"]
-      177 SETTABLEKS                       R18 R17 K27 ["Padding"]
-      179 GETTABLEKS                       R18 R0 K20 ["Text"]
-      181 SETTABLEKS                       R18 R17 K20 ["Text"]
-      183 GETTABLEKS                       R18 R1 K0 ["Filters"]
-      185 GETTABLEKS                       R18 R18 K46 ["TextColor"]
-      187 SETTABLEKS                       R18 R17 K46 ["TextColor"]
-      189 GETIMPORT                        R18 K55 [Enum.TextXAlignment.Center]
-      191 SETTABLEKS                       R18 R17 K47 ["TextXAlignment"]
-      193 GETIMPORT                        R18 K56 [Enum.TextYAlignment.Center]
-      195 SETTABLEKS                       R18 R17 K48 ["TextYAlignment"]
-      197 GETTABLEKS                       R18 R1 K0 ["Filters"]
-      199 GETTABLEKS                       R18 R18 K49 ["TextSize"]
-      201 SETTABLEKS                       R18 R17 K49 ["TextSize"]
-      203 CALL                             R15 2 -1
-      204 SETLIST                          R12 R13 -1 [1]
-      206 CALL                             R9 3 -1
-      207 SETLIST                          R8 R9 -1 [1]
-      209 CALL                             R5 3 -1
-      210 RETURN                           R5 -1
+      120 DUPTABLE                         R12 K32 [{["Left"] = 6, ["Right"]}]
+      121 GETTABLEKS                       R14 R0 K33 ["PaddingRight"]
+      123 ORK                              R13 R14 K30 [6]
+      124 SETTABLEKS                       R13 R12 K31 ["Right"]
+      126 SETTABLEKS                       R12 R11 K27 ["Padding"]
+      128 NEWTABLE                         R12 0 3
+      130 GETUPVAL                         R13 2
+      131 LOADK                            R14 K34 ["UICorner"]
+      132 DUPTABLE                         R15 K36 [{"CornerRadius"}]
+      133 GETIMPORT                        R16 K39 [UDim.new]
+      135 LOADN                            R17 0
+      136 LOADN                            R18 4
+      137 CALL                             R16 2 1
+      138 SETTABLEKS                       R16 R15 K35 ["CornerRadius"]
+      140 CALL                             R13 2 1
+      141 GETUPVAL                         R14 2
+      142 LOADK                            R15 K40 ["UIStroke"]
+      143 DUPTABLE                         R16 K44 [{["Thickness"] = 1, ["Color"]}]
+      144 GETTABLEKS                       R17 R1 K0 ["Filters"]
+      146 GETTABLEKS                       R17 R17 K45 ["BorderColor"]
+      148 SETTABLEKS                       R17 R16 K43 ["Color"]
+      150 CALL                             R14 2 1
+      151 GETUPVAL                         R15 2
+      152 GETUPVAL                         R16 5
+      153 DUPTABLE                         R17 K51 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
+      154 GETIMPORT                        R18 K53 [Enum.AutomaticSize.X]
+      156 SETTABLEKS                       R18 R17 K12 ["AutomaticSize"]
+      158 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      160 GETTABLEKS                       R18 R18 K54 ["ChipSize"]
+      162 SETTABLEKS                       R18 R17 K46 ["Size"]
+      164 DUPTABLE                         R18 K56 [{["Left"] = 4, ["Right"] = 4}]
+      165 SETTABLEKS                       R18 R17 K27 ["Padding"]
+      167 GETTABLEKS                       R18 R0 K20 ["Text"]
+      169 SETTABLEKS                       R18 R17 K20 ["Text"]
+      171 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      173 GETTABLEKS                       R18 R18 K47 ["TextColor"]
+      175 SETTABLEKS                       R18 R17 K47 ["TextColor"]
+      177 GETIMPORT                        R18 K58 [Enum.TextXAlignment.Center]
+      179 SETTABLEKS                       R18 R17 K48 ["TextXAlignment"]
+      181 GETIMPORT                        R18 K59 [Enum.TextYAlignment.Center]
+      183 SETTABLEKS                       R18 R17 K49 ["TextYAlignment"]
+      185 GETTABLEKS                       R18 R1 K0 ["Filters"]
+      187 GETTABLEKS                       R18 R18 K50 ["TextSize"]
+      189 SETTABLEKS                       R18 R17 K50 ["TextSize"]
+      191 CALL                             R15 2 -1
+      192 SETLIST                          R12 R13 -1 [1]
+      194 CALL                             R9 3 -1
+      195 SETLIST                          R8 R9 -1 [1]
+      197 CALL                             R5 3 -1
+      198 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -12,12 +12,10 @@ PROTO_0:
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R1 0
@@ -48,50 +46,48 @@ PROTO_4:
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R2 R0 K3 ["toggleState"]
-       10 NEWCLOSURE                       R2 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       14 NEWCLOSURE                       R2 P2
-       15 CAPTURE                          VAL R0
-       16 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       18 NEWCLOSURE                       R2 P3
-       19 CAPTURE                          VAL R0
-       20 SETTABLEKS                       R2 R0 K6 ["onDockWidgetCreated"]
-       22 NEWCLOSURE                       R2 P4
-       23 CAPTURE                          VAL R0
-       24 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
-       26 GETUPVAL                         R2 0
-       27 GETTABLEKS                       R2 R2 K8 ["Store"]
-       29 GETTABLEKS                       R2 R2 K9 ["new"]
-       31 GETUPVAL                         R3 1
-       32 NEWTABLE                         R4 0 0
-       34 NEWTABLE                         R5 0 1
-       36 GETUPVAL                         R6 0
-       37 GETTABLEKS                       R6 R6 K10 ["thunkMiddleware"]
-       39 SETLIST                          R5 R6 1 [1]
-       41 CALL                             R2 3 1
-       42 SETTABLEKS                       R2 R0 K11 ["store"]
-       44 GETUPVAL                         R2 2
-       45 GETTABLEKS                       R2 R2 K12 ["Localization"]
-       47 GETTABLEKS                       R2 R2 K9 ["new"]
-       49 DUPTABLE                         R3 K16 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       50 GETUPVAL                         R4 3
-       51 SETTABLEKS                       R4 R3 K13 ["stringResourceTable"]
-       53 GETUPVAL                         R4 4
-       54 SETTABLEKS                       R4 R3 K14 ["translationResourceTable"]
-       56 GETUPVAL                         R4 5
-       57 GETTABLEKS                       R4 R4 K17 ["Name"]
-       59 SETTABLEKS                       R4 R3 K15 ["pluginName"]
-       61 CALL                             R2 1 1
-       62 SETTABLEKS                       R2 R0 K18 ["localization"]
-       64 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R2 R0 K4 ["toggleState"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       11 NEWCLOSURE                       R2 P2
+       12 CAPTURE                          VAL R0
+       13 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       15 NEWCLOSURE                       R2 P3
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K7 ["onDockWidgetCreated"]
+       19 NEWCLOSURE                       R2 P4
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R2 R0 K8 ["onWidgetEnabledChanged"]
+       23 GETUPVAL                         R2 0
+       24 GETTABLEKS                       R2 R2 K9 ["Store"]
+       26 GETTABLEKS                       R2 R2 K10 ["new"]
+       28 GETUPVAL                         R3 1
+       29 NEWTABLE                         R4 0 0
+       31 NEWTABLE                         R5 0 1
+       33 GETUPVAL                         R6 0
+       34 GETTABLEKS                       R6 R6 K11 ["thunkMiddleware"]
+       36 SETLIST                          R5 R6 1 [1]
+       38 CALL                             R2 3 1
+       39 SETTABLEKS                       R2 R0 K12 ["store"]
+       41 GETUPVAL                         R2 2
+       42 GETTABLEKS                       R2 R2 K13 ["Localization"]
+       44 GETTABLEKS                       R2 R2 K10 ["new"]
+       46 DUPTABLE                         R3 K17 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       47 GETUPVAL                         R4 3
+       48 SETTABLEKS                       R4 R3 K14 ["stringResourceTable"]
+       50 GETUPVAL                         R4 4
+       51 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
+       53 GETUPVAL                         R4 5
+       54 GETTABLEKS                       R4 R4 K18 ["Name"]
+       56 SETTABLEKS                       R4 R3 K16 ["pluginName"]
+       58 CALL                             R2 1 1
+       59 SETTABLEKS                       R2 R0 K19 ["localization"]
+       61 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -139,12 +135,12 @@ PROTO_7:
        53 GETIMPORT                        R11 K25 [Enum.InitialDockState.Left]
        55 SETTABLEKS                       R11 R10 K23 ["InitialDockState"]
        57 GETIMPORT                        R11 K27 [Vector2.new]
-       59 LOADN                            R12 54
+       59 LOADN                            R12 310
        60 LOADN                            R13 225
        61 CALL                             R11 2 1
        62 SETTABLEKS                       R11 R10 K28 ["Size"]
        64 GETIMPORT                        R11 K27 [Vector2.new]
-       66 LOADN                            R12 54
+       66 LOADN                            R12 310
        67 LOADN                            R13 225
        68 CALL                             R11 2 1
        69 SETTABLEKS                       R11 R10 K29 ["MinSize"]
@@ -241,37 +237,31 @@ MAIN:
        84 GETTABLEKS                       R17 R17 K26 ["EventEmulator"]
        86 CALL                             R16 1 1
        87 GETTABLEKS                       R17 R1 K27 ["setGlobalConfig"]
-       89 DUPTABLE                         R18 K31 [{"typeChecks", "propValidation", "elementTracing"}]
-       90 LOADB                            R19 1
-       91 SETTABLEKS                       R19 R18 K28 ["typeChecks"]
-       93 LOADB                            R19 1
-       94 SETTABLEKS                       R19 R18 K29 ["propValidation"]
-       96 LOADB                            R19 1
-       97 SETTABLEKS                       R19 R18 K30 ["elementTracing"]
-       99 CALL                             R17 1 0
-      100 GETTABLEKS                       R17 R1 K32 ["PureComponent"]
-      102 LOADK                            R19 K33 ["MainPlugin"]
-      103 NAMECALL                         R17 R17 K34 ["extend"]
-      105 CALL                             R17 2 1
-      106 DUPCLOSURE                       R18 K35 [PROTO_5]
-      107 CAPTURE                          VAL R2
-      108 CAPTURE                          VAL R3
-      109 CAPTURE                          VAL R5
-      110 CAPTURE                          VAL R14
-      111 CAPTURE                          VAL R15
-      112 CAPTURE                          VAL R0
-      113 SETTABLEKS                       R18 R17 K36 ["init"]
-      115 DUPCLOSURE                       R18 K37 [PROTO_6]
-      116 SETTABLEKS                       R18 R17 K38 ["didUpdate"]
-      118 DUPCLOSURE                       R18 K39 [PROTO_7]
-      119 CAPTURE                          VAL R5
-      120 CAPTURE                          VAL R10
-      121 CAPTURE                          VAL R1
-      122 CAPTURE                          VAL R7
-      123 CAPTURE                          VAL R0
-      124 CAPTURE                          VAL R11
-      125 CAPTURE                          VAL R13
-      126 CAPTURE                          VAL R12
-      127 CAPTURE                          VAL R16
-      128 SETTABLEKS                       R18 R17 K40 ["render"]
-      130 RETURN                           R17 1
+       89 DUPTABLE                         R18 K32 [{["typeChecks"] = True, ["propValidation"] = True, ["elementTracing"] = True}]
+       90 CALL                             R17 1 0
+       91 GETTABLEKS                       R17 R1 K33 ["PureComponent"]
+       93 LOADK                            R19 K34 ["MainPlugin"]
+       94 NAMECALL                         R17 R17 K35 ["extend"]
+       96 CALL                             R17 2 1
+       97 DUPCLOSURE                       R18 K36 [PROTO_5]
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R3
+      100 CAPTURE                          VAL R5
+      101 CAPTURE                          VAL R14
+      102 CAPTURE                          VAL R15
+      103 CAPTURE                          VAL R0
+      104 SETTABLEKS                       R18 R17 K37 ["init"]
+      106 DUPCLOSURE                       R18 K38 [PROTO_6]
+      107 SETTABLEKS                       R18 R17 K39 ["didUpdate"]
+      109 DUPCLOSURE                       R18 K40 [PROTO_7]
+      110 CAPTURE                          VAL R5
+      111 CAPTURE                          VAL R10
+      112 CAPTURE                          VAL R1
+      113 CAPTURE                          VAL R7
+      114 CAPTURE                          VAL R0
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R13
+      117 CAPTURE                          VAL R12
+      118 CAPTURE                          VAL R16
+      119 SETTABLEKS                       R18 R17 K41 ["render"]
+      121 RETURN                           R17 1

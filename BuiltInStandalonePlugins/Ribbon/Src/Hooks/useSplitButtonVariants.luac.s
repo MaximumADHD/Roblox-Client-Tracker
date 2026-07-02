@@ -34,7 +34,7 @@ PROTO_2:
        10 LOADK                            R1 K4 ["padding-y-medium"]
        11 DUPTABLE                         R2 K7 [{"tag", "stateLayer"}]
        12 NEWTABLE                         R3 4 0
-       14 LOADK                            R5 K8 ["auto-xy radius-small align-y-center align-x-center row %*"]
+       14 LOADK                            R5 K8 ["row align-x-center align-y-center auto-xy radius-small %*"]
        15 MOVE                             R7 R1
        16 NAMECALL                         R5 R5 K9 ["format"]
        18 CALL                             R5 2 1
@@ -56,21 +56,17 @@ PROTO_2:
        38 LOADB                            R4 0
        39 SETTABLEKS                       R4 R3 K12 ["padding-x-xxsmall"]
        41 SETTABLEKS                       R3 R2 K5 ["tag"]
-       43 DUPTABLE                         R3 K16 [{"affordance", "inset", "mode"}]
-       44 GETTABLEKS                       R5 R0 K17 ["isSingle"]
+       43 DUPTABLE                         R3 K17 [{["affordance"], ["inset"] = , ["mode"] = }]
+       44 GETTABLEKS                       R5 R0 K18 ["isSingle"]
        46 JUMPIFNOT                        R5 ; [+4]
        47 GETUPVAL                         R4 0
-       48 GETTABLEKS                       R4 R4 K18 ["None"]
+       48 GETTABLEKS                       R4 R4 K19 ["None"]
        50 JUMP                             ; [+3]
        51 GETUPVAL                         R4 0
-       52 GETTABLEKS                       R4 R4 K19 ["Background"]
+       52 GETTABLEKS                       R4 R4 K20 ["Background"]
        54 SETTABLEKS                       R4 R3 K13 ["affordance"]
-       56 LOADNIL                          R4
-       57 SETTABLEKS                       R4 R3 K14 ["inset"]
-       59 LOADNIL                          R4
-       60 SETTABLEKS                       R4 R3 K15 ["mode"]
-       62 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
-       64 RETURN                           R2 1
+       56 SETTABLEKS                       R3 R2 K6 ["stateLayer"]
+       58 RETURN                           R2 1
 
 PROTO_3:
         0 DUPTABLE                         R0 K3 [{"arrowContainer", "arrow", "arrowIconStyle"}]

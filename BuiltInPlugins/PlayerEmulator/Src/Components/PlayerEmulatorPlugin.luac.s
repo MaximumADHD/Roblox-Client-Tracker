@@ -47,20 +47,18 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"active"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["active"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 0
-        9 GETTABLEKS                       R0 R0 K3 ["props"]
-       11 GETTABLEKS                       R0 R0 K4 ["plugin"]
-       13 GETUPVAL                         R3 1
-       14 GETTABLEKS                       R3 R3 K5 ["PLUGIN_WIDGET_STATE"]
-       16 LOADB                            R4 0
-       17 NAMECALL                         R1 R0 K6 ["SetSetting"]
-       19 CALL                             R1 3 0
-       20 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 0
+        6 GETTABLEKS                       R0 R0 K4 ["props"]
+        8 GETTABLEKS                       R0 R0 K5 ["plugin"]
+       10 GETUPVAL                         R3 1
+       11 GETTABLEKS                       R3 R3 K6 ["PLUGIN_WIDGET_STATE"]
+       13 LOADB                            R4 0
+       14 NAMECALL                         R1 R0 K7 ["SetSetting"]
+       16 CALL                             R1 3 0
+       17 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -84,60 +82,58 @@ PROTO_5:
        13 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R1 K1 [{"active"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["active"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWTABLE                         R1 0 6
-        8 GETUPVAL                         R2 0
-        9 GETTABLEKS                       R2 R2 K3 ["Plugin"]
-       11 GETTABLEKS                       R2 R2 K4 ["new"]
-       13 GETTABLEKS                       R3 R0 K5 ["props"]
-       15 GETTABLEKS                       R3 R3 K6 ["plugin"]
-       17 CALL                             R2 1 1
-       18 GETUPVAL                         R3 1
-       19 GETTABLEKS                       R3 R3 K7 ["localization"]
-       21 GETUPVAL                         R4 1
-       22 GETTABLEKS                       R4 R4 K8 ["theme"]
-       24 GETUPVAL                         R5 1
-       25 GETTABLEKS                       R5 R5 K9 ["networking"]
-       27 GETUPVAL                         R6 1
-       28 GETTABLEKS                       R6 R6 K10 ["store"]
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R7 R7 K11 ["Mouse"]
-       33 GETTABLEKS                       R7 R7 K4 ["new"]
-       35 GETTABLEKS                       R8 R0 K5 ["props"]
-       37 GETTABLEKS                       R8 R8 K6 ["plugin"]
-       39 NAMECALL                         R8 R8 K12 ["GetMouse"]
-       41 CALL                             R8 1 -1
-       42 CALL                             R7 -1 -1
-       43 SETLIST                          R1 R2 -1 [1]
-       45 SETTABLEKS                       R1 R0 K13 ["contextItems"]
-       47 NEWCLOSURE                       R1 P0
-       48 CAPTURE                          VAL R0
-       49 CAPTURE                          UPVAL U2
-       50 SETTABLEKS                       R1 R0 K14 ["toggleActive"]
-       52 NEWCLOSURE                       R1 P1
-       53 CAPTURE                          VAL R0
-       54 CAPTURE                          UPVAL U2
-       55 SETTABLEKS                       R1 R0 K15 ["onClose"]
-       57 NEWCLOSURE                       R1 P2
-       58 CAPTURE                          VAL R0
-       59 SETTABLEKS                       R1 R0 K16 ["onWidgetEnabledChanged"]
-       61 NEWCLOSURE                       R1 P3
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R1 R0 K17 ["onAncestryChanged"]
-       65 GETTABLEKS                       R1 R0 K5 ["props"]
-       67 GETTABLEKS                       R1 R1 K18 ["pluginLoaderContext"]
-       69 GETTABLEKS                       R1 R1 K19 ["mainButton"]
-       71 SETTABLEKS                       R1 R0 K20 ["button"]
-       73 GETTABLEKS                       R1 R0 K5 ["props"]
-       75 GETTABLEKS                       R1 R1 K18 ["pluginLoaderContext"]
-       77 GETTABLEKS                       R1 R1 K21 ["mainButtonClickedSignal"]
-       79 GETTABLEKS                       R3 R0 K14 ["toggleActive"]
-       81 NAMECALL                         R1 R1 K22 ["Connect"]
-       83 CALL                             R1 2 0
-       84 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWTABLE                         R1 0 6
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R2 R2 K4 ["Plugin"]
+        8 GETTABLEKS                       R2 R2 K5 ["new"]
+       10 GETTABLEKS                       R3 R0 K6 ["props"]
+       12 GETTABLEKS                       R3 R3 K7 ["plugin"]
+       14 CALL                             R2 1 1
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R3 R3 K8 ["localization"]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R4 R4 K9 ["theme"]
+       21 GETUPVAL                         R5 1
+       22 GETTABLEKS                       R5 R5 K10 ["networking"]
+       24 GETUPVAL                         R6 1
+       25 GETTABLEKS                       R6 R6 K11 ["store"]
+       27 GETUPVAL                         R7 0
+       28 GETTABLEKS                       R7 R7 K12 ["Mouse"]
+       30 GETTABLEKS                       R7 R7 K5 ["new"]
+       32 GETTABLEKS                       R8 R0 K6 ["props"]
+       34 GETTABLEKS                       R8 R8 K7 ["plugin"]
+       36 NAMECALL                         R8 R8 K13 ["GetMouse"]
+       38 CALL                             R8 1 -1
+       39 CALL                             R7 -1 -1
+       40 SETLIST                          R1 R2 -1 [1]
+       42 SETTABLEKS                       R1 R0 K14 ["contextItems"]
+       44 NEWCLOSURE                       R1 P0
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          UPVAL U2
+       47 SETTABLEKS                       R1 R0 K15 ["toggleActive"]
+       49 NEWCLOSURE                       R1 P1
+       50 CAPTURE                          VAL R0
+       51 CAPTURE                          UPVAL U2
+       52 SETTABLEKS                       R1 R0 K16 ["onClose"]
+       54 NEWCLOSURE                       R1 P2
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R1 R0 K17 ["onWidgetEnabledChanged"]
+       58 NEWCLOSURE                       R1 P3
+       59 CAPTURE                          VAL R0
+       60 SETTABLEKS                       R1 R0 K18 ["onAncestryChanged"]
+       62 GETTABLEKS                       R1 R0 K6 ["props"]
+       64 GETTABLEKS                       R1 R1 K19 ["pluginLoaderContext"]
+       66 GETTABLEKS                       R1 R1 K20 ["mainButton"]
+       68 SETTABLEKS                       R1 R0 K21 ["button"]
+       70 GETTABLEKS                       R1 R0 K6 ["props"]
+       72 GETTABLEKS                       R1 R1 K19 ["pluginLoaderContext"]
+       74 GETTABLEKS                       R1 R1 K22 ["mainButtonClickedSignal"]
+       76 GETTABLEKS                       R3 R0 K15 ["toggleActive"]
+       78 NAMECALL                         R1 R1 K23 ["Connect"]
+       80 CALL                             R1 2 0
+       81 RETURN                           R0 0
 
 PROTO_7:
         0 NAMECALL                         R1 R0 K0 ["initPluginWidgetStatus"]
@@ -248,8 +244,8 @@ MAIN:
        65 NAMECALL                         R10 R10 K23 ["extend"]
        67 CALL                             R10 2 1
        68 GETIMPORT                        R11 K26 [Vector2.new]
-       70 LOADN                            R12 64
-       71 LOADN                            R13 74
+       70 LOADN                            R12 320
+       71 LOADN                            R13 330
        72 CALL                             R11 2 1
        73 DUPCLOSURE                       R12 K27 [PROTO_0]
        74 SETTABLEKS                       R12 R10 K28 ["updateToolbarButtonActiveState"]

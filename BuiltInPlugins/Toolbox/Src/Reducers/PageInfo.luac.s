@@ -390,101 +390,67 @@ MAIN:
       232 JUMP                             ; [+1]
       233 LOADNIL                          R30
       234 GETTABLEKS                       R31 R4 K44 ["createReducer"]
-      236 DUPTABLE                         R32 K70 [{"audioSearchInfo", "additionalAudioSearchInfo", "categories", "categoryName", "searchTerm", "sorts", "sortIndex", "groups", "groupIndex", "targetPage", "currentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex", "requestReason", "lastLoggedSearchId", "correctionState", "correctedQuery", "userQuery", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent", "sortDirection", "layoutMode"}]
-      237 LOADNIL                          R33
-      238 SETTABLEKS                       R33 R32 K45 ["audioSearchInfo"]
-      240 LOADNIL                          R33
-      241 SETTABLEKS                       R33 R32 K46 ["additionalAudioSearchInfo"]
-      243 SETTABLEKS                       R28 R32 K47 ["categories"]
-      245 GETTABLEKS                       R33 R7 K71 ["DEFAULT"]
-      247 GETTABLEKS                       R33 R33 K72 ["name"]
-      249 SETTABLEKS                       R33 R32 K48 ["categoryName"]
-      251 LOADK                            R33 K73 [""]
-      252 SETTABLEKS                       R33 R32 K49 ["searchTerm"]
-      254 SETTABLEKS                       R27 R32 K50 ["sorts"]
-      256 LOADN                            R33 1
-      257 SETTABLEKS                       R33 R32 K51 ["sortIndex"]
-      259 NEWTABLE                         R33 0 0
-      261 SETTABLEKS                       R33 R32 K52 ["groups"]
-      263 LOADN                            R33 0
-      264 SETTABLEKS                       R33 R32 K53 ["groupIndex"]
-      266 LOADN                            R33 1
-      267 SETTABLEKS                       R33 R32 K54 ["targetPage"]
-      269 LOADN                            R33 0
-      270 SETTABLEKS                       R33 R32 K55 ["currentPage"]
-      272 LOADN                            R33 1
-      273 SETTABLEKS                       R33 R32 K56 ["selectedBackgroundIndex"]
-      275 LOADN                            R33 0
-      276 SETTABLEKS                       R33 R32 K57 ["hoveredBackgroundIndex"]
-      278 GETTABLEKS                       R33 R9 K74 ["InitLoad"]
-      280 SETTABLEKS                       R33 R32 K58 ["requestReason"]
-      282 LOADK                            R33 K73 [""]
-      283 SETTABLEKS                       R33 R32 K59 ["lastLoggedSearchId"]
-      285 GETTABLEKS                       R33 R10 K75 ["AutocorrectResponseState"]
-      287 GETTABLEKS                       R33 R33 K76 ["NoCorrection"]
-      289 SETTABLEKS                       R33 R32 K60 ["correctionState"]
-      291 LOADK                            R33 K73 [""]
-      292 SETTABLEKS                       R33 R32 K61 ["correctedQuery"]
-      294 LOADK                            R33 K73 [""]
-      295 SETTABLEKS                       R33 R32 K62 ["userQuery"]
-      297 LOADNIL                          R33
-      298 SETTABLEKS                       R33 R32 K63 ["creatorTargetIds"]
-      300 SETTABLEKS                       R30 R32 K64 ["excludeGroupCreations"]
-      302 LOADNIL                          R33
-      303 SETTABLEKS                       R33 R32 K65 ["groupTargetIds"]
-      305 LOADNIL                          R33
-      306 SETTABLEKS                       R33 R32 K66 ["includeUnverifiedCreators"]
-      308 LOADNIL                          R33
-      309 SETTABLEKS                       R33 R32 K67 ["uiSortIntent"]
-      311 LOADNIL                          R33
-      312 SETTABLEKS                       R33 R32 K68 ["sortDirection"]
-      314 MOVE                             R34 R22
-      315 CALL                             R34 0 1
-      316 JUMPIFNOT                        R34 ; [+3]
-      317 GETTABLEKS                       R33 R11 K77 ["Grid"]
-      319 JUMP                             ; [+1]
-      320 LOADNIL                          R33
-      321 SETTABLEKS                       R33 R32 K69 ["layoutMode"]
-      323 NEWTABLE                         R33 8 0
-      325 GETTABLEKS                       R34 R16 K72 ["name"]
-      327 DUPCLOSURE                       R35 K78 [PROTO_1]
-      328 CAPTURE                          VAL R3
-      329 SETTABLE                         R35 R33 R34
-      330 GETTABLEKS                       R34 R15 K72 ["name"]
-      332 DUPCLOSURE                       R35 K79 [PROTO_2]
-      333 CAPTURE                          VAL R5
-      334 CAPTURE                          VAL R29
-      335 CAPTURE                          VAL R3
-      336 CAPTURE                          VAL R9
-      337 CAPTURE                          VAL R0
-      338 SETTABLE                         R35 R33 R34
-      339 GETTABLEKS                       R34 R17 K72 ["name"]
-      341 DUPCLOSURE                       R35 K80 [PROTO_3]
-      342 CAPTURE                          VAL R5
-      343 CAPTURE                          VAL R3
-      344 SETTABLE                         R35 R33 R34
-      345 GETTABLEKS                       R34 R18 K72 ["name"]
-      347 MOVE                             R36 R22
-      348 CALL                             R36 0 1
-      349 JUMPIFNOT                        R36 ; [+3]
-      350 DUPCLOSURE                       R35 K81 [PROTO_4]
-      351 CAPTURE                          VAL R3
-      352 JUMP                             ; [+1]
-      353 LOADNIL                          R35
-      354 SETTABLE                         R35 R33 R34
-      355 GETTABLEKS                       R34 R14 K72 ["name"]
-      357 DUPCLOSURE                       R35 K82 [PROTO_5]
-      358 CAPTURE                          VAL R5
-      359 CAPTURE                          VAL R3
-      360 CAPTURE                          VAL R6
-      361 SETTABLE                         R35 R33 R34
-      362 GETTABLEKS                       R34 R19 K72 ["name"]
-      364 DUPCLOSURE                       R35 K83 [PROTO_6]
-      365 CAPTURE                          VAL R3
-      366 SETTABLE                         R35 R33 R34
-      367 GETTABLEKS                       R34 R20 K72 ["name"]
-      369 DUPCLOSURE                       R35 K84 [PROTO_7]
-      370 CAPTURE                          VAL R3
-      371 SETTABLE                         R35 R33 R34
-      372 CALL                             R31 2 -1
-      373 RETURN                           R31 -1
+      236 DUPTABLE                         R32 K74 [{["audioSearchInfo"] = , ["additionalAudioSearchInfo"] = , ["categories"], ["categoryName"], ["searchTerm"] = "", ["sorts"], ["sortIndex"] = 1, ["groups"], ["groupIndex"] = 0, ["targetPage"] = 1, ["currentPage"] = 0, ["selectedBackgroundIndex"] = 1, ["hoveredBackgroundIndex"] = 0, ["requestReason"], ["lastLoggedSearchId"] = "", ["correctionState"], ["correctedQuery"] = "", ["userQuery"] = "", ["creatorTargetIds"] = , ["excludeGroupCreations"], ["groupTargetIds"] = , ["includeUnverifiedCreators"] = , ["uiSortIntent"] = , ["sortDirection"] = , ["layoutMode"]}]
+      237 SETTABLEKS                       R28 R32 K48 ["categories"]
+      239 GETTABLEKS                       R33 R7 K75 ["DEFAULT"]
+      241 GETTABLEKS                       R33 R33 K76 ["name"]
+      243 SETTABLEKS                       R33 R32 K49 ["categoryName"]
+      245 SETTABLEKS                       R27 R32 K52 ["sorts"]
+      247 NEWTABLE                         R33 0 0
+      249 SETTABLEKS                       R33 R32 K55 ["groups"]
+      251 GETTABLEKS                       R33 R9 K77 ["InitLoad"]
+      253 SETTABLEKS                       R33 R32 K62 ["requestReason"]
+      255 GETTABLEKS                       R33 R10 K78 ["AutocorrectResponseState"]
+      257 GETTABLEKS                       R33 R33 K79 ["NoCorrection"]
+      259 SETTABLEKS                       R33 R32 K64 ["correctionState"]
+      261 SETTABLEKS                       R30 R32 K68 ["excludeGroupCreations"]
+      263 MOVE                             R34 R22
+      264 CALL                             R34 0 1
+      265 JUMPIFNOT                        R34 ; [+3]
+      266 GETTABLEKS                       R33 R11 K80 ["Grid"]
+      268 JUMP                             ; [+1]
+      269 LOADNIL                          R33
+      270 SETTABLEKS                       R33 R32 K73 ["layoutMode"]
+      272 NEWTABLE                         R33 8 0
+      274 GETTABLEKS                       R34 R16 K76 ["name"]
+      276 DUPCLOSURE                       R35 K81 [PROTO_1]
+      277 CAPTURE                          VAL R3
+      278 SETTABLE                         R35 R33 R34
+      279 GETTABLEKS                       R34 R15 K76 ["name"]
+      281 DUPCLOSURE                       R35 K82 [PROTO_2]
+      282 CAPTURE                          VAL R5
+      283 CAPTURE                          VAL R29
+      284 CAPTURE                          VAL R3
+      285 CAPTURE                          VAL R9
+      286 CAPTURE                          VAL R0
+      287 SETTABLE                         R35 R33 R34
+      288 GETTABLEKS                       R34 R17 K76 ["name"]
+      290 DUPCLOSURE                       R35 K83 [PROTO_3]
+      291 CAPTURE                          VAL R5
+      292 CAPTURE                          VAL R3
+      293 SETTABLE                         R35 R33 R34
+      294 GETTABLEKS                       R34 R18 K76 ["name"]
+      296 MOVE                             R36 R22
+      297 CALL                             R36 0 1
+      298 JUMPIFNOT                        R36 ; [+3]
+      299 DUPCLOSURE                       R35 K84 [PROTO_4]
+      300 CAPTURE                          VAL R3
+      301 JUMP                             ; [+1]
+      302 LOADNIL                          R35
+      303 SETTABLE                         R35 R33 R34
+      304 GETTABLEKS                       R34 R14 K76 ["name"]
+      306 DUPCLOSURE                       R35 K85 [PROTO_5]
+      307 CAPTURE                          VAL R5
+      308 CAPTURE                          VAL R3
+      309 CAPTURE                          VAL R6
+      310 SETTABLE                         R35 R33 R34
+      311 GETTABLEKS                       R34 R19 K76 ["name"]
+      313 DUPCLOSURE                       R35 K86 [PROTO_6]
+      314 CAPTURE                          VAL R3
+      315 SETTABLE                         R35 R33 R34
+      316 GETTABLEKS                       R34 R20 K76 ["name"]
+      318 DUPCLOSURE                       R35 K87 [PROTO_7]
+      319 CAPTURE                          VAL R3
+      320 SETTABLE                         R35 R33 R34
+      321 CALL                             R31 2 -1
+      322 RETURN                           R31 -1

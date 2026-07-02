@@ -13,359 +13,339 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 LOADK                            R2 K1 ["Frame"]
-        4 DUPTABLE                         R3 K5 [{"Name", "Size", "BackgroundColor3"}]
-        5 LOADK                            R4 K6 ["ErrorPrompt"]
-        6 SETTABLEKS                       R4 R3 K2 ["Name"]
-        8 GETIMPORT                        R4 K9 [UDim2.new]
-       10 LOADN                            R5 1
-       11 LOADN                            R6 0
-       12 LOADN                            R7 1
-       13 LOADN                            R8 0
-       14 CALL                             R4 4 1
-       15 SETTABLEKS                       R4 R3 K3 ["Size"]
-       17 GETUPVAL                         R4 1
-       18 GETTABLEKS                       R4 R4 K10 ["Theme"]
-       20 GETIMPORT                        R6 K14 [Enum.StudioStyleGuideColor.MainBackground]
-       22 GETIMPORT                        R7 K17 [Enum.StudioStyleGuideModifier.Default]
-       24 NAMECALL                         R4 R4 K18 ["GetColor"]
-       26 CALL                             R4 3 1
-       27 SETTABLEKS                       R4 R3 K4 ["BackgroundColor3"]
-       29 DUPTABLE                         R4 K26 [{"errorIcon", "errorTitle", "requirementsHeader", "requirements", "bottomDescription", "infoLink", "buttons"}]
-       30 GETUPVAL                         R5 0
-       31 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       33 LOADK                            R6 K27 ["ImageLabel"]
-       34 DUPTABLE                         R7 K31 [{"BackgroundTransparency", "Image", "Size", "Position"}]
-       35 LOADN                            R8 1
-       36 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-       38 GETUPVAL                         R8 2
-       39 GETTABLEKS                       R8 R8 K32 ["ERROR_ICON"]
-       41 SETTABLEKS                       R8 R7 K29 ["Image"]
-       43 GETIMPORT                        R8 K9 [UDim2.new]
-       45 LOADN                            R9 0
-       46 LOADN                            R10 22
-       47 LOADN                            R11 0
-       48 LOADN                            R12 22
-       49 CALL                             R8 4 1
-       50 SETTABLEKS                       R8 R7 K3 ["Size"]
-       52 GETIMPORT                        R8 K9 [UDim2.new]
-       54 LOADN                            R9 0
-       55 LOADN                            R10 30
-       56 LOADN                            R11 0
-       57 LOADN                            R12 20
-       58 CALL                             R8 4 1
-       59 SETTABLEKS                       R8 R7 K30 ["Position"]
-       61 CALL                             R5 2 1
-       62 SETTABLEKS                       R5 R4 K19 ["errorIcon"]
-       64 GETUPVAL                         R5 0
-       65 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       67 LOADK                            R6 K33 ["TextLabel"]
-       68 DUPTABLE                         R7 K41 [{"BackgroundTransparency", "Font", "Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "ClipsDescendants", "TextColor3"}]
-       69 LOADN                            R8 1
-       70 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-       72 GETUPVAL                         R8 3
-       73 GETTABLEKS                       R8 R8 K42 ["FONT"]
-       75 SETTABLEKS                       R8 R7 K34 ["Font"]
+        4 DUPTABLE                         R3 K6 [{["Name"] = "ErrorPrompt", ["Size"], ["BackgroundColor3"]}]
+        5 GETIMPORT                        R4 K9 [UDim2.new]
+        7 LOADN                            R5 1
+        8 LOADN                            R6 0
+        9 LOADN                            R7 1
+       10 LOADN                            R8 0
+       11 CALL                             R4 4 1
+       12 SETTABLEKS                       R4 R3 K4 ["Size"]
+       14 GETUPVAL                         R4 1
+       15 GETTABLEKS                       R4 R4 K10 ["Theme"]
+       17 GETIMPORT                        R6 K14 [Enum.StudioStyleGuideColor.MainBackground]
+       19 GETIMPORT                        R7 K17 [Enum.StudioStyleGuideModifier.Default]
+       21 NAMECALL                         R4 R4 K18 ["GetColor"]
+       23 CALL                             R4 3 1
+       24 SETTABLEKS                       R4 R3 K5 ["BackgroundColor3"]
+       26 DUPTABLE                         R4 K26 [{"errorIcon", "errorTitle", "requirementsHeader", "requirements", "bottomDescription", "infoLink", "buttons"}]
+       27 GETUPVAL                         R5 0
+       28 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       30 LOADK                            R6 K27 ["ImageLabel"]
+       31 DUPTABLE                         R7 K32 [{["BackgroundTransparency"] = 1, ["Image"], ["Size"], ["Position"]}]
+       32 GETUPVAL                         R8 2
+       33 GETTABLEKS                       R8 R8 K33 ["ERROR_ICON"]
+       35 SETTABLEKS                       R8 R7 K30 ["Image"]
+       37 GETIMPORT                        R8 K9 [UDim2.new]
+       39 LOADN                            R9 0
+       40 LOADN                            R10 22
+       41 LOADN                            R11 0
+       42 LOADN                            R12 22
+       43 CALL                             R8 4 1
+       44 SETTABLEKS                       R8 R7 K4 ["Size"]
+       46 GETIMPORT                        R8 K9 [UDim2.new]
+       48 LOADN                            R9 0
+       49 LOADN                            R10 30
+       50 LOADN                            R11 0
+       51 LOADN                            R12 20
+       52 CALL                             R8 4 1
+       53 SETTABLEKS                       R8 R7 K31 ["Position"]
+       55 CALL                             R5 2 1
+       56 SETTABLEKS                       R5 R4 K19 ["errorIcon"]
+       58 GETUPVAL                         R5 0
+       59 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       61 LOADK                            R6 K34 ["TextLabel"]
+       62 DUPTABLE                         R7 K43 [{["BackgroundTransparency"] = 1, ["Font"], ["Position"], ["Size"], ["Text"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["ClipsDescendants"] = True, ["TextColor3"]}]
+       63 GETUPVAL                         R8 3
+       64 GETTABLEKS                       R8 R8 K44 ["FONT"]
+       66 SETTABLEKS                       R8 R7 K35 ["Font"]
+       68 GETIMPORT                        R8 K9 [UDim2.new]
+       70 LOADN                            R9 0
+       71 LOADN                            R10 62
+       72 LOADN                            R11 0
+       73 LOADN                            R12 20
+       74 CALL                             R8 4 1
+       75 SETTABLEKS                       R8 R7 K31 ["Position"]
        77 GETIMPORT                        R8 K9 [UDim2.new]
-       79 LOADN                            R9 0
-       80 LOADN                            R10 62
+       79 LOADN                            R9 1
+       80 LOADN                            R10 -62
        81 LOADN                            R11 0
        82 LOADN                            R12 20
        83 CALL                             R8 4 1
-       84 SETTABLEKS                       R8 R7 K30 ["Position"]
-       86 GETIMPORT                        R8 K9 [UDim2.new]
-       88 LOADN                            R9 1
-       89 LOADN                            R10 194
-       90 LOADN                            R11 0
-       91 LOADN                            R12 20
-       92 CALL                             R8 4 1
-       93 SETTABLEKS                       R8 R7 K3 ["Size"]
-       95 GETTABLEKS                       R8 R0 K43 ["props"]
-       97 GETTABLEKS                       R8 R8 K44 ["name"]
-       99 SETTABLEKS                       R8 R7 K35 ["Text"]
-      101 GETUPVAL                         R8 3
-      102 GETTABLEKS                       R8 R8 K45 ["FONT_SIZE_TITLE"]
-      104 SETTABLEKS                       R8 R7 K36 ["TextSize"]
-      106 GETIMPORT                        R8 K47 [Enum.TextXAlignment.Left]
-      108 SETTABLEKS                       R8 R7 K37 ["TextXAlignment"]
-      110 GETIMPORT                        R8 K49 [Enum.TextYAlignment.Center]
-      112 SETTABLEKS                       R8 R7 K38 ["TextYAlignment"]
-      114 LOADB                            R8 1
-      115 SETTABLEKS                       R8 R7 K39 ["ClipsDescendants"]
-      117 GETUPVAL                         R8 1
-      118 GETTABLEKS                       R8 R8 K10 ["Theme"]
-      120 GETIMPORT                        R10 K51 [Enum.StudioStyleGuideColor.MainText]
-      122 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
-      124 NAMECALL                         R8 R8 K18 ["GetColor"]
-      126 CALL                             R8 3 1
-      127 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
-      129 CALL                             R5 2 1
-      130 SETTABLEKS                       R5 R4 K20 ["errorTitle"]
-      132 GETUPVAL                         R5 0
-      133 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      135 LOADK                            R6 K33 ["TextLabel"]
-      136 DUPTABLE                         R7 K52 [{"BackgroundTransparency", "Font", "Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3"}]
-      137 LOADN                            R8 1
-      138 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-      140 GETUPVAL                         R8 3
-      141 GETTABLEKS                       R8 R8 K53 ["FONT_BOLD"]
-      143 SETTABLEKS                       R8 R7 K34 ["Font"]
-      145 GETIMPORT                        R8 K9 [UDim2.new]
-      147 LOADN                            R9 0
-      148 LOADN                            R10 62
-      149 LOADN                            R11 0
-      150 LOADN                            R12 60
-      151 CALL                             R8 4 1
-      152 SETTABLEKS                       R8 R7 K30 ["Position"]
-      154 GETIMPORT                        R8 K9 [UDim2.new]
-      156 LOADN                            R9 0
-      157 LOADN                            R10 46
-      158 LOADN                            R11 0
-      159 GETUPVAL                         R12 3
-      160 GETTABLEKS                       R12 R12 K54 ["FONT_SIZE_MEDIUM"]
-      162 CALL                             R8 4 1
-      163 SETTABLEKS                       R8 R7 K3 ["Size"]
-      165 LOADK                            R8 K55 ["The file failed to meet the import requirement(s):"]
-      166 SETTABLEKS                       R8 R7 K35 ["Text"]
-      168 GETUPVAL                         R8 3
-      169 GETTABLEKS                       R8 R8 K54 ["FONT_SIZE_MEDIUM"]
-      171 SETTABLEKS                       R8 R7 K36 ["TextSize"]
-      173 GETIMPORT                        R8 K47 [Enum.TextXAlignment.Left]
-      175 SETTABLEKS                       R8 R7 K37 ["TextXAlignment"]
-      177 GETIMPORT                        R8 K49 [Enum.TextYAlignment.Center]
-      179 SETTABLEKS                       R8 R7 K38 ["TextYAlignment"]
-      181 GETUPVAL                         R8 1
-      182 GETTABLEKS                       R8 R8 K10 ["Theme"]
-      184 GETIMPORT                        R10 K51 [Enum.StudioStyleGuideColor.MainText]
-      186 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
-      188 NAMECALL                         R8 R8 K18 ["GetColor"]
-      190 CALL                             R8 3 1
-      191 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
-      193 CALL                             R5 2 1
-      194 SETTABLEKS                       R5 R4 K21 ["requirementsHeader"]
-      196 GETUPVAL                         R5 0
-      197 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      199 LOADK                            R6 K33 ["TextLabel"]
-      200 DUPTABLE                         R7 K52 [{"BackgroundTransparency", "Font", "Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3"}]
-      201 LOADN                            R8 1
-      202 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-      204 GETUPVAL                         R8 3
-      205 GETTABLEKS                       R8 R8 K42 ["FONT"]
-      207 SETTABLEKS                       R8 R7 K34 ["Font"]
-      209 GETIMPORT                        R8 K9 [UDim2.new]
-      211 LOADN                            R9 0
-      212 LOADN                            R10 62
-      213 LOADN                            R11 0
-      214 LOADN                            R12 86
-      215 CALL                             R8 4 1
-      216 SETTABLEKS                       R8 R7 K30 ["Position"]
-      218 GETIMPORT                        R8 K9 [UDim2.new]
-      220 LOADN                            R9 0
-      221 LOADN                            R10 46
-      222 LOADN                            R11 0
-      223 GETUPVAL                         R12 3
-      224 GETTABLEKS                       R12 R12 K54 ["FONT_SIZE_MEDIUM"]
-      226 CALL                             R8 4 1
-      227 SETTABLEKS                       R8 R7 K3 ["Size"]
-      229 GETTABLEKS                       R8 R0 K43 ["props"]
-      231 GETTABLEKS                       R8 R8 K56 ["message"]
-      233 SETTABLEKS                       R8 R7 K35 ["Text"]
-      235 GETUPVAL                         R8 3
-      236 GETTABLEKS                       R8 R8 K54 ["FONT_SIZE_MEDIUM"]
-      238 SETTABLEKS                       R8 R7 K36 ["TextSize"]
-      240 GETIMPORT                        R8 K47 [Enum.TextXAlignment.Left]
-      242 SETTABLEKS                       R8 R7 K37 ["TextXAlignment"]
-      244 GETIMPORT                        R8 K58 [Enum.TextYAlignment.Top]
-      246 SETTABLEKS                       R8 R7 K38 ["TextYAlignment"]
-      248 GETUPVAL                         R8 1
-      249 GETTABLEKS                       R8 R8 K10 ["Theme"]
-      251 GETIMPORT                        R10 K51 [Enum.StudioStyleGuideColor.MainText]
-      253 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
-      255 NAMECALL                         R8 R8 K18 ["GetColor"]
-      257 CALL                             R8 3 1
-      258 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
-      260 CALL                             R5 2 1
-      261 SETTABLEKS                       R5 R4 K22 ["requirements"]
-      263 GETUPVAL                         R5 0
-      264 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      266 LOADK                            R6 K33 ["TextLabel"]
-      267 DUPTABLE                         R7 K52 [{"BackgroundTransparency", "Font", "Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "TextColor3"}]
-      268 LOADN                            R8 1
-      269 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-      271 GETUPVAL                         R8 3
-      272 GETTABLEKS                       R8 R8 K42 ["FONT"]
-      274 SETTABLEKS                       R8 R7 K34 ["Font"]
-      276 GETIMPORT                        R8 K9 [UDim2.new]
-      278 LOADN                            R9 0
-      279 LOADN                            R10 62
-      280 LOADN                            R11 1
-      281 LOADN                            R12 107
-      282 CALL                             R8 4 1
-      283 SETTABLEKS                       R8 R7 K30 ["Position"]
-      285 GETIMPORT                        R8 K9 [UDim2.new]
-      287 LOADN                            R9 0
-      288 LOADN                            R10 210
-      289 LOADN                            R11 0
-      290 GETUPVAL                         R12 3
-      291 GETTABLEKS                       R12 R12 K54 ["FONT_SIZE_MEDIUM"]
-      293 CALL                             R8 4 1
-      294 SETTABLEKS                       R8 R7 K3 ["Size"]
-      296 LOADK                            R8 K59 ["Please update the file and try again"]
-      297 SETTABLEKS                       R8 R7 K35 ["Text"]
-      299 GETUPVAL                         R8 3
-      300 GETTABLEKS                       R8 R8 K54 ["FONT_SIZE_MEDIUM"]
-      302 SETTABLEKS                       R8 R7 K36 ["TextSize"]
-      304 GETIMPORT                        R8 K47 [Enum.TextXAlignment.Left]
-      306 SETTABLEKS                       R8 R7 K37 ["TextXAlignment"]
-      308 GETIMPORT                        R8 K58 [Enum.TextYAlignment.Top]
-      310 SETTABLEKS                       R8 R7 K38 ["TextYAlignment"]
-      312 GETUPVAL                         R8 1
-      313 GETTABLEKS                       R8 R8 K10 ["Theme"]
-      315 GETIMPORT                        R10 K51 [Enum.StudioStyleGuideColor.MainText]
-      317 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
-      319 NAMECALL                         R8 R8 K18 ["GetColor"]
-      321 CALL                             R8 3 1
-      322 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
-      324 CALL                             R5 2 1
-      325 SETTABLEKS                       R5 R4 K23 ["bottomDescription"]
-      327 GETUPVAL                         R5 0
-      328 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      330 LOADK                            R6 K60 ["TextButton"]
-      331 NEWTABLE                         R7 16 0
-      333 LOADN                            R8 1
-      334 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-      336 GETUPVAL                         R8 3
-      337 GETTABLEKS                       R8 R8 K42 ["FONT"]
-      339 SETTABLEKS                       R8 R7 K34 ["Font"]
-      341 GETIMPORT                        R8 K9 [UDim2.new]
-      343 LOADN                            R9 0
-      344 LOADN                            R10 62
-      345 LOADN                            R11 1
-      346 LOADN                            R12 133
-      347 CALL                             R8 4 1
-      348 SETTABLEKS                       R8 R7 K30 ["Position"]
-      350 GETIMPORT                        R8 K9 [UDim2.new]
-      352 LOADN                            R9 0
-      353 LOADN                            R10 210
+       84 SETTABLEKS                       R8 R7 K4 ["Size"]
+       86 GETTABLEKS                       R8 R0 K45 ["props"]
+       88 GETTABLEKS                       R8 R8 K46 ["name"]
+       90 SETTABLEKS                       R8 R7 K36 ["Text"]
+       92 GETUPVAL                         R8 3
+       93 GETTABLEKS                       R8 R8 K47 ["FONT_SIZE_TITLE"]
+       95 SETTABLEKS                       R8 R7 K37 ["TextSize"]
+       97 GETIMPORT                        R8 K49 [Enum.TextXAlignment.Left]
+       99 SETTABLEKS                       R8 R7 K38 ["TextXAlignment"]
+      101 GETIMPORT                        R8 K51 [Enum.TextYAlignment.Center]
+      103 SETTABLEKS                       R8 R7 K39 ["TextYAlignment"]
+      105 GETUPVAL                         R8 1
+      106 GETTABLEKS                       R8 R8 K10 ["Theme"]
+      108 GETIMPORT                        R10 K53 [Enum.StudioStyleGuideColor.MainText]
+      110 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
+      112 NAMECALL                         R8 R8 K18 ["GetColor"]
+      114 CALL                             R8 3 1
+      115 SETTABLEKS                       R8 R7 K42 ["TextColor3"]
+      117 CALL                             R5 2 1
+      118 SETTABLEKS                       R5 R4 K20 ["errorTitle"]
+      120 GETUPVAL                         R5 0
+      121 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      123 LOADK                            R6 K34 ["TextLabel"]
+      124 DUPTABLE                         R7 K55 [{["BackgroundTransparency"] = 1, ["Font"], ["Position"], ["Size"], ["Text"] = "The file failed to meet the import requirement(s):", ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextColor3"]}]
+      125 GETUPVAL                         R8 3
+      126 GETTABLEKS                       R8 R8 K56 ["FONT_BOLD"]
+      128 SETTABLEKS                       R8 R7 K35 ["Font"]
+      130 GETIMPORT                        R8 K9 [UDim2.new]
+      132 LOADN                            R9 0
+      133 LOADN                            R10 62
+      134 LOADN                            R11 0
+      135 LOADN                            R12 60
+      136 CALL                             R8 4 1
+      137 SETTABLEKS                       R8 R7 K31 ["Position"]
+      139 GETIMPORT                        R8 K9 [UDim2.new]
+      141 LOADN                            R9 0
+      142 LOADN                            R10 302
+      143 LOADN                            R11 0
+      144 GETUPVAL                         R12 3
+      145 GETTABLEKS                       R12 R12 K57 ["FONT_SIZE_MEDIUM"]
+      147 CALL                             R8 4 1
+      148 SETTABLEKS                       R8 R7 K4 ["Size"]
+      150 GETUPVAL                         R8 3
+      151 GETTABLEKS                       R8 R8 K57 ["FONT_SIZE_MEDIUM"]
+      153 SETTABLEKS                       R8 R7 K37 ["TextSize"]
+      155 GETIMPORT                        R8 K49 [Enum.TextXAlignment.Left]
+      157 SETTABLEKS                       R8 R7 K38 ["TextXAlignment"]
+      159 GETIMPORT                        R8 K51 [Enum.TextYAlignment.Center]
+      161 SETTABLEKS                       R8 R7 K39 ["TextYAlignment"]
+      163 GETUPVAL                         R8 1
+      164 GETTABLEKS                       R8 R8 K10 ["Theme"]
+      166 GETIMPORT                        R10 K53 [Enum.StudioStyleGuideColor.MainText]
+      168 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
+      170 NAMECALL                         R8 R8 K18 ["GetColor"]
+      172 CALL                             R8 3 1
+      173 SETTABLEKS                       R8 R7 K42 ["TextColor3"]
+      175 CALL                             R5 2 1
+      176 SETTABLEKS                       R5 R4 K21 ["requirementsHeader"]
+      178 GETUPVAL                         R5 0
+      179 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      181 LOADK                            R6 K34 ["TextLabel"]
+      182 DUPTABLE                         R7 K58 [{["BackgroundTransparency"] = 1, ["Font"], ["Position"], ["Size"], ["Text"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextColor3"]}]
+      183 GETUPVAL                         R8 3
+      184 GETTABLEKS                       R8 R8 K44 ["FONT"]
+      186 SETTABLEKS                       R8 R7 K35 ["Font"]
+      188 GETIMPORT                        R8 K9 [UDim2.new]
+      190 LOADN                            R9 0
+      191 LOADN                            R10 62
+      192 LOADN                            R11 0
+      193 LOADN                            R12 86
+      194 CALL                             R8 4 1
+      195 SETTABLEKS                       R8 R7 K31 ["Position"]
+      197 GETIMPORT                        R8 K9 [UDim2.new]
+      199 LOADN                            R9 0
+      200 LOADN                            R10 302
+      201 LOADN                            R11 0
+      202 GETUPVAL                         R12 3
+      203 GETTABLEKS                       R12 R12 K57 ["FONT_SIZE_MEDIUM"]
+      205 CALL                             R8 4 1
+      206 SETTABLEKS                       R8 R7 K4 ["Size"]
+      208 GETTABLEKS                       R8 R0 K45 ["props"]
+      210 GETTABLEKS                       R8 R8 K59 ["message"]
+      212 SETTABLEKS                       R8 R7 K36 ["Text"]
+      214 GETUPVAL                         R8 3
+      215 GETTABLEKS                       R8 R8 K57 ["FONT_SIZE_MEDIUM"]
+      217 SETTABLEKS                       R8 R7 K37 ["TextSize"]
+      219 GETIMPORT                        R8 K49 [Enum.TextXAlignment.Left]
+      221 SETTABLEKS                       R8 R7 K38 ["TextXAlignment"]
+      223 GETIMPORT                        R8 K61 [Enum.TextYAlignment.Top]
+      225 SETTABLEKS                       R8 R7 K39 ["TextYAlignment"]
+      227 GETUPVAL                         R8 1
+      228 GETTABLEKS                       R8 R8 K10 ["Theme"]
+      230 GETIMPORT                        R10 K53 [Enum.StudioStyleGuideColor.MainText]
+      232 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
+      234 NAMECALL                         R8 R8 K18 ["GetColor"]
+      236 CALL                             R8 3 1
+      237 SETTABLEKS                       R8 R7 K42 ["TextColor3"]
+      239 CALL                             R5 2 1
+      240 SETTABLEKS                       R5 R4 K22 ["requirements"]
+      242 GETUPVAL                         R5 0
+      243 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      245 LOADK                            R6 K34 ["TextLabel"]
+      246 DUPTABLE                         R7 K63 [{["BackgroundTransparency"] = 1, ["Font"], ["Position"], ["Size"], ["Text"] = "Please update the file and try again", ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextColor3"]}]
+      247 GETUPVAL                         R8 3
+      248 GETTABLEKS                       R8 R8 K44 ["FONT"]
+      250 SETTABLEKS                       R8 R7 K35 ["Font"]
+      252 GETIMPORT                        R8 K9 [UDim2.new]
+      254 LOADN                            R9 0
+      255 LOADN                            R10 62
+      256 LOADN                            R11 1
+      257 LOADN                            R12 -149
+      258 CALL                             R8 4 1
+      259 SETTABLEKS                       R8 R7 K31 ["Position"]
+      261 GETIMPORT                        R8 K9 [UDim2.new]
+      263 LOADN                            R9 0
+      264 LOADN                            R10 210
+      265 LOADN                            R11 0
+      266 GETUPVAL                         R12 3
+      267 GETTABLEKS                       R12 R12 K57 ["FONT_SIZE_MEDIUM"]
+      269 CALL                             R8 4 1
+      270 SETTABLEKS                       R8 R7 K4 ["Size"]
+      272 GETUPVAL                         R8 3
+      273 GETTABLEKS                       R8 R8 K57 ["FONT_SIZE_MEDIUM"]
+      275 SETTABLEKS                       R8 R7 K37 ["TextSize"]
+      277 GETIMPORT                        R8 K49 [Enum.TextXAlignment.Left]
+      279 SETTABLEKS                       R8 R7 K38 ["TextXAlignment"]
+      281 GETIMPORT                        R8 K61 [Enum.TextYAlignment.Top]
+      283 SETTABLEKS                       R8 R7 K39 ["TextYAlignment"]
+      285 GETUPVAL                         R8 1
+      286 GETTABLEKS                       R8 R8 K10 ["Theme"]
+      288 GETIMPORT                        R10 K53 [Enum.StudioStyleGuideColor.MainText]
+      290 GETIMPORT                        R11 K17 [Enum.StudioStyleGuideModifier.Default]
+      292 NAMECALL                         R8 R8 K18 ["GetColor"]
+      294 CALL                             R8 3 1
+      295 SETTABLEKS                       R8 R7 K42 ["TextColor3"]
+      297 CALL                             R5 2 1
+      298 SETTABLEKS                       R5 R4 K23 ["bottomDescription"]
+      300 GETUPVAL                         R5 0
+      301 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      303 LOADK                            R6 K64 ["TextButton"]
+      304 NEWTABLE                         R7 16 0
+      306 LOADN                            R8 1
+      307 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
+      309 GETUPVAL                         R8 3
+      310 GETTABLEKS                       R8 R8 K44 ["FONT"]
+      312 SETTABLEKS                       R8 R7 K35 ["Font"]
+      314 GETIMPORT                        R8 K9 [UDim2.new]
+      316 LOADN                            R9 0
+      317 LOADN                            R10 62
+      318 LOADN                            R11 1
+      319 LOADN                            R12 -123
+      320 CALL                             R8 4 1
+      321 SETTABLEKS                       R8 R7 K31 ["Position"]
+      323 GETIMPORT                        R8 K9 [UDim2.new]
+      325 LOADN                            R9 0
+      326 LOADN                            R10 210
+      327 LOADN                            R11 0
+      328 GETUPVAL                         R12 3
+      329 GETTABLEKS                       R12 R12 K57 ["FONT_SIZE_MEDIUM"]
+      331 CALL                             R8 4 1
+      332 SETTABLEKS                       R8 R7 K4 ["Size"]
+      334 LOADK                            R8 K65 ["What are import requirements?"]
+      335 SETTABLEKS                       R8 R7 K36 ["Text"]
+      337 GETUPVAL                         R8 3
+      338 GETTABLEKS                       R8 R8 K57 ["FONT_SIZE_MEDIUM"]
+      340 SETTABLEKS                       R8 R7 K37 ["TextSize"]
+      342 GETIMPORT                        R8 K49 [Enum.TextXAlignment.Left]
+      344 SETTABLEKS                       R8 R7 K38 ["TextXAlignment"]
+      346 GETIMPORT                        R8 K61 [Enum.TextYAlignment.Top]
+      348 SETTABLEKS                       R8 R7 K39 ["TextYAlignment"]
+      350 GETUPVAL                         R8 4
+      351 DUPTABLE                         R9 K68 [{"Light", "Dark"}]
+      352 GETIMPORT                        R10 K71 [Color3.fromRGB]
       354 LOADN                            R11 0
-      355 GETUPVAL                         R12 3
-      356 GETTABLEKS                       R12 R12 K54 ["FONT_SIZE_MEDIUM"]
-      358 CALL                             R8 4 1
-      359 SETTABLEKS                       R8 R7 K3 ["Size"]
-      361 LOADK                            R8 K61 ["What are import requirements?"]
-      362 SETTABLEKS                       R8 R7 K35 ["Text"]
-      364 GETUPVAL                         R8 3
-      365 GETTABLEKS                       R8 R8 K54 ["FONT_SIZE_MEDIUM"]
-      367 SETTABLEKS                       R8 R7 K36 ["TextSize"]
-      369 GETIMPORT                        R8 K47 [Enum.TextXAlignment.Left]
-      371 SETTABLEKS                       R8 R7 K37 ["TextXAlignment"]
-      373 GETIMPORT                        R8 K58 [Enum.TextYAlignment.Top]
-      375 SETTABLEKS                       R8 R7 K38 ["TextYAlignment"]
-      377 GETUPVAL                         R8 4
-      378 DUPTABLE                         R9 K64 [{"Light", "Dark"}]
-      379 GETIMPORT                        R10 K67 [Color3.fromRGB]
-      381 LOADN                            R11 0
-      382 LOADN                            R12 162
-      383 LOADN                            R13 255
-      384 CALL                             R10 3 1
-      385 SETTABLEKS                       R10 R9 K62 ["Light"]
-      387 GETIMPORT                        R10 K67 [Color3.fromRGB]
-      389 LOADN                            R11 255
-      390 LOADN                            R12 255
-      391 LOADN                            R13 255
-      392 CALL                             R10 3 1
-      393 SETTABLEKS                       R10 R9 K63 ["Dark"]
-      395 CALL                             R8 1 1
-      396 SETTABLEKS                       R8 R7 K40 ["TextColor3"]
-      398 GETUPVAL                         R8 0
-      399 GETTABLEKS                       R8 R8 K68 ["Event"]
-      401 GETTABLEKS                       R8 R8 K69 ["MouseButton1Click"]
-      403 DUPCLOSURE                       R9 K70 [PROTO_0]
-      404 CAPTURE                          UPVAL U5
-      405 CAPTURE                          UPVAL U6
-      406 CAPTURE                          UPVAL U3
-      407 SETTABLE                         R9 R7 R8
-      408 CALL                             R5 2 1
-      409 SETTABLEKS                       R5 R4 K24 ["infoLink"]
-      411 GETUPVAL                         R5 0
-      412 GETTABLEKS                       R5 R5 K0 ["createElement"]
-      414 LOADK                            R6 K1 ["Frame"]
-      415 DUPTABLE                         R7 K71 [{"BackgroundTransparency", "Position", "Size"}]
-      416 LOADN                            R8 1
-      417 SETTABLEKS                       R8 R7 K28 ["BackgroundTransparency"]
-      419 GETIMPORT                        R8 K9 [UDim2.new]
-      421 LOADN                            R9 0
-      422 LOADN                            R10 0
-      423 LOADN                            R11 1
-      424 LOADN                            R12 192
-      425 CALL                             R8 4 1
-      426 SETTABLEKS                       R8 R7 K30 ["Position"]
-      428 GETIMPORT                        R8 K9 [UDim2.new]
-      430 LOADN                            R9 1
-      431 LOADN                            R10 0
-      432 LOADN                            R11 0
-      433 LOADN                            R12 34
-      434 CALL                             R8 4 1
-      435 SETTABLEKS                       R8 R7 K3 ["Size"]
-      437 DUPTABLE                         R8 K75 [{"buttonsListLayout", "cancelButton", "retryButton"}]
-      438 GETUPVAL                         R9 0
-      439 GETTABLEKS                       R9 R9 K0 ["createElement"]
-      441 LOADK                            R10 K76 ["UIListLayout"]
-      442 DUPTABLE                         R11 K81 [{"Padding", "FillDirection", "HorizontalAlignment", "SortOrder"}]
-      443 GETIMPORT                        R12 K83 [UDim.new]
-      445 LOADN                            R13 0
-      446 LOADN                            R14 21
-      447 CALL                             R12 2 1
-      448 SETTABLEKS                       R12 R11 K77 ["Padding"]
-      450 GETIMPORT                        R12 K85 [Enum.FillDirection.Horizontal]
-      452 SETTABLEKS                       R12 R11 K78 ["FillDirection"]
-      454 GETIMPORT                        R12 K86 [Enum.HorizontalAlignment.Center]
-      456 SETTABLEKS                       R12 R11 K79 ["HorizontalAlignment"]
-      458 GETIMPORT                        R12 K88 [Enum.SortOrder.LayoutOrder]
-      460 SETTABLEKS                       R12 R11 K80 ["SortOrder"]
-      462 CALL                             R9 2 1
-      463 SETTABLEKS                       R9 R8 K72 ["buttonsListLayout"]
-      465 GETUPVAL                         R9 0
-      466 GETTABLEKS                       R9 R9 K0 ["createElement"]
-      468 GETUPVAL                         R10 7
-      469 NEWTABLE                         R11 4 0
-      471 LOADK                            R12 K89 ["CancelButton"]
-      472 SETTABLEKS                       R12 R11 K44 ["name"]
-      474 LOADK                            R12 K90 ["Cancel"]
-      475 SETTABLEKS                       R12 R11 K91 ["labelText"]
-      477 LOADN                            R12 0
-      478 SETTABLEKS                       R12 R11 K92 ["layoutOrder"]
-      480 GETUPVAL                         R12 0
-      481 GETTABLEKS                       R12 R12 K68 ["Event"]
-      483 GETTABLEKS                       R12 R12 K69 ["MouseButton1Click"]
-      485 GETTABLEKS                       R13 R0 K43 ["props"]
-      487 GETTABLEKS                       R13 R13 K93 ["doClose"]
-      489 SETTABLE                         R13 R11 R12
-      490 CALL                             R9 2 1
-      491 SETTABLEKS                       R9 R8 K73 ["cancelButton"]
-      493 GETUPVAL                         R9 0
-      494 GETTABLEKS                       R9 R9 K0 ["createElement"]
-      496 GETUPVAL                         R10 7
-      497 NEWTABLE                         R11 8 0
-      499 LOADK                            R12 K94 ["RetryButton"]
-      500 SETTABLEKS                       R12 R11 K44 ["name"]
-      502 LOADK                            R12 K95 ["Try Again"]
-      503 SETTABLEKS                       R12 R11 K91 ["labelText"]
-      505 LOADN                            R12 1
-      506 SETTABLEKS                       R12 R11 K92 ["layoutOrder"]
-      508 LOADB                            R12 1
-      509 SETTABLEKS                       R12 R11 K96 ["isMain"]
-      511 GETUPVAL                         R12 0
-      512 GETTABLEKS                       R12 R12 K68 ["Event"]
-      514 GETTABLEKS                       R12 R12 K69 ["MouseButton1Click"]
-      516 GETTABLEKS                       R13 R0 K43 ["props"]
-      518 GETTABLEKS                       R13 R13 K97 ["doRetry"]
-      520 SETTABLE                         R13 R11 R12
-      521 CALL                             R9 2 1
-      522 SETTABLEKS                       R9 R8 K74 ["retryButton"]
-      524 CALL                             R5 3 1
-      525 SETTABLEKS                       R5 R4 K25 ["buttons"]
-      527 CALL                             R1 3 -1
-      528 RETURN                           R1 -1
+      355 LOADN                            R12 162
+      356 LOADN                            R13 255
+      357 CALL                             R10 3 1
+      358 SETTABLEKS                       R10 R9 K66 ["Light"]
+      360 GETIMPORT                        R10 K71 [Color3.fromRGB]
+      362 LOADN                            R11 255
+      363 LOADN                            R12 255
+      364 LOADN                            R13 255
+      365 CALL                             R10 3 1
+      366 SETTABLEKS                       R10 R9 K67 ["Dark"]
+      368 CALL                             R8 1 1
+      369 SETTABLEKS                       R8 R7 K42 ["TextColor3"]
+      371 GETUPVAL                         R8 0
+      372 GETTABLEKS                       R8 R8 K72 ["Event"]
+      374 GETTABLEKS                       R8 R8 K73 ["MouseButton1Click"]
+      376 DUPCLOSURE                       R9 K74 [PROTO_0]
+      377 CAPTURE                          UPVAL U5
+      378 CAPTURE                          UPVAL U6
+      379 CAPTURE                          UPVAL U3
+      380 SETTABLE                         R9 R7 R8
+      381 CALL                             R5 2 1
+      382 SETTABLEKS                       R5 R4 K24 ["infoLink"]
+      384 GETUPVAL                         R5 0
+      385 GETTABLEKS                       R5 R5 K0 ["createElement"]
+      387 LOADK                            R6 K1 ["Frame"]
+      388 DUPTABLE                         R7 K75 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"]}]
+      389 GETIMPORT                        R8 K9 [UDim2.new]
+      391 LOADN                            R9 0
+      392 LOADN                            R10 0
+      393 LOADN                            R11 1
+      394 LOADN                            R12 -64
+      395 CALL                             R8 4 1
+      396 SETTABLEKS                       R8 R7 K31 ["Position"]
+      398 GETIMPORT                        R8 K9 [UDim2.new]
+      400 LOADN                            R9 1
+      401 LOADN                            R10 0
+      402 LOADN                            R11 0
+      403 LOADN                            R12 34
+      404 CALL                             R8 4 1
+      405 SETTABLEKS                       R8 R7 K4 ["Size"]
+      407 DUPTABLE                         R8 K79 [{"buttonsListLayout", "cancelButton", "retryButton"}]
+      408 GETUPVAL                         R9 0
+      409 GETTABLEKS                       R9 R9 K0 ["createElement"]
+      411 LOADK                            R10 K80 ["UIListLayout"]
+      412 DUPTABLE                         R11 K85 [{"Padding", "FillDirection", "HorizontalAlignment", "SortOrder"}]
+      413 GETIMPORT                        R12 K87 [UDim.new]
+      415 LOADN                            R13 0
+      416 LOADN                            R14 21
+      417 CALL                             R12 2 1
+      418 SETTABLEKS                       R12 R11 K81 ["Padding"]
+      420 GETIMPORT                        R12 K89 [Enum.FillDirection.Horizontal]
+      422 SETTABLEKS                       R12 R11 K82 ["FillDirection"]
+      424 GETIMPORT                        R12 K90 [Enum.HorizontalAlignment.Center]
+      426 SETTABLEKS                       R12 R11 K83 ["HorizontalAlignment"]
+      428 GETIMPORT                        R12 K92 [Enum.SortOrder.LayoutOrder]
+      430 SETTABLEKS                       R12 R11 K84 ["SortOrder"]
+      432 CALL                             R9 2 1
+      433 SETTABLEKS                       R9 R8 K76 ["buttonsListLayout"]
+      435 GETUPVAL                         R9 0
+      436 GETTABLEKS                       R9 R9 K0 ["createElement"]
+      438 GETUPVAL                         R10 7
+      439 NEWTABLE                         R11 4 0
+      441 LOADK                            R12 K93 ["CancelButton"]
+      442 SETTABLEKS                       R12 R11 K46 ["name"]
+      444 LOADK                            R12 K94 ["Cancel"]
+      445 SETTABLEKS                       R12 R11 K95 ["labelText"]
+      447 LOADN                            R12 0
+      448 SETTABLEKS                       R12 R11 K96 ["layoutOrder"]
+      450 GETUPVAL                         R12 0
+      451 GETTABLEKS                       R12 R12 K72 ["Event"]
+      453 GETTABLEKS                       R12 R12 K73 ["MouseButton1Click"]
+      455 GETTABLEKS                       R13 R0 K45 ["props"]
+      457 GETTABLEKS                       R13 R13 K97 ["doClose"]
+      459 SETTABLE                         R13 R11 R12
+      460 CALL                             R9 2 1
+      461 SETTABLEKS                       R9 R8 K77 ["cancelButton"]
+      463 GETUPVAL                         R9 0
+      464 GETTABLEKS                       R9 R9 K0 ["createElement"]
+      466 GETUPVAL                         R10 7
+      467 NEWTABLE                         R11 8 0
+      469 LOADK                            R12 K98 ["RetryButton"]
+      470 SETTABLEKS                       R12 R11 K46 ["name"]
+      472 LOADK                            R12 K99 ["Try Again"]
+      473 SETTABLEKS                       R12 R11 K95 ["labelText"]
+      475 LOADN                            R12 1
+      476 SETTABLEKS                       R12 R11 K96 ["layoutOrder"]
+      478 LOADB                            R12 1
+      479 SETTABLEKS                       R12 R11 K100 ["isMain"]
+      481 GETUPVAL                         R12 0
+      482 GETTABLEKS                       R12 R12 K72 ["Event"]
+      484 GETTABLEKS                       R12 R12 K73 ["MouseButton1Click"]
+      486 GETTABLEKS                       R13 R0 K45 ["props"]
+      488 GETTABLEKS                       R13 R13 K101 ["doRetry"]
+      490 SETTABLE                         R13 R11 R12
+      491 CALL                             R9 2 1
+      492 SETTABLEKS                       R9 R8 K78 ["retryButton"]
+      494 CALL                             R5 3 1
+      495 SETTABLEKS                       R5 R4 K25 ["buttons"]
+      497 CALL                             R1 3 -1
+      498 RETURN                           R1 -1
 
 PROTO_2:
         0 MOVE                             R1 R0

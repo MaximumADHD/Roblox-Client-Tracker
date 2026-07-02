@@ -173,160 +173,106 @@ MAIN:
       247 NEWTABLE                         R13 0 2
       249 MOVE                             R14 R3
       250 LOADK                            R15 K81 ["::UIPadding"]
-      251 DUPTABLE                         R16 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      252 LOADK                            R17 K11 ["$GlobalSpace100"]
-      253 SETTABLEKS                       R17 R16 K82 ["PaddingLeft"]
-      255 LOADK                            R17 K11 ["$GlobalSpace100"]
-      256 SETTABLEKS                       R17 R16 K83 ["PaddingRight"]
-      258 LOADK                            R17 K38 ["$GlobalSpace50"]
-      259 SETTABLEKS                       R17 R16 K84 ["PaddingTop"]
-      261 LOADK                            R17 K38 ["$GlobalSpace50"]
-      262 SETTABLEKS                       R17 R16 K85 ["PaddingBottom"]
-      264 CALL                             R14 2 1
-      265 MOVE                             R15 R3
-      266 LOADK                            R16 K87 ["> #Content"]
-      267 NEWTABLE                         R17 0 0
-      269 NEWTABLE                         R18 0 1
-      271 MOVE                             R19 R3
-      272 LOADK                            R20 K88 [">> TextLabel"]
-      273 DUPTABLE                         R21 K90 [{"TextSize"}]
-      274 LOADK                            R22 K70 ["$FontSize25"]
-      275 SETTABLEKS                       R22 R21 K89 ["TextSize"]
-      277 CALL                             R19 2 -1
-      278 SETLIST                          R18 R19 -1 [1]
-      280 CALL                             R15 3 -1
-      281 SETLIST                          R13 R14 -1 [1]
-      283 CALL                             R10 3 -1
-      284 SETLIST                          R9 R10 -1 [1]
-      286 CALL                             R6 3 1
-      287 MOVE                             R7 R3
-      288 LOADK                            R8 K91 [".Role-TextControl"]
-      289 NEWTABLE                         R9 0 0
-      291 NEWTABLE                         R10 0 1
-      293 MOVE                             R11 R3
-      294 LOADK                            R12 K92 ["::UIListLayout"]
-      295 DUPTABLE                         R13 K96 [{"FillDirection", "Padding", "SortOrder"}]
-      296 GETIMPORT                        R14 K99 [Enum.FillDirection.Vertical]
-      298 SETTABLEKS                       R14 R13 K93 ["FillDirection"]
-      300 LOADK                            R14 K47 ["$GlobalSpace25"]
-      301 SETTABLEKS                       R14 R13 K94 ["Padding"]
-      303 GETIMPORT                        R14 K101 [Enum.SortOrder.LayoutOrder]
-      305 SETTABLEKS                       R14 R13 K95 ["SortOrder"]
-      307 CALL                             R11 2 -1
-      308 SETLIST                          R10 R11 -1 [1]
-      310 CALL                             R7 3 1
-      311 MOVE                             R8 R3
-      312 LOADK                            R9 K102 [".Component-Button"]
-      313 NEWTABLE                         R10 0 0
-      315 NEWTABLE                         R11 0 1
-      317 MOVE                             R12 R3
-      318 LOADK                            R13 K103 ["> #StateLayer"]
-      319 NEWTABLE                         R14 0 0
-      321 NEWTABLE                         R15 0 4
-      323 MOVE                             R16 R3
-      324 LOADK                            R17 K92 ["::UIListLayout"]
-      325 DUPTABLE                         R18 K104 [{"Padding"}]
-      326 LOADK                            R19 K38 ["$GlobalSpace50"]
-      327 SETTABLEKS                       R19 R18 K94 ["Padding"]
-      329 CALL                             R16 2 1
-      330 MOVE                             R17 R3
-      331 LOADK                            R18 K105 [".Small ::UIPadding"]
-      332 DUPTABLE                         R19 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      333 LOADK                            R20 K11 ["$GlobalSpace100"]
-      334 SETTABLEKS                       R20 R19 K82 ["PaddingLeft"]
-      336 LOADK                            R20 K11 ["$GlobalSpace100"]
-      337 SETTABLEKS                       R20 R19 K83 ["PaddingRight"]
-      339 LOADK                            R20 K38 ["$GlobalSpace50"]
-      340 SETTABLEKS                       R20 R19 K84 ["PaddingTop"]
-      342 LOADK                            R20 K38 ["$GlobalSpace50"]
-      343 SETTABLEKS                       R20 R19 K85 ["PaddingBottom"]
-      345 CALL                             R17 2 1
-      346 MOVE                             R18 R3
-      347 LOADK                            R19 K106 [".Large ::UIPadding"]
-      348 DUPTABLE                         R20 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      349 LOADK                            R21 K58 ["$GlobalSpace200"]
-      350 SETTABLEKS                       R21 R20 K82 ["PaddingLeft"]
-      352 LOADK                            R21 K58 ["$GlobalSpace200"]
-      353 SETTABLEKS                       R21 R20 K83 ["PaddingRight"]
-      355 LOADK                            R21 K44 ["$GlobalSpace150"]
-      356 SETTABLEKS                       R21 R20 K84 ["PaddingTop"]
-      358 LOADK                            R21 K44 ["$GlobalSpace150"]
-      359 SETTABLEKS                       R21 R20 K85 ["PaddingBottom"]
-      361 CALL                             R18 2 1
-      362 MOVE                             R19 R3
-      363 LOADK                            R20 K107 [".Medium ::UIPadding"]
-      364 DUPTABLE                         R21 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      365 LOADK                            R22 K44 ["$GlobalSpace150"]
-      366 SETTABLEKS                       R22 R21 K82 ["PaddingLeft"]
-      368 LOADK                            R22 K44 ["$GlobalSpace150"]
-      369 SETTABLEKS                       R22 R21 K83 ["PaddingRight"]
-      371 LOADK                            R22 K11 ["$GlobalSpace100"]
-      372 SETTABLEKS                       R22 R21 K84 ["PaddingTop"]
-      374 LOADK                            R22 K11 ["$GlobalSpace100"]
-      375 SETTABLEKS                       R22 R21 K85 ["PaddingBottom"]
-      377 CALL                             R19 2 -1
-      378 SETLIST                          R15 R16 -1 [1]
-      380 CALL                             R12 3 -1
-      381 SETLIST                          R11 R12 -1 [1]
-      383 CALL                             R8 3 1
-      384 MOVE                             R9 R3
-      385 LOADK                            R10 K108 [".Component-RibbonButton"]
-      386 NEWTABLE                         R11 0 0
-      388 NEWTABLE                         R12 0 2
-      390 MOVE                             R13 R3
-      391 LOADK                            R14 K109 [".Large"]
-      392 NEWTABLE                         R15 0 0
-      394 NEWTABLE                         R16 0 1
-      396 MOVE                             R17 R3
-      397 LOADK                            R18 K110 ["> #RibbonTool"]
-      398 NEWTABLE                         R19 0 0
-      400 NEWTABLE                         R20 0 1
-      402 MOVE                             R21 R3
-      403 LOADK                            R22 K81 ["::UIPadding"]
-      404 DUPTABLE                         R23 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      405 LOADK                            R24 K11 ["$GlobalSpace100"]
-      406 SETTABLEKS                       R24 R23 K82 ["PaddingLeft"]
-      408 LOADK                            R24 K11 ["$GlobalSpace100"]
-      409 SETTABLEKS                       R24 R23 K83 ["PaddingRight"]
-      411 LOADK                            R24 K11 ["$GlobalSpace100"]
-      412 SETTABLEKS                       R24 R23 K84 ["PaddingTop"]
-      414 LOADK                            R24 K11 ["$GlobalSpace100"]
-      415 SETTABLEKS                       R24 R23 K85 ["PaddingBottom"]
-      417 CALL                             R21 2 -1
-      418 SETLIST                          R20 R21 -1 [1]
-      420 CALL                             R17 3 -1
-      421 SETLIST                          R16 R17 -1 [1]
-      423 CALL                             R13 3 1
-      424 MOVE                             R14 R3
-      425 LOADK                            R15 K111 [".Small"]
-      426 NEWTABLE                         R16 0 0
-      428 NEWTABLE                         R17 0 1
-      430 MOVE                             R18 R3
-      431 LOADK                            R19 K110 ["> #RibbonTool"]
-      432 NEWTABLE                         R20 0 0
-      434 NEWTABLE                         R21 0 1
-      436 MOVE                             R22 R3
-      437 LOADK                            R23 K81 ["::UIPadding"]
-      438 DUPTABLE                         R24 K86 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-      439 LOADK                            R25 K38 ["$GlobalSpace50"]
-      440 SETTABLEKS                       R25 R24 K82 ["PaddingLeft"]
-      442 LOADK                            R25 K38 ["$GlobalSpace50"]
-      443 SETTABLEKS                       R25 R24 K83 ["PaddingRight"]
-      445 LOADK                            R25 K38 ["$GlobalSpace50"]
-      446 SETTABLEKS                       R25 R24 K84 ["PaddingTop"]
-      448 LOADK                            R25 K38 ["$GlobalSpace50"]
-      449 SETTABLEKS                       R25 R24 K85 ["PaddingBottom"]
-      451 CALL                             R22 2 -1
-      452 SETLIST                          R21 R22 -1 [1]
-      454 CALL                             R18 3 -1
-      455 SETLIST                          R17 R18 -1 [1]
-      457 CALL                             R14 3 -1
-      458 SETLIST                          R12 R13 -1 [1]
-      460 CALL                             R9 3 -1
-      461 SETLIST                          R5 R6 -1 [1]
-      463 MOVE                             R6 R2
-      464 LOADK                            R7 K112 ["DensityDefault"]
-      465 MOVE                             R8 R5
-      466 MOVE                             R9 R4
-      467 CALL                             R6 3 1
-      468 RETURN                           R6 1
+      251 DUPTABLE                         R16 K86 [{["PaddingLeft"] = "$GlobalSpace100", ["PaddingRight"] = "$GlobalSpace100", ["PaddingTop"] = "$GlobalSpace50", ["PaddingBottom"] = "$GlobalSpace50"}]
+      252 CALL                             R14 2 1
+      253 MOVE                             R15 R3
+      254 LOADK                            R16 K87 ["> #Content"]
+      255 NEWTABLE                         R17 0 0
+      257 NEWTABLE                         R18 0 1
+      259 MOVE                             R19 R3
+      260 LOADK                            R20 K88 [">> TextLabel"]
+      261 DUPTABLE                         R21 K90 [{["TextSize"] = "$FontSize25"}]
+      262 CALL                             R19 2 -1
+      263 SETLIST                          R18 R19 -1 [1]
+      265 CALL                             R15 3 -1
+      266 SETLIST                          R13 R14 -1 [1]
+      268 CALL                             R10 3 -1
+      269 SETLIST                          R9 R10 -1 [1]
+      271 CALL                             R6 3 1
+      272 MOVE                             R7 R3
+      273 LOADK                            R8 K91 [".Role-TextControl"]
+      274 NEWTABLE                         R9 0 0
+      276 NEWTABLE                         R10 0 1
+      278 MOVE                             R11 R3
+      279 LOADK                            R12 K92 ["::UIListLayout"]
+      280 DUPTABLE                         R13 K96 [{["FillDirection"], ["Padding"] = "$GlobalSpace25", ["SortOrder"]}]
+      281 GETIMPORT                        R14 K99 [Enum.FillDirection.Vertical]
+      283 SETTABLEKS                       R14 R13 K93 ["FillDirection"]
+      285 GETIMPORT                        R14 K101 [Enum.SortOrder.LayoutOrder]
+      287 SETTABLEKS                       R14 R13 K95 ["SortOrder"]
+      289 CALL                             R11 2 -1
+      290 SETLIST                          R10 R11 -1 [1]
+      292 CALL                             R7 3 1
+      293 MOVE                             R8 R3
+      294 LOADK                            R9 K102 [".Component-Button"]
+      295 NEWTABLE                         R10 0 0
+      297 NEWTABLE                         R11 0 1
+      299 MOVE                             R12 R3
+      300 LOADK                            R13 K103 ["> #StateLayer"]
+      301 NEWTABLE                         R14 0 0
+      303 NEWTABLE                         R15 0 4
+      305 MOVE                             R16 R3
+      306 LOADK                            R17 K92 ["::UIListLayout"]
+      307 DUPTABLE                         R18 K104 [{["Padding"] = "$GlobalSpace50"}]
+      308 CALL                             R16 2 1
+      309 MOVE                             R17 R3
+      310 LOADK                            R18 K105 [".Small ::UIPadding"]
+      311 DUPTABLE                         R19 K86 [{["PaddingLeft"] = "$GlobalSpace100", ["PaddingRight"] = "$GlobalSpace100", ["PaddingTop"] = "$GlobalSpace50", ["PaddingBottom"] = "$GlobalSpace50"}]
+      312 CALL                             R17 2 1
+      313 MOVE                             R18 R3
+      314 LOADK                            R19 K106 [".Large ::UIPadding"]
+      315 DUPTABLE                         R20 K107 [{["PaddingLeft"] = "$GlobalSpace200", ["PaddingRight"] = "$GlobalSpace200", ["PaddingTop"] = "$GlobalSpace150", ["PaddingBottom"] = "$GlobalSpace150"}]
+      316 CALL                             R18 2 1
+      317 MOVE                             R19 R3
+      318 LOADK                            R20 K108 [".Medium ::UIPadding"]
+      319 DUPTABLE                         R21 K109 [{["PaddingLeft"] = "$GlobalSpace150", ["PaddingRight"] = "$GlobalSpace150", ["PaddingTop"] = "$GlobalSpace100", ["PaddingBottom"] = "$GlobalSpace100"}]
+      320 CALL                             R19 2 -1
+      321 SETLIST                          R15 R16 -1 [1]
+      323 CALL                             R12 3 -1
+      324 SETLIST                          R11 R12 -1 [1]
+      326 CALL                             R8 3 1
+      327 MOVE                             R9 R3
+      328 LOADK                            R10 K110 [".Component-RibbonButton"]
+      329 NEWTABLE                         R11 0 0
+      331 NEWTABLE                         R12 0 2
+      333 MOVE                             R13 R3
+      334 LOADK                            R14 K111 [".Large"]
+      335 NEWTABLE                         R15 0 0
+      337 NEWTABLE                         R16 0 1
+      339 MOVE                             R17 R3
+      340 LOADK                            R18 K112 ["> #RibbonTool"]
+      341 NEWTABLE                         R19 0 0
+      343 NEWTABLE                         R20 0 1
+      345 MOVE                             R21 R3
+      346 LOADK                            R22 K81 ["::UIPadding"]
+      347 DUPTABLE                         R23 K113 [{["PaddingLeft"] = "$GlobalSpace100", ["PaddingRight"] = "$GlobalSpace100", ["PaddingTop"] = "$GlobalSpace100", ["PaddingBottom"] = "$GlobalSpace100"}]
+      348 CALL                             R21 2 -1
+      349 SETLIST                          R20 R21 -1 [1]
+      351 CALL                             R17 3 -1
+      352 SETLIST                          R16 R17 -1 [1]
+      354 CALL                             R13 3 1
+      355 MOVE                             R14 R3
+      356 LOADK                            R15 K114 [".Small"]
+      357 NEWTABLE                         R16 0 0
+      359 NEWTABLE                         R17 0 1
+      361 MOVE                             R18 R3
+      362 LOADK                            R19 K112 ["> #RibbonTool"]
+      363 NEWTABLE                         R20 0 0
+      365 NEWTABLE                         R21 0 1
+      367 MOVE                             R22 R3
+      368 LOADK                            R23 K81 ["::UIPadding"]
+      369 DUPTABLE                         R24 K115 [{["PaddingLeft"] = "$GlobalSpace50", ["PaddingRight"] = "$GlobalSpace50", ["PaddingTop"] = "$GlobalSpace50", ["PaddingBottom"] = "$GlobalSpace50"}]
+      370 CALL                             R22 2 -1
+      371 SETLIST                          R21 R22 -1 [1]
+      373 CALL                             R18 3 -1
+      374 SETLIST                          R17 R18 -1 [1]
+      376 CALL                             R14 3 -1
+      377 SETLIST                          R12 R13 -1 [1]
+      379 CALL                             R9 3 -1
+      380 SETLIST                          R5 R6 -1 [1]
+      382 MOVE                             R6 R2
+      383 LOADK                            R7 K116 ["DensityDefault"]
+      384 MOVE                             R8 R5
+      385 MOVE                             R9 R4
+      386 CALL                             R6 3 1
+      387 RETURN                           R6 1

@@ -3,7 +3,7 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["Terrain"]
         3 LENGTH                           R4 R0
         4 LOADN                            R2 1
-        5 LOADN                            R3 255
+        5 LOADN                            R3 -1
         6 FORNPREP                         R2
         7 GETTABLE                         R5 R0 R4
         8 LOADK                            R8 K1 ["BasePart"]

@@ -92,44 +92,36 @@ PROTO_6:
         1 GETUPVAL                         R6 0
         2 GETTABLEKS                       R6 R6 K1 ["createElement"]
         4 LOADK                            R7 K2 ["SphereHandleAdornment"]
-        5 DUPTABLE                         R8 K8 [{"Adornee", "Radius", "Color3", "CFrame", "ZIndex"}]
+        5 DUPTABLE                         R8 K9 [{["Adornee"], ["Radius"], ["Color3"], ["CFrame"], ["ZIndex"] = 0}]
         6 GETUPVAL                         R9 1
-        7 GETTABLEKS                       R9 R9 K9 ["Terrain"]
+        7 GETTABLEKS                       R9 R9 K10 ["Terrain"]
         9 SETTABLEKS                       R9 R8 K3 ["Adornee"]
        11 SETTABLEKS                       R5 R8 K4 ["Radius"]
        13 GETUPVAL                         R9 2
        14 SETTABLEKS                       R9 R8 K5 ["Color3"]
-       16 GETIMPORT                        R9 K11 [CFrame.new]
+       16 GETIMPORT                        R9 K12 [CFrame.new]
        18 MOVE                             R10 R3
        19 CALL                             R9 1 1
        20 SETTABLEKS                       R9 R8 K6 ["CFrame"]
-       22 LOADN                            R9 0
-       23 SETTABLEKS                       R9 R8 K7 ["ZIndex"]
-       25 CALL                             R6 2 1
-       26 SETTABLEKS                       R6 R0 K12 ["SphereNormal"]
-       28 GETUPVAL                         R6 0
-       29 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       31 LOADK                            R7 K2 ["SphereHandleAdornment"]
-       32 DUPTABLE                         R8 K15 [{"Adornee", "Radius", "AlwaysOnTop", "Transparency", "Color3", "CFrame", "ZIndex"}]
-       33 GETUPVAL                         R9 1
-       34 GETTABLEKS                       R9 R9 K9 ["Terrain"]
-       36 SETTABLEKS                       R9 R8 K3 ["Adornee"]
-       38 SETTABLEKS                       R5 R8 K4 ["Radius"]
-       40 LOADB                            R9 1
-       41 SETTABLEKS                       R9 R8 K13 ["AlwaysOnTop"]
-       43 LOADK                            R9 K16 [0.3]
-       44 SETTABLEKS                       R9 R8 K14 ["Transparency"]
-       46 GETUPVAL                         R9 2
-       47 SETTABLEKS                       R9 R8 K5 ["Color3"]
-       49 GETIMPORT                        R9 K11 [CFrame.new]
-       51 MOVE                             R10 R3
-       52 CALL                             R9 1 1
-       53 SETTABLEKS                       R9 R8 K6 ["CFrame"]
-       55 LOADN                            R9 0
-       56 SETTABLEKS                       R9 R8 K7 ["ZIndex"]
-       58 CALL                             R6 2 1
-       59 SETTABLEKS                       R6 R0 K17 ["SphereOnTop"]
-       61 RETURN                           R0 0
+       22 CALL                             R6 2 1
+       23 SETTABLEKS                       R6 R0 K13 ["SphereNormal"]
+       25 GETUPVAL                         R6 0
+       26 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       28 LOADK                            R7 K2 ["SphereHandleAdornment"]
+       29 DUPTABLE                         R8 K18 [{["Adornee"], ["Radius"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.3, ["Color3"], ["CFrame"], ["ZIndex"] = 0}]
+       30 GETUPVAL                         R9 1
+       31 GETTABLEKS                       R9 R9 K10 ["Terrain"]
+       33 SETTABLEKS                       R9 R8 K3 ["Adornee"]
+       35 SETTABLEKS                       R5 R8 K4 ["Radius"]
+       37 GETUPVAL                         R9 2
+       38 SETTABLEKS                       R9 R8 K5 ["Color3"]
+       40 GETIMPORT                        R9 K12 [CFrame.new]
+       42 MOVE                             R10 R3
+       43 CALL                             R9 1 1
+       44 SETTABLEKS                       R9 R8 K6 ["CFrame"]
+       46 CALL                             R6 2 1
+       47 SETTABLEKS                       R6 R0 K19 ["SphereOnTop"]
+       49 RETURN                           R0 0
 
 PROTO_7:
         0 MUL                              R7 R2 R4
@@ -159,7 +151,7 @@ PROTO_7:
        29 GETUPVAL                         R13 0
        30 GETTABLEKS                       R13 R13 K10 ["createElement"]
        32 LOADK                            R14 K11 ["CylinderHandleAdornment"]
-       33 DUPTABLE                         R15 K17 [{"Adornee", "Height", "Radius", "Color3", "CFrame", "ZIndex"}]
+       33 DUPTABLE                         R15 K17 [{["Adornee"], ["Height"], ["Radius"], ["Color3"], ["CFrame"], ["ZIndex"] = 1}]
        34 GETUPVAL                         R16 1
        35 GETTABLEKS                       R16 R16 K18 ["Terrain"]
        37 SETTABLEKS                       R16 R15 K12 ["Adornee"]
@@ -168,80 +160,68 @@ PROTO_7:
        43 GETUPVAL                         R16 2
        44 SETTABLEKS                       R16 R15 K15 ["Color3"]
        46 SETTABLEKS                       R11 R15 K6 ["CFrame"]
-       48 LOADN                            R16 1
-       49 SETTABLEKS                       R16 R15 K16 ["ZIndex"]
-       51 CALL                             R13 2 1
-       52 SETTABLEKS                       R13 R0 K19 ["MainLineNormal"]
-       54 GETUPVAL                         R13 0
-       55 GETTABLEKS                       R13 R13 K10 ["createElement"]
-       57 LOADK                            R14 K11 ["CylinderHandleAdornment"]
-       58 DUPTABLE                         R15 K22 [{"Adornee", "Height", "Radius", "AlwaysOnTop", "Transparency", "Color3", "CFrame", "ZIndex"}]
-       59 GETUPVAL                         R16 1
-       60 GETTABLEKS                       R16 R16 K18 ["Terrain"]
-       62 SETTABLEKS                       R16 R15 K12 ["Adornee"]
-       64 SETTABLEKS                       R6 R15 K13 ["Height"]
-       66 SETTABLEKS                       R12 R15 K14 ["Radius"]
-       68 LOADB                            R16 1
-       69 SETTABLEKS                       R16 R15 K20 ["AlwaysOnTop"]
-       71 LOADK                            R16 K23 [0.3]
-       72 SETTABLEKS                       R16 R15 K21 ["Transparency"]
-       74 GETUPVAL                         R16 2
-       75 SETTABLEKS                       R16 R15 K15 ["Color3"]
-       77 SETTABLEKS                       R11 R15 K6 ["CFrame"]
-       79 LOADN                            R16 1
-       80 SETTABLEKS                       R16 R15 K16 ["ZIndex"]
-       82 CALL                             R13 2 1
-       83 SETTABLEKS                       R13 R0 K24 ["MainLineOnTop"]
-       85 LOADK                            R14 K25 [0.03]
-       86 MUL                              R13 R14 R5
-       87 LOADK                            R15 K26 [0.1]
-       88 MUL                              R14 R15 R5
-       89 LOADK                            R16 K27 [0.0325]
-       90 MUL                              R15 R16 R5
-       91 GETIMPORT                        R16 K29 [CFrame.new]
-       93 LOADN                            R17 0
-       94 LOADN                            R18 0
-       95 MULK                             R21 R6 K3 [0.5]
-       96 ADD                              R20 R21 R14
-       97 SUB                              R19 R20 R15
-       98 CALL                             R16 3 1
-       99 GETUPVAL                         R17 0
-      100 GETTABLEKS                       R17 R17 K10 ["createElement"]
-      102 LOADK                            R18 K30 ["ConeHandleAdornment"]
-      103 DUPTABLE                         R19 K31 [{"Adornee", "Height", "Radius", "Color3", "ZIndex", "CFrame"}]
-      104 GETUPVAL                         R20 1
-      105 GETTABLEKS                       R20 R20 K18 ["Terrain"]
-      107 SETTABLEKS                       R20 R19 K12 ["Adornee"]
-      109 SETTABLEKS                       R14 R19 K13 ["Height"]
-      111 SETTABLEKS                       R13 R19 K14 ["Radius"]
-      113 GETUPVAL                         R20 2
-      114 SETTABLEKS                       R20 R19 K15 ["Color3"]
-      116 LOADN                            R20 1
-      117 SETTABLEKS                       R20 R19 K16 ["ZIndex"]
-      119 MUL                              R20 R11 R16
-      120 SETTABLEKS                       R20 R19 K6 ["CFrame"]
-      122 CALL                             R17 2 1
-      123 SETTABLEKS                       R17 R0 K32 ["Cone1"]
-      125 GETUPVAL                         R17 0
-      126 GETTABLEKS                       R17 R17 K10 ["createElement"]
-      128 LOADK                            R18 K30 ["ConeHandleAdornment"]
-      129 DUPTABLE                         R19 K31 [{"Adornee", "Height", "Radius", "Color3", "ZIndex", "CFrame"}]
-      130 GETUPVAL                         R20 1
-      131 GETTABLEKS                       R20 R20 K18 ["Terrain"]
-      133 SETTABLEKS                       R20 R19 K12 ["Adornee"]
-      135 SETTABLEKS                       R14 R19 K13 ["Height"]
-      137 SETTABLEKS                       R13 R19 K14 ["Radius"]
-      139 GETUPVAL                         R20 2
-      140 SETTABLEKS                       R20 R19 K15 ["Color3"]
-      142 LOADN                            R20 1
-      143 SETTABLEKS                       R20 R19 K16 ["ZIndex"]
-      145 GETUPVAL                         R22 3
-      146 MUL                              R21 R11 R22
-      147 MUL                              R20 R21 R16
-      148 SETTABLEKS                       R20 R19 K6 ["CFrame"]
-      150 CALL                             R17 2 1
-      151 SETTABLEKS                       R17 R0 K33 ["Cone2"]
-      153 RETURN                           R0 0
+       48 CALL                             R13 2 1
+       49 SETTABLEKS                       R13 R0 K19 ["MainLineNormal"]
+       51 GETUPVAL                         R13 0
+       52 GETTABLEKS                       R13 R13 K10 ["createElement"]
+       54 LOADK                            R14 K11 ["CylinderHandleAdornment"]
+       55 DUPTABLE                         R15 K24 [{["Adornee"], ["Height"], ["Radius"], ["AlwaysOnTop"] = True, ["Transparency"] = 0.3, ["Color3"], ["CFrame"], ["ZIndex"] = 1}]
+       56 GETUPVAL                         R16 1
+       57 GETTABLEKS                       R16 R16 K18 ["Terrain"]
+       59 SETTABLEKS                       R16 R15 K12 ["Adornee"]
+       61 SETTABLEKS                       R6 R15 K13 ["Height"]
+       63 SETTABLEKS                       R12 R15 K14 ["Radius"]
+       65 GETUPVAL                         R16 2
+       66 SETTABLEKS                       R16 R15 K15 ["Color3"]
+       68 SETTABLEKS                       R11 R15 K6 ["CFrame"]
+       70 CALL                             R13 2 1
+       71 SETTABLEKS                       R13 R0 K25 ["MainLineOnTop"]
+       73 LOADK                            R14 K26 [0.03]
+       74 MUL                              R13 R14 R5
+       75 LOADK                            R15 K27 [0.1]
+       76 MUL                              R14 R15 R5
+       77 LOADK                            R16 K28 [0.0325]
+       78 MUL                              R15 R16 R5
+       79 GETIMPORT                        R16 K30 [CFrame.new]
+       81 LOADN                            R17 0
+       82 LOADN                            R18 0
+       83 MULK                             R21 R6 K3 [0.5]
+       84 ADD                              R20 R21 R14
+       85 SUB                              R19 R20 R15
+       86 CALL                             R16 3 1
+       87 GETUPVAL                         R17 0
+       88 GETTABLEKS                       R17 R17 K10 ["createElement"]
+       90 LOADK                            R18 K31 ["ConeHandleAdornment"]
+       91 DUPTABLE                         R19 K32 [{["Adornee"], ["Height"], ["Radius"], ["Color3"], ["ZIndex"] = 1, ["CFrame"]}]
+       92 GETUPVAL                         R20 1
+       93 GETTABLEKS                       R20 R20 K18 ["Terrain"]
+       95 SETTABLEKS                       R20 R19 K12 ["Adornee"]
+       97 SETTABLEKS                       R14 R19 K13 ["Height"]
+       99 SETTABLEKS                       R13 R19 K14 ["Radius"]
+      101 GETUPVAL                         R20 2
+      102 SETTABLEKS                       R20 R19 K15 ["Color3"]
+      104 MUL                              R20 R11 R16
+      105 SETTABLEKS                       R20 R19 K6 ["CFrame"]
+      107 CALL                             R17 2 1
+      108 SETTABLEKS                       R17 R0 K33 ["Cone1"]
+      110 GETUPVAL                         R17 0
+      111 GETTABLEKS                       R17 R17 K10 ["createElement"]
+      113 LOADK                            R18 K31 ["ConeHandleAdornment"]
+      114 DUPTABLE                         R19 K32 [{["Adornee"], ["Height"], ["Radius"], ["Color3"], ["ZIndex"] = 1, ["CFrame"]}]
+      115 GETUPVAL                         R20 1
+      116 GETTABLEKS                       R20 R20 K18 ["Terrain"]
+      118 SETTABLEKS                       R20 R19 K12 ["Adornee"]
+      120 SETTABLEKS                       R14 R19 K13 ["Height"]
+      122 SETTABLEKS                       R13 R19 K14 ["Radius"]
+      124 GETUPVAL                         R20 2
+      125 SETTABLEKS                       R20 R19 K15 ["Color3"]
+      127 GETUPVAL                         R22 3
+      128 MUL                              R21 R11 R22
+      129 MUL                              R20 R21 R16
+      130 SETTABLEKS                       R20 R19 K6 ["CFrame"]
+      132 CALL                             R17 2 1
+      133 SETTABLEKS                       R17 R0 K34 ["Cone2"]
+      135 RETURN                           R0 0
 
 PROTO_8:
         0 LOADK                            R6 K0 [{1, 1, 1}]
@@ -262,76 +242,66 @@ PROTO_8:
        17 GETUPVAL                         R8 0
        18 GETTABLEKS                       R8 R8 K6 ["createElement"]
        20 LOADK                            R9 K7 ["BoxHandleAdornment"]
-       21 DUPTABLE                         R10 K13 [{"Adornee", "Size", "CFrame", "Transparency", "Color3", "ZIndex"}]
+       21 DUPTABLE                         R10 K15 [{["Adornee"], ["Size"], ["CFrame"], ["Transparency"] = 0.3, ["Color3"], ["ZIndex"] = 0}]
        22 GETUPVAL                         R11 1
-       23 GETTABLEKS                       R11 R11 K14 ["Terrain"]
+       23 GETTABLEKS                       R11 R11 K16 ["Terrain"]
        25 SETTABLEKS                       R11 R10 K8 ["Adornee"]
        27 SETTABLEKS                       R2 R10 K9 ["Size"]
        29 SETTABLEKS                       R1 R10 K3 ["CFrame"]
-       31 LOADK                            R11 K15 [0.3]
-       32 SETTABLEKS                       R11 R10 K10 ["Transparency"]
-       34 GETUPVAL                         R11 2
-       35 SETTABLEKS                       R11 R10 K11 ["Color3"]
-       37 LOADN                            R11 0
-       38 SETTABLEKS                       R11 R10 K12 ["ZIndex"]
-       40 CALL                             R8 2 1
-       41 SETTABLEKS                       R8 R0 K16 ["Plane"]
-       43 GETGLOBAL                        R8 K17 ["rotateVector"]
-       45 MOVE                             R9 R4
-       46 CALL                             R8 1 1
-       47 GETGLOBAL                        R9 K17 ["rotateVector"]
-       49 MOVE                             R10 R8
-       50 CALL                             R9 1 1
-       51 LOADN                            R12 1
-       52 LOADN                            R10 4
-       53 LOADN                            R11 1
-       54 FORNPREP                         R10
-       55 MUL                              R13 R9 R2
-       56 GETTABLEKS                       R13 R13 K18 ["Magnitude"]
-       58 LOADK                            R15 K19 [0.5]
-       59 MUL                              R16 R8 R2
-       60 GETTABLEKS                       R16 R16 K18 ["Magnitude"]
-       62 MUL                              R14 R15 R16
-       63 LOADK                            R16 K20 ["Line"]
-       64 MOVE                             R17 R12
-       65 CONCAT                           R15 R16 R17
-       66 GETUPVAL                         R16 0
-       67 GETTABLEKS                       R16 R16 K6 ["createElement"]
-       69 LOADK                            R17 K21 ["LineHandleAdornment"]
-       70 DUPTABLE                         R18 K25 [{"Adornee", "Length", "CFrame", "AlwaysOnTop", "Thickness", "Color3", "ZIndex"}]
-       71 GETUPVAL                         R19 1
-       72 GETTABLEKS                       R19 R19 K14 ["Terrain"]
-       74 SETTABLEKS                       R19 R18 K8 ["Adornee"]
-       76 SETTABLEKS                       R13 R18 K22 ["Length"]
-       78 GETIMPORT                        R21 K27 [CFrame.fromMatrix]
-       80 GETUPVAL                         R22 3
-       81 MOVE                             R23 R8
-       82 MOVE                             R24 R4
-       83 CALL                             R21 3 1
-       84 MUL                              R20 R1 R21
-       85 GETIMPORT                        R21 K5 [CFrame.new]
-       87 MOVE                             R22 R14
-       88 LOADN                            R23 0
-       89 LOADK                            R25 K19 [0.5]
-       90 MUL                              R24 R25 R13
-       91 CALL                             R21 3 1
-       92 MUL                              R19 R20 R21
-       93 SETTABLEKS                       R19 R18 K3 ["CFrame"]
-       95 LOADB                            R19 1
-       96 SETTABLEKS                       R19 R18 K23 ["AlwaysOnTop"]
-       98 LOADN                            R19 3
-       99 SETTABLEKS                       R19 R18 K24 ["Thickness"]
-      101 GETUPVAL                         R19 2
-      102 SETTABLEKS                       R19 R18 K11 ["Color3"]
-      104 LOADN                            R19 0
-      105 SETTABLEKS                       R19 R18 K12 ["ZIndex"]
-      107 CALL                             R16 2 1
-      108 SETTABLE                         R16 R0 R15
-      109 MOVE                             R15 R9
-      110 MINUS                            R9 R8
-      111 MOVE                             R8 R15
-      112 FORNLOOP                         R10
-      113 RETURN                           R0 0
+       31 GETUPVAL                         R11 2
+       32 SETTABLEKS                       R11 R10 K12 ["Color3"]
+       34 CALL                             R8 2 1
+       35 SETTABLEKS                       R8 R0 K17 ["Plane"]
+       37 GETGLOBAL                        R8 K18 ["rotateVector"]
+       39 MOVE                             R9 R4
+       40 CALL                             R8 1 1
+       41 GETGLOBAL                        R9 K18 ["rotateVector"]
+       43 MOVE                             R10 R8
+       44 CALL                             R9 1 1
+       45 LOADN                            R12 1
+       46 LOADN                            R10 4
+       47 LOADN                            R11 1
+       48 FORNPREP                         R10
+       49 MUL                              R13 R9 R2
+       50 GETTABLEKS                       R13 R13 K19 ["Magnitude"]
+       52 LOADK                            R15 K20 [0.5]
+       53 MUL                              R16 R8 R2
+       54 GETTABLEKS                       R16 R16 K19 ["Magnitude"]
+       56 MUL                              R14 R15 R16
+       57 LOADK                            R16 K21 ["Line"]
+       58 MOVE                             R17 R12
+       59 CONCAT                           R15 R16 R17
+       60 GETUPVAL                         R16 0
+       61 GETTABLEKS                       R16 R16 K6 ["createElement"]
+       63 LOADK                            R17 K22 ["LineHandleAdornment"]
+       64 DUPTABLE                         R18 K28 [{["Adornee"], ["Length"], ["CFrame"], ["AlwaysOnTop"] = True, ["Thickness"] = 3, ["Color3"], ["ZIndex"] = 0}]
+       65 GETUPVAL                         R19 1
+       66 GETTABLEKS                       R19 R19 K16 ["Terrain"]
+       68 SETTABLEKS                       R19 R18 K8 ["Adornee"]
+       70 SETTABLEKS                       R13 R18 K23 ["Length"]
+       72 GETIMPORT                        R21 K30 [CFrame.fromMatrix]
+       74 GETUPVAL                         R22 3
+       75 MOVE                             R23 R8
+       76 MOVE                             R24 R4
+       77 CALL                             R21 3 1
+       78 MUL                              R20 R1 R21
+       79 GETIMPORT                        R21 K5 [CFrame.new]
+       81 MOVE                             R22 R14
+       82 LOADN                            R23 0
+       83 LOADK                            R25 K20 [0.5]
+       84 MUL                              R24 R25 R13
+       85 CALL                             R21 3 1
+       86 MUL                              R19 R20 R21
+       87 SETTABLEKS                       R19 R18 K3 ["CFrame"]
+       89 GETUPVAL                         R19 2
+       90 SETTABLEKS                       R19 R18 K12 ["Color3"]
+       92 CALL                             R16 2 1
+       93 SETTABLE                         R16 R0 R15
+       94 MOVE                             R15 R9
+       95 MINUS                            R9 R8
+       96 MOVE                             R8 R15
+       97 FORNLOOP                         R10
+       98 RETURN                           R0 0
 
 PROTO_9:
         0 GETIMPORT                        R3 K1 [pairs]
@@ -351,28 +321,24 @@ PROTO_9:
        17 GETUPVAL                         R11 2
        18 GETTABLEKS                       R11 R11 K3 ["createElement"]
        20 LOADK                            R12 K4 ["LineHandleAdornment"]
-       21 DUPTABLE                         R13 K11 [{"Adornee", "ZIndex", "Thickness", "Length", "CFrame", "Color3"}]
+       21 DUPTABLE                         R13 K13 [{["Adornee"], ["ZIndex"] = 0, ["Thickness"] = 1, ["Length"], ["CFrame"], ["Color3"]}]
        22 GETUPVAL                         R14 3
-       23 GETTABLEKS                       R14 R14 K12 ["Terrain"]
+       23 GETTABLEKS                       R14 R14 K14 ["Terrain"]
        25 SETTABLEKS                       R14 R13 K5 ["Adornee"]
-       27 LOADN                            R14 0
-       28 SETTABLEKS                       R14 R13 K6 ["ZIndex"]
-       30 LOADN                            R14 1
-       31 SETTABLEKS                       R14 R13 K7 ["Thickness"]
-       33 SUB                              R14 R9 R8
-       34 GETTABLEKS                       R14 R14 K13 ["Magnitude"]
-       36 SETTABLEKS                       R14 R13 K8 ["Length"]
-       38 GETIMPORT                        R14 K15 [CFrame.lookAt]
-       40 MOVE                             R15 R8
-       41 MOVE                             R16 R9
-       42 CALL                             R14 2 1
-       43 SETTABLEKS                       R14 R13 K9 ["CFrame"]
-       45 GETUPVAL                         R14 4
-       46 SETTABLEKS                       R14 R13 K10 ["Color3"]
-       48 CALL                             R11 2 1
-       49 SETTABLE                         R11 R0 R10
-       50 FORGLOOP                         R3 2 ; [-46]
-       52 RETURN                           R0 0
+       27 SUB                              R14 R9 R8
+       28 GETTABLEKS                       R14 R14 K15 ["Magnitude"]
+       30 SETTABLEKS                       R14 R13 K10 ["Length"]
+       32 GETIMPORT                        R14 K17 [CFrame.lookAt]
+       34 MOVE                             R15 R8
+       35 MOVE                             R16 R9
+       36 CALL                             R14 2 1
+       37 SETTABLEKS                       R14 R13 K11 ["CFrame"]
+       39 GETUPVAL                         R14 4
+       40 SETTABLEKS                       R14 R13 K12 ["Color3"]
+       42 CALL                             R11 2 1
+       43 SETTABLE                         R11 R0 R10
+       44 FORGLOOP                         R3 2 ; [-40]
+       46 RETURN                           R0 0
 
 PROTO_10:
         0 LENGTH                           R5 R0

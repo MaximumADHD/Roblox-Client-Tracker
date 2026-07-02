@@ -115,14 +115,12 @@ PROTO_3:
       110 GETUPVAL                         R11 4
       111 GETTABLEKS                       R11 R11 K28 ["PlayStateContext"]
       113 GETTABLEKS                       R11 R11 K29 ["UIDataModelProvider"]
-      115 DUPTABLE                         R12 K31 [{"defaultPlayingState"}]
-      116 LOADB                            R13 1
-      117 SETTABLEKS                       R13 R12 K30 ["defaultPlayingState"]
-      119 CALL                             R10 2 -1
-      120 SETLIST                          R6 R7 -1 [1]
-      122 SETTABLEKS                       R6 R5 K10 ["providers"]
-      124 CALL                             R3 2 -1
-      125 RETURN                           R3 -1
+      115 DUPTABLE                         R12 K32 [{["defaultPlayingState"] = True}]
+      116 CALL                             R10 2 -1
+      117 SETLIST                          R6 R7 -1 [1]
+      119 SETTABLEKS                       R6 R5 K10 ["providers"]
+      121 CALL                             R3 2 -1
+      122 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

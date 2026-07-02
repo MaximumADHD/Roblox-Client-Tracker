@@ -46,34 +46,54 @@ PROTO_2:
        22 GETTABLEKS                       R2 R2 K8 ["ContextServices"]
        24 GETTABLEKS                       R2 R2 K9 ["Localization"]
        26 GETTABLEKS                       R3 R2 K10 ["new"]
-       28 DUPTABLE                         R4 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+       28 DUPTABLE                         R4 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "PluginInstallation"}]
        29 SETTABLEKS                       R0 R4 K11 ["stringResourceTable"]
        31 SETTABLEKS                       R1 R4 K12 ["translationResourceTable"]
-       33 LOADK                            R5 K15 ["PluginInstallation"]
-       34 SETTABLEKS                       R5 R4 K13 ["pluginName"]
-       36 CALL                             R3 1 -1
-       37 RETURN                           R3 -1
+       33 CALL                             R3 1 -1
+       34 RETURN                           R3 -1
 
 PROTO_3:
         0 GETIMPORT                        R0 K1 [require]
         2 GETUPVAL                         R1 0
-        3 GETTABLEKS                       R1 R1 K2 ["Packages"]
-        5 GETTABLEKS                       R1 R1 K3 ["Http"]
-        7 CALL                             R0 1 1
-        8 GETTABLEKS                       R1 R0 K4 ["API"]
-       10 GETTABLEKS                       R1 R1 K5 ["new"]
-       12 DUPTABLE                         R2 K7 [{"networking"}]
-       13 GETTABLEKS                       R3 R0 K8 ["Networking"]
-       15 GETTABLEKS                       R3 R3 K5 ["new"]
-       17 DUPTABLE                         R4 K11 [{"isInternal", "loggingLevel"}]
-       18 LOADB                            R5 1
-       19 SETTABLEKS                       R5 R4 K9 ["isInternal"]
-       21 LOADN                            R5 0
-       22 SETTABLEKS                       R5 R4 K10 ["loggingLevel"]
-       24 CALL                             R3 1 1
-       25 SETTABLEKS                       R3 R2 K6 ["networking"]
-       27 CALL                             R1 1 -1
-       28 RETURN                           R1 -1
+        3 GETTABLEKS                       R1 R1 K2 ["Src"]
+        5 GETTABLEKS                       R1 R1 K3 ["Flags"]
+        7 GETTABLEKS                       R1 R1 K4 ["getFFlagStudioPluginManagementUpgradeHttp"]
+        9 CALL                             R0 1 1
+       10 MOVE                             R1 R0
+       11 CALL                             R1 0 1
+       12 JUMPIFNOT                        R1 ; [+27]
+       13 GETIMPORT                        R1 K1 [require]
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R2 R2 K5 ["Packages"]
+       18 GETTABLEKS                       R2 R2 K6 ["Framework"]
+       20 CALL                             R1 1 1
+       21 GETTABLEKS                       R2 R1 K7 ["ContextServices"]
+       23 GETTABLEKS                       R2 R2 K8 ["API"]
+       25 GETTABLEKS                       R3 R1 K9 ["Http"]
+       27 GETTABLEKS                       R3 R3 K10 ["Networking"]
+       29 GETTABLEKS                       R4 R2 K11 ["new"]
+       31 DUPTABLE                         R5 K13 [{"networking"}]
+       32 GETTABLEKS                       R6 R3 K11 ["new"]
+       34 DUPTABLE                         R7 K18 [{["isInternal"] = True, ["loggingLevel"] = 0}]
+       35 CALL                             R6 1 1
+       36 SETTABLEKS                       R6 R5 K12 ["networking"]
+       38 CALL                             R4 1 -1
+       39 RETURN                           R4 -1
+       40 GETIMPORT                        R1 K1 [require]
+       42 GETUPVAL                         R2 0
+       43 GETTABLEKS                       R2 R2 K5 ["Packages"]
+       45 GETTABLEKS                       R2 R2 K9 ["Http"]
+       47 CALL                             R1 1 1
+       48 GETTABLEKS                       R2 R1 K8 ["API"]
+       50 GETTABLEKS                       R2 R2 K11 ["new"]
+       52 DUPTABLE                         R3 K13 [{"networking"}]
+       53 GETTABLEKS                       R4 R1 K10 ["Networking"]
+       55 GETTABLEKS                       R4 R4 K11 ["new"]
+       57 DUPTABLE                         R5 K18 [{["isInternal"] = True, ["loggingLevel"] = 0}]
+       58 CALL                             R4 1 1
+       59 SETTABLEKS                       R4 R3 K12 ["networking"]
+       61 CALL                             R2 1 -1
+       62 RETURN                           R2 -1
 
 PROTO_4:
         0 GETIMPORT                        R0 K1 [require]

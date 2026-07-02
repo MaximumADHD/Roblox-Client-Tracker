@@ -87,61 +87,57 @@ PROTO_2:
        13 GETTABLEKS                       R5 R0 K3 ["Instance"]
        15 SETLIST                          R4 R5 1 [1]
        17 CALL                             R2 2 1
-       18 JUMPIFNOTEQKNIL                  R2 ; [+33]
+       18 JUMPIFNOTEQKNIL                  R2 ; [+30]
        20 GETTABLEKS                       R3 R0 K3 ["Instance"]
        22 LOADK                            R5 K4 ["Decal"]
        23 NAMECALL                         R3 R3 K5 ["IsA"]
        25 CALL                             R3 2 1
-       26 JUMPIFNOT                        R3 ; [+23]
+       26 JUMPIFNOT                        R3 ; [+20]
        27 GETUPVAL                         R3 1
        28 GETTABLEKS                       R3 R3 K6 ["createElement"]
        30 GETUPVAL                         R4 3
-       31 DUPTABLE                         R5 K11 [{"AnimateTargetAsset", "Child", "Style", "Transparency"}]
+       31 DUPTABLE                         R5 K12 [{["AnimateTargetAsset"], ["Child"], ["Style"] = "FacePreview", ["Transparency"]}]
        32 GETUPVAL                         R6 4
-       33 GETTABLEKS                       R6 R6 K12 ["HEAD_PREVIEW_PATH"]
+       33 GETTABLEKS                       R6 R6 K13 ["HEAD_PREVIEW_PATH"]
        35 SETTABLEKS                       R6 R5 K7 ["AnimateTargetAsset"]
        37 GETTABLEKS                       R6 R0 K3 ["Instance"]
        39 SETTABLEKS                       R6 R5 K8 ["Child"]
-       41 LOADK                            R6 K13 ["FacePreview"]
-       42 SETTABLEKS                       R6 R5 K9 ["Style"]
-       44 GETTABLEKS                       R6 R0 K10 ["Transparency"]
-       46 SETTABLEKS                       R6 R5 K10 ["Transparency"]
-       48 CALL                             R3 2 -1
-       49 RETURN                           R3 -1
-       50 LOADNIL                          R3
-       51 RETURN                           R3 1
-       52 GETUPVAL                         R3 1
-       53 GETTABLEKS                       R3 R3 K6 ["createElement"]
-       55 GETUPVAL                         R4 5
-       56 DUPTABLE                         R5 K21 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
-       57 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       59 JUMPIFNOT                        R6 ; [+6]
-       60 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       62 GETTABLEKS                       R6 R6 K23 ["CFrame"]
-       64 GETTABLEKS                       R6 R6 K24 ["LookVector"]
-       66 SETTABLEKS                       R6 R5 K14 ["FocusDirection"]
-       68 SETTABLEKS                       R2 R5 K15 ["Model"]
-       70 LOADB                            R6 1
-       71 SETTABLEKS                       R6 R5 K16 ["Static"]
-       73 GETTABLEKS                       R6 R1 K25 ["InstanceAmbient"]
-       75 SETTABLEKS                       R6 R5 K17 ["Ambient"]
-       77 GETIMPORT                        R6 K28 [Color3.new]
-       79 LOADN                            R7 1
-       80 LOADN                            R8 1
-       81 LOADN                            R9 1
-       82 CALL                             R6 3 1
-       83 SETTABLEKS                       R6 R5 K18 ["LightColor"]
-       85 GETTABLEKS                       R6 R2 K22 ["PrimaryPart"]
-       87 JUMPIFNOT                        R6 ; [+7]
-       88 GETTABLEKS                       R7 R2 K22 ["PrimaryPart"]
-       90 GETTABLEKS                       R7 R7 K23 ["CFrame"]
-       92 GETTABLEKS                       R7 R7 K24 ["LookVector"]
-       94 MINUS                            R6 R7
-       95 SETTABLEKS                       R6 R5 K19 ["LightDirection"]
-       97 GETTABLEKS                       R6 R0 K10 ["Transparency"]
-       99 SETTABLEKS                       R6 R5 K20 ["ImageTransparency"]
-      101 CALL                             R3 2 -1
-      102 RETURN                           R3 -1
+       41 GETTABLEKS                       R6 R0 K11 ["Transparency"]
+       43 SETTABLEKS                       R6 R5 K11 ["Transparency"]
+       45 CALL                             R3 2 -1
+       46 RETURN                           R3 -1
+       47 LOADNIL                          R3
+       48 RETURN                           R3 1
+       49 GETUPVAL                         R3 1
+       50 GETTABLEKS                       R3 R3 K6 ["createElement"]
+       52 GETUPVAL                         R4 5
+       53 DUPTABLE                         R5 K22 [{["FocusDirection"], ["Model"], ["Static"] = True, ["Ambient"], ["LightColor"], ["LightDirection"], ["ImageTransparency"]}]
+       54 GETTABLEKS                       R6 R2 K23 ["PrimaryPart"]
+       56 JUMPIFNOT                        R6 ; [+6]
+       57 GETTABLEKS                       R6 R2 K23 ["PrimaryPart"]
+       59 GETTABLEKS                       R6 R6 K24 ["CFrame"]
+       61 GETTABLEKS                       R6 R6 K25 ["LookVector"]
+       63 SETTABLEKS                       R6 R5 K14 ["FocusDirection"]
+       65 SETTABLEKS                       R2 R5 K15 ["Model"]
+       67 GETTABLEKS                       R6 R1 K26 ["InstanceAmbient"]
+       69 SETTABLEKS                       R6 R5 K18 ["Ambient"]
+       71 GETIMPORT                        R6 K29 [Color3.new]
+       73 LOADN                            R7 1
+       74 LOADN                            R8 1
+       75 LOADN                            R9 1
+       76 CALL                             R6 3 1
+       77 SETTABLEKS                       R6 R5 K19 ["LightColor"]
+       79 GETTABLEKS                       R6 R2 K23 ["PrimaryPart"]
+       81 JUMPIFNOT                        R6 ; [+7]
+       82 GETTABLEKS                       R7 R2 K23 ["PrimaryPart"]
+       84 GETTABLEKS                       R7 R7 K24 ["CFrame"]
+       86 GETTABLEKS                       R7 R7 K25 ["LookVector"]
+       88 MINUS                            R6 R7
+       89 SETTABLEKS                       R6 R5 K20 ["LightDirection"]
+       91 GETTABLEKS                       R6 R0 K11 ["Transparency"]
+       93 SETTABLEKS                       R6 R5 K21 ["ImageTransparency"]
+       95 CALL                             R3 2 -1
+       96 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

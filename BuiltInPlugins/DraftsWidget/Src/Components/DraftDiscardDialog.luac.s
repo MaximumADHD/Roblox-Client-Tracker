@@ -38,111 +38,93 @@ PROTO_3:
        32 GETUPVAL                         R6 0
        33 GETTABLEKS                       R6 R6 K5 ["createElement"]
        35 GETUPVAL                         R7 3
-       36 DUPTABLE                         R8 K20 [{"Title", "Modal", "Buttons", "ButtonHorizontalAlignment", "OnButtonPressed", "OnClose", "MinContentSize"}]
-       37 LOADK                            R11 K21 ["DiscardDialog"]
+       36 DUPTABLE                         R8 K21 [{["Title"], ["Modal"] = True, ["Buttons"], ["ButtonHorizontalAlignment"], ["OnButtonPressed"], ["OnClose"], ["MinContentSize"]}]
+       37 LOADK                            R11 K22 ["DiscardDialog"]
        38 LOADK                            R12 K13 ["Title"]
-       39 NAMECALL                         R9 R1 K22 ["getText"]
+       39 NAMECALL                         R9 R1 K23 ["getText"]
        41 CALL                             R9 3 1
        42 SETTABLEKS                       R9 R8 K13 ["Title"]
-       44 LOADB                            R9 1
-       45 SETTABLEKS                       R9 R8 K14 ["Modal"]
-       47 NEWTABLE                         R9 0 2
-       49 DUPTABLE                         R10 K26 [{"Key", "Text", "Style"}]
-       50 LOADB                            R11 1
-       51 SETTABLEKS                       R11 R10 K23 ["Key"]
-       53 LOADK                            R13 K27 ["Dialog"]
-       54 LOADK                            R14 K28 ["Yes"]
-       55 NAMECALL                         R11 R1 K22 ["getText"]
-       57 CALL                             R11 3 1
-       58 SETTABLEKS                       R11 R10 K24 ["Text"]
-       60 LOADK                            R11 K29 ["RoundLargeText"]
-       61 SETTABLEKS                       R11 R10 K25 ["Style"]
-       63 DUPTABLE                         R11 K26 [{"Key", "Text", "Style"}]
-       64 LOADB                            R12 0
-       65 SETTABLEKS                       R12 R11 K23 ["Key"]
-       67 LOADK                            R14 K27 ["Dialog"]
-       68 LOADK                            R15 K30 ["No"]
-       69 NAMECALL                         R12 R1 K22 ["getText"]
-       71 CALL                             R12 3 1
-       72 SETTABLEKS                       R12 R11 K24 ["Text"]
-       74 LOADK                            R12 K31 ["RoundLargeTextPrimary"]
-       75 SETTABLEKS                       R12 R11 K25 ["Style"]
-       77 SETLIST                          R9 R10 2 [1]
-       79 SETTABLEKS                       R9 R8 K15 ["Buttons"]
-       81 GETIMPORT                        R9 K34 [Enum.HorizontalAlignment.Center]
-       83 SETTABLEKS                       R9 R8 K16 ["ButtonHorizontalAlignment"]
-       85 SETTABLEKS                       R4 R8 K17 ["OnButtonPressed"]
-       87 NEWCLOSURE                       R9 P1
-       88 CAPTURE                          VAL R4
-       89 SETTABLEKS                       R9 R8 K18 ["OnClose"]
-       91 GETUPVAL                         R9 4
-       92 SETTABLEKS                       R9 R8 K19 ["MinContentSize"]
-       94 DUPTABLE                         R9 K39 [{"Layout", "Padding", "Header", "DraftList"}]
-       95 GETUPVAL                         R10 0
-       96 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       98 LOADK                            R11 K40 ["UIListLayout"]
-       99 DUPTABLE                         R12 K44 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
-      100 GETIMPORT                        R13 K46 [Enum.SortOrder.LayoutOrder]
-      102 SETTABLEKS                       R13 R12 K41 ["SortOrder"]
-      104 GETIMPORT                        R13 K48 [Enum.FillDirection.Vertical]
-      106 SETTABLEKS                       R13 R12 K42 ["FillDirection"]
-      108 GETUPVAL                         R13 5
-      109 SETTABLEKS                       R13 R12 K36 ["Padding"]
-      111 GETIMPORT                        R13 K34 [Enum.HorizontalAlignment.Center]
-      113 SETTABLEKS                       R13 R12 K32 ["HorizontalAlignment"]
-      115 GETIMPORT                        R13 K49 [Enum.VerticalAlignment.Center]
-      117 SETTABLEKS                       R13 R12 K43 ["VerticalAlignment"]
-      119 CALL                             R10 2 1
-      120 SETTABLEKS                       R10 R9 K35 ["Layout"]
-      122 GETUPVAL                         R10 0
-      123 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      125 LOADK                            R11 K50 ["UIPadding"]
-      126 GETUPVAL                         R12 6
-      127 CALL                             R10 2 1
-      128 SETTABLEKS                       R10 R9 K36 ["Padding"]
-      130 GETUPVAL                         R10 0
-      131 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      133 GETUPVAL                         R11 7
-      134 DUPTABLE                         R12 K58 [{"LayoutOrder", "AutomaticSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "Text", "TextSize", "Font", "TextColor"}]
-      135 LOADN                            R13 1
-      136 SETTABLEKS                       R13 R12 K45 ["LayoutOrder"]
-      138 GETIMPORT                        R13 K60 [Enum.AutomaticSize.XY]
-      140 SETTABLEKS                       R13 R12 K51 ["AutomaticSize"]
-      142 GETIMPORT                        R13 K61 [Enum.TextXAlignment.Center]
-      144 SETTABLEKS                       R13 R12 K52 ["TextXAlignment"]
-      146 GETIMPORT                        R13 K63 [Enum.TextYAlignment.Top]
-      148 SETTABLEKS                       R13 R12 K53 ["TextYAlignment"]
-      150 LOADB                            R13 1
-      151 SETTABLEKS                       R13 R12 K54 ["TextWrapped"]
-      153 LOADK                            R15 K21 ["DiscardDialog"]
-      154 LOADK                            R16 K64 ["ConfirmQuestion"]
-      155 NAMECALL                         R13 R1 K22 ["getText"]
-      157 CALL                             R13 3 1
-      158 SETTABLEKS                       R13 R12 K24 ["Text"]
-      160 LOADN                            R13 22
-      161 SETTABLEKS                       R13 R12 K55 ["TextSize"]
-      163 GETTABLEKS                       R13 R2 K65 ["dialogUILibrary"]
-      165 GETTABLEKS                       R13 R13 K66 ["HeaderFont"]
-      167 SETTABLEKS                       R13 R12 K56 ["Font"]
-      169 GETTABLEKS                       R13 R2 K65 ["dialogUILibrary"]
-      171 GETTABLEKS                       R13 R13 K67 ["HeaderTextColor"]
-      173 SETTABLEKS                       R13 R12 K57 ["TextColor"]
-      175 CALL                             R10 2 1
-      176 SETTABLEKS                       R10 R9 K37 ["Header"]
-      178 GETUPVAL                         R10 0
-      179 GETTABLEKS                       R10 R10 K5 ["createElement"]
-      181 GETUPVAL                         R11 8
-      182 DUPTABLE                         R12 K69 [{"AutomaticCanvasSize", "LayoutOrder"}]
-      183 GETIMPORT                        R13 K71 [Enum.AutomaticSize.Y]
-      185 SETTABLEKS                       R13 R12 K68 ["AutomaticCanvasSize"]
-      187 LOADN                            R13 2
-      188 SETTABLEKS                       R13 R12 K45 ["LayoutOrder"]
-      190 DUPTABLE                         R13 K73 [{"Bullets"}]
-      191 SETTABLEKS                       R5 R13 K72 ["Bullets"]
-      193 CALL                             R10 3 1
-      194 SETTABLEKS                       R10 R9 K38 ["DraftList"]
-      196 CALL                             R6 3 -1
-      197 RETURN                           R6 -1
+       44 NEWTABLE                         R9 0 2
+       46 DUPTABLE                         R10 K28 [{["Key"] = True, ["Text"], ["Style"] = "RoundLargeText"}]
+       47 LOADK                            R13 K29 ["Dialog"]
+       48 LOADK                            R14 K30 ["Yes"]
+       49 NAMECALL                         R11 R1 K23 ["getText"]
+       51 CALL                             R11 3 1
+       52 SETTABLEKS                       R11 R10 K25 ["Text"]
+       54 DUPTABLE                         R11 K33 [{["Key"] = False, ["Text"], ["Style"] = "RoundLargeTextPrimary"}]
+       55 LOADK                            R14 K29 ["Dialog"]
+       56 LOADK                            R15 K34 ["No"]
+       57 NAMECALL                         R12 R1 K23 ["getText"]
+       59 CALL                             R12 3 1
+       60 SETTABLEKS                       R12 R11 K25 ["Text"]
+       62 SETLIST                          R9 R10 2 [1]
+       64 SETTABLEKS                       R9 R8 K16 ["Buttons"]
+       66 GETIMPORT                        R9 K37 [Enum.HorizontalAlignment.Center]
+       68 SETTABLEKS                       R9 R8 K17 ["ButtonHorizontalAlignment"]
+       70 SETTABLEKS                       R4 R8 K18 ["OnButtonPressed"]
+       72 NEWCLOSURE                       R9 P1
+       73 CAPTURE                          VAL R4
+       74 SETTABLEKS                       R9 R8 K19 ["OnClose"]
+       76 GETUPVAL                         R9 4
+       77 SETTABLEKS                       R9 R8 K20 ["MinContentSize"]
+       79 DUPTABLE                         R9 K42 [{"Layout", "Padding", "Header", "DraftList"}]
+       80 GETUPVAL                         R10 0
+       81 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       83 LOADK                            R11 K43 ["UIListLayout"]
+       84 DUPTABLE                         R12 K47 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+       85 GETIMPORT                        R13 K49 [Enum.SortOrder.LayoutOrder]
+       87 SETTABLEKS                       R13 R12 K44 ["SortOrder"]
+       89 GETIMPORT                        R13 K51 [Enum.FillDirection.Vertical]
+       91 SETTABLEKS                       R13 R12 K45 ["FillDirection"]
+       93 GETUPVAL                         R13 5
+       94 SETTABLEKS                       R13 R12 K39 ["Padding"]
+       96 GETIMPORT                        R13 K37 [Enum.HorizontalAlignment.Center]
+       98 SETTABLEKS                       R13 R12 K35 ["HorizontalAlignment"]
+      100 GETIMPORT                        R13 K52 [Enum.VerticalAlignment.Center]
+      102 SETTABLEKS                       R13 R12 K46 ["VerticalAlignment"]
+      104 CALL                             R10 2 1
+      105 SETTABLEKS                       R10 R9 K38 ["Layout"]
+      107 GETUPVAL                         R10 0
+      108 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      110 LOADK                            R11 K53 ["UIPadding"]
+      111 GETUPVAL                         R12 6
+      112 CALL                             R10 2 1
+      113 SETTABLEKS                       R10 R9 K39 ["Padding"]
+      115 GETUPVAL                         R10 0
+      116 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      118 GETUPVAL                         R11 7
+      119 DUPTABLE                         R12 K63 [{["LayoutOrder"] = 1, ["AutomaticSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["Text"], ["TextSize"] = 22, ["Font"], ["TextColor"]}]
+      120 GETIMPORT                        R13 K65 [Enum.AutomaticSize.XY]
+      122 SETTABLEKS                       R13 R12 K55 ["AutomaticSize"]
+      124 GETIMPORT                        R13 K66 [Enum.TextXAlignment.Center]
+      126 SETTABLEKS                       R13 R12 K56 ["TextXAlignment"]
+      128 GETIMPORT                        R13 K68 [Enum.TextYAlignment.Top]
+      130 SETTABLEKS                       R13 R12 K57 ["TextYAlignment"]
+      132 LOADK                            R15 K22 ["DiscardDialog"]
+      133 LOADK                            R16 K69 ["ConfirmQuestion"]
+      134 NAMECALL                         R13 R1 K23 ["getText"]
+      136 CALL                             R13 3 1
+      137 SETTABLEKS                       R13 R12 K25 ["Text"]
+      139 GETTABLEKS                       R13 R2 K70 ["dialogUILibrary"]
+      141 GETTABLEKS                       R13 R13 K71 ["HeaderFont"]
+      143 SETTABLEKS                       R13 R12 K61 ["Font"]
+      145 GETTABLEKS                       R13 R2 K70 ["dialogUILibrary"]
+      147 GETTABLEKS                       R13 R13 K72 ["HeaderTextColor"]
+      149 SETTABLEKS                       R13 R12 K62 ["TextColor"]
+      151 CALL                             R10 2 1
+      152 SETTABLEKS                       R10 R9 K40 ["Header"]
+      154 GETUPVAL                         R10 0
+      155 GETTABLEKS                       R10 R10 K5 ["createElement"]
+      157 GETUPVAL                         R11 8
+      158 DUPTABLE                         R12 K75 [{["AutomaticCanvasSize"], ["LayoutOrder"] = 2}]
+      159 GETIMPORT                        R13 K77 [Enum.AutomaticSize.Y]
+      161 SETTABLEKS                       R13 R12 K73 ["AutomaticCanvasSize"]
+      163 DUPTABLE                         R13 K79 [{"Bullets"}]
+      164 SETTABLEKS                       R5 R13 K78 ["Bullets"]
+      166 CALL                             R10 3 1
+      167 SETTABLEKS                       R10 R9 K41 ["DraftList"]
+      169 CALL                             R6 3 -1
+      170 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -168,7 +150,7 @@ MAIN:
        37 GETTABLEKS                       R10 R3 K15 ["ScrollingFrame"]
        39 GETTABLEKS                       R11 R3 K16 ["TextLabel"]
        41 GETIMPORT                        R12 K19 [Vector2.new]
-       43 LOADN                            R13 174
+       43 LOADN                            R13 430
        44 LOADN                            R14 200
        45 CALL                             R12 2 1
        46 GETIMPORT                        R13 K21 [UDim.new]

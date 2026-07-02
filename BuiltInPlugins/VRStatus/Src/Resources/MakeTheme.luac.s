@@ -34,16 +34,14 @@ MAIN:
        27 CALL                             R5 2 0
        28 NEWTABLE                         R5 1 0
        30 GETTABLEKS                       R6 R4 K11 ["AlertDialog"]
-       32 DUPTABLE                         R7 K15 [{"PopupMessageSize", "TextSize"}]
-       33 GETIMPORT                        R8 K18 [Vector2.new]
-       35 LOADN                            R9 144
+       32 DUPTABLE                         R7 K16 [{["PopupMessageSize"], ["TextSize"] = 18}]
+       33 GETIMPORT                        R8 K19 [Vector2.new]
+       35 LOADN                            R9 400
        36 LOADN                            R10 60
        37 CALL                             R8 2 1
        38 SETTABLEKS                       R8 R7 K13 ["PopupMessageSize"]
-       40 LOADN                            R8 18
-       41 SETTABLEKS                       R8 R7 K14 ["TextSize"]
-       43 SETTABLE                         R7 R5 R6
-       44 DUPCLOSURE                       R6 K19 [PROTO_0]
-       45 CAPTURE                          VAL R3
-       46 CAPTURE                          VAL R5
-       47 RETURN                           R6 1
+       40 SETTABLE                         R7 R5 R6
+       41 DUPCLOSURE                       R6 K20 [PROTO_0]
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R5
+       44 RETURN                           R6 1

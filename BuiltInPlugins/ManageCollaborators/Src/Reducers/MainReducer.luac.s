@@ -67,53 +67,64 @@ MAIN:
       117 GETTABLEKS                       R14 R14 K19 ["Reducers"]
       119 GETTABLEKS                       R14 R14 K21 ["RequiresTrustedConnectionData"]
       121 CALL                             R13 1 1
-      122 LOADNIL                          R14
-      123 GETIMPORT                        R15 K23 [game]
-      125 LOADK                            R17 K24 ["Collab8766_LogCollabSearchItemClickedEventV4"]
-      126 NAMECALL                         R15 R15 K25 ["GetFastFlag"]
-      128 CALL                             R15 2 1
-      129 JUMPIFNOT                        R15 ; [+10]
-      130 GETIMPORT                        R16 K4 [require]
-      132 GETIMPORT                        R17 K1 [script]
-      134 GETTABLEKS                       R17 R17 K2 ["Parent"]
-      136 GETTABLEKS                       R17 R17 K26 ["SearchItemLogs"]
-      138 CALL                             R16 1 1
-      139 MOVE                             R14 R16
-      140 GETTABLEKS                       R16 R1 K27 ["combineReducers"]
-      142 DUPTABLE                         R17 K28 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses", "RequiresTrustedConnectionData"}]
-      143 SETTABLEKS                       R7 R17 K13 ["GameOwnerMetadata"]
-      145 SETTABLEKS                       R3 R17 K9 ["Permissions"]
-      147 SETTABLEKS                       R4 R17 K10 ["GranularPermissions"]
-      149 SETTABLEKS                       R5 R17 K11 ["GroupMetadata"]
-      151 SETTABLEKS                       R6 R17 K12 ["GroupRolePermissions"]
-      153 SETTABLEKS                       R8 R17 K14 ["CollaboratorSearch"]
-      155 SETTABLEKS                       R9 R17 K15 ["LoadState"]
-      157 SETTABLEKS                       R10 R17 K16 ["SaveState"]
-      159 SETTABLEKS                       R11 R17 K17 ["FilterPills"]
-      161 JUMPIFNOT                        R15 ; [+2]
-      162 MOVE                             R18 R14
-      163 JUMP                             ; [+1]
-      164 LOADNIL                          R18
-      165 SETTABLEKS                       R18 R17 K26 ["SearchItemLogs"]
-      167 GETTABLEKS                       R19 R2 K29 ["fflagManageCollaboratorsActionNeededLabel"]
-      169 JUMPIF                           R19 ; [+12]
-      170 GETTABLEKS                       R19 R2 K30 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
-      172 JUMPIF                           R19 ; [+9]
-      173 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      175 JUMPIF                           R19 ; [+6]
-      176 GETTABLEKS                       R19 R2 K32 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
-      178 JUMPIF                           R19 ; [+3]
-      179 GETTABLEKS                       R19 R2 K33 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-      181 JUMPIFNOT                        R19 ; [+2]
-      182 MOVE                             R18 R12
-      183 JUMP                             ; [+1]
-      184 LOADNIL                          R18
-      185 SETTABLEKS                       R18 R17 K20 ["CanCollaborateResponses"]
-      187 GETTABLEKS                       R19 R2 K31 ["fflagManageCollaboratorsEditorBlockingBanner"]
-      189 JUMPIFNOT                        R19 ; [+2]
-      190 MOVE                             R18 R13
-      191 JUMP                             ; [+1]
-      192 LOADNIL                          R18
-      193 SETTABLEKS                       R18 R17 K21 ["RequiresTrustedConnectionData"]
-      195 CALL                             R16 1 1
-      196 RETURN                           R16 1
+      122 GETIMPORT                        R14 K4 [require]
+      124 GETIMPORT                        R15 K1 [script]
+      126 GETTABLEKS                       R15 R15 K2 ["Parent"]
+      128 GETTABLEKS                       R15 R15 K22 ["GroupMigrationStatus"]
+      130 CALL                             R14 1 1
+      131 LOADNIL                          R15
+      132 GETIMPORT                        R16 K24 [game]
+      134 LOADK                            R18 K25 ["Collab8766_LogCollabSearchItemClickedEventV4"]
+      135 NAMECALL                         R16 R16 K26 ["GetFastFlag"]
+      137 CALL                             R16 2 1
+      138 JUMPIFNOT                        R16 ; [+10]
+      139 GETIMPORT                        R17 K4 [require]
+      141 GETIMPORT                        R18 K1 [script]
+      143 GETTABLEKS                       R18 R18 K2 ["Parent"]
+      145 GETTABLEKS                       R18 R18 K27 ["SearchItemLogs"]
+      147 CALL                             R17 1 1
+      148 MOVE                             R15 R17
+      149 GETTABLEKS                       R17 R1 K28 ["combineReducers"]
+      151 DUPTABLE                         R18 K29 [{"GameOwnerMetadata", "Permissions", "GranularPermissions", "GroupMetadata", "GroupRolePermissions", "CollaboratorSearch", "LoadState", "SaveState", "FilterPills", "SearchItemLogs", "CanCollaborateResponses", "RequiresTrustedConnectionData", "GroupMigrationStatus"}]
+      152 SETTABLEKS                       R7 R18 K13 ["GameOwnerMetadata"]
+      154 SETTABLEKS                       R3 R18 K9 ["Permissions"]
+      156 SETTABLEKS                       R4 R18 K10 ["GranularPermissions"]
+      158 SETTABLEKS                       R5 R18 K11 ["GroupMetadata"]
+      160 SETTABLEKS                       R6 R18 K12 ["GroupRolePermissions"]
+      162 SETTABLEKS                       R8 R18 K14 ["CollaboratorSearch"]
+      164 SETTABLEKS                       R9 R18 K15 ["LoadState"]
+      166 SETTABLEKS                       R10 R18 K16 ["SaveState"]
+      168 SETTABLEKS                       R11 R18 K17 ["FilterPills"]
+      170 JUMPIFNOT                        R16 ; [+2]
+      171 MOVE                             R19 R15
+      172 JUMP                             ; [+1]
+      173 LOADNIL                          R19
+      174 SETTABLEKS                       R19 R18 K27 ["SearchItemLogs"]
+      176 GETTABLEKS                       R20 R2 K30 ["fflagManageCollaboratorsActionNeededLabel"]
+      178 JUMPIF                           R20 ; [+12]
+      179 GETTABLEKS                       R20 R2 K31 ["fflagManageCollaboratorsOutsideAgeBucketAlert"]
+      181 JUMPIF                           R20 ; [+9]
+      182 GETTABLEKS                       R20 R2 K32 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      184 JUMPIF                           R20 ; [+6]
+      185 GETTABLEKS                       R20 R2 K33 ["fflagManageCollaboratorsOwnerAgeVerificationBanner"]
+      187 JUMPIF                           R20 ; [+3]
+      188 GETTABLEKS                       R20 R2 K34 ["fflagManageCollaboratorsOwnerCountryBlocked"]
+      190 JUMPIFNOT                        R20 ; [+2]
+      191 MOVE                             R19 R12
+      192 JUMP                             ; [+1]
+      193 LOADNIL                          R19
+      194 SETTABLEKS                       R19 R18 K20 ["CanCollaborateResponses"]
+      196 GETTABLEKS                       R20 R2 K32 ["fflagManageCollaboratorsEditorBlockingBanner"]
+      198 JUMPIFNOT                        R20 ; [+2]
+      199 MOVE                             R19 R13
+      200 JUMP                             ; [+1]
+      201 LOADNIL                          R19
+      202 SETTABLEKS                       R19 R18 K21 ["RequiresTrustedConnectionData"]
+      204 GETTABLEKS                       R20 R2 K35 ["fflagCollabPV2GroupMigration"]
+      206 JUMPIFNOT                        R20 ; [+2]
+      207 MOVE                             R19 R14
+      208 JUMP                             ; [+1]
+      209 LOADNIL                          R19
+      210 SETTABLEKS                       R19 R18 K22 ["GroupMigrationStatus"]
+      212 CALL                             R17 1 1
+      213 RETURN                           R17 1

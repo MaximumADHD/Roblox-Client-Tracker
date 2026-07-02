@@ -130,38 +130,36 @@ PROTO_6:
 PROTO_7:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
-        3 DUPTABLE                         R2 K4 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        3 DUPTABLE                         R2 K5 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Ribbon"}]
         4 GETUPVAL                         R3 1
         5 SETTABLEKS                       R3 R2 K1 ["stringResourceTable"]
         7 GETUPVAL                         R3 2
         8 SETTABLEKS                       R3 R2 K2 ["translationResourceTable"]
-       10 LOADK                            R3 K5 ["Ribbon"]
-       11 SETTABLEKS                       R3 R2 K3 ["pluginName"]
-       13 CALL                             R1 1 1
-       14 LOADNIL                          R2
-       15 GETUPVAL                         R3 3
-       16 GETTABLEKS                       R3 R3 K0 ["new"]
-       18 CALL                             R3 0 1
-       19 NEWCLOSURE                       R4 P0
-       20 CAPTURE                          UPVAL U4
-       21 CAPTURE                          UPVAL U5
-       22 CAPTURE                          UPVAL U6
-       23 CAPTURE                          REF R2
-       24 CAPTURE                          UPVAL U7
-       25 CAPTURE                          UPVAL U8
-       26 CAPTURE                          VAL R3
-       27 CAPTURE                          VAL R1
-       28 CAPTURE                          UPVAL U9
-       29 CAPTURE                          UPVAL U10
-       30 CAPTURE                          UPVAL U11
-       31 CAPTURE                          UPVAL U12
-       32 CAPTURE                          UPVAL U13
-       33 CAPTURE                          UPVAL U14
-       34 CAPTURE                          UPVAL U15
-       35 CAPTURE                          UPVAL U16
-       36 CAPTURE                          VAL R0
-       37 CLOSEUPVALS                      R2
-       38 RETURN                           R4 1
+       10 CALL                             R1 1 1
+       11 LOADNIL                          R2
+       12 GETUPVAL                         R3 3
+       13 GETTABLEKS                       R3 R3 K0 ["new"]
+       15 CALL                             R3 0 1
+       16 NEWCLOSURE                       R4 P0
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          UPVAL U5
+       19 CAPTURE                          UPVAL U6
+       20 CAPTURE                          REF R2
+       21 CAPTURE                          UPVAL U7
+       22 CAPTURE                          UPVAL U8
+       23 CAPTURE                          VAL R3
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          UPVAL U9
+       26 CAPTURE                          UPVAL U10
+       27 CAPTURE                          UPVAL U11
+       28 CAPTURE                          UPVAL U12
+       29 CAPTURE                          UPVAL U13
+       30 CAPTURE                          UPVAL U14
+       31 CAPTURE                          UPVAL U15
+       32 CAPTURE                          UPVAL U16
+       33 CAPTURE                          VAL R0
+       34 CLOSEUPVALS                      R2
+       35 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

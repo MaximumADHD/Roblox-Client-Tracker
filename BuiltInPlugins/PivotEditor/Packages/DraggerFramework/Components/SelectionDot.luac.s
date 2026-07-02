@@ -18,35 +18,31 @@ PROTO_0:
        25 GETUPVAL                         R8 1
        26 GETTABLEKS                       R8 R8 K5 ["createElement"]
        28 LOADK                            R9 K7 ["Frame"]
-       29 DUPTABLE                         R10 K12 [{"BackgroundColor3", "BorderColor3", "BorderSizePixel", "Position", "Selectable", "Size"}]
+       29 DUPTABLE                         R10 K14 [{["BackgroundColor3"], ["BorderColor3"], ["BorderSizePixel"] = 1, ["Position"], ["Selectable"] = False, ["Size"]}]
        30 GETTABLEKS                       R11 R0 K1 ["props"]
        32 GETTABLEKS                       R11 R11 K8 ["BackgroundColor3"]
        34 SETTABLEKS                       R11 R10 K8 ["BackgroundColor3"]
        36 GETTABLEKS                       R11 R0 K1 ["props"]
        38 GETTABLEKS                       R11 R11 K9 ["BorderColor3"]
        40 SETTABLEKS                       R11 R10 K9 ["BorderColor3"]
-       42 LOADN                            R11 1
-       43 SETTABLEKS                       R11 R10 K10 ["BorderSizePixel"]
-       45 GETIMPORT                        R11 K15 [UDim2.new]
-       47 LOADN                            R12 0
-       48 GETTABLEKS                       R13 R1 K16 ["X"]
-       50 LOADN                            R14 0
-       51 GETTABLEKS                       R15 R1 K17 ["Y"]
-       53 CALL                             R11 4 1
-       54 SETTABLEKS                       R11 R10 K2 ["Position"]
-       56 LOADB                            R11 0
-       57 SETTABLEKS                       R11 R10 K11 ["Selectable"]
-       59 GETIMPORT                        R11 K15 [UDim2.new]
-       61 LOADN                            R12 0
-       62 MOVE                             R13 R3
-       63 LOADN                            R14 0
-       64 MOVE                             R15 R3
-       65 CALL                             R11 4 1
-       66 SETTABLEKS                       R11 R10 K4 ["Size"]
-       68 CALL                             R8 2 -1
-       69 SETLIST                          R7 R8 -1 [1]
-       71 CALL                             R4 3 -1
-       72 RETURN                           R4 -1
+       42 GETIMPORT                        R11 K17 [UDim2.new]
+       44 LOADN                            R12 0
+       45 GETTABLEKS                       R13 R1 K18 ["X"]
+       47 LOADN                            R14 0
+       48 GETTABLEKS                       R15 R1 K19 ["Y"]
+       50 CALL                             R11 4 1
+       51 SETTABLEKS                       R11 R10 K2 ["Position"]
+       53 GETIMPORT                        R11 K17 [UDim2.new]
+       55 LOADN                            R12 0
+       56 MOVE                             R13 R3
+       57 LOADN                            R14 0
+       58 MOVE                             R15 R3
+       59 CALL                             R11 4 1
+       60 SETTABLEKS                       R11 R10 K4 ["Size"]
+       62 CALL                             R8 2 -1
+       63 SETLIST                          R7 R8 -1 [1]
+       65 CALL                             R4 3 -1
+       66 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -71,20 +67,18 @@ MAIN:
        33 LOADK                            R7 K14 ["SelectionDot"]
        34 NAMECALL                         R5 R5 K15 ["extend"]
        36 CALL                             R5 2 1
-       37 DUPTABLE                         R6 K20 [{"BackgroundColor3", "BorderColor3", "Position", "Size"}]
-       38 GETTABLEKS                       R7 R4 K21 ["WHITE"]
+       37 DUPTABLE                         R6 K21 [{["BackgroundColor3"], ["BorderColor3"], ["Position"], ["Size"] = 3}]
+       38 GETTABLEKS                       R7 R4 K22 ["WHITE"]
        40 SETTABLEKS                       R7 R6 K16 ["BackgroundColor3"]
-       42 GETTABLEKS                       R7 R4 K22 ["BLACK"]
+       42 GETTABLEKS                       R7 R4 K23 ["BLACK"]
        44 SETTABLEKS                       R7 R6 K17 ["BorderColor3"]
        46 FASTCALL                         VECTOR ; [+2]
-       47 GETIMPORT                        R7 K25 [Vector3.new]
+       47 GETIMPORT                        R7 K26 [Vector3.new]
        49 CALL                             R7 0 1
        50 SETTABLEKS                       R7 R6 K18 ["Position"]
-       52 LOADN                            R7 3
-       53 SETTABLEKS                       R7 R6 K19 ["Size"]
-       55 SETTABLEKS                       R6 R5 K26 ["defaultProps"]
-       57 DUPCLOSURE                       R6 K27 [PROTO_0]
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          VAL R3
-       60 SETTABLEKS                       R6 R5 K28 ["render"]
-       62 RETURN                           R5 1
+       52 SETTABLEKS                       R6 R5 K27 ["defaultProps"]
+       54 DUPCLOSURE                       R6 K28 [PROTO_0]
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          VAL R3
+       57 SETTABLEKS                       R6 R5 K29 ["render"]
+       59 RETURN                           R5 1

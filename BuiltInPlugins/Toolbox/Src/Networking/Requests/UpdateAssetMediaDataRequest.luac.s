@@ -226,86 +226,82 @@ PROTO_12:
         4 GETTABLEKS                       R2 R2 K1 ["ThumbnailFilesToAdd"]
         6 GETUPVAL                         R3 0
         7 GETTABLEKS                       R3 R3 K2 ["ThumbnailOrderToChange"]
-        9 DUPTABLE                         R4 K7 [{"Delete", "Upload", "SetOrder", "OverallSuccess"}]
+        9 DUPTABLE                         R4 K8 [{["Delete"], ["Upload"], ["SetOrder"] = True, ["OverallSuccess"] = True}]
        10 NEWTABLE                         R5 0 0
        12 SETTABLEKS                       R5 R4 K3 ["Delete"]
        14 NEWTABLE                         R5 0 0
        16 SETTABLEKS                       R5 R4 K4 ["Upload"]
-       18 LOADB                            R5 1
-       19 SETTABLEKS                       R5 R4 K5 ["SetOrder"]
-       21 LOADB                            R5 1
-       22 SETTABLEKS                       R5 R4 K6 ["OverallSuccess"]
-       24 GETUPVAL                         R5 1
-       25 MOVE                             R6 R1
-       26 NEWCLOSURE                       R7 P0
-       27 CAPTURE                          UPVAL U2
-       28 CAPTURE                          UPVAL U3
-       29 CAPTURE                          VAL R4
-       30 CAPTURE                          UPVAL U4
-       31 CAPTURE                          VAL R0
-       32 CAPTURE                          UPVAL U5
-       33 CALL                             R5 2 1
-       34 GETUPVAL                         R6 1
-       35 MOVE                             R7 R2
-       36 NEWCLOSURE                       R8 P1
-       37 CAPTURE                          UPVAL U2
-       38 CAPTURE                          UPVAL U3
-       39 CAPTURE                          UPVAL U6
-       40 CAPTURE                          REF R3
-       41 CAPTURE                          UPVAL U7
-       42 CAPTURE                          VAL R4
-       43 CAPTURE                          UPVAL U4
-       44 CAPTURE                          VAL R0
-       45 CAPTURE                          UPVAL U5
-       46 CALL                             R6 2 1
-       47 NEWCLOSURE                       R7 P2
-       48 CAPTURE                          UPVAL U2
-       49 CAPTURE                          UPVAL U3
-       50 CAPTURE                          REF R3
-       51 CAPTURE                          VAL R4
-       52 CAPTURE                          UPVAL U8
-       53 CAPTURE                          UPVAL U9
-       54 CAPTURE                          UPVAL U4
-       55 CAPTURE                          VAL R0
-       56 CAPTURE                          UPVAL U5
-       57 GETUPVAL                         R8 10
-       58 MOVE                             R9 R5
-       59 MOVE                             R10 R6
-       60 CALL                             R8 2 1
-       61 LOADNIL                          R9
-       62 LENGTH                           R10 R8
-       63 JUMPIFNOTEQKN                    R10 K8 [0] ; [+14]
-       65 LENGTH                           R10 R3
-       66 JUMPIFNOTEQKN                    R10 K8 [0] ; [+7]
-       68 GETUPVAL                         R10 11
-       69 GETTABLEKS                       R10 R10 K9 ["resolve"]
-       71 CALL                             R10 0 1
-       72 MOVE                             R9 R10
-       73 JUMP                             ; [+21]
-       74 MOVE                             R10 R7
-       75 CALL                             R10 0 1
-       76 MOVE                             R9 R10
-       77 JUMP                             ; [+17]
-       78 GETUPVAL                         R10 11
-       79 GETTABLEKS                       R10 R10 K10 ["all"]
-       81 MOVE                             R11 R8
-       82 CALL                             R10 1 1
-       83 LENGTH                           R11 R3
-       84 JUMPIFNOTEQKN                    R11 K8 [0] ; [+3]
-       86 MOVE                             R9 R10
-       87 JUMP                             ; [+7]
-       88 NEWCLOSURE                       R13 P3
-       89 CAPTURE                          VAL R4
-       90 CAPTURE                          VAL R7
-       91 NAMECALL                         R11 R10 K11 ["andThen"]
-       93 CALL                             R11 2 1
-       94 MOVE                             R9 R11
-       95 NEWCLOSURE                       R12 P4
-       96 CAPTURE                          VAL R4
-       97 NAMECALL                         R10 R9 K11 ["andThen"]
-       99 CALL                             R10 2 -1
-      100 CLOSEUPVALS                      R3
-      101 RETURN                           R10 -1
+       18 GETUPVAL                         R5 1
+       19 MOVE                             R6 R1
+       20 NEWCLOSURE                       R7 P0
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          UPVAL U3
+       23 CAPTURE                          VAL R4
+       24 CAPTURE                          UPVAL U4
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U5
+       27 CALL                             R5 2 1
+       28 GETUPVAL                         R6 1
+       29 MOVE                             R7 R2
+       30 NEWCLOSURE                       R8 P1
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          UPVAL U3
+       33 CAPTURE                          UPVAL U6
+       34 CAPTURE                          REF R3
+       35 CAPTURE                          UPVAL U7
+       36 CAPTURE                          VAL R4
+       37 CAPTURE                          UPVAL U4
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U5
+       40 CALL                             R6 2 1
+       41 NEWCLOSURE                       R7 P2
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          UPVAL U3
+       44 CAPTURE                          REF R3
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          UPVAL U8
+       47 CAPTURE                          UPVAL U9
+       48 CAPTURE                          UPVAL U4
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          UPVAL U5
+       51 GETUPVAL                         R8 10
+       52 MOVE                             R9 R5
+       53 MOVE                             R10 R6
+       54 CALL                             R8 2 1
+       55 LOADNIL                          R9
+       56 LENGTH                           R10 R8
+       57 JUMPIFNOTEQKN                    R10 K9 [0] ; [+14]
+       59 LENGTH                           R10 R3
+       60 JUMPIFNOTEQKN                    R10 K9 [0] ; [+7]
+       62 GETUPVAL                         R10 11
+       63 GETTABLEKS                       R10 R10 K10 ["resolve"]
+       65 CALL                             R10 0 1
+       66 MOVE                             R9 R10
+       67 JUMP                             ; [+21]
+       68 MOVE                             R10 R7
+       69 CALL                             R10 0 1
+       70 MOVE                             R9 R10
+       71 JUMP                             ; [+17]
+       72 GETUPVAL                         R10 11
+       73 GETTABLEKS                       R10 R10 K11 ["all"]
+       75 MOVE                             R11 R8
+       76 CALL                             R10 1 1
+       77 LENGTH                           R11 R3
+       78 JUMPIFNOTEQKN                    R11 K9 [0] ; [+3]
+       80 MOVE                             R9 R10
+       81 JUMP                             ; [+7]
+       82 NEWCLOSURE                       R13 P3
+       83 CAPTURE                          VAL R4
+       84 CAPTURE                          VAL R7
+       85 NAMECALL                         R11 R10 K12 ["andThen"]
+       87 CALL                             R11 2 1
+       88 MOVE                             R9 R11
+       89 NEWCLOSURE                       R12 P4
+       90 CAPTURE                          VAL R4
+       91 NAMECALL                         R10 R9 K12 ["andThen"]
+       93 CALL                             R10 2 -1
+       94 CLOSEUPVALS                      R3
+       95 RETURN                           R10 -1
 
 PROTO_13:
         0 NEWCLOSURE                       R4 P0

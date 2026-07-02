@@ -200,7 +200,7 @@ PROTO_2:
       219 GETUPVAL                         R11 1
       220 CALL                             R9 2 0
       221 LOADN                            R11 1
-      222 LOADN                            R9 0
+      222 LOADN                            R9 1024
       223 LOADN                            R10 1
       224 FORNPREP                         R9
       225 SUBK                             R13 R11 K43 [1]
@@ -227,7 +227,7 @@ PROTO_2:
       246 CALL                             R14 5 1
       247 MOVE                             R13 R14
       248 LOADN                            R16 1
-      249 LOADN                            R14 0
+      249 LOADN                            R14 1024
       250 LOADN                            R15 1
       251 FORNPREP                         R14
       252 JUMPIFNOT                        R13 ; [+3]
@@ -268,8 +268,8 @@ PROTO_2:
       293 SETTABLEKS                       R5 R9 K49 ["_lut"]
       295 SETTABLEKS                       R1 R9 K50 ["_isPercentage"]
       297 NEWTABLE                         R10 0 2
-      299 LOADN                            R11 0
-      300 LOADN                            R12 0
+      299 LOADN                            R11 1024
+      300 LOADN                            R12 1024
       301 SETLIST                          R10 R11 2 [1]
       303 SETTABLEKS                       R10 R9 K51 ["_resolution"]
       305 GETTABLEKS                       R10 R9 K50 ["_isPercentage"]
@@ -304,7 +304,7 @@ PROTO_3:
         4 GETIMPORT                        R3 K5 [math.floor]
         6 CALL                             R3 1 1
         7 LOADN                            R4 1
-        8 LOADN                            R5 0
+        8 LOADN                            R5 1024
         9 FASTCALL                         MATH_CLAMP ; [+2]
        10 GETIMPORT                        R2 K7 [math.clamp]
        12 CALL                             R2 3 1
@@ -318,7 +318,7 @@ PROTO_4:
         4 GETIMPORT                        R5 K4 [math.floor]
         6 CALL                             R5 1 1
         7 LOADN                            R6 0
-        8 LOADN                            R7 1
+        8 LOADN                            R7 1025
         9 FASTCALL                         MATH_CLAMP ; [+2]
        10 GETIMPORT                        R4 K6 [math.clamp]
        12 CALL                             R4 3 1
@@ -329,7 +329,7 @@ PROTO_4:
        17 GETIMPORT                        R6 K4 [math.floor]
        19 CALL                             R6 1 1
        20 LOADN                            R7 1
-       21 LOADN                            R8 0
+       21 LOADN                            R8 1024
        22 FASTCALL                         MATH_CLAMP ; [+2]
        23 GETIMPORT                        R5 K6 [math.clamp]
        25 CALL                             R5 3 1
@@ -353,7 +353,7 @@ PROTO_5:
        13 GETIMPORT                        R5 K7 [math.floor]
        15 CALL                             R5 1 1
        16 LOADN                            R6 0
-       17 LOADN                            R7 1
+       17 LOADN                            R7 1025
        18 FASTCALL                         MATH_CLAMP ; [+2]
        19 GETIMPORT                        R4 K9 [math.clamp]
        21 CALL                             R4 3 1
@@ -364,7 +364,7 @@ PROTO_5:
        26 GETIMPORT                        R6 K7 [math.floor]
        28 CALL                             R6 1 1
        29 LOADN                            R7 1
-       30 LOADN                            R8 0
+       30 LOADN                            R8 1024
        31 FASTCALL                         MATH_CLAMP ; [+2]
        32 GETIMPORT                        R5 K9 [math.clamp]
        34 CALL                             R5 3 1
@@ -382,7 +382,7 @@ PROTO_6:
         4 GETIMPORT                        R5 K4 [math.floor]
         6 CALL                             R5 1 1
         7 LOADN                            R6 0
-        8 LOADN                            R7 1
+        8 LOADN                            R7 1025
         9 FASTCALL                         MATH_CLAMP ; [+2]
        10 GETIMPORT                        R4 K6 [math.clamp]
        12 CALL                             R4 3 1
@@ -406,7 +406,7 @@ PROTO_7:
        13 GETIMPORT                        R5 K7 [math.floor]
        15 CALL                             R5 1 1
        16 LOADN                            R6 0
-       17 LOADN                            R7 1
+       17 LOADN                            R7 1025
        18 FASTCALL                         MATH_CLAMP ; [+2]
        19 GETIMPORT                        R4 K9 [math.clamp]
        21 CALL                             R4 3 1

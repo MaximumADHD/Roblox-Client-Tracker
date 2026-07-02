@@ -1,20 +1,16 @@
 PROTO_0:
-        0 DUPTABLE                         R3 K6 [{"_store", "_presetController", "_promptRequested", "_telemetry", "defaultCreator", "managedGroups"}]
+        0 DUPTABLE                         R3 K8 [{[1], ["_presetController"], ["_promptRequested"] = False, ["_telemetry"], ["defaultCreator"] = -1, ["managedGroups"]}]
         1 SETTABLEKS                       R0 R3 K0 ["_store"]
         3 SETTABLEKS                       R1 R3 K1 ["_presetController"]
-        5 LOADB                            R4 0
-        6 SETTABLEKS                       R4 R3 K2 ["_promptRequested"]
-        8 SETTABLEKS                       R2 R3 K3 ["_telemetry"]
-       10 LOADN                            R4 255
-       11 SETTABLEKS                       R4 R3 K4 ["defaultCreator"]
-       13 NEWTABLE                         R4 0 0
-       15 SETTABLEKS                       R4 R3 K5 ["managedGroups"]
-       17 GETUPVAL                         R6 0
-       18 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
-       20 MOVE                             R5 R3
-       21 GETIMPORT                        R4 K8 [setmetatable]
-       23 CALL                             R4 2 1
-       24 RETURN                           R4 1
+        5 SETTABLEKS                       R2 R3 K4 ["_telemetry"]
+        7 NEWTABLE                         R4 0 0
+        9 SETTABLEKS                       R4 R3 K7 ["managedGroups"]
+       11 GETUPVAL                         R6 0
+       12 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       14 MOVE                             R5 R3
+       15 GETIMPORT                        R4 K10 [setmetatable]
+       17 CALL                             R4 2 1
+       18 RETURN                           R4 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_store"]

@@ -374,86 +374,84 @@ PROTO_7:
       376 GETUPVAL                         R41 0
       377 GETTABLEKS                       R41 R41 K9 ["createElement"]
       379 GETUPVAL                         R42 11
-      380 DUPTABLE                         R43 K71 [{"LayoutOrder", "selectedGamepadId", "displayMappings", "activeInputs"}]
+      380 DUPTABLE                         R43 K72 [{["LayoutOrder"], ["selectedGamepadId"], ["displayMappings"] = False, ["activeInputs"]}]
       381 GETUPVAL                         R44 7
       382 NAMECALL                         R44 R44 K21 ["getNextOrder"]
       384 CALL                             R44 1 1
       385 SETTABLEKS                       R44 R43 K22 ["LayoutOrder"]
       387 GETTABLEKS                       R44 R0 K5 ["isUpdatingMappingForGamepadId"]
       389 SETTABLEKS                       R44 R43 K34 ["selectedGamepadId"]
-      391 LOADB                            R44 0
-      392 SETTABLEKS                       R44 R43 K69 ["displayMappings"]
-      394 SETTABLEKS                       R8 R43 K70 ["activeInputs"]
-      396 CALL                             R41 2 1
-      397 SETTABLEKS                       R41 R40 K67 ["DeviceBlueprint"]
-      399 CALL                             R37 3 1
-      400 SETTABLEKS                       R37 R36 K63 ["BlueprintContainer"]
-      402 GETUPVAL                         R37 0
-      403 GETTABLEKS                       R37 R37 K9 ["createElement"]
-      405 LOADK                            R38 K59 ["ScrollingFrame"]
-      406 NEWTABLE                         R39 4 0
-      408 GETUPVAL                         R40 0
-      409 GETTABLEKS                       R40 R40 K11 ["Tag"]
-      411 LOADK                            R41 K72 ["CX-Invisible "]
-      412 SETTABLE                         R41 R39 R40
-      413 GETUPVAL                         R40 7
-      414 NAMECALL                         R40 R40 K21 ["getNextOrder"]
-      416 CALL                             R40 1 1
-      417 SETTABLEKS                       R40 R39 K22 ["LayoutOrder"]
-      419 SETTABLEKS                       R14 R39 K73 ["ref"]
-      421 GETUPVAL                         R40 0
-      422 GETTABLEKS                       R40 R40 K74 ["Change"]
-      424 GETTABLEKS                       R40 R40 K75 ["AbsoluteSize"]
-      426 SETTABLE                         R15 R39 R40
-      427 DUPTABLE                         R40 K77 [{"Mappings"}]
-      428 GETUPVAL                         R41 0
-      429 GETTABLEKS                       R41 R41 K9 ["createElement"]
-      431 GETUPVAL                         R42 12
-      432 DUPTABLE                         R43 K80 [{"LayoutOrder", "onAbsoluteSizeChanged", "onHoveredMappingChanged"}]
-      433 GETUPVAL                         R44 7
-      434 NAMECALL                         R44 R44 K21 ["getNextOrder"]
-      436 CALL                             R44 1 1
-      437 SETTABLEKS                       R44 R43 K22 ["LayoutOrder"]
-      439 SETTABLEKS                       R16 R43 K78 ["onAbsoluteSizeChanged"]
-      441 SETTABLEKS                       R7 R43 K79 ["onHoveredMappingChanged"]
-      443 CALL                             R41 2 1
-      444 SETTABLEKS                       R41 R40 K76 ["Mappings"]
-      446 CALL                             R37 3 1
-      447 SETTABLEKS                       R37 R36 K64 ["ListScrollingContainer"]
-      449 CALL                             R33 3 1
-      450 SETTABLEKS                       R33 R32 K60 ["BlueprintAndListContainer"]
-      452 CALL                             R29 3 1
-      453 SETTABLEKS                       R29 R28 K25 ["HorizontalScrollingFrame"]
-      455 CALL                             R25 3 1
-      456 SETTABLEKS                       R25 R24 K18 ["LayoutContainer"]
-      458 CALL                             R21 3 1
-      459 SETTABLEKS                       R21 R20 K13 ["MappingsInputListener"]
-      461 JUMPIFNOT                        R9 ; [+9]
-      462 GETUPVAL                         R21 0
-      463 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      465 GETUPVAL                         R22 13
-      466 DUPTABLE                         R23 K82 [{"hideConfirmationDialog"}]
-      467 SETTABLEKS                       R11 R23 K81 ["hideConfirmationDialog"]
-      469 CALL                             R21 2 1
-      470 JUMP                             ; [+1]
-      471 LOADNIL                          R21
-      472 SETTABLEKS                       R21 R20 K14 ["MappingsConfirmationDialog"]
-      474 GETUPVAL                         R21 0
-      475 GETTABLEKS                       R21 R21 K9 ["createElement"]
-      477 GETUPVAL                         R22 14
-      478 NEWTABLE                         R23 2 0
-      480 GETUPVAL                         R24 0
-      481 GETTABLEKS                       R24 R24 K11 ["Tag"]
-      483 GETUPVAL                         R25 10
-      484 LOADK                            R26 K15 ["ErrorsBanner"]
-      485 LOADK                            R27 K83 ["data-testid=Component-ErrorsBanner"]
-      486 CALL                             R25 2 1
-      487 SETTABLE                         R25 R23 R24
-      488 SETTABLEKS                       R11 R23 K81 ["hideConfirmationDialog"]
-      490 CALL                             R21 2 1
-      491 SETTABLEKS                       R21 R20 K15 ["ErrorsBanner"]
-      493 CALL                             R17 3 -1
-      494 RETURN                           R17 -1
+      391 SETTABLEKS                       R8 R43 K71 ["activeInputs"]
+      393 CALL                             R41 2 1
+      394 SETTABLEKS                       R41 R40 K67 ["DeviceBlueprint"]
+      396 CALL                             R37 3 1
+      397 SETTABLEKS                       R37 R36 K63 ["BlueprintContainer"]
+      399 GETUPVAL                         R37 0
+      400 GETTABLEKS                       R37 R37 K9 ["createElement"]
+      402 LOADK                            R38 K59 ["ScrollingFrame"]
+      403 NEWTABLE                         R39 4 0
+      405 GETUPVAL                         R40 0
+      406 GETTABLEKS                       R40 R40 K11 ["Tag"]
+      408 LOADK                            R41 K73 ["CX-Invisible "]
+      409 SETTABLE                         R41 R39 R40
+      410 GETUPVAL                         R40 7
+      411 NAMECALL                         R40 R40 K21 ["getNextOrder"]
+      413 CALL                             R40 1 1
+      414 SETTABLEKS                       R40 R39 K22 ["LayoutOrder"]
+      416 SETTABLEKS                       R14 R39 K74 ["ref"]
+      418 GETUPVAL                         R40 0
+      419 GETTABLEKS                       R40 R40 K75 ["Change"]
+      421 GETTABLEKS                       R40 R40 K76 ["AbsoluteSize"]
+      423 SETTABLE                         R15 R39 R40
+      424 DUPTABLE                         R40 K78 [{"Mappings"}]
+      425 GETUPVAL                         R41 0
+      426 GETTABLEKS                       R41 R41 K9 ["createElement"]
+      428 GETUPVAL                         R42 12
+      429 DUPTABLE                         R43 K81 [{"LayoutOrder", "onAbsoluteSizeChanged", "onHoveredMappingChanged"}]
+      430 GETUPVAL                         R44 7
+      431 NAMECALL                         R44 R44 K21 ["getNextOrder"]
+      433 CALL                             R44 1 1
+      434 SETTABLEKS                       R44 R43 K22 ["LayoutOrder"]
+      436 SETTABLEKS                       R16 R43 K79 ["onAbsoluteSizeChanged"]
+      438 SETTABLEKS                       R7 R43 K80 ["onHoveredMappingChanged"]
+      440 CALL                             R41 2 1
+      441 SETTABLEKS                       R41 R40 K77 ["Mappings"]
+      443 CALL                             R37 3 1
+      444 SETTABLEKS                       R37 R36 K64 ["ListScrollingContainer"]
+      446 CALL                             R33 3 1
+      447 SETTABLEKS                       R33 R32 K60 ["BlueprintAndListContainer"]
+      449 CALL                             R29 3 1
+      450 SETTABLEKS                       R29 R28 K25 ["HorizontalScrollingFrame"]
+      452 CALL                             R25 3 1
+      453 SETTABLEKS                       R25 R24 K18 ["LayoutContainer"]
+      455 CALL                             R21 3 1
+      456 SETTABLEKS                       R21 R20 K13 ["MappingsInputListener"]
+      458 JUMPIFNOT                        R9 ; [+9]
+      459 GETUPVAL                         R21 0
+      460 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      462 GETUPVAL                         R22 13
+      463 DUPTABLE                         R23 K83 [{"hideConfirmationDialog"}]
+      464 SETTABLEKS                       R11 R23 K82 ["hideConfirmationDialog"]
+      466 CALL                             R21 2 1
+      467 JUMP                             ; [+1]
+      468 LOADNIL                          R21
+      469 SETTABLEKS                       R21 R20 K14 ["MappingsConfirmationDialog"]
+      471 GETUPVAL                         R21 0
+      472 GETTABLEKS                       R21 R21 K9 ["createElement"]
+      474 GETUPVAL                         R22 14
+      475 NEWTABLE                         R23 2 0
+      477 GETUPVAL                         R24 0
+      478 GETTABLEKS                       R24 R24 K11 ["Tag"]
+      480 GETUPVAL                         R25 10
+      481 LOADK                            R26 K15 ["ErrorsBanner"]
+      482 LOADK                            R27 K84 ["data-testid=Component-ErrorsBanner"]
+      483 CALL                             R25 2 1
+      484 SETTABLE                         R25 R23 R24
+      485 SETTABLEKS                       R11 R23 K82 ["hideConfirmationDialog"]
+      487 CALL                             R21 2 1
+      488 SETTABLEKS                       R21 R20 K15 ["ErrorsBanner"]
+      490 CALL                             R17 3 -1
+      491 RETURN                           R17 -1
 
 MAIN:
         0 PREPVARARGS                      0

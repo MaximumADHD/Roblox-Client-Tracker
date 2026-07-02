@@ -18,17 +18,15 @@ PROTO_2:
         4 GETUPVAL                         R2 0
         5 GETTABLEKS                       R2 R2 K2 ["createElement"]
         7 GETUPVAL                         R3 1
-        8 DUPTABLE                         R4 K7 [{"Label", "Text", "LayoutOrder", "OnChange"}]
-        9 LOADK                            R5 K8 ["Name"]
-       10 SETTABLEKS                       R5 R4 K3 ["Label"]
-       12 SETTABLEKS                       R1 R4 K4 ["Text"]
-       14 GETUPVAL                         R5 2
-       15 GETTABLEKS                       R5 R5 K9 ["NameBox"]
-       17 SETTABLEKS                       R5 R4 K5 ["LayoutOrder"]
-       19 GETTABLEKS                       R5 R0 K6 ["OnChange"]
-       21 SETTABLEKS                       R5 R4 K6 ["OnChange"]
-       23 CALL                             R2 2 -1
-       24 RETURN                           R2 -1
+        8 DUPTABLE                         R4 K8 [{["Label"] = "Name", ["Text"], ["LayoutOrder"], ["OnChange"]}]
+        9 SETTABLEKS                       R1 R4 K5 ["Text"]
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R5 R5 K9 ["NameBox"]
+       14 SETTABLEKS                       R5 R4 K6 ["LayoutOrder"]
+       16 GETTABLEKS                       R5 R0 K7 ["OnChange"]
+       18 SETTABLEKS                       R5 R4 K7 ["OnChange"]
+       20 CALL                             R2 2 -1
+       21 RETURN                           R2 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"CurrentEventName"}]

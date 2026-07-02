@@ -17,105 +17,87 @@ MAIN:
        25 GETTABLEKS                       R3 R3 K12 ["createStyleRule"]
        27 MOVE                             R4 R3
        28 LOADK                            R5 K13 [">> .FindReplaceAll-NavigationControls"]
-       29 DUPTABLE                         R6 K17 [{"BackgroundTransparency", "AnchorPoint", "ClipsDescendants"}]
-       30 LOADN                            R7 1
-       31 SETTABLEKS                       R7 R6 K14 ["BackgroundTransparency"]
-       33 GETIMPORT                        R7 K20 [Vector2.new]
-       35 LOADN                            R8 0
-       36 LOADN                            R9 0
-       37 CALL                             R7 2 1
-       38 SETTABLEKS                       R7 R6 K15 ["AnchorPoint"]
-       40 LOADB                            R7 1
-       41 SETTABLEKS                       R7 R6 K16 ["ClipsDescendants"]
-       43 NEWTABLE                         R7 0 3
-       45 MOVE                             R8 R3
-       46 LOADK                            R9 K21 ["::UIPadding"]
-       47 DUPTABLE                         R10 K23 [{"PaddingLeft"}]
-       48 GETIMPORT                        R11 K25 [UDim.new]
-       50 LOADN                            R12 0
-       51 GETTABLEKS                       R13 R1 K26 ["paddingXSmall"]
-       53 CALL                             R11 2 1
-       54 SETTABLEKS                       R11 R10 K22 ["PaddingLeft"]
-       56 CALL                             R8 2 1
-       57 MOVE                             R9 R3
-       58 LOADK                            R10 K27 [">> TextLabel"]
-       59 DUPTABLE                         R11 K35 [{"BackgroundTransparency", "ClipsDescendants", "Font", "Size", "TextColor3", "TextSize", "TextXAlignment", "TextTruncate", "TextWrapped"}]
-       60 LOADN                            R12 1
-       61 SETTABLEKS                       R12 R11 K14 ["BackgroundTransparency"]
-       63 LOADB                            R12 1
-       64 SETTABLEKS                       R12 R11 K16 ["ClipsDescendants"]
-       66 GETTABLEKS                       R12 R1 K36 ["defaultFont"]
-       68 SETTABLEKS                       R12 R11 K28 ["Font"]
-       70 GETIMPORT                        R12 K39 [UDim2.fromScale]
-       72 LOADN                            R13 0
-       73 LOADN                            R14 1
-       74 CALL                             R12 2 1
-       75 SETTABLEKS                       R12 R11 K29 ["Size"]
-       77 LOADK                            R12 K40 ["$SemanticColorContentMuted"]
-       78 SETTABLEKS                       R12 R11 K30 ["TextColor3"]
-       80 LOADN                            R13 12
-       81 GETTABLEKS                       R14 R1 K41 ["defaultFontScale"]
-       83 MUL                              R12 R13 R14
-       84 SETTABLEKS                       R12 R11 K31 ["TextSize"]
-       86 GETIMPORT                        R12 K44 [Enum.TextXAlignment.Left]
-       88 SETTABLEKS                       R12 R11 K32 ["TextXAlignment"]
-       90 GETIMPORT                        R12 K46 [Enum.TextTruncate.SplitWord]
-       92 SETTABLEKS                       R12 R11 K33 ["TextTruncate"]
-       94 LOADB                            R12 0
-       95 SETTABLEKS                       R12 R11 K34 ["TextWrapped"]
-       97 NEWTABLE                         R12 0 2
-       99 MOVE                             R13 R3
-      100 LOADK                            R14 K21 ["::UIPadding"]
-      101 DUPTABLE                         R15 K48 [{"PaddingRight"}]
-      102 GETIMPORT                        R16 K25 [UDim.new]
-      104 LOADN                            R17 0
-      105 GETTABLEKS                       R18 R1 K49 ["paddingSmall"]
-      107 CALL                             R16 2 1
-      108 SETTABLEKS                       R16 R15 K47 ["PaddingRight"]
-      110 CALL                             R13 2 1
-      111 MOVE                             R14 R3
-      112 LOADK                            R15 K50 ["::UISizeConstraint"]
-      113 DUPTABLE                         R16 K53 [{"MinSize", "MaxSize"}]
-      114 GETIMPORT                        R17 K20 [Vector2.new]
-      116 GETTABLEKS                       R18 R1 K54 ["findResultsMinTextWidth"]
-      118 GETTABLEKS                       R19 R1 K55 ["searchBarHeight"]
-      120 CALL                             R17 2 1
-      121 SETTABLEKS                       R17 R16 K51 ["MinSize"]
-      123 GETIMPORT                        R17 K20 [Vector2.new]
-      125 GETTABLEKS                       R18 R1 K56 ["findResultsMaxTextWidth"]
-      127 GETTABLEKS                       R19 R1 K55 ["searchBarHeight"]
-      129 CALL                             R17 2 1
-      130 SETTABLEKS                       R17 R16 K52 ["MaxSize"]
-      132 CALL                             R14 2 -1
-      133 SETLIST                          R12 R13 -1 [1]
-      135 CALL                             R9 3 1
-      136 MOVE                             R10 R3
-      137 LOADK                            R11 K57 [">> ImageButton"]
-      138 DUPTABLE                         R12 K60 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
-      139 LOADN                            R13 0
-      140 SETTABLEKS                       R13 R12 K58 ["BorderSizePixel"]
-      142 LOADK                            R13 K61 ["$SemanticColorSurfaceOutline"]
-      143 SETTABLEKS                       R13 R12 K59 ["BackgroundColor3"]
-      145 LOADN                            R13 1
-      146 SETTABLEKS                       R13 R12 K14 ["BackgroundTransparency"]
-      148 NEWTABLE                         R13 0 2
-      150 MOVE                             R14 R3
-      151 LOADK                            R15 K62 [".Hover"]
-      152 DUPTABLE                         R16 K63 [{"BackgroundTransparency"}]
-      153 GETTABLEKS                       R17 R1 K64 ["hoveredTransparency"]
-      155 SETTABLEKS                       R17 R16 K14 ["BackgroundTransparency"]
-      157 CALL                             R14 2 1
-      158 MOVE                             R15 R3
-      159 LOADK                            R16 K65 ["::UICorner"]
-      160 DUPTABLE                         R17 K67 [{"CornerRadius"}]
-      161 GETIMPORT                        R18 K25 [UDim.new]
-      163 LOADN                            R19 0
-      164 GETTABLEKS                       R20 R1 K68 ["radiusMedium"]
-      166 CALL                             R18 2 1
-      167 SETTABLEKS                       R18 R17 K66 ["CornerRadius"]
-      169 CALL                             R15 2 -1
-      170 SETLIST                          R13 R14 -1 [1]
-      172 CALL                             R10 3 -1
-      173 SETLIST                          R7 R8 -1 [1]
-      175 CALL                             R4 3 -1
-      176 RETURN                           R4 -1
+       29 DUPTABLE                         R6 K19 [{["BackgroundTransparency"] = 1, ["AnchorPoint"], ["ClipsDescendants"] = True}]
+       30 GETIMPORT                        R7 K22 [Vector2.new]
+       32 LOADN                            R8 0
+       33 LOADN                            R9 0
+       34 CALL                             R7 2 1
+       35 SETTABLEKS                       R7 R6 K16 ["AnchorPoint"]
+       37 NEWTABLE                         R7 0 3
+       39 MOVE                             R8 R3
+       40 LOADK                            R9 K23 ["::UIPadding"]
+       41 DUPTABLE                         R10 K25 [{"PaddingLeft"}]
+       42 GETIMPORT                        R11 K27 [UDim.new]
+       44 LOADN                            R12 0
+       45 GETTABLEKS                       R13 R1 K28 ["paddingXSmall"]
+       47 CALL                             R11 2 1
+       48 SETTABLEKS                       R11 R10 K24 ["PaddingLeft"]
+       50 CALL                             R8 2 1
+       51 MOVE                             R9 R3
+       52 LOADK                            R10 K29 [">> TextLabel"]
+       53 DUPTABLE                         R11 K39 [{["BackgroundTransparency"] = 1, ["ClipsDescendants"] = True, ["Font"], ["Size"], ["TextColor3"] = "$SemanticColorContentMuted", ["TextSize"], ["TextXAlignment"], ["TextTruncate"], ["TextWrapped"] = False}]
+       54 GETTABLEKS                       R12 R1 K40 ["defaultFont"]
+       56 SETTABLEKS                       R12 R11 K30 ["Font"]
+       58 GETIMPORT                        R12 K43 [UDim2.fromScale]
+       60 LOADN                            R13 0
+       61 LOADN                            R14 1
+       62 CALL                             R12 2 1
+       63 SETTABLEKS                       R12 R11 K31 ["Size"]
+       65 LOADN                            R13 12
+       66 GETTABLEKS                       R14 R1 K44 ["defaultFontScale"]
+       68 MUL                              R12 R13 R14
+       69 SETTABLEKS                       R12 R11 K34 ["TextSize"]
+       71 GETIMPORT                        R12 K47 [Enum.TextXAlignment.Left]
+       73 SETTABLEKS                       R12 R11 K35 ["TextXAlignment"]
+       75 GETIMPORT                        R12 K49 [Enum.TextTruncate.SplitWord]
+       77 SETTABLEKS                       R12 R11 K36 ["TextTruncate"]
+       79 NEWTABLE                         R12 0 2
+       81 MOVE                             R13 R3
+       82 LOADK                            R14 K23 ["::UIPadding"]
+       83 DUPTABLE                         R15 K51 [{"PaddingRight"}]
+       84 GETIMPORT                        R16 K27 [UDim.new]
+       86 LOADN                            R17 0
+       87 GETTABLEKS                       R18 R1 K52 ["paddingSmall"]
+       89 CALL                             R16 2 1
+       90 SETTABLEKS                       R16 R15 K50 ["PaddingRight"]
+       92 CALL                             R13 2 1
+       93 MOVE                             R14 R3
+       94 LOADK                            R15 K53 ["::UISizeConstraint"]
+       95 DUPTABLE                         R16 K56 [{"MinSize", "MaxSize"}]
+       96 GETIMPORT                        R17 K22 [Vector2.new]
+       98 GETTABLEKS                       R18 R1 K57 ["findResultsMinTextWidth"]
+      100 GETTABLEKS                       R19 R1 K58 ["searchBarHeight"]
+      102 CALL                             R17 2 1
+      103 SETTABLEKS                       R17 R16 K54 ["MinSize"]
+      105 GETIMPORT                        R17 K22 [Vector2.new]
+      107 GETTABLEKS                       R18 R1 K59 ["findResultsMaxTextWidth"]
+      109 GETTABLEKS                       R19 R1 K58 ["searchBarHeight"]
+      111 CALL                             R17 2 1
+      112 SETTABLEKS                       R17 R16 K55 ["MaxSize"]
+      114 CALL                             R14 2 -1
+      115 SETLIST                          R12 R13 -1 [1]
+      117 CALL                             R9 3 1
+      118 MOVE                             R10 R3
+      119 LOADK                            R11 K60 [">> ImageButton"]
+      120 DUPTABLE                         R12 K65 [{["BorderSizePixel"] = 0, ["BackgroundColor3"] = "$SemanticColorSurfaceOutline", ["BackgroundTransparency"] = 1}]
+      121 NEWTABLE                         R13 0 2
+      123 MOVE                             R14 R3
+      124 LOADK                            R15 K66 [".Hover"]
+      125 DUPTABLE                         R16 K67 [{"BackgroundTransparency"}]
+      126 GETTABLEKS                       R17 R1 K68 ["hoveredTransparency"]
+      128 SETTABLEKS                       R17 R16 K14 ["BackgroundTransparency"]
+      130 CALL                             R14 2 1
+      131 MOVE                             R15 R3
+      132 LOADK                            R16 K69 ["::UICorner"]
+      133 DUPTABLE                         R17 K71 [{"CornerRadius"}]
+      134 GETIMPORT                        R18 K27 [UDim.new]
+      136 LOADN                            R19 0
+      137 GETTABLEKS                       R20 R1 K72 ["radiusMedium"]
+      139 CALL                             R18 2 1
+      140 SETTABLEKS                       R18 R17 K70 ["CornerRadius"]
+      142 CALL                             R15 2 -1
+      143 SETLIST                          R13 R14 -1 [1]
+      145 CALL                             R10 3 -1
+      146 SETLIST                          R7 R8 -1 [1]
+      148 CALL                             R4 3 -1
+      149 RETURN                           R4 -1

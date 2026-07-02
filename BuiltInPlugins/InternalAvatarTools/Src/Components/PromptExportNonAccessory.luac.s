@@ -28,56 +28,46 @@ PROTO_3:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K7 [{"Title", "Buttons", "Resizable", "MinContentSize", "OnButtonPressed", "OnClose"}]
-        5 GETTABLEKS                       R4 R0 K8 ["props"]
-        7 GETTABLEKS                       R4 R4 K9 ["Localization"]
-        9 LOADK                            R6 K10 ["DialogTitle"]
-       10 LOADK                            R7 K11 ["ExportNonAccessory"]
-       11 NAMECALL                         R4 R4 K12 ["getText"]
+        4 DUPTABLE                         R3 K8 [{["Title"], ["Buttons"], ["Resizable"] = False, ["MinContentSize"], ["OnButtonPressed"], ["OnClose"]}]
+        5 GETTABLEKS                       R4 R0 K9 ["props"]
+        7 GETTABLEKS                       R4 R4 K10 ["Localization"]
+        9 LOADK                            R6 K11 ["DialogTitle"]
+       10 LOADK                            R7 K12 ["ExportNonAccessory"]
+       11 NAMECALL                         R4 R4 K13 ["getText"]
        13 CALL                             R4 3 1
        14 SETTABLEKS                       R4 R3 K1 ["Title"]
        16 NEWTABLE                         R4 0 2
-       18 DUPTABLE                         R5 K16 [{"Key", "Text", "Style"}]
-       19 LOADK                            R6 K17 ["Export"]
-       20 SETTABLEKS                       R6 R5 K13 ["Key"]
-       22 GETTABLEKS                       R6 R0 K8 ["props"]
-       24 GETTABLEKS                       R6 R6 K9 ["Localization"]
-       26 LOADK                            R8 K18 ["Dialog"]
-       27 LOADK                            R9 K17 ["Export"]
-       28 NAMECALL                         R6 R6 K12 ["getText"]
-       30 CALL                             R6 3 1
-       31 SETTABLEKS                       R6 R5 K14 ["Text"]
-       33 LOADK                            R6 K19 ["RoundPrimary"]
-       34 SETTABLEKS                       R6 R5 K15 ["Style"]
-       36 DUPTABLE                         R6 K16 [{"Key", "Text", "Style"}]
-       37 LOADK                            R7 K20 ["Cancel"]
-       38 SETTABLEKS                       R7 R6 K13 ["Key"]
-       40 GETTABLEKS                       R7 R0 K8 ["props"]
-       42 GETTABLEKS                       R7 R7 K9 ["Localization"]
-       44 LOADK                            R9 K18 ["Dialog"]
-       45 LOADK                            R10 K20 ["Cancel"]
-       46 NAMECALL                         R7 R7 K12 ["getText"]
-       48 CALL                             R7 3 1
-       49 SETTABLEKS                       R7 R6 K14 ["Text"]
-       51 LOADK                            R7 K21 ["Round"]
-       52 SETTABLEKS                       R7 R6 K15 ["Style"]
-       54 SETLIST                          R4 R5 2 [1]
-       56 SETTABLEKS                       R4 R3 K2 ["Buttons"]
-       58 LOADB                            R4 0
-       59 SETTABLEKS                       R4 R3 K3 ["Resizable"]
-       61 GETIMPORT                        R4 K24 [Vector2.new]
-       63 LOADN                            R5 0
-       64 LOADN                            R6 0
-       65 CALL                             R4 2 1
-       66 SETTABLEKS                       R4 R3 K4 ["MinContentSize"]
-       68 NEWCLOSURE                       R4 P0
-       69 CAPTURE                          VAL R0
-       70 SETTABLEKS                       R4 R3 K5 ["OnButtonPressed"]
-       72 GETTABLEKS                       R4 R0 K8 ["props"]
-       74 GETTABLEKS                       R4 R4 K25 ["onCancel"]
-       76 SETTABLEKS                       R4 R3 K6 ["OnClose"]
-       78 CALL                             R1 2 -1
-       79 RETURN                           R1 -1
+       18 DUPTABLE                         R5 K19 [{["Key"] = "Export", ["Text"], ["Style"] = "RoundPrimary"}]
+       19 GETTABLEKS                       R6 R0 K9 ["props"]
+       21 GETTABLEKS                       R6 R6 K10 ["Localization"]
+       23 LOADK                            R8 K20 ["Dialog"]
+       24 LOADK                            R9 K15 ["Export"]
+       25 NAMECALL                         R6 R6 K13 ["getText"]
+       27 CALL                             R6 3 1
+       28 SETTABLEKS                       R6 R5 K16 ["Text"]
+       30 DUPTABLE                         R6 K23 [{["Key"] = "Cancel", ["Text"], ["Style"] = "Round"}]
+       31 GETTABLEKS                       R7 R0 K9 ["props"]
+       33 GETTABLEKS                       R7 R7 K10 ["Localization"]
+       35 LOADK                            R9 K20 ["Dialog"]
+       36 LOADK                            R10 K21 ["Cancel"]
+       37 NAMECALL                         R7 R7 K13 ["getText"]
+       39 CALL                             R7 3 1
+       40 SETTABLEKS                       R7 R6 K16 ["Text"]
+       42 SETLIST                          R4 R5 2 [1]
+       44 SETTABLEKS                       R4 R3 K2 ["Buttons"]
+       46 GETIMPORT                        R4 K26 [Vector2.new]
+       48 LOADN                            R5 0
+       49 LOADN                            R6 0
+       50 CALL                             R4 2 1
+       51 SETTABLEKS                       R4 R3 K5 ["MinContentSize"]
+       53 NEWCLOSURE                       R4 P0
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R4 R3 K6 ["OnButtonPressed"]
+       57 GETTABLEKS                       R4 R0 K9 ["props"]
+       59 GETTABLEKS                       R4 R4 K27 ["onCancel"]
+       61 SETTABLEKS                       R4 R3 K7 ["OnClose"]
+       63 CALL                             R1 2 -1
+       64 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

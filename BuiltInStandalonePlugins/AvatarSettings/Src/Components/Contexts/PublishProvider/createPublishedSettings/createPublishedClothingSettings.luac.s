@@ -1,87 +1,85 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K18 [{"clothingScaleSetting", "clothingScaleLimitBoundsSetting", "customClothingSetting", "customClothingTopsSetting", "customClothingTShirtSetting", "customClothingShirtSetting", "customClothingOuterwearSetting", "customClothingJacketSetting", "customClothingSweaterSetting", "customClothingBottomsSetting", "customClothingPantsSetting", "customClothingShortsSetting", "customClothingDressSkirtSetting", "customClothingLeftShoesSetting", "customClothingRightShoesSetting", "customClothingClassicShirtsSetting", "customClothingClassicTShirtsSetting", "customClothingClassicPantsSetting"}]
-        1 GETIMPORT                        R1 K22 [Enum.AvatarSettingsClothingMode.PlayerChoice]
+        0 DUPTABLE                         R0 K19 [{[1], ["clothingScaleLimitBoundsSetting"] = {0, 0, 0}, ["customClothingSetting"], ["customClothingTopsSetting"], ["customClothingTShirtSetting"], ["customClothingShirtSetting"], ["customClothingOuterwearSetting"], ["customClothingJacketSetting"], ["customClothingSweaterSetting"], ["customClothingBottomsSetting"], ["customClothingPantsSetting"], ["customClothingShortsSetting"], ["customClothingDressSkirtSetting"], ["customClothingLeftShoesSetting"], ["customClothingRightShoesSetting"], ["customClothingClassicShirtsSetting"], ["customClothingClassicTShirtsSetting"], ["customClothingClassicPantsSetting"]}]
+        1 GETIMPORT                        R1 K23 [Enum.AvatarSettingsClothingMode.PlayerChoice]
         3 SETTABLEKS                       R1 R0 K0 ["clothingScaleSetting"]
-        5 LOADK                            R1 K23 [{0, 0, 0}]
-        6 SETTABLEKS                       R1 R0 K1 ["clothingScaleLimitBoundsSetting"]
-        8 GETIMPORT                        R1 K25 [Enum.AvatarSettingsCustomClothingMode.PlayerChoice]
-       10 SETTABLEKS                       R1 R0 K2 ["customClothingSetting"]
-       12 GETUPVAL                         R1 0
-       13 LOADB                            R2 0
-       14 LOADN                            R3 0
-       15 CALL                             R1 2 1
-       16 SETTABLEKS                       R1 R0 K3 ["customClothingTopsSetting"]
-       18 GETUPVAL                         R1 0
-       19 LOADB                            R2 0
-       20 LOADN                            R3 0
-       21 CALL                             R1 2 1
-       22 SETTABLEKS                       R1 R0 K4 ["customClothingTShirtSetting"]
-       24 GETUPVAL                         R1 0
-       25 LOADB                            R2 0
-       26 LOADN                            R3 0
-       27 CALL                             R1 2 1
-       28 SETTABLEKS                       R1 R0 K5 ["customClothingShirtSetting"]
-       30 GETUPVAL                         R1 0
-       31 LOADB                            R2 0
-       32 LOADN                            R3 0
-       33 CALL                             R1 2 1
-       34 SETTABLEKS                       R1 R0 K6 ["customClothingOuterwearSetting"]
-       36 GETUPVAL                         R1 0
-       37 LOADB                            R2 0
-       38 LOADN                            R3 0
-       39 CALL                             R1 2 1
-       40 SETTABLEKS                       R1 R0 K7 ["customClothingJacketSetting"]
-       42 GETUPVAL                         R1 0
-       43 LOADB                            R2 0
-       44 LOADN                            R3 0
-       45 CALL                             R1 2 1
-       46 SETTABLEKS                       R1 R0 K8 ["customClothingSweaterSetting"]
-       48 GETUPVAL                         R1 0
-       49 LOADB                            R2 0
-       50 LOADN                            R3 0
-       51 CALL                             R1 2 1
-       52 SETTABLEKS                       R1 R0 K9 ["customClothingBottomsSetting"]
-       54 GETUPVAL                         R1 0
-       55 LOADB                            R2 0
-       56 LOADN                            R3 0
-       57 CALL                             R1 2 1
-       58 SETTABLEKS                       R1 R0 K10 ["customClothingPantsSetting"]
-       60 GETUPVAL                         R1 0
-       61 LOADB                            R2 0
-       62 LOADN                            R3 0
-       63 CALL                             R1 2 1
-       64 SETTABLEKS                       R1 R0 K11 ["customClothingShortsSetting"]
-       66 GETUPVAL                         R1 0
-       67 LOADB                            R2 0
-       68 LOADN                            R3 0
-       69 CALL                             R1 2 1
-       70 SETTABLEKS                       R1 R0 K12 ["customClothingDressSkirtSetting"]
-       72 GETUPVAL                         R1 0
-       73 LOADB                            R2 0
-       74 LOADN                            R3 0
-       75 CALL                             R1 2 1
-       76 SETTABLEKS                       R1 R0 K13 ["customClothingLeftShoesSetting"]
-       78 GETUPVAL                         R1 0
-       79 LOADB                            R2 0
-       80 LOADN                            R3 0
-       81 CALL                             R1 2 1
-       82 SETTABLEKS                       R1 R0 K14 ["customClothingRightShoesSetting"]
-       84 GETUPVAL                         R1 0
-       85 LOADB                            R2 0
-       86 LOADN                            R3 0
-       87 CALL                             R1 2 1
-       88 SETTABLEKS                       R1 R0 K15 ["customClothingClassicShirtsSetting"]
-       90 GETUPVAL                         R1 0
-       91 LOADB                            R2 0
-       92 LOADN                            R3 0
-       93 CALL                             R1 2 1
-       94 SETTABLEKS                       R1 R0 K16 ["customClothingClassicTShirtsSetting"]
-       96 GETUPVAL                         R1 0
-       97 LOADB                            R2 0
-       98 LOADN                            R3 0
-       99 CALL                             R1 2 1
-      100 SETTABLEKS                       R1 R0 K17 ["customClothingClassicPantsSetting"]
-      102 RETURN                           R0 1
+        5 GETIMPORT                        R1 K25 [Enum.AvatarSettingsCustomClothingMode.PlayerChoice]
+        7 SETTABLEKS                       R1 R0 K3 ["customClothingSetting"]
+        9 GETUPVAL                         R1 0
+       10 LOADB                            R2 0
+       11 LOADN                            R3 0
+       12 CALL                             R1 2 1
+       13 SETTABLEKS                       R1 R0 K4 ["customClothingTopsSetting"]
+       15 GETUPVAL                         R1 0
+       16 LOADB                            R2 0
+       17 LOADN                            R3 0
+       18 CALL                             R1 2 1
+       19 SETTABLEKS                       R1 R0 K5 ["customClothingTShirtSetting"]
+       21 GETUPVAL                         R1 0
+       22 LOADB                            R2 0
+       23 LOADN                            R3 0
+       24 CALL                             R1 2 1
+       25 SETTABLEKS                       R1 R0 K6 ["customClothingShirtSetting"]
+       27 GETUPVAL                         R1 0
+       28 LOADB                            R2 0
+       29 LOADN                            R3 0
+       30 CALL                             R1 2 1
+       31 SETTABLEKS                       R1 R0 K7 ["customClothingOuterwearSetting"]
+       33 GETUPVAL                         R1 0
+       34 LOADB                            R2 0
+       35 LOADN                            R3 0
+       36 CALL                             R1 2 1
+       37 SETTABLEKS                       R1 R0 K8 ["customClothingJacketSetting"]
+       39 GETUPVAL                         R1 0
+       40 LOADB                            R2 0
+       41 LOADN                            R3 0
+       42 CALL                             R1 2 1
+       43 SETTABLEKS                       R1 R0 K9 ["customClothingSweaterSetting"]
+       45 GETUPVAL                         R1 0
+       46 LOADB                            R2 0
+       47 LOADN                            R3 0
+       48 CALL                             R1 2 1
+       49 SETTABLEKS                       R1 R0 K10 ["customClothingBottomsSetting"]
+       51 GETUPVAL                         R1 0
+       52 LOADB                            R2 0
+       53 LOADN                            R3 0
+       54 CALL                             R1 2 1
+       55 SETTABLEKS                       R1 R0 K11 ["customClothingPantsSetting"]
+       57 GETUPVAL                         R1 0
+       58 LOADB                            R2 0
+       59 LOADN                            R3 0
+       60 CALL                             R1 2 1
+       61 SETTABLEKS                       R1 R0 K12 ["customClothingShortsSetting"]
+       63 GETUPVAL                         R1 0
+       64 LOADB                            R2 0
+       65 LOADN                            R3 0
+       66 CALL                             R1 2 1
+       67 SETTABLEKS                       R1 R0 K13 ["customClothingDressSkirtSetting"]
+       69 GETUPVAL                         R1 0
+       70 LOADB                            R2 0
+       71 LOADN                            R3 0
+       72 CALL                             R1 2 1
+       73 SETTABLEKS                       R1 R0 K14 ["customClothingLeftShoesSetting"]
+       75 GETUPVAL                         R1 0
+       76 LOADB                            R2 0
+       77 LOADN                            R3 0
+       78 CALL                             R1 2 1
+       79 SETTABLEKS                       R1 R0 K15 ["customClothingRightShoesSetting"]
+       81 GETUPVAL                         R1 0
+       82 LOADB                            R2 0
+       83 LOADN                            R3 0
+       84 CALL                             R1 2 1
+       85 SETTABLEKS                       R1 R0 K16 ["customClothingClassicShirtsSetting"]
+       87 GETUPVAL                         R1 0
+       88 LOADB                            R2 0
+       89 LOADN                            R3 0
+       90 CALL                             R1 2 1
+       91 SETTABLEKS                       R1 R0 K17 ["customClothingClassicTShirtsSetting"]
+       93 GETUPVAL                         R1 0
+       94 LOADB                            R2 0
+       95 LOADN                            R3 0
+       96 CALL                             R1 2 1
+       97 SETTABLEKS                       R1 R0 K18 ["customClothingClassicPantsSetting"]
+       99 RETURN                           R0 1
 
 MAIN:
         0 PREPVARARGS                      0

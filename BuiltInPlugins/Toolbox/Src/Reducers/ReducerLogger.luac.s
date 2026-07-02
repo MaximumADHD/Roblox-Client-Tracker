@@ -178,14 +178,10 @@ PROTO_2:
 MAIN:
         0 PREPVARARGS                      0
         1 DUPCLOSURE                       R0 K0 [PROTO_0]
-        2 DUPTABLE                         R1 K3 [{"categories", "sorts"}]
-        3 LOADB                            R2 1
-        4 SETTABLEKS                       R2 R1 K1 ["categories"]
-        6 LOADB                            R2 1
-        7 SETTABLEKS                       R2 R1 K2 ["sorts"]
-        9 DUPCLOSURE                       R2 K4 [PROTO_1]
-       10 CAPTURE                          VAL R1
-       11 CAPTURE                          VAL R2
-       12 DUPCLOSURE                       R3 K5 [PROTO_2]
-       13 CAPTURE                          VAL R2
-       14 RETURN                           R3 1
+        2 DUPTABLE                         R1 K4 [{["categories"] = True, ["sorts"] = True}]
+        3 DUPCLOSURE                       R2 K5 [PROTO_1]
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          VAL R2
+        6 DUPCLOSURE                       R3 K6 [PROTO_2]
+        7 CAPTURE                          VAL R2
+        8 RETURN                           R3 1

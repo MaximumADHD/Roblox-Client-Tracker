@@ -15,21 +15,17 @@ MAIN:
        22 NEWTABLE                         R4 0 2
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 [".Assistant-CustomIconButton-Disabled GuiButton"]
-       26 DUPTABLE                         R7 K13 [{"BackgroundTransparency"}]
-       27 LOADK                            R8 K14 [0.5]
-       28 SETTABLEKS                       R8 R7 K12 ["BackgroundTransparency"]
-       30 CALL                             R5 2 1
-       31 MOVE                             R6 R2
-       32 LOADK                            R7 K15 [".Assistant-CustomIconButton-Disabled"]
-       33 DUPTABLE                         R8 K17 [{"ImageTransparency"}]
-       34 LOADK                            R9 K14 [0.5]
-       35 SETTABLEKS                       R9 R8 K16 ["ImageTransparency"]
-       37 CALL                             R6 2 -1
-       38 SETLIST                          R4 R5 -1 [1]
-       40 NEWTABLE                         R5 0 0
-       42 MOVE                             R6 R3
-       43 LOADK                            R7 K2 ["Assistant"]
-       44 MOVE                             R8 R4
-       45 MOVE                             R9 R5
-       46 CALL                             R6 3 -1
-       47 RETURN                           R6 -1
+       26 DUPTABLE                         R7 K14 [{["BackgroundTransparency"] = 0.5}]
+       27 CALL                             R5 2 1
+       28 MOVE                             R6 R2
+       29 LOADK                            R7 K15 [".Assistant-CustomIconButton-Disabled"]
+       30 DUPTABLE                         R8 K17 [{["ImageTransparency"] = 0.5}]
+       31 CALL                             R6 2 -1
+       32 SETLIST                          R4 R5 -1 [1]
+       34 NEWTABLE                         R5 0 0
+       36 MOVE                             R6 R3
+       37 LOADK                            R7 K2 ["Assistant"]
+       38 MOVE                             R8 R4
+       39 MOVE                             R9 R5
+       40 CALL                             R6 3 -1
+       41 RETURN                           R6 -1

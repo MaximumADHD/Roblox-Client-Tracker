@@ -42,18 +42,14 @@ PROTO_1:
        41 NAMECALL                         R5 R0 K10 ["dispatch"]
        43 CALL                             R5 -1 0
        44 GETTABLEKS                       R2 R1 K11 ["recordChange"]
-       46 DUPTABLE                         R3 K15 [{"Name", "DisplayName", "DoChange"}]
-       47 LOADK                            R4 K16 ["StyleEditor/SetStyleRulePropertyTransition"]
-       48 SETTABLEKS                       R4 R3 K12 ["Name"]
-       50 LOADK                            R4 K17 ["StyleEditor - Set StyleRule Property Transition"]
-       51 SETTABLEKS                       R4 R3 K13 ["DisplayName"]
-       53 NEWCLOSURE                       R4 P0
-       54 CAPTURE                          UPVAL U2
-       55 CAPTURE                          UPVAL U3
-       56 CAPTURE                          UPVAL U1
-       57 SETTABLEKS                       R4 R3 K14 ["DoChange"]
-       59 CALL                             R2 1 0
-       60 RETURN                           R0 0
+       46 DUPTABLE                         R3 K17 [{["Name"] = "StyleEditor/SetStyleRulePropertyTransition", ["DisplayName"] = "StyleEditor - Set StyleRule Property Transition", ["DoChange"]}]
+       47 NEWCLOSURE                       R4 P0
+       48 CAPTURE                          UPVAL U2
+       49 CAPTURE                          UPVAL U3
+       50 CAPTURE                          UPVAL U1
+       51 SETTABLEKS                       R4 R3 K16 ["DoChange"]
+       53 CALL                             R2 1 0
+       54 RETURN                           R0 0
 
 PROTO_2:
         0 MOVE                             R4 R0

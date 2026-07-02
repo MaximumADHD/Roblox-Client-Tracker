@@ -271,38 +271,34 @@ PROTO_8:
         8 GETUPVAL                         R1 1
         9 GETTABLEKS                       R1 R1 K0 ["computeHashSerializeContext"]
        11 GETUPVAL                         R2 0
-       12 DUPTABLE                         R3 K3 [{"ignoreUniformScaleChanges", "ignoreAccessories"}]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K1 ["ignoreUniformScaleChanges"]
-       16 LOADB                            R4 1
-       17 SETTABLEKS                       R4 R3 K2 ["ignoreAccessories"]
-       19 CALL                             R1 2 1
-       20 GETUPVAL                         R2 0
-       21 LOADNIL                          R3
-       22 LOADNIL                          R4
-       23 FORGPREP                         R2
-       24 GETUPVAL                         R7 1
-       25 GETTABLEKS                       R7 R7 K4 ["hashCharacter"]
-       27 MOVE                             R8 R6
-       28 MOVE                             R9 R1
-       29 CALL                             R7 2 1
-       30 FASTCALL2                        TABLE_INSERT R0 R7 ; [+5]
-       32 MOVE                             R9 R0
-       33 MOVE                             R10 R7
-       34 GETIMPORT                        R8 K7 [table.insert]
-       36 CALL                             R8 2 0
-       37 FORGLOOP                         R2 2 ; [-14]
-       39 DUPTABLE                         R2 K10 [{"hash", "lastFilteredSelection"}]
-       40 GETUPVAL                         R3 2
-       41 GETIMPORT                        R4 K12 [table.concat]
-       43 MOVE                             R5 R0
-       44 LOADK                            R6 K13 [","]
-       45 CALL                             R4 2 -1
-       46 CALL                             R3 -1 1
-       47 SETTABLEKS                       R3 R2 K8 ["hash"]
-       49 GETUPVAL                         R3 0
-       50 SETTABLEKS                       R3 R2 K9 ["lastFilteredSelection"]
-       52 RETURN                           R2 1
+       12 DUPTABLE                         R3 K5 [{["ignoreUniformScaleChanges"] = False, ["ignoreAccessories"] = True}]
+       13 CALL                             R1 2 1
+       14 GETUPVAL                         R2 0
+       15 LOADNIL                          R3
+       16 LOADNIL                          R4
+       17 FORGPREP                         R2
+       18 GETUPVAL                         R7 1
+       19 GETTABLEKS                       R7 R7 K6 ["hashCharacter"]
+       21 MOVE                             R8 R6
+       22 MOVE                             R9 R1
+       23 CALL                             R7 2 1
+       24 FASTCALL2                        TABLE_INSERT R0 R7 ; [+5]
+       26 MOVE                             R9 R0
+       27 MOVE                             R10 R7
+       28 GETIMPORT                        R8 K9 [table.insert]
+       30 CALL                             R8 2 0
+       31 FORGLOOP                         R2 2 ; [-14]
+       33 DUPTABLE                         R2 K12 [{"hash", "lastFilteredSelection"}]
+       34 GETUPVAL                         R3 2
+       35 GETIMPORT                        R4 K14 [table.concat]
+       37 MOVE                             R5 R0
+       38 LOADK                            R6 K15 [","]
+       39 CALL                             R4 2 -1
+       40 CALL                             R3 -1 1
+       41 SETTABLEKS                       R3 R2 K10 ["hash"]
+       43 GETUPVAL                         R3 0
+       44 SETTABLEKS                       R3 R2 K11 ["lastFilteredSelection"]
+       46 RETURN                           R2 1
 
 PROTO_9:
         0 GETUPVAL                         R0 0

@@ -28,7 +28,7 @@ PROTO_0:
        36 MUL                              R13 R14 R10
        37 LOADN                            R17 2
        38 MUL                              R16 R17 R10
-       39 SUBRK                            R15 R6 K16 ["FrameWidth"]
+       39 SUBRK                            R15 K6 [3] R16
        40 MUL                              R14 R11 R15
        41 SUBK                             R16 R10 K5 [1]
        42 MUL                              R15 R11 R16
@@ -130,30 +130,26 @@ PROTO_0:
       186 GETUPVAL                         R7 1
       187 GETTABLEKS                       R7 R7 K17 ["createElement"]
       189 LOADK                            R8 K29 ["Frame"]
-      190 DUPTABLE                         R9 K34 [{"Position", "Size", "BackgroundTransparency", "BorderSizePixel", "ZIndex"}]
-      191 GETIMPORT                        R10 K36 [UDim2.new]
+      190 DUPTABLE                         R9 K35 [{["Position"], ["Size"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["ZIndex"]}]
+      191 GETIMPORT                        R10 K37 [UDim2.new]
       193 LOADN                            R11 0
       194 LOADN                            R12 0
       195 LOADN                            R13 0
       196 LOADN                            R14 0
       197 CALL                             R10 4 1
       198 SETTABLEKS                       R10 R9 K30 ["Position"]
-      200 GETIMPORT                        R10 K36 [UDim2.new]
+      200 GETIMPORT                        R10 K37 [UDim2.new]
       202 LOADN                            R11 1
       203 LOADN                            R12 0
       204 LOADN                            R13 1
       205 LOADN                            R14 0
       206 CALL                             R10 4 1
       207 SETTABLEKS                       R10 R9 K31 ["Size"]
-      209 LOADN                            R10 1
-      210 SETTABLEKS                       R10 R9 K32 ["BackgroundTransparency"]
-      212 LOADN                            R10 0
-      213 SETTABLEKS                       R10 R9 K33 ["BorderSizePixel"]
-      215 GETTABLEKS                       R10 R1 K21 ["ZIndex"]
-      217 SETTABLEKS                       R10 R9 K21 ["ZIndex"]
-      219 MOVE                             R10 R2
-      220 CALL                             R7 3 -1
-      221 RETURN                           R7 -1
+      209 GETTABLEKS                       R10 R1 K21 ["ZIndex"]
+      211 SETTABLEKS                       R10 R9 K21 ["ZIndex"]
+      213 MOVE                             R10 R2
+      214 CALL                             R7 3 -1
+      215 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

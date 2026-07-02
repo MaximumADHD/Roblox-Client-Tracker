@@ -1,7 +1,7 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
         2 LOADK                            R2 K2 ["UserMessageSentEventThrottlingHundredthPercent"]
-        3 LOADN                            R3 16
+        3 LOADN                            R3 10000
         4 NAMECALL                         R0 R0 K3 ["DefineFastInt"]
         6 CALL                             R0 3 0
         7 RETURN                           R0 0
@@ -18,6 +18,6 @@ MAIN:
        13 CALL                             R1 1 0
        14 GETTABLEKS                       R1 R0 K9 ["createFInt"]
        16 LOADK                            R2 K10 ["UserMessageSentEventThrottlingHundredthPercent"]
-       17 LOADN                            R3 16
+       17 LOADN                            R3 10000
        18 CALL                             R1 2 -1
        19 RETURN                           R1 -1

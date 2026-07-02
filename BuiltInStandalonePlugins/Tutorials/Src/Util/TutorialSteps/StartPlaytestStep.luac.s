@@ -53,20 +53,10 @@ MAIN:
        10 GETTABLEKS                       R1 R0 K6 ["extend"]
        12 LOADK                            R2 K7 ["StartPlaytest"]
        13 CALL                             R1 1 1
-       14 DUPTABLE                         R2 K13 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-       15 LOADK                            R3 K14 ["Standalone"]
-       16 SETTABLEKS                       R3 R2 K8 ["DataModel"]
-       18 LOADK                            R3 K14 ["Standalone"]
-       19 SETTABLEKS                       R3 R2 K9 ["PluginType"]
-       21 LOADK                            R3 K15 ["Ribbon"]
-       22 SETTABLEKS                       R3 R2 K10 ["PluginId"]
-       24 LOADK                            R3 K16 ["Widgets"]
-       25 SETTABLEKS                       R3 R2 K11 ["Category"]
-       27 LOADK                            R3 K17 ["LeftMezzanine/LaunchTestMode_TestAndTestHere"]
-       28 SETTABLEKS                       R3 R2 K12 ["ItemId"]
-       30 DUPCLOSURE                       R3 K18 [PROTO_1]
-       31 CAPTURE                          VAL R2
-       32 SETTABLEKS                       R3 R1 K19 ["bind"]
-       34 DUPCLOSURE                       R3 K20 [PROTO_2]
-       35 SETTABLEKS                       R3 R1 K21 ["unbind"]
-       37 RETURN                           R1 1
+       14 DUPTABLE                         R2 K17 [{["DataModel"] = "Standalone", ["PluginType"] = "Standalone", ["PluginId"] = "Ribbon", ["Category"] = "Widgets", ["ItemId"] = "LeftMezzanine/LaunchTestMode_TestAndTestHere"}]
+       15 DUPCLOSURE                       R3 K18 [PROTO_1]
+       16 CAPTURE                          VAL R2
+       17 SETTABLEKS                       R3 R1 K19 ["bind"]
+       19 DUPCLOSURE                       R3 K20 [PROTO_2]
+       20 SETTABLEKS                       R3 R1 K21 ["unbind"]
+       22 RETURN                           R1 1

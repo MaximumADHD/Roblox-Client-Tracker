@@ -25,7 +25,7 @@ PROTO_0:
        29 RETURN                           R5 1
 
 PROTO_1:
-        0 LOADN                            R2 136
+        0 LOADN                            R2 5000
         1 LOADN                            R3 0
         2 LOADN                            R4 0
         3 LOADNIL                          R5
@@ -42,7 +42,7 @@ PROTO_1:
        17 JUMP                             ; [+1]
        18 MOVE                             R5 R1
        19 LOADN                            R8 0
-       20 LOADN                            R6 244
+       20 LOADN                            R6 500
        21 LOADN                            R7 1
        22 FORNPREP                         R6
        23 GETUPVAL                         R9 0
@@ -53,21 +53,42 @@ PROTO_1:
        30 CALL                             R9 2 1
        31 SUB                              R10 R9 R5
        32 GETTABLEKS                       R10 R10 K6 ["Magnitude"]
-       34 JUMPIFNOTLT                      R10 R2 ; [+8]
+       34 JUMPIFNOTLT                      R10 R2 ; [+35]
        36 MOVE                             R2 R10
-       37 GETUPVAL                         R11 1
-       38 MOVE                             R12 R0
-       39 DIVK                             R13 R8 K4 [500]
-       40 CALL                             R11 2 1
-       41 GETTABLEN                        R3 R11 1
-       42 DIVK                             R4 R8 K4 [500]
-       43 FORNLOOP                         R6
-       44 NEWTABLE                         R6 0 3
-       46 MOVE                             R7 R3
-       47 MOVE                             R8 R2
-       48 MOVE                             R9 R4
-       49 SETLIST                          R6 R7 3 [1]
-       51 RETURN                           R6 1
+       37 DIVK                             R12 R8 K4 [500]
+       38 LOADN                            R15 0
+       39 LOADN                            R16 1
+       40 FASTCALL3                        MATH_CLAMP R12 R15 R16
+       42 MOVE                             R14 R12
+       43 GETIMPORT                        R13 K9 [math.clamp]
+       45 CALL                             R13 3 1
+       46 MOVE                             R12 R13
+       47 NAMECALL                         R15 R0 K11 ["GetControlPoints"]
+       49 CALL                             R15 1 1
+       50 LENGTH                           R14 R15
+       51 SUBK                             R13 R14 K10 [1]
+       52 MUL                              R15 R12 R13
+       53 LOADN                            R16 0
+       54 SUBK                             R17 R13 K10 [1]
+       55 FASTCALL                         MATH_CLAMP ; [+2]
+       56 GETIMPORT                        R14 K9 [math.clamp]
+       58 CALL                             R14 3 1
+       59 MUL                              R16 R12 R13
+       60 SUB                              R15 R16 R14
+       61 NEWTABLE                         R16 0 2
+       63 MOVE                             R17 R14
+       64 MOVE                             R18 R15
+       65 SETLIST                          R16 R17 2 [1]
+       67 MOVE                             R11 R16
+       68 GETTABLEN                        R3 R11 1
+       69 DIVK                             R4 R8 K4 [500]
+       70 FORNLOOP                         R6
+       71 NEWTABLE                         R6 0 3
+       73 MOVE                             R7 R3
+       74 MOVE                             R8 R2
+       75 MOVE                             R9 R4
+       76 SETLIST                          R6 R7 3 [1]
+       78 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -83,5 +104,4 @@ MAIN:
        18 DUPCLOSURE                       R2 K8 [PROTO_0]
        19 DUPCLOSURE                       R3 K9 [PROTO_1]
        20 CAPTURE                          VAL R1
-       21 CAPTURE                          VAL R2
-       22 RETURN                           R3 1
+       21 RETURN                           R3 1

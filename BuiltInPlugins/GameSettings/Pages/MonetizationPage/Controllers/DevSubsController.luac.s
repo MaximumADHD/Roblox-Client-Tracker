@@ -40,24 +40,20 @@ PROTO_3:
         2 LOADK                            R5 K1 ["www"]
         3 LOADK                            R6 K2 ["/ide/publish/UploadNewImage"]
         4 DUPTABLE                         R7 K7 [{"Params", "Body", "CachePolicy", "Headers"}]
-        5 DUPTABLE                         R8 K10 [{"name", "description"}]
-        6 LOADK                            R9 K11 ["DevSubImage"]
-        7 SETTABLEKS                       R9 R8 K8 ["name"]
-        9 LOADK                            R9 K12 ["None"]
-       10 SETTABLEKS                       R9 R8 K9 ["description"]
-       12 SETTABLEKS                       R8 R7 K3 ["Params"]
-       14 NAMECALL                         R8 R1 K13 ["GetBinaryContents"]
-       16 CALL                             R8 1 1
-       17 SETTABLEKS                       R8 R7 K4 ["Body"]
-       19 GETIMPORT                        R8 K16 [Enum.HttpCachePolicy.None]
-       21 SETTABLEKS                       R8 R7 K5 ["CachePolicy"]
-       23 NEWTABLE                         R8 1 0
-       25 LOADK                            R9 K17 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
-       26 SETTABLEKS                       R9 R8 K18 ["Content-Type"]
-       28 SETTABLEKS                       R8 R7 K6 ["Headers"]
-       30 NAMECALL                         R3 R2 K19 ["post"]
-       32 CALL                             R3 4 -1
-       33 RETURN                           R3 -1
+        5 DUPTABLE                         R8 K12 [{["name"] = "DevSubImage", ["description"] = "None"}]
+        6 SETTABLEKS                       R8 R7 K3 ["Params"]
+        8 NAMECALL                         R8 R1 K13 ["GetBinaryContents"]
+       10 CALL                             R8 1 1
+       11 SETTABLEKS                       R8 R7 K4 ["Body"]
+       13 GETIMPORT                        R8 K16 [Enum.HttpCachePolicy.None]
+       15 SETTABLEKS                       R8 R7 K5 ["CachePolicy"]
+       17 NEWTABLE                         R8 1 0
+       19 LOADK                            R9 K17 ["multipart/form-data; boundary=EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+       20 SETTABLEKS                       R9 R8 K18 ["Content-Type"]
+       22 SETTABLEKS                       R8 R7 K6 ["Headers"]
+       24 NAMECALL                         R3 R2 K19 ["post"]
+       26 CALL                             R3 4 -1
+       27 RETURN                           R3 -1
 
 PROTO_4:
         0 GETTABLEKS                       R6 R0 K0 ["__networking"]
@@ -86,15 +82,13 @@ PROTO_5:
         4 MOVE                             R8 R1
         5 CONCAT                           R6 R7 R8
         6 DUPTABLE                         R7 K5 [{"Body", "CachePolicy"}]
-        7 DUPTABLE                         R8 K7 [{"status"}]
-        8 LOADK                            R9 K8 ["Closed"]
-        9 SETTABLEKS                       R9 R8 K6 ["status"]
-       11 SETTABLEKS                       R8 R7 K3 ["Body"]
-       13 GETIMPORT                        R8 K12 [Enum.HttpCachePolicy.None]
-       15 SETTABLEKS                       R8 R7 K4 ["CachePolicy"]
-       17 NAMECALL                         R3 R2 K13 ["patch"]
-       19 CALL                             R3 4 -1
-       20 RETURN                           R3 -1
+        7 DUPTABLE                         R8 K8 [{["status"] = "Closed"}]
+        8 SETTABLEKS                       R8 R7 K3 ["Body"]
+       10 GETIMPORT                        R8 K12 [Enum.HttpCachePolicy.None]
+       12 SETTABLEKS                       R8 R7 K4 ["CachePolicy"]
+       14 NAMECALL                         R3 R2 K13 ["patch"]
+       16 CALL                             R3 4 -1
+       17 RETURN                           R3 -1
 
 PROTO_6:
         0 GETTABLEKS                       R8 R0 K0 ["__networking"]
@@ -124,66 +118,56 @@ PROTO_6:
 
 PROTO_7:
         0 NEWTABLE                         R4 0 0
-        2 DUPTABLE                         R5 K3 [{"status", "sortOrder", "cursor"}]
+        2 DUPTABLE                         R5 K4 [{[1], ["sortOrder"] = "Asc", ["cursor"]}]
         3 JUMPIFNOT                        R2 ; [+2]
-        4 LOADK                            R6 K4 ["Open"]
+        4 LOADK                            R6 K5 ["Open"]
         5 JUMP                             ; [+1]
-        6 LOADK                            R6 K5 ["Closed"]
+        6 LOADK                            R6 K6 ["Closed"]
         7 SETTABLEKS                       R6 R5 K0 ["status"]
-        9 LOADK                            R6 K6 ["Asc"]
-       10 SETTABLEKS                       R6 R5 K1 ["sortOrder"]
-       12 SETTABLEKS                       R3 R5 K2 ["cursor"]
-       14 MOVE                             R8 R1
-       15 MOVE                             R9 R5
-       16 NAMECALL                         R6 R0 K7 ["devSubsV1GET"]
-       18 CALL                             R6 3 1
-       19 NAMECALL                         R6 R6 K8 ["await"]
-       21 CALL                             R6 1 1
-       22 GETTABLEKS                       R7 R6 K9 ["responseBody"]
-       24 GETIMPORT                        R8 K11 [pairs]
-       26 GETTABLEKS                       R9 R7 K12 ["data"]
-       28 CALL                             R8 1 3
-       29 FORGPREP_NEXT                    R8
-       30 DUPTABLE                         R13 K24 [{"IsNew", "Key", "Id", "Image", "Name", "Price", "CreationDate", "Active", "Subscribers", "PendingEarning", "Prepaid"}]
-       31 LOADB                            R14 0
-       32 SETTABLEKS                       R14 R13 K13 ["IsNew"]
-       34 GETTABLEKS                       R15 R12 K25 ["id"]
-       36 FASTCALL1                        TOSTRING R15 ; [+2]
-       37 GETIMPORT                        R14 K27 [tostring]
-       39 CALL                             R14 1 1
-       40 SETTABLEKS                       R14 R13 K14 ["Key"]
-       42 GETTABLEKS                       R14 R12 K25 ["id"]
-       44 SETTABLEKS                       R14 R13 K15 ["Id"]
-       46 LOADK                            R15 K28 ["rbxassetid://"]
-       47 GETTABLEKS                       R16 R12 K29 ["imageAssetId"]
-       49 CONCAT                           R14 R15 R16
-       50 SETTABLEKS                       R14 R13 K16 ["Image"]
-       52 GETTABLEKS                       R14 R12 K30 ["name"]
-       54 SETTABLEKS                       R14 R13 K17 ["Name"]
-       56 GETTABLEKS                       R14 R12 K31 ["priceInRobux"]
-       58 SETTABLEKS                       R14 R13 K18 ["Price"]
-       60 GETTABLEKS                       R14 R12 K32 ["created"]
-       62 SETTABLEKS                       R14 R13 K19 ["CreationDate"]
-       64 GETTABLEKS                       R15 R12 K0 ["status"]
-       66 JUMPIFEQKS                       R15 K4 ["Open"] ; [+2]
-       68 LOADB                            R14 0 +1
-       69 LOADB                            R14 1
-       70 SETTABLEKS                       R14 R13 K20 ["Active"]
-       72 LOADN                            R14 231
-       73 SETTABLEKS                       R14 R13 K21 ["Subscribers"]
-       75 LOADN                            R14 15
-       76 SETTABLEKS                       R14 R13 K22 ["PendingEarning"]
-       78 LOADN                            R14 6
-       79 SETTABLEKS                       R14 R13 K23 ["Prepaid"]
-       81 GETTABLEKS                       R14 R13 K14 ["Key"]
-       83 SETTABLE                         R13 R4 R14
-       84 FORGLOOP                         R8 2 ; [-55]
-       86 GETTABLEKS                       R8 R7 K33 ["nextPageCursor"]
-       88 JUMPIFNOTEQKNIL                  R8 ; [+2]
-       90 LOADK                            R8 K34 [""]
-       91 MOVE                             R9 R4
-       92 MOVE                             R10 R8
-       93 RETURN                           R9 2
+        9 SETTABLEKS                       R3 R5 K3 ["cursor"]
+       11 MOVE                             R8 R1
+       12 MOVE                             R9 R5
+       13 NAMECALL                         R6 R0 K7 ["devSubsV1GET"]
+       15 CALL                             R6 3 1
+       16 NAMECALL                         R6 R6 K8 ["await"]
+       18 CALL                             R6 1 1
+       19 GETTABLEKS                       R7 R6 K9 ["responseBody"]
+       21 GETIMPORT                        R8 K11 [pairs]
+       23 GETTABLEKS                       R9 R7 K12 ["data"]
+       25 CALL                             R8 1 3
+       26 FORGPREP_NEXT                    R8
+       27 DUPTABLE                         R13 K28 [{["IsNew"] = False, ["Key"], ["Id"], ["Image"], ["Name"], ["Price"], ["CreationDate"], ["Active"], ["Subscribers"] = 999, ["PendingEarning"] = 9999, ["Prepaid"] = 6}]
+       28 GETTABLEKS                       R15 R12 K29 ["id"]
+       30 FASTCALL1                        TOSTRING R15 ; [+2]
+       31 GETIMPORT                        R14 K31 [tostring]
+       33 CALL                             R14 1 1
+       34 SETTABLEKS                       R14 R13 K15 ["Key"]
+       36 GETTABLEKS                       R14 R12 K29 ["id"]
+       38 SETTABLEKS                       R14 R13 K16 ["Id"]
+       40 LOADK                            R15 K32 ["rbxassetid://"]
+       41 GETTABLEKS                       R16 R12 K33 ["imageAssetId"]
+       43 CONCAT                           R14 R15 R16
+       44 SETTABLEKS                       R14 R13 K17 ["Image"]
+       46 GETTABLEKS                       R14 R12 K34 ["name"]
+       48 SETTABLEKS                       R14 R13 K18 ["Name"]
+       50 GETTABLEKS                       R14 R12 K35 ["priceInRobux"]
+       52 SETTABLEKS                       R14 R13 K19 ["Price"]
+       54 GETTABLEKS                       R14 R12 K36 ["created"]
+       56 SETTABLEKS                       R14 R13 K20 ["CreationDate"]
+       58 GETTABLEKS                       R15 R12 K0 ["status"]
+       60 JUMPIFEQKS                       R15 K5 ["Open"] ; [+2]
+       62 LOADB                            R14 0 +1
+       63 LOADB                            R14 1
+       64 SETTABLEKS                       R14 R13 K21 ["Active"]
+       66 GETTABLEKS                       R14 R13 K15 ["Key"]
+       68 SETTABLE                         R13 R4 R14
+       69 FORGLOOP                         R8 2 ; [-43]
+       71 GETTABLEKS                       R8 R7 K37 ["nextPageCursor"]
+       73 JUMPIFNOTEQKNIL                  R8 ; [+2]
+       75 LOADK                            R8 K38 [""]
+       76 MOVE                             R9 R4
+       77 MOVE                             R10 R8
+       78 RETURN                           R9 2
 
 PROTO_8:
         0 GETTABLEKS                       R5 R2 K0 ["Image"]

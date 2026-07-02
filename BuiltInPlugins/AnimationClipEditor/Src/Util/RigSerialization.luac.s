@@ -34,7 +34,7 @@ PROTO_1:
        33 JUMPIFNOTLT                      R5 R2 ; [+7]
        35 GETUPVAL                         R5 1
        36 GETTABLEKS                       R5 R5 K10 ["round"]
-       38 DIVRK                            R6 R11 K2 ["sort"]
+       38 DIVRK                            R6 K11 [1] R2
        39 CALL                             R5 1 1
        40 MOVE                             R4 R5
        41 GETUPVAL                         R6 0

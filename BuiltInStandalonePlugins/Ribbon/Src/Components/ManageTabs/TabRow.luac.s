@@ -52,67 +52,57 @@ PROTO_3:
        41 DUPTABLE                         R6 K12 [{"Checkbox"}]
        42 GETUPVAL                         R8 4
        43 CALL                             R8 0 1
-       44 JUMPIFNOT                        R8 ; [+58]
+       44 JUMPIFNOT                        R8 ; [+46]
        45 GETUPVAL                         R7 1
        46 GETUPVAL                         R8 5
-       47 DUPTABLE                         R9 K14 [{"LayoutOrder", "tag"}]
+       47 DUPTABLE                         R9 K15 [{["LayoutOrder"], ["tag"] = "row gap-small auto-xy"}]
        48 MOVE                             R10 R1
        49 CALL                             R10 0 1
        50 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-       52 LOADK                            R10 K15 ["auto-xy row gap-small"]
-       53 SETTABLEKS                       R10 R9 K13 ["tag"]
-       55 DUPTABLE                         R10 K17 [{"Checkbox", "Text"}]
-       56 GETUPVAL                         R11 1
-       57 GETUPVAL                         R12 6
-       58 DUPTABLE                         R13 K22 [{"isChecked", "onActivated", "size", "label"}]
-       59 GETTABLEKS                       R14 R2 K23 ["Checked"]
-       61 SETTABLEKS                       R14 R13 K18 ["isChecked"]
-       63 NEWCLOSURE                       R14 P1
-       64 CAPTURE                          VAL R0
-       65 SETTABLEKS                       R14 R13 K19 ["onActivated"]
-       67 GETUPVAL                         R14 7
-       68 GETTABLEKS                       R14 R14 K24 ["XSmall"]
-       70 SETTABLEKS                       R14 R13 K20 ["size"]
-       72 LOADK                            R14 K25 [""]
-       73 SETTABLEKS                       R14 R13 K21 ["label"]
-       75 CALL                             R11 2 1
-       76 SETTABLEKS                       R11 R10 K11 ["Checkbox"]
-       78 GETUPVAL                         R11 1
-       79 GETUPVAL                         R12 8
-       80 DUPTABLE                         R13 K27 [{"tag", "Text", "fontStyle"}]
-       81 LOADK                            R14 K28 ["auto-xy"]
-       82 SETTABLEKS                       R14 R13 K13 ["tag"]
-       84 GETTABLEKS                       R14 R2 K16 ["Text"]
-       86 SETTABLEKS                       R14 R13 K16 ["Text"]
-       88 DUPTABLE                         R14 K31 [{"Font", "FontSize"}]
-       89 GETIMPORT                        R15 K34 [Enum.Font.BuilderSans]
-       91 SETTABLEKS                       R15 R14 K29 ["Font"]
-       93 LOADN                            R15 15
-       94 SETTABLEKS                       R15 R14 K30 ["FontSize"]
-       96 SETTABLEKS                       R14 R13 K26 ["fontStyle"]
-       98 CALL                             R11 2 1
-       99 SETTABLEKS                       R11 R10 K16 ["Text"]
-      101 CALL                             R7 3 1
-      102 JUMP                             ; [+23]
-      103 GETUPVAL                         R7 1
-      104 GETUPVAL                         R8 9
-      105 DUPTABLE                         R9 K37 [{"LayoutOrder", "Checked", "OnClick", "Text", "ExcludeTextFromClickableArea"}]
-      106 MOVE                             R10 R1
-      107 CALL                             R10 0 1
-      108 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
-      110 GETTABLEKS                       R10 R2 K23 ["Checked"]
-      112 SETTABLEKS                       R10 R9 K23 ["Checked"]
-      114 NEWCLOSURE                       R10 P2
-      115 CAPTURE                          VAL R0
-      116 SETTABLEKS                       R10 R9 K35 ["OnClick"]
-      118 GETTABLEKS                       R10 R2 K16 ["Text"]
-      120 SETTABLEKS                       R10 R9 K16 ["Text"]
-      122 LOADB                            R10 1
-      123 SETTABLEKS                       R10 R9 K36 ["ExcludeTextFromClickableArea"]
-      125 CALL                             R7 2 1
-      126 SETTABLEKS                       R7 R6 K11 ["Checkbox"]
-      128 CALL                             R3 3 -1
-      129 RETURN                           R3 -1
+       52 DUPTABLE                         R10 K17 [{"Checkbox", "Text"}]
+       53 GETUPVAL                         R11 1
+       54 GETUPVAL                         R12 6
+       55 DUPTABLE                         R13 K23 [{["isChecked"], ["onActivated"], ["size"], ["label"] = ""}]
+       56 GETTABLEKS                       R14 R2 K24 ["Checked"]
+       58 SETTABLEKS                       R14 R13 K18 ["isChecked"]
+       60 NEWCLOSURE                       R14 P1
+       61 CAPTURE                          VAL R0
+       62 SETTABLEKS                       R14 R13 K19 ["onActivated"]
+       64 GETUPVAL                         R14 7
+       65 GETTABLEKS                       R14 R14 K25 ["XSmall"]
+       67 SETTABLEKS                       R14 R13 K20 ["size"]
+       69 CALL                             R11 2 1
+       70 SETTABLEKS                       R11 R10 K11 ["Checkbox"]
+       72 GETUPVAL                         R11 1
+       73 GETUPVAL                         R12 8
+       74 DUPTABLE                         R13 K28 [{["tag"] = "auto-xy", ["Text"], ["fontStyle"]}]
+       75 GETTABLEKS                       R14 R2 K16 ["Text"]
+       77 SETTABLEKS                       R14 R13 K16 ["Text"]
+       79 DUPTABLE                         R14 K32 [{["Font"], ["FontSize"] = 15}]
+       80 GETIMPORT                        R15 K35 [Enum.Font.BuilderSans]
+       82 SETTABLEKS                       R15 R14 K29 ["Font"]
+       84 SETTABLEKS                       R14 R13 K27 ["fontStyle"]
+       86 CALL                             R11 2 1
+       87 SETTABLEKS                       R11 R10 K16 ["Text"]
+       89 CALL                             R7 3 1
+       90 JUMP                             ; [+20]
+       91 GETUPVAL                         R7 1
+       92 GETUPVAL                         R8 9
+       93 DUPTABLE                         R9 K39 [{["LayoutOrder"], ["Checked"], ["OnClick"], ["Text"], ["ExcludeTextFromClickableArea"] = True}]
+       94 MOVE                             R10 R1
+       95 CALL                             R10 0 1
+       96 SETTABLEKS                       R10 R9 K3 ["LayoutOrder"]
+       98 GETTABLEKS                       R10 R2 K24 ["Checked"]
+      100 SETTABLEKS                       R10 R9 K24 ["Checked"]
+      102 NEWCLOSURE                       R10 P2
+      103 CAPTURE                          VAL R0
+      104 SETTABLEKS                       R10 R9 K36 ["OnClick"]
+      106 GETTABLEKS                       R10 R2 K16 ["Text"]
+      108 SETTABLEKS                       R10 R9 K16 ["Text"]
+      110 CALL                             R7 2 1
+      111 SETTABLEKS                       R7 R6 K11 ["Checkbox"]
+      113 CALL                             R3 3 -1
+      114 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

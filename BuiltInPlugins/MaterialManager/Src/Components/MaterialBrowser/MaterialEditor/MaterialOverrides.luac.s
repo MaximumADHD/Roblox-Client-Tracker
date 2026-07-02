@@ -64,186 +64,170 @@ PROTO_2:
        48 GETUPVAL                         R10 2
        49 GETTABLEKS                       R11 R4 K4 ["Material"]
        51 GETTABLE                         R9 R10 R11
-       52 JUMPIFNOT                        R9 ; [+171]
+       52 JUMPIFNOT                        R9 ; [+153]
        53 GETUPVAL                         R9 0
        54 GETTABLEKS                       R9 R9 K18 ["createElement"]
        56 GETUPVAL                         R10 1
-       57 DUPTABLE                         R11 K24 [{"AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "Spacing"}]
-       58 GETIMPORT                        R12 K26 [Enum.AutomaticSize.Y]
+       57 DUPTABLE                         R11 K25 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"] = 2, ["HorizontalAlignment"], ["Spacing"]}]
+       58 GETIMPORT                        R12 K27 [Enum.AutomaticSize.Y]
        60 SETTABLEKS                       R12 R11 K19 ["AutomaticSize"]
-       62 GETIMPORT                        R12 K29 [Enum.FillDirection.Horizontal]
+       62 GETIMPORT                        R12 K30 [Enum.FillDirection.Horizontal]
        64 SETTABLEKS                       R12 R11 K20 ["Layout"]
-       66 LOADN                            R12 2
-       67 SETTABLEKS                       R12 R11 K21 ["LayoutOrder"]
-       69 GETIMPORT                        R12 K31 [Enum.HorizontalAlignment.Left]
-       71 SETTABLEKS                       R12 R11 K22 ["HorizontalAlignment"]
-       73 GETTABLEKS                       R12 R2 K23 ["Spacing"]
-       75 SETTABLEKS                       R12 R11 K23 ["Spacing"]
-       77 DUPTABLE                         R12 K34 [{"Label", "SelectInputWrapper"}]
-       78 GETUPVAL                         R13 0
-       79 GETTABLEKS                       R13 R13 K18 ["createElement"]
-       81 GETUPVAL                         R14 1
-       82 DUPTABLE                         R15 K37 [{"LayoutOrder", "Layout", "Size", "Spacing", "VerticalAlignment", "HorizontalAlignment"}]
-       83 LOADN                            R16 1
-       84 SETTABLEKS                       R16 R15 K21 ["LayoutOrder"]
-       86 GETIMPORT                        R16 K29 [Enum.FillDirection.Horizontal]
-       88 SETTABLEKS                       R16 R15 K20 ["Layout"]
-       90 GETTABLEKS                       R16 R2 K38 ["OverrideSize"]
-       92 SETTABLEKS                       R16 R15 K35 ["Size"]
-       94 LOADN                            R16 3
-       95 SETTABLEKS                       R16 R15 K23 ["Spacing"]
-       97 GETIMPORT                        R16 K40 [Enum.VerticalAlignment.Center]
-       99 SETTABLEKS                       R16 R15 K36 ["VerticalAlignment"]
-      101 GETIMPORT                        R16 K31 [Enum.HorizontalAlignment.Left]
-      103 SETTABLEKS                       R16 R15 K22 ["HorizontalAlignment"]
-      105 DUPTABLE                         R16 K42 [{"Status", "Label"}]
-      106 MOVE                             R17 R6
-      107 JUMPIFNOT                        R17 ; [+17]
-      108 GETUPVAL                         R17 0
-      109 GETTABLEKS                       R17 R17 K18 ["createElement"]
-      111 GETUPVAL                         R18 3
-      112 DUPTABLE                         R19 K44 [{"LayoutOrder", "Size", "StatusText", "Status"}]
-      113 LOADN                            R20 1
-      114 SETTABLEKS                       R20 R19 K21 ["LayoutOrder"]
-      116 GETTABLEKS                       R20 R2 K45 ["ImageSize"]
-      118 SETTABLEKS                       R20 R19 K35 ["Size"]
-      120 SETTABLEKS                       R7 R19 K43 ["StatusText"]
-      122 SETTABLEKS                       R5 R19 K41 ["Status"]
-      124 CALL                             R17 2 1
-      125 SETTABLEKS                       R17 R16 K41 ["Status"]
-      127 GETUPVAL                         R17 0
-      128 GETTABLEKS                       R17 R17 K18 ["createElement"]
-      130 GETUPVAL                         R18 4
-      131 DUPTABLE                         R19 K48 [{"AutomaticSize", "LayoutOrder", "Text", "TextTruncate"}]
-      132 GETIMPORT                        R20 K50 [Enum.AutomaticSize.XY]
-      134 SETTABLEKS                       R20 R19 K19 ["AutomaticSize"]
-      136 LOADN                            R20 2
-      137 SETTABLEKS                       R20 R19 K21 ["LayoutOrder"]
-      139 LOADK                            R22 K2 ["MaterialOverrides"]
-      140 LOADK                            R23 K51 ["MaterialOverride"]
-      141 NAMECALL                         R20 R3 K14 ["getText"]
-      143 CALL                             R20 3 1
-      144 SETTABLEKS                       R20 R19 K46 ["Text"]
-      146 JUMPIFNOT                        R6 ; [+3]
-      147 GETIMPORT                        R20 K53 [Enum.TextTruncate.AtEnd]
-      149 JUMP                             ; [+1]
-      150 LOADNIL                          R20
-      151 SETTABLEKS                       R20 R19 K47 ["TextTruncate"]
-      153 CALL                             R17 2 1
-      154 SETTABLEKS                       R17 R16 K32 ["Label"]
-      156 CALL                             R13 3 1
-      157 SETTABLEKS                       R13 R12 K32 ["Label"]
-      159 GETUPVAL                         R13 0
-      160 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      162 GETUPVAL                         R14 1
-      163 DUPTABLE                         R15 K54 [{"AutomaticSize", "LayoutOrder", "Size", "VerticalAlignment"}]
-      164 GETIMPORT                        R16 K50 [Enum.AutomaticSize.XY]
-      166 SETTABLEKS                       R16 R15 K19 ["AutomaticSize"]
-      168 LOADN                            R16 2
-      169 SETTABLEKS                       R16 R15 K21 ["LayoutOrder"]
-      171 GETTABLEKS                       R16 R2 K38 ["OverrideSize"]
-      173 SETTABLEKS                       R16 R15 K35 ["Size"]
-      175 GETIMPORT                        R16 K40 [Enum.VerticalAlignment.Center]
-      177 SETTABLEKS                       R16 R15 K36 ["VerticalAlignment"]
-      179 DUPTABLE                         R16 K56 [{"SelectInput"}]
-      180 GETUPVAL                         R17 0
-      181 GETTABLEKS                       R17 R17 K18 ["createElement"]
-      183 GETUPVAL                         R18 5
-      184 DUPTABLE                         R19 K62 [{"Items", "OnItemActivated", "PlaceholderText", "SelectedIndex", "Width"}]
-      185 GETTABLEKS                       R20 R1 K2 ["MaterialOverrides"]
-      187 SETTABLEKS                       R20 R19 K57 ["Items"]
-      189 GETTABLEKS                       R20 R0 K63 ["onMaterialItemActivated"]
-      191 SETTABLEKS                       R20 R19 K58 ["OnItemActivated"]
-      193 GETTABLEKS                       R21 R1 K2 ["MaterialOverrides"]
-      195 GETTABLEKS                       R22 R1 K51 ["MaterialOverride"]
-      197 GETTABLE                         R20 R21 R22
-      198 SETTABLEKS                       R20 R19 K59 ["PlaceholderText"]
-      200 GETTABLEKS                       R20 R1 K51 ["MaterialOverride"]
-      202 SETTABLEKS                       R20 R19 K60 ["SelectedIndex"]
-      204 GETTABLEKS                       R21 R2 K38 ["OverrideSize"]
-      206 GETTABLEKS                       R21 R21 K64 ["X"]
-      208 GETTABLEKS                       R21 R21 K65 ["Offset"]
-      210 GETTABLEKS                       R22 R2 K66 ["Padding"]
-      212 SUB                              R20 R21 R22
-      213 SETTABLEKS                       R20 R19 K61 ["Width"]
-      215 CALL                             R17 2 1
-      216 SETTABLEKS                       R17 R16 K55 ["SelectInput"]
-      218 CALL                             R13 3 1
-      219 SETTABLEKS                       R13 R12 K33 ["SelectInputWrapper"]
-      221 CALL                             R9 3 1
-      222 MOVE                             R8 R9
-      223 JUMP                             ; [+46]
-      224 GETUPVAL                         R9 0
-      225 GETTABLEKS                       R9 R9 K18 ["createElement"]
-      227 GETUPVAL                         R10 1
-      228 DUPTABLE                         R11 K67 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder"}]
-      229 GETIMPORT                        R12 K50 [Enum.AutomaticSize.XY]
-      231 SETTABLEKS                       R12 R11 K19 ["AutomaticSize"]
-      233 GETIMPORT                        R12 K31 [Enum.HorizontalAlignment.Left]
-      235 SETTABLEKS                       R12 R11 K22 ["HorizontalAlignment"]
-      237 LOADN                            R12 2
-      238 SETTABLEKS                       R12 R11 K21 ["LayoutOrder"]
-      240 DUPTABLE                         R12 K69 [{"TextLabel"}]
-      241 GETUPVAL                         R13 0
-      242 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      244 GETUPVAL                         R14 4
-      245 DUPTABLE                         R15 K71 [{"AutomaticSize", "Size", "Text", "TextXAlignment"}]
-      246 GETIMPORT                        R16 K26 [Enum.AutomaticSize.Y]
-      248 SETTABLEKS                       R16 R15 K19 ["AutomaticSize"]
-      250 GETTABLEKS                       R16 R2 K38 ["OverrideSize"]
-      252 SETTABLEKS                       R16 R15 K35 ["Size"]
-      254 LOADK                            R18 K2 ["MaterialOverrides"]
-      255 LOADK                            R19 K72 ["OverrideUnavailable"]
-      256 NAMECALL                         R16 R3 K14 ["getText"]
-      258 CALL                             R16 3 1
-      259 SETTABLEKS                       R16 R15 K46 ["Text"]
-      261 GETIMPORT                        R16 K73 [Enum.TextXAlignment.Left]
-      263 SETTABLEKS                       R16 R15 K70 ["TextXAlignment"]
-      265 CALL                             R13 2 1
-      266 SETTABLEKS                       R13 R12 K68 ["TextLabel"]
-      268 CALL                             R9 3 1
-      269 MOVE                             R8 R9
-      270 GETUPVAL                         R9 0
-      271 GETTABLEKS                       R9 R9 K18 ["createElement"]
-      273 GETUPVAL                         R10 1
-      274 DUPTABLE                         R11 K74 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing", "Padding"}]
-      275 GETIMPORT                        R12 K26 [Enum.AutomaticSize.Y]
-      277 SETTABLEKS                       R12 R11 K19 ["AutomaticSize"]
-      279 GETIMPORT                        R12 K31 [Enum.HorizontalAlignment.Left]
-      281 SETTABLEKS                       R12 R11 K22 ["HorizontalAlignment"]
-      283 GETIMPORT                        R12 K76 [Enum.FillDirection.Vertical]
-      285 SETTABLEKS                       R12 R11 K20 ["Layout"]
-      287 GETTABLEKS                       R12 R1 K21 ["LayoutOrder"]
-      289 SETTABLEKS                       R12 R11 K21 ["LayoutOrder"]
-      291 GETTABLEKS                       R12 R2 K66 ["Padding"]
-      293 SETTABLEKS                       R12 R11 K23 ["Spacing"]
-      295 GETTABLEKS                       R12 R2 K66 ["Padding"]
-      297 SETTABLEKS                       R12 R11 K66 ["Padding"]
-      299 DUPTABLE                         R12 K79 [{"Name", "OverridesPanel"}]
-      300 GETUPVAL                         R13 0
-      301 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      303 GETUPVAL                         R14 6
-      304 DUPTABLE                         R15 K82 [{"LayoutOrder", "Font", "Size", "Text", "TextSize", "TextXAlignment"}]
-      305 LOADN                            R16 1
-      306 SETTABLEKS                       R16 R15 K21 ["LayoutOrder"]
-      308 GETTABLEKS                       R16 R2 K83 ["HeaderFont"]
-      310 SETTABLEKS                       R16 R15 K80 ["Font"]
-      312 GETTABLEKS                       R16 R2 K84 ["LabelRowSize"]
-      314 SETTABLEKS                       R16 R15 K35 ["Size"]
-      316 LOADK                            R18 K2 ["MaterialOverrides"]
-      317 LOADK                            R19 K2 ["MaterialOverrides"]
-      318 NAMECALL                         R16 R3 K14 ["getText"]
-      320 CALL                             R16 3 1
-      321 SETTABLEKS                       R16 R15 K46 ["Text"]
-      323 GETTABLEKS                       R16 R2 K85 ["SectionHeaderTextSize"]
-      325 SETTABLEKS                       R16 R15 K81 ["TextSize"]
-      327 GETIMPORT                        R16 K73 [Enum.TextXAlignment.Left]
-      329 SETTABLEKS                       R16 R15 K70 ["TextXAlignment"]
-      331 CALL                             R13 2 1
-      332 SETTABLEKS                       R13 R12 K77 ["Name"]
-      334 SETTABLEKS                       R8 R12 K78 ["OverridesPanel"]
-      336 CALL                             R9 3 -1
-      337 RETURN                           R9 -1
+       66 GETIMPORT                        R12 K32 [Enum.HorizontalAlignment.Left]
+       68 SETTABLEKS                       R12 R11 K23 ["HorizontalAlignment"]
+       70 GETTABLEKS                       R12 R2 K24 ["Spacing"]
+       72 SETTABLEKS                       R12 R11 K24 ["Spacing"]
+       74 DUPTABLE                         R12 K35 [{"Label", "SelectInputWrapper"}]
+       75 GETUPVAL                         R13 0
+       76 GETTABLEKS                       R13 R13 K18 ["createElement"]
+       78 GETUPVAL                         R14 1
+       79 DUPTABLE                         R15 K40 [{["LayoutOrder"] = 1, ["Layout"], ["Size"], ["Spacing"] = 3, ["VerticalAlignment"], ["HorizontalAlignment"]}]
+       80 GETIMPORT                        R16 K30 [Enum.FillDirection.Horizontal]
+       82 SETTABLEKS                       R16 R15 K20 ["Layout"]
+       84 GETTABLEKS                       R16 R2 K41 ["OverrideSize"]
+       86 SETTABLEKS                       R16 R15 K37 ["Size"]
+       88 GETIMPORT                        R16 K43 [Enum.VerticalAlignment.Center]
+       90 SETTABLEKS                       R16 R15 K39 ["VerticalAlignment"]
+       92 GETIMPORT                        R16 K32 [Enum.HorizontalAlignment.Left]
+       94 SETTABLEKS                       R16 R15 K23 ["HorizontalAlignment"]
+       96 DUPTABLE                         R16 K45 [{"Status", "Label"}]
+       97 MOVE                             R17 R6
+       98 JUMPIFNOT                        R17 ; [+14]
+       99 GETUPVAL                         R17 0
+      100 GETTABLEKS                       R17 R17 K18 ["createElement"]
+      102 GETUPVAL                         R18 3
+      103 DUPTABLE                         R19 K47 [{["LayoutOrder"] = 1, ["Size"], ["StatusText"], ["Status"]}]
+      104 GETTABLEKS                       R20 R2 K48 ["ImageSize"]
+      106 SETTABLEKS                       R20 R19 K37 ["Size"]
+      108 SETTABLEKS                       R7 R19 K46 ["StatusText"]
+      110 SETTABLEKS                       R5 R19 K44 ["Status"]
+      112 CALL                             R17 2 1
+      113 SETTABLEKS                       R17 R16 K44 ["Status"]
+      115 GETUPVAL                         R17 0
+      116 GETTABLEKS                       R17 R17 K18 ["createElement"]
+      118 GETUPVAL                         R18 4
+      119 DUPTABLE                         R19 K51 [{["AutomaticSize"], ["LayoutOrder"] = 2, ["Text"], ["TextTruncate"]}]
+      120 GETIMPORT                        R20 K53 [Enum.AutomaticSize.XY]
+      122 SETTABLEKS                       R20 R19 K19 ["AutomaticSize"]
+      124 LOADK                            R22 K2 ["MaterialOverrides"]
+      125 LOADK                            R23 K54 ["MaterialOverride"]
+      126 NAMECALL                         R20 R3 K14 ["getText"]
+      128 CALL                             R20 3 1
+      129 SETTABLEKS                       R20 R19 K49 ["Text"]
+      131 JUMPIFNOT                        R6 ; [+3]
+      132 GETIMPORT                        R20 K56 [Enum.TextTruncate.AtEnd]
+      134 JUMP                             ; [+1]
+      135 LOADNIL                          R20
+      136 SETTABLEKS                       R20 R19 K50 ["TextTruncate"]
+      138 CALL                             R17 2 1
+      139 SETTABLEKS                       R17 R16 K33 ["Label"]
+      141 CALL                             R13 3 1
+      142 SETTABLEKS                       R13 R12 K33 ["Label"]
+      144 GETUPVAL                         R13 0
+      145 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      147 GETUPVAL                         R14 1
+      148 DUPTABLE                         R15 K57 [{["AutomaticSize"], ["LayoutOrder"] = 2, ["Size"], ["VerticalAlignment"]}]
+      149 GETIMPORT                        R16 K53 [Enum.AutomaticSize.XY]
+      151 SETTABLEKS                       R16 R15 K19 ["AutomaticSize"]
+      153 GETTABLEKS                       R16 R2 K41 ["OverrideSize"]
+      155 SETTABLEKS                       R16 R15 K37 ["Size"]
+      157 GETIMPORT                        R16 K43 [Enum.VerticalAlignment.Center]
+      159 SETTABLEKS                       R16 R15 K39 ["VerticalAlignment"]
+      161 DUPTABLE                         R16 K59 [{"SelectInput"}]
+      162 GETUPVAL                         R17 0
+      163 GETTABLEKS                       R17 R17 K18 ["createElement"]
+      165 GETUPVAL                         R18 5
+      166 DUPTABLE                         R19 K65 [{"Items", "OnItemActivated", "PlaceholderText", "SelectedIndex", "Width"}]
+      167 GETTABLEKS                       R20 R1 K2 ["MaterialOverrides"]
+      169 SETTABLEKS                       R20 R19 K60 ["Items"]
+      171 GETTABLEKS                       R20 R0 K66 ["onMaterialItemActivated"]
+      173 SETTABLEKS                       R20 R19 K61 ["OnItemActivated"]
+      175 GETTABLEKS                       R21 R1 K2 ["MaterialOverrides"]
+      177 GETTABLEKS                       R22 R1 K54 ["MaterialOverride"]
+      179 GETTABLE                         R20 R21 R22
+      180 SETTABLEKS                       R20 R19 K62 ["PlaceholderText"]
+      182 GETTABLEKS                       R20 R1 K54 ["MaterialOverride"]
+      184 SETTABLEKS                       R20 R19 K63 ["SelectedIndex"]
+      186 GETTABLEKS                       R21 R2 K41 ["OverrideSize"]
+      188 GETTABLEKS                       R21 R21 K67 ["X"]
+      190 GETTABLEKS                       R21 R21 K68 ["Offset"]
+      192 GETTABLEKS                       R22 R2 K69 ["Padding"]
+      194 SUB                              R20 R21 R22
+      195 SETTABLEKS                       R20 R19 K64 ["Width"]
+      197 CALL                             R17 2 1
+      198 SETTABLEKS                       R17 R16 K58 ["SelectInput"]
+      200 CALL                             R13 3 1
+      201 SETTABLEKS                       R13 R12 K34 ["SelectInputWrapper"]
+      203 CALL                             R9 3 1
+      204 MOVE                             R8 R9
+      205 JUMP                             ; [+43]
+      206 GETUPVAL                         R9 0
+      207 GETTABLEKS                       R9 R9 K18 ["createElement"]
+      209 GETUPVAL                         R10 1
+      210 DUPTABLE                         R11 K70 [{["AutomaticSize"], ["HorizontalAlignment"], ["LayoutOrder"] = 2}]
+      211 GETIMPORT                        R12 K53 [Enum.AutomaticSize.XY]
+      213 SETTABLEKS                       R12 R11 K19 ["AutomaticSize"]
+      215 GETIMPORT                        R12 K32 [Enum.HorizontalAlignment.Left]
+      217 SETTABLEKS                       R12 R11 K23 ["HorizontalAlignment"]
+      219 DUPTABLE                         R12 K72 [{"TextLabel"}]
+      220 GETUPVAL                         R13 0
+      221 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      223 GETUPVAL                         R14 4
+      224 DUPTABLE                         R15 K74 [{"AutomaticSize", "Size", "Text", "TextXAlignment"}]
+      225 GETIMPORT                        R16 K27 [Enum.AutomaticSize.Y]
+      227 SETTABLEKS                       R16 R15 K19 ["AutomaticSize"]
+      229 GETTABLEKS                       R16 R2 K41 ["OverrideSize"]
+      231 SETTABLEKS                       R16 R15 K37 ["Size"]
+      233 LOADK                            R18 K2 ["MaterialOverrides"]
+      234 LOADK                            R19 K75 ["OverrideUnavailable"]
+      235 NAMECALL                         R16 R3 K14 ["getText"]
+      237 CALL                             R16 3 1
+      238 SETTABLEKS                       R16 R15 K49 ["Text"]
+      240 GETIMPORT                        R16 K76 [Enum.TextXAlignment.Left]
+      242 SETTABLEKS                       R16 R15 K73 ["TextXAlignment"]
+      244 CALL                             R13 2 1
+      245 SETTABLEKS                       R13 R12 K71 ["TextLabel"]
+      247 CALL                             R9 3 1
+      248 MOVE                             R8 R9
+      249 GETUPVAL                         R9 0
+      250 GETTABLEKS                       R9 R9 K18 ["createElement"]
+      252 GETUPVAL                         R10 1
+      253 DUPTABLE                         R11 K77 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing", "Padding"}]
+      254 GETIMPORT                        R12 K27 [Enum.AutomaticSize.Y]
+      256 SETTABLEKS                       R12 R11 K19 ["AutomaticSize"]
+      258 GETIMPORT                        R12 K32 [Enum.HorizontalAlignment.Left]
+      260 SETTABLEKS                       R12 R11 K23 ["HorizontalAlignment"]
+      262 GETIMPORT                        R12 K79 [Enum.FillDirection.Vertical]
+      264 SETTABLEKS                       R12 R11 K20 ["Layout"]
+      266 GETTABLEKS                       R12 R1 K21 ["LayoutOrder"]
+      268 SETTABLEKS                       R12 R11 K21 ["LayoutOrder"]
+      270 GETTABLEKS                       R12 R2 K69 ["Padding"]
+      272 SETTABLEKS                       R12 R11 K24 ["Spacing"]
+      274 GETTABLEKS                       R12 R2 K69 ["Padding"]
+      276 SETTABLEKS                       R12 R11 K69 ["Padding"]
+      278 DUPTABLE                         R12 K82 [{"Name", "OverridesPanel"}]
+      279 GETUPVAL                         R13 0
+      280 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      282 GETUPVAL                         R14 6
+      283 DUPTABLE                         R15 K85 [{["LayoutOrder"] = 1, ["Font"], ["Size"], ["Text"], ["TextSize"], ["TextXAlignment"]}]
+      284 GETTABLEKS                       R16 R2 K86 ["HeaderFont"]
+      286 SETTABLEKS                       R16 R15 K83 ["Font"]
+      288 GETTABLEKS                       R16 R2 K87 ["LabelRowSize"]
+      290 SETTABLEKS                       R16 R15 K37 ["Size"]
+      292 LOADK                            R18 K2 ["MaterialOverrides"]
+      293 LOADK                            R19 K2 ["MaterialOverrides"]
+      294 NAMECALL                         R16 R3 K14 ["getText"]
+      296 CALL                             R16 3 1
+      297 SETTABLEKS                       R16 R15 K49 ["Text"]
+      299 GETTABLEKS                       R16 R2 K88 ["SectionHeaderTextSize"]
+      301 SETTABLEKS                       R16 R15 K84 ["TextSize"]
+      303 GETIMPORT                        R16 K76 [Enum.TextXAlignment.Left]
+      305 SETTABLEKS                       R16 R15 K73 ["TextXAlignment"]
+      307 CALL                             R13 2 1
+      308 SETTABLEKS                       R13 R12 K80 ["Name"]
+      310 SETTABLEKS                       R8 R12 K81 ["OverridesPanel"]
+      312 CALL                             R9 3 -1
+      313 RETURN                           R9 -1
 
 PROTO_3:
         0 GETTABLEKS                       R2 R1 K0 ["MockMaterial"]

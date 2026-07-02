@@ -19,12 +19,8 @@ MAIN:
        15 CALL                             R1 1 1
        16 GETTABLEKS                       R2 R1 K9 ["getFFlagDebugLoadAudioPlayerEditorInAssetDM"]
        18 CALL                             R2 0 1
-       19 DUPTABLE                         R3 K13 [{"Asset", "Standalone", "get"}]
-       20 LOADK                            R4 K10 ["Asset"]
-       21 SETTABLEKS                       R4 R3 K10 ["Asset"]
-       23 LOADK                            R4 K11 ["Standalone"]
-       24 SETTABLEKS                       R4 R3 K11 ["Standalone"]
-       26 DUPCLOSURE                       R4 K14 [PROTO_0]
-       27 CAPTURE                          VAL R2
-       28 SETTABLEKS                       R4 R3 K12 ["get"]
-       30 RETURN                           R3 1
+       19 DUPTABLE                         R3 K13 [{["Asset"] = "Asset", ["Standalone"] = "Standalone", ["get"]}]
+       20 DUPCLOSURE                       R4 K14 [PROTO_0]
+       21 CAPTURE                          VAL R2
+       22 SETTABLEKS                       R4 R3 K12 ["get"]
+       24 RETURN                           R3 1

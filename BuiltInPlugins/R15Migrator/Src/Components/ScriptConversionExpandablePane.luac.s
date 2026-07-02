@@ -76,91 +76,81 @@ PROTO_2:
        14 GETUPVAL                         R7 1
        15 GETTABLEKS                       R7 R7 K6 ["createElement"]
        17 GETUPVAL                         R8 2
-       18 DUPTABLE                         R9 K14 [{"HeaderComponent", "Size", "Style", "LayoutOrder", "Text", "Expanded", "ContentPadding", "ContentSpacing"}]
-       19 GETTABLEKS                       R10 R0 K15 ["customHeader"]
+       18 DUPTABLE                         R9 K18 [{["HeaderComponent"], ["Size"], ["Style"] = "Section", ["LayoutOrder"], ["Text"] = "Scripts", ["Expanded"] = True, ["ContentPadding"] = 0, ["ContentSpacing"] = 0}]
+       19 GETTABLEKS                       R10 R0 K19 ["customHeader"]
        21 SETTABLEKS                       R10 R9 K7 ["HeaderComponent"]
        23 SETTABLEKS                       R4 R9 K8 ["Size"]
-       25 LOADK                            R10 K16 ["Section"]
-       26 SETTABLEKS                       R10 R9 K9 ["Style"]
-       28 SETTABLEKS                       R3 R9 K2 ["LayoutOrder"]
-       30 LOADK                            R10 K17 ["Scripts"]
-       31 SETTABLEKS                       R10 R9 K10 ["Text"]
-       33 LOADB                            R10 1
-       34 SETTABLEKS                       R10 R9 K11 ["Expanded"]
-       36 LOADN                            R10 0
-       37 SETTABLEKS                       R10 R9 K12 ["ContentPadding"]
-       39 LOADN                            R10 0
-       40 SETTABLEKS                       R10 R9 K13 ["ContentSpacing"]
-       42 DUPTABLE                         R10 K19 [{"Container"}]
-       43 GETUPVAL                         R11 1
-       44 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       46 GETUPVAL                         R12 3
-       47 DUPTABLE                         R13 K23 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
-       48 GETIMPORT                        R14 K27 [Enum.FillDirection.Vertical]
-       50 SETTABLEKS                       R14 R13 K20 ["Layout"]
-       52 GETIMPORT                        R14 K29 [Enum.HorizontalAlignment.Left]
-       54 SETTABLEKS                       R14 R13 K21 ["HorizontalAlignment"]
-       56 GETIMPORT                        R14 K31 [Enum.VerticalAlignment.Top]
-       58 SETTABLEKS                       R14 R13 K22 ["VerticalAlignment"]
-       60 SETTABLEKS                       R5 R13 K8 ["Size"]
-       62 DUPTABLE                         R14 K35 [{"ScriptConversionPaneHeader", "ScriptIssueTreeView", "ScriptConversionPaneFooter"}]
-       63 GETUPVAL                         R15 1
-       64 GETTABLEKS                       R15 R15 K6 ["createElement"]
-       66 GETUPVAL                         R16 4
-       67 DUPTABLE                         R17 K36 [{"LayoutOrder", "Size"}]
-       68 NAMECALL                         R18 R6 K37 ["getNextOrder"]
-       70 CALL                             R18 1 1
-       71 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
-       73 GETIMPORT                        R18 K39 [UDim2.new]
-       75 LOADN                            R19 1
-       76 LOADN                            R20 0
-       77 LOADN                            R21 0
-       78 GETTABLEKS                       R22 R2 K40 ["HeaderHeight"]
-       80 CALL                             R18 4 1
-       81 SETTABLEKS                       R18 R17 K8 ["Size"]
-       83 CALL                             R15 2 1
-       84 SETTABLEKS                       R15 R14 K32 ["ScriptConversionPaneHeader"]
-       86 GETUPVAL                         R15 1
-       87 GETTABLEKS                       R15 R15 K6 ["createElement"]
-       89 GETUPVAL                         R16 5
-       90 DUPTABLE                         R17 K42 [{"LayoutOrder", "Size", "OnResetPlugin"}]
-       91 NAMECALL                         R18 R6 K37 ["getNextOrder"]
-       93 CALL                             R18 1 1
-       94 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
-       96 GETIMPORT                        R18 K39 [UDim2.new]
-       98 LOADN                            R19 1
-       99 LOADN                            R20 0
-      100 LOADN                            R21 1
-      101 GETTABLEKS                       R24 R2 K40 ["HeaderHeight"]
-      103 MINUS                            R23 R24
-      104 GETTABLEKS                       R24 R2 K43 ["FooterHeight"]
-      106 SUB                              R22 R23 R24
-      107 CALL                             R18 4 1
-      108 SETTABLEKS                       R18 R17 K8 ["Size"]
-      110 GETTABLEKS                       R18 R1 K41 ["OnResetPlugin"]
-      112 SETTABLEKS                       R18 R17 K41 ["OnResetPlugin"]
-      114 CALL                             R15 2 1
-      115 SETTABLEKS                       R15 R14 K33 ["ScriptIssueTreeView"]
-      117 GETUPVAL                         R15 1
-      118 GETTABLEKS                       R15 R15 K6 ["createElement"]
-      120 GETUPVAL                         R16 6
-      121 DUPTABLE                         R17 K36 [{"LayoutOrder", "Size"}]
-      122 NAMECALL                         R18 R6 K37 ["getNextOrder"]
-      124 CALL                             R18 1 1
-      125 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
-      127 GETIMPORT                        R18 K39 [UDim2.new]
-      129 LOADN                            R19 1
-      130 LOADN                            R20 0
-      131 LOADN                            R21 0
-      132 GETTABLEKS                       R22 R2 K43 ["FooterHeight"]
-      134 CALL                             R18 4 1
-      135 SETTABLEKS                       R18 R17 K8 ["Size"]
-      137 CALL                             R15 2 1
-      138 SETTABLEKS                       R15 R14 K34 ["ScriptConversionPaneFooter"]
-      140 CALL                             R11 3 1
-      141 SETTABLEKS                       R11 R10 K18 ["Container"]
-      143 CALL                             R7 3 -1
-      144 RETURN                           R7 -1
+       25 SETTABLEKS                       R3 R9 K2 ["LayoutOrder"]
+       27 DUPTABLE                         R10 K21 [{"Container"}]
+       28 GETUPVAL                         R11 1
+       29 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       31 GETUPVAL                         R12 3
+       32 DUPTABLE                         R13 K25 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
+       33 GETIMPORT                        R14 K29 [Enum.FillDirection.Vertical]
+       35 SETTABLEKS                       R14 R13 K22 ["Layout"]
+       37 GETIMPORT                        R14 K31 [Enum.HorizontalAlignment.Left]
+       39 SETTABLEKS                       R14 R13 K23 ["HorizontalAlignment"]
+       41 GETIMPORT                        R14 K33 [Enum.VerticalAlignment.Top]
+       43 SETTABLEKS                       R14 R13 K24 ["VerticalAlignment"]
+       45 SETTABLEKS                       R5 R13 K8 ["Size"]
+       47 DUPTABLE                         R14 K37 [{"ScriptConversionPaneHeader", "ScriptIssueTreeView", "ScriptConversionPaneFooter"}]
+       48 GETUPVAL                         R15 1
+       49 GETTABLEKS                       R15 R15 K6 ["createElement"]
+       51 GETUPVAL                         R16 4
+       52 DUPTABLE                         R17 K38 [{"LayoutOrder", "Size"}]
+       53 NAMECALL                         R18 R6 K39 ["getNextOrder"]
+       55 CALL                             R18 1 1
+       56 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
+       58 GETIMPORT                        R18 K41 [UDim2.new]
+       60 LOADN                            R19 1
+       61 LOADN                            R20 0
+       62 LOADN                            R21 0
+       63 GETTABLEKS                       R22 R2 K42 ["HeaderHeight"]
+       65 CALL                             R18 4 1
+       66 SETTABLEKS                       R18 R17 K8 ["Size"]
+       68 CALL                             R15 2 1
+       69 SETTABLEKS                       R15 R14 K34 ["ScriptConversionPaneHeader"]
+       71 GETUPVAL                         R15 1
+       72 GETTABLEKS                       R15 R15 K6 ["createElement"]
+       74 GETUPVAL                         R16 5
+       75 DUPTABLE                         R17 K44 [{"LayoutOrder", "Size", "OnResetPlugin"}]
+       76 NAMECALL                         R18 R6 K39 ["getNextOrder"]
+       78 CALL                             R18 1 1
+       79 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
+       81 GETIMPORT                        R18 K41 [UDim2.new]
+       83 LOADN                            R19 1
+       84 LOADN                            R20 0
+       85 LOADN                            R21 1
+       86 GETTABLEKS                       R24 R2 K42 ["HeaderHeight"]
+       88 MINUS                            R23 R24
+       89 GETTABLEKS                       R24 R2 K45 ["FooterHeight"]
+       91 SUB                              R22 R23 R24
+       92 CALL                             R18 4 1
+       93 SETTABLEKS                       R18 R17 K8 ["Size"]
+       95 GETTABLEKS                       R18 R1 K43 ["OnResetPlugin"]
+       97 SETTABLEKS                       R18 R17 K43 ["OnResetPlugin"]
+       99 CALL                             R15 2 1
+      100 SETTABLEKS                       R15 R14 K35 ["ScriptIssueTreeView"]
+      102 GETUPVAL                         R15 1
+      103 GETTABLEKS                       R15 R15 K6 ["createElement"]
+      105 GETUPVAL                         R16 6
+      106 DUPTABLE                         R17 K38 [{"LayoutOrder", "Size"}]
+      107 NAMECALL                         R18 R6 K39 ["getNextOrder"]
+      109 CALL                             R18 1 1
+      110 SETTABLEKS                       R18 R17 K2 ["LayoutOrder"]
+      112 GETIMPORT                        R18 K41 [UDim2.new]
+      114 LOADN                            R19 1
+      115 LOADN                            R20 0
+      116 LOADN                            R21 0
+      117 GETTABLEKS                       R22 R2 K45 ["FooterHeight"]
+      119 CALL                             R18 4 1
+      120 SETTABLEKS                       R18 R17 K8 ["Size"]
+      122 CALL                             R15 2 1
+      123 SETTABLEKS                       R15 R14 K36 ["ScriptConversionPaneFooter"]
+      125 CALL                             R11 3 1
+      126 SETTABLEKS                       R11 R10 K20 ["Container"]
+      128 CALL                             R7 3 -1
+      129 RETURN                           R7 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"initialIssueCounts"}]

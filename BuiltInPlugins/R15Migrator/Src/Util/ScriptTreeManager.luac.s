@@ -1,26 +1,22 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K6 [{"_ctrlDown", "_shiftDown", "_selected", "_expanded", "_onSelectedChanged", "_onExpandedChanged"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["_ctrlDown"]
-        4 LOADB                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["_shiftDown"]
-        7 NEWTABLE                         R2 0 0
-        9 SETTABLEKS                       R2 R1 K2 ["_selected"]
-       11 NEWTABLE                         R2 0 0
-       13 SETTABLEKS                       R2 R1 K3 ["_expanded"]
+        0 DUPTABLE                         R1 K7 [{[1] = False, ["_shiftDown"] = False, ["_selected"], ["_expanded"], ["_onSelectedChanged"], ["_onExpandedChanged"]}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K3 ["_selected"]
+        5 NEWTABLE                         R2 0 0
+        7 SETTABLEKS                       R2 R1 K4 ["_expanded"]
+        9 GETUPVAL                         R2 0
+       10 GETTABLEKS                       R2 R2 K8 ["new"]
+       12 CALL                             R2 0 1
+       13 SETTABLEKS                       R2 R1 K5 ["_onSelectedChanged"]
        15 GETUPVAL                         R2 0
-       16 GETTABLEKS                       R2 R2 K7 ["new"]
+       16 GETTABLEKS                       R2 R2 K8 ["new"]
        18 CALL                             R2 0 1
-       19 SETTABLEKS                       R2 R1 K4 ["_onSelectedChanged"]
-       21 GETUPVAL                         R2 0
-       22 GETTABLEKS                       R2 R2 K7 ["new"]
-       24 CALL                             R2 0 1
-       25 SETTABLEKS                       R2 R1 K5 ["_onExpandedChanged"]
-       27 GETUPVAL                         R2 1
-       28 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-       30 GETIMPORT                        R0 K9 [setmetatable]
-       32 CALL                             R0 2 1
-       33 RETURN                           R0 1
+       19 SETTABLEKS                       R2 R1 K6 ["_onExpandedChanged"]
+       21 GETUPVAL                         R2 1
+       22 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+       24 GETIMPORT                        R0 K10 [setmetatable]
+       26 CALL                             R0 2 1
+       27 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["_onExpandedChanged"]

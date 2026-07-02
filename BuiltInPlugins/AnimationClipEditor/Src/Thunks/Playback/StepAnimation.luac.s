@@ -116,13 +116,13 @@ PROTO_1:
       109 CALL                             R12 -1 0
       110 GETUPVAL                         R7 7
       111 CALL                             R7 0 1
-      112 JUMPIFNOT                        R7 ; [+37]
-      113 JUMPIFNOT                        R3 ; [+53]
+      112 JUMPIFNOT                        R7 ; [+31]
+      113 JUMPIFNOT                        R3 ; [+47]
       114 GETUPVAL                         R7 2
       115 GETTABLEKS                       R7 R7 K23 ["getAnimator"]
       117 MOVE                             R8 R4
       118 CALL                             R7 1 1
-      119 JUMPIFNOT                        R7 ; [+47]
+      119 JUMPIFNOT                        R7 ; [+41]
       120 GETTABLEKS                       R8 R2 K24 ["Metadata"]
       122 GETTABLEKS                       R8 R8 K25 ["EndTick"]
       124 GETUPVAL                         R11 4
@@ -136,50 +136,46 @@ PROTO_1:
       135 DIV                              R9 R10 R11
       136 SETTABLEKS                       R9 R3 K30 ["TimePosition"]
       138 LOADN                            R11 0
-      139 DUPTABLE                         R12 K33 [{"automaticScalingEnabledOverride", "retargetingEnabledOverride"}]
-      140 LOADB                            R13 0
-      141 SETTABLEKS                       R13 R12 K31 ["automaticScalingEnabledOverride"]
-      143 LOADB                            R13 0
-      144 SETTABLEKS                       R13 R12 K32 ["retargetingEnabledOverride"]
-      146 NAMECALL                         R9 R7 K34 ["StepAnimationsInternal"]
-      148 CALL                             R9 3 0
-      149 JUMP                             ; [+17]
-      150 GETTABLEKS                       R7 R2 K11 ["Instances"]
-      152 JUMPIFNOT                        R7 ; [+14]
-      153 GETIMPORT                        R8 K36 [pairs]
-      155 MOVE                             R9 R7
-      156 CALL                             R8 1 3
-      157 FORGPREP_NEXT                    R8
-      158 GETUPVAL                         R13 8
-      159 GETTABLEKS                       R13 R13 K37 ["stepRigAnimation"]
-      161 MOVE                             R14 R4
-      162 MOVE                             R15 R12
-      163 GETUPVAL                         R16 4
-      164 CALL                             R13 3 0
-      165 FORGLOOP                         R8 2 ; [-8]
-      167 JUMPIF                           R5 ; [+6]
-      168 GETUPVAL                         R7 3
-      169 GETTABLEKS                       R7 R7 K38 ["getNearestTick"]
-      171 GETUPVAL                         R8 4
-      172 CALL                             R7 1 1
-      173 SETUPVAL                         R7 4
-      174 GETUPVAL                         R9 9
-      175 GETUPVAL                         R10 4
-      176 CALL                             R9 1 -1
-      177 NAMECALL                         R7 R0 K22 ["dispatch"]
-      179 CALL                             R7 -1 0
-      180 GETTABLEKS                       R7 R1 K2 ["Status"]
-      182 GETTABLEKS                       R7 R7 K39 ["VisualizeBones"]
-      184 GETUPVAL                         R8 10
-      185 GETTABLEKS                       R8 R8 K40 ["updateMicrobones"]
+      139 DUPTABLE                         R12 K34 [{["automaticScalingEnabledOverride"] = False, ["retargetingEnabledOverride"] = False}]
+      140 NAMECALL                         R9 R7 K35 ["StepAnimationsInternal"]
+      142 CALL                             R9 3 0
+      143 JUMP                             ; [+17]
+      144 GETTABLEKS                       R7 R2 K11 ["Instances"]
+      146 JUMPIFNOT                        R7 ; [+14]
+      147 GETIMPORT                        R8 K37 [pairs]
+      149 MOVE                             R9 R7
+      150 CALL                             R8 1 3
+      151 FORGPREP_NEXT                    R8
+      152 GETUPVAL                         R13 8
+      153 GETTABLEKS                       R13 R13 K38 ["stepRigAnimation"]
+      155 MOVE                             R14 R4
+      156 MOVE                             R15 R12
+      157 GETUPVAL                         R16 4
+      158 CALL                             R13 3 0
+      159 FORGLOOP                         R8 2 ; [-8]
+      161 JUMPIF                           R5 ; [+6]
+      162 GETUPVAL                         R7 3
+      163 GETTABLEKS                       R7 R7 K39 ["getNearestTick"]
+      165 GETUPVAL                         R8 4
+      166 CALL                             R7 1 1
+      167 SETUPVAL                         R7 4
+      168 GETUPVAL                         R9 9
+      169 GETUPVAL                         R10 4
+      170 CALL                             R9 1 -1
+      171 NAMECALL                         R7 R0 K22 ["dispatch"]
+      173 CALL                             R7 -1 0
+      174 GETTABLEKS                       R7 R1 K2 ["Status"]
+      176 GETTABLEKS                       R7 R7 K40 ["VisualizeBones"]
+      178 GETUPVAL                         R8 10
+      179 GETTABLEKS                       R8 R8 K41 ["updateMicrobones"]
+      181 MOVE                             R9 R4
+      182 MOVE                             R10 R7
+      183 CALL                             R8 2 0
+      184 GETUPVAL                         R8 8
+      185 GETTABLEKS                       R8 R8 K42 ["updateSimulatedAnimConstraintParts"]
       187 MOVE                             R9 R4
-      188 MOVE                             R10 R7
-      189 CALL                             R8 2 0
-      190 GETUPVAL                         R8 8
-      191 GETTABLEKS                       R8 R8 K41 ["updateSimulatedAnimConstraintParts"]
-      193 MOVE                             R9 R4
-      194 CALL                             R8 1 0
-      195 RETURN                           R0 0
+      188 CALL                             R8 1 0
+      189 RETURN                           R0 0
 
 PROTO_2:
         0 NEWCLOSURE                       R1 P0

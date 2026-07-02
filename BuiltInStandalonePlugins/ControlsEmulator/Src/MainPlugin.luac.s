@@ -1,20 +1,18 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 JUMPIF                           R0 ; [+17]
+        1 JUMPIF                           R0 ; [+14]
         2 GETUPVAL                         R0 1
         3 GETTABLEKS                       R0 R0 K0 ["Localization"]
         5 GETTABLEKS                       R0 R0 K1 ["new"]
-        7 DUPTABLE                         R1 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        7 DUPTABLE                         R1 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "ControlsEmulator"}]
         8 GETUPVAL                         R2 2
         9 SETTABLEKS                       R2 R1 K2 ["stringResourceTable"]
        11 GETUPVAL                         R2 3
        12 SETTABLEKS                       R2 R1 K3 ["translationResourceTable"]
-       14 LOADK                            R2 K6 ["ControlsEmulator"]
-       15 SETTABLEKS                       R2 R1 K4 ["pluginName"]
-       17 CALL                             R0 1 1
-       18 SETUPVAL                         R0 0
-       19 GETUPVAL                         R0 0
-       20 RETURN                           R0 1
+       14 CALL                             R0 1 1
+       15 SETUPVAL                         R0 0
+       16 GETUPVAL                         R0 0
+       17 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -53,12 +51,10 @@ PROTO_3:
         5 JUMPIFNOTEQKB                    R0 FALSE ; [+2]
         7 RETURN                           R0 0
         8 GETUPVAL                         R0 0
-        9 DUPTABLE                         R2 K2 [{"enabled"}]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K1 ["enabled"]
-       13 NAMECALL                         R0 R0 K3 ["setState"]
-       15 CALL                             R0 2 0
-       16 RETURN                           R0 0
+        9 DUPTABLE                         R2 K3 [{["enabled"] = False}]
+       10 NAMECALL                         R0 R0 K4 ["setState"]
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -168,30 +164,24 @@ PROTO_11:
        17 GETUPVAL                         R3 2
        18 GETTABLEKS                       R3 R3 K8 ["getFFlagRemoveAutoOpenBehavior"]
        20 CALL                             R3 0 1
-       21 JUMPIF                           R3 ; [+9]
-       22 JUMPIFNOT                        R2 ; [+8]
+       21 JUMPIF                           R3 ; [+6]
+       22 JUMPIFNOT                        R2 ; [+5]
        23 GETUPVAL                         R3 3
-       24 DUPTABLE                         R5 K10 [{"enabled"}]
-       25 LOADB                            R6 1
-       26 SETTABLEKS                       R6 R5 K9 ["enabled"]
-       28 NAMECALL                         R3 R3 K11 ["setState"]
-       30 CALL                             R3 2 0
-       31 GETUPVAL                         R3 3
-       32 DUPTABLE                         R5 K13 [{"uiDmLoaded"}]
-       33 LOADB                            R6 1
-       34 SETTABLEKS                       R6 R5 K12 ["uiDmLoaded"]
-       36 NAMECALL                         R3 R3 K11 ["setState"]
-       38 CALL                             R3 2 0
-       39 RETURN                           R0 0
+       24 DUPTABLE                         R5 K11 [{["enabled"] = True}]
+       25 NAMECALL                         R3 R3 K12 ["setState"]
+       27 CALL                             R3 2 0
+       28 GETUPVAL                         R3 3
+       29 DUPTABLE                         R5 K14 [{["uiDmLoaded"] = True}]
+       30 NAMECALL                         R3 R3 K12 ["setState"]
+       32 CALL                             R3 2 0
+       33 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"uiDmLoaded"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["uiDmLoaded"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -270,97 +260,85 @@ PROTO_18:
        20 SETTABLEKS                       R5 R0 K6 ["callbacksRef"]
        22 NEWTABLE                         R5 0 0
        24 SETTABLEKS                       R5 R0 K7 ["connections"]
-       26 DUPTABLE                         R5 K18 [{"enabled", "inPlayClient", "uiDmLoaded", "tooltipCount", "shouldShowTooltip", "wrapperRef", "activeInputs", "isVRConnected", "activeVRUserCFrames", "translationSensitivity"}]
-       27 LOADB                            R6 0
-       28 SETTABLEKS                       R6 R5 K8 ["enabled"]
-       30 LOADB                            R6 0
-       31 SETTABLEKS                       R6 R5 K9 ["inPlayClient"]
-       33 LOADB                            R6 0
-       34 SETTABLEKS                       R6 R5 K10 ["uiDmLoaded"]
-       36 SETTABLEKS                       R3 R5 K11 ["tooltipCount"]
-       38 SETTABLEKS                       R4 R5 K12 ["shouldShowTooltip"]
-       40 LOADNIL                          R6
-       41 SETTABLEKS                       R6 R5 K13 ["wrapperRef"]
-       43 NEWTABLE                         R6 0 0
-       45 SETTABLEKS                       R6 R5 K14 ["activeInputs"]
-       47 LOADB                            R6 0
-       48 SETTABLEKS                       R6 R5 K15 ["isVRConnected"]
-       50 NEWTABLE                         R6 4 0
-       52 GETIMPORT                        R7 K22 [Enum.UserCFrame.Head]
-       54 LOADB                            R8 1
-       55 SETTABLE                         R8 R6 R7
-       56 GETIMPORT                        R7 K24 [Enum.UserCFrame.LeftHand]
-       58 LOADB                            R8 1
-       59 SETTABLE                         R8 R6 R7
-       60 GETIMPORT                        R7 K26 [Enum.UserCFrame.RightHand]
-       62 LOADB                            R8 1
-       63 SETTABLE                         R8 R6 R7
-       64 SETTABLEKS                       R6 R5 K16 ["activeVRUserCFrames"]
-       66 LOADN                            R6 5
-       67 SETTABLEKS                       R6 R5 K17 ["translationSensitivity"]
-       69 SETTABLEKS                       R5 R0 K27 ["state"]
-       71 NEWCLOSURE                       R5 P0
+       26 DUPTABLE                         R5 K21 [{["enabled"] = False, ["inPlayClient"] = False, ["uiDmLoaded"] = False, ["tooltipCount"], ["shouldShowTooltip"], ["wrapperRef"] = , ["activeInputs"], ["isVRConnected"] = False, ["activeVRUserCFrames"], ["translationSensitivity"] = 5}]
+       27 SETTABLEKS                       R3 R5 K12 ["tooltipCount"]
+       29 SETTABLEKS                       R4 R5 K13 ["shouldShowTooltip"]
+       31 NEWTABLE                         R6 0 0
+       33 SETTABLEKS                       R6 R5 K16 ["activeInputs"]
+       35 NEWTABLE                         R6 4 0
+       37 GETIMPORT                        R7 K25 [Enum.UserCFrame.Head]
+       39 LOADB                            R8 1
+       40 SETTABLE                         R8 R6 R7
+       41 GETIMPORT                        R7 K27 [Enum.UserCFrame.LeftHand]
+       43 LOADB                            R8 1
+       44 SETTABLE                         R8 R6 R7
+       45 GETIMPORT                        R7 K29 [Enum.UserCFrame.RightHand]
+       47 LOADB                            R8 1
+       48 SETTABLE                         R8 R6 R7
+       49 SETTABLEKS                       R6 R5 K18 ["activeVRUserCFrames"]
+       51 SETTABLEKS                       R5 R0 K30 ["state"]
+       53 NEWCLOSURE                       R5 P0
+       54 CAPTURE                          VAL R0
+       55 NEWCLOSURE                       R6 P1
+       56 CAPTURE                          VAL R0
+       57 SETTABLEKS                       R6 R0 K31 ["toggleEnabled"]
+       59 NEWCLOSURE                       R6 P2
+       60 CAPTURE                          VAL R0
+       61 SETTABLEKS                       R6 R0 K32 ["onClose"]
+       63 NEWCLOSURE                       R6 P3
+       64 CAPTURE                          VAL R0
+       65 SETTABLEKS                       R6 R0 K33 ["onRestore"]
+       67 NEWCLOSURE                       R6 P4
+       68 CAPTURE                          VAL R0
+       69 SETTABLEKS                       R6 R0 K34 ["onWidgetEnabledChanged"]
+       71 NEWCLOSURE                       R6 P5
        72 CAPTURE                          VAL R0
-       73 NEWCLOSURE                       R6 P1
-       74 CAPTURE                          VAL R0
-       75 SETTABLEKS                       R6 R0 K28 ["toggleEnabled"]
-       77 NEWCLOSURE                       R6 P2
-       78 CAPTURE                          VAL R0
-       79 SETTABLEKS                       R6 R0 K29 ["onClose"]
-       81 NEWCLOSURE                       R6 P3
-       82 CAPTURE                          VAL R0
-       83 SETTABLEKS                       R6 R0 K30 ["onRestore"]
-       85 NEWCLOSURE                       R6 P4
-       86 CAPTURE                          VAL R0
-       87 SETTABLEKS                       R6 R0 K31 ["onWidgetEnabledChanged"]
-       89 NEWCLOSURE                       R6 P5
+       73 CAPTURE                          UPVAL U2
+       74 CAPTURE                          UPVAL U3
+       75 SETTABLEKS                       R6 R0 K35 ["onDockWidgetCreated"]
+       77 NEWCLOSURE                       R6 P6
+       78 CAPTURE                          UPVAL U2
+       79 CAPTURE                          UPVAL U4
+       80 CAPTURE                          UPVAL U5
+       81 CAPTURE                          VAL R0
+       82 SETTABLEKS                       R6 R0 K36 ["placeOpened"]
+       84 NEWCLOSURE                       R6 P7
+       85 CAPTURE                          VAL R0
+       86 SETTABLEKS                       R6 R0 K37 ["placeClosed"]
+       88 NEWCLOSURE                       R6 P8
+       89 CAPTURE                          UPVAL U2
        90 CAPTURE                          VAL R0
-       91 CAPTURE                          UPVAL U2
-       92 CAPTURE                          UPVAL U3
-       93 SETTABLEKS                       R6 R0 K32 ["onDockWidgetCreated"]
-       95 NEWCLOSURE                       R6 P6
-       96 CAPTURE                          UPVAL U2
-       97 CAPTURE                          UPVAL U4
-       98 CAPTURE                          UPVAL U5
-       99 CAPTURE                          VAL R0
-      100 SETTABLEKS                       R6 R0 K33 ["placeOpened"]
-      102 NEWCLOSURE                       R6 P7
-      103 CAPTURE                          VAL R0
-      104 SETTABLEKS                       R6 R0 K34 ["placeClosed"]
-      106 NEWCLOSURE                       R6 P8
-      107 CAPTURE                          UPVAL U2
-      108 CAPTURE                          VAL R0
-      109 CAPTURE                          UPVAL U0
-      110 SETTABLEKS                       R6 R0 K35 ["connectGamepad"]
-      112 NEWCLOSURE                       R6 P9
-      113 CAPTURE                          UPVAL U2
-      114 CAPTURE                          VAL R0
-      115 SETTABLEKS                       R6 R0 K36 ["disconnectGamepad"]
-      117 GETGLOBAL                        R6 K37 ["getLocalization"]
-      119 CALL                             R6 0 1
-      120 SETTABLEKS                       R6 R0 K38 ["localization"]
-      122 GETUPVAL                         R6 6
-      123 GETTABLEKS                       R6 R6 K39 ["Analytics"]
-      125 GETTABLEKS                       R6 R6 K40 ["new"]
-      127 DUPCLOSURE                       R7 K41 [PROTO_17]
-      128 NEWTABLE                         R8 0 0
-      130 CALL                             R6 2 1
-      131 SETTABLEKS                       R6 R0 K42 ["analytics"]
-      133 GETUPVAL                         R6 7
-      134 GETTABLEKS                       R6 R6 K40 ["new"]
-      136 CALL                             R6 0 1
-      137 SETTABLEKS                       R6 R0 K43 ["DEPRECATED_stylizer"]
-      139 GETUPVAL                         R6 8
-      140 GETTABLEKS                       R7 R1 K0 ["Plugin"]
-      142 CALL                             R6 1 1
-      143 SETTABLEKS                       R6 R0 K44 ["design"]
-      145 RETURN                           R0 0
+       91 CAPTURE                          UPVAL U0
+       92 SETTABLEKS                       R6 R0 K38 ["connectGamepad"]
+       94 NEWCLOSURE                       R6 P9
+       95 CAPTURE                          UPVAL U2
+       96 CAPTURE                          VAL R0
+       97 SETTABLEKS                       R6 R0 K39 ["disconnectGamepad"]
+       99 GETGLOBAL                        R6 K40 ["getLocalization"]
+      101 CALL                             R6 0 1
+      102 SETTABLEKS                       R6 R0 K41 ["localization"]
+      104 GETUPVAL                         R6 6
+      105 GETTABLEKS                       R6 R6 K42 ["Analytics"]
+      107 GETTABLEKS                       R6 R6 K43 ["new"]
+      109 DUPCLOSURE                       R7 K44 [PROTO_17]
+      110 NEWTABLE                         R8 0 0
+      112 CALL                             R6 2 1
+      113 SETTABLEKS                       R6 R0 K45 ["analytics"]
+      115 GETUPVAL                         R6 7
+      116 GETTABLEKS                       R6 R6 K43 ["new"]
+      118 CALL                             R6 0 1
+      119 SETTABLEKS                       R6 R0 K46 ["DEPRECATED_stylizer"]
+      121 GETUPVAL                         R6 8
+      122 GETTABLEKS                       R7 R1 K0 ["Plugin"]
+      124 CALL                             R6 1 1
+      125 SETTABLEKS                       R6 R0 K47 ["design"]
+      127 RETURN                           R0 0
 
 PROTO_19:
         0 GETTABLEKS                       R1 R0 K0 ["isVRConnected"]
-        2 JUMPIFNOT                        R1 ; [+25]
+        2 JUMPIFNOT                        R1 ; [+22]
         3 GETTABLEKS                       R1 R0 K1 ["shouldShowTooltip"]
-        5 JUMPIFNOT                        R1 ; [+22]
+        5 JUMPIFNOT                        R1 ; [+19]
         6 GETUPVAL                         R1 0
         7 GETTABLEKS                       R1 R1 K2 ["props"]
         9 GETTABLEKS                       R1 R1 K3 ["Plugin"]
@@ -372,14 +350,12 @@ PROTO_19:
        19 ADDK                             R5 R6 K5 [1]
        20 NAMECALL                         R2 R1 K8 ["SetSetting"]
        22 CALL                             R2 3 0
-       23 DUPTABLE                         R2 K9 [{"shouldShowTooltip"}]
-       24 LOADB                            R3 0
-       25 SETTABLEKS                       R3 R2 K1 ["shouldShowTooltip"]
-       27 RETURN                           R2 1
-       28 DUPTABLE                         R1 K9 [{"shouldShowTooltip"}]
-       29 GETTABLEKS                       R2 R0 K1 ["shouldShowTooltip"]
-       31 SETTABLEKS                       R2 R1 K1 ["shouldShowTooltip"]
-       33 RETURN                           R1 1
+       23 DUPTABLE                         R2 K10 [{["shouldShowTooltip"] = False}]
+       24 RETURN                           R2 1
+       25 DUPTABLE                         R1 K11 [{"shouldShowTooltip"}]
+       26 GETTABLEKS                       R2 R0 K1 ["shouldShowTooltip"]
+       28 SETTABLEKS                       R2 R1 K1 ["shouldShowTooltip"]
+       30 RETURN                           R1 1
 
 PROTO_20:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
@@ -763,8 +739,8 @@ PROTO_37:
        90 GETIMPORT                        R8 K31 [Enum.InitialDockState.Right]
        92 SETTABLEKS                       R8 R7 K29 ["InitialDockState"]
        94 GETIMPORT                        R8 K33 [Vector2.new]
-       96 LOADN                            R9 128
-       97 LOADN                            R10 224
+       96 LOADN                            R9 640
+       97 LOADN                            R10 480
        98 CALL                             R8 2 1
        99 SETTABLEKS                       R8 R7 K34 ["Size"]
       101 GETUPVAL                         R8 0
@@ -785,7 +761,7 @@ PROTO_37:
       126 SETTABLE                         R9 R7 R8
       127 DUPTABLE                         R8 K46 [{"LayoutContainer", "StyleLink"}]
       128 GETUPVAL                         R10 9
-      129 JUMPIFNOT                        R10 ; [+255]
+      129 JUMPIFNOT                        R10 ; [+252]
       130 GETUPVAL                         R9 7
       131 GETTABLEKS                       R9 R9 K16 ["createElement"]
       133 LOADK                            R10 K47 ["Frame"]
@@ -917,11 +893,11 @@ PROTO_37:
       310 GETTABLEKS                       R26 R0 K2 ["gamepadId"]
       312 GETUPVAL                         R27 17
       313 GETTABLEKS                       R27 R27 K85 ["NO_CONNECTED_GAMEPAD_ID"]
-      315 JUMPIFEQ                         R26 R27 ; [+26]
+      315 JUMPIFEQ                         R26 R27 ; [+23]
       317 GETUPVAL                         R25 7
       318 GETTABLEKS                       R25 R25 K16 ["createElement"]
       320 GETUPVAL                         R26 18
-      321 DUPTABLE                         R27 K88 [{"LayoutOrder", "selectedGamepadId", "activeInputs", "displayMappings"}]
+      321 DUPTABLE                         R27 K89 [{["LayoutOrder"], ["selectedGamepadId"], ["activeInputs"], ["displayMappings"] = True}]
       322 GETUPVAL                         R28 13
       323 NAMECALL                         R28 R28 K55 ["getNextOrder"]
       325 CALL                             R28 1 1
@@ -931,117 +907,103 @@ PROTO_37:
       332 GETUPVAL                         R28 19
       333 GETTABLEKS                       R28 R28 K86 ["activeInputs"]
       335 SETTABLEKS                       R28 R27 K86 ["activeInputs"]
-      337 LOADB                            R28 1
-      338 SETTABLEKS                       R28 R27 K87 ["displayMappings"]
-      340 CALL                             R25 2 1
-      341 JUMP                             ; [+1]
-      342 LOADNIL                          R25
-      343 SETTABLEKS                       R25 R24 K82 ["DeviceBlueprint"]
-      345 GETTABLEKS                       R26 R0 K3 ["isVRConnected"]
-      347 JUMPIFNOT                        R26 ; [+23]
-      348 GETUPVAL                         R25 7
-      349 GETTABLEKS                       R25 R25 K16 ["createElement"]
-      351 GETUPVAL                         R26 20
-      352 DUPTABLE                         R27 K91 [{"LayoutOrder", "shouldShowTooltip", "inPlayClient"}]
-      353 GETUPVAL                         R28 13
-      354 NAMECALL                         R28 R28 K55 ["getNextOrder"]
-      356 CALL                             R28 1 1
-      357 SETTABLEKS                       R28 R27 K56 ["LayoutOrder"]
-      359 GETUPVAL                         R28 19
-      360 GETTABLEKS                       R28 R28 K89 ["shouldShowTooltip"]
-      362 SETTABLEKS                       R28 R27 K89 ["shouldShowTooltip"]
-      364 GETUPVAL                         R28 19
-      365 GETTABLEKS                       R28 R28 K90 ["inPlayClient"]
-      367 SETTABLEKS                       R28 R27 K90 ["inPlayClient"]
-      369 CALL                             R25 2 1
-      370 JUMP                             ; [+1]
-      371 LOADNIL                          R25
-      372 SETTABLEKS                       R25 R24 K83 ["VRControls"]
-      374 CALL                             R21 3 1
-      375 SETTABLEKS                       R21 R20 K79 ["GamepadAndVRLayoutContainer"]
-      377 CALL                             R17 3 1
-      378 SETTABLEKS                       R17 R16 K76 ["InputTrackingWrapper"]
-      380 CALL                             R13 3 1
-      381 SETTABLEKS                       R13 R12 K52 ["ScrollableBlueprintContainer"]
-      383 CALL                             R9 3 1
-      384 JUMP                             ; [+1]
-      385 LOADNIL                          R9
-      386 SETTABLEKS                       R9 R8 K44 ["LayoutContainer"]
-      388 GETUPVAL                         R9 7
-      389 GETTABLEKS                       R9 R9 K16 ["createElement"]
-      391 LOADK                            R10 K45 ["StyleLink"]
-      392 DUPTABLE                         R11 K93 [{"StyleSheet"}]
-      393 GETUPVAL                         R12 0
-      394 GETTABLEKS                       R12 R12 K94 ["design"]
-      396 SETTABLEKS                       R12 R11 K92 ["StyleSheet"]
-      398 CALL                             R9 2 1
-      399 SETTABLEKS                       R9 R8 K45 ["StyleLink"]
-      401 CALL                             R5 3 1
-      402 SETTABLEKS                       R5 R4 K13 ["MainWidget"]
-      404 GETTABLEKS                       R6 R0 K95 ["isMappingsDialogOpen"]
-      406 JUMPIFNOT                        R6 ; [+83]
-      407 GETUPVAL                         R5 7
-      408 GETTABLEKS                       R5 R5 K16 ["createElement"]
-      410 GETUPVAL                         R6 21
-      411 DUPTABLE                         R7 K100 [{"Id", "Enabled", "Title", "ZIndexBehavior", "Resizable", "ZIndex", "Modal", "Size", "MinSize", "OnClose"}]
-      412 LOADK                            R8 K101 ["ControlsEmulatorMappings"]
-      413 SETTABLEKS                       R8 R7 K18 ["Id"]
-      415 LOADB                            R8 1
-      416 SETTABLEKS                       R8 R7 K19 ["Enabled"]
-      418 LOADK                            R8 K102 ["Edit Mappings"]
-      419 SETTABLEKS                       R8 R7 K22 ["Title"]
-      421 GETIMPORT                        R8 K28 [Enum.ZIndexBehavior.Sibling]
-      423 SETTABLEKS                       R8 R7 K26 ["ZIndexBehavior"]
-      425 LOADB                            R8 1
-      426 SETTABLEKS                       R8 R7 K96 ["Resizable"]
-      428 LOADN                            R8 10
-      429 SETTABLEKS                       R8 R7 K97 ["ZIndex"]
-      431 LOADB                            R8 1
-      432 SETTABLEKS                       R8 R7 K98 ["Modal"]
-      434 GETIMPORT                        R8 K33 [Vector2.new]
-      436 LOADN                            R9 88
-      437 LOADN                            R10 108
-      438 CALL                             R8 2 1
-      439 SETTABLEKS                       R8 R7 K34 ["Size"]
-      441 GETIMPORT                        R8 K33 [Vector2.new]
-      443 LOADN                            R9 144
-      444 LOADN                            R10 144
-      445 CALL                             R8 2 1
-      446 SETTABLEKS                       R8 R7 K99 ["MinSize"]
-      448 SETTABLEKS                       R1 R7 K36 ["OnClose"]
-      450 DUPTABLE                         R8 K103 [{"InputTrackingWrapper", "StyleLink"}]
-      451 GETUPVAL                         R9 7
-      452 GETTABLEKS                       R9 R9 K16 ["createElement"]
-      454 GETUPVAL                         R10 15
-      455 NEWTABLE                         R11 0 0
-      457 DUPTABLE                         R12 K104 [{"KeyboardInputsForwarder", "MappingsDialog"}]
-      458 GETUPVAL                         R13 7
-      459 GETTABLEKS                       R13 R13 K16 ["createElement"]
-      461 GETUPVAL                         R14 16
-      462 CALL                             R13 1 1
-      463 SETTABLEKS                       R13 R12 K78 ["KeyboardInputsForwarder"]
-      465 GETUPVAL                         R13 7
-      466 GETTABLEKS                       R13 R13 K16 ["createElement"]
-      468 GETUPVAL                         R14 22
-      469 CALL                             R13 1 1
-      470 SETTABLEKS                       R13 R12 K14 ["MappingsDialog"]
-      472 CALL                             R9 3 1
-      473 SETTABLEKS                       R9 R8 K76 ["InputTrackingWrapper"]
-      475 GETUPVAL                         R9 7
-      476 GETTABLEKS                       R9 R9 K16 ["createElement"]
-      478 LOADK                            R10 K45 ["StyleLink"]
-      479 DUPTABLE                         R11 K93 [{"StyleSheet"}]
-      480 GETUPVAL                         R12 0
-      481 GETTABLEKS                       R12 R12 K94 ["design"]
-      483 SETTABLEKS                       R12 R11 K92 ["StyleSheet"]
-      485 CALL                             R9 2 1
-      486 SETTABLEKS                       R9 R8 K45 ["StyleLink"]
-      488 CALL                             R5 3 1
-      489 JUMP                             ; [+1]
-      490 LOADNIL                          R5
-      491 SETTABLEKS                       R5 R4 K14 ["MappingsDialog"]
-      493 CALL                             R2 2 -1
-      494 RETURN                           R2 -1
+      337 CALL                             R25 2 1
+      338 JUMP                             ; [+1]
+      339 LOADNIL                          R25
+      340 SETTABLEKS                       R25 R24 K82 ["DeviceBlueprint"]
+      342 GETTABLEKS                       R26 R0 K3 ["isVRConnected"]
+      344 JUMPIFNOT                        R26 ; [+23]
+      345 GETUPVAL                         R25 7
+      346 GETTABLEKS                       R25 R25 K16 ["createElement"]
+      348 GETUPVAL                         R26 20
+      349 DUPTABLE                         R27 K92 [{"LayoutOrder", "shouldShowTooltip", "inPlayClient"}]
+      350 GETUPVAL                         R28 13
+      351 NAMECALL                         R28 R28 K55 ["getNextOrder"]
+      353 CALL                             R28 1 1
+      354 SETTABLEKS                       R28 R27 K56 ["LayoutOrder"]
+      356 GETUPVAL                         R28 19
+      357 GETTABLEKS                       R28 R28 K90 ["shouldShowTooltip"]
+      359 SETTABLEKS                       R28 R27 K90 ["shouldShowTooltip"]
+      361 GETUPVAL                         R28 19
+      362 GETTABLEKS                       R28 R28 K91 ["inPlayClient"]
+      364 SETTABLEKS                       R28 R27 K91 ["inPlayClient"]
+      366 CALL                             R25 2 1
+      367 JUMP                             ; [+1]
+      368 LOADNIL                          R25
+      369 SETTABLEKS                       R25 R24 K83 ["VRControls"]
+      371 CALL                             R21 3 1
+      372 SETTABLEKS                       R21 R20 K79 ["GamepadAndVRLayoutContainer"]
+      374 CALL                             R17 3 1
+      375 SETTABLEKS                       R17 R16 K76 ["InputTrackingWrapper"]
+      377 CALL                             R13 3 1
+      378 SETTABLEKS                       R13 R12 K52 ["ScrollableBlueprintContainer"]
+      380 CALL                             R9 3 1
+      381 JUMP                             ; [+1]
+      382 LOADNIL                          R9
+      383 SETTABLEKS                       R9 R8 K44 ["LayoutContainer"]
+      385 GETUPVAL                         R9 7
+      386 GETTABLEKS                       R9 R9 K16 ["createElement"]
+      388 LOADK                            R10 K45 ["StyleLink"]
+      389 DUPTABLE                         R11 K94 [{"StyleSheet"}]
+      390 GETUPVAL                         R12 0
+      391 GETTABLEKS                       R12 R12 K95 ["design"]
+      393 SETTABLEKS                       R12 R11 K93 ["StyleSheet"]
+      395 CALL                             R9 2 1
+      396 SETTABLEKS                       R9 R8 K45 ["StyleLink"]
+      398 CALL                             R5 3 1
+      399 SETTABLEKS                       R5 R4 K13 ["MainWidget"]
+      401 GETTABLEKS                       R6 R0 K96 ["isMappingsDialogOpen"]
+      403 JUMPIFNOT                        R6 ; [+65]
+      404 GETUPVAL                         R5 7
+      405 GETTABLEKS                       R5 R5 K16 ["createElement"]
+      407 GETUPVAL                         R6 21
+      408 DUPTABLE                         R7 K104 [{["Id"] = "ControlsEmulatorMappings", ["Enabled"] = True, ["Title"] = "Edit Mappings", ["ZIndexBehavior"], ["Resizable"] = True, ["ZIndex"] = 10, ["Modal"] = True, ["Size"], ["MinSize"], ["OnClose"]}]
+      409 GETIMPORT                        R8 K28 [Enum.ZIndexBehavior.Sibling]
+      411 SETTABLEKS                       R8 R7 K26 ["ZIndexBehavior"]
+      413 GETIMPORT                        R8 K33 [Vector2.new]
+      415 LOADN                            R9 600
+      416 LOADN                            R10 620
+      417 CALL                             R8 2 1
+      418 SETTABLEKS                       R8 R7 K34 ["Size"]
+      420 GETIMPORT                        R8 K33 [Vector2.new]
+      422 LOADN                            R9 400
+      423 LOADN                            R10 400
+      424 CALL                             R8 2 1
+      425 SETTABLEKS                       R8 R7 K103 ["MinSize"]
+      427 SETTABLEKS                       R1 R7 K36 ["OnClose"]
+      429 DUPTABLE                         R8 K105 [{"InputTrackingWrapper", "StyleLink"}]
+      430 GETUPVAL                         R9 7
+      431 GETTABLEKS                       R9 R9 K16 ["createElement"]
+      433 GETUPVAL                         R10 15
+      434 NEWTABLE                         R11 0 0
+      436 DUPTABLE                         R12 K106 [{"KeyboardInputsForwarder", "MappingsDialog"}]
+      437 GETUPVAL                         R13 7
+      438 GETTABLEKS                       R13 R13 K16 ["createElement"]
+      440 GETUPVAL                         R14 16
+      441 CALL                             R13 1 1
+      442 SETTABLEKS                       R13 R12 K78 ["KeyboardInputsForwarder"]
+      444 GETUPVAL                         R13 7
+      445 GETTABLEKS                       R13 R13 K16 ["createElement"]
+      447 GETUPVAL                         R14 22
+      448 CALL                             R13 1 1
+      449 SETTABLEKS                       R13 R12 K14 ["MappingsDialog"]
+      451 CALL                             R9 3 1
+      452 SETTABLEKS                       R9 R8 K76 ["InputTrackingWrapper"]
+      454 GETUPVAL                         R9 7
+      455 GETTABLEKS                       R9 R9 K16 ["createElement"]
+      457 LOADK                            R10 K45 ["StyleLink"]
+      458 DUPTABLE                         R11 K94 [{"StyleSheet"}]
+      459 GETUPVAL                         R12 0
+      460 GETTABLEKS                       R12 R12 K95 ["design"]
+      462 SETTABLEKS                       R12 R11 K93 ["StyleSheet"]
+      464 CALL                             R9 2 1
+      465 SETTABLEKS                       R9 R8 K45 ["StyleLink"]
+      467 CALL                             R5 3 1
+      468 JUMP                             ; [+1]
+      469 LOADNIL                          R5
+      470 SETTABLEKS                       R5 R4 K14 ["MappingsDialog"]
+      472 CALL                             R2 2 -1
+      473 RETURN                           R2 -1
 
 PROTO_38:
         0 GETUPVAL                         R1 0

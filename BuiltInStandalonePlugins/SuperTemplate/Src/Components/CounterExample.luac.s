@@ -29,46 +29,38 @@ PROTO_2:
        23 GETUPVAL                         R5 0
        24 GETTABLEKS                       R5 R5 K4 ["createElement"]
        26 GETUPVAL                         R6 2
-       27 DUPTABLE                         R7 K6 [{"tag"}]
-       28 LOADK                            R8 K7 ["auto-xy col gap-medium bg-surface-0 radius-medium"]
-       29 SETTABLEKS                       R8 R7 K5 ["tag"]
-       31 DUPTABLE                         R8 K10 [{"Label", "Button"}]
-       32 GETUPVAL                         R9 0
-       33 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       35 GETUPVAL                         R10 3
-       36 DUPTABLE                         R11 K13 [{"Text", "tag", "testId"}]
-       37 LOADK                            R14 K14 ["CounterExample"]
-       38 LOADK                            R15 K15 ["CounterLabel"]
-       39 DUPTABLE                         R16 K17 [{"counter"}]
-       40 SETTABLEKS                       R2 R16 K16 ["counter"]
-       42 NAMECALL                         R12 R1 K18 ["getText"]
-       44 CALL                             R12 4 1
-       45 SETTABLEKS                       R12 R11 K11 ["Text"]
-       47 LOADK                            R12 K19 ["auto-xy content-emphasis"]
-       48 SETTABLEKS                       R12 R11 K5 ["tag"]
-       50 LOADK                            R12 K20 ["--counter-example-text"]
-       51 SETTABLEKS                       R12 R11 K12 ["testId"]
-       53 CALL                             R9 2 1
-       54 SETTABLEKS                       R9 R8 K8 ["Label"]
-       56 GETUPVAL                         R9 0
-       57 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       59 GETUPVAL                         R10 4
-       60 DUPTABLE                         R11 K24 [{"text", "onActivated", "variant", "testId"}]
-       61 LOADK                            R14 K14 ["CounterExample"]
-       62 LOADK                            R15 K9 ["Button"]
-       63 NAMECALL                         R12 R1 K18 ["getText"]
-       65 CALL                             R12 3 1
-       66 SETTABLEKS                       R12 R11 K21 ["text"]
-       68 SETTABLEKS                       R4 R11 K22 ["onActivated"]
-       70 GETUPVAL                         R12 5
-       71 GETTABLEKS                       R12 R12 K25 ["Emphasis"]
-       73 SETTABLEKS                       R12 R11 K23 ["variant"]
-       75 LOADK                            R12 K26 ["--counter-example-button"]
-       76 SETTABLEKS                       R12 R11 K12 ["testId"]
-       78 CALL                             R9 2 1
-       79 SETTABLEKS                       R9 R8 K9 ["Button"]
-       81 CALL                             R5 3 -1
-       82 RETURN                           R5 -1
+       27 DUPTABLE                         R7 K7 [{["tag"] = "col gap-medium auto-xy radius-medium bg-surface-0"}]
+       28 DUPTABLE                         R8 K10 [{"Label", "Button"}]
+       29 GETUPVAL                         R9 0
+       30 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       32 GETUPVAL                         R10 3
+       33 DUPTABLE                         R11 K15 [{["Text"], ["tag"] = "auto-xy content-emphasis", ["testId"] = "--counter-example-text"}]
+       34 LOADK                            R14 K16 ["CounterExample"]
+       35 LOADK                            R15 K17 ["CounterLabel"]
+       36 DUPTABLE                         R16 K19 [{"counter"}]
+       37 SETTABLEKS                       R2 R16 K18 ["counter"]
+       39 NAMECALL                         R12 R1 K20 ["getText"]
+       41 CALL                             R12 4 1
+       42 SETTABLEKS                       R12 R11 K11 ["Text"]
+       44 CALL                             R9 2 1
+       45 SETTABLEKS                       R9 R8 K8 ["Label"]
+       47 GETUPVAL                         R9 0
+       48 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       50 GETUPVAL                         R10 4
+       51 DUPTABLE                         R11 K25 [{["text"], ["onActivated"], ["variant"], ["testId"] = "--counter-example-button"}]
+       52 LOADK                            R14 K16 ["CounterExample"]
+       53 LOADK                            R15 K9 ["Button"]
+       54 NAMECALL                         R12 R1 K20 ["getText"]
+       56 CALL                             R12 3 1
+       57 SETTABLEKS                       R12 R11 K21 ["text"]
+       59 SETTABLEKS                       R4 R11 K22 ["onActivated"]
+       61 GETUPVAL                         R12 5
+       62 GETTABLEKS                       R12 R12 K26 ["Emphasis"]
+       64 SETTABLEKS                       R12 R11 K23 ["variant"]
+       66 CALL                             R9 2 1
+       67 SETTABLEKS                       R9 R8 K9 ["Button"]
+       69 CALL                             R5 3 -1
+       70 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

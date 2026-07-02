@@ -14,11 +14,9 @@ PROTO_1:
         1 GETTABLEKS                       R2 R2 K0 ["Dictionary"]
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
-        6 DUPTABLE                         R4 K3 [{"PlayerAcceptance"}]
-        7 LOADB                            R5 0
-        8 SETTABLEKS                       R5 R4 K2 ["PlayerAcceptance"]
-       10 CALL                             R2 2 -1
-       11 RETURN                           R2 -1
+        6 DUPTABLE                         R4 K4 [{["PlayerAcceptance"] = False}]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -34,17 +32,15 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K9 [{"PlayerAcceptance"}]
-       24 LOADB                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["PlayerAcceptance"]
-       27 GETTABLEKS                       R4 R1 K10 ["createReducer"]
-       29 MOVE                             R5 R3
-       30 DUPTABLE                         R6 K13 [{"SetPlayerAcceptance", "ResetInfo"}]
-       31 DUPCLOSURE                       R7 K14 [PROTO_0]
-       32 CAPTURE                          VAL R2
-       33 SETTABLEKS                       R7 R6 K11 ["SetPlayerAcceptance"]
-       35 DUPCLOSURE                       R7 K15 [PROTO_1]
-       36 CAPTURE                          VAL R2
-       37 SETTABLEKS                       R7 R6 K12 ["ResetInfo"]
-       39 CALL                             R4 2 -1
-       40 RETURN                           R4 -1
+       23 DUPTABLE                         R3 K10 [{["PlayerAcceptance"] = False}]
+       24 GETTABLEKS                       R4 R1 K11 ["createReducer"]
+       26 MOVE                             R5 R3
+       27 DUPTABLE                         R6 K14 [{"SetPlayerAcceptance", "ResetInfo"}]
+       28 DUPCLOSURE                       R7 K15 [PROTO_0]
+       29 CAPTURE                          VAL R2
+       30 SETTABLEKS                       R7 R6 K12 ["SetPlayerAcceptance"]
+       32 DUPCLOSURE                       R7 K16 [PROTO_1]
+       33 CAPTURE                          VAL R2
+       34 SETTABLEKS                       R7 R6 K13 ["ResetInfo"]
+       36 CALL                             R4 2 -1
+       37 RETURN                           R4 -1

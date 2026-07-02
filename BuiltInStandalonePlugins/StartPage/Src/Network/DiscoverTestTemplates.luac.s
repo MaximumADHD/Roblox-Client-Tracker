@@ -275,42 +275,40 @@ MAIN:
       103 GETTABLEKS                       R16 R2 K27 ["RobloxAPI"]
       105 GETTABLEKS                       R16 R16 K28 ["Url"]
       107 GETTABLEKS                       R17 R10 K29 ["new"]
-      109 DUPTABLE                         R18 K32 [{"isInternal", "loggingLevel"}]
-      110 LOADB                            R19 1
-      111 SETTABLEKS                       R19 R18 K30 ["isInternal"]
-      113 SETTABLEKS                       R1 R18 K31 ["loggingLevel"]
-      115 CALL                             R17 1 1
-      116 GETIMPORT                        R18 K5 [require]
-      118 GETTABLEKS                       R19 R0 K6 ["Src"]
-      120 GETTABLEKS                       R19 R19 K16 ["Network"]
-      122 GETTABLEKS                       R19 R19 K33 ["GameCache"]
-      124 CALL                             R18 1 1
-      125 GETIMPORT                        R19 K5 [require]
-      127 GETTABLEKS                       R20 R0 K6 ["Src"]
-      129 GETTABLEKS                       R20 R20 K16 ["Network"]
-      131 GETTABLEKS                       R20 R20 K34 ["DiscoverPlaceholderIcons"]
-      133 CALL                             R19 1 1
-      134 MOVE                             R20 R12
-      135 GETTABLEKS                       R21 R13 K35 ["validate"]
-      137 CALL                             R20 1 1
-      138 MOVE                             R21 R12
-      139 GETTABLEKS                       R22 R14 K35 ["validate"]
-      141 CALL                             R21 1 1
-      142 NEWTABLE                         R22 1 0
-      144 LOADK                            R23 K36 ["application/json"]
-      145 SETTABLEKS                       R23 R22 K37 ["Content-Type"]
-      147 DUPCLOSURE                       R23 K38 [PROTO_9]
-      148 CAPTURE                          VAL R15
-      149 CAPTURE                          VAL R11
-      150 CAPTURE                          VAL R16
-      151 CAPTURE                          VAL R8
-      152 CAPTURE                          VAL R17
-      153 CAPTURE                          VAL R22
-      154 CAPTURE                          VAL R20
-      155 CAPTURE                          VAL R5
-      156 CAPTURE                          VAL R6
-      157 CAPTURE                          VAL R21
-      158 CAPTURE                          VAL R4
-      159 CAPTURE                          VAL R18
-      160 CAPTURE                          VAL R19
-      161 RETURN                           R23 1
+      109 DUPTABLE                         R18 K33 [{["isInternal"] = True, ["loggingLevel"]}]
+      110 SETTABLEKS                       R1 R18 K32 ["loggingLevel"]
+      112 CALL                             R17 1 1
+      113 GETIMPORT                        R18 K5 [require]
+      115 GETTABLEKS                       R19 R0 K6 ["Src"]
+      117 GETTABLEKS                       R19 R19 K16 ["Network"]
+      119 GETTABLEKS                       R19 R19 K34 ["GameCache"]
+      121 CALL                             R18 1 1
+      122 GETIMPORT                        R19 K5 [require]
+      124 GETTABLEKS                       R20 R0 K6 ["Src"]
+      126 GETTABLEKS                       R20 R20 K16 ["Network"]
+      128 GETTABLEKS                       R20 R20 K35 ["DiscoverPlaceholderIcons"]
+      130 CALL                             R19 1 1
+      131 MOVE                             R20 R12
+      132 GETTABLEKS                       R21 R13 K36 ["validate"]
+      134 CALL                             R20 1 1
+      135 MOVE                             R21 R12
+      136 GETTABLEKS                       R22 R14 K36 ["validate"]
+      138 CALL                             R21 1 1
+      139 NEWTABLE                         R22 1 0
+      141 LOADK                            R23 K37 ["application/json"]
+      142 SETTABLEKS                       R23 R22 K38 ["Content-Type"]
+      144 DUPCLOSURE                       R23 K39 [PROTO_9]
+      145 CAPTURE                          VAL R15
+      146 CAPTURE                          VAL R11
+      147 CAPTURE                          VAL R16
+      148 CAPTURE                          VAL R8
+      149 CAPTURE                          VAL R17
+      150 CAPTURE                          VAL R22
+      151 CAPTURE                          VAL R20
+      152 CAPTURE                          VAL R5
+      153 CAPTURE                          VAL R6
+      154 CAPTURE                          VAL R21
+      155 CAPTURE                          VAL R4
+      156 CAPTURE                          VAL R18
+      157 CAPTURE                          VAL R19
+      158 RETURN                           R23 1

@@ -10,57 +10,51 @@ PROTO_0:
        16 GETUPVAL                         R9 0
        17 GETTABLEKS                       R9 R9 K8 ["createElement"]
        19 LOADK                            R10 K9 ["Frame"]
-       20 DUPTABLE                         R11 K11 [{"BackgroundTransparency", "Size", "Position", "ZIndex"}]
-       21 LOADN                            R12 1
-       22 SETTABLEKS                       R12 R11 K10 ["BackgroundTransparency"]
-       24 SETTABLEKS                       R3 R11 K2 ["Size"]
-       26 SETTABLEKS                       R4 R11 K3 ["Position"]
-       28 SETTABLEKS                       R5 R11 K4 ["ZIndex"]
-       30 DUPTABLE                         R12 K14 [{"DragListenerArea", "Bar"}]
-       31 GETUPVAL                         R13 0
-       32 GETTABLEKS                       R13 R13 K8 ["createElement"]
-       34 GETUPVAL                         R14 1
-       35 DUPTABLE                         R15 K19 [{"Cursor", "OnDragBegan", "OnDragMoved", "OnDragEnded"}]
-       36 LOADK                            R16 K20 ["SizeEW"]
-       37 SETTABLEKS                       R16 R15 K15 ["Cursor"]
-       39 SETTABLEKS                       R6 R15 K16 ["OnDragBegan"]
-       41 SETTABLEKS                       R7 R15 K17 ["OnDragMoved"]
-       43 SETTABLEKS                       R8 R15 K18 ["OnDragEnded"]
-       45 CALL                             R13 2 1
-       46 SETTABLEKS                       R13 R12 K12 ["DragListenerArea"]
-       48 GETUPVAL                         R13 0
-       49 GETTABLEKS                       R13 R13 K8 ["createElement"]
-       51 LOADK                            R14 K9 ["Frame"]
-       52 DUPTABLE                         R15 K24 [{"BackgroundColor3", "BorderSizePixel", "Size", "Position", "AnchorPoint", "ZIndex"}]
-       53 GETTABLEKS                       R16 R2 K25 ["scaleControlsTheme"]
-       55 GETTABLEKS                       R16 R16 K26 ["mainColor"]
-       57 SETTABLEKS                       R16 R15 K21 ["BackgroundColor3"]
-       59 LOADN                            R16 0
-       60 SETTABLEKS                       R16 R15 K22 ["BorderSizePixel"]
-       62 GETIMPORT                        R16 K29 [UDim2.new]
-       64 LOADN                            R17 0
-       65 LOADN                            R18 2
-       66 LOADN                            R19 1
+       20 DUPTABLE                         R11 K12 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["ZIndex"]}]
+       21 SETTABLEKS                       R3 R11 K2 ["Size"]
+       23 SETTABLEKS                       R4 R11 K3 ["Position"]
+       25 SETTABLEKS                       R5 R11 K4 ["ZIndex"]
+       27 DUPTABLE                         R12 K15 [{"DragListenerArea", "Bar"}]
+       28 GETUPVAL                         R13 0
+       29 GETTABLEKS                       R13 R13 K8 ["createElement"]
+       31 GETUPVAL                         R14 1
+       32 DUPTABLE                         R15 K21 [{["Cursor"] = "SizeEW", ["OnDragBegan"], ["OnDragMoved"], ["OnDragEnded"]}]
+       33 SETTABLEKS                       R6 R15 K18 ["OnDragBegan"]
+       35 SETTABLEKS                       R7 R15 K19 ["OnDragMoved"]
+       37 SETTABLEKS                       R8 R15 K20 ["OnDragEnded"]
+       39 CALL                             R13 2 1
+       40 SETTABLEKS                       R13 R12 K13 ["DragListenerArea"]
+       42 GETUPVAL                         R13 0
+       43 GETTABLEKS                       R13 R13 K8 ["createElement"]
+       45 LOADK                            R14 K9 ["Frame"]
+       46 DUPTABLE                         R15 K26 [{["BackgroundColor3"], ["BorderSizePixel"] = 0, ["Size"], ["Position"], ["AnchorPoint"], ["ZIndex"]}]
+       47 GETTABLEKS                       R16 R2 K27 ["scaleControlsTheme"]
+       49 GETTABLEKS                       R16 R16 K28 ["mainColor"]
+       51 SETTABLEKS                       R16 R15 K22 ["BackgroundColor3"]
+       53 GETIMPORT                        R16 K31 [UDim2.new]
+       55 LOADN                            R17 0
+       56 LOADN                            R18 2
+       57 LOADN                            R19 1
+       58 LOADN                            R20 0
+       59 CALL                             R16 4 1
+       60 SETTABLEKS                       R16 R15 K2 ["Size"]
+       62 GETIMPORT                        R16 K31 [UDim2.new]
+       64 LOADK                            R17 K32 [0.5]
+       65 LOADN                            R18 0
+       66 LOADN                            R19 0
        67 LOADN                            R20 0
        68 CALL                             R16 4 1
-       69 SETTABLEKS                       R16 R15 K2 ["Size"]
-       71 GETIMPORT                        R16 K29 [UDim2.new]
-       73 LOADK                            R17 K30 [0.5]
+       69 SETTABLEKS                       R16 R15 K3 ["Position"]
+       71 GETIMPORT                        R16 K34 [Vector2.new]
+       73 LOADK                            R17 K32 [0.5]
        74 LOADN                            R18 0
-       75 LOADN                            R19 0
-       76 LOADN                            R20 0
-       77 CALL                             R16 4 1
-       78 SETTABLEKS                       R16 R15 K3 ["Position"]
-       80 GETIMPORT                        R16 K32 [Vector2.new]
-       82 LOADK                            R17 K30 [0.5]
-       83 LOADN                            R18 0
-       84 CALL                             R16 2 1
-       85 SETTABLEKS                       R16 R15 K23 ["AnchorPoint"]
-       87 SETTABLEKS                       R5 R15 K4 ["ZIndex"]
-       89 CALL                             R13 2 1
-       90 SETTABLEKS                       R13 R12 K13 ["Bar"]
-       92 CALL                             R9 3 -1
-       93 RETURN                           R9 -1
+       75 CALL                             R16 2 1
+       76 SETTABLEKS                       R16 R15 K25 ["AnchorPoint"]
+       78 SETTABLEKS                       R5 R15 K4 ["ZIndex"]
+       80 CALL                             R13 2 1
+       81 SETTABLEKS                       R13 R12 K14 ["Bar"]
+       83 CALL                             R9 3 -1
+       84 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

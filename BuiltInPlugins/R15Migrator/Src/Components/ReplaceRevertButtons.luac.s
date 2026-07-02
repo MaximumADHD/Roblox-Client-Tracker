@@ -44,49 +44,45 @@ PROTO_2:
        38 GETUPVAL                         R10 1
        39 GETTABLEKS                       R10 R10 K5 ["createElement"]
        41 GETUPVAL                         R11 3
-       42 DUPTABLE                         R12 K30 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
-       43 LOADK                            R13 K31 ["Round"]
-       44 SETTABLEKS                       R13 R12 K25 ["Style"]
-       46 LOADK                            R15 K32 ["AnimationConversion"]
-       47 LOADK                            R16 K22 ["Revert"]
-       48 NAMECALL                         R13 R4 K33 ["getText"]
-       50 CALL                             R13 3 1
-       51 SETTABLEKS                       R13 R12 K26 ["Text"]
-       53 GETTABLEKS                       R13 R3 K34 ["ButtonSize"]
-       55 SETTABLEKS                       R13 R12 K27 ["Size"]
-       57 NEWCLOSURE                       R13 P0
-       58 CAPTURE                          VAL R0
-       59 CAPTURE                          VAL R1
-       60 SETTABLEKS                       R13 R12 K28 ["OnClick"]
-       62 NAMECALL                         R13 R5 K35 ["getNextOrder"]
-       64 CALL                             R13 1 1
-       65 SETTABLEKS                       R13 R12 K29 ["LayoutOrder"]
-       67 CALL                             R10 2 1
-       68 SETTABLEKS                       R10 R9 K22 ["Revert"]
-       70 GETUPVAL                         R10 1
-       71 GETTABLEKS                       R10 R10 K5 ["createElement"]
-       73 GETUPVAL                         R11 3
-       74 DUPTABLE                         R12 K30 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
-       75 LOADK                            R13 K36 ["RoundPrimary"]
-       76 SETTABLEKS                       R13 R12 K25 ["Style"]
-       78 LOADK                            R15 K32 ["AnimationConversion"]
-       79 LOADK                            R16 K23 ["Replace"]
-       80 NAMECALL                         R13 R4 K33 ["getText"]
-       82 CALL                             R13 3 1
-       83 SETTABLEKS                       R13 R12 K26 ["Text"]
-       85 GETTABLEKS                       R13 R3 K34 ["ButtonSize"]
-       87 SETTABLEKS                       R13 R12 K27 ["Size"]
-       89 NEWCLOSURE                       R13 P1
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          VAL R1
-       92 SETTABLEKS                       R13 R12 K28 ["OnClick"]
-       94 NAMECALL                         R13 R5 K35 ["getNextOrder"]
-       96 CALL                             R13 1 1
-       97 SETTABLEKS                       R13 R12 K29 ["LayoutOrder"]
-       99 CALL                             R10 2 1
-      100 SETTABLEKS                       R10 R9 K23 ["Replace"]
-      102 CALL                             R6 3 -1
-      103 RETURN                           R6 -1
+       42 DUPTABLE                         R12 K31 [{["Style"] = "Round", ["Text"], ["Size"], ["OnClick"], ["LayoutOrder"]}]
+       43 LOADK                            R15 K32 ["AnimationConversion"]
+       44 LOADK                            R16 K22 ["Revert"]
+       45 NAMECALL                         R13 R4 K33 ["getText"]
+       47 CALL                             R13 3 1
+       48 SETTABLEKS                       R13 R12 K27 ["Text"]
+       50 GETTABLEKS                       R13 R3 K34 ["ButtonSize"]
+       52 SETTABLEKS                       R13 R12 K28 ["Size"]
+       54 NEWCLOSURE                       R13 P0
+       55 CAPTURE                          VAL R0
+       56 CAPTURE                          VAL R1
+       57 SETTABLEKS                       R13 R12 K29 ["OnClick"]
+       59 NAMECALL                         R13 R5 K35 ["getNextOrder"]
+       61 CALL                             R13 1 1
+       62 SETTABLEKS                       R13 R12 K30 ["LayoutOrder"]
+       64 CALL                             R10 2 1
+       65 SETTABLEKS                       R10 R9 K22 ["Revert"]
+       67 GETUPVAL                         R10 1
+       68 GETTABLEKS                       R10 R10 K5 ["createElement"]
+       70 GETUPVAL                         R11 3
+       71 DUPTABLE                         R12 K37 [{["Style"] = "RoundPrimary", ["Text"], ["Size"], ["OnClick"], ["LayoutOrder"]}]
+       72 LOADK                            R15 K32 ["AnimationConversion"]
+       73 LOADK                            R16 K23 ["Replace"]
+       74 NAMECALL                         R13 R4 K33 ["getText"]
+       76 CALL                             R13 3 1
+       77 SETTABLEKS                       R13 R12 K27 ["Text"]
+       79 GETTABLEKS                       R13 R3 K34 ["ButtonSize"]
+       81 SETTABLEKS                       R13 R12 K28 ["Size"]
+       83 NEWCLOSURE                       R13 P1
+       84 CAPTURE                          VAL R0
+       85 CAPTURE                          VAL R1
+       86 SETTABLEKS                       R13 R12 K29 ["OnClick"]
+       88 NAMECALL                         R13 R5 K35 ["getNextOrder"]
+       90 CALL                             R13 1 1
+       91 SETTABLEKS                       R13 R12 K30 ["LayoutOrder"]
+       93 CALL                             R10 2 1
+       94 SETTABLEKS                       R10 R9 K23 ["Replace"]
+       96 CALL                             R6 3 -1
+       97 RETURN                           R6 -1
 
 PROTO_3:
         0 GETUPVAL                         R2 0

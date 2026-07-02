@@ -1,15 +1,15 @@
 PROTO_0:
         0 GETIMPORT                        R5 K3 [Enum.Material.Air]
         2 NEWTABLE                         R6 0 0
-        4 LOADN                            R9 255
+        4 LOADN                            R9 -1
         5 LOADN                            R7 1
         6 LOADN                            R8 1
         7 FORNPREP                         R7
-        8 LOADN                            R12 255
+        8 LOADN                            R12 -1
         9 LOADN                            R10 1
        10 LOADN                            R11 1
        11 FORNPREP                         R10
-       12 LOADN                            R15 255
+       12 LOADN                            R15 -1
        13 LOADN                            R13 1
        14 LOADN                            R14 1
        15 FORNPREP                         R13

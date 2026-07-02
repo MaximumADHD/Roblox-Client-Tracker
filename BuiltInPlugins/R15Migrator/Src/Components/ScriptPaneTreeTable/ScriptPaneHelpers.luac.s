@@ -54,11 +54,9 @@ PROTO_1:
        66 DUPCLOSURE                       R9 K13 [PROTO_0]
        67 CALL                             R7 2 -1
        68 CALL                             R5 -1 1
-       69 DUPTABLE                         R6 K16 [{"Type", "Options"}]
-       70 LOADK                            R7 K17 ["Dropdown"]
-       71 SETTABLEKS                       R7 R6 K14 ["Type"]
-       73 SETTABLEKS                       R5 R6 K15 ["Options"]
-       75 RETURN                           R6 1
+       69 DUPTABLE                         R6 K17 [{["Type"] = "Dropdown", ["Options"]}]
+       70 SETTABLEKS                       R5 R6 K16 ["Options"]
+       72 RETURN                           R6 1
 
 PROTO_2:
         0 GETTABLEKS                       R3 R2 K0 ["scriptName"]
@@ -221,12 +219,12 @@ PROTO_6:
        23 MOVE                             R21 R18
        24 MOVE                             R22 R2
        25 CALL                             R19 3 1
-       26 JUMPIF                           R19 ; [+313]
+       26 JUMPIF                           R19 ; [+277]
        27 GETTABLEKS                       R19 R18 K4 ["instanceName"]
        29 GETTABLEKS                       R20 R18 K5 ["issueType"]
        31 GETUPVAL                         R21 1
        32 GETTABLEKS                       R21 R21 K6 ["AnimationKey"]
-       34 JUMPIFEQ                         R20 R21 ; [+305]
+       34 JUMPIFEQ                         R20 R21 ; [+269]
        36 GETTABLE                         R21 R5 R10
        37 JUMPIF                           R21 ; [+3]
        38 NEWTABLE                         R21 0 0
@@ -256,183 +254,159 @@ PROTO_6:
        68 JUMPIFNOTEQ                      R26 R19 ; [+2]
        70 LOADB                            R25 0 +1
        71 LOADB                            R25 1
-       72 JUMPIFNOTEQKNIL                  R21 ; [+117]
-       74 DUPTABLE                         R26 K20 [{"select", "name", "count", "issue", "r6", "r15", "menu_status", "children", "Path", "_id", "_disabled"}]
-       75 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
+       72 JUMPIFNOTEQKNIL                  R21 ; [+99]
+       74 DUPTABLE                         R26 K21 [{["select"], ["name"], ["count"] = 0, ["issue"], ["r6"], ["r15"], ["menu_status"], ["children"], ["Path"], ["_id"], ["_disabled"]}]
+       75 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
        76 GETUPVAL                         R29 0
-       77 GETTABLEKS                       R29 R29 K24 ["makeItemId"]
+       77 GETTABLEKS                       R29 R29 K25 ["makeItemId"]
        79 MOVE                             R30 R10
        80 MOVE                             R31 R20
        81 MOVE                             R32 R19
        82 CALL                             R29 3 1
        83 GETTABLE                         R28 R3 R29
-       84 SETTABLEKS                       R28 R27 K21 ["Value"]
-       86 DUPTABLE                         R28 K26 [{"Type"}]
-       87 LOADK                            R29 K27 ["Checkbox"]
-       88 SETTABLEKS                       R29 R28 K25 ["Type"]
-       90 SETTABLEKS                       R28 R27 K22 ["Schema"]
-       92 SETTABLEKS                       R27 R26 K9 ["select"]
-       94 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-       95 DUPTABLE                         R28 K29 [{"Script"}]
-       96 SETTABLEKS                       R12 R28 K28 ["Script"]
-       98 SETTABLEKS                       R28 R27 K21 ["Value"]
-      100 DUPTABLE                         R28 K26 [{"Type"}]
-      101 LOADK                            R29 K30 ["ScriptLink"]
-      102 SETTABLEKS                       R29 R28 K25 ["Type"]
-      104 SETTABLEKS                       R28 R27 K22 ["Schema"]
-      106 SETTABLEKS                       R27 R26 K10 ["name"]
-      108 LOADN                            R27 0
-      109 SETTABLEKS                       R27 R26 K11 ["count"]
-      111 GETUPVAL                         R28 3
-      112 GETTABLE                         R27 R28 R20
-      113 SETTABLEKS                       R27 R26 K12 ["issue"]
-      115 SETTABLEKS                       R19 R26 K13 ["r6"]
-      117 JUMPIFNOT                        R22 ; [+12]
-      118 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      119 GETTABLEKS                       R28 R18 K31 ["resolution"]
-      121 JUMPIF                           R28 ; [+3]
-      122 GETUPVAL                         R28 4
-      123 GETTABLEKS                       R28 R28 K32 ["UNASSIGNED"]
-      125 SETTABLEKS                       R28 R27 K21 ["Value"]
-      127 SETTABLEKS                       R22 R27 K22 ["Schema"]
-      129 JUMP                             ; [+4]
-      130 DUPTABLE                         R27 K33 [{"Value"}]
-      131 LOADK                            R28 K34 [""]
-      132 SETTABLEKS                       R28 R27 K21 ["Value"]
-      134 SETTABLEKS                       R27 R26 K14 ["r15"]
-      136 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      137 DUPTABLE                         R28 K36 [{"Checked"}]
-      138 LOADB                            R29 1
-      139 SETTABLEKS                       R29 R28 K35 ["Checked"]
-      141 SETTABLEKS                       R28 R27 K21 ["Value"]
-      143 DUPTABLE                         R28 K26 [{"Type"}]
-      144 LOADK                            R29 K37 ["Status"]
-      145 SETTABLEKS                       R29 R28 K25 ["Type"]
-      147 SETTABLEKS                       R28 R27 K22 ["Schema"]
-      149 SETTABLEKS                       R27 R26 K15 ["menu_status"]
-      151 NEWTABLE                         R27 0 0
-      153 SETTABLEKS                       R27 R26 K16 ["children"]
-      155 DUPTABLE                         R27 K39 [{"scriptId", "instanceName", "issueType"}]
-      156 SETTABLEKS                       R10 R27 K38 ["scriptId"]
-      158 SETTABLEKS                       R19 R27 K4 ["instanceName"]
-      160 SETTABLEKS                       R20 R27 K5 ["issueType"]
-      162 SETTABLEKS                       R27 R26 K17 ["Path"]
-      164 GETUPVAL                         R27 0
-      165 GETTABLEKS                       R27 R27 K24 ["makeItemId"]
-      167 MOVE                             R28 R10
-      168 MOVE                             R29 R20
-      169 MOVE                             R30 R19
-      170 CALL                             R27 3 1
-      171 SETTABLEKS                       R27 R26 K18 ["_id"]
-      173 SETTABLEKS                       R25 R26 K19 ["_disabled"]
-      175 MOVE                             R21 R26
-      176 GETTABLEKS                       R26 R21 K17 ["Path"]
-      178 SETTABLEKS                       R21 R26 K40 ["item"]
-      180 GETTABLE                         R27 R5 R10
-      181 GETTABLE                         R26 R27 R20
-      182 SETTABLE                         R21 R26 R19
-      183 FASTCALL2                        TABLE_INSERT R6 R21 ; [+5]
-      185 MOVE                             R27 R6
-      186 MOVE                             R28 R21
-      187 GETIMPORT                        R26 K43 [table.insert]
-      189 CALL                             R26 2 0
-      190 DUPTABLE                         R26 K44 [{"select", "name", "count", "issue", "r6", "r15", "menu_status", "Path", "_id", "_disabled"}]
-      191 LOADNIL                          R27
-      192 SETTABLEKS                       R27 R26 K9 ["select"]
-      194 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      195 DUPTABLE                         R28 K46 [{"Script", "Range"}]
-      196 SETTABLEKS                       R12 R28 K28 ["Script"]
-      198 GETTABLEKS                       R29 R18 K47 ["range"]
-      200 SETTABLEKS                       R29 R28 K45 ["Range"]
-      202 SETTABLEKS                       R28 R27 K21 ["Value"]
-      204 DUPTABLE                         R28 K26 [{"Type"}]
-      205 LOADK                            R29 K30 ["ScriptLink"]
-      206 SETTABLEKS                       R29 R28 K25 ["Type"]
-      208 SETTABLEKS                       R28 R27 K22 ["Schema"]
-      210 SETTABLEKS                       R27 R26 K10 ["name"]
-      212 LOADNIL                          R27
-      213 SETTABLEKS                       R27 R26 K11 ["count"]
-      215 LOADK                            R27 K34 [""]
-      216 SETTABLEKS                       R27 R26 K12 ["issue"]
-      218 SETTABLEKS                       R19 R26 K13 ["r6"]
-      220 JUMPIFNOT                        R22 ; [+12]
-      221 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      222 GETTABLEKS                       R28 R18 K31 ["resolution"]
-      224 JUMPIF                           R28 ; [+3]
-      225 GETUPVAL                         R28 4
-      226 GETTABLEKS                       R28 R28 K32 ["UNASSIGNED"]
-      228 SETTABLEKS                       R28 R27 K21 ["Value"]
-      230 SETTABLEKS                       R22 R27 K22 ["Schema"]
-      232 JUMP                             ; [+4]
-      233 DUPTABLE                         R27 K33 [{"Value"}]
-      234 LOADK                            R28 K34 [""]
-      235 SETTABLEKS                       R28 R27 K21 ["Value"]
-      237 SETTABLEKS                       R27 R26 K14 ["r15"]
-      239 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      240 DUPTABLE                         R28 K36 [{"Checked"}]
-      241 GETTABLEKS                       R30 R18 K31 ["resolution"]
-      243 JUMPIFNOTEQKNIL                  R30 ; [+2]
-      245 LOADB                            R29 0 +1
-      246 LOADB                            R29 1
-      247 SETTABLEKS                       R29 R28 K35 ["Checked"]
-      249 SETTABLEKS                       R28 R27 K21 ["Value"]
-      251 DUPTABLE                         R28 K26 [{"Type"}]
-      252 LOADK                            R29 K37 ["Status"]
-      253 SETTABLEKS                       R29 R28 K25 ["Type"]
-      255 SETTABLEKS                       R28 R27 K22 ["Schema"]
-      257 SETTABLEKS                       R27 R26 K15 ["menu_status"]
-      259 DUPTABLE                         R27 K50 [{"parent", "scriptId", "issueType", "diagnostic"}]
-      260 SETTABLEKS                       R21 R27 K48 ["parent"]
-      262 SETTABLEKS                       R10 R27 K38 ["scriptId"]
-      264 SETTABLEKS                       R20 R27 K5 ["issueType"]
-      266 SETTABLEKS                       R18 R27 K49 ["diagnostic"]
-      268 SETTABLEKS                       R27 R26 K17 ["Path"]
-      270 GETUPVAL                         R27 0
-      271 GETTABLEKS                       R27 R27 K24 ["makeItemId"]
-      273 MOVE                             R28 R10
-      274 MOVE                             R29 R20
-      275 MOVE                             R30 R19
-      276 GETTABLEKS                       R31 R18 K51 ["diagnosticId"]
-      278 CALL                             R27 4 1
-      279 SETTABLEKS                       R27 R26 K18 ["_id"]
-      281 SETTABLEKS                       R25 R26 K19 ["_disabled"]
-      283 GETTABLEKS                       R27 R21 K14 ["r15"]
-      285 JUMPIFNOT                        R27 ; [+26]
-      286 GETTABLEKS                       R27 R21 K14 ["r15"]
-      288 GETTABLEKS                       R27 R27 K21 ["Value"]
-      290 JUMPIFNOT                        R27 ; [+21]
-      291 GETTABLEKS                       R27 R18 K31 ["resolution"]
-      293 GETTABLEKS                       R28 R21 K14 ["r15"]
-      295 GETTABLEKS                       R28 R28 K21 ["Value"]
-      297 JUMPIFEQ                         R27 R28 ; [+14]
-      299 JUMPIFNOT                        R22 ; [+9]
-      300 DUPTABLE                         R27 K23 [{"Value", "Schema"}]
-      301 GETUPVAL                         R28 4
-      302 GETTABLEKS                       R28 R28 K32 ["UNASSIGNED"]
-      304 SETTABLEKS                       R28 R27 K21 ["Value"]
-      306 SETTABLEKS                       R22 R27 K22 ["Schema"]
-      308 JUMP                             ; [+1]
-      309 LOADNIL                          R27
-      310 SETTABLEKS                       R27 R21 K14 ["r15"]
-      312 GETTABLEKS                       R27 R18 K31 ["resolution"]
-      314 JUMPIFNOTEQKNIL                  R27 ; [+8]
-      316 GETTABLEKS                       R27 R21 K15 ["menu_status"]
-      318 GETTABLEKS                       R27 R27 K21 ["Value"]
-      320 LOADB                            R28 0
-      321 SETTABLEKS                       R28 R27 K35 ["Checked"]
-      323 GETTABLEKS                       R27 R26 K17 ["Path"]
-      325 SETTABLEKS                       R26 R27 K40 ["item"]
-      327 GETTABLEKS                       R28 R21 K16 ["children"]
-      329 FASTCALL2                        TABLE_INSERT R28 R26 ; [+4]
-      331 MOVE                             R29 R26
-      332 GETIMPORT                        R27 K43 [table.insert]
-      334 CALL                             R27 2 0
-      335 GETTABLEKS                       R27 R21 K11 ["count"]
-      337 ADDK                             R27 R27 K52 [1]
-      338 SETTABLEKS                       R27 R21 K11 ["count"]
-      340 FORGLOOP                         R14 2 ; [-322]
-      342 FORGLOOP                         R7 2 ; [-335]
-      344 RETURN                           R6 1
+       84 SETTABLEKS                       R28 R27 K22 ["Value"]
+       86 DUPTABLE                         R28 K28 [{["Type"] = "Checkbox"}]
+       87 SETTABLEKS                       R28 R27 K23 ["Schema"]
+       89 SETTABLEKS                       R27 R26 K9 ["select"]
+       91 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+       92 DUPTABLE                         R28 K30 [{"Script"}]
+       93 SETTABLEKS                       R12 R28 K29 ["Script"]
+       95 SETTABLEKS                       R28 R27 K22 ["Value"]
+       97 DUPTABLE                         R28 K32 [{["Type"] = "ScriptLink"}]
+       98 SETTABLEKS                       R28 R27 K23 ["Schema"]
+      100 SETTABLEKS                       R27 R26 K10 ["name"]
+      102 GETUPVAL                         R28 3
+      103 GETTABLE                         R27 R28 R20
+      104 SETTABLEKS                       R27 R26 K13 ["issue"]
+      106 SETTABLEKS                       R19 R26 K14 ["r6"]
+      108 JUMPIFNOT                        R22 ; [+12]
+      109 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      110 GETTABLEKS                       R28 R18 K33 ["resolution"]
+      112 JUMPIF                           R28 ; [+3]
+      113 GETUPVAL                         R28 4
+      114 GETTABLEKS                       R28 R28 K34 ["UNASSIGNED"]
+      116 SETTABLEKS                       R28 R27 K22 ["Value"]
+      118 SETTABLEKS                       R22 R27 K23 ["Schema"]
+      120 JUMP                             ; [+1]
+      121 DUPTABLE                         R27 K36 [{["Value"] = ""}]
+      122 SETTABLEKS                       R27 R26 K15 ["r15"]
+      124 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      125 DUPTABLE                         R28 K39 [{["Checked"] = True}]
+      126 SETTABLEKS                       R28 R27 K22 ["Value"]
+      128 DUPTABLE                         R28 K41 [{["Type"] = "Status"}]
+      129 SETTABLEKS                       R28 R27 K23 ["Schema"]
+      131 SETTABLEKS                       R27 R26 K16 ["menu_status"]
+      133 NEWTABLE                         R27 0 0
+      135 SETTABLEKS                       R27 R26 K17 ["children"]
+      137 DUPTABLE                         R27 K43 [{"scriptId", "instanceName", "issueType"}]
+      138 SETTABLEKS                       R10 R27 K42 ["scriptId"]
+      140 SETTABLEKS                       R19 R27 K4 ["instanceName"]
+      142 SETTABLEKS                       R20 R27 K5 ["issueType"]
+      144 SETTABLEKS                       R27 R26 K18 ["Path"]
+      146 GETUPVAL                         R27 0
+      147 GETTABLEKS                       R27 R27 K25 ["makeItemId"]
+      149 MOVE                             R28 R10
+      150 MOVE                             R29 R20
+      151 MOVE                             R30 R19
+      152 CALL                             R27 3 1
+      153 SETTABLEKS                       R27 R26 K19 ["_id"]
+      155 SETTABLEKS                       R25 R26 K20 ["_disabled"]
+      157 MOVE                             R21 R26
+      158 GETTABLEKS                       R26 R21 K18 ["Path"]
+      160 SETTABLEKS                       R21 R26 K44 ["item"]
+      162 GETTABLE                         R27 R5 R10
+      163 GETTABLE                         R26 R27 R20
+      164 SETTABLE                         R21 R26 R19
+      165 FASTCALL2                        TABLE_INSERT R6 R21 ; [+5]
+      167 MOVE                             R27 R6
+      168 MOVE                             R28 R21
+      169 GETIMPORT                        R26 K47 [table.insert]
+      171 CALL                             R26 2 0
+      172 DUPTABLE                         R26 K49 [{["select"] = , ["name"], ["count"] = , ["issue"] = "", ["r6"], ["r15"], ["menu_status"], ["Path"], ["_id"], ["_disabled"]}]
+      173 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      174 DUPTABLE                         R28 K51 [{"Script", "Range"}]
+      175 SETTABLEKS                       R12 R28 K29 ["Script"]
+      177 GETTABLEKS                       R29 R18 K52 ["range"]
+      179 SETTABLEKS                       R29 R28 K50 ["Range"]
+      181 SETTABLEKS                       R28 R27 K22 ["Value"]
+      183 DUPTABLE                         R28 K32 [{["Type"] = "ScriptLink"}]
+      184 SETTABLEKS                       R28 R27 K23 ["Schema"]
+      186 SETTABLEKS                       R27 R26 K10 ["name"]
+      188 SETTABLEKS                       R19 R26 K14 ["r6"]
+      190 JUMPIFNOT                        R22 ; [+12]
+      191 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      192 GETTABLEKS                       R28 R18 K33 ["resolution"]
+      194 JUMPIF                           R28 ; [+3]
+      195 GETUPVAL                         R28 4
+      196 GETTABLEKS                       R28 R28 K34 ["UNASSIGNED"]
+      198 SETTABLEKS                       R28 R27 K22 ["Value"]
+      200 SETTABLEKS                       R22 R27 K23 ["Schema"]
+      202 JUMP                             ; [+1]
+      203 DUPTABLE                         R27 K36 [{["Value"] = ""}]
+      204 SETTABLEKS                       R27 R26 K15 ["r15"]
+      206 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      207 DUPTABLE                         R28 K53 [{"Checked"}]
+      208 GETTABLEKS                       R30 R18 K33 ["resolution"]
+      210 JUMPIFNOTEQKNIL                  R30 ; [+2]
+      212 LOADB                            R29 0 +1
+      213 LOADB                            R29 1
+      214 SETTABLEKS                       R29 R28 K37 ["Checked"]
+      216 SETTABLEKS                       R28 R27 K22 ["Value"]
+      218 DUPTABLE                         R28 K41 [{["Type"] = "Status"}]
+      219 SETTABLEKS                       R28 R27 K23 ["Schema"]
+      221 SETTABLEKS                       R27 R26 K16 ["menu_status"]
+      223 DUPTABLE                         R27 K56 [{"parent", "scriptId", "issueType", "diagnostic"}]
+      224 SETTABLEKS                       R21 R27 K54 ["parent"]
+      226 SETTABLEKS                       R10 R27 K42 ["scriptId"]
+      228 SETTABLEKS                       R20 R27 K5 ["issueType"]
+      230 SETTABLEKS                       R18 R27 K55 ["diagnostic"]
+      232 SETTABLEKS                       R27 R26 K18 ["Path"]
+      234 GETUPVAL                         R27 0
+      235 GETTABLEKS                       R27 R27 K25 ["makeItemId"]
+      237 MOVE                             R28 R10
+      238 MOVE                             R29 R20
+      239 MOVE                             R30 R19
+      240 GETTABLEKS                       R31 R18 K57 ["diagnosticId"]
+      242 CALL                             R27 4 1
+      243 SETTABLEKS                       R27 R26 K19 ["_id"]
+      245 SETTABLEKS                       R25 R26 K20 ["_disabled"]
+      247 GETTABLEKS                       R27 R21 K15 ["r15"]
+      249 JUMPIFNOT                        R27 ; [+26]
+      250 GETTABLEKS                       R27 R21 K15 ["r15"]
+      252 GETTABLEKS                       R27 R27 K22 ["Value"]
+      254 JUMPIFNOT                        R27 ; [+21]
+      255 GETTABLEKS                       R27 R18 K33 ["resolution"]
+      257 GETTABLEKS                       R28 R21 K15 ["r15"]
+      259 GETTABLEKS                       R28 R28 K22 ["Value"]
+      261 JUMPIFEQ                         R27 R28 ; [+14]
+      263 JUMPIFNOT                        R22 ; [+9]
+      264 DUPTABLE                         R27 K24 [{"Value", "Schema"}]
+      265 GETUPVAL                         R28 4
+      266 GETTABLEKS                       R28 R28 K34 ["UNASSIGNED"]
+      268 SETTABLEKS                       R28 R27 K22 ["Value"]
+      270 SETTABLEKS                       R22 R27 K23 ["Schema"]
+      272 JUMP                             ; [+1]
+      273 LOADNIL                          R27
+      274 SETTABLEKS                       R27 R21 K15 ["r15"]
+      276 GETTABLEKS                       R27 R18 K33 ["resolution"]
+      278 JUMPIFNOTEQKNIL                  R27 ; [+8]
+      280 GETTABLEKS                       R27 R21 K16 ["menu_status"]
+      282 GETTABLEKS                       R27 R27 K22 ["Value"]
+      284 LOADB                            R28 0
+      285 SETTABLEKS                       R28 R27 K37 ["Checked"]
+      287 GETTABLEKS                       R27 R26 K18 ["Path"]
+      289 SETTABLEKS                       R26 R27 K44 ["item"]
+      291 GETTABLEKS                       R28 R21 K17 ["children"]
+      293 FASTCALL2                        TABLE_INSERT R28 R26 ; [+4]
+      295 MOVE                             R29 R26
+      296 GETIMPORT                        R27 K47 [table.insert]
+      298 CALL                             R27 2 0
+      299 GETTABLEKS                       R27 R21 K11 ["count"]
+      301 ADDK                             R27 R27 K58 [1]
+      302 SETTABLEKS                       R27 R21 K11 ["count"]
+      304 FORGLOOP                         R14 2 ; [-286]
+      306 FORGLOOP                         R7 2 ; [-299]
+      308 RETURN                           R6 1
 
 PROTO_7:
         0 GETTABLEKS                       R1 R0 K0 ["_id"]

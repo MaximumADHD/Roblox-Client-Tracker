@@ -252,51 +252,45 @@ MAIN:
        90 NAMECALL                         R14 R13 K26 ["GetAttribute"]
        92 CALL                             R14 2 1
        93 NEWTABLE                         R15 0 3
-       95 DUPTABLE                         R16 K29 [{"font", "hiddenBy"}]
-       96 LOADK                            R17 K30 ["rbxasset://fonts/families/Arimo.json"]
-       97 SETTABLEKS                       R17 R16 K27 ["font"]
-       99 NEWTABLE                         R17 2 0
-      101 LOADK                            R18 K31 ["Arial"]
-      102 SETTABLEKS                       R18 R17 K32 ["rbxasset://fonts/families/Arial.json"]
-      104 LOADK                            R18 K33 ["Arimo (Cloud)"]
-      105 SETTABLEKS                       R18 R17 K34 ["rbxassetid://16658254058"]
-      107 SETTABLEKS                       R17 R16 K28 ["hiddenBy"]
-      109 DUPTABLE                         R17 K29 [{"font", "hiddenBy"}]
-      110 LOADK                            R18 K35 ["rbxasset://fonts/families/BuilderSans.json"]
-      111 SETTABLEKS                       R18 R17 K27 ["font"]
-      113 NEWTABLE                         R18 1 0
-      115 LOADK                            R19 K36 ["Builder Sans (Cloud)"]
-      116 SETTABLEKS                       R19 R18 K37 ["rbxassetid://16658221428"]
-      118 SETTABLEKS                       R18 R17 K28 ["hiddenBy"]
-      120 DUPTABLE                         R18 K29 [{"font", "hiddenBy"}]
-      121 LOADK                            R19 K38 ["rbxasset://fonts/families/Montserrat.json"]
-      122 SETTABLEKS                       R19 R18 K27 ["font"]
-      124 NEWTABLE                         R19 2 0
-      126 LOADK                            R20 K39 ["Montserrat (Cloud)"]
-      127 SETTABLEKS                       R20 R19 K40 ["rbxassetid://11702779517"]
-      129 LOADK                            R20 K41 ["Gotham"]
-      130 SETTABLEKS                       R20 R19 K42 ["rbxasset://fonts/families/GothamSSm.json"]
-      132 SETTABLEKS                       R19 R18 K28 ["hiddenBy"]
-      134 SETLIST                          R15 R16 3 [1]
-      136 NEWTABLE                         R16 1 0
-      138 LOADK                            R17 K43 ["Arial (Legacy)"]
-      139 SETTABLEKS                       R17 R16 K44 ["rbxasset://fonts/families/LegacyArial.json"]
-      141 DUPCLOSURE                       R17 K45 [PROTO_0]
-      142 CAPTURE                          VAL R16
-      143 CAPTURE                          VAL R15
-      144 DUPCLOSURE                       R18 K46 [PROTO_5]
-      145 CAPTURE                          VAL R3
-      146 CAPTURE                          VAL R16
-      147 CAPTURE                          VAL R15
-      148 CAPTURE                          VAL R9
-      149 CAPTURE                          VAL R2
-      150 CAPTURE                          VAL R6
-      151 CAPTURE                          VAL R14
-      152 CAPTURE                          VAL R8
-      153 CAPTURE                          VAL R7
-      154 GETTABLEKS                       R19 R1 K47 ["connect"]
-      156 DUPCLOSURE                       R20 K48 [PROTO_6]
-      157 CALL                             R19 1 1
-      158 MOVE                             R20 R18
-      159 CALL                             R19 1 -1
-      160 RETURN                           R19 -1
+       95 DUPTABLE                         R16 K30 [{["font"] = "rbxasset://fonts/families/Arimo.json", ["hiddenBy"]}]
+       96 NEWTABLE                         R17 2 0
+       98 LOADK                            R18 K31 ["Arial"]
+       99 SETTABLEKS                       R18 R17 K32 ["rbxasset://fonts/families/Arial.json"]
+      101 LOADK                            R18 K33 ["Arimo (Cloud)"]
+      102 SETTABLEKS                       R18 R17 K34 ["rbxassetid://16658254058"]
+      104 SETTABLEKS                       R17 R16 K29 ["hiddenBy"]
+      106 DUPTABLE                         R17 K36 [{["font"] = "rbxasset://fonts/families/BuilderSans.json", ["hiddenBy"]}]
+      107 NEWTABLE                         R18 1 0
+      109 LOADK                            R19 K37 ["Builder Sans (Cloud)"]
+      110 SETTABLEKS                       R19 R18 K38 ["rbxassetid://16658221428"]
+      112 SETTABLEKS                       R18 R17 K29 ["hiddenBy"]
+      114 DUPTABLE                         R18 K40 [{["font"] = "rbxasset://fonts/families/Montserrat.json", ["hiddenBy"]}]
+      115 NEWTABLE                         R19 2 0
+      117 LOADK                            R20 K41 ["Montserrat (Cloud)"]
+      118 SETTABLEKS                       R20 R19 K42 ["rbxassetid://11702779517"]
+      120 LOADK                            R20 K43 ["Gotham"]
+      121 SETTABLEKS                       R20 R19 K44 ["rbxasset://fonts/families/GothamSSm.json"]
+      123 SETTABLEKS                       R19 R18 K29 ["hiddenBy"]
+      125 SETLIST                          R15 R16 3 [1]
+      127 NEWTABLE                         R16 1 0
+      129 LOADK                            R17 K45 ["Arial (Legacy)"]
+      130 SETTABLEKS                       R17 R16 K46 ["rbxasset://fonts/families/LegacyArial.json"]
+      132 DUPCLOSURE                       R17 K47 [PROTO_0]
+      133 CAPTURE                          VAL R16
+      134 CAPTURE                          VAL R15
+      135 DUPCLOSURE                       R18 K48 [PROTO_5]
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R16
+      138 CAPTURE                          VAL R15
+      139 CAPTURE                          VAL R9
+      140 CAPTURE                          VAL R2
+      141 CAPTURE                          VAL R6
+      142 CAPTURE                          VAL R14
+      143 CAPTURE                          VAL R8
+      144 CAPTURE                          VAL R7
+      145 GETTABLEKS                       R19 R1 K49 ["connect"]
+      147 DUPCLOSURE                       R20 K50 [PROTO_6]
+      148 CALL                             R19 1 1
+      149 MOVE                             R20 R18
+      150 CALL                             R19 1 -1
+      151 RETURN                           R19 -1

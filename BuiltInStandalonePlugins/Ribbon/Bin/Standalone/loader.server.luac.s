@@ -48,36 +48,32 @@ MAIN:
        63 GETTABLEKS                       R5 R5 K22 ["LocalizedStrings"]
        65 GETIMPORT                        R6 K15 [plugin]
        67 GETTABLEKS                       R6 R6 K23 ["MultipleDocumentInterfaceInstance"]
-       69 DUPTABLE                         R7 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "extraTriggers", "shouldImmediatelyOpen"}]
+       69 DUPTABLE                         R7 K31 [{["plugin"], ["pluginName"] = "Ribbon", ["translationResourceTable"], ["fallbackResourceTable"], ["noToolbar"] = True, ["extraTriggers"], ["shouldImmediatelyOpen"]}]
        70 GETIMPORT                        R8 K15 [plugin]
        72 SETTABLEKS                       R8 R7 K14 ["plugin"]
-       74 LOADK                            R8 K2 ["Ribbon"]
-       75 SETTABLEKS                       R8 R7 K24 ["pluginName"]
-       77 SETTABLEKS                       R5 R7 K25 ["translationResourceTable"]
-       79 SETTABLEKS                       R4 R7 K26 ["fallbackResourceTable"]
-       81 LOADB                            R8 1
-       82 SETTABLEKS                       R8 R7 K27 ["noToolbar"]
-       84 DUPTABLE                         R8 K32 [{"SessionStarted"}]
-       85 DUPCLOSURE                       R9 K33 [PROTO_0]
-       86 CAPTURE                          VAL R6
-       87 SETTABLEKS                       R9 R8 K31 ["SessionStarted"]
-       89 SETTABLEKS                       R8 R7 K28 ["extraTriggers"]
-       91 DUPCLOSURE                       R8 K34 [PROTO_1]
-       92 SETTABLEKS                       R8 R7 K29 ["shouldImmediatelyOpen"]
-       94 GETTABLEKS                       R8 R3 K35 ["build"]
-       96 MOVE                             R9 R7
-       97 CALL                             R8 1 1
-       98 GETTABLEKS                       R9 R8 K36 ["pluginLoader"]
-      100 NAMECALL                         R9 R9 K37 ["waitForUserInteraction"]
-      102 CALL                             R9 1 1
-      103 JUMPIF                           R9 ; [+1]
-      104 RETURN                           R0 0
-      105 GETIMPORT                        R10 K5 [require]
-      107 GETIMPORT                        R11 K1 [script]
-      109 GETTABLEKS                       R11 R11 K38 ["Parent"]
-      111 GETTABLEKS                       R11 R11 K39 ["main"]
-      113 CALL                             R10 1 1
-      114 MOVE                             R11 R10
-      115 GETIMPORT                        R12 K15 [plugin]
-      117 CALL                             R11 1 0
-      118 RETURN                           R0 0
+       74 SETTABLEKS                       R5 R7 K25 ["translationResourceTable"]
+       76 SETTABLEKS                       R4 R7 K26 ["fallbackResourceTable"]
+       78 DUPTABLE                         R8 K33 [{"SessionStarted"}]
+       79 DUPCLOSURE                       R9 K34 [PROTO_0]
+       80 CAPTURE                          VAL R6
+       81 SETTABLEKS                       R9 R8 K32 ["SessionStarted"]
+       83 SETTABLEKS                       R8 R7 K29 ["extraTriggers"]
+       85 DUPCLOSURE                       R8 K35 [PROTO_1]
+       86 SETTABLEKS                       R8 R7 K30 ["shouldImmediatelyOpen"]
+       88 GETTABLEKS                       R8 R3 K36 ["build"]
+       90 MOVE                             R9 R7
+       91 CALL                             R8 1 1
+       92 GETTABLEKS                       R9 R8 K37 ["pluginLoader"]
+       94 NAMECALL                         R9 R9 K38 ["waitForUserInteraction"]
+       96 CALL                             R9 1 1
+       97 JUMPIF                           R9 ; [+1]
+       98 RETURN                           R0 0
+       99 GETIMPORT                        R10 K5 [require]
+      101 GETIMPORT                        R11 K1 [script]
+      103 GETTABLEKS                       R11 R11 K39 ["Parent"]
+      105 GETTABLEKS                       R11 R11 K40 ["main"]
+      107 CALL                             R10 1 1
+      108 MOVE                             R11 R10
+      109 GETIMPORT                        R12 K15 [plugin]
+      111 CALL                             R11 1 0
+      112 RETURN                           R0 0

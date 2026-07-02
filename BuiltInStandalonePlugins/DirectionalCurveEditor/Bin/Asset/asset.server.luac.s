@@ -60,7 +60,7 @@ PROTO_1:
         2 SETUPVAL                         R2 0
         3 LENGTH                           R4 R0
         4 LOADN                            R2 1
-        5 LOADN                            R3 255
+        5 LOADN                            R3 -1
         6 FORNPREP                         R2
         7 GETTABLE                         R5 R0 R4
         8 JUMPIFNOT                        R5 ; [+21]

@@ -54,7 +54,7 @@ PROTO_1:
        21 GETUPVAL                         R8 1
        22 CONCAT                           R4 R5 R8
        23 LOADN                            R7 2
-       24 LOADN                            R8 255
+       24 LOADN                            R8 -1
        25 NAMECALL                         R5 R1 K0 ["sub"]
        27 CALL                             R5 3 1
        28 MOVE                             R6 R2
@@ -105,41 +105,37 @@ PROTO_4:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
         3 GETTABLEKS                       R1 R1 K1 ["join"]
-        5 DUPTABLE                         R2 K4 [{"isInternal", "retryAmount"}]
-        6 LOADB                            R3 1
-        7 SETTABLEKS                       R3 R2 K2 ["isInternal"]
-        9 LOADN                            R3 3
-       10 SETTABLEKS                       R3 R2 K3 ["retryAmount"]
-       12 MOVE                             R3 R0
-       13 JUMPIF                           R3 ; [+2]
-       14 NEWTABLE                         R3 0 0
-       16 CALL                             R1 2 1
-       17 MOVE                             R0 R1
-       18 DUPTABLE                         R1 K8 [{"__retryAmount", "__baseImpl", "__coalescedRequests"}]
-       19 GETTABLEKS                       R2 R0 K3 ["retryAmount"]
-       21 SETTABLEKS                       R2 R1 K5 ["__retryAmount"]
-       23 GETUPVAL                         R2 1
-       24 GETTABLEKS                       R2 R2 K9 ["Networking"]
-       26 GETTABLEKS                       R2 R2 K10 ["new"]
-       28 MOVE                             R3 R0
-       29 CALL                             R2 1 1
-       30 SETTABLEKS                       R2 R1 K6 ["__baseImpl"]
-       32 NEWTABLE                         R2 0 0
-       34 SETTABLEKS                       R2 R1 K7 ["__coalescedRequests"]
-       36 GETIMPORT                        R2 K12 [ipairs]
-       38 GETUPVAL                         R3 2
-       39 CALL                             R2 1 3
-       40 FORGPREP_INEXT                   R2
-       41 GETTABLEKS                       R7 R1 K7 ["__coalescedRequests"]
-       43 NEWTABLE                         R8 0 0
-       45 SETTABLE                         R8 R7 R6
-       46 FORGLOOP                         R2 2 [inext] ; [-6]
-       48 GETUPVAL                         R4 3
-       49 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
-       51 MOVE                             R3 R1
-       52 GETIMPORT                        R2 K14 [setmetatable]
-       54 CALL                             R2 2 1
-       55 RETURN                           R2 1
+        5 DUPTABLE                         R2 K6 [{["isInternal"] = True, ["retryAmount"] = 3}]
+        6 MOVE                             R3 R0
+        7 JUMPIF                           R3 ; [+2]
+        8 NEWTABLE                         R3 0 0
+       10 CALL                             R1 2 1
+       11 MOVE                             R0 R1
+       12 DUPTABLE                         R1 K10 [{"__retryAmount", "__baseImpl", "__coalescedRequests"}]
+       13 GETTABLEKS                       R2 R0 K4 ["retryAmount"]
+       15 SETTABLEKS                       R2 R1 K7 ["__retryAmount"]
+       17 GETUPVAL                         R2 1
+       18 GETTABLEKS                       R2 R2 K11 ["Networking"]
+       20 GETTABLEKS                       R2 R2 K12 ["new"]
+       22 MOVE                             R3 R0
+       23 CALL                             R2 1 1
+       24 SETTABLEKS                       R2 R1 K8 ["__baseImpl"]
+       26 NEWTABLE                         R2 0 0
+       28 SETTABLEKS                       R2 R1 K9 ["__coalescedRequests"]
+       30 GETIMPORT                        R2 K14 [ipairs]
+       32 GETUPVAL                         R3 2
+       33 CALL                             R2 1 3
+       34 FORGPREP_INEXT                   R2
+       35 GETTABLEKS                       R7 R1 K9 ["__coalescedRequests"]
+       37 NEWTABLE                         R8 0 0
+       39 SETTABLE                         R8 R7 R6
+       40 FORGLOOP                         R2 2 [inext] ; [-6]
+       42 GETUPVAL                         R4 3
+       43 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       45 MOVE                             R3 R1
+       46 GETIMPORT                        R2 K16 [setmetatable]
+       48 CALL                             R2 2 1
+       49 RETURN                           R2 1
 
 PROTO_5:
         0 GETTABLEKS                       R5 R3 K0 ["Params"]
@@ -162,7 +158,7 @@ PROTO_5:
        23 GETUPVAL                         R11 1
        24 CONCAT                           R7 R8 R11
        25 LOADN                            R10 2
-       26 LOADN                            R11 255
+       26 LOADN                            R11 -1
        27 NAMECALL                         R8 R2 K1 ["sub"]
        29 CALL                             R8 3 1
        30 MOVE                             R9 R5

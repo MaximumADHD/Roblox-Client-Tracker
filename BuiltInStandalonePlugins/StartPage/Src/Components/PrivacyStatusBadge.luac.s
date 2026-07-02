@@ -68,238 +68,299 @@ PROTO_0:
        88 GETTABLEKS                       R18 R2 K13 ["Color"]
        90 GETTABLEKS                       R18 R18 K16 ["Content"]
        92 GETTABLEKS                       R18 R18 K17 ["Emphasis"]
-       94 LOADNIL                          R19
-       95 JUMPIF                           R7 ; [+16]
-       96 LOADK                            R22 K18 ["Plugin"]
-       97 LOADK                            R23 K19 ["PrivacyType.Private"]
-       98 NAMECALL                         R20 R1 K20 ["getText"]
-      100 CALL                             R20 3 1
-      101 MOVE                             R14 R20
-      102 GETUPVAL                         R20 6
-      103 GETTABLEKS                       R15 R20 K21 ["LockClosed"]
-      105 GETTABLEKS                       R20 R2 K13 ["Color"]
-      107 GETTABLEKS                       R20 R20 K16 ["Content"]
-      109 GETTABLEKS                       R16 R20 K22 ["Muted"]
-      111 JUMP                             ; [+219]
-      112 JUMPIFNOT                        R7 ; [+25]
-      113 JUMPIF                           R9 ; [+1]
-      114 JUMPIFNOT                        R10 ; [+23]
-      115 LOADK                            R22 K18 ["Plugin"]
-      116 LOADK                            R23 K23 ["PrivacyType.Unplayable"]
-      117 NAMECALL                         R20 R1 K20 ["getText"]
-      119 CALL                             R20 3 1
-      120 MOVE                             R14 R20
-      121 GETUPVAL                         R20 6
-      122 GETTABLEKS                       R15 R20 K24 ["CircleX"]
-      124 GETTABLEKS                       R20 R2 K13 ["Color"]
-      126 GETTABLEKS                       R20 R20 K25 ["System"]
-      128 GETTABLEKS                       R17 R20 K26 ["Alert"]
-      130 GETTABLEKS                       R20 R2 K27 ["DarkMode"]
-      132 GETTABLEKS                       R20 R20 K16 ["Content"]
-      134 GETTABLEKS                       R18 R20 K17 ["Emphasis"]
-      136 MOVE                             R16 R18
-      137 JUMP                             ; [+193]
-      138 JUMPIFNOT                        R7 ; [+26]
-      139 GETTABLEKS                       R20 R0 K28 ["IsDiscoveryBlocked"]
-      141 JUMPIFNOT                        R20 ; [+23]
-      142 LOADK                            R22 K18 ["Plugin"]
-      143 LOADK                            R23 K29 ["PrivacyType.NeedsAttention"]
-      144 NAMECALL                         R20 R1 K20 ["getText"]
-      146 CALL                             R20 3 1
-      147 MOVE                             R14 R20
-      148 GETUPVAL                         R20 6
-      149 GETTABLEKS                       R15 R20 K30 ["TriangleExclamation"]
-      151 GETTABLEKS                       R20 R2 K13 ["Color"]
-      153 GETTABLEKS                       R20 R20 K25 ["System"]
-      155 GETTABLEKS                       R17 R20 K31 ["Warning"]
-      157 GETTABLEKS                       R20 R2 K32 ["LightMode"]
-      159 GETTABLEKS                       R20 R20 K16 ["Content"]
-      161 GETTABLEKS                       R18 R20 K17 ["Emphasis"]
-      163 MOVE                             R16 R18
-      164 JUMP                             ; [+166]
-      165 JUMPIFNOT                        R7 ; [+30]
-      166 JUMPIFEQKNIL                     R13 ; [+4]
-      168 GETUPVAL                         R20 7
-      169 JUMPIFNOTLT                      R13 R20 ; [+26]
-      171 JUMPIFNOT                        R11 ; [+24]
-      172 JUMPIFNOT                        R12 ; [+23]
-      173 LOADK                            R22 K18 ["Plugin"]
-      174 LOADK                            R23 K29 ["PrivacyType.NeedsAttention"]
-      175 NAMECALL                         R20 R1 K20 ["getText"]
-      177 CALL                             R20 3 1
-      178 MOVE                             R14 R20
-      179 GETUPVAL                         R20 6
-      180 GETTABLEKS                       R15 R20 K30 ["TriangleExclamation"]
-      182 GETTABLEKS                       R20 R2 K13 ["Color"]
-      184 GETTABLEKS                       R20 R20 K25 ["System"]
-      186 GETTABLEKS                       R17 R20 K31 ["Warning"]
-      188 GETTABLEKS                       R20 R2 K32 ["LightMode"]
-      190 GETTABLEKS                       R20 R20 K16 ["Content"]
-      192 GETTABLEKS                       R18 R20 K17 ["Emphasis"]
-      194 MOVE                             R16 R18
-      195 JUMP                             ; [+135]
-      196 JUMPIFNOT                        R7 ; [+67]
-      197 JUMPIFNOT                        R8 ; [+66]
-      198 LOADK                            R22 K18 ["Plugin"]
-      199 LOADK                            R23 K33 ["PrivacyType.Limited"]
-      200 NAMECALL                         R20 R1 K20 ["getText"]
-      202 CALL                             R20 3 1
-      203 MOVE                             R14 R20
-      204 GETUPVAL                         R20 6
-      205 GETTABLEKS                       R15 R20 K34 ["TwoPeople"]
-      207 GETTABLEKS                       R20 R2 K13 ["Color"]
-      209 GETTABLEKS                       R20 R20 K25 ["System"]
-      211 GETTABLEKS                       R16 R20 K35 ["Success"]
-      213 JUMPIFEQKS                       R6 K36 ["Group"] ; [+2]
-      215 LOADB                            R20 0 +1
-      216 LOADB                            R20 1
-      217 LOADNIL                          R21
-      218 GETUPVAL                         R22 2
-      219 JUMPIFNOT                        R22 ; [+33]
-      220 GETTABLEKS                       R22 R0 K5 ["Audiences"]
-      222 JUMPIFEQKNIL                     R22 ; [+30]
-      224 GETTABLEKS                       R22 R0 K5 ["Audiences"]
-      226 GETUPVAL                         R23 4
-      227 MOVE                             R24 R22
-      228 GETUPVAL                         R25 5
-      229 GETTABLEKS                       R25 R25 K37 ["PlayTesters"]
-      231 CALL                             R23 2 1
-      232 GETUPVAL                         R24 4
-      233 MOVE                             R25 R22
-      234 GETUPVAL                         R26 5
-      235 GETTABLEKS                       R26 R26 K38 ["Friends"]
-      237 CALL                             R24 2 1
-      238 JUMPIFNOT                        R23 ; [+6]
-      239 JUMPIFNOT                        R24 ; [+5]
-      240 JUMPIFNOT                        R20 ; [+2]
-      241 LOADK                            R21 K39 ["Tooltip.LimitedPlaytestersAndCommunity"]
-      242 JUMP                             ; [+14]
-      243 LOADK                            R21 K40 ["Tooltip.LimitedPlaytestersAndFriends"]
-      244 JUMP                             ; [+12]
-      245 JUMPIFNOT                        R23 ; [+2]
-      246 LOADK                            R21 K41 ["Tooltip.LimitedPlaytesters"]
-      247 JUMP                             ; [+9]
-      248 JUMPIFNOT                        R20 ; [+2]
-      249 LOADK                            R21 K42 ["Tooltip.LimitedCommunity"]
-      250 JUMP                             ; [+6]
-      251 LOADK                            R21 K43 ["Tooltip.LimitedFriends"]
-      252 JUMP                             ; [+4]
-      253 JUMPIFNOT                        R20 ; [+2]
-      254 LOADK                            R21 K42 ["Tooltip.LimitedCommunity"]
-      255 JUMP                             ; [+1]
-      256 LOADK                            R21 K43 ["Tooltip.LimitedFriends"]
-      257 LOADK                            R24 K18 ["Plugin"]
-      258 MOVE                             R25 R21
-      259 NAMECALL                         R22 R1 K20 ["getText"]
-      261 CALL                             R22 3 1
-      262 MOVE                             R19 R22
-      263 JUMP                             ; [+67]
-      264 LOADNIL                          R20
-      265 JUMPIFNOT                        R11 ; [+6]
-      266 JUMPIFEQKNIL                     R13 ; [+3]
-      268 MOVE                             R20 R13
-      269 JUMP                             ; [+14]
-      270 LOADN                            R20 0
-      271 JUMP                             ; [+12]
-      272 GETUPVAL                         R22 7
-      273 JUMPIFEQKNIL                     R13 ; [+3]
-      275 MOVE                             R23 R13
-      276 JUMP                             ; [+1]
-      277 LOADN                            R23 0
-      278 FASTCALL2                        MATH_MAX R22 R23 ; [+3]
-      280 GETIMPORT                        R21 K46 [math.max]
-      282 CALL                             R21 2 1
-      283 MOVE                             R20 R21
-      284 LOADNIL                          R21
-      285 GETUPVAL                         R22 7
-      286 JUMPIFNOTLE                      R22 R20 ; [+8]
-      288 GETUPVAL                         R23 7
-      289 FASTCALL1                        TOSTRING R23 ; [+2]
-      290 GETIMPORT                        R22 K48 [tostring]
-      292 CALL                             R22 1 1
-      293 MOVE                             R21 R22
-      294 JUMP                             ; [+9]
-      295 GETUPVAL                         R22 8
-      296 JUMPIFNOTLE                      R22 R20 ; [+7]
-      298 GETUPVAL                         R23 8
-      299 FASTCALL1                        TOSTRING R23 ; [+2]
-      300 GETIMPORT                        R22 K48 [tostring]
-      302 CALL                             R22 1 1
-      303 MOVE                             R21 R22
-      304 JUMPIFEQKNIL                     R21 ; [+11]
-      306 LOADK                            R24 K18 ["Plugin"]
-      307 LOADK                            R25 K49 ["PrivacyType.PublicAgeGated"]
-      308 DUPTABLE                         R26 K51 [{"minAge"}]
-      309 SETTABLEKS                       R21 R26 K50 ["minAge"]
-      311 NAMECALL                         R22 R1 K20 ["getText"]
-      313 CALL                             R22 4 1
-      314 MOVE                             R14 R22
-      315 JUMP                             ; [+6]
-      316 LOADK                            R24 K18 ["Plugin"]
-      317 LOADK                            R25 K52 ["PrivacyType.PublicAllAges"]
-      318 NAMECALL                         R22 R1 K20 ["getText"]
-      320 CALL                             R22 3 1
-      321 MOVE                             R14 R22
-      322 GETUPVAL                         R22 6
-      323 GETTABLEKS                       R15 R22 K53 ["GlobeDetailed"]
-      325 GETTABLEKS                       R22 R2 K13 ["Color"]
-      327 GETTABLEKS                       R22 R22 K25 ["System"]
-      329 GETTABLEKS                       R16 R22 K35 ["Success"]
-      331 GETUPVAL                         R20 9
-      332 GETTABLEKS                       R20 R20 K54 ["createElement"]
-      334 GETUPVAL                         R21 10
-      335 DUPTABLE                         R22 K58 [{"LayoutOrder", "tag", "backgroundStyle"}]
-      336 GETTABLEKS                       R23 R0 K55 ["LayoutOrder"]
-      338 SETTABLEKS                       R23 R22 K55 ["LayoutOrder"]
-      340 LOADK                            R23 K59 ["row align-x-center align-y-center gap-xsmall radius-circle size-0-600 auto-x padding-x-small"]
-      341 SETTABLEKS                       R23 R22 K56 ["tag"]
-      343 SETTABLEKS                       R17 R22 K57 ["backgroundStyle"]
-      345 DUPTABLE                         R23 K62 [{"StatusIcon", "Label"}]
-      346 GETUPVAL                         R24 9
-      347 GETTABLEKS                       R24 R24 K54 ["createElement"]
-      349 GETUPVAL                         R25 11
-      350 DUPTABLE                         R26 K67 [{"name", "size", "style", "variant", "LayoutOrder"}]
-      351 SETTABLEKS                       R15 R26 K63 ["name"]
-      353 GETUPVAL                         R27 12
-      354 GETTABLEKS                       R27 R27 K68 ["Small"]
-      356 SETTABLEKS                       R27 R26 K64 ["size"]
-      358 SETTABLEKS                       R16 R26 K65 ["style"]
-      360 LOADK                            R27 K69 ["Filled"]
-      361 SETTABLEKS                       R27 R26 K66 ["variant"]
-      363 LOADN                            R27 1
-      364 SETTABLEKS                       R27 R26 K55 ["LayoutOrder"]
-      366 CALL                             R24 2 1
-      367 SETTABLEKS                       R24 R23 K60 ["StatusIcon"]
-      369 GETUPVAL                         R24 9
-      370 GETTABLEKS                       R24 R24 K54 ["createElement"]
-      372 GETUPVAL                         R25 13
-      373 DUPTABLE                         R26 K72 [{"Text", "textStyle", "tag", "LayoutOrder"}]
-      374 SETTABLEKS                       R14 R26 K70 ["Text"]
-      376 SETTABLEKS                       R18 R26 K71 ["textStyle"]
-      378 LOADK                            R27 K73 ["auto-xy text-label-small text-align-x-left"]
-      379 SETTABLEKS                       R27 R26 K56 ["tag"]
-      381 LOADN                            R27 2
-      382 SETTABLEKS                       R27 R26 K55 ["LayoutOrder"]
-      384 CALL                             R24 2 1
-      385 SETTABLEKS                       R24 R23 K61 ["Label"]
-      387 CALL                             R20 3 1
-      388 JUMPIFEQKNIL                     R19 ; [+23]
-      390 GETUPVAL                         R21 9
-      391 GETTABLEKS                       R21 R21 K54 ["createElement"]
-      393 GETUPVAL                         R22 14
-      394 DUPTABLE                         R23 K77 [{"title", "text", "side", "LayoutOrder"}]
-      395 LOADK                            R24 K78 [""]
-      396 SETTABLEKS                       R24 R23 K74 ["title"]
-      398 SETTABLEKS                       R19 R23 K75 ["text"]
-      400 GETUPVAL                         R24 15
-      401 GETTABLEKS                       R24 R24 K79 ["Bottom"]
-      403 SETTABLEKS                       R24 R23 K76 ["side"]
-      405 GETTABLEKS                       R24 R0 K55 ["LayoutOrder"]
-      407 SETTABLEKS                       R24 R23 K55 ["LayoutOrder"]
-      409 MOVE                             R24 R20
-      410 CALL                             R21 3 -1
-      411 RETURN                           R21 -1
-      412 RETURN                           R20 1
+       94 GETUPVAL                         R19 6
+       95 GETTABLEKS                       R19 R19 K18 ["Neutral"]
+       97 LOADNIL                          R20
+       98 JUMPIF                           R7 ; [+16]
+       99 LOADK                            R23 K19 ["Plugin"]
+      100 LOADK                            R24 K20 ["PrivacyType.Private"]
+      101 NAMECALL                         R21 R1 K21 ["getText"]
+      103 CALL                             R21 3 1
+      104 MOVE                             R14 R21
+      105 GETUPVAL                         R21 7
+      106 GETTABLEKS                       R15 R21 K22 ["LockClosed"]
+      108 GETTABLEKS                       R21 R2 K13 ["Color"]
+      110 GETTABLEKS                       R21 R21 K16 ["Content"]
+      112 GETTABLEKS                       R16 R21 K23 ["Muted"]
+      114 JUMP                             ; [+262]
+      115 JUMPIFNOT                        R7 ; [+52]
+      116 JUMPIF                           R9 ; [+1]
+      117 JUMPIFNOT                        R10 ; [+50]
+      118 GETUPVAL                         R21 8
+      119 JUMPIFNOT                        R21 ; [+7]
+      120 LOADK                            R23 K19 ["Plugin"]
+      121 LOADK                            R24 K24 ["PrivacyType.PubliclyUnavailable"]
+      122 NAMECALL                         R21 R1 K21 ["getText"]
+      124 CALL                             R21 3 1
+      125 MOVE                             R14 R21
+      126 JUMP                             ; [+6]
+      127 LOADK                            R23 K19 ["Plugin"]
+      128 LOADK                            R24 K25 ["PrivacyType.Unplayable"]
+      129 NAMECALL                         R21 R1 K21 ["getText"]
+      131 CALL                             R21 3 1
+      132 MOVE                             R14 R21
+      133 GETUPVAL                         R21 8
+      134 JUMPIFNOT                        R21 ; [+4]
+      135 GETUPVAL                         R21 7
+      136 GETTABLEKS                       R15 R21 K26 ["GlobeDetailed"]
+      138 JUMP                             ; [+3]
+      139 GETUPVAL                         R21 7
+      140 GETTABLEKS                       R15 R21 K27 ["CircleX"]
+      142 GETTABLEKS                       R21 R2 K13 ["Color"]
+      144 GETTABLEKS                       R21 R21 K28 ["System"]
+      146 GETTABLEKS                       R17 R21 K29 ["Alert"]
+      148 GETTABLEKS                       R21 R2 K30 ["DarkMode"]
+      150 GETTABLEKS                       R21 R21 K16 ["Content"]
+      152 GETTABLEKS                       R18 R21 K17 ["Emphasis"]
+      154 MOVE                             R16 R18
+      155 GETUPVAL                         R21 8
+      156 JUMPIFNOT                        R21 ; [+220]
+      157 JUMPIFNOT                        R9 ; [+6]
+      158 LOADK                            R23 K19 ["Plugin"]
+      159 LOADK                            R24 K31 ["Tooltip.PubliclyUnavailable"]
+      160 NAMECALL                         R21 R1 K21 ["getText"]
+      162 CALL                             R21 3 1
+      163 MOVE                             R20 R21
+      164 GETUPVAL                         R21 6
+      165 GETTABLEKS                       R19 R21 K29 ["Alert"]
+      167 JUMP                             ; [+209]
+      168 JUMPIFNOT                        R7 ; [+31]
+      169 GETTABLEKS                       R21 R0 K32 ["IsDiscoveryBlocked"]
+      171 JUMPIFNOT                        R21 ; [+28]
+      172 LOADK                            R23 K19 ["Plugin"]
+      173 LOADK                            R24 K33 ["PrivacyType.NeedsAttention"]
+      174 NAMECALL                         R21 R1 K21 ["getText"]
+      176 CALL                             R21 3 1
+      177 MOVE                             R14 R21
+      178 GETUPVAL                         R21 7
+      179 GETTABLEKS                       R15 R21 K34 ["TriangleExclamation"]
+      181 GETTABLEKS                       R21 R2 K13 ["Color"]
+      183 GETTABLEKS                       R21 R21 K28 ["System"]
+      185 GETTABLEKS                       R17 R21 K35 ["Warning"]
+      187 GETTABLEKS                       R21 R2 K36 ["LightMode"]
+      189 GETTABLEKS                       R21 R21 K16 ["Content"]
+      191 GETTABLEKS                       R18 R21 K17 ["Emphasis"]
+      193 MOVE                             R16 R18
+      194 GETUPVAL                         R21 8
+      195 JUMPIFNOT                        R21 ; [+181]
+      196 GETUPVAL                         R21 6
+      197 GETTABLEKS                       R19 R21 K35 ["Warning"]
+      199 JUMP                             ; [+177]
+      200 JUMPIFNOT                        R7 ; [+35]
+      201 JUMPIFEQKNIL                     R13 ; [+4]
+      203 GETUPVAL                         R21 9
+      204 JUMPIFNOTLT                      R13 R21 ; [+31]
+      206 JUMPIFNOT                        R11 ; [+29]
+      207 JUMPIFNOT                        R12 ; [+28]
+      208 LOADK                            R23 K19 ["Plugin"]
+      209 LOADK                            R24 K33 ["PrivacyType.NeedsAttention"]
+      210 NAMECALL                         R21 R1 K21 ["getText"]
+      212 CALL                             R21 3 1
+      213 MOVE                             R14 R21
+      214 GETUPVAL                         R21 7
+      215 GETTABLEKS                       R15 R21 K34 ["TriangleExclamation"]
+      217 GETTABLEKS                       R21 R2 K13 ["Color"]
+      219 GETTABLEKS                       R21 R21 K28 ["System"]
+      221 GETTABLEKS                       R17 R21 K35 ["Warning"]
+      223 GETTABLEKS                       R21 R2 K36 ["LightMode"]
+      225 GETTABLEKS                       R21 R21 K16 ["Content"]
+      227 GETTABLEKS                       R18 R21 K17 ["Emphasis"]
+      229 MOVE                             R16 R18
+      230 GETUPVAL                         R21 8
+      231 JUMPIFNOT                        R21 ; [+145]
+      232 GETUPVAL                         R21 6
+      233 GETTABLEKS                       R19 R21 K35 ["Warning"]
+      235 JUMP                             ; [+141]
+      236 JUMPIFNOT                        R7 ; [+73]
+      237 JUMPIFNOT                        R8 ; [+72]
+      238 LOADK                            R23 K19 ["Plugin"]
+      239 LOADK                            R24 K37 ["PrivacyType.Limited"]
+      240 NAMECALL                         R21 R1 K21 ["getText"]
+      242 CALL                             R21 3 1
+      243 MOVE                             R14 R21
+      244 GETUPVAL                         R21 8
+      245 JUMPIFNOT                        R21 ; [+4]
+      246 GETUPVAL                         R21 7
+      247 GETTABLEKS                       R15 R21 K38 ["PersonWithSmallerPerson"]
+      249 JUMP                             ; [+3]
+      250 GETUPVAL                         R21 7
+      251 GETTABLEKS                       R15 R21 K39 ["TwoPeople"]
+      253 GETTABLEKS                       R21 R2 K13 ["Color"]
+      255 GETTABLEKS                       R21 R21 K28 ["System"]
+      257 GETTABLEKS                       R16 R21 K40 ["Success"]
+      259 JUMPIFEQKS                       R6 K41 ["Group"] ; [+2]
+      261 LOADB                            R21 0 +1
+      262 LOADB                            R21 1
+      263 LOADNIL                          R22
+      264 GETUPVAL                         R23 2
+      265 JUMPIFNOT                        R23 ; [+33]
+      266 GETTABLEKS                       R23 R0 K5 ["Audiences"]
+      268 JUMPIFEQKNIL                     R23 ; [+30]
+      270 GETTABLEKS                       R23 R0 K5 ["Audiences"]
+      272 GETUPVAL                         R24 4
+      273 MOVE                             R25 R23
+      274 GETUPVAL                         R26 5
+      275 GETTABLEKS                       R26 R26 K42 ["PlayTesters"]
+      277 CALL                             R24 2 1
+      278 GETUPVAL                         R25 4
+      279 MOVE                             R26 R23
+      280 GETUPVAL                         R27 5
+      281 GETTABLEKS                       R27 R27 K43 ["Friends"]
+      283 CALL                             R25 2 1
+      284 JUMPIFNOT                        R24 ; [+6]
+      285 JUMPIFNOT                        R25 ; [+5]
+      286 JUMPIFNOT                        R21 ; [+2]
+      287 LOADK                            R22 K44 ["Tooltip.LimitedPlaytestersAndCommunity"]
+      288 JUMP                             ; [+14]
+      289 LOADK                            R22 K45 ["Tooltip.LimitedPlaytestersAndFriends"]
+      290 JUMP                             ; [+12]
+      291 JUMPIFNOT                        R24 ; [+2]
+      292 LOADK                            R22 K46 ["Tooltip.LimitedPlaytesters"]
+      293 JUMP                             ; [+9]
+      294 JUMPIFNOT                        R21 ; [+2]
+      295 LOADK                            R22 K47 ["Tooltip.LimitedCommunity"]
+      296 JUMP                             ; [+6]
+      297 LOADK                            R22 K48 ["Tooltip.LimitedFriends"]
+      298 JUMP                             ; [+4]
+      299 JUMPIFNOT                        R21 ; [+2]
+      300 LOADK                            R22 K47 ["Tooltip.LimitedCommunity"]
+      301 JUMP                             ; [+1]
+      302 LOADK                            R22 K48 ["Tooltip.LimitedFriends"]
+      303 LOADK                            R25 K19 ["Plugin"]
+      304 MOVE                             R26 R22
+      305 NAMECALL                         R23 R1 K21 ["getText"]
+      307 CALL                             R23 3 1
+      308 MOVE                             R20 R23
+      309 JUMP                             ; [+67]
+      310 LOADNIL                          R21
+      311 JUMPIFNOT                        R11 ; [+6]
+      312 JUMPIFEQKNIL                     R13 ; [+3]
+      314 MOVE                             R21 R13
+      315 JUMP                             ; [+14]
+      316 LOADN                            R21 0
+      317 JUMP                             ; [+12]
+      318 GETUPVAL                         R23 9
+      319 JUMPIFEQKNIL                     R13 ; [+3]
+      321 MOVE                             R24 R13
+      322 JUMP                             ; [+1]
+      323 LOADN                            R24 0
+      324 FASTCALL2                        MATH_MAX R23 R24 ; [+3]
+      326 GETIMPORT                        R22 K51 [math.max]
+      328 CALL                             R22 2 1
+      329 MOVE                             R21 R22
+      330 LOADNIL                          R22
+      331 GETUPVAL                         R23 9
+      332 JUMPIFNOTLE                      R23 R21 ; [+8]
+      334 GETUPVAL                         R24 9
+      335 FASTCALL1                        TOSTRING R24 ; [+2]
+      336 GETIMPORT                        R23 K53 [tostring]
+      338 CALL                             R23 1 1
+      339 MOVE                             R22 R23
+      340 JUMP                             ; [+9]
+      341 GETUPVAL                         R23 10
+      342 JUMPIFNOTLE                      R23 R21 ; [+7]
+      344 GETUPVAL                         R24 10
+      345 FASTCALL1                        TOSTRING R24 ; [+2]
+      346 GETIMPORT                        R23 K53 [tostring]
+      348 CALL                             R23 1 1
+      349 MOVE                             R22 R23
+      350 JUMPIFEQKNIL                     R22 ; [+11]
+      352 LOADK                            R25 K19 ["Plugin"]
+      353 LOADK                            R26 K54 ["PrivacyType.PublicAgeGated"]
+      354 DUPTABLE                         R27 K56 [{"minAge"}]
+      355 SETTABLEKS                       R22 R27 K55 ["minAge"]
+      357 NAMECALL                         R23 R1 K21 ["getText"]
+      359 CALL                             R23 4 1
+      360 MOVE                             R14 R23
+      361 JUMP                             ; [+6]
+      362 LOADK                            R25 K19 ["Plugin"]
+      363 LOADK                            R26 K57 ["PrivacyType.PublicAllAges"]
+      364 NAMECALL                         R23 R1 K21 ["getText"]
+      366 CALL                             R23 3 1
+      367 MOVE                             R14 R23
+      368 GETUPVAL                         R23 7
+      369 GETTABLEKS                       R15 R23 K26 ["GlobeDetailed"]
+      371 GETTABLEKS                       R23 R2 K13 ["Color"]
+      373 GETTABLEKS                       R23 R23 K28 ["System"]
+      375 GETTABLEKS                       R16 R23 K40 ["Success"]
+      377 LOADNIL                          R21
+      378 GETUPVAL                         R22 8
+      379 JUMPIFNOT                        R22 ; [+41]
+      380 GETUPVAL                         R22 11
+      381 GETTABLEKS                       R22 R22 K58 ["createElement"]
+      383 GETUPVAL                         R23 12
+      384 DUPTABLE                         R24 K65 [{"icon", "text", "variant", "shape", "size", "LayoutOrder"}]
+      385 DUPTABLE                         R25 K69 [{"name", "position", "iconVariant"}]
+      386 SETTABLEKS                       R15 R25 K66 ["name"]
+      388 GETUPVAL                         R26 13
+      389 GETTABLEKS                       R26 R26 K70 ["Left"]
+      391 SETTABLEKS                       R26 R25 K67 ["position"]
+      393 GETUPVAL                         R26 14
+      394 GETTABLEKS                       R26 R26 K71 ["Filled"]
+      396 SETTABLEKS                       R26 R25 K68 ["iconVariant"]
+      398 SETTABLEKS                       R25 R24 K59 ["icon"]
+      400 SETTABLEKS                       R14 R24 K60 ["text"]
+      402 SETTABLEKS                       R19 R24 K61 ["variant"]
+      404 GETUPVAL                         R25 15
+      405 GETTABLEKS                       R25 R25 K72 ["Pill"]
+      407 SETTABLEKS                       R25 R24 K62 ["shape"]
+      409 GETUPVAL                         R25 16
+      410 GETTABLEKS                       R25 R25 K73 ["Small"]
+      412 SETTABLEKS                       R25 R24 K63 ["size"]
+      414 GETTABLEKS                       R25 R0 K64 ["LayoutOrder"]
+      416 SETTABLEKS                       R25 R24 K64 ["LayoutOrder"]
+      418 CALL                             R22 2 1
+      419 MOVE                             R21 R22
+      420 JUMP                             ; [+43]
+      421 GETUPVAL                         R22 11
+      422 GETTABLEKS                       R22 R22 K58 ["createElement"]
+      424 GETUPVAL                         R23 17
+      425 DUPTABLE                         R24 K77 [{["LayoutOrder"], ["tag"] = "row align-x-center align-y-center gap-xsmall radius-circle size-0-600 auto-x padding-x-small", ["backgroundStyle"]}]
+      426 GETTABLEKS                       R25 R0 K64 ["LayoutOrder"]
+      428 SETTABLEKS                       R25 R24 K64 ["LayoutOrder"]
+      430 SETTABLEKS                       R17 R24 K76 ["backgroundStyle"]
+      432 DUPTABLE                         R25 K80 [{"StatusIcon", "Label"}]
+      433 GETUPVAL                         R26 11
+      434 GETTABLEKS                       R26 R26 K58 ["createElement"]
+      436 GETUPVAL                         R27 18
+      437 DUPTABLE                         R28 K83 [{["name"], ["size"], ["style"], ["variant"] = "Filled", ["LayoutOrder"] = 1}]
+      438 SETTABLEKS                       R15 R28 K66 ["name"]
+      440 GETUPVAL                         R29 19
+      441 GETTABLEKS                       R29 R29 K73 ["Small"]
+      443 SETTABLEKS                       R29 R28 K63 ["size"]
+      445 SETTABLEKS                       R16 R28 K81 ["style"]
+      447 CALL                             R26 2 1
+      448 SETTABLEKS                       R26 R25 K78 ["StatusIcon"]
+      450 GETUPVAL                         R26 11
+      451 GETTABLEKS                       R26 R26 K58 ["createElement"]
+      453 GETUPVAL                         R27 20
+      454 DUPTABLE                         R28 K88 [{["Text"], ["textStyle"], ["tag"] = "auto-xy text-label-small text-align-x-left", ["LayoutOrder"] = 2}]
+      455 SETTABLEKS                       R14 R28 K84 ["Text"]
+      457 SETTABLEKS                       R18 R28 K85 ["textStyle"]
+      459 CALL                             R26 2 1
+      460 SETTABLEKS                       R26 R25 K79 ["Label"]
+      462 CALL                             R22 3 1
+      463 MOVE                             R21 R22
+      464 JUMPIFEQKNIL                     R20 ; [+26]
+      466 GETUPVAL                         R22 11
+      467 GETTABLEKS                       R22 R22 K58 ["createElement"]
+      469 GETUPVAL                         R23 21
+      470 DUPTABLE                         R24 K92 [{["title"] = "", ["text"], ["side"], ["LayoutOrder"]}]
+      471 SETTABLEKS                       R20 R24 K60 ["text"]
+      473 GETUPVAL                         R26 8
+      474 JUMPIFNOT                        R26 ; [+4]
+      475 GETUPVAL                         R25 22
+      476 GETTABLEKS                       R25 R25 K93 ["Top"]
+      478 JUMP                             ; [+3]
+      479 GETUPVAL                         R25 22
+      480 GETTABLEKS                       R25 R25 K94 ["Bottom"]
+      482 SETTABLEKS                       R25 R24 K91 ["side"]
+      484 GETTABLEKS                       R25 R0 K64 ["LayoutOrder"]
+      486 SETTABLEKS                       R25 R24 K64 ["LayoutOrder"]
+      488 MOVE                             R25 R21
+      489 CALL                             R22 3 -1
+      490 RETURN                           R22 -1
+      491 RETURN                           R21 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -331,49 +392,73 @@ MAIN:
        46 GETTABLEKS                       R9 R4 K19 ["Tooltip"]
        48 GETTABLEKS                       R10 R4 K15 ["Enums"]
        50 GETTABLEKS                       R10 R10 K20 ["PopoverSide"]
-       52 GETTABLEKS                       R11 R4 K21 ["View"]
-       54 GETTABLEKS                       R12 R4 K22 ["Hooks"]
-       56 GETTABLEKS                       R12 R12 K23 ["useTokens"]
-       58 GETIMPORT                        R13 K5 [require]
-       60 GETTABLEKS                       R14 R0 K11 ["Src"]
-       62 GETTABLEKS                       R14 R14 K12 ["Util"]
-       64 GETTABLEKS                       R14 R14 K24 ["CoreContentStatusConstants"]
-       66 CALL                             R13 1 1
-       67 GETTABLEKS                       R14 R13 K25 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
-       69 GETTABLEKS                       R15 R13 K26 ["AGE_BRACKET_9"]
-       71 GETIMPORT                        R16 K5 [require]
-       73 GETTABLEKS                       R17 R0 K11 ["Src"]
-       75 GETTABLEKS                       R17 R17 K27 ["Constants"]
-       77 GETTABLEKS                       R17 R17 K28 ["Audience"]
-       79 CALL                             R16 1 1
-       80 GETIMPORT                        R17 K5 [require]
-       82 GETTABLEKS                       R18 R0 K11 ["Src"]
-       84 GETTABLEKS                       R18 R18 K12 ["Util"]
-       86 GETTABLEKS                       R18 R18 K29 ["AudienceUtils"]
-       88 CALL                             R17 1 1
-       89 GETTABLEKS                       R18 R17 K30 ["audienceIsPrivate"]
-       91 GETTABLEKS                       R19 R17 K31 ["audienceIncludes"]
-       93 GETIMPORT                        R20 K5 [require]
-       95 GETTABLEKS                       R21 R0 K11 ["Src"]
-       97 GETTABLEKS                       R21 R21 K32 ["SharedFlags"]
-       99 GETTABLEKS                       R21 R21 K33 ["getFFlagLuaStartPageAudiencesReplacement"]
-      101 CALL                             R20 1 1
-      102 CALL                             R20 0 1
-      103 DUPCLOSURE                       R21 K34 [PROTO_0]
-      104 CAPTURE                          VAL R3
-      105 CAPTURE                          VAL R12
-      106 CAPTURE                          VAL R20
-      107 CAPTURE                          VAL R18
-      108 CAPTURE                          VAL R19
-      109 CAPTURE                          VAL R16
-      110 CAPTURE                          VAL R6
-      111 CAPTURE                          VAL R14
-      112 CAPTURE                          VAL R15
-      113 CAPTURE                          VAL R1
-      114 CAPTURE                          VAL R11
-      115 CAPTURE                          VAL R5
-      116 CAPTURE                          VAL R7
-      117 CAPTURE                          VAL R8
-      118 CAPTURE                          VAL R9
-      119 CAPTURE                          VAL R10
-      120 RETURN                           R21 1
+       52 GETTABLEKS                       R11 R4 K15 ["Enums"]
+       54 GETTABLEKS                       R11 R11 K21 ["IconPosition"]
+       56 GETTABLEKS                       R12 R4 K15 ["Enums"]
+       58 GETTABLEKS                       R12 R12 K22 ["IconVariant"]
+       60 GETTABLEKS                       R13 R4 K15 ["Enums"]
+       62 GETTABLEKS                       R13 R13 K23 ["BadgeVariant"]
+       64 GETTABLEKS                       R14 R4 K15 ["Enums"]
+       66 GETTABLEKS                       R14 R14 K24 ["BadgeShape"]
+       68 GETTABLEKS                       R15 R4 K15 ["Enums"]
+       70 GETTABLEKS                       R15 R15 K25 ["BadgeSize"]
+       72 GETTABLEKS                       R16 R4 K26 ["View"]
+       74 GETTABLEKS                       R17 R4 K27 ["Hooks"]
+       76 GETTABLEKS                       R17 R17 K28 ["useTokens"]
+       78 GETTABLEKS                       R18 R4 K29 ["Badge"]
+       80 GETIMPORT                        R19 K5 [require]
+       82 GETTABLEKS                       R20 R0 K11 ["Src"]
+       84 GETTABLEKS                       R20 R20 K12 ["Util"]
+       86 GETTABLEKS                       R20 R20 K30 ["CoreContentStatusConstants"]
+       88 CALL                             R19 1 1
+       89 GETTABLEKS                       R20 R19 K31 ["NEEDS_ATTENTION_AGE_THRESHOLD"]
+       91 GETTABLEKS                       R21 R19 K32 ["AGE_BRACKET_9"]
+       93 GETIMPORT                        R22 K5 [require]
+       95 GETTABLEKS                       R23 R0 K11 ["Src"]
+       97 GETTABLEKS                       R23 R23 K33 ["Constants"]
+       99 GETTABLEKS                       R23 R23 K34 ["Audience"]
+      101 CALL                             R22 1 1
+      102 GETIMPORT                        R23 K5 [require]
+      104 GETTABLEKS                       R24 R0 K11 ["Src"]
+      106 GETTABLEKS                       R24 R24 K12 ["Util"]
+      108 GETTABLEKS                       R24 R24 K35 ["AudienceUtils"]
+      110 CALL                             R23 1 1
+      111 GETTABLEKS                       R24 R23 K36 ["audienceIsPrivate"]
+      113 GETTABLEKS                       R25 R23 K37 ["audienceIncludes"]
+      115 GETIMPORT                        R26 K5 [require]
+      117 GETTABLEKS                       R27 R0 K11 ["Src"]
+      119 GETTABLEKS                       R27 R27 K38 ["SharedFlags"]
+      121 GETTABLEKS                       R27 R27 K39 ["getFFlagLuaStartPageAudiencesReplacement"]
+      123 CALL                             R26 1 1
+      124 CALL                             R26 0 1
+      125 GETIMPORT                        R27 K5 [require]
+      127 GETTABLEKS                       R28 R0 K11 ["Src"]
+      129 GETTABLEKS                       R28 R28 K38 ["SharedFlags"]
+      131 GETTABLEKS                       R28 R28 K40 ["getFFlagLuaStartPagePrivacyBadgeDesignUpdates"]
+      133 CALL                             R27 1 1
+      134 CALL                             R27 0 1
+      135 DUPCLOSURE                       R28 K41 [PROTO_0]
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R17
+      138 CAPTURE                          VAL R26
+      139 CAPTURE                          VAL R24
+      140 CAPTURE                          VAL R25
+      141 CAPTURE                          VAL R22
+      142 CAPTURE                          VAL R13
+      143 CAPTURE                          VAL R6
+      144 CAPTURE                          VAL R27
+      145 CAPTURE                          VAL R20
+      146 CAPTURE                          VAL R21
+      147 CAPTURE                          VAL R1
+      148 CAPTURE                          VAL R18
+      149 CAPTURE                          VAL R11
+      150 CAPTURE                          VAL R12
+      151 CAPTURE                          VAL R14
+      152 CAPTURE                          VAL R15
+      153 CAPTURE                          VAL R16
+      154 CAPTURE                          VAL R5
+      155 CAPTURE                          VAL R7
+      156 CAPTURE                          VAL R8
+      157 CAPTURE                          VAL R9
+      158 CAPTURE                          VAL R10
+      159 RETURN                           R28 1

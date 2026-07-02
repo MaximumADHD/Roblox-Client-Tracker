@@ -328,30 +328,28 @@ PROTO_12:
        34 LOADK                            R3 K8 ["Renamed collision group"]
        35 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
        37 CALL                             R1 2 0
-       38 DUPTABLE                         R1 K10 [{"GroupRenaming"}]
-       39 LOADK                            R2 K11 [""]
-       40 SETTABLEKS                       R2 R1 K9 ["GroupRenaming"]
-       42 GETUPVAL                         R2 3
-       43 CALL                             R2 0 1
-       44 GETUPVAL                         R3 4
-       45 MOVE                             R4 R2
-       46 CALL                             R3 1 1
-       47 GETIMPORT                        R4 K13 [plugin]
-       49 LOADK                            R6 K14 ["Groups"]
-       50 MOVE                             R7 R2
-       51 NAMECALL                         R4 R4 K15 ["SetItem"]
-       53 CALL                             R4 3 0
-       54 GETIMPORT                        R4 K13 [plugin]
-       56 LOADK                            R6 K16 ["SelectedGroupIds"]
-       57 MOVE                             R7 R3
-       58 NAMECALL                         R4 R4 K15 ["SetItem"]
-       60 CALL                             R4 3 0
-       61 GETIMPORT                        R2 K13 [plugin]
-       63 LOADK                            R4 K17 ["SetStateAndRefresh"]
-       64 MOVE                             R5 R1
-       65 NAMECALL                         R2 R2 K18 ["Invoke"]
-       67 CALL                             R2 3 0
-       68 RETURN                           R0 0
+       38 DUPTABLE                         R1 K11 [{["GroupRenaming"] = ""}]
+       39 GETUPVAL                         R2 3
+       40 CALL                             R2 0 1
+       41 GETUPVAL                         R3 4
+       42 MOVE                             R4 R2
+       43 CALL                             R3 1 1
+       44 GETIMPORT                        R4 K13 [plugin]
+       46 LOADK                            R6 K14 ["Groups"]
+       47 MOVE                             R7 R2
+       48 NAMECALL                         R4 R4 K15 ["SetItem"]
+       50 CALL                             R4 3 0
+       51 GETIMPORT                        R4 K13 [plugin]
+       53 LOADK                            R6 K16 ["SelectedGroupIds"]
+       54 MOVE                             R7 R3
+       55 NAMECALL                         R4 R4 K15 ["SetItem"]
+       57 CALL                             R4 3 0
+       58 GETIMPORT                        R2 K13 [plugin]
+       60 LOADK                            R4 K17 ["SetStateAndRefresh"]
+       61 MOVE                             R5 R1
+       62 NAMECALL                         R2 R2 K18 ["Invoke"]
+       64 CALL                             R2 3 0
+       65 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R1 0
@@ -663,84 +661,80 @@ PROTO_22:
         0 GETIMPORT                        R0 K1 [plugin]
         2 GETTABLEKS                       R0 R0 K2 ["HostDataModelType"]
         4 GETIMPORT                        R1 K6 [Enum.StudioDataModelType.PlayClient]
-        6 JUMPIFNOTEQ                      R0 R1 ; [+32]
-        8 DUPTABLE                         R0 K8 [{"InPlayMode"}]
-        9 LOADB                            R1 1
-       10 SETTABLEKS                       R1 R0 K7 ["InPlayMode"]
-       12 GETUPVAL                         R1 0
-       13 CALL                             R1 0 1
-       14 GETUPVAL                         R2 1
-       15 MOVE                             R3 R1
-       16 CALL                             R2 1 1
-       17 GETIMPORT                        R3 K1 [plugin]
-       19 LOADK                            R5 K9 ["Groups"]
-       20 MOVE                             R6 R1
-       21 NAMECALL                         R3 R3 K10 ["SetItem"]
-       23 CALL                             R3 3 0
-       24 GETIMPORT                        R3 K1 [plugin]
-       26 LOADK                            R5 K11 ["SelectedGroupIds"]
-       27 MOVE                             R6 R2
-       28 NAMECALL                         R3 R3 K10 ["SetItem"]
-       30 CALL                             R3 3 0
-       31 GETIMPORT                        R1 K1 [plugin]
-       33 LOADK                            R3 K12 ["SetStateAndRefresh"]
-       34 MOVE                             R4 R0
-       35 NAMECALL                         R1 R1 K13 ["Invoke"]
-       37 CALL                             R1 3 0
-       38 RETURN                           R0 0
-       39 DUPTABLE                         R0 K8 [{"InPlayMode"}]
-       40 LOADB                            R1 0
-       41 SETTABLEKS                       R1 R0 K7 ["InPlayMode"]
-       43 GETUPVAL                         R1 0
-       44 CALL                             R1 0 1
-       45 GETUPVAL                         R2 1
-       46 MOVE                             R3 R1
-       47 CALL                             R2 1 1
-       48 GETIMPORT                        R3 K1 [plugin]
-       50 LOADK                            R5 K9 ["Groups"]
-       51 MOVE                             R6 R1
-       52 NAMECALL                         R3 R3 K10 ["SetItem"]
-       54 CALL                             R3 3 0
-       55 GETIMPORT                        R3 K1 [plugin]
-       57 LOADK                            R5 K11 ["SelectedGroupIds"]
-       58 MOVE                             R6 R2
-       59 NAMECALL                         R3 R3 K10 ["SetItem"]
-       61 CALL                             R3 3 0
-       62 GETIMPORT                        R1 K1 [plugin]
-       64 LOADK                            R3 K12 ["SetStateAndRefresh"]
-       65 MOVE                             R4 R0
-       66 NAMECALL                         R1 R1 K13 ["Invoke"]
-       68 CALL                             R1 3 0
-       69 LOADB                            R0 1
-       70 SETUPVAL                         R0 2
-       71 GETIMPORT                        R0 K15 [spawn]
-       73 NEWCLOSURE                       R1 P0
-       74 CAPTURE                          UPVAL U2
-       75 CAPTURE                          UPVAL U3
-       76 CALL                             R0 1 0
-       77 GETIMPORT                        R0 K1 [plugin]
-       79 LOADK                            R2 K16 ["PollGuiEnabled"]
-       80 NAMECALL                         R0 R0 K13 ["Invoke"]
-       82 CALL                             R0 2 0
-       83 GETUPVAL                         R0 4
-       84 CALL                             R0 0 0
-       85 GETUPVAL                         R0 5
-       86 JUMPIFNOT                        R0 ; [+21]
-       87 GETIMPORT                        R0 K18 [require]
-       89 GETUPVAL                         R1 6
-       90 GETTABLEKS                       R1 R1 K19 ["Packages"]
-       92 GETTABLEKS                       R1 R1 K20 ["DeveloperTools"]
-       94 CALL                             R0 1 1
-       95 GETTABLEKS                       R1 R0 K21 ["forPlugin"]
-       97 LOADK                            R2 K22 ["CollisionGroupsEditor"]
-       98 GETIMPORT                        R3 K1 [plugin]
-      100 CALL                             R1 2 1
-      101 SETUPVAL                         R1 7
-      102 GETUPVAL                         R1 7
-      103 GETIMPORT                        R3 K1 [plugin]
-      105 NAMECALL                         R1 R1 K23 ["addPluginRouter"]
-      107 CALL                             R1 2 0
-      108 RETURN                           R0 0
+        6 JUMPIFNOTEQ                      R0 R1 ; [+29]
+        8 DUPTABLE                         R0 K9 [{["InPlayMode"] = True}]
+        9 GETUPVAL                         R1 0
+       10 CALL                             R1 0 1
+       11 GETUPVAL                         R2 1
+       12 MOVE                             R3 R1
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K1 [plugin]
+       16 LOADK                            R5 K10 ["Groups"]
+       17 MOVE                             R6 R1
+       18 NAMECALL                         R3 R3 K11 ["SetItem"]
+       20 CALL                             R3 3 0
+       21 GETIMPORT                        R3 K1 [plugin]
+       23 LOADK                            R5 K12 ["SelectedGroupIds"]
+       24 MOVE                             R6 R2
+       25 NAMECALL                         R3 R3 K11 ["SetItem"]
+       27 CALL                             R3 3 0
+       28 GETIMPORT                        R1 K1 [plugin]
+       30 LOADK                            R3 K13 ["SetStateAndRefresh"]
+       31 MOVE                             R4 R0
+       32 NAMECALL                         R1 R1 K14 ["Invoke"]
+       34 CALL                             R1 3 0
+       35 RETURN                           R0 0
+       36 DUPTABLE                         R0 K16 [{["InPlayMode"] = False}]
+       37 GETUPVAL                         R1 0
+       38 CALL                             R1 0 1
+       39 GETUPVAL                         R2 1
+       40 MOVE                             R3 R1
+       41 CALL                             R2 1 1
+       42 GETIMPORT                        R3 K1 [plugin]
+       44 LOADK                            R5 K10 ["Groups"]
+       45 MOVE                             R6 R1
+       46 NAMECALL                         R3 R3 K11 ["SetItem"]
+       48 CALL                             R3 3 0
+       49 GETIMPORT                        R3 K1 [plugin]
+       51 LOADK                            R5 K12 ["SelectedGroupIds"]
+       52 MOVE                             R6 R2
+       53 NAMECALL                         R3 R3 K11 ["SetItem"]
+       55 CALL                             R3 3 0
+       56 GETIMPORT                        R1 K1 [plugin]
+       58 LOADK                            R3 K13 ["SetStateAndRefresh"]
+       59 MOVE                             R4 R0
+       60 NAMECALL                         R1 R1 K14 ["Invoke"]
+       62 CALL                             R1 3 0
+       63 LOADB                            R0 1
+       64 SETUPVAL                         R0 2
+       65 GETIMPORT                        R0 K18 [spawn]
+       67 NEWCLOSURE                       R1 P0
+       68 CAPTURE                          UPVAL U2
+       69 CAPTURE                          UPVAL U3
+       70 CALL                             R0 1 0
+       71 GETIMPORT                        R0 K1 [plugin]
+       73 LOADK                            R2 K19 ["PollGuiEnabled"]
+       74 NAMECALL                         R0 R0 K14 ["Invoke"]
+       76 CALL                             R0 2 0
+       77 GETUPVAL                         R0 4
+       78 CALL                             R0 0 0
+       79 GETUPVAL                         R0 5
+       80 JUMPIFNOT                        R0 ; [+21]
+       81 GETIMPORT                        R0 K21 [require]
+       83 GETUPVAL                         R1 6
+       84 GETTABLEKS                       R1 R1 K22 ["Packages"]
+       86 GETTABLEKS                       R1 R1 K23 ["DeveloperTools"]
+       88 CALL                             R0 1 1
+       89 GETTABLEKS                       R1 R0 K24 ["forPlugin"]
+       91 LOADK                            R2 K25 ["CollisionGroupsEditor"]
+       92 GETIMPORT                        R3 K1 [plugin]
+       94 CALL                             R1 2 1
+       95 SETUPVAL                         R1 7
+       96 GETUPVAL                         R1 7
+       97 GETIMPORT                        R3 K1 [plugin]
+       99 NAMECALL                         R1 R1 K26 ["addPluginRouter"]
+      101 CALL                             R1 2 0
+      102 RETURN                           R0 0
 
 PROTO_23:
         0 GETIMPORT                        R0 K1 [ipairs]

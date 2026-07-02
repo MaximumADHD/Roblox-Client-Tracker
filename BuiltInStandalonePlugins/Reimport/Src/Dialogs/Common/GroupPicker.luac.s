@@ -93,78 +93,72 @@ PROTO_5:
        14 GETUPVAL                         R4 2
        15 GETTABLEKS                       R4 R4 K4 ["Context"]
        17 CALL                             R3 1 1
-       18 DUPTABLE                         R4 K7 [{"id", "text"}]
-       19 LOADK                            R5 K8 ["Me"]
-       20 SETTABLEKS                       R5 R4 K5 ["id"]
-       22 GETUPVAL                         R6 3
-       23 CALL                             R6 0 1
-       24 JUMPIFNOT                        R6 ; [+6]
-       25 LOADK                            R7 K9 ["ConfigDialog"]
-       26 LOADK                            R8 K8 ["Me"]
-       27 NAMECALL                         R5 R1 K10 ["getText"]
-       29 CALL                             R5 3 1
-       30 JUMP                             ; [+1]
-       31 LOADK                            R5 K8 ["Me"]
-       32 SETTABLEKS                       R5 R4 K6 ["text"]
-       34 GETTABLEKS                       R6 R0 K11 ["value"]
-       36 JUMPIFNOT                        R6 ; [+14]
-       37 DUPTABLE                         R5 K7 [{"id", "text"}]
-       38 GETTABLEKS                       R6 R0 K11 ["value"]
-       40 SETTABLEKS                       R6 R5 K5 ["id"]
-       42 GETTABLEKS                       R7 R0 K11 ["value"]
-       44 FASTCALL1                        TOSTRING R7 ; [+2]
-       45 GETIMPORT                        R6 K13 [tostring]
-       47 CALL                             R6 1 1
-       48 SETTABLEKS                       R6 R5 K6 ["text"]
-       50 JUMP                             ; [+1]
-       51 LOADNIL                          R5
-       52 GETUPVAL                         R6 1
-       53 GETTABLEKS                       R6 R6 K14 ["useState"]
-       55 GETTABLEKS                       R8 R0 K11 ["value"]
-       57 JUMPIFNOT                        R8 ; [+3]
-       58 GETTABLEKS                       R7 R0 K11 ["value"]
-       60 JUMP                             ; [+1]
-       61 LOADK                            R7 K8 ["Me"]
-       62 CALL                             R6 1 2
-       63 GETUPVAL                         R8 1
-       64 GETTABLEKS                       R8 R8 K14 ["useState"]
-       66 NEWTABLE                         R9 0 2
-       68 MOVE                             R10 R4
-       69 MOVE                             R11 R5
-       70 SETLIST                          R9 R10 2 [1]
-       72 CALL                             R8 1 2
-       73 GETUPVAL                         R10 1
-       74 GETTABLEKS                       R10 R10 K15 ["useEffect"]
-       76 NEWCLOSURE                       R11 P1
-       77 CAPTURE                          UPVAL U4
-       78 CAPTURE                          VAL R4
-       79 CAPTURE                          VAL R5
-       80 CAPTURE                          VAL R9
-       81 NEWTABLE                         R12 0 0
-       83 CALL                             R10 2 0
-       84 GETUPVAL                         R10 5
-       85 GETUPVAL                         R11 6
-       86 DUPTABLE                         R12 K21 [{"label", "size", "value", "onItemChanged", "maxHeight", "items", "testId"}]
-       87 LOADK                            R13 K22 [""]
-       88 SETTABLEKS                       R13 R12 K16 ["label"]
-       90 GETUPVAL                         R13 7
-       91 GETTABLEKS                       R13 R13 K23 ["Enums"]
-       93 GETTABLEKS                       R13 R13 K24 ["InputSize"]
-       95 GETTABLEKS                       R13 R13 K25 ["Small"]
-       97 SETTABLEKS                       R13 R12 K17 ["size"]
-       99 SETTABLEKS                       R6 R12 K11 ["value"]
-      101 NEWCLOSURE                       R13 P2
-      102 CAPTURE                          VAL R7
-      103 CAPTURE                          VAL R2
-      104 SETTABLEKS                       R13 R12 K1 ["onItemChanged"]
-      106 GETTABLEKS                       R13 R3 K26 ["dialogSize"]
-      108 GETTABLEKS                       R13 R13 K27 ["Y"]
-      110 SETTABLEKS                       R13 R12 K18 ["maxHeight"]
-      112 SETTABLEKS                       R8 R12 K19 ["items"]
-      114 LOADK                            R13 K28 ["group-picker-dropdown"]
-      115 SETTABLEKS                       R13 R12 K20 ["testId"]
-      117 CALL                             R10 2 -1
-      118 RETURN                           R10 -1
+       18 DUPTABLE                         R4 K8 [{["id"] = "Me", ["text"]}]
+       19 GETUPVAL                         R6 3
+       20 CALL                             R6 0 1
+       21 JUMPIFNOT                        R6 ; [+6]
+       22 LOADK                            R7 K9 ["ConfigDialog"]
+       23 LOADK                            R8 K6 ["Me"]
+       24 NAMECALL                         R5 R1 K10 ["getText"]
+       26 CALL                             R5 3 1
+       27 JUMP                             ; [+1]
+       28 LOADK                            R5 K6 ["Me"]
+       29 SETTABLEKS                       R5 R4 K7 ["text"]
+       31 GETTABLEKS                       R6 R0 K11 ["value"]
+       33 JUMPIFNOT                        R6 ; [+14]
+       34 DUPTABLE                         R5 K12 [{"id", "text"}]
+       35 GETTABLEKS                       R6 R0 K11 ["value"]
+       37 SETTABLEKS                       R6 R5 K5 ["id"]
+       39 GETTABLEKS                       R7 R0 K11 ["value"]
+       41 FASTCALL1                        TOSTRING R7 ; [+2]
+       42 GETIMPORT                        R6 K14 [tostring]
+       44 CALL                             R6 1 1
+       45 SETTABLEKS                       R6 R5 K7 ["text"]
+       47 JUMP                             ; [+1]
+       48 LOADNIL                          R5
+       49 GETUPVAL                         R6 1
+       50 GETTABLEKS                       R6 R6 K15 ["useState"]
+       52 GETTABLEKS                       R8 R0 K11 ["value"]
+       54 JUMPIFNOT                        R8 ; [+3]
+       55 GETTABLEKS                       R7 R0 K11 ["value"]
+       57 JUMP                             ; [+1]
+       58 LOADK                            R7 K6 ["Me"]
+       59 CALL                             R6 1 2
+       60 GETUPVAL                         R8 1
+       61 GETTABLEKS                       R8 R8 K15 ["useState"]
+       63 NEWTABLE                         R9 0 2
+       65 MOVE                             R10 R4
+       66 MOVE                             R11 R5
+       67 SETLIST                          R9 R10 2 [1]
+       69 CALL                             R8 1 2
+       70 GETUPVAL                         R10 1
+       71 GETTABLEKS                       R10 R10 K16 ["useEffect"]
+       73 NEWCLOSURE                       R11 P1
+       74 CAPTURE                          UPVAL U4
+       75 CAPTURE                          VAL R4
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R9
+       78 NEWTABLE                         R12 0 0
+       80 CALL                             R10 2 0
+       81 GETUPVAL                         R10 5
+       82 GETUPVAL                         R11 6
+       83 DUPTABLE                         R12 K24 [{["label"] = "", ["size"], ["value"], ["onItemChanged"], ["maxHeight"], ["items"], ["testId"] = "group-picker-dropdown"}]
+       84 GETUPVAL                         R13 7
+       85 GETTABLEKS                       R13 R13 K25 ["Enums"]
+       87 GETTABLEKS                       R13 R13 K26 ["InputSize"]
+       89 GETTABLEKS                       R13 R13 K27 ["Small"]
+       91 SETTABLEKS                       R13 R12 K19 ["size"]
+       93 SETTABLEKS                       R6 R12 K11 ["value"]
+       95 NEWCLOSURE                       R13 P2
+       96 CAPTURE                          VAL R7
+       97 CAPTURE                          VAL R2
+       98 SETTABLEKS                       R13 R12 K1 ["onItemChanged"]
+      100 GETTABLEKS                       R13 R3 K28 ["dialogSize"]
+      102 GETTABLEKS                       R13 R13 K29 ["Y"]
+      104 SETTABLEKS                       R13 R12 K20 ["maxHeight"]
+      106 SETTABLEKS                       R8 R12 K21 ["items"]
+      108 CALL                             R10 2 -1
+      109 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

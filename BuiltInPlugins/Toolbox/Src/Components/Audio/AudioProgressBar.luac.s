@@ -37,46 +37,40 @@ PROTO_2:
        34 GETUPVAL                         R11 0
        35 GETTABLEKS                       R11 R11 K13 ["createElement"]
        37 LOADK                            R12 K14 ["Frame"]
-       38 DUPTABLE                         R13 K16 [{"AnchorPoint", "BackgroundTransparency", "LayoutOrder", "Position", "Size"}]
+       38 DUPTABLE                         R13 K17 [{["AnchorPoint"], ["BackgroundTransparency"] = 1, ["LayoutOrder"], ["Position"], ["Size"]}]
        39 SETTABLEKS                       R2 R13 K1 ["AnchorPoint"]
-       41 LOADN                            R14 1
-       42 SETTABLEKS                       R14 R13 K15 ["BackgroundTransparency"]
-       44 SETTABLEKS                       R5 R13 K4 ["LayoutOrder"]
-       46 SETTABLEKS                       R7 R13 K6 ["Position"]
-       48 SETTABLEKS                       R8 R13 K7 ["Size"]
-       50 DUPTABLE                         R14 K18 [{"ProgressBar"}]
-       51 GETUPVAL                         R15 0
-       52 GETTABLEKS                       R15 R15 K13 ["createElement"]
-       54 LOADK                            R16 K14 ["Frame"]
-       55 DUPTABLE                         R17 K21 [{"AnchorPoint", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Position", "Size"}]
-       56 GETIMPORT                        R18 K24 [Vector2.new]
-       58 LOADN                            R19 0
-       59 LOADK                            R20 K25 [0.5]
-       60 CALL                             R18 2 1
-       61 SETTABLEKS                       R18 R17 K1 ["AnchorPoint"]
-       63 SETTABLEKS                       R10 R17 K19 ["BackgroundColor3"]
-       65 LOADN                            R18 0
-       66 SETTABLEKS                       R18 R17 K15 ["BackgroundTransparency"]
-       68 LOADN                            R18 0
-       69 SETTABLEKS                       R18 R17 K20 ["BorderSizePixel"]
-       71 GETIMPORT                        R18 K27 [UDim2.new]
-       73 LOADN                            R19 0
-       74 LOADN                            R20 0
-       75 LOADK                            R21 K25 [0.5]
-       76 LOADN                            R22 0
-       77 CALL                             R18 4 1
-       78 SETTABLEKS                       R18 R17 K6 ["Position"]
-       80 GETIMPORT                        R18 K27 [UDim2.new]
-       82 GETTABLEKS                       R19 R0 K11 ["progress"]
-       84 LOADN                            R20 0
-       85 LOADN                            R21 1
-       86 LOADN                            R22 0
-       87 CALL                             R18 4 1
-       88 SETTABLEKS                       R18 R17 K7 ["Size"]
-       90 CALL                             R15 2 1
-       91 SETTABLEKS                       R15 R14 K17 ["ProgressBar"]
-       93 CALL                             R11 3 -1
-       94 RETURN                           R11 -1
+       41 SETTABLEKS                       R5 R13 K4 ["LayoutOrder"]
+       43 SETTABLEKS                       R7 R13 K6 ["Position"]
+       45 SETTABLEKS                       R8 R13 K7 ["Size"]
+       47 DUPTABLE                         R14 K19 [{"ProgressBar"}]
+       48 GETUPVAL                         R15 0
+       49 GETTABLEKS                       R15 R15 K13 ["createElement"]
+       51 LOADK                            R16 K14 ["Frame"]
+       52 DUPTABLE                         R17 K22 [{["AnchorPoint"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0, ["BorderSizePixel"] = 0, ["Position"], ["Size"]}]
+       53 GETIMPORT                        R18 K25 [Vector2.new]
+       55 LOADN                            R19 0
+       56 LOADK                            R20 K26 [0.5]
+       57 CALL                             R18 2 1
+       58 SETTABLEKS                       R18 R17 K1 ["AnchorPoint"]
+       60 SETTABLEKS                       R10 R17 K20 ["BackgroundColor3"]
+       62 GETIMPORT                        R18 K28 [UDim2.new]
+       64 LOADN                            R19 0
+       65 LOADN                            R20 0
+       66 LOADK                            R21 K26 [0.5]
+       67 LOADN                            R22 0
+       68 CALL                             R18 4 1
+       69 SETTABLEKS                       R18 R17 K6 ["Position"]
+       71 GETIMPORT                        R18 K28 [UDim2.new]
+       73 GETTABLEKS                       R19 R0 K11 ["progress"]
+       75 LOADN                            R20 0
+       76 LOADN                            R21 1
+       77 LOADN                            R22 0
+       78 CALL                             R18 4 1
+       79 SETTABLEKS                       R18 R17 K7 ["Size"]
+       81 CALL                             R15 2 1
+       82 SETTABLEKS                       R15 R14 K18 ["ProgressBar"]
+       84 CALL                             R11 3 -1
+       85 RETURN                           R11 -1
 
 PROTO_3:
         0 MOVE                             R2 R0

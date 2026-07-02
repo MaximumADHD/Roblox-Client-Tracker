@@ -95,31 +95,29 @@ PROTO_1:
        29 CALL                             R2 2 0
        30 MOVE                             R2 R0
        31 LOADNIL                          R3
-       32 DUPTABLE                         R4 K8 [{"type"}]
-       33 LOADK                            R5 K9 ["__nil__"]
-       34 SETTABLEKS                       R5 R4 K0 ["type"]
-       36 CALL                             R2 2 1
-       37 GETUPVAL                         R3 0
-       38 MOVE                             R4 R2
-       39 NEWTABLE                         R5 0 0
-       41 CALL                             R3 2 1
-       42 GETUPVAL                         R5 1
-       43 MOVE                             R6 R2
-       44 MOVE                             R7 R3
-       45 CALL                             R5 2 1
-       46 FASTCALL2K                       ASSERT R5 K10 ; [+4]
-       48 LOADK                            R6 K10 ["deepJoin mutates fields"]
-       49 GETIMPORT                        R4 K5 [assert]
-       51 CALL                             R4 2 0
-       52 MOVE                             R4 R0
-       53 MOVE                             R5 R2
-       54 MOVE                             R6 R1
-       55 CALL                             R4 2 0
-       56 GETUPVAL                         R4 1
-       57 MOVE                             R5 R2
-       58 MOVE                             R6 R3
-       59 CALL                             R4 2 -1
-       60 RETURN                           R4 -1
+       32 DUPTABLE                         R4 K9 [{[1] = "__nil__"}]
+       33 CALL                             R2 2 1
+       34 GETUPVAL                         R3 0
+       35 MOVE                             R4 R2
+       36 NEWTABLE                         R5 0 0
+       38 CALL                             R3 2 1
+       39 GETUPVAL                         R5 1
+       40 MOVE                             R6 R2
+       41 MOVE                             R7 R3
+       42 CALL                             R5 2 1
+       43 FASTCALL2K                       ASSERT R5 K10 ; [+4]
+       45 LOADK                            R6 K10 ["deepJoin mutates fields"]
+       46 GETIMPORT                        R4 K5 [assert]
+       48 CALL                             R4 2 0
+       49 MOVE                             R4 R0
+       50 MOVE                             R5 R2
+       51 MOVE                             R6 R1
+       52 CALL                             R4 2 0
+       53 GETUPVAL                         R4 1
+       54 MOVE                             R5 R2
+       55 MOVE                             R6 R3
+       56 CALL                             R4 2 -1
+       57 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

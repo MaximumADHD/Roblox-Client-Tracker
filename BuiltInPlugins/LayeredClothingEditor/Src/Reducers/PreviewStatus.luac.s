@@ -86,40 +86,32 @@ MAIN:
        32 GETTABLEKS                       R4 R4 K10 ["AccessoryAndBodyToolShared"]
        34 GETTABLEKS                       R5 R4 K11 ["PreviewConstants"]
        36 GETTABLEKS                       R6 R1 K12 ["createReducer"]
-       38 DUPTABLE                         R7 K20 [{"categoryFilter", "searchFilter", "docked", "selectedTab", "selectedAssets", "userAddedAssets", "workspacePreviewSelectionEnabled"}]
-       39 LOADK                            R8 K21 [""]
-       40 SETTABLEKS                       R8 R7 K13 ["categoryFilter"]
-       42 LOADK                            R8 K21 [""]
-       43 SETTABLEKS                       R8 R7 K14 ["searchFilter"]
-       45 LOADB                            R8 1
-       46 SETTABLEKS                       R8 R7 K15 ["docked"]
-       48 GETTABLEKS                       R8 R5 K22 ["TABS_KEYS"]
-       50 GETTABLEKS                       R8 R8 K23 ["None"]
-       52 SETTABLEKS                       R8 R7 K16 ["selectedTab"]
-       54 NEWTABLE                         R8 0 0
-       56 SETTABLEKS                       R8 R7 K17 ["selectedAssets"]
-       58 NEWTABLE                         R8 0 0
-       60 SETTABLEKS                       R8 R7 K18 ["userAddedAssets"]
-       62 LOADB                            R8 1
-       63 SETTABLEKS                       R8 R7 K19 ["workspacePreviewSelectionEnabled"]
-       65 DUPTABLE                         R8 K30 [{"SetCategoryFilter", "SetSearchFilter", "SetDocked", "SetUserAddedAssets", "SelectPreviewTab", "SetPreviewAssetsSelected"}]
-       66 DUPCLOSURE                       R9 K31 [PROTO_0]
+       38 DUPTABLE                         R7 K22 [{["categoryFilter"] = "", ["searchFilter"] = "", ["docked"] = True, ["selectedTab"], ["selectedAssets"], ["userAddedAssets"], ["workspacePreviewSelectionEnabled"] = True}]
+       39 GETTABLEKS                       R8 R5 K23 ["TABS_KEYS"]
+       41 GETTABLEKS                       R8 R8 K24 ["None"]
+       43 SETTABLEKS                       R8 R7 K18 ["selectedTab"]
+       45 NEWTABLE                         R8 0 0
+       47 SETTABLEKS                       R8 R7 K19 ["selectedAssets"]
+       49 NEWTABLE                         R8 0 0
+       51 SETTABLEKS                       R8 R7 K20 ["userAddedAssets"]
+       53 DUPTABLE                         R8 K31 [{"SetCategoryFilter", "SetSearchFilter", "SetDocked", "SetUserAddedAssets", "SelectPreviewTab", "SetPreviewAssetsSelected"}]
+       54 DUPCLOSURE                       R9 K32 [PROTO_0]
+       55 CAPTURE                          VAL R2
+       56 SETTABLEKS                       R9 R8 K25 ["SetCategoryFilter"]
+       58 DUPCLOSURE                       R9 K33 [PROTO_1]
+       59 CAPTURE                          VAL R2
+       60 SETTABLEKS                       R9 R8 K26 ["SetSearchFilter"]
+       62 DUPCLOSURE                       R9 K34 [PROTO_2]
+       63 CAPTURE                          VAL R2
+       64 SETTABLEKS                       R9 R8 K27 ["SetDocked"]
+       66 DUPCLOSURE                       R9 K35 [PROTO_3]
        67 CAPTURE                          VAL R2
-       68 SETTABLEKS                       R9 R8 K24 ["SetCategoryFilter"]
-       70 DUPCLOSURE                       R9 K32 [PROTO_1]
+       68 SETTABLEKS                       R9 R8 K28 ["SetUserAddedAssets"]
+       70 DUPCLOSURE                       R9 K36 [PROTO_4]
        71 CAPTURE                          VAL R2
-       72 SETTABLEKS                       R9 R8 K25 ["SetSearchFilter"]
-       74 DUPCLOSURE                       R9 K33 [PROTO_2]
+       72 SETTABLEKS                       R9 R8 K29 ["SelectPreviewTab"]
+       74 DUPCLOSURE                       R9 K37 [PROTO_5]
        75 CAPTURE                          VAL R2
-       76 SETTABLEKS                       R9 R8 K26 ["SetDocked"]
-       78 DUPCLOSURE                       R9 K34 [PROTO_3]
-       79 CAPTURE                          VAL R2
-       80 SETTABLEKS                       R9 R8 K27 ["SetUserAddedAssets"]
-       82 DUPCLOSURE                       R9 K35 [PROTO_4]
-       83 CAPTURE                          VAL R2
-       84 SETTABLEKS                       R9 R8 K28 ["SelectPreviewTab"]
-       86 DUPCLOSURE                       R9 K36 [PROTO_5]
-       87 CAPTURE                          VAL R2
-       88 SETTABLEKS                       R9 R8 K29 ["SetPreviewAssetsSelected"]
-       90 CALL                             R6 2 -1
-       91 RETURN                           R6 -1
+       76 SETTABLEKS                       R9 R8 K30 ["SetPreviewAssetsSelected"]
+       78 CALL                             R6 2 -1
+       79 RETURN                           R6 -1

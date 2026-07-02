@@ -4,7 +4,7 @@ PROTO_0:
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["Provider"]
         6 DUPTABLE                         R3 K3 [{"value"}]
-        7 DUPTABLE                         R4 K9 [{"postProfileInsights", "postGetTrustedFriendsLink", "postSendRequestToNewParent", "postSendRequestToAllParents", "getUniverseConfiguration"}]
+        7 DUPTABLE                         R4 K10 [{"postProfileInsights", "postGetTrustedFriendsLink", "postSendRequestToNewParent", "postSendRequestToAllParents", "getUniverseConfiguration", "getUniverseName"}]
         8 GETUPVAL                         R5 2
         9 SETTABLEKS                       R5 R4 K4 ["postProfileInsights"]
        11 GETUPVAL                         R5 3
@@ -15,10 +15,12 @@ PROTO_0:
        18 SETTABLEKS                       R5 R4 K7 ["postSendRequestToAllParents"]
        20 GETUPVAL                         R5 6
        21 SETTABLEKS                       R5 R4 K8 ["getUniverseConfiguration"]
-       23 SETTABLEKS                       R4 R3 K2 ["value"]
-       25 GETTABLEKS                       R4 R0 K10 ["children"]
-       27 CALL                             R1 3 -1
-       28 RETURN                           R1 -1
+       23 GETUPVAL                         R5 7
+       24 SETTABLEKS                       R5 R4 K9 ["getUniverseName"]
+       26 SETTABLEKS                       R4 R3 K2 ["value"]
+       28 GETTABLEKS                       R4 R0 K11 ["children"]
+       30 CALL                             R1 3 -1
+       31 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -52,12 +54,16 @@ MAIN:
        47 GETIMPORT                        R9 K5 [require]
        49 GETTABLEKS                       R10 R4 K16 ["GetUniverseConfiguration"]
        51 CALL                             R9 1 1
-       52 DUPCLOSURE                       R10 K17 [PROTO_0]
-       53 CAPTURE                          VAL R1
-       54 CAPTURE                          VAL R3
-       55 CAPTURE                          VAL R5
-       56 CAPTURE                          VAL R6
-       57 CAPTURE                          VAL R7
-       58 CAPTURE                          VAL R8
-       59 CAPTURE                          VAL R9
-       60 RETURN                           R10 1
+       52 GETIMPORT                        R10 K5 [require]
+       54 GETTABLEKS                       R11 R4 K17 ["GetUniverseName"]
+       56 CALL                             R10 1 1
+       57 DUPCLOSURE                       R11 K18 [PROTO_0]
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R3
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R6
+       62 CAPTURE                          VAL R7
+       63 CAPTURE                          VAL R8
+       64 CAPTURE                          VAL R9
+       65 CAPTURE                          VAL R10
+       66 RETURN                           R11 1

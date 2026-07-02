@@ -40,72 +40,68 @@ PROTO_2:
        39 GETUPVAL                         R11 0
        40 GETTABLEKS                       R11 R11 K6 ["createElement"]
        42 GETUPVAL                         R12 2
-       43 DUPTABLE                         R13 K24 [{"Editable", "Size", "Value", "LayoutOrder", "OnSetItem"}]
+       43 DUPTABLE                         R13 K25 [{["Editable"], ["Size"], ["Value"], ["LayoutOrder"] = 1, ["OnSetItem"]}]
        44 GETTABLEKS                       R14 R1 K22 ["Editable"]
        46 SETTABLEKS                       R14 R13 K22 ["Editable"]
-       48 GETIMPORT                        R14 K27 [UDim2.new]
+       48 GETIMPORT                        R14 K28 [UDim2.new]
        50 LOADN                            R15 1
        51 MINUS                            R16 R6
        52 LOADN                            R17 1
        53 LOADN                            R18 0
        54 CALL                             R14 4 1
        55 SETTABLEKS                       R14 R13 K7 ["Size"]
-       57 JUMPIFEQKS                       R2 K28 [""] ; [+3]
+       57 JUMPIFEQKS                       R2 K29 [""] ; [+3]
        59 MOVE                             R14 R2
        60 JUMP                             ; [+7]
-       61 GETTABLEKS                       R14 R1 K29 ["Localization"]
-       63 LOADK                            R16 K30 ["Properties"]
-       64 LOADK                            R17 K31 ["NoFilePath"]
-       65 NAMECALL                         R14 R14 K32 ["getText"]
+       61 GETTABLEKS                       R14 R1 K30 ["Localization"]
+       63 LOADK                            R16 K31 ["Properties"]
+       64 LOADK                            R17 K32 ["NoFilePath"]
+       65 NAMECALL                         R14 R14 K33 ["getText"]
        67 CALL                             R14 3 1
        68 SETTABLEKS                       R14 R13 K1 ["Value"]
-       70 LOADN                            R14 1
-       71 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-       73 GETTABLEKS                       R14 R1 K23 ["OnSetItem"]
-       75 SETTABLEKS                       R14 R13 K23 ["OnSetItem"]
-       77 CALL                             R11 2 1
-       78 SETTABLEKS                       R11 R10 K19 ["PathField"]
-       80 GETTABLEKS                       R12 R1 K33 ["AllowPickFile"]
-       82 JUMPIFNOT                        R12 ; [+50]
-       83 JUMPIFEQKS                       R2 K28 [""] ; [+49]
-       85 GETUPVAL                         R11 0
-       86 GETTABLEKS                       R11 R11 K6 ["createElement"]
-       88 GETUPVAL                         R12 3
-       89 DUPTABLE                         R13 K35 [{"OnClick", "LayoutOrder", "Size"}]
-       90 GETTABLEKS                       R14 R0 K36 ["onTextureFilePickerButtonClicked"]
-       92 SETTABLEKS                       R14 R13 K34 ["OnClick"]
-       94 LOADN                            R14 2
-       95 SETTABLEKS                       R14 R13 K8 ["LayoutOrder"]
-       97 GETIMPORT                        R14 K38 [UDim2.fromOffset]
-       99 MOVE                             R15 R4
-      100 MOVE                             R16 R4
-      101 CALL                             R14 2 1
-      102 SETTABLEKS                       R14 R13 K7 ["Size"]
-      104 DUPTABLE                         R14 K40 [{"Icon"}]
-      105 GETUPVAL                         R15 0
-      106 GETTABLEKS                       R15 R15 K6 ["createElement"]
-      108 GETUPVAL                         R16 4
-      109 DUPTABLE                         R17 K42 [{"Size", "Image"}]
-      110 GETIMPORT                        R18 K38 [UDim2.fromOffset]
-      112 MOVE                             R19 R4
-      113 MOVE                             R20 R4
-      114 CALL                             R18 2 1
-      115 SETTABLEKS                       R18 R17 K7 ["Size"]
-      117 GETUPVAL                         R18 5
-      118 GETTABLEKS                       R18 R18 K43 ["get"]
-      120 GETUPVAL                         R19 5
-      121 GETTABLEKS                       R19 R19 K44 ["AvailableImages"]
-      123 GETTABLEKS                       R19 R19 K45 ["OpenLarge"]
-      125 CALL                             R18 1 1
-      126 SETTABLEKS                       R18 R17 K41 ["Image"]
-      128 CALL                             R15 2 1
-      129 SETTABLEKS                       R15 R14 K39 ["Icon"]
-      131 CALL                             R11 3 1
-      132 JUMP                             ; [+1]
-      133 LOADNIL                          R11
-      134 SETTABLEKS                       R11 R10 K20 ["TextureFilePickerButton"]
-      136 CALL                             R7 3 -1
-      137 RETURN                           R7 -1
+       70 GETTABLEKS                       R14 R1 K24 ["OnSetItem"]
+       72 SETTABLEKS                       R14 R13 K24 ["OnSetItem"]
+       74 CALL                             R11 2 1
+       75 SETTABLEKS                       R11 R10 K19 ["PathField"]
+       77 GETTABLEKS                       R12 R1 K34 ["AllowPickFile"]
+       79 JUMPIFNOT                        R12 ; [+47]
+       80 JUMPIFEQKS                       R2 K29 [""] ; [+46]
+       82 GETUPVAL                         R11 0
+       83 GETTABLEKS                       R11 R11 K6 ["createElement"]
+       85 GETUPVAL                         R12 3
+       86 DUPTABLE                         R13 K37 [{["OnClick"], ["LayoutOrder"] = 2, ["Size"]}]
+       87 GETTABLEKS                       R14 R0 K38 ["onTextureFilePickerButtonClicked"]
+       89 SETTABLEKS                       R14 R13 K35 ["OnClick"]
+       91 GETIMPORT                        R14 K40 [UDim2.fromOffset]
+       93 MOVE                             R15 R4
+       94 MOVE                             R16 R4
+       95 CALL                             R14 2 1
+       96 SETTABLEKS                       R14 R13 K7 ["Size"]
+       98 DUPTABLE                         R14 K42 [{"Icon"}]
+       99 GETUPVAL                         R15 0
+      100 GETTABLEKS                       R15 R15 K6 ["createElement"]
+      102 GETUPVAL                         R16 4
+      103 DUPTABLE                         R17 K44 [{"Size", "Image"}]
+      104 GETIMPORT                        R18 K40 [UDim2.fromOffset]
+      106 MOVE                             R19 R4
+      107 MOVE                             R20 R4
+      108 CALL                             R18 2 1
+      109 SETTABLEKS                       R18 R17 K7 ["Size"]
+      111 GETUPVAL                         R18 5
+      112 GETTABLEKS                       R18 R18 K45 ["get"]
+      114 GETUPVAL                         R19 5
+      115 GETTABLEKS                       R19 R19 K46 ["AvailableImages"]
+      117 GETTABLEKS                       R19 R19 K47 ["OpenLarge"]
+      119 CALL                             R18 1 1
+      120 SETTABLEKS                       R18 R17 K43 ["Image"]
+      122 CALL                             R15 2 1
+      123 SETTABLEKS                       R15 R14 K41 ["Icon"]
+      125 CALL                             R11 3 1
+      126 JUMP                             ; [+1]
+      127 LOADNIL                          R11
+      128 SETTABLEKS                       R11 R10 K20 ["TextureFilePickerButton"]
+      130 CALL                             R7 3 -1
+      131 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

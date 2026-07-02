@@ -273,39 +273,35 @@ MAIN:
        68 LOADK                            R15 K28 ["SearchList"]
        69 NAMECALL                         R13 R13 K29 ["extend"]
        71 CALL                             R13 2 1
-       72 DUPTABLE                         R14 K33 [{"ItemMinWidth", "MaxRowCount", "Size"}]
-       73 LOADN                            R15 0
-       74 SETTABLEKS                       R15 R14 K30 ["ItemMinWidth"]
-       76 LOADK                            R15 K34 [∞]
-       77 SETTABLEKS                       R15 R14 K31 ["MaxRowCount"]
-       79 GETIMPORT                        R15 K37 [UDim2.new]
-       81 LOADN                            R16 1
-       82 LOADN                            R17 0
-       83 LOADN                            R18 0
-       84 LOADN                            R19 0
-       85 CALL                             R15 4 1
-       86 SETTABLEKS                       R15 R14 K32 ["Size"]
-       88 SETTABLEKS                       R14 R13 K38 ["defaultProps"]
-       90 DUPCLOSURE                       R14 K39 [PROTO_3]
-       91 CAPTURE                          VAL R10
+       72 DUPTABLE                         R14 K35 [{["ItemMinWidth"] = 0, ["MaxRowCount"] = ∞, ["Size"]}]
+       73 GETIMPORT                        R15 K38 [UDim2.new]
+       75 LOADN                            R16 1
+       76 LOADN                            R17 0
+       77 LOADN                            R18 0
+       78 LOADN                            R19 0
+       79 CALL                             R15 4 1
+       80 SETTABLEKS                       R15 R14 K34 ["Size"]
+       82 SETTABLEKS                       R14 R13 K39 ["defaultProps"]
+       84 DUPCLOSURE                       R14 K40 [PROTO_3]
+       85 CAPTURE                          VAL R10
+       86 CAPTURE                          VAL R4
+       87 CAPTURE                          VAL R11
+       88 CAPTURE                          VAL R1
+       89 SETTABLEKS                       R14 R13 K41 ["init"]
+       91 DUPCLOSURE                       R14 K42 [PROTO_4]
        92 CAPTURE                          VAL R4
-       93 CAPTURE                          VAL R11
-       94 CAPTURE                          VAL R1
-       95 SETTABLEKS                       R14 R13 K40 ["init"]
-       97 DUPCLOSURE                       R14 K41 [PROTO_4]
-       98 CAPTURE                          VAL R4
-       99 CAPTURE                          VAL R8
-      100 CAPTURE                          VAL R6
-      101 SETTABLEKS                       R14 R13 K42 ["render"]
-      103 MOVE                             R14 R12
-      104 DUPTABLE                         R15 K44 [{"Stylizer"}]
-      105 GETTABLEKS                       R16 R5 K43 ["Stylizer"]
-      107 SETTABLEKS                       R16 R15 K43 ["Stylizer"]
-      109 CALL                             R14 1 1
-      110 MOVE                             R15 R13
-      111 CALL                             R14 1 1
-      112 MOVE                             R13 R14
-      113 MOVE                             R14 R9
-      114 MOVE                             R15 R13
-      115 CALL                             R14 1 -1
-      116 RETURN                           R14 -1
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R6
+       95 SETTABLEKS                       R14 R13 K43 ["render"]
+       97 MOVE                             R14 R12
+       98 DUPTABLE                         R15 K45 [{"Stylizer"}]
+       99 GETTABLEKS                       R16 R5 K44 ["Stylizer"]
+      101 SETTABLEKS                       R16 R15 K44 ["Stylizer"]
+      103 CALL                             R14 1 1
+      104 MOVE                             R15 R13
+      105 CALL                             R14 1 1
+      106 MOVE                             R13 R14
+      107 MOVE                             R14 R9
+      108 MOVE                             R15 R13
+      109 CALL                             R14 1 -1
+      110 RETURN                           R14 -1

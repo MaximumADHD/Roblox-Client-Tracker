@@ -22,31 +22,29 @@ PROTO_0:
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"text"}]
         1 SETTABLEKS                       R0 R1 K0 ["text"]
-        3 DUPTABLE                         R2 K5 [{"Method", "Url", "Headers"}]
-        4 LOADK                            R3 K6 ["GET"]
-        5 SETTABLEKS                       R3 R2 K2 ["Method"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K7 ["composeUrl"]
-       10 GETUPVAL                         R4 0
-       11 GETTABLEKS                       R4 R4 K8 ["APIS_URL"]
-       13 LOADK                            R5 K9 ["place-version-history-api/v1/notes/validate"]
-       14 MOVE                             R6 R1
-       15 CALL                             R3 3 1
-       16 SETTABLEKS                       R3 R2 K3 ["Url"]
-       18 NEWTABLE                         R3 1 0
-       20 LOADK                            R4 K10 ["application/json"]
-       21 SETTABLEKS                       R4 R3 K11 ["Content-Type"]
-       23 SETTABLEKS                       R3 R2 K4 ["Headers"]
-       25 GETUPVAL                         R3 1
-       26 GETTABLEKS                       R3 R3 K12 ["Request"]
-       28 MOVE                             R4 R2
-       29 CALL                             R3 1 1
-       30 DUPCLOSURE                       R5 K13 [PROTO_0]
-       31 CAPTURE                          UPVAL U2
-       32 CAPTURE                          UPVAL U3
-       33 NAMECALL                         R3 R3 K14 ["andThen"]
-       35 CALL                             R3 2 -1
-       36 RETURN                           R3 -1
+        3 DUPTABLE                         R2 K6 [{["Method"] = "GET", ["Url"], ["Headers"]}]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K7 ["composeUrl"]
+        7 GETUPVAL                         R4 0
+        8 GETTABLEKS                       R4 R4 K8 ["APIS_URL"]
+       10 LOADK                            R5 K9 ["place-version-history-api/v1/notes/validate"]
+       11 MOVE                             R6 R1
+       12 CALL                             R3 3 1
+       13 SETTABLEKS                       R3 R2 K4 ["Url"]
+       15 NEWTABLE                         R3 1 0
+       17 LOADK                            R4 K10 ["application/json"]
+       18 SETTABLEKS                       R4 R3 K11 ["Content-Type"]
+       20 SETTABLEKS                       R3 R2 K5 ["Headers"]
+       22 GETUPVAL                         R3 1
+       23 GETTABLEKS                       R3 R3 K12 ["Request"]
+       25 MOVE                             R4 R2
+       26 CALL                             R3 1 1
+       27 DUPCLOSURE                       R5 K13 [PROTO_0]
+       28 CAPTURE                          UPVAL U2
+       29 CAPTURE                          UPVAL U3
+       30 NAMECALL                         R3 R3 K14 ["andThen"]
+       32 CALL                             R3 2 -1
+       33 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

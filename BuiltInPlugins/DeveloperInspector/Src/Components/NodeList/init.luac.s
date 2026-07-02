@@ -164,36 +164,32 @@ PROTO_7:
        18 GETUPVAL                         R5 1
        19 GETTABLEKS                       R5 R5 K4 ["createElement"]
        21 GETUPVAL                         R6 3
-       22 DUPTABLE                         R7 K8 [{"Padding", "Size", "Style"}]
+       22 DUPTABLE                         R7 K9 [{["Padding"], ["Size"], ["Style"] = "BorderBox"}]
        23 GETTABLEKS                       R8 R2 K5 ["Padding"]
        25 SETTABLEKS                       R8 R7 K5 ["Padding"]
        27 GETTABLEKS                       R8 R1 K6 ["Size"]
        29 SETTABLEKS                       R8 R7 K6 ["Size"]
-       31 LOADK                            R8 K9 ["BorderBox"]
-       32 SETTABLEKS                       R8 R7 K7 ["Style"]
-       34 DUPTABLE                         R8 K11 [{"ScrollingFrame"}]
-       35 GETUPVAL                         R9 1
-       36 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       38 GETUPVAL                         R10 4
-       39 DUPTABLE                         R11 K14 [{"Size", "Style", "AutoSizeCanvas", "AutoSizeLayoutOptions"}]
-       40 GETIMPORT                        R12 K17 [UDim2.fromScale]
-       42 LOADN                            R13 1
-       43 LOADN                            R14 1
-       44 CALL                             R12 2 1
-       45 SETTABLEKS                       R12 R11 K6 ["Size"]
-       47 GETTABLEKS                       R12 R2 K10 ["ScrollingFrame"]
-       49 SETTABLEKS                       R12 R11 K7 ["Style"]
-       51 LOADB                            R12 1
-       52 SETTABLEKS                       R12 R11 K12 ["AutoSizeCanvas"]
-       54 DUPTABLE                         R12 K19 [{"SortOrder"}]
-       55 GETIMPORT                        R13 K22 [Enum.SortOrder.LayoutOrder]
-       57 SETTABLEKS                       R13 R12 K18 ["SortOrder"]
-       59 SETTABLEKS                       R12 R11 K13 ["AutoSizeLayoutOptions"]
-       61 MOVE                             R12 R4
-       62 CALL                             R9 3 1
-       63 SETTABLEKS                       R9 R8 K10 ["ScrollingFrame"]
-       65 CALL                             R5 3 -1
-       66 RETURN                           R5 -1
+       31 DUPTABLE                         R8 K11 [{"ScrollingFrame"}]
+       32 GETUPVAL                         R9 1
+       33 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       35 GETUPVAL                         R10 4
+       36 DUPTABLE                         R11 K15 [{["Size"], ["Style"], ["AutoSizeCanvas"] = True, ["AutoSizeLayoutOptions"]}]
+       37 GETIMPORT                        R12 K18 [UDim2.fromScale]
+       39 LOADN                            R13 1
+       40 LOADN                            R14 1
+       41 CALL                             R12 2 1
+       42 SETTABLEKS                       R12 R11 K6 ["Size"]
+       44 GETTABLEKS                       R12 R2 K10 ["ScrollingFrame"]
+       46 SETTABLEKS                       R12 R11 K7 ["Style"]
+       48 DUPTABLE                         R12 K20 [{"SortOrder"}]
+       49 GETIMPORT                        R13 K23 [Enum.SortOrder.LayoutOrder]
+       51 SETTABLEKS                       R13 R12 K19 ["SortOrder"]
+       53 SETTABLEKS                       R12 R11 K14 ["AutoSizeLayoutOptions"]
+       55 MOVE                             R12 R4
+       56 CALL                             R9 3 1
+       57 SETTABLEKS                       R9 R8 K10 ["ScrollingFrame"]
+       59 CALL                             R5 3 -1
+       60 RETURN                           R5 -1
 
 PROTO_8:
         0 DUPTABLE                         R2 K4 [{"Flash", "Nodes", "SelectedPath", "SelectedIndex"}]

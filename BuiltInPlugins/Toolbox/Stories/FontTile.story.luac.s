@@ -90,15 +90,11 @@ MAIN:
        41 LOADK                            R6 K16 [11322590111]
        42 LOADK                            R7 K17 ["Roboto"]
        43 CALL                             R5 2 1
-       44 DUPTABLE                         R6 K21 [{"name", "summary", "story"}]
-       45 LOADK                            R7 K8 ["FontTile"]
-       46 SETTABLEKS                       R7 R6 K18 ["name"]
-       48 LOADK                            R7 K22 ["A FontTile component used in the grid view"]
-       49 SETTABLEKS                       R7 R6 K19 ["summary"]
-       51 DUPCLOSURE                       R7 K23 [PROTO_0]
-       52 CAPTURE                          VAL R3
-       53 CAPTURE                          VAL R4
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          VAL R5
-       56 SETTABLEKS                       R7 R6 K20 ["story"]
-       58 RETURN                           R6 1
+       44 DUPTABLE                         R6 K22 [{["name"] = "FontTile", ["summary"] = "A FontTile component used in the grid view", ["story"]}]
+       45 DUPCLOSURE                       R7 K23 [PROTO_0]
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R5
+       50 SETTABLEKS                       R7 R6 K21 ["story"]
+       52 RETURN                           R6 1

@@ -161,58 +161,56 @@ PROTO_6:
       132 GETIMPORT                        R16 K36 [assert]
       134 CALL                             R16 1 0
       135 SETTABLEKS                       R14 R6 K33 ["_emptyTool"]
-      137 JUMP                             ; [+53]
+      137 JUMP                             ; [+50]
       138 GETTABLE                         R16 R7 R15
-      139 JUMPIF                           R16 ; [+30]
+      139 JUMPIF                           R16 ; [+27]
       140 LENGTH                           R17 R8
       141 ADDK                             R16 R17 K37 [1]
-      142 DUPTABLE                         R19 K43 [{"Key", "Label", "ToolIndex", "ToolRegistry", "Toolbar"}]
+      142 DUPTABLE                         R19 K43 [{["Key"], ["Label"], ["ToolIndex"] = 1, ["ToolRegistry"], ["Toolbar"]}]
       143 SETTABLEKS                       R16 R19 K38 ["Key"]
       145 LOADK                            R22 K44 ["Tabs"]
       146 MOVE                             R23 R15
       147 NAMECALL                         R20 R3 K45 ["getText"]
       149 CALL                             R20 3 1
       150 SETTABLEKS                       R20 R19 K39 ["Label"]
-      152 LOADN                            R20 1
-      153 SETTABLEKS                       R20 R19 K40 ["ToolIndex"]
-      155 NEWTABLE                         R20 0 0
-      157 SETTABLEKS                       R20 R19 K41 ["ToolRegistry"]
-      159 NEWTABLE                         R20 0 0
-      161 SETTABLEKS                       R20 R19 K42 ["Toolbar"]
-      163 FASTCALL2                        TABLE_INSERT R8 R19 ; [+4]
-      165 MOVE                             R18 R8
-      166 GETIMPORT                        R17 K48 [table.insert]
-      168 CALL                             R17 2 0
-      169 SETTABLE                         R16 R7 R15
-      170 GETTABLE                         R18 R7 R15
-      171 GETTABLE                         R17 R8 R18
-      172 GETTABLEKS                       R17 R17 K41 ["ToolRegistry"]
-      174 FASTCALL2                        TABLE_INSERT R17 R14 ; [+4]
-      176 MOVE                             R18 R14
-      177 GETIMPORT                        R16 K48 [table.insert]
-      179 CALL                             R16 2 0
-      180 GETTABLE                         R18 R7 R15
-      181 GETTABLE                         R17 R8 R18
-      182 GETTABLEKS                       R17 R17 K42 ["Toolbar"]
-      184 NAMECALL                         R18 R14 K49 ["getTile"]
-      186 CALL                             R18 1 -1
-      187 FASTCALL                         TABLE_INSERT ; [+2]
-      188 GETIMPORT                        R16 K48 [table.insert]
-      190 CALL                             R16 -1 0
-      191 FORGLOOP                         R9 2 ; [-157]
-      193 SETTABLEKS                       R7 R6 K50 ["_tabRegistry"]
-      195 SETTABLEKS                       R8 R6 K51 ["_tabs"]
-      197 LOADN                            R9 1
-      198 SETTABLEKS                       R9 R6 K52 ["_tabIndex"]
-      200 LOADB                            R9 1
-      201 SETTABLEKS                       R9 R6 K53 ["_useEmptyTool"]
-      203 GETTABLEKS                       R9 R0 K54 ["Activation"]
-      205 NEWCLOSURE                       R11 P3
-      206 CAPTURE                          VAL R6
-      207 NAMECALL                         R9 R9 K55 ["Connect"]
-      209 CALL                             R9 2 1
-      210 SETTABLEKS                       R9 R6 K56 ["_focusedConnection"]
-      212 RETURN                           R6 1
+      152 NEWTABLE                         R20 0 0
+      154 SETTABLEKS                       R20 R19 K41 ["ToolRegistry"]
+      156 NEWTABLE                         R20 0 0
+      158 SETTABLEKS                       R20 R19 K42 ["Toolbar"]
+      160 FASTCALL2                        TABLE_INSERT R8 R19 ; [+4]
+      162 MOVE                             R18 R8
+      163 GETIMPORT                        R17 K48 [table.insert]
+      165 CALL                             R17 2 0
+      166 SETTABLE                         R16 R7 R15
+      167 GETTABLE                         R18 R7 R15
+      168 GETTABLE                         R17 R8 R18
+      169 GETTABLEKS                       R17 R17 K41 ["ToolRegistry"]
+      171 FASTCALL2                        TABLE_INSERT R17 R14 ; [+4]
+      173 MOVE                             R18 R14
+      174 GETIMPORT                        R16 K48 [table.insert]
+      176 CALL                             R16 2 0
+      177 GETTABLE                         R18 R7 R15
+      178 GETTABLE                         R17 R8 R18
+      179 GETTABLEKS                       R17 R17 K42 ["Toolbar"]
+      181 NAMECALL                         R18 R14 K49 ["getTile"]
+      183 CALL                             R18 1 -1
+      184 FASTCALL                         TABLE_INSERT ; [+2]
+      185 GETIMPORT                        R16 K48 [table.insert]
+      187 CALL                             R16 -1 0
+      188 FORGLOOP                         R9 2 ; [-154]
+      190 SETTABLEKS                       R7 R6 K50 ["_tabRegistry"]
+      192 SETTABLEKS                       R8 R6 K51 ["_tabs"]
+      194 LOADN                            R9 1
+      195 SETTABLEKS                       R9 R6 K52 ["_tabIndex"]
+      197 LOADB                            R9 1
+      198 SETTABLEKS                       R9 R6 K53 ["_useEmptyTool"]
+      200 GETTABLEKS                       R9 R0 K54 ["Activation"]
+      202 NEWCLOSURE                       R11 P3
+      203 CAPTURE                          VAL R6
+      204 NAMECALL                         R9 R9 K55 ["Connect"]
+      206 CALL                             R9 2 1
+      207 SETTABLEKS                       R9 R6 K56 ["_focusedConnection"]
+      209 RETURN                           R6 1
 
 PROTO_7:
         0 GETUPVAL                         R5 0
@@ -268,7 +266,7 @@ PROTO_11:
 PROTO_12:
         0 GETTABLEKS                       R2 R0 K0 ["_useEmptyTool"]
         2 JUMPIFNOT                        R2 ; [+2]
-        3 LOADN                            R1 255
+        3 LOADN                            R1 -1
         4 RETURN                           R1 1
         5 GETTABLEKS                       R2 R0 K1 ["_tabs"]
         7 GETTABLEKS                       R3 R0 K2 ["_tabIndex"]
@@ -320,7 +318,7 @@ PROTO_14:
        36 NAMECALL                         R3 R3 K9 ["activate"]
        38 CALL                             R3 1 0
        39 GETTABLEKS                       R3 R0 K10 ["OnToolIndexChanged"]
-       41 LOADN                            R5 255
+       41 LOADN                            R5 -1
        42 NAMECALL                         R3 R3 K11 ["Fire"]
        44 CALL                             R3 2 0
        45 GETTABLEKS                       R3 R0 K12 ["OnToolChanged"]
@@ -388,7 +386,7 @@ PROTO_15:
        40 GETTABLEKS                       R3 R0 K2 ["_useEmptyTool"]
        42 JUMPIFNOT                        R3 ; [+14]
        43 GETTABLEKS                       R3 R0 K9 ["OnToolIndexChanged"]
-       45 LOADN                            R5 255
+       45 LOADN                            R5 -1
        46 NAMECALL                         R3 R3 K8 ["Fire"]
        48 CALL                             R3 2 0
        49 GETTABLEKS                       R3 R0 K10 ["OnToolChanged"]
@@ -429,7 +427,7 @@ PROTO_16:
        29 NAMECALL                         R4 R4 K7 ["activate"]
        31 CALL                             R4 1 0
        32 GETTABLEKS                       R4 R0 K8 ["OnToolIndexChanged"]
-       34 LOADN                            R6 255
+       34 LOADN                            R6 -1
        35 NAMECALL                         R4 R4 K9 ["Fire"]
        37 CALL                             R4 2 0
        38 GETTABLEKS                       R4 R0 K10 ["OnToolChanged"]

@@ -28,12 +28,6 @@ MAIN:
        41 LOADN                            R6 3
        42 SETTABLE                         R6 R4 R5
        43 SETTABLEKS                       R4 R3 K9 ["LAYER_TABS"]
-       45 DUPTABLE                         R4 K19 [{"Manual", "HistoryIcon", "NoData"}]
-       46 LOADN                            R5 0
-       47 SETTABLEKS                       R5 R4 K16 ["Manual"]
-       49 LOADN                            R5 1
-       50 SETTABLEKS                       R5 R4 K17 ["HistoryIcon"]
-       52 LOADN                            R5 2
-       53 SETTABLEKS                       R5 R4 K18 ["NoData"]
-       55 SETTABLEKS                       R4 R3 K10 ["TAB_SWITCH_REASONS"]
-       57 RETURN                           R3 1
+       45 DUPTABLE                         R4 K22 [{["Manual"] = 0, ["HistoryIcon"] = 1, ["NoData"] = 2}]
+       46 SETTABLEKS                       R4 R3 K10 ["TAB_SWITCH_REASONS"]
+       48 RETURN                           R3 1

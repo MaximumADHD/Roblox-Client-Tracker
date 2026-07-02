@@ -60,14 +60,10 @@ PROTO_4:
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"MemStoragePair"}]
-        7 DUPTABLE                         R5 K6 [{"Key", "Value"}]
-        8 LOADK                            R6 K7 [""]
-        9 SETTABLEKS                       R6 R5 K4 ["Key"]
-       11 LOADK                            R6 K7 [""]
-       12 SETTABLEKS                       R6 R5 K5 ["Value"]
-       14 SETTABLEKS                       R5 R4 K2 ["MemStoragePair"]
-       16 CALL                             R2 2 -1
-       17 RETURN                           R2 -1
+        7 DUPTABLE                         R5 K7 [{["Key"] = "", ["Value"] = ""}]
+        8 SETTABLEKS                       R5 R4 K2 ["MemStoragePair"]
+       10 CALL                             R2 2 -1
+       11 RETURN                           R2 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -75,16 +71,10 @@ PROTO_5:
         3 GETTABLEKS                       R2 R2 K1 ["join"]
         5 MOVE                             R3 R0
         6 DUPTABLE                         R4 K3 [{"Parameters"}]
-        7 DUPTABLE                         R5 K7 [{"Detail", "Namespace", "DetailType"}]
-        8 LOADK                            R6 K8 [""]
-        9 SETTABLEKS                       R6 R5 K4 ["Detail"]
-       11 LOADK                            R6 K8 [""]
-       12 SETTABLEKS                       R6 R5 K5 ["Namespace"]
-       14 LOADK                            R6 K8 [""]
-       15 SETTABLEKS                       R6 R5 K6 ["DetailType"]
-       17 SETTABLEKS                       R5 R4 K2 ["Parameters"]
-       19 CALL                             R2 2 -1
-       20 RETURN                           R2 -1
+        7 DUPTABLE                         R5 K8 [{["Detail"] = "", ["Namespace"] = "", ["DetailType"] = ""}]
+        8 SETTABLEKS                       R5 R4 K2 ["Parameters"]
+       10 CALL                             R2 2 -1
+       11 RETURN                           R2 -1
 
 PROTO_6:
         0 GETUPVAL                         R2 0
@@ -141,55 +131,43 @@ MAIN:
        70 GETTABLEKS                       R13 R5 K19 ["ChangeCurrentEventName"]
        72 CALL                             R12 1 1
        73 GETTABLEKS                       R13 R1 K20 ["createReducer"]
-       75 DUPTABLE                         R14 K26 [{"ActiveView", "Parameters", "ThemeName", "MemStoragePair", "CurrentEventName"}]
-       76 GETTABLEKS                       R15 R4 K27 ["RBXEvent"]
+       75 DUPTABLE                         R14 K27 [{["ActiveView"], ["Parameters"], ["ThemeName"] = "dark", ["MemStoragePair"], ["CurrentEventName"]}]
+       76 GETTABLEKS                       R15 R4 K28 ["RBXEvent"]
        78 SETTABLEKS                       R15 R14 K21 ["ActiveView"]
-       80 DUPTABLE                         R15 K31 [{"Namespace", "Detail", "DetailType"}]
-       81 LOADK                            R16 K32 ["UpdateNotificationBadge"]
-       82 SETTABLEKS                       R16 R15 K28 ["Namespace"]
-       84 LOADK                            R16 K33 ["{\"badgeString\": \"1\"}"]
-       85 SETTABLEKS                       R16 R15 K29 ["Detail"]
-       87 LOADK                            R16 K34 ["NotificationIcon"]
-       88 SETTABLEKS                       R16 R15 K30 ["DetailType"]
-       90 SETTABLEKS                       R15 R14 K22 ["Parameters"]
-       92 LOADK                            R15 K35 ["dark"]
-       93 SETTABLEKS                       R15 R14 K23 ["ThemeName"]
-       95 DUPTABLE                         R15 K38 [{"Key", "Value"}]
-       96 LOADK                            R16 K39 ["ThemeUpdate"]
-       97 SETTABLEKS                       R16 R15 K36 ["Key"]
-       99 LOADK                            R16 K35 ["dark"]
-      100 SETTABLEKS                       R16 R15 K37 ["Value"]
-      102 SETTABLEKS                       R15 R14 K24 ["MemStoragePair"]
-      104 GETTABLEKS                       R15 R4 K27 ["RBXEvent"]
-      106 SETTABLEKS                       R15 R14 K25 ["CurrentEventName"]
-      108 NEWTABLE                         R15 8 0
-      110 GETTABLEKS                       R16 R6 K40 ["name"]
-      112 DUPCLOSURE                       R17 K41 [PROTO_0]
-      113 CAPTURE                          VAL R2
-      114 SETTABLE                         R17 R15 R16
-      115 GETTABLEKS                       R16 R7 K40 ["name"]
-      117 DUPCLOSURE                       R17 K42 [PROTO_1]
-      118 CAPTURE                          VAL R2
-      119 SETTABLE                         R17 R15 R16
-      120 GETTABLEKS                       R16 R8 K40 ["name"]
-      122 DUPCLOSURE                       R17 K43 [PROTO_2]
-      123 CAPTURE                          VAL R2
-      124 SETTABLE                         R17 R15 R16
-      125 GETTABLEKS                       R16 R9 K40 ["name"]
-      127 DUPCLOSURE                       R17 K44 [PROTO_3]
-      128 CAPTURE                          VAL R2
-      129 SETTABLE                         R17 R15 R16
-      130 GETTABLEKS                       R16 R10 K40 ["name"]
-      132 DUPCLOSURE                       R17 K45 [PROTO_4]
-      133 CAPTURE                          VAL R2
-      134 SETTABLE                         R17 R15 R16
-      135 GETTABLEKS                       R16 R11 K40 ["name"]
-      137 DUPCLOSURE                       R17 K46 [PROTO_5]
-      138 CAPTURE                          VAL R2
-      139 SETTABLE                         R17 R15 R16
-      140 GETTABLEKS                       R16 R12 K40 ["name"]
-      142 DUPCLOSURE                       R17 K47 [PROTO_6]
-      143 CAPTURE                          VAL R2
-      144 SETTABLE                         R17 R15 R16
-      145 CALL                             R13 2 -1
-      146 RETURN                           R13 -1
+       80 DUPTABLE                         R15 K35 [{["Namespace"] = "UpdateNotificationBadge", ["Detail"] = "{\"badgeString\": \"1\"}", ["DetailType"] = "NotificationIcon"}]
+       81 SETTABLEKS                       R15 R14 K22 ["Parameters"]
+       83 DUPTABLE                         R15 K39 [{["Key"] = "ThemeUpdate", ["Value"] = "dark"}]
+       84 SETTABLEKS                       R15 R14 K25 ["MemStoragePair"]
+       86 GETTABLEKS                       R15 R4 K28 ["RBXEvent"]
+       88 SETTABLEKS                       R15 R14 K26 ["CurrentEventName"]
+       90 NEWTABLE                         R15 8 0
+       92 GETTABLEKS                       R16 R6 K40 ["name"]
+       94 DUPCLOSURE                       R17 K41 [PROTO_0]
+       95 CAPTURE                          VAL R2
+       96 SETTABLE                         R17 R15 R16
+       97 GETTABLEKS                       R16 R7 K40 ["name"]
+       99 DUPCLOSURE                       R17 K42 [PROTO_1]
+      100 CAPTURE                          VAL R2
+      101 SETTABLE                         R17 R15 R16
+      102 GETTABLEKS                       R16 R8 K40 ["name"]
+      104 DUPCLOSURE                       R17 K43 [PROTO_2]
+      105 CAPTURE                          VAL R2
+      106 SETTABLE                         R17 R15 R16
+      107 GETTABLEKS                       R16 R9 K40 ["name"]
+      109 DUPCLOSURE                       R17 K44 [PROTO_3]
+      110 CAPTURE                          VAL R2
+      111 SETTABLE                         R17 R15 R16
+      112 GETTABLEKS                       R16 R10 K40 ["name"]
+      114 DUPCLOSURE                       R17 K45 [PROTO_4]
+      115 CAPTURE                          VAL R2
+      116 SETTABLE                         R17 R15 R16
+      117 GETTABLEKS                       R16 R11 K40 ["name"]
+      119 DUPCLOSURE                       R17 K46 [PROTO_5]
+      120 CAPTURE                          VAL R2
+      121 SETTABLE                         R17 R15 R16
+      122 GETTABLEKS                       R16 R12 K40 ["name"]
+      124 DUPCLOSURE                       R17 K47 [PROTO_6]
+      125 CAPTURE                          VAL R2
+      126 SETTABLE                         R17 R15 R16
+      127 CALL                             R13 2 -1
+      128 RETURN                           R13 -1

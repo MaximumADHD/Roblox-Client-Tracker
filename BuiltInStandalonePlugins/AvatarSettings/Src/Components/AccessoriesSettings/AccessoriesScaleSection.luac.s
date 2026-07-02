@@ -156,162 +156,152 @@ PROTO_5:
       116 LOADB                            R11 1
       117 GETUPVAL                         R12 8
       118 GETUPVAL                         R13 9
-      119 DUPTABLE                         R14 K33 [{"text", "layoutOrder", "showWarning"}]
+      119 DUPTABLE                         R14 K34 [{["text"], ["layoutOrder"], ["showWarning"] = True}]
       120 LOADK                            R17 K13 ["AccessoriesSettings"]
-      121 LOADK                            R18 K34 ["AccessoryScaleSection"]
+      121 LOADK                            R18 K35 ["AccessoryScaleSection"]
       122 NAMECALL                         R15 R1 K15 ["getText"]
       124 CALL                             R15 3 1
       125 SETTABLEKS                       R15 R14 K30 ["text"]
       127 GETTABLEKS                       R15 R0 K31 ["layoutOrder"]
       129 SETTABLEKS                       R15 R14 K31 ["layoutOrder"]
-      131 LOADB                            R15 1
-      132 SETTABLEKS                       R15 R14 K32 ["showWarning"]
-      134 DUPTABLE                         R15 K39 [{"UIListLayout", "AccessoryScaleModeSelector", "LimitMethodTitleFrame", "LimitBoundsTitleFrame"}]
-      135 GETUPVAL                         R16 8
-      136 LOADK                            R17 K35 ["UIListLayout"]
-      137 DUPTABLE                         R18 K41 [{"Padding"}]
-      138 GETIMPORT                        R19 K25 [UDim.new]
-      140 LOADN                            R20 0
-      141 LOADN                            R21 12
-      142 CALL                             R19 2 1
-      143 SETTABLEKS                       R19 R18 K40 ["Padding"]
-      145 CALL                             R16 2 1
-      146 SETTABLEKS                       R16 R15 K35 ["UIListLayout"]
-      148 GETUPVAL                         R16 8
-      149 GETUPVAL                         R17 10
-      150 DUPTABLE                         R18 K46 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
-      151 MOVE                             R19 R3
-      152 CALL                             R19 0 1
-      153 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
-      155 SETTABLEKS                       R5 R18 K42 ["items"]
-      157 SETTABLEKS                       R7 R18 K43 ["selected"]
-      159 NEWCLOSURE                       R19 P2
-      160 CAPTURE                          VAL R7
-      161 CAPTURE                          VAL R2
-      162 CAPTURE                          VAL R6
-      163 SETTABLEKS                       R19 R18 K44 ["onItemActivated"]
-      165 LOADK                            R21 K13 ["AccessoriesSettings"]
-      166 GETIMPORT                        R23 K12 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
-      168 JUMPIFNOTEQ                      R7 R23 ; [+3]
-      170 LOADK                            R22 K47 ["AccessoryScaleSectionPlayerChoiceSubText"]
-      171 JUMP                             ; [+1]
-      172 LOADK                            R22 K48 ["AccessoryScaleSectionCustomLimitSubText"]
-      173 NAMECALL                         R19 R1 K15 ["getText"]
-      175 CALL                             R19 3 1
-      176 SETTABLEKS                       R19 R18 K45 ["subText"]
-      178 CALL                             R16 2 1
-      179 SETTABLEKS                       R16 R15 K36 ["AccessoryScaleModeSelector"]
-      181 MOVE                             R16 R11
-      182 JUMPIFNOT                        R16 ; [+90]
-      183 GETUPVAL                         R16 8
-      184 GETUPVAL                         R17 11
-      185 DUPTABLE                         R18 K52 [{"layoutOrder", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
-      186 MOVE                             R19 R3
-      187 CALL                             R19 0 1
-      188 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
-      190 GETIMPORT                        R19 K25 [UDim.new]
-      192 LOADN                            R20 0
-      193 LOADN                            R21 4
-      194 CALL                             R19 2 1
-      195 SETTABLEKS                       R19 R18 K49 ["separation"]
-      197 LOADK                            R19 K53 ["AvatarSettings-LeftTextPrimary"]
-      198 SETTABLEKS                       R19 R18 K50 ["textLabelTags"]
-      200 SETTABLEKS                       R9 R18 K51 ["minTextLabelWidth"]
-      202 LOADK                            R21 K13 ["AccessoriesSettings"]
-      203 LOADK                            R22 K54 ["AccessoryScaleSectionLimitMethod"]
-      204 NAMECALL                         R19 R1 K15 ["getText"]
-      206 CALL                             R19 3 1
-      207 SETTABLEKS                       R19 R18 K30 ["text"]
-      209 DUPTABLE                         R19 K56 [{"LimitMethodSelectInput"}]
-      210 GETUPVAL                         R20 8
-      211 GETUPVAL                         R21 12
-      212 DUPTABLE                         R22 K64 [{"PlaceholderText", "Items", "Size", "OnRenderItem", "UseAutoWidth", "SelectedId", "OnItemActivated"}]
-      213 LOADK                            R23 K65 ["Remove"]
-      214 SETTABLEKS                       R23 R22 K57 ["PlaceholderText"]
-      216 NEWTABLE                         R23 0 2
-      218 DUPTABLE                         R24 K8 [{"Id", "Label"}]
-      219 GETIMPORT                        R25 K68 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
-      221 SETTABLEKS                       R25 R24 K6 ["Id"]
-      223 LOADK                            R27 K13 ["AccessoriesSettings"]
-      224 LOADK                            R28 K69 ["AccessoryScaleSectionLimitMethodScale"]
-      225 NAMECALL                         R25 R1 K15 ["getText"]
-      227 CALL                             R25 3 1
-      228 SETTABLEKS                       R25 R24 K7 ["Label"]
-      230 DUPTABLE                         R25 K8 [{"Id", "Label"}]
-      231 GETIMPORT                        R26 K70 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
-      233 SETTABLEKS                       R26 R25 K6 ["Id"]
-      235 LOADK                            R28 K13 ["AccessoriesSettings"]
-      236 LOADK                            R29 K71 ["AccessoryScaleSectionLimitMethodRemove"]
-      237 NAMECALL                         R26 R1 K15 ["getText"]
-      239 CALL                             R26 3 1
-      240 SETTABLEKS                       R26 R25 K7 ["Label"]
-      242 SETLIST                          R23 R24 2 [1]
-      244 SETTABLEKS                       R23 R22 K58 ["Items"]
-      246 GETIMPORT                        R23 K74 [UDim2.fromOffset]
-      248 LOADN                            R24 128
-      249 GETUPVAL                         R25 5
-      250 GETTABLEKS                       R25 R25 K75 ["STANDARD_HEIGHT"]
-      252 CALL                             R23 2 1
-      253 SETTABLEKS                       R23 R22 K59 ["Size"]
-      255 GETUPVAL                         R23 13
-      256 SETTABLEKS                       R23 R22 K60 ["OnRenderItem"]
-      258 LOADB                            R23 1
-      259 SETTABLEKS                       R23 R22 K61 ["UseAutoWidth"]
-      261 SETTABLEKS                       R8 R22 K62 ["SelectedId"]
-      263 NEWCLOSURE                       R23 P3
-      264 CAPTURE                          VAL R8
-      265 CAPTURE                          VAL R2
-      266 CAPTURE                          VAL R6
-      267 SETTABLEKS                       R23 R22 K63 ["OnItemActivated"]
-      269 CALL                             R20 2 1
-      270 SETTABLEKS                       R20 R19 K55 ["LimitMethodSelectInput"]
-      272 CALL                             R16 3 1
-      273 SETTABLEKS                       R16 R15 K37 ["LimitMethodTitleFrame"]
-      275 MOVE                             R16 R11
-      276 JUMPIFNOT                        R16 ; [+57]
-      277 GETUPVAL                         R16 8
-      278 GETUPVAL                         R17 11
-      279 DUPTABLE                         R18 K52 [{"layoutOrder", "separation", "textLabelTags", "minTextLabelWidth", "text"}]
-      280 MOVE                             R19 R3
-      281 CALL                             R19 0 1
-      282 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
-      284 GETIMPORT                        R19 K25 [UDim.new]
-      286 LOADN                            R20 0
-      287 LOADN                            R21 4
-      288 CALL                             R19 2 1
-      289 SETTABLEKS                       R19 R18 K49 ["separation"]
-      291 LOADK                            R19 K53 ["AvatarSettings-LeftTextPrimary"]
-      292 SETTABLEKS                       R19 R18 K50 ["textLabelTags"]
-      294 SETTABLEKS                       R9 R18 K51 ["minTextLabelWidth"]
-      296 LOADK                            R21 K13 ["AccessoriesSettings"]
-      297 LOADK                            R22 K76 ["AccessoryScaleSectionLimitBounds"]
-      298 NAMECALL                         R19 R1 K15 ["getText"]
-      300 CALL                             R19 3 1
-      301 SETTABLEKS                       R19 R18 K30 ["text"]
-      303 DUPTABLE                         R19 K78 [{"Input"}]
-      304 GETUPVAL                         R20 8
-      305 GETUPVAL                         R21 14
-      306 DUPTABLE                         R22 K80 [{"layoutOrder", "value", "setValue", "text"}]
-      307 MOVE                             R23 R3
-      308 CALL                             R23 0 1
-      309 SETTABLEKS                       R23 R22 K31 ["layoutOrder"]
-      311 GETTABLEKS                       R23 R6 K29 ["accessoryScaleLimitBoundsSetting"]
-      313 GETTABLEKS                       R23 R23 K21 ["value"]
-      315 SETTABLEKS                       R23 R22 K21 ["value"]
-      317 GETTABLEKS                       R23 R6 K29 ["accessoryScaleLimitBoundsSetting"]
-      319 GETTABLEKS                       R23 R23 K81 ["set"]
-      321 SETTABLEKS                       R23 R22 K79 ["setValue"]
-      323 LOADK                            R25 K82 ["General"]
-      324 LOADK                            R26 K83 ["PaddingAroundAvatar"]
-      325 NAMECALL                         R23 R1 K15 ["getText"]
-      327 CALL                             R23 3 1
-      328 SETTABLEKS                       R23 R22 K30 ["text"]
-      330 CALL                             R20 2 1
-      331 SETTABLEKS                       R20 R19 K77 ["Input"]
-      333 CALL                             R16 3 1
-      334 SETTABLEKS                       R16 R15 K38 ["LimitBoundsTitleFrame"]
-      336 CALL                             R12 3 -1
-      337 RETURN                           R12 -1
+      131 DUPTABLE                         R15 K40 [{"UIListLayout", "AccessoryScaleModeSelector", "LimitMethodTitleFrame", "LimitBoundsTitleFrame"}]
+      132 GETUPVAL                         R16 8
+      133 LOADK                            R17 K36 ["UIListLayout"]
+      134 DUPTABLE                         R18 K42 [{"Padding"}]
+      135 GETIMPORT                        R19 K25 [UDim.new]
+      137 LOADN                            R20 0
+      138 LOADN                            R21 12
+      139 CALL                             R19 2 1
+      140 SETTABLEKS                       R19 R18 K41 ["Padding"]
+      142 CALL                             R16 2 1
+      143 SETTABLEKS                       R16 R15 K36 ["UIListLayout"]
+      145 GETUPVAL                         R16 8
+      146 GETUPVAL                         R17 10
+      147 DUPTABLE                         R18 K47 [{"layoutOrder", "items", "selected", "onItemActivated", "subText"}]
+      148 MOVE                             R19 R3
+      149 CALL                             R19 0 1
+      150 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
+      152 SETTABLEKS                       R5 R18 K43 ["items"]
+      154 SETTABLEKS                       R7 R18 K44 ["selected"]
+      156 NEWCLOSURE                       R19 P2
+      157 CAPTURE                          VAL R7
+      158 CAPTURE                          VAL R2
+      159 CAPTURE                          VAL R6
+      160 SETTABLEKS                       R19 R18 K45 ["onItemActivated"]
+      162 LOADK                            R21 K13 ["AccessoriesSettings"]
+      163 GETIMPORT                        R23 K12 [Enum.AvatarSettingsAccessoryMode.PlayerChoice]
+      165 JUMPIFNOTEQ                      R7 R23 ; [+3]
+      167 LOADK                            R22 K48 ["AccessoryScaleSectionPlayerChoiceSubText"]
+      168 JUMP                             ; [+1]
+      169 LOADK                            R22 K49 ["AccessoryScaleSectionCustomLimitSubText"]
+      170 NAMECALL                         R19 R1 K15 ["getText"]
+      172 CALL                             R19 3 1
+      173 SETTABLEKS                       R19 R18 K46 ["subText"]
+      175 CALL                             R16 2 1
+      176 SETTABLEKS                       R16 R15 K37 ["AccessoryScaleModeSelector"]
+      178 MOVE                             R16 R11
+      179 JUMPIFNOT                        R16 ; [+81]
+      180 GETUPVAL                         R16 8
+      181 GETUPVAL                         R17 11
+      182 DUPTABLE                         R18 K54 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
+      183 MOVE                             R19 R3
+      184 CALL                             R19 0 1
+      185 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
+      187 GETIMPORT                        R19 K25 [UDim.new]
+      189 LOADN                            R20 0
+      190 LOADN                            R21 4
+      191 CALL                             R19 2 1
+      192 SETTABLEKS                       R19 R18 K50 ["separation"]
+      194 SETTABLEKS                       R9 R18 K53 ["minTextLabelWidth"]
+      196 LOADK                            R21 K13 ["AccessoriesSettings"]
+      197 LOADK                            R22 K55 ["AccessoryScaleSectionLimitMethod"]
+      198 NAMECALL                         R19 R1 K15 ["getText"]
+      200 CALL                             R19 3 1
+      201 SETTABLEKS                       R19 R18 K30 ["text"]
+      203 DUPTABLE                         R19 K57 [{"LimitMethodSelectInput"}]
+      204 GETUPVAL                         R20 8
+      205 GETUPVAL                         R21 12
+      206 DUPTABLE                         R22 K66 [{["PlaceholderText"] = "Remove", ["Items"], ["Size"], ["OnRenderItem"], ["UseAutoWidth"] = True, ["SelectedId"], ["OnItemActivated"]}]
+      207 NEWTABLE                         R23 0 2
+      209 DUPTABLE                         R24 K8 [{"Id", "Label"}]
+      210 GETIMPORT                        R25 K69 [Enum.AvatarSettingsAccessoryLimitMethod.Scale]
+      212 SETTABLEKS                       R25 R24 K6 ["Id"]
+      214 LOADK                            R27 K13 ["AccessoriesSettings"]
+      215 LOADK                            R28 K70 ["AccessoryScaleSectionLimitMethodScale"]
+      216 NAMECALL                         R25 R1 K15 ["getText"]
+      218 CALL                             R25 3 1
+      219 SETTABLEKS                       R25 R24 K7 ["Label"]
+      221 DUPTABLE                         R25 K8 [{"Id", "Label"}]
+      222 GETIMPORT                        R26 K71 [Enum.AvatarSettingsAccessoryLimitMethod.Remove]
+      224 SETTABLEKS                       R26 R25 K6 ["Id"]
+      226 LOADK                            R28 K13 ["AccessoriesSettings"]
+      227 LOADK                            R29 K72 ["AccessoryScaleSectionLimitMethodRemove"]
+      228 NAMECALL                         R26 R1 K15 ["getText"]
+      230 CALL                             R26 3 1
+      231 SETTABLEKS                       R26 R25 K7 ["Label"]
+      233 SETLIST                          R23 R24 2 [1]
+      235 SETTABLEKS                       R23 R22 K60 ["Items"]
+      237 GETIMPORT                        R23 K75 [UDim2.fromOffset]
+      239 LOADN                            R24 128
+      240 GETUPVAL                         R25 5
+      241 GETTABLEKS                       R25 R25 K76 ["STANDARD_HEIGHT"]
+      243 CALL                             R23 2 1
+      244 SETTABLEKS                       R23 R22 K61 ["Size"]
+      246 GETUPVAL                         R23 13
+      247 SETTABLEKS                       R23 R22 K62 ["OnRenderItem"]
+      249 SETTABLEKS                       R8 R22 K64 ["SelectedId"]
+      251 NEWCLOSURE                       R23 P3
+      252 CAPTURE                          VAL R8
+      253 CAPTURE                          VAL R2
+      254 CAPTURE                          VAL R6
+      255 SETTABLEKS                       R23 R22 K65 ["OnItemActivated"]
+      257 CALL                             R20 2 1
+      258 SETTABLEKS                       R20 R19 K56 ["LimitMethodSelectInput"]
+      260 CALL                             R16 3 1
+      261 SETTABLEKS                       R16 R15 K38 ["LimitMethodTitleFrame"]
+      263 MOVE                             R16 R11
+      264 JUMPIFNOT                        R16 ; [+54]
+      265 GETUPVAL                         R16 8
+      266 GETUPVAL                         R17 11
+      267 DUPTABLE                         R18 K54 [{["layoutOrder"], ["separation"], ["textLabelTags"] = "AvatarSettings-LeftTextPrimary", ["minTextLabelWidth"], ["text"]}]
+      268 MOVE                             R19 R3
+      269 CALL                             R19 0 1
+      270 SETTABLEKS                       R19 R18 K31 ["layoutOrder"]
+      272 GETIMPORT                        R19 K25 [UDim.new]
+      274 LOADN                            R20 0
+      275 LOADN                            R21 4
+      276 CALL                             R19 2 1
+      277 SETTABLEKS                       R19 R18 K50 ["separation"]
+      279 SETTABLEKS                       R9 R18 K53 ["minTextLabelWidth"]
+      281 LOADK                            R21 K13 ["AccessoriesSettings"]
+      282 LOADK                            R22 K77 ["AccessoryScaleSectionLimitBounds"]
+      283 NAMECALL                         R19 R1 K15 ["getText"]
+      285 CALL                             R19 3 1
+      286 SETTABLEKS                       R19 R18 K30 ["text"]
+      288 DUPTABLE                         R19 K79 [{"Input"}]
+      289 GETUPVAL                         R20 8
+      290 GETUPVAL                         R21 14
+      291 DUPTABLE                         R22 K81 [{"layoutOrder", "value", "setValue", "text"}]
+      292 MOVE                             R23 R3
+      293 CALL                             R23 0 1
+      294 SETTABLEKS                       R23 R22 K31 ["layoutOrder"]
+      296 GETTABLEKS                       R23 R6 K29 ["accessoryScaleLimitBoundsSetting"]
+      298 GETTABLEKS                       R23 R23 K21 ["value"]
+      300 SETTABLEKS                       R23 R22 K21 ["value"]
+      302 GETTABLEKS                       R23 R6 K29 ["accessoryScaleLimitBoundsSetting"]
+      304 GETTABLEKS                       R23 R23 K82 ["set"]
+      306 SETTABLEKS                       R23 R22 K80 ["setValue"]
+      308 LOADK                            R25 K83 ["General"]
+      309 LOADK                            R26 K84 ["PaddingAroundAvatar"]
+      310 NAMECALL                         R23 R1 K15 ["getText"]
+      312 CALL                             R23 3 1
+      313 SETTABLEKS                       R23 R22 K30 ["text"]
+      315 CALL                             R20 2 1
+      316 SETTABLEKS                       R20 R19 K78 ["Input"]
+      318 CALL                             R16 3 1
+      319 SETTABLEKS                       R16 R15 K39 ["LimitBoundsTitleFrame"]
+      321 CALL                             R12 3 -1
+      322 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -68,44 +68,42 @@ PROTO_1:
        88 GETUPVAL                         R13 3
        89 GETTABLEKS                       R13 R13 K19 ["createElement"]
        91 GETUPVAL                         R14 5
-       92 DUPTABLE                         R15 K32 [{"ZIndex", "Style", "Position", "ControlPoints"}]
-       93 LOADN                            R16 255
-       94 SETTABLEKS                       R16 R15 K28 ["ZIndex"]
-       96 JUMPIFNOT                        R4 ; [+2]
-       97 LOADK                            R16 K33 ["PhantomTangent"]
-       98 JUMP                             ; [+1]
-       99 LOADK                            R16 K34 ["Tangent"]
-      100 SETTABLEKS                       R16 R15 K29 ["Style"]
-      102 GETIMPORT                        R16 K37 [UDim2.fromOffset]
-      104 GETTABLEKS                       R17 R2 K38 ["X"]
-      106 GETTABLEKS                       R18 R2 K39 ["Y"]
-      108 CALL                             R16 2 1
-      109 SETTABLEKS                       R16 R15 K30 ["Position"]
-      111 NEWTABLE                         R16 0 2
-      113 GETUPVAL                         R17 6
-      114 GETIMPORT                        R18 K40 [UDim2.new]
-      116 CALL                             R18 0 1
-      117 GETIMPORT                        R19 K40 [UDim2.new]
-      119 CALL                             R19 0 1
-      120 GETIMPORT                        R20 K40 [UDim2.new]
-      122 CALL                             R20 0 -1
-      123 CALL                             R17 -1 1
-      124 GETUPVAL                         R18 6
-      125 GETIMPORT                        R19 K37 [UDim2.fromOffset]
-      127 GETTABLEKS                       R20 R6 K38 ["X"]
-      129 GETTABLEKS                       R21 R6 K39 ["Y"]
-      131 CALL                             R19 2 1
-      132 GETIMPORT                        R20 K40 [UDim2.new]
-      134 CALL                             R20 0 1
-      135 GETIMPORT                        R21 K40 [UDim2.new]
-      137 CALL                             R21 0 -1
-      138 CALL                             R18 -1 -1
-      139 SETLIST                          R16 R17 -1 [1]
-      141 SETTABLEKS                       R16 R15 K31 ["ControlPoints"]
-      143 CALL                             R13 2 1
-      144 SETTABLE                         R13 R12 R8
-      145 CALL                             R9 3 -1
-      146 RETURN                           R9 -1
+       92 DUPTABLE                         R15 K33 [{["ZIndex"] = -1, ["Style"], ["Position"], ["ControlPoints"]}]
+       93 JUMPIFNOT                        R4 ; [+2]
+       94 LOADK                            R16 K34 ["PhantomTangent"]
+       95 JUMP                             ; [+1]
+       96 LOADK                            R16 K35 ["Tangent"]
+       97 SETTABLEKS                       R16 R15 K30 ["Style"]
+       99 GETIMPORT                        R16 K38 [UDim2.fromOffset]
+      101 GETTABLEKS                       R17 R2 K39 ["X"]
+      103 GETTABLEKS                       R18 R2 K40 ["Y"]
+      105 CALL                             R16 2 1
+      106 SETTABLEKS                       R16 R15 K31 ["Position"]
+      108 NEWTABLE                         R16 0 2
+      110 GETUPVAL                         R17 6
+      111 GETIMPORT                        R18 K41 [UDim2.new]
+      113 CALL                             R18 0 1
+      114 GETIMPORT                        R19 K41 [UDim2.new]
+      116 CALL                             R19 0 1
+      117 GETIMPORT                        R20 K41 [UDim2.new]
+      119 CALL                             R20 0 -1
+      120 CALL                             R17 -1 1
+      121 GETUPVAL                         R18 6
+      122 GETIMPORT                        R19 K38 [UDim2.fromOffset]
+      124 GETTABLEKS                       R20 R6 K39 ["X"]
+      126 GETTABLEKS                       R21 R6 K40 ["Y"]
+      128 CALL                             R19 2 1
+      129 GETIMPORT                        R20 K41 [UDim2.new]
+      131 CALL                             R20 0 1
+      132 GETIMPORT                        R21 K41 [UDim2.new]
+      134 CALL                             R21 0 -1
+      135 CALL                             R18 -1 -1
+      136 SETLIST                          R16 R17 -1 [1]
+      138 SETTABLEKS                       R16 R15 K32 ["ControlPoints"]
+      140 CALL                             R13 2 1
+      141 SETTABLE                         R13 R12 R8
+      142 CALL                             R9 3 -1
+      143 RETURN                           R9 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -256,7 +254,7 @@ PROTO_9:
        38 GETTABLEKS                       R5 R1 K15 ["DeselectedControlPointIndex"]
        40 GETTABLEKS                       R6 R1 K10 ["index"]
        42 JUMPIFNOTEQ                      R5 R6 ; [+3]
-       44 LOADN                            R4 255
+       44 LOADN                            R4 -1
        45 JUMP                             ; [+1]
        46 LOADN                            R4 0
        47 NEWCLOSURE                       R5 P0
@@ -271,49 +269,47 @@ PROTO_9:
        59 GETUPVAL                         R10 2
        60 GETTABLEKS                       R10 R10 K16 ["createElement"]
        62 GETUPVAL                         R11 3
-       63 DUPTABLE                         R12 K35 [{"ZIndex", "AbsolutePosition", "Style", "IsSelected", "FollowCursorOnDrag", "Disabled", "OnDoubleClicked", "OnSelected", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnRightClicked"}]
+       63 DUPTABLE                         R12 K36 [{["ZIndex"], ["AbsolutePosition"], ["Style"], ["IsSelected"], ["FollowCursorOnDrag"] = False, ["Disabled"], ["OnDoubleClicked"], ["OnSelected"], ["OnDeselected"], ["OnDragStart"], ["OnDragMoved"], ["OnDragEnd"], ["OnRightClicked"]}]
        64 SETTABLEKS                       R4 R12 K22 ["ZIndex"]
        66 SETTABLEKS                       R2 R12 K23 ["AbsolutePosition"]
        68 SETTABLEKS                       R3 R12 K24 ["Style"]
-       70 GETTABLEKS                       R13 R1 K36 ["isSelected"]
+       70 GETTABLEKS                       R13 R1 K37 ["isSelected"]
        72 SETTABLEKS                       R13 R12 K25 ["IsSelected"]
-       74 LOADB                            R13 0
-       75 SETTABLEKS                       R13 R12 K26 ["FollowCursorOnDrag"]
-       77 GETTABLEKS                       R13 R1 K27 ["Disabled"]
-       79 SETTABLEKS                       R13 R12 K27 ["Disabled"]
-       81 NEWCLOSURE                       R13 P1
-       82 CAPTURE                          VAL R1
-       83 SETTABLEKS                       R13 R12 K28 ["OnDoubleClicked"]
-       85 NEWCLOSURE                       R13 P2
-       86 CAPTURE                          VAL R1
-       87 SETTABLEKS                       R13 R12 K29 ["OnSelected"]
-       89 NEWCLOSURE                       R13 P3
-       90 CAPTURE                          VAL R1
-       91 SETTABLEKS                       R13 R12 K30 ["OnDeselected"]
-       93 SETTABLEKS                       R5 R12 K31 ["OnDragStart"]
-       95 NEWCLOSURE                       R13 P4
-       96 CAPTURE                          VAL R1
-       97 SETTABLEKS                       R13 R12 K32 ["OnDragMoved"]
-       99 NEWCLOSURE                       R13 P5
-      100 CAPTURE                          VAL R1
-      101 SETTABLEKS                       R13 R12 K33 ["OnDragEnd"]
-      103 NEWCLOSURE                       R13 P6
-      104 CAPTURE                          VAL R1
-      105 SETTABLEKS                       R13 R12 K34 ["OnRightClicked"]
-      107 CALL                             R10 2 1
-      108 SETTABLEKS                       R10 R9 K18 ["Point"]
-      110 LOADK                            R12 K37 ["Left"]
-      111 MOVE                             R13 R2
-      112 NAMECALL                         R10 R0 K38 ["renderTangent"]
-      114 CALL                             R10 3 1
-      115 SETTABLEKS                       R10 R9 K19 ["LeftTangent"]
-      117 LOADK                            R12 K39 ["Right"]
-      118 MOVE                             R13 R2
-      119 NAMECALL                         R10 R0 K38 ["renderTangent"]
-      121 CALL                             R10 3 1
-      122 SETTABLEKS                       R10 R9 K20 ["RightTangent"]
-      124 CALL                             R6 3 -1
-      125 RETURN                           R6 -1
+       74 GETTABLEKS                       R13 R1 K28 ["Disabled"]
+       76 SETTABLEKS                       R13 R12 K28 ["Disabled"]
+       78 NEWCLOSURE                       R13 P1
+       79 CAPTURE                          VAL R1
+       80 SETTABLEKS                       R13 R12 K29 ["OnDoubleClicked"]
+       82 NEWCLOSURE                       R13 P2
+       83 CAPTURE                          VAL R1
+       84 SETTABLEKS                       R13 R12 K30 ["OnSelected"]
+       86 NEWCLOSURE                       R13 P3
+       87 CAPTURE                          VAL R1
+       88 SETTABLEKS                       R13 R12 K31 ["OnDeselected"]
+       90 SETTABLEKS                       R5 R12 K32 ["OnDragStart"]
+       92 NEWCLOSURE                       R13 P4
+       93 CAPTURE                          VAL R1
+       94 SETTABLEKS                       R13 R12 K33 ["OnDragMoved"]
+       96 NEWCLOSURE                       R13 P5
+       97 CAPTURE                          VAL R1
+       98 SETTABLEKS                       R13 R12 K34 ["OnDragEnd"]
+      100 NEWCLOSURE                       R13 P6
+      101 CAPTURE                          VAL R1
+      102 SETTABLEKS                       R13 R12 K35 ["OnRightClicked"]
+      104 CALL                             R10 2 1
+      105 SETTABLEKS                       R10 R9 K18 ["Point"]
+      107 LOADK                            R12 K38 ["Left"]
+      108 MOVE                             R13 R2
+      109 NAMECALL                         R10 R0 K39 ["renderTangent"]
+      111 CALL                             R10 3 1
+      112 SETTABLEKS                       R10 R9 K19 ["LeftTangent"]
+      114 LOADK                            R12 K40 ["Right"]
+      115 MOVE                             R13 R2
+      116 NAMECALL                         R10 R0 K39 ["renderTangent"]
+      118 CALL                             R10 3 1
+      119 SETTABLEKS                       R10 R9 K20 ["RightTangent"]
+      121 CALL                             R6 3 -1
+      122 RETURN                           R6 -1
 
 PROTO_10:
         0 DUPTABLE                         R2 K9 [{"Path2DToolMode", "AddPointSubMode", "ControlPoints", "SelectedObject", "ParentAbsPos", "ParentAbsSize", "ParentAbsRotation", "LockSelectedControlPoint", "DeselectedControlPointIndex"}]

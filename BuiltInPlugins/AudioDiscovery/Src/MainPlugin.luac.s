@@ -180,93 +180,89 @@ PROTO_12:
         2 RETURN                           R0 1
 
 PROTO_13:
-        0 DUPTABLE                         R2 K1 [{"enabled"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        4 SETTABLEKS                       R2 R0 K2 ["state"]
-        6 NEWCLOSURE                       R2 P0
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U0
-        9 CAPTURE                          UPVAL U1
-       10 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       12 GETTABLEKS                       R2 R1 K4 ["Plugin"]
-       14 LOADK                            R4 K5 ["Actions"]
-       15 NAMECALL                         R2 R2 K6 ["GetPluginComponent"]
-       17 CALL                             R2 2 1
-       18 GETUPVAL                         R3 2
-       19 GETTABLEKS                       R3 R3 K7 ["shouldMigrateToActions"]
-       21 CALL                             R3 0 1
-       22 JUMPIFNOT                        R3 ; [+7]
-       23 GETIMPORT                        R3 K10 [task.spawn]
-       25 NEWCLOSURE                       R4 P1
-       26 CAPTURE                          VAL R2
-       27 CAPTURE                          VAL R1
-       28 CAPTURE                          VAL R0
-       29 CALL                             R3 1 0
-       30 NEWCLOSURE                       R3 P2
-       31 CAPTURE                          UPVAL U2
-       32 CAPTURE                          VAL R0
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          VAL R1
-       35 SETTABLEKS                       R3 R0 K11 ["onClose"]
-       37 NEWCLOSURE                       R3 P3
-       38 CAPTURE                          UPVAL U2
-       39 CAPTURE                          VAL R0
-       40 CAPTURE                          VAL R2
-       41 CAPTURE                          VAL R1
-       42 SETTABLEKS                       R3 R0 K12 ["onRestore"]
-       44 NEWCLOSURE                       R3 P4
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          VAL R0
-       47 CAPTURE                          VAL R2
-       48 CAPTURE                          VAL R1
-       49 SETTABLEKS                       R3 R0 K13 ["onWidgetEnabledChanged"]
-       51 NEWCLOSURE                       R3 P5
-       52 CAPTURE                          VAL R0
-       53 SETTABLEKS                       R3 R0 K14 ["setEnabled"]
-       55 GETUPVAL                         R3 2
-       56 GETTABLEKS                       R3 R3 K7 ["shouldMigrateToActions"]
-       58 CALL                             R3 0 1
-       59 JUMPIF                           R3 ; [+4]
-       60 NEWCLOSURE                       R3 P6
-       61 CAPTURE                          VAL R0
-       62 SETTABLEKS                       R3 R0 K15 ["onDockWidgetCreated"]
-       64 NEWTABLE                         R3 0 1
-       66 GETUPVAL                         R4 3
-       67 DUPTABLE                         R5 K17 [{"SoundAssetChecker"}]
-       68 GETTABLEKS                       R6 R1 K16 ["SoundAssetChecker"]
-       70 SETTABLEKS                       R6 R5 K16 ["SoundAssetChecker"]
-       72 CALL                             R4 1 -1
-       73 SETLIST                          R3 R4 -1 [1]
-       75 GETUPVAL                         R4 4
-       76 GETTABLEKS                       R4 R4 K18 ["Store"]
-       78 GETTABLEKS                       R4 R4 K19 ["new"]
-       80 GETUPVAL                         R5 5
-       81 LOADNIL                          R6
-       82 MOVE                             R7 R3
-       83 LOADNIL                          R8
-       84 CALL                             R4 4 1
-       85 SETTABLEKS                       R4 R0 K20 ["store"]
-       87 GETUPVAL                         R4 6
-       88 GETTABLEKS                       R4 R4 K21 ["Localization"]
-       90 GETTABLEKS                       R4 R4 K19 ["new"]
-       92 DUPTABLE                         R5 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       93 GETUPVAL                         R6 7
-       94 SETTABLEKS                       R6 R5 K22 ["stringResourceTable"]
-       96 GETUPVAL                         R6 8
-       97 SETTABLEKS                       R6 R5 K23 ["translationResourceTable"]
-       99 LOADK                            R6 K26 ["AudioDiscovery"]
-      100 SETTABLEKS                       R6 R5 K24 ["pluginName"]
-      102 CALL                             R4 1 1
-      103 SETTABLEKS                       R4 R0 K27 ["localization"]
-      105 GETUPVAL                         R4 6
-      106 GETTABLEKS                       R4 R4 K28 ["Analytics"]
-      108 GETTABLEKS                       R4 R4 K19 ["new"]
-      110 DUPCLOSURE                       R5 K29 [PROTO_12]
-      111 NEWTABLE                         R6 0 0
-      113 CALL                             R4 2 1
-      114 SETTABLEKS                       R4 R0 K30 ["analytics"]
-      116 RETURN                           R0 0
+        0 DUPTABLE                         R2 K2 [{[1] = False}]
+        1 SETTABLEKS                       R2 R0 K3 ["state"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        9 GETTABLEKS                       R2 R1 K5 ["Plugin"]
+       11 LOADK                            R4 K6 ["Actions"]
+       12 NAMECALL                         R2 R2 K7 ["GetPluginComponent"]
+       14 CALL                             R2 2 1
+       15 GETUPVAL                         R3 2
+       16 GETTABLEKS                       R3 R3 K8 ["shouldMigrateToActions"]
+       18 CALL                             R3 0 1
+       19 JUMPIFNOT                        R3 ; [+7]
+       20 GETIMPORT                        R3 K11 [task.spawn]
+       22 NEWCLOSURE                       R4 P1
+       23 CAPTURE                          VAL R2
+       24 CAPTURE                          VAL R1
+       25 CAPTURE                          VAL R0
+       26 CALL                             R3 1 0
+       27 NEWCLOSURE                       R3 P2
+       28 CAPTURE                          UPVAL U2
+       29 CAPTURE                          VAL R0
+       30 CAPTURE                          VAL R2
+       31 CAPTURE                          VAL R1
+       32 SETTABLEKS                       R3 R0 K12 ["onClose"]
+       34 NEWCLOSURE                       R3 P3
+       35 CAPTURE                          UPVAL U2
+       36 CAPTURE                          VAL R0
+       37 CAPTURE                          VAL R2
+       38 CAPTURE                          VAL R1
+       39 SETTABLEKS                       R3 R0 K13 ["onRestore"]
+       41 NEWCLOSURE                       R3 P4
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          VAL R0
+       44 CAPTURE                          VAL R2
+       45 CAPTURE                          VAL R1
+       46 SETTABLEKS                       R3 R0 K14 ["onWidgetEnabledChanged"]
+       48 NEWCLOSURE                       R3 P5
+       49 CAPTURE                          VAL R0
+       50 SETTABLEKS                       R3 R0 K15 ["setEnabled"]
+       52 GETUPVAL                         R3 2
+       53 GETTABLEKS                       R3 R3 K8 ["shouldMigrateToActions"]
+       55 CALL                             R3 0 1
+       56 JUMPIF                           R3 ; [+4]
+       57 NEWCLOSURE                       R3 P6
+       58 CAPTURE                          VAL R0
+       59 SETTABLEKS                       R3 R0 K16 ["onDockWidgetCreated"]
+       61 NEWTABLE                         R3 0 1
+       63 GETUPVAL                         R4 3
+       64 DUPTABLE                         R5 K18 [{"SoundAssetChecker"}]
+       65 GETTABLEKS                       R6 R1 K17 ["SoundAssetChecker"]
+       67 SETTABLEKS                       R6 R5 K17 ["SoundAssetChecker"]
+       69 CALL                             R4 1 -1
+       70 SETLIST                          R3 R4 -1 [1]
+       72 GETUPVAL                         R4 4
+       73 GETTABLEKS                       R4 R4 K19 ["Store"]
+       75 GETTABLEKS                       R4 R4 K20 ["new"]
+       77 GETUPVAL                         R5 5
+       78 LOADNIL                          R6
+       79 MOVE                             R7 R3
+       80 LOADNIL                          R8
+       81 CALL                             R4 4 1
+       82 SETTABLEKS                       R4 R0 K21 ["store"]
+       84 GETUPVAL                         R4 6
+       85 GETTABLEKS                       R4 R4 K22 ["Localization"]
+       87 GETTABLEKS                       R4 R4 K20 ["new"]
+       89 DUPTABLE                         R5 K27 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AudioDiscovery"}]
+       90 GETUPVAL                         R6 7
+       91 SETTABLEKS                       R6 R5 K23 ["stringResourceTable"]
+       93 GETUPVAL                         R6 8
+       94 SETTABLEKS                       R6 R5 K24 ["translationResourceTable"]
+       96 CALL                             R4 1 1
+       97 SETTABLEKS                       R4 R0 K28 ["localization"]
+       99 GETUPVAL                         R4 6
+      100 GETTABLEKS                       R4 R4 K29 ["Analytics"]
+      102 GETTABLEKS                       R4 R4 K20 ["new"]
+      104 DUPCLOSURE                       R5 K30 [PROTO_12]
+      105 NEWTABLE                         R6 0 0
+      107 CALL                             R4 2 1
+      108 SETTABLEKS                       R4 R0 K31 ["analytics"]
+      110 RETURN                           R0 0
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["state"]
@@ -389,8 +385,8 @@ PROTO_18:
        88 GETIMPORT                        R12 K33 [Enum.InitialDockState.Bottom]
        90 SETTABLEKS                       R12 R11 K31 ["InitialDockState"]
        92 GETIMPORT                        R12 K35 [Vector2.new]
-       94 LOADN                            R13 128
-       95 LOADN                            R14 224
+       94 LOADN                            R13 640
+       95 LOADN                            R14 480
        96 CALL                             R12 2 1
        97 SETTABLEKS                       R12 R11 K36 ["Size"]
        99 GETIMPORT                        R12 K35 [Vector2.new]

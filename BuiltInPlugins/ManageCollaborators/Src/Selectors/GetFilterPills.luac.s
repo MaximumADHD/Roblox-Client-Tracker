@@ -33,65 +33,59 @@ PROTO_0:
        54 GETIMPORT                        R5 K9 [next]
        56 MOVE                             R6 R2
        57 CALL                             R5 1 1
-       58 JUMPIFEQKNIL                     R5 ; [+25]
-       60 DUPTABLE                         R7 K13 [{"key", "filters"}]
-       61 LOADK                            R8 K14 ["All"]
-       62 SETTABLEKS                       R8 R7 K11 ["key"]
-       64 NEWTABLE                         R8 2 0
-       66 GETUPVAL                         R9 0
-       67 GETTABLEKS                       R9 R9 K10 ["UserSubjectKey"]
-       69 LOADB                            R10 1
-       70 SETTABLE                         R10 R8 R9
-       71 GETUPVAL                         R9 0
-       72 GETTABLEKS                       R9 R9 K15 ["RoleSubjectKey"]
-       74 LOADB                            R10 1
-       75 SETTABLE                         R10 R8 R9
-       76 SETTABLEKS                       R8 R7 K12 ["filters"]
-       78 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
-       80 MOVE                             R6 R4
-       81 GETIMPORT                        R5 K18 [table.insert]
-       83 CALL                             R5 2 0
-       84 GETIMPORT                        R5 K9 [next]
-       86 GETUPVAL                         R7 0
-       87 GETTABLEKS                       R7 R7 K10 ["UserSubjectKey"]
-       89 GETTABLE                         R6 R1 R7
-       90 CALL                             R5 1 1
-       91 JUMPIFEQKNIL                     R5 ; [+20]
-       93 DUPTABLE                         R7 K13 [{"key", "filters"}]
-       94 LOADK                            R8 K19 ["Creators"]
-       95 SETTABLEKS                       R8 R7 K11 ["key"]
-       97 NEWTABLE                         R8 1 0
-       99 GETUPVAL                         R9 0
-      100 GETTABLEKS                       R9 R9 K10 ["UserSubjectKey"]
-      102 LOADB                            R10 1
-      103 SETTABLE                         R10 R8 R9
-      104 SETTABLEKS                       R8 R7 K12 ["filters"]
-      106 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
-      108 MOVE                             R6 R4
-      109 GETIMPORT                        R5 K18 [table.insert]
-      111 CALL                             R5 2 0
+       58 JUMPIFEQKNIL                     R5 ; [+22]
+       60 DUPTABLE                         R7 K14 [{["key"] = "All", ["filters"]}]
+       61 NEWTABLE                         R8 2 0
+       63 GETUPVAL                         R9 0
+       64 GETTABLEKS                       R9 R9 K10 ["UserSubjectKey"]
+       66 LOADB                            R10 1
+       67 SETTABLE                         R10 R8 R9
+       68 GETUPVAL                         R9 0
+       69 GETTABLEKS                       R9 R9 K15 ["RoleSubjectKey"]
+       71 LOADB                            R10 1
+       72 SETTABLE                         R10 R8 R9
+       73 SETTABLEKS                       R8 R7 K13 ["filters"]
+       75 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+       77 MOVE                             R6 R4
+       78 GETIMPORT                        R5 K18 [table.insert]
+       80 CALL                             R5 2 0
+       81 GETIMPORT                        R5 K9 [next]
+       83 GETUPVAL                         R7 0
+       84 GETTABLEKS                       R7 R7 K10 ["UserSubjectKey"]
+       86 GETTABLE                         R6 R1 R7
+       87 CALL                             R5 1 1
+       88 JUMPIFEQKNIL                     R5 ; [+17]
+       90 DUPTABLE                         R7 K20 [{["key"] = "Creators", ["filters"]}]
+       91 NEWTABLE                         R8 1 0
+       93 GETUPVAL                         R9 0
+       94 GETTABLEKS                       R9 R9 K10 ["UserSubjectKey"]
+       96 LOADB                            R10 1
+       97 SETTABLE                         R10 R8 R9
+       98 SETTABLEKS                       R8 R7 K13 ["filters"]
+      100 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+      102 MOVE                             R6 R4
+      103 GETIMPORT                        R5 K18 [table.insert]
+      105 CALL                             R5 2 0
+      106 GETIMPORT                        R5 K9 [next]
+      108 MOVE                             R6 R3
+      109 CALL                             R5 1 1
+      110 JUMPIFNOTEQKNIL                  R5 ; [+7]
       112 GETIMPORT                        R5 K9 [next]
-      114 MOVE                             R6 R3
+      114 MOVE                             R6 R2
       115 CALL                             R5 1 1
-      116 JUMPIFNOTEQKNIL                  R5 ; [+7]
-      118 GETIMPORT                        R5 K9 [next]
-      120 MOVE                             R6 R2
-      121 CALL                             R5 1 1
-      122 JUMPIFEQKNIL                     R5 ; [+20]
-      124 DUPTABLE                         R7 K13 [{"key", "filters"}]
-      125 LOADK                            R8 K20 ["Roles"]
-      126 SETTABLEKS                       R8 R7 K11 ["key"]
-      128 NEWTABLE                         R8 1 0
-      130 GETUPVAL                         R9 0
-      131 GETTABLEKS                       R9 R9 K15 ["RoleSubjectKey"]
-      133 LOADB                            R10 1
-      134 SETTABLE                         R10 R8 R9
-      135 SETTABLEKS                       R8 R7 K12 ["filters"]
-      137 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
-      139 MOVE                             R6 R4
-      140 GETIMPORT                        R5 K18 [table.insert]
-      142 CALL                             R5 2 0
-      143 RETURN                           R4 1
+      116 JUMPIFEQKNIL                     R5 ; [+17]
+      118 DUPTABLE                         R7 K22 [{["key"] = "Roles", ["filters"]}]
+      119 NEWTABLE                         R8 1 0
+      121 GETUPVAL                         R9 0
+      122 GETTABLEKS                       R9 R9 K15 ["RoleSubjectKey"]
+      124 LOADB                            R10 1
+      125 SETTABLE                         R10 R8 R9
+      126 SETTABLEKS                       R8 R7 K13 ["filters"]
+      128 FASTCALL2                        TABLE_INSERT R4 R7 ; [+4]
+      130 MOVE                             R6 R4
+      131 GETIMPORT                        R5 K18 [table.insert]
+      133 CALL                             R5 2 0
+      134 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

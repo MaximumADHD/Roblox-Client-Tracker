@@ -192,57 +192,55 @@ PROTO_9:
         7 GETUPVAL                         R5 0
         8 GETTABLEKS                       R5 R5 K5 ["createElement"]
        10 GETUPVAL                         R6 1
-       11 DUPTABLE                         R7 K23 [{"ThemeData", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "AvatarType", "AvatarAnimation", "AvatarCollision", "AvatarAssetOverrides", "AvatarScalingMin", "AvatarScalingMax", "OnAvatarTypeChanged", "OnAvatarAnimationChanged", "OnAvatarCollisionChanged", "OnAvatarAssetOverridesChanged", "OnAvatarScalingMinChanged", "OnAvatarScalingMaxChanged"}]
+       11 DUPTABLE                         R7 K24 [{["ThemeData"], ["IsEnabled"] = True, ["IsGameShutdownRequired"], ["AssetOverrideErrors"], ["Mouse"], ["IsPlacePublished"], ["AvatarType"], ["AvatarAnimation"], ["AvatarCollision"], ["AvatarAssetOverrides"], ["AvatarScalingMin"], ["AvatarScalingMax"], ["OnAvatarTypeChanged"], ["OnAvatarAnimationChanged"], ["OnAvatarCollisionChanged"], ["OnAvatarAssetOverridesChanged"], ["OnAvatarScalingMinChanged"], ["OnAvatarScalingMaxChanged"]}]
        12 SETTABLEKS                       R2 R7 K6 ["ThemeData"]
-       14 LOADB                            R8 1
-       15 SETTABLEKS                       R8 R7 K7 ["IsEnabled"]
-       17 GETTABLEKS                       R9 R1 K24 ["CurrentAvatarType"]
-       19 GETTABLEKS                       R10 R1 K11 ["AvatarType"]
-       21 LOADB                            R8 0
-       22 JUMPIFEQKS                       R9 K25 ["PlayerChoice"] ; [+5]
-       24 JUMPIFNOTEQ                      R10 R9 ; [+2]
-       26 LOADB                            R8 0 +1
-       27 LOADB                            R8 1
-       28 SETTABLEKS                       R8 R7 K8 ["IsGameShutdownRequired"]
-       30 GETTABLEKS                       R8 R1 K9 ["AssetOverrideErrors"]
-       32 SETTABLEKS                       R8 R7 K9 ["AssetOverrideErrors"]
-       34 NAMECALL                         R8 R3 K26 ["get"]
-       36 CALL                             R8 1 1
-       37 SETTABLEKS                       R8 R7 K2 ["Mouse"]
-       39 GETIMPORT                        R9 K28 [game]
-       41 GETTABLEKS                       R9 R9 K29 ["GameId"]
-       43 JUMPIFNOTEQKN                    R9 K30 [0] ; [+2]
-       45 LOADB                            R8 0 +1
-       46 LOADB                            R8 1
-       47 SETTABLEKS                       R8 R7 K10 ["IsPlacePublished"]
-       49 GETTABLEKS                       R8 R1 K11 ["AvatarType"]
-       51 SETTABLEKS                       R8 R7 K11 ["AvatarType"]
-       53 GETTABLEKS                       R8 R1 K12 ["AvatarAnimation"]
-       55 SETTABLEKS                       R8 R7 K12 ["AvatarAnimation"]
-       57 GETTABLEKS                       R8 R1 K13 ["AvatarCollision"]
-       59 SETTABLEKS                       R8 R7 K13 ["AvatarCollision"]
-       61 GETTABLEKS                       R8 R1 K14 ["AvatarAssetOverrides"]
-       63 SETTABLEKS                       R8 R7 K14 ["AvatarAssetOverrides"]
-       65 GETTABLEKS                       R8 R1 K15 ["AvatarScalingMin"]
-       67 SETTABLEKS                       R8 R7 K15 ["AvatarScalingMin"]
-       69 GETTABLEKS                       R8 R1 K16 ["AvatarScalingMax"]
-       71 SETTABLEKS                       R8 R7 K16 ["AvatarScalingMax"]
-       73 NEWCLOSURE                       R8 P0
-       74 CAPTURE                          VAL R1
-       75 SETTABLEKS                       R8 R7 K17 ["OnAvatarTypeChanged"]
-       77 GETTABLEKS                       R8 R1 K31 ["AvatarAnimationChanged"]
-       79 SETTABLEKS                       R8 R7 K18 ["OnAvatarAnimationChanged"]
-       81 GETTABLEKS                       R8 R1 K32 ["AvatarCollisionChanged"]
-       83 SETTABLEKS                       R8 R7 K19 ["OnAvatarCollisionChanged"]
-       85 GETTABLEKS                       R8 R1 K33 ["AvatarAssetOverridesChanged"]
-       87 SETTABLEKS                       R8 R7 K20 ["OnAvatarAssetOverridesChanged"]
-       89 GETTABLEKS                       R8 R1 K34 ["AvatarScalingMinChanged"]
-       91 SETTABLEKS                       R8 R7 K21 ["OnAvatarScalingMinChanged"]
-       93 GETTABLEKS                       R8 R1 K35 ["AvatarScalingMaxChanged"]
-       95 SETTABLEKS                       R8 R7 K22 ["OnAvatarScalingMaxChanged"]
-       97 CALL                             R5 2 1
-       98 SETTABLEKS                       R5 R4 K3 ["Morpher"]
-      100 RETURN                           R4 1
+       14 GETTABLEKS                       R9 R1 K25 ["CurrentAvatarType"]
+       16 GETTABLEKS                       R10 R1 K12 ["AvatarType"]
+       18 LOADB                            R8 0
+       19 JUMPIFEQKS                       R9 K26 ["PlayerChoice"] ; [+5]
+       21 JUMPIFNOTEQ                      R10 R9 ; [+2]
+       23 LOADB                            R8 0 +1
+       24 LOADB                            R8 1
+       25 SETTABLEKS                       R8 R7 K9 ["IsGameShutdownRequired"]
+       27 GETTABLEKS                       R8 R1 K10 ["AssetOverrideErrors"]
+       29 SETTABLEKS                       R8 R7 K10 ["AssetOverrideErrors"]
+       31 NAMECALL                         R8 R3 K27 ["get"]
+       33 CALL                             R8 1 1
+       34 SETTABLEKS                       R8 R7 K2 ["Mouse"]
+       36 GETIMPORT                        R9 K29 [game]
+       38 GETTABLEKS                       R9 R9 K30 ["GameId"]
+       40 JUMPIFNOTEQKN                    R9 K31 [0] ; [+2]
+       42 LOADB                            R8 0 +1
+       43 LOADB                            R8 1
+       44 SETTABLEKS                       R8 R7 K11 ["IsPlacePublished"]
+       46 GETTABLEKS                       R8 R1 K12 ["AvatarType"]
+       48 SETTABLEKS                       R8 R7 K12 ["AvatarType"]
+       50 GETTABLEKS                       R8 R1 K13 ["AvatarAnimation"]
+       52 SETTABLEKS                       R8 R7 K13 ["AvatarAnimation"]
+       54 GETTABLEKS                       R8 R1 K14 ["AvatarCollision"]
+       56 SETTABLEKS                       R8 R7 K14 ["AvatarCollision"]
+       58 GETTABLEKS                       R8 R1 K15 ["AvatarAssetOverrides"]
+       60 SETTABLEKS                       R8 R7 K15 ["AvatarAssetOverrides"]
+       62 GETTABLEKS                       R8 R1 K16 ["AvatarScalingMin"]
+       64 SETTABLEKS                       R8 R7 K16 ["AvatarScalingMin"]
+       66 GETTABLEKS                       R8 R1 K17 ["AvatarScalingMax"]
+       68 SETTABLEKS                       R8 R7 K17 ["AvatarScalingMax"]
+       70 NEWCLOSURE                       R8 P0
+       71 CAPTURE                          VAL R1
+       72 SETTABLEKS                       R8 R7 K18 ["OnAvatarTypeChanged"]
+       74 GETTABLEKS                       R8 R1 K32 ["AvatarAnimationChanged"]
+       76 SETTABLEKS                       R8 R7 K19 ["OnAvatarAnimationChanged"]
+       78 GETTABLEKS                       R8 R1 K33 ["AvatarCollisionChanged"]
+       80 SETTABLEKS                       R8 R7 K20 ["OnAvatarCollisionChanged"]
+       82 GETTABLEKS                       R8 R1 K34 ["AvatarAssetOverridesChanged"]
+       84 SETTABLEKS                       R8 R7 K21 ["OnAvatarAssetOverridesChanged"]
+       86 GETTABLEKS                       R8 R1 K35 ["AvatarScalingMinChanged"]
+       88 SETTABLEKS                       R8 R7 K22 ["OnAvatarScalingMinChanged"]
+       90 GETTABLEKS                       R8 R1 K36 ["AvatarScalingMaxChanged"]
+       92 SETTABLEKS                       R8 R7 K23 ["OnAvatarScalingMaxChanged"]
+       94 CALL                             R5 2 1
+       95 SETTABLEKS                       R5 R4 K3 ["Morpher"]
+       97 RETURN                           R4 1
 
 PROTO_10:
         0 GETUPVAL                         R1 0

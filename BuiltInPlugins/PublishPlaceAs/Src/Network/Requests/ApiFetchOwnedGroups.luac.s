@@ -24,25 +24,23 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["GetUserId"]
         3 CALL                             R1 1 1
-        4 DUPTABLE                         R2 K3 [{"Url", "Method"}]
+        4 DUPTABLE                         R2 K4 [{["Url"], ["Method"] = "GET"}]
         5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R3 R3 K4 ["BuildRobloxUrl"]
-        8 LOADK                            R4 K5 ["groups"]
-        9 LOADK                            R5 K6 ["v2/users/%d/groups/roles"]
+        6 GETTABLEKS                       R3 R3 K5 ["BuildRobloxUrl"]
+        8 LOADK                            R4 K6 ["groups"]
+        9 LOADK                            R5 K7 ["v2/users/%d/groups/roles"]
        10 MOVE                             R6 R1
        11 CALL                             R3 3 1
        12 SETTABLEKS                       R3 R2 K1 ["Url"]
-       14 LOADK                            R3 K7 ["GET"]
-       15 SETTABLEKS                       R3 R2 K2 ["Method"]
-       17 GETUPVAL                         R3 1
-       18 GETTABLEKS                       R3 R3 K8 ["Request"]
-       20 MOVE                             R4 R2
-       21 CALL                             R3 1 1
-       22 DUPCLOSURE                       R5 K9 [PROTO_0]
-       23 CAPTURE                          UPVAL U2
-       24 NAMECALL                         R3 R3 K10 ["andThen"]
-       26 CALL                             R3 2 -1
-       27 RETURN                           R3 -1
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R3 R3 K8 ["Request"]
+       17 MOVE                             R4 R2
+       18 CALL                             R3 1 1
+       19 DUPCLOSURE                       R5 K9 [PROTO_0]
+       20 CAPTURE                          UPVAL U2
+       21 NAMECALL                         R3 R3 K10 ["andThen"]
+       23 CALL                             R3 2 -1
+       24 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -81,20 +81,14 @@ MAIN:
        38 GETTABLEKS                       R5 R6 K13 ["AudioView.mocks"]
        40 CALL                             R4 1 1
        41 DUPCLOSURE                       R5 K14 [PROTO_0]
-       42 DUPTABLE                         R6 K18 [{"isLoading", "isSceneSuggestions", "noResults"}]
-       43 LOADB                            R7 0
-       44 SETTABLEKS                       R7 R6 K15 ["isLoading"]
-       46 LOADB                            R7 0
-       47 SETTABLEKS                       R7 R6 K16 ["isSceneSuggestions"]
-       49 LOADB                            R7 0
-       50 SETTABLEKS                       R7 R6 K17 ["noResults"]
-       52 DUPTABLE                         R7 K21 [{"controls", "story"}]
-       53 SETTABLEKS                       R6 R7 K19 ["controls"]
-       55 DUPCLOSURE                       R8 K22 [PROTO_1]
-       56 CAPTURE                          VAL R4
-       57 CAPTURE                          VAL R1
-       58 CAPTURE                          VAL R2
-       59 CAPTURE                          VAL R3
-       60 CAPTURE                          VAL R5
-       61 SETTABLEKS                       R8 R7 K20 ["story"]
-       63 RETURN                           R7 1
+       42 DUPTABLE                         R6 K19 [{["isLoading"] = False, ["isSceneSuggestions"] = False, ["noResults"] = False}]
+       43 DUPTABLE                         R7 K22 [{"controls", "story"}]
+       44 SETTABLEKS                       R6 R7 K20 ["controls"]
+       46 DUPCLOSURE                       R8 K23 [PROTO_1]
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R5
+       52 SETTABLEKS                       R8 R7 K21 ["story"]
+       54 RETURN                           R7 1

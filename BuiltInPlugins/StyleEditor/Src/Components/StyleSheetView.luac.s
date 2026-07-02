@@ -2,23 +2,21 @@ PROTO_0:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R1 1
         2 GETUPVAL                         R2 2
-        3 DUPTABLE                         R3 K2 [{"eventType", "path"}]
+        3 DUPTABLE                         R3 K3 [{[1], ["path"] = "StyleSheetView/AddStyleLink"}]
         4 GETUPVAL                         R4 3
-        5 GETTABLEKS                       R4 R4 K3 ["ButtonPressed"]
-        7 GETTABLEKS                       R4 R4 K4 ["rawValue"]
+        5 GETTABLEKS                       R4 R4 K4 ["ButtonPressed"]
+        7 GETTABLEKS                       R4 R4 K5 ["rawValue"]
         9 CALL                             R4 0 1
        10 SETTABLEKS                       R4 R3 K0 ["eventType"]
-       12 LOADK                            R4 K5 ["StyleSheetView/AddStyleLink"]
-       13 SETTABLEKS                       R4 R3 K1 ["path"]
-       15 CALL                             R2 1 -1
-       16 CALL                             R1 -1 -1
-       17 CALL                             R0 -1 0
-       18 GETUPVAL                         R0 4
-       19 GETTABLEKS                       R0 R0 K6 ["addStyleLinkToSelection"]
-       21 GETUPVAL                         R1 5
-       22 GETTABLEKS                       R1 R1 K7 ["StyleSheet"]
-       24 CALL                             R0 1 0
-       25 RETURN                           R0 0
+       12 CALL                             R2 1 -1
+       13 CALL                             R1 -1 -1
+       14 CALL                             R0 -1 0
+       15 GETUPVAL                         R0 4
+       16 GETTABLEKS                       R0 R0 K6 ["addStyleLinkToSelection"]
+       18 GETUPVAL                         R1 5
+       19 GETTABLEKS                       R1 R1 K7 ["StyleSheet"]
+       21 CALL                             R0 1 0
+       22 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -307,33 +305,29 @@ PROTO_6:
       258 SETTABLEKS                       R27 R26 K24 ["StyleLinkButton"]
       260 CALL                             R23 3 1
       261 SETTABLEKS                       R23 R22 K17 ["TopBar"]
-      263 JUMPIFNOT                        R13 ; [+14]
+      263 JUMPIFNOT                        R13 ; [+11]
       264 GETUPVAL                         R23 3
       265 GETTABLEKS                       R23 R23 K11 ["createElement"]
       267 GETUPVAL                         R24 18
-      268 DUPTABLE                         R25 K44 [{"RootInstance", "LayoutOrder"}]
+      268 DUPTABLE                         R25 K45 [{["RootInstance"], ["LayoutOrder"] = 2}]
       269 GETTABLEKS                       R26 R0 K3 ["StyleSheet"]
       271 SETTABLEKS                       R26 R25 K43 ["RootInstance"]
-      273 LOADN                            R26 2
-      274 SETTABLEKS                       R26 R25 K22 ["LayoutOrder"]
-      276 CALL                             R23 2 1
-      277 JUMP                             ; [+1]
-      278 LOADNIL                          R23
-      279 SETTABLEKS                       R23 R22 K18 ["TokenTable"]
-      281 GETUPVAL                         R23 3
-      282 GETTABLEKS                       R23 R23 K11 ["createElement"]
-      284 GETUPVAL                         R24 19
-      285 DUPTABLE                         R25 K45 [{"LayoutOrder", "StyleSheet"}]
-      286 LOADN                            R26 3
-      287 SETTABLEKS                       R26 R25 K22 ["LayoutOrder"]
-      289 GETTABLEKS                       R26 R0 K3 ["StyleSheet"]
-      291 SETTABLEKS                       R26 R25 K3 ["StyleSheet"]
-      293 CALL                             R23 2 1
-      294 SETTABLEKS                       R23 R22 K19 ["Derives"]
-      296 CALL                             R19 3 1
-      297 SETTABLEKS                       R19 R18 K14 ["Content"]
-      299 CALL                             R15 3 -1
-      300 RETURN                           R15 -1
+      273 CALL                             R23 2 1
+      274 JUMP                             ; [+1]
+      275 LOADNIL                          R23
+      276 SETTABLEKS                       R23 R22 K18 ["TokenTable"]
+      278 GETUPVAL                         R23 3
+      279 GETTABLEKS                       R23 R23 K11 ["createElement"]
+      281 GETUPVAL                         R24 19
+      282 DUPTABLE                         R25 K47 [{["LayoutOrder"] = 3, ["StyleSheet"]}]
+      283 GETTABLEKS                       R26 R0 K3 ["StyleSheet"]
+      285 SETTABLEKS                       R26 R25 K3 ["StyleSheet"]
+      287 CALL                             R23 2 1
+      288 SETTABLEKS                       R23 R22 K19 ["Derives"]
+      290 CALL                             R19 3 1
+      291 SETTABLEKS                       R19 R18 K14 ["Content"]
+      293 CALL                             R15 3 -1
+      294 RETURN                           R15 -1
 
 MAIN:
         0 PREPVARARGS                      0

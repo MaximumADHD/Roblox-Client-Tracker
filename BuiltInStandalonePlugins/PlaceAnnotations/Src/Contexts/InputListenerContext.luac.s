@@ -1,29 +1,27 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K3 [{"Listener", "FocusedElement", "FocusedElementChangedSignal"}]
-        1 GETIMPORT                        R1 K6 [Instance.new]
-        3 LOADK                            R2 K7 ["Frame"]
+        0 DUPTABLE                         R0 K4 [{[1], ["FocusedElement"] = , ["FocusedElementChangedSignal"]}]
+        1 GETIMPORT                        R1 K7 [Instance.new]
+        3 LOADK                            R2 K8 ["Frame"]
         4 CALL                             R1 1 1
         5 SETTABLEKS                       R1 R0 K0 ["Listener"]
-        7 LOADNIL                          R1
-        8 SETTABLEKS                       R1 R0 K1 ["FocusedElement"]
-       10 GETUPVAL                         R1 0
-       11 GETTABLEKS                       R1 R1 K8 ["Event"]
-       13 SETTABLEKS                       R1 R0 K2 ["FocusedElementChangedSignal"]
-       15 GETTABLEKS                       R1 R0 K0 ["Listener"]
-       17 GETIMPORT                        R2 K11 [UDim2.fromScale]
-       19 LOADN                            R3 1
-       20 LOADN                            R4 1
-       21 CALL                             R2 2 1
-       22 SETTABLEKS                       R2 R1 K12 ["Size"]
-       24 GETTABLEKS                       R1 R0 K0 ["Listener"]
-       26 LOADN                            R2 1
-       27 SETTABLEKS                       R2 R1 K13 ["BackgroundTransparency"]
-       29 GETUPVAL                         R3 1
-       30 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       32 MOVE                             R2 R0
-       33 GETIMPORT                        R1 K15 [setmetatable]
-       35 CALL                             R1 2 0
-       36 RETURN                           R0 1
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R1 R1 K9 ["Event"]
+       10 SETTABLEKS                       R1 R0 K3 ["FocusedElementChangedSignal"]
+       12 GETTABLEKS                       R1 R0 K0 ["Listener"]
+       14 GETIMPORT                        R2 K12 [UDim2.fromScale]
+       16 LOADN                            R3 1
+       17 LOADN                            R4 1
+       18 CALL                             R2 2 1
+       19 SETTABLEKS                       R2 R1 K13 ["Size"]
+       21 GETTABLEKS                       R1 R0 K0 ["Listener"]
+       23 LOADN                            R2 1
+       24 SETTABLEKS                       R2 R1 K14 ["BackgroundTransparency"]
+       26 GETUPVAL                         R3 1
+       27 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       29 MOVE                             R2 R0
+       30 GETIMPORT                        R1 K16 [setmetatable]
+       32 CALL                             R1 2 0
+       33 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["Listener"]

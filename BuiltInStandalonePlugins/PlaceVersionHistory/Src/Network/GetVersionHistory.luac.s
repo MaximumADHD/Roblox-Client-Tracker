@@ -107,123 +107,121 @@ PROTO_1:
        13 RETURN                           R0 -1
 
 PROTO_2:
-        0 DUPTABLE                         R1 K3 [{"Method", "Url", "Headers"}]
-        1 LOADK                            R2 K4 ["GET"]
-        2 SETTABLEKS                       R2 R1 K0 ["Method"]
-        4 GETUPVAL                         R2 0
-        5 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
-        7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K6 ["APIS_URL"]
-       10 LOADK                            R5 K7 ["place-version-history-api/v1/%*/history"]
-       11 GETTABLEKS                       R7 R0 K8 ["placeId"]
-       13 NAMECALL                         R5 R5 K9 ["format"]
-       15 CALL                             R5 2 1
-       16 MOVE                             R4 R5
-       17 DUPTABLE                         R5 K19 [{"cursor", "isPublished", "hasNotes", "saveType", "searchTerm", "startTime", "endTime", "contributor", "pageSize"}]
-       18 GETTABLEKS                       R6 R0 K10 ["cursor"]
-       20 SETTABLEKS                       R6 R5 K10 ["cursor"]
-       22 GETTABLEKS                       R6 R0 K11 ["isPublished"]
-       24 SETTABLEKS                       R6 R5 K11 ["isPublished"]
-       26 GETTABLEKS                       R6 R0 K12 ["hasNotes"]
-       28 SETTABLEKS                       R6 R5 K12 ["hasNotes"]
-       30 GETUPVAL                         R7 1
-       31 GETTABLEKS                       R8 R0 K13 ["saveType"]
-       33 GETTABLE                         R6 R7 R8
-       34 SETTABLEKS                       R6 R5 K13 ["saveType"]
-       36 GETTABLEKS                       R6 R0 K20 ["search"]
-       38 SETTABLEKS                       R6 R5 K14 ["searchTerm"]
-       40 GETTABLEKS                       R7 R0 K21 ["startDate"]
-       42 JUMPIFNOT                        R7 ; [+6]
-       43 GETTABLEKS                       R6 R0 K21 ["startDate"]
-       45 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
-       47 CALL                             R6 1 1
-       48 JUMP                             ; [+1]
-       49 LOADNIL                          R6
-       50 SETTABLEKS                       R6 R5 K15 ["startTime"]
-       52 GETTABLEKS                       R7 R0 K23 ["endDate"]
-       54 JUMPIFNOT                        R7 ; [+6]
-       55 GETTABLEKS                       R6 R0 K23 ["endDate"]
-       57 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
-       59 CALL                             R6 1 1
-       60 JUMP                             ; [+1]
-       61 LOADNIL                          R6
-       62 SETTABLEKS                       R6 R5 K16 ["endTime"]
-       64 GETTABLEKS                       R6 R0 K17 ["contributor"]
-       66 SETTABLEKS                       R6 R5 K17 ["contributor"]
-       68 GETTABLEKS                       R6 R0 K18 ["pageSize"]
-       70 SETTABLEKS                       R6 R5 K18 ["pageSize"]
-       72 CALL                             R2 3 1
-       73 SETTABLEKS                       R2 R1 K1 ["Url"]
-       75 NEWTABLE                         R2 1 0
-       77 LOADK                            R3 K24 ["application/json"]
-       78 SETTABLEKS                       R3 R2 K25 ["Content-Type"]
-       80 SETTABLEKS                       R2 R1 K2 ["Headers"]
-       82 GETTABLEKS                       R3 R0 K10 ["cursor"]
-       84 JUMPIFEQKNIL                     R3 ; [+2]
-       86 LOADB                            R2 0 +1
-       87 LOADB                            R2 1
-       88 JUMPIFNOT                        R2 ; [+5]
-       89 GETUPVAL                         R4 2
-       90 GETTABLEKS                       R4 R4 K27 ["FIntPVHFirstPageDelayMs"]
-       92 DIVK                             R3 R4 K26 [1000]
-       93 JUMP                             ; [+1]
-       94 LOADN                            R3 0
-       95 JUMPIFNOT                        R2 ; [+66]
-       96 GETUPVAL                         R4 3
-       97 GETUPVAL                         R6 4
-       98 DUPTABLE                         R7 K36 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
-       99 GETTABLEKS                       R8 R0 K8 ["placeId"]
-      101 SETTABLEKS                       R8 R7 K28 ["targetPlaceId"]
-      103 GETTABLEKS                       R8 R0 K18 ["pageSize"]
-      105 SETTABLEKS                       R8 R7 K18 ["pageSize"]
-      107 GETTABLEKS                       R8 R0 K13 ["saveType"]
-      109 SETTABLEKS                       R8 R7 K29 ["filterSaveType"]
-      111 GETTABLEKS                       R8 R0 K11 ["isPublished"]
-      113 SETTABLEKS                       R8 R7 K30 ["filterIsPublished"]
-      115 GETTABLEKS                       R8 R0 K12 ["hasNotes"]
-      117 SETTABLEKS                       R8 R7 K31 ["filterHasNotes"]
-      119 GETTABLEKS                       R8 R0 K17 ["contributor"]
-      121 SETTABLEKS                       R8 R7 K32 ["filterContributor"]
-      123 GETTABLEKS                       R9 R0 K21 ["startDate"]
-      125 JUMPIFNOT                        R9 ; [+6]
-      126 GETTABLEKS                       R8 R0 K21 ["startDate"]
-      128 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
-      130 CALL                             R8 1 1
-      131 JUMP                             ; [+1]
-      132 LOADNIL                          R8
-      133 SETTABLEKS                       R8 R7 K33 ["filterStartTime"]
-      135 GETTABLEKS                       R9 R0 K23 ["endDate"]
-      137 JUMPIFNOT                        R9 ; [+6]
-      138 GETTABLEKS                       R8 R0 K23 ["endDate"]
-      140 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
-      142 CALL                             R8 1 1
-      143 JUMP                             ; [+1]
-      144 LOADNIL                          R8
-      145 SETTABLEKS                       R8 R7 K34 ["filterEndTime"]
-      147 GETTABLEKS                       R9 R0 K20 ["search"]
-      149 JUMPIFNOT                        R9 ; [+6]
-      150 GETIMPORT                        R8 K39 [utf8.len]
-      152 GETTABLEKS                       R9 R0 K20 ["search"]
-      154 CALL                             R8 1 1
-      155 JUMP                             ; [+1]
-      156 LOADNIL                          R8
-      157 SETTABLEKS                       R8 R7 K35 ["searchTermLength"]
-      159 NAMECALL                         R4 R4 K40 ["logRobloxTelemetryEvent"]
-      161 CALL                             R4 3 0
-      162 GETUPVAL                         R4 5
-      163 GETTABLEKS                       R4 R4 K41 ["delay"]
-      165 MOVE                             R5 R3
-      166 CALL                             R4 1 1
-      167 NEWCLOSURE                       R6 P0
-      168 CAPTURE                          UPVAL U6
-      169 CAPTURE                          VAL R1
-      170 CAPTURE                          UPVAL U7
-      171 CAPTURE                          UPVAL U5
-      172 CAPTURE                          UPVAL U8
-      173 CAPTURE                          UPVAL U1
-      174 NAMECALL                         R4 R4 K42 ["andThen"]
-      176 CALL                             R4 2 -1
-      177 RETURN                           R4 -1
+        0 DUPTABLE                         R1 K4 [{[1] = "GET", ["Url"], ["Headers"]}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R2 R2 K5 ["composeUrl"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R3 R3 K6 ["APIS_URL"]
+        7 LOADK                            R5 K7 ["place-version-history-api/v1/%*/history"]
+        8 GETTABLEKS                       R7 R0 K8 ["placeId"]
+       10 NAMECALL                         R5 R5 K9 ["format"]
+       12 CALL                             R5 2 1
+       13 MOVE                             R4 R5
+       14 DUPTABLE                         R5 K19 [{"cursor", "isPublished", "hasNotes", "saveType", "searchTerm", "startTime", "endTime", "contributor", "pageSize"}]
+       15 GETTABLEKS                       R6 R0 K10 ["cursor"]
+       17 SETTABLEKS                       R6 R5 K10 ["cursor"]
+       19 GETTABLEKS                       R6 R0 K11 ["isPublished"]
+       21 SETTABLEKS                       R6 R5 K11 ["isPublished"]
+       23 GETTABLEKS                       R6 R0 K12 ["hasNotes"]
+       25 SETTABLEKS                       R6 R5 K12 ["hasNotes"]
+       27 GETUPVAL                         R7 1
+       28 GETTABLEKS                       R8 R0 K13 ["saveType"]
+       30 GETTABLE                         R6 R7 R8
+       31 SETTABLEKS                       R6 R5 K13 ["saveType"]
+       33 GETTABLEKS                       R6 R0 K20 ["search"]
+       35 SETTABLEKS                       R6 R5 K14 ["searchTerm"]
+       37 GETTABLEKS                       R7 R0 K21 ["startDate"]
+       39 JUMPIFNOT                        R7 ; [+6]
+       40 GETTABLEKS                       R6 R0 K21 ["startDate"]
+       42 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
+       44 CALL                             R6 1 1
+       45 JUMP                             ; [+1]
+       46 LOADNIL                          R6
+       47 SETTABLEKS                       R6 R5 K15 ["startTime"]
+       49 GETTABLEKS                       R7 R0 K23 ["endDate"]
+       51 JUMPIFNOT                        R7 ; [+6]
+       52 GETTABLEKS                       R6 R0 K23 ["endDate"]
+       54 NAMECALL                         R6 R6 K22 ["ToIsoDate"]
+       56 CALL                             R6 1 1
+       57 JUMP                             ; [+1]
+       58 LOADNIL                          R6
+       59 SETTABLEKS                       R6 R5 K16 ["endTime"]
+       61 GETTABLEKS                       R6 R0 K17 ["contributor"]
+       63 SETTABLEKS                       R6 R5 K17 ["contributor"]
+       65 GETTABLEKS                       R6 R0 K18 ["pageSize"]
+       67 SETTABLEKS                       R6 R5 K18 ["pageSize"]
+       69 CALL                             R2 3 1
+       70 SETTABLEKS                       R2 R1 K2 ["Url"]
+       72 NEWTABLE                         R2 1 0
+       74 LOADK                            R3 K24 ["application/json"]
+       75 SETTABLEKS                       R3 R2 K25 ["Content-Type"]
+       77 SETTABLEKS                       R2 R1 K3 ["Headers"]
+       79 GETTABLEKS                       R3 R0 K10 ["cursor"]
+       81 JUMPIFEQKNIL                     R3 ; [+2]
+       83 LOADB                            R2 0 +1
+       84 LOADB                            R2 1
+       85 JUMPIFNOT                        R2 ; [+5]
+       86 GETUPVAL                         R4 2
+       87 GETTABLEKS                       R4 R4 K27 ["FIntPVHFirstPageDelayMs"]
+       89 DIVK                             R3 R4 K26 [1000]
+       90 JUMP                             ; [+1]
+       91 LOADN                            R3 0
+       92 JUMPIFNOT                        R2 ; [+66]
+       93 GETUPVAL                         R4 3
+       94 GETUPVAL                         R6 4
+       95 DUPTABLE                         R7 K36 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
+       96 GETTABLEKS                       R8 R0 K8 ["placeId"]
+       98 SETTABLEKS                       R8 R7 K28 ["targetPlaceId"]
+      100 GETTABLEKS                       R8 R0 K18 ["pageSize"]
+      102 SETTABLEKS                       R8 R7 K18 ["pageSize"]
+      104 GETTABLEKS                       R8 R0 K13 ["saveType"]
+      106 SETTABLEKS                       R8 R7 K29 ["filterSaveType"]
+      108 GETTABLEKS                       R8 R0 K11 ["isPublished"]
+      110 SETTABLEKS                       R8 R7 K30 ["filterIsPublished"]
+      112 GETTABLEKS                       R8 R0 K12 ["hasNotes"]
+      114 SETTABLEKS                       R8 R7 K31 ["filterHasNotes"]
+      116 GETTABLEKS                       R8 R0 K17 ["contributor"]
+      118 SETTABLEKS                       R8 R7 K32 ["filterContributor"]
+      120 GETTABLEKS                       R9 R0 K21 ["startDate"]
+      122 JUMPIFNOT                        R9 ; [+6]
+      123 GETTABLEKS                       R8 R0 K21 ["startDate"]
+      125 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
+      127 CALL                             R8 1 1
+      128 JUMP                             ; [+1]
+      129 LOADNIL                          R8
+      130 SETTABLEKS                       R8 R7 K33 ["filterStartTime"]
+      132 GETTABLEKS                       R9 R0 K23 ["endDate"]
+      134 JUMPIFNOT                        R9 ; [+6]
+      135 GETTABLEKS                       R8 R0 K23 ["endDate"]
+      137 NAMECALL                         R8 R8 K22 ["ToIsoDate"]
+      139 CALL                             R8 1 1
+      140 JUMP                             ; [+1]
+      141 LOADNIL                          R8
+      142 SETTABLEKS                       R8 R7 K34 ["filterEndTime"]
+      144 GETTABLEKS                       R9 R0 K20 ["search"]
+      146 JUMPIFNOT                        R9 ; [+6]
+      147 GETIMPORT                        R8 K39 [utf8.len]
+      149 GETTABLEKS                       R9 R0 K20 ["search"]
+      151 CALL                             R8 1 1
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R8
+      154 SETTABLEKS                       R8 R7 K35 ["searchTermLength"]
+      156 NAMECALL                         R4 R4 K40 ["logRobloxTelemetryEvent"]
+      158 CALL                             R4 3 0
+      159 GETUPVAL                         R4 5
+      160 GETTABLEKS                       R4 R4 K41 ["delay"]
+      162 MOVE                             R5 R3
+      163 CALL                             R4 1 1
+      164 NEWCLOSURE                       R6 P0
+      165 CAPTURE                          UPVAL U6
+      166 CAPTURE                          VAL R1
+      167 CAPTURE                          UPVAL U7
+      168 CAPTURE                          UPVAL U5
+      169 CAPTURE                          UPVAL U8
+      170 CAPTURE                          UPVAL U1
+      171 NAMECALL                         R4 R4 K42 ["andThen"]
+      173 CALL                             R4 2 -1
+      174 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

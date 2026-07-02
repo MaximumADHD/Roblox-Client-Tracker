@@ -15,21 +15,15 @@ PROTO_0:
        19 CALL                             R1 1 1
        20 GETTABLEKS                       R2 R1 K9 ["EnableRoactConfigs"]
        22 CALL                             R2 0 1
-       23 JUMPIFNOT                        R2 ; [+20]
+       23 JUMPIFNOT                        R2 ; [+11]
        24 GETIMPORT                        R2 K5 [require]
        26 GETTABLEKS                       R3 R0 K10 ["Packages"]
        28 GETTABLEKS                       R3 R3 K11 ["Roact"]
        30 CALL                             R2 1 1
        31 GETTABLEKS                       R3 R2 K12 ["setGlobalConfig"]
-       33 DUPTABLE                         R4 K16 [{"elementTracing", "propValidation", "typeChecks"}]
-       34 LOADB                            R5 1
-       35 SETTABLEKS                       R5 R4 K13 ["elementTracing"]
-       37 LOADB                            R5 1
-       38 SETTABLEKS                       R5 R4 K14 ["propValidation"]
-       40 LOADB                            R5 1
-       41 SETTABLEKS                       R5 R4 K15 ["typeChecks"]
-       43 CALL                             R3 1 0
-       44 RETURN                           R0 0
+       33 DUPTABLE                         R4 K17 [{["elementTracing"] = True, ["propValidation"] = True, ["typeChecks"] = True}]
+       34 CALL                             R3 1 0
+       35 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

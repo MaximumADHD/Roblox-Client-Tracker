@@ -1,17 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"_tweenFunction", "_startedAt", "_duration", "_task"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["_startedAt"] = , ["_duration"] = , ["_task"] = }]
         1 SETTABLEKS                       R0 R2 K0 ["_tweenFunction"]
-        3 LOADNIL                          R3
-        4 SETTABLEKS                       R3 R2 K1 ["_startedAt"]
-        6 LOADNIL                          R3
-        7 SETTABLEKS                       R3 R2 K2 ["_duration"]
-        9 LOADNIL                          R3
-       10 SETTABLEKS                       R3 R2 K3 ["_task"]
-       12 GETUPVAL                         R3 0
-       13 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-       15 GETIMPORT                        R1 K6 [setmetatable]
-       17 CALL                             R1 2 1
-       18 RETURN                           R1 1
+        3 GETUPVAL                         R3 0
+        4 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+        6 GETIMPORT                        R1 K7 [setmetatable]
+        8 CALL                             R1 2 1
+        9 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_tweenFunction"]

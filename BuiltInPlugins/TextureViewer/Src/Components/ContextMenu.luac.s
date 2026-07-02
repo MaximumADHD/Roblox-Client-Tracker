@@ -28,57 +28,51 @@ PROTO_2:
 
 PROTO_3:
         0 NEWTABLE                         R5 0 0
-        2 DUPTABLE                         R6 K3 [{"Text", "Icon", "OnItemClicked"}]
-        3 LOADK                            R9 K4 ["ContextMenu"]
-        4 LOADK                            R10 K5 ["Copy"]
-        5 NAMECALL                         R7 R2 K6 ["getText"]
+        2 DUPTABLE                         R6 K4 [{[1], ["Icon"] = "rbxasset://textures/TextureViewer/copy.png", ["OnItemClicked"]}]
+        3 LOADK                            R9 K5 ["ContextMenu"]
+        4 LOADK                            R10 K6 ["Copy"]
+        5 NAMECALL                         R7 R2 K7 ["getText"]
         7 CALL                             R7 3 1
         8 SETTABLEKS                       R7 R6 K0 ["Text"]
-       10 LOADK                            R7 K7 ["rbxasset://textures/TextureViewer/copy.png"]
-       11 SETTABLEKS                       R7 R6 K1 ["Icon"]
-       13 NEWCLOSURE                       R7 P0
-       14 CAPTURE                          VAL R0
-       15 CAPTURE                          UPVAL U0
-       16 CAPTURE                          VAL R3
-       17 SETTABLEKS                       R7 R6 K2 ["OnItemClicked"]
-       19 SETTABLEKS                       R6 R5 K5 ["Copy"]
-       21 DUPTABLE                         R6 K3 [{"Text", "Icon", "OnItemClicked"}]
-       22 LOADK                            R9 K4 ["ContextMenu"]
-       23 LOADK                            R10 K8 ["Select"]
-       24 NAMECALL                         R7 R2 K6 ["getText"]
-       26 CALL                             R7 3 1
-       27 SETTABLEKS                       R7 R6 K0 ["Text"]
-       29 LOADK                            R7 K9 ["rbxasset://textures/TextureViewer/select.png"]
-       30 SETTABLEKS                       R7 R6 K1 ["Icon"]
-       32 NEWCLOSURE                       R7 P1
-       33 CAPTURE                          UPVAL U1
-       34 CAPTURE                          VAL R4
-       35 SETTABLEKS                       R7 R6 K2 ["OnItemClicked"]
-       37 SETTABLEKS                       R6 R5 K8 ["Select"]
-       39 DUPTABLE                         R6 K3 [{"Text", "Icon", "OnItemClicked"}]
-       40 LOADK                            R9 K4 ["ContextMenu"]
-       41 LOADK                            R10 K10 ["Replace"]
-       42 NAMECALL                         R7 R2 K6 ["getText"]
-       44 CALL                             R7 3 1
-       45 SETTABLEKS                       R7 R6 K0 ["Text"]
-       47 LOADK                            R7 K11 ["rbxasset://textures/TextureViewer/replace.png"]
-       48 SETTABLEKS                       R7 R6 K1 ["Icon"]
-       50 NEWCLOSURE                       R7 P2
-       51 CAPTURE                          VAL R0
-       52 CAPTURE                          VAL R3
-       53 SETTABLEKS                       R7 R6 K2 ["OnItemClicked"]
-       55 SETTABLEKS                       R6 R5 K10 ["Replace"]
-       57 NEWTABLE                         R6 0 3
-       59 LOADK                            R7 K5 ["Copy"]
-       60 LOADK                            R8 K8 ["Select"]
-       61 LOADK                            R9 K10 ["Replace"]
-       62 SETLIST                          R6 R7 3 [1]
-       64 GETUPVAL                         R7 2
-       65 MOVE                             R8 R1
-       66 MOVE                             R9 R5
-       67 MOVE                             R10 R6
-       68 CALL                             R7 3 0
-       69 RETURN                           R0 0
+       10 NEWCLOSURE                       R7 P0
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U0
+       13 CAPTURE                          VAL R3
+       14 SETTABLEKS                       R7 R6 K3 ["OnItemClicked"]
+       16 SETTABLEKS                       R6 R5 K6 ["Copy"]
+       18 DUPTABLE                         R6 K9 [{[1], ["Icon"] = "rbxasset://textures/TextureViewer/select.png", ["OnItemClicked"]}]
+       19 LOADK                            R9 K5 ["ContextMenu"]
+       20 LOADK                            R10 K10 ["Select"]
+       21 NAMECALL                         R7 R2 K7 ["getText"]
+       23 CALL                             R7 3 1
+       24 SETTABLEKS                       R7 R6 K0 ["Text"]
+       26 NEWCLOSURE                       R7 P1
+       27 CAPTURE                          UPVAL U1
+       28 CAPTURE                          VAL R4
+       29 SETTABLEKS                       R7 R6 K3 ["OnItemClicked"]
+       31 SETTABLEKS                       R6 R5 K10 ["Select"]
+       33 DUPTABLE                         R6 K12 [{[1], ["Icon"] = "rbxasset://textures/TextureViewer/replace.png", ["OnItemClicked"]}]
+       34 LOADK                            R9 K5 ["ContextMenu"]
+       35 LOADK                            R10 K13 ["Replace"]
+       36 NAMECALL                         R7 R2 K7 ["getText"]
+       38 CALL                             R7 3 1
+       39 SETTABLEKS                       R7 R6 K0 ["Text"]
+       41 NEWCLOSURE                       R7 P2
+       42 CAPTURE                          VAL R0
+       43 CAPTURE                          VAL R3
+       44 SETTABLEKS                       R7 R6 K3 ["OnItemClicked"]
+       46 SETTABLEKS                       R6 R5 K13 ["Replace"]
+       48 NEWTABLE                         R6 0 3
+       50 LOADK                            R7 K6 ["Copy"]
+       51 LOADK                            R8 K10 ["Select"]
+       52 LOADK                            R9 K13 ["Replace"]
+       53 SETLIST                          R6 R7 3 [1]
+       55 GETUPVAL                         R7 2
+       56 MOVE                             R8 R1
+       57 MOVE                             R9 R5
+       58 MOVE                             R10 R6
+       59 CALL                             R7 3 0
+       60 RETURN                           R0 0
 
 MAIN:
         0 PREPVARARGS                      0

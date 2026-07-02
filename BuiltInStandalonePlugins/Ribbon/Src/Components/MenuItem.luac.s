@@ -46,46 +46,44 @@ PROTO_2:
         4 DUPCLOSURE                       R2 K1 [PROTO_1]
         5 CAPTURE                          UPVAL U2
         6 CALL                             R0 2 1
-        7 DUPTABLE                         R1 K3 [{"Type", "Children"}]
-        8 LOADK                            R2 K4 ["Column"]
-        9 SETTABLEKS                       R2 R1 K2 ["Type"]
-       11 SETTABLEKS                       R0 R1 K0 ["Children"]
-       13 GETUPVAL                         R2 3
-       14 NEWTABLE                         R3 0 1
-       16 MOVE                             R4 R1
-       17 SETLIST                          R3 R4 1 [1]
-       19 GETUPVAL                         R4 4
-       20 DUPTABLE                         R5 K8 [{"TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
-       21 GETUPVAL                         R7 5
-       22 GETTABLEKS                       R7 R7 K9 ["menuOnLeft"]
-       24 JUMPIFNOT                        R7 ; [+6]
-       25 GETIMPORT                        R6 K12 [Vector2.new]
-       27 LOADN                            R7 0
-       28 LOADN                            R8 0
-       29 CALL                             R6 2 1
-       30 JUMP                             ; [+5]
-       31 GETIMPORT                        R6 K12 [Vector2.new]
-       33 LOADN                            R7 1
-       34 LOADN                            R8 0
-       35 CALL                             R6 2 1
-       36 SETTABLEKS                       R6 R5 K5 ["TargetAnchorPoint"]
-       38 GETUPVAL                         R7 5
-       39 GETTABLEKS                       R7 R7 K9 ["menuOnLeft"]
-       41 JUMPIFNOT                        R7 ; [+6]
-       42 GETIMPORT                        R6 K12 [Vector2.new]
-       44 LOADN                            R7 1
-       45 LOADN                            R8 0
-       46 CALL                             R6 2 1
-       47 JUMP                             ; [+5]
-       48 GETIMPORT                        R6 K12 [Vector2.new]
-       50 LOADN                            R7 0
-       51 LOADN                            R8 0
-       52 CALL                             R6 2 1
-       53 SETTABLEKS                       R6 R5 K6 ["SubjectAnchorPoint"]
-       55 GETUPVAL                         R6 6
-       56 SETTABLEKS                       R6 R5 K7 ["Offset"]
-       58 CALL                             R2 3 0
-       59 RETURN                           R0 0
+        7 DUPTABLE                         R1 K4 [{["Type"] = "Column", [2]}]
+        8 SETTABLEKS                       R0 R1 K0 ["Children"]
+       10 GETUPVAL                         R2 3
+       11 NEWTABLE                         R3 0 1
+       13 MOVE                             R4 R1
+       14 SETLIST                          R3 R4 1 [1]
+       16 GETUPVAL                         R4 4
+       17 DUPTABLE                         R5 K8 [{"TargetAnchorPoint", "SubjectAnchorPoint", "Offset"}]
+       18 GETUPVAL                         R7 5
+       19 GETTABLEKS                       R7 R7 K9 ["menuOnLeft"]
+       21 JUMPIFNOT                        R7 ; [+6]
+       22 GETIMPORT                        R6 K12 [Vector2.new]
+       24 LOADN                            R7 0
+       25 LOADN                            R8 0
+       26 CALL                             R6 2 1
+       27 JUMP                             ; [+5]
+       28 GETIMPORT                        R6 K12 [Vector2.new]
+       30 LOADN                            R7 1
+       31 LOADN                            R8 0
+       32 CALL                             R6 2 1
+       33 SETTABLEKS                       R6 R5 K5 ["TargetAnchorPoint"]
+       35 GETUPVAL                         R7 5
+       36 GETTABLEKS                       R7 R7 K9 ["menuOnLeft"]
+       38 JUMPIFNOT                        R7 ; [+6]
+       39 GETIMPORT                        R6 K12 [Vector2.new]
+       41 LOADN                            R7 1
+       42 LOADN                            R8 0
+       43 CALL                             R6 2 1
+       44 JUMP                             ; [+5]
+       45 GETIMPORT                        R6 K12 [Vector2.new]
+       47 LOADN                            R7 0
+       48 LOADN                            R8 0
+       49 CALL                             R6 2 1
+       50 SETTABLEKS                       R6 R5 K6 ["SubjectAnchorPoint"]
+       52 GETUPVAL                         R6 6
+       53 SETTABLEKS                       R6 R5 K7 ["Offset"]
+       55 CALL                             R2 3 0
+       56 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R0 0

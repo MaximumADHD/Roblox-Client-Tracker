@@ -12,7 +12,7 @@ PROTO_0:
        18 SUB                              R6 R7 R8
        19 GETTABLEKS                       R7 R1 K8 ["Height"]
        21 DIV                              R5 R6 R7
-       22 SUBRK                            R4 R6 K5 ["Width"]
+       22 SUBRK                            R4 K6 [1] R5
        23 CALL                             R2 2 -1
        24 RETURN                           R2 -1
 
@@ -28,7 +28,7 @@ PROTO_1:
        14 GETTABLEKS                       R5 R5 K6 ["Y"]
        16 GETTABLEKS                       R7 R1 K7 ["Height"]
        18 GETTABLEKS                       R9 R0 K6 ["Y"]
-       20 SUBRK                            R8 R8 K9 [NULL]
+       20 SUBRK                            R8 K8 [1] R9
        21 MUL                              R6 R7 R8
        22 ADD                              R4 R5 R6
        23 CALL                             R2 2 -1

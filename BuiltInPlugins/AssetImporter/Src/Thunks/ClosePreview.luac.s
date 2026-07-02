@@ -3,25 +3,23 @@ PROTO_0:
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R1 R1 K1 ["Preview"]
         5 GETTABLEKS                       R1 R1 K2 ["activeQueueItem"]
-        7 JUMPIFNOT                        R1 ; [+10]
+        7 JUMPIFNOT                        R1 ; [+7]
         8 GETUPVAL                         R4 0
         9 MOVE                             R5 R1
-       10 DUPTABLE                         R6 K4 [{"settingsChanged"}]
-       11 LOADB                            R7 1
-       12 SETTABLEKS                       R7 R6 K3 ["settingsChanged"]
-       14 CALL                             R4 2 -1
-       15 NAMECALL                         R2 R0 K5 ["dispatch"]
-       17 CALL                             R2 -1 0
-       18 GETUPVAL                         R4 1
-       19 LOADB                            R5 0
-       20 CALL                             R4 1 -1
-       21 NAMECALL                         R2 R0 K5 ["dispatch"]
-       23 CALL                             R2 -1 0
-       24 GETUPVAL                         R4 2
-       25 CALL                             R4 0 -1
-       26 NAMECALL                         R2 R0 K5 ["dispatch"]
-       28 CALL                             R2 -1 0
-       29 RETURN                           R0 0
+       10 DUPTABLE                         R6 K5 [{["settingsChanged"] = True}]
+       11 CALL                             R4 2 -1
+       12 NAMECALL                         R2 R0 K6 ["dispatch"]
+       14 CALL                             R2 -1 0
+       15 GETUPVAL                         R4 1
+       16 LOADB                            R5 0
+       17 CALL                             R4 1 -1
+       18 NAMECALL                         R2 R0 K6 ["dispatch"]
+       20 CALL                             R2 -1 0
+       21 GETUPVAL                         R4 2
+       22 CALL                             R4 0 -1
+       23 NAMECALL                         R2 R0 K6 ["dispatch"]
+       25 CALL                             R2 -1 0
+       26 RETURN                           R0 0
 
 PROTO_1:
         0 DUPCLOSURE                       R0 K0 [PROTO_0]

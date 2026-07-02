@@ -114,104 +114,82 @@ MAIN:
        25 GETTABLEKS                       R5 R1 K9 ["Images"]
        27 CALL                             R4 1 1
        28 NEWTABLE                         R5 16 0
-       30 DUPTABLE                         R6 K13 [{"name", "trigger", "action"}]
-       31 LOADK                            R7 K14 ["GET_ASSET_DETAIL_FAILURE"]
-       32 SETTABLEKS                       R7 R6 K10 ["name"]
-       34 LOADK                            R7 K15 ["FailToGetAssetDetail"]
-       35 SETTABLEKS                       R7 R6 K11 ["trigger"]
-       37 LOADK                            R7 K16 ["CloseAssetConfig"]
-       38 SETTABLEKS                       R7 R6 K12 ["action"]
-       40 DUPTABLE                         R7 K13 [{"name", "trigger", "action"}]
-       41 LOADK                            R8 K17 ["SET_ASSET_PRICE_FAILURE"]
-       42 SETTABLEKS                       R8 R7 K10 ["name"]
-       44 LOADK                            R8 K18 ["FailToSetPrice"]
-       45 SETTABLEKS                       R8 R7 K11 ["trigger"]
-       47 LOADK                            R8 K19 ["ShowPriceFailReason"]
-       48 SETTABLEKS                       R8 R7 K12 ["action"]
-       50 DUPTABLE                         R8 K13 [{"name", "trigger", "action"}]
-       51 LOADK                            R9 K20 ["SET_ASSET_THUMBNAIL_FAILURE"]
-       52 SETTABLEKS                       R9 R8 K10 ["name"]
-       54 LOADK                            R9 K21 ["FaileToSetIcon"]
-       55 SETTABLEKS                       R9 R8 K11 ["trigger"]
-       57 LOADK                            R9 K22 ["ShowThumbnailFailReason"]
-       58 SETTABLEKS                       R9 R8 K12 ["action"]
-       60 NEWTABLE                         R9 4 0
-       62 GETTABLEKS                       R10 R6 K10 ["name"]
-       64 SETTABLE                         R6 R9 R10
-       65 GETTABLEKS                       R10 R7 K10 ["name"]
-       67 SETTABLE                         R7 R9 R10
-       68 GETTABLEKS                       R10 R8 K10 ["name"]
-       70 SETTABLE                         R8 R9 R10
-       71 SETTABLEKS                       R9 R5 K23 ["NetworkErrors"]
-       73 LOADK                            R9 K16 ["CloseAssetConfig"]
-       74 SETTABLEKS                       R9 R5 K24 ["GET_ASSET_DETAIL_FAILURE_ACTION"]
-       76 DUPTABLE                         R9 K26 [{"name", "image"}]
-       77 GETTABLEKS                       R10 R2 K27 ["SIDE_TABS"]
-       79 GETTABLEKS                       R10 R10 K28 ["General"]
-       81 SETTABLEKS                       R10 R9 K10 ["name"]
-       83 GETTABLEKS                       R10 R4 K29 ["GENERAL_SIDE_TAB"]
-       85 SETTABLEKS                       R10 R9 K25 ["image"]
-       87 DUPTABLE                         R10 K26 [{"name", "image"}]
-       88 GETTABLEKS                       R11 R2 K27 ["SIDE_TABS"]
-       90 GETTABLEKS                       R11 R11 K30 ["Versions"]
-       92 SETTABLEKS                       R11 R10 K10 ["name"]
-       94 GETTABLEKS                       R11 R4 K31 ["VERSIONS_SIDE_TAB"]
-       96 SETTABLEKS                       R11 R10 K25 ["image"]
-       98 DUPTABLE                         R11 K26 [{"name", "image"}]
-       99 GETTABLEKS                       R12 R2 K27 ["SIDE_TABS"]
-      101 GETTABLEKS                       R12 R12 K32 ["Sales"]
-      103 SETTABLEKS                       R12 R11 K10 ["name"]
-      105 GETTABLEKS                       R12 R4 K33 ["SALES_SIDE_TAB"]
-      107 SETTABLEKS                       R12 R11 K25 ["image"]
-      109 DUPTABLE                         R12 K34 [{"name"}]
-      110 GETTABLEKS                       R13 R2 K27 ["SIDE_TABS"]
-      112 GETTABLEKS                       R13 R13 K35 ["Override"]
-      114 SETTABLEKS                       R13 R12 K10 ["name"]
-      116 DUPTABLE                         R13 K26 [{"name", "image"}]
-      117 GETTABLEKS                       R14 R2 K27 ["SIDE_TABS"]
-      119 GETTABLEKS                       R14 R14 K36 ["Permissions"]
-      121 SETTABLEKS                       R14 R13 K10 ["name"]
-      123 GETTABLEKS                       R14 R4 K37 ["PERMISSIONS_SIDE_TAB"]
-      125 SETTABLEKS                       R14 R13 K25 ["image"]
-      127 DUPTABLE                         R14 K40 [{"User", "Group"}]
-      128 LOADN                            R15 1
-      129 SETTABLEKS                       R15 R14 K38 ["User"]
-      131 LOADN                            R15 2
-      132 SETTABLEKS                       R15 R14 K39 ["Group"]
-      134 SETTABLEKS                       R14 R5 K41 ["OWNER_TYPES"]
-      136 DUPCLOSURE                       R14 K42 [PROTO_0]
+       30 DUPTABLE                         R6 K16 [{["name"] = "GET_ASSET_DETAIL_FAILURE", ["trigger"] = "FailToGetAssetDetail", ["action"] = "CloseAssetConfig"}]
+       31 DUPTABLE                         R7 K20 [{["name"] = "SET_ASSET_PRICE_FAILURE", ["trigger"] = "FailToSetPrice", ["action"] = "ShowPriceFailReason"}]
+       32 DUPTABLE                         R8 K24 [{["name"] = "SET_ASSET_THUMBNAIL_FAILURE", ["trigger"] = "FaileToSetIcon", ["action"] = "ShowThumbnailFailReason"}]
+       33 NEWTABLE                         R9 4 0
+       35 GETTABLEKS                       R10 R6 K10 ["name"]
+       37 SETTABLE                         R6 R9 R10
+       38 GETTABLEKS                       R10 R7 K10 ["name"]
+       40 SETTABLE                         R7 R9 R10
+       41 GETTABLEKS                       R10 R8 K10 ["name"]
+       43 SETTABLE                         R8 R9 R10
+       44 SETTABLEKS                       R9 R5 K25 ["NetworkErrors"]
+       46 LOADK                            R9 K15 ["CloseAssetConfig"]
+       47 SETTABLEKS                       R9 R5 K26 ["GET_ASSET_DETAIL_FAILURE_ACTION"]
+       49 DUPTABLE                         R9 K28 [{"name", "image"}]
+       50 GETTABLEKS                       R10 R2 K29 ["SIDE_TABS"]
+       52 GETTABLEKS                       R10 R10 K30 ["General"]
+       54 SETTABLEKS                       R10 R9 K10 ["name"]
+       56 GETTABLEKS                       R10 R4 K31 ["GENERAL_SIDE_TAB"]
+       58 SETTABLEKS                       R10 R9 K27 ["image"]
+       60 DUPTABLE                         R10 K28 [{"name", "image"}]
+       61 GETTABLEKS                       R11 R2 K29 ["SIDE_TABS"]
+       63 GETTABLEKS                       R11 R11 K32 ["Versions"]
+       65 SETTABLEKS                       R11 R10 K10 ["name"]
+       67 GETTABLEKS                       R11 R4 K33 ["VERSIONS_SIDE_TAB"]
+       69 SETTABLEKS                       R11 R10 K27 ["image"]
+       71 DUPTABLE                         R11 K28 [{"name", "image"}]
+       72 GETTABLEKS                       R12 R2 K29 ["SIDE_TABS"]
+       74 GETTABLEKS                       R12 R12 K34 ["Sales"]
+       76 SETTABLEKS                       R12 R11 K10 ["name"]
+       78 GETTABLEKS                       R12 R4 K35 ["SALES_SIDE_TAB"]
+       80 SETTABLEKS                       R12 R11 K27 ["image"]
+       82 DUPTABLE                         R12 K36 [{"name"}]
+       83 GETTABLEKS                       R13 R2 K29 ["SIDE_TABS"]
+       85 GETTABLEKS                       R13 R13 K37 ["Override"]
+       87 SETTABLEKS                       R13 R12 K10 ["name"]
+       89 DUPTABLE                         R13 K28 [{"name", "image"}]
+       90 GETTABLEKS                       R14 R2 K29 ["SIDE_TABS"]
+       92 GETTABLEKS                       R14 R14 K38 ["Permissions"]
+       94 SETTABLEKS                       R14 R13 K10 ["name"]
+       96 GETTABLEKS                       R14 R4 K39 ["PERMISSIONS_SIDE_TAB"]
+       98 SETTABLEKS                       R14 R13 K27 ["image"]
+      100 DUPTABLE                         R14 K44 [{["User"] = 1, ["Group"] = 2}]
+      101 SETTABLEKS                       R14 R5 K45 ["OWNER_TYPES"]
+      103 DUPCLOSURE                       R14 K46 [PROTO_0]
+      104 CAPTURE                          VAL R9
+      105 CAPTURE                          VAL R13
+      106 CAPTURE                          VAL R3
+      107 CAPTURE                          VAL R10
+      108 CAPTURE                          VAL R5
+      109 CAPTURE                          VAL R11
+      110 SETTABLEKS                       R14 R5 K47 ["getAssetconfigContent"]
+      112 DUPCLOSURE                       R14 K48 [PROTO_1]
+      113 CAPTURE                          VAL R9
+      114 SETTABLEKS                       R14 R5 K49 ["isGeneral"]
+      116 DUPCLOSURE                       R14 K50 [PROTO_2]
+      117 CAPTURE                          VAL R10
+      118 SETTABLEKS                       R14 R5 K51 ["isVersions"]
+      120 DUPCLOSURE                       R14 K52 [PROTO_3]
+      121 CAPTURE                          VAL R11
+      122 SETTABLEKS                       R14 R5 K53 ["isSales"]
+      124 DUPCLOSURE                       R14 K54 [PROTO_4]
+      125 CAPTURE                          VAL R12
+      126 SETTABLEKS                       R14 R5 K55 ["isOverride"]
+      128 DUPCLOSURE                       R14 K56 [PROTO_5]
+      129 CAPTURE                          VAL R13
+      130 SETTABLEKS                       R14 R5 K57 ["isPermissions"]
+      132 DUPCLOSURE                       R14 K58 [PROTO_6]
+      133 CAPTURE                          VAL R12
+      134 SETTABLEKS                       R14 R5 K59 ["getOverrideTab"]
+      136 DUPCLOSURE                       R14 K60 [PROTO_7]
       137 CAPTURE                          VAL R9
-      138 CAPTURE                          VAL R13
-      139 CAPTURE                          VAL R3
-      140 CAPTURE                          VAL R10
-      141 CAPTURE                          VAL R5
-      142 CAPTURE                          VAL R11
-      143 SETTABLEKS                       R14 R5 K43 ["getAssetconfigContent"]
-      145 DUPCLOSURE                       R14 K44 [PROTO_1]
-      146 CAPTURE                          VAL R9
-      147 SETTABLEKS                       R14 R5 K45 ["isGeneral"]
-      149 DUPCLOSURE                       R14 K46 [PROTO_2]
-      150 CAPTURE                          VAL R10
-      151 SETTABLEKS                       R14 R5 K47 ["isVersions"]
-      153 DUPCLOSURE                       R14 K48 [PROTO_3]
-      154 CAPTURE                          VAL R11
-      155 SETTABLEKS                       R14 R5 K49 ["isSales"]
-      157 DUPCLOSURE                       R14 K50 [PROTO_4]
-      158 CAPTURE                          VAL R12
-      159 SETTABLEKS                       R14 R5 K51 ["isOverride"]
-      161 DUPCLOSURE                       R14 K52 [PROTO_5]
-      162 CAPTURE                          VAL R13
-      163 SETTABLEKS                       R14 R5 K53 ["isPermissions"]
-      165 DUPCLOSURE                       R14 K54 [PROTO_6]
-      166 CAPTURE                          VAL R12
-      167 SETTABLEKS                       R14 R5 K55 ["getOverrideTab"]
-      169 DUPCLOSURE                       R14 K56 [PROTO_7]
-      170 CAPTURE                          VAL R9
-      171 SETTABLEKS                       R14 R5 K57 ["getGeneralTab"]
-      173 DUPCLOSURE                       R14 K58 [PROTO_8]
-      174 CAPTURE                          VAL R9
-      175 SETTABLEKS                       R14 R5 K59 ["getDefaultTab"]
-      177 DUPCLOSURE                       R14 K60 [PROTO_9]
-      178 CAPTURE                          VAL R10
-      179 SETTABLEKS                       R14 R5 K61 ["getVersionsTab"]
-      181 RETURN                           R5 1
+      138 SETTABLEKS                       R14 R5 K61 ["getGeneralTab"]
+      140 DUPCLOSURE                       R14 K62 [PROTO_8]
+      141 CAPTURE                          VAL R9
+      142 SETTABLEKS                       R14 R5 K63 ["getDefaultTab"]
+      144 DUPCLOSURE                       R14 K64 [PROTO_9]
+      145 CAPTURE                          VAL R10
+      146 SETTABLEKS                       R14 R5 K65 ["getVersionsTab"]
+      148 RETURN                           R5 1

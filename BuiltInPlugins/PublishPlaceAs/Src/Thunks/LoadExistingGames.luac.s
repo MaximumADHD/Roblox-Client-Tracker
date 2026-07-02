@@ -324,25 +324,25 @@ PROTO_13:
        57 LOADNIL                          R2
        58 GETUPVAL                         R3 9
        59 CALL                             R3 0 1
-       60 JUMPIFNOT                        R3 ; [+6]
+       60 JUMPIFNOT                        R3 ; [+9]
        61 GETUPVAL                         R3 2
-       62 JUMPIF                           R3 ; [+3]
-       63 GETUPVAL                         R3 10
-       64 ADDK                             R3 R3 K8 [1]
-       65 SETUPVAL                         R3 10
-       66 GETUPVAL                         R2 10
-       67 GETUPVAL                         R3 11
-       68 DUPTABLE                         R4 K14 [{"type", "id", "cursor", "limit", "isPublish"}]
-       69 GETUPVAL                         R5 12
-       70 SETTABLEKS                       R5 R4 K9 ["type"]
-       72 GETUPVAL                         R5 6
-       73 SETTABLEKS                       R5 R4 K10 ["id"]
-       75 GETUPVAL                         R5 2
-       76 SETTABLEKS                       R5 R4 K11 ["cursor"]
-       78 LOADN                            R5 25
-       79 SETTABLEKS                       R5 R4 K12 ["limit"]
+       62 JUMPIF                           R3 ; [+6]
+       63 NEWTABLE                         R3 0 0
+       65 SETUPVAL                         R3 8
+       66 GETUPVAL                         R3 10
+       67 ADDK                             R3 R3 K8 [1]
+       68 SETUPVAL                         R3 10
+       69 GETUPVAL                         R2 10
+       70 GETUPVAL                         R3 11
+       71 DUPTABLE                         R4 K15 [{["type"], ["id"], ["cursor"], ["limit"] = 25, ["isPublish"]}]
+       72 GETUPVAL                         R5 12
+       73 SETTABLEKS                       R5 R4 K9 ["type"]
+       75 GETUPVAL                         R5 6
+       76 SETTABLEKS                       R5 R4 K10 ["id"]
+       78 GETUPVAL                         R5 2
+       79 SETTABLEKS                       R5 R4 K11 ["cursor"]
        81 GETUPVAL                         R5 13
-       82 SETTABLEKS                       R5 R4 K13 ["isPublish"]
+       82 SETTABLEKS                       R5 R4 K14 ["isPublish"]
        84 CALL                             R3 1 1
        85 NEWCLOSURE                       R5 P1
        86 CAPTURE                          REF R2
@@ -391,7 +391,7 @@ PROTO_13:
       133 CAPTURE                          VAL R0
       134 CAPTURE                          UPVAL U4
       135 CAPTURE                          UPVAL U5
-      136 NAMECALL                         R3 R3 K15 ["catch"]
+      136 NAMECALL                         R3 R3 K16 ["catch"]
       138 CALL                             R3 2 0
       139 CLOSEUPVALS                      R2
       140 CLOSEUPVALS                      R1
@@ -482,14 +482,14 @@ MAIN:
       101 GETTABLEKS                       R11 R11 K25 ["Cryo"]
       103 CALL                             R10 1 1
       104 NEWTABLE                         R11 0 0
-      106 LOADN                            R12 255
+      106 LOADN                            R12 -1
       107 LOADNIL                          R13
       108 LOADNIL                          R14
       109 LOADN                            R15 0
       110 GETIMPORT                        R16 K8 [require]
       112 GETTABLEKS                       R17 R0 K9 ["Src"]
       114 GETTABLEKS                       R17 R17 K26 ["Flags"]
-      116 GETTABLEKS                       R17 R17 K27 ["getFFlagCOLLAB6755TimingBug"]
+      116 GETTABLEKS                       R17 R17 K27 ["getFFlagCOLLAB6755TimingBug2"]
       118 CALL                             R16 1 1
       119 NEWTABLE                         R17 0 0
       121 DUPCLOSURE                       R18 K28 [PROTO_0]

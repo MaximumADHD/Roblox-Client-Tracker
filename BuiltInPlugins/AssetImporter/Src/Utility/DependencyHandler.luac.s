@@ -2,29 +2,17 @@ PROTO_0:
         0 GETIMPORT                        R1 K3 [Enum.NormalId.Top]
         2 JUMPIFEQ                         R0 R1 ; [+5]
         4 GETIMPORT                        R1 K5 [Enum.NormalId.Bottom]
-        6 JUMPIFNOTEQ                      R0 R1 ; [+9]
-        8 DUPTABLE                         R1 K6 [{"Top", "Bottom"}]
-        9 LOADB                            R2 1
-       10 SETTABLEKS                       R2 R1 K2 ["Top"]
-       12 LOADB                            R2 1
-       13 SETTABLEKS                       R2 R1 K4 ["Bottom"]
-       15 RETURN                           R1 1
-       16 GETIMPORT                        R1 K8 [Enum.NormalId.Right]
-       18 JUMPIFEQ                         R0 R1 ; [+5]
-       20 GETIMPORT                        R1 K10 [Enum.NormalId.Left]
-       22 JUMPIFNOTEQ                      R0 R1 ; [+9]
-       24 DUPTABLE                         R1 K11 [{"Right", "Left"}]
-       25 LOADB                            R2 1
-       26 SETTABLEKS                       R2 R1 K7 ["Right"]
-       28 LOADB                            R2 1
-       29 SETTABLEKS                       R2 R1 K9 ["Left"]
-       31 RETURN                           R1 1
-       32 DUPTABLE                         R1 K14 [{"Front", "Back"}]
-       33 LOADB                            R2 1
-       34 SETTABLEKS                       R2 R1 K12 ["Front"]
-       36 LOADB                            R2 1
-       37 SETTABLEKS                       R2 R1 K13 ["Back"]
-       39 RETURN                           R1 1
+        6 JUMPIFNOTEQ                      R0 R1 ; [+3]
+        8 DUPTABLE                         R1 K7 [{["Top"] = True, ["Bottom"] = True}]
+        9 RETURN                           R1 1
+       10 GETIMPORT                        R1 K9 [Enum.NormalId.Right]
+       12 JUMPIFEQ                         R0 R1 ; [+5]
+       14 GETIMPORT                        R1 K11 [Enum.NormalId.Left]
+       16 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       18 DUPTABLE                         R1 K12 [{["Right"] = True, ["Left"] = True}]
+       19 RETURN                           R1 1
+       20 DUPTABLE                         R1 K15 [{["Front"] = True, ["Back"] = True}]
+       21 RETURN                           R1 1
 
 PROTO_1:
         0 NEWTABLE                         R1 0 0

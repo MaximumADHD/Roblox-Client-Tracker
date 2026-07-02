@@ -55,30 +55,28 @@ PROTO_3:
        16 NOT                              R3 R4
        17 NAMECALL                         R6 R5 K7 ["Destroy"]
        19 CALL                             R6 1 0
-       20 DUPTABLE                         R7 K9 [{"_destroyed"}]
-       21 LOADB                            R8 0
-       22 SETTABLEKS                       R8 R7 K8 ["_destroyed"]
-       24 GETUPVAL                         R8 0
-       25 FASTCALL2                        SETMETATABLE R7 R8 ; [+3]
-       27 GETIMPORT                        R6 K11 [setmetatable]
-       29 CALL                             R6 2 1
-       30 GETTABLEKS                       R7 R1 K12 ["AncestryChanged"]
-       32 NEWCLOSURE                       R9 P1
-       33 CAPTURE                          REF R3
-       34 CAPTURE                          VAL R6
-       35 CAPTURE                          VAL R2
-       36 NAMECALL                         R7 R7 K5 ["Connect"]
-       38 CALL                             R7 2 1
-       39 SETTABLEKS                       R7 R6 K13 ["_hoverInstanceEscapedConnection"]
-       41 GETTABLEKS                       R7 R1 K14 ["DescendantRemoving"]
-       43 NEWCLOSURE                       R9 P2
-       44 CAPTURE                          VAL R6
-       45 CAPTURE                          VAL R2
-       46 NAMECALL                         R7 R7 K5 ["Connect"]
-       48 CALL                             R7 2 1
-       49 SETTABLEKS                       R7 R6 K15 ["_hoverInstanceContentsChangedConnection"]
-       51 CLOSEUPVALS                      R3
-       52 RETURN                           R6 1
+       20 DUPTABLE                         R7 K10 [{["_destroyed"] = False}]
+       21 GETUPVAL                         R8 0
+       22 FASTCALL2                        SETMETATABLE R7 R8 ; [+3]
+       24 GETIMPORT                        R6 K12 [setmetatable]
+       26 CALL                             R6 2 1
+       27 GETTABLEKS                       R7 R1 K13 ["AncestryChanged"]
+       29 NEWCLOSURE                       R9 P1
+       30 CAPTURE                          REF R3
+       31 CAPTURE                          VAL R6
+       32 CAPTURE                          VAL R2
+       33 NAMECALL                         R7 R7 K5 ["Connect"]
+       35 CALL                             R7 2 1
+       36 SETTABLEKS                       R7 R6 K14 ["_hoverInstanceEscapedConnection"]
+       38 GETTABLEKS                       R7 R1 K15 ["DescendantRemoving"]
+       40 NEWCLOSURE                       R9 P2
+       41 CAPTURE                          VAL R6
+       42 CAPTURE                          VAL R2
+       43 NAMECALL                         R7 R7 K5 ["Connect"]
+       45 CALL                             R7 2 1
+       46 SETTABLEKS                       R7 R6 K16 ["_hoverInstanceContentsChangedConnection"]
+       48 CLOSEUPVALS                      R3
+       49 RETURN                           R6 1
 
 PROTO_4:
         0 GETTABLEKS                       R3 R0 K0 ["_destroyed"]

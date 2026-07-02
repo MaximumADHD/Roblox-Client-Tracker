@@ -239,121 +239,71 @@ PROTO_12:
        33 GETUPVAL                         R7 1
        34 GETTABLEKS                       R7 R7 K16 ["createElement"]
        36 GETUPVAL                         R8 2
-       37 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-       38 LOADK                            R10 K26 ["simulationResumeActionV2"]
-       39 SETTABLEKS                       R10 R9 K17 ["Name"]
-       41 SETTABLEKS                       R1 R9 K18 ["Toolbar"]
-       43 LOADB                            R10 0
-       44 SETTABLEKS                       R10 R9 K19 ["Active"]
-       46 SETTABLEKS                       R4 R9 K20 ["Enabled"]
-       48 LOADK                            R10 K27 ["Resume"]
-       49 SETTABLEKS                       R10 R9 K21 ["Title"]
-       51 LOADK                            R10 K28 [""]
-       52 SETTABLEKS                       R10 R9 K22 ["Tooltip"]
-       54 GETTABLEKS                       R10 R0 K29 ["onResume"]
-       56 SETTABLEKS                       R10 R9 K23 ["OnClick"]
-       58 LOADB                            R10 1
-       59 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
-       61 CALL                             R7 2 1
-       62 SETTABLEKS                       R7 R6 K10 ["ResumeButton"]
-       64 GETUPVAL                         R7 1
-       65 GETTABLEKS                       R7 R7 K16 ["createElement"]
-       67 GETUPVAL                         R8 2
-       68 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-       69 LOADK                            R10 K30 ["simulationPauseActionV2"]
-       70 SETTABLEKS                       R10 R9 K17 ["Name"]
-       72 SETTABLEKS                       R1 R9 K18 ["Toolbar"]
+       37 DUPTABLE                         R9 K30 [{["Name"] = "simulationResumeActionV2", ["Toolbar"], ["Active"] = False, ["Enabled"], ["Title"] = "Resume", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       38 SETTABLEKS                       R1 R9 K19 ["Toolbar"]
+       40 SETTABLEKS                       R4 R9 K22 ["Enabled"]
+       42 GETTABLEKS                       R10 R0 K31 ["onResume"]
+       44 SETTABLEKS                       R10 R9 K27 ["OnClick"]
+       46 CALL                             R7 2 1
+       47 SETTABLEKS                       R7 R6 K10 ["ResumeButton"]
+       49 GETUPVAL                         R7 1
+       50 GETTABLEKS                       R7 R7 K16 ["createElement"]
+       52 GETUPVAL                         R8 2
+       53 DUPTABLE                         R9 K34 [{["Name"] = "simulationPauseActionV2", ["Toolbar"], ["Active"] = False, ["Enabled"], ["Title"] = "Pause", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       54 SETTABLEKS                       R1 R9 K19 ["Toolbar"]
+       56 NOT                              R11 R4
+       57 AND                              R10 R11 R3
+       58 SETTABLEKS                       R10 R9 K22 ["Enabled"]
+       60 GETTABLEKS                       R10 R0 K35 ["onPause"]
+       62 SETTABLEKS                       R10 R9 K27 ["OnClick"]
+       64 CALL                             R7 2 1
+       65 SETTABLEKS                       R7 R6 K11 ["PauseButton"]
+       67 GETUPVAL                         R7 1
+       68 GETTABLEKS                       R7 R7 K16 ["createElement"]
+       70 GETUPVAL                         R8 2
+       71 DUPTABLE                         R9 K38 [{["Name"] = "stepOverActionV2", ["Toolbar"], ["Active"] = False, ["Enabled"], ["Title"] = "StepOver", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       72 SETTABLEKS                       R1 R9 K19 ["Toolbar"]
        74 LOADB                            R10 0
-       75 SETTABLEKS                       R10 R9 K19 ["Active"]
-       77 NOT                              R11 R4
-       78 AND                              R10 R11 R3
-       79 SETTABLEKS                       R10 R9 K20 ["Enabled"]
-       81 LOADK                            R10 K31 ["Pause"]
-       82 SETTABLEKS                       R10 R9 K21 ["Title"]
-       84 LOADK                            R10 K28 [""]
-       85 SETTABLEKS                       R10 R9 K22 ["Tooltip"]
-       87 GETTABLEKS                       R10 R0 K32 ["onPause"]
-       89 SETTABLEKS                       R10 R9 K23 ["OnClick"]
-       91 LOADB                            R10 1
-       92 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
-       94 CALL                             R7 2 1
-       95 SETTABLEKS                       R7 R6 K11 ["PauseButton"]
-       97 GETUPVAL                         R7 1
-       98 GETTABLEKS                       R7 R7 K16 ["createElement"]
-      100 GETUPVAL                         R8 2
-      101 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-      102 LOADK                            R10 K33 ["stepOverActionV2"]
-      103 SETTABLEKS                       R10 R9 K17 ["Name"]
-      105 SETTABLEKS                       R1 R9 K18 ["Toolbar"]
-      107 LOADB                            R10 0
-      108 SETTABLEKS                       R10 R9 K19 ["Active"]
-      110 LOADB                            R10 0
-      111 GETTABLEKS                       R11 R0 K4 ["props"]
-      113 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
-      115 JUMPIFEQKNIL                     R11 ; [+2]
-      117 NOT                              R10 R5
-      118 SETTABLEKS                       R10 R9 K20 ["Enabled"]
-      120 LOADK                            R10 K35 ["StepOver"]
-      121 SETTABLEKS                       R10 R9 K21 ["Title"]
-      123 LOADK                            R10 K28 [""]
-      124 SETTABLEKS                       R10 R9 K22 ["Tooltip"]
-      126 GETTABLEKS                       R10 R0 K36 ["onStepOver"]
-      128 SETTABLEKS                       R10 R9 K23 ["OnClick"]
-      130 LOADB                            R10 1
-      131 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
-      133 CALL                             R7 2 1
-      134 SETTABLEKS                       R7 R6 K12 ["StepOverButton"]
-      136 GETUPVAL                         R7 1
-      137 GETTABLEKS                       R7 R7 K16 ["createElement"]
-      139 GETUPVAL                         R8 2
-      140 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-      141 LOADK                            R10 K37 ["stepIntoActionV2"]
-      142 SETTABLEKS                       R10 R9 K17 ["Name"]
-      144 SETTABLEKS                       R1 R9 K18 ["Toolbar"]
-      146 LOADB                            R10 0
-      147 SETTABLEKS                       R10 R9 K19 ["Active"]
-      149 LOADB                            R10 0
-      150 GETTABLEKS                       R11 R0 K4 ["props"]
-      152 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
-      154 JUMPIFEQKNIL                     R11 ; [+2]
-      156 NOT                              R10 R5
-      157 SETTABLEKS                       R10 R9 K20 ["Enabled"]
-      159 LOADK                            R10 K38 ["StepInto"]
-      160 SETTABLEKS                       R10 R9 K21 ["Title"]
-      162 LOADK                            R10 K28 [""]
-      163 SETTABLEKS                       R10 R9 K22 ["Tooltip"]
-      165 GETTABLEKS                       R10 R0 K39 ["onStepInto"]
-      167 SETTABLEKS                       R10 R9 K23 ["OnClick"]
-      169 LOADB                            R10 1
-      170 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
-      172 CALL                             R7 2 1
-      173 SETTABLEKS                       R7 R6 K13 ["StepIntoButton"]
-      175 GETUPVAL                         R7 1
-      176 GETTABLEKS                       R7 R7 K16 ["createElement"]
-      178 GETUPVAL                         R8 2
-      179 DUPTABLE                         R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
-      180 LOADK                            R10 K40 ["stepOutActionV2"]
-      181 SETTABLEKS                       R10 R9 K17 ["Name"]
-      183 SETTABLEKS                       R1 R9 K18 ["Toolbar"]
-      185 LOADB                            R10 0
-      186 SETTABLEKS                       R10 R9 K19 ["Active"]
-      188 LOADB                            R10 0
-      189 GETTABLEKS                       R11 R0 K4 ["props"]
-      191 GETTABLEKS                       R11 R11 K34 ["CurrentThreadId"]
-      193 JUMPIFEQKNIL                     R11 ; [+2]
-      195 NOT                              R10 R5
-      196 SETTABLEKS                       R10 R9 K20 ["Enabled"]
-      198 LOADK                            R10 K41 ["StepOut"]
-      199 SETTABLEKS                       R10 R9 K21 ["Title"]
-      201 LOADK                            R10 K28 [""]
-      202 SETTABLEKS                       R10 R9 K22 ["Tooltip"]
-      204 GETTABLEKS                       R10 R0 K42 ["onStepOut"]
-      206 SETTABLEKS                       R10 R9 K23 ["OnClick"]
-      208 LOADB                            R10 1
-      209 SETTABLEKS                       R10 R9 K24 ["ClickableWhenViewportHidden"]
-      211 CALL                             R7 2 1
-      212 SETTABLEKS                       R7 R6 K14 ["StepOutButton"]
-      214 RETURN                           R6 1
+       75 GETTABLEKS                       R11 R0 K4 ["props"]
+       77 GETTABLEKS                       R11 R11 K39 ["CurrentThreadId"]
+       79 JUMPIFEQKNIL                     R11 ; [+2]
+       81 NOT                              R10 R5
+       82 SETTABLEKS                       R10 R9 K22 ["Enabled"]
+       84 GETTABLEKS                       R10 R0 K40 ["onStepOver"]
+       86 SETTABLEKS                       R10 R9 K27 ["OnClick"]
+       88 CALL                             R7 2 1
+       89 SETTABLEKS                       R7 R6 K12 ["StepOverButton"]
+       91 GETUPVAL                         R7 1
+       92 GETTABLEKS                       R7 R7 K16 ["createElement"]
+       94 GETUPVAL                         R8 2
+       95 DUPTABLE                         R9 K43 [{["Name"] = "stepIntoActionV2", ["Toolbar"], ["Active"] = False, ["Enabled"], ["Title"] = "StepInto", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+       96 SETTABLEKS                       R1 R9 K19 ["Toolbar"]
+       98 LOADB                            R10 0
+       99 GETTABLEKS                       R11 R0 K4 ["props"]
+      101 GETTABLEKS                       R11 R11 K39 ["CurrentThreadId"]
+      103 JUMPIFEQKNIL                     R11 ; [+2]
+      105 NOT                              R10 R5
+      106 SETTABLEKS                       R10 R9 K22 ["Enabled"]
+      108 GETTABLEKS                       R10 R0 K44 ["onStepInto"]
+      110 SETTABLEKS                       R10 R9 K27 ["OnClick"]
+      112 CALL                             R7 2 1
+      113 SETTABLEKS                       R7 R6 K13 ["StepIntoButton"]
+      115 GETUPVAL                         R7 1
+      116 GETTABLEKS                       R7 R7 K16 ["createElement"]
+      118 GETUPVAL                         R8 2
+      119 DUPTABLE                         R9 K47 [{["Name"] = "stepOutActionV2", ["Toolbar"], ["Active"] = False, ["Enabled"], ["Title"] = "StepOut", ["Tooltip"] = "", ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
+      120 SETTABLEKS                       R1 R9 K19 ["Toolbar"]
+      122 LOADB                            R10 0
+      123 GETTABLEKS                       R11 R0 K4 ["props"]
+      125 GETTABLEKS                       R11 R11 K39 ["CurrentThreadId"]
+      127 JUMPIFEQKNIL                     R11 ; [+2]
+      129 NOT                              R10 R5
+      130 SETTABLEKS                       R10 R9 K22 ["Enabled"]
+      132 GETTABLEKS                       R10 R0 K48 ["onStepOut"]
+      134 SETTABLEKS                       R10 R9 K27 ["OnClick"]
+      136 CALL                             R7 2 1
+      137 SETTABLEKS                       R7 R6 K14 ["StepOutButton"]
+      139 RETURN                           R6 1
 
 PROTO_13:
         0 GETUPVAL                         R1 0
@@ -376,14 +326,12 @@ PROTO_14:
        17 GETUPVAL                         R1 0
        18 GETTABLEKS                       R1 R1 K6 ["createElement"]
        20 GETUPVAL                         R2 1
-       21 DUPTABLE                         R3 K9 [{"Title", "RenderButtons"}]
-       22 LOADK                            R4 K10 ["Debugger"]
-       23 SETTABLEKS                       R4 R3 K7 ["Title"]
-       25 NEWCLOSURE                       R4 P0
-       26 CAPTURE                          VAL R0
-       27 SETTABLEKS                       R4 R3 K8 ["RenderButtons"]
-       29 CALL                             R1 2 -1
-       30 RETURN                           R1 -1
+       21 DUPTABLE                         R3 K10 [{["Title"] = "Debugger", ["RenderButtons"]}]
+       22 NEWCLOSURE                       R4 P0
+       23 CAPTURE                          VAL R0
+       24 SETTABLEKS                       R4 R3 K9 ["RenderButtons"]
+       26 CALL                             R1 2 -1
+       27 RETURN                           R1 -1
 
 PROTO_15:
         0 GETTABLEKS                       R2 R0 K0 ["Common"]

@@ -15,66 +15,50 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K3 [{"tag", "LayoutOrder"}]
-        5 LOADK                            R4 K4 ["row size-full-0 auto-y padding-y-medium align-y-center flex-x-fill"]
-        6 SETTABLEKS                       R4 R3 K1 ["tag"]
-        8 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
-       10 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       12 DUPTABLE                         R4 K8 [{"Title", "SearchBar", "TrailingGroupStub"}]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       16 GETUPVAL                         R6 2
-       17 DUPTABLE                         R7 K10 [{"LayoutOrder", "Text", "tag"}]
-       18 LOADN                            R8 1
-       19 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       21 GETTABLEKS                       R8 R0 K11 ["title"]
-       23 SETTABLEKS                       R8 R7 K9 ["Text"]
-       25 LOADK                            R8 K12 ["size-full-0 auto-y text-align-x-left text-align-y-center text-heading-large content-emphasis"]
-       26 SETTABLEKS                       R8 R7 K1 ["tag"]
-       28 CALL                             R5 2 1
-       29 SETTABLEKS                       R5 R4 K5 ["Title"]
-       31 GETTABLEKS                       R6 R0 K13 ["searchBar"]
-       33 JUMPIFNOT                        R6 ; [+38]
-       34 GETUPVAL                         R5 0
-       35 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       37 GETUPVAL                         R6 3
-       38 DUPTABLE                         R7 K14 [{"LayoutOrder", "tag"}]
-       39 LOADN                            R8 2
-       40 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       42 LOADK                            R8 K15 ["size-full-0 auto-y align-x-center"]
-       43 SETTABLEKS                       R8 R7 K1 ["tag"]
-       45 GETUPVAL                         R8 0
-       46 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       48 GETUPVAL                         R9 4
-       49 DUPTABLE                         R10 K20 [{"OnSearchRequested", "ShowSearchIcon", "ResultComponent", "BaseQuery"}]
-       50 NEWCLOSURE                       R11 P0
-       51 CAPTURE                          VAL R0
-       52 SETTABLEKS                       R11 R10 K16 ["OnSearchRequested"]
-       54 LOADB                            R11 1
-       55 SETTABLEKS                       R11 R10 K17 ["ShowSearchIcon"]
-       57 GETTABLEKS                       R11 R0 K13 ["searchBar"]
-       59 GETTABLEKS                       R11 R11 K21 ["resultComponent"]
-       61 SETTABLEKS                       R11 R10 K18 ["ResultComponent"]
-       63 GETTABLEKS                       R11 R0 K13 ["searchBar"]
-       65 GETTABLEKS                       R11 R11 K22 ["calculatedQuery"]
-       67 SETTABLEKS                       R11 R10 K19 ["BaseQuery"]
-       69 CALL                             R8 2 -1
-       70 CALL                             R5 -1 1
-       71 JUMP                             ; [+1]
-       72 LOADNIL                          R5
-       73 SETTABLEKS                       R5 R4 K6 ["SearchBar"]
-       75 GETUPVAL                         R5 0
-       76 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       78 GETUPVAL                         R6 1
-       79 DUPTABLE                         R7 K14 [{"LayoutOrder", "tag"}]
-       80 LOADN                            R8 3
-       81 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       83 LOADK                            R8 K23 ["size-full-0"]
-       84 SETTABLEKS                       R8 R7 K1 ["tag"]
-       86 CALL                             R5 2 1
-       87 SETTABLEKS                       R5 R4 K7 ["TrailingGroupStub"]
-       89 CALL                             R1 3 -1
-       90 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K4 [{["tag"] = "row flex-x-fill align-y-center size-full-0 auto-y padding-y-medium", ["LayoutOrder"]}]
+        5 GETTABLEKS                       R4 R0 K3 ["LayoutOrder"]
+        7 SETTABLEKS                       R4 R3 K3 ["LayoutOrder"]
+        9 DUPTABLE                         R4 K8 [{"Title", "SearchBar", "TrailingGroupStub"}]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       13 GETUPVAL                         R6 2
+       14 DUPTABLE                         R7 K12 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "size-full-0 auto-y text-heading-large text-align-x-left text-align-y-center content-emphasis"}]
+       15 GETTABLEKS                       R8 R0 K13 ["title"]
+       17 SETTABLEKS                       R8 R7 K10 ["Text"]
+       19 CALL                             R5 2 1
+       20 SETTABLEKS                       R5 R4 K5 ["Title"]
+       22 GETTABLEKS                       R6 R0 K14 ["searchBar"]
+       24 JUMPIFNOT                        R6 ; [+29]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       28 GETUPVAL                         R6 3
+       29 DUPTABLE                         R7 K17 [{["LayoutOrder"] = 2, ["tag"] = "align-x-center size-full-0 auto-y"}]
+       30 GETUPVAL                         R8 0
+       31 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       33 GETUPVAL                         R9 4
+       34 DUPTABLE                         R10 K23 [{["OnSearchRequested"], ["ShowSearchIcon"] = True, ["ResultComponent"], ["BaseQuery"]}]
+       35 NEWCLOSURE                       R11 P0
+       36 CAPTURE                          VAL R0
+       37 SETTABLEKS                       R11 R10 K18 ["OnSearchRequested"]
+       39 GETTABLEKS                       R11 R0 K14 ["searchBar"]
+       41 GETTABLEKS                       R11 R11 K24 ["resultComponent"]
+       43 SETTABLEKS                       R11 R10 K21 ["ResultComponent"]
+       45 GETTABLEKS                       R11 R0 K14 ["searchBar"]
+       47 GETTABLEKS                       R11 R11 K25 ["calculatedQuery"]
+       49 SETTABLEKS                       R11 R10 K22 ["BaseQuery"]
+       51 CALL                             R8 2 -1
+       52 CALL                             R5 -1 1
+       53 JUMP                             ; [+1]
+       54 LOADNIL                          R5
+       55 SETTABLEKS                       R5 R4 K6 ["SearchBar"]
+       57 GETUPVAL                         R5 0
+       58 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       60 GETUPVAL                         R6 1
+       61 DUPTABLE                         R7 K28 [{["LayoutOrder"] = 3, ["tag"] = "size-full-0"}]
+       62 CALL                             R5 2 1
+       63 SETTABLEKS                       R5 R4 K7 ["TrailingGroupStub"]
+       65 CALL                             R1 3 -1
+       66 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

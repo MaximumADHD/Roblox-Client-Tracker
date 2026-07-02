@@ -1,13 +1,11 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K2 [{"_dragging", "_draggerContext"}]
-        1 LOADB                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["_dragging"]
-        4 SETTABLEKS                       R0 R2 K1 ["_draggerContext"]
-        6 GETUPVAL                         R3 0
-        7 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-        9 GETIMPORT                        R1 K4 [setmetatable]
-       11 CALL                             R1 2 1
-       12 RETURN                           R1 1
+        0 DUPTABLE                         R2 K3 [{[1] = False, ["_draggerContext"]}]
+        1 SETTABLEKS                       R0 R2 K2 ["_draggerContext"]
+        3 GETUPVAL                         R3 0
+        4 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+        6 GETIMPORT                        R1 K5 [setmetatable]
+        8 CALL                             R1 2 1
+        9 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["_dragging"]
@@ -118,23 +116,21 @@ PROTO_6:
 
 PROTO_7:
         0 GETTABLEKS                       R3 R0 K0 ["_pivotOwner"]
-        2 JUMPIFNOT                        R3 ; [+24]
-        3 DUPTABLE                         R3 K3 [{"ClickedSelectable", "HandleId"}]
+        2 JUMPIFNOT                        R3 ; [+21]
+        3 DUPTABLE                         R3 K4 [{["ClickedSelectable"], ["HandleId"] = "Pivot"}]
         4 GETTABLEKS                       R4 R0 K0 ["_pivotOwner"]
         6 SETTABLEKS                       R4 R3 K1 ["ClickedSelectable"]
-        8 LOADK                            R4 K4 ["Pivot"]
-        9 SETTABLEKS                       R4 R3 K2 ["HandleId"]
-       11 GETUPVAL                         R4 0
-       12 GETTABLEKS                       R4 R4 K5 ["new"]
-       14 GETTABLEKS                       R5 R0 K6 ["_draggerContext"]
-       16 GETTABLEKS                       R6 R0 K7 ["_draggerToolModel"]
-       18 MOVE                             R7 R3
-       19 CALL                             R4 3 1
-       20 SETTABLEKS                       R4 R0 K8 ["_freeformDrag"]
-       22 GETTABLEKS                       R4 R0 K8 ["_freeformDrag"]
-       24 NAMECALL                         R4 R4 K9 ["update"]
-       26 CALL                             R4 1 0
-       27 RETURN                           R0 0
+        8 GETUPVAL                         R4 0
+        9 GETTABLEKS                       R4 R4 K5 ["new"]
+       11 GETTABLEKS                       R5 R0 K6 ["_draggerContext"]
+       13 GETTABLEKS                       R6 R0 K7 ["_draggerToolModel"]
+       15 MOVE                             R7 R3
+       16 CALL                             R4 3 1
+       17 SETTABLEKS                       R4 R0 K8 ["_freeformDrag"]
+       19 GETTABLEKS                       R4 R0 K8 ["_freeformDrag"]
+       21 NAMECALL                         R4 R4 K9 ["update"]
+       23 CALL                             R4 1 0
+       24 RETURN                           R0 0
 
 PROTO_8:
         0 LOADB                            R1 1

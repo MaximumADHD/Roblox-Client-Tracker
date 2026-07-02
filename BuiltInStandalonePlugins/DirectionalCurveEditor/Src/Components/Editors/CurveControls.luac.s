@@ -199,28 +199,18 @@ MAIN:
        59 GETTABLEKS                       R12 R12 K22 ["Common"]
        61 GETTABLEKS                       R12 R12 K23 ["defineLuaFlags"]
        63 CALL                             R11 1 1
-       64 DUPTABLE                         R12 K26 [{"Type", "Min"}]
-       65 LOADK                            R13 K27 ["Number"]
-       66 SETTABLEKS                       R13 R12 K24 ["Type"]
-       68 LOADN                            R13 0
-       69 SETTABLEKS                       R13 R12 K25 ["Min"]
-       71 DUPTABLE                         R13 K29 [{"Type", "Min", "Max"}]
-       72 LOADK                            R14 K27 ["Number"]
-       73 SETTABLEKS                       R14 R13 K24 ["Type"]
-       75 LOADN                            R14 0
-       76 SETTABLEKS                       R14 R13 K25 ["Min"]
-       78 LOADN                            R14 1
-       79 SETTABLEKS                       R14 R13 K28 ["Max"]
-       81 DUPCLOSURE                       R14 K30 [PROTO_3]
-       82 CAPTURE                          VAL R8
-       83 CAPTURE                          VAL R3
-       84 CAPTURE                          VAL R5
-       85 CAPTURE                          VAL R2
-       86 CAPTURE                          VAL R11
-       87 CAPTURE                          VAL R1
-       88 CAPTURE                          VAL R7
-       89 CAPTURE                          VAL R10
-       90 CAPTURE                          VAL R12
-       91 CAPTURE                          VAL R13
-       92 CAPTURE                          VAL R6
-       93 RETURN                           R14 1
+       64 DUPTABLE                         R12 K28 [{["Type"] = "Number", ["Min"] = 0}]
+       65 DUPTABLE                         R13 K31 [{["Type"] = "Number", ["Min"] = 0, ["Max"] = 1}]
+       66 DUPCLOSURE                       R14 K32 [PROTO_3]
+       67 CAPTURE                          VAL R8
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R5
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          VAL R11
+       72 CAPTURE                          VAL R1
+       73 CAPTURE                          VAL R7
+       74 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R12
+       76 CAPTURE                          VAL R13
+       77 CAPTURE                          VAL R6
+       78 RETURN                           R14 1

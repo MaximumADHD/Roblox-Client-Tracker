@@ -149,12 +149,12 @@ PROTO_1:
       138 GETUPVAL                         R11 0
       139 GETTABLEKS                       R11 R11 K13 ["createElement"]
       141 GETUPVAL                         R12 2
-      142 DUPTABLE                         R13 K60 [{"Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "LayoutOrder"}]
+      142 DUPTABLE                         R13 K62 [{["Size"], ["Text"], ["TextSize"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["LayoutOrder"] = 5}]
       143 GETIMPORT                        R14 K52 [UDim2.new]
       145 LOADN                            R15 1
       146 LOADN                            R16 0
       147 LOADN                            R17 0
-      148 GETTABLEKS                       R18 R2 K61 ["PixelDimensionsHeightPx"]
+      148 GETTABLEKS                       R18 R2 K63 ["PixelDimensionsHeightPx"]
       150 CALL                             R14 4 1
       151 SETTABLEKS                       R14 R13 K15 ["Size"]
       153 SETTABLEKS                       R5 R13 K41 ["Text"]
@@ -163,16 +163,12 @@ PROTO_1:
       158 SETTABLEKS                       R14 R13 K42 ["TextSize"]
       160 GETIMPORT                        R14 K56 [Enum.TextXAlignment.Center]
       162 SETTABLEKS                       R14 R13 K43 ["TextXAlignment"]
-      164 GETIMPORT                        R14 K62 [Enum.TextYAlignment.Bottom]
+      164 GETIMPORT                        R14 K64 [Enum.TextYAlignment.Bottom]
       166 SETTABLEKS                       R14 R13 K58 ["TextYAlignment"]
-      168 LOADB                            R14 1
-      169 SETTABLEKS                       R14 R13 K59 ["TextWrapped"]
-      171 LOADN                            R14 5
-      172 SETTABLEKS                       R14 R13 K20 ["LayoutOrder"]
-      174 CALL                             R11 2 1
-      175 SETTABLEKS                       R11 R10 K38 ["PixelDimensionsText"]
-      177 CALL                             R7 3 -1
-      178 RETURN                           R7 -1
+      168 CALL                             R11 2 1
+      169 SETTABLEKS                       R11 R10 K38 ["PixelDimensionsText"]
+      171 CALL                             R7 3 -1
+      172 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

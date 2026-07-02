@@ -23,49 +23,31 @@ PROTO_0:
 PROTO_1:
         0 NAMECALL                         R1 R0 K0 ["GetUri"]
         2 CALL                             R1 1 1
-        3 DUPTABLE                         R3 K10 [{"width", "expanded", "floating", "showLabels", "compactDensity", "plugin", "panelUri", "floatingUri", "Panels"}]
-        4 LOADN                            R4 0
-        5 SETTABLEKS                       R4 R3 K1 ["width"]
-        7 LOADB                            R4 0
-        8 SETTABLEKS                       R4 R3 K2 ["expanded"]
-       10 LOADB                            R4 0
-       11 SETTABLEKS                       R4 R3 K3 ["floating"]
-       13 LOADB                            R4 0
-       14 SETTABLEKS                       R4 R3 K4 ["showLabels"]
-       16 LOADB                            R4 0
-       17 SETTABLEKS                       R4 R3 K5 ["compactDensity"]
-       19 SETTABLEKS                       R0 R3 K6 ["plugin"]
-       21 GETUPVAL                         R4 0
-       22 GETTABLEKS                       R4 R4 K11 ["join"]
-       24 MOVE                             R5 R1
-       25 DUPTABLE                         R6 K14 [{"Category", "ItemId"}]
-       26 LOADK                            R7 K9 ["Panels"]
-       27 SETTABLEKS                       R7 R6 K12 ["Category"]
-       29 LOADK                            R7 K15 ["Ribbon"]
-       30 SETTABLEKS                       R7 R6 K13 ["ItemId"]
-       32 CALL                             R4 2 1
-       33 SETTABLEKS                       R4 R3 K7 ["panelUri"]
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R4 R4 K11 ["join"]
-       38 MOVE                             R5 R1
-       39 DUPTABLE                         R6 K14 [{"Category", "ItemId"}]
-       40 LOADK                            R7 K9 ["Panels"]
-       41 SETTABLEKS                       R7 R6 K12 ["Category"]
-       43 LOADK                            R7 K16 ["Floating"]
-       44 SETTABLEKS                       R7 R6 K13 ["ItemId"]
-       46 CALL                             R4 2 1
-       47 SETTABLEKS                       R4 R3 K8 ["floatingUri"]
-       49 LOADK                            R6 K9 ["Panels"]
-       50 NAMECALL                         R4 R0 K17 ["GetPluginComponent"]
-       52 CALL                             R4 2 1
-       53 SETTABLEKS                       R4 R3 K9 ["Panels"]
-       55 DUPTABLE                         R4 K19 [{"__index"}]
-       56 GETUPVAL                         R5 1
-       57 SETTABLEKS                       R5 R4 K18 ["__index"]
-       59 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       61 GETIMPORT                        R2 K21 [setmetatable]
-       63 CALL                             R2 2 1
-       64 RETURN                           R2 1
+        3 DUPTABLE                         R3 K12 [{["width"] = 0, ["expanded"] = False, ["floating"] = False, ["showLabels"] = False, ["compactDensity"] = False, ["plugin"], ["panelUri"], ["floatingUri"], ["Panels"]}]
+        4 SETTABLEKS                       R0 R3 K8 ["plugin"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R4 R4 K13 ["join"]
+        9 MOVE                             R5 R1
+       10 DUPTABLE                         R6 K17 [{["Category"] = "Panels", ["ItemId"] = "Ribbon"}]
+       11 CALL                             R4 2 1
+       12 SETTABLEKS                       R4 R3 K9 ["panelUri"]
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R4 R4 K13 ["join"]
+       17 MOVE                             R5 R1
+       18 DUPTABLE                         R6 K19 [{["Category"] = "Panels", ["ItemId"] = "Floating"}]
+       19 CALL                             R4 2 1
+       20 SETTABLEKS                       R4 R3 K10 ["floatingUri"]
+       22 LOADK                            R6 K11 ["Panels"]
+       23 NAMECALL                         R4 R0 K20 ["GetPluginComponent"]
+       25 CALL                             R4 2 1
+       26 SETTABLEKS                       R4 R3 K11 ["Panels"]
+       28 DUPTABLE                         R4 K22 [{"__index"}]
+       29 GETUPVAL                         R5 1
+       30 SETTABLEKS                       R5 R4 K21 ["__index"]
+       32 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       34 GETIMPORT                        R2 K24 [setmetatable]
+       36 CALL                             R2 2 1
+       37 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

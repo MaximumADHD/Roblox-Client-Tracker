@@ -9,13 +9,5 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Models"]
        13 GETTABLEKS                       R2 R2 K8 ["AssetInfo"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K13 [{"ExcessiveTransactions", "PriceChanged", "PurchaseFailed", "PurchaseSuccess"}]
-       17 LOADK                            R3 K9 ["ExcessiveTransactions"]
-       18 SETTABLEKS                       R3 R2 K9 ["ExcessiveTransactions"]
-       20 LOADK                            R3 K10 ["PriceChanged"]
-       21 SETTABLEKS                       R3 R2 K10 ["PriceChanged"]
-       23 LOADK                            R3 K11 ["PurchaseFailed"]
-       24 SETTABLEKS                       R3 R2 K11 ["PurchaseFailed"]
-       26 LOADK                            R3 K12 ["PurchaseSuccess"]
-       27 SETTABLEKS                       R3 R2 K12 ["PurchaseSuccess"]
-       29 RETURN                           R2 1
+       16 DUPTABLE                         R2 K13 [{["ExcessiveTransactions"] = "ExcessiveTransactions", ["PriceChanged"] = "PriceChanged", ["PurchaseFailed"] = "PurchaseFailed", ["PurchaseSuccess"] = "PurchaseSuccess"}]
+       17 RETURN                           R2 1

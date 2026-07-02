@@ -22,36 +22,34 @@ PROTO_0:
        27 GETTABLEKS                       R3 R1 K6 ["categoryName"]
        29 GETUPVAL                         R4 5
        30 CALL                             R4 0 1
-       31 JUMPIFNOT                        R4 ; [+12]
-       32 JUMPIFNOTEQKNIL                  R2 ; [+11]
-       34 DUPTABLE                         R4 K9 [{"minDuration", "maxDuration"}]
-       35 LOADN                            R5 0
-       36 SETTABLEKS                       R5 R4 K7 ["minDuration"]
-       38 GETUPVAL                         R5 6
-       39 GETTABLEKS                       R5 R5 K10 ["MAX_AUDIO_SEARCH_DURATION"]
-       41 SETTABLEKS                       R5 R4 K8 ["maxDuration"]
-       43 MOVE                             R2 R4
-       44 GETUPVAL                         R5 7
-       45 GETTABLEKS                       R5 R5 K11 ["API_NAMES"]
-       47 GETTABLE                         R4 R5 R3
-       48 JUMPIFNOT                        R4 ; [+11]
-       49 GETUPVAL                         R6 8
-       50 GETUPVAL                         R7 9
-       51 MOVE                             R8 R3
-       52 MOVE                             R9 R2
-       53 MOVE                             R10 R1
-       54 GETUPVAL                         R11 4
-       55 CALL                             R6 5 -1
-       56 NAMECALL                         R4 R0 K2 ["dispatch"]
-       58 CALL                             R4 -1 0
-       59 RETURN                           R0 0
-       60 GETUPVAL                         R6 10
-       61 GETUPVAL                         R7 9
-       62 MOVE                             R8 R1
-       63 CALL                             R6 2 -1
-       64 NAMECALL                         R4 R0 K2 ["dispatch"]
-       66 CALL                             R4 -1 0
-       67 RETURN                           R0 0
+       31 JUMPIFNOT                        R4 ; [+9]
+       32 JUMPIFNOTEQKNIL                  R2 ; [+8]
+       34 DUPTABLE                         R4 K10 [{["minDuration"] = 0, ["maxDuration"]}]
+       35 GETUPVAL                         R5 6
+       36 GETTABLEKS                       R5 R5 K11 ["MAX_AUDIO_SEARCH_DURATION"]
+       38 SETTABLEKS                       R5 R4 K9 ["maxDuration"]
+       40 MOVE                             R2 R4
+       41 GETUPVAL                         R5 7
+       42 GETTABLEKS                       R5 R5 K12 ["API_NAMES"]
+       44 GETTABLE                         R4 R5 R3
+       45 JUMPIFNOT                        R4 ; [+11]
+       46 GETUPVAL                         R6 8
+       47 GETUPVAL                         R7 9
+       48 MOVE                             R8 R3
+       49 MOVE                             R9 R2
+       50 MOVE                             R10 R1
+       51 GETUPVAL                         R11 4
+       52 CALL                             R6 5 -1
+       53 NAMECALL                         R4 R0 K2 ["dispatch"]
+       55 CALL                             R4 -1 0
+       56 RETURN                           R0 0
+       57 GETUPVAL                         R6 10
+       58 GETUPVAL                         R7 9
+       59 MOVE                             R8 R1
+       60 CALL                             R6 2 -1
+       61 NAMECALL                         R4 R0 K2 ["dispatch"]
+       63 CALL                             R4 -1 0
+       64 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R3 P0

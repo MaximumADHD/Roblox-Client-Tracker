@@ -17,18 +17,14 @@ PROTO_0:
        27 GETTABLEKS                       R8 R8 K9 ["join"]
        29 GETTABLEKS                       R9 R5 K10 ["fontStyle"]
        31 GETTABLEKS                       R9 R9 K11 ["Normal"]
-       33 DUPTABLE                         R10 K15 [{"Size", "Text", "LayoutOrder", "TextXAlignment", "BackgroundTransparency", "BorderSizePixel"}]
+       33 DUPTABLE                         R10 K17 [{["Size"], ["Text"], ["LayoutOrder"], ["TextXAlignment"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0}]
        34 SETTABLEKS                       R1 R10 K1 ["Size"]
        36 SETTABLEKS                       R2 R10 K2 ["Text"]
        38 SETTABLEKS                       R3 R10 K3 ["LayoutOrder"]
        40 SETTABLEKS                       R4 R10 K12 ["TextXAlignment"]
-       42 LOADN                            R11 1
-       43 SETTABLEKS                       R11 R10 K13 ["BackgroundTransparency"]
-       45 LOADN                            R11 0
-       46 SETTABLEKS                       R11 R10 K14 ["BorderSizePixel"]
-       48 CALL                             R8 2 -1
-       49 CALL                             R6 -1 -1
-       50 RETURN                           R6 -1
+       42 CALL                             R8 2 -1
+       43 CALL                             R6 -1 -1
+       44 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

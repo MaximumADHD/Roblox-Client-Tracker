@@ -14,12 +14,10 @@ PROTO_1:
 
 PROTO_2:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"enabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -39,57 +37,53 @@ PROTO_4:
         9 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R4 K1 [{"enabled"}]
-        1 LOADB                            R5 0
-        2 SETTABLEKS                       R5 R4 K0 ["enabled"]
-        4 NAMECALL                         R2 R0 K2 ["setState"]
-        6 CALL                             R2 2 0
-        7 NEWCLOSURE                       R2 P0
-        8 CAPTURE                          VAL R0
-        9 SETTABLEKS                       R2 R0 K3 ["toggleEnabled"]
-       11 NEWCLOSURE                       R2 P1
-       12 CAPTURE                          VAL R0
-       13 SETTABLEKS                       R2 R0 K4 ["onClose"]
-       15 NEWCLOSURE                       R2 P2
-       16 CAPTURE                          VAL R0
-       17 SETTABLEKS                       R2 R0 K5 ["onRestore"]
-       19 NEWCLOSURE                       R2 P3
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R2 R0 K6 ["onWidgetEnabledChanged"]
-       23 GETUPVAL                         R2 0
-       24 GETTABLEKS                       R2 R2 K7 ["Localization"]
-       26 GETTABLEKS                       R2 R2 K8 ["new"]
-       28 DUPTABLE                         R3 K13 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries"}]
-       29 GETUPVAL                         R4 1
-       30 SETTABLEKS                       R4 R3 K9 ["stringResourceTable"]
-       32 GETUPVAL                         R4 2
-       33 SETTABLEKS                       R4 R3 K10 ["translationResourceTable"]
-       35 LOADK                            R4 K14 ["TextureGenerator"]
-       36 SETTABLEKS                       R4 R3 K11 ["pluginName"]
-       38 NEWTABLE                         R4 1 0
-       40 GETUPVAL                         R5 3
-       41 GETTABLEKS                       R5 R5 K15 ["Resources"]
-       43 GETTABLEKS                       R5 R5 K16 ["LOCALIZATION_PROJECT_NAME"]
-       45 DUPTABLE                         R6 K17 [{"stringResourceTable", "translationResourceTable"}]
-       46 GETUPVAL                         R7 3
-       47 GETTABLEKS                       R7 R7 K15 ["Resources"]
-       49 GETTABLEKS                       R7 R7 K18 ["SourceStrings"]
-       51 SETTABLEKS                       R7 R6 K9 ["stringResourceTable"]
-       53 GETUPVAL                         R7 3
-       54 GETTABLEKS                       R7 R7 K15 ["Resources"]
-       56 GETTABLEKS                       R7 R7 K19 ["LocalizedStrings"]
-       58 SETTABLEKS                       R7 R6 K10 ["translationResourceTable"]
-       60 SETTABLE                         R6 R4 R5
-       61 SETTABLEKS                       R4 R3 K12 ["libraries"]
-       63 CALL                             R2 1 1
-       64 SETTABLEKS                       R2 R0 K20 ["localization"]
-       66 GETUPVAL                         R2 0
-       67 GETTABLEKS                       R2 R2 K21 ["Analytics"]
-       69 GETTABLEKS                       R2 R2 K8 ["new"]
-       71 GETUPVAL                         R3 4
-       72 CALL                             R2 1 1
-       73 SETTABLEKS                       R2 R0 K22 ["analytics"]
-       75 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = False}]
+        1 NAMECALL                         R2 R0 K3 ["setState"]
+        3 CALL                             R2 2 0
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R2 R0 K4 ["toggleEnabled"]
+        8 NEWCLOSURE                       R2 P1
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R2 R0 K5 ["onClose"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R2 R0 K6 ["onRestore"]
+       16 NEWCLOSURE                       R2 P3
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R2 R0 K7 ["onWidgetEnabledChanged"]
+       20 GETUPVAL                         R2 0
+       21 GETTABLEKS                       R2 R2 K8 ["Localization"]
+       23 GETTABLEKS                       R2 R2 K9 ["new"]
+       25 DUPTABLE                         R3 K15 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "TextureGenerator", ["libraries"]}]
+       26 GETUPVAL                         R4 1
+       27 SETTABLEKS                       R4 R3 K10 ["stringResourceTable"]
+       29 GETUPVAL                         R4 2
+       30 SETTABLEKS                       R4 R3 K11 ["translationResourceTable"]
+       32 NEWTABLE                         R4 1 0
+       34 GETUPVAL                         R5 3
+       35 GETTABLEKS                       R5 R5 K16 ["Resources"]
+       37 GETTABLEKS                       R5 R5 K17 ["LOCALIZATION_PROJECT_NAME"]
+       39 DUPTABLE                         R6 K18 [{"stringResourceTable", "translationResourceTable"}]
+       40 GETUPVAL                         R7 3
+       41 GETTABLEKS                       R7 R7 K16 ["Resources"]
+       43 GETTABLEKS                       R7 R7 K19 ["SourceStrings"]
+       45 SETTABLEKS                       R7 R6 K10 ["stringResourceTable"]
+       47 GETUPVAL                         R7 3
+       48 GETTABLEKS                       R7 R7 K16 ["Resources"]
+       50 GETTABLEKS                       R7 R7 K20 ["LocalizedStrings"]
+       52 SETTABLEKS                       R7 R6 K11 ["translationResourceTable"]
+       54 SETTABLE                         R6 R4 R5
+       55 SETTABLEKS                       R4 R3 K14 ["libraries"]
+       57 CALL                             R2 1 1
+       58 SETTABLEKS                       R2 R0 K21 ["localization"]
+       60 GETUPVAL                         R2 0
+       61 GETTABLEKS                       R2 R2 K22 ["Analytics"]
+       63 GETTABLEKS                       R2 R2 K9 ["new"]
+       65 GETUPVAL                         R3 4
+       66 CALL                             R2 1 1
+       67 SETTABLEKS                       R2 R0 K23 ["analytics"]
+       69 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R2 R0 K0 ["state"]
@@ -98,24 +92,20 @@ PROTO_6:
         5 GETUPVAL                         R4 0
         6 GETTABLEKS                       R4 R4 K4 ["createElement"]
         8 GETUPVAL                         R5 1
-        9 DUPTABLE                         R6 K11 [{"Toolbar", "Active", "Id", "Title", "OnClick", "ClickableWhenViewportHidden"}]
+        9 DUPTABLE                         R6 K13 [{["Toolbar"], ["Active"], ["Id"] = "textureButton", ["Title"], ["OnClick"], ["ClickableWhenViewportHidden"] = True}]
        10 SETTABLEKS                       R1 R6 K5 ["Toolbar"]
        12 SETTABLEKS                       R2 R6 K6 ["Active"]
-       14 LOADK                            R7 K12 ["textureButton"]
-       15 SETTABLEKS                       R7 R6 K7 ["Id"]
-       17 GETTABLEKS                       R7 R0 K13 ["localization"]
-       19 LOADK                            R9 K14 ["Plugin"]
-       20 LOADK                            R10 K15 ["Button"]
-       21 NAMECALL                         R7 R7 K16 ["getText"]
-       23 CALL                             R7 3 1
-       24 SETTABLEKS                       R7 R6 K8 ["Title"]
-       26 GETTABLEKS                       R7 R0 K17 ["toggleEnabled"]
-       28 SETTABLEKS                       R7 R6 K9 ["OnClick"]
-       30 LOADB                            R7 1
-       31 SETTABLEKS                       R7 R6 K10 ["ClickableWhenViewportHidden"]
-       33 CALL                             R4 2 1
-       34 SETTABLEKS                       R4 R3 K2 ["Toggle"]
-       36 RETURN                           R3 1
+       14 GETTABLEKS                       R7 R0 K14 ["localization"]
+       16 LOADK                            R9 K15 ["Plugin"]
+       17 LOADK                            R10 K16 ["Button"]
+       18 NAMECALL                         R7 R7 K17 ["getText"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K9 ["Title"]
+       23 GETTABLEKS                       R7 R0 K18 ["toggleEnabled"]
+       25 SETTABLEKS                       R7 R6 K10 ["OnClick"]
+       27 CALL                             R4 2 1
+       28 SETTABLEKS                       R4 R3 K2 ["Toggle"]
+       30 RETURN                           R3 1
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -161,66 +151,64 @@ PROTO_8:
        46 GETUPVAL                         R9 7
        47 GETTABLEKS                       R9 R9 K12 ["createElement"]
        49 GETUPVAL                         R10 8
-       50 DUPTABLE                         R11 K15 [{"Title", "RenderButtons"}]
-       51 LOADK                            R12 K16 ["TextureGenerator"]
-       52 SETTABLEKS                       R12 R11 K13 ["Title"]
-       54 NEWCLOSURE                       R12 P0
-       55 CAPTURE                          VAL R0
-       56 SETTABLEKS                       R12 R11 K14 ["RenderButtons"]
-       58 CALL                             R9 2 1
-       59 SETTABLEKS                       R9 R8 K9 ["Toolbar"]
-       61 GETUPVAL                         R9 7
-       62 GETTABLEKS                       R9 R9 K12 ["createElement"]
-       64 GETUPVAL                         R10 9
-       65 NEWTABLE                         R11 16 0
-       67 LOADK                            R12 K17 ["BuiltInTextureGenerator"]
-       68 SETTABLEKS                       R12 R11 K18 ["Id"]
-       70 SETTABLEKS                       R4 R11 K19 ["Enabled"]
-       72 GETTABLEKS                       R12 R0 K7 ["localization"]
-       74 LOADK                            R14 K2 ["Plugin"]
-       75 LOADK                            R15 K20 ["Name"]
-       76 NAMECALL                         R12 R12 K21 ["getText"]
-       78 CALL                             R12 3 1
-       79 SETTABLEKS                       R12 R11 K13 ["Title"]
-       81 GETIMPORT                        R12 K25 [Enum.ZIndexBehavior.Sibling]
-       83 SETTABLEKS                       R12 R11 K23 ["ZIndexBehavior"]
-       85 GETIMPORT                        R12 K28 [Enum.InitialDockState.Left]
-       87 SETTABLEKS                       R12 R11 K26 ["InitialDockState"]
-       89 GETIMPORT                        R12 K30 [Vector2.new]
-       91 LOADN                            R13 94
-       92 LOADN                            R14 224
-       93 CALL                             R12 2 1
-       94 SETTABLEKS                       R12 R11 K31 ["Size"]
-       96 GETIMPORT                        R12 K30 [Vector2.new]
-       98 LOADN                            R13 94
-       99 LOADN                            R14 224
-      100 CALL                             R12 2 1
-      101 SETTABLEKS                       R12 R11 K32 ["MinSize"]
-      103 GETTABLEKS                       R12 R0 K33 ["onClose"]
-      105 SETTABLEKS                       R12 R11 K34 ["OnClose"]
-      107 LOADB                            R12 1
-      108 SETTABLEKS                       R12 R11 K35 ["ShouldRestore"]
-      110 GETTABLEKS                       R12 R0 K36 ["onRestore"]
-      112 SETTABLEKS                       R12 R11 K37 ["OnWidgetRestored"]
-      114 GETUPVAL                         R12 10
-      115 GETTABLEKS                       R12 R12 K38 ["Change"]
-      117 GETTABLEKS                       R12 R12 K19 ["Enabled"]
-      119 GETTABLEKS                       R13 R0 K39 ["onWidgetEnabledChanged"]
-      121 SETTABLE                         R13 R11 R12
-      122 DUPTABLE                         R12 K41 [{"App"}]
-      123 MOVE                             R13 R5
-      124 JUMPIFNOT                        R13 ; [+8]
-      125 GETUPVAL                         R13 7
-      126 GETTABLEKS                       R13 R13 K12 ["createElement"]
-      128 GETUPVAL                         R14 11
-      129 DUPTABLE                         R15 K42 [{"Plugin"}]
-      130 SETTABLEKS                       R3 R15 K2 ["Plugin"]
-      132 CALL                             R13 2 1
-      133 SETTABLEKS                       R13 R12 K40 ["App"]
-      135 CALL                             R9 3 1
-      136 SETTABLEKS                       R9 R8 K10 ["MainWidget"]
-      138 CALL                             R6 2 -1
-      139 RETURN                           R6 -1
+       50 DUPTABLE                         R11 K16 [{["Title"] = "TextureGenerator", ["RenderButtons"]}]
+       51 NEWCLOSURE                       R12 P0
+       52 CAPTURE                          VAL R0
+       53 SETTABLEKS                       R12 R11 K15 ["RenderButtons"]
+       55 CALL                             R9 2 1
+       56 SETTABLEKS                       R9 R8 K9 ["Toolbar"]
+       58 GETUPVAL                         R9 7
+       59 GETTABLEKS                       R9 R9 K12 ["createElement"]
+       61 GETUPVAL                         R10 9
+       62 NEWTABLE                         R11 16 0
+       64 LOADK                            R12 K17 ["BuiltInTextureGenerator"]
+       65 SETTABLEKS                       R12 R11 K18 ["Id"]
+       67 SETTABLEKS                       R4 R11 K19 ["Enabled"]
+       69 GETTABLEKS                       R12 R0 K7 ["localization"]
+       71 LOADK                            R14 K2 ["Plugin"]
+       72 LOADK                            R15 K20 ["Name"]
+       73 NAMECALL                         R12 R12 K21 ["getText"]
+       75 CALL                             R12 3 1
+       76 SETTABLEKS                       R12 R11 K13 ["Title"]
+       78 GETIMPORT                        R12 K25 [Enum.ZIndexBehavior.Sibling]
+       80 SETTABLEKS                       R12 R11 K23 ["ZIndexBehavior"]
+       82 GETIMPORT                        R12 K28 [Enum.InitialDockState.Left]
+       84 SETTABLEKS                       R12 R11 K26 ["InitialDockState"]
+       86 GETIMPORT                        R12 K30 [Vector2.new]
+       88 LOADN                            R13 350
+       89 LOADN                            R14 480
+       90 CALL                             R12 2 1
+       91 SETTABLEKS                       R12 R11 K31 ["Size"]
+       93 GETIMPORT                        R12 K30 [Vector2.new]
+       95 LOADN                            R13 350
+       96 LOADN                            R14 480
+       97 CALL                             R12 2 1
+       98 SETTABLEKS                       R12 R11 K32 ["MinSize"]
+      100 GETTABLEKS                       R12 R0 K33 ["onClose"]
+      102 SETTABLEKS                       R12 R11 K34 ["OnClose"]
+      104 LOADB                            R12 1
+      105 SETTABLEKS                       R12 R11 K35 ["ShouldRestore"]
+      107 GETTABLEKS                       R12 R0 K36 ["onRestore"]
+      109 SETTABLEKS                       R12 R11 K37 ["OnWidgetRestored"]
+      111 GETUPVAL                         R12 10
+      112 GETTABLEKS                       R12 R12 K38 ["Change"]
+      114 GETTABLEKS                       R12 R12 K19 ["Enabled"]
+      116 GETTABLEKS                       R13 R0 K39 ["onWidgetEnabledChanged"]
+      118 SETTABLE                         R13 R11 R12
+      119 DUPTABLE                         R12 K41 [{"App"}]
+      120 MOVE                             R13 R5
+      121 JUMPIFNOT                        R13 ; [+8]
+      122 GETUPVAL                         R13 7
+      123 GETTABLEKS                       R13 R13 K12 ["createElement"]
+      125 GETUPVAL                         R14 11
+      126 DUPTABLE                         R15 K42 [{"Plugin"}]
+      127 SETTABLEKS                       R3 R15 K2 ["Plugin"]
+      129 CALL                             R13 2 1
+      130 SETTABLEKS                       R13 R12 K40 ["App"]
+      132 CALL                             R9 3 1
+      133 SETTABLEKS                       R9 R8 K10 ["MainWidget"]
+      135 CALL                             R6 2 -1
+      136 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

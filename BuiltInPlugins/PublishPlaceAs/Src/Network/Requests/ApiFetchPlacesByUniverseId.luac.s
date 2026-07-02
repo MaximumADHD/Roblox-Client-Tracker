@@ -50,31 +50,29 @@ PROTO_1:
        12 GETTABLEKS                       R5 R1 K6 ["sortOrder"]
        14 ORK                              R4 R5 K5 ["Asc"]
        15 GETTABLEKS                       R5 R1 K7 ["cursor"]
-       17 DUPTABLE                         R6 K11 [{"Url", "Method", "Params"}]
+       17 DUPTABLE                         R6 K12 [{["Url"], ["Method"] = "GET", ["Params"]}]
        18 GETUPVAL                         R7 1
-       19 GETTABLEKS                       R7 R7 K12 ["BuildRobloxUrl"]
-       21 LOADK                            R8 K13 ["develop"]
-       22 LOADK                            R9 K14 ["v1/universes/%d/places"]
+       19 GETTABLEKS                       R7 R7 K13 ["BuildRobloxUrl"]
+       21 LOADK                            R8 K14 ["develop"]
+       22 LOADK                            R9 K15 ["v1/universes/%d/places"]
        23 MOVE                             R10 R2
        24 CALL                             R7 3 1
        25 SETTABLEKS                       R7 R6 K8 ["Url"]
-       27 LOADK                            R7 K15 ["GET"]
-       28 SETTABLEKS                       R7 R6 K9 ["Method"]
-       30 DUPTABLE                         R7 K16 [{"sortOrder", "limit", "cursor"}]
-       31 SETTABLEKS                       R4 R7 K6 ["sortOrder"]
-       33 SETTABLEKS                       R3 R7 K4 ["limit"]
-       35 SETTABLEKS                       R5 R7 K7 ["cursor"]
-       37 SETTABLEKS                       R7 R6 K10 ["Params"]
-       39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R7 R7 K17 ["Request"]
-       42 MOVE                             R8 R6
-       43 CALL                             R7 1 1
-       44 DUPCLOSURE                       R9 K18 [PROTO_0]
-       45 CAPTURE                          UPVAL U2
-       46 CAPTURE                          UPVAL U3
-       47 NAMECALL                         R7 R7 K19 ["andThen"]
-       49 CALL                             R7 2 -1
-       50 RETURN                           R7 -1
+       27 DUPTABLE                         R7 K16 [{"sortOrder", "limit", "cursor"}]
+       28 SETTABLEKS                       R4 R7 K6 ["sortOrder"]
+       30 SETTABLEKS                       R3 R7 K4 ["limit"]
+       32 SETTABLEKS                       R5 R7 K7 ["cursor"]
+       34 SETTABLEKS                       R7 R6 K11 ["Params"]
+       36 GETUPVAL                         R7 1
+       37 GETTABLEKS                       R7 R7 K17 ["Request"]
+       39 MOVE                             R8 R6
+       40 CALL                             R7 1 1
+       41 DUPCLOSURE                       R9 K18 [PROTO_0]
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          UPVAL U3
+       44 NAMECALL                         R7 R7 K19 ["andThen"]
+       46 CALL                             R7 2 -1
+       47 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -129,14 +129,12 @@ PROTO_7:
        21 RETURN                           R0 0
 
 PROTO_8:
-        0 DUPTABLE                         R4 K1 [{"ShowSeparator"}]
-        1 LOADB                            R5 1
-        2 SETTABLEKS                       R5 R4 K0 ["ShowSeparator"]
-        4 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
-        6 MOVE                             R3 R1
-        7 GETIMPORT                        R2 K4 [table.insert]
-        9 CALL                             R2 2 0
-       10 RETURN                           R0 0
+        0 DUPTABLE                         R4 K2 [{[1] = True}]
+        1 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
+        3 MOVE                             R3 R1
+        4 GETIMPORT                        R2 K5 [table.insert]
+        6 CALL                             R2 2 0
+        7 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R0 0

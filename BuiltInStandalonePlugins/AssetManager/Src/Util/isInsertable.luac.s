@@ -15,27 +15,19 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Types"]
        13 CALL                             R1 1 1
        14 GETTABLEKS                       R2 R1 K8 ["AssetType"]
-       16 GETIMPORT                        R3 K5 [require]
-       18 GETTABLEKS                       R4 R0 K6 ["Src"]
-       20 GETTABLEKS                       R4 R4 K9 ["Flags"]
-       22 GETTABLEKS                       R4 R4 K10 ["getFFlagAmrOrganizationFoundation"]
-       24 CALL                             R3 1 1
-       25 NEWTABLE                         R4 4 0
-       27 GETTABLEKS                       R5 R2 K11 ["Plugin"]
-       29 LOADB                            R6 1
-       30 SETTABLE                         R6 R4 R5
-       31 GETTABLEKS                       R5 R2 K12 ["FontFamily"]
-       33 LOADB                            R6 1
-       34 SETTABLE                         R6 R4 R5
-       35 GETTABLEKS                       R5 R2 K13 ["Place"]
-       37 LOADB                            R6 1
-       38 SETTABLE                         R6 R4 R5
-       39 MOVE                             R5 R3
-       40 CALL                             R5 0 1
-       41 JUMPIFNOT                        R5 ; [+4]
-       42 GETTABLEKS                       R5 R2 K14 ["Folder"]
-       44 LOADB                            R6 1
-       45 SETTABLE                         R6 R4 R5
-       46 DUPCLOSURE                       R5 K15 [PROTO_0]
-       47 CAPTURE                          VAL R4
-       48 RETURN                           R5 1
+       16 NEWTABLE                         R3 4 0
+       18 GETTABLEKS                       R4 R2 K9 ["Plugin"]
+       20 LOADB                            R5 1
+       21 SETTABLE                         R5 R3 R4
+       22 GETTABLEKS                       R4 R2 K10 ["FontFamily"]
+       24 LOADB                            R5 1
+       25 SETTABLE                         R5 R3 R4
+       26 GETTABLEKS                       R4 R2 K11 ["Place"]
+       28 LOADB                            R5 1
+       29 SETTABLE                         R5 R3 R4
+       30 GETTABLEKS                       R4 R2 K12 ["Folder"]
+       32 LOADB                            R5 1
+       33 SETTABLE                         R5 R3 R4
+       34 DUPCLOSURE                       R4 K13 [PROTO_0]
+       35 CAPTURE                          VAL R3
+       36 RETURN                           R4 1

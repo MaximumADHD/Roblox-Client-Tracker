@@ -29,7 +29,7 @@ PROTO_0:
        47 GETUPVAL                         R1 0
        48 GETTABLEKS                       R1 R1 K3 ["createElement"]
        50 LOADK                            R2 K14 ["SelectionBox"]
-       51 DUPTABLE                         R3 K19 [{"LineThickness", "SurfaceTransparency", "SurfaceColor3", "Adornee", "Color3", "StudioSelectionBox"}]
+       51 DUPTABLE                         R3 K20 [{["LineThickness"], ["SurfaceTransparency"], ["SurfaceColor3"], [4], ["Color3"], ["StudioSelectionBox"] = True}]
        52 GETUPVAL                         R4 1
        53 GETTABLEKS                       R4 R4 K11 ["WorldView"]
        55 GETTABLEKS                       R4 R4 K12 ["BoxAdorn"]
@@ -46,10 +46,8 @@ PROTO_0:
        76 SETTABLEKS                       R4 R3 K0 ["Adornee"]
        78 GETTABLEKS                       R4 R0 K13 ["Color"]
        80 SETTABLEKS                       R4 R3 K8 ["Color3"]
-       82 LOADB                            R4 1
-       83 SETTABLEKS                       R4 R3 K18 ["StudioSelectionBox"]
-       85 CALL                             R1 2 -1
-       86 RETURN                           R1 -1
+       82 CALL                             R1 2 -1
+       83 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -44,22 +44,20 @@ PROTO_4:
         1 GETTABLEKS                       R1 R1 K0 ["createRef"]
         3 CALL                             R1 0 1
         4 SETTABLEKS                       R1 R0 K1 ["contentRef"]
-        6 DUPTABLE                         R1 K4 [{"contentSize", "isExpanded"}]
-        7 GETIMPORT                        R2 K7 [Vector2.new]
+        6 DUPTABLE                         R1 K5 [{["contentSize"], ["isExpanded"] = False}]
+        7 GETIMPORT                        R2 K8 [Vector2.new]
         9 LOADN                            R3 0
        10 LOADN                            R4 0
        11 CALL                             R2 2 1
        12 SETTABLEKS                       R2 R1 K2 ["contentSize"]
-       14 LOADB                            R2 0
-       15 SETTABLEKS                       R2 R1 K3 ["isExpanded"]
-       17 SETTABLEKS                       R1 R0 K8 ["state"]
-       19 NEWCLOSURE                       R1 P0
-       20 CAPTURE                          VAL R0
-       21 SETTABLEKS                       R1 R0 K9 ["toggleContent"]
-       23 NEWCLOSURE                       R1 P1
-       24 CAPTURE                          VAL R0
-       25 SETTABLEKS                       R1 R0 K10 ["onContentSizeChange"]
-       27 RETURN                           R0 0
+       14 SETTABLEKS                       R1 R0 K9 ["state"]
+       16 NEWCLOSURE                       R1 P0
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R1 R0 K10 ["toggleContent"]
+       20 NEWCLOSURE                       R1 P1
+       21 CAPTURE                          VAL R0
+       22 SETTABLEKS                       R1 R0 K11 ["onContentSizeChange"]
+       24 RETURN                           R0 0
 
 PROTO_5:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -121,65 +119,63 @@ PROTO_5:
        78 GETUPVAL                         R20 1
        79 GETTABLEKS                       R20 R20 K26 ["createElement"]
        81 GETUPVAL                         R21 2
-       82 DUPTABLE                         R22 K30 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing", "HorizontalAlignment", "VerticalAlignment"}]
+       82 DUPTABLE                         R22 K31 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Size"], ["Spacing"] = 5, ["HorizontalAlignment"], ["VerticalAlignment"]}]
        83 SETTABLEKS                       R3 R22 K2 ["AutomaticSize"]
        85 SETTABLEKS                       R4 R22 K3 ["Layout"]
        87 SETTABLEKS                       R5 R22 K4 ["LayoutOrder"]
        89 SETTABLEKS                       R7 R22 K6 ["Size"]
-       91 LOADN                            R23 5
-       92 SETTABLEKS                       R23 R22 K27 ["Spacing"]
-       94 GETIMPORT                        R23 K32 [Enum.HorizontalAlignment.Left]
-       96 SETTABLEKS                       R23 R22 K28 ["HorizontalAlignment"]
-       98 GETIMPORT                        R23 K34 [Enum.VerticalAlignment.Top]
-      100 SETTABLEKS                       R23 R22 K29 ["VerticalAlignment"]
-      102 DUPTABLE                         R23 K37 [{"SectionHeader", "Content"}]
-      103 GETUPVAL                         R24 1
-      104 GETTABLEKS                       R24 R24 K26 ["createElement"]
-      106 GETUPVAL                         R25 3
-      107 DUPTABLE                         R26 K40 [{"OnClickSeeAll", "LayoutOrder", "SeeAllText", "Title"}]
-      108 GETTABLEKS                       R27 R0 K41 ["toggleContent"]
-      110 SETTABLEKS                       R27 R26 K38 ["OnClickSeeAll"]
-      112 NAMECALL                         R27 R15 K42 ["getNextOrder"]
-      114 CALL                             R27 1 1
-      115 SETTABLEKS                       R27 R26 K4 ["LayoutOrder"]
-      117 SETTABLEKS                       R17 R26 K39 ["SeeAllText"]
-      119 SETTABLEKS                       R10 R26 K9 ["Title"]
-      121 CALL                             R24 2 1
-      122 SETTABLEKS                       R24 R23 K35 ["SectionHeader"]
-      124 GETUPVAL                         R24 1
-      125 GETTABLEKS                       R24 R24 K26 ["createElement"]
-      127 GETUPVAL                         R25 2
-      128 NEWTABLE                         R26 16 0
-      130 SETTABLEKS                       R16 R26 K2 ["AutomaticSize"]
-      132 LOADB                            R27 1
-      133 SETTABLEKS                       R27 R26 K43 ["ClipsDescendants"]
-      135 GETIMPORT                        R27 K32 [Enum.HorizontalAlignment.Left]
-      137 SETTABLEKS                       R27 R26 K28 ["HorizontalAlignment"]
-      139 GETIMPORT                        R27 K46 [Enum.FillDirection.Vertical]
-      141 SETTABLEKS                       R27 R26 K3 ["Layout"]
-      143 NAMECALL                         R27 R15 K42 ["getNextOrder"]
-      145 CALL                             R27 1 1
-      146 SETTABLEKS                       R27 R26 K4 ["LayoutOrder"]
-      148 SETTABLEKS                       R19 R26 K6 ["Size"]
-      150 GETIMPORT                        R27 K34 [Enum.VerticalAlignment.Top]
-      152 SETTABLEKS                       R27 R26 K29 ["VerticalAlignment"]
-      154 GETUPVAL                         R27 1
-      155 GETTABLEKS                       R27 R27 K47 ["Change"]
-      157 GETTABLEKS                       R27 R27 K48 ["AbsoluteSize"]
-      159 GETTABLEKS                       R28 R0 K49 ["onContentSizeChange"]
-      161 SETTABLE                         R28 R26 R27
-      162 GETUPVAL                         R27 1
-      163 GETTABLEKS                       R27 R27 K50 ["Ref"]
-      165 GETTABLEKS                       R28 R0 K51 ["contentRef"]
-      167 SETTABLE                         R28 R26 R27
-      168 GETTABLEKS                       R28 R0 K0 ["props"]
-      170 GETUPVAL                         R29 1
-      171 GETTABLEKS                       R29 R29 K52 ["Children"]
-      173 GETTABLE                         R27 R28 R29
-      174 CALL                             R24 3 1
-      175 SETTABLEKS                       R24 R23 K36 ["Content"]
-      177 CALL                             R20 3 -1
-      178 RETURN                           R20 -1
+       91 GETIMPORT                        R23 K33 [Enum.HorizontalAlignment.Left]
+       93 SETTABLEKS                       R23 R22 K29 ["HorizontalAlignment"]
+       95 GETIMPORT                        R23 K35 [Enum.VerticalAlignment.Top]
+       97 SETTABLEKS                       R23 R22 K30 ["VerticalAlignment"]
+       99 DUPTABLE                         R23 K38 [{"SectionHeader", "Content"}]
+      100 GETUPVAL                         R24 1
+      101 GETTABLEKS                       R24 R24 K26 ["createElement"]
+      103 GETUPVAL                         R25 3
+      104 DUPTABLE                         R26 K41 [{"OnClickSeeAll", "LayoutOrder", "SeeAllText", "Title"}]
+      105 GETTABLEKS                       R27 R0 K42 ["toggleContent"]
+      107 SETTABLEKS                       R27 R26 K39 ["OnClickSeeAll"]
+      109 NAMECALL                         R27 R15 K43 ["getNextOrder"]
+      111 CALL                             R27 1 1
+      112 SETTABLEKS                       R27 R26 K4 ["LayoutOrder"]
+      114 SETTABLEKS                       R17 R26 K40 ["SeeAllText"]
+      116 SETTABLEKS                       R10 R26 K9 ["Title"]
+      118 CALL                             R24 2 1
+      119 SETTABLEKS                       R24 R23 K36 ["SectionHeader"]
+      121 GETUPVAL                         R24 1
+      122 GETTABLEKS                       R24 R24 K26 ["createElement"]
+      124 GETUPVAL                         R25 2
+      125 NEWTABLE                         R26 16 0
+      127 SETTABLEKS                       R16 R26 K2 ["AutomaticSize"]
+      129 LOADB                            R27 1
+      130 SETTABLEKS                       R27 R26 K44 ["ClipsDescendants"]
+      132 GETIMPORT                        R27 K33 [Enum.HorizontalAlignment.Left]
+      134 SETTABLEKS                       R27 R26 K29 ["HorizontalAlignment"]
+      136 GETIMPORT                        R27 K47 [Enum.FillDirection.Vertical]
+      138 SETTABLEKS                       R27 R26 K3 ["Layout"]
+      140 NAMECALL                         R27 R15 K43 ["getNextOrder"]
+      142 CALL                             R27 1 1
+      143 SETTABLEKS                       R27 R26 K4 ["LayoutOrder"]
+      145 SETTABLEKS                       R19 R26 K6 ["Size"]
+      147 GETIMPORT                        R27 K35 [Enum.VerticalAlignment.Top]
+      149 SETTABLEKS                       R27 R26 K30 ["VerticalAlignment"]
+      151 GETUPVAL                         R27 1
+      152 GETTABLEKS                       R27 R27 K48 ["Change"]
+      154 GETTABLEKS                       R27 R27 K49 ["AbsoluteSize"]
+      156 GETTABLEKS                       R28 R0 K50 ["onContentSizeChange"]
+      158 SETTABLE                         R28 R26 R27
+      159 GETUPVAL                         R27 1
+      160 GETTABLEKS                       R27 R27 K51 ["Ref"]
+      162 GETTABLEKS                       R28 R0 K52 ["contentRef"]
+      164 SETTABLE                         R28 R26 R27
+      165 GETTABLEKS                       R28 R0 K0 ["props"]
+      167 GETUPVAL                         R29 1
+      168 GETTABLEKS                       R29 R29 K53 ["Children"]
+      170 GETTABLE                         R27 R28 R29
+      171 CALL                             R24 3 1
+      172 SETTABLEKS                       R24 R23 K37 ["Content"]
+      174 CALL                             R20 3 -1
+      175 RETURN                           R20 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -215,43 +211,41 @@ MAIN:
        53 LOADK                            R13 K22 ["ExpandableTeaser"]
        54 NAMECALL                         R11 R11 K23 ["extend"]
        56 CALL                             R11 2 1
-       57 DUPTABLE                         R12 K29 [{"AlwaysExpanded", "AutomaticSize", "Layout", "Size", "TeaserSize"}]
-       58 LOADB                            R13 0
-       59 SETTABLEKS                       R13 R12 K24 ["AlwaysExpanded"]
-       61 GETIMPORT                        R13 K32 [Enum.AutomaticSize.Y]
-       63 SETTABLEKS                       R13 R12 K25 ["AutomaticSize"]
-       65 GETIMPORT                        R13 K35 [Enum.FillDirection.Vertical]
-       67 SETTABLEKS                       R13 R12 K26 ["Layout"]
-       69 GETIMPORT                        R13 K38 [UDim2.new]
-       71 LOADN                            R14 1
-       72 LOADN                            R15 0
-       73 LOADN                            R16 0
-       74 LOADN                            R17 0
-       75 CALL                             R13 4 1
-       76 SETTABLEKS                       R13 R12 K27 ["Size"]
-       78 GETIMPORT                        R13 K40 [Vector2.new]
-       80 LOADN                            R14 0
-       81 LOADN                            R15 0
-       82 CALL                             R13 2 1
-       83 SETTABLEKS                       R13 R12 K28 ["TeaserSize"]
-       85 SETTABLEKS                       R12 R11 K41 ["defaultProps"]
-       87 DUPCLOSURE                       R12 K42 [PROTO_4]
-       88 CAPTURE                          VAL R3
-       89 SETTABLEKS                       R12 R11 K43 ["init"]
-       91 DUPCLOSURE                       R12 K44 [PROTO_5]
-       92 CAPTURE                          VAL R6
-       93 CAPTURE                          VAL R3
-       94 CAPTURE                          VAL R7
-       95 CAPTURE                          VAL R4
-       96 SETTABLEKS                       R12 R11 K45 ["render"]
-       98 MOVE                             R12 R10
-       99 DUPTABLE                         R13 K48 [{"Localization", "Stylizer"}]
-      100 GETTABLEKS                       R14 R8 K46 ["Localization"]
-      102 SETTABLEKS                       R14 R13 K46 ["Localization"]
-      104 GETTABLEKS                       R14 R8 K47 ["Stylizer"]
-      106 SETTABLEKS                       R14 R13 K47 ["Stylizer"]
-      108 CALL                             R12 1 1
-      109 MOVE                             R13 R11
-      110 CALL                             R12 1 1
-      111 MOVE                             R11 R12
-      112 RETURN                           R11 1
+       57 DUPTABLE                         R12 K30 [{["AlwaysExpanded"] = False, ["AutomaticSize"], ["Layout"], ["Size"], ["TeaserSize"]}]
+       58 GETIMPORT                        R13 K33 [Enum.AutomaticSize.Y]
+       60 SETTABLEKS                       R13 R12 K26 ["AutomaticSize"]
+       62 GETIMPORT                        R13 K36 [Enum.FillDirection.Vertical]
+       64 SETTABLEKS                       R13 R12 K27 ["Layout"]
+       66 GETIMPORT                        R13 K39 [UDim2.new]
+       68 LOADN                            R14 1
+       69 LOADN                            R15 0
+       70 LOADN                            R16 0
+       71 LOADN                            R17 0
+       72 CALL                             R13 4 1
+       73 SETTABLEKS                       R13 R12 K28 ["Size"]
+       75 GETIMPORT                        R13 K41 [Vector2.new]
+       77 LOADN                            R14 0
+       78 LOADN                            R15 0
+       79 CALL                             R13 2 1
+       80 SETTABLEKS                       R13 R12 K29 ["TeaserSize"]
+       82 SETTABLEKS                       R12 R11 K42 ["defaultProps"]
+       84 DUPCLOSURE                       R12 K43 [PROTO_4]
+       85 CAPTURE                          VAL R3
+       86 SETTABLEKS                       R12 R11 K44 ["init"]
+       88 DUPCLOSURE                       R12 K45 [PROTO_5]
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          VAL R3
+       91 CAPTURE                          VAL R7
+       92 CAPTURE                          VAL R4
+       93 SETTABLEKS                       R12 R11 K46 ["render"]
+       95 MOVE                             R12 R10
+       96 DUPTABLE                         R13 K49 [{"Localization", "Stylizer"}]
+       97 GETTABLEKS                       R14 R8 K47 ["Localization"]
+       99 SETTABLEKS                       R14 R13 K47 ["Localization"]
+      101 GETTABLEKS                       R14 R8 K48 ["Stylizer"]
+      103 SETTABLEKS                       R14 R13 K48 ["Stylizer"]
+      105 CALL                             R12 1 1
+      106 MOVE                             R13 R11
+      107 CALL                             R12 1 1
+      108 MOVE                             R11 R12
+      109 RETURN                           R11 1

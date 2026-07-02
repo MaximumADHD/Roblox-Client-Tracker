@@ -143,270 +143,242 @@ PROTO_7:
         4 GETUPVAL                         R3 0
         5 GETTABLEKS                       R3 R3 K2 ["createElement"]
         7 GETUPVAL                         R4 1
-        8 DUPTABLE                         R5 K7 [{"Size", "Style", "BorderColor3", "BorderSizePixel"}]
-        9 GETIMPORT                        R6 K10 [UDim2.new]
+        8 DUPTABLE                         R5 K9 [{["Size"], ["Style"] = "SubtleBox", ["BorderColor3"], ["BorderSizePixel"] = 1}]
+        9 GETIMPORT                        R6 K12 [UDim2.new]
        11 LOADN                            R7 1
        12 LOADN                            R8 0
        13 LOADN                            R9 0
-       14 GETTABLEKS                       R10 R2 K11 ["HeaderHeight"]
+       14 GETTABLEKS                       R10 R2 K13 ["HeaderHeight"]
        16 CALL                             R6 4 1
        17 SETTABLEKS                       R6 R5 K3 ["Size"]
-       19 LOADK                            R6 K12 ["SubtleBox"]
-       20 SETTABLEKS                       R6 R5 K4 ["Style"]
-       22 GETTABLEKS                       R6 R2 K13 ["HeaderBorderColor"]
-       24 SETTABLEKS                       R6 R5 K5 ["BorderColor3"]
-       26 LOADN                            R6 1
-       27 SETTABLEKS                       R6 R5 K6 ["BorderSizePixel"]
-       29 DUPTABLE                         R6 K18 [{"Inspect", "Profile", "Tabs", "Right"}]
-       30 GETUPVAL                         R7 0
-       31 GETTABLEKS                       R7 R7 K2 ["createElement"]
-       33 GETUPVAL                         R8 2
-       34 DUPTABLE                         R9 K22 [{"Style", "Position", "Size", "LayoutOrder", "OnClick"}]
-       35 GETTABLEKS                       R11 R1 K23 ["IsPicking"]
-       37 JUMPIFNOT                        R11 ; [+2]
-       38 LOADK                            R10 K24 ["RoundPrimary"]
-       39 JUMP                             ; [+1]
-       40 LOADK                            R10 K25 ["RoundSubtle"]
-       41 SETTABLEKS                       R10 R9 K4 ["Style"]
-       43 GETIMPORT                        R10 K27 [UDim2.fromOffset]
-       45 GETTABLEKS                       R11 R2 K28 ["Padding"]
-       47 LOADN                            R12 0
-       48 CALL                             R10 2 1
-       49 SETTABLEKS                       R10 R9 K19 ["Position"]
-       51 GETIMPORT                        R10 K27 [UDim2.fromOffset]
-       53 GETTABLEKS                       R11 R2 K29 ["ButtonSize"]
-       55 GETTABLEKS                       R12 R2 K29 ["ButtonSize"]
-       57 CALL                             R10 2 1
-       58 SETTABLEKS                       R10 R9 K3 ["Size"]
-       60 LOADN                            R10 1
-       61 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
-       63 GETTABLEKS                       R10 R0 K30 ["togglePicking"]
-       65 SETTABLEKS                       R10 R9 K21 ["OnClick"]
-       67 DUPTABLE                         R10 K33 [{"Tooltip", "Icon"}]
-       68 GETUPVAL                         R11 0
-       69 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       71 GETUPVAL                         R12 3
-       72 DUPTABLE                         R13 K35 [{"Text"}]
-       73 LOADK                            R14 K36 ["Inspect a UI element"]
-       74 SETTABLEKS                       R14 R13 K34 ["Text"]
-       76 CALL                             R11 2 1
-       77 SETTABLEKS                       R11 R10 K31 ["Tooltip"]
-       79 GETUPVAL                         R11 0
-       80 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       82 GETUPVAL                         R12 4
-       83 DUPTABLE                         R13 K39 [{"Size", "Position", "AnchorPoint", "Image"}]
-       84 GETIMPORT                        R14 K27 [UDim2.fromOffset]
-       86 GETTABLEKS                       R15 R2 K40 ["IconSize"]
-       88 GETTABLEKS                       R16 R2 K40 ["IconSize"]
-       90 CALL                             R14 2 1
-       91 SETTABLEKS                       R14 R13 K3 ["Size"]
-       93 GETIMPORT                        R14 K42 [UDim2.fromScale]
-       95 LOADK                            R15 K43 [0.5]
-       96 LOADK                            R16 K43 [0.5]
-       97 CALL                             R14 2 1
-       98 SETTABLEKS                       R14 R13 K19 ["Position"]
-      100 GETIMPORT                        R14 K45 [Vector2.new]
-      102 LOADK                            R15 K43 [0.5]
-      103 LOADK                            R16 K43 [0.5]
-      104 CALL                             R14 2 1
-      105 SETTABLEKS                       R14 R13 K37 ["AnchorPoint"]
-      107 LOADK                            R14 K46 ["rbxasset://textures/DeveloperInspector/Inspect.png"]
-      108 SETTABLEKS                       R14 R13 K38 ["Image"]
-      110 CALL                             R11 2 1
-      111 SETTABLEKS                       R11 R10 K32 ["Icon"]
-      113 CALL                             R7 3 1
-      114 SETTABLEKS                       R7 R6 K14 ["Inspect"]
-      116 GETUPVAL                         R7 0
-      117 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      119 GETUPVAL                         R8 2
-      120 DUPTABLE                         R9 K22 [{"Style", "Position", "Size", "LayoutOrder", "OnClick"}]
-      121 GETTABLEKS                       R11 R1 K47 ["IsProfiling"]
-      123 JUMPIFNOT                        R11 ; [+2]
-      124 LOADK                            R10 K24 ["RoundPrimary"]
-      125 JUMP                             ; [+1]
-      126 LOADK                            R10 K25 ["RoundSubtle"]
-      127 SETTABLEKS                       R10 R9 K4 ["Style"]
-      129 GETIMPORT                        R10 K27 [UDim2.fromOffset]
-      131 GETTABLEKS                       R12 R2 K29 ["ButtonSize"]
-      133 GETTABLEKS                       R14 R2 K28 ["Padding"]
-      135 MULK                             R13 R14 K48 [2]
-      136 ADD                              R11 R12 R13
-      137 LOADN                            R12 0
-      138 CALL                             R10 2 1
-      139 SETTABLEKS                       R10 R9 K19 ["Position"]
-      141 GETIMPORT                        R10 K27 [UDim2.fromOffset]
-      143 GETTABLEKS                       R11 R2 K29 ["ButtonSize"]
-      145 GETTABLEKS                       R12 R2 K29 ["ButtonSize"]
-      147 CALL                             R10 2 1
-      148 SETTABLEKS                       R10 R9 K3 ["Size"]
-      150 LOADN                            R10 2
-      151 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
-      153 GETTABLEKS                       R10 R0 K49 ["toggleProfiling"]
-      155 SETTABLEKS                       R10 R9 K21 ["OnClick"]
-      157 DUPTABLE                         R10 K33 [{"Tooltip", "Icon"}]
-      158 GETUPVAL                         R11 0
-      159 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      161 GETUPVAL                         R12 3
-      162 DUPTABLE                         R13 K35 [{"Text"}]
-      163 LOADK                            R14 K50 ["Profile a Roact tree (Ctrl+Shift+R)"]
-      164 SETTABLEKS                       R14 R13 K34 ["Text"]
-      166 CALL                             R11 2 1
-      167 SETTABLEKS                       R11 R10 K31 ["Tooltip"]
-      169 GETUPVAL                         R11 0
-      170 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      172 GETUPVAL                         R12 4
-      173 DUPTABLE                         R13 K39 [{"Size", "Position", "AnchorPoint", "Image"}]
-      174 GETIMPORT                        R14 K27 [UDim2.fromOffset]
-      176 GETTABLEKS                       R15 R2 K40 ["IconSize"]
-      178 GETTABLEKS                       R16 R2 K40 ["IconSize"]
-      180 CALL                             R14 2 1
-      181 SETTABLEKS                       R14 R13 K3 ["Size"]
-      183 GETIMPORT                        R14 K42 [UDim2.fromScale]
-      185 LOADK                            R15 K43 [0.5]
-      186 LOADK                            R16 K43 [0.5]
-      187 CALL                             R14 2 1
-      188 SETTABLEKS                       R14 R13 K19 ["Position"]
-      190 GETIMPORT                        R14 K45 [Vector2.new]
-      192 LOADK                            R15 K43 [0.5]
-      193 LOADK                            R16 K43 [0.5]
-      194 CALL                             R14 2 1
-      195 SETTABLEKS                       R14 R13 K37 ["AnchorPoint"]
-      197 LOADK                            R14 K51 ["rbxasset://textures/DeveloperInspector/Record.png"]
-      198 SETTABLEKS                       R14 R13 K38 ["Image"]
-      200 CALL                             R11 2 1
-      201 SETTABLEKS                       R11 R10 K32 ["Icon"]
-      203 CALL                             R7 3 1
-      204 SETTABLEKS                       R7 R6 K15 ["Profile"]
-      206 GETUPVAL                         R7 0
-      207 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      209 GETUPVAL                         R8 1
-      210 DUPTABLE                         R9 K52 [{"Position", "LayoutOrder"}]
-      211 GETIMPORT                        R10 K27 [UDim2.fromOffset]
-      213 GETTABLEKS                       R13 R2 K29 ["ButtonSize"]
-      215 MULK                             R12 R13 K48 [2]
-      216 GETTABLEKS                       R14 R2 K28 ["Padding"]
-      218 MULK                             R13 R14 K53 [3]
-      219 ADD                              R11 R12 R13
-      220 GETTABLEKS                       R12 R2 K28 ["Padding"]
-      222 CALL                             R10 2 1
-      223 SETTABLEKS                       R10 R9 K19 ["Position"]
-      225 LOADN                            R10 3
-      226 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
-      228 DUPTABLE                         R10 K55 [{"Child"}]
-      229 GETUPVAL                         R11 0
-      230 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      232 GETUPVAL                         R12 5
-      233 DUPTABLE                         R13 K58 [{"OnTabSelected", "SelectedTab", "Tabs"}]
-      234 GETTABLEKS                       R14 R0 K0 ["props"]
-      236 GETTABLEKS                       R14 R14 K59 ["selectTab"]
-      238 SETTABLEKS                       R14 R13 K56 ["OnTabSelected"]
-      240 GETTABLEKS                       R14 R1 K57 ["SelectedTab"]
-      242 SETTABLEKS                       R14 R13 K57 ["SelectedTab"]
-      244 GETTABLEKS                       R14 R1 K16 ["Tabs"]
-      246 SETTABLEKS                       R14 R13 K16 ["Tabs"]
-      248 CALL                             R11 2 1
-      249 SETTABLEKS                       R11 R10 K54 ["Child"]
-      251 CALL                             R7 3 1
-      252 SETTABLEKS                       R7 R6 K16 ["Tabs"]
-      254 GETUPVAL                         R7 0
-      255 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      257 GETUPVAL                         R8 1
-      258 DUPTABLE                         R9 K63 [{"Layout", "Spacing", "AnchorPoint", "Position", "AutomaticSize"}]
-      259 GETIMPORT                        R10 K67 [Enum.FillDirection.Horizontal]
-      261 SETTABLEKS                       R10 R9 K60 ["Layout"]
-      263 GETTABLEKS                       R10 R2 K28 ["Padding"]
-      265 SETTABLEKS                       R10 R9 K61 ["Spacing"]
-      267 GETIMPORT                        R10 K45 [Vector2.new]
-      269 LOADN                            R11 1
-      270 LOADN                            R12 0
-      271 CALL                             R10 2 1
-      272 SETTABLEKS                       R10 R9 K37 ["AnchorPoint"]
-      274 GETIMPORT                        R10 K42 [UDim2.fromScale]
-      276 LOADN                            R11 1
-      277 LOADN                            R12 0
-      278 CALL                             R10 2 1
-      279 SETTABLEKS                       R10 R9 K19 ["Position"]
-      281 GETIMPORT                        R10 K69 [Enum.AutomaticSize.XY]
-      283 SETTABLEKS                       R10 R9 K62 ["AutomaticSize"]
-      285 DUPTABLE                         R10 K72 [{"TargetName", "Close"}]
-      286 GETUPVAL                         R11 0
-      287 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      289 GETUPVAL                         R12 6
-      290 DUPTABLE                         R13 K74 [{"AutomaticSize", "Text", "LayoutOrder", "TextXAlignment"}]
-      291 GETIMPORT                        R14 K69 [Enum.AutomaticSize.XY]
-      293 SETTABLEKS                       R14 R13 K62 ["AutomaticSize"]
-      295 GETTABLEKS                       R14 R1 K75 ["SelectedTarget"]
-      297 GETTABLEKS                       R14 R14 K76 ["Name"]
-      299 SETTABLEKS                       R14 R13 K34 ["Text"]
-      301 LOADN                            R14 1
-      302 SETTABLEKS                       R14 R13 K20 ["LayoutOrder"]
-      304 GETIMPORT                        R14 K77 [Enum.TextXAlignment.Right]
-      306 SETTABLEKS                       R14 R13 K73 ["TextXAlignment"]
-      308 CALL                             R11 2 1
-      309 SETTABLEKS                       R11 R10 K70 ["TargetName"]
-      311 GETUPVAL                         R11 0
-      312 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      314 GETUPVAL                         R12 2
-      315 DUPTABLE                         R13 K78 [{"Style", "Position", "Size", "AnchorPoint", "LayoutOrder", "OnClick"}]
-      316 LOADK                            R14 K25 ["RoundSubtle"]
-      317 SETTABLEKS                       R14 R13 K4 ["Style"]
-      319 GETIMPORT                        R14 K42 [UDim2.fromScale]
-      321 LOADN                            R15 1
-      322 LOADN                            R16 0
-      323 CALL                             R14 2 1
-      324 SETTABLEKS                       R14 R13 K19 ["Position"]
-      326 GETIMPORT                        R14 K27 [UDim2.fromOffset]
-      328 GETTABLEKS                       R15 R2 K29 ["ButtonSize"]
-      330 GETTABLEKS                       R16 R2 K29 ["ButtonSize"]
-      332 CALL                             R14 2 1
-      333 SETTABLEKS                       R14 R13 K3 ["Size"]
-      335 GETIMPORT                        R14 K45 [Vector2.new]
-      337 LOADN                            R15 1
-      338 LOADN                            R16 0
-      339 CALL                             R14 2 1
-      340 SETTABLEKS                       R14 R13 K37 ["AnchorPoint"]
-      342 LOADN                            R14 4
-      343 SETTABLEKS                       R14 R13 K20 ["LayoutOrder"]
-      345 GETTABLEKS                       R14 R0 K79 ["closeTarget"]
-      347 SETTABLEKS                       R14 R13 K21 ["OnClick"]
-      349 DUPTABLE                         R14 K33 [{"Tooltip", "Icon"}]
-      350 GETUPVAL                         R15 0
-      351 GETTABLEKS                       R15 R15 K2 ["createElement"]
-      353 GETUPVAL                         R16 3
-      354 DUPTABLE                         R17 K35 [{"Text"}]
-      355 LOADK                            R18 K80 ["Close this Roact tree"]
-      356 SETTABLEKS                       R18 R17 K34 ["Text"]
-      358 CALL                             R15 2 1
-      359 SETTABLEKS                       R15 R14 K31 ["Tooltip"]
-      361 GETUPVAL                         R15 0
-      362 GETTABLEKS                       R15 R15 K2 ["createElement"]
-      364 GETUPVAL                         R16 4
-      365 DUPTABLE                         R17 K39 [{"Size", "Position", "AnchorPoint", "Image"}]
-      366 GETIMPORT                        R18 K27 [UDim2.fromOffset]
-      368 GETTABLEKS                       R19 R2 K40 ["IconSize"]
-      370 GETTABLEKS                       R20 R2 K40 ["IconSize"]
-      372 CALL                             R18 2 1
-      373 SETTABLEKS                       R18 R17 K3 ["Size"]
-      375 GETIMPORT                        R18 K42 [UDim2.fromScale]
-      377 LOADK                            R19 K43 [0.5]
-      378 LOADK                            R20 K43 [0.5]
-      379 CALL                             R18 2 1
-      380 SETTABLEKS                       R18 R17 K19 ["Position"]
-      382 GETIMPORT                        R18 K45 [Vector2.new]
-      384 LOADK                            R19 K43 [0.5]
-      385 LOADK                            R20 K43 [0.5]
-      386 CALL                             R18 2 1
-      387 SETTABLEKS                       R18 R17 K37 ["AnchorPoint"]
-      389 LOADK                            R18 K81 ["rbxasset://textures/DeveloperInspector/Close.png"]
-      390 SETTABLEKS                       R18 R17 K38 ["Image"]
-      392 CALL                             R15 2 1
-      393 SETTABLEKS                       R15 R14 K32 ["Icon"]
-      395 CALL                             R11 3 1
-      396 SETTABLEKS                       R11 R10 K71 ["Close"]
-      398 CALL                             R7 3 1
-      399 SETTABLEKS                       R7 R6 K17 ["Right"]
-      401 CALL                             R3 3 -1
-      402 RETURN                           R3 -1
+       19 GETTABLEKS                       R6 R2 K14 ["HeaderBorderColor"]
+       21 SETTABLEKS                       R6 R5 K6 ["BorderColor3"]
+       23 DUPTABLE                         R6 K19 [{"Inspect", "Profile", "Tabs", "Right"}]
+       24 GETUPVAL                         R7 0
+       25 GETTABLEKS                       R7 R7 K2 ["createElement"]
+       27 GETUPVAL                         R8 2
+       28 DUPTABLE                         R9 K23 [{["Style"], ["Position"], ["Size"], ["LayoutOrder"] = 1, ["OnClick"]}]
+       29 GETTABLEKS                       R11 R1 K24 ["IsPicking"]
+       31 JUMPIFNOT                        R11 ; [+2]
+       32 LOADK                            R10 K25 ["RoundPrimary"]
+       33 JUMP                             ; [+1]
+       34 LOADK                            R10 K26 ["RoundSubtle"]
+       35 SETTABLEKS                       R10 R9 K4 ["Style"]
+       37 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+       39 GETTABLEKS                       R11 R2 K29 ["Padding"]
+       41 LOADN                            R12 0
+       42 CALL                             R10 2 1
+       43 SETTABLEKS                       R10 R9 K20 ["Position"]
+       45 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+       47 GETTABLEKS                       R11 R2 K30 ["ButtonSize"]
+       49 GETTABLEKS                       R12 R2 K30 ["ButtonSize"]
+       51 CALL                             R10 2 1
+       52 SETTABLEKS                       R10 R9 K3 ["Size"]
+       54 GETTABLEKS                       R10 R0 K31 ["togglePicking"]
+       56 SETTABLEKS                       R10 R9 K22 ["OnClick"]
+       58 DUPTABLE                         R10 K34 [{"Tooltip", "Icon"}]
+       59 GETUPVAL                         R11 0
+       60 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       62 GETUPVAL                         R12 3
+       63 DUPTABLE                         R13 K37 [{["Text"] = "Inspect a UI element"}]
+       64 CALL                             R11 2 1
+       65 SETTABLEKS                       R11 R10 K32 ["Tooltip"]
+       67 GETUPVAL                         R11 0
+       68 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       70 GETUPVAL                         R12 4
+       71 DUPTABLE                         R13 K41 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"] = "rbxasset://textures/DeveloperInspector/Inspect.png"}]
+       72 GETIMPORT                        R14 K28 [UDim2.fromOffset]
+       74 GETTABLEKS                       R15 R2 K42 ["IconSize"]
+       76 GETTABLEKS                       R16 R2 K42 ["IconSize"]
+       78 CALL                             R14 2 1
+       79 SETTABLEKS                       R14 R13 K3 ["Size"]
+       81 GETIMPORT                        R14 K44 [UDim2.fromScale]
+       83 LOADK                            R15 K45 [0.5]
+       84 LOADK                            R16 K45 [0.5]
+       85 CALL                             R14 2 1
+       86 SETTABLEKS                       R14 R13 K20 ["Position"]
+       88 GETIMPORT                        R14 K47 [Vector2.new]
+       90 LOADK                            R15 K45 [0.5]
+       91 LOADK                            R16 K45 [0.5]
+       92 CALL                             R14 2 1
+       93 SETTABLEKS                       R14 R13 K38 ["AnchorPoint"]
+       95 CALL                             R11 2 1
+       96 SETTABLEKS                       R11 R10 K33 ["Icon"]
+       98 CALL                             R7 3 1
+       99 SETTABLEKS                       R7 R6 K15 ["Inspect"]
+      101 GETUPVAL                         R7 0
+      102 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      104 GETUPVAL                         R8 2
+      105 DUPTABLE                         R9 K49 [{["Style"], ["Position"], ["Size"], ["LayoutOrder"] = 2, ["OnClick"]}]
+      106 GETTABLEKS                       R11 R1 K50 ["IsProfiling"]
+      108 JUMPIFNOT                        R11 ; [+2]
+      109 LOADK                            R10 K25 ["RoundPrimary"]
+      110 JUMP                             ; [+1]
+      111 LOADK                            R10 K26 ["RoundSubtle"]
+      112 SETTABLEKS                       R10 R9 K4 ["Style"]
+      114 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+      116 GETTABLEKS                       R12 R2 K30 ["ButtonSize"]
+      118 GETTABLEKS                       R14 R2 K29 ["Padding"]
+      120 MULK                             R13 R14 K48 [2]
+      121 ADD                              R11 R12 R13
+      122 LOADN                            R12 0
+      123 CALL                             R10 2 1
+      124 SETTABLEKS                       R10 R9 K20 ["Position"]
+      126 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+      128 GETTABLEKS                       R11 R2 K30 ["ButtonSize"]
+      130 GETTABLEKS                       R12 R2 K30 ["ButtonSize"]
+      132 CALL                             R10 2 1
+      133 SETTABLEKS                       R10 R9 K3 ["Size"]
+      135 GETTABLEKS                       R10 R0 K51 ["toggleProfiling"]
+      137 SETTABLEKS                       R10 R9 K22 ["OnClick"]
+      139 DUPTABLE                         R10 K34 [{"Tooltip", "Icon"}]
+      140 GETUPVAL                         R11 0
+      141 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      143 GETUPVAL                         R12 3
+      144 DUPTABLE                         R13 K53 [{["Text"] = "Profile a Roact tree (Ctrl+Shift+R)"}]
+      145 CALL                             R11 2 1
+      146 SETTABLEKS                       R11 R10 K32 ["Tooltip"]
+      148 GETUPVAL                         R11 0
+      149 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      151 GETUPVAL                         R12 4
+      152 DUPTABLE                         R13 K55 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"] = "rbxasset://textures/DeveloperInspector/Record.png"}]
+      153 GETIMPORT                        R14 K28 [UDim2.fromOffset]
+      155 GETTABLEKS                       R15 R2 K42 ["IconSize"]
+      157 GETTABLEKS                       R16 R2 K42 ["IconSize"]
+      159 CALL                             R14 2 1
+      160 SETTABLEKS                       R14 R13 K3 ["Size"]
+      162 GETIMPORT                        R14 K44 [UDim2.fromScale]
+      164 LOADK                            R15 K45 [0.5]
+      165 LOADK                            R16 K45 [0.5]
+      166 CALL                             R14 2 1
+      167 SETTABLEKS                       R14 R13 K20 ["Position"]
+      169 GETIMPORT                        R14 K47 [Vector2.new]
+      171 LOADK                            R15 K45 [0.5]
+      172 LOADK                            R16 K45 [0.5]
+      173 CALL                             R14 2 1
+      174 SETTABLEKS                       R14 R13 K38 ["AnchorPoint"]
+      176 CALL                             R11 2 1
+      177 SETTABLEKS                       R11 R10 K33 ["Icon"]
+      179 CALL                             R7 3 1
+      180 SETTABLEKS                       R7 R6 K16 ["Profile"]
+      182 GETUPVAL                         R7 0
+      183 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      185 GETUPVAL                         R8 1
+      186 DUPTABLE                         R9 K57 [{["Position"], ["LayoutOrder"] = 3}]
+      187 GETIMPORT                        R10 K28 [UDim2.fromOffset]
+      189 GETTABLEKS                       R13 R2 K30 ["ButtonSize"]
+      191 MULK                             R12 R13 K48 [2]
+      192 GETTABLEKS                       R14 R2 K29 ["Padding"]
+      194 MULK                             R13 R14 K56 [3]
+      195 ADD                              R11 R12 R13
+      196 GETTABLEKS                       R12 R2 K29 ["Padding"]
+      198 CALL                             R10 2 1
+      199 SETTABLEKS                       R10 R9 K20 ["Position"]
+      201 DUPTABLE                         R10 K59 [{"Child"}]
+      202 GETUPVAL                         R11 0
+      203 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      205 GETUPVAL                         R12 5
+      206 DUPTABLE                         R13 K62 [{"OnTabSelected", "SelectedTab", "Tabs"}]
+      207 GETTABLEKS                       R14 R0 K0 ["props"]
+      209 GETTABLEKS                       R14 R14 K63 ["selectTab"]
+      211 SETTABLEKS                       R14 R13 K60 ["OnTabSelected"]
+      213 GETTABLEKS                       R14 R1 K61 ["SelectedTab"]
+      215 SETTABLEKS                       R14 R13 K61 ["SelectedTab"]
+      217 GETTABLEKS                       R14 R1 K17 ["Tabs"]
+      219 SETTABLEKS                       R14 R13 K17 ["Tabs"]
+      221 CALL                             R11 2 1
+      222 SETTABLEKS                       R11 R10 K58 ["Child"]
+      224 CALL                             R7 3 1
+      225 SETTABLEKS                       R7 R6 K17 ["Tabs"]
+      227 GETUPVAL                         R7 0
+      228 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      230 GETUPVAL                         R8 1
+      231 DUPTABLE                         R9 K67 [{"Layout", "Spacing", "AnchorPoint", "Position", "AutomaticSize"}]
+      232 GETIMPORT                        R10 K71 [Enum.FillDirection.Horizontal]
+      234 SETTABLEKS                       R10 R9 K64 ["Layout"]
+      236 GETTABLEKS                       R10 R2 K29 ["Padding"]
+      238 SETTABLEKS                       R10 R9 K65 ["Spacing"]
+      240 GETIMPORT                        R10 K47 [Vector2.new]
+      242 LOADN                            R11 1
+      243 LOADN                            R12 0
+      244 CALL                             R10 2 1
+      245 SETTABLEKS                       R10 R9 K38 ["AnchorPoint"]
+      247 GETIMPORT                        R10 K44 [UDim2.fromScale]
+      249 LOADN                            R11 1
+      250 LOADN                            R12 0
+      251 CALL                             R10 2 1
+      252 SETTABLEKS                       R10 R9 K20 ["Position"]
+      254 GETIMPORT                        R10 K73 [Enum.AutomaticSize.XY]
+      256 SETTABLEKS                       R10 R9 K66 ["AutomaticSize"]
+      258 DUPTABLE                         R10 K76 [{"TargetName", "Close"}]
+      259 GETUPVAL                         R11 0
+      260 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      262 GETUPVAL                         R12 6
+      263 DUPTABLE                         R13 K78 [{["AutomaticSize"], ["Text"], ["LayoutOrder"] = 1, ["TextXAlignment"]}]
+      264 GETIMPORT                        R14 K73 [Enum.AutomaticSize.XY]
+      266 SETTABLEKS                       R14 R13 K66 ["AutomaticSize"]
+      268 GETTABLEKS                       R14 R1 K79 ["SelectedTarget"]
+      270 GETTABLEKS                       R14 R14 K80 ["Name"]
+      272 SETTABLEKS                       R14 R13 K35 ["Text"]
+      274 GETIMPORT                        R14 K81 [Enum.TextXAlignment.Right]
+      276 SETTABLEKS                       R14 R13 K77 ["TextXAlignment"]
+      278 CALL                             R11 2 1
+      279 SETTABLEKS                       R11 R10 K74 ["TargetName"]
+      281 GETUPVAL                         R11 0
+      282 GETTABLEKS                       R11 R11 K2 ["createElement"]
+      284 GETUPVAL                         R12 2
+      285 DUPTABLE                         R13 K83 [{["Style"] = "RoundSubtle", ["Position"], ["Size"], ["AnchorPoint"], ["LayoutOrder"] = 4, ["OnClick"]}]
+      286 GETIMPORT                        R14 K44 [UDim2.fromScale]
+      288 LOADN                            R15 1
+      289 LOADN                            R16 0
+      290 CALL                             R14 2 1
+      291 SETTABLEKS                       R14 R13 K20 ["Position"]
+      293 GETIMPORT                        R14 K28 [UDim2.fromOffset]
+      295 GETTABLEKS                       R15 R2 K30 ["ButtonSize"]
+      297 GETTABLEKS                       R16 R2 K30 ["ButtonSize"]
+      299 CALL                             R14 2 1
+      300 SETTABLEKS                       R14 R13 K3 ["Size"]
+      302 GETIMPORT                        R14 K47 [Vector2.new]
+      304 LOADN                            R15 1
+      305 LOADN                            R16 0
+      306 CALL                             R14 2 1
+      307 SETTABLEKS                       R14 R13 K38 ["AnchorPoint"]
+      309 GETTABLEKS                       R14 R0 K84 ["closeTarget"]
+      311 SETTABLEKS                       R14 R13 K22 ["OnClick"]
+      313 DUPTABLE                         R14 K34 [{"Tooltip", "Icon"}]
+      314 GETUPVAL                         R15 0
+      315 GETTABLEKS                       R15 R15 K2 ["createElement"]
+      317 GETUPVAL                         R16 3
+      318 DUPTABLE                         R17 K86 [{["Text"] = "Close this Roact tree"}]
+      319 CALL                             R15 2 1
+      320 SETTABLEKS                       R15 R14 K32 ["Tooltip"]
+      322 GETUPVAL                         R15 0
+      323 GETTABLEKS                       R15 R15 K2 ["createElement"]
+      325 GETUPVAL                         R16 4
+      326 DUPTABLE                         R17 K88 [{["Size"], ["Position"], ["AnchorPoint"], ["Image"] = "rbxasset://textures/DeveloperInspector/Close.png"}]
+      327 GETIMPORT                        R18 K28 [UDim2.fromOffset]
+      329 GETTABLEKS                       R19 R2 K42 ["IconSize"]
+      331 GETTABLEKS                       R20 R2 K42 ["IconSize"]
+      333 CALL                             R18 2 1
+      334 SETTABLEKS                       R18 R17 K3 ["Size"]
+      336 GETIMPORT                        R18 K44 [UDim2.fromScale]
+      338 LOADK                            R19 K45 [0.5]
+      339 LOADK                            R20 K45 [0.5]
+      340 CALL                             R18 2 1
+      341 SETTABLEKS                       R18 R17 K20 ["Position"]
+      343 GETIMPORT                        R18 K47 [Vector2.new]
+      345 LOADK                            R19 K45 [0.5]
+      346 LOADK                            R20 K45 [0.5]
+      347 CALL                             R18 2 1
+      348 SETTABLEKS                       R18 R17 K38 ["AnchorPoint"]
+      350 CALL                             R15 2 1
+      351 SETTABLEKS                       R15 R14 K33 ["Icon"]
+      353 CALL                             R11 3 1
+      354 SETTABLEKS                       R11 R10 K75 ["Close"]
+      356 CALL                             R7 3 1
+      357 SETTABLEKS                       R7 R6 K18 ["Right"]
+      359 CALL                             R3 3 -1
+      360 RETURN                           R3 -1
 
 PROTO_8:
         0 DUPTABLE                         R1 K5 [{"Tabs", "SelectedTab", "SelectedTarget", "IsPicking", "IsProfiling"}]

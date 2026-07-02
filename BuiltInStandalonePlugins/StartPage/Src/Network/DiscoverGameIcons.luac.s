@@ -49,12 +49,10 @@ PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["CDNUrl"]
         2 JUMPIFNOT                        R1 ; [+1]
         3 RETURN                           R0 1
-        4 DUPTABLE                         R1 K3 [{"Id", "NoLoadableImage"}]
+        4 DUPTABLE                         R1 K4 [{["Id"], ["NoLoadableImage"] = True}]
         5 GETTABLEKS                       R2 R0 K1 ["Id"]
         7 SETTABLEKS                       R2 R1 K1 ["Id"]
-        9 LOADB                            R2 1
-       10 SETTABLEKS                       R2 R1 K2 ["NoLoadableImage"]
-       12 RETURN                           R1 1
+        9 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -201,33 +199,31 @@ MAIN:
        85 GETTABLEKS                       R11 R3 K26 ["RobloxAPI"]
        87 GETTABLEKS                       R11 R11 K27 ["Url"]
        89 GETTABLEKS                       R12 R9 K28 ["new"]
-       91 DUPTABLE                         R13 K31 [{"isInternal", "loggingLevel"}]
-       92 LOADB                            R14 1
-       93 SETTABLEKS                       R14 R13 K29 ["isInternal"]
-       95 SETTABLEKS                       R1 R13 K30 ["loggingLevel"]
-       97 CALL                             R12 1 1
-       98 GETIMPORT                        R13 K5 [require]
-      100 GETTABLEKS                       R14 R0 K6 ["Src"]
-      102 GETTABLEKS                       R14 R14 K20 ["Network"]
-      104 GETTABLEKS                       R14 R14 K32 ["GameCache"]
-      106 CALL                             R13 1 1
-      107 GETIMPORT                        R14 K5 [require]
-      109 GETTABLEKS                       R15 R0 K6 ["Src"]
-      111 GETTABLEKS                       R15 R15 K22 ["Util"]
-      113 GETTABLEKS                       R15 R15 K23 ["Services"]
-      115 CALL                             R14 1 1
-      116 GETTABLEKS                       R15 R14 K33 ["StartPageManager"]
-      118 MOVE                             R16 R10
-      119 GETTABLEKS                       R17 R7 K34 ["validate"]
-      121 CALL                             R16 1 1
-      122 DUPCLOSURE                       R17 K35 [PROTO_5]
-      123 CAPTURE                          VAL R11
-      124 CAPTURE                          VAL R8
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R16
-      127 CAPTURE                          VAL R5
-      128 CAPTURE                          VAL R13
-      129 CAPTURE                          VAL R15
-      130 CAPTURE                          VAL R2
-      131 CAPTURE                          VAL R17
-      132 RETURN                           R17 1
+       91 DUPTABLE                         R13 K32 [{["isInternal"] = True, ["loggingLevel"]}]
+       92 SETTABLEKS                       R1 R13 K31 ["loggingLevel"]
+       94 CALL                             R12 1 1
+       95 GETIMPORT                        R13 K5 [require]
+       97 GETTABLEKS                       R14 R0 K6 ["Src"]
+       99 GETTABLEKS                       R14 R14 K20 ["Network"]
+      101 GETTABLEKS                       R14 R14 K33 ["GameCache"]
+      103 CALL                             R13 1 1
+      104 GETIMPORT                        R14 K5 [require]
+      106 GETTABLEKS                       R15 R0 K6 ["Src"]
+      108 GETTABLEKS                       R15 R15 K22 ["Util"]
+      110 GETTABLEKS                       R15 R15 K23 ["Services"]
+      112 CALL                             R14 1 1
+      113 GETTABLEKS                       R15 R14 K34 ["StartPageManager"]
+      115 MOVE                             R16 R10
+      116 GETTABLEKS                       R17 R7 K35 ["validate"]
+      118 CALL                             R16 1 1
+      119 DUPCLOSURE                       R17 K36 [PROTO_5]
+      120 CAPTURE                          VAL R11
+      121 CAPTURE                          VAL R8
+      122 CAPTURE                          VAL R12
+      123 CAPTURE                          VAL R16
+      124 CAPTURE                          VAL R5
+      125 CAPTURE                          VAL R13
+      126 CAPTURE                          VAL R15
+      127 CAPTURE                          VAL R2
+      128 CAPTURE                          VAL R17
+      129 RETURN                           R17 1

@@ -6,27 +6,21 @@ PROTO_0:
         5 GETTABLEKS                       R2 R2 K1 ["createElement"]
         7 GETUPVAL                         R3 2
         8 GETTABLEKS                       R3 R3 K2 ["View"]
-       10 DUPTABLE                         R4 K4 [{"tag"}]
-       11 LOADK                            R5 K5 ["size-full-full row align-y-center padding-medium bg-surface-200"]
-       12 SETTABLEKS                       R5 R4 K3 ["tag"]
-       14 DUPTABLE                         R5 K7 [{"OptionalContent"}]
-       15 GETTABLEKS                       R7 R0 K8 ["showContent"]
-       17 JUMPIFNOT                        R7 ; [+15]
-       18 GETUPVAL                         R6 1
-       19 GETTABLEKS                       R6 R6 K1 ["createElement"]
-       21 GETUPVAL                         R7 2
-       22 GETTABLEKS                       R7 R7 K9 ["Text"]
-       24 DUPTABLE                         R8 K10 [{"Text", "tag"}]
-       25 LOADK                            R9 K11 ["Kangaroos are great!"]
-       26 SETTABLEKS                       R9 R8 K9 ["Text"]
-       28 LOADK                            R9 K12 ["padding-small grow auto-y bg-action-standard content-action-standard text-heading-medium radius-small"]
-       29 SETTABLEKS                       R9 R8 K3 ["tag"]
-       31 CALL                             R6 2 1
-       32 JUMP                             ; [+1]
-       33 LOADNIL                          R6
-       34 SETTABLEKS                       R6 R5 K6 ["OptionalContent"]
-       36 CALL                             R2 3 -1
-       37 RETURN                           R2 -1
+       10 DUPTABLE                         R4 K5 [{["tag"] = "row align-y-center size-full-full padding-medium bg-surface-200"}]
+       11 DUPTABLE                         R5 K7 [{"OptionalContent"}]
+       12 GETTABLEKS                       R7 R0 K8 ["showContent"]
+       14 JUMPIFNOT                        R7 ; [+9]
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R6 R6 K1 ["createElement"]
+       18 GETUPVAL                         R7 2
+       19 GETTABLEKS                       R7 R7 K9 ["Text"]
+       21 DUPTABLE                         R8 K12 [{["Text"] = "Kangaroos are great!", ["tag"] = "grow auto-y padding-small text-heading-medium radius-small bg-action-standard content-action-standard"}]
+       22 CALL                             R6 2 1
+       23 JUMP                             ; [+1]
+       24 LOADNIL                          R6
+       25 SETTABLEKS                       R6 R5 K6 ["OptionalContent"]
+       27 CALL                             R2 3 -1
+       28 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -83,7 +83,7 @@ PROTO_4:
        11 GETTABLEKS                       R3 R3 K5 ["refs"]
        13 CALL                             R2 1 2
        14 LOADN                            R6 1
-       15 LOADN                            R4 44
+       15 LOADN                            R4 300
        16 LOADN                            R5 1
        17 FORNPREP                         R4
        18 GETUPVAL                         R7 1

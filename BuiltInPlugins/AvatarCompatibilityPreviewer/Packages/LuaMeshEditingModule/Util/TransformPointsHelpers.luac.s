@@ -107,20 +107,20 @@ PROTO_3:
 
 PROTO_4:
         0 GETTABLEKS                       R9 R1 K1 ["X"]
-        2 SUBRK                            R8 R0 K9 [NULL]
-        3 SUBRK                            R9 R0 K4 ["Vector3"]
+        2 SUBRK                            R8 K0 [1] R9
+        3 SUBRK                            R9 K0 [1] R4
         4 MUL                              R7 R8 R9
         5 GETTABLEKS                       R8 R1 K1 ["X"]
         7 ADD                              R6 R7 R8
         8 GETTABLEKS                       R10 R1 K2 ["Y"]
-       10 SUBRK                            R9 R0 K10 [NULL]
-       11 SUBRK                            R10 R0 K4 ["Vector3"]
+       10 SUBRK                            R9 K0 [1] R10
+       11 SUBRK                            R10 K0 [1] R4
        12 MUL                              R8 R9 R10
        13 GETTABLEKS                       R9 R1 K2 ["Y"]
        15 ADD                              R7 R8 R9
        16 GETTABLEKS                       R11 R1 K3 ["Z"]
-       18 SUBRK                            R10 R0 K11 [NULL]
-       19 SUBRK                            R11 R0 K4 ["Vector3"]
+       18 SUBRK                            R10 K0 [1] R11
+       19 SUBRK                            R11 K0 [1] R4
        20 MUL                              R9 R10 R11
        21 GETTABLEKS                       R10 R1 K3 ["Z"]
        23 ADD                              R8 R9 R10

@@ -66,7 +66,7 @@ MAIN:
        95 SETTABLEKS                       R1 R0 K35 ["SortOptionsWidth"]
        97 LOADN                            R1 250
        98 SETTABLEKS                       R1 R0 K36 ["FilterTypesWidth"]
-      100 LOADN                            R1 64
+      100 LOADN                            R1 320
       101 SETTABLEKS                       R1 R0 K37 ["FilterTypesHeight"]
       103 GETIMPORT                        R1 K40 [Vector2.new]
       105 LOADK                            R2 K41 [0.5]
@@ -79,12 +79,12 @@ MAIN:
       114 CALL                             R1 2 1
       115 SETTABLEKS                       R1 R0 K45 ["PositionCenter"]
       117 GETIMPORT                        R1 K40 [Vector2.new]
-      119 LOADN                            R2 128
-      120 LOADN                            R3 104
+      119 LOADN                            R2 640
+      120 LOADN                            R3 360
       121 CALL                             R1 2 1
       122 SETTABLEKS                       R1 R0 K46 ["QuickShareDialogSize"]
       124 GETIMPORT                        R1 K33 [UDim2.fromOffset]
-      126 LOADN                            R2 96
+      126 LOADN                            R2 608
       127 LOADN                            R3 125
       128 CALL                             R1 2 1
       129 SETTABLEKS                       R1 R0 K47 ["QuickShareDropdownSize"]
@@ -94,18 +94,18 @@ MAIN:
       135 CALL                             R1 2 1
       136 SETTABLEKS                       R1 R0 K48 ["QuickSharePermissionsDropdownSize"]
       138 GETIMPORT                        R1 K40 [Vector2.new]
-      140 LOADN                            R2 159
+      140 LOADN                            R2 415
       141 LOADN                            R3 100
       142 CALL                             R1 2 1
       143 SETTABLEKS                       R1 R0 K49 ["ConfirmDialogSize"]
       145 GETIMPORT                        R1 K40 [Vector2.new]
-      147 LOADN                            R2 194
+      147 LOADN                            R2 450
       148 LOADN                            R3 125
       149 CALL                             R1 2 1
       150 SETTABLEKS                       R1 R0 K50 ["ConfirmOpenInBrowserDialogSize"]
       152 GETIMPORT                        R1 K40 [Vector2.new]
-      154 LOADN                            R2 144
-      155 LOADN                            R3 224
+      154 LOADN                            R2 400
+      155 LOADN                            R3 480
       156 CALL                             R1 2 1
       157 SETTABLEKS                       R1 R0 K51 ["MoveDialogSize"]
       159 LOADN                            R1 180
@@ -116,7 +116,7 @@ MAIN:
       166 SETTABLEKS                       R1 R0 K54 ["CompactScopeListWidth"]
       168 LOADN                            R1 32
       169 SETTABLEKS                       R1 R0 K55 ["CompactScopeListMinHeight"]
-      171 LOADN                            R1 64
+      171 LOADN                            R1 320
       172 SETTABLEKS                       R1 R0 K56 ["CompactScopeListMaxHeight"]
       174 LOADN                            R1 27
       175 SETTABLEKS                       R1 R0 K57 ["CompactScopeListItemHeight"]

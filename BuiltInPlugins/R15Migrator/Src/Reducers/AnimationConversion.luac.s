@@ -1,19 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K5 [{"selection", "previewSelection", "previewSpeed", "animations", "status"}]
+        0 DUPTABLE                         R0 K6 [{[1], ["previewSelection"], ["previewSpeed"] = 1, ["animations"], ["status"]}]
         1 NEWTABLE                         R1 0 0
         3 SETTABLEKS                       R1 R0 K0 ["selection"]
         5 GETUPVAL                         R1 0
-        6 GETTABLEKS                       R1 R1 K6 ["None"]
+        6 GETTABLEKS                       R1 R1 K7 ["None"]
         8 SETTABLEKS                       R1 R0 K1 ["previewSelection"]
-       10 LOADN                            R1 1
-       11 SETTABLEKS                       R1 R0 K2 ["previewSpeed"]
-       13 NEWTABLE                         R1 0 0
-       15 SETTABLEKS                       R1 R0 K3 ["animations"]
-       17 GETUPVAL                         R1 1
-       18 GETTABLEKS                       R1 R1 K7 ["Status"]
-       20 GETTABLEKS                       R1 R1 K8 ["NotStarted"]
-       22 SETTABLEKS                       R1 R0 K4 ["status"]
-       24 RETURN                           R0 1
+       10 NEWTABLE                         R1 0 0
+       12 SETTABLEKS                       R1 R0 K4 ["animations"]
+       14 GETUPVAL                         R1 1
+       15 GETTABLEKS                       R1 R1 K8 ["Status"]
+       17 GETTABLEKS                       R1 R1 K9 ["NotStarted"]
+       19 SETTABLEKS                       R1 R0 K5 ["status"]
+       21 RETURN                           R0 1
 
 PROTO_1:
         0 GETUPVAL                         R2 0

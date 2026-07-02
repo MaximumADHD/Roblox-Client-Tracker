@@ -62,25 +62,17 @@ PROTO_3:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K12 [{"KeyTexts", "ClickCallback", "KeyStates", "Localization", "Style", "Widget", "DropdownWidth", "HamburgerMenu", "ShouldShowDropdownIcon"}]
-       11 GETTABLEKS                       R7 R0 K13 ["keyColumns"]
+       10 DUPTABLE                         R6 K16 [{["KeyTexts"], ["ClickCallback"], ["KeyStates"], ["Localization"], ["Style"], ["Widget"] = "BreakpointsWindow", ["DropdownWidth"] = 200, ["HamburgerMenu"] = True, ["ShouldShowDropdownIcon"] = False}]
+       11 GETTABLEKS                       R7 R0 K17 ["keyColumns"]
        13 SETTABLEKS                       R7 R6 K4 ["KeyTexts"]
-       15 GETTABLEKS                       R7 R0 K14 ["clickCallback"]
+       15 GETTABLEKS                       R7 R0 K18 ["clickCallback"]
        17 SETTABLEKS                       R7 R6 K5 ["ClickCallback"]
-       19 GETTABLEKS                       R7 R1 K15 ["ColumnStates"]
+       19 GETTABLEKS                       R7 R1 K19 ["ColumnStates"]
        21 SETTABLEKS                       R7 R6 K6 ["KeyStates"]
        23 SETTABLEKS                       R3 R6 K2 ["Localization"]
        25 SETTABLEKS                       R2 R6 K7 ["Style"]
-       27 LOADK                            R7 K16 ["BreakpointsWindow"]
-       28 SETTABLEKS                       R7 R6 K8 ["Widget"]
-       30 LOADN                            R7 200
-       31 SETTABLEKS                       R7 R6 K9 ["DropdownWidth"]
-       33 LOADB                            R7 1
-       34 SETTABLEKS                       R7 R6 K10 ["HamburgerMenu"]
-       36 LOADB                            R7 0
-       37 SETTABLEKS                       R7 R6 K11 ["ShouldShowDropdownIcon"]
-       39 CALL                             R4 2 -1
-       40 RETURN                           R4 -1
+       27 CALL                             R4 2 -1
+       28 RETURN                           R4 -1
 
 PROTO_4:
         0 GETTABLEKS                       R2 R0 K0 ["Breakpoint"]

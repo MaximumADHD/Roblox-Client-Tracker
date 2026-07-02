@@ -12,23 +12,19 @@ PROTO_1:
         4 RETURN                           R0 1
         5 GETUPVAL                         R1 0
         6 MOVE                             R2 R0
-        7 DUPTABLE                         R3 K5 [{"Enabled", "Selected", "OnSelect", "Type"}]
-        8 LOADB                            R4 1
-        9 SETTABLEKS                       R4 R3 K2 ["Enabled"]
-       11 GETUPVAL                         R5 1
-       12 GETTABLEKS                       R6 R0 K6 ["Id"]
-       14 JUMPIFEQ                         R5 R6 ; [+2]
-       16 LOADB                            R4 0 +1
-       17 LOADB                            R4 1
-       18 SETTABLEKS                       R4 R3 K3 ["Selected"]
-       20 NEWCLOSURE                       R4 P0
-       21 CAPTURE                          UPVAL U2
-       22 CAPTURE                          VAL R0
-       23 SETTABLEKS                       R4 R3 K4 ["OnSelect"]
-       25 LOADK                            R4 K7 ["Option"]
-       26 SETTABLEKS                       R4 R3 K0 ["Type"]
-       28 CALL                             R1 2 -1
-       29 RETURN                           R1 -1
+        7 DUPTABLE                         R3 K7 [{["Enabled"] = True, ["Selected"], ["OnSelect"], [4] = "Option"}]
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R6 R0 K8 ["Id"]
+       11 JUMPIFEQ                         R5 R6 ; [+2]
+       13 LOADB                            R4 0 +1
+       14 LOADB                            R4 1
+       15 SETTABLEKS                       R4 R3 K4 ["Selected"]
+       17 NEWCLOSURE                       R4 P0
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R4 R3 K5 ["OnSelect"]
+       22 CALL                             R1 2 -1
+       23 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -39,12 +35,10 @@ PROTO_2:
         5 CAPTURE                          UPVAL U4
         6 CALL                             R0 2 1
         7 GETIMPORT                        R1 K2 [table.freeze]
-        9 DUPTABLE                         R2 K5 [{"Type", "Children"}]
-       10 LOADK                            R3 K6 ["Column"]
-       11 SETTABLEKS                       R3 R2 K3 ["Type"]
-       13 SETTABLEKS                       R0 R2 K4 ["Children"]
-       15 CALL                             R1 1 1
-       16 RETURN                           R1 1
+        9 DUPTABLE                         R2 K6 [{["Type"] = "Column", ["Children"]}]
+       10 SETTABLEKS                       R0 R2 K5 ["Children"]
+       12 CALL                             R1 1 1
+       13 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R0 0

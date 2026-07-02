@@ -15,19 +15,17 @@ MAIN:
        22 NEWTABLE                         R4 0 1
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 [".green-text"]
-       26 DUPTABLE                         R7 K13 [{"TextColor3"}]
-       27 LOADK                            R8 K14 ["$FoundationGreen"]
-       28 SETTABLEKS                       R8 R7 K12 ["TextColor3"]
-       30 CALL                             R5 2 -1
-       31 SETLIST                          R4 R5 -1 [1]
-       33 DUPTABLE                         R5 K16 [{"FoundationGreen"}]
-       34 GETIMPORT                        R6 K19 [Color3.fromHex]
-       36 LOADK                            R7 K20 ["#53D253"]
-       37 CALL                             R6 1 1
-       38 SETTABLEKS                       R6 R5 K15 ["FoundationGreen"]
-       40 MOVE                             R6 R3
-       41 LOADK                            R7 K21 ["Reimport"]
-       42 MOVE                             R8 R4
-       43 MOVE                             R9 R5
-       44 CALL                             R6 3 -1
-       45 RETURN                           R6 -1
+       26 DUPTABLE                         R7 K14 [{["TextColor3"] = "$FoundationGreen"}]
+       27 CALL                             R5 2 -1
+       28 SETLIST                          R4 R5 -1 [1]
+       30 DUPTABLE                         R5 K16 [{"FoundationGreen"}]
+       31 GETIMPORT                        R6 K19 [Color3.fromHex]
+       33 LOADK                            R7 K20 ["#53D253"]
+       34 CALL                             R6 1 1
+       35 SETTABLEKS                       R6 R5 K15 ["FoundationGreen"]
+       37 MOVE                             R6 R3
+       38 LOADK                            R7 K21 ["Reimport"]
+       39 MOVE                             R8 R4
+       40 MOVE                             R9 R5
+       41 CALL                             R6 3 -1
+       42 RETURN                           R6 -1

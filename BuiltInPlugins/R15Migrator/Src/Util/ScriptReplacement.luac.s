@@ -138,21 +138,19 @@ MAIN:
        32 GETTABLEKS                       R6 R3 K15 ["ScriptHistory"]
        34 GETTABLEKS                       R6 R6 K16 ["ChunkUtil"]
        36 CALL                             R5 1 1
-       37 DUPTABLE                         R6 K18 [{"UNASSIGNED"}]
-       38 LOADK                            R7 K19 ["Unassigned"]
-       39 SETTABLEKS                       R7 R6 K17 ["UNASSIGNED"]
-       41 DUPCLOSURE                       R7 K20 [PROTO_0]
-       42 CAPTURE                          VAL R0
-       43 SETTABLEKS                       R7 R6 K21 ["goToScriptInstance"]
-       45 DUPCLOSURE                       R7 K22 [PROTO_1]
-       46 CAPTURE                          VAL R6
-       47 SETTABLEKS                       R7 R6 K23 ["goToScript"]
-       49 DUPCLOSURE                       R7 K24 [PROTO_2]
-       50 DUPCLOSURE                       R8 K25 [PROTO_3]
-       51 CAPTURE                          VAL R6
-       52 SETTABLEKS                       R8 R6 K26 ["replaceWithSuggestion"]
-       54 DUPCLOSURE                       R8 K27 [PROTO_4]
-       55 CAPTURE                          VAL R5
-       56 CAPTURE                          VAL R1
-       57 SETTABLEKS                       R8 R6 K28 ["diffScripts"]
-       59 RETURN                           R6 1
+       37 DUPTABLE                         R6 K19 [{["UNASSIGNED"] = "Unassigned"}]
+       38 DUPCLOSURE                       R7 K20 [PROTO_0]
+       39 CAPTURE                          VAL R0
+       40 SETTABLEKS                       R7 R6 K21 ["goToScriptInstance"]
+       42 DUPCLOSURE                       R7 K22 [PROTO_1]
+       43 CAPTURE                          VAL R6
+       44 SETTABLEKS                       R7 R6 K23 ["goToScript"]
+       46 DUPCLOSURE                       R7 K24 [PROTO_2]
+       47 DUPCLOSURE                       R8 K25 [PROTO_3]
+       48 CAPTURE                          VAL R6
+       49 SETTABLEKS                       R8 R6 K26 ["replaceWithSuggestion"]
+       51 DUPCLOSURE                       R8 K27 [PROTO_4]
+       52 CAPTURE                          VAL R5
+       53 CAPTURE                          VAL R1
+       54 SETTABLEKS                       R8 R6 K28 ["diffScripts"]
+       56 RETURN                           R6 1

@@ -111,86 +111,69 @@ PROTO_5:
        79 NAMECALL                         R19 R1 K11 ["getNextOrder"]
        81 CALL                             R19 1 1
        82 SETTABLEKS                       R19 R18 K9 ["LayoutOrder"]
-       84 GETUPVAL                         R20 16
-       85 CALL                             R20 0 1
-       86 JUMPIFNOT                        R20 ; [+2]
-       87 MOVE                             R19 R10
-       88 JUMP                             ; [+1]
-       89 LOADNIL                          R19
-       90 SETTABLEKS                       R19 R18 K16 ["CellGroups"]
-       92 GETUPVAL                         R20 16
-       93 CALL                             R20 0 1
-       94 JUMPIFNOT                        R20 ; [+19]
-       95 DUPTABLE                         R19 K30 [{"HeaderComponent", "Size", "Collapsible"}]
-       96 GETUPVAL                         R20 17
-       97 SETTABLEKS                       R20 R19 K27 ["HeaderComponent"]
-       99 GETIMPORT                        R20 K32 [UDim2.new]
-      101 LOADN                            R21 1
-      102 LOADN                            R22 0
-      103 LOADN                            R23 0
-      104 GETUPVAL                         R24 18
-      105 GETTABLEKS                       R24 R24 K33 ["SectionHeaderHeight"]
-      107 CALL                             R20 4 1
-      108 SETTABLEKS                       R20 R19 K28 ["Size"]
-      110 LOADB                            R20 0
-      111 SETTABLEKS                       R20 R19 K29 ["Collapsible"]
-      113 JUMP                             ; [+1]
-      114 LOADNIL                          R19
-      115 SETTABLEKS                       R19 R18 K17 ["CellGroupHeader"]
-      117 NEWCLOSURE                       R19 P1
-      118 CAPTURE                          VAL R5
-      119 SETTABLEKS                       R19 R18 K18 ["GetRowProps"]
-      121 SETTABLEKS                       R6 R18 K19 ["Rows"]
-      123 GETUPVAL                         R19 19
-      124 SETTABLEKS                       R19 R18 K20 ["RowComponent"]
-      126 GETUPVAL                         R20 20
-      127 CALL                             R20 0 1
-      128 JUMPIFNOT                        R20 ; [+3]
-      129 GETTABLEKS                       R19 R7 K34 ["ListRowHeight"]
-      131 JUMP                             ; [+5]
-      132 GETUPVAL                         R19 21
-      133 LOADK                            R21 K35 ["ContentListRowHeight"]
-      134 NAMECALL                         R19 R19 K36 ["GetAttribute"]
-      136 CALL                             R19 2 1
-      137 SETTABLEKS                       R19 R18 K21 ["RowHeight"]
-      139 NEWCLOSURE                       R19 P2
-      140 CAPTURE                          VAL R3
-      141 SETTABLEKS                       R19 R18 K22 ["OnLoadRange"]
-      143 GETIMPORT                        R19 K40 [Enum.ScrollBarInset.None]
-      145 SETTABLEKS                       R19 R18 K23 ["VerticalScrollBarInset"]
-      147 GETIMPORT                        R19 K42 [Enum.ScrollingDirection.XY]
-      149 SETTABLEKS                       R19 R18 K24 ["ScrollingDirection"]
-      151 SETTABLEKS                       R9 R18 K25 ["ref"]
-      153 CALL                             R16 2 1
-      154 SETTABLEKS                       R16 R15 K14 ["List"]
-      156 CALL                             R12 3 1
-      157 SETTABLEKS                       R12 R11 K6 ["ListContainer"]
-      159 GETUPVAL                         R12 12
-      160 GETTABLEKS                       R12 R12 K8 ["createElement"]
-      162 GETUPVAL                         R13 22
-      163 GETTABLEKS                       R13 R13 K43 ["View"]
-      165 DUPTABLE                         R14 K48 [{"LayoutOrder", "onSecondaryActivated", "stateLayer", "tag", "testId"}]
-      166 GETTABLEKS                       R15 R0 K9 ["LayoutOrder"]
-      168 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
-      170 NEWCLOSURE                       R15 P3
-      171 CAPTURE                          VAL R2
-      172 CAPTURE                          UPVAL U8
-      173 CAPTURE                          VAL R8
-      174 SETTABLEKS                       R15 R14 K44 ["onSecondaryActivated"]
-      176 DUPTABLE                         R15 K50 [{"affordance"}]
-      177 GETUPVAL                         R16 22
-      178 GETTABLEKS                       R16 R16 K51 ["Enums"]
-      180 GETTABLEKS                       R16 R16 K52 ["StateLayerAffordance"]
-      182 GETTABLEKS                       R16 R16 K39 ["None"]
-      184 SETTABLEKS                       R16 R15 K49 ["affordance"]
-      186 SETTABLEKS                       R15 R14 K45 ["stateLayer"]
-      188 LOADK                            R15 K53 ["size-full fill col align-x-center"]
-      189 SETTABLEKS                       R15 R14 K46 ["tag"]
-      191 LOADK                            R15 K54 ["content-list"]
-      192 SETTABLEKS                       R15 R14 K47 ["testId"]
-      194 MOVE                             R15 R11
-      195 CALL                             R12 3 -1
-      196 RETURN                           R12 -1
+       84 SETTABLEKS                       R10 R18 K16 ["CellGroups"]
+       86 DUPTABLE                         R19 K31 [{["HeaderComponent"], ["Size"], ["Collapsible"] = False}]
+       87 GETUPVAL                         R20 16
+       88 SETTABLEKS                       R20 R19 K27 ["HeaderComponent"]
+       90 GETIMPORT                        R20 K33 [UDim2.new]
+       92 LOADN                            R21 1
+       93 LOADN                            R22 0
+       94 LOADN                            R23 0
+       95 GETUPVAL                         R24 17
+       96 GETTABLEKS                       R24 R24 K34 ["SectionHeaderHeight"]
+       98 CALL                             R20 4 1
+       99 SETTABLEKS                       R20 R19 K28 ["Size"]
+      101 SETTABLEKS                       R19 R18 K17 ["CellGroupHeader"]
+      103 NEWCLOSURE                       R19 P1
+      104 CAPTURE                          VAL R5
+      105 SETTABLEKS                       R19 R18 K18 ["GetRowProps"]
+      107 SETTABLEKS                       R6 R18 K19 ["Rows"]
+      109 GETUPVAL                         R19 18
+      110 SETTABLEKS                       R19 R18 K20 ["RowComponent"]
+      112 GETUPVAL                         R20 19
+      113 CALL                             R20 0 1
+      114 JUMPIFNOT                        R20 ; [+3]
+      115 GETTABLEKS                       R19 R7 K35 ["ListRowHeight"]
+      117 JUMP                             ; [+5]
+      118 GETUPVAL                         R19 20
+      119 LOADK                            R21 K36 ["ContentListRowHeight"]
+      120 NAMECALL                         R19 R19 K37 ["GetAttribute"]
+      122 CALL                             R19 2 1
+      123 SETTABLEKS                       R19 R18 K21 ["RowHeight"]
+      125 NEWCLOSURE                       R19 P2
+      126 CAPTURE                          VAL R3
+      127 SETTABLEKS                       R19 R18 K22 ["OnLoadRange"]
+      129 GETIMPORT                        R19 K41 [Enum.ScrollBarInset.None]
+      131 SETTABLEKS                       R19 R18 K23 ["VerticalScrollBarInset"]
+      133 GETIMPORT                        R19 K43 [Enum.ScrollingDirection.XY]
+      135 SETTABLEKS                       R19 R18 K24 ["ScrollingDirection"]
+      137 SETTABLEKS                       R9 R18 K25 ["ref"]
+      139 CALL                             R16 2 1
+      140 SETTABLEKS                       R16 R15 K14 ["List"]
+      142 CALL                             R12 3 1
+      143 SETTABLEKS                       R12 R11 K6 ["ListContainer"]
+      145 GETUPVAL                         R12 12
+      146 GETTABLEKS                       R12 R12 K8 ["createElement"]
+      148 GETUPVAL                         R13 21
+      149 GETTABLEKS                       R13 R13 K44 ["View"]
+      151 DUPTABLE                         R14 K51 [{["LayoutOrder"], ["onSecondaryActivated"], ["stateLayer"], ["tag"] = "col align-x-center fill size-full", ["testId"] = "content-list"}]
+      152 GETTABLEKS                       R15 R0 K9 ["LayoutOrder"]
+      154 SETTABLEKS                       R15 R14 K9 ["LayoutOrder"]
+      156 NEWCLOSURE                       R15 P3
+      157 CAPTURE                          VAL R2
+      158 CAPTURE                          UPVAL U8
+      159 CAPTURE                          VAL R8
+      160 SETTABLEKS                       R15 R14 K45 ["onSecondaryActivated"]
+      162 DUPTABLE                         R15 K53 [{"affordance"}]
+      163 GETUPVAL                         R16 21
+      164 GETTABLEKS                       R16 R16 K54 ["Enums"]
+      166 GETTABLEKS                       R16 R16 K55 ["StateLayerAffordance"]
+      168 GETTABLEKS                       R16 R16 K40 ["None"]
+      170 SETTABLEKS                       R16 R15 K52 ["affordance"]
+      172 SETTABLEKS                       R15 R14 K46 ["stateLayer"]
+      174 MOVE                             R15 R11
+      175 CALL                             R12 3 -1
+      176 RETURN                           R12 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -290,33 +273,27 @@ MAIN:
       168 GETTABLEKS                       R25 R25 K11 ["Resources"]
       170 GETTABLEKS                       R25 R25 K38 ["PluginStyles"]
       172 CALL                             R24 1 1
-      173 GETIMPORT                        R25 K5 [require]
-      175 GETTABLEKS                       R26 R0 K10 ["Src"]
-      177 GETTABLEKS                       R26 R26 K33 ["Flags"]
-      179 GETTABLEKS                       R26 R26 K39 ["getFFlagAmrOrganizationFoundation"]
-      181 CALL                             R25 1 1
-      182 DUPCLOSURE                       R26 K40 [PROTO_5]
-      183 CAPTURE                          VAL R23
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R12
-      186 CAPTURE                          VAL R13
-      187 CAPTURE                          VAL R17
-      188 CAPTURE                          VAL R18
-      189 CAPTURE                          VAL R19
-      190 CAPTURE                          VAL R16
-      191 CAPTURE                          VAL R22
-      192 CAPTURE                          VAL R14
-      193 CAPTURE                          VAL R15
-      194 CAPTURE                          VAL R20
-      195 CAPTURE                          VAL R1
-      196 CAPTURE                          VAL R8
-      197 CAPTURE                          VAL R6
-      198 CAPTURE                          VAL R7
-      199 CAPTURE                          VAL R25
-      200 CAPTURE                          VAL R10
-      201 CAPTURE                          VAL R4
-      202 CAPTURE                          VAL R9
-      203 CAPTURE                          VAL R21
-      204 CAPTURE                          VAL R24
-      205 CAPTURE                          VAL R2
-      206 RETURN                           R26 1
+      173 DUPCLOSURE                       R25 K39 [PROTO_5]
+      174 CAPTURE                          VAL R23
+      175 CAPTURE                          VAL R11
+      176 CAPTURE                          VAL R12
+      177 CAPTURE                          VAL R13
+      178 CAPTURE                          VAL R17
+      179 CAPTURE                          VAL R18
+      180 CAPTURE                          VAL R19
+      181 CAPTURE                          VAL R16
+      182 CAPTURE                          VAL R22
+      183 CAPTURE                          VAL R14
+      184 CAPTURE                          VAL R15
+      185 CAPTURE                          VAL R20
+      186 CAPTURE                          VAL R1
+      187 CAPTURE                          VAL R8
+      188 CAPTURE                          VAL R6
+      189 CAPTURE                          VAL R7
+      190 CAPTURE                          VAL R10
+      191 CAPTURE                          VAL R4
+      192 CAPTURE                          VAL R9
+      193 CAPTURE                          VAL R21
+      194 CAPTURE                          VAL R24
+      195 CAPTURE                          VAL R2
+      196 RETURN                           R25 1

@@ -65,41 +65,39 @@ PROTO_4:
        12 SETTABLEKS                       R11 R10 K1 ["hasAssociatedBundle"]
        14 NEWTABLE                         R10 0 0
        16 GETTABLEKS                       R11 R9 K0 ["Id"]
-       18 DUPTABLE                         R12 K8 [{"itemId", "itemType", "name", "creatorName", "hasVerifiedBadge", "underlyingAssetIds"}]
+       18 DUPTABLE                         R12 K9 [{["itemId"], ["itemType"] = "Bundle", ["name"], ["creatorName"], ["hasVerifiedBadge"], ["underlyingAssetIds"]}]
        19 GETTABLEKS                       R13 R9 K0 ["Id"]
        21 SETTABLEKS                       R13 R12 K2 ["itemId"]
-       23 LOADK                            R13 K9 ["Bundle"]
-       24 SETTABLEKS                       R13 R12 K3 ["itemType"]
-       26 GETTABLEKS                       R13 R9 K10 ["Name"]
-       28 SETTABLEKS                       R13 R12 K4 ["name"]
-       30 GETTABLEKS                       R13 R9 K11 ["CreatorName"]
-       32 SETTABLEKS                       R13 R12 K5 ["creatorName"]
-       34 GETTABLEKS                       R13 R9 K12 ["CreatorHasVerifiedBadge"]
-       36 SETTABLEKS                       R13 R12 K6 ["hasVerifiedBadge"]
-       38 SETTABLEKS                       R10 R12 K7 ["underlyingAssetIds"]
-       40 SETTABLE                         R12 R4 R11
-       41 GETTABLEKS                       R11 R9 K13 ["BundledItems"]
-       43 LOADNIL                          R12
-       44 LOADNIL                          R13
-       45 FORGPREP                         R11
-       46 GETTABLEKS                       R18 R15 K0 ["Id"]
-       48 FASTCALL2                        TABLE_INSERT R10 R18 ; [+4]
-       50 MOVE                             R17 R10
-       51 GETIMPORT                        R16 K16 [table.insert]
-       53 CALL                             R16 2 0
-       54 GETTABLEKS                       R16 R15 K0 ["Id"]
-       56 GETTABLEKS                       R17 R9 K0 ["Id"]
-       58 SETTABLE                         R17 R3 R16
-       59 GETTABLEKS                       R16 R15 K0 ["Id"]
-       61 GETTABLEKS                       R17 R15 K0 ["Id"]
-       63 SETTABLE                         R17 R2 R16
-       64 FORGLOOP                         R11 2 ; [-19]
-       66 FORGLOOP                         R5 2 ; [-59]
-       68 DUPTABLE                         R5 K20 [{"assetToBundle", "bundleRows", "assetFetchSet"}]
-       69 SETTABLEKS                       R3 R5 K17 ["assetToBundle"]
-       71 SETTABLEKS                       R4 R5 K18 ["bundleRows"]
-       73 SETTABLEKS                       R2 R5 K19 ["assetFetchSet"]
-       75 RETURN                           R5 1
+       23 GETTABLEKS                       R13 R9 K10 ["Name"]
+       25 SETTABLEKS                       R13 R12 K5 ["name"]
+       27 GETTABLEKS                       R13 R9 K11 ["CreatorName"]
+       29 SETTABLEKS                       R13 R12 K6 ["creatorName"]
+       31 GETTABLEKS                       R13 R9 K12 ["CreatorHasVerifiedBadge"]
+       33 SETTABLEKS                       R13 R12 K7 ["hasVerifiedBadge"]
+       35 SETTABLEKS                       R10 R12 K8 ["underlyingAssetIds"]
+       37 SETTABLE                         R12 R4 R11
+       38 GETTABLEKS                       R11 R9 K13 ["BundledItems"]
+       40 LOADNIL                          R12
+       41 LOADNIL                          R13
+       42 FORGPREP                         R11
+       43 GETTABLEKS                       R18 R15 K0 ["Id"]
+       45 FASTCALL2                        TABLE_INSERT R10 R18 ; [+4]
+       47 MOVE                             R17 R10
+       48 GETIMPORT                        R16 K16 [table.insert]
+       50 CALL                             R16 2 0
+       51 GETTABLEKS                       R16 R15 K0 ["Id"]
+       53 GETTABLEKS                       R17 R9 K0 ["Id"]
+       55 SETTABLE                         R17 R3 R16
+       56 GETTABLEKS                       R16 R15 K0 ["Id"]
+       58 GETTABLEKS                       R17 R15 K0 ["Id"]
+       60 SETTABLE                         R17 R2 R16
+       61 FORGLOOP                         R11 2 ; [-19]
+       63 FORGLOOP                         R5 2 ; [-56]
+       65 DUPTABLE                         R5 K20 [{"assetToBundle", "bundleRows", "assetFetchSet"}]
+       66 SETTABLEKS                       R3 R5 K17 ["assetToBundle"]
+       68 SETTABLEKS                       R4 R5 K18 ["bundleRows"]
+       70 SETTABLEKS                       R2 R5 K19 ["assetFetchSet"]
+       72 RETURN                           R5 1
 
 PROTO_5:
         0 NEWTABLE                         R1 0 0
@@ -231,44 +229,42 @@ PROTO_7:
        37 LOADNIL                          R5
        38 GETTABLEKS                       R7 R0 K2 ["Id"]
        40 GETTABLE                         R6 R1 R7
-       41 JUMPIFNOT                        R6 ; [+27]
+       41 JUMPIFNOT                        R6 ; [+24]
        42 GETTABLEKS                       R7 R0 K2 ["Id"]
        44 GETTABLE                         R6 R1 R7
        45 LOADB                            R7 1
        46 SETTABLEKS                       R7 R6 K7 ["hasAssociatedAsset"]
-       48 DUPTABLE                         R6 K13 [{"itemId", "itemType", "name", "creatorName", "hasVerifiedBadge"}]
+       48 DUPTABLE                         R6 K14 [{["itemId"], ["itemType"] = "Asset", ["name"], ["creatorName"], ["hasVerifiedBadge"]}]
        49 GETTABLEKS                       R7 R0 K2 ["Id"]
        51 SETTABLEKS                       R7 R6 K8 ["itemId"]
-       53 LOADK                            R7 K14 ["Asset"]
-       54 SETTABLEKS                       R7 R6 K9 ["itemType"]
-       56 GETTABLEKS                       R7 R0 K15 ["Name"]
-       58 SETTABLEKS                       R7 R6 K10 ["name"]
-       60 GETTABLEKS                       R7 R0 K16 ["CreatorName"]
-       62 SETTABLEKS                       R7 R6 K11 ["creatorName"]
-       64 GETTABLEKS                       R7 R0 K17 ["CreatorHasVerifiedBadge"]
-       66 SETTABLEKS                       R7 R6 K12 ["hasVerifiedBadge"]
-       68 MOVE                             R5 R6
-       69 DUPTABLE                         R6 K24 [{"uniqueId", "marketplaceItem", "name", "palette", "assetType", "creatorTargetId", "creatorType", "creatorName", "hasVerifiedBadge"}]
-       70 GETTABLEKS                       R7 R0 K2 ["Id"]
-       72 SETTABLEKS                       R7 R6 K18 ["uniqueId"]
-       74 GETTABLEKS                       R7 R0 K2 ["Id"]
-       76 SETTABLEKS                       R7 R6 K19 ["marketplaceItem"]
-       78 GETTABLEKS                       R7 R0 K15 ["Name"]
-       80 SETTABLEKS                       R7 R6 K10 ["name"]
-       82 SETTABLEKS                       R4 R6 K20 ["palette"]
-       84 GETIMPORT                        R8 K26 [Enum.AssetType]
-       86 GETTABLEKS                       R9 R0 K1 ["AssetType"]
-       88 GETTABLE                         R7 R8 R9
-       89 SETTABLEKS                       R7 R6 K21 ["assetType"]
-       91 GETTABLEKS                       R7 R0 K27 ["CreatorTargetId"]
-       93 SETTABLEKS                       R7 R6 K22 ["creatorTargetId"]
-       95 GETTABLEKS                       R7 R0 K28 ["CreatorType"]
-       97 SETTABLEKS                       R7 R6 K23 ["creatorType"]
-       99 GETTABLEKS                       R7 R0 K16 ["CreatorName"]
-      101 SETTABLEKS                       R7 R6 K11 ["creatorName"]
-      103 GETTABLEKS                       R7 R0 K17 ["CreatorHasVerifiedBadge"]
-      105 SETTABLEKS                       R7 R6 K12 ["hasVerifiedBadge"]
-      107 RETURN                           R5 2
+       53 GETTABLEKS                       R7 R0 K15 ["Name"]
+       55 SETTABLEKS                       R7 R6 K11 ["name"]
+       57 GETTABLEKS                       R7 R0 K16 ["CreatorName"]
+       59 SETTABLEKS                       R7 R6 K12 ["creatorName"]
+       61 GETTABLEKS                       R7 R0 K17 ["CreatorHasVerifiedBadge"]
+       63 SETTABLEKS                       R7 R6 K13 ["hasVerifiedBadge"]
+       65 MOVE                             R5 R6
+       66 DUPTABLE                         R6 K24 [{"uniqueId", "marketplaceItem", "name", "palette", "assetType", "creatorTargetId", "creatorType", "creatorName", "hasVerifiedBadge"}]
+       67 GETTABLEKS                       R7 R0 K2 ["Id"]
+       69 SETTABLEKS                       R7 R6 K18 ["uniqueId"]
+       71 GETTABLEKS                       R7 R0 K2 ["Id"]
+       73 SETTABLEKS                       R7 R6 K19 ["marketplaceItem"]
+       75 GETTABLEKS                       R7 R0 K15 ["Name"]
+       77 SETTABLEKS                       R7 R6 K11 ["name"]
+       79 SETTABLEKS                       R4 R6 K20 ["palette"]
+       81 GETIMPORT                        R8 K26 [Enum.AssetType]
+       83 GETTABLEKS                       R9 R0 K1 ["AssetType"]
+       85 GETTABLE                         R7 R8 R9
+       86 SETTABLEKS                       R7 R6 K21 ["assetType"]
+       88 GETTABLEKS                       R7 R0 K27 ["CreatorTargetId"]
+       90 SETTABLEKS                       R7 R6 K22 ["creatorTargetId"]
+       92 GETTABLEKS                       R7 R0 K28 ["CreatorType"]
+       94 SETTABLEKS                       R7 R6 K23 ["creatorType"]
+       96 GETTABLEKS                       R7 R0 K16 ["CreatorName"]
+       98 SETTABLEKS                       R7 R6 K12 ["creatorName"]
+      100 GETTABLEKS                       R7 R0 K17 ["CreatorHasVerifiedBadge"]
+      102 SETTABLEKS                       R7 R6 K13 ["hasVerifiedBadge"]
+      104 RETURN                           R5 2
 
 PROTO_8:
         0 NEWTABLE                         R3 0 0

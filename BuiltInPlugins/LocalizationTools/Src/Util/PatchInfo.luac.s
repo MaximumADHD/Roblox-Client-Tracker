@@ -89,8 +89,8 @@ PROTO_3:
        45 SETTABLE                         R17 R8 R16
        46 GETTABLEKS                       R17 R15 K3 ["locale"]
        48 GETTABLE                         R16 R9 R17
-       49 JUMPIFNOTEQKNIL                  R16 ; [+43]
-       51 JUMPIFNOT                        R3 ; [+41]
+       49 JUMPIFNOTEQKNIL                  R16 ; [+40]
+       51 JUMPIFNOT                        R3 ; [+38]
        52 GETTABLEKS                       R17 R15 K3 ["locale"]
        54 JUMPIFEQKNIL                     R5 ; [+12]
        56 GETTABLE                         R18 R5 R17
@@ -103,168 +103,160 @@ PROTO_3:
        65 MOVE                             R16 R18
        66 JUMP                             ; [+1]
        67 MOVE                             R16 R17
-       68 DUPTABLE                         R19 K11 [{"locale", "translationText", "delete"}]
+       68 DUPTABLE                         R19 K12 [{["locale"], ["translationText"], ["delete"] = True}]
        69 SETTABLEKS                       R16 R19 K3 ["locale"]
        71 GETTABLEKS                       R20 R15 K4 ["translationText"]
        73 SETTABLEKS                       R20 R19 K4 ["translationText"]
-       75 LOADB                            R20 1
-       76 SETTABLEKS                       R20 R19 K10 ["delete"]
-       78 FASTCALL2                        TABLE_INSERT R7 R19 ; [+4]
-       80 MOVE                             R18 R7
-       81 GETIMPORT                        R17 K14 [table.insert]
-       83 CALL                             R17 2 0
-       84 GETTABLEKS                       R18 R2 K16 ["numRemovedTranslations"]
-       86 ADDK                             R17 R18 K15 [1]
-       87 SETTABLEKS                       R17 R2 K16 ["numRemovedTranslations"]
-       89 GETTABLEKS                       R17 R15 K3 ["locale"]
-       91 LOADB                            R18 0
-       92 SETTABLE                         R18 R8 R17
-       93 FORGLOOP                         R11 2 [inext] ; [-52]
-       95 NEWTABLE                         R11 0 0
-       97 GETIMPORT                        R12 K1 [ipairs]
-       99 GETTABLEKS                       R13 R1 K2 ["translations"]
-      101 CALL                             R12 1 3
-      102 FORGPREP_INEXT                   R12
-      103 GETTABLEKS                       R18 R16 K3 ["locale"]
-      105 GETTABLE                         R17 R10 R18
-      106 JUMPIFNOTEQKNIL                  R17 ; [+21]
-      108 JUMPIFEQKNIL                     R5 ; [+19]
-      110 GETTABLEKS                       R19 R16 K3 ["locale"]
-      112 GETTABLE                         R18 R5 R19
-      113 JUMPIFEQKNIL                     R18 ; [+14]
-      115 GETTABLEKS                       R19 R16 K3 ["locale"]
-      117 GETTABLE                         R18 R5 R19
-      118 JUMPIFEQ                         R18 R4 ; [+9]
-      120 FASTCALL2                        TABLE_INSERT R11 R16 ; [+5]
-      122 MOVE                             R19 R11
-      123 MOVE                             R20 R16
-      124 GETIMPORT                        R18 K14 [table.insert]
-      126 CALL                             R18 2 0
-      127 JUMP                             ; [+53]
-      128 GETTABLEKS                       R18 R16 K4 ["translationText"]
-      130 JUMPIFEQ                         R17 R18 ; [+50]
-      132 DUPTABLE                         R20 K11 [{"locale", "translationText", "delete"}]
-      133 GETTABLEKS                       R22 R16 K3 ["locale"]
-      135 JUMPIFEQKNIL                     R5 ; [+12]
-      137 GETTABLE                         R23 R5 R22
-      138 JUMPIFEQKNIL                     R23 ; [+9]
-      140 GETIMPORT                        R23 K7 [string.gsub]
-      142 MOVE                             R24 R22
-      143 LOADK                            R25 K8 ["-"]
-      144 LOADK                            R26 K9 ["_"]
-      145 CALL                             R23 3 1
-      146 MOVE                             R21 R23
-      147 JUMP                             ; [+1]
-      148 MOVE                             R21 R22
-      149 SETTABLEKS                       R21 R20 K3 ["locale"]
-      151 GETTABLEKS                       R21 R16 K4 ["translationText"]
-      153 SETTABLEKS                       R21 R20 K4 ["translationText"]
-      155 LOADB                            R21 0
-      156 SETTABLEKS                       R21 R20 K10 ["delete"]
-      158 FASTCALL2                        TABLE_INSERT R7 R20 ; [+4]
-      160 MOVE                             R19 R7
-      161 GETIMPORT                        R18 K14 [table.insert]
-      163 CALL                             R18 2 0
-      164 GETTABLEKS                       R18 R16 K3 ["locale"]
-      166 LOADB                            R19 1
-      167 SETTABLE                         R19 R8 R18
-      168 JUMPIFEQKNIL                     R17 ; [+7]
-      170 GETTABLEKS                       R19 R2 K17 ["numChangedTranslations"]
-      172 ADDK                             R18 R19 K15 [1]
-      173 SETTABLEKS                       R18 R2 K17 ["numChangedTranslations"]
-      175 JUMP                             ; [+5]
-      176 GETTABLEKS                       R19 R2 K18 ["numAddedTranslations"]
-      178 ADDK                             R18 R19 K15 [1]
-      179 SETTABLEKS                       R18 R2 K18 ["numAddedTranslations"]
-      181 FORGLOOP                         R12 2 [inext] ; [-79]
-      183 GETIMPORT                        R12 K1 [ipairs]
-      185 MOVE                             R13 R11
-      186 CALL                             R12 1 3
-      187 FORGPREP_INEXT                   R12
-      188 GETTABLEKS                       R18 R16 K3 ["locale"]
-      190 GETTABLE                         R17 R5 R18
-      191 GETTABLE                         R18 R8 R17
-      192 JUMPIFNOT                        R18 ; [+38]
-      193 DUPTABLE                         R20 K11 [{"locale", "translationText", "delete"}]
-      194 GETTABLEKS                       R22 R16 K3 ["locale"]
-      196 JUMPIFEQKNIL                     R5 ; [+12]
-      198 GETTABLE                         R23 R5 R22
-      199 JUMPIFEQKNIL                     R23 ; [+9]
-      201 GETIMPORT                        R23 K7 [string.gsub]
-      203 MOVE                             R24 R22
-      204 LOADK                            R25 K8 ["-"]
-      205 LOADK                            R26 K9 ["_"]
-      206 CALL                             R23 3 1
-      207 MOVE                             R21 R23
-      208 JUMP                             ; [+1]
-      209 MOVE                             R21 R22
-      210 SETTABLEKS                       R21 R20 K3 ["locale"]
-      212 GETTABLEKS                       R21 R16 K4 ["translationText"]
-      214 SETTABLEKS                       R21 R20 K4 ["translationText"]
-      216 LOADB                            R21 0
-      217 SETTABLEKS                       R21 R20 K10 ["delete"]
-      219 FASTCALL2                        TABLE_INSERT R7 R20 ; [+4]
-      221 MOVE                             R19 R7
-      222 GETIMPORT                        R18 K14 [table.insert]
-      224 CALL                             R18 2 0
-      225 GETTABLEKS                       R19 R2 K18 ["numAddedTranslations"]
-      227 ADDK                             R18 R19 K15 [1]
-      228 SETTABLEKS                       R18 R2 K18 ["numAddedTranslations"]
-      230 JUMP                             ; [+49]
-      231 GETIMPORT                        R18 K20 [warn]
-      233 LOADK                            R21 K21 ["UploadDialogContent"]
-      234 LOADK                            R22 K22 ["ParentLangaugeTranslationMissing"]
-      235 DUPTABLE                         R23 K27 [{"locale", "language", "key", "source", "context"}]
-      236 LOADK                            R25 K28 ["\""]
-      237 GETTABLEKS                       R26 R16 K3 ["locale"]
-      239 LOADK                            R27 K28 ["\""]
-      240 CONCAT                           R24 R25 R27
-      241 SETTABLEKS                       R24 R23 K3 ["locale"]
-      243 LOADK                            R25 K28 ["\""]
-      244 MOVE                             R26 R17
-      245 LOADK                            R27 K28 ["\""]
+       75 FASTCALL2                        TABLE_INSERT R7 R19 ; [+4]
+       77 MOVE                             R18 R7
+       78 GETIMPORT                        R17 K15 [table.insert]
+       80 CALL                             R17 2 0
+       81 GETTABLEKS                       R18 R2 K17 ["numRemovedTranslations"]
+       83 ADDK                             R17 R18 K16 [1]
+       84 SETTABLEKS                       R17 R2 K17 ["numRemovedTranslations"]
+       86 GETTABLEKS                       R17 R15 K3 ["locale"]
+       88 LOADB                            R18 0
+       89 SETTABLE                         R18 R8 R17
+       90 FORGLOOP                         R11 2 [inext] ; [-49]
+       92 NEWTABLE                         R11 0 0
+       94 GETIMPORT                        R12 K1 [ipairs]
+       96 GETTABLEKS                       R13 R1 K2 ["translations"]
+       98 CALL                             R12 1 3
+       99 FORGPREP_INEXT                   R12
+      100 GETTABLEKS                       R18 R16 K3 ["locale"]
+      102 GETTABLE                         R17 R10 R18
+      103 JUMPIFNOTEQKNIL                  R17 ; [+21]
+      105 JUMPIFEQKNIL                     R5 ; [+19]
+      107 GETTABLEKS                       R19 R16 K3 ["locale"]
+      109 GETTABLE                         R18 R5 R19
+      110 JUMPIFEQKNIL                     R18 ; [+14]
+      112 GETTABLEKS                       R19 R16 K3 ["locale"]
+      114 GETTABLE                         R18 R5 R19
+      115 JUMPIFEQ                         R18 R4 ; [+9]
+      117 FASTCALL2                        TABLE_INSERT R11 R16 ; [+5]
+      119 MOVE                             R19 R11
+      120 MOVE                             R20 R16
+      121 GETIMPORT                        R18 K15 [table.insert]
+      123 CALL                             R18 2 0
+      124 JUMP                             ; [+50]
+      125 GETTABLEKS                       R18 R16 K4 ["translationText"]
+      127 JUMPIFEQ                         R17 R18 ; [+47]
+      129 DUPTABLE                         R20 K19 [{["locale"], ["translationText"], ["delete"] = False}]
+      130 GETTABLEKS                       R22 R16 K3 ["locale"]
+      132 JUMPIFEQKNIL                     R5 ; [+12]
+      134 GETTABLE                         R23 R5 R22
+      135 JUMPIFEQKNIL                     R23 ; [+9]
+      137 GETIMPORT                        R23 K7 [string.gsub]
+      139 MOVE                             R24 R22
+      140 LOADK                            R25 K8 ["-"]
+      141 LOADK                            R26 K9 ["_"]
+      142 CALL                             R23 3 1
+      143 MOVE                             R21 R23
+      144 JUMP                             ; [+1]
+      145 MOVE                             R21 R22
+      146 SETTABLEKS                       R21 R20 K3 ["locale"]
+      148 GETTABLEKS                       R21 R16 K4 ["translationText"]
+      150 SETTABLEKS                       R21 R20 K4 ["translationText"]
+      152 FASTCALL2                        TABLE_INSERT R7 R20 ; [+4]
+      154 MOVE                             R19 R7
+      155 GETIMPORT                        R18 K15 [table.insert]
+      157 CALL                             R18 2 0
+      158 GETTABLEKS                       R18 R16 K3 ["locale"]
+      160 LOADB                            R19 1
+      161 SETTABLE                         R19 R8 R18
+      162 JUMPIFEQKNIL                     R17 ; [+7]
+      164 GETTABLEKS                       R19 R2 K20 ["numChangedTranslations"]
+      166 ADDK                             R18 R19 K16 [1]
+      167 SETTABLEKS                       R18 R2 K20 ["numChangedTranslations"]
+      169 JUMP                             ; [+5]
+      170 GETTABLEKS                       R19 R2 K21 ["numAddedTranslations"]
+      172 ADDK                             R18 R19 K16 [1]
+      173 SETTABLEKS                       R18 R2 K21 ["numAddedTranslations"]
+      175 FORGLOOP                         R12 2 [inext] ; [-76]
+      177 GETIMPORT                        R12 K1 [ipairs]
+      179 MOVE                             R13 R11
+      180 CALL                             R12 1 3
+      181 FORGPREP_INEXT                   R12
+      182 GETTABLEKS                       R18 R16 K3 ["locale"]
+      184 GETTABLE                         R17 R5 R18
+      185 GETTABLE                         R18 R8 R17
+      186 JUMPIFNOT                        R18 ; [+35]
+      187 DUPTABLE                         R20 K19 [{["locale"], ["translationText"], ["delete"] = False}]
+      188 GETTABLEKS                       R22 R16 K3 ["locale"]
+      190 JUMPIFEQKNIL                     R5 ; [+12]
+      192 GETTABLE                         R23 R5 R22
+      193 JUMPIFEQKNIL                     R23 ; [+9]
+      195 GETIMPORT                        R23 K7 [string.gsub]
+      197 MOVE                             R24 R22
+      198 LOADK                            R25 K8 ["-"]
+      199 LOADK                            R26 K9 ["_"]
+      200 CALL                             R23 3 1
+      201 MOVE                             R21 R23
+      202 JUMP                             ; [+1]
+      203 MOVE                             R21 R22
+      204 SETTABLEKS                       R21 R20 K3 ["locale"]
+      206 GETTABLEKS                       R21 R16 K4 ["translationText"]
+      208 SETTABLEKS                       R21 R20 K4 ["translationText"]
+      210 FASTCALL2                        TABLE_INSERT R7 R20 ; [+4]
+      212 MOVE                             R19 R7
+      213 GETIMPORT                        R18 K15 [table.insert]
+      215 CALL                             R18 2 0
+      216 GETTABLEKS                       R19 R2 K21 ["numAddedTranslations"]
+      218 ADDK                             R18 R19 K16 [1]
+      219 SETTABLEKS                       R18 R2 K21 ["numAddedTranslations"]
+      221 JUMP                             ; [+49]
+      222 GETIMPORT                        R18 K23 [warn]
+      224 LOADK                            R21 K24 ["UploadDialogContent"]
+      225 LOADK                            R22 K25 ["ParentLangaugeTranslationMissing"]
+      226 DUPTABLE                         R23 K30 [{"locale", "language", "key", "source", "context"}]
+      227 LOADK                            R25 K31 ["\""]
+      228 GETTABLEKS                       R26 R16 K3 ["locale"]
+      230 LOADK                            R27 K31 ["\""]
+      231 CONCAT                           R24 R25 R27
+      232 SETTABLEKS                       R24 R23 K3 ["locale"]
+      234 LOADK                            R25 K31 ["\""]
+      235 MOVE                             R26 R17
+      236 LOADK                            R27 K31 ["\""]
+      237 CONCAT                           R24 R25 R27
+      238 SETTABLEKS                       R24 R23 K26 ["language"]
+      240 LOADK                            R25 K31 ["\""]
+      241 GETTABLEKS                       R26 R1 K32 ["identifier"]
+      243 GETTABLEKS                       R26 R26 K27 ["key"]
+      245 LOADK                            R27 K31 ["\""]
       246 CONCAT                           R24 R25 R27
-      247 SETTABLEKS                       R24 R23 K23 ["language"]
-      249 LOADK                            R25 K28 ["\""]
-      250 GETTABLEKS                       R26 R1 K29 ["identifier"]
-      252 GETTABLEKS                       R26 R26 K24 ["key"]
-      254 LOADK                            R27 K28 ["\""]
+      247 SETTABLEKS                       R24 R23 K27 ["key"]
+      249 LOADK                            R25 K31 ["\""]
+      250 GETTABLEKS                       R26 R1 K32 ["identifier"]
+      252 GETTABLEKS                       R26 R26 K28 ["source"]
+      254 LOADK                            R27 K31 ["\""]
       255 CONCAT                           R24 R25 R27
-      256 SETTABLEKS                       R24 R23 K24 ["key"]
-      258 LOADK                            R25 K28 ["\""]
-      259 GETTABLEKS                       R26 R1 K29 ["identifier"]
-      261 GETTABLEKS                       R26 R26 K25 ["source"]
-      263 LOADK                            R27 K28 ["\""]
+      256 SETTABLEKS                       R24 R23 K28 ["source"]
+      258 LOADK                            R25 K31 ["\""]
+      259 GETTABLEKS                       R26 R1 K32 ["identifier"]
+      261 GETTABLEKS                       R26 R26 K29 ["context"]
+      263 LOADK                            R27 K31 ["\""]
       264 CONCAT                           R24 R25 R27
-      265 SETTABLEKS                       R24 R23 K25 ["source"]
-      267 LOADK                            R25 K28 ["\""]
-      268 GETTABLEKS                       R26 R1 K29 ["identifier"]
-      270 GETTABLEKS                       R26 R26 K26 ["context"]
-      272 LOADK                            R27 K28 ["\""]
-      273 CONCAT                           R24 R25 R27
-      274 SETTABLEKS                       R24 R23 K26 ["context"]
-      276 NAMECALL                         R19 R6 K30 ["getText"]
-      278 CALL                             R19 4 -1
-      279 CALL                             R18 -1 0
-      280 FORGLOOP                         R12 2 [inext] ; [-93]
-      282 DUPTABLE                         R12 K32 [{"identifier", "metadata", "translations", "delete"}]
-      283 DUPTABLE                         R13 K33 [{"key", "source", "context"}]
-      284 GETTABLEKS                       R14 R1 K29 ["identifier"]
-      286 GETTABLEKS                       R14 R14 K24 ["key"]
-      288 SETTABLEKS                       R14 R13 K24 ["key"]
-      290 GETTABLEKS                       R14 R1 K29 ["identifier"]
-      292 GETTABLEKS                       R14 R14 K25 ["source"]
-      294 SETTABLEKS                       R14 R13 K25 ["source"]
-      296 GETTABLEKS                       R14 R1 K29 ["identifier"]
-      298 GETTABLEKS                       R14 R14 K26 ["context"]
-      300 SETTABLEKS                       R14 R13 K26 ["context"]
-      302 SETTABLEKS                       R13 R12 K29 ["identifier"]
-      304 GETTABLEKS                       R13 R1 K31 ["metadata"]
-      306 SETTABLEKS                       R13 R12 K31 ["metadata"]
-      308 SETTABLEKS                       R7 R12 K2 ["translations"]
-      310 LOADB                            R13 0
-      311 SETTABLEKS                       R13 R12 K10 ["delete"]
-      313 RETURN                           R12 1
+      265 SETTABLEKS                       R24 R23 K29 ["context"]
+      267 NAMECALL                         R19 R6 K33 ["getText"]
+      269 CALL                             R19 4 -1
+      270 CALL                             R18 -1 0
+      271 FORGLOOP                         R12 2 [inext] ; [-90]
+      273 DUPTABLE                         R12 K35 [{["identifier"], ["metadata"], ["translations"], ["delete"] = False}]
+      274 DUPTABLE                         R13 K36 [{"key", "source", "context"}]
+      275 GETTABLEKS                       R14 R1 K32 ["identifier"]
+      277 GETTABLEKS                       R14 R14 K27 ["key"]
+      279 SETTABLEKS                       R14 R13 K27 ["key"]
+      281 GETTABLEKS                       R14 R1 K32 ["identifier"]
+      283 GETTABLEKS                       R14 R14 K28 ["source"]
+      285 SETTABLEKS                       R14 R13 K28 ["source"]
+      287 GETTABLEKS                       R14 R1 K32 ["identifier"]
+      289 GETTABLEKS                       R14 R14 K29 ["context"]
+      291 SETTABLEKS                       R14 R13 K29 ["context"]
+      293 SETTABLEKS                       R13 R12 K32 ["identifier"]
+      295 GETTABLEKS                       R13 R1 K34 ["metadata"]
+      297 SETTABLEKS                       R13 R12 K34 ["metadata"]
+      299 SETTABLEKS                       R7 R12 K2 ["translations"]
+      301 RETURN                           R12 1
 
 PROTO_4:
         0 GETTABLEKS                       R6 R1 K1 ["numAddedEntries"]
@@ -289,16 +281,16 @@ PROTO_4:
        32 MOVE                             R15 R12
        33 GETIMPORT                        R13 K8 [table.insert]
        35 CALL                             R13 2 0
-       36 JUMP                             ; [+41]
-       37 DUPTABLE                         R15 K11 [{"locale", "translationText", "delete"}]
+       36 JUMP                             ; [+38]
+       37 DUPTABLE                         R15 K12 [{["locale"], ["translationText"], ["delete"] = False}]
        38 GETTABLEKS                       R17 R12 K5 ["locale"]
        40 JUMPIFEQKNIL                     R3 ; [+12]
        42 GETTABLE                         R18 R3 R17
        43 JUMPIFEQKNIL                     R18 ; [+9]
-       45 GETIMPORT                        R18 K14 [string.gsub]
+       45 GETIMPORT                        R18 K15 [string.gsub]
        47 MOVE                             R19 R17
-       48 LOADK                            R20 K15 ["-"]
-       49 LOADK                            R21 K16 ["_"]
+       48 LOADK                            R20 K16 ["-"]
+       49 LOADK                            R21 K17 ["_"]
        50 CALL                             R18 3 1
        51 MOVE                             R16 R18
        52 JUMP                             ; [+1]
@@ -306,107 +298,101 @@ PROTO_4:
        54 SETTABLEKS                       R16 R15 K5 ["locale"]
        56 GETTABLEKS                       R16 R12 K9 ["translationText"]
        58 SETTABLEKS                       R16 R15 K9 ["translationText"]
-       60 LOADB                            R16 0
-       61 SETTABLEKS                       R16 R15 K10 ["delete"]
-       63 FASTCALL2                        TABLE_INSERT R5 R15 ; [+4]
-       65 MOVE                             R14 R5
-       66 GETIMPORT                        R13 K8 [table.insert]
-       68 CALL                             R13 2 0
-       69 GETTABLEKS                       R14 R1 K17 ["numAddedTranslations"]
-       71 ADDK                             R13 R14 K0 [1]
-       72 SETTABLEKS                       R13 R1 K17 ["numAddedTranslations"]
-       74 GETTABLEKS                       R13 R12 K5 ["locale"]
-       76 LOADB                            R14 1
-       77 SETTABLE                         R14 R7 R13
-       78 FORGLOOP                         R8 2 [inext] ; [-62]
-       80 GETIMPORT                        R8 K3 [ipairs]
-       82 MOVE                             R9 R6
-       83 CALL                             R8 1 3
-       84 FORGPREP_INEXT                   R8
-       85 GETTABLEKS                       R14 R12 K5 ["locale"]
-       87 GETTABLE                         R13 R3 R14
-       88 GETTABLE                         R14 R7 R13
-       89 JUMPIFNOT                        R14 ; [+38]
-       90 DUPTABLE                         R16 K11 [{"locale", "translationText", "delete"}]
-       91 GETTABLEKS                       R18 R12 K5 ["locale"]
-       93 JUMPIFEQKNIL                     R3 ; [+12]
-       95 GETTABLE                         R19 R3 R18
-       96 JUMPIFEQKNIL                     R19 ; [+9]
-       98 GETIMPORT                        R19 K14 [string.gsub]
-      100 MOVE                             R20 R18
-      101 LOADK                            R21 K15 ["-"]
-      102 LOADK                            R22 K16 ["_"]
-      103 CALL                             R19 3 1
-      104 MOVE                             R17 R19
-      105 JUMP                             ; [+1]
-      106 MOVE                             R17 R18
-      107 SETTABLEKS                       R17 R16 K5 ["locale"]
-      109 GETTABLEKS                       R17 R12 K9 ["translationText"]
-      111 SETTABLEKS                       R17 R16 K9 ["translationText"]
-      113 LOADB                            R17 0
-      114 SETTABLEKS                       R17 R16 K10 ["delete"]
-      116 FASTCALL2                        TABLE_INSERT R5 R16 ; [+4]
-      118 MOVE                             R15 R5
-      119 GETIMPORT                        R14 K8 [table.insert]
-      121 CALL                             R14 2 0
-      122 GETTABLEKS                       R15 R1 K17 ["numAddedTranslations"]
-      124 ADDK                             R14 R15 K0 [1]
-      125 SETTABLEKS                       R14 R1 K17 ["numAddedTranslations"]
-      127 JUMP                             ; [+49]
-      128 GETIMPORT                        R14 K19 [warn]
-      130 LOADK                            R17 K20 ["UploadDialogContent"]
-      131 LOADK                            R18 K21 ["ParentLangaugeTranslationMissing"]
-      132 DUPTABLE                         R19 K26 [{"locale", "language", "key", "source", "context"}]
-      133 LOADK                            R21 K27 ["\""]
-      134 GETTABLEKS                       R22 R12 K5 ["locale"]
-      136 LOADK                            R23 K27 ["\""]
+       60 FASTCALL2                        TABLE_INSERT R5 R15 ; [+4]
+       62 MOVE                             R14 R5
+       63 GETIMPORT                        R13 K8 [table.insert]
+       65 CALL                             R13 2 0
+       66 GETTABLEKS                       R14 R1 K18 ["numAddedTranslations"]
+       68 ADDK                             R13 R14 K0 [1]
+       69 SETTABLEKS                       R13 R1 K18 ["numAddedTranslations"]
+       71 GETTABLEKS                       R13 R12 K5 ["locale"]
+       73 LOADB                            R14 1
+       74 SETTABLE                         R14 R7 R13
+       75 FORGLOOP                         R8 2 [inext] ; [-59]
+       77 GETIMPORT                        R8 K3 [ipairs]
+       79 MOVE                             R9 R6
+       80 CALL                             R8 1 3
+       81 FORGPREP_INEXT                   R8
+       82 GETTABLEKS                       R14 R12 K5 ["locale"]
+       84 GETTABLE                         R13 R3 R14
+       85 GETTABLE                         R14 R7 R13
+       86 JUMPIFNOT                        R14 ; [+35]
+       87 DUPTABLE                         R16 K12 [{["locale"], ["translationText"], ["delete"] = False}]
+       88 GETTABLEKS                       R18 R12 K5 ["locale"]
+       90 JUMPIFEQKNIL                     R3 ; [+12]
+       92 GETTABLE                         R19 R3 R18
+       93 JUMPIFEQKNIL                     R19 ; [+9]
+       95 GETIMPORT                        R19 K15 [string.gsub]
+       97 MOVE                             R20 R18
+       98 LOADK                            R21 K16 ["-"]
+       99 LOADK                            R22 K17 ["_"]
+      100 CALL                             R19 3 1
+      101 MOVE                             R17 R19
+      102 JUMP                             ; [+1]
+      103 MOVE                             R17 R18
+      104 SETTABLEKS                       R17 R16 K5 ["locale"]
+      106 GETTABLEKS                       R17 R12 K9 ["translationText"]
+      108 SETTABLEKS                       R17 R16 K9 ["translationText"]
+      110 FASTCALL2                        TABLE_INSERT R5 R16 ; [+4]
+      112 MOVE                             R15 R5
+      113 GETIMPORT                        R14 K8 [table.insert]
+      115 CALL                             R14 2 0
+      116 GETTABLEKS                       R15 R1 K18 ["numAddedTranslations"]
+      118 ADDK                             R14 R15 K0 [1]
+      119 SETTABLEKS                       R14 R1 K18 ["numAddedTranslations"]
+      121 JUMP                             ; [+49]
+      122 GETIMPORT                        R14 K20 [warn]
+      124 LOADK                            R17 K21 ["UploadDialogContent"]
+      125 LOADK                            R18 K22 ["ParentLangaugeTranslationMissing"]
+      126 DUPTABLE                         R19 K27 [{"locale", "language", "key", "source", "context"}]
+      127 LOADK                            R21 K28 ["\""]
+      128 GETTABLEKS                       R22 R12 K5 ["locale"]
+      130 LOADK                            R23 K28 ["\""]
+      131 CONCAT                           R20 R21 R23
+      132 SETTABLEKS                       R20 R19 K5 ["locale"]
+      134 LOADK                            R21 K28 ["\""]
+      135 MOVE                             R22 R13
+      136 LOADK                            R23 K28 ["\""]
       137 CONCAT                           R20 R21 R23
-      138 SETTABLEKS                       R20 R19 K5 ["locale"]
-      140 LOADK                            R21 K27 ["\""]
-      141 MOVE                             R22 R13
-      142 LOADK                            R23 K27 ["\""]
-      143 CONCAT                           R20 R21 R23
-      144 SETTABLEKS                       R20 R19 K22 ["language"]
-      146 LOADK                            R21 K27 ["\""]
-      147 GETTABLEKS                       R22 R0 K28 ["identifier"]
-      149 GETTABLEKS                       R22 R22 K23 ["key"]
-      151 LOADK                            R23 K27 ["\""]
-      152 CONCAT                           R20 R21 R23
-      153 SETTABLEKS                       R20 R19 K23 ["key"]
-      155 LOADK                            R21 K27 ["\""]
-      156 GETTABLEKS                       R22 R0 K28 ["identifier"]
-      158 GETTABLEKS                       R22 R22 K24 ["source"]
-      160 LOADK                            R23 K27 ["\""]
-      161 CONCAT                           R20 R21 R23
-      162 SETTABLEKS                       R20 R19 K24 ["source"]
-      164 LOADK                            R21 K27 ["\""]
-      165 GETTABLEKS                       R22 R0 K28 ["identifier"]
-      167 GETTABLEKS                       R22 R22 K25 ["context"]
-      169 LOADK                            R23 K27 ["\""]
-      170 CONCAT                           R20 R21 R23
-      171 SETTABLEKS                       R20 R19 K25 ["context"]
-      173 NAMECALL                         R15 R4 K29 ["getText"]
-      175 CALL                             R15 4 -1
-      176 CALL                             R14 -1 0
-      177 FORGLOOP                         R8 2 [inext] ; [-93]
-      179 DUPTABLE                         R8 K31 [{"identifier", "metadata", "translations", "delete"}]
-      180 DUPTABLE                         R9 K32 [{"key", "source", "context"}]
-      181 GETTABLEKS                       R10 R0 K28 ["identifier"]
-      183 GETTABLEKS                       R10 R10 K23 ["key"]
-      185 SETTABLEKS                       R10 R9 K23 ["key"]
-      187 GETTABLEKS                       R10 R0 K28 ["identifier"]
-      189 GETTABLEKS                       R10 R10 K24 ["source"]
-      191 SETTABLEKS                       R10 R9 K24 ["source"]
-      193 GETTABLEKS                       R10 R0 K28 ["identifier"]
-      195 GETTABLEKS                       R10 R10 K25 ["context"]
-      197 SETTABLEKS                       R10 R9 K25 ["context"]
-      199 SETTABLEKS                       R9 R8 K28 ["identifier"]
-      201 GETTABLEKS                       R9 R0 K30 ["metadata"]
-      203 SETTABLEKS                       R9 R8 K30 ["metadata"]
-      205 SETTABLEKS                       R5 R8 K4 ["translations"]
-      207 LOADB                            R9 0
-      208 SETTABLEKS                       R9 R8 K10 ["delete"]
-      210 RETURN                           R8 1
+      138 SETTABLEKS                       R20 R19 K23 ["language"]
+      140 LOADK                            R21 K28 ["\""]
+      141 GETTABLEKS                       R22 R0 K29 ["identifier"]
+      143 GETTABLEKS                       R22 R22 K24 ["key"]
+      145 LOADK                            R23 K28 ["\""]
+      146 CONCAT                           R20 R21 R23
+      147 SETTABLEKS                       R20 R19 K24 ["key"]
+      149 LOADK                            R21 K28 ["\""]
+      150 GETTABLEKS                       R22 R0 K29 ["identifier"]
+      152 GETTABLEKS                       R22 R22 K25 ["source"]
+      154 LOADK                            R23 K28 ["\""]
+      155 CONCAT                           R20 R21 R23
+      156 SETTABLEKS                       R20 R19 K25 ["source"]
+      158 LOADK                            R21 K28 ["\""]
+      159 GETTABLEKS                       R22 R0 K29 ["identifier"]
+      161 GETTABLEKS                       R22 R22 K26 ["context"]
+      163 LOADK                            R23 K28 ["\""]
+      164 CONCAT                           R20 R21 R23
+      165 SETTABLEKS                       R20 R19 K26 ["context"]
+      167 NAMECALL                         R15 R4 K30 ["getText"]
+      169 CALL                             R15 4 -1
+      170 CALL                             R14 -1 0
+      171 FORGLOOP                         R8 2 [inext] ; [-90]
+      173 DUPTABLE                         R8 K32 [{["identifier"], ["metadata"], ["translations"], ["delete"] = False}]
+      174 DUPTABLE                         R9 K33 [{"key", "source", "context"}]
+      175 GETTABLEKS                       R10 R0 K29 ["identifier"]
+      177 GETTABLEKS                       R10 R10 K24 ["key"]
+      179 SETTABLEKS                       R10 R9 K24 ["key"]
+      181 GETTABLEKS                       R10 R0 K29 ["identifier"]
+      183 GETTABLEKS                       R10 R10 K25 ["source"]
+      185 SETTABLEKS                       R10 R9 K25 ["source"]
+      187 GETTABLEKS                       R10 R0 K29 ["identifier"]
+      189 GETTABLEKS                       R10 R10 K26 ["context"]
+      191 SETTABLEKS                       R10 R9 K26 ["context"]
+      193 SETTABLEKS                       R9 R8 K29 ["identifier"]
+      195 GETTABLEKS                       R9 R0 K31 ["metadata"]
+      197 SETTABLEKS                       R9 R8 K31 ["metadata"]
+      199 SETTABLEKS                       R5 R8 K4 ["translations"]
+      201 RETURN                           R8 1
 
 PROTO_5:
         0 GETTABLEKS                       R4 R1 K1 ["numRemovedEntries"]
@@ -429,38 +415,34 @@ PROTO_5:
        26 MOVE                             R9 R11
        27 JUMP                             ; [+1]
        28 MOVE                             R9 R10
-       29 DUPTABLE                         R12 K13 [{"locale", "translationText", "delete"}]
+       29 DUPTABLE                         R12 K14 [{["locale"], ["translationText"], ["delete"] = True}]
        30 SETTABLEKS                       R9 R12 K5 ["locale"]
        32 GETTABLEKS                       R13 R8 K11 ["translationText"]
        34 SETTABLEKS                       R13 R12 K11 ["translationText"]
-       36 LOADB                            R13 1
-       37 SETTABLEKS                       R13 R12 K12 ["delete"]
-       39 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
-       41 MOVE                             R11 R3
-       42 GETIMPORT                        R10 K16 [table.insert]
-       44 CALL                             R10 2 0
-       45 GETTABLEKS                       R11 R1 K17 ["numRemovedTranslations"]
-       47 ADDK                             R10 R11 K0 [1]
-       48 SETTABLEKS                       R10 R1 K17 ["numRemovedTranslations"]
-       50 FORGLOOP                         R4 2 [inext] ; [-38]
-       52 DUPTABLE                         R4 K20 [{"identifier", "metadata", "translations", "delete"}]
-       53 DUPTABLE                         R5 K24 [{"key", "source", "context"}]
-       54 GETTABLEKS                       R6 R0 K18 ["identifier"]
-       56 GETTABLEKS                       R6 R6 K21 ["key"]
-       58 SETTABLEKS                       R6 R5 K21 ["key"]
-       60 GETTABLEKS                       R6 R0 K18 ["identifier"]
-       62 GETTABLEKS                       R6 R6 K22 ["source"]
-       64 SETTABLEKS                       R6 R5 K22 ["source"]
-       66 GETTABLEKS                       R6 R0 K18 ["identifier"]
-       68 GETTABLEKS                       R6 R6 K23 ["context"]
-       70 SETTABLEKS                       R6 R5 K23 ["context"]
-       72 SETTABLEKS                       R5 R4 K18 ["identifier"]
-       74 GETTABLEKS                       R5 R0 K19 ["metadata"]
-       76 SETTABLEKS                       R5 R4 K19 ["metadata"]
-       78 SETTABLEKS                       R3 R4 K4 ["translations"]
-       80 LOADB                            R5 1
-       81 SETTABLEKS                       R5 R4 K12 ["delete"]
-       83 RETURN                           R4 1
+       36 FASTCALL2                        TABLE_INSERT R3 R12 ; [+4]
+       38 MOVE                             R11 R3
+       39 GETIMPORT                        R10 K17 [table.insert]
+       41 CALL                             R10 2 0
+       42 GETTABLEKS                       R11 R1 K18 ["numRemovedTranslations"]
+       44 ADDK                             R10 R11 K0 [1]
+       45 SETTABLEKS                       R10 R1 K18 ["numRemovedTranslations"]
+       47 FORGLOOP                         R4 2 [inext] ; [-35]
+       49 DUPTABLE                         R4 K21 [{["identifier"], ["metadata"], ["translations"], ["delete"] = True}]
+       50 DUPTABLE                         R5 K25 [{"key", "source", "context"}]
+       51 GETTABLEKS                       R6 R0 K19 ["identifier"]
+       53 GETTABLEKS                       R6 R6 K22 ["key"]
+       55 SETTABLEKS                       R6 R5 K22 ["key"]
+       57 GETTABLEKS                       R6 R0 K19 ["identifier"]
+       59 GETTABLEKS                       R6 R6 K23 ["source"]
+       61 SETTABLEKS                       R6 R5 K23 ["source"]
+       63 GETTABLEKS                       R6 R0 K19 ["identifier"]
+       65 GETTABLEKS                       R6 R6 K24 ["context"]
+       67 SETTABLEKS                       R6 R5 K24 ["context"]
+       69 SETTABLEKS                       R5 R4 K19 ["identifier"]
+       71 GETTABLEKS                       R5 R0 K20 ["metadata"]
+       73 SETTABLEKS                       R5 R4 K20 ["metadata"]
+       75 SETTABLEKS                       R3 R4 K4 ["translations"]
+       77 RETURN                           R4 1
 
 PROTO_6:
         0 DUPTABLE                         R0 K2 [{"name", "entries"}]
@@ -495,124 +477,114 @@ PROTO_8:
         4 MOVE                             R9 R1
         5 CALL                             R8 1 1
         6 NEWTABLE                         R9 0 0
-        8 DUPTABLE                         R10 K6 [{"numAddedTranslations", "numChangedTranslations", "numRemovedTranslations", "numAddedEntries", "numRemovedEntries", "makePatch"}]
-        9 LOADN                            R11 0
-       10 SETTABLEKS                       R11 R10 K0 ["numAddedTranslations"]
-       12 LOADN                            R11 0
-       13 SETTABLEKS                       R11 R10 K1 ["numChangedTranslations"]
-       15 LOADN                            R11 0
-       16 SETTABLEKS                       R11 R10 K2 ["numRemovedTranslations"]
-       18 LOADN                            R11 0
-       19 SETTABLEKS                       R11 R10 K3 ["numAddedEntries"]
-       21 LOADN                            R11 0
-       22 SETTABLEKS                       R11 R10 K4 ["numRemovedEntries"]
-       24 NEWCLOSURE                       R11 P0
-       25 CAPTURE                          VAL R0
-       26 CAPTURE                          VAL R9
-       27 SETTABLEKS                       R11 R10 K5 ["makePatch"]
-       29 DUPCLOSURE                       R11 K7 [PROTO_7]
-       30 GETIMPORT                        R12 K9 [pairs]
-       32 MOVE                             R13 R1
-       33 CALL                             R12 1 3
-       34 FORGPREP_NEXT                    R12
-       35 GETTABLEKS                       R18 R16 K10 ["identifier"]
-       37 GETTABLEKS                       R18 R18 K11 ["key"]
-       39 GETTABLEKS                       R19 R16 K10 ["identifier"]
-       41 GETTABLEKS                       R19 R19 K12 ["source"]
-       43 GETTABLEKS                       R20 R16 K10 ["identifier"]
-       45 GETTABLEKS                       R20 R20 K13 ["context"]
-       47 GETTABLE                         R21 R7 R18
-       48 JUMPIFEQKNIL                     R21 ; [+14]
-       50 GETTABLE                         R22 R7 R18
-       51 GETTABLE                         R21 R22 R19
-       52 JUMPIFEQKNIL                     R21 ; [+10]
-       54 GETTABLE                         R23 R7 R18
-       55 GETTABLE                         R22 R23 R19
-       56 GETTABLE                         R21 R22 R20
-       57 JUMPIFEQKNIL                     R21 ; [+5]
-       59 GETTABLE                         R22 R7 R18
-       60 GETTABLE                         R21 R22 R19
-       61 GETTABLE                         R17 R21 R20
-       62 JUMP                             ; [+1]
-       63 LOADN                            R17 0
-       64 JUMPIFNOTEQKN                    R17 K14 [0] ; [+15]
-       66 JUMPIFNOT                        R3 ; [+48]
-       67 GETUPVAL                         R18 1
-       68 MOVE                             R19 R16
-       69 MOVE                             R20 R10
-       70 MOVE                             R21 R5
-       71 CALL                             R18 3 1
-       72 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
-       74 MOVE                             R20 R9
-       75 MOVE                             R21 R18
-       76 GETIMPORT                        R19 K17 [table.insert]
-       78 CALL                             R19 2 0
-       79 JUMP                             ; [+35]
-       80 LOADNIL                          R18
-       81 GETUPVAL                         R19 2
-       82 MOVE                             R20 R16
-       83 GETTABLE                         R21 R2 R17
-       84 MOVE                             R22 R10
-       85 MOVE                             R23 R3
-       86 MOVE                             R24 R4
-       87 MOVE                             R25 R5
-       88 MOVE                             R26 R6
-       89 CALL                             R19 7 1
-       90 MOVE                             R18 R19
-       91 GETIMPORT                        R19 K19 [next]
-       93 GETTABLEKS                       R20 R18 K20 ["translations"]
-       95 CALL                             R19 1 1
-       96 JUMPIFNOTEQKNIL                  R19 ; [+11]
-       98 GETTABLEKS                       R19 R18 K21 ["metadata"]
-      100 GETTABLEKS                       R19 R19 K22 ["example"]
-      102 GETTABLEKS                       R20 R16 K21 ["metadata"]
-      104 GETTABLEKS                       R20 R20 K22 ["example"]
-      106 JUMPIFEQ                         R19 R20 ; [+8]
-      108 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
-      110 MOVE                             R20 R9
-      111 MOVE                             R21 R18
-      112 GETIMPORT                        R19 K17 [table.insert]
-      114 CALL                             R19 2 0
-      115 FORGLOOP                         R12 2 ; [-81]
-      117 GETIMPORT                        R12 K9 [pairs]
-      119 MOVE                             R13 R2
-      120 CALL                             R12 1 3
-      121 FORGPREP_NEXT                    R12
-      122 GETTABLEKS                       R18 R16 K10 ["identifier"]
-      124 GETTABLEKS                       R18 R18 K11 ["key"]
-      126 GETTABLEKS                       R19 R16 K10 ["identifier"]
-      128 GETTABLEKS                       R19 R19 K12 ["source"]
-      130 GETTABLEKS                       R20 R16 K10 ["identifier"]
-      132 GETTABLEKS                       R20 R20 K13 ["context"]
-      134 GETTABLE                         R21 R8 R18
-      135 JUMPIFEQKNIL                     R21 ; [+14]
-      137 GETTABLE                         R22 R8 R18
-      138 GETTABLE                         R21 R22 R19
-      139 JUMPIFEQKNIL                     R21 ; [+10]
-      141 GETTABLE                         R23 R8 R18
-      142 GETTABLE                         R22 R23 R19
-      143 GETTABLE                         R21 R22 R20
-      144 JUMPIFEQKNIL                     R21 ; [+5]
-      146 GETTABLE                         R22 R8 R18
-      147 GETTABLE                         R21 R22 R19
-      148 GETTABLE                         R17 R21 R20
-      149 JUMP                             ; [+1]
-      150 LOADN                            R17 0
-      151 JUMPIFNOTEQKN                    R17 K14 [0] ; [+15]
-      153 GETUPVAL                         R18 3
-      154 MOVE                             R19 R16
-      155 MOVE                             R20 R10
-      156 MOVE                             R21 R4
-      157 MOVE                             R22 R5
-      158 MOVE                             R23 R6
-      159 CALL                             R18 5 1
-      160 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
-      162 MOVE                             R20 R9
-      163 MOVE                             R21 R18
-      164 GETIMPORT                        R19 K17 [table.insert]
-      166 CALL                             R19 2 0
-      167 FORGLOOP                         R12 2 ; [-46]
-      169 RETURN                           R10 1
+        8 DUPTABLE                         R10 K7 [{[1] = 0, ["numChangedTranslations"] = 0, ["numRemovedTranslations"] = 0, ["numAddedEntries"] = 0, ["numRemovedEntries"] = 0, ["makePatch"]}]
+        9 NEWCLOSURE                       R11 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          VAL R9
+       12 SETTABLEKS                       R11 R10 K6 ["makePatch"]
+       14 DUPCLOSURE                       R11 K8 [PROTO_7]
+       15 GETIMPORT                        R12 K10 [pairs]
+       17 MOVE                             R13 R1
+       18 CALL                             R12 1 3
+       19 FORGPREP_NEXT                    R12
+       20 GETTABLEKS                       R18 R16 K11 ["identifier"]
+       22 GETTABLEKS                       R18 R18 K12 ["key"]
+       24 GETTABLEKS                       R19 R16 K11 ["identifier"]
+       26 GETTABLEKS                       R19 R19 K13 ["source"]
+       28 GETTABLEKS                       R20 R16 K11 ["identifier"]
+       30 GETTABLEKS                       R20 R20 K14 ["context"]
+       32 GETTABLE                         R21 R7 R18
+       33 JUMPIFEQKNIL                     R21 ; [+14]
+       35 GETTABLE                         R22 R7 R18
+       36 GETTABLE                         R21 R22 R19
+       37 JUMPIFEQKNIL                     R21 ; [+10]
+       39 GETTABLE                         R23 R7 R18
+       40 GETTABLE                         R22 R23 R19
+       41 GETTABLE                         R21 R22 R20
+       42 JUMPIFEQKNIL                     R21 ; [+5]
+       44 GETTABLE                         R22 R7 R18
+       45 GETTABLE                         R21 R22 R19
+       46 GETTABLE                         R17 R21 R20
+       47 JUMP                             ; [+1]
+       48 LOADN                            R17 0
+       49 JUMPIFNOTEQKN                    R17 K1 [0] ; [+15]
+       51 JUMPIFNOT                        R3 ; [+48]
+       52 GETUPVAL                         R18 1
+       53 MOVE                             R19 R16
+       54 MOVE                             R20 R10
+       55 MOVE                             R21 R5
+       56 CALL                             R18 3 1
+       57 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
+       59 MOVE                             R20 R9
+       60 MOVE                             R21 R18
+       61 GETIMPORT                        R19 K17 [table.insert]
+       63 CALL                             R19 2 0
+       64 JUMP                             ; [+35]
+       65 LOADNIL                          R18
+       66 GETUPVAL                         R19 2
+       67 MOVE                             R20 R16
+       68 GETTABLE                         R21 R2 R17
+       69 MOVE                             R22 R10
+       70 MOVE                             R23 R3
+       71 MOVE                             R24 R4
+       72 MOVE                             R25 R5
+       73 MOVE                             R26 R6
+       74 CALL                             R19 7 1
+       75 MOVE                             R18 R19
+       76 GETIMPORT                        R19 K19 [next]
+       78 GETTABLEKS                       R20 R18 K20 ["translations"]
+       80 CALL                             R19 1 1
+       81 JUMPIFNOTEQKNIL                  R19 ; [+11]
+       83 GETTABLEKS                       R19 R18 K21 ["metadata"]
+       85 GETTABLEKS                       R19 R19 K22 ["example"]
+       87 GETTABLEKS                       R20 R16 K21 ["metadata"]
+       89 GETTABLEKS                       R20 R20 K22 ["example"]
+       91 JUMPIFEQ                         R19 R20 ; [+8]
+       93 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
+       95 MOVE                             R20 R9
+       96 MOVE                             R21 R18
+       97 GETIMPORT                        R19 K17 [table.insert]
+       99 CALL                             R19 2 0
+      100 FORGLOOP                         R12 2 ; [-81]
+      102 GETIMPORT                        R12 K10 [pairs]
+      104 MOVE                             R13 R2
+      105 CALL                             R12 1 3
+      106 FORGPREP_NEXT                    R12
+      107 GETTABLEKS                       R18 R16 K11 ["identifier"]
+      109 GETTABLEKS                       R18 R18 K12 ["key"]
+      111 GETTABLEKS                       R19 R16 K11 ["identifier"]
+      113 GETTABLEKS                       R19 R19 K13 ["source"]
+      115 GETTABLEKS                       R20 R16 K11 ["identifier"]
+      117 GETTABLEKS                       R20 R20 K14 ["context"]
+      119 GETTABLE                         R21 R8 R18
+      120 JUMPIFEQKNIL                     R21 ; [+14]
+      122 GETTABLE                         R22 R8 R18
+      123 GETTABLE                         R21 R22 R19
+      124 JUMPIFEQKNIL                     R21 ; [+10]
+      126 GETTABLE                         R23 R8 R18
+      127 GETTABLE                         R22 R23 R19
+      128 GETTABLE                         R21 R22 R20
+      129 JUMPIFEQKNIL                     R21 ; [+5]
+      131 GETTABLE                         R22 R8 R18
+      132 GETTABLE                         R21 R22 R19
+      133 GETTABLE                         R17 R21 R20
+      134 JUMP                             ; [+1]
+      135 LOADN                            R17 0
+      136 JUMPIFNOTEQKN                    R17 K1 [0] ; [+15]
+      138 GETUPVAL                         R18 3
+      139 MOVE                             R19 R16
+      140 MOVE                             R20 R10
+      141 MOVE                             R21 R4
+      142 MOVE                             R22 R5
+      143 MOVE                             R23 R6
+      144 CALL                             R18 5 1
+      145 FASTCALL2                        TABLE_INSERT R9 R18 ; [+5]
+      147 MOVE                             R20 R9
+      148 MOVE                             R21 R18
+      149 GETIMPORT                        R19 K17 [table.insert]
+      151 CALL                             R19 2 0
+      152 FORGLOOP                         R12 2 ; [-46]
+      154 RETURN                           R10 1
 
 PROTO_9:
         0 DUPTABLE                         R1 K4 [{"identifier", "metadata", "translations", "delete"}]

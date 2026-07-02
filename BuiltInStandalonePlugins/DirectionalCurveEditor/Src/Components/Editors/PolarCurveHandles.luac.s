@@ -80,7 +80,7 @@ PROTO_5:
         6 CALL                             R0 0 0
         7 GETUPVAL                         R0 1
         8 GETTABLEKS                       R0 R0 K1 ["select"]
-       10 LOADN                            R1 255
+       10 LOADN                            R1 -1
        11 CALL                             R0 1 0
        12 RETURN                           R0 0
 
@@ -117,68 +117,64 @@ PROTO_8:
        21 GETUPVAL                         R9 1
        22 GETTABLEKS                       R9 R9 K4 ["createElement"]
        24 GETUPVAL                         R10 2
-       25 DUPTABLE                         R11 K16 [{"Position", "IsRight", "PlotAbsoluteSize", "PlotRef", "IsSelected", "IsDragging", "OnHoverStart", "OnDragStart", "OnMoved", "OnDragEnd", "OnRightClick"}]
+       25 DUPTABLE                         R11 K17 [{["Position"], ["IsRight"] = False, ["PlotAbsoluteSize"], ["PlotRef"], ["IsSelected"], ["IsDragging"], ["OnHoverStart"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"], ["OnRightClick"]}]
        26 SETTABLEKS                       R5 R11 K5 ["Position"]
-       28 LOADB                            R12 0
-       29 SETTABLEKS                       R12 R11 K6 ["IsRight"]
-       31 GETUPVAL                         R12 3
-       32 GETTABLEKS                       R12 R12 K7 ["PlotAbsoluteSize"]
-       34 SETTABLEKS                       R12 R11 K7 ["PlotAbsoluteSize"]
-       36 GETUPVAL                         R12 4
-       37 SETTABLEKS                       R12 R11 K8 ["PlotRef"]
-       39 SETTABLEKS                       R7 R11 K9 ["IsSelected"]
-       41 GETUPVAL                         R13 5
-       42 AND                              R12 R13 R7
-       43 SETTABLEKS                       R12 R11 K10 ["IsDragging"]
-       45 NEWCLOSURE                       R12 P0
-       46 CAPTURE                          UPVAL U6
-       47 CAPTURE                          VAL R4
-       48 SETTABLEKS                       R12 R11 K11 ["OnHoverStart"]
-       50 GETUPVAL                         R12 7
-       51 SETTABLEKS                       R12 R11 K12 ["OnDragStart"]
-       53 GETUPVAL                         R12 8
-       54 SETTABLEKS                       R12 R11 K13 ["OnMoved"]
-       56 GETUPVAL                         R12 9
-       57 SETTABLEKS                       R12 R11 K14 ["OnDragEnd"]
-       59 GETUPVAL                         R12 10
-       60 SETTABLEKS                       R12 R11 K15 ["OnRightClick"]
-       62 CALL                             R9 2 1
-       63 SETTABLE                         R9 R0 R8
-       64 MOVE                             R9 R6
-       65 LOADK                            R10 K17 ["_R"]
-       66 CONCAT                           R8 R9 R10
-       67 GETUPVAL                         R9 1
-       68 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       70 GETUPVAL                         R10 2
-       71 DUPTABLE                         R11 K16 [{"Position", "IsRight", "PlotAbsoluteSize", "PlotRef", "IsSelected", "IsDragging", "OnHoverStart", "OnDragStart", "OnMoved", "OnDragEnd", "OnRightClick"}]
-       72 SETTABLEKS                       R5 R11 K5 ["Position"]
-       74 LOADB                            R12 1
-       75 SETTABLEKS                       R12 R11 K6 ["IsRight"]
-       77 GETUPVAL                         R12 3
-       78 GETTABLEKS                       R12 R12 K7 ["PlotAbsoluteSize"]
-       80 SETTABLEKS                       R12 R11 K7 ["PlotAbsoluteSize"]
-       82 GETUPVAL                         R12 4
-       83 SETTABLEKS                       R12 R11 K8 ["PlotRef"]
-       85 SETTABLEKS                       R7 R11 K9 ["IsSelected"]
-       87 GETUPVAL                         R13 5
-       88 AND                              R12 R13 R7
-       89 SETTABLEKS                       R12 R11 K10 ["IsDragging"]
-       91 NEWCLOSURE                       R12 P1
-       92 CAPTURE                          UPVAL U6
-       93 CAPTURE                          VAL R4
-       94 SETTABLEKS                       R12 R11 K11 ["OnHoverStart"]
-       96 GETUPVAL                         R12 7
-       97 SETTABLEKS                       R12 R11 K12 ["OnDragStart"]
-       99 GETUPVAL                         R12 8
-      100 SETTABLEKS                       R12 R11 K13 ["OnMoved"]
-      102 GETUPVAL                         R12 9
-      103 SETTABLEKS                       R12 R11 K14 ["OnDragEnd"]
-      105 GETUPVAL                         R12 10
-      106 SETTABLEKS                       R12 R11 K15 ["OnRightClick"]
-      108 CALL                             R9 2 1
-      109 SETTABLE                         R9 R0 R8
-      110 FORGLOOP                         R1 2 ; [-103]
-      112 RETURN                           R0 1
+       28 GETUPVAL                         R12 3
+       29 GETTABLEKS                       R12 R12 K8 ["PlotAbsoluteSize"]
+       31 SETTABLEKS                       R12 R11 K8 ["PlotAbsoluteSize"]
+       33 GETUPVAL                         R12 4
+       34 SETTABLEKS                       R12 R11 K9 ["PlotRef"]
+       36 SETTABLEKS                       R7 R11 K10 ["IsSelected"]
+       38 GETUPVAL                         R13 5
+       39 AND                              R12 R13 R7
+       40 SETTABLEKS                       R12 R11 K11 ["IsDragging"]
+       42 NEWCLOSURE                       R12 P0
+       43 CAPTURE                          UPVAL U6
+       44 CAPTURE                          VAL R4
+       45 SETTABLEKS                       R12 R11 K12 ["OnHoverStart"]
+       47 GETUPVAL                         R12 7
+       48 SETTABLEKS                       R12 R11 K13 ["OnDragStart"]
+       50 GETUPVAL                         R12 8
+       51 SETTABLEKS                       R12 R11 K14 ["OnMoved"]
+       53 GETUPVAL                         R12 9
+       54 SETTABLEKS                       R12 R11 K15 ["OnDragEnd"]
+       56 GETUPVAL                         R12 10
+       57 SETTABLEKS                       R12 R11 K16 ["OnRightClick"]
+       59 CALL                             R9 2 1
+       60 SETTABLE                         R9 R0 R8
+       61 MOVE                             R9 R6
+       62 LOADK                            R10 K18 ["_R"]
+       63 CONCAT                           R8 R9 R10
+       64 GETUPVAL                         R9 1
+       65 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       67 GETUPVAL                         R10 2
+       68 DUPTABLE                         R11 K20 [{["Position"], ["IsRight"] = True, ["PlotAbsoluteSize"], ["PlotRef"], ["IsSelected"], ["IsDragging"], ["OnHoverStart"], ["OnDragStart"], ["OnMoved"], ["OnDragEnd"], ["OnRightClick"]}]
+       69 SETTABLEKS                       R5 R11 K5 ["Position"]
+       71 GETUPVAL                         R12 3
+       72 GETTABLEKS                       R12 R12 K8 ["PlotAbsoluteSize"]
+       74 SETTABLEKS                       R12 R11 K8 ["PlotAbsoluteSize"]
+       76 GETUPVAL                         R12 4
+       77 SETTABLEKS                       R12 R11 K9 ["PlotRef"]
+       79 SETTABLEKS                       R7 R11 K10 ["IsSelected"]
+       81 GETUPVAL                         R13 5
+       82 AND                              R12 R13 R7
+       83 SETTABLEKS                       R12 R11 K11 ["IsDragging"]
+       85 NEWCLOSURE                       R12 P1
+       86 CAPTURE                          UPVAL U6
+       87 CAPTURE                          VAL R4
+       88 SETTABLEKS                       R12 R11 K12 ["OnHoverStart"]
+       90 GETUPVAL                         R12 7
+       91 SETTABLEKS                       R12 R11 K13 ["OnDragStart"]
+       93 GETUPVAL                         R12 8
+       94 SETTABLEKS                       R12 R11 K14 ["OnMoved"]
+       96 GETUPVAL                         R12 9
+       97 SETTABLEKS                       R12 R11 K15 ["OnDragEnd"]
+       99 GETUPVAL                         R12 10
+      100 SETTABLEKS                       R12 R11 K16 ["OnRightClick"]
+      102 CALL                             R9 2 1
+      103 SETTABLE                         R9 R0 R8
+      104 FORGLOOP                         R1 2 ; [-97]
+      106 RETURN                           R0 1
 
 PROTO_9:
         0 GETTABLEKS                       R2 R1 K0 ["UserInputType"]

@@ -19,32 +19,16 @@ PROTO_1:
        15 MOVE                             R5 R2
        16 CALL                             R3 2 0
        17 JUMPIFNOT                        R1 ; [+1]
-       18 JUMPIF                           R2 ; [+37]
-       19 DUPTABLE                         R3 K13 [{"Id", "Name", "Size", "Children"}]
-       20 LOADN                            R4 0
-       21 SETTABLEKS                       R4 R3 K9 ["Id"]
-       23 LOADK                            R4 K14 ["Root"]
-       24 SETTABLEKS                       R4 R3 K10 ["Name"]
-       26 LOADN                            R4 0
-       27 SETTABLEKS                       R4 R3 K11 ["Size"]
-       29 NEWTABLE                         R4 0 1
-       31 DUPTABLE                         R5 K17 [{"Name", "Size", "AssetId", "IsPlaying", "Id", "Children"}]
-       32 LOADK                            R6 K18 ["Mock Animation"]
-       33 SETTABLEKS                       R6 R5 K10 ["Name"]
-       35 LOADN                            R6 10
-       36 SETTABLEKS                       R6 R5 K11 ["Size"]
-       38 LOADK                            R6 K19 ["12345"]
-       39 SETTABLEKS                       R6 R5 K15 ["AssetId"]
-       41 LOADB                            R6 1
-       42 SETTABLEKS                       R6 R5 K16 ["IsPlaying"]
-       44 LOADN                            R6 1
-       45 SETTABLEKS                       R6 R5 K9 ["Id"]
-       47 NEWTABLE                         R6 0 0
-       49 SETTABLEKS                       R6 R5 K12 ["Children"]
-       51 SETLIST                          R4 R5 1 [1]
-       53 SETTABLEKS                       R4 R3 K12 ["Children"]
-       55 RETURN                           R3 1
-       56 RETURN                           R2 1
+       18 JUMPIF                           R2 ; [+13]
+       19 DUPTABLE                         R3 K15 [{["Id"] = 0, ["Name"] = "Root", ["Size"] = 0, ["Children"]}]
+       20 NEWTABLE                         R4 0 1
+       22 DUPTABLE                         R5 K23 [{["Name"] = "Mock Animation", ["Size"] = 10, ["AssetId"] = "12345", ["IsPlaying"] = True, ["Id"] = 1, ["Children"]}]
+       23 NEWTABLE                         R6 0 0
+       25 SETTABLEKS                       R6 R5 K14 ["Children"]
+       27 SETLIST                          R4 R5 1 [1]
+       29 SETTABLEKS                       R4 R3 K14 ["Children"]
+       31 RETURN                           R3 1
+       32 RETURN                           R2 1
 
 PROTO_2:
         0 LOADK                            R4 K0 ["FetchAnimationMemory"]

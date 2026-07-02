@@ -38,15 +38,13 @@ PROTO_4:
 PROTO_5:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["new"]
-        3 DUPTABLE                         R1 K4 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        3 DUPTABLE                         R1 K5 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AssetAccess"}]
         4 GETUPVAL                         R2 1
         5 SETTABLEKS                       R2 R1 K1 ["stringResourceTable"]
         7 GETUPVAL                         R2 2
         8 SETTABLEKS                       R2 R1 K2 ["translationResourceTable"]
-       10 LOADK                            R2 K5 ["AssetAccess"]
-       11 SETTABLEKS                       R2 R1 K3 ["pluginName"]
-       13 CALL                             R0 1 -1
-       14 RETURN                           R0 -1
+       10 CALL                             R0 1 -1
+       11 RETURN                           R0 -1
 
 PROTO_6:
         0 GETUPVAL                         R0 0

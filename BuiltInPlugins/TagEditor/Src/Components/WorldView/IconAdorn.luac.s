@@ -27,50 +27,44 @@ PROTO_0:
        36 GETUPVAL                         R6 0
        37 GETTABLEKS                       R6 R6 K1 ["createElement"]
        39 GETUPVAL                         R7 1
-       40 DUPTABLE                         R8 K17 [{"Name", "Size", "Style", "TextScaled"}]
+       40 DUPTABLE                         R8 K19 [{["Name"], ["Size"], ["Style"] = "WorldView", ["TextScaled"] = True}]
        41 SETTABLEKS                       R5 R8 K13 ["Name"]
-       43 GETIMPORT                        R9 K19 [UDim2.new]
+       43 GETIMPORT                        R9 K21 [UDim2.new]
        45 GETTABLEKS                       R12 R0 K0 ["Icon"]
        47 LENGTH                           R11 R12
-       48 DIVRK                            R10 R20 K11 [UDim.new]
+       48 DIVRK                            R10 K22 [1] R11
        49 LOADN                            R11 0
        50 LOADN                            R12 1
        51 LOADN                            R13 0
        52 CALL                             R9 4 1
        53 SETTABLEKS                       R9 R8 K14 ["Size"]
-       55 LOADK                            R9 K21 ["WorldView"]
-       56 SETTABLEKS                       R9 R8 K15 ["Style"]
-       58 LOADB                            R9 1
-       59 SETTABLEKS                       R9 R8 K16 ["TextScaled"]
-       61 CALL                             R6 2 1
-       62 SETTABLE                         R6 R1 R4
-       63 FORNLOOP                         R2
-       64 GETUPVAL                         R2 0
-       65 GETTABLEKS                       R2 R2 K1 ["createElement"]
-       67 LOADK                            R3 K22 ["BillboardGui"]
-       68 DUPTABLE                         R4 K27 [{"Adornee", "Size", "SizeOffset", "ExtentsOffsetWorldSpace", "AlwaysOnTop"}]
-       69 GETTABLEKS                       R5 R0 K23 ["Adornee"]
-       71 SETTABLEKS                       R5 R4 K23 ["Adornee"]
-       73 GETIMPORT                        R5 K19 [UDim2.new]
-       75 GETTABLEKS                       R7 R0 K0 ["Icon"]
-       77 LENGTH                           R6 R7
-       78 LOADN                            R7 0
-       79 LOADN                            R8 1
-       80 LOADN                            R9 0
-       81 CALL                             R5 4 1
-       82 SETTABLEKS                       R5 R4 K14 ["Size"]
-       84 GETIMPORT                        R5 K29 [Vector2.new]
-       86 LOADK                            R6 K30 [0.5]
-       87 LOADK                            R7 K30 [0.5]
-       88 CALL                             R5 2 1
-       89 SETTABLEKS                       R5 R4 K24 ["SizeOffset"]
-       91 LOADK                            R5 K31 [{1, 1, 1}]
-       92 SETTABLEKS                       R5 R4 K25 ["ExtentsOffsetWorldSpace"]
-       94 GETTABLEKS                       R5 R0 K26 ["AlwaysOnTop"]
-       96 SETTABLEKS                       R5 R4 K26 ["AlwaysOnTop"]
-       98 MOVE                             R5 R1
-       99 CALL                             R2 3 -1
-      100 RETURN                           R2 -1
+       55 CALL                             R6 2 1
+       56 SETTABLE                         R6 R1 R4
+       57 FORNLOOP                         R2
+       58 GETUPVAL                         R2 0
+       59 GETTABLEKS                       R2 R2 K1 ["createElement"]
+       61 LOADK                            R3 K23 ["BillboardGui"]
+       62 DUPTABLE                         R4 K29 [{["Adornee"], ["Size"], ["SizeOffset"], ["ExtentsOffsetWorldSpace"] = {1, 1, 1}, ["AlwaysOnTop"]}]
+       63 GETTABLEKS                       R5 R0 K24 ["Adornee"]
+       65 SETTABLEKS                       R5 R4 K24 ["Adornee"]
+       67 GETIMPORT                        R5 K21 [UDim2.new]
+       69 GETTABLEKS                       R7 R0 K0 ["Icon"]
+       71 LENGTH                           R6 R7
+       72 LOADN                            R7 0
+       73 LOADN                            R8 1
+       74 LOADN                            R9 0
+       75 CALL                             R5 4 1
+       76 SETTABLEKS                       R5 R4 K14 ["Size"]
+       78 GETIMPORT                        R5 K31 [Vector2.new]
+       80 LOADK                            R6 K32 [0.5]
+       81 LOADK                            R7 K32 [0.5]
+       82 CALL                             R5 2 1
+       83 SETTABLEKS                       R5 R4 K25 ["SizeOffset"]
+       85 GETTABLEKS                       R5 R0 K28 ["AlwaysOnTop"]
+       87 SETTABLEKS                       R5 R4 K28 ["AlwaysOnTop"]
+       89 MOVE                             R5 R1
+       90 CALL                             R2 3 -1
+       91 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

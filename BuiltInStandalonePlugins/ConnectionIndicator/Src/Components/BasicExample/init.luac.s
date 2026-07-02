@@ -26,91 +26,83 @@ PROTO_0:
        32 GETUPVAL                         R11 2
        33 GETTABLEKS                       R11 R11 K2 ["createElement"]
        35 LOADK                            R12 K13 ["TextLabel"]
-       36 DUPTABLE                         R13 K19 [{"LayoutOrder", "Size", "TextXAlignment", "Font", "Text"}]
-       37 NAMECALL                         R14 R2 K20 ["getNextOrder"]
+       36 DUPTABLE                         R13 K20 [{["LayoutOrder"], ["Size"], ["TextXAlignment"], ["Font"], ["Text"] = "Saving to Roblox Warning"}]
+       37 NAMECALL                         R14 R2 K21 ["getNextOrder"]
        39 CALL                             R14 1 1
        40 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-       42 GETIMPORT                        R14 K22 [UDim2.new]
+       42 GETIMPORT                        R14 K23 [UDim2.new]
        44 LOADN                            R15 1
        45 LOADN                            R16 0
-       46 LOADK                            R17 K23 [0.1]
+       46 LOADK                            R17 K24 [0.1]
        47 LOADN                            R18 0
        48 CALL                             R14 4 1
        49 SETTABLEKS                       R14 R13 K15 ["Size"]
-       51 GETIMPORT                        R14 K26 [Enum.TextXAlignment.Left]
+       51 GETIMPORT                        R14 K27 [Enum.TextXAlignment.Left]
        53 SETTABLEKS                       R14 R13 K16 ["TextXAlignment"]
-       55 GETIMPORT                        R14 K28 [Enum.Font.BuilderSansBold]
+       55 GETIMPORT                        R14 K29 [Enum.Font.BuilderSansBold]
        57 SETTABLEKS                       R14 R13 K17 ["Font"]
-       59 LOADK                            R14 K29 ["Saving to Roblox Warning"]
-       60 SETTABLEKS                       R14 R13 K18 ["Text"]
-       62 CALL                             R11 2 1
-       63 SETTABLEKS                       R11 R10 K9 ["Header"]
-       65 GETUPVAL                         R11 2
-       66 GETTABLEKS                       R11 R11 K2 ["createElement"]
-       68 LOADK                            R12 K13 ["TextLabel"]
-       69 DUPTABLE                         R13 K19 [{"LayoutOrder", "Size", "TextXAlignment", "Font", "Text"}]
-       70 NAMECALL                         R14 R2 K20 ["getNextOrder"]
-       72 CALL                             R14 1 1
-       73 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-       75 GETIMPORT                        R14 K22 [UDim2.new]
-       77 LOADN                            R15 1
-       78 LOADN                            R16 0
-       79 LOADK                            R17 K23 [0.1]
-       80 LOADN                            R18 0
-       81 CALL                             R14 4 1
-       82 SETTABLEKS                       R14 R13 K15 ["Size"]
-       84 GETIMPORT                        R14 K26 [Enum.TextXAlignment.Left]
-       86 SETTABLEKS                       R14 R13 K16 ["TextXAlignment"]
-       88 GETIMPORT                        R14 K31 [Enum.Font.BuilderSans]
-       90 SETTABLEKS                       R14 R13 K17 ["Font"]
-       92 LOADK                            R14 K32 ["Approaching Size Limit"]
-       93 SETTABLEKS                       R14 R13 K18 ["Text"]
-       95 CALL                             R11 2 1
-       96 SETTABLEKS                       R11 R10 K10 ["subtitle"]
-       98 GETUPVAL                         R11 2
-       99 GETTABLEKS                       R11 R11 K2 ["createElement"]
-      101 LOADK                            R12 K3 ["Frame"]
-      102 NEWTABLE                         R13 4 0
-      104 GETUPVAL                         R14 2
-      105 GETTABLEKS                       R14 R14 K4 ["Tag"]
-      107 LOADK                            R15 K33 ["X-Middle X-Fill"]
-      108 SETTABLE                         R15 R13 R14
-      109 GETIMPORT                        R14 K22 [UDim2.new]
-      111 LOADN                            R15 1
-      112 LOADN                            R16 0
-      113 LOADK                            R17 K34 [0.8]
-      114 LOADN                            R18 0
-      115 CALL                             R14 4 1
-      116 SETTABLEKS                       R14 R13 K15 ["Size"]
-      118 NAMECALL                         R14 R2 K20 ["getNextOrder"]
-      120 CALL                             R14 1 1
-      121 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
-      123 DUPTABLE                         R14 K36 [{"bodytext"}]
-      124 GETUPVAL                         R15 2
-      125 GETTABLEKS                       R15 R15 K2 ["createElement"]
-      127 LOADK                            R16 K13 ["TextLabel"]
-      128 DUPTABLE                         R17 K38 [{"Size", "Font", "TextWrapped", "Text"}]
-      129 GETIMPORT                        R18 K22 [UDim2.new]
-      131 LOADN                            R19 1
-      132 LOADN                            R20 0
-      133 LOADN                            R21 1
-      134 LOADN                            R22 0
-      135 CALL                             R18 4 1
-      136 SETTABLEKS                       R18 R17 K15 ["Size"]
-      138 GETIMPORT                        R18 K31 [Enum.Font.BuilderSans]
-      140 SETTABLEKS                       R18 R17 K17 ["Font"]
-      142 LOADB                            R18 1
-      143 SETTABLEKS                       R18 R17 K37 ["TextWrapped"]
-      145 LOADK                            R18 K39 ["Your Place is nearing the stable size limit. Consider reducing its size to avoid issues with saving and publishing. Learn more"]
-      146 SETTABLEKS                       R18 R17 K18 ["Text"]
-      148 CALL                             R15 2 1
-      149 SETTABLEKS                       R15 R14 K35 ["bodytext"]
-      151 CALL                             R11 3 1
-      152 SETTABLEKS                       R11 R10 K11 ["BodyFrame"]
-      154 CALL                             R7 3 1
-      155 SETTABLEKS                       R7 R6 K6 ["InnerFrame"]
-      157 CALL                             R3 3 -1
-      158 RETURN                           R3 -1
+       59 CALL                             R11 2 1
+       60 SETTABLEKS                       R11 R10 K9 ["Header"]
+       62 GETUPVAL                         R11 2
+       63 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       65 LOADK                            R12 K13 ["TextLabel"]
+       66 DUPTABLE                         R13 K31 [{["LayoutOrder"], ["Size"], ["TextXAlignment"], ["Font"], ["Text"] = "Approaching Size Limit"}]
+       67 NAMECALL                         R14 R2 K21 ["getNextOrder"]
+       69 CALL                             R14 1 1
+       70 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
+       72 GETIMPORT                        R14 K23 [UDim2.new]
+       74 LOADN                            R15 1
+       75 LOADN                            R16 0
+       76 LOADK                            R17 K24 [0.1]
+       77 LOADN                            R18 0
+       78 CALL                             R14 4 1
+       79 SETTABLEKS                       R14 R13 K15 ["Size"]
+       81 GETIMPORT                        R14 K27 [Enum.TextXAlignment.Left]
+       83 SETTABLEKS                       R14 R13 K16 ["TextXAlignment"]
+       85 GETIMPORT                        R14 K33 [Enum.Font.BuilderSans]
+       87 SETTABLEKS                       R14 R13 K17 ["Font"]
+       89 CALL                             R11 2 1
+       90 SETTABLEKS                       R11 R10 K10 ["subtitle"]
+       92 GETUPVAL                         R11 2
+       93 GETTABLEKS                       R11 R11 K2 ["createElement"]
+       95 LOADK                            R12 K3 ["Frame"]
+       96 NEWTABLE                         R13 4 0
+       98 GETUPVAL                         R14 2
+       99 GETTABLEKS                       R14 R14 K4 ["Tag"]
+      101 LOADK                            R15 K34 ["X-Middle X-Fill"]
+      102 SETTABLE                         R15 R13 R14
+      103 GETIMPORT                        R14 K23 [UDim2.new]
+      105 LOADN                            R15 1
+      106 LOADN                            R16 0
+      107 LOADK                            R17 K35 [0.8]
+      108 LOADN                            R18 0
+      109 CALL                             R14 4 1
+      110 SETTABLEKS                       R14 R13 K15 ["Size"]
+      112 NAMECALL                         R14 R2 K21 ["getNextOrder"]
+      114 CALL                             R14 1 1
+      115 SETTABLEKS                       R14 R13 K14 ["LayoutOrder"]
+      117 DUPTABLE                         R14 K37 [{"bodytext"}]
+      118 GETUPVAL                         R15 2
+      119 GETTABLEKS                       R15 R15 K2 ["createElement"]
+      121 LOADK                            R16 K13 ["TextLabel"]
+      122 DUPTABLE                         R17 K41 [{["Size"], ["Font"], ["TextWrapped"] = True, ["Text"] = "Your Place is nearing the stable size limit. Consider reducing its size to avoid issues with saving and publishing. Learn more"}]
+      123 GETIMPORT                        R18 K23 [UDim2.new]
+      125 LOADN                            R19 1
+      126 LOADN                            R20 0
+      127 LOADN                            R21 1
+      128 LOADN                            R22 0
+      129 CALL                             R18 4 1
+      130 SETTABLEKS                       R18 R17 K15 ["Size"]
+      132 GETIMPORT                        R18 K33 [Enum.Font.BuilderSans]
+      134 SETTABLEKS                       R18 R17 K17 ["Font"]
+      136 CALL                             R15 2 1
+      137 SETTABLEKS                       R15 R14 K36 ["bodytext"]
+      139 CALL                             R11 3 1
+      140 SETTABLEKS                       R11 R10 K11 ["BodyFrame"]
+      142 CALL                             R7 3 1
+      143 SETTABLEKS                       R7 R6 K6 ["InnerFrame"]
+      145 CALL                             R3 3 -1
+      146 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -223,44 +223,40 @@ PROTO_11:
       140 CALL                             R17 2 1
       141 SETTABLEKS                       R17 R16 K17 ["EditDialog"]
       143 GETTABLEKS                       R17 R9 K21 ["enabled"]
-      145 JUMPIFNOT                        R17 ; [+19]
+      145 JUMPIFNOT                        R17 ; [+16]
       146 GETUPVAL                         R17 0
       147 GETTABLEKS                       R17 R17 K9 ["createElement"]
       149 GETUPVAL                         R18 5
-      150 DUPTABLE                         R19 K33 [{"variant", "onAccept", "onReject"}]
-      151 LOADK                            R20 K34 ["Save"]
-      152 SETTABLEKS                       R20 R19 K26 ["variant"]
-      154 NEWCLOSURE                       R20 P7
-      155 CAPTURE                          VAL R11
-      156 CAPTURE                          VAL R9
-      157 SETTABLEKS                       R20 R19 K27 ["onAccept"]
-      159 NEWCLOSURE                       R20 P8
-      160 CAPTURE                          VAL R11
-      161 CAPTURE                          VAL R9
-      162 SETTABLEKS                       R20 R19 K28 ["onReject"]
-      164 CALL                             R17 2 1
-      165 SETTABLEKS                       R17 R16 K18 ["SaveDialog"]
-      167 GETTABLEKS                       R17 R10 K21 ["enabled"]
-      169 JUMPIFNOT                        R17 ; [+19]
-      170 GETUPVAL                         R17 0
-      171 GETTABLEKS                       R17 R17 K9 ["createElement"]
-      173 GETUPVAL                         R18 5
-      174 DUPTABLE                         R19 K33 [{"variant", "onAccept", "onReject"}]
-      175 LOADK                            R20 K35 ["Publish"]
-      176 SETTABLEKS                       R20 R19 K26 ["variant"]
-      178 NEWCLOSURE                       R20 P9
-      179 CAPTURE                          VAL R11
-      180 CAPTURE                          VAL R10
-      181 SETTABLEKS                       R20 R19 K27 ["onAccept"]
-      183 NEWCLOSURE                       R20 P10
-      184 CAPTURE                          VAL R11
-      185 CAPTURE                          VAL R10
-      186 SETTABLEKS                       R20 R19 K28 ["onReject"]
-      188 CALL                             R17 2 1
-      189 SETTABLEKS                       R17 R16 K19 ["PublishDialog"]
-      191 GETTABLEKS                       R17 R0 K36 ["children"]
-      193 CALL                             R13 4 -1
-      194 RETURN                           R13 -1
+      150 DUPTABLE                         R19 K34 [{["variant"] = "Save", ["onAccept"], ["onReject"]}]
+      151 NEWCLOSURE                       R20 P7
+      152 CAPTURE                          VAL R11
+      153 CAPTURE                          VAL R9
+      154 SETTABLEKS                       R20 R19 K27 ["onAccept"]
+      156 NEWCLOSURE                       R20 P8
+      157 CAPTURE                          VAL R11
+      158 CAPTURE                          VAL R9
+      159 SETTABLEKS                       R20 R19 K28 ["onReject"]
+      161 CALL                             R17 2 1
+      162 SETTABLEKS                       R17 R16 K18 ["SaveDialog"]
+      164 GETTABLEKS                       R17 R10 K21 ["enabled"]
+      166 JUMPIFNOT                        R17 ; [+16]
+      167 GETUPVAL                         R17 0
+      168 GETTABLEKS                       R17 R17 K9 ["createElement"]
+      170 GETUPVAL                         R18 5
+      171 DUPTABLE                         R19 K36 [{["variant"] = "Publish", ["onAccept"], ["onReject"]}]
+      172 NEWCLOSURE                       R20 P9
+      173 CAPTURE                          VAL R11
+      174 CAPTURE                          VAL R10
+      175 SETTABLEKS                       R20 R19 K27 ["onAccept"]
+      177 NEWCLOSURE                       R20 P10
+      178 CAPTURE                          VAL R11
+      179 CAPTURE                          VAL R10
+      180 SETTABLEKS                       R20 R19 K28 ["onReject"]
+      182 CALL                             R17 2 1
+      183 SETTABLEKS                       R17 R16 K19 ["PublishDialog"]
+      185 GETTABLEKS                       R17 R0 K37 ["children"]
+      187 CALL                             R13 4 -1
+      188 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -127,39 +127,23 @@ MAIN:
        77 GETTABLEKS                       R10 R10 K20 ["Plugin"]
        79 GETTABLEKS                       R11 R2 K21 ["useContext"]
        81 GETTABLEKS                       R12 R2 K22 ["useMemo"]
-       83 DUPTABLE                         R13 K27 [{"Id", "Type", "Enabled", "Action"}]
-       84 LOADK                            R14 K28 ["AddTools"]
-       85 SETTABLEKS                       R14 R13 K23 ["Id"]
-       87 LOADK                            R14 K29 ["IconButton"]
-       88 SETTABLEKS                       R14 R13 K24 ["Type"]
-       90 LOADB                            R14 1
-       91 SETTABLEKS                       R14 R13 K25 ["Enabled"]
-       93 GETTABLEKS                       R14 R5 K30 ["wrap"]
-       95 DUPTABLE                         R15 K36 [{"Category", "DataModel", "ItemId", "PluginId", "PluginType"}]
-       96 LOADK                            R16 K37 ["Actions"]
-       97 SETTABLEKS                       R16 R15 K31 ["Category"]
-       99 LOADK                            R16 K38 ["Standalone"]
-      100 SETTABLEKS                       R16 R15 K32 ["DataModel"]
-      102 LOADK                            R16 K28 ["AddTools"]
-      103 SETTABLEKS                       R16 R15 K33 ["ItemId"]
-      105 LOADK                            R16 K2 ["Ribbon"]
-      106 SETTABLEKS                       R16 R15 K34 ["PluginId"]
-      108 LOADK                            R16 K38 ["Standalone"]
-      109 SETTABLEKS                       R16 R15 K35 ["PluginType"]
-      111 CALL                             R14 1 1
-      112 SETTABLEKS                       R14 R13 K26 ["Action"]
-      114 MOVE                             R14 R7
-      115 NEWTABLE                         R15 0 1
-      117 MOVE                             R16 R13
-      118 SETLIST                          R15 R16 1 [1]
-      120 CALL                             R14 1 1
-      121 DUPCLOSURE                       R15 K39 [PROTO_1]
-      122 CAPTURE                          VAL R10
-      123 CAPTURE                          VAL R11
-      124 CAPTURE                          VAL R3
-      125 CAPTURE                          VAL R12
-      126 CAPTURE                          VAL R9
-      127 CAPTURE                          VAL R8
-      128 CAPTURE                          VAL R5
-      129 CAPTURE                          VAL R14
-      130 RETURN                           R15 1
+       83 DUPTABLE                         R13 K30 [{["Id"] = "AddTools", ["Type"] = "IconButton", ["Enabled"] = True, ["Action"]}]
+       84 GETTABLEKS                       R14 R5 K31 ["wrap"]
+       86 DUPTABLE                         R15 K39 [{["Category"] = "Actions", ["DataModel"] = "Standalone", ["ItemId"] = "AddTools", ["PluginId"] = "Ribbon", ["PluginType"] = "Standalone"}]
+       87 CALL                             R14 1 1
+       88 SETTABLEKS                       R14 R13 K29 ["Action"]
+       90 MOVE                             R14 R7
+       91 NEWTABLE                         R15 0 1
+       93 MOVE                             R16 R13
+       94 SETLIST                          R15 R16 1 [1]
+       96 CALL                             R14 1 1
+       97 DUPCLOSURE                       R15 K40 [PROTO_1]
+       98 CAPTURE                          VAL R10
+       99 CAPTURE                          VAL R11
+      100 CAPTURE                          VAL R3
+      101 CAPTURE                          VAL R12
+      102 CAPTURE                          VAL R9
+      103 CAPTURE                          VAL R8
+      104 CAPTURE                          VAL R5
+      105 CAPTURE                          VAL R14
+      106 RETURN                           R15 1

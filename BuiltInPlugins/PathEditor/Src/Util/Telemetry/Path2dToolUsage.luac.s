@@ -10,23 +10,17 @@ MAIN:
        13 LOADN                            R4 0
        14 NAMECALL                         R1 R1 K9 ["DefineFastInt"]
        16 CALL                             R1 3 1
-       17 DUPTABLE                         R2 K16 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-       18 LOADK                            R3 K17 ["Path2DToolUsage"]
-       19 SETTABLEKS                       R3 R2 K10 ["eventName"]
-       21 NEWTABLE                         R3 0 1
-       23 GETTABLEKS                       R4 R0 K18 ["TelemetryBackends"]
-       25 GETTABLEKS                       R4 R4 K19 ["EventIngest"]
-       27 SETLIST                          R3 R4 1 [1]
-       29 SETTABLEKS                       R3 R2 K11 ["backends"]
-       31 SETTABLEKS                       R1 R2 K12 ["throttlingPercentage"]
-       33 NEWTABLE                         R3 0 3
-       35 LOADN                            R4 24
-       36 LOADN                            R5 3
-       37 LOADN                            R6 15
-       38 SETLIST                          R3 R4 3 [1]
-       40 SETTABLEKS                       R3 R2 K13 ["lastUpdated"]
-       42 LOADK                            R3 K20 ["Reports aggregate counts of our main interactions with the PathEditor tool"]
-       43 SETTABLEKS                       R3 R2 K14 ["description"]
-       45 LOADK                            R3 K21 ["https://roblox.atlassian.net/wiki/x/jwG0gw"]
-       46 SETTABLEKS                       R3 R2 K15 ["links"]
-       48 RETURN                           R2 1
+       17 DUPTABLE                         R2 K19 [{["eventName"] = "Path2DToolUsage", ["backends"], ["throttlingPercentage"], ["lastUpdated"], ["description"] = "Reports aggregate counts of our main interactions with the PathEditor tool", ["links"] = "https://roblox.atlassian.net/wiki/x/jwG0gw"}]
+       18 NEWTABLE                         R3 0 1
+       20 GETTABLEKS                       R4 R0 K20 ["TelemetryBackends"]
+       22 GETTABLEKS                       R4 R4 K21 ["EventIngest"]
+       24 SETLIST                          R3 R4 1 [1]
+       26 SETTABLEKS                       R3 R2 K12 ["backends"]
+       28 SETTABLEKS                       R1 R2 K13 ["throttlingPercentage"]
+       30 NEWTABLE                         R3 0 3
+       32 LOADN                            R4 24
+       33 LOADN                            R5 3
+       34 LOADN                            R6 15
+       35 SETLIST                          R3 R4 3 [1]
+       37 SETTABLEKS                       R3 R2 K14 ["lastUpdated"]
+       39 RETURN                           R2 1

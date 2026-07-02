@@ -14,101 +14,91 @@ PROTO_0:
        18 MOVE                             R4 R2
        19 CALL                             R3 1 1
        20 GETTABLEKS                       R4 R3 K5 ["ok"]
-       22 JUMPIFNOT                        R4 ; [+23]
+       22 JUMPIFNOT                        R4 ; [+20]
        23 GETTABLEKS                       R4 R3 K6 ["Overall"]
        25 GETTABLEKS                       R4 R4 K5 ["ok"]
-       27 JUMPIFNOT                        R4 ; [+18]
-       28 DUPTABLE                         R4 K10 [{"scale", "proportions", "errors"}]
+       27 JUMPIFNOT                        R4 ; [+15]
+       28 DUPTABLE                         R4 K11 [{["scale"], ["proportions"], ["errors"] = }]
        29 GETTABLEKS                       R6 R3 K6 ["Overall"]
        31 GETTABLEKS                       R6 R6 K7 ["scale"]
-       33 DIVRK                            R5 R11 K6 ["Overall"]
+       33 DIVRK                            R5 K12 [1] R6
        34 SETTABLEKS                       R5 R4 K7 ["scale"]
        36 GETTABLEKS                       R5 R3 K6 ["Overall"]
-       38 GETTABLEKS                       R5 R5 K12 ["scaleType"]
+       38 GETTABLEKS                       R5 R5 K13 ["scaleType"]
        40 SETTABLEKS                       R5 R4 K8 ["proportions"]
-       42 LOADNIL                          R5
-       43 SETTABLEKS                       R5 R4 K9 ["errors"]
-       45 RETURN                           R4 1
-       46 GETUPVAL                         R4 0
-       47 GETTABLEKS                       R4 R4 K13 ["getBodyTypeSizeSpecification"]
-       49 LOADK                            R5 K14 ["ProportionsNormal"]
-       50 MOVE                             R6 R1
-       51 CALL                             R4 2 1
-       52 GETUPVAL                         R5 0
-       53 GETTABLEKS                       R5 R5 K15 ["guessAvatarSizeBounds"]
-       55 MOVE                             R6 R4
-       56 CALL                             R5 1 1
-       57 NAMECALL                         R6 R1 K16 ["GetBoundingBox"]
-       59 CALL                             R6 1 2
-       60 GETUPVAL                         R8 0
-       61 GETTABLEKS                       R8 R8 K17 ["coversMin"]
-       63 MOVE                             R9 R7
-       64 GETTABLEKS                       R10 R5 K18 ["minSize"]
-       66 CALL                             R8 2 1
-       67 GETUPVAL                         R9 0
-       68 GETTABLEKS                       R9 R9 K19 ["containsMax"]
-       70 MOVE                             R10 R7
-       71 GETTABLEKS                       R11 R5 K20 ["maxSize"]
-       73 CALL                             R9 2 1
-       74 JUMPIFNOT                        R8 ; [+24]
-       75 JUMPIFNOT                        R9 ; [+23]
-       76 DUPTABLE                         R10 K10 [{"scale", "proportions", "errors"}]
-       77 LOADN                            R11 1
-       78 SETTABLEKS                       R11 R10 K7 ["scale"]
-       80 LOADK                            R11 K14 ["ProportionsNormal"]
-       81 SETTABLEKS                       R11 R10 K8 ["proportions"]
-       83 GETUPVAL                         R11 1
-       84 GETTABLEKS                       R11 R11 K21 ["append"]
-       86 NEWTABLE                         R12 0 1
-       88 GETUPVAL                         R13 2
-       89 GETTABLEKS                       R13 R13 K22 ["ERROR_NO_VALID_SCALE_ERROR"]
-       91 SETLIST                          R12 R13 1 [1]
-       93 GETTABLEKS                       R13 R3 K9 ["errors"]
-       95 CALL                             R11 2 1
-       96 SETTABLEKS                       R11 R10 K9 ["errors"]
-       98 RETURN                           R10 1
-       99 GETUPVAL                         R11 0
-      100 GETTABLEKS                       R11 R11 K24 ["getScaleFactorToContain"]
-      102 MOVE                             R12 R7
-      103 GETTABLEKS                       R13 R5 K20 ["maxSize"]
-      105 CALL                             R11 2 1
-      106 ADDK                             R10 R11 K23 [0.001]
-      107 GETUPVAL                         R12 0
-      108 GETTABLEKS                       R12 R12 K25 ["getScaleFactorToCover"]
-      110 MOVE                             R13 R7
-      111 GETTABLEKS                       R14 R5 K18 ["minSize"]
-      113 CALL                             R12 2 1
-      114 SUBK                             R11 R12 K23 [0.001]
-      115 JUMPIFNOTLT                      R11 R10 ; [+20]
-      117 DUPTABLE                         R12 K10 [{"scale", "proportions", "errors"}]
-      118 ADD                              R14 R11 R10
-      119 DIVK                             R13 R14 K26 [2]
-      120 SETTABLEKS                       R13 R12 K7 ["scale"]
-      122 LOADK                            R13 K14 ["ProportionsNormal"]
-      123 SETTABLEKS                       R13 R12 K8 ["proportions"]
-      125 NEWTABLE                         R13 0 1
-      127 LOADK                            R14 K27 ["There is no scale in which the model fits within the min and max bounding boxes."]
-      128 SETLIST                          R13 R14 1 [1]
-      130 JUMPIF                           R13 ; [+2]
-      131 GETTABLEKS                       R13 R3 K9 ["errors"]
-      133 SETTABLEKS                       R13 R12 K9 ["errors"]
-      135 RETURN                           R12 1
-      136 DUPTABLE                         R12 K10 [{"scale", "proportions", "errors"}]
-      137 ADD                              R14 R11 R10
-      138 DIVK                             R13 R14 K26 [2]
-      139 SETTABLEKS                       R13 R12 K7 ["scale"]
-      141 LOADK                            R13 K14 ["ProportionsNormal"]
-      142 SETTABLEKS                       R13 R12 K8 ["proportions"]
-      144 GETUPVAL                         R13 1
-      145 GETTABLEKS                       R13 R13 K21 ["append"]
-      147 NEWTABLE                         R14 0 1
-      149 GETUPVAL                         R15 2
-      150 GETTABLEKS                       R15 R15 K22 ["ERROR_NO_VALID_SCALE_ERROR"]
-      152 SETLIST                          R14 R15 1 [1]
-      154 GETTABLEKS                       R15 R3 K9 ["errors"]
-      156 CALL                             R13 2 1
-      157 SETTABLEKS                       R13 R12 K9 ["errors"]
-      159 RETURN                           R12 1
+       42 RETURN                           R4 1
+       43 GETUPVAL                         R4 0
+       44 GETTABLEKS                       R4 R4 K14 ["getBodyTypeSizeSpecification"]
+       46 LOADK                            R5 K15 ["ProportionsNormal"]
+       47 MOVE                             R6 R1
+       48 CALL                             R4 2 1
+       49 GETUPVAL                         R5 0
+       50 GETTABLEKS                       R5 R5 K16 ["guessAvatarSizeBounds"]
+       52 MOVE                             R6 R4
+       53 CALL                             R5 1 1
+       54 NAMECALL                         R6 R1 K17 ["GetBoundingBox"]
+       56 CALL                             R6 1 2
+       57 GETUPVAL                         R8 0
+       58 GETTABLEKS                       R8 R8 K18 ["coversMin"]
+       60 MOVE                             R9 R7
+       61 GETTABLEKS                       R10 R5 K19 ["minSize"]
+       63 CALL                             R8 2 1
+       64 GETUPVAL                         R9 0
+       65 GETTABLEKS                       R9 R9 K20 ["containsMax"]
+       67 MOVE                             R10 R7
+       68 GETTABLEKS                       R11 R5 K21 ["maxSize"]
+       70 CALL                             R9 2 1
+       71 JUMPIFNOT                        R8 ; [+18]
+       72 JUMPIFNOT                        R9 ; [+17]
+       73 DUPTABLE                         R10 K22 [{["scale"] = 1, ["proportions"] = "ProportionsNormal", ["errors"]}]
+       74 GETUPVAL                         R11 1
+       75 GETTABLEKS                       R11 R11 K23 ["append"]
+       77 NEWTABLE                         R12 0 1
+       79 GETUPVAL                         R13 2
+       80 GETTABLEKS                       R13 R13 K24 ["ERROR_NO_VALID_SCALE_ERROR"]
+       82 SETLIST                          R12 R13 1 [1]
+       84 GETTABLEKS                       R13 R3 K9 ["errors"]
+       86 CALL                             R11 2 1
+       87 SETTABLEKS                       R11 R10 K9 ["errors"]
+       89 RETURN                           R10 1
+       90 GETUPVAL                         R11 0
+       91 GETTABLEKS                       R11 R11 K26 ["getScaleFactorToContain"]
+       93 MOVE                             R12 R7
+       94 GETTABLEKS                       R13 R5 K21 ["maxSize"]
+       96 CALL                             R11 2 1
+       97 ADDK                             R10 R11 K25 [0.001]
+       98 GETUPVAL                         R12 0
+       99 GETTABLEKS                       R12 R12 K27 ["getScaleFactorToCover"]
+      101 MOVE                             R13 R7
+      102 GETTABLEKS                       R14 R5 K19 ["minSize"]
+      104 CALL                             R12 2 1
+      105 SUBK                             R11 R12 K25 [0.001]
+      106 JUMPIFNOTLT                      R11 R10 ; [+17]
+      108 DUPTABLE                         R12 K28 [{["scale"], ["proportions"] = "ProportionsNormal", ["errors"]}]
+      109 ADD                              R14 R11 R10
+      110 DIVK                             R13 R14 K29 [2]
+      111 SETTABLEKS                       R13 R12 K7 ["scale"]
+      113 NEWTABLE                         R13 0 1
+      115 LOADK                            R14 K30 ["There is no scale in which the model fits within the min and max bounding boxes."]
+      116 SETLIST                          R13 R14 1 [1]
+      118 JUMPIF                           R13 ; [+2]
+      119 GETTABLEKS                       R13 R3 K9 ["errors"]
+      121 SETTABLEKS                       R13 R12 K9 ["errors"]
+      123 RETURN                           R12 1
+      124 DUPTABLE                         R12 K28 [{["scale"], ["proportions"] = "ProportionsNormal", ["errors"]}]
+      125 ADD                              R14 R11 R10
+      126 DIVK                             R13 R14 K29 [2]
+      127 SETTABLEKS                       R13 R12 K7 ["scale"]
+      129 GETUPVAL                         R13 1
+      130 GETTABLEKS                       R13 R13 K23 ["append"]
+      132 NEWTABLE                         R14 0 1
+      134 GETUPVAL                         R15 2
+      135 GETTABLEKS                       R15 R15 K24 ["ERROR_NO_VALID_SCALE_ERROR"]
+      137 SETLIST                          R14 R15 1 [1]
+      139 GETTABLEKS                       R15 R3 K9 ["errors"]
+      141 CALL                             R13 2 1
+      142 SETTABLEKS                       R13 R12 K9 ["errors"]
+      144 RETURN                           R12 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["scale"]
@@ -658,7 +648,7 @@ PROTO_11:
         1 GETTABLEKS                       R3 R3 K1 ["Y"]
         3 DIVK                             R2 R3 K0 [2]
         4 LOADN                            R3 1
-        5 LOADN                            R4 0
+        5 LOADN                            R4 512
         6 FASTCALL                         MATH_CLAMP ; [+2]
         7 GETIMPORT                        R1 K4 [math.clamp]
         9 CALL                             R1 3 1
@@ -2259,33 +2249,25 @@ PROTO_37:
       107 RETURN                           R0 0
 
 PROTO_38:
-        0 DUPTABLE                         R1 K4 [{"Body", "Layered", "Rigid", "Unselected"}]
-        1 LOADN                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["Body"]
-        4 LOADN                            R2 0
-        5 SETTABLEKS                       R2 R1 K1 ["Layered"]
-        7 LOADN                            R2 0
-        8 SETTABLEKS                       R2 R1 K2 ["Rigid"]
-       10 LOADN                            R2 0
-       11 SETTABLEKS                       R2 R1 K3 ["Unselected"]
-       13 NAMECALL                         R2 R0 K5 ["GetChildren"]
-       15 CALL                             R2 1 3
-       16 FORGPREP                         R2
-       17 GETUPVAL                         R7 0
-       18 GETTABLEKS                       R7 R7 K6 ["getAssetClassificationFromName"]
-       20 GETTABLEKS                       R8 R6 K7 ["Name"]
-       22 CALL                             R7 1 1
-       23 GETTABLE                         R8 R1 R7
-       24 JUMPIFEQKNIL                     R8 ; [+5]
-       26 GETTABLE                         R8 R1 R7
-       27 ADDK                             R8 R8 K8 [1]
-       28 SETTABLE                         R8 R1 R7
-       29 JUMP                             ; [+5]
-       30 GETTABLEKS                       R8 R1 K3 ["Unselected"]
-       32 ADDK                             R8 R8 K8 [1]
-       33 SETTABLEKS                       R8 R1 K3 ["Unselected"]
-       35 FORGLOOP                         R2 2 ; [-19]
-       37 RETURN                           R1 1
+        0 DUPTABLE                         R1 K5 [{[1] = 0, ["Layered"] = 0, ["Rigid"] = 0, ["Unselected"] = 0}]
+        1 NAMECALL                         R2 R0 K6 ["GetChildren"]
+        3 CALL                             R2 1 3
+        4 FORGPREP                         R2
+        5 GETUPVAL                         R7 0
+        6 GETTABLEKS                       R7 R7 K7 ["getAssetClassificationFromName"]
+        8 GETTABLEKS                       R8 R6 K8 ["Name"]
+       10 CALL                             R7 1 1
+       11 GETTABLE                         R8 R1 R7
+       12 JUMPIFEQKNIL                     R8 ; [+5]
+       14 GETTABLE                         R8 R1 R7
+       15 ADDK                             R8 R8 K9 [1]
+       16 SETTABLE                         R8 R1 R7
+       17 JUMP                             ; [+5]
+       18 GETTABLEKS                       R8 R1 K4 ["Unselected"]
+       20 ADDK                             R8 R8 K9 [1]
+       21 SETTABLEKS                       R8 R1 K4 ["Unselected"]
+       23 FORGLOOP                         R2 2 ; [-19]
+       25 RETURN                           R1 1
 
 PROTO_39:
         0 GETIMPORT                        R1 K2 [Color3.new]
@@ -2520,7 +2502,7 @@ PROTO_46:
         5 JUMPIFNOTEQKNIL                  R1 ; [+3]
         7 LOADK                            R2 K4 [""]
         8 RETURN                           R2 1
-        9 LOADN                            R5 251
+        9 LOADN                            R5 -5
        10 FASTCALL3                        STRING_SUB R0 R1 R5
        12 MOVE                             R3 R0
        13 MOVE                             R4 R1
@@ -2606,7 +2588,7 @@ PROTO_48:
        85 JUMPIFNOTEQKNIL                  R16 ; [+3]
        87 LOADK                            R14 K24 [""]
        88 JUMP                             ; [+11]
-       89 LOADN                            R20 251
+       89 LOADN                            R20 -5
        90 FASTCALL3                        STRING_SUB R15 R16 R20
        92 MOVE                             R18 R15
        93 MOVE                             R19 R16

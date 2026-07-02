@@ -1,33 +1,31 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["visualizationModeToggled"]
-        2 DUPTABLE                         R3 K5 [{"actionSource", "visualizationModeCategory", "visualizationMode", "isEnabled"}]
-        3 LOADK                            R4 K6 ["recent_section"]
-        4 SETTABLEKS                       R4 R3 K1 ["actionSource"]
-        6 GETUPVAL                         R4 1
-        7 GETTABLEKS                       R4 R4 K7 ["visualizationModeCategoryName"]
-        9 SETTABLEKS                       R4 R3 K2 ["visualizationModeCategory"]
-       11 GETUPVAL                         R4 1
-       12 GETTABLEKS                       R4 R4 K8 ["name"]
-       14 SETTABLEKS                       R4 R3 K3 ["visualizationMode"]
-       16 GETUPVAL                         R5 1
-       17 GETTABLEKS                       R5 R5 K9 ["enabled"]
-       19 NOT                              R4 R5
-       20 SETTABLEKS                       R4 R3 K4 ["isEnabled"]
-       22 NAMECALL                         R0 R0 K10 ["report"]
-       24 CALL                             R0 3 0
-       25 GETUPVAL                         R0 2
-       26 GETTABLEKS                       R0 R0 K11 ["OnVisualizationModeToggle"]
-       28 GETUPVAL                         R1 1
-       29 GETTABLEKS                       R1 R1 K7 ["visualizationModeCategoryName"]
-       31 GETUPVAL                         R2 1
-       32 GETTABLEKS                       R2 R2 K8 ["name"]
-       34 GETUPVAL                         R4 1
-       35 GETTABLEKS                       R4 R4 K9 ["enabled"]
-       37 NOT                              R3 R4
-       38 LOADB                            R4 0
-       39 CALL                             R0 4 0
-       40 RETURN                           R0 0
+        2 DUPTABLE                         R3 K6 [{["actionSource"] = "recent_section", ["visualizationModeCategory"], ["visualizationMode"], ["isEnabled"]}]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R4 R4 K7 ["visualizationModeCategoryName"]
+        6 SETTABLEKS                       R4 R3 K3 ["visualizationModeCategory"]
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R4 R4 K8 ["name"]
+       11 SETTABLEKS                       R4 R3 K4 ["visualizationMode"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R5 R5 K9 ["enabled"]
+       16 NOT                              R4 R5
+       17 SETTABLEKS                       R4 R3 K5 ["isEnabled"]
+       19 NAMECALL                         R0 R0 K10 ["report"]
+       21 CALL                             R0 3 0
+       22 GETUPVAL                         R0 2
+       23 GETTABLEKS                       R0 R0 K11 ["OnVisualizationModeToggle"]
+       25 GETUPVAL                         R1 1
+       26 GETTABLEKS                       R1 R1 K7 ["visualizationModeCategoryName"]
+       28 GETUPVAL                         R2 1
+       29 GETTABLEKS                       R2 R2 K8 ["name"]
+       31 GETUPVAL                         R4 1
+       32 GETTABLEKS                       R4 R4 K9 ["enabled"]
+       34 NOT                              R3 R4
+       35 LOADB                            R4 0
+       36 CALL                             R0 4 0
+       37 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -53,56 +51,42 @@ PROTO_1:
        28 GETUPVAL                         R12 1
        29 GETTABLEKS                       R12 R12 K7 ["createElement"]
        31 GETUPVAL                         R13 2
-       32 DUPTABLE                         R14 K15 [{"Text", "Enabled", "ToolTip", "LayoutOrder", "MatchIndexes", "IsEditingEnabled", "OnToggle"}]
-       33 GETTABLEKS                       R15 R10 K16 ["title"]
+       32 DUPTABLE                         R14 K17 [{["Text"], ["Enabled"], ["ToolTip"], ["LayoutOrder"], ["MatchIndexes"] = , ["IsEditingEnabled"] = True, ["OnToggle"]}]
+       33 GETTABLEKS                       R15 R10 K18 ["title"]
        35 SETTABLEKS                       R15 R14 K8 ["Text"]
        37 GETTABLEKS                       R15 R10 K5 ["enabled"]
        39 SETTABLEKS                       R15 R14 K9 ["Enabled"]
-       41 GETTABLEKS                       R15 R10 K17 ["toolTip"]
+       41 GETTABLEKS                       R15 R10 K19 ["toolTip"]
        43 SETTABLEKS                       R15 R14 K10 ["ToolTip"]
        45 SETTABLEKS                       R9 R14 K11 ["LayoutOrder"]
-       47 LOADNIL                          R15
-       48 SETTABLEKS                       R15 R14 K12 ["MatchIndexes"]
-       50 LOADB                            R15 1
-       51 SETTABLEKS                       R15 R14 K13 ["IsEditingEnabled"]
-       53 NEWCLOSURE                       R15 P0
-       54 CAPTURE                          VAL R1
-       55 CAPTURE                          VAL R10
-       56 CAPTURE                          VAL R0
-       57 SETTABLEKS                       R15 R14 K14 ["OnToggle"]
-       59 CALL                             R12 2 1
-       60 SETTABLE                         R12 R3 R11
-       61 FORGLOOP                         R6 2 ; [-41]
-       63 GETUPVAL                         R6 1
-       64 GETTABLEKS                       R6 R6 K7 ["createElement"]
-       66 GETUPVAL                         R7 3
-       67 DUPTABLE                         R8 K26 [{"Text", "SettingKey", "DefaultIsExpanded", "CanToggle", "EnabledEntryCount", "Enabled", "Visible", "LayoutOrder", "EntryCount", "SectionEntries", "ForceExpansion", "IsEditingEnabled"}]
-       68 LOADK                            R11 K27 ["VisualizationModeCategories"]
-       69 LOADK                            R12 K28 ["Recent"]
-       70 NAMECALL                         R9 R2 K29 ["getText"]
-       72 CALL                             R9 3 1
-       73 SETTABLEKS                       R9 R8 K8 ["Text"]
-       75 LOADK                            R9 K30 ["RecentCategories"]
-       76 SETTABLEKS                       R9 R8 K18 ["SettingKey"]
-       78 LOADB                            R9 0
-       79 SETTABLEKS                       R9 R8 K19 ["DefaultIsExpanded"]
-       81 LOADB                            R9 0
-       82 SETTABLEKS                       R9 R8 K20 ["CanToggle"]
-       84 SETTABLEKS                       R5 R8 K21 ["EnabledEntryCount"]
-       86 LOADB                            R9 1
-       87 SETTABLEKS                       R9 R8 K9 ["Enabled"]
-       89 GETTABLEKS                       R9 R0 K22 ["Visible"]
-       91 SETTABLEKS                       R9 R8 K22 ["Visible"]
-       93 GETTABLEKS                       R9 R0 K11 ["LayoutOrder"]
-       95 SETTABLEKS                       R9 R8 K11 ["LayoutOrder"]
-       97 SETTABLEKS                       R4 R8 K23 ["EntryCount"]
-       99 SETTABLEKS                       R3 R8 K24 ["SectionEntries"]
-      101 LOADB                            R9 0
-      102 SETTABLEKS                       R9 R8 K25 ["ForceExpansion"]
-      104 GETTABLEKS                       R9 R0 K13 ["IsEditingEnabled"]
-      106 SETTABLEKS                       R9 R8 K13 ["IsEditingEnabled"]
-      108 CALL                             R6 2 -1
-      109 RETURN                           R6 -1
+       47 NEWCLOSURE                       R15 P0
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R10
+       50 CAPTURE                          VAL R0
+       51 SETTABLEKS                       R15 R14 K16 ["OnToggle"]
+       53 CALL                             R12 2 1
+       54 SETTABLE                         R12 R3 R11
+       55 FORGLOOP                         R6 2 ; [-35]
+       57 GETUPVAL                         R6 1
+       58 GETTABLEKS                       R6 R6 K7 ["createElement"]
+       60 GETUPVAL                         R7 3
+       61 DUPTABLE                         R8 K30 [{["Text"], ["SettingKey"] = "RecentCategories", ["DefaultIsExpanded"] = False, ["CanToggle"] = False, ["EnabledEntryCount"], ["Enabled"] = True, ["Visible"], ["LayoutOrder"], ["EntryCount"], ["SectionEntries"], ["ForceExpansion"] = False, ["IsEditingEnabled"]}]
+       62 LOADK                            R11 K31 ["VisualizationModeCategories"]
+       63 LOADK                            R12 K32 ["Recent"]
+       64 NAMECALL                         R9 R2 K33 ["getText"]
+       66 CALL                             R9 3 1
+       67 SETTABLEKS                       R9 R8 K8 ["Text"]
+       69 SETTABLEKS                       R5 R8 K25 ["EnabledEntryCount"]
+       71 GETTABLEKS                       R9 R0 K26 ["Visible"]
+       73 SETTABLEKS                       R9 R8 K26 ["Visible"]
+       75 GETTABLEKS                       R9 R0 K11 ["LayoutOrder"]
+       77 SETTABLEKS                       R9 R8 K11 ["LayoutOrder"]
+       79 SETTABLEKS                       R4 R8 K27 ["EntryCount"]
+       81 SETTABLEKS                       R3 R8 K28 ["SectionEntries"]
+       83 GETTABLEKS                       R9 R0 K14 ["IsEditingEnabled"]
+       85 SETTABLEKS                       R9 R8 K14 ["IsEditingEnabled"]
+       87 CALL                             R6 2 -1
+       88 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

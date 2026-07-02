@@ -96,110 +96,108 @@ PROTO_1:
        91 GETUPVAL                         R5 4
        92 GETTABLEKS                       R5 R5 K18 ["createElement"]
        94 GETUPVAL                         R6 5
-       95 DUPTABLE                         R7 K26 [{"Enabled", "Modal", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
+       95 DUPTABLE                         R7 K27 [{["Enabled"], ["Modal"] = False, ["Title"], ["MinContentSize"], ["Buttons"], ["OnButtonPressed"], ["OnClose"]}]
        96 GETTABLEKS                       R8 R0 K19 ["Enabled"]
        98 SETTABLEKS                       R8 R7 K19 ["Enabled"]
-      100 LOADB                            R8 0
-      101 SETTABLEKS                       R8 R7 K20 ["Modal"]
-      103 GETTABLEKS                       R8 R0 K21 ["Title"]
-      105 SETTABLEKS                       R8 R7 K21 ["Title"]
-      107 GETTABLEKS                       R8 R1 K22 ["MinContentSize"]
-      109 SETTABLEKS                       R8 R7 K22 ["MinContentSize"]
-      111 SETTABLEKS                       R4 R7 K23 ["Buttons"]
-      113 NEWCLOSURE                       R8 P0
-      114 CAPTURE                          UPVAL U3
-      115 CAPTURE                          VAL R0
-      116 SETTABLEKS                       R8 R7 K24 ["OnButtonPressed"]
-      118 GETTABLEKS                       R8 R0 K25 ["OnClose"]
-      120 SETTABLEKS                       R8 R7 K25 ["OnClose"]
-      122 DUPTABLE                         R8 K28 [{"Contents"}]
-      123 GETUPVAL                         R9 4
-      124 GETTABLEKS                       R9 R9 K18 ["createElement"]
-      126 GETUPVAL                         R10 6
-      127 DUPTABLE                         R11 K33 [{"Layout", "Padding", "Size", "Spacing"}]
-      128 GETIMPORT                        R12 K37 [Enum.FillDirection.Vertical]
-      130 SETTABLEKS                       R12 R11 K29 ["Layout"]
-      132 GETTABLEKS                       R12 R1 K30 ["Padding"]
-      134 SETTABLEKS                       R12 R11 K30 ["Padding"]
-      136 GETIMPORT                        R12 K40 [UDim2.fromScale]
-      138 LOADN                            R13 1
-      139 LOADN                            R14 1
-      140 CALL                             R12 2 1
-      141 SETTABLEKS                       R12 R11 K31 ["Size"]
-      143 GETTABLEKS                       R12 R1 K32 ["Spacing"]
-      145 SETTABLEKS                       R12 R11 K32 ["Spacing"]
-      147 DUPTABLE                         R12 K44 [{"Description", "Progress", "Time"}]
-      148 GETUPVAL                         R13 4
-      149 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      151 GETUPVAL                         R14 7
-      152 DUPTABLE                         R15 K46 [{"LayoutOrder", "Size", "Text"}]
-      153 NAMECALL                         R16 R3 K47 ["getNextOrder"]
-      155 CALL                             R16 1 1
-      156 SETTABLEKS                       R16 R15 K45 ["LayoutOrder"]
-      158 GETIMPORT                        R16 K48 [UDim2.new]
-      160 LOADN                            R17 1
-      161 LOADN                            R18 0
-      162 LOADN                            R19 0
-      163 GETTABLEKS                       R20 R1 K49 ["DescriptionHeight"]
-      165 CALL                             R16 4 1
-      166 SETTABLEKS                       R16 R15 K31 ["Size"]
-      168 GETTABLEKS                       R16 R0 K41 ["Description"]
-      170 SETTABLEKS                       R16 R15 K7 ["Text"]
-      172 CALL                             R13 2 1
-      173 SETTABLEKS                       R13 R12 K41 ["Description"]
-      175 GETUPVAL                         R13 4
-      176 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      178 GETUPVAL                         R14 8
-      179 DUPTABLE                         R15 K50 [{"LayoutOrder", "Progress", "Size"}]
-      180 NAMECALL                         R16 R3 K47 ["getNextOrder"]
-      182 CALL                             R16 1 1
-      183 SETTABLEKS                       R16 R15 K45 ["LayoutOrder"]
-      185 GETTABLEKS                       R16 R0 K42 ["Progress"]
-      187 SETTABLEKS                       R16 R15 K42 ["Progress"]
-      189 GETIMPORT                        R16 K48 [UDim2.new]
-      191 LOADN                            R17 1
-      192 LOADN                            R18 0
-      193 LOADN                            R19 0
-      194 GETTABLEKS                       R20 R1 K51 ["ProgressHeight"]
-      196 CALL                             R16 4 1
-      197 SETTABLEKS                       R16 R15 K31 ["Size"]
-      199 CALL                             R13 2 1
-      200 SETTABLEKS                       R13 R12 K42 ["Progress"]
-      202 GETTABLEKS                       R14 R0 K52 ["TimeRemaining"]
-      204 JUMPIFNOT                        R14 ; [+37]
-      205 GETUPVAL                         R13 4
-      206 GETTABLEKS                       R13 R13 K18 ["createElement"]
-      208 GETUPVAL                         R14 7
-      209 DUPTABLE                         R15 K46 [{"LayoutOrder", "Size", "Text"}]
-      210 NAMECALL                         R16 R3 K47 ["getNextOrder"]
-      212 CALL                             R16 1 1
-      213 SETTABLEKS                       R16 R15 K45 ["LayoutOrder"]
-      215 GETIMPORT                        R16 K48 [UDim2.new]
-      217 LOADN                            R17 1
-      218 LOADN                            R18 0
-      219 LOADN                            R19 0
-      220 GETTABLEKS                       R20 R1 K49 ["DescriptionHeight"]
-      222 CALL                             R16 4 1
-      223 SETTABLEKS                       R16 R15 K31 ["Size"]
-      225 LOADK                            R18 K10 ["Dialog"]
-      226 LOADK                            R19 K52 ["TimeRemaining"]
-      227 DUPTABLE                         R20 K53 [{"Time"}]
-      228 GETUPVAL                         R21 9
-      229 GETTABLEKS                       R22 R0 K52 ["TimeRemaining"]
-      231 MOVE                             R23 R2
-      232 CALL                             R21 2 1
-      233 SETTABLEKS                       R21 R20 K43 ["Time"]
-      235 NAMECALL                         R16 R2 K11 ["getText"]
-      237 CALL                             R16 4 1
-      238 SETTABLEKS                       R16 R15 K7 ["Text"]
-      240 CALL                             R13 2 1
-      241 JUMP                             ; [+1]
-      242 LOADNIL                          R13
-      243 SETTABLEKS                       R13 R12 K43 ["Time"]
-      245 CALL                             R9 3 1
-      246 SETTABLEKS                       R9 R8 K27 ["Contents"]
-      248 CALL                             R5 3 -1
-      249 RETURN                           R5 -1
+      100 GETTABLEKS                       R8 R0 K22 ["Title"]
+      102 SETTABLEKS                       R8 R7 K22 ["Title"]
+      104 GETTABLEKS                       R8 R1 K23 ["MinContentSize"]
+      106 SETTABLEKS                       R8 R7 K23 ["MinContentSize"]
+      108 SETTABLEKS                       R4 R7 K24 ["Buttons"]
+      110 NEWCLOSURE                       R8 P0
+      111 CAPTURE                          UPVAL U3
+      112 CAPTURE                          VAL R0
+      113 SETTABLEKS                       R8 R7 K25 ["OnButtonPressed"]
+      115 GETTABLEKS                       R8 R0 K26 ["OnClose"]
+      117 SETTABLEKS                       R8 R7 K26 ["OnClose"]
+      119 DUPTABLE                         R8 K29 [{"Contents"}]
+      120 GETUPVAL                         R9 4
+      121 GETTABLEKS                       R9 R9 K18 ["createElement"]
+      123 GETUPVAL                         R10 6
+      124 DUPTABLE                         R11 K34 [{"Layout", "Padding", "Size", "Spacing"}]
+      125 GETIMPORT                        R12 K38 [Enum.FillDirection.Vertical]
+      127 SETTABLEKS                       R12 R11 K30 ["Layout"]
+      129 GETTABLEKS                       R12 R1 K31 ["Padding"]
+      131 SETTABLEKS                       R12 R11 K31 ["Padding"]
+      133 GETIMPORT                        R12 K41 [UDim2.fromScale]
+      135 LOADN                            R13 1
+      136 LOADN                            R14 1
+      137 CALL                             R12 2 1
+      138 SETTABLEKS                       R12 R11 K32 ["Size"]
+      140 GETTABLEKS                       R12 R1 K33 ["Spacing"]
+      142 SETTABLEKS                       R12 R11 K33 ["Spacing"]
+      144 DUPTABLE                         R12 K45 [{"Description", "Progress", "Time"}]
+      145 GETUPVAL                         R13 4
+      146 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      148 GETUPVAL                         R14 7
+      149 DUPTABLE                         R15 K47 [{"LayoutOrder", "Size", "Text"}]
+      150 NAMECALL                         R16 R3 K48 ["getNextOrder"]
+      152 CALL                             R16 1 1
+      153 SETTABLEKS                       R16 R15 K46 ["LayoutOrder"]
+      155 GETIMPORT                        R16 K49 [UDim2.new]
+      157 LOADN                            R17 1
+      158 LOADN                            R18 0
+      159 LOADN                            R19 0
+      160 GETTABLEKS                       R20 R1 K50 ["DescriptionHeight"]
+      162 CALL                             R16 4 1
+      163 SETTABLEKS                       R16 R15 K32 ["Size"]
+      165 GETTABLEKS                       R16 R0 K42 ["Description"]
+      167 SETTABLEKS                       R16 R15 K7 ["Text"]
+      169 CALL                             R13 2 1
+      170 SETTABLEKS                       R13 R12 K42 ["Description"]
+      172 GETUPVAL                         R13 4
+      173 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      175 GETUPVAL                         R14 8
+      176 DUPTABLE                         R15 K51 [{"LayoutOrder", "Progress", "Size"}]
+      177 NAMECALL                         R16 R3 K48 ["getNextOrder"]
+      179 CALL                             R16 1 1
+      180 SETTABLEKS                       R16 R15 K46 ["LayoutOrder"]
+      182 GETTABLEKS                       R16 R0 K43 ["Progress"]
+      184 SETTABLEKS                       R16 R15 K43 ["Progress"]
+      186 GETIMPORT                        R16 K49 [UDim2.new]
+      188 LOADN                            R17 1
+      189 LOADN                            R18 0
+      190 LOADN                            R19 0
+      191 GETTABLEKS                       R20 R1 K52 ["ProgressHeight"]
+      193 CALL                             R16 4 1
+      194 SETTABLEKS                       R16 R15 K32 ["Size"]
+      196 CALL                             R13 2 1
+      197 SETTABLEKS                       R13 R12 K43 ["Progress"]
+      199 GETTABLEKS                       R14 R0 K53 ["TimeRemaining"]
+      201 JUMPIFNOT                        R14 ; [+37]
+      202 GETUPVAL                         R13 4
+      203 GETTABLEKS                       R13 R13 K18 ["createElement"]
+      205 GETUPVAL                         R14 7
+      206 DUPTABLE                         R15 K47 [{"LayoutOrder", "Size", "Text"}]
+      207 NAMECALL                         R16 R3 K48 ["getNextOrder"]
+      209 CALL                             R16 1 1
+      210 SETTABLEKS                       R16 R15 K46 ["LayoutOrder"]
+      212 GETIMPORT                        R16 K49 [UDim2.new]
+      214 LOADN                            R17 1
+      215 LOADN                            R18 0
+      216 LOADN                            R19 0
+      217 GETTABLEKS                       R20 R1 K50 ["DescriptionHeight"]
+      219 CALL                             R16 4 1
+      220 SETTABLEKS                       R16 R15 K32 ["Size"]
+      222 LOADK                            R18 K10 ["Dialog"]
+      223 LOADK                            R19 K53 ["TimeRemaining"]
+      224 DUPTABLE                         R20 K54 [{"Time"}]
+      225 GETUPVAL                         R21 9
+      226 GETTABLEKS                       R22 R0 K53 ["TimeRemaining"]
+      228 MOVE                             R23 R2
+      229 CALL                             R21 2 1
+      230 SETTABLEKS                       R21 R20 K44 ["Time"]
+      232 NAMECALL                         R16 R2 K11 ["getText"]
+      234 CALL                             R16 4 1
+      235 SETTABLEKS                       R16 R15 K7 ["Text"]
+      237 CALL                             R13 2 1
+      238 JUMP                             ; [+1]
+      239 LOADNIL                          R13
+      240 SETTABLEKS                       R13 R12 K44 ["Time"]
+      242 CALL                             R9 3 1
+      243 SETTABLEKS                       R9 R8 K28 ["Contents"]
+      245 CALL                             R5 3 -1
+      246 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

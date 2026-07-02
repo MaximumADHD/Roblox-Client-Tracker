@@ -165,50 +165,48 @@ PROTO_2:
        36 GETUPVAL                         R5 5
        37 GETTABLEKS                       R5 R5 K6 ["createElement"]
        39 GETUPVAL                         R6 6
-       40 DUPTABLE                         R7 K9 [{"Size", "BackgroundTransparency"}]
-       41 GETIMPORT                        R8 K12 [UDim2.fromScale]
+       40 DUPTABLE                         R7 K10 [{["Size"], ["BackgroundTransparency"] = 1}]
+       41 GETIMPORT                        R8 K13 [UDim2.fromScale]
        43 LOADN                            R9 1
        44 LOADN                            R10 1
        45 CALL                             R8 2 1
        46 SETTABLEKS                       R8 R7 K7 ["Size"]
-       48 LOADN                            R8 1
-       49 SETTABLEKS                       R8 R7 K8 ["BackgroundTransparency"]
-       51 DUPTABLE                         R8 K16 [{"LeftCurve", "RightCurve", "Filter"}]
-       52 GETUPVAL                         R9 5
-       53 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       55 GETUPVAL                         R10 7
-       56 DUPTABLE                         R11 K19 [{"ControlPoints", "Tag"}]
-       57 GETTABLEKS                       R12 R3 K2 ["Left"]
-       59 SETTABLEKS                       R12 R11 K17 ["ControlPoints"]
-       61 JUMPIFNOT                        R2 ; [+2]
-       62 LOADK                            R12 K20 ["FullCurve"]
-       63 JUMP                             ; [+1]
-       64 LOADK                            R12 K21 ["FullCurveDisabled"]
-       65 SETTABLEKS                       R12 R11 K18 ["Tag"]
-       67 CALL                             R9 2 1
-       68 SETTABLEKS                       R9 R8 K13 ["LeftCurve"]
-       70 GETUPVAL                         R9 5
-       71 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       73 GETUPVAL                         R10 7
-       74 DUPTABLE                         R11 K19 [{"ControlPoints", "Tag"}]
-       75 GETTABLEKS                       R12 R3 K3 ["Right"]
-       77 SETTABLEKS                       R12 R11 K17 ["ControlPoints"]
-       79 JUMPIFNOT                        R2 ; [+2]
-       80 LOADK                            R12 K20 ["FullCurve"]
-       81 JUMP                             ; [+1]
-       82 LOADK                            R12 K21 ["FullCurveDisabled"]
-       83 SETTABLEKS                       R12 R11 K18 ["Tag"]
-       85 CALL                             R9 2 1
-       86 SETTABLEKS                       R9 R8 K14 ["RightCurve"]
-       88 GETUPVAL                         R9 5
-       89 GETTABLEKS                       R9 R9 K6 ["createElement"]
-       91 LOADK                            R10 K22 ["AudioFilter"]
-       92 DUPTABLE                         R11 K24 [{"ref"}]
-       93 SETTABLEKS                       R1 R11 K23 ["ref"]
-       95 CALL                             R9 2 1
-       96 SETTABLEKS                       R9 R8 K15 ["Filter"]
-       98 CALL                             R5 3 -1
-       99 RETURN                           R5 -1
+       48 DUPTABLE                         R8 K17 [{"LeftCurve", "RightCurve", "Filter"}]
+       49 GETUPVAL                         R9 5
+       50 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       52 GETUPVAL                         R10 7
+       53 DUPTABLE                         R11 K20 [{"ControlPoints", "Tag"}]
+       54 GETTABLEKS                       R12 R3 K2 ["Left"]
+       56 SETTABLEKS                       R12 R11 K18 ["ControlPoints"]
+       58 JUMPIFNOT                        R2 ; [+2]
+       59 LOADK                            R12 K21 ["FullCurve"]
+       60 JUMP                             ; [+1]
+       61 LOADK                            R12 K22 ["FullCurveDisabled"]
+       62 SETTABLEKS                       R12 R11 K19 ["Tag"]
+       64 CALL                             R9 2 1
+       65 SETTABLEKS                       R9 R8 K14 ["LeftCurve"]
+       67 GETUPVAL                         R9 5
+       68 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       70 GETUPVAL                         R10 7
+       71 DUPTABLE                         R11 K20 [{"ControlPoints", "Tag"}]
+       72 GETTABLEKS                       R12 R3 K3 ["Right"]
+       74 SETTABLEKS                       R12 R11 K18 ["ControlPoints"]
+       76 JUMPIFNOT                        R2 ; [+2]
+       77 LOADK                            R12 K21 ["FullCurve"]
+       78 JUMP                             ; [+1]
+       79 LOADK                            R12 K22 ["FullCurveDisabled"]
+       80 SETTABLEKS                       R12 R11 K19 ["Tag"]
+       82 CALL                             R9 2 1
+       83 SETTABLEKS                       R9 R8 K15 ["RightCurve"]
+       85 GETUPVAL                         R9 5
+       86 GETTABLEKS                       R9 R9 K6 ["createElement"]
+       88 LOADK                            R10 K23 ["AudioFilter"]
+       89 DUPTABLE                         R11 K25 [{"ref"}]
+       90 SETTABLEKS                       R1 R11 K24 ["ref"]
+       92 CALL                             R9 2 1
+       93 SETTABLEKS                       R9 R8 K16 ["Filter"]
+       95 CALL                             R5 3 -1
+       96 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

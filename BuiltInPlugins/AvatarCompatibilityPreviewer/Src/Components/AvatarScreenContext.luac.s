@@ -153,7 +153,7 @@ MAIN:
        85 GETTABLEKS                       R10 R10 K21 ["Hooks"]
        87 GETTABLEKS                       R10 R10 K23 ["useIncrementedState"]
        89 CALL                             R9 1 1
-       90 DUPTABLE                         R10 K35 [{"openPalette", "focusedAttachments", "setFocusedAttachments", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock", "resetCamera", "stage", "isColorable", "foundationMenuOpen", "setFoundationMenuOpen"}]
+       90 DUPTABLE                         R10 K37 [{["openPalette"], ["focusedAttachments"], ["setFocusedAttachments"], ["dummyPreviewLocked"] = False, ["incrementDummyPreviewLock"], ["decrementDummyPreviewLock"], ["resetCamera"], ["stage"], ["isColorable"] = True, ["foundationMenuOpen"] = False, ["setFoundationMenuOpen"]}]
        91 MOVE                             R11 R5
        92 LOADK                            R12 K24 ["openPalette"]
        93 CALL                             R11 1 1
@@ -164,38 +164,32 @@ MAIN:
       101 LOADK                            R12 K26 ["setFocusedAttachments"]
       102 CALL                             R11 1 1
       103 SETTABLEKS                       R11 R10 K26 ["setFocusedAttachments"]
-      105 LOADB                            R11 0
-      106 SETTABLEKS                       R11 R10 K27 ["dummyPreviewLocked"]
-      108 MOVE                             R11 R5
-      109 LOADK                            R12 K28 ["incrementDummyPreviewLock"]
-      110 CALL                             R11 1 1
-      111 SETTABLEKS                       R11 R10 K28 ["incrementDummyPreviewLock"]
-      113 MOVE                             R11 R5
-      114 LOADK                            R12 K29 ["decrementDummyPreviewLock"]
-      115 CALL                             R11 1 1
-      116 SETTABLEKS                       R11 R10 K29 ["decrementDummyPreviewLock"]
-      118 DUPCLOSURE                       R11 K36 [PROTO_0]
-      119 SETTABLEKS                       R11 R10 K30 ["resetCamera"]
-      121 NEWTABLE                         R11 0 0
-      123 SETTABLEKS                       R11 R10 K31 ["stage"]
-      125 LOADB                            R11 1
-      126 SETTABLEKS                       R11 R10 K32 ["isColorable"]
-      128 LOADB                            R11 0
-      129 SETTABLEKS                       R11 R10 K33 ["foundationMenuOpen"]
-      131 DUPCLOSURE                       R11 K37 [PROTO_1]
-      132 SETTABLEKS                       R11 R10 K34 ["setFoundationMenuOpen"]
-      134 GETTABLEKS                       R11 R1 K38 ["createContext"]
-      136 MOVE                             R12 R10
-      137 CALL                             R11 1 1
-      138 DUPCLOSURE                       R12 K39 [PROTO_5]
-      139 CAPTURE                          VAL R1
-      140 CAPTURE                          VAL R3
-      141 CAPTURE                          VAL R9
-      142 CAPTURE                          VAL R7
-      143 CAPTURE                          VAL R8
-      144 CAPTURE                          VAL R6
-      145 CAPTURE                          VAL R11
-      146 DUPTABLE                         R13 K42 [{"Context", "Provider"}]
-      147 SETTABLEKS                       R11 R13 K40 ["Context"]
-      149 SETTABLEKS                       R12 R13 K41 ["Provider"]
-      151 RETURN                           R13 1
+      105 MOVE                             R11 R5
+      106 LOADK                            R12 K29 ["incrementDummyPreviewLock"]
+      107 CALL                             R11 1 1
+      108 SETTABLEKS                       R11 R10 K29 ["incrementDummyPreviewLock"]
+      110 MOVE                             R11 R5
+      111 LOADK                            R12 K30 ["decrementDummyPreviewLock"]
+      112 CALL                             R11 1 1
+      113 SETTABLEKS                       R11 R10 K30 ["decrementDummyPreviewLock"]
+      115 DUPCLOSURE                       R11 K38 [PROTO_0]
+      116 SETTABLEKS                       R11 R10 K31 ["resetCamera"]
+      118 NEWTABLE                         R11 0 0
+      120 SETTABLEKS                       R11 R10 K32 ["stage"]
+      122 DUPCLOSURE                       R11 K39 [PROTO_1]
+      123 SETTABLEKS                       R11 R10 K36 ["setFoundationMenuOpen"]
+      125 GETTABLEKS                       R11 R1 K40 ["createContext"]
+      127 MOVE                             R12 R10
+      128 CALL                             R11 1 1
+      129 DUPCLOSURE                       R12 K41 [PROTO_5]
+      130 CAPTURE                          VAL R1
+      131 CAPTURE                          VAL R3
+      132 CAPTURE                          VAL R9
+      133 CAPTURE                          VAL R7
+      134 CAPTURE                          VAL R8
+      135 CAPTURE                          VAL R6
+      136 CAPTURE                          VAL R11
+      137 DUPTABLE                         R13 K44 [{"Context", "Provider"}]
+      138 SETTABLEKS                       R11 R13 K42 ["Context"]
+      140 SETTABLEKS                       R12 R13 K43 ["Provider"]
+      142 RETURN                           R13 1

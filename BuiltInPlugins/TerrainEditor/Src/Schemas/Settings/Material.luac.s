@@ -7,169 +7,157 @@ PROTO_0:
         7 GETUPVAL                         R9 1
         8 GETTABLEKS                       R9 R9 K4 ["AutoMaterial"]
        10 SETTABLEKS                       R9 R8 K1 ["Id"]
-       12 DUPTABLE                         R9 K6 [{"Type"}]
-       13 LOADK                            R10 K7 ["Checkbox"]
-       14 SETTABLEKS                       R10 R9 K5 ["Type"]
-       16 SETTABLEKS                       R9 R8 K2 ["Schema"]
-       18 DUPTABLE                         R9 K3 [{"Id", "Schema"}]
-       19 GETUPVAL                         R10 1
-       20 GETTABLEKS                       R10 R10 K8 ["MaterialMode"]
-       22 SETTABLEKS                       R10 R9 K1 ["Id"]
-       24 DUPTABLE                         R10 K10 [{"Type", "Items"}]
-       25 GETUPVAL                         R12 2
-       26 CALL                             R12 0 1
-       27 JUMPIFNOT                        R12 ; [+2]
-       28 LOADK                            R11 K11 ["SegmentedControl"]
-       29 JUMP                             ; [+1]
-       30 LOADK                            R11 K12 ["SingleSelectButton"]
-       31 SETTABLEKS                       R11 R10 K5 ["Type"]
-       33 GETUPVAL                         R11 3
-       34 MOVE                             R12 R4
-       35 LOADNIL                          R13
-       36 GETUPVAL                         R14 4
-       37 GETTABLEKS                       R14 R14 K8 ["MaterialMode"]
-       39 CALL                             R11 3 1
-       40 SETTABLEKS                       R11 R10 K9 ["Items"]
-       42 SETTABLEKS                       R10 R9 K2 ["Schema"]
-       44 DUPTABLE                         R10 K3 [{"Id", "Schema"}]
-       45 GETUPVAL                         R11 1
-       46 GETTABLEKS                       R11 R11 K13 ["FillMode"]
-       48 SETTABLEKS                       R11 R10 K1 ["Id"]
-       50 DUPTABLE                         R11 K10 [{"Type", "Items"}]
-       51 GETUPVAL                         R13 2
-       52 CALL                             R13 0 1
-       53 JUMPIFNOT                        R13 ; [+2]
-       54 LOADK                            R12 K11 ["SegmentedControl"]
-       55 JUMP                             ; [+1]
-       56 LOADK                            R12 K12 ["SingleSelectButton"]
-       57 SETTABLEKS                       R12 R11 K5 ["Type"]
-       59 GETUPVAL                         R12 3
-       60 MOVE                             R13 R4
-       61 LOADNIL                          R14
-       62 GETUPVAL                         R15 4
-       63 GETTABLEKS                       R15 R15 K13 ["FillMode"]
-       65 CALL                             R12 3 1
-       66 SETTABLEKS                       R12 R11 K9 ["Items"]
-       68 SETTABLEKS                       R11 R10 K2 ["Schema"]
-       70 DUPTABLE                         R11 K16 [{"Hidden", "Id", "Layout", "Schema"}]
-       71 GETUPVAL                         R13 1
-       72 GETTABLEKS                       R13 R13 K4 ["AutoMaterial"]
-       74 GETTABLE                         R12 R1 R13
-       75 SETTABLEKS                       R12 R11 K14 ["Hidden"]
-       77 GETUPVAL                         R12 1
-       78 GETTABLEKS                       R12 R12 K17 ["SourceMaterial"]
-       80 SETTABLEKS                       R12 R11 K1 ["Id"]
-       82 GETIMPORT                        R12 K21 [Enum.FillDirection.Vertical]
-       84 SETTABLEKS                       R12 R11 K15 ["Layout"]
-       86 DUPTABLE                         R12 K23 [{"AllowAir", "Type"}]
-       87 LOADB                            R13 1
-       88 SETTABLEKS                       R13 R12 K22 ["AllowAir"]
-       90 LOADK                            R13 K24 ["Material"]
-       91 SETTABLEKS                       R13 R12 K5 ["Type"]
-       93 SETTABLEKS                       R12 R11 K2 ["Schema"]
-       95 DUPTABLE                         R12 K16 [{"Hidden", "Id", "Layout", "Schema"}]
-       96 GETUPVAL                         R15 1
-       97 GETTABLEKS                       R15 R15 K8 ["MaterialMode"]
-       99 GETTABLE                         R14 R1 R15
-      100 JUMPIFEQKNIL                     R14 ; [+11]
-      102 LOADB                            R13 0
-      103 GETUPVAL                         R15 1
-      104 GETTABLEKS                       R15 R15 K8 ["MaterialMode"]
-      106 GETTABLE                         R14 R1 R15
-      107 GETUPVAL                         R15 5
-      108 GETTABLEKS                       R15 R15 K25 ["Paint"]
-      110 JUMPIFNOTEQ                      R14 R15 ; [+19]
-      112 LOADB                            R13 1
-      113 GETUPVAL                         R15 1
-      114 GETTABLEKS                       R15 R15 K13 ["FillMode"]
-      116 GETTABLE                         R14 R1 R15
-      117 JUMPIFEQKNIL                     R14 ; [+12]
-      119 GETUPVAL                         R15 1
-      120 GETTABLEKS                       R15 R15 K13 ["FillMode"]
-      122 GETTABLE                         R14 R1 R15
-      123 GETUPVAL                         R15 6
-      124 GETTABLEKS                       R15 R15 K26 ["Fill"]
-      126 JUMPIFEQ                         R14 R15 ; [+2]
-      128 LOADB                            R13 0 +1
-      129 LOADB                            R13 1
-      130 SETTABLEKS                       R13 R12 K14 ["Hidden"]
-      132 GETUPVAL                         R13 1
-      133 GETTABLEKS                       R13 R13 K27 ["TargetMaterial"]
-      135 SETTABLEKS                       R13 R12 K1 ["Id"]
-      137 GETIMPORT                        R13 K21 [Enum.FillDirection.Vertical]
-      139 SETTABLEKS                       R13 R12 K15 ["Layout"]
-      141 DUPTABLE                         R13 K23 [{"AllowAir", "Type"}]
+       12 DUPTABLE                         R9 K7 [{["Type"] = "Checkbox"}]
+       13 SETTABLEKS                       R9 R8 K2 ["Schema"]
+       15 DUPTABLE                         R9 K3 [{"Id", "Schema"}]
+       16 GETUPVAL                         R10 1
+       17 GETTABLEKS                       R10 R10 K8 ["MaterialMode"]
+       19 SETTABLEKS                       R10 R9 K1 ["Id"]
+       21 DUPTABLE                         R10 K10 [{"Type", "Items"}]
+       22 GETUPVAL                         R12 2
+       23 CALL                             R12 0 1
+       24 JUMPIFNOT                        R12 ; [+2]
+       25 LOADK                            R11 K11 ["SegmentedControl"]
+       26 JUMP                             ; [+1]
+       27 LOADK                            R11 K12 ["SingleSelectButton"]
+       28 SETTABLEKS                       R11 R10 K5 ["Type"]
+       30 GETUPVAL                         R11 3
+       31 MOVE                             R12 R4
+       32 LOADNIL                          R13
+       33 GETUPVAL                         R14 4
+       34 GETTABLEKS                       R14 R14 K8 ["MaterialMode"]
+       36 CALL                             R11 3 1
+       37 SETTABLEKS                       R11 R10 K9 ["Items"]
+       39 SETTABLEKS                       R10 R9 K2 ["Schema"]
+       41 DUPTABLE                         R10 K3 [{"Id", "Schema"}]
+       42 GETUPVAL                         R11 1
+       43 GETTABLEKS                       R11 R11 K13 ["FillMode"]
+       45 SETTABLEKS                       R11 R10 K1 ["Id"]
+       47 DUPTABLE                         R11 K10 [{"Type", "Items"}]
+       48 GETUPVAL                         R13 2
+       49 CALL                             R13 0 1
+       50 JUMPIFNOT                        R13 ; [+2]
+       51 LOADK                            R12 K11 ["SegmentedControl"]
+       52 JUMP                             ; [+1]
+       53 LOADK                            R12 K12 ["SingleSelectButton"]
+       54 SETTABLEKS                       R12 R11 K5 ["Type"]
+       56 GETUPVAL                         R12 3
+       57 MOVE                             R13 R4
+       58 LOADNIL                          R14
+       59 GETUPVAL                         R15 4
+       60 GETTABLEKS                       R15 R15 K13 ["FillMode"]
+       62 CALL                             R12 3 1
+       63 SETTABLEKS                       R12 R11 K9 ["Items"]
+       65 SETTABLEKS                       R11 R10 K2 ["Schema"]
+       67 DUPTABLE                         R11 K16 [{"Hidden", "Id", "Layout", "Schema"}]
+       68 GETUPVAL                         R13 1
+       69 GETTABLEKS                       R13 R13 K4 ["AutoMaterial"]
+       71 GETTABLE                         R12 R1 R13
+       72 SETTABLEKS                       R12 R11 K14 ["Hidden"]
+       74 GETUPVAL                         R12 1
+       75 GETTABLEKS                       R12 R12 K17 ["SourceMaterial"]
+       77 SETTABLEKS                       R12 R11 K1 ["Id"]
+       79 GETIMPORT                        R12 K21 [Enum.FillDirection.Vertical]
+       81 SETTABLEKS                       R12 R11 K15 ["Layout"]
+       83 DUPTABLE                         R12 K25 [{["AllowAir"] = True, ["Type"] = "Material"}]
+       84 SETTABLEKS                       R12 R11 K2 ["Schema"]
+       86 DUPTABLE                         R12 K16 [{"Hidden", "Id", "Layout", "Schema"}]
+       87 GETUPVAL                         R15 1
+       88 GETTABLEKS                       R15 R15 K8 ["MaterialMode"]
+       90 GETTABLE                         R14 R1 R15
+       91 JUMPIFEQKNIL                     R14 ; [+11]
+       93 LOADB                            R13 0
+       94 GETUPVAL                         R15 1
+       95 GETTABLEKS                       R15 R15 K8 ["MaterialMode"]
+       97 GETTABLE                         R14 R1 R15
+       98 GETUPVAL                         R15 5
+       99 GETTABLEKS                       R15 R15 K26 ["Paint"]
+      101 JUMPIFNOTEQ                      R14 R15 ; [+19]
+      103 LOADB                            R13 1
+      104 GETUPVAL                         R15 1
+      105 GETTABLEKS                       R15 R15 K13 ["FillMode"]
+      107 GETTABLE                         R14 R1 R15
+      108 JUMPIFEQKNIL                     R14 ; [+12]
+      110 GETUPVAL                         R15 1
+      111 GETTABLEKS                       R15 R15 K13 ["FillMode"]
+      113 GETTABLE                         R14 R1 R15
+      114 GETUPVAL                         R15 6
+      115 GETTABLEKS                       R15 R15 K27 ["Fill"]
+      117 JUMPIFEQ                         R14 R15 ; [+2]
+      119 LOADB                            R13 0 +1
+      120 LOADB                            R13 1
+      121 SETTABLEKS                       R13 R12 K14 ["Hidden"]
+      123 GETUPVAL                         R13 1
+      124 GETTABLEKS                       R13 R13 K28 ["TargetMaterial"]
+      126 SETTABLEKS                       R13 R12 K1 ["Id"]
+      128 GETIMPORT                        R13 K21 [Enum.FillDirection.Vertical]
+      130 SETTABLEKS                       R13 R12 K15 ["Layout"]
+      132 DUPTABLE                         R13 K25 [{["AllowAir"] = True, ["Type"] = "Material"}]
+      133 SETTABLEKS                       R13 R12 K2 ["Schema"]
+      135 DUPTABLE                         R13 K30 [{"Hidden", "Id", "Layout", "Label", "Schema"}]
+      136 GETUPVAL                         R15 7
+      137 GETTABLEKS                       R15 R15 K26 ["Paint"]
+      139 JUMPIFNOTEQ                      R2 R15 ; [+2]
+      141 LOADB                            R14 0 +1
       142 LOADB                            R14 1
-      143 SETTABLEKS                       R14 R13 K22 ["AllowAir"]
-      145 LOADK                            R14 K24 ["Material"]
-      146 SETTABLEKS                       R14 R13 K5 ["Type"]
-      148 SETTABLEKS                       R13 R12 K2 ["Schema"]
-      150 DUPTABLE                         R13 K29 [{"Hidden", "Id", "Layout", "Label", "Schema"}]
-      151 GETUPVAL                         R15 7
-      152 GETTABLEKS                       R15 R15 K25 ["Paint"]
-      154 JUMPIFNOTEQ                      R2 R15 ; [+2]
-      156 LOADB                            R14 0 +1
-      157 LOADB                            R14 1
-      158 SETTABLEKS                       R14 R13 K14 ["Hidden"]
-      160 GETUPVAL                         R14 1
-      161 GETTABLEKS                       R14 R14 K30 ["Apply"]
-      163 SETTABLEKS                       R14 R13 K1 ["Id"]
-      165 GETIMPORT                        R14 K21 [Enum.FillDirection.Vertical]
-      167 SETTABLEKS                       R14 R13 K15 ["Layout"]
-      169 GETUPVAL                         R16 1
-      170 GETTABLEKS                       R16 R16 K8 ["MaterialMode"]
-      172 GETTABLE                         R15 R1 R16
-      173 JUMPIF                           R15 ; [+5]
-      174 GETUPVAL                         R16 1
-      175 GETTABLEKS                       R16 R16 K13 ["FillMode"]
-      177 GETTABLE                         R15 R1 R16
-      178 JUMPIFNOT                        R15 ; [+14]
-      179 GETUPVAL                         R16 8
-      180 GETUPVAL                         R18 1
-      181 GETTABLEKS                       R18 R18 K8 ["MaterialMode"]
-      183 GETTABLE                         R17 R1 R18
-      184 JUMPIF                           R17 ; [+4]
-      185 GETUPVAL                         R18 1
-      186 GETTABLEKS                       R18 R18 K13 ["FillMode"]
-      188 GETTABLE                         R17 R1 R18
-      189 NAMECALL                         R14 R4 K31 ["getText"]
-      191 CALL                             R14 3 1
-      192 JUMP                             ; [+1]
-      193 LOADNIL                          R14
-      194 SETTABLEKS                       R14 R13 K28 ["Label"]
-      196 DUPTABLE                         R14 K32 [{"Label", "Type"}]
-      197 GETUPVAL                         R17 1
-      198 GETTABLEKS                       R17 R17 K8 ["MaterialMode"]
-      200 GETTABLE                         R16 R1 R17
-      201 JUMPIF                           R16 ; [+5]
-      202 GETUPVAL                         R17 1
-      203 GETTABLEKS                       R17 R17 K13 ["FillMode"]
-      205 GETTABLE                         R16 R1 R17
-      206 JUMPIFNOT                        R16 ; [+14]
-      207 GETUPVAL                         R17 8
-      208 GETUPVAL                         R19 1
-      209 GETTABLEKS                       R19 R19 K8 ["MaterialMode"]
-      211 GETTABLE                         R18 R1 R19
-      212 JUMPIF                           R18 ; [+4]
-      213 GETUPVAL                         R19 1
-      214 GETTABLEKS                       R19 R19 K13 ["FillMode"]
-      216 GETTABLE                         R18 R1 R19
-      217 NAMECALL                         R15 R4 K31 ["getText"]
-      219 CALL                             R15 3 1
-      220 JUMP                             ; [+1]
-      221 LOADNIL                          R15
-      222 SETTABLEKS                       R15 R14 K28 ["Label"]
-      224 LOADK                            R15 K33 ["Button"]
-      225 SETTABLEKS                       R15 R14 K5 ["Type"]
-      227 SETTABLEKS                       R14 R13 K2 ["Schema"]
-      229 SETLIST                          R7 R8 6 [1]
-      231 DUPTABLE                         R8 K37 [{"Category", "Data", "Overrides"}]
-      232 GETUPVAL                         R9 8
-      233 SETTABLEKS                       R9 R8 K34 ["Category"]
-      235 SETTABLEKS                       R1 R8 K35 ["Data"]
-      237 SETTABLEKS                       R3 R8 K36 ["Overrides"]
-      239 CALL                             R5 3 -1
-      240 RETURN                           R5 -1
+      143 SETTABLEKS                       R14 R13 K14 ["Hidden"]
+      145 GETUPVAL                         R14 1
+      146 GETTABLEKS                       R14 R14 K31 ["Apply"]
+      148 SETTABLEKS                       R14 R13 K1 ["Id"]
+      150 GETIMPORT                        R14 K21 [Enum.FillDirection.Vertical]
+      152 SETTABLEKS                       R14 R13 K15 ["Layout"]
+      154 GETUPVAL                         R16 1
+      155 GETTABLEKS                       R16 R16 K8 ["MaterialMode"]
+      157 GETTABLE                         R15 R1 R16
+      158 JUMPIF                           R15 ; [+5]
+      159 GETUPVAL                         R16 1
+      160 GETTABLEKS                       R16 R16 K13 ["FillMode"]
+      162 GETTABLE                         R15 R1 R16
+      163 JUMPIFNOT                        R15 ; [+14]
+      164 GETUPVAL                         R16 8
+      165 GETUPVAL                         R18 1
+      166 GETTABLEKS                       R18 R18 K8 ["MaterialMode"]
+      168 GETTABLE                         R17 R1 R18
+      169 JUMPIF                           R17 ; [+4]
+      170 GETUPVAL                         R18 1
+      171 GETTABLEKS                       R18 R18 K13 ["FillMode"]
+      173 GETTABLE                         R17 R1 R18
+      174 NAMECALL                         R14 R4 K32 ["getText"]
+      176 CALL                             R14 3 1
+      177 JUMP                             ; [+1]
+      178 LOADNIL                          R14
+      179 SETTABLEKS                       R14 R13 K29 ["Label"]
+      181 DUPTABLE                         R14 K34 [{["Label"], ["Type"] = "Button"}]
+      182 GETUPVAL                         R17 1
+      183 GETTABLEKS                       R17 R17 K8 ["MaterialMode"]
+      185 GETTABLE                         R16 R1 R17
+      186 JUMPIF                           R16 ; [+5]
+      187 GETUPVAL                         R17 1
+      188 GETTABLEKS                       R17 R17 K13 ["FillMode"]
+      190 GETTABLE                         R16 R1 R17
+      191 JUMPIFNOT                        R16 ; [+14]
+      192 GETUPVAL                         R17 8
+      193 GETUPVAL                         R19 1
+      194 GETTABLEKS                       R19 R19 K8 ["MaterialMode"]
+      196 GETTABLE                         R18 R1 R19
+      197 JUMPIF                           R18 ; [+4]
+      198 GETUPVAL                         R19 1
+      199 GETTABLEKS                       R19 R19 K13 ["FillMode"]
+      201 GETTABLE                         R18 R1 R19
+      202 NAMECALL                         R15 R4 K32 ["getText"]
+      204 CALL                             R15 3 1
+      205 JUMP                             ; [+1]
+      206 LOADNIL                          R15
+      207 SETTABLEKS                       R15 R14 K29 ["Label"]
+      209 SETTABLEKS                       R14 R13 K2 ["Schema"]
+      211 SETLIST                          R7 R8 6 [1]
+      213 DUPTABLE                         R8 K38 [{"Category", "Data", "Overrides"}]
+      214 GETUPVAL                         R9 8
+      215 SETTABLEKS                       R9 R8 K35 ["Category"]
+      217 SETTABLEKS                       R1 R8 K36 ["Data"]
+      219 SETTABLEKS                       R3 R8 K37 ["Overrides"]
+      221 CALL                             R5 3 -1
+      222 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -8,39 +8,35 @@ PROTO_0:
 
 PROTO_1:
         0 GETTABLEKS                       R2 R1 K0 ["Localization"]
-        2 DUPTABLE                         R3 K3 [{"Id", "Children"}]
-        3 LOADK                            R4 K4 ["ThemeCategory"]
-        4 SETTABLEKS                       R4 R3 K1 ["Id"]
-        6 NEWTABLE                         R4 0 1
-        8 DUPTABLE                         R5 K8 [{"Id", "Text", "Icon", "OnItemClicked"}]
-        9 LOADK                            R6 K9 ["New"]
-       10 SETTABLEKS                       R6 R5 K1 ["Id"]
-       12 LOADK                            R8 K10 ["ContextMenu"]
-       13 LOADK                            R9 K11 ["NewThemeFolder"]
-       14 NAMECALL                         R6 R2 K12 ["getText"]
-       16 CALL                             R6 3 1
-       17 SETTABLEKS                       R6 R5 K5 ["Text"]
-       19 GETUPVAL                         R6 0
-       20 GETTABLEKS                       R6 R6 K13 ["new"]
-       22 CALL                             R6 0 1
-       23 SETTABLEKS                       R6 R5 K6 ["Icon"]
-       25 NEWCLOSURE                       R6 P0
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          UPVAL U1
-       28 SETTABLEKS                       R6 R5 K7 ["OnItemClicked"]
-       30 SETLIST                          R4 R5 1 [1]
-       32 SETTABLEKS                       R4 R3 K2 ["Children"]
-       34 GETUPVAL                         R4 2
-       35 GETTABLEKS                       R4 R4 K14 ["trackClicks"]
-       37 MOVE                             R5 R3
-       38 GETTABLEKS                       R6 R1 K15 ["Telemetry"]
-       40 CALL                             R4 2 0
-       41 GETUPVAL                         R4 2
-       42 GETTABLEKS                       R4 R4 K16 ["showContextMenu"]
-       44 GETTABLEKS                       R5 R1 K17 ["Plugin"]
-       46 MOVE                             R6 R3
-       47 CALL                             R4 2 0
-       48 RETURN                           R0 0
+        2 DUPTABLE                         R3 K4 [{["Id"] = "ThemeCategory", ["Children"]}]
+        3 NEWTABLE                         R4 0 1
+        5 DUPTABLE                         R5 K9 [{["Id"] = "New", ["Text"], ["Icon"], ["OnItemClicked"]}]
+        6 LOADK                            R8 K10 ["ContextMenu"]
+        7 LOADK                            R9 K11 ["NewThemeFolder"]
+        8 NAMECALL                         R6 R2 K12 ["getText"]
+       10 CALL                             R6 3 1
+       11 SETTABLEKS                       R6 R5 K6 ["Text"]
+       13 GETUPVAL                         R6 0
+       14 GETTABLEKS                       R6 R6 K13 ["new"]
+       16 CALL                             R6 0 1
+       17 SETTABLEKS                       R6 R5 K7 ["Icon"]
+       19 NEWCLOSURE                       R6 P0
+       20 CAPTURE                          VAL R0
+       21 CAPTURE                          UPVAL U1
+       22 SETTABLEKS                       R6 R5 K8 ["OnItemClicked"]
+       24 SETLIST                          R4 R5 1 [1]
+       26 SETTABLEKS                       R4 R3 K3 ["Children"]
+       28 GETUPVAL                         R4 2
+       29 GETTABLEKS                       R4 R4 K14 ["trackClicks"]
+       31 MOVE                             R5 R3
+       32 GETTABLEKS                       R6 R1 K15 ["Telemetry"]
+       34 CALL                             R4 2 0
+       35 GETUPVAL                         R4 2
+       36 GETTABLEKS                       R4 R4 K16 ["showContextMenu"]
+       38 GETTABLEKS                       R5 R1 K17 ["Plugin"]
+       40 MOVE                             R6 R3
+       41 CALL                             R4 2 0
+       42 RETURN                           R0 0
 
 PROTO_2:
         0 DUPCLOSURE                       R0 K0 [PROTO_1]

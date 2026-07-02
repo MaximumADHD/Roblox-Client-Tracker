@@ -92,46 +92,42 @@ PROTO_2:
        93 SETTABLEKS                       R14 R13 K15 ["DropdownOverlay"]
        95 GETUPVAL                         R14 5
        96 GETUPVAL                         R15 6
-       97 DUPTABLE                         R16 K32 [{"LayoutOrder", "ZIndex", "dropdownOverlay", "onSearchHeaderSizeChange", "disableConfirmationDialog", "showReplace", "setShowReplace", "resultManager", "findActivationData", "enabled", "textBoxRef"}]
+       97 DUPTABLE                         R16 K33 [{["LayoutOrder"], ["ZIndex"] = 2, ["dropdownOverlay"], ["onSearchHeaderSizeChange"], ["disableConfirmationDialog"], ["showReplace"], ["setShowReplace"], ["resultManager"], ["findActivationData"], ["enabled"], ["textBoxRef"]}]
        98 MOVE                             R17 R1
        99 CALL                             R17 0 1
       100 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
-      102 LOADN                            R17 2
-      103 SETTABLEKS                       R17 R16 K20 ["ZIndex"]
-      105 SETTABLEKS                       R3 R16 K24 ["dropdownOverlay"]
-      107 SETTABLEKS                       R6 R16 K25 ["onSearchHeaderSizeChange"]
-      109 GETTABLEKS                       R17 R7 K33 ["disable"]
-      111 SETTABLEKS                       R17 R16 K26 ["disableConfirmationDialog"]
-      113 SETTABLEKS                       R8 R16 K27 ["showReplace"]
-      115 SETTABLEKS                       R9 R16 K28 ["setShowReplace"]
-      117 SETTABLEKS                       R2 R16 K29 ["resultManager"]
-      119 GETTABLEKS                       R17 R0 K6 ["findActivationData"]
-      121 SETTABLEKS                       R17 R16 K6 ["findActivationData"]
-      123 GETTABLEKS                       R17 R0 K30 ["enabled"]
-      125 SETTABLEKS                       R17 R16 K30 ["enabled"]
-      127 GETTABLEKS                       R17 R0 K31 ["textBoxRef"]
-      129 SETTABLEKS                       R17 R16 K31 ["textBoxRef"]
-      131 CALL                             R14 2 1
-      132 SETTABLEKS                       R14 R13 K16 ["WidgetHeader"]
-      134 GETUPVAL                         R14 5
-      135 GETUPVAL                         R15 7
-      136 DUPTABLE                         R16 K37 [{"LayoutOrder", "ZIndex", "headerOffset", "confirmationDialogVisible", "toggleConfirmationDialog", "showReplace", "resultManager"}]
-      137 MOVE                             R17 R1
-      138 CALL                             R17 0 1
-      139 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
-      141 LOADN                            R17 2
-      142 SETTABLEKS                       R17 R16 K20 ["ZIndex"]
-      144 SETTABLEKS                       R4 R16 K34 ["headerOffset"]
-      146 GETTABLEKS                       R17 R7 K30 ["enabled"]
-      148 SETTABLEKS                       R17 R16 K35 ["confirmationDialogVisible"]
-      150 GETTABLEKS                       R17 R7 K38 ["toggle"]
-      152 SETTABLEKS                       R17 R16 K36 ["toggleConfirmationDialog"]
-      154 SETTABLEKS                       R8 R16 K27 ["showReplace"]
-      156 SETTABLEKS                       R2 R16 K29 ["resultManager"]
-      158 CALL                             R14 2 1
-      159 SETTABLEKS                       R14 R13 K17 ["WidgetBody"]
-      161 CALL                             R10 3 -1
-      162 RETURN                           R10 -1
+      102 SETTABLEKS                       R3 R16 K25 ["dropdownOverlay"]
+      104 SETTABLEKS                       R6 R16 K26 ["onSearchHeaderSizeChange"]
+      106 GETTABLEKS                       R17 R7 K34 ["disable"]
+      108 SETTABLEKS                       R17 R16 K27 ["disableConfirmationDialog"]
+      110 SETTABLEKS                       R8 R16 K28 ["showReplace"]
+      112 SETTABLEKS                       R9 R16 K29 ["setShowReplace"]
+      114 SETTABLEKS                       R2 R16 K30 ["resultManager"]
+      116 GETTABLEKS                       R17 R0 K6 ["findActivationData"]
+      118 SETTABLEKS                       R17 R16 K6 ["findActivationData"]
+      120 GETTABLEKS                       R17 R0 K31 ["enabled"]
+      122 SETTABLEKS                       R17 R16 K31 ["enabled"]
+      124 GETTABLEKS                       R17 R0 K32 ["textBoxRef"]
+      126 SETTABLEKS                       R17 R16 K32 ["textBoxRef"]
+      128 CALL                             R14 2 1
+      129 SETTABLEKS                       R14 R13 K16 ["WidgetHeader"]
+      131 GETUPVAL                         R14 5
+      132 GETUPVAL                         R15 7
+      133 DUPTABLE                         R16 K38 [{["LayoutOrder"], ["ZIndex"] = 2, ["headerOffset"], ["confirmationDialogVisible"], ["toggleConfirmationDialog"], ["showReplace"], ["resultManager"]}]
+      134 MOVE                             R17 R1
+      135 CALL                             R17 0 1
+      136 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
+      138 SETTABLEKS                       R4 R16 K35 ["headerOffset"]
+      140 GETTABLEKS                       R17 R7 K31 ["enabled"]
+      142 SETTABLEKS                       R17 R16 K36 ["confirmationDialogVisible"]
+      144 GETTABLEKS                       R17 R7 K39 ["toggle"]
+      146 SETTABLEKS                       R17 R16 K37 ["toggleConfirmationDialog"]
+      148 SETTABLEKS                       R8 R16 K28 ["showReplace"]
+      150 SETTABLEKS                       R2 R16 K30 ["resultManager"]
+      152 CALL                             R14 2 1
+      153 SETTABLEKS                       R14 R13 K17 ["WidgetBody"]
+      155 CALL                             R10 3 -1
+      156 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

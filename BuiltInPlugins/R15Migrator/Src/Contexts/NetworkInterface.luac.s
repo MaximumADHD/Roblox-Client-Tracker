@@ -2,17 +2,15 @@ PROTO_0:
         0 DUPTABLE                         R0 K1 [{"_networkImp"}]
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K2 ["new"]
-        4 DUPTABLE                         R2 K4 [{"isInternal"}]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K3 ["isInternal"]
-        8 CALL                             R1 1 1
-        9 SETTABLEKS                       R1 R0 K0 ["_networkImp"]
-       11 GETUPVAL                         R3 1
-       12 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
-       14 MOVE                             R2 R0
-       15 GETIMPORT                        R1 K6 [setmetatable]
-       17 CALL                             R1 2 0
-       18 RETURN                           R0 1
+        4 DUPTABLE                         R2 K5 [{["isInternal"] = True}]
+        5 CALL                             R1 1 1
+        6 SETTABLEKS                       R1 R0 K0 ["_networkImp"]
+        8 GETUPVAL                         R3 1
+        9 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       11 MOVE                             R2 R0
+       12 GETIMPORT                        R1 K7 [setmetatable]
+       14 CALL                             R1 2 0
+       15 RETURN                           R0 1
 
 PROTO_1:
         0 GETTABLEKS                       R2 R0 K0 ["_networkImp"]
@@ -36,15 +34,13 @@ PROTO_2:
         3 GETUPVAL                         R5 0
         4 GETTABLEKS                       R5 R5 K1 ["ITEM_CONFIGURATION_URL"]
         6 LOADK                            R6 K2 ["v1/creations/get-assets"]
-        7 DUPTABLE                         R7 K8 [{"assetType", "isArchived", "limit", "cursor", "groupId"}]
+        7 DUPTABLE                         R7 K9 [{["assetType"], ["isArchived"] = False, ["limit"], ["cursor"], ["groupId"]}]
         8 SETTABLEKS                       R0 R7 K3 ["assetType"]
-       10 LOADB                            R8 0
-       11 SETTABLEKS                       R8 R7 K4 ["isArchived"]
-       13 SETTABLEKS                       R1 R7 K5 ["limit"]
-       15 SETTABLEKS                       R2 R7 K6 ["cursor"]
-       17 SETTABLEKS                       R3 R7 K7 ["groupId"]
-       19 CALL                             R4 3 -1
-       20 RETURN                           R4 -1
+       10 SETTABLEKS                       R1 R7 K6 ["limit"]
+       12 SETTABLEKS                       R2 R7 K7 ["cursor"]
+       14 SETTABLEKS                       R3 R7 K8 ["groupId"]
+       16 CALL                             R4 3 -1
+       17 RETURN                           R4 -1
 
 PROTO_3:
         0 GETUPVAL                         R3 0
@@ -52,20 +48,14 @@ PROTO_3:
         3 GETUPVAL                         R4 0
         4 GETTABLEKS                       R4 R4 K1 ["ITEM_CONFIGURATION_URL"]
         6 LOADK                            R5 K2 ["v1/creations/get-assets"]
-        7 DUPTABLE                         R6 K8 [{"assetType", "isArchived", "limit", "cursor", "groupId"}]
-        8 LOADK                            R7 K9 ["Animation"]
-        9 SETTABLEKS                       R7 R6 K3 ["assetType"]
-       11 LOADB                            R7 0
-       12 SETTABLEKS                       R7 R6 K4 ["isArchived"]
-       14 LOADN                            R7 25
-       15 SETTABLEKS                       R7 R6 K5 ["limit"]
-       17 SETTABLEKS                       R1 R6 K6 ["cursor"]
-       19 SETTABLEKS                       R2 R6 K7 ["groupId"]
-       21 CALL                             R3 3 1
-       22 MOVE                             R6 R3
-       23 NAMECALL                         R4 R0 K10 ["httpGetJson"]
-       25 CALL                             R4 2 -1
-       26 RETURN                           R4 -1
+        7 DUPTABLE                         R6 K11 [{["assetType"] = "Animation", ["isArchived"] = False, ["limit"] = 25, ["cursor"], ["groupId"]}]
+        8 SETTABLEKS                       R1 R6 K9 ["cursor"]
+       10 SETTABLEKS                       R2 R6 K10 ["groupId"]
+       12 CALL                             R3 3 1
+       13 MOVE                             R6 R3
+       14 NAMECALL                         R4 R0 K12 ["httpGetJson"]
+       16 CALL                             R4 2 -1
+       17 RETURN                           R4 -1
 
 PROTO_4:
         0 GETIMPORT                        R5 K2 [string.format]

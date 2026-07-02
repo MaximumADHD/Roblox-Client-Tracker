@@ -122,19 +122,17 @@ MAIN:
        55 GETTABLEKS                       R8 R8 K19 ["Types"]
        57 GETTABLEKS                       R8 R8 K20 ["Category"]
        59 CALL                             R7 1 1
-       60 DUPTABLE                         R8 K22 [{"comms"}]
-       61 LOADNIL                          R9
-       62 SETTABLEKS                       R9 R8 K21 ["comms"]
-       64 DUPCLOSURE                       R9 K23 [PROTO_0]
-       65 CAPTURE                          VAL R3
-       66 SETTABLEKS                       R9 R8 K24 ["setup"]
-       68 DUPCLOSURE                       R9 K25 [PROTO_3]
-       69 CAPTURE                          VAL R4
-       70 CAPTURE                          VAL R5
-       71 CAPTURE                          VAL R6
-       72 CAPTURE                          VAL R7
-       73 CAPTURE                          VAL R1
-       74 SETTABLEKS                       R9 R8 K26 ["setupCommunication"]
-       76 DUPCLOSURE                       R9 K27 [PROTO_4]
-       77 SETTABLEKS                       R9 R8 K28 ["fire"]
-       79 RETURN                           R8 1
+       60 DUPTABLE                         R8 K23 [{["comms"] = }]
+       61 DUPCLOSURE                       R9 K24 [PROTO_0]
+       62 CAPTURE                          VAL R3
+       63 SETTABLEKS                       R9 R8 K25 ["setup"]
+       65 DUPCLOSURE                       R9 K26 [PROTO_3]
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R5
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R1
+       71 SETTABLEKS                       R9 R8 K27 ["setupCommunication"]
+       73 DUPCLOSURE                       R9 K28 [PROTO_4]
+       74 SETTABLEKS                       R9 R8 K29 ["fire"]
+       76 RETURN                           R8 1

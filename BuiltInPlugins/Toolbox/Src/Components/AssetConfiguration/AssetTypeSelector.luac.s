@@ -77,128 +77,106 @@ PROTO_3:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 LOADK                            R5 K4 ["Frame"]
-       10 DUPTABLE                         R6 K9 [{"BackgroundTransparency", "Size", "Position", "Active"}]
-       11 LOADN                            R7 1
-       12 SETTABLEKS                       R7 R6 K5 ["BackgroundTransparency"]
-       14 GETIMPORT                        R7 K12 [UDim2.new]
-       16 LOADN                            R8 0
-       17 GETTABLEKS                       R9 R1 K13 ["width"]
-       19 LOADN                            R10 0
-       20 GETTABLEKS                       R11 R1 K14 ["height"]
-       22 CALL                             R7 4 1
-       23 SETTABLEKS                       R7 R6 K6 ["Size"]
-       25 GETTABLEKS                       R7 R1 K7 ["Position"]
-       27 SETTABLEKS                       R7 R6 K7 ["Position"]
-       29 LOADB                            R7 1
-       30 SETTABLEKS                       R7 R6 K8 ["Active"]
-       32 DUPTABLE                         R7 K18 [{"Title", "Dropdown", "Description"}]
-       33 GETUPVAL                         R8 0
-       34 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       36 LOADK                            R9 K19 ["TextLabel"]
-       37 DUPTABLE                         R10 K25 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "TextSize", "Font", "Text", "TextXAlignment"}]
-       38 LOADN                            R11 1
-       39 SETTABLEKS                       R11 R10 K5 ["BackgroundTransparency"]
-       41 GETIMPORT                        R11 K12 [UDim2.new]
-       43 LOADN                            R12 0
+       10 DUPTABLE                         R6 K11 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["Active"] = True}]
+       11 GETIMPORT                        R7 K14 [UDim2.new]
+       13 LOADN                            R8 0
+       14 GETTABLEKS                       R9 R1 K15 ["width"]
+       16 LOADN                            R10 0
+       17 GETTABLEKS                       R11 R1 K16 ["height"]
+       19 CALL                             R7 4 1
+       20 SETTABLEKS                       R7 R6 K7 ["Size"]
+       22 GETTABLEKS                       R7 R1 K8 ["Position"]
+       24 SETTABLEKS                       R7 R6 K8 ["Position"]
+       26 DUPTABLE                         R7 K20 [{"Title", "Dropdown", "Description"}]
+       27 GETUPVAL                         R8 0
+       28 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       30 LOADK                            R9 K21 ["TextLabel"]
+       31 DUPTABLE                         R10 K29 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["TextColor3"], ["TextSize"] = 16, ["Font"], ["Text"] = "Choose asset type", ["TextXAlignment"]}]
+       32 GETIMPORT                        R11 K14 [UDim2.new]
+       34 LOADN                            R12 0
+       35 LOADN                            R13 0
+       36 LOADN                            R14 0
+       37 LOADN                            R15 -28
+       38 CALL                             R11 4 1
+       39 SETTABLEKS                       R11 R10 K8 ["Position"]
+       41 GETIMPORT                        R11 K14 [UDim2.new]
+       43 LOADN                            R12 1
        44 LOADN                            R13 0
        45 LOADN                            R14 0
-       46 LOADN                            R15 228
+       46 LOADN                            R15 24
        47 CALL                             R11 4 1
-       48 SETTABLEKS                       R11 R10 K7 ["Position"]
-       50 GETIMPORT                        R11 K12 [UDim2.new]
-       52 LOADN                            R12 1
-       53 LOADN                            R13 0
-       54 LOADN                            R14 0
-       55 LOADN                            R15 24
-       56 CALL                             R11 4 1
-       57 SETTABLEKS                       R11 R10 K6 ["Size"]
-       59 GETTABLEKS                       R11 R3 K26 ["typeSelection"]
-       61 GETTABLEKS                       R11 R11 K27 ["selector"]
-       63 GETTABLEKS                       R11 R11 K28 ["title"]
-       65 SETTABLEKS                       R11 R10 K20 ["TextColor3"]
-       67 LOADN                            R11 16
-       68 SETTABLEKS                       R11 R10 K21 ["TextSize"]
-       70 GETUPVAL                         R11 1
-       71 GETTABLEKS                       R11 R11 K29 ["FONT"]
-       73 SETTABLEKS                       R11 R10 K22 ["Font"]
-       75 LOADK                            R11 K30 ["Choose asset type"]
-       76 SETTABLEKS                       R11 R10 K23 ["Text"]
-       78 GETIMPORT                        R11 K33 [Enum.TextXAlignment.Left]
-       80 SETTABLEKS                       R11 R10 K24 ["TextXAlignment"]
-       82 CALL                             R8 2 1
-       83 SETTABLEKS                       R8 R7 K15 ["Title"]
-       85 GETUPVAL                         R8 0
-       86 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       88 GETUPVAL                         R9 2
-       89 DUPTABLE                         R10 K40 [{"Position", "Size", "selectedDropDownIndex", "visibleDropDOwnCount", "items", "rowHeight", "fontSize", "onItemClicked"}]
-       90 GETIMPORT                        R11 K12 [UDim2.new]
-       92 LOADK                            R12 K41 [0.5]
-       93 GETTABLEKS                       R15 R1 K13 ["width"]
-       95 MINUS                            R14 R15
-       96 DIVK                             R13 R14 K42 [2]
-       97 LOADN                            R14 0
-       98 LOADN                            R15 0
-       99 CALL                             R11 4 1
-      100 SETTABLEKS                       R11 R10 K7 ["Position"]
-      102 GETIMPORT                        R11 K12 [UDim2.new]
-      104 LOADN                            R12 1
-      105 LOADN                            R13 0
-      106 LOADN                            R14 1
-      107 LOADN                            R15 0
-      108 CALL                             R11 4 1
-      109 SETTABLEKS                       R11 R10 K6 ["Size"]
-      111 GETTABLEKS                       R11 R2 K43 ["dropDownIndex"]
-      113 SETTABLEKS                       R11 R10 K34 ["selectedDropDownIndex"]
-      115 LOADN                            R11 5
-      116 SETTABLEKS                       R11 R10 K35 ["visibleDropDOwnCount"]
-      118 GETTABLEKS                       R11 R0 K0 ["props"]
-      120 GETTABLEKS                       R11 R11 K36 ["items"]
-      122 SETTABLEKS                       R11 R10 K36 ["items"]
-      124 LOADN                            R11 24
-      125 SETTABLEKS                       R11 R10 K37 ["rowHeight"]
-      127 LOADN                            R11 20
-      128 SETTABLEKS                       R11 R10 K38 ["fontSize"]
-      130 GETTABLEKS                       R11 R0 K39 ["onItemClicked"]
-      132 SETTABLEKS                       R11 R10 K39 ["onItemClicked"]
-      134 CALL                             R8 2 1
-      135 SETTABLEKS                       R8 R7 K16 ["Dropdown"]
-      137 GETUPVAL                         R8 0
-      138 GETTABLEKS                       R8 R8 K3 ["createElement"]
-      140 LOADK                            R9 K19 ["TextLabel"]
-      141 DUPTABLE                         R10 K25 [{"BackgroundTransparency", "Position", "Size", "TextColor3", "TextSize", "Font", "Text", "TextXAlignment"}]
-      142 LOADN                            R11 1
-      143 SETTABLEKS                       R11 R10 K5 ["BackgroundTransparency"]
-      145 GETIMPORT                        R11 K12 [UDim2.new]
-      147 LOADN                            R12 0
-      148 LOADN                            R13 0
-      149 LOADN                            R14 1
-      150 LOADN                            R15 0
-      151 CALL                             R11 4 1
-      152 SETTABLEKS                       R11 R10 K7 ["Position"]
-      154 GETIMPORT                        R11 K12 [UDim2.new]
-      156 LOADN                            R12 1
-      157 LOADN                            R13 0
-      158 LOADN                            R14 0
-      159 LOADN                            R15 18
-      160 CALL                             R11 4 1
-      161 SETTABLEKS                       R11 R10 K6 ["Size"]
-      163 GETTABLEKS                       R11 R3 K26 ["typeSelection"]
-      165 GETTABLEKS                       R11 R11 K27 ["selector"]
-      167 GETTABLEKS                       R11 R11 K44 ["description"]
-      169 SETTABLEKS                       R11 R10 K20 ["TextColor3"]
-      171 LOADN                            R11 12
-      172 SETTABLEKS                       R11 R10 K21 ["TextSize"]
-      174 GETUPVAL                         R11 1
-      175 GETTABLEKS                       R11 R11 K29 ["FONT"]
-      177 SETTABLEKS                       R11 R10 K22 ["Font"]
-      179 LOADK                            R11 K45 ["Once published, this model can be shared in Marketplace"]
-      180 SETTABLEKS                       R11 R10 K23 ["Text"]
-      182 GETIMPORT                        R11 K33 [Enum.TextXAlignment.Left]
-      184 SETTABLEKS                       R11 R10 K24 ["TextXAlignment"]
-      186 CALL                             R8 2 1
-      187 SETTABLEKS                       R8 R7 K17 ["Description"]
-      189 CALL                             R4 3 -1
-      190 RETURN                           R4 -1
+       48 SETTABLEKS                       R11 R10 K7 ["Size"]
+       50 GETTABLEKS                       R11 R3 K30 ["typeSelection"]
+       52 GETTABLEKS                       R11 R11 K31 ["selector"]
+       54 GETTABLEKS                       R11 R11 K32 ["title"]
+       56 SETTABLEKS                       R11 R10 K22 ["TextColor3"]
+       58 GETUPVAL                         R11 1
+       59 GETTABLEKS                       R11 R11 K33 ["FONT"]
+       61 SETTABLEKS                       R11 R10 K25 ["Font"]
+       63 GETIMPORT                        R11 K36 [Enum.TextXAlignment.Left]
+       65 SETTABLEKS                       R11 R10 K28 ["TextXAlignment"]
+       67 CALL                             R8 2 1
+       68 SETTABLEKS                       R8 R7 K17 ["Title"]
+       70 GETUPVAL                         R8 0
+       71 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       73 GETUPVAL                         R9 2
+       74 DUPTABLE                         R10 K46 [{["Position"], ["Size"], ["selectedDropDownIndex"], ["visibleDropDOwnCount"] = 5, ["items"], ["rowHeight"] = 24, ["fontSize"] = 20, ["onItemClicked"]}]
+       75 GETIMPORT                        R11 K14 [UDim2.new]
+       77 LOADK                            R12 K47 [0.5]
+       78 GETTABLEKS                       R15 R1 K15 ["width"]
+       80 MINUS                            R14 R15
+       81 DIVK                             R13 R14 K48 [2]
+       82 LOADN                            R14 0
+       83 LOADN                            R15 0
+       84 CALL                             R11 4 1
+       85 SETTABLEKS                       R11 R10 K8 ["Position"]
+       87 GETIMPORT                        R11 K14 [UDim2.new]
+       89 LOADN                            R12 1
+       90 LOADN                            R13 0
+       91 LOADN                            R14 1
+       92 LOADN                            R15 0
+       93 CALL                             R11 4 1
+       94 SETTABLEKS                       R11 R10 K7 ["Size"]
+       96 GETTABLEKS                       R11 R2 K49 ["dropDownIndex"]
+       98 SETTABLEKS                       R11 R10 K37 ["selectedDropDownIndex"]
+      100 GETTABLEKS                       R11 R0 K0 ["props"]
+      102 GETTABLEKS                       R11 R11 K40 ["items"]
+      104 SETTABLEKS                       R11 R10 K40 ["items"]
+      106 GETTABLEKS                       R11 R0 K45 ["onItemClicked"]
+      108 SETTABLEKS                       R11 R10 K45 ["onItemClicked"]
+      110 CALL                             R8 2 1
+      111 SETTABLEKS                       R8 R7 K18 ["Dropdown"]
+      113 GETUPVAL                         R8 0
+      114 GETTABLEKS                       R8 R8 K3 ["createElement"]
+      116 LOADK                            R9 K21 ["TextLabel"]
+      117 DUPTABLE                         R10 K52 [{["BackgroundTransparency"] = 1, ["Position"], ["Size"], ["TextColor3"], ["TextSize"] = 12, ["Font"], ["Text"] = "Once published, this model can be shared in Marketplace", ["TextXAlignment"]}]
+      118 GETIMPORT                        R11 K14 [UDim2.new]
+      120 LOADN                            R12 0
+      121 LOADN                            R13 0
+      122 LOADN                            R14 1
+      123 LOADN                            R15 0
+      124 CALL                             R11 4 1
+      125 SETTABLEKS                       R11 R10 K8 ["Position"]
+      127 GETIMPORT                        R11 K14 [UDim2.new]
+      129 LOADN                            R12 1
+      130 LOADN                            R13 0
+      131 LOADN                            R14 0
+      132 LOADN                            R15 18
+      133 CALL                             R11 4 1
+      134 SETTABLEKS                       R11 R10 K7 ["Size"]
+      136 GETTABLEKS                       R11 R3 K30 ["typeSelection"]
+      138 GETTABLEKS                       R11 R11 K31 ["selector"]
+      140 GETTABLEKS                       R11 R11 K53 ["description"]
+      142 SETTABLEKS                       R11 R10 K22 ["TextColor3"]
+      144 GETUPVAL                         R11 1
+      145 GETTABLEKS                       R11 R11 K33 ["FONT"]
+      147 SETTABLEKS                       R11 R10 K25 ["Font"]
+      149 GETIMPORT                        R11 K36 [Enum.TextXAlignment.Left]
+      151 SETTABLEKS                       R11 R10 K28 ["TextXAlignment"]
+      153 CALL                             R8 2 1
+      154 SETTABLEKS                       R8 R7 K19 ["Description"]
+      156 CALL                             R4 3 -1
+      157 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

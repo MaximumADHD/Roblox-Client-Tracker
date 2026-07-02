@@ -33,46 +33,30 @@ PROTO_3:
 
 PROTO_4:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R3 K6 [{"enabled", "cancelButtonEnabled", "title", "subtitle", "status", "cancelRequested"}]
-        2 LOADB                            R4 1
-        3 SETTABLEKS                       R4 R3 K0 ["enabled"]
-        5 LOADB                            R4 1
-        6 SETTABLEKS                       R4 R3 K1 ["cancelButtonEnabled"]
-        8 GETTABLEKS                       R4 R0 K7 ["Title"]
-       10 SETTABLEKS                       R4 R3 K2 ["title"]
-       12 GETTABLEKS                       R4 R0 K8 ["Subtitle"]
-       14 SETTABLEKS                       R4 R3 K3 ["subtitle"]
-       16 GETTABLEKS                       R4 R0 K9 ["Status"]
-       18 SETTABLEKS                       R4 R3 K4 ["status"]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K5 ["cancelRequested"]
-       23 NAMECALL                         R1 R1 K10 ["setState"]
-       25 CALL                             R1 2 0
-       26 RETURN                           R0 0
+        1 DUPTABLE                         R3 K8 [{[1] = True, ["cancelButtonEnabled"] = True, ["title"], ["subtitle"], ["status"], ["cancelRequested"] = False}]
+        2 GETTABLEKS                       R4 R0 K9 ["Title"]
+        4 SETTABLEKS                       R4 R3 K3 ["title"]
+        6 GETTABLEKS                       R4 R0 K10 ["Subtitle"]
+        8 SETTABLEKS                       R4 R3 K4 ["subtitle"]
+       10 GETTABLEKS                       R4 R0 K11 ["Status"]
+       12 SETTABLEKS                       R4 R3 K5 ["status"]
+       14 NAMECALL                         R1 R1 K12 ["setState"]
+       16 CALL                             R1 2 0
+       17 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K4 [{"enabled", "title", "subtitle", "status"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["enabled"]
-        5 LOADK                            R3 K5 [""]
-        6 SETTABLEKS                       R3 R2 K1 ["title"]
-        8 LOADK                            R3 K5 [""]
-        9 SETTABLEKS                       R3 R2 K2 ["subtitle"]
-       11 LOADK                            R3 K5 [""]
-       12 SETTABLEKS                       R3 R2 K3 ["status"]
-       14 NAMECALL                         R0 R0 K6 ["setState"]
-       16 CALL                             R0 2 0
-       17 RETURN                           R0 0
+        1 DUPTABLE                         R2 K6 [{[1] = False, ["title"] = "", ["subtitle"] = "", ["status"] = ""}]
+        2 NAMECALL                         R0 R0 K7 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"cancelButtonEnabled"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["cancelButtonEnabled"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -90,108 +74,92 @@ PROTO_8:
         6 RETURN                           R0 0
 
 PROTO_9:
-        0 DUPTABLE                         R2 K7 [{"title", "subtitle", "status", "enabled", "cancelButtonEnabled", "cancelRequested", "imageRbxId"}]
-        1 LOADK                            R3 K8 [""]
-        2 SETTABLEKS                       R3 R2 K0 ["title"]
-        4 LOADK                            R3 K8 [""]
-        5 SETTABLEKS                       R3 R2 K1 ["subtitle"]
-        7 LOADK                            R3 K8 [""]
-        8 SETTABLEKS                       R3 R2 K2 ["status"]
-       10 LOADB                            R3 0
-       11 SETTABLEKS                       R3 R2 K3 ["enabled"]
-       13 LOADB                            R3 1
-       14 SETTABLEKS                       R3 R2 K4 ["cancelButtonEnabled"]
-       16 LOADB                            R3 0
-       17 SETTABLEKS                       R3 R2 K5 ["cancelRequested"]
-       19 LOADK                            R3 K8 [""]
-       20 SETTABLEKS                       R3 R2 K6 ["imageRbxId"]
-       22 SETTABLEKS                       R2 R0 K9 ["state"]
-       24 GETUPVAL                         R2 0
-       25 GETTABLEKS                       R2 R2 K10 ["Localization"]
-       27 GETTABLEKS                       R2 R2 K11 ["new"]
-       29 DUPTABLE                         R3 K15 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       30 GETUPVAL                         R4 1
-       31 SETTABLEKS                       R4 R3 K12 ["stringResourceTable"]
-       33 GETUPVAL                         R4 2
-       34 SETTABLEKS                       R4 R3 K13 ["translationResourceTable"]
-       36 LOADK                            R4 K16 ["CancellableDialog"]
-       37 SETTABLEKS                       R4 R3 K14 ["pluginName"]
-       39 CALL                             R2 1 1
-       40 SETTABLEKS                       R2 R0 K17 ["localization"]
-       42 GETUPVAL                         R2 0
-       43 GETTABLEKS                       R2 R2 K18 ["Analytics"]
-       45 GETTABLEKS                       R2 R2 K11 ["new"]
-       47 DUPCLOSURE                       R3 K19 [PROTO_0]
-       48 NEWTABLE                         R4 0 0
-       50 CALL                             R2 2 1
-       51 SETTABLEKS                       R2 R0 K20 ["analytics"]
-       53 GETUPVAL                         R2 3
-       54 GETTABLEKS                       R2 R2 K11 ["new"]
-       56 CALL                             R2 0 1
-       57 SETTABLEKS                       R2 R0 K21 ["DEPRECATED_stylizer"]
-       59 GETUPVAL                         R2 4
-       60 GETTABLEKS                       R3 R1 K22 ["Plugin"]
-       62 CALL                             R2 1 1
-       63 SETTABLEKS                       R2 R0 K23 ["design"]
-       65 GETTABLEKS                       R2 R1 K22 ["Plugin"]
-       67 LOADK                            R4 K24 ["CancellableDialogManager"]
-       68 NAMECALL                         R2 R2 K25 ["GetPluginComponent"]
-       70 CALL                             R2 2 1
-       71 SETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-       73 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-       75 GETTABLEKS                       R2 R2 K27 ["UpdateTitleText"]
-       77 NEWCLOSURE                       R4 P1
-       78 CAPTURE                          VAL R0
-       79 NAMECALL                         R2 R2 K28 ["Connect"]
-       81 CALL                             R2 2 1
-       82 SETTABLEKS                       R2 R0 K29 ["updateTitleTextConnection"]
-       84 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-       86 GETTABLEKS                       R2 R2 K30 ["UpdateSubtitleText"]
-       88 NEWCLOSURE                       R4 P2
-       89 CAPTURE                          VAL R0
-       90 NAMECALL                         R2 R2 K28 ["Connect"]
-       92 CALL                             R2 2 1
-       93 SETTABLEKS                       R2 R0 K31 ["updateSubtitleTextConnection"]
-       95 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-       97 GETTABLEKS                       R2 R2 K32 ["UpdateStatusText"]
-       99 NEWCLOSURE                       R4 P3
-      100 CAPTURE                          VAL R0
-      101 NAMECALL                         R2 R2 K28 ["Connect"]
-      103 CALL                             R2 2 1
-      104 SETTABLEKS                       R2 R0 K33 ["updateStatusTextConnection"]
-      106 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-      108 GETTABLEKS                       R2 R2 K34 ["ShowDialog"]
-      110 NEWCLOSURE                       R4 P4
-      111 CAPTURE                          VAL R0
-      112 NAMECALL                         R2 R2 K28 ["Connect"]
-      114 CALL                             R2 2 1
-      115 SETTABLEKS                       R2 R0 K35 ["showDialogConnection"]
-      117 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-      119 GETTABLEKS                       R2 R2 K36 ["HideDialog"]
-      121 NEWCLOSURE                       R4 P5
-      122 CAPTURE                          VAL R0
-      123 NAMECALL                         R2 R2 K28 ["Connect"]
-      125 CALL                             R2 2 1
-      126 SETTABLEKS                       R2 R0 K37 ["hideDialogConnection"]
-      128 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-      130 GETTABLEKS                       R2 R2 K38 ["DisableCancel"]
-      132 NEWCLOSURE                       R4 P6
-      133 CAPTURE                          VAL R0
-      134 NAMECALL                         R2 R2 K28 ["Connect"]
-      136 CALL                             R2 2 1
-      137 SETTABLEKS                       R2 R0 K39 ["disableCancelButtonConnection"]
-      139 GETTABLEKS                       R2 R0 K26 ["cancellableDialogManager"]
-      141 GETTABLEKS                       R2 R2 K40 ["UpdateImage"]
-      143 NEWCLOSURE                       R4 P7
-      144 CAPTURE                          VAL R0
-      145 NAMECALL                         R2 R2 K28 ["Connect"]
-      147 CALL                             R2 2 1
-      148 SETTABLEKS                       R2 R0 K41 ["updateImageConnection"]
-      150 GETIMPORT                        R2 K44 [task.spawn]
-      152 NEWCLOSURE                       R3 P8
-      153 CAPTURE                          VAL R0
-      154 CALL                             R2 1 0
-      155 RETURN                           R0 0
+        0 DUPTABLE                         R2 K10 [{[1] = "", ["subtitle"] = "", ["status"] = "", ["enabled"] = False, ["cancelButtonEnabled"] = True, ["cancelRequested"] = False, ["imageRbxId"] = ""}]
+        1 SETTABLEKS                       R2 R0 K11 ["state"]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R2 R2 K12 ["Localization"]
+        6 GETTABLEKS                       R2 R2 K13 ["new"]
+        8 DUPTABLE                         R3 K18 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "CancellableDialog"}]
+        9 GETUPVAL                         R4 1
+       10 SETTABLEKS                       R4 R3 K14 ["stringResourceTable"]
+       12 GETUPVAL                         R4 2
+       13 SETTABLEKS                       R4 R3 K15 ["translationResourceTable"]
+       15 CALL                             R2 1 1
+       16 SETTABLEKS                       R2 R0 K19 ["localization"]
+       18 GETUPVAL                         R2 0
+       19 GETTABLEKS                       R2 R2 K20 ["Analytics"]
+       21 GETTABLEKS                       R2 R2 K13 ["new"]
+       23 DUPCLOSURE                       R3 K21 [PROTO_0]
+       24 NEWTABLE                         R4 0 0
+       26 CALL                             R2 2 1
+       27 SETTABLEKS                       R2 R0 K22 ["analytics"]
+       29 GETUPVAL                         R2 3
+       30 GETTABLEKS                       R2 R2 K13 ["new"]
+       32 CALL                             R2 0 1
+       33 SETTABLEKS                       R2 R0 K23 ["DEPRECATED_stylizer"]
+       35 GETUPVAL                         R2 4
+       36 GETTABLEKS                       R3 R1 K24 ["Plugin"]
+       38 CALL                             R2 1 1
+       39 SETTABLEKS                       R2 R0 K25 ["design"]
+       41 GETTABLEKS                       R2 R1 K24 ["Plugin"]
+       43 LOADK                            R4 K26 ["CancellableDialogManager"]
+       44 NAMECALL                         R2 R2 K27 ["GetPluginComponent"]
+       46 CALL                             R2 2 1
+       47 SETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       49 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       51 GETTABLEKS                       R2 R2 K29 ["UpdateTitleText"]
+       53 NEWCLOSURE                       R4 P1
+       54 CAPTURE                          VAL R0
+       55 NAMECALL                         R2 R2 K30 ["Connect"]
+       57 CALL                             R2 2 1
+       58 SETTABLEKS                       R2 R0 K31 ["updateTitleTextConnection"]
+       60 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       62 GETTABLEKS                       R2 R2 K32 ["UpdateSubtitleText"]
+       64 NEWCLOSURE                       R4 P2
+       65 CAPTURE                          VAL R0
+       66 NAMECALL                         R2 R2 K30 ["Connect"]
+       68 CALL                             R2 2 1
+       69 SETTABLEKS                       R2 R0 K33 ["updateSubtitleTextConnection"]
+       71 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       73 GETTABLEKS                       R2 R2 K34 ["UpdateStatusText"]
+       75 NEWCLOSURE                       R4 P3
+       76 CAPTURE                          VAL R0
+       77 NAMECALL                         R2 R2 K30 ["Connect"]
+       79 CALL                             R2 2 1
+       80 SETTABLEKS                       R2 R0 K35 ["updateStatusTextConnection"]
+       82 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       84 GETTABLEKS                       R2 R2 K36 ["ShowDialog"]
+       86 NEWCLOSURE                       R4 P4
+       87 CAPTURE                          VAL R0
+       88 NAMECALL                         R2 R2 K30 ["Connect"]
+       90 CALL                             R2 2 1
+       91 SETTABLEKS                       R2 R0 K37 ["showDialogConnection"]
+       93 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+       95 GETTABLEKS                       R2 R2 K38 ["HideDialog"]
+       97 NEWCLOSURE                       R4 P5
+       98 CAPTURE                          VAL R0
+       99 NAMECALL                         R2 R2 K30 ["Connect"]
+      101 CALL                             R2 2 1
+      102 SETTABLEKS                       R2 R0 K39 ["hideDialogConnection"]
+      104 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+      106 GETTABLEKS                       R2 R2 K40 ["DisableCancel"]
+      108 NEWCLOSURE                       R4 P6
+      109 CAPTURE                          VAL R0
+      110 NAMECALL                         R2 R2 K30 ["Connect"]
+      112 CALL                             R2 2 1
+      113 SETTABLEKS                       R2 R0 K41 ["disableCancelButtonConnection"]
+      115 GETTABLEKS                       R2 R0 K28 ["cancellableDialogManager"]
+      117 GETTABLEKS                       R2 R2 K42 ["UpdateImage"]
+      119 NEWCLOSURE                       R4 P7
+      120 CAPTURE                          VAL R0
+      121 NAMECALL                         R2 R2 K30 ["Connect"]
+      123 CALL                             R2 2 1
+      124 SETTABLEKS                       R2 R0 K43 ["updateImageConnection"]
+      126 GETIMPORT                        R2 K46 [task.spawn]
+      128 NEWCLOSURE                       R3 P8
+      129 CAPTURE                          VAL R0
+      130 CALL                             R2 1 0
+      131 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R0 0
@@ -216,18 +184,14 @@ PROTO_12:
 
 PROTO_13:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K2 [{"cancelButtonEnabled", "cancelRequested"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["cancelButtonEnabled"]
-        5 LOADB                            R3 1
-        6 SETTABLEKS                       R3 R2 K1 ["cancelRequested"]
-        8 NAMECALL                         R0 R0 K3 ["setState"]
-       10 CALL                             R0 2 0
-       11 GETIMPORT                        R0 K6 [task.spawn]
-       13 NEWCLOSURE                       R1 P0
-       14 CAPTURE                          UPVAL U0
-       15 CALL                             R0 1 0
-       16 RETURN                           R0 0
+        1 DUPTABLE                         R2 K4 [{[1] = False, ["cancelRequested"] = True}]
+        2 NAMECALL                         R0 R0 K5 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETIMPORT                        R0 K8 [task.spawn]
+        7 NEWCLOSURE                       R1 P0
+        8 CAPTURE                          UPVAL U0
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]

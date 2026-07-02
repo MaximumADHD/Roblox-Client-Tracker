@@ -1,19 +1,17 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K4 [{"SelectionChanged", "draggerContext", "_selection", "_setSelectedPointNamesCallback"}]
+        0 DUPTABLE                         R2 K5 [{[1], ["draggerContext"] = , ["_selection"], ["_setSelectedPointNamesCallback"]}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K5 ["new"]
+        2 GETTABLEKS                       R3 R3 K6 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["SelectionChanged"]
-        7 LOADNIL                          R3
-        8 SETTABLEKS                       R3 R2 K1 ["draggerContext"]
-       10 NEWTABLE                         R3 0 0
-       12 SETTABLEKS                       R3 R2 K2 ["_selection"]
-       14 SETTABLEKS                       R0 R2 K3 ["_setSelectedPointNamesCallback"]
-       16 GETUPVAL                         R3 1
-       17 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-       19 GETIMPORT                        R1 K7 [setmetatable]
-       21 CALL                             R1 2 1
-       22 RETURN                           R1 1
+        7 NEWTABLE                         R3 0 0
+        9 SETTABLEKS                       R3 R2 K3 ["_selection"]
+       11 SETTABLEKS                       R0 R2 K4 ["_setSelectedPointNamesCallback"]
+       13 GETUPVAL                         R3 1
+       14 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+       16 GETIMPORT                        R1 K8 [setmetatable]
+       18 CALL                             R1 2 1
+       19 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["_selection"]
@@ -97,7 +95,7 @@ PROTO_4:
        62 LENGTH                           R8 R1
        63 SUBK                             R7 R8 K8 [1]
        64 LOADN                            R5 1
-       65 LOADN                            R6 255
+       65 LOADN                            R6 -1
        66 FORNPREP                         R5
        67 GETTABLEKS                       R9 R0 K0 ["draggerContext"]
        69 GETTABLE                         R10 R1 R7

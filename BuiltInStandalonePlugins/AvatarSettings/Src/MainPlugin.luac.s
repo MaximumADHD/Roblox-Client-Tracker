@@ -1,12 +1,10 @@
 PROTO_0:
         0 GETTABLEKS                       R1 R0 K0 ["enabled"]
         2 SETUPVAL                         R1 0
-        3 DUPTABLE                         R1 K2 [{"previousState", "enabled"}]
+        3 DUPTABLE                         R1 K3 [{["previousState"], [2] = False}]
         4 GETTABLEKS                       R2 R0 K0 ["enabled"]
         6 SETTABLEKS                       R2 R1 K1 ["previousState"]
-        8 LOADB                            R2 0
-        9 SETTABLEKS                       R2 R1 K0 ["enabled"]
-       11 RETURN                           R1 1
+        8 RETURN                           R1 1
 
 PROTO_1:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
@@ -45,10 +43,8 @@ PROTO_2:
        35 RETURN                           R0 0
 
 PROTO_3:
-        0 DUPTABLE                         R1 K1 [{"enabled"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["enabled"]
-        4 RETURN                           R1 1
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 RETURN                           R1 1
 
 PROTO_4:
         0 DUPTABLE                         R1 K1 [{"enabled"}]
@@ -135,18 +131,16 @@ PROTO_10:
         4 NAMECALL                         R0 R0 K1 ["Invoke"]
         6 CALL                             R0 2 0
         7 GETUPVAL                         R0 2
-        8 DUPTABLE                         R2 K3 [{"enabled"}]
-        9 LOADB                            R3 0
-       10 SETTABLEKS                       R3 R2 K2 ["enabled"]
-       12 NAMECALL                         R0 R0 K4 ["setState"]
-       14 CALL                             R0 2 0
-       15 GETUPVAL                         R0 2
-       16 GETTABLEKS                       R0 R0 K5 ["props"]
-       18 GETTABLEKS                       R0 R0 K6 ["PluginLoaderContext"]
-       20 GETTABLEKS                       R0 R0 K7 ["mainButton"]
-       22 LOADB                            R1 1
-       23 SETTABLEKS                       R1 R0 K8 ["Enabled"]
-       25 RETURN                           R0 0
+        8 DUPTABLE                         R2 K4 [{["enabled"] = False}]
+        9 NAMECALL                         R0 R0 K5 ["setState"]
+       11 CALL                             R0 2 0
+       12 GETUPVAL                         R0 2
+       13 GETTABLEKS                       R0 R0 K6 ["props"]
+       15 GETTABLEKS                       R0 R0 K7 ["PluginLoaderContext"]
+       17 GETTABLEKS                       R0 R0 K8 ["mainButton"]
+       19 LOADB                            R1 1
+       20 SETTABLEKS                       R1 R0 K9 ["Enabled"]
+       22 RETURN                           R0 0
 
 PROTO_11:
         0 LOADB                            R1 1
@@ -180,70 +174,66 @@ PROTO_13:
 
 PROTO_14:
         0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
-        2 DUPTABLE                         R3 K2 [{"enabled"}]
-        3 LOADB                            R4 0
-        4 SETTABLEKS                       R4 R3 K1 ["enabled"]
-        6 SETTABLEKS                       R3 R0 K3 ["state"]
-        8 LOADK                            R5 K4 ["DmChanged"]
-        9 NEWCLOSURE                       R6 P0
-       10 CAPTURE                          VAL R0
-       11 CAPTURE                          UPVAL U0
-       12 NAMECALL                         R3 R2 K5 ["OnInvoke"]
-       14 CALL                             R3 3 0
-       15 LOADK                            R5 K6 ["DmSessionStarted"]
-       16 NEWCLOSURE                       R6 P1
-       17 CAPTURE                          VAL R0
-       18 NAMECALL                         R3 R2 K5 ["OnInvoke"]
-       20 CALL                             R3 3 0
-       21 LOADK                            R5 K7 ["PreviewSetMainButtonEnabled"]
-       22 NEWCLOSURE                       R6 P2
-       23 CAPTURE                          VAL R0
-       24 NAMECALL                         R3 R2 K5 ["OnInvoke"]
-       26 CALL                             R3 3 0
-       27 NEWCLOSURE                       R3 P3
-       28 CAPTURE                          VAL R0
-       29 CAPTURE                          UPVAL U1
-       30 SETTABLEKS                       R3 R0 K8 ["toggleEnabled"]
-       32 NEWCLOSURE                       R3 P4
-       33 CAPTURE                          VAL R2
-       34 CAPTURE                          UPVAL U2
-       35 CAPTURE                          VAL R0
-       36 SETTABLEKS                       R3 R0 K9 ["onClose"]
-       38 NEWCLOSURE                       R3 P5
-       39 CAPTURE                          UPVAL U0
-       40 CAPTURE                          VAL R0
-       41 SETTABLEKS                       R3 R0 K10 ["onRestore"]
-       43 NEWCLOSURE                       R3 P6
-       44 CAPTURE                          VAL R0
-       45 SETTABLEKS                       R3 R0 K11 ["onWidgetEnabledChanged"]
-       47 NEWCLOSURE                       R3 P7
-       48 CAPTURE                          VAL R0
-       49 SETTABLEKS                       R3 R0 K12 ["onDockWidgetCreated"]
-       51 GETUPVAL                         R3 3
-       52 GETTABLEKS                       R3 R3 K13 ["Localization"]
-       54 GETTABLEKS                       R3 R3 K14 ["new"]
-       56 DUPTABLE                         R4 K18 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-       57 GETUPVAL                         R5 4
-       58 SETTABLEKS                       R5 R4 K15 ["stringResourceTable"]
-       60 GETUPVAL                         R5 5
-       61 SETTABLEKS                       R5 R4 K16 ["translationResourceTable"]
-       63 LOADK                            R5 K19 ["AvatarSettings"]
-       64 SETTABLEKS                       R5 R4 K17 ["pluginName"]
-       66 CALL                             R3 1 1
-       67 SETTABLEKS                       R3 R0 K20 ["localization"]
-       69 GETUPVAL                         R3 6
-       70 GETTABLEKS                       R3 R3 K14 ["new"]
+        2 DUPTABLE                         R3 K3 [{["enabled"] = False}]
+        3 SETTABLEKS                       R3 R0 K4 ["state"]
+        5 LOADK                            R5 K5 ["DmChanged"]
+        6 NEWCLOSURE                       R6 P0
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U0
+        9 NAMECALL                         R3 R2 K6 ["OnInvoke"]
+       11 CALL                             R3 3 0
+       12 LOADK                            R5 K7 ["DmSessionStarted"]
+       13 NEWCLOSURE                       R6 P1
+       14 CAPTURE                          VAL R0
+       15 NAMECALL                         R3 R2 K6 ["OnInvoke"]
+       17 CALL                             R3 3 0
+       18 LOADK                            R5 K8 ["PreviewSetMainButtonEnabled"]
+       19 NEWCLOSURE                       R6 P2
+       20 CAPTURE                          VAL R0
+       21 NAMECALL                         R3 R2 K6 ["OnInvoke"]
+       23 CALL                             R3 3 0
+       24 NEWCLOSURE                       R3 P3
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U1
+       27 SETTABLEKS                       R3 R0 K9 ["toggleEnabled"]
+       29 NEWCLOSURE                       R3 P4
+       30 CAPTURE                          VAL R2
+       31 CAPTURE                          UPVAL U2
+       32 CAPTURE                          VAL R0
+       33 SETTABLEKS                       R3 R0 K10 ["onClose"]
+       35 NEWCLOSURE                       R3 P5
+       36 CAPTURE                          UPVAL U0
+       37 CAPTURE                          VAL R0
+       38 SETTABLEKS                       R3 R0 K11 ["onRestore"]
+       40 NEWCLOSURE                       R3 P6
+       41 CAPTURE                          VAL R0
+       42 SETTABLEKS                       R3 R0 K12 ["onWidgetEnabledChanged"]
+       44 NEWCLOSURE                       R3 P7
+       45 CAPTURE                          VAL R0
+       46 SETTABLEKS                       R3 R0 K13 ["onDockWidgetCreated"]
+       48 GETUPVAL                         R3 3
+       49 GETTABLEKS                       R3 R3 K14 ["Localization"]
+       51 GETTABLEKS                       R3 R3 K15 ["new"]
+       53 DUPTABLE                         R4 K20 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "AvatarSettings"}]
+       54 GETUPVAL                         R5 4
+       55 SETTABLEKS                       R5 R4 K16 ["stringResourceTable"]
+       57 GETUPVAL                         R5 5
+       58 SETTABLEKS                       R5 R4 K17 ["translationResourceTable"]
+       60 CALL                             R3 1 1
+       61 SETTABLEKS                       R3 R0 K21 ["localization"]
+       63 GETUPVAL                         R3 6
+       64 GETTABLEKS                       R3 R3 K15 ["new"]
+       66 CALL                             R3 0 1
+       67 SETTABLEKS                       R3 R0 K22 ["telemetry"]
+       69 GETUPVAL                         R3 7
+       70 GETTABLEKS                       R3 R3 K15 ["new"]
        72 CALL                             R3 0 1
-       73 SETTABLEKS                       R3 R0 K21 ["telemetry"]
-       75 GETUPVAL                         R3 7
-       76 GETTABLEKS                       R3 R3 K14 ["new"]
-       78 CALL                             R3 0 1
-       79 SETTABLEKS                       R3 R0 K22 ["DEPRECATED_stylizer"]
-       81 GETUPVAL                         R3 8
-       82 GETTABLEKS                       R4 R1 K0 ["Plugin"]
-       84 CALL                             R3 1 1
-       85 SETTABLEKS                       R3 R0 K23 ["design"]
-       87 RETURN                           R0 0
+       73 SETTABLEKS                       R3 R0 K23 ["DEPRECATED_stylizer"]
+       75 GETUPVAL                         R3 8
+       76 GETTABLEKS                       R4 R1 K0 ["Plugin"]
+       78 CALL                             R3 1 1
+       79 SETTABLEKS                       R3 R0 K24 ["design"]
+       81 RETURN                           R0 0
 
 PROTO_15:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -303,13 +293,13 @@ PROTO_16:
        68 GETIMPORT                        R11 K25 [Enum.InitialDockState.Left]
        70 SETTABLEKS                       R11 R10 K23 ["InitialDockState"]
        72 GETIMPORT                        R11 K27 [Vector2.new]
-       74 LOADN                            R12 103
-       75 LOADN                            R13 168
+       74 LOADN                            R12 615
+       75 LOADN                            R13 680
        76 CALL                             R11 2 1
        77 SETTABLEKS                       R11 R10 K28 ["Size"]
        79 GETIMPORT                        R11 K27 [Vector2.new]
-       81 LOADN                            R12 103
-       82 LOADN                            R13 168
+       81 LOADN                            R12 615
+       82 LOADN                            R13 680
        83 CALL                             R11 2 1
        84 SETTABLEKS                       R11 R10 K29 ["MinSize"]
        86 GETTABLEKS                       R11 R0 K30 ["onClose"]

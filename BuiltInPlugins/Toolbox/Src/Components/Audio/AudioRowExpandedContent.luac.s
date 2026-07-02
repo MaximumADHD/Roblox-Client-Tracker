@@ -201,287 +201,269 @@ PROTO_5:
       113 NAMECALL                         R25 R17 K43 ["getNextOrder"]
       115 CALL                             R25 1 1
       116 SETTABLEKS                       R25 R24 K26 ["LayoutOrder"]
-      118 DUPTABLE                         R25 K46 [{"Left", "Right"}]
-      119 LOADN                            R26 4
-      120 SETTABLEKS                       R26 R25 K44 ["Left"]
-      122 GETUPVAL                         R27 4
-      123 CALL                             R27 0 1
-      124 JUMPIFNOT                        R27 ; [+6]
-      125 GETUPVAL                         R26 5
-      126 GETTABLEKS                       R26 R26 K47 ["ITEM_ROW"]
-      128 GETTABLEKS                       R26 R26 K48 ["LEFT_RIGHT_PADDING"]
-      130 JUMP                             ; [+5]
-      131 GETUPVAL                         R26 5
-      132 GETTABLEKS                       R26 R26 K49 ["AUDIO_ROW"]
-      134 GETTABLEKS                       R26 R26 K48 ["LEFT_RIGHT_PADDING"]
-      136 SETTABLEKS                       R26 R25 K45 ["Right"]
-      138 SETTABLEKS                       R25 R24 K38 ["Padding"]
-      140 GETIMPORT                        R25 K51 [UDim2.new]
-      142 LOADN                            R26 1
-      143 LOADN                            R27 0
-      144 LOADN                            R28 0
-      145 LOADN                            R29 26
-      146 CALL                             R25 4 1
-      147 SETTABLEKS                       R25 R24 K27 ["Size"]
-      149 GETIMPORT                        R25 K53 [Enum.VerticalAlignment.Center]
-      151 SETTABLEKS                       R25 R24 K39 ["VerticalAlignment"]
-      153 DUPTABLE                         R25 K55 [{"AudioPlayer"}]
-      154 GETUPVAL                         R26 2
-      155 GETTABLEKS                       R26 R26 K23 ["createElement"]
-      157 GETUPVAL                         R27 6
-      158 DUPTABLE                         R28 K58 [{"SoundId", "IsPlaying", "OnEnd"}]
-      159 SETTABLEKS                       R8 R28 K56 ["SoundId"]
-      161 SETTABLEKS                       R6 R28 K9 ["IsPlaying"]
-      163 GETTABLEKS                       R29 R1 K59 ["OnAudioEnd"]
-      165 SETTABLEKS                       R29 R28 K57 ["OnEnd"]
-      167 CALL                             R26 2 1
-      168 SETTABLEKS                       R26 R25 K54 ["AudioPlayer"]
-      170 CALL                             R22 3 1
-      171 SETTABLEKS                       R22 R21 K35 ["AudioPlayerFrame"]
-      173 GETUPVAL                         R22 2
-      174 GETTABLEKS                       R22 R22 K23 ["createElement"]
-      176 GETUPVAL                         R23 3
-      177 DUPTABLE                         R24 K60 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
-      178 GETIMPORT                        R25 K31 [Enum.AutomaticSize.Y]
-      180 SETTABLEKS                       R25 R24 K24 ["AutomaticSize"]
-      182 GETIMPORT                        R25 K34 [Enum.FillDirection.Vertical]
-      184 SETTABLEKS                       R25 R24 K25 ["Layout"]
-      186 NAMECALL                         R25 R17 K43 ["getNextOrder"]
-      188 CALL                             R25 1 1
-      189 SETTABLEKS                       R25 R24 K26 ["LayoutOrder"]
-      191 DUPTABLE                         R25 K46 [{"Left", "Right"}]
-      192 LOADN                            R26 10
-      193 SETTABLEKS                       R26 R25 K44 ["Left"]
-      195 LOADN                            R26 10
-      196 SETTABLEKS                       R26 R25 K45 ["Right"]
-      198 SETTABLEKS                       R25 R24 K38 ["Padding"]
-      200 DUPTABLE                         R25 K63 [{"DescriptionContainer", "AlbumContainer"}]
-      201 GETUPVAL                         R26 2
-      202 GETTABLEKS                       R26 R26 K23 ["createElement"]
-      204 GETUPVAL                         R27 3
-      205 DUPTABLE                         R28 K65 [{"Layout", "LayoutOrder", "Spacing", "Size"}]
-      206 GETIMPORT                        R29 K42 [Enum.FillDirection.Horizontal]
-      208 SETTABLEKS                       R29 R28 K25 ["Layout"]
-      210 NAMECALL                         R29 R17 K43 ["getNextOrder"]
-      212 CALL                             R29 1 1
-      213 SETTABLEKS                       R29 R28 K26 ["LayoutOrder"]
-      215 LOADN                            R29 10
-      216 SETTABLEKS                       R29 R28 K64 ["Spacing"]
-      218 GETIMPORT                        R29 K51 [UDim2.new]
-      220 LOADN                            R30 1
-      221 LOADN                            R31 0
-      222 LOADN                            R32 0
-      223 LOADN                            R33 26
-      224 CALL                             R29 4 1
-      225 SETTABLEKS                       R29 R28 K27 ["Size"]
-      227 DUPTABLE                         R29 K68 [{"Description", "AssetPreview", "Insert"}]
-      228 GETUPVAL                         R30 2
-      229 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      231 GETUPVAL                         R31 7
-      232 DUPTABLE                         R32 K76 [{"LayoutOrder", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextTruncate"}]
-      233 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      235 CALL                             R33 1 1
-      236 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      238 GETIMPORT                        R33 K51 [UDim2.new]
-      240 LOADN                            R34 1
-      241 LOADN                            R35 176
-      242 LOADN                            R36 1
-      243 LOADN                            R37 0
-      244 CALL                             R33 4 1
-      245 SETTABLEKS                       R33 R32 K27 ["Size"]
-      247 SETTABLEKS                       R9 R32 K69 ["Text"]
-      249 GETTABLEKS                       R33 R3 K77 ["textColor"]
-      251 SETTABLEKS                       R33 R32 K70 ["TextColor"]
-      253 GETUPVAL                         R33 5
-      254 GETTABLEKS                       R33 R33 K78 ["FONT_SIZE_MEDIUM"]
-      256 SETTABLEKS                       R33 R32 K71 ["TextSize"]
-      258 LOADB                            R33 1
-      259 SETTABLEKS                       R33 R32 K72 ["TextWrapped"]
-      261 GETIMPORT                        R33 K79 [Enum.TextXAlignment.Left]
-      263 SETTABLEKS                       R33 R32 K73 ["TextXAlignment"]
-      265 GETIMPORT                        R33 K80 [Enum.TextYAlignment.Center]
-      267 SETTABLEKS                       R33 R32 K74 ["TextYAlignment"]
-      269 GETIMPORT                        R33 K82 [Enum.TextTruncate.AtEnd]
-      271 SETTABLEKS                       R33 R32 K75 ["TextTruncate"]
-      273 CALL                             R30 2 1
-      274 SETTABLEKS                       R30 R29 K12 ["Description"]
-      276 GETUPVAL                         R30 2
-      277 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      279 GETUPVAL                         R31 3
-      280 DUPTABLE                         R32 K84 [{"Layout", "LayoutOrder", "HorizontalAlignment", "Size", "VerticalAlignment"}]
-      281 GETIMPORT                        R33 K34 [Enum.FillDirection.Vertical]
-      283 SETTABLEKS                       R33 R32 K25 ["Layout"]
-      285 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      287 CALL                             R33 1 1
-      288 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      290 GETIMPORT                        R33 K85 [Enum.HorizontalAlignment.Center]
-      292 SETTABLEKS                       R33 R32 K83 ["HorizontalAlignment"]
-      294 GETIMPORT                        R33 K51 [UDim2.new]
-      296 LOADN                            R34 0
-      297 LOADN                            R35 26
-      298 LOADN                            R36 0
-      299 LOADN                            R37 26
-      300 CALL                             R33 4 1
-      301 SETTABLEKS                       R33 R32 K27 ["Size"]
-      303 GETIMPORT                        R33 K53 [Enum.VerticalAlignment.Center]
-      305 SETTABLEKS                       R33 R32 K39 ["VerticalAlignment"]
-      307 DUPTABLE                         R33 K87 [{"PopUpWrapperButton"}]
-      308 GETUPVAL                         R34 2
-      309 GETTABLEKS                       R34 R34 K23 ["createElement"]
-      311 GETUPVAL                         R35 8
-      312 DUPTABLE                         R36 K91 [{"HoverSize", "onClick", "ShowIcon", "Size"}]
-      313 GETIMPORT                        R37 K51 [UDim2.new]
-      315 LOADN                            R38 0
-      316 LOADN                            R39 26
-      317 LOADN                            R40 0
-      318 LOADN                            R41 26
-      319 CALL                             R37 4 1
-      320 SETTABLEKS                       R37 R36 K88 ["HoverSize"]
-      322 GETTABLEKS                       R37 R1 K92 ["OnAssetPreviewButtonClicked"]
-      324 SETTABLEKS                       R37 R36 K89 ["onClick"]
-      326 LOADB                            R37 1
-      327 SETTABLEKS                       R37 R36 K90 ["ShowIcon"]
-      329 GETIMPORT                        R37 K51 [UDim2.new]
-      331 LOADN                            R38 0
-      332 LOADN                            R39 20
-      333 LOADN                            R40 0
-      334 LOADN                            R41 20
-      335 CALL                             R37 4 1
-      336 SETTABLEKS                       R37 R36 K27 ["Size"]
-      338 CALL                             R34 2 1
-      339 SETTABLEKS                       R34 R33 K86 ["PopUpWrapperButton"]
-      341 CALL                             R30 3 1
-      342 SETTABLEKS                       R30 R29 K66 ["AssetPreview"]
-      344 GETUPVAL                         R30 2
-      345 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      347 GETUPVAL                         R31 9
-      348 DUPTABLE                         R32 K94 [{"LayoutOrder", "OnClick"}]
-      349 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      351 CALL                             R33 1 1
-      352 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      354 GETTABLEKS                       R33 R1 K95 ["OnInsertClicked"]
-      356 SETTABLEKS                       R33 R32 K93 ["OnClick"]
-      358 CALL                             R30 2 1
-      359 SETTABLEKS                       R30 R29 K67 ["Insert"]
-      361 CALL                             R26 3 1
-      362 SETTABLEKS                       R26 R25 K61 ["DescriptionContainer"]
-      364 GETUPVAL                         R26 2
-      365 GETTABLEKS                       R26 R26 K23 ["createElement"]
-      367 GETUPVAL                         R27 3
-      368 DUPTABLE                         R28 K96 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing", "Padding", "Size"}]
-      369 GETIMPORT                        R29 K31 [Enum.AutomaticSize.Y]
-      371 SETTABLEKS                       R29 R28 K24 ["AutomaticSize"]
-      373 GETIMPORT                        R29 K42 [Enum.FillDirection.Horizontal]
-      375 SETTABLEKS                       R29 R28 K25 ["Layout"]
-      377 NAMECALL                         R29 R17 K43 ["getNextOrder"]
-      379 CALL                             R29 1 1
-      380 SETTABLEKS                       R29 R28 K26 ["LayoutOrder"]
-      382 LOADN                            R29 10
-      383 SETTABLEKS                       R29 R28 K64 ["Spacing"]
-      385 DUPTABLE                         R29 K46 [{"Left", "Right"}]
-      386 LOADN                            R30 5
-      387 SETTABLEKS                       R30 R29 K44 ["Left"]
-      389 LOADN                            R30 5
-      390 SETTABLEKS                       R30 R29 K45 ["Right"]
-      392 SETTABLEKS                       R29 R28 K38 ["Padding"]
-      394 GETIMPORT                        R29 K51 [UDim2.new]
-      396 LOADN                            R30 1
-      397 LOADN                            R31 0
-      398 LOADN                            R32 0
-      399 LOADN                            R33 0
-      400 CALL                             R29 4 1
-      401 SETTABLEKS                       R29 R28 K27 ["Size"]
-      403 DUPTABLE                         R29 K100 [{"AlbumArist", "Category", "UploadBy"}]
-      404 JUMPIFNOT                        R13 ; [+37]
-      405 GETUPVAL                         R30 2
-      406 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      408 GETUPVAL                         R31 10
-      409 DUPTABLE                         R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
-      410 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      412 CALL                             R33 1 1
-      413 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      415 LOADK                            R35 K103 ["AudioView"]
-      416 LOADK                            R36 K104 ["AlbumArtist"]
-      417 NAMECALL                         R33 R2 K105 ["getText"]
-      419 CALL                             R33 3 1
-      420 NAMECALL                         R33 R33 K106 ["upper"]
-      422 CALL                             R33 1 1
-      423 SETTABLEKS                       R33 R32 K101 ["HeaderText"]
-      425 GETIMPORT                        R33 K51 [UDim2.new]
-      427 LOADK                            R34 K107 [0.5]
-      428 LOADN                            R35 0
-      429 LOADN                            R36 1
-      430 LOADN                            R37 0
-      431 CALL                             R33 4 1
-      432 SETTABLEKS                       R33 R32 K27 ["Size"]
-      434 SETTABLEKS                       R16 R32 K69 ["Text"]
-      436 GETTABLEKS                       R33 R0 K108 ["onSearchByAlbum"]
-      438 SETTABLEKS                       R33 R32 K93 ["OnClick"]
-      440 CALL                             R30 2 1
-      441 JUMP                             ; [+1]
-      442 LOADNIL                          R30
-      443 SETTABLEKS                       R30 R29 K97 ["AlbumArist"]
-      445 JUMPIFNOT                        R12 ; [+37]
-      446 GETUPVAL                         R30 2
-      447 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      449 GETUPVAL                         R31 10
-      450 DUPTABLE                         R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
-      451 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      453 CALL                             R33 1 1
-      454 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      456 LOADK                            R35 K103 ["AudioView"]
-      457 LOADK                            R36 K98 ["Category"]
-      458 NAMECALL                         R33 R2 K105 ["getText"]
-      460 CALL                             R33 3 1
-      461 NAMECALL                         R33 R33 K106 ["upper"]
-      463 CALL                             R33 1 1
-      464 SETTABLEKS                       R33 R32 K101 ["HeaderText"]
-      466 GETIMPORT                        R33 K51 [UDim2.new]
-      468 LOADK                            R34 K107 [0.5]
-      469 LOADN                            R35 0
-      470 LOADN                            R36 1
-      471 LOADN                            R37 0
-      472 CALL                             R33 4 1
-      473 SETTABLEKS                       R33 R32 K27 ["Size"]
-      475 SETTABLEKS                       R10 R32 K69 ["Text"]
-      477 GETTABLEKS                       R33 R0 K109 ["onSearchByCategories"]
-      479 SETTABLEKS                       R33 R32 K93 ["OnClick"]
-      481 CALL                             R30 2 1
-      482 JUMP                             ; [+1]
-      483 LOADNIL                          R30
-      484 SETTABLEKS                       R30 R29 K98 ["Category"]
-      486 GETUPVAL                         R30 2
-      487 GETTABLEKS                       R30 R30 K23 ["createElement"]
-      489 GETUPVAL                         R31 10
-      490 DUPTABLE                         R32 K102 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
-      491 NAMECALL                         R33 R17 K43 ["getNextOrder"]
-      493 CALL                             R33 1 1
-      494 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
-      496 LOADK                            R35 K103 ["AudioView"]
-      497 LOADK                            R36 K110 ["UploadedBy"]
-      498 NAMECALL                         R33 R2 K105 ["getText"]
-      500 CALL                             R33 3 1
-      501 NAMECALL                         R33 R33 K106 ["upper"]
-      503 CALL                             R33 1 1
-      504 SETTABLEKS                       R33 R32 K101 ["HeaderText"]
-      506 GETIMPORT                        R33 K51 [UDim2.new]
-      508 LOADK                            R34 K107 [0.5]
-      509 LOADN                            R35 0
-      510 LOADN                            R36 1
-      511 LOADN                            R37 0
-      512 CALL                             R33 4 1
-      513 SETTABLEKS                       R33 R32 K27 ["Size"]
-      515 SETTABLEKS                       R5 R32 K69 ["Text"]
-      517 GETTABLEKS                       R33 R0 K111 ["onSearchByCreator"]
-      519 SETTABLEKS                       R33 R32 K93 ["OnClick"]
-      521 CALL                             R30 2 1
-      522 SETTABLEKS                       R30 R29 K99 ["UploadBy"]
-      524 CALL                             R26 3 1
-      525 SETTABLEKS                       R26 R25 K62 ["AlbumContainer"]
-      527 CALL                             R22 3 1
-      528 SETTABLEKS                       R22 R21 K36 ["AdditionalMusicDetails"]
-      530 CALL                             R18 3 -1
-      531 RETURN                           R18 -1
+      118 DUPTABLE                         R25 K47 [{["Left"] = 4, ["Right"]}]
+      119 GETUPVAL                         R27 4
+      120 CALL                             R27 0 1
+      121 JUMPIFNOT                        R27 ; [+6]
+      122 GETUPVAL                         R26 5
+      123 GETTABLEKS                       R26 R26 K48 ["ITEM_ROW"]
+      125 GETTABLEKS                       R26 R26 K49 ["LEFT_RIGHT_PADDING"]
+      127 JUMP                             ; [+5]
+      128 GETUPVAL                         R26 5
+      129 GETTABLEKS                       R26 R26 K50 ["AUDIO_ROW"]
+      131 GETTABLEKS                       R26 R26 K49 ["LEFT_RIGHT_PADDING"]
+      133 SETTABLEKS                       R26 R25 K46 ["Right"]
+      135 SETTABLEKS                       R25 R24 K38 ["Padding"]
+      137 GETIMPORT                        R25 K52 [UDim2.new]
+      139 LOADN                            R26 1
+      140 LOADN                            R27 0
+      141 LOADN                            R28 0
+      142 LOADN                            R29 26
+      143 CALL                             R25 4 1
+      144 SETTABLEKS                       R25 R24 K27 ["Size"]
+      146 GETIMPORT                        R25 K54 [Enum.VerticalAlignment.Center]
+      148 SETTABLEKS                       R25 R24 K39 ["VerticalAlignment"]
+      150 DUPTABLE                         R25 K56 [{"AudioPlayer"}]
+      151 GETUPVAL                         R26 2
+      152 GETTABLEKS                       R26 R26 K23 ["createElement"]
+      154 GETUPVAL                         R27 6
+      155 DUPTABLE                         R28 K59 [{"SoundId", "IsPlaying", "OnEnd"}]
+      156 SETTABLEKS                       R8 R28 K57 ["SoundId"]
+      158 SETTABLEKS                       R6 R28 K9 ["IsPlaying"]
+      160 GETTABLEKS                       R29 R1 K60 ["OnAudioEnd"]
+      162 SETTABLEKS                       R29 R28 K58 ["OnEnd"]
+      164 CALL                             R26 2 1
+      165 SETTABLEKS                       R26 R25 K55 ["AudioPlayer"]
+      167 CALL                             R22 3 1
+      168 SETTABLEKS                       R22 R21 K35 ["AudioPlayerFrame"]
+      170 GETUPVAL                         R22 2
+      171 GETTABLEKS                       R22 R22 K23 ["createElement"]
+      173 GETUPVAL                         R23 3
+      174 DUPTABLE                         R24 K61 [{"AutomaticSize", "Layout", "LayoutOrder", "Padding"}]
+      175 GETIMPORT                        R25 K31 [Enum.AutomaticSize.Y]
+      177 SETTABLEKS                       R25 R24 K24 ["AutomaticSize"]
+      179 GETIMPORT                        R25 K34 [Enum.FillDirection.Vertical]
+      181 SETTABLEKS                       R25 R24 K25 ["Layout"]
+      183 NAMECALL                         R25 R17 K43 ["getNextOrder"]
+      185 CALL                             R25 1 1
+      186 SETTABLEKS                       R25 R24 K26 ["LayoutOrder"]
+      188 DUPTABLE                         R25 K63 [{["Left"] = 10, ["Right"] = 10}]
+      189 SETTABLEKS                       R25 R24 K38 ["Padding"]
+      191 DUPTABLE                         R25 K66 [{"DescriptionContainer", "AlbumContainer"}]
+      192 GETUPVAL                         R26 2
+      193 GETTABLEKS                       R26 R26 K23 ["createElement"]
+      195 GETUPVAL                         R27 3
+      196 DUPTABLE                         R28 K68 [{["Layout"], ["LayoutOrder"], ["Spacing"] = 10, ["Size"]}]
+      197 GETIMPORT                        R29 K42 [Enum.FillDirection.Horizontal]
+      199 SETTABLEKS                       R29 R28 K25 ["Layout"]
+      201 NAMECALL                         R29 R17 K43 ["getNextOrder"]
+      203 CALL                             R29 1 1
+      204 SETTABLEKS                       R29 R28 K26 ["LayoutOrder"]
+      206 GETIMPORT                        R29 K52 [UDim2.new]
+      208 LOADN                            R30 1
+      209 LOADN                            R31 0
+      210 LOADN                            R32 0
+      211 LOADN                            R33 26
+      212 CALL                             R29 4 1
+      213 SETTABLEKS                       R29 R28 K27 ["Size"]
+      215 DUPTABLE                         R29 K71 [{"Description", "AssetPreview", "Insert"}]
+      216 GETUPVAL                         R30 2
+      217 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      219 GETUPVAL                         R31 7
+      220 DUPTABLE                         R32 K80 [{["LayoutOrder"], ["Size"], ["Text"], ["TextColor"], ["TextSize"], ["TextWrapped"] = True, ["TextXAlignment"], ["TextYAlignment"], ["TextTruncate"]}]
+      221 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      223 CALL                             R33 1 1
+      224 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      226 GETIMPORT                        R33 K52 [UDim2.new]
+      228 LOADN                            R34 1
+      229 LOADN                            R35 -80
+      230 LOADN                            R36 1
+      231 LOADN                            R37 0
+      232 CALL                             R33 4 1
+      233 SETTABLEKS                       R33 R32 K27 ["Size"]
+      235 SETTABLEKS                       R9 R32 K72 ["Text"]
+      237 GETTABLEKS                       R33 R3 K81 ["textColor"]
+      239 SETTABLEKS                       R33 R32 K73 ["TextColor"]
+      241 GETUPVAL                         R33 5
+      242 GETTABLEKS                       R33 R33 K82 ["FONT_SIZE_MEDIUM"]
+      244 SETTABLEKS                       R33 R32 K74 ["TextSize"]
+      246 GETIMPORT                        R33 K83 [Enum.TextXAlignment.Left]
+      248 SETTABLEKS                       R33 R32 K77 ["TextXAlignment"]
+      250 GETIMPORT                        R33 K84 [Enum.TextYAlignment.Center]
+      252 SETTABLEKS                       R33 R32 K78 ["TextYAlignment"]
+      254 GETIMPORT                        R33 K86 [Enum.TextTruncate.AtEnd]
+      256 SETTABLEKS                       R33 R32 K79 ["TextTruncate"]
+      258 CALL                             R30 2 1
+      259 SETTABLEKS                       R30 R29 K12 ["Description"]
+      261 GETUPVAL                         R30 2
+      262 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      264 GETUPVAL                         R31 3
+      265 DUPTABLE                         R32 K88 [{"Layout", "LayoutOrder", "HorizontalAlignment", "Size", "VerticalAlignment"}]
+      266 GETIMPORT                        R33 K34 [Enum.FillDirection.Vertical]
+      268 SETTABLEKS                       R33 R32 K25 ["Layout"]
+      270 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      272 CALL                             R33 1 1
+      273 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      275 GETIMPORT                        R33 K89 [Enum.HorizontalAlignment.Center]
+      277 SETTABLEKS                       R33 R32 K87 ["HorizontalAlignment"]
+      279 GETIMPORT                        R33 K52 [UDim2.new]
+      281 LOADN                            R34 0
+      282 LOADN                            R35 26
+      283 LOADN                            R36 0
+      284 LOADN                            R37 26
+      285 CALL                             R33 4 1
+      286 SETTABLEKS                       R33 R32 K27 ["Size"]
+      288 GETIMPORT                        R33 K54 [Enum.VerticalAlignment.Center]
+      290 SETTABLEKS                       R33 R32 K39 ["VerticalAlignment"]
+      292 DUPTABLE                         R33 K91 [{"PopUpWrapperButton"}]
+      293 GETUPVAL                         R34 2
+      294 GETTABLEKS                       R34 R34 K23 ["createElement"]
+      296 GETUPVAL                         R35 8
+      297 DUPTABLE                         R36 K95 [{["HoverSize"], ["onClick"], ["ShowIcon"] = True, ["Size"]}]
+      298 GETIMPORT                        R37 K52 [UDim2.new]
+      300 LOADN                            R38 0
+      301 LOADN                            R39 26
+      302 LOADN                            R40 0
+      303 LOADN                            R41 26
+      304 CALL                             R37 4 1
+      305 SETTABLEKS                       R37 R36 K92 ["HoverSize"]
+      307 GETTABLEKS                       R37 R1 K96 ["OnAssetPreviewButtonClicked"]
+      309 SETTABLEKS                       R37 R36 K93 ["onClick"]
+      311 GETIMPORT                        R37 K52 [UDim2.new]
+      313 LOADN                            R38 0
+      314 LOADN                            R39 20
+      315 LOADN                            R40 0
+      316 LOADN                            R41 20
+      317 CALL                             R37 4 1
+      318 SETTABLEKS                       R37 R36 K27 ["Size"]
+      320 CALL                             R34 2 1
+      321 SETTABLEKS                       R34 R33 K90 ["PopUpWrapperButton"]
+      323 CALL                             R30 3 1
+      324 SETTABLEKS                       R30 R29 K69 ["AssetPreview"]
+      326 GETUPVAL                         R30 2
+      327 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      329 GETUPVAL                         R31 9
+      330 DUPTABLE                         R32 K98 [{"LayoutOrder", "OnClick"}]
+      331 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      333 CALL                             R33 1 1
+      334 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      336 GETTABLEKS                       R33 R1 K99 ["OnInsertClicked"]
+      338 SETTABLEKS                       R33 R32 K97 ["OnClick"]
+      340 CALL                             R30 2 1
+      341 SETTABLEKS                       R30 R29 K70 ["Insert"]
+      343 CALL                             R26 3 1
+      344 SETTABLEKS                       R26 R25 K64 ["DescriptionContainer"]
+      346 GETUPVAL                         R26 2
+      347 GETTABLEKS                       R26 R26 K23 ["createElement"]
+      349 GETUPVAL                         R27 3
+      350 DUPTABLE                         R28 K100 [{["AutomaticSize"], ["Layout"], ["LayoutOrder"], ["Spacing"] = 10, ["Padding"], ["Size"]}]
+      351 GETIMPORT                        R29 K31 [Enum.AutomaticSize.Y]
+      353 SETTABLEKS                       R29 R28 K24 ["AutomaticSize"]
+      355 GETIMPORT                        R29 K42 [Enum.FillDirection.Horizontal]
+      357 SETTABLEKS                       R29 R28 K25 ["Layout"]
+      359 NAMECALL                         R29 R17 K43 ["getNextOrder"]
+      361 CALL                             R29 1 1
+      362 SETTABLEKS                       R29 R28 K26 ["LayoutOrder"]
+      364 DUPTABLE                         R29 K102 [{["Left"] = 5, ["Right"] = 5}]
+      365 SETTABLEKS                       R29 R28 K38 ["Padding"]
+      367 GETIMPORT                        R29 K52 [UDim2.new]
+      369 LOADN                            R30 1
+      370 LOADN                            R31 0
+      371 LOADN                            R32 0
+      372 LOADN                            R33 0
+      373 CALL                             R29 4 1
+      374 SETTABLEKS                       R29 R28 K27 ["Size"]
+      376 DUPTABLE                         R29 K106 [{"AlbumArist", "Category", "UploadBy"}]
+      377 JUMPIFNOT                        R13 ; [+37]
+      378 GETUPVAL                         R30 2
+      379 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      381 GETUPVAL                         R31 10
+      382 DUPTABLE                         R32 K108 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+      383 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      385 CALL                             R33 1 1
+      386 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      388 LOADK                            R35 K109 ["AudioView"]
+      389 LOADK                            R36 K110 ["AlbumArtist"]
+      390 NAMECALL                         R33 R2 K111 ["getText"]
+      392 CALL                             R33 3 1
+      393 NAMECALL                         R33 R33 K112 ["upper"]
+      395 CALL                             R33 1 1
+      396 SETTABLEKS                       R33 R32 K107 ["HeaderText"]
+      398 GETIMPORT                        R33 K52 [UDim2.new]
+      400 LOADK                            R34 K113 [0.5]
+      401 LOADN                            R35 0
+      402 LOADN                            R36 1
+      403 LOADN                            R37 0
+      404 CALL                             R33 4 1
+      405 SETTABLEKS                       R33 R32 K27 ["Size"]
+      407 SETTABLEKS                       R16 R32 K72 ["Text"]
+      409 GETTABLEKS                       R33 R0 K114 ["onSearchByAlbum"]
+      411 SETTABLEKS                       R33 R32 K97 ["OnClick"]
+      413 CALL                             R30 2 1
+      414 JUMP                             ; [+1]
+      415 LOADNIL                          R30
+      416 SETTABLEKS                       R30 R29 K103 ["AlbumArist"]
+      418 JUMPIFNOT                        R12 ; [+37]
+      419 GETUPVAL                         R30 2
+      420 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      422 GETUPVAL                         R31 10
+      423 DUPTABLE                         R32 K108 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+      424 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      426 CALL                             R33 1 1
+      427 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      429 LOADK                            R35 K109 ["AudioView"]
+      430 LOADK                            R36 K104 ["Category"]
+      431 NAMECALL                         R33 R2 K111 ["getText"]
+      433 CALL                             R33 3 1
+      434 NAMECALL                         R33 R33 K112 ["upper"]
+      436 CALL                             R33 1 1
+      437 SETTABLEKS                       R33 R32 K107 ["HeaderText"]
+      439 GETIMPORT                        R33 K52 [UDim2.new]
+      441 LOADK                            R34 K113 [0.5]
+      442 LOADN                            R35 0
+      443 LOADN                            R36 1
+      444 LOADN                            R37 0
+      445 CALL                             R33 4 1
+      446 SETTABLEKS                       R33 R32 K27 ["Size"]
+      448 SETTABLEKS                       R10 R32 K72 ["Text"]
+      450 GETTABLEKS                       R33 R0 K115 ["onSearchByCategories"]
+      452 SETTABLEKS                       R33 R32 K97 ["OnClick"]
+      454 CALL                             R30 2 1
+      455 JUMP                             ; [+1]
+      456 LOADNIL                          R30
+      457 SETTABLEKS                       R30 R29 K104 ["Category"]
+      459 GETUPVAL                         R30 2
+      460 GETTABLEKS                       R30 R30 K23 ["createElement"]
+      462 GETUPVAL                         R31 10
+      463 DUPTABLE                         R32 K108 [{"LayoutOrder", "HeaderText", "Size", "Text", "OnClick"}]
+      464 NAMECALL                         R33 R17 K43 ["getNextOrder"]
+      466 CALL                             R33 1 1
+      467 SETTABLEKS                       R33 R32 K26 ["LayoutOrder"]
+      469 LOADK                            R35 K109 ["AudioView"]
+      470 LOADK                            R36 K116 ["UploadedBy"]
+      471 NAMECALL                         R33 R2 K111 ["getText"]
+      473 CALL                             R33 3 1
+      474 NAMECALL                         R33 R33 K112 ["upper"]
+      476 CALL                             R33 1 1
+      477 SETTABLEKS                       R33 R32 K107 ["HeaderText"]
+      479 GETIMPORT                        R33 K52 [UDim2.new]
+      481 LOADK                            R34 K113 [0.5]
+      482 LOADN                            R35 0
+      483 LOADN                            R36 1
+      484 LOADN                            R37 0
+      485 CALL                             R33 4 1
+      486 SETTABLEKS                       R33 R32 K27 ["Size"]
+      488 SETTABLEKS                       R5 R32 K72 ["Text"]
+      490 GETTABLEKS                       R33 R0 K117 ["onSearchByCreator"]
+      492 SETTABLEKS                       R33 R32 K97 ["OnClick"]
+      494 CALL                             R30 2 1
+      495 SETTABLEKS                       R30 R29 K105 ["UploadBy"]
+      497 CALL                             R26 3 1
+      498 SETTABLEKS                       R26 R25 K65 ["AlbumContainer"]
+      500 CALL                             R22 3 1
+      501 SETTABLEKS                       R22 R21 K36 ["AdditionalMusicDetails"]
+      503 CALL                             R18 3 -1
+      504 RETURN                           R18 -1
 
 PROTO_6:
         0 DUPTABLE                         R2 K3 [{"additionalAudioSearchInfo", "audioSearchInfo", "creator"}]

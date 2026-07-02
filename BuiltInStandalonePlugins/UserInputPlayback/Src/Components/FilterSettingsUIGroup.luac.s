@@ -79,175 +79,169 @@ PROTO_6:
        10 GETUPVAL                         R5 0
        11 GETTABLEKS                       R5 R5 K4 ["createElement"]
        13 GETUPVAL                         R6 1
-       14 DUPTABLE                         R7 K14 [{"LayoutOrder", "Style", "Size", "AutomaticSize", "Layout", "Spacing", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+       14 DUPTABLE                         R7 K15 [{["LayoutOrder"], ["Style"] = "CornerBox", ["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"], ["Padding"], ["HorizontalAlignment"], ["VerticalAlignment"]}]
        15 GETTABLEKS                       R8 R1 K5 ["LayoutOrder"]
        17 SETTABLEKS                       R8 R7 K5 ["LayoutOrder"]
-       19 LOADK                            R8 K15 ["CornerBox"]
-       20 SETTABLEKS                       R8 R7 K6 ["Style"]
-       22 GETIMPORT                        R8 K18 [UDim2.fromOffset]
-       24 GETTABLEKS                       R9 R3 K19 ["UIGroupWidthPx"]
-       26 LOADN                            R10 0
-       27 CALL                             R8 2 1
-       28 SETTABLEKS                       R8 R7 K7 ["Size"]
-       30 GETIMPORT                        R8 K22 [Enum.AutomaticSize.Y]
-       32 SETTABLEKS                       R8 R7 K8 ["AutomaticSize"]
-       34 GETIMPORT                        R8 K25 [Enum.FillDirection.Vertical]
-       36 SETTABLEKS                       R8 R7 K9 ["Layout"]
-       38 GETIMPORT                        R8 K28 [UDim.new]
-       40 LOADN                            R9 0
-       41 GETTABLEKS                       R10 R3 K29 ["PaddingPx"]
-       43 CALL                             R8 2 1
-       44 SETTABLEKS                       R8 R7 K10 ["Spacing"]
-       46 GETTABLEKS                       R8 R3 K29 ["PaddingPx"]
-       48 SETTABLEKS                       R8 R7 K11 ["Padding"]
-       50 GETIMPORT                        R8 K31 [Enum.HorizontalAlignment.Left]
-       52 SETTABLEKS                       R8 R7 K12 ["HorizontalAlignment"]
-       54 GETIMPORT                        R8 K33 [Enum.VerticalAlignment.Top]
-       56 SETTABLEKS                       R8 R7 K13 ["VerticalAlignment"]
-       58 DUPTABLE                         R8 K36 [{"Label", "GridLayoutArea"}]
-       59 GETUPVAL                         R9 0
-       60 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       62 GETUPVAL                         R10 2
-       63 DUPTABLE                         R11 K40 [{"Text", "Size", "AutomaticSize", "LayoutOrder", "TextXAlignment", "TextYAlignment"}]
-       64 LOADK                            R14 K41 ["PlaybackTabView"]
-       65 LOADK                            R15 K42 ["FilterEventsLabel"]
-       66 NAMECALL                         R12 R2 K43 ["getText"]
-       68 CALL                             R12 3 1
-       69 SETTABLEKS                       R12 R11 K37 ["Text"]
-       71 GETIMPORT                        R12 K45 [UDim2.fromScale]
-       73 LOADN                            R13 1
-       74 LOADN                            R14 0
-       75 CALL                             R12 2 1
-       76 SETTABLEKS                       R12 R11 K7 ["Size"]
-       78 GETIMPORT                        R12 K22 [Enum.AutomaticSize.Y]
-       80 SETTABLEKS                       R12 R11 K8 ["AutomaticSize"]
-       82 LOADN                            R12 0
-       83 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
-       85 GETIMPORT                        R12 K46 [Enum.TextXAlignment.Left]
-       87 SETTABLEKS                       R12 R11 K38 ["TextXAlignment"]
-       89 GETIMPORT                        R12 K47 [Enum.TextYAlignment.Top]
-       91 SETTABLEKS                       R12 R11 K39 ["TextYAlignment"]
-       93 CALL                             R9 2 1
-       94 SETTABLEKS                       R9 R8 K34 ["Label"]
-       96 GETUPVAL                         R9 0
-       97 GETTABLEKS                       R9 R9 K4 ["createElement"]
-       99 GETUPVAL                         R10 1
-      100 DUPTABLE                         R11 K48 [{"Size", "LayoutOrder"}]
-      101 GETIMPORT                        R12 K49 [UDim2.new]
-      103 LOADN                            R13 1
-      104 LOADN                            R14 0
-      105 LOADN                            R15 0
-      106 GETTABLEKS                       R16 R3 K50 ["GridAreaHeightPx"]
-      108 CALL                             R12 4 1
-      109 SETTABLEKS                       R12 R11 K7 ["Size"]
-      111 LOADN                            R12 1
-      112 SETTABLEKS                       R12 R11 K5 ["LayoutOrder"]
-      114 DUPTABLE                         R12 K56 [{"Layout", "MouseMoveEnabled", "MouseClickEnabled", "KeyboardEnabled", "GamepadEnabled", "TouchEnabled"}]
-      115 GETUPVAL                         R13 0
-      116 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      118 LOADK                            R14 K57 ["UIGridLayout"]
-      119 DUPTABLE                         R15 K61 [{"FillDirection", "CellPadding", "SortOrder", "VerticalAlignment", "HorizontalAlignment", "CellSize"}]
-      120 GETIMPORT                        R16 K25 [Enum.FillDirection.Vertical]
-      122 SETTABLEKS                       R16 R15 K23 ["FillDirection"]
-      124 GETIMPORT                        R16 K18 [UDim2.fromOffset]
-      126 GETTABLEKS                       R17 R3 K29 ["PaddingPx"]
-      128 GETTABLEKS                       R18 R3 K62 ["GridCellPaddingYPx"]
-      130 CALL                             R16 2 1
-      131 SETTABLEKS                       R16 R15 K58 ["CellPadding"]
-      133 GETIMPORT                        R16 K63 [Enum.SortOrder.LayoutOrder]
-      135 SETTABLEKS                       R16 R15 K59 ["SortOrder"]
-      137 GETIMPORT                        R16 K33 [Enum.VerticalAlignment.Top]
-      139 SETTABLEKS                       R16 R15 K13 ["VerticalAlignment"]
-      141 GETIMPORT                        R16 K65 [Enum.HorizontalAlignment.Center]
-      143 SETTABLEKS                       R16 R15 K12 ["HorizontalAlignment"]
-      145 GETTABLEKS                       R16 R3 K66 ["GridLayoutCellSize"]
-      147 SETTABLEKS                       R16 R15 K60 ["CellSize"]
-      149 CALL                             R13 2 1
-      150 SETTABLEKS                       R13 R12 K9 ["Layout"]
-      152 GETUPVAL                         R13 0
-      153 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      155 GETUPVAL                         R14 3
-      156 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
-      157 GETTABLEKS                       R16 R1 K70 ["EnabledMouseMove"]
-      159 SETTABLEKS                       R16 R15 K67 ["Selected"]
-      161 GETTABLEKS                       R16 R0 K71 ["toggleMouseMove"]
-      163 SETTABLEKS                       R16 R15 K68 ["OnClick"]
-      165 LOADK                            R18 K72 ["RecordTabView"]
-      166 LOADK                            R19 K73 ["FilterNameMouseMove"]
-      167 NAMECALL                         R16 R2 K43 ["getText"]
-      169 CALL                             R16 3 1
-      170 SETTABLEKS                       R16 R15 K37 ["Text"]
-      172 SETTABLEKS                       R4 R15 K3 ["Disabled"]
-      174 CALL                             R13 2 1
-      175 SETTABLEKS                       R13 R12 K51 ["MouseMoveEnabled"]
-      177 GETUPVAL                         R13 0
-      178 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      180 GETUPVAL                         R14 3
-      181 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
-      182 GETTABLEKS                       R16 R1 K74 ["EnabledMouseClick"]
-      184 SETTABLEKS                       R16 R15 K67 ["Selected"]
-      186 GETTABLEKS                       R16 R0 K75 ["toggleMouseClick"]
-      188 SETTABLEKS                       R16 R15 K68 ["OnClick"]
-      190 LOADK                            R18 K72 ["RecordTabView"]
-      191 LOADK                            R19 K76 ["FilterNameMouseClick"]
-      192 NAMECALL                         R16 R2 K43 ["getText"]
-      194 CALL                             R16 3 1
-      195 SETTABLEKS                       R16 R15 K37 ["Text"]
-      197 SETTABLEKS                       R4 R15 K3 ["Disabled"]
-      199 CALL                             R13 2 1
-      200 SETTABLEKS                       R13 R12 K52 ["MouseClickEnabled"]
-      202 GETUPVAL                         R13 0
-      203 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      205 GETUPVAL                         R14 3
-      206 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
-      207 GETTABLEKS                       R16 R1 K77 ["EnabledKeyboard"]
-      209 SETTABLEKS                       R16 R15 K67 ["Selected"]
-      211 GETTABLEKS                       R16 R0 K78 ["toggleKeyboard"]
-      213 SETTABLEKS                       R16 R15 K68 ["OnClick"]
-      215 LOADK                            R18 K72 ["RecordTabView"]
-      216 LOADK                            R19 K79 ["FilterNameKeyboard"]
-      217 NAMECALL                         R16 R2 K43 ["getText"]
-      219 CALL                             R16 3 1
-      220 SETTABLEKS                       R16 R15 K37 ["Text"]
-      222 SETTABLEKS                       R4 R15 K3 ["Disabled"]
-      224 CALL                             R13 2 1
-      225 SETTABLEKS                       R13 R12 K53 ["KeyboardEnabled"]
-      227 GETUPVAL                         R13 0
-      228 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      230 GETUPVAL                         R14 3
-      231 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
-      232 GETTABLEKS                       R16 R1 K80 ["EnabledGamepad"]
-      234 SETTABLEKS                       R16 R15 K67 ["Selected"]
-      236 GETTABLEKS                       R16 R0 K81 ["toggleGamepad"]
-      238 SETTABLEKS                       R16 R15 K68 ["OnClick"]
-      240 LOADK                            R18 K72 ["RecordTabView"]
-      241 LOADK                            R19 K82 ["FilterNameGamepad"]
-      242 NAMECALL                         R16 R2 K43 ["getText"]
-      244 CALL                             R16 3 1
-      245 SETTABLEKS                       R16 R15 K37 ["Text"]
-      247 SETTABLEKS                       R4 R15 K3 ["Disabled"]
-      249 CALL                             R13 2 1
-      250 SETTABLEKS                       R13 R12 K54 ["GamepadEnabled"]
-      252 GETUPVAL                         R13 0
-      253 GETTABLEKS                       R13 R13 K4 ["createElement"]
-      255 GETUPVAL                         R14 3
-      256 DUPTABLE                         R15 K69 [{"Selected", "OnClick", "Text", "Disabled"}]
-      257 GETTABLEKS                       R16 R1 K83 ["EnabledTouch"]
-      259 SETTABLEKS                       R16 R15 K67 ["Selected"]
-      261 GETTABLEKS                       R16 R0 K84 ["toggleTouch"]
-      263 SETTABLEKS                       R16 R15 K68 ["OnClick"]
-      265 LOADK                            R18 K72 ["RecordTabView"]
-      266 LOADK                            R19 K85 ["FilterNameTouch"]
-      267 NAMECALL                         R16 R2 K43 ["getText"]
-      269 CALL                             R16 3 1
-      270 SETTABLEKS                       R16 R15 K37 ["Text"]
-      272 SETTABLEKS                       R4 R15 K3 ["Disabled"]
-      274 CALL                             R13 2 1
-      275 SETTABLEKS                       R13 R12 K55 ["TouchEnabled"]
-      277 CALL                             R9 3 1
-      278 SETTABLEKS                       R9 R8 K35 ["GridLayoutArea"]
-      280 CALL                             R5 3 -1
-      281 RETURN                           R5 -1
+       19 GETIMPORT                        R8 K18 [UDim2.fromOffset]
+       21 GETTABLEKS                       R9 R3 K19 ["UIGroupWidthPx"]
+       23 LOADN                            R10 0
+       24 CALL                             R8 2 1
+       25 SETTABLEKS                       R8 R7 K8 ["Size"]
+       27 GETIMPORT                        R8 K22 [Enum.AutomaticSize.Y]
+       29 SETTABLEKS                       R8 R7 K9 ["AutomaticSize"]
+       31 GETIMPORT                        R8 K25 [Enum.FillDirection.Vertical]
+       33 SETTABLEKS                       R8 R7 K10 ["Layout"]
+       35 GETIMPORT                        R8 K28 [UDim.new]
+       37 LOADN                            R9 0
+       38 GETTABLEKS                       R10 R3 K29 ["PaddingPx"]
+       40 CALL                             R8 2 1
+       41 SETTABLEKS                       R8 R7 K11 ["Spacing"]
+       43 GETTABLEKS                       R8 R3 K29 ["PaddingPx"]
+       45 SETTABLEKS                       R8 R7 K12 ["Padding"]
+       47 GETIMPORT                        R8 K31 [Enum.HorizontalAlignment.Left]
+       49 SETTABLEKS                       R8 R7 K13 ["HorizontalAlignment"]
+       51 GETIMPORT                        R8 K33 [Enum.VerticalAlignment.Top]
+       53 SETTABLEKS                       R8 R7 K14 ["VerticalAlignment"]
+       55 DUPTABLE                         R8 K36 [{"Label", "GridLayoutArea"}]
+       56 GETUPVAL                         R9 0
+       57 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       59 GETUPVAL                         R10 2
+       60 DUPTABLE                         R11 K41 [{["Text"], ["Size"], ["AutomaticSize"], ["LayoutOrder"] = 0, ["TextXAlignment"], ["TextYAlignment"]}]
+       61 LOADK                            R14 K42 ["PlaybackTabView"]
+       62 LOADK                            R15 K43 ["FilterEventsLabel"]
+       63 NAMECALL                         R12 R2 K44 ["getText"]
+       65 CALL                             R12 3 1
+       66 SETTABLEKS                       R12 R11 K37 ["Text"]
+       68 GETIMPORT                        R12 K46 [UDim2.fromScale]
+       70 LOADN                            R13 1
+       71 LOADN                            R14 0
+       72 CALL                             R12 2 1
+       73 SETTABLEKS                       R12 R11 K8 ["Size"]
+       75 GETIMPORT                        R12 K22 [Enum.AutomaticSize.Y]
+       77 SETTABLEKS                       R12 R11 K9 ["AutomaticSize"]
+       79 GETIMPORT                        R12 K47 [Enum.TextXAlignment.Left]
+       81 SETTABLEKS                       R12 R11 K39 ["TextXAlignment"]
+       83 GETIMPORT                        R12 K48 [Enum.TextYAlignment.Top]
+       85 SETTABLEKS                       R12 R11 K40 ["TextYAlignment"]
+       87 CALL                             R9 2 1
+       88 SETTABLEKS                       R9 R8 K34 ["Label"]
+       90 GETUPVAL                         R9 0
+       91 GETTABLEKS                       R9 R9 K4 ["createElement"]
+       93 GETUPVAL                         R10 1
+       94 DUPTABLE                         R11 K50 [{["Size"], ["LayoutOrder"] = 1}]
+       95 GETIMPORT                        R12 K51 [UDim2.new]
+       97 LOADN                            R13 1
+       98 LOADN                            R14 0
+       99 LOADN                            R15 0
+      100 GETTABLEKS                       R16 R3 K52 ["GridAreaHeightPx"]
+      102 CALL                             R12 4 1
+      103 SETTABLEKS                       R12 R11 K8 ["Size"]
+      105 DUPTABLE                         R12 K58 [{"Layout", "MouseMoveEnabled", "MouseClickEnabled", "KeyboardEnabled", "GamepadEnabled", "TouchEnabled"}]
+      106 GETUPVAL                         R13 0
+      107 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      109 LOADK                            R14 K59 ["UIGridLayout"]
+      110 DUPTABLE                         R15 K63 [{"FillDirection", "CellPadding", "SortOrder", "VerticalAlignment", "HorizontalAlignment", "CellSize"}]
+      111 GETIMPORT                        R16 K25 [Enum.FillDirection.Vertical]
+      113 SETTABLEKS                       R16 R15 K23 ["FillDirection"]
+      115 GETIMPORT                        R16 K18 [UDim2.fromOffset]
+      117 GETTABLEKS                       R17 R3 K29 ["PaddingPx"]
+      119 GETTABLEKS                       R18 R3 K64 ["GridCellPaddingYPx"]
+      121 CALL                             R16 2 1
+      122 SETTABLEKS                       R16 R15 K60 ["CellPadding"]
+      124 GETIMPORT                        R16 K65 [Enum.SortOrder.LayoutOrder]
+      126 SETTABLEKS                       R16 R15 K61 ["SortOrder"]
+      128 GETIMPORT                        R16 K33 [Enum.VerticalAlignment.Top]
+      130 SETTABLEKS                       R16 R15 K14 ["VerticalAlignment"]
+      132 GETIMPORT                        R16 K67 [Enum.HorizontalAlignment.Center]
+      134 SETTABLEKS                       R16 R15 K13 ["HorizontalAlignment"]
+      136 GETTABLEKS                       R16 R3 K68 ["GridLayoutCellSize"]
+      138 SETTABLEKS                       R16 R15 K62 ["CellSize"]
+      140 CALL                             R13 2 1
+      141 SETTABLEKS                       R13 R12 K10 ["Layout"]
+      143 GETUPVAL                         R13 0
+      144 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      146 GETUPVAL                         R14 3
+      147 DUPTABLE                         R15 K71 [{"Selected", "OnClick", "Text", "Disabled"}]
+      148 GETTABLEKS                       R16 R1 K72 ["EnabledMouseMove"]
+      150 SETTABLEKS                       R16 R15 K69 ["Selected"]
+      152 GETTABLEKS                       R16 R0 K73 ["toggleMouseMove"]
+      154 SETTABLEKS                       R16 R15 K70 ["OnClick"]
+      156 LOADK                            R18 K74 ["RecordTabView"]
+      157 LOADK                            R19 K75 ["FilterNameMouseMove"]
+      158 NAMECALL                         R16 R2 K44 ["getText"]
+      160 CALL                             R16 3 1
+      161 SETTABLEKS                       R16 R15 K37 ["Text"]
+      163 SETTABLEKS                       R4 R15 K3 ["Disabled"]
+      165 CALL                             R13 2 1
+      166 SETTABLEKS                       R13 R12 K53 ["MouseMoveEnabled"]
+      168 GETUPVAL                         R13 0
+      169 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      171 GETUPVAL                         R14 3
+      172 DUPTABLE                         R15 K71 [{"Selected", "OnClick", "Text", "Disabled"}]
+      173 GETTABLEKS                       R16 R1 K76 ["EnabledMouseClick"]
+      175 SETTABLEKS                       R16 R15 K69 ["Selected"]
+      177 GETTABLEKS                       R16 R0 K77 ["toggleMouseClick"]
+      179 SETTABLEKS                       R16 R15 K70 ["OnClick"]
+      181 LOADK                            R18 K74 ["RecordTabView"]
+      182 LOADK                            R19 K78 ["FilterNameMouseClick"]
+      183 NAMECALL                         R16 R2 K44 ["getText"]
+      185 CALL                             R16 3 1
+      186 SETTABLEKS                       R16 R15 K37 ["Text"]
+      188 SETTABLEKS                       R4 R15 K3 ["Disabled"]
+      190 CALL                             R13 2 1
+      191 SETTABLEKS                       R13 R12 K54 ["MouseClickEnabled"]
+      193 GETUPVAL                         R13 0
+      194 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      196 GETUPVAL                         R14 3
+      197 DUPTABLE                         R15 K71 [{"Selected", "OnClick", "Text", "Disabled"}]
+      198 GETTABLEKS                       R16 R1 K79 ["EnabledKeyboard"]
+      200 SETTABLEKS                       R16 R15 K69 ["Selected"]
+      202 GETTABLEKS                       R16 R0 K80 ["toggleKeyboard"]
+      204 SETTABLEKS                       R16 R15 K70 ["OnClick"]
+      206 LOADK                            R18 K74 ["RecordTabView"]
+      207 LOADK                            R19 K81 ["FilterNameKeyboard"]
+      208 NAMECALL                         R16 R2 K44 ["getText"]
+      210 CALL                             R16 3 1
+      211 SETTABLEKS                       R16 R15 K37 ["Text"]
+      213 SETTABLEKS                       R4 R15 K3 ["Disabled"]
+      215 CALL                             R13 2 1
+      216 SETTABLEKS                       R13 R12 K55 ["KeyboardEnabled"]
+      218 GETUPVAL                         R13 0
+      219 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      221 GETUPVAL                         R14 3
+      222 DUPTABLE                         R15 K71 [{"Selected", "OnClick", "Text", "Disabled"}]
+      223 GETTABLEKS                       R16 R1 K82 ["EnabledGamepad"]
+      225 SETTABLEKS                       R16 R15 K69 ["Selected"]
+      227 GETTABLEKS                       R16 R0 K83 ["toggleGamepad"]
+      229 SETTABLEKS                       R16 R15 K70 ["OnClick"]
+      231 LOADK                            R18 K74 ["RecordTabView"]
+      232 LOADK                            R19 K84 ["FilterNameGamepad"]
+      233 NAMECALL                         R16 R2 K44 ["getText"]
+      235 CALL                             R16 3 1
+      236 SETTABLEKS                       R16 R15 K37 ["Text"]
+      238 SETTABLEKS                       R4 R15 K3 ["Disabled"]
+      240 CALL                             R13 2 1
+      241 SETTABLEKS                       R13 R12 K56 ["GamepadEnabled"]
+      243 GETUPVAL                         R13 0
+      244 GETTABLEKS                       R13 R13 K4 ["createElement"]
+      246 GETUPVAL                         R14 3
+      247 DUPTABLE                         R15 K71 [{"Selected", "OnClick", "Text", "Disabled"}]
+      248 GETTABLEKS                       R16 R1 K85 ["EnabledTouch"]
+      250 SETTABLEKS                       R16 R15 K69 ["Selected"]
+      252 GETTABLEKS                       R16 R0 K86 ["toggleTouch"]
+      254 SETTABLEKS                       R16 R15 K70 ["OnClick"]
+      256 LOADK                            R18 K74 ["RecordTabView"]
+      257 LOADK                            R19 K87 ["FilterNameTouch"]
+      258 NAMECALL                         R16 R2 K44 ["getText"]
+      260 CALL                             R16 3 1
+      261 SETTABLEKS                       R16 R15 K37 ["Text"]
+      263 SETTABLEKS                       R4 R15 K3 ["Disabled"]
+      265 CALL                             R13 2 1
+      266 SETTABLEKS                       R13 R12 K57 ["TouchEnabled"]
+      268 CALL                             R9 3 1
+      269 SETTABLEKS                       R9 R8 K35 ["GridLayoutArea"]
+      271 CALL                             R5 3 -1
+      272 RETURN                           R5 -1
 
 PROTO_7:
         0 GETTABLEKS                       R2 R1 K0 ["RoduxStoreContext"]

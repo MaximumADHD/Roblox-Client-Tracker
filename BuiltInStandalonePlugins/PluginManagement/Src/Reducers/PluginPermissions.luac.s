@@ -5,7 +5,7 @@ PROTO_0:
         4 JUMPIFNOTLT                      R4 R3 ; [+16]
         6 LENGTH                           R5 R0
         7 LOADN                            R3 1
-        8 LOADN                            R4 255
+        8 LOADN                            R4 -1
         9 FORNPREP                         R3
        10 JUMPIFNOT                        R1 ; [+4]
        11 JUMPIFNOT                        R1 ; [+7]
@@ -165,23 +165,28 @@ MAIN:
        22 CALL                             R2 1 1
        23 GETIMPORT                        R3 K4 [require]
        25 GETTABLEKS                       R4 R0 K8 ["Src"]
-       27 GETTABLEKS                       R4 R4 K9 ["Models"]
-       29 GETTABLEKS                       R4 R4 K10 ["PermissionInfo"]
+       27 GETTABLEKS                       R4 R4 K9 ["Actions"]
+       29 GETTABLEKS                       R4 R4 K10 ["SetAllPluginPermissions"]
        31 CALL                             R3 1 1
        32 GETIMPORT                        R4 K4 [require]
        34 GETTABLEKS                       R5 R0 K8 ["Src"]
-       36 GETTABLEKS                       R5 R5 K11 ["Util"]
-       38 GETTABLEKS                       R5 R5 K12 ["Constants"]
+       36 GETTABLEKS                       R5 R5 K11 ["Models"]
+       38 GETTABLEKS                       R5 R5 K12 ["PermissionInfo"]
        40 CALL                             R4 1 1
-       41 DUPCLOSURE                       R5 K13 [PROTO_0]
-       42 GETTABLEKS                       R6 R2 K14 ["createReducer"]
-       44 NEWTABLE                         R7 0 0
-       46 DUPTABLE                         R8 K16 [{"SetAllPluginPermissions"}]
-       47 DUPCLOSURE                       R9 K17 [PROTO_2]
-       48 CAPTURE                          VAL R4
-       49 CAPTURE                          VAL R3
-       50 CAPTURE                          VAL R5
-       51 CAPTURE                          VAL R1
-       52 SETTABLEKS                       R9 R8 K15 ["SetAllPluginPermissions"]
-       54 CALL                             R6 2 -1
-       55 RETURN                           R6 -1
+       41 GETIMPORT                        R5 K4 [require]
+       43 GETTABLEKS                       R6 R0 K8 ["Src"]
+       45 GETTABLEKS                       R6 R6 K13 ["Util"]
+       47 GETTABLEKS                       R6 R6 K14 ["Constants"]
+       49 CALL                             R5 1 1
+       50 DUPCLOSURE                       R6 K15 [PROTO_0]
+       51 GETTABLEKS                       R7 R2 K16 ["createReducer"]
+       53 NEWTABLE                         R8 0 0
+       55 DUPTABLE                         R9 K17 [{"SetAllPluginPermissions"}]
+       56 DUPCLOSURE                       R10 K18 [PROTO_2]
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R1
+       61 SETTABLEKS                       R10 R9 K10 ["SetAllPluginPermissions"]
+       63 CALL                             R7 2 -1
+       64 RETURN                           R7 -1

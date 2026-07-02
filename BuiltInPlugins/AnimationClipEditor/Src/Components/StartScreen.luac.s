@@ -11,50 +11,48 @@ PROTO_0:
        18 GETUPVAL                         R8 0
        19 GETTABLEKS                       R8 R8 K7 ["createElement"]
        21 LOADK                            R9 K8 ["Frame"]
-       22 DUPTABLE                         R10 K10 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+       22 DUPTABLE                         R10 K11 [{["Size"], ["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
        23 SETTABLEKS                       R5 R10 K4 ["Size"]
-       25 LOADN                            R11 1
-       26 SETTABLEKS                       R11 R10 K9 ["BackgroundTransparency"]
-       28 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
-       30 DUPTABLE                         R11 K12 [{"SelectScreen"}]
-       31 LOADB                            R12 0
-       32 JUMPIFNOTEQKNIL                  R7 ; [+51]
-       34 GETUPVAL                         R12 0
-       35 GETTABLEKS                       R12 R12 K7 ["createElement"]
-       37 LOADK                            R13 K13 ["TextLabel"]
-       38 DUPTABLE                         R14 K20 [{"Size", "Text", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundColor3"}]
-       39 GETIMPORT                        R15 K23 [UDim2.new]
-       41 LOADN                            R16 1
-       42 LOADN                            R17 0
-       43 LOADN                            R18 1
-       44 LOADN                            R19 0
-       45 CALL                             R15 4 1
-       46 SETTABLEKS                       R15 R14 K4 ["Size"]
-       48 LOADK                            R17 K24 ["Title"]
-       49 LOADK                            R18 K25 ["SelectARig"]
-       50 NAMECALL                         R15 R2 K26 ["getText"]
-       52 CALL                             R15 3 1
-       53 SETTABLEKS                       R15 R14 K14 ["Text"]
-       55 GETTABLEKS                       R15 R1 K27 ["font"]
-       57 SETTABLEKS                       R15 R14 K15 ["Font"]
-       59 GETTABLEKS                       R15 R3 K28 ["textSize"]
-       61 SETTABLEKS                       R15 R14 K16 ["TextSize"]
-       63 GETTABLEKS                       R15 R3 K29 ["textColor"]
-       65 SETTABLEKS                       R15 R14 K17 ["TextColor3"]
-       67 GETIMPORT                        R15 K32 [Enum.TextTruncate.AtEnd]
-       69 SETTABLEKS                       R15 R14 K18 ["TextTruncate"]
-       71 GETTABLEKS                       R15 R1 K33 ["backgroundColor"]
-       73 SETTABLEKS                       R15 R14 K19 ["BackgroundColor3"]
-       75 DUPTABLE                         R15 K35 [{"CaptureFocus"}]
-       76 GETUPVAL                         R16 0
-       77 GETTABLEKS                       R16 R16 K7 ["createElement"]
-       79 GETUPVAL                         R17 1
-       80 CALL                             R16 1 1
-       81 SETTABLEKS                       R16 R15 K34 ["CaptureFocus"]
-       83 CALL                             R12 3 1
-       84 SETTABLEKS                       R12 R11 K11 ["SelectScreen"]
-       86 CALL                             R8 3 -1
-       87 RETURN                           R8 -1
+       25 SETTABLEKS                       R6 R10 K5 ["LayoutOrder"]
+       27 DUPTABLE                         R11 K13 [{"SelectScreen"}]
+       28 LOADB                            R12 0
+       29 JUMPIFNOTEQKNIL                  R7 ; [+51]
+       31 GETUPVAL                         R12 0
+       32 GETTABLEKS                       R12 R12 K7 ["createElement"]
+       34 LOADK                            R13 K14 ["TextLabel"]
+       35 DUPTABLE                         R14 K21 [{"Size", "Text", "Font", "TextSize", "TextColor3", "TextTruncate", "BackgroundColor3"}]
+       36 GETIMPORT                        R15 K24 [UDim2.new]
+       38 LOADN                            R16 1
+       39 LOADN                            R17 0
+       40 LOADN                            R18 1
+       41 LOADN                            R19 0
+       42 CALL                             R15 4 1
+       43 SETTABLEKS                       R15 R14 K4 ["Size"]
+       45 LOADK                            R17 K25 ["Title"]
+       46 LOADK                            R18 K26 ["SelectARig"]
+       47 NAMECALL                         R15 R2 K27 ["getText"]
+       49 CALL                             R15 3 1
+       50 SETTABLEKS                       R15 R14 K15 ["Text"]
+       52 GETTABLEKS                       R15 R1 K28 ["font"]
+       54 SETTABLEKS                       R15 R14 K16 ["Font"]
+       56 GETTABLEKS                       R15 R3 K29 ["textSize"]
+       58 SETTABLEKS                       R15 R14 K17 ["TextSize"]
+       60 GETTABLEKS                       R15 R3 K30 ["textColor"]
+       62 SETTABLEKS                       R15 R14 K18 ["TextColor3"]
+       64 GETIMPORT                        R15 K33 [Enum.TextTruncate.AtEnd]
+       66 SETTABLEKS                       R15 R14 K19 ["TextTruncate"]
+       68 GETTABLEKS                       R15 R1 K34 ["backgroundColor"]
+       70 SETTABLEKS                       R15 R14 K20 ["BackgroundColor3"]
+       72 DUPTABLE                         R15 K36 [{"CaptureFocus"}]
+       73 GETUPVAL                         R16 0
+       74 GETTABLEKS                       R16 R16 K7 ["createElement"]
+       76 GETUPVAL                         R17 1
+       77 CALL                             R16 1 1
+       78 SETTABLEKS                       R16 R15 K35 ["CaptureFocus"]
+       80 CALL                             R12 3 1
+       81 SETTABLEKS                       R12 R11 K12 ["SelectScreen"]
+       83 CALL                             R8 3 -1
+       84 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

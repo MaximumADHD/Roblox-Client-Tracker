@@ -2,16 +2,14 @@ PROTO_0:
         0 GETUPVAL                         R0 1
         1 GETTABLEKS                       R0 R0 K0 ["Localization"]
         3 GETTABLEKS                       R0 R0 K1 ["new"]
-        5 DUPTABLE                         R1 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        5 DUPTABLE                         R1 K6 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Assistant"}]
         6 GETUPVAL                         R2 2
         7 SETTABLEKS                       R2 R1 K2 ["stringResourceTable"]
         9 GETUPVAL                         R2 3
        10 SETTABLEKS                       R2 R1 K3 ["translationResourceTable"]
-       12 LOADK                            R2 K6 ["Assistant"]
-       13 SETTABLEKS                       R2 R1 K4 ["pluginName"]
-       15 CALL                             R0 1 1
-       16 SETUPVAL                         R0 0
-       17 RETURN                           R0 0
+       12 CALL                             R0 1 1
+       13 SETUPVAL                         R0 0
+       14 RETURN                           R0 0
 
 PROTO_1:
         0 RETURN                           R1 1

@@ -454,15 +454,11 @@ PROTO_25:
         0 GETUPVAL                         R2 0
         1 GETUPVAL                         R3 1
         2 GETTABLEKS                       R3 R3 K0 ["makeQueryString"]
-        4 DUPTABLE                         R4 K4 [{"assetIds", "format", "size"}]
+        4 DUPTABLE                         R4 K6 [{["assetIds"], ["format"] = "Png", ["size"] = "150x150"}]
         5 SETTABLEKS                       R0 R4 K1 ["assetIds"]
-        7 LOADK                            R5 K5 ["Png"]
-        8 SETTABLEKS                       R5 R4 K2 ["format"]
-       10 LOADK                            R5 K6 ["150x150"]
-       11 SETTABLEKS                       R5 R4 K3 ["size"]
-       13 CALL                             R3 1 1
-       14 CONCAT                           R1 R2 R3
-       15 RETURN                           R1 1
+        7 CALL                             R3 1 1
+        8 CONCAT                           R1 R2 R3
+        9 RETURN                           R1 1
 
 PROTO_26:
         0 GETUPVAL                         R1 0
@@ -708,35 +704,29 @@ PROTO_48:
         3 LOADK                            R3 K1 ["search-api/omni-search?"]
         4 GETUPVAL                         R4 0
         5 GETTABLEKS                       R4 R4 K2 ["makeQueryString"]
-        7 DUPTABLE                         R5 K7 [{"searchQuery", "sessionId", "pageType", "verticalType"}]
+        7 DUPTABLE                         R5 K9 [{["searchQuery"], ["sessionId"], ["pageType"] = "all", ["verticalType"] = "user"}]
         8 SETTABLEKS                       R0 R5 K3 ["searchQuery"]
        10 GETUPVAL                         R6 1
        11 LOADB                            R8 0
-       12 NAMECALL                         R6 R6 K8 ["GenerateGUID"]
+       12 NAMECALL                         R6 R6 K10 ["GenerateGUID"]
        14 CALL                             R6 2 1
        15 SETTABLEKS                       R6 R5 K4 ["sessionId"]
-       17 LOADK                            R6 K9 ["all"]
-       18 SETTABLEKS                       R6 R5 K5 ["pageType"]
-       20 LOADK                            R6 K10 ["user"]
-       21 SETTABLEKS                       R6 R5 K6 ["verticalType"]
-       23 CALL                             R4 1 1
-       24 CONCAT                           R1 R2 R4
-       25 RETURN                           R1 1
+       17 CALL                             R4 1 1
+       18 CONCAT                           R1 R2 R4
+       19 RETURN                           R1 1
 
 PROTO_49:
         0 ORK                              R1 R1 K0 [100]
         1 GETUPVAL                         R3 0
         2 GETUPVAL                         R4 1
         3 GETTABLEKS                       R4 R4 K1 ["makeQueryString"]
-        5 DUPTABLE                         R5 K6 [{"userId", "width", "height", "format"}]
+        5 DUPTABLE                         R5 K7 [{["userId"], ["width"], ["height"], ["format"] = "png"}]
         6 SETTABLEKS                       R0 R5 K2 ["userId"]
         8 SETTABLEKS                       R1 R5 K3 ["width"]
        10 SETTABLEKS                       R1 R5 K4 ["height"]
-       12 LOADK                            R6 K7 ["png"]
-       13 SETTABLEKS                       R6 R5 K5 ["format"]
-       15 CALL                             R4 1 1
-       16 CONCAT                           R2 R3 R4
-       17 RETURN                           R2 1
+       12 CALL                             R4 1 1
+       13 CONCAT                           R2 R3 R4
+       14 RETURN                           R2 1
 
 PROTO_50:
         0 GETUPVAL                         R1 0

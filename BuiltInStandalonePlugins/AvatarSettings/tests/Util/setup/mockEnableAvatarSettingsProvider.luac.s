@@ -16,23 +16,21 @@ PROTO_1:
         8 CALL                             R3 1 1
         9 NAMECALL                         R3 R3 K2 ["get"]
        11 CALL                             R3 1 1
-       12 DUPTABLE                         R4 K7 [{"default", "currentGameId", "setCurrentGameId", "requestSaveToRoblox"}]
-       13 LOADB                            R5 0
-       14 SETTABLEKS                       R5 R4 K3 ["default"]
-       16 SETTABLEKS                       R1 R4 K4 ["currentGameId"]
-       18 SETTABLEKS                       R2 R4 K5 ["setCurrentGameId"]
-       20 NEWCLOSURE                       R5 P0
-       21 CAPTURE                          VAL R3
-       22 CAPTURE                          UPVAL U2
-       23 SETTABLEKS                       R5 R4 K6 ["requestSaveToRoblox"]
-       25 GETUPVAL                         R5 3
-       26 GETUPVAL                         R6 4
-       27 GETTABLEKS                       R6 R6 K8 ["Provider"]
-       29 DUPTABLE                         R7 K10 [{"value"}]
-       30 SETTABLEKS                       R4 R7 K9 ["value"]
-       32 GETTABLEKS                       R8 R0 K11 ["children"]
-       34 CALL                             R5 3 -1
-       35 RETURN                           R5 -1
+       12 DUPTABLE                         R4 K8 [{["default"] = False, ["currentGameId"], ["setCurrentGameId"], ["requestSaveToRoblox"]}]
+       13 SETTABLEKS                       R1 R4 K5 ["currentGameId"]
+       15 SETTABLEKS                       R2 R4 K6 ["setCurrentGameId"]
+       17 NEWCLOSURE                       R5 P0
+       18 CAPTURE                          VAL R3
+       19 CAPTURE                          UPVAL U2
+       20 SETTABLEKS                       R5 R4 K7 ["requestSaveToRoblox"]
+       22 GETUPVAL                         R5 3
+       23 GETUPVAL                         R6 4
+       24 GETTABLEKS                       R6 R6 K9 ["Provider"]
+       26 DUPTABLE                         R7 K11 [{"value"}]
+       27 SETTABLEKS                       R4 R7 K10 ["value"]
+       29 GETTABLEKS                       R8 R0 K12 ["children"]
+       31 CALL                             R5 3 -1
+       32 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

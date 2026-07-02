@@ -23,340 +23,345 @@ PROTO_0:
        28 GETUPVAL                         R8 0
        29 GETTABLEKS                       R8 R8 K0 ["createElement"]
        31 LOADK                            R9 K11 ["TextLabel"]
-       32 DUPTABLE                         R10 K10 [{"Text"}]
-       33 LOADK                            R11 K12 ["BackgroundDefault"]
-       34 SETTABLEKS                       R11 R10 K9 ["Text"]
-       36 CALL                             R8 2 1
-       37 SETTABLEKS                       R8 R7 K9 ["Text"]
-       39 CALL                             R4 3 1
-       40 SETTABLEKS                       R4 R3 K12 ["BackgroundDefault"]
-       42 GETUPVAL                         R4 0
-       43 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       45 LOADK                            R5 K5 ["Frame"]
-       46 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-       47 GETUPVAL                         R7 2
-       48 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-       50 CALL                             R7 1 1
-       51 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-       53 DUPTABLE                         R7 K10 [{"Text"}]
-       54 GETUPVAL                         R8 0
-       55 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       57 LOADK                            R9 K11 ["TextLabel"]
-       58 DUPTABLE                         R10 K10 [{"Text"}]
-       59 LOADK                            R11 K13 ["BackgroundPaper"]
-       60 SETTABLEKS                       R11 R10 K9 ["Text"]
-       62 CALL                             R8 2 1
-       63 SETTABLEKS                       R8 R7 K9 ["Text"]
-       65 CALL                             R4 3 1
-       66 SETTABLEKS                       R4 R3 K13 ["BackgroundPaper"]
-       68 GETUPVAL                         R4 0
-       69 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       71 LOADK                            R5 K5 ["Frame"]
-       72 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-       73 GETUPVAL                         R7 2
-       74 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-       76 CALL                             R7 1 1
-       77 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-       79 DUPTABLE                         R7 K10 [{"Text"}]
-       80 GETUPVAL                         R8 0
-       81 GETTABLEKS                       R8 R8 K0 ["createElement"]
-       83 LOADK                            R9 K11 ["TextLabel"]
-       84 DUPTABLE                         R10 K10 [{"Text"}]
-       85 LOADK                            R11 K14 ["ForegroundMain"]
-       86 SETTABLEKS                       R11 R10 K9 ["Text"]
-       88 CALL                             R8 2 1
-       89 SETTABLEKS                       R8 R7 K9 ["Text"]
-       91 CALL                             R4 3 1
-       92 SETTABLEKS                       R4 R3 K14 ["ForegroundMain"]
-       94 GETUPVAL                         R4 0
-       95 GETTABLEKS                       R4 R4 K0 ["createElement"]
-       97 LOADK                            R5 K5 ["Frame"]
-       98 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-       99 GETUPVAL                         R7 2
-      100 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      102 CALL                             R7 1 1
-      103 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      105 DUPTABLE                         R7 K10 [{"Text"}]
-      106 GETUPVAL                         R8 0
-      107 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      109 LOADK                            R9 K11 ["TextLabel"]
-      110 DUPTABLE                         R10 K10 [{"Text"}]
-      111 LOADK                            R11 K15 ["ForegroundMuted"]
-      112 SETTABLEKS                       R11 R10 K9 ["Text"]
-      114 CALL                             R8 2 1
-      115 SETTABLEKS                       R8 R7 K9 ["Text"]
-      117 CALL                             R4 3 1
-      118 SETTABLEKS                       R4 R3 K15 ["ForegroundMuted"]
-      120 GETUPVAL                         R4 0
-      121 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      123 LOADK                            R5 K5 ["Frame"]
-      124 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      125 GETUPVAL                         R7 2
-      126 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      128 CALL                             R7 1 1
-      129 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      131 DUPTABLE                         R7 K10 [{"Text"}]
-      132 GETUPVAL                         R8 0
-      133 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      135 LOADK                            R9 K11 ["TextLabel"]
-      136 DUPTABLE                         R10 K10 [{"Text"}]
-      137 LOADK                            R11 K16 ["ForegroundContrast"]
-      138 SETTABLEKS                       R11 R10 K9 ["Text"]
-      140 CALL                             R8 2 1
-      141 SETTABLEKS                       R8 R7 K9 ["Text"]
-      143 CALL                             R4 3 1
-      144 SETTABLEKS                       R4 R3 K16 ["ForegroundContrast"]
-      146 GETUPVAL                         R4 0
-      147 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      149 LOADK                            R5 K11 ["TextLabel"]
-      150 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      151 GETUPVAL                         R7 2
-      152 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      154 CALL                             R7 1 1
-      155 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      157 LOADK                            R7 K18 ["TextPrimary"]
-      158 SETTABLEKS                       R7 R6 K9 ["Text"]
-      160 CALL                             R4 2 1
-      161 SETTABLEKS                       R4 R3 K18 ["TextPrimary"]
-      163 GETUPVAL                         R4 0
-      164 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      166 LOADK                            R5 K11 ["TextLabel"]
-      167 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      168 GETUPVAL                         R7 2
-      169 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      171 CALL                             R7 1 1
-      172 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      174 LOADK                            R7 K19 ["TextSecondary"]
-      175 SETTABLEKS                       R7 R6 K9 ["Text"]
-      177 CALL                             R4 2 1
-      178 SETTABLEKS                       R4 R3 K19 ["TextSecondary"]
-      180 GETUPVAL                         R4 0
-      181 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      183 LOADK                            R5 K11 ["TextLabel"]
-      184 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      185 GETUPVAL                         R7 2
-      186 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      188 CALL                             R7 1 1
-      189 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      191 LOADK                            R7 K20 ["TextContrast"]
-      192 SETTABLEKS                       R7 R6 K9 ["Text"]
-      194 CALL                             R4 2 1
-      195 SETTABLEKS                       R4 R3 K20 ["TextContrast"]
-      197 GETUPVAL                         R4 0
-      198 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      200 LOADK                            R5 K11 ["TextLabel"]
-      201 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      202 GETUPVAL                         R7 2
-      203 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      205 CALL                             R7 1 1
-      206 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      208 LOADK                            R7 K21 ["TextLink"]
-      209 SETTABLEKS                       R7 R6 K9 ["Text"]
-      211 CALL                             R4 2 1
-      212 SETTABLEKS                       R4 R3 K21 ["TextLink"]
-      214 GETUPVAL                         R4 0
-      215 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      217 LOADK                            R5 K11 ["TextLabel"]
-      218 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      219 GETUPVAL                         R7 2
-      220 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      222 CALL                             R7 1 1
-      223 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      225 LOADK                            R7 K22 ["TextDisabled"]
-      226 SETTABLEKS                       R7 R6 K9 ["Text"]
-      228 CALL                             R4 2 1
-      229 SETTABLEKS                       R4 R3 K22 ["TextDisabled"]
-      231 GETUPVAL                         R4 0
-      232 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      234 LOADK                            R5 K11 ["TextLabel"]
-      235 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      236 GETUPVAL                         R7 2
-      237 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      239 CALL                             R7 1 1
-      240 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      242 LOADK                            R7 K23 ["TextError"]
-      243 SETTABLEKS                       R7 R6 K9 ["Text"]
-      245 CALL                             R4 2 1
-      246 SETTABLEKS                       R4 R3 K23 ["TextError"]
-      248 GETUPVAL                         R4 0
-      249 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      251 LOADK                            R5 K11 ["TextLabel"]
-      252 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      253 GETUPVAL                         R7 2
-      254 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      256 CALL                             R7 1 1
-      257 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      259 LOADK                            R7 K24 ["TextSuccess"]
-      260 SETTABLEKS                       R7 R6 K9 ["Text"]
-      262 CALL                             R4 2 1
-      263 SETTABLEKS                       R4 R3 K24 ["TextSuccess"]
-      265 GETUPVAL                         R4 0
-      266 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      268 LOADK                            R5 K11 ["TextLabel"]
-      269 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      270 GETUPVAL                         R7 2
-      271 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      273 CALL                             R7 1 1
-      274 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      276 LOADK                            R7 K25 ["TextWarning"]
-      277 SETTABLEKS                       R7 R6 K9 ["Text"]
-      279 CALL                             R4 2 1
-      280 SETTABLEKS                       R4 R3 K25 ["TextWarning"]
-      282 GETUPVAL                         R4 0
-      283 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      285 LOADK                            R5 K5 ["Frame"]
-      286 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      287 GETUPVAL                         R7 2
-      288 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      290 CALL                             R7 1 1
-      291 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      293 DUPTABLE                         R7 K10 [{"Text"}]
-      294 GETUPVAL                         R8 0
-      295 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      297 LOADK                            R9 K11 ["TextLabel"]
-      298 DUPTABLE                         R10 K10 [{"Text"}]
-      299 LOADK                            R11 K26 ["ErrorMain"]
-      300 SETTABLEKS                       R11 R10 K9 ["Text"]
-      302 CALL                             R8 2 1
-      303 SETTABLEKS                       R8 R7 K9 ["Text"]
-      305 CALL                             R4 3 1
-      306 SETTABLEKS                       R4 R3 K26 ["ErrorMain"]
-      308 GETUPVAL                         R4 0
-      309 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      311 LOADK                            R5 K5 ["Frame"]
-      312 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      313 GETUPVAL                         R7 2
-      314 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      316 CALL                             R7 1 1
-      317 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      319 DUPTABLE                         R7 K10 [{"Text"}]
-      320 GETUPVAL                         R8 0
-      321 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      323 LOADK                            R9 K11 ["TextLabel"]
-      324 DUPTABLE                         R10 K10 [{"Text"}]
-      325 LOADK                            R11 K27 ["SuccessMain"]
-      326 SETTABLEKS                       R11 R10 K9 ["Text"]
-      328 CALL                             R8 2 1
-      329 SETTABLEKS                       R8 R7 K9 ["Text"]
-      331 CALL                             R4 3 1
-      332 SETTABLEKS                       R4 R3 K27 ["SuccessMain"]
-      334 GETUPVAL                         R4 0
-      335 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      337 LOADK                            R5 K5 ["Frame"]
-      338 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      339 GETUPVAL                         R7 2
-      340 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      342 CALL                             R7 1 1
-      343 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      345 DUPTABLE                         R7 K10 [{"Text"}]
-      346 GETUPVAL                         R8 0
-      347 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      349 LOADK                            R9 K11 ["TextLabel"]
-      350 DUPTABLE                         R10 K10 [{"Text"}]
-      351 LOADK                            R11 K28 ["WarningMain"]
-      352 SETTABLEKS                       R11 R10 K9 ["Text"]
-      354 CALL                             R8 2 1
-      355 SETTABLEKS                       R8 R7 K9 ["Text"]
-      357 CALL                             R4 3 1
-      358 SETTABLEKS                       R4 R3 K28 ["WarningMain"]
-      360 GETUPVAL                         R4 0
-      361 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      363 LOADK                            R5 K29 ["TextButton"]
-      364 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      365 GETUPVAL                         R7 2
-      366 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      368 CALL                             R7 1 1
-      369 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      371 LOADK                            R7 K30 ["ActionEnabled"]
-      372 SETTABLEKS                       R7 R6 K9 ["Text"]
-      374 CALL                             R4 2 1
-      375 SETTABLEKS                       R4 R3 K30 ["ActionEnabled"]
-      377 GETUPVAL                         R4 0
-      378 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      380 LOADK                            R5 K29 ["TextButton"]
-      381 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      382 GETUPVAL                         R7 2
-      383 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      385 CALL                             R7 1 1
-      386 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      388 LOADK                            R7 K31 ["ActionSelected"]
-      389 SETTABLEKS                       R7 R6 K9 ["Text"]
-      391 CALL                             R4 2 1
-      392 SETTABLEKS                       R4 R3 K31 ["ActionSelected"]
-      394 GETUPVAL                         R4 0
-      395 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      397 LOADK                            R5 K29 ["TextButton"]
-      398 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      399 GETUPVAL                         R7 2
-      400 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      402 CALL                             R7 1 1
-      403 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      405 LOADK                            R7 K32 ["ActionActivated"]
-      406 SETTABLEKS                       R7 R6 K9 ["Text"]
-      408 CALL                             R4 2 1
-      409 SETTABLEKS                       R4 R3 K32 ["ActionActivated"]
-      411 GETUPVAL                         R4 0
-      412 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      414 LOADK                            R5 K29 ["TextButton"]
-      415 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
-      416 GETUPVAL                         R7 2
-      417 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      419 CALL                             R7 1 1
-      420 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      422 LOADK                            R7 K33 ["ActionHover (hover over me)"]
-      423 SETTABLEKS                       R7 R6 K9 ["Text"]
-      425 CALL                             R4 2 1
-      426 SETTABLEKS                       R4 R3 K34 ["ActionHover"]
+       32 DUPTABLE                         R10 K13 [{["Text"] = "BackgroundDefault"}]
+       33 CALL                             R8 2 1
+       34 SETTABLEKS                       R8 R7 K9 ["Text"]
+       36 CALL                             R4 3 1
+       37 SETTABLEKS                       R4 R3 K12 ["BackgroundDefault"]
+       39 GETUPVAL                         R4 0
+       40 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       42 LOADK                            R5 K5 ["Frame"]
+       43 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+       44 GETUPVAL                         R7 2
+       45 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+       47 CALL                             R7 1 1
+       48 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+       50 DUPTABLE                         R7 K10 [{"Text"}]
+       51 GETUPVAL                         R8 0
+       52 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       54 LOADK                            R9 K11 ["TextLabel"]
+       55 DUPTABLE                         R10 K15 [{["Text"] = "BackgroundPaper"}]
+       56 CALL                             R8 2 1
+       57 SETTABLEKS                       R8 R7 K9 ["Text"]
+       59 CALL                             R4 3 1
+       60 SETTABLEKS                       R4 R3 K14 ["BackgroundPaper"]
+       62 GETUPVAL                         R4 0
+       63 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       65 LOADK                            R5 K5 ["Frame"]
+       66 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+       67 GETUPVAL                         R7 2
+       68 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+       70 CALL                             R7 1 1
+       71 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+       73 DUPTABLE                         R7 K10 [{"Text"}]
+       74 GETUPVAL                         R8 0
+       75 GETTABLEKS                       R8 R8 K0 ["createElement"]
+       77 LOADK                            R9 K11 ["TextLabel"]
+       78 DUPTABLE                         R10 K17 [{["Text"] = "ForegroundMain"}]
+       79 CALL                             R8 2 1
+       80 SETTABLEKS                       R8 R7 K9 ["Text"]
+       82 CALL                             R4 3 1
+       83 SETTABLEKS                       R4 R3 K16 ["ForegroundMain"]
+       85 GETUPVAL                         R4 0
+       86 GETTABLEKS                       R4 R4 K0 ["createElement"]
+       88 LOADK                            R5 K5 ["Frame"]
+       89 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+       90 GETUPVAL                         R7 2
+       91 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+       93 CALL                             R7 1 1
+       94 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+       96 DUPTABLE                         R7 K10 [{"Text"}]
+       97 GETUPVAL                         R8 0
+       98 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      100 LOADK                            R9 K11 ["TextLabel"]
+      101 DUPTABLE                         R10 K19 [{["Text"] = "ForegroundMuted"}]
+      102 CALL                             R8 2 1
+      103 SETTABLEKS                       R8 R7 K9 ["Text"]
+      105 CALL                             R4 3 1
+      106 SETTABLEKS                       R4 R3 K18 ["ForegroundMuted"]
+      108 GETUPVAL                         R4 0
+      109 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      111 LOADK                            R5 K5 ["Frame"]
+      112 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      113 GETUPVAL                         R7 2
+      114 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      116 CALL                             R7 1 1
+      117 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      119 DUPTABLE                         R7 K10 [{"Text"}]
+      120 GETUPVAL                         R8 0
+      121 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      123 LOADK                            R9 K11 ["TextLabel"]
+      124 DUPTABLE                         R10 K21 [{["Text"] = "ForegroundContrast"}]
+      125 CALL                             R8 2 1
+      126 SETTABLEKS                       R8 R7 K9 ["Text"]
+      128 CALL                             R4 3 1
+      129 SETTABLEKS                       R4 R3 K20 ["ForegroundContrast"]
+      131 GETUPVAL                         R4 0
+      132 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      134 LOADK                            R5 K11 ["TextLabel"]
+      135 DUPTABLE                         R6 K23 [{["LayoutOrder"], ["Text"] = "TextPrimary"}]
+      136 GETUPVAL                         R7 2
+      137 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      139 CALL                             R7 1 1
+      140 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      142 CALL                             R4 2 1
+      143 SETTABLEKS                       R4 R3 K22 ["TextPrimary"]
+      145 GETUPVAL                         R4 0
+      146 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      148 LOADK                            R5 K11 ["TextLabel"]
+      149 DUPTABLE                         R6 K25 [{["LayoutOrder"], ["Text"] = "TextSecondary"}]
+      150 GETUPVAL                         R7 2
+      151 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      153 CALL                             R7 1 1
+      154 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      156 CALL                             R4 2 1
+      157 SETTABLEKS                       R4 R3 K24 ["TextSecondary"]
+      159 GETUPVAL                         R4 0
+      160 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      162 LOADK                            R5 K11 ["TextLabel"]
+      163 DUPTABLE                         R6 K27 [{["LayoutOrder"], ["Text"] = "TextContrast"}]
+      164 GETUPVAL                         R7 2
+      165 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      167 CALL                             R7 1 1
+      168 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      170 CALL                             R4 2 1
+      171 SETTABLEKS                       R4 R3 K26 ["TextContrast"]
+      173 GETUPVAL                         R4 0
+      174 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      176 LOADK                            R5 K11 ["TextLabel"]
+      177 DUPTABLE                         R6 K29 [{["LayoutOrder"], ["Text"] = "TextLink"}]
+      178 GETUPVAL                         R7 2
+      179 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      181 CALL                             R7 1 1
+      182 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      184 CALL                             R4 2 1
+      185 SETTABLEKS                       R4 R3 K28 ["TextLink"]
+      187 GETUPVAL                         R4 0
+      188 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      190 LOADK                            R5 K11 ["TextLabel"]
+      191 DUPTABLE                         R6 K31 [{["LayoutOrder"], ["Text"] = "TextDisabled"}]
+      192 GETUPVAL                         R7 2
+      193 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      195 CALL                             R7 1 1
+      196 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      198 CALL                             R4 2 1
+      199 SETTABLEKS                       R4 R3 K30 ["TextDisabled"]
+      201 GETUPVAL                         R4 0
+      202 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      204 LOADK                            R5 K11 ["TextLabel"]
+      205 DUPTABLE                         R6 K33 [{["LayoutOrder"], ["Text"] = "TextError"}]
+      206 GETUPVAL                         R7 2
+      207 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      209 CALL                             R7 1 1
+      210 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      212 CALL                             R4 2 1
+      213 SETTABLEKS                       R4 R3 K32 ["TextError"]
+      215 GETUPVAL                         R4 0
+      216 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      218 LOADK                            R5 K11 ["TextLabel"]
+      219 DUPTABLE                         R6 K35 [{["LayoutOrder"], ["Text"] = "TextSuccess"}]
+      220 GETUPVAL                         R7 2
+      221 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      223 CALL                             R7 1 1
+      224 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      226 CALL                             R4 2 1
+      227 SETTABLEKS                       R4 R3 K34 ["TextSuccess"]
+      229 GETUPVAL                         R4 0
+      230 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      232 LOADK                            R5 K11 ["TextLabel"]
+      233 DUPTABLE                         R6 K37 [{["LayoutOrder"], ["Text"] = "TextWarning"}]
+      234 GETUPVAL                         R7 2
+      235 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      237 CALL                             R7 1 1
+      238 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      240 CALL                             R4 2 1
+      241 SETTABLEKS                       R4 R3 K36 ["TextWarning"]
+      243 GETUPVAL                         R4 0
+      244 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      246 LOADK                            R5 K5 ["Frame"]
+      247 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      248 GETUPVAL                         R7 2
+      249 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      251 CALL                             R7 1 1
+      252 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      254 DUPTABLE                         R7 K10 [{"Text"}]
+      255 GETUPVAL                         R8 0
+      256 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      258 LOADK                            R9 K11 ["TextLabel"]
+      259 DUPTABLE                         R10 K39 [{["Text"] = "ErrorMain"}]
+      260 CALL                             R8 2 1
+      261 SETTABLEKS                       R8 R7 K9 ["Text"]
+      263 CALL                             R4 3 1
+      264 SETTABLEKS                       R4 R3 K38 ["ErrorMain"]
+      266 GETUPVAL                         R4 0
+      267 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      269 LOADK                            R5 K5 ["Frame"]
+      270 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      271 GETUPVAL                         R7 2
+      272 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      274 CALL                             R7 1 1
+      275 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      277 DUPTABLE                         R7 K10 [{"Text"}]
+      278 GETUPVAL                         R8 0
+      279 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      281 LOADK                            R9 K11 ["TextLabel"]
+      282 DUPTABLE                         R10 K41 [{["Text"] = "SuccessMain"}]
+      283 CALL                             R8 2 1
+      284 SETTABLEKS                       R8 R7 K9 ["Text"]
+      286 CALL                             R4 3 1
+      287 SETTABLEKS                       R4 R3 K40 ["SuccessMain"]
+      289 GETUPVAL                         R4 0
+      290 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      292 LOADK                            R5 K5 ["Frame"]
+      293 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      294 GETUPVAL                         R7 2
+      295 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      297 CALL                             R7 1 1
+      298 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      300 DUPTABLE                         R7 K10 [{"Text"}]
+      301 GETUPVAL                         R8 0
+      302 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      304 LOADK                            R9 K11 ["TextLabel"]
+      305 DUPTABLE                         R10 K43 [{["Text"] = "WarningMain"}]
+      306 CALL                             R8 2 1
+      307 SETTABLEKS                       R8 R7 K9 ["Text"]
+      309 CALL                             R4 3 1
+      310 SETTABLEKS                       R4 R3 K42 ["WarningMain"]
+      312 GETUPVAL                         R4 0
+      313 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      315 LOADK                            R5 K44 ["TextButton"]
+      316 DUPTABLE                         R6 K46 [{["LayoutOrder"], ["Text"] = "ActionEnabled"}]
+      317 GETUPVAL                         R7 2
+      318 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      320 CALL                             R7 1 1
+      321 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      323 CALL                             R4 2 1
+      324 SETTABLEKS                       R4 R3 K45 ["ActionEnabled"]
+      326 GETUPVAL                         R4 0
+      327 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      329 LOADK                            R5 K44 ["TextButton"]
+      330 DUPTABLE                         R6 K48 [{["LayoutOrder"], ["Text"] = "ActionSelected"}]
+      331 GETUPVAL                         R7 2
+      332 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      334 CALL                             R7 1 1
+      335 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      337 CALL                             R4 2 1
+      338 SETTABLEKS                       R4 R3 K47 ["ActionSelected"]
+      340 GETUPVAL                         R4 0
+      341 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      343 LOADK                            R5 K44 ["TextButton"]
+      344 DUPTABLE                         R6 K50 [{["LayoutOrder"], ["Text"] = "ActionActivated"}]
+      345 GETUPVAL                         R7 2
+      346 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      348 CALL                             R7 1 1
+      349 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      351 CALL                             R4 2 1
+      352 SETTABLEKS                       R4 R3 K49 ["ActionActivated"]
+      354 GETUPVAL                         R4 0
+      355 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      357 LOADK                            R5 K44 ["TextButton"]
+      358 DUPTABLE                         R6 K52 [{["LayoutOrder"], ["Text"] = "ActionHover (hover over me)"}]
+      359 GETUPVAL                         R7 2
+      360 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      362 CALL                             R7 1 1
+      363 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      365 CALL                             R4 2 1
+      366 SETTABLEKS                       R4 R3 K53 ["ActionHover"]
+      368 GETUPVAL                         R4 0
+      369 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      371 LOADK                            R5 K44 ["TextButton"]
+      372 DUPTABLE                         R6 K55 [{["LayoutOrder"], ["Text"] = "ActionFocusBorder (border color)"}]
+      373 GETUPVAL                         R7 2
+      374 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      376 CALL                             R7 1 1
+      377 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      379 CALL                             R4 2 1
+      380 SETTABLEKS                       R4 R3 K56 ["ActionFocusBorder"]
+      382 GETUPVAL                         R4 0
+      383 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      385 LOADK                            R5 K5 ["Frame"]
+      386 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      387 GETUPVAL                         R7 2
+      388 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      390 CALL                             R7 1 1
+      391 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      393 DUPTABLE                         R7 K10 [{"Text"}]
+      394 GETUPVAL                         R8 0
+      395 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      397 LOADK                            R9 K11 ["TextLabel"]
+      398 DUPTABLE                         R10 K58 [{["Text"] = "PrimaryMain"}]
+      399 CALL                             R8 2 1
+      400 SETTABLEKS                       R8 R7 K9 ["Text"]
+      402 CALL                             R4 3 1
+      403 SETTABLEKS                       R4 R3 K57 ["PrimaryMain"]
+      405 GETUPVAL                         R4 0
+      406 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      408 LOADK                            R5 K5 ["Frame"]
+      409 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      410 GETUPVAL                         R7 2
+      411 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      413 CALL                             R7 1 1
+      414 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      416 DUPTABLE                         R7 K10 [{"Text"}]
+      417 GETUPVAL                         R8 0
+      418 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      420 LOADK                            R9 K11 ["TextLabel"]
+      421 DUPTABLE                         R10 K60 [{["Text"] = "PrimaryHoverBackground (hover over me)"}]
+      422 CALL                             R8 2 1
+      423 SETTABLEKS                       R8 R7 K9 ["Text"]
+      425 CALL                             R4 3 1
+      426 SETTABLEKS                       R4 R3 K61 ["PrimaryHoverBackground"]
       428 GETUPVAL                         R4 0
       429 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      431 LOADK                            R5 K29 ["TextButton"]
-      432 DUPTABLE                         R6 K17 [{"LayoutOrder", "Text"}]
+      431 LOADK                            R5 K5 ["Frame"]
+      432 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
       433 GETUPVAL                         R7 2
       434 NAMECALL                         R7 R7 K8 ["getNextOrder"]
       436 CALL                             R7 1 1
       437 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      439 LOADK                            R7 K35 ["ActionFocusBorder (border color)"]
-      440 SETTABLEKS                       R7 R6 K9 ["Text"]
-      442 CALL                             R4 2 1
-      443 SETTABLEKS                       R4 R3 K36 ["ActionFocusBorder"]
-      445 GETUPVAL                         R4 0
-      446 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      448 LOADK                            R5 K5 ["Frame"]
-      449 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      450 GETUPVAL                         R7 2
-      451 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      453 CALL                             R7 1 1
-      454 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      456 DUPTABLE                         R7 K10 [{"Text"}]
-      457 GETUPVAL                         R8 0
-      458 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      460 LOADK                            R9 K11 ["TextLabel"]
-      461 DUPTABLE                         R10 K10 [{"Text"}]
-      462 LOADK                            R11 K37 ["PrimaryMain"]
-      463 SETTABLEKS                       R11 R10 K9 ["Text"]
-      465 CALL                             R8 2 1
-      466 SETTABLEKS                       R8 R7 K9 ["Text"]
-      468 CALL                             R4 3 1
-      469 SETTABLEKS                       R4 R3 K37 ["PrimaryMain"]
-      471 GETUPVAL                         R4 0
-      472 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      474 LOADK                            R5 K5 ["Frame"]
-      475 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      476 GETUPVAL                         R7 2
-      477 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      479 CALL                             R7 1 1
-      480 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      482 DUPTABLE                         R7 K10 [{"Text"}]
-      483 GETUPVAL                         R8 0
-      484 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      486 LOADK                            R9 K11 ["TextLabel"]
-      487 DUPTABLE                         R10 K10 [{"Text"}]
-      488 LOADK                            R11 K38 ["PrimaryHoverBackground (hover over me)"]
-      489 SETTABLEKS                       R11 R10 K9 ["Text"]
+      439 DUPTABLE                         R7 K10 [{"Text"}]
+      440 GETUPVAL                         R8 0
+      441 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      443 LOADK                            R9 K11 ["TextLabel"]
+      444 DUPTABLE                         R10 K63 [{["Text"] = "SecondaryMain"}]
+      445 CALL                             R8 2 1
+      446 SETTABLEKS                       R8 R7 K9 ["Text"]
+      448 CALL                             R4 3 1
+      449 SETTABLEKS                       R4 R3 K62 ["SecondaryMain"]
+      451 GETUPVAL                         R4 0
+      452 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      454 LOADK                            R5 K5 ["Frame"]
+      455 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      456 GETUPVAL                         R7 2
+      457 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      459 CALL                             R7 1 1
+      460 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      462 DUPTABLE                         R7 K10 [{"Text"}]
+      463 GETUPVAL                         R8 0
+      464 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      466 LOADK                            R9 K11 ["TextLabel"]
+      467 DUPTABLE                         R10 K65 [{["Text"] = "SecondaryMuted"}]
+      468 CALL                             R8 2 1
+      469 SETTABLEKS                       R8 R7 K9 ["Text"]
+      471 CALL                             R4 3 1
+      472 SETTABLEKS                       R4 R3 K64 ["SecondaryMuted"]
+      474 GETUPVAL                         R4 0
+      475 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      477 LOADK                            R5 K5 ["Frame"]
+      478 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      479 GETUPVAL                         R7 2
+      480 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      482 CALL                             R7 1 1
+      483 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      485 DUPTABLE                         R7 K10 [{"Text"}]
+      486 GETUPVAL                         R8 0
+      487 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      489 LOADK                            R9 K11 ["TextLabel"]
+      490 DUPTABLE                         R10 K67 [{["Text"] = "SecondaryContrast"}]
       491 CALL                             R8 2 1
       492 SETTABLEKS                       R8 R7 K9 ["Text"]
       494 CALL                             R4 3 1
-      495 SETTABLEKS                       R4 R3 K39 ["PrimaryHoverBackground"]
+      495 SETTABLEKS                       R4 R3 K66 ["SecondaryContrast"]
       497 GETUPVAL                         R4 0
       498 GETTABLEKS                       R4 R4 K0 ["createElement"]
       500 LOADK                            R5 K5 ["Frame"]
@@ -369,188 +374,121 @@ PROTO_0:
       509 GETUPVAL                         R8 0
       510 GETTABLEKS                       R8 R8 K0 ["createElement"]
       512 LOADK                            R9 K11 ["TextLabel"]
-      513 DUPTABLE                         R10 K10 [{"Text"}]
-      514 LOADK                            R11 K40 ["SecondaryMain"]
-      515 SETTABLEKS                       R11 R10 K9 ["Text"]
-      517 CALL                             R8 2 1
-      518 SETTABLEKS                       R8 R7 K9 ["Text"]
-      520 CALL                             R4 3 1
-      521 SETTABLEKS                       R4 R3 K40 ["SecondaryMain"]
-      523 GETUPVAL                         R4 0
-      524 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      526 LOADK                            R5 K5 ["Frame"]
-      527 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      528 GETUPVAL                         R7 2
-      529 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      531 CALL                             R7 1 1
-      532 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      534 DUPTABLE                         R7 K10 [{"Text"}]
-      535 GETUPVAL                         R8 0
-      536 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      538 LOADK                            R9 K11 ["TextLabel"]
-      539 DUPTABLE                         R10 K10 [{"Text"}]
-      540 LOADK                            R11 K41 ["SecondaryMuted"]
-      541 SETTABLEKS                       R11 R10 K9 ["Text"]
-      543 CALL                             R8 2 1
-      544 SETTABLEKS                       R8 R7 K9 ["Text"]
-      546 CALL                             R4 3 1
-      547 SETTABLEKS                       R4 R3 K41 ["SecondaryMuted"]
-      549 GETUPVAL                         R4 0
-      550 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      552 LOADK                            R5 K5 ["Frame"]
-      553 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      554 GETUPVAL                         R7 2
-      555 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      557 CALL                             R7 1 1
-      558 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      560 DUPTABLE                         R7 K10 [{"Text"}]
-      561 GETUPVAL                         R8 0
-      562 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      564 LOADK                            R9 K11 ["TextLabel"]
-      565 DUPTABLE                         R10 K10 [{"Text"}]
-      566 LOADK                            R11 K42 ["SecondaryContrast"]
-      567 SETTABLEKS                       R11 R10 K9 ["Text"]
-      569 CALL                             R8 2 1
-      570 SETTABLEKS                       R8 R7 K9 ["Text"]
-      572 CALL                             R4 3 1
-      573 SETTABLEKS                       R4 R3 K42 ["SecondaryContrast"]
-      575 GETUPVAL                         R4 0
-      576 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      578 LOADK                            R5 K5 ["Frame"]
-      579 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      580 GETUPVAL                         R7 2
-      581 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      583 CALL                             R7 1 1
-      584 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      586 DUPTABLE                         R7 K10 [{"Text"}]
-      587 GETUPVAL                         R8 0
-      588 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      590 LOADK                            R9 K11 ["TextLabel"]
-      591 DUPTABLE                         R10 K10 [{"Text"}]
-      592 LOADK                            R11 K43 ["SecondaryHoverBackground (hover over me)"]
-      593 SETTABLEKS                       R11 R10 K9 ["Text"]
-      595 CALL                             R8 2 1
-      596 SETTABLEKS                       R8 R7 K9 ["Text"]
-      598 CALL                             R4 3 1
-      599 SETTABLEKS                       R4 R3 K44 ["SecondaryHoverBackground"]
-      601 GETUPVAL                         R4 0
-      602 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      604 LOADK                            R5 K5 ["Frame"]
-      605 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      606 GETUPVAL                         R7 2
-      607 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      609 CALL                             R7 1 1
-      610 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      612 DUPTABLE                         R7 K10 [{"Text"}]
-      613 GETUPVAL                         R8 0
-      614 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      616 LOADK                            R9 K11 ["TextLabel"]
-      617 DUPTABLE                         R10 K10 [{"Text"}]
-      618 LOADK                            R11 K45 ["SecondaryHoverOutlineBorder"]
-      619 SETTABLEKS                       R11 R10 K9 ["Text"]
-      621 CALL                             R8 2 1
-      622 SETTABLEKS                       R8 R7 K9 ["Text"]
-      624 CALL                             R4 3 1
-      625 SETTABLEKS                       R4 R3 K45 ["SecondaryHoverOutlineBorder"]
-      627 GETUPVAL                         R4 0
-      628 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      630 LOADK                            R5 K5 ["Frame"]
-      631 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      632 GETUPVAL                         R7 2
-      633 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      635 CALL                             R7 1 1
-      636 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      638 DUPTABLE                         R7 K10 [{"Text"}]
-      639 GETUPVAL                         R8 0
-      640 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      642 LOADK                            R9 K11 ["TextLabel"]
-      643 DUPTABLE                         R10 K10 [{"Text"}]
-      644 LOADK                            R11 K46 ["SecondaryRestingOutlineBorder"]
-      645 SETTABLEKS                       R11 R10 K9 ["Text"]
-      647 CALL                             R8 2 1
-      648 SETTABLEKS                       R8 R7 K9 ["Text"]
-      650 CALL                             R4 3 1
-      651 SETTABLEKS                       R4 R3 K46 ["SecondaryRestingOutlineBorder"]
-      653 GETUPVAL                         R4 0
-      654 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      656 LOADK                            R5 K5 ["Frame"]
-      657 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      658 GETUPVAL                         R7 2
-      659 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      661 CALL                             R7 1 1
-      662 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      664 DUPTABLE                         R7 K10 [{"Text"}]
-      665 GETUPVAL                         R8 0
-      666 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      668 LOADK                            R9 K11 ["TextLabel"]
-      669 DUPTABLE                         R10 K10 [{"Text"}]
-      670 LOADK                            R11 K47 ["FilledInputBackground"]
-      671 SETTABLEKS                       R11 R10 K9 ["Text"]
-      673 CALL                             R8 2 1
-      674 SETTABLEKS                       R8 R7 K9 ["Text"]
-      676 CALL                             R4 3 1
-      677 SETTABLEKS                       R4 R3 K47 ["FilledInputBackground"]
-      679 GETUPVAL                         R4 0
-      680 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      682 LOADK                            R5 K5 ["Frame"]
-      683 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      684 GETUPVAL                         R7 2
-      685 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      687 CALL                             R7 1 1
-      688 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      690 DUPTABLE                         R7 K10 [{"Text"}]
-      691 GETUPVAL                         R8 0
-      692 GETTABLEKS                       R8 R8 K0 ["createElement"]
-      694 LOADK                            R9 K11 ["TextLabel"]
-      695 DUPTABLE                         R10 K10 [{"Text"}]
-      696 LOADK                            R11 K48 ["Divider"]
-      697 SETTABLEKS                       R11 R10 K9 ["Text"]
-      699 CALL                             R8 2 1
-      700 SETTABLEKS                       R8 R7 K9 ["Text"]
-      702 CALL                             R4 3 1
-      703 SETTABLEKS                       R4 R3 K48 ["Divider"]
-      705 GETUPVAL                         R4 0
-      706 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      708 LOADK                            R5 K49 ["ImageLabel"]
-      709 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      710 GETUPVAL                         R7 2
-      711 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      713 CALL                             R7 1 1
-      714 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      716 CALL                             R4 2 1
-      717 SETTABLEKS                       R4 R3 K50 ["CheckboxUncheckedImage"]
-      719 GETUPVAL                         R4 0
-      720 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      722 LOADK                            R5 K49 ["ImageLabel"]
-      723 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      724 GETUPVAL                         R7 2
-      725 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      727 CALL                             R7 1 1
-      728 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      730 CALL                             R4 2 1
-      731 SETTABLEKS                       R4 R3 K51 ["CheckboxCheckedImage"]
-      733 GETUPVAL                         R4 0
-      734 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      736 LOADK                            R5 K49 ["ImageLabel"]
-      737 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      738 GETUPVAL                         R7 2
-      739 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      741 CALL                             R7 1 1
-      742 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      744 CALL                             R4 2 1
-      745 SETTABLEKS                       R4 R3 K52 ["CheckboxIndeterminateImage"]
-      747 GETUPVAL                         R4 0
-      748 GETTABLEKS                       R4 R4 K0 ["createElement"]
-      750 LOADK                            R5 K49 ["ImageLabel"]
-      751 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
-      752 GETUPVAL                         R7 2
-      753 NAMECALL                         R7 R7 K8 ["getNextOrder"]
-      755 CALL                             R7 1 1
-      756 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
-      758 CALL                             R4 2 1
-      759 SETTABLEKS                       R4 R3 K53 ["CheckboxDisabledImage"]
-      761 CALL                             R0 3 -1
-      762 RETURN                           R0 -1
+      513 DUPTABLE                         R10 K69 [{["Text"] = "SecondaryHoverBackground (hover over me)"}]
+      514 CALL                             R8 2 1
+      515 SETTABLEKS                       R8 R7 K9 ["Text"]
+      517 CALL                             R4 3 1
+      518 SETTABLEKS                       R4 R3 K70 ["SecondaryHoverBackground"]
+      520 GETUPVAL                         R4 0
+      521 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      523 LOADK                            R5 K5 ["Frame"]
+      524 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      525 GETUPVAL                         R7 2
+      526 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      528 CALL                             R7 1 1
+      529 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      531 DUPTABLE                         R7 K10 [{"Text"}]
+      532 GETUPVAL                         R8 0
+      533 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      535 LOADK                            R9 K11 ["TextLabel"]
+      536 DUPTABLE                         R10 K72 [{["Text"] = "SecondaryHoverOutlineBorder"}]
+      537 CALL                             R8 2 1
+      538 SETTABLEKS                       R8 R7 K9 ["Text"]
+      540 CALL                             R4 3 1
+      541 SETTABLEKS                       R4 R3 K71 ["SecondaryHoverOutlineBorder"]
+      543 GETUPVAL                         R4 0
+      544 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      546 LOADK                            R5 K5 ["Frame"]
+      547 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      548 GETUPVAL                         R7 2
+      549 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      551 CALL                             R7 1 1
+      552 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      554 DUPTABLE                         R7 K10 [{"Text"}]
+      555 GETUPVAL                         R8 0
+      556 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      558 LOADK                            R9 K11 ["TextLabel"]
+      559 DUPTABLE                         R10 K74 [{["Text"] = "SecondaryRestingOutlineBorder"}]
+      560 CALL                             R8 2 1
+      561 SETTABLEKS                       R8 R7 K9 ["Text"]
+      563 CALL                             R4 3 1
+      564 SETTABLEKS                       R4 R3 K73 ["SecondaryRestingOutlineBorder"]
+      566 GETUPVAL                         R4 0
+      567 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      569 LOADK                            R5 K5 ["Frame"]
+      570 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      571 GETUPVAL                         R7 2
+      572 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      574 CALL                             R7 1 1
+      575 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      577 DUPTABLE                         R7 K10 [{"Text"}]
+      578 GETUPVAL                         R8 0
+      579 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      581 LOADK                            R9 K11 ["TextLabel"]
+      582 DUPTABLE                         R10 K76 [{["Text"] = "FilledInputBackground"}]
+      583 CALL                             R8 2 1
+      584 SETTABLEKS                       R8 R7 K9 ["Text"]
+      586 CALL                             R4 3 1
+      587 SETTABLEKS                       R4 R3 K75 ["FilledInputBackground"]
+      589 GETUPVAL                         R4 0
+      590 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      592 LOADK                            R5 K5 ["Frame"]
+      593 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      594 GETUPVAL                         R7 2
+      595 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      597 CALL                             R7 1 1
+      598 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      600 DUPTABLE                         R7 K10 [{"Text"}]
+      601 GETUPVAL                         R8 0
+      602 GETTABLEKS                       R8 R8 K0 ["createElement"]
+      604 LOADK                            R9 K11 ["TextLabel"]
+      605 DUPTABLE                         R10 K78 [{["Text"] = "Divider"}]
+      606 CALL                             R8 2 1
+      607 SETTABLEKS                       R8 R7 K9 ["Text"]
+      609 CALL                             R4 3 1
+      610 SETTABLEKS                       R4 R3 K77 ["Divider"]
+      612 GETUPVAL                         R4 0
+      613 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      615 LOADK                            R5 K79 ["ImageLabel"]
+      616 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      617 GETUPVAL                         R7 2
+      618 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      620 CALL                             R7 1 1
+      621 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      623 CALL                             R4 2 1
+      624 SETTABLEKS                       R4 R3 K80 ["CheckboxUncheckedImage"]
+      626 GETUPVAL                         R4 0
+      627 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      629 LOADK                            R5 K79 ["ImageLabel"]
+      630 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      631 GETUPVAL                         R7 2
+      632 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      634 CALL                             R7 1 1
+      635 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      637 CALL                             R4 2 1
+      638 SETTABLEKS                       R4 R3 K81 ["CheckboxCheckedImage"]
+      640 GETUPVAL                         R4 0
+      641 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      643 LOADK                            R5 K79 ["ImageLabel"]
+      644 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      645 GETUPVAL                         R7 2
+      646 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      648 CALL                             R7 1 1
+      649 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      651 CALL                             R4 2 1
+      652 SETTABLEKS                       R4 R3 K82 ["CheckboxIndeterminateImage"]
+      654 GETUPVAL                         R4 0
+      655 GETTABLEKS                       R4 R4 K0 ["createElement"]
+      657 LOADK                            R5 K79 ["ImageLabel"]
+      658 DUPTABLE                         R6 K7 [{"LayoutOrder"}]
+      659 GETUPVAL                         R7 2
+      660 NAMECALL                         R7 R7 K8 ["getNextOrder"]
+      662 CALL                             R7 1 1
+      663 SETTABLEKS                       R7 R6 K6 ["LayoutOrder"]
+      665 CALL                             R4 2 1
+      666 SETTABLEKS                       R4 R3 K83 ["CheckboxDisabledImage"]
+      668 CALL                             R0 3 -1
+      669 RETURN                           R0 -1
 
 PROTO_1:
         0 RETURN                           R0 0

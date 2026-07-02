@@ -57,7 +57,7 @@ PROTO_4:
         1 GETUPVAL                         R1 0
         2 GETTABLEKS                       R1 R1 K0 ["constructCreatorStoreUrl"]
         4 CALL                             R1 0 1
-        5 JUMPIFNOT                        R1 ; [+35]
+        5 JUMPIFNOT                        R1 ; [+32]
         6 GETIMPORT                        R2 K3 [string.format]
         8 LOADK                            R3 K4 ["%sasset/%s"]
         9 MOVE                             R4 R1
@@ -68,48 +68,46 @@ PROTO_4:
        15 CALL                             R2 -1 1
        16 MOVE                             R0 R2
        17 GETUPVAL                         R2 3
-       18 JUMPIFNOT                        R2 ; [+46]
+       18 JUMPIFNOT                        R2 ; [+43]
        19 MOVE                             R2 R0
        20 LOADK                            R3 K6 ["?"]
        21 GETUPVAL                         R4 4
        22 GETTABLEKS                       R4 R4 K7 ["makeQueryString"]
-       24 DUPTABLE                         R5 K11 [{"keyword", "searchId", "viewFromStudio"}]
+       24 DUPTABLE                         R5 K12 [{["keyword"], ["searchId"], ["viewFromStudio"] = True}]
        25 GETUPVAL                         R6 3
-       26 GETTABLEKS                       R6 R6 K12 ["SearchKeyword"]
+       26 GETTABLEKS                       R6 R6 K13 ["SearchKeyword"]
        28 SETTABLEKS                       R6 R5 K8 ["keyword"]
        30 GETUPVAL                         R6 3
-       31 GETTABLEKS                       R6 R6 K13 ["SearchId"]
+       31 GETTABLEKS                       R6 R6 K14 ["SearchId"]
        33 SETTABLEKS                       R6 R5 K9 ["searchId"]
-       35 LOADB                            R6 1
-       36 SETTABLEKS                       R6 R5 K10 ["viewFromStudio"]
-       38 CALL                             R4 1 1
-       39 CONCAT                           R0 R2 R4
-       40 JUMP                             ; [+24]
-       41 GETUPVAL                         R2 5
-       42 GETTABLEKS                       R1 R2 K14 ["BaseUrl"]
-       44 GETIMPORT                        R2 K3 [string.format]
-       46 LOADK                            R3 K15 ["%slibrary/%s/asset"]
-       47 MOVE                             R4 R1
-       48 GETUPVAL                         R5 1
-       49 GETUPVAL                         R7 2
-       50 NAMECALL                         R5 R5 K5 ["urlEncode"]
-       52 CALL                             R5 2 -1
-       53 CALL                             R2 -1 1
-       54 MOVE                             R0 R2
-       55 GETUPVAL                         R2 3
-       56 JUMPIFNOT                        R2 ; [+8]
-       57 MOVE                             R2 R0
-       58 LOADK                            R3 K6 ["?"]
-       59 GETUPVAL                         R4 4
-       60 GETTABLEKS                       R4 R4 K7 ["makeQueryString"]
-       62 GETUPVAL                         R5 3
-       63 CALL                             R4 1 1
-       64 CONCAT                           R0 R2 R4
-       65 GETUPVAL                         R2 6
-       66 MOVE                             R4 R0
-       67 NAMECALL                         R2 R2 K16 ["OpenBrowserWindow"]
-       69 CALL                             R2 2 0
-       70 RETURN                           R0 0
+       35 CALL                             R4 1 1
+       36 CONCAT                           R0 R2 R4
+       37 JUMP                             ; [+24]
+       38 GETUPVAL                         R2 5
+       39 GETTABLEKS                       R1 R2 K15 ["BaseUrl"]
+       41 GETIMPORT                        R2 K3 [string.format]
+       43 LOADK                            R3 K16 ["%slibrary/%s/asset"]
+       44 MOVE                             R4 R1
+       45 GETUPVAL                         R5 1
+       46 GETUPVAL                         R7 2
+       47 NAMECALL                         R5 R5 K5 ["urlEncode"]
+       49 CALL                             R5 2 -1
+       50 CALL                             R2 -1 1
+       51 MOVE                             R0 R2
+       52 GETUPVAL                         R2 3
+       53 JUMPIFNOT                        R2 ; [+8]
+       54 MOVE                             R2 R0
+       55 LOADK                            R3 K6 ["?"]
+       56 GETUPVAL                         R4 4
+       57 GETTABLEKS                       R4 R4 K7 ["makeQueryString"]
+       59 GETUPVAL                         R5 3
+       60 CALL                             R4 1 1
+       61 CONCAT                           R0 R2 R4
+       62 GETUPVAL                         R2 6
+       63 MOVE                             R4 R0
+       64 NAMECALL                         R2 R2 K17 ["OpenBrowserWindow"]
+       66 CALL                             R2 2 0
+       67 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R0 0

@@ -1,90 +1,68 @@
 PROTO_0:
-        0 DUPTABLE                         R2 K32 [{"Started", "Paused", "Resumed", "Canceled", "Finished", "ProgressChanged", "_name", "_description", "_onStartFunc", "_onStepFunc", "_onPauseFunc", "_onResumeFunc", "_onCancelFunc", "_onFinishFunc", "_onErrorFunc", "_budget", "_timeBetweenSteps", "_timeBetweenPauseChecks", "_options", "_canCancel", "_canPause", "_hasStarted", "_isPaused", "_wasCanceled", "_hasFinished", "_isRunning", "_operationProgress", "_errorMessage", "_steps", "_startTime", "_endTime", "_yieldTime"}]
+        0 DUPTABLE                         R2 K35 [{[1], ["Paused"], ["Resumed"], ["Canceled"], ["Finished"], ["ProgressChanged"], ["_name"], ["_description"], ["_onStartFunc"], ["_onStepFunc"], ["_onPauseFunc"], ["_onResumeFunc"], ["_onCancelFunc"], ["_onFinishFunc"], ["_onErrorFunc"], ["_budget"], ["_timeBetweenSteps"], ["_timeBetweenPauseChecks"], ["_options"], ["_canCancel"], ["_canPause"], ["_hasStarted"] = False, ["_isPaused"] = False, ["_wasCanceled"] = False, ["_hasFinished"] = False, ["_isRunning"] = False, ["_operationProgress"] = 0, ["_errorMessage"] = , ["_steps"] = 0, ["_startTime"] = 0, ["_endTime"] = 0, ["_yieldTime"] = 0}]
         1 GETUPVAL                         R3 0
-        2 GETTABLEKS                       R3 R3 K33 ["new"]
+        2 GETTABLEKS                       R3 R3 K36 ["new"]
         4 CALL                             R3 0 1
         5 SETTABLEKS                       R3 R2 K0 ["Started"]
         7 GETUPVAL                         R3 0
-        8 GETTABLEKS                       R3 R3 K33 ["new"]
+        8 GETTABLEKS                       R3 R3 K36 ["new"]
        10 CALL                             R3 0 1
        11 SETTABLEKS                       R3 R2 K1 ["Paused"]
        13 GETUPVAL                         R3 0
-       14 GETTABLEKS                       R3 R3 K33 ["new"]
+       14 GETTABLEKS                       R3 R3 K36 ["new"]
        16 CALL                             R3 0 1
        17 SETTABLEKS                       R3 R2 K2 ["Resumed"]
        19 GETUPVAL                         R3 0
-       20 GETTABLEKS                       R3 R3 K33 ["new"]
+       20 GETTABLEKS                       R3 R3 K36 ["new"]
        22 CALL                             R3 0 1
        23 SETTABLEKS                       R3 R2 K3 ["Canceled"]
        25 GETUPVAL                         R3 0
-       26 GETTABLEKS                       R3 R3 K33 ["new"]
+       26 GETTABLEKS                       R3 R3 K36 ["new"]
        28 CALL                             R3 0 1
        29 SETTABLEKS                       R3 R2 K4 ["Finished"]
        31 GETUPVAL                         R3 0
-       32 GETTABLEKS                       R3 R3 K33 ["new"]
+       32 GETTABLEKS                       R3 R3 K36 ["new"]
        34 CALL                             R3 0 1
        35 SETTABLEKS                       R3 R2 K5 ["ProgressChanged"]
-       37 GETTABLEKS                       R3 R0 K34 ["Name"]
+       37 GETTABLEKS                       R3 R0 K37 ["Name"]
        39 SETTABLEKS                       R3 R2 K6 ["_name"]
-       41 GETTABLEKS                       R3 R0 K35 ["Description"]
+       41 GETTABLEKS                       R3 R0 K38 ["Description"]
        43 SETTABLEKS                       R3 R2 K7 ["_description"]
-       45 GETTABLEKS                       R3 R0 K36 ["OnStart"]
+       45 GETTABLEKS                       R3 R0 K39 ["OnStart"]
        47 SETTABLEKS                       R3 R2 K8 ["_onStartFunc"]
-       49 GETTABLEKS                       R3 R0 K37 ["OnStep"]
+       49 GETTABLEKS                       R3 R0 K40 ["OnStep"]
        51 SETTABLEKS                       R3 R2 K9 ["_onStepFunc"]
-       53 GETTABLEKS                       R3 R0 K38 ["OnPause"]
+       53 GETTABLEKS                       R3 R0 K41 ["OnPause"]
        55 SETTABLEKS                       R3 R2 K10 ["_onPauseFunc"]
-       57 GETTABLEKS                       R3 R0 K39 ["OnResume"]
+       57 GETTABLEKS                       R3 R0 K42 ["OnResume"]
        59 SETTABLEKS                       R3 R2 K11 ["_onResumeFunc"]
-       61 GETTABLEKS                       R3 R0 K40 ["OnCancel"]
+       61 GETTABLEKS                       R3 R0 K43 ["OnCancel"]
        63 SETTABLEKS                       R3 R2 K12 ["_onCancelFunc"]
-       65 GETTABLEKS                       R3 R0 K41 ["OnFinish"]
+       65 GETTABLEKS                       R3 R0 K44 ["OnFinish"]
        67 SETTABLEKS                       R3 R2 K13 ["_onFinishFunc"]
-       69 GETTABLEKS                       R3 R0 K42 ["OnError"]
+       69 GETTABLEKS                       R3 R0 K45 ["OnError"]
        71 SETTABLEKS                       R3 R2 K14 ["_onErrorFunc"]
-       73 GETTABLEKS                       R3 R0 K43 ["Budget"]
+       73 GETTABLEKS                       R3 R0 K46 ["Budget"]
        75 SETTABLEKS                       R3 R2 K15 ["_budget"]
-       77 GETTABLEKS                       R4 R0 K45 ["TimeBetweenSteps"]
-       79 ORK                              R3 R4 K44 [0]
+       77 GETTABLEKS                       R4 R0 K47 ["TimeBetweenSteps"]
+       79 ORK                              R3 R4 K28 [0]
        80 SETTABLEKS                       R3 R2 K16 ["_timeBetweenSteps"]
-       82 GETTABLEKS                       R4 R0 K47 ["TimeBetweenPauseChecks"]
-       84 ORK                              R3 R4 K46 [0.1]
+       82 GETTABLEKS                       R4 R0 K49 ["TimeBetweenPauseChecks"]
+       84 ORK                              R3 R4 K48 [0.1]
        85 SETTABLEKS                       R3 R2 K17 ["_timeBetweenPauseChecks"]
        87 NEWTABLE                         R3 0 0
        89 SETTABLEKS                       R3 R2 K18 ["_options"]
-       91 GETTABLEKS                       R4 R0 K49 ["AllowCancel"]
-       93 ORK                              R3 R4 K48 [False]
+       91 GETTABLEKS                       R4 R0 K50 ["AllowCancel"]
+       93 ORK                              R3 R4 K22 [False]
        94 SETTABLEKS                       R3 R2 K19 ["_canCancel"]
-       96 GETTABLEKS                       R4 R0 K50 ["AllowPause"]
-       98 ORK                              R3 R4 K48 [False]
+       96 GETTABLEKS                       R4 R0 K51 ["AllowPause"]
+       98 ORK                              R3 R4 K22 [False]
        99 SETTABLEKS                       R3 R2 K20 ["_canPause"]
-      101 LOADB                            R3 0
-      102 SETTABLEKS                       R3 R2 K21 ["_hasStarted"]
-      104 LOADB                            R3 0
-      105 SETTABLEKS                       R3 R2 K22 ["_isPaused"]
-      107 LOADB                            R3 0
-      108 SETTABLEKS                       R3 R2 K23 ["_wasCanceled"]
-      110 LOADB                            R3 0
-      111 SETTABLEKS                       R3 R2 K24 ["_hasFinished"]
-      113 LOADB                            R3 0
-      114 SETTABLEKS                       R3 R2 K25 ["_isRunning"]
-      116 LOADN                            R3 0
-      117 SETTABLEKS                       R3 R2 K26 ["_operationProgress"]
-      119 LOADNIL                          R3
-      120 SETTABLEKS                       R3 R2 K27 ["_errorMessage"]
-      122 LOADN                            R3 0
-      123 SETTABLEKS                       R3 R2 K28 ["_steps"]
-      125 LOADN                            R3 0
-      126 SETTABLEKS                       R3 R2 K29 ["_startTime"]
-      128 LOADN                            R3 0
-      129 SETTABLEKS                       R3 R2 K30 ["_endTime"]
-      131 LOADN                            R3 0
-      132 SETTABLEKS                       R3 R2 K31 ["_yieldTime"]
-      134 GETUPVAL                         R3 1
-      135 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
-      137 GETIMPORT                        R1 K52 [setmetatable]
-      139 CALL                             R1 2 1
-      140 RETURN                           R1 1
+      101 GETUPVAL                         R3 1
+      102 FASTCALL2                        SETMETATABLE R2 R3 ; [+3]
+      104 GETIMPORT                        R1 K53 [setmetatable]
+      106 CALL                             R1 2 1
+      107 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["_hasStarted"]

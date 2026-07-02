@@ -11,39 +11,29 @@ MAIN:
        17 CALL                             R1 1 1
        18 GETTABLEKS                       R2 R1 K7 ["Style"]
        20 GETTABLEKS                       R2 R2 K8 ["StyleKey"]
-       22 DUPTABLE                         R3 K18 [{"RowHeight", "HoverColor", "SelectedColor", "SelectedTextColor", "HeadingColor", "BorderColor", "Indent", "IconPadding", "Arrow"}]
-       23 LOADN                            R4 24
-       24 SETTABLEKS                       R4 R3 K9 ["RowHeight"]
-       26 GETTABLEKS                       R4 R2 K19 ["ButtonHover"]
-       28 SETTABLEKS                       R4 R3 K10 ["HoverColor"]
-       30 GETTABLEKS                       R4 R2 K20 ["DialogMainButton"]
-       32 SETTABLEKS                       R4 R3 K11 ["SelectedColor"]
-       34 GETTABLEKS                       R4 R2 K21 ["DialogMainButtonText"]
-       36 SETTABLEKS                       R4 R3 K12 ["SelectedTextColor"]
-       38 GETTABLEKS                       R4 R2 K22 ["CategoryItem"]
-       40 SETTABLEKS                       R4 R3 K13 ["HeadingColor"]
-       42 GETTABLEKS                       R4 R2 K23 ["Border"]
-       44 SETTABLEKS                       R4 R3 K14 ["BorderColor"]
-       46 LOADN                            R4 20
-       47 SETTABLEKS                       R4 R3 K15 ["Indent"]
-       49 LOADN                            R4 5
-       50 SETTABLEKS                       R4 R3 K16 ["IconPadding"]
-       52 DUPTABLE                         R4 K29 [{"Image", "Size", "ExpandedOffset", "CollapsedOffset", "Color"}]
-       53 LOADK                            R5 K30 ["rbxasset://textures/StudioSharedUI/arrowSpritesheet.png"]
-       54 SETTABLEKS                       R5 R4 K24 ["Image"]
-       56 LOADN                            R5 12
-       57 SETTABLEKS                       R5 R4 K25 ["Size"]
-       59 GETIMPORT                        R5 K33 [Vector2.new]
-       61 LOADN                            R6 24
-       62 LOADN                            R7 0
-       63 CALL                             R5 2 1
-       64 SETTABLEKS                       R5 R4 K26 ["ExpandedOffset"]
-       66 GETIMPORT                        R5 K33 [Vector2.new]
-       68 LOADN                            R6 12
-       69 LOADN                            R7 0
-       70 CALL                             R5 2 1
-       71 SETTABLEKS                       R5 R4 K27 ["CollapsedOffset"]
-       73 GETTABLEKS                       R5 R2 K34 ["MainText"]
-       75 SETTABLEKS                       R5 R4 K28 ["Color"]
-       77 SETTABLEKS                       R4 R3 K17 ["Arrow"]
-       79 RETURN                           R3 1
+       22 DUPTABLE                         R3 K21 [{["RowHeight"] = 24, ["HoverColor"], ["SelectedColor"], ["SelectedTextColor"], ["HeadingColor"], ["BorderColor"], ["Indent"] = 20, ["IconPadding"] = 5, ["Arrow"]}]
+       23 GETTABLEKS                       R4 R2 K22 ["ButtonHover"]
+       25 SETTABLEKS                       R4 R3 K11 ["HoverColor"]
+       27 GETTABLEKS                       R4 R2 K23 ["DialogMainButton"]
+       29 SETTABLEKS                       R4 R3 K12 ["SelectedColor"]
+       31 GETTABLEKS                       R4 R2 K24 ["DialogMainButtonText"]
+       33 SETTABLEKS                       R4 R3 K13 ["SelectedTextColor"]
+       35 GETTABLEKS                       R4 R2 K25 ["CategoryItem"]
+       37 SETTABLEKS                       R4 R3 K14 ["HeadingColor"]
+       39 GETTABLEKS                       R4 R2 K26 ["Border"]
+       41 SETTABLEKS                       R4 R3 K15 ["BorderColor"]
+       43 DUPTABLE                         R4 K34 [{["Image"] = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png", ["Size"] = 12, ["ExpandedOffset"], ["CollapsedOffset"], ["Color"]}]
+       44 GETIMPORT                        R5 K37 [Vector2.new]
+       46 LOADN                            R6 24
+       47 LOADN                            R7 0
+       48 CALL                             R5 2 1
+       49 SETTABLEKS                       R5 R4 K31 ["ExpandedOffset"]
+       51 GETIMPORT                        R5 K37 [Vector2.new]
+       53 LOADN                            R6 12
+       54 LOADN                            R7 0
+       55 CALL                             R5 2 1
+       56 SETTABLEKS                       R5 R4 K32 ["CollapsedOffset"]
+       58 GETTABLEKS                       R5 R2 K38 ["MainText"]
+       60 SETTABLEKS                       R5 R4 K33 ["Color"]
+       62 SETTABLEKS                       R4 R3 K20 ["Arrow"]
+       64 RETURN                           R3 1

@@ -19,52 +19,50 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 MOVE                             R2 R0
         2 CALL                             R1 1 1
-        3 JUMPIF                           R1 ; [+24]
+        3 JUMPIF                           R1 ; [+21]
         4 GETUPVAL                         R2 1
         5 GETUPVAL                         R3 2
-        6 JUMPIFNOT                        R3 ; [+19]
+        6 JUMPIFNOT                        R3 ; [+16]
         7 GETUPVAL                         R3 2
         8 GETUPVAL                         R5 3
-        9 DUPTABLE                         R6 K4 [{"url", "errorDetails", "user", "ampresponse"}]
+        9 DUPTABLE                         R6 K5 [{[1], ["errorDetails"], ["user"], ["ampresponse"] = ""}]
        10 SETTABLEKS                       R2 R6 K0 ["url"]
        12 SETTABLEKS                       R1 R6 K1 ["errorDetails"]
        14 GETUPVAL                         R7 4
-       15 NAMECALL                         R7 R7 K5 ["GetUserId"]
+       15 NAMECALL                         R7 R7 K6 ["GetUserId"]
        17 CALL                             R7 1 1
        18 SETTABLEKS                       R7 R6 K2 ["user"]
-       20 LOADK                            R7 K6 [""]
-       21 SETTABLEKS                       R7 R6 K3 ["ampresponse"]
-       23 NAMECALL                         R3 R3 K7 ["log"]
-       25 CALL                             R3 3 0
-       26 LOADB                            R2 0
-       27 RETURN                           R2 1
-       28 GETTABLEKS                       R2 R1 K8 ["access"]
-       30 JUMPIFEQKS                       R2 K9 ["Granted"] ; [+30]
-       32 GETTABLEKS                       R2 R1 K8 ["access"]
-       34 JUMPIFEQKS                       R2 K10 ["Denied"] ; [+26]
-       36 GETUPVAL                         R2 1
-       37 GETTABLEKS                       R3 R1 K8 ["access"]
-       39 GETUPVAL                         R4 2
-       40 JUMPIFNOT                        R4 ; [+18]
-       41 GETUPVAL                         R4 2
-       42 GETUPVAL                         R6 3
-       43 DUPTABLE                         R7 K4 [{"url", "errorDetails", "user", "ampresponse"}]
-       44 SETTABLEKS                       R2 R7 K0 ["url"]
-       46 SETTABLEKS                       R1 R7 K1 ["errorDetails"]
-       48 GETUPVAL                         R8 4
-       49 NAMECALL                         R8 R8 K5 ["GetUserId"]
-       51 CALL                             R8 1 1
-       52 SETTABLEKS                       R8 R7 K2 ["user"]
-       54 SETTABLEKS                       R3 R7 K3 ["ampresponse"]
-       56 NAMECALL                         R4 R4 K7 ["log"]
-       58 CALL                             R4 3 0
-       59 LOADB                            R2 0
-       60 RETURN                           R2 1
-       61 GETTABLEKS                       R3 R1 K8 ["access"]
-       63 JUMPIFEQKS                       R3 K9 ["Granted"] ; [+2]
-       65 LOADB                            R2 0 +1
-       66 LOADB                            R2 1
-       67 RETURN                           R2 1
+       20 NAMECALL                         R3 R3 K7 ["log"]
+       22 CALL                             R3 3 0
+       23 LOADB                            R2 0
+       24 RETURN                           R2 1
+       25 GETTABLEKS                       R2 R1 K8 ["access"]
+       27 JUMPIFEQKS                       R2 K9 ["Granted"] ; [+30]
+       29 GETTABLEKS                       R2 R1 K8 ["access"]
+       31 JUMPIFEQKS                       R2 K10 ["Denied"] ; [+26]
+       33 GETUPVAL                         R2 1
+       34 GETTABLEKS                       R3 R1 K8 ["access"]
+       36 GETUPVAL                         R4 2
+       37 JUMPIFNOT                        R4 ; [+18]
+       38 GETUPVAL                         R4 2
+       39 GETUPVAL                         R6 3
+       40 DUPTABLE                         R7 K11 [{"url", "errorDetails", "user", "ampresponse"}]
+       41 SETTABLEKS                       R2 R7 K0 ["url"]
+       43 SETTABLEKS                       R1 R7 K1 ["errorDetails"]
+       45 GETUPVAL                         R8 4
+       46 NAMECALL                         R8 R8 K6 ["GetUserId"]
+       48 CALL                             R8 1 1
+       49 SETTABLEKS                       R8 R7 K2 ["user"]
+       51 SETTABLEKS                       R3 R7 K3 ["ampresponse"]
+       53 NAMECALL                         R4 R4 K7 ["log"]
+       55 CALL                             R4 3 0
+       56 LOADB                            R2 0
+       57 RETURN                           R2 1
+       58 GETTABLEKS                       R3 R1 K8 ["access"]
+       60 JUMPIFEQKS                       R3 K9 ["Granted"] ; [+2]
+       62 LOADB                            R2 0 +1
+       63 LOADB                            R2 1
+       64 RETURN                           R2 1
 
 PROTO_2:
         0 GETIMPORT                        R1 K1 [warn]
@@ -99,22 +97,20 @@ PROTO_2:
        40 GETUPVAL                         R2 1
        41 MOVE                             R3 R1
        42 GETUPVAL                         R4 2
-       43 JUMPIFNOT                        R4 ; [+19]
+       43 JUMPIFNOT                        R4 ; [+16]
        44 GETUPVAL                         R4 2
        45 GETUPVAL                         R6 3
-       46 DUPTABLE                         R7 K16 [{"url", "errorDetails", "user", "ampresponse"}]
+       46 DUPTABLE                         R7 K17 [{["url"], ["errorDetails"], ["user"], ["ampresponse"] = ""}]
        47 SETTABLEKS                       R2 R7 K12 ["url"]
        49 SETTABLEKS                       R3 R7 K13 ["errorDetails"]
        51 GETUPVAL                         R8 4
-       52 NAMECALL                         R8 R8 K17 ["GetUserId"]
+       52 NAMECALL                         R8 R8 K18 ["GetUserId"]
        54 CALL                             R8 1 1
        55 SETTABLEKS                       R8 R7 K14 ["user"]
-       57 LOADK                            R8 K18 [""]
-       58 SETTABLEKS                       R8 R7 K15 ["ampresponse"]
-       60 NAMECALL                         R4 R4 K19 ["log"]
-       62 CALL                             R4 3 0
-       63 LOADB                            R2 0
-       64 RETURN                           R2 1
+       57 NAMECALL                         R4 R4 K19 ["log"]
+       59 CALL                             R4 3 0
+       60 LOADB                            R2 0
+       61 RETURN                           R2 1
 
 PROTO_3:
         0 JUMPIFNOT                        R0 ; [+7]
@@ -227,35 +223,33 @@ MAIN:
        69 GETTABLEKS                       R8 R3 K20 ["RobloxAPI"]
        71 GETTABLEKS                       R8 R8 K21 ["Url"]
        73 GETTABLEKS                       R9 R5 K22 ["new"]
-       75 DUPTABLE                         R10 K25 [{"isInternal", "loggingLevel"}]
-       76 LOADB                            R11 1
-       77 SETTABLEKS                       R11 R10 K23 ["isInternal"]
-       79 SETTABLEKS                       R1 R10 K24 ["loggingLevel"]
-       81 CALL                             R9 1 1
-       82 GETIMPORT                        R10 K5 [require]
-       84 GETTABLEKS                       R11 R0 K6 ["Src"]
-       86 GETTABLEKS                       R11 R11 K14 ["Util"]
-       88 GETTABLEKS                       R11 R11 K26 ["Telemetry"]
-       90 GETTABLEKS                       R11 R11 K27 ["TelemetryContext"]
-       92 CALL                             R10 1 1
-       93 GETIMPORT                        R11 K5 [require]
-       95 GETTABLEKS                       R12 R0 K6 ["Src"]
-       97 GETTABLEKS                       R12 R12 K14 ["Util"]
-       99 GETTABLEKS                       R12 R12 K26 ["Telemetry"]
-      101 GETTABLEKS                       R12 R12 K28 ["FetchAMPStatusFailureEvent"]
-      103 CALL                             R11 1 1
-      104 GETIMPORT                        R12 K30 [game]
-      106 LOADK                            R14 K31 ["StudioService"]
-      107 NAMECALL                         R12 R12 K32 ["GetService"]
-      109 CALL                             R12 2 1
-      110 MOVE                             R13 R7
-      111 GETTABLEKS                       R14 R6 K33 ["validate"]
-      113 CALL                             R13 1 1
-      114 DUPCLOSURE                       R14 K34 [PROTO_3]
-      115 CAPTURE                          VAL R12
-      116 CAPTURE                          VAL R8
-      117 CAPTURE                          VAL R4
-      118 CAPTURE                          VAL R11
-      119 CAPTURE                          VAL R9
-      120 CAPTURE                          VAL R13
-      121 RETURN                           R14 1
+       75 DUPTABLE                         R10 K26 [{["isInternal"] = True, ["loggingLevel"]}]
+       76 SETTABLEKS                       R1 R10 K25 ["loggingLevel"]
+       78 CALL                             R9 1 1
+       79 GETIMPORT                        R10 K5 [require]
+       81 GETTABLEKS                       R11 R0 K6 ["Src"]
+       83 GETTABLEKS                       R11 R11 K14 ["Util"]
+       85 GETTABLEKS                       R11 R11 K27 ["Telemetry"]
+       87 GETTABLEKS                       R11 R11 K28 ["TelemetryContext"]
+       89 CALL                             R10 1 1
+       90 GETIMPORT                        R11 K5 [require]
+       92 GETTABLEKS                       R12 R0 K6 ["Src"]
+       94 GETTABLEKS                       R12 R12 K14 ["Util"]
+       96 GETTABLEKS                       R12 R12 K27 ["Telemetry"]
+       98 GETTABLEKS                       R12 R12 K29 ["FetchAMPStatusFailureEvent"]
+      100 CALL                             R11 1 1
+      101 GETIMPORT                        R12 K31 [game]
+      103 LOADK                            R14 K32 ["StudioService"]
+      104 NAMECALL                         R12 R12 K33 ["GetService"]
+      106 CALL                             R12 2 1
+      107 MOVE                             R13 R7
+      108 GETTABLEKS                       R14 R6 K34 ["validate"]
+      110 CALL                             R13 1 1
+      111 DUPCLOSURE                       R14 K35 [PROTO_3]
+      112 CAPTURE                          VAL R12
+      113 CAPTURE                          VAL R8
+      114 CAPTURE                          VAL R4
+      115 CAPTURE                          VAL R11
+      116 CAPTURE                          VAL R9
+      117 CAPTURE                          VAL R13
+      118 RETURN                           R14 1

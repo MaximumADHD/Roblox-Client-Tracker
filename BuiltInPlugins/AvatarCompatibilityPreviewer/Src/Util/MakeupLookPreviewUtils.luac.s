@@ -17,29 +17,19 @@ PROTO_0:
        20 FASTCALL2                        ASSERT R8 R9 ; [+3]
        22 GETIMPORT                        R7 K6 [assert]
        24 CALL                             R7 2 1
-       25 DUPTABLE                         R10 K15 [{"AccessoryType", "AssetId", "Order", "IsLayered", "Puffiness", "Position", "Rotation", "Scale"}]
+       25 DUPTABLE                         R10 K19 [{["AccessoryType"], ["AssetId"], ["Order"], ["IsLayered"] = True, ["Puffiness"] = 0, ["Position"] = {0, 0, 0}, ["Rotation"] = {0, 0, 0}, ["Scale"] = {1, 1, 1}}]
        26 SETTABLEKS                       R7 R10 K7 ["AccessoryType"]
        28 GETTABLEKS                       R11 R6 K8 ["AssetId"]
        30 SETTABLEKS                       R11 R10 K8 ["AssetId"]
        32 GETTABLEKS                       R12 R6 K9 ["Order"]
-       34 ORK                              R11 R12 K16 [0]
+       34 ORK                              R11 R12 K13 [0]
        35 SETTABLEKS                       R11 R10 K9 ["Order"]
-       37 LOADB                            R11 1
-       38 SETTABLEKS                       R11 R10 K10 ["IsLayered"]
-       40 LOADN                            R11 0
-       41 SETTABLEKS                       R11 R10 K11 ["Puffiness"]
-       43 LOADK                            R11 K17 [{0, 0, 0}]
-       44 SETTABLEKS                       R11 R10 K12 ["Position"]
-       46 LOADK                            R11 K17 [{0, 0, 0}]
-       47 SETTABLEKS                       R11 R10 K13 ["Rotation"]
-       49 LOADK                            R11 K18 [{1, 1, 1}]
-       50 SETTABLEKS                       R11 R10 K14 ["Scale"]
-       52 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
-       54 MOVE                             R9 R1
-       55 GETIMPORT                        R8 K21 [table.insert]
-       57 CALL                             R8 2 0
-       58 FORGLOOP                         R2 2 ; [-53]
-       60 RETURN                           R1 1
+       37 FASTCALL2                        TABLE_INSERT R1 R10 ; [+4]
+       39 MOVE                             R9 R1
+       40 GETIMPORT                        R8 K22 [table.insert]
+       42 CALL                             R8 2 0
+       43 FORGLOOP                         R2 2 ; [-38]
+       45 RETURN                           R1 1
 
 PROTO_1:
         0 GETUPVAL                         R0 0

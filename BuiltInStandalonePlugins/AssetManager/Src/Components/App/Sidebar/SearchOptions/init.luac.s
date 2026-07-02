@@ -87,130 +87,102 @@ PROTO_3:
        25 GETTABLEKS                       R6 R6 K2 ["createElement"]
        27 GETUPVAL                         R7 5
        28 GETTABLEKS                       R7 R7 K3 ["View"]
-       30 DUPTABLE                         R8 K6 [{"LayoutOrder", "tag"}]
+       30 DUPTABLE                         R8 K7 [{["LayoutOrder"], ["tag"] = "col fill gap-xsmall size-full-0 padding-xsmall"}]
        31 GETTABLEKS                       R9 R0 K4 ["LayoutOrder"]
        33 SETTABLEKS                       R9 R8 K4 ["LayoutOrder"]
-       35 LOADK                            R9 K7 ["col size-full-0 fill gap-xsmall padding-xsmall"]
-       36 SETTABLEKS                       R9 R8 K5 ["tag"]
-       38 DUPTABLE                         R9 K10 [{"Contents", "Buttons"}]
-       39 GETUPVAL                         R10 3
-       40 GETTABLEKS                       R10 R10 K2 ["createElement"]
-       42 GETUPVAL                         R11 5
-       43 GETTABLEKS                       R11 R11 K3 ["View"]
-       45 DUPTABLE                         R12 K6 [{"LayoutOrder", "tag"}]
-       46 LOADN                            R13 1
-       47 SETTABLEKS                       R13 R12 K4 ["LayoutOrder"]
-       49 LOADK                            R13 K11 ["col size-full-0 fill gap-small"]
-       50 SETTABLEKS                       R13 R12 K5 ["tag"]
-       52 DUPTABLE                         R13 K17 [{"SourceHeader", "ScopeSelector", "Separator", "AssetTypeHeader", "AssetTypes"}]
-       53 GETUPVAL                         R14 3
-       54 GETTABLEKS                       R14 R14 K2 ["createElement"]
-       56 GETUPVAL                         R15 5
-       57 GETTABLEKS                       R15 R15 K18 ["Text"]
-       59 DUPTABLE                         R16 K19 [{"LayoutOrder", "Text", "tag"}]
-       60 LOADN                            R17 1
-       61 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
-       63 LOADK                            R19 K20 ["SearchOptions"]
-       64 LOADK                            R20 K21 ["Inventory"]
-       65 NAMECALL                         R17 R1 K22 ["getText"]
-       67 CALL                             R17 3 1
-       68 SETTABLEKS                       R17 R16 K18 ["Text"]
-       70 LOADK                            R17 K23 ["auto-xy text-title-small"]
-       71 SETTABLEKS                       R17 R16 K5 ["tag"]
-       73 CALL                             R14 2 1
-       74 SETTABLEKS                       R14 R13 K12 ["SourceHeader"]
-       76 GETUPVAL                         R14 3
-       77 GETTABLEKS                       R14 R14 K2 ["createElement"]
-       79 GETUPVAL                         R15 6
-       80 DUPTABLE                         R16 K26 [{"LayoutOrder", "ShowTitle", "FillWidth"}]
-       81 LOADN                            R17 2
-       82 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
-       84 LOADB                            R17 1
-       85 SETTABLEKS                       R17 R16 K24 ["ShowTitle"]
-       87 LOADB                            R17 1
-       88 SETTABLEKS                       R17 R16 K25 ["FillWidth"]
-       90 CALL                             R14 2 1
-       91 SETTABLEKS                       R14 R13 K13 ["ScopeSelector"]
-       93 GETUPVAL                         R14 3
-       94 GETTABLEKS                       R14 R14 K2 ["createElement"]
-       96 GETUPVAL                         R15 5
-       97 GETTABLEKS                       R15 R15 K27 ["Divider"]
-       99 DUPTABLE                         R16 K29 [{"LayoutOrder", "orientation"}]
-      100 LOADN                            R17 3
-      101 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
-      103 GETUPVAL                         R17 5
-      104 GETTABLEKS                       R17 R17 K30 ["Enums"]
-      106 GETTABLEKS                       R17 R17 K31 ["DividerOrientation"]
-      108 GETTABLEKS                       R17 R17 K32 ["Horizontal"]
-      110 SETTABLEKS                       R17 R16 K28 ["orientation"]
-      112 CALL                             R14 2 1
-      113 SETTABLEKS                       R14 R13 K14 ["Separator"]
-      115 GETUPVAL                         R14 3
-      116 GETTABLEKS                       R14 R14 K2 ["createElement"]
-      118 GETUPVAL                         R15 5
-      119 GETTABLEKS                       R15 R15 K18 ["Text"]
-      121 DUPTABLE                         R16 K19 [{"LayoutOrder", "Text", "tag"}]
-      122 LOADN                            R17 4
-      123 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
-      125 LOADK                            R19 K33 ["AssetProperty"]
-      126 LOADK                            R20 K34 ["AssetType"]
-      127 NAMECALL                         R17 R1 K22 ["getText"]
-      129 CALL                             R17 3 1
-      130 SETTABLEKS                       R17 R16 K18 ["Text"]
-      132 LOADK                            R17 K23 ["auto-xy text-title-small"]
-      133 SETTABLEKS                       R17 R16 K5 ["tag"]
-      135 CALL                             R14 2 1
-      136 SETTABLEKS                       R14 R13 K15 ["AssetTypeHeader"]
-      138 GETUPVAL                         R14 3
-      139 GETTABLEKS                       R14 R14 K2 ["createElement"]
-      141 GETUPVAL                         R15 5
-      142 GETTABLEKS                       R15 R15 K35 ["ScrollView"]
-      144 DUPTABLE                         R16 K38 [{"LayoutOrder", "tag", "layout", "scroll"}]
-      145 LOADN                            R17 5
-      146 SETTABLEKS                       R17 R16 K4 ["LayoutOrder"]
-      148 LOADK                            R17 K39 ["size-full-0 fill"]
-      149 SETTABLEKS                       R17 R16 K5 ["tag"]
-      151 DUPTABLE                         R17 K41 [{"FillDirection"}]
-      152 GETIMPORT                        R18 K44 [Enum.FillDirection.Vertical]
-      154 SETTABLEKS                       R18 R17 K40 ["FillDirection"]
-      156 SETTABLEKS                       R17 R16 K36 ["layout"]
-      158 DUPTABLE                         R17 K48 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
-      159 GETIMPORT                        R18 K51 [Enum.AutomaticSize.Y]
-      161 SETTABLEKS                       R18 R17 K45 ["AutomaticCanvasSize"]
-      163 GETIMPORT                        R18 K54 [UDim2.fromOffset]
-      165 LOADN                            R19 0
-      166 LOADN                            R20 0
-      167 CALL                             R18 2 1
-      168 SETTABLEKS                       R18 R17 K46 ["CanvasSize"]
-      170 GETIMPORT                        R18 K55 [Enum.ScrollingDirection.Y]
-      172 SETTABLEKS                       R18 R17 K47 ["ScrollingDirection"]
-      174 SETTABLEKS                       R17 R16 K37 ["scroll"]
-      176 GETUPVAL                         R17 3
-      177 GETTABLEKS                       R17 R17 K2 ["createElement"]
-      179 GETUPVAL                         R18 5
-      180 GETTABLEKS                       R18 R18 K56 ["RadioGroup"]
-      182 GETTABLEKS                       R18 R18 K57 ["Root"]
-      184 DUPTABLE                         R19 K60 [{"value", "onValueChanged"}]
-      185 SETTABLEKS                       R3 R19 K58 ["value"]
-      187 NEWCLOSURE                       R20 P1
-      188 CAPTURE                          VAL R2
-      189 SETTABLEKS                       R20 R19 K59 ["onValueChanged"]
-      191 MOVE                             R20 R5
-      192 CALL                             R17 3 -1
-      193 CALL                             R14 -1 1
-      194 SETTABLEKS                       R14 R13 K16 ["AssetTypes"]
-      196 CALL                             R10 3 1
-      197 SETTABLEKS                       R10 R9 K8 ["Contents"]
-      199 GETUPVAL                         R10 3
-      200 GETTABLEKS                       R10 R10 K2 ["createElement"]
-      202 GETUPVAL                         R11 7
-      203 DUPTABLE                         R12 K61 [{"LayoutOrder"}]
-      204 LOADN                            R13 2
-      205 SETTABLEKS                       R13 R12 K4 ["LayoutOrder"]
-      207 CALL                             R10 2 1
-      208 SETTABLEKS                       R10 R9 K9 ["Buttons"]
-      210 CALL                             R6 3 -1
-      211 RETURN                           R6 -1
+       35 DUPTABLE                         R9 K10 [{"Contents", "Buttons"}]
+       36 GETUPVAL                         R10 3
+       37 GETTABLEKS                       R10 R10 K2 ["createElement"]
+       39 GETUPVAL                         R11 5
+       40 GETTABLEKS                       R11 R11 K3 ["View"]
+       42 DUPTABLE                         R12 K13 [{["LayoutOrder"] = 1, ["tag"] = "col fill gap-small size-full-0"}]
+       43 DUPTABLE                         R13 K19 [{"SourceHeader", "ScopeSelector", "Separator", "AssetTypeHeader", "AssetTypes"}]
+       44 GETUPVAL                         R14 3
+       45 GETTABLEKS                       R14 R14 K2 ["createElement"]
+       47 GETUPVAL                         R15 5
+       48 GETTABLEKS                       R15 R15 K20 ["Text"]
+       50 DUPTABLE                         R16 K22 [{["LayoutOrder"] = 1, ["Text"], ["tag"] = "auto-xy text-title-small"}]
+       51 LOADK                            R19 K23 ["SearchOptions"]
+       52 LOADK                            R20 K24 ["Inventory"]
+       53 NAMECALL                         R17 R1 K25 ["getText"]
+       55 CALL                             R17 3 1
+       56 SETTABLEKS                       R17 R16 K20 ["Text"]
+       58 CALL                             R14 2 1
+       59 SETTABLEKS                       R14 R13 K14 ["SourceHeader"]
+       61 GETUPVAL                         R14 3
+       62 GETTABLEKS                       R14 R14 K2 ["createElement"]
+       64 GETUPVAL                         R15 6
+       65 DUPTABLE                         R16 K30 [{["LayoutOrder"] = 2, ["ShowTitle"] = True, ["FillWidth"] = True}]
+       66 CALL                             R14 2 1
+       67 SETTABLEKS                       R14 R13 K15 ["ScopeSelector"]
+       69 GETUPVAL                         R14 3
+       70 GETTABLEKS                       R14 R14 K2 ["createElement"]
+       72 GETUPVAL                         R15 5
+       73 GETTABLEKS                       R15 R15 K31 ["Divider"]
+       75 DUPTABLE                         R16 K34 [{["LayoutOrder"] = 3, ["orientation"]}]
+       76 GETUPVAL                         R17 5
+       77 GETTABLEKS                       R17 R17 K35 ["Enums"]
+       79 GETTABLEKS                       R17 R17 K36 ["DividerOrientation"]
+       81 GETTABLEKS                       R17 R17 K37 ["Horizontal"]
+       83 SETTABLEKS                       R17 R16 K33 ["orientation"]
+       85 CALL                             R14 2 1
+       86 SETTABLEKS                       R14 R13 K16 ["Separator"]
+       88 GETUPVAL                         R14 3
+       89 GETTABLEKS                       R14 R14 K2 ["createElement"]
+       91 GETUPVAL                         R15 5
+       92 GETTABLEKS                       R15 R15 K20 ["Text"]
+       94 DUPTABLE                         R16 K39 [{["LayoutOrder"] = 4, ["Text"], ["tag"] = "auto-xy text-title-small"}]
+       95 LOADK                            R19 K40 ["AssetProperty"]
+       96 LOADK                            R20 K41 ["AssetType"]
+       97 NAMECALL                         R17 R1 K25 ["getText"]
+       99 CALL                             R17 3 1
+      100 SETTABLEKS                       R17 R16 K20 ["Text"]
+      102 CALL                             R14 2 1
+      103 SETTABLEKS                       R14 R13 K17 ["AssetTypeHeader"]
+      105 GETUPVAL                         R14 3
+      106 GETTABLEKS                       R14 R14 K2 ["createElement"]
+      108 GETUPVAL                         R15 5
+      109 GETTABLEKS                       R15 R15 K42 ["ScrollView"]
+      111 DUPTABLE                         R16 K47 [{["LayoutOrder"] = 5, ["tag"] = "fill size-full-0", ["layout"], ["scroll"]}]
+      112 DUPTABLE                         R17 K49 [{"FillDirection"}]
+      113 GETIMPORT                        R18 K52 [Enum.FillDirection.Vertical]
+      115 SETTABLEKS                       R18 R17 K48 ["FillDirection"]
+      117 SETTABLEKS                       R17 R16 K45 ["layout"]
+      119 DUPTABLE                         R17 K56 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+      120 GETIMPORT                        R18 K59 [Enum.AutomaticSize.Y]
+      122 SETTABLEKS                       R18 R17 K53 ["AutomaticCanvasSize"]
+      124 GETIMPORT                        R18 K62 [UDim2.fromOffset]
+      126 LOADN                            R19 0
+      127 LOADN                            R20 0
+      128 CALL                             R18 2 1
+      129 SETTABLEKS                       R18 R17 K54 ["CanvasSize"]
+      131 GETIMPORT                        R18 K63 [Enum.ScrollingDirection.Y]
+      133 SETTABLEKS                       R18 R17 K55 ["ScrollingDirection"]
+      135 SETTABLEKS                       R17 R16 K46 ["scroll"]
+      137 GETUPVAL                         R17 3
+      138 GETTABLEKS                       R17 R17 K2 ["createElement"]
+      140 GETUPVAL                         R18 5
+      141 GETTABLEKS                       R18 R18 K64 ["RadioGroup"]
+      143 GETTABLEKS                       R18 R18 K65 ["Root"]
+      145 DUPTABLE                         R19 K68 [{"value", "onValueChanged"}]
+      146 SETTABLEKS                       R3 R19 K66 ["value"]
+      148 NEWCLOSURE                       R20 P1
+      149 CAPTURE                          VAL R2
+      150 SETTABLEKS                       R20 R19 K67 ["onValueChanged"]
+      152 MOVE                             R20 R5
+      153 CALL                             R17 3 -1
+      154 CALL                             R14 -1 1
+      155 SETTABLEKS                       R14 R13 K18 ["AssetTypes"]
+      157 CALL                             R10 3 1
+      158 SETTABLEKS                       R10 R9 K8 ["Contents"]
+      160 GETUPVAL                         R10 3
+      161 GETTABLEKS                       R10 R10 K2 ["createElement"]
+      163 GETUPVAL                         R11 7
+      164 DUPTABLE                         R12 K69 [{["LayoutOrder"] = 2}]
+      165 CALL                             R10 2 1
+      166 SETTABLEKS                       R10 R9 K9 ["Buttons"]
+      168 CALL                             R6 3 -1
+      169 RETURN                           R6 -1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -273,187 +245,185 @@ PROTO_8:
        35 NEWCLOSURE                       R10 P0
        36 CAPTURE                          VAL R3
        37 SETTABLEKS                       R10 R9 K6 ["OnClick"]
-       39 DUPTABLE                         R10 K12 [{"Text", "Tags", "OnClick"}]
+       39 DUPTABLE                         R10 K13 [{["Text"], ["Tags"] = "PrimaryBrand", ["OnClick"]}]
        40 LOADK                            R13 K8 ["SearchOptions"]
-       41 LOADK                            R14 K13 ["Search"]
+       41 LOADK                            R14 K14 ["Search"]
        42 NAMECALL                         R11 R2 K10 ["getText"]
        44 CALL                             R11 3 1
        45 SETTABLEKS                       R11 R10 K5 ["Text"]
-       47 LOADK                            R11 K14 ["PrimaryBrand"]
-       48 SETTABLEKS                       R11 R10 K11 ["Tags"]
-       50 NEWCLOSURE                       R11 P1
-       51 CAPTURE                          VAL R3
-       52 SETTABLEKS                       R11 R10 K6 ["OnClick"]
-       54 SETLIST                          R8 R9 2 [1]
-       56 GETUPVAL                         R9 4
-       57 GETTABLEKS                       R9 R9 K15 ["createElement"]
-       59 GETUPVAL                         R10 5
-       60 NEWTABLE                         R11 2 0
-       62 GETTABLEKS                       R12 R0 K16 ["LayoutOrder"]
-       64 SETTABLEKS                       R12 R11 K16 ["LayoutOrder"]
-       66 GETUPVAL                         R12 4
-       67 GETTABLEKS                       R12 R12 K17 ["Tag"]
-       69 LOADK                            R13 K18 ["SearchOptions Explorer X-Column"]
-       70 SETTABLE                         R13 R11 R12
-       71 DUPTABLE                         R12 K21 [{"Contents", "Toolbar"}]
-       72 GETUPVAL                         R13 4
-       73 GETTABLEKS                       R13 R13 K15 ["createElement"]
-       75 GETUPVAL                         R14 5
-       76 NEWTABLE                         R15 2 0
-       78 NAMECALL                         R16 R1 K22 ["getNextOrder"]
-       80 CALL                             R16 1 1
-       81 SETTABLEKS                       R16 R15 K16 ["LayoutOrder"]
-       83 GETUPVAL                         R16 4
-       84 GETTABLEKS                       R16 R16 K17 ["Tag"]
-       86 LOADK                            R17 K23 ["X-Top X-Column fill"]
-       87 SETTABLE                         R17 R15 R16
-       88 DUPTABLE                         R16 K29 [{"SourceHeader", "ScopeSelector", "Separator", "AssetTypeHeader", "AssetTypes"}]
-       89 GETUPVAL                         R17 4
-       90 GETTABLEKS                       R17 R17 K15 ["createElement"]
-       92 GETUPVAL                         R18 6
-       93 NEWTABLE                         R19 4 0
-       95 NAMECALL                         R20 R1 K22 ["getNextOrder"]
-       97 CALL                             R20 1 1
-       98 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
-      100 LOADK                            R22 K8 ["SearchOptions"]
-      101 LOADK                            R23 K30 ["Inventory"]
-      102 NAMECALL                         R20 R2 K10 ["getText"]
-      104 CALL                             R20 3 1
-      105 SETTABLEKS                       R20 R19 K5 ["Text"]
-      107 GETUPVAL                         R20 4
-      108 GETTABLEKS                       R20 R20 K17 ["Tag"]
-      110 LOADK                            R21 K31 ["X-FitY Left Bold X-Pad"]
-      111 SETTABLE                         R21 R19 R20
-      112 CALL                             R17 2 1
-      113 SETTABLEKS                       R17 R16 K24 ["SourceHeader"]
-      115 GETUPVAL                         R17 4
-      116 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      118 GETUPVAL                         R18 5
-      119 NEWTABLE                         R19 2 0
-      121 NAMECALL                         R20 R1 K22 ["getNextOrder"]
-      123 CALL                             R20 1 1
-      124 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
-      126 GETUPVAL                         R20 4
-      127 GETTABLEKS                       R20 R20 K17 ["Tag"]
-      129 LOADK                            R21 K32 ["ScopeSelector FitYPlusDragX"]
-      130 SETTABLE                         R21 R19 R20
-      131 DUPTABLE                         R20 K33 [{"Contents"}]
-      132 GETUPVAL                         R21 4
-      133 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      135 GETUPVAL                         R22 7
-      136 DUPTABLE                         R23 K34 [{"LayoutOrder"}]
-      137 NAMECALL                         R24 R1 K22 ["getNextOrder"]
-      139 CALL                             R24 1 1
-      140 SETTABLEKS                       R24 R23 K16 ["LayoutOrder"]
-      142 CALL                             R21 2 1
-      143 SETTABLEKS                       R21 R20 K19 ["Contents"]
-      145 CALL                             R17 3 1
-      146 SETTABLEKS                       R17 R16 K25 ["ScopeSelector"]
-      148 GETUPVAL                         R17 4
-      149 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      151 GETUPVAL                         R18 8
-      152 DUPTABLE                         R19 K34 [{"LayoutOrder"}]
-      153 NAMECALL                         R20 R1 K22 ["getNextOrder"]
-      155 CALL                             R20 1 1
-      156 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
-      158 CALL                             R17 2 1
-      159 SETTABLEKS                       R17 R16 K26 ["Separator"]
-      161 GETUPVAL                         R17 4
-      162 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      164 GETUPVAL                         R18 6
-      165 NEWTABLE                         R19 4 0
-      167 NAMECALL                         R20 R1 K22 ["getNextOrder"]
-      169 CALL                             R20 1 1
-      170 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
-      172 LOADK                            R22 K35 ["AssetProperty"]
-      173 LOADK                            R23 K36 ["AssetType"]
-      174 NAMECALL                         R20 R2 K10 ["getText"]
-      176 CALL                             R20 3 1
-      177 SETTABLEKS                       R20 R19 K5 ["Text"]
-      179 GETUPVAL                         R20 4
-      180 GETTABLEKS                       R20 R20 K17 ["Tag"]
-      182 LOADK                            R21 K31 ["X-FitY Left Bold X-Pad"]
-      183 SETTABLE                         R21 R19 R20
-      184 CALL                             R17 2 1
-      185 SETTABLEKS                       R17 R16 K27 ["AssetTypeHeader"]
-      187 GETUPVAL                         R17 4
-      188 GETTABLEKS                       R17 R17 K15 ["createElement"]
-      190 GETUPVAL                         R18 5
-      191 NEWTABLE                         R19 2 0
-      193 NAMECALL                         R20 R1 K22 ["getNextOrder"]
-      195 CALL                             R20 1 1
-      196 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
-      198 GETUPVAL                         R20 4
-      199 GETTABLEKS                       R20 R20 K17 ["Tag"]
-      201 LOADK                            R21 K37 ["X-ColumnM X-Center am-padding-left-medium fill"]
-      202 SETTABLE                         R21 R19 R20
-      203 DUPTABLE                         R20 K39 [{"RadioButtonListContainer"}]
-      204 GETUPVAL                         R21 4
-      205 GETTABLEKS                       R21 R21 K15 ["createElement"]
-      207 GETUPVAL                         R22 9
-      208 NEWTABLE                         R23 4 0
-      210 NAMECALL                         R24 R1 K22 ["getNextOrder"]
-      212 CALL                             R24 1 1
-      213 SETTABLEKS                       R24 R23 K16 ["LayoutOrder"]
-      215 SETTABLEKS                       R6 R23 K40 ["CanvasSize"]
-      217 GETUPVAL                         R24 4
-      218 GETTABLEKS                       R24 R24 K17 ["Tag"]
-      220 LOADK                            R25 K41 ["am-padding-bottom-small fill"]
-      221 SETTABLE                         R25 R23 R24
-      222 NEWTABLE                         R24 0 1
-      224 GETUPVAL                         R25 4
-      225 GETTABLEKS                       R25 R25 K15 ["createElement"]
-      227 GETUPVAL                         R26 5
-      228 NEWTABLE                         R27 2 0
-      230 GETUPVAL                         R28 4
-      231 GETTABLEKS                       R28 R28 K42 ["Change"]
-      233 GETTABLEKS                       R28 R28 K43 ["AbsoluteSize"]
-      235 NEWCLOSURE                       R29 P2
-      236 CAPTURE                          VAL R7
-      237 SETTABLE                         R29 R27 R28
-      238 GETUPVAL                         R28 4
-      239 GETTABLEKS                       R28 R28 K17 ["Tag"]
-      241 LOADK                            R29 K44 ["X-Fit"]
-      242 SETTABLE                         R29 R27 R28
-      243 DUPTABLE                         R28 K46 [{"RadioButtonList"}]
-      244 GETUPVAL                         R29 4
-      245 GETTABLEKS                       R29 R29 K15 ["createElement"]
-      247 GETUPVAL                         R30 10
-      248 DUPTABLE                         R31 K51 [{"LayoutOrder", "Buttons", "CurrentSelectedKey", "OnClick", "FillDirection", "TextXAlignment"}]
-      249 NAMECALL                         R32 R1 K22 ["getNextOrder"]
-      251 CALL                             R32 1 1
-      252 SETTABLEKS                       R32 R31 K16 ["LayoutOrder"]
-      254 SETTABLEKS                       R5 R31 K47 ["Buttons"]
-      256 SETTABLEKS                       R4 R31 K48 ["CurrentSelectedKey"]
-      258 NEWCLOSURE                       R32 P3
-      259 CAPTURE                          VAL R3
-      260 SETTABLEKS                       R32 R31 K6 ["OnClick"]
-      262 GETIMPORT                        R32 K54 [Enum.FillDirection.Vertical]
-      264 SETTABLEKS                       R32 R31 K49 ["FillDirection"]
-      266 GETIMPORT                        R32 K56 [Enum.TextXAlignment.Left]
-      268 SETTABLEKS                       R32 R31 K50 ["TextXAlignment"]
-      270 CALL                             R29 2 1
-      271 SETTABLEKS                       R29 R28 K45 ["RadioButtonList"]
-      273 CALL                             R25 3 -1
-      274 SETLIST                          R24 R25 -1 [1]
-      276 CALL                             R21 3 1
-      277 SETTABLEKS                       R21 R20 K38 ["RadioButtonListContainer"]
-      279 CALL                             R17 3 1
-      280 SETTABLEKS                       R17 R16 K28 ["AssetTypes"]
-      282 CALL                             R13 3 1
-      283 SETTABLEKS                       R13 R12 K19 ["Contents"]
-      285 GETUPVAL                         R13 4
-      286 GETTABLEKS                       R13 R13 K15 ["createElement"]
-      288 GETUPVAL                         R14 11
-      289 DUPTABLE                         R15 K57 [{"LayoutOrder", "Buttons"}]
-      290 NAMECALL                         R16 R1 K22 ["getNextOrder"]
-      292 CALL                             R16 1 1
-      293 SETTABLEKS                       R16 R15 K16 ["LayoutOrder"]
-      295 SETTABLEKS                       R8 R15 K47 ["Buttons"]
-      297 CALL                             R13 2 1
-      298 SETTABLEKS                       R13 R12 K20 ["Toolbar"]
-      300 CALL                             R9 3 -1
-      301 RETURN                           R9 -1
+       47 NEWCLOSURE                       R11 P1
+       48 CAPTURE                          VAL R3
+       49 SETTABLEKS                       R11 R10 K6 ["OnClick"]
+       51 SETLIST                          R8 R9 2 [1]
+       53 GETUPVAL                         R9 4
+       54 GETTABLEKS                       R9 R9 K15 ["createElement"]
+       56 GETUPVAL                         R10 5
+       57 NEWTABLE                         R11 2 0
+       59 GETTABLEKS                       R12 R0 K16 ["LayoutOrder"]
+       61 SETTABLEKS                       R12 R11 K16 ["LayoutOrder"]
+       63 GETUPVAL                         R12 4
+       64 GETTABLEKS                       R12 R12 K17 ["Tag"]
+       66 LOADK                            R13 K18 ["SearchOptions Explorer X-Column"]
+       67 SETTABLE                         R13 R11 R12
+       68 DUPTABLE                         R12 K21 [{"Contents", "Toolbar"}]
+       69 GETUPVAL                         R13 4
+       70 GETTABLEKS                       R13 R13 K15 ["createElement"]
+       72 GETUPVAL                         R14 5
+       73 NEWTABLE                         R15 2 0
+       75 NAMECALL                         R16 R1 K22 ["getNextOrder"]
+       77 CALL                             R16 1 1
+       78 SETTABLEKS                       R16 R15 K16 ["LayoutOrder"]
+       80 GETUPVAL                         R16 4
+       81 GETTABLEKS                       R16 R16 K17 ["Tag"]
+       83 LOADK                            R17 K23 ["X-Top X-Column fill"]
+       84 SETTABLE                         R17 R15 R16
+       85 DUPTABLE                         R16 K29 [{"SourceHeader", "ScopeSelector", "Separator", "AssetTypeHeader", "AssetTypes"}]
+       86 GETUPVAL                         R17 4
+       87 GETTABLEKS                       R17 R17 K15 ["createElement"]
+       89 GETUPVAL                         R18 6
+       90 NEWTABLE                         R19 4 0
+       92 NAMECALL                         R20 R1 K22 ["getNextOrder"]
+       94 CALL                             R20 1 1
+       95 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
+       97 LOADK                            R22 K8 ["SearchOptions"]
+       98 LOADK                            R23 K30 ["Inventory"]
+       99 NAMECALL                         R20 R2 K10 ["getText"]
+      101 CALL                             R20 3 1
+      102 SETTABLEKS                       R20 R19 K5 ["Text"]
+      104 GETUPVAL                         R20 4
+      105 GETTABLEKS                       R20 R20 K17 ["Tag"]
+      107 LOADK                            R21 K31 ["X-FitY Left Bold X-Pad"]
+      108 SETTABLE                         R21 R19 R20
+      109 CALL                             R17 2 1
+      110 SETTABLEKS                       R17 R16 K24 ["SourceHeader"]
+      112 GETUPVAL                         R17 4
+      113 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      115 GETUPVAL                         R18 5
+      116 NEWTABLE                         R19 2 0
+      118 NAMECALL                         R20 R1 K22 ["getNextOrder"]
+      120 CALL                             R20 1 1
+      121 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
+      123 GETUPVAL                         R20 4
+      124 GETTABLEKS                       R20 R20 K17 ["Tag"]
+      126 LOADK                            R21 K32 ["ScopeSelector FitYPlusDragX"]
+      127 SETTABLE                         R21 R19 R20
+      128 DUPTABLE                         R20 K33 [{"Contents"}]
+      129 GETUPVAL                         R21 4
+      130 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      132 GETUPVAL                         R22 7
+      133 DUPTABLE                         R23 K34 [{"LayoutOrder"}]
+      134 NAMECALL                         R24 R1 K22 ["getNextOrder"]
+      136 CALL                             R24 1 1
+      137 SETTABLEKS                       R24 R23 K16 ["LayoutOrder"]
+      139 CALL                             R21 2 1
+      140 SETTABLEKS                       R21 R20 K19 ["Contents"]
+      142 CALL                             R17 3 1
+      143 SETTABLEKS                       R17 R16 K25 ["ScopeSelector"]
+      145 GETUPVAL                         R17 4
+      146 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      148 GETUPVAL                         R18 8
+      149 DUPTABLE                         R19 K34 [{"LayoutOrder"}]
+      150 NAMECALL                         R20 R1 K22 ["getNextOrder"]
+      152 CALL                             R20 1 1
+      153 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
+      155 CALL                             R17 2 1
+      156 SETTABLEKS                       R17 R16 K26 ["Separator"]
+      158 GETUPVAL                         R17 4
+      159 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      161 GETUPVAL                         R18 6
+      162 NEWTABLE                         R19 4 0
+      164 NAMECALL                         R20 R1 K22 ["getNextOrder"]
+      166 CALL                             R20 1 1
+      167 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
+      169 LOADK                            R22 K35 ["AssetProperty"]
+      170 LOADK                            R23 K36 ["AssetType"]
+      171 NAMECALL                         R20 R2 K10 ["getText"]
+      173 CALL                             R20 3 1
+      174 SETTABLEKS                       R20 R19 K5 ["Text"]
+      176 GETUPVAL                         R20 4
+      177 GETTABLEKS                       R20 R20 K17 ["Tag"]
+      179 LOADK                            R21 K31 ["X-FitY Left Bold X-Pad"]
+      180 SETTABLE                         R21 R19 R20
+      181 CALL                             R17 2 1
+      182 SETTABLEKS                       R17 R16 K27 ["AssetTypeHeader"]
+      184 GETUPVAL                         R17 4
+      185 GETTABLEKS                       R17 R17 K15 ["createElement"]
+      187 GETUPVAL                         R18 5
+      188 NEWTABLE                         R19 2 0
+      190 NAMECALL                         R20 R1 K22 ["getNextOrder"]
+      192 CALL                             R20 1 1
+      193 SETTABLEKS                       R20 R19 K16 ["LayoutOrder"]
+      195 GETUPVAL                         R20 4
+      196 GETTABLEKS                       R20 R20 K17 ["Tag"]
+      198 LOADK                            R21 K37 ["X-ColumnM X-Center am-padding-left-medium fill"]
+      199 SETTABLE                         R21 R19 R20
+      200 DUPTABLE                         R20 K39 [{"RadioButtonListContainer"}]
+      201 GETUPVAL                         R21 4
+      202 GETTABLEKS                       R21 R21 K15 ["createElement"]
+      204 GETUPVAL                         R22 9
+      205 NEWTABLE                         R23 4 0
+      207 NAMECALL                         R24 R1 K22 ["getNextOrder"]
+      209 CALL                             R24 1 1
+      210 SETTABLEKS                       R24 R23 K16 ["LayoutOrder"]
+      212 SETTABLEKS                       R6 R23 K40 ["CanvasSize"]
+      214 GETUPVAL                         R24 4
+      215 GETTABLEKS                       R24 R24 K17 ["Tag"]
+      217 LOADK                            R25 K41 ["am-padding-bottom-small fill"]
+      218 SETTABLE                         R25 R23 R24
+      219 NEWTABLE                         R24 0 1
+      221 GETUPVAL                         R25 4
+      222 GETTABLEKS                       R25 R25 K15 ["createElement"]
+      224 GETUPVAL                         R26 5
+      225 NEWTABLE                         R27 2 0
+      227 GETUPVAL                         R28 4
+      228 GETTABLEKS                       R28 R28 K42 ["Change"]
+      230 GETTABLEKS                       R28 R28 K43 ["AbsoluteSize"]
+      232 NEWCLOSURE                       R29 P2
+      233 CAPTURE                          VAL R7
+      234 SETTABLE                         R29 R27 R28
+      235 GETUPVAL                         R28 4
+      236 GETTABLEKS                       R28 R28 K17 ["Tag"]
+      238 LOADK                            R29 K44 ["X-Fit"]
+      239 SETTABLE                         R29 R27 R28
+      240 DUPTABLE                         R28 K46 [{"RadioButtonList"}]
+      241 GETUPVAL                         R29 4
+      242 GETTABLEKS                       R29 R29 K15 ["createElement"]
+      244 GETUPVAL                         R30 10
+      245 DUPTABLE                         R31 K51 [{"LayoutOrder", "Buttons", "CurrentSelectedKey", "OnClick", "FillDirection", "TextXAlignment"}]
+      246 NAMECALL                         R32 R1 K22 ["getNextOrder"]
+      248 CALL                             R32 1 1
+      249 SETTABLEKS                       R32 R31 K16 ["LayoutOrder"]
+      251 SETTABLEKS                       R5 R31 K47 ["Buttons"]
+      253 SETTABLEKS                       R4 R31 K48 ["CurrentSelectedKey"]
+      255 NEWCLOSURE                       R32 P3
+      256 CAPTURE                          VAL R3
+      257 SETTABLEKS                       R32 R31 K6 ["OnClick"]
+      259 GETIMPORT                        R32 K54 [Enum.FillDirection.Vertical]
+      261 SETTABLEKS                       R32 R31 K49 ["FillDirection"]
+      263 GETIMPORT                        R32 K56 [Enum.TextXAlignment.Left]
+      265 SETTABLEKS                       R32 R31 K50 ["TextXAlignment"]
+      267 CALL                             R29 2 1
+      268 SETTABLEKS                       R29 R28 K45 ["RadioButtonList"]
+      270 CALL                             R25 3 -1
+      271 SETLIST                          R24 R25 -1 [1]
+      273 CALL                             R21 3 1
+      274 SETTABLEKS                       R21 R20 K38 ["RadioButtonListContainer"]
+      276 CALL                             R17 3 1
+      277 SETTABLEKS                       R17 R16 K28 ["AssetTypes"]
+      279 CALL                             R13 3 1
+      280 SETTABLEKS                       R13 R12 K19 ["Contents"]
+      282 GETUPVAL                         R13 4
+      283 GETTABLEKS                       R13 R13 K15 ["createElement"]
+      285 GETUPVAL                         R14 11
+      286 DUPTABLE                         R15 K57 [{"LayoutOrder", "Buttons"}]
+      287 NAMECALL                         R16 R1 K22 ["getNextOrder"]
+      289 CALL                             R16 1 1
+      290 SETTABLEKS                       R16 R15 K16 ["LayoutOrder"]
+      292 SETTABLEKS                       R8 R15 K47 ["Buttons"]
+      294 CALL                             R13 2 1
+      295 SETTABLEKS                       R13 R12 K20 ["Toolbar"]
+      297 CALL                             R9 3 -1
+      298 RETURN                           R9 -1
 
 MAIN:
         0 PREPVARARGS                      0

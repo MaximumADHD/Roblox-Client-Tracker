@@ -14,27 +14,25 @@ PROTO_0:
        15 RETURN                           R3 1
 
 PROTO_1:
-        0 DUPTABLE                         R1 K2 [{"Url", "Method"}]
+        0 DUPTABLE                         R1 K3 [{[1], ["Method"] = "GET"}]
         1 GETUPVAL                         R2 0
-        2 GETTABLEKS                       R2 R2 K3 ["BuildRobloxUrl"]
-        4 LOADK                            R3 K4 ["develop"]
-        5 LOADK                            R4 K5 ["v1/universes/%d/configuration"]
+        2 GETTABLEKS                       R2 R2 K4 ["BuildRobloxUrl"]
+        4 LOADK                            R3 K5 ["develop"]
+        5 LOADK                            R4 K6 ["v1/universes/%d/configuration"]
         6 MOVE                             R6 R0
-        7 NAMECALL                         R4 R4 K6 ["format"]
+        7 NAMECALL                         R4 R4 K7 ["format"]
         9 CALL                             R4 2 -1
        10 CALL                             R2 -1 1
        11 SETTABLEKS                       R2 R1 K0 ["Url"]
-       13 LOADK                            R2 K7 ["GET"]
-       14 SETTABLEKS                       R2 R1 K1 ["Method"]
-       16 GETUPVAL                         R2 0
-       17 GETTABLEKS                       R2 R2 K8 ["Request"]
-       19 MOVE                             R3 R1
-       20 CALL                             R2 1 1
-       21 DUPCLOSURE                       R4 K9 [PROTO_0]
-       22 CAPTURE                          UPVAL U1
-       23 NAMECALL                         R2 R2 K10 ["andThen"]
-       25 CALL                             R2 2 -1
-       26 RETURN                           R2 -1
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R2 R2 K8 ["Request"]
+       16 MOVE                             R3 R1
+       17 CALL                             R2 1 1
+       18 DUPCLOSURE                       R4 K9 [PROTO_0]
+       19 CAPTURE                          UPVAL U1
+       20 NAMECALL                         R2 R2 K10 ["andThen"]
+       22 CALL                             R2 2 -1
+       23 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

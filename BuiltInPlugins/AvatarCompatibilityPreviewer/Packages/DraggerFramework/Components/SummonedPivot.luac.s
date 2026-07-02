@@ -26,25 +26,19 @@ PROTO_0:
        34 GETUPVAL                         R4 0
        35 GETTABLEKS                       R4 R4 K11 ["createElement"]
        37 LOADK                            R5 K12 ["BoxHandleAdornment"]
-       38 DUPTABLE                         R6 K19 [{"Adornee", "Color3", "CFrame", "Size", "AlwaysOnTop", "Transparency", "ZIndex"}]
+       38 DUPTABLE                         R6 K21 [{["Adornee"], ["Color3"], ["CFrame"], ["Size"], ["AlwaysOnTop"] = False, ["Transparency"] = 0, ["ZIndex"] = 0}]
        39 GETUPVAL                         R7 1
-       40 GETTABLEKS                       R7 R7 K20 ["Terrain"]
+       40 GETTABLEKS                       R7 R7 K22 ["Terrain"]
        42 SETTABLEKS                       R7 R6 K13 ["Adornee"]
        44 SETTABLEKS                       R2 R6 K14 ["Color3"]
        46 GETTABLEKS                       R7 R0 K1 ["CFrame"]
        48 SETTABLEKS                       R7 R6 K1 ["CFrame"]
-       50 LOADK                            R8 K21 [{1, 1, 1}]
+       50 LOADK                            R8 K23 [{1, 1, 1}]
        51 MUL                              R9 R3 R1
        52 MUL                              R7 R8 R9
        53 SETTABLEKS                       R7 R6 K15 ["Size"]
-       55 LOADB                            R7 0
-       56 SETTABLEKS                       R7 R6 K16 ["AlwaysOnTop"]
-       58 LOADN                            R7 0
-       59 SETTABLEKS                       R7 R6 K17 ["Transparency"]
-       61 LOADN                            R7 0
-       62 SETTABLEKS                       R7 R6 K18 ["ZIndex"]
-       64 CALL                             R4 2 -1
-       65 RETURN                           R4 -1
+       55 CALL                             R4 2 -1
+       56 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

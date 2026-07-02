@@ -74,37 +74,31 @@ MAIN:
        68 GETTABLEKS                       R6 R6 K20 ["Roact"]
        70 CALL                             R5 1 1
        71 GETTABLEKS                       R6 R5 K21 ["setGlobalConfig"]
-       73 DUPTABLE                         R7 K25 [{"typeChecks", "propValidation", "elementTracing"}]
-       74 LOADB                            R8 1
-       75 SETTABLEKS                       R8 R7 K22 ["typeChecks"]
-       77 LOADB                            R8 1
-       78 SETTABLEKS                       R8 R7 K23 ["propValidation"]
-       80 LOADB                            R8 1
-       81 SETTABLEKS                       R8 R7 K24 ["elementTracing"]
-       83 CALL                             R6 1 0
-       84 NEWCLOSURE                       R6 P0
+       73 DUPTABLE                         R7 K26 [{["typeChecks"] = True, ["propValidation"] = True, ["elementTracing"] = True}]
+       74 CALL                             R6 1 0
+       75 NEWCLOSURE                       R6 P0
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          REF R4
+       79 GETIMPORT                        R7 K1 [plugin]
+       81 GETTABLEKS                       R7 R7 K27 ["Unloading"]
+       83 NEWCLOSURE                       R9 P1
+       84 CAPTURE                          REF R4
        85 CAPTURE                          VAL R5
-       86 CAPTURE                          VAL R3
-       87 CAPTURE                          REF R4
-       88 GETIMPORT                        R7 K1 [plugin]
-       90 GETTABLEKS                       R7 R7 K26 ["Unloading"]
-       92 NEWCLOSURE                       R9 P1
-       93 CAPTURE                          REF R4
-       94 CAPTURE                          VAL R5
-       95 NAMECALL                         R7 R7 K27 ["Connect"]
-       97 CALL                             R7 2 0
-       98 GETIMPORT                        R7 K1 [plugin]
-      100 LOADK                            R8 K28 ["DeveloperInspector"]
-      101 SETTABLEKS                       R8 R7 K29 ["Name"]
-      103 GETTABLEKS                       R7 R5 K30 ["createElement"]
-      105 MOVE                             R8 R3
-      106 DUPTABLE                         R9 K32 [{"Plugin"}]
-      107 GETIMPORT                        R10 K1 [plugin]
-      109 SETTABLEKS                       R10 R9 K31 ["Plugin"]
-      111 CALL                             R7 2 1
-      112 GETTABLEKS                       R8 R5 K33 ["mount"]
-      114 MOVE                             R9 R7
-      115 CALL                             R8 1 1
-      116 MOVE                             R4 R8
-      117 CLOSEUPVALS                      R4
-      118 RETURN                           R0 0
+       86 NAMECALL                         R7 R7 K28 ["Connect"]
+       88 CALL                             R7 2 0
+       89 GETIMPORT                        R7 K1 [plugin]
+       91 LOADK                            R8 K29 ["DeveloperInspector"]
+       92 SETTABLEKS                       R8 R7 K30 ["Name"]
+       94 GETTABLEKS                       R7 R5 K31 ["createElement"]
+       96 MOVE                             R8 R3
+       97 DUPTABLE                         R9 K33 [{"Plugin"}]
+       98 GETIMPORT                        R10 K1 [plugin]
+      100 SETTABLEKS                       R10 R9 K32 ["Plugin"]
+      102 CALL                             R7 2 1
+      103 GETTABLEKS                       R8 R5 K34 ["mount"]
+      105 MOVE                             R9 R7
+      106 CALL                             R8 1 1
+      107 MOVE                             R4 R8
+      108 CLOSEUPVALS                      R4
+      109 RETURN                           R0 0

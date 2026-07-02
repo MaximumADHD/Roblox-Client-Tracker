@@ -63,117 +63,113 @@ PROTO_4:
        15 LOADN                            R8 0
        16 LOADN                            R9 0
        17 LENGTH                           R10 R4
-       18 JUMPIFNOTLT                      R8 R10 ; [+77]
+       18 JUMPIFNOTLT                      R8 R10 ; [+74]
        20 ADDK                             R8 R8 K7 [1]
        21 GETTABLE                         R10 R4 R8
        22 GETTABLEKS                       R12 R10 K8 ["Group"]
        24 ORK                              R11 R12 K6 [""]
        25 GETTABLEKS                       R13 R10 K9 ["Name"]
        27 ORK                              R12 R13 K6 [""]
-       28 JUMPIFEQ                         R11 R7 ; [+29]
+       28 JUMPIFEQ                         R11 R7 ; [+26]
        30 ADDK                             R9 R9 K7 [1]
        31 MOVE                             R7 R11
        32 GETUPVAL                         R13 0
        33 GETTABLEKS                       R13 R13 K10 ["createElement"]
        35 GETUPVAL                         R14 1
-       36 DUPTABLE                         R15 K16 [{"LayoutOrder", "GroupName", "IsGroupCollapsed", "IsVisibleToggled", "ToggleGroup"}]
+       36 DUPTABLE                         R15 K17 [{["LayoutOrder"], ["GroupName"], ["IsGroupCollapsed"], ["IsVisibleToggled"] = True, ["ToggleGroup"]}]
        37 SETTABLEKS                       R9 R15 K11 ["LayoutOrder"]
        39 SETTABLEKS                       R11 R15 K12 ["GroupName"]
-       41 GETTABLEKS                       R17 R1 K17 ["uiGroupCollapseState"]
-       43 LOADK                            R19 K18 ["Hide"]
+       41 GETTABLEKS                       R17 R1 K18 ["uiGroupCollapseState"]
+       43 LOADK                            R19 K19 ["Hide"]
        44 MOVE                             R20 R11
        45 CONCAT                           R18 R19 R20
        46 GETTABLE                         R16 R17 R18
        47 SETTABLEKS                       R16 R15 K13 ["IsGroupCollapsed"]
-       49 LOADB                            R16 1
-       50 SETTABLEKS                       R16 R15 K14 ["IsVisibleToggled"]
-       52 GETTABLEKS                       R16 R0 K19 ["toggleGroup"]
-       54 SETTABLEKS                       R16 R15 K15 ["ToggleGroup"]
-       56 CALL                             R13 2 1
-       57 SETTABLE                         R13 R6 R9
-       58 GETTABLEKS                       R14 R1 K17 ["uiGroupCollapseState"]
-       60 LOADK                            R16 K18 ["Hide"]
-       61 MOVE                             R17 R11
-       62 CONCAT                           R15 R16 R17
-       63 GETTABLE                         R13 R14 R15
-       64 JUMPIF                           R13 ; [+30]
-       65 ADDK                             R9 R9 K7 [1]
-       66 GETUPVAL                         R13 0
-       67 GETTABLEKS                       R13 R13 K10 ["createElement"]
-       69 GETUPVAL                         R14 1
-       70 DUPTABLE                         R15 K25 [{"LayoutOrder", "TagName", "TagGroup", "TagIcon", "IsTagAssignedToSome", "IsTagAssignedToAll", "IsVisibleToggled"}]
-       71 SETTABLEKS                       R9 R15 K11 ["LayoutOrder"]
-       73 SETTABLEKS                       R12 R15 K20 ["TagName"]
-       75 SETTABLEKS                       R11 R15 K21 ["TagGroup"]
-       77 GETTABLEKS                       R16 R10 K26 ["Icon"]
-       79 SETTABLEKS                       R16 R15 K22 ["TagIcon"]
-       81 GETTABLEKS                       R16 R10 K27 ["HasSome"]
-       83 SETTABLEKS                       R16 R15 K23 ["IsTagAssignedToSome"]
-       85 GETTABLEKS                       R16 R10 K28 ["HasAll"]
-       87 SETTABLEKS                       R16 R15 K24 ["IsTagAssignedToAll"]
-       89 GETTABLEKS                       R16 R10 K29 ["Visible"]
-       91 SETTABLEKS                       R16 R15 K14 ["IsVisibleToggled"]
-       93 CALL                             R13 2 1
-       94 SETTABLE                         R13 R6 R9
-       95 JUMPBACK                         ; [-79]
-       96 LOADN                            R8 0
-       97 LENGTH                           R10 R5
-       98 LOADN                            R11 0
-       99 JUMPIFNOTLT                      R11 R10 ; [+31]
-      101 ADDK                             R9 R9 K7 [1]
-      102 GETUPVAL                         R10 0
-      103 GETTABLEKS                       R10 R10 K10 ["createElement"]
-      105 GETUPVAL                         R11 1
-      106 DUPTABLE                         R12 K31 [{"LayoutOrder", "GroupName", "Disabled", "IsGroupCollapsed", "ToggleGroup"}]
-      107 SETTABLEKS                       R9 R12 K11 ["LayoutOrder"]
-      109 LOADK                            R15 K32 ["Groups"]
-      110 LOADK                            R16 K33 ["UnknownTags"]
-      111 NAMECALL                         R13 R2 K34 ["getText"]
-      113 CALL                             R13 3 1
-      114 SETTABLEKS                       R13 R12 K12 ["GroupName"]
-      116 LOADB                            R13 1
-      117 SETTABLEKS                       R13 R12 K30 ["Disabled"]
-      119 GETTABLEKS                       R14 R1 K17 ["uiGroupCollapseState"]
-      121 GETTABLEKS                       R13 R14 K35 ["UnknownTagsHide"]
-      123 SETTABLEKS                       R13 R12 K13 ["IsGroupCollapsed"]
-      125 GETTABLEKS                       R13 R0 K36 ["toggleUnknownGroup"]
-      127 SETTABLEKS                       R13 R12 K15 ["ToggleGroup"]
-      129 CALL                             R10 2 1
-      130 SETTABLE                         R10 R6 R9
-      131 LENGTH                           R10 R5
-      132 JUMPIFNOTLT                      R8 R10 ; [+21]
-      134 ADDK                             R8 R8 K7 [1]
-      135 GETTABLE                         R10 R5 R8
-      136 GETTABLEKS                       R12 R1 K17 ["uiGroupCollapseState"]
-      138 GETTABLEKS                       R11 R12 K35 ["UnknownTagsHide"]
-      140 JUMPIF                           R11 ; [+12]
-      141 ADDK                             R9 R9 K7 [1]
-      142 GETUPVAL                         R11 0
-      143 GETTABLEKS                       R11 R11 K10 ["createElement"]
-      145 GETUPVAL                         R12 2
-      146 DUPTABLE                         R13 K37 [{"LayoutOrder", "TagName"}]
-      147 SETTABLEKS                       R9 R13 K11 ["LayoutOrder"]
-      149 SETTABLEKS                       R10 R13 K20 ["TagName"]
-      151 CALL                             R11 2 1
-      152 SETTABLE                         R11 R6 R9
-      153 JUMPBACK                         ; [-23]
-      154 GETUPVAL                         R10 0
-      155 GETTABLEKS                       R10 R10 K10 ["createElement"]
-      157 GETUPVAL                         R11 3
-      158 DUPTABLE                         R12 K42 [{"LayoutOrder", "AutomaticCanvasSize", "Size", "Layout", "Spacing"}]
-      159 GETTABLEKS                       R13 R1 K11 ["LayoutOrder"]
-      161 SETTABLEKS                       R13 R12 K11 ["LayoutOrder"]
-      163 GETIMPORT                        R13 K46 [Enum.AutomaticSize.Y]
-      165 SETTABLEKS                       R13 R12 K38 ["AutomaticCanvasSize"]
-      167 GETTABLEKS                       R13 R3 K39 ["Size"]
-      169 SETTABLEKS                       R13 R12 K39 ["Size"]
-      171 GETIMPORT                        R13 K49 [Enum.FillDirection.Vertical]
-      173 SETTABLEKS                       R13 R12 K40 ["Layout"]
-      175 GETTABLEKS                       R13 R3 K41 ["Spacing"]
-      177 SETTABLEKS                       R13 R12 K41 ["Spacing"]
-      179 MOVE                             R13 R6
-      180 CALL                             R10 3 -1
-      181 RETURN                           R10 -1
+       49 GETTABLEKS                       R16 R0 K20 ["toggleGroup"]
+       51 SETTABLEKS                       R16 R15 K16 ["ToggleGroup"]
+       53 CALL                             R13 2 1
+       54 SETTABLE                         R13 R6 R9
+       55 GETTABLEKS                       R14 R1 K18 ["uiGroupCollapseState"]
+       57 LOADK                            R16 K19 ["Hide"]
+       58 MOVE                             R17 R11
+       59 CONCAT                           R15 R16 R17
+       60 GETTABLE                         R13 R14 R15
+       61 JUMPIF                           R13 ; [+30]
+       62 ADDK                             R9 R9 K7 [1]
+       63 GETUPVAL                         R13 0
+       64 GETTABLEKS                       R13 R13 K10 ["createElement"]
+       66 GETUPVAL                         R14 1
+       67 DUPTABLE                         R15 K26 [{"LayoutOrder", "TagName", "TagGroup", "TagIcon", "IsTagAssignedToSome", "IsTagAssignedToAll", "IsVisibleToggled"}]
+       68 SETTABLEKS                       R9 R15 K11 ["LayoutOrder"]
+       70 SETTABLEKS                       R12 R15 K21 ["TagName"]
+       72 SETTABLEKS                       R11 R15 K22 ["TagGroup"]
+       74 GETTABLEKS                       R16 R10 K27 ["Icon"]
+       76 SETTABLEKS                       R16 R15 K23 ["TagIcon"]
+       78 GETTABLEKS                       R16 R10 K28 ["HasSome"]
+       80 SETTABLEKS                       R16 R15 K24 ["IsTagAssignedToSome"]
+       82 GETTABLEKS                       R16 R10 K29 ["HasAll"]
+       84 SETTABLEKS                       R16 R15 K25 ["IsTagAssignedToAll"]
+       86 GETTABLEKS                       R16 R10 K30 ["Visible"]
+       88 SETTABLEKS                       R16 R15 K14 ["IsVisibleToggled"]
+       90 CALL                             R13 2 1
+       91 SETTABLE                         R13 R6 R9
+       92 JUMPBACK                         ; [-76]
+       93 LOADN                            R8 0
+       94 LENGTH                           R10 R5
+       95 LOADN                            R11 0
+       96 JUMPIFNOTLT                      R11 R10 ; [+28]
+       98 ADDK                             R9 R9 K7 [1]
+       99 GETUPVAL                         R10 0
+      100 GETTABLEKS                       R10 R10 K10 ["createElement"]
+      102 GETUPVAL                         R11 1
+      103 DUPTABLE                         R12 K32 [{["LayoutOrder"], ["GroupName"], ["Disabled"] = True, ["IsGroupCollapsed"], ["ToggleGroup"]}]
+      104 SETTABLEKS                       R9 R12 K11 ["LayoutOrder"]
+      106 LOADK                            R15 K33 ["Groups"]
+      107 LOADK                            R16 K34 ["UnknownTags"]
+      108 NAMECALL                         R13 R2 K35 ["getText"]
+      110 CALL                             R13 3 1
+      111 SETTABLEKS                       R13 R12 K12 ["GroupName"]
+      113 GETTABLEKS                       R14 R1 K18 ["uiGroupCollapseState"]
+      115 GETTABLEKS                       R13 R14 K36 ["UnknownTagsHide"]
+      117 SETTABLEKS                       R13 R12 K13 ["IsGroupCollapsed"]
+      119 GETTABLEKS                       R13 R0 K37 ["toggleUnknownGroup"]
+      121 SETTABLEKS                       R13 R12 K16 ["ToggleGroup"]
+      123 CALL                             R10 2 1
+      124 SETTABLE                         R10 R6 R9
+      125 LENGTH                           R10 R5
+      126 JUMPIFNOTLT                      R8 R10 ; [+21]
+      128 ADDK                             R8 R8 K7 [1]
+      129 GETTABLE                         R10 R5 R8
+      130 GETTABLEKS                       R12 R1 K18 ["uiGroupCollapseState"]
+      132 GETTABLEKS                       R11 R12 K36 ["UnknownTagsHide"]
+      134 JUMPIF                           R11 ; [+12]
+      135 ADDK                             R9 R9 K7 [1]
+      136 GETUPVAL                         R11 0
+      137 GETTABLEKS                       R11 R11 K10 ["createElement"]
+      139 GETUPVAL                         R12 2
+      140 DUPTABLE                         R13 K38 [{"LayoutOrder", "TagName"}]
+      141 SETTABLEKS                       R9 R13 K11 ["LayoutOrder"]
+      143 SETTABLEKS                       R10 R13 K21 ["TagName"]
+      145 CALL                             R11 2 1
+      146 SETTABLE                         R11 R6 R9
+      147 JUMPBACK                         ; [-23]
+      148 GETUPVAL                         R10 0
+      149 GETTABLEKS                       R10 R10 K10 ["createElement"]
+      151 GETUPVAL                         R11 3
+      152 DUPTABLE                         R12 K43 [{"LayoutOrder", "AutomaticCanvasSize", "Size", "Layout", "Spacing"}]
+      153 GETTABLEKS                       R13 R1 K11 ["LayoutOrder"]
+      155 SETTABLEKS                       R13 R12 K11 ["LayoutOrder"]
+      157 GETIMPORT                        R13 K47 [Enum.AutomaticSize.Y]
+      159 SETTABLEKS                       R13 R12 K39 ["AutomaticCanvasSize"]
+      161 GETTABLEKS                       R13 R3 K40 ["Size"]
+      163 SETTABLEKS                       R13 R12 K40 ["Size"]
+      165 GETIMPORT                        R13 K50 [Enum.FillDirection.Vertical]
+      167 SETTABLEKS                       R13 R12 K41 ["Layout"]
+      169 GETTABLEKS                       R13 R3 K42 ["Spacing"]
+      171 SETTABLEKS                       R13 R12 K42 ["Spacing"]
+      173 MOVE                             R13 R6
+      174 CALL                             R10 3 -1
+      175 RETURN                           R10 -1
 
 PROTO_5:
         0 NEWTABLE                         R2 0 0

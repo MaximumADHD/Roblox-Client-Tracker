@@ -19,71 +19,69 @@ PROTO_0:
        25 CALL                             R3 1 3
        26 FORGPREP_INEXT                   R3
        27 NEWTABLE                         R8 0 0
-       29 JUMPIFNOTEQKN                    R6 K7 [1] ; [+11]
-       31 DUPTABLE                         R9 K10 [{"Value", "LeftIcon"}]
-       32 LOADK                            R10 K11 [""]
-       33 SETTABLEKS                       R10 R9 K8 ["Value"]
-       35 GETUPVAL                         R10 3
-       36 GETTABLEKS                       R10 R10 K12 ["ICON_FRAME_TOP"]
-       38 SETTABLEKS                       R10 R9 K9 ["LeftIcon"]
-       40 MOVE                             R8 R9
-       41 DUPTABLE                         R9 K18 [{"arrowColumn", "frameColumn", "functionColumn", "lineColumn", "sourceColumn"}]
-       42 SETTABLEKS                       R8 R9 K13 ["arrowColumn"]
-       44 SETTABLEKS                       R6 R9 K14 ["frameColumn"]
-       46 GETTABLEKS                       R10 R7 K19 ["FrameName"]
-       48 SETTABLEKS                       R10 R9 K15 ["functionColumn"]
-       50 GETTABLEKS                       R11 R7 K20 ["Line"]
-       52 LOADN                            R12 0
-       53 JUMPIFNOTLT                      R11 R12 ; [+3]
-       55 LOADK                            R10 K11 [""]
-       56 JUMP                             ; [+2]
-       57 GETTABLEKS                       R10 R7 K20 ["Line"]
-       59 SETTABLEKS                       R10 R9 K16 ["lineColumn"]
-       61 GETTABLEKS                       R10 R7 K21 ["Script"]
-       63 SETTABLEKS                       R10 R9 K17 ["sourceColumn"]
-       65 GETUPVAL                         R10 0
-       66 GETUPVAL                         R12 4
-       67 GETTABLEKS                       R13 R7 K21 ["Script"]
-       69 LOADK                            R14 K11 [""]
-       70 CALL                             R12 2 -1
-       71 NAMECALL                         R10 R10 K22 ["dispatch"]
-       73 CALL                             R10 -1 0
-       74 GETUPVAL                         R10 5
-       75 GETTABLEKS                       R12 R7 K21 ["Script"]
-       77 GETUPVAL                         R13 0
-       78 NAMECALL                         R13 R13 K0 ["getState"]
-       80 CALL                             R13 1 1
-       81 GETTABLEKS                       R13 R13 K1 ["Common"]
-       83 GETTABLEKS                       R13 R13 K23 ["currentDebuggerConnectionId"]
-       85 GETTABLEKS                       R14 R7 K20 ["Line"]
-       87 NAMECALL                         R10 R10 K24 ["StartWatchingScriptLine"]
-       89 CALL                             R10 4 0
-       90 MOVE                             R11 R2
-       91 GETUPVAL                         R12 3
-       92 GETTABLEKS                       R12 R12 K25 ["fromData"]
-       94 MOVE                             R13 R9
-       95 CALL                             R12 1 -1
-       96 FASTCALL                         TABLE_INSERT ; [+2]
-       97 GETIMPORT                        R10 K28 [table.insert]
-       99 CALL                             R10 -1 0
-      100 FORGLOOP                         R3 2 [inext] ; [-74]
-      102 LENGTH                           R3 R2
-      103 LOADN                            R4 0
-      104 JUMPIFNOTLT                      R4 R3 ; [+12]
-      106 GETUPVAL                         R3 0
-      107 GETUPVAL                         R5 6
-      108 GETUPVAL                         R6 2
-      109 GETTABLEKS                       R6 R6 K29 ["ThreadId"]
-      111 MOVE                             R7 R2
-      112 GETUPVAL                         R8 1
-      113 CALL                             R5 3 -1
-      114 NAMECALL                         R3 R3 K22 ["dispatch"]
-      116 CALL                             R3 -1 0
-      117 GETUPVAL                         R3 7
-      118 JUMPIFNOT                        R3 ; [+2]
-      119 GETUPVAL                         R3 7
-      120 CALL                             R3 0 0
-      121 RETURN                           R0 0
+       29 JUMPIFNOTEQKN                    R6 K7 [1] ; [+8]
+       31 DUPTABLE                         R9 K11 [{["Value"] = "", ["LeftIcon"]}]
+       32 GETUPVAL                         R10 3
+       33 GETTABLEKS                       R10 R10 K12 ["ICON_FRAME_TOP"]
+       35 SETTABLEKS                       R10 R9 K10 ["LeftIcon"]
+       37 MOVE                             R8 R9
+       38 DUPTABLE                         R9 K18 [{"arrowColumn", "frameColumn", "functionColumn", "lineColumn", "sourceColumn"}]
+       39 SETTABLEKS                       R8 R9 K13 ["arrowColumn"]
+       41 SETTABLEKS                       R6 R9 K14 ["frameColumn"]
+       43 GETTABLEKS                       R10 R7 K19 ["FrameName"]
+       45 SETTABLEKS                       R10 R9 K15 ["functionColumn"]
+       47 GETTABLEKS                       R11 R7 K20 ["Line"]
+       49 LOADN                            R12 0
+       50 JUMPIFNOTLT                      R11 R12 ; [+3]
+       52 LOADK                            R10 K9 [""]
+       53 JUMP                             ; [+2]
+       54 GETTABLEKS                       R10 R7 K20 ["Line"]
+       56 SETTABLEKS                       R10 R9 K16 ["lineColumn"]
+       58 GETTABLEKS                       R10 R7 K21 ["Script"]
+       60 SETTABLEKS                       R10 R9 K17 ["sourceColumn"]
+       62 GETUPVAL                         R10 0
+       63 GETUPVAL                         R12 4
+       64 GETTABLEKS                       R13 R7 K21 ["Script"]
+       66 LOADK                            R14 K9 [""]
+       67 CALL                             R12 2 -1
+       68 NAMECALL                         R10 R10 K22 ["dispatch"]
+       70 CALL                             R10 -1 0
+       71 GETUPVAL                         R10 5
+       72 GETTABLEKS                       R12 R7 K21 ["Script"]
+       74 GETUPVAL                         R13 0
+       75 NAMECALL                         R13 R13 K0 ["getState"]
+       77 CALL                             R13 1 1
+       78 GETTABLEKS                       R13 R13 K1 ["Common"]
+       80 GETTABLEKS                       R13 R13 K23 ["currentDebuggerConnectionId"]
+       82 GETTABLEKS                       R14 R7 K20 ["Line"]
+       84 NAMECALL                         R10 R10 K24 ["StartWatchingScriptLine"]
+       86 CALL                             R10 4 0
+       87 MOVE                             R11 R2
+       88 GETUPVAL                         R12 3
+       89 GETTABLEKS                       R12 R12 K25 ["fromData"]
+       91 MOVE                             R13 R9
+       92 CALL                             R12 1 -1
+       93 FASTCALL                         TABLE_INSERT ; [+2]
+       94 GETIMPORT                        R10 K28 [table.insert]
+       96 CALL                             R10 -1 0
+       97 FORGLOOP                         R3 2 [inext] ; [-71]
+       99 LENGTH                           R3 R2
+      100 LOADN                            R4 0
+      101 JUMPIFNOTLT                      R4 R3 ; [+12]
+      103 GETUPVAL                         R3 0
+      104 GETUPVAL                         R5 6
+      105 GETUPVAL                         R6 2
+      106 GETTABLEKS                       R6 R6 K29 ["ThreadId"]
+      108 MOVE                             R7 R2
+      109 GETUPVAL                         R8 1
+      110 CALL                             R5 3 -1
+      111 NAMECALL                         R3 R3 K22 ["dispatch"]
+      113 CALL                             R3 -1 0
+      114 GETUPVAL                         R3 7
+      115 JUMPIFNOT                        R3 ; [+2]
+      116 GETUPVAL                         R3 7
+      117 CALL                             R3 0 0
+      118 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

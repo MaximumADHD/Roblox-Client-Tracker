@@ -41,30 +41,28 @@ PROTO_0:
        56 GETUPVAL                         R4 0
        57 GETTABLEKS                       R4 R4 K6 ["createElement"]
        59 GETUPVAL                         R5 1
-       60 DUPTABLE                         R6 K23 [{"LayoutOrder"}]
-       61 LOADN                            R7 2
-       62 SETTABLEKS                       R7 R6 K0 ["LayoutOrder"]
-       64 CALL                             R4 2 1
-       65 SETTABLEKS                       R4 R3 K4 ["Separator"]
-       67 GETUPVAL                         R4 0
-       68 GETTABLEKS                       R4 R4 K6 ["createElement"]
-       70 GETUPVAL                         R5 2
-       71 DUPTABLE                         R6 K28 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "Layout", "Spacing"}]
-       72 GETIMPORT                        R7 K31 [Enum.AutomaticSize.Y]
-       74 SETTABLEKS                       R7 R6 K24 ["AutomaticSize"]
-       76 GETIMPORT                        R7 K33 [Enum.HorizontalAlignment.Left]
-       78 SETTABLEKS                       R7 R6 K25 ["HorizontalAlignment"]
-       80 SETTABLEKS                       R1 R6 K0 ["LayoutOrder"]
-       82 GETIMPORT                        R7 K36 [Enum.FillDirection.Vertical]
-       84 SETTABLEKS                       R7 R6 K26 ["Layout"]
-       86 GETIMPORT                        R7 K12 [UDim.new]
-       88 LOADN                            R8 0
-       89 LOADN                            R9 8
-       90 CALL                             R7 2 1
-       91 SETTABLEKS                       R7 R6 K27 ["Spacing"]
-       93 MOVE                             R7 R3
-       94 CALL                             R4 3 -1
-       95 RETURN                           R4 -1
+       60 DUPTABLE                         R6 K24 [{[1] = 2}]
+       61 CALL                             R4 2 1
+       62 SETTABLEKS                       R4 R3 K4 ["Separator"]
+       64 GETUPVAL                         R4 0
+       65 GETTABLEKS                       R4 R4 K6 ["createElement"]
+       67 GETUPVAL                         R5 2
+       68 DUPTABLE                         R6 K29 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "Layout", "Spacing"}]
+       69 GETIMPORT                        R7 K32 [Enum.AutomaticSize.Y]
+       71 SETTABLEKS                       R7 R6 K25 ["AutomaticSize"]
+       73 GETIMPORT                        R7 K34 [Enum.HorizontalAlignment.Left]
+       75 SETTABLEKS                       R7 R6 K26 ["HorizontalAlignment"]
+       77 SETTABLEKS                       R1 R6 K0 ["LayoutOrder"]
+       79 GETIMPORT                        R7 K37 [Enum.FillDirection.Vertical]
+       81 SETTABLEKS                       R7 R6 K27 ["Layout"]
+       83 GETIMPORT                        R7 K12 [UDim.new]
+       85 LOADN                            R8 0
+       86 LOADN                            R9 8
+       87 CALL                             R7 2 1
+       88 SETTABLEKS                       R7 R6 K28 ["Spacing"]
+       90 MOVE                             R7 R3
+       91 CALL                             R4 3 -1
+       92 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

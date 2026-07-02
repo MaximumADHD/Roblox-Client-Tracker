@@ -60,59 +60,57 @@ PROTO_2:
        36 GETTABLEKS                       R8 R8 K3 ["createElement"]
        38 GETUPVAL                         R9 1
        39 GETTABLEKS                       R9 R9 K4 ["Pane"]
-       41 DUPTABLE                         R10 K27 [{"Style", "BackgroundColor", "Size", "AutomaticSize"}]
-       42 LOADK                            R11 K28 ["Box"]
-       43 SETTABLEKS                       R11 R10 K24 ["Style"]
-       45 GETTABLEKS                       R11 R3 K29 ["TabBarBackgroundColor"]
-       47 SETTABLEKS                       R11 R10 K25 ["BackgroundColor"]
-       49 GETIMPORT                        R11 K31 [UDim2.fromScale]
-       51 LOADN                            R12 1
-       52 LOADN                            R13 0
-       53 CALL                             R11 2 1
-       54 SETTABLEKS                       R11 R10 K5 ["Size"]
-       56 GETIMPORT                        R11 K33 [Enum.AutomaticSize.Y]
-       58 SETTABLEKS                       R11 R10 K26 ["AutomaticSize"]
-       60 DUPTABLE                         R11 K35 [{"Tabs"}]
-       61 GETUPVAL                         R12 0
-       62 GETTABLEKS                       R12 R12 K3 ["createElement"]
-       64 GETUPVAL                         R13 2
-       65 DUPTABLE                         R14 K38 [{"Tabs", "SelectedTab", "OnTabSelected"}]
-       66 GETTABLEKS                       R15 R1 K34 ["Tabs"]
-       68 SETTABLEKS                       R15 R14 K34 ["Tabs"]
-       70 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
-       72 GETTABLEKS                       R15 R15 K40 ["Key"]
-       74 SETTABLEKS                       R15 R14 K36 ["SelectedTab"]
-       76 GETTABLEKS                       R15 R0 K41 ["onTabSelected"]
-       78 SETTABLEKS                       R15 R14 K37 ["OnTabSelected"]
-       80 CALL                             R12 2 1
-       81 SETTABLEKS                       R12 R11 K34 ["Tabs"]
-       83 CALL                             R8 3 1
-       84 SETTABLEKS                       R8 R7 K21 ["TabBar"]
-       86 GETUPVAL                         R8 0
-       87 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       89 GETUPVAL                         R9 1
-       90 GETTABLEKS                       R9 R9 K4 ["Pane"]
-       92 DUPTABLE                         R10 K43 [{"Size", "BackgroundColor3"}]
-       93 GETIMPORT                        R11 K12 [UDim2.new]
-       95 LOADN                            R12 1
-       96 LOADN                            R13 0
-       97 LOADN                            R14 1
-       98 LOADN                            R15 0
-       99 CALL                             R11 4 1
-      100 SETTABLEKS                       R11 R10 K5 ["Size"]
-      102 GETTABLEKS                       R11 R3 K44 ["ForegroundTabColor"]
-      104 SETTABLEKS                       R11 R10 K42 ["BackgroundColor3"]
-      106 DUPTABLE                         R11 K46 [{"TabView"}]
-      107 GETUPVAL                         R12 0
-      108 GETTABLEKS                       R12 R12 K3 ["createElement"]
-      110 GETTABLEKS                       R13 R2 K39 ["selectedTab"]
-      112 GETTABLEKS                       R13 R13 K47 ["ContentComponent"]
-      114 CALL                             R12 1 1
-      115 SETTABLEKS                       R12 R11 K45 ["TabView"]
-      117 CALL                             R8 3 1
-      118 SETTABLEKS                       R8 R7 K22 ["TabContent"]
-      120 CALL                             R4 3 -1
-      121 RETURN                           R4 -1
+       41 DUPTABLE                         R10 K28 [{["Style"] = "Box", ["BackgroundColor"], ["Size"], ["AutomaticSize"]}]
+       42 GETTABLEKS                       R11 R3 K29 ["TabBarBackgroundColor"]
+       44 SETTABLEKS                       R11 R10 K26 ["BackgroundColor"]
+       46 GETIMPORT                        R11 K31 [UDim2.fromScale]
+       48 LOADN                            R12 1
+       49 LOADN                            R13 0
+       50 CALL                             R11 2 1
+       51 SETTABLEKS                       R11 R10 K5 ["Size"]
+       53 GETIMPORT                        R11 K33 [Enum.AutomaticSize.Y]
+       55 SETTABLEKS                       R11 R10 K27 ["AutomaticSize"]
+       57 DUPTABLE                         R11 K35 [{"Tabs"}]
+       58 GETUPVAL                         R12 0
+       59 GETTABLEKS                       R12 R12 K3 ["createElement"]
+       61 GETUPVAL                         R13 2
+       62 DUPTABLE                         R14 K38 [{"Tabs", "SelectedTab", "OnTabSelected"}]
+       63 GETTABLEKS                       R15 R1 K34 ["Tabs"]
+       65 SETTABLEKS                       R15 R14 K34 ["Tabs"]
+       67 GETTABLEKS                       R15 R2 K39 ["selectedTab"]
+       69 GETTABLEKS                       R15 R15 K40 ["Key"]
+       71 SETTABLEKS                       R15 R14 K36 ["SelectedTab"]
+       73 GETTABLEKS                       R15 R0 K41 ["onTabSelected"]
+       75 SETTABLEKS                       R15 R14 K37 ["OnTabSelected"]
+       77 CALL                             R12 2 1
+       78 SETTABLEKS                       R12 R11 K34 ["Tabs"]
+       80 CALL                             R8 3 1
+       81 SETTABLEKS                       R8 R7 K21 ["TabBar"]
+       83 GETUPVAL                         R8 0
+       84 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       86 GETUPVAL                         R9 1
+       87 GETTABLEKS                       R9 R9 K4 ["Pane"]
+       89 DUPTABLE                         R10 K43 [{"Size", "BackgroundColor3"}]
+       90 GETIMPORT                        R11 K12 [UDim2.new]
+       92 LOADN                            R12 1
+       93 LOADN                            R13 0
+       94 LOADN                            R14 1
+       95 LOADN                            R15 0
+       96 CALL                             R11 4 1
+       97 SETTABLEKS                       R11 R10 K5 ["Size"]
+       99 GETTABLEKS                       R11 R3 K44 ["ForegroundTabColor"]
+      101 SETTABLEKS                       R11 R10 K42 ["BackgroundColor3"]
+      103 DUPTABLE                         R11 K46 [{"TabView"}]
+      104 GETUPVAL                         R12 0
+      105 GETTABLEKS                       R12 R12 K3 ["createElement"]
+      107 GETTABLEKS                       R13 R2 K39 ["selectedTab"]
+      109 GETTABLEKS                       R13 R13 K47 ["ContentComponent"]
+      111 CALL                             R12 1 1
+      112 SETTABLEKS                       R12 R11 K45 ["TabView"]
+      114 CALL                             R8 3 1
+      115 SETTABLEKS                       R8 R7 K22 ["TabContent"]
+      117 CALL                             R4 3 -1
+      118 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

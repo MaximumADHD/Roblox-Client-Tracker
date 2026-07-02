@@ -1,37 +1,21 @@
 PROTO_0:
         0 GETTABLEN                        R1 R0 2
-        1 JUMPIFNOT                        R1 ; [+28]
+        1 JUMPIFNOT                        R1 ; [+13]
         2 NEWTABLE                         R1 0 2
-        4 DUPTABLE                         R2 K3 [{"Name", "Active", "Value"}]
+        4 DUPTABLE                         R2 K5 [{[1], ["Active"] = True, ["Value"] = False}]
         5 GETTABLEN                        R3 R0 1
         6 SETTABLEKS                       R3 R2 K0 ["Name"]
-        8 LOADB                            R3 1
-        9 SETTABLEKS                       R3 R2 K1 ["Active"]
-       11 LOADB                            R3 0
-       12 SETTABLEKS                       R3 R2 K2 ["Value"]
-       14 DUPTABLE                         R3 K5 [{"Name", "Default", "Active", "Value"}]
-       15 GETTABLEN                        R4 R0 2
-       16 SETTABLEKS                       R4 R3 K0 ["Name"]
-       18 LOADB                            R4 1
-       19 SETTABLEKS                       R4 R3 K4 ["Default"]
-       21 LOADB                            R4 1
-       22 SETTABLEKS                       R4 R3 K1 ["Active"]
-       24 LOADB                            R4 1
-       25 SETTABLEKS                       R4 R3 K2 ["Value"]
-       27 SETLIST                          R1 R2 2 [1]
-       29 RETURN                           R1 1
-       30 NEWTABLE                         R1 0 1
-       32 DUPTABLE                         R2 K5 [{"Name", "Default", "Active", "Value"}]
-       33 GETTABLEN                        R3 R0 1
-       34 SETTABLEKS                       R3 R2 K0 ["Name"]
-       36 LOADB                            R3 1
-       37 SETTABLEKS                       R3 R2 K4 ["Default"]
-       39 LOADB                            R3 1
-       40 SETTABLEKS                       R3 R2 K1 ["Active"]
-       42 LOADB                            R3 1
-       43 SETTABLEKS                       R3 R2 K2 ["Value"]
-       45 SETLIST                          R1 R2 1 [1]
-       47 RETURN                           R1 1
+        8 DUPTABLE                         R3 K7 [{[1], ["Default"] = True, ["Active"] = True, ["Value"] = True}]
+        9 GETTABLEN                        R4 R0 2
+       10 SETTABLEKS                       R4 R3 K0 ["Name"]
+       12 SETLIST                          R1 R2 2 [1]
+       14 RETURN                           R1 1
+       15 NEWTABLE                         R1 0 1
+       17 DUPTABLE                         R2 K7 [{[1], ["Default"] = True, ["Active"] = True, ["Value"] = True}]
+       18 GETTABLEN                        R3 R0 1
+       19 SETTABLEKS                       R3 R2 K0 ["Name"]
+       21 SETLIST                          R1 R2 1 [1]
+       23 RETURN                           R1 1
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -68,16 +52,16 @@ PROTO_1:
        50 GETUPVAL                         R10 0
        51 GETTABLEKS                       R10 R10 K3 ["createElement"]
        53 GETUPVAL                         R11 3
-       54 DUPTABLE                         R12 K31 [{"Position", "AnchorPoint", "Buttons", "LayoutOrder", "HorizontalAlignment", "ButtonClicked"}]
+       54 DUPTABLE                         R12 K32 [{["Position"], ["AnchorPoint"], ["Buttons"], ["LayoutOrder"] = 100, ["HorizontalAlignment"], ["ButtonClicked"]}]
        55 GETIMPORT                        R13 K12 [UDim2.new]
        57 LOADN                            R14 0
        58 LOADN                            R15 0
        59 LOADN                            R16 1
-       60 GETTABLEKS                       R17 R2 K32 ["buttonBar"]
-       62 GETTABLEKS                       R17 R17 K33 ["offset"]
+       60 GETTABLEKS                       R17 R2 K33 ["buttonBar"]
+       62 GETTABLEKS                       R17 R17 K34 ["offset"]
        64 CALL                             R13 4 1
        65 SETTABLEKS                       R13 R12 K26 ["Position"]
-       67 GETIMPORT                        R13 K35 [Vector2.new]
+       67 GETIMPORT                        R13 K36 [Vector2.new]
        69 LOADN                            R14 0
        70 LOADN                            R15 1
        71 CALL                             R13 2 1
@@ -86,17 +70,15 @@ PROTO_1:
        75 MOVE                             R14 R3
        76 CALL                             R13 1 1
        77 SETTABLEKS                       R13 R12 K2 ["Buttons"]
-       79 LOADN                            R13 100
-       80 SETTABLEKS                       R13 R12 K28 ["LayoutOrder"]
-       82 GETIMPORT                        R13 K37 [Enum.HorizontalAlignment.Center]
-       84 SETTABLEKS                       R13 R12 K29 ["HorizontalAlignment"]
-       86 GETTABLEKS                       R13 R1 K38 ["OnResult"]
-       88 SETTABLEKS                       R13 R12 K30 ["ButtonClicked"]
-       90 CALL                             R10 2 1
-       91 SETTABLEKS                       R10 R9 K2 ["Buttons"]
-       93 CALL                             R7 2 -1
-       94 CALL                             R4 -1 -1
-       95 RETURN                           R4 -1
+       79 GETIMPORT                        R13 K38 [Enum.HorizontalAlignment.Center]
+       81 SETTABLEKS                       R13 R12 K30 ["HorizontalAlignment"]
+       83 GETTABLEKS                       R13 R1 K39 ["OnResult"]
+       85 SETTABLEKS                       R13 R12 K31 ["ButtonClicked"]
+       87 CALL                             R10 2 1
+       88 SETTABLEKS                       R10 R9 K2 ["Buttons"]
+       90 CALL                             R7 2 -1
+       91 CALL                             R4 -1 -1
+       92 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

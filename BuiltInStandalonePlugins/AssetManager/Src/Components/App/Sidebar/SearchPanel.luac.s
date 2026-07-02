@@ -3,42 +3,34 @@ PROTO_0:
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
         4 GETTABLEKS                       R2 R2 K1 ["View"]
-        6 DUPTABLE                         R3 K5 [{"LayoutOrder", "Size", "tag"}]
+        6 DUPTABLE                         R3 K6 [{["LayoutOrder"], ["Size"], ["tag"] = "row padding-small"}]
         7 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
         9 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       11 GETIMPORT                        R4 K8 [UDim2.new]
+       11 GETIMPORT                        R4 K9 [UDim2.new]
        13 LOADN                            R5 1
        14 GETUPVAL                         R6 2
-       15 GETTABLEKS                       R6 R6 K9 ["PaddingSmall"]
+       15 GETTABLEKS                       R6 R6 K10 ["PaddingSmall"]
        17 LOADN                            R7 0
        18 GETUPVAL                         R8 2
-       19 GETTABLEKS                       R8 R8 K10 ["TopBarHeight"]
+       19 GETTABLEKS                       R8 R8 K11 ["TopBarHeight"]
        21 CALL                             R4 4 1
        22 SETTABLEKS                       R4 R3 K3 ["Size"]
-       24 LOADK                            R4 K11 ["row padding-small"]
-       25 SETTABLEKS                       R4 R3 K4 ["tag"]
-       27 DUPTABLE                         R4 K14 [{"ToggleButtonPadding", "SearchInput"}]
-       28 GETUPVAL                         R5 0
-       29 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       31 GETUPVAL                         R6 1
-       32 GETTABLEKS                       R6 R6 K1 ["View"]
-       34 DUPTABLE                         R7 K15 [{"LayoutOrder", "tag"}]
-       35 LOADN                            R8 1
-       36 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       38 LOADK                            R8 K16 ["TopSidebarButtonPadding"]
-       39 SETTABLEKS                       R8 R7 K4 ["tag"]
-       41 CALL                             R5 2 1
-       42 SETTABLEKS                       R5 R4 K12 ["ToggleButtonPadding"]
-       44 GETUPVAL                         R5 0
-       45 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       47 GETUPVAL                         R6 3
-       48 DUPTABLE                         R7 K17 [{"LayoutOrder"}]
-       49 LOADN                            R8 2
-       50 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
-       52 CALL                             R5 2 1
-       53 SETTABLEKS                       R5 R4 K13 ["SearchInput"]
-       55 CALL                             R1 3 -1
-       56 RETURN                           R1 -1
+       24 DUPTABLE                         R4 K14 [{"ToggleButtonPadding", "SearchInput"}]
+       25 GETUPVAL                         R5 0
+       26 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       28 GETUPVAL                         R6 1
+       29 GETTABLEKS                       R6 R6 K1 ["View"]
+       31 DUPTABLE                         R7 K17 [{["LayoutOrder"] = 1, ["tag"] = "TopSidebarButtonPadding"}]
+       32 CALL                             R5 2 1
+       33 SETTABLEKS                       R5 R4 K12 ["ToggleButtonPadding"]
+       35 GETUPVAL                         R5 0
+       36 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       38 GETUPVAL                         R6 3
+       39 DUPTABLE                         R7 K19 [{["LayoutOrder"] = 2}]
+       40 CALL                             R5 2 1
+       41 SETTABLEKS                       R5 R4 K13 ["SearchInput"]
+       43 CALL                             R1 3 -1
+       44 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -89,19 +89,17 @@ PROTO_3:
        11 GETUPVAL                         R3 2
        12 GETTABLEKS                       R4 R1 K4 ["Name"]
        14 GETTABLEKS                       R4 R4 K2 ["Schema"]
-       16 DUPTABLE                         R5 K6 [{"Editing"}]
-       17 LOADB                            R6 1
-       18 SETTABLEKS                       R6 R5 K5 ["Editing"]
-       20 CALL                             R3 2 1
-       21 SETTABLEKS                       R3 R2 K2 ["Schema"]
-       23 GETUPVAL                         R3 0
-       24 MOVE                             R5 R0
-       25 MOVE                             R6 R2
-       26 GETUPVAL                         R7 1
-       27 LOADN                            R8 1
-       28 NAMECALL                         R3 R3 K7 ["updateCell"]
-       30 CALL                             R3 5 -1
-       31 RETURN                           R3 -1
+       16 DUPTABLE                         R5 K7 [{["Editing"] = True}]
+       17 CALL                             R3 2 1
+       18 SETTABLEKS                       R3 R2 K2 ["Schema"]
+       20 GETUPVAL                         R3 0
+       21 MOVE                             R5 R0
+       22 MOVE                             R6 R2
+       23 GETUPVAL                         R7 1
+       24 LOADN                            R8 1
+       25 NAMECALL                         R3 R3 K8 ["updateCell"]
+       27 CALL                             R3 5 -1
+       28 RETURN                           R3 -1
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -381,159 +379,141 @@ PROTO_19:
        26 GETTABLEKS                       R4 R1 K7 ["Name"]
        28 GETTABLEKS                       R4 R4 K6 ["Schema"]
        30 GETUPVAL                         R5 4
-       31 JUMPIFNOTEQKN                    R5 K8 [1] ; [+115]
+       31 JUMPIFNOTEQKN                    R5 K8 [1] ; [+94]
        33 GETTABLEKS                       R5 R1 K7 ["Name"]
        35 GETTABLEKS                       R5 R5 K9 ["FullSpan"]
-       37 JUMPIFNOT                        R5 ; [+33]
+       37 JUMPIFNOT                        R5 ; [+24]
        38 GETUPVAL                         R5 5
        39 MOVE                             R6 R4
-       40 DUPTABLE                         R7 K11 [{"Editing"}]
-       41 LOADB                            R8 0
-       42 SETTABLEKS                       R8 R7 K10 ["Editing"]
-       44 CALL                             R5 2 1
-       45 SETTABLEKS                       R5 R3 K6 ["Schema"]
-       47 GETTABLEKS                       R6 R4 K12 ["Type"]
-       49 JUMPIFNOTEQKS                    R6 K13 ["Theme"] ; [+3]
-       51 MOVE                             R5 R2
-       52 JUMP                             ; [+1]
-       53 GETUPVAL                         R5 3
-       54 SETTABLEKS                       R5 R3 K4 ["Value"]
-       56 GETUPVAL                         R5 6
-       57 DUPTABLE                         R6 K16 [{"Name", "DisplayName", "DoChange"}]
-       58 LOADK                            R7 K17 ["StyleEditor.RenameStyleSheet"]
-       59 SETTABLEKS                       R7 R6 K7 ["Name"]
-       61 LOADK                            R7 K18 ["Style Editor - Rename StyleSheet"]
-       62 SETTABLEKS                       R7 R6 K14 ["DisplayName"]
-       64 NEWCLOSURE                       R7 P0
-       65 CAPTURE                          VAL R2
-       66 CAPTURE                          UPVAL U3
-       67 SETTABLEKS                       R7 R6 K15 ["DoChange"]
-       69 CALL                             R5 1 0
-       70 JUMP                             ; [+164]
-       71 JUMPIFNOT                        R2 ; [+13]
-       72 GETUPVAL                         R7 3
-       73 NAMECALL                         R5 R2 K19 ["GetAttribute"]
-       75 CALL                             R5 2 1
-       76 JUMPIFEQKNIL                     R5 ; [+8]
-       78 GETTABLEKS                       R5 R1 K7 ["Name"]
-       80 GETTABLEKS                       R5 R5 K4 ["Value"]
-       82 SETTABLEKS                       R5 R3 K4 ["Value"]
-       84 JUMP                             ; [+150]
-       85 GETTABLEKS                       R5 R1 K7 ["Name"]
-       87 GETTABLEKS                       R5 R5 K4 ["Value"]
-       89 JUMPIFNOTEQKS                    R5 K20 [""] ; [+41]
-       91 GETUPVAL                         R5 7
-       92 GETTABLEKS                       R5 R5 K21 ["TextSchema"]
-       94 SETTABLEKS                       R5 R3 K6 ["Schema"]
-       96 GETUPVAL                         R5 7
-       97 GETTABLEKS                       R5 R5 K22 ["SelectTokenSchema"]
-       99 JUMPIFNOTEQ                      R4 R5 ; [+10]
-      101 GETTABLEKS                       R5 R1 K4 ["Value"]
-      103 GETTABLEKS                       R5 R5 K4 ["Value"]
-      105 JUMPIFNOT                        R5 ; [+4]
-      106 GETTABLEKS                       R5 R1 K4 ["Value"]
-      108 GETTABLEKS                       R4 R5 K4 ["Value"]
-      110 GETUPVAL                         R5 7
-      111 GETTABLEKS                       R5 R5 K22 ["SelectTokenSchema"]
-      113 JUMPIFEQ                         R4 R5 ; [+121]
-      115 GETUPVAL                         R5 6
-      116 DUPTABLE                         R6 K16 [{"Name", "DisplayName", "DoChange"}]
-      117 LOADK                            R7 K23 ["StyleEditor.AddToken"]
-      118 SETTABLEKS                       R7 R6 K7 ["Name"]
-      120 LOADK                            R7 K24 ["Style Editor - Add Token"]
-      121 SETTABLEKS                       R7 R6 K14 ["DisplayName"]
-      123 NEWCLOSURE                       R7 P1
-      124 CAPTURE                          VAL R2
-      125 CAPTURE                          UPVAL U3
-      126 CAPTURE                          REF R4
-      127 SETTABLEKS                       R7 R6 K15 ["DoChange"]
-      129 CALL                             R5 1 0
-      130 JUMP                             ; [+104]
-      131 GETUPVAL                         R5 6
-      132 DUPTABLE                         R6 K16 [{"Name", "DisplayName", "DoChange"}]
-      133 LOADK                            R7 K25 ["StyleEditor.EditToken"]
-      134 SETTABLEKS                       R7 R6 K7 ["Name"]
-      136 LOADK                            R7 K26 ["Style Editor - Edit Token"]
-      137 SETTABLEKS                       R7 R6 K14 ["DisplayName"]
-      139 NEWCLOSURE                       R7 P2
-      140 CAPTURE                          VAL R2
-      141 CAPTURE                          UPVAL U3
-      142 CAPTURE                          VAL R1
-      143 SETTABLEKS                       R7 R6 K15 ["DoChange"]
-      145 CALL                             R5 1 0
-      146 JUMP                             ; [+88]
-      147 GETUPVAL                         R5 4
-      148 JUMPIFNOTEQKN                    R5 K27 [2] ; [+86]
-      150 GETTABLEKS                       R5 R1 K7 ["Name"]
-      152 GETTABLEKS                       R5 R5 K4 ["Value"]
-      154 GETUPVAL                         R6 7
-      155 GETTABLEKS                       R6 R6 K22 ["SelectTokenSchema"]
-      157 JUMPIFNOTEQ                      R4 R6 ; [+24]
-      159 GETUPVAL                         R6 2
-      160 DUPTABLE                         R8 K29 [{"selectSchema"}]
-      161 GETUPVAL                         R9 3
-      162 SETTABLEKS                       R9 R8 K28 ["selectSchema"]
-      164 NAMECALL                         R6 R6 K30 ["setState"]
-      166 CALL                             R6 2 0
-      167 JUMPIFNOT                        R5 ; [+44]
-      168 JUMPIFEQKS                       R5 K20 [""] ; [+43]
-      170 GETUPVAL                         R6 3
-      171 SETTABLEKS                       R6 R3 K6 ["Schema"]
-      173 GETUPVAL                         R6 3
-      174 GETTABLEKS                       R6 R6 K31 ["GetDefaultValue"]
-      176 CALL                             R6 0 1
-      177 SETUPVAL                         R6 3
-      178 GETUPVAL                         R6 3
-      179 SETTABLEKS                       R6 R3 K4 ["Value"]
-      181 JUMP                             ; [+30]
-      182 GETTABLEKS                       R6 R1 K7 ["Name"]
-      184 GETTABLEKS                       R6 R6 K6 ["Schema"]
-      186 GETUPVAL                         R7 7
-      187 GETTABLEKS                       R7 R7 K32 ["ChildComponentSchema"]
-      189 JUMPIFNOTEQ                      R6 R7 ; [+22]
-      191 GETUPVAL                         R6 0
-      192 GETTABLEKS                       R8 R0 K0 ["Items"]
-      194 MOVE                             R9 R1
-      195 NAMECALL                         R6 R6 K33 ["getParent"]
-      197 CALL                             R6 3 1
-      198 GETTABLEKS                       R7 R6 K7 ["Name"]
-      200 GETTABLEKS                       R5 R7 K4 ["Value"]
-      202 GETTABLEKS                       R8 R1 K34 ["SetParentValue"]
-      204 JUMPIFNOT                        R8 ; [+5]
-      205 GETTABLEKS                       R7 R1 K34 ["SetParentValue"]
-      207 GETUPVAL                         R8 3
-      208 CALL                             R7 1 1
-      209 JUMP                             ; [+1]
-      210 GETUPVAL                         R7 3
-      211 SETUPVAL                         R7 3
-      212 JUMPIFNOT                        R5 ; [+21]
-      213 JUMPIFEQKS                       R5 K20 [""] ; [+20]
-      215 GETUPVAL                         R6 6
-      216 DUPTABLE                         R7 K16 [{"Name", "DisplayName", "DoChange"}]
-      217 LOADK                            R8 K25 ["StyleEditor.EditToken"]
-      218 SETTABLEKS                       R8 R7 K7 ["Name"]
-      220 LOADK                            R8 K26 ["Style Editor - Edit Token"]
-      221 SETTABLEKS                       R8 R7 K14 ["DisplayName"]
-      223 NEWCLOSURE                       R8 P3
-      224 CAPTURE                          VAL R2
-      225 CAPTURE                          REF R5
-      226 CAPTURE                          UPVAL U3
-      227 CAPTURE                          UPVAL U2
-      228 CAPTURE                          UPVAL U8
-      229 CAPTURE                          UPVAL U9
-      230 CAPTURE                          UPVAL U10
-      231 SETTABLEKS                       R8 R7 K15 ["DoChange"]
-      233 CALL                             R6 1 0
-      234 CLOSEUPVALS                      R5
-      235 GETUPVAL                         R5 0
-      236 MOVE                             R7 R0
-      237 MOVE                             R8 R3
-      238 GETUPVAL                         R9 1
-      239 GETUPVAL                         R10 4
-      240 NAMECALL                         R5 R5 K35 ["updateCell"]
-      242 CALL                             R5 5 -1
-      243 CLOSEUPVALS                      R4
-      244 RETURN                           R5 -1
+       40 DUPTABLE                         R7 K12 [{["Editing"] = False}]
+       41 CALL                             R5 2 1
+       42 SETTABLEKS                       R5 R3 K6 ["Schema"]
+       44 GETTABLEKS                       R6 R4 K13 ["Type"]
+       46 JUMPIFNOTEQKS                    R6 K14 ["Theme"] ; [+3]
+       48 MOVE                             R5 R2
+       49 JUMP                             ; [+1]
+       50 GETUPVAL                         R5 3
+       51 SETTABLEKS                       R5 R3 K4 ["Value"]
+       53 GETUPVAL                         R5 6
+       54 DUPTABLE                         R6 K19 [{["Name"] = "StyleEditor.RenameStyleSheet", ["DisplayName"] = "Style Editor - Rename StyleSheet", ["DoChange"]}]
+       55 NEWCLOSURE                       R7 P0
+       56 CAPTURE                          VAL R2
+       57 CAPTURE                          UPVAL U3
+       58 SETTABLEKS                       R7 R6 K18 ["DoChange"]
+       60 CALL                             R5 1 0
+       61 JUMP                             ; [+146]
+       62 JUMPIFNOT                        R2 ; [+13]
+       63 GETUPVAL                         R7 3
+       64 NAMECALL                         R5 R2 K20 ["GetAttribute"]
+       66 CALL                             R5 2 1
+       67 JUMPIFEQKNIL                     R5 ; [+8]
+       69 GETTABLEKS                       R5 R1 K7 ["Name"]
+       71 GETTABLEKS                       R5 R5 K4 ["Value"]
+       73 SETTABLEKS                       R5 R3 K4 ["Value"]
+       75 JUMP                             ; [+132]
+       76 GETTABLEKS                       R5 R1 K7 ["Name"]
+       78 GETTABLEKS                       R5 R5 K4 ["Value"]
+       80 JUMPIFNOTEQKS                    R5 K21 [""] ; [+35]
+       82 GETUPVAL                         R5 7
+       83 GETTABLEKS                       R5 R5 K22 ["TextSchema"]
+       85 SETTABLEKS                       R5 R3 K6 ["Schema"]
+       87 GETUPVAL                         R5 7
+       88 GETTABLEKS                       R5 R5 K23 ["SelectTokenSchema"]
+       90 JUMPIFNOTEQ                      R4 R5 ; [+10]
+       92 GETTABLEKS                       R5 R1 K4 ["Value"]
+       94 GETTABLEKS                       R5 R5 K4 ["Value"]
+       96 JUMPIFNOT                        R5 ; [+4]
+       97 GETTABLEKS                       R5 R1 K4 ["Value"]
+       99 GETTABLEKS                       R4 R5 K4 ["Value"]
+      101 GETUPVAL                         R5 7
+      102 GETTABLEKS                       R5 R5 K23 ["SelectTokenSchema"]
+      104 JUMPIFEQ                         R4 R5 ; [+103]
+      106 GETUPVAL                         R5 6
+      107 DUPTABLE                         R6 K26 [{["Name"] = "StyleEditor.AddToken", ["DisplayName"] = "Style Editor - Add Token", ["DoChange"]}]
+      108 NEWCLOSURE                       R7 P1
+      109 CAPTURE                          VAL R2
+      110 CAPTURE                          UPVAL U3
+      111 CAPTURE                          REF R4
+      112 SETTABLEKS                       R7 R6 K18 ["DoChange"]
+      114 CALL                             R5 1 0
+      115 JUMP                             ; [+92]
+      116 GETUPVAL                         R5 6
+      117 DUPTABLE                         R6 K29 [{["Name"] = "StyleEditor.EditToken", ["DisplayName"] = "Style Editor - Edit Token", ["DoChange"]}]
+      118 NEWCLOSURE                       R7 P2
+      119 CAPTURE                          VAL R2
+      120 CAPTURE                          UPVAL U3
+      121 CAPTURE                          VAL R1
+      122 SETTABLEKS                       R7 R6 K18 ["DoChange"]
+      124 CALL                             R5 1 0
+      125 JUMP                             ; [+82]
+      126 GETUPVAL                         R5 4
+      127 JUMPIFNOTEQKN                    R5 K30 [2] ; [+80]
+      129 GETTABLEKS                       R5 R1 K7 ["Name"]
+      131 GETTABLEKS                       R5 R5 K4 ["Value"]
+      133 GETUPVAL                         R6 7
+      134 GETTABLEKS                       R6 R6 K23 ["SelectTokenSchema"]
+      136 JUMPIFNOTEQ                      R4 R6 ; [+24]
+      138 GETUPVAL                         R6 2
+      139 DUPTABLE                         R8 K32 [{"selectSchema"}]
+      140 GETUPVAL                         R9 3
+      141 SETTABLEKS                       R9 R8 K31 ["selectSchema"]
+      143 NAMECALL                         R6 R6 K33 ["setState"]
+      145 CALL                             R6 2 0
+      146 JUMPIFNOT                        R5 ; [+44]
+      147 JUMPIFEQKS                       R5 K21 [""] ; [+43]
+      149 GETUPVAL                         R6 3
+      150 SETTABLEKS                       R6 R3 K6 ["Schema"]
+      152 GETUPVAL                         R6 3
+      153 GETTABLEKS                       R6 R6 K34 ["GetDefaultValue"]
+      155 CALL                             R6 0 1
+      156 SETUPVAL                         R6 3
+      157 GETUPVAL                         R6 3
+      158 SETTABLEKS                       R6 R3 K4 ["Value"]
+      160 JUMP                             ; [+30]
+      161 GETTABLEKS                       R6 R1 K7 ["Name"]
+      163 GETTABLEKS                       R6 R6 K6 ["Schema"]
+      165 GETUPVAL                         R7 7
+      166 GETTABLEKS                       R7 R7 K35 ["ChildComponentSchema"]
+      168 JUMPIFNOTEQ                      R6 R7 ; [+22]
+      170 GETUPVAL                         R6 0
+      171 GETTABLEKS                       R8 R0 K0 ["Items"]
+      173 MOVE                             R9 R1
+      174 NAMECALL                         R6 R6 K36 ["getParent"]
+      176 CALL                             R6 3 1
+      177 GETTABLEKS                       R7 R6 K7 ["Name"]
+      179 GETTABLEKS                       R5 R7 K4 ["Value"]
+      181 GETTABLEKS                       R8 R1 K37 ["SetParentValue"]
+      183 JUMPIFNOT                        R8 ; [+5]
+      184 GETTABLEKS                       R7 R1 K37 ["SetParentValue"]
+      186 GETUPVAL                         R8 3
+      187 CALL                             R7 1 1
+      188 JUMP                             ; [+1]
+      189 GETUPVAL                         R7 3
+      190 SETUPVAL                         R7 3
+      191 JUMPIFNOT                        R5 ; [+15]
+      192 JUMPIFEQKS                       R5 K21 [""] ; [+14]
+      194 GETUPVAL                         R6 6
+      195 DUPTABLE                         R7 K29 [{["Name"] = "StyleEditor.EditToken", ["DisplayName"] = "Style Editor - Edit Token", ["DoChange"]}]
+      196 NEWCLOSURE                       R8 P3
+      197 CAPTURE                          VAL R2
+      198 CAPTURE                          REF R5
+      199 CAPTURE                          UPVAL U3
+      200 CAPTURE                          UPVAL U2
+      201 CAPTURE                          UPVAL U8
+      202 CAPTURE                          UPVAL U9
+      203 CAPTURE                          UPVAL U10
+      204 SETTABLEKS                       R8 R7 K18 ["DoChange"]
+      206 CALL                             R6 1 0
+      207 CLOSEUPVALS                      R5
+      208 GETUPVAL                         R5 0
+      209 MOVE                             R7 R0
+      210 MOVE                             R8 R3
+      211 GETUPVAL                         R9 1
+      212 GETUPVAL                         R10 4
+      213 NAMECALL                         R5 R5 K38 ["updateCell"]
+      215 CALL                             R5 5 -1
+      216 CLOSEUPVALS                      R4
+      217 RETURN                           R5 -1
 
 PROTO_20:
         0 GETUPVAL                         R3 0

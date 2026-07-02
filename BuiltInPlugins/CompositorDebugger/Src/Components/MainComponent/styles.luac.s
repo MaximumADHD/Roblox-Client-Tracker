@@ -12,32 +12,30 @@ MAIN:
        16 GETTABLEKS                       R2 R2 K9 ["createStyleRule"]
        18 MOVE                             R3 R2
        19 LOADK                            R4 K10 [".MainPane"]
-       20 DUPTABLE                         R5 K12 [{"BorderSizePixel"}]
-       21 LOADN                            R6 0
-       22 SETTABLEKS                       R6 R5 K11 ["BorderSizePixel"]
-       24 NEWTABLE                         R6 0 2
-       26 MOVE                             R7 R2
-       27 LOADK                            R8 K13 [">> #Toolbar"]
-       28 DUPTABLE                         R9 K15 [{"Size"}]
-       29 GETIMPORT                        R10 K18 [UDim2.new]
-       31 LOADN                            R11 1
-       32 LOADN                            R12 0
-       33 LOADN                            R13 0
-       34 LOADN                            R14 24
-       35 CALL                             R10 4 1
-       36 SETTABLEKS                       R10 R9 K14 ["Size"]
-       38 CALL                             R7 2 1
-       39 MOVE                             R8 R2
-       40 LOADK                            R9 K19 [">> #LayerTree"]
-       41 DUPTABLE                         R10 K15 [{"Size"}]
-       42 GETIMPORT                        R11 K18 [UDim2.new]
-       44 LOADN                            R12 1
-       45 LOADN                            R13 0
-       46 LOADN                            R14 1
-       47 LOADN                            R15 232
-       48 CALL                             R11 4 1
-       49 SETTABLEKS                       R11 R10 K14 ["Size"]
-       51 CALL                             R8 2 -1
-       52 SETLIST                          R6 R7 -1 [1]
-       54 CALL                             R3 3 -1
-       55 RETURN                           R3 -1
+       20 DUPTABLE                         R5 K13 [{["BorderSizePixel"] = 0}]
+       21 NEWTABLE                         R6 0 2
+       23 MOVE                             R7 R2
+       24 LOADK                            R8 K14 [">> #Toolbar"]
+       25 DUPTABLE                         R9 K16 [{"Size"}]
+       26 GETIMPORT                        R10 K19 [UDim2.new]
+       28 LOADN                            R11 1
+       29 LOADN                            R12 0
+       30 LOADN                            R13 0
+       31 LOADN                            R14 24
+       32 CALL                             R10 4 1
+       33 SETTABLEKS                       R10 R9 K15 ["Size"]
+       35 CALL                             R7 2 1
+       36 MOVE                             R8 R2
+       37 LOADK                            R9 K20 [">> #LayerTree"]
+       38 DUPTABLE                         R10 K16 [{"Size"}]
+       39 GETIMPORT                        R11 K19 [UDim2.new]
+       41 LOADN                            R12 1
+       42 LOADN                            R13 0
+       43 LOADN                            R14 1
+       44 LOADN                            R15 -24
+       45 CALL                             R11 4 1
+       46 SETTABLEKS                       R11 R10 K15 ["Size"]
+       48 CALL                             R8 2 -1
+       49 SETLIST                          R6 R7 -1 [1]
+       51 CALL                             R3 3 -1
+       52 RETURN                           R3 -1

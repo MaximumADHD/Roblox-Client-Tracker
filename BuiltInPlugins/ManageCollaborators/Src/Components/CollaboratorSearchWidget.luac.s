@@ -27,12 +27,10 @@ PROTO_0:
        36 SETTABLEKS                       R2 R0 K9 ["updateNumCharsInSearchbarOnFocus"]
        38 GETUPVAL                         R1 2
        39 GETTABLEKS                       R1 R1 K10 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-       41 JUMPIFNOT                        R1 ; [+6]
-       42 DUPTABLE                         R1 K12 [{"countryBlockedError"}]
-       43 LOADB                            R2 0
-       44 SETTABLEKS                       R2 R1 K11 ["countryBlockedError"]
-       46 SETTABLEKS                       R1 R0 K13 ["state"]
-       48 RETURN                           R0 0
+       41 JUMPIFNOT                        R1 ; [+3]
+       42 DUPTABLE                         R1 K13 [{["countryBlockedError"] = False}]
+       43 SETTABLEKS                       R1 R0 K14 ["state"]
+       45 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
@@ -427,8 +425,8 @@ PROTO_8:
       207 GETTABLEKS                       R12 R5 K9 ["Groups"]
       209 LENGTH                           R11 R12
       210 LOADN                            R12 0
-      211 JUMPIFNOTLT                      R12 R11 ; [+80]
-      213 JUMPIF                           R3 ; [+78]
+      211 JUMPIFNOTLT                      R12 R11 ; [+77]
+      213 JUMPIF                           R3 ; [+75]
       214 NEWTABLE                         R11 1 0
       216 GETIMPORT                        R12 K11 [pairs]
       218 GETTABLEKS                       R13 R5 K9 ["Groups"]
@@ -436,7 +434,7 @@ PROTO_8:
       221 FORGPREP_NEXT                    R12
       222 LENGTH                           R18 R11
       223 ADDK                             R17 R18 K12 [1]
-      224 JUMPIFLT                         R8 R17 ; [+62]
+      224 JUMPIFLT                         R8 R17 ; [+59]
       226 DUPTABLE                         R19 K17 [{"Icon", "Name", "Key"}]
       227 GETUPVAL                         R20 2
       228 GETTABLEKS                       R20 R20 K18 ["createElement"]
@@ -459,9 +457,9 @@ PROTO_8:
       251 GETTABLEKS                       R21 R21 K44 ["GroupNameKey"]
       253 GETTABLE                         R20 R16 R21
       254 SETTABLEKS                       R20 R19 K15 ["Name"]
-      256 DUPTABLE                         R20 K45 [{"Type", "Id", "Name", "IsEligible"}]
+      256 DUPTABLE                         R20 K46 [{["Type"], ["Id"], ["Name"], ["IsEligible"] = True}]
       257 GETUPVAL                         R21 1
-      258 GETTABLEKS                       R21 R21 K46 ["GroupSubjectKey"]
+      258 GETTABLEKS                       R21 R21 K47 ["GroupSubjectKey"]
       260 SETTABLEKS                       R21 R20 K26 ["Type"]
       262 GETUPVAL                         R22 1
       263 GETTABLEKS                       R22 R22 K43 ["GroupIdKey"]
@@ -471,19 +469,17 @@ PROTO_8:
       269 GETTABLEKS                       R22 R22 K44 ["GroupNameKey"]
       271 GETTABLE                         R21 R16 R22
       272 SETTABLEKS                       R21 R20 K15 ["Name"]
-      274 LOADB                            R21 1
-      275 SETTABLEKS                       R21 R20 K28 ["IsEligible"]
-      277 SETTABLEKS                       R20 R19 K16 ["Key"]
-      279 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
-      281 MOVE                             R18 R11
-      282 GETIMPORT                        R17 K41 [table.insert]
-      284 CALL                             R17 2 0
-      285 FORGLOOP                         R12 2 ; [-64]
-      287 LOADN                            R12 0
-      288 SETTABLEKS                       R12 R11 K42 ["LayoutOrder"]
-      290 GETUPVAL                         R12 7
-      291 SETTABLE                         R11 R6 R12
-      292 RETURN                           R6 1
+      274 SETTABLEKS                       R20 R19 K16 ["Key"]
+      276 FASTCALL2                        TABLE_INSERT R11 R19 ; [+4]
+      278 MOVE                             R18 R11
+      279 GETIMPORT                        R17 K41 [table.insert]
+      281 CALL                             R17 2 0
+      282 FORGLOOP                         R12 2 ; [-61]
+      284 LOADN                            R12 0
+      285 SETTABLEKS                       R12 R11 K42 ["LayoutOrder"]
+      287 GETUPVAL                         R12 7
+      288 SETTABLE                         R11 R6 R12
+      289 RETURN                           R6 1
 
 PROTO_9:
         0 GETUPVAL                         R1 0
@@ -518,65 +514,57 @@ PROTO_10:
 PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETTABLEKS                       R0 R0 K0 ["fflagManageCollaboratorsOwnerCountryBlocked"]
-        3 JUMPIFNOT                        R0 ; [+14]
+        3 JUMPIFNOT                        R0 ; [+11]
         4 GETUPVAL                         R0 1
         5 GETTABLEKS                       R0 R0 K1 ["state"]
         7 GETTABLEKS                       R0 R0 K2 ["countryBlockedError"]
-        9 JUMPIFNOT                        R0 ; [+8]
+        9 JUMPIFNOT                        R0 ; [+5]
        10 GETUPVAL                         R0 1
-       11 DUPTABLE                         R2 K3 [{"countryBlockedError"}]
-       12 LOADB                            R3 0
-       13 SETTABLEKS                       R3 R2 K2 ["countryBlockedError"]
-       15 NAMECALL                         R0 R0 K4 ["setState"]
-       17 CALL                             R0 2 0
-       18 GETUPVAL                         R0 2
-       19 JUMPIFNOT                        R0 ; [+20]
-       20 GETUPVAL                         R0 1
-       21 GETTABLEKS                       R0 R0 K5 ["updateSearchbarFocusedTimestampMilliseconds"]
-       23 GETIMPORT                        R1 K8 [DateTime.now]
-       25 CALL                             R1 0 1
-       26 GETTABLEKS                       R1 R1 K9 ["UnixTimestampMillis"]
-       28 CALL                             R0 1 0
-       29 GETUPVAL                         R0 1
-       30 GETTABLEKS                       R0 R0 K10 ["updateNumCharsInSearchbarOnFocus"]
-       32 GETUPVAL                         R2 1
-       33 GETTABLEKS                       R2 R2 K11 ["searchbarText"]
-       35 NAMECALL                         R2 R2 K12 ["getValue"]
-       37 CALL                             R2 1 1
-       38 LENGTH                           R1 R2
-       39 CALL                             R0 1 0
-       40 RETURN                           R0 0
+       11 DUPTABLE                         R2 K4 [{["countryBlockedError"] = False}]
+       12 NAMECALL                         R0 R0 K5 ["setState"]
+       14 CALL                             R0 2 0
+       15 GETUPVAL                         R0 2
+       16 JUMPIFNOT                        R0 ; [+20]
+       17 GETUPVAL                         R0 1
+       18 GETTABLEKS                       R0 R0 K6 ["updateSearchbarFocusedTimestampMilliseconds"]
+       20 GETIMPORT                        R1 K9 [DateTime.now]
+       22 CALL                             R1 0 1
+       23 GETTABLEKS                       R1 R1 K10 ["UnixTimestampMillis"]
+       25 CALL                             R0 1 0
+       26 GETUPVAL                         R0 1
+       27 GETTABLEKS                       R0 R0 K11 ["updateNumCharsInSearchbarOnFocus"]
+       29 GETUPVAL                         R2 1
+       30 GETTABLEKS                       R2 R2 K12 ["searchbarText"]
+       32 NAMECALL                         R2 R2 K13 ["getValue"]
+       34 CALL                             R2 1 1
+       35 LENGTH                           R1 R2
+       36 CALL                             R0 1 0
+       37 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"countryBlockedError"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["countryBlockedError"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["fflagManageCollaboratorsAgeGatingTelemetry"]
-       11 JUMPIFNOT                        R0 ; [+30]
-       12 GETUPVAL                         R0 2
-       13 GETUPVAL                         R2 3
-       14 DUPTABLE                         R3 K9 [{"userId", "telemetryType", "upsellEntrySurface", "placeId", "universeId"}]
-       15 GETUPVAL                         R4 4
-       16 NAMECALL                         R4 R4 K10 ["GetUserId"]
-       18 CALL                             R4 1 1
-       19 SETTABLEKS                       R4 R3 K4 ["userId"]
-       21 LOADK                            R4 K11 ["load"]
-       22 SETTABLEKS                       R4 R3 K5 ["telemetryType"]
-       24 LOADK                            R4 K12 ["manage_collaborators_search_country_blocked"]
-       25 SETTABLEKS                       R4 R3 K6 ["upsellEntrySurface"]
-       27 GETIMPORT                        R4 K14 [game]
-       29 GETTABLEKS                       R4 R4 K15 ["PlaceId"]
-       31 SETTABLEKS                       R4 R3 K7 ["placeId"]
-       33 GETIMPORT                        R4 K14 [game]
-       35 GETTABLEKS                       R4 R4 K16 ["GameId"]
-       37 SETTABLEKS                       R4 R3 K8 ["universeId"]
-       39 NAMECALL                         R0 R0 K17 ["logRobloxTelemetryEvent"]
-       41 CALL                             R0 3 0
-       42 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K4 ["fflagManageCollaboratorsAgeGatingTelemetry"]
+        8 JUMPIFNOT                        R0 ; [+24]
+        9 GETUPVAL                         R0 2
+       10 GETUPVAL                         R2 3
+       11 DUPTABLE                         R3 K12 [{["userId"], ["telemetryType"] = "load", ["upsellEntrySurface"] = "manage_collaborators_search_country_blocked", ["placeId"], ["universeId"]}]
+       12 GETUPVAL                         R4 4
+       13 NAMECALL                         R4 R4 K13 ["GetUserId"]
+       15 CALL                             R4 1 1
+       16 SETTABLEKS                       R4 R3 K5 ["userId"]
+       18 GETIMPORT                        R4 K15 [game]
+       20 GETTABLEKS                       R4 R4 K16 ["PlaceId"]
+       22 SETTABLEKS                       R4 R3 K10 ["placeId"]
+       24 GETIMPORT                        R4 K15 [game]
+       26 GETTABLEKS                       R4 R4 K17 ["GameId"]
+       28 SETTABLEKS                       R4 R3 K11 ["universeId"]
+       30 NAMECALL                         R0 R0 K18 ["logRobloxTelemetryEvent"]
+       32 CALL                             R0 3 0
+       33 RETURN                           R0 0
 
 PROTO_13:
         0 GETUPVAL                         R0 0
@@ -731,34 +719,28 @@ PROTO_14:
 
 PROTO_15:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"countryBlockedError"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["countryBlockedError"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETTABLEKS                       R0 R0 K3 ["fflagManageCollaboratorsAgeGatingTelemetry"]
-       11 JUMPIFNOT                        R0 ; [+30]
-       12 GETUPVAL                         R0 2
-       13 GETUPVAL                         R2 3
-       14 DUPTABLE                         R3 K9 [{"userId", "telemetryType", "upsellEntrySurface", "placeId", "universeId"}]
-       15 GETUPVAL                         R4 4
-       16 NAMECALL                         R4 R4 K10 ["GetUserId"]
-       18 CALL                             R4 1 1
-       19 SETTABLEKS                       R4 R3 K4 ["userId"]
-       21 LOADK                            R4 K11 ["load"]
-       22 SETTABLEKS                       R4 R3 K5 ["telemetryType"]
-       24 LOADK                            R4 K12 ["manage_collaborators_search_country_blocked"]
-       25 SETTABLEKS                       R4 R3 K6 ["upsellEntrySurface"]
-       27 GETIMPORT                        R4 K14 [game]
-       29 GETTABLEKS                       R4 R4 K15 ["PlaceId"]
-       31 SETTABLEKS                       R4 R3 K7 ["placeId"]
-       33 GETIMPORT                        R4 K14 [game]
-       35 GETTABLEKS                       R4 R4 K16 ["GameId"]
-       37 SETTABLEKS                       R4 R3 K8 ["universeId"]
-       39 NAMECALL                         R0 R0 K17 ["logRobloxTelemetryEvent"]
-       41 CALL                             R0 3 0
-       42 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETTABLEKS                       R0 R0 K4 ["fflagManageCollaboratorsAgeGatingTelemetry"]
+        8 JUMPIFNOT                        R0 ; [+24]
+        9 GETUPVAL                         R0 2
+       10 GETUPVAL                         R2 3
+       11 DUPTABLE                         R3 K12 [{["userId"], ["telemetryType"] = "load", ["upsellEntrySurface"] = "manage_collaborators_search_country_blocked", ["placeId"], ["universeId"]}]
+       12 GETUPVAL                         R4 4
+       13 NAMECALL                         R4 R4 K13 ["GetUserId"]
+       15 CALL                             R4 1 1
+       16 SETTABLEKS                       R4 R3 K5 ["userId"]
+       18 GETIMPORT                        R4 K15 [game]
+       20 GETTABLEKS                       R4 R4 K16 ["PlaceId"]
+       22 SETTABLEKS                       R4 R3 K10 ["placeId"]
+       24 GETIMPORT                        R4 K15 [game]
+       26 GETTABLEKS                       R4 R4 K17 ["GameId"]
+       28 SETTABLEKS                       R4 R3 K11 ["universeId"]
+       30 NAMECALL                         R0 R0 K18 ["logRobloxTelemetryEvent"]
+       32 CALL                             R0 3 0
+       33 RETURN                           R0 0
 
 PROTO_16:
         0 GETUPVAL                         R0 0
@@ -907,168 +889,158 @@ PROTO_18:
        93 GETUPVAL                         R22 4
        94 GETTABLEKS                       R22 R22 K31 ["createElement"]
        96 GETUPVAL                         R23 5
-       97 DUPTABLE                         R24 K33 [{"BackgroundTransparency", "LayoutOrder"}]
-       98 LOADN                            R25 1
-       99 SETTABLEKS                       R25 R24 K32 ["BackgroundTransparency"]
-      101 SETTABLEKS                       R2 R24 K1 ["LayoutOrder"]
-      103 DUPTABLE                         R25 K37 [{"Padding", "AgeWarningFrame", "Searchbar"}]
-      104 GETUPVAL                         R26 4
-      105 GETTABLEKS                       R26 R26 K31 ["createElement"]
-      107 LOADK                            R27 K38 ["UIPadding"]
-      108 DUPTABLE                         R28 K42 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-      109 GETTABLEKS                       R29 R11 K43 ["searchWidget"]
-      111 GETTABLEKS                       R29 R29 K44 ["paddingTop"]
-      113 SETTABLEKS                       R29 R28 K39 ["PaddingTop"]
-      115 GETTABLEKS                       R29 R11 K43 ["searchWidget"]
-      117 GETTABLEKS                       R29 R29 K45 ["paddingHorizontal"]
-      119 SETTABLEKS                       R29 R28 K40 ["PaddingLeft"]
-      121 GETTABLEKS                       R29 R11 K43 ["searchWidget"]
-      123 GETTABLEKS                       R29 R29 K45 ["paddingHorizontal"]
-      125 SETTABLEKS                       R29 R28 K41 ["PaddingRight"]
-      127 CALL                             R26 2 1
-      128 SETTABLEKS                       R26 R25 K34 ["Padding"]
-      130 MOVE                             R26 R10
-      131 JUMPIFNOT                        R26 ; [+56]
-      132 GETUPVAL                         R26 4
-      133 GETTABLEKS                       R26 R26 K31 ["createElement"]
-      135 LOADK                            R27 K46 ["Frame"]
-      136 DUPTABLE                         R28 K49 [{"BackgroundTransparency", "LayoutOrder", "Size", "BorderSizePixel"}]
-      137 LOADN                            R29 1
-      138 SETTABLEKS                       R29 R28 K32 ["BackgroundTransparency"]
-      140 LOADN                            R29 1
-      141 SETTABLEKS                       R29 R28 K1 ["LayoutOrder"]
-      143 GETIMPORT                        R29 K52 [UDim2.new]
-      145 LOADN                            R30 1
-      146 LOADN                            R31 0
-      147 LOADN                            R32 0
-      148 GETTABLEKS                       R33 R11 K43 ["searchWidget"]
-      150 GETTABLEKS                       R33 R33 K53 ["ageWarning"]
-      152 GETTABLEKS                       R33 R33 K54 ["Height"]
-      154 CALL                             R29 4 1
-      155 SETTABLEKS                       R29 R28 K47 ["Size"]
-      157 LOADN                            R29 0
-      158 SETTABLEKS                       R29 R28 K48 ["BorderSizePixel"]
-      160 DUPTABLE                         R29 K56 [{"AgeWarning"}]
-      161 GETUPVAL                         R30 4
-      162 GETTABLEKS                       R30 R30 K31 ["createElement"]
-      164 LOADK                            R31 K57 ["TextLabel"]
-      165 GETUPVAL                         R32 6
-      166 GETTABLEKS                       R32 R32 K58 ["Dictionary"]
-      168 GETTABLEKS                       R32 R32 K59 ["join"]
-      170 GETTABLEKS                       R33 R11 K43 ["searchWidget"]
-      172 GETTABLEKS                       R33 R33 K53 ["ageWarning"]
-      174 GETTABLEKS                       R33 R33 K60 ["fontStyle"]
-      176 DUPTABLE                         R34 K63 [{"Text", "TextXAlignment"}]
-      177 SETTABLEKS                       R21 R34 K61 ["Text"]
-      179 GETIMPORT                        R35 K66 [Enum.TextXAlignment.Left]
-      181 SETTABLEKS                       R35 R34 K62 ["TextXAlignment"]
-      183 CALL                             R32 2 -1
-      184 CALL                             R30 -1 1
-      185 SETTABLEKS                       R30 R29 K55 ["AgeWarning"]
-      187 CALL                             R26 3 1
-      188 SETTABLEKS                       R26 R25 K35 ["AgeWarningFrame"]
-      190 GETUPVAL                         R26 4
-      191 GETTABLEKS                       R26 R26 K31 ["createElement"]
-      193 GETUPVAL                         R27 7
-      194 DUPTABLE                         R28 K80 [{"LayoutOrder", "Enabled", "HeaderHeight", "ItemHeight", "ErrorText", "ErrorSubtitle", "DefaultText", "NoResultsText", "LoadingMore", "IsGroupGame", "onSearchRequested", "onTextChanged", "onTextBoxFocused", "OnItemClicked", "Results", "Is17PlusGame"}]
-      195 LOADN                            R29 2
-      196 SETTABLEKS                       R29 R28 K1 ["LayoutOrder"]
-      198 MOVE                             R29 R3
-      199 JUMPIFNOT                        R29 ; [+3]
-      200 NOT                              R29 R17
-      201 JUMPIFNOT                        R29 ; [+1]
-      202 NOT                              R29 R19
-      203 SETTABLEKS                       R29 R28 K67 ["Enabled"]
-      205 GETTABLEKS                       R29 R11 K81 ["searchBar"]
-      207 GETTABLEKS                       R29 R29 K82 ["headerHeight"]
-      209 SETTABLEKS                       R29 R28 K68 ["HeaderHeight"]
-      211 GETTABLEKS                       R29 R11 K81 ["searchBar"]
-      213 GETTABLEKS                       R29 R29 K83 ["itemHeight"]
-      215 SETTABLEKS                       R29 R28 K69 ["ItemHeight"]
-      217 JUMPIFNOT                        R17 ; [+2]
-      218 MOVE                             R29 R18
-      219 JUMPIF                           R29 ; [+1]
-      220 LOADNIL                          R29
-      221 SETTABLEKS                       R29 R28 K70 ["ErrorText"]
-      223 ORK                              R29 R20 K84 []
-      224 SETTABLEKS                       R29 R28 K71 ["ErrorSubtitle"]
-      226 LOADK                            R31 K18 ["SearchBar"]
-      227 JUMPIFNOT                        R9 ; [+2]
-      228 LOADK                            R32 K85 ["AddUsers"]
-      229 JUMP                             ; [+1]
-      230 LOADK                            R32 K86 ["AddUsersGroups"]
-      231 NAMECALL                         R29 R12 K22 ["getText"]
-      233 CALL                             R29 3 1
-      234 SETTABLEKS                       R29 R28 K72 ["DefaultText"]
-      236 LOADK                            R31 K18 ["SearchBar"]
-      237 LOADK                            R32 K73 ["NoResultsText"]
-      238 NAMECALL                         R29 R12 K22 ["getText"]
-      240 CALL                             R29 3 1
-      241 SETTABLEKS                       R29 R28 K73 ["NoResultsText"]
-      243 SETTABLEKS                       R14 R28 K74 ["LoadingMore"]
-      245 SETTABLEKS                       R9 R28 K8 ["IsGroupGame"]
-      247 NEWCLOSURE                       R29 P0
-      248 CAPTURE                          VAL R7
-      249 SETTABLEKS                       R29 R28 K75 ["onSearchRequested"]
-      251 NEWCLOSURE                       R29 P1
-      252 CAPTURE                          UPVAL U0
-      253 CAPTURE                          VAL R0
-      254 CAPTURE                          VAL R7
-      255 SETTABLEKS                       R29 R28 K76 ["onTextChanged"]
-      257 NEWCLOSURE                       R29 P2
-      258 CAPTURE                          UPVAL U2
-      259 CAPTURE                          VAL R0
-      260 CAPTURE                          UPVAL U0
-      261 SETTABLEKS                       R29 R28 K77 ["onTextBoxFocused"]
-      263 GETUPVAL                         R30 0
-      264 JUMPIFNOT                        R30 ; [+20]
-      265 NEWCLOSURE                       R29 P3
-      266 CAPTURE                          UPVAL U1
-      267 CAPTURE                          VAL R19
-      268 CAPTURE                          UPVAL U8
-      269 CAPTURE                          VAL R0
-      270 CAPTURE                          VAL R9
-      271 CAPTURE                          UPVAL U9
-      272 CAPTURE                          UPVAL U10
+       97 DUPTABLE                         R24 K34 [{["BackgroundTransparency"] = 1, ["LayoutOrder"]}]
+       98 SETTABLEKS                       R2 R24 K1 ["LayoutOrder"]
+      100 DUPTABLE                         R25 K38 [{"Padding", "AgeWarningFrame", "Searchbar"}]
+      101 GETUPVAL                         R26 4
+      102 GETTABLEKS                       R26 R26 K31 ["createElement"]
+      104 LOADK                            R27 K39 ["UIPadding"]
+      105 DUPTABLE                         R28 K43 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+      106 GETTABLEKS                       R29 R11 K44 ["searchWidget"]
+      108 GETTABLEKS                       R29 R29 K45 ["paddingTop"]
+      110 SETTABLEKS                       R29 R28 K40 ["PaddingTop"]
+      112 GETTABLEKS                       R29 R11 K44 ["searchWidget"]
+      114 GETTABLEKS                       R29 R29 K46 ["paddingHorizontal"]
+      116 SETTABLEKS                       R29 R28 K41 ["PaddingLeft"]
+      118 GETTABLEKS                       R29 R11 K44 ["searchWidget"]
+      120 GETTABLEKS                       R29 R29 K46 ["paddingHorizontal"]
+      122 SETTABLEKS                       R29 R28 K42 ["PaddingRight"]
+      124 CALL                             R26 2 1
+      125 SETTABLEKS                       R26 R25 K35 ["Padding"]
+      127 MOVE                             R26 R10
+      128 JUMPIFNOT                        R26 ; [+47]
+      129 GETUPVAL                         R26 4
+      130 GETTABLEKS                       R26 R26 K31 ["createElement"]
+      132 LOADK                            R27 K47 ["Frame"]
+      133 DUPTABLE                         R28 K51 [{["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1, ["Size"], ["BorderSizePixel"] = 0}]
+      134 GETIMPORT                        R29 K54 [UDim2.new]
+      136 LOADN                            R30 1
+      137 LOADN                            R31 0
+      138 LOADN                            R32 0
+      139 GETTABLEKS                       R33 R11 K44 ["searchWidget"]
+      141 GETTABLEKS                       R33 R33 K55 ["ageWarning"]
+      143 GETTABLEKS                       R33 R33 K56 ["Height"]
+      145 CALL                             R29 4 1
+      146 SETTABLEKS                       R29 R28 K48 ["Size"]
+      148 DUPTABLE                         R29 K58 [{"AgeWarning"}]
+      149 GETUPVAL                         R30 4
+      150 GETTABLEKS                       R30 R30 K31 ["createElement"]
+      152 LOADK                            R31 K59 ["TextLabel"]
+      153 GETUPVAL                         R32 6
+      154 GETTABLEKS                       R32 R32 K60 ["Dictionary"]
+      156 GETTABLEKS                       R32 R32 K61 ["join"]
+      158 GETTABLEKS                       R33 R11 K44 ["searchWidget"]
+      160 GETTABLEKS                       R33 R33 K55 ["ageWarning"]
+      162 GETTABLEKS                       R33 R33 K62 ["fontStyle"]
+      164 DUPTABLE                         R34 K65 [{"Text", "TextXAlignment"}]
+      165 SETTABLEKS                       R21 R34 K63 ["Text"]
+      167 GETIMPORT                        R35 K68 [Enum.TextXAlignment.Left]
+      169 SETTABLEKS                       R35 R34 K64 ["TextXAlignment"]
+      171 CALL                             R32 2 -1
+      172 CALL                             R30 -1 1
+      173 SETTABLEKS                       R30 R29 K57 ["AgeWarning"]
+      175 CALL                             R26 3 1
+      176 SETTABLEKS                       R26 R25 K36 ["AgeWarningFrame"]
+      178 GETUPVAL                         R26 4
+      179 GETTABLEKS                       R26 R26 K31 ["createElement"]
+      181 GETUPVAL                         R27 7
+      182 DUPTABLE                         R28 K83 [{["LayoutOrder"] = 2, ["Enabled"], ["HeaderHeight"], ["ItemHeight"], ["ErrorText"], ["ErrorSubtitle"], ["DefaultText"], ["NoResultsText"], ["LoadingMore"], ["IsGroupGame"], ["onSearchRequested"], ["onTextChanged"], ["onTextBoxFocused"], ["OnItemClicked"], ["Results"], ["Is17PlusGame"]}]
+      183 MOVE                             R29 R3
+      184 JUMPIFNOT                        R29 ; [+3]
+      185 NOT                              R29 R17
+      186 JUMPIFNOT                        R29 ; [+1]
+      187 NOT                              R29 R19
+      188 SETTABLEKS                       R29 R28 K70 ["Enabled"]
+      190 GETTABLEKS                       R29 R11 K84 ["searchBar"]
+      192 GETTABLEKS                       R29 R29 K85 ["headerHeight"]
+      194 SETTABLEKS                       R29 R28 K71 ["HeaderHeight"]
+      196 GETTABLEKS                       R29 R11 K84 ["searchBar"]
+      198 GETTABLEKS                       R29 R29 K86 ["itemHeight"]
+      200 SETTABLEKS                       R29 R28 K72 ["ItemHeight"]
+      202 JUMPIFNOT                        R17 ; [+2]
+      203 MOVE                             R29 R18
+      204 JUMPIF                           R29 ; [+1]
+      205 LOADNIL                          R29
+      206 SETTABLEKS                       R29 R28 K73 ["ErrorText"]
+      208 ORK                              R29 R20 K87 []
+      209 SETTABLEKS                       R29 R28 K74 ["ErrorSubtitle"]
+      211 LOADK                            R31 K18 ["SearchBar"]
+      212 JUMPIFNOT                        R9 ; [+2]
+      213 LOADK                            R32 K88 ["AddUsers"]
+      214 JUMP                             ; [+1]
+      215 LOADK                            R32 K89 ["AddUsersGroups"]
+      216 NAMECALL                         R29 R12 K22 ["getText"]
+      218 CALL                             R29 3 1
+      219 SETTABLEKS                       R29 R28 K75 ["DefaultText"]
+      221 LOADK                            R31 K18 ["SearchBar"]
+      222 LOADK                            R32 K76 ["NoResultsText"]
+      223 NAMECALL                         R29 R12 K22 ["getText"]
+      225 CALL                             R29 3 1
+      226 SETTABLEKS                       R29 R28 K76 ["NoResultsText"]
+      228 SETTABLEKS                       R14 R28 K77 ["LoadingMore"]
+      230 SETTABLEKS                       R9 R28 K8 ["IsGroupGame"]
+      232 NEWCLOSURE                       R29 P0
+      233 CAPTURE                          VAL R7
+      234 SETTABLEKS                       R29 R28 K78 ["onSearchRequested"]
+      236 NEWCLOSURE                       R29 P1
+      237 CAPTURE                          UPVAL U0
+      238 CAPTURE                          VAL R0
+      239 CAPTURE                          VAL R7
+      240 SETTABLEKS                       R29 R28 K79 ["onTextChanged"]
+      242 NEWCLOSURE                       R29 P2
+      243 CAPTURE                          UPVAL U2
+      244 CAPTURE                          VAL R0
+      245 CAPTURE                          UPVAL U0
+      246 SETTABLEKS                       R29 R28 K80 ["onTextBoxFocused"]
+      248 GETUPVAL                         R30 0
+      249 JUMPIFNOT                        R30 ; [+20]
+      250 NEWCLOSURE                       R29 P3
+      251 CAPTURE                          UPVAL U1
+      252 CAPTURE                          VAL R19
+      253 CAPTURE                          UPVAL U8
+      254 CAPTURE                          VAL R0
+      255 CAPTURE                          VAL R9
+      256 CAPTURE                          UPVAL U9
+      257 CAPTURE                          UPVAL U10
+      258 CAPTURE                          VAL R1
+      259 CAPTURE                          UPVAL U11
+      260 CAPTURE                          UPVAL U12
+      261 CAPTURE                          UPVAL U2
+      262 CAPTURE                          UPVAL U13
+      263 CAPTURE                          UPVAL U14
+      264 CAPTURE                          VAL R8
+      265 CAPTURE                          UPVAL U15
+      266 CAPTURE                          VAL R5
+      267 CAPTURE                          VAL R6
+      268 CAPTURE                          UPVAL U16
+      269 JUMP                             ; [+14]
+      270 NEWCLOSURE                       R29 P4
+      271 CAPTURE                          UPVAL U1
+      272 CAPTURE                          VAL R19
       273 CAPTURE                          VAL R1
-      274 CAPTURE                          UPVAL U11
-      275 CAPTURE                          UPVAL U12
-      276 CAPTURE                          UPVAL U2
-      277 CAPTURE                          UPVAL U13
-      278 CAPTURE                          UPVAL U14
-      279 CAPTURE                          VAL R8
-      280 CAPTURE                          UPVAL U15
-      281 CAPTURE                          VAL R5
-      282 CAPTURE                          VAL R6
-      283 CAPTURE                          UPVAL U16
-      284 JUMP                             ; [+14]
-      285 NEWCLOSURE                       R29 P4
-      286 CAPTURE                          UPVAL U1
-      287 CAPTURE                          VAL R19
-      288 CAPTURE                          VAL R1
-      289 CAPTURE                          UPVAL U8
-      290 CAPTURE                          VAL R0
-      291 CAPTURE                          UPVAL U11
-      292 CAPTURE                          UPVAL U12
-      293 CAPTURE                          UPVAL U2
-      294 CAPTURE                          UPVAL U13
-      295 CAPTURE                          UPVAL U14
-      296 CAPTURE                          UPVAL U10
-      297 CAPTURE                          VAL R5
-      298 CAPTURE                          VAL R6
-      299 SETTABLEKS                       R29 R28 K78 ["OnItemClicked"]
-      301 GETUPVAL                         R30 1
-      302 JUMPIFNOT                        R30 ; [+4]
-      303 JUMPIFNOT                        R19 ; [+3]
-      304 NEWTABLE                         R29 0 0
-      306 JUMP                             ; [+1]
-      307 MOVE                             R29 R13
-      308 SETTABLEKS                       R29 R28 K79 ["Results"]
-      310 SETTABLEKS                       R10 R28 K9 ["Is17PlusGame"]
-      312 CALL                             R26 2 1
-      313 SETTABLEKS                       R26 R25 K36 ["Searchbar"]
-      315 CALL                             R22 3 -1
-      316 RETURN                           R22 -1
+      274 CAPTURE                          UPVAL U8
+      275 CAPTURE                          VAL R0
+      276 CAPTURE                          UPVAL U11
+      277 CAPTURE                          UPVAL U12
+      278 CAPTURE                          UPVAL U2
+      279 CAPTURE                          UPVAL U13
+      280 CAPTURE                          UPVAL U14
+      281 CAPTURE                          UPVAL U10
+      282 CAPTURE                          VAL R5
+      283 CAPTURE                          VAL R6
+      284 SETTABLEKS                       R29 R28 K81 ["OnItemClicked"]
+      286 GETUPVAL                         R30 1
+      287 JUMPIFNOT                        R30 ; [+4]
+      288 JUMPIFNOT                        R19 ; [+3]
+      289 NEWTABLE                         R29 0 0
+      291 JUMP                             ; [+1]
+      292 MOVE                             R29 R13
+      293 SETTABLEKS                       R29 R28 K82 ["Results"]
+      295 SETTABLEKS                       R10 R28 K9 ["Is17PlusGame"]
+      297 CALL                             R26 2 1
+      298 SETTABLEKS                       R26 R25 K37 ["Searchbar"]
+      300 CALL                             R22 3 -1
+      301 RETURN                           R22 -1
 
 PROTO_19:
         0 GETUPVAL                         R2 0

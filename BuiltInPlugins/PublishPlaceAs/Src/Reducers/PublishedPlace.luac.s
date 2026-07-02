@@ -57,34 +57,22 @@ MAIN:
        18 GETTABLEKS                       R3 R0 K5 ["Packages"]
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
-       23 DUPTABLE                         R3 K10 [{"isPublishing", "publishInfo"}]
-       24 LOADB                            R4 0
-       25 SETTABLEKS                       R4 R3 K8 ["isPublishing"]
-       27 DUPTABLE                         R4 K17 [{"id", "name", "parentGameName", "parentGameId", "settings", "message"}]
-       28 LOADN                            R5 0
-       29 SETTABLEKS                       R5 R4 K11 ["id"]
-       31 LOADK                            R5 K18 [""]
-       32 SETTABLEKS                       R5 R4 K12 ["name"]
-       34 LOADK                            R5 K18 [""]
-       35 SETTABLEKS                       R5 R4 K13 ["parentGameName"]
-       37 LOADN                            R5 0
-       38 SETTABLEKS                       R5 R4 K14 ["parentGameId"]
-       40 NEWTABLE                         R5 0 0
-       42 SETTABLEKS                       R5 R4 K15 ["settings"]
-       44 LOADK                            R5 K18 [""]
-       45 SETTABLEKS                       R5 R4 K16 ["message"]
-       47 SETTABLEKS                       R4 R3 K9 ["publishInfo"]
-       49 GETTABLEKS                       R4 R1 K19 ["createReducer"]
-       51 MOVE                             R5 R3
-       52 DUPTABLE                         R6 K23 [{"SetIsPublishing", "SetPublishInfo", "ResetInfo"}]
-       53 DUPCLOSURE                       R7 K24 [PROTO_0]
-       54 CAPTURE                          VAL R2
-       55 SETTABLEKS                       R7 R6 K20 ["SetIsPublishing"]
-       57 DUPCLOSURE                       R7 K25 [PROTO_1]
-       58 CAPTURE                          VAL R2
-       59 SETTABLEKS                       R7 R6 K21 ["SetPublishInfo"]
-       61 DUPCLOSURE                       R7 K26 [PROTO_2]
-       62 CAPTURE                          VAL R2
-       63 SETTABLEKS                       R7 R6 K22 ["ResetInfo"]
-       65 CALL                             R4 2 -1
-       66 RETURN                           R4 -1
+       23 DUPTABLE                         R3 K11 [{["isPublishing"] = False, ["publishInfo"]}]
+       24 DUPTABLE                         R4 K20 [{["id"] = 0, ["name"] = "", ["parentGameName"] = "", ["parentGameId"] = 0, ["settings"], ["message"] = ""}]
+       25 NEWTABLE                         R5 0 0
+       27 SETTABLEKS                       R5 R4 K18 ["settings"]
+       29 SETTABLEKS                       R4 R3 K10 ["publishInfo"]
+       31 GETTABLEKS                       R4 R1 K21 ["createReducer"]
+       33 MOVE                             R5 R3
+       34 DUPTABLE                         R6 K25 [{"SetIsPublishing", "SetPublishInfo", "ResetInfo"}]
+       35 DUPCLOSURE                       R7 K26 [PROTO_0]
+       36 CAPTURE                          VAL R2
+       37 SETTABLEKS                       R7 R6 K22 ["SetIsPublishing"]
+       39 DUPCLOSURE                       R7 K27 [PROTO_1]
+       40 CAPTURE                          VAL R2
+       41 SETTABLEKS                       R7 R6 K23 ["SetPublishInfo"]
+       43 DUPCLOSURE                       R7 K28 [PROTO_2]
+       44 CAPTURE                          VAL R2
+       45 SETTABLEKS                       R7 R6 K24 ["ResetInfo"]
+       47 CALL                             R4 2 -1
+       48 RETURN                           R4 -1

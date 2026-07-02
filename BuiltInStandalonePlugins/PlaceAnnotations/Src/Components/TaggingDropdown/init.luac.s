@@ -80,7 +80,7 @@ PROTO_1:
       105 GETTABLEKS                       R3 R3 K0 ["current"]
       107 GETTABLEKS                       R3 R3 K16 ["AbsoluteSize"]
       109 GETTABLEKS                       R3 R3 K11 ["X"]
-      111 LOADN                            R4 24
+      111 LOADN                            R4 280
       112 JUMPIFNOTLE                      R4 R3 ; [+13]
       114 GETIMPORT                        R2 K10 [UDim2.fromOffset]
       116 GETUPVAL                         R3 0
@@ -91,7 +91,7 @@ PROTO_1:
       124 CALL                             R2 2 1
       125 JUMP                             ; [+5]
       126 GETIMPORT                        R2 K10 [UDim2.fromOffset]
-      128 LOADN                            R3 24
+      128 LOADN                            R3 280
       129 LOADN                            R4 0
       130 CALL                             R2 2 1
       131 GETUPVAL                         R3 3
@@ -174,7 +174,7 @@ PROTO_7:
        37 MOVE                             R7 R5
        38 CALL                             R6 1 0
        39 GETUPVAL                         R6 6
-       40 LOADN                            R7 254
+       40 LOADN                            R7 -2
        41 CALL                             R6 1 0
        42 GETUPVAL                         R6 7
        43 LENGTH                           R9 R2
@@ -376,7 +376,7 @@ PROTO_17:
         7 MOVE                             R2 R0
         8 CALL                             R1 1 0
         9 GETUPVAL                         R1 4
-       10 LOADN                            R2 253
+       10 LOADN                            R2 -3
        11 CALL                             R1 1 0
        12 RETURN                           R0 0
 
@@ -410,7 +410,7 @@ PROTO_18:
 PROTO_19:
         0 MOVE                             R4 R0
         1 LOADN                            R2 1
-        2 LOADN                            R3 255
+        2 LOADN                            R3 -1
         3 FORNPREP                         R2
         4 MOVE                             R7 R4
         5 MOVE                             R8 R4
@@ -458,10 +458,10 @@ PROTO_19:
        53 MOVE                             R8 R6
        54 CALL                             R7 1 0
        55 GETUPVAL                         R7 0
-       56 LOADN                            R8 253
+       56 LOADN                            R8 -3
        57 CALL                             R7 1 0
        58 GETUPVAL                         R6 0
-       59 LOADN                            R7 253
+       59 LOADN                            R7 -3
        60 CALL                             R6 1 0
        61 RETURN                           R0 0
        62 FORNLOOP                         R2
@@ -477,10 +477,10 @@ PROTO_19:
        72 MOVE                             R4 R2
        73 CALL                             R3 1 0
        74 GETUPVAL                         R3 0
-       75 LOADN                            R4 253
+       75 LOADN                            R4 -3
        76 CALL                             R3 1 0
        77 GETUPVAL                         R2 0
-       78 LOADN                            R3 253
+       78 LOADN                            R3 -3
        79 CALL                             R2 1 0
        80 RETURN                           R0 0
 
@@ -502,7 +502,7 @@ PROTO_21:
         0 LOADNIL                          R2
         1 SUBK                             R5 R0 K0 [1]
         2 LOADN                            R3 1
-        3 LOADN                            R4 255
+        3 LOADN                            R4 -1
         4 FORNPREP                         R3
         5 MOVE                             R8 R5
         6 MOVE                             R9 R5
@@ -560,7 +560,7 @@ PROTO_22:
        31 GETTABLEKS                       R7 R7 K2 ["current"]
        33 SETTABLEKS                       R6 R7 K3 ["Text"]
        35 GETUPVAL                         R7 2
-       36 LOADN                            R8 255
+       36 LOADN                            R8 -1
        37 CALL                             R7 1 0
        38 GETUPVAL                         R7 1
        39 JUMPIFNOT                        R7 ; [+43]
@@ -677,10 +677,10 @@ PROTO_23:
        86 MOVE                             R7 R5
        87 CALL                             R6 1 0
        88 GETUPVAL                         R6 1
-       89 LOADN                            R7 253
+       89 LOADN                            R7 -3
        90 CALL                             R6 1 0
        91 GETUPVAL                         R5 1
-       92 LOADN                            R6 253
+       92 LOADN                            R6 -3
        93 CALL                             R5 1 0
        94 RETURN                           R0 0
        95 GETUPVAL                         R5 3
@@ -724,7 +724,7 @@ PROTO_24:
        37 MOVE                             R6 R4
        38 CALL                             R5 1 0
        39 GETUPVAL                         R5 6
-       40 LOADN                            R6 253
+       40 LOADN                            R6 -3
        41 CALL                             R5 1 0
        42 RETURN                           R0 0
        43 LENGTH                           R4 R2
@@ -905,7 +905,7 @@ PROTO_28:
        45 CALL                             R11 1 2
        46 GETUPVAL                         R13 4
        47 GETTABLEKS                       R13 R13 K4 ["useState"]
-       49 LOADN                            R14 253
+       49 LOADN                            R14 -3
        50 CALL                             R13 1 2
        51 GETUPVAL                         R15 4
        52 GETTABLEKS                       R15 R15 K4 ["useState"]

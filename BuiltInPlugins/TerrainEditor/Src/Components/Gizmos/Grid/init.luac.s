@@ -128,93 +128,89 @@ PROTO_0:
       167 GETUPVAL                         R28 3
       168 GETTABLEKS                       R28 R28 K34 ["createElement"]
       170 GETUPVAL                         R29 4
-      171 DUPTABLE                         R30 K39 [{"Adornee", "AlwaysOnTop", "CFrame", "Size", "Visible"}]
+      171 DUPTABLE                         R30 K40 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Size"], ["Visible"]}]
       172 SETTABLEKS                       R1 R30 K35 ["Adornee"]
-      174 LOADB                            R31 1
-      175 SETTABLEKS                       R31 R30 K37 ["AlwaysOnTop"]
-      177 MUL                              R31 R4 R24
-      178 SETTABLEKS                       R31 R30 K23 ["CFrame"]
-      180 SETTABLEKS                       R23 R30 K6 ["Size"]
-      182 GETTABLEKS                       R31 R0 K37 ["AlwaysOnTop"]
-      184 SETTABLEKS                       R31 R30 K38 ["Visible"]
-      186 CALL                             R28 2 1
-      187 SETTABLE                         R28 R7 R27
-      188 LOADK                            R28 K32 ["Line%*"]
-      189 MOVE                             R30 R12
-      190 NAMECALL                         R28 R28 K33 ["format"]
-      192 CALL                             R28 2 1
-      193 MOVE                             R27 R28
-      194 GETUPVAL                         R28 3
-      195 GETTABLEKS                       R28 R28 K34 ["createElement"]
-      197 GETUPVAL                         R29 4
-      198 DUPTABLE                         R30 K36 [{"Adornee", "CFrame", "Size"}]
-      199 SETTABLEKS                       R1 R30 K35 ["Adornee"]
-      201 MUL                              R31 R4 R26
-      202 SETTABLEKS                       R31 R30 K23 ["CFrame"]
-      204 SETTABLEKS                       R25 R30 K6 ["Size"]
-      206 CALL                             R28 2 1
-      207 SETTABLE                         R28 R8 R27
-      208 LOADK                            R28 K32 ["Line%*"]
-      209 MOVE                             R30 R12
-      210 NAMECALL                         R28 R28 K33 ["format"]
-      212 CALL                             R28 2 1
-      213 MOVE                             R27 R28
-      214 GETUPVAL                         R28 3
-      215 GETTABLEKS                       R28 R28 K34 ["createElement"]
-      217 GETUPVAL                         R29 4
-      218 DUPTABLE                         R30 K39 [{"Adornee", "AlwaysOnTop", "CFrame", "Size", "Visible"}]
-      219 SETTABLEKS                       R1 R30 K35 ["Adornee"]
-      221 LOADB                            R31 1
-      222 SETTABLEKS                       R31 R30 K37 ["AlwaysOnTop"]
-      224 MUL                              R31 R4 R26
-      225 SETTABLEKS                       R31 R30 K23 ["CFrame"]
-      227 SETTABLEKS                       R25 R30 K6 ["Size"]
-      229 GETTABLEKS                       R31 R0 K37 ["AlwaysOnTop"]
-      231 SETTABLEKS                       R31 R30 K38 ["Visible"]
-      233 CALL                             R28 2 1
-      234 SETTABLE                         R28 R9 R27
-      235 FORNLOOP                         R10
-      236 GETUPVAL                         R10 5
-      237 GETTABLEKS                       R10 R10 K40 ["createPortal"]
-      239 DUPTABLE                         R11 K42 [{"Grid"}]
-      240 GETUPVAL                         R12 3
-      241 GETTABLEKS                       R12 R12 K34 ["createElement"]
-      243 LOADK                            R13 K43 ["Folder"]
-      244 NEWTABLE                         R14 0 0
-      246 DUPTABLE                         R15 K48 [{"Lines", "LinesOnTop", "LinesPerpendicular", "LinesOnTopPerpendicular"}]
-      247 GETUPVAL                         R16 3
-      248 GETTABLEKS                       R16 R16 K34 ["createElement"]
-      250 LOADK                            R17 K43 ["Folder"]
-      251 NEWTABLE                         R18 0 0
-      253 MOVE                             R19 R6
-      254 CALL                             R16 3 1
-      255 SETTABLEKS                       R16 R15 K44 ["Lines"]
-      257 GETUPVAL                         R16 3
-      258 GETTABLEKS                       R16 R16 K34 ["createElement"]
-      260 LOADK                            R17 K43 ["Folder"]
-      261 NEWTABLE                         R18 0 0
-      263 MOVE                             R19 R7
-      264 CALL                             R16 3 1
-      265 SETTABLEKS                       R16 R15 K45 ["LinesOnTop"]
-      267 GETUPVAL                         R16 3
-      268 GETTABLEKS                       R16 R16 K34 ["createElement"]
-      270 LOADK                            R17 K43 ["Folder"]
-      271 NEWTABLE                         R18 0 0
-      273 MOVE                             R19 R8
-      274 CALL                             R16 3 1
-      275 SETTABLEKS                       R16 R15 K46 ["LinesPerpendicular"]
-      277 GETUPVAL                         R16 3
-      278 GETTABLEKS                       R16 R16 K34 ["createElement"]
-      280 LOADK                            R17 K43 ["Folder"]
-      281 NEWTABLE                         R18 0 0
-      283 MOVE                             R19 R9
-      284 CALL                             R16 3 1
-      285 SETTABLEKS                       R16 R15 K47 ["LinesOnTopPerpendicular"]
-      287 CALL                             R12 3 1
-      288 SETTABLEKS                       R12 R11 K41 ["Grid"]
-      290 GETUPVAL                         R12 6
-      291 CALL                             R10 2 -1
-      292 RETURN                           R10 -1
+      174 MUL                              R31 R4 R24
+      175 SETTABLEKS                       R31 R30 K23 ["CFrame"]
+      177 SETTABLEKS                       R23 R30 K6 ["Size"]
+      179 GETTABLEKS                       R31 R0 K37 ["AlwaysOnTop"]
+      181 SETTABLEKS                       R31 R30 K39 ["Visible"]
+      183 CALL                             R28 2 1
+      184 SETTABLE                         R28 R7 R27
+      185 LOADK                            R28 K32 ["Line%*"]
+      186 MOVE                             R30 R12
+      187 NAMECALL                         R28 R28 K33 ["format"]
+      189 CALL                             R28 2 1
+      190 MOVE                             R27 R28
+      191 GETUPVAL                         R28 3
+      192 GETTABLEKS                       R28 R28 K34 ["createElement"]
+      194 GETUPVAL                         R29 4
+      195 DUPTABLE                         R30 K36 [{"Adornee", "CFrame", "Size"}]
+      196 SETTABLEKS                       R1 R30 K35 ["Adornee"]
+      198 MUL                              R31 R4 R26
+      199 SETTABLEKS                       R31 R30 K23 ["CFrame"]
+      201 SETTABLEKS                       R25 R30 K6 ["Size"]
+      203 CALL                             R28 2 1
+      204 SETTABLE                         R28 R8 R27
+      205 LOADK                            R28 K32 ["Line%*"]
+      206 MOVE                             R30 R12
+      207 NAMECALL                         R28 R28 K33 ["format"]
+      209 CALL                             R28 2 1
+      210 MOVE                             R27 R28
+      211 GETUPVAL                         R28 3
+      212 GETTABLEKS                       R28 R28 K34 ["createElement"]
+      214 GETUPVAL                         R29 4
+      215 DUPTABLE                         R30 K40 [{["Adornee"], ["AlwaysOnTop"] = True, ["CFrame"], ["Size"], ["Visible"]}]
+      216 SETTABLEKS                       R1 R30 K35 ["Adornee"]
+      218 MUL                              R31 R4 R26
+      219 SETTABLEKS                       R31 R30 K23 ["CFrame"]
+      221 SETTABLEKS                       R25 R30 K6 ["Size"]
+      223 GETTABLEKS                       R31 R0 K37 ["AlwaysOnTop"]
+      225 SETTABLEKS                       R31 R30 K39 ["Visible"]
+      227 CALL                             R28 2 1
+      228 SETTABLE                         R28 R9 R27
+      229 FORNLOOP                         R10
+      230 GETUPVAL                         R10 5
+      231 GETTABLEKS                       R10 R10 K41 ["createPortal"]
+      233 DUPTABLE                         R11 K43 [{"Grid"}]
+      234 GETUPVAL                         R12 3
+      235 GETTABLEKS                       R12 R12 K34 ["createElement"]
+      237 LOADK                            R13 K44 ["Folder"]
+      238 NEWTABLE                         R14 0 0
+      240 DUPTABLE                         R15 K49 [{"Lines", "LinesOnTop", "LinesPerpendicular", "LinesOnTopPerpendicular"}]
+      241 GETUPVAL                         R16 3
+      242 GETTABLEKS                       R16 R16 K34 ["createElement"]
+      244 LOADK                            R17 K44 ["Folder"]
+      245 NEWTABLE                         R18 0 0
+      247 MOVE                             R19 R6
+      248 CALL                             R16 3 1
+      249 SETTABLEKS                       R16 R15 K45 ["Lines"]
+      251 GETUPVAL                         R16 3
+      252 GETTABLEKS                       R16 R16 K34 ["createElement"]
+      254 LOADK                            R17 K44 ["Folder"]
+      255 NEWTABLE                         R18 0 0
+      257 MOVE                             R19 R7
+      258 CALL                             R16 3 1
+      259 SETTABLEKS                       R16 R15 K46 ["LinesOnTop"]
+      261 GETUPVAL                         R16 3
+      262 GETTABLEKS                       R16 R16 K34 ["createElement"]
+      264 LOADK                            R17 K44 ["Folder"]
+      265 NEWTABLE                         R18 0 0
+      267 MOVE                             R19 R8
+      268 CALL                             R16 3 1
+      269 SETTABLEKS                       R16 R15 K47 ["LinesPerpendicular"]
+      271 GETUPVAL                         R16 3
+      272 GETTABLEKS                       R16 R16 K34 ["createElement"]
+      274 LOADK                            R17 K44 ["Folder"]
+      275 NEWTABLE                         R18 0 0
+      277 MOVE                             R19 R9
+      278 CALL                             R16 3 1
+      279 SETTABLEKS                       R16 R15 K48 ["LinesOnTopPerpendicular"]
+      281 CALL                             R12 3 1
+      282 SETTABLEKS                       R12 R11 K42 ["Grid"]
+      284 GETUPVAL                         R12 6
+      285 CALL                             R10 2 -1
+      286 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

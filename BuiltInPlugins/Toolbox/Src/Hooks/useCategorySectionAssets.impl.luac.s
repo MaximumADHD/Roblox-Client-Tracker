@@ -66,7 +66,7 @@ PROTO_1:
 PROTO_2:
         0 GETUPVAL                         R2 0
         1 GETTABLE                         R1 R0 R2
-        2 JUMPIFNOT                        R1 ; [+24]
+        2 JUMPIFNOT                        R1 ; [+21]
         3 GETUPVAL                         R1 1
         4 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
         6 GETTABLEKS                       R1 R1 K1 ["join"]
@@ -78,31 +78,27 @@ PROTO_2:
        15 GETTABLEKS                       R5 R5 K1 ["join"]
        17 GETUPVAL                         R7 0
        18 GETTABLE                         R6 R0 R7
-       19 DUPTABLE                         R7 K3 [{"loading"}]
-       20 LOADB                            R8 1
-       21 SETTABLEKS                       R8 R7 K2 ["loading"]
-       23 CALL                             R5 2 1
-       24 SETTABLE                         R5 R3 R4
-       25 CALL                             R1 2 -1
-       26 RETURN                           R1 -1
-       27 GETUPVAL                         R1 1
-       28 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
-       30 GETTABLEKS                       R1 R1 K1 ["join"]
-       32 MOVE                             R2 R0
-       33 NEWTABLE                         R3 1 0
-       35 GETUPVAL                         R4 0
-       36 DUPTABLE                         R5 K7 [{"loading", "assets", "assetMap", "assetIds"}]
-       37 LOADB                            R6 1
-       38 SETTABLEKS                       R6 R5 K2 ["loading"]
-       40 NEWTABLE                         R6 0 0
-       42 SETTABLEKS                       R6 R5 K4 ["assets"]
-       44 NEWTABLE                         R6 0 0
-       46 SETTABLEKS                       R6 R5 K5 ["assetMap"]
-       48 NEWTABLE                         R6 0 0
-       50 SETTABLEKS                       R6 R5 K6 ["assetIds"]
-       52 SETTABLE                         R5 R3 R4
-       53 CALL                             R1 2 -1
-       54 RETURN                           R1 -1
+       19 DUPTABLE                         R7 K4 [{["loading"] = True}]
+       20 CALL                             R5 2 1
+       21 SETTABLE                         R5 R3 R4
+       22 CALL                             R1 2 -1
+       23 RETURN                           R1 -1
+       24 GETUPVAL                         R1 1
+       25 GETTABLEKS                       R1 R1 K0 ["Dictionary"]
+       27 GETTABLEKS                       R1 R1 K1 ["join"]
+       29 MOVE                             R2 R0
+       30 NEWTABLE                         R3 1 0
+       32 GETUPVAL                         R4 0
+       33 DUPTABLE                         R5 K8 [{["loading"] = True, ["assets"], ["assetMap"], ["assetIds"]}]
+       34 NEWTABLE                         R6 0 0
+       36 SETTABLEKS                       R6 R5 K5 ["assets"]
+       38 NEWTABLE                         R6 0 0
+       40 SETTABLEKS                       R6 R5 K6 ["assetMap"]
+       42 NEWTABLE                         R6 0 0
+       44 SETTABLEKS                       R6 R5 K7 ["assetIds"]
+       46 SETTABLE                         R5 R3 R4
+       47 CALL                             R1 2 -1
+       48 RETURN                           R1 -1
 
 PROTO_3:
         0 GETUPVAL                         R0 0
@@ -183,31 +179,29 @@ PROTO_4:
        77 GETTABLEKS                       R8 R8 K21 ["Dictionary"]
        79 GETTABLEKS                       R8 R8 K22 ["join"]
        81 MOVE                             R9 R1
-       82 DUPTABLE                         R10 K25 [{"loading", "assets", "assetMap", "assetIds", "fetchNextPage"}]
-       83 LOADB                            R11 0
-       84 SETTABLEKS                       R11 R10 K23 ["loading"]
-       86 GETUPVAL                         R11 4
-       87 GETTABLEKS                       R11 R11 K26 ["List"]
-       89 GETTABLEKS                       R11 R11 K22 ["join"]
-       91 GETTABLEKS                       R12 R1 K0 ["assets"]
-       93 MOVE                             R13 R3
-       94 CALL                             R11 2 1
-       95 SETTABLEKS                       R11 R10 K0 ["assets"]
-       97 NEWTABLE                         R11 0 0
-       99 SETTABLEKS                       R11 R10 K2 ["assetMap"]
-      101 NEWTABLE                         R11 0 0
-      103 SETTABLEKS                       R11 R10 K1 ["assetIds"]
-      105 NEWCLOSURE                       R11 P0
-      106 CAPTURE                          UPVAL U4
-      107 CAPTURE                          UPVAL U5
-      108 CAPTURE                          UPVAL U1
-      109 CAPTURE                          UPVAL U6
-      110 CAPTURE                          UPVAL U0
-      111 SETTABLEKS                       R11 R10 K24 ["fetchNextPage"]
-      113 CALL                             R8 2 1
-      114 SETTABLE                         R8 R6 R7
-      115 CALL                             R4 2 -1
-      116 RETURN                           R4 -1
+       82 DUPTABLE                         R10 K26 [{["loading"] = False, [2], ["assetMap"], ["assetIds"], ["fetchNextPage"]}]
+       83 GETUPVAL                         R11 4
+       84 GETTABLEKS                       R11 R11 K27 ["List"]
+       86 GETTABLEKS                       R11 R11 K22 ["join"]
+       88 GETTABLEKS                       R12 R1 K0 ["assets"]
+       90 MOVE                             R13 R3
+       91 CALL                             R11 2 1
+       92 SETTABLEKS                       R11 R10 K0 ["assets"]
+       94 NEWTABLE                         R11 0 0
+       96 SETTABLEKS                       R11 R10 K2 ["assetMap"]
+       98 NEWTABLE                         R11 0 0
+      100 SETTABLEKS                       R11 R10 K1 ["assetIds"]
+      102 NEWCLOSURE                       R11 P0
+      103 CAPTURE                          UPVAL U4
+      104 CAPTURE                          UPVAL U5
+      105 CAPTURE                          UPVAL U1
+      106 CAPTURE                          UPVAL U6
+      107 CAPTURE                          UPVAL U0
+      108 SETTABLEKS                       R11 R10 K25 ["fetchNextPage"]
+      110 CALL                             R8 2 1
+      111 SETTABLE                         R8 R6 R7
+      112 CALL                             R4 2 -1
+      113 RETURN                           R4 -1
 
 PROTO_5:
         0 GETUPVAL                         R2 0
@@ -254,13 +248,11 @@ PROTO_6:
        12 GETTABLEKS                       R5 R5 K1 ["join"]
        14 GETUPVAL                         R7 1
        15 GETTABLE                         R6 R0 R7
-       16 DUPTABLE                         R7 K3 [{"loading"}]
-       17 LOADB                            R8 0
-       18 SETTABLEKS                       R8 R7 K2 ["loading"]
-       20 CALL                             R5 2 1
-       21 SETTABLE                         R5 R3 R4
-       22 CALL                             R1 2 -1
-       23 RETURN                           R1 -1
+       16 DUPTABLE                         R7 K4 [{["loading"] = False}]
+       17 CALL                             R5 2 1
+       18 SETTABLE                         R5 R3 R4
+       19 CALL                             R1 2 -1
+       20 RETURN                           R1 -1
 
 PROTO_7:
         0 GETUPVAL                         R1 0

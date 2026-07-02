@@ -233,7 +233,7 @@ PROTO_9:
        75 MOVE                             R14 R7
        76 SETLIST                          R10 R11 4 [1]
        78 CALL                             R8 2 0
-       79 JUMPIFNOT                        R4 ; [+62]
+       79 JUMPIFNOT                        R4 ; [+56]
        80 GETUPVAL                         R8 1
        81 GETTABLEKS                       R8 R8 K11 ["createElement"]
        83 GETUPVAL                         R9 4
@@ -242,39 +242,35 @@ PROTO_9:
        87 GETUPVAL                         R12 1
        88 GETTABLEKS                       R12 R12 K11 ["createElement"]
        90 GETUPVAL                         R13 5
-       91 DUPTABLE                         R14 K21 [{"Ambient", "Camera", "FocusDirection", "InitialDistance", "Model", "ShouldClone", "Static", "ImageTransparency"}]
-       92 GETIMPORT                        R15 K23 [Color3.new]
+       91 DUPTABLE                         R14 K23 [{["Ambient"], ["Camera"], ["FocusDirection"], ["InitialDistance"], ["Model"], ["ShouldClone"] = False, ["Static"] = True, ["ImageTransparency"]}]
+       92 GETIMPORT                        R15 K25 [Color3.new]
        94 LOADN                            R16 1
        95 LOADN                            R17 1
        96 LOADN                            R18 1
        97 CALL                             R15 3 1
        98 SETTABLEKS                       R15 R14 K14 ["Ambient"]
       100 SETTABLEKS                       R3 R14 K15 ["Camera"]
-      102 GETTABLEKS                       R15 R4 K24 ["PrimaryPart"]
-      104 GETTABLEKS                       R15 R15 K25 ["CFrame"]
-      106 GETTABLEKS                       R15 R15 K26 ["LookVector"]
-      108 GETTABLEKS                       R17 R4 K24 ["PrimaryPart"]
-      110 GETTABLEKS                       R17 R17 K25 ["CFrame"]
-      112 GETTABLEKS                       R17 R17 K27 ["RightVector"]
-      114 GETTABLEKS                       R18 R1 K28 ["FrontRightAngleLerp"]
-      116 NAMECALL                         R15 R15 K29 ["Lerp"]
+      102 GETTABLEKS                       R15 R4 K26 ["PrimaryPart"]
+      104 GETTABLEKS                       R15 R15 K27 ["CFrame"]
+      106 GETTABLEKS                       R15 R15 K28 ["LookVector"]
+      108 GETTABLEKS                       R17 R4 K26 ["PrimaryPart"]
+      110 GETTABLEKS                       R17 R17 K27 ["CFrame"]
+      112 GETTABLEKS                       R17 R17 K29 ["RightVector"]
+      114 GETTABLEKS                       R18 R1 K30 ["FrontRightAngleLerp"]
+      116 NAMECALL                         R15 R15 K31 ["Lerp"]
       118 CALL                             R15 3 1
       119 SETTABLEKS                       R15 R14 K16 ["FocusDirection"]
       121 GETTABLEKS                       R15 R1 K17 ["InitialDistance"]
       123 SETTABLEKS                       R15 R14 K17 ["InitialDistance"]
       125 SETTABLEKS                       R2 R14 K12 ["Model"]
-      127 LOADB                            R15 0
-      128 SETTABLEKS                       R15 R14 K18 ["ShouldClone"]
-      130 LOADB                            R15 1
-      131 SETTABLEKS                       R15 R14 K19 ["Static"]
-      133 GETTABLEKS                       R15 R0 K30 ["Transparency"]
-      135 SETTABLEKS                       R15 R14 K20 ["ImageTransparency"]
-      137 CALL                             R12 2 1
-      138 SETTABLEKS                       R12 R11 K12 ["Model"]
-      140 CALL                             R8 3 1
-      141 RETURN                           R8 1
-      142 LOADNIL                          R8
-      143 RETURN                           R8 1
+      127 GETTABLEKS                       R15 R0 K32 ["Transparency"]
+      129 SETTABLEKS                       R15 R14 K22 ["ImageTransparency"]
+      131 CALL                             R12 2 1
+      132 SETTABLEKS                       R12 R11 K12 ["Model"]
+      134 CALL                             R8 3 1
+      135 RETURN                           R8 1
+      136 LOADNIL                          R8
+      137 RETURN                           R8 1
 
 MAIN:
         0 PREPVARARGS                      0

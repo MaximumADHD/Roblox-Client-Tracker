@@ -304,34 +304,28 @@ MAIN:
        40 GETTABLEKS                       R5 R5 K9 ["Actions"]
        42 GETTABLEKS                       R5 R5 K12 ["SetCloudTableId"]
        44 CALL                             R4 1 1
-       45 DUPTABLE                         R5 K16 [{"owner", "collaborator", "translator"}]
-       46 LOADB                            R6 1
-       47 SETTABLEKS                       R6 R5 K13 ["owner"]
-       49 LOADB                            R6 1
-       50 SETTABLEKS                       R6 R5 K14 ["collaborator"]
-       52 LOADB                            R6 1
-       53 SETTABLEKS                       R6 R5 K15 ["translator"]
-       55 DUPCLOSURE                       R6 K17 [PROTO_3]
-       56 CAPTURE                          VAL R2
-       57 DUPCLOSURE                       R7 K18 [PROTO_7]
-       58 CAPTURE                          VAL R3
-       59 CAPTURE                          VAL R5
-       60 DUPCLOSURE                       R8 K19 [PROTO_11]
-       61 CAPTURE                          VAL R1
-       62 CAPTURE                          VAL R4
-       63 DUPCLOSURE                       R9 K20 [PROTO_13]
-       64 CAPTURE                          VAL R3
-       65 CAPTURE                          VAL R4
-       66 CAPTURE                          VAL R5
-       67 CAPTURE                          VAL R1
-       68 DUPCLOSURE                       R10 K21 [PROTO_15]
-       69 CAPTURE                          VAL R2
-       70 CAPTURE                          VAL R3
-       71 CAPTURE                          VAL R5
-       72 CAPTURE                          VAL R1
-       73 CAPTURE                          VAL R4
-       74 DUPTABLE                         R11 K25 [{"GetAll", "OnGameIdChanged", "GetManageTranslationPermission"}]
-       75 SETTABLEKS                       R10 R11 K22 ["GetAll"]
-       77 SETTABLEKS                       R9 R11 K23 ["OnGameIdChanged"]
-       79 SETTABLEKS                       R7 R11 K24 ["GetManageTranslationPermission"]
-       81 RETURN                           R11 1
+       45 DUPTABLE                         R5 K17 [{["owner"] = True, ["collaborator"] = True, ["translator"] = True}]
+       46 DUPCLOSURE                       R6 K18 [PROTO_3]
+       47 CAPTURE                          VAL R2
+       48 DUPCLOSURE                       R7 K19 [PROTO_7]
+       49 CAPTURE                          VAL R3
+       50 CAPTURE                          VAL R5
+       51 DUPCLOSURE                       R8 K20 [PROTO_11]
+       52 CAPTURE                          VAL R1
+       53 CAPTURE                          VAL R4
+       54 DUPCLOSURE                       R9 K21 [PROTO_13]
+       55 CAPTURE                          VAL R3
+       56 CAPTURE                          VAL R4
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R1
+       59 DUPCLOSURE                       R10 K22 [PROTO_15]
+       60 CAPTURE                          VAL R2
+       61 CAPTURE                          VAL R3
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R1
+       64 CAPTURE                          VAL R4
+       65 DUPTABLE                         R11 K26 [{"GetAll", "OnGameIdChanged", "GetManageTranslationPermission"}]
+       66 SETTABLEKS                       R10 R11 K23 ["GetAll"]
+       68 SETTABLEKS                       R9 R11 K24 ["OnGameIdChanged"]
+       70 SETTABLEKS                       R7 R11 K25 ["GetManageTranslationPermission"]
+       72 RETURN                           R11 1

@@ -63,7 +63,7 @@ PROTO_1:
        82 GETIMPORT                        R12 K35 [table.insert]
        84 CALL                             R12 -1 0
        85 FORGLOOP                         R7 2 [inext] ; [-46]
-       87 JUMPIFNOT                        R5 ; [+47]
+       87 JUMPIFNOT                        R5 ; [+44]
        88 GETUPVAL                         R7 0
        89 GETTABLEKS                       R7 R7 K6 ["createElement"]
        91 LOADK                            R8 K36 ["TextLabel"]
@@ -72,8 +72,8 @@ PROTO_1:
        95 GETTABLEKS                       R9 R9 K38 ["join"]
        97 GETTABLEKS                       R10 R2 K39 ["fontStyle"]
        99 GETTABLEKS                       R10 R10 K40 ["SmallError"]
-      101 DUPTABLE                         R11 K45 [{"LayoutOrder", "Size", "BackgroundTransparency", "Text", "TextXAlignment", "TextYAlignment"}]
-      102 ADDK                             R12 R4 K46 [1]
+      101 DUPTABLE                         R11 K46 [{["LayoutOrder"], ["Size"], ["BackgroundTransparency"] = 1, ["Text"], ["TextXAlignment"], ["TextYAlignment"]}]
+      102 ADDK                             R12 R4 K43 [1]
       103 SETTABLEKS                       R12 R11 K16 ["LayoutOrder"]
       105 GETIMPORT                        R12 K48 [UDim2.new]
       107 LOADN                            R13 1
@@ -83,39 +83,37 @@ PROTO_1:
       111 GETTABLEKS                       R16 R16 K49 ["CHECKBOX_SIZE"]
       113 CALL                             R12 4 1
       114 SETTABLEKS                       R12 R11 K41 ["Size"]
-      116 LOADN                            R12 1
-      117 SETTABLEKS                       R12 R11 K42 ["BackgroundTransparency"]
-      119 GETTABLEKS                       R12 R1 K3 ["ErrorMessage"]
-      121 SETTABLEKS                       R12 R11 K24 ["Text"]
-      123 GETIMPORT                        R12 K51 [Enum.TextXAlignment.Left]
-      125 SETTABLEKS                       R12 R11 K43 ["TextXAlignment"]
-      127 GETIMPORT                        R12 K53 [Enum.TextYAlignment.Center]
-      129 SETTABLEKS                       R12 R11 K44 ["TextYAlignment"]
-      131 CALL                             R9 2 -1
-      132 CALL                             R7 -1 1
-      133 SETTABLEKS                       R7 R6 K54 ["Error"]
-      135 GETUPVAL                         R9 1
-      136 GETTABLEKS                       R9 R9 K49 ["CHECKBOX_SIZE"]
-      138 MUL                              R8 R4 R9
-      139 GETUPVAL                         R10 1
-      140 GETTABLEKS                       R10 R10 K14 ["CHECKBOX_PADDING"]
-      142 MUL                              R9 R4 R10
-      143 ADD                              R7 R8 R9
-      144 GETTABLEKS                       R8 R1 K55 ["ShowWarning"]
-      146 JUMPIFNOT                        R8 ; [+1]
-      147 MULK                             R7 R7 K56 [3]
-      148 GETUPVAL                         R8 0
-      149 GETTABLEKS                       R8 R8 K6 ["createElement"]
-      151 GETUPVAL                         R9 4
-      152 DUPTABLE                         R10 K57 [{"LayoutOrder", "Title"}]
-      153 GETTABLEKS                       R12 R1 K16 ["LayoutOrder"]
-      155 ORK                              R11 R12 K46 [1]
-      156 SETTABLEKS                       R11 R10 K16 ["LayoutOrder"]
-      158 GETTABLEKS                       R11 R1 K29 ["Title"]
-      160 SETTABLEKS                       R11 R10 K29 ["Title"]
-      162 MOVE                             R11 R6
-      163 CALL                             R8 3 -1
-      164 RETURN                           R8 -1
+      116 GETTABLEKS                       R12 R1 K3 ["ErrorMessage"]
+      118 SETTABLEKS                       R12 R11 K24 ["Text"]
+      120 GETIMPORT                        R12 K51 [Enum.TextXAlignment.Left]
+      122 SETTABLEKS                       R12 R11 K44 ["TextXAlignment"]
+      124 GETIMPORT                        R12 K53 [Enum.TextYAlignment.Center]
+      126 SETTABLEKS                       R12 R11 K45 ["TextYAlignment"]
+      128 CALL                             R9 2 -1
+      129 CALL                             R7 -1 1
+      130 SETTABLEKS                       R7 R6 K54 ["Error"]
+      132 GETUPVAL                         R9 1
+      133 GETTABLEKS                       R9 R9 K49 ["CHECKBOX_SIZE"]
+      135 MUL                              R8 R4 R9
+      136 GETUPVAL                         R10 1
+      137 GETTABLEKS                       R10 R10 K14 ["CHECKBOX_PADDING"]
+      139 MUL                              R9 R4 R10
+      140 ADD                              R7 R8 R9
+      141 GETTABLEKS                       R8 R1 K55 ["ShowWarning"]
+      143 JUMPIFNOT                        R8 ; [+1]
+      144 MULK                             R7 R7 K56 [3]
+      145 GETUPVAL                         R8 0
+      146 GETTABLEKS                       R8 R8 K6 ["createElement"]
+      148 GETUPVAL                         R9 4
+      149 DUPTABLE                         R10 K57 [{"LayoutOrder", "Title"}]
+      150 GETTABLEKS                       R12 R1 K16 ["LayoutOrder"]
+      152 ORK                              R11 R12 K43 [1]
+      153 SETTABLEKS                       R11 R10 K16 ["LayoutOrder"]
+      155 GETTABLEKS                       R11 R1 K29 ["Title"]
+      157 SETTABLEKS                       R11 R10 K29 ["Title"]
+      159 MOVE                             R11 R6
+      160 CALL                             R8 3 -1
+      161 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

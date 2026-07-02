@@ -2,47 +2,39 @@ PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K3 [{"Padding", "Size"}]
-        5 LOADN                            R4 2
-        6 SETTABLEKS                       R4 R3 K1 ["Padding"]
-        8 GETTABLEKS                       R4 R0 K2 ["Size"]
-       10 SETTABLEKS                       R4 R3 K2 ["Size"]
-       12 DUPTABLE                         R4 K5 [{"Image"}]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       16 GETUPVAL                         R6 2
-       17 DUPTABLE                         R7 K7 [{"Style"}]
-       18 DUPTABLE                         R8 K5 [{"Image"}]
-       19 LOADK                            R9 K8 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Air.png"]
-       20 SETTABLEKS                       R9 R8 K4 ["Image"]
-       22 SETTABLEKS                       R8 R7 K6 ["Style"]
-       24 CALL                             R5 2 1
-       25 SETTABLEKS                       R5 R4 K4 ["Image"]
-       27 CALL                             R1 3 -1
-       28 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K4 [{["Padding"] = 2, ["Size"]}]
+        5 GETTABLEKS                       R4 R0 K3 ["Size"]
+        7 SETTABLEKS                       R4 R3 K3 ["Size"]
+        9 DUPTABLE                         R4 K6 [{"Image"}]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       13 GETUPVAL                         R6 2
+       14 DUPTABLE                         R7 K8 [{"Style"}]
+       15 DUPTABLE                         R8 K10 [{["Image"] = "rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Air.png"}]
+       16 SETTABLEKS                       R8 R7 K7 ["Style"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K5 ["Image"]
+       21 CALL                             R1 3 -1
+       22 RETURN                           R1 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K3 [{"Padding", "Size"}]
-        5 LOADN                            R4 2
-        6 SETTABLEKS                       R4 R3 K1 ["Padding"]
-        8 GETTABLEKS                       R4 R0 K2 ["Size"]
-       10 SETTABLEKS                       R4 R3 K2 ["Size"]
-       12 DUPTABLE                         R4 K5 [{"Image"}]
-       13 GETUPVAL                         R5 0
-       14 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       16 GETUPVAL                         R6 2
-       17 DUPTABLE                         R7 K7 [{"Style"}]
-       18 DUPTABLE                         R8 K5 [{"Image"}]
-       19 LOADK                            R9 K8 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Water.png"]
-       20 SETTABLEKS                       R9 R8 K4 ["Image"]
-       22 SETTABLEKS                       R8 R7 K6 ["Style"]
-       24 CALL                             R5 2 1
-       25 SETTABLEKS                       R5 R4 K4 ["Image"]
-       27 CALL                             R1 3 -1
-       28 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K4 [{["Padding"] = 2, ["Size"]}]
+        5 GETTABLEKS                       R4 R0 K3 ["Size"]
+        7 SETTABLEKS                       R4 R3 K3 ["Size"]
+        9 DUPTABLE                         R4 K6 [{"Image"}]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       13 GETUPVAL                         R6 2
+       14 DUPTABLE                         R7 K8 [{"Style"}]
+       15 DUPTABLE                         R8 K10 [{["Image"] = "rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Water.png"}]
+       16 SETTABLEKS                       R8 R7 K7 ["Style"]
+       18 CALL                             R5 2 1
+       19 SETTABLEKS                       R5 R4 K5 ["Image"]
+       21 CALL                             R1 3 -1
+       22 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -96,14 +88,14 @@ PROTO_4:
        47 GETUPVAL                         R9 3
        48 GETTABLEKS                       R9 R9 K5 ["createElement"]
        50 GETUPVAL                         R10 5
-       51 DUPTABLE                         R11 K33 [{"AutomaticSize", "CustomPreviews", "GridItemSize", "InitialDistance", "OnClick", "Items", "ScrollingDirection", "SelectedItemId", "ShowGridLabels", "Size", "ViewType"}]
+       51 DUPTABLE                         R11 K34 [{["AutomaticSize"], ["CustomPreviews"], ["GridItemSize"], ["InitialDistance"], ["OnClick"], ["Items"], ["ScrollingDirection"], ["SelectedItemId"], ["ShowGridLabels"] = False, ["Size"], ["ViewType"]}]
        52 GETIMPORT                        R12 K13 [Enum.AutomaticSize.Y]
        54 SETTABLEKS                       R12 R11 K6 ["AutomaticSize"]
        56 NEWTABLE                         R12 2 0
-       58 GETIMPORT                        R13 K36 [Enum.Material.Air]
+       58 GETIMPORT                        R13 K37 [Enum.Material.Air]
        60 GETUPVAL                         R14 6
        61 SETTABLE                         R14 R12 R13
-       62 GETIMPORT                        R13 K38 [Enum.Material.Water]
+       62 GETIMPORT                        R13 K39 [Enum.Material.Water]
        64 GETUPVAL                         R14 7
        65 SETTABLE                         R14 R12 R13
        66 SETTABLEKS                       R12 R11 K24 ["CustomPreviews"]
@@ -113,26 +105,24 @@ PROTO_4:
        74 SETTABLEKS                       R12 R11 K26 ["InitialDistance"]
        76 SETTABLEKS                       R4 R11 K27 ["OnClick"]
        78 SETTABLEKS                       R3 R11 K28 ["Items"]
-       80 GETIMPORT                        R12 K39 [Enum.ScrollingDirection.Y]
+       80 GETIMPORT                        R12 K40 [Enum.ScrollingDirection.Y]
        82 SETTABLEKS                       R12 R11 K29 ["ScrollingDirection"]
        84 GETUPVAL                         R12 8
-       85 GETTABLEKS                       R13 R0 K40 ["Value"]
+       85 GETTABLEKS                       R13 R0 K41 ["Value"]
        87 CALL                             R12 1 1
        88 SETTABLEKS                       R12 R11 K30 ["SelectedItemId"]
-       90 LOADB                            R12 0
-       91 SETTABLEKS                       R12 R11 K31 ["ShowGridLabels"]
-       93 GETIMPORT                        R12 K19 [UDim2.fromScale]
-       95 LOADN                            R13 1
-       96 LOADN                            R14 0
-       97 CALL                             R12 2 1
-       98 SETTABLEKS                       R12 R11 K8 ["Size"]
-      100 GETUPVAL                         R12 9
-      101 GETTABLEKS                       R12 R12 K22 ["Grid"]
-      103 SETTABLEKS                       R12 R11 K32 ["ViewType"]
-      105 CALL                             R9 2 1
-      106 SETTABLEKS                       R9 R8 K22 ["Grid"]
-      108 CALL                             R5 3 -1
-      109 RETURN                           R5 -1
+       90 GETIMPORT                        R12 K19 [UDim2.fromScale]
+       92 LOADN                            R13 1
+       93 LOADN                            R14 0
+       94 CALL                             R12 2 1
+       95 SETTABLEKS                       R12 R11 K8 ["Size"]
+       97 GETUPVAL                         R12 9
+       98 GETTABLEKS                       R12 R12 K22 ["Grid"]
+      100 SETTABLEKS                       R12 R11 K33 ["ViewType"]
+      102 CALL                             R9 2 1
+      103 SETTABLEKS                       R9 R8 K22 ["Grid"]
+      105 CALL                             R5 3 -1
+      106 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

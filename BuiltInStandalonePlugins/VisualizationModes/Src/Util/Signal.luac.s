@@ -18,18 +18,14 @@ PROTO_1:
         6 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R3 K4 [{"_connected", "_signal", "_fn", "_next"}]
-        1 LOADB                            R4 1
-        2 SETTABLEKS                       R4 R3 K0 ["_connected"]
-        4 SETTABLEKS                       R0 R3 K1 ["_signal"]
-        6 SETTABLEKS                       R1 R3 K2 ["_fn"]
-        8 LOADB                            R4 0
-        9 SETTABLEKS                       R4 R3 K3 ["_next"]
-       11 GETUPVAL                         R4 0
-       12 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
-       14 GETIMPORT                        R2 K6 [setmetatable]
-       16 CALL                             R2 2 1
-       17 RETURN                           R2 1
+        0 DUPTABLE                         R3 K6 [{[1] = True, ["_signal"], ["_fn"], ["_next"] = False}]
+        1 SETTABLEKS                       R0 R3 K2 ["_signal"]
+        3 SETTABLEKS                       R1 R3 K3 ["_fn"]
+        5 GETUPVAL                         R4 0
+        6 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+        8 GETIMPORT                        R2 K8 [setmetatable]
+       10 CALL                             R2 2 1
+       11 RETURN                           R2 1
 
 PROTO_3:
         0 LOADB                            R1 0
@@ -80,14 +76,12 @@ PROTO_5:
        13 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R1 K1 [{"_handlerListHead"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["_handlerListHead"]
-        4 GETUPVAL                         R2 0
-        5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        7 GETIMPORT                        R0 K3 [setmetatable]
-        9 CALL                             R0 2 1
-       10 RETURN                           R0 1
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 GETUPVAL                         R2 0
+        2 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        4 GETIMPORT                        R0 K4 [setmetatable]
+        6 CALL                             R0 2 1
+        7 RETURN                           R0 1
 
 PROTO_7:
         0 LOADB                            R1 0

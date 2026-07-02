@@ -22,17 +22,15 @@ PROTO_0:
        25 MOVE                             R10 R7
        26 NAMECALL                         R8 R2 K5 ["CopyRegion"]
        28 CALL                             R8 2 1
-       29 DUPTABLE                         R9 K11 [{"BackupRegion", "BackupTerrainRegion", "CurrentIndex", "Regions", "StartTime"}]
+       29 DUPTABLE                         R9 K12 [{["BackupRegion"], ["BackupTerrainRegion"], ["CurrentIndex"] = 1, ["Regions"], ["StartTime"]}]
        30 SETTABLEKS                       R7 R9 K6 ["BackupRegion"]
        32 SETTABLEKS                       R8 R9 K7 ["BackupTerrainRegion"]
-       34 LOADN                            R10 1
-       35 SETTABLEKS                       R10 R9 K8 ["CurrentIndex"]
-       37 SETTABLEKS                       R6 R9 K9 ["Regions"]
-       39 GETIMPORT                        R10 K14 [os.clock]
-       41 CALL                             R10 0 1
-       42 SETTABLEKS                       R10 R9 K10 ["StartTime"]
-       44 SETTABLEKS                       R9 R0 K15 ["State"]
-       46 RETURN                           R0 0
+       34 SETTABLEKS                       R6 R9 K10 ["Regions"]
+       36 GETIMPORT                        R10 K15 [os.clock]
+       38 CALL                             R10 0 1
+       39 SETTABLEKS                       R10 R9 K11 ["StartTime"]
+       41 SETTABLEKS                       R9 R0 K16 ["State"]
+       43 RETURN                           R0 0
 
 PROTO_1:
         0 GETTABLEKS                       R3 R0 K0 ["State"]
@@ -174,19 +172,15 @@ PROTO_4:
        18 CAPTURE                          VAL R2
        19 GETUPVAL                         R7 7
        20 GETTABLEKS                       R7 R7 K0 ["new"]
-       22 DUPTABLE                         R8 K9 [{"AllowPause", "AllowCancel", "Description", "Name", "OnCancel", "OnFinish", "OnStart", "OnStep"}]
-       23 LOADB                            R9 1
-       24 SETTABLEKS                       R9 R8 K1 ["AllowPause"]
-       26 LOADB                            R9 1
-       27 SETTABLEKS                       R9 R8 K2 ["AllowCancel"]
-       29 SETTABLEKS                       R1 R8 K3 ["Description"]
-       31 SETTABLEKS                       R0 R8 K4 ["Name"]
-       33 SETTABLEKS                       R5 R8 K5 ["OnCancel"]
-       35 SETTABLEKS                       R6 R8 K6 ["OnFinish"]
-       37 SETTABLEKS                       R3 R8 K7 ["OnStart"]
-       39 SETTABLEKS                       R4 R8 K8 ["OnStep"]
-       41 CALL                             R7 1 -1
-       42 RETURN                           R7 -1
+       22 DUPTABLE                         R8 K10 [{["AllowPause"] = True, ["AllowCancel"] = True, ["Description"], ["Name"], ["OnCancel"], ["OnFinish"], ["OnStart"], ["OnStep"]}]
+       23 SETTABLEKS                       R1 R8 K4 ["Description"]
+       25 SETTABLEKS                       R0 R8 K5 ["Name"]
+       27 SETTABLEKS                       R5 R8 K6 ["OnCancel"]
+       29 SETTABLEKS                       R6 R8 K7 ["OnFinish"]
+       31 SETTABLEKS                       R3 R8 K8 ["OnStart"]
+       33 SETTABLEKS                       R4 R8 K9 ["OnStep"]
+       35 CALL                             R7 1 -1
+       36 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -63,19 +63,17 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Rodux"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K12 [{"userCountryRegionCode", "countryRegionTable", "countryRegionList"}]
-       26 LOADK                            R5 K13 [""]
-       27 SETTABLEKS                       R5 R4 K9 ["userCountryRegionCode"]
-       29 NEWTABLE                         R5 0 0
-       31 SETTABLEKS                       R5 R4 K10 ["countryRegionTable"]
-       33 NEWTABLE                         R5 0 0
-       35 SETTABLEKS                       R5 R4 K11 ["countryRegionList"]
-       37 DUPTABLE                         R5 K16 [{"LoadCountryRegion", "OnEmulatedCountryRegionChanged"}]
-       38 DUPCLOSURE                       R6 K17 [PROTO_0]
-       39 CAPTURE                          VAL R1
-       40 SETTABLEKS                       R6 R5 K14 ["LoadCountryRegion"]
-       42 DUPCLOSURE                       R6 K18 [PROTO_1]
-       43 CAPTURE                          VAL R1
-       44 SETTABLEKS                       R6 R5 K15 ["OnEmulatedCountryRegionChanged"]
-       46 CALL                             R3 2 -1
-       47 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K13 [{["userCountryRegionCode"] = "", ["countryRegionTable"], ["countryRegionList"]}]
+       26 NEWTABLE                         R5 0 0
+       28 SETTABLEKS                       R5 R4 K11 ["countryRegionTable"]
+       30 NEWTABLE                         R5 0 0
+       32 SETTABLEKS                       R5 R4 K12 ["countryRegionList"]
+       34 DUPTABLE                         R5 K16 [{"LoadCountryRegion", "OnEmulatedCountryRegionChanged"}]
+       35 DUPCLOSURE                       R6 K17 [PROTO_0]
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R6 R5 K14 ["LoadCountryRegion"]
+       39 DUPCLOSURE                       R6 K18 [PROTO_1]
+       40 CAPTURE                          VAL R1
+       41 SETTABLEKS                       R6 R5 K15 ["OnEmulatedCountryRegionChanged"]
+       43 CALL                             R3 2 -1
+       44 RETURN                           R3 -1

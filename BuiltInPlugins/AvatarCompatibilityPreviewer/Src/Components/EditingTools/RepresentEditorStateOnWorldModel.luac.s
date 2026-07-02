@@ -1,12 +1,10 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
-        1 DUPTABLE                         R2 K2 [{"dummy", "includeBuiltInAccessories"}]
+        1 DUPTABLE                         R2 K3 [{[1], ["includeBuiltInAccessories"] = True}]
         2 GETTABLEKS                       R3 R0 K0 ["dummy"]
         4 SETTABLEKS                       R3 R2 K0 ["dummy"]
-        6 LOADB                            R3 1
-        7 SETTABLEKS                       R3 R2 K1 ["includeBuiltInAccessories"]
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0

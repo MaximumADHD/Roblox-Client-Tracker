@@ -26,7 +26,7 @@ PROTO_1:
         1 FASTCALL1                        ASSERT R2 ; [+2]
         2 GETIMPORT                        R1 K1 [assert]
         4 CALL                             R1 1 0
-        5 LOADN                            R1 255
+        5 LOADN                            R1 -1
         6 NAMECALL                         R2 R0 K2 ["GetDescendants"]
         8 CALL                             R2 1 3
         9 FORGPREP                         R2
@@ -160,7 +160,7 @@ PROTO_4:
        37 JUMPIFNOT                        R1 ; [+2]
        38 LOADN                            R6 1
        39 JUMP                             ; [+1]
-       40 LOADN                            R6 255
+       40 LOADN                            R6 -1
        41 ADD                              R8 R5 R6
        42 GETTABLE                         R7 R4 R8
        43 GETTABLEKS                       R8 R0 K7 ["Priority"]

@@ -81,8 +81,8 @@ PROTO_10:
 
 PROTO_11:
         0 GETIMPORT                        R3 K2 [Vector2.new]
-        2 LOADN                            R4 136
-        3 LOADN                            R5 136
+        2 LOADN                            R4 5000
+        3 LOADN                            R5 5000
         4 CALL                             R3 2 1
         5 GETIMPORT                        R4 K4 [game]
         7 LOADK                            R6 K5 ["TextService"]

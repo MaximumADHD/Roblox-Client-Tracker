@@ -2457,7 +2457,7 @@ PROTO_48:
         8 CALL                             R1 4 1
         9 MOVE                             R4 R0
        10 LOADN                            R2 1
-       11 LOADN                            R3 255
+       11 LOADN                            R3 -1
        12 FORNPREP                         R2
        13 GETUPVAL                         R6 0
        14 GETTABLE                         R5 R6 R4
@@ -2501,14 +2501,14 @@ PROTO_48:
        64 GETUPVAL                         R18 3
        65 GETTABLEKS                       R18 R18 K12 ["colorMultiply"]
        67 GETUPVAL                         R19 6
-       68 SUBRK                            R20 R13 K15 ["Transparency"]
+       68 SUBRK                            R20 K13 [1] R15
        69 CALL                             R18 2 -1
        70 CALL                             R16 -1 1
        71 SETTABLEKS                       R16 R11 K14 ["Color3"]
        73 SETTABLEKS                       R8 R11 K15 ["Transparency"]
        75 MULK                             R18 R9 K16 [1.2]
        76 MUL                              R17 R18 R15
-       77 SUBRK                            R19 R13 K15 ["Transparency"]
+       77 SUBRK                            R19 K13 [1] R15
        78 MUL                              R18 R9 R19
        79 ADD                              R16 R17 R18
        80 SETTABLEKS                       R16 R11 K17 ["Thickness"]
@@ -2621,7 +2621,7 @@ PROTO_50:
        73 FASTCALL2                        MATH_MAX R13 R14 ; [+3]
        75 GETIMPORT                        R12 K23 [math.max]
        77 CALL                             R12 2 1
-       78 DIVRK                            R13 R24 K12 ["ScreenPointToRay"]
+       78 DIVRK                            R13 K24 [65] R12
        79 MULK                             R14 R2 K7 [0.5]
        80 GETTABLEKS                       R16 R14 K10 ["x"]
        82 GETTABLEKS                       R17 R14 K11 ["y"]
@@ -3009,7 +3009,7 @@ PROTO_51:
       335 MOVE                             R22 R15
       336 JUMPIF                           R22 ; [+1]
       337 MOVE                             R22 R14
-      338 SUBRK                            R21 R26 K22 [math.max]
+      338 SUBRK                            R21 K26 [1] R22
       339 LOADN                            R23 0
       340 GETTABLE                         R22 R4 R23
       341 LOADN                            R24 0
@@ -3092,7 +3092,7 @@ PROTO_51:
       434 MOVE                             R22 R15
       435 JUMPIF                           R22 ; [+1]
       436 MOVE                             R22 R14
-      437 SUBRK                            R21 R26 K22 [math.max]
+      437 SUBRK                            R21 K26 [1] R22
       438 LOADN                            R23 0
       439 GETTABLE                         R22 R4 R23
       440 LOADN                            R24 0
@@ -4364,7 +4364,7 @@ PROTO_53:
      1289 JUMPIFNOTLT                      R20 R19 ; [+3]
      1291 LOADN                            R18 1
      1292 JUMP                             ; [+1]
-     1293 LOADN                            R18 255
+     1293 LOADN                            R18 -1
      1294 MUL                              R16 R17 R18
      1295 CALL                             R13 3 1
      1296 MUL                              R11 R12 R13
@@ -4520,7 +4520,7 @@ PROTO_53:
      1492 JUMPIFNOTLT                      R21 R20 ; [+3]
      1494 LOADN                            R19 1
      1495 JUMP                             ; [+1]
-     1496 LOADN                            R19 255
+     1496 LOADN                            R19 -1
      1497 MUL                              R17 R18 R19
      1498 SUBK                             R16 R17 K66 [1.5707963267949]
      1499 CALL                             R13 3 1
@@ -4680,7 +4680,7 @@ PROTO_53:
      1700 JUMPIFNOTLT                      R20 R19 ; [+3]
      1702 LOADN                            R18 1
      1703 JUMP                             ; [+1]
-     1704 LOADN                            R18 255
+     1704 LOADN                            R18 -1
      1705 MUL                              R16 R17 R18
      1706 CALL                             R13 3 1
      1707 MUL                              R11 R12 R13
@@ -4946,7 +4946,7 @@ PROTO_53:
      2040 GETTABLEN                        R15 R16 14
      2041 GETTABLEN                        R14 R15 5
      2042 GETTABLEN                        R13 R14 1
-     2043 SUBRK                            R14 R31 K10 ["ipairs"]
+     2043 SUBRK                            R14 K31 [1] R10
      2044 CALL                             R12 2 1
      2045 GETUPVAL                         R15 1
      2046 GETTABLEN                        R14 R15 14
@@ -4965,7 +4965,7 @@ PROTO_53:
      2061 GETTABLEN                        R17 R18 4
      2062 GETTABLEN                        R16 R17 2
      2063 MUL                              R15 R10 R16
-     2064 SUBRK                            R17 R31 K10 ["ipairs"]
+     2064 SUBRK                            R17 K31 [1] R10
      2065 GETUPVAL                         R21 1
      2066 GETTABLEN                        R20 R21 14
      2067 GETTABLEN                        R19 R20 5
@@ -4989,7 +4989,7 @@ PROTO_53:
      2088 GETUPVAL                         R19 17
      2089 GETTABLEKS                       R19 R19 K90 ["colorMultiply"]
      2091 GETUPVAL                         R20 19
-     2092 SUBRK                            R21 R31 K10 ["ipairs"]
+     2092 SUBRK                            R21 K31 [1] R10
      2093 CALL                             R19 2 -1
      2094 CALL                             R17 -1 1
      2095 SETTABLEKS                       R17 R16 K92 ["ImageColor3"]
@@ -5187,7 +5187,7 @@ PROTO_60:
        19 JUMPIFNOTLT                      R4 R2 ; [+3]
        21 SUBK                             R2 R2 K5 [360]
        22 JUMP                             ; [+4]
-       23 LOADN                            R4 76
+       23 LOADN                            R4 -180
        24 JUMPIFNOTLT                      R2 R4 ; [+2]
        26 ADDK                             R2 R2 K5 [360]
        27 GETUPVAL                         R4 1

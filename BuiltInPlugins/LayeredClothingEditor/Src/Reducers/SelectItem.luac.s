@@ -101,57 +101,45 @@ MAIN:
        20 GETTABLEKS                       R3 R3 K7 ["Cryo"]
        22 CALL                             R2 1 1
        23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
-       25 DUPTABLE                         R4 K19 [{"editingItem", "layeredClothingItemsInList", "manuallyHiddenLayeredClothingItems", "editingCage", "cagesTransparency", "acessoryTypeInfo", "size", "meshScale", "inBounds", "attachmentPoint"}]
-       26 LOADNIL                          R5
-       27 SETTABLEKS                       R5 R4 K9 ["editingItem"]
-       29 NEWTABLE                         R5 0 0
-       31 SETTABLEKS                       R5 R4 K10 ["layeredClothingItemsInList"]
-       33 NEWTABLE                         R5 0 0
-       35 SETTABLEKS                       R5 R4 K11 ["manuallyHiddenLayeredClothingItems"]
-       37 LOADNIL                          R5
-       38 SETTABLEKS                       R5 R4 K12 ["editingCage"]
-       40 NEWTABLE                         R5 0 0
-       42 SETTABLEKS                       R5 R4 K13 ["cagesTransparency"]
-       44 LOADNIL                          R5
-       45 SETTABLEKS                       R5 R4 K14 ["acessoryTypeInfo"]
-       47 LOADK                            R5 K20 [{1, 1, 1}]
-       48 SETTABLEKS                       R5 R4 K15 ["size"]
-       50 LOADK                            R5 K20 [{1, 1, 1}]
-       51 SETTABLEKS                       R5 R4 K16 ["meshScale"]
-       53 LOADB                            R5 0
-       54 SETTABLEKS                       R5 R4 K17 ["inBounds"]
-       56 DUPTABLE                         R5 K23 [{"ItemCFrame", "AttachmentCFrame"}]
-       57 GETIMPORT                        R6 K26 [CFrame.new]
-       59 CALL                             R6 0 1
-       60 SETTABLEKS                       R6 R5 K21 ["ItemCFrame"]
-       62 GETIMPORT                        R6 K26 [CFrame.new]
-       64 CALL                             R6 0 1
-       65 SETTABLEKS                       R6 R5 K22 ["AttachmentCFrame"]
-       67 SETTABLEKS                       R5 R4 K18 ["attachmentPoint"]
-       69 DUPTABLE                         R5 K35 [{"SetManuallyHiddenLayeredClothingItems", "SetEditingCage", "SetCagesTransparency", "SetAccessoryTypeInfo", "SetAttachmentPoint", "SetItemSize", "SetMeshScale", "SetInBounds"}]
-       70 DUPCLOSURE                       R6 K36 [PROTO_0]
-       71 CAPTURE                          VAL R2
-       72 SETTABLEKS                       R6 R5 K27 ["SetManuallyHiddenLayeredClothingItems"]
-       74 DUPCLOSURE                       R6 K37 [PROTO_1]
-       75 CAPTURE                          VAL R2
-       76 SETTABLEKS                       R6 R5 K28 ["SetEditingCage"]
-       78 DUPCLOSURE                       R6 K38 [PROTO_2]
-       79 CAPTURE                          VAL R2
-       80 SETTABLEKS                       R6 R5 K29 ["SetCagesTransparency"]
-       82 DUPCLOSURE                       R6 K39 [PROTO_3]
-       83 CAPTURE                          VAL R2
-       84 SETTABLEKS                       R6 R5 K30 ["SetAccessoryTypeInfo"]
-       86 DUPCLOSURE                       R6 K40 [PROTO_4]
-       87 CAPTURE                          VAL R2
-       88 SETTABLEKS                       R6 R5 K31 ["SetAttachmentPoint"]
-       90 DUPCLOSURE                       R6 K41 [PROTO_5]
-       91 CAPTURE                          VAL R2
-       92 SETTABLEKS                       R6 R5 K32 ["SetItemSize"]
-       94 DUPCLOSURE                       R6 K42 [PROTO_6]
-       95 CAPTURE                          VAL R2
-       96 SETTABLEKS                       R6 R5 K33 ["SetMeshScale"]
-       98 DUPCLOSURE                       R6 K43 [PROTO_7]
-       99 CAPTURE                          VAL R2
-      100 SETTABLEKS                       R6 R5 K34 ["SetInBounds"]
-      102 CALL                             R3 2 -1
-      103 RETURN                           R3 -1
+       25 DUPTABLE                         R4 K22 [{["editingItem"] = , ["layeredClothingItemsInList"], ["manuallyHiddenLayeredClothingItems"], ["editingCage"] = , ["cagesTransparency"], ["acessoryTypeInfo"] = , ["size"] = {1, 1, 1}, ["meshScale"] = {1, 1, 1}, ["inBounds"] = False, ["attachmentPoint"]}]
+       26 NEWTABLE                         R5 0 0
+       28 SETTABLEKS                       R5 R4 K11 ["layeredClothingItemsInList"]
+       30 NEWTABLE                         R5 0 0
+       32 SETTABLEKS                       R5 R4 K12 ["manuallyHiddenLayeredClothingItems"]
+       34 NEWTABLE                         R5 0 0
+       36 SETTABLEKS                       R5 R4 K14 ["cagesTransparency"]
+       38 DUPTABLE                         R5 K25 [{"ItemCFrame", "AttachmentCFrame"}]
+       39 GETIMPORT                        R6 K28 [CFrame.new]
+       41 CALL                             R6 0 1
+       42 SETTABLEKS                       R6 R5 K23 ["ItemCFrame"]
+       44 GETIMPORT                        R6 K28 [CFrame.new]
+       46 CALL                             R6 0 1
+       47 SETTABLEKS                       R6 R5 K24 ["AttachmentCFrame"]
+       49 SETTABLEKS                       R5 R4 K21 ["attachmentPoint"]
+       51 DUPTABLE                         R5 K37 [{"SetManuallyHiddenLayeredClothingItems", "SetEditingCage", "SetCagesTransparency", "SetAccessoryTypeInfo", "SetAttachmentPoint", "SetItemSize", "SetMeshScale", "SetInBounds"}]
+       52 DUPCLOSURE                       R6 K38 [PROTO_0]
+       53 CAPTURE                          VAL R2
+       54 SETTABLEKS                       R6 R5 K29 ["SetManuallyHiddenLayeredClothingItems"]
+       56 DUPCLOSURE                       R6 K39 [PROTO_1]
+       57 CAPTURE                          VAL R2
+       58 SETTABLEKS                       R6 R5 K30 ["SetEditingCage"]
+       60 DUPCLOSURE                       R6 K40 [PROTO_2]
+       61 CAPTURE                          VAL R2
+       62 SETTABLEKS                       R6 R5 K31 ["SetCagesTransparency"]
+       64 DUPCLOSURE                       R6 K41 [PROTO_3]
+       65 CAPTURE                          VAL R2
+       66 SETTABLEKS                       R6 R5 K32 ["SetAccessoryTypeInfo"]
+       68 DUPCLOSURE                       R6 K42 [PROTO_4]
+       69 CAPTURE                          VAL R2
+       70 SETTABLEKS                       R6 R5 K33 ["SetAttachmentPoint"]
+       72 DUPCLOSURE                       R6 K43 [PROTO_5]
+       73 CAPTURE                          VAL R2
+       74 SETTABLEKS                       R6 R5 K34 ["SetItemSize"]
+       76 DUPCLOSURE                       R6 K44 [PROTO_6]
+       77 CAPTURE                          VAL R2
+       78 SETTABLEKS                       R6 R5 K35 ["SetMeshScale"]
+       80 DUPCLOSURE                       R6 K45 [PROTO_7]
+       81 CAPTURE                          VAL R2
+       82 SETTABLEKS                       R6 R5 K36 ["SetInBounds"]
+       84 CALL                             R3 2 -1
+       85 RETURN                           R3 -1

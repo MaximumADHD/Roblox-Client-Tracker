@@ -270,75 +270,69 @@ PROTO_13:
       152 SETTABLEKS                       R15 R14 K27 ["ZIndex"]
       154 SETTABLEKS                       R14 R13 K14 ["WrapperProps"]
       156 DUPTABLE                         R14 K33 [{"codeSettings", "textStyles", "headerStyles", "imageStyles"}]
-      157 DUPTABLE                         R15 K36 [{"showLineNumbers", "showCopyButton"}]
-      158 LOADB                            R16 1
-      159 SETTABLEKS                       R16 R15 K34 ["showLineNumbers"]
-      161 LOADB                            R16 1
-      162 SETTABLEKS                       R16 R15 K35 ["showCopyButton"]
-      164 SETTABLEKS                       R15 R14 K29 ["codeSettings"]
-      166 DUPTABLE                         R15 K39 [{"font", "textSize"}]
-      167 GETIMPORT                        R16 K43 [Enum.Font.BuilderSans]
-      169 SETTABLEKS                       R16 R15 K37 ["font"]
-      171 GETTABLEKS                       R16 R3 K44 ["FontSize"]
-      173 GETTABLEKS                       R16 R16 K45 ["FontSize_350"]
-      175 SETTABLEKS                       R16 R15 K38 ["textSize"]
-      177 SETTABLEKS                       R15 R14 K30 ["textStyles"]
-      179 NEWTABLE                         R15 0 4
-      181 DUPTABLE                         R16 K39 [{"font", "textSize"}]
-      182 GETIMPORT                        R17 K47 [Enum.Font.BuilderSansBold]
-      184 SETTABLEKS                       R17 R16 K37 ["font"]
-      186 GETTABLEKS                       R17 R3 K44 ["FontSize"]
-      188 GETTABLEKS                       R17 R17 K48 ["FontSize_700"]
-      190 SETTABLEKS                       R17 R16 K38 ["textSize"]
-      192 SETTABLEN                        R16 R15 1
-      193 DUPTABLE                         R16 K39 [{"font", "textSize"}]
-      194 GETIMPORT                        R17 K47 [Enum.Font.BuilderSansBold]
-      196 SETTABLEKS                       R17 R16 K37 ["font"]
-      198 GETTABLEKS                       R17 R3 K44 ["FontSize"]
-      200 GETTABLEKS                       R17 R17 K49 ["FontSize_600"]
-      202 SETTABLEKS                       R17 R16 K38 ["textSize"]
-      204 SETTABLEN                        R16 R15 2
-      205 DUPTABLE                         R16 K39 [{"font", "textSize"}]
-      206 GETIMPORT                        R17 K47 [Enum.Font.BuilderSansBold]
-      208 SETTABLEKS                       R17 R16 K37 ["font"]
-      210 GETTABLEKS                       R17 R3 K44 ["FontSize"]
-      212 GETTABLEKS                       R17 R17 K50 ["FontSize_500"]
-      214 SETTABLEKS                       R17 R16 K38 ["textSize"]
-      216 SETTABLEN                        R16 R15 3
-      217 DUPTABLE                         R16 K39 [{"font", "textSize"}]
-      218 GETIMPORT                        R17 K52 [Enum.Font.BuilderSansMedium]
-      220 SETTABLEKS                       R17 R16 K37 ["font"]
-      222 GETTABLEKS                       R17 R3 K44 ["FontSize"]
-      224 GETTABLEKS                       R17 R17 K53 ["FontSize_400"]
-      226 SETTABLEKS                       R17 R16 K38 ["textSize"]
-      228 SETTABLEN                        R16 R15 4
-      229 SETTABLEKS                       R15 R14 K31 ["headerStyles"]
-      231 DUPTABLE                         R15 K59 [{"size", "scaleType", "backgroundColor3", "backgroundTransparency", "tags"}]
-      232 GETIMPORT                        R16 K62 [UDim2.new]
-      234 LOADN                            R17 1
-      235 LOADN                            R18 0
-      236 LOADN                            R19 0
-      237 LOADN                            R20 200
-      238 CALL                             R16 4 1
-      239 SETTABLEKS                       R16 R15 K54 ["size"]
-      241 GETIMPORT                        R16 K65 [Enum.ScaleType.Fit]
-      243 SETTABLEKS                       R16 R15 K55 ["scaleType"]
-      245 GETTABLEKS                       R16 R3 K66 ["Color"]
-      247 GETTABLEKS                       R16 R16 K67 ["Surface"]
-      249 GETTABLEKS                       R16 R16 K68 ["Surface_0"]
-      251 GETTABLEKS                       R16 R16 K69 ["Color3"]
-      253 SETTABLEKS                       R16 R15 K56 ["backgroundColor3"]
-      255 GETTABLEKS                       R16 R3 K66 ["Color"]
-      257 GETTABLEKS                       R16 R16 K67 ["Surface"]
-      259 GETTABLEKS                       R16 R16 K68 ["Surface_0"]
-      261 GETTABLEKS                       R16 R16 K70 ["Transparency"]
-      263 SETTABLEKS                       R16 R15 K57 ["backgroundTransparency"]
-      265 LOADK                            R16 K71 ["X-Corner"]
-      266 SETTABLEKS                       R16 R15 K58 ["tags"]
-      268 SETTABLEKS                       R15 R14 K32 ["imageStyles"]
-      270 SETTABLEKS                       R14 R13 K15 ["MarkdownRendererProps"]
-      272 CALL                             R11 2 -1
-      273 RETURN                           R11 -1
+      157 DUPTABLE                         R15 K37 [{["showLineNumbers"] = True, ["showCopyButton"] = True}]
+      158 SETTABLEKS                       R15 R14 K29 ["codeSettings"]
+      160 DUPTABLE                         R15 K40 [{"font", "textSize"}]
+      161 GETIMPORT                        R16 K44 [Enum.Font.BuilderSans]
+      163 SETTABLEKS                       R16 R15 K38 ["font"]
+      165 GETTABLEKS                       R16 R3 K45 ["FontSize"]
+      167 GETTABLEKS                       R16 R16 K46 ["FontSize_350"]
+      169 SETTABLEKS                       R16 R15 K39 ["textSize"]
+      171 SETTABLEKS                       R15 R14 K30 ["textStyles"]
+      173 NEWTABLE                         R15 0 4
+      175 DUPTABLE                         R16 K40 [{"font", "textSize"}]
+      176 GETIMPORT                        R17 K48 [Enum.Font.BuilderSansBold]
+      178 SETTABLEKS                       R17 R16 K38 ["font"]
+      180 GETTABLEKS                       R17 R3 K45 ["FontSize"]
+      182 GETTABLEKS                       R17 R17 K49 ["FontSize_700"]
+      184 SETTABLEKS                       R17 R16 K39 ["textSize"]
+      186 SETTABLEN                        R16 R15 1
+      187 DUPTABLE                         R16 K40 [{"font", "textSize"}]
+      188 GETIMPORT                        R17 K48 [Enum.Font.BuilderSansBold]
+      190 SETTABLEKS                       R17 R16 K38 ["font"]
+      192 GETTABLEKS                       R17 R3 K45 ["FontSize"]
+      194 GETTABLEKS                       R17 R17 K50 ["FontSize_600"]
+      196 SETTABLEKS                       R17 R16 K39 ["textSize"]
+      198 SETTABLEN                        R16 R15 2
+      199 DUPTABLE                         R16 K40 [{"font", "textSize"}]
+      200 GETIMPORT                        R17 K48 [Enum.Font.BuilderSansBold]
+      202 SETTABLEKS                       R17 R16 K38 ["font"]
+      204 GETTABLEKS                       R17 R3 K45 ["FontSize"]
+      206 GETTABLEKS                       R17 R17 K51 ["FontSize_500"]
+      208 SETTABLEKS                       R17 R16 K39 ["textSize"]
+      210 SETTABLEN                        R16 R15 3
+      211 DUPTABLE                         R16 K40 [{"font", "textSize"}]
+      212 GETIMPORT                        R17 K53 [Enum.Font.BuilderSansMedium]
+      214 SETTABLEKS                       R17 R16 K38 ["font"]
+      216 GETTABLEKS                       R17 R3 K45 ["FontSize"]
+      218 GETTABLEKS                       R17 R17 K54 ["FontSize_400"]
+      220 SETTABLEKS                       R17 R16 K39 ["textSize"]
+      222 SETTABLEN                        R16 R15 4
+      223 SETTABLEKS                       R15 R14 K31 ["headerStyles"]
+      225 DUPTABLE                         R15 K61 [{["size"], ["scaleType"], ["backgroundColor3"], ["backgroundTransparency"], ["tags"] = "X-Corner"}]
+      226 GETIMPORT                        R16 K64 [UDim2.new]
+      228 LOADN                            R17 1
+      229 LOADN                            R18 0
+      230 LOADN                            R19 0
+      231 LOADN                            R20 200
+      232 CALL                             R16 4 1
+      233 SETTABLEKS                       R16 R15 K55 ["size"]
+      235 GETIMPORT                        R16 K67 [Enum.ScaleType.Fit]
+      237 SETTABLEKS                       R16 R15 K56 ["scaleType"]
+      239 GETTABLEKS                       R16 R3 K68 ["Color"]
+      241 GETTABLEKS                       R16 R16 K69 ["Surface"]
+      243 GETTABLEKS                       R16 R16 K70 ["Surface_0"]
+      245 GETTABLEKS                       R16 R16 K71 ["Color3"]
+      247 SETTABLEKS                       R16 R15 K57 ["backgroundColor3"]
+      249 GETTABLEKS                       R16 R3 K68 ["Color"]
+      251 GETTABLEKS                       R16 R16 K69 ["Surface"]
+      253 GETTABLEKS                       R16 R16 K70 ["Surface_0"]
+      255 GETTABLEKS                       R16 R16 K72 ["Transparency"]
+      257 SETTABLEKS                       R16 R15 K58 ["backgroundTransparency"]
+      259 SETTABLEKS                       R15 R14 K32 ["imageStyles"]
+      261 SETTABLEKS                       R14 R13 K15 ["MarkdownRendererProps"]
+      263 CALL                             R11 2 -1
+      264 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

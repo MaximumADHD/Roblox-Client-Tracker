@@ -69,49 +69,45 @@ PROTO_2:
        57 GETUPVAL                         R13 1
        58 GETTABLEKS                       R13 R13 K5 ["createElement"]
        60 GETUPVAL                         R14 3
-       61 DUPTABLE                         R15 K34 [{"BackgroundStyle", "LeftIcon", "OnClick", "IconColor", "TooltipText"}]
-       62 LOADK                            R16 K35 ["None"]
-       63 SETTABLEKS                       R16 R15 K29 ["BackgroundStyle"]
-       65 GETTABLEKS                       R16 R3 K36 ["AssignIcon"]
-       67 SETTABLEKS                       R16 R15 K30 ["LeftIcon"]
-       69 GETTABLEKS                       R16 R0 K37 ["onRegister"]
-       71 SETTABLEKS                       R16 R15 K31 ["OnClick"]
-       73 GETTABLEKS                       R16 R3 K38 ["AssignIconColor"]
-       75 SETTABLEKS                       R16 R15 K32 ["IconColor"]
-       77 LOADK                            R18 K39 ["Tooltip"]
-       78 LOADK                            R19 K40 ["RegisterTag"]
-       79 NAMECALL                         R16 R2 K41 ["getText"]
-       81 CALL                             R16 3 1
-       82 SETTABLEKS                       R16 R15 K33 ["TooltipText"]
-       84 CALL                             R13 2 1
-       85 SETTABLEKS                       R13 R12 K26 ["RegisterGroupButton"]
-       87 GETUPVAL                         R13 1
-       88 GETTABLEKS                       R13 R13 K5 ["createElement"]
-       90 GETUPVAL                         R14 4
-       91 DUPTABLE                         R15 K43 [{"Cursor"}]
-       92 LOADK                            R16 K44 ["PointingHand"]
-       93 SETTABLEKS                       R16 R15 K42 ["Cursor"]
-       95 CALL                             R13 2 1
-       96 SETTABLEKS                       R13 R12 K27 ["HoverArea"]
-       98 CALL                             R9 3 1
-       99 SETTABLEKS                       R9 R8 K20 ["CheckboxPane"]
-      101 GETUPVAL                         R9 1
-      102 GETTABLEKS                       R9 R9 K5 ["createElement"]
-      104 GETUPVAL                         R10 5
-      105 DUPTABLE                         R11 K47 [{"LayoutOrder", "Text", "Size", "TextXAlignment"}]
-      106 NAMECALL                         R12 R4 K24 ["getNextOrder"]
-      108 CALL                             R12 1 1
-      109 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
-      111 GETTABLEKS                       R12 R1 K48 ["TagName"]
-      113 SETTABLEKS                       R12 R11 K45 ["Text"]
-      115 GETTABLEKS                       R12 R3 K49 ["TextSize"]
-      117 SETTABLEKS                       R12 R11 K7 ["Size"]
-      119 GETIMPORT                        R12 K50 [Enum.TextXAlignment.Left]
-      121 SETTABLEKS                       R12 R11 K46 ["TextXAlignment"]
-      123 CALL                             R9 2 1
-      124 SETTABLEKS                       R9 R8 K21 ["NameText"]
-      126 CALL                             R5 3 -1
-      127 RETURN                           R5 -1
+       61 DUPTABLE                         R15 K35 [{["BackgroundStyle"] = "None", ["LeftIcon"], ["OnClick"], ["IconColor"], ["TooltipText"]}]
+       62 GETTABLEKS                       R16 R3 K36 ["AssignIcon"]
+       64 SETTABLEKS                       R16 R15 K31 ["LeftIcon"]
+       66 GETTABLEKS                       R16 R0 K37 ["onRegister"]
+       68 SETTABLEKS                       R16 R15 K32 ["OnClick"]
+       70 GETTABLEKS                       R16 R3 K38 ["AssignIconColor"]
+       72 SETTABLEKS                       R16 R15 K33 ["IconColor"]
+       74 LOADK                            R18 K39 ["Tooltip"]
+       75 LOADK                            R19 K40 ["RegisterTag"]
+       76 NAMECALL                         R16 R2 K41 ["getText"]
+       78 CALL                             R16 3 1
+       79 SETTABLEKS                       R16 R15 K34 ["TooltipText"]
+       81 CALL                             R13 2 1
+       82 SETTABLEKS                       R13 R12 K26 ["RegisterGroupButton"]
+       84 GETUPVAL                         R13 1
+       85 GETTABLEKS                       R13 R13 K5 ["createElement"]
+       87 GETUPVAL                         R14 4
+       88 DUPTABLE                         R15 K44 [{["Cursor"] = "PointingHand"}]
+       89 CALL                             R13 2 1
+       90 SETTABLEKS                       R13 R12 K27 ["HoverArea"]
+       92 CALL                             R9 3 1
+       93 SETTABLEKS                       R9 R8 K20 ["CheckboxPane"]
+       95 GETUPVAL                         R9 1
+       96 GETTABLEKS                       R9 R9 K5 ["createElement"]
+       98 GETUPVAL                         R10 5
+       99 DUPTABLE                         R11 K47 [{"LayoutOrder", "Text", "Size", "TextXAlignment"}]
+      100 NAMECALL                         R12 R4 K24 ["getNextOrder"]
+      102 CALL                             R12 1 1
+      103 SETTABLEKS                       R12 R11 K6 ["LayoutOrder"]
+      105 GETTABLEKS                       R12 R1 K48 ["TagName"]
+      107 SETTABLEKS                       R12 R11 K45 ["Text"]
+      109 GETTABLEKS                       R12 R3 K49 ["TextSize"]
+      111 SETTABLEKS                       R12 R11 K7 ["Size"]
+      113 GETIMPORT                        R12 K50 [Enum.TextXAlignment.Left]
+      115 SETTABLEKS                       R12 R11 K46 ["TextXAlignment"]
+      117 CALL                             R9 2 1
+      118 SETTABLEKS                       R9 R8 K21 ["NameText"]
+      120 CALL                             R5 3 -1
+      121 RETURN                           R5 -1
 
 PROTO_3:
         0 DUPTABLE                         R2 K1 [{"assigningGroup"}]

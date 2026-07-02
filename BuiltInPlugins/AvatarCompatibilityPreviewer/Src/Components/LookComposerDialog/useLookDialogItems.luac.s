@@ -65,10 +65,10 @@ PROTO_3:
        50 FORGLOOP                         R2 2 ; [-29]
        52 GETUPVAL                         R2 1
        53 CALL                             R2 0 1
-       54 JUMPIFNOT                        R2 ; [+51]
+       54 JUMPIFNOT                        R2 ; [+45]
        55 GETUPVAL                         R2 2
        56 GETTABLEKS                       R2 R2 K5 ["dialogLookType"]
-       58 JUMPIFNOTEQKS                    R2 K6 ["AvatarLook"] ; [+47]
+       58 JUMPIFNOTEQKS                    R2 K6 ["AvatarLook"] ; [+41]
        60 LOADNIL                          R2
        61 GETUPVAL                         R3 2
        62 GETTABLEKS                       R3 R3 K15 ["equippedItems"]
@@ -87,19 +87,15 @@ PROTO_3:
        84 GETTABLEKS                       R2 R8 K22 ["builtinItem"]
        86 JUMP                             ; [+2]
        87 FORGLOOP                         R3 2 ; [-21]
-       89 JUMPIFNOT                        R2 ; [+16]
+       89 JUMPIFNOT                        R2 ; [+10]
        90 LOADN                            R5 1
-       91 DUPTABLE                         R6 K24 [{"itemRowType", "color", "rowState"}]
-       92 LOADK                            R7 K25 ["BodyColor"]
-       93 SETTABLEKS                       R7 R6 K7 ["itemRowType"]
-       95 SETTABLEKS                       R2 R6 K23 ["color"]
-       97 LOADK                            R7 K12 ["Selected"]
-       98 SETTABLEKS                       R7 R6 K13 ["rowState"]
-      100 FASTCALL3                        TABLE_INSERT R0 R5 R6
-      102 MOVE                             R4 R0
-      103 GETIMPORT                        R3 K27 [table.insert]
-      105 CALL                             R3 3 0
-      106 RETURN                           R0 1
+       91 DUPTABLE                         R6 K25 [{["itemRowType"] = "BodyColor", ["color"], ["rowState"] = "Selected"}]
+       92 SETTABLEKS                       R2 R6 K24 ["color"]
+       94 FASTCALL3                        TABLE_INSERT R0 R5 R6
+       96 MOVE                             R4 R0
+       97 GETIMPORT                        R3 K27 [table.insert]
+       99 CALL                             R3 3 0
+      100 RETURN                           R0 1
 
 PROTO_4:
         0 GETUPVAL                         R0 0
@@ -114,72 +110,68 @@ PROTO_4:
        14 LOADNIL                          R3
        15 FORGPREP                         R1
        16 GETTABLEKS                       R6 R5 K4 ["isLocalized"]
-       18 JUMPIFNOT                        R6 ; [+19]
-       19 DUPTABLE                         R8 K7 [{"message", "isBlocking", "isLocalized"}]
+       18 JUMPIFNOT                        R6 ; [+16]
+       19 DUPTABLE                         R8 K8 [{["message"], ["isBlocking"], ["isLocalized"] = True}]
        20 GETTABLEKS                       R9 R5 K5 ["message"]
        22 SETTABLEKS                       R9 R8 K5 ["message"]
        24 GETTABLEKS                       R9 R5 K6 ["isBlocking"]
        26 SETTABLEKS                       R9 R8 K6 ["isBlocking"]
-       28 LOADB                            R9 1
-       29 SETTABLEKS                       R9 R8 K4 ["isLocalized"]
-       31 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       33 MOVE                             R7 R0
-       34 GETIMPORT                        R6 K10 [table.insert]
-       36 CALL                             R6 2 0
-       37 JUMP                             ; [+23]
-       38 DUPTABLE                         R8 K7 [{"message", "isBlocking", "isLocalized"}]
-       39 GETUPVAL                         R9 1
-       40 LOADK                            R11 K11 ["LookComposerDialog"]
-       41 GETTABLEKS                       R12 R5 K5 ["message"]
-       43 NAMECALL                         R9 R9 K12 ["getText"]
-       45 CALL                             R9 3 1
-       46 SETTABLEKS                       R9 R8 K5 ["message"]
-       48 GETTABLEKS                       R9 R5 K6 ["isBlocking"]
-       50 SETTABLEKS                       R9 R8 K6 ["isBlocking"]
-       52 LOADB                            R9 1
-       53 SETTABLEKS                       R9 R8 K4 ["isLocalized"]
-       55 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       57 MOVE                             R7 R0
-       58 GETIMPORT                        R6 K10 [table.insert]
-       60 CALL                             R6 2 0
-       61 FORGLOOP                         R1 2 ; [-46]
-       63 GETUPVAL                         R1 2
-       64 MOVE                             R2 R0
-       65 CALL                             R1 1 0
-       66 LENGTH                           R1 R0
-       67 LOADN                            R2 0
-       68 JUMPIFNOTLT                      R2 R1 ; [+7]
+       28 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
+       30 MOVE                             R7 R0
+       31 GETIMPORT                        R6 K11 [table.insert]
+       33 CALL                             R6 2 0
+       34 JUMP                             ; [+20]
+       35 DUPTABLE                         R8 K8 [{["message"], ["isBlocking"], ["isLocalized"] = True}]
+       36 GETUPVAL                         R9 1
+       37 LOADK                            R11 K12 ["LookComposerDialog"]
+       38 GETTABLEKS                       R12 R5 K5 ["message"]
+       40 NAMECALL                         R9 R9 K13 ["getText"]
+       42 CALL                             R9 3 1
+       43 SETTABLEKS                       R9 R8 K5 ["message"]
+       45 GETTABLEKS                       R9 R5 K6 ["isBlocking"]
+       47 SETTABLEKS                       R9 R8 K6 ["isBlocking"]
+       49 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
+       51 MOVE                             R7 R0
+       52 GETIMPORT                        R6 K11 [table.insert]
+       54 CALL                             R6 2 0
+       55 FORGLOOP                         R1 2 ; [-40]
+       57 GETUPVAL                         R1 2
+       58 MOVE                             R2 R0
+       59 CALL                             R1 1 0
+       60 LENGTH                           R1 R0
+       61 LOADN                            R2 0
+       62 JUMPIFNOTLT                      R2 R1 ; [+7]
+       64 GETUPVAL                         R1 3
+       65 LOADK                            R3 K14 ["marketplaceLookPreviewError"]
+       66 NAMECALL                         R1 R1 K15 ["report"]
+       68 CALL                             R1 2 0
+       69 JUMP                             ; [+5]
        70 GETUPVAL                         R1 3
-       71 LOADK                            R3 K13 ["marketplaceLookPreviewError"]
-       72 NAMECALL                         R1 R1 K14 ["report"]
+       71 LOADK                            R3 K16 ["marketplaceLookPreviewSuccess"]
+       72 NAMECALL                         R1 R1 K15 ["report"]
        74 CALL                             R1 2 0
-       75 JUMP                             ; [+5]
-       76 GETUPVAL                         R1 3
-       77 LOADK                            R3 K15 ["marketplaceLookPreviewSuccess"]
-       78 NAMECALL                         R1 R1 K14 ["report"]
-       80 CALL                             R1 2 0
-       81 GETUPVAL                         R2 4
-       82 GETTABLEKS                       R2 R2 K16 ["selectedCreatorId"]
-       84 LOADK                            R4 K17 ["_"]
-       85 NAMECALL                         R2 R2 K18 ["split"]
-       87 CALL                             R2 2 1
-       88 GETTABLEN                        R1 R2 1
-       89 GETUPVAL                         R3 4
-       90 GETTABLEKS                       R3 R3 K16 ["selectedCreatorId"]
-       92 LOADK                            R5 K17 ["_"]
-       93 NAMECALL                         R3 R3 K18 ["split"]
-       95 CALL                             R3 2 1
-       96 GETTABLEN                        R2 R3 2
-       97 GETUPVAL                         R3 5
-       98 NEWCLOSURE                       R4 P0
-       99 CAPTURE                          UPVAL U0
-      100 CAPTURE                          UPVAL U6
-      101 CAPTURE                          UPVAL U4
-      102 CAPTURE                          VAL R2
-      103 CAPTURE                          VAL R1
-      104 CAPTURE                          UPVAL U7
-      105 CALL                             R3 1 0
-      106 RETURN                           R0 0
+       75 GETUPVAL                         R2 4
+       76 GETTABLEKS                       R2 R2 K17 ["selectedCreatorId"]
+       78 LOADK                            R4 K18 ["_"]
+       79 NAMECALL                         R2 R2 K19 ["split"]
+       81 CALL                             R2 2 1
+       82 GETTABLEN                        R1 R2 1
+       83 GETUPVAL                         R3 4
+       84 GETTABLEKS                       R3 R3 K17 ["selectedCreatorId"]
+       86 LOADK                            R5 K18 ["_"]
+       87 NAMECALL                         R3 R3 K19 ["split"]
+       89 CALL                             R3 2 1
+       90 GETTABLEN                        R2 R3 2
+       91 GETUPVAL                         R3 5
+       92 NEWCLOSURE                       R4 P0
+       93 CAPTURE                          UPVAL U0
+       94 CAPTURE                          UPVAL U6
+       95 CAPTURE                          UPVAL U4
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R1
+       98 CAPTURE                          UPVAL U7
+       99 CALL                             R3 1 0
+      100 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R1 0

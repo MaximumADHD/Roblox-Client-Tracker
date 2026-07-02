@@ -12,70 +12,58 @@ PROTO_1:
 
 PROTO_2:
         0 LOADK                            R5 K0 ["ManageTabs"]
-        1 DUPTABLE                         R6 K7 [{"Id", "MinSize", "Resizable", "ToolDialog", "Size", "Name"}]
-        2 LOADK                            R7 K0 ["ManageTabs"]
-        3 SETTABLEKS                       R7 R6 K1 ["Id"]
+        1 DUPTABLE                         R6 K8 [{["Id"] = "ManageTabs", ["MinSize"], ["Resizable"] = True, ["ToolDialog"] = True, ["Size"], ["Name"] = "ManageTabs"}]
+        2 GETUPVAL                         R7 0
+        3 SETTABLEKS                       R7 R6 K2 ["MinSize"]
         5 GETUPVAL                         R7 0
-        6 SETTABLEKS                       R7 R6 K2 ["MinSize"]
-        8 LOADB                            R7 1
-        9 SETTABLEKS                       R7 R6 K3 ["Resizable"]
-       11 LOADB                            R7 1
-       12 SETTABLEKS                       R7 R6 K4 ["ToolDialog"]
-       14 GETUPVAL                         R7 0
-       15 SETTABLEKS                       R7 R6 K5 ["Size"]
-       17 LOADK                            R7 K0 ["ManageTabs"]
-       18 SETTABLEKS                       R7 R6 K6 ["Name"]
-       20 NAMECALL                         R3 R1 K8 ["CreateQWidgetPluginGui"]
-       22 CALL                             R3 3 1
-       23 LOADK                            R6 K9 ["PluginGui"]
-       24 NAMECALL                         R4 R3 K10 ["IsA"]
-       26 CALL                             R4 2 1
-       27 JUMPIFNOT                        R4 ; [+7]
-       28 SETTABLEKS                       R0 R3 K11 ["Title"]
-       30 NEWCLOSURE                       R6 P0
-       31 CAPTURE                          VAL R2
-       32 NAMECALL                         R4 R3 K12 ["BindToClose"]
-       34 CALL                             R4 2 0
-       35 GETIMPORT                        R4 K16 [Enum.ZIndexBehavior.Sibling]
-       37 SETTABLEKS                       R4 R3 K14 ["ZIndexBehavior"]
-       39 GETUPVAL                         R4 1
-       40 GETTABLEKS                       R4 R4 K17 ["wrap"]
-       42 NAMECALL                         R5 R1 K18 ["GetUri"]
-       44 CALL                             R5 1 -1
-       45 CALL                             R4 -1 1
-       46 GETUPVAL                         R5 1
-       47 GETTABLEKS                       R5 R5 K19 ["join"]
-       49 MOVE                             R6 R4
-       50 DUPTABLE                         R7 K22 [{"Category", "ItemId"}]
-       51 LOADK                            R8 K23 ["Panels"]
-       52 SETTABLEKS                       R8 R7 K20 ["Category"]
-       54 LOADK                            R8 K0 ["ManageTabs"]
-       55 SETTABLEKS                       R8 R7 K21 ["ItemId"]
-       57 CALL                             R5 2 1
-       58 LOADK                            R8 K23 ["Panels"]
-       59 NAMECALL                         R6 R1 K24 ["GetPluginComponent"]
-       61 CALL                             R6 2 1
-       62 MOVE                             R9 R5
-       63 GETUPVAL                         R10 0
-       64 NAMECALL                         R7 R6 K25 ["SetSizeAsync"]
-       66 CALL                             R7 3 0
-       67 GETUPVAL                         R7 2
-       68 CALL                             R7 0 1
-       69 JUMPIFNOT                        R7 ; [+6]
-       70 GETUPVAL                         R7 3
-       71 GETTABLEKS                       R7 R7 K26 ["watchPluginGui"]
-       73 MOVE                             R8 R1
-       74 MOVE                             R9 R3
-       75 CALL                             R7 2 0
-       76 LOADK                            R9 K27 ["PlaceManager"]
-       77 NAMECALL                         R7 R1 K24 ["GetPluginComponent"]
-       79 CALL                             R7 2 1
-       80 GETTABLEKS                       R8 R7 K28 ["PlaceDocPanelClosed"]
-       82 NEWCLOSURE                       R10 P1
-       83 CAPTURE                          VAL R2
-       84 NAMECALL                         R8 R8 K29 ["Connect"]
-       86 CALL                             R8 2 0
-       87 RETURN                           R3 1
+        6 SETTABLEKS                       R7 R6 K6 ["Size"]
+        8 NAMECALL                         R3 R1 K9 ["CreateQWidgetPluginGui"]
+       10 CALL                             R3 3 1
+       11 LOADK                            R6 K10 ["PluginGui"]
+       12 NAMECALL                         R4 R3 K11 ["IsA"]
+       14 CALL                             R4 2 1
+       15 JUMPIFNOT                        R4 ; [+7]
+       16 SETTABLEKS                       R0 R3 K12 ["Title"]
+       18 NEWCLOSURE                       R6 P0
+       19 CAPTURE                          VAL R2
+       20 NAMECALL                         R4 R3 K13 ["BindToClose"]
+       22 CALL                             R4 2 0
+       23 GETIMPORT                        R4 K17 [Enum.ZIndexBehavior.Sibling]
+       25 SETTABLEKS                       R4 R3 K15 ["ZIndexBehavior"]
+       27 GETUPVAL                         R4 1
+       28 GETTABLEKS                       R4 R4 K18 ["wrap"]
+       30 NAMECALL                         R5 R1 K19 ["GetUri"]
+       32 CALL                             R5 1 -1
+       33 CALL                             R4 -1 1
+       34 GETUPVAL                         R5 1
+       35 GETTABLEKS                       R5 R5 K20 ["join"]
+       37 MOVE                             R6 R4
+       38 DUPTABLE                         R7 K24 [{["Category"] = "Panels", ["ItemId"] = "ManageTabs"}]
+       39 CALL                             R5 2 1
+       40 LOADK                            R8 K22 ["Panels"]
+       41 NAMECALL                         R6 R1 K25 ["GetPluginComponent"]
+       43 CALL                             R6 2 1
+       44 MOVE                             R9 R5
+       45 GETUPVAL                         R10 0
+       46 NAMECALL                         R7 R6 K26 ["SetSizeAsync"]
+       48 CALL                             R7 3 0
+       49 GETUPVAL                         R7 2
+       50 CALL                             R7 0 1
+       51 JUMPIFNOT                        R7 ; [+6]
+       52 GETUPVAL                         R7 3
+       53 GETTABLEKS                       R7 R7 K27 ["watchPluginGui"]
+       55 MOVE                             R8 R1
+       56 MOVE                             R9 R3
+       57 CALL                             R7 2 0
+       58 LOADK                            R9 K28 ["PlaceManager"]
+       59 NAMECALL                         R7 R1 K25 ["GetPluginComponent"]
+       61 CALL                             R7 2 1
+       62 GETTABLEKS                       R8 R7 K29 ["PlaceDocPanelClosed"]
+       64 NEWCLOSURE                       R10 P1
+       65 CAPTURE                          VAL R2
+       66 NAMECALL                         R8 R8 K30 ["Connect"]
+       68 CALL                             R8 2 0
+       69 RETURN                           R3 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -99,8 +87,8 @@ MAIN:
        31 GETTABLEKS                       R5 R5 K13 ["getFFlagDebugEnableFoundationInspector"]
        33 CALL                             R4 1 1
        34 GETIMPORT                        R5 K16 [Vector2.new]
-       36 LOADN                            R6 46
-       37 LOADN                            R7 46
+       36 LOADN                            R6 302
+       37 LOADN                            R7 302
        38 CALL                             R5 2 1
        39 DUPCLOSURE                       R6 K17 [PROTO_2]
        40 CAPTURE                          VAL R5

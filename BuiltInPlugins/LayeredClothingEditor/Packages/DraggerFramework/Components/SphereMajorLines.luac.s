@@ -26,20 +26,18 @@ PROTO_1:
        15 GETUPVAL                         R4 0
        16 GETTABLEKS                       R4 R4 K9 ["createElement"]
        18 GETUPVAL                         R5 1
-       19 DUPTABLE                         R6 K15 [{"AlwaysOnTop", "Adornee", "Scale", "Color3", "Render"}]
-       20 LOADB                            R7 0
-       21 SETTABLEKS                       R7 R6 K10 ["AlwaysOnTop"]
-       23 GETTABLEKS                       R7 R0 K0 ["Part"]
-       25 SETTABLEKS                       R7 R6 K11 ["Adornee"]
-       27 LOADK                            R8 K16 [{1, 1, 1}]
-       28 MUL                              R7 R8 R3
-       29 SETTABLEKS                       R7 R6 K12 ["Scale"]
-       31 GETTABLEKS                       R7 R0 K13 ["Color3"]
-       33 SETTABLEKS                       R7 R6 K13 ["Color3"]
-       35 GETUPVAL                         R7 2
-       36 SETTABLEKS                       R7 R6 K14 ["Render"]
-       38 CALL                             R4 2 -1
-       39 RETURN                           R4 -1
+       19 DUPTABLE                         R6 K16 [{["AlwaysOnTop"] = False, ["Adornee"], ["Scale"], ["Color3"], ["Render"]}]
+       20 GETTABLEKS                       R7 R0 K0 ["Part"]
+       22 SETTABLEKS                       R7 R6 K12 ["Adornee"]
+       24 LOADK                            R8 K17 [{1, 1, 1}]
+       25 MUL                              R7 R8 R3
+       26 SETTABLEKS                       R7 R6 K13 ["Scale"]
+       28 GETTABLEKS                       R7 R0 K14 ["Color3"]
+       30 SETTABLEKS                       R7 R6 K14 ["Color3"]
+       32 GETUPVAL                         R7 2
+       33 SETTABLEKS                       R7 R6 K15 ["Render"]
+       35 CALL                             R4 2 -1
+       36 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -57,12 +55,12 @@ MAIN:
        22 GETTABLEKS                       R4 R4 K8 ["WireframeHandleAdornment"]
        24 CALL                             R3 1 1
        25 NEWTABLE                         R4 0 0
-       27 LOADN                            R7 253
+       27 LOADN                            R7 -3
        28 LOADN                            R5 3
        29 LOADN                            R6 1
        30 FORNPREP                         R5
        31 LOADN                            R11 0
-       32 LOADN                            R13 253
+       32 LOADN                            R13 -3
        33 FASTCALL3                        VECTOR R11 R7 R13
        35 MOVE                             R12 R7
        36 GETIMPORT                        R10 K11 [Vector3.new]
@@ -73,7 +71,7 @@ MAIN:
        44 GETIMPORT                        R8 K15 [table.insert]
        46 CALL                             R8 2 0
        47 FORNLOOP                         R5
-       48 LOADN                            R7 253
+       48 LOADN                            R7 -3
        49 LOADN                            R5 3
        50 LOADN                            R6 1
        51 FORNPREP                         R5
@@ -90,8 +88,8 @@ MAIN:
        67 CALL                             R8 2 0
        68 FORNLOOP                         R5
        69 LOADN                            R7 3
-       70 LOADN                            R5 253
-       71 LOADN                            R6 255
+       70 LOADN                            R5 -3
+       71 LOADN                            R6 -1
        72 FORNPREP                         R5
        73 LOADN                            R11 0
        74 LOADN                            R13 3
@@ -106,11 +104,11 @@ MAIN:
        88 CALL                             R8 2 0
        89 FORNLOOP                         R5
        90 LOADN                            R7 3
-       91 LOADN                            R5 253
-       92 LOADN                            R6 255
+       91 LOADN                            R5 -3
+       92 LOADN                            R6 -1
        93 FORNPREP                         R5
        94 LOADN                            R11 0
-       95 LOADN                            R12 253
+       95 LOADN                            R12 -3
        96 FASTCALL3                        VECTOR R11 R12 R7
        98 MOVE                             R13 R7
        99 GETIMPORT                        R10 K11 [Vector3.new]
@@ -122,11 +120,11 @@ MAIN:
       109 CALL                             R8 2 0
       110 FORNLOOP                         R5
       111 NEWTABLE                         R5 0 0
-      113 LOADN                            R8 253
+      113 LOADN                            R8 -3
       114 LOADN                            R6 3
       115 LOADN                            R7 1
       116 FORNPREP                         R6
-      117 LOADN                            R12 253
+      117 LOADN                            R12 -3
       118 LOADN                            R13 0
       119 FASTCALL3                        VECTOR R12 R13 R8
       121 MOVE                             R14 R8
@@ -138,7 +136,7 @@ MAIN:
       130 GETIMPORT                        R9 K15 [table.insert]
       132 CALL                             R9 2 0
       133 FORNLOOP                         R6
-      134 LOADN                            R8 253
+      134 LOADN                            R8 -3
       135 LOADN                            R6 3
       136 LOADN                            R7 1
       137 FORNPREP                         R6
@@ -155,8 +153,8 @@ MAIN:
       153 CALL                             R9 2 0
       154 FORNLOOP                         R6
       155 LOADN                            R8 3
-      156 LOADN                            R6 253
-      157 LOADN                            R7 255
+      156 LOADN                            R6 -3
+      157 LOADN                            R7 -1
       158 FORNPREP                         R6
       159 LOADN                            R12 3
       160 LOADN                            R13 0
@@ -171,11 +169,11 @@ MAIN:
       174 CALL                             R9 2 0
       175 FORNLOOP                         R6
       176 LOADN                            R8 3
-      177 LOADN                            R6 253
-      178 LOADN                            R7 255
+      177 LOADN                            R6 -3
+      178 LOADN                            R7 -1
       179 FORNPREP                         R6
       180 LOADN                            R13 0
-      181 LOADN                            R14 253
+      181 LOADN                            R14 -3
       182 FASTCALL3                        VECTOR R8 R13 R14
       184 MOVE                             R12 R8
       185 GETIMPORT                        R11 K11 [Vector3.new]
@@ -187,11 +185,11 @@ MAIN:
       195 CALL                             R9 2 0
       196 FORNLOOP                         R6
       197 NEWTABLE                         R6 0 0
-      199 LOADN                            R9 253
+      199 LOADN                            R9 -3
       200 LOADN                            R7 3
       201 LOADN                            R8 1
       202 FORNPREP                         R7
-      203 LOADN                            R13 253
+      203 LOADN                            R13 -3
       204 LOADN                            R15 0
       205 FASTCALL3                        VECTOR R13 R9 R15
       207 MOVE                             R14 R9
@@ -203,7 +201,7 @@ MAIN:
       216 GETIMPORT                        R10 K15 [table.insert]
       218 CALL                             R10 2 0
       219 FORNLOOP                         R7
-      220 LOADN                            R9 253
+      220 LOADN                            R9 -3
       221 LOADN                            R7 3
       222 LOADN                            R8 1
       223 FORNPREP                         R7
@@ -220,8 +218,8 @@ MAIN:
       239 CALL                             R10 2 0
       240 FORNLOOP                         R7
       241 LOADN                            R9 3
-      242 LOADN                            R7 253
-      243 LOADN                            R8 255
+      242 LOADN                            R7 -3
+      243 LOADN                            R8 -1
       244 FORNPREP                         R7
       245 LOADN                            R13 3
       246 LOADN                            R15 0
@@ -236,10 +234,10 @@ MAIN:
       260 CALL                             R10 2 0
       261 FORNLOOP                         R7
       262 LOADN                            R9 3
-      263 LOADN                            R7 253
-      264 LOADN                            R8 255
+      263 LOADN                            R7 -3
+      264 LOADN                            R8 -1
       265 FORNPREP                         R7
-      266 LOADN                            R14 253
+      266 LOADN                            R14 -3
       267 LOADN                            R15 0
       268 FASTCALL3                        VECTOR R9 R14 R15
       270 MOVE                             R13 R9

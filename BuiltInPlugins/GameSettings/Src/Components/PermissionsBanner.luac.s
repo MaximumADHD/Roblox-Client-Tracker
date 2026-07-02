@@ -29,174 +29,156 @@ PROTO_2:
        13 GETUPVAL                         R6 0
        14 GETTABLEKS                       R6 R6 K7 ["createElement"]
        16 LOADK                            R7 K8 ["Frame"]
-       17 DUPTABLE                         R8 K13 [{"Size", "AutomaticSize", "BackgroundColor3", "BackgroundTransparency"}]
-       18 GETIMPORT                        R9 K16 [UDim2.new]
+       17 DUPTABLE                         R8 K14 [{["Size"], ["AutomaticSize"], ["BackgroundColor3"], ["BackgroundTransparency"] = 0}]
+       18 GETIMPORT                        R9 K17 [UDim2.new]
        20 LOADN                            R10 1
        21 LOADN                            R11 0
        22 LOADN                            R12 0
        23 LOADN                            R13 0
        24 CALL                             R9 4 1
        25 SETTABLEKS                       R9 R8 K9 ["Size"]
-       27 GETIMPORT                        R9 K19 [Enum.AutomaticSize.Y]
+       27 GETIMPORT                        R9 K20 [Enum.AutomaticSize.Y]
        29 SETTABLEKS                       R9 R8 K10 ["AutomaticSize"]
-       31 GETTABLEKS                       R9 R2 K20 ["permissionsBanner"]
-       33 GETTABLEKS                       R9 R9 K21 ["backgroundColor"]
+       31 GETTABLEKS                       R9 R2 K21 ["permissionsBanner"]
+       33 GETTABLEKS                       R9 R9 K22 ["backgroundColor"]
        35 SETTABLEKS                       R9 R8 K11 ["BackgroundColor3"]
-       37 LOADN                            R9 0
-       38 SETTABLEKS                       R9 R8 K12 ["BackgroundTransparency"]
-       40 DUPTABLE                         R9 K26 [{"UICorner", "UIPadding", "LeftContent", "ManageButton"}]
-       41 GETUPVAL                         R10 0
-       42 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       44 LOADK                            R11 K22 ["UICorner"]
-       45 DUPTABLE                         R12 K28 [{"CornerRadius"}]
-       46 GETIMPORT                        R13 K30 [UDim.new]
-       48 LOADN                            R14 0
-       49 LOADN                            R15 8
-       50 CALL                             R13 2 1
-       51 SETTABLEKS                       R13 R12 K27 ["CornerRadius"]
-       53 CALL                             R10 2 1
-       54 SETTABLEKS                       R10 R9 K22 ["UICorner"]
-       56 GETUPVAL                         R10 0
-       57 GETTABLEKS                       R10 R10 K7 ["createElement"]
-       59 LOADK                            R11 K23 ["UIPadding"]
-       60 DUPTABLE                         R12 K35 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-       61 GETIMPORT                        R13 K30 [UDim.new]
-       63 LOADN                            R14 0
-       64 GETTABLEKS                       R15 R2 K20 ["permissionsBanner"]
-       66 GETTABLEKS                       R15 R15 K36 ["padding"]
-       68 GETTABLEKS                       R15 R15 K37 ["Top"]
-       70 CALL                             R13 2 1
-       71 SETTABLEKS                       R13 R12 K31 ["PaddingTop"]
-       73 GETIMPORT                        R13 K30 [UDim.new]
-       75 LOADN                            R14 0
-       76 GETTABLEKS                       R15 R2 K20 ["permissionsBanner"]
-       78 GETTABLEKS                       R15 R15 K36 ["padding"]
-       80 GETTABLEKS                       R15 R15 K38 ["Bottom"]
-       82 CALL                             R13 2 1
-       83 SETTABLEKS                       R13 R12 K32 ["PaddingBottom"]
-       85 GETIMPORT                        R13 K30 [UDim.new]
-       87 LOADN                            R14 0
-       88 GETTABLEKS                       R15 R2 K20 ["permissionsBanner"]
-       90 GETTABLEKS                       R15 R15 K36 ["padding"]
-       92 GETTABLEKS                       R15 R15 K39 ["Left"]
-       94 CALL                             R13 2 1
-       95 SETTABLEKS                       R13 R12 K33 ["PaddingLeft"]
-       97 GETIMPORT                        R13 K30 [UDim.new]
-       99 LOADN                            R14 0
-      100 GETTABLEKS                       R15 R2 K20 ["permissionsBanner"]
-      102 GETTABLEKS                       R15 R15 K36 ["padding"]
-      104 GETTABLEKS                       R15 R15 K40 ["Right"]
-      106 CALL                             R13 2 1
-      107 SETTABLEKS                       R13 R12 K34 ["PaddingRight"]
-      109 CALL                             R10 2 1
-      110 SETTABLEKS                       R10 R9 K23 ["UIPadding"]
-      112 GETUPVAL                         R10 0
-      113 GETTABLEKS                       R10 R10 K7 ["createElement"]
-      115 GETUPVAL                         R11 1
-      116 DUPTABLE                         R12 K45 [{"Size", "AutomaticSize", "Layout", "Spacing", "HorizontalAlignment", "VerticalAlignment", "BackgroundTransparency"}]
-      117 GETIMPORT                        R13 K16 [UDim2.new]
-      119 LOADN                            R14 1
-      120 LOADN                            R15 156
-      121 LOADN                            R16 0
-      122 LOADN                            R17 0
-      123 CALL                             R13 4 1
-      124 SETTABLEKS                       R13 R12 K9 ["Size"]
-      126 GETIMPORT                        R13 K19 [Enum.AutomaticSize.Y]
-      128 SETTABLEKS                       R13 R12 K10 ["AutomaticSize"]
-      130 GETIMPORT                        R13 K48 [Enum.FillDirection.Horizontal]
-      132 SETTABLEKS                       R13 R12 K41 ["Layout"]
-      134 LOADN                            R13 12
-      135 SETTABLEKS                       R13 R12 K42 ["Spacing"]
-      137 GETIMPORT                        R13 K49 [Enum.HorizontalAlignment.Left]
-      139 SETTABLEKS                       R13 R12 K43 ["HorizontalAlignment"]
-      141 GETIMPORT                        R13 K51 [Enum.VerticalAlignment.Center]
-      143 SETTABLEKS                       R13 R12 K44 ["VerticalAlignment"]
-      145 LOADN                            R13 1
-      146 SETTABLEKS                       R13 R12 K12 ["BackgroundTransparency"]
-      148 DUPTABLE                         R13 K53 [{"InfoIcon", "BannerText"}]
-      149 GETUPVAL                         R14 0
-      150 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      152 LOADK                            R15 K54 ["ImageLabel"]
-      153 DUPTABLE                         R16 K57 [{"Image", "BackgroundTransparency", "Size", "LayoutOrder"}]
-      154 GETTABLEKS                       R17 R2 K58 ["genreInfo"]
-      156 GETTABLEKS                       R17 R17 K59 ["image"]
-      158 SETTABLEKS                       R17 R16 K55 ["Image"]
-      160 LOADN                            R17 1
-      161 SETTABLEKS                       R17 R16 K12 ["BackgroundTransparency"]
-      163 GETIMPORT                        R17 K61 [UDim2.fromOffset]
-      165 GETTABLEKS                       R18 R2 K58 ["genreInfo"]
-      167 GETTABLEKS                       R18 R18 K62 ["imageSize"]
-      169 GETTABLEKS                       R19 R2 K58 ["genreInfo"]
-      171 GETTABLEKS                       R19 R19 K62 ["imageSize"]
-      173 CALL                             R17 2 1
-      174 SETTABLEKS                       R17 R16 K9 ["Size"]
-      176 LOADN                            R17 0
-      177 SETTABLEKS                       R17 R16 K56 ["LayoutOrder"]
-      179 CALL                             R14 2 1
-      180 SETTABLEKS                       R14 R13 K52 ["InfoIcon"]
-      182 GETUPVAL                         R14 0
-      183 GETTABLEKS                       R14 R14 K7 ["createElement"]
-      185 LOADK                            R15 K63 ["TextLabel"]
-      186 GETUPVAL                         R16 2
-      187 GETTABLEKS                       R16 R16 K64 ["Dictionary"]
-      189 GETTABLEKS                       R16 R16 K65 ["join"]
-      191 GETTABLEKS                       R17 R2 K66 ["fontStyle"]
-      193 GETTABLEKS                       R17 R17 K67 ["Normal"]
-      195 DUPTABLE                         R18 K73 [{"Text", "TextColor3", "TextXAlignment", "TextYAlignment", "TextWrapped", "AutomaticSize", "BackgroundTransparency", "LayoutOrder"}]
-      196 SETTABLEKS                       R4 R18 K68 ["Text"]
-      198 GETTABLEKS                       R19 R2 K20 ["permissionsBanner"]
-      200 GETTABLEKS                       R19 R19 K74 ["textColor"]
-      202 SETTABLEKS                       R19 R18 K69 ["TextColor3"]
-      204 GETIMPORT                        R19 K75 [Enum.TextXAlignment.Left]
-      206 SETTABLEKS                       R19 R18 K70 ["TextXAlignment"]
-      208 GETIMPORT                        R19 K76 [Enum.TextYAlignment.Center]
-      210 SETTABLEKS                       R19 R18 K71 ["TextYAlignment"]
-      212 LOADB                            R19 1
-      213 SETTABLEKS                       R19 R18 K72 ["TextWrapped"]
-      215 GETIMPORT                        R19 K78 [Enum.AutomaticSize.XY]
-      217 SETTABLEKS                       R19 R18 K10 ["AutomaticSize"]
-      219 LOADN                            R19 1
-      220 SETTABLEKS                       R19 R18 K12 ["BackgroundTransparency"]
-      222 LOADN                            R19 1
-      223 SETTABLEKS                       R19 R18 K56 ["LayoutOrder"]
-      225 CALL                             R16 2 -1
-      226 CALL                             R14 -1 1
-      227 SETTABLEKS                       R14 R13 K3 ["BannerText"]
-      229 CALL                             R10 3 1
-      230 SETTABLEKS                       R10 R9 K24 ["LeftContent"]
-      232 GETUPVAL                         R10 0
-      233 GETTABLEKS                       R10 R10 K7 ["createElement"]
-      235 GETUPVAL                         R11 3
-      236 DUPTABLE                         R12 K83 [{"Text", "Style", "Size", "Position", "AnchorPoint", "OnClick"}]
-      237 SETTABLEKS                       R5 R12 K68 ["Text"]
-      239 LOADK                            R13 K84 ["GameSettingsButton"]
-      240 SETTABLEKS                       R13 R12 K79 ["Style"]
-      242 GETIMPORT                        R13 K61 [UDim2.fromOffset]
-      244 LOADN                            R14 80
-      245 LOADN                            R15 32
-      246 CALL                             R13 2 1
-      247 SETTABLEKS                       R13 R12 K9 ["Size"]
-      249 GETIMPORT                        R13 K16 [UDim2.new]
-      251 LOADN                            R14 1
-      252 GETTABLEKS                       R16 R2 K20 ["permissionsBanner"]
-      254 GETTABLEKS                       R16 R16 K36 ["padding"]
-      256 GETTABLEKS                       R16 R16 K40 ["Right"]
-      258 MINUS                            R15 R16
-      259 LOADK                            R16 K85 [0.5]
-      260 LOADN                            R17 0
-      261 CALL                             R13 4 1
-      262 SETTABLEKS                       R13 R12 K80 ["Position"]
-      264 GETIMPORT                        R13 K87 [Vector2.new]
-      266 LOADN                            R14 1
-      267 LOADK                            R15 K85 [0.5]
-      268 CALL                             R13 2 1
-      269 SETTABLEKS                       R13 R12 K81 ["AnchorPoint"]
-      271 GETTABLEKS                       R13 R0 K88 ["onManageClick"]
-      273 SETTABLEKS                       R13 R12 K82 ["OnClick"]
-      275 CALL                             R10 2 1
-      276 SETTABLEKS                       R10 R9 K25 ["ManageButton"]
-      278 CALL                             R6 3 -1
-      279 RETURN                           R6 -1
+       37 DUPTABLE                         R9 K27 [{"UICorner", "UIPadding", "LeftContent", "ManageButton"}]
+       38 GETUPVAL                         R10 0
+       39 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       41 LOADK                            R11 K23 ["UICorner"]
+       42 DUPTABLE                         R12 K29 [{"CornerRadius"}]
+       43 GETIMPORT                        R13 K31 [UDim.new]
+       45 LOADN                            R14 0
+       46 LOADN                            R15 8
+       47 CALL                             R13 2 1
+       48 SETTABLEKS                       R13 R12 K28 ["CornerRadius"]
+       50 CALL                             R10 2 1
+       51 SETTABLEKS                       R10 R9 K23 ["UICorner"]
+       53 GETUPVAL                         R10 0
+       54 GETTABLEKS                       R10 R10 K7 ["createElement"]
+       56 LOADK                            R11 K24 ["UIPadding"]
+       57 DUPTABLE                         R12 K36 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       58 GETIMPORT                        R13 K31 [UDim.new]
+       60 LOADN                            R14 0
+       61 GETTABLEKS                       R15 R2 K21 ["permissionsBanner"]
+       63 GETTABLEKS                       R15 R15 K37 ["padding"]
+       65 GETTABLEKS                       R15 R15 K38 ["Top"]
+       67 CALL                             R13 2 1
+       68 SETTABLEKS                       R13 R12 K32 ["PaddingTop"]
+       70 GETIMPORT                        R13 K31 [UDim.new]
+       72 LOADN                            R14 0
+       73 GETTABLEKS                       R15 R2 K21 ["permissionsBanner"]
+       75 GETTABLEKS                       R15 R15 K37 ["padding"]
+       77 GETTABLEKS                       R15 R15 K39 ["Bottom"]
+       79 CALL                             R13 2 1
+       80 SETTABLEKS                       R13 R12 K33 ["PaddingBottom"]
+       82 GETIMPORT                        R13 K31 [UDim.new]
+       84 LOADN                            R14 0
+       85 GETTABLEKS                       R15 R2 K21 ["permissionsBanner"]
+       87 GETTABLEKS                       R15 R15 K37 ["padding"]
+       89 GETTABLEKS                       R15 R15 K40 ["Left"]
+       91 CALL                             R13 2 1
+       92 SETTABLEKS                       R13 R12 K34 ["PaddingLeft"]
+       94 GETIMPORT                        R13 K31 [UDim.new]
+       96 LOADN                            R14 0
+       97 GETTABLEKS                       R15 R2 K21 ["permissionsBanner"]
+       99 GETTABLEKS                       R15 R15 K37 ["padding"]
+      101 GETTABLEKS                       R15 R15 K41 ["Right"]
+      103 CALL                             R13 2 1
+      104 SETTABLEKS                       R13 R12 K35 ["PaddingRight"]
+      106 CALL                             R10 2 1
+      107 SETTABLEKS                       R10 R9 K24 ["UIPadding"]
+      109 GETUPVAL                         R10 0
+      110 GETTABLEKS                       R10 R10 K7 ["createElement"]
+      112 GETUPVAL                         R11 1
+      113 DUPTABLE                         R12 K48 [{["Size"], ["AutomaticSize"], ["Layout"], ["Spacing"] = 12, ["HorizontalAlignment"], ["VerticalAlignment"], ["BackgroundTransparency"] = 1}]
+      114 GETIMPORT                        R13 K17 [UDim2.new]
+      116 LOADN                            R14 1
+      117 LOADN                            R15 -100
+      118 LOADN                            R16 0
+      119 LOADN                            R17 0
+      120 CALL                             R13 4 1
+      121 SETTABLEKS                       R13 R12 K9 ["Size"]
+      123 GETIMPORT                        R13 K20 [Enum.AutomaticSize.Y]
+      125 SETTABLEKS                       R13 R12 K10 ["AutomaticSize"]
+      127 GETIMPORT                        R13 K51 [Enum.FillDirection.Horizontal]
+      129 SETTABLEKS                       R13 R12 K42 ["Layout"]
+      131 GETIMPORT                        R13 K52 [Enum.HorizontalAlignment.Left]
+      133 SETTABLEKS                       R13 R12 K45 ["HorizontalAlignment"]
+      135 GETIMPORT                        R13 K54 [Enum.VerticalAlignment.Center]
+      137 SETTABLEKS                       R13 R12 K46 ["VerticalAlignment"]
+      139 DUPTABLE                         R13 K56 [{"InfoIcon", "BannerText"}]
+      140 GETUPVAL                         R14 0
+      141 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      143 LOADK                            R15 K57 ["ImageLabel"]
+      144 DUPTABLE                         R16 K60 [{["Image"], ["BackgroundTransparency"] = 1, ["Size"], ["LayoutOrder"] = 0}]
+      145 GETTABLEKS                       R17 R2 K61 ["genreInfo"]
+      147 GETTABLEKS                       R17 R17 K62 ["image"]
+      149 SETTABLEKS                       R17 R16 K58 ["Image"]
+      151 GETIMPORT                        R17 K64 [UDim2.fromOffset]
+      153 GETTABLEKS                       R18 R2 K61 ["genreInfo"]
+      155 GETTABLEKS                       R18 R18 K65 ["imageSize"]
+      157 GETTABLEKS                       R19 R2 K61 ["genreInfo"]
+      159 GETTABLEKS                       R19 R19 K65 ["imageSize"]
+      161 CALL                             R17 2 1
+      162 SETTABLEKS                       R17 R16 K9 ["Size"]
+      164 CALL                             R14 2 1
+      165 SETTABLEKS                       R14 R13 K55 ["InfoIcon"]
+      167 GETUPVAL                         R14 0
+      168 GETTABLEKS                       R14 R14 K7 ["createElement"]
+      170 LOADK                            R15 K66 ["TextLabel"]
+      171 GETUPVAL                         R16 2
+      172 GETTABLEKS                       R16 R16 K67 ["Dictionary"]
+      174 GETTABLEKS                       R16 R16 K68 ["join"]
+      176 GETTABLEKS                       R17 R2 K69 ["fontStyle"]
+      178 GETTABLEKS                       R17 R17 K70 ["Normal"]
+      180 DUPTABLE                         R18 K77 [{["Text"], ["TextColor3"], ["TextXAlignment"], ["TextYAlignment"], ["TextWrapped"] = True, ["AutomaticSize"], ["BackgroundTransparency"] = 1, ["LayoutOrder"] = 1}]
+      181 SETTABLEKS                       R4 R18 K71 ["Text"]
+      183 GETTABLEKS                       R19 R2 K21 ["permissionsBanner"]
+      185 GETTABLEKS                       R19 R19 K78 ["textColor"]
+      187 SETTABLEKS                       R19 R18 K72 ["TextColor3"]
+      189 GETIMPORT                        R19 K79 [Enum.TextXAlignment.Left]
+      191 SETTABLEKS                       R19 R18 K73 ["TextXAlignment"]
+      193 GETIMPORT                        R19 K80 [Enum.TextYAlignment.Center]
+      195 SETTABLEKS                       R19 R18 K74 ["TextYAlignment"]
+      197 GETIMPORT                        R19 K82 [Enum.AutomaticSize.XY]
+      199 SETTABLEKS                       R19 R18 K10 ["AutomaticSize"]
+      201 CALL                             R16 2 -1
+      202 CALL                             R14 -1 1
+      203 SETTABLEKS                       R14 R13 K3 ["BannerText"]
+      205 CALL                             R10 3 1
+      206 SETTABLEKS                       R10 R9 K25 ["LeftContent"]
+      208 GETUPVAL                         R10 0
+      209 GETTABLEKS                       R10 R10 K7 ["createElement"]
+      211 GETUPVAL                         R11 3
+      212 DUPTABLE                         R12 K88 [{["Text"], ["Style"] = "GameSettingsButton", ["Size"], ["Position"], ["AnchorPoint"], ["OnClick"]}]
+      213 SETTABLEKS                       R5 R12 K71 ["Text"]
+      215 GETIMPORT                        R13 K64 [UDim2.fromOffset]
+      217 LOADN                            R14 80
+      218 LOADN                            R15 32
+      219 CALL                             R13 2 1
+      220 SETTABLEKS                       R13 R12 K9 ["Size"]
+      222 GETIMPORT                        R13 K17 [UDim2.new]
+      224 LOADN                            R14 1
+      225 GETTABLEKS                       R16 R2 K21 ["permissionsBanner"]
+      227 GETTABLEKS                       R16 R16 K37 ["padding"]
+      229 GETTABLEKS                       R16 R16 K41 ["Right"]
+      231 MINUS                            R15 R16
+      232 LOADK                            R16 K89 [0.5]
+      233 LOADN                            R17 0
+      234 CALL                             R13 4 1
+      235 SETTABLEKS                       R13 R12 K85 ["Position"]
+      237 GETIMPORT                        R13 K91 [Vector2.new]
+      239 LOADN                            R14 1
+      240 LOADK                            R15 K89 [0.5]
+      241 CALL                             R13 2 1
+      242 SETTABLEKS                       R13 R12 K86 ["AnchorPoint"]
+      244 GETTABLEKS                       R13 R0 K92 ["onManageClick"]
+      246 SETTABLEKS                       R13 R12 K87 ["OnClick"]
+      248 CALL                             R10 2 1
+      249 SETTABLEKS                       R10 R9 K26 ["ManageButton"]
+      251 CALL                             R6 3 -1
+      252 RETURN                           R6 -1
 
 MAIN:
         0 PREPVARARGS                      0

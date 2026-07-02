@@ -1,21 +1,17 @@
 PROTO_0:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["current"]
-        3 DUPTABLE                         R2 K2 [{"__mode"}]
-        4 LOADK                            R3 K3 ["k"]
-        5 SETTABLEKS                       R3 R2 K1 ["__mode"]
-        7 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-        9 GETIMPORT                        R0 K5 [setmetatable]
-       11 CALL                             R0 2 0
-       12 GETUPVAL                         R1 1
-       13 GETTABLEKS                       R1 R1 K0 ["current"]
-       15 DUPTABLE                         R2 K2 [{"__mode"}]
-       16 LOADK                            R3 K3 ["k"]
-       17 SETTABLEKS                       R3 R2 K1 ["__mode"]
-       19 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
-       21 GETIMPORT                        R0 K5 [setmetatable]
-       23 CALL                             R0 2 0
-       24 RETURN                           R0 0
+        3 DUPTABLE                         R2 K3 [{["__mode"] = "k"}]
+        4 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        6 GETIMPORT                        R0 K5 [setmetatable]
+        8 CALL                             R0 2 0
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R1 R1 K0 ["current"]
+       12 DUPTABLE                         R2 K3 [{["__mode"] = "k"}]
+       13 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+       15 GETIMPORT                        R0 K5 [setmetatable]
+       17 CALL                             R0 2 0
+       18 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R2 0

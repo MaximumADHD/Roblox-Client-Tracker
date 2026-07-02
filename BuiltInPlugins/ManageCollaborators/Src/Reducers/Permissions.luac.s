@@ -1,18 +1,14 @@
 PROTO_0:
-        0 DUPTABLE                         R0 K2 [{"MinimumAge", "CurrentPermissions"}]
-        1 LOADN                            R1 0
-        2 SETTABLEKS                       R1 R0 K0 ["MinimumAge"]
-        4 NEWTABLE                         R1 0 0
-        6 SETTABLEKS                       R1 R0 K1 ["CurrentPermissions"]
-        8 RETURN                           R0 1
+        0 DUPTABLE                         R0 K3 [{[1] = 0, ["CurrentPermissions"]}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K2 ["CurrentPermissions"]
+        5 RETURN                           R0 1
 
 PROTO_1:
-        0 DUPTABLE                         R2 K2 [{"MinimumAge", "CurrentPermissions"}]
-        1 LOADN                            R3 0
-        2 SETTABLEKS                       R3 R2 K0 ["MinimumAge"]
-        4 NEWTABLE                         R3 0 0
-        6 SETTABLEKS                       R3 R2 K1 ["CurrentPermissions"]
-        8 RETURN                           R2 1
+        0 DUPTABLE                         R2 K3 [{[1] = 0, ["CurrentPermissions"]}]
+        1 NEWTABLE                         R3 0 0
+        3 SETTABLEKS                       R3 R2 K2 ["CurrentPermissions"]
+        5 RETURN                           R2 1
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -96,26 +92,24 @@ MAIN:
        50 CALL                             R7 1 1
        51 DUPCLOSURE                       R8 K15 [PROTO_0]
        52 GETTABLEKS                       R9 R1 K16 ["createReducer"]
-       54 DUPTABLE                         R10 K19 [{"MinimumAge", "CurrentPermissions"}]
-       55 LOADN                            R11 0
-       56 SETTABLEKS                       R11 R10 K17 ["MinimumAge"]
-       58 NEWTABLE                         R11 0 0
-       60 SETTABLEKS                       R11 R10 K18 ["CurrentPermissions"]
-       62 NEWTABLE                         R11 4 0
-       64 DUPCLOSURE                       R12 K20 [PROTO_1]
-       65 SETTABLEKS                       R12 R11 K21 ["ResetStore"]
-       67 GETTABLEKS                       R12 R4 K22 ["name"]
-       69 DUPCLOSURE                       R13 K23 [PROTO_2]
-       70 CAPTURE                          VAL R2
-       71 SETTABLE                         R13 R11 R12
-       72 GETTABLEKS                       R12 R5 K22 ["name"]
-       74 DUPCLOSURE                       R13 K24 [PROTO_3]
-       75 CAPTURE                          VAL R7
-       76 CAPTURE                          VAL R2
-       77 SETTABLE                         R13 R11 R12
-       78 GETTABLEKS                       R12 R6 K22 ["name"]
-       80 DUPCLOSURE                       R13 K25 [PROTO_4]
-       81 CAPTURE                          VAL R2
-       82 SETTABLE                         R13 R11 R12
-       83 CALL                             R9 2 -1
-       84 RETURN                           R9 -1
+       54 DUPTABLE                         R10 K20 [{["MinimumAge"] = 0, ["CurrentPermissions"]}]
+       55 NEWTABLE                         R11 0 0
+       57 SETTABLEKS                       R11 R10 K19 ["CurrentPermissions"]
+       59 NEWTABLE                         R11 4 0
+       61 DUPCLOSURE                       R12 K21 [PROTO_1]
+       62 SETTABLEKS                       R12 R11 K22 ["ResetStore"]
+       64 GETTABLEKS                       R12 R4 K23 ["name"]
+       66 DUPCLOSURE                       R13 K24 [PROTO_2]
+       67 CAPTURE                          VAL R2
+       68 SETTABLE                         R13 R11 R12
+       69 GETTABLEKS                       R12 R5 K23 ["name"]
+       71 DUPCLOSURE                       R13 K25 [PROTO_3]
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R2
+       74 SETTABLE                         R13 R11 R12
+       75 GETTABLEKS                       R12 R6 K23 ["name"]
+       77 DUPCLOSURE                       R13 K26 [PROTO_4]
+       78 CAPTURE                          VAL R2
+       79 SETTABLE                         R13 R11 R12
+       80 CALL                             R9 2 -1
+       81 RETURN                           R9 -1

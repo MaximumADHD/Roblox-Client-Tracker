@@ -39,129 +39,101 @@ PROTO_0:
        48 GETTABLEKS                       R19 R19 K6 ["createElement"]
        50 GETUPVAL                         R20 1
        51 GETTABLEKS                       R20 R20 K7 ["Root"]
-       53 DUPTABLE                         R21 K17 [{"label", "items", "value", "onItemChanged", "width", "size", "maxHeight", "testId", "LayoutOrder"}]
-       54 GETTABLEKS                       R22 R14 K18 ["Name"]
+       53 DUPTABLE                         R21 K18 [{["label"], ["items"], ["value"], ["onItemChanged"], ["width"], ["size"], ["maxHeight"] = 240, ["testId"], ["LayoutOrder"]}]
+       54 GETTABLEKS                       R22 R14 K19 ["Name"]
        56 SETTABLEKS                       R22 R21 K8 ["label"]
        58 SETTABLEKS                       R15 R21 K9 ["items"]
        60 SETTABLEKS                       R16 R21 K10 ["value"]
-       62 GETTABLEKS                       R22 R0 K19 ["onAssetTypeChanged"]
+       62 GETTABLEKS                       R22 R0 K20 ["onAssetTypeChanged"]
        64 MOVE                             R23 R13
        65 CALL                             R22 1 1
        66 SETTABLEKS                       R22 R21 K11 ["onItemChanged"]
-       68 GETIMPORT                        R22 K22 [UDim.new]
+       68 GETIMPORT                        R22 K23 [UDim.new]
        70 LOADN                            R23 1
        71 LOADN                            R24 0
        72 CALL                             R22 2 1
        73 SETTABLEKS                       R22 R21 K12 ["width"]
        75 GETUPVAL                         R22 2
-       76 GETTABLEKS                       R22 R22 K23 ["Small"]
+       76 GETTABLEKS                       R22 R22 K24 ["Small"]
        78 SETTABLEKS                       R22 R21 K13 ["size"]
-       80 LOADN                            R22 240
-       81 SETTABLEKS                       R22 R21 K14 ["maxHeight"]
-       83 LOADK                            R23 K24 ["aqv-asset-type-dropdown-%*"]
-       84 MOVE                             R25 R13
-       85 NAMECALL                         R23 R23 K5 ["format"]
-       87 CALL                             R23 2 1
-       88 MOVE                             R22 R23
-       89 SETTABLEKS                       R22 R21 K15 ["testId"]
-       91 SETTABLEKS                       R13 R21 K16 ["LayoutOrder"]
-       93 CALL                             R19 2 1
-       94 SETTABLE                         R19 R9 R18
-       95 FORGLOOP                         R10 2 ; [-86]
-       97 GETUPVAL                         R10 0
-       98 GETTABLEKS                       R10 R10 K6 ["createElement"]
-      100 GETUPVAL                         R11 3
-      101 DUPTABLE                         R12 K26 [{"tag", "testId", "LayoutOrder"}]
-      102 ORK                              R13 R6 K27 ["col size-full-full"]
-      103 SETTABLEKS                       R13 R12 K25 ["tag"]
-      105 LOADK                            R13 K28 ["aqv-asset-type-dialog"]
-      106 SETTABLEKS                       R13 R12 K15 ["testId"]
-      108 GETTABLEKS                       R13 R0 K16 ["LayoutOrder"]
-      110 SETTABLEKS                       R13 R12 K16 ["LayoutOrder"]
-      112 DUPTABLE                         R13 K33 [{"Title", "Dropdowns", "Spacer", "Actions"}]
-      113 GETUPVAL                         R14 0
-      114 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      116 GETUPVAL                         R15 4
-      117 DUPTABLE                         R16 K35 [{"tag", "Text", "LayoutOrder"}]
-      118 LOADK                            R17 K36 ["text-heading-small content-default padding-x-large padding-y-small"]
-      119 SETTABLEKS                       R17 R16 K25 ["tag"]
-      121 SETTABLEKS                       R3 R16 K34 ["Text"]
-      123 LOADN                            R17 0
-      124 SETTABLEKS                       R17 R16 K16 ["LayoutOrder"]
-      126 CALL                             R14 2 1
-      127 SETTABLEKS                       R14 R13 K29 ["Title"]
-      129 GETUPVAL                         R14 0
-      130 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      132 GETUPVAL                         R15 3
-      133 DUPTABLE                         R16 K37 [{"tag", "LayoutOrder"}]
-      134 LOADK                            R17 K38 ["col gap-small size-full-0 auto-y padding-x-large padding-y-small"]
-      135 SETTABLEKS                       R17 R16 K25 ["tag"]
-      137 LOADN                            R17 1
-      138 SETTABLEKS                       R17 R16 K16 ["LayoutOrder"]
-      140 MOVE                             R17 R9
-      141 CALL                             R14 3 1
-      142 SETTABLEKS                       R14 R13 K30 ["Dropdowns"]
-      144 GETUPVAL                         R14 0
-      145 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      147 GETUPVAL                         R15 3
-      148 DUPTABLE                         R16 K37 [{"tag", "LayoutOrder"}]
-      149 LOADK                            R17 K39 ["size-full-0 grow"]
-      150 SETTABLEKS                       R17 R16 K25 ["tag"]
-      152 LOADN                            R17 2
-      153 SETTABLEKS                       R17 R16 K16 ["LayoutOrder"]
-      155 CALL                             R14 2 1
-      156 SETTABLEKS                       R14 R13 K31 ["Spacer"]
-      158 GETUPVAL                         R14 0
-      159 GETTABLEKS                       R14 R14 K6 ["createElement"]
-      161 GETUPVAL                         R15 3
-      162 DUPTABLE                         R16 K37 [{"tag", "LayoutOrder"}]
-      163 LOADK                            R17 K40 ["row gap-small align-x-right size-full-0 auto-y padding-x-large padding-y-small"]
-      164 SETTABLEKS                       R17 R16 K25 ["tag"]
-      166 LOADN                            R17 3
-      167 SETTABLEKS                       R17 R16 K16 ["LayoutOrder"]
-      169 DUPTABLE                         R17 K43 [{"SubmitButton", "CancelButton"}]
-      170 GETUPVAL                         R18 0
-      171 GETTABLEKS                       R18 R18 K6 ["createElement"]
-      173 GETUPVAL                         R19 5
-      174 DUPTABLE                         R20 K47 [{"text", "variant", "onActivated", "size", "testId", "LayoutOrder"}]
-      175 SETTABLEKS                       R5 R20 K44 ["text"]
-      177 GETUPVAL                         R21 6
-      178 GETTABLEKS                       R21 R21 K48 ["Emphasis"]
-      180 SETTABLEKS                       R21 R20 K45 ["variant"]
-      182 GETTABLEKS                       R21 R0 K49 ["onSubmit"]
-      184 SETTABLEKS                       R21 R20 K46 ["onActivated"]
-      186 GETUPVAL                         R21 2
-      187 GETTABLEKS                       R21 R21 K23 ["Small"]
-      189 SETTABLEKS                       R21 R20 K13 ["size"]
-      191 LOADK                            R21 K50 ["aqv-asset-type-submit"]
-      192 SETTABLEKS                       R21 R20 K15 ["testId"]
-      194 LOADN                            R21 0
-      195 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
-      197 CALL                             R18 2 1
-      198 SETTABLEKS                       R18 R17 K41 ["SubmitButton"]
-      200 GETUPVAL                         R18 0
-      201 GETTABLEKS                       R18 R18 K6 ["createElement"]
-      203 GETUPVAL                         R19 5
-      204 DUPTABLE                         R20 K47 [{"text", "variant", "onActivated", "size", "testId", "LayoutOrder"}]
-      205 SETTABLEKS                       R4 R20 K44 ["text"]
-      207 GETUPVAL                         R21 6
-      208 GETTABLEKS                       R21 R21 K51 ["Standard"]
-      210 SETTABLEKS                       R21 R20 K45 ["variant"]
-      212 GETTABLEKS                       R21 R0 K52 ["onCancel"]
-      214 SETTABLEKS                       R21 R20 K46 ["onActivated"]
-      216 GETUPVAL                         R21 2
-      217 GETTABLEKS                       R21 R21 K23 ["Small"]
-      219 SETTABLEKS                       R21 R20 K13 ["size"]
-      221 LOADK                            R21 K53 ["aqv-asset-type-cancel"]
-      222 SETTABLEKS                       R21 R20 K15 ["testId"]
-      224 LOADN                            R21 1
-      225 SETTABLEKS                       R21 R20 K16 ["LayoutOrder"]
-      227 CALL                             R18 2 1
-      228 SETTABLEKS                       R18 R17 K42 ["CancelButton"]
-      230 CALL                             R14 3 1
-      231 SETTABLEKS                       R14 R13 K32 ["Actions"]
-      233 CALL                             R10 3 -1
-      234 RETURN                           R10 -1
+       80 LOADK                            R23 K25 ["aqv-asset-type-dropdown-%*"]
+       81 MOVE                             R25 R13
+       82 NAMECALL                         R23 R23 K5 ["format"]
+       84 CALL                             R23 2 1
+       85 MOVE                             R22 R23
+       86 SETTABLEKS                       R22 R21 K16 ["testId"]
+       88 SETTABLEKS                       R13 R21 K17 ["LayoutOrder"]
+       90 CALL                             R19 2 1
+       91 SETTABLE                         R19 R9 R18
+       92 FORGLOOP                         R10 2 ; [-83]
+       94 GETUPVAL                         R10 0
+       95 GETTABLEKS                       R10 R10 K6 ["createElement"]
+       97 GETUPVAL                         R11 3
+       98 DUPTABLE                         R12 K28 [{["tag"], ["testId"] = "aqv-asset-type-dialog", ["LayoutOrder"]}]
+       99 ORK                              R13 R6 K29 ["col size-full-full"]
+      100 SETTABLEKS                       R13 R12 K26 ["tag"]
+      102 GETTABLEKS                       R13 R0 K17 ["LayoutOrder"]
+      104 SETTABLEKS                       R13 R12 K17 ["LayoutOrder"]
+      106 DUPTABLE                         R13 K34 [{"Title", "Dropdowns", "Spacer", "Actions"}]
+      107 GETUPVAL                         R14 0
+      108 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      110 GETUPVAL                         R15 4
+      111 DUPTABLE                         R16 K38 [{["tag"] = "padding-x-large padding-y-small text-heading-small content-default", ["Text"], ["LayoutOrder"] = 0}]
+      112 SETTABLEKS                       R3 R16 K36 ["Text"]
+      114 CALL                             R14 2 1
+      115 SETTABLEKS                       R14 R13 K30 ["Title"]
+      117 GETUPVAL                         R14 0
+      118 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      120 GETUPVAL                         R15 3
+      121 DUPTABLE                         R16 K41 [{["tag"] = "col gap-small size-full-0 auto-y padding-x-large padding-y-small", ["LayoutOrder"] = 1}]
+      122 MOVE                             R17 R9
+      123 CALL                             R14 3 1
+      124 SETTABLEKS                       R14 R13 K31 ["Dropdowns"]
+      126 GETUPVAL                         R14 0
+      127 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      129 GETUPVAL                         R15 3
+      130 DUPTABLE                         R16 K44 [{["tag"] = "grow size-full-0", ["LayoutOrder"] = 2}]
+      131 CALL                             R14 2 1
+      132 SETTABLEKS                       R14 R13 K32 ["Spacer"]
+      134 GETUPVAL                         R14 0
+      135 GETTABLEKS                       R14 R14 K6 ["createElement"]
+      137 GETUPVAL                         R15 3
+      138 DUPTABLE                         R16 K47 [{["tag"] = "row align-x-right gap-small size-full-0 auto-y padding-x-large padding-y-small", ["LayoutOrder"] = 3}]
+      139 DUPTABLE                         R17 K50 [{"SubmitButton", "CancelButton"}]
+      140 GETUPVAL                         R18 0
+      141 GETTABLEKS                       R18 R18 K6 ["createElement"]
+      143 GETUPVAL                         R19 5
+      144 DUPTABLE                         R20 K55 [{["text"], ["variant"], ["onActivated"], ["size"], ["testId"] = "aqv-asset-type-submit", ["LayoutOrder"] = 0}]
+      145 SETTABLEKS                       R5 R20 K51 ["text"]
+      147 GETUPVAL                         R21 6
+      148 GETTABLEKS                       R21 R21 K56 ["Emphasis"]
+      150 SETTABLEKS                       R21 R20 K52 ["variant"]
+      152 GETTABLEKS                       R21 R0 K57 ["onSubmit"]
+      154 SETTABLEKS                       R21 R20 K53 ["onActivated"]
+      156 GETUPVAL                         R21 2
+      157 GETTABLEKS                       R21 R21 K24 ["Small"]
+      159 SETTABLEKS                       R21 R20 K13 ["size"]
+      161 CALL                             R18 2 1
+      162 SETTABLEKS                       R18 R17 K48 ["SubmitButton"]
+      164 GETUPVAL                         R18 0
+      165 GETTABLEKS                       R18 R18 K6 ["createElement"]
+      167 GETUPVAL                         R19 5
+      168 DUPTABLE                         R20 K59 [{["text"], ["variant"], ["onActivated"], ["size"], ["testId"] = "aqv-asset-type-cancel", ["LayoutOrder"] = 1}]
+      169 SETTABLEKS                       R4 R20 K51 ["text"]
+      171 GETUPVAL                         R21 6
+      172 GETTABLEKS                       R21 R21 K60 ["Standard"]
+      174 SETTABLEKS                       R21 R20 K52 ["variant"]
+      176 GETTABLEKS                       R21 R0 K61 ["onCancel"]
+      178 SETTABLEKS                       R21 R20 K53 ["onActivated"]
+      180 GETUPVAL                         R21 2
+      181 GETTABLEKS                       R21 R21 K24 ["Small"]
+      183 SETTABLEKS                       R21 R20 K13 ["size"]
+      185 CALL                             R18 2 1
+      186 SETTABLEKS                       R18 R17 K49 ["CancelButton"]
+      188 CALL                             R14 3 1
+      189 SETTABLEKS                       R14 R13 K33 ["Actions"]
+      191 CALL                             R10 3 -1
+      192 RETURN                           R10 -1
 
 PROTO_1:
         0 GETUPVAL                         R1 0
@@ -254,49 +226,39 @@ PROTO_5:
 PROTO_6:
         0 GETUPVAL                         R0 0
         1 LOADK                            R2 K0 ["AssetQualityValidation_AssetTypeDialog"]
-        2 DUPTABLE                         R3 K8 [{"Id", "InitialEnabled", "Modal", "Size", "MinSize", "Resizable", "DisableTitleBar"}]
-        3 LOADK                            R4 K0 ["AssetQualityValidation_AssetTypeDialog"]
-        4 SETTABLEKS                       R4 R3 K1 ["Id"]
-        6 LOADB                            R4 0
-        7 SETTABLEKS                       R4 R3 K2 ["InitialEnabled"]
-        9 LOADB                            R4 1
-       10 SETTABLEKS                       R4 R3 K3 ["Modal"]
-       12 GETIMPORT                        R4 K11 [Vector2.new]
-       14 LOADN                            R5 154
-       15 LOADN                            R6 200
-       16 CALL                             R4 2 1
-       17 SETTABLEKS                       R4 R3 K4 ["Size"]
-       19 GETIMPORT                        R4 K11 [Vector2.new]
-       21 LOADN                            R5 44
-       22 LOADN                            R6 120
-       23 CALL                             R4 2 1
-       24 SETTABLEKS                       R4 R3 K5 ["MinSize"]
-       26 LOADB                            R4 1
-       27 SETTABLEKS                       R4 R3 K6 ["Resizable"]
-       29 LOADB                            R4 0
-       30 SETTABLEKS                       R4 R3 K7 ["DisableTitleBar"]
-       32 NAMECALL                         R0 R0 K12 ["CreateQWidgetPluginGui"]
-       34 CALL                             R0 3 1
-       35 GETIMPORT                        R1 K16 [Enum.ZIndexBehavior.Sibling]
-       37 SETTABLEKS                       R1 R0 K14 ["ZIndexBehavior"]
-       39 GETIMPORT                        R1 K18 [pcall]
-       41 NEWCLOSURE                       R2 P0
-       42 CAPTURE                          VAL R0
-       43 CAPTURE                          UPVAL U1
-       44 CAPTURE                          UPVAL U2
-       45 CALL                             R1 1 0
-       46 GETUPVAL                         R1 3
-       47 SETTABLEKS                       R0 R1 K19 ["current"]
-       49 GETUPVAL                         R1 4
-       50 GETUPVAL                         R2 5
-       51 GETTABLEKS                       R2 R2 K20 ["createRoot"]
-       53 MOVE                             R3 R0
-       54 CALL                             R2 1 1
-       55 SETTABLEKS                       R2 R1 K19 ["current"]
-       57 NEWCLOSURE                       R1 P1
-       58 CAPTURE                          UPVAL U4
-       59 CAPTURE                          UPVAL U3
-       60 RETURN                           R1 1
+        2 DUPTABLE                         R3 K10 [{["Id"] = "AssetQualityValidation_AssetTypeDialog", ["InitialEnabled"] = False, ["Modal"] = True, ["Size"], ["MinSize"], ["Resizable"] = True, ["DisableTitleBar"] = False}]
+        3 GETIMPORT                        R4 K13 [Vector2.new]
+        5 LOADN                            R5 410
+        6 LOADN                            R6 200
+        7 CALL                             R4 2 1
+        8 SETTABLEKS                       R4 R3 K6 ["Size"]
+       10 GETIMPORT                        R4 K13 [Vector2.new]
+       12 LOADN                            R5 300
+       13 LOADN                            R6 120
+       14 CALL                             R4 2 1
+       15 SETTABLEKS                       R4 R3 K7 ["MinSize"]
+       17 NAMECALL                         R0 R0 K14 ["CreateQWidgetPluginGui"]
+       19 CALL                             R0 3 1
+       20 GETIMPORT                        R1 K18 [Enum.ZIndexBehavior.Sibling]
+       22 SETTABLEKS                       R1 R0 K16 ["ZIndexBehavior"]
+       24 GETIMPORT                        R1 K20 [pcall]
+       26 NEWCLOSURE                       R2 P0
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          UPVAL U1
+       29 CAPTURE                          UPVAL U2
+       30 CALL                             R1 1 0
+       31 GETUPVAL                         R1 3
+       32 SETTABLEKS                       R0 R1 K21 ["current"]
+       34 GETUPVAL                         R1 4
+       35 GETUPVAL                         R2 5
+       36 GETTABLEKS                       R2 R2 K22 ["createRoot"]
+       38 MOVE                             R3 R0
+       39 CALL                             R2 1 1
+       40 SETTABLEKS                       R2 R1 K21 ["current"]
+       42 NEWCLOSURE                       R1 P1
+       43 CAPTURE                          UPVAL U4
+       44 CAPTURE                          UPVAL U3
+       45 RETURN                           R1 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0

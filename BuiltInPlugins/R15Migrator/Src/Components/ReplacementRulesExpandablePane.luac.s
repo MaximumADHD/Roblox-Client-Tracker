@@ -5,23 +5,17 @@ PROTO_0:
         6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R4 R4 K3 ["createElement"]
         9 GETUPVAL                         R5 1
-       10 DUPTABLE                         R6 K7 [{"Size", "Style", "LayoutOrder", "Text", "Expanded"}]
+       10 DUPTABLE                         R6 K10 [{["Size"], ["Style"] = "Section", ["LayoutOrder"], ["Text"] = "Replacement Rules", ["Expanded"] = True}]
        11 SETTABLEKS                       R3 R6 K2 ["Size"]
-       13 LOADK                            R7 K8 ["Section"]
-       14 SETTABLEKS                       R7 R6 K4 ["Style"]
-       16 SETTABLEKS                       R2 R6 K1 ["LayoutOrder"]
-       18 LOADK                            R7 K9 ["Replacement Rules"]
-       19 SETTABLEKS                       R7 R6 K5 ["Text"]
-       21 LOADB                            R7 1
-       22 SETTABLEKS                       R7 R6 K6 ["Expanded"]
-       24 DUPTABLE                         R7 K11 [{"ReplaceOptionsPane"}]
-       25 GETUPVAL                         R8 0
-       26 GETTABLEKS                       R8 R8 K3 ["createElement"]
-       28 GETUPVAL                         R9 2
-       29 CALL                             R8 1 1
-       30 SETTABLEKS                       R8 R7 K10 ["ReplaceOptionsPane"]
-       32 CALL                             R4 3 -1
-       33 RETURN                           R4 -1
+       13 SETTABLEKS                       R2 R6 K1 ["LayoutOrder"]
+       15 DUPTABLE                         R7 K12 [{"ReplaceOptionsPane"}]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R8 R8 K3 ["createElement"]
+       19 GETUPVAL                         R9 2
+       20 CALL                             R8 1 1
+       21 SETTABLEKS                       R8 R7 K11 ["ReplaceOptionsPane"]
+       23 CALL                             R4 3 -1
+       24 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

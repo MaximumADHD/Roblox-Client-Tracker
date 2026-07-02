@@ -113,60 +113,54 @@ PROTO_1:
        29 GETTABLEKS                       R6 R2 K7 ["ControlPoints"]
        31 LENGTH                           R5 R6
        32 LOADN                            R6 0
-       33 JUMPIFNOTLT                      R6 R5 ; [+72]
+       33 JUMPIFNOTLT                      R6 R5 ; [+63]
        35 GETTABLEKS                       R5 R2 K1 ["SelectedObject"]
-       37 JUMPIFEQKNIL                     R5 ; [+68]
+       37 JUMPIFEQKNIL                     R5 ; [+59]
        39 GETTABLEKS                       R5 R2 K8 ["AddPointSubMode"]
-       41 JUMPIFNOTEQKS                    R5 K9 ["Unselected"] ; [+64]
+       41 JUMPIFNOTEQKS                    R5 K9 ["Unselected"] ; [+55]
        43 GETUPVAL                         R5 2
        44 MOVE                             R6 R4
        45 GETTABLEKS                       R8 R2 K7 ["ControlPoints"]
        47 GETTABLEN                        R7 R8 1
        48 MOVE                             R8 R3
        49 CALL                             R5 3 1
-       50 JUMPIFNOT                        R5 ; [+13]
+       50 JUMPIFNOT                        R5 ; [+10]
        51 GETTABLEKS                       R5 R2 K10 ["dispatchSelectControlPoint"]
        53 LOADN                            R6 1
        54 CALL                             R5 1 0
        55 GETUPVAL                         R5 0
-       56 DUPTABLE                         R7 K12 [{"hoveringSelectablePoint"}]
-       57 LOADB                            R8 1
-       58 SETTABLEKS                       R8 R7 K11 ["hoveringSelectablePoint"]
-       60 NAMECALL                         R5 R5 K6 ["setState"]
-       62 CALL                             R5 2 0
-       63 RETURN                           R0 0
-       64 GETUPVAL                         R5 2
-       65 MOVE                             R6 R4
-       66 GETTABLEKS                       R8 R2 K7 ["ControlPoints"]
-       68 GETTABLEKS                       R10 R2 K7 ["ControlPoints"]
-       70 LENGTH                           R9 R10
-       71 GETTABLE                         R7 R8 R9
-       72 MOVE                             R8 R3
-       73 CALL                             R5 3 1
-       74 JUMPIFNOT                        R5 ; [+15]
-       75 GETTABLEKS                       R5 R2 K10 ["dispatchSelectControlPoint"]
-       77 GETTABLEKS                       R7 R2 K7 ["ControlPoints"]
-       79 LENGTH                           R6 R7
-       80 CALL                             R5 1 0
-       81 GETUPVAL                         R5 0
-       82 DUPTABLE                         R7 K12 [{"hoveringSelectablePoint"}]
-       83 LOADB                            R8 1
-       84 SETTABLEKS                       R8 R7 K11 ["hoveringSelectablePoint"]
-       86 NAMECALL                         R5 R5 K6 ["setState"]
-       88 CALL                             R5 2 0
-       89 RETURN                           R0 0
-       90 GETTABLEKS                       R5 R2 K13 ["SelectedControlPointIndex"]
-       92 JUMPIFEQKN                       R5 K14 [0] ; [+13]
-       94 GETTABLEKS                       R5 R2 K10 ["dispatchSelectControlPoint"]
-       96 LOADN                            R6 0
-       97 CALL                             R5 1 0
-       98 GETUPVAL                         R5 0
-       99 DUPTABLE                         R7 K12 [{"hoveringSelectablePoint"}]
-      100 LOADB                            R8 0
-      101 SETTABLEKS                       R8 R7 K11 ["hoveringSelectablePoint"]
-      103 NAMECALL                         R5 R5 K6 ["setState"]
-      105 CALL                             R5 2 0
-      106 RETURN                           R0 0
+       56 DUPTABLE                         R7 K13 [{["hoveringSelectablePoint"] = True}]
+       57 NAMECALL                         R5 R5 K6 ["setState"]
+       59 CALL                             R5 2 0
+       60 RETURN                           R0 0
+       61 GETUPVAL                         R5 2
+       62 MOVE                             R6 R4
+       63 GETTABLEKS                       R8 R2 K7 ["ControlPoints"]
+       65 GETTABLEKS                       R10 R2 K7 ["ControlPoints"]
+       67 LENGTH                           R9 R10
+       68 GETTABLE                         R7 R8 R9
+       69 MOVE                             R8 R3
+       70 CALL                             R5 3 1
+       71 JUMPIFNOT                        R5 ; [+12]
+       72 GETTABLEKS                       R5 R2 K10 ["dispatchSelectControlPoint"]
+       74 GETTABLEKS                       R7 R2 K7 ["ControlPoints"]
+       76 LENGTH                           R6 R7
+       77 CALL                             R5 1 0
+       78 GETUPVAL                         R5 0
+       79 DUPTABLE                         R7 K13 [{["hoveringSelectablePoint"] = True}]
+       80 NAMECALL                         R5 R5 K6 ["setState"]
+       82 CALL                             R5 2 0
+       83 RETURN                           R0 0
+       84 GETTABLEKS                       R5 R2 K14 ["SelectedControlPointIndex"]
+       86 JUMPIFEQKN                       R5 K15 [0] ; [+10]
+       88 GETTABLEKS                       R5 R2 K10 ["dispatchSelectControlPoint"]
+       90 LOADN                            R6 0
+       91 CALL                             R5 1 0
+       92 GETUPVAL                         R5 0
+       93 DUPTABLE                         R7 K17 [{["hoveringSelectablePoint"] = False}]
+       94 NAMECALL                         R5 R5 K6 ["setState"]
+       96 CALL                             R5 2 0
+       97 RETURN                           R0 0
 
 PROTO_2:
         0 GETUPVAL                         R2 0
@@ -217,12 +211,10 @@ PROTO_3:
        15 NEWCLOSURE                       R1 P2
        16 CAPTURE                          VAL R0
        17 SETTABLEKS                       R1 R0 K2 ["onDragAreaDragged"]
-       19 DUPTABLE                         R3 K4 [{"hoveringSelectablePoint"}]
-       20 LOADB                            R4 0
-       21 SETTABLEKS                       R4 R3 K3 ["hoveringSelectablePoint"]
-       23 NAMECALL                         R1 R0 K5 ["setState"]
-       25 CALL                             R1 2 0
-       26 RETURN                           R0 0
+       19 DUPTABLE                         R3 K5 [{["hoveringSelectablePoint"] = False}]
+       20 NAMECALL                         R1 R0 K6 ["setState"]
+       22 CALL                             R1 2 0
+       23 RETURN                           R0 0
 
 PROTO_4:
         0 GETUPVAL                         R1 0
@@ -393,72 +385,60 @@ PROTO_6:
       213 GETUPVAL                         R13 6
       214 GETTABLEKS                       R13 R13 K26 ["createElement"]
       216 GETUPVAL                         R14 7
-      217 DUPTABLE                         R15 K29 [{"DisplayOrder", "ZIndexBehavior"}]
-      218 LOADN                            R16 3
-      219 SETTABLEKS                       R16 R15 K27 ["DisplayOrder"]
-      221 GETIMPORT                        R16 K32 [Enum.ZIndexBehavior.Sibling]
-      223 SETTABLEKS                       R16 R15 K28 ["ZIndexBehavior"]
-      225 NEWTABLE                         R16 0 1
-      227 GETUPVAL                         R17 6
-      228 GETTABLEKS                       R17 R17 K26 ["createElement"]
-      230 GETUPVAL                         R18 8
-      231 DUPTABLE                         R19 K41 [{"Style", "Size", "FollowCursorOnDrag", "OnSelected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnHoverMoved"}]
-      232 LOADK                            R20 K4 ["AddPoint"]
-      233 SETTABLEKS                       R20 R19 K33 ["Style"]
-      235 GETIMPORT                        R20 K43 [UDim2.fromScale]
-      237 LOADN                            R21 1
-      238 LOADN                            R22 1
-      239 CALL                             R20 2 1
-      240 SETTABLEKS                       R20 R19 K34 ["Size"]
-      242 LOADB                            R20 0
-      243 SETTABLEKS                       R20 R19 K35 ["FollowCursorOnDrag"]
-      245 GETTABLEKS                       R20 R0 K44 ["onDragAreaClicked"]
-      247 SETTABLEKS                       R20 R19 K36 ["OnSelected"]
-      249 NEWCLOSURE                       R20 P0
-      250 CAPTURE                          VAL R1
-      251 SETTABLEKS                       R20 R19 K37 ["OnDragStart"]
-      253 GETTABLEKS                       R20 R0 K45 ["onDragAreaDragged"]
-      255 SETTABLEKS                       R20 R19 K38 ["OnDragMoved"]
-      257 NEWCLOSURE                       R20 P1
-      258 CAPTURE                          VAL R1
-      259 SETTABLEKS                       R20 R19 K39 ["OnDragEnd"]
-      261 GETTABLEKS                       R20 R0 K46 ["onDragAreaHoverMoved"]
-      263 SETTABLEKS                       R20 R19 K40 ["OnHoverMoved"]
-      265 DUPTABLE                         R20 K49 [{"Line", "ControlPoint"}]
-      266 JUMPIFNOT                        R10 ; [+20]
-      267 GETUPVAL                         R21 6
-      268 GETTABLEKS                       R21 R21 K26 ["createElement"]
-      270 GETUPVAL                         R22 9
-      271 DUPTABLE                         R23 K52 [{"Color", "Style", "Thickness", "ControlPoints"}]
-      272 GETTABLEKS                       R24 R3 K53 ["Color3"]
-      274 SETTABLEKS                       R24 R23 K50 ["Color"]
-      276 LOADK                            R24 K54 ["Tangent"]
-      277 SETTABLEKS                       R24 R23 K33 ["Style"]
-      279 GETTABLEKS                       R24 R3 K51 ["Thickness"]
-      281 SETTABLEKS                       R24 R23 K51 ["Thickness"]
-      283 SETTABLEKS                       R12 R23 K6 ["ControlPoints"]
-      285 CALL                             R21 2 1
-      286 JUMP                             ; [+1]
-      287 LOADNIL                          R21
-      288 SETTABLEKS                       R21 R20 K47 ["Line"]
-      290 JUMPIFNOT                        R11 ; [+15]
-      291 GETUPVAL                         R21 6
-      292 GETTABLEKS                       R21 R21 K26 ["createElement"]
-      294 GETUPVAL                         R22 10
-      295 DUPTABLE                         R23 K56 [{"Style", "Position", "ZIndex"}]
-      296 LOADK                            R24 K48 ["ControlPoint"]
-      297 SETTABLEKS                       R24 R23 K33 ["Style"]
-      299 SETTABLEKS                       R8 R23 K16 ["Position"]
-      301 LOADN                            R24 1
-      302 SETTABLEKS                       R24 R23 K55 ["ZIndex"]
-      304 CALL                             R21 2 1
-      305 JUMP                             ; [+1]
-      306 LOADNIL                          R21
-      307 SETTABLEKS                       R21 R20 K48 ["ControlPoint"]
-      309 CALL                             R17 3 -1
-      310 SETLIST                          R16 R17 -1 [1]
-      312 CALL                             R13 3 -1
-      313 RETURN                           R13 -1
+      217 DUPTABLE                         R15 K30 [{["DisplayOrder"] = 3, ["ZIndexBehavior"]}]
+      218 GETIMPORT                        R16 K33 [Enum.ZIndexBehavior.Sibling]
+      220 SETTABLEKS                       R16 R15 K29 ["ZIndexBehavior"]
+      222 NEWTABLE                         R16 0 1
+      224 GETUPVAL                         R17 6
+      225 GETTABLEKS                       R17 R17 K26 ["createElement"]
+      227 GETUPVAL                         R18 8
+      228 DUPTABLE                         R19 K43 [{["Style"] = "AddPoint", ["Size"], ["FollowCursorOnDrag"] = False, ["OnSelected"], ["OnDragStart"], ["OnDragMoved"], ["OnDragEnd"], ["OnHoverMoved"]}]
+      229 GETIMPORT                        R20 K45 [UDim2.fromScale]
+      231 LOADN                            R21 1
+      232 LOADN                            R22 1
+      233 CALL                             R20 2 1
+      234 SETTABLEKS                       R20 R19 K35 ["Size"]
+      236 GETTABLEKS                       R20 R0 K46 ["onDragAreaClicked"]
+      238 SETTABLEKS                       R20 R19 K38 ["OnSelected"]
+      240 NEWCLOSURE                       R20 P0
+      241 CAPTURE                          VAL R1
+      242 SETTABLEKS                       R20 R19 K39 ["OnDragStart"]
+      244 GETTABLEKS                       R20 R0 K47 ["onDragAreaDragged"]
+      246 SETTABLEKS                       R20 R19 K40 ["OnDragMoved"]
+      248 NEWCLOSURE                       R20 P1
+      249 CAPTURE                          VAL R1
+      250 SETTABLEKS                       R20 R19 K41 ["OnDragEnd"]
+      252 GETTABLEKS                       R20 R0 K48 ["onDragAreaHoverMoved"]
+      254 SETTABLEKS                       R20 R19 K42 ["OnHoverMoved"]
+      256 DUPTABLE                         R20 K51 [{"Line", "ControlPoint"}]
+      257 JUMPIFNOT                        R10 ; [+17]
+      258 GETUPVAL                         R21 6
+      259 GETTABLEKS                       R21 R21 K26 ["createElement"]
+      261 GETUPVAL                         R22 9
+      262 DUPTABLE                         R23 K55 [{["Color"], ["Style"] = "Tangent", ["Thickness"], ["ControlPoints"]}]
+      263 GETTABLEKS                       R24 R3 K56 ["Color3"]
+      265 SETTABLEKS                       R24 R23 K52 ["Color"]
+      267 GETTABLEKS                       R24 R3 K54 ["Thickness"]
+      269 SETTABLEKS                       R24 R23 K54 ["Thickness"]
+      271 SETTABLEKS                       R12 R23 K6 ["ControlPoints"]
+      273 CALL                             R21 2 1
+      274 JUMP                             ; [+1]
+      275 LOADNIL                          R21
+      276 SETTABLEKS                       R21 R20 K49 ["Line"]
+      278 JUMPIFNOT                        R11 ; [+9]
+      279 GETUPVAL                         R21 6
+      280 GETTABLEKS                       R21 R21 K26 ["createElement"]
+      282 GETUPVAL                         R22 10
+      283 DUPTABLE                         R23 K59 [{["Style"] = "ControlPoint", ["Position"], ["ZIndex"] = 1}]
+      284 SETTABLEKS                       R8 R23 K16 ["Position"]
+      286 CALL                             R21 2 1
+      287 JUMP                             ; [+1]
+      288 LOADNIL                          R21
+      289 SETTABLEKS                       R21 R20 K50 ["ControlPoint"]
+      291 CALL                             R17 3 -1
+      292 SETLIST                          R16 R17 -1 [1]
+      294 CALL                             R13 3 -1
+      295 RETURN                           R13 -1
 
 PROTO_7:
         0 DUPTABLE                         R2 K11 [{"Refreshed", "SelectedObject", "ParentAbsPos", "ParentAbsSize", "ParentAbsRotation", "Path2DToolMode", "ControlPoints", "ToolbarHovered", "IsDraggingPoint", "AddPointSubMode", "SelectedControlPointIndex"}]

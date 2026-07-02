@@ -12,17 +12,13 @@ PROTO_1:
         4 RETURN                           R0 1
         5 GETUPVAL                         R1 0
         6 MOVE                             R2 R0
-        7 DUPTABLE                         R3 K4 [{"Enabled", "OnSelect", "Type"}]
-        8 LOADB                            R4 1
-        9 SETTABLEKS                       R4 R3 K2 ["Enabled"]
-       11 NEWCLOSURE                       R4 P0
-       12 CAPTURE                          UPVAL U1
-       13 CAPTURE                          VAL R0
-       14 SETTABLEKS                       R4 R3 K3 ["OnSelect"]
-       16 LOADK                            R4 K5 ["Option"]
-       17 SETTABLEKS                       R4 R3 K0 ["Type"]
-       19 CALL                             R1 2 -1
-       20 RETURN                           R1 -1
+        7 DUPTABLE                         R3 K6 [{["Enabled"] = True, ["OnSelect"], [3] = "Option"}]
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          UPVAL U1
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R4 R3 K4 ["OnSelect"]
+       13 CALL                             R1 2 -1
+       14 RETURN                           R1 -1
 
 PROTO_2:
         0 GETUPVAL                         R0 0
@@ -32,12 +28,10 @@ PROTO_2:
         4 CAPTURE                          UPVAL U3
         5 CALL                             R0 2 1
         6 GETIMPORT                        R1 K2 [table.freeze]
-        8 DUPTABLE                         R2 K5 [{"Type", "Children"}]
-        9 LOADK                            R3 K6 ["Column"]
-       10 SETTABLEKS                       R3 R2 K3 ["Type"]
-       12 SETTABLEKS                       R0 R2 K4 ["Children"]
-       14 CALL                             R1 1 1
-       15 RETURN                           R1 1
+        8 DUPTABLE                         R2 K6 [{["Type"] = "Column", ["Children"]}]
+        9 SETTABLEKS                       R0 R2 K5 ["Children"]
+       11 CALL                             R1 1 1
+       12 RETURN                           R1 1
 
 PROTO_3:
         0 GETUPVAL                         R1 0

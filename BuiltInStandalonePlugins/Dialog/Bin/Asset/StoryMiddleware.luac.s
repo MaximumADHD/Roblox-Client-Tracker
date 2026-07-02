@@ -90,28 +90,26 @@ PROTO_0:
 PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["new"]
-        3 DUPTABLE                         R2 K4 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        3 DUPTABLE                         R2 K5 [{["stringResourceTable"], ["translationResourceTable"], ["pluginName"] = "Dialog"}]
         4 GETUPVAL                         R3 1
         5 SETTABLEKS                       R3 R2 K1 ["stringResourceTable"]
         7 GETUPVAL                         R3 2
         8 SETTABLEKS                       R3 R2 K2 ["translationResourceTable"]
-       10 LOADK                            R3 K5 ["Dialog"]
-       11 SETTABLEKS                       R3 R2 K3 ["pluginName"]
-       13 CALL                             R1 1 1
-       14 NEWCLOSURE                       R2 P0
-       15 CAPTURE                          UPVAL U3
-       16 CAPTURE                          UPVAL U4
-       17 CAPTURE                          UPVAL U5
-       18 CAPTURE                          UPVAL U6
-       19 CAPTURE                          UPVAL U7
-       20 CAPTURE                          VAL R1
-       21 CAPTURE                          UPVAL U8
-       22 CAPTURE                          UPVAL U9
-       23 CAPTURE                          UPVAL U10
-       24 CAPTURE                          UPVAL U11
-       25 CAPTURE                          UPVAL U12
-       26 CAPTURE                          VAL R0
-       27 RETURN                           R2 1
+       10 CALL                             R1 1 1
+       11 NEWCLOSURE                       R2 P0
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          UPVAL U5
+       15 CAPTURE                          UPVAL U6
+       16 CAPTURE                          UPVAL U7
+       17 CAPTURE                          VAL R1
+       18 CAPTURE                          UPVAL U8
+       19 CAPTURE                          UPVAL U9
+       20 CAPTURE                          UPVAL U10
+       21 CAPTURE                          UPVAL U11
+       22 CAPTURE                          UPVAL U12
+       23 CAPTURE                          VAL R0
+       24 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

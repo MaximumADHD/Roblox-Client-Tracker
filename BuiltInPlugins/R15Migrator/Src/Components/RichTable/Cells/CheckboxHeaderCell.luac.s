@@ -10,59 +10,47 @@ PROTO_1:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R1 R1 K0 ["createElement"]
         3 GETUPVAL                         R2 1
-        4 DUPTABLE                         R3 K7 [{"Padding", "LayoutOrder", "BorderColor3", "BorderSizePixel", "Style", "Size"}]
-        5 DUPTABLE                         R4 K12 [{"Top", "Bottom", "Left", "Right"}]
-        6 LOADN                            R5 8
-        7 SETTABLEKS                       R5 R4 K8 ["Top"]
-        9 LOADN                            R5 8
-       10 SETTABLEKS                       R5 R4 K9 ["Bottom"]
-       12 LOADN                            R5 4
-       13 SETTABLEKS                       R5 R4 K10 ["Left"]
-       15 LOADN                            R5 4
-       16 SETTABLEKS                       R5 R4 K11 ["Right"]
-       18 SETTABLEKS                       R4 R3 K1 ["Padding"]
-       20 GETTABLEKS                       R4 R0 K13 ["ColumnIndex"]
-       22 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
-       24 GETTABLEKS                       R4 R0 K5 ["Style"]
-       26 GETTABLEKS                       R4 R4 K14 ["Border"]
-       28 SETTABLEKS                       R4 R3 K3 ["BorderColor3"]
-       30 LOADN                            R4 1
-       31 SETTABLEKS                       R4 R3 K4 ["BorderSizePixel"]
-       33 LOADK                            R4 K15 ["SubtleBox"]
-       34 SETTABLEKS                       R4 R3 K5 ["Style"]
-       36 GETIMPORT                        R4 K18 [UDim2.new]
-       38 GETTABLEKS                       R5 R0 K19 ["Width"]
-       40 GETTABLEKS                       R5 R5 K20 ["Scale"]
-       42 GETTABLEKS                       R6 R0 K19 ["Width"]
-       44 GETTABLEKS                       R6 R6 K21 ["Offset"]
-       46 LOADN                            R7 1
-       47 LOADN                            R8 0
-       48 CALL                             R4 4 1
-       49 SETTABLEKS                       R4 R3 K6 ["Size"]
-       51 DUPTABLE                         R4 K24 [{"Checkbox", "Tooltip"}]
-       52 GETUPVAL                         R5 0
-       53 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       55 GETUPVAL                         R6 2
-       56 DUPTABLE                         R7 K27 [{"Checked", "OnClick"}]
-       57 GETTABLEKS                       R8 R0 K25 ["Checked"]
-       59 SETTABLEKS                       R8 R7 K25 ["Checked"]
-       61 NEWCLOSURE                       R8 P0
-       62 CAPTURE                          VAL R0
-       63 SETTABLEKS                       R8 R7 K26 ["OnClick"]
-       65 CALL                             R5 2 1
-       66 SETTABLEKS                       R5 R4 K22 ["Checkbox"]
-       68 GETTABLEKS                       R5 R0 K23 ["Tooltip"]
-       70 JUMPIFNOT                        R5 ; [+10]
-       71 GETUPVAL                         R5 0
-       72 GETTABLEKS                       R5 R5 K0 ["createElement"]
-       74 GETUPVAL                         R6 3
-       75 DUPTABLE                         R7 K29 [{"Text"}]
-       76 GETTABLEKS                       R8 R0 K23 ["Tooltip"]
-       78 SETTABLEKS                       R8 R7 K28 ["Text"]
-       80 CALL                             R5 2 1
-       81 SETTABLEKS                       R5 R4 K23 ["Tooltip"]
-       83 CALL                             R1 3 -1
-       84 RETURN                           R1 -1
+        4 DUPTABLE                         R3 K9 [{["Padding"], ["LayoutOrder"], ["BorderColor3"], ["BorderSizePixel"] = 1, ["Style"] = "SubtleBox", ["Size"]}]
+        5 DUPTABLE                         R4 K16 [{["Top"] = 8, ["Bottom"] = 8, ["Left"] = 4, ["Right"] = 4}]
+        6 SETTABLEKS                       R4 R3 K1 ["Padding"]
+        8 GETTABLEKS                       R4 R0 K17 ["ColumnIndex"]
+       10 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
+       12 GETTABLEKS                       R4 R0 K6 ["Style"]
+       14 GETTABLEKS                       R4 R4 K18 ["Border"]
+       16 SETTABLEKS                       R4 R3 K3 ["BorderColor3"]
+       18 GETIMPORT                        R4 K21 [UDim2.new]
+       20 GETTABLEKS                       R5 R0 K22 ["Width"]
+       22 GETTABLEKS                       R5 R5 K23 ["Scale"]
+       24 GETTABLEKS                       R6 R0 K22 ["Width"]
+       26 GETTABLEKS                       R6 R6 K24 ["Offset"]
+       28 LOADN                            R7 1
+       29 LOADN                            R8 0
+       30 CALL                             R4 4 1
+       31 SETTABLEKS                       R4 R3 K8 ["Size"]
+       33 DUPTABLE                         R4 K27 [{"Checkbox", "Tooltip"}]
+       34 GETUPVAL                         R5 0
+       35 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       37 GETUPVAL                         R6 2
+       38 DUPTABLE                         R7 K30 [{"Checked", "OnClick"}]
+       39 GETTABLEKS                       R8 R0 K28 ["Checked"]
+       41 SETTABLEKS                       R8 R7 K28 ["Checked"]
+       43 NEWCLOSURE                       R8 P0
+       44 CAPTURE                          VAL R0
+       45 SETTABLEKS                       R8 R7 K29 ["OnClick"]
+       47 CALL                             R5 2 1
+       48 SETTABLEKS                       R5 R4 K25 ["Checkbox"]
+       50 GETTABLEKS                       R5 R0 K26 ["Tooltip"]
+       52 JUMPIFNOT                        R5 ; [+10]
+       53 GETUPVAL                         R5 0
+       54 GETTABLEKS                       R5 R5 K0 ["createElement"]
+       56 GETUPVAL                         R6 3
+       57 DUPTABLE                         R7 K32 [{"Text"}]
+       58 GETTABLEKS                       R8 R0 K26 ["Tooltip"]
+       60 SETTABLEKS                       R8 R7 K31 ["Text"]
+       62 CALL                             R5 2 1
+       63 SETTABLEKS                       R5 R4 K26 ["Tooltip"]
+       65 CALL                             R1 3 -1
+       66 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

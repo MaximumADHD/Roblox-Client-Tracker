@@ -344,21 +344,17 @@ PROTO_16:
        33 CALL                             R6 -1 1
        34 MOVE                             R9 R4
        35 DUPTABLE                         R10 K12 [{"universeAvatarMinScales", "universeAvatarMaxScales"}]
-       36 DUPTABLE                         R11 K15 [{"width", "depth"}]
+       36 DUPTABLE                         R11 K15 [{["width"], ["depth"] = 0}]
        37 SETTABLEKS                       R5 R11 K13 ["width"]
-       39 LOADN                            R12 0
-       40 SETTABLEKS                       R12 R11 K14 ["depth"]
-       42 SETTABLEKS                       R11 R10 K10 ["universeAvatarMinScales"]
-       44 DUPTABLE                         R11 K15 [{"width", "depth"}]
-       45 SETTABLEKS                       R6 R11 K13 ["width"]
-       47 LOADN                            R12 0
-       48 SETTABLEKS                       R12 R11 K14 ["depth"]
-       50 SETTABLEKS                       R11 R10 K11 ["universeAvatarMaxScales"]
-       52 NAMECALL                         R7 R0 K16 ["configurationV2PATCH"]
-       54 CALL                             R7 3 1
-       55 NAMECALL                         R7 R7 K17 ["await"]
-       57 CALL                             R7 1 0
-       58 RETURN                           R0 0
+       39 SETTABLEKS                       R11 R10 K10 ["universeAvatarMinScales"]
+       41 DUPTABLE                         R11 K15 [{["width"], ["depth"] = 0}]
+       42 SETTABLEKS                       R6 R11 K13 ["width"]
+       44 SETTABLEKS                       R11 R10 K11 ["universeAvatarMaxScales"]
+       46 NAMECALL                         R7 R0 K16 ["configurationV2PATCH"]
+       48 CALL                             R7 3 1
+       49 NAMECALL                         R7 R7 K17 ["await"]
+       51 CALL                             R7 1 0
+       52 RETURN                           R0 0
 
 PROTO_17:
         0 NAMECALL                         R1 R0 K0 ["avatarRulesV1GET"]

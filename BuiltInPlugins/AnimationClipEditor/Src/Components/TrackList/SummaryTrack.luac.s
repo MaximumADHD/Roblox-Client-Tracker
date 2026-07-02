@@ -95,147 +95,137 @@ PROTO_3:
        55 GETUPVAL                         R11 3
        56 GETTABLEKS                       R11 R11 K12 ["createElement"]
        58 GETUPVAL                         R12 4
-       59 DUPTABLE                         R13 K16 [{"Height", "Indent", "LayoutOrder", "Primary"}]
+       59 DUPTABLE                         R13 K18 [{["Height"], ["Indent"] = 1, ["LayoutOrder"], ["Primary"] = True}]
        60 GETUPVAL                         R14 5
-       61 GETTABLEKS                       R14 R14 K17 ["SUMMARY_TRACK_HEIGHT"]
+       61 GETTABLEKS                       R14 R14 K19 ["SUMMARY_TRACK_HEIGHT"]
        63 SETTABLEKS                       R14 R13 K13 ["Height"]
-       65 LOADN                            R14 1
-       66 SETTABLEKS                       R14 R13 K14 ["Indent"]
-       68 SETTABLEKS                       R4 R13 K3 ["LayoutOrder"]
-       70 LOADB                            R14 1
-       71 SETTABLEKS                       R14 R13 K15 ["Primary"]
-       73 DUPTABLE                         R14 K21 [{"NameLabel", "LeftButtonsListContainer", "AddTrackButton"}]
-       74 GETUPVAL                         R15 3
-       75 GETTABLEKS                       R15 R15 K12 ["createElement"]
-       77 LOADK                            R16 K22 ["TextLabel"]
-       78 DUPTABLE                         R17 K31 [{"Size", "Position", "BackgroundTransparency", "Text", "Font", "TextSize", "TextColor3", "TextXAlignment"}]
-       79 GETIMPORT                        R18 K34 [UDim2.new]
-       81 LOADN                            R19 1
-       82 LOADN                            R20 0
-       83 LOADN                            R21 1
-       84 LOADN                            R22 0
-       85 CALL                             R18 4 1
-       86 SETTABLEKS                       R18 R17 K23 ["Size"]
-       88 GETIMPORT                        R18 K34 [UDim2.new]
-       90 LOADN                            R19 0
-       91 LOADN                            R20 0
-       92 LOADN                            R21 0
-       93 LOADN                            R22 0
-       94 CALL                             R18 4 1
-       95 SETTABLEKS                       R18 R17 K24 ["Position"]
-       97 LOADN                            R18 1
-       98 SETTABLEKS                       R18 R17 K25 ["BackgroundTransparency"]
-      100 GETUPVAL                         R19 1
-      101 CALL                             R19 0 1
-      102 JUMPIFNOT                        R19 ; [+2]
-      103 MOVE                             R18 R8
-      104 JUMPIF                           R18 ; [+1]
-      105 MOVE                             R18 R3
-      106 SETTABLEKS                       R18 R17 K26 ["Text"]
-      108 GETTABLEKS                       R18 R2 K10 ["font"]
-      110 SETTABLEKS                       R18 R17 K27 ["Font"]
-      112 GETTABLEKS                       R18 R7 K9 ["textSize"]
-      114 SETTABLEKS                       R18 R17 K28 ["TextSize"]
-      116 GETTABLEKS                       R18 R7 K35 ["textColor"]
-      118 SETTABLEKS                       R18 R17 K29 ["TextColor3"]
-      120 GETIMPORT                        R18 K38 [Enum.TextXAlignment.Left]
-      122 SETTABLEKS                       R18 R17 K30 ["TextXAlignment"]
-      124 CALL                             R15 2 1
-      125 SETTABLEKS                       R15 R14 K18 ["NameLabel"]
-      127 GETUPVAL                         R15 3
-      128 GETTABLEKS                       R15 R15 K12 ["createElement"]
-      130 LOADK                            R16 K39 ["Frame"]
-      131 DUPTABLE                         R17 K42 [{"AnchorPoint", "BorderSizePixel", "BackgroundTransparency", "Position"}]
-      132 GETIMPORT                        R18 K44 [Vector2.new]
-      134 LOADN                            R19 0
-      135 LOADK                            R20 K45 [0.5]
-      136 CALL                             R18 2 1
-      137 SETTABLEKS                       R18 R17 K40 ["AnchorPoint"]
-      139 LOADN                            R18 0
-      140 SETTABLEKS                       R18 R17 K41 ["BorderSizePixel"]
-      142 LOADN                            R18 0
-      143 SETTABLEKS                       R18 R17 K25 ["BackgroundTransparency"]
-      145 GETIMPORT                        R18 K34 [UDim2.new]
-      147 LOADN                            R19 0
-      148 ADDK                             R20 R9 K46 [12]
-      149 LOADK                            R21 K45 [0.5]
-      150 LOADN                            R22 0
-      151 CALL                             R18 4 1
-      152 SETTABLEKS                       R18 R17 K24 ["Position"]
-      154 DUPTABLE                         R18 K51 [{"LeftButtonsList", "IKController", "FaceControlsEditorController", "RecordingModeButton"}]
-      155 GETUPVAL                         R19 3
-      156 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      158 LOADK                            R20 K52 ["UIListLayout"]
-      159 DUPTABLE                         R21 K57 [{"FillDirection", "VerticalAlignment", "SortOrder", "Padding"}]
-      160 GETIMPORT                        R22 K59 [Enum.FillDirection.Horizontal]
-      162 SETTABLEKS                       R22 R21 K53 ["FillDirection"]
-      164 GETIMPORT                        R22 K61 [Enum.VerticalAlignment.Center]
-      166 SETTABLEKS                       R22 R21 K54 ["VerticalAlignment"]
-      168 GETIMPORT                        R22 K62 [Enum.SortOrder.LayoutOrder]
-      170 SETTABLEKS                       R22 R21 K55 ["SortOrder"]
-      172 GETIMPORT                        R22 K64 [UDim.new]
-      174 LOADN                            R23 0
-      175 LOADN                            R24 12
-      176 CALL                             R22 2 1
-      177 SETTABLEKS                       R22 R21 K56 ["Padding"]
-      179 CALL                             R19 2 1
-      180 SETTABLEKS                       R19 R18 K47 ["LeftButtonsList"]
-      182 GETUPVAL                         R19 3
-      183 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      185 GETUPVAL                         R20 6
-      186 NEWTABLE                         R21 0 0
-      188 CALL                             R19 2 1
-      189 SETTABLEKS                       R19 R18 K48 ["IKController"]
-      191 GETUPVAL                         R19 3
-      192 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      194 GETUPVAL                         R20 7
-      195 NEWTABLE                         R21 0 0
-      197 CALL                             R19 2 1
-      198 SETTABLEKS                       R19 R18 K49 ["FaceControlsEditorController"]
-      200 GETUPVAL                         R19 1
-      201 CALL                             R19 0 1
-      202 JUMPIFNOT                        R19 ; [+7]
-      203 GETUPVAL                         R19 3
-      204 GETTABLEKS                       R19 R19 K12 ["createElement"]
-      206 GETUPVAL                         R20 8
-      207 NEWTABLE                         R21 0 0
-      209 CALL                             R19 2 1
-      210 SETTABLEKS                       R19 R18 K50 ["RecordingModeButton"]
-      212 CALL                             R15 3 1
-      213 SETTABLEKS                       R15 R14 K19 ["LeftButtonsListContainer"]
-      215 JUMPIFNOT                        R10 ; [+40]
-      216 GETUPVAL                         R15 3
-      217 GETTABLEKS                       R15 R15 K12 ["createElement"]
-      219 GETUPVAL                         R16 9
-      220 DUPTABLE                         R17 K68 [{"Size", "Position", "Tracks", "Facs", "OnTrackSelected"}]
-      221 GETIMPORT                        R18 K34 [UDim2.new]
-      223 LOADN                            R19 0
-      224 GETUPVAL                         R20 5
-      225 GETTABLEKS                       R20 R20 K69 ["TRACKLIST_BUTTON_SIZE"]
-      227 LOADN                            R21 0
-      228 GETUPVAL                         R22 5
-      229 GETTABLEKS                       R22 R22 K69 ["TRACKLIST_BUTTON_SIZE"]
-      231 CALL                             R18 4 1
-      232 SETTABLEKS                       R18 R17 K23 ["Size"]
-      234 GETIMPORT                        R18 K34 [UDim2.new]
-      236 LOADN                            R19 1
-      237 GETUPVAL                         R21 5
-      238 GETTABLEKS                       R21 R21 K70 ["TRACKLIST_RIGHT_PADDING"]
-      240 MINUS                            R20 R21
-      241 LOADK                            R21 K45 [0.5]
-      242 LOADN                            R22 0
-      243 CALL                             R18 4 1
-      244 SETTABLEKS                       R18 R17 K24 ["Position"]
-      246 SETTABLEKS                       R5 R17 K65 ["Tracks"]
-      248 SETTABLEKS                       R6 R17 K66 ["Facs"]
-      250 GETTABLEKS                       R18 R0 K71 ["onTrackAdded"]
-      252 SETTABLEKS                       R18 R17 K67 ["OnTrackSelected"]
-      254 CALL                             R15 2 1
-      255 JUMPIF                           R15 ; [+1]
-      256 LOADNIL                          R15
-      257 SETTABLEKS                       R15 R14 K20 ["AddTrackButton"]
-      259 CALL                             R11 3 -1
-      260 RETURN                           R11 -1
+       65 SETTABLEKS                       R4 R13 K3 ["LayoutOrder"]
+       67 DUPTABLE                         R14 K23 [{"NameLabel", "LeftButtonsListContainer", "AddTrackButton"}]
+       68 GETUPVAL                         R15 3
+       69 GETTABLEKS                       R15 R15 K12 ["createElement"]
+       71 LOADK                            R16 K24 ["TextLabel"]
+       72 DUPTABLE                         R17 K33 [{["Size"], ["Position"], ["BackgroundTransparency"] = 1, ["Text"], ["Font"], ["TextSize"], ["TextColor3"], ["TextXAlignment"]}]
+       73 GETIMPORT                        R18 K36 [UDim2.new]
+       75 LOADN                            R19 1
+       76 LOADN                            R20 0
+       77 LOADN                            R21 1
+       78 LOADN                            R22 0
+       79 CALL                             R18 4 1
+       80 SETTABLEKS                       R18 R17 K25 ["Size"]
+       82 GETIMPORT                        R18 K36 [UDim2.new]
+       84 LOADN                            R19 0
+       85 LOADN                            R20 0
+       86 LOADN                            R21 0
+       87 LOADN                            R22 0
+       88 CALL                             R18 4 1
+       89 SETTABLEKS                       R18 R17 K26 ["Position"]
+       91 GETUPVAL                         R19 1
+       92 CALL                             R19 0 1
+       93 JUMPIFNOT                        R19 ; [+2]
+       94 MOVE                             R18 R8
+       95 JUMPIF                           R18 ; [+1]
+       96 MOVE                             R18 R3
+       97 SETTABLEKS                       R18 R17 K28 ["Text"]
+       99 GETTABLEKS                       R18 R2 K10 ["font"]
+      101 SETTABLEKS                       R18 R17 K29 ["Font"]
+      103 GETTABLEKS                       R18 R7 K9 ["textSize"]
+      105 SETTABLEKS                       R18 R17 K30 ["TextSize"]
+      107 GETTABLEKS                       R18 R7 K37 ["textColor"]
+      109 SETTABLEKS                       R18 R17 K31 ["TextColor3"]
+      111 GETIMPORT                        R18 K40 [Enum.TextXAlignment.Left]
+      113 SETTABLEKS                       R18 R17 K32 ["TextXAlignment"]
+      115 CALL                             R15 2 1
+      116 SETTABLEKS                       R15 R14 K20 ["NameLabel"]
+      118 GETUPVAL                         R15 3
+      119 GETTABLEKS                       R15 R15 K12 ["createElement"]
+      121 LOADK                            R16 K41 ["Frame"]
+      122 DUPTABLE                         R17 K45 [{["AnchorPoint"], ["BorderSizePixel"] = 0, ["BackgroundTransparency"] = 0, ["Position"]}]
+      123 GETIMPORT                        R18 K47 [Vector2.new]
+      125 LOADN                            R19 0
+      126 LOADK                            R20 K48 [0.5]
+      127 CALL                             R18 2 1
+      128 SETTABLEKS                       R18 R17 K42 ["AnchorPoint"]
+      130 GETIMPORT                        R18 K36 [UDim2.new]
+      132 LOADN                            R19 0
+      133 ADDK                             R20 R9 K49 [12]
+      134 LOADK                            R21 K48 [0.5]
+      135 LOADN                            R22 0
+      136 CALL                             R18 4 1
+      137 SETTABLEKS                       R18 R17 K26 ["Position"]
+      139 DUPTABLE                         R18 K54 [{"LeftButtonsList", "IKController", "FaceControlsEditorController", "RecordingModeButton"}]
+      140 GETUPVAL                         R19 3
+      141 GETTABLEKS                       R19 R19 K12 ["createElement"]
+      143 LOADK                            R20 K55 ["UIListLayout"]
+      144 DUPTABLE                         R21 K60 [{"FillDirection", "VerticalAlignment", "SortOrder", "Padding"}]
+      145 GETIMPORT                        R22 K62 [Enum.FillDirection.Horizontal]
+      147 SETTABLEKS                       R22 R21 K56 ["FillDirection"]
+      149 GETIMPORT                        R22 K64 [Enum.VerticalAlignment.Center]
+      151 SETTABLEKS                       R22 R21 K57 ["VerticalAlignment"]
+      153 GETIMPORT                        R22 K65 [Enum.SortOrder.LayoutOrder]
+      155 SETTABLEKS                       R22 R21 K58 ["SortOrder"]
+      157 GETIMPORT                        R22 K67 [UDim.new]
+      159 LOADN                            R23 0
+      160 LOADN                            R24 12
+      161 CALL                             R22 2 1
+      162 SETTABLEKS                       R22 R21 K59 ["Padding"]
+      164 CALL                             R19 2 1
+      165 SETTABLEKS                       R19 R18 K50 ["LeftButtonsList"]
+      167 GETUPVAL                         R19 3
+      168 GETTABLEKS                       R19 R19 K12 ["createElement"]
+      170 GETUPVAL                         R20 6
+      171 NEWTABLE                         R21 0 0
+      173 CALL                             R19 2 1
+      174 SETTABLEKS                       R19 R18 K51 ["IKController"]
+      176 GETUPVAL                         R19 3
+      177 GETTABLEKS                       R19 R19 K12 ["createElement"]
+      179 GETUPVAL                         R20 7
+      180 NEWTABLE                         R21 0 0
+      182 CALL                             R19 2 1
+      183 SETTABLEKS                       R19 R18 K52 ["FaceControlsEditorController"]
+      185 GETUPVAL                         R19 1
+      186 CALL                             R19 0 1
+      187 JUMPIFNOT                        R19 ; [+7]
+      188 GETUPVAL                         R19 3
+      189 GETTABLEKS                       R19 R19 K12 ["createElement"]
+      191 GETUPVAL                         R20 8
+      192 NEWTABLE                         R21 0 0
+      194 CALL                             R19 2 1
+      195 SETTABLEKS                       R19 R18 K53 ["RecordingModeButton"]
+      197 CALL                             R15 3 1
+      198 SETTABLEKS                       R15 R14 K21 ["LeftButtonsListContainer"]
+      200 JUMPIFNOT                        R10 ; [+40]
+      201 GETUPVAL                         R15 3
+      202 GETTABLEKS                       R15 R15 K12 ["createElement"]
+      204 GETUPVAL                         R16 9
+      205 DUPTABLE                         R17 K71 [{"Size", "Position", "Tracks", "Facs", "OnTrackSelected"}]
+      206 GETIMPORT                        R18 K36 [UDim2.new]
+      208 LOADN                            R19 0
+      209 GETUPVAL                         R20 5
+      210 GETTABLEKS                       R20 R20 K72 ["TRACKLIST_BUTTON_SIZE"]
+      212 LOADN                            R21 0
+      213 GETUPVAL                         R22 5
+      214 GETTABLEKS                       R22 R22 K72 ["TRACKLIST_BUTTON_SIZE"]
+      216 CALL                             R18 4 1
+      217 SETTABLEKS                       R18 R17 K25 ["Size"]
+      219 GETIMPORT                        R18 K36 [UDim2.new]
+      221 LOADN                            R19 1
+      222 GETUPVAL                         R21 5
+      223 GETTABLEKS                       R21 R21 K73 ["TRACKLIST_RIGHT_PADDING"]
+      225 MINUS                            R20 R21
+      226 LOADK                            R21 K48 [0.5]
+      227 LOADN                            R22 0
+      228 CALL                             R18 4 1
+      229 SETTABLEKS                       R18 R17 K26 ["Position"]
+      231 SETTABLEKS                       R5 R17 K68 ["Tracks"]
+      233 SETTABLEKS                       R6 R17 K69 ["Facs"]
+      235 GETTABLEKS                       R18 R0 K74 ["onTrackAdded"]
+      237 SETTABLEKS                       R18 R17 K70 ["OnTrackSelected"]
+      239 CALL                             R15 2 1
+      240 JUMPIF                           R15 ; [+1]
+      241 LOADNIL                          R15
+      242 SETTABLEKS                       R15 R14 K22 ["AddTrackButton"]
+      244 CALL                             R11 3 -1
+      245 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

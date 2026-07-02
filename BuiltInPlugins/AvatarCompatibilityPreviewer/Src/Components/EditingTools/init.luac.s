@@ -53,25 +53,23 @@ PROTO_5:
         9 RETURN                           R0 0
 
 PROTO_6:
-        0 DUPTABLE                         R5 K7 [{"Type", "Tooltip", "TooltipDescription", "Icon", "Selected", "OnClick", "Enabled"}]
-        1 LOADK                            R6 K8 ["Button"]
-        2 SETTABLEKS                       R6 R5 K0 ["Type"]
-        4 SETTABLEKS                       R2 R5 K1 ["Tooltip"]
-        6 SETTABLEKS                       R3 R5 K2 ["TooltipDescription"]
-        8 SETTABLEKS                       R1 R5 K3 ["Icon"]
-       10 GETUPVAL                         R7 0
-       11 JUMPIFEQ                         R7 R0 ; [+2]
-       13 LOADB                            R6 0 +1
-       14 LOADB                            R6 1
-       15 SETTABLEKS                       R6 R5 K4 ["Selected"]
-       17 NEWCLOSURE                       R6 P0
-       18 CAPTURE                          VAL R4
-       19 CAPTURE                          UPVAL U1
-       20 CAPTURE                          VAL R0
-       21 CAPTURE                          UPVAL U2
-       22 SETTABLEKS                       R6 R5 K5 ["OnClick"]
-       24 SETTABLEKS                       R4 R5 K6 ["Enabled"]
-       26 RETURN                           R5 1
+        0 DUPTABLE                         R5 K8 [{[1] = "Button", ["Tooltip"], ["TooltipDescription"], ["Icon"], ["Selected"], ["OnClick"], ["Enabled"]}]
+        1 SETTABLEKS                       R2 R5 K2 ["Tooltip"]
+        3 SETTABLEKS                       R3 R5 K3 ["TooltipDescription"]
+        5 SETTABLEKS                       R1 R5 K4 ["Icon"]
+        7 GETUPVAL                         R7 0
+        8 JUMPIFEQ                         R7 R0 ; [+2]
+       10 LOADB                            R6 0 +1
+       11 LOADB                            R6 1
+       12 SETTABLEKS                       R6 R5 K5 ["Selected"]
+       14 NEWCLOSURE                       R6 P0
+       15 CAPTURE                          VAL R4
+       16 CAPTURE                          UPVAL U1
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U2
+       19 SETTABLEKS                       R6 R5 K6 ["OnClick"]
+       21 SETTABLEKS                       R4 R5 K7 ["Enabled"]
+       23 RETURN                           R5 1
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -136,194 +134,190 @@ PROTO_8:
        60 LOADB                            R9 1
        61 CALL                             R7 2 1
        62 NEWTABLE                         R8 0 1
-       64 DUPTABLE                         R9 K18 [{"Type", "Tooltip", "TooltipDescription", "Icon", "Selected", "OnClick"}]
-       65 LOADK                            R10 K19 ["Button"]
-       66 SETTABLEKS                       R10 R9 K12 ["Type"]
-       68 LOADK                            R12 K5 ["EditingTools"]
-       69 LOADK                            R13 K20 ["ShowAccessories"]
-       70 NAMECALL                         R10 R2 K21 ["getText"]
-       72 CALL                             R10 3 1
-       73 SETTABLEKS                       R10 R9 K13 ["Tooltip"]
-       75 LOADK                            R12 K5 ["EditingTools"]
-       76 LOADK                            R13 K22 ["ShowAccessoriesDescription"]
-       77 NAMECALL                         R10 R2 K21 ["getText"]
-       79 CALL                             R10 3 1
-       80 SETTABLEKS                       R10 R9 K14 ["TooltipDescription"]
-       82 GETTABLEKS                       R11 R7 K23 ["enabled"]
-       84 JUMPIFNOT                        R11 ; [+3]
-       85 GETTABLEKS                       R10 R3 K24 ["ShowClothingOnImage"]
-       87 JUMP                             ; [+2]
-       88 GETTABLEKS                       R10 R3 K25 ["ShowClothingOffImage"]
-       90 SETTABLEKS                       R10 R9 K15 ["Icon"]
-       92 GETTABLEKS                       R10 R7 K23 ["enabled"]
-       94 SETTABLEKS                       R10 R9 K16 ["Selected"]
-       96 GETTABLEKS                       R10 R7 K26 ["toggle"]
-       98 SETTABLEKS                       R10 R9 K17 ["OnClick"]
-      100 SETLIST                          R8 R9 1 [1]
-      102 NEWCLOSURE                       R9 P2
-      103 CAPTURE                          VAL R4
-      104 CAPTURE                          VAL R5
-      105 CAPTURE                          VAL R1
-      106 NEWTABLE                         R10 0 0
-      108 MOVE                             R13 R9
-      109 LOADK                            R14 K27 ["attachments"]
-      110 GETTABLEKS                       R15 R3 K28 ["AttachmentToolImage"]
-      112 LOADK                            R18 K5 ["EditingTools"]
-      113 LOADK                            R19 K29 ["AttachmentsTool"]
-      114 NAMECALL                         R16 R2 K21 ["getText"]
-      116 CALL                             R16 3 1
-      117 LOADK                            R19 K5 ["EditingTools"]
-      118 LOADK                            R20 K30 ["AttachmentsToolDescription"]
-      119 NAMECALL                         R17 R2 K21 ["getText"]
-      121 CALL                             R17 3 -1
-      122 CALL                             R13 -1 1
-      123 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
-      125 MOVE                             R12 R10
-      126 GETIMPORT                        R11 K33 [table.insert]
-      128 CALL                             R11 2 0
-      129 GETUPVAL                         R11 8
-      130 DUPTABLE                         R12 K35 [{"avatar"}]
-      131 GETTABLEKS                       R13 R0 K34 ["avatar"]
-      133 SETTABLEKS                       R13 R12 K34 ["avatar"]
-      135 CALL                             R11 1 1
-      136 GETUPVAL                         R12 4
-      137 GETTABLEKS                       R12 R12 K9 ["useEffect"]
-      139 NEWCLOSURE                       R13 P3
-      140 CAPTURE                          VAL R4
-      141 CAPTURE                          VAL R11
-      142 CAPTURE                          VAL R5
-      143 NEWTABLE                         R14 0 2
-      145 MOVE                             R15 R4
-      146 GETTABLEKS                       R17 R11 K36 ["state"]
-      148 JUMPIFNOTEQKS                    R17 K37 ["ok"] ; [+4]
-      150 GETTABLEKS                       R16 R11 K36 ["state"]
-      152 JUMP                             ; [+1]
-      153 LOADNIL                          R16
-      154 SETLIST                          R14 R15 2 [1]
-      156 CALL                             R12 2 0
-      157 GETTABLEKS                       R12 R11 K36 ["state"]
-      159 JUMPIFNOTEQKS                    R12 K37 ["ok"] ; [+34]
-      161 MOVE                             R14 R9
-      162 LOADK                            R15 K38 ["cage"]
-      163 GETTABLEKS                       R16 R3 K39 ["CageEditingToolImage"]
-      165 LOADK                            R19 K5 ["EditingTools"]
-      166 LOADK                            R20 K40 ["CageTool"]
-      167 NAMECALL                         R17 R2 K21 ["getText"]
-      169 CALL                             R17 3 1
-      170 GETTABLEKS                       R19 R11 K41 ["value"]
-      172 JUMPIFNOT                        R19 ; [+6]
-      173 LOADK                            R20 K5 ["EditingTools"]
-      174 LOADK                            R21 K42 ["CageToolDescription"]
-      175 NAMECALL                         R18 R2 K21 ["getText"]
-      177 CALL                             R18 3 1
-      178 JUMP                             ; [+5]
-      179 LOADK                            R20 K5 ["EditingTools"]
-      180 LOADK                            R21 K43 ["CageToolNoPermissionDescription"]
-      181 NAMECALL                         R18 R2 K21 ["getText"]
-      183 CALL                             R18 3 1
-      184 GETTABLEKS                       R19 R11 K41 ["value"]
-      186 CALL                             R14 5 1
-      187 FASTCALL2                        TABLE_INSERT R10 R14 ; [+4]
-      189 MOVE                             R13 R10
-      190 GETIMPORT                        R12 K33 [table.insert]
-      192 CALL                             R12 2 0
-      193 JUMP                             ; [+22]
-      194 MOVE                             R14 R9
-      195 LOADK                            R15 K38 ["cage"]
-      196 GETTABLEKS                       R16 R3 K39 ["CageEditingToolImage"]
-      198 LOADK                            R19 K5 ["EditingTools"]
-      199 LOADK                            R20 K40 ["CageTool"]
-      200 NAMECALL                         R17 R2 K21 ["getText"]
-      202 CALL                             R17 3 1
-      203 LOADK                            R20 K5 ["EditingTools"]
-      204 LOADK                            R21 K44 ["CageToolCheckingPermissionDescription"]
-      205 NAMECALL                         R18 R2 K21 ["getText"]
-      207 CALL                             R18 3 1
-      208 LOADB                            R19 0
-      209 CALL                             R14 5 1
-      210 FASTCALL2                        TABLE_INSERT R10 R14 ; [+4]
-      212 MOVE                             R13 R10
-      213 GETIMPORT                        R12 K33 [table.insert]
-      215 CALL                             R12 2 0
-      216 LOADB                            R12 0
-      217 LENGTH                           R13 R10
-      218 LOADN                            R14 0
-      219 JUMPIFNOTLT                      R14 R13 ; [+112]
-      221 GETUPVAL                         R12 4
-      222 GETTABLEKS                       R12 R12 K45 ["createElement"]
-      224 GETUPVAL                         R13 4
-      225 GETTABLEKS                       R13 R13 K46 ["Fragment"]
-      227 NEWTABLE                         R14 0 0
-      229 NEWTABLE                         R15 4 0
-      231 GETUPVAL                         R16 9
-      232 GETTABLEKS                       R16 R16 K47 ["EDITING_TOOLS_GUI_NAMES"]
-      234 GETTABLEKS                       R16 R16 K48 ["EditingToolbar"]
-      236 GETUPVAL                         R17 4
-      237 GETTABLEKS                       R17 R17 K45 ["createElement"]
-      239 GETUPVAL                         R18 10
-      240 GETTABLEKS                       R18 R18 K49 ["Toolbar"]
-      242 DUPTABLE                         R19 K52 [{"InitialPosition", "VerticalItems"}]
-      243 LOADK                            R20 K53 ["Top"]
-      244 SETTABLEKS                       R20 R19 K50 ["InitialPosition"]
-      246 SETTABLEKS                       R10 R19 K51 ["VerticalItems"]
-      248 CALL                             R17 2 1
-      249 SETTABLE                         R17 R15 R16
-      250 LOADB                            R16 0
-      251 JUMPIFEQKS                       R4 K7 ["none"] ; [+41]
-      253 JUMPIFNOTEQKS                    R4 K27 ["attachments"] ; [+16]
-      255 GETUPVAL                         R16 4
-      256 GETTABLEKS                       R16 R16 K45 ["createElement"]
-      258 GETUPVAL                         R17 11
-      259 DUPTABLE                         R18 K56 [{"worldModel", "additionalToolbarItems"}]
-      260 GETTABLEKS                       R19 R0 K34 ["avatar"]
-      262 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
-      264 SETTABLEKS                       R19 R18 K54 ["worldModel"]
-      266 SETTABLEKS                       R8 R18 K55 ["additionalToolbarItems"]
-      268 CALL                             R16 2 1
-      269 JUMP                             ; [+23]
-      270 GETUPVAL                         R17 12
-      271 CALL                             R17 0 1
-      272 JUMPIFNOT                        R17 ; [+17]
-      273 JUMPIFNOTEQKS                    R4 K38 ["cage"] ; [+16]
-      275 GETUPVAL                         R16 4
-      276 GETTABLEKS                       R16 R16 K45 ["createElement"]
-      278 GETUPVAL                         R17 13
-      279 DUPTABLE                         R18 K59 [{"mannequin", "additionalToolbarItems"}]
-      280 GETTABLEKS                       R19 R0 K34 ["avatar"]
-      282 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
-      284 SETTABLEKS                       R19 R18 K58 ["mannequin"]
-      286 SETTABLEKS                       R8 R18 K55 ["additionalToolbarItems"]
-      288 CALL                             R16 2 1
-      289 JUMP                             ; [+3]
-      290 GETUPVAL                         R16 14
-      291 MOVE                             R17 R4
-      292 CALL                             R16 1 1
-      293 SETTABLEKS                       R16 R15 K60 ["Tool"]
-      295 LOADB                            R16 0
-      296 JUMPIFEQKS                       R4 K7 ["none"] ; [+15]
-      298 GETUPVAL                         R16 4
-      299 GETTABLEKS                       R16 R16 K45 ["createElement"]
-      301 GETUPVAL                         R17 15
-      302 DUPTABLE                         R18 K62 [{"avatar", "includeAccessories"}]
-      303 GETTABLEKS                       R19 R0 K34 ["avatar"]
-      305 SETTABLEKS                       R19 R18 K34 ["avatar"]
-      307 GETTABLEKS                       R19 R7 K23 ["enabled"]
-      309 SETTABLEKS                       R19 R18 K61 ["includeAccessories"]
-      311 CALL                             R16 2 1
-      312 SETTABLEKS                       R16 R15 K63 ["RepresentEditorStateOnWorldModel"]
-      314 LOADB                            R16 0
-      315 JUMPIFEQKS                       R4 K7 ["none"] ; [+13]
-      317 GETUPVAL                         R16 4
-      318 GETTABLEKS                       R16 R16 K45 ["createElement"]
-      320 GETUPVAL                         R17 16
-      321 DUPTABLE                         R18 K65 [{"dummy"}]
-      322 GETTABLEKS                       R19 R0 K34 ["avatar"]
-      324 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
-      326 SETTABLEKS                       R19 R18 K64 ["dummy"]
-      328 CALL                             R16 2 1
-      329 SETTABLEKS                       R16 R15 K66 ["BindFocusOnPVInstance"]
-      331 CALL                             R12 3 1
-      332 RETURN                           R12 1
+       64 DUPTABLE                         R9 K19 [{["Type"] = "Button", ["Tooltip"], ["TooltipDescription"], ["Icon"], ["Selected"], ["OnClick"]}]
+       65 LOADK                            R12 K5 ["EditingTools"]
+       66 LOADK                            R13 K20 ["ShowAccessories"]
+       67 NAMECALL                         R10 R2 K21 ["getText"]
+       69 CALL                             R10 3 1
+       70 SETTABLEKS                       R10 R9 K14 ["Tooltip"]
+       72 LOADK                            R12 K5 ["EditingTools"]
+       73 LOADK                            R13 K22 ["ShowAccessoriesDescription"]
+       74 NAMECALL                         R10 R2 K21 ["getText"]
+       76 CALL                             R10 3 1
+       77 SETTABLEKS                       R10 R9 K15 ["TooltipDescription"]
+       79 GETTABLEKS                       R11 R7 K23 ["enabled"]
+       81 JUMPIFNOT                        R11 ; [+3]
+       82 GETTABLEKS                       R10 R3 K24 ["ShowClothingOnImage"]
+       84 JUMP                             ; [+2]
+       85 GETTABLEKS                       R10 R3 K25 ["ShowClothingOffImage"]
+       87 SETTABLEKS                       R10 R9 K16 ["Icon"]
+       89 GETTABLEKS                       R10 R7 K23 ["enabled"]
+       91 SETTABLEKS                       R10 R9 K17 ["Selected"]
+       93 GETTABLEKS                       R10 R7 K26 ["toggle"]
+       95 SETTABLEKS                       R10 R9 K18 ["OnClick"]
+       97 SETLIST                          R8 R9 1 [1]
+       99 NEWCLOSURE                       R9 P2
+      100 CAPTURE                          VAL R4
+      101 CAPTURE                          VAL R5
+      102 CAPTURE                          VAL R1
+      103 NEWTABLE                         R10 0 0
+      105 MOVE                             R13 R9
+      106 LOADK                            R14 K27 ["attachments"]
+      107 GETTABLEKS                       R15 R3 K28 ["AttachmentToolImage"]
+      109 LOADK                            R18 K5 ["EditingTools"]
+      110 LOADK                            R19 K29 ["AttachmentsTool"]
+      111 NAMECALL                         R16 R2 K21 ["getText"]
+      113 CALL                             R16 3 1
+      114 LOADK                            R19 K5 ["EditingTools"]
+      115 LOADK                            R20 K30 ["AttachmentsToolDescription"]
+      116 NAMECALL                         R17 R2 K21 ["getText"]
+      118 CALL                             R17 3 -1
+      119 CALL                             R13 -1 1
+      120 FASTCALL2                        TABLE_INSERT R10 R13 ; [+4]
+      122 MOVE                             R12 R10
+      123 GETIMPORT                        R11 K33 [table.insert]
+      125 CALL                             R11 2 0
+      126 GETUPVAL                         R11 8
+      127 DUPTABLE                         R12 K35 [{"avatar"}]
+      128 GETTABLEKS                       R13 R0 K34 ["avatar"]
+      130 SETTABLEKS                       R13 R12 K34 ["avatar"]
+      132 CALL                             R11 1 1
+      133 GETUPVAL                         R12 4
+      134 GETTABLEKS                       R12 R12 K9 ["useEffect"]
+      136 NEWCLOSURE                       R13 P3
+      137 CAPTURE                          VAL R4
+      138 CAPTURE                          VAL R11
+      139 CAPTURE                          VAL R5
+      140 NEWTABLE                         R14 0 2
+      142 MOVE                             R15 R4
+      143 GETTABLEKS                       R17 R11 K36 ["state"]
+      145 JUMPIFNOTEQKS                    R17 K37 ["ok"] ; [+4]
+      147 GETTABLEKS                       R16 R11 K36 ["state"]
+      149 JUMP                             ; [+1]
+      150 LOADNIL                          R16
+      151 SETLIST                          R14 R15 2 [1]
+      153 CALL                             R12 2 0
+      154 GETTABLEKS                       R12 R11 K36 ["state"]
+      156 JUMPIFNOTEQKS                    R12 K37 ["ok"] ; [+34]
+      158 MOVE                             R14 R9
+      159 LOADK                            R15 K38 ["cage"]
+      160 GETTABLEKS                       R16 R3 K39 ["CageEditingToolImage"]
+      162 LOADK                            R19 K5 ["EditingTools"]
+      163 LOADK                            R20 K40 ["CageTool"]
+      164 NAMECALL                         R17 R2 K21 ["getText"]
+      166 CALL                             R17 3 1
+      167 GETTABLEKS                       R19 R11 K41 ["value"]
+      169 JUMPIFNOT                        R19 ; [+6]
+      170 LOADK                            R20 K5 ["EditingTools"]
+      171 LOADK                            R21 K42 ["CageToolDescription"]
+      172 NAMECALL                         R18 R2 K21 ["getText"]
+      174 CALL                             R18 3 1
+      175 JUMP                             ; [+5]
+      176 LOADK                            R20 K5 ["EditingTools"]
+      177 LOADK                            R21 K43 ["CageToolNoPermissionDescription"]
+      178 NAMECALL                         R18 R2 K21 ["getText"]
+      180 CALL                             R18 3 1
+      181 GETTABLEKS                       R19 R11 K41 ["value"]
+      183 CALL                             R14 5 1
+      184 FASTCALL2                        TABLE_INSERT R10 R14 ; [+4]
+      186 MOVE                             R13 R10
+      187 GETIMPORT                        R12 K33 [table.insert]
+      189 CALL                             R12 2 0
+      190 JUMP                             ; [+22]
+      191 MOVE                             R14 R9
+      192 LOADK                            R15 K38 ["cage"]
+      193 GETTABLEKS                       R16 R3 K39 ["CageEditingToolImage"]
+      195 LOADK                            R19 K5 ["EditingTools"]
+      196 LOADK                            R20 K40 ["CageTool"]
+      197 NAMECALL                         R17 R2 K21 ["getText"]
+      199 CALL                             R17 3 1
+      200 LOADK                            R20 K5 ["EditingTools"]
+      201 LOADK                            R21 K44 ["CageToolCheckingPermissionDescription"]
+      202 NAMECALL                         R18 R2 K21 ["getText"]
+      204 CALL                             R18 3 1
+      205 LOADB                            R19 0
+      206 CALL                             R14 5 1
+      207 FASTCALL2                        TABLE_INSERT R10 R14 ; [+4]
+      209 MOVE                             R13 R10
+      210 GETIMPORT                        R12 K33 [table.insert]
+      212 CALL                             R12 2 0
+      213 LOADB                            R12 0
+      214 LENGTH                           R13 R10
+      215 LOADN                            R14 0
+      216 JUMPIFNOTLT                      R14 R13 ; [+109]
+      218 GETUPVAL                         R12 4
+      219 GETTABLEKS                       R12 R12 K45 ["createElement"]
+      221 GETUPVAL                         R13 4
+      222 GETTABLEKS                       R13 R13 K46 ["Fragment"]
+      224 NEWTABLE                         R14 0 0
+      226 NEWTABLE                         R15 4 0
+      228 GETUPVAL                         R16 9
+      229 GETTABLEKS                       R16 R16 K47 ["EDITING_TOOLS_GUI_NAMES"]
+      231 GETTABLEKS                       R16 R16 K48 ["EditingToolbar"]
+      233 GETUPVAL                         R17 4
+      234 GETTABLEKS                       R17 R17 K45 ["createElement"]
+      236 GETUPVAL                         R18 10
+      237 GETTABLEKS                       R18 R18 K49 ["Toolbar"]
+      239 DUPTABLE                         R19 K53 [{["InitialPosition"] = "Top", ["VerticalItems"]}]
+      240 SETTABLEKS                       R10 R19 K52 ["VerticalItems"]
+      242 CALL                             R17 2 1
+      243 SETTABLE                         R17 R15 R16
+      244 LOADB                            R16 0
+      245 JUMPIFEQKS                       R4 K7 ["none"] ; [+41]
+      247 JUMPIFNOTEQKS                    R4 K27 ["attachments"] ; [+16]
+      249 GETUPVAL                         R16 4
+      250 GETTABLEKS                       R16 R16 K45 ["createElement"]
+      252 GETUPVAL                         R17 11
+      253 DUPTABLE                         R18 K56 [{"worldModel", "additionalToolbarItems"}]
+      254 GETTABLEKS                       R19 R0 K34 ["avatar"]
+      256 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
+      258 SETTABLEKS                       R19 R18 K54 ["worldModel"]
+      260 SETTABLEKS                       R8 R18 K55 ["additionalToolbarItems"]
+      262 CALL                             R16 2 1
+      263 JUMP                             ; [+23]
+      264 GETUPVAL                         R17 12
+      265 CALL                             R17 0 1
+      266 JUMPIFNOT                        R17 ; [+17]
+      267 JUMPIFNOTEQKS                    R4 K38 ["cage"] ; [+16]
+      269 GETUPVAL                         R16 4
+      270 GETTABLEKS                       R16 R16 K45 ["createElement"]
+      272 GETUPVAL                         R17 13
+      273 DUPTABLE                         R18 K59 [{"mannequin", "additionalToolbarItems"}]
+      274 GETTABLEKS                       R19 R0 K34 ["avatar"]
+      276 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
+      278 SETTABLEKS                       R19 R18 K58 ["mannequin"]
+      280 SETTABLEKS                       R8 R18 K55 ["additionalToolbarItems"]
+      282 CALL                             R16 2 1
+      283 JUMP                             ; [+3]
+      284 GETUPVAL                         R16 14
+      285 MOVE                             R17 R4
+      286 CALL                             R16 1 1
+      287 SETTABLEKS                       R16 R15 K60 ["Tool"]
+      289 LOADB                            R16 0
+      290 JUMPIFEQKS                       R4 K7 ["none"] ; [+15]
+      292 GETUPVAL                         R16 4
+      293 GETTABLEKS                       R16 R16 K45 ["createElement"]
+      295 GETUPVAL                         R17 15
+      296 DUPTABLE                         R18 K62 [{"avatar", "includeAccessories"}]
+      297 GETTABLEKS                       R19 R0 K34 ["avatar"]
+      299 SETTABLEKS                       R19 R18 K34 ["avatar"]
+      301 GETTABLEKS                       R19 R7 K23 ["enabled"]
+      303 SETTABLEKS                       R19 R18 K61 ["includeAccessories"]
+      305 CALL                             R16 2 1
+      306 SETTABLEKS                       R16 R15 K63 ["RepresentEditorStateOnWorldModel"]
+      308 LOADB                            R16 0
+      309 JUMPIFEQKS                       R4 K7 ["none"] ; [+13]
+      311 GETUPVAL                         R16 4
+      312 GETTABLEKS                       R16 R16 K45 ["createElement"]
+      314 GETUPVAL                         R17 16
+      315 DUPTABLE                         R18 K65 [{"dummy"}]
+      316 GETTABLEKS                       R19 R0 K34 ["avatar"]
+      318 GETTABLEKS                       R19 R19 K57 ["WorldModel"]
+      320 SETTABLEKS                       R19 R18 K64 ["dummy"]
+      322 CALL                             R16 2 1
+      323 SETTABLEKS                       R16 R15 K66 ["BindFocusOnPVInstance"]
+      325 CALL                             R12 3 1
+      326 RETURN                           R12 1
 
 MAIN:
         0 PREPVARARGS                      0

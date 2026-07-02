@@ -123,62 +123,46 @@ MAIN:
        59 GETTABLEKS                       R12 R12 K16 ["Util"]
        61 GETTABLEKS                       R12 R12 K17 ["Constants"]
        63 CALL                             R11 1 1
-       64 DUPTABLE                         R12 K32 [{"assetConfigData", "versionHistory", "changed", "assetId", "assetName", "instances", "clonedInstance", "assetTypeEnum", "screenConfigs", "isCatalogItemCreator", "currentScreen", "totalResults", "resultsArray", "filteredResultsArray"}]
+       64 DUPTABLE                         R12 K35 [{["assetConfigData"], ["versionHistory"] = , ["changed"], ["assetId"] = , ["assetName"] = , ["instances"] = , ["clonedInstance"] = , ["assetTypeEnum"] = , ["screenConfigs"], ["isCatalogItemCreator"] = False, ["currentScreen"], ["totalResults"] = 0, ["resultsArray"], ["filteredResultsArray"]}]
        65 NEWTABLE                         R13 0 0
        67 SETTABLEKS                       R13 R12 K18 ["assetConfigData"]
-       69 LOADNIL                          R13
-       70 SETTABLEKS                       R13 R12 K19 ["versionHistory"]
-       72 NEWTABLE                         R13 0 0
-       74 SETTABLEKS                       R13 R12 K20 ["changed"]
-       76 LOADNIL                          R13
-       77 SETTABLEKS                       R13 R12 K21 ["assetId"]
-       79 LOADNIL                          R13
-       80 SETTABLEKS                       R13 R12 K22 ["assetName"]
-       82 LOADNIL                          R13
-       83 SETTABLEKS                       R13 R12 K23 ["instances"]
-       85 LOADNIL                          R13
-       86 SETTABLEKS                       R13 R12 K24 ["clonedInstance"]
-       88 LOADNIL                          R13
-       89 SETTABLEKS                       R13 R12 K25 ["assetTypeEnum"]
-       91 NEWTABLE                         R13 0 0
-       93 SETTABLEKS                       R13 R12 K26 ["screenConfigs"]
-       95 LOADB                            R13 0
-       96 SETTABLEKS                       R13 R12 K27 ["isCatalogItemCreator"]
-       98 GETTABLEKS                       R13 R11 K33 ["SCREENS"]
-      100 GETTABLEKS                       R13 R13 K34 ["CONFIGURE_ASSET"]
-      102 SETTABLEKS                       R13 R12 K28 ["currentScreen"]
-      104 LOADN                            R13 0
-      105 SETTABLEKS                       R13 R12 K29 ["totalResults"]
-      107 NEWTABLE                         R13 0 0
-      109 SETTABLEKS                       R13 R12 K30 ["resultsArray"]
-      111 NEWTABLE                         R13 0 0
-      113 SETTABLEKS                       R13 R12 K31 ["filteredResultsArray"]
-      115 GETTABLEKS                       R13 R3 K35 ["createReducer"]
-      117 MOVE                             R14 R12
-      118 NEWTABLE                         R15 8 0
-      120 GETTABLEKS                       R16 R6 K36 ["name"]
-      122 DUPCLOSURE                       R17 K37 [PROTO_0]
-      123 CAPTURE                          VAL R2
-      124 SETTABLE                         R17 R15 R16
-      125 GETTABLEKS                       R16 R5 K36 ["name"]
-      127 DUPCLOSURE                       R17 K38 [PROTO_1]
-      128 CAPTURE                          VAL R2
-      129 SETTABLE                         R17 R15 R16
-      130 GETTABLEKS                       R16 R7 K36 ["name"]
-      132 DUPCLOSURE                       R17 K39 [PROTO_2]
-      133 CAPTURE                          VAL R2
-      134 SETTABLE                         R17 R15 R16
-      135 GETTABLEKS                       R16 R8 K36 ["name"]
-      137 DUPCLOSURE                       R17 K40 [PROTO_3]
-      138 CAPTURE                          VAL R2
-      139 SETTABLE                         R17 R15 R16
-      140 GETTABLEKS                       R16 R9 K36 ["name"]
-      142 DUPCLOSURE                       R17 K41 [PROTO_4]
-      143 CAPTURE                          VAL R2
-      144 SETTABLE                         R17 R15 R16
-      145 GETTABLEKS                       R16 R10 K36 ["name"]
-      147 DUPCLOSURE                       R17 K42 [PROTO_5]
-      148 CAPTURE                          VAL R2
-      149 SETTABLE                         R17 R15 R16
-      150 CALL                             R13 2 -1
-      151 RETURN                           R13 -1
+       69 NEWTABLE                         R13 0 0
+       71 SETTABLEKS                       R13 R12 K21 ["changed"]
+       73 NEWTABLE                         R13 0 0
+       75 SETTABLEKS                       R13 R12 K27 ["screenConfigs"]
+       77 GETTABLEKS                       R13 R11 K36 ["SCREENS"]
+       79 GETTABLEKS                       R13 R13 K37 ["CONFIGURE_ASSET"]
+       81 SETTABLEKS                       R13 R12 K30 ["currentScreen"]
+       83 NEWTABLE                         R13 0 0
+       85 SETTABLEKS                       R13 R12 K33 ["resultsArray"]
+       87 NEWTABLE                         R13 0 0
+       89 SETTABLEKS                       R13 R12 K34 ["filteredResultsArray"]
+       91 GETTABLEKS                       R13 R3 K38 ["createReducer"]
+       93 MOVE                             R14 R12
+       94 NEWTABLE                         R15 8 0
+       96 GETTABLEKS                       R16 R6 K39 ["name"]
+       98 DUPCLOSURE                       R17 K40 [PROTO_0]
+       99 CAPTURE                          VAL R2
+      100 SETTABLE                         R17 R15 R16
+      101 GETTABLEKS                       R16 R5 K39 ["name"]
+      103 DUPCLOSURE                       R17 K41 [PROTO_1]
+      104 CAPTURE                          VAL R2
+      105 SETTABLE                         R17 R15 R16
+      106 GETTABLEKS                       R16 R7 K39 ["name"]
+      108 DUPCLOSURE                       R17 K42 [PROTO_2]
+      109 CAPTURE                          VAL R2
+      110 SETTABLE                         R17 R15 R16
+      111 GETTABLEKS                       R16 R8 K39 ["name"]
+      113 DUPCLOSURE                       R17 K43 [PROTO_3]
+      114 CAPTURE                          VAL R2
+      115 SETTABLE                         R17 R15 R16
+      116 GETTABLEKS                       R16 R9 K39 ["name"]
+      118 DUPCLOSURE                       R17 K44 [PROTO_4]
+      119 CAPTURE                          VAL R2
+      120 SETTABLE                         R17 R15 R16
+      121 GETTABLEKS                       R16 R10 K39 ["name"]
+      123 DUPCLOSURE                       R17 K45 [PROTO_5]
+      124 CAPTURE                          VAL R2
+      125 SETTABLE                         R17 R15 R16
+      126 CALL                             R13 2 -1
+      127 RETURN                           R13 -1

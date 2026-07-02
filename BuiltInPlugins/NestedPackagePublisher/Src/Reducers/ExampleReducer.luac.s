@@ -29,13 +29,11 @@ MAIN:
        29 GETTABLEKS                       R5 R3 K10 ["ExampleAction"]
        31 CALL                             R4 1 1
        32 GETTABLEKS                       R5 R1 K11 ["createReducer"]
-       34 DUPTABLE                         R6 K13 [{"DefaultStateObject"}]
-       35 LOADK                            R7 K14 [""]
-       36 SETTABLEKS                       R7 R6 K12 ["DefaultStateObject"]
-       38 NEWTABLE                         R7 1 0
-       40 GETTABLEKS                       R8 R4 K15 ["name"]
-       42 DUPCLOSURE                       R9 K16 [PROTO_0]
-       43 CAPTURE                          VAL R2
-       44 SETTABLE                         R9 R7 R8
-       45 CALL                             R5 2 -1
-       46 RETURN                           R5 -1
+       34 DUPTABLE                         R6 K14 [{["DefaultStateObject"] = ""}]
+       35 NEWTABLE                         R7 1 0
+       37 GETTABLEKS                       R8 R4 K15 ["name"]
+       39 DUPCLOSURE                       R9 K16 [PROTO_0]
+       40 CAPTURE                          VAL R2
+       41 SETTABLE                         R9 R7 R8
+       42 CALL                             R5 2 -1
+       43 RETURN                           R5 -1

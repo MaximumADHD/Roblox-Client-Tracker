@@ -34,43 +34,37 @@ PROTO_2:
        28 GETUPVAL                         R4 0
        29 GETTABLEKS                       R4 R4 K4 ["createElement"]
        31 GETUPVAL                         R5 1
-       32 DUPTABLE                         R6 K13 [{"uri", "type", "title", "width", "primaryAction", "secondaryAction", "description", "showIndeterminateProgressIndicator"}]
+       32 DUPTABLE                         R6 K16 [{["uri"], ["type"] = "Default", ["title"], ["width"] = 320, ["primaryAction"], ["secondaryAction"], ["description"], ["showIndeterminateProgressIndicator"] = False}]
        33 GETTABLEKS                       R7 R0 K5 ["uri"]
        35 SETTABLEKS                       R7 R6 K5 ["uri"]
-       37 LOADK                            R7 K14 ["Default"]
-       38 SETTABLEKS                       R7 R6 K6 ["type"]
-       40 GETTABLEKS                       R7 R1 K15 ["Title"]
-       42 SETTABLEKS                       R7 R6 K7 ["title"]
-       44 LOADN                            R7 64
-       45 SETTABLEKS                       R7 R6 K8 ["width"]
-       47 DUPTABLE                         R7 K18 [{"uri", "text", "onActivated"}]
-       48 GETUPVAL                         R8 2
-       49 GETTABLEKS                       R8 R8 K19 ["child"]
-       51 GETTABLEKS                       R9 R0 K5 ["uri"]
-       53 LOADK                            R10 K20 ["Publish"]
-       54 CALL                             R8 2 1
-       55 SETTABLEKS                       R8 R7 K5 ["uri"]
-       57 GETTABLEKS                       R8 R1 K21 ["ConfirmButton"]
-       59 SETTABLEKS                       R8 R7 K16 ["text"]
-       61 SETTABLEKS                       R2 R7 K17 ["onActivated"]
-       63 SETTABLEKS                       R7 R6 K9 ["primaryAction"]
-       65 DUPTABLE                         R7 K18 [{"uri", "text", "onActivated"}]
-       66 GETUPVAL                         R8 2
-       67 GETTABLEKS                       R8 R8 K19 ["child"]
-       69 GETTABLEKS                       R9 R0 K5 ["uri"]
-       71 LOADK                            R10 K22 ["Cancel"]
-       72 CALL                             R8 2 1
-       73 SETTABLEKS                       R8 R7 K5 ["uri"]
-       75 GETTABLEKS                       R8 R1 K23 ["CancelButton"]
-       77 SETTABLEKS                       R8 R7 K16 ["text"]
-       79 SETTABLEKS                       R3 R7 K17 ["onActivated"]
-       81 SETTABLEKS                       R7 R6 K10 ["secondaryAction"]
-       83 GETTABLEKS                       R7 R1 K24 ["Description"]
-       85 SETTABLEKS                       R7 R6 K11 ["description"]
-       87 LOADB                            R7 0
-       88 SETTABLEKS                       R7 R6 K12 ["showIndeterminateProgressIndicator"]
-       90 CALL                             R4 2 -1
-       91 RETURN                           R4 -1
+       37 GETTABLEKS                       R7 R1 K17 ["Title"]
+       39 SETTABLEKS                       R7 R6 K8 ["title"]
+       41 DUPTABLE                         R7 K20 [{"uri", "text", "onActivated"}]
+       42 GETUPVAL                         R8 2
+       43 GETTABLEKS                       R8 R8 K21 ["child"]
+       45 GETTABLEKS                       R9 R0 K5 ["uri"]
+       47 LOADK                            R10 K22 ["Publish"]
+       48 CALL                             R8 2 1
+       49 SETTABLEKS                       R8 R7 K5 ["uri"]
+       51 GETTABLEKS                       R8 R1 K23 ["ConfirmButton"]
+       53 SETTABLEKS                       R8 R7 K18 ["text"]
+       55 SETTABLEKS                       R2 R7 K19 ["onActivated"]
+       57 SETTABLEKS                       R7 R6 K11 ["primaryAction"]
+       59 DUPTABLE                         R7 K20 [{"uri", "text", "onActivated"}]
+       60 GETUPVAL                         R8 2
+       61 GETTABLEKS                       R8 R8 K21 ["child"]
+       63 GETTABLEKS                       R9 R0 K5 ["uri"]
+       65 LOADK                            R10 K24 ["Cancel"]
+       66 CALL                             R8 2 1
+       67 SETTABLEKS                       R8 R7 K5 ["uri"]
+       69 GETTABLEKS                       R8 R1 K25 ["CancelButton"]
+       71 SETTABLEKS                       R8 R7 K18 ["text"]
+       73 SETTABLEKS                       R3 R7 K19 ["onActivated"]
+       75 SETTABLEKS                       R7 R6 K12 ["secondaryAction"]
+       77 GETTABLEKS                       R7 R1 K26 ["Description"]
+       79 SETTABLEKS                       R7 R6 K13 ["description"]
+       81 CALL                             R4 2 -1
+       82 RETURN                           R4 -1
 
 MAIN:
         0 PREPVARARGS                      0

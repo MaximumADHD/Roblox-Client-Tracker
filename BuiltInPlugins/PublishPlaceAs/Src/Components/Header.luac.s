@@ -7,8 +7,8 @@ PROTO_0:
         9 GETUPVAL                         R5 0
        10 GETTABLEKS                       R5 R5 K5 ["createElement"]
        12 LOADK                            R6 K6 ["TextLabel"]
-       13 DUPTABLE                         R7 K16 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "TextColor3", "LayoutOrder"}]
-       14 GETIMPORT                        R8 K19 [UDim2.new]
+       13 DUPTABLE                         R7 K18 [{["Size"], ["Text"], ["BackgroundTransparency"] = 1, ["BorderSizePixel"] = 0, ["TextSize"] = 28, ["TextXAlignment"], ["TextYAlignment"], ["Font"], ["TextColor3"], ["LayoutOrder"]}]
+       14 GETIMPORT                        R8 K21 [UDim2.new]
        16 LOADN                            R9 1
        17 LOADN                            R10 0
        18 LOADN                            R11 0
@@ -16,25 +16,19 @@ PROTO_0:
        20 CALL                             R8 4 1
        21 SETTABLEKS                       R8 R7 K7 ["Size"]
        23 SETTABLEKS                       R3 R7 K8 ["Text"]
-       25 LOADN                            R8 1
-       26 SETTABLEKS                       R8 R7 K9 ["BackgroundTransparency"]
-       28 LOADN                            R8 0
-       29 SETTABLEKS                       R8 R7 K10 ["BorderSizePixel"]
-       31 LOADN                            R8 28
-       32 SETTABLEKS                       R8 R7 K11 ["TextSize"]
-       34 GETIMPORT                        R8 K22 [Enum.TextXAlignment.Left]
-       36 SETTABLEKS                       R8 R7 K12 ["TextXAlignment"]
-       38 GETIMPORT                        R8 K24 [Enum.TextYAlignment.Bottom]
-       40 SETTABLEKS                       R8 R7 K13 ["TextYAlignment"]
-       42 GETTABLEKS                       R8 R2 K25 ["header"]
-       44 GETTABLEKS                       R8 R8 K26 ["font"]
-       46 SETTABLEKS                       R8 R7 K14 ["Font"]
-       48 GETTABLEKS                       R8 R2 K25 ["header"]
-       50 GETTABLEKS                       R8 R8 K27 ["text"]
-       52 SETTABLEKS                       R8 R7 K15 ["TextColor3"]
-       54 SETTABLEKS                       R4 R7 K4 ["LayoutOrder"]
-       56 CALL                             R5 2 -1
-       57 RETURN                           R5 -1
+       25 GETIMPORT                        R8 K24 [Enum.TextXAlignment.Left]
+       27 SETTABLEKS                       R8 R7 K14 ["TextXAlignment"]
+       29 GETIMPORT                        R8 K26 [Enum.TextYAlignment.Bottom]
+       31 SETTABLEKS                       R8 R7 K15 ["TextYAlignment"]
+       33 GETTABLEKS                       R8 R2 K27 ["header"]
+       35 GETTABLEKS                       R8 R8 K28 ["font"]
+       37 SETTABLEKS                       R8 R7 K16 ["Font"]
+       39 GETTABLEKS                       R8 R2 K27 ["header"]
+       41 GETTABLEKS                       R8 R8 K29 ["text"]
+       43 SETTABLEKS                       R8 R7 K17 ["TextColor3"]
+       45 SETTABLEKS                       R4 R7 K4 ["LayoutOrder"]
+       47 CALL                             R5 2 -1
+       48 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

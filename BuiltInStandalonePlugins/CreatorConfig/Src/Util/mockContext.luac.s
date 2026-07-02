@@ -17,16 +17,12 @@ PROTO_0:
        20 GETUPVAL                         R4 2
        21 GETTABLEKS                       R4 R4 K9 ["createElement"]
        23 GETUPVAL                         R5 3
-       24 DUPTABLE                         R6 K12 [{"theme", "device"}]
-       25 LOADK                            R7 K13 ["Dark"]
-       26 SETTABLEKS                       R7 R6 K10 ["theme"]
-       28 LOADK                            R7 K14 ["Desktop"]
-       29 SETTABLEKS                       R7 R6 K11 ["device"]
-       31 MOVE                             R7 R0
-       32 CALL                             R4 3 1
-       33 SETTABLEKS                       R4 R3 K7 ["FoundationProvider"]
-       35 CALL                             R1 2 -1
-       36 RETURN                           R1 -1
+       24 DUPTABLE                         R6 K14 [{["theme"] = "Dark", ["device"] = "Desktop"}]
+       25 MOVE                             R7 R0
+       26 CALL                             R4 3 1
+       27 SETTABLEKS                       R4 R3 K7 ["FoundationProvider"]
+       29 CALL                             R1 2 -1
+       30 RETURN                           R1 -1
 
 MAIN:
         0 PREPVARARGS                      0

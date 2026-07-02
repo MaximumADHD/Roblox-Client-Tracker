@@ -89,17 +89,15 @@ PROTO_4:
        25 GETUPVAL                         R2 1
        26 GETTABLEKS                       R2 R2 K6 ["createElement"]
        28 LOADK                            R3 K7 ["Frame"]
-       29 DUPTABLE                         R4 K11 [{"BackgroundTransparency", "Size", "ref"}]
-       30 LOADN                            R5 1
-       31 SETTABLEKS                       R5 R4 K8 ["BackgroundTransparency"]
-       33 GETIMPORT                        R5 K14 [UDim2.fromScale]
-       35 LOADN                            R6 1
-       36 LOADN                            R7 1
-       37 CALL                             R5 2 1
-       38 SETTABLEKS                       R5 R4 K9 ["Size"]
-       40 SETTABLEKS                       R1 R4 K10 ["ref"]
-       42 CALL                             R2 2 -1
-       43 RETURN                           R2 -1
+       29 DUPTABLE                         R4 K12 [{["BackgroundTransparency"] = 1, ["Size"], ["ref"]}]
+       30 GETIMPORT                        R5 K15 [UDim2.fromScale]
+       32 LOADN                            R6 1
+       33 LOADN                            R7 1
+       34 CALL                             R5 2 1
+       35 SETTABLEKS                       R5 R4 K10 ["Size"]
+       37 SETTABLEKS                       R1 R4 K11 ["ref"]
+       39 CALL                             R2 2 -1
+       40 RETURN                           R2 -1
 
 MAIN:
         0 PREPVARARGS                      0

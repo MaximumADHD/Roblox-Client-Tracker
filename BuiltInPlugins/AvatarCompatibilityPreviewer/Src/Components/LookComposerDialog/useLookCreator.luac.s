@@ -6,45 +6,41 @@ PROTO_0:
 
 PROTO_1:
         0 NEWTABLE                         R0 0 1
-        2 DUPTABLE                         R1 K4 [{"id", "text", "creatorType", "creatorId"}]
-        3 LOADK                            R3 K5 ["User_"]
+        2 DUPTABLE                         R1 K5 [{[1], ["text"], ["creatorType"] = "User", ["creatorId"]}]
+        3 LOADK                            R3 K6 ["User_"]
         4 GETUPVAL                         R5 0
         5 FASTCALL1                        TOSTRING R5 ; [+2]
-        6 GETIMPORT                        R4 K7 [tostring]
+        6 GETIMPORT                        R4 K8 [tostring]
         8 CALL                             R4 1 1
         9 CONCAT                           R2 R3 R4
        10 SETTABLEKS                       R2 R1 K0 ["id"]
        12 GETUPVAL                         R2 1
        13 SETTABLEKS                       R2 R1 K1 ["text"]
-       15 LOADK                            R2 K8 ["User"]
-       16 SETTABLEKS                       R2 R1 K2 ["creatorType"]
-       18 GETUPVAL                         R2 0
-       19 SETTABLEKS                       R2 R1 K3 ["creatorId"]
-       21 SETLIST                          R0 R1 1 [1]
-       23 GETUPVAL                         R1 2
-       24 LOADNIL                          R2
-       25 LOADNIL                          R3
-       26 FORGPREP                         R1
-       27 DUPTABLE                         R8 K4 [{"id", "text", "creatorType", "creatorId"}]
-       28 LOADK                            R10 K9 ["Group_"]
-       29 GETTABLEKS                       R12 R5 K0 ["id"]
-       31 FASTCALL1                        TOSTRING R12 ; [+2]
-       32 GETIMPORT                        R11 K7 [tostring]
-       34 CALL                             R11 1 1
-       35 CONCAT                           R9 R10 R11
-       36 SETTABLEKS                       R9 R8 K0 ["id"]
-       38 GETTABLEKS                       R9 R5 K10 ["name"]
-       40 SETTABLEKS                       R9 R8 K1 ["text"]
-       42 LOADK                            R9 K11 ["Group"]
-       43 SETTABLEKS                       R9 R8 K2 ["creatorType"]
-       45 GETTABLEKS                       R9 R5 K0 ["id"]
-       47 SETTABLEKS                       R9 R8 K3 ["creatorId"]
-       49 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
-       51 MOVE                             R7 R0
-       52 GETIMPORT                        R6 K14 [table.insert]
-       54 CALL                             R6 2 0
-       55 FORGLOOP                         R1 2 ; [-29]
-       57 RETURN                           R0 1
+       15 GETUPVAL                         R2 0
+       16 SETTABLEKS                       R2 R1 K4 ["creatorId"]
+       18 SETLIST                          R0 R1 1 [1]
+       20 GETUPVAL                         R1 2
+       21 LOADNIL                          R2
+       22 LOADNIL                          R3
+       23 FORGPREP                         R1
+       24 DUPTABLE                         R8 K10 [{[1], ["text"], ["creatorType"] = "Group", ["creatorId"]}]
+       25 LOADK                            R10 K11 ["Group_"]
+       26 GETTABLEKS                       R12 R5 K0 ["id"]
+       28 FASTCALL1                        TOSTRING R12 ; [+2]
+       29 GETIMPORT                        R11 K8 [tostring]
+       31 CALL                             R11 1 1
+       32 CONCAT                           R9 R10 R11
+       33 SETTABLEKS                       R9 R8 K0 ["id"]
+       35 GETTABLEKS                       R9 R5 K12 ["name"]
+       37 SETTABLEKS                       R9 R8 K1 ["text"]
+       39 GETTABLEKS                       R9 R5 K0 ["id"]
+       41 SETTABLEKS                       R9 R8 K4 ["creatorId"]
+       43 FASTCALL2                        TABLE_INSERT R0 R8 ; [+4]
+       45 MOVE                             R7 R0
+       46 GETIMPORT                        R6 K15 [table.insert]
+       48 CALL                             R6 2 0
+       49 FORGLOOP                         R1 2 ; [-26]
+       51 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

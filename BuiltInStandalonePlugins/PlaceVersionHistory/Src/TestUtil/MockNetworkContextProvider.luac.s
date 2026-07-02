@@ -101,20 +101,16 @@ PROTO_2:
         9 MOVE                             R2 R1
        10 CALL                             R2 0 -1
        11 RETURN                           R2 -1
-       12 DUPTABLE                         R2 K5 [{"page", "cursor", "hasMore"}]
+       12 DUPTABLE                         R2 K7 [{["page"], ["cursor"] = , ["hasMore"] = False}]
        13 NEWTABLE                         R3 0 0
        15 SETTABLEKS                       R3 R2 K2 ["page"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K3 ["cursor"]
-       20 LOADB                            R3 0
-       21 SETTABLEKS                       R3 R2 K4 ["hasMore"]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R3 R3 K6 ["places"]
-       26 SETTABLEKS                       R3 R2 K2 ["page"]
-       28 MOVE                             R3 R0
-       29 MOVE                             R4 R2
-       30 CALL                             R3 1 -1
-       31 RETURN                           R3 -1
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K8 ["places"]
+       20 SETTABLEKS                       R3 R2 K2 ["page"]
+       22 MOVE                             R3 R0
+       23 MOVE                             R4 R2
+       24 CALL                             R3 1 -1
+       25 RETURN                           R3 -1
 
 PROTO_3:
         0 GETUPVAL                         R1 0
@@ -135,20 +131,16 @@ PROTO_4:
         9 MOVE                             R2 R1
        10 CALL                             R2 0 -1
        11 RETURN                           R2 -1
-       12 DUPTABLE                         R2 K5 [{"page", "cursor", "hasMore"}]
+       12 DUPTABLE                         R2 K7 [{["page"], ["cursor"] = , ["hasMore"] = False}]
        13 NEWTABLE                         R3 0 0
        15 SETTABLEKS                       R3 R2 K2 ["page"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K3 ["cursor"]
-       20 LOADB                            R3 0
-       21 SETTABLEKS                       R3 R2 K4 ["hasMore"]
-       23 GETUPVAL                         R3 0
-       24 GETTABLEKS                       R3 R3 K6 ["usernames"]
-       26 SETTABLEKS                       R3 R2 K2 ["page"]
-       28 MOVE                             R3 R0
-       29 MOVE                             R4 R2
-       30 CALL                             R3 1 -1
-       31 RETURN                           R3 -1
+       17 GETUPVAL                         R3 0
+       18 GETTABLEKS                       R3 R3 K8 ["usernames"]
+       20 SETTABLEKS                       R3 R2 K2 ["page"]
+       22 MOVE                             R3 R0
+       23 MOVE                             R4 R2
+       24 CALL                             R3 1 -1
+       25 RETURN                           R3 -1
 
 PROTO_5:
         0 GETUPVAL                         R1 0
@@ -169,86 +161,82 @@ PROTO_6:
         9 MOVE                             R2 R1
        10 CALL                             R2 0 -1
        11 RETURN                           R2 -1
-       12 DUPTABLE                         R2 K5 [{"page", "cursor", "hasMore"}]
+       12 DUPTABLE                         R2 K7 [{["page"], ["cursor"] = , ["hasMore"] = False}]
        13 NEWTABLE                         R3 0 0
        15 SETTABLEKS                       R3 R2 K2 ["page"]
-       17 LOADNIL                          R3
-       18 SETTABLEKS                       R3 R2 K3 ["cursor"]
-       20 LOADB                            R3 0
-       21 SETTABLEKS                       R3 R2 K4 ["hasMore"]
-       23 GETUPVAL                         R4 1
-       24 GETTABLEKS                       R4 R4 K3 ["cursor"]
-       26 JUMPIFNOT                        R4 ; [+8]
-       27 GETUPVAL                         R4 1
-       28 GETTABLEKS                       R4 R4 K3 ["cursor"]
-       30 FASTCALL1                        TONUMBER R4 ; [+2]
-       31 GETIMPORT                        R3 K7 [tonumber]
-       33 CALL                             R3 1 1
-       34 JUMP                             ; [+4]
-       35 GETUPVAL                         R4 0
-       36 GETTABLEKS                       R4 R4 K8 ["versionHistory"]
-       38 LENGTH                           R3 R4
-       39 LOADN                            R4 0
-       40 JUMPIFNOTLT                      R4 R3 ; [+63]
-       42 GETTABLEKS                       R5 R2 K2 ["page"]
-       44 LENGTH                           R4 R5
-       45 GETUPVAL                         R5 1
-       46 GETTABLEKS                       R5 R5 K9 ["pageSize"]
-       48 JUMPIFEQ                         R4 R5 ; [+55]
-       50 GETUPVAL                         R5 0
-       51 GETTABLEKS                       R5 R5 K8 ["versionHistory"]
-       53 GETTABLE                         R4 R5 R3
-       54 SUBK                             R3 R3 K10 [1]
-       55 GETUPVAL                         R5 2
-       56 GETUPVAL                         R6 1
-       57 MOVE                             R7 R4
-       58 CALL                             R5 2 1
-       59 JUMPIFNOT                        R5 ; [+43]
-       60 GETUPVAL                         R6 1
-       61 GETTABLEKS                       R7 R6 K11 ["search"]
-       63 JUMPIFNOT                        R7 ; [+29]
-       64 GETTABLEKS                       R7 R4 K12 ["notes"]
-       66 GETTABLEKS                       R7 R7 K13 ["title"]
-       68 JUMPIF                           R7 ; [+2]
-       69 LOADB                            R5 0
-       70 JUMP                             ; [+23]
-       71 GETIMPORT                        R7 K16 [string.find]
-       73 GETIMPORT                        R8 K18 [string.lower]
-       75 GETTABLEKS                       R9 R4 K12 ["notes"]
-       77 GETTABLEKS                       R9 R9 K13 ["title"]
-       79 CALL                             R8 1 1
-       80 GETIMPORT                        R9 K18 [string.lower]
-       82 GETTABLEKS                       R10 R6 K11 ["search"]
-       84 CALL                             R9 1 1
-       85 LOADN                            R10 1
-       86 LOADB                            R11 1
-       87 CALL                             R7 4 1
-       88 JUMPIFNOTEQKNIL                  R7 ; [+2]
-       90 LOADB                            R5 0 +1
-       91 LOADB                            R5 1
-       92 JUMP                             ; [+1]
-       93 LOADB                            R5 1
-       94 JUMPIFNOT                        R5 ; [+8]
-       95 GETTABLEKS                       R6 R2 K2 ["page"]
-       97 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
-       99 MOVE                             R7 R4
-      100 GETIMPORT                        R5 K21 [table.insert]
-      102 CALL                             R5 2 0
-      103 JUMPBACK                         ; [-65]
-      104 LOADN                            R5 0
-      105 JUMPIFLT                         R5 R3 ; [+2]
-      107 LOADB                            R4 0 +1
-      108 LOADB                            R4 1
-      109 SETTABLEKS                       R4 R2 K4 ["hasMore"]
-      111 FASTCALL1                        TOSTRING R3 ; [+3]
-      112 MOVE                             R5 R3
-      113 GETIMPORT                        R4 K23 [tostring]
-      115 CALL                             R4 1 1
-      116 SETTABLEKS                       R4 R2 K3 ["cursor"]
-      118 MOVE                             R4 R0
-      119 MOVE                             R5 R2
-      120 CALL                             R4 1 -1
-      121 RETURN                           R4 -1
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R4 R4 K3 ["cursor"]
+       20 JUMPIFNOT                        R4 ; [+8]
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R4 R4 K3 ["cursor"]
+       24 FASTCALL1                        TONUMBER R4 ; [+2]
+       25 GETIMPORT                        R3 K9 [tonumber]
+       27 CALL                             R3 1 1
+       28 JUMP                             ; [+4]
+       29 GETUPVAL                         R4 0
+       30 GETTABLEKS                       R4 R4 K10 ["versionHistory"]
+       32 LENGTH                           R3 R4
+       33 LOADN                            R4 0
+       34 JUMPIFNOTLT                      R4 R3 ; [+63]
+       36 GETTABLEKS                       R5 R2 K2 ["page"]
+       38 LENGTH                           R4 R5
+       39 GETUPVAL                         R5 1
+       40 GETTABLEKS                       R5 R5 K11 ["pageSize"]
+       42 JUMPIFEQ                         R4 R5 ; [+55]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R5 R5 K10 ["versionHistory"]
+       47 GETTABLE                         R4 R5 R3
+       48 SUBK                             R3 R3 K12 [1]
+       49 GETUPVAL                         R5 2
+       50 GETUPVAL                         R6 1
+       51 MOVE                             R7 R4
+       52 CALL                             R5 2 1
+       53 JUMPIFNOT                        R5 ; [+43]
+       54 GETUPVAL                         R6 1
+       55 GETTABLEKS                       R7 R6 K13 ["search"]
+       57 JUMPIFNOT                        R7 ; [+29]
+       58 GETTABLEKS                       R7 R4 K14 ["notes"]
+       60 GETTABLEKS                       R7 R7 K15 ["title"]
+       62 JUMPIF                           R7 ; [+2]
+       63 LOADB                            R5 0
+       64 JUMP                             ; [+23]
+       65 GETIMPORT                        R7 K18 [string.find]
+       67 GETIMPORT                        R8 K20 [string.lower]
+       69 GETTABLEKS                       R9 R4 K14 ["notes"]
+       71 GETTABLEKS                       R9 R9 K15 ["title"]
+       73 CALL                             R8 1 1
+       74 GETIMPORT                        R9 K20 [string.lower]
+       76 GETTABLEKS                       R10 R6 K13 ["search"]
+       78 CALL                             R9 1 1
+       79 LOADN                            R10 1
+       80 LOADB                            R11 1
+       81 CALL                             R7 4 1
+       82 JUMPIFNOTEQKNIL                  R7 ; [+2]
+       84 LOADB                            R5 0 +1
+       85 LOADB                            R5 1
+       86 JUMP                             ; [+1]
+       87 LOADB                            R5 1
+       88 JUMPIFNOT                        R5 ; [+8]
+       89 GETTABLEKS                       R6 R2 K2 ["page"]
+       91 FASTCALL2                        TABLE_INSERT R6 R4 ; [+4]
+       93 MOVE                             R7 R4
+       94 GETIMPORT                        R5 K23 [table.insert]
+       96 CALL                             R5 2 0
+       97 JUMPBACK                         ; [-65]
+       98 LOADN                            R5 0
+       99 JUMPIFLT                         R5 R3 ; [+2]
+      101 LOADB                            R4 0 +1
+      102 LOADB                            R4 1
+      103 SETTABLEKS                       R4 R2 K5 ["hasMore"]
+      105 FASTCALL1                        TOSTRING R3 ; [+3]
+      106 MOVE                             R5 R3
+      107 GETIMPORT                        R4 K25 [tostring]
+      109 CALL                             R4 1 1
+      110 SETTABLEKS                       R4 R2 K3 ["cursor"]
+      112 MOVE                             R4 R0
+      113 MOVE                             R5 R2
+      114 CALL                             R4 1 -1
+      115 RETURN                           R4 -1
 
 PROTO_7:
         0 GETUPVAL                         R1 0
@@ -273,53 +261,49 @@ PROTO_8:
        11 RETURN                           R2 -1
        12 GETUPVAL                         R2 1
        13 GETTABLEKS                       R2 R2 K2 ["version"]
-       15 JUMPIF                           R2 ; [+52]
+       15 JUMPIF                           R2 ; [+46]
        16 GETUPVAL                         R3 0
        17 GETTABLEKS                       R3 R3 K3 ["versionHistory"]
-       19 DUPTABLE                         R4 K10 [{"version", "saveType", "published", "date", "contributors", "notes", "saver"}]
+       19 DUPTABLE                         R4 K12 [{["version"], ["saveType"] = "Manual", ["published"] = False, ["date"], ["contributors"], ["notes"], ["saver"]}]
        20 GETUPVAL                         R7 0
        21 GETTABLEKS                       R7 R7 K3 ["versionHistory"]
        23 LENGTH                           R6 R7
-       24 ADDK                             R5 R6 K11 [1]
+       24 ADDK                             R5 R6 K13 [1]
        25 SETTABLEKS                       R5 R4 K2 ["version"]
-       27 LOADK                            R5 K12 ["Manual"]
-       28 SETTABLEKS                       R5 R4 K4 ["saveType"]
-       30 LOADB                            R5 0
-       31 SETTABLEKS                       R5 R4 K5 ["published"]
-       33 GETIMPORT                        R5 K15 [DateTime.now]
-       35 CALL                             R5 0 1
-       36 SETTABLEKS                       R5 R4 K6 ["date"]
-       38 GETUPVAL                         R5 0
-       39 GETTABLEKS                       R5 R5 K16 ["users"]
-       41 SETTABLEKS                       R5 R4 K7 ["contributors"]
-       43 GETUPVAL                         R5 1
-       44 GETTABLEKS                       R5 R5 K8 ["notes"]
-       46 SETTABLEKS                       R5 R4 K8 ["notes"]
-       48 GETUPVAL                         R6 0
-       49 GETTABLEKS                       R6 R6 K16 ["users"]
-       51 GETIMPORT                        R7 K19 [math.random]
-       53 LOADN                            R8 1
-       54 GETUPVAL                         R10 0
-       55 GETTABLEKS                       R10 R10 K16 ["users"]
-       57 LENGTH                           R9 R10
-       58 CALL                             R7 2 1
-       59 GETTABLE                         R5 R6 R7
-       60 SETTABLEKS                       R5 R4 K9 ["saver"]
-       62 FASTCALL2                        TABLE_INSERT R3 R4 ; [+3]
-       64 GETIMPORT                        R2 K22 [table.insert]
-       66 CALL                             R2 2 0
-       67 JUMP                             ; [+12]
-       68 GETUPVAL                         R3 0
-       69 GETTABLEKS                       R3 R3 K3 ["versionHistory"]
-       71 GETUPVAL                         R4 1
-       72 GETTABLEKS                       R4 R4 K2 ["version"]
-       74 GETTABLE                         R2 R3 R4
-       75 GETUPVAL                         R3 1
-       76 GETTABLEKS                       R3 R3 K8 ["notes"]
-       78 SETTABLEKS                       R3 R2 K8 ["notes"]
-       80 MOVE                             R2 R0
-       81 CALL                             R2 0 -1
-       82 RETURN                           R2 -1
+       27 GETIMPORT                        R5 K16 [DateTime.now]
+       29 CALL                             R5 0 1
+       30 SETTABLEKS                       R5 R4 K8 ["date"]
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R5 R5 K17 ["users"]
+       35 SETTABLEKS                       R5 R4 K9 ["contributors"]
+       37 GETUPVAL                         R5 1
+       38 GETTABLEKS                       R5 R5 K10 ["notes"]
+       40 SETTABLEKS                       R5 R4 K10 ["notes"]
+       42 GETUPVAL                         R6 0
+       43 GETTABLEKS                       R6 R6 K17 ["users"]
+       45 GETIMPORT                        R7 K20 [math.random]
+       47 LOADN                            R8 1
+       48 GETUPVAL                         R10 0
+       49 GETTABLEKS                       R10 R10 K17 ["users"]
+       51 LENGTH                           R9 R10
+       52 CALL                             R7 2 1
+       53 GETTABLE                         R5 R6 R7
+       54 SETTABLEKS                       R5 R4 K11 ["saver"]
+       56 FASTCALL2                        TABLE_INSERT R3 R4 ; [+3]
+       58 GETIMPORT                        R2 K23 [table.insert]
+       60 CALL                             R2 2 0
+       61 JUMP                             ; [+12]
+       62 GETUPVAL                         R3 0
+       63 GETTABLEKS                       R3 R3 K3 ["versionHistory"]
+       65 GETUPVAL                         R4 1
+       66 GETTABLEKS                       R4 R4 K2 ["version"]
+       68 GETTABLE                         R2 R3 R4
+       69 GETUPVAL                         R3 1
+       70 GETTABLEKS                       R3 R3 K10 ["notes"]
+       72 SETTABLEKS                       R3 R2 K10 ["notes"]
+       74 MOVE                             R2 R0
+       75 CALL                             R2 0 -1
+       76 RETURN                           R2 -1
 
 PROTO_9:
         0 GETUPVAL                         R1 0

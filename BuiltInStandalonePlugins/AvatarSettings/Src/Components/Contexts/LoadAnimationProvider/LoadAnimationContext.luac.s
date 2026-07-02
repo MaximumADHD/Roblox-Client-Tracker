@@ -18,14 +18,12 @@ MAIN:
        27 GETTABLEKS                       R4 R4 K7 ["Util"]
        29 GETTABLEKS                       R4 R4 K11 ["createUnimplemented"]
        31 CALL                             R3 1 1
-       32 DUPTABLE                         R4 K14 [{"default", "getAnimationIdFrom"}]
-       33 LOADB                            R5 1
-       34 SETTABLEKS                       R5 R4 K12 ["default"]
-       36 MOVE                             R5 R3
-       37 LOADK                            R6 K13 ["getAnimationIdFrom"]
-       38 CALL                             R5 1 1
-       39 SETTABLEKS                       R5 R4 K13 ["getAnimationIdFrom"]
-       41 GETTABLEKS                       R5 R2 K15 ["createContext"]
-       43 MOVE                             R6 R4
-       44 CALL                             R5 1 1
-       45 RETURN                           R5 1
+       32 DUPTABLE                         R4 K15 [{["default"] = True, ["getAnimationIdFrom"]}]
+       33 MOVE                             R5 R3
+       34 LOADK                            R6 K14 ["getAnimationIdFrom"]
+       35 CALL                             R5 1 1
+       36 SETTABLEKS                       R5 R4 K14 ["getAnimationIdFrom"]
+       38 GETTABLEKS                       R5 R2 K16 ["createContext"]
+       40 MOVE                             R6 R4
+       41 CALL                             R5 1 1
+       42 RETURN                           R5 1

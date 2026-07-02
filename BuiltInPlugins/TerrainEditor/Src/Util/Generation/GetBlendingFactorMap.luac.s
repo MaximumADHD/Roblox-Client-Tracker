@@ -80,7 +80,7 @@ PROTO_1:
        82 GETIMPORT                        R24 K21 [math.exp]
        84 CALL                             R24 1 1
        85 MUL                              R23 R24 R3
-       86 SUBRK                            R21 R19 K23 [math.clamp]
+       86 SUBRK                            R21 K19 [1] R23
        87 LOADN                            R22 0
        88 LOADN                            R23 1
        89 FASTCALL                         MATH_CLAMP ; [+2]

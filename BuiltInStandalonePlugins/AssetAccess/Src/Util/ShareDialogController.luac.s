@@ -99,57 +99,55 @@ PROTO_9:
         9 LOADB                            R2 1
        10 SETTABLEKS                       R2 R1 K2 ["_alive"]
        12 GETIMPORT                        R2 K5 [table.freeze]
-       14 DUPTABLE                         R3 K7 [{"state"}]
-       15 LOADK                            R4 K8 ["Inactive"]
-       16 SETTABLEKS                       R4 R3 K6 ["state"]
-       18 CALL                             R2 1 1
-       19 SETTABLEKS                       R2 R1 K9 ["_model"]
-       21 SETTABLEKS                       R0 R1 K10 ["_plugin"]
-       23 NEWTABLE                         R2 0 0
-       25 SETTABLEKS                       R2 R1 K11 ["_threads"]
-       27 GETUPVAL                         R2 1
-       28 CALL                             R2 0 1
-       29 JUMPIFNOT                        R2 ; [+3]
-       30 LOADB                            R2 0
-       31 SETTABLEKS                       R2 R1 K12 ["_shouldEmitDialogOpenedEvent"]
-       33 LOADK                            R4 K13 ["AssetAccessController"]
-       34 NAMECALL                         R2 R0 K14 ["GetPluginComponent"]
-       36 CALL                             R2 2 1
-       37 SETTABLEKS                       R2 R1 K15 ["_assetAccessController"]
-       39 GETTABLEKS                       R3 R2 K16 ["ShowShareDialog"]
-       41 NEWCLOSURE                       R5 P0
-       42 CAPTURE                          VAL R1
-       43 NAMECALL                         R3 R3 K17 ["Connect"]
-       45 CALL                             R3 2 1
-       46 SETTABLEKS                       R3 R1 K18 ["_showShareDialogConnection"]
-       48 GETTABLEKS                       R3 R2 K19 ["NewInaccessibleAsset"]
-       50 NEWCLOSURE                       R5 P1
-       51 CAPTURE                          VAL R1
-       52 NAMECALL                         R3 R3 K17 ["Connect"]
-       54 CALL                             R3 2 1
-       55 SETTABLEKS                       R3 R1 K20 ["_newInaccessibleAssetConnection"]
-       57 LOADK                            R5 K21 ["ShareAccess"]
-       58 NEWCLOSURE                       R6 P2
-       59 CAPTURE                          VAL R1
-       60 NAMECALL                         R3 R0 K22 ["OnInvoke"]
-       62 CALL                             R3 3 1
-       63 SETTABLEKS                       R3 R1 K23 ["_shareAccessConnection"]
-       65 LOADK                            R5 K24 ["ShareDialogDismissed"]
-       66 NEWCLOSURE                       R6 P3
-       67 CAPTURE                          VAL R1
-       68 NAMECALL                         R3 R0 K22 ["OnInvoke"]
-       70 CALL                             R3 3 1
-       71 SETTABLEKS                       R3 R1 K25 ["_shareDialogDismissedConnection"]
-       73 DUPCLOSURE                       R3 K26 [PROTO_7]
-       74 SETTABLEKS                       R3 R1 K27 ["_onGetAssetMetadataFinished"]
-       76 DUPCLOSURE                       R3 K28 [PROTO_8]
-       77 SETTABLEKS                       R3 R1 K29 ["_onShareAccessFinished"]
-       79 GETTABLEKS                       R3 R1 K10 ["_plugin"]
-       81 LOADK                            R5 K30 ["ShareDialogModel"]
-       82 GETTABLEKS                       R6 R1 K9 ["_model"]
-       84 NAMECALL                         R3 R3 K31 ["SetItem"]
-       86 CALL                             R3 3 0
-       87 RETURN                           R1 1
+       14 DUPTABLE                         R3 K8 [{["state"] = "Inactive"}]
+       15 CALL                             R2 1 1
+       16 SETTABLEKS                       R2 R1 K9 ["_model"]
+       18 SETTABLEKS                       R0 R1 K10 ["_plugin"]
+       20 NEWTABLE                         R2 0 0
+       22 SETTABLEKS                       R2 R1 K11 ["_threads"]
+       24 GETUPVAL                         R2 1
+       25 CALL                             R2 0 1
+       26 JUMPIFNOT                        R2 ; [+3]
+       27 LOADB                            R2 0
+       28 SETTABLEKS                       R2 R1 K12 ["_shouldEmitDialogOpenedEvent"]
+       30 LOADK                            R4 K13 ["AssetAccessController"]
+       31 NAMECALL                         R2 R0 K14 ["GetPluginComponent"]
+       33 CALL                             R2 2 1
+       34 SETTABLEKS                       R2 R1 K15 ["_assetAccessController"]
+       36 GETTABLEKS                       R3 R2 K16 ["ShowShareDialog"]
+       38 NEWCLOSURE                       R5 P0
+       39 CAPTURE                          VAL R1
+       40 NAMECALL                         R3 R3 K17 ["Connect"]
+       42 CALL                             R3 2 1
+       43 SETTABLEKS                       R3 R1 K18 ["_showShareDialogConnection"]
+       45 GETTABLEKS                       R3 R2 K19 ["NewInaccessibleAsset"]
+       47 NEWCLOSURE                       R5 P1
+       48 CAPTURE                          VAL R1
+       49 NAMECALL                         R3 R3 K17 ["Connect"]
+       51 CALL                             R3 2 1
+       52 SETTABLEKS                       R3 R1 K20 ["_newInaccessibleAssetConnection"]
+       54 LOADK                            R5 K21 ["ShareAccess"]
+       55 NEWCLOSURE                       R6 P2
+       56 CAPTURE                          VAL R1
+       57 NAMECALL                         R3 R0 K22 ["OnInvoke"]
+       59 CALL                             R3 3 1
+       60 SETTABLEKS                       R3 R1 K23 ["_shareAccessConnection"]
+       62 LOADK                            R5 K24 ["ShareDialogDismissed"]
+       63 NEWCLOSURE                       R6 P3
+       64 CAPTURE                          VAL R1
+       65 NAMECALL                         R3 R0 K22 ["OnInvoke"]
+       67 CALL                             R3 3 1
+       68 SETTABLEKS                       R3 R1 K25 ["_shareDialogDismissedConnection"]
+       70 DUPCLOSURE                       R3 K26 [PROTO_7]
+       71 SETTABLEKS                       R3 R1 K27 ["_onGetAssetMetadataFinished"]
+       73 DUPCLOSURE                       R3 K28 [PROTO_8]
+       74 SETTABLEKS                       R3 R1 K29 ["_onShareAccessFinished"]
+       76 GETTABLEKS                       R3 R1 K10 ["_plugin"]
+       78 LOADK                            R5 K30 ["ShareDialogModel"]
+       79 GETTABLEKS                       R6 R1 K9 ["_model"]
+       81 NAMECALL                         R3 R3 K31 ["SetItem"]
+       83 CALL                             R3 3 0
+       84 RETURN                           R1 1
 
 PROTO_10:
         0 GETTABLEKS                       R2 R0 K0 ["_alive"]
@@ -243,94 +241,88 @@ PROTO_15:
        31 GETIMPORT                        R3 K11 [table.clone]
        33 GETTABLEKS                       R4 R2 K12 ["assetModels"]
        35 CALL                             R3 1 1
-       36 JUMPIFNOT                        R0 ; [+27]
+       36 JUMPIFNOT                        R0 ; [+24]
        37 MOVE                             R4 R1
        38 LOADNIL                          R5
        39 LOADNIL                          R6
        40 FORGPREP                         R4
        41 GETTABLEKS                       R10 R8 K13 ["id"]
        43 GETTABLE                         R9 R3 R10
-       44 JUMPIFNOT                        R9 ; [+16]
+       44 JUMPIFNOT                        R9 ; [+13]
        45 GETTABLEKS                       R10 R8 K13 ["id"]
        47 GETTABLE                         R9 R3 R10
        48 GETTABLEKS                       R9 R9 K3 ["state"]
-       50 JUMPIFNOTEQKS                    R9 K14 ["Loading"] ; [+10]
+       50 JUMPIFNOTEQKS                    R9 K14 ["Loading"] ; [+7]
        52 GETTABLEKS                       R9 R8 K13 ["id"]
-       54 DUPTABLE                         R10 K16 [{"state", "metadata"}]
-       55 LOADK                            R11 K17 ["Loaded"]
-       56 SETTABLEKS                       R11 R10 K3 ["state"]
-       58 SETTABLEKS                       R8 R10 K15 ["metadata"]
-       60 SETTABLE                         R10 R3 R9
-       61 FORGLOOP                         R4 2 ; [-21]
-       63 JUMP                             ; [+18]
-       64 GETUPVAL                         R4 1
-       65 LOADNIL                          R5
-       66 LOADNIL                          R6
-       67 FORGPREP                         R4
-       68 GETTABLE                         R9 R3 R8
-       69 JUMPIFNOT                        R9 ; [+10]
-       70 GETTABLE                         R9 R3 R8
-       71 GETTABLEKS                       R9 R9 K3 ["state"]
-       73 JUMPIFNOTEQKS                    R9 K14 ["Loading"] ; [+6]
-       75 DUPTABLE                         R9 K18 [{"state"}]
-       76 LOADK                            R10 K19 ["Failed"]
-       77 SETTABLEKS                       R10 R9 K3 ["state"]
-       79 SETTABLE                         R9 R3 R8
-       80 FORGLOOP                         R4 2 ; [-13]
-       82 GETUPVAL                         R4 0
-       83 DUPTABLE                         R6 K20 [{"state", "assetModels"}]
-       84 LOADK                            R7 K4 ["Prompt"]
-       85 SETTABLEKS                       R7 R6 K3 ["state"]
-       87 SETTABLEKS                       R3 R6 K12 ["assetModels"]
-       89 NAMECALL                         R4 R4 K21 ["_SetModel"]
-       91 CALL                             R4 2 0
-       92 GETUPVAL                         R4 2
-       93 CALL                             R4 0 1
-       94 JUMPIFNOT                        R4 ; [+49]
-       95 GETUPVAL                         R4 0
-       96 GETTABLEKS                       R4 R4 K22 ["_shouldEmitDialogOpenedEvent"]
-       98 JUMPIFNOT                        R4 ; [+45]
-       99 GETUPVAL                         R4 0
-      100 LOADB                            R5 0
-      101 SETTABLEKS                       R5 R4 K22 ["_shouldEmitDialogOpenedEvent"]
-      103 GETUPVAL                         R4 3
-      104 MOVE                             R5 R3
-      105 CALL                             R4 1 1
-      106 GETUPVAL                         R5 4
-      107 GETTABLEKS                       R5 R5 K23 ["logCounter"]
-      109 GETUPVAL                         R6 5
-      110 CALL                             R5 1 0
-      111 GETUPVAL                         R5 4
-      112 GETTABLEKS                       R5 R5 K24 ["logStat"]
-      114 GETUPVAL                         R6 6
-      115 LOADNIL                          R7
-      116 LOADN                            R9 0
-      117 MOVE                             R10 R3
-      118 LOADNIL                          R11
-      119 LOADNIL                          R12
-      120 FORGPREP                         R10
-      121 ADDK                             R9 R9 K25 [1]
-      122 FORGLOOP                         R10 1 ; [-2]
-      124 MOVE                             R8 R9
-      125 CALL                             R5 3 0
-      126 MOVE                             R5 R4
-      127 LOADNIL                          R6
-      128 LOADNIL                          R7
-      129 FORGPREP                         R5
-      130 GETUPVAL                         R10 4
-      131 GETTABLEKS                       R10 R10 K24 ["logStat"]
-      133 GETUPVAL                         R11 7
-      134 DUPTABLE                         R12 K27 [{"customFields"}]
-      135 DUPTABLE                         R13 K29 [{"asset_type"}]
-      136 SETTABLEKS                       R8 R13 K28 ["asset_type"]
-      138 SETTABLEKS                       R13 R12 K26 ["customFields"]
-      140 MOVE                             R13 R9
-      141 CALL                             R10 3 0
-      142 FORGLOOP                         R5 2 ; [-13]
-      144 GETUPVAL                         R4 0
-      145 GETTABLEKS                       R4 R4 K5 ["_onGetAssetMetadataFinished"]
-      147 CALL                             R4 0 0
-      148 RETURN                           R0 0
+       54 DUPTABLE                         R10 K17 [{["state"] = "Loaded", ["metadata"]}]
+       55 SETTABLEKS                       R8 R10 K16 ["metadata"]
+       57 SETTABLE                         R10 R3 R9
+       58 FORGLOOP                         R4 2 ; [-18]
+       60 JUMP                             ; [+15]
+       61 GETUPVAL                         R4 1
+       62 LOADNIL                          R5
+       63 LOADNIL                          R6
+       64 FORGPREP                         R4
+       65 GETTABLE                         R9 R3 R8
+       66 JUMPIFNOT                        R9 ; [+7]
+       67 GETTABLE                         R9 R3 R8
+       68 GETTABLEKS                       R9 R9 K3 ["state"]
+       70 JUMPIFNOTEQKS                    R9 K14 ["Loading"] ; [+3]
+       72 DUPTABLE                         R9 K19 [{["state"] = "Failed"}]
+       73 SETTABLE                         R9 R3 R8
+       74 FORGLOOP                         R4 2 ; [-10]
+       76 GETUPVAL                         R4 0
+       77 DUPTABLE                         R6 K20 [{["state"] = "Prompt", ["assetModels"]}]
+       78 SETTABLEKS                       R3 R6 K12 ["assetModels"]
+       80 NAMECALL                         R4 R4 K21 ["_SetModel"]
+       82 CALL                             R4 2 0
+       83 GETUPVAL                         R4 2
+       84 CALL                             R4 0 1
+       85 JUMPIFNOT                        R4 ; [+49]
+       86 GETUPVAL                         R4 0
+       87 GETTABLEKS                       R4 R4 K22 ["_shouldEmitDialogOpenedEvent"]
+       89 JUMPIFNOT                        R4 ; [+45]
+       90 GETUPVAL                         R4 0
+       91 LOADB                            R5 0
+       92 SETTABLEKS                       R5 R4 K22 ["_shouldEmitDialogOpenedEvent"]
+       94 GETUPVAL                         R4 3
+       95 MOVE                             R5 R3
+       96 CALL                             R4 1 1
+       97 GETUPVAL                         R5 4
+       98 GETTABLEKS                       R5 R5 K23 ["logCounter"]
+      100 GETUPVAL                         R6 5
+      101 CALL                             R5 1 0
+      102 GETUPVAL                         R5 4
+      103 GETTABLEKS                       R5 R5 K24 ["logStat"]
+      105 GETUPVAL                         R6 6
+      106 LOADNIL                          R7
+      107 LOADN                            R9 0
+      108 MOVE                             R10 R3
+      109 LOADNIL                          R11
+      110 LOADNIL                          R12
+      111 FORGPREP                         R10
+      112 ADDK                             R9 R9 K25 [1]
+      113 FORGLOOP                         R10 1 ; [-2]
+      115 MOVE                             R8 R9
+      116 CALL                             R5 3 0
+      117 MOVE                             R5 R4
+      118 LOADNIL                          R6
+      119 LOADNIL                          R7
+      120 FORGPREP                         R5
+      121 GETUPVAL                         R10 4
+      122 GETTABLEKS                       R10 R10 K24 ["logStat"]
+      124 GETUPVAL                         R11 7
+      125 DUPTABLE                         R12 K27 [{"customFields"}]
+      126 DUPTABLE                         R13 K29 [{"asset_type"}]
+      127 SETTABLEKS                       R8 R13 K28 ["asset_type"]
+      129 SETTABLEKS                       R13 R12 K26 ["customFields"]
+      131 MOVE                             R13 R9
+      132 CALL                             R10 3 0
+      133 FORGLOOP                         R5 2 ; [-13]
+      135 GETUPVAL                         R4 0
+      136 GETTABLEKS                       R4 R4 K5 ["_onGetAssetMetadataFinished"]
+      138 CALL                             R4 0 0
+      139 RETURN                           R0 0
 
 PROTO_16:
         0 GETTABLEKS                       R3 R0 K0 ["_alive"]
@@ -377,21 +369,17 @@ PROTO_17:
        17 LOADNIL                          R4
        18 LOADNIL                          R5
        19 FORGPREP                         R3
-       20 DUPTABLE                         R8 K6 [{"state"}]
-       21 LOADK                            R9 K7 ["Loading"]
-       22 SETTABLEKS                       R9 R8 K5 ["state"]
-       24 SETTABLE                         R8 R2 R7
-       25 FORGLOOP                         R3 2 ; [-6]
-       27 DUPTABLE                         R5 K9 [{"assetModels", "state"}]
-       28 SETTABLEKS                       R2 R5 K8 ["assetModels"]
-       30 LOADK                            R6 K10 ["Prompt"]
-       31 SETTABLEKS                       R6 R5 K5 ["state"]
-       33 NAMECALL                         R3 R0 K11 ["_SetModel"]
-       35 CALL                             R3 2 0
-       36 MOVE                             R5 R1
-       37 NAMECALL                         R3 R0 K12 ["_GetAndHydrateAssetMetadata"]
-       39 CALL                             R3 2 0
-       40 RETURN                           R0 0
+       20 DUPTABLE                         R8 K7 [{["state"] = "Loading"}]
+       21 SETTABLE                         R8 R2 R7
+       22 FORGLOOP                         R3 2 ; [-3]
+       24 DUPTABLE                         R5 K10 [{["assetModels"], ["state"] = "Prompt"}]
+       25 SETTABLEKS                       R2 R5 K8 ["assetModels"]
+       27 NAMECALL                         R3 R0 K11 ["_SetModel"]
+       29 CALL                             R3 2 0
+       30 MOVE                             R5 R1
+       31 NAMECALL                         R3 R0 K12 ["_GetAndHydrateAssetMetadata"]
+       33 CALL                             R3 2 0
+       34 RETURN                           R0 0
 
 PROTO_18:
         0 GETTABLEKS                       R3 R0 K0 ["_alive"]
@@ -415,22 +403,18 @@ PROTO_18:
        28 GETIMPORT                        R3 K10 [table.clone]
        30 GETTABLEKS                       R4 R2 K11 ["assetModels"]
        32 CALL                             R3 1 1
-       33 DUPTABLE                         R4 K12 [{"state"}]
-       34 LOADK                            R5 K13 ["Loading"]
-       35 SETTABLEKS                       R5 R4 K5 ["state"]
-       37 SETTABLE                         R4 R3 R1
-       38 DUPTABLE                         R6 K14 [{"assetModels", "state"}]
-       39 SETTABLEKS                       R3 R6 K11 ["assetModels"]
-       41 LOADK                            R7 K6 ["Prompt"]
-       42 SETTABLEKS                       R7 R6 K5 ["state"]
-       44 NAMECALL                         R4 R0 K15 ["_SetModel"]
-       46 CALL                             R4 2 0
-       47 NEWTABLE                         R6 0 1
-       49 MOVE                             R7 R1
-       50 SETLIST                          R6 R7 1 [1]
-       52 NAMECALL                         R4 R0 K16 ["_GetAndHydrateAssetMetadata"]
-       54 CALL                             R4 2 0
-       55 RETURN                           R0 0
+       33 DUPTABLE                         R4 K13 [{["state"] = "Loading"}]
+       34 SETTABLE                         R4 R3 R1
+       35 DUPTABLE                         R6 K14 [{["assetModels"], ["state"] = "Prompt"}]
+       36 SETTABLEKS                       R3 R6 K11 ["assetModels"]
+       38 NAMECALL                         R4 R0 K15 ["_SetModel"]
+       40 CALL                             R4 2 0
+       41 NEWTABLE                         R6 0 1
+       43 MOVE                             R7 R1
+       44 SETLIST                          R6 R7 1 [1]
+       46 NAMECALL                         R4 R0 K16 ["_GetAndHydrateAssetMetadata"]
+       48 CALL                             R4 2 0
+       49 RETURN                           R0 0
 
 PROTO_19:
         0 GETUPVAL                         R0 0
@@ -463,116 +447,106 @@ PROTO_20:
        27 LOADK                            R5 K6 ["Luau"]
        28 GETIMPORT                        R3 K8 [assert]
        30 CALL                             R3 2 0
-       31 JUMPIF                           R0 ; [+28]
+       31 JUMPIF                           R0 ; [+22]
        32 GETUPVAL                         R3 2
        33 CALL                             R3 0 1
-       34 JUMPIFNOT                        R3 ; [+12]
+       34 JUMPIFNOT                        R3 ; [+9]
        35 GETUPVAL                         R3 3
        36 GETTABLEKS                       R3 R3 K9 ["logCounter"]
        38 GETUPVAL                         R4 4
        39 DUPTABLE                         R5 K11 [{"customFields"}]
-       40 DUPTABLE                         R6 K13 [{"failure_reason"}]
-       41 LOADK                            R7 K14 ["UnexpectedError"]
-       42 SETTABLEKS                       R7 R6 K12 ["failure_reason"]
-       44 SETTABLEKS                       R6 R5 K10 ["customFields"]
-       46 CALL                             R3 2 0
-       47 GETUPVAL                         R3 0
-       48 DUPTABLE                         R5 K15 [{"state"}]
-       49 LOADK                            R6 K14 ["UnexpectedError"]
-       50 SETTABLEKS                       R6 R5 K3 ["state"]
-       52 NAMECALL                         R3 R3 K16 ["_SetModel"]
-       54 CALL                             R3 2 0
-       55 GETUPVAL                         R3 0
-       56 GETTABLEKS                       R3 R3 K5 ["_onShareAccessFinished"]
-       58 CALL                             R3 0 0
-       59 RETURN                           R0 0
-       60 LENGTH                           R3 R1
-       61 JUMPIFNOTEQKN                    R3 K17 [0] ; [+14]
-       63 GETUPVAL                         R3 0
-       64 DUPTABLE                         R5 K15 [{"state"}]
-       65 LOADK                            R6 K18 ["Inactive"]
-       66 SETTABLEKS                       R6 R5 K3 ["state"]
-       68 NAMECALL                         R3 R3 K16 ["_SetModel"]
-       70 CALL                             R3 2 0
-       71 GETUPVAL                         R3 0
-       72 GETTABLEKS                       R3 R3 K5 ["_onShareAccessFinished"]
-       74 CALL                             R3 0 0
-       75 RETURN                           R0 0
-       76 GETUPVAL                         R3 2
-       77 CALL                             R3 0 1
-       78 JUMPIFNOT                        R3 ; [+69]
+       40 DUPTABLE                         R6 K14 [{["failure_reason"] = "UnexpectedError"}]
+       41 SETTABLEKS                       R6 R5 K10 ["customFields"]
+       43 CALL                             R3 2 0
+       44 GETUPVAL                         R3 0
+       45 DUPTABLE                         R5 K15 [{["state"] = "UnexpectedError"}]
+       46 NAMECALL                         R3 R3 K16 ["_SetModel"]
+       48 CALL                             R3 2 0
+       49 GETUPVAL                         R3 0
+       50 GETTABLEKS                       R3 R3 K5 ["_onShareAccessFinished"]
+       52 CALL                             R3 0 0
+       53 RETURN                           R0 0
+       54 LENGTH                           R3 R1
+       55 JUMPIFNOTEQKN                    R3 K17 [0] ; [+11]
+       57 GETUPVAL                         R3 0
+       58 DUPTABLE                         R5 K19 [{["state"] = "Inactive"}]
+       59 NAMECALL                         R3 R3 K16 ["_SetModel"]
+       61 CALL                             R3 2 0
+       62 GETUPVAL                         R3 0
+       63 GETTABLEKS                       R3 R3 K5 ["_onShareAccessFinished"]
+       65 CALL                             R3 0 0
+       66 RETURN                           R0 0
+       67 GETUPVAL                         R3 2
+       68 CALL                             R3 0 1
+       69 JUMPIFNOT                        R3 ; [+66]
+       70 GETUPVAL                         R3 3
+       71 GETTABLEKS                       R3 R3 K9 ["logCounter"]
+       73 GETUPVAL                         R4 4
+       74 DUPTABLE                         R5 K11 [{"customFields"}]
+       75 DUPTABLE                         R6 K21 [{["failure_reason"] = "CantShare"}]
+       76 SETTABLEKS                       R6 R5 K10 ["customFields"]
+       78 CALL                             R3 2 0
        79 GETUPVAL                         R3 3
-       80 GETTABLEKS                       R3 R3 K9 ["logCounter"]
-       82 GETUPVAL                         R4 4
-       83 DUPTABLE                         R5 K11 [{"customFields"}]
-       84 DUPTABLE                         R6 K13 [{"failure_reason"}]
-       85 LOADK                            R7 K19 ["CantShare"]
-       86 SETTABLEKS                       R7 R6 K12 ["failure_reason"]
-       88 SETTABLEKS                       R6 R5 K10 ["customFields"]
-       90 CALL                             R3 2 0
-       91 GETUPVAL                         R3 3
-       92 GETTABLEKS                       R3 R3 K20 ["logStat"]
-       94 GETUPVAL                         R4 5
-       95 LOADNIL                          R5
-       96 LENGTH                           R6 R1
-       97 CALL                             R3 3 0
-       98 NEWTABLE                         R3 0 0
-      100 MOVE                             R4 R1
-      101 LOADNIL                          R5
-      102 LOADNIL                          R6
-      103 FORGPREP                         R4
-      104 GETTABLEKS                       R10 R2 K21 ["assetModels"]
-      106 GETTABLE                         R9 R10 R8
-      107 JUMPIFNOT                        R9 ; [+20]
-      108 GETTABLEKS                       R10 R9 K3 ["state"]
-      110 JUMPIFNOTEQKS                    R10 K22 ["Loaded"] ; [+17]
-      112 GETTABLEKS                       R10 R9 K23 ["metadata"]
-      114 GETTABLEKS                       R10 R10 K24 ["visibility"]
-      116 JUMPIFNOTEQKS                    R10 K25 ["Public"] ; [+11]
-      118 GETTABLEKS                       R10 R9 K23 ["metadata"]
-      120 GETTABLEKS                       R10 R10 K26 ["type"]
-      122 GETTABLEKS                       R10 R10 K27 ["Name"]
-      124 GETTABLE                         R13 R3 R10
-      125 ORK                              R12 R13 K17 [0]
-      126 ADDK                             R11 R12 K28 [1]
-      127 SETTABLE                         R11 R3 R10
-      128 FORGLOOP                         R4 2 ; [-25]
-      130 MOVE                             R4 R3
-      131 LOADNIL                          R5
-      132 LOADNIL                          R6
-      133 FORGPREP                         R4
-      134 GETUPVAL                         R9 3
-      135 GETTABLEKS                       R9 R9 K20 ["logStat"]
-      137 GETUPVAL                         R10 6
-      138 DUPTABLE                         R11 K11 [{"customFields"}]
-      139 DUPTABLE                         R12 K30 [{"asset_type"}]
-      140 SETTABLEKS                       R7 R12 K29 ["asset_type"]
-      142 SETTABLEKS                       R12 R11 K10 ["customFields"]
-      144 MOVE                             R12 R8
-      145 CALL                             R9 3 0
-      146 FORGLOOP                         R4 2 ; [-13]
-      148 NEWTABLE                         R3 0 0
-      150 MOVE                             R4 R1
-      151 LOADNIL                          R5
-      152 LOADNIL                          R6
-      153 FORGPREP                         R4
-      154 GETIMPORT                        R9 K33 [table.clone]
-      156 GETTABLEKS                       R11 R2 K21 ["assetModels"]
-      158 GETTABLE                         R10 R11 R8
-      159 CALL                             R9 1 1
-      160 SETTABLE                         R9 R3 R8
-      161 FORGLOOP                         R4 2 ; [-8]
-      163 GETUPVAL                         R4 0
-      164 DUPTABLE                         R6 K34 [{"state", "assetModels"}]
-      165 LOADK                            R7 K19 ["CantShare"]
-      166 SETTABLEKS                       R7 R6 K3 ["state"]
-      168 SETTABLEKS                       R3 R6 K21 ["assetModels"]
-      170 NAMECALL                         R4 R4 K16 ["_SetModel"]
-      172 CALL                             R4 2 0
-      173 GETUPVAL                         R4 0
-      174 GETTABLEKS                       R4 R4 K5 ["_onShareAccessFinished"]
-      176 CALL                             R4 0 0
-      177 RETURN                           R0 0
+       80 GETTABLEKS                       R3 R3 K22 ["logStat"]
+       82 GETUPVAL                         R4 5
+       83 LOADNIL                          R5
+       84 LENGTH                           R6 R1
+       85 CALL                             R3 3 0
+       86 NEWTABLE                         R3 0 0
+       88 MOVE                             R4 R1
+       89 LOADNIL                          R5
+       90 LOADNIL                          R6
+       91 FORGPREP                         R4
+       92 GETTABLEKS                       R10 R2 K23 ["assetModels"]
+       94 GETTABLE                         R9 R10 R8
+       95 JUMPIFNOT                        R9 ; [+20]
+       96 GETTABLEKS                       R10 R9 K3 ["state"]
+       98 JUMPIFNOTEQKS                    R10 K24 ["Loaded"] ; [+17]
+      100 GETTABLEKS                       R10 R9 K25 ["metadata"]
+      102 GETTABLEKS                       R10 R10 K26 ["visibility"]
+      104 JUMPIFNOTEQKS                    R10 K27 ["Public"] ; [+11]
+      106 GETTABLEKS                       R10 R9 K25 ["metadata"]
+      108 GETTABLEKS                       R10 R10 K28 ["type"]
+      110 GETTABLEKS                       R10 R10 K29 ["Name"]
+      112 GETTABLE                         R13 R3 R10
+      113 ORK                              R12 R13 K17 [0]
+      114 ADDK                             R11 R12 K30 [1]
+      115 SETTABLE                         R11 R3 R10
+      116 FORGLOOP                         R4 2 ; [-25]
+      118 MOVE                             R4 R3
+      119 LOADNIL                          R5
+      120 LOADNIL                          R6
+      121 FORGPREP                         R4
+      122 GETUPVAL                         R9 3
+      123 GETTABLEKS                       R9 R9 K22 ["logStat"]
+      125 GETUPVAL                         R10 6
+      126 DUPTABLE                         R11 K11 [{"customFields"}]
+      127 DUPTABLE                         R12 K32 [{"asset_type"}]
+      128 SETTABLEKS                       R7 R12 K31 ["asset_type"]
+      130 SETTABLEKS                       R12 R11 K10 ["customFields"]
+      132 MOVE                             R12 R8
+      133 CALL                             R9 3 0
+      134 FORGLOOP                         R4 2 ; [-13]
+      136 NEWTABLE                         R3 0 0
+      138 MOVE                             R4 R1
+      139 LOADNIL                          R5
+      140 LOADNIL                          R6
+      141 FORGPREP                         R4
+      142 GETIMPORT                        R9 K35 [table.clone]
+      144 GETTABLEKS                       R11 R2 K23 ["assetModels"]
+      146 GETTABLE                         R10 R11 R8
+      147 CALL                             R9 1 1
+      148 SETTABLE                         R9 R3 R8
+      149 FORGLOOP                         R4 2 ; [-8]
+      151 GETUPVAL                         R4 0
+      152 DUPTABLE                         R6 K36 [{["state"] = "CantShare", ["assetModels"]}]
+      153 SETTABLEKS                       R3 R6 K23 ["assetModels"]
+      155 NAMECALL                         R4 R4 K16 ["_SetModel"]
+      157 CALL                             R4 2 0
+      158 GETUPVAL                         R4 0
+      159 GETTABLEKS                       R4 R4 K5 ["_onShareAccessFinished"]
+      161 CALL                             R4 0 0
+      162 RETURN                           R0 0
 
 PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["_alive"]
@@ -595,42 +569,40 @@ PROTO_21:
        27 LOADK                            R4 K8 ["Luau"]
        28 GETIMPORT                        R2 K3 [assert]
        30 CALL                             R2 2 0
-       31 DUPTABLE                         R4 K10 [{"state", "assetModels"}]
-       32 LOADK                            R5 K11 ["Sharing"]
-       33 SETTABLEKS                       R5 R4 K5 ["state"]
-       35 GETTABLEKS                       R5 R1 K9 ["assetModels"]
-       37 SETTABLEKS                       R5 R4 K9 ["assetModels"]
-       39 NAMECALL                         R2 R0 K12 ["_SetModel"]
-       41 CALL                             R2 2 0
-       42 NEWTABLE                         R2 0 0
-       44 GETTABLEKS                       R3 R1 K9 ["assetModels"]
-       46 LOADNIL                          R4
-       47 LOADNIL                          R5
-       48 FORGPREP                         R3
-       49 FASTCALL2                        TABLE_INSERT R2 R6 ; [+5]
-       51 MOVE                             R9 R2
-       52 MOVE                             R10 R6
-       53 GETIMPORT                        R8 K15 [table.insert]
-       55 CALL                             R8 2 0
-       56 FORGLOOP                         R3 2 ; [-8]
-       58 GETUPVAL                         R3 0
-       59 CALL                             R3 0 1
-       60 JUMPIFNOT                        R3 ; [+5]
-       61 GETUPVAL                         R3 1
-       62 GETTABLEKS                       R3 R3 K16 ["logCounter"]
-       64 GETUPVAL                         R4 2
-       65 CALL                             R3 1 0
-       66 NEWCLOSURE                       R5 P0
-       67 CAPTURE                          VAL R0
-       68 CAPTURE                          VAL R2
-       69 CAPTURE                          UPVAL U0
-       70 CAPTURE                          UPVAL U1
-       71 CAPTURE                          UPVAL U3
-       72 CAPTURE                          UPVAL U4
-       73 CAPTURE                          UPVAL U5
-       74 NAMECALL                         R3 R0 K17 ["_Defer"]
-       76 CALL                             R3 2 0
-       77 RETURN                           R0 0
+       31 DUPTABLE                         R4 K11 [{["state"] = "Sharing", ["assetModels"]}]
+       32 GETTABLEKS                       R5 R1 K10 ["assetModels"]
+       34 SETTABLEKS                       R5 R4 K10 ["assetModels"]
+       36 NAMECALL                         R2 R0 K12 ["_SetModel"]
+       38 CALL                             R2 2 0
+       39 NEWTABLE                         R2 0 0
+       41 GETTABLEKS                       R3 R1 K10 ["assetModels"]
+       43 LOADNIL                          R4
+       44 LOADNIL                          R5
+       45 FORGPREP                         R3
+       46 FASTCALL2                        TABLE_INSERT R2 R6 ; [+5]
+       48 MOVE                             R9 R2
+       49 MOVE                             R10 R6
+       50 GETIMPORT                        R8 K15 [table.insert]
+       52 CALL                             R8 2 0
+       53 FORGLOOP                         R3 2 ; [-8]
+       55 GETUPVAL                         R3 0
+       56 CALL                             R3 0 1
+       57 JUMPIFNOT                        R3 ; [+5]
+       58 GETUPVAL                         R3 1
+       59 GETTABLEKS                       R3 R3 K16 ["logCounter"]
+       61 GETUPVAL                         R4 2
+       62 CALL                             R3 1 0
+       63 NEWCLOSURE                       R5 P0
+       64 CAPTURE                          VAL R0
+       65 CAPTURE                          VAL R2
+       66 CAPTURE                          UPVAL U0
+       67 CAPTURE                          UPVAL U1
+       68 CAPTURE                          UPVAL U3
+       69 CAPTURE                          UPVAL U4
+       70 CAPTURE                          UPVAL U5
+       71 NAMECALL                         R3 R0 K17 ["_Defer"]
+       73 CALL                             R3 2 0
+       74 RETURN                           R0 0
 
 PROTO_22:
         0 GETTABLEKS                       R2 R0 K0 ["_alive"]
@@ -676,12 +648,10 @@ PROTO_22:
        60 SETTABLEKS                       R3 R7 K17 ["cant_share_count"]
        62 SETTABLEKS                       R7 R6 K13 ["customFields"]
        64 CALL                             R4 2 0
-       65 DUPTABLE                         R3 K19 [{"state"}]
-       66 LOADK                            R4 K6 ["Inactive"]
-       67 SETTABLEKS                       R4 R3 K5 ["state"]
-       69 NAMECALL                         R1 R0 K20 ["_SetModel"]
-       71 CALL                             R1 2 0
-       72 RETURN                           R0 0
+       65 DUPTABLE                         R3 K19 [{["state"] = "Inactive"}]
+       66 NAMECALL                         R1 R0 K20 ["_SetModel"]
+       68 CALL                             R1 2 0
+       69 RETURN                           R0 0
 
 PROTO_23:
         0 GETTABLEKS                       R2 R0 K0 ["_alive"]
@@ -743,193 +713,161 @@ MAIN:
        32 NEWTABLE                         R4 16 0
        34 SETTABLEKS                       R4 R4 K12 ["__index"]
        36 GETIMPORT                        R5 K15 [table.freeze]
-       38 DUPTABLE                         R6 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-       39 LOADK                            R7 K21 ["AssetAccessShareDialogOpened"]
-       40 SETTABLEKS                       R7 R6 K16 ["eventName"]
-       42 NEWTABLE                         R7 0 1
-       44 GETTABLEKS                       R8 R2 K22 ["Backends"]
-       46 GETTABLEKS                       R8 R8 K23 ["Counter"]
-       48 SETLIST                          R7 R8 1 [1]
-       50 SETTABLEKS                       R7 R6 K17 ["backends"]
-       52 LOADK                            R7 K24 ["The share dialog became visible to the user (Prompt state entered)."]
-       53 SETTABLEKS                       R7 R6 K18 ["description"]
-       55 NEWTABLE                         R7 0 3
-       57 LOADN                            R8 26
-       58 LOADN                            R9 4
-       59 LOADN                            R10 26
-       60 SETLIST                          R7 R8 3 [1]
-       62 SETTABLEKS                       R7 R6 K19 ["lastUpdated"]
-       64 CALL                             R5 1 1
-       65 GETIMPORT                        R6 K15 [table.freeze]
-       67 DUPTABLE                         R7 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-       68 LOADK                            R8 K25 ["AssetAccessShareDialogShareClicked"]
-       69 SETTABLEKS                       R8 R7 K16 ["eventName"]
-       71 NEWTABLE                         R8 0 1
-       73 GETTABLEKS                       R9 R2 K22 ["Backends"]
-       75 GETTABLEKS                       R9 R9 K23 ["Counter"]
-       77 SETLIST                          R8 R9 1 [1]
-       79 SETTABLEKS                       R8 R7 K17 ["backends"]
-       81 LOADK                            R8 K26 ["User clicked the Share button to attempt to grant asset permissions."]
-       82 SETTABLEKS                       R8 R7 K18 ["description"]
-       84 NEWTABLE                         R8 0 3
-       86 LOADN                            R9 26
-       87 LOADN                            R10 4
-       88 LOADN                            R11 26
-       89 SETLIST                          R8 R9 3 [1]
-       91 SETTABLEKS                       R8 R7 K19 ["lastUpdated"]
-       93 CALL                             R6 1 1
-       94 GETIMPORT                        R7 K15 [table.freeze]
-       96 DUPTABLE                         R8 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-       97 LOADK                            R9 K27 ["AssetAccessShareDialogShareFailed"]
-       98 SETTABLEKS                       R9 R8 K16 ["eventName"]
-      100 NEWTABLE                         R9 0 1
-      102 GETTABLEKS                       R10 R2 K22 ["Backends"]
-      104 GETTABLEKS                       R10 R10 K23 ["Counter"]
-      106 SETLIST                          R9 R10 1 [1]
-      108 SETTABLEKS                       R9 R8 K17 ["backends"]
-      110 LOADK                            R9 K28 ["Share attempt failed — either some assets could not be shared (CantShare) or an unexpected API error occurred (UnexpectedError)."]
-      111 SETTABLEKS                       R9 R8 K18 ["description"]
-      113 NEWTABLE                         R9 0 3
-      115 LOADN                            R10 26
-      116 LOADN                            R11 4
-      117 LOADN                            R12 28
-      118 SETLIST                          R9 R10 3 [1]
-      120 SETTABLEKS                       R9 R8 K19 ["lastUpdated"]
-      122 CALL                             R7 1 1
-      123 GETIMPORT                        R8 K15 [table.freeze]
-      125 DUPTABLE                         R9 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-      126 LOADK                            R10 K29 ["AssetAccessShareDialogDismissed"]
-      127 SETTABLEKS                       R10 R9 K16 ["eventName"]
-      129 NEWTABLE                         R10 0 1
-      131 GETTABLEKS                       R11 R2 K22 ["Backends"]
-      133 GETTABLEKS                       R11 R11 K23 ["Counter"]
-      135 SETLIST                          R10 R11 1 [1]
-      137 SETTABLEKS                       R10 R9 K17 ["backends"]
-      139 LOADK                            R10 K30 ["The dialog was closed without completing a successful share."]
-      140 SETTABLEKS                       R10 R9 K18 ["description"]
-      142 NEWTABLE                         R10 0 3
-      144 LOADN                            R11 26
-      145 LOADN                            R12 4
-      146 LOADN                            R13 26
-      147 SETLIST                          R10 R11 3 [1]
-      149 SETTABLEKS                       R10 R9 K19 ["lastUpdated"]
-      151 CALL                             R8 1 1
-      152 GETIMPORT                        R9 K15 [table.freeze]
-      154 DUPTABLE                         R10 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-      155 LOADK                            R11 K31 ["AssetAccessShareDialogAssetTypeCount"]
-      156 SETTABLEKS                       R11 R10 K16 ["eventName"]
-      158 NEWTABLE                         R11 0 1
-      160 GETTABLEKS                       R12 R2 K22 ["Backends"]
-      162 GETTABLEKS                       R12 R12 K32 ["Stat"]
-      164 SETLIST                          R11 R12 1 [1]
-      166 SETTABLEKS                       R11 R10 K17 ["backends"]
-      168 LOADK                            R11 K33 ["Count of assets per type included in the dialog at open. One event per non-zero asset type."]
-      169 SETTABLEKS                       R11 R10 K18 ["description"]
-      171 NEWTABLE                         R11 0 3
-      173 LOADN                            R12 26
-      174 LOADN                            R13 4
-      175 LOADN                            R14 28
-      176 SETLIST                          R11 R12 3 [1]
-      178 SETTABLEKS                       R11 R10 K19 ["lastUpdated"]
-      180 CALL                             R9 1 1
-      181 GETIMPORT                        R10 K15 [table.freeze]
-      183 DUPTABLE                         R11 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-      184 LOADK                            R12 K34 ["AssetAccessShareDialogCantShareAssetTypeCount"]
-      185 SETTABLEKS                       R12 R11 K16 ["eventName"]
-      187 NEWTABLE                         R12 0 1
-      189 GETTABLEKS                       R13 R2 K22 ["Backends"]
-      191 GETTABLEKS                       R13 R13 K32 ["Stat"]
-      193 SETLIST                          R12 R13 1 [1]
-      195 SETTABLEKS                       R12 R11 K17 ["backends"]
-      197 LOADK                            R12 K35 ["Count of assets per type that could not be shared. One event per non-zero asset type."]
-      198 SETTABLEKS                       R12 R11 K18 ["description"]
-      200 NEWTABLE                         R12 0 3
-      202 LOADN                            R13 26
-      203 LOADN                            R14 4
-      204 LOADN                            R15 28
-      205 SETLIST                          R12 R13 3 [1]
-      207 SETTABLEKS                       R12 R11 K19 ["lastUpdated"]
-      209 CALL                             R10 1 1
-      210 GETIMPORT                        R11 K15 [table.freeze]
-      212 DUPTABLE                         R12 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-      213 LOADK                            R13 K36 ["AssetAccessShareDialogTotalAssetCount"]
-      214 SETTABLEKS                       R13 R12 K16 ["eventName"]
-      216 NEWTABLE                         R13 0 1
-      218 GETTABLEKS                       R14 R2 K22 ["Backends"]
-      220 GETTABLEKS                       R14 R14 K32 ["Stat"]
-      222 SETLIST                          R13 R14 1 [1]
-      224 SETTABLEKS                       R13 R12 K17 ["backends"]
-      226 LOADK                            R13 K37 ["Total count of assets included in the dialog at open."]
-      227 SETTABLEKS                       R13 R12 K18 ["description"]
-      229 NEWTABLE                         R13 0 3
-      231 LOADN                            R14 26
-      232 LOADN                            R15 4
-      233 LOADN                            R16 28
-      234 SETLIST                          R13 R14 3 [1]
-      236 SETTABLEKS                       R13 R12 K19 ["lastUpdated"]
-      238 CALL                             R11 1 1
-      239 GETIMPORT                        R12 K15 [table.freeze]
-      241 DUPTABLE                         R13 K20 [{"eventName", "backends", "description", "lastUpdated"}]
-      242 LOADK                            R14 K38 ["AssetAccessShareDialogCantShareTotalAssetCount"]
-      243 SETTABLEKS                       R14 R13 K16 ["eventName"]
-      245 NEWTABLE                         R14 0 1
-      247 GETTABLEKS                       R15 R2 K22 ["Backends"]
-      249 GETTABLEKS                       R15 R15 K32 ["Stat"]
-      251 SETLIST                          R14 R15 1 [1]
-      253 SETTABLEKS                       R14 R13 K17 ["backends"]
-      255 LOADK                            R14 K39 ["Total count of assets that could not be shared."]
-      256 SETTABLEKS                       R14 R13 K18 ["description"]
-      258 NEWTABLE                         R14 0 3
-      260 LOADN                            R15 26
-      261 LOADN                            R16 4
-      262 LOADN                            R17 28
-      263 SETLIST                          R14 R15 3 [1]
-      265 SETTABLEKS                       R14 R13 K19 ["lastUpdated"]
-      267 CALL                             R12 1 1
-      268 DUPCLOSURE                       R13 K40 [PROTO_0]
-      269 CAPTURE                          VAL R13
-      270 DUPCLOSURE                       R14 K41 [PROTO_1]
-      271 DUPCLOSURE                       R15 K42 [PROTO_2]
-      272 DUPCLOSURE                       R16 K43 [PROTO_9]
-      273 CAPTURE                          VAL R4
-      274 CAPTURE                          VAL R3
-      275 SETTABLEKS                       R16 R4 K44 ["new"]
-      277 DUPCLOSURE                       R16 K45 [PROTO_10]
-      278 SETTABLEKS                       R16 R4 K46 ["_GetModel"]
-      280 DUPCLOSURE                       R16 K47 [PROTO_11]
-      281 CAPTURE                          VAL R13
-      282 SETTABLEKS                       R16 R4 K48 ["_SetModel"]
-      284 DUPCLOSURE                       R16 K49 [PROTO_13]
-      285 SETTABLEKS                       R16 R4 K50 ["_Defer"]
-      287 DUPCLOSURE                       R16 K51 [PROTO_16]
-      288 CAPTURE                          VAL R3
-      289 CAPTURE                          VAL R15
-      290 CAPTURE                          VAL R2
-      291 CAPTURE                          VAL R5
-      292 CAPTURE                          VAL R11
-      293 CAPTURE                          VAL R9
-      294 SETTABLEKS                       R16 R4 K52 ["_GetAndHydrateAssetMetadata"]
-      296 DUPCLOSURE                       R16 K53 [PROTO_17]
-      297 CAPTURE                          VAL R3
-      298 SETTABLEKS                       R16 R4 K54 ["_ShowShareDialog"]
-      300 DUPCLOSURE                       R16 K55 [PROTO_18]
-      301 SETTABLEKS                       R16 R4 K56 ["_NewInaccessibleAsset"]
-      303 DUPCLOSURE                       R16 K57 [PROTO_21]
-      304 CAPTURE                          VAL R3
-      305 CAPTURE                          VAL R2
-      306 CAPTURE                          VAL R6
-      307 CAPTURE                          VAL R7
-      308 CAPTURE                          VAL R12
-      309 CAPTURE                          VAL R10
-      310 SETTABLEKS                       R16 R4 K58 ["_ShareAccess"]
-      312 DUPCLOSURE                       R16 K59 [PROTO_22]
-      313 CAPTURE                          VAL R3
-      314 CAPTURE                          VAL R2
-      315 CAPTURE                          VAL R8
-      316 SETTABLEKS                       R16 R4 K60 ["_ShareDialogDismissed"]
-      318 DUPCLOSURE                       R16 K61 [PROTO_23]
-      319 SETTABLEKS                       R16 R4 K62 ["Destroy"]
-      321 GETIMPORT                        R16 K15 [table.freeze]
-      323 MOVE                             R17 R4
-      324 CALL                             R16 1 -1
-      325 RETURN                           R16 -1
+       38 DUPTABLE                         R6 K22 [{["eventName"] = "AssetAccessShareDialogOpened", ["backends"], ["description"] = "The share dialog became visible to the user (Prompt state entered).", ["lastUpdated"]}]
+       39 NEWTABLE                         R7 0 1
+       41 GETTABLEKS                       R8 R2 K23 ["Backends"]
+       43 GETTABLEKS                       R8 R8 K24 ["Counter"]
+       45 SETLIST                          R7 R8 1 [1]
+       47 SETTABLEKS                       R7 R6 K18 ["backends"]
+       49 NEWTABLE                         R7 0 3
+       51 LOADN                            R8 26
+       52 LOADN                            R9 4
+       53 LOADN                            R10 26
+       54 SETLIST                          R7 R8 3 [1]
+       56 SETTABLEKS                       R7 R6 K21 ["lastUpdated"]
+       58 CALL                             R5 1 1
+       59 GETIMPORT                        R6 K15 [table.freeze]
+       61 DUPTABLE                         R7 K27 [{["eventName"] = "AssetAccessShareDialogShareClicked", ["backends"], ["description"] = "User clicked the Share button to attempt to grant asset permissions.", ["lastUpdated"]}]
+       62 NEWTABLE                         R8 0 1
+       64 GETTABLEKS                       R9 R2 K23 ["Backends"]
+       66 GETTABLEKS                       R9 R9 K24 ["Counter"]
+       68 SETLIST                          R8 R9 1 [1]
+       70 SETTABLEKS                       R8 R7 K18 ["backends"]
+       72 NEWTABLE                         R8 0 3
+       74 LOADN                            R9 26
+       75 LOADN                            R10 4
+       76 LOADN                            R11 26
+       77 SETLIST                          R8 R9 3 [1]
+       79 SETTABLEKS                       R8 R7 K21 ["lastUpdated"]
+       81 CALL                             R6 1 1
+       82 GETIMPORT                        R7 K15 [table.freeze]
+       84 DUPTABLE                         R8 K30 [{["eventName"] = "AssetAccessShareDialogShareFailed", ["backends"], ["description"] = "Share attempt failed — either some assets could not be shared (CantShare) or an unexpected API error occurred (UnexpectedError).", ["lastUpdated"]}]
+       85 NEWTABLE                         R9 0 1
+       87 GETTABLEKS                       R10 R2 K23 ["Backends"]
+       89 GETTABLEKS                       R10 R10 K24 ["Counter"]
+       91 SETLIST                          R9 R10 1 [1]
+       93 SETTABLEKS                       R9 R8 K18 ["backends"]
+       95 NEWTABLE                         R9 0 3
+       97 LOADN                            R10 26
+       98 LOADN                            R11 4
+       99 LOADN                            R12 28
+      100 SETLIST                          R9 R10 3 [1]
+      102 SETTABLEKS                       R9 R8 K21 ["lastUpdated"]
+      104 CALL                             R7 1 1
+      105 GETIMPORT                        R8 K15 [table.freeze]
+      107 DUPTABLE                         R9 K33 [{["eventName"] = "AssetAccessShareDialogDismissed", ["backends"], ["description"] = "The dialog was closed without completing a successful share.", ["lastUpdated"]}]
+      108 NEWTABLE                         R10 0 1
+      110 GETTABLEKS                       R11 R2 K23 ["Backends"]
+      112 GETTABLEKS                       R11 R11 K24 ["Counter"]
+      114 SETLIST                          R10 R11 1 [1]
+      116 SETTABLEKS                       R10 R9 K18 ["backends"]
+      118 NEWTABLE                         R10 0 3
+      120 LOADN                            R11 26
+      121 LOADN                            R12 4
+      122 LOADN                            R13 26
+      123 SETLIST                          R10 R11 3 [1]
+      125 SETTABLEKS                       R10 R9 K21 ["lastUpdated"]
+      127 CALL                             R8 1 1
+      128 GETIMPORT                        R9 K15 [table.freeze]
+      130 DUPTABLE                         R10 K36 [{["eventName"] = "AssetAccessShareDialogAssetTypeCount", ["backends"], ["description"] = "Count of assets per type included in the dialog at open. One event per non-zero asset type.", ["lastUpdated"]}]
+      131 NEWTABLE                         R11 0 1
+      133 GETTABLEKS                       R12 R2 K23 ["Backends"]
+      135 GETTABLEKS                       R12 R12 K37 ["Stat"]
+      137 SETLIST                          R11 R12 1 [1]
+      139 SETTABLEKS                       R11 R10 K18 ["backends"]
+      141 NEWTABLE                         R11 0 3
+      143 LOADN                            R12 26
+      144 LOADN                            R13 4
+      145 LOADN                            R14 28
+      146 SETLIST                          R11 R12 3 [1]
+      148 SETTABLEKS                       R11 R10 K21 ["lastUpdated"]
+      150 CALL                             R9 1 1
+      151 GETIMPORT                        R10 K15 [table.freeze]
+      153 DUPTABLE                         R11 K40 [{["eventName"] = "AssetAccessShareDialogCantShareAssetTypeCount", ["backends"], ["description"] = "Count of assets per type that could not be shared. One event per non-zero asset type.", ["lastUpdated"]}]
+      154 NEWTABLE                         R12 0 1
+      156 GETTABLEKS                       R13 R2 K23 ["Backends"]
+      158 GETTABLEKS                       R13 R13 K37 ["Stat"]
+      160 SETLIST                          R12 R13 1 [1]
+      162 SETTABLEKS                       R12 R11 K18 ["backends"]
+      164 NEWTABLE                         R12 0 3
+      166 LOADN                            R13 26
+      167 LOADN                            R14 4
+      168 LOADN                            R15 28
+      169 SETLIST                          R12 R13 3 [1]
+      171 SETTABLEKS                       R12 R11 K21 ["lastUpdated"]
+      173 CALL                             R10 1 1
+      174 GETIMPORT                        R11 K15 [table.freeze]
+      176 DUPTABLE                         R12 K43 [{["eventName"] = "AssetAccessShareDialogTotalAssetCount", ["backends"], ["description"] = "Total count of assets included in the dialog at open.", ["lastUpdated"]}]
+      177 NEWTABLE                         R13 0 1
+      179 GETTABLEKS                       R14 R2 K23 ["Backends"]
+      181 GETTABLEKS                       R14 R14 K37 ["Stat"]
+      183 SETLIST                          R13 R14 1 [1]
+      185 SETTABLEKS                       R13 R12 K18 ["backends"]
+      187 NEWTABLE                         R13 0 3
+      189 LOADN                            R14 26
+      190 LOADN                            R15 4
+      191 LOADN                            R16 28
+      192 SETLIST                          R13 R14 3 [1]
+      194 SETTABLEKS                       R13 R12 K21 ["lastUpdated"]
+      196 CALL                             R11 1 1
+      197 GETIMPORT                        R12 K15 [table.freeze]
+      199 DUPTABLE                         R13 K46 [{["eventName"] = "AssetAccessShareDialogCantShareTotalAssetCount", ["backends"], ["description"] = "Total count of assets that could not be shared.", ["lastUpdated"]}]
+      200 NEWTABLE                         R14 0 1
+      202 GETTABLEKS                       R15 R2 K23 ["Backends"]
+      204 GETTABLEKS                       R15 R15 K37 ["Stat"]
+      206 SETLIST                          R14 R15 1 [1]
+      208 SETTABLEKS                       R14 R13 K18 ["backends"]
+      210 NEWTABLE                         R14 0 3
+      212 LOADN                            R15 26
+      213 LOADN                            R16 4
+      214 LOADN                            R17 28
+      215 SETLIST                          R14 R15 3 [1]
+      217 SETTABLEKS                       R14 R13 K21 ["lastUpdated"]
+      219 CALL                             R12 1 1
+      220 DUPCLOSURE                       R13 K47 [PROTO_0]
+      221 CAPTURE                          VAL R13
+      222 DUPCLOSURE                       R14 K48 [PROTO_1]
+      223 DUPCLOSURE                       R15 K49 [PROTO_2]
+      224 DUPCLOSURE                       R16 K50 [PROTO_9]
+      225 CAPTURE                          VAL R4
+      226 CAPTURE                          VAL R3
+      227 SETTABLEKS                       R16 R4 K51 ["new"]
+      229 DUPCLOSURE                       R16 K52 [PROTO_10]
+      230 SETTABLEKS                       R16 R4 K53 ["_GetModel"]
+      232 DUPCLOSURE                       R16 K54 [PROTO_11]
+      233 CAPTURE                          VAL R13
+      234 SETTABLEKS                       R16 R4 K55 ["_SetModel"]
+      236 DUPCLOSURE                       R16 K56 [PROTO_13]
+      237 SETTABLEKS                       R16 R4 K57 ["_Defer"]
+      239 DUPCLOSURE                       R16 K58 [PROTO_16]
+      240 CAPTURE                          VAL R3
+      241 CAPTURE                          VAL R15
+      242 CAPTURE                          VAL R2
+      243 CAPTURE                          VAL R5
+      244 CAPTURE                          VAL R11
+      245 CAPTURE                          VAL R9
+      246 SETTABLEKS                       R16 R4 K59 ["_GetAndHydrateAssetMetadata"]
+      248 DUPCLOSURE                       R16 K60 [PROTO_17]
+      249 CAPTURE                          VAL R3
+      250 SETTABLEKS                       R16 R4 K61 ["_ShowShareDialog"]
+      252 DUPCLOSURE                       R16 K62 [PROTO_18]
+      253 SETTABLEKS                       R16 R4 K63 ["_NewInaccessibleAsset"]
+      255 DUPCLOSURE                       R16 K64 [PROTO_21]
+      256 CAPTURE                          VAL R3
+      257 CAPTURE                          VAL R2
+      258 CAPTURE                          VAL R6
+      259 CAPTURE                          VAL R7
+      260 CAPTURE                          VAL R12
+      261 CAPTURE                          VAL R10
+      262 SETTABLEKS                       R16 R4 K65 ["_ShareAccess"]
+      264 DUPCLOSURE                       R16 K66 [PROTO_22]
+      265 CAPTURE                          VAL R3
+      266 CAPTURE                          VAL R2
+      267 CAPTURE                          VAL R8
+      268 SETTABLEKS                       R16 R4 K67 ["_ShareDialogDismissed"]
+      270 DUPCLOSURE                       R16 K68 [PROTO_23]
+      271 SETTABLEKS                       R16 R4 K69 ["Destroy"]
+      273 GETIMPORT                        R16 K15 [table.freeze]
+      275 MOVE                             R17 R4
+      276 CALL                             R16 1 -1
+      277 RETURN                           R16 -1

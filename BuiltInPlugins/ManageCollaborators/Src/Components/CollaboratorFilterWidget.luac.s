@@ -56,62 +56,56 @@ PROTO_1:
        77 GETUPVAL                         R14 0
        78 GETTABLEKS                       R14 R14 K8 ["createElement"]
        80 GETUPVAL                         R15 2
-       81 DUPTABLE                         R16 K39 [{"LayoutOrder", "Style", "Size", "Text", "StyleModifier", "ZIndex", "OnClick"}]
+       81 DUPTABLE                         R16 K41 [{["LayoutOrder"], ["Style"] = "Pill", ["Size"], ["Text"], ["StyleModifier"], ["ZIndex"] = 1, ["OnClick"]}]
        82 SETTABLEKS                       R10 R16 K20 ["LayoutOrder"]
-       84 LOADK                            R17 K40 ["Pill"]
-       85 SETTABLEKS                       R17 R16 K33 ["Style"]
-       87 GETTABLEKS                       R17 R2 K14 ["collaboratorFilter"]
-       89 GETTABLEKS                       R17 R17 K15 ["pills"]
-       91 GETTABLEKS                       R17 R17 K41 ["size"]
-       93 SETTABLEKS                       R17 R16 K34 ["Size"]
-       95 LOADK                            R19 K42 ["Permissions"]
-       96 LOADK                            R21 K43 ["FilterPill.%*.Label"]
-       97 GETTABLEKS                       R23 R11 K44 ["key"]
-       99 NAMECALL                         R21 R21 K45 ["format"]
-      101 CALL                             R21 2 1
-      102 MOVE                             R20 R21
-      103 NAMECALL                         R17 R3 K46 ["getText"]
-      105 CALL                             R17 3 1
-      106 SETTABLEKS                       R17 R16 K35 ["Text"]
-      108 GETTABLEKS                       R18 R5 K44 ["key"]
-      110 GETTABLEKS                       R19 R11 K44 ["key"]
-      112 JUMPIFNOTEQ                      R18 R19 ; [+5]
-      114 GETUPVAL                         R17 3
-      115 GETTABLEKS                       R17 R17 K47 ["Hover"]
-      117 JUMP                             ; [+1]
-      118 LOADNIL                          R17
-      119 SETTABLEKS                       R17 R16 K36 ["StyleModifier"]
-      121 LOADN                            R17 1
-      122 SETTABLEKS                       R17 R16 K37 ["ZIndex"]
-      124 NEWCLOSURE                       R17 P0
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          VAL R11
-      127 SETTABLEKS                       R17 R16 K38 ["OnClick"]
-      129 CALL                             R14 2 -1
-      130 FASTCALL                         TABLE_INSERT ; [+2]
-      131 GETIMPORT                        R12 K50 [table.insert]
-      133 CALL                             R12 -1 0
-      134 FORGLOOP                         R7 2 ; [-59]
-      136 LENGTH                           R7 R6
-      137 LOADN                            R8 2
-      138 JUMPIFNOTLE                      R7 R8 ; [+3]
-      140 LOADNIL                          R7
-      141 RETURN                           R7 1
-      142 GETUPVAL                         R7 0
-      143 GETTABLEKS                       R7 R7 K8 ["createElement"]
-      145 LOADK                            R8 K51 ["Frame"]
-      146 DUPTABLE                         R9 K53 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
-      147 GETTABLEKS                       R11 R1 K20 ["LayoutOrder"]
-      149 ORK                              R10 R11 K54 [1]
-      150 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
-      152 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
-      154 GETTABLEKS                       R10 R10 K41 ["size"]
-      156 SETTABLEKS                       R10 R9 K34 ["Size"]
-      158 LOADN                            R10 1
-      159 SETTABLEKS                       R10 R9 K52 ["BackgroundTransparency"]
-      161 MOVE                             R10 R6
-      162 CALL                             R7 3 -1
-      163 RETURN                           R7 -1
+       84 GETTABLEKS                       R17 R2 K14 ["collaboratorFilter"]
+       86 GETTABLEKS                       R17 R17 K15 ["pills"]
+       88 GETTABLEKS                       R17 R17 K42 ["size"]
+       90 SETTABLEKS                       R17 R16 K35 ["Size"]
+       92 LOADK                            R19 K43 ["Permissions"]
+       93 LOADK                            R21 K44 ["FilterPill.%*.Label"]
+       94 GETTABLEKS                       R23 R11 K45 ["key"]
+       96 NAMECALL                         R21 R21 K46 ["format"]
+       98 CALL                             R21 2 1
+       99 MOVE                             R20 R21
+      100 NAMECALL                         R17 R3 K47 ["getText"]
+      102 CALL                             R17 3 1
+      103 SETTABLEKS                       R17 R16 K36 ["Text"]
+      105 GETTABLEKS                       R18 R5 K45 ["key"]
+      107 GETTABLEKS                       R19 R11 K45 ["key"]
+      109 JUMPIFNOTEQ                      R18 R19 ; [+5]
+      111 GETUPVAL                         R17 3
+      112 GETTABLEKS                       R17 R17 K48 ["Hover"]
+      114 JUMP                             ; [+1]
+      115 LOADNIL                          R17
+      116 SETTABLEKS                       R17 R16 K37 ["StyleModifier"]
+      118 NEWCLOSURE                       R17 P0
+      119 CAPTURE                          VAL R4
+      120 CAPTURE                          VAL R11
+      121 SETTABLEKS                       R17 R16 K40 ["OnClick"]
+      123 CALL                             R14 2 -1
+      124 FASTCALL                         TABLE_INSERT ; [+2]
+      125 GETIMPORT                        R12 K51 [table.insert]
+      127 CALL                             R12 -1 0
+      128 FORGLOOP                         R7 2 ; [-53]
+      130 LENGTH                           R7 R6
+      131 LOADN                            R8 2
+      132 JUMPIFNOTLE                      R7 R8 ; [+3]
+      134 LOADNIL                          R7
+      135 RETURN                           R7 1
+      136 GETUPVAL                         R7 0
+      137 GETTABLEKS                       R7 R7 K8 ["createElement"]
+      139 LOADK                            R8 K52 ["Frame"]
+      140 DUPTABLE                         R9 K54 [{["LayoutOrder"], ["Size"], ["BackgroundTransparency"] = 1}]
+      141 GETTABLEKS                       R11 R1 K20 ["LayoutOrder"]
+      143 ORK                              R10 R11 K39 [1]
+      144 SETTABLEKS                       R10 R9 K20 ["LayoutOrder"]
+      146 GETTABLEKS                       R10 R2 K14 ["collaboratorFilter"]
+      148 GETTABLEKS                       R10 R10 K42 ["size"]
+      150 SETTABLEKS                       R10 R9 K35 ["Size"]
+      152 MOVE                             R10 R6
+      153 CALL                             R7 3 -1
+      154 RETURN                           R7 -1
 
 PROTO_2:
         0 DUPTABLE                         R2 K2 [{"FilterPills", "SelectedPill"}]

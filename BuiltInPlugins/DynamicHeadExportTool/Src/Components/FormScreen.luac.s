@@ -51,70 +51,62 @@ PROTO_0:
        71 GETUPVAL                         R7 0
        72 GETTABLEKS                       R7 R7 K2 ["createElement"]
        74 GETUPVAL                         R8 3
-       75 DUPTABLE                         R9 K31 [{"Expansion", "ExpandByDefault", "Items", "LabelWidth", "LabelHeight", "OnExpansionChange", "OnChange", "Size"}]
+       75 DUPTABLE                         R9 K33 [{["Expansion"], ["ExpandByDefault"] = True, ["Items"], ["LabelWidth"], ["LabelHeight"] = 32, ["OnExpansionChange"], ["OnChange"], ["Size"]}]
        76 GETTABLEKS                       R10 R1 K24 ["Expansion"]
        78 SETTABLEKS                       R10 R9 K24 ["Expansion"]
-       80 LOADB                            R10 1
-       81 SETTABLEKS                       R10 R9 K25 ["ExpandByDefault"]
-       83 GETTABLEKS                       R10 R1 K26 ["Items"]
-       85 SETTABLEKS                       R10 R9 K26 ["Items"]
-       87 GETIMPORT                        R10 K22 [UDim.new]
-       89 LOADN                            R11 0
-       90 LOADN                            R12 150
-       91 CALL                             R10 2 1
-       92 SETTABLEKS                       R10 R9 K27 ["LabelWidth"]
-       94 LOADN                            R10 32
-       95 SETTABLEKS                       R10 R9 K28 ["LabelHeight"]
-       97 GETTABLEKS                       R10 R1 K32 ["onExpansionChange"]
-       99 SETTABLEKS                       R10 R9 K29 ["OnExpansionChange"]
-      101 GETTABLEKS                       R10 R1 K33 ["onChange"]
-      103 SETTABLEKS                       R10 R9 K30 ["OnChange"]
-      105 GETIMPORT                        R10 K11 [UDim2.new]
-      107 LOADN                            R11 1
-      108 LOADN                            R12 0
-      109 LOADN                            R13 1
-      110 LOADN                            R16 30
-      111 GETUPVAL                         R17 2
-      112 GETTABLEKS                       R17 R17 K23 ["Padding"]
-      114 ADD                              R15 R16 R17
-      115 MINUS                            R14 R15
-      116 CALL                             R10 4 1
-      117 SETTABLEKS                       R10 R9 K5 ["Size"]
-      119 CALL                             R7 2 1
-      120 SETTABLEKS                       R7 R6 K13 ["Form"]
-      122 GETUPVAL                         R7 0
-      123 GETTABLEKS                       R7 R7 K2 ["createElement"]
-      125 GETUPVAL                         R8 4
-      126 DUPTABLE                         R9 K39 [{"Text", "Style", "TextSize", "Size", "Position", "OnClick"}]
-      127 LOADK                            R12 K40 ["Plugin"]
-      128 LOADK                            R13 K41 ["NextButton"]
-      129 NAMECALL                         R10 R2 K42 ["getText"]
-      131 CALL                             R10 3 1
-      132 SETTABLEKS                       R10 R9 K34 ["Text"]
-      134 LOADK                            R10 K43 ["RoundPrimary"]
-      135 SETTABLEKS                       R10 R9 K35 ["Style"]
-      137 LOADN                            R10 24
-      138 SETTABLEKS                       R10 R9 K36 ["TextSize"]
-      140 GETIMPORT                        R10 K11 [UDim2.new]
-      142 LOADN                            R11 1
-      143 LOADN                            R12 0
-      144 LOADN                            R13 0
-      145 LOADN                            R14 30
-      146 CALL                             R10 4 1
-      147 SETTABLEKS                       R10 R9 K5 ["Size"]
-      149 GETIMPORT                        R10 K11 [UDim2.new]
-      151 LOADN                            R11 0
-      152 LOADN                            R12 0
-      153 LOADN                            R13 1
-      154 LOADN                            R14 226
-      155 CALL                             R10 4 1
-      156 SETTABLEKS                       R10 R9 K37 ["Position"]
-      158 GETTABLEKS                       R10 R1 K44 ["onSubmit"]
-      160 SETTABLEKS                       R10 R9 K38 ["OnClick"]
-      162 CALL                             R7 2 1
-      163 SETTABLEKS                       R7 R6 K14 ["Button"]
-      165 CALL                             R3 3 -1
-      166 RETURN                           R3 -1
+       80 GETTABLEKS                       R10 R1 K27 ["Items"]
+       82 SETTABLEKS                       R10 R9 K27 ["Items"]
+       84 GETIMPORT                        R10 K22 [UDim.new]
+       86 LOADN                            R11 0
+       87 LOADN                            R12 150
+       88 CALL                             R10 2 1
+       89 SETTABLEKS                       R10 R9 K28 ["LabelWidth"]
+       91 GETTABLEKS                       R10 R1 K34 ["onExpansionChange"]
+       93 SETTABLEKS                       R10 R9 K31 ["OnExpansionChange"]
+       95 GETTABLEKS                       R10 R1 K35 ["onChange"]
+       97 SETTABLEKS                       R10 R9 K32 ["OnChange"]
+       99 GETIMPORT                        R10 K11 [UDim2.new]
+      101 LOADN                            R11 1
+      102 LOADN                            R12 0
+      103 LOADN                            R13 1
+      104 LOADN                            R16 30
+      105 GETUPVAL                         R17 2
+      106 GETTABLEKS                       R17 R17 K23 ["Padding"]
+      108 ADD                              R15 R16 R17
+      109 MINUS                            R14 R15
+      110 CALL                             R10 4 1
+      111 SETTABLEKS                       R10 R9 K5 ["Size"]
+      113 CALL                             R7 2 1
+      114 SETTABLEKS                       R7 R6 K13 ["Form"]
+      116 GETUPVAL                         R7 0
+      117 GETTABLEKS                       R7 R7 K2 ["createElement"]
+      119 GETUPVAL                         R8 4
+      120 DUPTABLE                         R9 K43 [{["Text"], ["Style"] = "RoundPrimary", ["TextSize"] = 24, ["Size"], ["Position"], ["OnClick"]}]
+      121 LOADK                            R12 K44 ["Plugin"]
+      122 LOADK                            R13 K45 ["NextButton"]
+      123 NAMECALL                         R10 R2 K46 ["getText"]
+      125 CALL                             R10 3 1
+      126 SETTABLEKS                       R10 R9 K36 ["Text"]
+      128 GETIMPORT                        R10 K11 [UDim2.new]
+      130 LOADN                            R11 1
+      131 LOADN                            R12 0
+      132 LOADN                            R13 0
+      133 LOADN                            R14 30
+      134 CALL                             R10 4 1
+      135 SETTABLEKS                       R10 R9 K5 ["Size"]
+      137 GETIMPORT                        R10 K11 [UDim2.new]
+      139 LOADN                            R11 0
+      140 LOADN                            R12 0
+      141 LOADN                            R13 1
+      142 LOADN                            R14 -30
+      143 CALL                             R10 4 1
+      144 SETTABLEKS                       R10 R9 K41 ["Position"]
+      146 GETTABLEKS                       R10 R1 K47 ["onSubmit"]
+      148 SETTABLEKS                       R10 R9 K42 ["OnClick"]
+      150 CALL                             R7 2 1
+      151 SETTABLEKS                       R7 R6 K14 ["Button"]
+      153 CALL                             R3 3 -1
+      154 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -61,61 +61,61 @@ PROTO_8:
         8 GETUPVAL                         R3 0
         9 MOVE                             R4 R0
        10 CALL                             R3 1 1
-       11 DUPTABLE                         R4 K34 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "ChannelId", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
+       11 DUPTABLE                         R4 K39 [{["GetPropertyChangedSignal"], ["GetAttributeChangedSignal"], ["GetAttribute"], ["GetRequests"], ["GetChildren"], ["Destroy"], ["GetStringUniqueId"], ["GetAbsolutePosition"], ["SetAdorneeOffsetFromAbsolutePosition"], ["SetAttribute"], ["ChildAdded"], ["ChildRemoved"], ["AncestryChanged"], ["Parent"], ["Name"], ["AuthorId"] = 1234, ["AuthorColor3"], ["Contents"], ["TaggedUsers"] = "", ["Resolved"] = False, ["CreationTimeUnix"] = 0, ["LastModifiedTimeUnix"] = 0, ["ChannelId"] = "TestChannel", ["LoadingReplies"] = False, ["ReplyCount"] = 0, ["RequestInitiated"], ["RequestCompleted"], ["_requestInitiated"], ["_requestCompleted"], ["_inner"]}]
        12 GETUPVAL                         R5 1
-       13 GETTABLEKS                       R5 R5 K35 ["fn"]
+       13 GETTABLEKS                       R5 R5 K40 ["fn"]
        15 NEWCLOSURE                       R6 P0
        16 CAPTURE                          VAL R3
        17 CALL                             R5 1 1
        18 SETTABLEKS                       R5 R4 K4 ["GetPropertyChangedSignal"]
        20 GETUPVAL                         R5 1
-       21 GETTABLEKS                       R5 R5 K35 ["fn"]
+       21 GETTABLEKS                       R5 R5 K40 ["fn"]
        23 NEWCLOSURE                       R6 P1
        24 CAPTURE                          VAL R3
        25 CALL                             R5 1 1
        26 SETTABLEKS                       R5 R4 K5 ["GetAttributeChangedSignal"]
        28 GETUPVAL                         R5 1
-       29 GETTABLEKS                       R5 R5 K35 ["fn"]
+       29 GETTABLEKS                       R5 R5 K40 ["fn"]
        31 NEWCLOSURE                       R6 P2
        32 CAPTURE                          VAL R3
        33 CALL                             R5 1 1
        34 SETTABLEKS                       R5 R4 K6 ["GetAttribute"]
        36 GETUPVAL                         R5 1
-       37 GETTABLEKS                       R5 R5 K35 ["fn"]
+       37 GETTABLEKS                       R5 R5 K40 ["fn"]
        39 NEWCLOSURE                       R6 P3
        40 CAPTURE                          VAL R3
        41 CALL                             R5 1 1
        42 SETTABLEKS                       R5 R4 K7 ["GetRequests"]
        44 GETUPVAL                         R5 1
-       45 GETTABLEKS                       R5 R5 K35 ["fn"]
+       45 GETTABLEKS                       R5 R5 K40 ["fn"]
        47 NEWCLOSURE                       R6 P4
        48 CAPTURE                          VAL R3
        49 CALL                             R5 1 1
        50 SETTABLEKS                       R5 R4 K8 ["GetChildren"]
        52 GETUPVAL                         R5 1
-       53 GETTABLEKS                       R5 R5 K35 ["fn"]
+       53 GETTABLEKS                       R5 R5 K40 ["fn"]
        55 NEWCLOSURE                       R6 P5
        56 CAPTURE                          VAL R3
        57 CALL                             R5 1 1
        58 SETTABLEKS                       R5 R4 K9 ["Destroy"]
        60 GETUPVAL                         R5 1
-       61 GETTABLEKS                       R5 R5 K35 ["fn"]
+       61 GETTABLEKS                       R5 R5 K40 ["fn"]
        63 NEWCLOSURE                       R6 P6
        64 CAPTURE                          VAL R3
        65 CALL                             R5 1 1
        66 SETTABLEKS                       R5 R4 K10 ["GetStringUniqueId"]
        68 GETUPVAL                         R5 1
-       69 GETTABLEKS                       R5 R5 K35 ["fn"]
+       69 GETTABLEKS                       R5 R5 K40 ["fn"]
        71 GETTABLEKS                       R6 R3 K11 ["GetAbsolutePosition"]
        73 CALL                             R5 1 1
        74 SETTABLEKS                       R5 R4 K11 ["GetAbsolutePosition"]
        76 GETUPVAL                         R5 1
-       77 GETTABLEKS                       R5 R5 K35 ["fn"]
+       77 GETTABLEKS                       R5 R5 K40 ["fn"]
        79 GETTABLEKS                       R6 R3 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
        81 CALL                             R5 1 1
        82 SETTABLEKS                       R5 R4 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
        84 GETUPVAL                         R5 1
-       85 GETTABLEKS                       R5 R5 K35 ["fn"]
+       85 GETTABLEKS                       R5 R5 K40 ["fn"]
        87 NEWCLOSURE                       R6 P7
        88 CAPTURE                          VAL R3
        89 CALL                             R5 1 1
@@ -131,37 +131,21 @@ PROTO_8:
       108 NAMECALL                         R5 R3 K10 ["GetStringUniqueId"]
       110 CALL                             R5 1 1
       111 SETTABLEKS                       R5 R4 K18 ["Name"]
-      113 LOADN                            R5 210
-      114 SETTABLEKS                       R5 R4 K19 ["AuthorId"]
-      116 GETIMPORT                        R5 K37 [Color3.new]
-      118 LOADN                            R6 0
-      119 LOADN                            R7 0
-      120 LOADN                            R8 0
-      121 CALL                             R5 3 1
-      122 SETTABLEKS                       R5 R4 K20 ["AuthorColor3"]
-      124 SETTABLEKS                       R0 R4 K21 ["Contents"]
-      126 LOADK                            R5 K38 [""]
-      127 SETTABLEKS                       R5 R4 K22 ["TaggedUsers"]
-      129 LOADB                            R5 0
-      130 SETTABLEKS                       R5 R4 K23 ["Resolved"]
-      132 LOADN                            R5 0
-      133 SETTABLEKS                       R5 R4 K24 ["CreationTimeUnix"]
-      135 LOADN                            R5 0
-      136 SETTABLEKS                       R5 R4 K25 ["LastModifiedTimeUnix"]
-      138 LOADK                            R5 K39 ["TestChannel"]
-      139 SETTABLEKS                       R5 R4 K26 ["ChannelId"]
-      141 LOADB                            R5 0
-      142 SETTABLEKS                       R5 R4 K27 ["LoadingReplies"]
-      144 LOADN                            R5 0
-      145 SETTABLEKS                       R5 R4 K28 ["ReplyCount"]
-      147 GETTABLEKS                       R5 R1 K40 ["Event"]
-      149 SETTABLEKS                       R5 R4 K29 ["RequestInitiated"]
-      151 GETTABLEKS                       R5 R2 K40 ["Event"]
-      153 SETTABLEKS                       R5 R4 K30 ["RequestCompleted"]
-      155 SETTABLEKS                       R1 R4 K31 ["_requestInitiated"]
-      157 SETTABLEKS                       R2 R4 K32 ["_requestCompleted"]
-      159 SETTABLEKS                       R3 R4 K33 ["_inner"]
-      161 RETURN                           R4 1
+      113 GETIMPORT                        R5 K42 [Color3.new]
+      115 LOADN                            R6 0
+      116 LOADN                            R7 0
+      117 LOADN                            R8 0
+      118 CALL                             R5 3 1
+      119 SETTABLEKS                       R5 R4 K21 ["AuthorColor3"]
+      121 SETTABLEKS                       R0 R4 K22 ["Contents"]
+      123 GETTABLEKS                       R5 R1 K43 ["Event"]
+      125 SETTABLEKS                       R5 R4 K34 ["RequestInitiated"]
+      127 GETTABLEKS                       R5 R2 K43 ["Event"]
+      129 SETTABLEKS                       R5 R4 K35 ["RequestCompleted"]
+      131 SETTABLEKS                       R1 R4 K36 ["_requestInitiated"]
+      133 SETTABLEKS                       R2 R4 K37 ["_requestCompleted"]
+      135 SETTABLEKS                       R3 R4 K38 ["_inner"]
+      137 RETURN                           R4 1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -1,9 +1,7 @@
 PROTO_0:
-        0 DUPTABLE                         R1 K1 [{"index"}]
-        1 LOADN                            R2 1
-        2 SETTABLEKS                       R2 R1 K0 ["index"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = 1}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
@@ -45,29 +43,27 @@ PROTO_3:
        20 GETUPVAL                         R10 0
        21 GETTABLEKS                       R10 R10 K5 ["createElement"]
        23 GETUPVAL                         R11 1
-       24 DUPTABLE                         R12 K20 [{"PreviewAvatars", "SelectedIndex", "Size", "Position", "AnchorPoint", "Capacity"}]
-       25 NAMECALL                         R13 R4 K21 ["getAvatars"]
+       24 DUPTABLE                         R12 K21 [{["PreviewAvatars"], ["SelectedIndex"], ["Size"], ["Position"], ["AnchorPoint"], ["Capacity"] = 3}]
+       25 NAMECALL                         R13 R4 K22 ["getAvatars"]
        27 CALL                             R13 1 1
        28 SETTABLEKS                       R13 R12 K14 ["PreviewAvatars"]
        30 SETTABLEKS                       R3 R12 K15 ["SelectedIndex"]
        32 GETTABLEKS                       R13 R5 K16 ["Size"]
        34 SETTABLEKS                       R13 R12 K16 ["Size"]
-       36 GETIMPORT                        R13 K24 [UDim2.fromScale]
-       38 LOADK                            R14 K25 [0.5]
+       36 GETIMPORT                        R13 K25 [UDim2.fromScale]
+       38 LOADK                            R14 K26 [0.5]
        39 LOADN                            R15 1
        40 CALL                             R13 2 1
        41 SETTABLEKS                       R13 R12 K17 ["Position"]
-       43 GETIMPORT                        R13 K28 [Vector2.new]
-       45 LOADK                            R14 K25 [0.5]
+       43 GETIMPORT                        R13 K29 [Vector2.new]
+       45 LOADK                            R14 K26 [0.5]
        46 LOADN                            R15 1
        47 CALL                             R13 2 1
        48 SETTABLEKS                       R13 R12 K18 ["AnchorPoint"]
-       50 LOADN                            R13 3
-       51 SETTABLEKS                       R13 R12 K19 ["Capacity"]
-       53 CALL                             R10 2 1
-       54 SETTABLEKS                       R10 R9 K12 ["AvatarSelection"]
-       56 CALL                             R6 3 -1
-       57 RETURN                           R6 -1
+       50 CALL                             R10 2 1
+       51 SETTABLEKS                       R10 R9 K12 ["AvatarSelection"]
+       53 CALL                             R6 3 -1
+       54 RETURN                           R6 -1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["modelSelectionChangedHandle"]

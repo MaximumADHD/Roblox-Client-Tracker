@@ -91,25 +91,21 @@ PROTO_4:
        17 RETURN                           R0 0
 
 PROTO_5:
-        0 DUPTABLE                         R1 K2 [{"fetchStatus", "contentId"}]
-        1 LOADNIL                          R2
-        2 SETTABLEKS                       R2 R1 K0 ["fetchStatus"]
-        4 LOADNIL                          R2
-        5 SETTABLEKS                       R2 R1 K1 ["contentId"]
-        7 SETTABLEKS                       R1 R0 K3 ["state"]
-        9 LOADNIL                          R1
-       10 SETTABLEKS                       R1 R0 K4 ["fetchingContentId"]
-       12 LOADNIL                          R1
-       13 SETTABLEKS                       R1 R0 K5 ["currentId"]
-       15 NEWCLOSURE                       R1 P0
-       16 CAPTURE                          VAL R0
-       17 CAPTURE                          UPVAL U0
-       18 SETTABLEKS                       R1 R0 K6 ["updateThumbnail"]
-       20 NEWCLOSURE                       R1 P1
-       21 CAPTURE                          VAL R0
-       22 CAPTURE                          UPVAL U1
-       23 SETTABLEKS                       R1 R0 K7 ["loadThumbnail"]
-       25 RETURN                           R0 0
+        0 DUPTABLE                         R1 K3 [{[1] = , ["contentId"] = }]
+        1 SETTABLEKS                       R1 R0 K4 ["state"]
+        3 LOADNIL                          R1
+        4 SETTABLEKS                       R1 R0 K5 ["fetchingContentId"]
+        6 LOADNIL                          R1
+        7 SETTABLEKS                       R1 R0 K6 ["currentId"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 CAPTURE                          UPVAL U0
+       12 SETTABLEKS                       R1 R0 K7 ["updateThumbnail"]
+       14 NEWCLOSURE                       R1 P1
+       15 CAPTURE                          VAL R0
+       16 CAPTURE                          UPVAL U1
+       17 SETTABLEKS                       R1 R0 K8 ["loadThumbnail"]
+       19 RETURN                           R0 0
 
 PROTO_6:
         0 GETTABLEKS                       R3 R0 K0 ["props"]

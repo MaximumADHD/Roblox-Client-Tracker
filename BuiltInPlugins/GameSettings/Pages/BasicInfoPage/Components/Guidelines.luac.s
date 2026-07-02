@@ -20,16 +20,12 @@ PROTO_1:
         6 GETTABLEKS                       R1 R1 K2 ["createRef"]
         8 CALL                             R1 0 1
         9 SETTABLEKS                       R1 R0 K3 ["frameRef"]
-       11 DUPTABLE                         R1 K6 [{"maxChildWidth", "questionnaireButtonClicked"}]
-       12 LOADN                            R2 0
-       13 SETTABLEKS                       R2 R1 K4 ["maxChildWidth"]
-       15 LOADB                            R2 0
-       16 SETTABLEKS                       R2 R1 K5 ["questionnaireButtonClicked"]
-       18 SETTABLEKS                       R1 R0 K7 ["state"]
-       20 NEWCLOSURE                       R1 P0
-       21 CAPTURE                          VAL R0
-       22 SETTABLEKS                       R1 R0 K8 ["updateSize"]
-       24 RETURN                           R0 0
+       11 DUPTABLE                         R1 K8 [{["maxChildWidth"] = 0, ["questionnaireButtonClicked"] = False}]
+       12 SETTABLEKS                       R1 R0 K9 ["state"]
+       14 NEWCLOSURE                       R1 P0
+       15 CAPTURE                          VAL R0
+       16 SETTABLEKS                       R1 R0 K10 ["updateSize"]
+       18 RETURN                           R0 0
 
 PROTO_2:
         0 GETTABLEKS                       R1 R0 K0 ["updateSize"]
@@ -38,16 +34,14 @@ PROTO_2:
 
 PROTO_3:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"questionnaireButtonClicked"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["questionnaireButtonClicked"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 GETUPVAL                         R0 1
-        9 GETUPVAL                         R1 2
-       10 CALL                             R0 1 1
-       11 CALL                             R0 0 0
-       12 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R0 1
+        6 GETUPVAL                         R1 2
+        7 CALL                             R0 1 1
+        8 CALL                             R0 0 0
+        9 RETURN                           R0 0
 
 PROTO_4:
         0 GETIMPORT                        R0 K1 [game]
@@ -236,113 +230,101 @@ PROTO_5:
       249 GETUPVAL                         R19 3
       250 GETTABLEKS                       R19 R19 K24 ["createElement"]
       252 GETUPVAL                         R20 8
-      253 DUPTABLE                         R21 K70 [{"Layout", "AutomaticSize", "Spacing", "LayoutOrder"}]
-      254 GETIMPORT                        R22 K74 [Enum.FillDirection.Horizontal]
+      253 DUPTABLE                         R21 K71 [{["Layout"], ["AutomaticSize"], ["Spacing"] = 6, ["LayoutOrder"]}]
+      254 GETIMPORT                        R22 K75 [Enum.FillDirection.Horizontal]
       256 SETTABLEKS                       R22 R21 K42 ["Layout"]
-      258 GETIMPORT                        R22 K75 [Enum.AutomaticSize.Y]
+      258 GETIMPORT                        R22 K76 [Enum.AutomaticSize.Y]
       260 SETTABLEKS                       R22 R21 K68 ["AutomaticSize"]
-      262 LOADN                            R22 6
-      263 SETTABLEKS                       R22 R21 K69 ["Spacing"]
-      265 NAMECALL                         R22 R6 K55 ["getNextOrder"]
-      267 CALL                             R22 1 1
-      268 SETTABLEKS                       R22 R21 K6 ["LayoutOrder"]
-      270 DUPTABLE                         R22 K77 [{"Icon", "Text"}]
-      271 GETTABLEKS                       R24 R1 K11 ["GameGuideline"]
-      273 JUMPIF                           R24 ; [+28]
-      274 GETUPVAL                         R23 3
-      275 GETTABLEKS                       R23 R23 K24 ["createElement"]
-      277 LOADK                            R24 K78 ["ImageLabel"]
-      278 DUPTABLE                         R25 K82 [{"BackgroundTransparency", "Image", "ImageColor3", "Size", "LayoutOrder"}]
-      279 LOADN                            R26 1
-      280 SETTABLEKS                       R26 R25 K79 ["BackgroundTransparency"]
-      282 GETTABLEKS                       R26 R2 K83 ["warningIcon"]
-      284 SETTABLEKS                       R26 R25 K80 ["Image"]
-      286 GETTABLEKS                       R26 R2 K84 ["warningColor"]
-      288 SETTABLEKS                       R26 R25 K81 ["ImageColor3"]
-      290 GETIMPORT                        R26 K86 [UDim2.fromOffset]
-      292 LOADN                            R27 16
-      293 LOADN                            R28 16
-      294 CALL                             R26 2 1
-      295 SETTABLEKS                       R26 R25 K58 ["Size"]
-      297 LOADN                            R26 0
-      298 SETTABLEKS                       R26 R25 K6 ["LayoutOrder"]
-      300 CALL                             R23 2 1
-      301 JUMP                             ; [+1]
-      302 LOADNIL                          R23
-      303 SETTABLEKS                       R23 R22 K76 ["Icon"]
-      305 GETUPVAL                         R23 3
-      306 GETTABLEKS                       R23 R23 K24 ["createElement"]
-      308 GETUPVAL                         R24 9
-      309 GETUPVAL                         R25 4
-      310 GETTABLEKS                       R25 R25 K26 ["Dictionary"]
-      312 GETTABLEKS                       R25 R25 K27 ["join"]
-      314 DUPTABLE                         R26 K96 [{"Text", "OnLinkClicked", "LinkText", "LinkPlaceholder", "MaxWidth", "TextProps", "HorizontalAlignment", "TextXAlignment", "TextYAlignment", "LayoutOrder", "TextWrapped"}]
-      315 GETTABLEKS                       R28 R1 K11 ["GameGuideline"]
-      317 JUMPIFNOT                        R28 ; [+6]
-      318 LOADK                            R29 K8 ["Guidelines"]
-      319 LOADK                            R30 K97 ["RetakeQuestionnaireMaturity"]
-      320 NAMECALL                         R27 R3 K10 ["getText"]
-      322 CALL                             R27 3 1
-      323 JUMP                             ; [+13]
-      324 LOADK                            R29 K8 ["Guidelines"]
-      325 LOADK                            R30 K98 ["UnratedExpPlayabilityWaring"]
-      326 DUPTABLE                         R31 K100 [{"link"}]
-      327 LOADK                            R34 K8 ["Guidelines"]
-      328 LOADK                            R35 K101 ["UnratedExpPlayabilityWaringLink"]
-      329 NAMECALL                         R32 R3 K10 ["getText"]
-      331 CALL                             R32 3 1
-      332 SETTABLEKS                       R32 R31 K99 ["link"]
-      334 NAMECALL                         R27 R3 K10 ["getText"]
-      336 CALL                             R27 4 1
-      337 SETTABLEKS                       R27 R26 K33 ["Text"]
-      339 DUPCLOSURE                       R27 K102 [PROTO_4]
-      340 SETTABLEKS                       R27 R26 K87 ["OnLinkClicked"]
-      342 LOADK                            R29 K8 ["Guidelines"]
-      343 LOADK                            R30 K101 ["UnratedExpPlayabilityWaringLink"]
-      344 NAMECALL                         R27 R3 K10 ["getText"]
-      346 CALL                             R27 3 1
-      347 SETTABLEKS                       R27 R26 K88 ["LinkText"]
-      349 LOADK                            R29 K8 ["Guidelines"]
-      350 LOADK                            R30 K101 ["UnratedExpPlayabilityWaringLink"]
-      351 NAMECALL                         R27 R3 K10 ["getText"]
-      353 CALL                             R27 3 1
-      354 SETTABLEKS                       R27 R26 K89 ["LinkPlaceholder"]
-      356 GETTABLEKS                       R28 R0 K51 ["state"]
-      358 GETTABLEKS                       R28 R28 K104 ["maxChildWidth"]
-      360 SUBK                             R27 R28 K103 [22]
-      361 SETTABLEKS                       R27 R26 K90 ["MaxWidth"]
-      363 GETUPVAL                         R27 4
-      364 GETTABLEKS                       R27 R27 K26 ["Dictionary"]
-      366 GETTABLEKS                       R27 R27 K27 ["join"]
-      368 GETTABLEKS                       R28 R2 K14 ["fontStyle"]
-      370 GETTABLEKS                       R28 R28 K105 ["Warning"]
-      372 DUPTABLE                         R29 K106 [{"BackgroundTransparency", "TextXAlignment"}]
-      373 LOADN                            R30 1
-      374 SETTABLEKS                       R30 R29 K79 ["BackgroundTransparency"]
-      376 GETIMPORT                        R30 K108 [Enum.TextXAlignment.Left]
-      378 SETTABLEKS                       R30 R29 K93 ["TextXAlignment"]
-      380 CALL                             R27 2 1
-      381 SETTABLEKS                       R27 R26 K91 ["TextProps"]
-      383 GETIMPORT                        R27 K109 [Enum.HorizontalAlignment.Left]
-      385 SETTABLEKS                       R27 R26 K92 ["HorizontalAlignment"]
-      387 GETIMPORT                        R27 K108 [Enum.TextXAlignment.Left]
-      389 SETTABLEKS                       R27 R26 K93 ["TextXAlignment"]
-      391 GETIMPORT                        R27 K111 [Enum.TextYAlignment.Top]
-      393 SETTABLEKS                       R27 R26 K94 ["TextYAlignment"]
-      395 LOADN                            R27 1
-      396 SETTABLEKS                       R27 R26 K6 ["LayoutOrder"]
-      398 LOADB                            R27 1
-      399 SETTABLEKS                       R27 R26 K95 ["TextWrapped"]
-      401 GETTABLEKS                       R27 R2 K112 ["guidelinesDescriptionText"]
-      403 CALL                             R25 2 -1
-      404 CALL                             R23 -1 1
-      405 SETTABLEKS                       R23 R22 K33 ["Text"]
-      407 CALL                             R19 3 1
-      408 SETTABLEKS                       R19 R18 K45 ["GuidelinesQuestionnaireInfo"]
-      410 CALL                             R15 3 1
-      411 SETTABLEKS                       R15 R14 K31 ["DescriptionFrame"]
-      413 CALL                             R11 3 -1
-      414 RETURN                           R11 -1
+      262 NAMECALL                         R22 R6 K55 ["getNextOrder"]
+      264 CALL                             R22 1 1
+      265 SETTABLEKS                       R22 R21 K6 ["LayoutOrder"]
+      267 DUPTABLE                         R22 K78 [{"Icon", "Text"}]
+      268 GETTABLEKS                       R24 R1 K11 ["GameGuideline"]
+      270 JUMPIF                           R24 ; [+22]
+      271 GETUPVAL                         R23 3
+      272 GETTABLEKS                       R23 R23 K24 ["createElement"]
+      274 LOADK                            R24 K79 ["ImageLabel"]
+      275 DUPTABLE                         R25 K85 [{["BackgroundTransparency"] = 1, ["Image"], ["ImageColor3"], ["Size"], ["LayoutOrder"] = 0}]
+      276 GETTABLEKS                       R26 R2 K86 ["warningIcon"]
+      278 SETTABLEKS                       R26 R25 K82 ["Image"]
+      280 GETTABLEKS                       R26 R2 K87 ["warningColor"]
+      282 SETTABLEKS                       R26 R25 K83 ["ImageColor3"]
+      284 GETIMPORT                        R26 K89 [UDim2.fromOffset]
+      286 LOADN                            R27 16
+      287 LOADN                            R28 16
+      288 CALL                             R26 2 1
+      289 SETTABLEKS                       R26 R25 K58 ["Size"]
+      291 CALL                             R23 2 1
+      292 JUMP                             ; [+1]
+      293 LOADNIL                          R23
+      294 SETTABLEKS                       R23 R22 K77 ["Icon"]
+      296 GETUPVAL                         R23 3
+      297 GETTABLEKS                       R23 R23 K24 ["createElement"]
+      299 GETUPVAL                         R24 9
+      300 GETUPVAL                         R25 4
+      301 GETTABLEKS                       R25 R25 K26 ["Dictionary"]
+      303 GETTABLEKS                       R25 R25 K27 ["join"]
+      305 DUPTABLE                         R26 K100 [{["Text"], ["OnLinkClicked"], ["LinkText"], ["LinkPlaceholder"], ["MaxWidth"], ["TextProps"], ["HorizontalAlignment"], ["TextXAlignment"], ["TextYAlignment"], ["LayoutOrder"] = 1, ["TextWrapped"] = True}]
+      306 GETTABLEKS                       R28 R1 K11 ["GameGuideline"]
+      308 JUMPIFNOT                        R28 ; [+6]
+      309 LOADK                            R29 K8 ["Guidelines"]
+      310 LOADK                            R30 K101 ["RetakeQuestionnaireMaturity"]
+      311 NAMECALL                         R27 R3 K10 ["getText"]
+      313 CALL                             R27 3 1
+      314 JUMP                             ; [+13]
+      315 LOADK                            R29 K8 ["Guidelines"]
+      316 LOADK                            R30 K102 ["UnratedExpPlayabilityWaring"]
+      317 DUPTABLE                         R31 K104 [{"link"}]
+      318 LOADK                            R34 K8 ["Guidelines"]
+      319 LOADK                            R35 K105 ["UnratedExpPlayabilityWaringLink"]
+      320 NAMECALL                         R32 R3 K10 ["getText"]
+      322 CALL                             R32 3 1
+      323 SETTABLEKS                       R32 R31 K103 ["link"]
+      325 NAMECALL                         R27 R3 K10 ["getText"]
+      327 CALL                             R27 4 1
+      328 SETTABLEKS                       R27 R26 K33 ["Text"]
+      330 DUPCLOSURE                       R27 K106 [PROTO_4]
+      331 SETTABLEKS                       R27 R26 K90 ["OnLinkClicked"]
+      333 LOADK                            R29 K8 ["Guidelines"]
+      334 LOADK                            R30 K105 ["UnratedExpPlayabilityWaringLink"]
+      335 NAMECALL                         R27 R3 K10 ["getText"]
+      337 CALL                             R27 3 1
+      338 SETTABLEKS                       R27 R26 K91 ["LinkText"]
+      340 LOADK                            R29 K8 ["Guidelines"]
+      341 LOADK                            R30 K105 ["UnratedExpPlayabilityWaringLink"]
+      342 NAMECALL                         R27 R3 K10 ["getText"]
+      344 CALL                             R27 3 1
+      345 SETTABLEKS                       R27 R26 K92 ["LinkPlaceholder"]
+      347 GETTABLEKS                       R28 R0 K51 ["state"]
+      349 GETTABLEKS                       R28 R28 K108 ["maxChildWidth"]
+      351 SUBK                             R27 R28 K107 [22]
+      352 SETTABLEKS                       R27 R26 K93 ["MaxWidth"]
+      354 GETUPVAL                         R27 4
+      355 GETTABLEKS                       R27 R27 K26 ["Dictionary"]
+      357 GETTABLEKS                       R27 R27 K27 ["join"]
+      359 GETTABLEKS                       R28 R2 K14 ["fontStyle"]
+      361 GETTABLEKS                       R28 R28 K109 ["Warning"]
+      363 DUPTABLE                         R29 K110 [{["BackgroundTransparency"] = 1, ["TextXAlignment"]}]
+      364 GETIMPORT                        R30 K112 [Enum.TextXAlignment.Left]
+      366 SETTABLEKS                       R30 R29 K96 ["TextXAlignment"]
+      368 CALL                             R27 2 1
+      369 SETTABLEKS                       R27 R26 K94 ["TextProps"]
+      371 GETIMPORT                        R27 K113 [Enum.HorizontalAlignment.Left]
+      373 SETTABLEKS                       R27 R26 K95 ["HorizontalAlignment"]
+      375 GETIMPORT                        R27 K112 [Enum.TextXAlignment.Left]
+      377 SETTABLEKS                       R27 R26 K96 ["TextXAlignment"]
+      379 GETIMPORT                        R27 K115 [Enum.TextYAlignment.Top]
+      381 SETTABLEKS                       R27 R26 K97 ["TextYAlignment"]
+      383 GETTABLEKS                       R27 R2 K116 ["guidelinesDescriptionText"]
+      385 CALL                             R25 2 -1
+      386 CALL                             R23 -1 1
+      387 SETTABLEKS                       R23 R22 K33 ["Text"]
+      389 CALL                             R19 3 1
+      390 SETTABLEKS                       R19 R18 K45 ["GuidelinesQuestionnaireInfo"]
+      392 CALL                             R15 3 1
+      393 SETTABLEKS                       R15 R14 K31 ["DescriptionFrame"]
+      395 CALL                             R11 3 -1
+      396 RETURN                           R11 -1
 
 MAIN:
         0 PREPVARARGS                      0

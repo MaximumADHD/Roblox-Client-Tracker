@@ -82,22 +82,18 @@ PROTO_5:
 
 PROTO_6:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K5 [{"includeUnverifiedCreators", "minDuration", "maxDuration", "searchTerm", "extraSearchDetails"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["includeUnverifiedCreators"]
-        5 GETUPVAL                         R3 1
-        6 GETTABLEKS                       R3 R3 K6 ["MIN_AUDIO_SEARCH_DURATION"]
-        8 SETTABLEKS                       R3 R2 K1 ["minDuration"]
-       10 GETUPVAL                         R3 1
-       11 GETTABLEKS                       R3 R3 K7 ["MAX_AUDIO_SEARCH_DURATION"]
-       13 SETTABLEKS                       R3 R2 K2 ["maxDuration"]
-       15 LOADK                            R3 K8 [""]
-       16 SETTABLEKS                       R3 R2 K3 ["searchTerm"]
-       18 NEWTABLE                         R3 0 0
-       20 SETTABLEKS                       R3 R2 K4 ["extraSearchDetails"]
-       22 NAMECALL                         R0 R0 K9 ["setState"]
-       24 CALL                             R0 2 0
-       25 RETURN                           R0 0
+        1 DUPTABLE                         R2 K7 [{[1] = False, ["minDuration"], ["maxDuration"], ["searchTerm"] = "", ["extraSearchDetails"]}]
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R3 R3 K8 ["MIN_AUDIO_SEARCH_DURATION"]
+        5 SETTABLEKS                       R3 R2 K2 ["minDuration"]
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R3 R3 K9 ["MAX_AUDIO_SEARCH_DURATION"]
+       10 SETTABLEKS                       R3 R2 K3 ["maxDuration"]
+       12 NEWTABLE                         R3 0 0
+       14 SETTABLEKS                       R3 R2 K6 ["extraSearchDetails"]
+       16 NAMECALL                         R0 R0 K10 ["setState"]
+       18 CALL                             R0 2 0
+       19 RETURN                           R0 0
 
 PROTO_7:
         0 GETUPVAL                         R0 0
@@ -228,7 +224,7 @@ PROTO_12:
        67 CALL                             R11 3 1
        68 SETTABLEKS                       R11 R10 K13 ["AllViews"]
        70 MOVE                             R11 R5
-       71 JUMPIFNOT                        R11 ; [+47]
+       71 JUMPIFNOT                        R11 ; [+44]
        72 GETUPVAL                         R11 2
        73 GETTABLEKS                       R11 R11 K5 ["createElement"]
        75 GETUPVAL                         R12 4
@@ -245,24 +241,22 @@ PROTO_12:
        90 GETUPVAL                         R15 2
        91 GETTABLEKS                       R15 R15 K5 ["createElement"]
        93 GETUPVAL                         R16 6
-       94 DUPTABLE                         R17 K38 [{"defaultTextKey", "searchTerm", "results", "updateSearch", "width"}]
-       95 LOADK                            R18 K39 ["SearchBarCreatorText"]
-       96 SETTABLEKS                       R18 R17 K33 ["defaultTextKey"]
-       98 GETTABLEKS                       R18 R2 K34 ["searchTerm"]
-      100 SETTABLEKS                       R18 R17 K34 ["searchTerm"]
-      102 GETTABLEKS                       R18 R3 K35 ["results"]
-      104 SETTABLEKS                       R18 R17 K35 ["results"]
-      106 GETTABLEKS                       R18 R0 K40 ["updateUserSearch"]
-      108 SETTABLEKS                       R18 R17 K36 ["updateSearch"]
-      110 GETUPVAL                         R18 7
-      111 GETTABLEKS                       R18 R18 K41 ["SEARCH_BAR_WIDTH"]
-      113 SETTABLEKS                       R18 R17 K37 ["width"]
-      115 CALL                             R15 2 1
-      116 SETTABLEKS                       R15 R14 K31 ["SearchBar"]
-      118 CALL                             R11 3 1
-      119 SETTABLEKS                       R11 R10 K14 ["Creator"]
-      121 CALL                             R7 3 -1
-      122 RETURN                           R7 -1
+       94 DUPTABLE                         R17 K39 [{["defaultTextKey"] = "SearchBarCreatorText", ["searchTerm"], ["results"], ["updateSearch"], ["width"]}]
+       95 GETTABLEKS                       R18 R2 K35 ["searchTerm"]
+       97 SETTABLEKS                       R18 R17 K35 ["searchTerm"]
+       99 GETTABLEKS                       R18 R3 K36 ["results"]
+      101 SETTABLEKS                       R18 R17 K36 ["results"]
+      103 GETTABLEKS                       R18 R0 K40 ["updateUserSearch"]
+      105 SETTABLEKS                       R18 R17 K37 ["updateSearch"]
+      107 GETUPVAL                         R18 7
+      108 GETTABLEKS                       R18 R18 K41 ["SEARCH_BAR_WIDTH"]
+      110 SETTABLEKS                       R18 R17 K38 ["width"]
+      112 CALL                             R15 2 1
+      113 SETTABLEKS                       R15 R14 K31 ["SearchBar"]
+      115 CALL                             R11 3 1
+      116 SETTABLEKS                       R11 R10 K14 ["Creator"]
+      118 CALL                             R7 3 -1
+      119 RETURN                           R7 -1
 
 PROTO_13:
         0 MOVE                             R2 R0

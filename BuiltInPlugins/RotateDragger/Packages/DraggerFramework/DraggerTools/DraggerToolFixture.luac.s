@@ -18,32 +18,28 @@ PROTO_3:
         1 JUMPIF                           R3 ; [+2]
         2 NEWTABLE                         R3 0 0
         4 MOVE                             R2 R3
-        5 DUPTABLE                         R4 K4 [{"_draggerContext", "_viewBoundsDirty", "_selectionBoundsDirty", "_lastShouldUseLocalSpace"}]
+        5 DUPTABLE                         R4 K5 [{[1], ["_viewBoundsDirty"] = True, ["_selectionBoundsDirty"] = True, ["_lastShouldUseLocalSpace"]}]
         6 SETTABLEKS                       R0 R4 K0 ["_draggerContext"]
-        8 LOADB                            R5 1
-        9 SETTABLEKS                       R5 R4 K1 ["_viewBoundsDirty"]
-       11 LOADB                            R5 1
-       12 SETTABLEKS                       R5 R4 K2 ["_selectionBoundsDirty"]
-       14 NAMECALL                         R5 R0 K5 ["shouldUseLocalSpace"]
-       16 CALL                             R5 1 1
-       17 SETTABLEKS                       R5 R4 K3 ["_lastShouldUseLocalSpace"]
-       19 GETUPVAL                         R5 0
-       20 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
-       22 GETIMPORT                        R3 K7 [setmetatable]
-       24 CALL                             R3 2 1
-       25 GETUPVAL                         R4 1
-       26 GETTABLEKS                       R4 R4 K8 ["new"]
-       28 MOVE                             R5 R0
-       29 MOVE                             R6 R1
-       30 MOVE                             R7 R2
-       31 DUPCLOSURE                       R8 K9 [PROTO_0]
-       32 NEWCLOSURE                       R9 P1
-       33 CAPTURE                          VAL R3
-       34 NEWCLOSURE                       R10 P2
-       35 CAPTURE                          VAL R3
-       36 CALL                             R4 6 1
-       37 SETTABLEKS                       R4 R3 K10 ["_draggerToolModel"]
-       39 RETURN                           R3 1
+        8 NAMECALL                         R5 R0 K6 ["shouldUseLocalSpace"]
+       10 CALL                             R5 1 1
+       11 SETTABLEKS                       R5 R4 K4 ["_lastShouldUseLocalSpace"]
+       13 GETUPVAL                         R5 0
+       14 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       16 GETIMPORT                        R3 K8 [setmetatable]
+       18 CALL                             R3 2 1
+       19 GETUPVAL                         R4 1
+       20 GETTABLEKS                       R4 R4 K9 ["new"]
+       22 MOVE                             R5 R0
+       23 MOVE                             R6 R1
+       24 MOVE                             R7 R2
+       25 DUPCLOSURE                       R8 K10 [PROTO_0]
+       26 NEWCLOSURE                       R9 P1
+       27 CAPTURE                          VAL R3
+       28 NEWCLOSURE                       R10 P2
+       29 CAPTURE                          VAL R3
+       30 CALL                             R4 6 1
+       31 SETTABLEKS                       R4 R3 K11 ["_draggerToolModel"]
+       33 RETURN                           R3 1
 
 PROTO_4:
         0 GETTABLEKS                       R1 R0 K0 ["_draggerToolModel"]

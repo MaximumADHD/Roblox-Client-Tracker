@@ -9,25 +9,19 @@ MAIN:
        11 GETTABLEKS                       R2 R2 K7 ["Flags"]
        13 GETTABLEKS                       R2 R2 K8 ["getFIntImportQueueEventDefaultThrottle"]
        15 CALL                             R1 1 1
-       16 DUPTABLE                         R2 K15 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-       17 LOADK                            R3 K16 ["ImportQueueEvent"]
-       18 SETTABLEKS                       R3 R2 K9 ["eventName"]
-       20 NEWTABLE                         R3 0 2
-       22 LOADK                            R4 K17 ["EventIngest"]
-       23 LOADK                            R5 K18 ["Points"]
-       24 SETLIST                          R3 R4 2 [1]
-       26 SETTABLEKS                       R3 R2 K10 ["backends"]
-       28 MOVE                             R3 R1
-       29 CALL                             R3 0 1
-       30 SETTABLEKS                       R3 R2 K11 ["throttlingPercentage"]
-       32 NEWTABLE                         R3 0 3
-       34 LOADN                            R4 26
-       35 LOADN                            R5 3
-       36 LOADN                            R6 9
-       37 SETLIST                          R3 R4 3 [1]
-       39 SETTABLEKS                       R3 R2 K12 ["lastUpdated"]
-       41 LOADK                            R3 K19 ["The base event configuration for all RobloxTelemetryEvents sent from the Import Queue plugin"]
-       42 SETTABLEKS                       R3 R2 K13 ["description"]
-       44 LOADK                            R3 K20 [""]
-       45 SETTABLEKS                       R3 R2 K14 ["links"]
-       47 RETURN                           R2 1
+       16 DUPTABLE                         R2 K18 [{["eventName"] = "ImportQueueEvent", ["backends"], ["throttlingPercentage"], ["lastUpdated"], ["description"] = "The base event configuration for all RobloxTelemetryEvents sent from the Import Queue plugin", ["links"] = ""}]
+       17 NEWTABLE                         R3 0 2
+       19 LOADK                            R4 K19 ["EventIngest"]
+       20 LOADK                            R5 K20 ["Points"]
+       21 SETLIST                          R3 R4 2 [1]
+       23 SETTABLEKS                       R3 R2 K11 ["backends"]
+       25 MOVE                             R3 R1
+       26 CALL                             R3 0 1
+       27 SETTABLEKS                       R3 R2 K12 ["throttlingPercentage"]
+       29 NEWTABLE                         R3 0 3
+       31 LOADN                            R4 26
+       32 LOADN                            R5 3
+       33 LOADN                            R6 9
+       34 SETLIST                          R3 R4 3 [1]
+       36 SETTABLEKS                       R3 R2 K13 ["lastUpdated"]
+       38 RETURN                           R2 1

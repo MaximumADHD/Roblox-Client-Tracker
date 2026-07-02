@@ -117,22 +117,20 @@ PROTO_5:
        34 GETUPVAL                         R5 1
        35 GETTABLEKS                       R5 R5 K8 ["createElement"]
        37 GETUPVAL                         R6 2
-       38 DUPTABLE                         R7 K16 [{"Size", "LayoutOrder", "CellSize", "CellPadding", "Cells", "CellComponent", "GetCellProps"}]
+       38 DUPTABLE                         R7 K17 [{["Size"], ["LayoutOrder"], ["CellSize"], ["CellPadding"], ["Cells"], ["CellComponent"] = "ImageButton", ["GetCellProps"]}]
        39 GETTABLEKS                       R8 R1 K9 ["Size"]
        41 SETTABLEKS                       R8 R7 K9 ["Size"]
        43 GETTABLEKS                       R8 R1 K10 ["LayoutOrder"]
        45 SETTABLEKS                       R8 R7 K10 ["LayoutOrder"]
-       47 GETTABLEKS                       R8 R2 K17 ["GridCellSize"]
+       47 GETTABLEKS                       R8 R2 K18 ["GridCellSize"]
        49 SETTABLEKS                       R8 R7 K11 ["CellSize"]
-       51 GETTABLEKS                       R8 R2 K18 ["GridCellPadding"]
+       51 GETTABLEKS                       R8 R2 K19 ["GridCellPadding"]
        53 SETTABLEKS                       R8 R7 K12 ["CellPadding"]
        55 SETTABLEKS                       R3 R7 K13 ["Cells"]
-       57 LOADK                            R8 K19 ["ImageButton"]
-       58 SETTABLEKS                       R8 R7 K14 ["CellComponent"]
-       60 GETTABLEKS                       R8 R0 K20 ["GetIconProps"]
-       62 SETTABLEKS                       R8 R7 K15 ["GetCellProps"]
-       64 CALL                             R5 2 -1
-       65 RETURN                           R5 -1
+       57 GETTABLEKS                       R8 R0 K20 ["GetIconProps"]
+       59 SETTABLEKS                       R8 R7 K16 ["GetCellProps"]
+       61 CALL                             R5 2 -1
+       62 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0

@@ -30,11 +30,9 @@ PROTO_0:
        34 NAMECALL                         R2 R2 K11 ["format"]
        36 CALL                             R2 3 1
        37 MOVE                             R1 R2
-       38 DUPTABLE                         R2 K14 [{"Type", "Filename"}]
-       39 LOADK                            R3 K15 ["Custom"]
-       40 SETTABLEKS                       R3 R2 K12 ["Type"]
-       42 SETTABLEKS                       R1 R2 K13 ["Filename"]
-       44 RETURN                           R2 1
+       38 DUPTABLE                         R2 K15 [{["Type"] = "Custom", ["Filename"]}]
+       39 SETTABLEKS                       R1 R2 K14 ["Filename"]
+       41 RETURN                           R2 1
 
 MAIN:
         0 PREPVARARGS                      0

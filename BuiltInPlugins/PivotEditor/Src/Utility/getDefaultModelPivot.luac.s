@@ -104,16 +104,12 @@ PROTO_3:
        27 JUMPIFNOT                        R6 ; [+1]
        28 RETURN                           R5 1
        29 FORGLOOP                         R1 2 ; [-26]
-       31 DUPTABLE                         R1 K9 [{"RotationList", "TotalSize", "Count"}]
+       31 DUPTABLE                         R1 K10 [{["RotationList"], ["TotalSize"] = 0, ["Count"] = 0}]
        32 NEWTABLE                         R2 0 0
        34 SETTABLEKS                       R2 R1 K6 ["RotationList"]
-       36 LOADN                            R2 0
-       37 SETTABLEKS                       R2 R1 K7 ["TotalSize"]
-       39 LOADN                            R2 0
-       40 SETTABLEKS                       R2 R1 K8 ["Count"]
-       42 GETUPVAL                         R2 0
-       43 SETTABLE                         R1 R2 R0
-       44 RETURN                           R1 1
+       36 GETUPVAL                         R2 0
+       37 SETTABLE                         R1 R2 R0
+       38 RETURN                           R1 1
 
 PROTO_4:
         0 NEWTABLE                         R1 0 0

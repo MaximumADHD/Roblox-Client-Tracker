@@ -91,14 +91,10 @@ MAIN:
        18 GETTABLEKS                       R3 R3 K9 ["Dash"]
        20 CALL                             R2 1 1
        21 GETTABLEKS                       R3 R2 K10 ["append"]
-       23 DUPTABLE                         R4 K13 [{"Type", "Size"}]
-       24 LOADK                            R5 K14 ["Separator"]
-       25 SETTABLEKS                       R5 R4 K11 ["Type"]
-       27 LOADK                            R5 K15 ["Large"]
-       28 SETTABLEKS                       R5 R4 K12 ["Size"]
-       30 DUPCLOSURE                       R5 K16 [PROTO_1]
-       31 CAPTURE                          VAL R3
-       32 CAPTURE                          VAL R4
-       33 SETGLOBAL                        R5 K17 ["addCustomControls"]
-       35 GETGLOBAL                        R5 K17 ["addCustomControls"]
-       37 RETURN                           R5 1
+       23 DUPTABLE                         R4 K15 [{["Type"] = "Separator", ["Size"] = "Large"}]
+       24 DUPCLOSURE                       R5 K16 [PROTO_1]
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R4
+       27 SETGLOBAL                        R5 K17 ["addCustomControls"]
+       29 GETGLOBAL                        R5 K17 ["addCustomControls"]
+       31 RETURN                           R5 1

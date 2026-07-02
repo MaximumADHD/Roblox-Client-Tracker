@@ -1,33 +1,27 @@
 PROTO_0:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showFilterMenu"}]
-        2 LOADB                            R3 1
-        3 SETTABLEKS                       R3 R2 K0 ["showFilterMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = True}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
         0 GETUPVAL                         R0 0
-        1 DUPTABLE                         R2 K1 [{"showFilterMenu"}]
-        2 LOADB                            R3 0
-        3 SETTABLEKS                       R3 R2 K0 ["showFilterMenu"]
-        5 NAMECALL                         R0 R0 K2 ["setState"]
-        7 CALL                             R0 2 0
-        8 RETURN                           R0 0
+        1 DUPTABLE                         R2 K2 [{[1] = False}]
+        2 NAMECALL                         R0 R0 K3 ["setState"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-        0 DUPTABLE                         R1 K1 [{"showFilterMenu"}]
-        1 LOADB                            R2 0
-        2 SETTABLEKS                       R2 R1 K0 ["showFilterMenu"]
-        4 SETTABLEKS                       R1 R0 K2 ["state"]
-        6 NEWCLOSURE                       R1 P0
-        7 CAPTURE                          VAL R0
-        8 SETTABLEKS                       R1 R0 K0 ["showFilterMenu"]
-       10 NEWCLOSURE                       R1 P1
-       11 CAPTURE                          VAL R0
-       12 SETTABLEKS                       R1 R0 K3 ["hideFilterMenu"]
-       14 RETURN                           R0 0
+        0 DUPTABLE                         R1 K2 [{[1] = False}]
+        1 SETTABLEKS                       R1 R0 K3 ["state"]
+        3 NEWCLOSURE                       R1 P0
+        4 CAPTURE                          VAL R0
+        5 SETTABLEKS                       R1 R0 K0 ["showFilterMenu"]
+        7 NEWCLOSURE                       R1 P1
+        8 CAPTURE                          VAL R0
+        9 SETTABLEKS                       R1 R0 K4 ["hideFilterMenu"]
+       11 RETURN                           R0 0
 
 PROTO_3:
         0 GETUPVAL                         R2 0
@@ -132,21 +126,19 @@ PROTO_7:
         2 GETUPVAL                         R4 0
         3 GETTABLEKS                       R4 R4 K1 ["createElement"]
         5 GETUPVAL                         R5 1
-        6 DUPTABLE                         R6 K5 [{"Selected", "Position", "ZIndex"}]
-        7 LOADB                            R7 1
-        8 SETTABLEKS                       R7 R6 K2 ["Selected"]
-       10 GETIMPORT                        R7 K8 [UDim2.new]
-       12 LOADN                            R8 0
-       13 MOVE                             R9 R1
-       14 LOADK                            R10 K9 [0.5]
-       15 LOADN                            R11 0
-       16 CALL                             R7 4 1
-       17 SETTABLEKS                       R7 R6 K3 ["Position"]
-       19 GETTABLEKS                       R8 R3 K4 ["ZIndex"]
-       21 ADDK                             R7 R8 K10 [1]
-       22 SETTABLEKS                       R7 R6 K4 ["ZIndex"]
-       24 CALL                             R4 2 -1
-       25 RETURN                           R4 -1
+        6 DUPTABLE                         R6 K6 [{["Selected"] = True, ["Position"], ["ZIndex"]}]
+        7 GETIMPORT                        R7 K9 [UDim2.new]
+        9 LOADN                            R8 0
+       10 MOVE                             R9 R1
+       11 LOADK                            R10 K10 [0.5]
+       12 LOADN                            R11 0
+       13 CALL                             R7 4 1
+       14 SETTABLEKS                       R7 R6 K4 ["Position"]
+       16 GETTABLEKS                       R8 R3 K5 ["ZIndex"]
+       18 ADDK                             R7 R8 K11 [1]
+       19 SETTABLEKS                       R7 R6 K5 ["ZIndex"]
+       21 CALL                             R4 2 -1
+       22 RETURN                           R4 -1
 
 PROTO_8:
         0 GETTABLEKS                       R2 R0 K0 ["props"]
@@ -350,69 +342,67 @@ PROTO_11:
        93 GETUPVAL                         R16 0
        94 GETTABLEKS                       R16 R16 K9 ["createElement"]
        96 LOADK                            R17 K38 ["ImageLabel"]
-       97 DUPTABLE                         R18 K41 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Image", "ImageColor3"}]
-       98 LOADN                            R19 1
-       99 SETTABLEKS                       R19 R18 K39 ["BackgroundTransparency"]
-      101 GETTABLEKS                       R19 R2 K42 ["eventTheme"]
-      103 GETTABLEKS                       R19 R19 K43 ["filterButton"]
-      105 GETTABLEKS                       R19 R19 K44 ["size"]
-      107 SETTABLEKS                       R19 R18 K14 ["Size"]
-      109 GETIMPORT                        R19 K45 [UDim2.new]
-      111 LOADK                            R20 K22 [0.5]
-      112 LOADN                            R21 0
-      113 LOADK                            R22 K22 [0.5]
-      114 LOADN                            R23 0
-      115 CALL                             R19 4 1
-      116 SETTABLEKS                       R19 R18 K15 ["Position"]
-      118 GETIMPORT                        R19 K21 [Vector2.new]
-      120 LOADK                            R20 K22 [0.5]
-      121 LOADK                            R21 K22 [0.5]
-      122 CALL                             R19 2 1
-      123 SETTABLEKS                       R19 R18 K13 ["AnchorPoint"]
-      125 GETTABLEKS                       R19 R2 K42 ["eventTheme"]
-      127 GETTABLEKS                       R19 R19 K43 ["filterButton"]
-      129 GETTABLEKS                       R19 R19 K46 ["image"]
-      131 SETTABLEKS                       R19 R18 K34 ["Image"]
-      133 GETTABLEKS                       R19 R2 K47 ["playbackTheme"]
-      135 GETTABLEKS                       R19 R19 K48 ["iconColor"]
-      137 SETTABLEKS                       R19 R18 K40 ["ImageColor3"]
-      139 CALL                             R16 2 1
-      140 SETTABLEKS                       R16 R15 K34 ["Image"]
-      142 GETUPVAL                         R16 0
-      143 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      145 GETUPVAL                         R17 4
-      146 DUPTABLE                         R18 K50 [{"Text"}]
-      147 LOADK                            R21 K35 ["Tooltip"]
-      148 LOADK                            R22 K51 ["FilterEvents"]
-      149 NAMECALL                         R19 R3 K52 ["getText"]
-      151 CALL                             R19 3 1
-      152 SETTABLEKS                       R19 R18 K49 ["Text"]
-      154 CALL                             R16 2 1
-      155 SETTABLEKS                       R16 R15 K35 ["Tooltip"]
-      157 MOVE                             R16 R5
-      158 JUMPIFNOT                        R16 ; [+15]
-      159 GETUPVAL                         R16 0
-      160 GETTABLEKS                       R16 R16 K9 ["createElement"]
-      162 GETUPVAL                         R17 5
-      163 DUPTABLE                         R18 K55 [{"Actions", "OnMenuOpened"}]
-      164 NAMECALL                         R19 R0 K56 ["makeFilterActions"]
-      166 CALL                             R19 1 1
-      167 SETTABLEKS                       R19 R18 K53 ["Actions"]
-      169 GETTABLEKS                       R19 R0 K57 ["hideFilterMenu"]
-      171 SETTABLEKS                       R19 R18 K54 ["OnMenuOpened"]
-      173 CALL                             R16 2 1
-      174 SETTABLEKS                       R16 R15 K36 ["FilterMenu"]
-      176 CALL                             R12 3 1
-      177 SETTABLEKS                       R12 R11 K10 ["FilterButton"]
-      179 GETUPVAL                         R12 0
-      180 GETTABLEKS                       R12 R12 K9 ["createElement"]
-      182 GETUPVAL                         R13 6
-      183 MOVE                             R14 R1
-      184 MOVE                             R15 R6
-      185 CALL                             R12 3 1
-      186 SETTABLEKS                       R12 R11 K11 ["Markers"]
-      188 CALL                             R8 3 -1
-      189 RETURN                           R8 -1
+       97 DUPTABLE                         R18 K42 [{["BackgroundTransparency"] = 1, ["Size"], ["Position"], ["AnchorPoint"], ["Image"], ["ImageColor3"]}]
+       98 GETTABLEKS                       R19 R2 K43 ["eventTheme"]
+      100 GETTABLEKS                       R19 R19 K44 ["filterButton"]
+      102 GETTABLEKS                       R19 R19 K45 ["size"]
+      104 SETTABLEKS                       R19 R18 K14 ["Size"]
+      106 GETIMPORT                        R19 K46 [UDim2.new]
+      108 LOADK                            R20 K22 [0.5]
+      109 LOADN                            R21 0
+      110 LOADK                            R22 K22 [0.5]
+      111 LOADN                            R23 0
+      112 CALL                             R19 4 1
+      113 SETTABLEKS                       R19 R18 K15 ["Position"]
+      115 GETIMPORT                        R19 K21 [Vector2.new]
+      117 LOADK                            R20 K22 [0.5]
+      118 LOADK                            R21 K22 [0.5]
+      119 CALL                             R19 2 1
+      120 SETTABLEKS                       R19 R18 K13 ["AnchorPoint"]
+      122 GETTABLEKS                       R19 R2 K43 ["eventTheme"]
+      124 GETTABLEKS                       R19 R19 K44 ["filterButton"]
+      126 GETTABLEKS                       R19 R19 K47 ["image"]
+      128 SETTABLEKS                       R19 R18 K34 ["Image"]
+      130 GETTABLEKS                       R19 R2 K48 ["playbackTheme"]
+      132 GETTABLEKS                       R19 R19 K49 ["iconColor"]
+      134 SETTABLEKS                       R19 R18 K41 ["ImageColor3"]
+      136 CALL                             R16 2 1
+      137 SETTABLEKS                       R16 R15 K34 ["Image"]
+      139 GETUPVAL                         R16 0
+      140 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      142 GETUPVAL                         R17 4
+      143 DUPTABLE                         R18 K51 [{"Text"}]
+      144 LOADK                            R21 K35 ["Tooltip"]
+      145 LOADK                            R22 K52 ["FilterEvents"]
+      146 NAMECALL                         R19 R3 K53 ["getText"]
+      148 CALL                             R19 3 1
+      149 SETTABLEKS                       R19 R18 K50 ["Text"]
+      151 CALL                             R16 2 1
+      152 SETTABLEKS                       R16 R15 K35 ["Tooltip"]
+      154 MOVE                             R16 R5
+      155 JUMPIFNOT                        R16 ; [+15]
+      156 GETUPVAL                         R16 0
+      157 GETTABLEKS                       R16 R16 K9 ["createElement"]
+      159 GETUPVAL                         R17 5
+      160 DUPTABLE                         R18 K56 [{"Actions", "OnMenuOpened"}]
+      161 NAMECALL                         R19 R0 K57 ["makeFilterActions"]
+      163 CALL                             R19 1 1
+      164 SETTABLEKS                       R19 R18 K54 ["Actions"]
+      166 GETTABLEKS                       R19 R0 K58 ["hideFilterMenu"]
+      168 SETTABLEKS                       R19 R18 K55 ["OnMenuOpened"]
+      170 CALL                             R16 2 1
+      171 SETTABLEKS                       R16 R15 K36 ["FilterMenu"]
+      173 CALL                             R12 3 1
+      174 SETTABLEKS                       R12 R11 K10 ["FilterButton"]
+      176 GETUPVAL                         R12 0
+      177 GETTABLEKS                       R12 R12 K9 ["createElement"]
+      179 GETUPVAL                         R13 6
+      180 MOVE                             R14 R1
+      181 MOVE                             R15 R6
+      182 CALL                             R12 3 1
+      183 SETTABLEKS                       R12 R11 K11 ["Markers"]
+      185 CALL                             R8 3 -1
+      186 RETURN                           R8 -1
 
 MAIN:
         0 PREPVARARGS                      0

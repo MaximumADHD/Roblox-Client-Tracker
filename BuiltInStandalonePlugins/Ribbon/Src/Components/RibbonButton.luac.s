@@ -228,110 +228,102 @@ PROTO_6:
       195 GETUPVAL                         R17 11
       196 GETTABLEKS                       R17 R17 K36 ["createElement"]
       198 GETUPVAL                         R18 12
-      199 DUPTABLE                         R19 K49 [{"tag", "LayoutOrder", "onActivated"}]
-      200 GETTABLEKS                       R20 R9 K50 ["actionContainer"]
+      199 DUPTABLE                         R19 K50 [{["tag"], ["LayoutOrder"] = 1, ["onActivated"]}]
+      200 GETTABLEKS                       R20 R9 K51 ["actionContainer"]
       202 GETTABLEKS                       R20 R20 K40 ["tag"]
       204 SETTABLEKS                       R20 R19 K40 ["tag"]
-      206 LOADN                            R20 1
-      207 SETTABLEKS                       R20 R19 K37 ["LayoutOrder"]
-      209 GETTABLEKS                       R21 R0 K28 ["IsSingle"]
-      211 JUMPIFNOT                        R21 ; [+2]
-      212 MOVE                             R20 R11
-      213 JUMP                             ; [+1]
-      214 LOADNIL                          R20
-      215 SETTABLEKS                       R20 R19 K48 ["onActivated"]
-      217 DUPTABLE                         R20 K53 [{"RibbonTool", "ArrowButton"}]
-      218 GETUPVAL                         R21 11
-      219 GETTABLEKS                       R21 R21 K36 ["createElement"]
-      221 GETUPVAL                         R22 12
-      222 DUPTABLE                         R23 K56 [{"ref", "testId", "tag", "isDisabled", "onStateChanged", "stateLayer", "onActivated", "sizeConstraint", "LayoutOrder"}]
-      223 SETTABLEKS                       R2 R23 K38 ["ref"]
-      225 LOADK                            R24 K57 ["--ribbon-button-tool"]
-      226 SETTABLEKS                       R24 R23 K54 ["testId"]
-      228 GETTABLEKS                       R24 R9 K58 ["ribbonTool"]
-      230 GETTABLEKS                       R24 R24 K40 ["tag"]
-      232 SETTABLEKS                       R24 R23 K40 ["tag"]
-      234 GETTABLEKS                       R24 R0 K27 ["Disabled"]
-      236 SETTABLEKS                       R24 R23 K55 ["isDisabled"]
-      238 SETTABLEKS                       R10 R23 K43 ["onStateChanged"]
-      240 GETTABLEKS                       R24 R9 K58 ["ribbonTool"]
-      242 GETTABLEKS                       R24 R24 K41 ["stateLayer"]
-      244 SETTABLEKS                       R24 R23 K41 ["stateLayer"]
-      246 SETTABLEKS                       R11 R23 K48 ["onActivated"]
-      248 GETTABLEKS                       R24 R9 K58 ["ribbonTool"]
-      250 GETTABLEKS                       R24 R24 K42 ["sizeConstraint"]
-      252 SETTABLEKS                       R24 R23 K42 ["sizeConstraint"]
-      254 LOADN                            R24 1
-      255 SETTABLEKS                       R24 R23 K37 ["LayoutOrder"]
-      257 DUPTABLE                         R24 K60 [{"RibbonToolButtonIcon"}]
-      258 JUMPIFNOT                        R5 ; [+38]
-      259 GETUPVAL                         R25 11
-      260 GETTABLEKS                       R25 R25 K36 ["createElement"]
-      262 GETUPVAL                         R26 13
-      263 DUPTABLE                         R27 K63 [{"Image", "testId", "tag", "imageStyle"}]
-      264 GETUPVAL                         R28 2
-      265 GETTABLEKS                       R28 R28 K9 ["getPathForIcon"]
-      267 MOVE                             R29 R5
-      268 MOVE                             R30 R3
-      269 CALL                             R28 2 1
-      270 SETTABLEKS                       R28 R27 K61 ["Image"]
-      272 GETTABLEKS                       R29 R0 K0 ["Uri"]
-      274 JUMPIFNOT                        R29 ; [+5]
-      275 GETUPVAL                         R28 14
-      276 GETTABLEKS                       R29 R0 K0 ["Uri"]
-      278 CALL                             R28 1 1
-      279 JUMP                             ; [+1]
-      280 LOADNIL                          R28
-      281 SETTABLEKS                       R28 R27 K54 ["testId"]
-      283 GETTABLEKS                       R28 R9 K64 ["icon"]
-      285 GETTABLEKS                       R28 R28 K40 ["tag"]
-      287 SETTABLEKS                       R28 R27 K40 ["tag"]
-      289 GETTABLEKS                       R28 R9 K64 ["icon"]
-      291 GETTABLEKS                       R28 R28 K62 ["imageStyle"]
-      293 SETTABLEKS                       R28 R27 K62 ["imageStyle"]
-      295 CALL                             R25 2 1
-      296 JUMP                             ; [+1]
-      297 LOADNIL                          R25
-      298 SETTABLEKS                       R25 R24 K59 ["RibbonToolButtonIcon"]
-      300 CALL                             R21 3 1
-      301 SETTABLEKS                       R21 R20 K51 ["RibbonTool"]
-      303 GETTABLEKS                       R21 R0 K52 ["ArrowButton"]
-      305 SETTABLEKS                       R21 R20 K52 ["ArrowButton"]
-      307 CALL                             R17 3 1
-      308 SETTABLEKS                       R17 R16 K46 ["ActionContainer"]
-      310 GETTABLEKS                       R18 R0 K25 ["IconOnly"]
-      312 JUMPIF                           R18 ; [+43]
-      313 GETUPVAL                         R17 11
-      314 GETTABLEKS                       R17 R17 K36 ["createElement"]
-      316 GETUPVAL                         R18 15
-      317 GETTABLEKS                       R18 R18 K13 ["Text"]
-      319 DUPTABLE                         R19 K66 [{"LayoutOrder", "tag", "Size", "sizeConstraint", "Text", "textStyle"}]
-      320 LOADN                            R20 2
-      321 SETTABLEKS                       R20 R19 K37 ["LayoutOrder"]
-      323 GETTABLEKS                       R20 R9 K67 ["text"]
-      325 GETTABLEKS                       R20 R20 K40 ["tag"]
-      327 SETTABLEKS                       R20 R19 K40 ["tag"]
-      329 GETTABLEKS                       R20 R9 K67 ["text"]
-      331 GETTABLEKS                       R20 R20 K18 ["size"]
-      333 SETTABLEKS                       R20 R19 K2 ["Size"]
-      335 GETUPVAL                         R21 16
-      336 CALL                             R21 0 1
-      337 JUMPIFNOT                        R21 ; [+5]
-      338 GETTABLEKS                       R20 R9 K67 ["text"]
-      340 GETTABLEKS                       R20 R20 K42 ["sizeConstraint"]
-      342 JUMP                             ; [+1]
-      343 LOADNIL                          R20
-      344 SETTABLEKS                       R20 R19 K42 ["sizeConstraint"]
-      346 SETTABLEKS                       R12 R19 K13 ["Text"]
-      348 GETTABLEKS                       R20 R9 K67 ["text"]
-      350 GETTABLEKS                       R20 R20 K65 ["textStyle"]
-      352 SETTABLEKS                       R20 R19 K65 ["textStyle"]
-      354 CALL                             R17 2 1
-      355 JUMP                             ; [+1]
-      356 LOADNIL                          R17
-      357 SETTABLEKS                       R17 R16 K13 ["Text"]
-      359 CALL                             R13 3 -1
-      360 RETURN                           R13 -1
+      206 GETTABLEKS                       R21 R0 K28 ["IsSingle"]
+      208 JUMPIFNOT                        R21 ; [+2]
+      209 MOVE                             R20 R11
+      210 JUMP                             ; [+1]
+      211 LOADNIL                          R20
+      212 SETTABLEKS                       R20 R19 K49 ["onActivated"]
+      214 DUPTABLE                         R20 K54 [{"RibbonTool", "ArrowButton"}]
+      215 GETUPVAL                         R21 11
+      216 GETTABLEKS                       R21 R21 K36 ["createElement"]
+      218 GETUPVAL                         R22 12
+      219 DUPTABLE                         R23 K58 [{["ref"], ["testId"] = "--ribbon-button-tool", ["tag"], ["isDisabled"], ["onStateChanged"], ["stateLayer"], ["onActivated"], ["sizeConstraint"], ["LayoutOrder"] = 1}]
+      220 SETTABLEKS                       R2 R23 K38 ["ref"]
+      222 GETTABLEKS                       R24 R9 K59 ["ribbonTool"]
+      224 GETTABLEKS                       R24 R24 K40 ["tag"]
+      226 SETTABLEKS                       R24 R23 K40 ["tag"]
+      228 GETTABLEKS                       R24 R0 K27 ["Disabled"]
+      230 SETTABLEKS                       R24 R23 K57 ["isDisabled"]
+      232 SETTABLEKS                       R10 R23 K43 ["onStateChanged"]
+      234 GETTABLEKS                       R24 R9 K59 ["ribbonTool"]
+      236 GETTABLEKS                       R24 R24 K41 ["stateLayer"]
+      238 SETTABLEKS                       R24 R23 K41 ["stateLayer"]
+      240 SETTABLEKS                       R11 R23 K49 ["onActivated"]
+      242 GETTABLEKS                       R24 R9 K59 ["ribbonTool"]
+      244 GETTABLEKS                       R24 R24 K42 ["sizeConstraint"]
+      246 SETTABLEKS                       R24 R23 K42 ["sizeConstraint"]
+      248 DUPTABLE                         R24 K61 [{"RibbonToolButtonIcon"}]
+      249 JUMPIFNOT                        R5 ; [+38]
+      250 GETUPVAL                         R25 11
+      251 GETTABLEKS                       R25 R25 K36 ["createElement"]
+      253 GETUPVAL                         R26 13
+      254 DUPTABLE                         R27 K64 [{"Image", "testId", "tag", "imageStyle"}]
+      255 GETUPVAL                         R28 2
+      256 GETTABLEKS                       R28 R28 K9 ["getPathForIcon"]
+      258 MOVE                             R29 R5
+      259 MOVE                             R30 R3
+      260 CALL                             R28 2 1
+      261 SETTABLEKS                       R28 R27 K62 ["Image"]
+      263 GETTABLEKS                       R29 R0 K0 ["Uri"]
+      265 JUMPIFNOT                        R29 ; [+5]
+      266 GETUPVAL                         R28 14
+      267 GETTABLEKS                       R29 R0 K0 ["Uri"]
+      269 CALL                             R28 1 1
+      270 JUMP                             ; [+1]
+      271 LOADNIL                          R28
+      272 SETTABLEKS                       R28 R27 K55 ["testId"]
+      274 GETTABLEKS                       R28 R9 K65 ["icon"]
+      276 GETTABLEKS                       R28 R28 K40 ["tag"]
+      278 SETTABLEKS                       R28 R27 K40 ["tag"]
+      280 GETTABLEKS                       R28 R9 K65 ["icon"]
+      282 GETTABLEKS                       R28 R28 K63 ["imageStyle"]
+      284 SETTABLEKS                       R28 R27 K63 ["imageStyle"]
+      286 CALL                             R25 2 1
+      287 JUMP                             ; [+1]
+      288 LOADNIL                          R25
+      289 SETTABLEKS                       R25 R24 K60 ["RibbonToolButtonIcon"]
+      291 CALL                             R21 3 1
+      292 SETTABLEKS                       R21 R20 K52 ["RibbonTool"]
+      294 GETTABLEKS                       R21 R0 K53 ["ArrowButton"]
+      296 SETTABLEKS                       R21 R20 K53 ["ArrowButton"]
+      298 CALL                             R17 3 1
+      299 SETTABLEKS                       R17 R16 K46 ["ActionContainer"]
+      301 GETTABLEKS                       R18 R0 K25 ["IconOnly"]
+      303 JUMPIF                           R18 ; [+40]
+      304 GETUPVAL                         R17 11
+      305 GETTABLEKS                       R17 R17 K36 ["createElement"]
+      307 GETUPVAL                         R18 15
+      308 GETTABLEKS                       R18 R18 K13 ["Text"]
+      310 DUPTABLE                         R19 K68 [{["LayoutOrder"] = 2, ["tag"], ["Size"], ["sizeConstraint"], ["Text"], ["textStyle"]}]
+      311 GETTABLEKS                       R20 R9 K69 ["text"]
+      313 GETTABLEKS                       R20 R20 K40 ["tag"]
+      315 SETTABLEKS                       R20 R19 K40 ["tag"]
+      317 GETTABLEKS                       R20 R9 K69 ["text"]
+      319 GETTABLEKS                       R20 R20 K18 ["size"]
+      321 SETTABLEKS                       R20 R19 K2 ["Size"]
+      323 GETUPVAL                         R21 16
+      324 CALL                             R21 0 1
+      325 JUMPIFNOT                        R21 ; [+5]
+      326 GETTABLEKS                       R20 R9 K69 ["text"]
+      328 GETTABLEKS                       R20 R20 K42 ["sizeConstraint"]
+      330 JUMP                             ; [+1]
+      331 LOADNIL                          R20
+      332 SETTABLEKS                       R20 R19 K42 ["sizeConstraint"]
+      334 SETTABLEKS                       R12 R19 K13 ["Text"]
+      336 GETTABLEKS                       R20 R9 K69 ["text"]
+      338 GETTABLEKS                       R20 R20 K67 ["textStyle"]
+      340 SETTABLEKS                       R20 R19 K67 ["textStyle"]
+      342 CALL                             R17 2 1
+      343 JUMP                             ; [+1]
+      344 LOADNIL                          R17
+      345 SETTABLEKS                       R17 R16 K13 ["Text"]
+      347 CALL                             R13 3 -1
+      348 RETURN                           R13 -1
 
 MAIN:
         0 PREPVARARGS                      0
